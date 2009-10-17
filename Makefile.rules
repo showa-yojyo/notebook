@@ -4,14 +4,13 @@
 # Default target
 all: html css
 
-html: $(BUILD_DIR)
-	@for i in *.txt; do \
-	  TARGET="build/$${i%.txt}.html"; \
-	  if [ "$$i" -nt "$$TARGET" ] ; then \
-	    echo Processing $$i...; \
-	    $(PYTHON) $(RST2HTML) $$i > "$$TARGET"; \
-	  fi; \
-	done
+html: $(TARGET_HTML_FILES)
+
+$(TARGET_HTML_FILES): $(BUILD_DIR)
+
+$(BUILD_DIR)/%.html: %.txt
+	@echo Processing $< ... 
+	@$(PYTHON) $(RST2HTML) $< > $@
 
 css: $(CSSFILE) $(BUILD_DIR)
 	@cp -u $(CSSFILE) $(BUILD_DIR)
@@ -22,3 +21,6 @@ $(BUILD_DIR):
 clean:
 	find $(BUILD_DIR) -name note.css -delete
 	find $(BUILD_DIR) -name '*.html' -delete
+
+test: all
+	$(BROWSER) $(BUILD_DIR)/index.html
