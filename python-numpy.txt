@@ -1,0 +1,83 @@
+======================================================================
+Python NumPy 利用ノート
+======================================================================
+NumPy_ は OpenGL のサンプルコードを Python_ で書くときに、
+つまり PyOpenGL を利用するときに欠かすことの出来ない、
+サードパーティー製ライブラリーというのが個人的な認識だ。
+
+.. contents:: ノート目次
+
+基本
+======================================================================
+導入
+----
+* Windows 環境ではインストーラーからインストールするのが吉。
+  ``numpy-x.y.z-win32-superpack-python2.6.exe`` みたいな名前のインストーラーをウェブで探すこと。
+
+* インストールを終了したら、何はさておき ``README.txt`` と ``INSTALL.txt`` を一読すること。
+  目をひくのは単体テストが実行できるということだが、
+  これには別途 Nose_ というサードパーティー製のライブラリーを
+  Python 環境にインストールしておく必要があるようだ。
+
+  実際にやってみるとこのような感じになる::
+
+    >>> import numpy
+    >>> numpy.test()
+    Running unit tests for numpy
+    NumPy version 1.3.0
+    NumPy is installed in D:\Python26\lib\site-packages\numpy
+    Python version 2.6.5 (r265:79096, Mar 19 2010, 21:48:26) [MSC v.1500 32 bit (Intel)]
+    nose version 0.10.4
+    （略。ドットの列）
+    ----------------------------------------------------------------------
+    Ran 1882 tests in 63.040s
+    
+    OK (KNOWNFAIL=3, SKIP=1)
+    <nose.result.TextTestResult run=1882 errors=0 failures=0>
+
+コードを書いてみる
+------------------
+とりあえず ``from numpy import *`` だけで利用可能になる機能から習得していこう。
+
+* まずは ``array`` 周辺から習得する。
+  このデータ構造は任意次元のベクトル、行列、……を表現するためのものと思われる。
+
+::
+
+  # ベクトルを生成するにはこのようにする。
+  z = array([0., 0., 1.])
+
+  # 行列はこう。
+  m = array([[1., 0., 0.],
+             [0., 1., 0.],
+             [0., 0., 1.]])
+
+* ``numeric.py`` から読んでいる。docstring が丁寧かつ書式化されていて読みやすい。
+
+  * array_like とは、
+    ``array(x)`` が通る ``x`` の型を指すようだ。
+  * ndarray とは ``array`` オブジェクトの意か。
+  * shape とは ndarray オブジェクトの行、列、……のサイズを表現する概念か。
+
+  * ``zeros_like``, ``ones_like``, ``empty_like`` をワンセットで習得すること。
+    既存の array_like から同じ shape の ndarray を生み出す関数だ。
+
+  * array_like オブジェクトを本物の ``array`` オブジェクトにするには、
+    関数 ``asarray`` シリーズを利用する。
+
+    * 注目したいのは ``order`` キーワード引数だ。
+      デフォルトで 'C' つまり column-major なのがありがたい。
+      これで行列を表す ``array`` オブジェクトを
+      PyOpenGL インターフェイスにそのまま渡せる。
+
+  * TODO: reshape
+
+スカラー積、ベクトル積
+~~~~~~~~~~~~~~~~~~~~~~
+それぞれ ``dot``, ``cross`` という関数が計算結果を返す。
+``dot`` については引数の shape さえ適合すれば行列の乗算もサポートする。
+
+
+.. _Numpy: http://scipy.org/NumPy/
+.. _Python: http://www.python.org/
+.. _Nose: http://somethingaboutorange.com/mrl/projects/nose/
