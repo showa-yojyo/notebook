@@ -33,6 +33,63 @@ NumPy_ は OpenGL のサンプルコードを Python_ で書くときに、
     OK (KNOWNFAIL=3, SKIP=1)
     <nose.result.TextTestResult run=1882 errors=0 failures=0>
 
+用語集
+======================================================================
+これはノートなので、こんなところに用語集が来る。
+
+ファイル ``doc/glossary.py`` が用語集を docstring の形式でまとめている。
+収録対象は NumPy 独自に使われるものだけでなく、数学、計算機科学、
+さらには Python 言語に関係するものにも及ぶ。
+ここでは気になる用語に絞ってノートをとる。
+
+along on axis
+    行列では axis は二つあるが、縦方向の並びが axis 0 で、横方向の並びが axis 1 だ。
+    縦方向の方がインデックスが若いことになっているのは row-major rule によるのだろう。
+    array 関連の関数では「axis を引数に取れる」ものが多数ある
+    (``sum``, ``var``, ``sort``, ``any``, ``mean``, etc.)
+
+array
+    **同種の要素からなる** 配列であることを強調している。
+    なお ``ndarray`` のことを単に array と呼ぶ場合が多い。
+
+array_like
+    ``ndarray`` に解釈される任意のコンテナーと思ってよいようだ。
+    なので ``ndarray`` オブジェクトやスカラーも array_like だ。
+
+broadcast
+    array 間の演算は同型が基本だが、若干 shape が異なっていても OK な場合がある。
+
+C order/row-major, Fortran order/column-major
+    多次元配列のメモリレイアウトに関する話題をきれいにまとめてある。
+    NumPy の array は前者を採用している。
+    C 言語がそれを利用していることによる。
+
+    OpenGL は column-major だから、
+    PyOpenGL のコードを書くときにはその辺の事情を意識しないとだめだろう。
+
+flattened
+    array を一次元の shape になるように「折りたたむ」ことができる。
+
+mask, masked array
+    OpenGL の ``glColorMask`` の概念みたいなものか。
+
+matrix
+    2 次元の ``ndarray`` を何らかの点において最適化した matrix クラスがあるらしい。
+    演算経過によって shape が変わるようなことがないことを保証するようだ。
+
+slice
+    Python の ``list`` オブジェクトに対するスライスを、
+    array でもサポートするという話だ。多次元版スライス。
+
+ufunc
+    個々の要素ごとに演算するようなタイプの演算を高速に処理する。
+    後で ``doc/ufuncs.py`` に目を通す程度でいいだろう。
+
+view
+    既存の array からスライシング等の操作で別の array を作成することがある。
+    この種の操作で新しくできた array は、
+    実は参照ベースの proxy オブジェクトであることが多いようだ。
+
 基本
 ======================================================================
 とりあえず ``from numpy import *`` だけで利用可能になる機能から習得していこう。
@@ -253,8 +310,6 @@ TBW
 その他の話題
 ======================================================================
 * ``add_newdocs.py`` がドキュメントのかたまりみたいになっている。一読すべし。
-* ``doc/glossary.py`` が用語集を docstring の形式で記述している。
-  ノートを書く前にこれを読めばよかった。
 
 .. _Numpy: http://scipy.org/NumPy/
 .. _Python: http://www.python.org/
