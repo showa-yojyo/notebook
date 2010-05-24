@@ -146,14 +146,43 @@ view
 
 ライブラリーを利用してコードを書く
 ======================================================================
-とりあえず ``from numpy import *`` だけで利用可能になる機能から習得していこう。
+以降の記述で ``np`` とあるのは ``import numpy as np`` としたことを前提としている。
+
+ヘルプ
+------
+NumPy Reference の Numpy-specific help functions セクションを見ておくこと。
+これらのヘルプ関数を覚えておくと IDLE での作業時には重宝するだろう。
+
+キーワードから機能を探す
+~~~~~~~~~~~~~~~~~~~~~~~~
+関数 ``lookfor`` を利用すると、NumPy 内の docstring からそれらしい機能をリストアップしてくれる。
+
+  >>> import numpy as np
+  >>> lookfor('least square')
+  Search results for 'least square'
+  ---------------------------------
+  numpy.polyfit
+      Least squares polynomial fit.
+  numpy.ma.polyfit
+      Least squares polynomial fit.
+  numpy.linalg.lstsq
+      Return the least-squares solution to a linear matrix equation.
+  ...
+
+NumPy のバージョンを知る
+~~~~~~~~~~~~~~~~~~~~~~~~
+``version.py`` の変数 version を参照する。
+
+ >>> import numpy as np
+ >>> np.version.version
+ '1.4.1'
 
 array
 -----
-まずは array 周辺から習得する。
+ヘルプの使い方を習得したら、まずは array 周辺から攻略する。
 
-オブジェクトを生成する
-~~~~~~~~~~~~~~~~~~~~~~
+array オブジェクトを生成する
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 NumPy Reference の Array creation routines のセクションできれいにまとめてある。
 
 * array オブジェクトの生成方法の基本は関数 ``array`` 呼び出しだ。
@@ -392,10 +421,27 @@ Python 組み込み関数の ``sum`` を含む、色々な選択肢がある。
 
 ヒストグラム
 ~~~~~~~~~~~~
+関数 ``np.histogram`` で array からヒストグラムを作成することができる。
+ビンの与え方もその気になれば非等幅ビンを指定することもできる。
+
+* ビンの個数はデフォルトで 10 らしい。
+  サンプル数からそれらしいビン数を計算するのは自力でやれということか。
+* 各ビンは半開区間（左閉）なのだが、最後のビンのみ閉区間になることに注意が必要。
+
+ >>> import numpy as np
+ >>> sample = np.arange(16.)
+ >>> hist, binedges = np.histogram(sample)
+ >>> hist
+ array([2, 1, 2, 1, 2, 1, 2, 1, 2, 2])
+ >>> binedges
+ array([  0. ,   1.5,   3. ,   4.5,   6. ,   7.5,   9. ,  10.5,  12. ,
+         13.5,  15. ])
 
 未整理メモ
 ======================================================================
-
+* 多項式は加工して利用するべきものだと思うが、どう応用したらよいものか。
+* フーリエ変換の面白いサンプルを知る。
+* 乱数関連を簡単に押さえておきたい。
 
 .. _Numpy: http://scipy.org/NumPy/
 .. _Python: http://www.python.org/
