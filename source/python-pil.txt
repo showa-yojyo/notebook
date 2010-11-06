@@ -18,6 +18,7 @@ PIL のサイトは http://www.pythonware.com/products/pil にある。
 インターネットに接続した環境で ``easy_install PIL`` する。
 
 もしかすると Windows 用には PIL の製品サイトがインストーラーを提供しているかもしれない。
+ちなみにこのノートは 1.1.7 を利用して記述する。
 
 オフラインドキュメントはある？
 --------------------------------------------------
@@ -82,6 +83,30 @@ Python を利用する必要がないのであれば、
 このオブジェクトは、いわばまっさらなキャンヴァスだ。
 ここに他のイメージオブジェクトを ``paste`` メソッド等を利用して描く。
 
+ブレンディングについて例を挙げてくれ？
+--------------------------------------------------
+TBW
+
+Band の考え方について教えてくれ
+--------------------------------------------------
+例えば、手許にある PNG ファイルから読み込んだイメージデータは RGBA モードだ。
+これは R, G, B, A という色プラスアルファに関する情報を持っている。
+このようなものを PIL では multi-band であると表現する。
+
+イメージオブジェクトの ``split`` メソッドでこの band を
+L モードのイメージとして抽出できる。
+
+.. code-block:: python
+
+   # RGBA なイメージだと仮定する。
+   img = Image.open('illvelo.png')
+   assert img.mode == 'RGBA'
+
+   # split メソッドで R, G, B, A 各成分をイメージの形で抽出する。
+   img.load()
+   bands = img.split()
+   band[0].show() # R 成分のグレースケールが拝める。
+
 テキスト関連
 ==================================================
 
@@ -105,9 +130,27 @@ Python を利用する必要がないのであれば、
 
 日本語のテキストを描画するには？
 --------------------------------------------------
-TBW
+コツは 3 つある。
+
+* 関数 ``ImageFont.truetype`` で日本語対応のフォントオブジェクトを作成する。
+* その際に ``encoding`` 引数に適切なエンコーディングを指示する。
+* ``text`` メソッドの引数にそのフォントを与える。
+
+.. code-block:: python
+
+   # 動作確認がまだ。
+   import Image
+   import ImageDraw
+   import ImageFont
+
+   img = Image.new('RGB', (512, 512), 0x000000)
+   dr = ImageDraw.Draw(img)
+   fnt = ImageFont.truetype('msmincho.ttc', size=120, encoding='utf-8')
+   dr.text((0, 0), u'御無礼', font=fnt, fill=0xFFFFFF)
+   #img.show()
 
 ImportError: DLL load failed になるのはなぜ？
 --------------------------------------------------
-関数 ``ImageFont.truetype`` 呼び出し中に表題のエラーが出た。
+``import ImageFont`` で表題のエラーが出た。
 エラーメッセージを真に受けると :file:`_imagingft.pyd` が何らかの理由でおかしい。
+
