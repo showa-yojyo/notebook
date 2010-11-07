@@ -54,8 +54,8 @@ GIF ファイル ``image.gif`` を PNG に変換するには、例えば下のようにする。
        im = Image.open(infile)
        im.save(file + ".png")
 
-Python を利用する必要がないのであれば、
-シェルから Image Magick の ``convert`` ユーティリティーを使う手もある。
+コードを書きたくないならば、コマンドラインから
+``pilconvert.py`` を使う手もある（後述）。
 
 画像をいじっていたらジャギーが出て困るのだが？
 --------------------------------------------------
@@ -72,6 +72,11 @@ Python を利用する必要がないのであれば、
   
   L = R * 299/1000 + G * 587/1000 + B * 114/1000
 
+.. image:: /_static/python-pil/illvelo.png
+   :scale: 50%
+.. image:: /_static/python-pil/illvelo-monochrome.png
+   :scale: 50%
+
 画像ファイルがない状態からイメージを生成するには？
 --------------------------------------------------
 関数 ``Image.new`` を利用する。少なくともカラーモードと画像サイズを指定すればよい。
@@ -83,9 +88,23 @@ Python を利用する必要がないのであれば、
 このオブジェクトは、いわばまっさらなキャンヴァスだ。
 ここに他のイメージオブジェクトを ``paste`` メソッド等を利用して描く。
 
-ブレンディングについて例を挙げてくれ？
+色を指定するのに RGB 値直接指定はつらい
+--------------------------------------------------
+PIL の関数・メソッドで色を引数に取るものについては、
+``ImageColor`` モジュールで決められている色名で指定することもできるようだ。
+
+>>> # RGB イメージを赤色で初期化する。
+>>> import Image
+>>> img = Image.new('RGB', (1024, 768), 'red')
+
+辞書 ``ImageColor.colormap`` のキーとなっている文字列ならば OK らしい。
+カラーテーブル画像を作成する宿題でも出そうか。
+
+パレットモードについて詳しく
 --------------------------------------------------
 TBW
+
+某ロムイメージからのイメージリッピングの際にこの知識が必要になるだろう。
 
 Band の考え方について教えてくれ
 --------------------------------------------------
@@ -105,7 +124,39 @@ L モードのイメージとして抽出できる。
    # split メソッドで R, G, B, A 各成分をイメージの形で抽出する。
    img.load()
    bands = img.split()
-   band[0].show() # R 成分のグレースケールが拝める。
+   bands[0].show() # R 成分のグレースケールが拝める。
+
+アルファチャンネルを持つ PNG 画像を青地背景上に重ねたい
+-----------------------------------------------------------
+PIL では Photoshop で言うところのチャンネルのことをバンドと呼んでいる。両者の意味は同じと考えてよさそうだ。
+
+``paste`` メソッドの ``mask`` 引数として、対象となる画像のアルファを与えるのが正解。
+アルファは元イメージに対する ``split`` メソッドの戻り値から得る。
+
+.. code-block:: python
+
+   import Image
+   
+   # Photoshop で言うところのレイヤー 1 に置く画像。
+   img = Image.open('illvelo.png')
+   img.load()
+   bands = img.split()
+
+   # R, G, B, A の A だけが要る。
+   alpha = bands[3]
+   
+   # Photoshop で言うところの背景レイヤーになる画像。
+   bkgnd = Image.new('RGBA', img.size, 'blue')
+   
+   # これではダメ。
+   #bkgnd.paste(img, None)
+   # これが正解。
+   bkgnd.paste(img, None, mask=alpha)
+
+.. image:: /_static/python-pil/illvelo.png
+   :scale: 50%
+.. image:: /_static/python-pil/illvelo-blueback.png
+   :scale: 50%
 
 テキスト関連
 ==================================================
@@ -126,7 +177,7 @@ L モードのイメージとして抽出できる。
    draw = ImageDraw.Draw(img)
 
    # 画面の左上隅にテキストを赤く描画する。
-   draw.text((0, 0), u'Hello, world', fill=0x0000FF)
+   draw.text((0, 0), u'Hello, world', fill='red')
 
 日本語のテキストを描画するには？
 --------------------------------------------------
@@ -143,10 +194,10 @@ L モードのイメージとして抽出できる。
    import ImageDraw
    import ImageFont
 
-   img = Image.new('RGB', (512, 512), 0x000000)
+   img = Image.new('RGB', (512, 512), 'black')
    dr = ImageDraw.Draw(img)
    fnt = ImageFont.truetype('msmincho.ttc', size=120, encoding='utf-8')
-   dr.text((0, 0), u'御無礼', font=fnt, fill=0xFFFFFF)
+   dr.text((0, 0), u'御無礼', font=fnt, fill='white')
    #img.show()
 
 ImportError: DLL load failed になるのはなぜ？
@@ -154,3 +205,49 @@ ImportError: DLL load failed になるのはなぜ？
 ``import ImageFont`` で表題のエラーが出た。
 エラーメッセージを真に受けると :file:`_imagingft.pyd` が何らかの理由でおかしい。
 
+コマンドラインユーティリティー
+==================================================
+PIL をインストールすると :file:`Scripts` フォルダーに何個かスクリプトが入る。
+以降の例コードは、Cygwin (Bash) での入力を想定している。
+Python 自体は Cygwin のものではなく、Windows 用のものを利用する。
+Cygwin 版の Python はそもそもインストールしていない。
+
+フォーマット変換を行うには？
+--------------------------------------------------
+コマンドラインで :file:`pilconvert.py` を利用する。
+ImageMagick の ``convert`` から画像操作オプションを全部取り去ったようなツールだ。
+
+``sample.gif`` から PNG 形式のファイル ``sample.png`` を作成するには次のように入力するだけだ。
+::
+
+  $ pilconvert.py sample.gif sample.png
+
+カレントディレクトリーのすべての GIF ファイルから PNG ファイルに変換したいならばこうなる。
+::
+
+  $ for name in *.gif ; do \
+  >   pilconvert.py $name ${name%.*}.png ; \
+  > done
+
+画像リサイズ等の操作を行うには？
+--------------------------------------------------
+コマンドラインで :file:`pildriver.py` を利用する。
+ImageMagick の ``convert`` とよく似たツールだ。
+
+ただし、コマンドラインで最初にすべての操作を指定して実行するケースと、
+引数を与えずに実行して対話モードに入り、そこで操作を順次指示するケースがある。
+対話モードでは操作の途中で ``show`` コマンドで途中経過を確認できる。
+::
+
+  $ pildriver.py
+  PILDriver says hello.
+  pildriver> open illvelo.png
+  [<PIL.PngImagePlugin.PngImageFile image mode=RGBA size=256x252 at 0xBEF800>]
+  pildriver> thumbnail 64 64
+  [<PIL.PngImagePlugin.PngImageFile image mode=RGBA size=64x63 at 0xBEF800>]
+  pildriver> show
+  []
+  pildriver>
+
+対話モードから抜けるコマンドがあるわけではないようなので、
+``Ctrl-C`` で終了してしまおう。
