@@ -189,21 +189,50 @@ PIL ‚Å‚Í Photoshop ‚ÅŒ¾‚¤‚Æ‚±‚ë‚Ìƒ`ƒƒƒ“ƒlƒ‹‚Ì‚±‚Æ‚ğƒoƒ“ƒh‚ÆŒÄ‚ñ‚Å‚¢‚éB—¼Ò‚ÌˆÓ–
 
 .. code-block:: python
 
-   # “®ìŠm”F‚ª‚Ü‚¾B
    import Image
    import ImageDraw
    import ImageFont
 
-   img = Image.new('RGB', (512, 512), 'black')
+   # ‘å‚«‚ß‚ÌƒLƒƒƒ“ƒ”ƒ@ƒX‚ğ—pˆÓ‚µ‚Ä‚¨‚­B
+   img = Image.new('RGB', (1024, 256), 'black')
    dr = ImageDraw.Draw(img)
-   fnt = ImageFont.truetype('msmincho.ttc', size=120, encoding='utf-8')
-   dr.text((0, 0), u'Œä–³—ç', font=fnt, fill='white')
-   #img.show()
+   # HG –¾’©‘Ì‚ğg‚Á‚Ä‚İ‚éB
+   fnt = ImageFont.truetype('hgrme.ttc', 24, encoding='utf-8')
+
+   # ’·‚ß‚ÌƒeƒLƒXƒg‚ğ—pˆÓ‚·‚éB
+   text = u'''‚Ç‚¤‚µ‚Ä‚à‰ï‚Á‚Ä‚à‚ç‚¦‚Ü‚¹‚ñ‚©H
+   „‚Í‚±‚ñ‚È‚É‚ ‚È‚½‚É‰ï‚¢‚½‚¢‚Ì‚ÉcB
+   ‚¨‹à‚É‚Í—]—T‚ª‚ ‚é‚Ì‚ÅS”z‚µ‚È‚¢‚Å
+   ‚­‚¾‚³‚¢B
+   ƒR[ƒh780‚Ì1102”Ô‚ÅA
+   ‚ ‚È‚½‚ğ‘Ò‚Á‚Ä‚¢‚Ü‚·B
+   '''
+   
+   width = 0
+   height = 0
+   for line in text.splitlines():
+       ext = dr.textsize(line, fnt)
+       dr.text((0, height), line, font=fnt, fill='white')
+       width = max(ext[0], width)
+       height += ext[1]
+   
+   # —]”’‚ğƒgƒŠƒ€‚·‚éB
+   img = img.crop((0, 0, width, height))
+
+.. image:: /_static/python-pil/karous-paradise.png
 
 ImportError: DLL load failed ‚É‚È‚é‚Ì‚Í‚È‚ºH
 --------------------------------------------------
 ``import ImageFont`` ‚Å•\‘è‚ÌƒGƒ‰[‚ªo‚½B
 ƒGƒ‰[ƒƒbƒZ[ƒW‚ğ^‚Éó‚¯‚é‚Æ :file:`_imagingft.pyd` ‚ª‰½‚ç‚©‚Ì——R‚Å‚¨‚©‚µ‚¢B
+
+’²‚×‚Ä‚İ‚é‚Æ PIL 1.1.7 ‚¾‚¯‚Å‹N‚±‚éŒ»Û‚Ì‚æ‚¤‚¾B
+‚±‚Ìƒtƒ@ƒCƒ‹‚Í Windows —p‚Ì PIL ƒCƒ“ƒXƒg[ƒ‰[‚ÉŠÜ‚Ü‚ê‚Ä‚¢‚é‚Ì‚¾‚ªA
+ƒrƒ‹ƒh‚µ‚½‚Æ‚«‚É‰½‚©‚ÌŠO•”ƒ‰ƒCƒuƒ‰ƒŠ[‚ÌQÆ‚ğ‚µ‚Ä‚¢‚È‚©‚Á‚½‚Ì‚Å‚Í‚È‚¢‚¾‚ë‚¤‚©B
+
+Eêƒ}ƒVƒ“‚Å‚Í©•ª‚Å MSVC9 ‚ğ“ü‚ê‚ÄAƒZƒbƒgƒAƒbƒv‚©‚çFXÀŒ±‚µ‚½‚¢B‘±s‚¾B
+
+©‘îƒ}ƒVƒ“‚Å‚Í’ú‚ß‚ÄƒAƒ“ƒCƒ“ƒXƒg[ƒ‹‚µ‚ÄAPIL 1.1.6 ‚É–ß‚·‚Ì‚ª‹gB
 
 ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“ƒ†[ƒeƒBƒŠƒeƒB[
 ==================================================
