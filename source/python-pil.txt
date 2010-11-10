@@ -28,6 +28,9 @@ PIL のサイトは http://www.pythonware.com/products/pil にある。
 ファイル名は ``pil-handbook.pdf`` で、
 Fredrik Lundh と Matthew Ellis という人物の共著になっている。
 
+また、配布ソースコード一式からビルドできる HTML ドキュメント
+"The Python Imaging Library" も極めて有用。
+
 画像処理基本
 ==================================================
 
@@ -233,6 +236,71 @@ ImportError: DLL load failed になるのはなぜ？
 職場マシンでは自分で MSVC9 を入れて、セットアップから色々実験したい。続行だ。
 
 自宅マシンでは諦めてアンインストールして、PIL 1.1.6 に戻すのが吉。
+
+いつか役に立つかもしれない諸機能
+==================================================
+
+スクリーンショット
+--------------------------------------------------
+Windows のみ対応らしい。
+
+.. code-block:: python
+
+   import Image
+   import ImageGrab
+   
+   # スクリーンショットをキャプチャー。
+   img = ImageGrab.grab()
+
+   # そのままだと面白くないので、
+   # 縮小して表示する。
+   img.thumbnail((256, 256), Image.ANTIALIAS)
+   img.show()
+
+.. image:: /_static/grab.png
+   :scale: 100%
+
+上下左右ループ壁紙パターン作成
+--------------------------------------------------
+よくあるアルゴリズムを PIL で実装すればよい。
+
+* 元画像を 2 x 2 分割して対角線上の区域を入れ替える。
+* そこへ元画像をブレンドなりオーバーレイなりして重ね合わせる。
+
+左右方向ループのための区域入れ替えの処理は、pil-handbook 参照。
+
+.. code-block:: python
+
+   # Example: Rolling an image を改造
+   def roll_horz(image, delta):
+       xsize, ysize = image.size
+   
+       delta = delta % xsize
+       if delta == 0: return image
+   
+       part1 = image.crop((0, 0, delta, ysize))
+       part2 = image.crop((delta, 0, xsize, ysize))
+       image.paste(part2, (0, 0, xsize-delta, ysize))
+       image.paste(part1, (xsize-delta, 0, xsize, ysize))
+       return image
+
+.. image:: /_static/illvelo.png
+   :scale: 50%
+.. image:: /_static/illvelo-wallpaper.png
+   :scale: 50%
+
+モジュール ImageDraw2 が気になる
+--------------------------------------------------
+:file:`ImageDraw2.py` なるものがある。
+中身を覗いたら、けっこうすっきりしていていい感じだ。
+
+モジュール ImageGL の使い方がわからない
+--------------------------------------------------
+名前からして OpenGL 関係なのだが、コードを見ても用途不明。
+
+モジュール ImagePath の使い方がわからない
+--------------------------------------------------
+コードを見ても用途不明。
 
 コマンドラインユーティリティー
 ==================================================
