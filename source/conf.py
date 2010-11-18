@@ -67,11 +67,11 @@ release = '0.0'
 #
 # <Use unused_documents to explicitly exclude documents from building> 
 # (Sphinx Documentation, Release 0.6.1, p. 7)
-unused_docs = ['r-trac']
+#unused_docs = ['r-trac']
 
 # List of directories, relative to source directory, that shouldn't be searched
 # for source files.
-exclude_trees = ['_build']
+exclude_trees = ['.svn','_build','build']
 
 # The reST default role (used for this markup: `text`) to use for all documents.
 #default_role = None
