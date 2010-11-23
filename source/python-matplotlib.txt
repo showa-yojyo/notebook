@@ -179,6 +179,15 @@ Matplotlib は figure/axes を扱うスタイルを二つ提供している。
                     ``"bold"`` 等の予約名を指定する。
 ================    ==================================================
 
+* テキストの基準位置は ``horizontalalignment``, ``verticalalignment`` キーワード引数で指示できる。
+  例えば x, y 引数をテキストの右下位置としたい場合には次のようにする。
+  ::
+
+    plt.text(x, y, 'aaaa', verticalalignment='bottom', horizontalalignment='right')
+
+* 複数行テキストの左揃え・中央揃え・右寄せを指定する場合は ``multialignment`` キーワードを使用する。
+* 
+
 TeX 表現
 ^^^^^^^^^^^^^^^^^^^^
 .. warning::
@@ -207,6 +216,51 @@ Annotation
 Matplotlib には CAD アプリみたいな「矢印付きテキスト」要素がある。
 当面利用予定がないので、使いたくなったらドキュメントを当たることにする。
 
+Artists 関連
+--------------------------------------------------
+* primitives: ``Line2D``, ``Rectangle``, ``Text``, ``AxesImage``, etc.
+* containers: ``Axis``, ``Axes``, ``Figure``, etc.
+
+コンテナを攻略していく。
+
+* ``Axes`` はプロッティングエリア。
+* ``Subplot`` は ``Axes`` の特別なもの。コード的にもサブクラスで表現されている。
+* ``Patch`` というクラス名は MATLAB から受け継いだ。
+
+* プロパティー一覧は ``matplotlib.artist.getp`` 関数で確認できる。
+
+Figure (``matplotlib.figure.Figure``)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* ``Figure`` オブジェクトが "current axes" を管理している。
+* ``Figure`` は（グラフのものではない）自身の座標系を持っていて、
+  矩形の左下と右上がそれぞれ (0, 0), (1, 1) となっている。
+
+  変な例だが、画像全体に対角線を一本引くにはこうする。
+  ::
+
+      import matplotlib as mpl
+      import matplotlib.pyplot as plt
+      fig = plt.figure()
+
+      ax1 = fig.add_subplot(211)
+      ax2 = fig.add_axes([0.1, 0.1, 0.7, 0.3])
+
+      l1 = mpl.lines.Line2D([0, 1], [0, 1], transform=fig.transFigure, figure=fig)
+      fig.lines.extend([l1])
+      fig.canvas.draw()
+      #plt.show()
+
+Axes (``matplotlib.axes.Axes``)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* ``Axes`` オブジェクトが図形・テキスト・目盛・グリッド・ラベル各オブジェクトを管理する。
+
+Axis (``matplotlib.axis.Axis``)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+グラフの目盛、グリッド、目盛に付けるラベル等を管理する。
+
+* ``Axes`` オブジェクトの ``xaxis`` および ``yaxis`` メンバーでアクセスできる。
+* プロッティング領域の左右上下 4 辺に存在する。
+
 続・環境構築
 ==================================================
 Matplotlib を利用するための環境をもっと細かく整備してみよう。
@@ -232,3 +286,6 @@ Matplotlib を利用するための環境をもっと細かく整備してみよう。
 
 * ``pyplot.plot()`` に ``lines.color`` が効かない？
 
+未整理
+==================================================
+* ``set_axis_off()`` - グラフの目盛を表示しない。しかも背景も。
