@@ -108,11 +108,16 @@ Matplotlib には current figure と current axes という概念がある。
 ``plt.subplot()``        指定の axes をカレントにする
 =================        ==============================================
 
-* Figure という語を、文書中に出てくる図（のインスタンス）と解釈したい。
+* 大抵の本にはいくつかの図がしばしばキャプション付きで載っている。
+  Figure という語は、それに対応するクラスだと解釈したい。
+  図の一つ一つが Figure のオブジェクトになると思えば、個人的にはコードが理解できる。
 
 * 普通は一つの図にグラフ一つを載せるわけだが、
   同じようなグラフを並べたものを一つの図としたい場合もある。
   Axes という語が意味するのが、そのグラフだと解釈すればよいか。
+
+  .. image:: /_static/mpl-axes.png
+     :scale: 50%
 
 * ``plt.figure(n)`` で current figure を指定する。
 * ``plt.subplot(n0n1n2)`` で current axes を指定する。
@@ -196,6 +201,22 @@ Matplotlib には current figure と current axes という概念がある。
     plt.text(x, y, 'aaaa', verticalalignment='bottom', horizontalalignment='right')
 
 * 複数行テキストの左揃え・中央揃え・右寄せを指定する場合は ``multialignment`` キーワードを使用する。
+
+日本語のテキストを描画するには？
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``matplotlib.font_manager.FontProperties`` を明示的に利用する手段を見つけた。
+::
+
+  import matplotlib as mpl
+  import matplotlib.pyplot as plt
+  from matplotlib.font_manager import FontProperties
+
+  fp = FontProperties(fname=r'C:\WINDOWS\Fonts\HGRME.ttc') # HG 明朝系
+  plt.text(0, 0, u'御無礼\n一発です', fontproperties=fp, fontsize=60)
+  #plt.show()
+
+.. image:: /_static/mpl-fontprop.png
+   :scale: 50%
 
 Artists 関連
 ==================================================
