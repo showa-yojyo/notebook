@@ -1,23 +1,23 @@
 ======================================================================
-OpenGL: A Primer Second Edition �Ǐ��m�[�g
+OpenGL: A Primer Second Edition 読書ノート
 ======================================================================
 
-OpenGL �̓���Ҍ����̖{���Ȃ��Ȃ���������Ȃ��A�C�t�����炱��𔃂����߂Ă����B
+OpenGL の入門者向けの本がなかなか見当たらなく、気付いたらこれを買い求めていた。
 
-:����: Edward Angel
-:�o�Ŏ�: Peason Education, Inc.
+:著者: Edward Angel
+:出版社: Peason Education, Inc.
 :ISBN: 0-321-26982-9
 
-.. contents:: �m�[�g�ڎ�
+.. contents:: ノート目次
 
 Preface
 =======
-* �Ԗ{�Ɛ{
+* 赤本と青本
 
   * the OpenGL Progamning Guide, Fourth Edition (Addison-Wesley), the "red book"
   * the OpenGL 1.4 Reference Manual, Fourth Edition (Addison-Wesley), the "blue book"
 
-* OpenGL ARB �ɂ��Ă͌�Ő�������B
+* OpenGL ARB については後で説明あり。
 * it is much easier to get started with OpenGL and use it to master the basic concepts.
   For those of us who work with scientific applications and in a cross platform environment,
   OpenGL is the API of choice. (p. xvi)
@@ -33,12 +33,12 @@ The OpenGL API
 --------------
 * OpenGL came from an interface called GL, short for Graphics Library, originally
   developed for Silicon Graphics Inc. (SGI) hardware. (p. 1)
-* OpenGL �ɂ̓A�v����g�ނ��߂ɂ��� 200 ���z����֐�������B
-* ���̖{�ł̓����_�����O���ȉ��̂悤�ɐ������Ă���B
+* OpenGL にはアプリを組むためにある 200 を越える関数がある。
+* この本ではレンダリングを以下のように説明している。
   <taking the specification of geometric objects and their properties and
   forming a picture of them with a virtual camera and lights.>(p. 2)
 
-* GLUT �ɂ��āAT �� Toolkit �̓������ł��邱�Ƃ��L������B
+* GLUT について、T が Toolkit の頭文字であることを記憶する。
 * Rather than write platform-dependent code, we shall use a simple toolkit,
   the OpenGL Utility Toolkit (GLUT)... (p.1)
 
@@ -46,33 +46,33 @@ Three Views of OpenGL
 ---------------------
 The OpenGL State Machine
 ~~~~~~~~~~~~~~~~~~~~~~~~
-* OpenGL �� State Machine �Ƃ��čl���邱�Ƃ��ł���B
+* OpenGL を State Machine として考えることができる。
 
 The OpenGL Pipeline
 ~~~~~~~~~~~~~~~~~~~
-* OpenGL �̓p�C�v���C�����f�����x�[�X�ɂ��Ă���B
-  ���͂� Vertices �Ƃ��A�o�͂� Pixels �ƂȂ�悤�ȃp�C�v���C�����B
+* OpenGL はパイプラインモデルをベースにしている。
+  入力を Vertices とし、出力を Pixels となるようなパイプラインだ。
 
 What's in OpenGL
 ----------------
-* OpenGL �֐��̃J�e�S���C�Y
+* OpenGL 関数のカテゴライズ
 
-  1. Primitve functions - �C���[�W�𐶂ݏo���v�f���`����֐�
-     geometric �� image �̓�ʂ肪����B
-  2. Attribute functions - �v���~�e�B���̌��Ă�����R���g���[������֐�
-     �F�A���̎�ށA�ގ��A�����A�e�N�X�`���[���B
-  3. Viewing functions - �J�����̐������`����֐�
+  1. Primitve functions - イメージを生み出す要素を定義する関数
+     geometric と image の二通りがある。
+  2. Attribute functions - プリミティヴの見てくれをコントロールする関数
+     色、線の種類、材質、光源、テクスチャー等。
+  3. Viewing functions - カメラの性質を定義する関数
   4. Windowing functions - 
-     ���������֐��� GLUT �ɓ����Ă���B
-  5. Control functions - OpenGL �̐F�X�ȋ@�\��L���ɂ���֐�
+     こういう関数は GLUT に入っている。
+  5. Control functions - OpenGL の色々な機能を有効にする関数
   
-  ���̂����A2. ���� 5. �܂ł� state-changing �Ȋ֐����B
+  このうち、2. から 5. までが state-changing な関数だ。
 
 OpenGL Versions and Extensions
 ------------------------------
-* OpenGL �� OpenGL Architectural Review Board (ARB) ���R���g���[������B
-* ARB �� Silicon Graphics, IBM, NVIDIA �Ƃ��������[�J�[���痈�������o�[�����B
-* OpenGL extensions �͌�񂵂ł�����B
+* OpenGL は OpenGL Architectural Review Board (ARB) がコントロールする。
+* ARB は Silicon Graphics, IBM, NVIDIA といったメーカーから来たメンバーを持つ。
+* OpenGL extensions は後回しでいいや。
 
 Two-Dimensional Programming in OpenGL
 =====================================
@@ -82,17 +82,17 @@ A Simple Program
 
 GLUT
 ----
-* Figure 2.2 �ł� GLUT �w�� GLX or WGL or AGL �w�����S�Ƀ��b�v���Ă���B
-  GLUT �𗘗p���邱�ƂŁA�v���b�g�t�H�[���Ԃ̊_�����z����B
+* Figure 2.2 では GLUT 層が GLX or WGL or AGL 層を完全にラップしている。
+  GLUT を利用することで、プラットフォーム間の垣根を越える。
 * Depending on the platform, GLUT uses glX, wgl, or agl. (p. 13)
 
 Event Loops and Callback Functions
 ----------------------------------
-* glutInit �͑��̂����Ȃ� GLUT �� OpenGL �֐��Ăяo���̑O�ɌĂԂ���
-* glutCreateWindow �ɂ��E�B���h�E�̃T�C�Y�� 300 x 300 pixels
-* �C�x���g�L���[�Ƃ����p���������B
-* �R�[���o�b�N�֐��B�ǂ����Ă��O���[�o���ϐ��̐��b�ɂȂ炴��𓾂Ȃ��B
-* glutMainLoop �̌Ăяo���s�ȍ~�̍s�́A���s����Ȃ��B
+* glutInit は他のいかなる GLUT と OpenGL 関数呼び出しの前に呼ぶこと
+* glutCreateWindow によるウィンドウのサイズは 300 x 300 pixels
+* イベントキューという用語を憶える。
+* コールバック関数。どうしてもグローバル変数の世話にならざるを得ない。
+* glutMainLoop の呼び出し行以降の行は、実行されない。
 
 Drawing a Rectangle
 -------------------
@@ -116,41 +116,41 @@ Color in OpenGL
 ---------------
 * In RGBA mode, we use a fourth color component, A or alpha, which is
   an opacity. (p. 18)
-* Opacity �Ƃ����͓̂��{��ɂȂ��悤�ȁB�����x�̗��̊T�O�Ƃ������B
+* Opacity というのは日本語にないような。透明度の裏の概念というか。
 
 Color and State
 ~~~~~~~~~~~~~~~
 * <colors are not attached to objects but rather to the internal state
-  of OpenGL.> (p. 20) OpenGL �̐��E�ł͐F���܂���ԂȂ̂��B
+  of OpenGL.> (p. 20) OpenGL の世界では色もまた状態なのだ。
 * OpenGL actually has only one internal form for the present color,
   which is in RGBA form, usually a floating point number for each color
   component. (p. 20)
-* �ǂ�� glColor �֐��𗘗p���悤���A�����I�ȃf�[�^�̌`���͈�����Ȃ��B
-  glColor3i �̂ق��� glColor4fv ���y���ȂǂƂ������Ƃ͂Ȃ��悤���B
+* どんな glColor 関数を利用しようが、内部的なデータの形式は一つしかない。
+  glColor3i のほうが glColor4fv より軽いなどということはないようだ。
 
 Coorinate System Differences Between GLUT and OpenGL
 ----------------------------------------------------
-* �E�B���h�E�� Y ���̐��̕����ɂ��āAOpenGL �̍��W�n�� GLUT �̍��W�n�ł͋t�B
+* ウィンドウの Y 軸の正の方向について、OpenGL の座標系と GLUT の座標系では逆。
 
 Two-Dimensional Viewing
 -----------------------
 * gluOrtho2D(left, right, bottom, top)
 
-* gluOrtho2D �ɂ���Ē�`�����`���N���b�s���O�E�B���h�E�ƌĂԁB
+* gluOrtho2D によって定義する矩形をクリッピングウィンドウと呼ぶ。
 
 The Viewport
 ------------
 * glViewport(x, y, width, height)
 
-  �E�B���h�E�̂ǂ̕����� canvas �Ƃ���̂����w�肷��B
-  �ʏ�̓E�B���h�E�S��� glViewport �ɓn�����A�񎟌��I�ɃC���[�W��`���ꍇ�Ȃǂ́A
-  �{���ɃE�B���h�E�̓��蕔�����w�肷�邱�Ƃ������B
+  ウィンドウのどの部分を canvas とするのかを指定する。
+  通常はウィンドウ全域を glViewport に渡すが、二次元的にイメージを描く場合などは、
+  本当にウィンドウの特定部分を指定することが多い。
 
 Coordinate Systems and Transformations
 --------------------------------------
 * The function gluOrtho2D is used to specify a projection matrix for two-
   dimensional applications. (p. 23)
-* �܂��ԈႢ�Ȃ��ȉ��̎菇�ŗ��p����B
+* まず間違いなく以下の手順で利用する。
   ::
 
     glMatrixMode(GL_PROJECTION);
@@ -158,58 +158,58 @@ Coordinate Systems and Transformations
     gluOrtho2D(left, right, bottom, top);
 
 * <In OpenGL, there are three basic types of geometric primitives: 
-  points, line segments, and polygons.>(p. 26) �������O��ނ����Ȃ��̂��B
+  points, line segments, and polygons.>(p. 26) たった三種類しかないのだ。
 
 Primitives and Attributes
 -------------------------
 * <in fact, OpenGL regards attributes as part of its state.>(p. 26)
-  �A�g���r���[�g�����̉����Ɠ��l�Ɂu��ԁv�Ƃ������ƁB
+  アトリビュートも他の何かと同様に「状態」ということ。
 
 Points
 ~~~~~~
 * glPointSize(size)
 
-  :size: �T�C�Y�̓X�N���[���s�N�Z���P��
+  :size: サイズはスクリーンピクセル単位
 
-* glPointSize �� glBegin - glEnd �̊Ԃɓ���Ȃ��B
+* glPointSize は glBegin - glEnd の間に入れない。
 
 Lines
 ~~~~~
-* �����͎O��ނ̃^�C�v�����Ȃ��B
+* 線分は三種類のタイプしかない。
 
   * GL_LINES
   * GL_LINE_STRIP
   * GL_LINE_LOOP
 
-* �����̑����� 
+* 線分の属性は 
   
-  1. �F
-  2. ����
-  3. �p�^�[��
+  1. 色
+  2. 線幅
+  3. パターン
 
 * glLineWidth(width)
 
-  :width: ���̓s�N�Z���P�ʂŗ^����B
+  :width: 幅はピクセル単位で与える。
 
 * glLineStipple(factor, pattern)
 
-  :factor: �p�^�[���̌J��Ԃ��񐔁B1 ���� 256 �̊Ԃ̒l�B
-  :pattern: line stipple �̃r�b�g�p�^�[�� (16 bit) �̗^�������������Ă������ƁB
+  :factor: パターンの繰り返し回数。1 から 256 の間の値。
+  :pattern: line stipple のビットパターン (16 bit) の与え方をおさえておくこと。
 
 Enabling OpenGL Features
 ~~~~~~~~~~~~~~~~~~~~~~~~
-* OpenGL �̋@�\�̒��ɂ́A�����I�ɂ����L���ɂ��Ȃ���Η��p�ł��Ȃ����̂�����B
-* glEnable(feature) �ŋ@�\ feature �� ON �ɂ���B
+* OpenGL の機能の中には、明示的にそれを有効にしなければ利用できないものがある。
+* glEnable(feature) で機能 feature を ON にする。
   ::
 
     glEnable(GL_LINE_STIPPLE);
 
-* glDisable(feature) �ŋ@�\ feature �� OFF �ɂ���B
+* glDisable(feature) で機能 feature を OFF にする。
 
 Filled Primitives
 ~~~~~~~~~~~~~~~~~
-* �|���S���B�Z��ނ̃^�C�v������B
-  ���̃m�[�g�ɂ͊����ď����Ȃ����A�����̉p���͊ۈËL���Ă��������B
+* ポリゴン。六種類のタイプがある。
+  このノートには敢えて書かないが、説明の英文は丸暗記しておきたい。
 
   * GL_POLYGON
   * GL_TRIANGLES
@@ -218,7 +218,7 @@ Filled Primitives
   * GL_QUADS
   * GL_QUAD_STRIP
 
-* STRIP �n�̐}�`�`��́A�֐��Ăяo���̉񐔂����Ȃ��ςނƂ������_������B
+* STRIP 系の図形描画は、関数呼び出しの回数が少なく済むという利点がある。
   <many CAD applications generate triangles or quadrilaterals with shared
   edges.  Strip primitives allow us to define these primitives with far
   fewer OpenGL function calls than if we had to treat each as a separate
@@ -226,35 +226,35 @@ Filled Primitives
 
 Rectangles
 ~~~~~~~~~~
-* �����`��`���̂Ȃ�AglRect �ōςޏꍇ������B
-  glVertex ���l�񏑂��Ȃ��čςނ��A�������߁B
+* 長方形を描くのなら、glRect で済む場合がある。
+  glVertex を四回書かなくて済むし、おすすめ。
 
 Polygon Stipple
 ~~~~~~~~~~~~~~~
-* polygon stipple �̖͗l�́A�v���~�e�B�u����]���Ă���]���Ȃ��B
-* glEnable(GL_POLYGON_STIPPLE) �ŗL���ɂ���B
+* polygon stipple の模様は、プリミティブを回転しても回転しない。
+* glEnable(GL_POLYGON_STIPPLE) で有効にする。
 * glPolygonStipple(mask)
 
-  :mask: 32 x 32 �r�b�g�̃p�^�[���B
+  :mask: 32 x 32 ビットのパターン。
 
 Polygon Types
 -------------
-* �h��Ԃ��|���S����`���Ƃ��ɂ́A���̌`��ɋC������_������B
+* 塗りつぶしポリゴンを描くときには、その形状に気をつける点がある。
   <**simple polygons** -- polygons whose edges do not cross -- two different
   OpenGL implementations may render them differently.> (p. 31)
 * Convex polygons are much easier to render. (p. 32)
-* �ʂɂ͕\�Ɨ�������B������`�悵�������i������B
+* 面には表と裏がある。それらを描画し分ける手段がある。
 
-  * glPolygonMode(face, mode) - �ʂ��ǂ��`����
+  * glPolygonMode(face, mode) - 面をどう描くか
 
     :face: GL_(FRONT|BACK|FRONT_AND_BACK)
     :mode: GL_(POINT|LINE|FILL)
 
-  * glCullFace(mode) - �`�����ۂ�
+  * glCullFace(mode) - 描くか否か
 
     :mode: GL_(FRONT|BACK|FRONT_AND_BACK)
 
-  * glFrontFace(mode) - �ʂ̕\�����ǂ���`���邩
+  * glFrontFace(mode) - 面の表裏をどう定義するか
 
     :mode: GL_(CCW|CW)
 
@@ -265,14 +265,14 @@ Polygon Types
 
   In OpenGL, the edges of a polygon are part of the inside of the polygon (p. 33)
 
-* �h��Ԃ��Ɛ��̕`����d�˂��킷���Ƃɂ��āA
-  �ꍇ�ɂ���Ă̓|���S���I�t�Z�b�g�������Ȃ��Ɣ������Ȃ������B
+* 塗りつぶしと線の描画を重ねあわすことについて、
+  場合によってはポリゴンオフセットをかけないと美しくないかも。
 
 * glPolygonOffset(factor, units)
 
-  :factor, units: ��̃p�����[�^�B
+  :factor, units: 謎のパラメータ。
 
-  glPolygonOffset �֐��͎��̂悤�ɂ��ė��p����B
+  glPolygonOffset 関数は次のようにして利用する。
   ::
   
     glPolygonOffset(1.0, 1.0);
@@ -282,62 +282,62 @@ Color Interpolation
 -------------------
 * The default is to use smooth shading where OpenGL will interpolate the colors
   at the vertices to obtain the color of intermediate pixels. (p. 34)
-* OpenGL ���|���S���ɑ΂��ĉ��炩�̕�Ԃ��s���Ƃ��́A���� bilinear interpolation ���B
+* OpenGL がポリゴンに対して何らかの補間を行うときは、大抵は bilinear interpolation だ。
 * glShadeModel(mode)
 
   :mode: GL_(SMOOTH|FLAT)
 
 Tessellation and Edge Flags
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-glEdgeFlag �� tessellation, subdivision �̘b�������B
+glEdgeFlag と tessellation, subdivision の話が続く。
 
 Tessellation and Subdivision
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-subdivision �͐}�`�ɂ˂����������悤�ȉ摜���ʂ����������i�Ƃ��ė��p�ł���悤���B
+subdivision は図形にねじれを加えるような画像効果を実現する手段として利用できるようだ。
 
 Text
 ----
-* �t�H���g�ɂ� bitmap �� stroke �̓��ނ�����B
-* bitmap �͍����ɕ`��ł��邪�A�X�P�[�����O���̕ϊ����������Ȃ��B
-  stroke �͂��̋t�̒����Z��������B
-* �t�H���g�̓V�X�e���ˑ��̂��̂Ȃ̂ŁAGLUT �����̕ӂ��J�o�[���Ă���Ă���B
+* フォントには bitmap と stroke の二種類がある。
+* bitmap は高速に描画できるが、スケーリング等の変換がかけられない。
+  stroke はその逆の長所短所がある。
+* フォントはシステム依存のものなので、GLUT がその辺をカバーしてくれている。
 * glutBitmapCharacter(font, character)
 
-  :font: GLUT_BITMAP_TIMES_ROMAN_10 �̂悤�ȃV���{�����w�肷��B
-  :character: �ꕶ�����w�肷��B
+  :font: GLUT_BITMAP_TIMES_ROMAN_10 のようなシンボルを指定する。
+  :character: 一文字を指定する。
 
-* Raster position �͍������_
+* Raster position は左下原点
 * The current raster position is offset automatically so that the next
   character will not be rendered on top of the previous one. (p. 44)
 
-* glRasterPos(xyzw) - ���X�^�[�ʒu��ݒ肷��B
-* glutBitmapWidth(font, character) - ���������s�N�Z���l�ŕԂ��B
-* glutStrokeCharacter(font, character) - �X�g���[�N�t�H���g�ɂĕ�����`�悷��B
-* glutStrokeWidth(font, character) - ���������r�b�g�P�ʂŕԂ��B
+* glRasterPos(xyzw) - ラスター位置を設定する。
+* glutBitmapWidth(font, character) - 文字幅をピクセル値で返す。
+* glutStrokeCharacter(font, character) - ストロークフォントにて文字を描画する。
+* glutStrokeWidth(font, character) - 文字幅をビット単位で返す。
 
-* �X�g���[�N�n�̃t�H���g�T�C�Y�͒P�ʂ��悭�킩��Ȃ��̂Œ��ӁB
-  StrokeWidth �� 1 �����E���W�n�̒����P�ʂ� 100 ���x�Ƃ̂��ƁB
+* ストローク系のフォントサイズは単位がよくわからないので注意。
+  StrokeWidth の 1 が世界座標系の長さ単位の 100 程度とのこと。
 
 Querues and Errors
 ------------------
-* glGet(Boolean|Integer|Float|Double|Pointer) �n�̘b�̓m�[�g�ȗ��B
-* glGetError �� gluErrorString �̓f�o�b�O�̂��߂ɉ����Ă����B
-  ������g�ݍ��킹�ăG���[��m��B
-* GLUT �̏�Ԃ� glutGet �œ���B
+* glGet(Boolean|Integer|Float|Double|Pointer) 系の話はノート省略。
+* glGetError と gluErrorString はデバッグのために憶えておく。
+  これらを組み合わせてエラーを知る。
+* GLUT の状態は glutGet で得る。
 
 Saving the State
 ----------------
-* OpenGL �̓X�e�[�g�}�V�[���Ȃ̂ŁA�v���O�����������Ă���ƁA
-  �e���Ԃ�������ƑO�̎��_�̂��̂ɖ߂��������Ȃ�󋵂ɂȂ邱�Ƃ��悭����B
+* OpenGL はステートマシーンなので、プログラムを書いていると、
+  各種状態をちょっと前の時点のものに戻したいくなる状況になることがよくある。
 
-* �s��́i�����Ƃ����Ӗ��ł́j��ԂɊւ��ẮAglPushMatrix, glPopMatrix �����p�ł���B
-  �e�s�񃂁[�h�ɑ΂��āA�s��X�^�b�N�����݂���B
-  one pop for each one push ���[�����̂ɖ����邱�ƁB
+* 行列の（成分という意味での）状態に関しては、glPushMatrix, glPopMatrix が利用できる。
+  各行列モードに対して、行列スタックが存在する。
+  one pop for each one push ルールを肝に銘じること。
 
-* �e�푮���Ɋւ��Ă� glPushAttrib, glPopAttrib �𗘗p�ł���B
-  �S������Ԃ���C�� push ���邱�Ƃ��\�����A
-  �ʏ�͕K�v�Ȃ��̂����� push ����̂��낤�B
-  �������r�b�g�}�X�N�Ȃ̂ŁA�K�؂Ȓl���w�����邱�ƂɊ����K�v������B
+* 各種属性に関しては glPushAttrib, glPopAttrib を利用できる。
+  全属性状態を一気に push することも可能だが、
+  通常は必要なものだけを push するのだろう。
+  引数がビットマスクなので、適切な値を指示することに慣れる必要がある。
 
 Interaction and Animation
 =========================
@@ -351,14 +351,14 @@ The Reshape Callback
 
 * glutReshapeFunc(f)
   
-  :f: void (*)(int width, int height) �^�̊֐��̃A�h���X�B
+  :f: void (*)(int width, int height) 型の関数のアドレス。
       <A display callback is invoked automatically after executing f().> (p. 49)
 
 * The reshape callback is invoked when a window is first created (p. 49)
-* Reshape callback �Ńv���O���}�[���������Ƃ́A�r���[�|�[�g�̃��Z�b�g��
-  �N���b�s���O�E�B���h�E�̃��Z�b�g�̓�_���B
-* gluOrtho2D �� bottom, top �̒l���E�B���h�E�̃T�C�Y�Ɉˑ�����悤�Ɍ��߂�B
-  ���ƍ����̒Z�����𕪕�ɂ����A�X�y�N�g��B
+* Reshape callback でプログラマーが書くことは、ビューポートのリセットと
+  クリッピングウィンドウのリセットの二点だ。
+* gluOrtho2D の bottom, top の値をウィンドウのサイズに依存するように決める。
+  幅と高さの短い方を分母にしたアスペクト比。
 
 The Idle Callback
 -----------------
@@ -368,32 +368,32 @@ The Idle Callback
 
 * glutIdleFunc(f)
 
-  :f: void (*)() �^�̊֐��̃A�h���X��n���B
+  :f: void (*)() 型の関数のアドレスを渡す。
 
 * Use of glutPostRedisplay() ensures the window gets drawn at most once
   each time that GLUT goes through the event loop.  In general, it is a 
   good idea to never call the display callback directly but rather to use
   the glutPostRedisplay() whenever the display needs to be redrawn. (p. 52)
 
-* glutPostRedisplay() - ���݂̃R�[���o�b�N�����^�[��������Ƀf�B�X�v���C�R�[���o�b�N��
-  ���s�����悤�ɂ��肢����֐��B
+* glutPostRedisplay() - 現在のコールバックがリターンした後にディスプレイコールバックが
+  実行されるようにお願いする関数。
 
 A Rotating Square
 -----------------
-�����ł͎O�p�֐��𗘗p���ĉ~�ɓ��ڂ��鐳���`����]����A�j���[�V�������������Ă���B
+ここでは三角関数を利用して円に内接する正方形を回転するアニメーションを実装している。
 
 Double Buffering
 ----------------
 * This refresh process is not controllable from the user program (p. 54)
-* �_�u���o�b�t�@�͓�� color buffers ���g���Ƃ����̂��~�\�B���ꂼ��
-  **front buffer** �� **back buffer** �ƌĂԁB
+* ダブルバッファは二つの color buffers を使うというのがミソ。それぞれ
+  **front buffer** と **back buffer** と呼ぶ。
 
-  :front buffer: �f�B�X�v���C�n�[�h�E�F�A�ɂ���ăf�B�X�v���C�����o�b�t�@
-  :back buffer: �A�v���P�[�V�������������ސ�̃o�b�t�@
+  :front buffer: ディスプレイハードウェアによってディスプレイされるバッファ
+  :back buffer: アプリケーションが書き込む先のバッファ
 
-* glutSwapBuffers() - front buffer �� back buffer �����ւ���B
-* �����̂��Ō�ɂȂ������A�_�u���o�b�t�@��L���ɂ���ɂ� glutInitDisplayMode ��
-  �w�肷��B
+* glutSwapBuffers() - front buffer と back buffer を入れ替える。
+* 書くのが最後になったが、ダブルバッファを有効にするには glutInitDisplayMode で
+  指定する。
   ::
 
     glutInitDisplayMode(GLUT_DOUBLE | ...);
@@ -403,18 +403,18 @@ Using the Keyboard
 * GLUT ignores releasing of the key (p. 54)
 * glutKeyboardFunc(f)
 
-  :f: void (*)(key, x, y) �^�֐��A�h���X�B�X�N���[�����W�����݂���̂��ʔ����B
+  :f: void (*)(key, x, y) 型関数アドレス。スクリーン座標が存在するのが面白い。
 
-* GLUT �̊֐��Ń}�E�X�ʒu���������̂́A���ׂăE�B���h�E���オ���_�B
-* Esc �L�[�� 8 �i���� 027 �ƂȂ�B16 �i���ł� 0x1B �ƂȂ�B
+* GLUT の関数でマウス位置を扱うものは、すべてウィンドウ左上が原点。
+* Esc キーは 8 進数で 027 となる。16 進数では 0x1B となる。
 
 Special Keys
 ~~~~~~~~~~~~
-* glutSpecialFunc(f) - F1 �L�[�Ƃ����L�[�Ƃ��̃v���X�C�x���g���n���h������B
+* glutSpecialFunc(f) - F1 キーとか↑キーとかのプレスイベントをハンドルする。
 
-  :f: glutKeyboardFunc �̂Ɠ����B
+  :f: glutKeyboardFunc のと同じ。
 
-* glutGetModifiers() - �}�E�X��L�[�������ꂽ�Ƃ��ɁA�ȉ��̃L�[�̏�Ԃ�����B
+* glutGetModifiers() - マウスやキーを押されたときに、以下のキーの状態を見る。
 
   :return: GLUT_ACTIVE_(SHIFT|CTRL|ALT)
 
@@ -427,114 +427,114 @@ Using the Mouse Callback
     :button: GLUT_(LEFT|MIDDLE|RIGHT)_BUTTON
     :state: GLUT_(UP|DOWN)
 
-* x, y �� GLUT �̍��W�n�ł̒l�Ȃ̂ŁA<The most important is the necessity
+* x, y は GLUT の座標系での値なので、<The most important is the necessity
   of inverting the y value returned by the mouse callback.> (p. 58)
-* �f�B�X�v���C�R�[���o�b�N���K�v�̂Ȃ��v���O�����������ꍇ�����邪�A
+* ディスプレイコールバックが必要のないプログラムを書く場合もあるが、
   <As a practical matter, GLUT insists that every program have a display
-  callback.> (p. 59) ���������B���������ꍇ�͋�̎�����^����B
-* ���������ʂ͂���Ȃ��Ƃ͂��Ȃ��B<A more general strategy is to 
+  callback.> (p. 59) だそうだ。そういう場合は空の実装を与える。
+* しかし普通はそんなことはしない。<A more general strategy is to 
   place drawing functions in the display callback and use the other 
   callbacks for state changes.>(p. 59)
-  ���̏�� glutPostRedisplay ������΂悢�B
+  その上で glutPostRedisplay をすればよい。
 
 Mouse Motion
 ------------
-* �}�E�X���[�V�����ɂ� glutMotionFunc �� glutPassiveMotionFunc �̓��ނ̃R�[���o�b�N�����p�ł���B
-* Passive �Ƃ́A�}�E�X�{�^����������Ă��Ȃ���ԂŃ}�E�X�������Ă���C�x���g�̂��Ƃ��B
+* マウスモーションには glutMotionFunc と glutPassiveMotionFunc の二種類のコールバックが利用できる。
+* Passive とは、マウスボタンが押されていない状態でマウスが動いているイベントのことだ。
 * glutMotionFunc(f), glutPassiveMotionFunc(f)
 
-  :f: void (*)(x, y) �^�֐��̃A�h���X
+  :f: void (*)(x, y) 型関数のアドレス
 
-* glutEntryFunc(f): �}�E�X�L���v�`���[�Ɏg���̂��H
+* glutEntryFunc(f): マウスキャプチャーに使うのか？
 
-  :f: void (*)(state) �^�֐��̃A�h���X
+  :f: void (*)(state) 型関数のアドレス
   
     :state: GLUT_(ENTERED|LEFT)
 
 The NULL Callback
 -----------------
-glutXXXFunc �Ƀk����n���ƁA�R�[���o�b�N���폜�ł���B
+glutXXXFunc にヌルを渡すと、コールバックを削除できる。
 
 Subwindows and Multiple Windows
 -------------------------------
-* �R���e�L�X�g�̊T�O�͏d�v�B
+* コンテキストの概念は重要。
 * Each window can have its own properties, referred to as its context. (p. 64)
 
 Display Lists
 -------------
-* �f�B�X�v���C���X�g���t�@�C���ɗႦ�Đ������Ă���B
+* ディスプレイリストをファイルに例えて説明している。
   <Display lists can be thought of as a type of graphics file in which we can
   place OpenGL rendering and state update commands.  We open a display list,
   give it a name, place commands in it, and close it.> (p. 67)
-* �f�B�X�v���C���X�g���`����Ƃ��́A�e���Ԃ� push/pop ���d�v���B
+* ディスプレイリストを定義するときは、各種状態の push/pop が重要だ。
   <Note that we push and pop the current attributes, which include the present
   color.  We must do this action to prevent the state change due to setting
   a new color from affecting anything that we do subsequently.  Often we can
   prevent unforeseen side effects of state changes by starting a display
   list by pushing the matrices and the state at the beginning of the display
   last popping them at the end.> (p. 68)
-  �㑱�̃f�B�X�v���C���X�g�ɗ]�v�ȏ�Ԃ��c���ʂ悤�ɁA���X�g���`����B
+  後続のディスプレイリストに余計な状態を残さぬように、リストを定義する。
 
-* glNewList(name, mode): �f�B�X�v���C���X�g�̒�`���J�n����B
+* glNewList(name, mode): ディスプレイリストの定義を開始する。
 
-  :name: �f�B�X�v���C���X�g�̖��O�B
-         �ʏ�A���߂ŏЉ��Ă��� glGenLists �̖߂�l���w�肷��B
-  :mode: GL_COMPILE �� GL_COMPILE_AND_EXECUTE
+  :name: ディスプレイリストの名前。
+         通常、次節で紹介されている glGenLists の戻り値を指定する。
+  :mode: GL_COMPILE か GL_COMPILE_AND_EXECUTE
 
-* glEndList(): �f�B�X�v���C���X�g�̒�`���I������B
-* glCallList(name): �f�B�X�v���C���X�g�����s����B
-* glGet ���́u��Ԃ�Ԃ������̊֐��v���f�B�X�v���C���X�g��`���ɌĂԂ��Ƃ͂ł��Ȃ��B
-* �f�B�X�v���C���X�g���K�w�I�� glCallList ���邱�Ƃ��ł���B
-* �f�B�X�v���C���X�g�́A��x�쐬������ύX�ł��Ȃ��B
-* glDeleteLists(first, number): �f�B�X�v���C���X�g���폜����B
+* glEndList(): ディスプレイリストの定義を終了する。
+* glCallList(name): ディスプレイリストを実行する。
+* glGet 等の「状態を返すだけの関数」をディスプレイリスト定義中に呼ぶことはできない。
+* ディスプレイリストを階層的に glCallList することができる。
+* ディスプレイリストは、一度作成したら変更できない。
+* glDeleteLists(first, number): ディスプレイリストを削除する。
 
-  ���O�� first �̃��X�g����Anumber �ڂ܂ł̃��X�g���폜����B
+  名前が first のリストから、number 個目までのリストを削除する。
 
 Multiple Display Lists
 ~~~~~~~~~~~~~~~~~~~~~~
-* glListBase(offset) - glCallList �̎������ɃQ�^���͂�����
+* glListBase(offset) - glCallList の実引数にゲタをはかせる
 * glCallLists(num, type, list)
 
-  :num: list �̌�
-  :type: list �̌^
-  :list: �f�B�X�v���C���X�g�̖��O�i�܂萮���l�j�̔z��
+  :num: list の個数
+  :type: list の型
+  :list: ディスプレイリストの名前（つまり整数値）の配列
 
-* glGenLists(n) - �f�B�X�v���C���X�g�V�K�쐬�̂��߂̗L���Ȗ��O�� n ��������B
+* glGenLists(n) - ディスプレイリスト新規作成のための有効な名前を n 個生成する。
 
 Display Lists and Text
 ~~~~~~~~~~~~~~~~~~~~~~
 * To generate a character string on the display, we do one function call per character.
   (p. 69)
-* �S ASCII �����ɂ��ăf�B�X�v���C���X�g���R���p�C������������Љ�Ă���B
-  �f�B�X�v���C���X�g�� ID �𕶎��R�[�h�Ɠ����ɂ��āc�c�Ƃ������@���B
-  ���{��ɉ��p�ł���Ƃ͎v���Ȃ��B
+* 全 ASCII 文字についてディスプレイリストをコンパイルするやり方を紹介している。
+  ディスプレイリストの ID を文字コードと同じにして……という方法だ。
+  日本語に応用できるとは思えない。
 
 Display Lists and Objects
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 * <display lists can give the user a way of building more object-oriented program
-  than in immediate mode.> (p.70) �Ƃ���A�l�Ԃ̊��`���Ǝv����f�B�X�v���C���X�g��
-  ��`����R�[�h���L�ڂ��Ă���BglNewList �� glEndList �̊ԂɁA
-  ��̃p�[�c���`����f�B�X�v���C���X�g�� glCallList ����Ƃ����Ⴞ�B
+  than in immediate mode.> (p.70) とあり、人間の顔を描くと思われるディスプレイリストを
+  定義するコードを記載している。glNewList と glEndList の間に、
+  顔のパーツを定義するディスプレイリストを glCallList するという例だ。
 
 Picking and Selection Mode
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
-* �{���ł̓s�b�N�̒�`���ȉ��̂悤�ɗ^���Ă���B
+* 本書ではピックの定義を以下のように与えている。
   <**Picking** is the operation of locating an object on the screen.> (p.71)
-* �s�b�N�̂��߂ɂ́A�`��v�f�ɂ����̃^�O�t�����s���K�v������B
+* ピックのためには、描画要素にある種のタグ付けを行う必要がある。
   <We could create some sort of tag system that would give labels to
   parts of our program.> (p. 71)
-* **selection mode** �ŕ`����s���ƁA�I�u�W�F�N�g�� color buffer �Ƀ����_�[����Ȃ��B
-* �s�b�N�����̓R�[�h�������̂��ʓ|�B�֌W����֐������ɋ�����悤�ɁA���ɑ����B
+* **selection mode** で描画を行うと、オブジェクトは color buffer にレンダーされない。
+* ピック処理はコードを書くのが面倒。関係する関数が次に挙げるように、妙に多い。
 
-  * glRenderMode(mode) - render mode �̑I��
+  * glRenderMode(mode) - render mode の選択
 
     :mode: GL_(RENDER|SELECTION|FEEDBACK)
 
-  * glSelectBuffer(n, buffer) - �I���f�[�^��u���z������߂�
-  * glInitNames() - name stack �̏�����
-  * glPushName(name) - name stack �� name ��ς�
-  * glPopName() - name stack ���� name ���ЂƂ̂Ă�
-  * glLoadName(name) - name stack �̈�ԏ�̗v�f�� name �Œu��������
+  * glSelectBuffer(n, buffer) - 選択データを置く配列を決める
+  * glInitNames() - name stack の初期化
+  * glPushName(name) - name stack に name を積む
+  * glPopName() - name stack から name をひとつ捨てる
+  * glLoadName(name) - name stack の一番上の要素を name で置き換える
 
 * glRenderMode() returns the number of hits that have been processed. (p. 73)
 * gluPickMatrix(), that should be applied before gluOrtho2D() when we
@@ -544,7 +544,7 @@ Picking and Selection Mode
   have multiple names on the stack for a given hit.  For an object with multiple
   parts, all the parts that were close to the cursor would have their names
   placed in the same stack. (p. 75)
-* �q�b�g���R�[�h�̃o�C�g���C�A�E�g�ɂ��āA�ׂ����������Ă���B
+* ヒットレコードのバイトレイアウトについて、細かく説明している。
   <we find three types of information, all stored as integers.  First, there
   is the number of names on the name stack when there was a hit.  It is followed
   by two integers that give scaled minimum and maximum depths for the hit primitive.
@@ -554,43 +554,43 @@ Basic Three-Dimensional Programming
 ===================================
 Cameras and Objects
 -------------------
-* �����������e�Ƃ͉����B���̂悤�ɐ������Ă���B
+* そもそも投影とは何か。次のように説明している。
   <The process of combining the specifications of objects and camera is
   called **projection**.> (p.77)
 
-* �J�����̎w����@�́A�I�u�W�F�N�g�̂���قǒ����I�ł͂Ȃ��B
-  �J�������g�̈ʒu�ɉ����A�ǂ���������Ă���̂��Ƃ������ƁA
-  ���̌����ɑ΂��Ăǂꂭ�炢��]���������Ă���̂��Ƃ�����񂪕K�v�B
+* カメラの指定方法は、オブジェクトのそれほど直感的ではない。
+  カメラ自身の位置に加え、どちらを向いているのかという情報と、
+  その向きに対してどれくらい回転がかかっているのかという情報が必要。
 
-* ���𓊉e (orthographic projection) �͍ł��P���Ȏ�ނ̓��e���B
+* 直交投影 (orthographic projection) は最も単純な種類の投影だ。
 
-* viewing volume, front/back (or near/far) clipping plane �̊T�O���������邱�ƁB
+* viewing volume, front/back (or near/far) clipping plane の概念をおさえること。
 
-* �s���~�b�h�̊p���J�b�g�����悤�Ȍ`��� frustum �Ƃ����B
+* ピラミッドの角をカットしたような形状を frustum という。
 
 Orthographic Projections in OpenGL
 ----------------------------------
 * The viewing frustum becomes a right parallelpiped -- a rectangular box.
   (p. 80)
 
-* glOrtho(left, right, bottom, top, near, far) - ���_���W�n�ň�����^����B
+* glOrtho(left, right, bottom, top, near, far) - 視点座標系で引数を与える。
 
-  * left < right ���� bottom < top ���� near < far �ł���K�v������B
+  * left < right かつ bottom < top かつ near < far である必要がある。
 
 * Note that gluOrtho2D() is derived from gluOrtho() by setting near
   and far to -1 and +1 respectively. (p.81)
 
 Viewing a Cube
 --------------
-* GLUT �ɂ͍��W���_�Ɏw��T�C�Y�̃L���[�u��`�悷��֗��Ȋ֐�������B
+* GLUT には座標原点に指定サイズのキューブを描画する便利な関数がある。
 
-  * glutWireCube(size) - �e�ӂ̒����� size �̃��C���[�L���[�u��`��
-  * glutSolidCube(size) - �e�ӂ̒����� size �̃\���b�h�L���[�u��`��
+  * glutWireCube(size) - 各辺の長さが size のワイヤーキューブを描く
+  * glutSolidCube(size) - 各辺の長さが size のソリッドキューブを描く
 
 Locating the Camera
 -------------------
-�L���[�u��ʂ̊p�x���猩�����Ƃ���B���̂Ƃ��J�����𓮂������A�L���[�u�𓮂�����
-�悢�̂����A�J�����𓮂������Ƃ��ɒm��B
+キューブを別の角度から見たいとする。このときカメラを動かすか、キューブを動かせば
+よいのだが、カメラを動かすことを先に知る。
 
   We can decide on a position for the camera (called the **eye point**)
   and decide where to aim it to by specifying a point at which it 
@@ -604,11 +604,11 @@ Locating the Camera
 
 * gluLookAt((eye), (at), (up))
 
-  :eye: ���_�̈ʒu (x, y, z)
-  :at: ��������_�̈ʒu (x, y, z)
-  :up: �C���[�W�̏�����`����x�N�g�� (x, y, z)
+  :eye: 視点の位置 (x, y, z)
+  :at: 注視する点の位置 (x, y, z)
+  :up: イメージの上方を定義するベクトル (x, y, z)
 
-* �J�����̐ݒ�R�[�h�͂قڕK���ȉ��̂悤�ɂȂ�B
+* カメラの設定コードはほぼ必ず以下のようになる。
   ::
 
     glMatrixMode(GL_MODELVIEW);
@@ -622,8 +622,8 @@ Building Objects
 
 Using Arrays
 ~~~~~~~~~~~~~
-����܂ł̂������ƁA���_���w�肷��̂͑�ʂ̊֐��Ăяo���𔺂����A
-���_�z���p���邱�ƂŁA�֐��Ăяo���̉񐔂����炷���Ƃ��ł���B
+これまでのやり方だと、頂点を指定するのは大量の関数呼び出しを伴うが、
+頂点配列を用いることで、関数呼び出しの回数を減らすことができる。
 
 Vertex Arrays
 ~~~~~~~~~~~~~
@@ -636,17 +636,17 @@ Vertex Arrays
 
 * glVertexPointer(dim, type, stride, array), glColorPointer(dim, type, stride, array)
 
-  :dim: �f�[�^�̎����� [234]
+  :dim: データの次元数 [234]
   :type: GL_(SHORT|INT|FLOAT|DOUBLE)
-  :stride: array �̒��Ƀf�[�^���ǂ̂悤�ɘA�����ċl�܂��Ă��邩��������
+  :stride: array の中にデータがどのように連続して詰まっているかを示す数
 
 * glDrawElements(mode, n, type, indices)
 
-  :mode: �Ⴆ�� GL_POLYGON �Ƃ�
-  :n: �C���f�b�N�X�̌�
-  :type: indices �̌^�B�Ⴆ�� GL_UNSIGNED_BYTE �Ƃ��B
+  :mode: 例えば GL_POLYGON とか
+  :n: インデックスの個数
+  :type: indices の型。例えば GL_UNSIGNED_BYTE とか。
 
-* �R�[�h��
+* コード例
   ::
 
     GLfloat vertices[][3] = {...};
@@ -657,7 +657,7 @@ Vertex Arrays
         ...
         };
 
-  �Ƃ���ƁA�Ƃ肠�����͈ȉ��̂悤�ɖʂ�`��ł���B
+  とすると、とりあえずは以下のように面を描画できる。
   ::
 
     glEnableClientState(GL_COLOR_ARRAY);
@@ -668,23 +668,23 @@ Vertex Arrays
         glDrawElements(GL_POLYGON, 4, GL_UNSIGNED_BYTE, cubeIndices);
     }
 
-  ���[�v�͂���ɃV���v���ɂł���B
+  ループはさらにシンプルにできる。
   ::
 
     glDrawElements(GL_QUADS, 24, GL_UNSIGNED_BYTE, cubeIndices);
 
 Hidden-Surface Removal
 ----------------------
-* �ώ@�҂���͊p�x�I�Ɍ����Ȃ��ʂ�`�悵�Ȃ���@���w���B
-* �Ⴆ��
+* 観察者からは角度的に見えない面を描画しない手法を指す。
+* 例えば
   ::
 
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
 
-  ���l�����邪�A���̕��@�͐�q�̂悤�� convex objects �ɑ΂��Ă̂ݓ����B
+  が考えられるが、この方法は先述のように convex objects に対してのみ働く。
 
-* �I�u�W�F�N�g�̉��s�����Ǘ�����o�b�t�@�� z-buffer or depth buffer �Ƃ����B
+* オブジェクトの奥行きを管理するバッファを z-buffer or depth buffer という。
 * In most programs, the depth buffer should be cleared whenever
   the color buffer is cleared. (p. 91)
   ::
@@ -695,19 +695,19 @@ Hidden-Surface Removal
 
 GLU and GLUT Objects
 --------------------
-* �悭���p�����􉽌`��̕`��́AGLU �� GLUT ���񋟂��Ă���B
-* �~�����Ƃ������Ƃ������邪�A��{�I�ɂ͑��p�`�ߎ��ł���B
+* よく利用される幾何形状の描画は、GLU や GLUT が提供している。
+* 円柱だとか球だとかもあるが、基本的には多角形近似である。
 
 GLUT Quadrics
 ~~~~~~~~~~~~~
 * GLUT provides three types of quadrics: spheres, cylinders, and disks.
   (p. 92)
 
-* gluNewQuadric() - �񎟋ȖʃI�u�W�F�N�g�𐶐����āA���̃|�C���^�[��Ԃ��B
-* gluDeleteQuadric(obj) - �񎟋ȖʃI�u�W�F�N�g���폜����B
+* gluNewQuadric() - 二次曲面オブジェクトを生成して、そのポインターを返す。
+* gluDeleteQuadric(obj) - 二次曲面オブジェクトを削除する。
 
-* Quadric objects �͎l��ނ̃����_�[�l��������B
-  �_�A���A�h��Ԃ��͂����ʂ肾���A�V���G�b�g�Ƃ������̂�����B
+* Quadric objects は四種類のレンダー様式がある。
+  点、線、塗りつぶしはいつも通りだが、シルエットというものがある。
 
   * gluQuadricDrawStyle(obj, style)
 
@@ -721,8 +721,8 @@ GLUT Quadrics
 
     :mode: GL_(TRUE|FALSE)
 
-* �ǂ� GLU �񎟋Ȗʂ������I�ɂ͑��p�`�ߎ��ŕ`���̂����A
-  ���̑��p�`�̓_�̑����̂悤�Ȃ��̂������Ɏw������K�v������B
+* どの GLU 二次曲面も内部的には多角形近似で描くのだが、
+  その多角形の点の多さのようなものを引数に指示する必要がある。
 
   * gluSphare(obj, radius, slices, stacks)
 
@@ -731,35 +731,35 @@ GLUT Quadrics
 
   * gluCylinder(obj, base, top, height, slices, stacks)
 
-    * ���O�͉~�������A��ʂƒ�ʂŔ��a��ʁX�Ɏw���ł���B
+    * 名前は円柱だが、上面と底面で半径を別々に指示できる。
 
   * gluDisk(obj, inner, outer, slices, rings)
 
-    * �����ʂ�~�ՁB�����Ɍ����J���Ă���B
+    * 文字通り円盤。中央に穴が開いている。
 
   * gluPartialDisk(obj, inner, outer, slices, rings, start, angle)
 
-    * ��`�~�ՁB
+    * 扇形円盤。
     * Partial disks are disks with a wedge removed. (p. 94)
 
 GLUT Objects
 ~~~~~~~~~~~~
-* ���A�~���A�g�[���X�A�����ʑ́A�ʂĂ̓e�B�[�|�b�g�܂Œ񋟂��Ă���B
-* �񎟋Ȗʌn�͑��p�`�ߎ��̂��߂̈����w�肪�K�v�B�ʓ|�������ȁB
+* 球、円錐、トーラス、正多面体、果てはティーポットまで提供している。
+* 二次曲面系は多角形近似のための引数指定が必要。面倒そうだな。
 
   * glutWireSphere(radius, slices, stacks), glutSolidSphere(radius, slices, stacks)
   * glutWireCone(base, height, slices), glutSolidCone(base, height, slices)
   * glutWireTorus(inner, outer, sides, slices), glutSolidTorus(inner, outer, sides, slices)
 
-* �����ʑ� (regular polyhedral) �����ׂăT�|�[�g�B�L���[�u�ȊO����ɋ������Ă���B
-  ���a 1 �̋��ɓ��ڂ���T�C�Y�Œ�`����Ă���B
+* 正多面体 (regular polyhedral) をすべてサポート。キューブ以外を特に強調している。
+  半径 1 の球に内接するサイズで定義されている。
 
   * glutWireTetrahedron(), glutSolidTetrahedron()
   * glutWireOctahedron(), glutSolidOctahedron()
   * glutWireDodecahedron(), glutSolidDodecahedron()
   * glutWireIcosahedron(), glutSolidIcosahedron()
 
-* ���M���ׂ��͉��ƌ����Ă��e�B�[�|�b�g���B
+* 特筆すべきは何と言ってもティーポットだ。
   <The Utah teapot is generated using OpenGL surface.  The teapot
   has been used for many years for testing rendering algorithms.
   It is constructed from 192 vertices.  The teapot is generated
@@ -767,23 +767,23 @@ GLUT Objects
 
   * glutWireTeapot(size), glutSolidTeapot(size)
 
-    �e�B�[�|�b�g�� size �̑傫���ŕ`���B
+    ティーポットを size の大きさで描く。
 
 Perspective Projections
 -----------------------
-* �����}�@���e���������邽�߂̍s�񑀍���K������B
+* 透視図法投影を実現するための行列操作を習得する。
 * glFrustum(left, right, bottom, top, near, far)
   
-  * �������X�g�� glOrtho �Ɠ����B
-  * far > near > 0 �ɒ��ӁB
-  * �قڕK���ȉ��̎菇�ŗ��p����B
+  * 引数リストは glOrtho と同じ。
+  * far > near > 0 に注意。
+  * ほぼ必ず以下の手順で利用する。
     ::
 
       glMatrixMode(GL_PROJECTION);
       glLoadIdentity();
       glFrustum(left, right, bottom, top, near, far);
 
-* glFrustum �� gluPerspective �̎g���₷���̈Ⴂ�������Ă����B
+* glFrustum と gluPerspective の使いやすさの違いを憶えておく。
   <the interface provided by glFrustum() can make it difficult
   to obtain a desired view.> (p. 98)
 
@@ -792,14 +792,14 @@ Perspective Projections
 
 * gluPerspective(fov, aspect, near, far)
 
-  :fov: �p����̏㉺�Ԃ̊p�x�B
+  :fov: 角錐台の上下間の角度。
   :aspect: width / height
 
 * One potential problem with perspective views is loss of
   accuracy in depth, which can be noticeable in the display.
   (p. 100)
 
-* near plane ���J�����ɋ߂Â��߂��ʎ��B
+* near plane をカメラに近づけ過ぎぬ事。
   <The problem is worst when the near plane is very close to
   the center of projection> (p. 100)
 
@@ -808,58 +808,58 @@ Perspective Projections
 
 Programming Exercises
 ----------------------
-* �������͂ő��p�`�ߎ��ŕ`�悷��Ƃ��̃R�c�́A
+* 球を自力で多角形近似で描画するときのコツは、
   <Use quad strips except for triangle fans at the poles.> (p. 100)
-  ���������B
+  だそうだ。
 
 Transformations
 ===============
-������K�����Ă����Ȃ��ƁAgeometric objects �̑���A�V�[����
-�A�j���[�V������A�_���ʂ�̃r���[�𓾂邱�Ƃ��ł��Ȃ��B
+これを習得しておかないと、geometric objects の操作、シーンの
+アニメーションや、狙い通りのビューを得ることができない。
 
 Line-Preserving Transformation
 ------------------------------
-* ���̏͂̕��͂ł́Atransformation �́u�ʑ��v�̈Ӗ��ŗp�����Ă���B
+* この章の文章では、transformation は「写像」の意味で用いられている。
   <**Transformations** map vertices and vectors to other vertices and 
   vectors.> (p. 101)
 * rotations and translations are known as **rigid-body transformations** (p. 101)
-  ��������΁u�T�C�Y�̕ς��Ȃ��v�ϊ��B
-* ��X�������̂���ʑ��͓_�E�x�N�g����_�E�x�N�g���Ɏʂ����̂ł��邱�Ƃ͓��R�Ȃ���A
-  ����ɒ����𒼐��Ɏʂ����̂��B�Ƃ͂����A
+  換言すれば「サイズの変わらない」変換。
+* 我々が興味のある写像は点・ベクトルを点・ベクトルに写すものであることは当然ながら、
+  さらに直線を直線に写すものだ。とはいえ、
   <If we restrict ourselves to transformations that preserve line segments,
   then we need only transform the endpoints--two vertices--of each line
   segment.> (p. 102)
-  �Ȃ̂ŁA���Ǔ_�̎ʑ��݂̂ɍi���čl����΂悢�B
+  なので、結局点の写像のみに絞って考えればよい。
 
-* **affine transformations** �̃|�C���g
-  1. translation, rotation, scaling �͂��̈��ł���
-  2. ���s�Ȓ����Q�𕽍s�Ȓ����Q�֎ʂ�
-  3. �t�����̕ϊ������݂���
+* **affine transformations** のポイント
+  1. translation, rotation, scaling はその一種である
+  2. 平行な直線群を平行な直線群へ写す
+  3. 逆方向の変換が存在する
 
-* **projection transformations** �͒ʏ�t�ϊ��͍l�����Ȃ��B
-  �Ȃ��Ȃ�A�񎟌��ɓ��e���ꂽ�C���[�W����A���̎O�����̃C���[�W�������ł��Ȃ����炾�B
+* **projection transformations** は通常逆変換は考えられない。
+  なぜなら、二次元に投影されたイメージから、元の三次元のイメージが復元できないからだ。
 
 Homogeneous Coordinates
 -----------------------
-�������W�̍l������ OpenGL �̃����_�����O���@�_�̊j�ƌ�����悤���B
+同次座標の考え方は OpenGL のレンダリング方法論の核と言えるようだ。
 
-* ���ׂĂ̓_�� 4 �̍��W���� (x, y, z, w) �̑g�̌`�ŕ\������Ă���B
-* �O�����̓_�� (x, y, z, 1) �Ƃ��ē����I�ɕ\������Ă���B
-* �񎟌��̓_�� (x, y, 0, 1) �Ƃ��ē����I�ɕ\������Ă���B
-* ��ʂɓ_�� (x, y, z, w) �Ƃ��ĕ\������邪�Aw ���[���łȂ�����A
-  �O�����̓_ (x/w, y/w, z/w) �Ƃ��Č�����B
-* �O�����̃x�N�g���� (x, y, z, 0) �Ƃ��ē����I�ɕ\������Ă���B
-  ����͖������_�Ɠ������B
-* ���ׂĂ� transformations �͓_�E�x�N�g���̓������W�\���ɍ�p����
-  4 x 4 �s��ƂȂ�B
+* すべての点は 4 つの座標成分 (x, y, z, w) の組の形で表現されている。
+* 三次元の点は (x, y, z, 1) として内部的に表現されている。
+* 二次元の点は (x, y, 0, 1) として内部的に表現されている。
+* 一般に点は (x, y, z, w) として表現されるが、w がゼロでない限り、
+  三次元の点 (x/w, y/w, z/w) として見える。
+* 三次元のベクトルは (x, y, z, 0) として内部的に表現されている。
+  これは無限遠点と等価だ。
+* すべての transformations は点・ベクトルの同次座標表現に作用する
+  4 x 4 行列となる。
 
 Translation
 -----------
 * Because the camera in OpenGL is also at the origin, we want to move
   the object away from the camera, or equivalently move the camera
   away from the object. (p. 103)
-* translation �Ƃ́A�I�u�W�F�N�g�ɕψ� (**displacement**) �������鑀�삾�B
-* translation �̋����͉E����W�n�ɂ��B
+* translation とは、オブジェクトに変位 (**displacement**) を加える操作だ。
+* translation の距離は右手座標系による。
 
 Concatenating Translations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -870,8 +870,8 @@ Concatenating Translations
 
 Rotation
 --------
-* ��]�ϊ��ɂ͉�]�̉e�����󂯂Ȃ��_������B����� **fixed point** �ƌĂԁB
-* ��]�̌����ɂ��ẮA�����ł��u�����v��肪���v�̃��[��������B
+* 回転変換には回転の影響を受けない点がある。これを **fixed point** と呼ぶ。
+* 回転の向きについては、ここでも「反時計回りが正」のルールがある。
 
   The desired amount of rotation about this axis is measured in a 
   counterclockwise direction looking from the positive direction 
@@ -879,8 +879,8 @@ Rotation
 
 Concatenation: Rotation with Arbitrary Fixed Point
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* �C�ӂ̓_�� fixed point �Ƃ��ĉ�]�ϊ��𐶂����������Ƃ���B
-  ���̂Ƃ��́AglTranslate �� glRotate ��g�ݍ��킹�Ď�������B
+* 任意の点を fixed point として回転変換を生じさせたいとする。
+  このときは、glTranslate と glRotate を組み合わせて実現する。
   ::
 
     glMatrixMode(GL_MODELVIEW);
@@ -889,11 +889,11 @@ Concatenation: Rotation with Arbitrary Fixed Point
     glRotatef(angle, dx, dy, dz);
     glTranslatef(-x, -y, -z);
 
-  * *the last transformation specified is the first applied* ���[���B
-    OpenGL �̍s���Z�� postmultiplication �ł��邱�Ƃ���������B
+  * *the last transformation specified is the first applied* ルール。
+    OpenGL の行列乗算は postmultiplication であることをおさえる。
 
-* �f�B�X�v���C���X�g�ɕϊ��s��̑��삪�܂܂�Ă���ꍇ�́A
-  ���X�g�̒�`�I���܂łɍs��̏�Ԃ��`�J�n�O�̂���ɕ�������̂��̗v�B
+* ディスプレイリストに変換行列の操作が含まれている場合は、
+  リストの定義終了までに行列の状態を定義開始前のそれに復元するのが肝要。
   <Any primitives that are in display lists that do not change the
   current matrices are affected by the same model-view matrix.
   Conversely, if any matrices are changed in a display list, these
@@ -901,7 +901,7 @@ Concatenation: Rotation with Arbitrary Fixed Point
 
 Scaling
 -------
-* �����ł� fixed point �̍l�������L�����B
+* ここでも fixed point の考え方が有効だ。
 
   * We also note that scaling has a fixed point that is unchanged by the
     scaling. (p. 107)
@@ -910,12 +910,12 @@ Scaling
 
 Setting Matrices Directly
 -------------------------
-* OpenGL �̍s��� 4 x 4 �����s��ŁA���������C�A�E�g�Ƃ��Ă� column order ���B
+* OpenGL の行列は 4 x 4 正方行列で、メモリレイアウトとしては column order だ。
 
-  * glLoadMatrix(m) - �s�񐬕��𒼐ڔz��̌`�Ŏw������
-  * glMultMatrix(m) - current matrix �ɑ΂��� m ���E���炩����
+  * glLoadMatrix(m) - 行列成分を直接配列の形で指示する
+  * glMultMatrix(m) - current matrix に対して m を右からかける
 
-* shear �ϊ�����������ɂ́A���̒��ڍs��w���łȂ���΂Ȃ�Ȃ��B
+* shear 変換を実現するには、この直接行列指示でなければならない。
   ::
 
     M = 1  cot(theta)  0  0
@@ -923,7 +923,7 @@ Setting Matrices Directly
         0           0  1  0
         0           0  0  1
 
-* **oblique projection** ���������邱�Ƃ��ł���B
+* **oblique projection** を実現することもできる。
   ::
 
     glMatrixMode(GL_PROJECTION);
@@ -931,7 +931,7 @@ Setting Matrices Directly
     glOrtho(left, right, bottom, top, near, far);
     glMultMatrixf(M);
 
-* �e�̌v�Z�Ȃǂ��ʔ����B������ (x, y, z) �Ƃ��āAz ���ʂɉe��t����ϊ���
+* 影の計算なども面白い。光源を (x, y, z) として、z 平面に影を付ける変換は
   ::
 
     M = 1     0  0  0
@@ -939,7 +939,7 @@ Setting Matrices Directly
         0     0  1  0
         0  -1/y  0  0
 
-  �ŗ^������B�R�[�h�͑�̎��̂悤�ȍ\���ɂȂ�B
+  で与えられる。コードは大体次のような構造になる。
   ::
 
     glMatrixMode(GL_MODELVIEW);
@@ -957,7 +957,7 @@ Setting Matrices Directly
 
 Transformations and Coordinate Systems
 --------------------------------------
-�F�X�ȍ��W�i�n�j���o�Ă����̂ŁA������Ɛ�������B
+色々な座標（系）が出てきたので、ちょっと整理する。
 
 * **world coordinates**
 * **camera (or eye) coordinates**
@@ -971,7 +971,7 @@ Instancing
 ~~~~~~~~~~
 * The matrix that brings the object into the model with the
   desired size, orientation, and position is called the
-  **instance transformation**. (p. 114) ���������Ƃ̂Ȃ��p�ꂾ�B
+  **instance transformation**. (p. 114) 聞いたことのない用語だ。
 * The GLU cylinder was aligned with the z axis and has its base
   in the plane z = 0.  With such a starting point, we almost
   always want to scale the object to its desired size, then
@@ -985,13 +985,13 @@ Instancing
     glRotatef(theta, dx, dy, dz);
     glScalef(sx, sy, sz);
 
-  ���͂ɕ\���ϊ������ƁAOpenGL �R�[�h�Ɍ����֐��R�[�������t�ł��邱�Ƃ��������Ă����B
+  文章に表れる変換順序と、OpenGL コードに現れる関数コール順が逆であることをおさえておく。
 
 Hierarchical Models
 ~~~~~~~~~~~~~~~~~~~
-* �l�̃��f����؍\���̃f�[�^�Ƃ��ĕ\������b��B
-  �؂̃��[�g���� transform ��K�p���Ă����e�N�j�b�N���Љ�Ă���B
-  �����ł͓��̂����[�g�Ƃ��Ă���B
+* 人体モデルを木構造のデータとして表現する話題。
+  木のルートから transform を適用していくテクニックを紹介している。
+  ここでは胴体をルートとしている。
 * we can observe that each transformation actually represents
   a *relative* change from one scaling, position, and orientation
   to another. (p. 116)
@@ -1004,12 +1004,12 @@ Lights and Matrials
 
 Light-Material Interatctions
 ----------------------------
-�F�̐���
+色の説明
   The colors that we see in the real world are based on the 
   interaction between light coming from light sources and
   the materials of which the objects are made. (p. 123)
 
-�e�̐���
+影の説明
   These shadows are determined by light-material interactions.
   (p. 123)
 
@@ -1024,14 +1024,14 @@ Light-Material Interatctions
 
 The Phong Model
 ---------------
-* OpenGL �ł� modifed Phong ���f�����V�F�[�f�B���O�v�Z�ɍ̗p���Ă���B
-* ����Ȗʂ��V�F�[�f�B���O�������Ƃ���B���̂Ƃ��A�Ȗʏ�̓_ P ��
-  �΂��āA���̎l�̃x�N�g���𓱓�����B
+* OpenGL では modifed Phong モデルをシェーディング計算に採用している。
+* ある曲面をシェーディングしたいとする。このとき、曲面上の点 P に
+  対して、次の四つのベクトルを導入する。
 
   :L: The direction to the light source from P.
   :V: The viewer is located in the direction V from P.
   :N: The normal vector at P.  
-      �Ǐ��I�ȋȖʂ̌����Ƃ����������B
+      局所的な曲面の向きという捉え方。
   :R: perfect reflector; 
       If the surface is highly refective, it will act like a 
       mirror and most of the light will go off in the direction of
@@ -1039,8 +1039,8 @@ The Phong Model
 
       The vector R can be computed from N and L. (p. 125)
 
-* Phong ���f���� P �̃V�F�[�f�B���O�ɂ́A�ȉ��̎l��ނ̂��̂�
-  ��^ (contributions) ���Ă���ƍl����F
+* Phong モデルは P のシェーディングには、以下の四種類のものが
+  寄与 (contributions) していると考える：
 
   * **diffuse reflections**
   * **specular reflections**
@@ -1049,75 +1049,75 @@ The Phong Model
 
 Diffuse Reflection
 ~~~~~~~~~~~~~~~~~~
-* �ȖʂɏƂ������́A�ꕔ�͍ގ��ɂ��z������A�ꕔ�͎U������B
-  ���̎U���͓������ɔ�������̂ŁAdiffuse �̌v�Z�� V �Ɉˑ����Ȃ��B
+* 曲面に照りつける光は、一部は材質により吸収され、一部は散乱する。
+  この散乱は等方向に発生するので、diffuse の計算は V に依存しない。
 * Diffuse surfaces tend to look dull like plastic. (p. 125)
 
 Specular Reflection
 ~~~~~~~~~~~~~~~~~~~
-* specular = ���̂悤�ɔ��˂���B
+* specular = 鏡のように反射する。
 * a specular surface is smooth and the reflected light is
   concentrated along the direction R (p. 126)
 * The Phong model characterizes this concentration with
   a **shininess coefficient**. (p. 126)
-* ����̂���ގ��� specular �ȋȖʂȂ̂��B
+* 光沢のある材質が specular な曲面なのだ。
   <Specular surfaces include polished materials, such as metals.>
   (p. 126)
-* OpenGL �ł� R �� L + V �ő�p���Čv�Z�ɗp����B
+* OpenGL では R を L + V で代用して計算に用いる。
 
 Ambient Reflection
 ~~~~~~~~~~~~~~~~~~
-* �����˂Ɋւ��ẮA���ꂾ�������Ă����΂������B
+* 環境反射に関しては、これだけ憶えておけばいいか。
   <the light that we see does not depend on any of the four vectors,
   only on the incoming light and the fraction that is reflected.>
   (p. 126)
 
 Emission
 ~~~~~~~~
-* ���̂���������P�[�X���T�|�[�g�B
+* 物体が発光するケースもサポート。
   <we can add on an emissive term that is not affected by
   incoming light and can help model visible light sources
   or glowing objects.> (p.126)
 
 OpenGL Lighting
 ---------------
-* OpenGL �͎O��ނ̌��������邱�Ƃ���������B
+* OpenGL は三種類の光源があることをおさえる。
   <In OpenGL, we can have point sources, spotlights, and ambient sources.>
   (p. 127)
-* �����͍ގ��Ƌ��ʂ��邠�鐫����L���Ă���B
+* 光源は材質と共通するある性質を有している。
   <For each source there are separate diffuse, specular, and ambient
   RGB parameters.> (p. 127)
-* �������I���ɂ��邱�Ƃ�Y��Ȃ����ƁB
+* 光源をオンにすることを忘れないこと。
   <Enabling lighting asks OpenGL to do the shading calculations.> (p 127)
-* ��U�J���[�̂��Ƃ�Y��悤�B
+* 一旦カラーのことを忘れよう。
   <Once lighting is enabled, colors assigned by glColor*() are no longer used.>
   (p. 127)
-* �ƌ������ł́A�@���x�N�g���̎��������I�ɏd�v�ƂȂ�B
+* 照光処理では、法線ベクトルの質が死活的に重要となる。
   <the user generally must supply the normal vectors through glNormal*().>
   (p. 127)
 * glNormal3(dx, dy, dz)
 
-  :dx, dy, dz: �@���x�N�g���̊e�����B
+  :dx, dy, dz: 法線ベクトルの各成分。
 
 Specifying Light Sources
 ------------------------
-* glLight �Ɋւ�������Ɏ����������Ă��邪�A�|�C���g�͑O�����ɏW���B
+* glLight に関する説明に紙幅を割いているが、ポイントは前半部に集中。
 * The defaults are slightly different for light 0 and all the other sources.
   (p. 128)
-* ���C�g 0 �͔��F�Ȃ̂����A���̑��͍��ƂȂ��Ă���B
+* ライト 0 は白色なのだが、その他は黒となっている。
   <The default value of the position is (0.0, 0.0, 1.0, 0.0).  This value is 
   in eye coordinates, so it is  behind the default camera> (p. 128)
-* z ���̐��̕����ɖ����̋����������ꂽ�Ƃ��낪�����l�B
+* z 軸の正の方向に無限の距離だけ離れたところが初期値。
   <w component indicates that the source is at infinity because w = 0
   indicates it is the representation of direction rather than of a point.>
   (p. 128)
-* �X�|�b�g���C�g�̃J�b�g�I�t�p�̏����l�� 180 �x���B
-* ���̌������w�肷��p�����[�^ (GL_xxx_ATTENUATION) �����邪�A
-  �f�t�H���g�������Ȃ��ł��邱�Ƃ������Ă����΁A���͂����B
+* スポットライトのカットオフ角の初期値は 180 度だ。
+* 光の減衰を指定するパラメータ (GL_xxx_ATTENUATION) があるが、
+  デフォルトが減衰なしであることを憶えておけば、今はいい。
 
 Light Sources and Transformations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* glLight �Ŏw�肷������̈ʒu�ƌ����́A���f���r���[�ϊ��̉e�����󂯂�B
+* glLight で指定する光源の位置と向きは、モデルビュー変換の影響を受ける。
 
 Specifying a Material
 ~~~~~~~~~~~~~~~~~~~~~
@@ -1126,30 +1126,30 @@ Specifying a Material
 * glMaterial(face, name, value)
 
   :face: GL_FRONT, GL_BACK, GL_FRONT_AND_BACK
-  :name: GL_AMBIENT ��
+  :name: GL_AMBIENT 等
 
   Often the ambient and diffuce properties are the same and can be
   set together using GL_AMBIENT_AND_DIFFUSE. (p. 132)
 
-* �ގ��̃A���t�@�l�́A���̍ގ��̓��������V�~�����[�g����p�r�Ŏg�����Ƃ��ł���B
-* �]�͂�����΁A�ގ��̃f�t�H���g�l�������Ă����B
-* GL_SHININESS �ɂ��ẮA
+* 材質のアルファ値は、その材質の透明感をシミュレートする用途で使うことができる。
+* 余力があれば、材質のデフォルト値を憶えておく。
+* GL_SHININESS については、
   <The higher the value of this parameter, the shinier the material appears
   as the specular highlights are concentrated in a small area near the
   angle of a perfect reflection.> (p. 132) 
-  �Ƃ̂��ƁB
+  とのこと。
 
 Shading the Rotating Cube
 -------------------------
-* �����̃R�[�h�̃|�C���g�͈ȉ��̒ʂ�B
+* ここのコードのポイントは以下の通り。
 
-  * �ƌ�������L���ɂ��āA���p���������L���ɂ���B
+  * 照光処理を有効にして、利用する光源を有効にする。
     ::
 
       glEnable(GL_LIGHTING);
       glEnable(GL_LIGHT0);
 
-  * ���݂̍ގ���ݒ肷��B���̗�ł͑O�ʂ����Ɏw�肵�Ă���B
+  * 現在の材質を設定する。この例では前面だけに指定している。
     ::
 
       glMaterialfv(GL_FRONT, GL_AMBIENT, currentMaterials->ambient);
@@ -1157,7 +1157,7 @@ Shading the Rotating Cube
       glMaterialfv(GL_FRONT, GL_SPECULAR, currentMaterials->specular);
       glMaterialf(GL_FRONT, GL_SHININESS, currentMaterials->shininess);
 
-  * �����̓�����ݒ肷��B
+  * 光源の特徴を設定する。
     ::
 
       glLightfv(GL_LIGHT0, GL_AMBIENT, currentLighting->ambient);
@@ -1167,96 +1167,96 @@ Shading the Rotating Cube
 
 Controlling the Shading Calculation
 -----------------------------------
-* �ƌ������͑�ʂ̃��\�[�X��K�v�Ƃ���B�䂦�ɁA�ʏ�͑O�ʂ���������������悤��
-  glLightModel ����Đݒ肷��B
+* 照光処理は大量のリソースを必要とする。ゆえに、通常は前面だけを処理させるように
+  glLightModel を介して設定する。
 
   * glLightModel(param, value)
 
     :param: GL_LIGHT_MODEL_(AMBIENT|LOCAL_VIEWER|TWO_SIDE)
 
-    �ǂ����Ă����ʂŃV�F�[�f�B���O����������� TWO_SIDE �� GL_TRUE �ɃZ�b�g�B
+    どうしても両面でシェーディングをしたければ TWO_SIDE を GL_TRUE にセット。
 
-  * �I�u�W�F�N�g�����_���瑊����������Ă���ꍇ�A�ƌ��v�Z���ȗ�������ׂ�
-    LOCAL_VIEWER �� TRUE �ɃZ�b�g���邱�Ƃ��ł���B
+  * オブジェクトが視点から相当距離離れている場合、照光計算を簡略化するべく
+    LOCAL_VIEWER を TRUE にセットすることができる。
 
-  * ���ׂĂ̌������I�t�ł����Ă��A���ʂ̊��������݂���悤�Ɏw���ł���B
-    AMBIENT �ɃO���[�o���Ȋ����� RGBA �l���w������΂悢�B
+  * すべての光源がオフであっても、少量の環境光が存在するように指示できる。
+    AMBIENT にグローバルな環境光の RGBA 値を指示すればよい。
 
 Smooth Shading
 --------------
-* GL_SMOOTH ���f�t�H���g�̏ƌ������B
-* ����ȃ|���S�����V�F�[�f�B���O����ƁA�����������ɈÂ��Ȃ�B
-  ������������ɂ́A�|���S�����ו�������B
+* GL_SMOOTH がデフォルトの照光処理。
+* 巨大なポリゴンをシェーディングすると、中央部が妙に暗くなる。
+  これを回避するには、ポリゴンを細分化する。
 
 Working with Normals
 --------------------
 * the quality of our shading depends on the normals (p. 138)
-* Smooth shading is sometimes called Gouraud shading. (p. 138) �O�[���[�V�F�[�f�B���O�B
+* Smooth shading is sometimes called Gouraud shading. (p. 138) グーローシェーディング。
 * The lighting calculations require that the normal vector have unit length (p. 138)
-* ������������̂��o��ŁAOpenGL �ɖ@���̒����� 1 �ɂȂ�悤�ɂ��肢���邱�Ƃ��ł���B
+* 効率が落ちるのを覚悟で、OpenGL に法線の長さを 1 になるようにお願いすることができる。
   ::
 
     glEnable(GL_NORMALIZE);
 
-  �������A���ƌ����Ă��ő�̒��ӓ_�́A
+  しかし、何と言っても最大の注意点は、
   <Scaling changes the lengths of normals.> (p. 139)
-  �Ƃ������Ƃ��B
+  ということだ。
 
 Transparancy
 ------------
-�V�F�[�f�B���O�̂��Ƃ���������Y��āA�u�����f�B���O�̘b��ɂȂ�B
+シェーディングのことをいったん忘れて、ブレンディングの話題になる。
 
-* OpenGL �� RGBA �l�� A �̒l�̎w��͒ʏ햳�����邪�A�u�����f�B���O��
-  �����I�ɗL���ɂ���ΈӖ������悤�ɂȂ�B
+* OpenGL は RGBA 値の A の値の指定は通常無視するが、ブレンディングを
+  明示的に有効にすれば意味を持つようになる。
   ::
 
     glEnable(GL_BLEND);
 
-* �A���t�@�l�́A�ʏ� opacity ��\������B�����x�̋t�̊T�O�B
+* アルファ値は、通常 opacity を表現する。透明度の逆の概念。
   <the usual use is to use this value to determine the degree of opacity
   of a color or material.> (p. 139)
 
-* �������I�u�W�F�N�g�̕`��Ɋւ��ẮA�Y��Ă͂Ȃ�Ȃ��d��ȃ|�C���g������B
-  �I�u�W�F�N�g�̕`�揇�ɂ���āA���ʂ�����Ă���Ƃ������Ƃ��B
+* 半透明オブジェクトの描画に関しては、忘れてはならない重大なポイントがある。
+  オブジェクトの描画順によって、結果が違ってくるということだ。
 
 * OpenGL provides a variety of constants that determine how to
   blend colors and alpha values. (p. 140)
 
-* source �F�� destination �F�Ƃ����l�����B�h��G�݂����Ȃ��񂾁B
+* source 色と destination 色という考え方。塗り絵みたいなもんだ。
   <When blending is disabled, the source color simply replaces
   the destination color.> (p. 140)
 
-  ���ʐF := X * source + Y * destination
+  結果色 := X * source + Y * destination
 
 * glBlendFunc(source, destination)
 
-  :source: source ���̃u�����f�B���O�W���Be.g. GL_SRC_ALPHA
-  :destination: destination ���̃u�����f�B���O�W���Be.g. GL_ONE_MINUS_SRC_ALPHA
+  :source: source 側のブレンディング係数。e.g. GL_SRC_ALPHA
+  :destination: destination 側のブレンディング係数。e.g. GL_ONE_MINUS_SRC_ALPHA
 
-  �悭�g���W���͂���F
+  よく使う係数はこれ：
   <When we draw polygonal surfaces, the most common choices for the 
   source factor and destination factors are GL_SRC_ALPHA and
   ONE_MINUS_SRC_ALPHA, respectively.> (p. 140)
-  �܂�A�\�[�X�̃A���t�@�l�݂̂��u�����h���Ƃ��Ă���B
+  つまり、ソースのアルファ値のみをブレンド率としている。
   ::
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-* �u�����h��������������Ɏw�肷��ƁA�ŏI�I�Ȓl�� [0, 1] �̊O�ɂ����Ă��܂����Ƃ�����B
-  �f�v�X�o�b�t�@�������ł����􂷂�B
+* ブレンド率をいいかげんに指定すると、最終的な値が [0, 1] の外にいってしまうことがある。
+  デプスバッファがここでも活躍する。
   <We can use the depth buffer to keep track of whether or not a 
   polygon is in front of all polygons that have been rendered so far.>
   (p. 141)
   <OpenGL provides a function glDepthMask(), which can make the depth
   buffer read-only (GL_FALSE) or writeable (GL_TRUE).> (p. 141)
 
-* �A���t�@�l (opacity) �� 1.0 �ł���I�u�W�F�N�g��`���O�Ƀf�v�X�}�X�N��
-  �L���ɂ��A�������ȃI�u�W�F�N�g��`���O�ɂ� read-only �ɂ���΂悢�B
+* アルファ値 (opacity) が 1.0 であるオブジェクトを描く前にデプスマスクを
+  有効にし、半透明なオブジェクトを描く前には read-only にすればよい。
 
 Images
 ======
-���̏͂ł̓t���[���o�b�t�@�ƃs�N�Z���̊T�O�𓪂ɒ@�����ށB
+この章ではフレームバッファとピクセルの概念を頭に叩き込む。
 
 Pixels and Bitmaps
 ------------------
@@ -1264,21 +1264,21 @@ Pixels and Bitmaps
   in screen space, there is a corresponding group of bits that can be thought
   of as a generalized picture element or **pixel**. (p. 143)
 
-* ���炩�ɒ����d�v�B�p��̈Ӗ��̋��ݕ����ԈႦ�ʂ��ƁB
-  �s�N�Z���Ƃ����p��ɗ^����Ӗ��́AOpenGL �̂ق�����ʂ� CG ��
-  ���ȏ����D��Ă���C������B
+* 明らかに註が重要。用語の意味の汲み方を間違えぬこと。
+  ピクセルという用語に与える意味は、OpenGL のほうが一般の CG の
+  教科書より優れている気がする。
   <OpenGL uses *color buffer* to refer to these bits and the *frame buffer*
   (or framebuffer) is the collection of all the buffers, including the
   color buffer(s) and the depth buffer.> (p. 143)
 
 * we need the ability to read and write rectangular arrays of pixels. (p. 143)
-* Figure 7.1 �� n x m frame buffer shown with k parallel bit planes ��������B
+* Figure 7.1 の n x m frame buffer shown with k parallel bit planes を憶える。
 * we shall use the term pixel to denote a group of bits. (p.144)
 
-* �s�N�Z���𒼂ɂ����鑀��̂��Ƃ� **bit block transfer** �Ƃ����B
-  ������k�߂� **bitblt** �Ƃ����̂��B
+* ピクセルを直にいじる操作のことを **bit block transfer** という。
+  これを縮めて **bitblt** というのだ。
 
-* Figure 7.2. Vertices �p�C�v���C���� Pixels �p�C�v���C�������X�^���C�Y�X�e�[�W�ō�������B
+* Figure 7.2. Vertices パイプラインと Pixels パイプラインがラスタライズステージで合流する。
 
   ::
 
@@ -1295,21 +1295,21 @@ Bitmaps
 -------
 Displaying a Bitmap
 ~~~~~~~~~~~~~~~~~~~
-* glBitmap �֐��̐����B���X�^�|�W�V�����̏�Ԃ�ύX���邱�ƂɌ��y���Ă���B
+* glBitmap 関数の説明。ラスタポジションの状態を変更することに言及している。
 
 Mixing Bitmaps and Geometry
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* gluOrtho2D �� glRasterPos2i �̃R���r�Z�ɂ��Đ������Ă���B
-  �񎟌��I�ɕ`�悷��Ƃ��̊�{�I�ȍl�����B
+* gluOrtho2D と glRasterPos2i のコンビ技について説明している。
+  二次元的に描画するときの基本的な考え方。
 * One solution to this problem is to use two sets of viewing conditions,
   one for the geometry and the other for the bitmaps. (p. 148)
 
 Colors and Masks
 ~~~~~~~~~~~~~~~~
-�r�b�g�}�b�v���}�X�N�Ƃ����ϓ_�Ő�������B
-glColor �� glClearColor �̃`�F�b�J�[�{�[�h�̗�������Ă���B
+ビットマップをマスクという観点で説明する。
+glColor と glClearColor のチェッカーボードの例を挙げている。
 
-* �����͗������ɂ����F
+* ここは理解しにくい：
   <OpenGL stores both a present drawing color and a present raster color>
   (p. 149)
   <The checkerboard is drawn in red because the raster color is the color
@@ -1318,8 +1318,8 @@ glColor �� glClearColor �̃`�F�b�J�[�{�[�h�̗�������Ă���B
 
 Drawing Modes
 -------------
-* Figure 7.6 �̖͎��������邱�ƁBLogic Op �̉�H�B
-* glLogicOp(op) �𗘗p����ɂ́AglEnable �ŗL���ɂ���K�v������B
+* Figure 7.6 の模式を憶えること。Logic Op の回路。
+* glLogicOp(op) を利用するには、glEnable で有効にする必要がある。
   ::
     
     glEnable(GL_COLOR_LOGIC_OP);
@@ -1333,7 +1333,7 @@ Drawing Modes
 
 Reading and Writing Pixels
 --------------------------
-* Figure 7.7 Pixel pipeline ���ӎ�����B
+* Figure 7.7 Pixel pipeline を意識する。
   ::
 
     Processor                   Pixel        Pixel       Pixel       Frame
@@ -1345,81 +1345,81 @@ Writing Pixels
 ~~~~~~~~~~~~~~
 * glDrawPixels(w, h, format, type, array)
 
-  :w, h: �s�N�Z����`�̃T�C�Y
-  :format: GL_UNSIGNED_BYTE �Ƃ�
-  :type: GL_UNSIGNED_BYTE_3_3_2 �Ƃ�
-  :array: �`�悵�����f�[�^
+  :w, h: ピクセル矩形のサイズ
+  :format: GL_UNSIGNED_BYTE とか
+  :type: GL_UNSIGNED_BYTE_3_3_2 とか
+  :array: 描画したいデータ
 
 Reading Pixels
 ~~~~~~~~~~~~~~
 * glReadPixels(x, y, w, h, format, type, array)
 
-  :x, y: �t���[���o�b�t�@�̂ǂ̈ʒu����f�[�^��ǂݍ��ނ̂����w��
+  :x, y: フレームバッファのどの位置からデータを読み込むのかを指示
 
-* dithering �ɂ��Č��y���Ă��邪�A�悭�킩��Ȃ������B
+* dithering について言及しているが、よくわからなかった。
 
 Copying Pixels
 ~~~~~~~~~~~~~~
-* glCopyPixels �̓t���[���o�b�t�@���Ńs�N�Z�����R�s�[����Ƃ����̂��|�C���g�B
-  glCopyPixels �̓f�[�^���V�X�e���������ɉ^�΂Ȃ��̂ŁA
-  glReadPixels �� glDrawPixels ��g�ݍ��킹�ăR�s�[����������A�p�t�H�[�}���X���D��Ă���B
+* glCopyPixels はフレームバッファ内でピクセルをコピーするというのがポイント。
+  glCopyPixels はデータをシステムメモリに運ばないので、
+  glReadPixels と glDrawPixels を組み合わせてコピーをするよりも、パフォーマンスが優れている。
 
 Selecting Buffers
 -----------------
-* �V���O���o�b�t�@���[�h�œǂݏ������N����̂� front color buffer �ŁA
-  �_�u���o�b�t�@���[�h�ł� back color buffer �ŋN����B
-* OpenGL �͎����ɂ���Ă͂���Ȃ� color buffer ���T�|�[�g���Ă���B
-  �ǂ̃o�b�t�@��p����̂���I������̂ɂ́AglReadBuffer �� glDrawBuffer 
-  �֐��𗘗p����B
+* シングルバッファモードで読み書きが起こるのは front color buffer で、
+  ダブルバッファモードでは back color buffer で起こる。
+* OpenGL は実装によってはさらなる color buffer をサポートしている。
+  どのバッファを用いるのかを選択するのには、glReadBuffer と glDrawBuffer 
+  関数を利用する。
 
 Pixel Store Modes
 -----------------
-* �ǂ̂悤�ɂ��ăv���Z�b�T�[�������Ƀo�C�g���z�񂳂�Ă���̂���
-  OpenGL �ɋ����Ă��K�v������Ƃ���B���̏ꍇ�AglPixelStore �𗘗p����B
-* �o�C�g�I�[�_�[�̘b�肩�B
+* どのようにしてプロセッサーメモリにバイトが配列されているのかを
+  OpenGL に教えてやる必要があるとする。この場合、glPixelStore を利用する。
+* バイトオーダーの話題か。
 
 Displaying a PPM Image
 ----------------------
-���܂��� PPM ���������Ƃ͂���܂��B
+いまさら PPM を扱うことはあるまい。
 
 Using Luminace
 --------------
-* **Luminance** �Ƃ� <images that consist only of shades of gray> (p. 163) �̂��ƁB
-  ���m�N���摜���B
+* **Luminance** とは <images that consist only of shades of gray> (p. 163) のこと。
+  モノクロ画像だ。
 
-* RGB �l���� luminance �̒l���v�Z���鎮�͎��ŗ^������炵���B
+* RGB 値から luminance の値を計算する式は次で与えられるらしい。
   ::
 
     L = .30R + .59G + .11B
 
-  ���炩�� G �������x�z�I�B
+  明らかに G 成分が支配的。
 
 Pixel Mapping
 -------------
-* �J���[�o�b�t�@�� RGB �s�N�Z���̒l��␳���邱�Ƃ��ł���B
-* glPixelTransfer(name, value) - pixel transfer mode ���w�肷��B
-* glPixelMap(map, size, array) - �␳�e�[�u�����Z�b�g����B
+* カラーバッファの RGB ピクセルの値を補正することができる。
+* glPixelTransfer(name, value) - pixel transfer mode を指定する。
+* glPixelMap(map, size, array) - 補正テーブルをセットする。
 
-  :map: GL_PIXEL_MAP_I_TO_R �ȂǁB
-  :size: 2 �̃x�L��łȂ���΂Ȃ�Ȃ��B
+  :map: GL_PIXEL_MAP_I_TO_R など。
+  :size: 2 のベキ乗でなければならない。
 
 Pixel Zoom
 ----------
-* �s�N�Z���u���b�N�̃X�P�[�����O�ɂ� glPixelZoom ��p����B
+* ピクセルブロックのスケーリングには glPixelZoom を用いる。
 
   * glPixelZoom(sx, sy)
 
-    :sx, sy: �X�P�[���W���B�����������B�����̏ꍇ�̓s�N�Z���̕��я����t�]����B
+    :sx, sy: スケール係数。負数も許す。負数の場合はピクセルの並び順が逆転する。
 
-* �����Ă��܂����g�������킩��Ȃ� gluScaleImage �֐��B
-  �C���[�W���g��������̂��X�g���b�`����̂����킩��Ȃ��B
+* そしていまいち使い方がわからない gluScaleImage 関数。
+  イメージをトリムするのかストレッチするのかがわからない。
 
   * gluScaleImage(format, win, hin, typein, imagein, wout, hout, typeout, imageout)
 
 Image Processing in OpenGL
 --------------------------
-* �q�X�g�O������t�B���^�����O�B���x�ȓ��e�炵���B
-* Convolution �Ƃ����P�ꂪ�t�B���^�Ɋ֘A���闝�R���A���̕��̂������ł킩�����B
+* ヒストグラムやフィルタリング。高度な内容らしい。
+* Convolution という単語がフィルタに関連する理由が、次の文のおかげでわかった。
   <Convolution or filtering that replaces a pixel value by a linear function
   of the surrounding pixel values.> (p. 167)
 * Imaging Pipeline
@@ -1435,26 +1435,26 @@ Texture Mapping
 
 What Is a Texture Map?
 ----------------------
-* �s�N�Z���z���񎟌��̃p�����[�^��ԂɎʑ�����B
-  ���̃p�����[�^��Ԃ���A�O������ԏ�̋ȖʂɎʑ�����B
-  ���̍����ʑ����e�N�X�`���[�}�b�s���O���Ƒ�G�c�ɓǂݎ�ꂽ�B
-* �e�N�X�`���[���W�͋L�� (s, t) �ŕ\������B
+* ピクセル配列を二次元のパラメータ区間に写像する。
+  このパラメータ区間から、三次元空間上の曲面に写像する。
+  この合成写像がテクスチャーマッピングだと大雑把に読み取れた。
+* テクスチャー座標は記号 (s, t) で表現する。
 
 Constructing a Texture Map
 --------------------------
-1. �e�N�X�`���[�̃C���[�W����������B�C���[�W�̕\���ɂ��Ă͑O�͎Q�ƁB
-2. �e�N�X�`���[�}�b�s���O�̂��߂̃p�����[�^���w�肷��B
-3. ���_�ɑ΂��ăe�N�X�`���[���W���`����B
+1. テクスチャーのイメージを準備する。イメージの表現については前章参照。
+2. テクスチャーマッピングのためのパラメータを指定する。
+3. 頂点に対してテクスチャー座標を定義する。
 
 * Two dimensional texture mapping is the most familiar case. (p. 171)
-* �񎟌��I�ȃC���[�W�́A�񎟌����l�̂Ƀ}�b�v����̂����R���낤�B
+* 二次元的なイメージは、二次元多様体にマップするのが自然だろう。
   ::
 
     glEnable(GL_TEXTURE_2D);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 64, 64, 0, GL_RGB, GL_UNSIGNED_BYTE, myimage);
 
-* �C���[�W�̏c���T�C�Y�́A2 �̃x�L��̌`�����Ă��Ȃ���΂Ȃ�Ȃ��B
-  ���ɂ��ƁA�V�����O���t�B�b�N�J�[�h�͔C�ӂ̏c���T�C�Y�������Ă���悤���B
+* イメージの縦横サイズは、2 のベキ乗の形をしていなければならない。
+  註によると、新しいグラフィックカードは任意の縦横サイズを許しているようだ。
 
 * It may take a significant amount of time to move a texture image from
   processor memory to texture memory. (p. 173)
@@ -1465,21 +1465,21 @@ Texture Coordinates
   in four dimensions that conventionally use the letters (s, t, r, q) to
   denote the coordinates. (p. 173)
 
-* �e�N�X�`���[�}�b�s���O���������߂̃R�c���ȉ��̂悤�ɏq�ׂĂ���B
+* テクスチャーマッピングを試すためのコツを以下のように述べている。
   <Checkerboards are especially useful for demonstrating the various 
   options and seeing how OpenGL implements texture mapping.> (p. 174)
 
 * We see that OpenGL renders the quadrilateral as two triangles (p. 174)
 
-* ���_���W�Ɠ��l�ɁA�e�N�X�`���[���W���s���p���ĕϊ����邱�Ƃ��ł���B
+* 頂点座標と同様に、テクスチャー座標を行列を用いて変換することができる。
   ::
 
     glMatrixMode(GL_TEXTURE);
 
 Texture Parameters
 ------------------
-�e�N�X�`���[���W��e�N�X�`���[�摜�ȊO�ɂ��A
-�e�N�X�`���[�}�b�s���O���v������p�����[�^������������B
+テクスチャー座標やテクスチャー画像以外にも、
+テクスチャーマッピングが要求するパラメータがいくつもある。
 
 * glTexParameter(target, name, value)
 
@@ -1490,34 +1490,34 @@ Texture Parameters
   s, t, r, or q go outside the range (0, 1) and how sampling and
   filtering are applied. (p. 176)
 
-* GL_TEXTURE_WRAP_(S|T), GL_(REPEAT|CLAMP) ��������B
+* GL_TEXTURE_WRAP_(S|T), GL_(REPEAT|CLAMP) を憶える。
 
-* magnification �� minification �̍l�������K������B
-  ��̃e�N�X�`���[��f�������̃s�N�Z���Ɏʑ�������� magnification
+* magnification と minification の考え方を習得する。
+  一つのテクスチャー画素が複数のピクセルに写像する方が magnification
 
-* GL_TEXTURE_(MAG|MIN)_FILTER �� GL_NEAREST �ɂ���Ƒ����B
+* GL_TEXTURE_(MAG|MIN)_FILTER を GL_NEAREST にすると速い。
 
-* �����}�@�ŃV�[����`���Ă���ꍇ�A�e�N�X�`���[���c�ޏꍇ���悭����B
-  ���������ꍇ�� glHint ���ĂԁB
+* 透視図法でシーンを描いている場合、テクスチャーが歪む場合がよくある。
+  そういう場合は glHint を呼ぶ。
   ::
 
     glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
   
-  glHint �͑��̃����_�����O�I�v�V�����ɂ����p�ł���B���ׂ�B
+  glHint は他のレンダリングオプションにも利用できる。調べる。
 
 A Rotating Cube with Texture
 ----------------------------
-�ȗ��B
+省略。
 
 Applying Textures to Surfaces
 -----------------------------
-�|���S���̒n�̐F�ƃe�N�X�`���[�}�b�s���O���~�b�N�X������@�ɂ��āB
+ポリゴンの地の色とテクスチャーマッピングをミックスする方法について。
 
 * glTexEnv(target, param, value)
 
   :target: GL_TEXTURE_ENV
-  :param: GL_TEXTURE_ENV_MODE �Ƃ� GL_TEX_ENV_COLOR �Ƃ��B
-  :value: GL_(MODULATE|REPLACE|BLEND|DECAL) �Ƃ��F�Ƃ��B
+  :param: GL_TEXTURE_ENV_MODE とか GL_TEX_ENV_COLOR とか。
+  :value: GL_(MODULATE|REPLACE|BLEND|DECAL) とか色とか。
 
 * The default mode of operation is called modulation. 
   Here the texture color multiplies the color computed for each face.
@@ -1528,61 +1528,61 @@ Applying Textures to Surfaces
 
 Borders and Sizing
 ------------------
-* �e�N�X�`���[�}�b�s���O�́A�e�N�X�`���[�C���[�W���E�t�߂̏���������B
+* テクスチャーマッピングは、テクスチャーイメージ境界付近の処理が難しい。
 
 * One difficulty that arises when we use linear filtering is what happens
   at the edges of the texture where we lack one or more texels to use
   in the filtering. (p. 181)
 
-* �e�N�X�`���[�ɘg��t������Ƃ����d�l������B
-  �����g���w������̂Ȃ�A�e�N�X�`���[�̏c���T�C�Y�� 2 �̃x�L�� + 2 �̌`�ɂ���B
+* テクスチャーに枠を付加するという仕様がある。
+  もし枠を指示するのなら、テクスチャーの縦横サイズを 2 のベキ乗 + 2 の形にする。
 
-* �g�̐F��ʓr�w�����邱�Ƃ��ł���B
+* 枠の色を別途指示することができる。
   ::
     
     glTexParameter3fv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, color);
 
-* �t���[���o�b�t�@���̃C���[�W����e�N�X�`���[�}�b�v�𓾂邱�Ƃ��ł���B
-  �������u�o�͐�v�̓e�N�X�`���[�������[�B
+* フレームバッファ内のイメージからテクスチャーマップを得ることができる。
+  ただし「出力先」はテクスチャーメモリー。
   ::
     
     glCopyTexImage2D(target, level, iformat, x, y, w, h, border);
 
-* ���ɑ��݂���e�N�X�`���[����A���̕����̃R�s�[���i�o�C�i���̌`�Łj���邱�Ƃ��ł���B
+* 既に存在するテクスチャーから、その部分のコピーを（バイナリの形で）得ることもできる。
   ::
     
     glTexSubImage2D(target, level, xoffset, yoffset, w, h, format, type, texels)
 
-* ���p�Ⴊ������Ǝv�����Ȃ����A�e�N�X�`���[���������ŃR�s�[���邱�Ƃ��ł���B
+* 応用例がちょっと思いつかないが、テクスチャーメモリ内でコピーすることもできる。
   ::
     
     glCopyTexSubImage2D(target, level, xoffset, yoffset, x, y, w, h)
 
 Mipmaps
 -------
-* Mipmap �Ƃ̓e�N�X�`���[�}�b�s���O�� LOD �̋Z�@�B
-  �L���̈�Ƀ}�b�v����f�[�^�ƁA�����̈�Ƀ}�b�v����f�[�^���g��������B
+* Mipmap とはテクスチャーマッピングの LOD の技法。
+  広い領域にマップするデータと、狭い領域にマップするデータを使い分ける。
 
 * What we would prefer is to have a texture value that is the average of
   the texels values over a large area of the texture. (p. 183)
 
-* glTexImage2D �̑����� (level) �ɉ����āA�C���[�W��ς���B
-  �{���̗�ł́A���x�����Ⴂ�قǏڍׂȃC���[�W���w�����Ă���B
+* glTexImage2D の第二引数 (level) に応じて、イメージを変える。
+  本文の例では、レベルが低いほど詳細なイメージを指示している。
   ::
     
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
 
   This is the lowest quality option. (p. 183)
 
-* �~�b�v�}�b�v�Z�b�g�𐶐����A�e�N�X�`���[�������Ɋi�[���Ă���� GLU �̊֐�������B
+* ミップマップセットを生成し、テクスチャーメモリに格納してくれる GLU の関数がある。
   ::
     
     gluBuild2DMipmaps(target, iformat, w, h, format, type, texels);
 
 Automatic Texture Coorinate Generation
 --------------------------------------
-* ���_�ɑ΂��ăe�N�X�`���[���W�����߂��Ƃ͈�ʓI�ɂ͓���B
-  �������AGLU �񎟋Ȗʂ̓e�N�X�`���[���W�𐶐�����֐����񋟂���Ă���B
+* 頂点に対してテクスチャー座標を決める作業は一般的には難しい。
+  しかし、GLU 二次曲面はテクスチャー座標を生成する関数が提供されている。
 
   * gluQuadricTexture(obj, mode)
 
@@ -1590,12 +1590,12 @@ Automatic Texture Coorinate Generation
 
 * <OpenGL allows us to generate texture coordinates that are measured as
   distances from a plane in either object space or eye space.> (p. 186)
-  �����������A���ʂ���̋����Ō��܂���W�Ƃ����̂�����ɂ����B
+  だそうだが、平面からの距離で決まる座標というのが解りにくい。
 
 * The value ax + by + cz + dw is proportional to the distance from
   (x, y, z, w) to the plane determined by (a, b, c, d). (p. 186)
 
-* �e�N�X�`���[���W���������ɂ́A�Ⴆ�� (s, t) �̏ꍇ�͈ȉ��̌Ăяo�����K�v�B
+* テクスチャー座標自動生成には、例えば (s, t) の場合は以下の呼び出しが必要。
   ::
 
     glEnable(GL_TEXTURE_GEN_S);
@@ -1604,27 +1604,27 @@ Automatic Texture Coorinate Generation
 * glTexGen(texcoord, param, value)
 
   :texcoord: GL_[STRQ]
-  :param: GL_TEXTURE_GENMODE �� GL_(OBJECT|EYE)_LINEAR
-  :value: GL_(OBJECT|EYE)_LINEAR �����ʂ̌W���z��
+  :param: GL_TEXTURE_GENMODE か GL_(OBJECT|EYE)_LINEAR
+  :value: GL_(OBJECT|EYE)_LINEAR か平面の係数配列
 
-* ���_���W�Ńe�N�X�`���[��\��F
+* 視点座標でテクスチャーを貼る：
   <If we use the GL_EYE_LINEAR mode, texture coordinates are based on
   the vertex positions in eye space so that when we move the object,
   the texture coordinates assigned to vertices change.> (p. 188)
 
 Texture Objects
 ---------------
-�e�N�X�`���[���܂� OpenGL �́u��ԁv�̈ꕔ���B
-glTexImage �����s����Ƃ��ɁA�V�X�e������������e�N�X�`���[��������
-�ړ�����B�e�N�X�`���[������ނ����p����ꍇ�́A�ړ��ɃR�X�g���������Ȃ��B
-������ texture object �Ƃ������̂�񋟂��Ă���B
+テクスチャーもまた OpenGL の「状態」の一部だ。
+glTexImage を実行するときに、システムメモリからテクスチャーメモリへ
+移動する。テクスチャーを何種類も利用する場合は、移動にコストをつけたくない。
+そこで texture object というものを提供している。
 
 * If there is not sufficient memory for all the textures that we need,
   we can prioritize the texture objects to minimize the amount of
   data movement from the processor to texture memory. (p. 188)
 
-* glGenTextures(n, name) �� n �� texture objects ��V�K�쐬����B
-* glIsTexture(name) �� name �� texture object ���ۂ����e�X�g����B
+* glGenTextures(n, name) で n 個の texture objects を新規作成する。
+* glIsTexture(name) で name が texture object か否かをテストする。
 
 * glBindTexture(), that both switches between texture objects and
   forms new texture objects. (p. 189)
@@ -1632,9 +1632,9 @@ glTexImage �����s����Ƃ��ɁA�V�X�e������������e�N�X�`���[��������
 * glBindTexture(target, name)
 
   :target: GL_TEXTURE_[123]D
-  :name: texture object �� ID
+  :name: texture object の ID
 
-* glBindTexture �̐U�镑���́A���̎O�̂ǂꂩ�B
+* glBindTexture の振る舞いは、次の三つのどれか。
 
   * case 1: If we call glBindTexture() with name and name has not been
     used before, the subsequent calls to the various texture functions
@@ -1647,59 +1647,59 @@ glTexImage �����s����Ƃ��ɁA�V�X�e������������e�N�X�`���[��������
     the OpenGL state and the current values of the texture parameters
     both apply.
 
-* �e�N�X�`���[�I�u�W�F�N�g��j���������ꍇ�� glDeleteTextures ���ĂԁB
+* テクスチャーオブジェクトを破棄したい場合は glDeleteTextures を呼ぶ。
 
   * glDeleteTextures(n, namearray)
 
 Texture Maps for Image Manipulation
 -----------------------------------
-�e�N�X�`���[�p�����[�^�̃Z�b�g���������A�T���v���R�[�h�̃��X�g���Q�l�ɂȂ�B
+テクスチャーパラメータのセットだけだが、サンプルコードのラストが参考になる。
 
 Curves and Surfaces
 ===================
-�x�W�G���S�̘b��B
+ベジエ中心の話題。
 
 Parameteric Curves
 ------------------
-* ���̖{�ɂ��Ă͗�O�I�ɐ��w�̘b�������Ȃ邪�A
-  �u�R���s���[�^�[�ɂ͋敪�I�p�����g���b�N�Ȑ��������������v
-  �̂悤�Ȃ��Ƃ��q�ׂĂ���B
+* この本にしては例外的に数学の話が多くなるが、
+  「コンピューターには区分的パラメトリック曲線が相性がいい」
+  のようなことを述べている。
 
 * Parametric curves give a point in homogeneous coordinate space (x(u),
   y(u), z(u), w(u)) for each value of u. (p. 193)
 
-* �ȒP�ɂ��邽�߁A���� w = 1 �ƌŒ肵�Ęb��i�߂�B
+* 簡単にするため、当分 w = 1 と固定して話を進める。
 
-* �w�肵���_��ʉ߂���悤�� n �������������߂�ɂ́A
-  3(n + 1) �̌W�������߂�K�v������̂ŁA3(n + 1) ��
-  �Ɨ�����������^����K�v������B
+* 指定した点を通過するような n 次多項式を決めるには、
+  3(n + 1) 個の係数を求める必要があるので、3(n + 1) 個の
+  独立した条件を与える必要がある。
 
-* �ȍ~�A��{�I�� 3 �����̘b�ɂȂ�B4 �̓_�����߂�΁A�������̌W�������܂�B
+* 以降、基本的に 3 次式の話になる。4 つの点を決めれば、多項式の係数が求まる。
 
 * <However, in computer graphics, interpolating curves usually
   are not the most useful type due to their lack of smoothness.>
-  (p. 194) �ʉߓ_���w�肷��Ȑ��̌��ߕ��́A�R���g���[��������B
+  (p. 194) 通過点を指定する曲線の決め方は、コントロールが難しい。
 
 Parameteric Surfaces
 --------------------
-* �Ȗʂ��ϐ��֐��ŕ\������B
-  CG �ł̋Ȗʊ֐��͒ʏ�� bicubic polynomial ���ƌ����Ă���B
-  �Ȑ��� curve segment �̌p���͂��ŕ\�������̂Ɠ������z�ŁA
-  �Ȗʂ� surface patch �ŕ\������B
+* 曲面を二変数関数で表現する。
+  CG での曲面関数は通常は bicubic polynomial だと言っている。
+  曲線を curve segment の継ぎはぎで表現したのと同じ発想で、
+  曲面を surface patch で表現する。
 
 Bezier Curves and Surfaces
 --------------------------
-* �O���x�W�G�������̐����ɂ��ăU�b�Ɛ������Ă���B
+* 三次ベジエ多項式の性質についてザッと説明している。
 
-  * �R���g���[���|�C���g�� 4 �� (Q0, Q1, Q2, Q3) ����B
-  * Q0 �� Q3 �͋Ȑ��̎n�_�ƏI�_�ɂ��ꂼ���v����B
-  * ���� Q0Q1 �� Q2Q3 �́A���ꂼ��Ȑ��̎n�_�ƏI�_�̐ڐ����B
-  * �Ȑ��S�̂͑��p�` Q0Q1Q2Q3 �ɓ�����B
-    ����� convex hull property �Ƃ����B
-  * Bernstein �������Ƃ��Ēm���鑽�����̑��ł���B
-    Bernstein �������͂ƂĂ������I�Ɏ����ł���B
+  * コントロールポイントが 4 つ (Q0, Q1, Q2, Q3) ある。
+  * Q0 と Q3 は曲線の始点と終点にそれぞれ一致する。
+  * 直線 Q0Q1 と Q2Q3 は、それぞれ曲線の始点と終点の接線だ。
+  * 曲線全体は多角形 Q0Q1Q2Q3 に内包される。
+    これを convex hull property という。
+  * Bernstein 多項式として知られる多項式の族である。
+    Bernstein 多項式はとても効率的に実装できる。
 
-* �C�ӂ̑������Ȑ��A�������Ȗʂ̓x�W�G�Ȑ��A�x�W�G�Ȗʂ��瓾����B
+* 任意の多項式曲線、多項式曲面はベジエ曲線、ベジエ曲面から得られる。
 
 * OpenGL implements Bezier curves and surfaces through a mechanism known
   as **evaluators**. (p. 197)
@@ -1709,40 +1709,40 @@ Bezier Curves and Surfaces
 
 One-Dimensional OpenGL Evaluators
 ---------------------------------
-* �܂� glMap1 �֐��̏Љ��n�܂�B
+* まず glMap1 関数の紹介から始まる。
 
   * glMap1(entity, u0, u1, stride, order, data)
 
-    :entity: ���̋Ȑ������̒l��\�����Ă���̂����w�肷��B
+    :entity: この曲線が何の値を表現しているのかを指定する。
              <If we want a curve, we set entity to GL_MAP1_VERTEX_3.> (p. 198)
-             ������ glEnable(GL_MAP1_VERTEX_3) �̌Ăяo�����ʓr�K�v�B
+             ただし glEnable(GL_MAP1_VERTEX_3) の呼び出しが別途必要。
 
-    :order: �x�W�G�Ȑ��̎����v���X 1 ��^����B
-            ���Ȃ킿�A����_�̑������Ӗ�����B
+    :order: ベジエ曲線の次数プラス 1 を与える。
+            すなわち、制御点の総数を意味する。
 
-* glMap1 �ŋȐ����`������A���̌v�Z�����A���ʂ��擾����B
-  ����ɂ� glEvalCoord1 ��p����B
-  ���܂ł� glVertex ���𗘗p���Ă����Ƃ���� glEvalCoord1 �ɒu������銴���B
+* glMap1 で曲線を定義したら、その計算をし、結果を取得する。
+  それには glEvalCoord1 を用いる。
+  今までは glVertex 等を利用していたところを glEvalCoord1 に置き換わる感じ。
 
   * glEvalCoord1(u)
 
-* �Ƃ���ŁA�p�����[�^ u ������������v�Z���ė^����͖̂ʓ|���B����ȂƂ��ɂ�
+* ところで、パラメータ u をいちいち手計算して与えるのは面倒だ。そんなときには
   <OpenGL provides an alternative for equally spaced values of u.>
   (p. 199)
 
   * glMapGrid1(n, u0, u1)
 
-    :n: �敪�����Ӗ�����B
+    :n: 区分数を意味する。
 
   * glEvalMesh1(mode, first, last)
     
     :mode: GL_(LINE|POINT)
-    :first, last: 0 �ȏ� glMapGrid1 �ŗ^���� n �ȉ��̐��B
+    :first, last: 0 以上 glMapGrid1 で与えた n 以下の数。
 
 Two-Dimensional Evaluators
 --------------------------
-* ���̊֐��𗘗p���ē񎟌� Bernstein ��������]�����邱�Ƃ��ł���B
-  ���Ȃ킿�A�x�W�G�Ȗʂ�`��ł���B
+* 次の関数を利用して二次元 Bernstein 多項式を評価することができる。
+  すなわち、ベジエ曲面を描画できる。
 
   * glMap2(entity, u0, u1, ustride, uorder, v0, v1, vstride, vorder, data)
   * glEvalCoord2(u, v)
@@ -1754,26 +1754,26 @@ Other Types of Curves
 * In other words, a cubic polynomial is both a Bezier curve and
   an interpolating curve for different set of control points. (p. 203)
 
-* �ʉߓ_���琧��_�����߂�s����Љ�Ă���B�����Ȃ��Ă悢�B
+* 通過点から制御点を求める行列を紹介している。憶えなくてよい。
 
 B-Splines
 ~~~~~~~~~
-* �܂��A�x�W�G�Ȑ��E�Ȗʂ̓X�v���C���Ȑ��E�Ȗʂ̈��ł��邱�Ƃ���������B
+* まず、ベジエ曲線・曲面はスプライン曲線・曲面の一種であることをおさえる。
 
-* B �X�v���C�����L���[�r�b�N����{�B
+* B スプラインもキュービックが基本。
   <The most popular type of spline is the cubic B-spline.> (p. 204)
 
-* �L���[�r�b�N�X�v���C���̐���_���A����`��̃x�W�G�Ȑ��̐���_��
-  �ϊ�����s����Љ�Ă���B�����Ȃ��Ă悢�B
+* キュービックスプラインの制御点を、同一形状のベジエ曲線の制御点に
+  変換する行列を紹介している。憶えなくてよい。
 
 NURBS
 ~~~~~
-* OpenGL �ł� GLU �� NURBS ���T�|�[�g���Ă���B
-* NURBS �̃L���� w �����ɂ���悤���B
+* OpenGL では GLU が NURBS をサポートしている。
+* NURBS のキモは w 成分にあるようだ。
 
 The Utah Teapot
 ---------------
-* ��̃e�B�[�|�b�g�̍\��������B
+* 例のティーポットの構成を説明。
   <The teapot is composed of 32 cubic Bezier surface patches, defined
   by 306 distinct control points.  The data set is widely available
   and usually is given as 32 lines, each of 16 integers in the range
@@ -1782,34 +1782,34 @@ The Utah Teapot
 
 Normals and Shading
 -------------------
-* �Ȗ� evaluator �������I�ɐ������钸�_�ɑ΂��Ė@�����w�肷��ɂ́A
+* 曲面 evaluator が内部的に生成する頂点に対して法線を指定するには、
   ::
   
     glEnable(GL_AUTO_NORMAL);
   
-  ���邾���ł悢�B
+  するだけでよい。
 
 Texturing Surfaces
 ------------------
 * We can also use evaluators to generate normals for shading and
   texture coordinates. (p. 213)
 
-  �ǂ����邩�Ƃ����ƁAglMap2 �Ŏ����ł���B
+  どうするかというと、glMap2 で実現できる。
   ::
     
     glMap2f(GL_MAP2_TEXTURE_COORD_2, u0, u1, ...);
 
 Putting It Together and Moving On
 =================================
-���܂ŏЉ���@�\�v���X�A���t�@�ŁA�f���v���O���������B
-�ڋʂ̓g���b�N�{�[���ƃt�H�O���B
+今まで紹介した機能プラスアルファで、デモプログラムを作る。
+目玉はトラックボールとフォグか。
 
 A Demo Program
 --------------
 
 A Virtual Trackball
 ~~~~~~~~~~~~~~~~~~~
-�}�E�X�̓������牼�z�I�ȃg���b�N�{�[�������B���j��
+マウスの動きから仮想的なトラックボールを作る。方針は
 <by projecting the position of the mouse upward to the virtual
 hemisphere, as in Figure 10.2.  As the mouse moves, the program
 tracks the change in position on the hemisphere.  Two positions
@@ -1818,36 +1818,36 @@ angle to rotate about this axis, as shown in Figure 10.3.> (p. 216)
 
 Other OpenGL Features
 ---------------------
-* OpenGL tessellator �œʑ��p�`���������킷���Ƃ��ł���B
+* OpenGL tessellator で凸多角形制限をかわすことができる。
 * the use of NURBS requires more understanding of their mathematical
   underpinnings than we can present here. (pp. 230-231)
 
 Buffers
 -------
-* OpenGL �͐F�X�ȃo�b�t�@���T�|�[�g���Ă��邪 <not all of these buffers
-  need be available on all implementations> (p. 231) ���B
+* OpenGL は色々なバッファをサポートしているが <not all of these buffers
+  need be available on all implementations> (p. 231) だ。
 
-* accumulation �o�b�t�@�� stencil �o�b�t�@�𗘗p����v���O�����ł́A
-  glutInitDisplayMode �̈����ɁA���̂��Ƃ𖾎��I�Ɏw������B
+* accumulation バッファや stencil バッファを利用するプログラムでは、
+  glutInitDisplayMode の引数に、そのことを明示的に指示する。
   ::
 
     glutInitDisplayMode(... | GL_STENCIL | GL_ACCUM);
 
     glClear(... | GL_ACCUM_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-* auxiliary �o�b�t�@�̓}���`�p�X�����_�����O�ɗ��p���邩������Ȃ��B
+* auxiliary バッファはマルチパスレンダリングに利用するかもしれない。
 
 The Accumulation Buffer
 ~~~~~~~~~~~~~~~~~~~~~~~
-* �J���[�o�b�t�@�̐��x�ɕs��������ꍇ�ɂ��̃o�b�t�@�����ɗ��炵���B
-  �܂��� CPU ���W�X�^�� accumulator �̂悤�ȓ���������悤���B
+* カラーバッファの精度に不足がある場合にこのバッファが役に立つらしい。
+  まさに CPU レジスタの accumulator のような働きをするようだ。
 
 * glAccum(operation, value)
 
   :operation: GL_(ACCUM|LOAD|RETURN|ADD|MULT)
 
-* �J�������u���Ă���悤�ȉ摜���ʂ�_�����}���`�p�X�����_�����O�ɉ��p����
-  ���Ƃ��l������B
+* カメラがブレているような画像効果を狙ったマルチパスレンダリングに応用する
+  ことが考えられる。
 
 The Stencil Buffer
 ~~~~~~~~~~~~~~~~~~
@@ -1864,7 +1864,7 @@ Fragment Tests
 
 Writing Portable, Efficient, Robust Code
 ----------------------------------------
-* OpenGL �̓|�[�^�u���Ƃ͂����A���R���̎����ɂ���Ă͐���������B
+* OpenGL はポータブルとはいえ、当然その実装によっては制限がある。
 
 * One is that once we start using advanced features, such as the 
   accumulation and stencil buffers, we often lose portability, 
@@ -1882,33 +1882,33 @@ Versions and Extensions
 
 OpenGL Version 1.1
 ~~~~~~~~~~~~~~~~~~
-* 1995 �N�ɓo��B���̃o�[�W���������ɏd�v�ȗ��R��
+* 1995 年に登場。このバージョンが特に重要な理由は
   <Version 1.1 is still the most widely used version> (p.235)
-  ������B
+  だから。
 
-* ���_�z��A�e�N�X�`���[����ARGBA �F�ɑ΂���_�����Z�A
-  �|���S���I�t�Z�b�g���������ꂽ�B
+* 頂点配列、テクスチャー操作、RGBA 色に対する論理演算、
+  ポリゴンオフセットが導入された。
 
 OpenGL Version 1.2
 ~~~~~~~~~~~~~~~~~~
-* 1998 �N�ɓo��B�O�����e�N�X�`���[�}�b�s���O�@�\�B
-* imaging subset �̒ǉ�
+* 1998 年に登場。三次元テクスチャーマッピング機能。
+* imaging subset の追加
 
 OpenGL Version 1.3
 ~~~~~~~~~~~~~~~~~~
-* 2001 �N�ɓo��B�e�N�X�`���[�������\�����コ����ړI�̋@�\�ǉ��B
+* 2001 年に登場。テクスチャー処理性能を向上させる目的の機能追加。
 
-* �]�u�s��֐������̃o�[�W�����œo�ꂵ���@�\�B
-  ����� Fortran ���� column order �Ȕz�񂾂��łȂ��A
-  C ���ꕗ�� row order �z������̂܂܎g����悤�ɂȂ����B
+* 転置行列関数もこのバージョンで登場した機能。
+  これで Fortran 式の column order な配列だけでなく、
+  C 言語風の row order 配列もそのまま使えるようになった。
 
 OpenGL Version 1.4
 ~~~~~~~~~~~~~~~~~~
-* 2002 �N�ɓo��B���Ă̊g���@�\���R�A�ɒǉ����ꂽ�B
+* 2002 年に登場。かつての拡張機能がコアに追加された。
 
 OpenGL Version 1.5
 ~~~~~~~~~~~~~~~~~~
-* 2003 �N�ɓo��B�R�A�Ƀ}�C�i�[�`�F���W���{���������B
+* 2003 年に登場。コアにマイナーチェンジを施しただけ。
 
 OpenGL Extensions
 -----------------
@@ -1923,7 +1923,7 @@ Going Beyond Read-Time Graphics
 * all the information about the image is in the tree of Figure 11.1.
   This tree is known as a **scene graph**. (p. 238)
 
-* �V�[���O���t��݌v����͓̂���B
+* シーングラフを設計するのは難しい。
   <The answer today should be a set of atomic primitives that can take
   advantage of the existing hardware and APIs.> (p. 239)
 
@@ -1934,13 +1934,13 @@ Going Beyond Read-Time Graphics
 
 Programmable Pipelines
 ----------------------
-* �p�C�v���C���̈ꕔ�����[�U�[�v���O�����Œu��������悤�ȑ�����l����B
+* パイプラインの一部をユーザープログラムで置き換えるような造りを考える。
 * Graphics processors have become programmable (p. 240)
-* vertex shader �� fragment shader �� 2 �u���b�N���������B
+* vertex shader と fragment shader の 2 ブロックがそうだ。
 
 Vertex Shaders
 ~~~~~~~~~~~~~~
-�Ⴆ�� Phong ���f���ȊO�̏ƌ����f���Œ��_�̐F���v�Z�ł���B
+例えば Phong モデル以外の照光モデルで頂点の色を計算できる。
 
 Fragment Shaders
 ~~~~~~~~~~~~~~~~
@@ -1960,8 +1960,8 @@ RenderMan Shading Language
 
 The OpenGL Shading Language
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 2003 �N�� ARB �� extension �Ƃ��č̗p�����̂� OpenGL �V�F�[�f�B���O����B
-  C ���ꂪ�x�[�X�ŁAvertex shader �� fragment shader �̗����ɗp������B
+* 2003 年に ARB が extension として採用したのが OpenGL シェーディング言語。
+  C 言語がベースで、vertex shader と fragment shader の両方に用いられる。
 
 Cg
 ~~

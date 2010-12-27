@@ -1,30 +1,30 @@
 ======================================================================
-Python NumPy ���p�m�[�g
+Python NumPy 利用ノート
 ======================================================================
 
-.. contents:: �m�[�g�ڎ�
+.. contents:: ノート目次
 
-����
+導入
 ======================================================================
-������ Python_ ���� NumPy_ ���C���X�g�[��������@���L���B
+自分の Python_ 環境に NumPy_ をインストールする方法を記す。
 
-�܂��ANumPy �Ɋւ���e��h�L�������g�A���t�@�����X��
-HTML �� PDF �t�@�C���̌`�ŗ��p�ł���悤�ɂȂ��Ă���B
-�����̃h�L�������g�����[�J���f�B�X�N�ɕۑ����Ă����A
-�I�t���C���ł������ɃA�N�Z�X�ł���悤�ɂ���B
+また、NumPy に関する各種ドキュメント、リファレンスが
+HTML と PDF ファイルの形で利用できるようになっている。
+これらのドキュメントをローカルディスクに保存しておき、
+オフラインでもすぐにアクセスできるようにする。
 
-���C�u�����[���C���X�g�[������
+ライブラリーをインストールする
 ----------------------------------------------------------------------
-* Windows ���ł̓C���X�g�[���[����C���X�g�[������̂��g�B
-  ``numpy-x.y.z-win32-superpack-python2.6.exe`` �݂����Ȗ��O�̃C���X�g�[���[��
-  NumPy_ �̃T�C�g���猟�����ē��肵�Ă����΂悢�B
+* Windows 環境ではインストーラーからインストールするのが吉。
+  ``numpy-x.y.z-win32-superpack-python2.6.exe`` みたいな名前のインストーラーを
+  NumPy_ のサイトから検索して入手しておけばよい。
 
-* �C���X�g�[�����I��������A���͂��Ă��� ``README.txt`` �� ``INSTALL.txt`` ����ǂ��邱�ƁB
-  �ڂ��Ђ��̂͒P�̃e�X�g�����s�ł���Ƃ������Ƃ����A
-  ����ɂ͕ʓr Nose_ �Ƃ����T�[�h�p�[�e�B�[���̃��C�u�����[��
-  Python ���ɃC���X�g�[�����Ă����K�v������B
+* インストールを終了したら、何はさておき ``README.txt`` と ``INSTALL.txt`` を一読すること。
+  目をひくのは単体テストが実行できるということだが、
+  これには別途 Nose_ というサードパーティー製のライブラリーを
+  Python 環境にインストールしておく必要がある。
 
-  ���ۂɂ���Ă݂�Ƃ��̂悤�Ȋ����ɂȂ�::
+  実際にやってみるとこのような感じになる::
 
     >>> import numpy
     >>> numpy.test()
@@ -33,131 +33,131 @@ HTML �� PDF �t�@�C���̌`�ŗ��p�ł���悤�ɂȂ��Ă���B
     NumPy is installed in D:\Python26\lib\site-packages\numpy
     Python version 2.6.5 (r265:79096, Mar 19 2010, 21:48:26) [MSC v.1500 32 bit (Intel)]
     nose version 0.10.4
-    �i���B�h�b�g�̗�j
+    （略。ドットの列）
     ----------------------------------------------------------------------
     Ran 1882 tests in 63.040s
     
     OK (KNOWNFAIL=3, SKIP=1)
     <nose.result.TextTestResult run=1882 errors=0 failures=0>
 
-�h�L�������g�����[�J���f�B�X�N�ɕۑ�����
+ドキュメントをローカルディスクに保存する
 ----------------------------------------------------------------------
-�I�����C���ł���� `Numpy and Scipy Documentation`_ �̃y�[�W����~�������ɒH�蒅���邾�낤�B
-�N���X����֐����𒲂ׂ�Ƃ��́A�L�[���[�h���������C���f�b�N�X�y�[�W�ł̃T�[�`�̂ق��������B
+オンラインであれば `Numpy and Scipy Documentation`_ のページから欲しい情報に辿り着けるだろう。
+クラス名や関数名を調べるときは、キーワード検索よりもインデックスページでのサーチのほうが早い。
 
-�I�t���C�����ō�Ƃ�����𓾂Ȃ��̏ꍇ�������̂ŁA
-��q�̃y�[�W����_�E�����[�h�ł��鎟�̃t�@�C�������[�J���ɕۑ����Ă����̂��]�܂����B
-�������e�Ȃ�� PDF �ł��� HTML-help (CHM) �̂ق���D�悵�ē��肷�邱�ƁB
-��������΃u���E�U�[�ł��{���ł���B
+オフライン環境で作業せざるを得ないの場合が多いので、
+上述のページからダウンロードできる次のファイルをローカルに保存しておくのが望ましい。
+同じ内容ならば PDF 版よりも HTML-help (CHM) のほうを優先して入手すること。
+そうすればブラウザーでも閲覧できる。
 
 * NumPy Reference Guide (numpy.chm)
 
-  �S�֐����t�@�����X���܂܂�Ă���B
+  全関数リファレンスが含まれている。
 
 * Guide to NumPy
 
-  ������͂ǂ��炩�ƌ����Γǂݕ��B�Ǐ��ƌ������B
+  こちらはどちらかと言えば読み物。読書家向けか。
 
 doc/
 ======================================================================
-NumPy �̃C���X�g�[���t�H���_�̒��� doc �t�H���_�ɂ̓h�L�������e�[�V������p�� py �t�@�C������������B
-NumPy �̊J���҂͂�������� NumPy User Guide ���쐬���Ă���Ǝv����B
-���Ƀt�@�C���Ƃ��̓��e��\�ɂ܂Ƃ߂�Barray �Ɋւ���g�s�b�N�����|�I�ɑ����B
+NumPy のインストールフォルダの直下 doc フォルダにはドキュメンテーション専用の py ファイルが多数ある。
+NumPy の開発者はこれらを基に NumPy User Guide を作成していると思われる。
+下にファイルとその内容を表にまとめる。array に関するトピックが圧倒的に多い。
 
 ============================== ====
-�t�@�C��                       ���e
+ファイル                       内容
 ============================== ====
-basics.py                      array �Ɋւ����{�I�ȓ��e�B
-broadcasting.py                array �� broadcasting rules �ɂ��Ă̋c�_�B
-constants.py                   NumPy ���񋟂���e��萔�Ɋւ��镶���B
-creation.py                    array �I�u�W�F�N�g�̐����Ɋւ��镶���B
-glossary.py                    �p��W�B
-howtofind.py                   �܂�����������Ă��Ȃ��B
-indexing.py                    array �I�u�W�F�N�g�̗v�f���Q�Ƃ����i�Ɋւ���c�_�B
-internals.py                   array �̎����ڍׂ�����B
-io.py                          �܂�����������Ă��Ȃ��B
-jargon.py                      �܂�����������Ă��Ȃ��B
-methods_vs_functions.py        �܂�����������Ă��Ȃ��B
-misc.py                        �G���ȃ����B
-performance.py                 �܂�����������Ă��Ȃ��B
-structured_arrays.py           �ς�����^�� array �ɂ��āB
-subclassing.py                 ``ndarray`` �̃T�u�N���X���Ɋւ��镶���B
-ufuncs.py                      Universal functions �Ɋւ��镶���B
+basics.py                      array に関する基本的な内容。
+broadcasting.py                array の broadcasting rules についての議論。
+constants.py                   NumPy が提供する各種定数に関する文書。
+creation.py                    array オブジェクトの生成に関する文書。
+glossary.py                    用語集。
+howtofind.py                   まだ文書化されていない。
+indexing.py                    array オブジェクトの要素を参照する手段に関する議論。
+internals.py                   array の実装詳細を説明。
+io.py                          まだ文書化されていない。
+jargon.py                      まだ文書化されていない。
+methods_vs_functions.py        まだ文書化されていない。
+misc.py                        雑多なメモ。
+performance.py                 まだ文書化されていない。
+structured_arrays.py           変わった型の array について。
+subclassing.py                 ``ndarray`` のサブクラス化に関する文書。
+ufuncs.py                      Universal functions に関する文書。
 ============================== ====
 
 glossary.py
 ----------------------------------------------------------------------
-�܂��p��W������̂��悢���B
+まず用語集を見るのがよいか。
 
-�t�@�C�� ``doc/glossary.py`` ���p��W�� docstring �̑̍قł܂Ƃ߂Ă���B
-������ reStructuredText �̂悤���B
+ファイル ``doc/glossary.py`` が用語集を docstring の体裁でまとめている。
+書式は reStructuredText のようだ。
 
-���^�Ώۂ� NumPy �Ǝ��Ɏg������̂����łȂ��A���w�A�v�Z�@�Ȋw�A
-����ɂ� Python ����Ɋ֌W������̂ɂ��y�ԁB
-�����ł͋C�ɂȂ�p��ɍi���ăm�[�g���Ƃ�B
+収録対象は NumPy 独自に使われるものだけでなく、数学、計算機科学、
+さらには Python 言語に関係するものにも及ぶ。
+ここでは気になる用語に絞ってノートをとる。
 
 along on axis
-    �s��ł� axis �͓���邪�A�c�����̕��т� axis 0 �ŁA�������̕��т� axis 1 ���B
-    �c�����̕����C���f�b�N�X���Ⴂ���ƂɂȂ��Ă���̂� row-major rule �ɂ��̂��낤�B
-    array �֘A�̊֐��ł́uaxis �������Ɏ���v���̂���������
+    行列では axis は二つあるが、縦方向の並びが axis 0 で、横方向の並びが axis 1 だ。
+    縦方向の方がインデックスが若いことになっているのは row-major rule によるのだろう。
+    array 関連の関数では「axis を引数に取れる」ものが多数ある
     (``sum``, ``var``, ``sort``, ``any``, ``mean``, etc.)
 
 array
-    **����̗v�f����Ȃ�** �z��ł��邱�Ƃ��������Ă���B
-    �Ȃ� ``ndarray`` �̂��Ƃ�P�� array �ƌĂԏꍇ�������B
+    **同種の要素からなる** 配列であることを強調している。
+    なお ``ndarray`` のことを単に array と呼ぶ場合が多い。
 
 array_like
-    ``ndarray`` �ɉ��߂����C�ӂ̃R���e�i�[�Ǝv���Ă悢�悤���B
-    �Ȃ̂� ``ndarray`` �I�u�W�F�N�g��X�J���[�� array_like ���B
+    ``ndarray`` に解釈される任意のコンテナーと思ってよいようだ。
+    なので ``ndarray`` オブジェクトやスカラーも array_like だ。
 
 broadcast
-    array �Ԃ̉��Z�͓��^����{�����A�኱ shape ���قȂ��Ă��Ă� OK �ȏꍇ������B
+    array 間の演算は同型が基本だが、若干 shape が異なっていても OK な場合がある。
 
 C order/row-major, Fortran order/column-major
-    �������z��̃��������C�A�E�g�Ɋւ���b������ꂢ�ɂ܂Ƃ߂Ă���B
-    NumPy �� array �͑O�҂��̗p���Ă���B
-    C ���ꂪ����𗘗p���Ă��邱�Ƃɂ��B
+    多次元配列のメモリレイアウトに関する話題をきれいにまとめてある。
+    NumPy の array は前者を採用している。
+    C 言語がそれを利用していることによる。
 
-    OpenGL �� column-major ������A
-    PyOpenGL �̃R�[�h�������Ƃ��ɂ͂��̕ӂ̎�����ӎ����Ȃ��Ƃ��߂��낤�B
+    OpenGL は column-major だから、
+    PyOpenGL のコードを書くときにはその辺の事情を意識しないとだめだろう。
 
 flattened
-    array ���ꎟ���� shape �ɂȂ�悤�Ɂu�܂肽���ށv���Ƃ��ł���B
+    array を一次元の shape になるように「折りたたむ」ことができる。
 
 mask, masked array
-    OpenGL �� ``glColorMask`` �̊T�O�݂����Ȃ��̂��B
+    OpenGL の ``glColorMask`` の概念みたいなものか。
 
 matrix
-    2 ������ ``ndarray`` �����炩�̓_�ɂ����čœK������ matrix �N���X������炵���B
-    ���Z�o�߂ɂ���� shape ���ς��悤�Ȃ��Ƃ��Ȃ����Ƃ�ۏ؂���悤���B
+    2 次元の ``ndarray`` を何らかの点において最適化した matrix クラスがあるらしい。
+    演算経過によって shape が変わるようなことがないことを保証するようだ。
 
 slice
-    Python �� ``list`` �I�u�W�F�N�g�ɑ΂���X���C�X���A
-    array �ł��T�|�[�g����Ƃ����b���B�������ŃX���C�X�B
+    Python の ``list`` オブジェクトに対するスライスを、
+    array でもサポートするという話だ。多次元版スライス。
 
 ufunc
-    �X�̗v�f���Ƃɉ��Z����悤�ȃ^�C�v�̉��Z�������ɏ�������B
-    ��� ``doc/ufuncs.py`` �ɖڂ�ʂ����x�ł������낤�B
+    個々の要素ごとに演算するようなタイプの演算を高速に処理する。
+    後で ``doc/ufuncs.py`` に目を通す程度でいいだろう。
 
 view
-    ������ array ����X���C�V���O���̑���ŕʂ� array ���쐬���邱�Ƃ�����B
-    ���̎�̑���ŐV�����ł��� array �́A
-    ���͎Q�ƃx�[�X�� proxy �I�u�W�F�N�g�ł��邱�Ƃ������悤���B
+    既存の array からスライシング等の操作で別の array を作成することがある。
+    この種の操作で新しくできた array は、
+    実は参照ベースの proxy オブジェクトであることが多いようだ。
 
-�R�[�h������
+コードを書く
 ======================================================================
-�ȍ~�̋L�q�� ``np`` �Ƃ���̂� ``import numpy as np`` �Ƃ������Ƃ�O��Ƃ��Ă���B
+以降の記述で ``np`` とあるのは ``import numpy as np`` としたことを前提としている。
 
-�w���v
+ヘルプ
 ------
-NumPy Reference �� Numpy-specific help functions �Z�N�V���������Ă������ƁB
-�����̃w���v�֐����o���Ă����� IDLE �ł̍�Ǝ��ɂ͏d�󂷂邾�낤�B
+NumPy Reference の Numpy-specific help functions セクションを見ておくこと。
+これらのヘルプ関数を覚えておくと IDLE での作業時には重宝するだろう。
 
-�L�[���[�h����@�\��T��
+キーワードから機能を探す
 ~~~~~~~~~~~~~~~~~~~~~~~~
-�֐� ``lookfor`` �𗘗p����ƁANumPy ���� docstring ���炻��炵���@�\�����X�g�A�b�v���Ă����B
+関数 ``lookfor`` を利用すると、NumPy 内の docstring からそれらしい機能をリストアップしてくれる。
 
-  >>> import numpy as np  # �ȉ��̃R�[�h�Ђł͂��̕����ȗ�����B
+  >>> import numpy as np  # 以下のコード片ではこの文を省略する。
   >>> lookfor('least square')
   Search results for 'least square'
   ---------------------------------
@@ -169,66 +169,66 @@ NumPy Reference �� Numpy-specific help functions �Z�N�V���������Ă������ƁB
       Return the least-squares solution to a linear matrix equation.
   ...
 
-NumPy �̃o�[�W������m��
+NumPy のバージョンを知る
 ~~~~~~~~~~~~~~~~~~~~~~~~
-``version.py`` �̕ϐ� version ���Q�Ƃ���B
+``version.py`` の変数 version を参照する。
 
  >>> np.version.version
  '1.4.1'
 
 array
 -----
-�w���v�̎g�������K��������A�܂��� array ���ӂ���U������B
+ヘルプの使い方を習得したら、まずは array 周辺から攻略する。
 
-array �I�u�W�F�N�g�𐶐�����
+array オブジェクトを生成する
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-NumPy Reference �� Array creation routines �̃Z�N�V�����ł��ꂢ�ɂ܂Ƃ߂Ă���B
+NumPy Reference の Array creation routines のセクションできれいにまとめてある。
 
-* array �I�u�W�F�N�g�̐������@�̊�{�͊֐� ``array`` �Ăяo�����B
-  �֐� ``array`` �͂����Ă��̏ꍇ ``ndarray`` �^�̃I�u�W�F�N�g��Ԃ��悤���B
+* array オブジェクトの生成方法の基本は関数 ``array`` 呼び出しだ。
+  関数 ``array`` はたいていの場合 ``ndarray`` 型のオブジェクトを返すようだ。
   ::
 
     from numpy import *
 
-    # �x�N�g���i�Ə���Ɏv���j�𐶐�����ɂ͂��̂悤�ɂ���B
+    # ベクトル（と勝手に思う）を生成するにはこのようにする。
     v = array([0., 0., 1.])
 
-    # �s��i�Ə���Ɏv���j�͂����B
+    # 行列（と勝手に思う）はこう。
     m = array([[1., 0., 0.],
                [0., 1., 0.],
                [0., 0., 1.]])
 
-* ``zeros_like``, ``ones_like``, ``empty_like`` �������Z�b�g�ŏK�����邱�ƁB
-  ������ array_like �I�u�W�F�N�g���瓯�� shape �� array �𐶂ݏo���֐����B
+* ``zeros_like``, ``ones_like``, ``empty_like`` をワンセットで習得すること。
+  既存の array_like オブジェクトから同じ shape の array を生み出す関数だ。
 
-* �悭���p����̂� ``ndarray`` �����A�R���X�g���N�^�[�𒼐ڗ��p�����ɁA
-  �֐� ``array``, ``zeros``, ``empty`` ������I�u�W�F�N�g���쐬���邱�ƁB
+* よく利用するのは ``ndarray`` だが、コンストラクターを直接利用せずに、
+  関数 ``array``, ``zeros``, ``empty`` 等からオブジェクトを作成すること。
 
-* ``copy`` �֐��� array_like �I�u�W�F�N�g�̃R�s�[�I�u�W�F�N�g��
-  ���ꂠ�邢�͕ʂ� array �I�u�W�F�N�g�Ƃ��č쐬���邱�Ƃ��ł���B
+* ``copy`` 関数で array_like オブジェクトのコピーオブジェクトを
+  同一あるいは別の array オブジェクトとして作成することができる。
 
     >>> a = [1., 2., 3.]
     >>> np.copy(a)
     array([ 1.,  2.,  3.])
 
-* �ς�����Ƃ���ł� ``arange`` �֐��Łu�A�ԁv�z��𐶐��ł���B
-  Python �� ``range`` �֐��� array �łƂ������Ƃ��낾�B
+* 変わったところでは ``arange`` 関数で「連番」配列を生成できる。
+  Python の ``range`` 関数の array 版といったところだ。
 
     >>> np.arange(3.0)
     array([ 0.,  1.,  2.])
 
-array �� shape ��ς���
+array の shape を変える
 ~~~~~~~~~~~~~~~~~~~~~~~
-NumPy Reference �� Array manipulation routines �̃Z�N�V�����ŕ\�ɂ܂Ƃ߂Ă���B
+NumPy Reference の Array manipulation routines のセクションで表にまとめてある。
 
-* 1-D array_like �I�u�W�F�N�g�𑽎���������ɂ� ``reshape`` ���\�b�h�܂��͓����̊֐��𗘗p����B
-  ``order`` �����Ń��������C�A�E�g���w���ł���B
+* 1-D array_like オブジェクトを多次元化するには ``reshape`` メソッドまたは同名の関数を利用する。
+  ``order`` 引数でメモリレイアウトを指示できる。
 
-* ������ array ���u�ꎟ���z�񉻁v����ɂ� ``flatten`` ���\�b�h�܂��͊֐� ``ravel`` �𗘗p����B
+* 多次元 array を「一次元配列化」するには ``flatten`` メソッドまたは関数 ``ravel`` を利用する。
 
-  �m���ɃR�s�[�I�u�W�F�N�g���~�����ꍇ�� ``flatten`` �𗘗p����̂��悢�H
+  確実にコピーオブジェクトが欲しい場合は ``flatten`` を利用するのがよい？
 
-  ������ ``order`` ��\���̂ŁAPyOpenGL �̍s��n�֐��ɓn���Ƃ��ɒ����ł��邩���B
+  引数が ``order`` を表すので、PyOpenGL の行列系関数に渡すときに調整できるかも。
 
     >>> a = np.arange(16).reshape(4, 4)
     >>> a
@@ -241,17 +241,17 @@ NumPy Reference �� Array manipulation routines �̃Z�N�V�����ŕ\�ɂ܂Ƃ߂Ă���B
     >>> a.flatten('F')
     array([ 0,  4,  8, 12,  1,  5,  9, 13,  2,  6, 10, 14,  3,  7, 11, 15])
 
-���^ array_like �I�u�W�F�N�g���m�ɎZ�p���Z�q����p������
+同型 array_like オブジェクト同士に算術演算子を作用させる
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-``+``, ``-`` ���̓񍀉��Z�q�𓯌^ array �I�u�W�F�N�g���m�ɍ�p�����邱�Ƃ��ł���B
-�e���Z�̒�`�́A�������Ƃ̎Z�p���Z�̂悤���B
-�܂��A���^�łȂ��Ƃ� broadcasting rule ���K�p�ł���ꍇ�͓񍀉��Z�������ł���B
-���ɃX�J���[����p������ꍇ�͏�ɉ\�ƍl���Ă����B
+``+``, ``-`` 等の二項演算子を同型 array オブジェクト同士に作用させることができる。
+各演算の定義は、成分ごとの算術演算のようだ。
+また、同型でなくとも broadcasting rule が適用できる場合は二項演算が実現できる。
+特にスカラーを作用させる場合は常に可能と考えていい。
 
-array �I�u�W�F�N�g�̃X���C�V���O
+array オブジェクトのスライシング
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-�s���\������ array �I�u�W�F�N�g���畔���x�N�g���𓾂�悤�ȂƂ��ɂ́A
-Python �� ``list`` ���l�A�X���C�V���O�̋Z�@�𗘗p����B
+行列を表現する array オブジェクトから部分ベクトルを得るようなときには、
+Python の ``list`` 同様、スライシングの技法を利用する。
 
   >>> a = np.arange(24).reshape(3, 8)
   >>> a
@@ -263,14 +263,14 @@ Python �� ``list`` ���l�A�X���C�V���O�̋Z�@�𗘗p����B
   >>> a[0,:]
   array([0, 1, 2, 3, 4, 5, 6, 7])
 
-NumPy �͂�荂���\�ȃX���C�X���T�|�[�g���Ă��邪�A�[�݂ɂ͂܂�Ɗ�Ȃ��̂ł��̕ӂŁB
+NumPy はより高性能なスライスをサポートしているが、深みにはまると危ないのでこの辺で。
 
-���`�㐔�֘A
+線形代数関連
 ------------
 
-�X�J���[�ρA�x�N�g����
+スカラー積、ベクトル積
 ~~~~~~~~~~~~~~~~~~~~~~
-�X�J���[�ρA�x�N�g���ς����߂����ꍇ�A���ꂼ��֐� ``dot``, ``cross`` �𗘗p���邱�ƁB
+スカラー積、ベクトル積を求めたい場合、それぞれ関数 ``dot``, ``cross`` を利用すること。
 
   >>> x = [1., 0., 0.]
   >>> y = [0., 1., 0.]
@@ -279,7 +279,7 @@ NumPy �͂�荂���\�ȃX���C�X���T�|�[�g���Ă��邪�A�[�݂ɂ͂܂�Ɗ�Ȃ��̂ł��̕�
   >>> np.cross(x, y)
   array([ 0.,  0.,  1.])
 
-``dot`` �ɂ��Ă͈����� shape �����K������΍s��̏�Z���T�|�[�g����B
+``dot`` については引数の shape さえ適合すれば行列の乗算もサポートする。
 
   >>> x = [100., 200.]
   >>> M = np.array([[1., 2.],
@@ -289,57 +289,57 @@ NumPy �͂�荂���\�ȃX���C�X���T�|�[�g���Ă��邪�A�[�݂ɂ͂܂�Ɗ�Ȃ��̂ł��̕�
   >>> np.dot(M, x)
   array([  500.,  1100.])
 
-�x�N�g���̒���
+ベクトルの長さ
 ~~~~~~~~~~~~~~
-�񍀉��Z�����L���T�|�[�g����Ă���̂ŁA1-D array �I�u�W�F�N�g���x�N�g���Ƃ݂Ȃ��̂��y���B
-���A�x�N�g���Ȃ�΁u�����v���v�Z����֐����~�����B
-�����ł� ``dot`` �𗘗p����B
+二項演算が幅広くサポートされているので、1-D array オブジェクトをベクトルとみなすのが楽だ。
+が、ベクトルならば「長さ」を計算する関数が欲しい。
+ここでは ``dot`` を利用する。
 
  >>> import math, numpy as np
  >>> v = array([1., 1., 1.])
- >>> math.sqrt(np.dot(v, v)) # ���Ȃ݂� sqrt �֐��� np �ɂ�����B
+ >>> math.sqrt(np.dot(v, v)) # ちなみに sqrt 関数は np にもある。
  1.7320508075688772
 
-���邢�� linalg �p�b�P�[�W�ɂ��� ``norm`` �֐����L�p���B
-�f�t�H���g���������̂܂ܗ��p����� 2-norm ���v�Z���Ă����B
+あるいは linalg パッケージにある ``norm`` 関数も有用だ。
+デフォルト引数をそのまま利用すれば 2-norm を計算してくれる。
 
- >>> # v �͏�Ɠ���
+ >>> # v は上と同じ
  >>> vlen = np.linalg.norm(v)
  >>> vlen
  1.7320508075688772
 
-�x�N�g�����K��
+ベクトル正規化
 ~~~~~~~~~~~~~~
-���K���Ƃ͒����� 1 �ɂȂ�悤�Ƀx�N�g���̐�����萔�{���邱�ƂƂ���B
-����ɂ́A�x�N�g���̒�������q�̕��@�œ��Ă���A
-��������[���ł��邱�Ƃ��m�F��Aarray �I�u�W�F�N�g�ɑ΂��� ``/=`` ����B
+正規化とは長さが 1 になるようにベクトルの成分を定数倍することとする。
+それには、ベクトルの長さを上述の方法で得てから、
+長さが非ゼロであることを確認後、array オブジェクトに対して ``/=`` する。
 
  >>> v /= vlen
  >>> v
  array([ 0.57735027,  0.57735027,  0.57735027])
 
-�x�N�g���̈�v
+ベクトルの一致
 ~~~~~~~~~~~~~~
-��������Ԃɂ��� 2 �x�N�g�� ``v1``, ``v2`` �����������ۂ��̃e�X�g������B
-�v����ɁA�A�v���P�[�V������`�̃g�������X��^���āA
-���҂̍��x�N�g���̒���������ȓ��Ɏ��܂��Ă��邩�ǂ����𒲂ׂ�B
+同次元空間にある 2 ベクトル ``v1``, ``v2`` が等しいか否かのテストをする。
+要するに、アプリケーション定義のトレランスを与えて、
+両者の差ベクトルの長さがそれ以内に収まっているかどうかを調べる。
 
-�֐� ``allclose`` ���A�v���P�[�V�����R���̃g�������X�𖾎��I�ɗ^������œK�p����̂��悩�낤�B
-�f�t�H���g�̃g�������X�ł̓��f�����O���ŗ��p����ɂ͌���������B
+関数 ``allclose`` をアプリケーション由来のトレランスを明示的に与えた上で適用するのがよかろう。
+デフォルトのトレランスではモデリング等で利用するには厳しすぎる。
 
-�x�N�g���̂Ȃ��p
+ベクトルのなす角
 ~~~~~~~~~~~~~~~~
-����������ŃR�[�h�������B
-2 �x�N�g���̃X�J���[�� (``dot``) �Ƃ��ꂼ��̒�������Ȃ��p�� cos �����܂�B
+これも自分でコードを書く。
+2 ベクトルのスカラー積 (``dot``) とそれぞれの長さからなす角の cos が求まる。
 
-2 �x�N�g���̈ʒu�֌W����
+2 ベクトルの位置関係判定
 ~~~~~~~~~~~~~~~~~~~~~~~~
-2 �x�N�g�������s�Ȃ̂��A�܂��͒�������̂����e�X�g�������ꍇ�A
-``dot`` �� ``cross`` ��g�ݍ��킹��Ή��Ƃ��Ȃ�B
+2 ベクトルが平行なのか、または直交するのかをテストしたい場合、
+``dot`` と ``cross`` を組み合わせれば何とかなる。
 
-�ꔭ�� identity matrix �𐶐�����
+一発で identity matrix を生成する
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-�֐� ``eye`` �𗘗p����B
+関数 ``eye`` を利用する。
 
   >>> np.eye(4)
   array([[ 1.,  0.,  0.,  0.],
@@ -347,11 +347,11 @@ NumPy �͂�荂���\�ȃX���C�X���T�|�[�g���Ă��邪�A�[�݂ɂ͂܂�Ɗ�Ȃ��̂ł��̕�
          [ 0.,  0.,  1.,  0.],
          [ 0.,  0.,  0.,  1.]])
 
-���΂� ``identity`` �Ƃ����֐������݂��邪�A�^�C�v���Ղ��ق���I�ԁB
+ずばり ``identity`` という関数も存在するが、タイプし易いほうを選ぶ。
 
-�Ίp�s��𐶐�����
+対角行列を生成する
 ~~~~~~~~~~~~~~~~~~
-�֐� ``diag`` �𗘗p����ƁA��y�ɑΊp�s����쐬�ł���B
+関数 ``diag`` を利用すると、手軽に対角行列を作成できる。
 
   >>> A = np.diag([1.,2.,3.])
   >>> A
@@ -359,64 +359,64 @@ NumPy �͂�荂���\�ȃX���C�X���T�|�[�g���Ă��邪�A�[�݂ɂ͂܂�Ɗ�Ȃ��̂ł��̕�
          [ 0.,  2.,  0.],
          [ 0.,  0.,  3.]])
 
-�s�񂩂�Ίp�����𒊏o����
+行列から対角成分を抽出する
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
-��͂�֐� ``diag`` �𗘗p����B
-�����ɓ񎟌��� array �I�u�W�F�N�g��n�����ƁB
+やはり関数 ``diag`` を利用する。
+引数に二次元の array オブジェクトを渡すこと。
 
-  >>> # ��̑���
+  >>> # 上の続き
   >>> np.diag(A)
   array([1., 2., 3.])
 
-���v�֘A
+統計関連
 --------
-NumPy �͕W�{��\������f�[�^�\���Ƃ��Ă� array �𗘗p���Ă���B
-NumPy Reference �� Statistics �̃Z�N�V�����ł܂Ƃ߂Ă���B
+NumPy は標本を表現するデータ構造としても array を利用している。
+NumPy Reference の Statistics のセクションでまとめてある。
 
-* ���v�֘A�̋@�\���܂�Ƀ��\�b�h�̌`���Œ񋟂���Ă��邱�Ƃ�����H
+* 統計関連の機能がまれにメソッドの形式で提供されていることがある？
 
-* �l�I�ȗp�r�ł� 1-D array �I�u�W�F�N�g����ɑΏۂƂ���i���̃m�[�g�ł��j���A
-  ���R n-D array �I�u�W�F�N�g�ɂ��Ă��e�퓝�v�֐���K�p�ł���B
-  �T���v�����O�̑Ώۂ� array �I�u�W�F�N�g�̊e�v�f�ł��A
-  along on axis �ł� OK ���B
+* 個人的な用途では 1-D array オブジェクトを主に対象とする（このノートでも）が、
+  当然 n-D array オブジェクトについても各種統計関数を適用できる。
+  サンプリングの対象は array オブジェクトの各要素でも、
+  along on axis でも OK だ。
 
-���a
+総和
 ~~~~
-Python �g�ݍ��݊֐��� ``sum`` ���܂ށA�F�X�ȑI����������B
-������ ``np.sum`` �ɓ��ꂵ�����B
+Python 組み込み関数の ``sum`` を含む、色々な選択肢がある。
+ここは ``np.sum`` に統一したい。
 
  >>> v = np.arange(100.)
  >>> np.sum(v)
  4950.0
 
-�ŏ��l�A�ő�l
+最小値、最大値
 ~~~~~~~~~~~~~~
-``np.min``, ``np.max`` �֐������ꂼ�� array �I�u�W�F�N�g�̍ŏ��l�A�ő�l�������ł���B
+``np.min``, ``np.max`` 関数がそれぞれ array オブジェクトの最小値、最大値を検索できる。
 
- >>> # v �͐�قǂƓ�������
+ >>> # v は先ほどと同じもの
  >>> np.amin(v)
  0.0
  >>> np.amax(v)
  99.0
 
-���ϒl
+平均値
 ~~~~~~
-�ׂ������Ƃ������Ε��ϒl�̒�`�ɂ�邪�A
-``np.average`` �� ``np.mean`` �����p�ł���B
-���҂̋@�\���኱�قȂ�悤�����A�^�C�v���Ղ��ق���I�ԁB
+細かいことを言えば平均値の定義によるが、
+``np.average`` と ``np.mean`` が利用できる。
+両者の機能が若干異なるようだが、タイプし易いほうを選ぶ。
 
- >>> # v �͐�قǂƓ�������
+ >>> # v は先ほどと同じもの
  >>> np.mean(v)
  49.5
 
-�q�X�g�O����
+ヒストグラム
 ~~~~~~~~~~~~
-�֐� ``np.histogram`` �� array ����q�X�g�O�������쐬���邱�Ƃ��ł���B
-�r���̗^���������̋C�ɂȂ�Δ񓙕��r�����w�肷�邱�Ƃ��ł���B
+関数 ``np.histogram`` で array からヒストグラムを作成することができる。
+ビンの与え方もその気になれば非等幅ビンを指定することもできる。
 
-* �r���̌��̓f�t�H���g�� 10 �炵���B
-  �T���v�������炻��炵���r�������v�Z����͎̂��͂ł��Ƃ������Ƃ��B
-* �e�r���͔��J��ԁi���j�Ȃ̂����A�Ō�̃r���̂ݕ�ԂɂȂ邱�Ƃɒ��ӂ��K�v�B
+* ビンの個数はデフォルトで 10 らしい。
+  サンプル数からそれらしいビン数を計算するのは自力でやれということか。
+* 各ビンは半開区間（左閉）なのだが、最後のビンのみ閉区間になることに注意が必要。
 
  >>> sample = np.arange(16.)
  >>> hist, binedges = np.histogram(sample)
@@ -426,40 +426,40 @@ Python �g�ݍ��݊֐��� ``sum`` ���܂ށA�F�X�ȑI����������B
  array([  0. ,   1.5,   3. ,   4.5,   6. ,   7.5,   9. ,  10.5,  12. ,
          13.5,  15. ])
 
-�����֘A
+乱数関連
 ----------------------------------------------------------------------
-* NumPy Reference �� Random sampling (numpy.random) �Z�N�V�����ɑ����B
+* NumPy Reference の Random sampling (numpy.random) セクションに多数。
 
-* �����͉����[���B�ǋ����o���Ƃ��肪�Ȃ��B
-  �ړI��B������̂ɏ\�������������Ȋ֐�����������A���̗����֐��𒲂ׂȂ����ƁB
+* 乱数は奥が深い。追究し出すときりがない。
+  目的を達成するのに十分見合いそうな関数を見つけたら、他の乱数関数を調べないこと。
 
-* ���z���m�͈�ʂ�ԗ����Ă���悤�Ȃ̂ŁA�Ɩ���K�v�ɂȂ����當���𓖂��낤�B
+* 分布モノは一通り網羅しているようなので、業務上必要になったら文献を当たろう。
 
-���e�������_���Ȑ��� array �𓾂�
+内容がランダムな整数 array を得る
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-``np.random.randint(low, high, size)`` �𗘗p����B
-�������X�g���Ɠ��Ȃ̂ŁA���ׂĂ̈����ɖ����I�Ɏ�������n���������悢���낤�B
+``np.random.randint(low, high, size)`` を利用する。
+引数リストが独特なので、すべての引数に明示的に実引数を渡した方がよいだろう。
 
  >>> np.random.randint(0, 500, 4)
  array([210, 332, 476, 488])
  >>> np.random.randint(0, 500, 4)
  array([149, 183, 182,  40])
 
-���e�������_���� float �^�� array �𓾂�
+内容がランダムな float 型数 array を得る
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-``np.random.random_sample(size)`` �𗘗p����B
-������ `[0, 1)` �̒l�� size �񃉃��_���ɒ��o���邾���Ȃ̂ŁA
-�~�����l�͈̔͂ɂ́A�����Ő��`�ϊ��������Ēl�𓾂�B
+``np.random.random_sample(size)`` を利用する。
+こいつは `[0, 1)` の値を size 回ランダムに抽出するだけなので、
+欲しい値の範囲には、自分で線形変換をかけて値を得る。
 
  >>> np.random.random_sample(15)
  array([ 0.54368538,  0.65534826,  0.42464352,  0.21621149,  0.55229361,
          0.15027351,  0.23596445,  0.04811345,  0.11326923,  0.36599603,
          0.32611298,  0.29099913,  0.6946677 ,  0.51569253,  0.25698767])
 
-array �̓��e�������_���ɃV���b�t������
+array の内容をランダムにシャッフルする
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C++ �Ō����Ƃ���� ``std::random_shuffle(first, last)`` �Ɠ����̂��Ƃ��������B
-����ɂ� ``np.random.shuffle(x)`` �𗘗p����΂悢�B
+C++ で言うところの ``std::random_shuffle(first, last)`` と同等のことをしたい。
+それには ``np.random.shuffle(x)`` を利用すればよい。
 
  >>> a = np.arange(5)
  >>> a
@@ -468,12 +468,12 @@ C++ �Ō����Ƃ���� ``std::random_shuffle(first, last)`` �Ɠ����̂��Ƃ��������B
  >>> a
  array([2, 4, 0, 1, 3])
 
-�ǂ��� shape �̂��� array �ɂ͌����ڂ������悤���i�m���߂�j�B
+どうも shape のある array には効き目が薄いようだ（確かめろ）。
 
-����������
+未整理メモ
 ======================================================================
-* �������͉��H���ė��p����ׂ����̂��Ǝv�����A�ǂ����p������悢���̂��B
-* �t�[���G�ϊ��̖ʔ����T���v����m��B
+* 多項式は加工して利用するべきものだと思うが、どう応用したらよいものか。
+* フーリエ変換の面白いサンプルを知る。
 
 .. _Numpy: http://scipy.org/NumPy/
 .. _Python: http://www.python.org/

@@ -1,53 +1,53 @@
 ======================================================================
-Python PIL ���p�m�[�g
+Python PIL 利用ノート
 ======================================================================
 
-�̌n�I�ɂ܂Ƃ߂�܂ł̊Ԃ� Q & A �`���Ńm�[�g���Ă����B
+体系的にまとめるまでの間は Q & A 形式でノートしておく。
 
-.. contents:: �m�[�g�ڎ�
+.. contents:: ノート目次
 
-PIL ���g
+PIL 自身
 ==================================================
 
-PIL �̃T�C�g�͂ǂ��H
+PIL のサイトはどこ？
 --------------------------------------------------
-PIL �̃T�C�g�� http://www.pythonware.com/products/pil �ɂ���B
+PIL のサイトは http://www.pythonware.com/products/pil にある。
 
-�p�b�P�[�W������@�ƃC���X�g�[�����@�́H
+パッケージ入手方法とインストール方法は？
 --------------------------------------------------
-�C���^�[�l�b�g�ɐڑ��������� ``easy_install PIL`` ����B
+インターネットに接続した環境で ``easy_install PIL`` する。
 
-����������� Windows �p�ɂ� PIL �̐��i�T�C�g���C���X�g�[���[��񋟂��Ă��邩������Ȃ��B
-���Ȃ݂ɂ��̃m�[�g�� 1.1.7 �𗘗p���ċL�q����B
+もしかすると Windows 用には PIL の製品サイトがインストーラーを提供しているかもしれない。
+ちなみにこのノートは 1.1.7 を利用して記述する。
 
-�I�t���C���h�L�������g�͂���H
+オフラインドキュメントはある？
 --------------------------------------------------
-�苖�� Python Imaging Library Overview �Ƃ����^�C�g���� PDF �t�@�C�������݂���B
-����ꏊ�͖Y�ꂽ���A�����炭��L�T�C�g�̂͂��B
+手許に Python Imaging Library Overview というタイトルの PDF ファイルが存在する。
+入手場所は忘れたが、おそらく上記サイトのはず。
 
-�t�@�C������ ``pil-handbook.pdf`` �ŁA
-Fredrik Lundh �� Matthew Ellis �Ƃ����l���̋����ɂȂ��Ă���B
+ファイル名は ``pil-handbook.pdf`` で、
+Fredrik Lundh と Matthew Ellis という人物の共著になっている。
 
-�܂��A�z�z�\�[�X�R�[�h�ꎮ����r���h�ł��� HTML �h�L�������g
-"The Python Imaging Library" ���ɂ߂ėL�p�B
+また、配布ソースコード一式からビルドできる HTML ドキュメント
+"The Python Imaging Library" も極めて有用。
 
-�摜������{
+画像処理基本
 ==================================================
 
-�����̉摜�t�@�C���̃t�H�[�}�b�g�ϊ��̕��@�́H
+既存の画像ファイルのフォーマット変換の方法は？
 --------------------------------------------------
-``Image.save`` ����Ƃ��̃t�@�C�����̊g���q�� PIL ������ɕϊ����Ă����B
-GIF �t�@�C�� ``image.gif`` �� PNG �ɕϊ�����ɂ́A�Ⴆ�Ή��̂悤�ɂ���B
+``Image.save`` するときのファイル名の拡張子で PIL が勝手に変換してくれる。
+GIF ファイル ``image.gif`` を PNG に変換するには、例えば下のようにする。
 
 >>> import Image
 >>> im = Image.open("image.gif")
 >>> im.save("image.png")
 
-�u����̃t�H���_�[�ɂ��邷�ׂĂ� GIF �t�@�C���� PNG �ɕϊ�����v�̂悤�ȍ�Ƃ́A��������B
+「特定のフォルダーにあるすべての GIF ファイルを PNG に変換する」のような作業は、こうする。
 
 .. code-block:: python
 
-   # pil-handbook �̗���ꕔ���ρB���얢�m�F�B
+   # pil-handbook の例を一部改変。動作未確認。
    import os.path
    import glob
    import Image
@@ -57,20 +57,20 @@ GIF �t�@�C�� ``image.gif`` �� PNG �ɕϊ�����ɂ́A�Ⴆ�Ή��̂悤�ɂ���B
        im = Image.open(infile)
        im.save(file + ".png")
 
-�R�[�h�����������Ȃ��Ȃ�΁A�R�}���h���C������
-``pilconvert.py`` ���g���������i��q�j�B
+コードを書きたくないならば、コマンドラインから
+``pilconvert.py`` を使う手もある（後述）。
 
-�摜���������Ă�����W���M�[���o�č���̂����H
+画像をいじっていたらジャギーが出て困るのだが？
 --------------------------------------------------
-�֐��ɂ���Ă� ``Image.ANTIALIAS`` �������Ɏw�肷��Ƌ���悭�Ȃ���̂�����B
-���ɁA�C���[�W���k�����ăW���M�[��������ꍇ�́A�v���O��������
-``resize`` �� ``thumbnail`` �̎��������`�F�b�N����B
+関数によっては ``Image.ANTIALIAS`` を引数に指定すると具合がよくなるものもある。
+特に、イメージを縮小してジャギーが生じる場合は、プログラム中の
+``resize`` と ``thumbnail`` の実引数をチェックする。
 
-�C���[�W�����m�N���ɂ���ɂ́H
+イメージをモノクロにするには？
 --------------------------------------------------
-���\�b�h ``convert`` ���g���� L ���[�h�ɂ��邾���� OK �̂悤���B
-�����I�Ɋe�s�N�Z���� RGB �l���O���[�X�P�[�������Ă���悤���B
-���̎��ŃX�P�[�������܂�B
+メソッド ``convert`` を使って L モードにするだけで OK のようだ。
+内部的に各ピクセルの RGB 値をグレースケール化しているようだ。
+次の式でスケールが決まる。
 ::
   
   L = R * 299/1000 + G * 587/1000 + B * 114/1000
@@ -80,83 +80,83 @@ GIF �t�@�C�� ``image.gif`` �� PNG �ɕϊ�����ɂ́A�Ⴆ�Ή��̂悤�ɂ���B
 .. image:: /_static/illvelo-monochrome.png
    :scale: 50%
 
-�摜�t�@�C�����Ȃ���Ԃ���C���[�W�𐶐�����ɂ́H
+画像ファイルがない状態からイメージを生成するには？
 --------------------------------------------------
-�֐� ``Image.new`` �𗘗p����B���Ȃ��Ƃ��J���[���[�h�Ɖ摜�T�C�Y���w�肷��΂悢�B
+関数 ``Image.new`` を利用する。少なくともカラーモードと画像サイズを指定すればよい。
 
->>> # 1024 x 768 �� RGB �C���[�W������������B
+>>> # 1024 x 768 の RGB イメージを初期化する。
 >>> import Image
 >>> img = Image.new('RGB', (1024, 768))
 
-���̃I�u�W�F�N�g�́A����΂܂�����ȃL�������@�X���B
-�����ɑ��̃C���[�W�I�u�W�F�N�g�� ``paste`` ���\�b�h���𗘗p���ĕ`���B
+このオブジェクトは、いわばまっさらなキャンヴァスだ。
+ここに他のイメージオブジェクトを ``paste`` メソッド等を利用して描く。
 
-�F���w�肷��̂� RGB �l���ڎw��͂炢
+色を指定するのに RGB 値直接指定はつらい
 --------------------------------------------------
-PIL �̊֐��E���\�b�h�ŐF�������Ɏ����̂ɂ��ẮA
-``ImageColor`` ���W���[���Ō��߂��Ă���F���Ŏw�肷�邱�Ƃ��ł���悤���B
-RGB, RGBA ���[�h�ł��̂������F�߂��Ă���B
+PIL の関数・メソッドで色を引数に取るものについては、
+``ImageColor`` モジュールで決められている色名で指定することもできるようだ。
+RGB, RGBA モードでこのやり方が認められている。
 
->>> # RGB �C���[�W��ԐF�ŏ���������B
+>>> # RGB イメージを赤色で初期化する。
 >>> import Image
 >>> img = Image.new('RGB', (1024, 768), 'red')
 
-���� ``ImageColor.colormap`` �̃L�[�ƂȂ��Ă��镶����Ȃ�� OK �炵���B
+辞書 ``ImageColor.colormap`` のキーとなっている文字列ならば OK らしい。
 
-����ʓI�ɂ� HTML/CSS ���� ``'#ff0000'`` �Ǝw���������������B
-����Ȃ�C�ӂ� 24 �r�b�g�J���[�l��^������B
+より一般的には HTML/CSS 風に ``'#ff0000'`` と指示する方式もある。
+これなら任意の 24 ビットカラー値を与えられる。
 
-�p���b�g���[�h�ɂ��ďڂ���
+パレットモードについて詳しく
 --------------------------------------------------
 TBW
 
-�^�����C���[�W����̃C���[�W���b�s���O�̍ۂɂ��̒m�����K�v�ɂȂ邾�낤�B
+某ロムイメージからのイメージリッピングの際にこの知識が必要になるだろう。
 
-Band �̍l�����ɂ��ċ����Ă���
+Band の考え方について教えてくれ
 --------------------------------------------------
-�Ⴆ�΁A�苖�ɂ��� PNG �t�@�C������ǂݍ��񂾃C���[�W�f�[�^�� RGBA ���[�h���B
-����� R, G, B, A �Ƃ����F�v���X�A���t�@�Ɋւ�����������Ă���B
-���̂悤�Ȃ��̂� PIL �ł� multi-band �ł���ƕ\������B
+例えば、手許にある PNG ファイルから読み込んだイメージデータは RGBA モードだ。
+これは R, G, B, A という色プラスアルファに関する情報を持っている。
+このようなものを PIL では multi-band であると表現する。
 
-�C���[�W�I�u�W�F�N�g�� ``split`` ���\�b�h�ł��� band ��
-L ���[�h�̃C���[�W�Ƃ��Ē��o�ł���B
+イメージオブジェクトの ``split`` メソッドでこの band を
+L モードのイメージとして抽出できる。
 
 .. code-block:: python
 
-   # RGBA �ȃC���[�W���Ɖ��肷��B
+   # RGBA なイメージだと仮定する。
    img = Image.open('illvelo.png')
    assert img.mode == 'RGBA'
 
-   # split ���\�b�h�� R, G, B, A �e�������C���[�W�̌`�Œ��o����B
+   # split メソッドで R, G, B, A 各成分をイメージの形で抽出する。
    img.load()
    bands = img.split()
-   bands[0].show() # R �����̃O���[�X�P�[�����q�߂�B
+   bands[0].show() # R 成分のグレースケールが拝める。
 
-�A���t�@�`�����l�������� PNG �摜��n�w�i��ɏd�˂���
+アルファチャンネルを持つ PNG 画像を青地背景上に重ねたい
 -----------------------------------------------------------
-PIL �ł� Photoshop �Ō����Ƃ���̃`�����l���̂��Ƃ��o���h�ƌĂ�ł���B���҂̈Ӗ��͓����ƍl���Ă悳�������B
+PIL では Photoshop で言うところのチャンネルのことをバンドと呼んでいる。両者の意味は同じと考えてよさそうだ。
 
-``paste`` ���\�b�h�� ``mask`` �����Ƃ��āA�ΏۂƂȂ�摜�̃A���t�@��^����̂������B
-�A���t�@�͌��C���[�W�ɑ΂��� ``split`` ���\�b�h�̖߂�l���瓾��B
+``paste`` メソッドの ``mask`` 引数として、対象となる画像のアルファを与えるのが正解。
+アルファは元イメージに対する ``split`` メソッドの戻り値から得る。
 
 .. code-block:: python
 
    import Image
    
-   # Photoshop �Ō����Ƃ���̃��C���[ 1 �ɒu���摜�B
+   # Photoshop で言うところのレイヤー 1 に置く画像。
    img = Image.open('illvelo.png')
    img.load()
    bands = img.split()
 
-   # R, G, B, A �� A �������v��B
+   # R, G, B, A の A だけが要る。
    alpha = bands[3]
    
-   # Photoshop �Ō����Ƃ���̔w�i���C���[�ɂȂ�摜�B
+   # Photoshop で言うところの背景レイヤーになる画像。
    bkgnd = Image.new('RGBA', img.size, 'blue')
    
-   # ����ł̓_���B
+   # これではダメ。
    #bkgnd.paste(img, None)
-   # ���ꂪ�����B
+   # これが正解。
    bkgnd.paste(img, None, mask=alpha)
 
 .. image:: /_static/illvelo.png
@@ -164,34 +164,34 @@ PIL �ł� Photoshop �Ō����Ƃ���̃`�����l���̂��Ƃ��o���h�ƌĂ�ł���B���҂̈Ӗ
 .. image:: /_static/illvelo-blueback.png
    :scale: 50%
 
-�e�L�X�g�֘A
+テキスト関連
 ==================================================
 
-�e�L�X�g��`�悷���ԊȒP�ȃR�[�h�́H
+テキストを描画する一番簡単なコードは？
 --------------------------------------------------
-�Ƃ肠���� ``ImageDraw`` ���W���[���̋@�\�𗘗p����B
+とりあえず ``ImageDraw`` モジュールの機能を利用する。
 
 .. code-block:: python
 
    import Image
    import ImageDraw
 
-   # �f�t�H���g�w�i�F�� 128x128 �T�C�Y�̃L�������@�X��p�ӂ���B
+   # デフォルト背景色の 128x128 サイズのキャンヴァスを用意する。
    img = Image.new('RGBA', (128, 128))
 
-   # Draw �֐��ŃI�u�W�F�N�g���쐬�B
+   # Draw 関数でオブジェクトを作成。
    draw = ImageDraw.Draw(img)
 
-   # ��ʂ̍�����Ƀe�L�X�g��Ԃ��`�悷��B
+   # 画面の左上隅にテキストを赤く描画する。
    draw.text((0, 0), u'Hello, world', fill='red')
 
-���{��̃e�L�X�g��`�悷��ɂ́H
+日本語のテキストを描画するには？
 --------------------------------------------------
-�R�c�� 3 ����B
+コツは 3 つある。
 
-* �֐� ``ImageFont.truetype`` �œ��{��Ή��̃t�H���g�I�u�W�F�N�g���쐬����B
-* ���̍ۂ� ``encoding`` �����ɓK�؂ȃG���R�[�f�B���O���w������B
-* ``text`` ���\�b�h�̈����ɂ��̃t�H���g��^����B
+* 関数 ``ImageFont.truetype`` で日本語対応のフォントオブジェクトを作成する。
+* その際に ``encoding`` 引数に適切なエンコーディングを指示する。
+* ``text`` メソッドの引数にそのフォントを与える。
 
 .. code-block:: python
 
@@ -199,19 +199,19 @@ PIL �ł� Photoshop �Ō����Ƃ���̃`�����l���̂��Ƃ��o���h�ƌĂ�ł���B���҂̈Ӗ
    import ImageDraw
    import ImageFont
 
-   # �傫�߂̃L�������@�X��p�ӂ��Ă����B
+   # 大きめのキャンヴァスを用意しておく。
    img = Image.new('RGB', (1024, 256), 'black')
    dr = ImageDraw.Draw(img)
-   # HG �����̂��g���Ă݂�B
+   # HG 明朝体を使ってみる。
    fnt = ImageFont.truetype('hgrme.ttc', 24, encoding='utf-8')
 
-   # ���߂̃e�L�X�g��p�ӂ���B
-   text = u'''�ǂ����Ă�����Ă��炦�܂��񂩁H
-   ���͂���Ȃɂ��Ȃ��ɉ�����̂Ɂc�B
-   �����ɂ͗]�T������̂ŐS�z���Ȃ���
-   ���������B
-   �R�[�h780��1102�ԂŁA
-   ���Ȃ���҂��Ă��܂��B
+   # 長めのテキストを用意する。
+   text = u'''どうしても会ってもらえませんか？
+   私はこんなにあなたに会いたいのに…。
+   お金には余裕があるので心配しないで
+   ください。
+   コード780の1102番で、
+   あなたを待っています。
    '''
    
    width = 0
@@ -222,59 +222,59 @@ PIL �ł� Photoshop �Ō����Ƃ���̃`�����l���̂��Ƃ��o���h�ƌĂ�ł���B���҂̈Ӗ
        width = max(ext[0], width)
        height += ext[1]
    
-   # �]�����g��������B
+   # 余白をトリムする。
    img = img.crop((0, 0, width, height))
 
 .. image:: /_static/karous-paradise.png
 
-ImportError: DLL load failed �ɂȂ�̂͂Ȃ��H
+ImportError: DLL load failed になるのはなぜ？
 --------------------------------------------------
-``import ImageFont`` �ŕ\��̃G���[���o���B
-�G���[���b�Z�[�W��^�Ɏ󂯂�� :file:`_imagingft.pyd` �����炩�̗��R�ł��������B
+``import ImageFont`` で表題のエラーが出た。
+エラーメッセージを真に受けると :file:`_imagingft.pyd` が何らかの理由でおかしい。
 
-���ׂĂ݂�� PIL 1.1.7 �����ŋN���錻�ۂ̂悤���B
-���̃t�@�C���� Windows �p�� PIL �C���X�g�[���[�Ɋ܂܂�Ă���̂����A
-�r���h�����Ƃ��ɉ����̊O�����C�u�����[�̎Q�Ƃ����Ă��Ȃ������̂ł͂Ȃ����낤���B
+調べてみると PIL 1.1.7 だけで起こる現象のようだ。
+このファイルは Windows 用の PIL インストーラーに含まれているのだが、
+ビルドしたときに何かの外部ライブラリーの参照をしていなかったのではないだろうか。
 
-�E��}�V���ł͎����� MSVC9 �����āA�Z�b�g�A�b�v����F�X�����������B���s���B
+職場マシンでは自分で MSVC9 を入れて、セットアップから色々実験したい。続行だ。
 
-����}�V���ł͒��߂ăA���C���X�g�[�����āAPIL 1.1.6 �ɖ߂��̂��g�B
+自宅マシンでは諦めてアンインストールして、PIL 1.1.6 に戻すのが吉。
 
-�������ɗ���������Ȃ����@�\
+いつか役に立つかもしれない諸機能
 ==================================================
 
-�X�N���[���V���b�g
+スクリーンショット
 --------------------------------------------------
-Windows �̂ݑΉ��炵���B
+Windows のみ対応らしい。
 
 .. code-block:: python
 
    import Image
    import ImageGrab
    
-   # �X�N���[���V���b�g���L���v�`���[�B
+   # スクリーンショットをキャプチャー。
    img = ImageGrab.grab()
 
-   # ���̂܂܂��Ɩʔ����Ȃ��̂ŁA
-   # �k�����ĕ\������B
+   # そのままだと面白くないので、
+   # 縮小して表示する。
    img.thumbnail((256, 256), Image.ANTIALIAS)
    img.show()
 
 .. image:: /_static/grab.png
    :scale: 100%
 
-�㉺���E���[�v�ǎ��p�^�[���쐬
+上下左右ループ壁紙パターン作成
 --------------------------------------------------
-�悭����A���S���Y���� PIL �Ŏ�������΂悢�B
+よくあるアルゴリズムを PIL で実装すればよい。
 
-* ���摜�� 2 x 2 �������đΊp����̋������ւ���B
-* �����֌��摜���u�����h�Ȃ�I�[�o�[���C�Ȃ肵�ďd�ˍ��킹��B
+* 元画像を 2 x 2 分割して対角線上の区域を入れ替える。
+* そこへ元画像をブレンドなりオーバーレイなりして重ね合わせる。
 
-���E�������[�v�̂��߂̋�����ւ��̏����́Apil-handbook �Q�ƁB
+左右方向ループのための区域入れ替えの処理は、pil-handbook 参照。
 
 .. code-block:: python
 
-   # Example: Rolling an image ������
+   # Example: Rolling an image を改造
    def roll_horz(image, delta):
        xsize, ysize = image.size
    
@@ -292,51 +292,51 @@ Windows �̂ݑΉ��炵���B
 .. image:: /_static/illvelo-wallpaper.png
    :scale: 50%
 
-���W���[�� ImageDraw2 ���C�ɂȂ�
+モジュール ImageDraw2 が気になる
 --------------------------------------------------
-:file:`ImageDraw2.py` �Ȃ���̂�����B
-���g��`������A���������������肵�Ă��Ă����������B
+:file:`ImageDraw2.py` なるものがある。
+中身を覗いたら、けっこうすっきりしていていい感じだ。
 
-���W���[�� ImageGL �̎g�������킩��Ȃ�
+モジュール ImageGL の使い方がわからない
 --------------------------------------------------
-���O���炵�� OpenGL �֌W�Ȃ̂����A�R�[�h�����Ă��p�r�s���B
+名前からして OpenGL 関係なのだが、コードを見ても用途不明。
 
-���W���[�� ImagePath �̎g�������킩��Ȃ�
+モジュール ImagePath の使い方がわからない
 --------------------------------------------------
-�R�[�h�����Ă��p�r�s���B
+コードを見ても用途不明。
 
-�R�}���h���C�����[�e�B���e�B�[
+コマンドラインユーティリティー
 ==================================================
-PIL ���C���X�g�[������� :file:`Scripts` �t�H���_�[�ɉ����X�N���v�g������B
-�ȍ~�̗�R�[�h�́ACygwin (Bash) �ł̓��͂�z�肵�Ă���B
-Python ���̂� Cygwin �̂��̂ł͂Ȃ��AWindows �p�̂��̂𗘗p����B
-Cygwin �ł� Python �͂��������C���X�g�[�����Ă��Ȃ��B
+PIL をインストールすると :file:`Scripts` フォルダーに何個かスクリプトが入る。
+以降の例コードは、Cygwin (Bash) での入力を想定している。
+Python 自体は Cygwin のものではなく、Windows 用のものを利用する。
+Cygwin 版の Python はそもそもインストールしていない。
 
-�t�H�[�}�b�g�ϊ����s���ɂ́H
+フォーマット変換を行うには？
 --------------------------------------------------
-�R�}���h���C���� :file:`pilconvert.py` �𗘗p����B
-ImageMagick �� ``convert`` ����摜����I�v�V������S����苎�����悤�ȃc�[�����B
+コマンドラインで :file:`pilconvert.py` を利用する。
+ImageMagick の ``convert`` から画像操作オプションを全部取り去ったようなツールだ。
 
-``sample.gif`` ���� PNG �`���̃t�@�C�� ``sample.png`` ���쐬����ɂ͎��̂悤�ɓ��͂��邾�����B
+``sample.gif`` から PNG 形式のファイル ``sample.png`` を作成するには次のように入力するだけだ。
 ::
 
   $ pilconvert.py sample.gif sample.png
 
-�J�����g�f�B���N�g���[�̂��ׂĂ� GIF �t�@�C������ PNG �t�@�C���ɕϊ��������Ȃ�΂����Ȃ�B
+カレントディレクトリーのすべての GIF ファイルから PNG ファイルに変換したいならばこうなる。
 ::
 
   $ for name in *.gif ; do \
   >   pilconvert.py $name ${name%.*}.png ; \
   > done
 
-�摜���T�C�Y���̑�����s���ɂ́H
+画像リサイズ等の操作を行うには？
 --------------------------------------------------
-�R�}���h���C���� :file:`pildriver.py` �𗘗p����B
-ImageMagick �� ``convert`` �Ƃ悭�����c�[�����B
+コマンドラインで :file:`pildriver.py` を利用する。
+ImageMagick の ``convert`` とよく似たツールだ。
 
-�������A�R�}���h���C���ōŏ��ɂ��ׂĂ̑�����w�肵�Ď��s����P�[�X�ƁA
-������^�����Ɏ��s���đΘb���[�h�ɓ���A�����ő���������w������P�[�X������B
-�Θb���[�h�ł͑���̓r���� ``show`` �R�}���h�œr���o�߂��m�F�ł���B
+ただし、コマンドラインで最初にすべての操作を指定して実行するケースと、
+引数を与えずに実行して対話モードに入り、そこで操作を順次指示するケースがある。
+対話モードでは操作の途中で ``show`` コマンドで途中経過を確認できる。
 ::
 
   $ pildriver.py
@@ -349,5 +349,5 @@ ImageMagick �� ``convert`` �Ƃ悭�����c�[�����B
   []
   pildriver>
 
-�Θb���[�h���甲����R�}���h������킯�ł͂Ȃ��悤�Ȃ̂ŁA
-``Ctrl-C`` �ŏI�����Ă��܂����B
+対話モードから抜けるコマンドがあるわけではないようなので、
+``Ctrl-C`` で終了してしまおう。

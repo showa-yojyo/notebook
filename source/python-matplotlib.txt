@@ -1,32 +1,32 @@
 ======================================================================
-Python Matplotlib ���p�m�[�g
+Python Matplotlib 利用ノート
 ======================================================================
 
-.. contents:: �m�[�g�ڎ�
+.. contents:: ノート目次
 
-�ړI
+目的
 ==================================================
-Matplotlib �p�b�P�[�W�͂ƂĂ������[���B
-�葫�̂悤�Ɏg�����Ȃ���悤�ɂȂ�ɂ́A�������Ԃ�v����ƌ����B
-Python �ł͗V�т������Ƃ����ɂ��������񂠂�̂�
-Matplotlib �ŖړI���g�債�߂��Ȃ��悤�ɁA�����܂łł���΂����Ƃ����ړI�����߂Ă����B
+Matplotlib パッケージはとても奥が深い。
+手足のように使いこなせるようになるには、相当時間を要すると見た。
+Python では遊びたいことが他にもたくさんあるので
+Matplotlib で目的を拡大し過ぎないように、ここまでできればいいという目的を決めておく。
 
-�l�I�ɂ͎��� 3 �_�ŏ\�����B
+個人的には次の 3 点で十分だ。
 
-* ���w�̋��ȏ��ɂ��肪���ȋȐ��O���t��`�悷��B
-  ���� xy ���ʏ�� n ����������X�v���C���Ȑ����`��ł���΂����B
+* 数学の教科書にありがちな曲線グラフを描画する。
+  特に xy 平面上に n 次多項式やスプライン曲線が描画できればいい。
 
-* ���w�̋��ȏ��ɂ��肪���Ȑ�����`�悷��B
-  �܂� TeX ���̊ȈՔłƂ��ė��p�������B
+* 数学の教科書にありがちな数式を描画する。
+  つまり TeX 環境の簡易版として利用したい。
 
-* ������ PNG �摜�܂��� PDF �t�@�C���Ƃ��ďo�͂������B
-  �ł���� SVG �t�@�C�������������B
+* それらを PNG 画像または PDF ファイルとして出力したい。
+  できれば SVG ファイルをも得たい。
 
-���\�z
+環境構築
 ==================================================
 .. note::
 
-   �����ł� Python ���͎��̒ʂ�B���̑��͌�q�B
+   ここでの Python 環境は次の通り。その他は後述。
 
    * Windows XP Home SP3
    * Python 2.6.6
@@ -35,212 +35,212 @@ Matplotlib �ŖړI���g�債�߂��Ȃ��悤�ɁA�����܂łł���΂����Ƃ����ړI�����߂Ă
      * NumPy 1.5.0
      * PIL 1.1.6
 
-Matplotlib �̈ˑ��p�b�P�[�W���C���X�g�[��
+Matplotlib の依存パッケージをインストール
 --------------------------------------------------
-Matplotlib �� NumPy �𑽗p���Ă���̂ŁA���R������ɃC���X�g�[�����Ă����B
-�� :doc:`/python-numpy`
+Matplotlib は NumPy を多用しているので、当然これを先にインストールしておく。
+→ :doc:`/python-numpy`
 
-���Ƃ͓��ɕK�v�Ȃ��B�{�̂̃C���X�g�[���֐i�����B
+あとは特に必要ない。本体のインストールへ進もう。
 
-Matplotlib �{�̂��C���X�g�[��
+Matplotlib 本体をインストール
 --------------------------------------------------
-Windows �Ȃ̂ŁA�����T�C�g����C���X�g�[���[���_�E�����[�h���Ď��s����̈��B
+Windows なので、公式サイトからインストーラーをダウンロードして実行するの一手。
 
-�I�t���C���ł��׋��ł���悤�Ƀh�L�������g���m��
+オフラインでも勉強できるようにドキュメントを確保
 --------------------------------------------------
-�����T�C�g���� PDF ���_�E�����[�h���āA���[�J���f�B�X�N�ɕۑ�����B
-�ŏ��̃y�[�W�� "Matplotlib Release 1.0.0" �Ƃ����^�C�g���ƁA���҂̘A��
-"Darren Dale, Michael Droettboom, Eric Firing, John Hunter" ��������Ă���B
-PDF �t�@�C���S�̂� 900 �y�[�W�ɋy�ԑ咘���B
+公式サイトから PDF をダウンロードして、ローカルディスクに保存する。
+最初のページに "Matplotlib Release 1.0.0" というタイトルと、著者の連名
+"Darren Dale, Michael Droettboom, Eric Firing, John Hunter" が書かれてある。
+PDF ファイル全体は 900 ページに及ぶ大著だ。
 
-�Ȃ��A�\�[�X�R�[�h�ꎮ����肵�āA�����ɂ��� Sphinx �ɂ��h�L�������g�r���h�����݂����A
-�������������邮�郋�[�v���Č��ǃ��m���ł��Ȃ��������Ƃ�����B
+なお、ソースコード一式を入手して、そこにある Sphinx によるドキュメントビルドを試みたが、
+同じ処理をぐるぐるループして結局モノができなかったことがある。
 
-����m�F
+動作確認
 --------------------------------------------------
-���̂悤�ȃR�[�h�����s���Ă݂āA����炵���C���[�W��ڎ��Ŋm�F�ł����� OK �ł����B
+次のようなコードを実行してみて、それらしいイメージを目視で確認できたら OK でいい。
 
 >>> import matplotlib.pyplot as plt
 >>> plt.plot([1,2,3,4])
 >>> plt.show()
 
-�Ō�̍s�� ``plt.show()`` �̌Ăяo���J�n����ɁA
-PIL �� ``Image.show()`` �̂悤�Ƀr���[���[���o������B���ꂪ�Ȃ��Ȃ��ʔ����B
+最後の行の ``plt.show()`` の呼び出し開始直後に、
+PIL の ``Image.show()`` のようにビューワーが出現する。これがなかなか面白い。
 
 .. image:: /_static/mpl-tkagg.png
    :scale: 50%
 
-Matplotlib �̊�{�I�ȃR�[�h�̏��������K������
+Matplotlib の基本的なコードの書き方を習得する
 ==================================================
-* ���������̕����� ``plt`` ��
-  ``import matplotlib.pyplot as plt`` �ƕʖ���`�������̂Ƃ���B
+* ここから先の文中の ``plt`` は
+  ``import matplotlib.pyplot as plt`` と別名定義したものとする。
 
-* ���l�� ``mpl`` ��
-  ``import matplotlib as mpl`` �ƕʖ���`�������̂Ƃ���B
+* 同様に ``mpl`` は
+  ``import matplotlib as mpl`` と別名定義したものとする。
 
-��{�I�Ȋ֐��E���\�b�h����������
+基本的な関数・メソッドを押さえる
 --------------------------------------------------
-���̕\�����Ă���w���v�𓖂���B
+下の表を見てからヘルプを当たる。
 
-��Ō���悤�ɁA���W���[�� ``matplotlib.pyplot`` �̊֐��̎d���́A
-�����́u�A�N�e�B�u�ȁv�I�u�W�F�N�g�̃��\�b�h�Ăяo�������邾���ɉ߂��Ȃ��B
+後で見るように、モジュール ``matplotlib.pyplot`` の関数の仕事は、
+ある種の「アクティブな」オブジェクトのメソッド呼び出しをするだけに過ぎない。
 
 =================      ==============================================
-�֐��i�����ȗ��j       �d��
+関数（引数省略）       仕事
 =================      ==============================================
-``plt.plot()``         �O���t��`��
-``plt.hist()``         �q�X�g�O������`��
+``plt.plot()``         グラフを描く
+``plt.hist()``         ヒストグラムを描く
 
-``plt.show()``         �C���[�W����C�ɕ\��
-``plt.savefig()``      �C���[�W���t�@�C���ɕۑ�
-``plt.setp()``         �v���b�g���̑������A�`��p�����[�^�[�̎擾�E�w��
+``plt.show()``         イメージを一気に表示
+``plt.savefig()``      イメージをファイルに保存
+``plt.setp()``         プロット線の属性等、描画パラメーターの取得・指定
 
-``plt.axis()``         �r���[�|�[�g�͈͎w��
-``plt.grid()``         �O���b�h�`������邩���Ȃ����w��
+``plt.axis()``         ビューポート範囲指定
+``plt.grid()``         グリッド描画をするかしないか指定
 =================      ==============================================
 
-Figure �� Axes �̊T�O�𗝉�����
+Figure と Axes の概念を理解する
 --------------------------------------------------
-Matplotlib �ɂ� current figure �� current axes �Ƃ����T�O������B
-����𗘗p���āA�����̃O���t�������V�[���ɒ�`�ł���悤���B
+Matplotlib には current figure と current axes という概念がある。
+これを利用して、複数個のグラフをワンシーンに定義できるようだ。
 
 =================        ==============================================
-�֐�                     �d��
+関数                     仕事
 =================        ==============================================
-``plt.figure()``         �w��� figure ���J�����g�ɂ���
-``plt.subplot()``        �w��� axes ���J�����g�ɂ���
+``plt.figure()``         指定の figure をカレントにする
+``plt.subplot()``        指定の axes をカレントにする
 =================        ==============================================
 
-* ���̖{�ɂ͂������̐}�����΂��΃L���v�V�����t���ōڂ��Ă���B
-  Figure �Ƃ�����́A����ɑΉ�����N���X���Ɖ��߂������B
-  �}�̈��� Figure �̃I�u�W�F�N�g�ɂȂ�Ǝv���΁A�l�I�ɂ̓R�[�h�������ł���B
+* 大抵の本にはいくつかの図がしばしばキャプション付きで載っている。
+  Figure という語は、それに対応するクラスだと解釈したい。
+  図の一つ一つが Figure のオブジェクトになると思えば、個人的にはコードが理解できる。
 
-* ���ʂ͈�̐}�ɃO���t����ڂ���킯�����A
-  �����悤�ȃO���t����ׂ����̂���̐}�Ƃ������ꍇ������B
-  Axes �Ƃ����ꂪ�Ӗ�����̂��A���̃O���t���Ɖ��߂���΂悢���B
+* 普通は一つの図にグラフ一つを載せるわけだが、
+  同じようなグラフを並べたものを一つの図としたい場合もある。
+  Axes という語が意味するのが、そのグラフだと解釈すればよいか。
 
   .. image:: /_static/mpl-axes.png
      :scale: 50%
 
-* ``plt.figure(n)`` �� current figure ���w�肷��B
-* ``plt.subplot(n0n1n2)`` �� current axes ���w�肷��B
-  ``n0``, ``n1``, ``n2`` �����ꂼ��c�����̋�搔�A�������̋�搔�A
-  �u�ǂ̋�悩�v���Ӗ�����B
+* ``plt.figure(n)`` で current figure を指定する。
+* ``plt.subplot(n0n1n2)`` で current axes を指定する。
+  ``n0``, ``n1``, ``n2`` がそれぞれ縦方向の区画数、横方向の区画数、
+  「どの区画か」を意味する。
 
-  ``n2`` �� 1 �ȏ� ``n1 * n2`` �ȉ��̒l�łȂ���΂Ȃ�Ȃ��B
+  ``n2`` は 1 以上 ``n1 * n2`` 以下の値でなければならない。
 
-* ``plt`` �̃v���b�g�R�}���h�͂��ׂ� current axes �ɍ�p����B
+* ``plt`` のプロットコマンドはすべて current axes に作用する。
   ::
     
     import matplotlib as mpl
     import matplotlib.pyplot as plt
     
-    fig = plt.figure(1) # current figure: 1 �Ƃ���B
-    plt.subplot(211) # �c 2 �� 1 ������ current axes: 1 �ɂȂ�B
+    fig = plt.figure(1) # current figure: 1 とする。
+    plt.subplot(211) # 縦 2 横 1 分割で current axes: 1 になる。
     
-    # ... �����ɗ��� plt. �Ŏn�܂�v���b�g���߂͂��ׂ�
-    # �񕪊����ꂽ��� axes �ɓK�p�����B
+    # ... ここに来る plt. で始まるプロット命令はすべて
+    # 二分割された上の axes に適用される。
     
-    plt.subplot(212) # �c 2 �� 1 ������ current axes: 2 �ɂȂ�B
+    plt.subplot(212) # 縦 2 横 1 分割で current axes: 2 になる。
     
-    # ... �����ɗ��� plt. �Ŏn�܂�v���b�g���߂͂��ׂ�
-    # �񕪊����ꂽ���� axes �ɓK�p�����B
+    # ... ここに来る plt. で始まるプロット命令はすべて
+    # 二分割された下の axes に適用される。
 
-* Matplotlib �� figure/axes �������X�^�C�����񋟂��Ă���B
+* Matplotlib は figure/axes を扱うスタイルを二つ提供している。
 
-  * �ÓT�I�ȃX�e�[�g�}�V���𑀍삷��C���[�W�̂����B
+  * 古典的なステートマシンを操作するイメージのやり方。
 
-    ���[�U�[�R�[�h���J�����g�� figure/axes �����ł��邩����Ɉӎ����āA�v���b�g�R�}���h���Ăяo���B
-    �R�}���h�̓J�����g�� figure/axes �ɑ΂��ēK�p����邱�ƂɂȂ�B
+    ユーザーコードがカレントな figure/axes が何であるかを常に意識して、プロットコマンドを呼び出す。
+    コマンドはカレントな figure/axes に対して適用されることになる。
 
-  * ��ԂƃI�u�W�F�N�g�Ƃ����т��Ď�舵���T�^�I�ȃI�u�W�F�N�g�w���v���O���~���O�̂����B
+  * 状態とオブジェクトとを結びつけて取り扱う典型的なオブジェクト指向プログラミングのやり方。
 
-    figure/axes ���I�u�W�F�N�g�ɂȂ��Ă��āA���\�b�h�Ńv���b�g�R�}���h���Ăяo���B
-    �R�}���h�͑ΏۂƂȂ�I�u�W�F�N�g�̊Ǘ����� figure/axes �ɑ΂��ēK�p����邱�ƂɂȂ�B
+    figure/axes がオブジェクトになっていて、メソッドでプロットコマンドを呼び出す。
+    コマンドは対象となるオブジェクトの管理する figure/axes に対して適用されることになる。
 
-�e�L�X�g���g���Ă݂�
+テキストを使ってみる
 --------------------------------------------------
-���m�[�g�̖ړI�ɂ͐������܂ރe�L�X�g��\�����邱�Ƃ��܂ނ��A
-���̑O�ɃV���v���ȃe�L�X�g�`��@���w�K����K�v�����邾�낤�B
+当ノートの目的には数式を含むテキストを表示することを含むが、
+その前にシンプルなテキスト描画法を学習する必要があるだろう。
 
 =================        ==============================================
-�֐��i�����ȗ��j         �d��
+関数（引数省略）         仕事
 =================        ==============================================
-``plt.text()``           �r���[�|�[�g���Ƀe�L�X�g��`��
-``plt.xlabel()``         X ���p�L���v�V����
-``plt.ylabel()``         Y ���p�L���v�V����
-``plt.title()``          �O���t�S�̂̃L���v�V����
+``plt.text()``           ビューポート内にテキストを描く
+``plt.xlabel()``         X 軸用キャプション
+``plt.ylabel()``         Y 軸用キャプション
+``plt.title()``          グラフ全体のキャプション
 =================        ==============================================
 
-* ``plt.text()`` �͎w��ʒu�Ƀe�L�X�g��`�悷��R�}���h�ƍl����B
+* ``plt.text()`` は指定位置にテキストを描画するコマンドと考える。
 
-�e�L�X�g�v���p�e�B
+テキストプロパティ
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-�l�I�ɂ悭�g���e�L�X�g�v���p�e�B��\�ɂ܂Ƃ߂Ă����B
-�e��e�L�X�g�R�}���h�֐��E���\�b�h�̃L�[���[�h�����Ƃ��Ďw�肷��̂���̂����B
+個人的によく使うテキストプロパティを表にまとめておく。
+各種テキストコマンド関数・メソッドのキーワード引数として指定するのが一つのやり方。
 
 ================    ==================================================
-�L�[���[�h          �Ӗ�
+キーワード          意味
 ================    ==================================================
-``color``           �e�L�X�g�̐F�B
-``family``          �e�L�X�g�̃t�H���g���B
-                    �t�H���g���𒼐ڎw�肷�邩
-                    ``"sans-serif"`` ���̗\�񖼂��w�肷��B
-``rotation``        �e�L�X�g�̗������ފp�x�B
-                    �x�P�ʂŒ��ڎw�肷��̂������B
-``size``            �t�H���g�T�C�Y���|�C���g�Ŏw�肷�邩
-                    ``"x-large"`` ���̗\�񖼂��w�肷��B
-``stretch``         0 ���� 1000 �܂ł̒l���w�肷�邩
-                    ``"condensed"`` ���̗\�񖼂��w�肷��B
-``style``           ``"normal"``, ``"italic"``, ``"oblique"`` ����I���B
-``weight``          0 ���� 1000 �܂ł̒l���w�肷�邩
-                    ``"bold"`` ���̗\�񖼂��w�肷��B
+``color``           テキストの色。
+``family``          テキストのフォント名。
+                    フォント名を直接指定するか
+                    ``"sans-serif"`` 等の予約名を指定する。
+``rotation``        テキストの流し込む角度。
+                    度単位で直接指定するのがいい。
+``size``            フォントサイズをポイントで指定するか
+                    ``"x-large"`` 等の予約名を指定する。
+``stretch``         0 から 1000 までの値を指定するか
+                    ``"condensed"`` 等の予約名を指定する。
+``style``           ``"normal"``, ``"italic"``, ``"oblique"`` から選択。
+``weight``          0 から 1000 までの値を指定するか
+                    ``"bold"`` 等の予約名を指定する。
 ================    ==================================================
 
-* �e�L�X�g�̊�ʒu�� ``horizontalalignment``, ``verticalalignment`` �L�[���[�h�����Ŏw���ł���B
-  �Ⴆ�� x, y �������e�L�X�g�̉E���ʒu�Ƃ������ꍇ�ɂ͎��̂悤�ɂ���B
+* テキストの基準位置は ``horizontalalignment``, ``verticalalignment`` キーワード引数で指示できる。
+  例えば x, y 引数をテキストの右下位置としたい場合には次のようにする。
   ::
 
     plt.text(x, y, 'aaaa', verticalalignment='bottom', horizontalalignment='right')
 
-* �����s�e�L�X�g�̍������E���������E�E�񂹂��w�肷��ꍇ�� ``multialignment`` �L�[���[�h���g�p����B
+* 複数行テキストの左揃え・中央揃え・右寄せを指定する場合は ``multialignment`` キーワードを使用する。
 
-���{��̃e�L�X�g��`�悷��ɂ́H
+日本語のテキストを描画するには？
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-``matplotlib.font_manager.FontProperties`` �𖾎��I�ɗ��p�����i���������B
+``matplotlib.font_manager.FontProperties`` を明示的に利用する手段を見つけた。
 ::
 
   import matplotlib as mpl
   import matplotlib.pyplot as plt
   from matplotlib.font_manager import FontProperties
 
-  fp = FontProperties(fname=r'C:\WINDOWS\Fonts\HGRME.ttc') # HG �����n
-  plt.text(0, 0, u'�䖳��\n�ꔭ�ł�', fontproperties=fp, fontsize=60)
+  fp = FontProperties(fname=r'C:\WINDOWS\Fonts\HGRME.ttc') # HG 明朝系
+  plt.text(0, 0, u'御無礼\n一発です', fontproperties=fp, fontsize=60)
   #plt.show()
 
 .. image:: /_static/mpl-fontprop.png
    :scale: 50%
 
-Artists �֘A
+Artists 関連
 ==================================================
 * primitives: ``Line2D``, ``Rectangle``, ``Text``, ``AxesImage``, etc.
 * containers: ``Axis``, ``Axes``, ``Figure``, etc.
 
-�R���e�i���U�����Ă����B
+コンテナを攻略していく。
 
-* ``Axes`` �̓v���b�e�B���O�G���A�B
-* ``Subplot`` �� ``Axes`` �̓��ʂȂ��́B�R�[�h�I�ɂ��T�u�N���X�ŕ\������Ă���B
-* ``Patch`` �Ƃ����N���X���� MATLAB ����󂯌p�����B
+* ``Axes`` はプロッティングエリア。
+* ``Subplot`` は ``Axes`` の特別なもの。コード的にもサブクラスで表現されている。
+* ``Patch`` というクラス名は MATLAB から受け継いだ。
 
-* �v���p�e�B�[�ꗗ�� ``matplotlib.artist.getp`` �֐��Ŋm�F�ł���B
+* プロパティー一覧は ``matplotlib.artist.getp`` 関数で確認できる。
 
 Figure (``matplotlib.figure.Figure``)
 --------------------------------------------------
-* ``Figure`` �I�u�W�F�N�g�� "current axes" ���Ǘ����Ă���B
-* ``Figure`` �́i�O���t�̂��̂ł͂Ȃ��j���g�̍��W�n�������Ă��āA
-  ��`�̍����ƉE�オ���ꂼ�� (0, 0), (1, 1) �ƂȂ��Ă���B
+* ``Figure`` オブジェクトが "current axes" を管理している。
+* ``Figure`` は（グラフのものではない）自身の座標系を持っていて、
+  矩形の左下と右上がそれぞれ (0, 0), (1, 1) となっている。
 
-  �ςȗႾ���A�摜�S�̂ɑΊp������{�����ɂ͂�������B
+  変な例だが、画像全体に対角線を一本引くにはこうする。
   ::
 
       import matplotlib as mpl
@@ -260,41 +260,41 @@ Figure (``matplotlib.figure.Figure``)
 
 Axes (``matplotlib.axes.Axes``)
 --------------------------------------------------
-``Axes`` �I�u�W�F�N�g���}�`�E�e�L�X�g�E�ڐ��E�O���b�h�E���x���e�I�u�W�F�N�g���Ǘ�����B
-�܂��R���e�i�[�����o�[�̂����A����݂̂�����̂����\�ɂ܂Ƃ߂Ă����B
+``Axes`` オブジェクトが図形・テキスト・目盛・グリッド・ラベル各オブジェクトを管理する。
+まずコンテナーメンバーのうち、馴染みのあるものだけ表にまとめておく。
 
 ================  ==================================================
-�����o�[��        �R���e�i�[�̓��e
+メンバー名        コンテナーの内容
 ================  ==================================================
-``lines``         ``plot`` ���ō쐬���� ``Line2D`` �I�u�W�F�N�g�B
-``patches``       �e�� ``Patch`` �I�u�W�F�N�g�B
+``lines``         ``plot`` 等で作成した ``Line2D`` オブジェクト。
+``patches``       各種 ``Patch`` オブジェクト。
                   ``Ellipse``, ``Polygon``, etc.
-``texts``         ``text`` �� ``annotate`` �ō쐬�����e��e�L�X�g�B
+``texts``         ``text`` や ``annotate`` で作成した各種テキスト。
 ================  ==================================================
 
-��R���e�i�[�����o�[�����������������Ă����B
+非コンテナーメンバーも少しだけ押さえておく。
 
 ================  ==================================================
-�����o�[��        �R���e�i�[�̓��e
+メンバー名        コンテナーの内容
 ================  ==================================================
-``patch``         ``Axes`` �̔w�i�p ``Rectangle`` �I�u�W�F�N�g�B
-``xaxis``         ``XAxis`` �I�u�W�F�N�g�B
-``yaxis``         ``YAxis`` �I�u�W�F�N�g�B
+``patch``         ``Axes`` の背景用 ``Rectangle`` オブジェクト。
+``xaxis``         ``XAxis`` オブジェクト。
+``yaxis``         ``YAxis`` オブジェクト。
 ================  ==================================================
 
 Axis (``matplotlib.axis.Axis``)
 --------------------------------------------------
-�O���t�̖ڐ��A�O���b�h�A�ڐ��ɕt���郉�x�������Ǘ�����B
-``Axes`` �I�u�W�F�N�g�� ``xaxis`` ����� ``yaxis`` �����o�[�ŃA�N�Z�X�ł���B
+グラフの目盛、グリッド、目盛に付けるラベル等を管理する。
+``Axes`` オブジェクトの ``xaxis`` および ``yaxis`` メンバーでアクセスできる。
 
-�g�p�p�x�̍������̂����\�ɂ��Ă����B
+使用頻度の高いものだけ表にしておく。
 
 ===================   ==================================================
-���\�b�h��            �@�\
+メソッド名            機能
 ===================   ==================================================
-``get_major_ticks``   �ڐ� (``matplotlib.ticker.Ticker``)
-                      �I�u�W�F�N�g��Ԃ��B
-``grid``              �O���b�h����`�悷�邵�Ȃ����w���B
+``get_major_ticks``   目盛 (``matplotlib.ticker.Ticker``)
+                      オブジェクトを返す。
+``grid``              グリッド線を描画するしないを指示。
 ===================   ==================================================
 
 ::
@@ -302,32 +302,32 @@ Axis (``matplotlib.axis.Axis``)
   import matplotlib.pyplot as plt
   ax = plt.gca()
 
-  # Y �������̑S�ڐ���������B
+  # Y 軸方向の全目盛をいじる。
   for tick in ax.yaxis.get_major_ticks():
-      tick.tick1On = False   # �����̖ڐ����B���B
-      tick.tick2On = True    # �E���̖ڐ���\������B
-      tick.label1On = False  # �����̖ڐ����x�����B���B
-      tick.label2On = True   # �E���̖ڐ����x����\������B
+      tick.tick1On = False   # 左側の目盛を隠す。
+      tick.tick2On = True    # 右側の目盛を表示する。
+      tick.label1On = False  # 左側の目盛ラベルを隠す。
+      tick.label2On = True   # 右側の目盛ラベルを表示する。
 
-�o�b�N�G���h
+バックエンド
 ==================================================
-�u�v���b�e�B���O�̏o�͐�v�Ɖ��߂��Ă������B
+「プロッティングの出力先」と解釈していいか。
 
-���[�U�[�C���^�[�t�F�C�X�o�b�N�G���h�ƃn�[�h�R�s�[�o�b�N�G���h�̓��ނ�����B
-�O�҂̓E�B���h�E�A��҂̓t�@�C���ƍl���Ă������B
-���ꂼ�� ``plt.show()`` �� ``plt.savefig()`` �̐U�镑���ɉe������B
+ユーザーインターフェイスバックエンドとハードコピーバックエンドの二種類がある。
+前者はウィンドウ、後者はファイルと考えていいか。
+それぞれ ``plt.show()`` と ``plt.savefig()`` の振る舞いに影響する。
 
-���[�U�[�C���^�[�t�F�C�X�o�b�N�G���h
+ユーザーインターフェイスバックエンド
 --------------------------------------------------
-rc �p�����[�^�[�Ńo�b�N�G���h���w�肷��B
-:file:`matplotlibrc` �ɋL�q����̂ł���΁A����Ȋ����ɂȂ�F
+rc パラメーターでバックエンドを指定する。
+:file:`matplotlibrc` に記述するのであれば、こんな感じになる：
 ::
 
-  # PyQt4 �ɂ��E�B���h�E�ŃO���t��`���B
-  # �������APyQt4 ���ʓr�C���X�g�[���ς݂ł��邱�Ƃ��O��B
+  # PyQt4 によるウィンドウでグラフを描く。
+  # もちろん、PyQt4 が別途インストール済みであることが前提。
   backend : Qt4Agg
 
-�R�[�h�œ��I�Ɂi���s���Ɂj�w�肷��̂Ȃ�΂�������B
+コードで動的に（実行時に）指定するのならばこうする。
 ::
 
   import matplotlib as mpl
@@ -336,97 +336,97 @@ rc �p�����[�^�[�Ńo�b�N�G���h���w�肷��B
 .. image:: /_static/mpl-qt4agg.png
    :scale: 50%
 
-�Ȃ� ``mpl.use`` �֐����Ăяo���^�C�~���O�́A�ŏ��� ``import matplotlib``
-�̒��オ�x�X�g�̂悤���B
+なお ``mpl.use`` 関数を呼び出すタイミングは、最初の ``import matplotlib``
+の直後がベストのようだ。
 
-�l�I�ɂ̓��[�U�[�C���^�[�t�F�C�X�o�b�N�G���h���J�X�^�}�C�Y���邱�Ƃ͂Ȃ��B
-�f�t�H���g�� ``TkAgg`` �̂܂܂ŏ\�����B
+個人的にはユーザーインターフェイスバックエンドをカスタマイズすることはない。
+デフォルトの ``TkAgg`` のままで十分だ。
 
-�n�[�h�R�s�[�o�b�N�G���h
+ハードコピーバックエンド
 --------------------------------------------------
-�n�[�h�R�s�[�o�b�N�G���h�̃J�X�^�}�C�Y�͂��̃m�[�g�̖ړI�̈�B
+ハードコピーバックエンドのカスタマイズはこのノートの目的の一つ。
 
-* ``backend`` �̒l�� ``PS``, ``PDF``, ``PNG``, ``SVG`` �̂ǂꂩ�ɂ��Ă����ƁA
-  ���̖��O�̌`���̃t�@�C�����쐬���邱�Ƃ��ł���B
+* ``backend`` の値を ``PS``, ``PDF``, ``PNG``, ``SVG`` のどれかにしておくと、
+  その名前の形式のファイルを作成することができる。
 
-  �R�[�h�Ŏ�������ɂ́A���̂悤�Ȏ菇�ɂ��Ă����΂悢�B
+  コードで実現するには、次のような手順にしておけばよい。
   ::
 
     import matplotlib as mpl
-    mpl.use('PDF')  # PDF �ŃC���[�W���~�����B
+    mpl.use('PDF')  # PDF でイメージが欲しい。
     
-    # ... �v���b�e�B���O�R�}���h�Q�������ɗ���B
+    # ... プロッティングコマンド群がここに来る。
 
-    plt.savefig('output')  # �t�@�C�� output.pdf ���ł���B
+    plt.savefig('output')  # ファイル output.pdf ができる。
 
-�Ȑ���`��
+曲線を描く
 ==================================================
 
-������
+多項式
 --------------------------------------------------
-���� x �̑����� f(x) �ɂ��� y = f(x) �̃O���t��`�������B
+実数 x の多項式 f(x) について y = f(x) のグラフを描きたい。
 
-* �v���b�g���� ``x`` �̃T���v���_���֐� ``numpy.arange`` �œK�X��������B
-  ������Y��Ă����� :doc:`/python-numpy` ���Q�ƁB
+* プロットする ``x`` のサンプル点を関数 ``numpy.arange`` で適宜準備する。
+  やり方を忘れていたら :doc:`/python-numpy` を参照。
 
-* ������ ``f`` ���֐� ``numpy.poly1d`` �̖߂�l�ŕ\������B
+* 多項式 ``f`` を関数 ``numpy.poly1d`` の戻り値で表現する。
 
-* �v���b�g���� ``y`` �� ``list`` �̓���\���𗘗p���Ĉ�C�ɓ���B
+* プロットする ``y`` を ``list`` の内包表現を利用して一気に得る。
 
-* �Ō�� ``plot(x, y)`` �ŋȐ���`�悷��B
+* 最後に ``plot(x, y)`` で曲線を描画する。
   ::
     
     import matplotlib as mpl
     import matplotlib.pyplot as plt
     import numpy as np
     
-    f = np.poly1d([1, -4, 3])  # x = 1, 3 �����Ɏ��񎟎��B
-    xs = np.arange(-2, 4, 0.1) # x in [-2, 4] �� 0.1 ���݂Ńv���b�g�B
-    ys = [f(x) for x in xs]    # xs �Ƒ΂ɂȂ� ys
-    plt.plot(xs, ys)           # current axes �ɋȐ�����{�ǉ��B
+    f = np.poly1d([1, -4, 3])  # x = 1, 3 を根に持つ二次式。
+    xs = np.arange(-2, 4, 0.1) # x in [-2, 4] を 0.1 刻みでプロット。
+    ys = [f(x) for x in xs]    # xs と対になる ys
+    plt.plot(xs, ys)           # current axes に曲線を一本追加。
 
-* �Ȑ��ɑ΂��Đڐ������������ꍇ���悭����B
-  ��L ``f`` �̈ꎟ���֐��� ``f.deriv()`` �œ�����̂ŁA
-  ��������܂��g���B
+* 曲線に対して接線を引きたい場合がよくある。
+  上記 ``f`` の一次導関数を ``f.deriv()`` で得られるので、
+  それをうまく使う。
 
-  �Ȑ���̓_ (a, f(a)) �̐ڐ��́A�Ⴆ�Ύ��̂悤�ɂ��ăv���b�g�ł���B
+  曲線上の点 (a, f(a)) の接線は、例えば次のようにしてプロットできる。
   ::
     
-    # x = [-1, 3] ���� 1 �Ԋu�ɐڐ��������B
+    # x = [-1, 3] から 1 間隔に接線を引く。
     slope = f.deriv()
     for a in xrange(-1, 3, 1):
         b = f(a)
         ys1 = [slope(a) * (x - a) + b for x in xs]
         ax1.plot(xs, ys1)
 
-�x�W�G�Ȑ�
+ベジエ曲線
 --------------------------------------------------
-�{���� B-Spline �Ȑ���`�悵�����̂����A
-���ׂĂ݂�� Matplotlib �ł̓x�W�G�Ȑ������E�̂悤���B
+本当は B-Spline 曲線を描画したいのだが、
+調べてみると Matplotlib ではベジエ曲線が限界のようだ。
 
-�菇�͂������������̂悤���F
+手順はこういう感じのようだ：
   
-1. �N���X ``matplotlib.path.Path`` �̃I�u�W�F�N�g���쐬����B
-   ���̈����Ƃ��āA�x�W�G�Ȑ��̐���_���X�g�Ɓu�œ_���߁v�̃��X�g��n���B
+1. クラス ``matplotlib.path.Path`` のオブジェクトを作成する。
+   この引数として、ベジエ曲線の制御点リストと「打点命令」のリストを渡す。
 
-2. ���̃p�X�I�u�W�F�N�g�������Ƃ��āA�N���X
-   ``matplotlib.patches.PathPatch`` �̃I�u�W�F�N�g���쐬����B
+2. そのパスオブジェクトを引数として、クラス
+   ``matplotlib.patches.PathPatch`` のオブジェクトを作成する。
 
-3. ���̃p�b�`�I�u�W�F�N�g��Ώۂ� ``axes`` �I�u�W�F�N�g�� ``add_patch`` ����B
+3. そのパッチオブジェクトを対象の ``axes`` オブジェクトに ``add_patch`` する。
 
 Path (``matplotlib.path.Path``)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Matplotlib �͐���_���^���ăx�W�G�Ȑ����`���闬�V�̂悤���B
+Matplotlib は制御点列を与えてベジエ曲線を定義する流儀のようだ。
 
-�܂��͊ȒP�ȗ���B�ŏ��̎�Ԃ� 2 ���̃x�W�G�Ȑ��i�P�Ȃ�������j���`���邱�Ƃ��l����B
-``CURVE3`` �Ƃ����^�C�v�̋Ȑ��́A����_�� 3 �^���邱�Ƃ� 2 ���̃x�W�G�Ȑ���\���ł���B
-``CURVE3`` �x�[�X�̃x�W�G�Ȑ��̓����͎��̒ʂ�B
+まずは簡単な例を。最小の手間で 2 次のベジエ曲線（単なる放物線）を定義することを考える。
+``CURVE3`` というタイプの曲線は、制御点を 3 つ与えることで 2 次のベジエ曲線を表現できる。
+``CURVE3`` ベースのベジエ曲線の特徴は次の通り。
 
-* �ŏ��ƍŌ�̐���_�́A�������̎n�_�ƏI�_�ɂ��ꂼ���v����B
-* ���Ԃ̐���_�́A�������̗��[�_���ꂼ��̐ڐ��̌�_�ƈ�v����B
-* ����āA�o���オ��̋Ȑ��`�󂪔c���ł���B
+* 最初と最後の制御点は、放物線の始点と終点にそれぞれ一致する。
+* 中間の制御点は、放物線の両端点それぞれの接線の交点と一致する。
+* よって、出来上がりの曲線形状が把握できる。
 
-``Path`` �I�u�W�F�N�g�\�z�܂ł̃R�[�h�̊T�`�͎��̂悤�ɂȂ�B
+``Path`` オブジェクト構築までのコードの概形は次のようになる。
 ::
 
   import matplotlib as mpl
@@ -437,38 +437,38 @@ Matplotlib �͐���_���^���ăx�W�G�Ȑ����`���闬�V�̂悤���B
   fig = plt.figure()
   ax1 = fig.add_subplot(111)
 
-  # 2 ���̃x�W�G�Ȑ����`����B
+  # 2 次のベジエ曲線を定義する。
   verts = [(0., 0.), (2., 4.), (4., 0.)]
   codes = [Path.MOVETO, Path.CURVE3, Path.CURVE3]
   path = Path(verts, codes)
 
-�����ЂƂ���B�h���[�n�A�v���ł��悭�������� 3 ���̃x�W�G�Ȑ����`����B
+もうひとつ例を。ドロー系アプリでもよく見かける 3 次のベジエ曲線を定義する。
 
-* ``CURVE4`` ���߂Ő���_���w������B
-* �ŏ��ƍŌ�̐���_�́A�Ȑ��̎n�_�ƏI�_�ɂ��ꂼ���v����B
-* �ŏ��̐���_�Ƃ��̎��̐���_�����Ԓ������A�Ȑ��̎n�_�ł̐ڐ��Ɉ�v����B
-  �܂��A�Ō�̐���_�Ƃ��̑O�̐���_�����Ԓ������A�Ȑ��̏I�_�ł̐ڐ��Ɉ�v����B
-* �Ȑ��S�̂́A����_�񂩂�Ȃ鑽�p�`�̓����Ɉʒu����B
+* ``CURVE4`` 命令で制御点を指示する。
+* 最初と最後の制御点は、曲線の始点と終点にそれぞれ一致する。
+* 最初の制御点とその次の制御点を結ぶ直線が、曲線の始点での接線に一致する。
+  また、最後の制御点とその前の制御点を結ぶ直線が、曲線の終点での接線に一致する。
+* 曲線全体は、制御点列からなる多角形の内部に位置する。
 
-``Path`` �I�u�W�F�N�g�\�z�̊T�`�͎��̂悤�ɂȂ�B
+``Path`` オブジェクト構築の概形は次のようになる。
 ::
 
-  # 3 ���̃x�W�G�Ȑ����`����B
+  # 3 次のベジエ曲線を定義する。
   verts = [(0., 0.), (0.5, 3.5), (1., 4.), (4., 0.)]
   codes = [Path.MOVETO, Path.CURVE4, Path.CURVE4, Path.CURVE4,]
   path = Path(verts, codes)
 
-�T���v��
+サンプル
 ---------
-��L�̃R�[�h�ɉ����A����_�|���S����`�悵���摜���m�[�g�ɓ\��t���Ă����B
+上記のコードに加え、制御点ポリゴンを描画した画像をノートに貼り付けておく。
 
 .. image:: /_static/mpl-bezier.png
    :scale: 50%
 
 PathPatch (``matplotlib.patches.PathPatch``)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-``Path`` �I�u�W�F�N�g���ł����� ``PathPatch`` �I�u�W�F�N�g�ɕ���
-``Axes`` �I�u�W�F�N�g�ɒǉ�����B����ŋȐ����`�悵�Ă����B
+``Path`` オブジェクトができたら ``PathPatch`` オブジェクトに包んで
+``Axes`` オブジェクトに追加する。これで曲線も描画してくれる。
 ::
 
   # ...
@@ -477,50 +477,50 @@ PathPatch (``matplotlib.patches.PathPatch``)
   patch = patches.PathPatch(path)
   ax1.add_patch(patch)
 
-TeX �\��
+TeX 表現
 ==================================================
 .. warning::
 
-   ���̃m�[�g�ɂ���O�����s�t�@�C���𗘗p����@�\�e��̓���͂قƂ�Ǌm�F���Ă��Ȃ��B
-   MiKTeX ���C���X�g�[�������瑦��������B
+   このノートにある外部実行ファイルを利用する機能各種の動作はほとんど確認していない。
+   MiKTeX をインストールしたら即実験する。
 
-* Matplotlib �̂��ׂẴe�L�X�g API �� TeX �̐������󂯕t���Ă����B
-  ``$`` �ň͂܂ꂽ������ TeX �\���ƔF�������悤���B
-  ������̓o�b�N�X���b�V���̗��ɂȂ邱�Ƃ��\�z�ł���̂ŁA
-  raw string �`���Ŏw�肷��̂��g�B
+* Matplotlib のすべてのテキスト API は TeX の数式を受け付けてくれる。
+  ``$`` で囲まれた部分が TeX 表現と認識されるようだ。
+  文字列はバックスラッシュの嵐になることが予想できるので、
+  raw string 形式で指定するのが吉。
   ::
 
     plt.text(60, .025, r'$\mu=100,\ \sigma=15$')
 
-* TeX �����̃e�L�X�g�ɓK�p����f�t�H���g�̃t�H���g��
-  rc �ݒ�� ``mathtext.default`` �p�����[�^�[�Ŏw��ł���B
+* TeX 部分のテキストに適用するデフォルトのフォントを
+  rc 設定の ``mathtext.default`` パラメーターで指定できる。
 
-* TeX �e�L�X�g�̃��C�A�E�g�͒ʏ� Matplotlib �������Ŏ��O�Ŏ����Ă���G���W�����s�����A
-  rc �ݒ��ύX���邱�ƂŁA�O���� LaTeX �G���W���𗘗p���邱�Ƃ��ł���B
+* TeX テキストのレイアウトは通常 Matplotlib が内部で自前で持っているエンジンが行うが、
+  rc 設定を変更することで、外部の LaTeX エンジンを利用することもできる。
 
-  * ``text.usetex`` �� ``True`` �ɂȂ��Ă��邱�Ƃ��K�v�B
-  * LaTeX, dvipng, GhostScript ���V�X�e���ɃC���X�g�[������Ă��邱�Ƃ��K�v�B
-  * �����̎��s�t�@�C���̃p�X�����ϐ� ``PATH`` �Ɋ܂܂�Ă��邱�Ƃ��K�v�B
+  * ``text.usetex`` が ``True`` になっていることが必要。
+  * LaTeX, dvipng, GhostScript がシステムにインストールされていることが必要。
+  * それらの実行ファイルのパスが環境変数 ``PATH`` に含まれていることが必要。
 
-���E���\�z
+続・環境構築
 ==================================================
-Matplotlib �𗘗p���邽�߂̊��������ƍׂ����������Ă݂悤�B
+Matplotlib を利用するための環境をもっと細かく整備してみよう。
 
 :file:`$HOME/.matplotlib/matplotlibrc`
 --------------------------------------------------
-�t�@�C��������킩��悤�ɁAMatplotlib ���̃��[�U�[�ݒ�t�@�C�����B
-�h�L�������g�̃Z�N�V���� 5.1 "The matplotlibrc file" �ɏڂ����L�q������B
+ファイル名からわかるように、Matplotlib 環境のユーザー設定ファイルだ。
+ドキュメントのセクション 5.1 "The matplotlibrc file" に詳しく記述がある。
 
-* Windows ���ł����[�U�[���킴�킴���ϐ� ``HOME`` ��ݒ肵�Ă���ꍇ�́A
-  Matplotlib �͂�����Ƃ��̃p�X���Q�Ƃ��Ă����B
+* Windows 環境でもユーザーがわざわざ環境変数 ``HOME`` を設定している場合は、
+  Matplotlib はきちんとそのパスを参照してくれる。
 
-* ��x�ł� Matplotlib �𗘗p����ƁA
-  ``$HOME`` �Ƀt�H���_�[ :file:`.matplotlib` ���ł��Ă���B
-  �����Ƀe�L�X�g�t�@�C�� :file:`matplotlibrc` ���쐬����B
+* 一度でも Matplotlib を利用すると、
+  ``$HOME`` にフォルダー :file:`.matplotlib` ができている。
+  そこにテキストファイル :file:`matplotlibrc` を作成する。
 
-* �e���v���� :file:`$PYTHONHOME/lib/site-packages/matplotlib/mpl-data/matplotlibrc` ���g���B
+* テンプレは :file:`$PYTHONHOME/lib/site-packages/matplotlib/mpl-data/matplotlibrc` を使う。
 
-  �e���v���͊�{�I�ɐݒ�R�}���h�H�̃R�����g�A�E�g�Ŗ��ߐs������Ă���B
-  �����𒭂߂Ă���΃J�X�^�}�C�Y�̕��@�͒����ł���d�g�݂ɂȂ��Ă���B
+  テンプレは基本的に設定コマンド？のコメントアウトで埋め尽くされている。
+  ここを眺めていればカスタマイズの方法は直感できる仕組みになっている。
 
-* :file:`matplotlibrc` �� python-mode �ŕҏW����̂��g�B
+* :file:`matplotlibrc` は python-mode で編集するのが吉。

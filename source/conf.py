@@ -34,8 +34,7 @@ source_suffix = '.txt'
 #
 # <Sphinx assumes source files to be encoded in UTF-8 by default;
 # you can change this with the source_encoding config value.> (p. 14)
-#source_encoding = 'utf-8'
-source_encoding = 'cp932'
+source_encoding = 'utf-8'
 
 # The master toctree document.
 master_doc = 'index'

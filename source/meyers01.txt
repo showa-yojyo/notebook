@@ -1,232 +1,232 @@
 ========================
-Effective STL �Ǐ��m�[�g
+Effective STL 読書ノート
 ========================
 
-�O�� C++ Effective �{�̈�B
-�L�҂����߂čw������ C++ �֘A���ЂȂ̂ŁA�Ƃ����̐̂ɓǏ��m�[�g���Ȃ��B
-���߂č쐬����B
+三大 C++ Effective 本の一つ。
+記者が初めて購入した C++ 関連書籍なので、とっくの昔に読書ノートがない。
+改めて作成する。
 
-:����: Scott Meyers
-:���: �גJ��
-:�o�Ŏ�: �s�A�\���E�G�f���P�[�V����
+:著者: Scott Meyers
+:訳者: 細谷昭
+:出版社: ピアソン・エデュケーション
 :ISBN: 4-89471-410-8
 
-.. contents:: �m�[�g�ڎ�
+.. contents:: ノート目次
 
-�͂��߂�
+はじめに
 ========
-* �{���̑Ώۂ� <STL �̎g�����͒m���Ă��邪�A
-  �u���ʓI�Ɂv�g�p���Ă��邩�ǂ����m�M�����ĂȂ�> (p. 1) �ǎ҂Ƃ��Ă���B
-* �{���ł́ASTL (Standard Template Library) �̒�`�����̂悤�ɓƎ��ɋK�肵�Ă���B
-  <�����q�𗘗p���� C++ �̕W�����C�u�����̕���> (p. 2)
-  ���̒�`��^���邱�ƂŁA�{���̃J�o�[�̈�������m�ɐ錾���Ă���B
-* STL �������ۂɂ́A�R���p�C���ƃ��C�u�����̗�������ʂł��邱�Ƃ��d�v�Ƃ���B
-  ���������M���Ă��������́A�R���p�C�������C�u�������W���ɏ������؂�Ă��Ȃ����̂����������͂��B
-  ���҂̋�J���M���m���B
+* 本書の対象を <STL の使い方は知っているが、
+  「効果的に」使用しているかどうか確信が持てない> (p. 1) 読者としている。
+* 本書では、STL (Standard Template Library) の定義を次のように独自に規定している。
+  <反復子を利用する C++ の標準ライブラリの部分> (p. 2)
+  この定義を与えることで、本書のカバー領域をも明確に宣言している。
+* STL を扱う際には、コンパイラとライブラリの両方を区別できることが重要とある。
+  原著を執筆していた当時は、コンパイラもライブラリも標準に準拠し切れていないものが多かったはず。
+  著者の苦労が窺い知れる。
 
-* �p��
+* 用語
 
-  * �V�[�P���X�R���e�i�ƘA�z�R���e�i�̂����炢�B
-  * �����q�� 5 �J�e�S���̂����炢�B
-  * <�֐��Ăяo�����Z�q operator() ���I�[�o�[���[�h����N���X�́u�t�@���N�^�N���X�v�ƌĂ΂�Ă���> (p. 5)
-  * �A���S���Y�����̃R�X�g���u�萔���ԁv�u�ΐ����ԁv�u���`���ԁv�̎O�ɃU�b�N�����ނ��Ă���B
-    ���������Ζ{���� O(1) �Ƃ� O(logN) �Ƃ��̋L�@�͗p���Ă��Ȃ��悤���B
+  * シーケンスコンテナと連想コンテナのおさらい。
+  * 反復子の 5 カテゴリのおさらい。
+  * <関数呼び出し演算子 operator() をオーバーロードするクラスは「ファンクタクラス」と呼ばれている> (p. 5)
+  * アルゴリズム等のコストを「定数時間」「対数時間」「線形時間」の三つにザックリ分類している。
+    そういえば本書は O(1) とか O(logN) とかの記法は用いていないようだ。
 
-* �R�[�h��
+* コード例
 
-  * ���҂� typename �h�B
-  * ���҂� operator== �Ȃǂ̓񍀉��Z�q�̊֐��p�����[�^�� lhs �� rhs �Ƃ������O��t����K��������B
-    �K�������Ă����ƁA�֐����`����Ƃ��ɕϐ���������̂ɔY�ގ��Ԃ��[���ɂł��đf���炵���B
+  * 著者は typename 派。
+  * 著者は operator== などの二項演算子の関数パラメータに lhs と rhs という名前を付ける習慣がある。
+    習慣化しておくと、関数を定義するときに変数名をつけるのに悩む時間をゼロにできて素晴らしい。
 
-�R���e�i
+コンテナ
 ========
 
-�� 1 ��
+第 1 項
 -------
-* �f�t�H���g�Ŏg�p���ׂ��V�[�P���X�^�� vector ���B
-* �u�A���������R���e�i�v�Ɓu�m�[�h�x�[�X�R���e�i�v�Ƃ������ނ̕��@������B
+* デフォルトで使用すべきシーケンス型は vector だ。
+* 「連続メモリコンテナ」と「ノードベースコンテナ」という分類の方法がある。
 
-�� 2 ��
+第 2 項
 -------
-* <���Ƃ��� vector ���g���Ă��邪�A�R���e�i���g�p����R�[�h��ύX�����ɁA
-  ��� deque �� list �Ȃǂɒu����������悤�ɂ��悤�Ƃ���B
-  �܂�A�u�R���e�i�Ɉˑ����Ȃ��R�[�h�v���������Ƃ���̂ł���B
-  �قƂ�ǂ̏ꍇ�A�悩��Ǝv���ĂȂ���邱�̎�̔ėp���͊Ԉ���Ă���B> (p. 15)
+* <たとえば vector を使っているが、コンテナを使用するコードを変更せずに、
+  後で deque や list などに置き換えられるようにしようとする。
+  つまり、「コンテナに依存しないコード」を書こうとするのである。
+  ほとんどの場合、よかれと思ってなされるこの種の汎用化は間違っている。> (p. 15)
 
-  �Ⴆ�ΈقȂ�V�[�P���X�R���e�i�ɓK�p���锽���q�𖳌�������K�����قȂ�B
-  �قȂ�R���e�i�́u�قȂ�v�̂ł����āA�݂�����������悤�ɂ͐݌v����Ă��Ȃ��B
-  �Ƃ������c�_��W�J���Ă���B���Ȃ蒚�J�Ɂi�N�����j�������Ă���B
+  例えば異なるシーケンスコンテナに適用する反復子を無効化する規則が異なる。
+  異なるコンテナは「異なる」のであって、互いを交換するようには設計されていない。
+  といった議論を展開している。かなり丁寧に（誰かを）説得している。
 
-* �R�[�f�B���O�e�N�j�b�N�Ƃ��āAtypedef �̌��p������Ă���B
+* コーディングテクニックとして、typedef の効用を説いている。
 
-�� 3 ��
+第 3 項
 -------
-* ���̍��ڂ̓^�C�g�����S�āB�R���e�i�ɃI�u�W�F�N�g��ǉ�����Ƃ��́A
-  �K�����̃I�u�W�F�N�g�̃R�s�[������B�擾����{�I�ɂ̓R�s�[���o���B
+* この項目はタイトルが全て。コンテナにオブジェクトを追加するときは、
+  必ずそのオブジェクトのコピーが入る。取得も基本的にはコピーを出す。
 
-�� 4 ��
+第 4 項
 -------
-* <empty �͂��ׂĂ̕W���R���e�i�ɑ΂��Ē萔���ԏ��������Asize �̏ꍇ�A
-  �ꕔ�� list �̎����ɂ͐��`���Ԃ�������B> (p. 22)
+* <empty はすべての標準コンテナに対して定数時間処理だが、size の場合、
+  一部の list の実装には線形時間がかかる。> (p. 22)
 
-  * list �����҂� size ��萔���ԏ����ɂ��悤�Ƃ���ƁA
-    ���x�� splice �����`���ԏ����ɂȂ炴��𓾂Ȃ��B
+  * list 実装者が size を定数時間処理にしようとすると、
+    今度は splice が線形時間処理にならざるを得ない。
 
-* �R���e�i�ɗv�f�����邩�ۂ����e�X�g����ɂ́A��� empty ���Ăт����B
+* コンテナに要素があるか否かをテストするには、常に empty を呼びだす。
 
-�� 5 ��
+第 5 項
 -------
-���̖{�𔃂��āA��ԍŏ��Ɋ������o�������ځB
+この本を買って、一番最初に感動を覚えた項目。
 
-* �uvector v1 �� v2 ������Av1 �� v2 �̌㔼�����Ɠ������e�ɂ���v�Ƃ���������
-  ��������̂ɁAfor �Ȃǂ̃��[�v���g�킸�ɏ�����΋y��_�B
-* �u�͈̓����o�֐��v�Ƃ����p��𓱓����A���̌��p��������Ă���B
+* 「vector v1 と v2 があり、v1 を v2 の後半部分と同じ内容にする」という処理を
+  実装するのに、for などのループを使わずに書ければ及第点。
+* 「範囲メンバ関数」という用語を導入し、その効用を説明している。
 
-  * �R�[�e�B���O�̍�Ɨʂ����Ȃ��B
-  * �ȒP�ł킩��₷���X��������B
+  * コーティングの作業量が少ない。
+  * 簡単でわかりやすい傾向がある。
 
-* <�J���҂́A�ǂ̃G�f�B�^���u�ō��̃G�f�B�^�v���ɂ��Ă̋c�_���D�ނ悤��
-  (Emacs �ł��邱�Ƃɋ^��̗]�n�͂Ȃ��̂���)> (p. 26) ����͖{�C���M���O�����f�����˂�B
+* <開発者は、どのエディタが「最高のエディタ」かについての議論を好むように
+  (Emacs であることに疑問の余地はないのだが)> (p. 26) これは本気かギャグか判断つきかねる。
 
-* �͈̓����o�֐��Ƃ��āA���̂��̂��Ƃ肠�����ӎ����Ă����B
+* 範囲メンバ関数として、次のものをとりあえず意識しておく。
 
-  * �R���X�g���N�^
+  * コンストラクタ
   * insert
-  * erase �i��q�̍��ڂ� remove �A���S���Y���Ƃ̃R���{�Z���Љ�Ă���j
+  * erase （後述の項目で remove アルゴリズムとのコンボ技を紹介している）
   * assign
 
-�� 6 ��
+第 6 項
 -------
-�u�֐��錾�Ƃ��ĉ�͂ł�����̂͊֐��錾�Ƃ݂Ȃ��v���[���ɂ���āA
-�R���X�g���N�^���� iterator �𐶐�����R�[�h���R���p�C���G���[�ɂȂ邱�Ƃ�����B
+「関数宣言として解析できるものは関数宣言とみなす」ルールによって、
+コンストラクタから iterator を生成するコードがコンパイルエラーになることがある。
 
-�� 7 ��
+第 7 項
 -------
-* new �ɂ��|�C���^�������R���e�i����舵�����Ƃ̓����������Ă���B
-* <���z�f�X�g���N�^�Ȃ��ɃN���X������J�Ōp�����邱�Ƃ́A
-  C++ �ł���Ă͂����Ȃ����Ƃ� 1 �ł���> (p. 36)
+* new によるポインタを抱えるコンテナを取り扱うことの難しさを説明している。
+* <仮想デストラクタなしにクラスから公開で継承することは、
+  C++ でやってはいけないことの 1 つである> (p. 36)
 
-�� 8 ��
+第 8 項
 -------
-���������� auto_ptr �� auto_ptr ��������ƁA�E�ӑ��� null �ɂȂ�̂������B
-auto_ptr �ɃR�s�[�R���X�g���N�^�ƃR�s�[������Z�q������̂́A
-�ǂ��������R���炾�����낤���B
+そういえば auto_ptr に auto_ptr を代入すると、右辺側は null になるのだった。
+auto_ptr にコピーコンストラクタとコピー代入演算子があるのは、
+どういう理由からだったろうか。
 
-�� 9 ��
+第 9 項
 -------
-�R���e�i����v�f������������@�ɂ��āB
+コンテナから要素を消去する方法について。
 
-* remove_if �����ŏ����𖞂����v�f��A�z�R���e�i����폜����ꍇ��������₱�������B
-* �폜���Ȃ���A�����ʂ̂��Ƃ����鏈���������ɂ́A��͂��Ń��[�v���邵���Ȃ��B
+* remove_if 方式で条件を満たす要素を連想コンテナから削除する場合が少しややこしいか。
+* 削除しながら、何か別のことをする処理を書くには、やはり手でループするしかない。
 
-�� 10 ��
+第 10 項
 --------
-�A���P�[�^�Ɋւ���b��B
+アロケータに関する話題。
 
-�� 11 ��
+第 11 項
 --------
-�J�X�^���A���P�[�^�Ɋւ���b��B
+カスタムアロケータに関する話題。
 
-�� 12 ��
+第 12 項
 --------
-�R���e�i�̃X���b�h�Z�[�t�e�B�i���S���j�ɂ��āB
-���܂肤�ꂵ�����Ƃ͏����Ă��Ȃ��B
+コンテナのスレッドセーフティ（安全性）について。
+あまりうれしいことは書いていない。
 
-* <�N���X���g���ă��\�[�X�̗L���������Ǘ�����l�����́A
-  ��ʓI�Ɂu���\�[�X�擾�͏������ł���v�Ƃ��Ēm���Ă���A
-  C++ �̑����I�ȋ��ȏ��ł́A�K��������ǂނ��Ƃ��ł���B
-  Stroustrup �����̊��p���L���ɂ���> (p. 59)
-  ���������N���X�𗘗p������@�́A<��O�ɑ΂��Č��S�ł���BC++ �ł́A
-  ��O����������ƁA���[�J���I�u�W�F�N�g�͔j������邱�Ƃ��ۏ؂���Ă���B> (p. 60)
-  �擾���Ă��郊�\�[�X���A�m���ɌĂяo�����f�X�g���N�^��������邩�炾�B
+* <クラスを使ってリソースの有効期限を管理する考え方は、
+  一般的に「リソース取得は初期化である」として知られており、
+  C++ の総合的な教科書では、必ず説明を読むことができる。
+  Stroustrup がこの慣用句を有名にした> (p. 59)
+  こういうクラスを利用する方法は、<例外に対して堅牢である。C++ では、
+  例外が発生すると、ローカルオブジェクトは破棄されることが保証されている。> (p. 60)
+  取得してあるリソースが、確実に呼び出されるデストラクタが解放するからだ。
 
-vector �� string
+vector と string
 ================
-�� 13 ��
+第 13 項
 --------
-* ���I�Ɋ��蓖�Ă�z����́Avector �� string ���g���B
-* string �̎������Q�ƃJ�E���^�������𒲂ׂ�ɂ́A�R�s�[�R���X�g���N�^������΂悢�B
+* 動的に割り当てる配列よりは、vector や string を使う。
+* string の実装が参照カウンタ方式かを調べるには、コピーコンストラクタを見ればよい。
 
-�� 14 ��
+第 14 項
 --------
-* vector::reserve �Ɋւ���b��B�ł����̗�̃R�[�h�Ȃ�΁A
-  resize ���� operator[] �ŗv�f���������ق����p�t�H�[�}���X�������̂ł͂Ȃ����B
+* vector::reserve に関する話題。でもこの例のコードならば、
+  resize して operator[] で要素を代入したほうがパフォーマンスがいいのではないか。
 
-�� 15 ��
+第 15 項
 --------
-* <�\����Ȃ����A�����܂Ń\�[�X�R�[�h��ǂݍ���ł��Ȃ������B> (p.70) ���E�P���B
+* <申し訳ないが、そこまでソースコードを読み込んでいなかった。> (p.70) がウケた。
 
-�� 16 ��
+第 16 項
 --------
-* �z����󂯎��֐��� vector v ��n���ɂ́A&v[0] ���g���B
-* const char\* ���󂯎��֐��� string s ��n���ɂ� s.c_str() ���g���B
+* 配列を受け取る関数に vector v を渡すには、&v[0] を使う。
+* const char\* を受け取る関数に string s を渡すには s.c_str() を使う。
 
-  * const �̕t���Ȃ� char\* ���󂯎��֐��ɑ΂��ẮA
-    s �� vector<char> v �Ɉ�U��蒼���Ă���A���̊֐��� &v[0] ��n���B
+  * const の付かない char\* を受け取る関数に対しては、
+    s を vector<char> v に一旦作り直してから、その関数に &v[0] を渡す。
 
-�� 17 ��
+第 17 項
 --------
-���̖{�𔃂��āA��ԖڂɊ����������ځB�X���b�v�͂�͂肢���B
+この本を買って、二番目に感動した項目。スワップはやはりいい。
 
-* vector/string �� erase ���Ă񂾌�ł��A�e�� (capacity) �͒ʏ킻�̂܂ܕۂ����B
-  ����������I�ɍ�邽�߁Aswap ���g���b�L�[�ȌĂяo���������āA
-  vector/string ����]���ȗe�ʂ��폜���邱�Ƃ��ł���B
-  ���҂͂��̋Z�@�� "shrink to fit" ���@�ƌĂ�ł���B
+* vector/string で erase を呼んだ後でも、容量 (capacity) は通常そのまま保たれる。
+  それを強制的に削るため、swap をトリッキーな呼び出し方をして、
+  vector/string から余分な容量を削除することができる。
+  著者はこの技法を "shrink to fit" 方法と呼んでいる。
   ::
 
     string s;
     ...
     string(s).swap(s);
 
-  ���邢��
+  あるいは
   ::
 
     string().swap(s);
 
-�� 18 ��
+第 18 項
 --------
-vector<bool> �͂���Ȃ��B�󋵂ɉ����Ď��̂����ꂩ�őΉ�����B
+vector<bool> はいらない。状況に応じて次のいずれかで対応する。
 
   1. deque<bool>
   2. bitset
 
-�A�z�R���e�i
+連想コンテナ
 ============
-�ēǂ��ċC�t�������Ƃ�����B���̏͂��ł��L���ɒ蒅���Ă��Ȃ��������ڂ������B
+再読して気付いたことがある。この章が最も記憶に定着していなかった項目が多い。
 
-�� 19 ��
+第 19 項
 --------
-* �������d�v�Ȃ̂ň��p����B
-  <find �A���S���Y���� set �� insert �����o�֐��́A2 �̒l���������ǂ����𒲂ׂ鑽���̊֐����\���Ă���B
-  �������Afind �� insert ���s�����@�͈قȂ��Ă���B
-  find �́u����v�̒�`�́u���l�v(equality) �ł���Aoperator== �Ɋ�Â��Ă���B
-  set::insert �́u����v�̒�`�́u�����v(equivalence) �ł���A�ʏ�� operator< �Ɋ�Â��Ă���B
-  2 �̒�`�͈قȂ邽�߁A����̒�`�ł� 2 �̃I�u�W�F�N�g�̒l������Ƃ��A
-  �����̒�`�ł͓���Ƃ��Ȃ����Ƃ�����B
-  ���������āASTL �����ʓI�ɗ��p����ɂ́A���l�Ɠ����̈Ⴂ�𗝉����Ȃ���΂Ȃ�Ȃ��B> (p. 82)
+* 長いが重要なので引用する。
+  <find アルゴリズムと set の insert メンバ関数は、2 つの値が同じかどうかを調べる多くの関数を代表している。
+  しかし、find と insert が行う方法は異なっている。
+  find の「同一」の定義は「等値」(equality) であり、operator== に基づいている。
+  set::insert の「同一」の定義は「等価」(equivalence) であり、通常は operator< に基づいている。
+  2 つの定義は異なるため、一方の定義では 2 つのオブジェクトの値が同一とし、
+  他方の定義では同一としないことがある。
+  したがって、STL を効果的に利用するには、等値と等価の違いを理解しなければならない。> (p. 82)
 
-* �����͓ǂݗ��Ƃ��Ă����B
-  <���ׂĂ̕W���A�z�R���e�i�ł́Akey_comp �����o�֐��ɂ���āA�\�[�g�q��𗘗p�ł���B> (p. 83)
+* ここは読み落としていた。
+  <すべての標準連想コンテナでは、key_comp メンバ関数によって、ソート述語を利用できる。> (p. 83)
 
-�� 20 ��
+第 20 項
 --------
-�|�C���^���i�[�����A�z�R���e�i�́A�f�t�H���g�ł̓A�h���X���Ƀ\�[�g�����B
-���ꂪ����ꍇ�����A�{���̃A�h�o�C�X�ɏ]���΂������낤�B
+ポインタを格納した連想コンテナは、デフォルトではアドレス順にソートされる。
+これが困る場合だけ、本項のアドバイスに従えばいいだろう。
 
-�� 21 ��
+第 21 項
 --------
-* set �̔�r�֐��Ƃ��� less_equal ���g���ƁA���� set �͂����������B
-* <�ǎ҂ɂ��ʔ����̒�`�͒��҂Ƃ͈Ⴄ��������Ȃ��B> (p. 91)
-* �A�z�R���e�i�̔�r�֐��̗v���Ƃ́A���̔�r�֐��� strict weak ordering ���`���邱�ƁB
-  ��r�֐��������l���r����ƁAfalse ��Ԃ��K�v�����邱�Ƃ������Ă����B
+* set の比較関数として less_equal を使うと、その set はあっさり壊れる。
+* <読者による面白さの定義は著者とは違うかもしれない。> (p. 91)
+* 連想コンテナの比較関数の要件とは、その比較関数が strict weak ordering を定義すること。
+  比較関数が同じ値を比較すると、false を返す必要があることを憶えておく。
 
-�� 22 ��
+第 22 項
 --------
-* map/multimap �̃L�[�͕ύX�ł��Ȃ��Bconst ������B
-* set/multiset �̃L�[�͕ύX�ł���B
-  �������R���e�i��j�󂷂�\����䂦�ύX���Ă͂Ȃ�Ȃ��B
+* map/multimap のキーは変更できない。const だから。
+* set/multiset のキーは変更できる。
+  しかしコンテナを破壊する可能性大ゆえ変更してはならない。
 
-  * �������u�L�[�ȊO�̕����v�ɂ��Ă͕ύX���邱�Ƃɖ��͂Ȃ��B
+  * ただし「キー以外の部分」については変更することに問題はない。
     ::
 
       EmpIDSet::iterator i = se.find(selectedID);
@@ -234,68 +234,68 @@ vector<bool> �͂���Ȃ��B�󋵂ɉ����Ď��̂����ꂩ�őΉ�����B
           const_cast<Employee&>(*i).setTitle("Corpolate Deity");
       }
 
-    ���S�ňڐA���̂���`�ŏ���������΁Aerase �� insert ���g���B
+    安全で移植性のある形で書きたければ、erase と insert を使う。
 
-�� 23 ��
+第 23 項
 --------
-�\�[�g�ς� vector �̃p�t�H�[�}���X��m�炵�߂���e�B���̍��͎����̏�ł��d�v�B
+ソート済み vector のパフォーマンスを知らしめる内容。この項は実務の上でも重要。
 
-* �����̏ꍇ�A�ΐ����ԒT��������W���A�z�R���e�i���́A
-  �萔���ԒT�������҂ł���n�b�V���R���e�i�̂ق����悢�B
-* <�����ɔ����āA�W���A�z�R���e�i�̃p�t�H�[�}���X�͒ᑬ�� vector �ɗ�邱�Ƃ͒������Ȃ��B>
+* 多くの場合、対数時間探索かかる標準連想コンテナよりは、
+  定数時間探索が期待できるハッシュコンテナのほうがよい。
+* <直感に反して、標準連想コンテナのパフォーマンスは低速の vector に劣ることは珍しくない。>
   (p. 99)
-* �񕪒T���؂�񕪒T��������A�\�[�g�ς� vector ��񕪒T������ق����p�t�H�[�}���X���D��Ă��闝�R���c�_���Ă���B
+* 二分探索木を二分探索するより、ソート済み vector を二分探索するほうがパフォーマンスが優れている理由を議論している。
 
-  1. �T�C�Y�Bvector ���D��Ă��邱�Ƃ͖����B
-  2. �Q�Ƃ̋Ǐ����B�m�[�h�x�[�X�̃R���e�i�ł́A�R���e�i���̏����ł͋߂��ɂ���R���e�i�v�f���m���A
-     �����������I�ɂ��߂��ɂ���Ƃ͌���Ȃ��B
+  1. サイズ。vector が優れていることは明白。
+  2. 参照の局所性。ノードベースのコンテナでは、コンテナ内の順序では近くにあるコンテナ要素同士が、
+     物理メモリ的にも近くにあるとは限らない。
 
-  �����I�ɍl���āA�\�[�g�ς� vector �̓񕪒T���ɌR�z���グ�Ă��邾���B
+  総合的に考えて、ソート済み vector の二分探索に軍配を上げているだけ。
 
-�� 24 ��
+第 24 項
 --------
 map::operator[] vs map::insert
 
 insert:
-  map �ɗv�f��ǉ�����Ƃ��i���O�ǂ��肾�j�B�����̊ϓ_������悢�B
+  map に要素を追加するとき（名前どおりだ）。効率の観点からもよい。
 
 operator[]:
-  map �Ɋ��ɑ��݂���v�f���X�V����Ƃ��B�����I�����I�B
+  map に既に存在する要素を更新するとき。効率的かつ美的。
 
-�� 25 ��
+第 25 項
 --------
-�ēǂ��ċC�t�������A�{���̓n�b�V����җ�Ƀv�b�V�����Ă���C������B
+再読して気付いたが、本書はハッシュを猛烈にプッシュしている気がする。
 
-* �W�� C++ ���C�u�����ɂ̓n�b�V���e�[�u���͂Ȃ��B
-* STLport �ɂ� hash_set, hash_map �̂悤�Ȃ��̂�����B
+* 標準 C++ ライブラリにはハッシュテーブルはない。
+* STLport には hash_set, hash_map のようなものがある。
 
-�����q
+反復子
 ======
-�� 26 ��
+第 26 項
 --------
-* const_iterator ���� iterator �֕ϊ�������@���Ȃ��B
-* const_reverse_iterator ���� reverse_iterator �֕ϊ�������@���Ȃ��B
-* <const �̐��m���Ƃ����ϓ_���炷��΁i�m���ɉ��l����ϓ_�ł���̂����j�A
-  ���ۂɌ��ׂ����邩������Ȃ��Ƃ��������Łi�������@�͂���̂�����j�A
-  const_iterator ���g��Ȃ����Ƃ͕s���Ɏv���邩������Ȃ��B�������A
-  �R���e�i�̈ꕔ�̃����o�֐��ł� iterator ���I�ʂ���Ă���󋵂��l�����킹��ƁA
-  ���ۏ�Aconst_iterator �� iterator �قǖ��ɗ����Ȃ������łȂ��A
-  �����Ďg�����R���Ȃ��Ƃ������_�ɒB������𓾂Ȃ��B> (pp. 116-117)
+* const_iterator から iterator へ変換する方法がない。
+* const_reverse_iterator から reverse_iterator へ変換する方法がない。
+* <const の正確さという観点からすれば（確かに価値ある観点であるのだが）、
+  実際に欠陥があるかもしれないというだけで（解決方法はあるのだから）、
+  const_iterator を使わないことは不当に思えるかもしれない。しかし、
+  コンテナの一部のメンバ関数では iterator が選別されている状況を考え合わせると、
+  実際上、const_iterator は iterator ほど役に立たないだけでなく、
+  あえて使う理由がないという結論に達せざるを得ない。> (pp. 116-117)
 
-�� 27 ��
+第 27 項
 --------
-const_iterator �� iterator �ɕϊ�����Z�@�Ƃ��āA
-advance �� distance ��g�ݍ��킹�ė��p������@���Љ�Ă���B
-�������A�ǂ��l���Ă����̕��@�͎��ԓI�R�X�g��������B
-�{���̌��_�������F�߂Ă���̂ŁA
-���̍��͑O���̃K�C�h���C����⋭���邽�߂ɏ����ꂽ�̂��ȁB
+const_iterator を iterator に変換する技法として、
+advance と distance を組み合わせて利用する方法を紹介している。
+しかし、どう考えてもこの方法は時間的コストがかかる。
+本項の結論もそう認めているので、
+この項は前項のガイドラインを補強するために書かれたのかな。
 
-�� 28 ��
+第 28 項
 --------
-reverse_iterator::base �ɂ��āB
+reverse_iterator::base について。
 
-* find ���̃A���S���Y���� reverse_iterator ��^����ƁA
-  ���̖߂�l�̌^���܂� reverse_iterator �ɂȂ�B
+* find 等のアルゴリズムに reverse_iterator を与えると、
+  その戻り値の型もまた reverse_iterator になる。
   ::
 
     vector<int> v;
@@ -303,55 +303,55 @@ reverse_iterator::base �ɂ��āB
     vector<int>::reverse_iterator ri = find(v.begin(), v.end(), 3);
     v.erase((++ri).base());
 
-�� 29 ��
+第 29 項
 --------
-* istream_iterator �� operator>> �Ɉˑ�����B
-  ����͏����t�����͂��s�����߁A�x���̂����m�̏�ŗ��p���邱�ƁB
-* �����Ȃǂǂ��ł��悢�ꍇ�A���̓X�g���[�����玟�̕������擾�����������Ȃ�΁A
-  istreambuf_iterator �̗��p����������B
-  ���͂Ɠ��l�ɁA�o�̓X�g���[���̏����ł� ostreambuf_iterator �̕����悢�ꍇ������B
+* istream_iterator は operator>> に依存する。
+  これは書式付き入力を行うため、遅いのを承知の上で利用すること。
+* 書式などどうでもよい場合、入力ストリームから次の文字を取得したいだけならば、
+  istreambuf_iterator の利用を検討する。
+  入力と同様に、出力ストリームの処理でも ostreambuf_iterator の方がよい場合がある。
 
-�A���S���Y��
+アルゴリズム
 ============
-�� 30 ��
+第 30 項
 --------
-* transform ���A�o�͔����q���w�肷��A���S���Y���ɂ́A
-  �o�͐�͈͂��K�؂Ɋm�ۂ���Ă���A�܂��͊m�ۂ��Ă���锽���q��n���B
+* transform 等、出力反復子を指定するアルゴリズムには、
+  出力先範囲が適切に確保されている、または確保してくれる反復子を渡す。
 
-  * back_inserter, front_inserter, inserter �Ȃ�΁A�o�͐�T�C�Y�������I�Ɋg�����Ă����B
-  * �o�͐�̃T�C�Y���킩���Ă���ꍇ�́A�ΏۃR���e�i�ɑ΂���
-    reserve �� resize ���Ɏg���ƌ������悢�B
-    inserter �n��p����ꍇ�� resize �ł͂Ȃ� reserve ���g���B
+  * back_inserter, front_inserter, inserter ならば、出力先サイズを自動的に拡張してくれる。
+  * 出力先のサイズがわかっている場合は、対象コンテナに対して
+    reserve や resize を先に使うと効率がよい。
+    inserter 系を用いる場合は resize ではなく reserve を使う。
 
-�� 31 ��
+第 31 項
 --------
-���̖{��ǂ�ŁA4 �ԖڂɊ����������ڂ͂��ꂾ�����B
+この本を読んで、4 番目に感動した項目はこれだった。
 
-* �܂��͂��̓S���𓪂ɒ@�����ށB
-  <�m���� sort �͂��΂炵���A���S���Y�������A�s�K�v�ȂƂ���Ŏg�����R�͂Ȃ��B
-  �ꍇ�ɂ���ẮA�ꕔ���\�[�g���邾���ōςށB> (p. 130)
-* �x�X�g N ���~�����ꍇ�́Apartial_sort �ŏ\���B
-* �x�X�g N ���u�����Ɋ֌W�Ȃ��v�~�����ꍇ�́Anth_element �ŏ\���B
-* partial_sort �� nth_element �� stable �ł͂Ȃ��B���ɖ��͂Ȃ����낤�B
-* �S�̂���ނɕ��ނ���悤�ȖړI�Ȃ�΁Apartition �����p�ł���B
-* �\�[�g�n�A���S���Y���� <�����_���A�N�Z�X�����q��K�v�Ƃ���> (p. 133)�B
+* まずはこの鉄則を頭に叩き込む。
+  <確かに sort はすばらしいアルゴリズムだが、不必要なところで使う理由はない。
+  場合によっては、一部をソートするだけで済む。> (p. 130)
+* ベスト N が欲しい場合は、partial_sort で十分。
+* ベスト N が「順序に関係なく」欲しい場合は、nth_element で十分。
+* partial_sort も nth_element も stable ではない。特に問題はないだろう。
+* 全体を二種類に分類するような目的ならば、partition が利用できる。
+* ソート系アルゴリズムは <ランダムアクセス反復子を必要とする> (p. 133)。
 
-  * ���� list ���\�[�g�������ꍇ���B
-    �󋵂ɂ���āA���e�� vector �ɈڐA���Ă��珊�]�̃\�[�g�E���ނ����邱�ƂɂȂ邩������Ȃ��B
-  * partition �n�� list::iterator ���󂯕t����B
+  * 問題は list をソートしたい場合だ。
+    状況によって、内容を vector に移植してから所望のソート・分類をすることになるかもしれない。
+  * partition 系は list::iterator を受け付ける。
 
-* <�\�[�g�A���S���Y����I�ԍۂɂ́A�p�t�H�[�}���X����ɂ���̂ł͂Ȃ��A
-  �ړI�ɓK���Ă��邩�ǂ����Ɋ�Â��đI�����邱�Ƃ������߂���B
-  �K�v�ȏ����������Ȃ��A���S���Y����I�ׂ΁A�K�v�ȏ������͂�����\������邾���łȂ��A
-  STL ���g���čł������I�ȕ��@�ŖړI��B���ł���B> (p. 135)
+* <ソートアルゴリズムを選ぶ際には、パフォーマンスを基準にするのではなく、
+  目的に適しているかどうかに基づいて選択することをお勧めする。
+  必要な処理しかしないアルゴリズムを選べば、必要な処理がはっきり表現されるだけでなく、
+  STL を使って最も効率的な方法で目的を達成できる。> (p. 135)
 
-�� 32 ��
+第 32 項
 --------
-* remove �A���S���Y���̌���������Ƃ��납��n�߂Ă���B
-  �w��͈̖͂����t�߂ɃS�~�����܂邾���B
-* <�R���e�i�̃����o�֐��������R���e�i�̗v�f���폜�ł���B
-  �����ɖ{���̗v�_������B
-  �܂�A�{���ɍ폜����ꍇ�́Aremove �̌�� erase �����s���Ȃ���΂Ȃ�Ȃ��B>
+* remove アルゴリズムの誤解を解くところから始めている。
+  指定範囲の末尾付近にゴミが溜まるだけ。
+* <コンテナのメンバ関数だけがコンテナの要素を削除できる。
+  そこに本項の要点がある。
+  つまり、本当に削除する場合は、remove の後に erase を実行しなければならない。>
   (pp. 138-139)
   ::
 
@@ -359,33 +359,33 @@ reverse_iterator::base �ɂ��āB
     ...
     v.erase(remove(v.begin(), v.end(), 99), v.end());
 
-  <�͈͌`���� erase �̑� 1 ������ remove �̖߂�l��n�����Ƃ������A
-  ���̊��p��ɂȂ��Ă���B> (p. 139)
-* unique �� remove �̂悤�ɖ����t�߂ɃS�~���񂹂�A���S���Y�����B
-  erase �Ƒg�ݍ��킹�ė��p����B
-* list �Ɋւ��ẮA�A���S���Y���ł͂Ȃ������o�֐��� remove, unique �ɂ��A
-  �{���ɍ폜�ł���B
+  <範囲形式の erase の第 1 引数に remove の戻り値を渡すことが多く、
+  一種の慣用句になっている。> (p. 139)
+* unique も remove のように末尾付近にゴミを寄せるアルゴリズムだ。
+  erase と組み合わせて利用する。
+* list に関しては、アルゴリズムではなくメンバ関数の remove, unique により、
+  本当に削除できる。
 
-�� 33 ��
+第 33 項
 --------
-���̃|�C���^���i�[�����R���e�i�ɑ΂��� remove ���A���S���Y���̓K�p�͊댯�B
+生のポインタを格納したコンテナに対する remove 風アルゴリズムの適用は危険。
 
-�� 34 ��
+第 34 項
 --------
-* �\�[�g�ςݔ͈͂���͗v���Ƃ���A���S���Y��������̂ŁA���ӂ��邱�ƁB
+* ソート済み範囲を入力要件とするアルゴリズムがあるので、注意すること。
 
-  �񕪒T���n:
+  二分探索系:
     binary_search, lower_bound, upper_bound, equal_range
 
-  �d���v�f�����n:
+  重複要素検索系:
     set_union, set_intersection, set_difference, set_symmetric_difference,
     merge, inplace_merge, includes
 
-* <Unix �J���҂Ȃ�ASTL �� unique �� Unix �� uniq �������قǎ��Ă��邱�ƂɋC�t�����낤�B
-  �M�҂��v���ɁA���̗ގ��͌����ċ��R�̈�v�ł͂Ȃ��B> (p. 145)
+* <Unix 開発者なら、STL の unique と Unix の uniq が驚くほど似ていることに気付くだろう。
+  筆者が思うに、この類似は決して偶然の一致ではない。> (p. 145)
 
-* ���̃^�C�v�̃R�[�h�́A�Ɩ����Ɍ����Ƃ��\������Ȃ̂Ńm�[�g���Ƃ��Ă����B
-  �]�܂����Ȃ����R�Ɩ]�܂����R�[�h���A�ǂݕԂ����Ƃ��Ɏv���o���B
+* 次のタイプのコードは、業務時に見落とす可能性が大なのでノートをとっておく。
+  望ましくない理由と望ましいコードを、読み返したときに思い出せ。
   ::
 
     vector<int> v;
@@ -394,124 +394,124 @@ reverse_iterator::base �ɂ��āB
     ...
     bool a5exists = binary_search(v.begin(), v.end(), 5);
 
-�� 35 ��
+第 35 項
 --------
-* mismatch �A���S���Y���𗘗p���鎖�O�����Ƃ��āA�Ⴄ�����͈̔͂�^����ꍇ�́A
-  �Z���͈͂̂ق����ɗ^���邱�ƂɂȂ��Ă���B
-* ���̎����ɂ�� lexicographical_compare �� strcmp �̔ėp�ł��ƌ�����B
+* mismatch アルゴリズムを利用する事前条件として、違う長さの範囲を与える場合は、
+  短い範囲のほうを先に与えることになっている。
+* 次の事実により lexicographical_compare は strcmp の汎用版だと言える。
 
-  1. strcmp �͕����z��ɂ����K�p�ł��Ȃ����A
-     lexicographical_compare �͔C�ӂ̌^�̒l�͈̔͂ɓK�p�ł���B
-  2. strcmp �͔�r��i�����ł���B
-     ����Alexicographical_compare �͔C�ӂ̏q���^������B
+  1. strcmp は文字配列にしか適用できないが、
+     lexicographical_compare は任意の型の値の範囲に適用できる。
+  2. strcmp は比較手段が一定である。
+     一方、lexicographical_compare は任意の述語を与えられる。
 
-* <���x���d�v�ł���ꍇ�ASTL �̕W���A���S���Y���̑���ɕW���ȊO��
-  C �֐����g���Ă����Ȃ����낤�B> (p. 150)
+* <速度が重要である場合、STL の標準アルゴリズムの代わりに標準以外の
+  C 関数を使っても問題ないだろう。> (p. 150)
 
-�� 36 ��
+第 36 項
 --------
-copy_if �l�^�B
+copy_if ネタ。
 
-�� 37 ��
+第 37 項
 --------
-* <numeric> �w�b�_�ɒu����Ă���A���S���Y���ɂ����ڂ��Ă�낤�B
-* for_each �� accumulate �ɓn���֐��p�����[�^�i�q��j�ɂ��āA
-  �]���ȍ�p������ł͔F�߂��Ă��āA�����ł͔F�߂��Ă��Ȃ����Ƃ��A
-  �{�����҂͋C�ɐH��Ȃ��悤���B
+* <numeric> ヘッダに置かれているアルゴリズムにも注目してやろう。
+* for_each と accumulate に渡す関数パラメータ（述語）について、
+  余分な作用が一方では認められていて、他方では認められていないことが、
+  本書著者は気に食わないようだ。
 
-�t�@���N�^�A�t�@���N�^�N���X�A�֐��Ȃ�
+ファンクタ、ファンクタクラス、関数など
 ======================================
-* �֐����I�u�W�F�N�g���t�@���N�^
+* 関数風オブジェクト＝ファンクタ
 
-�� 38 ��
+第 38 項
 --------
-�t�@���N�^�͒l�n�����S���B
+ファンクタは値渡しが鉄則。
 
-* <���ɁA�֐��I�u�W�F�N�g�͏���������K�v������B�����Ȃ��ƁA�R�s�[�̕��S���傫���Ȃ肷����B
-  ���ɁA�֐��I�u�W�F�N�g�͒P���i�񑽑��j�łȂ���΂Ȃ�Ȃ��B
-  �܂�A���z�֐����g���Ă͂����Ȃ��B��{�N���X�^�̃p�����[�^�ɔh���N���X�I�u�W�F�N�g��l�œn���ƁA
-  �X���C�V���O�̖�肪�������邽�߂ł���B�܂�A�R�s�[���ɔh���������폜����Ă��܂��B>
+* <第一に、関数オブジェクトは小さくする必要がある。さもないと、コピーの負担が大きくなりすぎる。
+  第二に、関数オブジェクトは単相（非多相）でなければならない。
+  つまり、仮想関数を使ってはいけない。基本クラス型のパラメータに派生クラスオブジェクトを値で渡すと、
+  スライシングの問題が発生するためである。つまり、コピー中に派生部分が削除されてしまう。>
   (p. 161)
 
-�� 39 ��
+第 39 項
 --------
-�q��̖߂�l�́A�֐��̎��������炾���Ō��߂�悤�ɂƂ����K�C�h�B
-�{���ł́A���̂悤�Ȃ��̂������֐��ƌĂ�ł���B
+述語の戻り値は、関数の実引数からだけで決めるようにというガイド。
+本項では、そのようなものを純粋関数と呼んでいる。
 
-�� 40 ��
+第 40 項
 --------
-* �t�@���N�^�N���X�������ŏ����ꍇ�A����� unary_function �܂��� binary_function
-  ����̔h���^�Ƃ��Ē�`���悤�Ƃ����b�B���̂悤�ɒ�`���Ă����ď��߂ĕW���֐��A�_�v�^
-  (not1, not2, bind1st, bind2nd) �ə��܂��邱�Ƃ��ł���B
+* ファンクタクラスを自分で書く場合、それを unary_function または binary_function
+  からの派生型として定義しようという話。このように定義しておいて初めて標準関数アダプタ
+  (not1, not2, bind1st, bind2nd) に咬ませることができる。
 
-* STL �ł͊e�t�@���N�^�N���X�ɂ͈�� operator() �����Ȃ��ƈÖق̓��ɉ��肵�Ă���B
+* STL では各ファンクタクラスには一つの operator() しかないと暗黙の内に仮定している。
 
-�� 41 ��
+第 41 項
 --------
-* <STL �R���|�[�l���g�Ƀ����o�֐���n���Ƃ��͏�� mem_fun �� mem_fun_ref ���g��Ȃ���΂Ȃ�Ȃ��B>
+* <STL コンポーネントにメンバ関数を渡すときは常に mem_fun と mem_fun_ref を使わなければならない。>
   (p. 174)
 
-�� 42 ��
+第 42 項
 --------
-* �u�ŏ��ӊO���̌����v�͎�邱�ƁBless �� operator< ���Ăяo���ȊO�̏����������ʂ��ƁB
-* ����̏󋵂ɂ������r���s���ɂ́Aless �łȂ��t�@���N�^�N���X���쐬���āA����𗘗p���邱�ƁB
+* 「最小意外性の原則」は守ること。less に operator< を呼び出す以外の処理をさせぬこと。
+* 特定の状況における比較を行うには、less でないファンクタクラスを作成して、それを利用すること。
 
-STL ���g�����v���O���~���O
+STL を使ったプログラミング
 ==========================
-�� 43 ��
+第 43 項
 --------
-* �A���S���Y���̂������ŁA�v���O���}�[���Ǝ��Ƀ��[�v��������Ƃ�����B
-  ����ɁA�����A���m���A�ێ琫��������B
-* <�����q�̓A���S���Y���ɓn���A�����q�̕��G�ȑ���́u�A���S���Y���v�ɔC���悤�B> (p. 184)
-* ���샋�[�v�́A������p�b�ƌ��Ă����ɉ������Ă�����̂Ȃ̂����킩��Ȃ��B
-  ����A�A���S���Y���̌Ăяo���́A�֐���������Ώ��Ȃ��Ƃ������̈Ӑ}�͂킩��B
-* �ꍇ�ɂ���ẮA�A���S���Y���ɓn���t�@���N�^���`����R�[�h�̂ق����A
-  ���샋�[�v�����������R�[�h�ʂ������ނ��Ƃ�����B
-* <for, while, do �Ȃǂ̒ᐅ���̌�� insert, find, for_each �Ȃǂ̍������̌�ɒu��������> (p. 187)
+* アルゴリズムのおかげで、プログラマーが独自にループを書く作業が減る。
+  さらに、効率、正確さ、保守性も得られる。
+* <反復子はアルゴリズムに渡し、反復子の複雑な操作は「アルゴリズム」に任せよう。> (p. 184)
+* 自作ループは、それをパッと見てすぐに何をしているものなのかがわからない。
+  一方、アルゴリズムの呼び出しは、関数名を見れば少なくとも処理の意図はわかる。
+* 場合によっては、アルゴリズムに渡すファンクタを定義するコードのほうが、
+  自作ループを書くよりもコード量がかさむことがある。
+* <for, while, do などの低水準の語を insert, find, for_each などの高水準の語に置き換える> (p. 187)
 
-�� 44 ��
+第 44 項
 --------
-�����̃A���S���Y���ƃ����o�֐������݂���ꍇ�́A���R�����o�֐���D�悷��B
-���ɘA�z�R���e�i�� find �n�̏����ɂ��Đ������Ă���B
+同名のアルゴリズムとメンバ関数が存在する場合は、当然メンバ関数を優先する。
+特に連想コンテナの find 系の処理について説明している。
 
-�� 45 ��
+第 45 項
 --------
-* ����R���e�i�ɂ��āA����̒l�������ǂ����𒲂ׂ�ɂ́A
-  find �A���S���Y����p����B
-  �����āA�߂�l�ƃR���e�i�� end ���Ⴄ���ǂ������e�X�g����B
+* あるコンテナについて、特定の値を持つかどうかを調べるには、
+  find アルゴリズムを用いる。
+  そして、戻り値とコンテナの end が違うかどうかをテストする。
 
-  * �������A�\�[�g�ςݔ͈͂ł� binary_search �̂ق����������悢
-    �i�������A���݂���ʒu�͂킩��Ȃ��j�B
+  * ただし、ソート済み範囲では binary_search のほうが効率がよい
+    （ただし、存在する位置はわからない）。
 
-  * �\�[�g�ςݔ͈͂ŁA�ǂ̈ʒu�ɂ܂ł��邩���ׂ����Ƃ��ɂ�
-    equal_range ��p����i���������l�ł͂Ȃ������Ɋ�Â��Ă���j�B
-    equal_range �̖߂�l�y�A���Ⴄ�ʒu���w���Ă���΁i��ȏ�j���݂���B
+  * ソート済み範囲で、どの位置にまであるか調べたいときには
+    equal_range を用いる（ただし等値ではなく等価に基づいている）。
+    equal_range の戻り値ペアが違う位置を指していれば（一つ以上）存在する。
 
-* �\�[�g�ςݔ͈͂Łu����l��菬�����Ȃ��ŏ��̗v�f�v��T������ɂ� lower_bound ��p����B
+* ソート済み範囲で「ある値より小さくない最初の要素」を探索するには lower_bound を用いる。
 
-* �A�z�R���e�i�̏ꍇ�A�ȏ�̃��[���Ɋ�Â��ă����o�֐��ł𗘗p����B
+* 連想コンテナの場合、以上のルールに基づいてメンバ関数版を利用する。
 
-* set, map �Ɋւ��ẮA����̒l�������ǂ����𒲂ׂ�̂�
-  find �ł͂Ȃ� count ���g���Ă��i�����������Ȃ��̂Łj�\��Ȃ��B
+* set, map に関しては、特定の値を持つかどうかを調べるのに
+  find ではなく count を使っても（効率が落ちないので）構わない。
 
-* <multi �R���e�i�ł́A����̒l�����v�f���������݂���ꍇ�A
-  find ���R���e�i�̒��œ���̒l�����u�ŏ��́v�v�f�����ʂ��邱�Ƃ͕ۏ؂���Ȃ��B>
+* <multi コンテナでは、特定の値を持つ要素が複数存在する場合、
+  find がコンテナの中で特定の値を持つ「最初の」要素を識別することは保証されない。>
   (p. 197)
 
-�� 46 ��
+第 46 項
 --------
-* <������������g�����v���O���~���O�Ɋւ���s���̈�́A
-  ���ۂ̓x���������܂�ɂ�A���������R�[�h�̌������Ⴍ�Ȃ邱�Ƃł���B>
+* <高水準言語を使ったプログラミングに関する不満の一つは、
+  抽象の度合いが高まるにつれ、生成されるコードの効率が低くなることである。>
   (p. 198)
-* �C�����C���W�J�\���̊֌W�ŁA�A���S���Y���ɂ͊֐��i���|�C���^�j��n�������A
-  �֐��I�u�W�F�N�g��n�����ق����A�R���p�C���������̂悢�R�[�h�𐶐�����B
-  <�֐��|�C���^�p�����[�^�̓C�����C��������Ȃ��B���̂��߁A�o���L�x�ȑ�����
-  C �v���O���}�ɂƂ��ĐM�����������Ƃ����A�قƂ�ǂ̏ꍇ�AC++ �� sort �̕���
-  C �� qsort ��荂���ɂȂ�B> (p. 200)
+* インライン展開可能性の関係で、アルゴリズムには関数（＝ポインタ）を渡すよりも、
+  関数オブジェクトを渡したほうが、コンパイラが効率のよいコードを生成する。
+  <関数ポインタパラメータはインライン化されない。そのため、経験豊富な多くの
+  C プログラマにとって信じがたいことだが、ほとんどの場合、C++ の sort の方が
+  C の qsort より高速になる。> (p. 200)
 
-�� 47 ��
+第 47 項
 --------
-* �`���Ŏ��̃R�[�h��񎦂��Ă����A
+* 冒頭で次のコードを提示しておき、
   ::
 
     v.erase(
@@ -521,64 +521,64 @@ STL ���g�����v���O���~���O
                 bind_2nd(less<int>(), x)),
       v.end());
 
-  ����͂��߂����ƒf��A
-  <�������AScheme �Ȃǂ̊֐��^����Ɋ��ꂽ�v���O���}�������邱�Ƃ͈���Ă��邾�낤> (p. 203)
-  �ƌ����Ă̂���̂ɂ͎Q�����B
+  これはやり過ぎだと断りつつ、
+  <しかし、Scheme などの関数型言語に慣れたプログラマが感じることは違っているだろう> (p. 203)
+  と言ってのけるのには参った。
 
-* �A���S���Y���𑽗p����ƁA�ǂ����Ă���̃R�[�h�̂悤�Ƀl�X�g�E�o�C���_�E�A�_�v�^��������B
-* <�����ł��Ȃ��\�t�g�E�F�A�͕ێ�ł��Ȃ�> (p. 205) �́A
-  �u�����ł��Ȃ����̂͏����ł��Ȃ��v���B
+* アルゴリズムを多用すると、どうしても先のコードのようにネスト・バインダ・アダプタが増える。
+* <理解できないソフトウェアは保守できない> (p. 205) は、
+  「理解できないものは所持できない」だ。
 
-�� 48 ��
+第 48 項
 --------
-�C���N���[�h�̃R�c���܂Ƃ߂Ă���B
+インクルードのコツをまとめている。
 
-�� 49 ��
+第 49 項
 --------
-�R���p�C���G���[���Ɍ���� <�L���L�[�{�[�h�̏������ē��͂��ꂽ> (p. 207) �悤�ȃ��b�Z�[�W�̉�Ǖ��@�̃R�c�B
+コンパイルエラー時に現れる <猫がキーボードの上を歩いて入力された> (p. 207) ようなメッセージの解読方法のコツ。
 
-�� 50 ��
+第 50 項
 --------
 * http://www.sgi.com/tech/stl/
 * http://www.stlport.org/
 * http://www.boost.org/
 
-�Q�l����
+参考文献
 ========
-�m�[�g���Ƃ�Ȃ��B
+ノートをとらない。
 
-���P�[���Ƒ啶������������ʂ��Ȃ��������r
+ロケールと大文字小文字を区別しない文字列比較
 ============================================
-* <x �� y �� std::string �^�ł���΁A�� x < y �͎��̎��Ɠ����ł���B
+* <x と y が std::string 型であれば、式 x < y は次の式と等価である。
   ::
     
     std::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());
 
-  ���̎��ŁAlexicographical_compare �� operator< ���g���ČX�̕������r����B> (p. 227)
-* <toupper �͈�̈��������P���Ȋ֐��̂悤�����A�O���[�o���ϐ��ɂ��ˑ�����B> (p. 229)
-* <C++ �W�����C�u�����̃��P�[���́A���C�u�����̎����̒��ɐ[�����ߍ��܂ꂽ�O���[�o���f�[�^�ł͂Ȃ��A
-  std::locale �^�̃I�u�W�F�N�g�ł���B> (p. 229)
-* <���P�[���̖��O�͕W��������Ă��Ȃ��B> (p. 230)
-* <C++ �̃��P�[���́u�t�@�Z�b�g�v�ɕ��������B
-  �e�t�@�Z�b�g�͍��ۉ��̈قȂ�ʂ���������B
-  �֐� std::use_facet �́A���P�[���I�u�W�F�N�g�������̃t�@�Z�b�g�𒊏o����B
-  �t�@�Z�b�g ctype �́A�啶���������̕ϊ����܂߁A�����̕��ނ���������B> (p. 230)
+  この式で、lexicographical_compare は operator< を使って個々の文字を比較する。> (p. 227)
+* <toupper は一つの引数を取る単純な関数のようだが、グローバル変数にも依存する。> (p. 229)
+* <C++ 標準ライブラリのロケールは、ライブラリの実装の中に深く埋め込まれたグローバルデータではなく、
+  std::locale 型のオブジェクトである。> (p. 229)
+* <ロケールの名前は標準化されていない。> (p. 230)
+* <C++ のロケールは「ファセット」に分割される。
+  各ファセットは国際化の異なる面を処理する。
+  関数 std::use_facet は、ロケールオブジェクトから特定のファセットを抽出する。
+  ファセット ctype は、大文字小文字の変換を含め、文字の分類を処理する。> (p. 230)
   ::
 
-    // L �����P�[���Ƃ���
+    // L をロケールとして
     const std::ctype<char>& ct = std::use_facet<std::ctype<char> >(L);
     bool result = ct.toupper(c1) < ct.toupper(c2);
 
-* <use_facet ���Ăяo���ɂ͕��S���傫�����Ƃ����邽�߁A
-  use_facet �̌Ăяo���񐔂͏��Ȃ����������悢�B> (p. 230)
+* <use_facet を呼び出すには負担が大きいことがあるため、
+  use_facet の呼び出し回数は少なくした方がよい。> (p. 230)
 
-Microsoft �� STL �v���b�g�t�H�[���ɂ���
+Microsoft の STL プラットフォームについて
 =========================================
-�d���Ōo��������̂ł悭���m���Ă��邪�A
-���O�� .NET �̕t���Ȃ� VC ���ł͈ꕔ�R���e�i�̃����o�֐������������B
-���̕t�^�ł͂��̉����A��ֈĂ��Љ�Ă���B
+仕事で経験があるのでよく承知しているが、
+名前に .NET の付かない VC 環境では一部コンテナのメンバ関数がおかしい。
+この付録ではその回避策、代替案を紹介している。
 
-STL �̃����o�֐��e���v���[�g�A���Ɍ^�̈Ⴄ�R���e�i���� insert �� assign ����ꍇ�A
+STL のメンバ関数テンプレート、特に型の違うコンテナから insert や assign する場合、
 ::
 
   vector<Widget> vw;
@@ -590,16 +590,16 @@ STL �̃����o�֐��e���v���[�g�A���Ɍ^�̈Ⴄ�R���e�i���� insert �� assign ����ꍇ
   vw.insert(vw.end(), lw.begin(), lw.end());
   vw.insert(vw.end(), sw.begin(), sw.end());
 
-�Ō�ɏ����� insert �̍s�� MSVC6 �ȑO�ł̓R���p�C���ł��Ȃ��B
-���̑Ή���Ƃ��āA
+最後に書いた insert の行が MSVC6 以前ではコンパイルできない。
+その対応策として、
 
-1. copy �� back_inserter, inserter ��g�ݍ��킹��i�����������������j
-2. STL �����ւ���i�������R���p�C���������o�֐��e���v���[�g�ɑς����� MSVC6 �̂݉\�j
+1. copy と back_inserter, inserter を組み合わせる（ただし効率が悪い）
+2. STL を入れ替える（ただしコンパイラがメンバ関数テンプレートに耐えられる MSVC6 のみ可能）
 
-���Ƃ������Ă���B
+ことを挙げている。
 
-<MSVC6 �ɕt������ STL �̎����ȊO�͎g�p�ł��Ȃ��ꍇ�ł��A
-Dinkumware Web �T�C�g�͗��p���鉿�l�����邾�낤�B
-���̃T�C�g�ɂ́AMSVC6 ���C�u���������Œm���Ă���o�O�̃��X�g���f�ڂ���Ă���A
-�g�p���Ă��郉�C�u������ύX���ĕs������炷���@����������Ă���> (p. 240)
-�ύX�]�X�͎d���ł͂ł��Ȃ����A�o�O���X�g�͌��鉿�l�����肻�����B
+<MSVC6 に付属する STL の実装以外は使用できない場合でも、
+Dinkumware Web サイトは利用する価値があるだろう。
+このサイトには、MSVC6 ライブラリ実装で知られているバグのリストが掲載されており、
+使用しているライブラリを変更して不具合を減らす方法が説明されている> (p. 240)
+変更云々は仕事ではできないが、バグリストは見る価値がありそうだ。
