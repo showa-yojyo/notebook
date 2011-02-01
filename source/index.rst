@@ -12,6 +12,7 @@ Contents:
    :maxdepth: 1
 
    sutter00
+   alexandrescu01
    meyers01
    sutter02
    joel04
