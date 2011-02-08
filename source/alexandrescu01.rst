@@ -393,4 +393,155 @@ Modern C++ Design 読書ノート
 
 第 4 章 小規模オブジェクトの割り当て
 ======================================================================
-TBW
+以下のノートでは ``std::size_t`` を単に ``size_t`` と書く。
+
+* この章で言う小規模オブジェクトとは、数バイト程度のメモリーを消費するものらしい。
+
+* ``operator new`` と ``operator delete`` は <汎用目的の演算子であり、
+  小規模オブジェクトの割り当てには向いていない> (p. 83)
+  本章で紹介するアロケータは、それらよりも処理速度は数段優れ、
+  メモリー消費も半分以下だと豪語している。
+
+----
+
+デフォルトのアロケータについて。
+
+* <通常の場合、デフォルトのアロケータというものが、C のヒープアロケータを薄い
+  ラッパで包み込んだ形で実装されているため> (p. 84) 恐ろしく遅い。
+
+* 遅いだけでなく、<小規模オブジェクトに対するスペース効率も非常に悪い> (p. 84)
+  管理用のメモリを余分に食うためとのこと。
+
+----
+
+「メモリ・アロケータの作業」に書かれているメモリレイアウトの理解が面倒。パス。
+
+----
+
+* 本章で解説している小規模オブジェクト・アロケータは 4 層構造。
+  下位層から上位層へ向かって ``Chunk``, ``FixedAllocator``,
+  ``SmallObjAllocator``, ``SmallObject`` となっている。
+
+----
+
+``Chunk`` は「固定長ブロックを保持するメモリのチャンク」を保持・管理する。
+
+.. code-block:: c++
+
+   // p. 87 より引用。細部省略。
+   struct Chunk
+   {
+       void Init(size_t blockSize, unsigned char blocks);
+       void* Allocate(size_t blockSize);
+       void Deallocate(void* p, size_t blockSize);
+       void Release();
+       
+       unsinged char* pData_;
+       unsinged char firstAvailableBlock_;
+       unsinged char blocksAvailable_;
+   };
+
+* 関数の引数にやたらサイズがあるのは、<上位層がブロック・サイズを管理するべき> (p. 88) だから。
+* <効率性を考慮し、 ``Chunk`` にはコンストラクタ、デストラクタ、代入演算子を定義しません> (p. 88)
+* 255 (``UCHAR_MAX``) ブロック以上のチャンクを保持できないことに注意。
+* <未使用ブロックの最初のバイトには、次の未使用ブロックのインデックスを保持します> (p. 88)
+  例えば ``Chunk::Init`` の実装で ``pData_[i * blockSize] == (i + 1) * blockSize``
+  となるように配列の中身を埋める。
+
+* ``Chunk::Allocate`` の実装を見ると、処理時間は O(1) になっているようだ。
+  必然的に ``Chunk::Deallocate`` も O(1) になる。
+
+----
+
+``FixedAllocator`` は ``Chunk`` の ``vector`` として実装する。
+
+.. code-block:: c++
+
+   // p. 91 より引用。
+   class FixedAllocator
+   {
+       size_t blockSize_;
+       unsigned char numBlocks_;
+       typedef std::vector<Chunk> Chunks;
+       Chunks chunks_;
+       Chunk* allocChunk_;
+       Chunk* deallocChunk_;
+       ...
+   };
+
+* ``allocChunk_`` は「前回の割り当てに使用したチャンク」とする。
+  これに余裕がまだあれば、次の割り当てでもここを使用することで効率化できる。
+
+* ``deallocChunk_`` 「直前に開放されたチャンク」だが、扱いがちょっと難しい。
+
+----
+
+<``SmallObjAllocator`` は、いくつかの
+``FixedAllocator`` オブジェクトを集約することによって実現されています> (p. 94)
+
+.. code-block:: c++
+
+   // pp. 94-95 参照。
+   class SmallObjAllocator
+   {
+       std::vector<FixedAllocator> pool_;
+       FixedAllocator* pLastAlloc_;
+       FixedAllocator* pLastDealloc_;
+       
+   public:
+       SmallObjAllocator(size_t chunkSize, size_t maxObjectSize);
+       
+       void* Allocate(size_t numBytes);
+       void Deallocate(void* p, size_t size);
+       
+       ...
+   };
+
+* ``Deallocate`` の引数のサイズが、ここでは「解放するサイズ」を意味する。
+  高速に解放するため。
+
+* <「効率的な」やり方は、常に「効率的な」やり方とは限らない> (p. 95)
+* <メモリ保持のために若干探索速度を犠牲にする> (p. 95) ことにした。
+* ``pool_`` をブロックサイズに従ってソートしておくと、バイナリ・サーチが適用できる。
+
+----
+
+``SmallObject`` はほぼ教科書通りのインターフェイスになる。
+
+.. code-block:: c++
+
+   // p. 96
+   class SmallObject
+   {
+       static void* operator new(size_t size);
+       static void operator delete(void* p, size_t size);
+
+       virtual ~SmallObject();
+   };
+
+* デストラクタは仮想でなければならない。
+  理由は ``operator delete`` に引き渡されるサイズを正しくさせるため。
+
+* ``operator new`` の実装で ``SmallObjAllocator::Allocate`` を利用する。
+  また ``operator delete`` で ``SmallObjAllocator::Deallocate`` を利用する。
+
+* ということは、 ``SmallObjAllocator`` はシングルトンでなければならない。
+
+----
+
+各種ポリシーをくっつけて ``SmallObject`` をクラステンプレートにして仕上がる。
+本章ではここまでテンプレートがなかなか出てこなかった感があるが、ここでようやく登場。
+
+.. code-block:: c++
+
+   // p. 100 より引用。
+   template 
+   <
+       template <class T>
+           class ThreadingModel = DEFAULT_THREADING,
+       size_t chunkSize = DEFAULT_CHUNK_SIZE,
+       size_t maxSmallObjectSize = MAX_SMALL_OBJECT_SIZE
+   >
+   class SmallObject;
+
+* <保守的ということは最適ではないということを意味しているのです> (p. 101)
