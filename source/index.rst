@@ -14,6 +14,7 @@ Contents:
    sutter00
    alexandrescu01-pt1
    alexandrescu01-pt2
+   alexandrescu01-pt3
    meyers01
    sutter02
    joel04
