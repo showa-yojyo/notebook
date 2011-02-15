@@ -157,4 +157,121 @@ Prototype バージョンを設計する。
 
 第 10 章 Visitor
 ======================================================================
-TBW
+
+* メリット：クラス階層や既存コードを再コンパイルせずに、仮想関数を追加できる。
+* デメリット：<階層の末端にクラスを追加した場合、
+  階層や全ての既存のコードの再コンパイルが必要になる> (p. 249)
+
+----
+
+* <機能拡張は、新たなクラスを追加するか、
+  新たな仮想メンバ関数を追加するかのいずれかによって実現できます> (p. 249)
+
+* <新たなクラスの追加は簡単であり、新たな仮想メンバ関数の追加は難しい> (p. 250)
+
+* 従って、こういう場合の裏に対しては、Visitor が役に立つ。
+
+ここから架空の文書エディターを開発する場合を考察していく。
+
+.. code-block:: c++
+
+   // pp. 250-251 引用一部略
+   class DocStats // 文書の統計情報
+   {
+   public:
+       void AddChars(xxxx); // 文字数
+       void AddWords(xxxx); // 単語数
+       void AddImages(xxxx); // 画像数
+       ...
+       
+       void Display(); // 統計情報表示
+   };
+   
+   class DocElement;
+       class Paragraph;
+       class RasterBitmap;
+ 
+   class DocElement
+   {
+   public:
+       // DocElement が Paragraph だったら AddChars や AddWords を利用するし、
+       // RasterBitmap だったら AddImages を利用して、統計をとる。
+       virtual void UpdateStats(DocStats& statistics) = 0;
+   };
+
+いくつか欠点がある。
+
+* <``DocStats`` を修正する度に、 ``DocElement`` 階層全体を再コンパイルする必要がある> (p. 251)
+* <統計情報の収集を行う実際の処理が、 ``UpdateStats`` の実装全体に散りばめられます> (p. 251)
+* その他
+
+発想を変えて、 ``UpdateStats`` を ``DocStats`` に移動させてみると、
+<今度は ``DocStats`` が、処理対象となる具体的な ``DocElement`` に依存することになります> (p. 252)
+
+.. code-block:: c++
+
+   // p. 252 より引用一部略
+   void DocStats::UpdateStats(DocElement& elem)
+   {
+       if(Paragraph* p = dynamic_cast<Paragraph*>(&elem))
+       {
+           // Paragraph の統計収集...
+       }
+       else if(dynamic_cast<RasterBitmap*>(&elem))
+       {
+           // RasterBitmap の統計収集...
+       }
+       else ...
+   }
+
+ここで Visitor の導入となる。
+まずはデザインパターンの教科書通りのインターフェイスを持つクラスを書いてみる。
+
+.. code-block:: c++
+
+   // p. 253 より
+   // まず Visitor の抽象基底クラス
+   class DocElementVisitor
+   {
+   public:
+       virtual void VisitParagraph(Paragraph&) = 0;
+       virtual void VisitRasterBitmap(RasterBitmap&) = 0;
+       ...
+   };
+   
+   // DocElement::Visit を宣言。
+   
+   class DocElement
+   {
+   public:
+       virtual void Accept(DocElementVisitor&) = 0;
+       ...
+   };
+   
+   void Paragraph::Accept(DocElementVisitor& v)
+   {
+       v.VisitParagraph(*this);
+   }
+   // RasterBitmap も同様。
+   
+   // そして DocStats は DocElementVisitor を実装する。
+   
+   class DocStats : public DocElementVisitor
+   {
+       ... VisitParagraph や VisitRasterBitmap を実装 ...
+   };
+
+* ``VisitXXXX`` は ``XXXX`` の public な部分しかアクセスできない。
+* 新たな操作を追加する場合、
+  ``DocElementVisitor`` から新たなクラスを導出するだけでよい。
+  p. 254 の ``IncrementFontSize`` の例を見るといい。
+
+----
+
+オーバーロードについて解説あり。
+
+* 各 ``VisitXXXX`` の関数名は単に ``Visit`` とすることができる。
+* ``DocElementVisitor::Visit(DocElement&)`` もアイディアとしてはアリ。
+
+----
+
