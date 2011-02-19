@@ -275,3 +275,133 @@ Prototype バージョンを設計する。
 
 ----
 
+非循環式 Visitor という、魅惑的なタイトル。
+
+* <``DocElementVisitor`` の ``VisitXxx メンバ関数名にクラス名が埋め込まれるため、
+  ``DocElementVisitor`` のクラス定義をコンパイルする際には、
+  ``DocElement`` 階層に存在する全ての具体的なクラスに関する知識（少なくとも名前）が必要になります> (p. 257)
+
+* <循環依存は、保守上のボトルネックになる> (p. 257)
+
+* ``DocElement`` 階層にサブクラスを追加するときに必要な作業を列挙している。
+  <こういった作業は面倒くさい> (p. 258)
+
+* Robert Martin (1996) 考案による dynamic_cast を用いた変形 Visitor パターン。
+
+  * ``DocElementVisitor`` に ``VisitXxxx`` を宣言しない。
+  * ``XxxxVisitor`` は ``DocElementVisitor`` を継承しないで、
+    ``VisitXxxx`` を純粋仮想関数として宣言する。
+  
+  * ``DocElement`` のサブクラス ``Xxxx::Accept`` 関数にて、
+    引数の ``DocElementVisitor`` を ``XxxxVisitor`` に dynamic_cast するテストを加える。
+    
+    .. code-block:: c++
+    
+       // p. 259 より引用
+       void Paragraph::Accept(DocElementVisitor& v)
+       {
+           if(ParagraphVisitor* p = dynamic_cast<ParagraphVisitor*>(&v))
+           {
+               p->VisitParagraph(*this);
+           }
+           ...
+       }
+
+  * 具体的な Visitor クラスの定義は、例えば次のようになる。
+  
+    .. code-block:: c++
+    
+       // p. 260 より引用。
+       class DocStats :
+           public DocElementVisitor,
+           public ParagraphVisitor,
+           public RasterBitmapVisitor
+       {
+           ...
+
+           // VisitXxxx をこのクラスで実装する。
+           void VisitParagraph(Paragraph&);
+           void VisitRasterBitmap(RasterBitmap&);
+       };
+
+* 非循環式 Visitor パターンは循環依存をなくす代わりに、
+  <``DocElement`` をルートに持つ被訪問階層のクラス群と、
+  具体的な被訪問クラス毎に対応する訪問クラス ``XxxVisitor`` 群という
+  2 つの並列したクラス群を保守しなければならなくなります> (p. 261)
+
+* <高名な GoF の Ralph Gamma ですら、
+  Visitor がボトム 10 パターンの中のかなり下の方に位置付けられると言っているのです (Vlissides 1999)>
+  (p. 262)
+
+----
+
+ここでジェネリック化の議論に入る。
+
+* <できるだけ多くのコードをライブラリに収納するようにするのです> (p. 262)
+* 最初に非循環式 Visitor を実装し、その後 <標準とも言える> (p. 262) GoF 版 Visitor を実装する流れ。
+
+非循環式。
+
+* ``BaseVisitor`` - 先の例の ``DocElementVisitor`` と同じ。
+* ``Visitor`` - ``XxxxVisitor`` 用。クラステンプレートとして宣言。
+
+  .. code-block:: c++
+  
+     // p. 263
+     template <class T, typename R = void>
+     class Visitor
+     {
+     public:
+         typedef R ReturnType;
+         virtual ReturnType Visit(T&) = 0;
+     };
+
+* ``BaseVisitable`` - ``Accept`` するクラスの基底クラスとして利用するためのクラステンプレート。
+
+  * ``Visitor`` 同様に ``Accept`` の戻り値がテンプレート引数になる。
+  * ユーザーが ``Accept`` を実装をするための補助的なマクロ ``DEFINE_VISITABLE()`` と補助関数
+    ``AcceptImpl(T&, BaseVisitor&)`` を用意する。
+    
+    * <場合によっては ``DEFINE_VISITABLE()`` マクロを用いるのではなく、
+      自分で ``Accept`` を実装する必要が出てくる> (p. 268) が、問題ない。
+
+----
+
+続いて循環式。dynamic_cast を用いないために高速に動作する。
+
+* ``CyclicVisitor`` ではタイプリストを利用する。
+
+  * ``GenScatterHierarchy<TList, 略>`` から継承する。
+  * ``Visit`` メンバ関数テンプレートは ``Visitor`` を用いて実装する。
+    ``CyclicVisitor`` は ``TList`` 中の各型 ``T`` について、
+    クラス ``Visitor<T>`` の派生クラスであるからできる芸当。
+
+* マクロ ``DEFINE_CYCLIC_VISITABLE()`` を提供する。
+
+循環式の場合、ユーザーコードが圧倒的に少なくて済むようだ。
+
+.. code-block:: c++
+
+   // pp. 270-271 より引用
+   typedef CyclicVisitor
+   <
+       void, // 戻り値
+       TYPELIST_3(DocElement, Paragraph, RasterBitmap)
+   >
+   MyVisitor;
+   
+   class DocElement
+   {
+   public:
+       virtual void Visit(MyVisitor&) = 0;
+   };
+   
+   class Paragraph : public DocElement
+   {
+   public:
+       DEFINE_CYCLIC_VISITABLE(MyVisitor);
+   };
+
+第 11 章 マルチメソッド
+======================================================================
+TBW
