@@ -404,4 +404,153 @@ Prototype バージョンを設計する。
 
 第 11 章 マルチメソッド
 ======================================================================
-TBW
+* マルチメソッドという用語は CLOS から借用した (p. 277)
+
+----
+
+C++ におけるポリモフィズムとは何かをまず考える。
+関数オーバーロード、関数テンプレートはともに静的なディスパッチメカニズムであり、
+仮想メンバ関数呼び出しは動的なディスパッチメカニズムであるとみなせる。
+
+* <``obj.Fun(引数群)`` という呼び出しシンタックスでは、
+  引数群よりも ``obj`` に優先的な役割が与えられているのです> (p. 278)
+
+* マルチメソッド、多重ディスパッチとは 
+  <関数呼び出しに用いられているオブジェクト群の動的な型に依存して、
+  異なった関数にディスパッチするようなメカニズム> (p. 278) のこと。
+
+----
+
+マルチメソッドの必要性について論じる。
+ここでは ``Shape`` （のサブクラス）オブジェクト同士の交差部分処理という、
+C++ プログラム開発経験者ならまず膝を叩く例が挙げられている。
+
+手許に ``Shape`` への異なるポインターが 2 つあるとして、
+それをどのオーバーロードに適用するの？ という問題だ。
+
+----
+
+最初に一番愚直と思われる方法、力任せに dynamic_cast テストをして、
+動的な型に見合うオーバーロード関数に引き渡すコードを示している。
+
+.. code-block:: c++
+
+   // pp. 280-281 より一部抜粋（一部だけで雰囲気が思い出せるから）
+   
+   void DoHatchArea1(Rectangle&, Rectangle&);
+   void DoHatchArea2(Rectangle&, Ellipse&);
+   void DoHatchArea3(Rectangle&, Poly&);
+   ...
+   
+   void DoubleDispatch(Shape& lhs, Shape& rhs)
+   {
+       if(Rectangle* p1 = dynamic_cast<Rectangle*>(&lhs))
+       {
+           if(Rectangle* p2 = dynamic_cast<Rectangle*>(&rhs))
+               DoHatchArea1(*p1, *p2);
+           else if(Ellipse* p2 = dynamic_cast<Ellipse*>(&rhs))
+               DoHatchArea2(*p1, *p2);
+           else if
+               ...
+       }
+       else if
+           ...
+   }
+   
+* 問題点は明らか。
+
+  * <この実装は、階層中に存在する全クラスを知っていなければならないのです> (p. 281)
+  * <``if`` ステートメントの順序が処理に影響を与えてしまう> (p. 281) - 
+    <最も下位にあるクラスが最初に判定されるよう、
+    ``if`` の判定を「ソートする」> (p. 282) ようでなければ問題が出る。
+
+----
+
+ここから本書らしいアプローチが始まる。
+先程の ``DoubleDispatch`` 相当のコードを、クラステンプレート ``StaticDispatcher`` と
+クラス ``HatchingExecutor`` に分割して、次のような構造で表現する。
+
+.. code-block:: c++
+
+   // pp. 283-286 から断続的に引用。
+
+   template< 略 > // 本を読んで。
+   class StaticDispatcher
+   {
+       typedef typename TypesLhs::Head Head;
+       typedef typename TypesLhs::Tail Tail;
+   public:
+       static ResultType Go(BaseLhs& lhs, BaseRhs& rhs, Executor exec)
+       {
+           if(Head* p1 = dynamic_cast<Head*>(&lhs))
+           {
+               return StaticDispatcher< NullType, その他略 >::DispatchRhs(*p1, rhs, exec);
+           }
+           else
+           {
+               return StaticDispatcher< Tail, その他略 >::Go(略);
+           }
+       }
+       
+       template <class SomeLhs>
+       static ResultType DispatchRhs(SomeLhs& lhs, BaseRhs& rhs, Executor exec)
+       {
+           // ここで Head, Tail に対する typedef を「上書き」する。
+
+           if(Head* p2 = dynamic_cast<Head*>(&rhs))
+           {
+               return exec.Fire(lhs, *p2)
+           }
+           else
+           {
+               return StaticDispatcher<NullType, Tail, その他略>::DispatchRhs(略);
+           }
+       }
+   };
+   
+   // TODO: StaticDispatcher の部分特殊化 1: TypeLhs = NullType で
+   // ダミーの static メソッド Go を実装する。
+   
+   // TODO: StaticDispatcher の部分特殊化 2: TypeRhs = NullType で
+   // ダミーの static メソッド DispatchRhs を実装する。
+   
+   class HatchingExecutor
+   {
+   public:
+       void Fire(Rectangle&, Rectangle&);
+       void Fire(Rectangle&, Ellipse&);
+       ...
+       
+       void OnError(Shape&, Shape&);
+   };
+
+* ``Go`` から ``Go`` を呼び出す様子は再帰呼び出しに見えるかもしれないが、
+  ``StaticDispatcher`` の別な実体化の同名メソッドを呼び出している。
+  ``DispatchRhs`` も同様。
+
+* <結果的に、``StaticDispatcher`` は、
+  2 つのタイプリストと特定のコードから指数に比例した分量のコードを生成するわけです。
+  （略）つまり、大きなコードによってコンパイル時間、プログラム・サイズ、
+  実行時間の全てに打撃が与えられるのです> (p. 284)
+
+* <``StaticDispatcher`` は境界条件が発生した場合、
+  元々の（キャストしない） ``lhs`` と ``rhs`` を用いて単に
+  ``Executor::OnError`` を呼び出します> (p. 286)
+
+.. code-block:: c++
+
+   // p. 286 より。
+   typedef StaticDispatcher<HatchingExecutor, Shape,
+       TYPELIST_3(Rectangle, Ellipse, Poly)> Dispatcher;
+   
+   Shape* p1 = ...;
+   Shape* p2 = ...;
+   HatchingExecutor exec;
+   Dispatcher::Go(*p1, *p2, exec);
+
+* タイプリストに記述するクラスの順序に注意。先程と同様の注意が要る。
+  <継承階層で最も下位にあるものをタイプリストの先頭に持ってくることです> (p. 287)
+
+----
+
+次に引数の順序を意識せずに済むように改造していく。対称型マルチメソッド。
