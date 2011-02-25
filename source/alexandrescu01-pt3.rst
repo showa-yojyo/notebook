@@ -554,3 +554,103 @@ C++ プログラム開発経験者ならまず膝を叩く例が挙げられて�
 ----
 
 次に引数の順序を意識せずに済むように改造していく。対称型マルチメソッド。
+``BaseLhs`` と ``BaseRhs`` が同一型かつ
+``TypesLhs`` と ``TypesRhs`` が同一型の場合に意味がある。
+
+* <理想的には、追加の ``bool`` テンプレート・パラメータを ``StaticDispatcher`` に引き渡して、
+  対称性が選択できるようにするべきでしょう> (p. 289)
+
+  * ``StaticDispatcher`` に ``bool symmetric`` テンプレート引数を追加する。
+  * クラス内の private 部分にクラステンプレート ``InvocationTraits`` を定義する。
+    これは static メンバー関数 ``DoDispatch`` だけを含む構造体。
+    
+    ``DoDispatch`` の内容は単に ``exec.Fire(lhs, rhs);`` のみ。
+    
+    * ``InvocationTraits`` の部分特殊化版を定義し、そちらの
+      ``DoDispatch`` の内容は ``exec.Fire(rhs, lhs);`` とする。
+      
+  * ``StaticDispatcher::DispatchRhs`` の定義で、if ブロック内をこのようにする。
+  
+    .. code-block:: c++
+    
+       // p. 291 より引用
+       enum { swapArgs = symmetric &&
+           IndexOf<Head, TypeRhs>::result < IndexOf<BaseLhs, TypesLhs>::result };
+       typedef InvocationTraits<swapArgs, BaseLhs, Head>
+           CallTraits;
+       return CallTraits::DoDispatch(lhs, *p2);
+
+----
+
+型リストから型を探索する効率を対数時間に持っていこうとするのか。
+
+* ``std::type_info::before`` によって <プログラム中における全ての型に対する順序関係が提供されるのです> (p. 291)
+* 第 2 章で紹介されたラッパークラス ``TypeInfo`` を利用する。
+  <``TypeInfo`` は、値のセマンティックスと演算子 ``operator<`` を提供しています。
+  このため、標準コンテナに ``TypeInfo`` オブジェクトを格納することができるのです> (p. 292)
+
+* <特に、ソート済みベクタと二分探索アルゴリズムを組み合わせれば、
+  連想コンテナよりも空間的および時間的に優れたものとなる場合もあるのです。
+  これは、挿入頻度よりもアクセス頻度の方が多い場合に起こり得ます> (p. 292)
+  
+  つまり、コンテナ内容がある時点から固定されるような場合は連想コンテナを採用しないように、か。
+  
+* ただし、便宜的に両者のデータ構造を共に「マップ」と呼ぶことにする。(p. 293)
+
+* ``BasicDispatcher``
+
+  * 最終的なディスパッチ先の関数の引数 ``(lhs, rhs)`` ペアの型を ``std::pair<TypeInfo, TypeInfo>`` で表現する。
+  * 上記のペア型をキー型とし、
+    ``ResultType (*)(BaseLhs&, BaseRhs&)`` 型の関数ポインタを値型とするマップを定義する。
+  * そのマップオブジェクトをメンバーデータに持つ。
+  
+  * テンプレートメンバー関数 ``Add`` を定義し、マップに関数ポインタを動的に追加できるようにする。
+  * ``Go`` は次のようになる。
+  
+    .. code-block:: c++
+    
+       ResultType Go(BaseLhs& lhs, BaseRhs& rhs)
+       {
+           MapType::iterator i = callbackMap_.find(
+               KeyType(typeid(lhs), typeid(rhs));
+           if(i == callbackMap_.end())
+           {
+               例外送出;
+           }
+           return (i->second)(lhs, rhs);
+       }
+
+  * <継承とともに用いると正しく動作しません> (p. 294)
+  * <``BasicDispatcher`` に対して、全てのペアを注意深く登録していかなければならないのです> (p. 295)
+
+----
+
+.. warning::
+
+   次に ``BasicDispatcher`` を利用して ``FnDispatcher`` を定義するのだが、
+   もうついていけないのでスキップ。
+   
+   ``Trampoline`` という面白い技法を利用してディスパッチを実現する。
+
+----
+
+* <値のセマンティックスは実行時のポリモフィズムとうまく調和できない> (p. 299)
+
+----
+
+static_cast or dynamic_cast という問題。
+これまでは dynamic_cast 一丁で押し通してきた理由を解説。
+
+* 仮想継承を伴なうダイアモンド型クラス階層が対象となるとき、
+  <仮想基底オブジェクトから導出した型へは static_cast することができない> (p. 302)
+* 仮想継承を伴わないダイアモンド型クラス階層が対象となるとき、
+  基底クラスが曖昧になるケースがある。
+
+----
+
+<多重ディスパッチと C++ において、特にいやらしかった問題は、
+可変引数関数を表現する統一した方法が存在しないということだったのです> (p. 312)
+
+付録 A 最小限のマルチスレッド・ライブラリ
+======================================================================
+TBW
