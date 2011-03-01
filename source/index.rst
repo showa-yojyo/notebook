@@ -29,7 +29,9 @@ Contents:
    newham05-note2
    subramaniam06
    milestone09
-   hosoda10
+   hosoda10-note1
+   hosoda10-note2
+   hosoda10-note3
 
    python-numpy
    python-pil
