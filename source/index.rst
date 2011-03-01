@@ -19,7 +19,9 @@ Contents:
    sutter02
    joel04
    graham04
-   angel05
+   angel05-note1
+   angel05-note2
+   angel05-note3
    yamamoto05
    newham05
    subramaniam06
