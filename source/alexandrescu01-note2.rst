@@ -2,7 +2,7 @@
 Modern C++ Design 読書ノート 2/3
 ======================================================================
 
-:doc:`alexandrescu01-pt1` からの続き。
+:doc:`alexandrescu01-note1` からの続き。
 
 :著者: Andrey Alexandrescu
 :訳者: 村上雅章
@@ -561,4 +561,4 @@ C++ という言語が、ユニークで永続的な型 ID を保証していな
 
 ----
 
-:doc:`alexandrescu01-pt3` へ。
+:doc:`alexandrescu01-note3` へ。

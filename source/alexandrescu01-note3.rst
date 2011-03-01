@@ -2,7 +2,7 @@
 Modern C++ Design 読書ノート 3/3
 ======================================================================
 
-:doc:`alexandrescu01-pt2` からの続き。
+:doc:`alexandrescu01-note2` からの続き。
 
 :著者: Andrey Alexandrescu
 :訳者: 村上雅章

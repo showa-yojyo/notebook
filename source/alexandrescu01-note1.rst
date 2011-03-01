@@ -548,4 +548,4 @@ Modern C++ Design 読書ノート 1/3
 
 ----
 
-:doc:`alexandrescu01-pt2` へ。
+:doc:`alexandrescu01-note2` へ。
