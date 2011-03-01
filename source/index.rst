@@ -25,7 +25,8 @@ Contents:
    yamamoto05-note1
    yamamoto05-note2
    yamamoto05-note3
-   newham05
+   newham05-note1
+   newham05-note2
    subramaniam06
    milestone09
    hosoda10
