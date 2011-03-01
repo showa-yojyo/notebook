@@ -22,7 +22,9 @@ Contents:
    angel05-note1
    angel05-note2
    angel05-note3
-   yamamoto05
+   yamamoto05-note1
+   yamamoto05-note2
+   yamamoto05-note3
    newham05
    subramaniam06
    milestone09
