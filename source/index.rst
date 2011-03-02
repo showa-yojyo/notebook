@@ -17,7 +17,8 @@ Contents:
    alexandrescu01-note3
    meyers01
    sutter02
-   joel04
+   joel04-note1
+   joel04-note2
    graham04
    angel05-note1
    angel05-note2
