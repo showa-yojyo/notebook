@@ -10,6 +10,193 @@ OpenGL: A Primer Second Edition 読書ノート 2/3
 
 .. contents:: ノート目次
 
+Transformations
+===============
+これを習得しておかないと、geometric objects の操作、シーンの
+アニメーションや、狙い通りのビューを得ることができない。
+
+Line-Preserving Transformation
+------------------------------
+* この章の文章では、transformation は「写像」の意味で用いられている。
+  <**Transformations** map vertices and vectors to other vertices and 
+  vectors.> (p. 101)
+* rotations and translations are known as **rigid-body transformations** (p. 101)
+  換言すれば「サイズの変わらない」変換。
+* 我々が興味のある写像は点・ベクトルを点・ベクトルに写すものであることは当然ながら、
+  さらに直線を直線に写すものだ。とはいえ、
+  <If we restrict ourselves to transformations that preserve line segments,
+  then we need only transform the endpoints--two vertices--of each line
+  segment.> (p. 102)
+  なので、結局点の写像のみに絞って考えればよい。
+
+* **affine transformations** のポイント
+  1. translation, rotation, scaling はその一種である
+  2. 平行な直線群を平行な直線群へ写す
+  3. 逆方向の変換が存在する
+
+* **projection transformations** は通常逆変換は考えられない。
+  なぜなら、二次元に投影されたイメージから、元の三次元のイメージが復元できないからだ。
+
+Homogeneous Coordinates
+-----------------------
+同次座標の考え方は OpenGL のレンダリング方法論の核と言えるようだ。
+
+* すべての点は 4 つの座標成分 (x, y, z, w) の組の形で表現されている。
+* 三次元の点は (x, y, z, 1) として内部的に表現されている。
+* 二次元の点は (x, y, 0, 1) として内部的に表現されている。
+* 一般に点は (x, y, z, w) として表現されるが、w がゼロでない限り、
+  三次元の点 (x/w, y/w, z/w) として見える。
+* 三次元のベクトルは (x, y, z, 0) として内部的に表現されている。
+  これは無限遠点と等価だ。
+* すべての transformations は点・ベクトルの同次座標表現に作用する
+  4 x 4 行列となる。
+
+Translation
+-----------
+* Because the camera in OpenGL is also at the origin, we want to move
+  the object away from the camera, or equivalently move the camera
+  away from the object. (p. 103)
+* translation とは、オブジェクトに変位 (**displacement**) を加える操作だ。
+* translation の距離は右手座標系による。
+
+Concatenating Translations
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+* The function glTranslate*() forms a translation matrix that
+  is applied to the current matrix.  Thus, the two translations
+  are combined or **concatenated** together to form a compound transformation.
+  (p. 105)
+
+Rotation
+--------
+* 回転変換には回転の影響を受けない点がある。これを **fixed point** と呼ぶ。
+* 回転の向きについては、ここでも「反時計回りが正」のルールがある。
+
+  The desired amount of rotation about this axis is measured in a 
+  counterclockwise direction looking from the positive direction 
+  along the given direction back toward the origin. (p. 106)
+
+Concatenation: Rotation with Arbitrary Fixed Point
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* 任意の点を fixed point として回転変換を生じさせたいとする。
+  このときは、glTranslate と glRotate を組み合わせて実現する。
+  ::
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    glTranslatef(x, y, z);
+    glRotatef(angle, dx, dy, dz);
+    glTranslatef(-x, -y, -z);
+
+  * *the last transformation specified is the first applied* ルール。
+    OpenGL の行列乗算は postmultiplication であることをおさえる。
+
+* ディスプレイリストに変換行列の操作が含まれている場合は、
+  リストの定義終了までに行列の状態を定義開始前のそれに復元するのが肝要。
+  <Any primitives that are in display lists that do not change the
+  current matrices are affected by the same model-view matrix.
+  Conversely, if any matrices are changed in a display list, these
+  changes are in effect after the execution of the display list.> (p. 107)
+
+Scaling
+-------
+* ここでも fixed point の考え方が有効だ。
+
+  * We also note that scaling has a fixed point that is unchanged by the
+    scaling. (p. 107)
+  * The fixed point is at the origin, but we can use the same technique as
+    with rotations to obtain any desired fixed point. (p. 108)
+
+Setting Matrices Directly
+-------------------------
+* OpenGL の行列は 4 x 4 正方行列で、メモリレイアウトとしては column order だ。
+
+  * glLoadMatrix(m) - 行列成分を直接配列の形で指示する
+  * glMultMatrix(m) - current matrix に対して m を右からかける
+
+* shear 変換を実現するには、この直接行列指示でなければならない。
+  ::
+
+    M = 1  cot(theta)  0  0
+        0           1  0  0
+        0           0  1  0
+        0           0  0  1
+
+* **oblique projection** を実現することもできる。
+  ::
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(left, right, bottom, top, near, far);
+    glMultMatrixf(M);
+
+* 影の計算なども面白い。光源を (x, y, z) として、z 平面に影を付ける変換は
+  ::
+
+    M = 1     0  0  0
+        0     1  0  0
+        0     0  1  0
+        0  -1/y  0  0
+
+  で与えられる。コードは大体次のような構造になる。
+  ::
+
+    glMatrixMode(GL_MODELVIEW);
+    cube();
+
+    glPushMatrix();
+    glPushAttrib(...);
+    glTranslate(x, y, z);
+    glMultMatrix(M);
+    glTranslate(-x, -y, -z);
+    glColor3fv(shadow_color)
+    cube();
+    glPopAttrib();
+    glPopMatrix();
+
+Transformations and Coordinate Systems
+--------------------------------------
+色々な座標（系）が出てきたので、ちょっと整理する。
+
+* **world coordinates**
+* **camera (or eye) coordinates**
+* **clipping coordinates**
+* **normalized device coordinates**
+* **window coordinates**
+
+Modeling with Transformations
+-----------------------------
+Instancing
+~~~~~~~~~~
+* The matrix that brings the object into the model with the
+  desired size, orientation, and position is called the
+  **instance transformation**. (p. 114) 聞いたことのない用語だ。
+* The GLU cylinder was aligned with the z axis and has its base
+  in the plane z = 0.  With such a starting point, we almost
+  always want to scale the object to its desired size, then
+  orient it, and finally translate it to its desired position
+  in that order. (p. 114)
+  ::
+  
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    glTranslatef(x, y, z);
+    glRotatef(theta, dx, dy, dz);
+    glScalef(sx, sy, sz);
+
+  文章に表れる変換順序と、OpenGL コードに現れる関数コール順が逆であることをおさえておく。
+
+Hierarchical Models
+~~~~~~~~~~~~~~~~~~~
+* 人体モデルを木構造のデータとして表現する話題。
+  木のルートから transform を適用していくテクニックを紹介している。
+  ここでは胴体をルートとしている。
+* we can observe that each transformation actually represents
+  a *relative* change from one scaling, position, and orientation
+  to another. (p. 116)
+* Our first example did not require us tp save any information about 
+  the model-view matrix as we went through the display callback
+  because the transformations accumulated. (p.118)
+
 Lights and Matrials
 ===================
 
@@ -439,232 +626,6 @@ Image Processing in OpenGL
     Pixels   Color                      Color      Color      Color                 Pixels
         -->  Lookup --> Convolution --> Lookup --> Matrix --> Lookup --> Histogram -->
              Table                      Table                 Table
-
-Texture Mapping
-===============
-* Texture mapping combines pixels with geometric objects (p. 169)
-
-What Is a Texture Map?
-----------------------
-* ピクセル配列を二次元のパラメータ区間に写像する。
-  このパラメータ区間から、三次元空間上の曲面に写像する。
-  この合成写像がテクスチャーマッピングだと大雑把に読み取れた。
-* テクスチャー座標は記号 (s, t) で表現する。
-
-Constructing a Texture Map
---------------------------
-1. テクスチャーのイメージを準備する。イメージの表現については前章参照。
-2. テクスチャーマッピングのためのパラメータを指定する。
-3. 頂点に対してテクスチャー座標を定義する。
-
-* Two dimensional texture mapping is the most familiar case. (p. 171)
-* 二次元的なイメージは、二次元多様体にマップするのが自然だろう。
-  ::
-
-    glEnable(GL_TEXTURE_2D);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 64, 64, 0, GL_RGB, GL_UNSIGNED_BYTE, myimage);
-
-* イメージの縦横サイズは、2 のベキ乗の形をしていなければならない。
-  註によると、新しいグラフィックカードは任意の縦横サイズを許しているようだ。
-
-* It may take a significant amount of time to move a texture image from
-  processor memory to texture memory. (p. 173)
-
-Texture Coordinates
--------------------
-* Just as with vertices, texture coordinates are represented internally
-  in four dimensions that conventionally use the letters (s, t, r, q) to
-  denote the coordinates. (p. 173)
-
-* テクスチャーマッピングを試すためのコツを以下のように述べている。
-  <Checkerboards are especially useful for demonstrating the various 
-  options and seeing how OpenGL implements texture mapping.> (p. 174)
-
-* We see that OpenGL renders the quadrilateral as two triangles (p. 174)
-
-* 頂点座標と同様に、テクスチャー座標を行列を用いて変換することができる。
-  ::
-
-    glMatrixMode(GL_TEXTURE);
-
-Texture Parameters
-------------------
-テクスチャー座標やテクスチャー画像以外にも、
-テクスチャーマッピングが要求するパラメータがいくつもある。
-
-* glTexParameter(target, name, value)
-
-  :target: GL_TEXTURE_2D
-  :name: GL_TEXTURE_xxx
-
-* The required parameters determine what happens when values of 
-  s, t, r, or q go outside the range (0, 1) and how sampling and
-  filtering are applied. (p. 176)
-
-* GL_TEXTURE_WRAP_(S|T), GL_(REPEAT|CLAMP) を憶える。
-
-* magnification と minification の考え方を習得する。
-  一つのテクスチャー画素が複数のピクセルに写像する方が magnification
-
-* GL_TEXTURE_(MAG|MIN)_FILTER を GL_NEAREST にすると速い。
-
-* 透視図法でシーンを描いている場合、テクスチャーが歪む場合がよくある。
-  そういう場合は glHint を呼ぶ。
-  ::
-
-    glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-  
-  glHint は他のレンダリングオプションにも利用できる。調べる。
-
-A Rotating Cube with Texture
-----------------------------
-省略。
-
-Applying Textures to Surfaces
------------------------------
-ポリゴンの地の色とテクスチャーマッピングをミックスする方法について。
-
-* glTexEnv(target, param, value)
-
-  :target: GL_TEXTURE_ENV
-  :param: GL_TEXTURE_ENV_MODE とか GL_TEX_ENV_COLOR とか。
-  :value: GL_(MODULATE|REPLACE|BLEND|DECAL) とか色とか。
-
-* The default mode of operation is called modulation. 
-  Here the texture color multiplies the color computed for each face.
-  (p. 181)
-  ::
-
-    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-
-Borders and Sizing
-------------------
-* テクスチャーマッピングは、テクスチャーイメージ境界付近の処理が難しい。
-
-* One difficulty that arises when we use linear filtering is what happens
-  at the edges of the texture where we lack one or more texels to use
-  in the filtering. (p. 181)
-
-* テクスチャーに枠を付加するという仕様がある。
-  もし枠を指示するのなら、テクスチャーの縦横サイズを 2 のベキ乗 + 2 の形にする。
-
-* 枠の色を別途指示することができる。
-  ::
-    
-    glTexParameter3fv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, color);
-
-* フレームバッファ内のイメージからテクスチャーマップを得ることができる。
-  ただし「出力先」はテクスチャーメモリー。
-  ::
-    
-    glCopyTexImage2D(target, level, iformat, x, y, w, h, border);
-
-* 既に存在するテクスチャーから、その部分のコピーを（バイナリの形で）得ることもできる。
-  ::
-    
-    glTexSubImage2D(target, level, xoffset, yoffset, w, h, format, type, texels)
-
-* 応用例がちょっと思いつかないが、テクスチャーメモリ内でコピーすることもできる。
-  ::
-    
-    glCopyTexSubImage2D(target, level, xoffset, yoffset, x, y, w, h)
-
-Mipmaps
--------
-* Mipmap とはテクスチャーマッピングの LOD の技法。
-  広い領域にマップするデータと、狭い領域にマップするデータを使い分ける。
-
-* What we would prefer is to have a texture value that is the average of
-  the texels values over a large area of the texture. (p. 183)
-
-* glTexImage2D の第二引数 (level) に応じて、イメージを変える。
-  本文の例では、レベルが低いほど詳細なイメージを指示している。
-  ::
-    
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
-
-  This is the lowest quality option. (p. 183)
-
-* ミップマップセットを生成し、テクスチャーメモリに格納してくれる GLU の関数がある。
-  ::
-    
-    gluBuild2DMipmaps(target, iformat, w, h, format, type, texels);
-
-Automatic Texture Coorinate Generation
---------------------------------------
-* 頂点に対してテクスチャー座標を決める作業は一般的には難しい。
-  しかし、GLU 二次曲面はテクスチャー座標を生成する関数が提供されている。
-
-  * gluQuadricTexture(obj, mode)
-
-    :mode: GL_(TRUE|FALSE)
-
-* <OpenGL allows us to generate texture coordinates that are measured as
-  distances from a plane in either object space or eye space.> (p. 186)
-  だそうだが、平面からの距離で決まる座標というのが解りにくい。
-
-* The value ax + by + cz + dw is proportional to the distance from
-  (x, y, z, w) to the plane determined by (a, b, c, d). (p. 186)
-
-* テクスチャー座標自動生成には、例えば (s, t) の場合は以下の呼び出しが必要。
-  ::
-
-    glEnable(GL_TEXTURE_GEN_S);
-    glEnable(GL_TEXTURE_GEN_T);
-
-* glTexGen(texcoord, param, value)
-
-  :texcoord: GL_[STRQ]
-  :param: GL_TEXTURE_GENMODE か GL_(OBJECT|EYE)_LINEAR
-  :value: GL_(OBJECT|EYE)_LINEAR か平面の係数配列
-
-* 視点座標でテクスチャーを貼る：
-  <If we use the GL_EYE_LINEAR mode, texture coordinates are based on
-  the vertex positions in eye space so that when we move the object,
-  the texture coordinates assigned to vertices change.> (p. 188)
-
-Texture Objects
----------------
-テクスチャーもまた OpenGL の「状態」の一部だ。
-glTexImage を実行するときに、システムメモリからテクスチャーメモリへ
-移動する。テクスチャーを何種類も利用する場合は、移動にコストをつけたくない。
-そこで texture object というものを提供している。
-
-* If there is not sufficient memory for all the textures that we need,
-  we can prioritize the texture objects to minimize the amount of
-  data movement from the processor to texture memory. (p. 188)
-
-* glGenTextures(n, name) で n 個の texture objects を新規作成する。
-* glIsTexture(name) で name が texture object か否かをテストする。
-
-* glBindTexture(), that both switches between texture objects and
-  forms new texture objects. (p. 189)
-
-* glBindTexture(target, name)
-
-  :target: GL_TEXTURE_[123]D
-  :name: texture object の ID
-
-* glBindTexture の振る舞いは、次の三つのどれか。
-
-  * case 1: If we call glBindTexture() with name and name has not been
-    used before, the subsequent calls to the various texture functions
-    define the texture object with the id name.
-  * case 2: If name already exists from a previous call to glBindTexture(),
-    then that texture object becomes the present texture and is applied
-    to surfaces until the next call to glBindTexture().
-  * case 3: If glBindTexture() is called with name set to 0, then the
-    normal texture calls apply and the present texture that is part of
-    the OpenGL state and the current values of the texture parameters
-    both apply.
-
-* テクスチャーオブジェクトを破棄したい場合は glDeleteTextures を呼ぶ。
-
-  * glDeleteTextures(n, namearray)
-
-Texture Maps for Image Manipulation
------------------------------------
-テクスチャーパラメータのセットだけだが、サンプルコードのラストが参考になる。
 
 ----
 

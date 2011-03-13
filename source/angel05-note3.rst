@@ -10,6 +10,232 @@ OpenGL: A Primer Second Edition 読書ノート 3/3
 
 .. contents:: ノート目次
 
+Texture Mapping
+===============
+* Texture mapping combines pixels with geometric objects (p. 169)
+
+What Is a Texture Map?
+----------------------
+* ピクセル配列を二次元のパラメータ区間に写像する。
+  このパラメータ区間から、三次元空間上の曲面に写像する。
+  この合成写像がテクスチャーマッピングだと大雑把に読み取れた。
+* テクスチャー座標は記号 (s, t) で表現する。
+
+Constructing a Texture Map
+--------------------------
+1. テクスチャーのイメージを準備する。イメージの表現については前章参照。
+2. テクスチャーマッピングのためのパラメータを指定する。
+3. 頂点に対してテクスチャー座標を定義する。
+
+* Two dimensional texture mapping is the most familiar case. (p. 171)
+* 二次元的なイメージは、二次元多様体にマップするのが自然だろう。
+  ::
+
+    glEnable(GL_TEXTURE_2D);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 64, 64, 0, GL_RGB, GL_UNSIGNED_BYTE, myimage);
+
+* イメージの縦横サイズは、2 のベキ乗の形をしていなければならない。
+  註によると、新しいグラフィックカードは任意の縦横サイズを許しているようだ。
+
+* It may take a significant amount of time to move a texture image from
+  processor memory to texture memory. (p. 173)
+
+Texture Coordinates
+-------------------
+* Just as with vertices, texture coordinates are represented internally
+  in four dimensions that conventionally use the letters (s, t, r, q) to
+  denote the coordinates. (p. 173)
+
+* テクスチャーマッピングを試すためのコツを以下のように述べている。
+  <Checkerboards are especially useful for demonstrating the various 
+  options and seeing how OpenGL implements texture mapping.> (p. 174)
+
+* We see that OpenGL renders the quadrilateral as two triangles (p. 174)
+
+* 頂点座標と同様に、テクスチャー座標を行列を用いて変換することができる。
+  ::
+
+    glMatrixMode(GL_TEXTURE);
+
+Texture Parameters
+------------------
+テクスチャー座標やテクスチャー画像以外にも、
+テクスチャーマッピングが要求するパラメータがいくつもある。
+
+* glTexParameter(target, name, value)
+
+  :target: GL_TEXTURE_2D
+  :name: GL_TEXTURE_xxx
+
+* The required parameters determine what happens when values of 
+  s, t, r, or q go outside the range (0, 1) and how sampling and
+  filtering are applied. (p. 176)
+
+* GL_TEXTURE_WRAP_(S|T), GL_(REPEAT|CLAMP) を憶える。
+
+* magnification と minification の考え方を習得する。
+  一つのテクスチャー画素が複数のピクセルに写像する方が magnification
+
+* GL_TEXTURE_(MAG|MIN)_FILTER を GL_NEAREST にすると速い。
+
+* 透視図法でシーンを描いている場合、テクスチャーが歪む場合がよくある。
+  そういう場合は glHint を呼ぶ。
+  ::
+
+    glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+  
+  glHint は他のレンダリングオプションにも利用できる。調べる。
+
+A Rotating Cube with Texture
+----------------------------
+省略。
+
+Applying Textures to Surfaces
+-----------------------------
+ポリゴンの地の色とテクスチャーマッピングをミックスする方法について。
+
+* glTexEnv(target, param, value)
+
+  :target: GL_TEXTURE_ENV
+  :param: GL_TEXTURE_ENV_MODE とか GL_TEX_ENV_COLOR とか。
+  :value: GL_(MODULATE|REPLACE|BLEND|DECAL) とか色とか。
+
+* The default mode of operation is called modulation. 
+  Here the texture color multiplies the color computed for each face.
+  (p. 181)
+  ::
+
+    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+Borders and Sizing
+------------------
+* テクスチャーマッピングは、テクスチャーイメージ境界付近の処理が難しい。
+
+* One difficulty that arises when we use linear filtering is what happens
+  at the edges of the texture where we lack one or more texels to use
+  in the filtering. (p. 181)
+
+* テクスチャーに枠を付加するという仕様がある。
+  もし枠を指示するのなら、テクスチャーの縦横サイズを 2 のベキ乗 + 2 の形にする。
+
+* 枠の色を別途指示することができる。
+  ::
+    
+    glTexParameter3fv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, color);
+
+* フレームバッファ内のイメージからテクスチャーマップを得ることができる。
+  ただし「出力先」はテクスチャーメモリー。
+  ::
+    
+    glCopyTexImage2D(target, level, iformat, x, y, w, h, border);
+
+* 既に存在するテクスチャーから、その部分のコピーを（バイナリの形で）得ることもできる。
+  ::
+    
+    glTexSubImage2D(target, level, xoffset, yoffset, w, h, format, type, texels)
+
+* 応用例がちょっと思いつかないが、テクスチャーメモリ内でコピーすることもできる。
+  ::
+    
+    glCopyTexSubImage2D(target, level, xoffset, yoffset, x, y, w, h)
+
+Mipmaps
+-------
+* Mipmap とはテクスチャーマッピングの LOD の技法。
+  広い領域にマップするデータと、狭い領域にマップするデータを使い分ける。
+
+* What we would prefer is to have a texture value that is the average of
+  the texels values over a large area of the texture. (p. 183)
+
+* glTexImage2D の第二引数 (level) に応じて、イメージを変える。
+  本文の例では、レベルが低いほど詳細なイメージを指示している。
+  ::
+    
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+
+  This is the lowest quality option. (p. 183)
+
+* ミップマップセットを生成し、テクスチャーメモリに格納してくれる GLU の関数がある。
+  ::
+    
+    gluBuild2DMipmaps(target, iformat, w, h, format, type, texels);
+
+Automatic Texture Coorinate Generation
+--------------------------------------
+* 頂点に対してテクスチャー座標を決める作業は一般的には難しい。
+  しかし、GLU 二次曲面はテクスチャー座標を生成する関数が提供されている。
+
+  * gluQuadricTexture(obj, mode)
+
+    :mode: GL_(TRUE|FALSE)
+
+* <OpenGL allows us to generate texture coordinates that are measured as
+  distances from a plane in either object space or eye space.> (p. 186)
+  だそうだが、平面からの距離で決まる座標というのが解りにくい。
+
+* The value ax + by + cz + dw is proportional to the distance from
+  (x, y, z, w) to the plane determined by (a, b, c, d). (p. 186)
+
+* テクスチャー座標自動生成には、例えば (s, t) の場合は以下の呼び出しが必要。
+  ::
+
+    glEnable(GL_TEXTURE_GEN_S);
+    glEnable(GL_TEXTURE_GEN_T);
+
+* glTexGen(texcoord, param, value)
+
+  :texcoord: GL_[STRQ]
+  :param: GL_TEXTURE_GENMODE か GL_(OBJECT|EYE)_LINEAR
+  :value: GL_(OBJECT|EYE)_LINEAR か平面の係数配列
+
+* 視点座標でテクスチャーを貼る：
+  <If we use the GL_EYE_LINEAR mode, texture coordinates are based on
+  the vertex positions in eye space so that when we move the object,
+  the texture coordinates assigned to vertices change.> (p. 188)
+
+Texture Objects
+---------------
+テクスチャーもまた OpenGL の「状態」の一部だ。
+glTexImage を実行するときに、システムメモリからテクスチャーメモリへ
+移動する。テクスチャーを何種類も利用する場合は、移動にコストをつけたくない。
+そこで texture object というものを提供している。
+
+* If there is not sufficient memory for all the textures that we need,
+  we can prioritize the texture objects to minimize the amount of
+  data movement from the processor to texture memory. (p. 188)
+
+* glGenTextures(n, name) で n 個の texture objects を新規作成する。
+* glIsTexture(name) で name が texture object か否かをテストする。
+
+* glBindTexture(), that both switches between texture objects and
+  forms new texture objects. (p. 189)
+
+* glBindTexture(target, name)
+
+  :target: GL_TEXTURE_[123]D
+  :name: texture object の ID
+
+* glBindTexture の振る舞いは、次の三つのどれか。
+
+  * case 1: If we call glBindTexture() with name and name has not been
+    used before, the subsequent calls to the various texture functions
+    define the texture object with the id name.
+  * case 2: If name already exists from a previous call to glBindTexture(),
+    then that texture object becomes the present texture and is applied
+    to surfaces until the next call to glBindTexture().
+  * case 3: If glBindTexture() is called with name set to 0, then the
+    normal texture calls apply and the present texture that is part of
+    the OpenGL state and the current values of the texture parameters
+    both apply.
+
+* テクスチャーオブジェクトを破棄したい場合は glDeleteTextures を呼ぶ。
+
+  * glDeleteTextures(n, namearray)
+
+Texture Maps for Image Manipulation
+-----------------------------------
+テクスチャーパラメータのセットだけだが、サンプルコードのラストが参考になる。
+
 Curves and Surfaces
 ===================
 ベジエ中心の話題。
