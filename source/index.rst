@@ -27,6 +27,7 @@ Contents:
    python-numpy
    python-pil
    python-matplotlib
+   python-jinja2
 
 `小屋へ戻る`_
 
