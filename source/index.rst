@@ -28,6 +28,7 @@ Contents:
    python-pil
    python-matplotlib
    python-jinja2
+   python-pygments
 
 `小屋へ戻る`_
 
