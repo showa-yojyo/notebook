@@ -24,6 +24,7 @@ Contents:
    milestone09
    hosoda10
 
+   python-nose
    python-numpy
    python-pil
    python-matplotlib
