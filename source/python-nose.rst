@@ -5,7 +5,13 @@ Python Nose 利用ノート
 .. note::
 
    * 本稿を読む前に Python 本体の ``unittest`` を理解しておくべし。
+
    * このノートをとるに当たって利用した Nose_ のバージョンは 0.11.4 だ。
+     実は 1.0 台がリリースされているようだ？
+
+   * 当ノートでは ``--verbosity`` オプションを多用しているが、
+     単にノートを見返すときのわかりやすさを優先するためだけによる。
+     実用時には省略することのほうが普通。
 
 .. contents:: ノート目次
 
@@ -38,7 +44,7 @@ Python Nose 利用ノート
 * ``Scripts`` フォルダーに実行ファイル ``nosetests`` が存在する。
   特に Windows の場合、これは exe ファイルである。
 
-方法 1 - easy_install 経由でインストール
+方法 1 -- easy_install 経由でインストール
 ----------------------------------------------------------------------
 インターネットが利用できる環境ではいつも通りコンソールウィンドウで
 
@@ -50,7 +56,7 @@ Python Nose 利用ノート
 
 万が一 `easy_install`_ をインストールしていなかったならば、インターネットから入手せよ。
 
-方法 2 - setuptools を利用してソースからインストール
+方法 2 -- setuptools を利用してソースからインストール
 ----------------------------------------------------------------------
 まずは学校・職場・漫画喫茶等に行き、インターネットにアクセス。
 
@@ -389,6 +395,33 @@ Nose のバージョンが上がってから勉強しに行こう。
   * NumPy_ は Nose をうまく使いこなしているようだ。
     ``import numpy; help(numpy.test)`` してみよう。
     テストの単位をわかりやすく分類する努力を払っているのがわかる。
+    
+    例えば線形代数サブパッケージだけテストしたいのならば、
+    Python インタープリターから次のようにタイプしてみるだけでよい。
+    
+    .. code-block:: pycon
+
+       >>> import numpy
+       >>> numpy.linalg.test(verbose=2)
+       Running unit tests for numpy.linalg
+       NumPy version 1.5.0
+       NumPy is installed in D:\Python26\lib\site-packages\numpy
+       Python version 2.6.6 (r266:84297, Aug 24 2010, 18:46:32) [MSC v.1500 32 bit (Intel)]
+       nose version 0.11.4
+       test_lapack (test_build.TestF77Mismatch) ... SKIP: Skipping test: test_lapack
+       Skipping fortran compiler mismatch on non Linux platform
+       test_square (test_linalg.TestBoolPower) ... ok
+       test_cdouble (test_linalg.TestCond2) ... ok
+       test_csingle (test_linalg.TestCond2) ... ok
+       ... 省略 ...
+       test_lapack_endian (test_regression.TestRegression) ... ok
+       Regression for #786: Froebenius norm for vectors raises ... ok
+       Ticket 627. ... ok
+
+       ----------------------------------------------------------------------
+       Ran 126 tests in 2.514s
+
+       OK (SKIP=1)
 
 * 未調査項目
 
