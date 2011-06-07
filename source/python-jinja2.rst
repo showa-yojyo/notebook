@@ -2,6 +2,13 @@
 Python Jinja2 利用ノート
 ======================================================================
 
+.. note::
+
+   本稿において、利用した各パッケージのバージョンは次のとおり。
+
+   * Python_: 2.6.6
+   * Jinja2_: 2.5.5
+
 .. contents:: ノート目次
 
 Jinja2 とは何なのか
@@ -21,17 +28,16 @@ Jinja2 とは何なのか
 
 * インターネットが利用できる環境ではいつも通り ``easy_install jinja2`` でよい。
 
-  * ``pip jinja2`` でもいいらしい。
-    `PIP <http://pypi.python.org/pypi/pip>`_
+* PIP_ を利用して ``pip install jinja2`` でもいいらしい。
 
 * インターネットが利用できない環境では、できる環境から圧縮ファイルを持ち帰り、
   解凍してがんばる。
 
   * 在処は http://pypi.python.org/pypi/Jinja2
   * 解凍して ``setup.py`` のあるフォルダーで ``python setup.py install`` とする。
-  * 普通は setuptools を利用することになるが、
-    `distribute <http://pypi.python.org/pypi/distribute>`_ というのもあるらしい。
-    Jinja2 は後者を推奨している。
+  * 普通は setuptools_ を利用することになるが、
+    distribute_ というのもあるらしい。
+    Jinja2_ は後者を推奨している。
     いずれにせよ、ファイル自体の持ち帰り作業が必要のはず。
 
 * オフラインで読めるようにドキュメントも確保しておく。
@@ -532,10 +538,18 @@ Python コード
 
 TODO
 ======================================================================
-* Git (http://git-scm.org/) を利用した開発版 Jinja2 の作業コピー取得をやってみる。
+* Git_ を利用した開発版 Jinja2_ の作業コピー取得をやってみる。
   インターネット環境必須。
 
-* MarkupSafe (http://pypi.python.org/pypi/MarkupSafe) をインストールしてみる。
+* MarkupSafe_ をインストールしてみる。
   Jinja2 の自動エスケープ機能が高速化するようだ。
 
 * Extension 全般。
+
+.. _Python: http://www.python.org/
+.. _Jinja2: http://jinja.pocoo.org/
+.. _distribute: http://pypi.python.org/pypi/distribute
+.. _setuptools: http://peak.telecommunity.com/DevCenter/setuptools
+.. _PIP: http://pypi.python.org/pypi/pip
+.. _Git: http://git-scm.org/
+.. _MarkupSafe: http://pypi.python.org/pypi/MarkupSafe
