@@ -6,8 +6,8 @@ Python Nose 利用ノート
 
    * 本稿を読む前に Python 本体の ``unittest`` を理解しておくべし。
 
-   * このノートをとるに当たって利用した Nose_ のバージョンは 0.11.4 だ。
-     実は 1.0 台がリリースされているようだ？
+   * このノートをとるに当たって利用した Python のバージョンは 2.6.6 で、
+     Nose_ のバージョンは 1.0 だ。
 
    * 当ノートでは ``--verbosity`` オプションを多用しているが、
      単にノートを見返すときのわかりやすさを優先するためだけによる。
@@ -48,7 +48,7 @@ Python Nose 利用ノート
 ----------------------------------------------------------------------
 インターネットが利用できる環境ではいつも通りコンソールウィンドウで
 
-.. code-block:: text
+.. code-block:: console
 
    $ easy_install nose
 
@@ -63,12 +63,12 @@ Python Nose 利用ノート
 自宅環境に `setuptools`_ をインストールしていなかったならば、先に入手すること。
 これも持ち帰る。
 
-目的の Nose_ のコード一式（おそらく ``nose-0.11.4.tar.gz`` のような名前）
+目的の Nose_ のコード一式（おそらく ``nose-1.0.tar.gz`` のような名前）
 を公式サイトからダウンロードして、それを USB メモリか何かに入れて持ち帰る。
 
 解凍した後、次のようにする。
 
-.. code-block:: text
+.. code-block:: console
 
    $ cd nose-0.11.4
    $ python setup.py install
@@ -92,7 +92,7 @@ Nose をインストールすると、Python パッケージだけでなく、
   モジュール名を指定したり、さらにテスト名を指定したり、
   あるいはモジュールフルパスプラステスト名という指定の仕方がサポートされているようだ。
 
-  .. code-block:: text
+  .. code-block:: console
 
      $ nosetests test.module
      $ nosetests another.test:TestCase.test_method
@@ -101,7 +101,7 @@ Nose をインストールすると、Python パッケージだけでなく、
 
 * ディレクトリーごと指示するやり方もある。その場合、複数パス指定が許される。
 
-  .. code-block:: text
+  .. code-block:: console
 
      $ nosetests /path/to/tests /another/path/to/tests
 
@@ -134,7 +134,7 @@ collect-only オプション -- テスト名だけを調べる
 * さらに ``--with-id`` を併用し、テストのインデックスリストも得られる。
 * ``--verbosity`` オプションを併用して、テスト名等を明示させるのがコツ。
 
-.. code-block:: text
+.. code-block:: console
 
    $ nosetests --collect-only --with-id --verbosity=2
    #1 testeven.test_evens(0, 0) ... ok
@@ -181,7 +181,7 @@ attr オプション -- 属性を指定することで起動するテストを�
    # その他のテスト
    # ...
 
-.. code-block:: text
+.. code-block:: console
 
    $ nosetests -a '!online' tests.py
    $ nosetests -A "speed != slow" tests.py
@@ -197,7 +197,7 @@ Python の pdb デバッガが起動する。
 * 通常使いたいのは ``--pdb`` ではなく ``--pdb-faillures`` のほうだと思う。
 * pdb はコンソールベースのデバッガ。正直なところ不慣れなツールだが、この際慣れておく。
 
-.. code-block:: text
+.. code-block:: console
 
    $ nosetests --pdb-failures
    .> d:\home\yojyo\devel\pyunitdemo\testeven.py(6)check_even()
@@ -214,13 +214,40 @@ Python の pdb デバッガが起動する。
    (1, 1, 1)
    (Pdb)
 
+with-coverage オプション -- コードカバレッジ
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``--with-coverage`` オプションで、
+テスト結果と共にコードカバレッジを測定できる。
+いつものテスト結果を出力した直後に、カバレッジを出力する。
+
+チューニングの材料になるわけで、いずれ大掛かりなライブラリーを開発するつもりならば、
+この機能は覚えていて損はない。
+
+この機能を利用するには、別途 coverage_ という別のパッケージが必要だ。
+インストールは難しくないので、Nose 環境の一部とみなして導入しておくとよさそうだ。
+
+.. code-block:: console
+
+   $ nosetests --with-coverage -v testrandom.py
+   test_choice (testrandom.TestSequenceFunctions) ... ok
+   test_sample (testrandom.TestSequenceFunctions) ... ok
+   test_shuffle (testrandom.TestSequenceFunctions) ... ok
+   
+   Name         Stmts   Miss  Cover   Missing
+   ------------------------------------------
+   testrandom      21      3    86%   25, 30-31
+   ----------------------------------------------------------------------
+   Ran 3 tests in 0.010s
+   
+   OK
+
 with-profile オプション -- プロファイリング
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ``--with-profile`` オプションで、
 テストに関係した全関数に対する呼び出しの回数や時間の統計を取れる。
 いつものテスト結果を出力した直後に、プロファイル結果を出力する。
 
-.. code-block:: text
+.. code-block:: console
 
             4101 function calls (4084 primitive calls) in 0.201 CPU seconds
    
@@ -251,6 +278,10 @@ with-profile オプション -- プロファイリング
   正規表現を指定できる。
   
   デフォルトで ``(?:^|[\b_\.\-])[Tt]est`` になっていることを押させておけばよい。
+
+* ``-p`` または ``--plugins`` オプションで、有効なプラグインの一覧を表示。
+  ただし出力順が何で決まるのかわからないので、
+  適当に ``grep`` や ``sort`` にパイプして見やすくするべし。
 
 ライブラリー
 ----------------------------------------------------------------------
@@ -372,7 +403,7 @@ Nose のバージョンが上がってから勉強しに行こう。
     例えば Jinja2_ の ``testsuite`` フォルダーの各ファイルからテストを
     全部抽出してリストを作成できたりする。何かの役に立つわけではないがね。
 
-    .. code-block:: text
+    .. code-block:: console
 
        $ cd site-packages/jinja2
        $ python -c 'import jinja2; print jinja2.__version__'
@@ -404,35 +435,36 @@ Nose のバージョンが上がってから勉強しに行こう。
        >>> import numpy
        >>> numpy.linalg.test(verbose=2)
        Running unit tests for numpy.linalg
-       NumPy version 1.5.0
+       NumPy version 1.6.0
        NumPy is installed in D:\Python26\lib\site-packages\numpy
        Python version 2.6.6 (r266:84297, Aug 24 2010, 18:46:32) [MSC v.1500 32 bit (Intel)]
-       nose version 0.11.4
+       nose version 1.0.0
        test_lapack (test_build.TestF77Mismatch) ... SKIP: Skipping test: test_lapack
        Skipping fortran compiler mismatch on non Linux platform
        test_square (test_linalg.TestBoolPower) ... ok
        test_cdouble (test_linalg.TestCond2) ... ok
-       test_csingle (test_linalg.TestCond2) ... ok
+       test_cdouble_2 (test_linalg.TestCond2) ... ok
        ... 省略 ...
        test_lapack_endian (test_regression.TestRegression) ... ok
        Regression for #786: Froebenius norm for vectors raises ... ok
        Ticket 627. ... ok
-
+       
        ----------------------------------------------------------------------
-       Ran 126 tests in 2.514s
-
+       Ran 165 tests in 3.855s
+       
        OK (SKIP=1)
+       <nose.result.TextTestResult run=165 errors=0 failures=0>
 
 * 未調査項目
 
   * プラグイン周りを調べていない。
   * ログ設定周りを調べていない。
-  * コードカヴァレッジ周りを調べていない。別のプラグインが必要らしい。
   * Windows 環境ゆえ、マルチプロセステストが試せないのは残念。
 
 .. _Nose: http://somethingaboutorange.com/mrl/projects/nose/
 .. _easy_install: http://peak.telecommunity.com/DevCenter/EasyInstall
 .. _setuptools: http://peak.telecommunity.com/DevCenter/setuptools
+.. _coverage: http://nedbatchelder.com/code/coverage
 .. _py.test: http://codespeak.net/py/current/doc/test.html
 .. _Jinja2: http://jinja.pocoo.org/
 .. _Matplotlib: http://matplotlib.sourceforge.net/

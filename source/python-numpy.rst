@@ -2,6 +2,11 @@
 Python NumPy 利用ノート
 ======================================================================
 
+.. note::
+
+   * このノートをとるに当たって利用した Python のバージョンは 2.6.6 で、
+     NumPy_ のバージョンは 1.6.0 だ。
+
 .. contents:: ノート目次
 
 導入
@@ -29,16 +34,16 @@ HTML と PDF ファイルの形で利用できるようになっている。
     >>> import numpy
     >>> numpy.test()
     Running unit tests for numpy
-    NumPy version 1.3.0
+    NumPy version 1.6.0
     NumPy is installed in D:\Python26\lib\site-packages\numpy
-    Python version 2.6.5 (r265:79096, Mar 19 2010, 21:48:26) [MSC v.1500 32 bit (Intel)]
-    nose version 0.10.4
+    Python version 2.6.6 (r266:84297, Aug 24 2010, 18:46:32) [MSC v.1500 32 bit (Intel)]
+    nose version 1.0.0
     （略。ドットの列）
     ----------------------------------------------------------------------
-    Ran 1882 tests in 63.040s
+    Ran 2995 tests in 146.171s
     
-    OK (KNOWNFAIL=3, SKIP=1)
-    <nose.result.TextTestResult run=1882 errors=0 failures=0>
+    FAILED (KNOWNFAIL=8, SKIP=6, failures=4)
+    <nose.result.TextTestResult run=2995 errors=0 failures=4>
 
 ドキュメントをローカルディスクに保存する
 ----------------------------------------------------------------------
@@ -158,7 +163,7 @@ NumPy Reference の Numpy-specific help functions セクションを見ておく
 関数 ``lookfor`` を利用すると、NumPy 内の docstring からそれらしい機能をリストアップしてくれる。
 
   >>> import numpy as np  # 以下のコード片ではこの文を省略する。
-  >>> lookfor('least square')
+  >>> np.lookfor('least square')
   Search results for 'least square'
   ---------------------------------
   numpy.polyfit
@@ -171,10 +176,10 @@ NumPy Reference の Numpy-specific help functions セクションを見ておく
 
 NumPy のバージョンを知る
 ~~~~~~~~~~~~~~~~~~~~~~~~
-``version.py`` の変数 version を参照する。
+``version.py`` の変数 ``version`` を参照する。
 
  >>> np.version.version
- '1.4.1'
+ '1.6.1'
 
 array
 -----
@@ -186,17 +191,18 @@ NumPy Reference の Array creation routines のセクションできれいにま
 
 * array オブジェクトの生成方法の基本は関数 ``array`` 呼び出しだ。
   関数 ``array`` はたいていの場合 ``ndarray`` 型のオブジェクトを返すようだ。
-  ::
+  
+  .. code-block:: python
 
-    from numpy import *
+     from numpy import *
 
-    # ベクトル（と勝手に思う）を生成するにはこのようにする。
-    v = array([0., 0., 1.])
+     # ベクトル（と勝手に思う）を生成するにはこのようにする。
+     v = array([0., 0., 1.])
 
-    # 行列（と勝手に思う）はこう。
-    m = array([[1., 0., 0.],
-               [0., 1., 0.],
-               [0., 0., 1.]])
+     # 行列（と勝手に思う）はこう。
+     m = array([[1., 0., 0.],
+                [0., 1., 0.],
+                [0., 0., 1.]])
 
 * ``zeros_like``, ``ones_like``, ``empty_like`` をワンセットで習得すること。
   既存の array_like オブジェクトから同じ shape の array を生み出す関数だ。
