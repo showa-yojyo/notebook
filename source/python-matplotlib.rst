@@ -2,11 +2,20 @@
 Python Matplotlib 利用ノート
 ======================================================================
 
+.. note::
+
+   本稿において、利用した各パッケージのバージョンは次のとおり。
+
+   * Python_ 2.6.6
+   * Setuptools_ 0.6c11
+   * NumPy_ 1.6.0
+   * PIL_ 1.1.6
+
 .. contents:: ノート目次
 
 目的
 ==================================================
-Matplotlib パッケージはとても奥が深い。
+Matplotlib_ パッケージはとても奥が深い。
 手足のように使いこなせるようになるには、相当時間を要すると見た。
 Python では遊びたいことが他にもたくさんあるので
 Matplotlib で目的を拡大し過ぎないように、ここまでできればいいという目的を決めておく。
@@ -24,27 +33,18 @@ Matplotlib で目的を拡大し過ぎないように、ここまでできれば
 
 環境構築
 ==================================================
-.. note::
-
-   ここでの Python 環境は次の通り。その他は後述。
-
-   * Windows XP Home SP3
-   * Python 2.6.6
-
-     * Setuptools 0.6c11
-     * NumPy 1.5.0
-     * PIL 1.1.6
 
 Matplotlib の依存パッケージをインストール
 --------------------------------------------------
-Matplotlib は NumPy を多用しているので、当然これを先にインストールしておく。
+Matplotlib は NumPy_ を多用しているので、当然これを先にインストールしておく。
 → :doc:`/python-numpy`
 
 あとは特に必要ない。本体のインストールへ進もう。
 
 Matplotlib 本体をインストール
 --------------------------------------------------
-Windows なので、公式サイトからインストーラーをダウンロードして実行するの一手。
+私のプラットフォームは Windows なので、
+公式サイトからインストーラーをダウンロードして実行するの一手。
 
 オフラインでも勉強できるようにドキュメントを確保
 --------------------------------------------------
@@ -53,7 +53,7 @@ Windows なので、公式サイトからインストーラーをダウンロー
 "Darren Dale, Michael Droettboom, Eric Firing, John Hunter" が書かれてある。
 PDF ファイル全体は 900 ページに及ぶ大著だ。
 
-なお、ソースコード一式を入手して、そこにある Sphinx によるドキュメントビルドを試みたが、
+なお、ソースコード一式を入手して、そこにある Sphinx_ によるドキュメントビルドを試みたが、
 同じ処理をぐるぐるループして結局モノができなかったことがある。
 
 動作確認
@@ -65,7 +65,7 @@ PDF ファイル全体は 900 ページに及ぶ大著だ。
 >>> plt.show()
 
 最後の行の ``plt.show()`` の呼び出し開始直後に、
-PIL の ``Image.show()`` のようにビューワーが出現する。これがなかなか面白い。
+PIL_ の ``Image.show()`` のようにビューワーが出現する。これがなかなか面白い。
 
 .. image:: /_static/mpl-tkagg.png
    :scale: 50%
@@ -130,21 +130,22 @@ Matplotlib には current figure と current axes という概念がある。
   ``n2`` は 1 以上 ``n1 * n2`` 以下の値でなければならない。
 
 * ``plt`` のプロットコマンドはすべて current axes に作用する。
-  ::
-    
-    import matplotlib as mpl
-    import matplotlib.pyplot as plt
-    
-    fig = plt.figure(1) # current figure: 1 とする。
-    plt.subplot(211) # 縦 2 横 1 分割で current axes: 1 になる。
-    
-    # ... ここに来る plt. で始まるプロット命令はすべて
-    # 二分割された上の axes に適用される。
-    
-    plt.subplot(212) # 縦 2 横 1 分割で current axes: 2 になる。
-    
-    # ... ここに来る plt. で始まるプロット命令はすべて
-    # 二分割された下の axes に適用される。
+
+  .. code-block:: python
+     
+     import matplotlib as mpl
+     import matplotlib.pyplot as plt
+     
+     fig = plt.figure(1) # current figure: 1 とする。
+     plt.subplot(211) # 縦 2 横 1 分割で current axes: 1 になる。
+     
+     # ... ここに来る plt. で始まるプロット命令はすべて
+     # 二分割された上の axes に適用される。
+     
+     plt.subplot(212) # 縦 2 横 1 分割で current axes: 2 になる。
+     
+     # ... ここに来る plt. で始まるプロット命令はすべて
+     # 二分割された下の axes に適用される。
 
 * Matplotlib は figure/axes を扱うスタイルを二つ提供している。
 
@@ -199,24 +200,26 @@ Matplotlib には current figure と current axes という概念がある。
 
 * テキストの基準位置は ``horizontalalignment``, ``verticalalignment`` キーワード引数で指示できる。
   例えば x, y 引数をテキストの右下位置としたい場合には次のようにする。
-  ::
 
-    plt.text(x, y, 'aaaa', verticalalignment='bottom', horizontalalignment='right')
+  .. code-block:: python
+
+     plt.text(x, y, 'aaaa', verticalalignment='bottom', horizontalalignment='right')
 
 * 複数行テキストの左揃え・中央揃え・右寄せを指定する場合は ``multialignment`` キーワードを使用する。
 
 日本語のテキストを描画するには？
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ``matplotlib.font_manager.FontProperties`` を明示的に利用する手段を見つけた。
-::
 
-  import matplotlib as mpl
-  import matplotlib.pyplot as plt
-  from matplotlib.font_manager import FontProperties
+.. code-block:: python
 
-  fp = FontProperties(fname=r'C:\WINDOWS\Fonts\HGRME.ttc') # HG 明朝系
-  plt.text(0, 0, u'御無礼\n一発です', fontproperties=fp, fontsize=60)
-  #plt.show()
+   import matplotlib as mpl
+   import matplotlib.pyplot as plt
+   from matplotlib.font_manager import FontProperties
+
+   fp = FontProperties(fname=r'C:\WINDOWS\Fonts\HGRME.ttc') # HG 明朝系
+   plt.text(0, 0, u'御無礼\n一発です', fontproperties=fp, fontsize=60)
+   #plt.show()
 
 .. image:: /_static/mpl-fontprop.png
    :scale: 50%
@@ -241,19 +244,20 @@ Figure (``matplotlib.figure.Figure``)
   矩形の左下と右上がそれぞれ (0, 0), (1, 1) となっている。
 
   変な例だが、画像全体に対角線を一本引くにはこうする。
-  ::
 
-      import matplotlib as mpl
-      import matplotlib.pyplot as plt
-      fig = plt.figure()
+  .. code-block:: python
 
-      ax1 = fig.add_subplot(211)
-      ax2 = fig.add_axes([0.1, 0.1, 0.7, 0.3])
+     import matplotlib as mpl
+     import matplotlib.pyplot as plt
+     fig = plt.figure()
 
-      l1 = mpl.lines.Line2D([0, 1], [0, 1], transform=fig.transFigure, figure=fig)
-      fig.lines.extend([l1])
-      fig.canvas.draw()
-      #plt.show()
+     ax1 = fig.add_subplot(211)
+     ax2 = fig.add_axes([0.1, 0.1, 0.7, 0.3])
+
+     l1 = mpl.lines.Line2D([0, 1], [0, 1], transform=fig.transFigure, figure=fig)
+     fig.lines.extend([l1])
+     fig.canvas.draw()
+     #plt.show()
 
   .. image:: /_static/mpl-figcs.png
      :scale: 50%
@@ -297,17 +301,17 @@ Axis (``matplotlib.axis.Axis``)
 ``grid``              グリッド線を描画するしないを指示。
 ===================   ==================================================
 
-::
+.. code-block:: python
 
-  import matplotlib.pyplot as plt
-  ax = plt.gca()
+   import matplotlib.pyplot as plt
+   ax = plt.gca()
 
-  # Y 軸方向の全目盛をいじる。
-  for tick in ax.yaxis.get_major_ticks():
-      tick.tick1On = False   # 左側の目盛を隠す。
-      tick.tick2On = True    # 右側の目盛を表示する。
-      tick.label1On = False  # 左側の目盛ラベルを隠す。
-      tick.label2On = True   # 右側の目盛ラベルを表示する。
+   # Y 軸方向の全目盛をいじる。
+   for tick in ax.yaxis.get_major_ticks():
+       tick.tick1On = False   # 左側の目盛を隠す。
+       tick.tick2On = True    # 右側の目盛を表示する。
+       tick.label1On = False  # 左側の目盛ラベルを隠す。
+       tick.label2On = True   # 右側の目盛ラベルを表示する。
 
 バックエンド
 ==================================================
@@ -321,17 +325,19 @@ Axis (``matplotlib.axis.Axis``)
 --------------------------------------------------
 rc パラメーターでバックエンドを指定する。
 :file:`matplotlibrc` に記述するのであれば、こんな感じになる：
-::
 
-  # PyQt4 によるウィンドウでグラフを描く。
-  # もちろん、PyQt4 が別途インストール済みであることが前提。
-  backend : Qt4Agg
+.. code-block:: cfg
+
+   # PyQt4 によるウィンドウでグラフを描く。
+   # もちろん、PyQt4 が別途インストール済みであることが前提。
+   backend : Qt4Agg
 
 コードで動的に（実行時に）指定するのならばこうする。
-::
 
-  import matplotlib as mpl
-  mpl.use('Qt4Agg')
+.. code-block:: python
+
+   import matplotlib as mpl
+   mpl.use('Qt4Agg')
 
 .. image:: /_static/mpl-qt4agg.png
    :scale: 50%
@@ -350,14 +356,15 @@ rc パラメーターでバックエンドを指定する。
   その名前の形式のファイルを作成することができる。
 
   コードで実現するには、次のような手順にしておけばよい。
-  ::
 
-    import matplotlib as mpl
-    mpl.use('PDF')  # PDF でイメージが欲しい。
-    
-    # ... プロッティングコマンド群がここに来る。
+  .. code-block:: python
 
-    plt.savefig('output')  # ファイル output.pdf ができる。
+     import matplotlib as mpl
+     mpl.use('PDF')  # PDF でイメージが欲しい。
+     
+     # ... プロッティングコマンド群がここに来る。
+     
+     plt.savefig('output')  # ファイル output.pdf ができる。
 
 曲線を描く
 ==================================================
@@ -374,30 +381,32 @@ rc パラメーターでバックエンドを指定する。
 * プロットする ``y`` を ``list`` の内包表現を利用して一気に得る。
 
 * 最後に ``plot(x, y)`` で曲線を描画する。
-  ::
-    
-    import matplotlib as mpl
-    import matplotlib.pyplot as plt
-    import numpy as np
-    
-    f = np.poly1d([1, -4, 3])  # x = 1, 3 を根に持つ二次式。
-    xs = np.arange(-2, 4, 0.1) # x in [-2, 4] を 0.1 刻みでプロット。
-    ys = [f(x) for x in xs]    # xs と対になる ys
-    plt.plot(xs, ys)           # current axes に曲線を一本追加。
+  
+  .. code-block:: python
+     
+     import matplotlib as mpl
+     import matplotlib.pyplot as plt
+     import numpy as np
+     
+     f = np.poly1d([1, -4, 3])  # x = 1, 3 を根に持つ二次式。
+     xs = np.arange(-2, 4, 0.1) # x in [-2, 4] を 0.1 刻みでプロット。
+     ys = [f(x) for x in xs]    # xs と対になる ys
+     plt.plot(xs, ys)           # current axes に曲線を一本追加。
 
 * 曲線に対して接線を引きたい場合がよくある。
   上記 ``f`` の一次導関数を ``f.deriv()`` で得られるので、
   それをうまく使う。
 
   曲線上の点 (a, f(a)) の接線は、例えば次のようにしてプロットできる。
-  ::
-    
-    # x = [-1, 3] から 1 間隔に接線を引く。
-    slope = f.deriv()
-    for a in xrange(-1, 3, 1):
-        b = f(a)
-        ys1 = [slope(a) * (x - a) + b for x in xs]
-        ax1.plot(xs, ys1)
+
+  .. code-block:: python
+
+     # x = [-1, 3] から 1 間隔に接線を引く。
+     slope = f.deriv()
+     for a in xrange(-1, 3, 1):
+         b = f(a)
+         ys1 = [slope(a) * (x - a) + b for x in xs]
+         ax1.plot(xs, ys1)
 
 ベジエ曲線
 --------------------------------------------------
@@ -427,20 +436,21 @@ Matplotlib は制御点列を与えてベジエ曲線を定義する流儀のよ
 * よって、出来上がりの曲線形状が把握できる。
 
 ``Path`` オブジェクト構築までのコードの概形は次のようになる。
-::
 
-  import matplotlib as mpl
-  mpl.rcParams['patch.facecolor'] = 'none'
-  import matplotlib.pyplot as plt
-  from matplotlib.path import Path
+.. code-block:: python
 
-  fig = plt.figure()
-  ax1 = fig.add_subplot(111)
+   import matplotlib as mpl
+   mpl.rcParams['patch.facecolor'] = 'none'
+   import matplotlib.pyplot as plt
+   from matplotlib.path import Path
 
-  # 2 次のベジエ曲線を定義する。
-  verts = [(0., 0.), (2., 4.), (4., 0.)]
-  codes = [Path.MOVETO, Path.CURVE3, Path.CURVE3]
-  path = Path(verts, codes)
+   fig = plt.figure()
+   ax1 = fig.add_subplot(111)
+
+   # 2 次のベジエ曲線を定義する。
+   verts = [(0., 0.), (2., 4.), (4., 0.)]
+   codes = [Path.MOVETO, Path.CURVE3, Path.CURVE3]
+   path = Path(verts, codes)
 
 もうひとつ例を。ドロー系アプリでもよく見かける 3 次のベジエ曲線を定義する。
 
@@ -451,12 +461,13 @@ Matplotlib は制御点列を与えてベジエ曲線を定義する流儀のよ
 * 曲線全体は、制御点列からなる多角形の内部に位置する。
 
 ``Path`` オブジェクト構築の概形は次のようになる。
-::
 
-  # 3 次のベジエ曲線を定義する。
-  verts = [(0., 0.), (0.5, 3.5), (1., 4.), (4., 0.)]
-  codes = [Path.MOVETO, Path.CURVE4, Path.CURVE4, Path.CURVE4,]
-  path = Path(verts, codes)
+.. code-block:: python
+
+   # 3 次のベジエ曲線を定義する。
+   verts = [(0., 0.), (0.5, 3.5), (1., 4.), (4., 0.)]
+   codes = [Path.MOVETO, Path.CURVE4, Path.CURVE4, Path.CURVE4,]
+   path = Path(verts, codes)
 
 サンプル
 ---------
@@ -469,13 +480,14 @@ PathPatch (``matplotlib.patches.PathPatch``)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ``Path`` オブジェクトができたら ``PathPatch`` オブジェクトに包んで
 ``Axes`` オブジェクトに追加する。これで曲線も描画してくれる。
-::
 
-  # ...
-  import matplotlib.patches as patches
-  # ...
-  patch = patches.PathPatch(path)
-  ax1.add_patch(patch)
+.. code-block:: python
+
+   # ...
+   import matplotlib.patches as patches
+   # ...
+   patch = patches.PathPatch(path)
+   ax1.add_patch(patch)
 
 TeX 表現
 ==================================================
@@ -488,9 +500,10 @@ TeX 表現
   ``$`` で囲まれた部分が TeX 表現と認識されるようだ。
   文字列はバックスラッシュの嵐になることが予想できるので、
   raw string 形式で指定するのが吉。
-  ::
 
-    plt.text(60, .025, r'$\mu=100,\ \sigma=15$')
+  .. code-block:: python
+
+     plt.text(60, .025, r'$\mu=100,\ \sigma=15$')
 
 * TeX 部分のテキストに適用するデフォルトのフォントを
   rc 設定の ``mathtext.default`` パラメーターで指定できる。
@@ -524,3 +537,10 @@ Matplotlib を利用するための環境をもっと細かく整備してみよ
   ここを眺めていればカスタマイズの方法は直感できる仕組みになっている。
 
 * :file:`matplotlibrc` は python-mode で編集するのが吉。
+
+.. _Python: http://www.python.org/
+.. _Matplotlib: http://matplotlib.sourceforge.net/
+.. _setuptools: http://peak.telecommunity.com/DevCenter/setuptools
+.. _Numpy: http://scipy.org/NumPy/
+.. _PIL: http://www.pythonware.com/products/pil
+.. _Sphinx: http://sphinx.pocoo.org/

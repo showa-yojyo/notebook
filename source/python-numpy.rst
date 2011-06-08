@@ -4,8 +4,11 @@ Python NumPy 利用ノート
 
 .. note::
 
-   * このノートをとるに当たって利用した Python のバージョンは 2.6.6 で、
-     NumPy_ のバージョンは 1.6.0 だ。
+   本稿において、利用した各パッケージのバージョンは次のとおり。
+
+   * Python_: 2.6.6
+   * NumPy_: 1.6.0
+   * Nose_: 1.0.0
 
 .. contents:: ノート目次
 
@@ -124,7 +127,7 @@ C order/row-major, Fortran order/column-major
     C 言語がそれを利用していることによる。
 
     OpenGL は column-major だから、
-    PyOpenGL のコードを書くときにはその辺の事情を意識しないとだめだろう。
+    PyOpenGL_ のコードを書くときにはその辺の事情を意識しないとだめだろう。
 
 flattened
     array を一次元の shape になるように「折りたたむ」ことができる。
@@ -234,7 +237,7 @@ NumPy Reference の Array manipulation routines のセクションで表にま�
 
   確実にコピーオブジェクトが欲しい場合は ``flatten`` を利用するのがよい？
 
-  引数が ``order`` を表すので、PyOpenGL の行列系関数に渡すときに調整できるかも。
+  引数が ``order`` を表すので、PyOpenGL_ の行列系関数に渡すときに調整できるかも。
 
     >>> a = np.arange(16).reshape(4, 4)
     >>> a
@@ -481,8 +484,9 @@ C++ で言うところの ``std::random_shuffle(first, last)`` と同等のこ�
 * 多項式は加工して利用するべきものだと思うが、どう応用したらよいものか。
 * フーリエ変換の面白いサンプルを知る。
 
-.. _Numpy: http://scipy.org/NumPy/
 .. _Python: http://www.python.org/
+.. _Numpy: http://scipy.org/NumPy/
 .. _Nose: http://somethingaboutorange.com/mrl/projects/nose/
-.. _Sphinx: http://sphinx.pocoo.org/
 .. _Numpy and Scipy Documentation: http://docs.scipy.org/doc/
+.. _Sphinx: http://sphinx.pocoo.org/
+.. _PyOpenGL: http://pyopengl.sourceforge.net
