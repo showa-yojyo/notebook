@@ -30,7 +30,7 @@ PIL のサイトは http://www.pythonware.com/products/pil にある。
 手許に Python Imaging Library Overview というタイトルの PDF ファイルが存在する。
 入手場所は忘れたが、おそらく上記サイトのはず。
 
-ファイル名は ``pil-handbook.pdf`` で、
+ファイル名は :file:`pil-handbook.pdf` で、
 Fredrik Lundh と Matthew Ellis という人物の共著になっている。
 
 また、配布ソースコード一式からビルドできる HTML ドキュメント
@@ -42,7 +42,7 @@ Fredrik Lundh と Matthew Ellis という人物の共著になっている。
 既存の画像ファイルのフォーマット変換の方法は？
 --------------------------------------------------
 ``Image.save`` するときのファイル名の拡張子で PIL が勝手に変換してくれる。
-GIF ファイル ``image.gif`` を PNG に変換するには、例えば下のようにする。
+GIF ファイル :file:`image.gif` を PNG に変換するには、例えば下のようにする。
 
 >>> import Image
 >>> im = Image.open("image.gif")
@@ -63,7 +63,7 @@ GIF ファイル ``image.gif`` を PNG に変換するには、例えば下の�
        im.save(file + ".png")
 
 コードを書きたくないならば、コマンドラインから
-``pilconvert.py`` を使う手もある（後述）。
+:file:`pilconvert.py` を使う手もある（後述）。
 
 画像をいじっていたらジャギーが出て困るのだが？
 --------------------------------------------------

@@ -24,29 +24,31 @@ HTML と PDF ファイルの形で利用できるようになっている。
 ライブラリーをインストールする
 ----------------------------------------------------------------------
 * Windows 環境ではインストーラーからインストールするのが吉。
-  ``numpy-x.y.z-win32-superpack-python2.6.exe`` みたいな名前のインストーラーを
+  :file:`numpy-x.y.z-win32-superpack-python2.6.exe` みたいな名前のインストーラーを
   NumPy_ のサイトから検索して入手しておけばよい。
 
-* インストールを終了したら、何はさておき ``README.txt`` と ``INSTALL.txt`` を一読すること。
+* インストールを終了したら、何はさておき :file:`README.txt` と :file:`INSTALL.txt` を一読すること。
   目をひくのは単体テストが実行できるということだが、
   これには別途 Nose_ というサードパーティー製のライブラリーを
   Python 環境にインストールしておく必要がある。
 
-  実際にやってみるとこのような感じになる::
+  実際にやってみるとこのような感じになる。
 
-    >>> import numpy
-    >>> numpy.test()
-    Running unit tests for numpy
-    NumPy version 1.6.0
-    NumPy is installed in D:\Python26\lib\site-packages\numpy
-    Python version 2.6.6 (r266:84297, Aug 24 2010, 18:46:32) [MSC v.1500 32 bit (Intel)]
-    nose version 1.0.0
-    （略。ドットの列）
-    ----------------------------------------------------------------------
-    Ran 2995 tests in 146.171s
-    
-    FAILED (KNOWNFAIL=8, SKIP=6, failures=4)
-    <nose.result.TextTestResult run=2995 errors=0 failures=4>
+  .. code-block:: pycon
+
+     >>> import numpy
+     >>> numpy.test()
+     Running unit tests for numpy
+     NumPy version 1.6.0
+     NumPy is installed in D:\Python26\lib\site-packages\numpy
+     Python version 2.6.6 (r266:84297, Aug 24 2010, 18:46:32) [MSC v.1500 32 bit (Intel)]
+     nose version 1.0.0
+     （略。ドットの列）
+     ----------------------------------------------------------------------
+     Ran 2995 tests in 146.171s
+     
+     FAILED (KNOWNFAIL=8, SKIP=6, failures=4)
+     <nose.result.TextTestResult run=2995 errors=0 failures=4>
 
 ドキュメントをローカルディスクに保存する
 ----------------------------------------------------------------------
@@ -68,7 +70,7 @@ HTML と PDF ファイルの形で利用できるようになっている。
 
 doc/
 ======================================================================
-NumPy のインストールフォルダの直下 doc フォルダにはドキュメンテーション専用の py ファイルが多数ある。
+NumPy のインストールフォルダの直下 :file:`doc` フォルダにはドキュメンテーション専用の py ファイルが多数ある。
 NumPy の開発者はこれらを基に NumPy User Guide を作成していると思われる。
 下にファイルとその内容を表にまとめる。array に関するトピックが圧倒的に多い。
 
@@ -97,7 +99,7 @@ glossary.py
 ----------------------------------------------------------------------
 まず用語集を見るのがよいか。
 
-ファイル ``doc/glossary.py`` が用語集を docstring の体裁でまとめている。
+ファイル :file:`doc/glossary.py` が用語集を docstring の体裁でまとめている。
 書式は reStructuredText のようだ。
 
 収録対象は NumPy 独自に使われるものだけでなく、数学、計算機科学、
@@ -145,7 +147,7 @@ slice
 
 ufunc
     個々の要素ごとに演算するようなタイプの演算を高速に処理する。
-    後で ``doc/ufuncs.py`` に目を通す程度でいいだろう。
+    後で :file:`doc/ufuncs.py` に目を通す程度でいいだろう。
 
 view
     既存の array からスライシング等の操作で別の array を作成することがある。
@@ -179,10 +181,10 @@ NumPy Reference の Numpy-specific help functions セクションを見ておく
 
 NumPy のバージョンを知る
 ~~~~~~~~~~~~~~~~~~~~~~~~
-``version.py`` の変数 ``version`` を参照する。
+:file:`version.py` の変数 ``version`` を参照する。
 
  >>> np.version.version
- '1.6.1'
+ '1.6.0'
 
 array
 -----
@@ -437,7 +439,7 @@ Python 組み込み関数の ``sum`` を含む、色々な選択肢がある。
 
 乱数関連
 ----------------------------------------------------------------------
-* NumPy Reference の Random sampling (numpy.random) セクションに多数。
+* NumPy Reference の Random sampling (``numpy.random``) セクションに多数。
 
 * 乱数は奥が深い。追究し出すときりがない。
   目的を達成するのに十分見合いそうな関数を見つけたら、他の乱数関数を調べないこと。

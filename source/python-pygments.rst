@@ -33,14 +33,12 @@ Python_ 製パッケージ」とでも言えばいいのだろうか。
 方法 2 -- ソースコード一式からインストール
 ----------------------------------------------------------------------
 インターネットがない環境ではこの方法に頼るしかない。
-まずは学校・職場・漫画喫茶等に行き Pygments のコード一式をダウンロードして、
+まずは学校・職場・漫画喫茶等に行き Pygments_ のコード一式をダウンロードして、
 それを USB メモリか何かに入れて持ち帰る。
-
-コードはここにあるらしい： http://pygments.org/download/
 
 万が一 setuptools_ がない場合は、それも持ち帰ってインストールを済ませておくこと。
 
-圧縮ファイルを解凍して ``setup.py`` のあるフォルダーに ``cd`` して
+圧縮ファイルを解凍して :file:`setup.py` のあるフォルダーに ``cd`` して
 ``setup.py install`` するべし。
 
 方法 3 -- 開発版コードをダウンロード
@@ -109,7 +107,8 @@ lexer と出力結果に対応する formatter を見つけたり自作したり
 
 コマンドラインツールを利用する
 ----------------------------------------------------------------------
-Pygments をインストールすると、Scripts フォルダーに ``pygmentize`` という実行ファイルができる。
+Pygments をインストールすると、
+:file:`Scripts` フォルダーに :file:`pygmentize` という実行ファイルができる。
 ファイルを受け取って、
 
 * コンソールウィンドウに出力するときは文字通りハイライトしたテキストを出力する。
@@ -145,7 +144,7 @@ Lexers
 
 個人的に利用する可能性が高い lexers を aliases 形式でここにメモっておく。
 名前をおぼえるには aliases 形式が応用が効く。
-Sphinx の ``code-block`` ディレクティブの引数がこの aliases と一致することに注意。
+Sphinx_ の ``code-block`` ディレクティブの引数がこの aliases と一致することに注意。
 
 .. code-block:: text
 
@@ -206,3 +205,4 @@ Styles
 .. _easy_install: http://peak.telecommunity.com/DevCenter/EasyInstall
 .. _setuptools: http://peak.telecommunity.com/DevCenter/setuptools
 .. _Mercurial: http://selenic.com/mercurial/
+.. _Sphinx: http://sphinx.pocoo.org/

@@ -4,10 +4,11 @@ Python Nose 利用ノート
 
 .. note::
 
-   * 本稿を読む前に Python 本体の ``unittest`` を理解しておくべし。
+   * 本稿を読む前に Python_ 本体の ``unittest`` を理解しておくべし。
+   * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-   * このノートをとるに当たって利用した Python のバージョンは 2.6.6 で、
-     Nose_ のバージョンは 1.0 だ。
+     * Python_ 2.6.6
+     * Nose_ 1.0.0
 
    * 当ノートでは ``--verbosity`` オプションを多用しているが、
      単にノートを見返すときのわかりやすさを優先するためだけによる。
@@ -41,7 +42,7 @@ Python Nose 利用ノート
 * ``Lib/site-packages/nose`` フォルダーが存在する。
   当然その中には py モジュールが含まれている。
 
-* ``Scripts`` フォルダーに実行ファイル ``nosetests`` が存在する。
+* ``Scripts`` フォルダーに実行ファイル :file:`nosetests` が存在する。
   特に Windows の場合、これは exe ファイルである。
 
 方法 1 -- easy_install 経由でインストール
@@ -70,24 +71,24 @@ Python Nose 利用ノート
 
 .. code-block:: console
 
-   $ cd nose-0.11.4
+   $ cd nose-1.0.0
    $ python setup.py install
 
 利用方法
 ======================================================================
-``nosetests`` と Nose ライブラリー本体の利用方法に分けて理解する。
+:file:`nosetests` と Nose ライブラリー本体の利用方法に分けて理解する。
 
-``nosetests``
+:file:`nosetests`
 ----------------------------------------------------------------------
 Nose をインストールすると、Python パッケージだけでなく、
-``nosetests`` というスクリプトか実行ファイルが ``Scripts`` フォルダーにインストールされる。
+:file:`nosetests` というスクリプトか実行ファイルが ``Scripts`` フォルダーにインストールされる。
 
 * これは py ファイルからテストを自動的に発見し、実行することができる便利なツールだ。
 
 * 引数なしで起動すると、おそらくカレントディレクトリーにあるすべての py ファイルから、
   すべてのテストを発見し、片っ端から実行するというはたらきをするのではないだろうか。
 
-* 普通は ``nosetests`` にコマンドライン引数を指定して利用する。
+* 普通は :file:`nosetests` にコマンドライン引数を指定して利用する。
   次のコマンドライン例は Nose のドキュメントから引用したものだ。
   モジュール名を指定したり、さらにテスト名を指定したり、
   あるいはモジュールフルパスプラステスト名という指定の仕方がサポートされているようだ。
@@ -105,12 +106,12 @@ Nose をインストールすると、Python パッケージだけでなく、
 
      $ nosetests /path/to/tests /another/path/to/tests
 
-  なので、実は ``-w, --where`` オプションは無用の長物。
+  なので、実は ``-w``, ``--where`` オプションは無用の長物。
 
-* ``nosetests`` は豊富なコマンドラインオプションを提供している。
+* :file:`nosetests` は豊富なコマンドラインオプションを提供している。
 * コマンドラインオプションと同等の設定を設定ファイルからも行える。
 
-  * デフォルトの設定ファイルは ``$HOME`` にある ``.noserc`` または ``nose.cfg`` だ。
+  * デフォルトの設定ファイルは ``$HOME`` にある :file:`.noserc` または :file:`nose.cfg` だ。
   * 任意の設定ファイルパスをコマンドラインから
     ``--config`` オプションを利用することで指定できる。
   * 設定ファイルの書き方で注意が要るのは、設定項目を
@@ -270,7 +271,7 @@ with-profile オプション -- プロファイリング
 オプションメモ
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * ``-h`` または ``--help`` でヘルプ表示。
-* ``-V`` または ``--version`` で ``nosetests`` のバージョンを表示。
+* ``-V`` または ``--version`` で :file:`nosetests` のバージョンを表示。
 * ``-v`` または ``--verbosity`` で表示を少々やかましくできる。
   テスト名確認時にはこれを併用するだろう。
 
@@ -421,7 +422,7 @@ Nose のバージョンが上がってから勉強しに行こう。
        OK
 
   * Matplotlib_ の ``tests`` フォルダーはテストパッケージの構成になっている。
-    nosetests の実験場としては面白い。
+    :file:`nosetests` の実験場としては面白い。
 
   * NumPy_ は Nose をうまく使いこなしているようだ。
     ``import numpy; help(numpy.test)`` してみよう。
@@ -461,6 +462,7 @@ Nose のバージョンが上がってから勉強しに行こう。
   * ログ設定周りを調べていない。
   * Windows 環境ゆえ、マルチプロセステストが試せないのは残念。
 
+.. _Python: http://www.python.org/
 .. _Nose: http://somethingaboutorange.com/mrl/projects/nose/
 .. _easy_install: http://peak.telecommunity.com/DevCenter/EasyInstall
 .. _setuptools: http://peak.telecommunity.com/DevCenter/setuptools
