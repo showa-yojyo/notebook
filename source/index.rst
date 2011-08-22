@@ -21,7 +21,6 @@ Contents:
    yamamoto05
    newham05
    subramaniam06
-   milestone09
    hosoda10
 
    python-nose
@@ -30,6 +29,9 @@ Contents:
    python-matplotlib
    python-jinja2
    python-pygments
+
+   milestone09
+   hikage
 
 `小屋へ戻る`_
 
