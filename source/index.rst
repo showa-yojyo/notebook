@@ -11,6 +11,7 @@ Contents:
 .. toctree::
    :maxdepth: 1
 
+   gamma95
    sutter00
    alexandrescu01
    meyers01
