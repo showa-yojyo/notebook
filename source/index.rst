@@ -12,6 +12,7 @@ Contents:
    :maxdepth: 1
 
    gamma95
+   hunt00
    sutter00
    alexandrescu01
    meyers01
