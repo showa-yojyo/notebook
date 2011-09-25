@@ -141,6 +141,59 @@ Strategy
 
 Template Method
 ----------------------------------------------------------------------
+* <アルゴリズムのスケルトン> (p. 347)
+* <その中のいくつかのステップについては、サブクラスの定義に任せることにする> (p. 347)
+
+またぞろ Application と Document クラスの例を挙げ、
+Document を「開く」オペレーションについての議論。
+
+.. code-block:: c++
+
+   // pp. 347-348; 一部省略
+   void Application::OpenDocument(const char* name){
+       if(!CanOpenDocument(name)){
+           return;
+       }
+
+       Document* doc = DoCreateDocument();
+       if(doc){
+           _docs->AddDocument(doc);
+           AboutToOpenDocument(doc);
+           doc->Open();
+           doc->DoRead();
+       }
+   }
+
+* <``OpenDocument`` オペレーションは、文書を開くための各ステップを定義する> (p. 348)
+
+  ``OpenDocument`` はおそらく仮想関数になっていなくて、
+  この中の各呼び出しメソッドが Application や Document の仮想関数になっている。
+  <抽象オペレーションを使ってアルゴリズムのいくつかのステップを定義することにより、
+  template method はそれらの順番を固定する> (p. 348)
+
+適用可能性にいいことが書いてある。
+
+* <まず、既存のコードにおける相違点を識別し、次にその相違点を新しいオペレーションに分離する。
+  最後に、既存のコードを、その相違点については新しいオペレーションを呼び出すようにした
+  template method で置き換える> (p. 348)
+
+このセクションは短い。
+
+* <template method は、コード再利用のための基本的な方法である> (p. 349)
+* ハリウッドの原則
+* <hook operation は、デフォルトでは何もしないようにしておくことがしばしばある> (p. 350)
+
+実装のコツ
+
+* C++ では
+
+  * primitive operation を private 宣言する (p. 351)
+  * <template method は非仮想関数として宣言しておく> (p. 351)
+
+* primitive operation の数を最小化すること (p. 351)
+* 名前を見て template method, primitive operation とわかるようにすると便利 (p. 351)
+
+<template method はたいへん基本的なもの> (p. 352)
 
 Visitor
 ----------------------------------------------------------------------
