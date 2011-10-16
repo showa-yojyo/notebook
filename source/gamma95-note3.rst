@@ -184,6 +184,51 @@ Interpreter
 ----------------------------------------------------------------------
 真面目に読む気なし。
 
+運用適用性
+
+* <文法が単純な場合> (p. 263)
+* <効率が重要な関心事ではない場合> (p. 263)
+
+結果
+
+* <文法が複雑なときには、パーザやコンパイラジェネレータのような他の技術を使うほうが適当だろう> (p. 265)
+
+実装
+
+* <Interpreter パターンと Composite パターンは、
+  実装上の問題において多くの共通点を持っている> (p. 265)
+
+サンプルコード
+
+* <C++ で実装された Bool 表現を操作・評価するシステム> (p. 269) の例。
+  これは先に利用例を見てから、各メソッドを見ていくのが理解がいいと思う。
+
+  .. code-block:: c++
+  
+     // p. 272 一部改変
+
+     VariableExp* x = new VariableExp("X");
+     VariableExp* y = new VariableExp("Y");
+     BooleanExp* expression = new OrExp(
+         new AndExp(new Constant(true), x),
+         new AndExp(y, new NotExp(x)));
+
+     Context context;
+     context.Assign(x, false);
+     context.Assign(y, true);
+     bool result = expression->Evaluate(context);
+
+* <Interpreter パターンには、Composite パターンを使ったクラス階層上に
+  1 つのオペレーションを分散させる、ということ以上の意味がある> (p. 273)
+
+使用例
+
+* <オブジェクト指向言語により実装されたコンパイラでは広く使われている> (pp. 273-274)
+* <もっとも一般的な形式（つまり、1 つのオペレーションを
+  Composite パターンに基づくクラス階層上に分散させるような場合）を考えると、
+  Composite パターンはほとんどの場合に Interpreter パターンを含んだ形で使われる。
+  しかし Interpreter パターンは、クラス階層を言語を定義するものとして考えた場合に限り使用すべきである> (p. 274)
+
 Iterator
 ----------------------------------------------------------------------
 後回し。
