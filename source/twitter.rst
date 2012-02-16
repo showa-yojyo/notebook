@@ -14,6 +14,9 @@ Twitter 利用ノート
    そこを適宜入力し、ボタンを押す。
 3. 後は手なりで。
 
+後々わかったことだが、アカウントがなくても利用できる機能が多い。
+慌ててユーザー登録する必要は実はなかったのかもしれない。
+
 Getting Started ノート
 ======================================================================
 まずは `Getting Started`_ から見ていく。
@@ -37,13 +40,23 @@ Twitter for Websites
 
 Search API
 ----------------------------------------------------------------------
+API を勉強する前に `search-home`_ をまずは試す。
+
 ここは興味があるので、基本事項にプラスアルファを乗せたいところだ。
 `Using the Twitter Search API`_ をまずは一読する。
 
 * Search Operators の節は必読。
 
+  * or 検索は文字列 ``OR`` がそのまま演算子になる。
+  * ``from:``, ``to:`` 演算子はユーザー名指定。
+  * ``since:``, ``until:`` 演算子の引数は ``yyyy-mm-dd`` 形式で指示する。
+    未来の日付を指示するとエラーが返ってくる模様。
+  * ``:)``, ``:(`` 演算子はいかにも Twitter らしい機能だが、
+    個人的にはおよびでない。
+
 * 基本的な検索性能は期待しているよりも高くない。
   最近の tweet しか対象としない等の機能的制限が相当ある。
+  ある程度はオプション引数で調整可能。
 
 * 検索結果をブラウザーで見たい (View) のならば
   ``http://search.twitter.com/search?q=XXXXXX`` で十分。
@@ -52,13 +65,62 @@ Search API
   ``http://search.twitter.com/search.format?q=XXXXXX`` で得られる。
   ここで URL 中の文字列 ``format`` は、実際には得たいデータ形式を表現する文字列だ。
   例えば JSON 形式で欲しいのならば ``format`` を ``json`` と置き換えてリクエストする。
-
   `GET search`_ に詳細の説明あり。
 
   * 面白い利用法として ``format`` を ``atom`` と置き換えて RSS にするというのが知られている。
     この URL を RSS リーダーに登録しておけば、
     Twitter での XXXXXX に対する検索結果、すなわち
     「最近の Twitter での XXXXXX に関する動向」を監視することができる。
+
+よく使う Optional Parameters
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``http://search.twitter.com/search?q=XXXXXX`` の ``?`` 以降のどこかに
+``parameter=value`` の形で文字列を追加することで、
+検索の振る舞いをある程度制御することができる。
+
+個人的に有用なパラメーターをノートしておこう。
+
+``result_type``
+  ``mixed`` (default), ``recent``, ``popular`` のいずれかを指定。
+  定期チェック RSS 用途に合わせて ``recent`` を指定したい。
+
+``rpp``
+  <The number of tweets to return per page> (Documentation_) だから、
+  マイナーフレーズ検索用とメジャーフレーズ検索用で値を細かく設定し分けることができる。
+
+``show_user``
+  RSS で検索結果 Tweets を見たいときに、ユーザー名を tweet の先頭に
+  ``user_name:`` の形で表示させるか否かを指定する。
+  デフォルト値は ``false`` なので、明示的にこのパラメーターを指示しないと、
+  仮に知り合いの tweet だったとしても RSS ビューワーで見るだけではそうだと判断できない。
+
+  常に ``show_user=true`` を指定しておきたい。
+
+RSS 用に URL を組み立てる例
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. admonition:: TODO
+
+   クエリーに Search Operators を含む URL を例示したい。
+   特に URL encoded 文字列である必要があることを記しておきたい。
+
+.. code-block:: text
+
+   マイナーゲームのファンの傾向を知る
+   http://search.twitter.com/search.atom?q=%E3%82%A4%E3%83%AB%E3%83%99%E3%83%AD&show_user=true
+
+   最近の逮捕を知る
+   http://search.twitter.com/search.atom?q=%E9%80%AE%E6%8D%95&rpp=30&result_type=recent&show_user=true
+
+``q`` の引数は URL encoded とするのが妥当とのことなので、
+エンコード済み文字列を準備しておくべし。
+特に日本語テキストを検索するリクエスト文字列のためには絶対必要。
+
+エンコード文字列がわからない場合、Twitter で手で検索してみるしかない。
+
+1. `search-home`_ にブラウザーでアクセス。
+2. 検索したい単語（場合によっては演算子を含むような文字列）をテキストボックスにタイプ。
+3. 検索ボタンを押す。
+4. 画面がジャンプしたら、ブラウザーのアドレスバーの URL の末尾を適宜クリップボードへコピー。
 
 REST API
 ----------------------------------------------------------------------
@@ -69,9 +131,9 @@ REST API
   これはプログラマー向けのトピックと考えられる。
   しかし、ウェブブラウザー一丁でも動作確認をすることはできるのだ。
 
-  * 例えば ``GET statuses/user_timeline`` の仕様をじっくり読むと、
-    ある Twitter ユーザーの最近の 20 tweets を購読するのに利用できる、
-    RSS リーダーのための URL の構成方法が理解できる。
+  例えば ``GET statuses/user_timeline`` の仕様をじっくり読むと、
+  ある Twitter ユーザーの最近の 20 tweets を購読するのに利用できる、
+  RSS リーダーのための URL の構成方法が理解できる。
 
 Streaming API
 ----------------------------------------------------------------------
@@ -101,6 +163,7 @@ Twitter API のストレートな応用例と言える。
 .. _Documentation: https://dev.twitter.com/docs
 .. _Getting Started: https://dev.twitter.com/start
 .. _Twitter ボタン: https://twitter.com/about/resources/buttons?tw_p=twt#follow
+.. _search-home: http://twitter.com/#!/search-home
 .. _Using the Twitter Search API: https://dev.twitter.com/docs/using-search
 .. _GET search: https://dev.twitter.com/docs/api/1/get/search
 .. _REST API Resources: https://dev.twitter.com/docs/api
