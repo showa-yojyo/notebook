@@ -32,9 +32,8 @@ Contents:
    python-jinja2
    python-pygments
 
-   twitter
-
    milestone09
+   twitter
 
 `小屋へ戻る`_
 

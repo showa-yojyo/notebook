@@ -66,7 +66,7 @@ release = '0.0'
 #
 # <Use unused_documents to explicitly exclude documents from building> 
 # (Sphinx Documentation, Release 0.6.1, p. 7)
-#unused_docs = ['r-trac']
+unused_docs = ['hikage']
 
 # List of directories, relative to source directory, that shouldn't be searched
 # for source files.
