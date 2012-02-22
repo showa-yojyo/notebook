@@ -22,6 +22,16 @@ Twitter 利用ノート
 後々わかったことだが、アカウントがなくても利用できる機能が多い。
 慌ててユーザー登録する必要は実はなかったのかもしれない。
 
+Twitter 専用アプリ
+======================================================================
+ショボイ PC を使っているせいか、ウェブブラウザーを使うのでは
+Twitter_ のページが重くて使えたものではない。
+
+* Windows 100% 誌に紹介されていた Echofon_ というソフトが軽そうなので、
+  これを当面利用してみよう。
+
+* 他にも Twitter 専用アプリが存在するようなので、暇を見て調べよう。
+
 Getting Started ノート
 ======================================================================
 まずは `Getting Started`_ から見ていく。
@@ -194,3 +204,4 @@ Twitter API のストレートな応用例と言える。
 .. _GET search: https://dev.twitter.com/docs/api/1/get/search
 .. _REST API Resources: https://dev.twitter.com/docs/api
 .. _Widgets: http://twitter.com/about/resources/widgets
+.. _Echofon: http://www.echofon.com/
