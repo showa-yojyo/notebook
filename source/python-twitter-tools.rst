@@ -101,19 +101,137 @@ GET statuses/user_timeline
 
 認証関係
 ----------------------------------------------------------------------
-TBW; 説明が面倒。
+事実関係をリストしておく。
+
+* 本家 Twitter API は OAuth という認証を利用している。
+  一部の API を利用するために（少なくとも）
+  consumer key および
+  consumer secret key と呼ばれる文字列が必要となる。
+
+  * これらの文字列を入手するには、
+    https://dev.twitter.com/apps 以降のページ群であらかじめ手続きを済ませる。
+  
+    * ウェブブラウザーと Twitter アカウントを持っていることが必要である。
+    * Create an application というページに入力フォームがある。
+      入力後、画面下部のボタンを押せば多分出てくるだろう。
+
+* 次に user key および user secret key という、別の一対の文字列が必要だ。
+
+  * これらの文字列を得るために、先ほどの文字列が必要となる。
+
+  * Google で ``get_access_token`` 等検索してヒットする、
+    ネットに落ちているスクリプトを一部改変して実行する。
+    コードを見れば手を入れる箇所は理解できるハズ。
+
+* 上記 4 つの文字列を入手できたならば、利用できる API が増えるというわけだ。
+
+  * POST 系 API はほぼ OAuth 必須。
 
 GET saved_searches
 ----------------------------------------------------------------------
-TBW
+
+.. code-block:: python
+
+   import twitter
+
+   # Comment 1
+   user_key, user_secret, consumer_key, consumer_secret = get_oauth_keys()
+
+   api = twitter.Twitter(
+       auth=twitter.OAuth(user_key, user_secret,
+                          consumer_key, consumer_secret))
+
+   # Comment 2
+   items = [
+       u'DQ OR ドラクエ OR ドラゴンクエスト',
+       u'@showa_yojyo -from:showa_yojyo',
+       ]
+
+   try:
+       for item in items:
+           # Comment 3
+           api.saved_searches.create(query=item)
+   except twitter.TwitterHTTPError as e:
+       print(e)  # Comment 4
+
+
+* Comment 1: ``get_oauth_keys()`` を自作すること。
+  前項で説明した文字列を返すだけの関数とする。
+
+* Comment 2: Twitter の「保存した検索」の項目ひとつずつと対応する検索パターン。
+  上限は Twitter 仕様により 20 個と決まっている。
+
+* Comment 3: https://dev.twitter.com/docs/api/1/post/saved_searches/create 参照。
+  ``query`` キーワード引数しかないようだ。
+
+* Comment 4: 検索パターンの登録に失敗すると、例外が発生する。
+  大抵の場合、上述の上限値超過だろう。
 
 GET lists/all
 ----------------------------------------------------------------------
-TBW
+
+.. code-block:: python
+
+   import twitter
+
+   # Comment 1
+   user_key, user_secret, consumer_key, consumer_secret = get_oauth_keys()
+
+   api = twitter.Twitter(
+       auth=twitter.OAuth(user_key, user_secret,
+                          consumer_key, consumer_secret))
+
+   # Comment 2
+   data = api.lists.all(screen_name='showa_yojyo')
+   
+   # Comment 3
+   for item in data:
+       print('%(mode)s following=%(following)s %(full_name)s %(description)s' % item)
+
+* Comment 1: 前項の対応コメント参照。
+* Comment 2: ``lists.all`` 関数に ``screen_name`` キーワード引数を与えて、
+  対応するユーザーの持っているリストを全部取得する。
+
+  * 当ノートでは ``api`` 作成時の認証と同じユーザーであることを想定している。
+    この場合、公開リストも非公開リストも同時に得られる。
+    もし、違うユーザーを指定した場合、おそらく公開リストだけが得られるのだろう。
+
+  * https://dev.twitter.com/docs/api/1/get/lists/all 参照。
+
+* Comment 3: リストごとに属性をコンソールに出力する。
 
 POST lists/create
 ----------------------------------------------------------------------
-TBW
+
+.. code-block:: python
+
+   # 前半省略。
+   # api インスタンスを認証つきで前項同様に作成する。
+   
+   # Comment 1
+   items = [
+       dict(name='friends', description=u'友人たち'),
+       dict(name='game', description=u'ゲーム関連'),
+       dict(name='rivals', description=u'ライバル連中', mode='private'),
+       ]
+
+   try:
+       # Comment 2
+       for item in items:
+           print('%(name)s...' % item)
+           data = api.lists.create(**item)
+   except twitter.TwitterHTTPError as e:
+       print(e)
+
+* Comment 1: Twitter のリストとして追加したい項目をこのように用意しておく。
+  例によって上限数に注意。
+
+* Comment 2: ``lists.create`` 関数に先程の項目を指定してループで回す。
+  失敗すると例外送出が起こるので、適当にごまかす。
+  
+  * https://dev.twitter.com/docs/api/1/post/lists/create 参照。
+  * ``try`` ブロックをループの中に入れたほうがよいかも。
+
 
 .. _Python: http://www.python.org/
 .. _Python Twitter Tools: http://mike.verdone.ca/twitter/
