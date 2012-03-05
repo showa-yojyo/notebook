@@ -171,6 +171,58 @@ POST statuses/update_with_media
 
    動作コードをここに書く。
 
+GET search
+----------------------------------------------------------------------
+単純な検索を行うには ``search`` を利用する。
+
+.. code-block:: python
+
+   import twitter
+   
+   # Comment 1
+   api = twitter.Twitter(domain="search.twitter.com")
+
+   # Comment 2
+   response = api.search(
+       q=u'ネシカ OR nesica',
+       rpp=33)
+   
+   # Comment 3
+   for result in response['results']:
+       print(u'%(created_at)s %(from_user)s %(text)s' % result)
+
+* Comment 1: 検索の場合は ``Twitter`` インスタンスの生成時に、
+  キーワード引数 ``domain`` を明示的に指示する。
+
+  ここでは `` ネシカ`` または ``nesica`` という単語を含むツイートを
+  33 件検索させようとしている（厳密には不正確なやり方だが）。
+
+* Comment 2: 検索したい単語等を関数 ``search`` に与える。
+  キーワード引数の指定方法にコツがあるようだが、
+
+  https://dev.twitter.com/docs/api/1/get/search 参照。
+
+* Comment 3: 検索結果の本体は、関数戻り値からこのように得られる。
+  この例ではツイートのタイムスタンプ、ユーザー名、本文だけをコンソールに出力する。
+
+  * 日付は標準時 (``+0000``) で得られる？
+
+POST direct_messages/new
+----------------------------------------------------------------------
+あまり使わないが、ノートに残す。説明省略。
+
+.. code-block:: python
+
+   # 前半省略。
+   # api インスタンスを認証つきで前項までの例と同様に作成する。
+
+   try:
+       api.direct_messages.new(
+           screen_name='@showa_yojyo',
+           text=u'ダイレクトメッセ')
+   except twitter.TwitterHTTPError as e:
+       print(e)
+
 GET lists/all
 ----------------------------------------------------------------------
 全リスト取得に用いる API だ。
@@ -213,7 +265,7 @@ POST lists/create
 .. code-block:: python
 
    # 前半省略。
-   # api インスタンスを認証つきで前項同様に作成する。
+   # api インスタンスを認証つきで前項までの例と同様に作成する。
    
    # Comment 1
    items = [
@@ -248,7 +300,7 @@ GET saved_searches/create
 .. code-block:: python
 
    # 前半省略。
-   # api インスタンスを認証つきで前項同様に作成する。
+   # api インスタンスを認証つきで前項までの例と同様に作成する。
 
    # Comment 1
    items = [
