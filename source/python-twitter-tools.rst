@@ -55,6 +55,7 @@ GET statuses/public_timeline
 
 .. code-block:: python
 
+   # -*- coding: utf-8 -*-
    import twitter
 
    api = twitter.Twitter()
@@ -82,6 +83,7 @@ GET statuses/user_timeline
 
 .. code-block:: python
 
+   # -*- coding: utf-8 -*-
    import twitter
    
    api = twitter.Twitter()
@@ -127,51 +129,55 @@ GET statuses/user_timeline
 
   * POST 系 API はほぼ OAuth 必須。
 
-GET saved_searches
+POST statuses/update
 ----------------------------------------------------------------------
+スクリプト等からツイートするときには本 API を使用することになる。
 
 .. code-block:: python
 
+   # -*- coding: utf-8 -*-
    import twitter
 
    # Comment 1
    user_key, user_secret, consumer_key, consumer_secret = get_oauth_keys()
 
    api = twitter.Twitter(
-       auth=twitter.OAuth(user_key, user_secret,
-                          consumer_key, consumer_secret))
+       auth=twitter.OAuth(secret.user_key, secret.user_secret, 
+                          secret.consumer_key, secret.consumer_secret))
 
    # Comment 2
-   items = [
-       u'DQ OR ドラクエ OR ドラゴンクエスト',
-       u'@showa_yojyo -from:showa_yojyo',
-       ]
+   mytext = u'Python Twitter Tools を利用したツイートのデモ。明示的 URL エンコード処理なし'
+   assert len(mytext) < 140
 
    try:
-       for item in items:
-           # Comment 3
-           api.saved_searches.create(query=item)
+       # Comment 3
+       api.statuses.update(status=mytext)
    except twitter.TwitterHTTPError as e:
-       print(e)  # Comment 4
-
+       print(e)
 
 * Comment 1: ``get_oauth_keys()`` を自作すること。
   前項で説明した文字列を返すだけの関数とする。
 
-* Comment 2: Twitter の「保存した検索」の項目ひとつずつと対応する検索パターン。
-  上限は Twitter 仕様により 20 個と決まっている。
+* Comment 2: tweet 内容を文字列として定義してみる。
+* Comment 3: 関数 ``statuses.update`` をキーワード引数 ``status`` を指示して呼び出す。
 
-* Comment 3: https://dev.twitter.com/docs/api/1/post/saved_searches/create 参照。
-  ``query`` キーワード引数しかないようだ。
+  https://dev.twitter.com/docs/api/1/post/statuses/update 参照。
 
-* Comment 4: 検索パターンの登録に失敗すると、例外が発生する。
-  大抵の場合、上述の上限値超過だろう。
+POST statuses/update_with_media
+----------------------------------------------------------------------
+スクリプト等から画像をツイート（？）するときには本 API を使用することになる。
+
+.. admonition:: TODO
+
+   動作コードをここに書く。
 
 GET lists/all
 ----------------------------------------------------------------------
+全リスト取得に用いる API だ。
 
 .. code-block:: python
 
+   # -*- coding: utf-8 -*-
    import twitter
 
    # Comment 1
@@ -202,6 +208,7 @@ GET lists/all
 
 POST lists/create
 ----------------------------------------------------------------------
+リストを新しく作成するための API だ。
 
 .. code-block:: python
 
@@ -227,11 +234,49 @@ POST lists/create
   例によって上限数に注意。
 
 * Comment 2: ``lists.create`` 関数に先程の項目を指定してループで回す。
-  失敗すると例外送出が起こるので、適当にごまかす。
-  
+  失敗すると例外送出が起こる。
+  おそらくリスト項目数の上限数超過が起こっている。
+
   * https://dev.twitter.com/docs/api/1/post/lists/create 参照。
   * ``try`` ブロックをループの中に入れたほうがよいかも。
 
+
+GET saved_searches/create
+----------------------------------------------------------------------
+わかりにくい言い方をすると「保存した検索」項目を一つ新しく作成するための API だ。
+
+.. code-block:: python
+
+   # 前半省略。
+   # api インスタンスを認証つきで前項同様に作成する。
+
+   # Comment 1
+   items = [
+       u'DQ OR ドラクエ OR ドラゴンクエスト',
+       u'@showa_yojyo -from:showa_yojyo',
+       ]
+
+   try:
+       for item in items:
+           # Comment 2
+           api.saved_searches.create(query=item)
+   except twitter.TwitterHTTPError as e:
+       # Comment 3
+       print(e)
+
+* Comment 1: Twitter の「保存した検索」の項目ひとつずつと対応する検索パターン。
+  上限は Twitter 仕様により 20 個と決まっている。
+
+* Comment 2: https://dev.twitter.com/docs/api/1/post/saved_searches/create 参照。
+  ``query`` キーワード引数しかないようだ。
+
+* Comment 3: 検索パターンの登録に失敗すると、例外が発生する。
+  大抵の場合、上述の上限値超過だろう。
+
+関連ドキュメント
+======================================================================
+* `Python Twitter Tools`_: 著者ウェブページ。開発ページは別にある。
+* `REST API Resources`_: Twitter 本家ドキュメント。
 
 .. _Python: http://www.python.org/
 .. _Python Twitter Tools: http://mike.verdone.ca/twitter/
