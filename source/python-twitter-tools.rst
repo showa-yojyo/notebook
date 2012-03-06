@@ -50,57 +50,6 @@ Python Twitter Tools 利用ノート
 細かい説明を重ねるよりは、動作したコードを淡々と列挙して、
 見返したときに直感的に思い出せる方がよい。
 
-GET statuses/public_timeline
-----------------------------------------------------------------------
-
-.. code-block:: python
-
-   # -*- coding: utf-8 -*-
-   import twitter
-
-   api = twitter.Twitter()
-   stats = api.statuses.public_timeline(count=22)
-
-   for stat in stats:
-       user = stat['user']
-       try:
-           print('[%s] %s' % (user['screen_name'], stat['text']))
-       except UnicodeEncodeError:
-           pass
-
-* パブリックタイムラインを Twitter から 22 件取得し、
-  アカウント名と投稿内容をコンソールに出力するコードである。
-
-* 引数仕様は https://dev.twitter.com/docs/api/1/get/statuses/public_timeline を参照。
-  上記コードの ``user`` の構造は、その仕様書の JSON コードを眺めていればわかる。
-
-* コンストラクターで引数を与えずに生成した ``Twitter`` インスタンスは、
-  認証が必要ない API を利用する場合に動作する。
-  このルールは全 API 共通だろう。
-
-GET statuses/user_timeline
-----------------------------------------------------------------------
-
-.. code-block:: python
-
-   # -*- coding: utf-8 -*-
-   import twitter
-   
-   api = twitter.Twitter()
-   stats = api.statuses.user_timeline(screen_name='showa_yojyo', count=40)
-
-   for item in stats:
-       print(u'%(created_at)s: %(text)s' % item)
-
-* ユーザー名 ``showa_yojyo`` のタイムラインを 40 件取得し、
-  ツイート時刻と投稿内容をコンソールに出力するコードである。
-
-* 引数仕様は https://dev.twitter.com/docs/api/1/get/statuses/user_timeline を参照。
-
-* ちなみに、ドキュメント上は ``screen_name`` か ``user_id`` が
-  optional パラメーターとなっている API について注意が必要だ。
-  むしろ「そのうちのどちらかが required パラメーターである」という意味だろう。
-
 認証関係
 ----------------------------------------------------------------------
 事実関係をリストしておく。
@@ -129,9 +78,9 @@ GET statuses/user_timeline
 
   * POST 系 API はほぼ OAuth 必須。
 
-POST statuses/update
+GET statuses/home_timeline
 ----------------------------------------------------------------------
-スクリプト等からツイートするときには本 API を使用することになる。
+API を利用する認証を得ているユーザー（自分）のタイムラインを取得する例。
 
 .. code-block:: python
 
@@ -142,24 +91,134 @@ POST statuses/update
    user_key, user_secret, consumer_key, consumer_secret = get_oauth_keys()
 
    api = twitter.Twitter(
-       auth=twitter.OAuth(secret.user_key, secret.user_secret, 
-                          secret.consumer_key, secret.consumer_secret))
-
+       auth=twitter.OAuth(user_key, user_secret, 
+                          consumer_key, consumer_secret))
    # Comment 2
-   mytext = u'Python Twitter Tools を利用したツイートのデモ。明示的 URL エンコード処理なし'
-   assert len(mytext) < 140
+   statuses = api.statuses.home_timeline(
+       count=55,
+       include_rts='true',
+       include_entities='true',
+       exclude_replies='false',)
 
-   try:
-       # Comment 3
-       api.statuses.update(status=mytext)
-   except twitter.TwitterHTTPError as e:
-       print(e)
+   # Comment 3
+   for stat in statuses:
+       print(u'%s %s' % (stat['created_at'], stat['text']))
 
 * Comment 1: ``get_oauth_keys()`` を自作すること。
   前項で説明した文字列を返すだけの関数とする。
 
-* Comment 2: tweet 内容を文字列として定義してみる。
-* Comment 3: 関数 ``statuses.update`` をキーワード引数 ``status`` を指示して呼び出す。
+* Comment 2: ``auth`` のユーザーのタイムラインを最新のものから 55 件取得する。
+  主に自分のツイート、フォローしているユーザーのツイート、返信各種からなるものと思われる。
+
+  キーワード引数の意味や、戻り値のデータ構造については
+  https://dev.twitter.com/docs/api/1/get/statuses/home_timeline 参照。
+
+* Comment 3: ツイートの日時と本文を新しい順にコンソールに出力している。
+
+GET statuses/mentions
+----------------------------------------------------------------------
+いわゆるリプを取得する例を挙げる。
+
+.. code-block:: python
+
+   # 前半省略。
+   # api インスタンスを認証つきで前項までの例と同様に作成する。
+
+   # Comment 1
+   statuses = api.statuses.mentions(count=50, include_entities='true')
+
+   # Comment 2
+   for stat in statuses:
+       entities = stat['entities']
+       try:
+           print(u'%s %s' % (stat['created_at'], stat['text']))
+       except UnicodeEncodeError:
+           print(u'%s (UnicodeEncodeError)' % stat['created_at'])
+
+* Comment 1: 認証ユーザーに関する mentions を最新のものから 50 件取得する。
+
+  https://dev.twitter.com/docs/api/1/get/statuses/mentions 参照。
+
+* Comment 2: ここでは mention の日時とツイート本文を新しい順にコンソールに出力している。
+
+GET statuses/public_timeline
+----------------------------------------------------------------------
+
+.. code-block:: python
+
+   # -*- coding: utf-8 -*-
+   import twitter
+
+   # Comment 1
+   api = twitter.Twitter()
+
+   # Comment 2
+   stats = api.statuses.public_timeline(count=22)
+
+   # Comment 3
+   for stat in stats:
+       user = stat['user']
+       try:
+           print('[%s] %s' % (user['screen_name'], stat['text']))
+       except UnicodeEncodeError:
+           print(u'[%s] (UnicodeEncodeError)' % user['screen_name'])
+
+* Comment 1: コンストラクターで引数を与えずに生成した ``Twitter`` インスタンスは、
+  認証が必要ない API を利用する場合に動作する。
+  このルールは全 API 共通だろう。
+
+* Comment 2: 引数仕様は https://dev.twitter.com/docs/api/1/get/statuses/public_timeline を参照。
+  上記コードの ``user`` の構造は、その仕様書の JSON コードを眺めていればわかる。
+
+* Comment 3: パブリックタイムラインを Twitter から 22 件取得し、
+  アカウント名と投稿内容をコンソールに出力するコードである。
+
+GET statuses/user_timeline
+----------------------------------------------------------------------
+ユーザー名を指定してタイムラインを 40 件取得し、
+ツイート時刻と投稿内容をコンソールに出力するコードである。
+
+.. code-block:: python
+
+   # -*- coding: utf-8 -*-
+   import twitter
+   
+   api = twitter.Twitter()
+
+   # Comment 1
+   stats = api.statuses.user_timeline(screen_name='showa_yojyo', count=40)
+
+   for item in stats:
+       print(u'%(created_at)s: %(text)s' % item)
+
+* Comment 1:
+  引数仕様は https://dev.twitter.com/docs/api/1/get/statuses/user_timeline を参照。
+
+  ちなみに、ドキュメント上は ``screen_name`` か ``user_id`` が
+  optional パラメーターとなっている API について注意が必要だ。
+  むしろ「そのうちのどちらかが required パラメーターである」という意味だろう。
+
+POST statuses/update
+----------------------------------------------------------------------
+スクリプト等からツイートするときには本 API を使用することになる。
+
+.. code-block:: python
+
+   # 前半省略。
+   # api インスタンスを認証つきで前項までの例と同様に作成する。
+
+   # Comment 1
+   mytext = u'Python Twitter Tools を利用したツイートのデモ。明示的 URL エンコード処理なし'
+   assert len(mytext) < 140
+
+   try:
+       # Comment 2
+       api.statuses.update(status=mytext)
+   except twitter.TwitterHTTPError as e:
+       print(e)
+
+* Comment 1: tweet 内容を文字列として定義してみる。
+* Comment 2: 関数 ``statuses.update`` をキーワード引数 ``status`` を指示して呼び出す。
 
   https://dev.twitter.com/docs/api/1/post/statuses/update 参照。
 
@@ -194,7 +253,7 @@ GET search
 * Comment 1: 検索の場合は ``Twitter`` インスタンスの生成時に、
   キーワード引数 ``domain`` を明示的に指示する。
 
-  ここでは `` ネシカ`` または ``nesica`` という単語を含むツイートを
+  ここでは ``ネシカ`` または ``nesica`` という単語を含むツイートを
   33 件検索させようとしている（厳密には不正確なやり方だが）。
 
 * Comment 2: 検索したい単語等を関数 ``search`` に与える。
@@ -229,25 +288,17 @@ GET lists/all
 
 .. code-block:: python
 
-   # -*- coding: utf-8 -*-
-   import twitter
+   # 前半省略。
+   # api インスタンスを認証つきで前項までの例と同様に作成する。
 
    # Comment 1
-   user_key, user_secret, consumer_key, consumer_secret = get_oauth_keys()
-
-   api = twitter.Twitter(
-       auth=twitter.OAuth(user_key, user_secret,
-                          consumer_key, consumer_secret))
-
-   # Comment 2
    data = api.lists.all(screen_name='showa_yojyo')
    
-   # Comment 3
+   # Comment 2
    for item in data:
        print('%(mode)s following=%(following)s %(full_name)s %(description)s' % item)
 
-* Comment 1: 前項の対応コメント参照。
-* Comment 2: ``lists.all`` 関数に ``screen_name`` キーワード引数を与えて、
+* Comment 1: ``lists.all`` 関数に ``screen_name`` キーワード引数を与えて、
   対応するユーザーの持っているリストを全部取得する。
 
   * 当ノートでは ``api`` 作成時の認証と同じユーザーであることを想定している。
@@ -256,7 +307,7 @@ GET lists/all
 
   * https://dev.twitter.com/docs/api/1/get/lists/all 参照。
 
-* Comment 3: リストごとに属性をコンソールに出力する。
+* Comment 2: リストごとに属性をコンソールに出力する。
 
 POST lists/create
 ----------------------------------------------------------------------
