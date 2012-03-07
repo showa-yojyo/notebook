@@ -9,7 +9,9 @@ Python Matplotlib 利用ノート
    * Python_ 2.6.6
    * Setuptools_ 0.6c11
    * NumPy_ 1.6.0
-   * PIL_ 1.1.6
+   * PIL_ 1.1.6, 1.1.7 (unofficial)
+   * Matplotlib_ 1.1.0
+   * PyQt_ 4.8.4
 
 .. contents:: ノート目次
 
@@ -44,7 +46,7 @@ Matplotlib は NumPy_ を多用しているので、当然これを先にイン�
 Matplotlib 本体をインストール
 --------------------------------------------------
 私のプラットフォームは Windows なので、
-公式サイトからインストーラーをダウンロードして実行するの一手。
+Matplotlib_ 公式サイトからインストーラーをダウンロードして実行するの一手。
 
 オフラインでも勉強できるようにドキュメントを確保
 --------------------------------------------------
@@ -213,6 +215,7 @@ Matplotlib には current figure と current axes という概念がある。
 
 .. code-block:: python
 
+   # -*- coding: utf-8 -*-
    import matplotlib as mpl
    import matplotlib.pyplot as plt
    from matplotlib.font_manager import FontProperties
@@ -544,3 +547,5 @@ Matplotlib を利用するための環境をもっと細かく整備してみよ
 .. _Numpy: http://scipy.org/NumPy/
 .. _PIL: http://www.pythonware.com/products/pil
 .. _Sphinx: http://sphinx.pocoo.org/
+.. _PyQt: http://www.riverbankcomputing.com/software/pyqt/intro
+
