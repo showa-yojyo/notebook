@@ -25,6 +25,7 @@ Contents:
    subramaniam06
    hosoda10
 
+   python-pip
    python-nose
    python-numpy
    python-pil
