@@ -106,8 +106,10 @@ Getting Started
     これは NumPy, SciPy の利用法の概要を説明したテキストだ。
     PyTables と Matplotlib についても説明がある。
 
-* An Example Session 以降、ipython を使いながらの説明となる。
-  仮に ipython が環境になくても、コードの動作確認は工夫次第で可能だ。
+* An Example Session 以降、IPython を使いながらの説明となる。
+  フーリエ変換のグラフをプロットする例だ。
+  IPython が環境になくても、コードの動作確認は工夫次第で可能だ。
+  例えば次のように IDL 上で入力していけばよい。
 
   .. code-block:: pycon
 
@@ -117,7 +119,13 @@ Getting Started
      >> plt.plot(np.abs(b))
      [<matplotlib.lines.Line2D instance at 0xb7b9144c>]
      >> plt.show()
-     ウィンドウが表示される
+     ウィンドウが表示される。
+
+     x 軸が [0, 1000] まで表示されていて、山がちょうど両端に位置している。
+     x = 500 で切って左右の曲線を入れ替えて、x = 0 まで平行移動させれば、
+     美しい絵が得られる。
+     
+     以下、plot の引数を微調整することを試みる。
    
      >> help(np.concatenate)
      説明文がダラダラ出力される
@@ -129,7 +137,7 @@ Getting Started
      >> plt.show()
      ウィンドウが表示される
 
-  タイプ量を削減できる ipython を導入したほうが便利であることは想像に難くない……。
+  タイプ量を削減できる IPython を導入したほうが便利であることは想像に難くない。
 
 * 最後に ``import`` 文のコツについて説明している。
   内容は SciPy に限らず、他の Python パッケージ利用時についても言えることだ。
