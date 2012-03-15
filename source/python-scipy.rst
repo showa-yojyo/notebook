@@ -2,6 +2,8 @@
 Python SciPy 利用ノート
 ======================================================================
 
+.. contents:: ノート目次
+
 .. note::
 
    本稿において、利用した各パッケージのバージョンは次のとおり。
@@ -11,13 +13,28 @@ Python SciPy 利用ノート
    * NumPy_: 1.6.1
    * Nose_: 1.1.2
 
-.. contents:: ノート目次
+.. note::
+
+   SciPy Reference Guide に倣い、以降のコード片においては、
+   あらかじめ各種 ``import`` を次のようにしたものとする。
+   
+   .. code-block:: python
+   
+      import numpy as np
+      import scipy as sp
+      import matplotlib as mpl
+      import matplotlib.pyplot as plt
 
 関連リンク
 ======================================================================
 SciPy_
   SciPy 総本山ウェブサイト。
   ドキュメント、ダウンロード、コードレシピ等。
+
+関連ノート
+======================================================================
+* :doc:`python-numpy`
+* :doc:`python-matplotlib`
 
 インストール
 ======================================================================
@@ -66,7 +83,56 @@ SciPy_ サイト内のリンクを辿っていき、次のように攻略する�
 
 Getting Started
 ----------------------------------------------------------------------
-TBW
+.. http://www.scipy.org/Getting_Started
+
+* <accessing numpy arrays is faster than accessing Python lists>
+* ``range`` と ``np.arange`` ならば、後者のほうが圧倒的に速い。
+* <Using ipython makes interactive work easy>
+* <Neither scipy nor numpy provide, by default, plotting functions.
+  They are just numerical tools. The recommended plotting package is matplotlib>
+
+* 次のドキュメントがおすすめらしい。
+
+  * http://www.scipy.org/Additional_Documentation/Astronomy_Tutorial
+
+    リンクの PDF ファイル "Using Python for Interactive Data Analysis"
+    (by Perry Greenfield and Robert Jedrzejewski)
+    が言わば教科書になっている。SciPy の使い方を説明することが目的の文書ではない。
+    もっと包括的な内容の本だ。
+
+  * http://www.rexx.com/~dkuhlman/scipy_course_01.html:
+    "SciPy Course Outline" (by Dave Kuhlman)
+
+    これは NumPy, SciPy の利用法の概要を説明したテキストだ。
+    PyTables と Matplotlib についても説明がある。
+
+* An Example Session 以降、ipython を使いながらの説明となる。
+  仮に ipython が環境になくても、コードの動作確認は工夫次第で可能だ。
+
+  .. code-block:: pycon
+
+     >> a = np.zeros(1000)
+     >> a[:100] = 1
+     >> b = sp.fft(a)
+     >> plt.plot(np.abs(b))
+     [<matplotlib.lines.Line2D instance at 0xb7b9144c>]
+     >> plt.show()
+     ウィンドウが表示される
+   
+     >> help(np.concatenate)
+     説明文がダラダラ出力される
+   
+     >> f = np.arange(-500, 500, 1)
+     >> plt.grid(True)
+     >> plt.plot(f,abs(concatenate((b[500:],b[:500]))))
+     [<matplotlib.lines.Line2D instance at 0xb360ca4c>]
+     >> plt.show()
+     ウィンドウが表示される
+
+  タイプ量を削減できる ipython を導入したほうが便利であることは想像に難くない……。
+
+* 最後に ``import`` 文のコツについて説明している。
+  内容は SciPy に限らず、他の Python パッケージ利用時についても言えることだ。
 
 Cookbook
 ----------------------------------------------------------------------
@@ -82,16 +148,6 @@ TBW
 .. warning::
 
    以下のテキストは全てがスタブだ。
-
-SciPy Reference Guide に倣い、以降のコード片においては、
-あらかじめ各種 ``import`` を次のようにしたものとする。
-
-.. code-block:: python
-
-   import numpy as np
-   import scipy as sp
-   import matplotlib as mpl
-   import matplotlib.pyplot as plt
 
 ヘルプ
 ------
