@@ -109,7 +109,7 @@ Getting Started
 * An Example Session 以降、IPython を使いながらの説明となる。
   フーリエ変換のグラフをプロットする例だ。
   IPython が環境になくても、コードの動作確認は工夫次第で可能だ。
-  例えば次のように IDL 上で入力していけばよい。
+  例えば次のように IDLE 上で入力していけばよい。
 
   .. code-block:: pycon
 
@@ -144,11 +144,44 @@ Getting Started
 
 Cookbook
 ----------------------------------------------------------------------
-TBW
+.. http://www.scipy.org/Cookbook
+
+まずは "NumPy / SciPy" を見ていく。
+
+* BuildingArrays は NumPy の基本中の基本である array インスタンスの
+  作り方について説明している。コードを一通り手で打って実行して結果を見るべし。
+
+  * ``dtype`` の結果が異なるかもしれない。
+  * bool-array で array の要素群にアクセスできるのは初耳。
+  * 多次元スライスに早く慣れること。
+  * ``linspace``, ``mgrid``, ``ogrid``, ``zeros``, ``ones`` が便利なことがある。
+  * 組み込み関数 ``reduce`` を利用した ``mdot`` の実装例。
+
+* Rank and nullspace: 行列の階数を二種類のトレランスを指定して計算する例。
+* Interpolation: 指定点列を通過するスプライン曲線を得る例と、
+  フィッティングの例を説明。
+
+* Optimization は専門外なのでわからない。
+* Linear Regression: ``scipy.stats.linregress``
+* A coupled spring-mass system: 微分方程式を解く例に、
+  ばねと重りのペア 2 つを摩擦のある床の上に置いて引っ張る状況を出している。
+
+* Intersection of functions: ``scipy.optimize.fsolve`` で 2 曲線の交点が求められる。
+* KDTree: ``scipy.spatial.kdtree.KDTree`` TODO: あとで試す。
+
+Graphics は何か色々あるが、Matplotlib と PIL の ``Image`` データ作成方法しか用がない。
+
+あとは SWIG 関連か。
 
 SciPy Reference Guide
 ----------------------------------------------------------------------
-TBW
+.. http://docs.scipy.org/doc/scipy-0.10.1/reference/
+
+このガイドブックのチュートリアルこそが言わば公式チュートリアル。
+SciPy の機能を厳選して構成されたと思われるので、一通り読んでみたくなる。
+しかし、各章かなりの分量がある。
+テキストおよび画像がふんだんにあり、重い。
+自分の興味のあるトピックに絞ってまずは学習を進めたい。
 
 コードを書く
 ======================================================================
