@@ -2,6 +2,9 @@
 Python SciPy 利用ノート
 ======================================================================
 
+特に目的も定めずに SciPy_ を利用してみよう。
+何か便利なものが見つかるかもしれない。
+
 .. contents:: ノート目次
 
 .. note::
@@ -11,6 +14,7 @@ Python SciPy 利用ノート
    * Python_: 2.6.6
    * SciPy_: 0.10.1
    * NumPy_: 1.6.1
+   * Matplotlib_: 1.1.0
    * Nose_: 1.1.2
 
 .. note::
@@ -45,6 +49,9 @@ SciPy_
   fast N-dimensional array manipulation> (SciPy.org) とあるので、
   本ノートではあらかじめ NumPy_ をインストールしてあることを前提とする。
 
+* 各種計算結果の出力（表示）に Matplotlib_ を多用しているので、
+  そちらもインストール済みであるとする。
+
 * SciPy_ は単体テストに Nose_ を利用している。
   NumPy_ インストール時に併せてインストールしてあるハズ。
 
@@ -75,6 +82,10 @@ SciPy_
      FAILED (KNOWNFAIL=12, SKIP=36, failures=2)
      <nose.result.TextTestResult run=5113 errors=0 failures=2>
 
+.. warning::
+
+   SciPy のインストールだけが目的ならば、ここから先はもう読まなくてよい。
+
 ドキュメントを読む
 ======================================================================
 SciPy_ サイト内のリンクを辿っていき、次のように攻略する予定。
@@ -104,7 +115,7 @@ Getting Started
     "SciPy Course Outline" (by Dave Kuhlman)
 
     これは NumPy, SciPy の利用法の概要を説明したテキストだ。
-    PyTables と Matplotlib についても説明がある。
+    PyTables と Matplotlib_ についても説明がある。
 
 * An Example Session 以降、IPython を使いながらの説明となる。
   フーリエ変換のグラフをプロットする例だ。
@@ -169,7 +180,8 @@ Cookbook
 * Intersection of functions: ``scipy.optimize.fsolve`` で 2 曲線の交点が求められる。
 * KDTree: ``scipy.spatial.kdtree.KDTree`` TODO: あとで試す。
 
-Graphics は何か色々あるが、Matplotlib と PIL の ``Image`` データ作成方法しか用がない。
+Graphics は何か色々あるが、
+Matplotlib_ と PIL の ``Image`` データ作成方法しか用がない。
 
 あとは SWIG 関連か。
 
@@ -203,5 +215,6 @@ SciPy のバージョンを知る
 .. _Python: http://www.python.org/
 .. _Numpy: http://scipy.org/NumPy/
 .. _SciPy: http://www.scipy.org/
+.. _Matplotlib: http://matplotlib.sourceforge.net/
 .. _Nose: http://somethingaboutorange.com/mrl/projects/nose/
 
