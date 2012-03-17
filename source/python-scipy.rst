@@ -296,10 +296,6 @@ Python コードの内部に C/C++ のコードを含めるためのパッケー
 コードを書く
 ======================================================================
 
-.. warning::
-
-   以下のテキストは全てがスタブだ。
-
 ヘルプ
 ----------------------------------------------------------------------
 
@@ -316,7 +312,54 @@ Python 組み込みの関数 ``help`` よりも、
 キーワード引数 ``maxwidth`` で一行の文字数を制限することができる
 ``scipy.info`` のほうが見やすい可能性がある。
 
+定義済み定数を利用する
+----------------------------------------------------------------------
+Python なので「定数」ではないのだが、
+色々便利なものが ``scipy.constances`` にある。
 
+* 円周率、黄金比、真空中の光速、プランク定数、地球の重力加速度、等々。
+* SI 基本単位
+* SI 接頭辞（キロ、メガ等）
+
+便利なのでリンクをはっておく。
+http://docs.scipy.org/doc/scipy-0.10.1/reference/constants.html
+
+KDTree を使う
+----------------------------------------------------------------------
+空間上のある点とある点群に対して、最も近い距離にあるものを探索するには
+``scipy.spatial.KDTree`` を利用するのがよい。
+
+Reference Guide の例を一部改変したものを記す。
+ある点とある点群をそれぞれ ``target``, ``points`` としてある。
+
+.. code-block:: python
+
+   import numpy as np
+   from scipy.spatial import KDTree
+   
+   # 3D points: (0, 0, 0), (0, 0, 10), (0, 0, 20), ...
+   x, y, z = np.mgrid[0:100:10, 0:100:10, 0:100:10]
+   points = zip(x.ravel(), y.ravel(), z.ravel())
+   
+   # Construct a KDTree.
+   tree = KDTree(points)
+   
+   # A target point included in [0, 100) * [0, 100) * [0, 100).
+   target = np.random.random_sample(3) * 100.
+   print "Target: ", target
+   
+   # Query for the closest point.
+   dist, index = tree.query(target, eps=0.01)
+   print "Closest: ", tree.data[index]
+   print "Distance: ", dist
+
+実行結果。乱数を使っているので、結果は毎回異なる。
+
+.. code-block:: text
+
+   Target:  [ 43.83186046  54.76244808  83.13057483]
+   Closest:  [40 50 80]
+   Distance:  6.8676462584
 
 .. _Python: http://www.python.org/
 .. _Numpy: http://scipy.org/NumPy/
