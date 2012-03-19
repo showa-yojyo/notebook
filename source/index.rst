@@ -29,6 +29,7 @@ Contents:
    python-nose
    python-numpy
    python-scipy
+   python-apgl
    python-pil
    python-matplotlib
    python-jinja2
