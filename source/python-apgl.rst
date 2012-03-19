@@ -1,5 +1,5 @@
 ======================================================================
-Another Python Graph Library (apgl) 利用ノート
+Another Python Graph Library (APGL) 利用ノート
 ======================================================================
 
 .. contents:: ノート目次
@@ -10,13 +10,13 @@ Another Python Graph Library (apgl) 利用ノート
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
      * Python_: 2.6.6
-     * apgl_: 0.6.10
+     * APGL_: 0.6.10
      * NumPy_: 1.6.1
      * SciPy_: 0.10.1
 
 関連リンク
 ======================================================================
-`Another Python Graph Library`_ (apgl)
+`Another Python Graph Library`_ (APGL)
   パッケージ配布元。
 
 関連ノート
@@ -26,13 +26,13 @@ Another Python Graph Library (apgl) 利用ノート
 
 インストール
 ======================================================================
-自分の Python_ 環境 (Windows XP) に SciPy_ をインストールする方法を記す。
-apgl の単体テストが走るところまで確認できたら、インストール成功とみなす。
+自分の Python_ 環境 (Windows XP) に APGL_ をインストールする方法を記す。
+単体テストが走るところまで確認できたら、インストール成功とみなす。
 
 * NumPy_ と SciPy_ で実装されているパッケージなので、これらを先にインストールしてあることを前提とする。
   関連ノート参照。
 
-* apgl はその他に pysparse_ というパッケージを利用する。
+* APGL はその他に pysparse_ というパッケージを利用する。
   ほとんどのグラフを表現するためには疎行列が欠かせないのだが、
   SciPy_ が提供する疎行列の他に、pysparse のそれを利用するようだ。
   必須ではないらしいが、あっても困らないので併せてインストールする。
@@ -104,7 +104,7 @@ apgl のテストを起動する。
 
 ドキュメント
 ======================================================================
-apgl_ のウェブページに "An Introduction to APGL" という PDF ファイルへのリンクがある。
+APGL_ のウェブページに "An Introduction to APGL" という PDF ファイルへのリンクがある。
 これを読むことで、グラフのごく基礎的な利用法を習得できる。
 
 TBW
@@ -122,7 +122,7 @@ TBW
 .. _easy_install: http://peak.telecommunity.com/DevCenter/EasyInstall
 .. _pip: http://pypi.python.org/pypi/pip
 .. _`Another Python Graph Library`: http://packages.python.org/apgl/
-.. _apgl: http://packages.python.org/apgl/
+.. _APGL: http://packages.python.org/apgl/
 .. _Numpy: http://scipy.org/NumPy/
 .. _SciPy: http://www.scipy.org/
 
