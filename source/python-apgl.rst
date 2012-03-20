@@ -54,6 +54,8 @@ apgl
 
 インストール処理終了後、Python で公式ドキュメントにあるように
 apgl のテストを起動する。
+<The automatic testing routine requires Python 2.7 or later,
+or the unittest2 testing framework for Python 2.3-2.6> (p. 2)
 
 .. code-block:: pycon
 
@@ -107,7 +109,72 @@ apgl のテストを起動する。
 APGL_ のウェブページに "An Introduction to APGL" という PDF ファイルへのリンクがある。
 これを読むことで、グラフのごく基礎的な利用法を習得できる。
 
-TBW
+* <adjacency matrices> (p. 1)
+* <The current graph types in APGL are ``SparseGraph``, ``DenseGraph``
+  and ``PySparseGraph`` which use *adjacency* or *weight matrices* as
+  the underlying data structure> (p. 2)
+* ``DictGraph`` は weight matrices を用いない。
+* 行列の ij 成分が 1 ならば、グラフの頂点 i-j 間にエッジがあることを表現する。
+* weight matrix は一般に実数を成分に取る。
+* undirect graph と direct graph の違いは ij と ji の違い。
+
+* グラフ
+
+  .. csv-table::
+     :header: "グラフクラス","格納","コメント"
+
+     ``DenseGraph``,``numpy.ndarray``,
+     ``SparseGraph``,``scipy.sparse``,efficient for the storage of large graphs without many edges
+     ``PySparseGraph``,``Pysparse``,written in C and hence may be faster
+
+* グラフ頂点にはラベルが付けられる。
+
+  * ``VertexList``: 各頂点に ``numpy.ndarray`` 型の値をラベルとして付ける。
+  * ``GeneralVertexList``: 各頂点に任意のラベルを付けられる。
+
+* ``SparseGraph`` はデフォルトで無向グラフとなる。
+  有向グラフにしたい場合は、コンストラクターのキーワード引数
+  ``undirected`` に ``False`` を指定する。
+
+* ``SparseGraph`` はデフォルトで SciPy の ``csr_matrix`` で構築される。
+  これは何かというと、rows に対するアクセスが速い行列だ。
+  
+  * デフォルトの行列型を使いたくない場合は、
+    グラフコンストラクターのキーワード引数 ``W`` に
+    呼び出し側が用意した別の行列インスタンスを渡すことになる。
+    
+    ``csr_matrix`` よりは ``lil_matrix`` がよいようだ？
+
+* 隣接頂点列を得るには、グラフメソッド ``neighbours`` を呼ぶ。
+
+* グラフの最短経路
+
+  * Floyd-Warshall アルゴリズムは行列の最短経路 P を計算する方法だ。
+    これは計算コストがグラフサイズ n について O(n**3) という、たいへん重いものだ。
+
+  * Dijkstra のアルゴリズムに基づいたグラフメソッド ``findAllDistances`` も利用可。
+
+  * 最短経路は一度計算しておけば、二度使える（つまり何度でも使える）。
+
+* グラフに関する集合演算がサポートされている。
+  メソッド名だけノートしておくと ``union``, ``intersect``, ``setDiff``,
+  ``complement``, ``subgraph``
+
+* グラフのファイル I/O は CSV ベースのショボイものがあるだけか？
+* NetworkX, iGraph は知らないのでパス。
+* ``DictGraph`` は ``addEdge("a", "b")`` のような操作ができる。
+  一見便利だが、エッジに weight を指定することができないようだ。
+
+* ランダムグラフ生成
+
+  * ``BarabasiAlbertGenerator``
+  * ``ConfigModelGenerator``
+  * ``EdrosRenyiGenerator``: デモコードあり。
+    ``numpy.random`` モジュールを利用している。
+    従って、同じシード (``numpy.random.seed``) 値を使えば、
+    いつでも同一のグラフを得ることになる。
+  * ``KroneckerGenerator``
+  * ``SmallWorldGenerator``
 
 利用例
 ======================================================================
@@ -115,7 +182,9 @@ TBW
 
 不明点
 ======================================================================
-TBW
+* Graph Properties は勉強しないとわからない。
+* エッジに weight 以外のラベルを付けることができるか？
+
 
 .. _Python: http://www.python.org/
 .. _Python Extension Packages for Windows - Christoph Gohlke: http://www.lfd.uci.edu/~gohlke/pythonlibs/
