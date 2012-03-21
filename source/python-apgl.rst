@@ -178,12 +178,62 @@ APGL_ のウェブページに "An Introduction to APGL" という PDF ファイ
 
 利用例
 ======================================================================
-TBW
+
+findAllDistances
+----------------------------------------------------------------------
+
+グラフのインスタンスメソッド ``findAllDistances`` を使ってみる。
+前述のとおり、内部で Dijkstra アルゴリズムを適用している。
+
+これは各エッジの重みを、そのエッジの長さとみなした
+グラフを構成するすべての頂点ペア最短経路における総距離を一発で計算するものだ。
+
+.. code-block:: python
+
+   from apgl.graph.SparseGraph import SparseGraph
+   from apgl.graph.GeneralVertexList import GeneralVertexList
+   
+   # Make a graph.
+   numVertices = 6
+   vlist = GeneralVertexList(numVertices)
+   graph = SparseGraph(vlist, undirected=True)
+
+   graph[0, 1] = 10.0
+   graph[0, 2] = 14.0
+   graph[0, 3] = 12.0
+   graph[1, 2] = 8.0
+   graph[1, 4] = 19.0
+   graph[2, 3] = 7.0
+   graph[2, 5] = 22.0
+   graph[3, 5] = 21.0
+   graph[4, 5] = 11.0
+   
+   # Compute the shortest paths with Dijkstra's algorithm.
+   dists = graph.findAllDistances(True)
+   print(dists)
+
+実行結果はこういう感じになる。
+行列 ``dists`` の ij 成分が、頂点 i と頂点 j を結ぶ最短経路のエッジウェイトの総和になっている。
+無向グラフの経路は ``dists[i, j] == dists[j, i]`` となる。
+
+.. code-block:: text
+
+   [[  0.  10.  14.  12.  29.  33.]
+    [ 10.   0.   8.  15.  19.  30.]
+    [ 14.   8.   0.   7.  27.  22.]
+    [ 12.  15.   7.   0.  32.  21.]
+    [ 29.  19.  27.  32.   0.  11.]
+    [ 33.  30.  22.  21.  11.   0.]]
+
+また、この例でのグラフは孤立した頂点はないが、
+一般的には接続の切れているような頂点ペアに関しては、
+計算不能を示す値が来るということを記しておく。
 
 不明点
 ======================================================================
 * Graph Properties は勉強しないとわからない。
 * エッジに weight 以外のラベルを付けることができるか？
+* 最短経路の総距離は求められるのに、頂点順序は求められない？
 
 
 .. _Python: http://www.python.org/
