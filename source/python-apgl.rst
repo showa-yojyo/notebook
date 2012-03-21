@@ -188,6 +188,11 @@ findAllDistances
 これは各エッジの重みを、そのエッジの長さとみなした
 グラフを構成するすべての頂点ペア最短経路における総距離を一発で計算するものだ。
 
+.. image:: /_static/apgl-findall.png
+   :scale: 100%
+
+イラストのグラフの最短経路を計算するコードは次のとおり。
+
 .. code-block:: python
 
    from apgl.graph.SparseGraph import SparseGraph
