@@ -2,14 +2,23 @@
 Python Twitter Tools 利用ノート
 ======================================================================
 
+.. contents:: ノート目次
+
 .. note::
 
-   本稿において、利用した各パッケージのバージョンは次のとおり。
+   * OS: Windows XP Home Edition SP 3
+   * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-   * Python_: 2.6.6
-   * `Python Twitter Tools`_: 1.7.2
+     * Python_: 2.6.6
+     * `Python Twitter Tools`_: 1.7.2
 
-.. contents:: ノート目次
+関連リンク
+======================================================================
+`Python Twitter Tools`_
+  著者ウェブページ。開発ページは別にある。
+
+`REST API Resources`_
+  Twitter 本家ドキュメント。
 
 パッケージ概要
 ======================================================================
@@ -375,11 +384,6 @@ GET saved_searches/create
 
 * Comment 3: 検索パターンの登録に失敗すると、例外が発生する。
   大抵の場合、上述の上限値超過だろう。
-
-関連ドキュメント
-======================================================================
-* `Python Twitter Tools`_: 著者ウェブページ。開発ページは別にある。
-* `REST API Resources`_: Twitter 本家ドキュメント。
 
 .. _Python: http://www.python.org/
 .. _Python Twitter Tools: http://mike.verdone.ca/twitter/

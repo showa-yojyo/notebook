@@ -1,16 +1,25 @@
 ======================================================================
-Python PIL 利用ノート
+Python Imaging Library (PIL) 利用ノート
 ======================================================================
+
+.. contents:: ノート目次
 
 .. note::
 
    * 体系的にまとめるまでの間は Q & A 形式でノートしておく。
+   * OS: Windows XP Home Edition SP 3
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
      * Python_: 2.6.6
      * PIL_: 1.1.6, 1.1.7 (both official and unofficial builds)
 
-.. contents:: ノート目次
+関連リンク
+======================================================================
+PIL_
+  公式パッケージ・インストーラー配布元。
+
+`Python Extension Packages for Windows - Christoph Gohlke`_
+  非公式インストーラー配布元。
 
 PIL 自身
 ==================================================
@@ -379,11 +388,6 @@ ImageMagick の ``convert`` とよく似たツールだ。
 
 対話モードから抜けるコマンドがあるわけではないようなので、
 ``Ctrl-C`` で終了してしまおう。
-
-関連リンク
-==================================================
-* PIL_: Python Imaging Library (PIL) 公式ウェブサイト。
-* `Python Extension Packages for Windows - Christoph Gohlke`_: 非公式インストーラー配布ページ。
 
 .. _Python: http://www.python.org/
 .. _PIL: http://www.pythonware.com/products/pil
