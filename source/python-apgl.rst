@@ -234,6 +234,16 @@ findAllDistances
 一般的には接続の切れているような頂点ペアに関しては、
 計算不能を示す値が来るということを記しておく。
 
+PySparseGraph
+----------------------------------------------------------------------
+
+:file:`PySparseGraph` の冒頭のインポートがおかしいので、自分で修正する。
+
+.. code-block:: python
+
+   #from pysparse.sparse.pysparseMatrix import PysparseMatrix
+   from pysparse.pysparseMatrix import PysparseMatrix
+
 不明点
 ======================================================================
 * Graph Properties は勉強しないとわからない。
