@@ -35,6 +35,7 @@ Contents:
    python-jinja2
    python-pygments
    python-twitter-tools
+   python-pyopengl
 
    milestone09
    twitter
