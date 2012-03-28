@@ -198,6 +198,57 @@ PIL では Photoshop で言うところのチャンネルのことをバンド�
 .. image:: /_static/illvelo-blueback.png
    :scale: 50%
 
+グラデーション
+==================================================
+
+線形グラデーションを実現するには？
+--------------------------------------------------
+幅 1 ピクセルのイメージを作成し、ピクセルカラーをその位置に応じてセットしていく。
+これには ``putpixel`` メソッドを利用する。
+それを目的イメージのサイズに拡縮すればよい。
+
+次に示すコードは、サイズが 320 x 240 で、
+上部が赤で下部が青の線形グラデーションとなるイメージを作成する。
+
+.. code-block:: python
+
+   import Image, ImageColor
+   import numpy as np
+
+   img = Image.new('RGB', (1, 0x100))
+
+   color0 = np.array(ImageColor.getrgb('red'))
+   colorn = np.array(ImageColor.getrgb('blue'))
+
+   for y in xrange(0x100):
+       color = (color0 * (0x100 - y) + colorn * y) / 0x100
+       img.putpixel((0, y), tuple(color.tolist()))
+
+   img = img.resize((320, 240))
+   #img.save('gradient.png')
+
+Numpy を使っているが、単に線形補間を書く手間を若干軽減したいために過ぎない。
+
+透過線形グラデーションを実現するには？
+--------------------------------------------------
+イメージをふたつ利用する。ひとつは RGBA だが、もうひとつはグレースケールでよい。
+後者を前者に ``putalpha`` することで透明色になる。
+
+次に示すコードは、サイズが 320 x 240 で、
+上部が赤で、下部に至るにつれて透過していく線形グラデーションイメージを作成する。
+
+.. code-block:: python
+
+   import Image
+   img = Image.new('RGBA', (320, 240), 'red')
+   gradient = Image.new('L', (1, 0x100))
+
+   for y in xrange(0x100):
+       gradient.putpixel((0, 0x100 - y), y)
+
+   img.putalpha(gradient.resize(img.size))
+   #img.save('gradient.png')
+
 テキスト関連
 ==================================================
 
