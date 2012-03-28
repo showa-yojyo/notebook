@@ -249,6 +249,24 @@ Numpy を使っているが、単に線形補間を書く手間を若干軽減�
    img.putalpha(gradient.resize(img.size))
    #img.save('gradient.png')
 
+RGBA イメージに透過線形グラデーションを施すには？
+--------------------------------------------------
+イメージを 3 枚利用すれば可能。先程の手順の応用だ。
+
+.. code-block:: python
+
+   # img := RGBA モードの元画像。これを「透明化」したい。
+   # gradient := 前項参照。
+
+   final = Image.new('RGBA', img.size, (0, 0, 0, 0))
+   final.paste(img, None, mask=gradient.resize(img.size))
+   #final.save('illvelo-gradient.png')
+
+.. image:: /_static/illvelo.png
+   :scale: 50%
+.. image:: /_static/illvelo-gradient.png
+   :scale: 50%
+
 テキスト関連
 ==================================================
 
