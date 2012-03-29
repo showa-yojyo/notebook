@@ -105,7 +105,68 @@ GLUT ベースのスケルトンを自作しておく
 
 PNG ファイルからテクスチャーを生成する
 ----------------------------------------------------------------------
-TBW
+ポイントは PIL の ``Image`` インスタンスの ``tostring`` 戻り値を ``glTexImage2D`` に渡すことだ。
+ここではアルファチャンネルを含む PNG ファイルからテクスチャーデータを作成する例を示す。
+
+まずはテクスチャー設定から。
+
+.. code-block:: python
+
+   def init():
+      glClearColor(1., 1., 1., 1.)
+      glEnable(GL_DEPTH_TEST)
+      glEnable(GL_TEXTURE_2D)
+
+      # Comment 1
+      img = Image.open('illvelo.png').resize((256, 256))
+      assert img.mode == 'RGBA'
+
+      # Comment 2
+      glTexImage2D(GL_TEXTURE_2D, 0, 4, img.size[0], img.size[1], 0, GL_RGBA, GL_UNSIGNED_BYTE, img.tostring())
+      glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT)
+      glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT)
+      glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
+      glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
+      glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL)
+
+Comment 1
+  :doc:`python-pil` で利用した PNG ファイルからテクスチャーを作成している。
+  ファイルのピクセルサイズがやや中途半端なので、決め打ちだが 256 ピクセル四方にリサイズする。
+
+Comment 2
+  ``glTexImage2D`` 呼び出しにより、テクスチャーデータを OpenGL に渡している。
+  後半の実引数群に注目したい。
+  
+  残りの関数呼び出しは、アプリケーションの目的に応じてパラメーターを指定すること。
+
+次に描画ロジックを示す。明らかに手抜きコードだが、説明にはこれで十分だろう。
+これを ``display`` の主要部分に加える。
+
+.. code-block:: python
+
+   vx, vy = 20.0, 20.0
+   tx, ty = 4.0, 4.0
+
+   glBegin(GL_POLYGON)
+   glColor3f(0, 0, 0)
+   glTexCoord2d(-tx, -ty)
+   glVertex3f(-vx, -vy, 0.0)
+
+   glTexCoord2d(tx, -ty)
+   glVertex3f(vx, -vy, 0.0)
+
+   glTexCoord2d(tx, ty)
+   glColor3f(1, 1, 1)
+   glVertex3f(vx, vy, 0.0)
+
+   glTexCoord2d(-tx, ty)
+   glVertex3f(-vx, vy, 0.0)
+   glEnd()
+
+実行すると以下のようなイメージ (320x240) を得るだろう。
+
+.. image:: /_static/illvelo-texture.png
+   :scale: 50%
 
 日本語テキストを描画する
 ----------------------------------------------------------------------
