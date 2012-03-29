@@ -146,6 +146,14 @@ Comment 2
 
    vx, vy = 20.0, 20.0
    tx, ty = 4.0, 4.0
+   
+   # ...
+
+   gluLookAt(4, 4, 4,
+             0, 0, 0,
+             0, 0, 1)
+
+   # ...
 
    glBegin(GL_POLYGON)
    glColor3f(0, 0, 0)
