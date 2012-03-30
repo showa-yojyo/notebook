@@ -181,8 +181,88 @@ Comment 2
 PIL のテキスト描画機能と PyOpenGL のテクスチャー機能を活用したプログラム例。
 要所のみを説明する。
 
-TBW
+.. code-block:: python
 
+   def drawtext(text, initsize=256, point=144, margin = 4):
+       # 大きめのキャンヴァスを用意しておく。
+       img = Image.new('RGBA', (initsize, initsize), (0, 0, 0, 0))
+       dr = ImageDraw.Draw(img)
+
+       fnt = ImageFont.truetype('hgrme.ttc', point)
+       ext = dr.textsize(text, font=fnt)
+       dr.text((margin, margin), text, font=fnt, fill='white')
+       img = img.crop((margin, margin, ext[0]+margin, ext[1]+margin))
+
+       # TODO: img.size の各成分に最も近い最小の 2 のべき乗の値を使う。
+       img = img.resize((initsize, initsize), Image.ANTIALIAS)
+
+       return img
+
+``init`` のテクスチャー初期化コードに以下を含める。
+
+.. code-block:: python
+
+   img = drawtext(u'潔')
+
+   # 残りは前項を参照。
+
+``display`` 関連は前項を参照に適宜パラメーターを調整。
+
+.. code-block:: python
+
+   vx, vy = 15.0, 15.0
+   tx, ty = 5.0, 5.0
+   
+   vertices = (
+       -vx, -vy, 0.0,
+        vx, -vy, 0.0,
+        vx, vy, 0.0,
+       -vx, vy, 0.0)
+   
+   texcoords = (
+       0, ty,
+       tx, ty,
+       tx, 0,
+       0, 0)
+   
+   colors = (
+       1, 1, 1, 1.0,
+       1, 1, 1, 1.0,
+       0, 0, 0, 0.75,
+       0, 0, 0, 0.75)
+
+   def display():
+       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+
+       glMatrixMode(GL_MODELVIEW)
+       glPushMatrix()
+       glLoadIdentity()
+
+       gluLookAt(0.5, -1.0, 1.58,
+                 0.5, 10.0, 1.5,
+                 0, 0, 1)
+
+       glPushAttrib(GL_CURRENT_BIT)
+       glPushClientAttrib(GL_CLIENT_VERTEX_ARRAY_BIT)
+
+       glEnableClientState(GL_VERTEX_ARRAY)
+       glEnableClientState(GL_TEXTURE_COORD_ARRAY)
+       glEnableClientState(GL_COLOR_ARRAY)
+       glVertexPointer(3, GL_FLOAT, 0, vertices)
+       glTexCoordPointer(2, GL_FLOAT, 0, texcoords)
+       glColorPointer(4, GL_FLOAT, 0, colors)
+       glDrawArrays(GL_QUADS, 0, 4)
+
+       glPopClientAttrib()
+       glPopAttrib()
+       glPopMatrix()
+
+       glutSwapBuffers()
+
+実行結果のスクリーンショットは次のようなものになる。
+
+.. image:: /_static/pyopengl-text.png
+   :scale: 50%
 
 
 .. _Python: http://www.python.org/
