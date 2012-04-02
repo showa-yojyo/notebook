@@ -103,6 +103,41 @@ GLUT ベースのスケルトンを自作しておく
 仮に実行すると、黒い画面に赤い三角形が描画されているのが確認できるはずだ。
 以降の各デモコードでは、このスケルトンの差分部分・修正部分を記述する。
 
+C 言語で配列に相当する型の実引数を与える
+----------------------------------------------------------------------
+* 何度も言うが型を示すサフィックスが省略できる。
+  例えば ``glLightfv`` ではなく ``glLight`` でよい。
+
+* 値の与え方もかなり柔軟になっている。
+  ``list``, ``tuple``, ``numpy.ndarray``, etc. を直接与えることが許される。
+
+.. code-block:: python
+
+   from OpenGL.GL import *
+   from OpenGL.GLU import *
+   from OpenGL.GLUT import *
+   import numpy as np
+
+   SPECULAR_VALUE = np.ones(4)
+   DIFFUSE_VALUE = SPECULAR_VALUE * .9
+   DIFFUSE_VALUE[3] = 1.0
+   AMBIENT_VALUE = SPECULAR_VALUE * .1
+   AMBIENT_VALUE[3] = 1.0
+
+   def init_lighting():
+       glEnable(GL_LIGHTING)
+       glEnable(GL_LIGHT0)
+       glLight(GL_LIGHT0, GL_POSITION, (0.0, 0.0, 1.0, 0.0))
+       glLight(GL_LIGHT0, GL_AMBIENT, AMBIENT_VALUE)
+       glLight(GL_LIGHT0, GL_DIFFUSE, DIFFUSE_VALUE)
+       glLight(GL_LIGHT0, GL_SPECULAR, SPECULAR_VALUE)
+
+       glEnable(GL_COLOR_MATERIAL)
+       glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE)
+
+       glMaterial(GL_FRONT_AND_BACK, GL_SPECULAR, SPECULAR_VALUE)
+       glMaterial(GL_FRONT_AND_BACK, GL_EMISSION, (0.0, 0.0, 0.0, 1.0))
+
 PNG ファイルからテクスチャーを生成する
 ----------------------------------------------------------------------
 ポイントは PIL の ``Image`` インスタンスの ``tostring`` 戻り値を ``glTexImage2D`` に渡すことだ。
