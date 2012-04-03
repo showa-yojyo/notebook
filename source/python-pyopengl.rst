@@ -299,6 +299,25 @@ PIL のテキスト描画機能と PyOpenGL のテクスチャー機能を活用
 .. image:: /_static/pyopengl-text.png
    :scale: 50%
 
+PIL + glReadPixels によるスクリーンショット取得
+----------------------------------------------------------------------
+
+.. code-block:: python
+
+   def capture_screen():
+      sx = glutGet(GLUT_WINDOW_WIDTH)
+      sy = glutGet(GLUT_WINDOW_HEIGHT)
+
+      pixels = glReadPixels(0, 0, sx, sy, GL_RGBA, GL_UNSIGNED_BYTE)
+      img = Image.fromstring("RGBA", (sx, sy), pixels)
+      img = img.transpose(Image.FLIP_TOP_BOTTOM)
+
+      filename = raw_input('filename: ')
+      img.save(filename)
+      print >>sys.stderr, '%s saved' % filename
+
+この関数をキーボードイベントコールバックあたりから呼び出すようにしておくと便利。
+
 
 .. _Python: http://www.python.org/
 .. _PyOpenGL: http://pyopengl.sourceforge.net
