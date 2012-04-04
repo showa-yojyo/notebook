@@ -318,6 +318,52 @@ PIL + glReadPixels によるスクリーンショット取得
 
 この関数をキーボードイベントコールバックあたりから呼び出すようにしておくと便利。
 
+その他メモ
+======================================================================
+
+* PyOpenGL-accelerate を easy_install or pip でインストールするには MSVC9 環境が必須。
+  素直に PyPI のサイトから msi インストーラーをダウンロードしてインストールするのがよい。
+
+  http://pypi.python.org/pypi/PyOpenGL-accelerate
+
+  * インストール後、任意の自作 PyOpenGL スクリプトを起動すると次のような警告がコンソールウィンドウに現れるかもしれない。
+  
+    .. code-block:: console
+
+       D:\Python26\lib\site-packages\pyopengl-3.0.2a5-py2.6.egg\OpenGL\arrays\numpymodule.py:26: RuntimeWarning: 
+       numpy.dtype size changed, may indicate binary incompatibility
+       from OpenGL_accelerate.numpy_formathandler import NumpyHandler
+
+    その場合の対策をどうするか。
+
+* PyOpenGL-context (http://pyopengl.sourceforge.net/context/)
+  をやろうと思っているが、PC が古いせいかチュートリアルのコードが走らない。
+
+  .. code-block:: console
+
+     Traceback (most recent call last):
+       File "firststep.py", line 65, in <module>
+         TestContext.ContextMainLoop()
+       File "D:\Python26\lib\site-packages\OpenGLContext\glutcontext.py", line 159, in ContextMainLoop
+         render = cls( *args, **named)
+       File "D:\Python26\lib\site-packages\OpenGLContext\glutcontext.py", line 43, in __init__
+         Context.__init__ (self, definition)
+       File "D:\Python26\lib\site-packages\OpenGLContext\context.py", line 192, in __init__
+         self.DoInit()
+       File "D:\Python26\lib\site-packages\OpenGLContext\context.py", line 212, in DoInit
+         self.OnInit()
+       File "firststep.py", line 25, in OnInit
+         }""", GL_VERTEX_SHADER)
+       File "D:\Python26\lib\site-packages\pyopengl-3.0.2a5-py2.6.egg\OpenGL\GL\shaders.py", line 218, in compileShader
+         shader = glCreateShader(shaderType)
+       File "latebind.pyx", line 31, in OpenGL_accelerate.latebind.LateBind.__call__ (src\latebind.c:617)
+       File "D:\Python26\lib\site-packages\pyopengl-3.0.2a5-py2.6.egg\OpenGL\extensions.py", line 174, in finalise
+         self.__name__,
+     OpenGL.error.NullFunctionError: Attempt to call an undefined alternate function
+     (glCreateShader, glCreateShaderObjectARB), check for bool(glCreateShader) before calling
+
+  * GL_VERSION: ``1.1 2.40.122``
+  * ``bool(glCreateShader)``: False
 
 .. _Python: http://www.python.org/
 .. _PyOpenGL: http://pyopengl.sourceforge.net
