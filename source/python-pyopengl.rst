@@ -365,6 +365,9 @@ PIL + glReadPixels によるスクリーンショット取得
   * GL_VERSION: ``1.1 2.40.122``
   * ``bool(glCreateShader)``: False
 
+* GLEWpy (http://glewpy.sourceforge.net/) はビルドに msvc9 が必要。
+  やはりモダンな PC を準備してから挑戦することになりそうだ。
+
 .. _Python: http://www.python.org/
 .. _PyOpenGL: http://pyopengl.sourceforge.net
 

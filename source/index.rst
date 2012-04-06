@@ -36,6 +36,7 @@ Contents:
    python-pygments
    python-twitter-tools
    python-pyopengl
+   python-pyqt4
 
    milestone09
    twitter
