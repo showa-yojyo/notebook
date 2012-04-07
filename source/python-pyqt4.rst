@@ -57,23 +57,40 @@ easy_install/pip を利用するわけではないし、
 前述のスタートメニューの ``Documentation`` > ``Qt Documentation`` を選択すると、
 オンラインヘルプがブラウザーで読める。
 
-.. warning::
-
-   ここから先は書きかけ。
-
 PyQt を利用したプログラムを作成する
 ======================================================================
-色々な流儀がありそうだが、GUI を Qt Designer で作成し、
-ロジックを別の py ファイルに作り込む方法ではどうだろうか。
+
+* 事実関係
+
+  * Qt Desinger は GUI を XML ファイルとして記述、保存するためのツール。
+  * 記述ファイルの拡張子は ``.ui`` となる。
+  * Qt Desinger 付属のバッチファイル :file:`pyuic4.bat` は
+    ui ファイルから py コードを生成するものだ。
+  * Python コードから ui ファイルに定義されている GUI を利用することができる。
+    方法は二系統あり、ui ファイルを直接ロードするものと、
+    バッチで生成した py モジュールのクラスをインスタンス化する方法にわかれる。
+
+* コメント
+
+  * まずは Qt Designer の利用方法を習得する。
+    目標は次の方法を習得することとしよう。
+
+    * ui ファイルを保存する方法。
+    * ui ファイルから py ファイルを生成する方法。
+    * ui ファイルで定義した Widget を自作プログラムが利用する方法。
 
 Qt Desinger
 ----------------------------------------------------------------------
+
 TODO: Designer のチュートリアルを探す。
 
 前述スタートメニューの ``Designer`` を選択する。
 
+* Designer は GUI を設計するためのツール。
+  設計内容は拡張子 ui のファイルに「上書き保存」または「名前を付けて保存」する。
+
 * 新規 widget を作成すると、真っ白なウィンドウを画面中央に出す。
-  あとは一般的な RAD ツールのように、子 widget をゴテゴテ盛っていく。
+  あとは一般的な RAD ツールと同じように、子 widget をゴテゴテ盛っていく。
 
   * 各 widget 要素の変数名等のプロパティを変更するには、
     画面右のオブジェクトインスペクタやプロパティエディタを利用する。
@@ -81,11 +98,15 @@ TODO: Designer のチュートリアルを探す。
 * 「フォーム＞プレビュー」のショートカットキーは ``Ctrl + R`` のようだ。
 
 * 「フォーム＞コードを表示」メニュー項目は使いものにならない。
-  手動で ``uic`` ファイルから ``py`` ファイルを生成するしかない。
+  手動で ``ui`` ファイルから ``py`` ファイルを生成するしかない。
 
   PyQt4 インストールフォルダーにある ``pyuic4.bat``
   をパスの通ったフォルダーにコピーして、コンソールから同バッチを実行する。
-  コマンドライン引数は Designer で保存した ``uic`` ファイル一丁。
+  コマンドライン引数は Designer で保存した ``ui`` ファイル一丁。
+
+  .. code-block:: console
+
+     > pyuic4.bat myform.ui > ui_myform.py
 
 * 一番親の widget にレイアウトを設定するにはコツが要る。
   ある程度子 widget を親 widget に搭載したら、親で右クリックメニュー表示。
@@ -99,12 +120,105 @@ TODO: Designer のチュートリアルを探す。
 
   * なお ``F3`` キーで GUI 編集モードに移行。
 
-``uic`` ファイルから生成した ``py`` ファイルの利用法
-----------------------------------------------------------------------
-この ``py`` ファイルをそのまま実行してもウィンドウが出てくるわけではない。
-別のコードから ``import`` して利用するためのものらしい。
+以降の説明では、各ファイル名を次のように決めたものとする。
 
-TODO: 例をここに書く。
+.. csv-table::
+   :header: "ファイルの名前","ファイルの意味"
+
+   :file:`myform.ui`,Qt Designer での GUI 設計内容を保存した XML ファイル。
+   :file:`ui_myform.py`,上記 ui ファイルを :file:`pyuic4.bat` でコンバートした内容を保存したもの。
+   :file:`myapp.py`,設計した GUI を利用する Python スクリプトファイル。
+
+ui ファイルから生成した py ファイルの利用法
+----------------------------------------------------------------------
+ファイル :file:`ui_myform.py` をそのまま実行しても、
+Qt Designer で設計した Widget が出てくるわけではない。
+別のコード（ここでは :file:`myapp.py` としている）から ``import`` して利用する。
+
+色々な流儀があるので、以下に記す。
+
+myform.Ui_Form インスタンスを作成する方法
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+   import sys
+   from PyQt4.QtGui import QApplication, QWidget
+
+   # pyuic4.bat myform.ui > ui_myform.py
+   from ui_myform import Ui_Form
+
+   if __name__ == '__main__':
+       app = QApplication(sys.argv)
+       window = QWidget()
+       ui = Ui_Form()
+       ui.setupUi(window)
+   
+       window.show()
+       sys.exit(app.exec_())
+
+
+QWidget のサブクラスで UI_Form.setupUI を利用する方法
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+   # インポートは先程と同様。
+
+   class Form(QWidget):
+       def __init__(self):
+           QWidget.__init__(self)
+
+           # Set up the user interface from Designer.
+           self.ui = Ui_Form()
+           self.ui.setupUi(self)
+
+           # Connect up the buttons.
+           self.ui.pushButton.clicked.connect(self.accept)
+
+       def accept(self):
+           pass
+
+   if __name__ == '__main__':
+       app = QApplication(sys.argv)
+       window = Form()
+
+       window.show()
+       sys.exit(app.exec_())
+
+
+QWidget と Ui_Form のサブクラスで setupUI を利用する方法
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+   # インポートは先程と同様。
+
+   class Form(QWidget, Ui_Form):
+       def __init__(self):
+           QWidget.__init__(self)
+           self.setupUi(self)
+           self.pushButton.clicked.connect(self.accept)
+
+   # main は先程と同様。
+
+
+ui ファイルから直接 Widget をロードする方法
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+関数 ``uic.loadUI`` を利用する。
+
+.. code-block:: python
+
+   import sys
+   from PyQt4 import QtGui, uic
+   
+   if __name__ == '__main__':
+       app = QtGui.QApplication(sys.argv)
+       window = uic.loadUi('myform.ui')
+
+       window.show()
+       sys.exit(app.exec_())
+
 
 .. _Python: http://www.python.org/
 .. _PyQt: http://www.riverbankcomputing.co.uk/software/pyqt/intro
