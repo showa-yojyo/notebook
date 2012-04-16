@@ -37,6 +37,7 @@ Contents:
    python-twitter-tools
    python-pyopengl
    python-pyqt4
+   python-pygame
 
    milestone09
    twitter
