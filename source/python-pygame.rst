@@ -81,7 +81,23 @@ Pygame_ のサイトのダウンロードのページから最新の msi ファ�
   * Surfarray Introduction: ここが現在の疑問点。
     Numeric とは Numpy_ の前身か。
 
-  * Making Games Tutorial: TODO
+  * Making Games Tutorial
+
+    * 記事内のリンクが切れまくっている。
+    * 最初のチュートリアルは "Hello There" というテキストを描画するだけ。
+      これは特に問題ない。
+    * 次はテニスゲームの実装チュートリアル。
+      ``ball.png`` と ``bat.png`` を自分で用意する必要があるようだが、
+      実際にコードを作ってみると、ゲーム博物館に展示されていそうな古い画面が出た。
+
+      .. image:: /_static/pygame-pong.png
+         :alt: Basic Pong
+         :scale: 50%
+
+    * 一部コードを修正しないと動作しなかったと思うが、
+      実行時にすぐに気付くし、修正も容易だったと記憶しているのでここには記さない。
+
+    * ``#self.offcourt()`` の部分を自分なりに実装するとよい。
 
 * Reference は Pygame 各 API の説明。
 
