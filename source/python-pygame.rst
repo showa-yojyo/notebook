@@ -103,10 +103,16 @@ Pygame_ のサイトのダウンロードのページから最新の msi ファ�
 
 PyOpenGL との連携
 ======================================================================
+:file:`$PYTHONHOME/site-packages/pygame/examples/glcube.py` を見れば理解できる。
+
+* GLUT ベースのプログラムでは ``glutDisplayFunc`` で描画コールバックを設定するところを、
+  Pygame ベースのプログラムではイベントループの内部から再描画する。
+* ``pygame.display.set_mode`` の引数を OpenGL 対応にするべく、それ用の値を OR する。
+* フレームバッファの入れ替え ``glutSwapBuffers`` は ``pygame.display.flip`` に相当するようだ。
 
 .. warning::
 
-   まだ調査中。
+   テキスト描画できると思ったらできないので、調査意欲が失せた。
 
 .. _Python: http://www.python.org/
 .. _Pygame: http://www.pygame.org/
