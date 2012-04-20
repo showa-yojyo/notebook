@@ -38,6 +38,7 @@ Contents:
    python-pyopengl
    python-pyqt4
    python-pygame
+   python-py2exe
 
    milestone09
    twitter
