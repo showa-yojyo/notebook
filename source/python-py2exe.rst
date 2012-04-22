@@ -318,15 +318,133 @@ Matplotlib
 
 PyOpenGL
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-TBW
+GLUT ベースの簡単なプログラムに対して、Py2exe ビルドを試す。
+
+.. code-block:: python
+
+   # -*- coding: utf-8 -*-
+   import sys
+   from OpenGL.GL import *
+   from OpenGL.GLU import *
+   from OpenGL.GLUT import *
+
+   window_title = u"OpenGL Study"
+   window_sx, window_sy = 320, 240
+   window_x, window_y = 100, 100
+
+   def display():
+       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+       glutSwapBuffers()
+   
+   def main(argv):
+       glutInit(sys.argv)
+       glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
+       glutInitWindowSize(window_sx, window_sy)
+       glutInitWindowPosition(window_x, window_y)
+       glutCreateWindow(window_title)
+
+       glClearColor(0.24, 0.35, 0.64, 1.)
+       glEnable(GL_DEPTH_TEST)
+       glutDisplayFunc(display)
+
+       glutMainLoop()
+
+   if __name__ == '__main__':
+       main(sys.argv)
+
+Hello world のときと同じ設定でビルドすると、次の不審なメッセージが現れる。
+
+.. code-block:: text
+
+   The following modules appear to be missing
+   ['OpenGL.GL.GL_EXTENSIONS', 'OpenGL.GL.GL_NUM_EXTENSIONS', 'OpenGL.GL.GL_VERSION
+   ', 'OpenGL.platform.CurrentContextIsValid', 'OpenGL.platform.GL', 'OpenGL.platfo
+   rm.GLU', 'OpenGL.platform.GLUT', 'OpenGL.platform.GLUT_GUARD_CALLBACKS', 'OpenGL
+   .platform.PLATFORM', 'OpenGL.platform.createBaseFunction', 'OpenGL_accelerate',
+   'OpenGL_accelerate.arraydatatype', 'OpenGL_accelerate.errorchecker', 'OpenGL_acc
+   elerate.latebind', 'OpenGL_accelerate.wrapper']
+
+EXE はビルドできているので、試しに実行するとエラーメッセージが現れる。
+
+.. code-block:: text
+
+   Traceback (most recent call last):
+     File "main.py", line 3, in <module>
+     File "OpenGL\GL\__init__.pyc", line 3, in <module>
+     File "OpenGL\GL\VERSION\GL_1_1.pyc", line 10, in <module>
+     File "OpenGL\platform\__init__.pyc", line 35, in <module>
+     File "OpenGL\platform\__init__.pyc", line 26, in _load
+     File "OpenGL\plugins.pyc", line 14, in load
+     File "OpenGL\plugins.pyc", line 28, in importByName
+   ImportError: No module named win32
+
+``win32`` というのは ``OpenGL.platform.win32`` モジュールのことと思われる。
+試しに ``import OpenGL.platform.win32`` の一行を :file:`main.py` に加えると、
+オリジナルのスクリプト、py2exe ビルドおよび成果物の EXE の実行のすべてがうまくいく。
 
 PyQt4
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-TBW
+拡張子が ``pyw`` のケースに挑戦してみる。
+
+.. code-block:: python
+
+   # -*- coding: utf-8 -*-
+   import sys
+   from PyQt4 import QtGui, QtCore
+
+   class Example(QtGui.QWidget):
+
+       def __init__(self):
+           super(Example, self).__init__()
+           self.initUI()
+
+       def initUI(self):
+           self.cal = QtGui.QCalendarWidget(self)
+           self.cal.setGridVisible(True)
+           self.cal.move(20, 20)
+           self.connect(self.cal, QtCore.SIGNAL('selectionChanged()'),
+               self.showDate)
+
+           self.label = QtGui.QLabel(self)
+           date = self.cal.selectedDate()
+           self.label.setText(str(date.toPyDate()))
+           self.label.move(130, 260)
+   
+           self.setWindowTitle('Calendar')
+           self.setGeometry(300, 300, 350, 300)
+   
+       def showDate(self):
+           date = self.cal.selectedDate()
+           self.label.setText(str(date.toPyDate()))
+
+   if __name__ == '__main__':
+       app = QtGui.QApplication(sys.argv)
+       ex = Example()
+       ex.show()
+       app.exec_()
+
+詳細は省くが :file:`setup.py` の ``setup`` 部分は次のようになる。
+
+.. code-block:: python
+
+   setup(windows=['main.pyw'],
+         data_files=data_files)
+
+ビルドして実行する。いきなりエラーメッセージが現れ、ログファイルを見るように言われる。
+
+.. code-block:: text
+
+   Traceback (most recent call last):
+     File "main.pyw", line 6, in <module>
+     File "PyQt4\QtGui.pyc", line 12, in <module>
+     File "PyQt4\QtGui.pyc", line 10, in __load
+   ImportError: No module named sip
+
+``sip`` なるモジュールがないという。現在調査中。
 
 Pygame
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-TBW
+実はこれが最も出力ファイルがマッシブとなるようだ。現在調査中。
 
 .. _Python: http://www.python.org/
 .. _Py2exe: http://www.py2exe.org/
