@@ -440,11 +440,41 @@ PyQt4
      File "PyQt4\QtGui.pyc", line 10, in __load
    ImportError: No module named sip
 
-``sip`` なるモジュールがないという。現在調査中。
+``sip`` なるモジュールがないという。
+これは Py2exe Wiki に解法が書かれていて、例えば次のように書き換えるのがよい。
+``options`` キーワード引数をいじるのだ。
+
+.. code-block:: python
+
+   setup(windows=['main.pyw'],
+         options={"py2exe":{"includes":["sip"]}},
+         data_files=data_files)
+
+ビルド後の :file:`dist` フォルダーはこうなる：
+
+.. code-block:: console
+
+   $ ls -l dist
+   合計 21M
+   -rwxr-xr-x 1 work ????  71K 8月  24  2010 bz2.pyd*
+   -rw-r--r-- 1 work ???? 1.4M 4月  22 22:05 library.zip
+   -rwxr-xr-x 1 work ????  20K 4月  22 22:05 main.exe*
+   drwxr-xr-x 1 work ????    0 4月  22 21:32 Microsoft.VC90.CRT/
+   -rwxr-xr-x 1 work ???? 1.6M 5月   2  2011 PyQt4.QtCore.pyd*
+   -rwxr-xr-x 1 work ???? 5.5M 5月   2  2011 PyQt4.QtGui.pyd*
+   -rwxr-xr-x 1 work ???? 2.1M 8月  24  2010 python26.dll*
+   -rwxr-xr-x 1 work ???? 2.2M 3月  21  2011 QtCore4.dll*
+   -rwxr-xr-x 1 work ???? 7.6M 3月  21  2011 QtGui4.dll*
+   -rwxr-xr-x 1 work ????  12K 8月  24  2010 select.pyd*
+   -rwxr-xr-x 1 work ????  65K 5月   2  2011 sip.pyd*
+   -rwxr-xr-x 1 work ???? 572K 8月  24  2010 unicodedata.pyd*
+   -rwxr-xr-x 1 work ????  49K 8月  24  2010 w9xpopen.exe*
 
 Pygame
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 実はこれが最も出力ファイルがマッシブとなるようだ。現在調査中。
+
+参考ページ http://www.pygame.org/wiki/Pygame2exe
 
 .. _Python: http://www.python.org/
 .. _Py2exe: http://www.py2exe.org/
