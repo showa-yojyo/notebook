@@ -382,6 +382,15 @@ EXE はビルドできているので、試しに実行するとエラーメッ�
 試しに ``import OpenGL.platform.win32`` の一行を :file:`main.py` に加えると、
 オリジナルのスクリプト、py2exe ビルドおよび成果物の EXE の実行のすべてがうまくいく。
 
+うまくいくが、そうすると Windows 環境でないところで意味のないコードになる。
+やはりここは ``setup`` 側で対応したい。
+:file:`main.py` を元に戻して、こういうふうにするのはどうだろうか。
+
+.. code-block:: python
+
+   setup(console=['main.py'],
+         options={"py2exe":{"includes":["OpenGL.platform.win32"]}})
+
 PyQt4
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 拡張子が ``pyw`` のケースに挑戦してみる。
