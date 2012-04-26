@@ -385,6 +385,17 @@ GET saved_searches/create
 * Comment 3: 検索パターンの登録に失敗すると、例外が発生する。
   大抵の場合、上述の上限値超過だろう。
 
+TwitterStream
+----------------------------------------------------------------------
+:file:`stream_example.py` はこのままでは実行時エラー
+``urllib2.URLError`` (Errno 10060) が発生する。
+``TwitterStream`` コンストラクターの呼び出しを次のように修正すると動く。
+
+.. code-block:: python
+
+   stream = TwitterStream(auth=UserPassAuth(args[0], args[1]),
+                          secure=True)
+
 .. _Python: http://www.python.org/
 .. _Python Twitter Tools: http://mike.verdone.ca/twitter/
 .. _easy_install: http://peak.telecommunity.com/DevCenter/EasyInstall
