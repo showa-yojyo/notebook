@@ -318,6 +318,46 @@ GET lists/all
 
 * Comment 2: リストごとに属性をコンソールに出力する。
 
+GET lists/statuses
+----------------------------------------------------------------------
+既存のリストのタイムラインを閲覧するための API だ。
+例えば ``screen_name`` が ``showa_yojyo`` のユーザーの、
+``exam`` という公開リストがあるという前提で、
+そのタイムラインを見てみよう。
+
+.. code-block:: python
+
+   # NoAuth パターン
+
+   # Comment 1
+   kwargs = dict(
+       slug='exam', 
+       owner_screen_name='showa_yojyo',
+       per_page=10,
+       page=1,
+       include_entities=1,
+       include_rts=1)
+   try:
+       data = api.lists.statuses(**kwargs)
+       for item in data:
+           # Comment 2
+           print item['user']['screen_name'],
+           print '%(text)s\n%(created_at)s %(source)s' % item
+           print '-' * 70
+
+* Comment 1
+
+  * ``lists.statuses`` 関数に与える引数を準備する。
+    リストを特定する手段は一つではないのだが、
+    分かりやすさを優先して ``slug`` および ``owner_screen_name`` を同時に指示する。
+
+  * その他は https://dev.twitter.com/docs/api/1/get/lists/statuses 参照。
+
+* Comment 2
+
+  * 文字列をコンソールに出力する。
+    ツイート内容、改行、ツイート時刻、ツイートに利用したアプリ名が確認できる。
+
 POST lists/create
 ----------------------------------------------------------------------
 リストを新しく作成するための API だ。
