@@ -219,6 +219,33 @@ ui ファイルから直接 Widget をロードする方法
        window.show()
        sys.exit(app.exec_())
 
+サブクラスに差し替える方法
+----------------------------------------------------------------------
+例えば ``QTextBrowser`` を自分でこれから作成する予定のサブクラス
+``QMyTextBrowser`` に差し替えたい場合は次の手順をとる。
+
+1. デザイナー画面の ``QTextBrowser`` アイテム上で右クリックメニューを表示し、
+   <格上げ先を指定...> を選択する。
+
+2. 入力フォームが出現する。
+   下部にある <格上げされたクラス名> に ``QMyTextBrowser`` と入力する。
+
+3. <追加> を押す。
+4. <格上げ> を押す。
+
+5. デザイナーで ui ファイルを保存する。
+6. ``pyuic4.bat`` で ui ファイルから py ファイルを生成すると、
+   ファイルの下の方に ``import qmytextbrowser`` という行が入っているハズ。
+
+7. :file:`qmytextbrowser.py` ファイルを作成し、
+   自分でクラスを実装すればよい。
+
+   .. code-block:: python
+   
+      from PyQt4 import QtGui
+      
+      class QMyTextBrowser(QtGui.QTextBrowser):
+          ...
 
 .. _Python: http://www.python.org/
 .. _PyQt: http://www.riverbankcomputing.co.uk/software/pyqt/intro
