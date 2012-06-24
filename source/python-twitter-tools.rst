@@ -150,38 +150,6 @@ GET statuses/mentions
 
 * Comment 2: ここでは mention の日時とツイート本文を新しい順にコンソールに出力している。
 
-GET statuses/public_timeline
-----------------------------------------------------------------------
-
-.. code-block:: python
-
-   # -*- coding: utf-8 -*-
-   import twitter
-
-   # Comment 1
-   api = twitter.Twitter()
-
-   # Comment 2
-   stats = api.statuses.public_timeline(count=22)
-
-   # Comment 3
-   for stat in stats:
-       user = stat['user']
-       try:
-           print('[%s] %s' % (user['screen_name'], stat['text']))
-       except UnicodeEncodeError:
-           print(u'[%s] (UnicodeEncodeError)' % user['screen_name'])
-
-* Comment 1: コンストラクターで引数を与えずに生成した ``Twitter`` インスタンスは、
-  認証が必要ない API を利用する場合に動作する。
-  このルールは全 API 共通だろう。
-
-* Comment 2: 引数仕様は https://dev.twitter.com/docs/api/1/get/statuses/public_timeline を参照。
-  上記コードの ``user`` の構造は、その仕様書の JSON コードを眺めていればわかる。
-
-* Comment 3: パブリックタイムラインを Twitter から 22 件取得し、
-  アカウント名と投稿内容をコンソールに出力するコードである。
-
 GET statuses/user_timeline
 ----------------------------------------------------------------------
 ユーザー名を指定してタイムラインを 40 件取得し、
@@ -291,6 +259,85 @@ POST direct_messages/new
    except twitter.TwitterHTTPError as e:
        print(e)
 
+GET followers/ids, GET friends/ids, GET users/lookup
+----------------------------------------------------------------------
+これらの API をまとめて理解するのが効率的だ。
+特定のユーザーのフォロー・被フォローユーザーの集合を得るときに利用するのだが、
+実用上の観点から 2 パスでデータを処理することになる。
+
+#. 前者の API でユーザーの ID だけを得る。
+#. 後者の API で詳細情報を得る。
+
+次のようなコードを書けばよいだろう。フォロワーを調べる例を示す。
+
+.. code-block:: python
+
+   # ... import 文、Twitter インスタンス作成、例外処理等省略。
+   
+   # Comment 1
+   res1 = api.followers.ids(screen_name='showa_yojyo', cursor=-1)
+   if 0 < len(res1['ids']) and len(res1['ids']) < 100:
+       # Comment 2
+       ids = ','.join([str(id) for id in res1['ids'])
+       res2 = api.users.lookup(user_id=ids, include_entities=0)
+
+* Comment 1: ``cursor=-1`` は最初のチャンクをリクエストすることを意味する。
+  仮にこのユーザーのフォロワー数が異様に多い (5000) 場合、戻り値の
+  ``res1.next_cursor`` に非ゼロの値が含まれるので、さらなる
+  ``api.followers.ids`` の呼び出し時に ``cursor`` キーワード引数にこの値を指示するのだ。
+
+* Comment 2: user_id の配列を CSV 化する。
+  詳しくは ``users/lookup`` の仕様説明を当たって欲しい。
+
+  * リクエストする id は 100 個を超えないようにすること。
+  * ``res2`` には詳細情報が格納されるが、順序はデタラメになっていると思ったほうがよい。
+    こんな感じにソートするしかなさそうだ。
+
+    .. code-block:: python
+
+       res3 = [None] * len(res1['ids'])
+       for user in res2:
+           user_id = user[u'id']
+           i = res1['ids'].index(user_id)
+           res3[i] = user
+
+* 参考
+
+  * https://dev.twitter.com/docs/api/1/get/followers/ids
+  * https://dev.twitter.com/docs/api/1/get/friends/ids
+  * https://dev.twitter.com/docs/api/1/get/users/lookup
+
+GET users/show
+----------------------------------------------------------------------
+特定のユーザーの詳細情報を得るのに ``users/show`` を利用する。
+
+.. code-block:: python
+
+   # ... import 文、Twitter インスタンス作成、例外処理等省略。
+
+   # Comment 1
+   response = api.users.show(screen_name='showa_yojyo', entities=1)
+
+   # Comment 2
+   print u'''
+   {screen_name} | {name}
+   {location}
+   {url}
+   {description}
+
+   ツイート数 {statuses_count}
+   フォロー {friends_count} 人
+   フォロワー {followers_count} 人
+   '''.format(**response)
+
+* Comment 1: 基本的に指定する引数はこれだけで構わない。
+* Comment 2: ユーザーの Twitter 情報を出力してみる。
+* https://dev.twitter.com/docs/api/1/get/users/show 参照。
+
+GET favorites
+----------------------------------------------------------------------
+TBW
+
 GET lists/all
 ----------------------------------------------------------------------
 全リスト取得に用いる API だ。
@@ -358,6 +405,10 @@ GET lists/statuses
   * 文字列をコンソールに出力する。
     ツイート内容、改行、ツイート時刻、ツイートに利用したアプリ名が確認できる。
 
+GET lists/memberships
+----------------------------------------------------------------------
+TBW
+
 POST lists/create
 ----------------------------------------------------------------------
 リストを新しく作成するための API だ。
@@ -392,6 +443,9 @@ POST lists/create
   * https://dev.twitter.com/docs/api/1/post/lists/create 参照。
   * ``try`` ブロックをループの中に入れたほうがよいかも。
 
+GET lists
+----------------------------------------------------------------------
+TBW
 
 GET saved_searches/create
 ----------------------------------------------------------------------
