@@ -87,6 +87,104 @@ Python Twitter Tools 利用ノート
 
   * POST 系 API はほぼ OAuth 必須。
 
+
+ページング処理
+----------------------------------------------------------------------
+`Working with Timelines`_ をまずは一読あれ。
+
+``statuses/user_timeline`` や ``lists/statuses`` 等の「大量のツイートを返す」 API を利用する場合には、
+一度のリクエストでデータを一括取得するのではなく、
+リクエストを複数回に分けて行い、その際に
+``max_id`` や ``since_id`` 引数を適宜指定して利用するという技法が一般的だ。
+
+パターンとしては次の二通りしかないので、レスポンスの処理技法を習得しておこう。
+
+ツイート日時の新しいものから、順次古い方向へ取得していくケース
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+一般的な Twitter クライアントでは、タイムラインはツイートが上から下に新しい順に並んでいる。
+この画面を下方向にスクロールしたときに、より古いツイートを動的にリクエストするようになっている。
+実質的には次に説明するようなことを行なっているハズだ。
+
+* 初回リクエスト。レスポンス中のツイート群の ``id`` の最小値をプログラム側で記憶する。
+* 次回リクエスト。このとき引数の ``max_id`` を明示的に指示する。
+
+コードを示す。
+
+.. code-block:: python
+
+   kwargs = dict(
+       screen_name='showa_yojyo',
+       count=20,
+       page=1,
+       include_entities=1,
+       include_rts=1,
+       exclude_replies=0)
+
+   response = api.statuses.user_timeline(**kwargs)
+
+   # ... response を処理 ...
+
+   min_id = None
+   if len(response):
+       min_id = response[-1]['id']
+
+   # 2 回目のリクエスト
+   if min_id:
+       kwargs['max_id'] = min_id - 1
+   response = api.statuses.user_timeline(**kwargs)
+
+   # ... response を処理 ...
+
+レスポンス中のツイートは ``id`` という値を保持しており、
+ツイートは ``id`` が降順になるように配列された状態で戻ってきている（と思う）。
+その事実を利用すれば ``id`` の最大・最小が得られる。
+配列の先頭ツイートの ``id`` が最大であり、
+末尾ツイートのそれが最小であるはずだ。
+
+3 回目以降のリクエストも同様に繰り返す。
+
+取得済みのツイートの「上」に、最新のツイートを取得するケース
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+一般的な Twitter クライアントでは、ビューにタイマーが仕込んであり、
+例えば 60 秒毎に最新のツイートをリクエストしてタイムラインを更新するものが多い。
+
+おそらく、次のようなアルゴリズムを実行している。
+
+* 初回リクエスト。レスポンス中のツイート群の ``id`` の最大値をプログラム側で記憶する。
+* 次回リクエスト。このとき引数の ``since_id`` を明示的に指示する。
+
+前項コードとの差分だけを示そう。
+
+.. code-block:: python
+
+   # 最大 id の記憶
+   max_id = None
+   if len(response):
+       max_id = response[0]['id']
+
+.. code-block:: python
+
+   # 2 回目のリクエスト
+   if max_id:
+       kwargs['since_id'] = max_id
+
+なお、実際に Twitter アプリケーションを作成するのであれば、
+本項と前項の処理を同時に実装するのが効率的だし自然だ。
+
+カーソル処理
+----------------------------------------------------------------------
+``cursor`` という名前の optional 引数がある API については、
+次のような手順でページング処理と同等のことを実現する。
+
+* 初回取得では ``cursor`` 引数を ``-1`` に指示すること。
+
+* 二回目以降取得では、
+  ``cursor`` の値として前回レスポンス中の ``next_cursor`` または
+  ``previous_cursor`` を指示する。
+
+  その際、値がゼロでないことを確認する必要がある。
+  ゼロは取得するべきデータは Twitter に存在しないということを示唆している。
+
 GET statuses/home_timeline
 ----------------------------------------------------------------------
 API を利用する認証を得ているユーザー（自分）のタイムラインを取得する例。
@@ -541,17 +639,9 @@ TwitterStream
    stream = TwitterStream(auth=UserPassAuth(args[0], args[1]),
                           secure=True)
 
-ページング処理
-----------------------------------------------------------------------
-TBW
-
-カーソル処理
-----------------------------------------------------------------------
-TBW
-
-
 .. _Python: http://www.python.org/
 .. _Python Twitter Tools: http://mike.verdone.ca/twitter/
 .. _easy_install: http://peak.telecommunity.com/DevCenter/EasyInstall
 .. _pip: http://pypi.python.org/pypi/pip
 .. _REST API Resources: https://dev.twitter.com/docs/api
+.. _Working with Timelines: https://dev.twitter.com/docs/working-with-timelines
