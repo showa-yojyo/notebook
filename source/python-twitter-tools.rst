@@ -10,7 +10,7 @@ Python Twitter Tools 利用ノート
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
      * Python_: 2.6.6
-     * `Python Twitter Tools`_: 1.7.2
+     * `Python Twitter Tools`_: 1.7.2, 1.8.0
 
 関連リンク
 ======================================================================
@@ -35,7 +35,7 @@ Python Twitter Tools 利用ノート
 
 パッケージインストール
 ----------------------------------------------------------------------
-* `easy_install`_ を利用してインストールするのが最もシンプルだ。
+* `easy_install`_ （可能ならば `pip`_ のほうがよい）を利用してインストールするのが最もシンプルだ。
 
   ``$ easy_install twitter``
 
@@ -111,7 +111,7 @@ API を利用する認証を得ているユーザー（自分）のタイムラ�
 
    # Comment 3
    for stat in statuses:
-       print(u'%s %s' % (stat['created_at'], stat['text']))
+       print(u'{created_at} {text}'.format(**stat))
 
 * Comment 1: ``get_oauth_keys()`` を自作すること。
   前項で説明した文字列を返すだけの関数とする。
@@ -140,9 +140,9 @@ GET statuses/mentions
    for stat in statuses:
        entities = stat['entities']
        try:
-           print(u'%s %s' % (stat['created_at'], stat['text']))
+           print(u'{created_at} {text}'.format(**stat))
        except UnicodeEncodeError:
-           print(u'%s (UnicodeEncodeError)' % stat['created_at'])
+           print(u'{created_at} (UnicodeEncodeError)'.format(**stat)
 
 * Comment 1: 認証ユーザーに関する mentions を最新のものから 50 件取得する。
 
@@ -166,7 +166,7 @@ GET statuses/user_timeline
    stats = api.statuses.user_timeline(screen_name='showa_yojyo', count=40)
 
    for item in stats:
-       print(u'%(created_at)s: %(text)s' % item)
+       print(u'{created_at} {text}'.format(**item))
 
 * Comment 1:
   引数仕様は https://dev.twitter.com/docs/api/1/get/statuses/user_timeline を参照。
@@ -225,7 +225,7 @@ GET search
    
    # Comment 3
    for result in response['results']:
-       print(u'%(created_at)s %(from_user)s %(text)s' % result)
+       print(u'{created_at} {from_user} {text}'.format(**result))
 
 * Comment 1: 検索の場合は ``Twitter`` インスタンスの生成時に、
   キーワード引数 ``domain`` を明示的に指示する。
@@ -336,7 +336,25 @@ GET users/show
 
 GET favorites
 ----------------------------------------------------------------------
-TBW
+特定のユーザー星マークを付けたツイート群を取得する。
+
+.. code-block:: python
+
+   # ...NoAuth で api 作成。
+
+   kwargs = dict(
+       screen_name='showa_yojyo',
+       count=10,
+       page=1,
+       include_entities=1)
+
+   response = api.favorites(**kwargs)
+   for status in response:
+       print u'@{user[screen_name]}'.format(**status),
+       print u'{text}\n{created_at} %{source}'.format(**status)
+       print u'-' * 70
+
+だんだん解説をするのが面倒になってきた。他の項目を見てくれ。
 
 GET lists/all
 ----------------------------------------------------------------------
@@ -352,7 +370,7 @@ GET lists/all
    
    # Comment 2
    for item in data:
-       print('%(mode)s following=%(following)s %(full_name)s %(description)s' % item)
+       print(u'{mode} following={following} {full_name} {description}'.format(**item))
 
 * Comment 1: ``lists.all`` 関数に ``screen_name`` キーワード引数を与えて、
   対応するユーザーの持っているリストを全部取得する。
@@ -389,7 +407,7 @@ GET lists/statuses
        for item in data:
            # Comment 2
            print item['user']['screen_name'],
-           print '%(text)s\n%(created_at)s %(source)s' % item
+           print u'{text}\n{created_at} {source}'.format(**item)
            print '-' * 70
 
 * Comment 1
@@ -407,7 +425,28 @@ GET lists/statuses
 
 GET lists/memberships
 ----------------------------------------------------------------------
-TBW
+``lists/memberships`` リクエストは、
+あるユーザーが他のユーザーが管理しているリストに含まれているとき、
+そのようなリストを列挙するのに利用する。
+
+.. code-block:: python
+
+   # ...NoAuth で api 作成。
+
+   # Comment 1
+   response = api.lists.memberships(screen_name='showa_yojyo', cursor=-1)
+
+   # Comment 2
+   for item in response[u'lists']:
+       print u'{full_name} {description}'.format(**item)
+
+* Comment 1: ユーザー ``showa_yojyo`` を含むリストをリクエストする。
+  ``cursor`` については別項で詳しく解説する。
+
+* Comment 2: 各リストの名前と説明文をコンソールに出力する。
+  ``full_name`` の先頭にはリストの作者の ``screen_name`` が見えると思う。
+
+* https://dev.twitter.com/docs/api/1/get/lists/memberships 参照。
 
 POST lists/create
 ----------------------------------------------------------------------
@@ -428,7 +467,7 @@ POST lists/create
    try:
        # Comment 2
        for item in items:
-           print('%(name)s...' % item)
+           print(u'{name}...'.format(**item))
            data = api.lists.create(**item)
    except twitter.TwitterHTTPError as e:
        print(e)
@@ -445,7 +484,19 @@ POST lists/create
 
 GET lists
 ----------------------------------------------------------------------
-TBW
+``lists`` はあるユーザーが管理しているリストを列挙するのに利用する。
+ツイートというよりは、リストのプロパティーを得るのに利用する。
+
+.. code-block:: python
+
+   # ...NoAuth で api 作成。
+
+   response = api.lists(screen_name='showa_yojyo', cursor=-1)
+   for item in response[u'lists']:
+       print u'{full_name} {description}'.format(**item)
+
+* コードについては GET lists/memberships の項を参照。
+* https://dev.twitter.com/docs/api/1/get/lists 参照。
 
 GET saved_searches/create
 ----------------------------------------------------------------------
@@ -490,7 +541,17 @@ TwitterStream
    stream = TwitterStream(auth=UserPassAuth(args[0], args[1]),
                           secure=True)
 
+ページング処理
+----------------------------------------------------------------------
+TBW
+
+カーソル処理
+----------------------------------------------------------------------
+TBW
+
+
 .. _Python: http://www.python.org/
 .. _Python Twitter Tools: http://mike.verdone.ca/twitter/
 .. _easy_install: http://peak.telecommunity.com/DevCenter/EasyInstall
+.. _pip: http://pypi.python.org/pypi/pip
 .. _REST API Resources: https://dev.twitter.com/docs/api
