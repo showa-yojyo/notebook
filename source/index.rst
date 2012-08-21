@@ -39,6 +39,7 @@ Contents:
    python-pyqt4
    python-pygame
    python-py2exe
+   python-upgrade
 
    milestone09
    twitter
