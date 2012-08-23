@@ -2,94 +2,162 @@
 Python 移行ノート
 ======================================================================
 
+私の Windows マシンでの Python のアップグレード作業に必要な手順について記す。
+まずは長期に亘り安定して利用してきた 2.6 から、
+2.x 台最終版である 2.7 への移行作業を記す。
+
+いずれ 3.x 最新版への移行作業もやることになる。
+おそらく、私が Windows 7 を OS とする新マシンを調達できてからになるだろう。
+
 .. contents:: ノート目次
 
 .. note::
 
    * OS: Windows XP Home Edition SP 3
+   * Python: Upgrade from 2.6.6 to 2.7.3.
 
 2.6 から 2.7 への移行計画
 ======================================================================
+実際のところ、手間をかけて 2.6 から 2.7 へ移行する利点は今のところなさそうに思える。
+それは 2.7 での新機能を勉強してから判断すればよい。
+とにかく、アップグレード手順を残しておく。
+
+Python 2.6 site-packages の状態を保存
+----------------------------------------------------------------------
+私の環境では pip_ がインストールされているハズなので、
+2.6 環境にインストールしたサードパーティー製パッケージを書き出しておく。
+
+ただし、バージョンは不要なので ``cut`` にて削っておく。
+
+.. code-block:: console
+
+   $ cd D:/Python26/lib/site-packages
+   $ pip freeze | cut -d= -f 1 > mypkgs.txt
+
+後ほど :file:`mypkgs.txt` をテキストエディターで編集する。
 
 Python 2.7 本体をインストール
 ----------------------------------------------------------------------
+* Python_ の公式サイトから :file:`python-2.7.3.msi` をダウンロードする。
+* 普通に Explorer 上から実行して、Python 2.6 のインストール場所の隣りにインストールする。
 
 Python 2.6 フォルダーから一部のファイルをコピーする
 ----------------------------------------------------------------------
-* site.py
-* sitecustomize.py
+正直、この作業が必要なのかどうかわかっていない。
+
+* :file:`sitecustomize.py` を 2.6 フォルダーの :file:`site-packages` フォルダーから
+  2.7 フォルダーの対応する位置にコピーする。
 
 最初に手動で準備するもの
 ----------------------------------------------------------------------
-* setuptools
-* easy-install
-* pip
+* setuptools_: インストーラーを利用する。
+  :file:`setuptools-0.6c11.win32-py2.7.exe` のようなファイル名のものをダウンロードページから取得する。
+
+* pip_: :file:`pip.1.1-tar.gz` を入手して、解凍後 :file:`setup.py` を利用する。
+
+  .. code-block:: console
+
+     $ python27 setup.py install
 
 Windows インストーラーを利用するもの
 ----------------------------------------------------------------------
+``pip`` ではインストールできないものを先にインストールしておく。
+
+と言うより、 ``pip`` でインストールしたいパッケージ X がパッケージ Y に依存しているとして、
+Y は Windows インストーラーでインストールするべきものであるとする。
+先に Y をインストールしておかないと、
+``pip`` で X をインストールする段になって、Y の扱いが怖いことになりそうだから、
+ここで述べる手順がある。
+
+私の場合のパッケージ群は次の通り。
+インストーラーの拡張子は exe だったり msi だったりするが、
+気にしないで構わないだろう。
 
 * PIL_: 公式サイトに 2.7 用のものがある。
 * NumPy_: 2.7 OK
 * SciPy_: 2.7 OK
 * Matplotlib_: 2.7 OK
 * Pygame_: 2.7 OK
-* Py2exe_: 公式にはない。追記参照。
+* Py2exe_: 2.7 OK
 * PyQt4_: 2.7 OK
+* pysparse: `Python Extension Packages for Windows - Christoph Gohlke`_ を利用させてもらう。
 
-旧環境での pip --freeze の出力を利用するもの
+旧環境での pip freeze の出力を利用するもの
 ----------------------------------------------------------------------
-2.6 環境で ``pip --freeze`` することで、利用中の ``site-packages`` パッケージが得られる。
+2.6 環境で ``pip freeze`` することで、利用中の ``site-packages`` パッケージが得られる。
 これを 2.7 環境の ``pip`` に食わせて様子見とする。
-もちろん 2.7 に対応しているものだけを残して、あとは全部カットしておく。
 
-Python 2.7 における各パッケージをいちいち調べるのは面倒なので、
-先にインストールを try してみて、ログで成否を判断する作戦だ。
+先ほど得た :file:`mypkgs.txt` をテキストエディターで編集する。
+PIL, NumPy などのインストーラーモノの行を削除して、このテキストファイルを上書きする。
+編集後、おもむろに下記コマンドラインを実行する。
+かなり時間がかかることを覚悟することだ。
 
-* actdiag -- OK
-* apgl -- OK
-* Babel -- ?
-* BeautifulSoup -- ?
-* blockdiag -- OK
-* coverage -- OK
-* dateutil -- ?
-* docutils -- OK
-* funcparserlib -- OK
-* Genshi -- ?
-* httplib2 -- ?
-* jinja2 -- ?
-* nose -- ?
-* nwdiag -- OK
-* oauth2
-* OpenGLContext -- ?
-* OpenGLContext_full -- ?
-* ordereddict
-* pep8
-* pygments
-* PyOpenGL
-* pyopengl_demo
-* Pyrex
-* pysparse
-* python_dateutil -- ?
-* pytz
-* PyVRML97
-* rackdiag -- OK
-* reportlab
-* rst2pdf
-* seqdiag -- OK
-* simplejson
-* six
-* Sphinx
-* Trac
-* twitter
-* unittest2
-* vrml
-* webcolors
+.. code-block:: console
+
+   $ cd D:/Python27/Scripts
+   $ ./pip install -r mypkgs.txt
+
+* 何度か失敗するかもしれないが、成功したものを :file:`mypkgs.txt` から順次削除していき、
+  再度 ``pip`` 呼び出しをすればよい。
+* ログを取るのもよいだろう。
 
 特殊なもの
 ----------------------------------------------------------------------
+Subversion の Python binding を利用しているため、これをセットアップする。
 
-* libsvn
-* svn_python
+* http://sourceforge.net/projects/win32svn/files/1.7.6/
+
+* svn-win32-1.7.6-ap24_py27.zip をダウンロード。
+  解凍してフォルダーを潜る。下記フォルダーを ``site-packages`` にコピー。
+
+  * libsvn
+  * svn_python
+
+2.6 のクリーンナップ
+----------------------------------------------------------------------
+* Windows のコントロールパネル「プログラムの追加と削除」を利用して、
+  Python 2.6 関連のパッケージを全部アンインストールする。
+
+* 念のため、残骸を確認するべし。
+  自分で作った設定ファイルやらがある場合、適宜修正を加え 2.7 に引っ越す。
+
+* Python 2.6.6 をアンインストールするのはパッケージを全部片付けてからの最後。
+
+ツールや環境変数の修正
+----------------------------------------------------------------------
+移行、完全に個人的なメモ。他の人には通用しない作業だ。
+
+.bashrc
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+この設定をする理由は、私が Cygwin で ``bash`` をインタラクティブシェルとして利用しており、
+そこから Windows 用の Python を呼び出すことが多いことによる。
+
+エイリアス ``python27`` を追加。
+
+.. code-block:: bash
+
+   alias a='alias'
+   a python26='D:/Python26/python.exe'
+   a python27='D:/Python27/python.exe'
+
+.bash_profile
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``$PATH`` に Python 関連の記述がある場合は修正する。
+設定理由は上述と同じ。
+
+SendToCygwin.ini
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+「Cygwin に送る」というユーティリティがあり、私はこれを偏愛している。
+その設定ファイルを更新しておく。
+
+.. code-block:: ini
+
+   *.py =python27 %F ||
+   *.pyw =python27 %F ||
+
+環境変数 PATH
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``D:\Python26`` を ``D:\Python27`` に置換。
 
 3.x 系最高バージョンへの移行
 ======================================================================
@@ -98,23 +166,15 @@ Python 2.7 における各パッケージをいちいち調べるのは面倒な
 .. _Python: http://www.python.org/
 .. _PyPI: http://pypi.python.org/pypi
 
-.. _easy_install: http://peak.telecommunity.com/DevCenter/EasyInstall
-.. _pip: http://pypi.python.org/pypi/pip
 .. _setuptools: http://peak.telecommunity.com/DevCenter/setuptools
-.. _distribute: http://pypi.python.org/pypi/distribute
+.. _pip: http://pypi.python.org/pypi/pip
+
 .. _Python Extension Packages for Windows - Christoph Gohlke: http://www.lfd.uci.edu/~gohlke/pythonlibs/
 
-.. _Nose: http://somethingaboutorange.com/mrl/projects/nose/
 .. _NumPy: http://scipy.org/NumPy/
 .. _SciPy: http://www.scipy.org/
 .. _Matplotlib: http://matplotlib.sourceforge.net/
 .. _PIL: http://www.pythonware.com/products/pil
-.. _Pygments: http://pygments.org/
-.. _Jinja2: http://jinja.pocoo.org/
-.. _Sphinx: http://sphinx.pocoo.org/
 .. _PyQt4: http://www.riverbankcomputing.com/software/pyqt/intro
-.. _coverage: http://nedbatchelder.com/code/coverage
-.. _PyOpenGL: http://pyopengl.sourceforge.net/
 .. _Py2exe: http://www.py2exe.org/
 .. _Pygame: http://www.pygame.org/
-.. _Python Twitter Tools: http://mike.verdone.ca/twitter/
