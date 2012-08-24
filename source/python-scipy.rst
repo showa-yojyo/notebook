@@ -12,10 +12,10 @@ SciPy 利用ノート
    * OS: Windows XP Home Edition SP 3
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_: 2.6.6
+     * Python_: 2.6.6, 2.7.3
      * SciPy_: 0.10.1
-     * NumPy_: 1.6.1
-     * Matplotlib_: 1.1.0
+     * NumPy_: 1.6.1, 1.6.2
+     * Matplotlib_: 1.1.0, 1.1.1
      * Nose_: 1.1.2
 
 .. note::

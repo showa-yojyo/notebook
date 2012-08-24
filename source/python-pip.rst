@@ -16,7 +16,7 @@ PyPI_ のページを久しぶりに見たら、
    * OS: Windows XP Home Edition SP 3
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_: 2.6.6
+     * Python_: 2.6.6, 2.7.3
      * pip_: 1.1
      * setuptools_: 0.6c11
      * distribute_: 未使用

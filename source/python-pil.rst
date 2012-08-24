@@ -10,7 +10,7 @@ Python Imaging Library (PIL) 利用ノート
    * OS: Windows XP Home Edition SP 3
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_: 2.6.6
+     * Python_: 2.6.6, 2.7.3
      * PIL_: 1.1.6, 1.1.7 (both official and unofficial builds)
 
 関連リンク
@@ -34,7 +34,7 @@ PIL_ のサイトは http://www.pythonware.com/products/pil にある。
 本パッケージに関しては避けたほうが無難そうだ。
 
 Windows 用には PIL の製品サイトがインストーラーを提供しているかもしれない。
-しかし 少なくとも win32-py2.6 に関しては、
+しかし 少なくとも win32-py2.6, 2.7 に関しては、
 下記の非公式サイトで配布されているインストーラーを利用するほうがよいようだ。
 
 * `Python Extension Packages for Windows - Christoph Gohlke`_

@@ -9,9 +9,9 @@ PyOpenGL 3.x 利用ノート
    * OS: Windows XP Home Edition SP 3
    * 本稿執筆にあたり利用した各パッケージのバージョンは次のとおり。
 
-     * Python_: 2.6.6
+     * Python_: 2.6.6, 2.7.3
      * PyOpenGL_: 3.0.2a5
-     * NumPy_: 1.6.1
+     * NumPy_: 1.6.1, 1.6.2
      * PIL_: 1.1.7 (unofficial)
 
 関連リンク
