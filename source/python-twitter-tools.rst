@@ -9,8 +9,8 @@ Python Twitter Tools 利用ノート
    * OS: Windows XP Home Edition SP 3
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_: 2.6.6
-     * `Python Twitter Tools`_: 1.7.2, 1.8.0
+     * Python_: 2.6.6, 2.7.3
+     * `Python Twitter Tools`_: 1.7.2, 1.8.0, 1.9.0
 
 関連リンク
 ======================================================================

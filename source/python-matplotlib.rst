@@ -9,10 +9,10 @@ Matplotlib 利用ノート
    * OS: Windows XP Home Edition SP 3
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_ 2.6.6
+     * Python_ 2.6.6, 2.7.3
      * Setuptools_ 0.6c11
-     * NumPy_ 1.6.0
-     * Matplotlib_ 1.1.0
+     * NumPy_ 1.6.0, 1.6.2
+     * Matplotlib_ 1.1.0, 1.1.1
      * PyQt_ 4.8.4
 
 関連リンク
@@ -58,6 +58,15 @@ Matplotlib 本体をインストール
 --------------------------------------------------
 私のプラットフォームは Windows なので、
 Matplotlib_ 公式サイトからインストーラーをダウンロードして実行するの一手。
+
+.. note::
+
+   Python 2.7.3 環境設定時は公式インストーラーのモジュール群が動作しなかった。
+   具体的に言うと、簡単なプロットを定義した後に ``matplotlib.pyplot.show()`` すると、
+   単に白いウィンドウが出て CPU 使用率が 100% になるという挙動だった。
+
+   ものの試しに `Python Extension Packages for Windows - Christoph Gohlke`_ で配布している
+   インストーラーに差し替えてみたら、期待通りの動作をした。
 
 オフラインでも勉強できるようにドキュメントを確保
 --------------------------------------------------
@@ -553,6 +562,7 @@ Matplotlib を利用するための環境をもっと細かく整備してみよ
 * :file:`matplotlibrc` は python-mode で編集するのが吉。
 
 .. _Python: http://www.python.org/
+.. _Python Extension Packages for Windows - Christoph Gohlke: http://www.lfd.uci.edu/~gohlke/pythonlibs/
 .. _Matplotlib: http://matplotlib.sourceforge.net/
 .. _setuptools: http://peak.telecommunity.com/DevCenter/setuptools
 .. _Numpy: http://scipy.org/NumPy/

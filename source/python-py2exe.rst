@@ -9,7 +9,7 @@ Py2exe 利用ノート
    * OS: Windows XP Home Edition SP 3
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_: 2.6.6
+     * Python_: 2.6.6, 2.7.3
      * Py2exe_: 0.6.9
 
 

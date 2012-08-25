@@ -9,8 +9,9 @@ PyQt4 利用ノート
    * OS: Windows XP Home Edition SP 3
    * 本稿執筆にあたり利用した各パッケージのバージョンは次のとおり。
 
-     * Python_: 2.6.6
-     * PyQt_: GPL 4.8.4 for Python v 2.6 (x86)
+     * Python_: 2.6.6, 2.7.3
+     * PyQt_: GPL 4.8.4 for Python v 2.6 (x86),
+       GPL v4.9.4 for Python v2.7 (x86)
 
 関連リンクおよび参考サイト
 ======================================================================
