@@ -43,6 +43,7 @@ Contents:
 
    milestone09
    twitter
+   inkscape
 
 `小屋へ戻る`_
 
