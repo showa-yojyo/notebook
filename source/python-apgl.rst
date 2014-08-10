@@ -6,13 +6,17 @@ Another Python Graph Library (APGL) 利用ノート
 
 .. note::
 
-   * OS: Windows XP Home Edition SP 3
+   * OS
+
+     * Windows XP Home Edition SP 3
+     * Windows 7 Home Premium SP 1
+
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_: 2.6.6, 2.7.3
+     * Python_: 2.6.6, 2.7.3, 3.4.1
      * APGL_: 0.6.10, 0.7.1
-     * NumPy_: 1.6.1, 1.6.2
-     * SciPy_: 0.10.1
+     * NumPy_: 1.6.1, 1.6.2, 1.8.2
+     * SciPy_: 0.10.1, 1.3.1
 
 関連リンク
 ======================================================================
@@ -43,17 +47,18 @@ Windows 版のビルドを利用するのが手っ取り早い。いつもお世
 `Python Extension Packages for Windows - Christoph Gohlke`_
 からインストーラーをダウンロードし、実行すればよい。
 
+残念ながら、本稿執筆時点では上記サイトに Python 3.x 用および 64 ビット用のビルドは存在しない。
+
 apgl
 ----------------------------------------------------------------------
-`easy_install`_ または、可能ならば pip_ を利用してインストールする。
-当ノートでは後者を推奨する。
+pip_ を利用してインストールする。
 
 .. code-block:: console
 
    $ pip install apgl
 
 インストール処理終了後、Python で公式ドキュメントにあるように
-apgl のテストを起動する。
+apgl のテストを起動するのがよいだろう。
 <The automatic testing routine requires Python 2.7 or later,
 or the unittest2 testing framework for Python 2.3-2.6> (p. 2)
 
@@ -61,50 +66,15 @@ or the unittest2 testing framework for Python 2.3-2.6> (p. 2)
 
    >> import apgl
    >> apgl.test()
-
-.. warning::
-
-   私の環境では ``E`` が大量に出るばかりでなく、テストランナーが途中で中断終了した。
-   次のタイプのエラーが二度と、
-
-   .. code-block:: text
-
-      Traceback (most recent call last):
-        File "<string>", line 1, in <module>
-        File "D:\Python26\lib\multiprocessing\forking.py", line 342, in main
-          self = load(from_parent)
-        File "D:\Python26\lib\pickle.py", line 1370, in load
-          return Unpickler(file).load()
-        File "D:\Python26\lib\pickle.py", line 858, in load
-          dispatch[key](self)
-        File "D:\Python26\lib\pickle.py", line 880, in load_eof
-          raise EOFError
-
-   最後に下のエラーが出て強制終了。
-
-   .. code-block:: text
-
-      Traceback (most recent call last):
-        File "<stdin>", line 1, in <module>
-        File "D:\Python26\lib\site-packages\apgl\__init__.py", line 66, in test
-          unittest.TextTestRunner(verbosity=1).run(overallTestSuite)
-        File "D:\Python26\lib\unittest.py", line 756, in run
-          result.printErrors()
-        File "D:\Python26\lib\unittest.py", line 724, in printErrors
-          self.printErrorList('ERROR', self.errors)
-        File "D:\Python26\lib\unittest.py", line 730, in printErrorList
-          self.stream.writeln("%s: %s" % (flavour,self.getDescription(test)))
-        File "D:\Python26\lib\unittest.py", line 686, in getDescription
-          return test.shortDescription() or str(test)
-        File "D:\Python26\lib\site-packages\setuptools\tests\doctest.py", line 2261, in shortDescription
-          return "Doctest: " + self._dt_test.name
-      AttributeError: 'str' object has no attribute 'name'
-
-   原因は不明だが、Python 2.7 ではまともに動作するのではないかと予想する。
-   新 PC を調達するまでは Python 本体をアップグレードする気はないので、
-   2.6 のまま様子を見たい。
+   Running tests from D:\Python34\lib\site-packages\apgl
+   ... ドットの列 ...
+   ----------------------------------------------------------------------
+   Ran 438 tests in 20.504s
    
-   Python 2.7 でも試したが、やはり同様の傾向が見られた。
+   FAILED (failures=14, errors=26, skipped=148)
+   >>>
+
+どのバージョンもスキップが多すぎて不安になる事態が改善されていない。
 
 ドキュメント
 ======================================================================
@@ -152,13 +122,15 @@ APGL_ のウェブページに "An Introduction to APGL" という PDF ファイ
 * グラフの最短経路
 
   * Floyd-Warshall アルゴリズムは行列の最短経路 P を計算する方法だ。
-    これは計算コストがグラフサイズ n について O(n**3) という、たいへん重いものだ。
+    これは計算コストがグラフ頂点数 n について O(n**3) という、たいへん重いものだ。
 
   * Dijkstra のアルゴリズムに基づいたグラフメソッド ``findAllDistances`` も利用可。
+    グラフの最短経路と言われれば、まずこの手法の適用可能性を検討するのが自然だろう。
 
   * 最短経路は一度計算しておけば、二度使える（つまり何度でも使える）。
 
-* グラフに関する集合演算がサポートされている。
+* グラフの部分もまたグラフである。
+  そこで、グラフに関する集合演算がサポートされている。
   メソッド名だけノートしておくと ``union``, ``intersect``, ``setDiff``,
   ``complement``, ``subgraph``
 
@@ -195,7 +167,7 @@ findAllDistances
 
 イラストのグラフの最短経路を計算するコードは次のとおり。
 
-.. code-block:: python
+.. code-block:: python3
 
    from apgl.graph.SparseGraph import SparseGraph
    from apgl.graph.GeneralVertexList import GeneralVertexList
@@ -241,7 +213,7 @@ PySparseGraph
 
 :file:`PySparseGraph` の冒頭のインポートがおかしいので、自分で修正する。
 
-.. code-block:: python
+.. code-block:: python3
 
    #from pysparse.sparse.pysparseMatrix import PysparseMatrix
    from pysparse.pysparseMatrix import PysparseMatrix
@@ -255,10 +227,8 @@ PySparseGraph
 
 .. _Python: http://www.python.org/
 .. _Python Extension Packages for Windows - Christoph Gohlke: http://www.lfd.uci.edu/~gohlke/pythonlibs/
-.. _easy_install: http://peak.telecommunity.com/DevCenter/EasyInstall
 .. _pip: http://pypi.python.org/pypi/pip
 .. _`Another Python Graph Library`: http://packages.python.org/apgl/
 .. _APGL: http://packages.python.org/apgl/
 .. _Numpy: http://scipy.org/NumPy/
 .. _SciPy: http://www.scipy.org/
-

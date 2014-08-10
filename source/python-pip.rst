@@ -2,22 +2,34 @@
 pip 利用ノート
 ======================================================================
 
-PyPI_ のページを久しぶりに見たら、
-<To use a package from this index either "``pip install package``"
-(get pip) or download, unpack and "``python setup.py install``" it>
-と書いてあった。
+本稿は <A tool for installing and managing Python packages>(pip_) である pip に関する覚え書きである。
+すべての Python ユーザーはそうなのではないかと思うのだが、
+Python のバージョンアップのたびに、サードパーティー製のパッケージもインストールし直すという、かなり面倒な作業が発生してしまう。
+インストーラー実行で即セットアップ終了となるなのは、あくまでも Python 本体でしかない。
+NumPy や Sphinx 等は別途明示的なインストール作業が利用するパッケージの個数回必要となる。
+ハードコアな Python ユーザーはサードパーティー製パッケージを大量に持っているため、この作業の手間を軽減するのが重要になるのだ。
+それには pip というパッケージを利用するのがたいへん具合がよい。
+そこで、この覚え書きを残して、Python のアップグレードのときに見返そうというわけだ。
 
-だから本ノートを記す。ごく初歩的な内容のノートに留めておく。
+この pip 自体の入手方法について、少々動きがあったので付記しておく。
+Python 3.4 以前は pip もまたサードパーティー製パッケージの一つであったのだが、
+うれしいことに 3.4 では Python 本体に同パッケージが同梱されている。
+``Scripts`` フォルダー内に ``easy_install`` と ``pip`` があるので、
+後述するインストールの手順を飛ばして、いきなりインストール作業に取り掛かることができる。
 
 .. contents:: ノート目次
 
 .. note::
 
-   * OS: Windows XP Home Edition SP 3
+   * OS
+
+     * Windows XP Home Edition SP 3
+     * Windows 7 Home Premium SP 1
+
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_: 2.6.6, 2.7.3
-     * pip_: 1.1
+     * Python_: 2.6.6, 2.7.3, 3.4.1
+     * pip_: 1.1, 1.5.6
      * setuptools_: 0.6c11
      * distribute_: 未使用
      * virtualenv: 未使用
@@ -32,7 +44,8 @@ pip_
 
 入手からインストールまで
 ======================================================================
-公式文書の説明に不明な点はなかった。
+Python 3.4 以前の環境では、手動でインストールする必要がある。
+以下に記す手順でインストールする。
 
 * 事実関係
 
@@ -141,9 +154,9 @@ pip_
 
    $ pip search amazon
    AWSpider                  - Amazon Web Services web crawler
+   boto                      - Amazon Web Services Library
    bellatrix                 - Bellatrix is a comprehensive set of tools to
                                automate the management of Amazon EC2 services.
-   boto                      - Amazon Web Services Library
    以下略
 
 まれに使うことになるかもしれない使用例
@@ -172,7 +185,7 @@ Python_ のどこかのページに書いてあるが、
 
 .. _Python: http://www.python.org/
 .. _PyPI: http://pypi.python.org/pypi
-.. _pip: http://www.pip-installer.org/en/latest/index.html
+.. _pip: https://pypi.python.org/pypi/pip
 .. _easy_install: http://peak.telecommunity.com/DevCenter/EasyInstall
 .. _setuptools: http://peak.telecommunity.com/DevCenter/setuptools
 .. _distribute: http://pypi.python.org/pypi/distribute

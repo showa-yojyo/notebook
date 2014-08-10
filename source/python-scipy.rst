@@ -9,21 +9,25 @@ SciPy 利用ノート
 
 .. note::
 
-   * OS: Windows XP Home Edition SP 3
+   * OS
+
+     * Windows XP Home Edition SP 3
+     * Windows 7 Home Premium SP 1
+
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_: 2.6.6, 2.7.3
-     * SciPy_: 0.10.1
-     * NumPy_: 1.6.1, 1.6.2
-     * Matplotlib_: 1.1.0, 1.1.1
-     * Nose_: 1.1.2
+     * Python_: 2.6.6, 2.7.3, 3.4.1
+     * SciPy_: 0.10.1, 0.14.0
+     * NumPy_: 1.6.1, 1.6.2, 1.8.2
+     * Matplotlib_: 1.1.0, 1.1.1, 1.3.1
+     * Nose_: 1.1.2, 1.3.3
 
 .. note::
 
    SciPy Reference Guide に倣い、以降のコード片においては、
    あらかじめ各種 ``import`` を次のようにしたものとする。
    
-   .. code-block:: python
+   .. code-block:: python3
    
       import numpy as np
       import scipy as sp
@@ -61,28 +65,34 @@ SciPy_
   :file:`scipy-x.y.z-win32-superpack-python2.6.exe` みたいな名前のインストーラーを
   SciPy_ のサイトから検索して入手しておけばよい。
 
+  Python 3.x 系や 64 ビット環境の場合は公式サイトではなく、
+  `Python Extension Packages for Windows - Christoph Gohlke`_ を利用させてもらう。
+  :file:`scipy-x.y.z.win-amd64-py3.4` のような名前のインストーラーをダウンロードすることができる。
+
 * インストールを終了したら、何はさておき
   :file:`README.txt` と :file:`INSTALL.txt` を一読すること。
   NumPy_ のときと同様、
   Nose_ が環境にあれば単体テストが実行できる。
+  例によって実行時間は決して短くない。
 
   .. code-block:: pycon
 
      >>> import scipy
-     >>> scipy.test()  # test('full') というのもある
+     >>> scipy.test()
      Running unit tests for scipy
-     NumPy version 1.6.1
-     NumPy is installed in D:\Python26\lib\site-packages\numpy
-     SciPy version 0.10.1
-     SciPy is installed in D:\Python26\lib\site-packages\scipy
-     Python version 2.6.6 (r266:84297, Aug 24 2010, 18:46:32) [MSC v.1500 32 bit (Intel)]
-     nose version 1.1.2
-     略
+     NumPy version 1.8.2
+     NumPy is installed in D:\Python34\lib\site-packages\numpy
+     SciPy version 0.14.0
+     SciPy is installed in D:\Python34\lib\site-packages\scipy
+     Python version 3.4.1 (v3.4.1:c0e311e010fc, May 18 2014, 10:45:13) [MSC v.1600 64 bit (AMD64)]
+     nose version 1.3.3
+     ... ドットの列 ...
      ----------------------------------------------------------------------
-     Ran 5113 tests in 158.889s
+     Ran 16418 tests in 770.217s
      
-     FAILED (KNOWNFAIL=12, SKIP=36, failures=2)
-     <nose.result.TextTestResult run=5113 errors=0 failures=2>
+     OK (KNOWNFAIL=277, SKIP=1171)
+     <nose.result.TextTestResult run=16418 errors=0 failures=0>
+     >>>
 
 .. warning::
 
@@ -181,7 +191,7 @@ Cookbook
   ばねと重りのペア 2 つを摩擦のある床の上に置いて引っ張る状況を出している。
 
 * Intersection of functions: ``scipy.optimize.fsolve`` で 2 曲線の交点が求められる。
-* KDTree: ``scipy.spatial.kdtree.KDTree`` TODO: あとで試す。
+* KDTree: ``scipy.spatial.kdtree.KDTree`` 本稿の後半を参照。
 
 Graphics は何か色々あるが、
 Matplotlib_ と PIL の ``Image`` データ作成方法しか用がない。
@@ -190,7 +200,8 @@ Matplotlib_ と PIL の ``Image`` データ作成方法しか用がない。
 
 SciPy Reference Guide
 ----------------------------------------------------------------------
-.. http://docs.scipy.org/doc/scipy-0.10.1/reference/
+
+http://docs.scipy.org/doc/scipy/reference/
 
 このガイドブックのチュートリアル "SciPy Tutorial" こそが言わば公式チュートリアル。
 SciPy の機能を厳選して構成されたと思われるので、一通り読んでみたくなる。
@@ -306,7 +317,7 @@ SciPy のバージョンを知る
 :file:`version.py` の変数 ``version`` を参照する。
 
  >>> sp.version.version
- '0.10.1'
+ '0.14.0'
 
 関数のヘルプを見る
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -324,7 +335,7 @@ Python なので「定数」ではないのだが、
 * SI 接頭辞（キロ、メガ等）
 
 便利なのでリンクをはっておく。
-http://docs.scipy.org/doc/scipy-0.10.1/reference/constants.html
+http://docs.scipy.org/doc/scipy/reference/constants.html
 
 KDTree を使う
 ----------------------------------------------------------------------
@@ -334,7 +345,7 @@ KDTree を使う
 Reference Guide の例を一部改変したものを記す。
 ある点とある点群をそれぞれ ``target``, ``points`` としてある。
 
-.. code-block:: python
+.. code-block:: python3
 
    import numpy as np
    from scipy.spatial import KDTree
@@ -352,8 +363,8 @@ Reference Guide の例を一部改変したものを記す。
    
    # Query for the closest point.
    dist, index = tree.query(target, eps=0.01)
-   print "Closest: ", tree.data[index]
-   print "Distance: ", dist
+   print("Closest: ", tree.data[index])
+   print("Distance: ", dist)
 
 実行結果。乱数を使っているので、結果は毎回異なる。
 
@@ -368,4 +379,4 @@ Reference Guide の例を一部改変したものを記す。
 .. _SciPy: http://www.scipy.org/
 .. _Matplotlib: http://matplotlib.sourceforge.net/
 .. _Nose: http://somethingaboutorange.com/mrl/projects/nose/
-
+.. _Python Extension Packages for Windows - Christoph Gohlke: http://www.lfd.uci.edu/~gohlke/pythonlibs/

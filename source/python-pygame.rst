@@ -6,18 +6,21 @@ Pygame 利用ノート
 
 .. note::
 
-   * OS: Windows XP Home Edition SP 3
+   * OS
+
+     * Windows XP Home Edition SP 3
+     * Windows 7 Home Premium SP 1
+
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_: 2.6.6, 2.7.3
-     * Pygame_: 1.9.1
-     * NumPy_: 1.6.1, 1.6.2
+     * Python_: 2.6.6, 2.7.3, 3.4.1
+     * Pygame_: 1.9.1, 1.9.2a0
+     * NumPy_: 1.6.1, 1.6.2, 1.8.2
 
 関連リンクおよび参考サイト
 ======================================================================
 Pygame_
   Pygame ウェブサイト。リリースニュース、ダウンロード、ドキュメントへの各リンクを提供している。
-  2012 年現在、あまり活動が活発でないように見受けられる。
 
 関連ノート
 ======================================================================
@@ -29,31 +32,35 @@ Pygame_
 事実上 Windows 環境では msi 実行による手段に限られる。
 Pygame_ のサイトのダウンロードのページから最新の msi ファイルをダウンロードして、実行するだけでよい。
 
+Python 3.x 系や 64 ビット環境の場合は公式サイトではなく、
+`Python Extension Packages for Windows - Christoph Gohlke`_ を利用させてもらう。
+
 テスト
 ----------------------------------------------------------------------
-:file:`$PYTHONHOME/site-packages/pygame/tests/__main__.py` をコンソールから実行すると、
-とりあえずユニットテストらしきものが始まる。
-私の環境では ``font-test`` で進捗が止まってしまう。
+コンソールから次のようにタイプすると、テストを実行することになっている。
 
 .. code-block:: console
 
-   $ python26 __main__.py
+   $ python34 -m pygame.tests
+
+別のウィンドウがパカパカ開いたり閉じたりするが、根気よく待つ。
+すると、いつもの単体テストの結果らしきテキストがコンソールウィンドウに出力される。
+
+.. code-block:: console
+
+   skipping pygame.tests._movie_test (tag 'subprocess_ignore')
    skipping pygame.tests.cdrom_test (tag 'interactive')
+   skipping pygame.tests.midi_test (tag 'interactive')
    loading pygame.tests.base_test
    loading pygame.tests.blit_test
    loading pygame.tests.bufferproxy_test
-   loading pygame.tests.color_test
-   loading pygame.tests.cursors_test
-   loading pygame.tests.display_test
-   loading pygame.tests.draw_test
-   loading pygame.tests.event_test
-   loading pygame.tests.fastevent_test
-   loading pygame.tests.font_test
-   Traceback (most recent call last):
-     File "__main__.py", line 131, in <module>
-       run(*args, **kwds)
-     <<略>>
-   KeyboardInterrupt
+   ... 略 ...
+   ... ドットが出てくる ...
+   ----------------------------------------------------------------------
+   Ran 678 tests in 112.678s
+   
+   FAILED (failures=2, errors=1)
+   $
 
 ドキュメント
 ======================================================================
@@ -118,4 +125,4 @@ PyOpenGL との連携
 .. _Pygame: http://www.pygame.org/
 .. _Numpy: http://scipy.org/NumPy/
 .. _PyOpenGL: http://pyopengl.sourceforge.net/
-
+.. _Python Extension Packages for Windows - Christoph Gohlke: http://www.lfd.uci.edu/~gohlke/pythonlibs/

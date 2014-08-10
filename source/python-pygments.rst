@@ -6,11 +6,15 @@ Pygments 利用ノート
 
 .. note::
 
-   * OS: Windows XP Home Edition SP 3
+   * OS
+
+     * Windows XP Home Edition SP 3
+     * Windows 7 Home Premium SP 1
+
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_: 2.6.6, 2.7.3
-     * Pygments_: 1.4, 1.5
+     * Python_: 2.6.6, 2.7.3, 3.4.1
+     * Pygments_: 1.4, 1.6
 
 関連リンク
 ======================================================================
@@ -28,13 +32,10 @@ Python_ 製パッケージ」とでも言えばいいのだろうか。
 正しいインストール方法はいつものように複数ある。
 公式にはいずれの方法においても Python 2.4 以上が必要。
 
-方法 1 -- easy_install (or pip) 経由でインストール
+方法 1 -- pip 経由でインストール
 ----------------------------------------------------------------------
 インターネットが利用できる環境ではいつも通りコンソールウィンドウで
-``easy_install pygments`` とタイプすればよい。
-
-万が一 `easy_install`_ 
-をインストールしていなかったならば、インターネットから入手せよ。
+``pip install pygments`` とタイプすればよい。
 
 方法 2 -- ソースコード一式からインストール
 ----------------------------------------------------------------------
@@ -49,9 +50,7 @@ Python_ 製パッケージ」とでも言えばいいのだろうか。
 
 方法 3 -- 開発版コードをダウンロード
 ----------------------------------------------------------------------
-.. note::
-
-   インターネット接続環境と Mercurial_ とやらが必要なのでパス。
+Mercurial_ とやらが必要なのでパス。
 
 ドキュメントも確保する
 ----------------------------------------------------------------------
@@ -79,14 +78,14 @@ Python コードから Pygments の機能を利用する
 ----------------------------------------------------------------------
 ドキュメントに紹介されている例を検討してみる。
 
-.. code-block:: python
+.. code-block:: python3
 
    from pygments import highlight
    from pygments.lexers import PythonLexer
    from pygments.formatters import HtmlFormatter
    
    code = 'print "Hello World"'
-   print highlight(code, PythonLexer(), HtmlFormatter())
+   print(highlight(code, PythonLexer(), HtmlFormatter()))
 
 これは「Python のソースコードを HTML コード片に変換する」例のごく単純なもので、
 最後に ``highlight`` 関数で締めくくっている。

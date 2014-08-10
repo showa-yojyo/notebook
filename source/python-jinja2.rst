@@ -6,10 +6,14 @@ Jinja2 利用ノート
 
 .. note::
 
-   * OS: Windows XP Home Edition SP 3
+   * OS
+
+     * Windows XP Home Edition SP 3
+     * Windows 7 Home Premium SP 1
+
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_: 2.6.6, 2.7.3
+     * Python_: 2.6.6, 2.7.3, 3.4.1
      * Jinja2_: 2.5.5, 2.6
 
 関連リンク
@@ -30,10 +34,9 @@ Jinja2 とは何なのか
 
 インストール方法
 ======================================================================
-* Python 2.4 以上が必要。Python 3 系は実験版扱いでのサポート。
+* Python 2.4 以上が必要。Python 3 系も動作確認済み。
 
-* インターネットが利用できる環境ではいつも通り ``easy_install jinja2`` でよい。
-  ということは PIP_ を利用して ``pip install jinja2`` のほうが私の好みということだ。
+* インターネットが利用できる環境ではいつも通り ``pip install jinja2`` でよい。
 
 * インターネットが利用できない環境では、できる環境から圧縮ファイルを持ち帰り、
   解凍してがんばる。
@@ -59,20 +62,16 @@ Jinja2 Documentation から引用：
 >>> from jinja2 import Template
 >>> template = Template('Hello {{ name }}!')
 >>> template.render(name='John Doe')
-u'Hello John Doe!'
+'Hello John Doe!'
 
-* ``jinja2.Template.render`` の引数は ``dict`` オブジェクトかキーワード引数。
-  これをテンプレートのコンテキストという。
-
-* ``jinja2.Template.render`` は Unicode オブジェクトを返す。
-  内部的にも Unicode を利用しているとのこと。
-
+``jinja2.Template.render`` の引数は ``dict`` オブジェクトかキーワード引数。
+これをテンプレートのコンテキストという。
 
 クラス Environment
 ----------------------------------------------------------------------
 コンフィグレーションクラスと思えばよい。
 
-.. code-block:: python
+.. code-block:: python3
 
    from jinja2 import Environment, PackageLoader
    env = Environment(loader=PackageLoader('yourapplication', 'templates'))
@@ -109,14 +108,14 @@ u'Hello John Doe!'
   ただし、ローダーを指定せずに ``Environment`` を生成した場合は、
   ``from_string`` メソッドで ``Template`` オブジェクトを得ることになる。
 
-  .. code-block:: python
+  .. code-block:: python3
 
      MY_TEMPLATE = 'Hello {{ name }}!'
      
      env = Environment()
      # ...
      template = env.from_string(MY_TEMPLATE)
-     print template.render(name='John Doe')
+     print(template.render(name='John Doe'))
 
 * ``render`` メソッドはテンプレートテキストとキーワード引数を加工して、
   ユニコード文字列を一気に返す。
@@ -357,8 +356,7 @@ Jinja2 で言うマクロというのは、プログラミング言語的関数�
 .. code-block:: jinja
 
    {% macro input(name, value='', type='text', size=20) -%}
-       <input type="{{ type }}" name="{{ name }}" value="{{
-           value|e }}" size="{{ size }}">
+       <input type="{{ type }}" name="{{ name }}" value="{{ value|e }}" size="{{ size }}">
    {%- endmacro %}
 
    <p>{{ input('username') }}</p>
@@ -508,7 +506,7 @@ Python コード
 その場で実行すると :file:`diary-2011-04.txt` のような、
 手動で日記を書くためのテキストファイルができる。
 
-.. code-block:: python
+.. code-block:: python3
 
    # -*- encoding: utf-8 -*-
    from jinja2 import Environment, FileSystemLoader
@@ -517,7 +515,7 @@ Python コード
 
    tmpldir = '.' # テンプレファイルのあるディレクトリー
    env = Environment(
-       loader = FileSystemLoader(tmpldir, encoding='sjis'),
+       loader = FileSystemLoader(tmpldir, encoding='utf-8'),
        autoescape = False)
    tmpl = env.get_template('diary.txt_t')
 
@@ -527,7 +525,7 @@ Python コード
    cal = Calendar()
 
    # テキストファイルに書き出す
-   with open('diary-%04d-%02d.txt' % (y, m)) as fout:
+   with open('diary-%04d-%02d.txt' % (y, m), 'w') as fout:
        fout.write(tmpl.render(
            year = y, month = m,
            days = cal.itermonthdays2(y, m)))
@@ -558,100 +556,9 @@ Python コード
 とは言え Jinja2 の本来の用途がわかったのでよしとする。
 この例で言うと、日記本文もあらかじめどこかに生のテキストの形で存在してしかるべきなわけだ。
 
-Twitter タイムライン更新確認用 OPML 生成
-----------------------------------------------------------------------
-例えばあなたがこっそり注目している Twitter ユーザーが複数人いるとする。
-そして、彼らのそれぞれのユーザータイムラインの最新の状況を
-常用している RSS ビューワーで、好きなときに確認したいという要求があるとする。
-
-RSS ビューワーで手作業でそのようなクエリーを追加設定していくことも可能だが、
-ビューワーには OPML ファイルのインポートという機能が実装されている。
-簡単に言えば、RSS の URL のリストだ。ただし書式は XML である。
-
-Twitter のユーザー名 (screen_name) から RSS のアドレスが一意に決まるので、
-簡単なテンプレから Jinja2 を使って OPML ファイルを生成することにしよう。
-
-テンプレ
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-筆者愛用の RSS ビューワーはウェブブラウザーの Sleipnir2 である。
-それがエクスポートする OPML ファイルを基にして、テンプレを以下のようにした。
-これはスクリプトファイルに埋め込んでしまう。
-
-.. code-block:: python
-
-   OPML_TEMPLATE = '''\
-   <?xml version="1.0" encoding="utf-8"?>
-   <opml version="1.0">
-     <head>
-       <title>RSS Bar</title>
-       <dateCreated></dateCreated>
-       <dateModified></dateModified>
-     </head>
-     <body>
-     {%- for screen_name in screen_names %}
-       {%- set url=screen_name|makeurl %}
-       <outline type="rss" text="{{ screen_name }}" title="{{ screen_name }}" xmlUrl="{{ url }}" htmlUrl="{{ url }}"/>
-     {%- endfor %}
-     </body>
-   </opml>
-   '''
-
-* ``render`` で指定する変数は screen_names だけであり、
-  Twitter ユーザー名を示す文字列を含む ``list`` または ``tuple`` オブジェクトだ。
-
-* 外部で ``makeurl`` というカスタムフィルターを定義する。
-  これは screen_name に対応する RSS の URL を返す簡単な関数として実装する。
-
-Python コード
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-ファイルの先頭はこのようになる。
-
-.. code-block:: python
-
-   import sys
-   import urllib
-   import cgi
-   from jinja2 import Environment
-   
-   TWITTER_API_URL = 'https://api.twitter.com/1/statuses/user_timeline.atom?'
-   
-   OPML_TEMPLATE = ...  # 前述コード参照
-
-カスタムフィルター ``makeurl`` の実装はこうなる。
-パラメーターの設定の意味が知りたい場合は
-`REST API Resources`_ を参照するべし。
-
-.. code-block:: python
-
-   def makeurl(screen_name):
-       params = dict(
-           screen_name=screen_name,
-           count=30,
-           include_rts='true',)
-       return cgi.escape(TWITTER_API_URL + urllib.urlencode(params))
-
-本体は概ね次のようなものになる。
-OPML ファイル生成時に ``screen_names`` 部分を編集するのだ。
-
-.. code-block:: python
-
-   def run():
-       # TODO: スクリプト利用時に編集すること
-       screen_names = (
-           'screen_name1', 'screen_name2', # ...
-           )
-
-       env = Environment()
-       env.filters['makeurl'] = makeurl
-       template = env.from_string(OPML_TEMPLATE)
-       print template.render(screen_names=screen_names)
-
-標準出力に書き出すのがいやならば、直接ファイルに書き出すのがよい。
-
 TODO
 ======================================================================
 * Git_ を利用した開発版 Jinja2_ の作業コピー取得をやってみる。
-  インターネット環境必須。
 
 * MarkupSafe_ をインストールしてみる。
   Jinja2 の自動エスケープ機能が高速化するようだ。

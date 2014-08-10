@@ -6,14 +6,19 @@ Matplotlib 利用ノート
 
 .. note::
 
-   * OS: Windows XP Home Edition SP 3
+   * OS
+
+     * Windows XP Home Edition SP 3
+     * Windows 7 Home Premium SP 1
+
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_ 2.6.6, 2.7.3
+     * Python_ 2.6.6, 2.7.3, 3.4.1
      * Setuptools_ 0.6c11
-     * NumPy_ 1.6.0, 1.6.2
-     * Matplotlib_ 1.1.0, 1.1.1
-     * PyQt_ 4.8.4
+     * Matplotlib_ 1.1.0, 1.1.1, 1.3.1
+     * NumPy_ 1.6.0, 1.6.2, 1.8.2
+     * PyParsing_ 2.0.2
+     * PyQt_ 4.8.4, XXXXX
 
 関連リンク
 ======================================================================
@@ -56,17 +61,18 @@ Matplotlib は NumPy_ を多用しているので、当然これを先にイン�
 
 Matplotlib 本体をインストール
 --------------------------------------------------
-私のプラットフォームは Windows なので、
-Matplotlib_ 公式サイトからインストーラーをダウンロードして実行するの一手。
+Python 2.7.3 環境設定時は公式インストーラーのモジュール群が動作しなかった。
+具体的に言うと、簡単なプロットを定義した後に ``matplotlib.pyplot.show()`` すると、
+単に白いウィンドウが出て CPU 使用率が 100% になるという挙動だった。
 
-.. note::
+ものの試しに `Python Extension Packages for Windows - Christoph Gohlke`_ で配布している
+インストーラーに差し替えてみたら、期待通りの動作をした。
 
-   Python 2.7.3 環境設定時は公式インストーラーのモジュール群が動作しなかった。
-   具体的に言うと、簡単なプロットを定義した後に ``matplotlib.pyplot.show()`` すると、
-   単に白いウィンドウが出て CPU 使用率が 100% になるという挙動だった。
+Python 3.4 でも、どうぜ公式サイトでは 64 ビット版のビルドなどしないので、こちらのインストーラーを利用する。
 
-   ものの試しに `Python Extension Packages for Windows - Christoph Gohlke`_ で配布している
-   インストーラーに差し替えてみたら、期待通りの動作をした。
+PyParsing をインストール
+--------------------------------------------------
+必要に応じて PyParsing_ をインストールする。
 
 オフラインでも勉強できるようにドキュメントを確保
 --------------------------------------------------
@@ -353,6 +359,7 @@ rc パラメーターでバックエンドを指定する。
 
    # PyQt4 によるウィンドウでグラフを描く。
    # もちろん、PyQt4 が別途インストール済みであることが前提。
+   # ちなみに Qt5Agg は Matplotlib 1.3.x 時点では実装されていない。
    backend : Qt4Agg
 
 コードで動的に（実行時に）指定するのならばこうする。
@@ -569,4 +576,4 @@ Matplotlib を利用するための環境をもっと細かく整備してみよ
 .. _PIL: http://www.pythonware.com/products/pil
 .. _Sphinx: http://sphinx.pocoo.org/
 .. _PyQt: http://www.riverbankcomputing.com/software/pyqt/intro
-
+.. _PyParsing: https://pypi.python.org/pypi/pyparsing

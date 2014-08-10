@@ -8,8 +8,8 @@ Nose 利用ノート
    * 本稿を読む前に Python_ 本体の ``unittest`` を理解しておくべし。
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_ 2.6.6, 2.7.3
-     * Nose_ 1.0.0, 1.1.2
+     * Python_ 2.6.6, 2.7.3, 3.4.1
+     * Nose_ 1.0.0, 1.1.2, 1.3.3
 
    * 当ノートでは ``--verbosity`` オプションを多用しているが、
      単にノートを見返すときのわかりやすさを優先するためだけによる。
@@ -23,25 +23,24 @@ Nose_
 目的
 ======================================================================
 
-* Nose_ 自身の目的は、ドキュメントの冒頭に <nose is nicer
-  testing for python> や <nose extends unittest to make testing easier>
-  と謳われており、さらに次の 4 点に狙いを絞っている。
+Nose_ 自身は、その目的をドキュメントの冒頭に <nose is nicer testing for python> や <nose extends unittest to make testing easier> と謳っている。
+さらに、プログラムの狙いを次の 4 点に絞っている。
 
   #. テストコードを書くのを簡単に。
   #. テストを走らせるのを簡単に。
   #. テスト環境の構築を簡単に。
   #. やりたいことをやることを簡単に。
 
-* そして私が Nose を利用する目的も上のどれかに相当するはずなのだが、
-  やはり「走らせるのを簡単に」が主目的だ。
-  標準の ``unittest`` だけでやろうとすると、
-  TestSuite を集めて TestRunner に渡すコードを書くのが面倒。
+そして私が Nose_ を利用する目的は何かというと、主に「走らせるのを簡単に」ではないかと思う。
+Python 標準の ``unittest`` だけで単体テストをやろうとすると、TestSuite を集めて TestRunner に渡すコードを書く、
+という、これまでよくやってきた作業パターンが億劫に感じられるはずだ。
 
 インストール
 ======================================================================
-普通のインストール方法はいつものように複数ある。
+他の Python サードパーティー製パッケージ同様に、Nose_ のインストール方法もまた複数存在する。
+最近では pip 一択になってきたので、実は特に覚え書きを残すようなトピックでもないのかもしれない。
 
-インストールが終わると、Python 環境は次のように変化しているはず。
+どの手順でインストールをするにせよ、インストールが成功終了後は、Python 環境は次のように変化している。
 
 * ``Lib/site-packages/nose`` フォルダーが存在する。
   当然その中には py モジュールが含まれている。
@@ -49,17 +48,15 @@ Nose_
 * ``Scripts`` フォルダーに実行ファイル :file:`nosetests` が存在する。
   特に Windows の場合、これは exe ファイルである。
 
-方法 1 -- easy_install (or pip) 経由でインストール
+方法 1 -- pip 経由でインストール
 ----------------------------------------------------------------------
 インターネットが利用できる環境ではいつも通りコンソールウィンドウで
 
 .. code-block:: console
 
-   $ easy_install nose
+   $ pip nose
 
 とタイプすればよい。
-
-万が一 `easy_install`_ をインストールしていなかったならば、インターネットから入手せよ。
 
 方法 2 -- setuptools を利用してソースからインストール
 ----------------------------------------------------------------------
@@ -166,7 +163,7 @@ attr オプション -- 属性を指定することで起動するテストを�
 そんなときには ``--attr``, ``--eval-attr``
 オプションの仕組みをうまくテストコードに組み込む。
 
-.. code-block:: python
+.. code-block:: python3
 
    # tests.py
    from nose.plugins.attrib import attr
@@ -240,6 +237,7 @@ with-coverage オプション -- コードカバレッジ
    
    Name         Stmts   Miss  Cover   Missing
    ------------------------------------------
+   ... この行にファイルパスの情報が入るが省略 ...
    testrandom      21      3    86%   25, 30-31
    ----------------------------------------------------------------------
    Ran 3 tests in 0.010s
@@ -248,6 +246,10 @@ with-coverage オプション -- コードカバレッジ
 
 with-profile オプション -- プロファイリング
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. note::
+   
+   筆者環境では Nose 1.3.3 でこの機能が利用できなくなっている。
+
 ``--with-profile`` オプションで、
 テストに関係した全関数に対する呼び出しの回数や時間の統計を取れる。
 いつものテスト結果を出力した直後に、プロファイル結果を出力する。
@@ -406,22 +408,24 @@ Nose のバージョンが上がってから勉強しに行こう。
 
   * 他人様の作ったパッケージのテスト構成を探るのに最適なツールかもしれない。
     例えば Jinja2_ の ``testsuite`` フォルダーの各ファイルからテストを
-    全部抽出してリストを作成できたりする。何かの役に立つわけではないがね。
+    全部抽出してリストを作成できたりする。
 
     .. code-block:: console
 
-       $ cd site-packages/jinja2
-       $ python -c 'import jinja2; print jinja2.__version__'
-       2.5.5
+       $ cd site-packages/jinja2/
+       $ python34 -c 'import jinja2; print(jinja2.__version__)'
+       2.7.3
        $ nosetests --collect-only --with-id -v testsuite/*.py
-       #56 test_autoescape_autoselect (jinja2.testsuite.api.ExtendedAPITestCase) ... ok
-       #57 test_cycler (jinja2.testsuite.api.ExtendedAPITestCase) ... ok
-       #58 test_expressions (jinja2.testsuite.api.ExtendedAPITestCase) ... ok
-       ... 省略
-       #264 test_markup_leaks (jinja2.testsuite.utils.MarkupLeakTestCase) ... ok
-
+       #1 Failure: TypeError (find_all_tests() missing 1 required positional argument: 'suite') ... ok
+       #2 test_autoescape_autoselect (jinja2.testsuite.api.ExtendedAPITestCase) ... ok
+       #3 test_cycler (jinja2.testsuite.api.ExtendedAPITestCase) ... ok
+       #4 test_expressions (jinja2.testsuite.api.ExtendedAPITestCase) ... ok
+       #5 test_finalizer (jinja2.testsuite.api.ExtendedAPITestCase) ... ok
+       ... 省略 ...
+       #311 test_markup_leaks (jinja2.testsuite.utils.MarkupLeakTestCase) ... ok
+       
        ----------------------------------------------------------------------
-       Ran 250 tests in 0.871s
+       Ran 311 tests in 0.139s
        
        OK
 
@@ -440,25 +444,25 @@ Nose のバージョンが上がってから勉強しに行こう。
        >>> import numpy
        >>> numpy.linalg.test(verbose=2)
        Running unit tests for numpy.linalg
-       NumPy version 1.6.0
-       NumPy is installed in D:\Python26\lib\site-packages\numpy
-       Python version 2.6.6 (r266:84297, Aug 24 2010, 18:46:32) [MSC v.1500 32 bit (Intel)]
-       nose version 1.0.0
-       test_lapack (test_build.TestF77Mismatch) ... SKIP: Skipping test: test_lapack
-       Skipping fortran compiler mismatch on non Linux platform
-       test_square (test_linalg.TestBoolPower) ... ok
-       test_cdouble (test_linalg.TestCond2) ... ok
-       test_cdouble_2 (test_linalg.TestCond2) ... ok
+       NumPy version 1.8.2
+       NumPy is installed in D:\Python34\lib\site-packages\numpy
+       Python version 3.4.1 (v3.4.1:c0e311e010fc, May 18 2014, 10:45:13) [MSC v.1600 64 bit (AMD64)]
+       nose version 1.3.3
+       test_lapack (test_build.TestF77Mismatch) ... SKIP: Skipping test: test_lapack: Skipping fortran compiler mismatch on non Linux platform
+       Check mode='full' FutureWarning. ... ok
+       test_linalg.TestBoolPower.test_square ... ok
+       test_linalg.TestCond2.test_sq_cases ... ok
+       test_linalg.TestCondInf.test ... ok
+       test_linalg.TestCondSVD.test_sq_cases ... ok
        ... 省略 ...
-       test_lapack_endian (test_regression.TestRegression) ... ok
-       Regression for #786: Froebenius norm for vectors raises ... ok
        Ticket 627. ... ok
+       test_svd_no_uv (test_regression.TestRegression) ... ok
        
        ----------------------------------------------------------------------
-       Ran 165 tests in 3.855s
+       Ran 118 tests in 42.034s
        
-       OK (SKIP=1)
-       <nose.result.TextTestResult run=165 errors=0 failures=0>
+       OK (SKIP=2)
+       <nose.result.TextTestResult run=118 errors=0 failures=0>
 
 * 未調査項目
 
