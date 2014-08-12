@@ -31,6 +31,7 @@ Contents:
    python-scipy
    python-apgl
    python-pil
+   python-pillow
    python-matplotlib
    python-jinja2
    python-pygments
