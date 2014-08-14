@@ -2,74 +2,88 @@
 PyOpenGL 3.x 利用ノート
 ======================================================================
 
+筆者が昔 OpenGL をやる必要に迫られたときに、当時所持していた PC のスペックでは C/C++ の環境をまともに構築できず、研究ができない状態になって一瞬困った。
+そこで、困ったときの Python 頼みということで、パッケージを探したところ、簡単に PyOpenGL_ に突き当たった。
+早速 PyOpenGL の環境を構築し、学習を始めた。
+始めるとすぐに、これが他の NumPy_ 等の有力パッケージとの強力なコンビ技で、むしろ Python のほうが学習環境に向いているということに気付いた。
+OpenGL の勉強には Python を使う。これはなかなかよいコツかもしれない。
+
+本稿は、筆者の個人的な PyOpenGL の環境構築方法および、コードの記述方法等の覚え書きである。
+
 .. contents:: ノート目次
 
 .. note::
 
-   * OS: Windows XP Home Edition SP 3
+   * OS
+
+     * Windows XP Home Edition SP 3
+     * Windows 7 Home Premium SP 1
+
    * 本稿執筆にあたり利用した各パッケージのバージョンは次のとおり。
 
-     * Python_: 2.6.6, 2.7.3
-     * PyOpenGL_: 3.0.2a5
-     * NumPy_: 1.6.1, 1.6.2
-     * PIL_: 1.1.7 (unofficial)
+     * Python_: 2.6.6, 2.7.3, 3.4.1
+     * PyOpenGL_: 3.0.2a5, 3.1.0
+     * NumPy_: 1.6.1, 1.6.2, 1.8.2
+     * PIL_: 1.1.7 (unofficial) 現在は Pillow に取って代わられた。
+     * Pillow_: 2.5.1
 
 関連リンク
 ======================================================================
 PyOpenGL_ (The Python OpenGL Binding)
   本パッケージ総本山サイト。インストール方法やドキュメント等。
 
+`Python Extension Packages for Windows - Christoph Gohlke`_
+  非公式インストーラー配布元。
+
 GLUT_ (Nate Robins - OpenGL - GLUT for Win32)
   OpenGL Utility Toolkit (GLUT) の Windows 版バイナリーを配布しているウェブページ。
+  XP までのバージョンでないと使えないので、残念ながらもはや価値がない。
 
 関連ノート
 ======================================================================
 * :doc:`python-numpy`
 * :doc:`python-pil`
+* :doc:`python-pillow`
 
 インストール
 ======================================================================
-* 経験則として PyOpenGL の依存パッケージ的なものを先にインストールしておくのがコツ。
+* 経験則として NumPy 等、PyOpenGL の依存パッケージ的なものを先にインストールしておくのがコツ。
   もちろん本来の意味では PyOpenGL が依存するパッケージというものはない。
   しかし、グラフィックのプログラムを書くのならば、
   普通はインストールしていないとマズいというものは存在する。
+  まずは次の 2 つのパッケージを挙げたい。
 
   * 基礎的なベクトル演算のために NumPy_ を利用したいので、インストールしておく。関連ノート参照。
-  * 画像ファイルからテクスチャーを読み込むために PIL_ をインストールしておく。これも関連ノート参照。
+  * 画像ファイルからテクスチャーを読み込むために Pillow_ をインストールしておく。これも関連ノート参照。
 
-* GLUT_ をインストールしておく。ただし、システムに存在しない場合に限る。
+* PyOpenGL 本体のインストールは上記関連リンクの非公式インストーラーを利用する。
+  著者の現在の環境は Windows7 64bit なので、選択は次の 2 つとなる。
 
-  * :file:`glut32.dll` が環境変数 ``PATH`` の含むどこかにいれば十分。
-  * ない場合は関連リンク先から :file:`glut-3.7.6-bin.zip` をダウンロードする。
-    解凍して DLL ファイルを ``C:\WINDOWS\System32`` にぶち込む。
-    残りのファイルは処分する。
+  * :file:`PyOpenGL-3.1.0.win-amd64-py3.4.exe`
+  * :file:`PyOpenGL-accelerate-3.1.0.win-amd64-py3.4.exe`
 
-* PyOpenGL 本体のインストールは `easy_install`_
-  またはそれに準じた方法で行えばよい。
-  `pip`_ 推奨。
-
-  .. code-block:: console
-  
-     $ pip install PyOpenGL
+* GLUT は考慮しないでよくなったもよう。
 
 ドキュメント
 ======================================================================
 PyOpenGL は Python のラッパーに過ぎない。
-OpenGL が一通り使える腕があれば、
-必要な勉強は C 言語でのプログラミングとの差分を確認するだけということになる。
+OpenGL が一通り使える技術があれば、
+必要な勉強は C 言語でのプログラミングと Python でのそれとの差分を確認するだけということになる。
 
 * 公式サイトの "PyOpenGL for OpenGL Programmers" という章を読む。
 
   * PyOpenGL は実行速度については期待できない。
 
+    そもそも速度が欲しいならば肚をくくって C/C++ 環境を検討するし、ここでは学習目的が主なので速度は二の次だ。
+
     * プログラミングの柔軟性、利便性、堅牢性を重視しているらしい。
     * 頂点毎の各種演算はアホみたいに遅い。
-      よって、せめて配列ベースの演算でコードを書くようにする。
+      よって、最低でも配列ベースの演算でコードを書くようにする。
 
   * PyOpenGL は SIWG ではなく ctypes を利用して実装されている。
 
   * 一部関数シグニチャーが C 言語版と PyOpenGL 版とで異なる。
-    といっても、配列モノの API が Python 風に表現されているだけ。
+    といっても、配列モノの API が Python 風に表現されているだけだ。
 
   * PyOpenGL は OpenGL 操作中でのエラー発生時に例外を送出する。
     プログラマーが手で ``glCheckError`` を書かずにすむというわけだ。
@@ -85,7 +99,7 @@ OpenGL が一通り使える腕があれば、
 コード
 ======================================================================
 C ではなく Python を利用して OpenGL プログラムを書く利点は、
-PyOpenGL_ の API を NumPy_ や PIL_ といった、高品質なサードパーティ製パッケージの
+PyOpenGL_ の API を NumPy_ や Pillow_ といった、高品質なサードパーティ製パッケージの
 部品と簡単に組み合わせて利用できる点に尽きる。
 
 欠点は何度も言うように実行が遅いことだ。悲しいくらい遅い。
@@ -97,11 +111,15 @@ GLUT ベースのスケルトンを自作しておく
 次のようなテキストファイルをテンプレートとして保存しておき、
 新しいスクリプトを作成する際には、このテンプレートからコードを「増築」していくようにする。
 
-.. literalinclude:: glut-skeleton.py
-   :language: python
+.. literalinclude:: ../sample/pyopengl/skeleton.py
+   :language: python3
 
 仮に実行すると、黒い画面に赤い三角形が描画されているのが確認できるはずだ。
 以降の各デモコードでは、このスケルトンの差分部分・修正部分を記述する。
+
+一点、注意がある。
+``glutCreateWindow`` の実引数となる文字列 ``window_title`` の型に注意して欲しい。
+素の文字列ではエラーが起こるのを避けるべく、接頭辞 b を付けている。
 
 C 言語で配列に相当する型の実引数を与える
 ----------------------------------------------------------------------
@@ -111,7 +129,7 @@ C 言語で配列に相当する型の実引数を与える
 * 値の与え方もかなり柔軟になっている。
   ``list``, ``tuple``, ``numpy.ndarray``, etc. を直接与えることが許される。
 
-.. code-block:: python
+.. code-block:: python3
 
    from OpenGL.GL import *
    from OpenGL.GLU import *
@@ -140,12 +158,14 @@ C 言語で配列に相当する型の実引数を与える
 
 PNG ファイルからテクスチャーを生成する
 ----------------------------------------------------------------------
-ポイントは PIL の ``Image`` インスタンスの ``tostring`` 戻り値を ``glTexImage2D`` に渡すことだ。
+ポイントは Pillow の ``Image`` インスタンスの ``tostring`` 戻り値を ``glTexImage2D`` に渡すことだ。
 ここではアルファチャンネルを含む PNG ファイルからテクスチャーデータを作成する例を示す。
 
+def init
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 まずはテクスチャー設定から。
 
-.. code-block:: python
+.. code-block:: python3
 
    def init():
       glClearColor(1., 1., 1., 1.)
@@ -165,7 +185,7 @@ PNG ファイルからテクスチャーを生成する
       glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL)
 
 Comment 1
-  :doc:`python-pil` で利用した PNG ファイルからテクスチャーを作成している。
+  :doc:`python-pillow` で利用した PNG ファイルからテクスチャーを作成している。
   ファイルのピクセルサイズがやや中途半端なので、決め打ちだが 256 ピクセル四方にリサイズする。
 
 Comment 2
@@ -174,37 +194,65 @@ Comment 2
   
   残りの関数呼び出しは、アプリケーションの目的に応じてパラメーターを指定すること。
 
+def display
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 次に描画ロジックを示す。明らかに手抜きコードだが、説明にはこれで十分だろう。
 これを ``display`` の主要部分に加える。
 
-.. code-block:: python
+.. code-block:: python3
 
-   vx, vy = 20.0, 20.0
-   tx, ty = 4.0, 4.0
+   vx, vy = 40.0, 40.0
+   tx, ty = 6.0, 6.0
    
-   # ...
+   vertices = (
+       -vx, -vy, 0.0,
+        vx, -vy, 0.0,
+        vx, vy, 0.0,
+       -vx, vy, 0.0,)
+   
+   texcoords = (
+       -tx, -ty,
+       tx, -ty,
+       tx, ty,
+       -tx, ty,)
+   
+   colors = (
+       0, 0, 0, 0.75,
+       0, 0, 0, 0.75,
+       1, 1, 1, 0.75,
+       0, 0, 0, 0.75,)
 
-   gluLookAt(4, 4, 4,
-             0, 0, 0,
-             0, 0, 1)
+   def display():
+       """シーンレンダリング"""
 
-   # ...
+       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
-   glBegin(GL_POLYGON)
-   glColor3f(0, 0, 0)
-   glTexCoord2d(-tx, -ty)
-   glVertex3f(-vx, -vy, 0.0)
+       glMatrixMode(GL_MODELVIEW)
+       glPushMatrix()
+       glLoadIdentity()
 
-   glTexCoord2d(tx, -ty)
-   glVertex3f(vx, -vy, 0.0)
+       gluLookAt(14, 14, 1.58,
+                 0, 0, 0,
+                 0, 0, 1)
 
-   glTexCoord2d(tx, ty)
-   glColor3f(1, 1, 1)
-   glVertex3f(vx, vy, 0.0)
+       # プリミティブを描画する。
+       glPushAttrib(GL_CURRENT_BIT)
+       glPushClientAttrib(GL_CLIENT_VERTEX_ARRAY_BIT)
 
-   glTexCoord2d(-tx, ty)
-   glVertex3f(-vx, vy, 0.0)
-   glEnd()
+       glEnableClientState(GL_VERTEX_ARRAY)
+       glEnableClientState(GL_TEXTURE_COORD_ARRAY)
+       glEnableClientState(GL_COLOR_ARRAY)
+       glVertexPointer(3, GL_FLOAT, 0, vertices)
+       glTexCoordPointer(2, GL_FLOAT, 0, texcoords)
+       glColorPointer(4, GL_FLOAT, 0, colors)
+       glDrawArrays(GL_POLYGON, 0, 4)
+
+       glPopClientAttrib()
+       glPopAttrib()
+       glPopMatrix()
+
+       # バッファスワップ
+       glutSwapBuffers()
 
 実行すると以下のようなイメージ (320x240) を得るだろう。
 
@@ -216,7 +264,19 @@ Comment 2
 PIL のテキスト描画機能と PyOpenGL のテクスチャー機能を活用したプログラム例。
 要所のみを説明する。
 
-.. code-block:: python
+def init
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``init`` のテクスチャー初期化コードに以下を含める。
+
+.. code-block:: python3
+
+   img = drawtext(u'潔')
+
+   # 残りは前項を参照。
+
+def drawtext
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. code-block:: python3
 
    def drawtext(text, initsize=256, point=144, margin = 4):
        # 大きめのキャンヴァスを用意しておく。
@@ -226,45 +286,36 @@ PIL のテキスト描画機能と PyOpenGL のテクスチャー機能を活用
        fnt = ImageFont.truetype('hgrme.ttc', point)
        ext = dr.textsize(text, font=fnt)
        dr.text((margin, margin), text, font=fnt, fill='white')
-       img = img.crop((margin, margin, ext[0]+margin, ext[1]+margin))
+       img = img.crop((margin, margin, ext[0]+margin*3, ext[1]+margin*3))
 
        # TODO: img.size の各成分に最も近い最小の 2 のべき乗の値を使う。
        img = img.resize((initsize, initsize), Image.ANTIALIAS)
 
        return img
 
-``init`` のテクスチャー初期化コードに以下を含める。
+def display
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. code-block:: python3
 
-.. code-block:: python
-
-   img = drawtext(u'潔')
-
-   # 残りは前項を参照。
-
-``display`` 関連は前項を参照に適宜パラメーターを調整。
-
-.. code-block:: python
-
-   vx, vy = 15.0, 15.0
-   tx, ty = 5.0, 5.0
+   vx, vy = 5.0, 5.0
    
    vertices = (
+       -vx, vy, 0.0,
        -vx, -vy, 0.0,
         vx, -vy, 0.0,
-        vx, vy, 0.0,
-       -vx, vy, 0.0)
+        vx, vy, 0.0,)
    
    texcoords = (
-       0, ty,
-       tx, ty,
-       tx, 0,
-       0, 0)
+       0, 0,
+       0, 1,
+       1, 1,
+       1, 0)
    
    colors = (
-       1, 1, 1, 1.0,
-       1, 1, 1, 1.0,
-       0, 0, 0, 0.75,
-       0, 0, 0, 0.75)
+       1, 1, 1, 1,
+       0.5, 0.5, 0.5, 1,
+       0.5, 0.5, 0.5, 1,
+       1, 1, 1, 1,)
 
    def display():
        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
@@ -273,12 +324,12 @@ PIL のテキスト描画機能と PyOpenGL のテクスチャー機能を活用
        glPushMatrix()
        glLoadIdentity()
 
-       gluLookAt(0.5, -1.0, 1.58,
-                 0.5, 10.0, 1.5,
+       gluLookAt(0.5, -9.5, 1.58,
+                 0.5, 10.0, 1.58,
                  0, 0, 1)
 
-       glPushAttrib(GL_CURRENT_BIT)
-       glPushClientAttrib(GL_CLIENT_VERTEX_ARRAY_BIT)
+       glPushAttrib(GL_ALL_ATTRIB_BITS)
+       glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS)
 
        glEnableClientState(GL_VERTEX_ARRAY)
        glEnableClientState(GL_TEXTURE_COORD_ARRAY)
@@ -289,12 +340,23 @@ PIL のテキスト描画機能と PyOpenGL のテクスチャー機能を活用
        glDrawArrays(GL_QUADS, 0, 4)
 
        glPopClientAttrib()
+
        glPopAttrib()
        glPopMatrix()
 
        glutSwapBuffers()
 
-実行結果のスクリーンショットは次のようなものになる。
+def reshape
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. code-block:: python3
+
+   def reshape(width, height):
+       
+       # ... 略 ...
+       
+       gluPerspective(45.0, float(width)/height, 1.0, 20.0)
+
+以上を実行すると、実行結果のスクリーンショットはだいたい次のようなものになる。
 
 .. image:: /_static/pyopengl-text.png
    :scale: 50%
@@ -302,7 +364,7 @@ PIL のテキスト描画機能と PyOpenGL のテクスチャー機能を活用
 PIL + glReadPixels によるスクリーンショット取得
 ----------------------------------------------------------------------
 
-.. code-block:: python
+.. code-block:: python3
 
    def capture_screen():
       sx = glutGet(GLUT_WINDOW_WIDTH)
@@ -314,62 +376,48 @@ PIL + glReadPixels によるスクリーンショット取得
 
       filename = raw_input('filename: ')
       img.save(filename)
-      print >>sys.stderr, '%s saved' % filename
+      print('%s saved' % filename)
 
 この関数をキーボードイベントコールバックあたりから呼び出すようにしておくと便利。
 
-その他メモ
-======================================================================
-
-* PyOpenGL-accelerate を easy_install or pip でインストールするには MSVC9 環境が必須。
-  素直に PyPI のサイトから msi インストーラーをダウンロードしてインストールするのがよい。
-
-  http://pypi.python.org/pypi/PyOpenGL-accelerate
-
-  * インストール後、任意の自作 PyOpenGL スクリプトを起動すると次のような警告がコンソールウィンドウに現れるかもしれない。
-  
-    .. code-block:: console
-
-       D:\Python26\lib\site-packages\pyopengl-3.0.2a5-py2.6.egg\OpenGL\arrays\numpymodule.py:26: RuntimeWarning: 
-       numpy.dtype size changed, may indicate binary incompatibility
-       from OpenGL_accelerate.numpy_formathandler import NumpyHandler
-
-    その場合の対策をどうするか。
-
-* PyOpenGL-context (http://pyopengl.sourceforge.net/context/)
-  をやろうと思っているが、PC が古いせいかチュートリアルのコードが走らない。
-
-  .. code-block:: console
-
-     Traceback (most recent call last):
-       File "firststep.py", line 65, in <module>
-         TestContext.ContextMainLoop()
-       File "D:\Python26\lib\site-packages\OpenGLContext\glutcontext.py", line 159, in ContextMainLoop
-         render = cls( *args, **named)
-       File "D:\Python26\lib\site-packages\OpenGLContext\glutcontext.py", line 43, in __init__
-         Context.__init__ (self, definition)
-       File "D:\Python26\lib\site-packages\OpenGLContext\context.py", line 192, in __init__
-         self.DoInit()
-       File "D:\Python26\lib\site-packages\OpenGLContext\context.py", line 212, in DoInit
-         self.OnInit()
-       File "firststep.py", line 25, in OnInit
-         }""", GL_VERTEX_SHADER)
-       File "D:\Python26\lib\site-packages\pyopengl-3.0.2a5-py2.6.egg\OpenGL\GL\shaders.py", line 218, in compileShader
-         shader = glCreateShader(shaderType)
-       File "latebind.pyx", line 31, in OpenGL_accelerate.latebind.LateBind.__call__ (src\latebind.c:617)
-       File "D:\Python26\lib\site-packages\pyopengl-3.0.2a5-py2.6.egg\OpenGL\extensions.py", line 174, in finalise
-         self.__name__,
-     OpenGL.error.NullFunctionError: Attempt to call an undefined alternate function
-     (glCreateShader, glCreateShaderObjectARB), check for bool(glCreateShader) before calling
-
-  * GL_VERSION: ``1.1 2.40.122``
-  * ``bool(glCreateShader)``: False
-
-* GLEWpy (http://glewpy.sourceforge.net/) はビルドに msvc9 が必要。
-  やはりモダンな PC を準備してから挑戦することになりそうだ。
+.. その他メモ
+.. ======================================================================
+.. 
+.. * PyOpenGL-context (http://pyopengl.sourceforge.net/context/)
+..   をやろうと思っているが、PC が古いせいかチュートリアルのコードが走らない。
+.. 
+..   .. code-block:: console
+.. 
+..      Traceback (most recent call last):
+..        File "firststep.py", line 65, in <module>
+..          TestContext.ContextMainLoop()
+..        File "D:\Python26\lib\site-packages\OpenGLContext\glutcontext.py", line 159, in ContextMainLoop
+..          render = cls( *args, **named)
+..        File "D:\Python26\lib\site-packages\OpenGLContext\glutcontext.py", line 43, in __init__
+..          Context.__init__ (self, definition)
+..        File "D:\Python26\lib\site-packages\OpenGLContext\context.py", line 192, in __init__
+..          self.DoInit()
+..        File "D:\Python26\lib\site-packages\OpenGLContext\context.py", line 212, in DoInit
+..          self.OnInit()
+..        File "firststep.py", line 25, in OnInit
+..          }""", GL_VERTEX_SHADER)
+..        File "D:\Python26\lib\site-packages\pyopengl-3.0.2a5-py2.6.egg\OpenGL\GL\shaders.py", line 218, in compileShader
+..          shader = glCreateShader(shaderType)
+..        File "latebind.pyx", line 31, in OpenGL_accelerate.latebind.LateBind.__call__ (src\latebind.c:617)
+..        File "D:\Python26\lib\site-packages\pyopengl-3.0.2a5-py2.6.egg\OpenGL\extensions.py", line 174, in finalise
+..          self.__name__,
+..      OpenGL.error.NullFunctionError: Attempt to call an undefined alternate function
+..      (glCreateShader, glCreateShaderObjectARB), check for bool(glCreateShader) before calling
+.. 
+..   * GL_VERSION: ``1.1 2.40.122``
+..   * ``bool(glCreateShader)``: False
+.. 
+.. * GLEWpy (http://glewpy.sourceforge.net/) はビルドに msvc9 が必要。
+..   やはりモダンな PC を準備してから挑戦することになりそうだ。
 
 .. _Python: http://www.python.org/
 .. _PyOpenGL: http://pyopengl.sourceforge.net
+.. _Python Extension Packages for Windows - Christoph Gohlke: http://www.lfd.uci.edu/~gohlke/pythonlibs/
 
 .. _easy_install: http://peak.telecommunity.com/DevCenter/EasyInstall
 .. _pip: http://pypi.python.org/pypi/pip
@@ -377,6 +425,7 @@ PIL + glReadPixels によるスクリーンショット取得
 
 .. _Numpy: http://scipy.org/NumPy/
 .. _PIL: http://www.pythonware.com/products/pil
+.. _Pillow: https://pillow.readthedocs.org/en/latest/
 
 .. _PyQt: http://www.riverbankcomputing.com/software/pyqt/intro
 
