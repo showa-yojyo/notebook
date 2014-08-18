@@ -279,7 +279,7 @@ GET statuses/user_timeline
 .. literalinclude:: ../sample/ptt/statuses-mentions_timeline.py
    :language: python3
 
-引数仕様は https://dev.twitter.com/docs/api/1/get/statuses/user_timeline を参照。
+引数仕様は https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline を参照。
 
 ちなみに、ドキュメント上は ``screen_name`` か ``user_id`` が
 optional パラメーターとなっている API について注意が必要だ。
@@ -324,7 +324,10 @@ POST statuses/update
 
 POST statuses/update_with_media
 ----------------------------------------------------------------------
-TBW
+稼働実績なし。
+
+.. literalinclude:: ../sample/ptt/statuses-update_with_media.py
+   :language: python3
 
 検索関連
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -435,7 +438,7 @@ GET lists/list
   そのユーザーの持っているリストを全部取得する。
   ユーザーが作成したリストに加え、もしあれば、購読している他ユーザーが作成したリストを含む。
 
-  https://dev.twitter.com/docs/api/1/get/lists/list 参照。
+  https://dev.twitter.com/docs/api/1.1/get/lists/list 参照。
 
 * Comment 2: 各リストの mode, full_name, description 各属性をコンソールに出力する。
 
@@ -461,6 +464,14 @@ GET lists/statuses
   * 文字列をコンソールに出力する。
     ツイート内容、改行、ツイート時刻、ツイートに利用したアプリ名が確認できる。
 
+POST lists/members/destroy
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+リストから指定したユーザーを削除するための API だ。
+しかし、これを利用するくらいならばブラウザーで Twitter を利用するほうが早いやもしれない。
+
+.. literalinclude:: ../sample/ptt/lists-members-destroy.py
+   :language: python3
+
 GET lists/memberships
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ``lists/memberships`` リクエストは、
@@ -478,8 +489,44 @@ GET lists/memberships
 
 * https://dev.twitter.com/docs/api/1.1/get/lists/memberships 参照。
 
+POST lists/members/create_all
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ブラウザー上の操作ではできないと思われる、一括でユーザーを複数指定して指定のリストに登録する処理を実現するための API だ。
+次のサンプルコードの ``screen_names`` はスクリーンネームの tuple インスタンスを意味する。
+この API はリストを多用する筆者が利用する頻度がもっとも高い。
+
+.. literalinclude:: ../sample/ptt/lists-members-create_all.py
+   :language: python3
+
+GET lists/members/show
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+指定ユーザーが指定リストに登録されているかを調べる API だ。
+使い途が少々思いつかない。
+
+.. literalinclude:: ../sample/ptt/lists-members-show.py
+   :language: python3
+
+GET lists/members
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+指定リストに登録されているユーザーをすべて得ることができる API だ。
+登録ユーザー数が多いリストに対しては、次のように「カーソル処理」で複数回のリクエストをすることになるだろう。
+
+.. literalinclude:: ../sample/ptt/lists-members.py
+   :language: python3
+
+POST lists/members/create
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+自分の所有するリストに指定ユーザーを一人分登録する API だ。
+今では上述の lists/members/create_all で完全に置き換えてしまって構わなそうだ。
+
+.. literalinclude:: ../sample/ptt/lists-members-create.py
+   :language: python3
+
 POST lists/destroy
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+自分の所有するリストを一つ指定して、それを削除する API だ。
+使用頻度はテスト用に作成したダミーリストをまた削除するときに使うくらいだ。
+
 .. literalinclude:: ../sample/ptt/lists-destroy.py
    :language: python3
 
