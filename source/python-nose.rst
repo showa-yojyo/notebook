@@ -202,7 +202,7 @@ Python の pdb デバッガが起動する。
 .. code-block:: console
 
    $ nosetests --pdb-failures
-   .> d:\home\yojyo\devel\pyunitdemo\testeven.py(6)check_even()
+   .> d:\home\yojyo\note\sample\nose\testeven.py(6)check_even()
    -> assert n % 2 == 0 or nn % 2 == 0
    (Pdb) l
      1     def test_evens():
