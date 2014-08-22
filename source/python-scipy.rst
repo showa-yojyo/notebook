@@ -345,26 +345,8 @@ KDTree を使う
 Reference Guide の例を一部改変したものを記す。
 ある点とある点群をそれぞれ ``target``, ``points`` としてある。
 
-.. code-block:: python3
-
-   import numpy as np
-   from scipy.spatial import KDTree
-   
-   # 3D points: (0, 0, 0), (0, 0, 10), (0, 0, 20), ...
-   x, y, z = np.mgrid[0:100:10, 0:100:10, 0:100:10]
-   points = zip(x.ravel(), y.ravel(), z.ravel())
-   
-   # Construct a KDTree.
-   tree = KDTree(points)
-   
-   # A target point included in [0, 100) * [0, 100) * [0, 100).
-   target = np.random.random_sample(3) * 100.
-   print "Target: ", target
-   
-   # Query for the closest point.
-   dist, index = tree.query(target, eps=0.01)
-   print("Closest: ", tree.data[index])
-   print("Distance: ", dist)
+.. literalinclude:: ../sample/scipy/kdtree.py
+   :language: python3
 
 実行結果。乱数を使っているので、結果は毎回異なる。
 
