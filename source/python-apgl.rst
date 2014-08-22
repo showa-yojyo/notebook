@@ -167,29 +167,8 @@ findAllDistances
 
 イラストのグラフの最短経路を計算するコードは次のとおり。
 
-.. code-block:: python3
-
-   from apgl.graph.SparseGraph import SparseGraph
-   from apgl.graph.GeneralVertexList import GeneralVertexList
-   
-   # Make a graph.
-   numVertices = 6
-   vlist = GeneralVertexList(numVertices)
-   graph = SparseGraph(vlist, undirected=True)
-
-   graph[0, 1] = 10.0
-   graph[0, 2] = 14.0
-   graph[0, 3] = 12.0
-   graph[1, 2] = 8.0
-   graph[1, 4] = 19.0
-   graph[2, 3] = 7.0
-   graph[2, 5] = 22.0
-   graph[3, 5] = 21.0
-   graph[4, 5] = 11.0
-   
-   # Compute the shortest paths with Dijkstra's algorithm.
-   dists = graph.findAllDistances(True)
-   print(dists)
+.. literalinclude:: ../sample/apgl/dijkstra.py
+   :language: python3
 
 実行結果はこういう感じになる。
 行列 ``dists`` の ij 成分が、頂点 i と頂点 j を結ぶ最短経路のエッジウェイトの総和になっている。
