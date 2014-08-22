@@ -163,25 +163,8 @@ attr オプション -- 属性を指定することで起動するテストを�
 そんなときには ``--attr``, ``--eval-attr``
 オプションの仕組みをうまくテストコードに組み込む。
 
-.. code-block:: python3
-
-   # tests.py
-   from nose.plugins.attrib import attr
-
-   @attr(speed='slow')
-   def test_load_all_images():
-       # 数分かかるテストケース
-       
-       # ...
-
-   @attr(online=True)
-   def test_download_hardcore_images():
-       # 何かインターネットに接続しないと意味のないテスト
-
-       # ...
-
-   # その他のテスト
-   # ...
+.. literalinclude:: ../sample/nose/testattr2.py
+   :language: python3
 
 .. code-block:: console
 

@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from nose.plugins.attrib import attr
 
 @attr(speed='slow')
@@ -18,4 +17,3 @@ def test_download_hardcore_images():
 
 # その他のテスト
 # ...
-
