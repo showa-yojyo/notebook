@@ -159,7 +159,7 @@ Matplotlib には current figure と current axes という概念がある。
 
 * ``plt`` のプロットコマンドはすべて current axes に作用する。
 
-  .. code-block:: python
+  .. code-block:: python3
      
      import matplotlib as mpl
      import matplotlib.pyplot as plt
@@ -229,7 +229,7 @@ Matplotlib には current figure と current axes という概念がある。
 * テキストの基準位置は ``horizontalalignment``, ``verticalalignment`` キーワード引数で指示できる。
   例えば x, y 引数をテキストの右下位置としたい場合には次のようにする。
 
-  .. code-block:: python
+  .. code-block:: python3
 
      plt.text(x, y, 'aaaa', verticalalignment='bottom', horizontalalignment='right')
 
@@ -239,16 +239,10 @@ Matplotlib には current figure と current axes という概念がある。
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ``matplotlib.font_manager.FontProperties`` を明示的に利用する手段を見つけた。
 
-.. code-block:: python
+.. literalinclude:: ../sample/mpl/japanese-text.py
+   :language: python3
 
-   # -*- coding: utf-8 -*-
-   import matplotlib as mpl
-   import matplotlib.pyplot as plt
-   from matplotlib.font_manager import FontProperties
-
-   fp = FontProperties(fname=r'C:\WINDOWS\Fonts\HGRME.ttc') # HG 明朝系
-   plt.text(0, 0, u'御無礼\n一発です', fontproperties=fp, fontsize=60)
-   #plt.show()
+結果のスクリーンショットは次のようなものだ。
 
 .. image:: /_static/mpl-fontprop.png
    :scale: 50%
@@ -274,19 +268,10 @@ Figure (``matplotlib.figure.Figure``)
 
   変な例だが、画像全体に対角線を一本引くにはこうする。
 
-  .. code-block:: python
+  .. literalinclude:: ../sample/mpl/diagonal.py
+     :language: python3
 
-     import matplotlib as mpl
-     import matplotlib.pyplot as plt
-     fig = plt.figure()
-
-     ax1 = fig.add_subplot(211)
-     ax2 = fig.add_axes([0.1, 0.1, 0.7, 0.3])
-
-     l1 = mpl.lines.Line2D([0, 1], [0, 1], transform=fig.transFigure, figure=fig)
-     fig.lines.extend([l1])
-     fig.canvas.draw()
-     #plt.show()
+  結果は次のスクリーンショットのようなものとなる。
 
   .. image:: /_static/mpl-figcs.png
      :scale: 50%
@@ -330,7 +315,7 @@ Axis (``matplotlib.axis.Axis``)
 ``grid``              グリッド線を描画するしないを指示。
 ===================   ==================================================
 
-.. code-block:: python
+.. code-block:: python3
 
    import matplotlib.pyplot as plt
    ax = plt.gca()
@@ -364,7 +349,7 @@ rc パラメーターでバックエンドを指定する。
 
 コードで動的に（実行時に）指定するのならばこうする。
 
-.. code-block:: python
+.. code-block:: python3
 
    import matplotlib as mpl
    mpl.use('Qt4Agg')
@@ -387,7 +372,7 @@ rc パラメーターでバックエンドを指定する。
 
   コードで実現するには、次のような手順にしておけばよい。
 
-  .. code-block:: python
+  .. code-block:: python3
 
      import matplotlib as mpl
      mpl.use('PDF')  # PDF でイメージが欲しい。
@@ -396,93 +381,78 @@ rc パラメーターでバックエンドを指定する。
      
      plt.savefig('output')  # ファイル output.pdf ができる。
 
+ヒストグラムを描く
+======================================================================
+ノートを整理していたら未使用のスクリプトを発見したので、説明なしにここにコードを記す。
+
+.. literalinclude:: ../sample/mpl/histogram.py
+   :language: python3
+
+最終的な描画結果は次のようなものとなる。乱数次第で分布が変化するので注意。
+
+.. image:: /_static/mpl-histogram.png
+   :scale: 50%
+
 曲線を描く
 ==================================================
 
 多項式
 --------------------------------------------------
 実数 x の多項式 f(x) について y = f(x) のグラフを描きたい。
+次の容量で曲線を定義する。
 
-* プロットする ``x`` のサンプル点を関数 ``numpy.arange`` で適宜準備する。
-  やり方を忘れていたら :doc:`/python-numpy` を参照。
+#. プロットする ``x`` のサンプル点を関数 ``numpy.arange`` で適宜準備する。
+   やり方を忘れていたら :doc:`/python-numpy` を参照。
 
-* 多項式 ``f`` を関数 ``numpy.poly1d`` の戻り値で表現する。
+#. 多項式 ``f`` を関数 ``numpy.poly1d`` の戻り値で表現する。
 
-* プロットする ``y`` を ``list`` の内包表現を利用して一気に得る。
+#. プロットする ``y`` を ``list`` の内包表現を利用して一気に得る。
 
-* 最後に ``plot(x, y)`` で曲線を描画する。
-  
-  .. code-block:: python
-     
-     import matplotlib as mpl
-     import matplotlib.pyplot as plt
-     import numpy as np
-     
-     f = np.poly1d([1, -4, 3])  # x = 1, 3 を根に持つ二次式。
-     xs = np.arange(-2, 4, 0.1) # x in [-2, 4] を 0.1 刻みでプロット。
-     ys = [f(x) for x in xs]    # xs と対になる ys
-     plt.plot(xs, ys)           # current axes に曲線を一本追加。
+#. 最後に ``plot(x, y)`` で曲線を描画する。
 
-* 曲線に対して接線を引きたい場合がよくある。
-  上記 ``f`` の一次導関数を ``f.deriv()`` で得られるので、
-  それをうまく使う。
+   なお、サンプルコードではさらに曲線に対して接線を引いた。
+   ``f`` の一次導関数を ``f.deriv()`` で得られることを利用する。
 
-  曲線上の点 (a, f(a)) の接線は、例えば次のようにしてプロットできる。
+.. literalinclude:: ../sample/mpl/polynomial.py
+   :language: python3
 
-  .. code-block:: python
+描画結果は次のようなものとなる。
 
-     # x = [-1, 3] から 1 間隔に接線を引く。
-     slope = f.deriv()
-     for a in xrange(-1, 3, 1):
-         b = f(a)
-         ys1 = [slope(a) * (x - a) + b for x in xs]
-         ax1.plot(xs, ys1)
+.. image:: /_static/mpl-polynomial.png
+   :scale: 50%
 
-ベジエ曲線
+Bézier 曲線
 --------------------------------------------------
 本当は B-Spline 曲線を描画したいのだが、
-調べてみると Matplotlib ではベジエ曲線が限界のようだ。
+調べてみると Matplotlib では Bézier 曲線が限界のようだ。
 
 手順はこういう感じのようだ：
-  
-1. クラス ``matplotlib.path.Path`` のオブジェクトを作成する。
-   この引数として、ベジエ曲線の制御点リストと「打点命令」のリストを渡す。
 
-2. そのパスオブジェクトを引数として、クラス
+#. クラス ``matplotlib.path.Path`` のオブジェクトを作成する。
+   この引数として、Bézier 曲線の制御点リストと「打点命令」のリストを渡す。
+
+#. そのパスオブジェクトを引数として、クラス
    ``matplotlib.patches.PathPatch`` のオブジェクトを作成する。
 
-3. そのパッチオブジェクトを対象の ``axes`` オブジェクトに ``add_patch`` する。
+#. そのパッチオブジェクトを対象の ``axes`` オブジェクトに ``add_patch`` する。
 
-Path (``matplotlib.path.Path``)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Matplotlib は制御点列を与えてベジエ曲線を定義する流儀のようだ。
+Matplotlib は制御点列を与えて Bézier 曲線を定義する流儀のようだ。
 
-まずは簡単な例を。最小の手間で 2 次のベジエ曲線（単なる放物線）を定義することを考える。
-``CURVE3`` というタイプの曲線は、制御点を 3 つ与えることで 2 次のベジエ曲線を表現できる。
-``CURVE3`` ベースのベジエ曲線の特徴は次の通り。
+まずは簡単な例を。最小の手間で 2 次の Bézier 曲線（単なる放物線）を定義することを考える。
+``CURVE3`` というタイプの曲線は、制御点を 3 つ与えることで 2 次の Bézier 曲線を表現できる。
+``CURVE3`` ベースの Bézier 曲線の特徴は次の通り。
 
 * 最初と最後の制御点は、放物線の始点と終点にそれぞれ一致する。
 * 中間の制御点は、放物線の両端点それぞれの接線の交点と一致する。
 * よって、出来上がりの曲線形状が把握できる。
 
-``Path`` オブジェクト構築までのコードの概形は次のようになる。
+``Path`` オブジェクト構築は次のようになる。
 
-.. code-block:: python
+.. literalinclude:: ../sample/mpl/bezier.py
+   :language: python3
+   :lines: 1-22
 
-   import matplotlib as mpl
-   mpl.rcParams['patch.facecolor'] = 'none'
-   import matplotlib.pyplot as plt
-   from matplotlib.path import Path
-
-   fig = plt.figure()
-   ax1 = fig.add_subplot(111)
-
-   # 2 次のベジエ曲線を定義する。
-   verts = [(0., 0.), (2., 4.), (4., 0.)]
-   codes = [Path.MOVETO, Path.CURVE3, Path.CURVE3]
-   path = Path(verts, codes)
-
-もうひとつ例を。ドロー系アプリでもよく見かける 3 次のベジエ曲線を定義する。
+もうひとつ例を。ドロー系アプリでもよく見かける 3 次の Bézier 曲線を定義する。
 
 * ``CURVE4`` 命令で制御点を指示する。
 * 最初と最後の制御点は、曲線の始点と終点にそれぞれ一致する。
@@ -490,34 +460,16 @@ Matplotlib は制御点列を与えてベジエ曲線を定義する流儀のよ
   また、最後の制御点とその前の制御点を結ぶ直線が、曲線の終点での接線に一致する。
 * 曲線全体は、制御点列からなる多角形の内部に位置する。
 
-``Path`` オブジェクト構築の概形は次のようになる。
+``Path`` オブジェクト構築は次のようになる。
 
-.. code-block:: python
+.. literalinclude:: ../sample/mpl/bezier.py
+   :language: python3
+   :lines: 23-
 
-   # 3 次のベジエ曲線を定義する。
-   verts = [(0., 0.), (0.5, 3.5), (1., 4.), (4., 0.)]
-   codes = [Path.MOVETO, Path.CURVE4, Path.CURVE4, Path.CURVE4,]
-   path = Path(verts, codes)
-
-サンプル
----------
-上記のコードに加え、制御点ポリゴンを描画した画像をノートに貼り付けておく。
+最終的な描画結果は次のようなものとなる。
 
 .. image:: /_static/mpl-bezier.png
    :scale: 50%
-
-PathPatch (``matplotlib.patches.PathPatch``)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-``Path`` オブジェクトができたら ``PathPatch`` オブジェクトに包んで
-``Axes`` オブジェクトに追加する。これで曲線も描画してくれる。
-
-.. code-block:: python
-
-   # ...
-   import matplotlib.patches as patches
-   # ...
-   patch = patches.PathPatch(path)
-   ax1.add_patch(patch)
 
 TeX 表現
 ==================================================
@@ -531,7 +483,7 @@ TeX 表現
   文字列はバックスラッシュの嵐になることが予想できるので、
   raw string 形式で指定するのが吉。
 
-  .. code-block:: python
+  .. code-block:: python3
 
      plt.text(60, .025, r'$\mu=100,\ \sigma=15$')
 
