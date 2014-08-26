@@ -1,9 +1,9 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 # Demonstration POST lists/members/destroy
 # https://dev.twitter.com/docs/api/1.1/post/lists/members/destroy
 
-from twitter import *
 from secret import twitter_instance
 
 tw = twitter_instance()

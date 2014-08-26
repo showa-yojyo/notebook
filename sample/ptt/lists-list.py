@@ -1,9 +1,9 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 # Demonstration GET lists/list
 # See https://dev.twitter.com/docs/api/1.1/get/lists/list
 
-from twitter import *
 from secret import twitter_instance
 
 tw = twitter_instance()

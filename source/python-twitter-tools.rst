@@ -330,10 +330,9 @@ POST statuses/update_with_media
    :language: python3
 
 検索関連
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-GET search/tweets
 ----------------------------------------------------------------------
+GET search/tweets
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 単純な検索を行うには ``search/tweets`` を利用する。
 
 .. literalinclude:: ../sample/ptt/search-tweets.py
@@ -353,53 +352,19 @@ GET search/tweets
 
 フォロワー関連
 ----------------------------------------------------------------------
-修正後回し。
+GET friends/list
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+特定のユーザーがフォローしている全ユーザーの情報を得るのには GET friends/list を利用できる。
+一度のリクエストでは返しきれないほどの多数のユーザーをフォローしていることを想定してのカーソル処理となる。
+次に示すコード例のように、1 ページずつデータをリクエストすることになる。
 
-GET followers/ids, GET friends/ids, GET users/lookup 等の API をまとめて理解するのが効率的だ。
-特定のユーザーのフォロー・被フォローユーザーの集合を得るときに利用するのだが、
-実用上の観点から 2 パスでデータを処理することになる。
+.. literalinclude:: ../sample/ptt/friends-list.py
+   :language: python3
 
-#. 前者の API でユーザーの ID だけを得る。
-#. 後者の API で詳細情報を得る。
-
-次のようなコードを書けばよいだろう。フォロワーを調べる例を示す。
-
-.. code-block:: python3
-
-   # ... import 文、Twitter インスタンス作成、例外処理等省略。
-   
-   # Comment 1
-   res1 = api.followers.ids(screen_name='showa_yojyo', cursor=-1)
-   if 0 < len(res1['ids']) and len(res1['ids']) < 100:
-       # Comment 2
-       ids = ','.join([str(id) for id in res1['ids'])
-       res2 = api.users.lookup(user_id=ids, include_entities=0)
-
-* Comment 1: ``cursor=-1`` は最初のチャンクをリクエストすることを意味する。
-  仮にこのユーザーのフォロワー数が異様に多い (5000) 場合、戻り値の
-  ``res1.next_cursor`` に非ゼロの値が含まれるので、さらなる
-  ``api.followers.ids`` の呼び出し時に ``cursor`` キーワード引数にこの値を指示するのだ。
-
-* Comment 2: user_id の配列を CSV 化する。
-  詳しくは ``users/lookup`` の仕様説明を当たって欲しい。
-
-  * リクエストする id は 100 個を超えないようにすること。
-  * ``res2`` には詳細情報が格納されるが、順序はデタラメになっていると思ったほうがよい。
-    こんな感じにソートするしかなさそうだ。
-
-    .. code-block:: python3
-
-       res3 = [None] * len(res1['ids'])
-       for user in res2:
-           user_id = user[u'id']
-           i = res1['ids'].index(user_id)
-           res3[i] = user
-
-* 参考
-
-  * https://dev.twitter.com/docs/api/1.1/get/followers/ids
-  * https://dev.twitter.com/docs/api/1.1/get/friends/ids
-  * https://dev.twitter.com/docs/api/1.1/get/users/lookup
+GET followers/list
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+特定のユーザーをフォローしている全ユーザーの情報を得るのには GET followers/list を利用できる。
+サンプルコードは先のコードをテキストエディターで ``s/friends/followers/`` すれば得られる。
 
 ユーザーアカウント関連
 ----------------------------------------------------------------------

@@ -3,7 +3,6 @@
 # Demonstration GET users/show
 # See https://dev.twitter.com/docs/api/1.1/get/users/show
 
-from twitter import *
 from secret import twitter_instance
 
 tw = twitter_instance()

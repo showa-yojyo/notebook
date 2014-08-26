@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Demonstration GET followers/list
-# See https://dev.twitter.com/docs/api/1.1/followers/list
+# Demonstration GET friends/list
+# See https://dev.twitter.com/docs/api/1.1/friends/list
 
 from secret import twitter_instance
 
@@ -10,7 +10,7 @@ tw = twitter_instance()
 next_cursor = -1
 
 while next_cursor != 0:
-    response = tw.followers.list(
+    response = tw.friends.list(
         screen_name='showa_yojyo',
         cursor=next_cursor,
         count=200,
