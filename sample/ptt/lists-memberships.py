@@ -13,6 +13,6 @@ kwargs = dict(screen_name='showa_yojyo', cursor=-1)
 response = tw.lists.memberships(**kwargs)
 
 # Comment 2
-lists = response[u'lists']
+lists = response['lists']
 for item in lists:
     print('{full_name}, {description}'.format(**item))
