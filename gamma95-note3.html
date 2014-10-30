@@ -1,0 +1,870 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート 3/3</title>
+    
+    <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="top" title="読書ノート" href="index.html" />
+    <link rel="up" title="オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート" href="gamma95.html" />
+    <link rel="next" title="達人プログラマー 読書ノート" href="hunt00.html" />
+    <link rel="prev" title="オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート 2/3" href="gamma95-note2.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="index.html">読書ノート</a> &raquo;</li>
+          <li><a href="gamma95.html" accesskey="U">オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id9">オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート 3/3</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference internal" href="gamma95-note2.html"><em>オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート 2/3</em></a> からの続き。</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">著者:</th><td class="field-body">Eric Gamma/Richard Helm/Ralph Johnson/John Vlissides</td>
+</tr>
+<tr class="field-even field"><th class="field-name">監訳者:</th><td class="field-body">本位田真一 吉田和樹</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">出版社:</th><td class="field-body">ソフトバンク クリエイティブ株式会社</td>
+</tr>
+<tr class="field-even field"><th class="field-name">ISBN:</th><td class="field-body">ISBN4-7973-1112-6</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="id2">
+<p class="topic-title first">ノート目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id9">オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート 3/3</a><ul>
+<li><a class="reference internal" href="#id3" id="id10">第 5 章 振る舞いに関するパターン</a><ul>
+<li><a class="reference internal" href="#chain-of-responsibility" id="id11">Chain of Responsibility</a></li>
+<li><a class="reference internal" href="#command" id="id12">Command</a></li>
+<li><a class="reference internal" href="#interpreter" id="id13">Interpreter</a></li>
+<li><a class="reference internal" href="#iterator" id="id14">Iterator</a></li>
+<li><a class="reference internal" href="#mediator" id="id15">Mediator</a></li>
+<li><a class="reference internal" href="#memento" id="id16">Memento</a></li>
+<li><a class="reference internal" href="#observer" id="id17">Observer</a></li>
+<li><a class="reference internal" href="#state" id="id18">State</a></li>
+<li><a class="reference internal" href="#strategy" id="id19">Strategy</a></li>
+<li><a class="reference internal" href="#template-method" id="id20">Template Method</a></li>
+<li><a class="reference internal" href="#visitor" id="id21">Visitor</a></li>
+<li><a class="reference internal" href="#id4" id="id22">まとめ</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id5" id="id23">第 6 章 終わりに</a><ul>
+<li><a class="reference internal" href="#id6" id="id24">6.1 デザインパターンに何を期待するか</a></li>
+<li><a class="reference internal" href="#id7" id="id25">6.2 経緯</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id8" id="id26">付録以降</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id10">第 5 章 振る舞いに関するパターン</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="chain-of-responsibility">
+<h3><a class="toc-backref" href="#id11">Chain of Responsibility</a><a class="headerlink" href="#chain-of-responsibility" title="Permalink to this headline">¶</a></h3>
+<p>複数オブジェクトに要求を処理する機会を与える。
+要求の送信・受信オブジェクト間の結合を避け、オブジェクトをチェーンでつなぐ。</p>
+<p>動機として、GUI アプリで状況依存ヘルプ機能について考察している。</p>
+<ul>
+<li><p class="first">ヘルプ情報は &lt;もっとも特殊なものからもっとも一般的なものへと組織化していく&gt; (p. 237)</p>
+<p>印刷ボタン→印刷ダイアログ→アプリケーション、のような順にヘルプ優先度がある感じがわかる。</p>
+</li>
+<li><p class="first">&lt;ヘルプ要求を出すオブジェクトをヘルプ情報を与えるオブジェクトから引き離す方法&gt; (p. 237)
+が必要。</p>
+</li>
+<li><p class="first">&lt;このパターンのポイントは、
+複数のオブジェクトに要求を処理する機会を与えることにより、
+要求を送信するオブジェクトと受信するオブジェクトを引き離すことにある&gt; (p. 237)</p>
+</li>
+<li><p class="first">&lt;チェーンの中にある各オブジェクトは、
+要求を処理したり後続のオブジェクト (successor) にアクセスするための
+共通のインタフェースを持っている&gt; (p. 238)</p>
+</li>
+<li><p class="first">ヘルプの要求を処理したいクラスは、HelpHandler を親クラスにする (p. 238)</p>
+</li>
+</ul>
+<p>結果</p>
+<ul class="simple">
+<li>結合度を低くする。</li>
+<li>責任分散を柔軟にする。</li>
+<li>要求が受信されるかどうかは保証されない。</li>
+</ul>
+<p>実装</p>
+<ul class="simple">
+<li>チェーンの実装<ul>
+<li>オブジェクト間に既存の参照関係があれば、
+それを流用して successor チェーンとすることもあり。</li>
+</ul>
+</li>
+<li>チェーンの接続<ul>
+<li>Handler クラスでは、通常は successor も保持する。
+要求を successor に転送することを実装のデフォルトとする。</li>
+</ul>
+</li>
+<li>要求の表現<ul>
+<li>要求を Request オブジェクトとしてカプセル化して
+<tt class="docutils literal"><span class="pre">HandleRequest</span></tt> に渡すのが普通。</li>
+<li>&lt;サブクラスは自らが関与すべき要求のみを扱う。
+他の要求は転送する&gt; (p. 242)</li>
+</ul>
+</li>
+</ul>
+<p>サンプルコードではさっきのヘルプの実装を検討している。</p>
+<ul class="simple">
+<li>&lt;既存のウィジェット階層での親オブジェクトへの参照を利用する&gt; (p. 243)
+ことで、ヘルプ要求を伝えていく方法をとる。</li>
+<li>「チェーンの最初」といったら、
+一番最初に要求を処理するチャンスのあるオブジェクトを指すようだ。</li>
+<li>&lt;ただし、successor は <tt class="docutils literal"><span class="pre">Widget</span></tt> オブジェクトではなく、
+任意の <tt class="docutils literal"><span class="pre">HelpHandler</span></tt> オブジェクトである&gt; (p. 245)</li>
+</ul>
+<p>使用例</p>
+<ul class="simple">
+<li>&lt;ユーザのイベントを処理するために Chain of Responsibility パターンが使われている&gt; (p. 246)</li>
+<li>&lt;ユーザがマウスをクリックしたりキーを押したりすると、
+イベントが生成され、チェーンに沿って伝えられていくことになる&gt; (p. 246)</li>
+</ul>
+<p>関連するパターン</p>
+<ul>
+<li><p class="first">&lt;しばしば Composite パターンとともに適用される。
+その場合、component の親オブジェクトを successor にすることができる&gt; (p. 247)</p>
+<p>子（持たれている方）が先に要求を処理するチャンスがあって、
+無視するならば親（所有者）に転送、か。</p>
+</li>
+</ul>
+</div>
+<div class="section" id="command">
+<h3><a class="toc-backref" href="#id12">Command</a><a class="headerlink" href="#command" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">要求をオブジェクトとしてカプセル化</p>
+</li>
+<li><p class="first">取り消し可能なオペレーションをサポート</p>
+</li>
+<li><p class="first">&lt;ツールキットはボタンやメニューの中で、直接、要求を実装することはできない&gt; (p. 249)</p>
+</li>
+<li><p class="first">&lt;要求自身をオブジェクトにすることにより、
+ツールキットのオブジェクトが、
+仕様化されていないアプリケーションオブジェクトの要求を作成できるようにする&gt; (p. 249)</p>
+</li>
+<li><p class="first">&lt;もっとも簡単な形としては、このインタフェースに、
+抽象化した Execute オペレーションを入れておく&gt; (p. 249)</p>
+</li>
+<li><p class="first">&lt;Command の具象クラスが受信オブジェクトとアクションの組を明らかにする。
+受信オブジェクトには、要求を実行するために必要な知識がある&gt; (p. 249)</p>
+<p><tt class="docutils literal"><span class="pre">PasteCommand</span></tt> の場合、受信オブジェクトは <tt class="docutils literal"><span class="pre">Document</span></tt> である。</p>
+</li>
+<li><p class="first">&lt;command をつなぎ合わせるのは一般的なので、
+MenuItem オブジェクトが複数の command に対して
+Execute オペレーションの呼び出しを行うことができるように、
+<tt class="docutils literal"><span class="pre">MacroCommand</span></tt> クラスを定義する&gt; (p. 251)</p>
+<p>図を見ればこれがすぐに Composite パターンだとわかる。</p>
+</li>
+<li><p class="first">動的に command を入れ替えることができるということが、
+状況依存のヘルプを実装するのに便利。</p>
+</li>
+<li><p class="first">command を複数合成することで、コマンドスクリプトをサポートすることができる。</p>
+</li>
+</ul>
+<p>適用可能性</p>
+<ul>
+<li><p class="first">&lt;Command パターンでは、そのようなコールバック関数の代わりにオブジェクトを使う&gt; (p. 251)</p>
+<p>なるほど。Command パターンはコールバック関数の進化系なんだろう。</p>
+</li>
+<li><p class="first">&lt;command での処理の結果を再び元の状態に戻すことができるように、
+状態を保存するようにしておくことができる&gt; (p. 252)</p>
+<ul class="simple">
+<li>&lt;呼び出し結果を元に戻す Unexecute オペレーション&gt; (p. 252)</li>
+<li>実行 command を履歴リストに蓄えておき、
+&lt;取り出しや再実行は、このリスト内を前後に移動しながら&gt; (p. 252)
+Execute/Unexecute の連続呼び出しで Undo/Redo を実装できる、か。</li>
+</ul>
+</li>
+<li><p class="first">&lt;一般に、1 つのトランザクションは、
+データに対する更新手続きの集合をカプセル化している&gt; (p. 252)</p>
+</li>
+</ul>
+<p>結果のリストを見ると、このパターンにはデメリットがないようだ。</p>
+<p>実装</p>
+<ul>
+<li><p class="first">&lt;極端な場合、単に Receiver オブジェクトと要求を実行するアクションを結び付けるだけのものから、
+Receiver オブジェクトにはまったく委譲することなくそれ自身ですべてを実装してしまうものまで考えることができる&gt; (p. 254)</p>
+<p>さっきの例で言うと <tt class="docutils literal"><span class="pre">PasteCommand::Execute</span></tt> が <tt class="docutils literal"><span class="pre">Document::Paste</span></tt> メソッドを呼び出すだけか、
+貼り付けロジックを <tt class="docutils literal"><span class="pre">PasteCommand</span></tt> が独自に実装するかの違いが考えられるということ。</p>
+</li>
+<li><p class="first">Undo/Redo をサポートする場合、
+&lt;Receiver オブジェクトは、自身を元の状態に戻すことができるようなオペレーションを
+command に対して提供しなければならない&gt; (p. 254)</p>
+<ul>
+<li><p class="first">履歴リストも必要。リスト内を時系列順に移動するような。</p>
+</li>
+<li><p class="first">&lt;たとえば、選択された複数のオブジェクトを削除する <tt class="docutils literal"><span class="pre">DeleteCommand</span></tt> オブジェクトは、
+それが実行される際には、
+削除されるオブジェクトの集合を保持しておかなければならない&gt; (p. 255)</p>
+</li>
+<li><p class="first">ヒステリシス。
+Undo/Redo を反復実行すると、何かがまずくて元の状態とは異なってくる様。</p>
+<p>&lt;command が他のオブジェクトの内部に踏み入ることなくこの情報にアクセスできるように、
+Memento パターンを適用することができる&gt; (p. 255)</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>サンプルコード</p>
+<ul>
+<li><p class="first">&lt;取り消しできない、または引数を必要としない簡単な command については、
+Receiver オブジェクトをパラメータ化するためにクラステンプレートを使うことができる&gt; (p. 257)</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="c1">// p. 257</span>
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">Receiver</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">SimpleCommand</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Command</span><span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="k">typedef</span> <span class="kt">void</span> <span class="p">(</span><span class="n">Receiver</span><span class="o">::*</span><span class="n">Action</span><span class="p">)();</span>
+
+    <span class="n">SimpleCommand</span><span class="p">(</span><span class="n">Receiver</span><span class="o">*</span><span class="p">,</span> <span class="n">Action</span><span class="p">);</span>
+
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>ただし、このクラスのコンストラクタ呼び出しはコードを書くのが面倒。</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">MacroCommand</span></tt> クラスに Unexecute オペレーションを実装する場合、
+逆順に command をたどって Unexecute を実行しなければならない (p. 258)</p>
+</li>
+<li><p class="first">&lt;command を削除するのは <tt class="docutils literal"><span class="pre">MacroCommand</span></tt> クラスの責任である&gt; (p. 258)</p>
+</li>
+</ul>
+</div>
+<div class="section" id="interpreter">
+<h3><a class="toc-backref" href="#id13">Interpreter</a><a class="headerlink" href="#interpreter" title="Permalink to this headline">¶</a></h3>
+<p>真面目に読む気なし。</p>
+<p>運用適用性</p>
+<ul class="simple">
+<li>&lt;文法が単純な場合&gt; (p. 263)</li>
+<li>&lt;効率が重要な関心事ではない場合&gt; (p. 263)</li>
+</ul>
+<p>結果</p>
+<ul class="simple">
+<li>&lt;文法が複雑なときには、パーザやコンパイラジェネレータのような他の技術を使うほうが適当だろう&gt; (p. 265)</li>
+</ul>
+<p>実装</p>
+<ul class="simple">
+<li>&lt;Interpreter パターンと Composite パターンは、
+実装上の問題において多くの共通点を持っている&gt; (p. 265)</li>
+</ul>
+<p>サンプルコード</p>
+<ul>
+<li><p class="first">&lt;C++ で実装された Bool 表現を操作・評価するシステム&gt; (p. 269) の例。
+これは先に利用例を見てから、各メソッドを見ていくのが理解がいいと思う。</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="c1">// p. 272 一部改変</span>
+
+<span class="n">VariableExp</span><span class="o">*</span> <span class="n">x</span> <span class="o">=</span> <span class="k">new</span> <span class="n">VariableExp</span><span class="p">(</span><span class="s">&quot;X&quot;</span><span class="p">);</span>
+<span class="n">VariableExp</span><span class="o">*</span> <span class="n">y</span> <span class="o">=</span> <span class="k">new</span> <span class="n">VariableExp</span><span class="p">(</span><span class="s">&quot;Y&quot;</span><span class="p">);</span>
+<span class="n">BooleanExp</span><span class="o">*</span> <span class="n">expression</span> <span class="o">=</span> <span class="k">new</span> <span class="n">OrExp</span><span class="p">(</span>
+    <span class="k">new</span> <span class="n">AndExp</span><span class="p">(</span><span class="k">new</span> <span class="n">Constant</span><span class="p">(</span><span class="nb">true</span><span class="p">),</span> <span class="n">x</span><span class="p">),</span>
+    <span class="k">new</span> <span class="n">AndExp</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="k">new</span> <span class="n">NotExp</span><span class="p">(</span><span class="n">x</span><span class="p">)));</span>
+
+<span class="n">Context</span> <span class="n">context</span><span class="p">;</span>
+<span class="n">context</span><span class="p">.</span><span class="n">Assign</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+<span class="n">context</span><span class="p">.</span><span class="n">Assign</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+<span class="kt">bool</span> <span class="n">result</span> <span class="o">=</span> <span class="n">expression</span><span class="o">-&gt;</span><span class="n">Evaluate</span><span class="p">(</span><span class="n">context</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">&lt;Interpreter パターンには、Composite パターンを使ったクラス階層上に
+1 つのオペレーションを分散させる、ということ以上の意味がある&gt; (p. 273)</p>
+</li>
+</ul>
+<p>使用例</p>
+<ul class="simple">
+<li>&lt;オブジェクト指向言語により実装されたコンパイラでは広く使われている&gt; (pp. 273-274)</li>
+<li>&lt;もっとも一般的な形式（つまり、1 つのオペレーションを
+Composite パターンに基づくクラス階層上に分散させるような場合）を考えると、
+Composite パターンはほとんどの場合に Interpreter パターンを含んだ形で使われる。
+しかし Interpreter パターンは、クラス階層を言語を定義するものとして考えた場合に限り使用すべきである&gt; (p. 274)</li>
+</ul>
+</div>
+<div class="section" id="iterator">
+<h3><a class="toc-backref" href="#id14">Iterator</a><a class="headerlink" href="#iterator" title="Permalink to this headline">¶</a></h3>
+<p>動機</p>
+<ul>
+<li><p class="first">&lt;リストのような集約オブジェクトは、その内部構造を明かすことなく、
+要素にアクセスする方法をユーザに対して提供するべきである&gt; (p. 275)</p>
+</li>
+<li><p class="first">&lt;アクセスや走査のための責任を抜き出して、
+これを <strong>iterator</strong> オブジェクトに与えるということである&gt; (p. 275)</p>
+</li>
+<li><p class="first">&lt;走査のメカニズムを List オブジェクトから切り離すことで、
+List インタフェースを使って要素を列挙していく以外にも、
+走査について異なる方針を持った iterator を定義することができるようになる&gt; (p. 276)</p>
+</li>
+<li><p class="first">&lt;CreateIterator オペレーションは、factory method の使用例になる&gt; (p. 276)</p>
+<p>クラス図によると <tt class="docutils literal"><span class="pre">AbstractList</span></tt> のメソッドに <tt class="docutils literal"><span class="pre">CreateIterator</span></tt> がある。
+<tt class="docutils literal"><span class="pre">List</span></tt> は <tt class="docutils literal"><span class="pre">ListIterator</span></tt> を返し、
+<tt class="docutils literal"><span class="pre">SkipList</span></tt> は <tt class="docutils literal"><span class="pre">SkipListIterator</span></tt> を返す。</p>
+</li>
+</ul>
+<p>結果</p>
+<ul class="simple">
+<li>&lt;複雑な aggregate には、走査の方法がたくさんあるだろう&gt; (p. 278)</li>
+<li>&lt;コード生成では、構文解析木を inorder に走査することもあれば、
+preorder に走査することもあるだろう&gt; (p. 278)</li>
+<li>&lt;複数の走査を同時に実行することができる&gt; (p. 278) とあるが、
+そういうケースを何か例示して欲しい。</li>
+</ul>
+<p>実装</p>
+<ul>
+<li><p class="first">&lt;外部 iterator は内部 iterator に比べてより柔軟である&gt; (p. 278)</p>
+<p>iteration を制御するのがクライアントか iterator 自身かの違いによって、
+外部 iterator と呼んだり内部 iterator と呼んだりするようだ。</p>
+</li>
+<li><p class="first">&lt;aggregate が走査のアルゴリズムを定義していて、
+iterator は単に iteration の状態を保持しておくためだけに使われるのかもしれない&gt; (p. 279)</p>
+</li>
+<li><p class="first">&lt;走査の最中に aggregate に要素を追加したり、また削除したりすると、
+ある要素に 2 回アクセスしてしまったり、
+またはまったくアクセスしなかったりということが起こりかねない&gt; (p. 279)</p>
+<p>これはよくミスるんだ。</p>
+</li>
+<li><p class="first">&lt;iterator には特権的なアクセス権を持たせてもよい&gt; (p. 280)</p>
+</li>
+<li><p class="first">&lt;外部 iterator を、Composite パターンで示されるような再帰的な集約構造上で実装するのは難しいだろう&gt; (p. 280)</p>
+<ul class="simple">
+<li>&lt;構造内でのパスを保存しておかなければならない&gt; (p. 280)</li>
+<li>構造内のノードが兄弟、親、子ノードをたどれる場合は、
+cursor ベースの iterator のほうがよい。</li>
+<li>&lt;composite の構造は、しばしば 2 種類以上の方法で走査する必要がある。
+preorder, postorder, inorder, breadth-first などの走査が一般的である&gt; (p. 281)</li>
+</ul>
+</li>
+</ul>
+<p>関連パターン</p>
+<ul class="simple">
+<li>&lt;iterator は、iteration の状態を把握するために memento を使うことができる&gt; (p. 290)</li>
+</ul>
+</div>
+<div class="section" id="mediator">
+<h3><a class="toc-backref" href="#id15">Mediator</a><a class="headerlink" href="#mediator" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">相互作用をカプセル化する。
+&lt;オブジェクト同士がお互いを明示的に参照し合うことがないように&gt; (p. 291)</p>
+</li>
+<li><p class="first">&lt;オブジェクト間の関連を増やすことが
+せっかく高めた再利用性を再び低める傾向がある&gt; (p. 291)</p>
+</li>
+<li><p class="first">&lt;しばしば、ダイアログ内のウィジェット間には依存関係がある&gt; (p. 292)</p>
+</li>
+<li><p class="first">&lt;別のダイアログボックスでは、ウィジェット間に異なる依存関係が存在するだろう&gt; (p. 292)</p>
+</li>
+<li><p class="first">例えば <tt class="docutils literal"><span class="pre">FontDialogDirector</span></tt> クラスを定義し、
+それに &lt;ウィジェット間の通信におけるハブ&gt; (p. 292) として活躍させる。</p>
+<ul class="simple">
+<li>ウィジェットは他のウィジェットのことを知っている必要がなくなる。</li>
+</ul>
+</li>
+<li><p class="first">&lt;オブジェクトの集まりが通信する場合&gt; (p. 294) に
+Mediator パターンを適用する可能性がある。</p>
+</li>
+<li><p class="first">&lt;mediator 自体を保守が難しい一枚岩&gt; (p. 296) になる。</p>
+</li>
+<li><p class="first">colleague から mediator への通信手段だが、
+&lt;1 つのアプローチとしては、Observer パターンを使って Mediator クラスを
+Observer として実装することがあげられる&gt; (p. 296)</p>
+</li>
+<li><p class="first">&lt;Mediator パターンのもう 1 つの適用例として、
+複雑な更新を調整する場合があげられる。
+例としては、Observer パターンで説明する ChangeManager クラスがあげられる。
+（略）
+ChangeManager オブジェクトは、
+変化が起こったオブジェクトに対して依存関係にあるオブジェクトにそれを知らせることにより更新を行う&gt; (p. 300)</p>
+<p>オブジェクト間の依存関係が複雑な場合の更新調整という意味だろうか。</p>
+</li>
+</ul>
+</div>
+<div class="section" id="memento">
+<h3><a class="toc-backref" href="#id16">Memento</a><a class="headerlink" href="#memento" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">オブジェクトを後にある時点の状態に戻すことができるようにするというパターン。</p>
+</li>
+<li><p class="first">&lt;<strong>memento</strong> は、別のオブジェクトの内部状態のスナップショットを保存するオブジェクトである&gt; (p. 304)</p>
+<ul class="simple">
+<li>&lt;別のオブジェクト&gt; のことを memento に対して <strong>originator</strong> と呼ぶ。</li>
+<li>originator は要求に応じて memento を返す。</li>
+</ul>
+</li>
+<li><p class="first">&lt;Caretaker クラスには、Memento クラスの narrow インタフェースが見えるようになっている&gt; (p. 305)</p>
+<p>とにかく Caretaker オブジェクトは、Memento オブジェクトの中身を細かくいじるようなことはない。</p>
+</li>
+<li><p class="first">&lt;それとは対称的に、Originator クラスには wide インタフェースが見えるようになっている&gt; (p. 305)</p>
+<p>Memento オブジェクトを生成する役割があるから、
+Originator は Memento のことをよく把握している必要がある。</p>
+</li>
+<li><p class="first">&lt;理想的には、Memento オブジェクトを生成した Originator オブジェクトだけが
+Memento オブジェクトの内部構造にアクセスすることを許されるようにする&gt; (p. 305)</p>
+</li>
+<li><p class="first">Memento のデータ量が多いケースでは、コストが高くつく。
+「差分」だけを保存しておけば済むようにできるなら、そうする。</p>
+</li>
+<li><p class="first">Caretaker は Memento を管理する。オブジェクトを削除する責任がある (p. 307) ということ。</p>
+</li>
+</ul>
+</div>
+<div class="section" id="observer">
+<h3><a class="toc-backref" href="#id17">Observer</a><a class="headerlink" href="#observer" title="Permalink to this headline">¶</a></h3>
+<p>&lt;あるオブジェクトが状態を変えたときに、
+それに依存するすべてのオブジェクトに自動的にそのことが知らされ、
+また、それらが更新されるように、
+オブジェクト間に一対多の依存関係を定義する&gt; (p. 313)</p>
+<ul class="simple">
+<li>&lt;関連するオブジェクト間で無矛盾性を保つ必要がある&gt; (p. 313)</li>
+<li>しかし、そのためにクラス間の結合度を高めるようなことはしたくない (p. 313)</li>
+<li>スプレッドシートとバーチャートの例え (p. 313) は、
+&lt;同じデータに対して異なるユーザインタフェースがいくつあっても構わない&gt; (p. 314)
+ということを示したい。</li>
+<li>&lt;subject には、それに依存する observer を任意の数だけ持たせることができる&gt;
+(p. 314) ということは、極端な話ゼロでも構わない（意義があるかどうかは置いて）。</li>
+</ul>
+<p>適用可能性のところに色々書いてあるが、基本的には
+&lt;1 つのオブジェクトを変化させるときに、
+それに伴いその他のオブジェクトも変化させる必要があり、
+しかも変化させる必要があるオブジェクトを固定的に決められないとき&gt; (p. 314)
+状況で決まりだろう。</p>
+<ul class="simple">
+<li>subject は observer を知っている。</li>
+<li>observer は更新のインタフェースを定義する。</li>
+<li>ConcreteSubject は ConcreteObserver に影響する状態を保存している。</li>
+<li>ConcreteObserver は ConcreteSubject への参照を保持している。</li>
+<li>&lt;通知を得るまでには自身の状態の更新を延ばしている&gt; (p. 316)</li>
+<li>&lt;subject と observer の結合は抽象的であり極小である&gt; (p. 316)</li>
+<li>&lt;observer 同士は互いに相手の存在を知らないため、
+subject の変化に伴うコストの総計を observer が予測することはできない&gt; (p. 316)</li>
+</ul>
+<p>このパターンは記述量がけっこうある。</p>
+<ul class="simple">
+<li>&lt;subect が多くて observer が少ないときにはコストが高くつく&gt; (p. 317)</li>
+<li>1 つの observer が複数の subject に依存しているような場合、
+&lt;どの subject が通知を送ったのかを observer に知らせるように
+Update オペレーションインタフェースを拡張する必要がある&gt; (p. 317)</li>
+<li>&lt;どのオブジェクトが Notify オペレーションを呼び出すことになるのか&gt; (p. 317)
+だが、subject にやらせるにせよ observer にやらせるにせよ、トレードオフがある。</li>
+<li>&lt;subject が削除される際に、observer に対して subject への参照を
+リセットするように通知を出すようにすること&gt; (p. 317) を検討する。</li>
+<li>&lt;Subject クラスのどのオペレーションが通知のきっかけを作るのかは、
+文書化しておくのがよい&gt; (p. 318)</li>
+<li>subject の変更情報をどのように observer に引き渡すかで、
+push 型と pull 型に分類できる。
+これもトレードオフがある (pp. 318-319)</li>
+<li>subject と observer の依存関係が複雑なときには、間にワンクッション
+ChangeManager オブジェクトのようなものをはさんで、
+依存関係や変更通知を管理させる場合がある (pp. 319-320)</li>
+</ul>
+<p>サンプルコードは「時計」の実装例。
+タイマーが Subject で、各種時計が Observer だ。</p>
+</div>
+<div class="section" id="state">
+<h3><a class="toc-backref" href="#id18">State</a><a class="headerlink" href="#state" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">&lt;クラス内では、振る舞いの変化を記述せず、
+状態を表すオブジェクトを導入することでこれを実現する&gt; (p. 325)</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">TCPConnection</span></tt> の例では、
+established, listen, closed の状態をそれぞれクラスとして表現する。</p>
+<p>&lt;このパターンでキーとなる考え方は、
+<tt class="docutils literal"><span class="pre">TCPState</span></tt> クラスと呼ばれる抽象クラスを導入することである&gt; (p. 325)</p>
+</li>
+<li><p class="first">パターン適用可能性としては、
+&lt;オペレーションが、オブジェクトの状態に依存した多岐に渡る条件文を持っている場合&gt;
+(p. 326) 等がある。</p>
+</li>
+<li><p class="first">Context クラスが State オブジェクトを持つ。</p>
+<ul class="simple">
+<li>&lt;状態に依存した要求を ConcreteState オブジェクトに委譲する&gt; (p. 327)</li>
+<li>&lt;ConcreteState オブジェクトに対して自身を引数として送る&gt; (p. 327)</li>
+</ul>
+</li>
+<li><p class="first">状態遷移は Context クラスか ConcreteState クラスが決定するらしい (p. 327)</p>
+<p>どちらでも OK ということか。</p>
+</li>
+</ul>
+<p>結果</p>
+<ul class="simple">
+<li>&lt;個々の状態に対する振る舞いを State のサブクラスに分配するため、
+クラスの数は増え、1 つのクラスを利用する場合よりもコンパクトではなくなるという問題である。
+しかし、多くの状態が存在する場合には、
+このように分配することにより、
+実際に良い効果が得られる。
+なぜならば、もしこの方法を用いていなければ、
+多数の条件文が必要になるからである&gt; (p. 327)</li>
+<li>&lt;実行状態という概念をオブジェクトの地位にまで引き上げる&gt; (p. 327)</li>
+<li>&lt;Context クラスが矛盾した内部状態を持つのを防ぐことができる&gt; (p. 328)</li>
+<li>もし ConcreteState が独自の変数を持たないならば、Flyweight パターンも検討。</li>
+</ul>
+<p>実装</p>
+<ul class="simple">
+<li>&lt;どの構成要素が状態遷移の規準を定義するのかを特定していない&gt; (p. 328)<ul>
+<li>&lt;State のサブクラス自身が次の状態と遷移の時期を特定できれば、
+一般的により柔軟で適切なものになる&gt; が、
+サブクラス間に依存関係が入り込むことになる。</li>
+</ul>
+</li>
+<li>テーブル検索型の状態遷移も紹介していて、利点と欠点を挙げている。
+決定的な欠点は遷移の規準が不明確になることだろうか。</li>
+<li>Context クラスがどの程度の頻度で状態を変えるかによって、
+ConcreteState オブジェクトの生成・破棄の戦略を決めるのがよい。</li>
+<li>&lt;委譲ベースの言語&gt; (p. 329) とは何だろう。</li>
+</ul>
+<p>サンプルコード</p>
+<ul>
+<li><p class="first"><tt class="docutils literal"><span class="pre">TCPConnection</span></tt></p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">TCPState</span></tt> を friend 宣言している。</li>
+<li><tt class="docutils literal"><span class="pre">void</span> <span class="pre">ChangeState(TCPState*)</span></tt> メソッドを提供する。</li>
+<li>この例の運用では、コンストラクタで <tt class="docutils literal"><span class="pre">TCPClosed</span></tt> に状態メンバーをセットする。</li>
+</ul>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">TCPState</span></tt></p>
+<ul>
+<li><p class="first">多くの TCP 関連メソッドは空実装。当然仮想関数。</p>
+</li>
+<li><p class="first">ここにも <tt class="docutils literal"><span class="pre">ChangeState</span></tt> という名のメソッドがいる。</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="c1">// p. 331</span>
+<span class="kt">void</span> <span class="n">TCPState</span><span class="o">::</span><span class="n">ChangeState</span><span class="p">(</span><span class="n">TCPConnection</span><span class="o">*</span> <span class="n">t</span><span class="p">,</span> <span class="n">TCPState</span><span class="o">*</span> <span class="n">s</span><span class="p">){</span>
+    <span class="n">t</span><span class="o">-&gt;</span><span class="n">ChangeState</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p class="first">ConcreteState</p>
+<ul>
+<li><p class="first">この例ではいずれも &lt;ローカルな状態&gt; を保持しないので、
+各サブクラスを Singleton とする。</p>
+</li>
+<li><p class="first">例えば <tt class="docutils literal"><span class="pre">TCPListen::Send</span></tt> メソッドの実装は、
+まず SYN や ACK の送受信処理を行ってから、最後に</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">ChangeState</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">TCPEstablished</span><span class="o">::</span><span class="n">Instance</span><span class="p">());</span>
+</pre></div>
+</div>
+<p>のようにする。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>使用例</p>
+<ul>
+<li><p class="first">&lt;インタラクティブ描画プログラム&gt; における &lt;ツール&gt; について説明。</p>
+<p>&lt;たとえば、線描画ツールは、
+新しい線を生成するためにユーザにクリックとドラッグを行わせる。
+選択ツールは、ユーザに図形を選択させる&gt; (p. 333)</p>
+<p><tt class="docutils literal"><span class="pre">Tool</span></tt> のサブクラスとして線描画ツールやら選択ツールやらが定義されていて、
+クリックやドラッグのアプリケーション内での振る舞いが
+実際にはサブクラスに委譲されているので、それぞれ異なる。</p>
+</li>
+</ul>
+</div>
+<div class="section" id="strategy">
+<h3><a class="toc-backref" href="#id19">Strategy</a><a class="headerlink" href="#strategy" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Strategy はカプセル化された交換可能なアルゴリズム (p. 335)</li>
+<li>別名が Policy になっている。</li>
+</ul>
+<p>テキストストリームを取り扱う方法を例に話が進む。</p>
+<ul class="simple">
+<li>&lt;特に、改行について複数のアルゴリズムをサポートする場合&gt; (p. 335)</li>
+<li>&lt;テキストをフォーマットするときには、Compositor のオブジェクトに対して
+この責任を委譲する&gt; (p. 336)</li>
+</ul>
+<p>適用可能性も色々挙げているが、基本はこれだろう。</p>
+<ul class="simple">
+<li>多くの振る舞いが &lt;複数の条件文として現れている場合&gt; (p. 336)</li>
+</ul>
+<p>構造、構成要素、協調関係について。</p>
+<ul class="simple">
+<li>Strategy がアルゴリズムに共通のインタフェースを宣言する。</li>
+<li>ConcreteStrategy がアルゴリズムを実装する。</li>
+<li>Context が Strategy を利用する。
+アルゴリズムに必要なデータを引き渡したりするのかもしれない。</li>
+<li>色々なアルゴリズムをサポートするのに Context を派生させない理由は、
+&lt;アルゴリズムの実装と Context クラスの実装が混ざってしまい、
+Context クラスを理解し、保守し、拡張することをより難しくしてしまう&gt;
+(p. 338) から。わざわざアルゴリズムを独立させている。</li>
+<li>&lt;振る舞いの種類がクライアントに関係がある場合にのみ、
+Strategy パターンを利用するべきである&gt; (p. 339)</li>
+<li>Context は ConcreteStrategy が効果的にアクセスできるようにするべし (p. 339)</li>
+<li>C++ の場合、テンプレートを利用して
+Strategy をコンパイル時に選択させることができる (p. 340)
+もっとも、Strategy を動的に変更できなくて構わない場合に限る手段だが。</li>
+</ul>
+<p>サンプルコードの <tt class="docutils literal"><span class="pre">Compose</span></tt> メソッドは引数リストがゴチャゴチャしてないか？</p>
+</div>
+<div class="section" id="template-method">
+<h3><a class="toc-backref" href="#id20">Template Method</a><a class="headerlink" href="#template-method" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>&lt;アルゴリズムのスケルトン&gt; (p. 347)</li>
+<li>&lt;その中のいくつかのステップについては、サブクラスの定義に任せることにする&gt; (p. 347)</li>
+</ul>
+<p>またぞろ Application と Document クラスの例を挙げ、
+Document を「開く」オペレーションについての議論。</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="c1">// pp. 347-348; 一部省略</span>
+<span class="kt">void</span> <span class="n">Application</span><span class="o">::</span><span class="n">OpenDocument</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">CanOpenDocument</span><span class="p">(</span><span class="n">name</span><span class="p">)){</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">Document</span><span class="o">*</span> <span class="n">doc</span> <span class="o">=</span> <span class="n">DoCreateDocument</span><span class="p">();</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">doc</span><span class="p">){</span>
+        <span class="n">_docs</span><span class="o">-&gt;</span><span class="n">AddDocument</span><span class="p">(</span><span class="n">doc</span><span class="p">);</span>
+        <span class="n">AboutToOpenDocument</span><span class="p">(</span><span class="n">doc</span><span class="p">);</span>
+        <span class="n">doc</span><span class="o">-&gt;</span><span class="n">Open</span><span class="p">();</span>
+        <span class="n">doc</span><span class="o">-&gt;</span><span class="n">DoRead</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul>
+<li><p class="first">&lt;<tt class="docutils literal"><span class="pre">OpenDocument</span></tt> オペレーションは、文書を開くための各ステップを定義する&gt; (p. 348)</p>
+<p><tt class="docutils literal"><span class="pre">OpenDocument</span></tt> はおそらく仮想関数になっていなくて、
+この中の各呼び出しメソッドが Application や Document の仮想関数になっている。
+&lt;抽象オペレーションを使ってアルゴリズムのいくつかのステップを定義することにより、
+template method はそれらの順番を固定する&gt; (p. 348)</p>
+</li>
+</ul>
+<p>適用可能性にいいことが書いてある。</p>
+<ul class="simple">
+<li>&lt;まず、既存のコードにおける相違点を識別し、次にその相違点を新しいオペレーションに分離する。
+最後に、既存のコードを、その相違点については新しいオペレーションを呼び出すようにした
+template method で置き換える&gt; (p. 348)</li>
+</ul>
+<p>このセクションは短い。</p>
+<ul class="simple">
+<li>&lt;template method は、コード再利用のための基本的な方法である&gt; (p. 349)</li>
+<li>ハリウッドの原則</li>
+<li>&lt;hook operation は、デフォルトでは何もしないようにしておくことがしばしばある&gt; (p. 350)</li>
+</ul>
+<p>実装のコツ</p>
+<ul class="simple">
+<li>C++ では<ul>
+<li>primitive operation を private 宣言する (p. 351)</li>
+<li>&lt;template method は非仮想関数として宣言しておく&gt; (p. 351)</li>
+</ul>
+</li>
+<li>primitive operation の数を最小化すること (p. 351)</li>
+<li>名前を見て template method, primitive operation とわかるようにすると便利 (p. 351)</li>
+</ul>
+<p>&lt;template method はたいへん基本的なもの&gt; (p. 352)</p>
+</div>
+<div class="section" id="visitor">
+<h3><a class="toc-backref" href="#id21">Visitor</a><a class="headerlink" href="#visitor" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>最初に読んだときにクラス構造が頭にストンと入らなかったパターン。</li>
+<li>&lt;オペレーションを加えるオブジェクトのクラスに変更を加えずに、
+新しいオペレーションを定義することができる&gt; (p. 353)</li>
+</ul>
+<p>動機</p>
+<ul>
+<li><p class="first">構文木の例</p>
+<ul>
+<li><p class="first"><tt class="docutils literal"><span class="pre">Node</span></tt> のサブクラスに <tt class="docutils literal"><span class="pre">VariableRefNode</span></tt> や <tt class="docutils literal"><span class="pre">AssignmentNode</span></tt> 等がある。</p>
+</li>
+<li><p class="first">&lt;数多くのノードのクラスにわたってこれらのオペレーションを分散させることが、
+システムを理解しにくく、保守しにくく、変更しにくくしてしまう&gt; (p. 353)</p>
+<p>各ノードに <tt class="docutils literal"><span class="pre">TypeCheck</span></tt> やら <tt class="docutils literal"><span class="pre">GenerateCode</span></tt> が分散している。
+三重苦状態なわけだ。</p>
+</li>
+<li><p class="first">&lt;そこで、関連するオペレーションを各クラスから取り出して別のオブジェクト
+にまとめ、アブストラクト・シンタックスツリーを走査するときに
+その要素にこのオブジェクトを渡す、というアプローチをとることができる&gt; (p. 354)</p>
+<ul class="simple">
+<li>別のオブジェクトが <strong>visitor</strong> と呼ばれるもの。
+<tt class="docutils literal"><span class="pre">TypeCheckingVisitor</span></tt> やら <tt class="docutils literal"><span class="pre">CodeGeneratingVisitor</span></tt> やらだ。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p class="first">&lt;Visitor パターンでは、2 つのクラス階層を定義する&gt; (p. 355)</p>
+<ul class="simple">
+<li>オペレーションを加えられる側 (Node)</li>
+<li>オペレーションを定義する側 (NodeVisitor)</li>
+</ul>
+</li>
+</ul>
+<p>適用可能性</p>
+<ul class="simple">
+<li>適用条件の記述が割と細かい。</li>
+<li>&lt;オブジェクト構造を定義するクラスはほとんど変わらないが、
+その構造に新しいオペレーションを定義することがしばしば起こる場合&gt; (p. 355)</li>
+</ul>
+<p>構成要素</p>
+<ul class="simple">
+<li>ConcreteVisitor クラスは &lt;構造を走査していく過程で、
+状態に結果が蓄積されていくことがしばしばある&gt; (p. 356)</li>
+<li>Element クラスは &lt;引数として visitor をとる Accept オペレーションを定義する&gt; (p. 356)</li>
+<li>ConcreteElement クラスが Accept の実装をする。</li>
+</ul>
+<p>結果</p>
+<ul>
+<li><p class="first">&lt;Visitor パターンでは、Element の新しいサブクラスを加えることを難しくする&gt; (p. 358)</p>
+</li>
+<li><p class="first">&lt;新しい ConcreteElement クラスがひんぱんに追加されるときには、
+Visitor クラスの階層を保守することが難しくなる危険性がある&gt; (p. 358)</p>
+</li>
+<li><p class="first">&lt;visitor によるアプローチでは、ConcreteElement クラスのインタフェースが、
+visitor が仕事を行うのに十分、強力であることを仮定している&gt; (p. 359)</p>
+<p>Element 側のカプセル化がもろくなる可能性を指摘している。</p>
+</li>
+</ul>
+<p>実装</p>
+<ul>
+<li><p class="first">初見ではコード例が頭に入らなかった。練習問題として、</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">Visitor</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ElementA</span></tt>, <tt class="docutils literal"><span class="pre">ElementB</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ConpositeElement</span></tt></li>
+</ul>
+<p>クラスを定義してみよう。
+<tt class="docutils literal"><span class="pre">CompositeElement::Accept</span></tt> の実装方法に注意。</p>
+</li>
+<li><p class="first">ダブルディスパッチの話題が出てくる。Accept がそれなのだが、</p>
+<ul>
+<li><p class="first">&lt;ダブルディスパッチとは、単に、
+実行されるオペレーションが要求の種類と 2 つの受け手の型に依存することを意味している&gt; (p. 361)</p>
+<p>Visitor の型と Element の型が Accept を決める。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>サンプルコード</p>
+<ul>
+<li><p class="first">&lt;visitor は通常 composite と関連がある&gt; (p. 362)
+というわけで Composite パターンの説明で出てきた <tt class="docutils literal"><span class="pre">Equipment</span></tt> クラスを引っ張り出す。</p>
+<ul class="simple">
+<li>&lt;<tt class="docutils literal"><span class="pre">Equipment</span></tt> クラスはとても簡単なので、実際には Visitor パターンを利用する必要はない&gt; (p. 362)</li>
+</ul>
+</li>
+<li><p class="first">Visitor の利用例コードを見落としがちだが、以下のようになる。</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">Equipment</span><span class="o">*</span> <span class="n">component</span><span class="p">;</span>
+
+<span class="c1">// ... component をどこからか得る。</span>
+
+<span class="n">InventoryVisitor</span> <span class="n">visitor</span><span class="p">;</span>
+<span class="n">component</span><span class="o">-&gt;</span><span class="n">Accept</span><span class="p">(</span><span class="n">visitor</span><span class="p">);</span>
+<span class="c1">// visitor 内部に Inventory 情報が蓄積された。</span>
+</pre></div>
+</div>
+<p>単に Accept 呼び出しだけだ。</p>
+</li>
+</ul>
+<p>使用例</p>
+<ul>
+<li><p class="first">&lt;Inventor では、3 次元のシーンをノードの階層として表現する。
+それぞれのノードは、幾何学的な図形オブジェクト、
+あるいはその属性のどちらかを表現している。
+シーンを描写したり入力イベントをマッピングするオペレーションは、
+それぞれ別の方法でこの階層を走査する必要がある&gt; (p. 366)</p>
+<p>描画、イベント処理、検索、バウンディングボックス計算等々、
+それぞれの用途に専用の visitor が存在すると言っている。</p>
+</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id22">まとめ</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>まだ全部読み切っていない。</p>
+<ul class="simple">
+<li>Observer パターンでは &lt;observer と subject が制約を維持するために協力し合わなければならない&gt; (p. 370)</li>
+<li>&lt;mediator を再利用可能なものにするよりも、
+observer と subject を再利用可能なものにする方が容易なのは明らかである&gt; (p. 370)</li>
+<li>&lt;Observer パターンよりも Mediator パターンの方が通信の流れを理解するのは容易である&gt; (p. 370)</li>
+<li>&lt;協力し合うオブジェクトが直接お互いを参照しているときには、
+（略）システムの階層化と再利用性に対してマイナスの効果を及ぼす&gt; (p. 371)</li>
+<li>&lt;Observer パターンは、Command パターンよりも送信―受信オブジェクトの結合をさらにゆるく定義する&gt; (p. 371)</li>
+<li>&lt;mediator は、さらに柔軟性を得るためには独自のディスパッチスキーマを実装しなければならないだろう&gt; (p. 372)</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id23">第 6 章 終わりに</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>&lt;本書は単に既存の設計法について述べたものである。
+本書はチュートリアルとしては妥当だが、
+熟練したオブジェクト指向設計者にはあまり役に立たないと思われるかもしれない&gt; (p. 375)</li>
+<li>&lt;読者がいかにデザインパターンを見つけてカタログ化していくことができるかについて述べる&gt; (p. 375)</li>
+</ul>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id24">6.1 デザインパターンに何を期待するか</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>&lt;デザインパターンを用いることで、
+より高いレベルで設計し、設計について議論することが可能になるのだ&gt; (p. 376)</li>
+<li>&lt;十分に長い間オブジェクト指向システムに従事すれば、
+自力でデザインパターンを習得することができるだろう。
+しかし、本書を読めばはるかに速く習得できるはずである&gt; (p. 376)</li>
+<li>&lt;デザインパターンは分析モデルから実装モデルへの転換のときに特に効果がある&gt; (p. 377)</li>
+<li>&lt;柔軟で再利用可能な設計には、分析モデルには存在しないオブジェクトが含まれる&gt; (p. 377)</li>
+<li>&lt;進化を続けるためには、ソフトウェアは“リファクタリング”と呼ばれるプロセスによって
+作り直さなければならない&gt; (p. 378)</li>
+<li>&lt;優秀は設計者はリファクタリングが必要になるような変更には気付くものである&gt; (p. 378)</li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h3><a class="toc-backref" href="#id25">6.2 経緯</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>&lt;本書のカタログは Erich の学位論文の一部として始まった&gt; (p. 378)
+おお、学位論文なのか。</li>
+<li>&lt;しかし、パターンを理解できるのは、すでにパターンを使ったことのある人に限られていた&gt; (p. 379)</li>
+<li>&lt;なぜ行っているのかを理解することは、
+何をしているかを理解するよりも難しい&gt; (p. 379)
+これはいい言葉だ。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id26">付録以降</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>ノートに取るほどの重大な記述はなさそうだ？</p>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="index.html">読書ノート</a> &raquo;</li>
+          <li><a href="gamma95.html" >オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="http://www.geocities.jp/showa_yojyo/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png" width="88" height="31"/></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br/>
+        Copyright &copy; 1999-2014,
+        <a href="about.html#about.feedback" title="問い合わせ先">プレハブ小屋</a>
+        All rights reserved.
+      </div>
+      <div id="footer_spacer">
+        <p>
+          Last updated on 2014/08/10 (Sun) 20:57:31.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

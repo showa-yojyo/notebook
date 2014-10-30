@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Pygments 利用ノート</title>
+    
+    <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="top" title="読書ノート" href="index.html" />
+    <link rel="next" title="Python Twitter Tools 利用ノート" href="python-twitter-tools.html" />
+    <link rel="prev" title="Jinja2 利用ノート" href="python-jinja2.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="index.html">読書ノート</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="section" id="pygments">
+<h1><a class="toc-backref" href="#id13">Pygments 利用ノート</a><a class="headerlink" href="#pygments" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="id1">
+<p class="topic-title first">ノート目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#pygments" id="id13">Pygments 利用ノート</a><ul>
+<li><a class="reference internal" href="#id2" id="id14">関連リンク</a></li>
+<li><a class="reference internal" href="#id3" id="id15">Pygments とは何だ</a></li>
+<li><a class="reference internal" href="#id4" id="id16">インストール</a><ul>
+<li><a class="reference internal" href="#pip" id="id17">方法 1 &#8211; pip 経由でインストール</a></li>
+<li><a class="reference internal" href="#id5" id="id18">方法 2 &#8211; ソースコード一式からインストール</a></li>
+<li><a class="reference internal" href="#id6" id="id19">方法 3 &#8211; 開発版コードをダウンロード</a></li>
+<li><a class="reference internal" href="#id7" id="id20">ドキュメントも確保する</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id8" id="id21">いきなり使ってみる</a><ul>
+<li><a class="reference internal" href="#python-pygments" id="id22">Python コードから Pygments の機能を利用する</a></li>
+<li><a class="reference internal" href="#id9" id="id23">コマンドラインツールを利用する</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id10" id="id24">コンポーネント</a><ul>
+<li><a class="reference internal" href="#lexers" id="id25">Lexers</a></li>
+<li><a class="reference internal" href="#formatters" id="id26">Formatters</a></li>
+<li><a class="reference internal" href="#filters" id="id27">Filters</a></li>
+<li><a class="reference internal" href="#styles" id="id28">Styles</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id11" id="id29">コンポーネントを自作</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>OS<ul>
+<li>Windows XP Home Edition SP 3</li>
+<li>Windows 7 Home Premium SP 1</li>
+</ul>
+</li>
+<li>本稿において、利用した各パッケージのバージョンは次のとおり。<ul>
+<li><a class="reference external" href="http://www.python.org/">Python</a>: 2.6.6, 2.7.3, 3.4.1</li>
+<li><a class="reference external" href="http://pygments.org/">Pygments</a>: 1.4, 1.6</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id14">関連リンク</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference external" href="http://pygments.org/">Pygments</a></dt>
+<dd>公式サイト。</dd>
+</dl>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id15">Pygments とは何だ</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>「プログラムコード片を表すテキストを入力とし、
+部分部分に着色等の装飾を指示する命令コードを付加したテキストを出力する
+<a class="reference external" href="http://www.python.org/">Python</a> 製パッケージ」とでも言えばいいのだろうか。</p>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id16">インストール</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>正しいインストール方法はいつものように複数ある。
+公式にはいずれの方法においても Python 2.4 以上が必要。</p>
+<div class="section" id="pip">
+<h3><a class="toc-backref" href="#id17">方法 1 &#8211; pip 経由でインストール</a><a class="headerlink" href="#pip" title="Permalink to this headline">¶</a></h3>
+<p>インターネットが利用できる環境ではいつも通りコンソールウィンドウで
+<tt class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pygments</span></tt> とタイプすればよい。</p>
+</div>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id18">方法 2 &#8211; ソースコード一式からインストール</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>インターネットがない環境ではこの方法に頼るしかない。
+まずは学校・職場・漫画喫茶等に行き <a class="reference external" href="http://pygments.org/">Pygments</a> のコード一式をダウンロードして、
+それを USB メモリか何かに入れて持ち帰る。</p>
+<p>万が一 <a class="reference external" href="http://peak.telecommunity.com/DevCenter/setuptools">setuptools</a> がない場合は、それも持ち帰ってインストールを済ませておくこと。</p>
+<p>圧縮ファイルを解凍して <tt class="file docutils literal"><span class="pre">setup.py</span></tt> のあるフォルダーに <tt class="docutils literal"><span class="pre">cd</span></tt> して
+<tt class="docutils literal"><span class="pre">setup.py</span> <span class="pre">install</span></tt> するべし。</p>
+</div>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id19">方法 3 &#8211; 開発版コードをダウンロード</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="http://selenic.com/mercurial/">Mercurial</a> とやらが必要なのでパス。</p>
+</div>
+<div class="section" id="id7">
+<h3><a class="toc-backref" href="#id20">ドキュメントも確保する</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>学習の都合上、公式サイト <a class="reference external" href="http://pygments.org/download/">http://pygments.org/download/</a>
+からオフライン用のドキュメント一式をダウンロードしておくとよいだろう。</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id21">いきなり使ってみる</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>ドキュメントの Introduction and Quick Start を読みながらメモ。</p>
+<ul class="simple">
+<li>簡単に言うと Pygments の設計様式は 4 本柱。
+よく読むと大事なのはこのうちの 2 本だけか。<ul>
+<li><tt class="docutils literal"><span class="pre">lexers</span></tt>: ソースコードを解析して、これはキーワード、これはリテラル文字列、等々に分解する
+（この処理をトークンに分解すると言う）。プログラミング言語毎に専用の lexer が存在する。</li>
+<li><tt class="docutils literal"><span class="pre">filters</span></tt>: lexer からの出力（トークンストリーム）をテキスト的な加工をするときに利用する。</li>
+<li><tt class="docutils literal"><span class="pre">formatters</span></tt>: 処理結果を何らかの書式で出力する。
+HTML, XML, LaTex, RTF, etc...</li>
+<li><tt class="docutils literal"><span class="pre">styles</span></tt>: キーワードやコメントをどうハイライトするのかを決める役割がある。</li>
+</ul>
+</li>
+</ul>
+<div class="section" id="python-pygments">
+<h3><a class="toc-backref" href="#id22">Python コードから Pygments の機能を利用する</a><a class="headerlink" href="#python-pygments" title="Permalink to this headline">¶</a></h3>
+<p>ドキュメントに紹介されている例を検討してみる。</p>
+<div class="highlight-python3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pygments</span> <span class="k">import</span> <span class="n">highlight</span>
+<span class="kn">from</span> <span class="nn">pygments.lexers</span> <span class="k">import</span> <span class="n">PythonLexer</span>
+<span class="kn">from</span> <span class="nn">pygments.formatters</span> <span class="k">import</span> <span class="n">HtmlFormatter</span>
+
+<span class="n">code</span> <span class="o">=</span> <span class="s">&#39;print &quot;Hello World&quot;&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">highlight</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">PythonLexer</span><span class="p">(),</span> <span class="n">HtmlFormatter</span><span class="p">()))</span>
+</pre></div>
+</div>
+<p>これは「Python のソースコードを HTML コード片に変換する」例のごく単純なもので、
+最後に <tt class="docutils literal"><span class="pre">highlight</span></tt> 関数で締めくくっている。</p>
+<p>出力結果をドキュメントから引用してみる：</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;highlight&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;pre&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;k&quot;</span><span class="nt">&gt;</span>print<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;s&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;quot;</span>Hello World<span class="ni">&amp;quot;</span><span class="nt">&lt;/span&gt;&lt;/pre&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</div>
+<p>何が highlight なのかと言うと、HTML コードに装飾用のマークアップが付いていることが認められる。</p>
+<ul class="simple">
+<li>コード片全体が <tt class="docutils literal"><span class="pre">highlight</span></tt> というクラスの <tt class="docutils literal"><span class="pre">DIV</span></tt> タグに囲まれている。</li>
+<li>キーワード <tt class="docutils literal"><span class="pre">print</span></tt> が <tt class="docutils literal"><span class="pre">k</span></tt> というクラスの <tt class="docutils literal"><span class="pre">SPAN</span></tt> タグに囲まれている。</li>
+<li>リテラル文字列 <tt class="docutils literal"><span class="pre">Hello</span> <span class="pre">World</span></tt> が <tt class="docutils literal"><span class="pre">s</span></tt> というクラスの <tt class="docutils literal"><span class="pre">SPAN</span></tt> タグに囲まれている。
+ついでに言うと、ダブルクォーテーションがエスケープ済み。</li>
+</ul>
+<p>どうやら CSS を自分で好きに書けば、ハイライト（色付けやら何やら）を実現できるということか。</p>
+<p>以上の単純な例から、目的に応じて処理したい言語に対応する
+lexer と出力結果に対応する formatter を見つけたり自作したりすればよさそうだということが読み取れる。</p>
+</div>
+<div class="section" id="id9">
+<h3><a class="toc-backref" href="#id23">コマンドラインツールを利用する</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>Pygments をインストールすると、
+<tt class="file docutils literal"><span class="pre">Scripts</span></tt> フォルダーに <tt class="file docutils literal"><span class="pre">pygmentize</span></tt> という実行ファイルができる。
+ファイルを受け取って、</p>
+<ul class="simple">
+<li>コンソールウィンドウに出力するときは文字通りハイライトしたテキストを出力する。</li>
+<li>ファイルに出力するときは、前述の形式でテキストを出力する。</li>
+</ul>
+<p>が、実際やってみると前者はコントロール文字をガンガン出力するだけで読めたものではない。
+もっぱら後者の用法で利用する。</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> HTML 形式で出力し、ファイル名を test.html と指定。
+<span class="gp">$</span> pygmentize -f html -o test.html test.py
+
+<span class="gp">#</span> スタイル colorful の定義、つまり CSS コードを画面に出力させる。
+<span class="gp">$</span> pygmentize -f html -S colorful
+
+<span class="gp">#</span> -N オプションで入力ファイル名から lexer を推測する。
+<span class="gp">$</span> pygmentize -N test.txt
+
+<span class="gp">#</span> -L オプションで利用可能なコンポーネントを画面にリスト。
+<span class="gp">$</span> pygmentize -L lexers
+
+<span class="gp">#</span> -H オプションでより詳しい説明を画面に出力するらしい
+<span class="gp">#</span> が出て来ない。
+<span class="gp">$</span> pygmentize -H lexer python
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id10">
+<h2><a class="toc-backref" href="#id24">コンポーネント</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>さっき言った 4 本柱を見ていく。</p>
+<div class="section" id="lexers">
+<h3><a class="toc-backref" href="#id25">Lexers</a><a class="headerlink" href="#lexers" title="Permalink to this headline">¶</a></h3>
+<p>個人的に利用する可能性が高い lexers を aliases 形式でここにメモっておく。
+名前をおぼえるには aliases 形式が応用が効く。
+<a class="reference external" href="http://sphinx.pocoo.org/">Sphinx</a> の <tt class="docutils literal"><span class="pre">code-block</span></tt> ディレクティブの引数がこの aliases と一致することに注意。</p>
+<div class="highlight-text"><div class="highlight"><pre>(&#39;bash&#39;, &#39;sh&#39;)
+(&#39;cpp&#39;, &#39;c++&#39;)
+(&#39;css&#39;,)
+(&#39;django&#39;, &#39;jinja&#39;)
+(&#39;html&#39;,)
+(&#39;make&#39;, &#39;makefile&#39;, &#39;mf&#39;, &#39;bsdmake&#39;)
+(&#39;python&#39;, &#39;py&#39;)
+(&#39;python3&#39;, &#39;py3&#39;)
+(&#39;tex&#39;, &#39;latex&#39;)
+(&#39;text&#39;,)
+(&#39;xml&#39;,)
+(&#39;xslt&#39;,)
+(&#39;rst&#39;, &#39;rest&#39;, &#39;restructuredtext&#39;)
+</pre></div>
+</div>
+<ul class="simple">
+<li>最初に全ての lexers をザッと眺めておくと、
+自分が使うであろう lexer の当たりがつけやすい。</li>
+<li><tt class="docutils literal"><span class="pre">pygments.lexers.get_all_lexers</span></tt> 関数で、各 lexer を表現する
+<tt class="docutils literal"><span class="pre">(name,</span> <span class="pre">aliases,</span> <span class="pre">filetypes,</span> <span class="pre">mimetypes)</span></tt> を指すイテレータが得られる。<ul>
+<li><tt class="docutils literal"><span class="pre">name</span></tt> は文字列。特に使わない。</li>
+<li><tt class="docutils literal"><span class="pre">aliases</span></tt> は文字列の tuple で、これのいずれかを引数にして関数
+<tt class="docutils literal"><span class="pre">get_lexer_by_name</span></tt> に渡すと、対応する lexer オブジェクトが得られる。</li>
+<li><tt class="docutils literal"><span class="pre">filetypes</span></tt> 等も使わない。</li>
+</ul>
+</li>
+<li>もし「言語 XXX の lexer は存在するだろうか」と思ったら、
+XXX のファイル拡張子を知っているならば、関数
+<tt class="docutils literal"><span class="pre">guess_lexer_by_filename</span></tt> をダミー文字列と共に呼び出してみる。</li>
+</ul>
+</div>
+<div class="section" id="formatters">
+<h3><a class="toc-backref" href="#id26">Formatters</a><a class="headerlink" href="#formatters" title="Permalink to this headline">¶</a></h3>
+<p>いつもお世話になるのは <tt class="docutils literal"><span class="pre">pygments.formatters.html.HtmlFormatter</span></tt> クラスだが、
+意外にたくさんの formatters が用意されている。画像もアリなのか。</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">ImageFilter</span></tt> 系を利用するには、別途 PIL パッケージのインストールが必要だそうだ。</li>
+<li><tt class="docutils literal"><span class="pre">RtfFormatter</span></tt> は MS Word にコピー＆ペーストができるデータを出力するようだ。</li>
+<li><tt class="docutils literal"><span class="pre">SvgFormatter</span></tt> は実験段階らしい。</li>
+</ul>
+</div>
+<div class="section" id="filters">
+<h3><a class="toc-backref" href="#id27">Filters</a><a class="headerlink" href="#filters" title="Permalink to this headline">¶</a></h3>
+<p>これに関しては特にノートを取るようなことはない。
+大文字小文字を変換したり、空白文字を目に見える文字に置換したりするのに利用するものだ。</p>
+</div>
+<div class="section" id="styles">
+<h3><a class="toc-backref" href="#id28">Styles</a><a class="headerlink" href="#styles" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>スタイルというのは出力が HTML または LaTeX のときに適用される。</li>
+<li>基本的にここをいじりまわすことはなさそうだ。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id11">
+<h2><a class="toc-backref" href="#id29">コンポーネントを自作</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>気が向いたら挑戦してみよう。</p>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="index.html">読書ノート</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="http://www.geocities.jp/showa_yojyo/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png" width="88" height="31"/></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br/>
+        Copyright &copy; 1999-2014,
+        <a href="about.html#about.feedback" title="問い合わせ先">プレハブ小屋</a>
+        All rights reserved.
+      </div>
+      <div id="footer_spacer">
+        <p>
+          Last updated on 2014/08/10 (Sun) 21:31:30.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

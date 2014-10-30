@@ -1,0 +1,509 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Pillow 利用ノート</title>
+    
+    <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="top" title="読書ノート" href="index.html" />
+    <link rel="next" title="Matplotlib 利用ノート" href="python-matplotlib.html" />
+    <link rel="prev" title="PIL 利用ノート [obsolete]" href="python-pil.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="index.html">読書ノート</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="section" id="pillow">
+<h1><a class="toc-backref" href="#id27">Pillow 利用ノート</a><a class="headerlink" href="#pillow" title="Permalink to this headline">¶</a></h1>
+<p>Python で画像処理といえば、長い間 <a class="reference external" href="http://www.pythonware.com/products/pil">PIL</a> が活躍していた。
+だがここ最近は <a class="reference external" href="https://pillow.readthedocs.org/en/latest/">Pillow</a> というフォークパッケージが主流になっているらしい。
+とある別の作図パッケージのアップグレードの際に、
+それが Pillow に依存していることに気付いて世代交代を知ったのだった。</p>
+<p>そこで、本稿では Pillow の導入方法と、既存の PIL 利用コードの移行手順について記す。
+なお、PyOpenGL や Pygame との連携で PIL を利用していた既存コードのそれについては、
+各ノートにて言及していく（現在執筆中）。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title first">ノート目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#pillow" id="id27">Pillow 利用ノート</a><ul>
+<li><a class="reference internal" href="#id2" id="id28">関連リンクおよび参考サイト</a></li>
+<li><a class="reference internal" href="#id3" id="id29">インストール</a></li>
+<li><a class="reference internal" href="#id4" id="id30">ドキュメント</a></li>
+<li><a class="reference internal" href="#id5" id="id31">画像処理基本</a><ul>
+<li><a class="reference internal" href="#id6" id="id32">画像ファイルフォーマット変換（単発）</a></li>
+<li><a class="reference internal" href="#id7" id="id33">画像ファイルフォーマット変換（バッチ処理）</a></li>
+<li><a class="reference internal" href="#id8" id="id34">簡易ビューワー</a></li>
+<li><a class="reference internal" href="#id9" id="id35">ジャギー解消</a></li>
+<li><a class="reference internal" href="#id10" id="id36">イメージモノクロ化</a></li>
+<li><a class="reference internal" href="#id11" id="id37">画像生成</a></li>
+<li><a class="reference internal" href="#id12" id="id38">色名指定</a></li>
+<li><a class="reference internal" href="#id13" id="id39">透過イメージ生成</a></li>
+<li><a class="reference internal" href="#png" id="id40">アルファチャンネルを持つ PNG 画像を青地背景上に重ねたい</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id14" id="id41">グラデーション</a><ul>
+<li><a class="reference internal" href="#id15" id="id42">線形グラデーション（透過なし）</a></li>
+<li><a class="reference internal" href="#id16" id="id43">線形グラデーション（単色にグレースケール透過）</a></li>
+<li><a class="reference internal" href="#id17" id="id44">線形グラデーション（さらなる応用）</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id18" id="id45">テキスト</a><ul>
+<li><a class="reference internal" href="#hello-world" id="id46">Hello, world</a></li>
+<li><a class="reference internal" href="#id19" id="id47">日本語テキスト</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id20" id="id48">応用</a><ul>
+<li><a class="reference internal" href="#id21" id="id49">スクリーンショット</a></li>
+<li><a class="reference internal" href="#id22" id="id50">上下左右ループ壁紙パターン生成</a></li>
+<li><a class="reference internal" href="#imagedraw2" id="id51">モジュール ImageDraw2</a></li>
+<li><a class="reference internal" href="#imagegl" id="id52">モジュール ImageGL</a></li>
+<li><a class="reference internal" href="#imagepath" id="id53">モジュール ImagePath</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id23" id="id54">コマンドラインユーティリティー</a><ul>
+<li><a class="reference internal" href="#id24" id="id55">フォーマット変換</a></li>
+<li><a class="reference internal" href="#id25" id="id56">リサイズ</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>OS: Windows 7 Home Premium SP 1</li>
+<li>本稿において、利用した各パッケージのバージョンは次のとおり。<ul>
+<li><a class="reference external" href="http://www.python.org/">Python</a>: 3.4.1</li>
+<li><a class="reference external" href="https://pillow.readthedocs.org/en/latest/">Pillow</a>: 2.5.1</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id28">関連リンクおよび参考サイト</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference external" href="https://pillow.readthedocs.org/en/latest/">Pillow</a></dt>
+<dd>公式パッケージ・インストーラー配布元。</dd>
+<dt><a class="reference external" href="http://www.lfd.uci.edu/~gohlke/pythonlibs/">Python Extension Packages for Windows - Christoph Gohlke</a></dt>
+<dd>非公式インストーラー配布元。</dd>
+</dl>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id29">インストール</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>筆者の場合は Windows 7 64 ビットなので、上記非公式インストーラーを利用する。
+本稿執筆時は <tt class="file docutils literal"><span class="pre">Pillow-2.5.1.win-amd64-py3.4.exe</span></tt> を利用した。</p>
+<p>それ以外の環境についてはいつもの <tt class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pillow</span></tt> で問題あるまい。</p>
+<p>ちなみに PIL が既に環境に居座っている場合は、Pillow をインストールする前に
+PIL をアンインストールする必要があるようだ。
+公式サイトの Installation ページに PIL と Pillow が共存できない旨が明記されている。</p>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id30">ドキュメント</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>まずは <a class="reference external" href="https://pillow.readthedocs.org/en/latest/">Pillow</a> 公式サイトの Guides を見たが、どうも PIL コードがそのまま使える雰囲気だ。
+この後、昔のコードを引っ張りだして Pillow に与えて検証していこう。</p>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id31">画像処理基本</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="python-pil.html"><em>PIL 利用ノート [obsolete]</em></a> で試したコードがそのまま再利用できるかどうかを検証した。</p>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id32">画像ファイルフォーマット変換（単発）</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>GIF 画像ファイル <tt class="file docutils literal"><span class="pre">image.gif</span></tt> を PNG 形式に変換して、ファイル <tt class="file docutils literal"><span class="pre">image.png</span></tt> として保存するコードを再掲する。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">Image</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+<span class="gr">ImportError</span>: <span class="n">No module named &#39;Image&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&quot;image.gif&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">im</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&quot;image.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Pillow では <tt class="docutils literal"><span class="pre">from</span> <span class="pre">PIL</span> <span class="pre">import</span> <span class="pre">Image</span></tt> としてインポートする必要がある。他のモジュールも同様。</p>
+</div>
+<div class="section" id="id7">
+<h3><a class="toc-backref" href="#id33">画像ファイルフォーマット変換（バッチ処理）</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>カレントディレクトリー内の GIF ファイルを PNG ファイルに変換、保存する処理のコードはこうなる。</p>
+<div class="highlight-python3"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">os.path</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span>
+
+<span class="k">for</span> <span class="n">infile</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s">&quot;*.gif&quot;</span><span class="p">):</span>
+    <span class="n">file</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>
+    <span class="n">im</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">file</span> <span class="o">+</span> <span class="s">&quot;.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>なんと <tt class="file docutils literal"><span class="pre">pilconvert.py</span></tt> を使う手も封じられていない。
+Python の Scripts ディレクトリーに一連のスクリプト群がインストールされている。</p>
+</div>
+<div class="section" id="id8">
+<h3><a class="toc-backref" href="#id34">簡易ビューワー</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>PIL と同様にして、メソッド <tt class="docutils literal"><span class="pre">show</span></tt> を利用することができる。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="o">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&quot;image.gif&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">im</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>筆者の環境では Windows のフォトビューワーが起動して、画像の内容が表示された。</p>
+</div>
+<div class="section" id="id9">
+<h3><a class="toc-backref" href="#id35">ジャギー解消</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>TBW</p>
+</div>
+<div class="section" id="id10">
+<h3><a class="toc-backref" href="#id36">イメージモノクロ化</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="python-pil.html"><em>PIL 利用ノート [obsolete]</em></a> ではコードを載せるのを忘れていた。
+PIL 同様、メソッド <tt class="docutils literal"><span class="pre">convert</span></tt> を引数 <tt class="docutils literal"><span class="pre">&quot;L&quot;</span></tt> で呼び出す。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="o">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&quot;illvelo.png&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">im</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s">&quot;L&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&quot;illvelo-monochrome.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>元画像と処理後の画像は次のようになる。</p>
+<a class="reference internal image-reference" href="_images/illvelo.png"><img alt="_images/illvelo.png" src="_images/illvelo.png" style="width: 128.0px; height: 126.0px;" /></a>
+<a class="reference internal image-reference" href="_images/illvelo-monochrome.png"><img alt="_images/illvelo-monochrome.png" src="_images/illvelo-monochrome.png" style="width: 128.0px; height: 126.0px;" /></a>
+</div>
+<div class="section" id="id11">
+<h3><a class="toc-backref" href="#id37">画像生成</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>PIL 同様、メソッド <tt class="docutils literal"><span class="pre">Image.new</span></tt> を利用することができる。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># 1024 x 768 の RGB イメージを初期化する。</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s">&#39;RGB&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">768</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>結果画像の掲載を割愛する。</p>
+</div>
+<div class="section" id="id12">
+<h3><a class="toc-backref" href="#id38">色名指定</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>PIL 同様、Pillow のメソッドで色を引数に取るものについては、
+<tt class="docutils literal"><span class="pre">ImageColor</span></tt> モジュールで決められている色名で指定することもできる。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># RGB イメージを濃いピンクで初期化する。</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s">&#39;RGB&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">768</span><span class="p">),</span> <span class="s">&#39;deeppink&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>色名は <tt class="docutils literal"><span class="pre">colormap</span></tt> という <tt class="docutils literal"><span class="pre">dict</span></tt> インスタンスに保持されている。
+興味があれば列挙してみるとよい。</p>
+<div class="highlight-python"><div class="highlight"><pre>&gt;&gt;&gt; from PIL import ImageColor
+&gt;&gt;&gt; for i in sorted(ImageColor.colormap.items()): print(i)
+...
+(&#39;aliceblue&#39;, &#39;#f0f8ff&#39;)
+(&#39;antiquewhite&#39;, &#39;#faebd7&#39;)
+(&#39;aqua&#39;, &#39;#00ffff&#39;)
+... 略 ...
+(&#39;yellowgreen&#39;, &#39;#9acd32&#39;)
+&gt;&gt;&gt;
+</pre></div>
+</div>
+<p>結果画像の掲載を割愛する。</p>
+</div>
+<div class="section" id="id13">
+<h3><a class="toc-backref" href="#id39">透過イメージ生成</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p>PIL 同様。4 つ目の 0 がアルファー値であり、上限値の 0xFF に近いほど透過度が低くなる。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s">&#39;RGBA&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">768</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>結果画像の掲載を割愛する。</p>
+</div>
+<div class="section" id="png">
+<h3><a class="toc-backref" href="#id40">アルファチャンネルを持つ PNG 画像を青地背景上に重ねたい</a><a class="headerlink" href="#png" title="Permalink to this headline">¶</a></h3>
+<p>PIL のときのコードをほぼそのまま再利用できる。</p>
+<div class="highlight-python3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span>
+
+<span class="c"># Photoshop で言うところのレイヤー 1 に置く画像。</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;illvelo.png&#39;</span><span class="p">)</span>
+<span class="n">bands</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+
+<span class="c"># R, G, B, A の A だけが要る。</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="n">bands</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+<span class="c"># Photoshop で言うところの背景レイヤーになる画像。</span>
+<span class="n">bkgnd</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s">&#39;RGBA&#39;</span><span class="p">,</span> <span class="n">img</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="s">&#39;blue&#39;</span><span class="p">)</span>
+
+<span class="c"># これではダメ。</span>
+<span class="c">#bkgnd.paste(img, None)</span>
+<span class="c"># これが正解。</span>
+<span class="n">bkgnd</span><span class="o">.</span><span class="n">paste</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="k">None</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>元画像と処理後の画像はこうなる。</p>
+<a class="reference internal image-reference" href="_images/illvelo.png"><img alt="_images/illvelo.png" src="_images/illvelo.png" style="width: 128.0px; height: 126.0px;" /></a>
+<a class="reference internal image-reference" href="_images/illvelo-blueback.png"><img alt="_images/illvelo-blueback.png" src="_images/illvelo-blueback.png" style="width: 128.0px; height: 126.0px;" /></a>
+</div>
+</div>
+<div class="section" id="id14">
+<h2><a class="toc-backref" href="#id41">グラデーション</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id15">
+<h3><a class="toc-backref" href="#id42">線形グラデーション（透過なし）</a><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>幅 1 x 256 ピクセルのイメージを作成し、ピクセルカラーをその位置に応じてセットしていく方針で絵を描く。
+まずは <tt class="docutils literal"><span class="pre">putpixel</span></tt> メソッドを利用してこれを行い、それから目的のサイズにイメージを拡縮する。</p>
+<p>次に示すコードは、サイズが 320 x 240 で、
+上部が赤で下部が青の線形グラデーションとなるイメージを作成する。
+線形補間の計算コード記述の手間を少々省くため、NumPy を利用した。</p>
+<div class="highlight-python3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageColor</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">COLOR_START</span> <span class="o">=</span> <span class="n">ImageColor</span><span class="o">.</span><span class="n">getrgb</span><span class="p">(</span><span class="s">&#39;antiquewhite&#39;</span><span class="p">)</span>
+<span class="n">COLOR_STOP</span> <span class="o">=</span> <span class="n">ImageColor</span><span class="o">.</span><span class="n">getrgb</span><span class="p">(</span><span class="s">&#39;deeppink&#39;</span><span class="p">)</span>
+<span class="n">IMAGE_WIDTH</span><span class="p">,</span> <span class="n">IMAGE_HEIGHT</span> <span class="o">=</span> <span class="mi">320</span><span class="p">,</span> <span class="mi">240</span>
+<span class="n">WORK_SIZE</span> <span class="o">=</span> <span class="mh">0x100</span>
+<span class="n">R</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">B</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span>
+
+<span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s">&#39;RGB&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">WORK_SIZE</span><span class="p">))</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dstack</span><span class="p">(</span>
+    <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">COLOR_START</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">COLOR_STOP</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">num</span><span class="o">=</span><span class="n">SIZE</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">B</span><span class="p">)))[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">colors</span><span class="p">):</span>
+    <span class="n">img</span><span class="o">.</span><span class="n">putpixel</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">color</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span>
+
+<span class="n">img</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="n">IMAGE_WIDTH</span><span class="p">,</span> <span class="n">IMAGE_HEIGHT</span><span class="p">))</span>
+<span class="c">#img.save(&#39;gradient1.png&#39;)</span>
+</pre></div>
+</div>
+<p>結果画像の掲載を割愛する。</p>
+</div>
+<div class="section" id="id16">
+<h3><a class="toc-backref" href="#id43">線形グラデーション（単色にグレースケール透過）</a><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">putalpha</span></tt> 利用版グラデーション。</p>
+<div class="highlight-python3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span>
+
+<span class="n">BASE_COLOR</span> <span class="o">=</span> <span class="s">&#39;red&#39;</span>
+<span class="n">IMAGE_WIDTH</span><span class="p">,</span> <span class="n">IMAGE_HEIGHT</span> <span class="o">=</span> <span class="mi">320</span><span class="p">,</span> <span class="mi">240</span>
+<span class="n">WORK_SIZE</span> <span class="o">=</span> <span class="mh">0x100</span>
+
+<span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s">&#39;RGBA&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">IMAGE_WIDTH</span><span class="p">,</span> <span class="n">IMAGE_HEIGHT</span><span class="p">),</span> <span class="n">BASE_COLOR</span><span class="p">)</span>
+<span class="n">gradient</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s">&#39;L&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">WORK_SIZE</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">WORK_SIZE</span><span class="p">):</span>
+    <span class="n">gradient</span><span class="o">.</span><span class="n">putpixel</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">WORK_SIZE</span> <span class="o">-</span> <span class="n">i</span><span class="p">),</span> <span class="n">i</span><span class="p">)</span>
+
+<span class="n">img</span><span class="o">.</span><span class="n">putalpha</span><span class="p">(</span><span class="n">gradient</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">size</span><span class="p">))</span>
+<span class="c">#img.save(&#39;gradient2.png&#39;)</span>
+</pre></div>
+</div>
+<p>出力は上部が赤で、下部に至るにつれて透過していく線形グラデーションイメージとなる。
+結果画像の掲載を割愛する。</p>
+</div>
+<div class="section" id="id17">
+<h3><a class="toc-backref" href="#id44">線形グラデーション（さらなる応用）</a><a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<p>イメージ 3 枚重ね。</p>
+<div class="highlight-python3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageColor</span>
+
+<span class="n">WORK_SIZE</span> <span class="o">=</span> <span class="mh">0x100</span>
+
+<span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;illvelo.png&#39;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">img</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s">&#39;RGBA&#39;</span>
+
+<span class="n">gradient</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s">&#39;L&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">WORK_SIZE</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">WORK_SIZE</span><span class="p">):</span>
+    <span class="n">gradient</span><span class="o">.</span><span class="n">putpixel</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span> <span class="n">i</span><span class="p">)</span>
+
+<span class="n">alpha</span> <span class="o">=</span> <span class="n">gradient</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">Image</span><span class="o">.</span><span class="n">ANTIALIAS</span><span class="p">)</span>
+
+<span class="n">final</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s">&#39;RGBA&#39;</span><span class="p">,</span> <span class="n">img</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">final</span><span class="o">.</span><span class="n">paste</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="k">None</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+<span class="c">#final.save(&#39;illvelo-gradient.png&#39;)</span>
+</pre></div>
+</div>
+<p>元画像と処理後の画像はこうなる。</p>
+<a class="reference internal image-reference" href="_images/illvelo.png"><img alt="_images/illvelo.png" src="_images/illvelo.png" style="width: 128.0px; height: 126.0px;" /></a>
+<a class="reference internal image-reference" href="_images/illvelo-gradient.png"><img alt="_images/illvelo-gradient.png" src="_images/illvelo-gradient.png" style="width: 128.0px; height: 126.0px;" /></a>
+</div>
+</div>
+<div class="section" id="id18">
+<h2><a class="toc-backref" href="#id45">テキスト</a><a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="hello-world">
+<h3><a class="toc-backref" href="#id46">Hello, world</a><a class="headerlink" href="#hello-world" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span>
+
+<span class="n">IMAGE_WIDTH</span><span class="p">,</span> <span class="n">IMAGE_HEIGHT</span> <span class="o">=</span> <span class="mi">320</span><span class="p">,</span> <span class="mi">240</span>
+<span class="n">TEXT_COLOR</span> <span class="o">=</span> <span class="s">&#39;red&#39;</span>
+
+<span class="c"># デフォルト背景色のキャンヴァスを用意する。</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s">&#39;RGBA&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">IMAGE_WIDTH</span><span class="p">,</span> <span class="n">IMAGE_HEIGHT</span><span class="p">))</span>
+
+<span class="c"># Draw 関数でオブジェクトを作成。</span>
+<span class="n">draw</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+
+<span class="c"># 画面の左上隅にテキストを描画する。</span>
+<span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s">&#39;Hello, world&#39;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">TEXT_COLOR</span><span class="p">)</span>
+<span class="c">#img.show()</span>
+</pre></div>
+</div>
+<p>結果画像の掲載を割愛する。
+上のコードのとおりに動作させると、黒地に赤字の <tt class="docutils literal"><span class="pre">Hello,</span> <span class="pre">world</span></tt> が見える。</p>
+</div>
+<div class="section" id="id19">
+<h3><a class="toc-backref" href="#id47">日本語テキスト</a><a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<p>コツは 3 つある。</p>
+<ul class="simple">
+<li>関数 <tt class="docutils literal"><span class="pre">ImageFont.truetype</span></tt> で日本語対応のフォントオブジェクトを作成する。</li>
+<li>その際に <tt class="docutils literal"><span class="pre">encoding</span></tt> 引数に適切なエンコーディングを指示する。</li>
+<li><tt class="docutils literal"><span class="pre">text</span></tt> メソッドの引数にそのフォントを与える。</li>
+</ul>
+<div class="highlight-python3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">ImageDraw</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">ImageFont</span>
+
+<span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s">&#39;RGB&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">256</span><span class="p">),</span> <span class="s">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">dr</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+<span class="n">fnt</span> <span class="o">=</span> <span class="n">ImageFont</span><span class="o">.</span><span class="n">truetype</span><span class="p">(</span><span class="s">&#39;hgrme.ttc&#39;</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
+
+<span class="n">text</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;どうしても会ってもらえませんか？</span>
+<span class="s">私はこんなにあなたに会いたいのに…。</span>
+<span class="s">お金には余裕があるので心配しないで</span>
+<span class="s">ください。</span>
+<span class="s">コード780の1102番で、</span>
+<span class="s">あなたを待っています。</span>
+<span class="s">&#39;&#39;&#39;</span>
+
+<span class="n">width</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">height</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">text</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+    <span class="n">ext</span> <span class="o">=</span> <span class="n">dr</span><span class="o">.</span><span class="n">textsize</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">fnt</span><span class="p">)</span>
+    <span class="n">dr</span><span class="o">.</span><span class="n">text</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">height</span><span class="p">),</span> <span class="n">line</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="n">fnt</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s">&#39;white&#39;</span><span class="p">)</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">ext</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">width</span><span class="p">)</span>
+    <span class="n">height</span> <span class="o">+=</span> <span class="n">ext</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="c"># 余白をトリムする。</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">crop</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
+<span class="n">img</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c">#img.save(&#39;karous-paradise.png&#39;)</span>
+</pre></div>
+</div>
+<p>処理後の画像はこうなる。PIL のときと同一のように見える。
+出力イメージの大きさはテキストにフィットする最小の矩形になるはずだ。</p>
+<img alt="_images/karous-paradise.png" src="_images/karous-paradise.png" />
+</div>
+</div>
+<div class="section" id="id20">
+<h2><a class="toc-backref" href="#id48">応用</a><a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id21">
+<h3><a class="toc-backref" href="#id49">スクリーンショット</a><a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<p>スクリーンショット取得機能が Windows のみ対応なのは PIL も Pillow も同じようだ。</p>
+<div class="highlight-python3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageGrab</span>
+
+<span class="c"># スクリーンショットをキャプチャーして</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">ImageGrab</span><span class="o">.</span><span class="n">grab</span><span class="p">()</span>
+<span class="c"># テキトーに縮小、表示する。</span>
+<span class="n">img</span><span class="o">.</span><span class="n">thumbnail</span><span class="p">((</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">),</span> <span class="n">Image</span><span class="o">.</span><span class="n">ANTIALIAS</span><span class="p">)</span>
+<span class="n">img</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>処理後の画像の一例を掲載する。</p>
+<a class="reference internal image-reference" href="_images/grab.png"><img alt="_images/grab.png" src="_images/grab.png" style="width: 256.0px; height: 192.0px;" /></a>
+</div>
+<div class="section" id="id22">
+<h3><a class="toc-backref" href="#id50">上下左右ループ壁紙パターン生成</a><a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>元画像を 2 x 2 分割して対角線上の区域を入れ替える。</li>
+<li>そこへ元画像をブレンドなりオーバーレイなりして重ね合わせる。</li>
+<li>左右方向ループのための区域入れ替えの処理は、pil-handbook 参照。</li>
+</ul>
+<div class="highlight-python3"><div class="highlight"><pre><span class="c"># Example: Rolling an image を改造</span>
+<span class="k">def</span> <span class="nf">roll_horz</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">delta</span><span class="p">):</span>
+    <span class="n">xsize</span><span class="p">,</span> <span class="n">ysize</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">size</span>
+
+    <span class="n">delta</span> <span class="o">=</span> <span class="n">delta</span> <span class="o">%</span> <span class="n">xsize</span>
+    <span class="k">if</span> <span class="n">delta</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="n">image</span>
+
+    <span class="n">part1</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">crop</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">ysize</span><span class="p">))</span>
+    <span class="n">part2</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">crop</span><span class="p">((</span><span class="n">delta</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">ysize</span><span class="p">))</span>
+    <span class="n">image</span><span class="o">.</span><span class="n">paste</span><span class="p">(</span><span class="n">part2</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xsize</span><span class="o">-</span><span class="n">delta</span><span class="p">,</span> <span class="n">ysize</span><span class="p">))</span>
+    <span class="n">image</span><span class="o">.</span><span class="n">paste</span><span class="p">(</span><span class="n">part1</span><span class="p">,</span> <span class="p">(</span><span class="n">xsize</span><span class="o">-</span><span class="n">delta</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">ysize</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">image</span>
+</pre></div>
+</div>
+<p>元画像と処理後の画像はこうなる。</p>
+<a class="reference internal image-reference" href="_images/illvelo.png"><img alt="_images/illvelo.png" src="_images/illvelo.png" style="width: 128.0px; height: 126.0px;" /></a>
+<a class="reference internal image-reference" href="_images/illvelo-wallpaper.png"><img alt="_images/illvelo-wallpaper.png" src="_images/illvelo-wallpaper.png" style="width: 128.0px; height: 126.0px;" /></a>
+</div>
+<div class="section" id="imagedraw2">
+<h3><a class="toc-backref" href="#id51">モジュール ImageDraw2</a><a class="headerlink" href="#imagedraw2" title="Permalink to this headline">¶</a></h3>
+<p>TBW</p>
+</div>
+<div class="section" id="imagegl">
+<h3><a class="toc-backref" href="#id52">モジュール ImageGL</a><a class="headerlink" href="#imagegl" title="Permalink to this headline">¶</a></h3>
+<p>TBW</p>
+</div>
+<div class="section" id="imagepath">
+<h3><a class="toc-backref" href="#id53">モジュール ImagePath</a><a class="headerlink" href="#imagepath" title="Permalink to this headline">¶</a></h3>
+<p>TBW</p>
+</div>
+</div>
+<div class="section" id="id23">
+<h2><a class="toc-backref" href="#id54">コマンドラインユーティリティー</a><a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h2>
+<p>PIL と同じスクリプトファイル群が Pillow のインストール時も <tt class="file docutils literal"><span class="pre">Scripts</span></tt> フォルダーに格納される。</p>
+<div class="section" id="id24">
+<h3><a class="toc-backref" href="#id55">フォーマット変換</a><a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
+<p>コマンドラインで <tt class="file docutils literal"><span class="pre">pilconvert.py</span></tt> を利用する。</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> pilconvert.py sample.gif sample.png
+</pre></div>
+</div>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> <span class="k">for </span>name in *.gif ; <span class="k">do</span> <span class="se">\</span>
+<span class="gp">&gt;</span>   pilconvert.py <span class="nv">$name</span> <span class="k">${</span><span class="nv">name</span><span class="p">%.*</span><span class="k">}</span>.png ; <span class="se">\</span>
+<span class="gp">&gt;</span> <span class="k">done</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id25">
+<h3><a class="toc-backref" href="#id56">リサイズ</a><a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h3>
+<p>コマンドラインで <tt class="file docutils literal"><span class="pre">pildriver.py</span></tt> を利用する。
+以前にも記したが、バッチモードとインタラクティブモードがある。</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> pildriver.py
+<span class="go">PILDriver says hello.</span>
+<span class="go">pildriver&gt; open illvelo.png</span>
+<span class="go">[&lt;PIL.PngImagePlugin.PngImageFile image mode=RGBA size=256x252 at 0xBEF800&gt;]</span>
+<span class="go">pildriver&gt; thumbnail 64 64</span>
+<span class="go">[&lt;PIL.PngImagePlugin.PngImageFile image mode=RGBA size=64x63 at 0xBEF800&gt;]</span>
+<span class="go">pildriver&gt; show</span>
+<span class="go">[]</span>
+<span class="go">pildriver&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="index.html">読書ノート</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="http://www.geocities.jp/showa_yojyo/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png" width="88" height="31"/></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br/>
+        Copyright &copy; 1999-2014,
+        <a href="about.html#about.feedback" title="問い合わせ先">プレハブ小屋</a>
+        All rights reserved.
+      </div>
+      <div id="footer_spacer">
+        <p>
+          Last updated on 2014/08/14 (Thu) 00:15:56.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

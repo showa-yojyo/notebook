@@ -1,0 +1,352 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Python 移行ノート</title>
+    
+    <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="top" title="読書ノート" href="index.html" />
+    <link rel="next" title="ラジルギノア プレイノート" href="milestone09.html" />
+    <link rel="prev" title="Py2exe 利用ノート" href="python-py2exe.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="index.html">読書ノート</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="section" id="python">
+<h1><a class="toc-backref" href="#id16">Python 移行ノート</a><a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h1>
+<p>私の Windows マシンでの Python のアップグレード作業に必要な手順について記す。
+まずは長期に亘り安定して利用してきた 2.6 から、
+2.x 台最終版である 2.7 への移行作業を記す。</p>
+<p>そして 2014 年夏、Windows 7 の 64 ビット機に Python 3.4 環境を構築する機会が訪れた。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title first">ノート目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#python" id="id16">Python 移行ノート</a><ul>
+<li><a class="reference internal" href="#id2" id="id17">2.6 から 2.7 への移行計画</a><ul>
+<li><a class="reference internal" href="#python-2-6-site-packages" id="id18">Python 2.6 site-packages の状態を保存</a></li>
+<li><a class="reference internal" href="#python-2-7" id="id19">Python 2.7 本体をインストール</a></li>
+<li><a class="reference internal" href="#python-2-6" id="id20">Python 2.6 フォルダーから一部のファイルをコピーする</a></li>
+<li><a class="reference internal" href="#id3" id="id21">最初に手動で準備するもの</a></li>
+<li><a class="reference internal" href="#windows" id="id22">Windows インストーラーを利用するもの</a></li>
+<li><a class="reference internal" href="#pip-freeze" id="id23">旧環境での pip freeze の出力を利用するもの</a></li>
+<li><a class="reference internal" href="#id4" id="id24">特殊なもの</a></li>
+<li><a class="reference internal" href="#id5" id="id25">2.6 のクリーンナップ</a></li>
+<li><a class="reference internal" href="#id6" id="id26">ツールや環境変数の修正</a><ul>
+<li><a class="reference internal" href="#bashrc" id="id27">.bashrc</a></li>
+<li><a class="reference internal" href="#bash-profile" id="id28">.bash_profile</a></li>
+<li><a class="reference internal" href="#sendtocygwin-ini" id="id29">SendToCygwin.ini</a></li>
+<li><a class="reference internal" href="#path" id="id30">環境変数 PATH</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7" id="id31">2.7 から 3.4 への移行</a><ul>
+<li><a class="reference internal" href="#python-3-4" id="id32">Python 3.4 本体をインストールする</a></li>
+<li><a class="reference internal" href="#id8" id="id33">サードパーティー製パッケージのインストール</a><ul>
+<li><a class="reference internal" href="#id9" id="id34">Windows インストーラーを利用するもの</a></li>
+<li><a class="reference internal" href="#id10" id="id35">旧環境での pip freeze の出力を利用するもの</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id11" id="id36">2.7 のクリーンナップ</a></li>
+<li><a class="reference internal" href="#id12" id="id37">ツールや環境変数の修正</a><ul>
+<li><a class="reference internal" href="#id13" id="id38">環境変数</a></li>
+<li><a class="reference internal" href="#id14" id="id39">ドットファイル</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#to3-py" id="id40">2to3.py 関連</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>OS<ul>
+<li>Windows XP Home Edition SP 3</li>
+<li>Windows 7 Home Premium SP 1</li>
+</ul>
+</li>
+<li>Python<ul>
+<li>Upgrade from 2.6.6 to 2.7.3.</li>
+<li>Upgrade from 2.7.3 to 3.4.1.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id17">2.6 から 2.7 への移行計画</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>実際のところ、手間をかけて 2.6 から 2.7 へ移行する利点は今のところなさそうに思える。
+それは 2.7 での新機能を勉強してから判断すればよい。
+とにかく、アップグレード手順を残しておく。</p>
+<div class="section" id="python-2-6-site-packages">
+<h3><a class="toc-backref" href="#id18">Python 2.6 site-packages の状態を保存</a><a class="headerlink" href="#python-2-6-site-packages" title="Permalink to this headline">¶</a></h3>
+<p>私の環境では <a class="reference external" href="http://pypi.python.org/pypi/pip">pip</a> がインストールされているハズなので、
+2.6 環境にインストールしたサードパーティー製パッケージを書き出しておく。</p>
+<p>ただし、バージョンは不要なので <tt class="docutils literal"><span class="pre">cut</span></tt> にて削っておく。</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> <span class="nb">cd </span>D:/Python26/lib/site-packages
+<span class="gp">$</span> pip freeze | cut -d<span class="o">=</span> -f 1 &gt; mypkgs.txt
+</pre></div>
+</div>
+<p>後ほど <tt class="file docutils literal"><span class="pre">mypkgs.txt</span></tt> をテキストエディターで編集する。</p>
+</div>
+<div class="section" id="python-2-7">
+<h3><a class="toc-backref" href="#id19">Python 2.7 本体をインストール</a><a class="headerlink" href="#python-2-7" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="http://www.python.org/">Python</a> の公式サイトから <tt class="file docutils literal"><span class="pre">python-2.7.3.msi</span></tt> をダウンロードする。</li>
+<li>普通に Explorer 上から実行して、Python 2.6 のインストール場所の隣りにインストールする。</li>
+</ul>
+</div>
+<div class="section" id="python-2-6">
+<h3><a class="toc-backref" href="#id20">Python 2.6 フォルダーから一部のファイルをコピーする</a><a class="headerlink" href="#python-2-6" title="Permalink to this headline">¶</a></h3>
+<p>正直、この作業が必要なのかどうかわかっていない。</p>
+<ul class="simple">
+<li><tt class="file docutils literal"><span class="pre">sitecustomize.py</span></tt> を 2.6 フォルダーの <tt class="file docutils literal"><span class="pre">site-packages</span></tt> フォルダーから
+2.7 フォルダーの対応する位置にコピーする。</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h3><a class="toc-backref" href="#id21">最初に手動で準備するもの</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first"><a class="reference external" href="http://peak.telecommunity.com/DevCenter/setuptools">setuptools</a>: インストーラーを利用する。
+<tt class="file docutils literal"><span class="pre">setuptools-0.6c11.win32-py2.7.exe</span></tt> のようなファイル名のものをダウンロードページから取得する。</p>
+</li>
+<li><p class="first"><a class="reference external" href="http://pypi.python.org/pypi/pip">pip</a>: <tt class="file docutils literal"><span class="pre">pip.1.1-tar.gz</span></tt> を入手して、解凍後 <tt class="file docutils literal"><span class="pre">setup.py</span></tt> を利用する。</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> python27 setup.py install
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="windows">
+<h3><a class="toc-backref" href="#id22">Windows インストーラーを利用するもの</a><a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">pip</span></tt> ではインストールできないものを先にインストールしておく。</p>
+<p>と言うより、 <tt class="docutils literal"><span class="pre">pip</span></tt> でインストールしたいパッケージ X がパッケージ Y に依存しているとして、
+Y は Windows インストーラーでインストールするべきものであるとする。
+先に Y をインストールしておかないと、
+<tt class="docutils literal"><span class="pre">pip</span></tt> で X をインストールする段になって、Y の扱いが怖いことになりそうだから、
+ここで述べる手順がある。</p>
+<p>私の場合のパッケージ群は次の通り。
+インストーラーの拡張子は exe だったり msi だったりするが、
+気にしないで構わないだろう。</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.pythonware.com/products/pil">PIL</a>: 公式サイトに 2.7 用のものがある。</li>
+<li><a class="reference external" href="http://scipy.org/NumPy/">NumPy</a>: 2.7 OK</li>
+<li><a class="reference external" href="http://www.scipy.org/">SciPy</a>: 2.7 OK</li>
+<li><a class="reference external" href="http://matplotlib.sourceforge.net/">Matplotlib</a>: 2.7 OK</li>
+<li><a class="reference external" href="http://www.pygame.org/">Pygame</a>: 2.7 OK</li>
+<li><a class="reference external" href="http://www.py2exe.org/">Py2exe</a>: 2.7 OK</li>
+<li><a class="reference external" href="http://www.riverbankcomputing.com/software/pyqt/intro">PyQt4</a>: 2.7 OK</li>
+<li>pysparse: <a class="reference external" href="http://www.lfd.uci.edu/~gohlke/pythonlibs/">Python Extension Packages for Windows - Christoph Gohlke</a> を利用させてもらう。</li>
+</ul>
+</div>
+<div class="section" id="pip-freeze">
+<h3><a class="toc-backref" href="#id23">旧環境での pip freeze の出力を利用するもの</a><a class="headerlink" href="#pip-freeze" title="Permalink to this headline">¶</a></h3>
+<p>2.6 環境で <tt class="docutils literal"><span class="pre">pip</span> <span class="pre">freeze</span></tt> することで、利用中の <tt class="docutils literal"><span class="pre">site-packages</span></tt> パッケージが得られる。
+これを 2.7 環境の <tt class="docutils literal"><span class="pre">pip</span></tt> に食わせて様子見とする。</p>
+<p>先ほど得た <tt class="file docutils literal"><span class="pre">mypkgs.txt</span></tt> をテキストエディターで編集する。
+PIL, NumPy などのインストーラーモノの行を削除して、このテキストファイルを上書きする。
+編集後、おもむろに下記コマンドラインを実行する。
+かなり時間がかかることを覚悟することだ。</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> <span class="nb">cd </span>D:/Python27/Scripts
+<span class="gp">$</span> ./pip install -r mypkgs.txt
+</pre></div>
+</div>
+<ul class="simple">
+<li>何度か失敗するかもしれないが、成功したものを <tt class="file docutils literal"><span class="pre">mypkgs.txt</span></tt> から順次削除していき、
+再度 <tt class="docutils literal"><span class="pre">pip</span></tt> 呼び出しをすればよい。</li>
+<li>ログを取るのもよいだろう。</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id24">特殊なもの</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>Subversion の Python binding を利用しているため、これをセットアップする。</p>
+<ul class="simple">
+<li><a class="reference external" href="http://sourceforge.net/projects/win32svn/files/1.7.6/">http://sourceforge.net/projects/win32svn/files/1.7.6/</a></li>
+<li>svn-win32-1.7.6-ap24_py27.zip をダウンロード。
+解凍してフォルダーを潜る。下記フォルダーを <tt class="docutils literal"><span class="pre">site-packages</span></tt> にコピー。<ul>
+<li>libsvn</li>
+<li>svn_python</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id25">2.6 のクリーンナップ</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Windows のコントロールパネル「プログラムの追加と削除」を利用して、
+Python 2.6 関連のパッケージを全部アンインストールする。</li>
+<li>念のため、残骸を確認するべし。
+自分で作った設定ファイルやらがある場合、適宜修正を加え 2.7 に引っ越す。</li>
+<li>Python 2.6.6 をアンインストールするのはパッケージを全部片付けてからの最後。</li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id26">ツールや環境変数の修正</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>移行、完全に個人的なメモ。他の人には通用しない作業だ。</p>
+<div class="section" id="bashrc">
+<h4><a class="toc-backref" href="#id27">.bashrc</a><a class="headerlink" href="#bashrc" title="Permalink to this headline">¶</a></h4>
+<p>この設定をする理由は、私が Cygwin で <tt class="docutils literal"><span class="pre">bash</span></tt> をインタラクティブシェルとして利用しており、
+そこから Windows 用の Python を呼び出すことが多いことによる。</p>
+<p>エイリアス <tt class="docutils literal"><span class="pre">python27</span></tt> を追加。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nb">alias </span><span class="nv">a</span><span class="o">=</span><span class="s1">&#39;alias&#39;</span>
+a <span class="nv">python26</span><span class="o">=</span><span class="s1">&#39;D:/Python26/python.exe&#39;</span>
+a <span class="nv">python27</span><span class="o">=</span><span class="s1">&#39;D:/Python27/python.exe&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="bash-profile">
+<h4><a class="toc-backref" href="#id28">.bash_profile</a><a class="headerlink" href="#bash-profile" title="Permalink to this headline">¶</a></h4>
+<p><tt class="docutils literal"><span class="pre">$PATH</span></tt> に Python 関連の記述がある場合は修正する。
+設定理由は上述と同じ。</p>
+</div>
+<div class="section" id="sendtocygwin-ini">
+<h4><a class="toc-backref" href="#id29">SendToCygwin.ini</a><a class="headerlink" href="#sendtocygwin-ini" title="Permalink to this headline">¶</a></h4>
+<p>「Cygwin に送る」というユーティリティがあり、私はこれを偏愛している。
+その設定ファイルを更新しておく。</p>
+<div class="highlight-ini"><div class="highlight"><pre><span class="na">*.py</span> <span class="o">=</span><span class="s">python27 %F ||</span>
+<span class="na">*.pyw</span> <span class="o">=</span><span class="s">python27 %F ||</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="path">
+<h4><a class="toc-backref" href="#id30">環境変数 PATH</a><a class="headerlink" href="#path" title="Permalink to this headline">¶</a></h4>
+<p><tt class="docutils literal"><span class="pre">D:\Python26</span></tt> を <tt class="docutils literal"><span class="pre">D:\Python27</span></tt> に置換。</p>
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id31">2.7 から 3.4 への移行</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>Python 自身のメジャーバージョンアップもさることながら、OS も 64 ビット対応のものである。</p>
+<div class="section" id="python-3-4">
+<h3><a class="toc-backref" href="#id32">Python 3.4 本体をインストールする</a><a class="headerlink" href="#python-3-4" title="Permalink to this headline">¶</a></h3>
+<p>次の 2 ステップで十分だ。</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.python.org/">Python</a> の公式サイトから <tt class="file docutils literal"><span class="pre">python-3.4.1.amd64.msi</span></tt> をダウンロードする。</li>
+<li>インストーラーを実行する。
+インストールオプションで pip が含まれるようにすること。</li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h3><a class="toc-backref" href="#id33">サードパーティー製パッケージのインストール</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>インストーラーからインストールするものと、pip でインストールするものに大別して作業することにした。</p>
+<div class="section" id="id9">
+<h4><a class="toc-backref" href="#id34">Windows インストーラーを利用するもの</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<p>筆者環境では、次のパッケージ群は <a class="reference external" href="http://www.lfd.uci.edu/~gohlke/pythonlibs/">Python Extension Packages for Windows - Christoph Gohlke</a> のビルドを利用した。
+わかりやすさのため、インストーラーのファイル名そのものをここに記す。</p>
+<ul class="simple">
+<li><tt class="file docutils literal"><span class="pre">matplotlib-1.3.1.win-amd64-py3.4.exe</span></tt></li>
+<li><tt class="file docutils literal"><span class="pre">numpy-MKL-1.8.2.win-amd64-py3.4.exe</span></tt></li>
+<li><tt class="file docutils literal"><span class="pre">Pillow-2.5.1.win-amd64-py3.4.exe</span></tt></li>
+<li><tt class="file docutils literal"><span class="pre">pygame-1.9.2a0.win-amd64-py3.4.exe</span></tt></li>
+<li><tt class="file docutils literal"><span class="pre">PyOpenGL-3.1.0.win-amd64-py3.4.exe</span></tt></li>
+<li><tt class="file docutils literal"><span class="pre">PyOpenGL-accelerate-3.1.0.win-amd64-py3.4.exe</span></tt></li>
+<li><tt class="file docutils literal"><span class="pre">pyparsing-2.0.2.win-amd64-py3.4.exe</span></tt></li>
+<li><tt class="file docutils literal"><span class="pre">scipy-0.14.0.win-amd64-py3.4.exe</span></tt></li>
+</ul>
+<p>PyQt5 など、それ以外のパッケージについては、それぞれの公式サイト提供のビルドを利用した。</p>
+</div>
+<div class="section" id="id10">
+<h4><a class="toc-backref" href="#id35">旧環境での pip freeze の出力を利用するもの</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic simple">
+<li>旧環境 (2.7) の <tt class="docutils literal"><span class="pre">pip</span> <span class="pre">freeze</span></tt> の出力結果をテキストファイルに保存 (<tt class="file docutils literal"><span class="pre">mypkgs.txt</span></tt>) する。</li>
+<li><tt class="file docutils literal"><span class="pre">mypkgs.txt</span></tt> を編集し、Windows インストーラーでインストールしたパッケージの行を削除する。</li>
+<li>前回移行時と同様の手順に従う。</li>
+</ol>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> <span class="nb">cd </span>D:/Python34/Scripts
+<span class="gp">$</span> ./pip install -r mypkgs.txt
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id11">
+<h3><a class="toc-backref" href="#id36">2.7 のクリーンナップ</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>前述の 2.6 のクリーンナップと同様。</p>
+</div>
+<div class="section" id="id12">
+<h3><a class="toc-backref" href="#id37">ツールや環境変数の修正</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>SendToCygwin の Windows 7 版が存在しないことを除いて、前述と同様。</p>
+<div class="section" id="id13">
+<h4><a class="toc-backref" href="#id38">環境変数</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
+<p>以前は <tt class="file docutils literal"><span class="pre">sitecustomize.py</span></tt> で行っていたエンコーディング関連の指定を環境変数設定で実現する。
+Windows のユーザー環境変数に次のものを指定しておくのが具合がよい。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="40%" />
+<col width="60%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">環境変数</th>
+<th class="head">設定値</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>PYTHONIOENCODING</td>
+<td>UTF-8</td>
+</tr>
+<tr class="row-odd"><td>PYTHONPATH</td>
+<td>自作モジュールのパス</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id14">
+<h4><a class="toc-backref" href="#id39">ドットファイル</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><tt class="file docutils literal"><span class="pre">.bashrc</span></tt> の Python 関連のコードを修正。</li>
+<li><tt class="file docutils literal"><span class="pre">.bash_profile</span></tt> の Python 関連のコードを修正。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="to3-py">
+<h3><a class="toc-backref" href="#id40">2to3.py 関連</a><a class="headerlink" href="#to3-py" title="Permalink to this headline">¶</a></h3>
+<p>もっとも面倒な作業は、これまで自分が書いたすべての Python コードを Python 3 仕様に書き改めることだ。
+しかし <tt class="file docutils literal"><span class="pre">$PYTHONDIR/Tools/Scripts/2to3.py</span></tt> で機械的に処理すれば一応は動きそう。</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="index.html">読書ノート</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="http://www.geocities.jp/showa_yojyo/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png" width="88" height="31"/></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br/>
+        Copyright &copy; 1999-2014,
+        <a href="about.html#about.feedback" title="問い合わせ先">プレハブ小屋</a>
+        All rights reserved.
+      </div>
+      <div id="footer_spacer">
+        <p>
+          Last updated on 2014/08/19 (Tue) 00:53:33.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Pygame 利用ノート</title>
+    
+    <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="top" title="読書ノート" href="index.html" />
+    <link rel="next" title="Py2exe 利用ノート" href="python-py2exe.html" />
+    <link rel="prev" title="PyQt4 利用ノート" href="python-pyqt4.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="index.html">読書ノート</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="section" id="pygame">
+<h1><a class="toc-backref" href="#id9">Pygame 利用ノート</a><a class="headerlink" href="#pygame" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="id1">
+<p class="topic-title first">ノート目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#pygame" id="id9">Pygame 利用ノート</a><ul>
+<li><a class="reference internal" href="#id2" id="id10">関連リンクおよび参考サイト</a></li>
+<li><a class="reference internal" href="#id3" id="id11">関連ノート</a></li>
+<li><a class="reference internal" href="#id4" id="id12">インストール</a><ul>
+<li><a class="reference internal" href="#id5" id="id13">テスト</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id6" id="id14">ドキュメント</a></li>
+<li><a class="reference internal" href="#pyopengl" id="id15">PyOpenGL との連携</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>OS<ul>
+<li>Windows XP Home Edition SP 3</li>
+<li>Windows 7 Home Premium SP 1</li>
+</ul>
+</li>
+<li>本稿において、利用した各パッケージのバージョンは次のとおり。<ul>
+<li><a class="reference external" href="http://www.python.org/">Python</a>: 2.6.6, 2.7.3, 3.4.1</li>
+<li><a class="reference external" href="http://www.pygame.org/">Pygame</a>: 1.9.1, 1.9.2a0</li>
+<li><a class="reference external" href="http://scipy.org/NumPy/">NumPy</a>: 1.6.1, 1.6.2, 1.8.2</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id10">関連リンクおよび参考サイト</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference external" href="http://www.pygame.org/">Pygame</a></dt>
+<dd>Pygame ウェブサイト。リリースニュース、ダウンロード、ドキュメントへの各リンクを提供している。</dd>
+</dl>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id11">関連ノート</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference internal" href="python-numpy.html"><em>NumPy 利用ノート</em></a></dt>
+<dd>Pygame の一部機能が <a class="reference external" href="http://scipy.org/NumPy/">Numpy</a> を利用している。</dd>
+</dl>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id12">インストール</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>事実上 Windows 環境では msi 実行による手段に限られる。
+<a class="reference external" href="http://www.pygame.org/">Pygame</a> のサイトのダウンロードのページから最新の msi ファイルをダウンロードして、実行するだけでよい。</p>
+<p>Python 3.x 系や 64 ビット環境の場合は公式サイトではなく、
+<a class="reference external" href="http://www.lfd.uci.edu/~gohlke/pythonlibs/">Python Extension Packages for Windows - Christoph Gohlke</a> を利用させてもらう。</p>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id13">テスト</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>コンソールから次のようにタイプすると、テストを実行することになっている。</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> python34 -m pygame.tests
+</pre></div>
+</div>
+<p>別のウィンドウがパカパカ開いたり閉じたりするが、根気よく待つ。
+すると、いつもの単体テストの結果らしきテキストがコンソールウィンドウに出力される。</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="go">skipping pygame.tests._movie_test (tag &#39;subprocess_ignore&#39;)</span>
+<span class="go">skipping pygame.tests.cdrom_test (tag &#39;interactive&#39;)</span>
+<span class="go">skipping pygame.tests.midi_test (tag &#39;interactive&#39;)</span>
+<span class="go">loading pygame.tests.base_test</span>
+<span class="go">loading pygame.tests.blit_test</span>
+<span class="go">loading pygame.tests.bufferproxy_test</span>
+<span class="go">... 略 ...</span>
+<span class="go">... ドットが出てくる ...</span>
+<span class="go">----------------------------------------------------------------------</span>
+<span class="go">Ran 678 tests in 112.678s</span>
+
+<span class="go">FAILED (failures=2, errors=1)</span>
+<span class="gp">$</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id14">ドキュメント</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p><tt class="file docutils literal"><span class="pre">$PYTHONHOME/site-packages/pygame/docs/index.html</span></tt> から読み進めてゆけばよい。</p>
+<ul>
+<li><p class="first">Readme には本パッケージの概要が記されている。</p>
+<ul class="simple">
+<li>&lt;Pygame requires the Python language and SDL multimedia library&gt; (About): SDL とは何だ？</li>
+<li>&lt;Best of all the examples directory has many playable small
+programs which can get started playing with the code right away&gt; (Help):
+<tt class="docutils literal"><span class="pre">import</span> <span class="pre">Numeric</span></tt> と書いてあるものに関しては直ちに動作しない。</li>
+</ul>
+</li>
+<li><p class="first">Install のページはもう読まなくてよい。</p>
+</li>
+<li><p class="first">Tutorials をまずはじっくり読み進めるのがよかろう。</p>
+<ul>
+<li><p class="first">Introduction to Pygame:
+紙風船がウィンドウ内をバウンドし続けるプログラムを紹介している。
+自分でコードを実行してみるとよい。</p>
+</li>
+<li><p class="first">Chimp Tutorial, Line by Line:
+ミニウィンドウ内を往復するチンパンジーを殴るゲーム（クソゲー）のプログラミングチュートリアル。
+Pygame のプログラムの骨格や、スプライトオブジェクトの定義方法等を習得できる。
+HTML に書かれているコードと、インストールされている <tt class="docutils literal"><span class="pre">chimp.py</span></tt> のコードとは若干異なるので注意。</p>
+</li>
+<li><p class="first">Surfarray Introduction: ここが現在の疑問点。
+Numeric とは <a class="reference external" href="http://scipy.org/NumPy/">Numpy</a> の前身か。</p>
+</li>
+<li><p class="first">Making Games Tutorial</p>
+<ul>
+<li><p class="first">記事内のリンクが切れまくっている。</p>
+</li>
+<li><p class="first">最初のチュートリアルは &#8220;Hello There&#8221; というテキストを描画するだけ。
+これは特に問題ない。</p>
+</li>
+<li><p class="first">次はテニスゲームの実装チュートリアル。
+<tt class="docutils literal"><span class="pre">ball.png</span></tt> と <tt class="docutils literal"><span class="pre">bat.png</span></tt> を自分で用意する必要があるようだが、
+実際にコードを作ってみると、ゲーム博物館に展示されていそうな古い画面が出た。</p>
+<a class="reference internal image-reference" href="_images/pygame-pong.png"><img alt="Basic Pong" src="_images/pygame-pong.png" style="width: 163.0px; height: 132.5px;" /></a>
+</li>
+<li><p class="first">一部コードを修正しないと動作しなかったと思うが、
+実行時にすぐに気付くし、修正も容易だったと記憶しているのでここには記さない。</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">#self.offcourt()</span></tt> の部分を自分なりに実装するとよい。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p class="first">Reference は Pygame 各 API の説明。</p>
+</li>
+</ul>
+</div>
+<div class="section" id="pyopengl">
+<h2><a class="toc-backref" href="#id15">PyOpenGL との連携</a><a class="headerlink" href="#pyopengl" title="Permalink to this headline">¶</a></h2>
+<p><tt class="file docutils literal"><span class="pre">$PYTHONHOME/site-packages/pygame/examples/glcube.py</span></tt> を見れば理解できる。</p>
+<ul class="simple">
+<li>GLUT ベースのプログラムでは <tt class="docutils literal"><span class="pre">glutDisplayFunc</span></tt> で描画コールバックを設定するところを、
+Pygame ベースのプログラムではイベントループの内部から再描画する。</li>
+<li><tt class="docutils literal"><span class="pre">pygame.display.set_mode</span></tt> の引数を OpenGL 対応にするべく、それ用の値を OR する。</li>
+<li>フレームバッファの入れ替え <tt class="docutils literal"><span class="pre">glutSwapBuffers</span></tt> は <tt class="docutils literal"><span class="pre">pygame.display.flip</span></tt> に相当するようだ。</li>
+</ul>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">テキスト描画できると思ったらできないので、調査意欲が失せた。</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="index.html">読書ノート</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="http://www.geocities.jp/showa_yojyo/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png" width="88" height="31"/></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br/>
+        Copyright &copy; 1999-2014,
+        <a href="about.html#about.feedback" title="問い合わせ先">プレハブ小屋</a>
+        All rights reserved.
+      </div>
+      <div id="footer_spacer">
+        <p>
+          Last updated on 2014/08/10 (Sun) 21:52:40.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
