@@ -32,9 +32,9 @@ Installation
 Requirements
 ------------
 
-* Python_ 2.7.x
+* Python_ 3.4.1
 
-  * Sphinx_ 1.1.3
+  * Sphinx_ 1.2.3
 
 Compiling
 ---------
@@ -66,7 +66,7 @@ Contacts
   * E-mail: yojyo@hotmail.com
   * Twitter: `@showa_yojyo`_
 
-.. _`プレハブ小屋`: http://www.geocities.jp/showa_yojyo/
-.. _`@showa_yojyo`: http://twitter.com/showa_yojyo
+.. _`プレハブ小屋`: https://showa-yojyo.github.io/
+.. _`@showa_yojyo`: https://twitter.com/showa_yojyo
 .. _Python: http://www.python.org/
 .. _Sphinx: http://sphinx.pocoo.org/
