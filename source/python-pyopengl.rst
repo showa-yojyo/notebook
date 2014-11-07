@@ -2,13 +2,13 @@
 PyOpenGL 3.x 利用ノート
 ======================================================================
 
+本稿は、筆者の個人的な PyOpenGL の環境構築方法および、コードの記述方法等の覚え書きである。
+
 筆者が昔 OpenGL をやる必要に迫られたときに、当時所持していた PC のスペックでは C/C++ の環境をまともに構築できず、研究ができない状態になって一瞬困った。
 そこで、困ったときの Python 頼みということで、パッケージを探したところ、簡単に PyOpenGL_ に突き当たった。
 早速 PyOpenGL の環境を構築し、学習を始めた。
-始めるとすぐに、これが他の NumPy_ 等の有力パッケージとの強力なコンビ技で、むしろ Python のほうが学習環境に向いているということに気付いた。
+始めるとすぐに、これが他の NumPy_ や PIL_ 等の有力パッケージとの強力なコンビ技で、むしろ Python のほうが学習環境に向いていることに気付いた。
 OpenGL の勉強には Python を使う。これはなかなかよいコツかもしれない。
-
-本稿は、筆者の個人的な PyOpenGL の環境構築方法および、コードの記述方法等の覚え書きである。
 
 .. contents:: ノート目次
 
@@ -35,10 +35,6 @@ PyOpenGL_ (The Python OpenGL Binding)
 `Python Extension Packages for Windows - Christoph Gohlke`_
   非公式インストーラー配布元。
 
-GLUT_ (Nate Robins - OpenGL - GLUT for Win32)
-  OpenGL Utility Toolkit (GLUT) の Windows 版バイナリーを配布しているウェブページ。
-  XP までのバージョンでないと使えないので、残念ながらもはや価値がない。
-
 関連ノート
 ======================================================================
 * :doc:`python-numpy`
@@ -62,11 +58,12 @@ GLUT_ (Nate Robins - OpenGL - GLUT for Win32)
   * :file:`PyOpenGL-3.1.0.win-amd64-py3.4.exe`
   * :file:`PyOpenGL-accelerate-3.1.0.win-amd64-py3.4.exe`
 
-* GLUT は考慮しないでよくなったもよう。
+* 以前は GLUT はユーザーが準備することになっていたと記憶するが、
+  最近のバージョンでは DLL が同時にインストールされるようになっている。
 
 ドキュメント
 ======================================================================
-PyOpenGL は Python のラッパーに過ぎない。
+PyOpenGL は Python におけるラッパーに過ぎない。
 OpenGL が一通り使える技術があれば、
 必要な勉強は C 言語でのプログラミングと Python でのそれとの差分を確認するだけということになる。
 
@@ -77,7 +74,7 @@ OpenGL が一通り使える技術があれば、
     そもそも速度が欲しいならば肚をくくって C/C++ 環境を検討するし、ここでは学習目的が主なので速度は二の次だ。
 
     * プログラミングの柔軟性、利便性、堅牢性を重視しているらしい。
-    * 頂点毎の各種演算はアホみたいに遅い。
+    * 速度を期待しないとは言ったが、頂点毎の各種演算はやはりアホみたいに遅い。
       よって、最低でも配列ベースの演算でコードを書くようにする。
 
   * PyOpenGL は SIWG ではなく ctypes を利用して実装されている。
@@ -100,10 +97,11 @@ OpenGL が一通り使える技術があれば、
 ======================================================================
 C ではなく Python を利用して OpenGL プログラムを書く利点は、
 PyOpenGL_ の API を NumPy_ や Pillow_ といった、高品質なサードパーティ製パッケージの
-部品と簡単に組み合わせて利用できる点に尽きる。
+部品と簡単に組み合わせて利用できるという点に尽きる。
 
 欠点は何度も言うように実行が遅いことだ。悲しいくらい遅い。
 しかし、グラフィックの初学者には遅い方が学習の上ではむしろ好都合ということもあるだろう。
+なぜ遅いのか、何をすれば速くなるのかを考察することは、技術の向上には役に立つ。
 
 GLUT ベースのスケルトンを自作しておく
 ----------------------------------------------------------------------
@@ -117,7 +115,7 @@ GLUT ベースのスケルトンを自作しておく
 仮に実行すると、黒い画面に赤い三角形が描画されているのが確認できるはずだ。
 以降の各デモコードでは、このスケルトンの差分部分・修正部分を記述する。
 
-一点、注意がある。
+一点、PyOpenGL 固有の問題のようなので言及しておく。Python 3 では
 ``glutCreateWindow`` の実引数となる文字列 ``window_title`` の型に注意して欲しい。
 素の文字列ではエラーが起こるのを避けるべく、接頭辞 b を付けている。
 
@@ -126,7 +124,7 @@ C 言語で配列に相当する型の実引数を与える
 * 何度も言うが型を示すサフィックスが省略できる。
   例えば ``glLightfv`` ではなく ``glLight`` でよい。
 
-* 値の与え方もかなり柔軟になっている。
+* オリジナル版のインターフェイスと比べ、実引数の与え方がかなり柔軟になっている。
   ``list``, ``tuple``, ``numpy.ndarray``, etc. を直接与えることが許される。
 
 .. code-block:: python3
@@ -191,7 +189,7 @@ Comment 1
 Comment 2
   ``glTexImage2D`` 呼び出しにより、テクスチャーデータを OpenGL に渡している。
   後半の実引数群に注目したい。
-  
+
   残りの関数呼び出しは、アプリケーションの目的に応じてパラメーターを指定すること。
 
 def display
@@ -203,19 +201,19 @@ def display
 
    vx, vy = 40.0, 40.0
    tx, ty = 6.0, 6.0
-   
+
    vertices = (
        -vx, -vy, 0.0,
         vx, -vy, 0.0,
         vx, vy, 0.0,
        -vx, vy, 0.0,)
-   
+
    texcoords = (
        -tx, -ty,
        tx, -ty,
        tx, ty,
        -tx, ty,)
-   
+
    colors = (
        0, 0, 0, 0.75,
        0, 0, 0, 0.75,
@@ -223,7 +221,7 @@ def display
        0, 0, 0, 0.75,)
 
    def display():
-       """シーンレンダリング"""
+       """The display callback function."""
 
        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
@@ -235,7 +233,7 @@ def display
                  0, 0, 0,
                  0, 0, 1)
 
-       # プリミティブを描画する。
+       # Render primitives.
        glPushAttrib(GL_CURRENT_BIT)
        glPushClientAttrib(GL_CLIENT_VERTEX_ARRAY_BIT)
 
@@ -251,7 +249,7 @@ def display
        glPopAttrib()
        glPopMatrix()
 
-       # バッファスワップ
+       # Swap rendering buffers to repaint the screen.
        glutSwapBuffers()
 
 実行すると以下のようなイメージ (320x240) を得るだろう。
@@ -261,7 +259,7 @@ def display
 
 日本語テキストを描画する
 ----------------------------------------------------------------------
-PIL のテキスト描画機能と PyOpenGL のテクスチャー機能を活用したプログラム例。
+Pillow のテキスト描画機能と PyOpenGL のテクスチャー機能を活用したプログラム例。
 要所のみを説明する。
 
 def init
@@ -270,7 +268,7 @@ def init
 
 .. code-block:: python3
 
-   img = drawtext(u'潔')
+   img = drawtext('潔')
 
    # 残りは前項を参照。
 
@@ -279,7 +277,7 @@ def drawtext
 .. code-block:: python3
 
    def drawtext(text, initsize=256, point=144, margin = 4):
-       # 大きめのキャンヴァスを用意しておく。
+       # Set up a larger canvas.
        img = Image.new('RGBA', (initsize, initsize), (0, 0, 0, 0))
        dr = ImageDraw.Draw(img)
 
@@ -288,7 +286,7 @@ def drawtext
        dr.text((margin, margin), text, font=fnt, fill='white')
        img = img.crop((margin, margin, ext[0]+margin*3, ext[1]+margin*3))
 
-       # TODO: img.size の各成分に最も近い最小の 2 のべき乗の値を使う。
+       # TODO: use the least power of 2 values closest to each img.size component.
        img = img.resize((initsize, initsize), Image.ANTIALIAS)
 
        return img
@@ -298,19 +296,19 @@ def display
 .. code-block:: python3
 
    vx, vy = 5.0, 5.0
-   
+
    vertices = (
        -vx, vy, 0.0,
        -vx, -vy, 0.0,
         vx, -vy, 0.0,
         vx, vy, 0.0,)
-   
+
    texcoords = (
        0, 0,
        0, 1,
        1, 1,
        1, 0)
-   
+
    colors = (
        1, 1, 1, 1,
        0.5, 0.5, 0.5, 1,
@@ -361,7 +359,7 @@ def reshape
 .. image:: /_static/pyopengl-text.png
    :scale: 50%
 
-PIL + glReadPixels によるスクリーンショット取得
+Pillow + glReadPixels によるスクリーンショット取得
 ----------------------------------------------------------------------
 
 .. code-block:: python3
@@ -374,9 +372,9 @@ PIL + glReadPixels によるスクリーンショット取得
       img = Image.fromstring("RGBA", (sx, sy), pixels)
       img = img.transpose(Image.FLIP_TOP_BOTTOM)
 
-      filename = raw_input('filename: ')
+      filename = input('filename: ')
       img.save(filename)
-      print('%s saved' % filename)
+      print('{} saved'.format(filename))
 
 この関数をキーボードイベントコールバックあたりから呼び出すようにしておくと便利。
 
@@ -419,14 +417,8 @@ PIL + glReadPixels によるスクリーンショット取得
 .. _PyOpenGL: http://pyopengl.sourceforge.net
 .. _Python Extension Packages for Windows - Christoph Gohlke: http://www.lfd.uci.edu/~gohlke/pythonlibs/
 
-.. _easy_install: http://peak.telecommunity.com/DevCenter/EasyInstall
 .. _pip: http://pypi.python.org/pypi/pip
-.. _Python Extension Packages for Windows - Christoph Gohlke: http://www.lfd.uci.edu/~gohlke/pythonlibs/
 
 .. _Numpy: http://scipy.org/NumPy/
 .. _PIL: http://www.pythonware.com/products/pil
 .. _Pillow: https://pillow.readthedocs.org/en/latest/
-
-.. _PyQt: http://www.riverbankcomputing.com/software/pyqt/intro
-
-.. _GLUT: http://user.xmission.com/~nate/glut.html
