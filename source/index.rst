@@ -29,6 +29,7 @@ Contents:
    hosoda10
 
    python-pip
+   python-pylint
    python-nose
    python-numpy
    python-scipy
