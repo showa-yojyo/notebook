@@ -36,6 +36,7 @@ Contents:
    python-pil
    python-pillow
    python-matplotlib
+   python-networkx
    python-jinja2
    python-pygments
    python-twitter-tools
