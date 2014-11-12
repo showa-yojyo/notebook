@@ -2,6 +2,8 @@
 Another Python Graph Library (APGL) 利用ノート
 ======================================================================
 
+本稿は :doc:`python-networkx` を書くよりも昔に書いたものだ。
+
 .. contents:: ノート目次
 
 .. note::
@@ -25,6 +27,7 @@ Another Python Graph Library (APGL) 利用ノート
 
 関連ノート
 ======================================================================
+* :doc:`python-networkx`
 * :doc:`python-numpy`
 * :doc:`python-scipy`
 
@@ -135,7 +138,6 @@ APGL_ のウェブページに "An Introduction to APGL" という PDF ファイ
   ``complement``, ``subgraph``
 
 * グラフのファイル I/O は CSV ベースのショボイものがあるだけか？
-* NetworkX, iGraph は知らないのでパス。
 * ``DictGraph`` は ``addEdge("a", "b")`` のような操作ができる。
   一見便利だが、エッジに weight を指定することができないようだ。
 
@@ -203,6 +205,7 @@ PySparseGraph
 * エッジに weight 以外のラベルを付けることができるか？
 * 最短経路の総距離は求められるのに、頂点順序は求められない？
 
+NetworkX_ ではこれらは明らか。
 
 .. _Python: http://www.python.org/
 .. _Python Extension Packages for Windows - Christoph Gohlke: http://www.lfd.uci.edu/~gohlke/pythonlibs/
@@ -211,3 +214,4 @@ PySparseGraph
 .. _APGL: http://packages.python.org/apgl/
 .. _Numpy: http://scipy.org/NumPy/
 .. _SciPy: http://www.scipy.org/
+.. _NetworkX: https://networkx.github.io/
