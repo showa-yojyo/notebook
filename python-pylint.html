@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Pylint 利用ノート &mdash; 読書ノート v1.3.0</title>
+    
+    <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/twitter-button.js"></script>
+    <link rel="top" title="読書ノート v1.3.0" href="index.html" />
+    <link rel="next" title="Nose 利用ノート" href="python-nose.html" />
+    <link rel="prev" title="pip 利用ノート" href="python-pip.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="index.html">読書ノート v1.3.0</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="section" id="pylint">
+<h1><a class="toc-backref" href="#id12">Pylint 利用ノート</a><a class="headerlink" href="#pylint" title="Permalink to this headline">¶</a></h1>
+<p>本稿では <a class="reference external" href="http://www.pylint.org/">Pylint</a> の利用について記す。</p>
+<p>Pylint は Python で書かれたコードを解析して、構文エラーの有無、
+コーディング規約違反（特に <a class="reference external" href="http://legacy.python.org/dev/peps/pep-0008/">PEP8</a> に対する）の有無、
+設計のまずそうなところを発見するためのコマンドラインツールである。</p>
+<p>同種のパッケージは他にも有名なものがあるが、
+Pylint は出力のうるささに定評があるようなので、当サイトはこれを採用している。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title first">ノート目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#pylint" id="id12">Pylint 利用ノート</a><ul>
+<li><a class="reference internal" href="#id2" id="id13">関連リンク</a></li>
+<li><a class="reference internal" href="#id3" id="id14">インストール</a><ul>
+<li><a class="reference internal" href="#pylintrc" id="id15"><tt class="file docutils literal"><span class="pre">.pylintrc</span></tt> を作成する</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id4" id="id16">実践例</a><ul>
+<li><a class="reference internal" href="#id5" id="id17">よく使うコマンドラインパターン</a><ul>
+<li><a class="reference internal" href="#id6" id="id18">スクリプト単体の構文チェック</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7" id="id19">パッケージ単位での構文チェック</a></li>
+<li><a class="reference internal" href="#python" id="id20">Python コード修正</a><ul>
+<li><a class="reference internal" href="#id8" id="id21">地道にコードのほうを修正する</a></li>
+<li><a class="reference internal" href="#id9" id="id22">Pylint を黙らせる</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>OS<ul>
+<li>Windows 7 Home Premium 64bit SP 1</li>
+</ul>
+</li>
+<li>本稿において、利用した各パッケージのバージョンは次のとおり。<ul>
+<li><a class="reference external" href="http://www.python.org/">Python</a>: 3.4.1</li>
+<li><a class="reference external" href="http://www.pylint.org/">Pylint</a>: 1.3.1</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id13">関連リンク</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference external" href="http://www.pylint.org/">Pylint</a></dt>
+<dd>公式サイト。インストール方法から基本的な利用方法、応用等が文書化されている。</dd>
+</dl>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id14">インストール</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>Pylint をインストールする手順を記す。
+まずはいつものように pip を利用して、関連するモジュールおよびスクリプトをインスールする。</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> pip install pylint
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">$PYTHONDIR/Scripts</span></tt> フォルダーに、ファイル名が <tt class="docutils literal"><span class="pre">pylint</span></tt> で拡張子が異なるものが 3 つあるのが確認できる。
+内容は次のようなものだ：</p>
+<ul class="simple">
+<li><tt class="file docutils literal"><span class="pre">pylint</span></tt>: Python スクリプト。単に <tt class="docutils literal"><span class="pre">pylint.run_pylint()</span></tt> を実行するだけ。</li>
+<li><tt class="file docutils literal"><span class="pre">pylint.bat</span></tt>: Windows のバッチスクリプト。Python に上記スクリプトをコマンドライン引数として渡して実行するだけ。</li>
+<li><tt class="file docutils literal"><span class="pre">pylint.exe</span></tt>: Windows の実行ファイル。</li>
+</ul>
+<p>私は Python を利用する際には原則的に Cygwin のコマンドライン (Bash) から呼び出すことにしている。
+環境変数 <tt class="docutils literal"><span class="pre">$PATH</span></tt> には既に <tt class="docutils literal"><span class="pre">$PYTHONDIR/Scripts</span></tt> を含ませてあるゆえ、
+私が Pylint をコマンドラインから呼び出すときの記法は次のようになる。</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> pylint.bat args
+<span class="gp">#</span> or
+<span class="gp">$</span> pylint.exe args
+</pre></div>
+</div>
+<p>以下、コマンドライン用例ではバッチファイルの呼び出しで Pylint の利用を表現する。</p>
+<div class="section" id="pylintrc">
+<h3><a class="toc-backref" href="#id15"><tt class="file docutils literal"><span class="pre">.pylintrc</span></tt> を作成する</a><a class="headerlink" href="#pylintrc" title="Permalink to this headline">¶</a></h3>
+<p>Pylint の設定ファイルについて記す。デフォルトでは Pylint はファイル
+<tt class="file docutils literal"><span class="pre">$HOME/.pylintrc</span></tt> の内容を設定として取り扱う（実際は他にも候補がある）。
+このファイルが存在しない場合、Pylint は出力の最初に警告</p>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">No</span> <span class="pre">config</span> <span class="pre">file</span> <span class="pre">found,</span> <span class="pre">using</span> <span class="pre">default</span> <span class="pre">configuration.</span></tt></div></blockquote>
+<p>を発する。
+設定ファイルの有無は Pylint の機能に支障はないが、この警告文が毎度目につくと煩わしいので、
+まずはダミーの設定ファイルを作成しておく。</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> pylint.bat --generate-rcfile &gt; ~/.pylintrc
+</pre></div>
+</div>
+<p>困ったことに下記のような DEPRECATED な設定項目が出力されるので、それらを削除しておく。</p>
+<div class="highlight-ini"><div class="highlight"><pre><span class="c1"># DEPRECATED</span>
+<span class="na">include-ids</span><span class="o">=</span><span class="s">no</span>
+
+<span class="c1"># DEPRECATED</span>
+<span class="na">symbols</span><span class="o">=</span><span class="s">no</span>
+</pre></div>
+</div>
+<p>Pylint の設定ファイルはプロジェクトごとにコーディングルールに沿って微調整したものを用意するのが普通だろう。
+自動テストの一環としてコード解析を行う工程が想像できる。
+しかし、本稿は私個人の用途を想定しているので、その点については深入りしない。
+深入りしないが、Pylint が設定ファイルを指定する機能があることは承知している。</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id16">実践例</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>ここでは私が実際に行っている Pylint の利用例を示していく。
+とは言え、利用目的が冒頭で述べたように単純であるがゆえに、利用例の幅はかなり狭い。</p>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id17">よく使うコマンドラインパターン</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>私が実際の作業で使う Pylint のコマンドラインを紹介する。
+サンプルでは Python のコードファイル名をすべて <tt class="file docutils literal"><span class="pre">mymodule.py</span></tt> として記すが、
+モジュールでなくスクリプトでも同じである。</p>
+<div class="section" id="id6">
+<h4><a class="toc-backref" href="#id18">スクリプト単体の構文チェック</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<p>Pylint はオプションなしで実行すると、どんなに品の良いコードを与えたとしても、
+たいへんな量のテキストを出力することで知られている。
+特に出力後半の統計部分が個人的には用がないので
+常に <tt class="docutils literal"><span class="pre">-rn</span></tt>, (or <tt class="docutils literal"><span class="pre">--reports=n</span></tt>) を指示する習慣を身につけた。
+興味があるのは、コードのどの行がどのような「まずさ」を有するかということだけなのだ。</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> 統計を出さない。つまり
+<span class="gp">#</span> R: リファクタリング、C: 規約違反、W: 警告、E: エラー項目の出力のみをする。
+<span class="gp">$</span> pylint -rn mymodule.py
+
+<span class="gp">#</span> エラー項目 <span class="o">(</span>E<span class="o">)</span> のみ表示する。
+<span class="gp">$</span> pylint -E mymodule.py
+</pre></div>
+</div>
+<p>Pylint の出力はコード解析結果と統計結果のふたつの部分からなる。前述のとおり後者はカットする。
+解析結果は与えたモジュール名に対して、問題のタイプ、行番号、メッセージのリストという構成だ。
+一回見ればだいたい理解できるはずなので、ここに出力例を掲載することは差し控える。</p>
+</div>
+</div>
+<div class="section" id="id7">
+<h3><a class="toc-backref" href="#id19">パッケージ単位での構文チェック</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>コマンドラインでの呼び出し方法に変わりはない。モジュールを示すファイル名の代わりにパッケージ名を与えればよい。
+公式ドキュメントによると、開発版の（＝確かめたい）パッケージと、
+環境変数 <tt class="docutils literal"><span class="pre">$PYTHONPATH</span></tt> にあるそれとを Pylint に混同させないように注意する必要があるそうだ。</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> パッケージ名を指定する。どこかのディレクトリーの名前だ。
+<span class="gp">$</span> pylint -rn mypackage
+</pre></div>
+</div>
+</div>
+<div class="section" id="python">
+<h3><a class="toc-backref" href="#id20">Python コード修正</a><a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
+<p>Pylint のコード解析結果（私は RCWE リストと呼んでいる）にらめっこしながら、対応しよう。
+修正のやり方には二通りあり、ひとつは忠告に従って素直にコードを修正することで、
+もう一つのやり方は、Pylint に勘弁してもらうというものだ。
+ここではこれらを順に説明していく。</p>
+<div class="section" id="id8">
+<h4><a class="toc-backref" href="#id21">地道にコードのほうを修正する</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<p>例えば <tt class="docutils literal"><span class="pre">C:155,</span> <span class="pre">0:</span> <span class="pre">Line</span> <span class="pre">too</span> <span class="pre">long</span> <span class="pre">(81/80)</span> <span class="pre">(line-too-long)</span></tt> というコード解析結果が出たとしよう。
+このときコードを修正するのであれば、テキストエディターで対象のモジュールファイルを開いて、</p>
+<ol class="arabic simple">
+<li>155 行目にジャンプする。</li>
+<li>適宜テキストを編集し、行の長さを 81 文字から 80 字以下に切り詰める。
+おそらく、行の途中で（Python の構文として違法にならぬように）改行することになる。</li>
+</ol>
+<p>という手順を踏むのがひとつの解法だ。
+テキスト編集で解決できるならば、それが単純でよさそうだ。</p>
+</div>
+<div class="section" id="id9">
+<h4><a class="toc-backref" href="#id22">Pylint を黙らせる</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<p>Pylint の忠告に従いたいが、難しい場合もある。
+あるいは、Pylint が勘違いして不当なエラーを報告する場合もある。
+このような場合は、対応するコードの近所に「抑止命令」コメントを追加することでしのぐ。</p>
+<p>例を説明する。次のような E が出てしまった：</p>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">E:242,34:</span> <span class="pre">Class</span> <span class="pre">'AbstractMapper'</span> <span class="pre">has</span> <span class="pre">no</span> <span class="pre">'__subclasses__'</span> <span class="pre">member</span> <span class="pre">(no-member)</span></tt></div></blockquote>
+<p>状況はこうだ。私は自作のモジュールで <tt class="docutils literal"><span class="pre">AbstractMapper</span></tt> という抽象クラスを定義した。
+冒頭だけ引用すると次のような構成になっている。
+<tt class="docutils literal"><span class="pre">ABCMeta</span></tt> 等については Python のマニュアルを参照して欲しいが、こうすることで私のクラスには
+<tt class="docutils literal"><span class="pre">__subclasses__</span></tt> というメンバーが確かに存在する。</p>
+<div class="highlight-python3"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">abc</span> <span class="k">import</span> <span class="n">ABCMeta</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="k">import</span> <span class="n">abstractmethod</span>
+
+<span class="k">class</span> <span class="nc">AbstractMapper</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The abstract class that represents the SNES ROM layout.&quot;&quot;&quot;</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>しかたがないので、このクラスの宣言の直前に次のコメントを追加しておく。</p>
+<div class="highlight-python3"><div class="highlight"><pre><span class="c"># pylint: disable=no-member</span>
+<span class="k">class</span> <span class="nc">AbstractMapper</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>こうすることで、次からの Pylint のメッセージは次のように変わり、やや安心できる。</p>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">I:</span> <span class="pre">242,</span> <span class="pre">0:</span> <span class="pre">Locally</span> <span class="pre">disabling</span> <span class="pre">no-member</span> <span class="pre">(E1101)</span> <span class="pre">(locally-disabled)</span></tt></div></blockquote>
+<p>なお、出力抑止をしたいエラー項目はエラー名だけでなく、エラー番号でも指定できる。
+カンマ区切りで複数のエラー項目を指示することもできるし、
+抑止コメントを抑止する項目数だけ書いてもよい。</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="index.html">読書ノート v1.3.0</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_share">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-size="large">Tweet</a>
+        <script type="text/javascript">render_twitter_button(document, 'script', 'twitter-wjs')</script>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2014, プレハブ小屋 All rights reserved.
+      </div>
+      <div id="footer_spacer">
+        <p>
+          Last updated at 2014/11/15 (Sat) 00:38:32.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,320 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>NetworkX 利用ノート &mdash; 読書ノート v1.3.0</title>
+    
+    <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/twitter-button.js"></script>
+    <link rel="top" title="読書ノート v1.3.0" href="index.html" />
+    <link rel="next" title="Jinja2 利用ノート" href="python-jinja2.html" />
+    <link rel="prev" title="Matplotlib 利用ノート" href="python-matplotlib.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="index.html">読書ノート v1.3.0</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="section" id="networkx">
+<h1><a class="toc-backref" href="#id11">NetworkX 利用ノート</a><a class="headerlink" href="#networkx" title="Permalink to this headline">¶</a></h1>
+<p>本稿では Python のグラフライブラリーである <a class="reference external" href="https://networkx.github.io/">NetworkX</a> のインストール方法、
+動作確認、簡単なグラフアルゴリズムの利用例、グラフのイメージ化方法について記す。
+余裕があれば、高級なグラフアルゴリズムの応用例をいくつか示したい。</p>
+<p>本稿でのグラフとは、計算機科学の教科書に書いてあるような、
+ノードとエッジの集合うんぬんのグラフである。
+変数と関数のとる値を座標平面にプロットした曲線ではない。
+そちらについては <a class="reference internal" href="python-matplotlib.html"><em>Matplotlib 利用ノート</em></a> のほうが相応しい。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title first">ノート目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#networkx" id="id11">NetworkX 利用ノート</a><ul>
+<li><a class="reference internal" href="#id2" id="id12">関連リンク</a></li>
+<li><a class="reference internal" href="#id3" id="id13">関連ノート</a></li>
+<li><a class="reference internal" href="#id4" id="id14">セットアップ</a><ul>
+<li><a class="reference internal" href="#id5" id="id15">NetworkX をインストールする</a></li>
+<li><a class="reference internal" href="#id6" id="id16">インストールの成功を確認する</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7" id="id17">NetworkX の基本的なコードの書き方を習得する</a><ul>
+<li><a class="reference internal" href="#dijkstra" id="id18">Dijkstra 法による最短経路</a></li>
+<li><a class="reference internal" href="#id8" id="id19">グラフィックを描画する</a><ul>
+<li><a class="reference internal" href="#graphviz" id="id20">Graphviz 形式に出力する</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id9" id="id21">さらなるグラフの応用例</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>OS<ul>
+<li>Windows 7 Home Premium SP 1 64bit</li>
+</ul>
+</li>
+<li>本稿において、利用した各パッケージのバージョンは次のとおり。<ul>
+<li><a class="reference external" href="http://www.python.org/">Python</a>: 3.4.1</li>
+<li><a class="reference external" href="https://networkx.github.io/">NetworkX</a>: 1.9.1</li>
+<li><a class="reference external" href="http://somethingaboutorange.com/mrl/projects/nose/">Nose</a>: 1.3.4</li>
+<li><a class="reference external" href="http://scipy.org/NumPy/">Numpy</a>: 1.9.1</li>
+<li><a class="reference external" href="http://matplotlib.sourceforge.net/">Matplotlib</a>: 1.4.2</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id12">関連リンク</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference external" href="https://networkx.github.io/">NetworkX</a></dt>
+<dd>公式サイト。インストール方法から基本的な利用方法、応用等が文書化されている。</dd>
+</dl>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id13">関連ノート</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="python-nose.html"><em>Nose 利用ノート</em></a></li>
+<li><a class="reference internal" href="python-matplotlib.html"><em>Matplotlib 利用ノート</em></a></li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id14">セットアップ</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>NetworkX 自身のインストールおよび、依存パッケージのインストールについて説明する。</p>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id15">NetworkX をインストールする</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>NetworkX は純粋に Python モジュールの集合体として構成されているようなので（未確認）、
+pip からインストールすればよい。</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> pip --install networkx
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id16">インストールの成功を確認する</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>NetworkX のユニットテストを実行して、結果が正常であればインストール成功とみなそう。
+<a class="reference external" href="http://somethingaboutorange.com/mrl/projects/nose/">Nose</a> が環境にあれば、次の操作でテストの実行となる。
+NumPy や SciPy のそれと同じスタイルなので馴染みやすい。</p>
+<p>次のコードは、Python コマンドライン上から NetworkX のユニットテストを実行するものだ。</p>
+<div class="highlight-pycon"><div class="highlight"><pre>&gt;&gt; import networkx as nx
+&gt;&gt; nx.test(verbosity=2)
+Running NetworkX tests:test_approx_clust_coeff.test_petersen ... ok
+test_approx_clust_coeff.test_tetrahedral ... ok
+test_approx_clust_coeff.test_dodecahedral ... ok
+test_approx_clust_coeff.test_empty ... ok
+... 省略 ...
+networkx.tests.test_relabel.TestRelabel.test_relabel_selfloop ... ok
+networkx.tests.test_relabel.TestRelabel.test_relabel_toposort ... ok
+
+----------------------------------------------------------------------
+Ran 1741 tests in 77.348s
+
+OK (SKIP=4)
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">verbosity=2</span></tt> でテストすると、いくつかスキップされる項目が出てくる。
+これらより、NetworkX がサポートしていて現在の環境に存在しないサードパーティー製パッケージが判明する。</p>
+<div class="highlight-none"><div class="highlight"><pre>SKIP: PyGraphviz not available.
+SKIP: pydot not available.
+SKIP: ogr not available.
+SKIP: yaml not available.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id17">NetworkX の基本的なコードの書き方を習得する</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>以降、次のインポートを断りなしに用いる。</p>
+<div class="highlight-python3"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+<p>小さいグラフを定義して、単純な計算をさせてみることで NetworkX でのプログラミングの感触を確かめてみよう。</p>
+<div class="section" id="dijkstra">
+<h3><a class="toc-backref" href="#id18">Dijkstra 法による最短経路</a><a class="headerlink" href="#dijkstra" title="Permalink to this headline">¶</a></h3>
+<p>以前行った、別のグラフライブラリーの試験に用いた問題設定を再利用する。
+問題は「すべてのノードペアに対して、その最短経路の長さを得る」というものだ。</p>
+<a class="reference internal image-reference" href="_images/apgl-findall.png"><img alt="_images/apgl-findall.png" src="_images/apgl-findall.png" style="width: 387.0px; height: 251.0px;" /></a>
+<p>NetworkX のリファレンスを当たると、関数 <tt class="docutils literal"><span class="pre">all_pairs_dijkstra_path_length</span></tt>
+を利用できることがわかる。
+イラストのグラフの定義および最短経路の長さを計算するコードは次のようなものになる。</p>
+<div class="highlight-python3"><div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;all_pairs_dijkstra_path demonstration&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">from</span> <span class="nn">networkx.algorithms.shortest_paths.weighted</span> <span class="k">import</span> <span class="n">all_pairs_dijkstra_path_length</span>
+
+<span class="c"># Make a graph.</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
+
+<span class="c"># Define edges with weights.</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_weighted_edges_from</span><span class="p">(</span>
+    <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">19.0</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">22.0</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">21.0</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">),))</span>
+
+<span class="c"># Compute the shortest path lengths between all nodes in graph G.</span>
+<span class="n">all_pairs</span> <span class="o">=</span> <span class="n">all_pairs_dijkstra_path_length</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">source</span><span class="p">,</span> <span class="nb">map</span> <span class="ow">in</span> <span class="n">all_pairs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">target</span> <span class="ow">in</span> <span class="nb">map</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">source</span> <span class="o">!=</span> <span class="n">target</span><span class="p">:</span>
+            <span class="n">dist</span> <span class="o">=</span> <span class="nb">map</span><span class="p">[</span><span class="n">target</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s">&quot;({},{}): {:4.1f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">dist</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>この他にも NetworkX は Dijkstra の名を冠したアルゴリズムを複数実装しており、
+「特定の始点終点の組み合わせの最短距離だけ求めたい」、
+「経路のノードの順序も求めたい」等の細かい要求の違いにも応えられる。</p>
+<p>実行結果は次のようなものになる。出力の見やすさにこだわりがなければ、
+単に <tt class="docutils literal"><span class="pre">print(all_edges)</span></tt> でも各経路の最短距離を目視できる。</p>
+<div class="highlight-none"><div class="highlight"><pre>(0,1): 10.0
+(0,2): 14.0
+(0,3): 12.0
+(0,4): 29.0
+(0,5): 33.0
+(1,2):  8.0
+(1,3): 15.0
+(1,4): 19.0
+(1,5): 30.0
+(2,3):  7.0
+(2,5): 22.0
+(3,5): 21.0
+(4,5): 11.0
+</pre></div>
+</div>
+</div>
+<div class="section" id="id8">
+<h3><a class="toc-backref" href="#id19">グラフィックを描画する</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>先程のグラフを <a class="reference external" href="http://matplotlib.sourceforge.net/">Matplotlib</a> の表示機能を利用してウィンドウに出力する方法を示す。
+試行錯誤の結果、次のコードが最も見やすいイメージを描画してくれた。</p>
+<div class="highlight-python3"><div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;nx.draw_networkx demonstration&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c"># Make a graph.</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+
+<span class="c"># Define edges with weights.</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_weighted_edges_from</span><span class="p">(</span>
+    <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">19.0</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">22.0</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">21.0</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">),))</span>
+
+<span class="c"># Position nodes using Fruchterman-Reingold force-directed algorithm.</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mf">5.</span><span class="p">)</span>
+
+<span class="c"># Draw labels for nodes and edges.</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_labels</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span>
+
+<span class="c"># Draw only weight attribute as edge label.</span>
+<span class="n">edge_labels</span> <span class="o">=</span> <span class="p">{(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span> <span class="n">w</span><span class="p">[</span><span class="s">&#39;weight&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="k">True</span><span class="p">)}</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edge_labels</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edge_labels</span><span class="o">=</span><span class="n">edge_labels</span><span class="p">)</span>
+
+<span class="c"># Finish drawing.</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span>
+
+<span class="c"># Display with Matplotlib.</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>スクリプトをコンソールから実行すると、次のイメージを含む Matplotlib ウィンドウが開いたことがある。
+毎回このイメージが描画されれば話は終わるのだが、困った点が見つかった。
+NetworkX のグラフ描画ルーチンの特性上、クライアントが十分な描画用のパラメーターを与えないと、
+ノードの位置をランダムに決定するようだ。
+例えばこのコードを二度三度と実行してみるとよい。イメージがその度に異なっているのがわかるハズだ。
+これでは作業の要件によっては支障をきたすかもしれない。</p>
+<a class="reference internal image-reference" href="_images/networkx-draw.png"><img alt="_images/networkx-draw.png" src="_images/networkx-draw.png" style="width: 363.0px; height: 308.0px;" /></a>
+<div class="section" id="graphviz">
+<h4><a class="toc-backref" href="#id20">Graphviz 形式に出力する</a><a class="headerlink" href="#graphviz" title="Permalink to this headline">¶</a></h4>
+<p>NetworkX のグラフレイアウトを採用しないで、イメージを生成する方法があるらしい。</p>
+<p><a class="reference external" href="http://pygraphviz.github.io/">PyGraphviz</a> が利用できる（これは Graphviz の利用可能性も含む）か、
+もしくは <a class="reference external" href="https://code.google.com/p/pydot/">pydot</a> が利用できる（同様）環境であれば、
+NetworkX の提供する次の関数を利用することができるようだ。</p>
+<div class="highlight-python3"><div class="highlight"><pre><span class="n">nx</span><span class="o">.</span><span class="n">draw_graphviz</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">write_dot</span><span class="p">(</span><span class="n">G</span><span class="p">,</span><span class="s">&#39;file.dot&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>残念ながら、現在どちらのパッケージとも Python 3 には公式に対応していないので、
+上記コードを実行することができない。
+出力の dot ファイルを Graphviz のエンジンに入力すれば、
+先程のものよりはマシなイメージを得ることができるかもしれないだけに惜しい。</p>
+</div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2><a class="toc-backref" href="#id21">さらなるグラフの応用例</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>TBW: Dijkstra 法だけではグラフライブラリーのノートとしては物足りない。
+本格的なアルゴリズムの応用例を紹介したい。</p>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="index.html">読書ノート v1.3.0</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_share">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-size="large">Tweet</a>
+        <script type="text/javascript">render_twitter_button(document, 'script', 'twitter-wjs')</script>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2014, プレハブ小屋 All rights reserved.
+      </div>
+      <div id="footer_spacer">
+        <p>
+          Last updated at 2014/11/15 (Sat) 00:38:32.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
