@@ -468,6 +468,14 @@ GET lists/memberships
 
 * https://dev.twitter.com/docs/api/1.1/get/lists/memberships 参照。
 
+GET lists/subscribers
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+指定リストの購読者をリストするのに利用する。
+どうも非公開ユーザーが購読していてもリストされないらしい。
+
+.. literalinclude:: ../sample/ptt/lists-subscribers.py
+   :language: python3
+
 POST lists/members/create_all
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ブラウザー上の操作ではできないと思われる、一括でユーザーを複数指定して指定のリストに登録する処理を実現するための API だ。
@@ -515,6 +523,13 @@ POST lists/create
 https://dev.twitter.com/docs/api/1.1/post/lists/create 参照。
 
 .. literalinclude:: ../sample/ptt/lists-create.py
+   :language: python3
+
+GET lists/subscriptions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+あるユーザーが購読している（他ユーザーの管理下にある）リストを得るために利用する。
+
+.. literalinclude:: ../sample/ptt/lists-subscriptions.py
    :language: python3
 
 GET lists/ownerships
