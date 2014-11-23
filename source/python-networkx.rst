@@ -170,6 +170,219 @@ NetworkX の提供する次の関数を利用することができるようだ�
 出力の dot ファイルを Graphviz のエンジンに入力すれば、
 先程のものよりはマシなイメージを得ることができるかもしれないだけに惜しい。
 
+グラフ用語と実装要素の対応早見表
+----------------------------------------------------------------------
+
+* ``G`` はグラフクラスのいずれかのインスタンスを表す。状況で判断する。
+* モジュール名を省略して記す。場合により ``nx`` 以外のものがある。
+* 紙幅の都合上、関数、メソッド等の引数を一部省略しているか、またはまったく記していない。
+  従って引数を取らないものと省略形との区別は（一度は本物のドキュメントまたはコードに当たらないと）できない。
+
+================================================= =================================================
+専門用語                                          関係のある機能
+================================================= =================================================
+acyclic                                           See acyclic graph.
+acyclic graph                                     ``is_acyclic_directed_graph(G)``
+adjacency matrix                                  ``adjacency_matric(G, ...)``
+adjacent                                          ``G.adjacency_iter()``, ``G.neighbors(n)``, etc.
+anti-edge                                         TBW
+anti-triangle                                     TBW
+arborescence                                      ``is_arborescence(G)``, i.e. ``is_tree(G) and max(G.in_degree().values()) > 1``.
+arc                                               グラフが有向のときの edge の別名。
+articulation point                                ``articulation_points(G)``
+balanced k-partite graph                          UNKNOWN
+biclique                                          ``k_clique_communities(G, 2, ...)``
+biconnected                                       ``is_bi_connected(G)`` NetworkX では bi connected と綴るようだ。
+biconnected component                             ``bi_connected_components(G)``, ``bi_connected_component_edges(G)``,
+bipartite graph                                   ``is_partite(G)``, etc. 生成系メソッドが豊富にある。
+biregular graph                                   regular 系は調査中
+block                                             ``blockmodel(G, ...)``
+bond                                              UNKNOWN
+bridge                                            UNKNOWN
+center                                            ``center(G, ...)``
+circuit                                           See cycle.
+circumference                                     UNKNOWN
+claw                                              UNKNOWN
+clique                                            ``find_cliques(G)``, ``k_clique_communities(G, 2, ...)``, 調査中。
+clique number                                     ``graph_clique_number(G, ...)``, 調査中。
+color, colored, identified                        ``color(G)``
+complement                                        ``complement(G, ...)``
+complete                                          See complete graph.
+complete graph                                    ``complete_graph(k, ...)``.
+complete multipartite graph                       ``complete_bipartite_graph(k1, k2, ...)`` まではある。
+component                                         ``connected_components(G)``, ``number_connected_components(G)``, etc.
+connected graph                                   ``is_connected(G)``, 
+connectivity                                      ``all_pairs_node_connectivity(G, ...)``, ``edge_connectivity(G, ...)``, ``node_connectivity(G, ...)``, etc.
+crossing                                          UNKNOWN
+crossing number                                   UNKNOWN
+cut                                               カット系は調査中
+cut edge                                          カット系は調査中
+cut set                                           カット系は調査中
+cut vertex                                        カット系は調査中
+cycle                                             ``G.add_cycle(...)``, ``cycle_basis(G, ...)``, ``simple_cycles(G)``
+DAG                                               See acyclic graph.
+degree                                            ``G.degree()``, ``G.in_degree()``, ``G.out_degree()``, ``G.degree_iter()``, ``G.in_degree_iter()``, ``G.out_degree_iter()``.
+degree sequence                                   ``degree(G).values()`` で得られる。
+diagram                                           UNKNOWN
+diameter                                          ``diameter(G, ...)``
+digon                                             UNKNOWN
+digraph                                           See directed graph.
+directed                                          See directed graph.
+directed cycle                                    ``simple_cycles(G)``
+directed graph                                    | ``DiGraph()``, ``MultiDiGraph()``.
+                                                  | ``is_directed(G), ``G.to_directed()``.
+disconnected graph                                調査中
+disconnecting set                                 調査中
+distance                                          調査中
+dominate                                          See dominating set.
+dominating set                                    ``dominating_set(G, ...)``, ``is_dominating_set(G, ...)``.
+dual                                              UNKNOWN
+eccentricity                                      ``eccentricity(G, ...)``
+edge                                              ``G.edges()``, ``G.edges_iter()``, ``G.add_edge()``, ``G.add_edges_from()``, ``G.remove_edge()``, ``G.remove_edges_from()``, etc.
+edge cut                                          カット系は調査中
+edgeless graph                                    ``G.number_of_edges() == 0``, ``null_graph()``, ``trivial_graph()``.
+embeddable                                        UNKNOWN
+embedding                                         UNKNOWN
+equipartite graph                                 UNKNOWN
+Eulerian circuit                                  ``eulerian_circuit(G, ...)``
+Eulerian cycle                                    See Eulerian circuit.
+Eulerian digraph                                  ``is_eulerian(G)`` と ``G.is_directed()`` を用いる。
+Eulerian path                                     TBW
+Eulerian tour                                     TBW
+Eulerian trail                                    TBW
+even cycle                                        TBW
+face                                              UNKNOWN
+factor                                            TBW
+forest                                            ``is_forest(G)``
+girth                                             UNKNOWN
+graph, network                                    ``Graph()``, ``DiGraph()``, ``MultiGraph()``, ``MultiDiGraph()``.
+graph invariant                                   TBW
+graph labeling                                    TBW
+.. graph, network                                    TBW
+Hamiltonian connected graph                       UNKNOWN
+Hamiltonian cycle                                 UNKNOWN
+Hamiltonian graph                                 UNKNOWN
+Hamiltonian path                                  UNKNOWN
+head                                              UNKNOWN
+.. H-free graf                                       TBW
+homomorphic                                       UNKNOWN
+hyperedge                                         UNKNOWN
+in degree                                         ``G.in_degree()``, ``G.in_degree_iter()``.
+incident                                          ``incidence_matric(G, ...)``?
+independence number                               UNKNOWN
+independent                                       See independent set.
+independent set                                   ``maximum_independent_set(G)``
+induced subgraph                                  ``G.subgraph(nbunch)``
+infinite                                          UNKNOWN
+initial vertex                                    ``e = (v1, v2)`` とすると ``e1`` がそれ。
+in-neighborhood                                   TBW
+internally disjoint                               TBW
+isolated vertex                                   ``isolates(G)``, ``is_isolate(G, n)``.
+isomorphic                                        | ``is_isomorphic(G1, G2, ...)``, ``could_be_isomorphic(G1, G2, ...)``, fast_could_be_isomorphic(G1, G2, ...)``, ``faster_could_be_isomorphic(G1, G2, ...)``.
+                                                  | 戻り値の意味からして用法には要注意。
+isthmus                                           TBW
+k-ary tree                                        TBW
+k-clique                                          ``k_clique_communities(G, k, ...)``
+k-colorable graph                                 TBW
+k-connected                                       TBW
+k-edge-connected                                  TBW
+kernel                                            調査中
+k-factor                                          TBW
+knot                                              TBW
+k-partite graph                                   NetworkX は k = 2 までサポートか。
+k-regular graph                                   regular 系は調査中
+k-spanner                                         TBW
+k-th power                                        TBW
+length of a cycle                                 多数ありそう。
+length of a path or walk                          多数ありそう。
+link                                              See edge.
+loop                                              | 自己ループのことか？
+                                                  | ``G.self_loop_edges()``, ``G.nodes_with_self_loops()``, ``G.number_of_self_loops()``.
+.. loop, cycle                                       TBW*
+matching number                                   TBW
+maximum degree                                    TBW
+minor                                             TBW
+multigraph                                        ``MultiGraph()``, ``MultiDiGraph()``.
+multipartite graph                                NetworkX は k = 2 までサポートか。
+multiple                                          See multigraph.
+multiple edge                                     TBW*
+network                                           See graph.
+null graph                                        ``null_graph()``
+odd cycle                                         TBW
+order                                             ``G.order()``
+orientation                                       TBW
+oriented graph                                    TBW
+out degree                                        ``G.out_degree()``, ``G.out_degree_iter()``.
+outer face                                        TBW
+outerplanar graph                                 TBW
+outerplane graph                                  TBW
+out-neighborhood                                  TBW
+pancyclic graph                                   TBW
+partite set                                       TBW
+path                                              ``G.add_path(...)``, 調査中。
+perfect matching                                  TBW
+peripheral vertex                                 TBW
+planar graph                                      TBW
+plane graph                                       TBW
+point, node, vertex                               ``G.nodes()``, ``G.add_node()``, ``G.add_nodes_from()``, ``G.remove_node()``, ``G.remove_nodes_from()``, etc.
+pseudograph                                       ``is_pseudographical(...)``
+radius                                            ``radius(G, ...)``
+reachable                                         関連機能多数
+regular                                           regular 系は調査中
+regular graph                                     regular 系は調査中
+route                                             TBW
+semiregular                                       regular 系は調査中
+separating set                                    TBW
+simple                                            See simple graph.
+simple graph                                      ``Graph()``, ``DiGraph()``. 多重でないグラフの意。
+sink                                              TBW
+size of a graph                                   TBW
+source                                            TBW
+spanning matching                                 spanning 系は調査中
+spanning subgraph                                 spanning 系は調査中
+spanning tree                                     spanning 系は調査中
+stable set                                        TBW
+star                                              ``G.add_star(...)``, ``star_graph(k, ...)``.
+.. staset                                            TBW
+strongly connected                                ``is_strongly_connected(G)``
+strongly connected component                      ``number_strongly_connected_components(G)``, ``strongly_connected_components(G)``, etc.
+strongly regular graph                            regular 系は調査中
+subgraph                                          関連機能多数
+subtree                                           TBW
+tail                                              TBW
+terminal vertex                                   ``e = (v1, v2)`` とすると ``e2`` がそれ。
+theta graph                                       TBW
+thickness                                         TBW
+totally disconnected graph                        TBW
+tournament                                        TBW
+traceable graph                                   TBW
+traceable path                                    TBW
+trail                                             TBW
+tree                                              ``is_tree(G)``
+triangle                                          ``triangles(G, ...)``
+tripartite graph                                  NetworkX は k = 2 までサポートか。
+undirected                                        ``Graph``, ``MultiGraph``. ``Di`` を冠していないグラフクラス。
+undirected edge                                   ``Graph``, ``MultiGraph`` の edge の意。
+unicyclic graph                                   TBW
+unidentified                                      TBW
+universal graph                                   TBW
+unweighted                                        | ``single_source_shortest_path_length(G, ...)``, ``all_pairs_shortest_path_length(G, ...)``, etc.
+                                                  | ``networkx.algorithms.shortest_paths.unweighted`` モジュールにあるもの。
+valency                                           TBW
+vertex                                            See point, node, vertex
+vertex cut                                        カット系は調査中
+walk                                              TBW
+weakly connected                                  ``is_weakly_connected(G)``
+weakly connected components                       ``number_weakly_connected_components(G)``, ``weakly_connected_components(G)``.
+weight of a subgraph                              TBW
+weighted                                          | ``dijkstra_path(G, ...)``, ``bellman_ford(G, ...)``, etc.
+                                                  | ``networkx.algorithms.shortest_paths.weighted`` モジュールにあるもの。
+weighted graph                                    ``G.add_weighted_edges_from(...)`` のように明示的に重み付きエッジをセットすることもある。
+Wiener index of a graph                           TBW
+Wiener index of a vertex                          TBW
+Wiener polynomial of an undirected graph          TBW
+================================================= =================================================
+
 さらなるグラフの応用例
 ======================================================================
 TBW: Dijkstra 法だけではグラフライブラリーのノートとしては物足りない。
