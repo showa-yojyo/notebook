@@ -558,12 +558,12 @@ Python コード
 
 TODO
 ======================================================================
-* Git_ を利用した開発版 Jinja2_ の作業コピー取得をやってみる。
+.. todo::
 
-* MarkupSafe_ をインストールしてみる。
-  Jinja2 の自動エスケープ機能が高速化するようだ。
-
-* Extension 全般。
+   * Git_ を利用した開発版 Jinja2_ の作業コピー取得をやってみる。
+   * MarkupSafe_ をインストールしてみる。
+     Jinja2 の自動エスケープ機能が高速化するようだ。
+   * Extension 全般。
 
 .. _Python: http://www.python.org/
 .. _Jinja2: http://jinja.pocoo.org/
