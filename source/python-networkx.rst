@@ -393,8 +393,10 @@ weighted graph                                    | ``G.edge[e]['weight'] = valu
 
 さらなるグラフの応用例
 ======================================================================
-TBW: Dijkstra 法だけではグラフライブラリーのノートとしては物足りない。
-本格的なアルゴリズムの応用例を紹介したい。
+.. todo::
+
+   Dijkstra 法だけではグラフライブラリーのノートとしては物足りない。
+   本格的なアルゴリズムの応用例を紹介したい。
 
 .. _Python: http://www.python.org/
 .. _NetworkX: https://networkx.github.io/
