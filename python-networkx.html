@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>NetworkX 利用ノート &mdash; 読書ノート v1.3.0</title>
+    <title>NetworkX 利用ノート &mdash; 読書ノート v1.4.0dev</title>
     
     <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,14 +14,14 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.3.0',
+        VERSION:     '1.4.0dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/twitter-button.js"></script>
-    <link rel="top" title="読書ノート v1.3.0" href="index.html" />
+    <link rel="top" title="読書ノート v1.4.0dev" href="index.html" />
     <link rel="next" title="Jinja2 利用ノート" href="python-jinja2.html" />
     <link rel="prev" title="Matplotlib 利用ノート" href="python-matplotlib.html" /> 
   </head>
@@ -29,7 +29,7 @@
     <div class="related">
       <h3>Navigation</h3>
       <ul>
-        <li><a href="index.html">読書ノート v1.3.0</a> &raquo;</li> 
+        <li><a href="index.html">読書ノート v1.4.0dev</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -38,7 +38,7 @@
           <div class="body">
             
   <div class="section" id="networkx">
-<h1><a class="toc-backref" href="#id11">NetworkX 利用ノート</a><a class="headerlink" href="#networkx" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id12">NetworkX 利用ノート</a><a class="headerlink" href="#networkx" title="Permalink to this headline">¶</a></h1>
 <p>本稿では Python のグラフライブラリーである <a class="reference external" href="https://networkx.github.io/">NetworkX</a> のインストール方法、
 動作確認、簡単なグラフアルゴリズムの利用例、グラフのイメージ化方法について記す。
 余裕があれば、高級なグラフアルゴリズムの応用例をいくつか示したい。</p>
@@ -49,23 +49,24 @@
 <div class="contents topic" id="id1">
 <p class="topic-title first">ノート目次</p>
 <ul class="simple">
-<li><a class="reference internal" href="#networkx" id="id11">NetworkX 利用ノート</a><ul>
-<li><a class="reference internal" href="#id2" id="id12">関連リンク</a></li>
-<li><a class="reference internal" href="#id3" id="id13">関連ノート</a></li>
-<li><a class="reference internal" href="#id4" id="id14">セットアップ</a><ul>
-<li><a class="reference internal" href="#id5" id="id15">NetworkX をインストールする</a></li>
-<li><a class="reference internal" href="#id6" id="id16">インストールの成功を確認する</a></li>
+<li><a class="reference internal" href="#networkx" id="id12">NetworkX 利用ノート</a><ul>
+<li><a class="reference internal" href="#id2" id="id13">関連リンク</a></li>
+<li><a class="reference internal" href="#id3" id="id14">関連ノート</a></li>
+<li><a class="reference internal" href="#id4" id="id15">セットアップ</a><ul>
+<li><a class="reference internal" href="#id5" id="id16">NetworkX をインストールする</a></li>
+<li><a class="reference internal" href="#id6" id="id17">インストールの成功を確認する</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id7" id="id17">NetworkX の基本的なコードの書き方を習得する</a><ul>
-<li><a class="reference internal" href="#dijkstra" id="id18">Dijkstra 法による最短経路</a></li>
-<li><a class="reference internal" href="#id8" id="id19">グラフィックを描画する</a><ul>
-<li><a class="reference internal" href="#graphviz" id="id20">Graphviz 形式に出力する</a></li>
+<li><a class="reference internal" href="#id7" id="id18">NetworkX の基本的なコードの書き方を習得する</a><ul>
+<li><a class="reference internal" href="#dijkstra" id="id19">Dijkstra 法による最短経路</a></li>
+<li><a class="reference internal" href="#id8" id="id20">グラフィックを描画する</a><ul>
+<li><a class="reference internal" href="#graphviz" id="id21">Graphviz 形式に出力する</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#id9" id="id22">グラフ用語と実装要素の対応早見表</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id9" id="id21">さらなるグラフの応用例</a></li>
+<li><a class="reference internal" href="#id10" id="id23">さらなるグラフの応用例</a></li>
 </ul>
 </li>
 </ul>
@@ -88,24 +89,24 @@
 </ul>
 </div>
 <div class="section" id="id2">
-<h2><a class="toc-backref" href="#id12">関連リンク</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">関連リンク</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt><a class="reference external" href="https://networkx.github.io/">NetworkX</a></dt>
 <dd>公式サイト。インストール方法から基本的な利用方法、応用等が文書化されている。</dd>
 </dl>
 </div>
 <div class="section" id="id3">
-<h2><a class="toc-backref" href="#id13">関連ノート</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id14">関連ノート</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><a class="reference internal" href="python-nose.html"><em>Nose 利用ノート</em></a></li>
 <li><a class="reference internal" href="python-matplotlib.html"><em>Matplotlib 利用ノート</em></a></li>
 </ul>
 </div>
 <div class="section" id="id4">
-<h2><a class="toc-backref" href="#id14">セットアップ</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id15">セットアップ</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>NetworkX 自身のインストールおよび、依存パッケージのインストールについて説明する。</p>
 <div class="section" id="id5">
-<h3><a class="toc-backref" href="#id15">NetworkX をインストールする</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id16">NetworkX をインストールする</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>NetworkX は純粋に Python モジュールの集合体として構成されているようなので（未確認）、
 pip からインストールすればよい。</p>
 <div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> pip --install networkx
@@ -113,7 +114,7 @@ pip からインストールすればよい。</p>
 </div>
 </div>
 <div class="section" id="id6">
-<h3><a class="toc-backref" href="#id16">インストールの成功を確認する</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id17">インストールの成功を確認する</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>NetworkX のユニットテストを実行して、結果が正常であればインストール成功とみなそう。
 <a class="reference external" href="http://somethingaboutorange.com/mrl/projects/nose/">Nose</a> が環境にあれば、次の操作でテストの実行となる。
 NumPy や SciPy のそれと同じスタイルなので馴染みやすい。</p>
@@ -145,7 +146,7 @@ SKIP: yaml not available.
 </div>
 </div>
 <div class="section" id="id7">
-<h2><a class="toc-backref" href="#id17">NetworkX の基本的なコードの書き方を習得する</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id18">NetworkX の基本的なコードの書き方を習得する</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <p>以降、次のインポートを断りなしに用いる。</p>
 <div class="highlight-python3"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -153,7 +154,7 @@ SKIP: yaml not available.
 </div>
 <p>小さいグラフを定義して、単純な計算をさせてみることで NetworkX でのプログラミングの感触を確かめてみよう。</p>
 <div class="section" id="dijkstra">
-<h3><a class="toc-backref" href="#id18">Dijkstra 法による最短経路</a><a class="headerlink" href="#dijkstra" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id19">Dijkstra 法による最短経路</a><a class="headerlink" href="#dijkstra" title="Permalink to this headline">¶</a></h3>
 <p>以前行った、別のグラフライブラリーの試験に用いた問題設定を再利用する。
 問題は「すべてのノードペアに対して、その最短経路の長さを得る」というものだ。</p>
 <a class="reference internal image-reference" href="_images/apgl-findall.png"><img alt="_images/apgl-findall.png" src="_images/apgl-findall.png" style="width: 387.0px; height: 251.0px;" /></a>
@@ -213,7 +214,7 @@ SKIP: yaml not available.
 </div>
 </div>
 <div class="section" id="id8">
-<h3><a class="toc-backref" href="#id19">グラフィックを描画する</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id20">グラフィックを描画する</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>先程のグラフを <a class="reference external" href="http://matplotlib.sourceforge.net/">Matplotlib</a> の表示機能を利用してウィンドウに出力する方法を示す。
 試行錯誤の結果、次のコードが最も見やすいイメージを描画してくれた。</p>
 <div class="highlight-python3"><div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
@@ -264,7 +265,7 @@ NetworkX のグラフ描画ルーチンの特性上、クライアントが十�
 これでは作業の要件によっては支障をきたすかもしれない。</p>
 <a class="reference internal image-reference" href="_images/networkx-draw.png"><img alt="_images/networkx-draw.png" src="_images/networkx-draw.png" style="width: 363.0px; height: 308.0px;" /></a>
 <div class="section" id="graphviz">
-<h4><a class="toc-backref" href="#id20">Graphviz 形式に出力する</a><a class="headerlink" href="#graphviz" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id21">Graphviz 形式に出力する</a><a class="headerlink" href="#graphviz" title="Permalink to this headline">¶</a></h4>
 <p>NetworkX のグラフレイアウトを採用しないで、イメージを生成する方法があるらしい。</p>
 <p><a class="reference external" href="http://pygraphviz.github.io/">PyGraphviz</a> が利用できる（これは Graphviz の利用可能性も含む）か、
 もしくは <a class="reference external" href="https://code.google.com/p/pydot/">pydot</a> が利用できる（同様）環境であれば、
@@ -279,11 +280,746 @@ NetworkX の提供する次の関数を利用することができるようだ�
 先程のものよりはマシなイメージを得ることができるかもしれないだけに惜しい。</p>
 </div>
 </div>
-</div>
 <div class="section" id="id9">
-<h2><a class="toc-backref" href="#id21">さらなるグラフの応用例</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
-<p>TBW: Dijkstra 法だけではグラフライブラリーのノートとしては物足りない。
+<h3><a class="toc-backref" href="#id22">グラフ用語と実装要素の対応早見表</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>ここまで書いておいてなんだが、間違いが多そうだ。</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">G</span></tt>, <tt class="docutils literal"><span class="pre">G1</span></tt>, <tt class="docutils literal"><span class="pre">G2</span></tt>, ... 等はグラフクラスのいずれかのインスタンスを表す。</li>
+<li><tt class="docutils literal"><span class="pre">n</span></tt>, <tt class="docutils literal"><span class="pre">n1</span></tt>, <tt class="docutils literal"><span class="pre">n2</span></tt>, ... 等はノードを指す。</li>
+<li><tt class="docutils literal"><span class="pre">e</span></tt>, <tt class="docutils literal"><span class="pre">e1</span></tt>, <tt class="docutils literal"><span class="pre">e2</span></tt>, ... 等はエッジを指す。</li>
+<li><tt class="docutils literal"><span class="pre">k</span></tt>, <tt class="docutils literal"><span class="pre">k1</span></tt>, <tt class="docutils literal"><span class="pre">k2</span></tt>, ... 等は 0 または正の整数を指す。</li>
+<li>モジュール名を省略して記す。場合により <tt class="docutils literal"><span class="pre">nx</span></tt> 以外のもの（グローバルやサブモジュール）がある。</li>
+<li>紙幅の都合上、関数、メソッド等の引数を一部省略している。</li>
+<li>グラフ理論は応用範囲の広さゆえに同義語の多い用語が多い。この次の表でまとめる。</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="27%" />
+<col width="73%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">専門用語</th>
+<th class="head">関係のある機能</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>acyclic</td>
+<td>See acyclic graph.</td>
+</tr>
+<tr class="row-odd"><td>acyclic graph</td>
+<td><tt class="docutils literal"><span class="pre">is_directed_acyclic_graph(G)</span></tt>, <tt class="docutils literal"><span class="pre">topological_sort(G,</span> <span class="pre">...)</span></tt>.</td>
+</tr>
+<tr class="row-even"><td>adjacency matrix</td>
+<td><tt class="docutils literal"><span class="pre">adjacency_matric(G,</span> <span class="pre">...)</span></tt></td>
+</tr>
+<tr class="row-odd"><td>adjacent</td>
+<td><tt class="docutils literal"><span class="pre">G.adjacency_iter()</span></tt>, <tt class="docutils literal"><span class="pre">G.neighbors(n)</span></tt>, <tt class="docutils literal"><span class="pre">G[n]</span></tt>, etc.</td>
+</tr>
+<tr class="row-even"><td>ancestor</td>
+<td><tt class="docutils literal"><span class="pre">ancestors(G,</span> <span class="pre">n)</span></tt></td>
+</tr>
+<tr class="row-odd"><td>anti-edge</td>
+<td><tt class="docutils literal"><span class="pre">not</span> <span class="pre">G.has_edge(n1,</span> <span class="pre">n2)</span></tt></td>
+</tr>
+<tr class="row-even"><td>anti-triangle</td>
+<td><tt class="docutils literal"><span class="pre">not</span> <span class="pre">(G.has_edge(n1,</span> <span class="pre">n2)</span> <span class="pre">and</span> <span class="pre">G.has_edge(n2,</span> <span class="pre">n3)</span> <span class="pre">and</span> <span class="pre">G.has_edge(n3,</span> <span class="pre">n1))</span></tt></td>
+</tr>
+<tr class="row-odd"><td>arborescence</td>
+<td><tt class="docutils literal"><span class="pre">is_arborescence(G)</span></tt>, i.e. <tt class="docutils literal"><span class="pre">is_tree(G)</span> <span class="pre">and</span> <span class="pre">max(G.in_degree().values())</span> <span class="pre">&gt;</span> <span class="pre">1</span></tt>.</td>
+</tr>
+<tr class="row-even"><td>arc</td>
+<td>特にグラフが有向のときの edge の別名であることが多い。</td>
+</tr>
+<tr class="row-odd"><td>articulation point</td>
+<td><tt class="docutils literal"><span class="pre">articulation_points(G)</span></tt>. a.k.a. cut vertex.</td>
+</tr>
+<tr class="row-even"><td>balanced k-partite graph</td>
+<td>調査中</td>
+</tr>
+<tr class="row-odd"><td>biclique</td>
+<td><tt class="docutils literal"><span class="pre">k_clique_communities(G,</span> <span class="pre">2,</span> <span class="pre">...)</span></tt></td>
+</tr>
+<tr class="row-even"><td>biconnected</td>
+<td><tt class="docutils literal"><span class="pre">is_biconnected(G)</span></tt></td>
+</tr>
+<tr class="row-odd"><td>biconnected component</td>
+<td><tt class="docutils literal"><span class="pre">biconnected_components(G)</span></tt>, <tt class="docutils literal"><span class="pre">biconnected_component_edges(G)</span></tt>,</td>
+</tr>
+<tr class="row-even"><td>bipartite graph</td>
+<td><div class="first last line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">is_bipartite(G)</span></tt>, <tt class="docutils literal"><span class="pre">is_bipartite_node_set(G,</span> <span class="pre">nodes)</span></tt>, <tt class="docutils literal"><span class="pre">sets(G)</span></tt>.</div>
+<div class="line"><tt class="docutils literal"><span class="pre">complete_bipartite_graph(n1,</span> <span class="pre">n2,</span> <span class="pre">...)</span></tt>, <tt class="docutils literal"><span class="pre">bipartite_random_graph(k1,</span> <span class="pre">k2,</span> <span class="pre">p,</span> <span class="pre">...)</span></tt>, etc. 生成系メソッドが豊富にある。</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>biregular graph</td>
+<td>regular 系は調査中</td>
+</tr>
+<tr class="row-even"><td>block</td>
+<td><tt class="docutils literal"><span class="pre">blockmodel(G,</span> <span class="pre">...)</span></tt></td>
+</tr>
+<tr class="row-odd"><td>bond</td>
+<td>UNKNOWN</td>
+</tr>
+<tr class="row-even"><td>bridge</td>
+<td>UNKNOWN</td>
+</tr>
+<tr class="row-odd"><td>center</td>
+<td><tt class="docutils literal"><span class="pre">center(G,</span> <span class="pre">...)</span></tt></td>
+</tr>
+<tr class="row-even"><td>child</td>
+<td><tt class="docutils literal"><span class="pre">G.predecessors(n)</span></tt></td>
+</tr>
+<tr class="row-odd"><td>chromic number</td>
+<td>UNKNOWN</td>
+</tr>
+<tr class="row-even"><td>circumference</td>
+<td>UNKNOWN</td>
+</tr>
+<tr class="row-odd"><td>claw</td>
+<td>UNKNOWN</td>
+</tr>
+<tr class="row-even"><td>clique</td>
+<td><tt class="docutils literal"><span class="pre">find_cliques(G)</span></tt>, <tt class="docutils literal"><span class="pre">k_clique_communities(G,</span> <span class="pre">2,</span> <span class="pre">...)</span></tt>, 調査中。</td>
+</tr>
+<tr class="row-odd"><td>clique number</td>
+<td><tt class="docutils literal"><span class="pre">graph_clique_number(G,</span> <span class="pre">...)</span></tt>, 調査中。</td>
+</tr>
+<tr class="row-even"><td>color, colored, identified</td>
+<td><tt class="docutils literal"><span class="pre">color(G)</span></tt></td>
+</tr>
+<tr class="row-odd"><td>complement</td>
+<td><tt class="docutils literal"><span class="pre">complement(G,</span> <span class="pre">...)</span></tt></td>
+</tr>
+<tr class="row-even"><td>complete</td>
+<td>See complete graph.</td>
+</tr>
+<tr class="row-odd"><td>complete graph</td>
+<td><div class="first last line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">complete_graph(k,</span> <span class="pre">...)</span></tt>.</div>
+<div class="line">参考までに <tt class="docutils literal"><span class="pre">networkx.algorithms.chordal.chordal_alg._is_complete_graph(G)</span></tt> を見ておくとよい。</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>complete multipartite graph</td>
+<td><div class="first last line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">complete_bipartite_graph(k1,</span> <span class="pre">k2,</span> <span class="pre">...)</span></tt> まではある。</div>
+<div class="line"><tt class="docutils literal"><span class="pre">[0,</span> <span class="pre">k1)</span></tt>, <tt class="docutils literal"><span class="pre">[k1,</span> <span class="pre">k1</span> <span class="pre">+</span> <span class="pre">k2)</span></tt> がパーツ。</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>connected component</td>
+<td><div class="first last line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">connected_components(G)</span></tt>,</div>
+<div class="line"><tt class="docutils literal"><span class="pre">connected_component_subgraphs(G)</span></tt>,</div>
+<div class="line"><tt class="docutils literal"><span class="pre">number_connected_components(G)</span></tt>, etc.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>connected graph</td>
+<td><tt class="docutils literal"><span class="pre">is_connected(G)</span></tt>, i.e. <tt class="docutils literal"><span class="pre">number_connected_components(G)</span> <span class="pre">==</span> <span class="pre">1</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td>connectivity</td>
+<td><div class="first last line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">all_pairs_node_connectivity(G,</span> <span class="pre">...)</span></tt>,</div>
+<div class="line"><tt class="docutils literal"><span class="pre">edge_connectivity(G,</span> <span class="pre">...)</span></tt>,</div>
+<div class="line"><tt class="docutils literal"><span class="pre">node_connectivity(G,</span> <span class="pre">...)</span></tt>, etc.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>cotree</td>
+<td><tt class="docutils literal"><span class="pre">G</span></tt> とその spanning tree のエッジ全部 <tt class="docutils literal"><span class="pre">T</span></tt> さえあれば <tt class="docutils literal"><span class="pre">C</span> <span class="pre">=</span> <span class="pre">Graph();</span> <span class="pre">C.add_edges_from(set(G.edges())</span> <span class="pre">-</span> <span class="pre">set(T.edges()))</span></tt> とか。</td>
+</tr>
+<tr class="row-odd"><td>crossing</td>
+<td>UNKNOWN</td>
+</tr>
+<tr class="row-even"><td>crossing number</td>
+<td>UNKNOWN</td>
+</tr>
+<tr class="row-odd"><td>cut</td>
+<td><tt class="docutils literal"><span class="pre">minimum_edge_cut(G,</span> <span class="pre">...)</span></tt>?</td>
+</tr>
+<tr class="row-even"><td>cut edge</td>
+<td>カット系は調査中</td>
+</tr>
+<tr class="row-odd"><td>cut set</td>
+<td>カット系は調査中</td>
+</tr>
+<tr class="row-even"><td>cut vertex</td>
+<td>カット系は調査中</td>
+</tr>
+<tr class="row-odd"><td>cycle/circuit</td>
+<td><div class="first last line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">G.add_cycle(...)</span></tt>,</div>
+<div class="line"><tt class="docutils literal"><span class="pre">cycle_basis(G,</span> <span class="pre">...)</span></tt>,</div>
+<div class="line"><tt class="docutils literal"><span class="pre">simple_cycles(G)</span></tt>,</div>
+<div class="line"><tt class="docutils literal"><span class="pre">cycle_graph(k,</span> <span class="pre">...)</span></tt>.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>DAG</td>
+<td>See acyclic graph.</td>
+</tr>
+<tr class="row-odd"><td>descendant</td>
+<td><tt class="docutils literal"><span class="pre">descendants(G,</span> <span class="pre">n)</span></tt></td>
+</tr>
+<tr class="row-even"><td>degree</td>
+<td><div class="first last line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">G.degree(...)</span></tt>, <tt class="docutils literal"><span class="pre">G.degree_iter(...)</span></tt>,</div>
+<div class="line"><tt class="docutils literal"><span class="pre">G.in_degree(...)</span></tt>, <tt class="docutils literal"><span class="pre">G.in_degree_iter(...)</span></tt>,</div>
+<div class="line"><tt class="docutils literal"><span class="pre">G.out_degree(...)</span></tt>, <tt class="docutils literal"><span class="pre">G.out_degree_iter(...)</span></tt>.</div>
+<div class="line"><tt class="docutils literal"><span class="pre">...</span></tt> はすべて <tt class="docutils literal"><span class="pre">nbunch=None,</span> <span class="pre">weight=None</span></tt> となっている。</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>degree sequence</td>
+<td><tt class="docutils literal"><span class="pre">degree(G).values()</span></tt> で得られる。</td>
+</tr>
+<tr class="row-even"><td>depth</td>
+<td>See DFS.</td>
+</tr>
+<tr class="row-odd"><td>DFS</td>
+<td><div class="first last line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">dfs_edges(G,</span> <span class="pre">source=None)</span></tt>,</div>
+<div class="line"><tt class="docutils literal"><span class="pre">dfs_labeled_edges(G,</span> <span class="pre">source=None)</span></tt>,</div>
+<div class="line"><tt class="docutils literal"><span class="pre">dfs_postorder_nodes(G,</span> <span class="pre">source=None)</span></tt>,</div>
+<div class="line"><tt class="docutils literal"><span class="pre">dfs_predecessors(G,</span> <span class="pre">source=None)</span></tt>,</div>
+<div class="line"><tt class="docutils literal"><span class="pre">dfs_preorder_nodes(G,</span> <span class="pre">source=None)</span></tt>,</div>
+<div class="line"><tt class="docutils literal"><span class="pre">dfs_successors(G,</span> <span class="pre">source=None)</span></tt>,</div>
+<div class="line"><tt class="docutils literal"><span class="pre">dfs_tree(G,</span> <span class="pre">source)</span></tt>.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>diagram</td>
+<td><tt class="docutils literal"><span class="pre">draw_networkx(G,</span> <span class="pre">...)</span></tt> 系統の関数で図を出力する。</td>
+</tr>
+<tr class="row-odd"><td>diameter</td>
+<td><tt class="docutils literal"><span class="pre">diameter(G,</span> <span class="pre">...)</span></tt></td>
+</tr>
+<tr class="row-even"><td>digon</td>
+<td><tt class="docutils literal"><span class="pre">(i</span> <span class="pre">for</span> <span class="pre">i</span> <span class="pre">in</span> <span class="pre">simple_cycles(G)</span> <span class="pre">if</span> <span class="pre">len(i)</span> <span class="pre">==</span> <span class="pre">2)</span></tt></td>
+</tr>
+<tr class="row-odd"><td>digraph</td>
+<td>See directed graph.</td>
+</tr>
+<tr class="row-even"><td>directed</td>
+<td>See directed graph.</td>
+</tr>
+<tr class="row-odd"><td>directed cycle/circuit</td>
+<td><tt class="docutils literal"><span class="pre">simple_cycles(G)</span></tt></td>
+</tr>
+<tr class="row-even"><td>directed graph</td>
+<td><div class="first last line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">DiGraph(...)</span></tt>, <tt class="docutils literal"><span class="pre">MultiDiGraph(...)</span></tt>.</div>
+<div class="line"><tt class="docutils literal"><span class="pre">is_directed(G)</span></tt>, <tt class="docutils literal"><span class="pre">G.to_directed()</span></tt>.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>directed tree</td>
+<td>See arborescence.</td>
+</tr>
+<tr class="row-even"><td>disconnected graph</td>
+<td><tt class="docutils literal"><span class="pre">not</span> <span class="pre">is_connected(G)</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td>disconnecting set</td>
+<td>調査中</td>
+</tr>
+<tr class="row-even"><td>distance</td>
+<td><div class="first last line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">shortest_path_length(G,</span> <span class="pre">...)</span></tt>,</div>
+<div class="line"><tt class="docutils literal"><span class="pre">single_source_shortest_path_length(G,</span> <span class="pre">source,</span> <span class="pre">...)</span></tt>,</div>
+<div class="line"><tt class="docutils literal"><span class="pre">single_source_dijkstra_path_length(G,</span> <span class="pre">source,</span> <span class="pre">...)</span></tt>, etc.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>dominate</td>
+<td>See dominating set.</td>
+</tr>
+<tr class="row-even"><td>dominating set</td>
+<td><tt class="docutils literal"><span class="pre">dominating_set(G,</span> <span class="pre">...)</span></tt>, <tt class="docutils literal"><span class="pre">is_dominating_set(G,</span> <span class="pre">...)</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td>dual</td>
+<td>UNKNOWN</td>
+</tr>
+<tr class="row-even"><td>eccentricity</td>
+<td><tt class="docutils literal"><span class="pre">eccentricity(G,</span> <span class="pre">...)</span></tt></td>
+</tr>
+<tr class="row-odd"><td>edge</td>
+<td><div class="first last line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">G.edges(...)</span></tt>, <tt class="docutils literal"><span class="pre">edges_iter(G,</span> <span class="pre">...)</span></tt>,</div>
+<div class="line"><tt class="docutils literal"><span class="pre">G.add_edge(n1,</span> <span class="pre">n2,</span> <span class="pre">...)</span></tt>, <tt class="docutils literal"><span class="pre">G.add_edges_from(ebunch,</span> <span class="pre">...)</span></tt>,</div>
+<div class="line"><tt class="docutils literal"><span class="pre">G.remove_edge(n1,</span> <span class="pre">n2)</span></tt>, <tt class="docutils literal"><span class="pre">G.remove_edges_from(ebunch)</span></tt>, etc.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>edge cut</td>
+<td>カット系は調査中</td>
+</tr>
+<tr class="row-odd"><td>edgeless graph</td>
+<td><tt class="docutils literal"><span class="pre">G.number_of_edges()</span> <span class="pre">==</span> <span class="pre">0</span></tt>, <tt class="docutils literal"><span class="pre">null_graph()</span></tt>, <tt class="docutils literal"><span class="pre">trivial_graph()</span></tt>.</td>
+</tr>
+<tr class="row-even"><td>elementary cycle/circuit</td>
+<td><tt class="docutils literal"><span class="pre">simple_cycles(G)</span></tt></td>
+</tr>
+<tr class="row-odd"><td>elementary path</td>
+<td><tt class="docutils literal"><span class="pre">all_simple_paths(G,</span> <span class="pre">n1,</span> <span class="pre">n2)</span></tt> で代用するか。</td>
+</tr>
+<tr class="row-even"><td>embeddable</td>
+<td>UNKNOWN</td>
+</tr>
+<tr class="row-odd"><td>embedding</td>
+<td>UNKNOWN</td>
+</tr>
+<tr class="row-even"><td>equipartite graph</td>
+<td>UNKNOWN</td>
+</tr>
+<tr class="row-odd"><td>Eulerian cycle/circuit</td>
+<td><tt class="docutils literal"><span class="pre">eulerian_circuit(G,</span> <span class="pre">...)</span></tt></td>
+</tr>
+<tr class="row-even"><td>Eulerian digraph</td>
+<td><tt class="docutils literal"><span class="pre">is_eulerian(G)</span></tt> と <tt class="docutils literal"><span class="pre">G.is_directed()</span></tt> を用いる。</td>
+</tr>
+<tr class="row-odd"><td>Eulerian path</td>
+<td><tt class="docutils literal"><span class="pre">eulerian_circuit(G,</span> <span class="pre">...)</span></tt>?</td>
+</tr>
+<tr class="row-even"><td>Eulerian tour</td>
+<td>See Eulerian circuit.</td>
+</tr>
+<tr class="row-odd"><td>Eulerian trail</td>
+<td>See Eulerian path.</td>
+</tr>
+<tr class="row-even"><td>even cycle/circuit</td>
+<td><tt class="docutils literal"><span class="pre">(i</span> <span class="pre">for</span> <span class="pre">i</span> <span class="pre">in</span> <span class="pre">simple_cycles(G)</span> <span class="pre">if</span> <span class="pre">len(i)</span> <span class="pre">%</span> <span class="pre">2</span> <span class="pre">==</span> <span class="pre">0)</span></tt></td>
+</tr>
+<tr class="row-odd"><td>face</td>
+<td>UNKNOWN</td>
+</tr>
+<tr class="row-even"><td>factor</td>
+<td>TBW</td>
+</tr>
+<tr class="row-odd"><td>forest</td>
+<td><tt class="docutils literal"><span class="pre">is_forest(G)</span></tt></td>
+</tr>
+<tr class="row-even"><td>fundamental cycle/circuit</td>
+<td>TBW</td>
+</tr>
+<tr class="row-odd"><td>fundamental cut set</td>
+<td>TBW</td>
+</tr>
+<tr class="row-even"><td>girth</td>
+<td>UNKNOWN</td>
+</tr>
+<tr class="row-odd"><td>graph</td>
+<td><tt class="docutils literal"><span class="pre">Graph(...)</span></tt>, <tt class="docutils literal"><span class="pre">DiGraph(...)</span></tt>, <tt class="docutils literal"><span class="pre">MultiGraph(...)</span></tt>, <tt class="docutils literal"><span class="pre">MultiDiGraph(...)</span></tt>.</td>
+</tr>
+<tr class="row-even"><td>graph invariant</td>
+<td>TBW</td>
+</tr>
+<tr class="row-odd"><td>graph labeling</td>
+<td><tt class="docutils literal"><span class="pre">G.graph[label]</span> <span class="pre">=</span> <span class="pre">value</span></tt>, <tt class="docutils literal"><span class="pre">G.node[n][label]</span> <span class="pre">=</span> <span class="pre">value</span></tt>, <tt class="docutils literal"><span class="pre">G.edge[e][label]</span> <span class="pre">=</span> <span class="pre">value</span></tt>, etc.</td>
+</tr>
+<tr class="row-even"><td>Hamiltonian connected graph</td>
+<td>UNKNOWN</td>
+</tr>
+<tr class="row-odd"><td>Hamiltonian cycle/circuit</td>
+<td>UNKNOWN</td>
+</tr>
+<tr class="row-even"><td>Hamiltonian graph</td>
+<td>UNKNOWN</td>
+</tr>
+<tr class="row-odd"><td>Hamiltonian path</td>
+<td>UNKNOWN</td>
+</tr>
+<tr class="row-even"><td>head</td>
+<td>See initial vertex.</td>
+</tr>
+<tr class="row-odd"><td>height</td>
+<td>練習問題とする。</td>
+</tr>
+<tr class="row-even"><td>homomorphic</td>
+<td>UNKNOWN</td>
+</tr>
+<tr class="row-odd"><td>hyperedge</td>
+<td>UNKNOWN</td>
+</tr>
+<tr class="row-even"><td>in degree</td>
+<td><tt class="docutils literal"><span class="pre">G.in_degree(...)</span></tt>, <tt class="docutils literal"><span class="pre">G.in_degree_iter(...)</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td>incident</td>
+<td><tt class="docutils literal"><span class="pre">incidence_matrix(G,</span> <span class="pre">...)</span></tt></td>
+</tr>
+<tr class="row-even"><td>independence number</td>
+<td>UNKNOWN</td>
+</tr>
+<tr class="row-odd"><td>independent</td>
+<td>See independent set.</td>
+</tr>
+<tr class="row-even"><td>independent set</td>
+<td><tt class="docutils literal"><span class="pre">maximum_independent_set(G)</span></tt></td>
+</tr>
+<tr class="row-odd"><td>induced subgraph</td>
+<td><tt class="docutils literal"><span class="pre">subgraph(G,</span> <span class="pre">nbunch)</span></tt></td>
+</tr>
+<tr class="row-even"><td>infinite</td>
+<td>NetworkX は infinite graph をサポートしていないだろう。</td>
+</tr>
+<tr class="row-odd"><td>initial vertex</td>
+<td><tt class="docutils literal"><span class="pre">e</span> <span class="pre">=</span> <span class="pre">(v1,</span> <span class="pre">v2)</span></tt> とすると <tt class="docutils literal"><span class="pre">e1</span></tt> がそれ。</td>
+</tr>
+<tr class="row-even"><td>in-neighborhood</td>
+<td><tt class="docutils literal"><span class="pre">G.predecessors(n)</span></tt></td>
+</tr>
+<tr class="row-odd"><td>internally disjoint</td>
+<td>TBW</td>
+</tr>
+<tr class="row-even"><td>isolated vertex</td>
+<td><tt class="docutils literal"><span class="pre">isolates(G)</span></tt>, <tt class="docutils literal"><span class="pre">is_isolate(G,</span> <span class="pre">n)</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td>isomorphic</td>
+<td><div class="first last line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">is_isomorphic(G1,</span> <span class="pre">G2,</span> <span class="pre">...)</span></tt>,</div>
+<div class="line"><tt class="docutils literal"><span class="pre">could_be_isomorphic(G1,</span> <span class="pre">G2,</span> <span class="pre">...)</span></tt>, <tt class="docutils literal"><span class="pre">fast_could_be_isomorphic(G1,</span> <span class="pre">G2,</span> <span class="pre">...)</span></tt>, <tt class="docutils literal"><span class="pre">faster_could_be_isomorphic(G1,</span> <span class="pre">G2,</span> <span class="pre">...)</span></tt>.</div>
+<div class="line">戻り値の意味からして用法には要注意。</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>isthmus</td>
+<td>See bridge.</td>
+</tr>
+<tr class="row-odd"><td>k-ary tree</td>
+<td>練習問題とする。</td>
+</tr>
+<tr class="row-even"><td>k-clique</td>
+<td><tt class="docutils literal"><span class="pre">k_clique_communities(G,</span> <span class="pre">k,</span> <span class="pre">...)</span></tt></td>
+</tr>
+<tr class="row-odd"><td>k-colorable graph</td>
+<td>UNKNOWN</td>
+</tr>
+<tr class="row-even"><td>k-connected</td>
+<td>See k-vertex connected.</td>
+</tr>
+<tr class="row-odd"><td>k-edge connected</td>
+<td>TBW</td>
+</tr>
+<tr class="row-even"><td>k-vertex connected</td>
+<td>TBW</td>
+</tr>
+<tr class="row-odd"><td>kernel</td>
+<td>調査中</td>
+</tr>
+<tr class="row-even"><td>k-factor</td>
+<td>TBW</td>
+</tr>
+<tr class="row-odd"><td>knot</td>
+<td>TBW</td>
+</tr>
+<tr class="row-even"><td>k-partite graph</td>
+<td>NetworkX は k = 2 までサポートか。</td>
+</tr>
+<tr class="row-odd"><td>k-regular graph</td>
+<td>regular 系は調査中</td>
+</tr>
+<tr class="row-even"><td>k-spanner</td>
+<td>TBW</td>
+</tr>
+<tr class="row-odd"><td>k-th power</td>
+<td>TBW</td>
+</tr>
+<tr class="row-even"><td>leaf</td>
+<td>有向木 <tt class="docutils literal"><span class="pre">G</span></tt> に対して <tt class="docutils literal"><span class="pre">[n</span> <span class="pre">for</span> <span class="pre">n,d</span> <span class="pre">in</span> <span class="pre">G.out_degree().items()</span> <span class="pre">if</span> <span class="pre">d</span> <span class="pre">==</span> <span class="pre">0]</span></tt></td>
+</tr>
+<tr class="row-odd"><td>length of a cycle/circuit</td>
+<td><tt class="docutils literal"><span class="pre">len(ebunch)</span></tt>?</td>
+</tr>
+<tr class="row-even"><td>length of a walk</td>
+<td><tt class="docutils literal"><span class="pre">len(ebunch)</span></tt>?</td>
+</tr>
+<tr class="row-odd"><td>matching number</td>
+<td>TBW</td>
+</tr>
+<tr class="row-even"><td>maximum degree</td>
+<td><tt class="docutils literal"><span class="pre">max(degree(G).values())</span></tt></td>
+</tr>
+<tr class="row-odd"><td>minimum degree</td>
+<td><tt class="docutils literal"><span class="pre">min(degree(G).values())</span></tt></td>
+</tr>
+<tr class="row-even"><td>minor</td>
+<td>TBW</td>
+</tr>
+<tr class="row-odd"><td>multigraph</td>
+<td><tt class="docutils literal"><span class="pre">MultiGraph(...)</span></tt>, <tt class="docutils literal"><span class="pre">MultiDiGraph(...)</span></tt>.</td>
+</tr>
+<tr class="row-even"><td>multipartite graph</td>
+<td>NetworkX は k = 2 までサポートか。</td>
+</tr>
+<tr class="row-odd"><td>multiple</td>
+<td>See multigraph.</td>
+</tr>
+<tr class="row-even"><td>multiple edge</td>
+<td>練習問題とする。</td>
+</tr>
+<tr class="row-odd"><td>node</td>
+<td><div class="first last line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">G.nodes(...)</span></tt>,</div>
+<div class="line"><tt class="docutils literal"><span class="pre">G.add_node(n,</span> <span class="pre">...)</span></tt>, <tt class="docutils literal"><span class="pre">G.add_nodes_from(nodes,</span> <span class="pre">...)</span></tt>,</div>
+<div class="line"><tt class="docutils literal"><span class="pre">G.remove_node(n)</span></tt>, <tt class="docutils literal"><span class="pre">G.remove_nodes_from(nodes)</span></tt>,</div>
+<div class="line"><tt class="docutils literal"><span class="pre">G.has_node(n)</span></tt>, etc.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>null graph</td>
+<td><tt class="docutils literal"><span class="pre">null_graph()</span></tt></td>
+</tr>
+<tr class="row-odd"><td>odd cycle/circuit</td>
+<td><tt class="docutils literal"><span class="pre">(i</span> <span class="pre">for</span> <span class="pre">i</span> <span class="pre">in</span> <span class="pre">simple_cycles(G)</span> <span class="pre">if</span> <span class="pre">len(i)</span> <span class="pre">%</span> <span class="pre">2</span> <span class="pre">==</span> <span class="pre">1)</span></tt></td>
+</tr>
+<tr class="row-even"><td>order</td>
+<td><tt class="docutils literal"><span class="pre">G.order()</span></tt>, <tt class="docutils literal"><span class="pre">G.number_of_nodes()</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td>orientation</td>
+<td>TBW</td>
+</tr>
+<tr class="row-even"><td>oriented graph</td>
+<td>directed graph と同義ではないのか。</td>
+</tr>
+<tr class="row-odd"><td>out degree</td>
+<td><tt class="docutils literal"><span class="pre">G.out_degree(...)</span></tt>, <tt class="docutils literal"><span class="pre">G.out_degree_iter(...)</span></tt>.</td>
+</tr>
+<tr class="row-even"><td>outer face</td>
+<td>TBW</td>
+</tr>
+<tr class="row-odd"><td>outerplanar graph</td>
+<td>TBW</td>
+</tr>
+<tr class="row-even"><td>outerplane graph</td>
+<td>TBW</td>
+</tr>
+<tr class="row-odd"><td>out-neighborhood</td>
+<td><tt class="docutils literal"><span class="pre">G.successors(n)</span></tt></td>
+</tr>
+<tr class="row-even"><td>pancyclic graph</td>
+<td>練習問題とする。</td>
+</tr>
+<tr class="row-odd"><td>parent</td>
+<td><tt class="docutils literal"><span class="pre">G.predecessors(n)</span></tt></td>
+</tr>
+<tr class="row-even"><td>partite set</td>
+<td>TBW</td>
+</tr>
+<tr class="row-odd"><td>path</td>
+<td><tt class="docutils literal"><span class="pre">G.add_path(...)</span></tt>, 調査中。</td>
+</tr>
+<tr class="row-even"><td>perfect matching</td>
+<td>TBW</td>
+</tr>
+<tr class="row-odd"><td>peripheral vertex</td>
+<td><tt class="docutils literal"><span class="pre">ecc</span> <span class="pre">=</span> <span class="pre">eccentricity(G);</span> <span class="pre">M</span> <span class="pre">=</span> <span class="pre">max(ecc);</span> <span class="pre">(k</span> <span class="pre">for</span> <span class="pre">k,</span> <span class="pre">v</span> <span class="pre">in</span> <span class="pre">ecc.items()</span> <span class="pre">if</span> <span class="pre">v</span> <span class="pre">==</span> <span class="pre">M)</span></tt></td>
+</tr>
+<tr class="row-even"><td>planar graph</td>
+<td>TBW</td>
+</tr>
+<tr class="row-odd"><td>plane graph</td>
+<td>TBW</td>
+</tr>
+<tr class="row-even"><td>pseudograph</td>
+<td><tt class="docutils literal"><span class="pre">is_pseudographical(...)</span></tt></td>
+</tr>
+<tr class="row-odd"><td>radius</td>
+<td><tt class="docutils literal"><span class="pre">radius(G,</span> <span class="pre">...)</span></tt></td>
+</tr>
+<tr class="row-even"><td>reachable</td>
+<td><tt class="docutils literal"><span class="pre">single_source_dijkstra(G,</span> <span class="pre">n1,</span> <span class="pre">n2=None,</span> <span class="pre">...)</span></tt></td>
+</tr>
+<tr class="row-odd"><td>regular</td>
+<td>See regular graph.</td>
+</tr>
+<tr class="row-even"><td>regular graph</td>
+<td><tt class="docutils literal"><span class="pre">d</span> <span class="pre">=</span> <span class="pre">degree(G);</span> <span class="pre">all(d[0]</span> <span class="pre">==</span> <span class="pre">i</span> <span class="pre">for</span> <span class="pre">i</span> <span class="pre">in</span> <span class="pre">d.values())</span></tt></td>
+</tr>
+<tr class="row-odd"><td>root node</td>
+<td>有向木 <tt class="docutils literal"><span class="pre">G</span></tt> に対して <tt class="docutils literal"><span class="pre">[n</span> <span class="pre">for</span> <span class="pre">n,d</span> <span class="pre">in</span> <span class="pre">G.in_degree().items()</span> <span class="pre">if</span> <span class="pre">d</span> <span class="pre">==</span> <span class="pre">0][0]</span></tt></td>
+</tr>
+<tr class="row-even"><td>rooted tree</td>
+<td>See arborescence.</td>
+</tr>
+<tr class="row-odd"><td>semiregular</td>
+<td>regular 系は調査中</td>
+</tr>
+<tr class="row-even"><td>separating set</td>
+<td>See cut set.</td>
+</tr>
+<tr class="row-odd"><td>simple</td>
+<td>See simple graph.</td>
+</tr>
+<tr class="row-even"><td>simple cycle/circuit</td>
+<td><tt class="docutils literal"><span class="pre">simple_cycles(G)</span></tt>. See also simple path.</td>
+</tr>
+<tr class="row-odd"><td>simple graph</td>
+<td><tt class="docutils literal"><span class="pre">Graph()</span></tt>, <tt class="docutils literal"><span class="pre">DiGraph()</span></tt>. 多重でないグラフの意。</td>
+</tr>
+<tr class="row-even"><td>simple path</td>
+<td><tt class="docutils literal"><span class="pre">all_simple_paths(G,</span> <span class="pre">n1,</span> <span class="pre">n2)</span></tt> ですべての路が求まる。</td>
+</tr>
+<tr class="row-odd"><td>sink</td>
+<td><tt class="docutils literal"><span class="pre">(n</span> <span class="pre">for</span> <span class="pre">n</span> <span class="pre">in</span> <span class="pre">G</span> <span class="pre">if</span> <span class="pre">G.out_degree(n)</span> <span class="pre">==</span> <span class="pre">0)</span></tt></td>
+</tr>
+<tr class="row-even"><td>size of a graph</td>
+<td><tt class="docutils literal"><span class="pre">G.size(...)</span></tt>. エッジの本数もしくはエッジの重みの和。</td>
+</tr>
+<tr class="row-odd"><td>source</td>
+<td><tt class="docutils literal"><span class="pre">(n</span> <span class="pre">for</span> <span class="pre">n</span> <span class="pre">in</span> <span class="pre">G</span> <span class="pre">if</span> <span class="pre">G.in_degree(n)</span> <span class="pre">==</span> <span class="pre">0)</span></tt></td>
+</tr>
+<tr class="row-even"><td>spanning matching</td>
+<td>matching 系は調査中</td>
+</tr>
+<tr class="row-odd"><td>spanning subgraph</td>
+<td><tt class="docutils literal"><span class="pre">G</span></tt> から任意のエッジ（複数可）を取り除けば得られる。</td>
+</tr>
+<tr class="row-even"><td>spanning tree</td>
+<td><tt class="docutils literal"><span class="pre">nx.minimum_spanning_tree(G,</span> <span class="pre">...)</span></tt>, ただし入力によっては tree というよりは forest が得られる。</td>
+</tr>
+<tr class="row-odd"><td>stable set</td>
+<td>See independent set.</td>
+</tr>
+<tr class="row-even"><td>star</td>
+<td><tt class="docutils literal"><span class="pre">G.add_star(...)</span></tt>, <tt class="docutils literal"><span class="pre">star_graph(k,</span> <span class="pre">...)</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td>staset</td>
+<td>See independent set.</td>
+</tr>
+<tr class="row-even"><td>strongly connected</td>
+<td><tt class="docutils literal"><span class="pre">is_strongly_connected(G)</span></tt></td>
+</tr>
+<tr class="row-odd"><td>strongly connected component</td>
+<td><div class="first last line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">strongly_connected_components(G)</span></tt>,</div>
+<div class="line"><tt class="docutils literal"><span class="pre">strongly_connected_component_subgraphs(G)</span></tt>,</div>
+<div class="line"><tt class="docutils literal"><span class="pre">number_strongly_connected_components(G)</span></tt>, etc.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>strongly regular graph</td>
+<td>練習問題とする。</td>
+</tr>
+<tr class="row-odd"><td>subgraph</td>
+<td><div class="first last line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">subgraph(G,</span> <span class="pre">nbunch)</span></tt> による部分グラフは指定点集合からの induced subgraph である。</div>
+<div class="line"><tt class="docutils literal"><span class="pre">attracting_component_subgraphs(G,</span> <span class="pre">...)</span></tt>, etc. 関連機能多数。</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>subtree</td>
+<td><tt class="docutils literal"><span class="pre">nx.is_tree(H)</span></tt>, <tt class="docutils literal"><span class="pre">H</span></tt> はグラフ <tt class="docutils literal"><span class="pre">G</span></tt> の部分グラフ。</td>
+</tr>
+<tr class="row-odd"><td>tail</td>
+<td>See terminal vertex.</td>
+</tr>
+<tr class="row-even"><td>terminal vertex</td>
+<td><tt class="docutils literal"><span class="pre">e</span> <span class="pre">=</span> <span class="pre">(v1,</span> <span class="pre">v2)</span></tt> とすると <tt class="docutils literal"><span class="pre">e2</span></tt> がそれ。</td>
+</tr>
+<tr class="row-odd"><td>theta graph</td>
+<td>TBW</td>
+</tr>
+<tr class="row-even"><td>thickness</td>
+<td>TBW</td>
+</tr>
+<tr class="row-odd"><td>totally disconnected graph</td>
+<td>TBW</td>
+</tr>
+<tr class="row-even"><td>tournament</td>
+<td><tt class="docutils literal"><span class="pre">complete_graph(k,</span> <span class="pre">...).to_directed()</span></tt></td>
+</tr>
+<tr class="row-odd"><td>traceable graph</td>
+<td>TBW</td>
+</tr>
+<tr class="row-even"><td>traceable path</td>
+<td>TBW</td>
+</tr>
+<tr class="row-odd"><td>trail</td>
+<td>より条件の厳しい path 系の機能で代用する？</td>
+</tr>
+<tr class="row-even"><td>tree</td>
+<td><div class="first last line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">is_tree(G)</span></tt>. <tt class="docutils literal"><span class="pre">G</span></tt> が無向でも有向でも多重でも機能する（単純無向グラフ扱いして判定する）。</div>
+<div class="line"><tt class="docutils literal"><span class="pre">dfs_tree(G,</span> <span class="pre">n)</span></tt> で <tt class="docutils literal"><span class="pre">G</span></tt> からノード <tt class="docutils literal"><span class="pre">n</span></tt> を root とする有向木を生成できる。</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>triangle</td>
+<td><tt class="docutils literal"><span class="pre">triangles(G,</span> <span class="pre">...)</span></tt></td>
+</tr>
+<tr class="row-even"><td>tripartite graph</td>
+<td>NetworkX は k = 2 までサポートか。</td>
+</tr>
+<tr class="row-odd"><td>undirected</td>
+<td>See undirected graph.</td>
+</tr>
+<tr class="row-even"><td>undirected edge</td>
+<td><tt class="docutils literal"><span class="pre">Graph</span></tt>, <tt class="docutils literal"><span class="pre">MultiGraph</span></tt> の edge の意。</td>
+</tr>
+<tr class="row-odd"><td>undirected graph</td>
+<td><div class="first last line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">Graph</span></tt>, <tt class="docutils literal"><span class="pre">MultiGraph</span></tt>. <tt class="docutils literal"><span class="pre">Di</span></tt> を冠していないクラスが無向グラフ。</div>
+<div class="line"><tt class="docutils literal"><span class="pre">not</span> <span class="pre">is_directed(G)</span></tt>, <tt class="docutils literal"><span class="pre">G.to_undirected()</span></tt>.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>unicyclic graph</td>
+<td>TBW</td>
+</tr>
+<tr class="row-odd"><td>unidentified</td>
+<td>TBW</td>
+</tr>
+<tr class="row-even"><td>universal graph</td>
+<td>See complete graph.</td>
+</tr>
+<tr class="row-odd"><td>unweighted</td>
+<td>NetworkX のエッジ関連アルゴリズムは、原則的にエッジの weight を参照するか否かを指定できる。</td>
+</tr>
+<tr class="row-even"><td>valency</td>
+<td>See degree.</td>
+</tr>
+<tr class="row-odd"><td>walk</td>
+<td>より条件の厳しい path 系の機能で代用する？</td>
+</tr>
+<tr class="row-even"><td>weakly connected</td>
+<td><tt class="docutils literal"><span class="pre">is_weakly_connected(G)</span></tt></td>
+</tr>
+<tr class="row-odd"><td>weakly connected components</td>
+<td><tt class="docutils literal"><span class="pre">number_weakly_connected_components(G)</span></tt>, <tt class="docutils literal"><span class="pre">weakly_connected_components(G)</span></tt>.</td>
+</tr>
+<tr class="row-even"><td>weight of a subgraph</td>
+<td>練習問題とする。</td>
+</tr>
+<tr class="row-odd"><td>weighted</td>
+<td>See weighted graph.</td>
+</tr>
+<tr class="row-even"><td>weighted graph</td>
+<td><div class="first last line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">G.edge[e]['weight']</span> <span class="pre">=</span> <span class="pre">value</span></tt></div>
+<div class="line"><tt class="docutils literal"><span class="pre">G.add_weighted_edges_from(...)</span></tt> のように明示的に重み付きエッジをセットすることもある。</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>次に頻出の同義語リストを示す。なるべく先頭の単語を優先して記した。</p>
+<ul class="simple">
+<li>グラフ graph/network</li>
+<li>ノード node/vertex/point/site</li>
+<li>エッジ edge/link/branch/line/(arc)</li>
+<li>閉路 cycle/circuit/closed path/loop (not self-loop)</li>
+<li>道 walk/route</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id10">
+<h2><a class="toc-backref" href="#id23">さらなるグラフの応用例</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">Dijkstra 法だけではグラフライブラリーのノートとしては物足りない。
 本格的なアルゴリズムの応用例を紹介したい。</p>
+</div>
 </div>
 </div>
 
@@ -295,7 +1031,7 @@ NetworkX の提供する次の関数を利用することができるようだ�
     <div class="related">
       <h3>Navigation</h3>
       <ul>
-        <li><a href="index.html">読書ノート v1.3.0</a> &raquo;</li> 
+        <li><a href="index.html">読書ノート v1.4.0dev</a> &raquo;</li> 
       </ul>
     </div>
     <div id="footer">
@@ -312,7 +1048,7 @@ NetworkX の提供する次の関数を利用することができるようだ�
       </div>
       <div id="footer_spacer">
         <p>
-          Last updated at 2014/11/15 (Sat) 00:38:32.
+          Last updated at 2014/12/02 (Tue) 00:50:07.
         </p>
       </div>
     </div>
