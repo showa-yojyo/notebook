@@ -2,7 +2,7 @@
 #
 
 # You can set these variables from the command line.
-SPHINXOPTS    =
+SPHINXOPTS    = -D pngmath_latex=D:/texlive/2014/bin/win32/latex.exe
 SPHINXBUILD   = sphinx-build
 PAPER         =
 BUILDDIR      = build
