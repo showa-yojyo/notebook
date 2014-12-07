@@ -26,9 +26,9 @@ SciPy 利用ノート
 
    SciPy Reference Guide に倣い、以降のコード片においては、
    あらかじめ各種 ``import`` を次のようにしたものとする。
-   
+
    .. code-block:: python3
-   
+
       import numpy as np
       import scipy as sp
       import matplotlib as mpl
@@ -89,7 +89,7 @@ SciPy_
      ... ドットの列 ...
      ----------------------------------------------------------------------
      Ran 16418 tests in 770.217s
-     
+
      OK (KNOWNFAIL=277, SKIP=1171)
      <nose.result.TextTestResult run=16418 errors=0 failures=0>
      >>>

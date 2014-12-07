@@ -218,7 +218,7 @@ NumPy Reference の Array creation routines のセクションできれいにま
 
 * array オブジェクトの生成方法の基本は関数 ``array`` 呼び出しだ。
   関数 ``array`` はたいていの場合 ``ndarray`` 型のオブジェクトを返すようだ。
-  
+
   .. code-block:: python3
 
      import numpy as np

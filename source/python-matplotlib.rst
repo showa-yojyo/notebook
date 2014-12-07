@@ -160,18 +160,18 @@ Matplotlib には current figure と current axes という概念がある。
 * ``plt`` のプロットコマンドはすべて current axes に作用する。
 
   .. code-block:: python3
-     
+
      import matplotlib as mpl
      import matplotlib.pyplot as plt
-     
+
      fig = plt.figure(1) # current figure: 1 とする。
      plt.subplot(211) # 縦 2 横 1 分割で current axes: 1 になる。
-     
+
      # ... ここに来る plt. で始まるプロット命令はすべて
      # 二分割された上の axes に適用される。
-     
+
      plt.subplot(212) # 縦 2 横 1 分割で current axes: 2 になる。
-     
+
      # ... ここに来る plt. で始まるプロット命令はすべて
      # 二分割された下の axes に適用される。
 
@@ -376,9 +376,9 @@ rc パラメーターでバックエンドを指定する。
 
      import matplotlib as mpl
      mpl.use('PDF')  # PDF でイメージが欲しい。
-     
+
      # ... プロッティングコマンド群がここに来る。
-     
+
      plt.savefig('output')  # ファイル output.pdf ができる。
 
 ヒストグラムを描く

@@ -273,7 +273,7 @@ Transparancy
   ``ONE_MINUS_SRC_ALPHA``, respectively> (p. 140)
 
   つまり、ソースのアルファ値のみをブレンド率としている。
-  
+ 
   .. code-block:: c
 
      glEnable(GL_BLEND);

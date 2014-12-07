@@ -154,7 +154,7 @@ Hidden-Surface Removal
 * オブジェクトの奥行きを管理するバッファを z-buffer or depth buffer という。
 * <In most programs, the depth buffer should be cleared whenever
   the color buffer is cleared> (p. 91)
-  
+
   .. code-block:: c
 
      glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
@@ -241,11 +241,11 @@ Perspective Projections
 -----------------------
 * 透視図法投影を実現するための行列操作を習得する。
 * ``glFrustum(left, right, bottom, top, near, far)``
-  
+
   * 引数リストは ``glOrtho`` と同じ。
   * :math:`far > near > 0` に注意。
   * ほぼ必ず以下の手順で利用する。
-    
+
     .. code-block:: c
 
        glMatrixMode(GL_PROJECTION);
@@ -429,7 +429,7 @@ Setting Matrices Directly
      \right) \]
 
   で与えられる。コードは大体次のような構造になる。
-  
+
   .. code-block:: c
 
      glMatrixMode(GL_MODELVIEW);
@@ -468,7 +468,7 @@ Instancing
   always want to scale the object to its desired size, then
   orient it, and finally translate it to its desired position
   in that order> (p. 114)
-  
+
   .. code-block:: c
 
      glMatrixMode(GL_MODELVIEW);

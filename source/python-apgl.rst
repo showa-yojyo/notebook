@@ -73,7 +73,7 @@ or the unittest2 testing framework for Python 2.3-2.6> (p. 2)
    ... ドットの列 ...
    ----------------------------------------------------------------------
    Ran 438 tests in 20.504s
-   
+
    FAILED (failures=14, errors=26, skipped=148)
    >>>
 
@@ -113,11 +113,11 @@ APGL_ のウェブページに "An Introduction to APGL" という PDF ファイ
 
 * ``SparseGraph`` はデフォルトで SciPy の ``csr_matrix`` で構築される。
   これは何かというと、rows に対するアクセスが速い行列だ。
-  
+
   * デフォルトの行列型を使いたくない場合は、
     グラフコンストラクターのキーワード引数 ``W`` に
     呼び出し側が用意した別の行列インスタンスを渡すことになる。
-    
+
     ``csr_matrix`` よりは ``lil_matrix`` がよいようだ？
 
 * 隣接頂点列を得るには、グラフメソッド ``neighbours`` を呼ぶ。

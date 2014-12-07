@@ -73,7 +73,7 @@ Modern C++ Design 読書ノート 1/3
 
    // こういう定義がある場合、
    template <class T, class U> class SmartPtr { ... };
-   
+
    // この定義は部分特殊化となる。
    template <class U> class SmartPtr<Widget, U>{ ... };
 
@@ -126,7 +126,7 @@ Modern C++ Design 読書ノート 1/3
 
 * <クラスをポリシーに分解する際、
   **直交性のある** (orthogonal) 切り口を見つけ出すことが大変重要になります> (p. 21)
-  
+
   <お互いが完全に独立した> (p. 21) 役割になるように、
   ポリシー分割するのがよいということだな。
   あるポリシーが別のポリシーに干渉するようではまずい。
@@ -141,7 +141,7 @@ Modern C++ Design 読書ノート 1/3
 
    template<bool> struct CompileTimeError;
    template<> struct CompileTimeError<true>{};
-   
+
    #define STATIC_CHECK(expr) \
       (CompileTimeError<(expr) != 0>())
 
@@ -157,14 +157,14 @@ Modern C++ Design 読書ノート 1/3
    {
       ...
    };
-   
+
    // テンプレート全体を明示的に特殊化する場合の例。
    template <>
    class Widget<ModalDialog, MyController>
    {
       ...
    };
-   
+
    // 任意の Window や MyController に対して特殊化する場合（部分特殊化）。
    template <class Window>
    class Widget<Window, MyController>
@@ -225,7 +225,7 @@ Modern C++ Design 読書ノート 1/3
    {
      typedef T Result;
    };
-   
+
    template <typename T, typename U>
    struct Select<false, T, U>
    {
@@ -432,7 +432,7 @@ Modern C++ Design 読書ノート 1/3
        void* Allocate(size_t blockSize);
        void Deallocate(void* p, size_t blockSize);
        void Release();
-       
+
        unsinged char* pData_;
        unsinged char firstAvailableBlock_;
        unsinged char blocksAvailable_;
@@ -484,13 +484,13 @@ Modern C++ Design 読書ノート 1/3
        std::vector<FixedAllocator> pool_;
        FixedAllocator* pLastAlloc_;
        FixedAllocator* pLastDealloc_;
-       
+
    public:
        SmallObjAllocator(size_t chunkSize, size_t maxObjectSize);
-       
+
        void* Allocate(size_t numBytes);
        void Deallocate(void* p, size_t size);
-       
+
        ...
    };
 

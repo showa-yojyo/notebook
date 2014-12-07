@@ -170,7 +170,7 @@ PIL のときのコードをほぼそのまま再利用できる。
 
    # Photoshop で言うところの背景レイヤーになる画像。
    bkgnd = Image.new('RGBA', img.size, 'blue')
-   
+
    # これではダメ。
    #bkgnd.paste(img, None)
    # これが正解。

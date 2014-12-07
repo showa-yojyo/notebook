@@ -80,17 +80,17 @@ Jinja2 Documentation から引用：
 
 * コンストラクタの引数はすべてキーワード引数。
   個人的によく使うキーワード引数をメモしておくと後で役に立つ。
-  
+
   ``autoescape``
      XML コード用のエスケープをやってくれる。
-  
+
   ``newline_sequence``
      デフォルト値が ``'\n'`` なので Windows 環境では注意する。
 
   ``loader``
      ローダーを指定。
      テンプレートをどこかからオブジェクトへロードする。
-     
+
      なおローダーを指定しないで利用することも可能。
      その場合は ``get_template`` ではなく ``from_string`` を利用して
      テンプレートオブジェクトを得ることになる。
@@ -104,14 +104,14 @@ Jinja2 Documentation から引用：
 * 先の Hello world の例のように、直接コンストラクターからオブジェクトを生成することもできるが、
   ``Template`` オブジェクトは通常 ``Environment`` オブジェクトの
   ``get_template`` メソッドから得る。
-  
+
   ただし、ローダーを指定せずに ``Environment`` を生成した場合は、
   ``from_string`` メソッドで ``Template`` オブジェクトを得ることになる。
 
   .. code-block:: python3
 
      MY_TEMPLATE = 'Hello {{ name }}!'
-     
+
      env = Environment()
      # ...
      template = env.from_string(MY_TEMPLATE)
@@ -177,7 +177,7 @@ Jinja2 Documentation からそのまま引用してきたテンプレート例�
 
 * ``{% ... %}`` や ``{{ ... }}`` が可変部分。
    それ以外の部分はすべて定型文。
-   
+
    * ``{% ... %}`` は変数宣言・代入やループ処理といったものを実行をさせる。
    * ``{{ ... }}`` は結果の表示をさせる。
 
@@ -322,7 +322,7 @@ for ブロック
 * 次のコード例のように、再帰ループを記述することができる。
 
   .. code-block:: jinja
-  
+
      <ul class="sitemap">
      {%- for item in sitemap recursive %}
          <li><a href="{{ item.href|e }}">{{ item.title }}</a>
@@ -388,7 +388,7 @@ Jinja2 Documentation からそのまま引用した例だが：
        </div>
    </div>
    {%- endmacro %}
-   
+
    {% call render_dialog('Hello World') %}
        This is a simple dialog rendered by using a macro and
        a call block.
@@ -539,12 +539,12 @@ Python コード
    ==================================================
    2011 年 4 月の日記
    ==================================================
-   
+
    --------------------------------------------------
    2011/04/01 (Fri)
    --------------------------------------------------
    （この日の日記をここに書く）
-   
+
    --------------------------------------------------
    2011/04/02 (Sat)
    --------------------------------------------------

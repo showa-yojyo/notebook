@@ -161,7 +161,7 @@ Command
   Receiver オブジェクトをパラメータ化するためにクラステンプレートを使うことができる> (p. 257)
 
   .. code-block:: c++
-  
+
      // p. 257
      template <class Receiver>
      class SimpleCommand : public Command{
@@ -204,7 +204,7 @@ Interpreter
   これは先に利用例を見てから、各メソッドを見ていくのが理解がいいと思う。
 
   .. code-block:: c++
-  
+
      // p. 272 一部改変
 
      VariableExp* x = new VariableExp("X");
@@ -267,7 +267,7 @@ Iterator
 * <走査の最中に aggregate に要素を追加したり、また削除したりすると、
   ある要素に 2 回アクセスしてしまったり、
   またはまったくアクセスしなかったりということが起こりかねない> (p. 279)
-  
+
   これはよくミスるんだ。
 
 * <iterator には特権的なアクセス権を持たせてもよい> (p. 280)
@@ -407,7 +407,7 @@ State
 
 * ``TCPConnection`` の例では、
   established, listen, closed の状態をそれぞれクラスとして表現する。
-  
+
   <このパターンでキーとなる考え方は、
   ``TCPState`` クラスと呼ばれる抽象クラスを導入することである> (p. 325)
 
@@ -483,9 +483,9 @@ State
     まず SYN や ACK の送受信処理を行ってから、最後に
 
     .. code-block:: c++
-    
+
        ChangeState(t, TCPEstablished::Instance());
-    
+
     のようにする。
 
 使用例
@@ -653,7 +653,7 @@ Visitor
   * ``Visitor``
   * ``ElementA``, ``ElementB``
   * ``ConpositeElement``
-  
+
   クラスを定義してみよう。
   ``CompositeElement::Accept`` の実装方法に注意。
 
@@ -674,7 +674,7 @@ Visitor
 * Visitor の利用例コードを見落としがちだが、以下のようになる。
 
   .. code-block:: c++
-  
+
      Equipment* component;
 
      // ... component をどこからか得る。

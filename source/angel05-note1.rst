@@ -66,7 +66,7 @@ What's in OpenGL
   4. Windowing functions - 
      こういう関数は GLUT に入っている。
   5. Control functions - OpenGL の色々な機能を有効にする関数
-  
+
   このうち、2. から 5. までが state-changing な関数だ。
 
 OpenGL Versions and Extensions
@@ -289,7 +289,7 @@ Polygon Types
   :factor, units: 謎のパラメータ。
 
   ``glPolygonOffset`` 関数は次のようにして利用する。
-  
+
   .. code-block:: c
 
      glPolygonOffset(1.0, 1.0);
@@ -371,7 +371,7 @@ The Reshape Callback
   callback> (p. 49)
 
 * ``glutReshapeFunc(f)``
-  
+
   :f: ``void (*)(int width, int height)`` 型の関数のアドレス。
       <A display callback is invoked automatically after executing ``f()``> (p. 49)
 
@@ -477,7 +477,7 @@ Mouse Motion
 * ``glutEntryFunc(f)``: マウスキャプチャーに使うのか？
 
   :f: ``void (*)(state)`` 型関数のアドレス
-  
+
     :state: ``GLUT_(ENTERED|LEFT)``
 
 The NULL Callback

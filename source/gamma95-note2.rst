@@ -139,7 +139,7 @@ Factory Method
   のどのサブクラスがインスタンス化されるのかを事前に知ることはできない> (p. 115)
   ので、Application クラスに Document を生成するオーバーライド可能な
   メソッド CreateDocument を用意し、ユーザーにサブクラス型を返すような実装をさせる。
-  
+
   この CreateDocument みたいなものを一般に factory method と呼ぶ。
 
 * <クラス内部でオブジェクトを生成する場合、
@@ -389,7 +389,7 @@ Bridge
   すべて WindowImp のメソッドで実装している。
 
   .. code-block:: c++
-  
+
      // p. 170
      void Window::DrawRect(const Point& p1, const Point& p2){
          WindowImp* imp = GetWindowImp();
@@ -461,7 +461,7 @@ Decorator クラスの構造は、
 
 * <Decorator パターンを用いると、decorator を付けたりはずしたりして、
   実行時に簡単に責任の追加や削除ができる> (p. 190) 
-  
+
   個人的には削除の例は見たことがない。
 
 * <1 つの単純なクラスを定義し、decorator を用いて機能を段階的に追加していく> (p. 190)

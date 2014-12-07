@@ -83,7 +83,7 @@ Python コードから Pygments の機能を利用する
    from pygments import highlight
    from pygments.lexers import PythonLexer
    from pygments.formatters import HtmlFormatter
-   
+  
    code = 'print "Hello World"'
    print(highlight(code, PythonLexer(), HtmlFormatter()))
 

@@ -148,7 +148,7 @@ collect-only オプション -- テスト名だけを調べる
    #4 test_shuffle (testrandom.TestSequenceFunctions) ... ok
    #5 test_default_size (testwidget.WidgetTestCase) ... ok
    #6 test_resize (testwidget.WidgetTestCase) ... ok
-   
+
    ----------------------------------------------------------------------
    Ran 10 tests in 0.070s
 
@@ -217,20 +217,20 @@ with-coverage オプション -- コードカバレッジ
    test_choice (testrandom.TestSequenceFunctions) ... ok
    test_sample (testrandom.TestSequenceFunctions) ... ok
    test_shuffle (testrandom.TestSequenceFunctions) ... ok
-   
+
    Name         Stmts   Miss  Cover   Missing
    ------------------------------------------
    ... この行にファイルパスの情報が入るが省略 ...
    testrandom      21      3    86%   25, 30-31
    ----------------------------------------------------------------------
    Ran 3 tests in 0.010s
-   
+
    OK
 
 with-profile オプション -- プロファイリング
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .. note::
-   
+
    筆者環境では Nose 1.3.3 でこの機能が利用できなくなっている。
 
 ``--with-profile`` オプションで、
@@ -240,9 +240,9 @@ with-profile オプション -- プロファイリング
 .. code-block:: console
 
             4101 function calls (4084 primitive calls) in 0.201 CPU seconds
-   
+
       Ordered by: cumulative time
-   
+
       ncalls  tottime  percall  cumtime  percall filename:lineno(function)
          7/1    0.000    0.000    0.201    0.201 d:\python26\lib\site-packages\nose\suite.py:175(__call__)
          7/1    0.002    0.000    0.201    0.201 d:\python26\lib\site-packages\nose\suite.py:196(run)
@@ -266,7 +266,7 @@ with-profile オプション -- プロファイリング
 
 * ``-m REGEX`` 系オプションで「テストとみなしたいファイル・ディレクトリー・関数・クラス名にマッチする」
   正規表現を指定できる。
-  
+
   デフォルトで ``(?:^|[\b_\.\-])[Tt]est`` になっていることを押させておけばよい。
 
 * ``-p`` または ``--plugins`` オプションで、有効なプラグインの一覧を表示。
@@ -373,17 +373,17 @@ Nose のバージョンが上がってから勉強しに行こう。
 
   * Jason Pellerin という人物が作者のようだ。
     2005 年からコピーライトが発生している。
-  
+
   * Nose という名前はどうして付いたのか。
     作者は discover の同義語を類語辞書で調べたようで、
     短くてマヌケな名前で、なおかつ spy の意味を含まぬものを採用したらしい。
-    
+
     nose は動詞だとクンカクンカするとかいう意味なのでは。
-  
+
   * Nose は `py.test`_ というテスティングフレームワークにインスパイヤされて作ったとある。
     以前の py.test はインストールが難しく、
     unittest ベースでなかったとのこと。
-  
+
   * Nose のライセンスは LGPL とかいうものらしい。
     バージョン 2 以降ならば、利用者が好きなライセンスを選択してよいとか。
 
@@ -406,10 +406,10 @@ Nose のバージョンが上がってから勉強しに行こう。
        #5 test_finalizer (jinja2.testsuite.api.ExtendedAPITestCase) ... ok
        ... 省略 ...
        #311 test_markup_leaks (jinja2.testsuite.utils.MarkupLeakTestCase) ... ok
-       
+
        ----------------------------------------------------------------------
        Ran 311 tests in 0.139s
-       
+
        OK
 
   * Matplotlib_ の ``tests`` フォルダーはテストパッケージの構成になっている。
@@ -418,10 +418,10 @@ Nose のバージョンが上がってから勉強しに行こう。
   * NumPy_ は Nose をうまく使いこなしているようだ。
     ``import numpy; help(numpy.test)`` してみよう。
     テストの単位をわかりやすく分類する努力を払っているのがわかる。
-    
+
     例えば線形代数サブパッケージだけテストしたいのならば、
     Python インタープリターから次のようにタイプしてみるだけでよい。
-    
+
     .. code-block:: pycon
 
        >>> import numpy
@@ -440,10 +440,10 @@ Nose のバージョンが上がってから勉強しに行こう。
        ... 省略 ...
        Ticket 627. ... ok
        test_svd_no_uv (test_regression.TestRegression) ... ok
-       
+
        ----------------------------------------------------------------------
        Ran 118 tests in 42.034s
-       
+
        OK (SKIP=2)
        <nose.result.TextTestResult run=118 errors=0 failures=0>
 

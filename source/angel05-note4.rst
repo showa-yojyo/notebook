@@ -130,7 +130,7 @@ Borders and Sizing
 
 * フレームバッファ内のイメージからテクスチャーマップを得ることができる。
   ただし「出力先」はテクスチャーメモリー。
-  
+ 
   .. code-block:: c
 
      glCopyTexImage2D(target, level, iformat, x, y, w, h, border);

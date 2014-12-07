@@ -156,7 +156,7 @@ myform.Ui_Form インスタンスを作成する方法
        window = QWidget()
        ui = Ui_Form()
        ui.setupUi(window)
-   
+
        window.show()
        sys.exit(app.exec_())
 
@@ -214,7 +214,7 @@ ui ファイルから直接 Widget をロードする方法
 
    import sys
    from PyQt4 import QtGui, uic
-   
+
    if __name__ == '__main__':
        app = QtGui.QApplication(sys.argv)
        window = uic.loadUi('myform.ui')
@@ -244,9 +244,9 @@ ui ファイルから直接 Widget をロードする方法
    自分でクラスを実装すればよい。
 
    .. code-block:: python
-   
+
       from PyQt4 import QtGui
-      
+
       class QMyTextBrowser(QtGui.QTextBrowser):
           ...
 

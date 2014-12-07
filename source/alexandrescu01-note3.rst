@@ -31,7 +31,7 @@ Abstract Factory デザイン・パターンを使用することによって ``
        virtual Monster* MakeMonster() = 0;
        virtual SuperMonster* MakeSuperMonster() = 0;
    };
-   
+
    class EasyLevelEnemyFactory : public AbstractEnemyFactory
    {
        ...
@@ -65,7 +65,7 @@ Abstract Factory デザイン・パターンを使用することによって ``
        virtual T* DoCreate(Type2Type<T>) = 0;
        virtual ~AbstractFactoryUnit() {}
    };
-   
+
    template
    <
        class TList,
@@ -118,7 +118,7 @@ Abstract Factory デザイン・パターンを使用することによって ``
            return new ConcreteProduct;
        }
    };
-   
+
    // p. 239
    template
    <
@@ -142,7 +142,7 @@ Prototype バージョンを設計する。
 * 先程の ``ConcreteFactory`` がそのまま利用できる。
 
   .. code-block:: c++
-  
+
      typedef ConcreteFactory
      <
          AbstractEnemyFactory,
@@ -152,7 +152,7 @@ Prototype バージョンを設計する。
 
 * <Abstract Factory デザイン・パターンを手作業で実装して、
   こういった利点全てを満足するようなものを作る手間を考えてみてください> (p. 244)
-  
+
   →大変なことはよく理解した。
 
 第 10 章 Visitor
@@ -183,14 +183,14 @@ Prototype バージョンを設計する。
        void AddWords(xxxx); // 単語数
        void AddImages(xxxx); // 画像数
        ...
-       
+
        void Display(); // 統計情報表示
    };
-   
+
    class DocElement;
        class Paragraph;
        class RasterBitmap;
- 
+
    class DocElement
    {
    public:
@@ -238,24 +238,24 @@ Prototype バージョンを設計する。
        virtual void VisitRasterBitmap(RasterBitmap&) = 0;
        ...
    };
-   
+
    // DocElement::Visit を宣言。
-   
+
    class DocElement
    {
    public:
        virtual void Accept(DocElementVisitor&) = 0;
        ...
    };
-   
+
    void Paragraph::Accept(DocElementVisitor& v)
    {
        v.VisitParagraph(*this);
    }
    // RasterBitmap も同様。
-   
+
    // そして DocStats は DocElementVisitor を実装する。
-   
+
    class DocStats : public DocElementVisitor
    {
        // ... VisitParagraph や VisitRasterBitmap を実装 ...
@@ -291,12 +291,12 @@ Prototype バージョンを設計する。
   * ``DocElementVisitor`` に ``VisitXxxx`` を宣言しない。
   * ``XxxxVisitor`` は ``DocElementVisitor`` を継承しないで、
     ``VisitXxxx`` を純粋仮想関数として宣言する。
-  
+
   * ``DocElement`` のサブクラス ``Xxxx::Accept`` 関数にて、
     引数の ``DocElementVisitor`` を ``XxxxVisitor`` に dynamic_cast するテストを加える。
-    
+
     .. code-block:: c++
-    
+
        // p. 259 より引用
        void Paragraph::Accept(DocElementVisitor& v)
        {
@@ -308,9 +308,9 @@ Prototype バージョンを設計する。
        }
 
   * 具体的な Visitor クラスの定義は、例えば次のようになる。
-  
+
     .. code-block:: c++
-    
+
        // p. 260 より引用。
        class DocStats :
            public DocElementVisitor,
@@ -346,7 +346,7 @@ Prototype バージョンを設計する。
 * ``Visitor`` - ``XxxxVisitor`` 用。クラステンプレートとして宣言。
 
   .. code-block:: c++
-  
+
      // p. 263
      template <class T, typename R = void>
      class Visitor
@@ -361,7 +361,7 @@ Prototype バージョンを設計する。
   * ``Visitor`` 同様に ``Accept`` の戻り値がテンプレート引数になる。
   * ユーザーが ``Accept`` を実装をするための補助的なマクロ ``DEFINE_VISITABLE()`` と補助関数
     ``AcceptImpl(T&, BaseVisitor&)`` を用意する。
-    
+
     * <場合によっては ``DEFINE_VISITABLE()`` マクロを用いるのではなく、
       自分で ``Accept`` を実装する必要が出てくる> (p. 268) が、問題ない。
 
@@ -389,13 +389,13 @@ Prototype バージョンを設計する。
        TYPELIST_3(DocElement, Paragraph, RasterBitmap)
    >
    MyVisitor;
-   
+
    class DocElement
    {
    public:
        virtual void Visit(MyVisitor&) = 0;
    };
-   
+
    class Paragraph : public DocElement
    {
    public:
@@ -436,12 +436,12 @@ C++ プログラム開発経験者ならまず膝を叩く例が挙げられて�
 .. code-block:: c++
 
    // pp. 280-281 より一部抜粋（一部だけで雰囲気が思い出せるから）
-   
+
    void DoHatchArea1(Rectangle&, Rectangle&);
    void DoHatchArea2(Rectangle&, Ellipse&);
    void DoHatchArea3(Rectangle&, Poly&);
    ...
-   
+
    void DoubleDispatch(Shape& lhs, Shape& rhs)
    {
        if(Rectangle* p1 = dynamic_cast<Rectangle*>(&lhs))
@@ -456,7 +456,7 @@ C++ プログラム開発経験者ならまず膝を叩く例が挙げられて�
        else if
            ...
    }
-   
+
 * 問題点は明らか。
 
   * <この実装は、階層中に存在する全クラスを知っていなければならないのです> (p. 281)
@@ -491,7 +491,7 @@ C++ プログラム開発経験者ならまず膝を叩く例が挙げられて�
                return StaticDispatcher< Tail, /* 略 */ >::Go(/* 略 */);
            }
        }
-       
+
        template <class SomeLhs>
        static ResultType DispatchRhs(SomeLhs& lhs, BaseRhs& rhs, Executor exec)
        {
@@ -507,20 +507,20 @@ C++ プログラム開発経験者ならまず膝を叩く例が挙げられて�
            }
        }
    };
-   
+
    // TODO: StaticDispatcher の部分特殊化 1: TypeLhs = NullType で
    // ダミーの static メソッド Go を実装する。
-   
+
    // TODO: StaticDispatcher の部分特殊化 2: TypeRhs = NullType で
    // ダミーの static メソッド DispatchRhs を実装する。
-   
+
    class HatchingExecutor
    {
    public:
        void Fire(Rectangle&, Rectangle&);
        void Fire(Rectangle&, Ellipse&);
        ...
-       
+
        void OnError(Shape&, Shape&);
    };
 
@@ -542,7 +542,7 @@ C++ プログラム開発経験者ならまず膝を叩く例が挙げられて�
    // p. 286 より。
    typedef StaticDispatcher<HatchingExecutor, Shape,
        TYPELIST_3(Rectangle, Ellipse, Poly)> Dispatcher;
-   
+
    Shape* p1 = ...;
    Shape* p2 = ...;
    HatchingExecutor exec;
@@ -563,16 +563,16 @@ C++ プログラム開発経験者ならまず膝を叩く例が挙げられて�
   * ``StaticDispatcher`` に ``bool symmetric`` テンプレート引数を追加する。
   * クラス内の private 部分にクラステンプレート ``InvocationTraits`` を定義する。
     これは static メンバー関数 ``DoDispatch`` だけを含む構造体。
-    
+
     ``DoDispatch`` の内容は単に ``exec.Fire(lhs, rhs);`` のみ。
-    
+
     * ``InvocationTraits`` の部分特殊化版を定義し、そちらの
       ``DoDispatch`` の内容は ``exec.Fire(rhs, lhs);`` とする。
-      
+
   * ``StaticDispatcher::DispatchRhs`` の定義で、if ブロック内をこのようにする。
-  
+
     .. code-block:: c++
-    
+
        // p. 291 より引用
        enum { swapArgs = symmetric &&
            IndexOf<Head, TypeRhs>::result < IndexOf<BaseLhs, TypesLhs>::result };
@@ -592,9 +592,9 @@ C++ プログラム開発経験者ならまず膝を叩く例が挙げられて�
 * <特に、ソート済みベクタと二分探索アルゴリズムを組み合わせれば、
   連想コンテナよりも空間的および時間的に優れたものとなる場合もあるのです。
   これは、挿入頻度よりもアクセス頻度の方が多い場合に起こり得ます> (p. 292)
-  
+
   つまり、コンテナ内容がある時点から固定されるような場合は連想コンテナを採用しないように、か。
-  
+
 * ただし、便宜的に両者のデータ構造を共に「マップ」と呼ぶことにする。(p. 293)
 
 * ``BasicDispatcher``
@@ -603,12 +603,12 @@ C++ プログラム開発経験者ならまず膝を叩く例が挙げられて�
   * 上記のペア型をキー型とし、
     ``ResultType (*)(BaseLhs&, BaseRhs&)`` 型の関数ポインタを値型とするマップを定義する。
   * そのマップオブジェクトをメンバーデータに持つ。
-  
+
   * テンプレートメンバー関数 ``Add`` を定義し、マップに関数ポインタを動的に追加できるようにする。
   * ``Go`` は次のようになる。
-  
+
     .. code-block:: c++
-    
+
        ResultType Go(BaseLhs& lhs, BaseRhs& rhs)
        {
            MapType::iterator i = callbackMap_.find(
@@ -629,7 +629,7 @@ C++ プログラム開発経験者ならまず膝を叩く例が挙げられて�
 
    次に ``BasicDispatcher`` を利用して ``FnDispatcher`` を定義するのだが、
    もうついていけないのでスキップ。
-   
+
    ``Trampoline`` という面白い技法を利用してディスパッチを実現する。
 
 ----
@@ -696,7 +696,7 @@ C++ に関する書籍は、マルチスレッドをテーマにした文章が�
    {
    public:
        typedef int IntType; // int にはプラットフォーム規定整数型名がくる。
-       
+
        static IntType AtomicAdd(volatile IntType& lval, IntType val);
        ...
    };
@@ -713,7 +713,7 @@ C++ に関する書籍は、マルチスレッドをテーマにした文章が�
   Edgar Dijkstra によって証明されています。
   マルチスレッド・アプリケーションを正しく記述するためには、
   こういったものが必要不可欠なのです> (p. 321)
-  
+
   とても重要。丸暗記しよう。
 
 * <ミューテックス (mutex) とは、相互排他 (Mutual Exclusive) の略であり、
@@ -725,7 +725,7 @@ C++ に関する書籍は、マルチスレッドをテーマにした文章が�
 
 * コード中の ``mtx.Acquire()`` 呼び出しと ``mtx.Release()`` 呼び出しで囲まれた部分が、
   ``mtx`` オブジェクトに関してアトミックとなる。
-  
+
   これを利用して <スレッド間で共有させたいリソース毎にミューテックス・オブジェクトを
   1 つ割り当てることになります> (p. 322)
 
@@ -757,7 +757,7 @@ C++ に関する書籍は、マルチスレッドをテーマにした文章が�
    class BankAccount : public ObjectLevelLockable<BankAccount>
    {
        ...
-       
+
        void Deposite(/* 略 */)
        {
            Lock(*this);

@@ -339,7 +339,7 @@ GLUT ベースの簡単なプログラムに対して、Py2exe ビルドを試�
    def display():
        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
        glutSwapBuffers()
-   
+
    def main(argv):
        glutInit(sys.argv)
        glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
@@ -422,10 +422,10 @@ PyQt4
            date = self.cal.selectedDate()
            self.label.setText(str(date.toPyDate()))
            self.label.move(130, 260)
-   
+
            self.setWindowTitle('Calendar')
            self.setGeometry(300, 300, 350, 300)
-   
+
        def showDate(self):
            date = self.cal.selectedDate()
            self.label.setText(str(date.toPyDate()))

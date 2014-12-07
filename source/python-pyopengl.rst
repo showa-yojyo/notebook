@@ -349,9 +349,9 @@ def reshape
 .. code-block:: python3
 
    def reshape(width, height):
-       
+
        # ... 略 ...
-       
+
        gluPerspective(45.0, float(width)/height, 1.0, 20.0)
 
 以上を実行すると、実行結果のスクリーンショットはだいたい次のようなものになる。

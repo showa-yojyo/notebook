@@ -183,17 +183,17 @@ PIL では Photoshop で言うところのチャンネルのことをバンド�
 .. code-block:: python
 
    import Image
-   
+
    # Photoshop で言うところのレイヤー 1 に置く画像。
    img = Image.open('illvelo.png')
    bands = img.split()
 
    # R, G, B, A の A だけが要る。
    alpha = bands[3]
-   
+
    # Photoshop で言うところの背景レイヤーになる画像。
    bkgnd = Image.new('RGBA', img.size, 'blue')
-   
+
    # これではダメ。
    #bkgnd.paste(img, None)
    # これが正解。
@@ -322,7 +322,7 @@ RGBA イメージに透過線形グラデーションを施すには？
    コード780の1102番で、
    あなたを待っています。
    '''
-   
+
    width = 0
    height = 0
    for line in text.splitlines():
@@ -330,7 +330,7 @@ RGBA イメージに透過線形グラデーションを施すには？
        dr.text((0, height), line, font=fnt, fill='white')
        width = max(ext[0], width)
        height += ext[1]
-   
+
    # 余白をトリムする。
    img = img.crop((0, 0, width, height))
 
@@ -368,7 +368,7 @@ Windows のみ対応らしい。
 
    import Image
    import ImageGrab
-   
+
    # スクリーンショットをキャプチャー。
    img = ImageGrab.grab()
 

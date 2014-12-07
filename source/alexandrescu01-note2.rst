@@ -35,14 +35,14 @@ Command デザインパターンの解説セクション。
   アプリケーション中の単一動作を表します）、
   それぞれに特定オブジェクトに対する特定のメンバ関数を単に呼び出すだけの
   ``Execute`` メンバ関数を保持させなければならないのです> (p. 108)
-  
+
   →心当たりありまくり。
 
 ----
 
 * <Command パターンにおける ``Command::Execute`` は、C++ におけるユーザ定義演算子
   ``operator()`` となるべきです> (p. 111)
-  
+
   →呼び出しシンタックスを ``operator()`` に統一することで、
   ``Functor`` が他の ``Functor`` を保持できるようになるから。
 
@@ -51,16 +51,16 @@ Command デザインパターンの解説セクション。
 
 * ``Functor`` の定義は一回。Pimpl パターンにより実装を別のクラステンプレート
   ``FunctorImpl`` で行う。
-  
+
 * ``FunctorImpl`` を部分特殊化をしまくって、
   引数リストのパラメータ数が十分大きくても対応できるようにしておく。
-  
+
   .. code-block:: c++
-  
+
      // p. 114 より引用
      template <typename R, class TList>
      class FunctorImpl;
-     
+
      template <typename R>
      class FunctorImpl<R, NullType>
      {
@@ -69,7 +69,7 @@ Command デザインパターンの解説セクション。
          virtual FunctorImpl* Clone() const = 0;
          virtual ~FunctorImpl(){}
      };
-     
+
      template <typename R, typename P1>
      class FunctorImpl<R, TYPELIST_1(P1)>
      {
@@ -78,7 +78,7 @@ Command デザインパターンの解説セクション。
          virtual FunctorImpl* Clone() const = 0;
          virtual ~FunctorImpl(){}
      };
-     
+
      ...
 
 ----
@@ -167,13 +167,13 @@ Command デザインパターンの解説セクション。
 * 次のタイプの実装を Meyers の Singleton と呼ぶことにする。
 
   .. code-block:: c++
-  
+
      Singleton& Singleton::Instance()
      {
          static Singleton obj;
          return obj;
      }
-  
+
   <Meyers の Singleton は、アプリケーションの終了処理における最も簡単な
   Singleton の破棄手段を提供しています> (p. 143)
 
@@ -239,7 +239,7 @@ Singleton のコンセプトとは独立したものです。
   Double-Checked Locking パターンを紹介している。
 
   .. code-block:: c++
-  
+
      // p. 157 より引用
      Singleton& Singleton::Instance()
      {
@@ -253,7 +253,7 @@ Singleton のコンセプトとは独立したものです。
          }
          return *pInstance_;
      }
-  
+
 * ただし、ある種のマルチプロセッサではこのパターンが使えない。
   使えるか否かを決定するには <コンパイラのドキュメントを熟読しなければならない> (p. 157)
 
@@ -270,7 +270,7 @@ Singleton のコンセプトとは独立したものです。
   * ``Threading``: シングルスレッド or マルチスレッド。
 
   .. code-block:: c++
-  
+
      // p. 160 より引用
      template <
         class T,
@@ -282,7 +282,7 @@ Singleton のコンセプトとは独立したものです。
 
 
 * <インスタンスの型は ``T*`` ではなく ``ThreadingModel<T>::VolatileType*`` です> (p. 160)
-  
+
   →マルチスレッド環境では仇になる、コンパイラによるある種の最適化処理を抑止するため。
 
 * <``SingletonHolder`` が ``DestroySingleton`` を呼び出すことはありません> (p. 161)
@@ -306,18 +306,18 @@ Singleton のコンセプトとは独立したものです。
 
 * <既存の高品質なスマート・ポインタでは、たいていの場合、
   以下のコードのようにポインタの型によってテンプレート化されています> (p. 168)
-  
+
   .. code-block:: c++
-  
+
      template <class T>
      class SmartPtr
      {
          ...
-         
+
      private:
          T* pointee_;
      };
-     
+
 ----
 
 * <値のセマンティックスが存在するオブジェクトとは、
@@ -338,9 +338,9 @@ Singleton のコンセプトとは独立したものです。
 
   なぜかというと、 ``T`` の解放のためのメンバ関数呼び出しと、
   ``SmartPtr<T>`` のそれが似ていて紛らわしいから。
-  
+
   .. code-block:: c++
-  
+
      SmartPtr<Printer> spRes = ...
      ...
      spRes->Release();
@@ -436,7 +436,7 @@ Singleton のコンセプトとは独立したものです。
   最も良くカスタマイズされるものが先頭に来るようになっています> (p. 201)
 
   .. code-block:: c++
-  
+
      template
      <
         typename T,
