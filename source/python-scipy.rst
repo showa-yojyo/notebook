@@ -143,23 +143,30 @@ Getting Started
      >> plt.plot(np.abs(b))
      [<matplotlib.lines.Line2D instance at 0xb7b9144c>]
      >> plt.show()
-     ウィンドウが表示される。
 
-     x 軸が [0, 1000] まで表示されていて、山がちょうど両端に位置している。
-     x = 500 で切って左右の曲線を入れ替えて、x = 0 まで平行移動させれば、
-     美しい絵が得られる。
-     
-     以下、plot の引数を微調整することを試みる。
-   
+  ウィンドウが表示される。
+
+  x 軸が [0, 1000] まで表示されていて、山がちょうど両端に位置している。
+  x = 500 で切って左右の曲線を入れ替えて、x = 0 まで平行移動させれば、
+  美しい絵が得られる。
+
+  以下、plot の引数を微調整することを試みる。
+
+  .. code-block:: pycon
+
      >> help(np.concatenate)
-     説明文がダラダラ出力される
-   
+
+  説明文がダラダラ出力される
+
+  .. code-block:: pycon
+
      >> f = np.arange(-500, 500, 1)
      >> plt.grid(True)
      >> plt.plot(f,abs(concatenate((b[500:],b[:500]))))
      [<matplotlib.lines.Line2D instance at 0xb360ca4c>]
      >> plt.show()
-     ウィンドウが表示される
+
+  ウィンドウが表示される
 
   タイプ量を削減できる IPython を導入したほうが便利であることは想像に難くない。
 
@@ -245,7 +252,7 @@ Basic functions in Numpy (and top-level scipy)
 
 * n の階乗は ``scipy.misc.factorial(n)`` で求まる。
   ちなみにガンマ関数で実装されている。
-* n 個から k 個を選ぶ (N choose k) 組み合わせは ``scipy.misc.comb(n, k)`` で求まる。
+* n 個から k 個を選ぶ組み合わせ :math:`_n \mathrm{C} _r` は ``scipy.misc.comb(n, k)`` で求まる。
 
 Special functions (scipy.special)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -275,7 +282,7 @@ Linear Algebra (scipy.linalg)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * ``sci.mat`` を利用すると MATLAB 風表記で行列インスタンスを定義できる。
 * 行列 ``A`` に対して、もし存在すれば逆行列は ``linalg.inv(A)`` または ``A.I`` で得られる。
-* 1 次方程式 Ax = b を ``linalg.solve(A, b)`` で解くことができる（解が存在すれば）。
+* 1 次方程式 :math:`Ax = b` を ``linalg.solve(A, b)`` で解くことができる（解が存在すれば）。
 * ``A`` の行列式は ``linalg.det`` で求める。
 * ノルムには関数 ``linalg.norm`` を用いる。ノルムの種類を引数で指示する。
 * 最小二乗法には ``linalg.lstsq`` を用いる。
