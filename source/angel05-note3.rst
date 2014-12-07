@@ -118,7 +118,7 @@ OpenGL Lighting
 
 * ``glNormal3(dx, dy, dz)``
 
-  :dx, dy, dz: 法線ベクトルの各成分。
+  :math:`(dx, dy, dz)`: 法線ベクトルの各成分。
 
 Specifying Light Sources
 ------------------------
@@ -128,11 +128,11 @@ Specifying Light Sources
   (p. 128)
 
 * ライト 0 は白色なのだが、その他は黒となっている。
-  <The default value of the position is (0.0, 0.0, 1.0, 0.0).  This value is 
+  <The default value of the position is :math:`(0.0, 0.0, 1.0, 0.0)`.  This value is 
   in eye coordinates, so it is  behind the default camera> (p. 128)
 
 * z 軸の正の方向に無限の距離だけ離れたところが初期値。
-  <w component indicates that the source is at infinity because w = 0
+  <w component indicates that the source is at infinity because :math`w = 0`
   indicates it is the representation of direction rather than of a point>
   (p. 128)
 
@@ -432,9 +432,14 @@ Using Luminace
   モノクロ画像だ。
 
 * RGB 値から luminance の値を計算する式は次で与えられるらしい。
-  ::
 
-    L = .30R + .59G + .11B
+  .. math::
+     :label: luminance
+     :nowrap:
+
+     \[
+     L = .30R + .59G + .11B
+     \]
 
   明らかに G 成分が支配的。
 

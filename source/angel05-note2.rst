@@ -59,14 +59,14 @@ is pointing (the **at point**)>
 <We need a third input, the direction we want to consider as up
 in the image (the **up vector**)> (p. 83)
 
-<A simple choice of the up vector is often (0, 1, 0) or
+<A simple choice of the up vector is often :math:`(0, 1, 0)` or
 the y direction in world coortinates> (p. 83)
 
 * ``gluLookAt((eye), (at), (up))``
 
-  :eye: 視点の位置 (x, y, z)
-  :at: 注視する点の位置 (x, y, z)
-  :up: イメージの上方を定義するベクトル (x, y, z)
+  :eye: 視点の位置 :math:`(x, y, z)`
+  :at: 注視する点の位置 :math:`(x, y, z)`
+  :up: イメージの上方を定義するベクトル :math:`(x, y, z)`
 
 * カメラの設定コードはほぼ必ず以下のようになる。
 
@@ -243,7 +243,7 @@ Perspective Projections
 * ``glFrustum(left, right, bottom, top, near, far)``
   
   * 引数リストは ``glOrtho`` と同じ。
-  * ``far > near > 0`` に注意。
+  * :math:`far > near > 0` に注意。
   * ほぼ必ず以下の手順で利用する。
     
     .. code-block:: c
@@ -315,15 +315,15 @@ Homogeneous Coordinates
 -----------------------
 同次座標の考え方は OpenGL のレンダリング方法論の核と言えるようだ。
 
-* すべての点は 4 つの座標成分 (x, y, z, w) の組の形で表現されている。
-* 三次元の点は (x, y, z, 1) として内部的に表現されている。
-* 二次元の点は (x, y, 0, 1) として内部的に表現されている。
-* 一般に点は (x, y, z, w) として表現されるが、w がゼロでない限り、
-  三次元の点 (x/w, y/w, z/w) として見える。
-* 三次元のベクトルは (x, y, z, 0) として内部的に表現されている。
+* すべての点は 4 つの座標成分 :math:`(x, y, z, w)` の組の形で表現されている。
+* 三次元の点は :math:`(x, y, z, 1)` として内部的に表現されている。
+* 二次元の点は :math:`(x, y, 0, 1)` として内部的に表現されている。
+* 一般に点は :math:`(x, y, z)` として表現されるが、w がゼロでない限り、
+  三次元の点 :math:`(x/w, y/w, z/w)` として見える。
+* 三次元のベクトルは :math:`(x, y, z, 0)` として内部的に表現されている。
   これは無限遠点と等価だ。
 * すべての transformations は点・ベクトルの同次座標表現に作用する
-  4 x 4 行列となる。
+  :math:`4 \times 4` 行列となる。
 
 Translation
 -----------
@@ -384,18 +384,25 @@ Scaling
 
 Setting Matrices Directly
 -------------------------
-* OpenGL の行列は 4 x 4 正方行列で、メモリレイアウトとしては column order だ。
+* OpenGL の行列は :math:`4 \times 4` 正方行列で、メモリレイアウトとしては column order だ。
 
   * ``glLoadMatrix(m)`` - 行列成分を直接配列の形で指示する
-  * ``glMultMatrix(m)`` - current matrix に対して m を右からかける
+  * ``glMultMatrix(m)`` - current matrix に対して ``m`` を右からかける
 
 * shear 変換を実現するには、この直接行列指示でなければならない。
-  ::
 
-    M = 1  cot(theta)  0  0
-        0           1  0  0
-        0           0  1  0
-        0           0  0  1
+  .. math::
+     :label: share-matrix
+     :nowrap:
+
+     \[ \left(
+         \begin{array}{cccc}
+             1 &\cot(\theta) &0 &0 \\
+             0 &1            &0 &0 \\
+             0 &0            &1 &0 \\
+             0 &0            &0 &1
+         \end{array}
+     \right) \]
 
 * **oblique projection** を実現することもできる。
 
@@ -406,13 +413,20 @@ Setting Matrices Directly
      glOrtho(left, right, bottom, top, near, far);
      glMultMatrixf(M);
 
-* 影の計算なども面白い。光源を (x, y, z) として、z 平面に影を付ける変換は
-  ::
+* 影の計算なども面白い。光源を :math:`(x, y, z)` として、z 平面に影を付ける変換は
 
-    M = 1     0  0  0
-        0     1  0  0
-        0     0  1  0
-        0  -1/y  0  0
+  .. math::
+     :label: shadow-matrix
+     :nowrap:
+
+     \[ \left(
+         \begin{array}{rrrr}
+             1 &0             &0 &0 \\
+             0 &1             &0 &0 \\
+             0 &0             &1 &0 \\
+             0 &-\cfrac{1}{y} &0 &0
+         \end{array}
+     \right) \]
 
   で与えられる。コードは大体次のような構造になる。
   
@@ -450,7 +464,7 @@ Instancing
   **instance transformation**> (p. 114) 聞いたことのない用語だ。
 
 * <The GLU cylinder was aligned with the z axis and has its base
-  in the plane z = 0.  With such a starting point, we almost
+  in the plane :math:`z = 0`.  With such a starting point, we almost
   always want to scale the object to its desired size, then
   orient it, and finally translate it to its desired position
   in that order> (p. 114)

@@ -183,8 +183,8 @@ Automatic Texture Coorinate Generation
   distances from a plane in either object space or eye space> (p. 186)
   だそうだが、平面からの距離で決まる座標というのが解りにくい。
 
-* <The value ax + by + cz + dw is proportional to the distance from
-  (x, y, z, w) to the plane determined by (a, b, c, d)> (p. 186)
+* <The value :math:`ax + by + cz + dw` is proportional to the distance from
+  :math:`(x, y, z, w)` to the plane determined by :math:`(a, b, c, d)`> (p. 186)
 
 * テクスチャー座標自動生成には、例えば (s, t) の場合は以下の呼び出しが必要。
 
@@ -259,14 +259,14 @@ Parameteric Curves
   「コンピューターには区分的パラメトリック曲線が相性がいい」
   のようなことを述べている。
 
-* <Parametric curves give a point in homogeneous coordinate space (x(u),
-  y(u), z(u), w(u)) for each value of u> (p. 193)
+* <Parametric curves give a point in homogeneous coordinate space
+  :math:`(x(u), y(u), z(u), w(u))` for each value of u> (p. 193)
 
-* 簡単にするため、当分 w = 1 と固定して話を進める。
+* 簡単にするため、当分 :math:`w = 1` と固定して話を進める。
 
 * 指定した点を通過するような n 次多項式を決めるには、
-  3(n + 1) 個の係数を求める必要があるので、3(n + 1) 個の
-  独立した条件を与える必要がある。
+  :math:`3(n + 1)` 個の係数を求める必要があるので、
+  :math:`3(n + 1)` 個の独立した条件を与える必要がある。
 
 * 以降、基本的に 3 次式の話になる。4 つの点を決めれば、多項式の係数が求まる。
 
