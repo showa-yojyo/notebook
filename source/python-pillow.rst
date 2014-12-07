@@ -160,7 +160,7 @@ PIL のときのコードをほぼそのまま再利用できる。
 .. code-block:: python3
 
    from PIL import Image
-   
+
    # Photoshop で言うところのレイヤー 1 に置く画像。
    img = Image.open('illvelo.png')
    bands = img.split()
@@ -188,10 +188,10 @@ PIL のときのコードをほぼそのまま再利用できる。
 
 線形グラデーション（透過なし）
 ----------------------------------------------------------------------
-幅 1 x 256 ピクセルのイメージを作成し、ピクセルカラーをその位置に応じてセットしていく方針で絵を描く。
+幅 :math:`1 \times 256` ピクセルのイメージを作成し、ピクセルカラーをその位置に応じてセットしていく方針で絵を描く。
 まずは ``putpixel`` メソッドを利用してこれを行い、それから目的のサイズにイメージを拡縮する。
 
-次に示すコードは、サイズが 320 x 240 で、
+次に示すコードは、サイズが :math:`320 \times 240` で、
 上部が赤で下部が青の線形グラデーションとなるイメージを作成する。
 線形補間の計算コード記述の手間を少々省くため、NumPy を利用した。
 
@@ -199,20 +199,20 @@ PIL のときのコードをほぼそのまま再利用できる。
 
    from PIL import Image, ImageColor
    import numpy as np
-   
+
    COLOR_START = ImageColor.getrgb('antiquewhite')
    COLOR_STOP = ImageColor.getrgb('deeppink')
    IMAGE_WIDTH, IMAGE_HEIGHT = 320, 240
    WORK_SIZE = 0x100
    R, G, B = 0, 1, 2
-   
+
    img = Image.new('RGB', (1, WORK_SIZE))
    colors = np.dstack(
        (np.linspace(COLOR_START[i], COLOR_STOP[i], num=SIZE) for i in (R, G, B)))[0]
-   
+
    for i, color in enumerate(colors):
        img.putpixel((0, i), tuple(color.astype(int).tolist()))
-   
+
    img = img.resize((IMAGE_WIDTH, IMAGE_HEIGHT))
    #img.save('gradient1.png')
 
@@ -251,16 +251,16 @@ PIL のときのコードをほぼそのまま再利用できる。
    from PIL import Image, ImageColor
 
    WORK_SIZE = 0x100
-   
+
    img = Image.open('illvelo.png')
    assert img.mode == 'RGBA'
-   
+
    gradient = Image.new('L', (1, WORK_SIZE))
    for i in range(WORK_SIZE):
        gradient.putpixel((0, i), i)
-   
+
    alpha = gradient.resize(img.size, Image.ANTIALIAS)
-   
+
    final = Image.new('RGBA', img.size, (0, 0, 0, 0))
    final.paste(img, None, mask=alpha)
    #final.save('illvelo-gradient.png')
@@ -281,16 +281,16 @@ Hello, world
 .. code-block:: python3
 
    from PIL import Image, ImageDraw
-   
+
    IMAGE_WIDTH, IMAGE_HEIGHT = 320, 240
    TEXT_COLOR = 'red'
-   
+
    # デフォルト背景色のキャンヴァスを用意する。
    img = Image.new('RGBA', (IMAGE_WIDTH, IMAGE_HEIGHT))
-   
+
    # Draw 関数でオブジェクトを作成。
    draw = ImageDraw.Draw(img)
-   
+
    # 画面の左上隅にテキストを描画する。
    draw.text((0, 0), 'Hello, world', fill=TEXT_COLOR)
    #img.show()
@@ -311,11 +311,11 @@ Hello, world
    from PIL import Image
    from PIL import ImageDraw
    from PIL import ImageFont
-   
+
    img = Image.new('RGB', (1024, 256), 'black')
    dr = ImageDraw.Draw(img)
    fnt = ImageFont.truetype('hgrme.ttc', 24, encoding='utf-8')
-   
+
    text = '''どうしても会ってもらえませんか？
    私はこんなにあなたに会いたいのに…。
    お金には余裕があるので心配しないで
@@ -323,7 +323,7 @@ Hello, world
    コード780の1102番で、
    あなたを待っています。
    '''
-   
+
    width = 0
    height = 0
    for line in text.splitlines():
@@ -331,7 +331,7 @@ Hello, world
        dr.text((0, height), line, font=fnt, fill='white')
        width = max(ext[0], width)
        height += ext[1]
-   
+
    # 余白をトリムする。
    img = img.crop((0, 0, width, height))
    img.show()
@@ -352,7 +352,7 @@ Hello, world
 .. code-block:: python3
 
    from PIL import Image, ImageGrab
-   
+
    # スクリーンショットをキャプチャーして
    img = ImageGrab.grab()
    # テキトーに縮小、表示する。
@@ -366,9 +366,9 @@ Hello, world
 
 上下左右ループ壁紙パターン生成
 ----------------------------------------------------------------------
-* 元画像を 2 x 2 分割して対角線上の区域を入れ替える。
+* 元画像を :math:`2 \times 2` 分割して対角線上の区域を入れ替える。
 * そこへ元画像をブレンドなりオーバーレイなりして重ね合わせる。
-* 左右方向ループのための区域入れ替えの処理は、pil-handbook 参照。
+* 左右方向ループのための区域入れ替えの処理は、 :file:`pil-handbook.pdf` 参照。
 
 .. code-block:: python3
 
