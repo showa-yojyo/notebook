@@ -27,7 +27,6 @@ Matplotlib_
 
 関連ノート
 ======================================================================
-* :doc:`python-pil`
 * :doc:`python-numpy`
 * :doc:`python-scipy`
 
@@ -93,7 +92,7 @@ PDF ファイル全体は 900 ページに及ぶ大著だ。
 >>> plt.show()
 
 最後の行の ``plt.show()`` の呼び出し開始直後に、
-PIL_ の ``Image.show()`` のようにビューワーが出現する。これがなかなか面白い。
+PIL の ``Image.show()`` のようにビューワーが出現する。これがなかなか面白い。
 
 .. image:: /_static/mpl-tkagg.png
    :scale: 50%
@@ -473,29 +472,44 @@ Matplotlib は制御点列を与えて Bézier 曲線を定義する流儀のよ
 
 TeX 表現
 ==================================================
-.. todo::
+Matplotlib のプロットに TeX 書式の画像化を埋め込む方法を説明する。
 
-   このノートにある外部実行ファイルを利用する機能各種の動作はほとんど確認していない。
-   MiKTeX をインストールしたら即実験する。
+Matplotlib のすべてのテキスト API は TeX の数式を受け付けてくれる。
+文字列内の ``$`` で囲まれた部分が TeX 表現と認識されるようだ。
+何も工夫しないでいると文字列がバックスラッシュの嵐になるので、
+Python のコードで raw string 形式で数式を含む文字列を定義するのが吉だろう。
 
-* Matplotlib のすべてのテキスト API は TeX の数式を受け付けてくれる。
-  ``$`` で囲まれた部分が TeX 表現と認識されるようだ。
-  文字列はバックスラッシュの嵐になることが予想できるので、
-  raw string 形式で指定するのが吉。
+次のスクリプトは Matplotlib のサンプルコードを一部改変したものである。
 
-  .. code-block:: python3
+.. literalinclude:: ../sample/mpl/tex.py
+   :language: python3
+   :lines: 6-
 
-     plt.text(60, .025, r'$\mu=100,\ \sigma=15$')
+実行結果は、次の画像の表示となる。
+ヒストグラムのキャプション後半に注意して欲しい。ギリシア文字と数学記号が見える。
+先のコードの ``plt.title`` 関数呼び出しの実引数の後半部に対応しているのがわかる。
 
+.. image:: /_static/mpl-tex.png
+   :scale: 50%
+
+Matplotlib 設定
+----------------------------------------------------------------------
 * TeX 部分のテキストに適用するデフォルトのフォントを
   rc 設定の ``mathtext.default`` パラメーターで指定できる。
 
 * TeX テキストのレイアウトは通常 Matplotlib が内部で自前で持っているエンジンが行うが、
   rc 設定を変更することで、外部の LaTeX エンジンを利用することもできる。
 
-  * ``text.usetex`` が ``True`` になっていることが必要。
-  * LaTeX, dvipng, GhostScript がシステムにインストールされていることが必要。
-  * それらの実行ファイルのパスが環境変数 ``PATH`` に含まれていることが必要。
+* ``text.usetex`` が ``True`` になっていることが必要。
+  特に触れていなければ、デフォルトで ``True`` のはずだ。
+
+TeX 環境
+----------------------------------------------------------------------
+* LaTeX, dvipng, GhostScript がシステムにインストールされていることが必要。
+  筆者の Windows 環境を例にすると `TeX Live`_ がシステムにインストール済みである。
+
+* かつ、それらの実行ファイルのパスが環境変数 ``PATH`` に含まれていることが必要。
+  筆者の Windows 環境を例にすると ``D:\texlive\2014\bin\win32`` が含まれている。
 
 続・環境構築
 ==================================================
@@ -525,7 +539,7 @@ Matplotlib を利用するための環境をもっと細かく整備してみよ
 .. _Matplotlib: http://matplotlib.sourceforge.net/
 .. _setuptools: http://peak.telecommunity.com/DevCenter/setuptools
 .. _Numpy: http://scipy.org/NumPy/
-.. _PIL: http://www.pythonware.com/products/pil
 .. _Sphinx: http://sphinx.pocoo.org/
 .. _PyQt: http://www.riverbankcomputing.com/software/pyqt/intro
 .. _PyParsing: https://pypi.python.org/pypi/pyparsing
+.. _TeX Live: http://tug.org/texlive/
