@@ -2,15 +2,19 @@
 PIL 利用ノート [obsolete]
 ======================================================================
 
-PIL は随分長い間、Python のバージョンで言うと 2.7 くらいまでだろうか、
-画像処理パッケージとして愛用してきたが、現在は Pillow というものに取って代わられたようである（ノート執筆中）。
-本稿は無価値になってしまったかもしれないが、何かのためにここに残しておく。
+.. warning::
+
+   PIL は随分長い間、Python のバージョンで言うと 2.7 くらいまでだろうか、
+   画像処理パッケージとして愛用してきたが、現在は Pillow_ というものに取って代わられたようである。
+   そこで、筆者の環境も PIL を放棄して Pillow を導入した。
+   ついでに本稿とほぼ同様な内容の :doc:`python-pillow` を書いた。
+
+   無価値になってしまったが、本稿は残しておく。
 
 .. contents:: ノート目次
 
 .. note::
 
-   * 体系的にまとめるまでの間は Q & A 形式でノートしておく。
    * OS: Windows XP Home Edition SP 3
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
@@ -474,4 +478,5 @@ ImageMagick の ``convert`` とよく似たツールだ。
 
 .. _Python: http://www.python.org/
 .. _PIL: http://www.pythonware.com/products/pil
+.. _Pillow: https://pillow.readthedocs.org/en/latest/
 .. _Python Extension Packages for Windows - Christoph Gohlke: http://www.lfd.uci.edu/~gohlke/pythonlibs/
