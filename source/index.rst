@@ -14,19 +14,19 @@ Contents:
 .. toctree::
    :maxdepth: 1
 
-   gamma95
-   hunt00
+   gamma95/index
+   hunt00/index
    sutter00
-   alexandrescu01
+   alexandrescu01/index
    meyers01
    sutter02
-   joel04
+   joel04/index
    graham04
-   angel05
-   yamamoto05
-   newham05
+   angel05/index
+   yamamoto05/index
+   newham05/index
    subramaniam06
-   hosoda10
+   hosoda10/index
 
    python-pip
    python-pylint
