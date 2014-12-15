@@ -7,7 +7,7 @@
 What is it?
 ===========
 
-このプロジェクトは、ウェブサイト `プレハブ小屋`_ 内の同名コーナーの原稿群だ。
+このプロジェクトは `読書ノート <https://showa-yojyo.github.io/note/>`_ の原稿群だ。
 Python_ 製パッケージ Sphinx_ でビルドするための rst ファイル群で構成している。
 
 The Latest Version
@@ -25,7 +25,7 @@ Documentation
 Installation
 ============
 
-.. code:: bash
+.. code:: console
 
    $ git clone git://github.com/showa-yojyo/note.git
 
@@ -39,7 +39,7 @@ Requirements
 Compiling
 ---------
 
-.. code:: bash
+.. code:: console
 
    $ cd note
    $ make html
@@ -60,13 +60,11 @@ Licensing
 Contacts
 ========
 
-* `プレハブ小屋`_
+* `プレハブ小屋 <https://showa-yojyo.github.io/>`_
 
-  * Web site: https://github.com/showa-yojyo/note (GitHub)
+  * Web site: https://github.com/showa-yojyo/note
   * E-mail: yojyo@hotmail.com
-  * Twitter: `@showa_yojyo`_
+  * Twitter: `@showa_yojyo <https://twitter.com/showa_yojyo>`_
 
-.. _`プレハブ小屋`: https://showa-yojyo.github.io/
-.. _`@showa_yojyo`: https://twitter.com/showa_yojyo
 .. _Python: http://www.python.org/
 .. _Sphinx: http://sphinx.pocoo.org/
