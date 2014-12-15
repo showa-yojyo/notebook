@@ -1,1 +1,0 @@
-:doc:`python-networkx/index`
