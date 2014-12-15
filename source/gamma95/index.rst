@@ -11,7 +11,7 @@
 :ISBN: ISBN4-7973-1112-6
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 3
    :glob:
 
    note*

@@ -8,7 +8,7 @@
 :ISBN: ISBN4-89471-274-1
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 3
    :glob:
 
    note*

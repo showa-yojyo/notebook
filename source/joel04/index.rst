@@ -12,7 +12,7 @@ Joel on Software 読書ノート
 
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 3
    :glob:
 
    note*

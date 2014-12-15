@@ -11,7 +11,7 @@ Modern C++ Design 読書ノート
 :ISBN: 4-89471-435-3
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 3
    :glob:
 
    note*

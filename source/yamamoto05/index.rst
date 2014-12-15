@@ -10,7 +10,7 @@
 :ISBN: ISBN4-274-06600-2
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 3
    :glob:
 
    note*

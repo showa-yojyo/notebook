@@ -12,7 +12,7 @@
 :ISBN: 4-87311-254-0
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 3
    :glob:
 
    note*

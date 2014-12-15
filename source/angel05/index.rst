@@ -10,7 +10,7 @@ OpenGL の入門者向けの本がなかなか見当たらなく、気付いた�
 
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 3
    :glob:
 
    note*
