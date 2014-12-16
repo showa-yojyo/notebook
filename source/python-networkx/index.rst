@@ -16,6 +16,14 @@ NetworkX 利用ノート
 
    setup
    practice
+   connected-components
+   topological-sorting
+   minimum-spanning-tree
+   shortest-path
+   matching
+   eulerian-cycle
+   connectivity
+   network-flow
    glossary
 
 .. note::
