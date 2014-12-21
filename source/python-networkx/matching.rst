@@ -26,7 +26,7 @@ Wikipedia_ のイラストを参考にしてグラフを構築し、それぞれ
    {(0, 1), (2, 4), (3, 5)}
    {(0, 1), (2, 4)}
 
-.. image:: /_static/maximal-matching.png
+.. image:: /_static/networkx-maximal-matching.png
    :scale: 100%
 
 .. todo::
