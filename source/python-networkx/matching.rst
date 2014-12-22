@@ -29,9 +29,40 @@ Wikipedia_ のイラストを参考にしてグラフを構築し、それぞれ
 .. image:: /_static/networkx-maximal-matching.png
    :scale: 100%
 
+最小極大マッチング
+======================================================================
+関数 ``min_maximal_matching`` が最小極大マッチングを求めるものなのだろうが、その実装は……。
+
+最大マッチング
+======================================================================
+最大マッチングも関数呼び出し一発で求められる。
+こちらの例も Wikipedia_ から拝借して、結果を見比べてみよう。
+
+コード例は左記の物とほぼ同様につき、差分のみを示す。
+関数 ``nx.max_weight_matching`` にはキーワード引数があるが、今回は未使用とする。
+
+.. literalinclude:: ../../sample/networkx/maximum-matching.py
+   :language: python3
+   :lines: 7-11
+
+実行結果は次の通り。戻り値の型がノードとノードの辞書なのがマッチング感を演出しているように見受けられる。
+
+.. code-block:: console
+
+   $ python maximal-matching.py
+   {0: 2, 1: 5, 2: 0, 5: 1}
+   {0: 1, 1: 0, 2: 4, 3: 5, 4: 2, 5: 3}
+   {1: 3, 2: 4, 3: 1, 4: 2}
+
+こちらも当該記事とは異なるエッジセットが得られた。
+図の上の行がオリジナルで、下の行が本プログラムによる最大マッチングだ。
+
+.. image:: /_static/networkx-maximum-matching.png
+   :scale: 100%
+
 .. todo::
 
-   あとは最大マッチング問題、完全マッチング問題の解法を記述したい。
+   あとは完全マッチング問題の解法を記述したい。
 
 .. _NetworkX: https://networkx.github.io/
 .. _Wikipedia: http://en.wikipedia.org/wiki/Matching_(graph_theory)
