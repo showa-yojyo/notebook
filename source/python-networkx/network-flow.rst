@@ -83,6 +83,10 @@ Wikipedia_ の説明文の図を拝借して、実行してみる。
    (S, T): ({'o', 'q', 'p', 's', 'r'}, {'t'})
    cut set: {('r', 't'), ('q', 't')}
 
+.. image:: /_static/networkx-mincut.png
+   :alt: Licensed under CC-BY-SA 3.0
+   :target: http://commons.wikimedia.org/wiki/File:Max_flow.svg
+
 当然ながら関数 ``nx.minimum_cut`` もキーワード引数 ``flow_func`` をサポートしているので、
 グラフの特性に適したアルゴリズムを指示するとよいだろう。
 
