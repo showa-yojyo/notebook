@@ -11,7 +11,9 @@ NetworkX_ でトポロジカルソートを実現する関数は
 先にグラフ概形とサンプルコード全体を示す。
 
 .. image:: /_static/networkx-dag.png
+   :alt: Public Domain
    :scale: 100%
+   :target: http://commons.wikimedia.org/wiki/File:Directed_acyclic_graph_3.svg
 
 .. literalinclude:: ../../sample/networkx/tsort.py
    :language: python3

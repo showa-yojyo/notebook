@@ -27,7 +27,9 @@ Wikipedia_ のイラストを参考にしてグラフを構築し、それぞれ
    {(0, 1), (2, 4)}
 
 .. image:: /_static/networkx-maximal-matching.png
+   :alt: Licensed under CC-BY-SA 3.0
    :scale: 100%
+   :target: http://commons.wikimedia.org/wiki/File:Maximal-matching.svg
 
 最小極大マッチング
 ======================================================================
@@ -58,7 +60,9 @@ Wikipedia_ のイラストを参考にしてグラフを構築し、それぞれ
 図の上の行がオリジナルで、下の行が本プログラムによる最大マッチングだ。
 
 .. image:: /_static/networkx-maximum-matching.png
+   :alt: Licensed under CC-BY-SA 3.0
    :scale: 100%
+   :target: http://commons.wikimedia.org/wiki/File:Maximal-matching.svg
 
 .. todo::
 
