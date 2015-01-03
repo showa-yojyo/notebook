@@ -32,9 +32,9 @@ Matplotlib との連携
 
 PyGraphviz との連携
 ======================================================================
-.. todo::
-
-   記事を書く。
+Python3 環境では、現時点で PyGraphviz_ を利用するという選択肢はない。
+開発版 (1.3rc) のパッケージ `利用要件 <http://pygraphviz.github.io/documentation/development/install.html#requirements>`_
+によると、<PyGraphviz does not work with Python 3> とこれ以上ない明確さで非サポートを宣言している。
 
 pydot との連携
 ======================================================================
