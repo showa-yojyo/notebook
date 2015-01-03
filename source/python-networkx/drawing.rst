@@ -19,6 +19,7 @@ NetworkX の描画機能は、以下で紹介する外部パッケージのい�
 * Graphviz_: 2.38
 * PyGraphviz: 後述
 * pydot: 後述
+* Pyparsing_: 2.0.3
 
 .. contents::
    
@@ -101,5 +102,6 @@ NG な結果が多いが、ユーザーが手動で 2to3.py して修正した�
 .. _NetworkX: https://networkx.github.io/
 .. _Matplotlib: http://matplotlib.sourceforge.net/
 .. _Graphviz: http://www.graphviz.org/
-.. 
+.. _PyGraphviz: http://pygraphviz.github.io/
 .. _pydot: https://code.google.com/p/pydot/
+.. _Pyparsing: http://pyparsing.wikispaces.com/
