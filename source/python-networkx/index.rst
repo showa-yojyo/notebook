@@ -24,6 +24,7 @@ NetworkX 利用ノート
    eulerian-cycle
    connectivity
    network-flow
+   drawing
    glossary
 
 .. note::
