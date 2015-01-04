@@ -37,23 +37,7 @@ NetworkX のグラフ描画ルーチンの特性上、クライアントが十�
 .. image:: /_static/networkx-draw.png
    :scale: 100%
 
-Graphviz 形式に出力する
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-NetworkX のグラフレイアウトを採用しないで、イメージを生成する方法があるらしい。
-
-PyGraphviz_ が利用できる（これは Graphviz の利用可能性も含む）か、
-もしくは pydot_ が利用できる（同様）環境であれば、
-NetworkX の提供する次の関数を利用することができるようだ。
-
-.. code-block:: python3
-
-   nx.draw_graphviz(G)
-   nx.write_dot(G,'file.dot')
-
-残念ながら、現在どちらのパッケージとも Python 3 には公式に対応していないので、
-上記コードを実行することができない。
-出力の dot ファイルを Graphviz のエンジンに入力すれば、
-先程のものよりはマシなイメージを得ることができるかもしれないだけに惜しい。
+描画については別項で詳しく論じる。→ :ref:`nx-drawing`
 
 .. _Matplotlib: http://matplotlib.sourceforge.net/
 .. _PyGraphviz: http://pygraphviz.github.io/
