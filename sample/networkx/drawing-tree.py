@@ -1,27 +1,30 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""drawing-tree.py: demonstrate NetworkX (circular_layout).
+"""drawing-tree.py: draw a tree graph with pydot_layout.
 """
 import networkx as nx
 import matplotlib.pyplot as plt
-import numpy as np
+import pydot
 import colorsys
+from math import log, floor
 
-num_nodes = 17
-G = nx.complete_graph(num_nodes)
+# A tree graph is given.
+height = 5
+G = nx.balanced_tree(2, height)
 
-if False:
-    pos = nx.circular_layout(G)
-else:
-    pos = {}
-    for i in range(num_nodes):
-        theta = 2 * np.pi * i / num_nodes
-        pos[i] = np.array([np.cos(theta), np.sin(theta)], dtype=np.float32)
+#pos = nx.spring_layout(G) # default; bad
+#pos = nx.shell_layout(G) # bad
+#pos = nx.spectral_layout(G) # poor
+pos = nx.pydot_layout(G, prog='dot') # good
 
 # Node colors.
-ncolors = [colorsys.hsv_to_rgb(h / num_nodes, 1.0, 1.0)
-           for h in range(num_nodes)]
+num_nodes = len(G)
+ncolors = [colorsys.hsv_to_rgb(
+              floor(log(h + 1, 2)) / (height + 1), 1.0, 1.0)
+              for h in range(num_nodes)]
 
 nx.draw_networkx(G, pos, node_color=ncolors)
-plt.axes().set_aspect('equal', 'datalim')
+
+#plt.axes().set_aspect('equal', 'datalim')
+plt.axis('off')
 plt.show()

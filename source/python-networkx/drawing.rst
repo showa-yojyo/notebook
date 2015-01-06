@@ -145,10 +145,21 @@ NG な結果が多いが、ユーザーが手動で 2to3.py して修正した�
 
 木を描画したい
 ----------------------------------------------------------------------
+結論から言うと Graphviz 任せになる。
+コツは関数 ``nx.pydot_layout`` のキーワード引数 ``prog`` を下のように指示することのようだ。
 
-.. todo::
+.. literalinclude:: ../../sample/networkx/drawing-tree.py
+   :language: python3
 
-   執筆中。
+実行結果は次のようになるはずだ。例によって議論の本筋とは無関係にノードを着色してある。
+
+.. image:: /_static/networkx-drawing-tree.png
+   :scale: 80%
+
+ただし先述の ``IndexError`` を引き起こさぬように、NetworkX のコードを改造しなくてはならない。
+それは、``nx_pydot.py`` に定義されている関数 ``pydot_layout`` の途中の
+``encode('utf-8')`` の呼び出しをコメントアウトすることだ。
+こちらの修正はさらに上述の Python3 版 pydot の導入とセットで行うこと。
 
 .. _NetworkX: https://networkx.github.io/
 .. _Matplotlib: http://matplotlib.sourceforge.net/
