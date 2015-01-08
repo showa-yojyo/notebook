@@ -6,11 +6,11 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import pydot
 import colorsys
-from math import log, floor
 
 # A tree graph is given.
+branching = 2
 height = 5
-G = nx.balanced_tree(2, height)
+G = nx.balanced_tree(branching, height)
 
 #pos = nx.spring_layout(G) # default; bad
 #pos = nx.shell_layout(G) # bad
@@ -18,10 +18,11 @@ G = nx.balanced_tree(2, height)
 pos = nx.pydot_layout(G, prog='dot') # good
 
 # Node colors.
-num_nodes = len(G)
-ncolors = [colorsys.hsv_to_rgb(
-              floor(log(h + 1, 2)) / (height + 1), 1.0, 1.0)
-              for h in range(num_nodes)]
+ncolors = []
+height += 1
+for i in range(height):
+    ncolors.extend(
+        [colorsys.hsv_to_rgb(i / height, 1.0, 1.0)] * branching ** i)
 
 nx.draw_networkx(G, pos, node_color=ncolors)
 
