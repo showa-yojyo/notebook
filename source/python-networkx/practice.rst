@@ -37,7 +37,7 @@ NetworkX のグラフ描画ルーチンの特性上、クライアントが十�
 .. image:: /_static/networkx-draw.png
    :scale: 100%
 
-描画については別項で詳しく論じる。→ :ref:`nx-drawing`
+描画については別項で詳しく論じる。→ :doc:`drawing`
 
 .. _Matplotlib: http://matplotlib.sourceforge.net/
 .. _PyGraphviz: http://pygraphviz.github.io/
