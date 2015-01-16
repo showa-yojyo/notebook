@@ -28,6 +28,14 @@ Contents:
    subramaniam06
    hosoda10/index
 
+.. toctree::
+   :maxdepth: 1
+
+   getting-ready
+
+.. toctree::
+   :maxdepth: 1
+
    python-pip
    python-pylint
    python-nose
@@ -46,6 +54,9 @@ Contents:
    python-pygame
    python-py2exe
    python-upgrade
+
+.. toctree::
+   :maxdepth: 1
 
    milestone09
    twitter
