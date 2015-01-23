@@ -60,7 +60,7 @@ Contents:
 
    milestone09
    twitter
-   inkscape
+   inkscape/index
 
 `プレハブ小屋入口へ戻る`_
 
