@@ -5,7 +5,7 @@
 :著者: Andrew Hunt and David Thomas
 :訳者: 村上雅章
 :出版社: 株式会社ピアソン・エデュケーション
-:ISBN: ISBN4-89471-274-1
+:ISBN: 978-4-89471-274-4
 
 .. contents:: ノート目次
 

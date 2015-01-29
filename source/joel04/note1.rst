@@ -5,7 +5,7 @@ Joel on Software 読書ノート 1/2
 :著者: Joel Spolsky
 :訳者: 青木靖
 :出版社: オーム社
-:ISBN: ISBN4-274-06630-4
+:ISBN: 978-4-274-06630-6
 
 .. contents:: ノート目次
 

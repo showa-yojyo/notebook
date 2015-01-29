@@ -5,7 +5,7 @@
 :著者: Eric Gamma/Richard Helm/Ralph Johnson/John Vlissides
 :監訳者: 本位田真一 吉田和樹
 :出版社: ソフトバンク クリエイティブ株式会社
-:ISBN: ISBN4-7973-1112-6
+:ISBN: 978-4-7973-1112-9
 
 .. contents:: ノート目次
 

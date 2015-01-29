@@ -5,7 +5,7 @@
 :著者: Cameron Newham, Bill Rosenblatt
 :訳者: 株式会社クイープ
 :出版社: オライリー・ジャパン
-:ISBN: 4-87311-254-0
+:ISBN: 978-4-87311-254-1
 
 .. contents:: ノートの目次
 
