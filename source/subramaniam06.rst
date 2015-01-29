@@ -7,6 +7,7 @@
 :著者: Venkat Subramaniam and Andy Hunt
 :訳者: 角谷信太郎・木下史彦
 :出版社: オーム社
+:発行年: 2007 年
 :ISBN: 978-4-274-06694-8
 
 .. contents:: ノート目次

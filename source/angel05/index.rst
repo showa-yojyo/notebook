@@ -6,6 +6,7 @@ OpenGL の入門者向けの本がなかなか見当たらなく、気付いた�
 
 :著者: Edward Angel
 :出版社: Addison Wesley
+:発行年: 2004 年
 :ISBN: 978-0-321-23762-0
 
 

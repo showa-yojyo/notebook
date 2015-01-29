@@ -5,6 +5,7 @@ Modern C++ Design 読書ノート 1/3
 :著者: Andrey Alexandrescu
 :訳者: 村上雅章
 :出版社: ピアソン・エデュケーション
+:発行年: 2001 年
 :ISBN: 978-4-89471-435-9
 
 .. contents:: ノート目次
