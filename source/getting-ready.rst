@@ -120,9 +120,39 @@ Firefighter の例。
 ----------------------------------------------------------------------
 読むのが初めてならば、内容がなかなか頭に入ってこないと思う。
 
-.. todo::
+* 8.1 まずは ``Dictionary.EnumerateFiles`` を利用した例。
 
-   紙ノートからメモを転写する。
+  .. code-block:: c#
+
+     var q = from file in Dictionary.EnumerateFiles(...)
+             where new FileInfo(file).Length > 10000000
+             select file;
+
+  ``select file`` の部分は、例えば ``select File.ReadAllLines(file).Length`` のようなものでも通じる。
+
+* 8.1.1 そのまま ``.Where(...).Select(...);`` と書き換え可能。
+* 8.1.2 拡張メソッド。既存のクラスに対して、メンバーメソッドを追加定義できる。だから ``Where`` はこういうモノだ。
+
+  .. code-block:: c#
+  
+     public static IEnumerable<TSource> Where<TSource>(
+     this IEnumerable<TSource> src,
+         Func<TSource, bool> predicate);
+
+* 8.1.3 ``let`` 句。先程の例では ``new FileInfo`` の処理が勿体ない。こうする。
+
+  .. code-block:: c#
+
+     var q = from file in Dictionary.EnumerateFiles(...)
+             let info = new FileInfo(file)
+             where info.Length > 10000000
+             select file;
+
+* 8.2.3 LINQ クエリーは可能な限り遅延評価となる。
+* 8.3.2 ``orderby``, ``thenby``
+* 8.3.3 ``concat``
+* 8.3.4 ``group ... by [into ...]``
+* 8.3.5.1 匿名型
 
 9 章 コレクションクラス
 ----------------------------------------------------------------------
@@ -150,10 +180,18 @@ Firefighter の例。
 
 11 章 ファイルおよびストリーム
 ----------------------------------------------------------------------
-
-.. todo::
-
-   紙ノートからメモを転写する。
+* 11.3 ファイルパスの操作
+* 11.7 特殊フォルダー ``Environment.GetFolderPath``
+* 11.8 ``Path.Combine``
+* 11.9 フォルダー作成は大変
+* 11.11.2 ``using (StreamWriter sw = File.CreateText(path))``
+  デフォルトで utf-8
+* 11.12.1 ``FilSystemAccessRule`` UAC
+* 11.14 ``FileStream``
+* 11.17 非同期ファイル操作
+  ``FileOptions.Asynchronous``, ``BeginWrite``, ``WaitOne``, ...
+* 11.18 分離ストレージ
+  ``IsolatedStorageFile.GetUserStorageForAssembly``
 
 12 章 XML
 ----------------------------------------------------------------------
@@ -171,10 +209,24 @@ Firefighter の例。
 
 13 章 ネットワーク処理
 ----------------------------------------------------------------------
+* 13.3 HTTP
 
-.. todo::
+  .. code-block:: c#
+  
+     WebClient client = new WebClient();
+     string pageContent = client.DownloadString("http://oreilly.com/");
+     byte[] data = client.DownloadData(""http://.../oreilly_large.gif");
 
-   紙ノートからメモを転写する。
+  * ``DownloadFile`` もある。
+  * 非同期版もある。イベントハンドラーを ``add`` してから ``Async`` メソッドで呼び出す。
+
+* 13.3.2 ``WebRequest``, ``WebResponse``
+
+  * コードが長い。
+  * ``async`` だから慣れていないとつらい。
+
+* 13.3.2.1 認証の例
+* 13.3.2.3 キャッシュ
 
 14 章 データベース
 ----------------------------------------------------------------------
@@ -182,9 +234,58 @@ Firefighter の例。
 
 15 章 アセンブリ
 ----------------------------------------------------------------------
+* 15.2 ``typeof(MyType).AssemblyFullName``
+* 15.2.1 strongly named assembly
 
 16 章 スレッドおよび非同期コード
 ----------------------------------------------------------------------
+speculation
+
+* 16.1 ``System.Threading``
+* 16.1.2 ``Thread th = new Thread(() => Go(result, "One"));``
+  よくない。
+* 16.1.3 ``ThreadPool.QueueUseWorkItem(Go, "One"));``
+  かなり短い作業向け。例えばウェブページを一枚生成する程度の。
+* 16.1.4 thread affinity, ``SynchronizationContext``
+* 16.1.5.3 ...
+* 16.2.1 必要以上にロックオブジェクトを保持するのは避ける。
+
+  .. code-block:: c#
+
+     lock(lockObject)
+         while(!canGo)
+             Monitor.Wait(lockObject);
+
+  .. code-block:: c#
+
+     lock(lockObject)
+         canGo = true;
+         Monitor.PulseAll(lockObject);
+
+* 16.3 非同期プログラミング
+  ``IAsyncResult``, ``AsyncCallback``
+* 16.4 タスク並列 TPL
+
+  .. code-block:: c#
+
+     Task.Factory.StartNew(Go, "One");
+     Task.WaitAll(t1, t2);
+
+* 16.4.1.1 親子
+* 16.4.1.4 ``ContinueWith``
+* 16.4.1.5 ``TaskScheduler``
+  ``ContinueWith((task) => UpdateUI(...));`` みたいな。
+
+  * ムダなキャンセル。
+
+* 16.5 データ並列性
+
+  .. code-block:: c#
+  
+     Parallel.For(0, pixelHeight, pixelY) =>
+     {
+         ...
+     });
 
 17 章 属性およびリフレクション
 ----------------------------------------------------------------------
