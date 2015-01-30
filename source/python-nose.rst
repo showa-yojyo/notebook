@@ -163,7 +163,7 @@ attr オプション -- 属性を指定することで起動するテストを�
 そんなときには ``--attr``, ``--eval-attr``
 オプションの仕組みをうまくテストコードに組み込む。
 
-.. literalinclude:: ../sample/nose/testattr2.py
+.. literalinclude:: /_sample/nose/testattr2.py
    :language: python3
 
 .. code-block:: console

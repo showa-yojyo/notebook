@@ -238,7 +238,7 @@ Matplotlib には current figure と current axes という概念がある。
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ``matplotlib.font_manager.FontProperties`` を明示的に利用する手段を見つけた。
 
-.. literalinclude:: ../sample/mpl/japanese-text.py
+.. literalinclude:: /_sample/mpl/japanese-text.py
    :language: python3
 
 結果のスクリーンショットは次のようなものだ。
@@ -267,7 +267,7 @@ Figure (``matplotlib.figure.Figure``)
 
   変な例だが、画像全体に対角線を一本引くにはこうする。
 
-  .. literalinclude:: ../sample/mpl/diagonal.py
+  .. literalinclude:: /_sample/mpl/diagonal.py
      :language: python3
 
   結果は次のスクリーンショットのようなものとなる。
@@ -384,7 +384,7 @@ rc パラメーターでバックエンドを指定する。
 ======================================================================
 ノートを整理していたら未使用のスクリプトを発見したので、説明なしにここにコードを記す。
 
-.. literalinclude:: ../sample/mpl/histogram.py
+.. literalinclude:: /_sample/mpl/histogram.py
    :language: python3
 
 最終的な描画結果は次のようなものとなる。乱数次第で分布が変化するので注意。
@@ -412,7 +412,7 @@ rc パラメーターでバックエンドを指定する。
    なお、サンプルコードではさらに曲線に対して接線を引いた。
    ``f`` の一次導関数を ``f.deriv()`` で得られることを利用する。
 
-.. literalinclude:: ../sample/mpl/polynomial.py
+.. literalinclude:: /_sample/mpl/polynomial.py
    :language: python3
 
 描画結果は次のようなものとなる。
@@ -447,7 +447,7 @@ Matplotlib は制御点列を与えて Bézier 曲線を定義する流儀のよ
 
 ``Path`` オブジェクト構築は次のようになる。
 
-.. literalinclude:: ../sample/mpl/bezier.py
+.. literalinclude:: /_sample/mpl/bezier.py
    :language: python3
    :lines: 1-22
 
@@ -461,7 +461,7 @@ Matplotlib は制御点列を与えて Bézier 曲線を定義する流儀のよ
 
 ``Path`` オブジェクト構築は次のようになる。
 
-.. literalinclude:: ../sample/mpl/bezier.py
+.. literalinclude:: /_sample/mpl/bezier.py
    :language: python3
    :lines: 23-
 
@@ -481,7 +481,7 @@ Python のコードで raw string 形式で数式を含む文字列を定義す�
 
 次のスクリプトは Matplotlib のサンプルコードを一部改変したものである。
 
-.. literalinclude:: ../sample/mpl/tex.py
+.. literalinclude:: /_sample/mpl/tex.py
    :language: python3
    :lines: 6-
 

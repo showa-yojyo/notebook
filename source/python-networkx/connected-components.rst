@@ -22,7 +22,7 @@
 #. 強連結成分を得る
 #. 自明でない強連結成分を標準出力に書き出す
 
-.. literalinclude:: ../../sample/networkx/strongly-connected-components.py
+.. literalinclude:: /_sample/networkx/strongly-connected-components.py
    :language: python3
    :lines: 1-13,221-
 
@@ -31,7 +31,7 @@
 アイテム間の依存関係を生成方向に結んだ線分がグラフのエッジとなる。
 また、生成アイテムに必要な素材アイテム数をそのエッジの重みとした（今回の例では意味は重要でない）。
 
-.. literalinclude:: ../../sample/networkx/strongly-connected-components.py
+.. literalinclude:: /_sample/networkx/strongly-connected-components.py
    :language: python3
    :lines: 14-205
 
@@ -39,7 +39,7 @@
 ただし、連結成分のうち構成する点がひとつしかないものについては興味がないので、
 複数点からなる連結成分だけを出力する。
 
-.. literalinclude:: ../../sample/networkx/strongly-connected-components.py
+.. literalinclude:: /_sample/networkx/strongly-connected-components.py
    :language: python3
    :lines: 207-219
 

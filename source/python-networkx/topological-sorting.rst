@@ -15,7 +15,7 @@ NetworkX_ でトポロジカルソートを実現する関数は
    :scale: 100%
    :target: http://commons.wikimedia.org/wiki/File:Directed_acyclic_graph_3.svg
 
-.. literalinclude:: ../../sample/networkx/tsort.py
+.. literalinclude:: /_sample/networkx/tsort.py
    :language: python3
 
 基本事項

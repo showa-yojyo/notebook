@@ -109,7 +109,7 @@ GLUT ベースのスケルトンを自作しておく
 次のようなテキストファイルをテンプレートとして保存しておき、
 新しいスクリプトを作成する際には、このテンプレートからコードを「増築」していくようにする。
 
-.. literalinclude:: ../sample/pyopengl/skeleton.py
+.. literalinclude:: /_sample/pyopengl/skeleton.py
    :language: python3
 
 仮に実行すると、黒い画面に赤い三角形が描画されているのが確認できるはずだ。

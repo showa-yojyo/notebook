@@ -262,7 +262,7 @@ GET statuses/mentions_timeline
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 いわゆるリプを取得する例を挙げる。
 
-.. literalinclude:: ../sample/ptt/statuses-mentions_timeline.py
+.. literalinclude:: /_sample/ptt/statuses-mentions_timeline.py
    :language: python3
 
 * Comment 1: 認証ユーザーに関する mentions を最新のものから 50 件取得する。
@@ -276,7 +276,7 @@ GET statuses/user_timeline
 ユーザー名を指定してタイムラインを 40 件取得し、
 ツイート時刻と投稿内容をコンソールに出力するコードである。
 
-.. literalinclude:: ../sample/ptt/statuses-mentions_timeline.py
+.. literalinclude:: /_sample/ptt/statuses-mentions_timeline.py
    :language: python3
 
 引数仕様は https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline を参照。
@@ -289,7 +289,7 @@ GET statuses/home_timeline
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ユーザーのタイムラインを取得する例を示す。
 
-.. literalinclude:: ../sample/ptt/statuses-home_timeline.py
+.. literalinclude:: /_sample/ptt/statuses-home_timeline.py
    :language: python3
 
 * Comment 1: 自作モジュールのメソッドを呼び出している。前述のとおり。
@@ -314,7 +314,7 @@ POST statuses/update
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 スクリプト等からツイートするときには本 API を使用することになる。
 
-.. literalinclude:: ../sample/ptt/statuses-update.py
+.. literalinclude:: /_sample/ptt/statuses-update.py
    :language: python3
 
 * Comment 1: tweet 内容を文字列として定義してみる。
@@ -326,7 +326,7 @@ POST statuses/update_with_media
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 稼働実績なし。
 
-.. literalinclude:: ../sample/ptt/statuses-update_with_media.py
+.. literalinclude:: /_sample/ptt/statuses-update_with_media.py
    :language: python3
 
 検索関連
@@ -335,7 +335,7 @@ GET search/tweets
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 単純な検索を行うには ``search/tweets`` を利用する。
 
-.. literalinclude:: ../sample/ptt/search-tweets.py
+.. literalinclude:: /_sample/ptt/search-tweets.py
    :language: python3
 
 * Comment 1: ``ネシカ`` または ``nesica`` という単語を含むツイートを
@@ -358,7 +358,7 @@ GET friends/list
 一度のリクエストでは返しきれないほどの多数のユーザーをフォローしていることを想定してのカーソル処理となる。
 次に示すコード例のように、1 ページずつデータをリクエストすることになる。
 
-.. literalinclude:: ../sample/ptt/friends-list.py
+.. literalinclude:: /_sample/ptt/friends-list.py
    :language: python3
 
 GET followers/list
@@ -372,7 +372,7 @@ GET users/show
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 特定のユーザーの詳細情報を得るのに ``users/show`` を利用する。
 
-.. literalinclude:: ../sample/ptt/users-show.py
+.. literalinclude:: /_sample/ptt/users-show.py
    :language: python3
 
 * Comment 1: 基本的に指定する引数はこれだけで構わない。
@@ -390,7 +390,7 @@ GET users/search
 キーワード引数 ``page`` をループカウンターで指定するとよいだろう。
 その際には関数 ``time.sleep`` 等でリクエストに時間的間隔を設けると申し分ない。
 
-.. literalinclude:: ../sample/ptt/users-search.py
+.. literalinclude:: /_sample/ptt/users-search.py
    :language: python3
 
 お気に入り関連
@@ -399,7 +399,7 @@ GET favorites/list
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 特定のユーザーが星マークを付けたツイート群を取得する。
 
-.. literalinclude:: ../sample/ptt/favorites-list.py
+.. literalinclude:: /_sample/ptt/favorites-list.py
    :language: python3
 
 だんだん解説がワンパターン化してきたので、以降は目立つポイントのみ解説をする。
@@ -410,7 +410,7 @@ GET lists/list
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 全リスト取得に用いる API だ。
 
-.. literalinclude:: ../sample/ptt/lists-list.py
+.. literalinclude:: /_sample/ptt/lists-list.py
    :language: python3
 
 * Comment 1: メソッド ``lists.list`` に ``screen_name`` キーワード引数を与えて、
@@ -427,7 +427,7 @@ GET lists/statuses
 例えば ``screen_name`` が ``showa_yojyo`` のユーザーの、
 ``news`` という公開リストがあるという前提で、そのタイムラインを見てみよう。
 
-.. literalinclude:: ../sample/ptt/lists-statuses.py
+.. literalinclude:: /_sample/ptt/lists-statuses.py
    :language: python3
 
 * Comment 1
@@ -448,7 +448,7 @@ POST lists/members/destroy
 リストから指定したユーザーを削除するための API だ。
 しかし、これを利用するくらいならばブラウザーで Twitter を利用するほうが早いやもしれない。
 
-.. literalinclude:: ../sample/ptt/lists-members-destroy.py
+.. literalinclude:: /_sample/ptt/lists-members-destroy.py
    :language: python3
 
 GET lists/memberships
@@ -457,7 +457,7 @@ GET lists/memberships
 あるユーザーが他のユーザーが管理しているリストに含まれているとき、
 そのようなリストを列挙するのに利用する。
 
-.. literalinclude:: ../sample/ptt/lists-memberships.py
+.. literalinclude:: /_sample/ptt/lists-memberships.py
    :language: python3
 
 * Comment 1: ユーザー ``showa_yojyo`` を含むリストをリクエストする。
@@ -473,7 +473,7 @@ GET lists/subscribers
 指定リストの購読者をリストするのに利用する。
 どうも非公開ユーザーが購読していてもリストされないらしい。
 
-.. literalinclude:: ../sample/ptt/lists-subscribers.py
+.. literalinclude:: /_sample/ptt/lists-subscribers.py
    :language: python3
 
 POST lists/members/create_all
@@ -482,7 +482,7 @@ POST lists/members/create_all
 次のサンプルコードの ``screen_names`` はスクリーンネームの tuple インスタンスを意味する。
 この API はリストを多用する筆者が利用する頻度がもっとも高い。
 
-.. literalinclude:: ../sample/ptt/lists-members-create_all.py
+.. literalinclude:: /_sample/ptt/lists-members-create_all.py
    :language: python3
 
 GET lists/members/show
@@ -490,7 +490,7 @@ GET lists/members/show
 指定ユーザーが指定リストに登録されているかを調べる API だ。
 使い途が少々思いつかない。
 
-.. literalinclude:: ../sample/ptt/lists-members-show.py
+.. literalinclude:: /_sample/ptt/lists-members-show.py
    :language: python3
 
 GET lists/members
@@ -498,7 +498,7 @@ GET lists/members
 指定リストに登録されているユーザーをすべて得ることができる API だ。
 登録ユーザー数が多いリストに対しては、次のように「カーソル処理」で複数回のリクエストをすることになるだろう。
 
-.. literalinclude:: ../sample/ptt/lists-members.py
+.. literalinclude:: /_sample/ptt/lists-members.py
    :language: python3
 
 POST lists/members/create
@@ -506,7 +506,7 @@ POST lists/members/create
 自分の所有するリストに指定ユーザーを一人分登録する API だ。
 今では上述の lists/members/create_all で完全に置き換えてしまって構わなそうだ。
 
-.. literalinclude:: ../sample/ptt/lists-members-create.py
+.. literalinclude:: /_sample/ptt/lists-members-create.py
    :language: python3
 
 POST lists/destroy
@@ -514,7 +514,7 @@ POST lists/destroy
 自分の所有するリストを一つ指定して、それを削除する API だ。
 使用頻度はテスト用に作成したダミーリストをまた削除するときに使うくらいだ。
 
-.. literalinclude:: ../sample/ptt/lists-destroy.py
+.. literalinclude:: /_sample/ptt/lists-destroy.py
    :language: python3
 
 POST lists/create
@@ -522,14 +522,14 @@ POST lists/create
 リストを新しく作成するための API だ。Twitter Web Client で作業するほうが早い。
 https://dev.twitter.com/docs/api/1.1/post/lists/create 参照。
 
-.. literalinclude:: ../sample/ptt/lists-create.py
+.. literalinclude:: /_sample/ptt/lists-create.py
    :language: python3
 
 GET lists/subscriptions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 あるユーザーが購読している（他ユーザーの管理下にある）リストを得るために利用する。
 
-.. literalinclude:: ../sample/ptt/lists-subscriptions.py
+.. literalinclude:: /_sample/ptt/lists-subscriptions.py
    :language: python3
 
 GET lists/ownerships
@@ -537,7 +537,7 @@ GET lists/ownerships
 ``lists/ownerships`` は特定のユーザーが管理しているリストを列挙するのに利用する。
 ツイートというよりは、リストのプロパティーを得るのに利用する。
 
-.. literalinclude:: ../sample/ptt/lists-ownerships.py
+.. literalinclude:: /_sample/ptt/lists-ownerships.py
    :language: python3
 
 検索履歴関連
@@ -547,7 +547,7 @@ GET saved_searches/list
 Twitter ログイン時に当該アカウントで検索したクエリーの一覧を取得する。
 実行してみれば理解できる。
 
-.. literalinclude:: ../sample/ptt/saved_searches-list.py
+.. literalinclude:: /_sample/ptt/saved_searches-list.py
    :language: python3
 
 GET saved_searches/create
@@ -555,7 +555,7 @@ GET saved_searches/create
 わかりにくい言い方をすると「保存した検索」項目を一つ新しく作成するための API だ。
 個人的には今となっては使い途がなくなってしまった API のひとつ。
 
-.. literalinclude:: ../sample/ptt/saved_searches-create.py
+.. literalinclude:: /_sample/ptt/saved_searches-create.py
    :language: python3
 
 TwitterStream

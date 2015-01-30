@@ -23,7 +23,7 @@ NetworkX_ では最大フローを求める関数はズバリ ``nx.maximum_flow`
 Wikipedia_ の説明文の図を拝借して、実行してみる。
 図の各辺のキャプションの ``/`` の右側の値が容量だから、グラフの構築コードは次のようになる。
 
-.. literalinclude:: ../../sample/networkx/maxflow.py
+.. literalinclude:: /_sample/networkx/maxflow.py
    :language: python3
 
 実行結果は次のようになる。最大フローが得られており、
@@ -71,7 +71,7 @@ Wikipedia_ の説明文の図を拝借して、実行してみる。
 関数 ``nx.minimum_cut`` を利用するだけでよいのだが、
 最小カットが複数存在する場合でも、そのうちの一つを求めるようだ。
 
-.. literalinclude:: ../../sample/networkx/mincut.py
+.. literalinclude:: /_sample/networkx/mincut.py
    :language: python3
    :lines: 26-39
 

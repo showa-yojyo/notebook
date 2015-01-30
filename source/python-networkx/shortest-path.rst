@@ -53,7 +53,7 @@ Dijkstra 法による最短経路探索関数
 ここでは当然関数 ``all_pairs_dijkstra_path_length`` を利用する。
 グラフの定義から最短経路の長さを計算するまでの処理を行うコードは次のようなものになる。
 
-.. literalinclude:: ../../sample/networkx/dijkstra.py
+.. literalinclude:: /_sample/networkx/dijkstra.py
    :language: python3
 
 実行結果は次のようなものになる。出力の見やすさにこだわりがなければ、

@@ -13,7 +13,7 @@
 .. image:: /_static/networkx-connectivity.png
    :scale: 100%
 
-.. literalinclude:: ../../sample/networkx/connectivity.py
+.. literalinclude:: /_sample/networkx/connectivity.py
    :language: python3
 
 実行結果は次のようになる。
@@ -38,7 +38,7 @@
 .. image:: /_static/networkx-cutset.png
    :scale: 100%
 
-.. literalinclude:: ../../sample/networkx/cutset.py
+.. literalinclude:: /_sample/networkx/cutset.py
    :language: python3
 
 実行結果は次のようになる。よく見るとあまり面白くない。

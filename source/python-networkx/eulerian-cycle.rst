@@ -24,7 +24,7 @@
 ----------------------------------------------------------------------
 まずはグラフを生成し、ダメ元で関数 ``nx.is_eulerian`` を適用してみよう。
 
-.. literalinclude:: ../../sample/networkx/eulerian.py
+.. literalinclude:: /_sample/networkx/eulerian.py
    :language: python3
    :lines: 1-84,89-
 
@@ -62,7 +62,7 @@
 というわけで、先のコードの ``print_cycle`` 呼び出し以降に次の処理を入れることで、オイラー閉路が得られる。
 「マホトラ」エッジの端点である「まほうつかい」をオイラー閉路の始終点に指定しよう。
 
-.. literalinclude:: ../../sample/networkx/eulerian.py
+.. literalinclude:: /_sample/networkx/eulerian.py
    :language: python3
    :lines: 85-87
 

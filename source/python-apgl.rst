@@ -2,7 +2,7 @@
 Another Python Graph Library (APGL) 利用ノート
 ======================================================================
 
-本稿は :doc:`python-networkx` を書くよりも昔に書いたものだ。
+本稿は :doc:`python-networkx/index` を書くよりも昔に書いたものだ。
 
 .. contents:: ノート目次
 
@@ -27,7 +27,7 @@ Another Python Graph Library (APGL) 利用ノート
 
 関連ノート
 ======================================================================
-* :doc:`python-networkx`
+* :doc:`python-networkx/index`
 * :doc:`python-numpy`
 * :doc:`python-scipy`
 
@@ -169,7 +169,7 @@ findAllDistances
 
 イラストのグラフの最短経路を計算するコードは次のとおり。
 
-.. literalinclude:: ../sample/apgl/dijkstra.py
+.. literalinclude:: /_sample/apgl/dijkstra.py
    :language: python3
 
 実行結果はこういう感じになる。

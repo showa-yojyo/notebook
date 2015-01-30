@@ -23,13 +23,13 @@
 
 サンプルコードを小出しにしながら解説する。まずはプログラムの処理手順だ。
 
-.. literalinclude:: ../../sample/networkx/mst.py
+.. literalinclude:: /_sample/networkx/mst.py
    :language: python3
    :lines: 1-32
 
 所定の条件からグラフを構築する処理を示す。
 
-.. literalinclude:: ../../sample/networkx/mst.py
+.. literalinclude:: /_sample/networkx/mst.py
    :language: python3
    :lines: 33-45
 
@@ -43,7 +43,7 @@
 ----------------------------------------------------------------------
 入力が NetworkX のグラフオブジェクトになったので、MST を求めるとしよう。
 
-.. literalinclude:: ../../sample/networkx/mst.py
+.. literalinclude:: /_sample/networkx/mst.py
    :language: python3
    :lines: 47-63
 

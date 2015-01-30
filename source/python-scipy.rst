@@ -352,7 +352,7 @@ KDTree を使う
 Reference Guide の例を一部改変したものを記す。
 ある点とある点群をそれぞれ ``target``, ``points`` としてある。
 
-.. literalinclude:: ../sample/scipy/kdtree.py
+.. literalinclude:: /_sample/scipy/kdtree.py
    :language: python3
 
 実行結果。乱数を使っているので、結果は毎回異なる。
