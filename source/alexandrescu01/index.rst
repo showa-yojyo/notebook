@@ -5,11 +5,7 @@ Modern C++ Design 読書ノート
 テンプレートの専門的な利用技法とデザインパターンを同時に習得できるかもしれない一冊。
 読み切るだけでも相当な根気が要る。これを理解するとなると……。
 
-:著者: Andrey Alexandrescu
-:訳者: 村上雅章
-:出版社: ピアソン・エデュケーション
-:発行年: 2001 年
-:ISBN: 978-4-89471-435-9
+.. include:: /_include/book-details/alexandrescu01.txt
 
 .. toctree::
    :maxdepth: 3

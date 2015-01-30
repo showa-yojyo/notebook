@@ -4,11 +4,7 @@ OpenGL: A Primer Second Edition 読書ノート
 
 OpenGL の入門者向けの本がなかなか見当たらなく、気付いたらこれを買い求めていた。
 
-:著者: Edward Angel
-:出版社: Addison Wesley
-:発行年: 2004 年
-:ISBN: 978-0-321-23762-0
-
+.. include:: /_include/book-details/angel05.txt
 
 .. toctree::
    :maxdepth: 3

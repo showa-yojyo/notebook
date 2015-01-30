@@ -4,11 +4,7 @@
 
 ある米国人プログラマーの随想集。
 
-:著者: Paul Graham
-:訳者: 川合史朗
-:出版社: オーム社
-:発行年: 2005 年
-:ISBN: 978-4-274-06597-2
+.. include:: /_include/book-details/graham04.txt
 
 .. contents:: ノート目次
 

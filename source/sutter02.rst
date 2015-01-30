@@ -6,11 +6,8 @@ More Exceptional C++ 読書ノート
 かの名著 Exceptional C++ の続編を秋葉原駅前ヨドバシの有隣堂書店で発見した。
 前作が「本物」であったがゆえに、本書も購入してみたのだが───。
 
-:著者: Herb Sutter
-:訳者: 浜田真理
-:出版社: ピアソン・エデュケーション
-:発行年: 2008 年
-:ISBN: 978-4-89471-483-0
+
+.. include:: /_include/book-details/sutter02.txt
 
 .. contents:: ノート目次
 

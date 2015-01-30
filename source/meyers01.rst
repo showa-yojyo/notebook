@@ -6,11 +6,7 @@ Effective STL 読書ノート
 記者が初めて購入した C++ 関連書籍なので、とっくの昔に読書ノートがない。
 改めて作成する。
 
-:著者: Scott Meyers
-:訳者: 細谷昭
-:出版社: ピアソン・エデュケーション
-:発行年: 2002 年
-:ISBN: 978-4-89471-410-6
+.. include:: /_include/book-details/meyers01.txt
 
 .. contents:: ノート目次
 

@@ -6,11 +6,7 @@
 
 訳文が妙に面白く、個人的には読み物としても大変気に入っている一冊だ。
 
-:著者: Cameron Newham, Bill Rosenblatt
-:訳者: 株式会社クイープ
-:出版社: オライリー・ジャパン
-:発行年: 2005 年
-:ISBN: 978-4-87311-254-1
+.. include:: /_include/book-details/newham05.txt
 
 .. toctree::
    :maxdepth: 3

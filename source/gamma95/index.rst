@@ -5,11 +5,7 @@
 初版から 10 年以上経てなお生き残っている本書は本物。
 初心に帰って再読し、ノートを記そう。
 
-:著者: Eric Gamma/Richard Helm/Ralph Johnson/John Vlissides
-:監訳者: 本位田真一 吉田和樹
-:出版社: ソフトバンク クリエイティブ株式会社
-:発行年: 1999 年
-:ISBN: 978-4-7973-1112-9
+.. include:: /_include/book-details/gamma95.txt
 
 .. toctree::
    :maxdepth: 3
