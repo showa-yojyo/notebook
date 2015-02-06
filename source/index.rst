@@ -26,6 +26,7 @@ Contents:
    yamamoto05/index
    newham05/index
    subramaniam06
+   asaoka06
    loeliger09
    griffiths10
    hosoda10/index
