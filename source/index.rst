@@ -43,7 +43,7 @@ Contents:
    python-pylint
    python-nose
    python-numpy
-   python-scipy
+   python-scipy/index
    python-apgl
    python-pil
    python-pillow
