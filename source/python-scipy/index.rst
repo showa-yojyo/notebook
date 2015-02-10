@@ -10,6 +10,7 @@ SciPy 利用ノート
 
    setup
    practice
+   integrate
 
 .. note::
 
