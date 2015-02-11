@@ -1,7 +1,11 @@
+======================================================================
 インストール
 ======================================================================
+
 自分の Python_ 環境 (Windows XP) に SciPy_ をインストールする方法を記す。
 単体テストが走るところまで確認できたら、インストール成功とみなす。
+
+.. contents::
 
 * <The SciPy library depends on NumPy, which provides convenient and
   fast N-dimensional array manipulation> (SciPy.org) とあるので、
