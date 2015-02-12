@@ -243,23 +243,4 @@ Python なので「定数」ではないのだが、
 便利なのでリンクをはっておく。
 http://docs.scipy.org/doc/scipy/reference/constants.html
 
-KDTree を使う
-----------------------------------------------------------------------
-空間上のある点とある点群に対して、最も近い距離にあるものを探索するには
-``scipy.spatial.KDTree`` を利用するのがよい。
-
-Reference Guide の例を一部改変したものを記す。
-ある点とある点群をそれぞれ ``target``, ``points`` としてある。
-
-.. literalinclude:: /_sample/scipy/kdtree.py
-   :language: python3
-
-実行結果。乱数を使っているので、結果は毎回異なる。
-
-.. code-block:: text
-
-   Target:  [ 43.83186046  54.76244808  83.13057483]
-   Closest:  [40 50 80]
-   Distance:  6.8676462584
-
 .. include:: /_include/scipy-refs.txt
