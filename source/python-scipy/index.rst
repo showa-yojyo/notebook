@@ -11,6 +11,7 @@ SciPy 利用ノート
    setup
    practice
    nonlinear-equations
+   linear-equations
    integrate
    spatial
 

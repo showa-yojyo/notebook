@@ -105,7 +105,7 @@ Cookbook
   ばねと重りのペア 2 つを摩擦のある床の上に置いて引っ張る状況を出している。
 
 * Intersection of functions: ``scipy.optimize.fsolve`` で 2 曲線の交点が求められる。
-* KDTree: ``scipy.spatial.kdtree.KDTree`` 本稿の後半を参照。
+* KDTree: ``scipy.spatial.kdtree.KDTree`` 別ページを参照。
 
 Graphics は何か色々あるが、
 Matplotlib_ と PIL の ``Image`` データ作成方法しか用がない。
@@ -176,19 +176,6 @@ Fourier Transforms (scipy.fftpack)
 Signal Processing (scipy.signal)
 ----------------------------------------------------------------------
 画像処理か。
-
-Linear Algebra (scipy.linalg)
-----------------------------------------------------------------------
-* ``sci.mat`` を利用すると MATLAB 風表記で行列インスタンスを定義できる。
-* 行列 ``A`` に対して、もし存在すれば逆行列は ``linalg.inv(A)`` または ``A.I`` で得られる。
-* 1 次方程式 :math:`Ax = b` を ``linalg.solve(A, b)`` で解くことができる（解が存在すれば）。
-* ``A`` の行列式は ``linalg.det`` で求める。
-* ノルムには関数 ``linalg.norm`` を用いる。ノルムの種類を引数で指示する。
-* 最小二乗法には ``linalg.lstsq`` を用いる。
-* 固有値・固有ベクトル、各種分解も可能。
-* 行列のテイラー展開による各種関数もサポート。
-
-* その他いろいろ。
 
 Sparse Eigenvalue Problems with ARPACK
 ----------------------------------------------------------------------
