@@ -12,6 +12,7 @@ SciPy 利用ノート
    practice
    nonlinear-equations
    linear-equations
+   eigenvalues
    integrate
    spatial
 
