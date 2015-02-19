@@ -15,7 +15,7 @@ tck = splrep(x, y)
 np.set_printoptions(formatter={'float': '{:.3f}'.format})
 print("knot vector:\n", tck[0])
 print("control points:\n", tck[1])
-print("degree (order - 1):\n", tck[2])
+print("degree:\n", tck[2])
 
 # Evaluate interest rates for each month.
 for i in range(1, 13):

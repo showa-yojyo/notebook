@@ -13,6 +13,7 @@ SciPy 利用ノート
    nonlinear-equations
    linear-equations
    eigenvalues
+   interpolate
    integrate
    spatial
 
