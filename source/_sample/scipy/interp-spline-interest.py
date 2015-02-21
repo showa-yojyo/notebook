@@ -3,6 +3,7 @@
 """
 from scipy.interpolate import splrep, splev
 import numpy as np
+import matplotlib.pyplot as plt
 
 # Interest rates of Jan, Feb, Mar, Jun, Dec.
 x = np.array([1, 2, 3, 6, 12])
@@ -21,3 +22,13 @@ print("degree:\n", tck[2])
 for i in range(1, 13):
     print("month[{0:02d}]: {1:.3f}%".format(
         i, float(splev(i, tck))))
+
+# Plot the interest curve.
+time = np.linspace(1, 12, 1000, endpoint=True)
+rate = splev(time, tck)
+
+plt.figure()
+plt.plot(time, rate, color='deeppink')
+plt.xlabel("Month")
+plt.ylabel("Rate (%)")
+plt.show()
