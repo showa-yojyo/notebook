@@ -15,6 +15,7 @@ SciPy 利用ノート
    eigenvalues
    interpolate
    integrate
+   ode
    spatial
 
 .. note::
