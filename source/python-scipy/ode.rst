@@ -34,6 +34,6 @@
 :math:`y = C_1 e^{-x} + C_2 e^{-2x}` が一般解であり、図の曲線はそのように見えるだろう。
 
 .. image:: /_static/scipy-ode.png
-   :scale: 50%
+   :scale: 60%
 
 .. include:: /_include/scipy-refs.txt
