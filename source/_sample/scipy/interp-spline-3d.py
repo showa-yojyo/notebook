@@ -3,6 +3,8 @@
 """
 from scipy.interpolate import splprep, splev
 import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
 # Set 3D points.
 points = np.array(
@@ -24,3 +26,24 @@ print("parameter values: \n", u)
 for i in u:
     xyz = np.array(splev(i, tck))
     print("f({:.3f}) = {}".format(i, xyz))
+
+# Plot points and the curve.
+fig = plt.figure()
+ax = fig.gca(projection='3d')
+ax.scatter(xs=points[0], ys=points[1], zs=points[2], color='black', label='target points')
+ax.plot(xs=tck[1][0], ys=tck[1][1], zs=tck[1][2], color='pink', label='control points')
+
+params = np.linspace(u[0], u[-1], num=50, endpoint=True)
+values = splev(params, tck)
+ax.plot(xs=values[0], ys=values[1], zs=values[2], color='deeppink', label='cubic spline')
+
+for i in range(4):
+    pt = points[:,i]
+    ptlabel = "({:d}, {:d}, {:d})".format(pt[0], pt[1], pt[2])
+    ax.text(pt[0], pt[1], pt[2], ptlabel, color='black')
+
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+ax.set_zlabel('z')
+ax.legend()
+plt.show()
