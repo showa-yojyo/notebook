@@ -16,6 +16,7 @@ SciPy 利用ノート
    interpolate
    integrate
    ode
+   statistics
    least-squares
    spatial
 
