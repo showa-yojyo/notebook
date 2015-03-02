@@ -1,89 +1,260 @@
 ======================================================================
 ドキュメントを読む
 ======================================================================
-SciPy_ サイト内のリンクを辿っていき、次のように攻略する予定。
-ドキュメントを読みながら、コードを書いてその都度走らせる、
-というやり方で何となく学習した気になる。
+SciPy_ サイト内のリンクを色々と辿っていったところ、どうやら次のタイトルの文書が有用なようだ。
+
+* `Getting Started <http://scipy.org/getting-started.html>`_
+* `SciPy Tutorial <http://docs.scipy.org/doc/scipy/reference/tutorial/index.html>`_
+* `Cookbook <http://wiki.scipy.org/Cookbook>`_
+
+そこで、本稿ではこれらの文書の読書ノートを記すことにする。
 
 .. contents::
 
-.. todo::
-
-   以降、ページの再編成を検討中。
-
 Getting Started
 ======================================================================
-.. http://www.scipy.org/Getting_Started
+初心者をなるべく速く SciPy を理解させ、かつ生産的にさせることを目的とするページ。
 
-* <accessing numpy arrays is faster than accessing Python lists>
-* ``range`` と ``np.arange`` ならば、後者のほうが圧倒的に速い。
-* <Using ipython makes interactive work easy>
-* <Neither scipy nor numpy provide, by default, plotting functions.
-  They are just numerical tools. The recommended plotting package is matplotlib>
+What are NumPy, SciPy, matplotlib, ...?
+----------------------------------------------------------------------
+* NumPy_ の配列型は数値に関する作業に対して便利。
+* SciPy_ は科学的な作業に必要な routines を含む。例を挙げると次のようなものがある。
 
-* 次のドキュメントがおすすめらしい。
+  * 数値積分
+  * 微分方程式のソルバー
+  * 最適化
+  * 疎行列
 
-  * http://www.scipy.org/Additional_Documentation/Astronomy_Tutorial
+* Matplotlib_ は高品質はプロットを生産する。数値モデルを図示するのに便利。
+* IPython はインタラクティブな作業を容易にする。
 
-    リンクの PDF ファイル "Using Python for Interactive Data Analysis"
-    (by Perry Greenfield and Robert Jedrzejewski)
-    が言わば教科書になっている。SciPy の使い方を説明することが目的の文書ではない。
-    もっと包括的な内容の本だ。
+How to work with SciPy
+----------------------------------------------------------------------
+* 一番普通のやり方は、IPython を利用すること。これでコマンドを入力し、スクリプトを走らせる。
+* スクリプトを書くには、はどんなテキストエディターを用いてもよい。
+* <Some of the packages such as Python(x,y) mentioned in *Installing the SciPy Stack*
+  also offer an integrated scientific development environment>
+  読み違えていなければ、他のページで列挙されている SciPy Stack の構成要素は次のパッケージ群を指す。
 
-  * http://www.rexx.com/~dkuhlman/scipy_course_01.html:
-    "SciPy Course Outline" (by Dave Kuhlman)
+  * Python_: 言語自身も構成要素である。
+  * NumPy_: 数値計算の土台をなすパッケージ。
+  * SciPy_: 当パッケージ。
+  * Matplotlib_: プロットパッケージ。
+  * IPython_: インターフェイス。環境と言ったほうが伝わる。
+  * Pandas_: データ構造パッケージ。
+  * SymPy_: 計算機数学・計算機代数パッケージ。
+  * Nose_: 単体テストに便利なパッケージ。
 
-    これは NumPy, SciPy の利用法の概要を説明したテキストだ。
-    PyTables と Matplotlib_ についても説明がある。
-    概略なので、紹介する内容を array の取り扱い程度にとどめている。
+* NumPy も SciPy もプロット機能を提供しない。プロットパッケージとしては Matplotlib_ が最も普通に利用されている。
 
-* An Example Session 以降、IPython を使いながらの説明となる。
-  フーリエ変換のグラフをプロットする例だ。
-  IPython が環境になくても、コードの動作確認は工夫次第で可能だ。
-  例えば次のように IDLE 上で入力していけばよい。
+.. todo::
 
-  .. code-block:: pycon
+   * IPython とやらを試す。
+   * Pandas とやらを試す。
+   * SymPy とやらを試す。
 
-     >> a = np.zeros(1000)
-     >> a[:100] = 1
-     >> b = sp.fft(a)
-     >> plt.plot(np.abs(b))
-     [<matplotlib.lines.Line2D instance at 0xb7b9144c>]
-     >> plt.show()
+Learning to work with SciPy
+----------------------------------------------------------------------
+* Python の全般に関するの学習は、公式サイトの Python チュートリアルが素晴らしい。
+* Python での数値計算に関して
 
-  ウィンドウが表示される。
+  * 各種ツールに関する理解を得る方法のひとつは、次に挙げるオンラインリソースを当たることだ。
 
-  x 軸が [0, 1000] まで表示されていて、山がちょうど両端に位置している。
-  x = 500 で切って左右の曲線を入れ替えて、x = 0 まで平行移動させれば、
-  美しい絵が得られる。
+    * http://scipy-lectures.github.io/index.html
+    * http://wiki.scipy.org/Additional_Documentation
+    * http://docs.scipy.org/doc/scipy/reference/tutorial/index.html
 
-  以下、plot の引数を微調整することを試みる。
+  * それに加えて、書籍が多数あるので活用すること。
+    Google で ``SciPy scientific python`` 等のキーワードで検索するとよい。
 
-  .. code-block:: pycon
+An example session
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* IPython 環境上での操作例を記した文章。Bessel 関数の最大値の計算とプロット出力を行う例にいつの間にか書き換えられている？
+* **SciPy Stack** をインストール済みであることを事前条件としている。
 
-     >> help(np.concatenate)
+An example script
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+前述の操作をスクリプトでやったらどうなるかを記した文章。
 
-  説明文がダラダラ出力される
+* モジュール ``argparse`` を利用してコマンドライン引数を実装している。
+* 関数 ``np.linspace`` が等間隔に値を並べる配列を生成するものであることが読み取れる。明らかに使い勝手が良い。
 
-  .. code-block:: pycon
+SciPy Tutorial
+======================================================================
+このガイドブックのチュートリアル "SciPy Tutorial" こそが言わば公式チュートリアル。
+SciPy の機能を厳選して構成されたと思われるので、一通り読んでみたくなる。
+しかし、各章かなりの分量がある。テキストおよび画像がふんだんにあり、重い。自分の興味のあるトピックに絞ってまずは学習を進めたい。
 
-     >> f = np.arange(-500, 500, 1)
-     >> plt.grid(True)
-     >> plt.plot(f,abs(concatenate((b[500:],b[:500]))))
-     [<matplotlib.lines.Line2D instance at 0xb360ca4c>]
-     >> plt.show()
+Introduction
+----------------------------------------------------------------------
+見出しのとおり、SciPy の紹介および導入手順の記述となっている。
 
-  ウィンドウが表示される
+* SciPy は MATLAB, IDL, Octave, R-Lab, SciLab をライバルと位置づけている。
+* 例の ``import numpy as np`` 等のインポート規約をしているのはここ。
+* サブパッケージの構成と要約の表がある。
+* ``help``, ``np.info``, ``np.source`` がヘルプ三種の神器。
 
-  タイプ量を削減できる IPython を導入したほうが便利であることは想像に難くない。
+  * ``info`` はキーワード引数でテキストの書式を細かくコントロールできる。
+  * ``source`` はちょっと珍しい機能なので、
+    初めて使う ``scipy`` 配下の関数に対して、一度は試してみる価値あり。
+    もし ``Not available for this object.`` というメッセージが出たら諦める。
 
-* 最後に ``import`` 文のコツについて説明している。
-  内容は SciPy に限らず、他の Python パッケージ利用時についても言えることだ。
+Basic functions in Numpy (and top-level scipy)
+----------------------------------------------------------------------
+Interaction with Numpy
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* モジュール ``scipy`` のトップレベルは ``numpy`` の関数をすべて含む。
+  なので ``a = scipy.arange(5)`` のようにも書けるが、そうはせずに ``a = np.arange(5)`` のように書くほうがよい。
+
+Index Tricks
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+配列インスタンスを素早く作成するために、
+``np.r_``, ``np.c_``, ``np.mgrid``, ``np.ogrid`` の使い方を習得する。
+
+* オブジェクト ``np.r_`` は各配列を横に連結するのに使える。関数 ``np.concatanate`` よりタイプしやすい。
+* ステップ数を指示するのに、変な使い方で虚数 (j) を与えることになる。
+* 同様に ``np.c_`` は各配列を縦に（して横に）連結できる。
+* N 次元配列を定義するのにオブジェクト ``np.mgrid`` を利用できる。拡張スライス記法が使える。
+* ``np.ogrid`` は使い途がわからない。ちょっと触っただけだが。
+
+Shape manipulation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+多次元配列を縦にしたり、横にしたり、分割したり、……といった操作をするルーチンを指す。
+
+Polynomials
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SciPy では多項式を取り扱う方法はふたつある。両方の形式は相互に交換可能である。
+
+#. クラス ``np.lib.polynomial.poly1d`` で多項式オブジェクトを定義する。例えば：
+
+   * ``p.integ`` で原始関数取得。キーワード引数 ``k`` が定数項。
+   * ``p.derive`` で導関数取得。
+   * ``p(arraylike)`` で評価。
+
+#. 単に配列で多項式の係数を表現するもの。この場合は降べきの順に係数を格納する。
+
+Vectorizing functions (vectorize)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* 関数 ``vectorize`` を使うと、スカラー引数を取りスカラー値を戻す関数 ``func`` から、
+  array-like 版 ``func`` を新たに定義することができる。
+
+* こんなものを使わなくても、最初からベクトルを引数に取ってベクトル値を返す関数を定義すればよい？
+  いや、何らかの最適化の結果であったり、組み込み関数などは ``vectorize`` しないとベクトル化できまい。
+
+Type handling
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* ``np.iscomplex``/``np.isreal`` は配列ベースで、要素ごとの判定。
+* ``np.iscomplexobj``/``np.isrealobj`` はオブジェクトベースで、引数丸ごと全体の判定。
+* 実部・虚部の取得には関数形式の ``np.real``/``np.imag`` を利用するとよい。戻り値が配列型になる。
+
+  * 絶対値が極めて小さい場合は、関数 ``np.real_if_close`` も考慮する。
+
+* スカラー性の判定には関数 ``np.isscalar`` を。
+* 型キャストには ``np.cast`` オブジェクトを。
+
+Other useful functions¶
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+その他便利な機能を羅列している。
+
+* 角度モノを取り扱うときは ``angle``, ``unwrap`` を当たってみる。
+* 等間隔に値を定義する場合は ``linspace`` が有用。対数版は ``logspace`` を。
+* 関数 ``select`` は「複数版 if 文」みたいなもの。
+* モジュール ``scipy.misc`` には色々とある。
+
+  * 階乗の計算には ``factorial`` 系関数（浮動小数点型ならばガンマ関数）で得られる。
+  * n 個から k 個を選ぶ組み合わせ :math:`_n \mathrm{C} _r` は ``comb(n, k)`` で求まる。
+  * かの Lena の画像イメージを返す関数 ``lena`` が存在する。
+
+* 関数 ``central_diff_weights`` と ``derivative`` は関数の微分の近似に便利。
+
+Special functions (scipy.special)
+----------------------------------------------------------------------
+TBW
+
+Integration (scipy.integrate)
+----------------------------------------------------------------------
+数値積分および常微分方程式にまつわる技法を提供するサブパッケージ。
+
+関連ノートは複数にまたがって記す。
+
+* :doc:`/python-scipy/integrate`
+* :doc:`/python-scipy/ode`
+
+Optimization (scipy.optimize)
+----------------------------------------------------------------------
+最適化アルゴリズムや一変数関数の根を求める計算機能等を提供するサブパッケージ。
+
+ノートは別項 :doc:`/python-scipy/nonlinear-equations` で扱う。
+
+Interpolation (scipy.interpolate)
+----------------------------------------------------------------------
+補間機能に関する機能を提供するサブパッケージ。
+ノートは別項 :doc:`/python-scipy/interpolate` で扱う。
+
+Fourier Transforms (scipy.fftpack)
+----------------------------------------------------------------------
+TBW
+
+Signal Processing (scipy.signal)
+----------------------------------------------------------------------
+画像処理か。
+
+Linear Algebra (scipy.linalg)
+----------------------------------------------------------------------
+線形代数に関する機能を提供するサブパッケージ。
+
+* ``sci.mat`` を利用すると MATLAB 風表記で行列インスタンスを定義できる。
+* 行列 ``A`` に対して、もし存在すれば逆行列は ``linalg.inv(A)`` または ``A.I`` で得られる。
+* 1 次方程式 :math:`Ax = b` を ``linalg.solve(A, b)`` で解くことができる（解が存在すれば）。
+* ``A`` の行列式は ``linalg.det`` で求める。
+* ノルムには関数 ``linalg.norm`` を用いる。ノルムの種類を引数で指示する。
+* 最小二乗法には ``linalg.lstsq`` を用いる。
+* 固有値・固有ベクトル、各種分解も可能。
+* 行列のテイラー展開による各種関数もサポート。
+
+関連ノートは複数にまたがって記す。
+
+* :doc:`/python-scipy/linear-equations`
+* :doc:`/python-scipy/eigenvalues`
+* :doc:`/python-scipy/least-squares`
+
+Sparse Eigenvalue Problems with ARPACK
+----------------------------------------------------------------------
+TBW
+
+Statistics (scipy.stats)
+----------------------------------------------------------------------
+確率、統計の計算に関する機能を提供するサブパッケージ。
+ノートは別項 :doc:`/python-scipy/statistics` で扱う。
+
+Compressed Sparse Graph Routines (scipy.sparse.csgraph)
+----------------------------------------------------------------------
+TBW
+
+Multi-dimensional image processing (scipy.ndimage)
+----------------------------------------------------------------------
+ここも画像処理か。
+
+File IO (scipy.io)
+----------------------------------------------------------------------
+SciPy はある種のファイルフォーマットを操作できるということがわかる。
+MATLAB ファイルやら WAV ファイルやら。
+
+Weave (scipy.weave)
+----------------------------------------------------------------------
+Python コードの内部に C/C++ のコードを含めるためのパッケージだそうだ。
+今は読む必要はない。
 
 Cookbook
 ======================================================================
-.. http://www.scipy.org/Cookbook
+よくあるタスクのレシピ集のページのようだ。導入レベルのものからまったく高度なものまで幅広く取り揃っている。
 
+Scipy Central
+----------------------------------------------------------------------
+レシピの検索および投稿は http://scipy-central.org/ でできるようだ。
+
+NumPy / SciPy
+----------------------------------------------------------------------
 まずは "NumPy / SciPy" を見ていく。
 
 * BuildingArrays は NumPy の基本中の基本である array インスタンスの
@@ -105,117 +276,39 @@ Cookbook
   ばねと重りのペア 2 つを摩擦のある床の上に置いて引っ張る状況を出している。
 
 * Intersection of functions: ``scipy.optimize.fsolve`` で 2 曲線の交点が求められる。
-* KDTree: ``scipy.spatial.kdtree.KDTree`` 別ページを参照。
+* KDTree: ``scipy.spatial.kdtree.KDTree`` 別ページ :doc:`/python-scipy/spatial` を参照。
 
 Graphics は何か色々あるが、
 Matplotlib_ と PIL の ``Image`` データ作成方法しか用がない。
 
 あとは SWIG 関連か。
 
-SciPy Reference Guide
-======================================================================
-
-http://docs.scipy.org/doc/scipy/reference/
-
-このガイドブックのチュートリアル "SciPy Tutorial" こそが言わば公式チュートリアル。
-SciPy の機能を厳選して構成されたと思われるので、一通り読んでみたくなる。
-しかし、各章かなりの分量がある。
-テキストおよび画像がふんだんにあり、重い。
-自分の興味のあるトピックに絞ってまずは学習を進めたい。
-
-正直な所、わからないところの方がずっと多い。
-
-Introduction
+Advanced topics
 ----------------------------------------------------------------------
-* ``help``, ``sp.info``, ``sp.source`` がヘルプ三種の神器。
+まだ 1 レシピしかないもよう。
 
-  * ``info`` はキーワード引数でテキストの書式を細かくコントロールできる。
-
-  * ``source`` はちょっと珍しい機能なので、
-    初めて使う ``scipy`` 配下の関数に対して、一度は試してみる価値あり。
-
-Basic functions in Numpy (and top-level scipy)
+Compiling Extensions
 ----------------------------------------------------------------------
-* ``sp.isnan``, ``sp.isfinite``, ``sp.isinf`` を浮動小数点数のエラー検知に利用できる。
-* array インスタンスを素早く作成するために、
-  ``sp.mgrid``, ``sp.ogrid``, ``sp.r_``, ``sp.c_`` の使い方を習得する。
+まだ 1 レシピしかないもよう。しかも Windows 限定の話題。
 
-  * これらは相当な修練が必要そうに思える。
-
-* ``poly1d`` で一変数多項式を定義することができる。
-
-  * ``p.integ`` で原始関数取得。キーワード引数 ``k`` が定数項。
-  * ``p.derive`` で導関数取得。
-  * ``p(arraylike)`` で評価。
-
-* ``vectorize`` 関数を使うと、スカラー引数を取りスカラー値を戻す関数 ``func`` から、
-  array-like 版 ``func`` を新たに定義することができる。
-
-* ``mod(x, y)`` vs ``x % y``
-* ``fix`` は「ゼロに近い方の整数」を返す（型は float のままのようだが）。
-* 角度モノを取り扱うときは ``angle``, ``unwrap`` を当たってみる。
-* ``linspace`` だけでなく ``logspace`` もある。
-* 関数 ``select`` は「複数版 if 文」みたいなもの。
-
-* n の階乗は ``scipy.misc.factorial(n)`` で求まる。
-  ちなみにガンマ関数で実装されている。
-* n 個から k 個を選ぶ組み合わせ :math:`_n \mathrm{C} _r` は ``scipy.misc.comb(n, k)`` で求まる。
-
-Special functions (scipy.special)
+Scientific Scripts
 ----------------------------------------------------------------------
 TBW
 
-Fourier Transforms (scipy.fftpack)
+Input Output
 ----------------------------------------------------------------------
-まだ書きかけのようだ。
+TBW
 
-Signal Processing (scipy.signal)
+Graphics
 ----------------------------------------------------------------------
-画像処理か。
+TBW
 
-Multi-dimensional image processing (scipy.ndimage)
+Using NumPy With Other Languages (Advanced)
 ----------------------------------------------------------------------
-ここも画像処理か。
+高度な内容となる。
 
-File IO (scipy.io)
+Scientific GUIs
 ----------------------------------------------------------------------
-SciPy はある種のファイルフォーマットを操作できるということがわかる。
-MATLAB ファイルやら WAV ファイルやら。
-
-Weave (scipy.weave)
-----------------------------------------------------------------------
-Python コードの内部に C/C++ のコードを含めるためのパッケージだそうだ。
-今は読む必要はない。
-
-コードを書く
-======================================================================
-
-ヘルプ
-----------------------------------------------------------------------
-
-SciPy のバージョンを知る
-----------------------------------------------------------------------
-:file:`version.py` の変数 ``version`` を参照する。
-
- >>> sp.version.version
- '0.14.0'
-
-関数のヘルプを見る
-----------------------------------------------------------------------
-Python 組み込みの関数 ``help`` よりも、
-キーワード引数 ``maxwidth`` で一行の文字数を制限することができる
-``scipy.info`` のほうが見やすい可能性がある。
-
-定義済み定数を利用する
-----------------------------------------------------------------------
-Python なので「定数」ではないのだが、
-色々便利なものが ``scipy.constances`` にある。
-
-* 円周率、黄金比、真空中の光速、プランク定数、地球の重力加速度、等々。
-* SI 基本単位
-* SI 接頭辞（キロ、メガ等）
-
-便利なのでリンクをはっておく。
-http://docs.scipy.org/doc/scipy/reference/constants.html
+TBW
 
 .. include:: /_include/scipy-refs.txt
