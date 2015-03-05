@@ -11,8 +11,6 @@ Scipy Central
 
 NumPy / SciPy
 ======================================================================
-まずは "NumPy / SciPy" を見ていく。
-
 * BuildingArrays は NumPy の基本中の基本である array インスタンスの
   作り方について説明している。コードを一通り手で打って実行して結果を見るべし。
 
@@ -34,37 +32,62 @@ NumPy / SciPy
 * Intersection of functions: ``scipy.optimize.fsolve`` で 2 曲線の交点が求められる。
 * KDTree: ``scipy.spatial.kdtree.KDTree`` 別ページ :doc:`/python-scipy/spatial` を参照。
 
-Graphics は何か色々あるが、
-Matplotlib_ と PIL の ``Image`` データ作成方法しか用がない。
-
-あとは SWIG 関連か。
-
 Advanced topics
 ======================================================================
-まだ 1 レシピしかないもよう。
+* ViewsVsCopies: NumPy 配列の view と copy に関する考察。
+
+  * ビューには slice view と dtype view の 2 種類がある。
+
+    * 普通、ビューと言えば slice のほうを指す。既存の配列オブジェクトの部分を操作する。そしてオリジナルを更新することもできる。
+    * メソッド ``view`` を用いるビューのほうが dtype view である。こちらは slice view ほど便利でない。
+
+  * fancy indexing がビューを返さない理由は、一般にはそれが slice で表せないから。従って（元の配列の部分の）コピーを返す。
+  * fancy indexing が左辺値である場合、ビューでもコピーでもなく ``__setitem__`` の呼び出しである。
 
 Compiling Extensions
 ======================================================================
-まだ 1 レシピしかないもよう。しかも Windows 限定の話題。
+* Compiling Extensions on Windows:
+
+  * MinGW 環境で拡張モジュールをコンパイルする手順を説明するレシピだ。私は読まない。
 
 Scientific Scripts
 ======================================================================
-TBW
+* Theoretical Ecology: 専門家ではないので理解していない。食物連鎖のシミュレーションか？
+* Schrödinger's equation: 一次元の波動方程式を FDTD 法で解くサンプル。SciPy というより NumPy で実現している。
 
 Input Output
 ======================================================================
-TBW
+ここにあるレシピがほとんど使わなそうだ。あるとすれば下に挙げるものか。
+
+* input/output: NumPy 配列オブジェクトをファイルに入出力する方法のレシピ。
+
+  * アスキー形式
+
+    * NumPy/SciPy: ``numpy.savetxt``, ``numpy.genfromtext``
+    * Matplotlib: ``pylab.save``, ``pylab.load``
+
+  * バイナリー形式
+  
+    * NumPy: ``numpy.save``, ``numpy.savez``, ``numpy.load``
+    * SciPy: ``scipy.io.numpyio.fwrite``, ``scipy.io.numpyio.fread``
+
+      * ``scipy.io.npfile`` は使い勝手が良さそうにも関わらず、どういうわけか deprecated だそうだ。
 
 Graphics
 ======================================================================
-TBW
+* Matplotlib cookbook: 当然要チェック。中を見るとさらにレシピがある。
+* Python Imaging Library: NumPy 配列を PIL でイメージ化するコードが掲載。多分使わない。
+* Mat3d: OpenGL バックエンドを使った立体プロットとあるので、個人的には触ってみたい。
+* Line Integral Convolution: 2 次元ベクトル場をイメージ化する技法があるらしい。その説明とイメージ例。ゴッホの絵みたい。
+* VTK volume rendering: 3 次元配列のボリュームレンダリングについて。気になる。
+* Old Matplotlib recipes: これは Matplotlib ノートで改めて採り上げてみたい。
 
 Using NumPy With Other Languages (Advanced)
 ======================================================================
-高度な内容となる。
+個人的には Python 内で実現可能なことにだけ興味があるので、このノートでは深く立ち入らない。
 
 Scientific GUIs
 ======================================================================
-TBW
+wxPython と TraitsUI の例を挙げている。個人的には PyQt の例が作成できるのならば読んでみたい。
 
 .. include:: /_include/scipy-refs.txt
