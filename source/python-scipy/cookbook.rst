@@ -11,25 +11,50 @@ Scipy Central
 
 NumPy / SciPy
 ======================================================================
-* BuildingArrays は NumPy の基本中の基本である array インスタンスの
-  作り方について説明している。コードを一通り手で打って実行して結果を見るべし。
+* NumPy arrays: tips and tricks:
 
-  * ``dtype`` の結果が異なるかもしれない。
-  * bool-array で array の要素群にアクセスできるのは初耳。
-  * 多次元スライスに早く慣れること。
-  * ``linspace``, ``mgrid``, ``ogrid``, ``zeros``, ``ones`` が便利なことがある。
-  * 組み込み関数 ``reduce`` を利用した ``mdot`` の実装例。
+  * BuildingArrays は NumPy の基本中の基本である array インスタンスの
+    作り方について説明している。コードを一通り手で打って実行して結果を見るべし。
 
-* Rank and nullspace: 行列の階数を二種類のトレランスを指定して計算する例。
-* Interpolation: 指定点列を通過するスプライン曲線を得る例と、
-  フィッティングの例を説明。
+    * ``dtype`` の結果が異なるかもしれない。
+    * bool-array で array の要素群にアクセスできるのは初耳。
+    * 多次元スライスに早く慣れること。
+    * ``linspace``, ``mgrid``, ``ogrid``, ``zeros``, ``ones`` が便利なことがある。
 
-* Optimization は専門外なのでわからない。
-* Linear Regression: ``scipy.stats.linregress``
-* A coupled spring-mass system: 微分方程式を解く例に、
-  ばねと重りのペア 2 つを摩擦のある床の上に置いて引っ張る状況を出している。
+  * Indexing: 必読。内容が一部後述の ViewsVsCopies とかぶる。
+  * Multiplying multiple arguments: 組み込み関数 ``reduce`` を利用した ``mdot`` の実装例等。
 
-* Intersection of functions: ``scipy.optimize.fsolve`` で 2 曲線の交点が求められる。
+* Linear Algebra:
+
+  * Rank and nullspace: 行列の階数を二種類のトレランスを指定して計算する例。
+
+* Interpolation:
+
+  * Interpolation: 指定点列を通過するスプライン曲線を得る例を説明。
+
+    * モジュール ``scipy.signal`` にあるスプライン補間曲線 ``cspline1d`` を用いる。入力点列は等間隔である必要がある。
+    * モジュール ``scipy.ndimage`` にある ``spline_filter``, ``map_coordinates`` を用いる。入力点列は等間隔である必要がある。
+
+      * サンプルコードの ``np.ogrid`` と ``np.mgrid`` の用例に注目したい。手際よく *(x, y)* を生成している。
+
+    * モジュール ``scipy.interpolate`` にある ``splprep``, ``splev`` を用いる。
+      別ページ :doc:`/python-scipy/interpolate` を参照。
+
+  * Radial Basis Functions: *n* 次元の散布データから放射基底関数を用いての補間。
+
+* Optimization and fitting techniques: 専門外なのでわからない。
+
+  * Linear Regression: ``scipy.stats.linregress``
+
+* Ordinary differential equations
+
+  * A coupled spring-mass system: 微分方程式を解く例に、
+    ばねと重りのペア 2 つを摩擦のある床の上に置いて引っ張る状況を出している。
+
+* Root finding
+
+  * Intersection of functions: ``scipy.optimize.fsolve`` で 2 曲線の交点が求められる。
+
 * KDTree: ``scipy.spatial.kdtree.KDTree`` 別ページ :doc:`/python-scipy/spatial` を参照。
 
 Advanced topics
