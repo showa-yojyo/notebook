@@ -44,18 +44,52 @@ NumPy / SciPy
 
 * Optimization and fitting techniques: 専門外なのでわからない。
 
-  * Linear Regression: ``scipy.stats.linregress``
+  * Optimization: 前から思っていることだが、この英単語、日本語で何と表現すれば適切になるのだろうか。
 
-* Ordinary differential equations
+    * ``scipy.optimize.fmin(func, x0)``: 関数 ``func`` の最小値を変数 ``x0`` から求める。
+    * ``scipy.optimize.fsolve(func, x0)``: 関数 ``func`` の根を変数 ``x0`` から求める。
+    * ``scipy.optimize.fminbound(func, x1, x2)``: 関数 ``func`` の最小値を区間内から求める。
+    * 最大値が欲しい場合は ``-func`` を与えればよい。
 
+  * Optimization with fit: 謎のモジュール ``enthought.chaco.wx`` を用いる例。
+  * Fitting Data: パッと見、読んだほうがよさそうだ。
+  * Linear Regression: ``scipy.polyval``, ``scipy.polyfit`` を用いた回帰直線の作成及びプロットの例。
+
+* Ordinary differential equations: 微分方程式のレシピなのだが、私の数学知識を遥かに超えているので飛ばす。
+
+  * Zombie Apocalypse ODE Modeling: ゾンビって言われても困る。
   * A coupled spring-mass system: 微分方程式を解く例に、
     ばねと重りのペア 2 つを摩擦のある床の上に置いて引っ張る状況を出している。
 
 * Root finding
 
+  * Spherical Bessel Zeros: ``scipy.optimize.brentq`` で「明らかに効率的でない」何かを行うサンプル。
   * Intersection of functions: ``scipy.optimize.fsolve`` で 2 曲線の交点が求められる。
 
-* KDTree: ``scipy.spatial.kdtree.KDTree`` 別ページ :doc:`/python-scipy/spatial` を参照。
+* Data rebinning: 日本語で rebin はどう表現すればよいのかわからない。ヒストグラムのビンの取り方を変えるような。
+* Histograms: 2 次元ヒストグラム作図デモ。関数 ``np.histogram2d`` が決定的。
+* Convex Hull: 2 次元点列の凸包を自力で計算、プロットするレシピ。
+
+  * 関数 ``area_of_triangle`` を見て気づいた。ベクトルの長さを ``numpy.linalg.norm`` で得られる。
+
+* Minimum Point of a Convex Hull: 凸包の最小点を無限ループに陥ることなく求めるレシピ。
+* Smoothing a signal: デジタル信号データの平滑化のレシピか。
+
+  * 関数 ``numpy.convolve`` を利用する。
+  * 図の Smoothing a noisy signal のグラフで効果が一目瞭然。
+
+* Butterworth Bandpass Filter: ``scipy.signal.butter``, ``scipy.signal.lfilter`` 用例あり。
+* Multithreading: <numpy code often releases the GIL while it is calculating> だと。
+* KDTree: 別ページ :doc:`/python-scipy/spatial` を参照。
+* Brownian Motion: 2 次元ブラウン運動のプロットのデモ。
+* Correlated Random Samples:
+
+  * メソッド ``scipy.stats.norm.rvs`` で乱数を生成するサンプル。
+  * 冒頭の注記によると関数 ``numpy.random.multivariate_normal`` が同じタスクをこなせる。
+
+* Large Markov Chains: マルコフ連鎖の定常分布を計算するデモ。べき乗法という iterative method を用いる。
+* Watershed algorithm: 画像処理ネタ。
+* Linear Classification: Fisher の線形判別法。パターン認識とか機械学習の専門家向け。
 
 Advanced topics
 ======================================================================
