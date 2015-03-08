@@ -1,7 +1,7 @@
 ======================================================================
 Getting Started
 ======================================================================
-初心者をなるべく速く SciPy を理解させ、かつ生産的にさせることを目的とするページ。
+初心者をなるべく速く SciPy_ を理解させ、かつ生産的にさせることを目的とするページ。
 
 .. contents::
 
@@ -16,11 +16,11 @@ What are NumPy, SciPy, matplotlib, ...?
   * 疎行列
 
 * Matplotlib_ は高品質はプロットを生産する。数値モデルを図示するのに便利。
-* IPython はインタラクティブな作業を容易にする。
+* IPython_ はインタラクティブな作業を容易にする。
 
 How to work with SciPy
 ======================================================================
-* 一番普通のやり方は、IPython を利用すること。これでコマンドを入力し、スクリプトを走らせる。
+* 一番普通のやり方は、IPython_ を利用すること。これでコマンドを入力し、スクリプトを走らせる。
 * スクリプトを書くには、はどんなテキストエディターを用いてもよい。
 * <Some of the packages such as Python(x,y) mentioned in *Installing the SciPy Stack*
   also offer an integrated scientific development environment>
@@ -35,13 +35,13 @@ How to work with SciPy
   * SymPy_: 計算機数学・計算機代数パッケージ。
   * Nose_: 単体テストに便利なパッケージ。
 
-* NumPy も SciPy もプロット機能を提供しない。プロットパッケージとしては Matplotlib_ が最も普通に利用されている。
+* NumPy_ も SciPy_ もプロット機能を提供しない。プロットパッケージとしては Matplotlib_ が最も普通に利用されている。
 
 .. todo::
 
-   * IPython とやらを試す。
-   * Pandas とやらを試す。
-   * SymPy とやらを試す。
+   * IPython_ とやらを試す。
+   * Pandas_ とやらを試す。
+   * SymPy_ とやらを試す。
 
 Learning to work with SciPy
 ======================================================================
@@ -59,7 +59,7 @@ Learning to work with SciPy
 
 An example session
 ----------------------------------------------------------------------
-* IPython 環境上での操作例を記した文章。Bessel 関数の最大値の計算とプロット出力を行う例にいつの間にか書き換えられている？
+* IPython_ 環境上での操作例を記した文章。Bessel 関数の最大値の計算とプロット出力を行う例にいつの間にか書き換えられている？
 * **SciPy Stack** をインストール済みであることを事前条件としている。
 
 An example script

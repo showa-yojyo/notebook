@@ -126,7 +126,7 @@ Input Output
     * Matplotlib: ``pylab.save``, ``pylab.load``
 
   * バイナリー形式
-  
+
     * NumPy: ``numpy.save``, ``numpy.savez``, ``numpy.load``
     * SciPy: ``scipy.io.numpyio.fwrite``, ``scipy.io.numpyio.fread``
 
@@ -135,11 +135,11 @@ Input Output
 Graphics
 ======================================================================
 * Matplotlib cookbook: 当然要チェック。中を見るとさらにレシピがある。
-* Python Imaging Library: NumPy 配列を PIL でイメージ化するコードが掲載。多分使わない。
+* Python Imaging Library: NumPy 配列を PIL_ でイメージ化するコードが掲載。多分使わない。
 * Mat3d: OpenGL バックエンドを使った立体プロットとあるので、個人的には触ってみたい。
 * Line Integral Convolution: 2 次元ベクトル場をイメージ化する技法があるらしい。その説明とイメージ例。ゴッホの絵みたい。
 * VTK volume rendering: 3 次元配列のボリュームレンダリングについて。気になる。
-* Old Matplotlib recipes: これは Matplotlib ノートで改めて採り上げてみたい。
+* Old Matplotlib recipes: これは :doc:`/python-matplotlib` で改めて採り上げてみたい。
 
 Using NumPy With Other Languages (Advanced)
 ======================================================================
