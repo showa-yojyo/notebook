@@ -37,7 +37,7 @@ PyOpenGL_ (The Python OpenGL Binding)
 
 関連ノート
 ======================================================================
-* :doc:`python-numpy`
+* :doc:`python-numpy/index`
 * :doc:`python-pil`
 * :doc:`python-pillow`
 

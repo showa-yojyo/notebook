@@ -42,7 +42,7 @@ Contents:
    python-pip
    python-pylint
    python-nose
-   python-numpy
+   python-numpy/index
    python-scipy/index
    python-apgl
    python-pil

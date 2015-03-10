@@ -28,7 +28,7 @@ Another Python Graph Library (APGL) 利用ノート
 関連ノート
 ======================================================================
 * :doc:`python-networkx/index`
-* :doc:`python-numpy`
+* :doc:`python-numpy/index`
 * :doc:`python-scipy/index`
 
 インストール
