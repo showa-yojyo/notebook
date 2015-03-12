@@ -6,6 +6,7 @@
 .. toctree::
    :maxdepth: 5
 
+   tutorial
    doc
 
 .. include:: /_include/scipy-refs.txt
