@@ -13,7 +13,7 @@ Prerequisites
 * NumPy_ を利用するためには、当然 Python_ のことを少々は知っている必要がある。最低でも Python と NumPy を開発環境で利用可能なようにしておく必要がある。
 * さらに次のものがあれば便利とある。私は後ろふたつは確保している。
 
-  * IPython_: これはコンソール環境というか、シェルというか、未挑戦。
+  * IPython_: :doc:`/python-ipython` 参照。
   * Matplotlib_: :doc:`/python-matplotlib` 参照。
   * SciPy_: :doc:`/python-scipy/index` 参照。
 

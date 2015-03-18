@@ -39,7 +39,6 @@ How to work with SciPy
 
 .. todo::
 
-   * IPython_ とやらを試す。
    * Pandas_ とやらを試す。
    * SymPy_ とやらを試す。
 
