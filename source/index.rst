@@ -53,6 +53,7 @@ Contents:
    python-jinja2
    python-pygments
    python-twitter-tools
+   python-isbn-hyphenate
    python-pyopengl
    python-pyqt4
    python-pygame
