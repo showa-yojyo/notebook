@@ -19,7 +19,7 @@ IPython 利用ノート
 IPython とは何か
 ======================================================================
 ドキュメントによると <IPython is meant to work as a drop-in replacement
-for the standard interactive interpreter> だそうだ。Python コンソールの上位機種のような扱いでよい。
+for the standard interactive interpreter> だそうだ。標準の Python インタープリターの上位版のようなモノだ。
 
 インストールから初回起動まで
 ======================================================================
@@ -216,15 +216,6 @@ IPython コンソールウィンドウでの各種機能をひと通り試して
 
 * ``%who``, ``%whos`` で自分が定義した識別子のリストを出力できる。後者は利用回数も確認できてたいへん便利。
 
-.. todo::
-
-   以下を調査する。
-
-   * タブキー補間。Emacs の dabbrev-expand 程度のものを期待したいが、できるか？
-   * デフォルトでは ``%history`` の履歴リストが長い。Bash でいうところの $HISTSIZE 的なものがあるか調べる。
-   * Windows だと ``!`` コマンドが使えてもあまりうれしくない。Cygwin のコマンドを使いたいので設定可能か調べる。単に
-     ``/bin`` に PATH を通すだけかもしれない。
-
 * 履歴機能操作は readline に強く依存することに留意するべし。
 
   * C-r で Bash でいうところの reverse-i-search 機能が使える。すなわち、過去のコマンド入力をインクリメンタルサーチする。
@@ -258,12 +249,72 @@ IPython コンソールウィンドウでの各種機能をひと通り試して
   * コマンド ``%cd X`` を実行すれば、作業ディレクトリーを X に移動する。
   * コマンド ``%dhist`` を実行すれば、作業ディレクトリーを訪問順に一覧できる。
 
+* スクリプトを IPython のセッションから起動できる。次のコード片は自作のスクリプトを ``%run`` コマンドにより起動した様子を再現したものだ。
+
+  .. code-block:: text
+
+     In [125]: %run ~/bin/listmanager.py remove showa_yojyo bot zzz
+     0-15: Wait...
+     0-15: OK:
+     zzz
+
+* 複数行に亘る関数の定義のコーディングは IPython ウィンドウ内で行うよりも、常用しているテキストエディターで行えるほうが効率的だ。
+  コマンド ``%edit`` はそれを実現する。このコマンドを実行すると、デフォルトでは notepad.exe が開く。ここでコードを書いて保存して閉じる。
+  すると IPython のセッションにその内容が伝わる。エディターで定義した関数を呼び出すことができる。
+
+  .. code-block:: text
+
+     In [126]: %edit
+     IPython will make a temporary file named: D:\Temp\ipython_edit_3cn_y47j\ipython_edit_osmxydqq.py
+     Editing... done. Executing edited code...
+     Out[126]: 'def need_to_be_in_love():\n\tpass\n'
+
+     In [127]: need_to_be_in_love()
+
+     In [128]:
+
+  notepad.exe では逆にテキスト編集の効率が落ちるはずなので、オプション
+  ``TerminalInteractiveShell.editor`` で馴染みのテキストエディターを指定する。
+
+  .. code-block:: python3
+
+     # Set the editor used by IPython (default to $EDITOR/vi/notepad).
+     c.TerminalInteractiveShell.editor = 'D:/Program Files/xyzzy/xyzzy.exe'
+
+* クリップボードの内容を Python のコードとして評価することができる。
+
+  * キーボードで C-S-v を押すと、クリップボードに保存されている Python コードを即時評価する。
+  * コマンド ``%paste`` を実行すると、いったんクリップボードの内容を画面にエコーしてから、コード内容を評価する。
+  * 代わりにコマンド ``%cpaste`` を実行すると、まずはクリップボードに保存されている Python コードの編集モードになる。
+    次にユーザーが ``--`` という行を入力すると編集終了となり、そこに書かれたコードが最終的に評価される。
+
+* 作業内容のリセット機能がある。
+
+  * コマンド ``%reset`` でセッションの各種状態（ユーザー定義のオブジェクト、入力履歴、出力履歴、ディレクトリー移動履歴）をクリアすることができる。
+
+    * 異色なのは ``%reset array`` だろう。NumPy の配列オブジェクトをすべて削除するというものだ。
+
+  * コマンド ``%reset_selective`` を用いれば、クリアしたいユーザー定義のオブジェクトを正規表現で指定できる。
+
+.. todo::
+
+   * タブキー補間。Emacs の dabbrev-expand 程度のものを期待したいが、できるか調査する。
+   * デフォルトでは ``%history`` の履歴リストが長い。Bash でいうところの $HISTSIZE 的なものがあるか調べる。
+   * Windows だと ``!`` コマンドが使えてもあまりうれしくない。Cygwin のコマンドを使いたいので設定可能か調べる。単に
+     ``/bin`` に PATH を通すだけかもしれない。
+   * Output caching system の ``_<n>`` の有効な *n* を知りたい場合は？
+   * IPython ウィンドウでのテキストのハイライト機能を提供する Sphinx のディレクティブを当ノートに導入する。
+
 その他
 ======================================================================
 * YouTube で ``IPython`` で検索すると、面白いビデオが大量に見つかる。
   ``IPython Windows`` 等もよい。
 
 * ConEmu ユーザーならば、当然 IPython3 をタブ化できるようにしておくのが筋だろう。
+
+* このノートをだいたい書き終わったあとに気づいたが、オライリーの
+  `Python によるデータ分析入門 <http://www.oreilly.co.jp/books/9784873116556/>`_ という本が
+  IPython を紹介するのに一章分紙幅を割いている。たいへんまとまっていて便利だ。
 
 .. include:: /_include/scipy-refs.txt
 .. _PyReadLine: http://ipython.org/pyreadline.html
