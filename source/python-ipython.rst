@@ -15,6 +15,8 @@ IPython 利用ノート
      * IPython_ 3.0.0
      * PyReadline_ 2.0
      * Nose_ 1.3.4
+     * PyQt_ v5.3.1 for Python v3.4 (x64)
+     * PyZMQ_ 14.5.0
 
 IPython とは何か
 ======================================================================
@@ -305,12 +307,63 @@ IPython コンソールウィンドウでの各種機能をひと通り試して
    * Output caching system の ``_<n>`` の有効な *n* を知りたい場合は？
    * IPython ウィンドウでのテキストのハイライト機能を提供する Sphinx のディレクティブを当ノートに導入する。
 
+Qt コンソールを試す
+======================================================================
+PyQt_ と PyZMQ_ が利用可能であれば、IPython を PyQt ウィンドウで再現できる。
+私の環境では PyQt はインストールが済んでいるものの、PyZMQ が入っていなかった。
+本節では PyZMQ のインストール作業から記す。
+
+PyZMQ をインストールする
+----------------------------------------------------------------------
+PyZMQ_ が何であるのかを理解するのは後回しにして、まずはインストールだ。
+IPython のドキュメントにあるように、素直に pip でインストールできる。
+
+.. code-block:: console
+
+   $ pip install pyzmq
+   Downloading/unpacking pyzmq
+   Installing collected packages: pyzmq
+   Successfully installed pyzmq
+   Cleaning up...
+   $ pip list | grep -i pyzmq
+   pyzmq (14.5.0)
+
+Qt コンソールを起動する（シンプル）
+----------------------------------------------------------------------
+Windows の「ファイル名を指定して実行」で次のように指定する。
+
+.. code-block:: text
+
+   D:\Python34\Scripts\ipython3.exe qtconsole
+
+一旦真っ黒なウィンドウが表示され、次に Qt ウィンドウが表示される。後者がコンソールとなる。
+通常の IPython のように使えるだけでなく、よく見ると便利なコマンドを起動するメニューがウィンドウ上部に備えられている。
+
+Qt コンソールを起動する（プロットインライン）
+----------------------------------------------------------------------
+Matplotlib のプロット図をインラインに Qt コンソール内に描画させる。この機能が Qt コンソールの目玉であると思われる。
+まずは IPython を次のようなコマンドライン引数を指定して起動する。ドキュメントには
+``qtconsole --matplotlib inline`` と指定すると記されているが、私の環境ではダメだった。
+
+.. code-block:: text
+
+   D:\Python34\Scripts\ipython3.exe qtconsole --pylab=inline
+
+試しに Matplotlib を内部的に利用した NetworkX のメソッドを経由して描画してみよう。
+
+.. image:: /_static/ipython-qtconsole-inline.png
+   :scale: 50%
+
+インラインでグラフを描画できて何がうれしいのかと言うと、このコンソールウィンドウを保存できるからだ。
+ファイルメニューの Save を選択すると、コンソールでの入出力を HTML と画像とに分けてファイルとして保存できる。
+
 その他
 ======================================================================
 * YouTube で ``IPython`` で検索すると、面白いビデオが大量に見つかる。
   ``IPython Windows`` 等もよい。
 
-* ConEmu ユーザーならば、当然 IPython3 をタブ化できるようにしておくのが筋だろう。
+* ConEmu ユーザーならば、当然 IPython をタブ化できるようにしておくのが筋だろう。
+  ところで Qt コンソールウィンドウはタブ化できないのだろうか。「元ウィンドウ」はタブ化できる。
 
 * このノートをだいたい書き終わったあとに気づいたが、オライリーの
   `Python によるデータ分析入門 <http://www.oreilly.co.jp/books/9784873116556/>`_ という本が
@@ -318,3 +371,5 @@ IPython コンソールウィンドウでの各種機能をひと通り試して
 
 .. include:: /_include/scipy-refs.txt
 .. _PyReadLine: http://ipython.org/pyreadline.html
+.. _PyZMQ: http://zeromq.github.io/pyzmq/
+.. _PyQt: http://www.riverbankcomputing.co.uk/software/pyqt/
