@@ -54,7 +54,7 @@ Contents:
    python-pygments
    python-twitter-tools
    python-isbn-hyphenate
-   python-pyopengl
+   python-pyopengl/index
    python-pyqt4
    python-pygame
    python-py2exe
