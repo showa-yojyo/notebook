@@ -77,15 +77,15 @@ def reshape(width, height):
     glLoadIdentity()
     if width <= height:
         # Portrait.
-        aspect = float(height) / width
+        aspect = height / width
         glOrtho(-2, 2, -2 * aspect, 2 * aspect, -5.0, 20.0)
     else:
         # Landscape.
-        aspect = float(width) / height
+        aspect = width / height
         glOrtho(-2 * aspect, 2 * aspect, -2, 2, -5.0, 20.0)
 
     # When you prefer perspective projection, use this:
-    #gluPerspective(45.0, float(width)/height, 1.0, 100.0)
+    #gluPerspective(45.0, width / height, 1.0, 100.0)
 
     glMatrixMode(GL_MODELVIEW)
     glLoadIdentity()

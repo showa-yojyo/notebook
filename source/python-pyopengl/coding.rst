@@ -25,7 +25,7 @@ GLUT ベースのスケルトンを自作しておく
 
 一点、PyOpenGL 固有の問題のようなので言及しておく。Python 3 では
 ``glutCreateWindow`` の実引数となる文字列 ``window_title`` の型に注意して欲しい。
-素の文字列ではエラーが起こるのを避けるべく、接頭辞 b を付けている。
+素の文字列ではエラーが起こるのを避けるべく、接頭辞 ``b`` を付けている。
 
 C 言語で配列に相当する型の実引数を与える
 ======================================================================
@@ -67,7 +67,7 @@ PNG ファイルからテクスチャーを生成する
 ポイントは Pillow の ``Image`` インスタンスの ``tostring`` 戻り値を ``glTexImage2D`` に渡すことだ。
 ここではアルファチャンネルを含む PNG ファイルからテクスチャーデータを作成する例を示す。
 
-def init
+関数 init を定義する
 ----------------------------------------------------------------------
 まずはテクスチャー設定から。
 
@@ -100,7 +100,7 @@ Comment 2
 
   残りの関数呼び出しは、アプリケーションの目的に応じてパラメーターを指定すること。
 
-def display
+関数 display を定義する
 ----------------------------------------------------------------------
 次に描画ロジックを示す。明らかに手抜きコードだが、説明にはこれで十分だろう。
 これを ``display`` の主要部分に加える。
@@ -170,7 +170,7 @@ def display
 Pillow のテキスト描画機能と PyOpenGL のテクスチャー機能を活用したプログラム例。
 要所のみを説明する。
 
-def init
+関数 init を定義する
 ----------------------------------------------------------------------
 ``init`` のテクスチャー初期化コードに以下を含める。
 
@@ -180,11 +180,13 @@ def init
 
    # 残りは前項を参照。
 
-def drawtext
+関数 drawtext を定義する
 ----------------------------------------------------------------------
+フォントファイルは別途用意すること。ここではシステムに既存のものを利用している。
+
 .. code-block:: python3
 
-   def drawtext(text, initsize=256, point=144, margin = 4):
+   def drawtext(text, initsize=256, point=144, margin=4):
        # Set up a larger canvas.
        img = Image.new('RGBA', (initsize, initsize), (0, 0, 0, 0))
        dr = ImageDraw.Draw(img)
@@ -192,14 +194,14 @@ def drawtext
        fnt = ImageFont.truetype('hgrme.ttc', point)
        ext = dr.textsize(text, font=fnt)
        dr.text((margin, margin), text, font=fnt, fill='white')
-       img = img.crop((margin, margin, ext[0]+margin*3, ext[1]+margin*3))
+       img = img.crop((margin, margin, ext[0] + margin * 3, ext[1] + margin * 3))
 
        # TODO: use the least power of 2 values closest to each img.size component.
        img = img.resize((initsize, initsize), Image.ANTIALIAS)
 
        return img
 
-def display
+関数 display を定義する
 ----------------------------------------------------------------------
 .. code-block:: python3
 
@@ -252,7 +254,7 @@ def display
 
        glutSwapBuffers()
 
-def reshape
+関数 reshape を定義する
 ----------------------------------------------------------------------
 .. code-block:: python3
 
@@ -260,7 +262,7 @@ def reshape
 
        # ... 略 ...
 
-       gluPerspective(45.0, float(width)/height, 1.0, 20.0)
+       gluPerspective(45.0, width / height, 1.0, 20.0)
 
 以上を実行すると、実行結果のスクリーンショットはだいたい次のようなものになる。
 
@@ -269,6 +271,8 @@ def reshape
 
 Pillow + glReadPixels によるスクリーンショット取得
 ======================================================================
+ウィンドウに描画されているイメージをファイルに保存できるとたいへん便利なので、次のような関数を定義しておくとよい。
+この関数をキーボードイベントコールバックあたりから呼び出すようにしておくと便利。
 
 .. code-block:: python3
 
@@ -283,7 +287,5 @@ Pillow + glReadPixels によるスクリーンショット取得
       filename = input('filename: ')
       img.save(filename)
       print('{} saved'.format(filename))
-
-この関数をキーボードイベントコールバックあたりから呼び出すようにしておくと便利。
 
 .. include:: /_include/pyopengl-refs.txt

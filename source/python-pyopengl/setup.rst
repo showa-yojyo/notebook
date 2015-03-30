@@ -14,8 +14,9 @@
 
 PyOpenGL をインストールする
 ======================================================================
-PyOpenGL 本体のインストールは上記関連リンクの非公式インストーラーを利用する。
-著者の現在の環境は Windows7 64bit なので、選択は次の 2 つとなる。
+PyOpenGL 本体のインストールは上記関連リンクの非公式インストーラー
+(`Python Extension Packages for Windows - Christoph Gohlke`_)
+を利用する。著者の現在の環境は Windows7 64bit なので、選択は次の 2 つとなる。
 
 * :file:`PyOpenGL-3.1.0.win-amd64-py3.4.exe`
 * :file:`PyOpenGL-accelerate-3.1.0.win-amd64-py3.4.exe`
