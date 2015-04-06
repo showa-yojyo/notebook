@@ -14,6 +14,7 @@ PyOpenGL_ の API を NumPy_ や Pillow_ といった、高品質なサードパ
 
    skeleton
    imagefile
+   buffer-object
    shader
 
 .. include:: /_include/pyopengl-refs.txt
