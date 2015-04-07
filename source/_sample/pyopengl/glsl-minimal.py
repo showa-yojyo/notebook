@@ -68,8 +68,13 @@ class GLSLMinimal(object):
         """
 
         glutInit(args)
+
+        glutInitContextVersion(2, 1)
+        glutInitContextFlags(GLUT_FORWARD_COMPATIBLE)
+        glutInitContextProfile(GLUT_CORE_PROFILE)
+
         glutInitDisplayMode(
-            GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_MULTISAMPLE)
+            GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH)
 
         glutInitWindowSize(WINDOW_SX, WINDOW_SY)
         glutInitWindowPosition(WINDOW_X, WINDOW_Y)
