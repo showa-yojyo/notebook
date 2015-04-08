@@ -2,107 +2,70 @@
 画像ファイルを扱う
 ======================================================================
 本稿では PyOpenGL_ と Pillow_ との連携技についていくつか述べる。
-プログラムの全体は、前述のスケルトンの上に構築していることを前提としている。
+
+ここに示すプログラムは、いずれも前述のクラスを派生することで構築している。
 
 .. contents::
 
 PNG ファイルからテクスチャーを生成する
 ======================================================================
-ポイントは Pillow の ``Image`` インスタンスの ``tostring`` 戻り値を ``glTexImage2D`` に渡すことだ。
-ここではアルファチャンネルを含む PNG ファイルからテクスチャーデータを作成する例を示す。
+既存の PNG ファイルから 2 次元テクスチャーデータを生成する方法の一例を示す。
 
-関数 init を定義する
+ポイントは Pillow の ``Image`` インスタンスのメソッド ``tostring`` の戻り値を関数 ``glTexImage2D`` に渡すことだ。
+アルファチャンネルを含む PNG ファイルからテクスチャーデータを作成する例の、コード全景を示す。
+
+.. literalinclude:: /_sample/pyopengl/legacy-texture.py
+   :language: python3
+
+以下、ポイントを絞って解説する。
+
+各種初期設定をする
 ----------------------------------------------------------------------
-まずはテクスチャー設定から。
+スケルトンクラス ``GLAppBase`` のサブクラスを定義する。
 
-.. code-block:: python3
+.. literalinclude:: /_sample/pyopengl/legacy-texture.py
+   :language: python3
+   :lines: 12-26
 
-   def init():
-      glClearColor(1., 1., 1., 1.)
-      glEnable(GL_DEPTH_TEST)
-      glEnable(GL_TEXTURE_2D)
+* 新しいサンプルコードを書くのが面倒なので、レガシー API を使うのだが、その都合上、コンテキストバージョンを 1.5 にしたい。それ以外はスーパークラスの既定値に従う。
+* メソッド ``init_gl`` で ``GL_TEXTURE_2D`` 機能を有効にしておくことを忘れずに。
 
-      # Comment 1
-      img = Image.open('illvelo.png').resize((256, 256))
-      assert img.mode == 'RGBA'
-
-      # Comment 2
-      glTexImage2D(GL_TEXTURE_2D, 0, 4, img.size[0], img.size[1], 0, GL_RGBA, GL_UNSIGNED_BYTE, img.tostring())
-      glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT)
-      glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT)
-      glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
-      glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
-      glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL)
-
-Comment 1
-  :doc:`/python-pillow` で利用した PNG ファイルからテクスチャーを作成している。
-  ファイルのピクセルサイズがやや中途半端なので、決め打ちだが 256 ピクセル四方にリサイズする。
-
-Comment 2
-  ``glTexImage2D`` 呼び出しにより、テクスチャーデータを OpenGL に渡している。
-  後半の実引数群に注目したい。
-
-  残りの関数呼び出しは、アプリケーションの目的に応じてパラメーターを指定すること。
-
-関数 display を定義する
+描画オブジェクトを定義する
 ----------------------------------------------------------------------
-次に描画ロジックを示す。明らかに手抜きコードだが、説明にはこれで十分だろう。
-これを ``display`` の主要部分に加える。
+メソッド ``init_object`` をオーバーライドすることで、描画オブジェクトを定義する。ここではテクスチャー、図形の順に処理する。
 
-.. code-block:: python3
+.. literalinclude:: /_sample/pyopengl/legacy-texture.py
+   :language: python3
+   :lines: 28-34
 
-   vx, vy = 40.0, 40.0
-   tx, ty = 6.0, 6.0
+PNG ファイルからテクスチャーを作成している（:doc:`/python-pillow` 参照）。メソッド
+``tostring`` で矩形イメージの RGBA バイト列を得られるということが本質的だ。
+イメージのピクセルサイズが OpenGL 的に中途半端なので、決め打ちだが 256 ピクセル四方にリサイズする。
 
-   vertices = (
-       -vx, -vy, 0.0,
-        vx, -vy, 0.0,
-        vx, vy, 0.0,
-       -vx, vy, 0.0,)
+ファイルパスが私のノート環境から決まる値に決め打ちになっているが、あくまでも本稿はテクスチャー描画の実現方法に主眼があるので気にしない。
 
-   texcoords = (
-       -tx, -ty,
-       tx, -ty,
-       tx, ty,
-       -tx, ty,)
+.. literalinclude:: /_sample/pyopengl/legacy-texture.py
+   :language: python3
+   :lines: 36-43
 
-   colors = (
-       0, 0, 0, 0.75,
-       0, 0, 0, 0.75,
-       1, 1, 1, 0.75,
-       0, 0, 0, 0.75,)
+関数 ``glTexImage2D`` 呼び出しにより、テクスチャーデータを OpenGL に渡している。
+残りのテクスチャーオプションは、アプリケーションの目的に応じてパラメーターを指定すればよい。
 
-   def display():
-       """The display callback function."""
+最後に空間座標・テクスチャー座標・色からなる頂点データをレガシー API で定義する。
 
-       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+.. literalinclude:: /_sample/pyopengl/legacy-texture.py
+   :language: python3
+   :lines: 45-68
 
-       glMatrixMode(GL_MODELVIEW)
-       glPushMatrix()
-       glLoadIdentity()
+これで描画の準備がほぼ整った。残りは描画メソッド本体で行う。
 
-       gluLookAt(14, 14, 1.58,
-                 0, 0, 0,
-                 0, 0, 1)
+描画する
+----------------------------------------------------------------------
+メソッド ``do_render`` をオーバーライドすることで描画処理の中心部分を定義する。レガシー API のオンパレードなので、説明は省く。
 
-       # Render primitives.
-       glPushAttrib(GL_CURRENT_BIT)
-       glPushClientAttrib(GL_CLIENT_VERTEX_ARRAY_BIT)
-
-       glEnableClientState(GL_VERTEX_ARRAY)
-       glEnableClientState(GL_TEXTURE_COORD_ARRAY)
-       glEnableClientState(GL_COLOR_ARRAY)
-       glVertexPointer(3, GL_FLOAT, 0, vertices)
-       glTexCoordPointer(2, GL_FLOAT, 0, texcoords)
-       glColorPointer(4, GL_FLOAT, 0, colors)
-       glDrawArrays(GL_POLYGON, 0, 4)
-
-       glPopClientAttrib()
-       glPopAttrib()
-       glPopMatrix()
-
-       # Swap rendering buffers to repaint the screen.
-       glutSwapBuffers()
+.. literalinclude:: /_sample/pyopengl/legacy-texture.py
+   :language: python3
+   :lines: 81-102
 
 実行すると以下のようなイメージ (320x240) を得るだろう。
 
