@@ -14,7 +14,7 @@ PNG ファイルからテクスチャーを生成する
 ポイントは Pillow の ``Image`` インスタンスのメソッド ``tostring`` の戻り値を関数 ``glTexImage2D`` に渡すことだ。
 アルファチャンネルを含む PNG ファイルからテクスチャーデータを作成する例の、コード全景を示す。
 
-.. literalinclude:: /_sample/pyopengl/legacy-texture.py
+.. literalinclude:: /_sample/pyopengl/texturedemo.py
    :language: python3
 
 以下、ポイントを絞って解説する。
@@ -23,9 +23,9 @@ PNG ファイルからテクスチャーを生成する
 ----------------------------------------------------------------------
 スケルトンクラス ``GLAppBase`` のサブクラスを定義する。
 
-.. literalinclude:: /_sample/pyopengl/legacy-texture.py
+.. literalinclude:: /_sample/pyopengl/texturedemo.py
    :language: python3
-   :lines: 12-26
+   :lines: 15-29
 
 * 新しいサンプルコードを書くのが面倒なので、レガシー API を使うのだが、その都合上、コンテキストバージョンを 1.5 にしたい。それ以外はスーパークラスの既定値に従う。
 * メソッド ``init_gl`` で ``GL_TEXTURE_2D`` 機能を有効にしておくことを忘れずに。
@@ -34,9 +34,9 @@ PNG ファイルからテクスチャーを生成する
 ----------------------------------------------------------------------
 メソッド ``init_object`` をオーバーライドすることで、描画オブジェクトを定義する。ここではテクスチャー、図形の順に処理する。
 
-.. literalinclude:: /_sample/pyopengl/legacy-texture.py
+.. literalinclude:: /_sample/pyopengl/texturedemo.py
    :language: python3
-   :lines: 28-34
+   :lines: 31-37
 
 PNG ファイルからテクスチャーを作成している（:doc:`/python-pillow` 参照）。メソッド
 ``tostring`` で矩形イメージの RGBA バイト列を得られるということが本質的だ。
@@ -44,18 +44,18 @@ PNG ファイルからテクスチャーを作成している（:doc:`/python-pi
 
 ファイルパスが私のノート環境から決まる値に決め打ちになっているが、あくまでも本稿はテクスチャー描画の実現方法に主眼があるので気にしない。
 
-.. literalinclude:: /_sample/pyopengl/legacy-texture.py
+.. literalinclude:: /_sample/pyopengl/texturedemo.py
    :language: python3
-   :lines: 36-43
+   :lines: 39-46
 
 関数 ``glTexImage2D`` 呼び出しにより、テクスチャーデータを OpenGL に渡している。
 残りのテクスチャーオプションは、アプリケーションの目的に応じてパラメーターを指定すればよい。
 
 最後に空間座標・テクスチャー座標・色からなる頂点データをレガシー API で定義する。
 
-.. literalinclude:: /_sample/pyopengl/legacy-texture.py
+.. literalinclude:: /_sample/pyopengl/texturedemo.py
    :language: python3
-   :lines: 45-68
+   :lines: 48-71
 
 これで描画の準備がほぼ整った。残りは描画メソッド本体で行う。
 
@@ -63,9 +63,9 @@ PNG ファイルからテクスチャーを作成している（:doc:`/python-pi
 ----------------------------------------------------------------------
 メソッド ``do_render`` をオーバーライドすることで描画処理の中心部分を定義する。レガシー API のオンパレードなので、説明は省く。
 
-.. literalinclude:: /_sample/pyopengl/legacy-texture.py
+.. literalinclude:: /_sample/pyopengl/texturedemo.py
    :language: python3
-   :lines: 81-102
+   :lines: 84-105
 
 実行すると以下のようなイメージ (320x240) を得るだろう。
 

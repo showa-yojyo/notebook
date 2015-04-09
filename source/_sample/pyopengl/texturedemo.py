@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""legacy-texture.py: Demonstrate how to use OpenGL texture (bitmap)."""
+"""texturedemo.py: Demonstrate how to use OpenGL texture (bitmap)."""
 # pylint: disable=unused-argument,no-self-use
 # pylint: disable=wildcard-import,unused-wildcard-import
 # pylint: disable=invalid-name
