@@ -17,5 +17,6 @@ PyOpenGL_ の API を NumPy_ や Pillow_ といった、高品質なサードパ
    buffer-object
    shader
    renewal
+   transform
 
 .. include:: /_include/pyopengl-refs.txt

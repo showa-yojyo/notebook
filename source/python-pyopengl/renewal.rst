@@ -16,7 +16,7 @@ OpenGL 3.x スタイルに書き換える
 .. literalinclude:: /_sample/pyopengl/shaderdemo.py
    :language: python3
 
-表示されるグラフィックは次のようなものだ。座標変換をかけたことにより、オブジェクトの定義にミスがあったことがわかる（次回解説）。
+表示されるグラフィックは次のようなものだ。座標変換をかけたことにより、オブジェクトの定義にミスがあったことがわかる。
 
 .. image:: /_static/pyopengl-shader-transform.png
    :scale: 100%
@@ -111,9 +111,5 @@ OpenGL 3.x スタイルに書き換える
 * シェーダープログラムを ``glDeleteProgram`` で片付ける。
 
 コードを文章で表現すると冗長に感じられるものだ。
-
-----
-
-次回、行列による座標変換を調べる。
 
 .. include:: /_include/pyopengl-refs.txt
