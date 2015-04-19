@@ -19,7 +19,7 @@ import numpy as np
 from OpenGL.GL import *
 from OpenGL.GLUT import *
 from ctypes import c_void_p
-from glappbase import GLAppBase
+from glshaderappbase import GLShaderAppBase
 from transform import lookat
 from transform import perspective
 
@@ -53,49 +53,28 @@ void main(void)
 }
 """
 
-class ShaderDemoApp(GLAppBase):
+class ShaderDemoApp(GLShaderAppBase):
     """A GLSL demonstration."""
 
     def __init__(self, **kwargs):
         """Initialize an instance of class ShaderDemoApp."""
 
+        kwargs.setdefault('context_version', (3, 1))
         super(ShaderDemoApp, self).__init__(**kwargs)
 
         self.buffer_id = 0
         self.index_buffer_id = 0
         self.num_triangles = 24
 
-        self.vertex_shader_id = 0
-        self.fragment_shader_id = 0
-        self.program_id = 0
         self.vao_id = 0
 
-    def init_program(self):
-        """Setup shaders."""
+    def init_shader_source(self):
+        """Initialize shader source."""
 
-        def create_shader(shader_type, source):
-            """compile a shader."""
-            shader = glCreateShader(shader_type)
-            glShaderSource(shader, source)
-            glCompileShader(shader)
-            if glGetShaderiv(shader, GL_COMPILE_STATUS) != GL_TRUE:
-                raise RuntimeError(glGetShaderInfoLog(shader).decode())
-            return shader
-
-        self.vertex_shader_id = create_shader(GL_VERTEX_SHADER, VERT_SHADER_SOURCE)
-        self.fragment_shader_id = create_shader(GL_FRAGMENT_SHADER, FRAG_SHADER_SOURCE)
-
-        self.program_id = glCreateProgram()
-        glAttachShader(self.program_id, self.vertex_shader_id)
-        glAttachShader(self.program_id, self.fragment_shader_id)
-
-        glLinkProgram(self.program_id)
-        if glGetProgramiv(self.program_id, GL_LINK_STATUS) != GL_TRUE:
-            raise RuntimeError(glGetProgramInfoLog(self.program_id).decode())
-
-        glUseProgram(self.program_id)
-
-        self.init_camera()
+        self.shader_sources = {
+            GL_VERTEX_SHADER: VERT_SHADER_SOURCE,
+            GL_FRAGMENT_SHADER: FRAG_SHADER_SOURCE,}
+        self.shader_ids = {}
 
     def init_camera(self):
         """Initialize viewing transformation."""
@@ -110,6 +89,8 @@ class ShaderDemoApp(GLAppBase):
 
     def init_object(self):
         """Initialize the object to be displayed."""
+
+        self.init_camera()
 
         num_triangles = self.num_triangles
         vertices = np.array([0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0])
@@ -163,7 +144,7 @@ class ShaderDemoApp(GLAppBase):
     def cleanup(self):
         """The clean up callback function."""
 
-        self.destroy_shaders()
+        super(ShaderDemoApp, self).cleanup()
         self.destroy_vbo()
 
     def destroy_vbo(self):
@@ -180,18 +161,6 @@ class ShaderDemoApp(GLAppBase):
 
         glBindVertexArray(0)
         glDeleteVertexArrays(1, [self.vao_id])
-
-    def destroy_shaders(self):
-        """Clean up shaders."""
-
-        def destroy_shader(prog, shader):
-            glDetachShader(prog, shader)
-            glDeleteShader(shader)
-
-        glUseProgram(0)
-        destroy_shader(self.program_id, self.fragment_shader_id)
-        destroy_shader(self.program_id, self.vertex_shader_id)
-        glDeleteProgram(self.program_id)
 
 def main(args):
     """The main function."""

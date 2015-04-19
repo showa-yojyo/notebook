@@ -26,7 +26,7 @@
 
   .. literalinclude:: /_sample/pyopengl/shaderdemo.py
      :language: python3
-     :lines: 108-109
+     :lines: 79-88
 
 * 関数 ``glGetUniformLocation`` にシェーダーにおける識別子を与えて、行列オブジェクトの「場所」を得る。アドレスのようなものだろう。
 * 関数 ``glUniformMatrix4dv`` にその「場所」と行列の全成分を与えることで、行列がシェーダーに反映される。
@@ -63,7 +63,7 @@ OpenGL のリファレンスをそのまま実装すればよい。
 
 .. literalinclude:: /_sample/pyopengl/shaderdemo.py
    :language: python3
-   :lines: 146-156
+   :lines: 127-137
 
 ポイントは関数 ``glUniformMatrix4fv`` の第 3 引数を ``GL_TRUE`` とすることだ。
 これにより、OpenGL が行列の成分配列の要素の並びを ``np.array`` デフォルトの row-major から column-major にしてくれる。
@@ -90,7 +90,7 @@ NumPy に倣って array-like にするとなおよい。
 
 .. literalinclude:: /_sample/pyopengl/shaderdemo.py
    :language: python3
-   :lines: 100-109
+   :lines: 79-88
 
 この座標変換は、
 
@@ -112,7 +112,11 @@ NumPy に倣って array-like にするとなおよい。
 
 .. literalinclude:: /_sample/pyopengl/shaderdemo.py
    :language: python3
-   :lines: 111-120
-   :emphasize-lines: 8
+   :lines: 90-101
+   :emphasize-lines: 10
+
+----
+
+次回、トラックボール実装。
 
 .. include:: /_include/pyopengl-refs.txt
