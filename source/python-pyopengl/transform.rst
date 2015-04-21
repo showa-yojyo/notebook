@@ -117,6 +117,6 @@ NumPy に倣って array-like にするとなおよい。
 
 ----
 
-次回、トラックボール実装。
+次回（:doc:`./view-navigation`）、トラックボール実装。
 
 .. include:: /_include/pyopengl-refs.txt

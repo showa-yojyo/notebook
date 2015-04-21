@@ -5,6 +5,7 @@
 # pylint: disable=unused-argument,no-self-use
 # pylint: disable=wildcard-import,unused-wildcard-import
 # pylint: disable=invalid-name
+import sys
 from abc import ABCMeta
 from abc import abstractmethod
 import numpy as np
@@ -54,7 +55,7 @@ class ViewRotate(AbstractViewNavigation):
 
         self.last_quat_arg = cur_quat_arg
         self.app.quat = self.app.quat * last_quat * cur_quat
-        self.app.update_model_transform()
+        self.app.update_rotation()
 
         return True
 
@@ -68,9 +69,8 @@ class ViewZoom(AbstractViewNavigation):
     def update_mouse_position(self, x, y):
         """Handle mouse motion event."""
 
-        cur_mouse_position = nds_coord(x, y, self.width, self.height)
-        factor = np.exp(cur_mouse_position[1] - self.first_mouse_position[1])
-        factor *= -0.25
+        cur_pos = nds_coord(x, y, self.width, self.height)
+        factor = np.exp((cur_pos[1] - self.first_mouse_position[1]) * -0.25)
         fovy = max(min(self.app.fovy * factor, 125), 25)
         self.app.fovy = fovy
         self.app.update_perspective(self.width, self.height)
