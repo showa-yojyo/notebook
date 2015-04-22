@@ -22,8 +22,8 @@ Nose_
 
 目的
 ======================================================================
-
-Nose_ 自身は、その目的をドキュメントの冒頭に <nose is nicer testing for python> や <nose extends unittest to make testing easier> と謳っている。
+Nose_ 自身は、その目的をドキュメントの冒頭に <nose is nicer testing for python> や
+<nose extends unittest to make testing easier> と謳っている。
 さらに、プログラムの狙いを次の 4 点に絞っている。
 
   #. テストコードを書くのを簡単に。
