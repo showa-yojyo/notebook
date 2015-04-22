@@ -9,7 +9,7 @@ Modern C++ Design 読書ノート 3/3
 第 9 章 Abstract Factory
 ======================================================================
 
-<もしも、 ``ConventionalDialog`` 中では ``FunkyButton`` を使用させたくないのであれば、
+<もしも、``ConventionalDialog`` 中では ``FunkyButton`` を使用させたくないのであれば、
 Abstract Factory デザイン・パターンを使用することによって ``FunkyDialog`` 中でのみ
 ``FunkyButton`` が使用されるように保証することができます> (p. 231)
 
@@ -196,11 +196,11 @@ Prototype バージョンを設計する。
 
 いくつか欠点がある。
 
-* <``DocStats`` を修正する度に、 ``DocElement`` 階層全体を再コンパイルする必要がある> (p. 251)
-* <統計情報の収集を行う実際の処理が、 ``UpdateStats`` の実装全体に散りばめられます> (p. 251)
+* <``DocStats`` を修正する度に、``DocElement`` 階層全体を再コンパイルする必要がある> (p. 251)
+* <統計情報の収集を行う実際の処理が、``UpdateStats`` の実装全体に散りばめられます> (p. 251)
 * その他
 
-発想を変えて、 ``UpdateStats`` を ``DocStats`` に移動させてみると、
+発想を変えて、``UpdateStats`` を ``DocStats`` に移動させてみると、
 <今度は ``DocStats`` が、処理対象となる具体的な ``DocElement`` に依存することになります> (p. 252)
 
 .. code-block:: c++
@@ -523,7 +523,7 @@ C++ プログラム開発経験者ならまず膝を叩く例が挙げられて�
   ``StaticDispatcher`` の別な実体化の同名メソッドを呼び出している。
   ``DispatchRhs`` も同様。
 
-* <結果的に、 ``StaticDispatcher`` は、
+* <結果的に、``StaticDispatcher`` は、
   2 つのタイプリストと特定のコードから指数に比例した分量のコードを生成するわけです。
   （略）つまり、大きなコードによってコンパイル時間、プログラム・サイズ、
   実行時間の全てに打撃が与えられるのです> (p. 284)

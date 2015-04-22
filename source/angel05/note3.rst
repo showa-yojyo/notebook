@@ -399,7 +399,8 @@ Copying Pixels
 ~~~~~~~~~~~~~~
 * ``glCopyPixels`` はフレームバッファ内でピクセルをコピーするというのがポイント。
   ``glCopyPixels`` はデータをシステムメモリに運ばないので、
-  ``glReadPixels`` と ``glDrawPixels`` を組み合わせてコピーをするよりも、パフォーマンスが優れている。
+  ``glReadPixels`` と ``glDrawPixels`` を組み合わせてコピーをするよりも、
+  パフォーマンスが優れている。
 
 Selecting Buffers
 -----------------
@@ -408,8 +409,7 @@ Selecting Buffers
 
 * OpenGL は実装によってはさらなる color buffer をサポートしている。
   どのバッファを用いるのかを選択するのには、
-  ``glReadBuffer`` と ``glDrawBuffer``
-  関数を利用する。
+  ``glReadBuffer`` と ``glDrawBuffer`` 関数を利用する。
 
 Pixel Store Modes
 -----------------

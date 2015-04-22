@@ -1,7 +1,8 @@
 ======================================================================
 ヘルプノート
 ======================================================================
-本稿は Inkscape メニューの「ヘルプ＞Inkscape マニュアル（英語）」を選択するとブラウザーで表示されるドキュメント、
+本稿は Inkscape メニューの「ヘルプ＞Inkscape マニュアル（英語）」
+を選択するとブラウザーで表示されるドキュメント、
 `Inkscape Guide to a Vector Drawing <http://tavmjong.free.fr/INKSCAPE/MANUAL/html/index.php>`_
 の読書ノートのつもりだ。
 
@@ -409,7 +410,7 @@ Lighting Filters Primitives
 * フォーンシェーディングっぽく絵を描くフィルターらしい。
 
 Pixel Manipulation Filter Primitives
-----------------------------------------------------------------------~~~~~~~~~~
+----------------------------------------------------------------------
 * Convolve
 * Displacement Map
 * Gaussian Blur: クリッピングやマスキングと絡める場合は適用順序に注意。
@@ -543,7 +544,8 @@ Chapter 24. Customization
 * 設定ダイアログを利用する方法と、フォルダーにあるファイルを修正する方法。
 
   * all users: :file:`share/inkscape`
-  * personal changes: :file:`~/.config/inkscape` または :file:`%USERPROFILE%\\Application Data\\Inkscape`
+  * personal changes: :file:`~/.config/inkscape` または
+    :file:`%USERPROFILE%\\Application Data\\Inkscape`
 
 Inkscape Preferences Dialog
 ----------------------------------------------------------------------
