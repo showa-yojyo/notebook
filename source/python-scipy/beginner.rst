@@ -8,7 +8,8 @@ Getting Started
 What are NumPy, SciPy, matplotlib, ...?
 ======================================================================
 * NumPy_ の配列型は数値に関する作業に対して便利。
-* SciPy_ は科学的な作業に必要な routines を含む。例を挙げると次のようなものがある。
+* SciPy_ は科学的な作業に必要な routines を含む。
+  例を挙げると次のようなものがある。
 
   * 数値積分
   * 微分方程式のソルバー
@@ -20,7 +21,8 @@ What are NumPy, SciPy, matplotlib, ...?
 
 How to work with SciPy
 ======================================================================
-* 一番普通のやり方は、IPython_ を利用すること。これでコマンドを入力し、スクリプトを走らせる。
+* 一番普通のやり方は、IPython_ を利用すること。
+  これでコマンドを入力し、スクリプトを走らせる。
 * スクリプトを書くには、はどんなテキストエディターを用いてもよい。
 * <Some of the packages such as Python(x,y) mentioned in *Installing the SciPy Stack*
   also offer an integrated scientific development environment>
@@ -35,7 +37,8 @@ How to work with SciPy
   * SymPy_: 計算機数学・計算機代数パッケージ。
   * Nose_: 単体テストに便利なパッケージ。
 
-* NumPy_ も SciPy_ もプロット機能を提供しない。プロットパッケージとしては Matplotlib_ が最も普通に利用されている。
+* NumPy_ も SciPy_ もプロット機能を提供しない。
+  プロットパッケージとしては Matplotlib_ が最も普通に利用されている。
 
 .. todo::
 
@@ -58,7 +61,8 @@ Learning to work with SciPy
 
 An example session
 ----------------------------------------------------------------------
-* IPython_ 環境上での操作例を記した文章。Bessel 関数の最大値の計算とプロット出力を行う例にいつの間にか書き換えられている？
+* IPython_ 環境上での操作例を記した文章。
+  Bessel 関数の最大値の計算とプロット出力を行う例にいつの間にか書き換えられている？
 * **SciPy Stack** をインストール済みであることを事前条件としている。
 
 An example script
@@ -66,6 +70,7 @@ An example script
 前述の操作をスクリプトでやったらどうなるかを記した文章。
 
 * モジュール ``argparse`` を利用してコマンドライン引数を実装している。
-* 関数 ``np.linspace`` が等間隔に値を並べる配列を生成するものであることが読み取れる。明らかに使い勝手が良い。
+* 関数 ``np.linspace`` が等間隔に値を並べる配列を生成するものであることが読み取れる。
+  明らかに使い勝手が良い。
 
 .. include:: /_include/scipy-refs.txt

@@ -1,7 +1,8 @@
 ======================================================================
 Cookbook
 ======================================================================
-よくあるタスクのレシピ集のページのようだ。導入レベルのものからまったく高度なものまで幅広く取り揃っている。
+よくあるタスクのレシピ集のページのようだ。
+導入レベルのものからまったく高度なものまで幅広く取り揃っている。
 
 .. contents::
 
@@ -32,10 +33,13 @@ NumPy / SciPy
 
   * Interpolation: 指定点列を通過するスプライン曲線を得る例を説明。
 
-    * モジュール ``scipy.signal`` にあるスプライン補間曲線 ``cspline1d`` を用いる。入力点列は等間隔である必要がある。
-    * モジュール ``scipy.ndimage`` にある ``spline_filter``, ``map_coordinates`` を用いる。入力点列は等間隔である必要がある。
+    * モジュール ``scipy.signal`` にあるスプライン補間曲線 ``cspline1d`` を用いる。
+      入力点列は等間隔である必要がある。
+    * モジュール ``scipy.ndimage`` にある ``spline_filter``, ``map_coordinates`` を用いる。
+      入力点列は等間隔である必要がある。
 
-      * サンプルコードの ``np.ogrid`` と ``np.mgrid`` の用例に注目したい。手際よく *(x, y)* を生成している。
+      * サンプルコードの ``np.ogrid`` と ``np.mgrid`` の用例に注目したい。
+        手際よく *(x, y)* を生成している。
 
     * モジュール ``scipy.interpolate`` にある ``splprep``, ``splev`` を用いる。
       別ページ :doc:`/python-scipy/interpolate` を参照。
@@ -44,7 +48,8 @@ NumPy / SciPy
 
 * Optimization and fitting techniques: 専門外なのでわからない。
 
-  * Optimization: 前から思っていることだが、この英単語、日本語で何と表現すれば適切になるのだろうか。
+  * Optimization: 前から思っていることだが、この英単語、
+    日本語で何と表現すれば適切になるのだろうか。
 
     * ``scipy.optimize.fmin(func, x0)``: 関数 ``func`` の最小値を変数 ``x0`` から求める。
     * ``scipy.optimize.fsolve(func, x0)``: 関数 ``func`` の根を変数 ``x0`` から求める。
@@ -55,7 +60,8 @@ NumPy / SciPy
   * Fitting Data: パッと見、読んだほうがよさそうだ。
   * Linear Regression: ``scipy.polyval``, ``scipy.polyfit`` を用いた回帰直線の作成及びプロットの例。
 
-* Ordinary differential equations: 微分方程式のレシピなのだが、私の数学知識を遥かに超えているので飛ばす。
+* Ordinary differential equations: 微分方程式のレシピなのだが、
+  私の数学知識を遥かに超えているので飛ばす。
 
   * Zombie Apocalypse ODE Modeling: ゾンビって言われても困る。
   * A coupled spring-mass system: 微分方程式を解く例に、
@@ -63,14 +69,18 @@ NumPy / SciPy
 
 * Root finding
 
-  * Spherical Bessel Zeros: ``scipy.optimize.brentq`` で「明らかに効率的でない」何かを行うサンプル。
+  * Spherical Bessel Zeros: ``scipy.optimize.brentq`` で
+    「明らかに効率的でない」何かを行うサンプル。
   * Intersection of functions: ``scipy.optimize.fsolve`` で 2 曲線の交点が求められる。
 
-* Data rebinning: 日本語で rebin はどう表現すればよいのかわからない。ヒストグラムのビンの取り方を変えるような。
-* Histograms: 2 次元ヒストグラム作図デモ。関数 ``np.histogram2d`` が決定的。
+* Data rebinning: 日本語で rebin はどう表現すればよいのかわからない。
+  ヒストグラムのビンの取り方を変えるような。
+* Histograms: 2 次元ヒストグラム作図デモ。
+  関数 ``np.histogram2d`` が決定的。
 * Convex Hull: 2 次元点列の凸包を自力で計算、プロットするレシピ。
 
-  * 関数 ``area_of_triangle`` を見て気づいた。ベクトルの長さを ``numpy.linalg.norm`` で得られる。
+  * 関数 ``area_of_triangle`` を見て気づいた。
+    ベクトルの長さを ``numpy.linalg.norm`` で得られる。
 
 * Minimum Point of a Convex Hull: 凸包の最小点を無限ループに陥ることなく求めるレシピ。
 * Smoothing a signal: デジタル信号データの平滑化のレシピか。
@@ -87,7 +97,8 @@ NumPy / SciPy
   * メソッド ``scipy.stats.norm.rvs`` で乱数を生成するサンプル。
   * 冒頭の注記によると関数 ``numpy.random.multivariate_normal`` が同じタスクをこなせる。
 
-* Large Markov Chains: マルコフ連鎖の定常分布を計算するデモ。べき乗法という iterative method を用いる。
+* Large Markov Chains: マルコフ連鎖の定常分布を計算するデモ。
+  べき乗法という iterative method を用いる。
 * Watershed algorithm: 画像処理ネタ。
 * Linear Classification: Fisher の線形判別法。パターン認識とか機械学習の専門家向け。
 
@@ -97,22 +108,29 @@ Advanced topics
 
   * ビューには slice view と dtype view の 2 種類がある。
 
-    * 普通、ビューと言えば slice のほうを指す。既存の配列オブジェクトの部分を操作する。そしてオリジナルを更新することもできる。
-    * メソッド ``view`` を用いるビューのほうが dtype view である。こちらは slice view ほど便利でない。
+    * 普通、ビューと言えば slice のほうを指す。
+      既存の配列オブジェクトの部分を操作する。
+      そしてオリジナルを更新することもできる。
+    * メソッド ``view`` を用いるビューのほうが dtype view である。
+      こちらは slice view ほど便利でない。
 
-  * fancy indexing がビューを返さない理由は、一般にはそれが slice で表せないから。従って（元の配列の部分の）コピーを返す。
-  * fancy indexing が左辺値である場合、ビューでもコピーでもなく ``__setitem__`` の呼び出しである。
+  * fancy indexing がビューを返さない理由は、一般にはそれが slice で表せないから。
+    従って（元の配列の部分の）コピーを返す。
+  * fancy indexing が左辺値である場合、ビューでもコピーでもなく
+    ``__setitem__`` の呼び出しである。
 
 Compiling Extensions
 ======================================================================
 * Compiling Extensions on Windows:
 
-  * MinGW 環境で拡張モジュールをコンパイルする手順を説明するレシピだ。私は読まない。
+  * MinGW 環境で拡張モジュールをコンパイルする手順を説明するレシピだ。
+    私は読まない。
 
 Scientific Scripts
 ======================================================================
 * Theoretical Ecology: 専門家ではないので理解していない。食物連鎖のシミュレーションか？
-* Schrödinger's equation: 一次元の波動方程式を FDTD 法で解くサンプル。SciPy というより NumPy で実現している。
+* Schrödinger's equation: 一次元の波動方程式を FDTD 法で解くサンプル。
+  SciPy というより NumPy で実現している。
 
 Input Output
 ======================================================================
@@ -130,14 +148,17 @@ Input Output
     * NumPy: ``numpy.save``, ``numpy.savez``, ``numpy.load``
     * SciPy: ``scipy.io.numpyio.fwrite``, ``scipy.io.numpyio.fread``
 
-      * ``scipy.io.npfile`` は使い勝手が良さそうにも関わらず、どういうわけか deprecated だそうだ。
+      * ``scipy.io.npfile`` は使い勝手が良さそうにも関わらず、
+        どういうわけか deprecated だそうだ。
 
 Graphics
 ======================================================================
 * Matplotlib cookbook: 当然要チェック。中を見るとさらにレシピがある。
-* Python Imaging Library: NumPy 配列を PIL_ でイメージ化するコードが掲載。多分使わない。
+* Python Imaging Library: NumPy 配列を PIL_ でイメージ化するコードが掲載。
+  多分使わない。
 * Mat3d: OpenGL バックエンドを使った立体プロットとあるので、個人的には触ってみたい。
-* Line Integral Convolution: 2 次元ベクトル場をイメージ化する技法があるらしい。その説明とイメージ例。ゴッホの絵みたい。
+* Line Integral Convolution: 2 次元ベクトル場をイメージ化する技法があるらしい。
+  その説明とイメージ例。ゴッホの絵みたい。
 * VTK volume rendering: 3 次元配列のボリュームレンダリングについて。気になる。
 * Old Matplotlib recipes: これは :doc:`/python-matplotlib` で改めて採り上げてみたい。
 

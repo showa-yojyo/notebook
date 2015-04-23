@@ -380,7 +380,7 @@ Scaling
 
 Setting Matrices Directly
 -------------------------
-* OpenGL の行列は :math:`4 \times 4` 正方行列で、メモリレイアウトとしては column order だ。
+* OpenGL の行列は :math:`4 \times 4` 正方行列で、メモリレイアウトとしては column-major order だ。
 
   * ``glLoadMatrix(m)`` - 行列成分を直接配列の形で指示する
   * ``glMultMatrix(m)`` - current matrix に対して ``m`` を右からかける

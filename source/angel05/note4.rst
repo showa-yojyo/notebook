@@ -385,7 +385,7 @@ Texturing Surfaces
 * <We can also use evaluators to generate normals for shading and
   texture coordinates> (p. 213)
 
-  どうするかというと、 ``glMap2`` で実現できる。
+  どうするかというと、``glMap2`` で実現できる。
 
   .. code-block:: c
 
