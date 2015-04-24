@@ -77,7 +77,7 @@ class TextOnCubeDemo(GLAppBase):
         textwidth, textheight = 64, 64
         img = drawtext('神', textwidth, textheight)
 
-        glTexImage2D(GL_TEXTURE_2D, 0, 4, textwidth, textheight, 0, GL_RGBA, GL_UNSIGNED_BYTE, img.tostring())
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textwidth, textheight, 0, GL_RGBA, GL_UNSIGNED_BYTE, img.tostring())
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP)
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP)
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
