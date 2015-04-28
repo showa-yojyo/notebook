@@ -34,32 +34,8 @@
 Quaternion をインストールする
 ----------------------------------------------------------------------
 四元数を自作するとえらいことになるのが目に見えているので、
-どこかに既にあればそれを拝借するのがよい。毎度おなじみ pip で調べてみる。
-
-.. code-block:: console
-
-   $ pip search quaternion
-   qmath                     - qmath provides a class for deal with quaternion algebra and 3D rotations.
-     Root evaluations and Moebius transformations are implemented.
-   Quaternion                - Quaternion object manipulation
-   quaternion-algebra        - Quaternion algebra for Python.
-   quaternionarray           - Python package for fast quaternion arrays math
-   mathutils                 - A general math utilities library providing Matrix, Vector, Quaternion, Euler and Color classes, written in C for speed.
-   Pyternion                 - Pythonic Quaternion library including Euclidean geometry calculations
-   euclid                    - 2D and 3D vector, matrix, quaternion and geometry module
-   euclid3                   - 2D and 3D vector, matrix, quaternion and geometry module. updated to python 3.
-   pypoints.py               - Classes to represent points, pointsets, anisotropic arrays, and quaternions
-
-私は一番名前の短い ``Quaternion`` をインストールした。
-Smithsonian Astrophysical Observatory の作品だ。
-
-ポイントをいくつか記す。
-
-* ``np.array`` ベースで実装されている。
-* コンストラクターで四元数の全成分を直接指定できるが、
-  その順番がベクトル部、スカラー部なので注意。
-* プロパティー ``.transform`` で、四元数に対応する回転行列にアクセスする。
-* プロパティー ``.q`` で、四元数の成分にアクセスする。
+どこかに既にあればそれを拝借するのがよい。
+:doc:`/python-quaternion` 参照。
 
 マウスモーションによるビューの変換を実装する
 ----------------------------------------------------------------------

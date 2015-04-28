@@ -28,6 +28,7 @@ OpenGL の勉強には Python を使う。これはなかなかよいコツか�
      * Python_: 2.6.6, 2.7.3, 3.4.1
      * PyOpenGL_: 3.0.2a5, 3.1.0
      * NumPy_: 1.6.1, 1.6.2, 1.8.2
+     * Quaternion_: 0.03.1
      * PIL_: 1.1.7 (unofficial) 現在は Pillow に取って代わられた。
      * Pillow_: 2.5.1
 
@@ -42,6 +43,7 @@ PyOpenGL_ (The Python OpenGL Binding)
 関連ノート
 ======================================================================
 * :doc:`/python-numpy/index`
+* :doc:`/python-quaternion`
 * :doc:`/python-pillow`
 
 .. include:: /_include/pyopengl-refs.txt
