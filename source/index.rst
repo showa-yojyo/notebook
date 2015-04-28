@@ -50,6 +50,7 @@ Contents:
    python-pillow
    python-matplotlib
    python-networkx/index
+   python-quaternion
    python-jinja2
    python-pygments
    python-twitter-tools
