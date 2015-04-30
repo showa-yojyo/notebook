@@ -18,6 +18,7 @@ PyOpenGL_ の API を NumPy_ や Pillow_ といった、高品質なサードパ
 .. toctree::
    :maxdepth: 5
 
+   coding-intro
    skeleton
    imagefile
    buffer-object
