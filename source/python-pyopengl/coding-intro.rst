@@ -39,13 +39,13 @@ PyOpenGL プログラムのための土台となるクラスを実装する
 ======================================================================
 共通しているプログラム要素はそれだけでは収まらない。
 
-:doc:`transform`:
+:doc:`transform`
   最近の OpenGL では行列操作に関する関数が全滅
-  (Mark Segal, Kurt Akeley, *The OpenGL Graphics System: A Specification (Version 3.1)*, p. 295, 2009)
+  (Mark Segal, Kurt Akeley. *The OpenGL Graphics System: A Specification (Version 3.1)*. p. 295. 2009)
   しているので、簡単な一次・アフィン変換、透視射影変換等を処理する機能をこちらで用意する。
   そのため、ひとつモジュールを作る。
 
-:doc:`view-navigation`:
+:doc:`view-navigation`
   クラス ``AppBase`` が制御するウィンドウ上でのマウスイベントに応じて、
   シーンのズームや回転を動的に実現するためのクラス群の定義を行うモジュールを作る。
 
@@ -53,8 +53,8 @@ PyOpenGL プログラムのための土台となるクラスを実装する
   PNG ファイルのテクスチャー化、テキストの実行時テクスチャー化、というような、
   2D 画像関連の機能をまとめたモジュールを作る。
 
-シェーダープログラム管理クラス ``ProgramManager``
-  GLSL オブジェクトの生成と破棄の管理を行うクラスを設計・実装する。
+:doc:`program-manager`
+  GLSL オブジェクトの生成と破棄の管理を行うクラス ``ProgramManager`` を設計・実装する。
   このクラスのオブジェクトをクラス ``ModernBase`` にメンバーデータとして持たせる。
 
 サンプルプログラムの紹介と解説
