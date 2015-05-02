@@ -19,7 +19,10 @@ PyOpenGL_ の API を NumPy_ や Pillow_ といった、高品質なサードパ
    :maxdepth: 5
 
    coding-intro
-   skeleton
+   appbase
+   deprecatedapp
+   modernapp
+   program-manager
    imagefile
    buffer-object
    shader
