@@ -41,7 +41,7 @@ PyOpenGL プログラムのための土台となるクラスを実装する
 
 :doc:`transform`:
   最近の OpenGL では行列操作に関する関数が全滅
-  (c.f. *The OpenGL Graphics System: A Specification*, p. 295)
+  (Mark Segal, Kurt Akeley, *The OpenGL Graphics System: A Specification (Version 3.1)*, p. 295, 2009)
   しているので、簡単な一次・アフィン変換、透視射影変換等を処理する機能をこちらで用意する。
   そのため、ひとつモジュールを作る。
 

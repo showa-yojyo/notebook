@@ -165,7 +165,7 @@ OpenGL 3.0 で deprecated にされた行列関連の関数と、自作するか
 
 .. literalinclude:: /_sample/pyopengl/transform.py
    :language: python3
-   :lines: 16-18
+   :lines: 17-18
 
 いつものモジュール ``numpy`` だけではなく、
 サブモジュールである ``numpy.linalg`` の機能も用いる。
@@ -174,19 +174,21 @@ OpenGL 3.0 で deprecated にされた行列関連の関数と、自作するか
 ----------------------------------------------------------------------
 OpenGL のリファレンスをそのまま実装すればよい。
 
+まず、与えられたカメラの位置、観測目標点、カメラの姿勢から正規直交基底を計算する。
+それから、座標系原点を観測者の位置に移すような変換を加味する。
+
 .. literalinclude:: /_sample/pyopengl/transform.py
    :language: python3
-   :lines: 36-60
-
-#. カメラの位置、観測目標点、カメラの姿勢から正規直交基底を計算する。
-#. その原点を観測者の位置にオフセットする。
+   :lines: 40-64
 
 関数 ``gluPerspective`` を真似る
 ----------------------------------------------------------------------
 OpenGL のリファレンスをそのまま実装すればよい。
 
-.. literalinclude:: /_sample/pyopengl/transform.py
+コツは先述の基本方針に沿うべく -1 の成分が最下行にあるということだ。
+
+.. literalinclude:: /_sample/pyopengl/rc/transform.py
    :language: python3
-   :lines: 62-76
+   :lines: 68-82
 
 .. include:: /_include/pyopengl-refs.txt
