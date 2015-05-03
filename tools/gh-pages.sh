@@ -4,6 +4,9 @@ SOURCE_DIR=./build/html/
 TARGET_DIR=../note-gh-pages
 
 rsync -av \
+  --delete \
+  --exclude='.git/' \
+  --exclude='.nojekyll' \
   --exclude='.buildinfo' \
   --exclude='_sources/*' \
   --exclude='_static/*' \
