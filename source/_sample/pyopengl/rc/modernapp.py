@@ -76,7 +76,7 @@ class ModernApp(AppBase):
     def update_rotation(self, quat=None):
         """Update the model transform."""
 
-        if not self.program_manager:
+        if not self.program_manager or not self.program_manager.program_id:
             return
 
         rotation_matrix = np.identity(4)
@@ -84,11 +84,11 @@ class ModernApp(AppBase):
             self.quat = quat
             rotation_matrix[:3, :3] = quat.transform
 
-        if self.program_manager.program_id:
-            GL.glUniformMatrix4fv(
-                GL.glGetUniformLocation(
-                    self.program_manager.program_id, b"rotation"),
-                1, GL.GL_TRUE, rotation_matrix)
+        GL.glUniformMatrix4fv(
+            GL.glGetUniformLocation(
+                self.program_manager.program_id, b"rotation"),
+            1, GL.GL_TRUE,
+            rotation_matrix)
 
     def cleanup(self):
         """The clean up callback function."""

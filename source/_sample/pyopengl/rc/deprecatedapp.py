@@ -49,12 +49,12 @@ class DeprecatedApp(AppBase):
     def update_rotation(self, quat=None):
         """Update the model transform."""
 
-        rotation_matrix = np.identity(4)
-        if quat is not None:
+        if quat is None:
+            # Initial update.
+            self.rotation_matrix = np.identity(4)
+        else:
             self.quat = quat
-            rotation_matrix[:3, :3] = quat.transform
-
-        self.rotation_matrix = rotation_matrix.transpose()
+            self.rotation_matrix[:3, :3] = quat.transform.transpose()
 
     def set_modelview_matrix(self):
         """Set the modelview matrix with deprecated GL commands."""
