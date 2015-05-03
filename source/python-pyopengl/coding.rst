@@ -25,5 +25,6 @@ PyOpenGL_ の API を NumPy_ や Pillow_ といった、高品質なサードパ
    program-manager
    transform
    view-navigation
+   shader
 
 .. include:: /_include/pyopengl-refs.txt
