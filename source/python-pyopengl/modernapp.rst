@@ -10,7 +10,7 @@ OpenGL 3.0 以降の新機能と、古参かつ現役の機能とから何かを
 ======================================================================
 まずクラス全景を示す。
 
-.. literalinclude:: /_sample/pyopengl/rc/modernapp.py
+.. literalinclude:: /_sample/pyopengl/modernapp.py
    :language: python3
 
 各メソッドはすべてベースクラス ``AppBase`` からのオーバーライドとなる。
@@ -18,7 +18,7 @@ OpenGL 3.0 以降の新機能と、古参かつ現役の機能とから何かを
 
 メソッド ``init_program``
 ----------------------------------------------------------------------
-.. literalinclude:: /_sample/pyopengl/rc/modernapp.py
+.. literalinclude:: /_sample/pyopengl/modernapp.py
    :language: python3
    :lines: 32-40
 
@@ -30,7 +30,7 @@ OpenGL 3.0 以降の新機能と、古参かつ現役の機能とから何かを
 
 メソッド ``init_transform``
 ----------------------------------------------------------------------
-.. literalinclude:: /_sample/pyopengl/rc/modernapp.py
+.. literalinclude:: /_sample/pyopengl/modernapp.py
    :language: python3
    :lines: 42-54
 
@@ -56,7 +56,7 @@ OpenGL 3.0 以降の新機能と、古参かつ現役の機能とから何かを
 
 メソッド ``update_projection``
 ----------------------------------------------------------------------
-.. literalinclude:: /_sample/pyopengl/rc/modernapp.py
+.. literalinclude:: /_sample/pyopengl/modernapp.py
    :language: python3
    :lines: 60-74
 
@@ -66,7 +66,7 @@ OpenGL 3.0 以降の新機能と、古参かつ現役の機能とから何かを
 
 メソッド ``update_rotation``
 ----------------------------------------------------------------------
-.. literalinclude:: /_sample/pyopengl/rc/modernapp.py
+.. literalinclude:: /_sample/pyopengl/modernapp.py
    :language: python3
    :lines: 76-91
 
@@ -76,7 +76,7 @@ OpenGL 3.0 以降の新機能と、古参かつ現役の機能とから何かを
 
 メソッド ``cleanup``
 ----------------------------------------------------------------------
-.. literalinclude:: /_sample/pyopengl/rc/modernapp.py
+.. literalinclude:: /_sample/pyopengl/modernapp.py
    :language: python3
    :lines: 93-97
 

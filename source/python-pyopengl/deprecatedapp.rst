@@ -20,7 +20,7 @@ OpenGL 3.0 以前の機能で実装した PyOpenGL プログラムをリファ�
 ======================================================================
 まずクラス全景を示す。
 
-.. literalinclude:: /_sample/pyopengl/rc/deprecatedapp.py
+.. literalinclude:: /_sample/pyopengl/deprecatedapp.py
    :language: python3
 
 各メソッドはほぼすべてベースクラス ``AppBase`` からのオーバーライドとなるが、
@@ -30,7 +30,7 @@ OpenGL 3.0 以前の機能で実装した PyOpenGL プログラムをリファ�
 
 メソッド ``__init__``
 ----------------------------------------------------------------------
-.. literalinclude:: /_sample/pyopengl/rc/deprecatedapp.py
+.. literalinclude:: /_sample/pyopengl/deprecatedapp.py
    :language: python3
    :lines: 25-31
 
@@ -44,7 +44,7 @@ OpenGL 3.0 以前の機能で実装した PyOpenGL プログラムをリファ�
 
 メソッド ``update_projection``
 ----------------------------------------------------------------------
-.. literalinclude:: /_sample/pyopengl/rc/deprecatedapp.py
+.. literalinclude:: /_sample/pyopengl/deprecatedapp.py
    :language: python3
    :lines: 41-47
 
@@ -52,7 +52,7 @@ OpenGL 3.0 以前の機能で実装した PyOpenGL プログラムをリファ�
 
 メソッド ``update_rotation``
 ----------------------------------------------------------------------
-.. literalinclude:: /_sample/pyopengl/rc/deprecatedapp.py
+.. literalinclude:: /_sample/pyopengl/deprecatedapp.py
    :language: python3
    :lines: 49-57
 
@@ -66,7 +66,7 @@ OpenGL 3.0 以前の機能で実装した PyOpenGL プログラムをリファ�
 
 メソッド ``set_modelview_matrix``
 ----------------------------------------------------------------------
-.. literalinclude:: /_sample/pyopengl/rc/deprecatedapp.py
+.. literalinclude:: /_sample/pyopengl/deprecatedapp.py
    :language: python3
    :lines: 59-67
 

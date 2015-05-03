@@ -187,7 +187,7 @@ OpenGL のリファレンスをそのまま実装すればよい。
 
 コツは先述の基本方針に沿うべく -1 の成分が最下行にあるということだ。
 
-.. literalinclude:: /_sample/pyopengl/rc/transform.py
+.. literalinclude:: /_sample/pyopengl/transform.py
    :language: python3
    :lines: 68-82
 

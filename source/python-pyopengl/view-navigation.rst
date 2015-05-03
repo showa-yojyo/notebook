@@ -32,7 +32,7 @@
 
 クラス ``AbstractViewNavigation``
 ======================================================================
-.. literalinclude:: /_sample/pyopengl/rc/viewnavigation.py
+.. literalinclude:: /_sample/pyopengl/viewnavigation.py
    :language: python3
    :lines: 15-56
 
@@ -57,7 +57,7 @@
 
 メソッド ``capture_mouse``
 ----------------------------------------------------------------------
-.. literalinclude:: /_sample/pyopengl/rc/viewnavigation.py
+.. literalinclude:: /_sample/pyopengl/viewnavigation.py
    :language: python3
    :lines: 68-72
 
@@ -66,7 +66,7 @@
 
 メソッド ``update_mouse_position``
 ----------------------------------------------------------------------
-.. literalinclude:: /_sample/pyopengl/rc/viewnavigation.py
+.. literalinclude:: /_sample/pyopengl/viewnavigation.py
    :language: python3
    :lines: 74-92
 
@@ -90,7 +90,7 @@
 ----------------------------------------------------------------------
 メソッド ``update_mouse_position`` だけを解説する。
 
-.. literalinclude:: /_sample/pyopengl/rc/viewnavigation.py
+.. literalinclude:: /_sample/pyopengl/viewnavigation.py
    :language: python3
    :lines: 102-109
 
@@ -107,7 +107,7 @@
 マウス位置、およびその変位をウィンドウの形状に依らずに取り扱いたいので、
 こういうものが要るのだ。
 
-.. literalinclude:: /_sample/pyopengl/rc/viewnavigation.py
+.. literalinclude:: /_sample/pyopengl/viewnavigation.py
    :language: python3
    :lines: 111-
 

@@ -28,7 +28,7 @@
 ======================================================================
 プログラムをスクリプトファイルの形で構成する。全体を以下に示す。
 
-.. literalinclude:: /_sample/pyopengl/rc/shaderdemo.py
+.. literalinclude:: /_sample/pyopengl/shaderdemo.py
    :language: python3
 
 これはイルベロの描かれた正多角形を描画するだけのプログラムである。
@@ -42,7 +42,7 @@
 
 インポート
 ----------------------------------------------------------------------
-.. literalinclude:: /_sample/pyopengl/rc/shaderdemo.py
+.. literalinclude:: /_sample/pyopengl/shaderdemo.py
    :language: python3
    :lines: 15-22
 
@@ -59,7 +59,7 @@ Python の場合はトリプルクォート記法が便利だ。
 
 頂点シェーダーコード
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.. literalinclude:: /_sample/pyopengl/rc/shaderdemo.py
+.. literalinclude:: /_sample/pyopengl/shaderdemo.py
    :language: glsl
    :lines: 25-43
 
@@ -75,7 +75,7 @@ Python の場合はトリプルクォート記法が便利だ。
 
 フラグメントシェーダーコード
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.. literalinclude:: /_sample/pyopengl/rc/shaderdemo.py
+.. literalinclude:: /_sample/pyopengl/shaderdemo.py
    :language: glsl
    :lines: 47-61
 
@@ -89,7 +89,7 @@ OpenGL 3.0 以降準拠の PyOpenGL スクリプトのためのベースクラ�
 
 メソッド ``__init__``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.. literalinclude:: /_sample/pyopengl/rc/shaderdemo.py
+.. literalinclude:: /_sample/pyopengl/shaderdemo.py
    :language: python3
    :lines: 67-78
 
@@ -104,7 +104,7 @@ OpenGL 3.0 以降準拠の PyOpenGL スクリプトのためのベースクラ�
 
 メソッド ``get_shader_sources``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.. literalinclude:: /_sample/pyopengl/rc/shaderdemo.py
+.. literalinclude:: /_sample/pyopengl/shaderdemo.py
    :language: python3
    :lines: 80-85
 
@@ -113,7 +113,7 @@ OpenGL 3.0 以降準拠の PyOpenGL スクリプトのためのベースクラ�
 
 メソッド ``init_object``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.. literalinclude:: /_sample/pyopengl/rc/shaderdemo.py
+.. literalinclude:: /_sample/pyopengl/shaderdemo.py
    :language: python3
    :lines: 87-136
 
@@ -180,7 +180,7 @@ VertexAttrib 系関数の呼び出しを初期化メソッドで済ませてい�
 
 メソッド ``init_texture``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.. literalinclude:: /_sample/pyopengl/rc/shaderdemo.py
+.. literalinclude:: /_sample/pyopengl/shaderdemo.py
    :language: python3
    :lines: 138-166
 
@@ -191,7 +191,7 @@ VertexAttrib 系関数の呼び出しを初期化メソッドで済ませてい�
 
 メソッド ``do_render``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.. literalinclude:: /_sample/pyopengl/rc/shaderdemo.py
+.. literalinclude:: /_sample/pyopengl/shaderdemo.py
    :language: python3
    :lines: 168-173
 
@@ -200,7 +200,7 @@ VertexAttrib 系関数の呼び出しを初期化メソッドで済ませてい�
 
 メソッド ``cleanup``, ``destroy_vbo``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.. literalinclude:: /_sample/pyopengl/rc/shaderdemo.py
+.. literalinclude:: /_sample/pyopengl/shaderdemo.py
    :language: python3
    :lines: 175-199
 
@@ -218,7 +218,7 @@ VertexAttrib 系関数の呼び出しを初期化メソッドで済ませてい�
 
 関数 ``main``
 ----------------------------------------------------------------------
-.. literalinclude:: /_sample/pyopengl/rc/shaderdemo.py
+.. literalinclude:: /_sample/pyopengl/shaderdemo.py
    :language: python3
    :lines: 201-210
 

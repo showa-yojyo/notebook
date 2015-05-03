@@ -12,7 +12,7 @@ GLSL プログラムオブジェクトとシェーダーオブジェクトの生
 次に挙げるようなコードを書いておく。
 部分的には PyOpenGL の某モジュールにも同様のコード片がある。
 
-.. literalinclude:: /_sample/pyopengl/rc/program_manager.py
+.. literalinclude:: /_sample/pyopengl/program_manager.py
    :language: python3
 
 メンバーデータの説明

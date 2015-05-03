@@ -14,7 +14,7 @@ PNG ファイルからテクスチャーを生成する
 ポイントは Pillow の ``Image`` インスタンスのメソッド ``tostring`` の戻り値を関数 ``glTexImage2D`` に渡すことだ。
 アルファチャンネルを含む PNG ファイルからテクスチャーデータを作成する例の、コード全景を示す。
 
-.. literalinclude:: /_sample/pyopengl/rc/texturedemo.py
+.. literalinclude:: /_sample/pyopengl/texturedemo.py
    :language: python3
 
 以下、ポイントを絞って解説する。
@@ -23,7 +23,7 @@ PNG ファイルからテクスチャーを生成する
 ----------------------------------------------------------------------
 旧式 OpenGL アプリケーション用クラス ``DeprecatedApp`` のサブクラスを定義する。
 
-.. literalinclude:: /_sample/pyopengl/rc/texturedemo.py
+.. literalinclude:: /_sample/pyopengl/texturedemo.py
    :language: python3
    :lines: 12-19
 
@@ -34,7 +34,7 @@ PNG ファイルからテクスチャーを生成する
 
 メソッド ``init_gl``
 ----------------------------------------------------------------------
-.. literalinclude:: /_sample/pyopengl/rc/texturedemo.py
+.. literalinclude:: /_sample/pyopengl/texturedemo.py
    :language: python3
    :lines: 15-26
 
@@ -44,7 +44,7 @@ PNG ファイルからテクスチャーを生成する
 ----------------------------------------------------------------------
 メソッド ``init_object`` をオーバーライドすることで、描画オブジェクトを定義する。
 
-.. literalinclude:: /_sample/pyopengl/rc/texturedemo.py
+.. literalinclude:: /_sample/pyopengl/texturedemo.py
    :language: python3
    :lines: 28-54
 
@@ -52,7 +52,7 @@ PNG ファイルからテクスチャーを生成する
 
 メソッド ``init_texture``
 ----------------------------------------------------------------------
-.. literalinclude:: /_sample/pyopengl/rc/texturedemo.py
+.. literalinclude:: /_sample/pyopengl/texturedemo.py
    :language: python3
    :lines: 56-78
 
@@ -72,7 +72,7 @@ PNG ファイルからテクスチャーを作成している（:doc:`/python-pi
 メソッド ``do_render`` をオーバーライドすることで描画処理の中心部分を定義する。
 レガシー API のオンパレードなので、説明は省く。
 
-.. literalinclude:: /_sample/pyopengl/rc/texturedemo.py
+.. literalinclude:: /_sample/pyopengl/texturedemo.py
    :language: python3
    :lines: 80-86
 
@@ -89,7 +89,7 @@ PNG ファイルからテクスチャーを作成している（:doc:`/python-pi
 当然ながら先述の例とプログラムの構造が同じであることを利用して、
 クラス ``TextureDemoApp`` からさらなるサブクラス ``TextDemoApp`` を定義することでコード作業の手間を省く。
 
-.. literalinclude:: /_sample/pyopengl/rc/textdemo.py
+.. literalinclude:: /_sample/pyopengl/textdemo.py
    :language: python3
 
 各メソッドの概要は前項のものと同様だが、メソッド ``init_texture`` の最初の処理は説明が必要だ。
@@ -99,7 +99,7 @@ PNG ファイルからテクスチャーを作成している（:doc:`/python-pi
 今度は既存の PNG ファイルからではなく、システムフォントからイメージを生成する。
 生成処理は別のプログラムでも利用する可能性が高いため、別途関数 ``draw_text`` に定義する。
 
-.. literalinclude:: /_sample/pyopengl/rc/texture.py
+.. literalinclude:: /_sample/pyopengl/texture.py
    :language: python3
 
 この処理の説明は :doc:`/python-pillow` 参照。

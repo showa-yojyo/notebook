@@ -18,7 +18,7 @@ OpenGL 3.0 以前と以後とで、プログラミングの方法論がまるで
 ======================================================================
 先にクラス全景を次に示す。
 
-.. literalinclude:: /_sample/pyopengl/rc/appbase.py
+.. literalinclude:: /_sample/pyopengl/appbase.py
    :language: python3
 
 このクラスの目的は次のとおりだ。
