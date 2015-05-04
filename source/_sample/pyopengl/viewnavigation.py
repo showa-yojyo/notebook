@@ -3,40 +3,72 @@
 """viewnavigation.py: Implement zooming and rotation.
 """
 # pylint: disable=unused-argument,no-self-use
-# pylint: disable=wildcard-import,unused-wildcard-import
 # pylint: disable=invalid-name
-import sys
 from abc import ABCMeta
 from abc import abstractmethod
 import numpy as np
 from numpy.linalg import norm
-from OpenGL.GLUT import *
+import OpenGL.GLUT as GLUT
 from Quaternion import Quat
 
 # pylint: disable=too-few-public-methods
 class AbstractViewNavigation(metaclass=ABCMeta):
     """The abstract base class of for classes that control view navigation."""
 
-    def __init__(self, app, x, y):
+    def __init__(self, app, button):
         """Initialize an instance of class AbstractViewNavigation."""
 
         self.app = app
-        self.width = glutGet(GLUT_WINDOW_WIDTH)
-        self.height = glutGet(GLUT_WINDOW_HEIGHT)
+        self.button = button
+        self.width = 0
+        self.height = 0
+        self.first_mouse_position = None
+
+    def mouse(self, button, state, x, y):
+        """The mouse callback function."""
+
+        if button == self.button:
+            if state == GLUT.GLUT_DOWN:
+                self.capture_mouse(x, y)
+            else:
+                self.release_mouse()
+
+    def motion(self, x, y):
+        """The motion callback function."""
+
+        if self.first_mouse_position:
+            self.update_mouse_position(x, y)
+
+    def capture_mouse(self, x, y):
+        """Capture mouse drag event."""
+
+        self.width = GLUT.glutGet(GLUT.GLUT_WINDOW_WIDTH)
+        self.height = GLUT.glutGet(GLUT.GLUT_WINDOW_HEIGHT)
         self.first_mouse_position = nds_coord(x, y, self.width, self.height)
+
+    def release_mouse(self):
+        """Release mouse drag event."""
+        self.first_mouse_position = None
 
     @abstractmethod
     def update_mouse_position(self, x, y):
         """Handle mouse motion event."""
-        return False
+        pass
 
 class ViewRotate(AbstractViewNavigation):
     """Implement trackball-like rotation."""
 
-    def __init__(self, app, x, y):
+    def __init__(self, app, button):
         """Initialize an instance of class ViewRotate."""
 
-        super(ViewRotate, self).__init__(app, x, y)
+        super(ViewRotate, self).__init__(app, button)
+        self.quat = Quat(app.quat)
+        self.last_quat_arg = None
+
+    def capture_mouse(self, x, y):
+        """Capture mouse."""
+
+        super(ViewRotate, self).capture_mouse(x, y)
         self.last_quat_arg = trackball_space(x, y, self.width, self.height)
 
     def update_mouse_position(self, x, y):
@@ -48,23 +80,24 @@ class ViewRotate(AbstractViewNavigation):
         # Compute the change in position the hemisphere.
         diff = cur_quat_arg - self.last_quat_arg
         if (abs(diff) < 1e-2).all():
-            return False
+            return
 
         last_quat = Quat(np.resize(self.last_quat_arg, 4))
         cur_quat = Quat(np.resize(cur_quat_arg, 4))
 
         self.last_quat_arg = cur_quat_arg
-        self.app.quat = self.app.quat * last_quat * cur_quat
-        self.app.update_rotation()
+        self.quat = self.quat * last_quat * cur_quat
+        self.app.update_rotation(self.quat)
 
-        return True
+        GLUT.glutPostRedisplay()
 
 class ViewZoom(AbstractViewNavigation):
     """Implement zooming."""
 
-    def __init__(self, app, x, y):
+    def __init__(self, app, button):
         """Initialize an instance of class ViewZoom."""
-        super(ViewZoom, self).__init__(app, x, y)
+
+        super(ViewZoom, self).__init__(app, button)
 
     def update_mouse_position(self, x, y):
         """Handle mouse motion event."""
@@ -72,10 +105,8 @@ class ViewZoom(AbstractViewNavigation):
         cur_pos = nds_coord(x, y, self.width, self.height)
         factor = np.exp((cur_pos[1] - self.first_mouse_position[1]) * -0.25)
         fovy = max(min(self.app.fovy * factor, 125), 25)
-        self.app.fovy = fovy
-        self.app.update_perspective(self.width, self.height)
-
-        return True
+        self.app.update_projection(fovy, self.width, self.height)
+        GLUT.glutPostRedisplay()
 
 def nds_coord(x, y, width, height):
     """Convert SCS to NDS."""

@@ -1,18 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""texturedemo.py: Demonstrate how to use OpenGL texture (bitmap)."""
+"""texturedemo.py: Demonstrate how to use OpenGL texture with PIL."""
 # pylint: disable=unused-argument,no-self-use
-# pylint: disable=wildcard-import,unused-wildcard-import
 # pylint: disable=invalid-name
 import sys
 import os
-from glappbase import GLAppBase
-from OpenGL.GL import *
-from OpenGL.GLU import *
-from OpenGL.GLUT import *
+from deprecatedapp import DeprecatedApp
+import OpenGL.GL as GL
 from PIL import Image
 
-class TextureDemoApp(GLAppBase):
+class TextureDemoApp(DeprecatedApp):
     """Demonstrate how to use OpenGL texture (bitmap)."""
 
     def __init__(self, **kwargs):
@@ -24,29 +21,15 @@ class TextureDemoApp(GLAppBase):
     def init_gl(self):
         """Initialize the OpenGL state."""
 
-        glClearColor(0.0, 0.0, 0.0, 1.0)
-        glEnable(GL_DEPTH_TEST)
-        glEnable(GL_TEXTURE_2D)
+        GL.glClearColor(0.0, 0.0, 0.0, 1.0)
+        GL.glEnable(GL.GL_DEPTH_TEST)
+        GL.glEnable(GL.GL_TEXTURE_2D)
 
     def init_object(self):
         """Initialize the object to be displayed."""
 
-        source_path = os.path.join(
-            os.path.dirname(__file__), '../pillow/illvelo.png')
-        img = Image.open(source_path).resize((256, 256))
-        assert img.mode == 'RGBA'
-
-        glTexImage2D(
-            GL_TEXTURE_2D, 0, GL_RGBA, img.size[0], img.size[1],
-            0, GL_RGBA, GL_UNSIGNED_BYTE, img.tostring())
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT)
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT)
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
-        glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL)
-
-        vx, vy = 40.0, 40.0
-        tx, ty = 6.0, 6.0
+        vx, vy = (40.0, 40.0)
+        tx, ty = (6.0, 6.0)
 
         vertices = (
             -vx, -vy, 0.0,
@@ -66,50 +49,61 @@ class TextureDemoApp(GLAppBase):
             1, 1, 1, 0.75,
             0, 0, 0, 0.75,)
 
-        glVertexPointer(3, GL_FLOAT, 0, vertices)
-        glTexCoordPointer(2, GL_FLOAT, 0, texcoords)
-        glColorPointer(4, GL_FLOAT, 0, colors)
+        GL.glVertexPointer(3, GL.GL_FLOAT, 0, vertices)
+        GL.glTexCoordPointer(2, GL.GL_FLOAT, 0, texcoords)
+        GL.glColorPointer(4, GL.GL_FLOAT, 0, colors)
 
-    def resize(self, width, height):
-        """The reshape callback function."""
+    def init_texture(self):
+        """Initialize textures."""
 
-        if height == 0:
-            return
+        source_path = os.path.join(
+            os.path.dirname(__file__), './illvelo.png')
+        img = Image.open(source_path).resize((256, 256))
+        assert img.mode == 'RGBA'
 
-        glViewport(0, 0, width, height)
-        glMatrixMode(GL_PROJECTION)
-        glLoadIdentity()
-        gluPerspective(45.0, width / height, 1.0, 100.0)
+        GL.glTexImage2D(
+            GL.GL_TEXTURE_2D, 0, GL.GL_RGBA,
+            img.size[0], img.size[1],
+            0, GL.GL_RGBA, GL.GL_UNSIGNED_BYTE, img.tostring())
+
+        GL.glTexParameterf(
+            GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_S, GL.GL_REPEAT)
+        GL.glTexParameterf(
+            GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_T, GL.GL_REPEAT)
+        GL.glTexParameterf(
+            GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_NEAREST)
+        GL.glTexParameterf(
+            GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_NEAREST)
+        GL.glTexEnvf(
+            GL.GL_TEXTURE_ENV, GL.GL_TEXTURE_ENV_MODE, GL.GL_DECAL)
 
     def do_render(self):
         """Render the object."""
 
-        glMatrixMode(GL_MODELVIEW)
-        glPushMatrix()
-        glLoadIdentity()
+        GL.glPushAttrib(GL.GL_CURRENT_BIT)
+        GL.glMatrixMode(GL.GL_MODELVIEW)
+        GL.glPushMatrix()
+        self.set_modelview_matrix()
 
-        gluLookAt(14, 14, 1.58,
-                  0, 0, 0,
-                  0, 0, 1)
+        GL.glPushClientAttrib(GL.GL_CLIENT_VERTEX_ARRAY_BIT)
+        GL.glEnableClientState(GL.GL_VERTEX_ARRAY)
+        GL.glEnableClientState(GL.GL_TEXTURE_COORD_ARRAY)
+        GL.glEnableClientState(GL.GL_COLOR_ARRAY)
 
-        glPushAttrib(GL_CURRENT_BIT)
-        glPushClientAttrib(GL_CLIENT_VERTEX_ARRAY_BIT)
-        glEnableClientState(GL_VERTEX_ARRAY)
-        glEnableClientState(GL_TEXTURE_COORD_ARRAY)
-        glEnableClientState(GL_COLOR_ARRAY)
+        GL.glDrawArrays(GL.GL_POLYGON, 0, 4)
 
-        glDrawArrays(GL_POLYGON, 0, 4)
-
-        glPopClientAttrib()
-        glPopAttrib()
-        glPopMatrix()
+        GL.glPopClientAttrib()
+        GL.glPopAttrib()
+        GL.glPopMatrix()
 
 def main(args):
     """The main function."""
 
     app = TextureDemoApp(
         window_title=b"Build texture from a PNG file",
-        window_size=(320, 240))
+        window_size=(320, 240),
+        camera_eye=(14, 14, 1.58,),
+        camera_up=(0, 0, 1))
     app.run(sys.argv)
 
 if __name__ == "__main__":

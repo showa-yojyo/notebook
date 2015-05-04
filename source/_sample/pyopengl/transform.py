@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""transform.py: 
+"""transform.py: Provide some of deprecated transform features of OpenGL 3.0.
 
 Reference:
   * rndblnch / opengl-programmable
@@ -17,10 +17,14 @@ import sys
 import numpy as np
 from numpy.linalg import norm
 
+# def frustum(left, right, bottom, top, nearVal, farVal)
+# def ortho
+# def rotate
+
 def scale(x, y, z):
     """Imitate glScale"""
 
-    return np.diag([x, y, z, 1.])
+    return np.diag((x, y, z, 1.))
 
 def translate(x, y, z):
     """Imitate glTranslate"""
@@ -36,10 +40,14 @@ def translate(x, y, z):
 def lookat(eye, center, up):
     """Imitate gluLookAt"""
 
-    f = center - eye
+    eye_work = np.array(eye, copy=False, dtype=np.float64)
+    center_work = np.array(center, copy=False, dtype=np.float64)
+    up_work = np.array(up, copy=False, dtype=np.float64)
+
+    f = center_work - eye_work
     f /= norm(f)
 
-    s = np.cross(f, up)
+    s = np.cross(f, up_work)
     s /= norm(s)
 
     u = np.cross(s, f)
@@ -49,11 +57,13 @@ def lookat(eye, center, up):
     mat[1, :3] = u
     mat[2, :3] = -f
 
-    mat[0, 3] = np.dot(-eye, s)
-    mat[1, 3] = np.dot(-eye, u)
-    mat[2, 3] = np.dot(-eye, -f)
+    mat[0, 3] = np.dot(-eye_work, s)
+    mat[1, 3] = np.dot(-eye_work, u)
+    mat[2, 3] = np.dot(-eye_work, -f)
 
     return mat
+
+# def ortho2D
 
 def perspective(fovy, aspect, znear, zfar):
     """Imitate gluPerspective"""
@@ -70,3 +80,6 @@ def perspective(fovy, aspect, znear, zfar):
     mat[3, 3] = 0
 
     return mat
+
+# def project
+# def unproject
