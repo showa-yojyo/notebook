@@ -10,7 +10,7 @@ PyOpenGL 利用ノート
 OpenGL の勉強には Python を使う。これはなかなかよいコツかもしれない。
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 3
 
    setup
    doc
