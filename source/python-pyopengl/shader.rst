@@ -159,16 +159,7 @@ OpenGL 3.0 以降準拠の PyOpenGL スクリプトのためのベースクラ�
 * 旧式の関数 ``glVertexPointer``, ``glColorPointer`` に代え、
   現代的な ``glVertexAttribPointer`` を用いる。
 
-一般に、オリジナル OpenGL の関数でパラメーターの型が ``const GLvoid*`` であるものについて、
-これを Python で表現する状況・方法は今のところ 3 通り発見している。
-
-* 実引数がゼロの場合は、単に ``None`` または ``c_void_p(0)`` を指定する。
-  単に ``0`` では何も描画されないことに注意。
-* 実引数が非ゼロの場合は、次のどちらかになる。
-
-  * 配列データを直接渡す場合は Python の ``list`` なり ``np.array`` なりのオブジェクトを直接指定する。
-  * オフセット量を指定する場合は ``c_void_p(n)`` を指定する。
-    ここで ``n`` はバイト数である。
+  細かい説明は :doc:`tips` の ``ctypes`` の説明を参照。
 
 * 以前メソッド ``do_render`` で呼び出していた ``glEnableClientState`` の代わるものとして、
   関数 ``glEnableVertexAttribArray`` を導入する。

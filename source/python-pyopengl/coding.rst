@@ -13,6 +13,7 @@ PyOpenGL_ の API を NumPy_ や Pillow_ といった、高品質なサードパ
    :maxdepth: 2
 
    coding-intro
+   tips
    appbase
    deprecatedapp
    modernapp
