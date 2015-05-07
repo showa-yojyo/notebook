@@ -375,25 +375,14 @@ Hello, world
 .. image:: /_static/illvelo-wallpaper.png
    :scale: 50%
 
-気がついたら Pillow のドキュメントにこの技法が載っていたが、本稿に残しておく。
+気がついたら Pillow のドキュメントにこの技法が載っていたが、
+ここでは少々凝ったやり方で壁紙の繰り返し単位部分を生成する。
 
 #. 元画像を :math:`2 \times 2` 分割して対角線上の区域を入れ替える。
 #. そこへ元画像をブレンドなりオーバーレイなりして重ね合わせる。
 
-.. code-block:: python3
-
-   # Example: Rolling an image を改造
-   def roll_horz(image, delta):
-       xsize, ysize = image.size
-
-       delta = delta % xsize
-       if delta == 0: return image
-
-       part1 = image.crop((0, 0, delta, ysize))
-       part2 = image.crop((delta, 0, xsize, ysize))
-       image.paste(part2, (0, 0, xsize-delta, ysize))
-       image.paste(part1, (xsize-delta, 0, xsize, ysize))
-       return image
+.. literalinclude:: /_sample/pillow/pattern.py
+   :language: python3
 
 モジュール ImagePath
 ----------------------------------------------------------------------
