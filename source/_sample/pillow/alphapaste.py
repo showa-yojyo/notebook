@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from PIL import Image
 
 # Photoshop で言うところのレイヤー 1 に置く画像。

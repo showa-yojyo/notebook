@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from PIL import Image
 
 BASE_COLOR = 'red'
@@ -13,4 +12,3 @@ for i in range(WORK_SIZE):
     gradient.putpixel((0, i), WORK_SIZE - i)
 
 img.putalpha(gradient.resize(img.size))
-img.save('gradient2.png')

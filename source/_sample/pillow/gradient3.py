@@ -17,4 +17,3 @@ alpha = gradient.resize(img.size, Image.ANTIALIAS)
 
 final = Image.new('RGBA', img.size, (0, 0, 0, 0))
 final.paste(img, None, mask=alpha)
-final.save('illvelo-gradient.png')

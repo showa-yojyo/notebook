@@ -12,4 +12,3 @@ draw = ImageDraw.Draw(img)
 
 # 画面の左上隅にテキストを赤く描画する。
 draw.text((0, 0), 'Hello, world', fill=TEXT_COLOR)
-#img.show()

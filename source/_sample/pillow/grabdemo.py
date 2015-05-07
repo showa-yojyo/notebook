@@ -5,4 +5,3 @@ from PIL import Image, ImageGrab
 img = ImageGrab.grab()
 # テキトーに縮小、表示する。
 img.thumbnail((256, 256), Image.ANTIALIAS)
-img.show()

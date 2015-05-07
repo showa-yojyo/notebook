@@ -96,25 +96,45 @@ GIF 画像ファイル :file:`image.gif` を PNG 形式に変換して、
 >>> im = Image.open("image.gif")
 >>> im.save("image.png")
 
+* 関数 ``open`` に画像ファイルパスを渡すと、画像オブジェクトが生成する。
+* メソッド ``save`` で画像ファイルをファイルシステム上に作成する。
+
+  * 上のコードのようにファイルパスだけを指定する場合、
+    ファイルの画像フォーマットは拡張子に基づいて Pillow が決定する。
+
+  * 拡張子に頼らずに画像フォーマットを指定する場合は、
+    キーワード引数 ``format`` から文字列により指定できる。
+
 画像ファイルフォーマット変換（バッチ処理）
 ----------------------------------------------------------------------
 カレントディレクトリー内の GIF ファイルを PNG ファイルに変換、保存する処理のコードはこうなる。
 
-.. code-block:: python3
+.. literalinclude:: /_sample/pillow/batch.py
+   :language: python3
 
-   import os.path
-   import glob
-   from PIL import Image
+* ちなみに、自分でわざわざ上のようなコードを用意する必要はほぼないだろう。後述するように、
+  Python の Scripts ディレクトリーにインストールされている :file:`pilconvert.py` を使う手がある。
 
-   for infile in glob.glob("*.gif"):
-       file, ext = os.path.splitext(infile)
-       im = Image.open(infile)
-       im.save(file + ".png")
+* 公式サイトのドキュメントでは、同様の方式によるサムネイル画像ファイルを一括作成する例が紹介されている。
+  メソッド ``open`` と ``save`` の呼び出しの間にメソッド ``thumbnail`` 呼び出しをはさむとそうなる。
 
-ちなみに、自分でわざわざ上のようなコードを用意する必要はほぼないだろう。後述するように、
-Python の Scripts ディレクトリーにインストールされている :file:`pilconvert.py` を使う手がある。
+Pillow がサポートする画像フォーマットを知る
+----------------------------------------------------------------------
+Pillow のインストールディレクトリーで ``grep Image.resiter_ *.py`` するとよい。
 
-公式サイトのドキュメントでは、同様の方式によるサムネイル画像ファイルを一括作成する例が紹介されている。
+画像データをバイト配列として扱う
+----------------------------------------------------------------------
+画像データをバイト配列として扱うには、メソッド ``tobytes`` を用いる。
+PyOpenGL のプログラムで画像ファイルからテクスチャーを生成する際に必須の方法だ。
+
+* 戻り値として ``bytes`` オブジェクトが得られる。
+
+* メモリレイアウトはキーワード引数 ``encoder_name`` で指定できるが、生のままでよい。
+  例えば透過 PNG ファイルから ``Image`` オブジェクトを生成したときは、
+  ``tobytes`` は RGBARGBA... のようなデータ構造になる。
+
+* 旧メソッド名は ``tostring`` だったが、現在 deprecated となっている。
+  昔のコードを再利用するときに置換しておこう。
 
 簡易ビューワー
 ----------------------------------------------------------------------
@@ -127,7 +147,13 @@ Python の Scripts ディレクトリーにインストールされている :fi
 >>> im.show()
 
 筆者の環境では Windows のフォトビューワーが起動して、画像の内容が表示された。
-なお、オブジェクトが既存のファイルから得られたものでない場合にも通用する。
+
+* オブジェクトが既存のファイルから得られたものでない場合にも通用する。
+
+* ドキュメントによると、このメソッドは効率が悪いらしい。
+  場合によってはオブジェクトをファイルに保存しつつ、
+  再読み込み機能がある画像ビューワーを開いたままにして、
+  デバッグ作業するのもありか。
 
 ジャギー解消
 ----------------------------------------------------------------------
@@ -136,6 +162,11 @@ Python の Scripts ディレクトリーにインストールされている :fi
 
 イメージモノクロ化
 ----------------------------------------------------------------------
+.. image:: /_static/illvelo.png
+   :scale: 50%
+.. image:: /_static/illvelo-monochrome.png
+   :scale: 50%
+
 メソッド ``convert`` を引数 ``"L"`` で呼び出す。
 各ピクセルの RGB 値を次の式でグレースケール化してモノクロ化するようだ。
 
@@ -149,30 +180,31 @@ Python の Scripts ディレクトリーにインストールされている :fi
 
 >>> ...
 >>> im = Image.open("illvelo.png")
->>> im.convert("L").save("illvelo-monochrome.png")
-
-元画像と処理後の画像は次のようになる。
-
-.. image:: /_static/illvelo.png
-   :scale: 50%
-.. image:: /_static/illvelo-monochrome.png
-   :scale: 50%
+>>> im.convert("L")
 
 画像生成
 ----------------------------------------------------------------------
 ゼロから画像オブジェクトを生成するのに、関数 ``Image.new`` を利用することができる。
 
->>> # 1024 x 768 の RGB イメージを初期化する。
 >>> from PIL import Image
 >>> img = Image.new('RGB', (1024, 768))
 
-色名指定
+* 引数 ``mode`` でよく指定する値は ``'RGB'`` か ``'RGBA'`` のどちらかになる。
+* 引数 ``size`` は画素単位の画像サイズ。幅、高さの順に要素が並ぶ ``tuple`` オブジェクトで指定する。
+* キーワード引数 ``color`` でいわゆる背景色を指定できる。デフォルトは黒。
+
+色の表現
+======================================================================
+Pillow はコードでの色の表現手段を多数サポートしている。
+詳しくはモジュール ImageColor.py の内容を見るとよい。
+
+色名による色指定
 ----------------------------------------------------------------------
 Pillow のメソッドで色を引数に取るものについては、
-``ImageColor`` モジュールで決められている色名で指定することもできる。
+色成分を列挙した ``list`` や ``tuple`` だけでなく、
+モジュール ``ImageColor`` で決められている色名で指定することもできる。
 色名の型はプログラマーにやさしい形式、つまり文字列である。
 
->>> # RGB イメージを濃いピンクで初期化する。
 >>> from PIL import Image
 >>> img = Image.new('RGB', (1024, 768), 'deeppink')
 
@@ -186,44 +218,57 @@ Pillow のメソッドで色を引数に取るものについては、
 ('aliceblue', '#f0f8ff')
 ('antiquewhite', '#faebd7')
 ('aqua', '#00ffff')
-... 略 ...
-('yellowgreen', '#9acd32')
->>>
 
-透過イメージ生成
+後半略。全部で 147 項目あるのでかなり長い。
+
+色名から RGB 値に変換する
 ----------------------------------------------------------------------
-関数 ``new`` の引数 ``color`` として、例えば 4 成分の array-like オブジェクトを渡すとしよう。
-この場合は ``color[3]`` の ``0`` がアルファー値であり、アルファベットの A で示す。
-この A 値は上限値の 0xFF に近いほど透過度が低くなる。
+関数 ``ImageColor.getrgb`` を利用するほうが早い。
+
+>>> from PIL.ImageColor import getrgb
+>>> getrgb('deeppink')
+(255, 20, 147)
+
+PyOpenGL プログラムなどで A 値も欲しい場合は関数 ``getcolor`` を用いるという手もある。
+このとき引数 ``mode`` の明示的な指定を必要とする。
+
+>>> from PIL.ImageColor import getcolor
+>>> getcolor('deeppink', 'RGBA')
+(255, 20, 147, 255)
+
+透過
+======================================================================
+
+透過画像生成
+----------------------------------------------------------------------
+関数 ``new`` で生成する画像オブジェクトを透過対応する方法は、
+引数 ``mode`` を ``'RGBA'`` にすることだ。
+
+さらに、引数 ``color`` を、例えば 4 成分の array-like オブジェクトを渡すとしよう。
+この場合 ``color[0:3]`` はそれぞれ今までどおり R, G, B 値を指定する。
+さらなる成分 ``color[3]`` はアルファー値といい、アルファベットの A で示す。
+この A 値は下限値の 0 が完全透明を意味し、上限値の 0xFF は完全不透明を意味する
+（ところで英語には opaque という単語があるが、日本語だと否定形で表現するしかなさそうだ）。
+その中間の値は、まあまあ透明という意味だ。
+実際はアルファブレンディングという手法で最終的な RGB 色を決定するための値である。
 
 >>> img = Image.new('RGBA', (1024, 768), (0, 0, 0, 0))
 
-真っ黒だが透明という不思議なイメージが生成する。
+このようにすると、真っ黒だが透明という画像オブジェクト ``img`` が生成する。
 
 アルファチャンネルを持つ PNG 画像を青地背景上に重ねたい
 ----------------------------------------------------------------------
-要するに、透過ピクセルを含む画像を、ブルーバックの画像の上に乗せると思って欲しい。
+要するに、透過ピクセルを含む画像をブルーバックの画像の上に乗せると思って欲しい。
 
-.. code-block:: python3
+.. literalinclude:: /_sample/pillow/alphapaste.py
+   :language: python3
 
-   from PIL import Image
-
-   # Photoshop で言うところのレイヤー 1 に置く画像。
-   img = Image.open('illvelo.png')
-   bands = img.split()
-
-   # R, G, B, A の A だけが要る。
-   alpha = bands[3]
-
-   # Photoshop で言うところの背景レイヤーになる画像。
-   bkgnd = Image.new('RGBA', img.size, 'blue')
-
-   # これではダメ。
-   #bkgnd.paste(img, None)
-   # これが正解。
-   bkgnd.paste(img, None, mask=alpha)
+* メソッド ``split`` で「アルファーチャンネル」的なデータを得る。
+* 背景画像側からメソッド ``paste`` を用いて ``img`` と共に上記データを
+  ``mask`` として貼り付ける。
 
 元画像と処理後の画像はこうなる。
+ここで、元画像のキャラクターの輪郭の外側は完全透明色、内側領域は完全不透明色である。
 
 .. image:: /_static/illvelo.png
    :scale: 50%
@@ -232,10 +277,14 @@ Pillow のメソッドで色を引数に取るものについては、
 
 グラデーション
 ======================================================================
-グラデーションパターンの生成について、いくつかコツを記す。
+Pillow は直接的にはグラデーションをサポートしていなそうなので、描きたいときは自作する。
+ここではグラデーションパターンの生成について、いくつかコツを記す。
 
 線形グラデーション（透過なし）
 ----------------------------------------------------------------------
+.. image:: /_static/pillow-gradient-opaque.png
+   :scale: 50%
+
 幅 :math:`1 \times 256` ピクセルのイメージを作成し、
 ピクセルカラーをその位置に応じてセットしていく方針で絵を描く。
 まずは ``putpixel`` メソッドを利用してこれを行い、
@@ -243,81 +292,36 @@ Pillow のメソッドで色を引数に取るものについては、
 
 次に示すコードは、サイズが :math:`320 \times 240` で、
 上部が赤で下部が青の線形グラデーションとなるイメージを作成する。
-線形補間の計算コード記述の手間を少々省くため、NumPy_ の関数 ``linspace`` を利用した。
 
-.. code-block:: python3
+.. literalinclude:: /_sample/pillow/gradient1.py
+   :language: python3
 
-   from PIL import Image, ImageColor
-   import numpy as np
-
-   COLOR_START = ImageColor.getrgb('antiquewhite')
-   COLOR_STOP = ImageColor.getrgb('deeppink')
-   IMAGE_WIDTH, IMAGE_HEIGHT = 320, 240
-   WORK_SIZE = 0x100
-   R, G, B = 0, 1, 2
-
-   img = Image.new('RGB', (1, WORK_SIZE))
-   colors = np.dstack(
-       (np.linspace(COLOR_START[i], COLOR_STOP[i], num=SIZE) for i in (R, G, B)))[0]
-
-   for i, color in enumerate(colors):
-       img.putpixel((0, i), tuple(color.astype(int).tolist()))
-
-   img = img.resize((IMAGE_WIDTH, IMAGE_HEIGHT))
-
-結果画像の掲載を割愛する。
+* 線形補間の計算コード記述の手間を少々省くため、NumPy_ の関数 ``linspace`` を利用した。
 
 線形グラデーション（単色にグレースケール透過）
 ----------------------------------------------------------------------
+.. image:: /_static/pillow-gradient-greyscale.png
+   :scale: 50%
+
 メソッド ``putalpha`` 利用版グラデーション。
 
-.. code-block:: python3
-
-   from PIL import Image
-
-   BASE_COLOR = 'red'
-   IMAGE_WIDTH, IMAGE_HEIGHT = 320, 240
-   WORK_SIZE = 0x100
-
-   img = Image.new('RGBA', (IMAGE_WIDTH, IMAGE_HEIGHT), BASE_COLOR)
-   gradient = Image.new('L', (1, WORK_SIZE))
-
-   for i in range(WORK_SIZE):
-       gradient.putpixel((0, WORK_SIZE - i), i)
-
-   img.putalpha(gradient.resize(img.size))
+.. literalinclude:: /_sample/pillow/gradient2.py
+   :language: python3
 
 出力は上部が赤で、下部に至るにつれて透過していく線形グラデーションイメージとなる。
 結果画像の掲載を割愛する。
 
 線形グラデーション（さらなる応用）
 ----------------------------------------------------------------------
-イメージ 3 枚重ね。
-
-.. code-block:: python3
-
-   from PIL import Image, ImageColor
-
-   WORK_SIZE = 0x100
-
-   img = Image.open('illvelo.png')
-   assert img.mode == 'RGBA'
-
-   gradient = Image.new('L', (1, WORK_SIZE))
-   for i in range(WORK_SIZE):
-       gradient.putpixel((0, i), i)
-
-   alpha = gradient.resize(img.size, Image.ANTIALIAS)
-
-   final = Image.new('RGBA', img.size, (0, 0, 0, 0))
-   final.paste(img, None, mask=alpha)
-
-元画像と処理後の画像はこうなる。
-
 .. image:: /_static/illvelo.png
    :scale: 50%
 .. image:: /_static/illvelo-gradient.png
    :scale: 50%
+
+イメージ 3 枚重ね。
+
+.. literalinclude:: /_sample/pillow/gradient3.py
+   :language: python3
 
 テキスト
 ======================================================================
@@ -327,67 +331,27 @@ Pillow のメソッドで色を引数に取るものについては、
 
 Hello, world
 ----------------------------------------------------------------------
-
-.. code-block:: python3
-
-   from PIL import Image, ImageDraw
-
-   IMAGE_WIDTH, IMAGE_HEIGHT = 320, 240
-   TEXT_COLOR = 'red'
-
-   # デフォルト背景色のキャンヴァスを用意する。
-   img = Image.new('RGBA', (IMAGE_WIDTH, IMAGE_HEIGHT))
-
-   # Draw 関数でオブジェクトを作成。
-   draw = ImageDraw.Draw(img)
-
-   # 画面の左上隅にテキストを描画する。
-   draw.text((0, 0), 'Hello, world', fill=TEXT_COLOR)
-
 結果画像の掲載を割愛する。
-上のコードのとおりに動作させると、黒地に赤字の ``Hello, world`` が見える。
+
+.. literalinclude:: /_sample/pillow/text1.py
+   :language: python3
+
+上のコードを動作させると、黒地に赤字の ``Hello, world`` が書かれた画像が生成する。
 
 日本語テキスト
 ----------------------------------------------------------------------
+.. image:: /_static/karous-paradise.png
+
 コツは 3 つある。
 
 * 関数 ``ImageFont.truetype`` で日本語対応のフォントオブジェクトを作成する。
 * その際に ``encoding`` 引数に適切なエンコーディングを指示する。
 * ``text`` メソッドの引数にそのフォントを与える。
 
-.. code-block:: python3
+.. literalinclude:: /_sample/pillow/text2.py
+   :language: python3
 
-   from PIL import Image
-   from PIL import ImageDraw
-   from PIL import ImageFont
-
-   img = Image.new('RGB', (1024, 256), 'black')
-   dr = ImageDraw.Draw(img)
-   fnt = ImageFont.truetype('hgrme.ttc', 24, encoding='utf-8')
-
-   text = '''どうしても会ってもらえませんか？
-   私はこんなにあなたに会いたいのに…。
-   お金には余裕があるので心配しないで
-   ください。
-   コード780の1102番で、
-   あなたを待っています。
-   '''
-
-   width = 0
-   height = 0
-   for line in text.splitlines():
-       ext = dr.textsize(line, fnt)
-       dr.text((0, height), line, font=fnt, fill='white')
-       width = max(ext[0], width)
-       height += ext[1]
-
-   # 余白をトリムする。
-   img = img.crop((0, 0, width, height))
-
-処理後の画像はこうなる。
-出力イメージの大きさはテキストにフィットする最小の矩形になるはずだ。
-
-.. image:: /_static/karous-paradise.png
+トリム処理を加えることで、出力画像の大きさはテキストにフィットする最小の矩形になるはずだ。
 
 応用
 ======================================================================
@@ -395,26 +359,22 @@ Hello, world
 
 スクリーンショット
 ----------------------------------------------------------------------
-モジュール ``ImageGrab`` を用いると、画面イメージキャプチャーが得られる。
-このスクリーンショット取得機能は Pillow の Windows 版にだけある。
-
-.. code-block:: python3
-
-   from PIL import Image, ImageGrab
-
-   # スクリーンショットをキャプチャーして
-   img = ImageGrab.grab()
-   # テキトーに縮小、表示する。
-   img.thumbnail((256, 256), Image.ANTIALIAS)
-   img.show()
-
-処理後の画像の一例を掲載する。
-
 .. image:: /_static/grab.png
    :scale: 100%
 
+モジュール ``ImageGrab`` を用いると、画面イメージキャプチャーが得られる。
+このスクリーンショット取得機能は Pillow の Windows 版にだけある。
+
+.. literalinclude:: /_sample/pillow/grabdemo.py
+   :language: python3
+
 上下左右ループ壁紙パターン生成
 ----------------------------------------------------------------------
+.. image:: /_static/illvelo.png
+   :scale: 50%
+.. image:: /_static/illvelo-wallpaper.png
+   :scale: 50%
+
 気がついたら Pillow のドキュメントにこの技法が載っていたが、本稿に残しておく。
 
 #. 元画像を :math:`2 \times 2` 分割して対角線上の区域を入れ替える。
@@ -434,13 +394,6 @@ Hello, world
        image.paste(part2, (0, 0, xsize-delta, ysize))
        image.paste(part1, (xsize-delta, 0, xsize, ysize))
        return image
-
-元画像と処理後の画像はこうなる。
-
-.. image:: /_static/illvelo.png
-   :scale: 50%
-.. image:: /_static/illvelo-wallpaper.png
-   :scale: 50%
 
 モジュール ImagePath
 ----------------------------------------------------------------------
