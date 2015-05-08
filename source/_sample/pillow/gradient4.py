@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
-from PIL import Image, ImageColor
+from PIL import Image
+from PIL import ImageColor
+from PIL import ImageDraw
 import numpy as np
 
 COLOR_START = ImageColor.getrgb('antiquewhite')
 COLOR_STOP = ImageColor.getrgb('deeppink')
-IMAGE_WIDTH, IMAGE_HEIGHT = 320, 240
 WORK_SIZE = 0x100
 
-img = Image.new('RGB', (1, WORK_SIZE))
+img = Image.new('RGB', (WORK_SIZE, WORK_SIZE), color='white')
+draw = ImageDraw.Draw(img)
+
 gradient = np.array(
     [np.linspace(i, j, WORK_SIZE) for i, j in zip(COLOR_START, COLOR_STOP)],
     dtype=int)
-
 for i, rgb in enumerate(gradient.T):
-    img.putpixel((0, i), tuple(rgb))
-
-img = img.resize((IMAGE_WIDTH, IMAGE_HEIGHT))
+    draw.ellipse([i, i, WORK_SIZE - i, WORK_SIZE - i], fill=tuple(rgb))
