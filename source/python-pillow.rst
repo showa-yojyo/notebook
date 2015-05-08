@@ -167,7 +167,7 @@ PyOpenGL のプログラムで画像ファイルからテクスチャーを生�
 ----------------------------------------------------------------------
 .. image:: /_static/illvelo.png
    :scale: 50%
-.. image:: /_static/illvelo-monochrome.png
+.. image:: /_static/pillow-illvelo-monochrome.png
    :scale: 50%
 
 メソッド ``convert`` を引数 ``"L"`` で呼び出す。
@@ -275,7 +275,7 @@ PyOpenGL プログラムなどで A 値も欲しい場合は関数 ``getcolor`` 
 
 .. image:: /_static/illvelo.png
    :scale: 50%
-.. image:: /_static/illvelo-blueback.png
+.. image:: /_static/pillow-illvelo-blueback.png
    :scale: 50%
 
 グラデーション
@@ -312,13 +312,12 @@ Pillow は直接的にはグラデーションをサポートしていなそう�
    :language: python3
 
 出力は上部が赤で、下部に至るにつれて透過していく線形グラデーションイメージとなる。
-結果画像の掲載を割愛する。
 
 線形グラデーション（さらなる応用）
 ----------------------------------------------------------------------
 .. image:: /_static/illvelo.png
    :scale: 50%
-.. image:: /_static/illvelo-gradient.png
+.. image:: /_static/pillow-illvelo-gradient.png
    :scale: 50%
 
 イメージ 3 枚重ね。
@@ -343,7 +342,7 @@ Hello, world
 
 日本語テキスト
 ----------------------------------------------------------------------
-.. image:: /_static/karous-paradise.png
+.. image:: /_static/pillow-karous-paradise.png
 
 コツは 3 つある。
 
@@ -362,7 +361,7 @@ Hello, world
 
 スクリーンショット
 ----------------------------------------------------------------------
-.. image:: /_static/grab.png
+.. image:: /_static/pillow-grab.png
    :scale: 100%
 
 モジュール ``ImageGrab`` を用いると、画面イメージキャプチャーが得られる。
@@ -375,7 +374,7 @@ Hello, world
 ----------------------------------------------------------------------
 .. image:: /_static/illvelo.png
    :scale: 50%
-.. image:: /_static/illvelo-wallpaper.png
+.. image:: /_static/pillow-illvelo-wallpaper.png
    :scale: 50%
 
 気がついたら Pillow のドキュメントにこの技法が載っていたが、
