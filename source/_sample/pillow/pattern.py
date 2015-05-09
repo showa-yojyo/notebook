@@ -1,51 +1,49 @@
 # -*- coding: utf-8 -*-
+"""pattern.py: An example like <Rolling an image> in Pillow document.
+"""
 from PIL import Image
 
 def run(filepath):
-    """TBW"""
+    """Create a wallpaper image from a PNG file."""
 
     src = Image.open(filepath)
     target = swap_quadrants(src)
-    paste_with_alpha(target, src, (0, 0, src.size[0], src.size[1]), 0x10)
+    paste_with_alpha(target, src, (0, 0), 0x10)
     return target
 
 def swap_quadrants(img):
-    """オリジナル画像を縦横に四分割する。
-    オリジナル画像と同サイズのキャンバスを用意し、
-    対角線上の region[i] を入れ替えた上でコピーする。
-    """
+    """Quarter the image and swap two diagonal quadrant pairs."""
 
-    W = img.size[0] // 2
-    H = img.size[1] // 2
-
-    # box := (L, U, R, B)
-    boxes = make_boxes(img, W, H)
-
+    boxes = quarter_bbox(img)
     regions = [img.crop(box) for box in boxes]
 
     target = img.copy()
-    region_boxes = make_boxes(
-        img, img.size[0] - W, img.size[1] - H)
-
-    for i in range(4):
-        paste_with_alpha(target, regions[3 - i], region_boxes[i], 0x80)
+    paste_with_alpha(target, regions[3], (0, 0), 0x80)
+    paste_with_alpha(target, regions[2], (regions[3].size[0], 0), 0x80)
+    paste_with_alpha(target, regions[1], (0, regions[3].size[1]), 0x80)
+    paste_with_alpha(target, regions[0], regions[3].size, 0x80)
 
     return target
 
-def paste_with_alpha(target, source, box, opacity):
-    """TBW"""
+def paste_with_alpha(target, source, left_upper, opacity):
+    """An alpha_composite-like operation."""
 
-    mask = Image.new('L', (box[2] - box[0], box[3] - box[1]), 0x80)
-    target.paste(source, box, mask=mask)
+    mask = Image.new('L', source.size, opacity)
+    target.paste(source, left_upper, mask=mask)
 
-def make_boxes(img, width, height):
-    """TBW"""
+def quarter_bbox(img):
+    """Quater the bounding box of an image."""
 
+    (left, upper, right, bottom) = img.getbbox()
+    xmid = (left + right - 1) // 2
+    ymid = (upper + bottom - 1) // 2
+
+    # Z
     return [
-        (0, 0, width, height),
-        (width, 0, img.size[0], height),
-        (0, height, width, img.size[1]),
-        (width, height, img.size[0], img.size[1]),]
+        (left, upper, xmid, ymid),
+        (xmid + 1, upper, right, ymid),
+        (left, ymid + 1, xmid, bottom),
+        (xmid + 1, ymid + 1, right, bottom),]
 
 if __name__ == '__main__':
     run('illvelo.png')

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-
-# Generate an image of gradient.
-# See http://www.velocityreviews.com/forums/t595372-pil-transparency-gradient.html
+"""gradient3.py: Demonstrate drawing linear gradient on an image.
+"""
 from PIL import Image, ImageColor
 
 WORK_SIZE = 0x100

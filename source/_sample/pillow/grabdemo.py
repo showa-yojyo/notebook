@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
-from PIL import Image, ImageGrab
+"""grabdemo.py: Demonstrate how to use function ImageGrab.grab.
+"""
+from PIL import Image
+from PIL import ImageGrab
 
-# スクリーンショットをキャプチャーして
+# Take a snapshot of the whole screen.
 img = ImageGrab.grab()
-# テキトーに縮小、表示する。
+
+# For the purpose of display, make it to a thumbnail.
 img.thumbnail((256, 256), Image.ANTIALIAS)

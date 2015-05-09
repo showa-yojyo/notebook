@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
-from PIL import Image, ImageDraw
+"""text1.py: Demonstrate how to draw a text with PIL.
+"""
+from PIL import Image
+from PIL import ImageDraw
 
-IMAGE_WIDTH, IMAGE_HEIGHT = 96, 24
+IMAGE_SIZE = (96, 24)
+BKGND_COLOR = 'black'
 TEXT_COLOR = 'white'
 
-# デフォルト背景色のキャンヴァスを用意する。
-img = Image.new('RGBA', (IMAGE_WIDTH, IMAGE_HEIGHT), 'black')
-
-# Draw 関数でオブジェクトを作成。
+img = Image.new('RGBA', IMAGE_SIZE, BKGND_COLOR)
 draw = ImageDraw.Draw(img)
-
-# 画面の左上隅にテキストを描画する。
 draw.text((0, 0), 'Hello, world', fill=TEXT_COLOR)

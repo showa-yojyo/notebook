@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+"""gradient2.py: Demonstrate drawing linear gradient.
+"""
 from PIL import Image
 
 BASE_COLOR = 'red'

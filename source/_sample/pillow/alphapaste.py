@@ -1,17 +1,13 @@
 # -*- coding: utf-8 -*-
+"""alphapaste.py: Demonstrate how to composite two images with alpha values.
+"""
 from PIL import Image
 
-# Photoshop で言うところのレイヤー 1 に置く画像。
+# Layer 1 in Photoshop.
 img = Image.open('illvelo.png')
-bands = img.split()
 
-# R, G, B, A の A だけが要る。
-alpha = bands[3]
-
-# Photoshop で言うところの背景レイヤーになる画像。
+# Background layer in Photoshop.
 bkgnd = Image.new('RGBA', img.size, 'blue')
 
-# これではダメ。
-#bkgnd.paste(img, None)
-# これが正解。
-bkgnd.paste(img, None, mask=alpha)
+# Blend images with the transparency mask from img.split()[3].
+result = Image.alpha_composite(bkgnd, img)

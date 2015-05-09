@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+"""gradient4.py: Demonstrate drawing radial gradient.
+"""
 from PIL import Image
 from PIL import ImageColor
 from PIL import ImageDraw

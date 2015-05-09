@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+"""gradient1.py: Demonstrate drawing linear gradient.
+"""
 from PIL import Image, ImageColor
 import numpy as np
 
