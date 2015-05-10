@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """gradient2.py: Demonstrate drawing linear gradient.
 """

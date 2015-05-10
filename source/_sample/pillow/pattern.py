@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """pattern.py: An example like <Rolling an image> in Pillow document.
 """
@@ -46,4 +47,6 @@ def quarter_bbox(img):
         (xmid + 1, ymid + 1, right, bottom),]
 
 if __name__ == '__main__':
-    run('illvelo.png')
+    import os.path
+    result = run(os.path.join(
+        os.path.dirname(__file__), '../../_static/illvelo.png'))

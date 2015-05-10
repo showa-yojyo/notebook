@@ -1,10 +1,15 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """alphapaste.py: Demonstrate how to composite two images with alpha values.
 """
 from PIL import Image
+import os.path
+
+SOURCE_PATH = os.path.join(
+    os.path.dirname(__file__), '../../_static/illvelo.png')
 
 # Layer 1 in Photoshop.
-img = Image.open('illvelo.png')
+img = Image.open(SOURCE_PATH)
 
 # Background layer in Photoshop.
 bkgnd = Image.new('RGBA', img.size, 'blue')
