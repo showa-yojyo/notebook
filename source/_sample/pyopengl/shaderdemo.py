@@ -139,7 +139,7 @@ class ShaderDemoApp(ModernApp):
         """Initialize textures."""
 
         source_path = os.path.join(
-            os.path.dirname(__file__), './illvelo.png')
+            os.path.dirname(__file__), '../../_static/illvelo.png')
         img = Image.open(source_path).resize((256, 256))
         assert img.mode == 'RGBA'
 
@@ -154,7 +154,7 @@ class ShaderDemoApp(ModernApp):
         GL.glTexImage2D(
             GL.GL_TEXTURE_2D, 0, GL.GL_RGBA,
             img.size[0], img.size[1],
-            0, GL.GL_RGBA, GL.GL_UNSIGNED_BYTE, img.tostring())
+            0, GL.GL_RGBA, GL.GL_UNSIGNED_BYTE, img.tobytes())
 
         GL.glTexParameterf(
             GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_S, GL.GL_REPEAT)

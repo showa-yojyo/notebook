@@ -11,7 +11,7 @@ def draw_text(text, initsize=256, point=144, bgcolor='black', forecolor='white')
     # Create a larger canvas.
     img = Image.new('RGBA', (initsize, initsize), bgcolor)
     dr = ImageDraw.Draw(img)
-    fnt = ImageFont.truetype('hgrme.ttc', point)
+    fnt = ImageFont.truetype('HGRME.TTC', point)
 
     ext = dr.textsize(text, font=fnt)
     dr.text((0, 0), text, font=fnt, fill=forecolor)
