@@ -569,7 +569,7 @@ TwitterStream
 ----------------------------------------------------------------------
 TBW
 
-.. _Python: http://www.python.org/
+.. include:: /_include/python-refs.txt
 .. _Python Twitter Tools: http://mike.verdone.ca/twitter/
 .. _REST API v1.1 Resources: https://dev.twitter.com/docs/api/1.1
 .. _Working with Timelines: https://dev.twitter.com/docs/working-with-timelines

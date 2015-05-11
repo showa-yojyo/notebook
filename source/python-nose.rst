@@ -453,12 +453,8 @@ Nose のバージョンが上がってから勉強しに行こう。
   * ログ設定周りを調べていない。
   * Windows 環境ゆえ、マルチプロセステストが試せないのは残念。
 
-.. _Python: http://www.python.org/
-.. _Nose: http://somethingaboutorange.com/mrl/projects/nose/
+.. include:: /_include/python-refs.txt
 .. _easy_install: http://peak.telecommunity.com/DevCenter/EasyInstall
-.. _setuptools: http://peak.telecommunity.com/DevCenter/setuptools
 .. _coverage: http://nedbatchelder.com/code/coverage
 .. _py.test: http://codespeak.net/py/current/doc/test.html
 .. _Jinja2: http://jinja.pocoo.org/
-.. _Matplotlib: http://matplotlib.sourceforge.net/
-.. _NumPy: http://scipy.org/NumPy

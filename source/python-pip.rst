@@ -186,9 +186,6 @@ Python_ のどこかのページに書いてあるが、
 ご本尊ごとサーバーがダウンしていたら読めないので、ここに転載する。
 本当はこれらを設定ファイルに書いておくのが作法。
 
-.. _Python: http://www.python.org/
-.. _PyPI: http://pypi.python.org/pypi
-.. _pip: https://pypi.python.org/pypi/pip
+.. include:: /_include/python-refs.txt
 .. _easy_install: http://peak.telecommunity.com/DevCenter/EasyInstall
-.. _setuptools: http://peak.telecommunity.com/DevCenter/setuptools
 .. _distribute: http://pypi.python.org/pypi/distribute

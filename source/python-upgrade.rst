@@ -239,18 +239,7 @@ PYTHONPATH       自作モジュールのパス
 もっとも面倒な作業は、これまで自分が書いたすべての Python コードを Python 3 仕様に書き改めることだ。
 しかし :file:`$PYTHONDIR/Tools/Scripts/2to3.py` で機械的に処理すれば一応は動きそう。
 
-.. _Python: http://www.python.org/
-.. _PyPI: http://pypi.python.org/pypi
-
-.. _setuptools: http://peak.telecommunity.com/DevCenter/setuptools
-.. _pip: http://pypi.python.org/pypi/pip
-
-.. _Python Extension Packages for Windows - Christoph Gohlke: http://www.lfd.uci.edu/~gohlke/pythonlibs/
-
-.. _NumPy: http://scipy.org/NumPy/
-.. _SciPy: http://www.scipy.org/
-.. _Matplotlib: http://matplotlib.sourceforge.net/
-.. _PIL: http://www.pythonware.com/products/pil
+.. include:: /_include/python-refs.txt
 .. _PyQt4: http://www.riverbankcomputing.com/software/pyqt/intro
 .. _Py2exe: http://www.py2exe.org/
 .. _Pygame: http://www.pygame.org/

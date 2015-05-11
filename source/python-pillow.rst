@@ -467,8 +467,4 @@ pilprint.py          画像ファイルを PostScript プリンターに出力�
    []
    pildriver>
 
-.. _Python: http://www.python.org/
-.. _Python Extension Packages for Windows - Christoph Gohlke: http://www.lfd.uci.edu/~gohlke/pythonlibs/
-.. _PIL: http://www.pythonware.com/products/pil
-.. _Pillow: https://pillow.readthedocs.org/en/latest/
-.. _Numpy: http://scipy.org/NumPy/
+.. include:: /_include/python-refs.txt

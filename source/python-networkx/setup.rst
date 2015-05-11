@@ -48,7 +48,5 @@ NumPy_ や SciPy_ のそれと同じスタイルなので馴染みやすい。
    SKIP: ogr not available.
    SKIP: yaml not available.
 
+.. include:: /_include/python-refs.txt
 .. _NetworkX: https://networkx.github.io/
-.. _Nose: http://somethingaboutorange.com/mrl/projects/nose/
-.. _Numpy: http://scipy.org/NumPy/
-.. _SciPy: http://www.scipy.org/

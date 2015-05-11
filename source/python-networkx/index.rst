@@ -51,8 +51,5 @@ NetworkX_
 * :doc:`../python-nose`
 * :doc:`../python-matplotlib`
 
-.. _Python: http://www.python.org/
+.. include:: /_include/python-refs.txt
 .. _NetworkX: https://networkx.github.io/
-.. _Numpy: http://scipy.org/NumPy/
-.. _Nose: http://somethingaboutorange.com/mrl/projects/nose/
-.. _Matplotlib: http://matplotlib.sourceforge.net/

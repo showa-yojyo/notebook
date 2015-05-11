@@ -10,5 +10,4 @@ PIL 利用ノート [obsolete]
      そこで、筆者の環境も PIL を放棄して Pillow を導入し、
      本稿の内容を上記ノートに移転した。
 
-.. _PIL: http://www.pythonware.com/products/pil
-.. _Pillow: https://pillow.readthedocs.org/en/latest/
+.. include:: /_include/python-refs.txt

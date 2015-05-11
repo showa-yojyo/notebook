@@ -207,11 +207,7 @@ PySparseGraph
 
 NetworkX_ ではこれらは明らか。
 
-.. _Python: http://www.python.org/
-.. _Python Extension Packages for Windows - Christoph Gohlke: http://www.lfd.uci.edu/~gohlke/pythonlibs/
-.. _pip: http://pypi.python.org/pypi/pip
+.. include:: /_include/python-refs.txt
 .. _`Another Python Graph Library`: http://packages.python.org/apgl/
 .. _APGL: http://packages.python.org/apgl/
-.. _Numpy: http://scipy.org/NumPy/
-.. _SciPy: http://www.scipy.org/
 .. _NetworkX: https://networkx.github.io/

@@ -122,8 +122,5 @@ PyOpenGL との連携
 
    テキスト描画できると思ったらできないので、調査意欲が失せた。
 
-.. _Python: http://www.python.org/
+.. include:: /_include/python-refs.txt
 .. _Pygame: http://www.pygame.org/
-.. _Numpy: http://scipy.org/NumPy/
-.. _PyOpenGL: http://pyopengl.sourceforge.net/
-.. _Python Extension Packages for Windows - Christoph Gohlke: http://www.lfd.uci.edu/~gohlke/pythonlibs/

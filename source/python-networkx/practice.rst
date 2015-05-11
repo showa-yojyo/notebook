@@ -43,6 +43,6 @@ NetworkX のグラフ描画ルーチンの特性上、
 
 描画については別項で詳しく論じる。→ :doc:`drawing`
 
-.. _Matplotlib: http://matplotlib.sourceforge.net/
+.. include:: /_include/python-refs.txt
 .. _PyGraphviz: http://pygraphviz.github.io/
 .. _pydot: https://code.google.com/p/pydot/

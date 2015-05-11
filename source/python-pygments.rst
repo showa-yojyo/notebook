@@ -205,9 +205,8 @@ Styles
 ======================================================================
 気が向いたら挑戦してみよう。
 
-.. _Python: http://www.python.org/
+.. include:: /_include/python-refs.txt
 .. _Pygments: http://pygments.org/
 .. _easy_install: http://peak.telecommunity.com/DevCenter/EasyInstall
-.. _setuptools: http://peak.telecommunity.com/DevCenter/setuptools
 .. _Mercurial: http://selenic.com/mercurial/
 .. _Sphinx: http://sphinx.pocoo.org/

@@ -194,6 +194,6 @@ Pylint の忠告に従いたいが、難しい場合もある。
 カンマ区切りで複数のエラー項目を指示することもできるし、
 抑止コメントを抑止する項目数だけ書いてもよい。
 
-.. _Python: http://www.python.org/
+.. include:: /_include/python-refs.txt
 .. _Pylint: http://www.pylint.org/
 .. _PEP8: http://legacy.python.org/dev/peps/pep-0008/

@@ -535,11 +535,7 @@ Matplotlib を利用するための環境をもっと細かく整備してみよ
 
 * :file:`matplotlibrc` は python-mode で編集するのが吉。
 
-.. _Python: http://www.python.org/
-.. _Python Extension Packages for Windows - Christoph Gohlke: http://www.lfd.uci.edu/~gohlke/pythonlibs/
-.. _Matplotlib: http://matplotlib.sourceforge.net/
-.. _setuptools: http://peak.telecommunity.com/DevCenter/setuptools
-.. _Numpy: http://scipy.org/NumPy/
+.. include:: /_include/python-refs.txt
 .. _Sphinx: http://sphinx.pocoo.org/
 .. _PyQt: http://www.riverbankcomputing.com/software/pyqt/intro
 .. _PyParsing: https://pypi.python.org/pypi/pyparsing
