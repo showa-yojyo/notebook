@@ -230,4 +230,4 @@ VertexAttrib 系関数の呼び出しを初期化メソッドで済ませてい�
 .. image:: /_static/pyopengl-shader-transform.png
    :scale: 100%
 
-.. include:: /_include/pyopengl-refs.txt
+.. include:: /_include/python-refs-vision.txt

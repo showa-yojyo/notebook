@@ -171,4 +171,4 @@ PIL 経由でテクスチャーを生成する
 ======================================================================
 :doc:`imagefile` に記した。
 
-.. include:: /_include/pyopengl-refs.txt
+.. include:: /_include/python-refs-vision.txt

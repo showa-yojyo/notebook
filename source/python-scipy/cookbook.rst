@@ -172,3 +172,4 @@ wxPython と TraitsUI の例を挙げている。個人的には PyQt の例が�
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
+.. include:: /_include/python-refs-vision.txt

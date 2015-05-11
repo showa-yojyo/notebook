@@ -46,4 +46,6 @@ PyOpenGL_ (The Python OpenGL Binding)
 * :doc:`/python-quaternion`
 * :doc:`/python-pillow`
 
-.. include:: /_include/pyopengl-refs.txt
+.. include:: /_include/python-refs-core.txt
+.. include:: /_include/python-refs-sci.txt
+.. include:: /_include/python-refs-vision.txt

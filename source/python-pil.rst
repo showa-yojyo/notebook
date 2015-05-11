@@ -11,3 +11,4 @@ PIL 利用ノート [obsolete]
      本稿の内容を上記ノートに移転した。
 
 .. include:: /_include/python-refs-core.txt
+.. include:: /_include/python-refs-vision.txt

@@ -468,3 +468,5 @@ pilprint.py          画像ファイルを PostScript プリンターに出力�
    pildriver>
 
 .. include:: /_include/python-refs-core.txt
+.. include:: /_include/python-refs-sci.txt
+.. include:: /_include/python-refs-vision.txt

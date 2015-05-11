@@ -76,4 +76,4 @@ OpenGL 3.0 以前の機能で実装した PyOpenGL プログラムをリファ�
 造りが悪いのだが、サブクラスのメソッド ``do_render`` からの呼び出しを想定している。
 その際には ``GL.glMatrixMode(GL.GL_MODELVIEW)`` を伴う。
 
-.. include:: /_include/pyopengl-refs.txt
+.. include:: /_include/python-refs-vision.txt

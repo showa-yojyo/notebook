@@ -86,4 +86,4 @@ OpenGL 3.0 以降の新機能と、古参かつ現役の機能とから何かを
 なお、サブクラスではこのメソッドをオーバーライドし、
 この処理に加えて、バッファーオブジェクトやテクスチャーオブジェクトの破棄をすることになる。
 
-.. include:: /_include/pyopengl-refs.txt
+.. include:: /_include/python-refs-vision.txt

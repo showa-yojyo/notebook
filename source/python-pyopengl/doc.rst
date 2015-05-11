@@ -35,4 +35,4 @@ PyOpenGL for OpenGL Programmers
 * PyOpenGL では、関数の型別サフィックスが省略できる。
   例えば ``glDrawElements{ub|us|ui}`` はいずれも ``glDrawElements`` とできる。
 
-.. include:: /_include/pyopengl-refs.txt
+.. include:: /_include/python-refs-vision.txt

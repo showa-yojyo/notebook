@@ -23,4 +23,5 @@ PyOpenGL_ の API を NumPy_ や Pillow_ といった、高品質なサードパ
    imagefile
    shader
 
-.. include:: /_include/pyopengl-refs.txt
+.. include:: /_include/python-refs-sci.txt
+.. include:: /_include/python-refs-vision.txt

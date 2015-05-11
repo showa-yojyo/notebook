@@ -123,4 +123,4 @@
 関数 ``trackball_space`` はスクリーン座標から仮想的な半球上への写像を求める。
 :doc:`/angel05/note4` 等を参考。
 
-.. include:: /_include/pyopengl-refs.txt
+.. include:: /_include/python-refs-vision.txt

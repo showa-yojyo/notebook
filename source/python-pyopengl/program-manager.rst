@@ -33,4 +33,4 @@ GLSL プログラムオブジェクトとシェーダーオブジェクトの生
 ======================================================================
 アプリケーションはメソッド ``setup`` と ``cleanup`` をその初期化処理と後始末処理にて呼び出す。
 
-.. include:: /_include/pyopengl-refs.txt
+.. include:: /_include/python-refs-vision.txt

@@ -75,4 +75,4 @@ PyOpenGL プログラムのための土台となるクラスを実装する
 :doc:`shader`
   クラス ``ModernBase`` のサブクラスを定義して、シェーダーを利用してみる。
 
-.. include:: /_include/pyopengl-refs.txt
+.. include:: /_include/python-refs-vision.txt

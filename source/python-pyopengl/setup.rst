@@ -24,4 +24,6 @@ PyOpenGL 本体のインストールは上記関連リンクの非公式イン�
 以前は GLUT はユーザーが準備することになっていたと記憶するが、
 最近のバージョンでは DLL が同時にインストールされるようになっている。
 
-.. include:: /_include/pyopengl-refs.txt
+.. include:: /_include/python-refs-core.txt
+.. include:: /_include/python-refs-sci.txt
+.. include:: /_include/python-refs-vision.txt

@@ -10,9 +10,9 @@ NumPy_ のインストールフォルダーの直下 :file:`doc` フォルダに
 NumPy の開発者はこれらを基に NumPy User Guide を作成していると思われる。
 下にファイルとその内容を表にまとめる。array に関するトピックが圧倒的に多い。
 
-============================== ====
+============================== =======================================
 ファイル                       内容
-============================== ====
+============================== =======================================
 basics.py                      array に関する基本的な内容。
 broadcasting.py                array の broadcasting rules についての議論。
 byteswapping.py                array オブジェクトのメモリレイアウトに関する議論。
@@ -30,7 +30,7 @@ performance.py                 まだ文書化されていない。
 structured_arrays.py           変わった型の array について。
 subclassing.py                 ``ndarray`` のサブクラス化に関する文書。
 ufuncs.py                      Universal functions に関する文書。
-============================== ====
+============================== =======================================
 
 glossary.py
 ----------------------------------------------------------------------
@@ -93,3 +93,4 @@ view
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
+.. include:: /_include/python-refs-vision.txt

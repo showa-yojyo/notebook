@@ -372,3 +372,4 @@ C++ で言うところの ``std::random_shuffle(first, last)`` と同等のこ�
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
+.. include:: /_include/python-refs-vision.txt

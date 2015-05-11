@@ -191,4 +191,4 @@ OpenGL のリファレンスをそのまま実装すればよい。
    :language: python3
    :lines: 68-82
 
-.. include:: /_include/pyopengl-refs.txt
+.. include:: /_include/python-refs-vision.txt

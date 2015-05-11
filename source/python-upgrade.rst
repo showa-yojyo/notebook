@@ -241,6 +241,7 @@ PYTHONPATH       自作モジュールのパス
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
+.. include:: /_include/python-refs-vision.txt
 .. _PyQt4: http://www.riverbankcomputing.com/software/pyqt/intro
 .. _Py2exe: http://www.py2exe.org/
 .. _Pygame: http://www.pygame.org/

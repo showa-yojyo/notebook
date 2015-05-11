@@ -86,4 +86,4 @@ GLSL オブジェクトの管理機能
 本クラスはオブジェクト化して利用するのではなく、ベースクラスとして利用する。
 サブクラスとしてアプリケーションを実装するサンプルのときに記す。
 
-.. include:: /_include/pyopengl-refs.txt
+.. include:: /_include/python-refs-vision.txt

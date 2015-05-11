@@ -133,4 +133,4 @@ Pillow + ``glReadPixels`` によるスクリーンショット取得
       img.save(filename)
       print('{} saved'.format(filename))
 
-.. include:: /_include/pyopengl-refs.txt
+.. include:: /_include/python-refs-vision.txt
