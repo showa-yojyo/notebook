@@ -78,5 +78,5 @@ isbn_hyphenate_ は ISBN の数字列に適切にハイフンを配置するた�
 
    ``isbn_xml2py.py`` をユーザーが起動することがあるのか。
 
-.. include:: /_include/python-refs.txt
+.. include:: /_include/python-refs-core.txt
 .. _isbn_hyphenate: https://github.com/TorKlingberg/isbn_hyphenate

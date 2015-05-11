@@ -122,5 +122,5 @@ PyOpenGL との連携
 
    テキスト描画できると思ったらできないので、調査意欲が失せた。
 
-.. include:: /_include/python-refs.txt
+.. include:: /_include/python-refs-core.txt
 .. _Pygame: http://www.pygame.org/

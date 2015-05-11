@@ -453,8 +453,8 @@ Nose のバージョンが上がってから勉強しに行こう。
   * ログ設定周りを調べていない。
   * Windows 環境ゆえ、マルチプロセステストが試せないのは残念。
 
-.. include:: /_include/python-refs.txt
-.. _easy_install: http://peak.telecommunity.com/DevCenter/EasyInstall
+.. include:: /_include/python-refs-core.txt
+.. include:: /_include/python-refs-sci.txt
 .. _coverage: http://nedbatchelder.com/code/coverage
 .. _py.test: http://codespeak.net/py/current/doc/test.html
 .. _Jinja2: http://jinja.pocoo.org/

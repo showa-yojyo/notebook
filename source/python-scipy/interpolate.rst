@@ -163,4 +163,5 @@ convex hull property を満足していそうなことが目視で感じられ�
 例えば曲線の各端点における座標自身および接線方向が、
 対応する折れ線の各端点における座標自身および線分の方向と一致している。
 
-.. include:: /_include/python-refs.txt
+.. include:: /_include/python-refs-core.txt
+.. include:: /_include/python-refs-sci.txt

@@ -41,4 +41,5 @@
 .. image:: /_static/scipy-ode.png
    :scale: 60%
 
-.. include:: /_include/python-refs.txt
+.. include:: /_include/python-refs-core.txt
+.. include:: /_include/python-refs-sci.txt

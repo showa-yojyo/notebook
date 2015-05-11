@@ -239,7 +239,8 @@ PYTHONPATH       自作モジュールのパス
 もっとも面倒な作業は、これまで自分が書いたすべての Python コードを Python 3 仕様に書き改めることだ。
 しかし :file:`$PYTHONDIR/Tools/Scripts/2to3.py` で機械的に処理すれば一応は動きそう。
 
-.. include:: /_include/python-refs.txt
+.. include:: /_include/python-refs-core.txt
+.. include:: /_include/python-refs-sci.txt
 .. _PyQt4: http://www.riverbankcomputing.com/software/pyqt/intro
 .. _Py2exe: http://www.py2exe.org/
 .. _Pygame: http://www.pygame.org/

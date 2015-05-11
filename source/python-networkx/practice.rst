@@ -43,6 +43,7 @@ NetworkX のグラフ描画ルーチンの特性上、
 
 描画については別項で詳しく論じる。→ :doc:`drawing`
 
-.. include:: /_include/python-refs.txt
+.. include:: /_include/python-refs-core.txt
+.. include:: /_include/python-refs-sci.txt
 .. _PyGraphviz: http://pygraphviz.github.io/
 .. _pydot: https://code.google.com/p/pydot/

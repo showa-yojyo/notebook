@@ -10,4 +10,4 @@ PIL 利用ノート [obsolete]
      そこで、筆者の環境も PIL を放棄して Pillow を導入し、
      本稿の内容を上記ノートに移転した。
 
-.. include:: /_include/python-refs.txt
+.. include:: /_include/python-refs-core.txt

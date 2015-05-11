@@ -566,9 +566,8 @@ TODO
      Jinja2 の自動エスケープ機能が高速化するようだ。
    * Extension 全般。
 
-.. include:: /_include/python-refs.txt
+.. include:: /_include/python-refs-core.txt
 .. _Jinja2: http://jinja.pocoo.org/
-.. _distribute: http://pypi.python.org/pypi/distribute
 .. _Git: http://git-scm.org/
 .. _MarkupSafe: http://pypi.python.org/pypi/MarkupSafe
 .. _REST API Resources: https://dev.twitter.com/docs/api

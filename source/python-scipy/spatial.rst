@@ -38,4 +38,5 @@ Reference Guide の例を一部改変したものを記す。
    Closest:  [40 50 80]
    Distance: 6.867646253691044
 
-.. include:: /_include/python-refs.txt
+.. include:: /_include/python-refs-core.txt
+.. include:: /_include/python-refs-sci.txt

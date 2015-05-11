@@ -73,4 +73,5 @@ An example script
 * 関数 ``np.linspace`` が等間隔に値を並べる配列を生成するものであることが読み取れる。
   明らかに使い勝手が良い。
 
-.. include:: /_include/python-refs.txt
+.. include:: /_include/python-refs-core.txt
+.. include:: /_include/python-refs-sci.txt

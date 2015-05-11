@@ -186,6 +186,4 @@ Python_ のどこかのページに書いてあるが、
 ご本尊ごとサーバーがダウンしていたら読めないので、ここに転載する。
 本当はこれらを設定ファイルに書いておくのが作法。
 
-.. include:: /_include/python-refs.txt
-.. _easy_install: http://peak.telecommunity.com/DevCenter/EasyInstall
-.. _distribute: http://pypi.python.org/pypi/distribute
+.. include:: /_include/python-refs-core.txt

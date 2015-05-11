@@ -91,4 +91,5 @@ view
     この種の操作で新しくできた array は、
     実は参照ベースの proxy オブジェクトであることが多いようだ。
 
-.. include:: /_include/python-refs.txt
+.. include:: /_include/python-refs-core.txt
+.. include:: /_include/python-refs-sci.txt

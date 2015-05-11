@@ -102,4 +102,5 @@ LU 分解は一意に定まらないものなので、三角行列が期待し�
 * 最小二乗法には ``linalg.lstsq`` を用いる。これは別ページで述べる。
 * 行列のテイラー展開による各種関数もサポート。
 
-.. include:: /_include/python-refs.txt
+.. include:: /_include/python-refs-core.txt
+.. include:: /_include/python-refs-sci.txt

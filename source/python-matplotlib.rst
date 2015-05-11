@@ -535,8 +535,8 @@ Matplotlib を利用するための環境をもっと細かく整備してみよ
 
 * :file:`matplotlibrc` は python-mode で編集するのが吉。
 
-.. include:: /_include/python-refs.txt
-.. _Sphinx: http://sphinx.pocoo.org/
+.. include:: /_include/python-refs-core.txt
+.. include:: /_include/python-refs-sci.txt
 .. _PyQt: http://www.riverbankcomputing.com/software/pyqt/intro
 .. _PyParsing: https://pypi.python.org/pypi/pyparsing
 .. _TeX Live: http://tug.org/texlive/

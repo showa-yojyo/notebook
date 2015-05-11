@@ -81,4 +81,5 @@ Simpson の公式
 
 この例では関数 ``quad`` の精度が圧倒的によいようだ。
 
-.. include:: /_include/python-refs.txt
+.. include:: /_include/python-refs-core.txt
+.. include:: /_include/python-refs-sci.txt

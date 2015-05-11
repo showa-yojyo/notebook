@@ -33,4 +33,5 @@
    [ 0.57735027  0.57735027  0.57735027]
    [  1.57009246e-16  -7.07106781e-01   7.07106781e-01]
 
-.. include:: /_include/python-refs.txt
+.. include:: /_include/python-refs-core.txt
+.. include:: /_include/python-refs-sci.txt

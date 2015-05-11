@@ -166,7 +166,8 @@ NG な結果が多いが、ユーザーが手動で 2to3.py して修正した�
 ``encode('utf-8')`` の呼び出しをコメントアウトすることだ。
 こちらの修正はさらに上述の Python3 版 pydot の導入とセットで行うこと。
 
-.. include:: /_include/python-refs.txt
+.. include:: /_include/python-refs-core.txt
+.. include:: /_include/python-refs-sci.txt
 .. _NetworkX: https://networkx.github.io/
 .. _Graphviz: http://www.graphviz.org/
 .. _PyGraphviz: http://pygraphviz.github.io/

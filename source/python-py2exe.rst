@@ -489,5 +489,5 @@ Pygame
 
 参考ページ http://www.pygame.org/wiki/Pygame2exe
 
-.. include:: /_include/python-refs.txt
+.. include:: /_include/python-refs-core.txt
 .. _Py2exe: http://www.py2exe.org/

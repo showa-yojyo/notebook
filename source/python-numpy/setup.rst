@@ -64,4 +64,5 @@ HTML と PDF ファイルの形で利用できるようになっている。
 
   こちらはどちらかと言えば読み物。読書家向けか。
 
-.. include:: /_include/python-refs.txt
+.. include:: /_include/python-refs-core.txt
+.. include:: /_include/python-refs-sci.txt

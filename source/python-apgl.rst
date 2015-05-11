@@ -207,7 +207,8 @@ PySparseGraph
 
 NetworkX_ ではこれらは明らか。
 
-.. include:: /_include/python-refs.txt
+.. include:: /_include/python-refs-core.txt
+.. include:: /_include/python-refs-sci.txt
 .. _`Another Python Graph Library`: http://packages.python.org/apgl/
 .. _APGL: http://packages.python.org/apgl/
 .. _NetworkX: https://networkx.github.io/

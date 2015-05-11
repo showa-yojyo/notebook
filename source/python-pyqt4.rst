@@ -250,7 +250,7 @@ ui ファイルから直接 Widget をロードする方法
       class QMyTextBrowser(QtGui.QTextBrowser):
           ...
 
-.. include:: /_include/python-refs.txt
+.. include:: /_include/python-refs-core.txt
 .. _PyQt: http://www.riverbankcomputing.co.uk/software/pyqt/intro
 .. _`PyQt Download`: http://www.riverbankcomputing.co.uk/software/pyqt/download/
 .. _`Qt Reference Documentation 4.7`: http://doc.qt.nokia.com/4.7/

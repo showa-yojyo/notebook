@@ -205,8 +205,6 @@ Styles
 ======================================================================
 気が向いたら挑戦してみよう。
 
-.. include:: /_include/python-refs.txt
+.. include:: /_include/python-refs-core.txt
 .. _Pygments: http://pygments.org/
-.. _easy_install: http://peak.telecommunity.com/DevCenter/EasyInstall
 .. _Mercurial: http://selenic.com/mercurial/
-.. _Sphinx: http://sphinx.pocoo.org/

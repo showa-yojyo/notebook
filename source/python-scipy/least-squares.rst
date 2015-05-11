@@ -45,4 +45,5 @@
 .. image:: /_static/scipy-least-squares.png
    :scale: 50%
 
-.. include:: /_include/python-refs.txt
+.. include:: /_include/python-refs-core.txt
+.. include:: /_include/python-refs-sci.txt

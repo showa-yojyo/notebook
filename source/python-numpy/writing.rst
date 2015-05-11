@@ -370,4 +370,5 @@ C++ で言うところの ``std::random_shuffle(first, last)`` と同等のこ�
 
 どうも shape のある ``array`` には効き目が薄いようだ（確かめろ）。
 
-.. include:: /_include/python-refs.txt
+.. include:: /_include/python-refs-core.txt
+.. include:: /_include/python-refs-sci.txt

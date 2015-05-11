@@ -243,4 +243,5 @@ Weave (scipy.weave)
 Python コードの内部に C/C++ のコードを含めるためのパッケージだそうだ。
 今は読む必要はない。
 
-.. include:: /_include/python-refs.txt
+.. include:: /_include/python-refs-core.txt
+.. include:: /_include/python-refs-sci.txt

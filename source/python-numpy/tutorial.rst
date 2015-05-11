@@ -316,4 +316,5 @@ References
 ======================================================================
 ここには 7 個の参考文書がリストされているが、おそらくどれも読まないで済ませそうだ。
 
-.. include:: /_include/python-refs.txt
+.. include:: /_include/python-refs-core.txt
+.. include:: /_include/python-refs-sci.txt
