@@ -44,4 +44,4 @@ Numpy_
 * :doc:`/python-scipy/index`
 * :doc:`/python-nose`
 
-.. include:: /_include/scipy-refs.txt
+.. include:: /_include/python-refs.txt

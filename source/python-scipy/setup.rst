@@ -54,4 +54,4 @@
 
    SciPy のインストールだけが目的ならば、ここから先はもう読まなくてよい。
 
-.. include:: /_include/scipy-refs.txt
+.. include:: /_include/python-refs.txt

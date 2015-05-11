@@ -9,4 +9,4 @@
    tutorial
    doc
 
-.. include:: /_include/scipy-refs.txt
+.. include:: /_include/python-refs.txt

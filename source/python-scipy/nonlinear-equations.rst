@@ -70,4 +70,4 @@ SciPy というよりは NumPy_ だけで多項式の定義と根の計算が実
    polynomial:  poly([-2.  1. -2.  1.])
    roots:  [ -2.63677968e-16-1.j  -2.63677968e-16+1.j   2.00000000e+00+0.j]
 
-.. include:: /_include/scipy-refs.txt
+.. include:: /_include/python-refs.txt

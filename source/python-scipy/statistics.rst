@@ -158,4 +158,4 @@ distribution とかで検索すると色々とわかる。
    rv = D(...)
    mean, var, skew, kurt = rv.stats(moments='mvsk')
 
-.. include:: /_include/scipy-refs.txt
+.. include:: /_include/python-refs.txt

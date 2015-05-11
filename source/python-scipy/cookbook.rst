@@ -170,4 +170,4 @@ Scientific GUIs
 ======================================================================
 wxPython と TraitsUI の例を挙げている。個人的には PyQt の例が作成できるのならば読んでみたい。
 
-.. include:: /_include/scipy-refs.txt
+.. include:: /_include/python-refs.txt

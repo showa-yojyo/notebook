@@ -385,7 +385,7 @@ Matplotlib のプロット図をインラインに Qt コンソール内に描�
   `Python によるデータ分析入門 <http://www.oreilly.co.jp/books/9784873116556/>`_ という本が
   IPython を紹介するのに一章分紙幅を割いている。たいへんまとまっていて便利だ。
 
-.. include:: /_include/scipy-refs.txt
+.. include:: /_include/python-refs.txt
 .. _PyReadLine: http://ipython.org/pyreadline.html
 .. _PyZMQ: http://zeromq.github.io/pyzmq/
 .. _PyQt: http://www.riverbankcomputing.co.uk/software/pyqt/

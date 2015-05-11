@@ -268,6 +268,6 @@ IPython のセッションでコードを試すつもりでいるので、各種
 
 問題なさそうだ。
 
-.. include:: /_include/scipy-refs.txt
+.. include:: /_include/python-refs.txt
 .. _Quaternion: http://cxc.harvard.edu/mta/ASPECT/tool_doc/pydocs/Quaternion.html
 .. _Quaternions and spatial rotation: http://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation

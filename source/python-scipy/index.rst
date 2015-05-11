@@ -59,4 +59,4 @@ SciPy_
 * :doc:`/python-matplotlib`
 * :doc:`/python-nose`
 
-.. include:: /_include/scipy-refs.txt
+.. include:: /_include/python-refs.txt

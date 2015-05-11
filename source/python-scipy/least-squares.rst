@@ -45,4 +45,4 @@
 .. image:: /_static/scipy-least-squares.png
    :scale: 50%
 
-.. include:: /_include/scipy-refs.txt
+.. include:: /_include/python-refs.txt

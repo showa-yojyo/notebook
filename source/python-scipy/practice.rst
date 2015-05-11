@@ -16,4 +16,4 @@ SciPy_ サイト内のリンクを色々と辿っていったところ、どう�
    tutorial
    cookbook
 
-.. include:: /_include/scipy-refs.txt
+.. include:: /_include/python-refs.txt
