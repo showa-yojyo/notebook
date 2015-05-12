@@ -48,7 +48,7 @@ Contents:
    python-apgl
    python-pil
    python-pillow
-   python-matplotlib
+   python-matplotlib/index
    python-networkx/index
    python-quaternion
    python-jinja2

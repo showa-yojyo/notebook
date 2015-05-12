@@ -16,7 +16,7 @@ Prerequisites
 * さらに次のものがあれば便利とある。私は後ろふたつは確保している。
 
   * IPython_: :doc:`/python-ipython` 参照。
-  * Matplotlib_: :doc:`/python-matplotlib` 参照。
+  * Matplotlib_: :doc:`/python-matplotlib/index` 参照。
   * SciPy_: :doc:`/python-scipy/index` 参照。
 
 The Basics

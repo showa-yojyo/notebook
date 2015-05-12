@@ -56,7 +56,7 @@ SciPy_
 関連ノート
 ======================================================================
 * :doc:`/python-numpy/index`
-* :doc:`/python-matplotlib`
+* :doc:`/python-matplotlib/index`
 * :doc:`/python-nose`
 
 .. include:: /_include/python-refs-core.txt

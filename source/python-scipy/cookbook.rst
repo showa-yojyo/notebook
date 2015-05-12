@@ -160,7 +160,7 @@ Graphics
 * Line Integral Convolution: 2 次元ベクトル場をイメージ化する技法があるらしい。
   その説明とイメージ例。ゴッホの絵みたい。
 * VTK volume rendering: 3 次元配列のボリュームレンダリングについて。気になる。
-* Old Matplotlib recipes: これは :doc:`/python-matplotlib` で改めて採り上げてみたい。
+* Old Matplotlib recipes: これは :doc:`/python-matplotlib/index` で改めて採り上げてみたい。
 
 Using NumPy With Other Languages (Advanced)
 ======================================================================

@@ -48,8 +48,8 @@ NetworkX_
 
 関連ノート
 ======================================================================
-* :doc:`../python-nose`
-* :doc:`../python-matplotlib`
+* :doc:`/python-nose`
+* :doc:`/python-matplotlib`
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
