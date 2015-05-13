@@ -37,8 +37,8 @@ Matplotlib で目的を拡大し過ぎないように、ここまでできれば
 
      * Python_ 2.6.6, 2.7.3, 3.4.1
      * Setuptools_ 0.6c11
-     * Matplotlib_ 1.1.0, 1.1.1, 1.3.1
-     * NumPy_ 1.6.0, 1.6.2, 1.8.2
+     * Matplotlib_ 1.1.0, 1.1.1, 1.3.1, 1.4.3
+     * NumPy_ 1.6.0, 1.6.2, 1.8.2, 1.9.2
      * PyParsing_ 2.0.2
      * PyQt_ 4.8.4, XXXXX
 
