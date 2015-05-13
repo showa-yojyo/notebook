@@ -46,6 +46,29 @@ HTML と PDF ファイルの形で利用できるようになっている。
      <nose.result.TextTestResult run=4762 errors=0 failures=0>
      >>>
 
+アップグレード
+----------------------------------------------------------------------
+最近では標準 pip_ で環境に最適なパッケージをダウンロード、
+インストールするような仕組みが整備されているようだ。
+そういうわけで、今回のアップグレードは pip を利用した。
+手順は次のようなものだ。
+
+#. まずは `Python Extension Packages for Windows - Christoph Gohlke`_ から
+   :file:`numpy-x.y.z+mkl-cp34-none-win_amd64.whl` のような名前の whl アーカイブをダウンロードする。
+
+#. そして適当なディレクトリーに移動し、コマンドラインから次のようにする。
+   1.8.2 から 1.9.2 へのアップグレードの例である。
+
+   .. code-block:: console
+
+      $ pip install --upgrade numpy-1.9.2+mkl-cp34-none-win_amd64.whl
+      Unpacking d:\tmp\numpy-1.9.2+mkl-cp34-none-win_amd64.whl
+      Installing collected packages: numpy
+      Successfully installed numpy
+      Cleaning up...
+
+#. 最後に前節の要領でインストールの成功を確認する。
+
 ドキュメントをローカルディスクに保存する
 ======================================================================
 オンラインであれば `Numpy and Scipy Documentation <http://docs.scipy.org/doc/>`_ のページから欲しい情報に辿り着けるだろう。
