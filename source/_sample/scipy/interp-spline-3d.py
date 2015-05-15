@@ -1,5 +1,6 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Demonstrate spline interpolation.
+"""interp-spline-3d.py: Demonstrate spline interpolation.
 """
 from scipy.interpolate import splprep, splev
 import numpy as np
@@ -23,8 +24,7 @@ print("degree:\n", tck[2])
 print("parameter values: \n", u)
 
 # Evaluate the curve at each parameter i in u.
-for i in u:
-    xyz = np.array(splev(i, tck))
+for i, xyz in zip(u, np.asarray(splev(u, tck)).T):
     print("f({:.3f}) = {}".format(i, xyz))
 
 # Plot points and the curve.
@@ -37,8 +37,7 @@ params = np.linspace(u[0], u[-1], num=50, endpoint=True)
 values = splev(params, tck)
 ax.plot(xs=values[0], ys=values[1], zs=values[2], color='deeppink', label='cubic spline')
 
-for i in range(4):
-    pt = points[:,i]
+for pt in points.T:
     ptlabel = "({:d}, {:d}, {:d})".format(pt[0], pt[1], pt[2])
     ax.text(pt[0], pt[1], pt[2], ptlabel, color='black')
 
