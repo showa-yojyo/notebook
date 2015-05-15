@@ -49,15 +49,27 @@ Matplotlib 環境のユーザー設定ファイルについて記す。
 次のように編集して手持ちのプロットの表示がどのように変化するのかを検証した。
 
 * PyQt5 をせっかくインストールしているので ``backend : Qt5Agg`` としてみる。
+
+  * 経験則だが ``backend`` の項目だけは他の項目とは異なり、
+    コメントアウトによるデフォルト値適用の解釈がなされないようだ。
+    何らかのバックエンドを明示的に指定する必要があるもよう。
+
 * ``plt.plot`` の線の色は ``axes.color_cycle`` で指定する。
 
   * カンマ区切りで数色を一度に指定する。
-    プロットラインを追加するたびにカンマの次の色が適用されるのだろう。
+    プロットを ``plt.plot`` 呼び出しで追加するたびに、
+    カンマで区切られた色が cyclic に適用されるのだろう。
 
     .. code-block:: text
 
        axes.color_cycle : deeppink, pink, b, g, r, c, m, y, k
 
 * LaTeX 周りの設定は要研究。特にフォントの指定は大切そうだ。
+
+* ハードコピーバックエンドのデフォルト値を ``savefig.format`` で設定できる。
+
+  .. code-block:: text
+
+     savefig.format : png      # png, ps, pdf, svg
 
 .. include:: /_include/python-refs-sci.txt
