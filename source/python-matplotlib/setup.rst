@@ -95,13 +95,13 @@ Matplotlib のインストールまたはアップグレードが成功したと
 ドキュメントを確保する
 ======================================================================
 オフラインで学習する必要がある場合は、
-公式サイトから PDF をダウンロードして、ローカルディスクに保存する。
-最初のページに "Matplotlib Release 1.0.0" というタイトルと、著者の連名
-"Darren Dale, Michael Droettboom, Eric Firing, John Hunter" が書かれてある。
-PDF ファイル全体は 900 ページに及ぶ大著だ。
+公式サイトから PDF ファイルをダウンロードして、ローカルディスクに保存する。
+最初のページに "Matplotlib Release 1.4.3" というタイトルと、著者の連名
+"John Hunter, Darren Dale, Eric Firing, Michael Droettboom and the matplotlib development team"
+が書かれている（途中でページ境界を突き破っている）。
 
-なお、ソースコード一式を入手して、そこにある Sphinx_ によるドキュメントビルドを試みたが、
-同じ処理をぐるぐるループして結局モノができなかったことがある。
+* PDF ファイル全体は 2634 ページに及ぶ。
+* 内容はナビゲーションが異なるものの、公式サイトの doc 以下と同じだ。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
