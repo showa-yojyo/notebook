@@ -39,6 +39,7 @@ Matplotlib で目的を拡大し過ぎないように、ここまでできれば
      * Setuptools_ 0.6c11
      * Matplotlib_ 1.1.0, 1.1.1, 1.3.1, 1.4.3
      * NumPy_ 1.6.0, 1.6.2, 1.8.2, 1.9.2
+     * Pillow_: 2.8.1
      * PyParsing_ 2.0.2
      * PyQt_ 4.8.4, 5.3.1
 
@@ -51,11 +52,13 @@ Matplotlib_
 ======================================================================
 :doc:`/python-numpy/index` および :doc:`/python-scipy/index`
   プロットしたいデータを表現するには、これらのパッケージの機能が活躍するはずだ。
+  そもそも Matplotlib が NumPy を多用している。
 
 :doc:`/python-ipython`
   IPython_ を Python シェルとして利用すると、入力周りが快適かつ便利だ。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
+.. include:: /_include/python-refs-vision.txt
 .. _PyQt: http://www.riverbankcomputing.com/software/pyqt/intro
 .. _PyParsing: https://pypi.python.org/pypi/pyparsing

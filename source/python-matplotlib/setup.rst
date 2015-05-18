@@ -13,6 +13,11 @@ NumPy をインストール
 Matplotlib は NumPy_ を多用しているので、当然これを先にインストールしておく。
 → :doc:`/python-numpy/setup`
 
+Pillow をインストール
+----------------------------------------------------------------------
+Matplotlib の画像ファイル出力機能の裏に Pillow_ が働いている。
+→ :doc:`/python-pillow`
+
 PyParsing をインストール
 ----------------------------------------------------------------------
 必要に応じて PyParsing_ をインストールする。
@@ -105,5 +110,6 @@ Matplotlib のインストールまたはアップグレードが成功したと
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
+.. include:: /_include/python-refs-vision.txt
 .. _PyQt: http://www.riverbankcomputing.com/software/pyqt/intro
 .. _PyParsing: https://pypi.python.org/pypi/pyparsing
