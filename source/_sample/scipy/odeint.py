@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """Demonstrate solving an ordinary differential equation by using odeint.
 

@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """Demonstrate least-squares fitting method of SciPy.
 

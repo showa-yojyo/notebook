@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import scipy.sparse as sps
 from apgl.graph.GeneralVertexList import GeneralVertexList
