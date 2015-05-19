@@ -57,6 +57,7 @@ Contents:
    python-isbn-hyphenate
    python-pyopengl/index
    python-pyqt4
+   python-pyqt5
    python-pygame
    python-py2exe
    python-upgrade
