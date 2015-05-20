@@ -9,7 +9,7 @@ NetworkX 利用ノート
 本稿でのグラフとは、計算機科学の教科書に書いてあるような、
 ノードとエッジの集合うんぬんのグラフである。
 変数と関数のとる値を座標平面にプロットした曲線ではない。
-そちらについては :doc:`../python-matplotlib` のほうが相応しい。
+そちらについては :doc:`/python-matplotlib/index` のほうが相応しい。
 
 .. toctree::
    :maxdepth: 5
@@ -49,7 +49,7 @@ NetworkX_
 関連ノート
 ======================================================================
 * :doc:`/python-nose`
-* :doc:`/python-matplotlib`
+* :doc:`/python-matplotlib/index`
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
