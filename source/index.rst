@@ -45,6 +45,7 @@ Contents:
    python-ipython
    python-numpy/index
    python-scipy/index
+   python-sympy/index
    python-apgl
    python-pil
    python-pillow
