@@ -7,6 +7,7 @@ SymPy 利用ノート
    :maxdepth: 5
 
    setup
+   tutorial
 
 .. note::
 
