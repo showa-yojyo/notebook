@@ -238,6 +238,10 @@ Setting up Pretty Printing
   LaTeX を使用する printer を採用する。
 
   * 出来た！
+
+    .. image:: /_static/sympy-printing-latex.png
+       :scale: 50%
+
   * Matplotlib_ がインストール済みでも OK とのこと。
   * IPython notebook では MathJax を使って LaTeX を描画する。
 
