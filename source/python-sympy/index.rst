@@ -4,7 +4,7 @@ SymPy 利用ノート
 本章は Python_ 製 CAS の SymPy_ に関する個人的な覚え書きを記す。
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 2
 
    setup
    tutorial
