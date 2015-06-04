@@ -7,6 +7,7 @@ SymPy 利用ノート
    :maxdepth: 2
 
    setup
+   doc
    tutorial
 
 .. note::
@@ -17,6 +18,7 @@ SymPy 利用ノート
    * Python_: 3.4.1 (64 bit)
    * SymPy_: 0.7.7dev
    * IPython_: 3.0.0
+   * Sphinx_: 1.3.1
 
 関連リンク
 ======================================================================
