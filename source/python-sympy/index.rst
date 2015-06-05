@@ -9,6 +9,7 @@ SymPy 利用ノート
    setup
    doc
    tutorial
+   plotting
 
 .. note::
 
@@ -19,6 +20,8 @@ SymPy 利用ノート
    * SymPy_: 0.7.7dev
    * IPython_: 3.0.0
    * Sphinx_: 1.3.1
+   * NumPy_: 1.9.2
+   * Matplotlib_: 1.4.3
 
 関連リンク
 ======================================================================
