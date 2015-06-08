@@ -10,6 +10,7 @@ SymPy 利用ノート
    doc
    tutorial
    plotting
+   geometry
 
 .. note::
 
