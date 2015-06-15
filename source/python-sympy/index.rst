@@ -11,6 +11,7 @@ SymPy 利用ノート
    tutorial
    plotting
    geometry
+   diophantine
 
 .. note::
 
