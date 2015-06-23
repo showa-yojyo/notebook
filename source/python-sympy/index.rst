@@ -13,6 +13,7 @@ SymPy 利用ノート
    sets
    geometry
    diophantine
+   number-theory
 
 .. note::
 
