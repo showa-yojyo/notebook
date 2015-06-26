@@ -10,6 +10,7 @@ SymPy 利用ノート
    doc
    tutorial
    plotting
+   logic
    sets
    geometry
    diophantine
