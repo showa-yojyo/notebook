@@ -15,6 +15,7 @@ SymPy 利用ノート
    geometry
    diophantine
    number-theory
+   polynomials
 
 .. note::
 
