@@ -145,7 +145,10 @@ Python 3.4 以前の環境では、手動でインストールする必要があ
 
 .. code-block:: console
 
-   $ pip install --requirements=FILE
+   $ pip freeze > FILE
+   ...
+   $ pip install -r=FILE
+   $ pip install --upgrade -r=FILE
 
 パッケージの検索
 ----------------------------------------------------------------------
