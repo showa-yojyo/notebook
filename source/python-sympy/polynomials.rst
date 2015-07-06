@@ -155,10 +155,9 @@ Gröbner 基底
 ----------------------------------------------------------------------
 .. todo::
 
-   調査中。
+   調査中。関数名を見れば何とかなりそうだ。
 
-* 関数 ``degree(f, *gens, **args)``
-* 関数 ``degree_list(f, *gens, **args)``
+* 関数 ``degree(f, *gens, **args)``, ``degree_list(f, *gens, **args)``
 * 関数 ``LC(f, *gens, **args)``
 * 関数 ``LM(f, *gens, **args)``
 * 関数 ``LT(f, *gens, **args)``
@@ -213,9 +212,28 @@ Gröbner 基底
 
 モジュール ``sympy.polys.numberfields``
 ----------------------------------------------------------------------
-.. todo::
+代数的数、代数体、その辺り。多項式の話題から離れる可能性がある。
 
-   調査中。
+関数 ``minimal_polynomial(ex, x=None, **args)``, ``minpoly``
+  代数的数の最小多項式を求める。
+
+  * ``minpoly`` は単なる別名。
+  * キーワード引数 ``domain`` で最小多項式をどの体上で求めるかを指定できる。
+
+モジュール ``sympy.polys.monomials``
+----------------------------------------------------------------------
+単項式関連のモジュールだ。関数だけ見ていく。
+
+ジェネレーター ``itermonomials(variables, degree)``
+  指定次数の単項式に含まれるすべての単項式を返す。
+
+  * 次数ゼロの項、すなわち ``1`` をも返す。
+  * 返ってくる単項式の順序は不定。受け取り側で適宜ソートすればよい。
+
+    * ソートのキーには別モジュールにある関数 ``monomial_key`` という（ドキュメントがないようだ）ものを用いる。
+
+関数 ``monomial_count(V, N)``
+  相異なる ``V`` 個の文字からなる ``N`` 次多項式が含む単項式の個数を返す。
 
 モジュール ``sympy.polys.polyroots``
 ----------------------------------------------------------------------
@@ -289,21 +307,105 @@ Gröbner 基底
 
 モジュール ``sympy.polys.orthopolys``
 ----------------------------------------------------------------------
-.. todo::
+このモジュールには多項式の直交系に関係する関数が置いてある。
 
-   調査中。
+関数 ``chebyshevt_poly(n, x=None, **args)``, ``chebyshevu_poly(n, x=None, **args)``
+  それぞれ第一種 Chebyshev 多項式、第二種 Chebyshev 多項式を求める。
+
+  .. code-block:: text
+
+     In [65]: simplify(chebyshevt_poly(3, cos(x)))
+     Out[65]: cos(3*x)
+
+     In [68]: simplify(chebyshevu_poly(3, cos(x)))
+     Out[68]: 4*cos(x)*cos(2*x)
+
+     In [69]: %paste
+     Tm = chebyshevt_poly(2, x)
+     Tn = chebyshevt_poly(3, x)
+     integrate(Tm * Tn * 1/sqrt(1 - x**2), (x, -1, 1))
+
+     ## -- End pasted text --
+     Out[69]: 0
+
+     In [70]: %paste
+     Um = chebyshevu_poly(2, x)
+     Un = chebyshevu_poly(3, x)
+     integrate(Um * Un * 1/sqrt(1 - x**2), (x, -1, 1))
+
+     ## -- End pasted text --
+     Out[70]: 0
+
+  この定積分の計算時間が若干長い。
+
+関数 ``gegenbauer_poly(n, a, x=None, **args)``
+  Gegenbauer 多項式 a.k.a. 超球関数を求める。
+
+関数 ``hermite_poly(n, x=None, **args)``
+  Hermite の多項式を求める。
+
+  * 積分したら返ってこない。
+
+関数 ``jacobi_poly(n, a, b, x=None, **args)``
+  Jacobi の多項式を求める。
+
+  .. code-block:: text
+
+     In [86]: P = jacobi(2, 10, 20, x)
+
+     In [87]: Q = jacobi(3, 10, 20, x)
+
+     In [90]: integrate(P * Q * (1 - x)**10 * (1 + x)**20, (x, -1, 1))
+     Out[90]: 0
+
+関数 ``legendre_poly(n, x=None, **args)``
+  Legendre の多項式を求める。
+
+  .. code-block:: text
+
+     In [91]: P3 = legendre_poly(3, x)
+
+     In [92]: P7 = legendre_poly(7, x)
+
+     In [93]: integrate(P3 * P7, (x, -1, 1))
+     Out[93]: 0
+
+関数 ``laguerre_poly(n, x=None, alpha=None, **args)``
+  Laguerre の多項式を求める。
+  スペリングが紛らわしいので、コンソールでテキスト補完のときは注意。
+
+  * 積分したら返ってこない。
 
 モジュール ``sympy.polys.rationaltools``
 ----------------------------------------------------------------------
-.. todo::
+このモジュールの代表的な機能は次の関数だ。
 
-   調査中。
+関数 ``together(expr, deep=False)``
+  有理式 ``expr`` の通分を実行する。
+  正確に言うと、有理式の和の形になっているものを単一の有理式にする。
+
+  * キーワード引数で ``deep=True`` とすると、通分の適用を与式の「内側」まで有効にする。
+  * 関数 ``apart`` と逆の働きをする。
 
 モジュール ``sympy.polys.partfrac``
 ----------------------------------------------------------------------
-.. todo::
+部分分数分解に関係する機能を含むモジュール。
 
-   調査中。
+関数 ``apart(f, x=None, full=False, **options)``, ``apart_list(f, x=None, dummies=None, **options)``
+  有理関数を部分分数分解する。
+
+  .. code-block:: text
+
+     In [121]: together((x**2 - 4*x)/(x**2 - x) + (x**2 + 3*x - 4)/(x**2- 1))
+     Out[121]: ((x - 4)*(x**2 - 1) + (x - 1)*(x**2 + 3*x - 4))/((x - 1)*(x**2 - 1))
+
+     In [122]: apart(_)
+     Out[122]: 2 + 3/(x + 1) - 3/(x - 1)
+
+  * キーワード引数 ``full=True`` がわからない。
+
+関数 ``assemble_partfrac_list(partial_list)``
+  上述の ``apart_list`` の戻り値から有理関数の部分分数分解を復元する。
 
 モジュール ``sympy.polys.dispersion``
 ----------------------------------------------------------------------
