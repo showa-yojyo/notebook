@@ -46,6 +46,9 @@ SymPy_ の整数論モジュールについて記す。
   指定した数よりも小さい素数の個数を返す。
   引数が素数の場合はそれも含んで計上する。
 
+  * 10 億を試したら ``MemoryError`` で失敗。
+  * 関数 ``integrate`` の被積分関数として扱えない？
+
 関数 ``nextprime(n, i=1)``, ``prevprime(n, i=1)``
   指定した数から大きい、または小さい ``i`` 番目の素数を返す。
 
@@ -78,7 +81,7 @@ SymPy_ の整数論モジュールについて記す。
 
 関数 ``primefactors(n)``
   因数のリストだけを返す。指数は捨てられる。
-  
+
   内部で ``factorint`` を利用しており、キーワード引数 ``limit`` と ``verbose`` が引き継がれる。
 
 関数 ``divisors(n, generator=False)``
@@ -102,6 +105,11 @@ SymPy_ の整数論モジュールについて記す。
 
   * クラス ``Function`` のサブクラスなので、評価をするには ``totient(n)`` のようにする。
 
+     .. code-block:: text
+
+        In [23]: [totient(10 ** i) for i in range(10)]
+        Out[23]: [1, 4, 40, 400, 4000, 40000, 400000, 4000000, 40000000, 400000000]
+
 関数 ``digits(n, p=10)``
   任意整数 ``n`` を ``p`` 進数表現して、その各桁をリストする。
   戻り値は ``list`` オブジェクトだが、
@@ -112,7 +120,8 @@ SymPy_ の整数論モジュールについて記す。
 モジュール ``sympy.ntheory.modular`` は合同式に関係する機能を提供する。
 使えそうなものをピックアップしていこう。
 
-* 関数 ``crt`` は中国剰余定理に基づく問題を解くのに利用できる。
+関数 ``crt(m, v, symmetric=False, check=True)``
+  中国剰余定理に基づく問題を解くのに利用できる。
   例を示す。
 
   .. code-block:: text
@@ -122,13 +131,25 @@ SymPy_ の整数論モジュールについて記す。
 
   23 + 105k を 3, 5, 7 でそれぞれ割ると余りが 2, 3, 2 になるという解が得られた。
 
-* 関数 ``solve_congruence`` も同様か。引数の順序が異なる。
+  * キーワード引数 ``symmetric=True`` とすると、
+    剰余が対称になるように、解が必要に応じて非負で得られる。
+
+  * キーワード引数 ``check=False`` の使いどころが不明。
+
+    .. code-block:: text
+
+       In [87]: crt([6, 10], [1, 2], check=True)
+
+       In [88]: crt([6, 10], [1, 2], check=False)
+       Out[88]: (14, 60)
+
+関数 ``solve_congruence(*remainder_modulus_pairs, **hint)``
+  合同式を解くわけだが、前述の関数 ``crt`` と同様だと思う。
+  ただし引数の順序が異なる。
 
   * ``solve_congruence((2, 3), (3, 5), (2, 7))``
   * ``solve_congruence(*zip((2, 3, 2), (3, 5, 7)))``
-
-* ``crt`` が ``solve_congruence`` を利用している。
-* 両者に共通するキーワード引数 ``symmetric`` の使い途がわからない。
+  * ``crt`` が ``solve_congruence`` を利用している。
 
 二項係数と多項係数
 ======================================================================
@@ -163,9 +184,18 @@ SymPy_ の整数論モジュールについて記す。
 ただしインポートは ``from sympy.ntheory import ...`` で可能。
 
 関数 ``n_order(a, n)``
-  ``a ** k % n == 1`` を満たす最小の ``k`` を返す。
+  乗積順序を求める。
+  ``a ** k % n == 1`` を満たす最小の整数 ``k`` を返す。
   これを <the order of ``a`` modulo ``n``> と英語では言うらしい。
   日本語なら「``a`` の法 ``n`` の位数」か。
+
+  .. code-block:: text
+
+     In [94]: n_order(10**100 + 1, prime(1000))
+     Out[94]: 3959
+
+     In [95]: Pow(Pow(10, 100), 3959) % prime(1000)
+     Out[95]: 1
 
 関数 ``is_primitive_root(a, p)``
   ``a`` が ``p`` の原始根であるかをテストする。
@@ -174,19 +204,45 @@ SymPy_ の整数論モジュールについて記す。
   かつ ``p`` が ``a ** totient(p) % p == 1`` を満たす最小の ``p`` であるかどうかをテストする。
   言い換えると ``a`` の位数が ``p - 1`` であるかどうかをテストする。
 
-関数 ``primitive_root(a, p)``
+関数 ``primitive_root(p)``
   存在するときに限り ``p`` の最小の原始根を返す。
+  つまり ``p`` と互いに素で、かつ ``p`` を法とする整数の乗法群の生成元を求める。
+
+  .. code-block:: text
+
+     In [68]: primitive_root(27)
+     Out[68]: 2
+
+     In [69]: any([(2**i) % 27 for i in range(30)])
+     Out[69]: True
+
+     In [70]: n_order(primitive_root(27), 27) == totient(27)
+     Out[70]: True
 
 他にも色々あるので、アレがないかコレがないかというときはドキュメントを当たるべし。
 
 連分数
 ======================================================================
-モジュール ``sympy.ntheory.continued_fraction`` に置いてある、連分数を扱う関数各種について記す。
+モジュール ``sympy.ntheory.continued_fraction`` に置いてある、
+連分数を扱う関数各種について記す。
 
 ジェネレーター ``continued_fraction_iterator(x)``
   引数 ``x`` の連分数展開（分子は全部 1 とする）を求め、その分母をひとつずつ yield する。
 
   一度実装を見ておいたほうがよい。
+
+  * これは微妙に使いにくい。
+    値によっては自分でループを書く必要があるだろう。
+
+    .. code-block:: text
+
+       In [130]: from itertools import islice
+
+       In [131]: list(islice(continued_fraction_iterator(coth(1)), 20))
+       Out[131]: [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39]
+
+       In [132]: list(islice(continued_fraction_iterator(S.Pi), 20))
+       Out[132]: [3, 7, 15, 1, 292, 1, 1, 1, 2, 1, 3, 1, 14, 2, 1, 1, 2, 2, 2, 2]
 
 ジェネレーター ``continued_fraction_convergents(cf)``
   連分数 ``cf`` の「真の値」に収束する数列の数をひとつずつ yield する。
@@ -204,6 +260,16 @@ SymPy_ の整数論モジュールについて記す。
 
 関数 ``continued_fraction_reduce(cf)``
   連分数 ``cf`` を連分数でない形で返す。
+
+  .. code-block:: text
+
+     In [144]: from sympy.abc import a, b, c
+
+     In [145]: continued_fraction_reduce([a, b, c])
+     Out[145]:
+     a + c*(a*b + 1)
+     ---------------
+         b*c + 1
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
