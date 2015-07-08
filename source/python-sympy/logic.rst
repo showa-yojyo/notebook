@@ -142,10 +142,13 @@ SymPy では Sum of Products form と Product of Sums form を扱っている。
 
 論理式を正規化する関数
 ----------------------------------------------------------------------
-説明しにくい概念だ。
+忘れそうなので用語と関連する概念をまとめておく。
+
+* 連言標準形 POS, CNF, Conjunctive Normal Form, AND(...)
+* 選言標準形 SOP, DNF, Disjunctive Normal Form, OR(...)
 
 関数 ``to_cnf(expr, simplify=False)``, ``is_cnf(expr)``
-  論理式オブジェクト ``expr`` から、
+  論理式オブジェクト ``expr`` から、等値性を保ったまま
   「複数の論理和オブジェクトをオペランドとする一つの論理積オブジェクト」を生成する。
 
   .. code-block:: text
@@ -157,7 +160,7 @@ SymPy では Sum of Products form と Product of Sums form を扱っている。
      Out[114]: And(A, Or(B, C), Or(B, D))
 
 関数 ``to_dnf(expr, simplify=False)``, ``is_dnf(expr)``
-  論理式オブジェクト ``expr`` から、
+  論理式オブジェクト ``expr`` から、等値性を保ったまま
   「複数の論理積オブジェクトをオペランドとする一つの論理和オブジェクト」を生成する。
 
   .. code-block:: text
@@ -169,7 +172,8 @@ SymPy では Sum of Products form と Product of Sums form を扱っている。
      Out[110]: Or(And(A, B), And(A, C, D))
 
 関数 ``to_nnf(expr, simplify=False)``, ``is_nnf(expr)``
-  論理式オブジェクト ``expr`` から、次の条件を満たす論理式オブジェクトを生成する。
+  論理式オブジェクト ``expr`` から、
+  等価性を保ったまま次の条件を満たす論理式オブジェクトを生成する。
 
   * ``Not`` がかかるのが最も内側の論理式（おそらくシンボルだろう）だけである
   * それを除けば、式を構成する演算子は ``And`` と ``Or`` だけである。
@@ -195,18 +199,33 @@ SymPy では Sum of Products form と Product of Sums form を扱っている。
 
 汎用の単純化関数 ``simplify`` も論理式オブジェクトを単純化するのに使える。
 
-----
+充足性テスト
+----------------------------------------------------------------------
+モジュール ``sympy.logic.inference`` にはブール関数の充足性をテストする関数がある。
 
-.. todo::
+関数 ``satisfiable(expr, algorithm='dpll2', all_models=False)``
+  論理式 ``expr`` の充足性をテストする。
 
-   余裕ができたら次のものも試す。
- 
-   関数 ``bool_map(bool1, bool2)``
-     ふたつの論理式を与えて、一方が他方と同値になるためのシンボル間の写像を返す。
- 
-   関数 ``satisfiable(expr, algorithm='dpll2', all_models=False)``
-     論理式の充足性をテストする。
-     これは ``boolalg`` ではない別のサブモジュールにある。
+  * 論理式 ``expr`` が真になる可能性が全くなければ ``False`` を返す。
+  * 論理式 ``expr`` が真になる可能性があれば、
+    そのときのシンボルの組み合わせを一つ返す。
+
+    .. code-block:: text
+
+       In [159]: satisfiable((A | B) & (~A | ~B))
+       Out[159]: {B: False, A: True}
+
+       In [160]: satisfiable((A & B) & (~A | ~B))
+       Out[160]: False
+
+  * キーワード引数 ``all_models=True`` を指定すると、
+    充足性可能のときのシンボルの組み合わせを全部返そうとする。
+    さらに、この関数はジェネレーター化する。
+
+    .. code-block:: text
+
+       In [161]: list(satisfiable((A | B) & (~A | ~B), all_models=True))
+       Out[161]: [{B: False, A: True}, {B: True, A: False}]
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
