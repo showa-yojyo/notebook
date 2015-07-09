@@ -16,6 +16,7 @@ SymPy 利用ノート
    diophantine
    number-theory
    polynomials
+   combinatorics
 
 .. note::
 
