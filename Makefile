@@ -1,11 +1,6 @@
 # Makefile for Sphinx documentation
-#
 
-# You can set these variables from the command line.
-SPHINXOPTS    = -D pngmath_latex=D:/texlive/2014/bin/win32/latex.exe
-SPHINXBUILD   = sphinx-build
-PAPER         =
-BUILDDIR      = build
+include Makefile.vars
 
 # User-friendly check for sphinx-build
 ifeq ($(shell which $(SPHINXBUILD) >/dev/null 2>&1; echo $$?), 1)
