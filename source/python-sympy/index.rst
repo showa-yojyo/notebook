@@ -17,6 +17,7 @@ SymPy 利用ノート
    number-theory
    polynomials
    combinatorics
+   series
 
 .. note::
 
