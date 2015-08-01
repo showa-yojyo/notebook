@@ -18,6 +18,7 @@ SymPy 利用ノート
    polynomials
    combinatorics
    series
+   integrals
 
 .. note::
 
