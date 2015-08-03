@@ -151,27 +151,51 @@ Fourier 変換
 数値積分
 ======================================================================
 その名もモジュール ``sympy.integrals.quadrature`` に、数値積分系の関数が定義されている。
+すべてが Gauss 求積法の派生アルゴリズムということになる。
+まず各関数に共通する引数と戻り値の性質を説明する。
+
+* 引数 ``n`` は各求積法の order である。
+* 引数 ``n_digits`` は求積の精度、有効桁数を指定する。
+* 戻り値は長さ 2 の ``tuple`` オブジェクトであり、
+  どちらの要素も長さ ``n`` の ``list`` オブジェクトだ。
+  その中身も共通して小数点以下が ``n_digits`` 桁の ``float`` 値だ。
+
+  * ガウス点。各短冊の位置のようなものを想像するとよい。
+  * 重み。各短冊の太さのようなもの。
+
+次に各関数について固有の事情を記す。
 
 関数 ``gauss_legendre(n, n_digits)``
-  TBW
+  Gauss-Legendre 求積法を評価する。
+  単に Gauss 求積といえばこれを指す。
 
 関数 ``gauss_laguerre(n, n_digits)``
-  TBW
+  Gauss-Laguerre 求積法を評価する。
 
 関数 ``gauss_gen_laguerre(n, alpha, n_digits)``
-  TBW
+  Gauss-Laguerre 求積法の一般化版を評価する。
+
+  * 引数 ``alpha`` は一般化されていないほうの求積法の重み関数に対して乗じる ``x ** alpha`` の指数を指定する。
 
 関数 ``gauss_hermite(n, n_digits)``
-  TBW
+  Gauss-Hermite 求積法を評価する。
 
 関数 ``gauss_chebyshev_t(n, n_digits)``
-  TBW
+  Gauss-Chebyshev 求積法を、第一種多項式について評価する。
 
 関数 ``gauss_chebyshev_u(n, n_digits)``
-  TBW
+  Gauss-Chebyshev 求積法を、第二種多項式について評価する。
 
 関数 ``gauss_jacobi(n, alpha, beta, n_digits)``
-  TBW
+  Gauss-Jacobi 求積法を評価する。
+
+  * 引数 ``alpha`` は Jacobi 多項式第 1 項 ``(1 - x)`` の指数。
+  * 引数 ``beta`` は Jacobi 多項式第 2 項 ``(1 + x)`` の指数。
+  * これらの指数は -1 より大きい必要がある。
+
+最後に、各関数のデモを示す。
+
+.. todo:: コンソールで動作確認をし、コードをここに貼り付ける。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
