@@ -39,7 +39,39 @@ SymPy では、ある計算を実現するために、
 
 * ユーザーは数学公式集に掲載されている基本的な積分公式を本関数が承知していると期待してよい。
 
-.. todo:: コンソールで動作確認をし、コードをここに貼り付ける。
+比較的わかりやすい例を示す。
+
+.. code-block:: text
+
+   In [1]: init_printing(pretty_print=False)
+
+   In [2]: integrate(1/(x**3 + 1), x)
+   Out[2]: log(x + 1)/3 - log(x**2 - x + 1)/6 + sqrt(3)*atan(2*sqrt(3)*x/3 - sqrt(3)/3)/3
+
+   In [3]: integrate(1/(x**3 + 1), (x, 0, 1))
+   Out[3]: log(2)/3 + sqrt(3)*pi/9
+
+   In [4]: integrate(log(x) * exp(-x**2), (x, 0, oo))
+   Out[4]: -sqrt(pi)*log(2)/2 - EulerGamma*sqrt(pi)/4
+
+   In [5]: integrate(sin(x*y), (x, 0, 1), (y, 0, x))
+   Out[5]: Piecewise((0, Eq(x, 0)), (2*log(x) - log(x**2)/2 - Ci(x) + EulerGamma, True))
+
+   In [6]: integrate(sin(x*y), (y, 0, x), (x, 0, 1))
+   Out[6]: -Ci(1)/2 + EulerGamma/2
+
+* [2] 不定積分を求める。
+  ちなみに検算には ``diff`` や ``subs`` を駆使することになる。
+
+* [3] 同じ関数のある定積分を求める。
+
+* [4] 定義域が無限区間になるようなある関数の定積分を求める。
+  区間の端点にシンボル ``oo`` を用いるのがコツだ。
+
+* [5][6] 重積分を求める。
+
+  * 積分区間を表す引数の順序を丁寧に指定する必要があることがわかる。
+  * ``Ci`` は余弦積分。
 
 クラス ``Integral``
 ----------------------------------------------------------------------
@@ -61,10 +93,23 @@ SymPy では、ある計算を実現するために、
 
 メソッド ``transform(x, u)``
   置換積分を行う。
-  第一引数を ``x`` と書いたが、実際は元の積分変数の数式に相当する。
+  第一引数を ``x`` と書いたが、実際は元の積分変数で表現された数式に相当する。
   これを第二引数のシンボル ``u`` に置換する。
 
-.. todo:: コンソールで動作確認をし、コードをここに貼り付ける。
+  高校数学のテキストから拝借したある積分を評価してみるとこうなる。
+
+  .. code-block:: text
+
+     In [1]: J = Integral(sqrt(x + 1)*(x + 2))
+
+     In [2]: J.doit()
+     Out[2]: Piecewise((2*sqrt(x + 1)*(x + 2)**2/5 - 2*sqrt(x + 1)*(x + 2)/15 - 4*sqrt(x + 1)/15, Abs(x + 2) > 1), (2*I*sqrt(-x - 1)*(x + 2)**2/5 - 2*I*sqrt(-x - 1)*(x + 2)/15 - 4*I*sqrt(-x - 1)/15, True))
+
+     In [3]: J.transform(sqrt(x + 1), t)
+     Out[3]: Integral(2*t*(t**2 + 1)*sqrt(t**2), t)
+
+     In [4]: _.doit()
+     Out[4]: 2*(t**2)**(5/2)/5 + 2*(t**2)**(3/2)/3
 
 線積分
 ======================================================================
@@ -112,6 +157,43 @@ Laplace 変換およびその逆変換を計算する機能は、関数として
 
   * さらに ``noconds=True`` を加えれば、戻り値は ``F`` のみになる。
 
+  いくつか実行例を示す。変換したい関数はよそのドキュメントから拝借した。
+
+  .. code-block:: text
+
+     In [1]: init_printing(pretty_print=False)
+
+     In [2]: t, s = symbols('t s')
+
+     In [3]: laplace_transform(t**4 * sin(t), t, s)
+     Out[3]:
+     (24*(5*s**4 - 10*s**2 + 1)/(s**10 + 5*s**8 + 10*s**6 + 10*s**4 + 5*s**2 + 1),
+      0,
+      True)
+
+     In [4]: factor(_)
+     Out[4]: 24*(5*s**4 - 10*s**2 + 1)/(s**2 + 1)**5
+
+     In [5]: laplace_transform(exp(-t), t, s)
+     Out[5]: (1/(s + 1), 0, True)
+
+     In [6]: laplace_transform(t / (1 + t), t, s)
+     Out[6]: (exp(s)*expint(2, s)/s, 0, True)
+
+     In [7]: laplace_transform(log(t)**2, t, s)
+     Out[7]: ((log(s)**2 + 2*EulerGamma*log(s) + EulerGamma**2 + pi**2/6)/s, 0, True)
+
+     In [8]: laplace_transform(Heaviside(t - 1) * t, t, s)
+     Out[8]: ((s + 1)*exp(-s)/s**2, 0, True)
+
+  * [2] Laplace 変換で標準的に用いられる変数名 ``t`` 等を有効にする。
+  * [3][4][5] 小手試し。
+    以降、収束条件が全部同じの例ばかりになってしまうので、
+    呼び出し時に ``noconds=True`` を与えたほうがよかった。
+  * [6] ``expint`` を含む関数が得られる。
+  * [7] ``EulerGamma`` を含む関数が得られる。
+  * [8] Heaviside 関数を Laplace 変換する。
+
 関数 ``inverse_laplace_transform(F, s, t, plane=None, **hints)``
   関数 ``F(s)`` の逆 Laplace 変換を計算して、結果を返す。
 
@@ -119,11 +201,25 @@ Laplace 変換およびその逆変換を計算する機能は、関数として
   * 引数 ``plane`` を利用する場合は、
     呼び出し側で変換関数 ``F`` が極を持たないような半平面を知っているときにそうする。
 
-.. todo:: コンソールで動作確認をし、コードをここに貼り付ける。
+  いくつか実行例を示す。逆変換の対象となる関数はよそのドキュメントから拝借した。
+
+  .. code-block:: text
+
+     In [9]: inverse_laplace_transform(1 / (1 + s), s, t)
+     Out[9]: exp(-t)*Heaviside(t)
+
+     In [10]: inverse_laplace_transform(log(s)**2 / s, s, t)
+     Out[10]: (6*log(t)**2 + 12*EulerGamma*log(t) - pi**2 + 6*EulerGamma**2)*Heaviside(t)/6
+
+     In [11]: inverse_laplace_transform(s/(s**2 + 1), s, t)
+     Out[11]: cos(t)*Heaviside(t)
+
+  いちいち ``Heaviside`` 関数が現れるのが特徴だ。
 
 Fourier 変換
 ----------------------------------------------------------------------
 こちらも関数として提供されている。
+ユニタリー周波に関する変換方式を採用している。
 
 関数 ``fourier_transform(f, x, k, **hints)``
   関数 ``f(x)`` の Fourier 変換を計算して、結果を返す。
@@ -142,11 +238,58 @@ Fourier 変換
 
     ブール値の意味が文書化されていないので、後で調べたい。
 
+  実行例を示す。
+
+  .. code-block:: text
+
+     In [1]: init_printing(pretty_print=False)
+
+     In [2]: fourier_transform(1, x, k)
+     Out[2]: 0
+
+     In [3]: fourier_transform(x**2, x, k)
+     Out[3]: 0
+
+     In [4]: fourier_transform(exp(-3*t)*Heaviside(t), t, k)
+     Out[4]: 1/(2*I*pi*k + 3)
+
+     In [5]: fourier_transform(exp(-x**2), x, k)
+     Out[5]: sqrt(pi)*exp(-pi**2*k**2)
+
+     In [6]: fourier_transform(DiracDelta(t), t, k)
+     Out[6]: 1
+
+  * [2][3] 入力が異なるのに変換結果が同じになるのは解せない。
+    おそらく ``DiracDelta`` を結果に含むはずの変換が正しく求まらない。
+  * [4]-[6] こちらはよさそうだ。
+
 関数 ``inverse_fourier_transform(F, k, x, **hints)``
   関数 ``F(k)`` の逆 Fourier 変換を計算して、結果を返す。
   各引数の意味は前述の関数に準ずる。
 
-.. todo:: コンソールで動作確認をし、コードをここに貼り付ける。
+  実行例を示す。
+
+  .. code-block:: text
+
+     In [7]: inverse_fourier_transform(1, k, x)
+     Out[7]: 0
+
+     In [8]: inverse_fourier_transform(DiracDelta(k), k, x)
+     Out[8]: 1
+
+     In [9]: inverse_fourier_transform(DiracDelta(k - a/(2*pi)), k, x)
+     Out[9]: exp(I*a*x)
+
+     In [10]: inverse_fourier_transform(1/k, k, x)
+     Out[10]: InverseFourierTransform(1/k, k, x)
+
+     In [11]: inverse_fourier_transform(exp(-k**2), k, x)
+     Out[11]: sqrt(pi)*exp(-pi**2*x**2)
+
+  * [7] 逆変換で ``DiracDelta`` が欲しい例。
+  * [8][9] ``DiracDelta`` の逆変換は正しく求まる。
+  * [10] このように評価し切れない場合は遅延評価版オブジェクトが返る。
+  * [11] おそらく正しい。
 
 数値積分
 ======================================================================
@@ -193,9 +336,36 @@ Fourier 変換
   * 引数 ``beta`` は Jacobi 多項式第 2 項 ``(1 + x)`` の指数。
   * これらの指数は -1 より大きい必要がある。
 
-最後に、各関数のデモを示す。
+最後に、関数 ``gauss_legendre`` だけデモを示す。
 
-.. todo:: コンソールで動作確認をし、コードをここに貼り付ける。
+.. code-block:: text
+
+   In [1]: integrate(exp(-x**2/2), (x, -1, 1))
+   Out[1]: sqrt(2)*sqrt(pi)*erf(sqrt(2)/2)
+
+   In [2]: _.evalf()
+   Out[2]: 1.71124878378430
+
+   In [3]: from sympy.integrals.quadrature import gauss_legendre
+
+   In [4]: nodes, weights = gauss_legendre(5, 8)
+
+   In [5]: nodes
+   Out[5]: [-0.90617985, -0.53846931, 0, 0.53846931, 0.90617985]
+
+   In [6]: weights
+   Out[6]: [0.23692689, 0.47862867, 0.56888889, 0.47862867, 0.23692689]
+
+   In [7]: __builtin__.sum((exp(-node**2/2) * weight for node, weight in zip(nodes, weights)))
+   Out[7]: 1.7112494
+
+* [1][2] まずは汎用の ``integrate`` による定積分を計算し、近似値を見ておく。
+  これをガウス求積による数値計算で得るのがこのデモの目的だ。
+
+* [4] オーダー 5 でガウス点と重みを計算する。
+* [5][6] それぞれ有効精度が 8 桁であることがわかる。
+* [7] これらと Python の組み込み関数を用いて、
+  簡単な算術計算で定積分の数値計算を実現できた。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
