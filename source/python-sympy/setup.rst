@@ -134,7 +134,17 @@ IPython_ が利用可能な環境では、IPython のそれが始まる。
 
   .. code-block:: text
 
-     D:\Python34\python.exe "D:\home\yojyo\devel\sympy\bin\isympy"
+     D:\Python34\python.exe "D:\home\yojyo\devel\sympy\bin\isympy" -- --TerminalIPythonApp.pylab_import_all=False
+
+  私の都合で SymPy 利用時に限り IPython の設定ファイルによる設定を上書きしたいので、
+  コマンドライン引数の最後にそれらを追加で指定してある。
+  これの意味を簡単に述べると、
+  いつもなら便利な ``from numpy import *`` 等の自動インポートを避けるということだ。
+  いかにも NumPy と SymPy で何らかの名前衝突を起こしそうなことは想像に難くない。
+
+  * 関連ノートとして :doc:`/python-ipython` の環境設定の節を参照。
+  * 後になって SymPy どころか、組み込みの関数の名前をも隠すことが発覚した。
+    ``all`` や ``sum`` である。
 
 * ConEmu の Predefined Tasks にこのコマンドラインを含めておく。
 

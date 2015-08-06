@@ -203,7 +203,7 @@
 
    In [6]: L = (O(i, (n, oo)) for i in (1, lg(n), n, n*lg(n), n**2, factorial(n)))
 
-   In [7]: __builtin__.all(i in j for i, j in zip(L, islice(L, 1, None)))
+   In [7]: all(i in j for i, j in zip(L, islice(L, 1, None)))
    Out[7]: True
 
 * 最初の例は、高次多項式を小さい次数に省略して表示するひとつの方法を示している。

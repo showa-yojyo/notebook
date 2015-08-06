@@ -356,7 +356,7 @@ Fourier 変換
    In [6]: weights
    Out[6]: [0.23692689, 0.47862867, 0.56888889, 0.47862867, 0.23692689]
 
-   In [7]: __builtin__.sum((exp(-node**2/2) * weight for node, weight in zip(nodes, weights)))
+   In [7]: sum((exp(-node**2/2) * weight for node, weight in zip(nodes, weights)))
    Out[7]: 1.7112494
 
 * [1][2] まずは汎用の ``integrate`` による定積分を計算し、近似値を見ておく。

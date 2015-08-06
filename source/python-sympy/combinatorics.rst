@@ -340,8 +340,8 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
 
     .. code-block:: text
 
-       In [598]: __builtin__.all(
-       .....:    (not __builtin__.all(
+       In [598]: all(
+       .....:    (not all(
        .....:        (i == g(i) for i in S5.base)) for g in S5 if not g.is_Identity))
        Out[598]: True
 
@@ -394,7 +394,7 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
        In [652]: [i.order() for i in L]
        Out[652]: [40320, 5040, 720, 120, 24, 6, 2]
 
-       In [653]: __builtin__.all(i.is_subgroup(j) for i, j in zip(islice(L, 1, None), L))
+       In [653]: all(i.is_subgroup(j) for i, j in zip(islice(L, 1, None), L))
        Out[653]: True
 
 ``basic_transversals``
@@ -718,11 +718,8 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
 
    In [473]: A4 = AlternatingGroup(4)
 
-   In [480]: __builtin__.all(i.is_even for i in A4.generate())
+   In [480]: all(i.is_even for i in A4.generate())
    Out[480]: True
-
-* 余談。私の isympy シェルのセッションでは起動時に NumPy のモジュールがインポートされているので、
-  そちらの ``all`` が Python 組み込みの ``all`` を隠してしまっている。
 
 ``CyclicGroup`` 
 ----------------------------------------------------------------------
