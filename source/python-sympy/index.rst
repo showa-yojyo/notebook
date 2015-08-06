@@ -24,7 +24,7 @@ SymPy 利用ノート
 
    本稿執筆時の動作環境は次のとおり。
 
-   * OS: Windows 7 Home Premium SP 1 (64 bit)
+   * OS: Windows 7 Home Premium SP 1, Windows 10 Home (64 bit)
    * Python_: 3.4.1 (64 bit)
    * SymPy_: 0.7.7dev
    * IPython_: 3.0.0
