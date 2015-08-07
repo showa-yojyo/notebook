@@ -96,13 +96,13 @@ SymPy では Sum of Products form と Product of Sums form を扱っている。
 
 まずはテストコードを真似て動きを試してみる。
 
-.. code-block:: text
+.. code-block:: ipython
 
-   In [119]: SOPform('xyz', [[0, 0, 1], [0, 1, 1], [1, 0, 0], [1, 1, 0]])
-   Out[119]: Or(And(x, Not(z)), And(z, Not(x)))
+   In [1]: SOPform('xyz', [[0, 0, 1], [0, 1, 1], [1, 0, 0], [1, 1, 0]])
+   Out[1]: Or(And(x, Not(z)), And(z, Not(x)))
 
-   In [122]: POSform('xyz', [[0, 0, 1], [0, 1, 1], [1, 0, 0], [1, 1, 0]])
-   Out[122]: And(Or(x, z), Or(Not(x), Not(z)))
+   In [2]: POSform('xyz', [[0, 0, 1], [0, 1, 1], [1, 0, 0], [1, 1, 0]])
+   Out[2]: And(Or(x, z), Or(Not(x), Not(z)))
 
 真理値表 ``minterms`` はこのように入れ子の ``list`` で表現する。
 例えば ``[0, 0, 1]`` の意図は「命題 ``~x & ~y & z`` が真である」だ。
@@ -110,9 +110,9 @@ SymPy では Sum of Products form と Product of Sums form を扱っている。
 次に `Wikipedia の例 <https://en.wikipedia.org/wiki/Quine%E2%80%93McCluskey_algorithm>`_ を再現してみよう。
 ここでは引数 ``dontcare`` も指定する。
 
-.. code-block:: text
+.. code-block:: ipython
 
-   In [126]: %paste
+   In [1]: %paste
    minterms = [[0, 1, 0, 0],
                [1, 0, 0, 0],
                [1, 0, 0, 1],
@@ -124,11 +124,11 @@ SymPy では Sum of Products form と Product of Sums form を扱っている。
                [1, 1, 1, 0],]
 
    ## -- End pasted text --
-   In [127]: SOPform('ABCD', minterms, dontcare)
-   Out[127]: Or(And(A, C), And(A, Not(B)), And(B, Not(C), Not(D)))
+   In [2]: SOPform('ABCD', minterms, dontcare)
+   Out[2]: Or(And(A, C), And(A, Not(B)), And(B, Not(C), Not(D)))
 
-   In [128]: POSform('ABCD', minterms, dontcare)
-   Out[128]: And(Or(A, B), Or(A, Not(C)), Or(C, Not(B), Not(D)))
+   In [3]: POSform('ABCD', minterms, dontcare)
+   Out[3]: And(Or(A, B), Or(A, Not(C)), Or(C, Not(B), Not(D)))
 
 当該記事の真理値表からこれらの関数の実引数を構成する方法を記す。
 
@@ -136,8 +136,8 @@ SymPy では Sum of Products form と Product of Sums form を扱っている。
 * さらに f が Don't care な行は ``minterms`` では含めない。
   むしろ ``dontcare`` の入れ子要素にする。
 
-``Out[127]`` が当該記事の最終結果と一致している。
-そして ``Out[127]`` と ``Out[128]`` は等値だ。
+``Out[2]`` が当該記事の最終結果と一致している。
+そして ``Out[2]`` と ``Out[3]`` は等値だ。
 どうすればこのことが確認できるのか、わからないようなら考えて理解すること。
 
 論理式を正規化する関数
@@ -151,25 +151,25 @@ SymPy では Sum of Products form と Product of Sums form を扱っている。
   論理式オブジェクト ``expr`` から、等値性を保ったまま
   「複数の論理和オブジェクトをオペランドとする一つの論理積オブジェクト」を生成する。
 
-  .. code-block:: text
+  .. code-block:: ipython
 
-     In [113]: is_cnf(A & (B | (C & D)))
-     Out[113]: False
+     In [1]: is_cnf(A & (B | (C & D)))
+     Out[1]: False
 
-     In [114]: to_cnf(A & (B | (C & D)))
-     Out[114]: And(A, Or(B, C), Or(B, D))
+     In [2]: to_cnf(A & (B | (C & D)))
+     Out[2]: And(A, Or(B, C), Or(B, D))
 
 関数 ``to_dnf(expr, simplify=False)``, ``is_dnf(expr)``
   論理式オブジェクト ``expr`` から、等値性を保ったまま
   「複数の論理積オブジェクトをオペランドとする一つの論理和オブジェクト」を生成する。
 
-  .. code-block:: text
+  .. code-block:: ipython
 
-     In [109]: is_dnf(A & (B | (C & D)))
-     Out[109]: False
+     In [1]: is_dnf(A & (B | (C & D)))
+     Out[1]: False
 
-     In [110]: to_dnf(A & (B | (C & D)))
-     Out[110]: Or(And(A, B), And(A, C, D))
+     In [2]: to_dnf(A & (B | (C & D)))
+     Out[2]: Or(And(A, B), And(A, C, D))
 
 関数 ``to_nnf(expr, simplify=False)``, ``is_nnf(expr)``
   論理式オブジェクト ``expr`` から、
@@ -178,13 +178,13 @@ SymPy では Sum of Products form と Product of Sums form を扱っている。
   * ``Not`` がかかるのが最も内側の論理式（おそらくシンボルだろう）だけである
   * それを除けば、式を構成する演算子は ``And`` と ``Or`` だけである。
 
-  .. code-block:: text
+  .. code-block:: ipython
 
-     In [115]: is_nnf(A >> B)
-     Out[115]: False
+     In [1]: is_nnf(A >> B)
+     Out[1]: False
 
-     In [116]: to_nnf(A >> B)
-     Out[116]: Or(B, Not(A))
+     In [2]: to_nnf(A >> B)
+     Out[2]: Or(B, Not(A))
 
 単純化
 ----------------------------------------------------------------------
@@ -210,22 +210,22 @@ SymPy では Sum of Products form と Product of Sums form を扱っている。
   * 論理式 ``expr`` が真になる可能性があれば、
     そのときのシンボルの組み合わせを一つ返す。
 
-    .. code-block:: text
+    .. code-block:: ipython
 
-       In [159]: satisfiable((A | B) & (~A | ~B))
-       Out[159]: {B: False, A: True}
+       In [1]: satisfiable((A | B) & (~A | ~B))
+       Out[1]: {B: False, A: True}
 
-       In [160]: satisfiable((A & B) & (~A | ~B))
-       Out[160]: False
+       In [2]: satisfiable((A & B) & (~A | ~B))
+       Out[2]: False
 
   * キーワード引数 ``all_models=True`` を指定すると、
     充足性可能のときのシンボルの組み合わせを全部返そうとする。
     さらに、この関数はジェネレーター化する。
 
-    .. code-block:: text
+    .. code-block:: ipython
 
-       In [161]: list(satisfiable((A | B) & (~A | ~B), all_models=True))
-       Out[161]: [{B: False, A: True}, {B: True, A: False}]
+       In [1]: list(satisfiable((A | B) & (~A | ~B), all_models=True))
+       Out[1]: [{B: False, A: True}, {B: True, A: False}]
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt

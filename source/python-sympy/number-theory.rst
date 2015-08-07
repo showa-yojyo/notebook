@@ -105,10 +105,10 @@ SymPy_ の整数論モジュールについて記す。
 
   * クラス ``Function`` のサブクラスなので、評価をするには ``totient(n)`` のようにする。
 
-     .. code-block:: text
+    .. code-block:: ipython
 
-        In [23]: [totient(10 ** i) for i in range(10)]
-        Out[23]: [1, 4, 40, 400, 4000, 40000, 400000, 4000000, 40000000, 400000000]
+       In [1]: [totient(10 ** i) for i in range(10)]
+       Out[1]: [1, 4, 40, 400, 4000, 40000, 400000, 4000000, 40000000, 400000000]
 
 関数 ``digits(n, p=10)``
   任意整数 ``n`` を ``p`` 進数表現して、その各桁をリストする。
@@ -124,10 +124,10 @@ SymPy_ の整数論モジュールについて記す。
   中国剰余定理に基づく問題を解くのに利用できる。
   例を示す。
 
-  .. code-block:: text
+  .. code-block:: ipython
 
-     In [31]: crt([3, 5, 7], [2, 3, 2])
-     Out[31]: (23, 105)
+     In [1]: crt([3, 5, 7], [2, 3, 2])
+     Out[1]: (23, 105)
 
   23 + 105k を 3, 5, 7 でそれぞれ割ると余りが 2, 3, 2 になるという解が得られた。
 
@@ -136,12 +136,12 @@ SymPy_ の整数論モジュールについて記す。
 
   * キーワード引数 ``check=False`` の使いどころが不明。
 
-    .. code-block:: text
+    .. code-block:: ipython
 
-       In [87]: crt([6, 10], [1, 2], check=True)
+       In [1]: crt([6, 10], [1, 2], check=True)
 
-       In [88]: crt([6, 10], [1, 2], check=False)
-       Out[88]: (14, 60)
+       In [2]: crt([6, 10], [1, 2], check=False)
+       Out[2]: (14, 60)
 
 関数 ``solve_congruence(*remainder_modulus_pairs, **hint)``
   合同式を解くわけだが、前述の関数 ``crt`` と同様だと思う。
@@ -189,13 +189,13 @@ SymPy_ の整数論モジュールについて記す。
   これを <the order of ``a`` modulo ``n``> と英語では言うらしい。
   日本語なら「``a`` の法 ``n`` の位数」か。
 
-  .. code-block:: text
+  .. code-block:: ipython
 
-     In [94]: n_order(10**100 + 1, prime(1000))
-     Out[94]: 3959
+     In [1]: n_order(10**100 + 1, prime(1000))
+     Out[1]: 3959
 
-     In [95]: Pow(Pow(10, 100), 3959) % prime(1000)
-     Out[95]: 1
+     In [2]: Pow(Pow(10, 100), 3959) % prime(1000)
+     Out[2]: 1
 
 関数 ``is_primitive_root(a, p)``
   ``a`` が ``p`` の原始根であるかをテストする。
@@ -208,16 +208,16 @@ SymPy_ の整数論モジュールについて記す。
   存在するときに限り ``p`` の最小の原始根を返す。
   つまり ``p`` と互いに素で、かつ ``p`` を法とする整数の乗法群の生成元を求める。
 
-  .. code-block:: text
+  .. code-block:: ipython
 
-     In [68]: primitive_root(27)
-     Out[68]: 2
+     In [1]: primitive_root(27)
+     Out[1]: 2
 
-     In [69]: any([(2**i) % 27 for i in range(30)])
-     Out[69]: True
+     In [2]: any([(2**i) % 27 for i in range(30)])
+     Out[2]: True
 
-     In [70]: n_order(primitive_root(27), 27) == totient(27)
-     Out[70]: True
+     In [3]: n_order(primitive_root(27), 27) == totient(27)
+     Out[3]: True
 
 他にも色々あるので、アレがないかコレがないかというときはドキュメントを当たるべし。
 
@@ -234,15 +234,15 @@ SymPy_ の整数論モジュールについて記す。
   * これは微妙に使いにくい。
     値によっては自分でループを書く必要があるだろう。
 
-    .. code-block:: text
+    .. code-block:: ipython
 
-       In [130]: from itertools import islice
+       In [1]: from itertools import islice
 
-       In [131]: list(islice(continued_fraction_iterator(coth(1)), 20))
-       Out[131]: [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39]
+       In [2]: list(islice(continued_fraction_iterator(coth(1)), 20))
+       Out[2]: [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39]
 
-       In [132]: list(islice(continued_fraction_iterator(S.Pi), 20))
-       Out[132]: [3, 7, 15, 1, 292, 1, 1, 1, 2, 1, 3, 1, 14, 2, 1, 1, 2, 2, 2, 2]
+       In [3]: list(islice(continued_fraction_iterator(S.Pi), 20))
+       Out[3]: [3, 7, 15, 1, 292, 1, 1, 1, 2, 1, 3, 1, 14, 2, 1, 1, 2, 2, 2, 2]
 
 ジェネレーター ``continued_fraction_convergents(cf)``
   連分数 ``cf`` の「真の値」に収束する数列の数をひとつずつ yield する。
@@ -261,12 +261,12 @@ SymPy_ の整数論モジュールについて記す。
 関数 ``continued_fraction_reduce(cf)``
   連分数 ``cf`` を連分数でない形で返す。
 
-  .. code-block:: text
+  .. code-block:: ipython
 
-     In [144]: from sympy.abc import a, b, c
+     In [1]: from sympy.abc import a, b, c
 
-     In [145]: continued_fraction_reduce([a, b, c])
-     Out[145]:
+     In [2]: continued_fraction_reduce([a, b, c])
+     Out[2]:
      a + c*(a*b + 1)
      ---------------
          b*c + 1

@@ -41,7 +41,7 @@ SymPy では、ある計算を実現するために、
 
 比較的わかりやすい例を示す。
 
-.. code-block:: text
+.. code-block:: ipython
 
    In [1]: init_printing(pretty_print=False)
 
@@ -98,7 +98,7 @@ SymPy では、ある計算を実現するために、
 
   高校数学のテキストから拝借したある積分を評価してみるとこうなる。
 
-  .. code-block:: text
+  .. code-block:: ipython
 
      In [1]: J = Integral(sqrt(x + 1)*(x + 2))
 
@@ -123,7 +123,7 @@ SymPy では、ある計算を実現するために、
     これは平面曲線でなければならないようだ。
     このクラスについては :doc:`geometry` で見た。
 
-  .. code-block:: text
+  .. code-block:: ipython
 
      In [1]: C = Curve([cos(t), sin(t)], (t, 0, 2 * pi))
 
@@ -159,7 +159,7 @@ Laplace 変換およびその逆変換を計算する機能は、関数として
 
   いくつか実行例を示す。変換したい関数はよそのドキュメントから拝借した。
 
-  .. code-block:: text
+  .. code-block:: ipython
 
      In [1]: init_printing(pretty_print=False)
 
@@ -203,7 +203,7 @@ Laplace 変換およびその逆変換を計算する機能は、関数として
 
   いくつか実行例を示す。逆変換の対象となる関数はよそのドキュメントから拝借した。
 
-  .. code-block:: text
+  .. code-block:: ipython
 
      In [9]: inverse_laplace_transform(1 / (1 + s), s, t)
      Out[9]: exp(-t)*Heaviside(t)
@@ -240,7 +240,7 @@ Fourier 変換
 
   実行例を示す。
 
-  .. code-block:: text
+  .. code-block:: ipython
 
      In [1]: init_printing(pretty_print=False)
 
@@ -269,7 +269,7 @@ Fourier 変換
 
   実行例を示す。
 
-  .. code-block:: text
+  .. code-block:: ipython
 
      In [7]: inverse_fourier_transform(1, k, x)
      Out[7]: 0
@@ -338,7 +338,7 @@ Fourier 変換
 
 最後に、関数 ``gauss_legendre`` だけデモを示す。
 
-.. code-block:: text
+.. code-block:: ipython
 
    In [1]: integrate(exp(-x**2/2), (x, -1, 1))
    Out[1]: sqrt(2)*sqrt(pi)*erf(sqrt(2)/2)

@@ -23,12 +23,12 @@ Installtion
   若干異なる。おそらく関数 ``init_printing`` を異なる引数で適用したか、
   利用するコンソール環境の Unicode サポート状況に違いがあるのだろう。
 
-  .. code-block:: text
+  .. code-block:: ipython
 
-     In [3]: a = Integral(cos(x) * exp(x), x)
+     In [1]: a = Integral(cos(x) * exp(x), x)
 
-     In [4]: Eq(a, a.doit())
-     Out[4]:
+     In [2]: Eq(a, a.doit())
+     Out[2]:
        /
       |                 x           x
       |  x             e *sin(x)   e *cos(x)
@@ -188,12 +188,12 @@ Substitution
 
 * 多変数の同時代入例
 
-  .. code-block:: text
+  .. code-block:: ipython
 
-     In [58]: expr = x**3 + 4*x*y - z
+     In [1]: expr = x**3 + 4*x*y - z
 
-     In [59]: expr.subs([(x, 2), (y, 4), (z, 0)])
-     Out[59]: 40
+     In [2]: expr.subs([(x, 2), (y, 4), (z, 0)])
+     Out[2]: 40
 
 Converting Strings to SymPy Expressions
 ----------------------------------------------------------------------

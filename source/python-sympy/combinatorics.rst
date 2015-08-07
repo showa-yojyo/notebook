@@ -47,10 +47,10 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
 * 巡回置換を合成するにはコンストラクター呼び出し直後にさらに括弧を付けて巡回置換を追加する。
   例を示す。
 
-  .. code-block:: text
+  .. code-block:: ipython
 
-     In [7]: Cycle(0, 3, 7)(1, 2).list()
-     Out[7]: [3, 2, 1, 7, 4, 5, 6, 0]
+     In [1]: Cycle(0, 3, 7)(1, 2).list()
+     Out[1]: [3, 2, 1, 7, 4, 5, 6, 0]
 
 * このクラスは実は Python の ``dict`` をスーパークラスに持つだけなので、
   あまり SymPy のオブジェクトという感じがしない。
@@ -69,26 +69,26 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 コンストラクターの記法が複数ある。好きなものを使えるようにしておく。
 
-.. code-block:: text
+.. code-block:: ipython
 
-   In [23]: Permutation(2, 1)(0, 5, 6)
-   Out[23]: Permutation(0, 5, 6)(1, 2)
+   In [1]: Permutation(2, 1)(0, 5, 6)
+   Out[1]: Permutation(0, 5, 6)(1, 2)
 
-   In [24]: Permutation([[2, 1], [0, 5, 6]])
-   Out[24]: Permutation(0, 5, 6)(1, 2)
+   In [2]: Permutation([[2, 1], [0, 5, 6]])
+   Out[2]: Permutation(0, 5, 6)(1, 2)
 
-   In [25]: Permutation(2, 1) * Permutation(0, 5, 6)
-   Out[25]: Permutation(0, 5, 6)(1, 2)
+   In [3]: Permutation(2, 1) * Permutation(0, 5, 6)
+   Out[3]: Permutation(0, 5, 6)(1, 2)
 
 * 上のコンストラクターのみの場合では、与える巡回置換は互いに素である必要がある。
 
 * キーワード引数 ``size`` が便利。
   要素数は多いが置換部分が少ない置換を生成するときにはこれだ。
 
-  .. code-block:: text
+  .. code-block:: ipython
 
-     In [26]: Permutation([[44, 88],], size=100)
-     Out[26]: Permutation(99)(44, 88)
+     In [1]: Permutation([[44, 88],], size=100)
+     Out[1]: Permutation(99)(44, 88)
 
 * 長さ ``n`` の恒等置換の生成法をひとつマスターしておく。
   一番楽なのは ``Permutation(size=n)`` だろう。
@@ -116,53 +116,53 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 オブジェクトの丸括弧演算子を用いる。
 
-.. code-block:: text
+.. code-block:: ipython
 
-   In [128]: p = Permutation(2, 1)(0, 5, 6)
+   In [1]: p = Permutation(2, 1)(0, 5, 6)
 
-   In [129]: p(0), p(1), p(2)
-   Out[129]: (5, 2, 1)
+   In [2]: p(0), p(1), p(2)
+   Out[2]: (5, 2, 1)
 
 同サイズの文字列・コレクションの像も同様に得られる。
 
-.. code-block:: text
+.. code-block:: ipython
 
-   In [130]: p('ABCDEFG')
-   Out[130]: ['F', 'C', 'B', 'D', 'E', 'G', 'A']
+   In [1]: p('ABCDEFG')
+   Out[1]: ['F', 'C', 'B', 'D', 'E', 'G', 'A']
 
-   In [131]: p(symbols('a0:7'))
-   Out[132]: [a5, a2, a1, a3, a4, a6, a0]
+   In [2]: p(symbols('a0:7'))
+   Out[2]: [a5, a2, a1, a3, a4, a6, a0]
 
 置換によって動く要素を求める
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 メソッド ``support()`` を用いる。
 
-.. code-block:: text
+.. code-block:: ipython
 
-   In [149]: Permutation(2, 1)(0, 5, 6).support()
-   Out[149]: [0, 1, 2, 5, 6]
+   In [1]: Permutation(2, 1)(0, 5, 6).support()
+   Out[1]: [0, 1, 2, 5, 6]
 
-   In [150]: Permutation(0, 1, 2, 3).support()
-   Out[150]: [0, 1, 2, 3]
+   In [2]: Permutation(0, 1, 2, 3).support()
+   Out[2]: [0, 1, 2, 3]
 
-   In [151]: Permutation(size=4).support()
-   Out[151]: []
+   In [3]: Permutation(size=4).support()
+   Out[3]: []
 
 置換をランダムに生成する
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ランダムな置換の生成にはクラスメソッド ``random(n)`` を用いる。
 次数 ``n`` の対称群にある置換をランダムに一個返すと言えばよい？
 
-.. code-block:: text
+.. code-block:: ipython
 
-   In [153]: Permutation.random(10)
-   Out[153]: Permutation(0, 5, 3, 4, 8)(1, 2, 9)(6, 7)
+   In [1]: Permutation.random(10)
+   Out[1]: Permutation(0, 5, 3, 4, 8)(1, 2, 9)(6, 7)
 
-   In [154]: Permutation.random(10)
-   Out[154]: Permutation(0, 4, 5, 8)(1, 2, 3, 6)(7, 9)
+   In [2]: Permutation.random(10)
+   Out[2]: Permutation(0, 4, 5, 8)(1, 2, 3, 6)(7, 9)
 
-   In [155]: Permutation.random(10)
-   Out[155]: Permutation(0, 7, 6, 8, 1, 9, 3, 2, 5, 4)
+   In [3]: Permutation.random(10)
+   Out[3]: Permutation(0, 7, 6, 8, 1, 9, 3, 2, 5, 4)
 
 * どういう種類のランダムなのか Python だけが知っている。
 * ちなみに ``random(0)`` と ``random(1)`` の結果は異なる。
@@ -172,45 +172,45 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
 べき乗演算子 ``**`` を置換オブジェクトに適用することができる。
 試しに適当な置換オブジェクトをその位数乗すると、恒等置換が得られることを見よう。
 
-.. code-block:: text
+.. code-block:: ipython
 
-   In [167]: p = Permutation(2, 1)(0, 5, 6); p
-   Out[167]: Permutation(0, 5, 6)(1, 2)
+   In [1]: p = Permutation(2, 1)(0, 5, 6); p
+   Out[1]: Permutation(0, 5, 6)(1, 2)
 
-   In [168]: p.order()
-   Out[168]: 6
+   In [2]: p.order()
+   Out[2]: 6
 
-   In [169]: p ** 6
-   Out[169]: Permutation(6)
+   In [3]: p ** 6
+   Out[3]: Permutation(6)
 
 逆置換を求める
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 逆置換オブジェクトを生成するにはべき乗演算子 ``**`` を援用する。
 指数を -1 にすればよい。
 
-.. code-block:: text
+.. code-block:: ipython
 
-   In [160]: p = Permutation(2, 1)(0, 5, 6); p
-   Out[160]: Permutation(0, 5, 6)(1, 2)
+   In [1]: p = Permutation(2, 1)(0, 5, 6); p
+   Out[1]: Permutation(0, 5, 6)(1, 2)
 
-   In [161]: p ** -1
-   Out[161]: Permutation(0, 6, 5)(1, 2)
+   In [2]: p ** -1
+   Out[2]: Permutation(0, 6, 5)(1, 2)
 
-   In [162]: p * (p**-1)
-   Out[162]: Permutation(6)
+   In [3]: p * (p**-1)
+   Out[3]: Permutation(6)
 
 置換の巡回表記を互換の積へ分解する
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 メソッド ``transpositions()`` を用いることで、置換を互換の積として表現できる。
 置換と同等のあみだくじの描き方がわかるということだ。
 
-.. code-block:: text
+.. code-block:: ipython
 
-   In [170]: p = Permutation(2, 1)(0, 5, 6); p
-   Out[170]: Permutation(0, 5, 6)(1, 2)
+   In [1]: p = Permutation(2, 1)(0, 5, 6); p
+   Out[1]: Permutation(0, 5, 6)(1, 2)
 
-   In [171]: p.transpositions()
-   Out[171]: [(0, 6), (0, 5), (1, 2)]
+   In [2]: p.transpositions()
+   Out[2]: [(0, 6), (0, 5), (1, 2)]
 
 と思ったら、両端の線を結ぶことになってしまった。
 
@@ -221,16 +221,16 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
 
 先ほどの 3 つの互換の積で表せる ``p`` を再利用して動作を確認する。
 
-.. code-block:: text
+.. code-block:: ipython
 
-   In [173]: p.signature()
-   Out[173]: -1
+   In [1]: p.signature()
+   Out[1]: -1
 
-   In [174]: p.is_even
-   Out[174]: False
+   In [2]: p.is_even
+   Out[2]: False
 
-   In [175]: p.is_odd
-   Out[175]: True
+   In [3]: p.is_odd
+   Out[3]: True
 
 群オブジェクトジェネレーター
 ======================================================================
@@ -252,9 +252,9 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
 
 ジェネレーターの動きを見よう。
 
-.. code-block:: text
+.. code-block:: ipython
 
-   In [180]: for i in symmetric(4): print(i.cyclic_form)
+   In [1]: for i in symmetric(4): print(i.cyclic_form)
    []
    [[2, 3]]
    [[1, 2]]
@@ -280,7 +280,7 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
    [[0, 3, 1, 2]]
    [[0, 3], [1, 2]]
 
-   In [181]: for i in dihedral(4): print(i.cyclic_form)
+   In [2]: for i in dihedral(4): print(i.cyclic_form)
    []
    [[0, 3], [1, 2]]
    [[0, 1, 2, 3]]
@@ -290,7 +290,7 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
    [[0, 3, 2, 1]]
    [[0, 2]]
 
-   In [182]: for i in alternating(4): print(i.cyclic_form)
+   In [3]: for i in alternating(4): print(i.cyclic_form)
    []
    [[1, 2, 3]]
    [[1, 3, 2]]
@@ -304,7 +304,7 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
    [[0, 3, 2]]
    [[0, 3], [1, 2]]
 
-   In [183]: for i in cyclic(4): print(i.cyclic_form)
+   In [4]: for i in cyclic(4): print(i.cyclic_form)
    []
    [[0, 1, 2, 3]]
    [[0, 2], [1, 3]]
@@ -338,12 +338,12 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
     例。5 次の対称群 ``S5 = SymmetricGroup(5)`` を下処理
     （後述の ``is_group`` の記述を参照）したものに対して試す。
 
-    .. code-block:: text
+    .. code-block:: ipython
 
-       In [598]: all(
+       In [1]: all(
        .....:    (not all(
        .....:        (i == g(i) for i in S5.base)) for g in S5 if not g.is_Identity))
-       Out[598]: True
+       Out[1]: True
 
 ``basic_orbits``
   群の基底と強生成元に関する軌道。
@@ -353,7 +353,7 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
   * 例。テキトーに作った置換群で動作確認をする。
     ``basic_orbits`` と ``base`` がすべての軌道とそれらの代表元をそれぞれ表しているのか。
 
-    .. code-block:: text
+    .. code-block:: ipython
 
        In [1]: G = PermutationGroup([Permutation(0, 2, 4)(1, 3), Permutation(5, 6)])
 
@@ -381,21 +381,21 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
 
   * Schreier-Sims アルゴリズムから得られる。
   * このリストは先頭から大きい順に部分群が並んでいる。
-  
+
     例。8 次の対称群 ``S8 = SymmetricGroup(8)`` で試す。
 
-    .. code-block:: text
+    .. code-block:: ipython
 
-       In [650]: L = S8.basic_stabilizers
+       In [1]: L = S8.basic_stabilizers
 
-       In [651]: S8.base
-       Out[651]: [0, 1, 6, 5, 4, 3, 2]
+       In [2]: S8.base
+       Out[2]: [0, 1, 6, 5, 4, 3, 2]
 
-       In [652]: [i.order() for i in L]
-       Out[652]: [40320, 5040, 720, 120, 24, 6, 2]
+       In [3]: [i.order() for i in L]
+       Out[3]: [40320, 5040, 720, 120, 24, 6, 2]
 
-       In [653]: all(i.is_subgroup(j) for i, j in zip(islice(L, 1, None), L))
-       Out[653]: True
+       In [4]: all(i.is_subgroup(j) for i, j in zip(islice(L, 1, None), L))
+       Out[4]: True
 
 ``basic_transversals``
   群の ``basic_orbits`` の代表系。
@@ -403,16 +403,16 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
   * 型は ``dict`` の ``list`` である。
     キーと値は ``basic_orbits`` の要素とそれに対応する代表元をそれぞれ表す。
 
-    .. code-block:: text
+    .. code-block:: ipython
 
-       In [3]: G.base
-       Out[3]: [0, 5, 1]
+       In [1]: G.base
+       Out[1]: [0, 5, 1]
 
-       In [4]: G.basic_orbits
-       Out[4]: [[0, 2, 4], [5, 6], [1, 3]]
+       In [2]: G.basic_orbits
+       Out[2]: [[0, 2, 4], [5, 6], [1, 3]]
 
-       In [13]: G.basic_transversals
-       Out[13]:
+       In [3]: G.basic_transversals
+       Out[3]:
        [{0: Permutation(6), 2: Permutation(6)(0, 2, 4)(1, 3), 4: Permutation(6)(0, 4, 2)},
         {5: Permutation(6), 6: Permutation(5, 6)},
         {1: Permutation(6), 3: Permut ation(6)(1, 3)}]
@@ -467,16 +467,16 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
   群の部分群 ``G`` と ``H`` の交換子を生成する。
   特に引数として両方とも自身を与えると、交換子群が生成する。
 
-  .. code-block:: text
+  .. code-block:: ipython
 
-     In [47]: S4 = SymmetricGroup(4)
+     In [1]: S4 = SymmetricGroup(4)
 
-     In [48]: A4 = AlternatingGroup(4)
+     In [2]: A4 = AlternatingGroup(4)
 
-     In [49]: G = S4.commutator(S4, S4)
+     In [3]: G = S4.commutator(S4, S4)
 
-     In [50]: G.is_normal(A4) and A4.is_normal(G)
-     Out[50]: True
+     In [4]: G.is_normal(A4) and A4.is_normal(G)
+     Out[4]: True
 
 ``contains(g, strict=True)``
   置換 ``g`` が群に含まれているかどうかを返す。
@@ -490,24 +490,24 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
   * 戻り値は置換の ``list`` であり、末端から先頭に向かって掛けると ``g`` が得られる。
   * さきほどの ``G`` で試そう。
 
-    .. code-block:: text
+    .. code-block:: ipython
 
-       In [13]: G.basic_transversals
-       Out[13]:
+       In [5]: G.basic_transversals
+       Out[5]:
        [{0: Permutation(6), 2: Permutation(6)(0, 2, 4)(1, 3), 4: Permutation(6)(0, 4, 2)},
         {5: Permutation(6), 6: Permutation(5, 6)},
         {1: Permutation(6), 3: Permut ation(6)(1, 3)}]
 
-       In [56]: perm = Permutation(0, 2, 4)(1, 3)(5, 6)
+       In [6]: perm = Permutation(0, 2, 4)(1, 3)(5, 6)
 
-       In [57]: G.coset_factor(perm)
-       Out[57]: [Permutation(6)(0, 2, 4)(1, 3), Permutation(5, 6), Permutation(6)]
+       In [7]: G.coset_factor(perm)
+       Out[7]: [Permutation(6)(0, 2, 4)(1, 3), Permutation(5, 6), Permutation(6)]
 
-       In [58]: G.coset_factor(perm, True)
-       Out[58]: [2, 6, 1]
+       In [8]: G.coset_factor(perm, True)
+       Out[8]: [2, 6, 1]
 
-       In [59]: perm == Permutation.rmul(*Out[57])
-       Out[59]: True
+       In [9]: perm == Permutation.rmul(*Out[57])
+       Out[9]: True
 
 ``coset_rank(g)``
   群の元 ``g`` のインデックスを得る。
@@ -543,17 +543,17 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
   * 後述する名前付き群オブジェクトと正多面体群オブジェクトを用いるときは要注意。
     次のように前処理をしないと ``True`` を返してくれない場合がある。
 
-    .. code-block:: text
+    .. code-block:: ipython
 
-       In [565]: S5 = SymmetricGroup(5)
+       In [1]: S5 = SymmetricGroup(5)
 
-       In [566]: S5.is_group()
-       Out[566]: False
+       In [2]: S5.is_group()
+       Out[2]: False
 
-       In [567]: S5 = PermutationGroup(list(S5.generate()))
+       In [3]: S5 = PermutationGroup(list(S5.generate()))
 
-       In [568]: S5.is_group()
-       Out[568]: True
+       In [4]: S5.is_group()
+       Out[4]: True
 
   * そしてこの関数はおそらくかなりのコストがかかる。
   * 本稿では上の例の ``S5`` の作り直しのような処理を「下処理」と呼ぶことにする。
@@ -565,13 +565,13 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
 ``is_primitive(randomized=True)``
   この群が原始的かどうかを返す。
 
-  .. code-block:: text
+  .. code-block:: ipython
 
-     In [76]: CyclicGroup(3).is_primitive()
-     Out[76]: True
+     In [1]: CyclicGroup(3).is_primitive()
+     Out[1]: True
 
-     In [77]: CyclicGroup(4).is_primitive()
-     Out[77]: False
+     In [2]: CyclicGroup(4).is_primitive()
+     Out[2]: False
 
 ``is_subgroup(G, strict=True)``
   この群が群 ``G`` の部分群であるかどうかを返す。
@@ -675,19 +675,19 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
 名前はアーベル群だが、実体は先ほどの ``DirectProduct`` の計算の利用による巡回群の直積群である。
 引数で与えたものの和が次数、積が位数になると覚えておくとよい。
 
-.. code-block:: text
+.. code-block:: ipython
 
-   In [433]: G = AbelianGroup(2, 2, 3); G
-   Out[433]:
+   In [1]: G = AbelianGroup(2, 2, 3); G
+   Out[1]:
        PermutationGroup([
        Permutation(6)(0, 1),
        Permutation(6)(2, 3),
        Permutation(4, 5, 6)])
 
-   In [435]: G.order()
-   Out[435]: 12
+   In [2]: G.order()
+   Out[2]: 12
 
-   In [440]: for i in G.generate(): print(i.cyclic_form)
+   In [3]: for i in G.generate(): print(i.cyclic_form)
    []
    [[0, 1]]
    [[2, 3]]
@@ -701,45 +701,45 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
    [[2, 3], [4, 6, 5]]
    [[0, 1], [2, 3], [4, 6, 5]]
 
-   In [446]: AbelianGroup(2, 5, 4, 210).order() == 2 * 5 * 4 * 210
-   Out[446]: True
+   In [4]: AbelianGroup(2, 5, 4, 210).order() == 2 * 5 * 4 * 210
+   Out[4]: True
 
-   In [448]: [i.order() for i in AbelianGroup(3, 3).generate()]
-   Out[448]: [1, 3, 3, 3, 3, 3, 3, 3, 3]
+   In [5]: [i.order() for i in AbelianGroup(3, 3).generate()]
+   Out[5]: [1, 3, 3, 3, 3, 3, 3, 3, 3]
 
 ``AlternatingGroup``
 ----------------------------------------------------------------------
 交代群。ここでは群の要素がすべて偶置換であることを見ておく。
 
-.. code-block:: text
+.. code-block:: ipython
 
-   In [470]: AlternatingGroup(1) == AlternatingGroup(2)
-   Out[470]: True
+   In [1]: AlternatingGroup(1) == AlternatingGroup(2)
+   Out[1]: True
 
-   In [473]: A4 = AlternatingGroup(4)
+   In [2]: A4 = AlternatingGroup(4)
 
-   In [480]: all(i.is_even for i in A4.generate())
-   Out[480]: True
+   In [3]: all(i.is_even for i in A4.generate())
+   Out[3]: True
 
 ``CyclicGroup`` 
 ----------------------------------------------------------------------
 巡回群。
 
-.. code-block:: text
+.. code-block:: ipython
 
-   In [496]: CyclicGroup(0) == CyclicGroup(1)
-   Out[496]: True
+   In [1]: CyclicGroup(0) == CyclicGroup(1)
+   Out[1]: True
 
-   In [497]: C8 = CyclicGroup(8)
+   In [2]: C8 = CyclicGroup(8)
 
-   In [498]: C8.degree
-   Out[498]: 8
+   In [3]: C8.degree
+   Out[3]: 8
 
-   In [502]: C8.order()
-   Out[502]: 8
+   In [4]: C8.order()
+   Out[4]: 8
 
-   In [503]: list(C8.generate(af=True))
-   Out[503]:
+   In [5]: list(C8.generate(af=True))
+   Out[5]:
    [[0, 1, 2, 3, 4, 5, 6, 7],
     [1, 2, 3, 4, 5, 6, 7, 0],
     [2, 3, 4, 5, 6, 7, 0, 1],
@@ -749,17 +749,17 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
     [6, 7, 0, 1, 2, 3, 4, 5],
     [7, 0, 1, 2, 3, 4, 5, 6]]
 
-   In [504]: C8.is_abelian
-   Out[504]: True
+   In [6]: C8.is_abelian
+   Out[6]: True
 
 ``DihedralGroup``
 ----------------------------------------------------------------------
 二面体群。引数は次数の半分を指定する。
 ここでは位数 2, 4, 6, 8 の二面体群の乗法表をそれぞれ出力する。
 
-.. code-block:: text
+.. code-block:: ipython
 
-   In [506]: %paste
+   In [1]: %paste
    def group_multiplication_table(G):
        L = list(G.generate())
        size = len(L)
@@ -803,35 +803,35 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
 ----------------------------------------------------------------------
 対称群。
 
-.. code-block:: text
+.. code-block:: ipython
 
-   In [517]: A5, C5, S5 = AlternatingGroup(5), CyclicGroup(5), SymmetricGroup(5)
+   In [1]: A5, C5, S5 = AlternatingGroup(5), CyclicGroup(5), SymmetricGroup(5)
 
-   In [510]: A5.is_subgroup(S5)
-   Out[510]: True
+   In [2]: A5.is_subgroup(S5)
+   Out[2]: True
 
-   In [511]: A5.is_normal(S5)
-   Out[511]: True
+   In [3]: A5.is_normal(S5)
+   Out[3]: True
 
-   In [513]: S5.generators
-   Out[513]: [Permutation(0, 1, 2, 3, 4), Permutation(4)(0, 1)]
+   In [4]: S5.generators
+   Out[4]: [Permutation(0, 1, 2, 3, 4), Permutation(4)(0, 1)]
 
-   In [514]: C5.is_subgroup(S5)
-   Out[514]: True
+   In [5]: C5.is_subgroup(S5)
+   Out[5]: True
 
-   In [515]: C5.is_normal(S5)
-   Out[515]: False
+   In [6]: C5.is_normal(S5)
+   Out[6]: False
 
 ``RubikGroup``
 ----------------------------------------------------------------------
 ルービックキューブ群を生成する。通常は 3x3 なので 3 を指定する。
 整数点とキューブ小面との対応関係のイラストを用意しないと読み解けない。
 
-.. code-block:: text
+.. code-block:: ipython
 
-   In [621]: R3 = RubikGroup(3)
+   In [1]: R3 = RubikGroup(3)
 
-   In [622]: print(R3)
+   In [2]: print(R3)
    PermutationGroup([
        Permutation(53)(6, 44, 47, 18)(7, 41, 46, 21)(8, 38, 45, 24)(9, 15, 17, 11)(10, 12, 16, 14),
        Permutation(53)(3, 43, 50, 19)(4, 40, 49, 22)(5, 37, 48, 25),
@@ -840,17 +840,17 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
        Permutation(15, 42, 33, 24)(16, 43, 34, 25)(17, 44, 35, 26)(45, 51, 53, 47)(46, 48, 52, 50),
        Permutation(53)(12, 39, 30, 21)(13, 40, 31, 22)(14, 41, 32, 23)])
 
-   In [623]: R3.order()
-   Out[623]: 43252003274489856000
+   In [3]: R3.order()
+   Out[3]: 43252003274489856000
 
-   In [624]: R3.degree
-   Out[624]: 54
+   In [4]: R3.degree
+   Out[4]: 54
 
 そこでこの群の軌道を見る。何か違和感がある。
 
-.. code-block:: text
+.. code-block:: ipython
 
-   In [630]: for i in R3.orbits(): print(i, len(i))
+   In [5]: for i in R3.orbits(): print(i, len(i))
    {0} 1
    {1, 3, 5, 7, 10, 12, 14, 16, 19, 21, 23, 25, 28, 30, 32, 34, 37, 39, 41, 43, 46, 48, 50, 52} 24
    {33, 2, 35, 6, 38, 8, 9, 42, 11, 44, 45, 15, 47, 17, 18, 51, 20, 53, 24, 26, 27} 21
@@ -884,50 +884,50 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
 
   例。生成済み多面体の頂点数を出力する。
 
-  .. code-block:: text
+  .. code-block:: ipython
 
-     In [60]: solids = (tetrahedron, cube, octahedron, dodecahedron, icosahedron)
+     In [1]: solids = (tetrahedron, cube, octahedron, dodecahedron, icosahedron)
 
-     In [61]: [s.size for s in solids]
-     Out[61]: [4, 8, 6, 20, 12]
+     In [2]: [s.size for s in solids]
+     Out[2]: [4, 8, 6, 20, 12]
 
 ``edges``, ``faces``
   それぞれ多面体の全辺、全面を返す。
   どちらも頂点列を表す ``tuple`` の ``set`` オブジェクト。
-  
+
   例。正四面体の辺と面を出力する。
   また、各多面体において Euler の多面体公式を確認する。
 
-  .. code-block:: text
+  .. code-block:: ipython
 
-     In [62]: tetrahedron.edges
-     Out[62]: {(0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 3)}
+     In [1]: tetrahedron.edges
+     Out[1]: {(0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 3)}
 
-     In [63]: tetrahedron.faces
-     Out[63]: {(0, 1, 2), (0, 1, 3), (0, 2, 3), (1, 2, 3)}
+     In [2]: tetrahedron.faces
+     Out[2]: {(0, 1, 2), (0, 1, 3), (0, 2, 3), (1, 2, 3)}
 
-     In [64]: [s.size - len(s.edges) + len(s.faces) for s in solids]
-     Out[64]: [2, 2, 2, 2, 2]
+     In [3]: [s.size - len(s.edges) + len(s.faces) for s in solids]
+     Out[3]: [2, 2, 2, 2, 2]
 
 ``pgroup``
   多面体群を返す。``PermutationGroup`` オブジェクト。
 
   例。正四面体群の位数が 12 であることと 4 次の交代群と同型であることを見る。
 
-  .. code-block:: text
+  .. code-block:: ipython
 
-     In [81]: T4 = tetrahedron.pgroup
+     In [1]: T4 = tetrahedron.pgroup
 
-     In [82]: T4.order()
-     Out[82]: 12
+     In [2]: T4.order()
+     Out[2]: 12
 
-     In [83]: T4.is_abelian
-     Out[83]: False
+     In [3]: T4.is_abelian
+     Out[3]: False
 
-     In [84]: A4 = AlternatingGroup(4)
+     In [4]: A4 = AlternatingGroup(4)
 
-     In [85]: A4.is_subgroup(T4) and T4.is_subgroup(A4)
-     Out[85]: True
+     In [5]: A4.is_subgroup(T4) and T4.is_subgroup(A4)
+     Out[5]: True
 
 メソッド
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

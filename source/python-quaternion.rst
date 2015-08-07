@@ -220,9 +220,9 @@ Quaternion を利用する最も普通の形態は、次のインポート文だ
 IPython のセッションでコードを試すつもりでいるので、各種 import 文を省略している。
 それから関数全体をおもむろにクリップボードにコピーし、IPython のセッションで ``%paste`` する。
 
-.. code-block:: text
+.. code-block:: ipython
 
-   In [36]: %paste
+   In [1]: %paste
    def make_quat(alpha, axis):
        def make_quat(alpha, axis):
        alpha_half = alpha / 2
@@ -235,12 +235,12 @@ IPython のセッションでコードを試すつもりでいるので、各種
 
 それでは Wikipedia の The conjugation operation の状況を再現してみよう。
 
-.. code-block:: text
+.. code-block:: ipython
 
-   In [37]: q1 = make_quat(np.pi * 2/3, np.array([1, 1, 1]))
+   In [2]: q1 = make_quat(np.pi * 2/3, np.array([1, 1, 1]))
 
-   In [38]: q1.q
-   Out[38]: array([ 0.5,  0.5,  0.5,  0.5])
+   In [3]: q1.q
+   Out[3]: array([ 0.5,  0.5,  0.5,  0.5])
 
 所望の四元数が得られたようだ。
 
@@ -249,22 +249,22 @@ IPython のセッションでコードを試すつもりでいるので、各種
 まずはプロパティー ``q.transform`` を用いた 3 次元ベクトルの回転を確認したい。
 これがうまくいけば、当初の計画通りに PyOpenGL のプログラムに応用できる。
 
-.. code-block:: text
+.. code-block:: ipython
 
-   In [39]: t = q1.transform
+   In [4]: t = q1.transform
 
-   In [40]: t
-   Out[40]:
+   In [5]: t
+   Out[5]:
    array([[  0.00000000e+00,  -1.11022302e-16,   1.00000000e+00],
           [  1.00000000e+00,   0.00000000e+00,  -1.11022302e-16],
           [ -1.11022302e-16,   1.00000000e+00,   0.00000000e+00]])
 
 適当に 3D ベクトルを与えて、成分が軸 ``[1, 1, 1]`` 周りに 120 度回転するかテストしよう。
 
-.. code-block:: text
+.. code-block:: ipython
 
-   In [41]: dot(t, [1, 2, 3])
-   Out[41]: array([ 3.,  1.,  2.])
+   In [6]: dot(t, [1, 2, 3])
+   Out[6]: array([ 3.,  1.,  2.])
 
 問題なさそうだ。
 

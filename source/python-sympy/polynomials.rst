@@ -87,16 +87,16 @@ SymPy_ は多項式の取り扱いをかなり重要視しているようで、
     特に整数を因数分解したい場合は、別に関数 ``factorint`` が用意されている。
   * キーワード引数各種により因数分解の範囲を「拡大」できる。
 
-    .. code-block:: text
+    .. code-block:: ipython
 
-       In [51]: factor(x**2 + 1, gaussian=True)
-       Out[51]: (x - I)*(x + I)
+       In [1]: factor(x**2 + 1, gaussian=True)
+       Out[1]: (x - I)*(x + I)
 
-       In [52]: factor(x**2 + 1, extension=I)
-       Out[52]: (x - I)*(x + I)
+       In [2]: factor(x**2 + 1, extension=I)
+       Out[2]: (x - I)*(x + I)
 
-       In [53]: factor(x**10 -1, modulus=2)
-       Out[53]: (x + 1)**2*(x**4 + x**3 + x**2 + x + 1)**2
+       In [3]: factor(x**10 -1, modulus=2)
+       Out[3]: (x + 1)**2*(x**4 + x**3 + x**2 + x + 1)**2
 
 Gröbner 基底
 ----------------------------------------------------------------------
@@ -122,7 +122,7 @@ Gröbner 基底
   * ところでキーワード引数 ``domain='ZZ'`` のようなものはサポートされていないのだろうか。
     次のようにシンボルを設定し直せば意図通りの動きはするようだが。
 
-    .. code-block:: text
+    .. code-block:: ipython
 
        In [1]: solve([(x**4 - 1) * (x**4 - 4)], x)
        Out[1]: [(-1,), (1,), (-sqrt(2),), (sqrt(2),), (-I,), (I,), (-sqrt(2)*I,), (sqrt(2)*I,)]
@@ -142,11 +142,11 @@ Gröbner 基底
   * Mathematica のドキュメントを参考にした例が解けない。
     先述の動作環境では 1 分経っても呼び出しから返ってこない。
 
-    .. code-block:: text
+    .. code-block:: ipython
 
-       In [143]: x = symbols('x', real=True)
+       In [1]: x = symbols('x', real=True)
 
-       In [144]: solve(x ** 1000000 - 2*x**777777 + 3*x**12345 + 9*x*67 - 10)
+       In [2]: solve(x ** 1000000 - 2*x**777777 + 3*x**12345 + 9*x*67 - 10)
 
 モジュール別
 ======================================================================
@@ -184,10 +184,10 @@ Gröbner 基底
   * キーワード引数 ``formal=True`` を指定すること、
     基本対称式を名前で出してくれる。
 
-    .. code-block:: text
+    .. code-block:: ipython
 
-       In [15]: symmetrize(x**3 + y**3 + z**3, formal=True)
-       Out[15]: (s1**3 - 3*s1*s2 + 3*s3, 0, [(s1, x + y + z), (s2, x*y + x*z + y*z), (s3, x*y*z)])
+       In [1]: symmetrize(x**3 + y**3 + z**3, formal=True)
+       Out[1]: (s1**3 - 3*s1*s2 + 3*s3, 0, [(s1, x + y + z), (s2, x*y + x*z + y*z), (s3, x*y*z)])
 
 関数 ``interpolate(data, x)``
   引数の点列データを通過するような多項式を生成する。補間。
@@ -198,17 +198,17 @@ Gröbner 基底
   * ``{1:1, 2:4, 3:9, 4:16}``
   * ``[1, 4, 9, 16]``
 
-  .. code-block:: text
+  .. code-block:: ipython
 
-     In [30]: x0, x1, x2 = symbols('x0:3')
+     In [1]: x0, x1, x2 = symbols('x0:3')
 
-     In [31]: P = interpolate([x0, x1, x2], x)
+     In [2]: P = interpolate([x0, x1, x2], x)
 
-     In [32]: P
-     Out[32]: x**2*x0/2 - x**2*x1 + x**2*x2/2 - 5*x*x0/2 + 4*x*x1 - 3*x*x2/2 + 3*x0 - 3*x1 + x2
+     In [3]: P
+     Out[3]: x**2*x0/2 - x**2*x1 + x**2*x2/2 - 5*x*x0/2 + 4*x*x1 - 3*x*x2/2 + 3*x0 - 3*x1 + x2
 
-     In [33]: [P.subs({x:t}) for t in range(1, 4)]
-     Out[33]: [x0, x1, x2]
+     In [4]: [P.subs({x:t}) for t in range(1, 4)]
+     Out[4]: [x0, x1, x2]
 
 モジュール ``sympy.polys.numberfields``
 ----------------------------------------------------------------------
@@ -249,20 +249,20 @@ Gröbner 基底
 
   * ``multiple=True`` とすると、重根を丁寧に出力するようだ。
 
-    .. code-block:: text
+    .. code-block:: ipython
 
-       In [42]: roots(x**2 - 2*x + 1, multiple=True)
-       Out[42]: [1, 1]
+       In [1]: roots(x**2 - 2*x + 1, multiple=True)
+       Out[1]: [1, 1]
 
-       In [43]: roots(x**2 - 2*x + 1, multiple=False)
-       Out[43]: {1: 2}
+       In [2]: roots(x**2 - 2*x + 1, multiple=False)
+       Out[2]: {1: 2}
 
   * 根基で表現できる解だけを計算する。
 
-    .. code-block:: text
+    .. code-block:: ipython
 
-       In [49]: roots(x**5 - 22*x + 19)
-       Out[49]: {}
+       In [1]: roots(x**5 - 22*x + 19)
+       Out[1]: {}
 
 モジュール ``sympy.polys.specialpolys``
 ----------------------------------------------------------------------
@@ -283,27 +283,27 @@ Gröbner 基底
 関数 ``symmetric_poly(n, *gens, **args)``
   与えた複数の文字における ``n`` 番目の基本対称多項式を生成する。
 
-  .. code-block:: text
+  .. code-block:: ipython
 
-     In [59]: symmetric_poly(4, symbols('x0:5'))
-     Out[59]: x0*x1*x2*x3 + x0*x1*x2*x4 + x0*x1*x3*x4 + x0*x2*x3*x4 + x1*x2*x3*x4
+     In [1]: symmetric_poly(4, symbols('x0:5'))
+     Out[1]: x0*x1*x2*x3 + x0*x1*x2*x4 + x0*x1*x3*x4 + x0*x2*x3*x4 + x1*x2*x3*x4
 
 関数 ``random_poly(x, n, inf, sup, domain=ZZ, polys=False)``
   各項の係数がランダムかつ指定範囲に収まるような多項式を生成する。
 
-  .. code-block:: text
+  .. code-block:: ipython
 
-     In [68]: random_poly(x, 3, -10, 10)
-     Out[68]: x**3 + 2*x**2 + 4*x + 9
+     In [1]: random_poly(x, 3, -10, 10)
+     Out[1]: x**3 + 2*x**2 + 4*x + 9
 
-     In [69]: random_poly(x, 3, -10, 10)
-     Out[69]: 7*x**3 + 9*x**2 - 4*x + 9
+     In [2]: random_poly(x, 3, -10, 10)
+     Out[2]: 7*x**3 + 9*x**2 - 4*x + 9
 
-     In [70]: random_poly(x, 3, -10, 10)
-     Out[70]: -10*x**3 - 5*x + 7
+     In [3]: random_poly(x, 3, -10, 10)
+     Out[3]: -10*x**3 - 5*x + 7
 
-     In [71]: random_poly(x, 3, -10, 10)
-     Out[71]: 5*x**3 + 8*x**2 - 8*x - 4
+     In [4]: random_poly(x, 3, -10, 10)
+     Out[4]: 5*x**3 + 8*x**2 - 8*x - 4
 
 モジュール ``sympy.polys.orthopolys``
 ----------------------------------------------------------------------
@@ -312,29 +312,29 @@ Gröbner 基底
 関数 ``chebyshevt_poly(n, x=None, **args)``, ``chebyshevu_poly(n, x=None, **args)``
   それぞれ第一種 Chebyshev 多項式、第二種 Chebyshev 多項式を求める。
 
-  .. code-block:: text
+  .. code-block:: ipython
 
-     In [65]: simplify(chebyshevt_poly(3, cos(x)))
-     Out[65]: cos(3*x)
+     In [1]: simplify(chebyshevt_poly(3, cos(x)))
+     Out[1]: cos(3*x)
 
-     In [68]: simplify(chebyshevu_poly(3, cos(x)))
-     Out[68]: 4*cos(x)*cos(2*x)
+     In [2]: simplify(chebyshevu_poly(3, cos(x)))
+     Out[2]: 4*cos(x)*cos(2*x)
 
-     In [69]: %paste
+     In [3]: %paste
      Tm = chebyshevt_poly(2, x)
      Tn = chebyshevt_poly(3, x)
      integrate(Tm * Tn * 1/sqrt(1 - x**2), (x, -1, 1))
 
      ## -- End pasted text --
-     Out[69]: 0
+     Out[3]: 0
 
-     In [70]: %paste
+     In [4]: %paste
      Um = chebyshevu_poly(2, x)
      Un = chebyshevu_poly(3, x)
      integrate(Um * Un * 1/sqrt(1 - x**2), (x, -1, 1))
 
      ## -- End pasted text --
-     Out[70]: 0
+     Out[4]: 0
 
   この定積分の計算時間が若干長い。
 
@@ -349,26 +349,26 @@ Gröbner 基底
 関数 ``jacobi_poly(n, a, b, x=None, **args)``
   Jacobi の多項式を求める。
 
-  .. code-block:: text
+  .. code-block:: ipython
 
-     In [86]: P = jacobi(2, 10, 20, x)
+     In [1]: P = jacobi(2, 10, 20, x)
 
-     In [87]: Q = jacobi(3, 10, 20, x)
+     In [2]: Q = jacobi(3, 10, 20, x)
 
-     In [90]: integrate(P * Q * (1 - x)**10 * (1 + x)**20, (x, -1, 1))
-     Out[90]: 0
+     In [3]: integrate(P * Q * (1 - x)**10 * (1 + x)**20, (x, -1, 1))
+     Out[3]: 0
 
 関数 ``legendre_poly(n, x=None, **args)``
   Legendre の多項式を求める。
 
-  .. code-block:: text
+  .. code-block:: ipython
 
-     In [91]: P3 = legendre_poly(3, x)
+     In [1]: P3 = legendre_poly(3, x)
 
-     In [92]: P7 = legendre_poly(7, x)
+     In [2]: P7 = legendre_poly(7, x)
 
-     In [93]: integrate(P3 * P7, (x, -1, 1))
-     Out[93]: 0
+     In [3]: integrate(P3 * P7, (x, -1, 1))
+     Out[3]: 0
 
 関数 ``laguerre_poly(n, x=None, alpha=None, **args)``
   Laguerre の多項式を求める。
@@ -394,13 +394,13 @@ Gröbner 基底
 関数 ``apart(f, x=None, full=False, **options)``, ``apart_list(f, x=None, dummies=None, **options)``
   有理関数を部分分数分解する。
 
-  .. code-block:: text
+  .. code-block:: ipython
 
-     In [121]: together((x**2 - 4*x)/(x**2 - x) + (x**2 + 3*x - 4)/(x**2- 1))
-     Out[121]: ((x - 4)*(x**2 - 1) + (x - 1)*(x**2 + 3*x - 4))/((x - 1)*(x**2 - 1))
+     In [1]: together((x**2 - 4*x)/(x**2 - x) + (x**2 + 3*x - 4)/(x**2- 1))
+     Out[1]: ((x - 4)*(x**2 - 1) + (x - 1)*(x**2 + 3*x - 4))/((x - 1)*(x**2 - 1))
 
-     In [122]: apart(_)
-     Out[122]: 2 + 3/(x + 1) - 3/(x - 1)
+     In [2]: apart(_)
+     Out[2]: 2 + 3/(x + 1) - 3/(x - 1)
 
   * キーワード引数 ``full=True`` がわからない。
 

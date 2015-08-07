@@ -54,19 +54,19 @@ SymPy のドキュメントの出来が良いので、特に付け足すこと�
 もし ``diophantine`` が（存在するにもかかわらず）解を見つけなかった場合に、
 関数 ``classify_diop`` を単独で用いると良い。
 
-.. code-block:: text
+.. code-block:: ipython
 
-   In [378]: eq = 7*x + 7*y + 7*z - 2*x*y - 2*y*z - 2*z*x
+   In [1]: eq = 7*x + 7*y + 7*z - 2*x*y - 2*y*z - 2*z*x
 
-   In [379]: diophantine(eq)
-   Out[379]: set()
+   In [2]: diophantine(eq)
+   Out[2]: set()
 
-   In [380]: eq.subs({x:1, y:3, z:22})
-   Out[380]: 0
+   In [3]: eq.subs({x:1, y:3, z:22})
+   Out[3]: 0
 
-   In [381]: from sympy.solvers.diophantine import classify_diop
-   In [382]: classify_diop(eq)
-   Out[382]:
+   In [4]: from sympy.solvers.diophantine import classify_diop
+   In [5]: classify_diop(eq)
+   Out[5]:
    ([x, y, z],
     {x: 7, y: 7, y*z: -2, x*y: -2, z: 7, x*z: -2},
     'inhomogeneous_ternary_quadratic')
@@ -76,20 +76,20 @@ SymPy のドキュメントの出来が良いので、特に付け足すこと�
 
 もう一個見てみよう。
 
-.. code-block:: text
+.. code-block:: ipython
 
-   In [392]: x, y, z = symbols('x y z', integer=True, positive=True)
+   In [1]: x, y, z = symbols('x y z', integer=True, positive=True)
 
-   In [393]: eq =  x**2 + 2*y**2 + 2*z**2 - 2*x*y + 2*y*z - 2*x*z - 5
+   In [2]: eq =  x**2 + 2*y**2 + 2*z**2 - 2*x*y + 2*y*z - 2*x*z - 5
 
-   In [394]: diophantine(x**2 + 2*y**2 + 2*z**2 - 2*x*y + 2*y*z - 2*z*x - 5)
-   Out[394]: set()
+   In [3]: diophantine(x**2 + 2*y**2 + 2*z**2 - 2*x*y + 2*y*z - 2*z*x - 5)
+   Out[3]: set()
 
-   In [395]: eq.subs({x:3, y:1, z:2})
-   Out[395]: 0
+   In [4]: eq.subs({x:3, y:1, z:2})
+   Out[4]: 0
 
-   In [396]: classify_diop(eq)
-   Out[396]:
+   In [5]: classify_diop(eq)
+   Out[5]:
    ([x, y, z],
     {1: -5, y*z: 2, z**2: 2, x*y: -2, y**2: 2, x**2: 1, x*z: -2},
     'inhomogeneous_general_quadratic')

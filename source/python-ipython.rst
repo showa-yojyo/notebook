@@ -261,9 +261,9 @@ IPython コンソールウィンドウでの各種機能をひと通り試して
 * スクリプトを IPython のセッションから起動できる。
   次のコード片は自作のスクリプトを ``%run`` コマンドにより起動した様子を再現したものだ。
 
-  .. code-block:: text
+  .. code-block:: ipython
 
-     In [125]: %run ~/bin/listmanager.py remove showa_yojyo bot zzz
+     In [1]: %run ~/bin/listmanager.py remove showa_yojyo bot zzz
      0-15: Wait...
      0-15: OK:
      zzz
@@ -275,16 +275,16 @@ IPython コンソールウィンドウでの各種機能をひと通り試して
   すると IPython のセッションにその内容が伝わる。
   エディターで定義した関数を呼び出すことができる。
 
-  .. code-block:: text
+  .. code-block:: ipython
 
-     In [126]: %edit
+     In [2]: %edit
      IPython will make a temporary file named: D:\Temp\ipython_edit_3cn_y47j\ipython_edit_osmxydqq.py
      Editing... done. Executing edited code...
-     Out[126]: 'def need_to_be_in_love():\n\tpass\n'
+     Out[2]: 'def need_to_be_in_love():\n\tpass\n'
 
-     In [127]: need_to_be_in_love()
+     In [3]: need_to_be_in_love()
 
-     In [128]:
+     In [4]:
 
   notepad.exe では逆にテキスト編集の効率が落ちるはずなので、オプション
   ``TerminalInteractiveShell.editor`` で馴染みのテキストエディターを指定する。
