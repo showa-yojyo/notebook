@@ -177,9 +177,7 @@ PyOpenGL のプログラムで画像ファイルからテクスチャーを生�
    :label: luminance
    :nowrap:
 
-   \[
    L = \cfrac{299}{1000} R + \cfrac{587}{1000} G + \cfrac{114}{1000} B
-   \]
 
 >>> ...
 >>> im = Image.open("illvelo.png")

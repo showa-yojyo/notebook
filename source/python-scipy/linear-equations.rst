@@ -25,13 +25,13 @@ LU 分解がどうだのという議論に終始するものだ。
 .. math::
    :nowrap:
 
-   \[ \left\{
+   \left\{
    \begin{array}{ccccc}
     2x& -y& +2z& =& 8\\
      x& -y& -2z& =& -1\\
    -2x& +y& -z&  =& -6
    \end{array}
-   \right. \]
+   \right.
 
 .. literalinclude:: /_sample/scipy/linear-equation.py
    :language: python3
@@ -57,13 +57,13 @@ LU 分解
   .. math::
      :nowrap:
 
-     \[ \left(
+     \left(
          \begin{array}{ccc}
              1 &2 &2\\
              2 &5 &6\\
              3 &8 &12\\
          \end{array}
-     \right) \]
+     \right)
 
 .. literalinclude:: /_sample/scipy/lu.py
    :language: python3
