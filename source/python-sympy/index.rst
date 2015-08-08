@@ -12,11 +12,11 @@ SymPy 利用ノート
    plotting
    logic
    sets
-   geometry
-   diophantine
-   number-theory
-   polynomials
    combinatorics
+   polynomials
+   number-theory
+   diophantine
+   geometry
    series
    integrals
 

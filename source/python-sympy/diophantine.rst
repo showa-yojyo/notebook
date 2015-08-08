@@ -17,7 +17,7 @@ SymPy のドキュメントの出来が良いので、特に付け足すこと�
   .. code-block:: python3
 
      x, y, z = symbols('x y z', integer=True)
-     u, v, w = symbols('u, v, w', integer=True, positive=True)
+     u, v, w = symbols('u v w', integer=True, positive=True)
 
 * 関数 ``diophantine`` が基本的。引数にディオファントス方程式の左辺を指定する。
 
