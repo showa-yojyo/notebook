@@ -391,14 +391,14 @@ Setting Matrices Directly
      :label: share-matrix
      :nowrap:
 
-     \[ \left(
+     \left(
          \begin{array}{cccc}
              1 &\cot(\theta) &0 &0 \\
              0 &1            &0 &0 \\
              0 &0            &1 &0 \\
              0 &0            &0 &1
          \end{array}
-     \right) \]
+     \right)
 
 * **oblique projection** を実現することもできる。
 
@@ -415,14 +415,14 @@ Setting Matrices Directly
      :label: shadow-matrix
      :nowrap:
 
-     \[ \left(
+     \left(
          \begin{array}{rrrr}
              1 &0             &0 &0 \\
              0 &1             &0 &0 \\
              0 &0             &1 &0 \\
              0 &-\cfrac{1}{y} &0 &0
          \end{array}
-     \right) \]
+     \right)
 
   で与えられる。コードは大体次のような構造になる。
 
