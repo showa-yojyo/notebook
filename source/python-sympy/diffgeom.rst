@@ -13,12 +13,13 @@
 .. note::
 
    本文中のすべての IPython セッション中のサンプルコードで、
-   以下のインポートが済んでいるものとする。
+   以下のインポートおよび出力書式設定が済んでいるものとする。
 
    .. code-block:: python3
 
       from sympy.diffgeom import *
       from sympy.diffgeom.rn import *
+      init_printing(use_unicode=False, pretty_print=False)
 
 多様体
 ======================================================================
@@ -82,6 +83,7 @@
 
 ``base_oneform(coord_index)``, ``base_oneforms()``
   基底微分 1-形式を返す。
+  外積代数の生成元である。
   後述のクラス ``Differential`` を参照。
 
 座標変換メソッドは次のようなものがある。
@@ -188,9 +190,11 @@
 
 クラス ``Differential``
 ----------------------------------------------------------------------
-クラス ``Differential`` は k-形式を外微分したものをオブジェクトとして表現する。
+クラス ``Differential`` は外微分を意味する。
+スカラー関数を含む微分形式の外微分をオブジェクトとして表現する。
 
 * コンストラクターには k-形式として扱えるオブジェクトを渡す。
+  ここで k はゼロ以上。
 
   * 既存の ``Differential`` オブジェクトでもかまわないが、結果的にゼロが返る。
 
@@ -228,12 +232,12 @@
 
 クラス ``WedgeProduct``
 ----------------------------------------------------------------------
-クラス ``WedgeProduct`` は k-形式の wedge 積を表現するクラス。
+クラス ``WedgeProduct`` は微分形式オブジェクト同士の wedge 積を表現するクラス。
 
 * スーパークラスは ``TensorProduct`` だが、混ぜて使わないこと。
   前項で注意した点がそのまま当クラスの注意点でもある。
 
-* 積分の文脈上に限り、反対称 k-形式がまともに扱われるとのこと。
+* 積分の文脈上に限り、反対称性がまともに扱われるとのこと。
   この注意は、例えば
 
   * ``WedgeProduct(X, X)`` のようなオブジェクトを生成しても、直ちにゼロと評価されたりしない
@@ -331,20 +335,186 @@
    T_{sc}&:& (r, \theta, \phi) \mapsto (r \sin \theta, \phi, r \cos \theta)
    \end{eqnarray*}
 
-.. todo:: 各オブジェクトで色々なメソッドを試す。
+コード例（基本編）
+======================================================================
+コード例を書けるだけのクラスとオブジェクトの説明が終わったところで、
+基本的な用例を示したい。
 
-   * coord_tuple_transform_to/point_to_coords  による座標変換の例（つまらない）
-   * jacobian の例。これは欲しい。
-   * coord_functions による座標変換の一成分のみ。
-   * base_vector(i)(coord_function(j)) の例
-   * base_vector(i)(base_vector(i)(coord_function(j))) の例
-   * base_oneform(i)(base_vector(j)) の例
+以下に示す例では、出来合いの ``R2_r`` 等のオブジェクトを多用する。
+
+局所座標系
+----------------------------------------------------------------------
+クラス ``CoordSystem``, ``Point``, ``BaseScalarField`` の
+座標成分に関係するメソッドの簡単な例を示す。
+
+.. code-block:: ipython
+
+   In [1]: r, th = symbols('r th')
+
+   In [2]: polar_coords = R2_p.point([r, th])
+
+   In [3]: R2_r.x(polar_coords), R2_r.y(polar_coords)
+   Out[3]: (r*cos(th), r*sin(th))
+
+   In [4]: R2_r.point_to_coords(polar_coords)
+   Out[4]:
+   Matrix([
+   [r*cos(th)],
+   [r*sin(th)]])
+
+   In [5]: R2_p.coord_tuple_transform_to(R2_r, [r, th])
+   Out[5]:
+   Matrix([
+   [r*cos(th)],
+   [r*sin(th)]])
+
+* [1][2] 記号により 2 次元極座標系の座標 ``(r, th)`` を定義する。
+* [3] ``BaseScalarField`` オブジェクト
+  ``R2_r.x`` および ``R2r.y`` による座標 ``point`` の x 座標と y 座標成分の取得。
+* [4] 同じことをメソッド ``CoordSystem.point_to_coords`` で。
+* [5] 同じことをメソッド ``CoordSystem.coord_tuple_transform_to`` で。
+  これがあるので [2] の前処理なしで済むことがある。
+
+ドキュメントのそれとたいして変わらないが、Jacobi 行列の例を示す。
+
+.. code-block:: ipython
+
+   In [1]: x, y, r, th = symbols('x y r th')
+
+   In [2]: R2_r.jacobian(R2_r, [x, y])
+   Out[2]:
+   Matrix([
+   [1, 0],
+   [0, 1]])
+
+   In [3]: R2_r.jacobian(R2_p, [x, y])
+   Out[3]:
+   Matrix([
+   [x/sqrt(x**2 + y**2), y/sqrt(x**2 + y**2)],
+   [   -y/(x**2 + y**2),     x/(x**2 + y**2)]])
+
+   In [4]: R2_p.jacobian(R2_r, [r, th])
+   Out[4]:
+   Matrix([
+   [cos(th), -r*sin(th)],
+   [sin(th),  r*cos(th)]])
+
+* [2] 一応見ておくだけだが、
+  自分自身の座標系で Jacobi 行列を求めると、恒等行列が得られる。
+* [3] 2 次元直交座標から系極座標系への変換の Jacobi 行列。
+* [4] 2 次元極座標系から直交座標系への変換の Jacobi 行列。
+
+ベクトル場
+----------------------------------------------------------------------
+クラス ``BaseVectorField`` の例を示す。3 次元空間に何か適当な、
+例えば原点からの距離の平方に反比例する値を返すスカラー場 ``f`` を定義し、
+各座標成分について適用させて、方向微分を見よう。
+
+.. code-block:: ipython
+
+   In [1]: k = symbols('k')
+
+   In [2]: f = -k * R3_s.r ** -2
+
+   In [3]: R3_s.e_r(f), R3_s.e_theta(f), R3_s.e_phi(f)
+   Out[3]: (2*k/r**3, 0, 0)
+
+   In [4]: R3_r.e_x(f), R3_r.e_y(f), R3_r.e_z(f)
+   Out[4]: (2*k*x/(sqrt(x**2 + y**2 + z**2)*r**3), 2*k*y/(sqrt(x**2 + y**2 + z**2)*r**3), 2*k*z/(sqrt(x**2 + y**2 + z**2)*r**3))
+
+   In [5]: R3_c.e_rho(f), R3_c.e_psi(f), R3_c.e_z(f)
+   Out[5]: (2*k*rho/(sqrt(rho**2 + z**2)*r**3), 0, 2*k*z/(sqrt(rho**2 + z**2)*r**3))
+
+* [2] 球座標系でスカラー場 :math:`f(r, \theta, \phi) = -\frac{k}{r^2}` を定義する。
+
+* [3] まず球座標系 ``R3_s`` の ``BaseVectorField`` オブジェクト
+  ``e_r``, ``e_theta``, ``e_psi`` の丸括弧演算を全成分で評価する。
+  つまり単に勾配を手動で求めることになる。
+  前述したとおり :math:`\frac{\partial f}{\partial r}` 等が得られている。
+
+* [4][5] 直交座標系 ``R3_r`` と 円柱座標系 ``R3_s`` で同じことをする。
+  例えば ``R3_r.e_x(f)`` を見ると、
+  例示したスカラー場がゼロ成分ばかりで検証しにくいが、
+  これは一応次の式に合致した結果である。
+
+  .. math::
+     :nowrap:
+
+     \frac{\partial f}{\partial x} =
+     \frac{\partial f}{\partial r}\frac{\partial r}{\partial x} +
+     \frac{\partial f}{\partial \theta}\frac{\partial \theta}{\partial x} +
+     \frac{\partial f}{\partial \phi}\frac{\partial \phi}{\partial x}
+
+微分形式と外微分
+----------------------------------------------------------------------
+クラス ``Differential`` と ``WedgeProduct`` の基本動作を見たい。
+例えば次の微分形式とその外微分をこれらのクラスを用いて再現したい。
+上側の数式（出典はネットで拾ってきたどこかのベクトル解析の演習問題）のほうをオブジェクトとして表現して、
+それをうまく処理して下側の数式に相当するオブジェクトを得たい。
+
+.. math::
+   :nowrap:
+
+   \begin{eqnarray*}
+   \omega &=& a x y z \,dx + b x^2 z \,dy -3 x^2 y \,dz\\
+   d \omega &=& (-bx^2 - 3x^2) \,dy \wedge dz + (axy + 6xy) \,dz \wedge dx + (2bxz - axz) \,dx \wedge dy
+   \end{eqnarray*}
+
+しかし考えられる二通りの方法を試したところ、どうも所望の出力にならない。
+まずは ``Differential`` だけでがんばる。
+
+.. code-block:: ipython
+
+   In [1]: a, b, c = symbols('a b c')
+
+   In [2]: fx = a * R3_r.x * R3_r.y * R3_r.z
+
+   In [3]: fy = b * R3_r.x ** 2 * R3_r.z
+
+   In [4]: fz = -3 * R3_r.x**2 * R3_r.y
+
+   In [5]: omega = fx * R3_r.dx + fy * R3_r.dy + fz * R3_r.dz; omega
+   Out[5]: a*x*y*z*dx + b*x**2*z*dy - 3*x**2*y*dz
+
+   In [6]: domega = Differential(omega); domega
+   Out[6]: d(a*x*y*z*dx + b*x**2*z*dy - 3*x**2*y*dz)
+
+   In [7]: domega(R3_r.e_x, R3_r.e_y, R3_r.e_z)
+   Out[7]: a*x*y - a*x*z - b*x**2 + 2*b*x*z - 3*x**2 + 6*x*y
+
+* [1]-[4] :math:`\mathbb{R}^3` 上の 1-形式 ``omega`` のセットアップ。
+* [5] 内容の確認。ちなみに各単項式の次数が一致していることに気付いて欲しい。
+* [6] 外微分オブジェクト ``domega`` を生成する。
+* [7] 丸括弧評価。ここが期待通りにならない。
+
+期待通りにならない理由は ``Differential()`` の計算ロジックが
+``Commutator`` に基づくため wedge 積が出現しないことによる。
+そこで手動で ``WedgeProduct`` を適用することで ``omega`` の外微分を求めることを考える。
+
+.. code-block:: ipython
+
+   In [8]: domega2 = WedgeProduct(Differential(fx), R3_r.dx)\
+      ...: + WedgeProduct(Differential(fy), R3_r.dy)\
+      ...: + WedgeProduct(Differential(fz), R3_r.dz); domega2
+   Out[8]: WedgeProduct(d(-3*x**2*y), dz) + WedgeProduct(d(b*x**2*z), dy) + WedgeProduct(d(a*x*y*z), dx)
+
+   In [9]: domega2.rcall(R3_r.e_x, R3_r.e_y, R3_r.e_z)
+   Out[9]: 2*a*x*y - 2*a*x*z - 2*b*x**2 + 4*b*x*z - 6*x**2 + 12*x*y
+
+しかし期待は外れた。
+
+* [8] ``omega`` と同じものを表すハズの ``omega2`` をセットアップ。
+* [9] 今度は素の丸括弧は効かないので（式全体が単なる ``Add`` オブジェクトだから）、
+  代わりに ``rcall`` したものの、結果は悪化している。
+
+  * またも wedge 積オブジェクトが見当たらない。
+  * 出力が本来の倍？になっている。おそらく wedge 積の反対称性が加味されていないことによる。
 
 やや高級な機能
 ======================================================================
 再びサブモジュール ``sympy.diffgeom.diffgeom`` に戻り、残りの機能を調べる。
 
-.. todo:: ここは難しい。しかし進める。
+.. todo:: 保留。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
