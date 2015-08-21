@@ -493,9 +493,8 @@
 
 .. code-block:: ipython
 
-   In [8]: domega2 = WedgeProduct(Differential(fx), R3_r.dx)\
-      ...: + WedgeProduct(Differential(fy), R3_r.dy)\
-      ...: + WedgeProduct(Differential(fz), R3_r.dz); domega2
+   In [8]: domega2 = sum(WedgeProduct(Differential(f), oneform)\
+      ...: for (f, oneform) in zip((fx, fy, fz), R3_r.base_oneforms()))
    Out[8]: WedgeProduct(d(-3*x**2*y), dz) + WedgeProduct(d(b*x**2*z), dy) + WedgeProduct(d(a*x*y*z), dx)
 
    In [9]: domega2.rcall(R3_r.e_x, R3_r.e_y, R3_r.e_z)
@@ -509,6 +508,19 @@
 
   * またも wedge 積オブジェクトが見当たらない。
   * 出力が本来の倍？になっている。おそらく wedge 積の反対称性が加味されていないことによる。
+
+余談だが、テストモジュール ``test_function_diffgeom_book`` の関数 ``test_functional_diffgeom_ch6`` を参考にして、
+``omega`` と ``omega2`` が同じらしいことを確認するにはこうする。
+
+.. code-block:: ipython
+
+   In [10]: from itertools import permutations
+
+   In [11]: all((domega - domega2).rcall(u, v) == 0 for u, v in permutations(R3_r.base_vectors(), 2))
+   Out[11]: True
+
+* [11] xyz のうちの順序を込めた任意ふたつの方向について ``domega`` と ``domega2`` が同じことがわかる。
+  理論がわからないが、全方向で評価すると先程述べたように変な値が出てくる。
 
 やや高級な機能
 ======================================================================
