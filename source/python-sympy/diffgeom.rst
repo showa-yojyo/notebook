@@ -526,7 +526,117 @@
 ======================================================================
 再びサブモジュール ``sympy.diffgeom.diffgeom`` に戻り、残りの機能を調べる。
 
-.. todo:: 保留。
+積分曲線
+----------------------------------------------------------------------
+ベクトル場の積分曲線を計算するための関数が定義されている。
+級数版と微分方程式版のふたつの関数がある。
+仕様を順に記してから、例を示す。
+
+関数 ``intcurve_series(vector_field, param, start_point, n=6, coord_sys=None, coeffs=False)``
+  ベクトル場の積分曲線を級数展開の形で返す。
+
+  * 引数 ``vector_field`` はベクトル場。
+  * 引数 ``param`` は積分曲線のパラメーター記号。
+    差し当たり ``symbols('t')`` などを渡せば十分。
+  * 引数 ``start_point`` は積分曲線の ``param=0`` に対応する M 上の点。
+    ここでは ``Point`` オブジェクトを渡す。
+  * キーワード引数 ``n`` は級数展開の次数。
+    デフォルトの ``6`` ならば :math:`O(n^6)` の項はカットされる。
+  * キーワード引数 ``coord_sys`` は級数展開を行う座標系を指定する。
+    他の引数で示されるものとは異なる座標系を用いる場合にこれを用いる。
+  * キーワード引数 ``coeffs`` を ``True`` にすると、
+    戻り値を級数展開の要素のリストとして返すようになる。
+
+  * 戻り値はデフォルトでは ``Matrix`` オブジェクト。
+    各行が積分曲線の座標成分に対応していて、
+    内容は変数 ``param`` に関する多項式である。
+
+関数 ``intcurve_diffequ(vector_field, param, start_point, coord_sys=None)``
+  ベクトル場の積分曲線を微分方程式の形で返す。
+  各引数の意味は級数版と同じ。
+
+  * 戻り値は 2 要素 ``tuple`` オブジェクトである。
+
+    * [0]: 各座標成分で積分曲線の微分方程式オブジェクトからなる ``list`` オブジェクト。
+    * [1]: それらに対応する、初期条件オブジェクトからなる ``list`` オブジェクト。
+
+例を示す。
+
+ベクトル場 :math:`X = -y \frac{\partial}{\partial x} + x \frac{\partial}{\partial y}` の
+積分曲線 :math:`\gamma: (t_0, t_1) \to M (M \subset \mathbb{R}^2)` をそれぞれの関数を用いて求める。
+
+.. code-block:: ipython
+
+   In [1]: x0, y0, t = symbols('x0 y0 t', real=True)
+
+   In [2]: X = -R2.y * R2.e_x + R2.x * R2.e_y
+
+   In [3]: p0 = R2_r.point([x0, y0])
+
+   In [4]: intcurve_series(X, t, p0)
+   Out[4]:
+   Matrix([
+   [-t**5*y0/120 + t**4*x0/24 + t**3*y0/6 - t**2*x0/2 - t*y0 + x0],
+   [ t**5*x0/120 + t**4*y0/24 - t**3*x0/6 - t**2*y0/2 + t*x0 + y0]])
+
+   In [5]: eq, ini = intcurve_diffequ(X, t, p0)
+
+   In [6]: eq
+   Out[6]: [f_1(t) + Derivative(f_0(t), t), -f_0(t) + Derivative(f_1(t), t)]
+
+   In [7]: ini
+   Out[7]: [-x0 + f_0(0), -y0 + f_1(0)]
+
+* [1]-[3] ベクトル場 ``X`` と多様体上の点 ``p0`` をセットする。
+* [4] 関数 ``intcurve_series`` を必要最低限の情報だけで呼び出す。
+  戻り値には積分曲線 :math:`\gamma(t) = (\gamma_0(t), \gamma_1(t))` の級数展開が見える。
+  パッと見は cos と sin の一次結合のようだ。
+* [5] 関数 ``intcurve_diffequ`` を呼び出す。戻り値は次を意味する。
+
+  .. math::
+     :nowrap:
+
+     \begin{eqnarray*}
+     \gamma_1(t) + \frac{d}{dt} \gamma_0(t) = 0\\
+     - \gamma_0(t) + \frac{d}{dt} \gamma_1(t) = 0\\
+     -x_0 + \gamma_0(0) = 0\\
+     -y_0 + \gamma_1(0) = 0\\
+     \end{eqnarray*}
+
+  これを何らかの手段で解けば次の積分曲線が求まる。
+
+  .. math::
+     :nowrap:
+
+     \gamma(t) = (\gamma_0(t), \gamma_1(t)) = (x_0 \cos t - y_0 \sin t, y_0 \cos t + x_0 \sin t)
+
+  SymPy の関数 ``dsolve`` をそのまま用いてもよいが、
+  この状況での初期値 ``ics`` の指定方法が不明。
+
+基底ベクトルの変換
+----------------------------------------------------------------------
+座標の変換は各種メソッドで行えるが、ベクトル場のそれは次の関数を用いる。
+
+関数 ``vectors_in_basis(expr, to_sys)``
+  式 ``expr`` に含まれる ``BaseVectorField`` オブジェクトを座標系 ``to_sys`` での表現に変換する。
+
+  * 引数 ``expr`` は任意の SymPy 式。
+  * 引数 ``to_sys`` は座標変換先の ``CoordSystem`` オブジェクト。
+  * 戻り値は SymPy 式。
+
+  * 基底は変換されるが、変換後の基底の係数は変換前の ``CoordSystem`` の
+    ``BaseScalarField`` で表現されている。
+
+  ロジックの概要は次のとおり。
+
+  #. 式 ``expr`` に含まれるすべての ``BaseVectorField`` オブジェクトに対して、
+     座標値の変換メソッドで見たのと同様に Jacobi 行列を評価する。
+
+  #. 線形代数の要領でベクトルの基底変換を行う。
+
+  #. 次にそれらをメソッド ``expr.subs`` で一括置換する。
+
+それほど面白い関数ではないので、サンプルコードの記載を省略する。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
