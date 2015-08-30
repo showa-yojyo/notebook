@@ -33,8 +33,8 @@ Python も組み込みでクラス ``set`` を提供しているが、
            Naturals0
        Integers
 
-       ComplexPlane
-           Complex
+       ComplexRegion
+           Complexes
 
        ImageSet
        Range
@@ -261,16 +261,16 @@ Python も組み込みでクラス ``set`` を提供しているが、
 ``Interval(-S.Infinity, S.Infinity)`` と同じ。
 シングルトンオブジェクト ``S.Reals`` としてアクセス可能。
 
-クラス ``ComplexPlane``, ``Complex``
+クラス ``ComplexRegion``, ``Complexes``
 ----------------------------------------------------------------------
-クラス ``ComplexPlane`` は複素平面の部分集合を表現するクラス。
+クラス ``ComplexRegion`` は複素平面の領域を表現するクラス。
 
 * 例えば ``Interval`` の直積で生成すると、複素平面上の矩形領域を表現できる。
 * 極座標のような与え方もできる。
   そのときはキーワード引数 ``polar=True`` を用いる。
 
-一方、クラス ``Complex`` は複素平面全体を表現するクラス。
-ユーザーはいつでもシングルトンオブジェクト ``S.Complex`` にアクセスできる。
+一方、クラス ``Complexes`` は複素平面全体を表現するクラス。
+ユーザーはいつでもシングルトンオブジェクト ``S.Complexes`` にアクセスできる。
 
 クラス ``ImageSet``
 ----------------------------------------------------------------------
@@ -305,12 +305,24 @@ Python 組み込みの ``range`` とよく似ている集合。
 
 * 座標平面上の原点を中心とする円の定義法の例。テストコード改。
 
-  .. code-block:: python3
+  .. code-block:: ipython
 
-     r, th = symbols('r, theta', real=True)
-     L = Lambda((r, th), (r * cos(th), r * sin(th)))
-     D = ImageSet(L, Interval(0, 1) * Interval(0, 2 * pi, False, True))
+     In [1]: init_printing(use_unicode=False, pretty_print=False)
 
-  どういうわけか ``(0, 0) in D`` が ``SimplifyError`` を送出する。
+     In [2]: r, th = symbols('r theta', real=True)
+
+     In [3]: L = Lambda((r, th), (r * cos(th), r * sin(th)))
+
+     In [4]: D = ImageSet(L, Interval(0, 1) * Interval(0, 2 * pi, False, True)); D
+     Out[4]: ImageSet(Lambda((r, theta), (r*cos(theta), r*sin(theta))), [0, 1] x (2*pi, False])
+
+     In [5]: D.issubset(S.Reals * S.Reals)
+     Out[5]: False
+
+  * [3] 写像 :math:`f: \mathbb{R}^2 \to \mathbb{R}^2` を
+    :math:`f: (r, \theta) \mapsto (r \cos \theta, r \sin \theta)` で定義する。
+  * [4] :math:`[0, 1] \times [0, 2 \pi)` の f による像を計算する。
+    それらしいオブジェクトが得られる。
+  * [5] これはおかしい。:math:`D \subset \mathbb{R}^2` のつもりなのだが。
 
 .. include:: /_include/python-refs-sci.txt
