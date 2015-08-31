@@ -13,6 +13,7 @@ SymPy 利用ノート
    logic
    sets
    combinatorics
+   vector
    polynomials
    number-theory
    diophantine
