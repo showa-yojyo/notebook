@@ -34,7 +34,7 @@
   * プロパティー ``N.i``, ``N.j``, ``N.k``
   * メソッド ``N.base_vectors``
 
-* 一応記すが、各基底ベクトルは対応する座標軸に沿う長さ 1 のものである。
+* 一応記すが、各基底ベクトルは対応する座標軸に沿う長さ 1 のものである。正規直交基底。
 * 基底ベクトルはクラス ``BaseVector`` のオブジェクトである。
   これの「線形結合」を表現しようとすると、SymPy 的には
   ``BaseVector``, ``VectorAdd``, ``VectorMul`` オブジェクトの composite になる。
@@ -385,7 +385,7 @@
 関数 ``scalar_potential(field, coord_sys)``
   保存場に関するスカラーポテンシャルを（積分定数を除いて）求める。
 
-  * 実装では実際に座標軸方向に沿った線積分のようなことを 3 回している。
+  * 実装では実際に各座標軸の区間ごとに積分を一度ずつ都合 3 回計算している。
 
 関数 ``scalar_potential_difference(field, coord_sys, point1, point2)``
   保存場に関する指定 2 点間のポテンシャルの差を計算する。
@@ -395,8 +395,41 @@
 
 演習
 ======================================================================
+3 次元空間上のベクトル場
+:math:`\mathbf{F} = 2 x y^3 z^4 \mathbf{i} + 3 x^2 y^2 z^4 \mathbf{j} + 4 x^2 y^3 z^3 \mathbf{k}`
+が保存場であることを確認し、そのスカラーポテンシャルを先述の関数で求める。
+また、このベクトル場の始点と終点をそれぞれ :math:`P_0(0, 0, 0)` と :math:`P_1(10, 10, 10)` とする、
+何らかの経路上の線積分を関数 ``scalar_potential_difference`` を利用して求める手続きの例を示す。
 
-.. todo:: 何かやる。
+.. code-block:: ipython
+
+   In [1]: from sympy.vector import *
+
+   In [2]: N = CoordSysCartesian('N')
+
+   In [3]: F = (2 * N.x * N.y**3 * N.z **4) * N.i\
+      ....: + (3 * N.x**2 * N.y**2 * N.z**4) * N.j\
+      ....: + (4 * N.x**2 * N.y**3 * N.z** 3) * N.k
+
+   In [4]: is_conservative(F)
+   Out[4]: True
+
+   In [5]: f = scalar_potential(F, N); f
+   Out[5]: N.x**2*N.y**3*N.z**4
+
+   In [6]: p0 = N.origin
+
+   In [7]: p1 = N.origin.locate_new(10 * N.i + 10 * N.j + 10 * N.k)
+
+   In [8]: scalar_potential_difference(f, N, p0, p1)
+   Out[8]: 1000000000
+
+* [1] 面倒なので全てをインポートする。
+* [3] この保存ベクトル場は `Paul's Online Math Notes <http://tutorial.math.lamar.edu/Classes/CalcIII/ConservativeVectorField.aspx>`_ から拝借した。
+* [5] 求めたスカラーポテンシャルには定数項が表現されていないので注意。
+* [7] どう考えても点の座標の指定が面倒だ。
+* [8] ここでは上品に求めたばかりのスカラーポテンシャルを引数として指定したが、
+  先述のように ``F`` を直接渡してよい。その場合は上における [5] が不要になる。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
