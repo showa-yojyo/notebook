@@ -14,6 +14,7 @@ SymPy 利用ノート
    sets
    combinatorics
    vector
+   matrices
    polynomials
    number-theory
    diophantine
