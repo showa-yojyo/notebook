@@ -153,37 +153,13 @@
 
 * ベクトル演算
 
-  * 行か列のどちらかのサイズを 1 にすれば ``Matrix`` を列ベクトル、行ベクトルとして扱える。
-    例えばメソッド ``dot`` と ``cross`` が利用可能になる。
-
-    * 一応断っておくと ``dot`` はサイズが合えば行列とベクトルとに作用できる。
-    * ただし ``cross`` のほうは本当にベクトル限定。しかも 3 次元のみ。
+  * 例えばメソッド ``dot`` と ``cross`` が利用可能になる。
+    詳細は後述する。
 
 * 各要素に関数を適用するには、メソッド ``applyfunc`` を用いる。
 
 線形代数的操作
 ======================================================================
-メソッド ``det(method="bareis")``
-  行列式を求める。
-
-  * キーワード引数 ``method`` で行列式を計算するアルゴリズムを選択できる。
-    おそらく利用しない。
-
-メソッド ``inv(method=None, **kwargs)``
-  逆行列を求める。
-
-  * キーワード引数 ``method`` で行列式を計算するアルゴリズムを選択できる。
-
-    * ``'GE'``: Gauss の消去法。デフォルトのアルゴリズム。
-    * ``'LU'``: LU 分解。
-    * ``'ADJ'``: 余因子行列と行列式を用いて逆行列を得る。
-
-メソッド ``QRdecomposition()``
-  行列を QR 分解する。
-
-メソッド ``LUsolve(self, rhs, iszerofunc=_iszero)``
-  一次連立方程式 :math:`A \mathbf{x} = \mathbf{b}` を解く。
-
 関数 ``GramSchmidt(vlist, orthonormal=False)``
   ベクトルの集合を基に直交基底を得る。
 
@@ -273,6 +249,7 @@
 乗法
 ----------------------------------------------------------------------
 行列またはベクトルの乗算に関するメソッドを下の表に示す。
+行か列のどちらかのサイズを 1 にすれば ``Matrix`` を列ベクトル、行ベクトルとして扱える。
 
 .. csv-table::
    :delim: :
@@ -285,6 +262,7 @@
 
 * メソッド ``dot`` はベクトル同士だけではなく、
   サイズさえ合えば行列対ベクトルでもよい。
+  ただし ``cross`` のほうは本当にベクトル限定。しかも 3 次元のみ。
 
 * メソッド ``multiply`` は演算子 ``*`` で実装されている。
 
@@ -316,9 +294,17 @@
    :delim: :
    :header: シグニチャー, 説明
 
-   ``det(method='bareis')``:TBW
-   ``det_bareis()``:TBW
-   ``det_LU_decomposition()``:TBW
+   ``det(method='bareis')``:正方行列の行列式を計算する。
+   ``det_bareis()``:Baries のアルゴリズムにより行列式を計算する。
+   ``det_LU_decomposition()``:LU 分解により行列式を計算する。
+
+* ``det`` は結局は残りのふたつか、後述するメソッド ``berkowitz_det`` のいずれかである。
+
+* Baries のアルゴリズムというのは、Gauss の消去法の拡張版みたいなもので、
+  丸め誤差に強いという性質が期待できる。
+
+* LU 分解による行列式の計算は、分解行列の主対角線の成分だけを見ればよいというものだ。
+  後述するメソッド ``LUdecomposition`` も参照。
 
 余因子
 ----------------------------------------------------------------------
@@ -328,11 +314,18 @@
    :delim: :
    :header: シグニチャー, 説明
 
-   ``adjugate(...)``:TBW
-   ``cofactor(i, j, ...)``:TBW
-   ``cofactorMatrix(...)``:TBW
-   ``minorEntry(i, j, ...)``:TBW
-   ``minorMatrix(i, j)``:TBW
+   ``adjugate(method="berkowitz")``:余因子行列を生成する。
+   ``cofactor(i, j, method="berkowitz")``:指定成分の符号調整を施した余因子を計算する。
+   ``cofactorMatrix(method="berkowitz")``:転置を施していない余因子行列を生成する。
+   ``minorEntry(i, j, method="berkowitz")``:指定成分の符号調整を施していない余因子を計算する。
+   ``minorMatrix(i, j)``:元の行列から指定行と指定列を削った、一回り小さい行列を生成する。
+
+これらのメソッドの実装は線形の依存関係がある。
+
+まずメソッド ``adjugate`` は ``cofactorMatrix`` の転置行列を返す。
+その ``cofactorMatrix`` は単に ``cofactor`` を成分ごとに計算して、その値を成分とする行列を生成する。
+メソッド ``cofactor`` は対応する成分の ``minorEntry`` の戻り値に、成分の添字から決まる符号を付けるだけだ。
+最後にメソッド ``minorEntry`` は指定成分の ``minorMatrix`` の行列式を単に返す。
 
 対角行列
 ----------------------------------------------------------------------
@@ -342,8 +335,16 @@
    :delim: :
    :header: シグニチャー, 説明
 
-   ``diagonalize(...)``:TBW
-   ``is_diagonal()``:TBW
+   ``diagonalize(...)``:対角化可能な行列を対角化する。
+   ``is_diagonal()``:行列が対角行列かどうかを返す。
+   ``is_diagonalizable(...)``:行列が対角化可能かどうかを返す。
+
+* 行列 ``M`` に対して :math:`D = P^{-1} M P` とすると、
+  メソッド ``diagonalize`` は ``(P, D)`` を返す。
+
+* 対角化可能性の判定は、各固有値の多重度をチェックすることでなされる。
+  この過程で行列オブジェクトのメンバーデータに中間生成物的なものが残る。
+  これをクリアしたい場合に、キーワード引数 ``clear_subproducts=True`` を指定する。
 
 分解
 ----------------------------------------------------------------------
@@ -353,43 +354,102 @@
    :delim: :
    :header: シグニチャー, 説明
 
-   ``cholesky()``:TBW
-   ``LDLdecomposition()``:TBW
-   ``LUdecomposition(...)``:TBW
-   ``LUdecomposition_Simple(...)``:TBW
-   ``LUdecompositionFF(...)``:TBW
-   ``QRdecomposition()``:TBW
+   ``cholesky()``:行列の Cholesky 分解を行う。
+   ``LDLdecomposition()``:行列の LDL 分解を行う。
+   ``LUdecomposition(...)``:行列の LU 分解を行う。
+   ``LUdecomposition_Simple(...)``:行列の LU 分解を単純なアルゴリズムで実装したもの。
+   ``LUdecompositionFF()``:行列の LU 分解を fraction-free なアルゴリズムで実装したもの。
+   ``QRdecomposition()``:行列の QR 分解を行う。
+
+Cholesky 分解は :math:`A = L L^\top` なる ``L`` を計算する。
+与える行列が正定値実対象行列である必要がある。
+
+LDL 分解は :math:`A = L D L^\top` を満たす行列を計算してペア ``(L, D)`` を返す。
+
+* これもまた与える行列が正定値実対象行列である必要がある。
+* 行列 ``L`` は下三角行列であり、対角成分はすべて 1 である。
+* 行列 ``D`` は対角行列である。
+
+LU 分解は :math:`A = LU` というものだ。
+
+* ``LUdecomposition`` の戻り値は ``(L, U, p)`` の形である。
+  ここで ``p`` は行の交換情報を表現する ``list`` である。
+  なぜ行列ではなくリストの形式を返すのかがよくわからない。
+
+* ``LUdecomposition_Simple`` の戻り値は ``(A, p)`` の形である。
+  ただし ``A`` は ``L`` と ``U`` の合いの子のような行列だ。
+
+* ``LUdecompositionFF`` は :math:`PA = L D^{-1} U` を満たす行列の組
+  ``(P, L, D, U)`` を返す。特徴は元の行列がある整域上のものであるとき、
+  ``L``, ``D``, ``U`` のいずれも同じ整域に属するというものだ。
+
+* QR 分解は行列を :math:`A = QR` の形に分解するアルゴリズムだ。
+  行列 ``Q`` は直交行列で、行列 ``R`` は上三角行列となる。
 
 ソルバー
 ----------------------------------------------------------------------
 線形連立方程式を解くことに関係するメソッドを次に示す。
+基本的には :math:`A \mathbf{x} = \mathbf{b}` に対して、
+
+* :math:`A` が行列オブジェクト自身、
+* :math:`\mathbf{x}` が各メソッドの戻り値（の一部）、
+* :math:`\mathbf{b}` が各メソッドの最初の引数
+
+に相当する。
 
 .. csv-table::
    :delim: :
    :header: シグニチャー, 説明
 
-   ``cholesky_solve(rhs)``:TBW
-   ``diagonal_solve(rhs)``:TBW
-   ``gauss_jordan_solve(b, freevar=False)``:TBW
-   ``LDLsolve(rhs)``:TBW
-   ``LUsolve(rhs, ...)``:TBW
-   ``QRsolve(b)``:TBW
-   ``pinv_solve(B, arbitrary_matrix=None)``:TBW
-   ``lower_triangular_solve(rhs)``:TBW
-   ``upper_triangular_solve(rhs)``:TBW
+   ``cholesky_solve(rhs)``:Cholesky 分解によるソルバー。
+   ``diagonal_solve(rhs)``:対角行列を係数とする方程式を解く。
+   ``gauss_jordan_solve(b, freevar=False)``:Gauss-Jordan 消去法によるソルバー。
+   ``LDLsolve(rhs)``:LDL 分解によるソルバー。
+   ``LUsolve(rhs, ...)``:LU 分解によるソルバー。
+   ``QRsolve(b)``:QR 分解によるソルバー。
+   ``pinv_solve(B, arbitrary_matrix=None)``:Moore-Penrose の擬逆行列によるソルバー。
+   ``lower_triangular_solve(rhs)``:下三角行列を係数とする方程式を解く。
+   ``upper_triangular_solve(rhs)``:上三角行列を係数とする方程式を解く。
+
+* ``cholesky_solve``,  ``LDLsolve`` は係数（自身の行列）が対称行列であるか、
+  行数が列数よりも大きい行列であればなんとか動く。
+
+* ``diagonal_solve`` は対角成分にゼロがあってはならない（解を得るときの除算の分母だから）。
+
+* ``gauss_jordan_solve`` は連立方程式の条件が不足して解が不定個求まる場合に適宜パラメーターを導入する。
+  解の行列に加えて、このパラメーターを別途行列にまとめて同時に返す。
+
+* ``LUsolve`` の利用する分解メソッドは ``LUdecomposition_Simple`` である。
+  その後に前進代入と後退代入を行って解となる行列を返す。
+
+  * 対称行列向け。
+
+* ``QRsolve`` は ``QRdecomposition`` の結果から後退代入だけで解が得られる。
+
+  * これは教育目的かつシンボル含みの行列用のメソッドとのこと。
 
 逆行列
 ----------------------------------------------------------------------
 逆行列に関係するメソッドを次に示す。
+数値計算の観点から言えば、逆行列の計算は相当なコストがかかるため、なるべく避けるのが原則だ。
+可能な限り先述した分解アルゴリズムやソルバーを利用するのが普通だ。
 
 .. csv-table::
    :delim: :
    :header: シグニチャー, 説明
 
-   ``inv(method=None, **kwargs)``:TBW
-   ``inv_mod(m)``:TBW
-   ``pinv()``:TBW
-   ``pinv_solve(B, arbitrary_matrix=None)``:TBW
+   ``inv(method=None, **kwargs)``:逆行列を計算する。
+   ``inv_mod(m)``:法を ``m`` とするときの逆行列を計算する。
+   ``pinv()``:Moore-Penrose の擬逆行列を計算する。
+
+* ``inv`` ではキーワード引数 ``method`` で行列式を計算するアルゴリズムを選択できる。
+
+  * ``'GE'``: Gauss の消去法。デフォルトのアルゴリズム。
+  * ``'LU'``: LU 分解。
+  * ``'ADJ'``: 余因子行列と行列式を用いて逆行列を得る。
+
+* 面白いのは ``inv_mod`` だろう。整数論的処理が一部入っていて、
+  オイラー関数、余因子行列、行列式を組み合わせて所望の行列を生成する。
 
 Berkowitz のアルゴリズム
 ----------------------------------------------------------------------
@@ -399,11 +459,18 @@ Berkowitz のアルゴリズムと、それに関係するメソッドを次に�
    :delim: :
    :header: シグニチャー, 説明
 
-   ``berkowitz()``:TBW
-   ``berkowitz_det()``:TBW
-   ``berkowitz_minors()``:TBW
-   ``berkowitz_charpoly(x, simplify)``:TBW
-   ``berkowitz_eigenvals(**flags)``:TBW
+   ``berkowitz()``:Berkowitz のアルゴリズムを実装する。
+   ``berkowitz_det()``:Berkowitz のアルゴリズムにより行列式を計算する。
+   ``berkowitz_minors()``:Berkowitz のアルゴリズムにより主小行列を計算する。
+   ``berkowitz_charpoly(x, simplify)``:Berkowitz のアルゴリズムにより特性多項式を求める。
+   ``berkowitz_eigenvals(**flags)``:Berkowitz のアルゴリズムにより固有値を計算する。
+
+まずメソッド ``berkowitz`` の中身について。
+`この記事 <https://de.wikipedia.org/wiki/Algorithmus_von_Samuelson-Berkowitz>`_ のアルゴリズムを実装している。
+
+これが生成する多項式のコレクションがあれば、
+元の行列の行列式、主小行列、特性多項式は容易に求められる。
+固有値の計算は、得られた多項式に関する方程式を解くことと同じである。
 
 特異値
 ----------------------------------------------------------------------
@@ -415,6 +482,9 @@ Berkowitz のアルゴリズムと、それに関係するメソッドを次に�
 
    ``condition_number()``:行列の条件数、つまり最大特異値と最小特異値の比を返す。
    ``singular_values()``:行列の特異値をすべて返す。
+
+* ``singular_values`` はすべての特異値を ``list`` に詰めて返す。
+  これらの値が大きい順にソートされている。
 
 微積分
 ----------------------------------------------------------------------
@@ -458,11 +528,13 @@ NumPy の ``numpy.array`` オブジェクトにコンバートするための関
                     [ppppp_2_0, ppppp_2_1, ppppp_2_2]], dtype=object)
 
   * 実際の戻り値は ``numpy.array`` オブジェクト。
-  * 行列の各要素は SymPy の ```Symbol`` オブジェクト。
+  * 行列の各要素は SymPy の ``Symbol`` オブジェクト。
     オブジェクトの ``name`` が出力に表れている。
 
 演習
 ======================================================================
+
+.. todo:: 行列を使った何かのデモを行う。
 
 関連ノート
 ======================================================================
