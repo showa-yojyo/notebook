@@ -600,9 +600,50 @@ Berkowitz のアルゴリズムを検証する
 最後に固有値が特性多項式の解であることを見せて締めたいところだが、
 紙幅の都合上、どうしても長い数式をきれいに表示できないため、割愛する。
 
+LU 分解再挑戦
+----------------------------------------------------------------------
+:doc:`/python-scipy/linear-equations` で LU 分解した行列を SymPy で分解すると結果が異なるのではないか。
+
+.. code-block:: ipython
+
+   In [1]: A = Matrix([[1, 2, 2], [2, 5, 6], [3, 8, 12]])
+
+   In [1]: L, U, p = A.LUdecomposition()
+
+   In [2]: L
+   Out[2]:
+   Matrix([
+   [1, 0, 0],
+   [2, 1, 0],
+   [3, 2, 1]])
+
+   In [3]: U
+   Out[3]:
+   Matrix([
+   [1, 2, 2],
+   [0, 1, 2],
+   [0, 0, 2]])
+
+   In [4]: p
+   Out[4]: []
+
+   In [5]: L * U
+   Out[5]:
+   Matrix([
+   [1, 2,  2],
+   [2, 5,  6],
+   [3, 8, 12]])
+
+* [2][3] 期待しているようなきれいな三角行列が得られている。
+* [4] 行の入れ替えはない。
+
 関連ノート
 ======================================================================
-* :doc:`/python-numpy/tutorial`
+:doc:`/python-numpy/tutorial`
+  NumPy の ``array`` と SymPy の ``MatrixBase`` には共通する機能が多数ある。
+
+:doc:`/python-scipy/linear-equations`
+  SciPy の機能で LU 分解をする例を記した。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
