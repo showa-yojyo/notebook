@@ -19,9 +19,10 @@ SymPy 利用ノート
    number-theory
    diophantine
    geometry
-   diffgeom
    series
    integrals
+   ode
+   diffgeom
 
 .. note::
 
