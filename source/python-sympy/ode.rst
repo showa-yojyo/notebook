@@ -248,9 +248,30 @@ SymPy のドキュメントが関数名と微分方程式の数式 (LaTeX) を�
 ここに出てくる微分方程式は次の文書から拝借した。
 
 * `DSolveで解く微分方程式 <http://reference.wolfram.com/language/tutorial/DSolveOverview.html>`_
+* `Non-homogeneous 2nd order Euler-Cauchy differential equation <http://math.stackexchange.com/questions/650774/non-homogeneous-2nd-order-euler-cauchy-differential-equation>`_
 
-積分だけで解が求まる常微分方程式
+演習で得た自分なりのコツを次にまとめる。
+
+* 長い数式で表現される常微分方程式は SymPy のオブジェクトとしても長い表現になる。
+  何度もタイプするハメにならぬように、素直にローカル変数を宣言してバインドしておく。
+
+* ソルバーに渡す前に関数 ``classify_ode`` で常微分方程式のタイプを判定しておく。
+  その結果が次の ``dsolve`` 呼び出しの ``hint`` パラメーターを
+  ``all`` にするか ``all_Integral`` にするかの判断材料になる。
+
+  * 空の ``tuple`` オブジェクトが戻ってくるようならば、
+    残念だがその常微分方程式を SymPy で解くのを諦める。
+
+* 関数 ``dsolve`` を呼び出すときは許される限り ``all_Integral`` を指定する。
+  この戻り値をザッと見ると、未評価の積分オブジェクトが一般解に含まれているだろう。
+  必要ならばこれを ``doit()`` にて手動で遅延評価する。
+
+常微分方程式
 ----------------------------------------------------------------------
+連立しないほうのパターン。
+
+求積法だけで解が求まる常微分方程式
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 次のデモは単に ``integrate`` するだけで解が得られる常微分方程式を与えるものだ。
 SymPy のソルバーは一階線形常微分方程式の特別に単純な場合として処理する。
 
@@ -274,7 +295,7 @@ SymPy のソルバーは一階線形常微分方程式の特別に単純な場�
    Out[3]: Eq(f(x), C1 - x**2*cos(x) - x*sqrt(x**2 + 1)/2 + 2*x*sin(x) + 2*cos(x)- asinh(x)/2)
 
 変数分離形常微分方程式
-----------------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 次のデモは、変数分離形のつもりで常微分方程式を解いたところ、
 むしろ Bernoulli 型のほうが解きやすい？と言われたものだ。
 
@@ -324,7 +345,7 @@ SymPy のソルバーは一階線形常微分方程式の特別に単純な場�
    Out[6]: Eq(-exp(-f(x)), C1 - x*sqrt(-x**2 + 3)/2 + 3*asin(sqrt(3)*x/3)/2)
 
 一階同次常微分方程式
-----------------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 次のデモは同次常微分方程式を解くものだ。
 
 .. code-block:: ipython
@@ -345,7 +366,7 @@ SymPy のソルバーは一階線形常微分方程式の特別に単純な場�
    Out[3]: Eq(f(x), C1*(x**2/f(x)**2 - 2)**(1/4)/(x/f(x))**(3/2))
 
 一階線形常微分方程式
-----------------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 一階線形方程式の例だ。
 どのような常微分方程式のタイプとして扱っても厳しい積分が現れる。
 
@@ -365,7 +386,7 @@ SymPy のソルバーは一階線形常微分方程式の特別に単純な場�
     'order': 1}
 
 Bernoulli 常微分方程式
-----------------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Bernoulli 常微分方程式を解く。
 二番目のものは積分に時間が掛かるのだろうか、ついに返って来なかったので諦めた。
 
@@ -397,10 +418,8 @@ Bernoulli 常微分方程式を解く。
     'default': 'Bernoulli',
     'order': 1}
 
-   In [7]: _['best'].doit()
-
 Riccati 常微分方程式
----------------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ある Riccati 常微分方程式を試したところ、
 ベストは ``separable_reduced`` だと判定された。
 それにしては解の有理式の形がやや不自然なようだ。
@@ -420,23 +439,31 @@ Riccati 常微分方程式
     'separable_reduced_Integral': Eq(Integral(1/(_y*(3*_y + 1 - 2/_y)), (_y, x*f(x))), C1 + Integral(1/x, x))}
 
 .. In [30]: dsolve(f(x).diff(x) - (5*x**2 - 2*f(x)**2 + 11)/(sin(f(x)) + 4*x*f(x) + 3), f(x))
+.. In [271]: classify_ode(eq)
+.. Out[271]: ('1st_power_series', 'lie_group')
 .. 返って来ない
 
-.. # 解けない
+.. # 解けない Clairaut; nonlinear
 .. In [33]: dsolve(f(x) - x * f(x).diff(x) - f(x).diff(x)**2 - exp(f(x).diff(x)), f(x))
+.. In [275]: classify_ode(eq)
+.. Out[275]: ('lie_group',)
 
 .. ----------------------------------------------------------------------
 .. # アーベル方程式
 .. In [34]: dsolve(f(x).diff(x) - f(x)**3 + x*f(x)**2/(x - 1), f(x))
+.. In [277]: classify_ode(eq)
+.. Out[277]: ('1st_power_series', 'lie_group')
 .. Out[34]: Eq(f(x), C1 + C1*x + 2*C1*x**2 + C1*x**3*(16*C1 + 7)/6 + C1*x**4*(21*C1 + 10)/12 + C1*x**5*(C1*(104*C1 + 35) + C1*(48*C1**2 + 6*C1*(30*C1 + 1) + 227*C1 + 37) + 73*C1 + 39)/60 + O(x**6))
 
 .. ----------------------------------------------------------------------
 .. # キーニ
 .. In [36]: diff(f(x).diff(x) - 5*f(x)**4 - 3*x**(-Rational(4, 3)), f(x))
+.. In [279]: classify_ode(eq)
+.. Out[279]: ('lie_group',)
 .. Out[36]: -20*f(x)**3
 
 定数係数二階線形常微分方程式
-----------------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 特性方程式の解のパターン別に試す。
 ソルバーが適切なタイプ判定をしていることがわかる。
 
@@ -473,8 +500,8 @@ Riccati 常微分方程式
     'order': 2}
 
 Euler 常微分方程式
-----------------------------------------------------------------------
-Euler 常微分方程式のデモを示す。
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Euler 常微分方程式のデモを示す。同次。
 
 .. code-block:: ipython
 
@@ -488,6 +515,20 @@ Euler 常微分方程式のデモを示す。
     'nth_linear_euler_eq_homogeneous': Eq(f(x), (C1*sin(sqrt(2)*log(x)) + C2*cos(sqrt(2)*log(x)))/x**2),
     'order': 2}
 
+次のものは非同次？
+
+.. code-block:: ipython
+
+   In [1]: eq = x**2 * f(x).diff(x, 2) - 2 * f(x) - x**3 * exp(x)
+
+   In [2]: classify_ode(eq)
+   Out[2]:
+   ('nth_linear_euler_eq_nonhomogeneous_variation_of_parameters',
+    'nth_linear_euler_eq_nonhomogeneous_variation_of_parameters_Integral')
+
+   In [3]: dsolve(eq)
+   Out[3]: Eq(f(x), C1/x + C2*x**2 + x*exp(x) - 2*exp(x) + 2*exp(x)/x)
+
 .. Legendre type...
 .. In [107]: eq = (3*x + 1)**2 * f(x).diff(x, 2) + 5 * (3*x + 1) * f(x).diff(x) + 6 * f(x)
 .. NotImplementedError: solve: Cannot solve (3*x + 1)**2*Derivative(f(x), x, x) + (15*x + 5)*Derivative(f(x), x) + 6*f(x)
@@ -495,9 +536,10 @@ Euler 常微分方程式のデモを示す。
 .. eq = f(x).diff(x, 2) + log(x) * f(x).diff(x) + f(x)/x
 .. NotImplementedError: solve: Cannot solve log(x)*Derivative(f(x), x) + Derivative(f(x), x, x) + f(x)/x
 
-特殊
-----------------------------------------------------------------------
-ノーコメント？
+特殊な二階常微分方程式
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Airy 微分方程式を解く。
+ここではべき級数の形で一般解を得たが、よそではある広義積分で与えられる。
 
 .. code-block:: ipython
 
@@ -514,6 +556,11 @@ Euler 常微分方程式のデモを示す。
     'default': '2nd_power_series_ordinary',
     'order': 2}
 
+Bessel 微分方程式を解く。
+またしてもべき級数の形で一般解が得られる。
+SymPy は Airy 関数も Bessel 関数も持っているのに、
+微分方程式のモジュールには関与していないということだろうか。
+
 .. code-block:: ipython
 
    In [1]: eq = x**2 * f(x).diff(x, 2) + x * f(x).diff(x) + (x**2 - 16)*f(x)
@@ -529,14 +576,76 @@ Euler 常微分方程式のデモを示す。
     'default': '2nd_power_series_regular',
     'order': 2}
 
+.. ----------------------------------------------------------------------
+
+.. # Hermite
+.. In [287]: eq = f(x).diff(x, 2) - 2 * x * f(x).diff(x) + 2 * n * f(x)
+.. 
+.. In [288]: classify_ode(eq)
+.. Out[288]: ('2nd_power_series_ordinary',)
+.. 
+.. In [289]: dsolve(eq)
+.. Out[289]: Eq(f(x), C2*(n**2*x**4/6 - n*x**4/3 - n*x**2 + 1) + C1*x*(-n*x**2/3 +x**2/3 + 1) + O(x**6))
+
+.. In [291]: a, b, c = symbols('a b c')
+.. 
+.. In [292]: eq = (x**2 - x)*f(x).diff(x, 2) + ((a + b + 1)*x - c)*f(x).diff(x) + b * a* f(x)
+.. 
+.. In [293]: classify_ode(eq)
+.. Out[293]: ()
+
+.. In [294]: 64 * x**2 *(x - 1)**2 * f(x).diff(x, 2) + 32 * x *(x - 1)*(3*x - 1)*f(x).diff(x) + (5*x - 21)*f(x)
+.. Out[294]: 64*x**2*(x - 1)**2*Derivative(f(x), x, x) + 32*x*(x - 1)*(3*x - 1)*Derivative(f(x), x) + (5*x - 21)*f(x)
+.. 
+.. In [295]: eq = _
+.. 
+.. In [296]: classify_ode(eq)
+.. Out[296]: ()
+
+.. In [297]: eq = x * f(x).diff(x, 2) + (10 * x**3 - 1)*f(x).diff(x, 1) + 5*x**2 *(5*x**3 + 1)*f(x)
+.. 
+.. In [298]: classify_ode(eq)
+.. Out[298]: ()
+
+.. In [299]: eq = 4*x * f(x).diff(x, 2) + (7*x + 12) * f(x).diff(x) + 21 * f(x)
+.. 
+.. In [300]: classify_ode(eq)
+.. Out[300]: ('2nd_power_series_regular',)
+.. 
+.. In [301]: dsolve(eq)
+.. Out[301]: Eq(f(x), C1*(-16807*x**5/122880 + 2401*x**4/6144 - 343*x**3/384 + 49*x**2/32 - 7*x/4 + 1) + O(x**6))
+
+.. In [302]: eq = f(x).diff(x, 2) - x**2 * f(x).diff(x) - f(x) - 1
+.. 
+.. In [303]: classify_ode(eq)
+.. Out[303]: ()
+
 .. In [124]: eq = f(x).diff(x, 2) - exp(5*x)*f(x)
 ..
 .. In [125]: classify_ode(eq)
 .. Out[125]: ()
 
+.. In [304]: eq = f(x).diff(x, 2)*sin(x)*cos(x)**2 - f(x).diff(x)*(3*sin(x)**2 + 1)*cos(x) - f(x)*sin(x)**3
+.. 
+.. In [305]: classify_ode(eq)
+.. Out[305]: ()
+.. 
+.. In [308]: eq = f(x).diff(x, 2) + (k**2 + 2*sech(x)**2)*f(x)
+.. 
+.. In [309]: classify_ode(eq)
+.. Out[309]: ()
+.. 
+.. In [311]: d, l = symbols('d l')
+.. 
+.. In [312]: eq = f(x).diff(x, 2) + (-d + d*(1 - exp(-b*x))**2)*f(x) - l * f(x)
+.. 
+.. In [313]: classify_ode(eq)
+.. Out[313]: ()
+
 二階線形非同次常微分方程式
-----------------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 解けているように見えるが、ヒントを ``all`` にすると返って来ない？
+後半で同次版も解いてみる。
 
 .. code-block:: ipython
 
@@ -551,8 +660,16 @@ Euler 常微分方程式のデモを示す。
    In [3]: dsolve(eq)
    Out[3]: Eq(f(x), C1*sqrt(x)*sin(sqrt(3)*log(x)/2) + C2*sqrt(x)*cos(sqrt(3)*log(x)/2) + x**2/3)
 
+   In [4]: eq = x**2 * f(x).diff(x, 2) + f(x)
+
+   In [5]: classify_ode(eq)
+   Out[5]: ('nth_linear_euler_eq_homogeneous', '2nd_power_series_regular')
+
+   In [6]: dsolve(eq)
+   Out[6]: Eq(f(x), sqrt(x)*(C1*sin(sqrt(3)*log(x)/2) + C2*cos(sqrt(3)*log(x)/2)))
+
 二階非線形常微分方程式
-----------------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Liouville 型は解ける。それ以外が解けない。
 
 .. code-block:: ipython
@@ -605,7 +722,7 @@ Liouville 型は解ける。それ以外が解けない。
    Out[14]: Eq(C1 + 3**(1/3)*C2*exp(-I*pi/3)*gamma(1/3)*lowergamma(1/3, x**3*exp_polar(I*pi)/3)/(9*gamma(4/3)) + sqrt(2)*sqrt(pi)*erfi(sqrt(2)*f(x)/2)/2, 0)
 
 定数係数高階線形常微分方程式
-----------------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 SymPy のソルバーは 2 階以上は全部高階扱い。
 
 .. code-block:: ipython
@@ -624,7 +741,7 @@ SymPy のソルバーは 2 階以上は全部高階扱い。
     'order': 5}
 
 高階 Euler 常微分方程式
-----------------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 SymPy のソルバーは 2 階以上は全部高階扱い。
 
 .. code-block:: ipython
@@ -662,9 +779,25 @@ SymPy のソルバーは 2 階以上は全部高階扱い。
 .. In [158]: classify_ode(eq)
 .. Out[158]: ()
 
-色々
-----------------------------------------------------------------------
-ノーコメント。
+特殊な高階常微分方程式
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+二階で望みの形が得られないようならば、高階でもそうだ。
+次の例題は Airy 関数と Bessel 関数で一般解を返して欲しいもの。
+これはアウトのようだ。
+
+.. code-block:: ipython
+
+   In [1]: eq = f(x).diff(x, 3) - 4*(x + 2)*f(x).diff(x) - 2 * f(x)
+
+   In [2]: classify_ode(eq)
+   Out[2]: ()
+
+   In [3]: eq = x**3 * f(x).diff(x, 3) + 3 * x**2 * f(x).diff(x, 2) + (4 * x**3 - 11 * x) * f(x).diff(x) + 4 * x**2 * f(x)
+
+   In [4]: classify_ode(eq)
+   Out[4]: ()
+
+次の例題はある高次整方程式の解で一般解が表現できる。
 
 .. code-block:: ipython
 
@@ -679,9 +812,308 @@ SymPy のソルバーは 2 階以上は全部高階扱い。
    In [3]: dsolve(eq)
    Out[3]: Eq(f(x), C1*exp(x*RootOf(_x**4 - 13*_x**2 + 19*_x + 33, 0)) + C2*exp(x*RootOf(_x**4 - 13*_x**2 + 19*_x + 33, 1)) + C3*exp(x*RootOf(_x**4 - 13*_x**2 +19*_x + 33, 2)) + C4*exp(x*RootOf(_x**4 - 13*_x**2 + 19*_x + 33, 3)) + 38*sin(2*x)/11645 + 101*cos(2*x)/11645)
 
-.. In [164]: eq = 7 * f(x).diff(x) * f(x).diff(x, 3) - 11 * f(x).diff(x, 2)**2
-.. In [166]: classify_ode(eq)
-.. Out[166]: ()
+こちらは完全にダメだ。
+
+.. code-block:: ipython
+
+   In [1]: eq = 7 * f(x).diff(x) * f(x).diff(x, 3) - 11 * f(x).diff(x, 2)**2
+   In [1]: classify_ode(eq)
+
+   Out[2]: ()
+
+連立常微分方程式
+----------------------------------------------------------------------
+何となく動作が不安定であるように見受けられる。
+場合によってはバグレポートを開発陣に提出するかもしれない。
+
+線形
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+以下の例では、次の前処理を実施済みであることを事前条件としている。
+
+.. code-block:: python3
+
+   from sympy.solvers.ode import classify_sysode
+   x, y, z = symbols('x, y', function=True)
+
+まずは定数係数の例を示す。
+
+.. code-block:: ipython
+
+   In [1]: A = Matrix([[4, -6], [1, -1]])
+
+   In [2]: A.eigenvals()
+   Out[2]: {1: 1, 2: 1}
+
+   In [3]: X = Matrix([x(t), y(t)])
+
+   In [4]: sys = [i for i in X.diff(t) - A*X]
+
+   In [5]: classify_sysode(sys)
+   Out[5]:
+   {'eq': [-4*x(t) + 6*y(t) + Derivative(x(t), t),
+     -x(t) + y(t) + Derivative(y(t), t)],
+    'func': [x(t), y(t)],
+    'func_coeff': {(0, y(t), 0): 6,
+     (0, x(t), 0): -4,
+     (1, y(t), 0): 1,
+     (1, y(t), 1): 1,
+     (1, x(t), 0): -1,
+     (0, x(t), 1): 1,
+     (0, y(t), 1): 0,
+     (1, x(t), 1): 0},
+    'is_linear': True,
+    'no_of_equation': 2,
+    'order': {x(t): 1, y(t): 1},
+    'type_of_equation': 'type1'}
+
+   In [6]: dsolve(sys)
+   Out[6]: [Eq(x(t), -6*C1*exp(t) - 6*C2*exp(2*t)),
+            Eq(y(t), -3*C1*exp(t) - 2*C2*exp(2*t))]
+
+次の常微分方程式系は ``type_of_equation`` が ``None`` とされている。
+つまりタイプ不明ゆえ解けない。
+こういう場合は ``dsolve`` の呼び出しを諦めてしまってよい。
+
+.. code-block:: ipython
+
+   In [1]: sys = [x(t).diff(t, 3) + y(t), y(t).diff(t, 3) - 64 * x(t)]
+
+   In [2]: classify_sysode(sys)
+   Out[2]:
+   {'eq': [y(t) + Derivative(x(t), t, t, t),
+     -64*x(t) + Derivative(y(t), t, t, t)],
+    'func': [x(t), y(t)],
+    'func_coeff': {(0, x(t), 2): 0,
+     (0, y(t), 0): 1,
+     (1, y(t), 0): 0,
+     (1, y(t), 1): 0,
+     (1, x(t), 2): 0,
+     (1, x(t), 3): 0,
+     (0, x(t), 3): 1,
+     (1, x(t), 1): 0,
+     (1, x(t), 0): -64,
+     (0, y(t), 2): 0,
+     (0, x(t), 0): 0,
+     (1, y(t), 3): 1,
+     (0, x(t), 1): 0,
+     (0, y(t), 3): 0,
+     (0, y(t), 1): 0,
+     (1, y(t), 2): 0},
+    'is_linear': True,
+    'no_of_equation': 2,
+    'order': {x(t): 3, y(t): 3},
+    'type_of_equation': None}
+
+次は非定数係数の線形常微分方程式系の一例だが、解きたそうなのに解けないようだ。
+
+.. code-block:: ipython
+
+   In [1]: sys = [x(t).diff(t) - sin(t)*x(t), y(t).diff(t) - t**2 * y(t)]
+
+   In [2]: classify_sysode(sys)
+   Out[2]:
+   {'eq': [-x(t)*sin(t) + Derivative(x(t), t), -t**2*y(t) + Derivative(y(t), t)],  'func': [x(t), y(t)],
+    'func_coeff': {(0, y(t), 0): 0,
+     (0, x(t), 0): -sin(t),
+     (1, y(t), 0): -t**2,
+     (1, y(t), 1): 1,
+     (1, x(t), 0): 0,
+     (0, x(t), 1): 1,
+     (0, y(t), 1): 0,
+     (1, x(t), 1): 0},
+    'is_linear': True,
+    'no_of_equation': 2,
+    'order': {x(t): 1, y(t): 1},
+    'type_of_equation': 'type6'}
+
+   In [3]: dsolve(sys)
+   ---------------------------------------------------------------------------
+   ValueError                                Traceback (most recent call last)
+   <ipython-input-223-094226d3d973> in <module>()
+   ----> 1 dsolve(sys)
+
+   D:\home\yojyo\devel\sympy\sympy\solvers\ode.py in dsolve(eq, func, hint, simplify, ics, xi, eta, x0, n, **kwargs)
+       614             else:
+       615                 solvefunc = globals()['sysode_nonlinear_%(no_of_equation)seq_order%(order)s' % match]
+   --> 616             sols = solvefunc(match)
+       617             return sols
+       618     else:
+
+   D:\home\yojyo\devel\sympy\sympy\solvers\ode.py in sysode_linear_2eq_order1(match_)
+      6418         sol = _linear_2eq_order1_type5(x, y, t, r)
+      6419     if match_['type_of_equation'] == 'type6':
+   -> 6420         sol = _linear_2eq_order1_type6(x, y, t, r)
+      6421     if match_['type_of_equation'] == 'type7':
+      6422         sol = _linear_2eq_order1_type7(x, y, t, r)
+
+   D:\home\yojyo\devel\sympy\sympy\solvers\ode.py in _linear_2eq_order1_type6(x, y, t, r)
+      6725     if p == 1:
+      6726         equ = diff(x(t),t) - r['a']*x(t) - r['b']*(s*x(t) + C1*exp(-s*Integral(r['b'] - r['d']/s, t)))
+   -> 6727         hint1 = classify_ode(equ)[1]
+      6728         sol1 = dsolve(equ, hint=hint1+'_Integral').rhs
+      6729         sol2 = s*sol1 + C1*exp(-s*Integral(r['b'] - r['d']/s, t))
+
+   D:\home\yojyo\devel\sympy\sympy\solvers\ode.py in classify_ode(eq, func, dict, ics, **kwargs)
+       817         "work with functions of one variable, not %s" % func)
+       818     if prep or func is None:
+   --> 819         eq, func_ = _preprocess(eq, func)
+       820         if func is None:
+       821             func = func_
+
+   D:\home\yojyo\devel\sympy\sympy\solvers\deutils.py in _preprocess(expr, func, hint)
+        75         if len(funcs) != 1:
+        76             raise ValueError('The function cannot be '
+   ---> 77                 'automatically detected for %s.' % expr)
+        78         func = funcs.pop()
+        79     fvars = set(func.args)
+
+   ValueError: The function cannot be automatically detected for nan.
+
+次は成功例。積分もおそらく評価し切れる。
+
+.. code-block:: ipython
+
+   In [1]: A = Matrix([[exp(t), tan(t)], [-tan(t), exp(t)]]; X = Matrix([x(t), y(t)])
+
+   In [2]: sys = [i for i in X.diff(t) - A*X]
+
+   In [3]: classify_sysode(sys)
+   Out[3]:
+   {'eq': [-x(t)*exp(t) - y(t)*tan(t) + Derivative(x(t), t),
+     x(t)*tan(t) - y(t)*exp(t) + Derivative(y(t), t)],
+    'func': [x(t), y(t)],
+    'func_coeff': {(0, y(t), 0): -tan(t),
+     (0, x(t), 0): -exp(t),
+     (1, y(t), 0): -exp(t),
+     (1, y(t), 1): 1,
+     (1, x(t), 0): tan(t),
+     (0, x(t), 1): 1,
+     (0, y(t), 1): 0,
+     (1, x(t), 1): 0},
+    'is_linear': True,
+    'no_of_equation': 2,
+    'order': {x(t): 1, y(t): 1},
+    'type_of_equation': 'type4'}
+
+   In [4]: dsolve(sys)
+   Out[4]: [Eq(x(t), (C1*cos(Integral(tan(t), t)) + C2*sin(Integral(tan(t), t)))*exp(Integral(exp(t), t))), Eq(y(t), (-C1*sin(Integral(tan(t), t)) + C2*cos(Integral(tan(t), t)))*exp(Integral(exp(t), t)))]
+
+次のものは解けないと言われる。
+本筋とは外れるが、関数 ``classify_sysode`` の出力にある ``dict`` オブジェクトのアイテム順はなんとかならないか。
+
+.. code-block:: ipython
+
+   In [1]: A = Matrix([[exp(t), 2, 3], [0, 2, -1], [0, 0, 1]]); X = Matrix([x(t), y(t), z(t)])
+
+   In [2]: sys = [i for i in X.diff(t) - A*X]
+
+   In [3]: classify_sysode(sys)
+   Out[3]:
+   {'eq': [-x(t)*exp(t) - 2*y(t) - 3*z(t) + Derivative(x(t), t),
+     -2*y(t) + z(t) + Derivative(y(t), t),
+     -z(t) + Derivative(z(t), t)],
+    'func': [x(t), y(t), z(t)],
+    'func_coeff': {(0, y(t), 0): -2,
+     (0, z(t), 1): 0,
+     (1, y(t), 0): -2,
+     (1, y(t), 1): 1,
+     (2, z(t), 1): 1,
+     (1, z(t), 0): 1,
+     (2, z(t), 0): -1,
+     (0, y(t), 1): 0,
+     (1, x(t), 1): 0,
+     (2, y(t), 0): 0,
+     (0, x(t), 0): -exp(t),
+     (2, x(t), 1): 0,
+     (2, y(t), 1): 0,
+     (1, x(t), 0): 0,
+     (0, x(t), 1): 1,
+     (0, z(t), 0): -3,
+     (2, x(t), 0): 0,
+     (1, z(t), 1): 0},
+    'is_linear': True,
+    'no_of_equation': 3,
+    'order': {x(t): 1, y(t): 1, z(t): 1},
+    'type_of_equation': None}
+
+非線形
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+謎のエラーが出てソルバーにたどり着けない。
+
+.. code-block:: ipython
+
+   In [1]: p, q, r, s = symbols('p q r s', function=True)
+
+   In [2]: sys = [p(t).diff(t) - 1, q(t).diff(t) - t, r(r).diff(t), s(t).diff(t)- r(t)/(p(t) + 4*q(t)*r(t))]
+
+   In [3]: classify_sysode(sys, funcs=[p(t), q(t), r(t), s(t)])
+   ---------------------------------------------------------------------------
+   KeyError                                  Traceback (most recent call last)
+   <ipython-input-258-65d1e646ce2f> in <module>()
+   ----> 1 classify_sysode(sys, funcs=[p(t), q(t), r(t), s(t)])
+   
+   D:\home\yojyo\devel\sympy\sympy\solvers\ode.py in classify_sysode(eq, funcs, **kwargs)
+      1374     func_dict = dict()
+      1375     for func in funcs:
+   -> 1376         if not order[func]:
+      1377             max_order = 0
+      1378             for i, eqs_ in enumerate(eq):
+
+   KeyError: p(t)
+
+次の例ではソルバーの処理中に謎のエラーが出る。
+
+.. code-block:: ipython
+
+   In [1]: u, v = symbols('u v', function=True)
+
+   In [2]: sys = [u(t).diff(t) - 1/sqrt(v(t)), v(t).diff(t) - u(t)]
+
+   In [3]: classify_sysode(sys)
+   Out[3]:
+   {'eq': [Derivative(u(t), t) - 1/sqrt(v(t)), -u(t) + Derivative(v(t), t)],
+    'func': [u(t), v(t)],
+    'func_coeff': {(1, v(t), 1): 1,
+     (0, u(t), 1): 1,
+     (0, v(t), 1): 0,
+     (1, u(t), 1): 0,
+     (0, u(t), 0): 0,
+     (1, v(t), 0): 0,
+     (0, v(t), 0): 0,
+     (1, u(t), 0): -1},
+    'is_linear': False,
+    'no_of_equation': 2,
+    'order': {u(t): 1, v(t): 1},
+    'type_of_equation': 'type3'}
+
+   In [4]: dsolve(sys)
+   ---------------------------------------------------------------------------
+   TypeError                                 Traceback (most recent call last)
+   <ipython-input-264-094226d3d973> in <module>()
+   ----> 1 dsolve(sys)
+
+   D:\home\yojyo\devel\sympy\sympy\solvers\ode.py in dsolve(eq, func, hint, simplify, ics, xi, eta, x0, n, **kwargs)
+       614             else:
+       615                 solvefunc = globals()['sysode_nonlinear_%(no_of_equation)seq_order%(order)s' % match]
+   --> 616             sols = solvefunc(match)
+       617             return sols
+       618     else:
+
+   D:\home\yojyo\devel\sympy\sympy\solvers\ode.py in sysode_nonlinear_2eq_order1(match_)
+      7785         sol = _nonlinear_2eq_order1_type2(x, y, t, eq)
+      7786     elif match_['type_of_equation'] == 'type3':
+   -> 7787         sol = _nonlinear_2eq_order1_type3(x, y, t, eq)
+      7788     elif match_['type_of_equation'] == 'type4':
+      7789         sol = _nonlinear_2eq_order1_type4(x, y, t, eq)
+
+   D:\home\yojyo\devel\sympy\sympy\solvers\ode.py in _nonlinear_2eq_order1_type3(x, y, t, eq)
+      7907     G = r2[g].subs(x(t),u).subs(y(t),v)
+      7908     sol2r = dsolve(Eq(diff(v(u),u), G.subs(v,v(u))/F.subs(v,v(u))))
+   -> 7909     for sol2s in sol2r:
+      7910         sol1 = solve(Integral(1/F.subs(v, sol2s.rhs), u).doit() - t - C2, u)
+      7911     sol = []
+
+   TypeError: 'Equality' object is not iterable
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
