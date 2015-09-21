@@ -22,6 +22,7 @@ SymPy 利用ノート
    series
    integrals
    ode
+   pde
    diffgeom
 
 .. note::

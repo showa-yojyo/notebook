@@ -1,0 +1,165 @@
+======================================================================
+偏微分方程式
+======================================================================
+モジュール ``sympy.solvers.pde`` が提供する、
+偏微分方程式を解くための機能に関する覚え書きを記す。
+
+.. contents:: ノート目次
+
+.. note::
+
+   紙幅の都合上、出力を一部手で改行した。
+
+   本文中のすべての IPython セッション中のサンプルコードで、
+   以下のインポートおよび出力書式設定が済んでいるものとする。
+
+   .. code-block:: python3
+
+      init_printing(use_unicode=False, pretty_print=False)
+
+基本機能
+======================================================================
+ここに記す関数は isympy シェルがデフォルトで実行するインポート ``from sympy import *`` だけで利用可能だ。
+
+関数 ``pde_separate(eq, fun, sep, strategy='mul')``
+  偏微分方程式に含まれる従属変数的関数を加法的または乗法的に変数分離する。
+
+  * 引数 ``eq`` は偏微分方程式を表す ``Eq`` オブジェクト。
+
+    * 常微分方程式のときのような単なる数式ではダメ。
+
+  * 引数 ``fun`` は ``eq`` を構成する従属変数的関数を表すオブジェクト。
+  * 引数 ``sep`` は「分離先の関数」を表すオブジェクト。
+    独立変数の個数に見合う？だけのオブジェクトをコレクションで渡す。
+
+  * キーワード引数 ``strategy`` は分離の戦略（大げさ）を指定する。
+    次のどちらかを選択する。
+
+    * ``'add'``: 次に記す ``pde_separate_add`` を適用する。
+    * ``'mul'``: 次に記す ``pde_separate_mul`` を適用する。
+      こちらがデフォルト。
+
+  * 戻り値の情報については下記の各関数の説明を参照。
+
+関数 ``pde_separate_add(eq, fun, sep)``
+  偏微分方程式に含まれる従属変数的関数を加法的に変数分離する。
+
+  .. code-block:: ipython
+
+     In [1]: x, t = symbols('x t')
+
+     In [2]: u = symbols('u', function=True)
+
+     In [3]: X, T = symbols('X T', function=True)
+
+     In [4]: pde_separate_add(Eq(u(x, t).diff(x), E**(u(x, t).diff(t))), u(x, t), [X(x), T(t)])
+     Out[4]: [Derivative(X(x), x), exp(Derivative(T(t), t))]
+
+  * [4] 仮に ``u(x, t) == X(x) + T(t)`` の形に書き直せると考える。
+    このとき何かある定数が存在して、出力結果のリストの各項目に等しい。
+    独立変数の個数分だけの常微分方程式を解いて、それらの和をとれば ``u(x, t)`` が求められる。
+
+    ちなみにおそらく :math:`C_1 x + t  \log C_1 + C_2` のようなものが一般解である。
+
+関数 ``pde_separate_mul(eq, fun, sep)``
+  偏微分方程式に含まれる従属変数的関数を乗法的に変数分離する。
+
+  .. code-block:: ipython
+
+     In [1]: x, y = symbols('x y')
+
+     In [2]: u = symbols('u', function=True)
+
+     In [3]: X, Y = symbols('X Y', function=True)
+
+     In [4]: pde_separate_mul(Eq(u(x, y).diff(x, x), u(x, y).diff(y, y)), u(x, y), [X(x), Y(y)])
+     Out[4]: [Derivative(X(x), x, x)/X(x), Derivative(Y(y), y, y)/Y(y)]
+
+  * [4] 仮に ``u(x, y) == X(x) * Y(y)`` の形に書き直せると考える。
+    このとき何かある定数が存在して、出力結果のリストの各項目に等しい。
+    常微分方程式を項目数分解いて、それらの積をとれば ``u(x, y)`` が得られる。
+
+    ちなみに :math:`(C_1 e^{-C_0 x} + C_2 e^{C_0 x})(C_3 e^{-C_0 y} + C_4 e^{C_0y})`
+    のようなものが一般解だ。
+
+関数 ``pdsolve(eq, ...)``
+  二変数関数に関する偏微分方程式を解く。
+
+  * 引数 ``eq`` は対象となる偏微分方程式。
+    いちおう ``Eq`` オブジェクトで渡してもよいし、
+    ゼロに等しいとみなす数式オブジェクトでもよいことになっている。
+
+  * キーワード引数 ``func=None`` は偏微分方程式を構成する二変数関数を指定する。
+    ふつうは明示的に指定する必要はない。
+    ソルバーが自動検出する。
+
+  * キーワード引数 ``hint='default'`` ではソルバーに微分方程式のタイプについてヒントを教える。
+    このヒントによって方程式の解法を調整することになる。
+
+    以下、対応する ``dsolve`` のそれと同様。
+
+    * ``default``
+    * ``all``
+    * ``all_Integral``
+    * ``classify_pde(eq, ...)`` が返すタイプ名
+
+  * キーワード引数 ``dict=False`` はソルバー関数が内々に利用するもの。
+    このパラメーターはドキュメント化されていない。
+
+  * キーワード引数 ``solvefun=None`` はソルバーが返す任意関数に用いられる記号を指定する。
+    特に指示のない場合は ``F`` が採用される。
+
+関数 ``classify_pde(eq, ...)``
+  偏微分方程式 ``eq`` のタイプを返す。
+  関数 ``classify_ode`` の偏微分方程式バージョン。
+
+  * キーワード引数 ``func=None`` はソルバー関数と同じ。
+  * キーワード引数 ``dict=False`` はソルバー関数が内々に利用するもの。
+  * 戻り値は文字列からなる ``tuple`` オブジェクトである。
+    内容の順序についても「先頭ほど良く速く」である。
+
+  * 全サポート分類を保持する ``allhints`` オブジェクト。
+    偏微分方程式バージョンは 4 個しかない。
+    実質 3 個だ。
+
+    .. code-block:: ipython
+
+       In [1]: from sympy.solvers.pde import allhints
+
+       In [t2]: allhints
+       Out[t2]:
+       ('1st_linear_constant_coeff_homogeneous',
+        '1st_linear_constant_coeff',
+        '1st_linear_constant_coeff_Integral',
+        '1st_linear_variable_coeff')
+
+関数 ``checkpdesol(pde, sol, ...)``
+  これは微分方程式の解を求めた後に、それを検算するのに用いる。
+  関数 ``checkodesol`` の偏微分方程式バージョン。
+
+  * もし解が既知の微分方程式を評価して ``False`` が戻ってくるようならば、
+    それはおそらく ``doit()`` が式をゼロに簡単化することが不能なためと思われる。
+
+特化型ソルバー
+======================================================================
+ここからはモジュール ``sympy.solvers.pde`` からの明示的なインポートを必要とする機能を記す。
+
+次の表はすべてのソルバー名と対応する偏微分方程式の形式だ。
+サポートしている偏微分方程式は一階線形タイプのみのようだ。
+
+.. csv-table::
+   :delim: @
+   :header: ソルバー, 偏微分方程式
+
+   ``pde_1st_linear_constant_coeff``@:math:`a \frac{\partial f(x, y)}{\partial x} + b \frac{\partial f(x, y)}{\partial y} + c f(x, y) = G(x, y)`
+   ``pde_1st_linear_constant_coeff_homogeneous``@:math:`a \frac{\partial f(x, y)}{\partial x} + b \frac{\partial f(x, y)}{\partial y} + c f(x, y) = 0`
+   ``pde_1st_linear_variable_coeff``@:math:`a(x, y) \frac{\partial f(x, y)}{\partial x} + b(x, y) \frac{\partial f(x, y)}{\partial y} + c(x, y) f(x, y) - G(x, y)`
+
+演習
+======================================================================
+.. todo:: ひたすら偏微分方程式を解く。
+
+.. ここに出てくる微分方程式は次の文書から拝借した。
+
+.. include:: /_include/python-refs-core.txt
+.. include:: /_include/python-refs-sci.txt
