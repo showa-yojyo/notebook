@@ -153,13 +153,151 @@
 
    ``pde_1st_linear_constant_coeff``@:math:`a \frac{\partial f(x, y)}{\partial x} + b \frac{\partial f(x, y)}{\partial y} + c f(x, y) = G(x, y)`
    ``pde_1st_linear_constant_coeff_homogeneous``@:math:`a \frac{\partial f(x, y)}{\partial x} + b \frac{\partial f(x, y)}{\partial y} + c f(x, y) = 0`
-   ``pde_1st_linear_variable_coeff``@:math:`a(x, y) \frac{\partial f(x, y)}{\partial x} + b(x, y) \frac{\partial f(x, y)}{\partial y} + c(x, y) f(x, y) - G(x, y)`
+   ``pde_1st_linear_variable_coeff``@:math:`a(x, y) \frac{\partial f(x, y)}{\partial x} + b(x, y) \frac{\partial f(x, y)}{\partial y} + c(x, y) f(x, y) = G(x, y)`
 
 演習
 ======================================================================
-.. todo:: ひたすら偏微分方程式を解く。
+ここに出てくる微分方程式は次の文書から拝借した。
 
-.. ここに出てくる微分方程式は次の文書から拝借した。
+* `DSolveで解く微分方程式 <http://reference.wolfram.com/language/tutorial/DSolveOverview.html>`_
+
+以降のコードでは次の前処理を済ませている。
+
+.. code-block:: python3
+
+   a, b, c, x, y = symbols('a b c x y')
+   u = symbols('u', function=True)
+   z, p, q = u(x, y), u(x, y).diff(x), u(x, y).diff(y)
+
+線形偏微分方程式
+----------------------------------------------------------------------
+ここでは線形偏微分方程式を解く様子をひたすら例示する。
+
+定数係数同次一階線形偏微分方程式の例を示す。
+指数が汚いようだ。
+
+.. code-block:: ipython
+
+   In [1]: eq = Eq(2 * p + 3 * q + z, 0)
+
+   In [2]: classify_pde(eq)
+   Out[2]: ('1st_linear_constant_coeff_homogeneous',)
+
+   In [3]: pdsolve(eq)
+   Out[3]: Eq(u(x, y), F(3*x - 2*y)*exp(-2*x/13 - 3*y/13))
+
+輸送方程式の例を示す。一般解に指数関数が出てこない。
+
+.. code-block:: ipython
+
+   In [1]: eq = Eq(p + q, 0)
+
+   In [2]: classify_pde(eq)
+   Out[2]: ('1st_linear_constant_coeff_homogeneous',)
+
+   In [3]: pdsolve(eq)
+   Out[3]: Eq(u(x, y), F(x - y))
+
+非同次一階線形偏微分方程式の例を示す。
+指数が汚いのはソルバーのクセのようなものか。
+
+.. code-block:: ipython
+
+   In [1]: eq = Eq(7 * p + 3 * q + z, x + y)
+
+   In [2]: classify_pde(eq)
+   Out[2]: ('1st_linear_constant_coeff', '1st_linear_constant_coeff_Integral')
+
+   In [3]: pdsolve(eq)
+   Out[3]: Eq(u(x, y), x + y + F(3*x - 7*y)*exp(-7*x/58 - 3*y/58) - 10)
+
+変数係数同次線形偏微分方程式の例を示す。
+これは残念ながら解けない。
+
+.. code-block:: ipython
+
+   In [1]: eq = Eq(sin(x) * p + E**q * p, 0)
+
+   In [2]: classify_pde(eq)
+   Out[2]: ()
+
+変数係数非同次線形偏微分方程式の例を示す。
+
+.. code-block:: ipython
+
+   In [1]: eq = Eq(p + x * q, cos(x))
+
+   In [2]: classify_pde(eq)
+   Out[2]: ('1st_linear_variable_coeff',)
+
+   In [3]: pdsolve(eq)
+   Out[3]: Eq(u(x, y), F(-x**2/2 + y) + sin(x))
+
+一階準線形偏微分方程式の例を示す。
+これは残念ながら解けない。
+
+.. code-block:: ipython
+
+   In [1]: eq = Eq(p + x * q, z**2 + 5)
+
+   In [2]: classify_pde(eq)
+   Out[2]: ()
+
+非粘性 Burgers 方程式の例を示す。
+これは残念ながら解けない。
+
+.. code-block:: ipython
+
+   In [1]: eq = Eq(p + z * q, 0)
+
+   In [2]: classify_pde(eq)
+   Out[2]: ()
+
+一階非線形偏微分方程式
+----------------------------------------------------------------------
+現在、SymPy のソルバーは一階非線形偏微分方程式に対応していない。
+
+.. code-block:: ipython
+
+   In [1]: classify_pde(Eq(p * q, 1)) # simple (envelop 1)
+   Out[1]: ()
+
+   In [2]: classify_pde(Eq(4*z + p**2 + q**2, 4)) # simple (envelop 2)
+   Out[2]: ()
+
+   In [3]: classify_pde(Eq(p**2 + q**2, 1)) # Eikonal
+   Out[3]: ()
+
+   In [4]: classify_pde(Eq(z, x*p + y*q + 2*p*q*sqrt(1 - p**2))) # Clairaut
+   Out[4]: ()
+
+   In [5]: classify_pde(Eq(p**2 + a*q, x + 3*y)) # separable
+   Out[5]: ()
+
+   In [6]: classify_pde(Eq(a * p **2 + b*p*q, c * z**2)) # missing independent variables
+   Out[6]: ()
+
+   In [7]: classify_pde(Eq(x*y*p*q, 1)) # reducible to f(x, y) == 0 by X = log(x), Y = log(y)
+   Out[7]: ()
+
+   In [8]: classify_pde(Eq((y*p - x*q)**2 + a*(x*p + y*q), b)) # solvable by polar coordinates transform
+   Out[8]: ()
+
+   In [9]: classify_pde(Eq(y*p*q - z*p + a*q, 0)) # solvable by Legendre transform
+   Out[9]: ()
+
+   In [10]: classify_pde(Eq((1 + q**2)*z, p*x)) # implicit form
+   Out[10]: ()
+
+二階偏微分方程式
+----------------------------------------------------------------------
+先ほど記したように、SymPy のソルバーは二階偏微分方程式には対応していない。
+Laplace 方程式のもっとも簡単な形のものを試してみよう。
+
+.. code-block:: ipython
+
+   In [1]: classify_pde(Eq(u.diff(x, x) + u.diff(y, y), 0))
+   Out[1]: ()
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
