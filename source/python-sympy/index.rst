@@ -24,6 +24,7 @@ SymPy 利用ノート
    ode
    pde
    diffgeom
+   tensor
    stats
 
 .. note::
