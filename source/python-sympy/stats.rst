@@ -12,6 +12,7 @@
 
    .. code-block:: python3
 
+      from sympy.stats import *
       init_printing(use_unicode=False, pretty_print=False)
 
 確率変数
