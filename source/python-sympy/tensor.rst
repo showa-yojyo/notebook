@@ -17,12 +17,93 @@
 
 演習
 ======================================================================
-参考文献
+モジュール ``sympy.tensor.tensor`` の主要機能の演習を行う。
 
-* モジュール ``sympy.tensor.tensor`` の docstring および対応するテストコード
-* `Four-momentum <https://en.wikipedia.org/wiki/Four-momentum>`_: 英語版のほうが都合が良い符号の取り方をしている。
-* `電磁テンソル <https://ja.wikipedia.org/wiki/%E9%9B%BB%E7%A3%81%E3%83%86%E3%83%B3%E3%82%BD%E3%83%AB>`_
-* `Levi-Civita symbol <https://en.wikipedia.org/wiki/Levi-Civita_symbol>`_: モデルの視覚的表現物が豊富な英語版の記事のほうを勧める。
+添字操作
+----------------------------------------------------------------------
+この例では主に添字の上げ下げについて見ていく。
+具体的に言えば各階のテンソルに対して関数 ``contract_metric`` がどのように利用できるのかを示す。
+
+.. code-block:: ipython
+
+   In [1]: Lorentz = TensorIndexType('Lorentz', dummy_fmt='L')
+
+   In [2]: i, j, k, l, m, n = tensor_indices('i j k l m n', Lorentz)
+
+   In [3]: g = Lorentz.metric
+
+   In [4]: g
+   Out[4]: metric(Lorentz,Lorentz)
+
+   In [5]: g(), g(i), g(i, j)
+   Out[5]: (metric(auto_left, -auto_right), metric(i, auto_left), metric(i, j))
+
+* [1] オブジェクト ``Lorentz`` を生成する。
+  この例では名前とダミー添字のプレフィックスだけを指定しておく。
+
+* [2] ``Lorentz`` から生成するテンソルオブジェクト用の添字オブジェクトをまとめて生成しておく。
+  添字オブジェクトの生成は ``TensorIndexType`` 型のオブジェクトだけで可能である。
+
+* [3] 計量テンソルに別名 ``g`` を付けておく。
+* [4][5] ``g`` 単体を色々な方法で表示してみる。
+
+1 階
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+引き続き 1 階のテンソルを定義して、添字の上げ下げを試みる。
+
+プログラミング的には上げ下げしたいテンソルオブジェクトに対して、
+丸括弧により付随する各添字オブジェクトにマイナス符号を付けるかどうかで共変反変の階数を自在に設定できる。
+ここでは回りくどい方法を採る。
+
+.. code-block:: ipython
+
+   In [6]: A = tensorhead('A', [Lorentz]*1, [[1]])
+
+   In [7]: contract_metric(g(-i, -j) * A(j), g)
+   Out[7]: A(-i)
+
+   In [8]: contract_metric(g(i, j) * A(-j), g)
+   Out[8]: A(i)
+
+   In [9]: g(i, j) * g(-j, -k)
+   Out[9]: metric(i, L_0)*metric(-L_0, -k)
+
+   In [10]: contract_metric(g(i, j) * g(-j, -k), g)
+   Out[10]: metric(i, -k)
+
+   In [11]: contract_metric(g(-k, -j) * g(j, i), g)
+   Out[11]: metric(-k, i)
+
+* [6] 1 階テンソル ``A`` を生成する。引数の見てくれがいかにも特徴的だ。
+
+* [7][8] 関数またはメソッド版の ``contract_metric`` を用いれば
+  :math:`A_i = g_{ij} A^j` や :math:`A^i = g^{ij} A_j` を確認することができる。
+
+  コード的にはマイナス付き添字は下付き・共変を意味する。
+
+  * ``g(-i, -j)``: 共変計量テンソル
+  * ``g(i, j)``: 反変計量テンソル
+
+* [9] ところで生のままで ``g(i, j) * A(-j)`` を出力すると、
+  添字が縮約されていないように一瞬見えるので困る。
+
+* [10][11] :math:`g^{ij} g_{jk} = \delta^i_k` 等を検証したい。
+  これはどうも無理なようだ？
+
+2 階
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+引き続き 2 階のテンソルを定義して、添字の上げ下げを試みる。
+:math:`B^{ij} = g^{il} g^{jm} B_{lm}` などを確かめる。
+
+.. code-block:: ipython
+
+   In [12]: B = tensorhead('B', [Lorentz]*2, [[1]*2])
+
+   In [13]: contract_metric(g(i, l) * g(j, m) * B(-l, -m), g)
+   Out[13]: B(i, j)
+
+   In [14]: contract_metric(g(-i, -l) * g(-j, -m) * B(l, m), g)
+   Out[14]: B(-i, -j)
 
 四元運動量
 ----------------------------------------------------------------------
@@ -236,16 +317,24 @@ Levi-Civita 記号
 * [2][3] プロパティー ``Lorentz.epsilon`` に別名を付ける。
   ついでにその階数が 3 であることを確認する。
 
-* [4] 重複のないすべての添字の順列における ``epsilon`` の値と、
+* [4] 重複のないすべての添字の順列における ``eps`` の値と、
   その canonnical form とのそれの値とを出力する。
-  これによると、次のことが正しく表現できていることが確認できる。
+  添字 ``(l, m, n)`` の置換に関して次のことが正しく表現できている。
 
-  * 添字順がサイクル ``(i0, i1, i2)`` の偶置換ならば ``epsilon(i0, i1, i2)`` に等しい
-  * 添字順がサイクル ``(i0, i1, i2)`` の奇置換ならば ``-epsilon(i0, i1, i2)`` に等しい
+  * ``(i0, i1, i2)`` の偶置換ならば ``eps(l, m, n) == eps(i0, i1, i2)``
+  * ``(i0, i1, i2)`` の奇置換ならば ``eps(l, m, n) == -eps(i0, i1, i2)``
 
 * [5]-[7] 参考までに 3 次交代群の要素をすべて記す。
 
 ここでは 3 階の例を試したが、テストコードは 4 階で動作確認をしている。
+
+参考文献
+----------------------------------------------------------------------
+* モジュール ``sympy.tensor.tensor`` の docstring および対応するテストコード
+* `Raising and lowering indices <https://en.wikipedia.org/wiki/Raising_and_lowering_indices>`_
+* `Four-momentum <https://en.wikipedia.org/wiki/Four-momentum>`_: 英語版のほうが都合が良い符号の取り方をしている。
+* `電磁テンソル <https://ja.wikipedia.org/wiki/%E9%9B%BB%E7%A3%81%E3%83%86%E3%83%B3%E3%82%BD%E3%83%AB>`_
+* `Levi-Civita symbol <https://en.wikipedia.org/wiki/Levi-Civita_symbol>`_: モデルの視覚的表現物が豊富な英語版の記事のほうを勧める。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
