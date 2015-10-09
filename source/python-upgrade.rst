@@ -16,11 +16,13 @@ Python 移行ノート
 
      * Windows XP Home Edition SP 3
      * Windows 7 Home Premium SP 1
+     * Windows 10 Home Edition
 
-   * Python
+   * Python upgrading
 
-     * Upgrade from 2.6.6 to 2.7.3.
-     * Upgrade from 2.7.3 to 3.4.1.
+     * from 2.6.6 to 2.7.3
+     * from 2.7.3 to 3.4.1
+     * from 3.4.1 to 3.5.0
 
 2.6 から 2.7 への移行計画
 ======================================================================
@@ -238,6 +240,170 @@ PYTHONPATH       自作モジュールのパス
 ----------------------------------------------------------------------
 もっとも面倒な作業は、これまで自分が書いたすべての Python コードを Python 3 仕様に書き改めることだ。
 しかし :file:`$PYTHONDIR/Tools/Scripts/2to3.py` で機械的に処理すれば一応は動きそう。
+
+3.4 から 3.5 への以降
+======================================================================
+OS を Windows 10 にアップグレードしたときには 3.4 環境はビクともしなかった。
+なので、今回は OS を変えてから初めての Python のアップグレードになる。
+
+Python 3.5 本体をインストールする
+----------------------------------------------------------------------
+次の手順を踏む。
+
+#. Python_ の公式サイトから :file:`python-3.5.0-amd64.exe` をダウンロードする。
+#. インストーラーを実行する。
+   その際は次のような点に気を配りたい。
+
+   * Customize installation を選択する。
+   * pip は当然必要だ。
+   * Install for all users をオンにして、インストールパスをそれらしい所に設定する。
+
+サードパーティー製パッケージのインストール
+----------------------------------------------------------------------
+むしろこちらがメインの作業だ。
+
+Windows インストーラーを利用するもの
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+言い換えれば諸事情により pip に頼れないパッケージ群のことだ。
+各パッケージの公式サイトおよび
+`Python Extension Packages for Windows - Christoph Gohlke`_ が配布するインストーラーに頼る。
+
+* 拡張子が ``exe`` や ``msi`` のファイルは、よくあるインストーラー。
+  インストールの順序は任意でよいハズ。
+
+* 拡張子が ``whl`` のファイルについては、これらをダウンロードしておき pip に処理させるもの。
+  依存パッケージがあるならば、先にインストールを済ませる必要がある。
+
+コツとしては NumPy_ が一番最初にインストールを済ませるべきものであろう。
+
+* :file:`lxml-3.4.4-cp35-none-win_amd64.whl` (Christoph)
+* :file:`matplotlib-1.4.3-cp35-none-win_amd64.whl` (Christoph)
+* :file:`numpy‑1.10.0+mkl‑cp35‑none‑win_amd64.whl` (Christoph)
+* :file:`pygame-1.9.2a0-cp35-none-win_amd64.whl` (Christoph)
+* :file:`PyOpenGL-3.1.1a1-cp35-none-win_amd64.whl` (Christoph)
+* :file:`PyOpenGL_accelerate-3.1.1a1-cp35-none-win_amd64.whl` (Christoph)
+* :file:`reportlab-3.2.0-cp35-none-win_amd64.whl` (Christoph)
+* :file:`scipy-0.16.0-cp35-none-win_amd64.whl` (Christoph)
+
+旧環境での pip freeze の出力を利用するもの
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+インストーラーによる作業がすべて終わってようやく pip が使える。
+
+今回試したらインストーラーではなく pip で済むようになっていたパッケージは次のとおり。
+
+* Pillow (:file:`Pillow-3.0.0-cp35-none-win_amd64.whl`)
+* PyOpenGL (:file:`PyOpenGL-3.1.0.tar.gz`): ただしバージョンの関係で上述のインストーラーを採用する。
+
+旧環境のクリーンナップ
+----------------------------------------------------------------------
+#. Windows のコントロールパネル「プログラムと機能」から 3.4 のパッケージと Python 本体をアンインストールする。
+#. :file:`D:\Python34` フォルダーを削除する。
+   中に入っている残骸がサードパーティー製パッケージの関連ファイルだけであることを確認できれば、
+   そうする。
+
+ツールや環境変数の修正
+----------------------------------------------------------------------
+3.4 から 3.5 への移行に伴う変更は軽微な修正作業になる。
+
+ドットファイル
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Cygwin bash で作業をするため、主にエイリアスとパスに関わる項目の設定を更新する。
+
+* :file:`.bashrc` の Python 関連のコードを修正。
+* :file:`.bash_profile` の Python 関連のコードを修正。
+
+ConEmu
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ConEmu の Settings... > Startup > Tasks の Predefined tasks を更新する。
+
+.. csv-table::
+   :delim: @
+   :header: Task, Command
+   :widths: 12, 88
+
+   {Python}@``D:\Python35\python.exe -i``
+   {IPython}@``D:\Python35\Scripts\ipython3.exe``
+   {IPython}@``D:\Python35\Scripts\ipython3.exe qtconsole --pylab inline``
+   {isympy}@``D:\Python35\python.exe "D:\home\yojyo\devel\sympy\bin\isympy" -- --TerminalIPythonApp.pylab_import_all=False``
+
+残項目
+----------------------------------------------------------------------
+* IPython_ と Matplotlib_ の連携が何やらおかしい。
+  セッション起動時にいきなり次の不具合が発生する。
+  もしかるすると IPython のアップグレードで設定項目の何かに変化があったか。
+
+  .. code-block:: text
+
+     Python 3.5.0 (v3.5.0:374f501f4567, Sep 13 2015, 02:27:37) [MSC v.1900 64 bit (AMD64)]
+     Type "copyright", "credits" or "license" for more information.
+
+     IPython 4.0.0 -- An enhanced Interactive Python.
+     ?         -> Introduction and overview of IPython's features.
+     %quickref -> Quick reference.
+     help      -> Python's own help system.
+     object?   -> Details about 'object', use 'object??' for extra details.
+     [TerminalIPythonApp] WARNING | Eventloop or matplotlib integration failed. Is matplotlib installed?
+     ---------------------------------------------------------------------------
+     ImportError                               Traceback (most recent call last)
+     d:\python35\lib\site-packages\IPython\core\shellapp.py in <lambda>(key)
+         217         shell = self.shell
+         218         if self.pylab:
+     --> 219             enable = lambda key: shell.enable_pylab(key, import_all=self.pylab_import_all)
+         220             key = self.pylab
+         221         elif self.matplotlib:
+
+     d:\python35\lib\site-packages\IPython\core\interactiveshell.py in enable_pylab(self, gui, import_all, welcome_message)
+        3169         from IPython.core.pylabtools import import_pylab
+        3170
+     -> 3171         gui, backend = self.enable_matplotlib(gui)
+        3172
+        3173         # We want to prevent the loading of pylab to pollute the user's
+
+     d:\python35\lib\site-packages\IPython\core\interactiveshell.py in enable_matplotlib(self, gui)
+        3130                 gui, backend = pt.find_gui_and_backend(self.pylab_gui_select)
+        3131
+     -> 3132         pt.activate_matplotlib(backend)
+        3133         pt.configure_inline_support(self, backend)
+        3134
+
+     d:\python35\lib\site-packages\IPython\core\pylabtools.py in activate_matplotlib(backend)
+         272     matplotlib.rcParams['backend'] = backend
+         273
+     --> 274     import matplotlib.pyplot
+         275     matplotlib.pyplot.switch_backend(backend)
+         276
+
+     d:\python35\lib\site-packages\matplotlib\pyplot.py in <module>()
+          25
+          26 import matplotlib
+     ---> 27 import matplotlib.colorbar
+          28 from matplotlib import style
+          29 from matplotlib import _pylab_helpers, interactive
+
+     d:\python35\lib\site-packages\matplotlib\colorbar.py in <module>()
+          30
+          31 import matplotlib as mpl
+     ---> 32 import matplotlib.artist as martist
+          33 import matplotlib.cbook as cbook
+          34 import matplotlib.collections as collections
+
+     d:\python35\lib\site-packages\matplotlib\artist.py in <module>()
+          10 import matplotlib.cbook as cbook
+          11 from matplotlib import docstring, rcParams
+     ---> 12 from .transforms import Bbox, IdentityTransform, TransformedBbox, \
+          13                        TransformedPath, Transform
+          14 from .path import Path
+
+     d:\python35\lib\site-packages\matplotlib\transforms.py in <module>()
+          37 import numpy as np
+          38 from numpy import ma
+     ---> 39 from matplotlib._path import (affine_transform, count_bboxes_overlapping_bbox,
+          40     update_path_extents)
+          41 from numpy.linalg import inv
+
+     ImportError: DLL load failed: 指定されたモジュールが見つかりません。
+
+* PyQt5 の Python 3.5 版のインストール
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
