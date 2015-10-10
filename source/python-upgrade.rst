@@ -8,6 +8,8 @@ Python 移行ノート
 
 そして 2014 年夏、Windows 7 の 64 ビット機に Python 3.4 環境を構築する機会が訪れた。
 
+さらに 2015 年秋、Windows 10 に無料アップグレードしてしばらくしてから Python 3.5 へ移行した。
+
 .. contents:: ノート目次
 
 .. note::
@@ -241,7 +243,7 @@ PYTHONPATH       自作モジュールのパス
 もっとも面倒な作業は、これまで自分が書いたすべての Python コードを Python 3 仕様に書き改めることだ。
 しかし :file:`$PYTHONDIR/Tools/Scripts/2to3.py` で機械的に処理すれば一応は動きそう。
 
-3.4 から 3.5 への以降
+3.4 から 3.5 への移行
 ======================================================================
 OS を Windows 10 にアップグレードしたときには 3.4 環境はビクともしなかった。
 なので、今回は OS を変えてから初めての Python のアップグレードになる。
@@ -258,7 +260,20 @@ Python 3.5 本体をインストールする
    * pip は当然必要だ。
    * Install for all users をオンにして、インストールパスをそれらしい所に設定する。
 
-サードパーティー製パッケージのインストール
+Visual Studio 2015 の Visual C++ ランタイムをインストールする
+----------------------------------------------------------------------
+Python 3.5 は VC++ 2015 でビルドされている。
+Python 自身は上述のインストーラーを実施したら即動作するとはいえ、
+一部のサードパーティー製パッケージがこれを動作環境にあることを必要とする。
+そのため、Visual Studio 2015 がない環境では別途ランタイムをインストールしておくのが事実上必要な作業になっている。
+
+#. Google でよいので ``visual studio 2015 runtime`` などのキーワードで検索をする。
+#. Microsoft の提供するダウンロードページがヒットするはずなので、そこで 64 ビット版を入手する。
+#. インストーラーを実行する。オプションなし。
+
+なお、Visual Studio 2015 をインストールする予定があれば Python のアップグレードよりもそれを優先するのがよい。
+
+サードパーティー製パッケージをインストールする
 ----------------------------------------------------------------------
 むしろこちらがメインの作業だ。
 
@@ -315,6 +330,7 @@ Cygwin bash で作業をするため、主にエイリアスとパスに関わ�
 ConEmu
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ConEmu の Settings... > Startup > Tasks の Predefined tasks を更新する。
+一例を示す。
 
 .. csv-table::
    :delim: @
@@ -323,86 +339,12 @@ ConEmu の Settings... > Startup > Tasks の Predefined tasks を更新する。
 
    {Python}@``D:\Python35\python.exe -i``
    {IPython}@``D:\Python35\Scripts\ipython3.exe``
-   {IPython}@``D:\Python35\Scripts\ipython3.exe qtconsole --pylab inline``
-   {isympy}@``D:\Python35\python.exe "D:\home\yojyo\devel\sympy\bin\isympy" -- --TerminalIPythonApp.pylab_import_all=False``
+   {isympy}@``D:\Python35\python.exe "D:\home\yojyo\devel\sympy\bin\isympy" -- --profile=sympy``
+
+* IPython の各 profile は別途仕込んでおく。
 
 残項目
 ----------------------------------------------------------------------
-* IPython_ と Matplotlib_ の連携が何やらおかしい。
-  セッション起動時にいきなり次の不具合が発生する。
-  もしかるすると IPython のアップグレードで設定項目の何かに変化があったか。
-
-  .. code-block:: text
-
-     Python 3.5.0 (v3.5.0:374f501f4567, Sep 13 2015, 02:27:37) [MSC v.1900 64 bit (AMD64)]
-     Type "copyright", "credits" or "license" for more information.
-
-     IPython 4.0.0 -- An enhanced Interactive Python.
-     ?         -> Introduction and overview of IPython's features.
-     %quickref -> Quick reference.
-     help      -> Python's own help system.
-     object?   -> Details about 'object', use 'object??' for extra details.
-     [TerminalIPythonApp] WARNING | Eventloop or matplotlib integration failed. Is matplotlib installed?
-     ---------------------------------------------------------------------------
-     ImportError                               Traceback (most recent call last)
-     d:\python35\lib\site-packages\IPython\core\shellapp.py in <lambda>(key)
-         217         shell = self.shell
-         218         if self.pylab:
-     --> 219             enable = lambda key: shell.enable_pylab(key, import_all=self.pylab_import_all)
-         220             key = self.pylab
-         221         elif self.matplotlib:
-
-     d:\python35\lib\site-packages\IPython\core\interactiveshell.py in enable_pylab(self, gui, import_all, welcome_message)
-        3169         from IPython.core.pylabtools import import_pylab
-        3170
-     -> 3171         gui, backend = self.enable_matplotlib(gui)
-        3172
-        3173         # We want to prevent the loading of pylab to pollute the user's
-
-     d:\python35\lib\site-packages\IPython\core\interactiveshell.py in enable_matplotlib(self, gui)
-        3130                 gui, backend = pt.find_gui_and_backend(self.pylab_gui_select)
-        3131
-     -> 3132         pt.activate_matplotlib(backend)
-        3133         pt.configure_inline_support(self, backend)
-        3134
-
-     d:\python35\lib\site-packages\IPython\core\pylabtools.py in activate_matplotlib(backend)
-         272     matplotlib.rcParams['backend'] = backend
-         273
-     --> 274     import matplotlib.pyplot
-         275     matplotlib.pyplot.switch_backend(backend)
-         276
-
-     d:\python35\lib\site-packages\matplotlib\pyplot.py in <module>()
-          25
-          26 import matplotlib
-     ---> 27 import matplotlib.colorbar
-          28 from matplotlib import style
-          29 from matplotlib import _pylab_helpers, interactive
-
-     d:\python35\lib\site-packages\matplotlib\colorbar.py in <module>()
-          30
-          31 import matplotlib as mpl
-     ---> 32 import matplotlib.artist as martist
-          33 import matplotlib.cbook as cbook
-          34 import matplotlib.collections as collections
-
-     d:\python35\lib\site-packages\matplotlib\artist.py in <module>()
-          10 import matplotlib.cbook as cbook
-          11 from matplotlib import docstring, rcParams
-     ---> 12 from .transforms import Bbox, IdentityTransform, TransformedBbox, \
-          13                        TransformedPath, Transform
-          14 from .path import Path
-
-     d:\python35\lib\site-packages\matplotlib\transforms.py in <module>()
-          37 import numpy as np
-          38 from numpy import ma
-     ---> 39 from matplotlib._path import (affine_transform, count_bboxes_overlapping_bbox,
-          40     update_path_extents)
-          41 from numpy.linalg import inv
-
-     ImportError: DLL load failed: 指定されたモジュールが見つかりません。
-
 * PyQt5 の Python 3.5 版のインストール
 
 .. include:: /_include/python-refs-core.txt
