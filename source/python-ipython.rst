@@ -9,15 +9,19 @@ NumPy_, SciPy_, Matplotlib_ のドキュメントを読んでいるとこのツ�
 
 .. note::
 
-   * OS は Windows 7 Home Premium SP 1 を使用している。
+   * OS
+
+     * Windows 7 Home Premium SP 1
+     * Windows 10 Home Edition
+
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_ 3.4.1
-     * IPython_ 3.0.0
-     * PyReadline_ 2.0
-     * Nose_ 1.3.4
-     * PyQt_ v5.3.1 for Python v3.4 (x64)
-     * PyZMQ_ 14.5.0
+     * Python_ 3.4.1, 3.5.0
+     * IPython_ 3.0.0, 4.0.0
+     * PyReadline_ 2.0, 2.1
+     * Nose_ 1.3.4, 1.3.7
+     * PyQt_ v5.3.1 for Python v3.4 (x64), n/a for Python v3.5 (x64)
+     * PyZMQ_ 14.5.0, 14.7.0
 
 IPython とは何か
 ======================================================================
@@ -59,7 +63,7 @@ Windows の「ファイル名を指定して実行」で同実行ファイルを
 
 私の環境でのスタートアップ時の出力を記す。
 
-.. code-block:: text
+.. code-block:: ipython
 
    WARNING: Readline services not available or not loaded.
    WARNING: Proper color support under MS Windows requires the pyreadline library.
@@ -114,6 +118,9 @@ PyReadline をインストール
 テスト
 ----------------------------------------------------------------------
 ここで IPython の動作確認テストを行いたい。
+
+IPython 3.0.0
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 公式ドキュメントに従い、初回条件で ``iptest`` を実行すると以下のようになった。
 
 .. code-block:: console
@@ -135,6 +142,34 @@ PyReadline をインストール
     なるエラーが。
 
 結論としては、これは面倒そうなので諦めた。
+
+IPython 4.0.0
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+一連の自動テストが実行された。エラーがボロボロと現れる。
+
+.. code-block:: console
+
+   $ iptest3
+
+   Test group: core
+   ............................
+   省略
+   ______________________________________________________________________
+   Test suite completed for system with the following information:
+   IPython version: 4.0.0
+   IPython commit : f534027 (installation)
+   IPython package: d:\python35\lib\site-packages\IPython
+   Python version : 3.5.0 (v3.5.0:374f501f4567, Sep 13 2015, 02:27:37) [MSC v.1900 64 bit (AMD64)]
+   sys.executable : d:\python35\python.exe
+   Platform       : Windows-10.0.10240
+
+   Tools and libraries available at test time:
+      matplotlib pygments sqlite3
+
+   Status: ERROR - 1 out of 7 test groups failed (core). Took 125.286s.
+
+   You may wish to rerun these, with:
+     iptest core
 
 環境設定
 ======================================================================
@@ -169,14 +204,20 @@ IPython 固有の環境変数としては :envvar:`IPYTHON_DIR` ただひとつ�
 
    c.InteractiveShellApp.pylab = 'auto'
    c.InteractiveShellApp.pylab_import_all = True
-   c.TerminalIPythonApp.pylab = 'auto'
-   c.TerminalIPythonApp.pylab_import_all = True
 
 これぐらいやっておくと、NumPy や Matplotlib の構成要素のインポートを自動的に行なってくれる。
 例えば ``import numpy as np`` しなくても ``np.arange(10)`` のようなコードが通じる。
 さらに、モジュール名を書かずに ``arange(10)`` と書いても通じる。
 
-このトピックは深く掘り下げて理解を深めるのがよいように思える。
+反対に、敢えて NumPy と Matplotlib の自動インポートを抑制した状況でセッションを開きたいこともある。
+このような場合は名前付きプロファイルを生成して、設定ファイルの対応項目を ``False`` にする。
+そして、IPython 起動時に ``--profile`` コマンドラインオプションで設定名を指示する。
+
+.. code-block:: console
+
+   $ ipython3 profile create sympy
+   $ edit ~/.ipython/profile_sympy/ipython_config.py
+   $ ipython3 --profile=sympy
 
 コマンドライン引数による設定
 ----------------------------------------------------------------------
@@ -319,10 +360,14 @@ IPython コンソールウィンドウでの各種機能をひと通り試して
    * Windows だと ``!`` コマンドが使えてもあまりうれしくない。Cygwin のコマンドを使いたいので設定可能か調べる。単に
      ``/bin`` に PATH を通すだけかもしれない。
    * Output caching system の ``_<n>`` の有効な *n* を知りたい場合は？
-   * IPython ウィンドウでのテキストのハイライト機能を提供する Sphinx のディレクティブを当ノートに導入する。
 
 Qt コンソールを試す
 ======================================================================
+
+.. warning::
+
+   本節の記述は Python 3.5 では未確認。
+
 PyQt_ と PyZMQ_ が利用可能であれば、IPython を PyQt ウィンドウで再現できる。
 私の環境では PyQt はインストールが済んでいるものの、PyZMQ が入っていなかった。
 本節では PyZMQ のインストール作業から記す。
