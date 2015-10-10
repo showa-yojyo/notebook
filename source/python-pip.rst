@@ -28,11 +28,12 @@ Python 3.4 以前は pip もまたサードパーティー製パッケージの�
 
      * Windows XP Home Edition SP 3
      * Windows 7 Home Premium SP 1
+     * Windows 10 Home Edition
 
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_: 2.6.6, 2.7.3, 3.4.1
-     * pip_: 1.1, 1.5.6
+     * Python_: 2.6.6, 2.7.3, 3.4.1, 3.5.0
+     * pip_: 1.1, 1.5.6, 7.1.2
      * setuptools_: 0.6c11
      * distribute_: 未使用
      * virtualenv: 未使用
@@ -137,6 +138,29 @@ Python 3.4 以前の環境では、手動でインストールする必要があ
 
 余談だが、Google で ``pip freeze`` を検索すると、
 他の Python プログラマーがどのようなパッケージを利用しているか垣間見える。
+
+インストール済みパッケージの情報を表示する
+----------------------------------------------------------------------
+コマンド ``pip show`` を実行することで、インストール済みパッケージの情報を出力できる。
+これは当ノートの更新作業のときにしばしば実行する。
+
+.. code-block:: console
+
+   $ pip show matplotlib
+   ---
+   Metadata-Version: 2.0
+   Name: matplotlib
+   Version: 1.4.3
+   Summary: Python plotting package
+   Home-page: http://matplotlib.org
+   Author: John D. Hunter, Michael Droettboom
+   Author-email: mdroe@stsci.edu
+   License: BSD
+   Location: d:\python35\lib\site-packages
+   Requires: python-dateutil, pytz, numpy, six, pyparsing
+
+コマンドライン引数にパッケージ名を複数指定すると、
+情報を上記の書式で連続して出力する。
 
 ファイルからパッケージリストを読み込んで各種操作する
 ----------------------------------------------------------------------
