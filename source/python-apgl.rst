@@ -1,7 +1,6 @@
 ======================================================================
 Another Python Graph Library (APGL) 利用ノート
 ======================================================================
-
 本稿は :doc:`python-networkx/index` を書くよりも昔に書いたものだ。
 
 .. contents:: ノート目次
@@ -12,13 +11,14 @@ Another Python Graph Library (APGL) 利用ノート
 
      * Windows XP Home Edition SP 3
      * Windows 7 Home Premium SP 1
+     * Windows 10 Home Edition
 
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_: 2.6.6, 2.7.3, 3.4.1
-     * APGL_: 0.6.10, 0.7.1
-     * NumPy_: 1.6.1, 1.6.2, 1.8.2
-     * SciPy_: 0.10.1, 1.3.1
+     * Python_: 2.6.6, 2.7.3, 3.4.1, 3.5.0
+     * APGL_: 0.6.10, 0.7.1, 0.8.1
+     * NumPy_: 1.6.1, 1.6.2, 1.8.2, 1.10.0
+     * SciPy_: 0.10.1, 1.3.1, 0.16.0
 
 関連リンク
 ======================================================================
@@ -69,12 +69,12 @@ or the unittest2 testing framework for Python 2.3-2.6> (p. 2)
 
    >> import apgl
    >> apgl.test()
-   Running tests from D:\Python34\lib\site-packages\apgl
+   Running tests from D:\Python35\lib\site-packages\apgl
    ... ドットの列 ...
    ----------------------------------------------------------------------
-   Ran 438 tests in 20.504s
+   Ran 438 tests in 40.034s
 
-   FAILED (failures=14, errors=26, skipped=148)
+   FAILED (failures=14, errors=29, skipped=148)
    >>>
 
 どのバージョンもスキップが多すぎて不安になる事態が改善されていない。
@@ -96,11 +96,13 @@ APGL_ のウェブページに "An Introduction to APGL" という PDF ファイ
 * グラフ
 
   .. csv-table::
-     :header: "グラフクラス","格納","コメント"
+     :delim: :
+     :header: クラス, データ, コメント
+     :widths: 8, 8, 82
 
-     ``DenseGraph``,``numpy.ndarray``,
-     ``SparseGraph``,``scipy.sparse``,efficient for the storage of large graphs without many edges
-     ``PySparseGraph``,``Pysparse``,written in C and hence may be faster
+     ``DenseGraph``:``numpy.ndarray``:
+     ``SparseGraph``:``scipy.sparse``:efficient for the storage of large graphs without many edges
+     ``PySparseGraph``:``Pysparse``:written in C and hence may be faster
 
 * グラフ頂点にはラベルが付けられる。
 
@@ -124,8 +126,8 @@ APGL_ のウェブページに "An Introduction to APGL" という PDF ファイ
 
 * グラフの最短経路
 
-  * Floyd-Warshall アルゴリズムは行列の最短経路 P を計算する方法だ。
-    これは計算コストがグラフ頂点数 n について :math:`O(n^3)` という、たいへん重いものだ。
+  * Floyd-Warshall アルゴリズムは行列の最短経路 `P` を計算する方法だ。
+    これは計算コストがグラフ頂点数 `n` について :math:`O(n^3)` という、たいへん重いものだ。
 
   * Dijkstra のアルゴリズムに基づいたグラフメソッド ``findAllDistances`` も利用可。
     グラフの最短経路と言われれば、まずこの手法の適用可能性を検討するのが自然だろう。
@@ -155,9 +157,8 @@ APGL_ のウェブページに "An Introduction to APGL" という PDF ファイ
 利用例
 ======================================================================
 
-findAllDistances
+メソッド ``findAllDistances``
 ----------------------------------------------------------------------
-
 グラフのインスタンスメソッド ``findAllDistances`` を使ってみる。
 前述のとおり、内部で Dijkstra アルゴリズムを適用している。
 
@@ -189,7 +190,7 @@ findAllDistances
 一般的には接続の切れているような頂点ペアに関しては、
 計算不能を示す値が来るということを記しておく。
 
-PySparseGraph
+``PySparseGraph``
 ----------------------------------------------------------------------
 
 :file:`PySparseGraph` の冒頭のインポートがおかしいので、自分で修正する。

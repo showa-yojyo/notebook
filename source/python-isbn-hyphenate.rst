@@ -1,21 +1,25 @@
 ======================================================================
-isbn_hyphenate 利用ノート
+isbn-hyphenate 利用ノート
 ======================================================================
-本稿は Python パッケージ isbn_hyphenate_ について記す。
+本稿は Python パッケージ isbn-hyphenate_ について記す。
 
 .. contents:: ノート目次
 
 .. note::
 
-   * OS は Windows 7 Home Premium SP 1 を使用している。
+   * OS
+
+     * Windows 7 Home Premium SP 1
+     * Windows 10 Home Edition
+
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_ 3.4.1
-     * isbn_hyphenate_ 1.0.3
+     * Python_ 3.4.1, 3.5.0
+     * isbn-hyphenate_ 1.0.3
 
-isbn_hyphenate とは何か
+isbn-hyphenate とは何か
 ======================================================================
-isbn_hyphenate_ は ISBN の数字列に適切にハイフンを配置するための Python パッケージだ。
+isbn-hyphenate_ は ISBN の数字列に適切にハイフンを配置するための Python パッケージだ。
 
 私は読書ノートを記すときには、可能な限り対象書籍の ISBN を書き添えることにしている。
 そして数字だけからなるその文字列に、ハイフンを完璧に配置しておきたい。
@@ -26,7 +30,7 @@ isbn_hyphenate_ は ISBN の数字列に適切にハイフンを配置するた�
 少なくとも手動で行うのに不適な作業と判断した。
 
 そこで我らが Python でこの問題を解決できないかと調べたところ、このパッケージを発見した次第だ。
-以下、isbn_hyphenate についてインストール方法および利用方法を記す。
+以下、isbn-hyphenate についてインストール方法および利用方法を記す。
 
 インストール
 ======================================================================
@@ -34,9 +38,9 @@ isbn_hyphenate_ は ISBN の数字列に適切にハイフンを配置するた�
 
 .. code-block:: console
 
-   $ pip isbn_hyphenate
+   $ pip install isbn-hyphenate
 
-または Github のレポジトリーを clone して、そこで ``pip -e .`` してもよいだろう。
+または Github のレポジトリーを clone して、そこで ``pip install -e .`` してもよいだろう。
 
 単体テスト
 ----------------------------------------------------------------------
@@ -52,12 +56,12 @@ isbn_hyphenate_ は ISBN の数字列に適切にハイフンを配置するた�
    .............
    ----------------------------------------------------------------------
    Ran 13 tests in 0.006s
-   
+
    OK
 
 コード
 ======================================================================
-パッケージ isbn_hyphenate は基本的にはただ一つの関数を提供する。
+パッケージ isbn-hyphenate は基本的にはただ一つの関数を提供する。
 ユーザーの負担がべらぼうに小さくて済むのでありがたい。
 利用手順は次のようになる。
 
@@ -79,4 +83,4 @@ isbn_hyphenate_ は ISBN の数字列に適切にハイフンを配置するた�
    ``isbn_xml2py.py`` をユーザーが起動することがあるのか。
 
 .. include:: /_include/python-refs-core.txt
-.. _isbn_hyphenate: https://github.com/TorKlingberg/isbn_hyphenate
+.. _isbn-hyphenate: https://github.com/TorKlingberg/isbn_hyphenate

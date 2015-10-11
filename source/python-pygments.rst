@@ -10,11 +10,12 @@ Pygments 利用ノート
 
      * Windows XP Home Edition SP 3
      * Windows 7 Home Premium SP 1
+     * Windows 10 Home Edition
 
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_: 2.6.6, 2.7.3, 3.4.1
-     * Pygments_: 1.4, 1.6
+     * Python_: 2.6.6, 2.7.3, 3.4.1, 3.5.0
+     * Pygments_: 1.4, 1.6, 2.0.2
 
 関連リンク
 ======================================================================
@@ -70,7 +71,7 @@ Mercurial_ とやらが必要なのでパス。
   * ``filters``: lexer からの出力（トークンストリーム）をテキスト的な加工をするときに利用する。
 
   * ``formatters``: 処理結果を何らかの書式で出力する。
-    HTML, XML, LaTex, RTF, etc...
+    HTML, XML, LaTeX, RTF, etc...
 
   * ``styles``: キーワードやコメントをどうハイライトするのかを決める役割がある。
 
@@ -84,19 +85,18 @@ Python コードから Pygments の機能を利用する
    from pygments.lexers import PythonLexer
    from pygments.formatters import HtmlFormatter
   
-   code = 'print "Hello World"'
+   code = 'print("Hello World")'
    print(highlight(code, PythonLexer(), HtmlFormatter()))
 
 これは「Python のソースコードを HTML コード片に変換する」例のごく単純なもので、
 最後に ``highlight`` 関数で締めくくっている。
 
-出力結果をドキュメントから引用してみる：
+出力結果を示す。
 
 .. code-block:: html
 
-   <div class="highlight">
-   <pre><span class="k">print</span> <span class="s">&quot;Hello World&quot;</span></pre>
-   </div>
+   <div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
+   </pre></div>
 
 何が highlight なのかと言うと、HTML コードに装飾用のマークアップが付いていることが認められる。
 
@@ -200,10 +200,6 @@ Styles
 ----------------------------------------------------------------------
 * スタイルというのは出力が HTML または LaTeX のときに適用される。
 * 基本的にここをいじりまわすことはなさそうだ。
-
-コンポーネントを自作
-======================================================================
-気が向いたら挑戦してみよう。
 
 .. include:: /_include/python-refs-core.txt
 .. _Pygments: http://pygments.org/

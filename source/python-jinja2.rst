@@ -10,11 +10,12 @@ Jinja2 利用ノート
 
      * Windows XP Home Edition SP 3
      * Windows 7 Home Premium SP 1
+     * Windows 10 Home Edition
 
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_: 2.6.6, 2.7.3, 3.4.1
-     * Jinja2_: 2.5.5, 2.6
+     * Python_: 2.6.6, 2.7.3, 3.4.1, 3.5.0
+     * Jinja2_: 2.5.5, 2.6, 2.8
 
 関連リンク
 ======================================================================
@@ -41,12 +42,13 @@ Jinja2 とは何なのか
 * インターネットが利用できない環境では、できる環境から圧縮ファイルを持ち帰り、
   解凍してがんばる。
 
-  * 在処は http://pypi.python.org/pypi/Jinja2
   * 解凍して ``setup.py`` のあるフォルダーで ``python setup.py install`` とする。
   * 普通は setuptools_ を利用することになるが、
     distribute_ というのもあるらしい。
     Jinja2_ は後者を推奨している。
     いずれにせよ、ファイル自体の持ち帰り作業が必要のはず。
+
+  これは Python 3.5 時代ならばやはりローカルで pip だ。
 
 * オフラインで読めるようにドキュメントも確保しておく。
   ありがたいことに、日本語訳も存在する（アドレス忘れた）。
@@ -56,7 +58,6 @@ Python コードを書く
 
 Hello world
 ----------------------------------------------------------------------
-
 Jinja2 Documentation から引用：
 
 >>> from jinja2 import Template
@@ -67,7 +68,7 @@ Jinja2 Documentation から引用：
 ``jinja2.Template.render`` の引数は ``dict`` オブジェクトかキーワード引数。
 これをテンプレートのコンテキストという。
 
-クラス Environment
+クラス ``Environment``
 ----------------------------------------------------------------------
 コンフィグレーションクラスと思えばよい。
 
@@ -76,7 +77,7 @@ Jinja2 Documentation から引用：
    from jinja2 import Environment, PackageLoader
    env = Environment(loader=PackageLoader('yourapplication', 'templates'))
    template = env.get_template()
-   print template.render(name='y', age='5')
+   print(template.render(name='y', age='5'))
 
 * コンストラクタの引数はすべてキーワード引数。
   個人的によく使うキーワード引数をメモしておくと後で役に立つ。
@@ -98,9 +99,8 @@ Jinja2 Documentation から引用：
 * ``get_loader`` メソッドの最初の引数としてテンプレート名を指示する。
   その意味は ``Environment`` オブジェクトに結びついているローダーの型によって変わる。
 
-クラス Template
+クラス ``Template``
 ----------------------------------------------------------------------
-
 * 先の Hello world の例のように、直接コンストラクターからオブジェクトを生成することもできるが、
   ``Template`` オブジェクトは通常 ``Environment`` オブジェクトの
   ``get_template`` メソッドから得る。
@@ -122,7 +122,6 @@ Jinja2 Documentation から引用：
 
 各種 Loader
 ----------------------------------------------------------------------
-
 * ローダーは ``Environment`` オブジェクトが持っている。
 
 * <Loaders are responsible for loading templates from a resource
@@ -146,7 +145,6 @@ Jinja2 Documentation から引用：
 
 テンプレートの記法
 ======================================================================
-
 テンプレートテキストは定型文と可変部分からなるものだから、
 可変部分を集中して研究しよう。
 
@@ -154,7 +152,6 @@ Jinja2 Documentation から引用：
 
 初歩的なテンプレートの例
 ----------------------------------------------------------------------
-
 Jinja2 Documentation からそのまま引用してきたテンプレート例を示す。
 
 .. code-block:: jinja
@@ -184,7 +181,6 @@ Jinja2 Documentation からそのまま引用してきたテンプレート例�
 
 テンプレートに変数を埋め込む方法
 ----------------------------------------------------------------------
-
 ``{{ foo }}`` と書くと、Python コードからテンプレートの ``render`` 関数の
 キーワード引数 ``foo`` に何らかのオブジェクトを渡した場合に、
 そのオブジェクトに対する ``print`` 結果がそこにテキスト化される。
@@ -201,7 +197,6 @@ Jinja2 Documentation からそのまま引用してきたテンプレート例�
 
 フィルター
 ----------------------------------------------------------------------
-
 ``{{ ... }}`` の出力結果をある程度加工する能力がある。
 これをフィルターと呼んでいるようだ。
 
@@ -227,7 +222,6 @@ Jinja2 Documentation からそのまま引用してきたテンプレート例�
 
 条件分岐
 ----------------------------------------------------------------------
-
 ある条件の成り立つときには違うものを書きたいときに利用する機能。
 
 .. code-block:: jinja
@@ -274,12 +268,10 @@ Jinja2 Documentation からそのまま引用してきたテンプレート例�
 
 特別な文字をエスケープする方法
 ----------------------------------------------------------------------
-
 ``{{ raw }} ... {{ endraw }}`` を利用するのがいい。
 
 テンプレートを継承する方法
 ----------------------------------------------------------------------
-
 ポイントを簡単におさえたメモを残しておく。
 用語は自分流のものに書き換える。
 
@@ -310,7 +302,7 @@ Jinja2 Documentation からそのまま引用してきたテンプレート例�
 各種制御構造
 ----------------------------------------------------------------------
 
-for ブロック
+``for`` ブロック
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 定型文を反復処理で生成するのに ``for`` 構文は欠かせない。
 
@@ -318,7 +310,7 @@ for ブロック
   ``loop.index0``, ``loop.length``, ``loop.cycle()``, etc. といった、
   ループに関連する特別な変数が利用できる。
 
-* Python の for ループのような else 処理が記述できる。
+* Python の ``for`` ループのような ``else`` 処理が記述できる。
 
 * 次のコード例のように、再帰ループを記述することができる。
 
@@ -335,7 +327,7 @@ for ブロック
 
 * ``{% break %}`` や ``{% continue %}`` もサポート。
 
-if ブロック
+``if`` ブロック
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 条件次第で出力するテキストを変えたい場合は当然起りうる。
 ``if`` の出番はそんなときだろう。
@@ -349,7 +341,7 @@ if ブロック
 
      <do something> if <something is true> else <do something else>
 
-macro ブロック
+``macro`` ブロック
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 テンプレート中にマクロを定義できる。
 Jinja2 で言うマクロというのは、プログラミング言語的関数みたいなもの。
@@ -370,11 +362,11 @@ Jinja2 で言うマクロというのは、プログラミング言語的関数�
 
 * 色々と特殊な変数がある。
 
-  * ``varargs`` - 位置パラメータが格納される。list の形を取る。
-  * ``kwargs`` - キーワード引数が格納される。dict の形を取る。
+  * ``varargs`` - ``list`` オブジェクト。位置パラメータが格納される。
+  * ``kwargs`` - ``dict`` オブジェクト。キーワード引数が格納される。
   * etc.
 
-call ブロック
+``call`` ブロック
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 マクロ展開中に、マクロ呼び出し元の何かを展開する機能。
 Jinja2 Documentation からそのまま引用した例だが：
@@ -414,7 +406,7 @@ Jinja2 Documentation からそのまま引用した例だが：
 
 ``call`` は引数を取ることもできるが、複雑になるのでノートを控える。
 
-filter ブロック
+``filter`` ブロック
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 縦棒のフィルターではなく、ブロック形式のフィルターというものだ。
 ``{% filter フィルター名 %}`` ... ``{% endfilter %}`` で囲んだブロックは、
@@ -428,7 +420,7 @@ Python コードよろしく、変数を定義することができる。
 
    {% set 変数名 = 式 %}
 
-include 文
+``include`` 文
 ----------------------------------------------------------------------
 テンプレートファイルが別のテンプレートファイルをインクルードする機能。
 
@@ -443,23 +435,20 @@ include 文
 * ``with context`` 等は「インクルード時点での変数やマクロの定義状態をどう取り扱うか」
   を決めるものだろう。よく調べていない。
 
-import 文
+``import`` 文
 ----------------------------------------------------------------------
 使わなさそうなのでパス。
 
 応用例を考える
 ======================================================================
-
 Jinja2 を利用して何かテキストデータを作成してみよう。
 
 簡易日記テキストファイル
 ----------------------------------------------------------------------
-
 事始めということで、簡単な日記ファイル作成スクリプトを作ってみよう。
 
 テンプレ
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 次の内容のテキストファイルを :file:`diary.txt_t` として保存する。
 
 .. code-block:: jinja
@@ -469,7 +458,7 @@ Jinja2 を利用して何かテキストデータを作成してみよう。
    {#- 曜日名の配列
        0 が月曜日に相当するように宣言すること。
    -#}
-   {%- set dows = ("Mon","Tue","Wed","Thu","Fri","Sat","Sun") -%}
+   {%- set dows = ("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun") -%}
 
    {#- 日付タイトル部のテキスト生成 -#}
    {%- macro day_title(year, month, day2) -%}
@@ -502,7 +491,6 @@ Jinja2 を利用して何かテキストデータを作成してみよう。
 
 Python コード
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 次の内容のコードを :file:`diary.txt_t` のあるディレクトリーに保存し、
 その場で実行すると :file:`diary-2011-04.txt` のような、
 手動で日記を書くためのテキストファイルができる。
@@ -514,22 +502,22 @@ Python コード
    from calendar import Calendar
    import datetime
 
-   tmpldir = '.' # テンプレファイルのあるディレクトリー
+   # the path to the template(s)
+   tmpldir = '.'
    env = Environment(
-       loader = FileSystemLoader(tmpldir, encoding='utf-8'),
-       autoescape = False)
+       loader=FileSystemLoader(tmpldir, encoding='utf-8'),
+       autoescape=False)
    tmpl = env.get_template('diary.txt_t')
 
-   # とりあえず今月の分の日記を作ろう。
+   # Generate blank diary for this month.
    today = datetime.date.today()
    y, m = today.year, today.month
    cal = Calendar()
 
-   # テキストファイルに書き出す
-   with open('diary-%04d-%02d.txt' % (y, m), 'w') as fout:
+   # Output it to a text file.
+   with open('diary-{:04d}-{:02d}.txt'.format(y, m), 'w') as fout:
        fout.write(tmpl.render(
-           year = y, month = m,
-           days = cal.itermonthdays2(y, m)))
+           year=y, month=m, days=cal.itermonthdays2(y, m)))
 
 例が単純過ぎるので、全部 Python コードに埋め込みたくなるのをグッと我慢。
 
@@ -562,12 +550,20 @@ TODO
 .. todo::
 
    * Git_ を利用した開発版 Jinja2_ の作業コピー取得をやってみる。
-   * MarkupSafe_ をインストールしてみる。
-     Jinja2 の自動エスケープ機能が高速化するようだ。
+
+     これは難しくないからやってもやらなくてもよい。
+     おそらく次のようなことをするだけで十分。
+
+     .. code-block:: console
+
+        $ pip uninstall jinja2
+        $ git clone https://github.com/mitsuhiko/jinja2.git
+        $ cd jinja2
+        $ pip install -e .
+
    * Extension 全般。
 
 .. include:: /_include/python-refs-core.txt
 .. _Jinja2: http://jinja.pocoo.org/
 .. _Git: http://git-scm.org/
-.. _MarkupSafe: http://pypi.python.org/pypi/MarkupSafe
-.. _REST API Resources: https://dev.twitter.com/docs/api
+.. _MarkupSafe: http://github.com/mitsuhiko/markupsafe

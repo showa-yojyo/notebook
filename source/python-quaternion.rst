@@ -11,12 +11,13 @@ Quaternion 利用ノート
    * OS
 
      * Windows 7 Home Premium SP 1
+     * Windows 10 Home Edition
 
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_: 3.4.1
+     * Python_: 3.4.1, 3.5.0
      * Quaternion_: 0.03.1
-     * NumPy_: 1.8.2
+     * NumPy_: 1.8.2, 1.10.0
 
 関連リンク
 ======================================================================
@@ -163,7 +164,7 @@ Quaternion を利用する最も普通の形態は、次のインポート文だ
        rotation_matrix[:3, :3] = q.transform
        glUniformMatrix4fv(location_of_matrix, 1, GL_TRUE, rotation_matrix)
 
-四元数体の元としての演算
+四元数代数の演算
 ----------------------------------------------------------------------
 四元数の乗法は可換ではないことに注意するとよい。
 
