@@ -54,7 +54,7 @@ Contents:
    python-quaternion
    python-jinja2
    python-pygments
-   python-twitter-tools
+   python-twitter/index
    python-isbn-hyphenate
    python-pyopengl/index
    python-pyqt4
