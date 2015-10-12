@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Demonstration GET friends/list
-# See https://dev.twitter.com/docs/api/1.1/friends/list
+# See https://dev.twitter.com/rest/reference/friends/list
 
 from secret import twitter_instance
 

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Demonstration POST statuses/update
-# See https://dev.twitter.com/docs/api/1.1/post/statuses/update
+# See https://dev.twitter.com/rest/reference/post/statuses/update
 
 from secret import twitter_instance
 

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # GET statuses/mentions_timeline
-# See https://dev.twitter.com/docs/api/1.1/get/statuses/mentions_timeline
+# See https://dev.twitter.com/rest/reference/get/statuses/mentions_timeline
 
 from secret import twitter_instance
 

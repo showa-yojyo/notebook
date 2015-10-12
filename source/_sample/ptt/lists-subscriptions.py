@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Demonstration GET lists/subscriptions
-# https://dev.twitter.com/docs/api/1.1/get/lists/subscriptions
+# https://dev.twitter.com/rest/reference/get/lists/subscriptions
 
 from secret import twitter_instance
 

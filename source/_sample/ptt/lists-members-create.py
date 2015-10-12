@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Demonstration POST lists/members/create
-# https://dev.twitter.com/docs/api/1.1/post/lists/members/create
+# https://dev.twitter.com/rest/reference/post/lists/members/create
 
 from secret import twitter_instance
 

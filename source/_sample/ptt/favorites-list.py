@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Demonstration GET favorites
-# See https://dev.twitter.com/docs/api/1.1/get/favorites/list
+# See https://dev.twitter.com/rest/reference/get/favorites/list
 
 from secret import twitter_instance
 

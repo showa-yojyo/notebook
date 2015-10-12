@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Demonstration POST lists/ownerships
-# https://dev.twitter.com/docs/api/1.1/post/lists/ownerships
+# https://dev.twitter.com/rest/reference/post/lists/ownerships
 
 from secret import twitter_instance
 

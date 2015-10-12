@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Demonstration POST saved_searches/create
-# See https://dev.twitter.com/docs/api/1.1/post/saved_searches/create
+# See https://dev.twitter.com/rest/reference/post/saved_searches/create
 
 from secret import twitter_instance
 

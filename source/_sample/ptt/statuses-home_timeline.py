@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # GET statuses/home_timeline
-# See https://dev.twitter.com/docs/api/1.1/get/statuses/home_timeline
+# See https://dev.twitter.com/rest/reference/get/statuses/home_timeline
 
 from secret import twitter_instance
 

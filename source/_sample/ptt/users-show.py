@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Demonstration GET users/show
-# See https://dev.twitter.com/docs/api/1.1/get/users/show
+# See https://dev.twitter.com/rest/reference/get/users/show
 
 from secret import twitter_instance
 

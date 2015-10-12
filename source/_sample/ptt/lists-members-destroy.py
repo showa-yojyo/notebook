@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Demonstration POST lists/members/destroy
-# https://dev.twitter.com/docs/api/1.1/post/lists/members/destroy
+# https://dev.twitter.com/rest/reference/post/lists/members/destroy
 
 from secret import twitter_instance
 
