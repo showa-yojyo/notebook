@@ -14,9 +14,10 @@ HTML と PDF ファイルの形で利用できるようになっている。
 ======================================================================
 * Windows 環境ではインストーラーからインストールするのが吉。
   :file:`numpy-x.y.z-win32-superpack-python2.6.exe` みたいな名前のインストーラーを
-  NumPy_ のサイトから検索して入手しておけばよい。
+  NumPy の `SourceForge <http://www.numpy.org/>`_ ページから検索して入手しておけばよい。
+  最近は Python 3.x 系もサポートするようになった。
 
-  Python 3.x 系や 64 ビット環境の場合は公式サイトではなく、
+  64 ビット環境の場合は公式サイトではなく、
   `Python Extension Packages for Windows - Christoph Gohlke`_ を利用させてもらう。
   :file:`numpy-MKL-x.y.z.win-amd64-py3.4.exe` のような名前のインストーラーをダウンロードすることができる。
 
