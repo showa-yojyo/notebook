@@ -37,7 +37,7 @@ Index Tricks
 
 * オブジェクト ``np.r_`` は各配列を横に連結するのに使える。
   関数 ``np.concatanate`` よりタイプしやすい。
-* ステップ数を指示するのに、変な使い方で虚数 (j) を与えることになる。
+* ステップ数を指示するのに、変な使い方で虚数 (``j``) を与えることになる。
 * 同様に ``np.c_`` は各配列を縦に（して横に）連結できる。
 * N 次元配列を定義するのにオブジェクト ``np.mgrid`` を利用できる。
   拡張スライス記法が使える。
@@ -91,7 +91,8 @@ Other useful functions
 * モジュール ``scipy.misc`` には色々とある。
 
   * 階乗の計算には ``factorial`` 系関数（浮動小数点型ならばガンマ関数）で得られる。
-  * *n* 個から *r* 個を選ぶ組み合わせ :math:`_n \mathrm{C} _r` は ``comb(n, r)`` で求まる。
+  * `n` 個から `r` 個を選ぶ組み合わせ、
+    レイアウトの都合上高校数学風に書くと :math:`_n \mathrm{C} _r` は ``comb(n, r)`` で求まる。
   * かの Lena の画像イメージを返す関数 ``lena`` が存在する。
 
 * 関数 ``central_diff_weights`` と ``derivative`` は関数の微分の近似に便利。
@@ -151,7 +152,7 @@ Interpolation (scipy.interpolate)
 ノートは別項 :doc:`/python-scipy/interpolate` で扱う。
 
 * 一次元データの補間はクラス ``interp1d`` を使う。
-* 関数 ``griddata`` は *n* 次元データの補間のインターフェイス。
+* 関数 ``griddata`` は `n` 次元データの補間のインターフェイス。
 * FITPACK (Fortran) によるスプライン補間機能。
   手続き型とオブジェクト指向型の両方のインターフェイスがある。
 
@@ -171,7 +172,7 @@ Fourier Transforms (scipy.fftpack)
 
   * 関数 ``fft``, ``iftt``: 一次元データ用
   * 関数 ``fft2``, ``iftt2``: 二次元データ用
-  * 関数 ``fftn``, ``ifttn``: *n* 次元データ用
+  * 関数 ``fftn``, ``ifttn``: `n` 次元データ用
   * 関数 ``convolve``: ふたつの一次元配列の畳み込み。
 
 * 離散コサイン変換は関数 ``dct``, ``idct`` を用いる。
@@ -188,7 +189,7 @@ Linear Algebra (scipy.linalg)
 * ``sci.mat`` を利用すると MATLAB 風表記で行列インスタンスを定義できる。
 * 行列 ``A`` に対して、もし存在すれば逆行列は
   ``linalg.inv(A)`` または ``A.I`` で得られる。
-* 1 次方程式 :math:`Ax = b` を ``linalg.solve(A, b)`` で解くことができる（解が存在すれば）。
+* 線形方程式 :math:`Ax = b` を ``linalg.solve(A, b)`` で解くことができる（解が存在すれば）。
 * ``A`` の行列式は ``linalg.det`` で求める。
 * ノルムには関数 ``linalg.norm`` を用いる。ノルムの種類を引数で指示する。
 * 最小二乗法には ``linalg.lstsq`` を用いる。

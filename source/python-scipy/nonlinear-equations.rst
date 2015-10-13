@@ -70,5 +70,18 @@ SciPy というよりは NumPy_ だけで多項式の定義と根の計算が実
    polynomial:  poly([-2.  1. -2.  1.])
    roots:  [ -2.63677968e-16-1.j  -2.63677968e-16+1.j   2.00000000e+00+0.j]
 
+.. note::
+
+   本節で例示した方程式は SymPy_ を用いれば代数的処理で解を得られる。
+   :doc:`/python-sympy/index` 参照。
+
+   .. code-block:: ipython
+
+      In [1]: solve(x - 2 * sqrt(x - 1))
+      Out[1]: [2]
+
+      In [2]: solve(x**3 - 2 * x**2 + x - 2)
+      Out[2]: [2, -I, I]
+
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt

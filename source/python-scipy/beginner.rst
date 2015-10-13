@@ -29,13 +29,13 @@ How to work with SciPy
   読み違えていなければ、他のページで列挙されている SciPy Stack の構成要素は次のパッケージ群を指す。
 
   * Python_: 言語自身も構成要素である。
-  * NumPy_: 数値計算の土台をなすパッケージ。
+  * NumPy_: 数値計算の土台をなすパッケージ。:doc:`/python-numpy/index`
   * SciPy_: 当パッケージ。
   * Matplotlib_: プロットパッケージ。
-  * IPython_: インターフェイス。環境と言ったほうが伝わる。
+  * IPython_: インターフェイス。環境と言ったほうが伝わる。:doc:`/python-ipython`
   * Pandas_: データ構造パッケージ。
-  * SymPy_: 計算機数学・計算機代数パッケージ。
-  * Nose_: 単体テストに便利なパッケージ。
+  * SymPy_: 計算機数学・計算機代数パッケージ。:doc:`/python-sympy/index`
+  * Nose_: 単体テストに便利なパッケージ。:doc:`/python-nose`
 
 * NumPy_ も SciPy_ もプロット機能を提供しない。
   プロットパッケージとしては Matplotlib_ が最も普通に利用されている。
@@ -43,7 +43,6 @@ How to work with SciPy
 .. todo::
 
    * Pandas_ とやらを試す。
-   * SymPy_ とやらを試す。
 
 Learning to work with SciPy
 ======================================================================
@@ -53,7 +52,6 @@ Learning to work with SciPy
   * 各種ツールに関する理解を得る方法のひとつは、次に挙げるオンラインリソースを当たることだ。
 
     * http://scipy-lectures.github.io/index.html
-    * http://wiki.scipy.org/Additional_Documentation
     * http://docs.scipy.org/doc/scipy/reference/tutorial/index.html
 
   * それに加えて、書籍が多数あるので活用すること。

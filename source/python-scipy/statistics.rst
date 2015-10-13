@@ -122,20 +122,21 @@ distribution とかで検索すると色々とわかる。
 
 代表的な離散型確率分布を気の向くままいくつか記す。
 
-==================  ==============  =========================  ============================
-分布型              名称            オブジェクト               Frozen RV オブジェクト作成例
-==================  ==============  =========================  ============================
-``rv_discrete``     一様分布        ``scipy.stats.randint``    サイコロを振るのならば ``rv = randint(1, 7)`` のようにする。
-``rv_discrete``     Bernoulli 分布  ``scipy.stats.bernoulli``  コイントスならば ``rv = scipy.stats.bernoulli(0.5)`` のようにする。
-``rv_discrete``     二項分布        ``scipy.stats.binom``      麻雀半荘を ``N`` 戦やってのトップ回数ならば ``rv = binom(N, 1/4)`` のようにする。
-``rv_discrete``     Poisson 分布    ``scipy.stats.poisson``    例が思いつかないが ``rv = scipy.stats.poisson(1/256)`` のようにする。
-``rv_continuous``   一様分布        ``scipy.stats.uniform``
-``rv_continuous``   指数分布        ``scipy.stats.expon``
-``rv_continuous``   正規分布        ``scipy.stats.norm``
-``rv_continuous``   ガンマ分布      ``scipy.stats.gamma``
-``rv_continuous``   カイ二乗分布    ``scipy.stats.chi2``
-``rv_continuous``   t 分布          ``scipy.stats.t``
-==================  ==============  =========================  ============================
+.. csv-table::
+   :delim: :
+   :header: 分布型, 名称, オブジェクト, Frozen RV オブジェクト作成例
+   :widths: 10, 15, 10, 65
+
+   ``rv_discrete``:一様分布:``scipy.stats.randint``:サイコロを振るのならば ``rv = randint(1, 7)`` のようにする。
+   ``rv_discrete``:Bernoulli 分布:``scipy.stats.bernoulli``:コイントスならば ``rv = scipy.stats.bernoulli(0.5)`` のようにする。
+   ``rv_discrete``:二項分布:``scipy.stats.binom``:麻雀半荘を ``N`` 戦やってのトップ回数ならば ``rv = binom(N, 1/4)`` のようにする。
+   ``rv_discrete``:Poisson 分布:``scipy.stats.poisson``:例が思いつかないが ``rv = scipy.stats.poisson(1/256)`` のようにする。
+   ``rv_continuous``:一様分布:``scipy.stats.uniform``
+   ``rv_continuous``:指数分布:``scipy.stats.expon``
+   ``rv_continuous``:正規分布:``scipy.stats.norm``
+   ``rv_continuous``:ガンマ分布:``scipy.stats.gamma``
+   ``rv_continuous``:カイ二乗分布:``scipy.stats.chi2``
+   ``rv_continuous``:t 分布:``scipy.stats.t``
 
 各種確率分布オブジェクトを利用する場合は次のような手順でコードを組むことになる。
 

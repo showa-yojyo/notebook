@@ -7,6 +7,13 @@
 
 .. contents::
 
+.. note::
+
+   SymPy_ の利用も検討したい。
+
+   * :doc:`/python-sympy/ode`
+   * :doc:`/python-sympy/pde`
+
 関数 ``scipy.integrate.odeint``
 ======================================================================
 関数 ``scipy.integrate.odeint`` を利用することで、
@@ -40,6 +47,15 @@
 
 .. image:: /_static/scipy-ode.png
    :scale: 60%
+
+.. note::
+
+   SymPy_ ならばこのようになる。
+
+   .. code-block:: ipython
+
+      In [1]: dsolve(f(x).diff(x, 2) + 3 * f(x).diff(x) + 2 * f(x))
+      Out[1]: Eq(f(x), (C1 + C2*exp(-x))*exp(-x))
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
