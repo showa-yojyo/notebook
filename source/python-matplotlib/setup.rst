@@ -69,6 +69,14 @@ VC のコンパイラーを要するような特殊な Python パッケージに
 * ``Found existing installation: matplotlib 1.4.2`` とあるが、
   実際には 1.4.3 にアップグレードにされた。
 
+Python 3.5
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+理由は忘れたが上記の方法がうまく行かなかったので、
+`Python Extension Packages for Windows - Christoph Gohlke`_ が配布するインストーラーに頼った。
+
+* パッケージのビルドに利用している MSVC のバージョンに対応するランタイムが環境に必要なことに注意。
+  特に ``msvcp140.dll`` がない可能性がある。
+
 動作確認
 ======================================================================
 Matplotlib の初回インストールまたはアップグレード直後に確認することを記す。
@@ -77,14 +85,31 @@ Matplotlib の初回インストールまたはアップグレード直後に確
 ----------------------------------------------------------------------
 .. code-block:: console
 
-   $ python34 -c 'import matplotlib as mpl; print(mpl.__version__)'
+   $ python -c 'import matplotlib as mpl; print(mpl.__version__)'
    1.4.3
+
+もしくは pip を用いる。
+
+.. code-block:: console
+
+   $ pip show matplotlib
+   ---
+   Metadata-Version: 2.0
+   Name: matplotlib
+   Version: 1.4.3
+   Summary: Python plotting package
+   Home-page: http://matplotlib.org
+   Author: John D. Hunter, Michael Droettboom
+   Author-email: mdroe@stsci.edu
+   License: BSD
+   Location: d:\python35\lib\site-packages
+   Requires: six, numpy, pyparsing, pytz, python-dateutil
 
 簡単なプロットを確認する
 ----------------------------------------------------------------------
 次のようなコードを実行してみて、それらしいイメージを目視で確認できたら
 Matplotlib のインストールまたはアップグレードが成功したと判断してよい。
-ちなみに IPython_ を利用する場合は、このインポート文が省略できて楽だ。
+ちなみに IPython_ を利用する場合は、デフォルト設定でこのインポート文が省略できて楽だ。
 
 >>> import matplotlib.pyplot as plt
 >>> plt.plot([1,2,3,4])

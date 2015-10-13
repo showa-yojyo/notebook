@@ -1,20 +1,22 @@
 ======================================================================
 応用テク
 ======================================================================
-本稿では TeX 表記の実現や 3D プロット等、比較的高度な Matplotlib_ の機能を利用する。
+本稿では LaTeX 表記の実現や 3D プロット等、比較的高度な Matplotlib_ の機能を利用する。
 
 .. contents::
 
-TeX 表現
+LaTeX 表現
 ======================================================================
-Matplotlib のプロットに TeX 書式の画像化を埋め込む方法を説明する。
+Matplotlib のプロットに LaTeX 書式の画像化を埋め込む方法を説明する。
 
-Matplotlib のすべてのテキスト API は TeX の数式を受け付けてくれる。
-文字列内の ``$`` で囲まれた部分が TeX 表現と認識されるようだ。
+Matplotlib のすべてのテキスト API は LaTeX の数式を受け付けてくれる。
+文字列内の ``$`` で囲まれた部分が LaTeX 表現と認識されるようだ。
 何も工夫しないでいると文字列がバックスラッシュの嵐になるので、
 Python のコードで raw string 形式で数式を含む文字列を定義するのが吉だろう。
 
 次のスクリプトは Matplotlib のサンプルコードを一部改変したものである。
+IPython_ を起動していれば、下記コードをクリップボードにコピーして、
+コンソールで ``%paste`` すれば結果が見られる。
 
 .. literalinclude:: /_sample/mpl/tex.py
    :language: python3
@@ -23,8 +25,8 @@ Python のコードで raw string 形式で数式を含む文字列を定義す�
 乱数を利用しているヒストグラム部分は毎回絵が変わる。
 図の凡例およびキャプション後半に注意して欲しい。ギリシア文字を含む数式が見える。
 
-* 凡例内の数式は関数 ``plt.plot`` のキーワード引数 ``label`` の値の TeX と対応している。
-* 図のキャプションのギリシア文字は、関数 ``plt.title`` に渡す値の TeX と対応している。
+* 凡例内の数式は関数 ``plt.plot`` のキーワード引数 ``label`` の値の LaTeX と対応している。
+* 図のキャプションのギリシア文字は、関数 ``plt.title`` に渡す値の LaTeX と対応している。
 
 .. image:: /_static/mpl-tex.png
    :scale: 50%
@@ -63,5 +65,30 @@ Matplotlib 関連の処理の説明を補足する
 
 * メソッド ``ax.text`` で通過点のプロットにその xyz 座標をテキストとして表示する。
 * 各種メソッドでラベルや凡例を図に添える。
+
+.. note::
+
+   Python 3.5 環境移行直後の実行結果の出力を記す（一部を手動で改行した）。
+   何やら警告の例外が発生している。
+
+   .. code-block:: text
+
+      knot vector:
+       [0.000 0.000 0.000 0.000 1.000 1.000 1.000 1.000]
+      control points:
+       [[0.000 150.000 150.000 0.000]
+       [0.000 -116.667 216.667 100.000]
+       [0.000 50.000 100.000 150.000]]
+      degree:
+       3
+      parameter values:
+       [0.000 0.333 0.667 1.000]
+      f(0.000) = [0.000 0.000 0.000]
+      f(0.333) = [100.000 -0.000 50.000]
+      f(0.667) = [100.000 100.000 100.000]
+      f(1.000) = [0.000 100.000 150.000]
+      d:\python35\lib\site-packages\matplotlib\collections.py:590: FutureWarning: elementwise comparison failed;
+      returning scalar instead, but in the future will perform elementwise comparison
+        if self._edgecolors == str('face'):
 
 .. include:: /_include/python-refs-sci.txt
