@@ -54,7 +54,7 @@ Wikipedia_ のイラストを参考にしてグラフを構築し、
 
 .. code-block:: console
 
-   $ python maximal-matching.py
+   $ python maximum-matching.py
    {0: 2, 1: 5, 2: 0, 5: 1}
    {0: 1, 1: 0, 2: 4, 3: 5, 4: 2, 5: 3}
    {1: 3, 2: 4, 3: 1, 4: 2}

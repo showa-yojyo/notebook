@@ -22,8 +22,8 @@ G.add_weighted_edges_from(
 
 # Compute the shortest path lengths between all nodes in graph G.
 all_pairs = all_pairs_dijkstra_path_length(G)
-for source, map in all_pairs.items():
+for source, map in all_pairs:
     for target in map.keys():
         if source != target:
             dist = map[target]
-            print("({},{}): {:4.1f}".format(source, target, dist))
+            print("({}, {}): {:4.1f}".format(source, target, dist))

@@ -11,17 +11,6 @@ NetworkX の描画機能は、以下で紹介する外部パッケージのい�
 それでテキストエディターで dot のコードを修正することになる。
 例えば、完全グラフのデモなら、ノードが正多角形を構成するような描画になるように dot を編集するのだ。
 
-本稿で利用する各パッケージのバージョンは次のとおり。
-一部再掲になるが、特にバージョン情報が重要になるので、まとめて記しておく。
-
-* Python: 3.4.1
-* NetworkX_: 1.9.1
-* Matplotlib_: 1.4.2
-* Graphviz_: 2.38
-* PyGraphviz: 後述
-* pydot: 後述
-* Pyparsing_: 2.0.3
-
 .. contents::
    
 Matplotlib との連携
@@ -51,9 +40,24 @@ Matplotlib との連携
 
 PyGraphviz との連携
 ======================================================================
-Python3 環境では、現時点で PyGraphviz_ を利用するという選択肢はない。
-開発版 (1.3rc) のパッケージ `利用要件 <http://pygraphviz.github.io/documentation/development/install.html#requirements>`_
-によると、<PyGraphviz does not work with Python 3> とこれ以上ない明確さで非サポートを宣言している。
+Python 3.5 環境では、現時点で PyGraphviz_ を利用するには自分でビルドをする必要がありそうだ。
+
+
+.. code-block:: console
+
+   $ git clone https://github.com/pygraphviz/pygraphviz.git
+   Cloning into 'pygraphviz'...
+   中略
+   Checking connectivity... done.
+
+   $ cd pygraphviz
+   $ pip install -e .
+   Obtaining file:///D:/home/yojyo/devel/pygraphviz
+   Installing collected packages: pygraphviz
+     Running setup.py develop for pygraphviz
+       中略
+       building 'pygraphviz._graphviz' extension
+       error: Unable to find vcvarsall.bat
 
 pydot との連携
 ======================================================================
@@ -86,24 +90,38 @@ Python3 動作版 pydot のセットアップ
 
 現時点での利用可否状況は次のような感じだと思う。
 
-=========================== ========================================
-関数                        呼び出し結果
-=========================== ========================================
-``nx.from_pydot(P)``        | NG
-                            | ``NameError: name 'basestring' is not defined``
-``nx.to_pydot(N, ...)``     OK
-``nx.write_dot(G, path)``   OK
-``nx.read_dot(path)``       | NG
-                            | ``NameError: name 'basestring' is not defined``
-``nx.pydot_layout(G, ...)`` | NG
-                            | ``IndexError: list index out of range``
-                            | or
-                            | ``pydot.InvocationException: Program terminated with status: 1. stderr follows: ...``
-=========================== ========================================
+.. csv-table::
+   :delim: @
+   :header: 関数, 呼び出し結果
+   :widths: 16, 32
 
-NG な結果が多いが、ユーザーが手動で 2to3.py して修正したファイル ``nx_pydot.py``
-を上書きすれば、ふたつの NameError は解決する。
-バグレポート的なものを私の方から NetworkX 開発陣へ提出しておきたい。
+   ``nx.from_pydot(P)``@OK
+   ``nx.to_pydot(N, ...)``@OK
+   ``nx.write_dot(P, path)``@OK
+   ``nx.read_dot(path)``@OK
+   ``nx.pydot_layout(G, ...)`` @NG; ``IndexError: list index out of range``
+
+テキストファイルの内容はこのようになる。
+
+.. code-block:: text
+
+   strict graph "complete_graph(5)" {
+   0;
+   1;
+   2;
+   3;
+   4;
+   0 -- 1;
+   0 -- 2;
+   0 -- 3;
+   0 -- 4;
+   1 -- 2;
+   1 -- 3;
+   1 -- 4;
+   2 -- 3;
+   2 -- 4;
+   3 -- 4;
+   }
 
 最後の関数 ``nx.pydot_layout`` の失敗は、例外送出のケースが 2 通りある。
 どちらも状況がわからない。
@@ -161,10 +179,10 @@ NG な結果が多いが、ユーザーが手動で 2to3.py して修正した�
 .. image:: /_static/networkx-drawing-tree.png
    :scale: 80%
 
-ただし先述の ``IndexError`` を引き起こさぬように、NetworkX のコードを改造しなくてはならない。
-それは、``nx_pydot.py`` に定義されている関数 ``pydot_layout`` の途中の
-``encode('utf-8')`` の呼び出しをコメントアウトすることだ。
-こちらの修正はさらに上述の Python3 版 pydot の導入とセットで行うこと。
+.. ただし先述の ``IndexError`` を引き起こさぬように、NetworkX のコードを改造しなくてはならない。
+.. それは、``nx_pydot.py`` に定義されている関数 ``pydot_layout`` の途中の
+.. ``encode('utf-8')`` の呼び出しをコメントアウトすることだ。
+.. こちらの修正はさらに上述の Python3 版 pydot の導入とセットで行うこと。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt

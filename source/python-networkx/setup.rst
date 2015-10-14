@@ -13,6 +13,16 @@ pip からインストールすればよい。
 
    $ pip --install networkx
 
+もしくは開発版レポジトリーからクローンして改造して利用するのもありだ。
+場合によっては master ブランチを利用せず、任意の過去バージョンのブランチをチェックアウトすることも考えられる。
+
+.. code-block:: console
+
+   $ git clone https://github.com/networkx/networkx.git
+   ...
+   $ cd networkx
+   $ pip install -e .
+
 インストールの成功を確認する
 ----------------------------------------------------------------------
 NetworkX のユニットテストを実行して、結果が正常であればインストール成功とみなそう。
@@ -30,13 +40,10 @@ NumPy_ や SciPy_ のそれと同じスタイルなので馴染みやすい。
    test_approx_clust_coeff.test_dodecahedral ... ok
    test_approx_clust_coeff.test_empty ... ok
    ... 省略 ...
-   networkx.tests.test_relabel.TestRelabel.test_relabel_selfloop ... ok
-   networkx.tests.test_relabel.TestRelabel.test_relabel_toposort ... ok
-
    ----------------------------------------------------------------------
-   Ran 1741 tests in 77.348s
+   Ran 2272 tests in 136.216s
 
-   OK (SKIP=4)
+   FAILED (SKIP=4, errors=1, failures=1)
 
 ``verbosity=2`` でテストすると、いくつかスキップされる項目が出てくる。
 これらより、NetworkX がサポートしていて現在の環境に存在しないサードパーティー製パッケージが判明する。

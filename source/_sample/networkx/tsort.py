@@ -46,7 +46,7 @@ def print_sort(G):
     Returns:
       None
     """
-    print(nx.topological_sort(G))
+    print(list(nx.topological_sort(G)))
 
 if __name__ == '__main__':
     main()
