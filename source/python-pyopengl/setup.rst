@@ -16,13 +16,20 @@ PyOpenGL をインストールする
 ======================================================================
 PyOpenGL 本体のインストールは上記関連リンクの非公式インストーラー
 (`Python Extension Packages for Windows - Christoph Gohlke`_)
-を利用する。著者の現在の環境は Windows7 64bit なので、選択は次の 2 つとなる。
+を利用する。著者の当時の環境は Windows 7 64bit なので、選択は次の 2 つとなる。
 
 * :file:`PyOpenGL-3.1.0.win-amd64-py3.4.exe`
 * :file:`PyOpenGL-accelerate-3.1.0.win-amd64-py3.4.exe`
 
 以前は GLUT はユーザーが準備することになっていたと記憶するが、
 最近のバージョンでは DLL が同時にインストールされるようになっている。
+
+アップグレード
+----------------------------------------------------------------------
+Windows 10 + Python 3.5 環境では下記ファイルを入手して ``pip install`` を実施した。
+
+* :file:`PyOpenGL-3.1.1a1-cp35-none-win_amd64.whl`
+* :file:`PyOpenGL_accelerate-3.1.1a1-cp35-none-win_amd64.whl`
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt

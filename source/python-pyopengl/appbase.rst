@@ -14,6 +14,33 @@ OpenGL 3.0 以前と以後とで、プログラミングの方法論がまるで
 
 .. contents::
 
+.. warning::
+
+   現在、このクラスを利用したすべてのプログラムから次の例外が発生する。
+   ``GL_SHADING_LANGUAGE_VERSION`` がいつの間に無効な列挙になったのかわからない。
+   鋭意調査中。
+
+   .. code-block:: console
+
+      $ ./textdemo.py
+      Traceback (most recent call last):
+        File "./textdemo.py", line 72, in <module>
+          sys.exit(main(sys.argv))
+        File "./textdemo.py", line 69, in main
+          app.run(sys.argv)
+        File "D:\...\appbase.py", line 72, in run
+          self.init_glut(args)
+        File "D:\...\appbase.py", line 119, in init_glut
+          GL.glGetString(GL.GL_SHADING_LANGUAGE_VERSION).decode()),
+        File "GL_accelerate\src\errorchecker.pyx", line 53, in OpenGL_accelerate.errorchecker._ErrorChecker.glCheckError (src\errorchecker.c:1200)
+      OpenGL.error.GLError: GLError(
+              err = 1280,
+              description = b'\x96\xb3\x8c\xf8\x82\xc8\x97\xf1\x8b\x93',
+              baseOperation = glGetString,
+              cArguments = (GL_SHADING_LANGUAGE_VERSION,)
+      )
+      freeglut (./textdemo.py): fgInitGL2: fghGenBuffers is NULL
+
 クラス ``AppBase``
 ======================================================================
 先にクラス全景を次に示す。
