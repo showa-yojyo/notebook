@@ -33,10 +33,10 @@ SymPy 利用ノート
 
    * OS
 
-     * Windows 7 Home Premium SP 1 (x64)
-     * Windows 10 Home (x64)
+     * Windows 7 Home Premium x64 SP1
+     * Windows 10 Home x64
 
-   * Python_: 3.4.1, 3.5.0 (x64)
+   * Python_: 3.4.1, 3.5.0
    * SymPy_: 0.7.7dev
    * IPython_: 3.0.0, 4.0.0
    * Sphinx_: 1.3.1

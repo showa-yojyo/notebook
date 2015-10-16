@@ -16,9 +16,9 @@ Python 移行ノート
 
    * OS
 
-     * Windows XP Home Edition SP 3
-     * Windows 7 Home Premium SP 1
-     * Windows 10 Home Edition
+     * Windows XP Home Edition SP3
+     * Windows 7 Home Premium x64 SP1
+     * Windows 10 Home x64
 
    * Python upgrading
 

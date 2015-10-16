@@ -12,12 +12,12 @@ Inkscape 利用ノート
 
    * OS
 
-     * Windows XP Home Edition SP 3
-     * Windows 7 Home Premium SP 1 64bit
+     * Windows XP Home Edition SP3
+     * Windows 7 Home Premium x64 SP1
 
    * 本稿において、利用したバージョンは次のとおり。
 
-     * Inkscape_: 0.48, 0.48.5 (64bit)
+     * Inkscape_: 0.48, 0.48.5 (x64)
 
 関連リンク
 ======================================================================

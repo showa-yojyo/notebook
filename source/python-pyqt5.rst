@@ -13,8 +13,8 @@ PyQt5 利用ノート
 
    本稿執筆時の動作環境は次のとおり。
 
-   * OS: Windows 7 Home Premium SP 1 (64 bit)
-   * Python_: 3.4.1 (64 bit)
+   * OS: Windows 7 Home Premium x64 SP1
+   * Python_: 3.4.1 (x64)
    * PyQt_: GPL v5.4.1 for Python v3.4 (x64)
 
 関連リンク

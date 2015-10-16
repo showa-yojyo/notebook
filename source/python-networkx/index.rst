@@ -30,8 +30,8 @@ NetworkX 利用ノート
 
    * OS
 
-     * Windows 7 Home Premium SP 1
-     * Windows 10 Home
+     * Windows 7 Home Premium x64 SP1
+     * Windows 10 Home x64
 
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
