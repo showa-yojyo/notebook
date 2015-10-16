@@ -13,6 +13,15 @@ SymPy においても、得意とする代数的な設計・実装による積�
 
 .. contents:: ノート目次
 
+.. note::
+
+   本文中のすべての IPython セッション中のサンプルコードで、
+   以下のインポートおよび出力書式設定が済んでいるものとする。
+
+   .. code-block:: python3
+
+      init_printing(pretty_print=False)
+
 基本事項
 ======================================================================
 SymPy では、ある計算を実現するために、
@@ -43,32 +52,30 @@ SymPy では、ある計算を実現するために、
 
 .. code-block:: ipython
 
-   In [1]: init_printing(pretty_print=False)
+   In [1]: integrate(1/(x**3 + 1), x)
+   Out[1]: log(x + 1)/3 - log(x**2 - x + 1)/6 + sqrt(3)*atan(2*sqrt(3)*x/3 - sqrt(3)/3)/3
 
-   In [2]: integrate(1/(x**3 + 1), x)
-   Out[2]: log(x + 1)/3 - log(x**2 - x + 1)/6 + sqrt(3)*atan(2*sqrt(3)*x/3 - sqrt(3)/3)/3
+   In [2]: integrate(1/(x**3 + 1), (x, 0, 1))
+   Out[2]: log(2)/3 + sqrt(3)*pi/9
 
-   In [3]: integrate(1/(x**3 + 1), (x, 0, 1))
-   Out[3]: log(2)/3 + sqrt(3)*pi/9
+   In [3]: integrate(log(x) * exp(-x**2), (x, 0, oo))
+   Out[3]: -sqrt(pi)*log(2)/2 - EulerGamma*sqrt(pi)/4
 
-   In [4]: integrate(log(x) * exp(-x**2), (x, 0, oo))
-   Out[4]: -sqrt(pi)*log(2)/2 - EulerGamma*sqrt(pi)/4
+   In [4]: integrate(sin(x*y), (x, 0, 1), (y, 0, x))
+   Out[4]: Piecewise((0, Eq(x, 0)), (2*log(x) - log(x**2)/2 - Ci(x) + EulerGamma, True))
 
-   In [5]: integrate(sin(x*y), (x, 0, 1), (y, 0, x))
-   Out[5]: Piecewise((0, Eq(x, 0)), (2*log(x) - log(x**2)/2 - Ci(x) + EulerGamma, True))
+   In [5]: integrate(sin(x*y), (y, 0, x), (x, 0, 1))
+   Out[5]: -Ci(1)/2 + EulerGamma/2
 
-   In [6]: integrate(sin(x*y), (y, 0, x), (x, 0, 1))
-   Out[6]: -Ci(1)/2 + EulerGamma/2
-
-* [2] 不定積分を求める。
+* [1] 不定積分を求める。
   ちなみに検算には ``diff`` や ``subs`` を駆使することになる。
 
-* [3] 同じ関数のある定積分を求める。
+* [2] 同じ関数のある定積分を求める。
 
-* [4] 定義域が無限区間になるようなある関数の定積分を求める。
+* [3] 定義域が無限区間になるようなある関数の定積分を求める。
   区間の端点にシンボル ``oo`` を用いるのがコツだ。
 
-* [5][6] 重積分を求める。
+* [4][5] 重積分を求める。
 
   * 積分区間を表す引数の順序を丁寧に指定する必要があることがわかる。
   * ``Ci`` は余弦積分。
@@ -128,10 +135,7 @@ SymPy では、ある計算を実現するために、
      In [1]: C = Curve([cos(t), sin(t)], (t, 0, 2 * pi))
 
      In [2]: line_integrate((x**2 * y + y ** 2)/2, C, [x, y])
-     Out[3]:
-     pi
-     --
-     2
+     Out[3]: pi/2
 
 関数変換
 ======================================================================
@@ -161,38 +165,36 @@ Laplace 変換およびその逆変換を計算する機能は、関数として
 
   .. code-block:: ipython
 
-     In [1]: init_printing(pretty_print=False)
+     In [1]: t, s = symbols('t s')
 
-     In [2]: t, s = symbols('t s')
-
-     In [3]: laplace_transform(t**4 * sin(t), t, s)
-     Out[3]:
+     In [2]: laplace_transform(t**4 * sin(t), t, s)
+     Out[2]:
      (24*(5*s**4 - 10*s**2 + 1)/(s**10 + 5*s**8 + 10*s**6 + 10*s**4 + 5*s**2 + 1),
       0,
       True)
 
-     In [4]: factor(_)
-     Out[4]: 24*(5*s**4 - 10*s**2 + 1)/(s**2 + 1)**5
+     In [3]: factor(_)
+     Out[3]: 24*(5*s**4 - 10*s**2 + 1)/(s**2 + 1)**5
 
-     In [5]: laplace_transform(exp(-t), t, s)
-     Out[5]: (1/(s + 1), 0, True)
+     In [4]: laplace_transform(exp(-t), t, s)
+     Out[4]: (1/(s + 1), 0, True)
 
-     In [6]: laplace_transform(t / (1 + t), t, s)
-     Out[6]: (exp(s)*expint(2, s)/s, 0, True)
+     In [5]: laplace_transform(t / (1 + t), t, s)
+     Out[5]: (exp(s)*expint(2, s)/s, 0, True)
 
-     In [7]: laplace_transform(log(t)**2, t, s)
-     Out[7]: ((log(s)**2 + 2*EulerGamma*log(s) + EulerGamma**2 + pi**2/6)/s, 0, True)
+     In [6]: laplace_transform(log(t)**2, t, s)
+     Out[6]: ((log(s)**2 + 2*EulerGamma*log(s) + EulerGamma**2 + pi**2/6)/s, 0, True)
 
-     In [8]: laplace_transform(Heaviside(t - 1) * t, t, s)
-     Out[8]: ((s + 1)*exp(-s)/s**2, 0, True)
+     In [7]: laplace_transform(Heaviside(t - 1) * t, t, s)
+     Out[7]: ((s + 1)*exp(-s)/s**2, 0, True)
 
-  * [2] Laplace 変換で標準的に用いられる変数名 ``t`` 等を有効にする。
-  * [3][4][5] 小手試し。
+  * [1] Laplace 変換で標準的に用いられる変数名 ``t`` 等を有効にする。
+  * [2][3][4] 小手試し。
     以降、収束条件が全部同じの例ばかりになってしまうので、
     呼び出し時に ``noconds=True`` を与えたほうがよかった。
-  * [6] ``expint`` を含む関数が得られる。
-  * [7] ``EulerGamma`` を含む関数が得られる。
-  * [8] Heaviside 関数を Laplace 変換する。
+  * [5] ``expint`` を含む関数が得られる。
+  * [6] ``EulerGamma`` を含む関数が得られる。
+  * [7] Heaviside 関数を Laplace 変換する。
 
 関数 ``inverse_laplace_transform(F, s, t, plane=None, **hints)``
   関数 ``F(s)`` の逆 Laplace 変換を計算して、結果を返す。
@@ -205,14 +207,14 @@ Laplace 変換およびその逆変換を計算する機能は、関数として
 
   .. code-block:: ipython
 
-     In [9]: inverse_laplace_transform(1 / (1 + s), s, t)
-     Out[9]: exp(-t)*Heaviside(t)
+     In [8]: inverse_laplace_transform(1 / (1 + s), s, t)
+     Out[8]: exp(-t)*Heaviside(t)
 
-     In [10]: inverse_laplace_transform(log(s)**2 / s, s, t)
-     Out[10]: (6*log(t)**2 + 12*EulerGamma*log(t) - pi**2 + 6*EulerGamma**2)*Heaviside(t)/6
+     In [9]: inverse_laplace_transform(log(s)**2 / s, s, t)
+     Out[9]: (6*log(t)**2 + 12*EulerGamma*log(t) - pi**2 + 6*EulerGamma**2)*Heaviside(t)/6
 
-     In [11]: inverse_laplace_transform(s/(s**2 + 1), s, t)
-     Out[11]: cos(t)*Heaviside(t)
+     In [10]: inverse_laplace_transform(s/(s**2 + 1), s, t)
+     Out[10]: cos(t)*Heaviside(t)
 
   いちいち ``Heaviside`` 関数が現れるのが特徴だ。
 
@@ -242,26 +244,24 @@ Fourier 変換
 
   .. code-block:: ipython
 
-     In [1]: init_printing(pretty_print=False)
+     In [1]: fourier_transform(1, x, k)
+     Out[1]: 0
 
-     In [2]: fourier_transform(1, x, k)
+     In [2]: fourier_transform(x**2, x, k)
      Out[2]: 0
 
-     In [3]: fourier_transform(x**2, x, k)
-     Out[3]: 0
+     In [3]: fourier_transform(exp(-3*t)*Heaviside(t), t, k)
+     Out[3]: 1/(2*I*pi*k + 3)
 
-     In [4]: fourier_transform(exp(-3*t)*Heaviside(t), t, k)
-     Out[4]: 1/(2*I*pi*k + 3)
+     In [4]: fourier_transform(exp(-x**2), x, k)
+     Out[4]: sqrt(pi)*exp(-pi**2*k**2)
 
-     In [5]: fourier_transform(exp(-x**2), x, k)
-     Out[5]: sqrt(pi)*exp(-pi**2*k**2)
+     In [5]: fourier_transform(DiracDelta(t), t, k)
+     Out[5]: 1
 
-     In [6]: fourier_transform(DiracDelta(t), t, k)
-     Out[6]: 1
-
-  * [2][3] 入力が異なるのに変換結果が同じになるのは解せない。
+  * [1][2] 入力が異なるのに変換結果が同じになるのは解せない。
     おそらく ``DiracDelta`` を結果に含むはずの変換が正しく求まらない。
-  * [4]-[6] こちらはよさそうだ。
+  * [3]-[5] こちらはよさそうだ。
 
 関数 ``inverse_fourier_transform(F, k, x, **hints)``
   関数 ``F(k)`` の逆 Fourier 変換を計算して、結果を返す。
@@ -271,25 +271,25 @@ Fourier 変換
 
   .. code-block:: ipython
 
-     In [7]: inverse_fourier_transform(1, k, x)
-     Out[7]: 0
+     In [6]: inverse_fourier_transform(1, k, x)
+     Out[6]: 0
 
-     In [8]: inverse_fourier_transform(DiracDelta(k), k, x)
-     Out[8]: 1
+     In [7]: inverse_fourier_transform(DiracDelta(k), k, x)
+     Out[7]: 1
 
-     In [9]: inverse_fourier_transform(DiracDelta(k - a/(2*pi)), k, x)
-     Out[9]: exp(I*a*x)
+     In [8]: inverse_fourier_transform(DiracDelta(k - a/(2*pi)), k, x)
+     Out[8]: exp(I*a*x)
 
-     In [10]: inverse_fourier_transform(1/k, k, x)
-     Out[10]: InverseFourierTransform(1/k, k, x)
+     In [9]: inverse_fourier_transform(1/k, k, x)
+     Out[9]: InverseFourierTransform(1/k, k, x)
 
-     In [11]: inverse_fourier_transform(exp(-k**2), k, x)
-     Out[11]: sqrt(pi)*exp(-pi**2*x**2)
+     In [10]: inverse_fourier_transform(exp(-k**2), k, x)
+     Out[10]: sqrt(pi)*exp(-pi**2*x**2)
 
-  * [7] 逆変換で ``DiracDelta`` が欲しい例。
-  * [8][9] ``DiracDelta`` の逆変換は正しく求まる。
-  * [10] このように評価し切れない場合は遅延評価版オブジェクトが返る。
-  * [11] おそらく正しい。
+  * [6] 逆変換で ``DiracDelta`` が欲しい例。
+  * [7][8] ``DiracDelta`` の逆変換は正しく求まる。
+  * [9] このように評価し切れない場合は遅延評価版オブジェクトが返る。
+  * [10] おそらく正しい。
 
 数値積分
 ======================================================================

@@ -71,6 +71,10 @@ Cygwin のインストーラーでパッケージ構成を更新したら、
 
 Sphinx 拡張モジュールの修正
 ----------------------------------------------------------------------
+.. note::
+
+   この修正作業は現在不要と思われる。
+
 ロゴファイル群の生成が成功しても、ドキュメント本体のファイル生成で失敗した。
 
 .. code-block:: console
@@ -117,33 +121,7 @@ Sphinx 拡張モジュールの修正
 
 ビルド完了
 ======================================================================
-``make html`` の出力の最後の方に何やら警告めいたメッセージが出てくる。
-今は気にしないでよさそうだ。
-
-.. code-block:: text
-
-   copying static files... done
-   copying extra files... done
-   dumping search index in English (code: en) ... done
-   dumping object inventory... done
-   build succeeded.
-   d:\home\yojyo\devel\sympy\sympy\utilities\decorator.py:207: SymPyDeprecationWarning:
-
-   bounded has been deprecated since SymPy 0.7.7. Use finite instead. See
-   https://github.com/sympy/sympy/issues/9425 for more info.
-
-     return self.fget.__get__(obj, klass)()
-   d:\home\yojyo\devel\sympy\sympy\utilities\decorator.py:207: SymPyDeprecationWarning:
-
-   infinity has been deprecated since SymPy 0.7.7. Use infinite instead.
-   See https://github.com/sympy/sympy/issues/9426 for more info.
-
-     return self.fget.__get__(obj, klass)()
-   cp -r src/pics _build/html/
-
-   Build finished. The HTML pages are in _build/html.
-
-ビルドの結果、
+ビルド ``make html`` の結果、次のようになる。
 
 * ディレクトリー :file:`doc/_build/html` に SymPy の HTML ドキュメントが生成されている。
   インターネットに接続しなくてもいつものドキュメントが読めるようになった。

@@ -15,7 +15,7 @@
 
    .. code-block:: python3
 
-      init_printing(use_unicode=False, pretty_print=False)
+      init_printing(pretty_print=False)
 
 基本機能
 ======================================================================
@@ -150,6 +150,7 @@
 .. csv-table::
    :delim: @
    :header: ソルバー, 偏微分方程式
+   :widths: 30, 50
 
    ``pde_1st_linear_constant_coeff``@:math:`a \frac{\partial f(x, y)}{\partial x} + b \frac{\partial f(x, y)}{\partial y} + c f(x, y) = G(x, y)`
    ``pde_1st_linear_constant_coeff_homogeneous``@:math:`a \frac{\partial f(x, y)}{\partial x} + b \frac{\partial f(x, y)}{\partial y} + c f(x, y) = 0`

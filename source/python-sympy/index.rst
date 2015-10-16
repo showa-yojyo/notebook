@@ -31,12 +31,16 @@ SymPy 利用ノート
 
    本稿執筆時の動作環境は次のとおり。
 
-   * OS: Windows 7 Home Premium SP 1, Windows 10 Home (64 bit)
-   * Python_: 3.4.1 (64 bit)
+   * OS
+
+     * Windows 7 Home Premium SP 1 (x64)
+     * Windows 10 Home (x64)
+
+   * Python_: 3.4.1, 3.5.0 (x64)
    * SymPy_: 0.7.7dev
-   * IPython_: 3.0.0
+   * IPython_: 3.0.0, 4.0.0
    * Sphinx_: 1.3.1
-   * NumPy_: 1.9.2
+   * NumPy_: 1.9.2, 1.10.0
    * Matplotlib_: 1.4.3
 
 関連リンク

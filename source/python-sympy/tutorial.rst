@@ -36,6 +36,18 @@ Installtion
       |                    2           2
      /
 
+  以下追記。
+  起動直後に ``init_printing(pretty_print=False)`` を呼び出すか、
+  または起動時にコマンドラインオプション ``--pretty=no`` とすれば、
+  出力の書式がコンソールにやさしいものに変わる。
+
+  .. code-block:: ipython
+
+     In [3]: init_printing(pretty_print=False)
+
+     In [4]: Eq(a, a.doit())
+     Out[4]: Eq(Integral(exp(x)*cos(x), x), exp(x)*sin(x)/2 + exp(x)*cos(x)/2)
+
 Exercises
 ----------------------------------------------------------------------
 * このチュートリアルの基となっている <the 2013 SciPy conference in Austin, TX>

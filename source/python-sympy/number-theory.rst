@@ -5,6 +5,15 @@ SymPy_ の整数論モジュールについて記す。
 
 .. contents:: ノート目次
 
+.. note::
+
+   本文中のすべての IPython セッション中のサンプルコードで、
+   以下のインポートおよび出力書式設定が済んでいるものとする。
+
+   .. code-block:: python3
+
+      init_printing(pretty_print=False)
+
 素数
 ======================================================================
 クラス ``Sieve``
@@ -266,10 +275,7 @@ SymPy_ の整数論モジュールについて記す。
      In [1]: from sympy.abc import a, b, c
 
      In [2]: continued_fraction_reduce([a, b, c])
-     Out[2]:
-     a + c*(a*b + 1)
-     ---------------
-         b*c + 1
+     Out[2]: (a + c*(a*b + 1))/(b*c + 1)
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt

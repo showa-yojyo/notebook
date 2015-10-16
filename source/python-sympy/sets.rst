@@ -7,6 +7,15 @@ Python も組み込みでクラス ``set`` を提供しているが、
 
 .. contents:: ノート目次
 
+.. note::
+
+   本文中のすべての IPython セッション中のサンプルコードで、
+   以下のインポートおよび出力書式設定が済んでいるものとする。
+
+   .. code-block:: python3
+
+      init_printing(pretty_print=False)
+
 主要クラス図
 ======================================================================
 サブパッケージ ``sympy.sets`` が提供する集合を表現するクラスたち。
@@ -69,7 +78,7 @@ Python も組み込みでクラス ``set`` を提供しているが、
   それぞれ集合が開集合であるか、閉集合であるかを返す。
 
   * 集合 E が開集合 ⇔ E と E の境界の共通部分が空集合。
-  * 集合 E が閉集合 ⇔ E の E の境界が E に含まれる。
+  * 集合 E が閉集合 ⇔ E の境界が E に含まれる。
 
 ``closure``
   集合の閉包を返す。
@@ -89,7 +98,7 @@ Python も組み込みでクラス ``set`` を提供しているが、
 * ``E + T``, ``E | T`` は和集合。
 * ``E & T`` は共通集合。
 * ``E * T`` は直積集合。
-* ``E * n`` は ``E * E * ... * E`` の形をとる直積集合。
+* ``E ** n`` は ``E * E * ... * E`` の形をとる直積集合。
 * ``E - T`` は ``E`` に対する ``T`` の補集合。
 
 メソッド
@@ -170,14 +179,15 @@ Python も組み込みでクラス ``set`` を提供しているが、
 ----------------------------------------------------------------------
 集合演算の結果を表現する一連のクラスを、C++ の標準ライブラリー関数との連想で覚えておく。
 
-============================== ========================================
-サブクラス                     C++ <algorithm>                         
-============================== ========================================
-``Union``                      ``std::set_union``
-``Complement``                 ``std::set_difference``
-``Intersection``               ``std::set_intersection``
-``SymmetricDifference``        ``std::set_symmetric_difference``
-============================== ========================================
+.. csv-table::
+   :delim: @
+   :header: サブクラス, C++ <algorithm>
+   :widths: 16, 16
+
+   ``Union``@``std::set_union``
+   ``Complement``@``std::set_difference``
+   ``Intersection``@``std::set_intersection``
+   ``SymmetricDifference``@``std::set_symmetric_difference``
 
 * コンストラクターについて
 
@@ -307,22 +317,20 @@ Python 組み込みの ``range`` とよく似ている集合。
 
   .. code-block:: ipython
 
-     In [1]: init_printing(use_unicode=False, pretty_print=False)
+     In [1]: r, th = symbols('r theta', real=True)
 
-     In [2]: r, th = symbols('r theta', real=True)
+     In [2]: L = Lambda((r, th), (r * cos(th), r * sin(th)))
 
-     In [3]: L = Lambda((r, th), (r * cos(th), r * sin(th)))
+     In [3]: D = ImageSet(L, Interval(0, 1) * Interval(0, 2 * pi, False, True)); D
+     Out[3]:  {(r*cos(theta), r*sin(theta)) | r, theta in [0, 1] × [0, 2*pi)}
 
-     In [4]: D = ImageSet(L, Interval(0, 1) * Interval(0, 2 * pi, False, True)); D
-     Out[4]: ImageSet(Lambda((r, theta), (r*cos(theta), r*sin(theta))), [0, 1] x (2*pi, False])
+     In [4]: D.issubset(S.Reals * S.Reals)
+     Out[4]: False
 
-     In [5]: D.issubset(S.Reals * S.Reals)
-     Out[5]: False
-
-  * [3] 写像 :math:`f: \mathbb{R}^2 \to \mathbb{R}^2` を
+  * [2] 写像 :math:`f: \mathbb{R}^2 \to \mathbb{R}^2` を
     :math:`f: (r, \theta) \mapsto (r \cos \theta, r \sin \theta)` で定義する。
-  * [4] :math:`[0, 1] \times [0, 2 \pi)` の f による像を計算する。
+  * [3] :math:`[0, 1] \times [0, 2 \pi)` の f による像を計算する。
     それらしいオブジェクトが得られる。
-  * [5] これはおかしい。:math:`D \subset \mathbb{R}^2` のつもりなのだが。
+  * [4] これはおかしい。:math:`D \subset \mathbb{R}^2` のつもりなのだが。
 
 .. include:: /_include/python-refs-sci.txt

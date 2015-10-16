@@ -231,14 +231,16 @@ SymPy_ のサブパッケージ ``sympy.geometry`` に関わる覚え書きを�
 
   * 五心
 
-    ==========  ====================  ====================  ==============================
-    名前        ``Point``             ``Circle``            何の交点か
-    ==========  ====================  ====================  ==============================
-    O           ``circumcenter``      ``circumcircle``      ``sides().perpendicular_bisector()``
-    H           ``orthocenter``       なし                  ``altitudes``
-    I           ``incenter``          ``incircle``          ``bisectors``
-    G           ``centroid``          なし                  ``medians``
-    ==========  ====================  ====================  ==============================
+    .. csv-table::
+       :delim: :
+       :header: 名前, ``Point``, ``Circle``, 何の交点か
+       :widths: 8, 8, 8, 24
+
+       外心 (O):``circumcenter``:``circumcircle``:``sides().perpendicular_bisector()``
+       垂心 (H):``orthocenter``:なし:``altitudes``
+       内心 (I):``incenter``:``incircle``:``bisectors``
+       傍心 (J):なし:なし:なし
+       重心 (G):``centroid``:なし:``medians``
 
 * クラス ``RegularPolygon``
 

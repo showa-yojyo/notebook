@@ -13,7 +13,7 @@
    .. code-block:: python3
 
       from sympy.tensor.tensor import *
-      init_printing(use_unicode=False, pretty_print=False)
+      init_printing(pretty_print=False)
 
 演習
 ======================================================================

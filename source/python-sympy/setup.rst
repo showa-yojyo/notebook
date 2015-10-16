@@ -26,8 +26,9 @@ SymPy をインストールするかどうか迷っている場合は、
 
 * 画鋲ボタンはセッションの再現をするための URL を生成する優れ物。
 
-* オンラインシェルの Python のバージョンは 2.7 なので、
+* オンラインシェルの Python のバージョンは 2.7.5 なので、
   私の 3.4 環境で動作する SymPy はサポートされているのだろうかという疑問がわく。
+  後で試してみたら問題はなかった。
 
 パッケージをインストールする
 ======================================================================
@@ -91,6 +92,23 @@ SymPy のドキュメントによると、ソースからのインストール�
    $ python -c 'import sympy; print(sympy.__version__)'
    0.7.7.dev
 
+もしくは pip を利用する。こちらの方法のほうが潰しが効くので憶えておくとよいだろう。
+
+.. code-block:: console
+
+   $ pip show sympy
+   ---
+   Metadata-Version: 1.1
+   Name: sympy
+   Version: 0.7.7.dev0
+   Summary: Computer algebra system (CAS) in Python
+   Home-page: http://sympy.org
+   Author: SymPy development team
+   Author-email: sympy@googlegroups.com
+   License: BSD
+   Location: d:\home\yojyo\devel\sympy
+   Requires: mpmath
+
 単体テストを実施する
 ======================================================================
 せっかくソースごとインストールしたので、開発用のものと思われる単体テストを行う。
@@ -134,19 +152,26 @@ IPython_ が利用可能な環境では、IPython のそれが始まる。
 
   .. code-block:: text
 
-     D:\Python34\python.exe "D:\home\yojyo\devel\sympy\bin\isympy" -- --TerminalIPythonApp.pylab_import_all=False
+     D:\Python35\python.exe "D:\home\yojyo\devel\sympy\bin\isympy" --pretty=no -- --profile=sympy
 
   私の都合で SymPy 利用時に限り IPython の設定ファイルによる設定を上書きしたいので、
-  コマンドライン引数の最後にそれらを追加で指定してある。
+  コマンドライン引数の最後にそれを指定する。
+  こう書いておくと、IPython は設定ファイル :file:`$HOME/.ipython/profile_sympy/ipython_config.py` を採用する。
+  次の行を編集してある。
+
+  .. code-block:: python3
+
+     c.InteractiveShellApp.pylab_import_all = False
+
   これの意味を簡単に述べると、
   いつもなら便利な ``from numpy import *`` 等の自動インポートを避けるということだ。
   いかにも NumPy と SymPy で何らかの名前衝突を起こしそうなことは想像に難くない。
 
   * 関連ノートとして :doc:`/python-ipython` の環境設定の節を参照。
-  * 後になって SymPy どころか、組み込みの関数の名前をも隠すことが発覚した。
-    ``all`` や ``sum`` である。
+  * 後になって SymPy どころか、``all`` や ``sum`` 等の組み込みの関数の名前をも隠すことが発覚した。
 
 * ConEmu の Predefined Tasks にこのコマンドラインを含めておく。
+  :doc:`/python-upgrade` も参照。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt

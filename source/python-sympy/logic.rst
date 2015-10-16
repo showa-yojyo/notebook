@@ -35,12 +35,13 @@ Python が組み込みで持っている論理演算を表現しなおした一�
 * クラス ``BooleanTrue`` と ``BooleanFalse`` は ``Singleton`` のサブクラスでもある。
   いつものようにオブジェクト ``S`` を用いて、それぞれのオブジェクトにアクセスできる。
 
-  ==================== ====================
-  クラス               値
-  ==================== ====================
-  ``BooleanTrue``      ``S.true``
-  ``BooleanFalse``     ``S.false``
-  ==================== ====================
+.. csv-table::
+   :delim: :
+   :header: クラス, 値
+   :widths: 8, 8
+
+   ``BooleanTrue``:``S.true``
+   ``BooleanFalse``:``S.false``
 
 * ブール関数オブジェクトはクラス ``Boolean`` のサブクラスオブジェクトを木構造コンポジットで表現することになる。
 
@@ -49,19 +50,20 @@ Python が組み込みで持っている論理演算を表現しなおした一�
 クラス ``BooleanFunction`` のサブクラスを表にまとめておく。
 いきなり直感的な操作ができると思う。
 
-==================== ========== ==================================================
-クラス               演算子     演算の意味
-==================== ========== ==================================================
-``And``              ``&``      論理積、かつ、conjunction
-``Or``               ``|``      論理和、または、[inclusive] disjunction
-``Not``              ``~``      否定、でない、negation
-``Xor``              ``^``      排他的論理和、exclusive disjunction
-``Nand``             n/a        ``Not(And(...))``
-``Nor``              n/a        ``Not(Or(...))``
-``Implies``          ``>>``     ならば
-``Equivalent``       n/a        等値、equality?
-``ITE``              n/a        三項演算子のようなもの、conditioned disjunction
-==================== ========== ==================================================
+.. csv-table::
+   :delim: :
+   :header: クラス, 演算子, 演算の意味
+   :widths: 8, 8, 24
+
+   ``And``:``&``:論理積、かつ、conjunction
+   ``Or``:``|``:論理和、または、[inclusive] disjunction
+   ``Not``:``~``:否定、でない、negation
+   ``Xor``:``^``:排他的論理和、exclusive disjunction
+   ``Nand``:n/a:``Not(And(...))``
+   ``Nor``:n/a:``Not(Or(...))``
+   ``Implies``:``>>``:ならば
+   ``Equivalent``:n/a:等値、equality?
+   ``ITE``:n/a:三項演算子のようなもの、conditioned disjunction
 
 論理演算の基本は ``&``, ``|``, ``~`` である。
 それぞれに対応するクラスが存在し、名前は ``And``, ``Or``, ``Not`` である。

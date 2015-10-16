@@ -13,7 +13,7 @@
    .. code-block:: python3
 
       from sympy.stats import *
-      init_printing(use_unicode=False, pretty_print=False)
+      init_printing(pretty_print=False)
 
 確率変数
 ======================================================================
@@ -28,6 +28,7 @@
 .. csv-table::
    :header: 関数, 確率空間, 説明
    :delim: :
+   :widths: 12, 12, 36
 
    ``Bernoulli``:``SingleFinitePSpace``:
    ``Binomial``:``SingleFinitePSpace``:
@@ -86,6 +87,7 @@
 .. csv-table::
    :header: 関数, 説明, 別名
    :delim: :
+   :widths: 12, 24, 8
 
    ``probability``:``X`` に関するある条件が真となる確率を求める。:``P``
    ``expectation``:``X`` に関するある式の期待値を求める。:``E``
@@ -214,6 +216,7 @@
 .. csv-table::
    :header: クラス, 直接基底クラス
    :delim: :
+   :widths: 20, 30
 
    ``RandomDomain``:``Basic``
    ``SingleDomain``:``RandomDomain``
@@ -246,6 +249,7 @@
 .. csv-table::
    :header: クラス, 直接基底クラス
    :delim: :
+   :widths: 20, 30
 
    ``PSpace``:``Basic``
    ``SinglePSpace``:``PSpace``

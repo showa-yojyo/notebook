@@ -19,7 +19,7 @@
 
       from sympy.diffgeom import *
       from sympy.diffgeom.rn import *
-      init_printing(use_unicode=False, pretty_print=False)
+      init_printing(pretty_print=False)
 
 多様体
 ======================================================================
@@ -253,19 +253,20 @@
 そこで、ここにある定義済みオブジェクトをインポートすることが考えられる。
 それらのオブジェクトを試して、感触を確かめるのがよいだろう。
 
-==================== ==================== ==================== ========================================
-オブジェクト         クラス               名前                 意味
-==================== ==================== ==================== ========================================
-``R2``               ``Manifold``         ``'R^2'``            :math:`\mathbb{R}^2`
-``R2_origin``        ``Patch``            ``'origin'``         ``R2`` のパッチ
-``R2_r``             ``CoordSystem``      ``'rectangular'``    ``R2_origin`` の直交座標系
-``R2_p``             ``CoordSystem``      ``'polar'``          ``R2_origin`` の極座標系
-``R3``               ``Manifold``         ``'R^3'``            :math:`\mathbb{R}^3`
-``R3_origin``        ``Patch``            ``'origin'``         ``R3`` のパッチ
-``R3_r``             ``CoordSystem``      ``'rectangular'``    ``R3_origin`` の直交座標系
-``R3_c``             ``CoordSystem``      ``'cylindrical'``    ``R3_origin`` の円柱座標系
-``R3_s``             ``CoordSystem``      ``'spherical'``      ``R3_origin`` の球座標系
-==================== ==================== ==================== ========================================
+.. csv-table::
+   :delim: @
+   :header: オブジェクト, クラス, 名前, 意味
+   :widths: 8, 10, 10, 16
+
+   ``R2``@``Manifold``@``'R^2'``@:math:`\mathbb{R}^2`
+   ``R2_origin``@``Patch``@``'origin'``@``R2`` のパッチ
+   ``R2_r``@``CoordSystem``@``'rectangular'``@``R2_origin`` の直交座標系
+   ``R2_p``@``CoordSystem``@``'polar'``@``R2_origin`` の極座標系
+   ``R3``@``Manifold``@``'R^3'``@:math:`\mathbb{R}^3`
+   ``R3_origin``@``Patch``@``'origin'``@``R3`` のパッチ
+   ``R3_r``@``CoordSystem``@``'rectangular'``@``R3_origin`` の直交座標系
+   ``R3_c``@``CoordSystem``@``'cylindrical'``@``R3_origin`` の円柱座標系
+   ``R3_s``@``CoordSystem``@``'spherical'``@``R3_origin`` の球座標系
 
 2 次元オブジェクト
 ----------------------------------------------------------------------

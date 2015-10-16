@@ -6,6 +6,15 @@
 
 .. contents:: ノート目次
 
+.. note::
+
+   本文中のすべての IPython セッション中のサンプルコードで、
+   以下のインポートおよび出力書式設定が済んでいるものとする。
+
+   .. code-block:: python3
+
+      init_printing(pretty_print=False)
+
 極限
 ======================================================================
 モジュール ``sympy.series.limits`` が提供する機能について記す。
@@ -51,19 +60,14 @@
    In [2]: h = symbols('h')
 
    In [3]: limit((f(x + h) - f(x)) / h, h, 0)
-   Out[3]:
-   /  d           \|
-   |-----(f(xi_1))||
-   \dxi_1         /|xi_1=x
+   Out[3]: Subs(Derivative(f(_xi_1), _xi_1), (_xi_1,), (x,))
 
 数列の極限も計算できる。
 
 .. code-block:: ipython
 
    In [1]: limit((1 + x/n)**n, n, +oo)
-   Out[1]:
-    x
-   e
+   Out[1]: exp(x)
 
 二変数関数の極限を試す。近づけ方の指定がよくわからない。
 
@@ -83,10 +87,7 @@
 .. code-block:: ipython
 
    In [1]: limit(fibonacci(k + 1)/fibonacci(k), k, oo)
-   Out[1]:
-        fibonacci(k + 1)
-    lim ----------------
-   k->oo  fibonacci(k)
+   Out[1]: Limit(fibonacci(k + 1)/fibonacci(k), k, oo, dir='-')
 
 べき級数展開
 ======================================================================
@@ -104,49 +105,21 @@
 .. code-block:: ipython
 
    In [1]: series(exp(x))
-   Out[1]:
-            2    3    4     5
-           x    x    x     x     / 6\
-   1 + x + -- + -- + -- + --- + O\x /
-           2    6    24   120
+   Out[1]: 1 + x + x**2/2 + x**3/6 + x**4/24 + x**5/120 + O(x**6)
 
    In [2]: series(exp(x), n=10)
-   Out[2]:
-            2    3    4     5     6     7       8       9
-           x    x    x     x     x     x       x       x       / 10\
-   1 + x + -- + -- + -- + --- + --- + ---- + ----- + ------ + O\x  /
-           2    6    24   120   720   5040   40320   362880
+   Out[2]: 1 + x + x**2/2 + x**3/6 + x**4/24 + x**5/120 + x**6/720 + x**7/5040 + x**8/40320 + x**9/362880 + O(x**10)
 
    In [3]: a = symbols('a')
 
    In [4]: series(f(x), x, a, 3)
-   Out[4]:
-                                                       /   2           \|
-                                                     2 |  d            ||
-                                             (-a + x) *|------(f(xi_1))||
-                                                       |     2         ||
-                   /  d           \|                   \dxi_1          /|xi_1=a
-   f(a) + (-a + x)*|-----(f(xi_1))||       + ---------------------------------- +  /        3        \
-                   \dxi_1         /|xi_1=a                   2                    O\(-a + x) ; x -> a/
-
+   Out[4]: f(a) + (-a + x)*Subs(Derivative(f(_xi_1), _xi_1), (_xi_1,), (a,)) + (-a + x)**2*Subs(Derivative(f(_xi_1), _xi_1, _xi_1), (_xi_1,), (a,))/2 + O((-a + x)**3, (x, a))
 
    In [5]: series(x**x, n=4)
-   Out[5]:
-                   2    2       3    3
-                  x *log (x)   x *log (x)    / 4    4   \
-   1 + x*log(x) + ---------- + ---------- + O\x *log (x)/
-                      2            6
+   Out[5]: 1 + x*log(x) + x**2*log(x)**2/2 + x**3*log(x)**3/6 + O(x**4*log(x)**4)
 
    In [6]: series(gamma(x), n=2)
-   Out[6]:
-                      /          2     2\
-   1                  |EulerGamma    pi |    / 2\
-   - - EulerGamma + x*|----------- + ---| + O\x /
-   x                  \     2         12/
-
-* べき級数展開の性質上、出力される数式が目にやさしくない。
-  上の例では ``f(x)`` の Taylor 展開の結果がひどい。
-  コンソールウィンドウで対話的にコードを入出力する際には ``init_printing(pretty_print=False)`` 等の採用を検討することもあるか。
+   Out[6]: 1/x - EulerGamma + x*(EulerGamma**2/2 + pi**2/12) + O(x**2)
 
 * 各出力の ``n`` 次以上の項にある ``O(x)`` については次節に記す。
 
@@ -183,21 +156,15 @@
 .. code-block:: ipython
 
    In [1]: 1 + x**10 + O(x**5)
-   Out[1]:
-        / 5\
-   1 + O\x /
+   Out[1]: 1 + O(x**5)
 
    In [2]: O((x - 1)**4, (x, oo))
-   Out[2]:
-    / 4         \
-   O\x ; x -> oo/
+   Out[2]: O(x**4, (x, oo))
 
    In [3]: lg = lambda x: log(x, 2)
 
    In [4]: O(9*lg(n) + 5 * (lg(n))**3 + 3*n**2 + 2*n**3, (n, oo))
-   Out[4]:
-    / 3         \
-   O\n ; n -> oo/
+   Out[4]: O(n**3, (n, oo))
 
    In [5]: from itertools import islice
 
@@ -234,21 +201,10 @@
    Out[2]: [0, 1, 0, 1/2, 0, 3/8]
 
    In [3]: residue(f(z)/z**3, z, 0)
-   Out[3]:
-   /  2      \|
-   | d       ||
-   |---(f(x))||
-   |  2      ||
-   \dx       /|x=0
-   ---------------
-          2
+   Out[3]: Subs(Derivative(f(_x), _x, _x), (_x,), (0,))/2
 
    In [4]: residue(gamma(z) * gamma(z - 1) * gamma(z - 2), z, 0)
-   Out[4]:
-            2               2
-     17   pi    9*EulerGamma    15*EulerGamma
-   - -- - --- - ------------- + -------------
-     8     8          4               4
+   Out[4]: -17/8 - pi**2/8 - 9*EulerGamma**2/4 + 15*EulerGamma/4
 
    In [5]: residue(1/z, z, zoo)
    Out[5]: 0
@@ -416,27 +372,24 @@ Fourier 級数
 
 .. code-block:: ipython
 
-   In [1]: init_printing(pretty_print=False)
+   In [1]: fourier_series(t/2).truncate(3)
+   Out[1]: sin(t) - sin(2*t)/2 + sin(3*t)/3
 
-   In [2]: fourier_series(t/2).truncate(3)
-   Out[2]: sin(t) - sin(2*t)/2 + sin(3*t)/3
+   In [2]: fourier_series(t/2, (t, -3 * pi, 3 * pi)).truncate(3)
+   Out[2]: 3*sin(t/3) - 3*sin(2*t/3)/2 + sin(t)
 
-   In [3]: fourier_series(t/2, (t, -3 * pi, 3 * pi)).truncate(3)
-   Out[3]: 3*sin(t/3) - 3*sin(2*t/3)/2 + sin(t)
+   In [3]: fourier_series(abs(t)).truncate(2)
+   Out[3]: cos(t)*Integral(cos(t)*Abs(t), (t, -pi, pi))/pi + Integral(Abs(t), (t, -pi, pi))/(2*pi)
 
-   In [4]: fourier_series(abs(t)).truncate(2)
-   Out[4]: cos(t)*Integral(cos(t)*Abs(t), (t, -pi, pi))/pi + Integral(Abs(t), (t, -pi, pi))/(2*pi)
+   In [4]: fourier_series(exp(I * t))
+   Out[4]: FourierSeries(exp(I*t), (t, -pi, pi), (0, SeqFormula(Piecewise((pi, Or(Eq(_n, -1), Eq(_n, 1))), (-2*_n*sin(_n*pi)/(_n**2 - 1), True))*cos(_n*t)/pi, (_n, 1, oo)), SeqFormula(Piecewise((-I*pi, Eq(_n, -1)), (I*pi, Eq(_n, 1)), (-2*I*sin(_n*pi)/(_n**2 - 1), True))*sin(_n*t)/pi, (_n, 1, oo))))
 
-   In [5]: fourier_series(exp(I * t))
-   Out[5]: FourierSeries(exp(I*t), (t, -pi, pi), (0, SeqFormula(Piecewise((pi, Or(Eq(_n, -1), Eq(_n, 1))), (-2*_n*sin(_n*pi)/(_n**2 - 1), True))*cos(_n*t)/pi, (_n, 1, oo)), SeqFormula(Piecewise((-I*pi, Eq(_n, -1)), (I*pi, Eq(_n, 1)), (-2*I*sin(_n*pi)/(_n**2 - 1), True))*sin(_n*t)/pi, (_n, 1, oo))))
+   In [5]: fourier_series(exp(-t)).truncate(3)
+   Out[5]: (-exp(pi)/2 + exp(-pi)/2)*sin(t)/pi + (-2*exp(-pi)/5 + 2*exp(pi)/5)*sin(2*t)/pi + (-exp(pi)/2 + exp(-pi)/2)*cos(t)/pi + (-exp(-pi)/5 + exp(pi)/5)*cos(2*t)/pi + (-exp(-pi) + exp(pi))/(2*pi)
 
-   In [6]: fourier_series(exp(-t)).truncate(3)
-   Out[6]: (-exp(pi)/2 + exp(-pi)/2)*sin(t)/pi + (-2*exp(-pi)/5 + 2*exp(pi)/5)*sin(2*t)/pi + (-exp(pi)/2 + exp(-pi)/2)*cos(t)/pi + (-exp(-pi)/5 + exp(pi)/5)*cos(2*t)/pi + (-exp(-pi) + exp(pi))/(2*pi)
+   In [6]: fourier_series(exp(-t**2)).truncate(2)
 
-   In [7]: fourier_series(exp(-t**2)).truncate(2)
-
-* [1] デモの性格上、分数式をアスキーアートで出力して欲しくないのでプリティーをオフにしておく。
-* [2][3] 単純な一次関数を異なる区間指定で Fourier 級数を計算させた。
+* [1][2] 単純な一次関数を異なる区間指定で Fourier 級数を計算させた。
   結果も異なる。
 
   下の図を参照。カーブが大きいほうが区間指定なしのほうだ。
@@ -444,11 +397,11 @@ Fourier 級数
   .. image::  /_static/sympy-fourier-series.png
    :scale: 50%
 
-* [4] 絶対値の 2 次の Fourier 級数を計算した。
+* [3] 絶対値の 2 次の Fourier 級数を計算した。
   定積分が含まれているままだが、ここは簡単にしてくれないのか。
-* [5] これは何かおかしい。なぜこのように長い式が出力されるのだろうか。
-* [6] 指数関数の 3 次の Fourier 級数を計算した。これは正しいだろう。
-* [7] 簡単な Gauss 関数の Fourier 級数は、しかし私の環境では関数呼び出しから戻ってこなかった。
+* [4] これは何かおかしい。なぜこのように長い式が出力されるのだろうか。
+* [5] 指数関数の 3 次の Fourier 級数を計算した。これは正しいだろう。
+* [6] 簡単な Gauss 関数の Fourier 級数は、しかし私の環境では関数呼び出しから戻ってこなかった。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt

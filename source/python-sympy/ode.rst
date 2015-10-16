@@ -15,7 +15,7 @@
 
    .. code-block:: python3
 
-      init_printing(use_unicode=False, pretty_print=False)
+      init_printing(pretty_print=False)
 
 基本機能
 ======================================================================
