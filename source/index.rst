@@ -66,7 +66,7 @@ Contents:
 .. toctree::
    :maxdepth: 1
 
-   milestone09
+   milestone09/index
    twitter
    inkscape/index
 
