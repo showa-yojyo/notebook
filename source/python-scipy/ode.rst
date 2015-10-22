@@ -45,7 +45,11 @@
 :math:`y = C_1 e^{-x} + C_2 e^{-2x}` が一般解であり、
 図の曲線はそのように見えるだろう。
 
-.. image:: /_static/scipy-ode.png
+.. figure:: /_static/scipy-ode.png
+   :align: center
+   :alt: 微分方程式の解
+   :width: 815px
+   :height: 615px
    :scale: 60%
 
 .. note::

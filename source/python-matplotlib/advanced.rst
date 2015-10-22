@@ -28,7 +28,11 @@ IPython_ を起動していれば、下記コードをクリップボードに�
 * 凡例内の数式は関数 ``plt.plot`` のキーワード引数 ``label`` の値の LaTeX と対応している。
 * 図のキャプションのギリシア文字は、関数 ``plt.title`` に渡す値の LaTeX と対応している。
 
-.. image:: /_static/mpl-tex.png
+.. figure:: /_static/mpl-tex.png
+   :align: center
+   :alt: LaTeX 数式
+   :width: 815px
+   :height: 615px
    :scale: 50%
 
 3 次元プロット
@@ -36,7 +40,11 @@ IPython_ を起動していれば、下記コードをクリップボードに�
 曲面を描画することもあるのでプロットという表現が微妙なのだが、
 とにかく空間的に 3 次元のデータを図にすることができる。
 
-.. image:: /_static/scipy-spline-3d.png
+.. figure:: /_static/scipy-spline-3d.png
+   :align: center
+   :alt: 簡単な空間曲線のプロット
+   :width: 815px
+   :height: 615px
    :scale: 50%
 
 パッケージ ``matplotlib`` と同じ階層に ``mpl_toolkits`` という別のパッケージがある。

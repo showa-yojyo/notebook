@@ -73,7 +73,11 @@ PyQt で実装された様々なデモアプリのランチャーが出現する
 
 * OpenGL のデモが 2D のもの以外動かない。画面が真っ黒か、描画イベントが来ないか。
 
-  .. image:: /_static/pyqt5-opengl.png
+  .. figure:: /_static/pyqt5-opengl.png
+     :align: center
+     :alt: PyQt OpenGL Examples
+     :width: 808px
+     :height: 627px
      :scale: 50%
 
 ドキュメント
@@ -120,7 +124,11 @@ Qt Desinger
   PyQt4 からこの不具合が解消されていないとは？
   手動で ``ui`` ファイルから ``py`` ファイルを生成するしかない。
 
-  .. image:: /_static/pyqt5-designer-uic.png
+  .. figure:: /_static/pyqt5-designer-uic.png
+     :align: center
+     :alt: Qt Designer
+     :width: 918px
+     :height: 651px
      :scale: 50%
 
   PyQt5 インストールフォルダーにある :file:`pyuic5.bat`

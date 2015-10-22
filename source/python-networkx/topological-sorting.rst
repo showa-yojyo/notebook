@@ -11,8 +11,11 @@ NetworkX_ でトポロジカルソートを実現する関数は
 
 先にグラフ概形とサンプルコード全体を示す。
 
-.. image:: /_static/networkx-dag.png
+.. figure:: /_static/networkx-dag.png
+   :align: center
    :alt: Public Domain
+   :width: 356px
+   :height: 256px
    :scale: 100%
    :target: http://commons.wikimedia.org/wiki/File:Directed_acyclic_graph_3.svg
 

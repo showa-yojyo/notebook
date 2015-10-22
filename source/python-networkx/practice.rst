@@ -38,7 +38,11 @@ NetworkX のグラフ描画ルーチンの特性上、
 イメージがその度に異なっているのがわかるハズだ。
 これでは作業の要件によっては支障をきたすかもしれない。
 
-.. image:: /_static/networkx-draw.png
+.. figure:: /_static/networkx-draw.png
+   :align: center
+   :alt: NetworkX によるグラフの描画
+   :width: 363px
+   :height: 308px
    :scale: 100%
 
 描画については別項で詳しく論じる。→ :doc:`drawing`

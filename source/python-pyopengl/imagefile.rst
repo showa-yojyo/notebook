@@ -80,8 +80,12 @@ PNG ファイルからテクスチャーを作成している（:doc:`/python-pi
 
 実行すると以下のようなイメージ (320x240) を得るだろう。
 
-.. image:: /_static/pyopengl-texture-demo.png
-   :scale: 50%
+.. figure:: /_static/pyopengl-texture-demo.png
+   :align: center
+   :alt: イルベロ床
+   :width: 328px
+   :height: 267px
+   :scale: 100%
 
 日本語テキストを描画する
 ======================================================================
@@ -110,8 +114,12 @@ PIL は難しくて、例えばメソッド ``crop`` を素直に ``textsize`` �
 
 以上を実行すると、実行結果のスクリーンショットはだいたい次のようなものになる。
 
-.. image:: /_static/pyopengl-text.png
-   :scale: 50%
+.. figure:: /_static/pyopengl-text.png
+   :align: center
+   :alt: 潔
+   :width: 328px
+   :height: 267px
+   :scale: 100%
 
 Pillow + ``glReadPixels`` によるスクリーンショット取得
 ======================================================================

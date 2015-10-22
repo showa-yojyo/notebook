@@ -56,7 +56,11 @@ Dijkstra 法による最短経路探索関数
 問題は図に示すグラフのエッジの重みがノード間の道のりを示すと仮定した上で、
 「すべてのノードペアに対して、その最短経路の長さを得る」とする。
 
-.. image:: /_static/apgl-findall.png
+.. figure:: /_static/apgl-findall.png
+   :align: center
+   :alt: 最短経路計算
+   :width: 387px
+   :height: 251px
    :scale: 100%
 
 ここでは当然関数 ``all_pairs_dijkstra_path_length`` を利用する。

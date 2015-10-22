@@ -42,7 +42,11 @@
 
 回帰直線が得られたので、測定データと同時にグラフを描くとこのようになる。
 
-.. image:: /_static/scipy-least-squares.png
+.. figure:: /_static/scipy-least-squares.png
+   :align: center
+   :alt: 測定データと回帰直線
+   :width: 815px
+   :height: 615px
    :scale: 50%
 
 .. include:: /_include/python-refs-core.txt

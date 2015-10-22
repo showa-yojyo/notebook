@@ -10,7 +10,11 @@
 辺連結度、点連結度は関数 ``nx.edge_connectivity`` と ``nx.node_connectivity``
 でそれぞれ得られる。ここでは無向グラフいくつかに対して単に各連結度を計算した。
 
-.. image:: /_static/networkx-connectivity.png
+.. figure:: /_static/networkx-connectivity.png
+   :align: center
+   :alt: グラフ連結度
+   :width: 300px
+   :height: 70px
    :scale: 100%
 
 .. literalinclude:: /_sample/networkx/connectivity.py
@@ -35,7 +39,11 @@
 
 次のコードは図のグラフに対して、両カット関数を色々な (s, t) の組み合わせで呼び出すものだ。
 
-.. image:: /_static/networkx-cutset.png
+.. figure:: /_static/networkx-cutset.png
+   :align: center
+   :alt: カットセット
+   :width: 200px
+   :height: 72px
    :scale: 100%
 
 .. literalinclude:: /_sample/networkx/cutset.py

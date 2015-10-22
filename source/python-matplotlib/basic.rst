@@ -70,7 +70,11 @@ Matplotlib には current figure と current axes という概念がある。
 
 次の図にふたつの ``Axes`` を持たせたひとつの ``Figure`` を示す。
 
-.. image:: /_static/mpl-axes.png
+.. figure:: /_static/mpl-axes.png
+   :align: center
+   :alt: Axes デモ
+   :width: 815px
+   :height: 615px
    :scale: 50%
 
 * ``plt.figure(n)`` で current figure を指定する。
@@ -171,7 +175,11 @@ Matplotlib には current figure と current axes という概念がある。
 
 結果のスクリーンショットは次のようなものだ。
 
-.. image:: /_static/mpl-fontprop.png
+.. figure:: /_static/mpl-fontprop.png
+   :align: center
+   :alt: 御無礼一発です
+   :width: 815px
+   :height: 615px
    :scale: 50%
 
 ``Artists`` 関連
@@ -201,7 +209,11 @@ Matplotlib には current figure と current axes という概念がある。
 
   結果は次のスクリーンショットのようなものとなる。
 
-  .. image:: /_static/mpl-figcs.png
+  .. figure:: /_static/mpl-figcs.png
+     :align: center
+     :alt: 対角線
+     :width: 815px
+     :height: 615px
      :scale: 50%
 
 ``Axes`` (``matplotlib.axes.Axes``)
@@ -289,7 +301,11 @@ IPython_ のセッションであらかじめ ``matplotlib.plt`` 等がインポ
 
 上記のコードが機能するには、環境に PyQt5 がインストール済みである必要がある。
 
-.. image:: /_static/mpl-qt5agg.png
+.. figure:: /_static/mpl-qt5agg.png
+   :align: center
+   :alt: Qt5Agg
+   :width: 648px
+   :height: 559px
    :scale: 50%
 
 ハードコピーバックエンド
@@ -317,7 +333,11 @@ IPython_ のセッションであらかじめ ``matplotlib.plt`` 等がインポ
 
 最終的な描画結果は次のようなものとなる。乱数次第で分布が変化するので注意。
 
-.. image:: /_static/mpl-histogram.png
+.. figure:: /_static/mpl-histogram.png
+   :align: center
+   :alt: ヒストグラム
+   :width: 815px
+   :height: 615px
    :scale: 50%
 
 曲線を描く
@@ -345,7 +365,11 @@ IPython_ のセッションであらかじめ ``matplotlib.plt`` 等がインポ
 
 描画結果は次のようなものとなる。
 
-.. image:: /_static/mpl-polynomial.png
+.. figure:: /_static/mpl-polynomial.png
+   :align: center
+   :alt: 多項式をプロット
+   :width: 815px
+   :height: 615px
    :scale: 50%
 
 Bézier 曲線
@@ -395,7 +419,11 @@ Matplotlib は制御点列を与えて Bézier 曲線を定義する流儀のよ
 
 最終的な描画結果は次のようなものとなる。
 
-.. image:: /_static/mpl-bezier.png
+.. figure:: /_static/mpl-bezier.png
+   :align: center
+   :alt: Bézier 曲線をプロット
+   :width: 815px
+   :height: 615px
    :scale: 50%
 
 .. include:: /_include/python-refs-sci.txt

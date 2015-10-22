@@ -254,7 +254,11 @@ Setting up Pretty Printing
 
   * 出来た！
 
-    .. image:: /_static/sympy-printing-latex.png
+    .. figure:: /_static/sympy-printing-latex.png
+       :align: center
+       :alt: 数式を LaTeX によるイメージで出力する
+       :width: 607px
+       :height: 566px
        :scale: 50%
 
   * Matplotlib_ がインストール済みでも OK とのこと。

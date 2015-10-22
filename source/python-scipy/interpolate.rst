@@ -107,7 +107,11 @@ SciPy のドキュメントでは、大体 20 個以上の点を寄越してく�
 
 プロットも見てみよう。
 
-.. image:: /_static/scipy-spline-interest.png
+.. figure:: /_static/scipy-spline-interest.png
+   :align: center
+   :alt: 利回り曲線
+   :width: 815px
+   :height: 615px
    :scale: 50%
 
 データが n 次元の場合
@@ -155,7 +159,11 @@ cubic spline を作成するはずだ。
 
 Matplotlib_ で立体的なプロットが実現できたので、出力結果を図像化しておいた。
 
-.. image:: /_static/scipy-spline-3d.png
+.. figure:: /_static/scipy-spline-3d.png
+   :align: center
+   :alt: 空間曲線のプロット
+   :width: 815px
+   :height: 615px
    :scale: 50%
 
 薄ピンクの折れ線がコントロールポイントによる。この折れ線がスプライン曲線に対して

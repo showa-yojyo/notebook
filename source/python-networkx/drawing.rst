@@ -35,7 +35,11 @@ Matplotlib との連携
 
 例によって実行するたびにグラフの見てくれが異なる場合がある。次の図はその一例と思って欲しい。
 
-.. image:: /_static/networkx-drawing-mpl.png
+.. figure:: /_static/networkx-drawing-mpl.png
+   :align: center
+   :alt: 賢者の石レシピ
+   :width: 424px
+   :height: 299px
    :scale: 100%
 
 PyGraphviz との連携
@@ -163,7 +167,11 @@ Python3 動作版 pydot のセットアップ
 もっとも、グラフを図示するときには点の物理的な座標は気にしないはずなので、
 ``plt.axis('off')`` する等して座標軸の描画をやめるとよい。
 
-.. image:: /_static/networkx-drawing-comp.png
+.. figure:: /_static/networkx-drawing-comp.png
+   :align: center
+   :alt: 正 17 角形
+   :width: 821px
+   :height: 620px
    :scale: 50%
 
 木を描画したい
@@ -176,7 +184,11 @@ Python3 動作版 pydot のセットアップ
 
 実行結果は次のようになるはずだ。例によって議論の本筋とは無関係にノードを着色してある。
 
-.. image:: /_static/networkx-drawing-tree.png
+.. figure:: /_static/networkx-drawing-tree.png
+   :align: center
+   :alt: 完全二分木
+   :width: 452px
+   :height: 295px
    :scale: 80%
 
 .. ただし先述の ``IndexError`` を引き起こさぬように、NetworkX のコードを改造しなくてはならない。

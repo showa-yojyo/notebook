@@ -98,9 +98,12 @@ Python 3.x 系や 64 ビット環境の場合は公式サイトではなく、
       ``ball.png`` と ``bat.png`` を自分で用意する必要があるようだが、
       実際にコードを作ってみると、ゲーム博物館に展示されていそうな古い画面が出た。
 
-      .. image:: /_static/pygame-pong.png
+      .. figure:: /_static/pygame-pong.png
+         :align: center
          :alt: Basic Pong
-         :scale: 50%
+         :width: 326px
+         :height: 265px
+         :scale: 100%
 
     * 一部コードを修正しないと動作しなかったと思うが、
       実行時にすぐに気付くし、修正も容易だったと記憶しているのでここには記さない。

@@ -394,8 +394,12 @@ Fourier 級数
 
   下の図を参照。カーブが大きいほうが区間指定なしのほうだ。
 
-  .. image::  /_static/sympy-fourier-series.png
-   :scale: 50%
+  .. figure:: /_static/sympy-fourier-series.png
+     :align: center
+     :alt: フーリエ級数のグラフ
+     :width: 815px
+     :height: 615px
+     :scale: 50%
 
 * [3] 絶対値の 2 次の Fourier 級数を計算した。
   定積分が含まれているままだが、ここは簡単にしてくれないのか。
