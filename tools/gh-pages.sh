@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SOURCE_DIR=./build/html/
-TARGET_DIR=../note-gh-pages
+TARGET_DIR=../notebook-gh-pages
 
 rsync -av \
   --delete \
@@ -17,4 +17,3 @@ rsync -av \
   --include='_static/twitter-button.js' \
   --include='_static/logos.png' \
   ${SOURCE_DIR}/ ${TARGET_DIR}
-
