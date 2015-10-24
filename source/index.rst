@@ -7,7 +7,7 @@
 * 読書ノートで扱う書物は、身銭を切って入手したものに限定すること。
 * 技術ノートは極力主観的な記述を心がけること。
 * たまに変な主題についてノートを作ること。
-* 作業ファイルはレポジトリー (https://github.com/showa-yojyo/note) にアップロードすること。
+* 作業ファイルはレポジトリー (https://github.com/showa-yojyo/notebook) にアップロードすること。
 
 Contents:
 
@@ -69,7 +69,3 @@ Contents:
    milestone09/index
    twitter
    inkscape/index
-
-`プレハブ小屋入口へ戻る`_
-
-.. _プレハブ小屋入口へ戻る: https://showa-yojyo.github.io/
