@@ -50,13 +50,18 @@ Python 標準の ``unittest`` だけで単体テストをやろうとすると�
 
 方法 1 -- pip 経由でインストール
 ----------------------------------------------------------------------
-インターネットが利用できる環境ではいつも通りコンソールウィンドウで
+インターネットが利用できる環境ではいつも通りコンソールウィンドウで ``pip install`` を実行する。
 
 .. code-block:: console
 
-   $ pip nose
+   $ pip install nose
+   Collecting nose
+     Using cached nose-1.3.7-py3-none-any.whl
+   Installing collected packages: nose
+   Successfully installed nose-1.3.7
 
-とタイプすればよい。
+本当は Github のレポジトリーをクローンして ``pip install -e`` としたいところだが、
+Python 3 環境では 2to3 周りの挙動に微妙な点があるのか、うまくいかない。
 
 方法 2 -- setuptools を利用してソースからインストール
 ----------------------------------------------------------------------
