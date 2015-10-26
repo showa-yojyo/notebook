@@ -11,7 +11,7 @@ pip からインストールすればよい。
 
 .. code-block:: console
 
-   $ pip --install networkx
+   $ pip install networkx
 
 もしくは開発版レポジトリーからクローンして改造して利用するのもありだ。
 場合によっては master ブランチを利用せず、任意の過去バージョンのブランチをチェックアウトすることも考えられる。
