@@ -1,14 +1,14 @@
 #!/bin/bash
 
 SOURCE_DIR=./build/html/
-TARGET_DIR=../notebook-gh-pages
+TARGET_DIR=./gh-pages
 
 rsync -av \
   --delete \
   --exclude='.git/' \
   --exclude='.nojekyll' \
   --exclude='.buildinfo' \
-  --exclude='_sources/*' \
+  --exclude='_sources' \
   --exclude='_static/*' \
   --exclude='search.html' \
   --exclude='objects.inv' \
@@ -16,4 +16,16 @@ rsync -av \
   --include='_static/*.css' \
   --include='_static/twitter-button.js' \
   --include='_static/logos.png' \
-  ${SOURCE_DIR}/ ${TARGET_DIR}
+  "$SOURCE_DIR" "$TARGET_DIR"
+
+cd "$TARGET_DIR"
+
+COMMIT_MESSAGE="${1:+ ($1)}"
+git add -A
+git commit -m "Update 1.4.0dev$COMMIT_MESSAGE."
+
+NUM=5
+echo Most recent $NUM commits:
+git --no-pager log --oneline HEAD~$NUM..
+
+cd -
