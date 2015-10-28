@@ -1,7 +1,12 @@
 #!/bin/bash
 
+REPOSITORY_URL=https://github.com/showa-yojyo/notebook.git
 SOURCE_DIR=./build/html/
 TARGET_DIR=./gh-pages
+
+if [ ! -d "$TARGET_DIR" ]; then
+    git clone -b gh-pages --single-branch $REPOSITORY_URL "$TARGET_DIR"
+fi
 
 rsync -av \
   --delete \
