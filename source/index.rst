@@ -42,6 +42,7 @@ Contents:
 
    python-pip
    python-pylint
+   python-restview
    python-nose
    python-ipython
    python-numpy/index
