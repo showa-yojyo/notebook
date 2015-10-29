@@ -8,6 +8,7 @@
 * 技術ノートは極力主観的な記述を心がけること。
 * たまに変な主題についてノートを作ること。
 * 作業ファイルはレポジトリー (https://github.com/showa-yojyo/notebook) にアップロードすること。
+* 作業手順については `README <https://github.com/showa-yojyo/notebook/blob/develop/README.rst>`_ を参照すること。
 
 Contents:
 
