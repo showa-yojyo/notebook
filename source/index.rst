@@ -71,3 +71,4 @@ Contents:
    milestone09/index
    twitter
    inkscape/index
+   git/index
