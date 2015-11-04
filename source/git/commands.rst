@@ -11,10 +11,11 @@ Git はコマンドもオプションも数が多くてとにかく憶えにく�
 ======================================================================
 ここでいう共通オプションとは、次のコマンド呼び出しの形式における
 ``[common-options]`` の部分に来るコマンドラインオプションのこととする。
+自分が使う可能性の高いものを記す。
 
 .. code-block:: console
 
-   $ git [common-options] <command> [command-options] ...
+   $ git [common-options] <command> [command-options] <args>
 
 ``--version``
   Git 自身のバージョンを表示する。ほとんど全ての引数とオプションを無視するようだ。
@@ -60,243 +61,807 @@ Git 利用者の必修コマンドのようなものか。
 
 まずはメインとされているコマンド群の名称を記す。
 
-* add
-* am
-* archive
-* bisect
-* branch
-* bundle
-* checkout
-* cherry-pick
-* citool
-* clean
-* clone
-* commit
-* describe
-* diff
-* fetch
-* format-patch
-* gc
-* grep
-* gui
-* init
-* log
-* merge
-* mv
-* notes
-* pull
-* push
-* rebase
-* reset
-* revert
-* rm
-* shortlog
-* show
-* stash
-* status
-* submodule
-* tag
-* worktree
+add,
+am,
+archive,
+bisect,
+branch,
+bundle,
+checkout,
+cherry-pick,
+citool,
+clean,
+clone,
+commit,
+describe,
+diff,
+fetch,
+format-patch,
+gc,
+grep,
+gui,
+init,
+log,
+merge,
+mv,
+notes,
+pull,
+push,
+rebase,
+reset,
+revert,
+rm,
+shortlog,
+show,
+stash,
+status,
+submodule,
+tag,
+worktree.
 
-呪文表
+そして私が常用するものと利用したいもののコマンドライン群、「呪文表」を次に示す。
+よくあるチートシートである。
+
+以下、コマンドライン内の ``git [common-options]`` の部分は省略する。
+あと、Git 特有の符牒ではなく、実際にありがちな名前を例に使うかもしれない。
+例えば ``<tree-ish>`` ではなく ``master`` とか ``HEAD`` とかを敢えて使う。
+
+呪文表 add
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-そして常用する「呪文表」を次に示す。よくあるチートシートである。
+コマンド add はインデックスにファイルおよびその変更を追加するのに用いる。
 
-* ``add [file]``
-* ``add .``
-* ``add -p <file>``
-* ``add -i``
-* ``add -u``
-* ``am <patch file>``
-* ``archive master | tar -x -C /somewhere/else``
-* ``archive master | bzip2 > source-tree.tar.bz2``
-* ``archive --format zip --output /full/path master``
-* ``bisect start``
-* ``bisect good $id``
-* ``bisect bad $id``
-* ``bisect bad/good``
-* ``bisect visualize``
-* ``bisect reset``
-* ``branch [branch-name]``
-* ``branch new existing``
-* ``branch -d [branch-name]``
-* ``branch -D branch_to_delete``
-* ``branch -av``
-* ``branch -dr <remote/branch>``
-* ``branch -r``
-* ``branch --track <branch> <remote-branch>``
-* ``branch --set-upstream <branch> <remote-branch>``
-* ``branch -m branchname new_branchname``
-* ``branch --merged``
-* ``checkout [branch-name]``
-* ``checkout -b <branch>``
-* ``checkout --track <remote/branch>``
-* ``checkout HEAD <file>``
-* ``checkout <branch> <path to new file>``
-* ``checkout .``
-* ``checkout -b <local branch> <remote>/<remote branch>``
-* ``checkout -- <file>``
-* ``cherry-pick [--edit] [-n] [-m parent-number] [-s] [-x] <commit>``
-* ``clean -n``
-* ``clean -f``
-* ``clone [url]``
-* ``clone existing_dir new_dir``
-* ``commit -m "[descriptive message]"``
-* ``commit -a``
-* ``commit -a -m "My Message"``
-* ``commit -v``
-* ``commit --amend``
-* ``commit --amend <file1> <file2> ...``
-* ``commit --amend --reset-author [--no-edit]``
-* ``commit <tag>``
-* ``diff HEAD``
-* ``diff --staged``
-* ``diff --cached``
-* ``diff --no-prefix > patchfile``
-* ``fetch [bookmark]``
-* ``fetch <remote> <branch>``
-* ``fetch --all --prune``
-* ``fetch <remote> -p``
-* ``format-patch HEAD^``
-* ``format-patch <Revision>^..<Revision>``
-* ``gc --prune``
-* ``grep "foo()"``
-* ``gui blame``
-* ``init [project-name]``
-* ``log -p``
-* ``log -p <file>``
-* ``log --pretty=short``
-* ``log <file>``
-* ``log <dir>``
-* ``log --stat``
-* ``log --color``
-* ``log --graph``
-* ``log --decorate``
-* ``log --author=foo``
-* ``log --after="MMM DD YYYY"``
-* ``log --before="MMM DD YYYY"``
-* ``log --merge``
-* ``log <ref>..<ref>``
-* ``log --oneline``
-* ``log --format=oneline``
-* ``log --grep=message``
-* ``log --stat --summary``
-* ``log --oneline --graph --all --decorate``
-* ``merge [branch]``
-* ``merge [bookmark]/[branch]``
-* ``merge <branch> --no-commit``
-* ``merge <branch> -s ours``
-* ``merge -ff-only branchname``
-* ``merge --no-ff branchname``
-* ``merge --abort``
-* ``mv [file-original] [file-renamed]``
-* ``pull <remote>``
-* ``pull <remote> <branch>``
-* ``pull --rebase <remote>``
-* ``push [alias] [branch]``
-* ``push <remote> --force``
-* ``push <remote> --all``
-* ``push remote :branch``
-* ``push --tags``
-* ``push origin/upstream --tags``
-* ``push <repo> <start-point>:refs/heads/<branch>``
-* ``push origin --delete <branchname>``
-* ``push --mirror``
-* ``rebase <branch>``
-* ``rebase master branch``
-* ``rebase -i <base>``
-* ``rebase --abort``
-* ``rebase --continue``
-* ``rebase --skip``
-* ``reset [file]``
-* ``reset <commit>``
-* ``reset --hard``
-* ``reset --hard HEAD``
-* ``reset --hard <commit>``
-* ``reset --hard ORIG_HEAD``
-* ``reset --keep <commit>``
-* ``reset --soft HEAD^``
-* ``revert <commit>``
-* ``rm [file]``
-* ``rm --cached [file]``
-* ``rm dir/ -r``
-* ``rm $(git ls-files --deleted)``
-* ``show <rev>``
-* ``show <rev>:<filename>``
-* ``show --name-only``
-* ``show <branch> -- <path to file>``
-* ``stash pop``
-* ``stash list``
-* ``stash drop``
-* ``stash save <optional-name>``
-* ``stash apply``
-* ``stash show <stash-name> -p``
-* ``stash clear``
-* ``status -uno``
-* ``submodule add <remote_repository> <path/to/submodule>``
-* ``submodule update [--init]``
-* ``submodule foreach <command>``
-* ``tag <tag-name>``
-* ``tag -l``
+``add [<pathspec>...]``
+  指定したファイルだけをインデックスに追加する。
+
+  引数なしの場合に何が起こるのかは知らない。
+
+``add .``
+  カレントディレクトリー以下の対象ファイルをインデックスに追加する。
+
+``add -p <pathspec>``
+  指定したファイルの内部から追加部分を対話的に指示し、インデックスに追加する。
+
+``add -i``
+  コンソールで対話的にファイルをインデックス追加処理する。
+
+``add -u [<pathspec>...]``
+  作業ディレクトリー配下にあるファイルのうち、
+  既にバージョン管理中のもののみをコマンドの対象とする。
+
+  * 新規ファイル→インデックスに影響しない
+  * 変更ファイル→インデックスに更新対象として追加
+  * 削除ファイル→インデックスに削除対象として追加
+
+  デフォルトの ``-a`` オプションとの違いに注意。
+
+呪文表 archive
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド archive は作業コピーのファイル全部から圧縮ファイルを作成するのに利用できる。
+
+``archive --format=tar.gz --prefix=prjname/ master > prjname-master.tar.gz``
+  ツリー ``master`` から tar.gz 形式の圧縮ファイルを作る。
+
+``archive master | bzip2 > source-tree.tar.bz2``
+  ツリー ``master`` から tar.bz2 形式の圧縮ファイルを作る。
+
+``archive --format=zip --prefix=projname/ master > projname.zip``
+  ツリー ``master`` から zip 形式の圧縮ファイルを作る。
+
+呪文表 bisect
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド bisect は異色のコマンドで、コミットを二分探索法によって検索するものだ。
+
+``bisect help``
+  当コマンドの利用法の概要をコンソールに出力する。
+  詳細を見たい場合はやはり ``help bisect`` である。
+
+``bisect start HEAD v1.2``
+  二分探索セッションを開始する。
+  これは ``HEAD`` で何かマズいことになっているが、確か ``v1.2`` 時点では正常だった、の例。
+
+``bisect good [<rev>]``
+  このリビジョンは正常だという印をセッション情報に付ける。
+
+``bisect bad [<rev>]``
+  このリビジョンは何かマズイという印をセッション情報に付ける。
+
+``bisect visualize``
+  現時点で残っている疑わしいものを gitk で表示する。
+
+  * ``bisect view`` とタイプしても同じ。短いほうが良い。
+
+``bisect reset``
+  セッションを終了して、作業コピーの状態を ``bisect start`` 直前のものに戻す。
+
+呪文表 branch
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド branch はブランチを管理するのに用いる。
+
+``branch <new> [<existing>]``
+  新規ブランチ ``new`` を既存ブランチ ``existing`` から作成する。
+  既存ブランチの指定を省略すると、カレントブランチから作成する。
+
+``branch -r``
+  リモート追跡ブランチだけをリストする。
+
+``branch -a``
+  ローカルとリモート追跡の両方のブランチをリストする。
+
+  * ``-v`` でより詳しく。
+
+``branch --merged``
+  Show all completely merged branches with current branch
+  カレントブランチに対して完全にマージ済みのブランチ全てをリストする。
+
+``branch --track <branchname> [<start-point>]``
+  リモート追跡ブランチ ``branchname`` を作成する。
+  意味としてはリモートにある ``start-point`` からブランチするイメージか。
+
+``branch --set-upstream <branch> <start-point>``
+  既存のブランチ ``branch`` を ``start-point`` のリモート追跡ブランチにする。
+
+``branch -m [oldbranch] <newbranch>``
+  ブランチ ``oldbranch`` の名前を ``newbranch`` に変更する。
+  ``oldbranch`` の指定を省略すると、カレントブランチを改名する。
+
+  * ``-M`` is ``-m --force``.
+
+``branch -d <branchname>``
+  ブランチ ``branchname`` を削除する。
+  ただし、別のブランチにマージ済みであると失敗してくれる。
+
+  * ``-D`` is ``-d --force``.
+
+``branch -dr <remote/branchname>``
+  リモート追跡ブランチを削除する。マージ済みが条件。
+
+  * 影響を受けるのはローカルの状態だけ。
+
+呪文表 checkout
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド checkout にはブランチを切り替える用法と、
+作業コピーのファイルを復元する用法の両方があることに注意したい。
+
+``checkout <branch>``
+  カレントブランチを既存のブランチ ``branch`` に切り替える。
+
+``checkout -b <branch> [<start-point>]``
+  ブランチ ``branch`` を作成して、同時にカレントブランチを切り替える。
+  明示的に ``start-point`` が指定されていれば、そこからブランチする。
+
+``checkout -b <branch> <remote>/<branch>``
+  リモートブランチをローカルブランチとして作成する。
+
+``checkout --track <remote>/<branch>``
+  リモートブランチからリモート追跡ブランチを作成する。
+
+``checkout HEAD <file>``
+  ファイル ``file`` のローカルでの変更を破棄する。
+
+``checkout -- <file>``
+  ファイル ``file`` のローカルでの変更を破棄する。
+
+``checkout .``
+  カレントディレクトリー以下のローカルでの変更をすべて破棄する。
+
+``checkout <branch> <file>``
+  別のブランチ ``branch`` にあるファイル ``file`` をカレントブランチへ持ってくる。
+
+呪文表 clean
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド clean の役割は、バージョン管理されていないファイルを消去することである。
+
+``clean -n``
+  仮に ``clean`` を実行すると、何が起こるのかをプレビューする。
+
+  オプション ``-n`` は他のコマンドでも dry run の意味でサポートされている場合がある。
+  まとめたほうがよいかも。
+
+``clean -f``
+  Git の構成に依らず、とにかく削除する。
+
+呪文表 clone
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド clone はリポジトリーを新規ディレクトリーに複製する。
+これにより作業コピーができる。
+
+``clone <repository> [<directory>]``
+  リポジトリー ``repository`` の作業コピーを  ``directory`` に作成する。
+
+  ``repository`` には普通なんちゃら ``.git`` のような文字列が来る。
+  たまにローカルにある作業コピーのパスを指示するような場合もある。
+
+呪文表 commit
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド commit はリポジトリーの変更を確定するために用いる。
+そしてコミットを修正することもできる。
+
+``commit -a``
+  自動的に変更ファイルと削除ファイルをステージに置いてコミットする。
+
+``commit -m <msg>``
+  コミットログメッセージを ``msg`` としてコミットする。
+
+  * もっとも普通のコミットコマンドの形式。
+  * ログメッセージは普通は引用符で囲む。
+
+``commit -v``
+  リポジトリーの変更情報を表示しながらコミットする。
+
+``commit --amend``
+  直前のコミットを修正する。
+
+``commit --amend <file> ...``
+  直前のコミットに変更ファイルを追加してコミットをやり直す。
+
+``commit --amend --reset-author [--no-edit]``
+  直前のコミットの作業者情報を上書きする。
+
+  * タイムスタンプを更新することに注意。
+  * オプション ``--no-edit`` を併用すれば、ログメッセージを再利用できる。
+
+.. todo::
+
+   * タイムスタンプが 2 種類あることについて言及する。
+   * タイムスタンプを任意のタイミングに指定する方法について言及する。
+
+呪文表 diff
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド diff は相異なるコミット間の差分や、特定コミットと作業コピーとの差分を表示する。
+ファイル単位で差分を確認することができるが、ここに挙げる例は対象ファイル全部になる。
+
+``diff HEAD``
+  指定ファイル群について、作業コピーとレポジトリーの最新リビジョン ``HEAD`` との差分を表示する。
+
+``diff --cached``
+  作業コピーとステージとの差分を表示する。
+
+  別名 ``--staged`` がある。
+
+``diff --no-index <file1> <file2>``
+  ファイルの差分をバージョン管理の文脈と無関係に表示する。
+  単に GNU diff を利用するのが素直だ。
+
+呪文表 fetch
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド fetch はよそにあるリポジトリーからデータをダウンロードする。
+
+``fetch [bookmark]``
+  リポジトリブックマークからすべての履歴をダウンロードします。
+
+``fetch <repository> [<branch>]``
+  リモートリポジトリー ``repository`` からブランチ ``branch`` をダウンロードする。
+
+``fetch <remote> -p``
+  リモート remote に関してデータをダウンロードし、
+  削除済みリモートブランチがあれば、
+  それに対応するリモート追跡ブランチをローカルにおいて削除する。
+
+``fetch --all --prune``
+  すべてのリモートリポジトリーからダウンロードする。
+  なおかつ、削除済みリモートブランチがあれば、
+  それに対応するリモート追跡ブランチをローカルにおいて削除する。
+
+  * ``--prune`` is ``-p``.
+
+呪文表 format-patch
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+パッチを作成するコマンド。滅多に使わない。
+
+``format-patch HEAD^``
+  最新のコミットのパッチを生成する。
+  これは別のクローンまたはブランチにコマンド am が適用する。
+
+``format-patch <rev>^..<rev>``
+  単一リビジョンにおけるパッチを作成する。
+
+呪文表 gc
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド gc は不要ファイルを削除してローカルリポジトリーの最適化をする。
+気分転換の意味で実行することが多い。
+
+``gc [--prune[=<date>]]``
+  リポジトリーのゴミ掃除を行う。
+
+  オプション ``--prune`` は未参照オブジェクトを削除するかどうかのフラグだ。
+  これは既定で on である。
+
+呪文表 grep
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+オプションにもよるが、リポジトリー管理対象ファイル限定版 grep と表現できる。
+それ以外は GNU grep と同じように利用できる。
+
+と言うわけで、ここにはコマンドラインを記さない。
+
+呪文表 init
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド init はリポジトリーを（再）作成する。
+
+``init [directory]``
+  ディレクトリー ``directory`` を Git リポジトリーとして初期化する。
+
+``init --bare [directory]``
+  ディレクトリー ``directory`` に生リポジトリーを作成する。
+  理解としては ``.git`` ディレクトリーの初期状態を生成するものだ。
+
+呪文表 log
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド log はコミットログを出力する。
+構文はたいへん単純だが、オプションが多いので実は憶えにくい。
+
+``log``
+  引数オプション一切なしでは全ログを出力することになる。新しい順。
+
+``log --decorate``
+  関係するブランチとタグがあれば、そのコミットのログにはそれらの名前を一緒に出力する。
+
+``log <ref>..<ref>``
+  指定リビジョン範囲におけるコミットに限定してログを出力する。
+
+``log [--] <path>...``
+  指定したファイルやディレクトリーに関係するコミットに限定してログを出力する。
+
+``log -<number>``
+  指定したコミット数だけログを出力する。
+
+  別名 ``-n <number>`` および ``--max-count <number>`` がある。
+
+``log --after="MMM DD YYYY"``
+  指定期日よりも新しいコミットに限定してログを出力する。
+
+  別名 ``--since`` がある。
+
+``log --before="MMM DD YYYY"``
+  指定期日よりも古いコミットに限定してログを出力する。
+
+  別名 ``--until`` がある。
+
+``log --author=<pattern>``
+  執筆者がパターン ``pattern`` にマッチするコミットに限定してログを出力する。
+
+``log --grep=<pattern>``
+  ログメッセージがパターンにマッチするコミットに限定してログを出力する。
+
+``log --merge``
+  マージで衝突があったものに限定してログを出力する。
+
+``log --pretty=short``
+  短いフォーマットでログを出力する。
+
+``log --format=oneline``
+  コミット当たり一行でログを出力する。先頭に SHA-1 付き。
+
+``log --oneline``
+  コミット当たり一行でログを出力する。
+
+``log --oneline --graph --all --decorate``
+  色んな物をログとして出力する。
+
+``log --graph``
+  アスキーアートによるコミットグラフをメッセージの左に添える。
+
+``log -p``
+  変更内容を表示する。
+
+``log -p <file>``
+  ファイル ``file`` が関係するコミットに限定して、変更内容を込めてログを出力する。
+
+``log --stat``
+  差分に関する統計を添えてログを出力する。
+
+``log --summary``
+  ファイルの作成、移動、削除に関する概要を添えてログを出力する。
+
+``log --color``
+  差分に色を付けてログを出力する。
+  オプション単体では意味がないようだ。
+
+呪文表 merge
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド merge はカレントブランチに別のブランチのコミット履歴を取り込む。
+
+``merge <branch>``
+  ブランチ ``branch`` のコミット履歴をカレントブランチに統合する。
+
+``merge --no-commit <branch>``
+  ブランチ ``branch`` をカレントブランチにマージするが、
+  新しいコミットを自動的に作らない。
+
+``merge -s ours <branch>``
+  ブランチ ``branch`` をカレントブランチにマージするが、
+  何か衝突がある場合はこちら側の変更を採用する。
+
+``merge --no-ff <branch>``
+  ブランチ ``branch`` をカレントブランチにマージするが、
+  それが fast-forward で解決してもマージコミットを生成する。
+
+``merge -ff-only <branch>``
+  次のような場合はマージしないで異常終了とする。
+
+  * カレントの ``HEAD`` が既に最新である
+  * マージが fast-forward で解決する
+
+``merge --abort``
+  現在のマージが衝突したら処理を中止して、状態をマージ直前に復元することを試みる。
+
+呪文表 mv
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド mv はファイルを移動する、もしくは名前を変える。
+ファイルはディレクトリーとシンボリックリンクを含む。
+
+``mv <source> <destination>``
+  ファイル <source> を <destination> に移動するか、名前を変える。
+
+  引数 <source> が複数ファイルの場合は、
+  引数 <destination> は既存のディレクトリーであるものとする。
+
+呪文表 pull
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド pull は fetch と merge を同時に行うようなものだ。
+
+``pull [<repository>]``
+  カレントブランチのリモートリポジトリー ``repository`` のコピーをダウンロードして、
+  それを直ちにローカルの ``HEAD`` にマージする。
+
+``pull [<repository> [<refspec> ...]]``
+  リモートリポジトリー ``repository`` のブランチ ``refspec`` に対して、
+  そのコピーをダウンロードしてローカルの ``HEAD`` にマージする。
+
+  ところで ``repository`` や ``refspec`` のデフォルト値は、
+  カレントブランチの構成に依存する。
+
+``pull --rebase <repository>``
+  これは fetch と rebase を同時に行うようなものだ。
+  上手い人向けのコマンド。
+
+呪文表 push
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド push はローカルのコミットをリモートにアップロードする。
+
+``push [<repository> [<refspec> ...]]``
+  ローカルの ``refspec`` をリモートリポジトリー ``repository`` にアップロードする。
+
+  なお、これらの引数のデフォルト値はカレントブランチの構成に従う。
+
+``push --all [<repository>]``
+  ローカルのすべてのブランチをリモートリポジトリー ``repository`` にアップロードする。
+
+  言い換えると ``refs/heads/`` 配下の refs をリモートリポジトリーにアップロードする。
+
+``push --mirror``
+  ローカルのすべての状態とリモートリポジトリーの状態が同一となるようにアップロードする。
+
+  言い換えると ``refs/`` 配下をリモートリポジトリーにコピーする。
+
+``push --tags``
+  ``refs/tags`` 配下にあるすべての refs をアップロードする。
+
+``push -n``
+  コマンド実行時のプレビューができる。
+
+  別名 ``--dry-run`` がある。
+
+``push --force <repository>``
+  マージが fast-forward にならない push であっても、強引にアップロードする。
+
+``push <repository> :<pattern>``
+  リモートリポジトリー ``repository`` にパターン ``pattern`` にマッチする ref があれば、
+  それを削除する。
+
+``push --delete <repository> <pattern>``
+  同上。
+
+``push <repository> <start-point>:refs/heads/<branch>``
+  リモートリポジトリー ``repository`` にブランチ ``branch`` を作成する。
+  ブランチの基点はリモートの ``start-point`` とする。
+
+呪文表 rebase
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド rebase は私にとってはコミット履歴の修正ツールだ。
+
+``rebase [<upstream> [<branch>]]``
+  ブランチ ``upstream`` をブランチ ``branch`` に rebase する。
+
+``rebase -i [<upstream> [<branch>]]``
+  テキストエディター上でコミット履歴の操作を行う。
+
+  テキストエディター上にはコミット履歴が各行にリストされている。
+  そこで各行の先頭にコミット操作命令をタイプしてエディターを終了すると、
+  いい感じにコミット履歴が改竄される。
+
+  例えば次のことができる。
+
+  * コミットログを修正する
+  * 複数のコミットの順序を交換する
+  * 複数のコミットを合併する
+  * コミットをキャンセルする
+
+  ``rebase -i HEAD~5``
+    直近 5 コミットの履歴の改竄を開始する。
+
+``rebase --continue``
+  手動による衝突を解消してインデックスが望み通りの状態になったときに、
+  rebase 処理の対象を次のコミットへ進ませる。
+
+``rebase --abort``
+  手動による衝突解消が上手くいかなかったときに、rebase 開始直前の状態に戻す。
+
+``rebase --skip``
+  衝突したままだが、とにかく次のコミットへ rebase 処理を進ませる。
+
+呪文表 reset
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド reset はカレントの HEAD を指定した状態へ戻すのに用いる。
+用法にはファイルに作用するものと、コミットに作用するものがある。
+
+``reset <paths>...``
+  インデックスでファイル ``paths`` に関する項目をリセットする。
+
+  ヘルプでは ``add <paths>...`` の逆操作だと表現している。
+
+``reset <commit>``
+  カレントブランチの HEAD をコミット ``commit`` にリセットする。
+  インデックスの状態もそれに応じてリセットする
+
+``reset --soft HEAD^``
+  カレントブランチの状態を直前のコミット直後の状態にリセットする。
+  ローカルでの作業はインデックス外に作業コピーに残る。
+
+``reset --hard``
+  衝突したパッチを破棄する。
+
+``reset --hard <commit>``
+  カレントブランチの ``HEAD`` をコミット ``commit`` 直後の時点にリセットする。
+  それ以降になされた作業コピーにおけるファイル変更は破棄される。
+
+``reset --hard HEAD``
+  カレントブランチの状態を直前のコミット直後の状態にリセットする。
+  コミット以後のローカルでの作業があれば、それは破棄される。
+
+``reset --hard ORIG_HEAD``
+  マージが成功したコミットのうち最新のものをアンドゥする。
+  例によってそれ以降の作業コピーでのファイル変更は破棄される。
+
+``reset --keep <commit>``
+  カレントブランチの ``HEAD`` をコミット ``commit`` 直後の時点にリセットする。
+  それ以降になされた作業コピーにおいてファイル変更があれば、
+  リセットを中止する。
+
+呪文表 revert
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド revert は既存のコミットを無効にするのに用いる。
+
+``revert <commit>``
+  コミット ``comit`` をなかったことにする。
+  方法はそのコミットの内容を打ち消すような新しいコミットを生み出すことによる。
+
+``-n`` または ``--no-commit`` オプションというのがあり、
+これは新しいコミットを生じない。
+
+呪文表 rm
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド rm はリポジトリーからファイルを削除する。
+
+``rm [--] <file>...``
+  ファイル ``file`` を削除する。
+
+``rm -n``
+  コマンド実行時のプレビューができる。
+
+  別名 ``--dry-run`` がある。
+
+``rm -r [--] <directory>``
+  ディレクトリー ``directory`` 以下にあるすべてのファイルを削除する。
+
+``rm --cached [--] <file>``
+  ファイル ``file`` をインデックスからのみ削除する。
+
+呪文表 show
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド show はあらゆる Git オブジェクトを表示する。
+
+``show <commit>``
+  コミット ``commit`` との現在の差分を表示する。
+
+``show <commit>:<file>``
+  コミット ``commit`` でのファイル ``file`` の内容を表示する。
+
+``show --name-only``
+  変更ファイルの名前だけを表示する。差分は表示しない。
+
+``show <branch> -- <file>``
+  ブランチ ``branch`` でのファイル ``file`` の内容を表示する。
+
+呪文表 stash
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド stash は作業コピーでのファイル変更を一時的に退避するのに用いる。
+スタックのイメージだと思う。
+
+``stash list``
+  退避領域の内容を一覧で示す。
+
+``stash show <stash> -p``
+  退避領域の内容物を表示する。差分形式で表示できる。
+
+``stash drop``
+  直近に一時保存された変更セットを破棄する。
+
+``stash pop``
+  直近に一時保存されたファイルを作業コピーへ復元する。
+
+``stash apply``
+  直近に一時保存されたファイルを作業コピーへ復元する。
+  ただし保存データはまだ退避領域にある。
+
+``stash save <message>``
+  現在の作業コピーでの変更ファイルを退避する。
+  この退避には名前が付く。
+
+``stash clear``
+  退避領域を完全に消去する。退避内容は失われる。
+
+呪文表 status
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド status は作業コピーの状態を表示するのに用いる。
+
+``status``
+  引数なしでも色々と情報が得られる。
+
+``status -uno``
+  管理外のファイルの情報は要らない。
+  つまり ``Untracked files:`` のセクションを表示させない。
+
+呪文表 submodule
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド submodule はサブモジュールを管理するのに用いる。
+
+``submodule add <repository> [<path>]``
+  リモートリポジトリー ``repository`` を ``path`` に追加する。
+
+``submodule update [--init]``
+  登録済みサブモジュールを更新する。
+
+``submodule foreach <command>``
+  シェルコマンド ``command`` を各サブモジュールに対して実行する。
+
+呪文表 tag
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド tag はタグを管理するのに用いる。
+
+``tag <tagname> [<commit>|<object>]``
+  コミットや何かにタグを付ける。
+
+``tag -d <tagname>``
+  名前を指定してタグを削除する。
+
+``tag -l [<pattern>]``
+  パターンにマッチするタグをリストする。
 
 補助コマンド
 ----------------------------------------------------------------------
-* 操作用
+ヘルプドキュメントは補助コマンド群を操作目的のものと問い合わせ目的のものに分けて紹介している。
 
-  * config
-  * fast-export
-  * fast-import
-  * filter-branch
-  * mergetool
-  * pack-refs
-  * prune
-  * reflog
-  * relink
-  * remote
-  * repack
-  * replace
+次のコマンド群が操作用とされている。
 
-* 問い合わせ用
+config,
+fast-export,
+fast-import,
+filter-branch,
+mergetool,
+pack-refs,
+prune,
+reflog,
+relink,
+remote,
+repack,
+replace.
 
-  * annotate
-  * blame
-  * cherry
-  * count-objects
-  * difftool
-  * fsck
-  * get-tar-commit-id
-  * help
-  * instaweb
-  * merge-tree
-  * rerere
-  * rev-parse
-  * show-branch
-  * verify-commit
-  * verify-tag
-  * whatchanged
+そして次のコマンド群が問い合わせ用とされている。
 
-呪文表
+annotate,
+blame,
+cherry,
+count-objects,
+difftool,
+fsck,
+get-tar-commit-id,
+help,
+instaweb,
+merge-tree,
+rerere,
+rev-parse,
+show-branch,
+verify-commit,
+verify-tag,
+whatchanged.
+
+呪文表 config
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* ``config -e [--global]``
-* ``config --global user.name "[name]"``
-* ``config --global user.email "[email address]"``
-* ``config --global color.ui auto``
-* ``config --list``
-* ``reflog --relative-date``
-* ``reflog --all``
-* ``remote -v``
-* ``remote -v update``
-* ``remote add <shortname> <url>``
-* ``remote add -t master -m master origin <url.git>``
-* ``remote show <remote>``
-* ``remote prune <remote>``
-* ``remote set-url origin new_url``
+コマンド config は各種構成オプションを設定するのに用いる。
+ユーザー固有の設定、リポジトリー固有の設定、グローバル設定すべてをこれでまかなう。
 
-* ``blame <file>``
-* ``blame <file> <rev>``
-* ``help <command>``
-* ``instaweb --httpd=webrick [--start | --stop | --restart]``
-* ``whatchanged <file>``
+``config --global user.name <name>``
+  コミットログに含まれる著者の名前を設定する。
+
+``config --global user.email <address>``
+  コミットログに含まれるメールアドレスを設定する。
+
+``config --global color.ui auto``
+  コマンドラインの出力を見やすくする色を設定する。
+
+``config --list``
+  すべてのオプションを表示する。
+  何かテキトーな順番で表示されるので、ソートにパイプしたい。
+
+``config -e [--global]``
+  テキストエディターでファイル ``.git/config`` や ``~/.gitconfig`` を編集する。
+
+呪文表 reflog
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド reflog は Git 操作自体の履歴情報を管理するのに用いる。
+履歴の改竄作業のヒントになる。
+
+``reflog [show] --relative-date``
+  番号の代わりに現在からの時間差を表示する。
+  例えば ``HEAD@{7}`` などではなく ``HEAD@{8 days ago}`` などのような表示になる。
+
+``reflog [show] --all``
+  すべての ref を表示する。
+
+呪文表 remote
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド remote はリモートリポジトリーおよびそれに関係のあるブランチの管理をする。
+
+``remote -v``
+  饒舌オプション。
+
+``remote add <name> <url>``
+  リモートリポジトリー ``url`` を追加して、ここでは ``name`` と呼ぶ。
+
+``remote add -t master -m master origin <url>``
+  リモートリポジトリー ``url`` を追加する。
+  ``master`` の追跡ブランチを ``origin`` という名前で追加する。
+
+``remote set-url origin newurl``
+  ``origin`` のリモートリポジトリーの URL が ``newurl`` に変更されたので、
+  ローカル側で管理している URL 情報を更新する。
+
+``remote show <repository>``
+  リモートリポジトリー ``repository`` の情報を表示する。
+
+``remote prune <repository>``
+  リモートリポジトリー ``repository`` 側では既に存在しないブランチに対応するリモート追跡ブランチを削除する。
+
+``remote -v update``
+  リモートリポジトリーから更新データをダウンロードする。
+
+呪文表 blame
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド blame はあるファイルの各行について、リビジョンと著者を表示するというものだ。
+変なソースコードだなと思ったらこれを使うのもよいだろう。
+
+``blame [<rev>] <file>``
+  リビジョン ``rev`` 時点でのファイル ``file`` の各行の著者を表示する。
+
+呪文表 help
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド help は当然ながらヘルプ機能を供するものだ。
+
+``help [-w] [<command>]``
+  コマンド ``command`` のヘルプドキュメントをブラウザーで開く。
+
+``help -a``
+  一度は試すことを勧める。
+
+``help -g``
+  一度は試すことを勧める。
+
+呪文表 whatchanged
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド whatchanged は log に似ているが、よくわからない。
+
+``whatchanged <file>``
+  ファイル ``file`` のコミットログと、何かの変更を表示する。
 
 外部連携コマンド
 ----------------------------------------------------------------------
@@ -304,16 +869,16 @@ Git 利用者の必修コマンドのようなものか。
 他のバージョン管理システムとのデータ変換という意味と、
 他の利用者とのリポジトリーデータの交換という意味があるようだ。
 
-* archimport
-* cvsexportcommit
-* cvsimport
-* cvsserver
-* imap-send
-* p4
-* quiltimport
-* request-pull
-* send-email
-* svn
+archimport,
+cvsexportcommit,
+cvsimport,
+cvsserver,
+imap-send,
+p4,
+quiltimport,
+request-pull,
+send-email,
+svn.
 
 コマンド名には CVS やら Perforce やら、懐かしいバージョン管理システムの名前が見受けられる。
 私個人が自由に管理できた Subversion のリポジトリーはすべて Git に変換済みなので、
@@ -328,27 +893,30 @@ Git 利用者の必修コマンドのようなものか。
 ----------------------------------------------------------------------
 リポジトリーにあるオブジェクトやインデックスを操作するコマンド群である。
 
-* apply
-* checkout-index
-* commit-tree
-* hash-object
-* index-pack
-* merge-file
-* merge-index
-* mktag
-* mktree
-* pack-objects
-* prune-packed
-* read-tree
-* symbolic-ref
-* unpack-objects
-* update-index
-* update-ref
-* write-tree
+apply,
+checkout-index,
+commit-tree,
+hash-object,
+index-pack,
+merge-file,
+merge-index,
+mktag,
+mktree,
+pack-objects,
+prune-packed,
+read-tree,
+symbolic-ref,
+unpack-objects,
+update-index,
+update-ref,
+write-tree.
 
-呪文表
+呪文表 hash-object
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* ``hash-object <file-path>``
+コマンド hash-object はファイルのオブジェクト ID を計算する。
+
+``hash-object <file>``
+  ファイル ``file`` のオブジェクト ID を計算して SHA1 値として出力する。
 
 問い合わせコマンド
 ----------------------------------------------------------------------
@@ -356,28 +924,45 @@ Git 利用者の必修コマンドのようなものか。
 原則的にこれらは作業コピーのファイルを touch しないコマンドということになっているので、
 安心して実行してよさそうだ。
 
-* cat-file
-* diff-files
-* diff-index
-* diff-tree
-* for-each-ref
-* ls-files
-* ls-remote
-* ls-tree
-* merge-base
-* name-rev
-* pack-redundant
-* rev-list
-* show-index
-* show-ref
-* unpack-file
-* var
-* verify-pack
+cat-file,
+diff-files,
+diff-index,
+diff-tree,
+for-each-ref,
+ls-files,
+ls-remote,
+ls-tree,
+merge-base,
+name-rev,
+pack-redundant,
+rev-list,
+show-index,
+show-ref,
+unpack-file,
+var,
+verify-pack.
 
-呪文表
+呪文表 ls-files
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* ``ls-files --other --ignored --exclude-standard``
-* ``ls-remote <remote> [HEAD]``
+コマンド ls-files はインデックスと作業コピーに限定した ls のようなものである。
+テキスト一括処理の対象ファイルを絞るツールとして活用したい。
+
+``ls-files --other --ignored --exclude-standard``
+  作業コピーにあるすべての管理対象外ファイルをリストする。
+
+次のものはシェルでインデックスから削除されたファイルを本当に削除するときのコマンド例。
+
+.. code-block:: console
+
+   $ rm $(git ls-files --deleted)
+
+呪文表 ls-remote
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+コマンド ls-remote はリモートリポジトリーの参照をリストする。
+
+``ls-remote <repositry> [HEAD]``
+  リモートリポジトリー ``repository`` の ``HEAD`` 時点での参照をリストする。
+  左列が ID で右列がブランチとタグ。
 
 同期コマンド
 ----------------------------------------------------------------------
@@ -385,45 +970,45 @@ Git 利用者の必修コマンドのようなものか。
 一般ユーザー用のコマンドと、実装用コマンドに分けてリストされている。
 ここではどちらも私の興味がないということで、一気に名前のみを挙げる。
 
-* 一般用
+次のコマンド群が操作用とされている。
 
-  * daemon
-  * fetch-pack
-  * http-backend
-  * send-pack
-  * update-server-info
+daemon,
+fetch-pack,
+http-backend,
+send-pack,
+update-server-info.
 
-* 実装用 <end users typically do not use them directly>
+次のコマンド群が実装用とされている。
 
-  * http-fetch
-  * http-push
-  * parse-remote
-  * receive-pack
-  * shell
-  * upload-archive
-  * upload-pack
+http-fetch,
+http-push,
+parse-remote,
+receive-pack,
+shell,
+upload-archive,
+upload-pack.
 
 内部コマンド
 ----------------------------------------------------------------------
 ヘルプによると、次のコマンド群は内部コマンドとして位置づけられている。
 
-* check-attr
-* check-ignore
-* check-mailmap
-* check-ref-format
-* column
-* credential
-* credential-cache
-* credential-store
-* fmt-merge-msg
-* interpret-trailers
-* mailinfo
-* mailsplit
-* merge-one-file
-* patch-id
-* sh-i18n
-* sh-setup
-* stripspace
+check-attr,
+check-ignore,
+check-mailmap,
+check-ref-format,
+column,
+credential,
+credential-cache,
+credential-store,
+fmt-merge-msg,
+interpret-trailers,
+mailinfo,
+mailsplit,
+merge-one-file,
+patch-id,
+sh-i18n,
+sh-setup,
+stripspace.
 
 もっとも <end users typically do not use them directly> とのことなので、
 私も当然利用しない。
