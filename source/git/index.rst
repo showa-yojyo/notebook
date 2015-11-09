@@ -7,11 +7,11 @@ Git 利用ノート
 .. toctree::
    :maxdepth: 2
 
-   commands
-   configure
    terminology
-   envvars
+   commands
    aliases
+   configure
+   envvars
 
 .. note::
 
@@ -22,7 +22,7 @@ Git 利用ノート
 
 参考文献
 ======================================================================
-git(1) Manual Page
+`git(1) Manual Page <http://git-htmldocs.googlecode.com/git/git.html>`_
   インストールされている HTML ファイル版を読むのが良い。
 
 .. include:: /_include/git-refs.txt
