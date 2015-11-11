@@ -51,6 +51,36 @@ Git のマニュアルでなくても通用する規則も多い。
 
 ``<branch>``, ``<branchname>``
   ブランチの名前を普通のテキストで指示する。
+  特に言及がなければローカルのブランチの名前となる。
+
+  .. hint::
+
+     普通はコマンド ``git branch`` で指示できそうな名前がわかる。
+
+     .. code-block:: console
+
+        $ git branch
+           develop
+         * feature-comp
+           master
+
+     または ``$GIT_DIR/refs/heads`` 以下のファイル名も参考になる。
+     下の例で、なぜ ``master`` がないのかを説明できるようにしておきたい。
+
+     .. code-block:: console
+
+        $ ls .git/refs/heads
+        develop  feature-comp
+
+     さらにファイル ``$GIT_DIR/info/refs`` の表を見てもよい。
+     ブランチ ``feature-comp`` がないのは、
+     リモートリポジトリーに push しないようにしているからだと思う。
+
+     .. code-block:: console
+
+        $ grep refs/heads/ .git/info/refs
+        7e93a8dc8c013297281c13cb95005f617b96635f        refs/heads/develop
+        23c20aee7dab3293d546958f204932f4e44845bb        refs/heads/master
 
 ``<cmd>``, ``<command>``
   シェル操作の観点で言うコマンドの意味であることが多い。
@@ -81,6 +111,11 @@ Git のマニュアルでなくても通用する規則も多い。
 
 ``<head>``
   用語集を参照。
+
+  .. hint::
+
+     * ディレクトリー ``$GIT_DIR/refs/heads`` 以下のファイル名が head の一覧になる。
+     * ファイル ``$GIT_DIR/info/refs`` の ``/heads/`` を含む行が head の一覧になる。
 
 ``<message>``, ``<msg>``
   任意のテキストを意味する。
@@ -121,8 +156,27 @@ Git のマニュアルでなくても通用する規則も多い。
 ``<ref>``, ``<refname>``
   用語集を参照。
 
+  .. hint::
+
+     * ディレクトリー ``$GIT_DIR/refs`` 以下のパスが ref 一つ一つを示す。
+     * ファイル ``$GIT_DIR/info/refs`` の各行が ref 一つ一つを示す。
+
 ``<remote>``, ``<repo>``, ``<repository>``
   リモートリポジトリーの名前を ``origin`` のようにテキストで指定する。
+
+  .. hint::
+
+     * コマンド ``git remote [show]`` で該当する名前の一覧を得られる。
+
+       .. code-block:: console
+
+          $ git remote
+          origin
+
+     * ディレクトリー ``$GIT_DIR/refs/remotes`` 直下の各ディレクトリー名が該当する。
+     * ファイル ``$GIT_DIR/config`` の各 ``[remote "XXX"]`` の ``XXX`` が該当する。
+     * ファイル ``$GIT_DIR/info/refs`` の文字列 ``/remotes/`` を含む行について、
+       このパターンの直後の単語が該当する。
 
 ``<rev>``, ``<revision>``
   commit の object name を指示する。
@@ -134,7 +188,24 @@ Git のマニュアルでなくても通用する規則も多い。
 ``<tag>``, ``<tagname>``
   タグの名前をテキストまたは SHA-1 によって指示する。
 
+  .. hint::
+
+     * コマンド ``git tag [-l|--list]`` で該当する名前の一覧を得られる。
+
+       .. code-block:: console
+
+          $ git tag
+          1.1
+          1.2
+          1.2.1
+          1.3
+
+     * ディレクトリー ``$GIT_DIR/refs/tags`` 直下の各ディレクトリー名が該当する。
+     * ファイル ``$GIT_DIR/info/refs`` の文字列 ``/tags/`` を含み、
+       かつ ``^{}`` を含まない行について、このパターンの直後の単語が該当する。
+
 ``<tree>``
+  用語集を参照。
   ツリーの object name を指示する SHA-1 値。
 
 ``<tree-ish>``
@@ -142,10 +213,11 @@ Git のマニュアルでなくても通用する規則も多い。
   広義の ``<tree>`` と解釈して差し支えない。
 
 ``<type>``
+  用語集の object type を参照。
   文字列 ``(blob|tree|commit|tag)`` を指示する。
 
 ``<upstream>``
-  SHA-1 値というより普通の文字列で upstream branch を指示する？
+  SHA-1 値というより普通の文字列で upstream branch から branch を除いた文字列を指示する？
 
 ``<url>``
   URL をテキストで指示する。
@@ -219,7 +291,10 @@ fast-forward
   その変更が現在のコミットの子孫になるようなマージを意味する。
   リモート追跡ブランチで頻繁に起こる現象。
 
+  詳しくは git-merge(1) Manual Page の FAST-FORWARD MERGE の節を参照。
+
   :日本語訳: （調査中。早送りということはあるまい）
+  :cf.: rebase
 
 hash
   オブジェクトの ID
@@ -244,6 +319,10 @@ HEAD
 index
   インデックスはファイルの集合で、それらの内容をオブジェクトとして格納する。
   あるいは、作業コピーを格納したものであるともみなせる。
+
+  .. hint::
+
+     物理的にはファイル ``$GIT_DIR/index`` である。
 
   :日本語訳: インデックス（英単語をカタカナで書くだけ）
 
@@ -287,6 +366,8 @@ pathspec
   Git コマンドにおける、ファイルパスを表現する文字ベースのパターンのことを pathspec と呼ぶ。
   直感的にはファイルパスそのものやワイルドカード (globbing) は pathspec の一つであると思って構わない。
   また、より特殊な pathspec の記法も存在するようだ。
+  例えば ``git ls-files ':(top)*'`` を実行すると、作業ディレクトリーが作業コピー内のどこにいようが
+  ルート以下にあるすべてのバージョン管理対象のファイルが表示される。
 
   :日本語訳: （訳さない）
 
@@ -294,9 +375,10 @@ rebase
   あるブランチから別のブランチへ、一連のコミット列を再適用することを意味する。
   それから再適用先ブランチの head をリセットする。
 
-  ここに図を載せてもよい。
+  詳しくは git-rebase(1) Manual Page のアスキーアートがなかなかよいのでそれを見ておく。
 
   :日本語訳: （訳さない）
+  :cf.: fast-forward
 
 ref
   普通は ``refs/`` で始まる名前で、それが何か object name を指すもの、
@@ -313,6 +395,27 @@ ref
 reflog
   百聞は一見にしかずで、適当な作業コピーで ``git reflog`` してみるとイメージが大づかみできるだろう。
   作業コピーにおける作業履歴のような概念だろう。
+
+  .. hint::
+
+     .. code-block:: console
+
+        $ git reflog
+        3f97afa HEAD@{0}: checkout: moving from develop to feature-comp
+        3f97afa HEAD@{1}: merge feature-comp: Fast-forward
+        fe2ad65 HEAD@{2}: checkout: moving from feature-comp to develop
+        3f97afa HEAD@{3}: commit: (git) Modify the order of contents.
+        c12867d HEAD@{4}: commit: (terminology.rst) Draft.
+        fe2ad65 HEAD@{5}: checkout: moving from develop to feature-comp
+        fe2ad65 HEAD@{6}: merge feature-comp: Fast-forward
+        5222302 HEAD@{7}: checkout: moving from feature-comp to develop
+        fe2ad65 HEAD@{8}: commit: (envvars.rst) Draft.
+        5222302 HEAD@{9}: checkout: moving from develop to feature-comp
+        5222302 HEAD@{10}: merge feature-comp: Fast-forward
+        ...
+
+     危険なのであまりやりたくないが、
+     あるコマンドで任意のコミットにリポジトリーの状態を巻き戻せる。
 
   :日本語訳: （訳さない）
 
@@ -367,6 +470,35 @@ tree
   #. working tree
   #. blob と tree objects が従属している状態の tree object
 
+  .. hint::
+
+     次の例で両方の意味のツリーを示す。
+
+     .. code-block:: console
+
+        $ git log -1
+        commit 3f97afac08976e5530105d85ec8d4173a2357cf7
+        Author: showa_yojyo <yojyo@hotmail.com>
+        Date:   Mon Nov 9 23:21:05 2015 +0900
+
+            (git) Modify the order of contents.
+        $ git cat-file -p 3f97afac
+        tree 1a427ad7ae362ec203ec6d63af905ccf4d51fc47
+        parent c12867de32453e32a130704bfaaf208cae672758
+        author showa_yojyo <yojyo@hotmail.com> 1447078865 +0900
+        committer showa_yojyo <yojyo@hotmail.com> 1447078865 +0900
+
+        (git) Modify the order of contents.
+        $ git cat-file -p 1a427ad7
+        100644 blob 1b68ffbd137f9292b3708e22c0fbe21d10945908    .gitignore
+        100644 blob 3415147e9f28037f1c48ab8debc2f54e3e7b37c3    LICENSE
+        100644 blob 59dc8d67cc99c51ff62460cacf9ac40de50a315a    Makefile
+        100644 blob f12be8a1b634c601f6323931dc2bede6a95f829c    Makefile.vars.sample
+        100644 blob dc7e509932fb6676cc62ff0ccef588bd563fd368    README.rst
+        100644 blob 4b5a998d1e5ea95560aa9355e2b8c60bc51aa504    gh-pages.sh
+        040000 tree 73911bc143b8e65edb26b60ad130660ea77be8a2    source
+        040000 tree 3357f429c967f53990cd17337f31301a9aa1f3b1    tools
+
   :日本語訳: ツリー（英単語をカタカナで書くだけ）
   :cf.: working tree
 
@@ -389,6 +521,8 @@ tree object
   * モード
   * 関連する blob/tree objects への refs
 
+  .. hint:: 例を既に tree の項目の囲み記事で示した。
+
   :日本語訳: ツリーオブジェクト（英単語をカタカナで書くだけ）
 
 upstream branch
@@ -405,5 +539,11 @@ working tree
   ローカルでの未コミット変更分をひっくるめたものを意味する。
 
   :日本語訳: 作業コピー（暫定訳）
+
+参考文献
+======================================================================
+`Utility Conventions <http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html>`_
+  POSIX.1-2008 という仕様書の一部。
+  コマンドラインユーティリティーの引数の記述法についての規定。
 
 .. include:: /_include/git-refs.txt

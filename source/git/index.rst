@@ -25,4 +25,7 @@ Git 利用ノート
 `git(1) Manual Page <http://git-htmldocs.googlecode.com/git/git.html>`_
   インストールされている HTML ファイル版を読むのが良い。
 
+`gitglossary(7) Manual Page <http://git-htmldocs.googlecode.com/git/gitglossary.html>`_
+  こちらも同じ。
+
 .. include:: /_include/git-refs.txt
