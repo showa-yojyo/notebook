@@ -11,6 +11,7 @@ Twitter API を Python で操ろうと考えるのは当然なことだ。
 
    setup
    rest
+   scripts
 
 .. note::
 
