@@ -114,7 +114,7 @@ twitter-log
    Opening: https://api.twitter.com/oauth/authorize?oauth_token=XXXXXXXXXXXXXXXXXXXXXXXXXXX
 
    Please enter the PIN: XXXXXXX
-   
+
    That's it! Your authorization keys have been written to ~/.twitter_log_oauth.
 
    Processed 200 tweets (max_id 654306485879590912)
@@ -130,6 +130,8 @@ twitter-log
    自分の Twitter ユーザーログイン情報を入力して「連携アプリを認証」ボタンを押す。
 
 #. ブラウザーが PIN 番号画面を表示するので、先程と同様にする。
+
+#. テキストファイル :file:`~/.twitter_log_oauth.` が生成される。
 
 #. あとはツイートを取得して標準出力が指定したテキストファイルに、
    進捗が標準エラー出力で確認できる。
@@ -183,17 +185,201 @@ twitter-log
 twitter-archiver
 ======================================================================
 モジュール :file:`archiver.py` から生成された実行ファイルである。
+主な機能は次のとおり（括弧内は実装が利用する Twitter API の名前）。
 
-.. todo::
+* (application/rate_limit_status) 自分の API 利用制限状況を出力する。
+* (statuses/user_timeline, statuses/home_timeline) 指定ユーザーのタイムラインをアーカイブする。
+* (statuses/mentions_timeline) 指定ユーザーのツイートで、
+  内容に ``@screen_name`` みたいなパターンを含むものをアーカイブする。
+* (favorites/list) 指定ユーザーのツイートブックマークをアーカイブする。
+* (direct_messages, direct_messages/sent) 指定ユーザーに送られたダイレクトメッセージや、
+  反対にユーザーが送ったダイレクトメッセージをアーカイブする。
 
-   * 実際に初回起動
-   * 実際に各オプションを試す
+初回起動
+----------------------------------------------------------------------
+いい具合に API の利用制限状況を見るだけのモードがあるので、
+それを利用して認証を済ませよう。
+
+.. code-block:: console
+
+   $ twitter-archiver -o -a showa_yojyo
+   Hi there! We're gonna get you all set up to use Twitter-Archiver.
+
+   In the web browser window that opens please choose to Allow
+   access. Copy the PIN number that appears on the next page and paste or
+   type it here:
+
+   Opening: https://api.twitter.com/oauth/authorize?oauth_token=XXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+   Please enter the PIN: XXXXXXX
+
+   That's it! Your authorization keys have been written to ~/.twitter-archiver_oauth.
+   Remaining API requests: 179/180 (interval limit)
+   Next reset in 897s (Wed Nov 18 23:07:14 2015)
+
+これまでの各ツールと同様、認証キーが記されたテキストファイルがディレクトリー ``$HOME`` に生成される。
+上記の最後の 2 行だけが本来のコマンドの出力である。
+あと 179 回のリクエストが 897 秒以内において許されている。
+
+mentions
+----------------------------------------------------------------------
+オプション ``--mentions <file>`` により、
+指定ユーザーに話しかけているツイートをアーカイブすることができる。
+
+.. code-block:: console
+
+   $ twitter-archiver -o -m showa_yojyo
+   * Archiving own mentions in .\showa_yojyo
+   Browsing home statuses, new tweets: 102
+   Total mentions: 102
+   Total: 0 tweets (0 new) for 0 users
+
+ファイルの中身はこのような感じだった。
+
+.. code-block:: text
+
+   170145264236118018 b'2012-02-16 22:59:26 JST <showa_yojyo> @showa_yojyo \xe8\x8b\xa5\xe3\x81\x84\xe3\x83\xaa\xe3\x83\x93\xe3\x82\xb8\xe3\x83\xa7\xe3\x83\xb3\xe3\x81\xab\xe8\xa1\xa8\xe3\x81\xab\xe5\x87\xba\xe3\x81\x97\xe3\x81\x9f\xe3\x81\x8f\xe3\x81\xaa\xe3\x81\x84\xe5\x80\x8b\xe4\xba\xba\xe6\x83\x85\xe5\xa0\xb1\xe3\x81\x8c\xe3\x81\x82\xe3\x82\x8a\xe3\x81\x9d\xe3\x81\x86\xe3\x81\xa0\xe3\x81\x8b\xe3\x82\x89\xe3\x80\x81\xe3\x81\x9d\xe3\x82\x8c\xe3\x81\xaf\xe3\x82\x84\xe3\x82\x81\xe3\x80\x82\xe3\x83\x90\xe3\x83\x83\xe3\x82\xaf\xe3\x82\xa2\xe3\x83\x83\xe3\x83\x97\xe6\xb6\x88\xe5\xa4\xb1\xe3\x81\xae\xe3\x81\xbb\xe3\x81\x86\xe3\x81\x8c\xe3\x83\x9e\xe3\x82\xb7\xe3\x80\x82'
+   171595193252986880 b'2012-02-20 23:00:56 JST <showa_yojyo> Try to retweet; RT: @showa_yojyo: Echofon http://t.co/Gt8X5bwM'
+   172319721562189824 b'2012-02-22 22:59:57 JST <showa_yojyo> @showa_yojyo \xe5\xbc\xb7\xe3\x81\x84\xe3\x81\xa6\xe3\x82\x84\xe3\x82\x8b\xe3\x81\xaa\xe3\x82\x89 #cplusplus \xe3\x81\xa7\xe6\xa4\x9c\xe7\xb4\xa2\xe3\x81\x99\xe3\x82\x8b\xe3\x81\x97\xe3\x81\x8b\xe3\x81\xaa\xe3\x81\x95\xe3\x81\x9d\xe3\x81\x86\xe3\x81\xa0\xe3\x80\x82\xe3\x81\x93\xe3\x82\x8c\xe3\x81\x8b\xe3\x82\x89\xe3\x81\xaf C++ \xe3\x82\x92\xe6\x8d\xa8\xe3\x81\xa6\xe3\x81\xa6\xe7\x94\x9f\xe3\x81\x8d\xe3\x81\xa6\xe3\x81\x84\xe3\x81\x8f\xe3\x81\x93\xe3\x81\xa8\xe3\x81\xab\xe3\x81\xaa\xe3\x82\x8b\xe3\x81\x8b\xe3\x82\x82\xe3\x81\xaa\xe3\x81\x81\xe3\x80\x82'
+   172661701282496512 b'2012-02-23 21:38:52 JST <showa_yojyo> @showa_yojyo \xe3\x82\xbf\xe3\x82\xb0\xe3\x81\xa8\xe3\x81\x97\xe3\x81\xa6\xe3\x81\xaf #cpp \xe3\x81\xae\xe3\x81\xbb\xe3\x81\x86\xe3\x81\x8c\xe5\x84\xaa\xe5\x8b\xa2\xe3\x81\xa0\xe3\x81\xa3\xe3\x81\x9f\xe6\xa8\xa1\xe6\xa7\x98\xe3\x80\x82'
+   ...略...
+   521103371999010816 b'2014-10-12 10:01:40 JST <awa_shuwa> @showa_yojyo \xe3\x81\x97\xe3\x82\x85\xe3\x82\x8f\xe3\x81\xa3'
+   538723478451408897 b'2014-11-30 00:57:40 JST <showa_yojyo> \xe3\x81\x99\xe3\x81\x84\xe3\x81\xbe\xe3\x81\x9b\xe3\x82\x93\xe3\x80\x82\xe5\x8f\xb3\xe3\x82\xaf\xe3\x83\xaa\xe3\x83\x83\xe3\x82\xaf\xe3\x83\xa1\xe3\x83\x8b\xe3\x83\xa5\xe3\x83\xbc\xe3\x81\x8c\xe5\x87\xba\xe3\x81\xaa\xe3\x81\x84\xe3\x80\x82 RT @showa_yojyo: \xe4\xbb\x8a\xe3\x81\xab\xe3\x81\xaa\xe3\x81\xa3\xe3\x81\xa6 Python (command line) \xe3\x82\x92 ConEmu \xe3\x82\xbf\xe3\x83\x96\xe5\x8c\x96\xe3\x81\xa7\xe3\x81\x8d\xe3\x82\x8b\xe3\x82\x88\xe3\x81\x86\xe3\x81\xab\xe3\x81\x97\xe3\x81\x9f\xe3\x80\x82\xe6\xb0\x97\xe4\xbb\x98\xe3\x81\x8f\xe3\x81\xae\xe3\x81\x8c\xe9\x81\x85\xe3\x81\x84\xe3\x80\x82'
+   569523049386549248 b'2015-02-23 00:44:10 JST <showa_yojyo> @showa_yojyo \xe3\x82\x84\xe3\x81\xa3\xe3\x81\xb1\xe3\x82\x8a\xe5\x9b\xba\xe3\x81\x84\xe3\x80\x82\xe3\x81\x93\xe3\x81\xae\xe7\xa7\x81\xe3\x81\x8c\xe3\x83\xac\xe3\x83\x99\xe3\x83\xab 300 \xe3\x81\x84\xe3\x81\x8b\xe3\x81\xaa\xe3\x81\x84\xe3\x81\xa8\xe3\x81\x84\xe3\x81\x86\xe3\x81\xae\xe3\x81\xaf\xe3\x81\x8a\xe3\x81\x8b\xe3\x81\x97\xe3\x81\x84\xe3\x80\x82'
+   569525223294283777 b'2015-02-23 00:52:49 JST <showa_yojyo> @showa_yojyo \xe4\xbb\x8a\xe3\x81\x95\xe3\x81\xa3\xe3\x81\x8d\xe5\xbe\xa9\xe6\x97\xa7\xe3\x81\x97\xe3\x81\x9f\xe3\x82\x82\xe3\x82\x88\xe3\x81\x86\xe3\x80\x82'
+
+* ツイートが時刻順に古いものから新しいものへ配列されている。
+* Python の bytes オブジェクトが出力されているが、
+  これは私（人間）が読みにくいのでダメだ。
+
+アーカイブツールということで、次回以降の実行時に以前の出力結果を再利用する。
+しかし、そのデータのロードで失敗する。
+
+.. code-block:: console
+
+   $ twitter-archiver -o -m showa_yojyo
+   * Archiving own mentions in .\showa_yojyo
+   Error when loading saved tweets: name 'unicode' is not defined - continuing without
+   Browsing home statuses, new tweets: 102
+   Total mentions: 102
+   Total: 0 tweets (0 new) for 0 users
+
+当ノート冒頭に宣言したように私は Python 3 系ですべてテストしているのだが、
+とっくに廃止されている関数 ``unicode`` がコード中にいることが原因だ。
 
 twitter-stream-example
 ======================================================================
 モジュール :file:`stream_example.py` から生成された実行ファイルである。
+何をするツールなのかはよくわからないので、試しながら理解していく。
 
-.. todo:: 何か書く。
+なお、今回のツールは access token と consumer key/secret を両方ともユーザー自身で用意せねばならない。
+これら 4 つのコマンドライン引数をコンソールでタイプするのは骨が折れるので、
+その辺は適宜工夫すること。
+
+以下、次のシェル関数を実装したものとして話を進める。
+
+.. code-block:: bash
+
+   function my-stream-example()
+   {
+       local TOKEN=...
+       local TOKEN_SECRET=...
+       local CONSUMER_KEY=...
+       local CONSUMER_SECRET=...
+
+       twitter-stream-example \
+           --token=$TOKEN \
+           --token-secret=$TOKEN_SECRET \
+           --consumer-key=$CONSUMER_KEY \
+           --consumer-secret=$CONSUMER_SECRET \
+           $@
+   }
+
+オプションなしで実行
+----------------------------------------------------------------------
+コマンドラインオプションなしで twitter-stream-example を実行しよう。
+すると、Ctrl+C を押すまでの間は延々と何らかのツイートの垂れ流しが続く。
+単に実行開始時点に Twitter のデータベース的なものにある全ツイートを若い順に表示しているだけかもしれない。
+
+.. code-block:: console
+
+   $ my-stream-example
+   -- Some data: {'delete': {'timestamp_ms': '1447787581389', 'status': {'id': <censored>, 'user_id': <censored>, 'id_str': '<censored>', 'user_id_str': '<censored>'}}}
+   -- Some data: {'delete': {'timestamp_ms': '1447787581463', 'status': {'id': <censored>, 'user_id': <censored>, 'id_str': '<censored>', 'user_id_str': '<censored>'}}}
+   -- Some data: {'delete': {'timestamp_ms': '1447787581478', 'status': {'id': <censored>, 'user_id': <censored>, 'id_str': '<censored>', 'user_id_str': '<censored>'}}}
+   -- Some data: {'delete': {'timestamp_ms': '1447787581492', 'status': {'id': <censored>, 'user_id': <censored>, 'id_str': '<censored>', 'user_id_str': '<censored>'}}}
+   -- Some data: {'delete': {'timestamp_ms': '1447787581544', 'status': {'id': <censored>, 'user_id': <censored>, 'id_str': '<censored>', 'user_id_str': '<censored>'}}}
+   -- Some data: {'delete': {'timestamp_ms': '1447787581543', 'status': {'id': <censored>, 'user_id': <censored>, 'id_str': '<censored>', 'user_id_str': '<censored>'}}}
+   -- Some data: {'delete': {'timestamp_ms': '1447787581530', 'status': {'id': <censored>, 'user_id': <censored>, 'id_str': '<censored>', 'user_id_str': '<censored>'}}}
+   -- Some data: {'delete': {'timestamp_ms': '1447787581631', 'status': {'id': <censored>, 'user_id': <censored>, 'id_str': '<censored>', 'user_id_str': '<censored>'}}}
+   @<censored>
+   @<censored>
+   Follow back?
+   RT @<censored>: Gingrich: "Madness And Suicidal" To Bring In More Syrian Refugees https://t.co/UPVSXTG0Ss
+   RT @<censored>: *shops online instead of doing work in class*
+   RT @<censored>: no respiro wey
+   
+   #1DMX https://t.co/6wrea3Od9c
+   -- Some data: {'delete': {'timestamp_ms': '1447787581702', 'status': {'id': <censored>, 'user_id': <censored>, 'id_str': '<censored>', 'user_id_str': '<censored>'}}}
+   RT @<censored>: ・・#1DJP
+   ・・#1DJP
+   ・・#1DJP
+   ・・#1DJP
+   ・・#1DJP
+   ・・#1DJP
+   ・・#1DJP
+   ・・#1DJP
+   ・・#1DJP
+   ・・#1DJP
+   ・・#1DJP
+   ・・#1DJP
+   ・・#1DJP
+   ・・#1DJ窶ｦ
+   @<censored> ・ｴ・､ ・們・・・・ｬ・ｰ ・ｬ・・擽・ｼ・・ ・們┳﨑們強・懍丶 嵭・・・・
+   﨑ｨ・､. ・駆捩 ・川峡 ・ｴ・ｴ・ｭ・懍丶
+   This bus is a mess yikes
+   pad thai never fails
+   螳壽悄縲螳壽悄縲https://t.co/01ZIMlUU4j
+   讙ｻ譛医■繧・ｓ縺ｮ蟆剰ｪｬ縺ｧ縺呻ｼ・ｼ・ｼ∵弍髱櫁ｪｭ繧薙〒縺上□縺輔＞・・ｼ・
+   RT @<censored>: Kitaplarﾄｱn ﾅ歛rjﾄｱ bitmez, bisikletler benzin zammﾄｱndan etkilenmez. Bir kitap bir bisiklet. ﾃ奔gﾃｼrlﾃｼk ucuzdur坿燈
+   RT @<censored>: https://t.co/eH1XxgX66I
+   @<censored> @<censored> 繧｢繧､繧ｹ縺翫▲縺ｱ縺・Γ繝ｭ繝ｳ繝代Φ縺ｨ縺ｯ・・^o^)・ｼ
+   RT @<censored>: Tenho tanta coisa para fazer para amanhﾃ｣ q acho q ficar nosofﾃ｡ ﾃｩ a melhor soluﾃｧﾃ｣o
+   -- Some data: {'delete': {'timestamp_ms': '1447787581673', 'status': {'id': <censored>, 'user_id': <censored>, 'id_str': '<censored>', 'user_id_str': '<censored>'}}}
+   @<censored> ・溢搆 ・甯醐葺・・､..
+   Have you ever wondered what bus drivers talk about? They talk about being stuckin traffic.... ・#thestruggleisreal
+   @<censored> @<censored> @<censored> no joke. So beautiful.
+   -- Some data: {'delete': {'timestamp_ms': '1447787581693', 'status': {'id': <censored>, 'user_id': <censored>, 'id_str': '<censored>', 'user_id_str': '<censored>'}}}
+   #CWHIranDebate Lily gave us a lot to think about with her opening statement. Very compelling argument, especially with school bus mention.
+   Taken #1DTR
+   Sﾃｩ que soy muy pesadito con el tema, pero de verdad, pan de molde sin corteza mﾃ｡s chocolate Nesquik es una combinaciﾃｳn ganadora.
+   RT @<censored>: @<censored> glad you like it. Thank you
+   Traceback (most recent call last):
+     ...略...
+   KeyboardInterrupt
+
+* 一部出力を加工した。
+* 文字化けをしているのは私の端末環境がショボいのも一因（ここに記す場合に限っては、文字化けしているほうが好都合）。
+  Mintty でシェルを起動するなり、
+  文字コードをあらかじめ ``chcp 65001`` で変えるなり、
+  パイプで less にテキストを流し込むとマシになる。
+
+オプション track_keywords を指定して実行
+----------------------------------------------------------------------
+オプション track_keywords を指定して実行すると、
+ツイッター検索のライブバージョンのように振る舞うのではないかと期待して実行する。
+
+.. code-block:: console
+
+   my-stream-example --track-keywords=カレー
+   繧ｿ繝ｼ繧ｸ繝ｻ繝槭ワ繝ｫ縲繧ｫ繝ｬ繝ｼ縲荵ｾ辯･蟶ｯ縲縺薙％縺九ｉ蛻・°繧九％縺ｨ縺ｯ繝
+   ｻ繝ｻ繝ｻ縲繧､繝ｳ繝会ｼ・ｼ・
+   #deai 螟門漁逵・｣溷ゅ↓ 螳怜ｷ晄羅鬢ｨ  繧ｫ繝ｬ繝ｼ #諡帛ｾ・#蛛ｽ2ch鬨貞虚 https://
+   t.co/9oad01O5X0
+
+   KeyboardInterrupt
+
+思ったほどツイートが流れて来ない。
 
 twitterbot
 ======================================================================
