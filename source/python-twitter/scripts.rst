@@ -31,7 +31,7 @@ twitter-follow
 ----------------------------------------------------------------------
 オプションとして指定するコマンドは何でもよいのだが、コツがふたつある。
 
-* 初回起動時においてはファイル :file:`~/.twitter-follow_oauth` がないことを確認しておく。
+* 初回起動時においてはファイル :file:`$HOME/.twitter-follow_oauth` がないことを確認しておく。
 * 毎回起動時にコマンドラインオプション ``--oauth`` を指定する。
 
 .. code-block:: console
@@ -90,7 +90,7 @@ twitter-follow
      File "d:\python35\lib\runpy.py", line 85, in _run_code
        exec(code, run_globals)
      File "D:\Python35\Scripts\twitter-follow.exe\__main__.py", line 9, in <module>
-   
+
      File "d:\python35\lib\site-packages\twitter\follow.py", line 241, in main
        print(str(uid) + "\t" + users[uid].encode("utf-8"))
    TypeError: Can't convert 'bytes' object to str implicitly
@@ -131,7 +131,7 @@ twitter-log
 
 #. ブラウザーが PIN 番号画面を表示するので、先程と同様にする。
 
-#. テキストファイル :file:`~/.twitter_log_oauth.` が生成される。
+#. テキストファイル :file:`$HOME/.twitter_log_oauth.` が生成される。
 
 #. あとはツイートを取得して標準出力が指定したテキストファイルに、
    進捗が標準エラー出力で確認できる。
@@ -292,10 +292,10 @@ twitter-stream-example
            --token-secret=$TOKEN_SECRET \
            --consumer-key=$CONSUMER_KEY \
            --consumer-secret=$CONSUMER_SECRET \
-           $@
+           "$@"
    }
 
-オプションなしで実行
+オプションなしで実行 (statuses.sample)
 ----------------------------------------------------------------------
 コマンドラインオプションなしで twitter-stream-example を実行しよう。
 すると、Ctrl+C を押すまでの間は延々と何らかのツイートの垂れ流しが続く。
@@ -318,7 +318,7 @@ twitter-stream-example
    RT @<censored>: Gingrich: "Madness And Suicidal" To Bring In More Syrian Refugees https://t.co/UPVSXTG0Ss
    RT @<censored>: *shops online instead of doing work in class*
    RT @<censored>: no respiro wey
-   
+
    #1DMX https://t.co/6wrea3Od9c
    -- Some data: {'delete': {'timestamp_ms': '1447787581702', 'status': {'id': <censored>, 'user_id': <censored>, 'id_str': '<censored>', 'user_id_str': '<censored>'}}}
    RT @<censored>: ・・#1DJP
@@ -362,35 +362,290 @@ twitter-stream-example
 * 文字化けをしているのは私の端末環境がショボいのも一因（ここに記す場合に限っては、文字化けしているほうが好都合）。
   Mintty でシェルを起動するなり、
   文字コードをあらかじめ ``chcp 65001`` で変えるなり、
-  パイプで less にテキストを流し込むとマシになる。
+  パイプで less にテキストを流し込むなりするとマシになる。
 
-オプション track_keywords を指定して実行
+オプション track-keywords を指定して実行 (statuses.filter)
 ----------------------------------------------------------------------
-オプション track_keywords を指定して実行すると、
-ツイッター検索のライブバージョンのように振る舞うのではないかと期待して実行する。
+オプション track-keywords を指定して実行すると、
+Twitter 検索のライブバージョンのように振る舞うのではないかと期待して実行する。
 
 .. code-block:: console
 
-   my-stream-example --track-keywords=カレー
-   繧ｿ繝ｼ繧ｸ繝ｻ繝槭ワ繝ｫ縲繧ｫ繝ｬ繝ｼ縲荵ｾ辯･蟶ｯ縲縺薙％縺九ｉ蛻・°繧九％縺ｨ縺ｯ繝
-   ｻ繝ｻ繝ｻ縲繧､繝ｳ繝会ｼ・ｼ・
-   #deai 螟門漁逵・｣溷ゅ↓ 螳怜ｷ晄羅鬢ｨ  繧ｫ繝ｬ繝ｼ #諡帛ｾ・#蛛ｽ2ch鬨貞虚 https://
-   t.co/9oad01O5X0
+   $ my-stream-example --track-keywords="Terror France"
+   [France 24 fr] Cinq ex-"terroristes" demandent la suspension de leur déchéance de nationalité: Cinq ex-"terror... https://t.co/WKD8KzXTnG
+   Belgium questioned 'terror brothers' before Paris attacks - but didn't tell France https://t.co/YhqSavbWKz
+   RT @<censored>: Huck's 1 Min Response- Terror in France #gop #ccot #tcot #pjnet #imwithhuck #trump2016 https://t.co/BJGSjk07Kw … … https:…
+   RT @<censored>: World supports France, ignores other terror attacks  [VIDEO] https://t.co/DKdloeu1Qs @<censored> https://t.co/yBnsEk3GKK
+   Podemos DEFIENDE al grupo terrorista vasco ETA https://t.co/jjdaxqgQvm Podemos DEFENDS Basque terrorist group ETA  https://t.co/zMM2JvQuqg
+   Belgium questioned 'terror brothers' before Paris attacks - but didn't tell France https://t.co/LCsfl8s9rJ LiveLeak #News
+   RIP Diesel The Police Dog Killed In The Crazy France Terror Raids Early This Morning https://t.co/Mb0fLPpKVR https://t.co/AuoGnWS8uq
+   Netanyahu called Hollande, said Israel stands w France in fight against terror,problem is international, and so is the solution.
+   RIP Diesel The Police Dog Killed In The Crazy France Terror Raids Early This… https://t.co/CwfvmXk84W @<censored> https://t.co/uutbBtTeUT
 
    KeyboardInterrupt
 
-思ったほどツイートが流れて来ない。
+* 一部出力を加工した。
+
+オプション user-stream を指定して実行 (user)
+----------------------------------------------------------------------
+オプション user-stream をして実行すると Twitter API の site が適用される。
+
+.. code-block:: console
+
+   $ my-stream-example --user-stream
+   -- Some data: {'friends': []}
+
+おそらく自分に関係する Twitter イベントがリアルタイムで閲覧できる。
+例えばこのツールを起動している間に、誰かが私のツイートをリツイートしたとする。
+すると「誰それがリツイートした」のようなメッセージがコンソールに出力されるものと思われる。
+
+オプション site-stream を指定して実行 (site)
+----------------------------------------------------------------------
+オプション site-stream をして実行すると Twitter API の site が適用される。
+しかし Twitter のドキュメントによると <Site Streams is currently in a closed beta.
+Applications are no longer being accepted> とのことなので、
+これは動作を期待できない。
+
+.. code-block:: console
+
+   $ my-stream-example --site-stream
+   Traceback (most recent call last):
+     File "d:\python35\lib\site-packages\twitter\stream.py", line 207, in handle_stream_response
+       handle = urllib_request.urlopen(req,)
+     ...
+   urllib.error.HTTPError: HTTP Error 403: Forbidden
+   ...
 
 twitterbot
 ======================================================================
 モジュール :file:`ircbot.py` から生成された実行ファイルである。
-
-.. todo:: 何か書く。
+自分のタイムラインから screen_name を検索しては follow したり unfollow したりするツールのようだ。
+したがって本稿では割愛する。
 
 twitter
 ======================================================================
 モジュール :file:`cmdline.py` から生成された実行ファイルである。
+次の Twitter API にアクセスするコマンドラインツールとなっている。
 
-.. todo:: 何か書く。
+* account.verify_credentials
+* application.rate_limit_status
+* friendships.create
+* friendships.destroy
+* lists.list
+* statuses.home_timeline
+* statuses.mentions_timeline
+* statuses.update
+
+他のツールと同様に初回だけ認証作業が必要になるので、
+最初はそのためにあるコマンドを実行する。
+それ以降は、その他の Twitter データを操作するためのコマンドを実行していこう。
+
+コマンド authorize
+----------------------------------------------------------------------
+コマンド authorize を実行することで、
+次回以降の実行に備えるべく次のものを生成しておきたい。
+
+* 認証キー格納ファイル :file:`$HOME/.twitter_oauth`
+
+.. code-block:: console
+
+   $ twitter authorize
+   Hi there! We're gonna get you all set up to use the Command-Line Tool.
+
+   In the web browser window that opens please choose to Allow
+   access. Copy the PIN number that appears on the next page and paste or
+   type it here:
+
+   Opening: https://api.twitter.com/oauth/authorize?oauth_token=XXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+   Please enter the PIN: XXXXXXX
+
+   That's it! Your authorization keys have been written to ~/.twitter_oauth.
+
+コマンド follow
+----------------------------------------------------------------------
+コマンド follow は指定のユーザーを follow する。私は使わない。
+
+コマンド friends
+----------------------------------------------------------------------
+コマンド friends はホームタイムラインを出力する。
+ちなみにこのツールのデフォルトのコマンドはこれなので、コマンド名の入力を省略できる。
+
+.. code-block:: console
+
+   $ [work tmp 243]$ twitter friends -dt
+   2015-11-16 01:47:40 @<censored> Your branch is ahead of なんちゃらのコミット数とプッシュされたコミット数が一致していないだと？
+   2015-11-16 02:05:26 @<censored> 今日の頭ハネ。カンニンしてくれ。 https://t.co/I4igUP7ai7
+   ...
+   2015-11-19 01:48:40 @<censored> [notebook] https://t.co/ekdItM0nh0 showa_yojyo- (scripts.rst) Update twitter-stream-example.
+
+* オプション ``--datestamp`` と ``--timestamp`` でツイート更新時刻を出力する。
+* デフォルトで 20 件出力。オプション ``--length <count>`` で最大 200 までならば取得数指定可能。
+* ツイートの並び順は古い順。
+
+コマンド leave
+----------------------------------------------------------------------
+コマンド leave は指定のユーザーを unfollow する。私は使わない。
+
+コマンド mylist
+----------------------------------------------------------------------
+コマンド mylist は自分の作成リストと購読リストの両方を出力する。
+リスト名と説明だけを表示するのでたいへん単純だ。
+そして余計な空行が気になる。
+
+.. code-block:: console
+
+   $ twitter mylist
+   【MJ5】Twitter連動
+
+   Everything O'Reilly
+
+   Fenrir Inc.                    (フェンリルの公式アカウントなど。)
+
+   日経グループ                         (日経グループ内の公式アカウントのリストです。
+   #WelcomeToTwitter)
+
+   followed-by                    (People who follow(ed) me for a fixed period. For some reason some followers are not included.)
+
+   videogame                      (Accounts related to videogame productions, amusement facilities, etc.)
+
+   informative                    (Accounts of people or organizations that supplyeveryone helpful information and knowledge.)
+
+   tools                          (Accounts that inform of software, hardware, events, bug-fixes, release schedules, etc.)
+
+   bot                            (A list of amusing bot accounts.)
+
+   ...
+
+コマンド list
+----------------------------------------------------------------------
+コマンド list は指定ユーザーの作成リストと購読リストの両方を出力する。
+上述の mylist コマンドと酷似しているので詳細は省略。
+
+.. code-block:: console
+
+   $ twitter mylist twitter
+   Developers                     (Learn how to build with Twitter from our platform relations teams and developer advocates.)
+
+   Twitter & IR                   (Investment news and company updates.)
+
+   International                  (Accounts highlighting local Twitter news, stories and more from our teams around world. )
+
+   Support                        (Learn how to boost your Twitter skills and keepyour account secure.)
+
+   Media                          (Discover the best content on Twitter from media, entertainment, sports, government and more.)
+
+   Engineering                    (Tweets from Twitter's engineering teams about our technology, tools and events.)
+
+   Offices & Culture              (See how we're building Twitter together, from our offices around the world.)
+
+   Ads & Sales                    (Follow these accounts for Twitter Ads product updates, tips, success stories and support.)
+
+   Official Twitter Accounts      (Accounts managed by Twitter, Inc.)
+
+コマンド pyprompt
+----------------------------------------------------------------------
+コマンド pyprompt は対話モードで ``twitter`` オブジェクトを操作できる。
+ちょっとくせがあるので使いにくい。
+
+コマンド rate
+----------------------------------------------------------------------
+コマンド rate は Twitter API の利用制限状況を一覧するのにたいへん便利。
+出力行数がかなり多いので、ファイルにリダイレクトするとよい。
+
+.. code-block:: console
+
+   $ twitter rate
+   Remaining API requests for /blocks/list: 15 / 15
+   Next reset in 897s (Thu Nov 19 23:35:07 2015)
+
+   Remaining API requests for /blocks/ids: 15 / 15
+   Next reset in 897s (Thu Nov 19 23:35:07 2015)
+
+   Remaining API requests for /direct_messages/show: 15 / 15
+   Next reset in 897s (Thu Nov 19 23:35:07 2015)
+
+   Remaining API requests for /direct_messages: 15 / 15
+   Next reset in 897s (Thu Nov 19 23:35:07 2015)
+
+   ...
+
+コマンド repl
+----------------------------------------------------------------------
+コマンド repl は対話モードでオブジェクト ``t`` と ``u`` を操作するものだ。
+困ったことに ``t`` の使い方はよく知っているが ``u`` の使い方がわからない。
+
+.. code-block:: console
+
+   $ twitter repl
+
+   Use the 'twitter' object to interact with the Twitter REST API.
+   Use twitter_upload to interact with upload.twitter.com
+
+
+   Python 3.5.0 (v3.5.0:374f501f4567, Sep 13 2015, 02:27:37) [MSC v.1900 64 bit (AMD64)] on win32
+   Type "help", "copyright", "credits" or "license" for more information.
+   (InteractiveConsole)
+   >>> u
+   <twitter.api.Twitter object at 0x00000080581EAAC8>
+   >>> u.domain
+   'upload.twitter.com'
+   >>> t
+   <twitter.api.Twitter object at 0x00000080564A2470>
+   >>> t.domain
+   'api.twitter.com'
+
+コマンド replies
+----------------------------------------------------------------------
+コマンド replies は自分への返信ツイートを発生時刻の古い順に出力する。
+オプションはコマンド friends と同じように通じる。
+
+コマンド search
+----------------------------------------------------------------------
+これは動作しない。検索ならば別のツールを使うのがよい。
+
+.. code-block:: console
+
+   $ twitter search Abandaned
+   Twitter sent status 410 for URL: search.json using parameters: (...)
+   details: {'errors': [{'message': 'The Twitter REST API v1 is no longer active. Please migrate to API v1.1. https://dev.twitter.com/docs/api/1.1/overview.', 'code': 64}]}
+   Use 'twitter -h' for help.
+
+コマンド set
+----------------------------------------------------------------------
+コマンド set は名前からはそれとわかりにくいが、ツイートを生成する。
+
+.. code-block:: console
+
+   $ twitter set "もっとモット日本語テスト"
+   $ twitter -l1
+   @showa_yojyo もっとモット日本語テスト
+
+コンソールからの実行ゆえ、日本語文字やハッシュタグ # の扱いに気をつけること。
+
+コマンド shell
+----------------------------------------------------------------------
+コマンド shell は対話モードでスクリプトを起動する。
+プロンプトで通常のコマンドライン引数をタイプすることになる。
+
+.. code-block:: console
+
+   $ twitter shell -dt
+   twitter> ppp
+   No such action: ppp
+   twitter> replies -l 3
+   2014-11-30 00:57:40 @showa_yojyo すいません。右クリックメニューが出ない。 RT @showa_yojyo: 今になって Python (command line) を ConEmu タブ化できるようにした。気付くのが遅い。
+   2015-02-23 00:44:10 @showa_yojyo @showa_yojyo やっぱり固い。この私がレベル 300 いかないというのはおかしい。
+   2015-02-23 00:52:49 @showa_yojyo @showa_yojyo 今さっき復旧したもよう。
+   twitter> set 日本語テスト
+   twitter> friends -l 3
+   2015-11-19 00:57:33 @showa_yojyo 六萬は下家が暗刻で固めていた。5200 でいいや。
+   2015-11-19 01:48:40 @showa_yojyo [notebook] https://t.co/ekdItM0nh0 showa_yojyo - (scripts.rst) Update twitter-stream-example.
+   2015-11-19 22:49:53 @showa_yojyo 日本語テスト
+   twitter> exit
+
+寸評
+======================================================================
+手直しして自分の利用パターンに特化したツールとするのもアリ。
 
 .. include:: /_include/python-refs-twitter.txt
