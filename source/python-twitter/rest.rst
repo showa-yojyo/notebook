@@ -1,5 +1,5 @@
 ======================================================================
-演習 (RestAPI)
+演習 (REST API)
 ======================================================================
 以下、個人的に動作確認が取れた状況でのコードのみをノートしておく。
 細かい説明を重ねるよりは、動作したコードを淡々と列挙して、
@@ -7,7 +7,7 @@
 
 .. contents:: ノート目次
 
-共通処理コード
+認証処理およびインターフェイス準備処理
 ======================================================================
 PTT を利用するプログラムに共通して書く必要のあるコードは次のようなものである。
 認証と Twitter 本体とのインターフェイスとなるインスタンスのセットアップからなる。
@@ -40,7 +40,11 @@ Comment 1
 Comment 2
   唐突に :file:`$HOME/.my_app_credentials` なるファイルが登場する。
   このファイルは内容が Access token と Access token secret の実際の文字列 2 行からなる設定ファイルである。
-  この設定ファイルは一度だけ自分で用意すればよい。
+
+  この設定ファイルは初回のみ PTT が生成してくれる。
+  正確に挙動を言うと、その前に関数 ``oauth_dance`` がウェブブラウザーをアクティブにする。
+  ここでアカウント情報を入力して OK すると、PIN コードというものをブラウザー画面に表示する。
+  このコードをコンソールに戻って入力すると、設定ファイルが生成されるという流れだ。
 
 さて、使い捨てのスクリプトで毎回上のようなコードをコピーアンドペーストするのはプログラマーの美学に反する。
 そこで、一連の手順をモジュール化して ``PYTHONPATH`` のパスリストのどこかに安置しておくことを勧める。
@@ -136,7 +140,7 @@ API がツイートのデータ構造をどのように定義しているのか�
    # ... response を処理 ...
 
 レスポンス中のツイートは ``id`` という値を保持しており、
-ツイートは ``id`` が降順になるように配列された状態で戻ってきている（と思う）。
+ツイートは ``id`` が降順になるように配列された状態で戻ってきている。
 その事実を利用すれば ``id`` の最大・最小が得られる。
 配列の先頭ツイートの ``id`` が最大であり、
 末尾ツイートのそれが最小であるはずだ。
@@ -157,9 +161,9 @@ API がツイートのデータ構造をどのように定義しているのか�
 
 .. code-block:: python3
 
-   # 最大 id の記憶
+   # 最大 ID の記憶
    max_id = None
-   if len(response):
+   if response:
        max_id = response[0]['id']
 
 .. code-block:: python
@@ -181,315 +185,36 @@ API がツイートのデータ構造をどのように定義しているのか�
 * 二回目以降取得では、
   ``cursor`` の値として前回レスポンス中の ``next_cursor`` または
   ``previous_cursor`` を指示する。
+  通常は前者を用いる。
 
   その際、値がゼロでないことを確認する必要がある。
   ゼロは取得するべきデータは Twitter に存在しないということを示唆している。
 
-タイムライン関連
+擬似コードを示す。
+ここで ``kwargs`` は API に渡す引数を保持する ``dict`` オブジェクトであり、
+``process_something`` は Twitter からの応答オブジェクトを処理する関数か何かを意味する。
+
+.. code-block:: python3
+
+   next_cursor = -1
+   while next_cursor != 0:
+       response = tw.friends.ids(
+           cursor=next_cursor,
+           **kwargs)
+
+       process_something(response)
+
+       next_cursor = response['next_cursor']
+
+API 別コード例
 ======================================================================
+以下、PTT をツールとして Twitter の REST API を操作するためのコード例を記す。
 
-GET statuses/mentions_timeline
-----------------------------------------------------------------------
-いわゆるリプを取得する例を挙げる。
+.. toctree::
+   :glob:
+   :maxdepth: 2
 
-.. literalinclude:: /_sample/ptt/statuses-mentions_timeline.py
-   :language: python3
-
-* Comment 1: 認証ユーザーに関する mentions を最新のものから 50 件取得する。
-
-  https://dev.twitter.com/rest/reference/get/statuses/mentions_timeline 参照。
-
-* Comment 2: ここでは mention の日時とツイート本文を新しい順にコンソールに出力している。
-
-GET statuses/user_timeline
-----------------------------------------------------------------------
-ユーザー名を指定してタイムラインを 40 件取得し、
-ツイート時刻と投稿内容をコンソールに出力するコードである。
-
-.. literalinclude:: /_sample/ptt/statuses-mentions_timeline.py
-   :language: python3
-
-引数仕様は https://dev.twitter.com/rest/reference/get/statuses/user_timeline を参照。
-
-ちなみに、ドキュメント上は ``screen_name`` か ``user_id`` が
-optional パラメーターとなっている API について注意が必要だ。
-むしろ「そのうちのどちらかが required パラメーターである」という意味だろう。
-
-GET statuses/home_timeline
-----------------------------------------------------------------------
-ユーザーのタイムラインを取得する例を示す。
-
-.. literalinclude:: /_sample/ptt/statuses-home_timeline.py
-   :language: python3
-
-* Comment 1: 自作モジュールのメソッドを呼び出している。前述のとおり。
-
-* Comment 2: 認証ユーザーのタイムラインを最新のものから 10 件取得する。
-  主に自分のツイート、フォローしているユーザーのツイート、返信各種からなるものと思われる。
-
-  キーワード引数の意味や、戻り値のデータ構造については
-  https://dev.twitter.com/rest/reference/get/statuses/home_timeline 参照。
-
-* Comment 3: ツイートの日時と本文を新しい順にコンソールに出力している。
-
-  .. caution::
-
-     Python 3.4 に移行した直後に起動したら、コンソール上のテキストが文字化けして読めなかった。
-     結局、環境変数 PYTHONIOENCODING を新規設定して、値を utf-8 と定義したら正常に読めるようになった。
-
-ツイート関連
-======================================================================
-
-POST statuses/update
-----------------------------------------------------------------------
-スクリプト等からツイートするときには本 API を使用することになる。
-
-.. literalinclude:: /_sample/ptt/statuses-update.py
-   :language: python3
-
-* Comment 1: tweet 内容を文字列として定義してみる。
-* Comment 2: 関数 ``statuses.update`` をキーワード引数 ``status`` を指示して呼び出す。
-
-  https://dev.twitter.com/rest/reference/post/statuses/update 参照。
-
-POST statuses/update_with_media
-----------------------------------------------------------------------
-稼働実績なし。
-
-.. literalinclude:: /_sample/ptt/statuses-update_with_media.py
-   :language: python3
-
-検索関連
-======================================================================
-GET search/tweets
-----------------------------------------------------------------------
-単純な検索を行うには ``search/tweets`` を利用する。
-
-.. literalinclude:: /_sample/ptt/search-tweets.py
-   :language: python3
-
-* Comment 1: ``ネシカ`` または ``nesica`` という単語を含むツイートを
-  33 件検索させようとしている（厳密には不正確なやり方だが）。
-
-  検索したい単語等をメソッド ``search.tweets`` に与える。
-  キーワード引数の指定方法にコツがあるようだが、詳しくは
-  https://dev.twitter.com/rest/reference/get/search/tweets 参照。
-
-* Comment 2: 検索結果の本体は、関数戻り値からこのように得られる。
-  この例ではツイートのタイムスタンプ、ユーザー名、本文だけをコンソールに出力する。
-
-  * 日付は標準時 (``+0000``) で得られる？
-
-フォロワー関連
-======================================================================
-GET friends/list
-----------------------------------------------------------------------
-特定のユーザーがフォローしている全ユーザーの情報を得るのには GET friends/list を利用できる。
-一度のリクエストでは返しきれないほどの多数のユーザーをフォローしていることを想定してのカーソル処理となる。
-次に示すコード例のように、1 ページずつデータをリクエストすることになる。
-
-.. literalinclude:: /_sample/ptt/friends-list.py
-   :language: python3
-
-GET followers/list
-----------------------------------------------------------------------
-特定のユーザーをフォローしている全ユーザーの情報を得るのには GET followers/list を利用できる。
-サンプルコードは先のコードをテキストエディターで ``s/friends/followers/`` すれば得られる。
-
-ユーザーアカウント関連
-======================================================================
-GET users/show
-----------------------------------------------------------------------
-特定のユーザーの詳細情報を得るのに ``users/show`` を利用する。
-
-.. literalinclude:: /_sample/ptt/users-show.py
-   :language: python3
-
-* Comment 1: 基本的に指定する引数はこれだけで構わない。
-* Comment 2: ユーザーの Twitter 情報を出力してみる。
-* https://dev.twitter.com/rest/reference/get/users/show 参照。
-
-GET users/search
-----------------------------------------------------------------------
-``users/search`` はキーワードから何か関係のありそうなユーザーを探すのにたいへん便利だ。
-応用例としては、例えば bot に関係しそうなユーザーを可能な限りかき集めて、
-ひとつのリストにまとめるといったものが考えられる（私はそれを実践している）。
-
-これはごく単純な呼び出し例なので、キーワード引数
-``count`` の上限である 20 ユーザーしか取得できない。
-さらに取得するには、この API の呼び出しをループの中に入れて、
-キーワード引数 ``page`` をループカウンターで指定するとよいだろう。
-その際には関数 ``time.sleep`` 等でリクエストに時間的間隔を設けると申し分ない。
-
-.. literalinclude:: /_sample/ptt/users-search.py
-   :language: python3
-
-お気に入り関連
-======================================================================
-GET favorites/list
-----------------------------------------------------------------------
-特定のユーザーが星マークを付けたツイート群を取得する。
-
-.. literalinclude:: /_sample/ptt/favorites-list.py
-   :language: python3
-
-だんだん解説がワンパターン化してきたので、以降は目立つポイントのみ解説をする。
-
-リスト関連
-======================================================================
-GET lists/list
-----------------------------------------------------------------------
-全リスト取得に用いる API だ。
-
-.. literalinclude:: /_sample/ptt/lists-list.py
-   :language: python3
-
-* Comment 1: メソッド ``lists.list`` に ``screen_name`` キーワード引数を与えて、
-  そのユーザーの持っているリストを全部取得する。
-  ユーザーが作成したリストに加え、もしあれば、購読している他ユーザーが作成したリストを含む。
-
-  https://dev.twitter.com/rest/reference/get/lists/list 参照。
-
-* Comment 2: 各リストの mode, full_name, description 各属性をコンソールに出力する。
-
-GET lists/statuses
-----------------------------------------------------------------------
-既存のリストのタイムラインを閲覧するための API だ。
-例えば ``screen_name`` が ``showa_yojyo`` のユーザーの、
-``news`` という公開リストがあるという前提で、そのタイムラインを見てみよう。
-
-.. literalinclude:: /_sample/ptt/lists-statuses.py
-   :language: python3
-
-* Comment 1
-
-  * メソッド ``lists.statuses`` に与える引数を準備する。
-    リストを特定する手段は一つではないのだが、
-    分かりやすさを優先して ``slug`` および ``owner_screen_name`` を同時に指示する。
-
-  * その他は https://dev.twitter.com/rest/reference/get/lists/statuses 参照。
-
-* Comment 2
-
-  * 文字列をコンソールに出力する。
-    ツイート内容、改行、ツイート時刻、ツイートに利用したアプリ名が確認できる。
-
-POST lists/members/destroy
-----------------------------------------------------------------------
-リストから指定したユーザーを削除するための API だ。
-しかし、これを利用するくらいならばブラウザーで Twitter を利用するほうが早いやもしれない。
-
-.. literalinclude:: /_sample/ptt/lists-members-destroy.py
-   :language: python3
-
-GET lists/memberships
-----------------------------------------------------------------------
-``lists/memberships`` リクエストは、
-あるユーザーが他のユーザーが管理しているリストに含まれているとき、
-そのようなリストを列挙するのに利用する。
-
-.. literalinclude:: /_sample/ptt/lists-memberships.py
-   :language: python3
-
-* Comment 1: ユーザー ``showa_yojyo`` を含むリストをリクエストする。
-  ``cursor`` については別項で詳しく解説する。
-
-* Comment 2: 各リストの名前と説明文をコンソールに出力する。
-  ``full_name`` の先頭にはリストの作者の ``screen_name`` が見えると思う。
-
-* https://dev.twitter.com/rest/reference/get/lists/memberships 参照。
-
-GET lists/subscribers
-----------------------------------------------------------------------
-指定リストの購読者をリストするのに利用する。
-どうも非公開ユーザーが購読していてもリストされないらしい。
-
-.. literalinclude:: /_sample/ptt/lists-subscribers.py
-   :language: python3
-
-POST lists/members/create_all
-----------------------------------------------------------------------
-ブラウザー上の操作ではできないと思われる、
-一括でユーザーを複数指定して指定のリストに登録する処理を実現するための API だ。
-次のサンプルコードの ``screen_names`` はスクリーンネームの tuple インスタンスを意味する。
-この API はリストを多用する筆者が利用する頻度がもっとも高い。
-
-.. literalinclude:: /_sample/ptt/lists-members-create_all.py
-   :language: python3
-
-GET lists/members/show
-----------------------------------------------------------------------
-指定ユーザーが指定リストに登録されているかを調べる API だ。
-使い途が少々思いつかない。
-
-.. literalinclude:: /_sample/ptt/lists-members-show.py
-   :language: python3
-
-GET lists/members
-----------------------------------------------------------------------
-指定リストに登録されているユーザーをすべて得ることができる API だ。
-登録ユーザー数が多いリストに対しては、次のように
-「カーソル処理」で複数回のリクエストをすることになるだろう。
-
-.. literalinclude:: /_sample/ptt/lists-members.py
-   :language: python3
-
-POST lists/members/create
-----------------------------------------------------------------------
-自分の所有するリストに指定ユーザーを一人分登録する API だ。
-今では上述の lists/members/create_all で完全に置き換えてしまって構わなそうだ。
-
-.. literalinclude:: /_sample/ptt/lists-members-create.py
-   :language: python3
-
-POST lists/destroy
-----------------------------------------------------------------------
-自分の所有するリストを一つ指定して、それを削除する API だ。
-使用頻度はテスト用に作成したダミーリストをまた削除するときに使うくらいだ。
-
-.. literalinclude:: /_sample/ptt/lists-destroy.py
-   :language: python3
-
-POST lists/create
-----------------------------------------------------------------------
-リストを新しく作成するための API だ。Twitter Web Client で作業するほうが早い。
-https://dev.twitter.com/rest/reference/post/lists/create 参照。
-
-.. literalinclude:: /_sample/ptt/lists-create.py
-   :language: python3
-
-GET lists/subscriptions
-----------------------------------------------------------------------
-あるユーザーが購読している（他ユーザーの管理下にある）リストを得るために利用する。
-
-.. literalinclude:: /_sample/ptt/lists-subscriptions.py
-   :language: python3
-
-GET lists/ownerships
-----------------------------------------------------------------------
-``lists/ownerships`` は特定のユーザーが管理しているリストを列挙するのに利用する。
-ツイートというよりは、リストのプロパティーを得るのに利用する。
-
-.. literalinclude:: /_sample/ptt/lists-ownerships.py
-   :language: python3
-
-検索履歴関連
-======================================================================
-GET saved_searches/list
-----------------------------------------------------------------------
-Twitter ログイン時に当該アカウントで検索したクエリーの一覧を取得する。
-実行してみれば理解できる。
-
-.. literalinclude:: /_sample/ptt/saved_searches-list.py
-   :language: python3
-
-GET saved_searches/create
-----------------------------------------------------------------------
-わかりにくい言い方をすると「保存した検索」項目を一つ新しく作成するための API だ。
-個人的には今となっては使い途がなくなってしまった API のひとつ。
-
-.. literalinclude:: /_sample/ptt/saved_searches-create.py
-   :language: python3
+   rest-*
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-twitter.txt
