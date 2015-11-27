@@ -7,12 +7,16 @@
 from secret import twitter_instance
 
 tw = twitter_instance()
+kwargs = dict(screen_name='showa_yojyo')
 
-# Comment 1
-kwargs = dict(screen_name='showa_yojyo', cursor=-1)
-response = tw.lists.memberships(**kwargs)
+next_cursor = -1
+while next_cursor != 0:
+    # [1]
+    response = tw.lists.memberships(cursor=next_cursor, **kwargs)
+    lists = response['lists']
 
-# Comment 2
-lists = response['lists']
-for item in lists:
-    print('{full_name}, {description}'.format(**item))
+    # [2]
+    for item in lists:
+        print('{full_name}, {description}'.format(**item).replace('\n', '\\n'))
+
+    next_cursor = response['next_cursor']

@@ -7,22 +7,19 @@
 from secret import twitter_instance
 
 OWNER_SCREEN_NAME='showa_yojyo'
-SLUG='news'
+SLUG='informative'
 
 tw = twitter_instance()
-next_cursor = -1
-screen_names = list()
 
+next_cursor = -1
 while next_cursor != 0:
-    # GET lists/members
     response = tw.lists.members(
         owner_screen_name=OWNER_SCREEN_NAME,
-        cursor=next_cursor,
-        slug=SLUG)
+        slug=SLUG,
+        cursor=next_cursor)
 
-    screen_names.extend([user['screen_name'] for user in response['users']])
+    users = response['users']
+    for i in users:
+        print('{screen_name}:{description}'.format(**i).replace('\n', '\\n'))
 
     next_cursor = response['next_cursor']
-
-for screen_name in screen_names:
-    print(screen_name)

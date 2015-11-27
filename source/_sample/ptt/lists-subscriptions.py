@@ -8,10 +8,13 @@ from secret import twitter_instance
 
 tw = twitter_instance()
 
-response = tw.lists.subscriptions(
-    screen_name='showa_yojyo', 
-    count=20,
-    cursor=-1)
+next_cursor = -1
+while next_cursor != 0:
+    response = tw.lists.subscriptions(
+        screen_name='showa_yojyo', 
+        cursor=next_cursor)
 
-for item in response['lists']:
-    print('{full_name}: {description}'.format(**item))
+    for item in response['lists']:
+        print('{full_name}: {description}'.format(**item).replace('\n', '\\n'))
+
+    next_cursor = response['next_cursor']

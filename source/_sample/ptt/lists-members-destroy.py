@@ -11,4 +11,4 @@ tw = twitter_instance()
 tw.lists.members.destroy(
     owner_screen_name='showa_yojyo',
     slug='listname',
-    screen_name='showa_yojyo') # デモコードなので自分自身決め打ち
+    screen_name='showa_yojyo')

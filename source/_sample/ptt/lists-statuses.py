@@ -8,10 +8,10 @@ from secret import twitter_instance
 
 tw = twitter_instance()
 
-# Comment 1
+# [1]
 kwargs = dict(
     owner_screen_name='showa_yojyo',
-    slug='news',
+    slug='informative',
     per_page=10,
     page=1,
     include_entities=1,
@@ -19,7 +19,7 @@ kwargs = dict(
 
 response = tw.lists.statuses(**kwargs)
 for item in response:
-    # Comment 2
+    # [2]
     print(item['user']['screen_name'])
     print('{text}\n{created_at} {source}'.format(**item))
     print('-' * 70)

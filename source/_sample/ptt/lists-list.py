@@ -8,9 +8,9 @@ from secret import twitter_instance
 
 tw = twitter_instance()
 
-# Comment 1
+# [1]
 response = tw.lists.list(screen_name='showa_yojyo')
 
-# Comment 2
+# [2]
 for item in response:
     print('{mode} {full_name} {description}'.format(**item))
