@@ -8,11 +8,13 @@ from secret import twitter_instance
 
 tw = twitter_instance()
 
+# [1]
 statuses = tw.statuses.home_timeline(
-    count=10,
-    include_rts='true',
-    include_entities='true',
-    exclude_replies='false',)
+    count=50,
+    trim_user=True,
+    include_entities=False,
+    exclude_replies=False,)
 
+# [2]
 for stat in statuses:
-    print('{created_at} {text}'.format(**stat))
+    print('{created_at}|{text}'.format(**stat).replace('\n', '\\n'))

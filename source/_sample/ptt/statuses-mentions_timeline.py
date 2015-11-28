@@ -8,10 +8,13 @@ from secret import twitter_instance
 
 tw = twitter_instance()
 
-# Comment 1
-statuses = tw.statuses.mentions_timeline(count=50, include_entities='true')
+# [1]
+response = tw.statuses.mentions_timeline(
+    count=50,
+    trim_user=True,
+    contributor_details=False,
+    include_entities=False,)
 
-# Comment 2
-for stat in statuses:
-    entities = stat['entities']
-    print('{created_at} {text}'.format(**entities))
+# [2]
+for stat in response:
+    print('{created_at}|{text}'.format(**stat).replace('\n', '\\n'))

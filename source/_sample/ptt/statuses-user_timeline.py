@@ -7,7 +7,16 @@
 from secret import twitter_instance
 
 tw = twitter_instance()
-stats = tw.statuses.user_timeline(screen_name='showa_yojyo', count=40)
 
-for stat in stats:
-    print('{created_at} {text}'.format(**stat))
+# [1]
+response = tw.statuses.user_timeline(
+    screen_name='showa_yojyo',
+    count=50,
+    trim_user=False,
+    contributor_details=False,
+    include_entities=False,
+    include_rts=False,)
+
+# [2]
+for stat in response:
+    print('{created_at}|@{user[screen_name]}|{text}'.format(**stat).replace('\n', '\\n'))
