@@ -7,16 +7,10 @@
 from secret import twitter_instance
 
 tw = twitter_instance()
-stats = tw.statuses.retweets_of_me(
-    screen_name='showa_yojyo',
-    count=20)
+response = tw.statuses.retweets_of_me(
+    trim_user=True,
+    include_entities=False,
+    include_user_entities=False,)
 
-# https://dev.twitter.com/rest/reference/get/statuses/retweets:id
-# https://dev.twitter.com/rest/reference/get/statuses/retweeters/ids
-for stat in stats:
-    #user = stat['user']
-    print('''
-{user[screen_name]} / {user[name]} ({created_at}) [{source}]
-{text}
-retweeted: {retweet_count}
-'''.format(**stat))
+for tweet in response:
+    print('{retweet_count}|{text}'.format(**tweet).replace('\n', '\\n'))

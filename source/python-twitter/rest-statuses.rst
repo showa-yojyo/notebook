@@ -73,6 +73,34 @@ GET statuses/home_timeline
    ...
    Fri Nov 20 15:30:35 +0000 2015|ステパップ
 
+GET statuses/retweets_of_me
+======================================================================
+GET statuses/retweets_of_me は他の人がリツイートした自分のツイートを新しい順に得る API だ。
+
+.. literalinclude:: /_sample/ptt/statuses-retweets_of_me.py
+   :language: python3
+
+GET statuses/retweets/:id
+======================================================================
+GET statuses/retweets/:id は指定ツイートの直近 100 リツイートまでを得る API だ。
+ツイートを指定するにはツイートの ID があらかじめ必要となる。
+自由に使えるサンプルツイートがないため、サンプルコードを省略する。
+
+GET statuses/show/:id
+======================================================================
+GET statuses/show/:id は指定ツイートの詳細を得る API だ。
+このように利用する。
+
+.. literalinclude:: /_sample/ptt/statuses-show-id.py
+   :language: python3
+
+実行結果省略。
+
+POST statuses/destroy/:id
+======================================================================
+POST statuses/destroy/:id は自分のツイートに限るが、指定ツイートを削除する API だ。
+一度に一ツイートだけを削除するに過ぎないので、使い勝手は悪いと思われる。
+
 POST statuses/update
 ======================================================================
 POST statuses/update はツイートを投稿する API だ。
@@ -80,8 +108,15 @@ POST statuses/update はツイートを投稿する API だ。
 .. literalinclude:: /_sample/ptt/statuses-update.py
    :language: python3
 
-* [1] tweet 内容を文字列として定義してみる。
+* [1] ツイート内容を文字列として定義してみる。
 * [2] 関数 ``statuses.update`` をキーワード引数 ``status`` を指示して呼び出す。
+
+.. todo:: この例は物足りないので、変わった例を示す。
+
+POST statuses/retweet/:id
+======================================================================
+POST statuses/retweet/:id は指定ツイートを自分のアカウントからリツイートする API だ。
+ツイートを指定するにはツイートの ID があらかじめ必要となる。
 
 POST statuses/update_with_media
 ======================================================================
@@ -89,3 +124,23 @@ POST statuses/update_with_media
 
 .. literalinclude:: /_sample/ptt/statuses-update_with_media.py
    :language: python3
+
+GET statuses/oembed
+======================================================================
+特定のツイートを oEmbed 互換な書式で得る API だ。
+これは HTML 文書の中に埋め込むコード片としてツイートを表現するためのものだろう。
+興味がないのでパス。
+
+GET statuses/retweeters/ids
+======================================================================
+GET statuses/retweeters/ids は指定ツイートの直近 100 リツイートまでに限定して、
+リツイートしたユーザーの ID を得る API だ。
+サンプルコード省略。
+
+GET statuses/lookup
+======================================================================
+GET statuses/lookup はツイートの詳細を得る API で、一度に 100 件まで処理できる。
+使いどころが難しい？
+
+.. include:: /_include/python-refs-core.txt
+.. include:: /_include/python-refs-twitter.txt
