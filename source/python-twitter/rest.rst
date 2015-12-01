@@ -1,9 +1,9 @@
 ======================================================================
 演習 (REST API)
 ======================================================================
-以下、個人的に動作確認が取れた状況でのコードのみをノートしておく。
-細かい説明を重ねるよりは、動作したコードを淡々と列挙して、
-見返したときにすぐに思い出せるようにする。
+本節では PTT を利用して Twitter REST API を操作するときのコツのようなものを記す。
+Twitter の API には大きく分けて REST と Streaming のふたつがある。
+前者がより基本的なインターフェイスのようなので、先に見ていく。
 
 .. contents:: ノート目次
 
@@ -13,7 +13,7 @@ PTT を利用するプログラムに共通する手続きを図示するとこ�
 
 #. 認証キー等を用意する
 #. ``OAuth`` オブジェクトを生成する
-#. ``Twitter`` オブジェクトを生成する
+#. ``Twitter`` オブジェクトまたは ``TwitterStream`` オブジェクトを生成する
 #. Twitter API を利用する
 
 明らかに API を利用するまでの手続きがワンパターンなので、どこかにカプセル化しておくべきだろう。
@@ -30,31 +30,32 @@ PTT を利用するプログラムに共通して書く必要のあるコード�
 
 .. code-block:: python3
 
-   # PTT 利用プログラムに共通して書くことになる処理
    from twitter import *
 
-   # Comment 1
+   # [1]
    CONSUMER_KEY = '**********************'  # API key
-   CONSUMER_SECRET = '******************************************' # API secret; 人に見せてはいけない。
+   CONSUMER_SECRET = '******************************************' # API secret; Keep this value secret.
 
-   # Comment 2
+   # [2]
    MY_TWITTER_CREDS = os.path.expanduser('~/.my_app_credentials')
    if not os.path.exists(MY_TWITTER_CREDS):
        oauth_dance("My App Name", CONSUMER_KEY, CONSUMER_SECRET, MY_TWITTER_CREDS)
 
    oauth_token, oauth_secret = read_token_file(MY_TWITTER_CREDS)
 
-   t = Twitter(auth=OAuth(
-       oauth_token, oauth_secret, CONSUMER_KEY, CONSUMER_SECRET))
+   # [3]
+   auth = OAuth(oauth_token, oauth_secret, CONSUMER_KEY, CONSUMER_SECRET)
 
-   # ... t を介した Twitter 操作コード ...
+   # [4]
+   t = Twitter(auth=auth)
 
-Comment 1
-  Twitter の開発者ページで入手した、実際の API key と API secret の文字列をそれぞれに定義する。
+   # Use Twitter APIs via `t`...
+
+* [1] Twitter の開発者ページで入手した、
+  実際の API key と API secret の文字列をそれぞれに定義する。
   ここでは説明用にハードコードしている。
 
-Comment 2
-  唐突に :file:`$HOME/.my_app_credentials` なるファイルが登場する。
+* [2] 唐突に :file:`$HOME/.my_app_credentials` なるファイルが登場する。
   このファイルは内容が Access token と Access token secret の実際の文字列 2 行からなる設定ファイルである。
 
   この設定ファイルは初回のみ PTT が生成してくれる。
@@ -62,35 +63,25 @@ Comment 2
   ここでアカウント情報を入力して OK すると、PIN コードというものをブラウザー画面に表示する。
   このコードをコンソールに戻って入力すると、設定ファイルが生成されるという流れだ。
 
+* [3] 認証オブジェクトを生成する。
+  クラス ``OAuth`` のコンストラクターを直接利用する。
+
+* [4] Twitter API のインターフェイスオブジェクトを ``auth`` を指定して生成する。
+  REST API を利用する場合はクラス ``Twitter`` を、
+  Streaming API を利用する場合はクラス ``TwitterStream`` を用いて、
+  オブジェクトをコンストラクターから生成する。
+
+  Streaming の場合はコンストラクターに引数を渡すことになるはずだ。
+  詳しくは Streaming API の演習ノートで説明する。
+
 さて、使い捨てのスクリプトで毎回上のようなコードをコピーアンドペーストするのはプログラマーの美学に反する。
 そこで、一連の手順をモジュール化して ``PYTHONPATH`` のパスリストのどこかに安置しておくことを勧める。
 私の例を示す。
 
 #. まず、下記コードを :file:`secret.py` として :file:`$HOME/my-python-modules` 保存する。
 
-   .. code-block:: python3
-
-      # -*- coding: utf-8 -*-
-      from twitter import *
-      import os
-
-      CONSUMER_KEY = '**********************'
-      CONSUMER_SECRET = '******************************************'
-      USER_KEY = '*********-****************************************'
-      USER_SECRET = '*****************************************'
-
-      MY_TWITTER_CREDS = os.path.expanduser('~/.my_app_credentials')
-
-      def twitter_instance():
-          """Setup an instance of class Twitter."""
-
-          if not os.path.exists(MY_TWITTER_CREDS):
-              oauth_dance("My App Name", CONSUMER_KEY, CONSUMER_SECRET, MY_TWITTER_CREDS)
-
-          oauth_token, oauth_secret = read_token_file(MY_TWITTER_CREDS)
-
-          return Twitter(auth=OAuth(
-              oauth_token, oauth_secret, CONSUMER_KEY, CONSUMER_SECRET))
+   .. literalinclude:: /_sample/ptt/secret.py
+      :language: python3
 
 #. Windows のユーザー環境変数設定で ``PYTHONPATH`` の値に ``%%HOME%%\my-python-modules`` を含める。
 #. PTT を利用する使い捨てのスクリプトの構造を次のようにする。
@@ -140,20 +131,15 @@ API がツイートのデータ構造をどのように定義しているのか�
        include_rts=1,
        exclude_replies=0)
 
-   response = tw.statuses.user_timeline(**kwargs)
+   while XXX:
+       response = tw.statuses.user_timeline(**kwargs)
+       if not response:
+           break
 
-   # ... response を処理 ...
+       process_response(response)
 
-   min_id = None
-   if len(response):
        min_id = response[-1]['id']
-
-   # 2 回目のリクエスト
-   if min_id:
        kwargs['max_id'] = min_id - 1
-   response = api.statuses.user_timeline(**kwargs)
-
-   # ... response を処理 ...
 
 レスポンス中のツイートは ``id`` という値を保持しており、
 ツイートは ``id`` が降順になるように配列された状態で戻ってきている。
@@ -162,6 +148,9 @@ API がツイートのデータ構造をどのように定義しているのか�
 末尾ツイートのそれが最小であるはずだ。
 
 3 回目以降のリクエストも同様に繰り返す。
+
+なお、本当に上のようなループを書くといつ終わるのかがわからない。
+アプリケーション側で適宜条件 ``XXX`` を定義することだ。
 
 取得済みのツイートの「上」に、最新のツイートを取得するケース
 ----------------------------------------------------------------------
@@ -177,16 +166,8 @@ API がツイートのデータ構造をどのように定義しているのか�
 
 .. code-block:: python3
 
-   # 最大 ID の記憶
-   max_id = None
-   if response:
-       max_id = response[0]['id']
-
-.. code-block:: python
-
-   # 2 回目のリクエスト
-   if max_id:
-       kwargs['since_id'] = max_id
+   max_id = response[0]['id']
+   kwargs['since_id'] = max_id
 
 なお、実際に Twitter アプリケーションを作成するのであれば、
 本項と前項の処理を同時に実装するのが効率的だし自然だ。
@@ -218,7 +199,7 @@ API がツイートのデータ構造をどのように定義しているのか�
            cursor=next_cursor,
            **kwargs)
 
-       process_something(response)
+       process_response(response)
 
        next_cursor = response['next_cursor']
 
