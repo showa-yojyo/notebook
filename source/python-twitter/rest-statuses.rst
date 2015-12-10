@@ -120,16 +120,52 @@ POST statuses/retweet/:id は指定ツイートを自分のアカウントから
 
 POST statuses/update_with_media
 ======================================================================
-稼働実績なし。
-
-.. literalinclude:: /_sample/ptt/statuses-update_with_media.py
-   :language: python3
+ドキュメントによると
+<This endpoint has been DEPRECATED.
+Please use POST statuses/update for uploading one or more media entities>
+とのことなので、この API は忘れ去ってしまったようがよい。
 
 GET statuses/oembed
 ======================================================================
 特定のツイートを oEmbed 互換な書式で得る API だ。
 これは HTML 文書の中に埋め込むコード片としてツイートを表現するためのものだろう。
-興味がないのでパス。
+
+最低限のパラメーターでリクエストを送信しよう。
+
+.. literalinclude:: /_sample/ptt/statuses-oembed.py
+   :language: python3
+
+キーワード引数 ``url`` で対象ツイートの URL を指定した。
+Twitter のドキュメントによると URL を指定する代わりに ``id`` としてツイート ID を指定することもできるとある。
+しかし、私が試したところではエラー 34 すなわち Sorry, that page does not exist メッセージが返ってきた。
+PTT のドキュメントによると Python 側のキーワード引数名を ``_id`` にする必要があるとのことだ。
+
+.. code-block:: python3
+
+   response = tw.statuses.oembed(_id=674636677982257152)
+
+そういうわけで実行例を示す。
+JSON データの ``html`` の値が確かに HTML コード片になっている。
+
+.. code-block:: console
+
+   $ ./statuses-oembed.py
+   {'author_name': 'プレハブ小屋',
+    'author_url': 'https://twitter.com/showa_yojyo',
+    'cache_age': '3153600000',
+    'height': None,
+    'html': '<blockquote class="twitter-tweet"><p lang="ja" '
+            'dir="ltr">ボワ～</p>&mdash; プレハブ小屋 (@showa_yojyo) <a '
+            'href="https://twitter.com/showa_yojyo/status/674636677982257152">December '
+            '9, 2015</a></blockquote>\n'
+            '<script async src="//platform.twitter.com/widgets.js" '
+            'charset="utf-8"></script>',
+    'provider_name': 'Twitter',
+    'provider_url': 'https://twitter.com',
+    'type': 'rich',
+    'url': 'https://twitter.com/showa_yojyo/statuses/674636677982257152',
+    'version': '1.0',
+    'width': 550}
 
 GET statuses/retweeters/ids
 ======================================================================
