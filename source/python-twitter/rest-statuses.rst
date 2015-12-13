@@ -105,13 +105,28 @@ POST statuses/update
 ======================================================================
 POST statuses/update はツイートを投稿する API だ。
 
+テキストだけをツイートする
+----------------------------------------------------------------------
+
 .. literalinclude:: /_sample/ptt/statuses-update.py
    :language: python3
+   :lines: 1-18
 
 * [1] ツイート内容を文字列として定義してみる。
 * [2] 関数 ``statuses.update`` をキーワード引数 ``status`` を指示して呼び出す。
 
-.. todo:: この例は物足りないので、変わった例を示す。
+画像をツイートする
+----------------------------------------------------------------------
+画像ファイルのアップロード方法については :doc:`./rest-media` を参照。
+
+.. literalinclude:: /_sample/ptt/statuses-update.py
+   :language: python3
+   :lines: 1-10,20-
+
+* [3] あらかじめ POST media/upload で得られた ID を用いて、
+  関数 ``statuses.update`` をキーワード引数 ``media_ids`` に指示して呼び出す。
+
+  なお、複数の画像を同一ツイートに含めるには ``media_ids`` に ID を ``,`` で連結した文字列を与える。
 
 POST statuses/retweet/:id
 ======================================================================

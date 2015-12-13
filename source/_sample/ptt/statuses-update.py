@@ -13,9 +13,11 @@ mytext = 'PTT を利用したツイートのデモ。明示的 URL エンコー�
 
 if len(mytext) > 140:
     print('mytext exceeds 140 characters.')
-else:
-    try:
-        # [2]
-        tw.statuses.update(status=mytext)
-    except twitter.TwitterHTTPError as e:
-        print(e)
+
+# [2]
+tw.statuses.update(status=mytext)
+
+# [3]
+tweet = 'Demonstrate POST statuses/upadte with media_ids.'
+mid = 675725940782071809
+tw.statuses.update(status=tweet, media_ids=mid)
