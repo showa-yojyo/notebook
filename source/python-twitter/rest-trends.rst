@@ -171,7 +171,5 @@ GET trends/place は指定する場所でトレンドとなっているものを
        }
    ]
 
-各項目内 ``query`` の文字列を ``urllib.unquote(query).decode('utf8')`` するのがよいかもしれない。
-
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-twitter.txt
