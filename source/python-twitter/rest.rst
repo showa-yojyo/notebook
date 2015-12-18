@@ -80,7 +80,7 @@ PTT を利用するプログラムに共通して書く必要のあるコード�
 
 #. まず、下記コードを :file:`secret.py` として :file:`$HOME/my-python-modules` 保存する。
 
-   .. literalinclude:: /_sample/ptt/secret.py
+   .. literalinclude:: /_sample/ptt/secret.py_t
       :language: python3
 
 #. Windows のユーザー環境変数設定で ``PYTHONPATH`` の値に ``%%HOME%%\my-python-modules`` を含める。
