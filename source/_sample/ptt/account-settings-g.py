@@ -5,10 +5,13 @@
 # https://dev.twitter.com/rest/reference/get/account/settings
 
 from secret import twitter_instance
-import pprint
+from json import dump
+import sys
 
 tw = twitter_instance()
-settings = tw.account.settings()
 
-#print(settings)
-pprint.pprint(settings)
+# [1]
+response = tw.account.settings(_method='GET')
+
+# [2]
+dump(response, sys.stdout, ensure_ascii=False, indent=4)
