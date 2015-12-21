@@ -9,7 +9,7 @@ from secret import twitter_instance
 tw = twitter_instance()
 next_cursor = -1
 
-while next_cursor != 0:
+while next_cursor:
     response = tw.followers.list(
         screen_name='showa_yojyo',
         cursor=next_cursor,

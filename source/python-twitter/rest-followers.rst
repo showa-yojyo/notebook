@@ -1,57 +1,27 @@
 ======================================================================
 フォロワー関連
 ======================================================================
-本節では followers, friends, friendships 系 REST API について記す。
-メインは friendships 系である。
+本節では followers 系 REST API について記す。
+他人から自分に向かう関係の機能に followers の名前が含まれる。
+インターフェイスは friends 系の対応する機能と一致している。
 
 .. contents::
-
-GET friends/ids
-======================================================================
-自分がフォローしている全ユーザーの ID だけを得るための API が GET friends/ids だ。
-Twitter のユーザー ID はデータ型としては数値なのだが、
-Python でテキスト加工する都合上どこかで文字列に変換することになりそうだ。
-ありがたいことに、これは API 側で気を利かせてくれる。
-
-次に自分がフォローしているユーザーの ID を中途半端に CSV 出力する擬似コードを示す。
-自分が誰もフォローしていない場合は、改行だけ出力されて終了する。
-
-.. literalinclude:: /_sample/ptt/friends-ids.py
-   :language: python3
-
-要点を述べる。
-
-* [1] :doc:`rest` で述べたカーソル処理パターンを適用する。
-
-* [2] オプション ``stringify_ids=True`` を利用することで、
-  取得データの ID の型を文字列として返すように Twitter に指示する。
-
-* [3] ``response`` オブジェクトには ID のリストが含まれている。
-  それを CSV 化して標準出力に出力する。
-  このコードだと CSV が標準出力上で複数行に分裂してしまうので注意。
 
 GET followers/ids
 ======================================================================
 GET followers/ids は GET friends/ids のフォロワー版だ。
-コード例も前節と同様になる。
-単に ``tw.friends.ids`` を ``tw.followers.ids`` に置き換えればよい。
+解説は :doc:`./rest-friends` を参照。
 
-GET friends/list
-======================================================================
-特定のユーザーがフォローしている全ユーザーの情報を得るのには GET friends/list を利用できる。
-一度のリクエストでは返しきれないほどの多数のユーザーをフォローしていることを想定してのカーソル処理となる。
-次に示すコード例のように、1 ページずつデータをリクエストすることになる。
-
-.. literalinclude:: /_sample/ptt/friends-list.py
+.. literalinclude:: /_sample/ptt/followers-ids.py
    :language: python3
-
-* オプション ``count`` の最適値は普通はわからないので、例ではテキトーに書いた。
 
 GET followers/list
 ======================================================================
 特定のユーザーをフォローしている全ユーザーの情報を得るのには GET followers/list を利用できる。
-コード例も前節と同様になる。
-単に ``tw.friends.list`` を ``tw.followers.list`` に置き換えればよい。
+解説は :doc:`./rest-friends` を参照。
+
+.. literalinclude:: /_sample/ptt/followers-list.py
+   :language: python3
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-twitter.txt
