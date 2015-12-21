@@ -7,10 +7,12 @@ Twitter API を Python で操ろうと考えるのは当然なことだ。
 パッケージを利用した Twitter 操作を色々と見ていく。
 
 .. toctree::
+   :glob:
    :maxdepth: 2
 
    setup
    rest
+   rest-*
    scripts
 
 .. note::

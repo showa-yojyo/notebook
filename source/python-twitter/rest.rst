@@ -1,9 +1,11 @@
 ======================================================================
-演習 (REST API)
+基本技法
 ======================================================================
-本節では PTT を利用して Twitter REST API を操作するときのコツのようなものを記す。
-Twitter の API には大きく分けて REST と Streaming のふたつがある。
-前者がより基本的なインターフェイスのようなので、先に見ていく。
+本節では PTT を利用して Twitter API を操作するときに共通するコードの書き方の要領を記す。
+Twitter の API には大きく分けて REST と Streaming の二つがあるが、
+リクエストの送信手順や受信データの反復処理のように、
+用いる機能に係わりなく同じ手法を適用する場合がかなりある。
+ここではそのような手法を項目別にまとめておく。
 
 .. contents:: ノート目次
 
@@ -194,7 +196,7 @@ API がツイートのデータ構造をどのように定義しているのか�
 .. code-block:: python3
 
    next_cursor = -1
-   while next_cursor != 0:
+   while next_cursor:
        response = tw.friends.ids(
            cursor=next_cursor,
            **kwargs)
@@ -202,16 +204,6 @@ API がツイートのデータ構造をどのように定義しているのか�
        process_response(response)
 
        next_cursor = response['next_cursor']
-
-API 別コード例
-======================================================================
-以下、PTT をツールとして Twitter の REST API を操作するためのコード例を記す。
-
-.. toctree::
-   :glob:
-   :maxdepth: 2
-
-   rest-*
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-twitter.txt
