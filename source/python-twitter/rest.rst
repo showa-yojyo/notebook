@@ -95,6 +95,43 @@ PTT を利用するプログラムに共通して書く必要のあるコード�
       tw = twitter_instance()
       ...
 
+リクエスト結果オブジェクトの出力処理
+======================================================================
+Twitter にリクエストを送信すると、原則的にその結果を JSON データとして受信する。
+Python 的には単に組み込みのコンテナーオブジェクトに変換されている節があるので、
+その辺をうまく加工して画面にテキストを出力するようにしたい。
+
+.. code-block:: python3
+
+   response = tw.statuses.user_timeline(**kwargs)
+
+この ``response`` をいい感じに出力するのに私が使う方法を次に挙げる。
+
+* 組み込みの関数 ``print`` プラス文字列メソッド ``format``
+* 関数 ``pprint.pprint``
+* 関数 ``json.dump``
+
+これらを状況に応じて使い分ける。
+取得データのごく一部を抽出したい場合にはメソッド ``format`` で欲しいフィールドのみを出力する。
+データ構造を保持したままデータを見たり保存する場合には、後者二つを用いる。
+
+特殊なパラメーター ``id``
+======================================================================
+Twitter のインターフェイスでパラメーター名が ``id`` であるものがいくつかある。
+PTT ではこれを ``_id`` と呼び変えて値を渡すのが無難だ。
+
+特にコロンが機能名に入るものに注意を要する。
+次にメソッドの呼び出し方法をまとめておく。
+
+* GET geo/id/:place_id -> ``tw.geo.id._id(_id=xxxx)``
+* POST saved_searches/destroy/:id -> ``tw.saved_searches.destroy(_id=xxxx)``
+* GET saved_searches/show/:id -> ``tw.saved_searches.show._id(_id=xxxx)``
+* POST statuses/destroy/:id -> ``tw.saved_searches.destroy._id(_id=xxxx)``
+* POST statuses/retweet/:id -> ``tw.statuses.retweet._id(_id=xxxx)``
+* GET statuses/retweets/:id -> ``tw.statuses.retweets._id(_id=xxxx)``
+* GET statuses/show/:id -> ``tw.statuses.show(_id=xxxx)``
+* GET users/suggestions/:slug, GET users/suggestions/:slug/members -> :doc:`./rest-users` 参照
+
 ページング処理
 ======================================================================
 ここからは PTT のメソッドを利用して Twitter の自分のアカウントを対象とするの操作を試していく。

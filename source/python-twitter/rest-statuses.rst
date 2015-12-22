@@ -7,7 +7,7 @@
 
 GET statuses/mentions_timeline
 ======================================================================
-GET statuses/mentions_timeline はいわゆるリプを取得する API である。
+GET statuses/mentions_timeline はいわゆるリプを取得する機能だ。
 次に利用例を挙げる。
 
 .. literalinclude:: /_sample/ptt/statuses-mentions_timeline.py
@@ -36,7 +36,7 @@ GET statuses/mentions_timeline はいわゆるリプを取得する API であ�
 
 GET statuses/user_timeline
 ======================================================================
-GET statuses/user_timeline は指定ユーザーによるツイートを得られる API である。
+GET statuses/user_timeline は指定ユーザーによるツイートを得られる機能だ。
 
 次にユーザー名を指定してタイムラインを取得し、
 ツイート時刻と投稿内容をコンソールに出力する例を示す。
@@ -75,35 +75,119 @@ GET statuses/home_timeline
 
 GET statuses/retweets_of_me
 ======================================================================
-GET statuses/retweets_of_me は他の人がリツイートした自分のツイートを新しい順に得る API だ。
+GET statuses/retweets_of_me は他の人がリツイートした自分のツイートを新しい順に得る機能だ。
 
 .. literalinclude:: /_sample/ptt/statuses-retweets_of_me.py
    :language: python3
 
 GET statuses/retweets/:id
 ======================================================================
-GET statuses/retweets/:id は指定ツイートの直近 100 リツイートまでを得る API だ。
+GET statuses/retweets/:id は指定ツイートの直近 100 リツイートまでを得る機能だ。
 ツイートを指定するにはツイートの ID があらかじめ必要となる。
-自由に使えるサンプルツイートがないため、サンプルコードを省略する。
+
+.. literalinclude:: /_sample/ptt/statuses-retweets-id.py
+   :language: python3
+
+* [1] パラメーター名が ``id`` のときは ``_id`` に書き換えるのが PTT ルール。
+
+誰もリツイートしていないツイートを調べると次のようになる。
+
+.. code-block:: console
+
+   $ ./statuses-retweets-id.py
+   []
 
 GET statuses/show/:id
 ======================================================================
-GET statuses/show/:id は指定ツイートの詳細を得る API だ。
+GET statuses/show/:id は指定ツイートの詳細を得る機能だ。
 このように利用する。
 
 .. literalinclude:: /_sample/ptt/statuses-show-id.py
    :language: python3
 
-実行結果省略。
+* [1] いつものようにパラメーター名が ``id`` のときは ``_id`` に書き換えるのが無難。
+
+実行結果を次に示す。
+
+.. code-block:: console
+
+   $ ./statuses-show-id.py
+   {'contributors': None,
+    'coordinates': None,
+    'created_at': 'Sun Oct 11 17:11:36 +0000 2015',
+    'favorite_count': 0,
+    'favorited': False,
+    'geo': None,
+    'id': 653256646810955776,
+    'id_str': '653256646810955776',
+    'in_reply_to_screen_name': None,
+    'in_reply_to_status_id': None,
+    'in_reply_to_status_id_str': None,
+    'in_reply_to_user_id': None,
+    'in_reply_to_user_id_str': None,
+    'is_quote_status': False,
+    'lang': 'ja',
+    'place': None,
+    'retweet_count': 0,
+    'retweeted': False,
+    'source': '<a href="https://github.com/showa_yojyo/iustus-iudex/" '
+              'rel="nofollow">Iustus Iudex</a>',
+    'text': 'ああ眠い。',
+    'truncated': False,
+    'user': {'id': 461058152, 'id_str': '461058152'}}
 
 POST statuses/destroy/:id
 ======================================================================
-POST statuses/destroy/:id は自分のツイートに限るが、指定ツイートを削除する API だ。
+POST statuses/destroy/:id は自分のツイートに限るが、指定ツイートを削除する機能だ。
 一度に一ツイートだけを削除するに過ぎないので、使い勝手は悪いと思われる。
+
+.. literalinclude:: /_sample/ptt/statuses-destroy-id.py
+   :language: python3
+
+* [1] いつものようにパラメーター名が ``id`` のときは ``_id`` に書き換えるのが無難。
+
+実行結果を次に示す。
+
+.. code-block:: console
+
+   $ ./statuses-destroy-id.py
+   {
+       "contributors": null,
+       "coordinates": null,
+       "created_at": "Tue Dec 22 14:23:33 +0000 2015",
+       "entities": {
+           "hashtags": [],
+           "symbols": [],
+           "urls": [],
+           "user_mentions": []
+       },
+       "favorite_count": 0,
+       "favorited": false,
+       "geo": null,
+       "id": 679306282629619712,
+       "id_str": "679306282629619712",
+       "in_reply_to_screen_name": null,
+       "in_reply_to_status_id": null,
+       "in_reply_to_status_id_str": null,
+       "in_reply_to_user_id": null,
+       "in_reply_to_user_id_str": null,
+       "is_quote_status": false,
+       "lang": "en",
+       "place": null,
+       "retweet_count": 0,
+       "retweeted": false,
+       "source": "<a href=\"http://www.geocities.jp/showa_yojyo/\" rel=\"nofollow\">ホーリー・エンタープライズ</a>",
+       "text": "Test",
+       "truncated": false,
+       "user": {
+           "id": 461058152,
+           "id_str": "461058152"
+       }
+   }
 
 POST statuses/update
 ======================================================================
-POST statuses/update はツイートを投稿する API だ。
+POST statuses/update はツイートを投稿する機能だ。
 
 テキストだけをツイートする
 ----------------------------------------------------------------------
@@ -130,19 +214,56 @@ POST statuses/update はツイートを投稿する API だ。
 
 POST statuses/retweet/:id
 ======================================================================
-POST statuses/retweet/:id は指定ツイートを自分のアカウントからリツイートする API だ。
+POST statuses/retweet/:id は指定ツイートを自分のアカウントからリツイートする機能だ。
 ツイートを指定するにはツイートの ID があらかじめ必要となる。
+
+.. literalinclude:: /_sample/ptt/statuses-retweet-id.py
+   :language: python3
+
+実行結果を次に示す。なぜか失敗した。
+
+.. code-block:: console
+
+   $ ./statuses-retweet-id.py
+   Traceback (most recent call last):
+     File "D:\Python35\lib\site-packages\twitter\api.py", line 319, in _handle_response
+       handle = urllib_request.urlopen(req, **kwargs)
+     File "D:\Python35\lib\urllib\request.py", line 162, in urlopen
+       return opener.open(url, data, timeout)
+     File "D:\Python35\lib\urllib\request.py", line 471, in open
+       response = meth(req, response)
+     File "D:\Python35\lib\urllib\request.py", line 581, in http_response
+       'http', request, response, code, msg, hdrs)
+     File "D:\Python35\lib\urllib\request.py", line 509, in error
+       return self._call_chain(*args)
+     File "D:\Python35\lib\urllib\request.py", line 443, in _call_chain
+       result = func(*args)
+     File "D:\Python35\lib\urllib\request.py", line 589, in http_error_default
+       raise HTTPError(req.full_url, code, msg, hdrs, fp)
+   urllib.error.HTTPError: HTTP Error 403: Forbidden
+
+   During handling of the above exception, another exception occurred:
+
+   Traceback (most recent call last):
+     File "./statuses-retweet-id.py", line 16, in <module>
+       trim_user=True,)
+     File "D:\Python35\lib\site-packages\twitter\api.py", line 312, in __call__
+       return self._handle_response(req, uri, arg_data, _timeout)
+     File "D:\Python35\lib\site-packages\twitter\api.py", line 345, in _handle_response
+       raise TwitterHTTPError(e, uri, self.format, arg_data)
+   twitter.api.TwitterHTTPError: Twitter sent status 403 for URL: 1.1/statuses/retweet/678987432331632643.json using parameters: (oauth_consumer_key=...)
+   details: {'errors': [{'message': 'Retweet is not permissible for this status.','code': 328}]}
 
 POST statuses/update_with_media
 ======================================================================
 ドキュメントによると
 <This endpoint has been DEPRECATED.
 Please use POST statuses/update for uploading one or more media entities>
-とのことなので、この API は忘れ去ってしまったようがよい。
+とのことなので、これは忘れ去ってしまったようがよい。
 
 GET statuses/oembed
 ======================================================================
-特定のツイートを oEmbed 互換な書式で得る API だ。
+GET statuses/oembed は特定のツイートを oEmbed 互換な書式で得る機能だ。
 これは HTML 文書の中に埋め込むコード片としてツイートを表現するためのものだろう。
 
 最低限のパラメーターでリクエストを送信しよう。
@@ -185,12 +306,12 @@ JSON データの ``html`` の値が確かに HTML コード片になってい�
 GET statuses/retweeters/ids
 ======================================================================
 GET statuses/retweeters/ids は指定ツイートの直近 100 リツイートまでに限定して、
-リツイートしたユーザーの ID を得る API だ。
+リツイートしたユーザーの ID を得る機能だ。
 サンプルコード省略。
 
 GET statuses/lookup
 ======================================================================
-GET statuses/lookup はツイートの詳細を得る API で、一度に 100 件まで処理できる。
+GET statuses/lookup はツイートの詳細を得る機能で、一度に 100 件まで処理できる。
 使いどころが難しい？
 
 .. include:: /_include/python-refs-core.txt

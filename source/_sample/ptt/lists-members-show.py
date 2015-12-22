@@ -10,10 +10,10 @@ tw = twitter_instance()
 
 params = dict(
     owner_screen_name='showa_yojyo',
-    slug='news',
+    slug='informative',
     screen_name='asahi',
     include_entities=False,
     skip_status=False,)
 
 response = tw.lists.members.show(**params)
-print('{screen_name} / {name} {description}'.format(**response))
+print('{screen_name} / {name} {description}'.format(**response).replace('\n', '\\n'))

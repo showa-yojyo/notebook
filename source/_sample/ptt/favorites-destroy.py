@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Demonstration GET favorites
-# See https://dev.twitter.com/rest/reference/get/favorites/list
+# Demonstration POST favorites/destroy
+# See https://dev.twitter.com/rest/reference/post/favorites/destroy
 
 from secret import twitter_instance
 from json import dump
@@ -11,9 +11,8 @@ import sys
 tw = twitter_instance()
 
 # [1]
-response = tw.favorites.list(
-    screen_name='showa_yojyo',
-    count=1,
+response = tw.favorites.destroy(
+    _id=653256646810955776,
     include_entities=False)
 
 # [2]

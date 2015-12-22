@@ -9,5 +9,5 @@ from pprint import pprint
 
 tw = twitter_instance()
 
-response = tw.saved_searches.destroy(id=4378204334)
+response = tw.saved_searches.destroy._id(_id=4378204334)
 pprint(response)

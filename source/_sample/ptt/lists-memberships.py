@@ -10,7 +10,7 @@ tw = twitter_instance()
 kwargs = dict(screen_name='showa_yojyo')
 
 next_cursor = -1
-while next_cursor != 0:
+while next_cursor:
     # [1]
     response = tw.lists.memberships(cursor=next_cursor, **kwargs)
     lists = response['lists']

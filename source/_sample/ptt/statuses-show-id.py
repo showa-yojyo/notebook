@@ -9,7 +9,7 @@ from pprint import pprint
 
 tw = twitter_instance()
 response = tw.statuses.show(
-    id=653256646810955776,
+    _id=653256646810955776,
     trim_user=True,
     include_my_reteet=True,
     include_entities=False,)

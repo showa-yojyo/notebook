@@ -14,8 +14,8 @@ kwargs = dict(
     slug='informative',
     per_page=10,
     page=1,
-    include_entities=1,
-    include_rts=1)
+    include_entities=False,
+    include_rts=True)
 
 response = tw.lists.statuses(**kwargs)
 for item in response:
