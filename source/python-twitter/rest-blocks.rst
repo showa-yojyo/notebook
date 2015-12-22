@@ -78,15 +78,10 @@ POST blocks/destroy は既にブロックしていたユーザーのブロック
 
    $ ./blocks-destroy.py
    {
-       "profile_image_url": "http://pbs.twimg.com/profile_images/518444238069968896/9swnzcfK_normal.png",
-       "geo_enabled": false,
-       "has_extended_profile": false,
-       "utc_offset": 32400,
-       "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/557620683388108800/RoH3aAq8.png",
-       "description": "実は電子の世界の人で現実には存在しない。",
-       "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/557620683388108800/RoH3aAq8.png",
-       ... 略 ...
-       "profile_text_color": "333333"
+       "contributors_enabled": false,
+       ...
+       "screen_name": "showa_yojyo",
+       ...
    }
 
 便宜上こういう動作にしてあるのだと思うが、自分のユーザーオブジェクトが得られる。
@@ -114,11 +109,11 @@ GET blocks/ids は現時点で自分がブロックしているユーザーの I
 
    $ ./blocks-ids.py
    {
+       "ids": [],
+       "next_cursor": 0,
        "next_cursor_str": "0",
        "previous_cursor": 0,
-       "ids": [],
-       "previous_cursor_str": "0",
-       "next_cursor": 0
+       "previous_cursor_str": "0"
    }
 
 空のデータが戻ってきた。
@@ -146,10 +141,10 @@ GET blocks/list は現時点で自分がブロックしているユーザーの�
 
    $ ./blocks-list.py
    {
-       "previous_cursor": 0,
-       "next_cursor_str": "0",
-       "users": [],
+       "ids": [],
        "next_cursor": 0,
+       "next_cursor_str": "0",
+       "previous_cursor": 0,
        "previous_cursor_str": "0"
    }
 

@@ -22,53 +22,42 @@ GET trends/available は他の機能のパラメーターとして指定する W
    $ ./trends-available.py
    [
        {
-           "name": "Worldwide",
            "country": "",
-           "url": "http://where.yahooapis.com/v1/place/1",
-           "parentid": 0,
-           "woeid": 1,
-           "placeType": {
-               "name": "Supername",
-               "code": 19
-           },
            "countryCode": null
+           "name": "Worldwide",
+           "parentid": 0,
+           "placeType": {
+               "code": 19,
+               "name": "Supername"
+           },
+           "url": "http://where.yahooapis.com/v1/place/1",
+           "woeid": 1
        },
        {
+           "country": "Canada",
+           "countryCode": "CA",
            "name": "Winnipeg",
-           "country": "Canada",
+           "parentid": 23424775,
+           "placeType": {
+               "code": 7,
+               "name": "Town"
+           },
            "url": "http://where.yahooapis.com/v1/place/2972",
-           "parentid": 23424775,
-           "woeid": 2972,
-           "placeType": {
-               "name": "Town",
-               "code": 7
-           },
-           "countryCode": "CA"
+           "woeid": 2972
        },
+       ...
        {
-           "name": "Ottawa",
-           "country": "Canada",
-           "url": "http://where.yahooapis.com/v1/place/3369",
-           "parentid": 23424775,
-           "woeid": 3369,
-           "placeType": {
-               "name": "Town",
-               "code": 7
-           },
-           "countryCode": "CA"
-       },
-   ... 略 ...
-       {
-           "name": "Okayama",
+           
            "country": "Japan",
-           "url": "http://where.yahooapis.com/v1/place/90036018",
+           "countryCode": "JP",
+           "name": "Okayama",
            "parentid": 23424856,
-           "woeid": 90036018,
            "placeType": {
-               "name": "Town",
-               "code": 7
+               "code": 7,
+               "name": "Town"
            },
-           "countryCode": "JP"
+           "url": "http://where.yahooapis.com/v1/place/90036018",
+           "woeid": 90036018
        }
    ]
 
@@ -98,15 +87,15 @@ GET trends/closest は指定地点を対応できる WOEID を取得する機能
    [
        {
            "country": "Japan",
+           "countryCode": "JP",
+           "name": "Tokyo",
+           "parentid": 23424856,
            "placeType": {
                "code": 7,
                "name": "Town"
            },
            "url": "http://where.yahooapis.com/v1/place/1118370",
-           "parentid": 23424856,
-           "name": "Tokyo",
-           "woeid": 1118370,
-           "countryCode": "JP"
+           "woeid": 1118370
        }
    ]
 
@@ -136,30 +125,6 @@ GET trends/place は指定する場所でトレンドとなっているものを
    $ ./trends-place.py
    [
        {
-           "trends": [
-               {
-                   "name": "サイレーン",
-                   "url": "http://twitter.com/search?q=%E3%82%B5%E3%82%A4%E3%83%AC%E3%83%BC%E3%83%B3",
-                   "promoted_content": null,
-                   "tweet_volume": 195007,
-                   "query": "%E3%82%B5%E3%82%A4%E3%83%AC%E3%83%BC%E3%83%B3"
-               },
-               {
-                   "name": "コナミ退社",
-                   "url": "http://twitter.com/search?q=%E3%82%B3%E3%83%8A%E3%83%9F%E9%80%80%E7%A4%BE",
-                   "promoted_content": null,
-                   "tweet_volume": null,
-                   "query": "%E3%82%B3%E3%83%8A%E3%83%9F%E9%80%80%E7%A4%BE"
-               },
-               {
-                   "name": "俺の股間",
-                   "url": "http://twitter.com/search?q=%E4%BF%BA%E3%81%AE%E8%82%A1%E9%96%93",
-                   "promoted_content": null,
-                   "tweet_volume": 11680,
-                   "query": "%E4%BF%BA%E3%81%AE%E8%82%A1%E9%96%93"
-               },
-   ... 略 ...
-           ],
            "as_of": "2015-12-15THH:MM:SSZ",
            "created_at": "2015-12-15THH:MM:SSZ",
            "locations": [
@@ -167,6 +132,30 @@ GET trends/place は指定する場所でトレンドとなっているものを
                    "name": "Japan",
                    "woeid": 23424856
                }
+           ],
+           "trends": [
+               {
+                   "name": "サイレーン",
+                   "promoted_content": null,
+                   "query": "%E3%82%B5%E3%82%A4%E3%83%AC%E3%83%BC%E3%83%B3",
+                   "tweet_volume": 195007,
+                   "url": "http://twitter.com/search?q=%E3%82%B5%E3%82%A4%E3%83%AC%E3%83%BC%E3%83%B3"
+               },
+               {
+                   "name": "コナミ退社",
+                   "promoted_content": null,
+                   "tweet_volume": null,
+                   "query": "%E3%82%B3%E3%83%8A%E3%83%9F%E9%80%80%E7%A4%BE",
+                   "url": "http://twitter.com/search?q=%E3%82%B3%E3%83%8A%E3%83%9F%E9%80%80%E7%A4%BE"
+               },
+               {
+                   "name": "俺の股間",
+                   "promoted_content": null,
+                   "query": "%E4%BF%BA%E3%81%AE%E8%82%A1%E9%96%93",
+                   "tweet_volume": 11680,
+                   "url": "http://twitter.com/search?q=%E4%BF%BA%E3%81%AE%E8%82%A1%E9%96%93"
+               },
+               ...
            ]
        }
    ]

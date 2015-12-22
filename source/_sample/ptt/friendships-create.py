@@ -16,4 +16,4 @@ response = tw.friendships.create(
     follow=True)
 
 # [2]
-dump(response, sys.stdout, ensure_ascii=False, indent=4)
+dump(response, sys.stdout, ensure_ascii=False, indent=4, sort_keys=True)

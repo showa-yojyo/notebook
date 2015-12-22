@@ -40,30 +40,30 @@ GET help/languages を用いることで Twitter がサポートする言語の�
    $ ./twhelp.py help/languages
    [
        {
-           "status": "production",
            "code": "fr",
-           "name": "フランス語"
+           "name": "フランス語",
+           "status": "production"
        },
        {
-           "status": "production",
            "code": "en",
-           "name": "英語"
+           "name": "英語",
+           "status": "production"
        },
        {
-           "status": "production",
            "code": "ar",
-           "name": "アラビア語"
+           "name": "アラビア語",
+           "status": "production"
        },
        {
-           "status": "production",
            "code": "ja",
-           "name": "日本語"
+           "name": "日本語",
+           "status": "production"
        },
-       ... 省略 ...
+       ...
        {
-           "status": "production",
            "code": "bn",
            "name": "ベンガル語"
+           "status": "production",
        }
    ]
 

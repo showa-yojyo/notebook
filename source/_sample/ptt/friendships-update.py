@@ -16,4 +16,4 @@ response = tw.friendships.update(
     device=True,
     retweets=True,)
 
-dump(response, sys.stdout, ensure_ascii=False, indent=4)
+dump(response, sys.stdout, ensure_ascii=False, indent=4, sort_keys=True)

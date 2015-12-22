@@ -19,4 +19,4 @@ with open(imagepath, mode='rb') as fp:
 response = tw.account.update_profile_banner(banner=filedata)
 
 # [3]
-dump(response, sys.stdout, ensure_ascii=False, indent=4)
+dump(response, sys.stdout, ensure_ascii=False, indent=4, sort_keys=True)

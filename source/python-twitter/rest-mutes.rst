@@ -43,9 +43,9 @@ POST mutes/create を用いれば特定のユーザーをミュートするこ�
      File "D:\Python35\lib\urllib\request.py", line 589, in http_error_default
        raise HTTPError(req.full_url, code, msg, hdrs, fp)
    urllib.error.HTTPError: HTTP Error 403: Forbidden
-   
+
    During handling of the above exception, another exception occurred:
-   
+
    Traceback (most recent call last):
      File "./mutes-users-create.py", line 14, in <module>
        response = tw.mutes.users.create(screen_name='showa_yojyo')
@@ -129,10 +129,10 @@ GET mutes/users/ids は現時点で自分がミュートしているユーザー
 
    $ mutes-users-ids.py
    {
-       "previous_cursor": 0,
+       "ids": [],
        "next_cursor": 0,
        "next_cursor_str": "0",
-       "ids": [],
+       "previous_cursor": 0,
        "previous_cursor_str": "0"
    }
 
@@ -161,10 +161,10 @@ GET mutes/users/list は現時点で自分がミュートしているユーザ�
 
    $ ./mutes-users-ids.py
    {
-       "previous_cursor": 0,
+       "ids": [],
        "next_cursor": 0,
        "next_cursor_str": "0",
-       "ids": [],
+       "previous_cursor": 0,
        "previous_cursor_str": "0"
    }
 

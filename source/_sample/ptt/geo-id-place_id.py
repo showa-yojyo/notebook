@@ -14,4 +14,4 @@ tw = twitter_instance()
 response = tw.geo.id._id(_id='28b9063fdce43645')
 
 # [2]
-dump(response, sys.stdout, ensure_ascii=False, indent=4)
+dump(response, sys.stdout, ensure_ascii=False, indent=4, sort_keys=True)

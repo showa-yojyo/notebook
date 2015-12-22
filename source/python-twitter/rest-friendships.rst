@@ -1,5 +1,5 @@
 ======================================================================
-フォロー自身とフォローに付随する機能 (friendships)
+フォロー自身とフォローに付随する機能
 ======================================================================
 本節では friendships 系 REST API について記す。
 私自身はフォロー機能を全く利用しないので、この括りの機能には基本的には縁がない。
@@ -152,31 +152,31 @@ GET friendships/lookup は自分と任意の他人との関係性を知る機能
    $ ./friendships-lookup.py
    [
        {
-           "id_str": "577367985",
-           "screen_name": ...
-           "name": ...
+           "connections": [
+               "followed_by"
+           ],
            "id": 577367985,
-           "connections": [
-               "followed_by"
-           ]
+           "id_str": "577367985",
+           "name": "...",
+           "screen_name": "..."
        },
        {
-           "id_str": "1220723053",
-           "screen_name": ...
-           "name": ...
+           "connections": [
+               "followed_by"
+           ],
            "id": 1220723053,
-           "connections": [
-               "followed_by"
-           ]
+           "id_str": "1220723053",
+           "name": "...",
+           "screen_name": "..."
        },
        {
-           "id_str": "1288619659",
-           "screen_name": ...
-           "name": ...
-           "id": 1288619659,
            "connections": [
                "followed_by"
-           ]
+           ],
+           "id": 1288619659,
+           "id_str": "1288619659",
+           "name": "...",
+           "screen_name": "..."
        }
    ]
 
@@ -207,64 +207,63 @@ GET friendships/show は任意の二人のユーザー間の関係を得る機�
    {
        "relationship": {
            "source": {
-               "following_requested": null,
-               "muting": null,
-               "want_retweets": null,
-               "can_dm": false,
-               "screen_name": "asahi",
-               "id_str": "42816371",
-               "notifications_enabled": null,
-               "marked_spam": null,
-               "blocked_by": null,
                "all_replies": null,
-               "following": false,
+               "blocked_by": null,
                "blocking": null,
+               "can_dm": false,
+               "followed_by": false,
+               "following": false,
                "following_received": null,
+               "following_requested": null,
                "id": 42816371,
-               "followed_by": false
+               "id_str": "42816371",
+               "marked_spam": null,
+               "muting": null,
+               "notifications_enabled": null,
+               "screen_name": "asahi",
+               "want_retweets": null
            },
            "target": {
-               "following_requested": null,
+               "followed_by": false,
                "following": false,
+               "following_received": null,
+               "following_requested": null,
                "id": 562773398,
                "id_str": "562773398",
-               "screen_name": "Sankei_news",
-               "followed_by": false,
-               "following_received": null
+               "screen_name": "Sankei_news"
            }
        }
    }
    {
        "relationship": {
            "source": {
-               "following_requested": null,
-               "muting": null,
-               "want_retweets": null,
-               "can_dm": false,
-               "screen_name": "Sankei_news",
-               "id_str": "562773398",
-               "notifications_enabled": null,
-               "marked_spam": null,
-               "blocked_by": null,
                "all_replies": null,
-               "following": false,
+               "blocked_by": null,
                "blocking": null,
+               "can_dm": false,
+               "followed_by": false,
+               "following": false,
                "following_received": null,
+               "following_requested": null,
                "id": 562773398,
-               "followed_by": false
+               "id_str": "562773398",
+               "marked_spam": null,
+               "muting": null,
+               "notifications_enabled": null,
+               "screen_name": "Sankei_news",
+               "want_retweets": null
            },
            "target": {
-               "following_requested": null,
+               "followed_by": false,
                "following": false,
+               "following_received": null,
+               "following_requested": null,
                "id": 42816371,
                "id_str": "42816371",
-               "screen_name": "asahi",
-               "followed_by": false,
-               "following_received": null
+               "screen_name": "asahi"
            }
        }
    }
-
 
 GET friendships/no_retweets/ids
 ======================================================================
@@ -307,31 +306,31 @@ POST friendships/update は指定ユーザーに対して、
    $ ./friendships-update.py
    {
        "relationship": {
-           "target": {
-               "screen_name": "showa_yojyo",
-               "followed_by": false,
-               "id_str": "461058152",
-               "id": 461058152,
-               "following_received": false,
-               "following_requested": null,
-               "following": false
-           },
            "source": {
-               "screen_name": "showa_yojyo",
-               "want_retweets": false,
+               "all_replies": false,
+               "blocked_by": false,
                "blocking": false,
-               "id_str": "461058152",
-               "id": 461058152,
+               "can_dm": false,
+               "followed_by": false,
+               "following": false,
                "following_received": null,
                "following_requested": false,
-               "followed_by": false,
-               "all_replies": false,
+               "id": 461058152,
+               "id_str": "461058152",
+               "marked_spam": false,
                "muting": false,
                "notifications_enabled": false,
-               "can_dm": false,
-               "marked_spam": false,
-               "blocked_by": false,
-               "following": false
+               "screen_name": "showa_yojyo",
+               "want_retweets": false
+           },
+           "target": {
+               "followed_by": false,
+               "following": false,
+               "following_received": false,
+               "following_requested": null,
+               "id": 461058152,
+               "id_str": "461058152",
+               "screen_name": "showa_yojyo"
            }
        }
    }

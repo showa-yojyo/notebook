@@ -33,16 +33,40 @@ GET geo/id/:place_id は場所 ID というものを指定して、その詳細�
 
    $ geo-id-place_id.py
    {
-       "geometry": null,
+       "attributes": {
+           "190533:id": "city_13_101"
+       },
+       "bounding_box": {
+           "coordinates": [
+               [
+                   [
+                       139.730511000003,
+                       35.6663720001634
+                   ],
+                   [
+                       139.730511000003,
+                       35.7017300013607
+                   ],
+                   [
+                       139.779853999959,
+                       35.7017300013607
+                   ],
+                   [
+                       139.779853999959,
+                       35.6663720001634
+                   ],
+                   [
+                       139.730511000003,
+                       35.6663720001634
+                   ]
+               ]
+           ],
+           "type": "Polygon"
+       },
        "centroid": [
            139.748980818553,
            35.6839603639963
        ],
-       "name": "千代田区",
-       "attributes": {
-           "190533:id": "city_13_101"
-       },
-       "country_code": "JP",
        "contained_within": [
            {
                "attributes": {},
@@ -73,52 +97,28 @@ GET geo/id/:place_id は場所 ID というものを指定して、その詳細�
                    ],
                    "type": "Polygon"
                },
-               "url": "https://api.twitter.com/1.1/geo/id/a56612250c754f23.json",
                "centroid": [
                    139.460189420286,
                    35.6976500888796
                ],
-               "country_code": "JP",
-               "id": "a56612250c754f23",
                "country": "日本",
-               "place_type": "admin",
+               "country_code": "JP",
                "full_name": "日本 東京都",
-               "name": "東京都"
+               "id": "a56612250c754f23",
+               "name": "東京都",
+               "place_type": "admin",
+               "url": "https://api.twitter.com/1.1/geo/id/a56612250c754f23.json"
            }
        ],
-       "polylines": [],
-       "url": "https://api.twitter.com/1.1/geo/id/28b9063fdce43645.json",
-       "id": "28b9063fdce43645",
        "country": "日本",
-       "place_type": "city",
+       "country_code": "JP",
        "full_name": "東京都 千代田区",
-       "bounding_box": {
-           "coordinates": [
-               [
-                   [
-                       139.730511000003,
-                       35.6663720001634
-                   ],
-                   [
-                       139.730511000003,
-                       35.7017300013607
-                   ],
-                   [
-                       139.779853999959,
-                       35.7017300013607
-                   ],
-                   [
-                       139.779853999959,
-                       35.6663720001634
-                   ],
-                   [
-                       139.730511000003,
-                       35.6663720001634
-                   ]
-               ]
-           ],
-           "type": "Polygon"
-       }
+       "geometry": null,
+       "id": "28b9063fdce43645",
+       "name": "千代田区",
+       "place_type": "city",
+       "polylines": [],
+       "url": "https://api.twitter.com/1.1/geo/id/28b9063fdce43645.json"
    }
 
 とにかく東京都千代田区のどこかだという情報が得られた。
@@ -152,307 +152,7 @@ Twitter API が取り扱える値としての場所 ID を得ることができ�
 
    $ geo-reverse_geocode.py
    {
-       "result": {
-           "places": [
-               {
-                   "place_type": "city",
-                   "centroid": [
-                       139.748980818553,
-                       35.6839603639963
-                   ],
-                   "country_code": "JP",
-                   "id": "28b9063fdce43645",
-                   "url": "https://api.twitter.com/1.1/geo/id/28b9063fdce43645.json",
-                   "bounding_box": {
-                       "coordinates": [
-                           [
-                               [
-                                   139.730511000003,
-                                   35.6663720001634
-                               ],
-                               [
-                                   139.730511000003,
-                                   35.7017300013607
-                               ],
-                               [
-                                   139.779853999959,
-                                   35.7017300013607
-                               ],
-                               [
-                                   139.779853999959,
-                                   35.6663720001634
-                               ],
-                               [
-                                   139.730511000003,
-                                   35.6663720001634
-                               ]
-                           ]
-                       ],
-                       "type": "Polygon"
-                   },
-                   "full_name": "東京都 千代田区",
-                   "country": "日本",
-                   "attributes": {},
-                   "name": "千代田区",
-                   "contained_within": [
-                       {
-                           "place_type": "admin",
-                           "centroid": [
-                               139.460189420286,
-                               35.6976500888796
-                           ],
-                           "country_code": "JP",
-                           "id": "a56612250c754f23",
-                           "url": "https://api.twitter.com/1.1/geo/id/a56612250c754f23.json",
-                           "bounding_box": {
-                               "coordinates": [
-                                   [
-                                       [
-                                           138.946976001637,
-                                           24.2247179989435
-                                       ],
-                                       [
-                                           138.946976001637,
-                                           35.8941379990039
-                                       ],
-                                       [
-                                           142.239272999512,
-                                           35.8941379990039
-                                       ],
-                                       [
-                                           142.239272999512,
-                                           24.2247179989435
-                                       ],
-                                       [
-                                           138.946976001637,
-                                           24.2247179989435
-                                       ]
-                                   ]
-                               ],
-                               "type": "Polygon"
-                           },
-                           "full_name": "日本 東京都",
-                           "country": "日本",
-                           "attributes": {},
-                           "name": "東京都"
-                       }
-                   ]
-               },
-               {
-                   "place_type": "admin",
-                   "centroid": [
-                       139.644023323251,
-                       36.0251385011289
-                   ],
-                   "country_code": "JP",
-                   "id": "d473ed704dbcd4a5",
-                   "url": "https://api.twitter.com/1.1/geo/id/d473ed704dbcd4a5.json",
-                   "bounding_box": {
-                       "coordinates": [
-                           [
-                               [
-                                   138.400956002244,
-                                   24.2247179989435
-                               ],
-                               [
-                                   138.400956002244,
-                                   37.1512180002819
-                               ],
-                               [
-                                   142.239272999512,
-                                   37.1512180002819
-                               ],
-                               [
-                                   142.239272999512,
-                                   24.2247179989435
-                               ],
-                               [
-                                   138.400956002244,
-                                   24.2247179989435
-                               ]
-                           ]
-                       ],
-                       "type": "Polygon"
-                   },
-                   "full_name": "日本 関東地方",
-                   "country": "日本",
-                   "attributes": {},
-                   "name": "関東地方",
-                   "contained_within": [
-                       {
-                           "place_type": "country",
-                           "centroid": [
-                               143.330213688502,
-                               43.4604070037548
-                           ],
-                           "country_code": "JP",
-                           "id": "06ef846bfc783874",
-                           "url": "https://api.twitter.com/1.1/geo/id/06ef846bfc783874.json",
-                           "bounding_box": {
-                               "coordinates": [
-                                   [
-                                       [
-                                           122.933197001144,
-                                           24.0456418391239
-                                       ],
-                                       [
-                                           122.933197001144,
-                                           45.5227849999761
-                                       ],
-                                       [
-                                           145.817458998856,
-                                           45.5227849999761
-                                       ],
-                                       [
-                                           145.817458998856,
-                                           24.0456418391239
-                                       ],
-                                       [
-                                           122.933197001144,
-                                           24.0456418391239
-                                       ]
-                                   ]
-                               ],
-                               "type": "Polygon"
-                           },
-                           "full_name": "日本",
-                           "country": "日本",
-                           "attributes": {},
-                           "name": "日本"
-                       }
-                   ]
-               },
-               {
-                   "place_type": "admin",
-                   "centroid": [
-                       139.460189420286,
-                       35.6976500888796
-                   ],
-                   "country_code": "JP",
-                   "id": "a56612250c754f23",
-                   "url": "https://api.twitter.com/1.1/geo/id/a56612250c754f23.json",
-                   "bounding_box": {
-                       "coordinates": [
-                           [
-                               [
-                                   138.946976001637,
-                                   24.2247179989435
-                               ],
-                               [
-                                   138.946976001637,
-                                   35.8941379990039
-                               ],
-                               [
-                                   142.239272999512,
-                                   35.8941379990039
-                               ],
-                               [
-                                   142.239272999512,
-                                   24.2247179989435
-                               ],
-                               [
-                                   138.946976001637,
-                                   24.2247179989435
-                               ]
-                           ]
-                       ],
-                       "type": "Polygon"
-                   },
-                   "full_name": "日本 東京都",
-                   "country": "日本",
-                   "attributes": {},
-                   "name": "東京都",
-                   "contained_within": [
-                       {
-                           "place_type": "country",
-                           "centroid": [
-                               143.330213688502,
-                               43.4604070037548
-                           ],
-                           "country_code": "JP",
-                           "id": "06ef846bfc783874",
-                           "url": "https://api.twitter.com/1.1/geo/id/06ef846bfc783874.json",
-                           "bounding_box": {
-                               "coordinates": [
-                                   [
-                                       [
-                                           122.933197001144,
-                                           24.0456418391239
-                                       ],
-                                       [
-                                           122.933197001144,
-                                           45.5227849999761
-                                       ],
-                                       [
-                                           145.817458998856,
-                                           45.5227849999761
-                                       ],
-                                       [
-                                           145.817458998856,
-                                           24.0456418391239
-                                       ],
-                                       [
-                                           122.933197001144,
-                                           24.0456418391239
-                                       ]
-                                   ]
-                               ],
-                               "type": "Polygon"
-                           },
-                           "full_name": "日本",
-                           "country": "日本",
-                           "attributes": {},
-                           "name": "日本"
-                       }
-                   ]
-               },
-               {
-                   "place_type": "country",
-                   "centroid": [
-                       143.330213688502,
-                       43.4604070037548
-                   ],
-                   "country_code": "JP",
-                   "id": "06ef846bfc783874",
-                   "url": "https://api.twitter.com/1.1/geo/id/06ef846bfc783874.json",
-                   "bounding_box": {
-                       "coordinates": [
-                           [
-                               [
-                                   122.933197001144,
-                                   24.0456418391239
-                               ],
-                               [
-                                   122.933197001144,
-                                   45.5227849999761
-                               ],
-                               [
-                                   145.817458998856,
-                                   45.5227849999761
-                               ],
-                               [
-                                   145.817458998856,
-                                   24.0456418391239
-                               ],
-                               [
-                                   122.933197001144,
-                                   24.0456418391239
-                               ]
-                           ]
-                       ],
-                       "type": "Polygon"
-                   },
-                   "full_name": "日本",
-                   "country": "日本",
-                   "attributes": {},
-                   "name": "日本",
-                   "contained_within": []
-               }
-           ]
-       },
        "query": {
-           "url": "https://api.twitter.com/1.1/geo/reverse_geocode.json?lat=35.696805&long=139.773828&...",
-           "type": "reverse_geocode",
            "params": {
                "accuracy": 0.0,
                "coordinates": {
@@ -463,7 +163,307 @@ Twitter API が取り扱える値としての場所 ID を得ることができ�
                    "type": "Point"
                },
                "granularity": "neighborhood"
-           }
+           },
+           "type": "reverse_geocode",
+           "url": "https://api.twitter.com/1.1/geo/reverse_geocode.json?lat=35.696805&long=139.773828&oauth_consumer_key=pBXKrfuhVW14XWnE4Mvm9Tfs6&oauth_nonce=14150764466553511811&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1450728413&oauth_token=461058152-4G46kPHscjTXfl0skuoPdmwJfHd2QJSTSgtzvfTb&oauth_version=1.0&oauth_signature=9C1Fy%2FfWtHPNJl%2BwK%2Fw8gzGaF70%3D"
+       },
+       "result": {
+           "places": [
+               {
+                   "attributes": {},
+                   "bounding_box": {
+                       "coordinates": [
+                           [
+                               [
+                                   139.730511000003,
+                                   35.6663720001634
+                               ],
+                               [
+                                   139.730511000003,
+                                   35.7017300013607
+                               ],
+                               [
+                                   139.779853999959,
+                                   35.7017300013607
+                               ],
+                               [
+                                   139.779853999959,
+                                   35.6663720001634
+                               ],
+                               [
+                                   139.730511000003,
+                                   35.6663720001634
+                               ]
+                           ]
+                       ],
+                       "type": "Polygon"
+                   },
+                   "centroid": [
+                       139.748980818553,
+                       35.6839603639963
+                   ],
+                   "contained_within": [
+                       {
+                           "attributes": {},
+                           "bounding_box": {
+                               "coordinates": [
+                                   [
+                                       [
+                                           138.946976001637,
+                                           24.2247179989435
+                                       ],
+                                       [
+                                           138.946976001637,
+                                           35.8941379990039
+                                       ],
+                                       [
+                                           142.239272999512,
+                                           35.8941379990039
+                                       ],
+                                       [
+                                           142.239272999512,
+                                           24.2247179989435
+                                       ],
+                                       [
+                                           138.946976001637,
+                                           24.2247179989435
+                                       ]
+                                   ]
+                               ],
+                               "type": "Polygon"
+                           },
+                           "centroid": [
+                               139.460189420286,
+                               35.6976500888796
+                           ],
+                           "country": "日本",
+                           "country_code": "JP",
+                           "full_name": "日本 東京都",
+                           "id": "a56612250c754f23",
+                           "name": "東京都",
+                           "place_type": "admin",
+                           "url": "https://api.twitter.com/1.1/geo/id/a56612250c754f23.json"
+                       }
+                   ],
+                   "country": "日本",
+                   "country_code": "JP",
+                   "full_name": "東京都 千代田区",
+                   "id": "28b9063fdce43645",
+                   "name": "千代田区",
+                   "place_type": "city",
+                   "url": "https://api.twitter.com/1.1/geo/id/28b9063fdce43645.json"
+               },
+               {
+                   "attributes": {},
+                   "bounding_box": {
+                       "coordinates": [
+                           [
+                               [
+                                   138.400956002244,
+                                   24.2247179989435
+                               ],
+                               [
+                                   138.400956002244,
+                                   37.1512180002819
+                               ],
+                               [
+                                   142.239272999512,
+                                   37.1512180002819
+                               ],
+                               [
+                                   142.239272999512,
+                                   24.2247179989435
+                               ],
+                               [
+                                   138.400956002244,
+                                   24.2247179989435
+                               ]
+                           ]
+                       ],
+                       "type": "Polygon"
+                   },
+                   "centroid": [
+                       139.644023323251,
+                       36.0251385011289
+                   ],
+                   "contained_within": [
+                       {
+                           "attributes": {},
+                           "bounding_box": {
+                               "coordinates": [
+                                   [
+                                       [
+                                           122.933197001144,
+                                           24.0456418391239
+                                       ],
+                                       [
+                                           122.933197001144,
+                                           45.5227849999761
+                                       ],
+                                       [
+                                           145.817458998856,
+                                           45.5227849999761
+                                       ],
+                                       [
+                                           145.817458998856,
+                                           24.0456418391239
+                                       ],
+                                       [
+                                           122.933197001144,
+                                           24.0456418391239
+                                       ]
+                                   ]
+                               ],
+                               "type": "Polygon"
+                           },
+                           "centroid": [
+                               143.330213688502,
+                               43.4604070037548
+                           ],
+                           "country": "日本",
+                           "country_code": "JP",
+                           "full_name": "日本",
+                           "id": "06ef846bfc783874",
+                           "name": "日本",
+                           "place_type": "country",
+                           "url": "https://api.twitter.com/1.1/geo/id/06ef846bfc783874.json"
+                       }
+                   ],
+                   "country": "日本",
+                   "country_code": "JP",
+                   "full_name": "日本 関東地方",
+                   "id": "d473ed704dbcd4a5",
+                   "name": "関東地方",
+                   "place_type": "admin",
+                   "url": "https://api.twitter.com/1.1/geo/id/d473ed704dbcd4a5.json"
+               },
+               {
+                   "attributes": {},
+                   "bounding_box": {
+                       "coordinates": [
+                           [
+                               [
+                                   138.946976001637,
+                                   24.2247179989435
+                               ],
+                               [
+                                   138.946976001637,
+                                   35.8941379990039
+                               ],
+                               [
+                                   142.239272999512,
+                                   35.8941379990039
+                               ],
+                               [
+                                   142.239272999512,
+                                   24.2247179989435
+                               ],
+                               [
+                                   138.946976001637,
+                                   24.2247179989435
+                               ]
+                           ]
+                       ],
+                       "type": "Polygon"
+                   },
+                   "centroid": [
+                       139.460189420286,
+                       35.6976500888796
+                   ],
+                   "contained_within": [
+                       {
+                           "attributes": {},
+                           "bounding_box": {
+                               "coordinates": [
+                                   [
+                                       [
+                                           122.933197001144,
+                                           24.0456418391239
+                                       ],
+                                       [
+                                           122.933197001144,
+                                           45.5227849999761
+                                       ],
+                                       [
+                                           145.817458998856,
+                                           45.5227849999761
+                                       ],
+                                       [
+                                           145.817458998856,
+                                           24.0456418391239
+                                       ],
+                                       [
+                                           122.933197001144,
+                                           24.0456418391239
+                                       ]
+                                   ]
+                               ],
+                               "type": "Polygon"
+                           },
+                           "centroid": [
+                               143.330213688502,
+                               43.4604070037548
+                           ],
+                           "country": "日本",
+                           "country_code": "JP",
+                           "full_name": "日本",
+                           "id": "06ef846bfc783874",
+                           "name": "日本",
+                           "place_type": "country",
+                           "url": "https://api.twitter.com/1.1/geo/id/06ef846bfc783874.json"
+                       }
+                   ],
+                   "country": "日本",
+                   "country_code": "JP",
+                   "full_name": "日本 東京都",
+                   "id": "a56612250c754f23",
+                   "name": "東京都",
+                   "place_type": "admin",
+                   "url": "https://api.twitter.com/1.1/geo/id/a56612250c754f23.json"
+               },
+               {
+                   "attributes": {},
+                   "bounding_box": {
+                       "coordinates": [
+                           [
+                               [
+                                   122.933197001144,
+                                   24.0456418391239
+                               ],
+                               [
+                                   122.933197001144,
+                                   45.5227849999761
+                               ],
+                               [
+                                   145.817458998856,
+                                   45.5227849999761
+                               ],
+                               [
+                                   145.817458998856,
+                                   24.0456418391239
+                               ],
+                               [
+                                   122.933197001144,
+                                   24.0456418391239
+                               ]
+                           ]
+                       ],
+                       "type": "Polygon"
+                   },
+                   "centroid": [
+                       143.330213688502,
+                       43.4604070037548
+                   ],
+                   "contained_within": [],
+                   "country": "日本",
+                   "country_code": "JP",
+                   "full_name": "日本",
+                   "id": "06ef846bfc783874",
+                   "name": "日本",
+                   "place_type": "country",
+                   "url": "https://api.twitter.com/1.1/geo/id/06ef846bfc783874.json"
+               }
+           ]
        }
    }
 
@@ -498,69 +498,19 @@ GET geo/search は緯度経度は言うに及ばず、地名、IP アドレス�
    {
        "query": {
            "params": {
-               "trim_place": false,
-               "query": "千代田区",
+               "accuracy": 0.0,
                "autocomplete": false,
                "granularity": "neighborhood",
-               "accuracy": 0.0
+               "query": "千代田区",
+               "trim_place": false
            },
-           "url": "https://api.twitter.com/1.1/geo/search.json?...&query=%E5%8D%83%E4%BB%A3%E7%94%B0%E5%8C%BA&...",
-           "type": "search"
+           "type": "search",
+           "url": "https://api.twitter.com/1.1/geo/search.json?oauth_consumer_key=pBXKrfuhVW14XWnE4Mvm9Tfs6&oauth_nonce=11546684270722490170&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1450728486&oauth_token=461058152-4G46kPHscjTXfl0skuoPdmwJfHd2QJSTSgtzvfTb&oauth_version=1.0&query=%E5%8D%83%E4%BB%A3%E7%94%B0%E5%8C%BA&oauth_signature=HH4avR8cHYW8fs198a9vAWfAH74%3D"
        },
        "result": {
            "places": [
                {
-                   "contained_within": [
-                       {
-                           "attributes": {},
-                           "country": "日本",
-                           "url": "https://api.twitter.com/1.1/geo/id/a56612250c754f23.json",
-                           "place_type": "admin",
-                           "centroid": [
-                               139.460189420286,
-                               35.6976500888796
-                           ],
-                           "bounding_box": {
-                               "coordinates": [
-                                   [
-                                       [
-                                           138.946976001637,
-                                           24.2247179989435
-                                       ],
-                                       [
-                                           138.946976001637,
-                                           35.8941379990039
-                                       ],
-                                       [
-                                           142.239272999512,
-                                           35.8941379990039
-                                       ],
-                                       [
-                                           142.239272999512,
-                                           24.2247179989435
-                                       ],
-                                       [
-                                           138.946976001637,
-                                           24.2247179989435
-                                       ]
-                                   ]
-                               ],
-                               "type": "Polygon"
-                           },
-                           "country_code": "JP",
-                           "name": "東京都",
-                           "full_name": "日本 東京都",
-                           "id": "a56612250c754f23"
-                       }
-                   ],
                    "attributes": {},
-                   "country": "日本",
-                   "url": "https://api.twitter.com/1.1/geo/id/28b9063fdce43645.json",
-                   "place_type": "city",
-                   "centroid": [
-                       139.748980818553,
-                       35.6839603639963
-                   ],
                    "bounding_box": {
                        "coordinates": [
                            [
@@ -588,12 +538,64 @@ GET geo/search は緯度経度は言うに及ばず、地名、IP アドレス�
                        ],
                        "type": "Polygon"
                    },
+                   "centroid": [
+                       139.748980818553,
+                       35.6839603639963
+                   ],
+                   "contained_within": [
+                       {
+                           "attributes": {},
+                           "bounding_box": {
+                               "coordinates": [
+                                   [
+                                       [
+                                           138.946976001637,
+                                           24.2247179989435
+                                       ],
+                                       [
+                                           138.946976001637,
+                                           35.8941379990039
+                                       ],
+                                       [
+                                           142.239272999512,
+                                           35.8941379990039
+                                       ],
+                                       [
+                                           142.239272999512,
+                                           24.2247179989435
+                                       ],
+                                       [
+                                           138.946976001637,
+                                           24.2247179989435
+                                       ]
+                                   ]
+                               ],
+                               "type": "Polygon"
+                           },
+                           "centroid": [
+                               139.460189420286,
+                               35.6976500888796
+                           ],
+                           "country": "日本",
+                           "country_code": "JP",
+                           "full_name": "日本 東京都",
+                           "id": "a56612250c754f23",
+                           "name": "東京都",
+                           "place_type": "admin",
+                           "url": "https://api.twitter.com/1.1/geo/id/a56612250c754f23.json"
+                       }
+                   ],
+                   "country": "日本",
                    "country_code": "JP",
-                   "name": "千代田区",
                    "full_name": "東京都 千代田区",
-                   "id": "28b9063fdce43645"
+                   "id": "28b9063fdce43645",
+                   "name": "千代田区",
+                   "place_type": "city",
+                   "url": "https://api.twitter.com/1.1/geo/id/28b9063fdce43645.json"
                },
-   ...
+               ...
+           ]
+       }
    }
 
 .. include:: /_include/python-refs-core.txt

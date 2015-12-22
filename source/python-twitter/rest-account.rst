@@ -24,64 +24,64 @@ GET account/verify_credentials は自分の credentials が効力があるのか
 
    $ ./account-verify_credentials.py
    {
-       "profile_use_background_image": true,
+       "contributors_enabled": false,
        "created_at": "Wed Jan 11 12:01:03 +0000 2012",
-       "following": false,
-       "geo_enabled": false,
-       "id": 461058152,
-       "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/557620683388108800/RoH3aAq8.png",
-       "is_translation_enabled": true,
-       "screen_name": "showa_yojyo",
-       "is_translator": false,
-       "listed_count": 2,
-       "time_zone": "Tokyo",
-       "notifications": false,
-       "description": "実は電子の世界の人で現実には存在しない。",
-       "follow_request_sent": false,
-       "profile_background_color": "FFFFFF",
-       "profile_background_tile": true,
-       "lang": "ja",
-       "profile_link_color": "FF1493",
-       "followers_count": 24,
        "default_profile": false,
-       "protected": false,
-       "verified": false,
-       "url": "https://t.co/HiE41wLa5W",
-       "profile_image_url_https": "https://pbs.twimg.com/profile_images/518444238069968896/9swnzcfK_normal.png",
-       "profile_image_url": "http://pbs.twimg.com/profile_images/518444238069968896/9swnzcfK_normal.png",
-       "friends_count": 0,
        "default_profile_image": false,
-       "favourites_count": 700,
-       "profile_banner_url": "https://pbs.twimg.com/profile_banners/461058152/1447250161",
-       "name": "プレハブ小屋",
-       "profile_sidebar_fill_color": "DDEEF6",
+       "description": "実は電子の世界の人で現実には存在しない。",
        "entities": {
+           "description": {
+               "urls": []
+           },
            "url": {
                "urls": [
                    {
+                       "display_url": "github.com/showa-yojyo",
+                       "expanded_url": "https://github.com/showa-yojyo",
                        "indices": [
                            0,
                            23
                        ],
-                       "expanded_url": "https://showa-yojyo.github.io/",
-                       "url": "https://t.co/HiE41wLa5W",
-                       "display_url": "showa-yojyo.github.io"
+                       "url": "https://t.co/YxrYqoZQ1r"
                    }
                ]
-           },
-           "description": {
-               "urls": []
            }
        },
+       "favourites_count": 701,
+       "follow_request_sent": false,
+       "followers_count": 24,
+       "following": false,
+       "friends_count": 0,
+       "geo_enabled": false,
+       "has_extended_profile": false,
+       "id": 461058152,
        "id_str": "461058152",
+       "is_translation_enabled": true,
+       "is_translator": false,
+       "lang": "ja",
+       "listed_count": 2,
        "location": "東京都区内",
-       "utc_offset": 32400,
+       "name": "プレハブ小屋",
+       "notifications": false,
+       "profile_background_color": "FFFFFF",
+       "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/678214720462020608/70eusxt6.png",
+       "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/678214720462020608/70eusxt6.png",
+       "profile_background_tile": true,
+       "profile_banner_url": "https://pbs.twimg.com/profile_banners/461058152/1450531542",
+       "profile_image_url": "http://pbs.twimg.com/profile_images/678206878820642816/7o08Gvb9_normal.png",
+       "profile_image_url_https": "https://pbs.twimg.com/profile_images/678206878820642816/7o08Gvb9_normal.png",
+       "profile_link_color": "FF1493",
        "profile_sidebar_border_color": "FFFFFF",
+       "profile_sidebar_fill_color": "DDEEF6",
        "profile_text_color": "333333",
-       "contributors_enabled": false,
-       "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/557620683388108800/RoH3aAq8.png",
-       "statuses_count": 7375,
-       "has_extended_profile": false
+       "profile_use_background_image": true,
+       "protected": false,
+       "screen_name": "showa_yojyo",
+       "statuses_count": 7407,
+       "time_zone": "Tokyo",
+       "url": "https://t.co/YxrYqoZQ1r",
+       "utc_offset": 32400,
+       "verified": false
    }
 
 見慣れたデータが得られた。
@@ -129,43 +129,43 @@ GET account/settings は自分のアカウント設定情報を得る機能だ�
 
    $ ./account-settings.py
    {
-       "use_cookie_personalization": true,
-       "protected": false,
-       "smart_mute": false,
-       "display_sensitive_media": false,
-       "screen_name": "showa_yojyo",
-       "discoverable_by_email": true,
        "allow_contributor_request": "all",
-       "always_use_https": true,
-       "allow_dms_from": "all",
-       "language": "ja",
-       "discoverable_by_mobile_phone": false,
-       "sleep_time": {
-           "enabled": false,
-           "start_time": null,
-           "end_time": null
-       },
-       "time_zone": {
-           "tzinfo_name": "Asia/Tokyo",
-           "utc_offset": 32400,
-           "name": "Tokyo"
-       },
-       "geo_enabled": false,
        "allow_dm_groups_from": "following",
+       "allow_dms_from": "all",
+       "always_use_https": true,
+       "discoverable_by_email": true,
+       "discoverable_by_mobile_phone": false,
+       "display_sensitive_media": false,
+       "geo_enabled": false,
+       "language": "ja",
+       "protected": false,
+       "screen_name": "showa_yojyo",
+       "sleep_time": {
+           "enabled": true,
+           "end_time": 0,
+           "start_time": 3
+       },
+       "smart_mute": false,
+       "time_zone": {
+           "name": "Tokyo",
+           "tzinfo_name": "Asia/Tokyo",
+           "utc_offset": 32400
+       },
        "trend_location": [
            {
-               "url": "http://where.yahooapis.com/v1/place/1118370",
-               "parentid": 23424856,
                "country": "Japan",
                "countryCode": "JP",
+               "name": "東京",
+               "parentid": 23424856,
                "placeType": {
-                   "name": "Town",
-                   "code": 7
+                   "code": 7,
+                   "name": "Town"
                },
-               "woeid": 1118370,
-               "name": "東京"
+               "url": "http://where.yahooapis.com/v1/place/1118370",
+               "woeid": 1118370
            }
-       ]
+       ],
+       "use_cookie_personalization": true
    }
 
 見慣れたプロパティーもあれば、そうでないのもある。
@@ -190,43 +190,43 @@ POST account/settings は自分のアカウント設定情報を更新する機�
 
    $ ./account-settings-p.py
    {
-       "sleep_time": {
-           "start_time": 3,
-           "enabled": true,
-           "end_time": 0
-       },
-       "geo_enabled": false,
-       "discoverable_by_mobile_phone": false,
-       "always_use_https": true,
-       "display_sensitive_media": false,
-       "use_cookie_personalization": true,
+       "allow_contributor_request": "all",
+       "allow_dm_groups_from": "following",
        "allow_dms_from": "all",
+       "always_use_https": true,
+       "discoverable_by_email": true,
+       "discoverable_by_mobile_phone": false,
+       "display_sensitive_media": false,
+       "geo_enabled": false,
        "language": "ja",
+       "protected": false,
+       "screen_name": "showa_yojyo",
+       "sleep_time": {
+           "enabled": true,
+           "end_time": 0,
+           "start_time": 3
+       },
+       "smart_mute": false,
+       "time_zone": {
+           "name": "Tokyo",
+           "tzinfo_name": "Asia/Tokyo",
+           "utc_offset": 32400
+       },
        "trend_location": [
            {
+               "country": "Japan",
                "countryCode": "JP",
-               "url": "http://where.yahooapis.com/v1/place/1118370",
+               "name": "東京",
+               "parentid": 23424856,
                "placeType": {
                    "code": 7,
                    "name": "Town"
                },
-               "woeid": 1118370,
-               "parentid": 23424856,
-               "name": "東京",
-               "country": "Japan"
+               "url": "http://where.yahooapis.com/v1/place/1118370",
+               "woeid": 1118370
            }
        ],
-       "allow_dm_groups_from": "following",
-       "time_zone": {
-           "utc_offset": 32400,
-           "name": "Tokyo",
-           "tzinfo_name": "Asia/Tokyo"
-       },
-       "protected": false,
-       "discoverable_by_email": true,
-       "allow_contributor_request": "all",
-       "smart_mute": false,
-       "screen_name": "showa_yojyo"
+       "use_cookie_personalization": true
    }
 
 問題なさそうだ。
@@ -268,64 +268,64 @@ POST account/update_profile は自分のプロフィール部分の更新をす�
 
    $ ./account-update_profile.py
    {
-       "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/557620683388108800/RoH3aAq8.png",
+       "contributors_enabled": false,
+       "created_at": "Wed Jan 11 12:01:03 +0000 2012",
+       "default_profile": false,
+       "default_profile_image": false,
+       "description": "実は電子の世界の人で現実には存在しない。",
        "entities": {
+           "description": {
+               "urls": []
+           }
            "url": {
                "urls": [
                    {
+                       "display_url": "github.com/showa-yojyo",
                        "expanded_url": "https://github.com/showa-yojyo",
                        "indices": [
                            0,
                            23
                        ],
-                       "display_url": "github.com/showa-yojyo",
                        "url": "https://t.co/YxrYqoZQ1r"
                    }
                ]
            },
-           "description": {
-               "urls": []
-           }
        },
-       "id_str": "461058152",
-       "profile_location": null,
-       "friends_count": 0,
-       "contributors_enabled": false,
-       "created_at": "Wed Jan 11 12:01:03 +0000 2012",
-       "default_profile_image": false,
-       "following": false,
-       "profile_sidebar_fill_color": "DDEEF6",
-       "statuses_count": 7382,
-       "profile_text_color": "333333",
-       "verified": false,
-       "profile_use_background_image": true,
-       "screen_name": "showa_yojyo",
-       "profile_sidebar_border_color": "FFFFFF",
-       "notifications": false,
-       "has_extended_profile": false,
-       "is_translation_enabled": true,
-       "location": "東京都区内",
-       "default_profile": false,
-       "description": "実は電子の世界の人で現実には存在しない。",
-       "listed_count": 2,
-       "profile_background_tile": true,
-       "protected": false,
-       "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/557620683388108800/RoH3aAq8.png",
-       "name": "プレハブ小屋",
-       "lang": "ja",
        "favourites_count": 700,
-       "id": 461058152,
-       "profile_image_url": "http://pbs.twimg.com/profile_images/518444238069968896/9swnzcfK_normal.png",
-       "followers_count": 24,
-       "time_zone": "Tokyo",
-       "profile_link_color": "FF1493",
-       "url": "https://t.co/YxrYqoZQ1r",
-       "profile_background_color": "FFFFFF",
-       "geo_enabled": false,
-       "is_translator": false,
-       "utc_offset": 32400,
        "follow_request_sent": false,
+       "followers_count": 24,
+       "following": false,
+       "friends_count": 0,
+       "geo_enabled": false,
+       "has_extended_profile": false,
+       "id": 461058152,
+       "id_str": "461058152",
+       "is_translation_enabled": true,
+       "is_translator": false,
+       "lang": "ja",
+       "listed_count": 2,
+       "location": "東京都区内",
+       "name": "プレハブ小屋",
+       "notifications": false,
+       "profile_background_color": "FFFFFF",
+       "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/557620683388108800/RoH3aAq8.png",
+       "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/557620683388108800/RoH3aAq8.png",
+       "profile_background_tile": true,
+       "profile_image_url": "http://pbs.twimg.com/profile_images/518444238069968896/9swnzcfK_normal.png",
        "profile_image_url_https": "https://pbs.twimg.com/profile_images/518444238069968896/9swnzcfK_normal.png"
+       "profile_link_color": "FF1493",
+       "profile_location": null,
+       "profile_sidebar_border_color": "FFFFFF",
+       "profile_sidebar_fill_color": "DDEEF6",
+       "profile_text_color": "333333",
+       "profile_use_background_image": true,
+       "protected": false,
+       "screen_name": "showa_yojyo",
+       "statuses_count": 7382,
+       "time_zone": "Tokyo",
+       "url": "https://t.co/YxrYqoZQ1r",
+       "utc_offset": 32400,
+       "verified": false,
    }
 
 どうも ``include_entities`` が効いていない？
@@ -395,7 +395,6 @@ POST account/update_profile_image はたぶんユーザーのアイコンの画�
        "default_profile_image": false,
        ...
        "profile_image_url": "http://pbs.twimg.com/profile_images/518444238069968896/9swnzcfK_normal.png",
-       ...
        "profile_image_url_https": "https://pbs.twimg.com/profile_images/518444238069968896/9swnzcfK_normal.png",
        ...
    }
@@ -435,11 +434,8 @@ POST account/update_profile_background_image は自分の Twitter のページ�
    {
        ...
        "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/557620683388108800/RoH3aAq8.png",
-       ...
        "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/557620683388108800/RoH3aAq8.png",
-       ...
        "profile_background_tile": true,
-       ...
        "profile_use_background_image": true
    }
 

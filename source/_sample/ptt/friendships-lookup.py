@@ -15,4 +15,4 @@ ids = ','.join((str(i) for i in (577367985, 1220723053, 1288619659)))
 response = tw.friendships.lookup(user_id=ids)
 
 # [2]
-dump(response, sys.stdout, ensure_ascii=False, indent=4)
+dump(response, sys.stdout, ensure_ascii=False, indent=4, sort_keys=True)

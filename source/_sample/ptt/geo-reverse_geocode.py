@@ -14,4 +14,4 @@ tw = twitter_instance()
 response = tw.geo.reverse_geocode(lat=35.696805, long=139.773828)
 
 # [2]
-dump(response, sys.stdout, ensure_ascii=False, indent=4)
+dump(response, sys.stdout, ensure_ascii=False, indent=4, sort_keys=True)

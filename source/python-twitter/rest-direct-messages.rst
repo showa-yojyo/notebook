@@ -25,85 +25,85 @@ POST direct_messages/new はダイレクトメッセージを作成・送信す�
 
    $ ./direct_messages-new.py
    {
-       "sender_id": 461058152,
        "created_at": "Fri Dec 18 13:41:06 +0000 2015",
-       "recipient_id": 461058152,
-       "recipient_screen_name": "showa_yojyo",
-       "sender_id_str": "461058152",
-       "text": "いい感じでモジャってますね。"
        "entities": {
-           "urls": [],
+           "hashtags": [],
            "symbols": [],
-           "user_mentions": [],
-           "hashtags": []
+           "urls": [],
+           "user_mentions": []
        },
-       "id_str": "677846047566114819",
        "id": 677846047566114819,
-       "sender": {
-           "profile_sidebar_border_color": "FFFFFF",
-           "created_at": "Wed Jan 11 12:01:03 +0000 2012",
-           "profile_banner_url": "https://pbs.twimg.com/profile_banners/461058152/1447250161",
-           "screen_name": "showa_yojyo",
-           "id_str": "461058152",
+       "id_str": "677846047566114819",
+       "recipient": {
            "contributors_enabled": false,
+           "created_at": "Wed Jan 11 12:01:03 +0000 2012",
            "default_profile": false,
-           "is_translation_enabled": true,
-           "profile_image_url": "http://pbs.twimg.com/profile_images/518444238069968896/9swnzcfK_normal.png",
-           "is_translator": false,
-           "profile_sidebar_fill_color": "DDEEF6",
-           "description": "実は電子の世界の人で現実には存在しない。",
-           "followers_count": 24,
-           "time_zone": "Tokyo",
-           "id": 461058152,
-           "name": "プレハブ小屋",
-           "location": "東京都区内",
-           "listed_count": 2,
-           "favourites_count": 700,
-           "friends_count": 0,
-           "profile_link_color": "FF1493",
-           "statuses_count": 7375,
-           "profile_image_url_https": "https://pbs.twimg.com/profile_images/518444238069968896/9swnzcfK_normal.png",
-           "profile_use_background_image": true,
-           "profile_text_color": "333333",
            "default_profile_image": false,
-           "lang": "ja",
-           "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/557620683388108800/RoH3aAq8.png",
-           "geo_enabled": false,
-           "verified": false,
-           "notifications": false,
-           "following": false,
-           "protected": false,
-           "utc_offset": 32400,
-           "profile_background_tile": true,
+           "description": "実は電子の世界の人で現実には存在しない。",
            "entities": {
+               "description": {
+                   "urls": []
+               },
                "url": {
                    "urls": [
                        {
+                           "display_url": "github.com/showa-yojyo",
+                           "expanded_url": "https://github.com/showa-yojyo",
                            "indices": [
                                0,
                                23
                            ],
-                           "expanded_url": "https://showa-yojyo.github.io/",
-                           "url": "https://t.co/HiE41wLa5W",
-                           "display_url": "showa-yojyo.github.io"
+                           "url": "https://t.co/YxrYqoZQ1r"
                        }
                    ]
-               },
-               "description": {
-                   "urls": []
                }
            },
-           "has_extended_profile": false,
-           "url": "https://t.co/HiE41wLa5W",
+           "favourites_count": 701,
            "follow_request_sent": false,
-           "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/557620683388108800/RoH3aAq8.png",
-           "profile_background_color": "FFFFFF"
+           "followers_count": 24,
+           "following": false,
+           "friends_count": 0,
+           "geo_enabled": false,
+           "has_extended_profile": false,
+           "id": 461058152,
+           "id_str": "461058152",
+           "is_translation_enabled": true,
+           "is_translator": false,
+           "lang": "ja",
+           "listed_count": 2,
+           "location": "東京都区内",
+           "name": "プレハブ小屋",
+           "notifications": false,
+           "profile_background_color": "FFFFFF",
+           "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/678214720462020608/70eusxt6.png",
+           "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/678214720462020608/70eusxt6.png",
+           "profile_background_tile": true,
+           "profile_banner_url": "https://pbs.twimg.com/profile_banners/461058152/1450531542",
+           "profile_image_url": "http://pbs.twimg.com/profile_images/678206878820642816/7o08Gvb9_normal.png",
+           "profile_image_url_https": "https://pbs.twimg.com/profile_images/678206878820642816/7o08Gvb9_normal.png",
+           "profile_link_color": "FF1493",
+           "profile_sidebar_border_color": "FFFFFF",
+           "profile_sidebar_fill_color": "DDEEF6",
+           "profile_text_color": "333333",
+           "profile_use_background_image": true,
+           "protected": false,
+           "screen_name": "showa_yojyo",
+           "statuses_count": 7407,
+           "time_zone": "Tokyo",
+           "url": "https://t.co/YxrYqoZQ1r",
+           "utc_offset": 32400,
+           "verified": false
        },
-       "recipient": {
-           ... 略 ...
-       },
+       "recipient_id": 461058152,
        "recipient_id_str": "461058152",
-       "sender_screen_name": "showa_yojyo"
+       "recipient_screen_name": "showa_yojyo",
+       "sender": {
+           ...
+       },
+       "sender_id": 461058152,
+       "sender_id_str": "461058152",
+       "sender_screen_name": "showa_yojyo",
+       "text": "いい感じでモジャってますね。"
    }
 
 GET direct_messages/show
@@ -137,36 +137,6 @@ GET direct_messages は自分へ送られたダイレクトメッセージを取
 * [1] 通信データ量をなるべく小さくするようなパラメーターを与えてリクエストを送信する。
 
 * [2] 実行結果を出力する。
-
-次に実行例を示す。
-
-.. code-block:: console
-
-   $ ./direct_messages.py
-   [
-       {
-           "recipient": {
-               ... 略 ...
-           },
-           "id_str": "677846047566114819",
-           "sender": {
-               ... 略 ...
-           },
-           "recipient_id": 461058152,
-           "text": "いい感じでモジャってますね。",
-           "created_at": "Fri Dec 18 13:41:06 +0000 2015",
-           "recipient_id_str": "461058152",
-           "id": 677846047566114819,
-           "sender_id_str": "461058152",
-           "sender_id": 461058152,
-           "sender_screen_name": "showa_yojyo",
-           "recipient_screen_name": "showa_yojyo"
-       },
-       {
-          ... 略 ...
-       },
-       ... 略 ...
-   ]
 
 実行結果例は上述の GET direct_messages/sent の例と同様なので省略する。
 

@@ -18,5 +18,5 @@ users = (
 for i in users:
     response = tw.friendships.show(**i)
 
-    dump(response, sys.stdout, ensure_ascii=False, indent=4)
+    dump(response, sys.stdout, ensure_ascii=False, indent=4, sort_keys=True)
     sys.stdout.write('\n')

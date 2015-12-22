@@ -19,4 +19,4 @@ response = tw.account.settings(
     lang='ja')
 
 # [2]
-dump(response, sys.stdout, ensure_ascii=False, indent=4)
+dump(response, sys.stdout, ensure_ascii=False, indent=4, sort_keys=True)

@@ -136,6 +136,9 @@ GET users/suggestions/:slug は上記のあるカテゴリーのユーザー群�
 
    $ ./users-suggestions-slug.py
    {
+       "name": "政府",
+       "size": 15,
+       "slug": "政府",
        "users": [
            {
                ...
@@ -153,10 +156,7 @@ GET users/suggestions/:slug は上記のあるカテゴリーのユーザー群�
               "name": "消費者庁",
               ...
            }
-       ],
-       "slug": "政府",
-       "size": 15,
-       "name": "政府"
+       ]
    }
 
 GET users/suggestions/:slug/members

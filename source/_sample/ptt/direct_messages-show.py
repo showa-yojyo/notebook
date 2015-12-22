@@ -14,4 +14,4 @@ tw = twitter_instance()
 response = tw.direct_messages.show(_id=677846047566114819)
 
 # [2]
-dump(response, sys.stdout, ensure_ascii=False, indent=4)
+dump(response, sys.stdout, ensure_ascii=False, indent=4, sort_keys=True)

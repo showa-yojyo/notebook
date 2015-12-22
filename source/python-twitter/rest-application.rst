@@ -28,41 +28,41 @@ GET application/rate_limit_status は現在の API 利用制限状況を知る�
 
    $ ./application-rate_limit_status.py
    {
+       "rate_limit_context": {
+           "access_token": "..."
+       },
        "resources": {
-           "users": {
-               "/users/show/:id": {
-                   "reset": 1450622609,
-                   "remaining": 181,
-                   "limit": 181
-               },
-               ...
-           },
-           "statuses": {
-               "/statuses/user_timeline": {
-                   "reset": 1450622609,
-                   "remaining": 180,
-                   "limit": 180
-               },
-               ...
-           },
            "lists": {
-               "/lists/subscribers/show": {
-                   "reset": 1450622609,
+               "/lists/list": {
+                   "limit": 15,
                    "remaining": 15,
-                   "limit": 15
+                   "reset": 1450622609
                },
                ...
            },
            "search": {
                "/search/tweets": {
-                   "reset": 1450622609,
+                   "limit": 180,
                    "remaining": 180,
-                   "limit": 180
+                   "reset": 1450622609
                }
+           },
+           "statuses": {
+               "/statuses/friends": {
+                   "limit": 15,
+                   "remaining": 15,
+                   "reset": 1450622609
+               },
+               ...
+           },
+           "users": {
+               "/users/derived_info": {
+                   "limit": 15,
+                   "remaining": 15,
+                   "reset": 1450622609
+               },
+               ...
            }
-       },
-       "rate_limit_context": {
-           "access_token": "..."
        }
    }
 

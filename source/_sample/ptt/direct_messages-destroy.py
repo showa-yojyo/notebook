@@ -16,4 +16,4 @@ response = tw.direct_messages.destroy(
     include_entities=False)
 
 # [2]
-dump(response, sys.stdout, ensure_ascii=False, indent=4)
+dump(response, sys.stdout, ensure_ascii=False, indent=4, sort_keys=True)

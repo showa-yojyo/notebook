@@ -18,4 +18,4 @@ csv = ','.join(resource_families)
 response = tw.application.rate_limit_status(resources=csv)
 
 # [2]
-dump(response, sys.stdout, ensure_ascii=False, indent=4)
+dump(response, sys.stdout, ensure_ascii=False, indent=4, sort_keys=True)

@@ -48,15 +48,15 @@ GET media/upload を用いることである程度の画像ファイル等をア
    $ ./twmedia.py ../illvelo.png
    file size = 0 MB
    {
-       "media_id_string": "675725940782071809",
-       "media_id": 675725940782071809,
-       "size": 47078,
+       "expires_after_secs": 86400,
        "image": {
            "image_type": "image/png",
            "h": 505,
            "w": 512
        },
-       "expires_after_secs": 86400
+       "media_id": 675725940782071809,
+       "media_id_string": "675725940782071809",
+       "size": 47078
    }
 
 重要なのは ``media_id`` の値だ。

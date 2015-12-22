@@ -13,4 +13,4 @@ tw = twitter_instance()
 # [1]
 response = tw.friendships.no_retweets.ids()
 
-dump(response, sys.stdout, ensure_ascii=False, indent=4)
+dump(response, sys.stdout, ensure_ascii=False, indent=4, sort_keys=True)
