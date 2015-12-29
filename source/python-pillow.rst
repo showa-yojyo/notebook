@@ -124,7 +124,7 @@ GIF 画像ファイル :file:`image.gif` を PNG 形式に変換して、
 
 Pillow がサポートする画像フォーマットを知る
 ----------------------------------------------------------------------
-Pillow のインストールディレクトリーで ``grep Image.resiter_ *.py`` するとよい。
+Pillow のインストールディレクトリーで ``grep Image.register_ *.py`` するとよい。
 
 画像データをバイト配列として扱う
 ----------------------------------------------------------------------
@@ -441,8 +441,8 @@ Hello, world
 #. 元画像を :math:`2 \times 2` 分割して対角線上の区域を入れ替える。
 #. そこへ元画像をブレンドなりオーバーレイなりして重ね合わせる。
 
-.. literalinclude:: /_sample/pillow/pattern.py
-   :language: python3
+スクリプトのリポジトリーを移転したので、次のリンク先を参照。
+`pattern.py <https://github.com/showa-yojyo/sketchbook/blob/develop/tools/pattern.py>`_
 
 モジュール ``ImagePath``
 ----------------------------------------------------------------------
