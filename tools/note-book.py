@@ -9,20 +9,20 @@ Requirements
 """
 
 import sys
-from argparse import ArgumentParser
-from argparse import FileType
+from argparse import (ArgumentParser, FileType)
 import csv
 from jinja2 import Environment
 from isbn_hyphenate import hyphenate
 
+__version__ = '1.1.0'
+
 TEMPLATE = '''\
 ======================================================================
-THE TITLE
+ノート準備中書籍群
 ======================================================================
 
-..contents::
-
-{%- for book in books %}
+.. contents::
+{% for book in books %}
 {{ book["title"] }}
 ======================================================================
 
@@ -32,35 +32,37 @@ THE TITLE
 {%- endif %}
 :出版社: {{ book["publisher"] }}
 :ISBN: {{ book["isbn"] }}
+{%- if "url" in book %}
+:関連 URL: `あり <{{ book["url"] }}>`__
+{% else %}
+:関連 URL: なし
+{%- endif %}
 
 .. todo::
 
    寸評を記す。
-
 {% endfor -%}
 '''
 
 def configure():
-    """Parse the command line parameters.
+    """Return the command line parameter."""
 
-    Returns:
-        The arguments for this program.
-    """
-
-    parser = ArgumentParser(description='Note Template Generator')
-    parser.add_argument('--version', action='version', version='0.0.0')
+    parser = ArgumentParser()
+    parser.add_argument(
+        '--version', action='version', version=__version__)
 
     parser.add_argument(
-        'infile', nargs='?',
+        'file',
+        metavar='FILE',
+        nargs='?',
         type=FileType(mode='r', encoding='utf-8'),
         default=sys.stdin)
 
-    return parser.parse_args()
+    return parser
 
 def read(source):
     """Read TSV from the source."""
 
-    books = []
     reader = csv.DictReader(source, delimiter='\t', quoting=csv.QUOTE_NONE)
     header = reader.fieldnames
     books = [book for book in reader]
@@ -73,6 +75,8 @@ def parse(input):
     for i in input:
         if i["reinterpreters"] == "n/a":
             del i["reinterpreters"]
+        if i["url"] == 'unknown':
+            del i["url"]
 
         i.update(isbn=hyphenate(i["isbn"]))
 
@@ -86,12 +90,13 @@ def write(output, destination):
 
     print(output, file=destination)
 
-def main(args):
+def main():
     """The main function."""
 
-    header, books = read(args.infile)
-    output = parse(books)
-    write(output, sys.stdout)
+    args = configure().parse_args()
+
+    header, books = read(args.file)
+    write(parse(books), sys.stdout)
 
 if __name__ == '__main__':
-    main(configure())
+    main()
