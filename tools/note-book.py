@@ -14,7 +14,7 @@ import csv
 from jinja2 import Environment
 from isbn_hyphenate import hyphenate
 
-__version__ = '1.1.0'
+__version__ = '1.1.1'
 
 TEMPLATE = '''\
 ======================================================================
@@ -31,13 +31,13 @@ TEMPLATE = '''\
 :訳者: {{ book["reinterpreters"] }}
 {%- endif %}
 :出版社: {{ book["publisher"] }}
+:発行年: {{ book["pubyear"] }} 年
 :ISBN: {{ book["isbn"] }}
 {%- if "url" in book %}
 :関連 URL: `あり <{{ book["url"] }}>`__
 {% else %}
 :関連 URL: なし
 {%- endif %}
-
 .. todo::
 
    寸評を記す。
