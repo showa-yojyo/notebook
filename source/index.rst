@@ -35,8 +35,8 @@ Contents:
 .. toctree::
    :maxdepth: 1
 
-   getting-ready-2014
-   getting-ready-2015
+   preliminary2014
+   preliminary2015
 
 .. toctree::
    :maxdepth: 1
