@@ -92,7 +92,7 @@ README を見せるのは主に GitHub のページであり、
 * `Online reStructuredText editor`_ のようなオンラインサービスが既にあるので、
   そちらで間に合うのであればこれをインストールする必要性はない。
 
-* Docutils があるのだから、自力で HTML に変換してブラウザーで開いても手間はあまり変わらない。
+* Docutils_ があるのだから、自力で HTML に変換してブラウザーで開いても手間はあまり変わらない。
   ただ Cygwin 環境だと Python のスクリプト呼び出しが若干面倒なので確かに有用かもしれない。
 
   .. code-block:: console

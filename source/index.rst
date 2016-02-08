@@ -43,6 +43,7 @@ Contents:
 
    python-pip
    python-pylint
+   python-docutils/index
    python-restview
    python-nose
    python-ipython

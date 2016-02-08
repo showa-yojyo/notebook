@@ -1,0 +1,44 @@
+digraph G {
+  graph [
+    fontname = "Bitstream Vera Sans"
+    fontsize = 9
+    compound = true
+    concentrate = true
+    penwidth = 1
+    rankdir = LR
+    style = dotted
+  ]
+  node [
+    fontname = "Bitstream Vera Sans"
+    fontsize = 9
+    shape = tab
+  ]
+  edge [
+    arrowhead = vee
+    arrowtail = vee
+    dir = back
+    style = dashed
+  ]
+
+  utils
+
+  subgraph cluster0 {
+    base [ label = "(base)" ]
+    nodes
+    frontend
+    { rank = same; languages; statemachine }
+    { rank = same; parsers; transforms }
+    { rank = same; io; readers; writers }
+    { rank = same; core }
+  }
+
+  base -> io [ dir = back ]
+  languages, base, nodes -> transforms
+  nodes -> frontend
+  base, nodes, statemachine -> parsers
+  base, parsers, transforms -> readers
+  nodes, transforms -> writers
+  frontend, io, readers, writers -> core
+
+  utils -> statemachine [ lhead=cluster0 ]
+}
