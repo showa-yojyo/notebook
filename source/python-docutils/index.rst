@@ -9,16 +9,8 @@ Python の Docutils_ のソースコードを読んで、
 
    modules
    base
-   .. statemachine
-   .. nodes
-   .. node-visitor
-   .. io
-   .. readers
-   .. writers
-   .. factories
-   .. transforms
-   .. frontend
-   .. core
+   statemachine
+   languages
 
 .. note::
 
