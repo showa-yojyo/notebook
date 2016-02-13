@@ -1,0 +1,70 @@
+digraph G {
+    graph [
+        fontname = "Bitstream Vera Sans"
+        fontsize = 9
+    ]
+    node [
+        fontname = "Bitstream Vera Sans"
+        fontsize = 9
+        shape = "record"
+    ]
+    edge [
+        arrowtail = empty
+        dir = back
+        fontname = "Bitstream Vera Sans"
+        fontsize = 9
+    ]
+
+    AbstractNode [
+        label = "{Node
+        |
+        |+ walk(NodeVisitor)\l+ walkabout(NodeVisitor)\l}"
+    ]
+    ConcreteNode [
+        label = "{(ConcreteNode)
+        |
+        |}"
+    ]
+
+    NodeVisitor [
+        label = "{NodeVisitor
+        |
+        |+ dispatch_visit(Node)\l+ dispatch_departure(Node)\l# unknown_visit(Node)\l# unknown_departure(Node)\l}"
+    ]
+
+    SparseNodeVisitor [
+        label = "{SparseNodeVisitor
+        |
+        |+ visit_CLASSNAME(Node)\l+ depart_CLASSNAME(Node)\l}"
+    ]
+    GenericNodeVisitor [
+        label = "{GenericNodeVisitor
+        |
+        |+ dispatch_visit(Node)\l+ dispatch_departure(Node)\l+ visit_CLASSNAME(Node)\l+ depart_CLASSNAME(Node)\l- default_visit(Node)\l- default_departure(Node)\l}"
+    ]
+
+    node [
+        shape = note
+    ]
+
+    GenericNodeVisitorNote [
+        label = "NotImplementedError"
+    ]
+    SparseNodeVisitorNote [
+        label = "NOP"
+    ]
+
+    // dir = back
+    AbstractNode -> ConcreteNode
+    NodeVisitor -> GenericNodeVisitor, SparseNodeVisitor
+
+    edge [
+        arrowhead = none
+        dir = forward
+        style = solid
+    ]
+    { rank = same ; AbstractNode -> NodeVisitor [ minlen = 2.0 ] }
+
+    GenericNodeVisitor -> GenericNodeVisitorNote
+    SparseNodeVisitor -> SparseNodeVisitorNote
+}

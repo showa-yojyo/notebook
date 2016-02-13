@@ -11,6 +11,8 @@ Python の Docutils_ のソースコードを読んで、
    base
    statemachine
    languages
+   nodes
+   visitor
 
 .. note::
 
