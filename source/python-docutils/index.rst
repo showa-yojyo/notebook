@@ -13,6 +13,7 @@ Python の Docutils_ のソースコードを読んで、
    languages
    nodes
    visitor
+   parsers
 
 .. note::
 
