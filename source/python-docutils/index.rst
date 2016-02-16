@@ -14,6 +14,7 @@ Python の Docutils_ のソースコードを読んで、
    nodes
    visitor
    parsers
+   transforms
 
 .. note::
 
