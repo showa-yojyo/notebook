@@ -15,6 +15,7 @@ Python の Docutils_ のソースコードを読んで、
    visitor
    parsers
    transforms
+   io
 
 .. note::
 
