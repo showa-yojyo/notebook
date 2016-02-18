@@ -16,6 +16,7 @@ Python の Docutils_ のソースコードを読んで、
    parsers
    transforms
    io
+   readers
 
 .. note::
 

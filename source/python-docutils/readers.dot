@@ -1,0 +1,114 @@
+digraph G {
+    graph [
+        fontname = "Bitstream Vera Sans"
+        fontsize = 9
+        ranksep = 0.2
+        splines = ortho
+    ]
+    node [
+        fontname = "Bitstream Vera Sans"
+        fontsize = 9
+        shape = "record"
+    ]
+    edge [
+        arrowtail = empty
+        dir = back
+        fontname = "Bitstream Vera Sans"
+        fontsize = 9
+    ]
+
+    Reader [
+        label = "{Reader
+        |+ component_type : str\l+ config_section : str\l# input : str\l- settings : Values\l
+        |# get_transforms()\l+ set_parser(str)\l+ read(Input, Parser, Values)\l# parse()\l# new_document()\l}"
+    ]
+    ReReader [
+        label = "{ReReader
+        |
+        |# get_transforms()\l}"
+    ]
+    StandaloneReader [
+        label = "{standalone.Reader
+        |# supported : tuple\l+ settings_spec : tuple\l+ config_section : str\l...
+        |# get_transforms()\l}"
+    ]
+    PepReader [
+        label = "{pep.Reader
+        |# supported : tuple\l+ settings_spec : tuple\l+ config_section : str\l...
+        |# get_transforms()\l# parse()\l}"
+    ]
+    DocTreeReader [
+        label = "{doctree.Reader
+        |# supported : tuple\l+ config_section : str\l...
+        |# parse()\l}"
+    ]
+
+    // for indifferent nodes
+    node [
+        fillcolor = lightgrey
+        style = filled
+    ]
+
+    Parser
+    Input
+    document // document
+
+    // dummy connection
+    Parser -> Input [ style = invis ]
+
+    // elbow nodes
+    node [
+        shape = circle
+        label = ""
+        height = 0
+        width = 0
+    ]
+    { rank = same; a, b, c }
+
+    // inheritance hierarchy
+    edge [
+        arrowtail = empty
+        dir = back
+    ]
+    //Reader -> ReReader -> DocTreeReader
+    Reader -> b
+    ReReader -> DocTreeReader
+    //Reader -> StandaloneReader -> PepReader
+    StandaloneReader -> PepReader
+
+    // aggregation (shared association)
+    edge [
+        arrowtail = ediamond
+    ]
+
+    // composition (not shared association)
+    edge [
+        arrowtail = diamond
+    ]
+
+    Reader -> document [
+        headlabel = "document"
+        constraint = false
+        minlen = 4
+    ]
+    Reader -> Parser [
+        headlabel = " parser"
+        constraint = false
+        minlen = 3
+    ]
+    Reader -> Input [
+        headlabel = " source"
+        constraint = false
+    ]
+
+    // elbow edges
+    edge [
+        arrowhead = none
+        arrowtail = none
+        dir = none
+    ]
+
+    a -> b -> c [ minlen = 4.0 ]
+    a -> ReReader
+    c -> StandaloneReader
+}
