@@ -1,0 +1,121 @@
+digraph G {
+    graph [
+        fontname = "Bitstream Vera Sans"
+        fontsize = 9
+        ranksep = 0.03
+        splines = ortho
+    ]
+    node [
+        fontname = "Bitstream Vera Sans"
+        fontsize = 9
+        shape = "record"
+    ]
+    edge [
+        arrowtail = empty
+        dir = back
+        fontname = "Bitstream Vera Sans"
+        fontsize = 9
+    ]
+
+    Writer [
+        label = "{Writer
+        |+ component_type : str\l+ config_section : str\l# parts : dict\l- output : str\l
+        |# get_transforms()\l+ write(document, Output)\l# translate()\l+ assemble_parts()\l}"
+    ]
+    UnfilteredWriter [
+        label = "{UnfilteredWriter
+        |
+        |# get_transforms()\l}"
+    ]
+
+    ConcreteWriter [
+        label = "{(ConcreteWriter)
+        |# supported : tuple\l# settings_spec : tuple\l+ config_section : str\l...
+        |# get_transforms()\l# translate()\l+ assemble_parts()\l}"
+    ]
+    NullWriter [
+        label = "{null.Writer
+        |# supported : tuple\l+ config_section : str\l...
+        |# translate()\l}"
+    ]
+
+    // for indifferent nodes
+    node [
+        fillcolor = lightgrey
+        style = filled
+    ]
+
+    module // language
+    Output // destination
+    document // document
+    NodeVisitor [ rank = min ]// visitor
+
+    // dummy connection
+    module -> Output [ style = invis ]
+
+    // elbow nodes
+    node [
+        shape = circle
+        label = ""
+        height = 0
+        width = 0
+    ]
+
+    { rank = same ; a, b, c }
+
+    // inheritance hierarchy
+    edge [
+        arrowtail = empty
+        dir = back
+    ]
+    //Writer -> UnfilteredWriter, ConcreteWriter
+    Writer -> b
+    UnfilteredWriter -> NullWriter
+
+    // aggregation (shared association)
+    edge [
+        arrowtail = ediamond
+    ]
+
+    Writer -> document [
+        headlabel = "document"
+        constraint = false
+        minlen = 4
+    ]
+    Writer -> module [
+        headlabel = " language"
+        constraint = false
+        minlen = 4.0
+    ]
+    NodeVisitor -> document [
+        headlabel = "document"
+        constraint = false
+    ]
+
+    // composition (not shared association)
+    edge [
+        arrowtail = diamond
+    ]
+
+    Writer -> Output [
+        headlabel = " destination"
+        constraint = false
+    ]
+    ConcreteWriter -> NodeVisitor [
+        headlabel = "visitor"
+    ]
+
+    // elbow edges
+    edge [
+        arrowhead = none
+        arrowtail = none
+        dir = none
+    ]
+
+    a -> b -> c [
+        constrained = false
+        minlen = 4
+    ]
+    a -> UnfilteredWriter
+    c -> ConcreteWriter
+}

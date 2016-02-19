@@ -17,6 +17,7 @@ Python の Docutils_ のソースコードを読んで、
    transforms
    io
    readers
+   writers
 
 .. note::
 
