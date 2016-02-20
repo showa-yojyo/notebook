@@ -18,6 +18,7 @@ Python の Docutils_ のソースコードを読んで、
    io
    readers
    writers
+   frontend
 
 .. note::
 
