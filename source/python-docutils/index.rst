@@ -19,6 +19,7 @@ Python の Docutils_ のソースコードを読んで、
    readers
    writers
    frontend
+   core
 
 .. note::
 
