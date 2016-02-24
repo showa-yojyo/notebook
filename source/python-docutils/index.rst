@@ -20,6 +20,7 @@ Python の Docutils_ のソースコードを読んで、
    writers
    frontend
    core
+   misc
 
 .. note::
 
