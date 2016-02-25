@@ -2,16 +2,24 @@ digraph G {
     graph [
         fontname = "Bitstream Vera Sans"
         fontsize = 9
+        ranksep = 0.2
+        splines = ortho
     ]
     node [
         fontname = "Bitstream Vera Sans"
         fontsize = 9
         shape = "record"
     ]
+    edge [
+        arrowtail = empty
+        dir = back
+        fontname = "Bitstream Vera Sans"
+        fontsize = 9
+    ]
 
     SettingsSpec [
         label = "{SettingsSpec
-        |settings_spec = ()\lsettings_defaults = None\lsettings_default_overrides = None\lrelative_path_settings = ()\lconfig_section = None\lconfig_section_dependencies = None\l
+        |+ settings_spec : tuple\l+ settings_defaults : dict\l+ settings_default_overrides : dict\l+ relative_path_settings : tuple\l+ config_section : str\l+ config_section_dependencies : tuple\l
         |}"
     ]
     TransformSpec [
@@ -21,15 +29,33 @@ digraph G {
     ]
     Component [
         label = "{Component
-        |component_type = None\lsupported = ()\l
+        |+ component_type : str\l+ supported : tuple\l
         |+ supports(str) : bool\l}"
     ]
 
-    edge [
-        arrowhead = "empty"
-    ]
-    Component -> TransformSpec, SettingsSpec
+    { rank = same ; SettingsSpec, TransformSpec }
 
-    { rank = min; SettingsSpec, TransformSpec }
-    { rank = max; Component }
+    // elbow nodes
+    node [
+        shape = circle
+        label = ""
+        height = 0
+        width = 0
+    ]
+
+    { rank = same ; a, b, c }
+
+    //TransformSpec, SettingsSpec -> Component
+    TransformSpec -> a
+    SettingsSpec -> c
+
+    // elbow edges
+    edge [
+        arrowhead = none
+        arrowtail = none
+        dir = none
+    ]
+
+    a -> b -> c [ constraint = false ]
+    b -> Component
 }

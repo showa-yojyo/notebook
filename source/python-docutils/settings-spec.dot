@@ -2,34 +2,69 @@ digraph G {
     graph [
         fontname = "Bitstream Vera Sans"
         fontsize = 9
+        ranksep = 0.2
+        compound = true
+        splines = ortho
+        concentrate = true
     ]
     node [
         fontname = "Bitstream Vera Sans"
         fontsize = 9
         shape = "record"
     ]
+    edge [
+        arrowtail = empty
+        dir = forward
+        fontname = "Bitstream Vera Sans"
+        fontsize = 9
+    ]
 
     SettingsSpec [
         label = "{SettingsSpec
-        |settings_spec = ()\lsettings_defaults = None\lsettings_default_overrides = None\lrelative_path_settings = ()\lconfig_section = None\lconfig_section_dependencies = None\l
+        |+ settings_spec : tuple\l+ settings_defaults : dict\l+ settings_default_overrides : dict\l+ relative_path_settings : tuple\l+ config_section : str\l+ config_section_dependencies : tuple\l
         |}"
     ]
     Component [
         label = "{Component
-        |
-        |}"
+        |...
+        |...}"
     ]
     OptionParser [
-        label ="{OptionParser
-        |settings_spec = (...)\lsettings_defaults = \{...\}\lrelative_path_settings = ('warning_stream')\lconfig_section = 'general'\l
-        |}"
+        label = "{OptionParser
+        |+ settings_spec : tuple\l+ settings_defaults : dict\l+ relative_path_settings : tuple\l+ config_section : str\l
+        |...}"
+
+        fillcolor = lightgrey
+        style = filled
     ]
 
+    subgraph cluster0 {
+        graph [
+            penwidth = 0
+        ]
+        // elbow edges
+        edge [
+            arrowhead = none
+            arrowtail = none
+            dir = none
+        ]
+        // elbow nodes
+        node [
+            shape = circle
+            label = ""
+            height = 0
+            width = 0
+        ]
+        a -> b -> c [ constraint = false ]
+        a -> Component
+        c -> OptionParser
+    }
+
+    // inheritance hierarchy
     edge [
-        arrowhead = "empty"
+        arrowtail = empty
+        dir = back
     ]
-    Component, OptionParser -> SettingsSpec
 
-    { rank = min; SettingsSpec }
-    { rank = max; Component, OptionParser }
+    SettingsSpec -> b
 }

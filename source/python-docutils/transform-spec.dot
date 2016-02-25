@@ -2,11 +2,20 @@ digraph G {
     graph [
         fontname = "Bitstream Vera Sans"
         fontsize = 9
+        ranksep = 0.2
+        center = true
+        compound = true
+        splines = ortho
     ]
     node [
         fontname = "Bitstream Vera Sans"
         fontsize = 9
         shape = "record"
+    ]
+    edge [
+        arrowtail = empty
+        fontname = "Bitstream Vera Sans"
+        fontsize = 9
     ]
 
     TransformSpec [
@@ -16,30 +25,64 @@ digraph G {
     ]
     Component [
         label = "{Component
-        |
-        |}"
+        |...
+        |...}"
+    ]
+    
+    node [
+        fillcolor = lightgrey
+        style = filled
     ]
     Transformer [
         label = "{Transformer
-        |
-        |}"
+        |...
+        |...}"
     ]
     Input [
         label = "{Input
-        |
-        |}"
+        |...
+        |...}"
     ]
     Output [
         label = "{Output
-        |
-        |\l}"
+        |...
+        |...\l}"
     ]
 
+    { rank = min ; TransformSpec }
+
+    subgraph cluster0 {
+        graph [
+            penwidth = 0
+        ]
+        // elbow nodes
+        node [
+            shape = circle
+            label = ""
+            height = 0
+            width = 0
+        ]
+        a, b, c, d, e
+
+        // elbow edges
+        edge [
+            arrowhead = none
+            arrowtail = none
+            dir = none
+        ]
+
+        a -> b -> c -> d -> e [ constraint = false ]
+        e -> Component
+        d -> Transformer
+        b -> Input
+        a -> Output
+    }
+
+    // inheritance hierarchy
     edge [
-        arrowhead = "empty"
+        arrowtail = empty
+        dir = back
     ]
-    Component, Transformer, Input, Output -> TransformSpec
 
-    { rank = min; TransformSpec }
-    { rank = max; Component, Transformer, Input, Output }
+    TransformSpec -> c
 }
