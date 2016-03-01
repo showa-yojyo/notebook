@@ -960,6 +960,15 @@ verify-pack.
 
    $ rm $(git ls-files --deleted)
 
+作業コピー管理内のファイルに限定して、
+何らかの文字列挿入・置換・削除をしたい場合がかなりある。
+そのときは次のようなワンライナーで一気に片付く。
+次にファイル内の文字列 ``OLD_PATTERN`` を ``NEW_PATTERN`` に置換する例を示す。
+
+.. code-block:: console
+
+   $ git ls-files -z | xargs -0 sed -i -e 's/OLD_PATTERN/NEW_PATTERN/g'
+
 呪文表 ls-remote
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 コマンド ls-remote はリモートリポジトリーの参照をリストする。
