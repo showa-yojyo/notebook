@@ -254,6 +254,126 @@ POST statuses/retweet/:id は指定ツイートを自分のアカウントから
    twitter.api.TwitterHTTPError: Twitter sent status 403 for URL: 1.1/statuses/retweet/678987432331632643.json using parameters: (oauth_consumer_key=...)
    details: {'errors': [{'message': 'Retweet is not permissible for this status.','code': 328}]}
 
+POST statuses/unretweet/:id
+======================================================================
+POST statuses/unretweet/:id は指定の retweet を解除するような機能だ。
+先程と同様に ID で retweet を指定する。
+ちょっとした注意をしておくと、仕様には
+<When passing a source status ID instead of the retweet status ID
+a HTTP 200 response will be returned with the same Tweet object but no action>
+とあるので、元ツイートのそれを誤って指定しないようにする。
+
+.. literalinclude:: /_sample/ptt/statuses-unretweet-id.py
+   :language: python3
+
+* [1] 自分側の ID をキーワード引数 ``_id`` に指定する。
+
+実行結果を次に示す。
+某ボットアカウントの ID が 708316560780185601 のツイートを私がリツイートして、
+新たに ID が 708317138675630082 のツイートが生成されている。
+ここでは後者の ID を指定する。
+
+.. code-block:: console
+
+   $ ./statuses-unretweet-id.py
+   {
+       "contributors": null,
+       "coordinates": null,
+       "created_at": "Fri Mar 11 15:42:20 +0000 2016",
+       "entities": {
+           "hashtags": [],
+           "symbols": [],
+           "urls": [
+               {
+                   "display_url": "twitter.com/eiken_1/status…",
+                   "expanded_url": "https://twitter.com/eiken_1/status/708316560780185601",
+                   "indices": [
+                       30,
+                       53
+                   ],
+                   "url": "https://t.co/xOBVFOcEyA"
+               }
+           ],
+           "user_mentions": []
+       },
+       "favorite_count": 0,
+       "favorited": false,
+       "geo": null,
+       "id": 708317138675630082,
+       "id_str": "708317138675630082",
+       "in_reply_to_screen_name": null,
+       "in_reply_to_status_id": null,
+       "in_reply_to_status_id_str": null,
+       "in_reply_to_user_id": null,
+       "in_reply_to_user_id_str": null,
+       "is_quote_status": true,
+       "lang": "ja",
+       "place": null,
+       "possibly_sensitive": false,
+       "quoted_status": {
+           "contributors": null,
+           "coordinates": null,
+           "created_at": "Fri Mar 11 15:40:02 +0000 2016",
+           "entities": {
+               "hashtags": [],
+               "symbols": [],
+               "urls": [
+                   {
+                       "display_url": "eiken-01.blogspot.jp/search/label/%…",
+                       "expanded_url": "http://eiken-01.blogspot.jp/search/label/%E8%8B%B1%E6%A4%9C1%E7%B4%9A%E8%8B%B1%E5%8D%98%E8%AA%9E%20C?&max-results=1",
+                       "indices": [
+                           88,
+                           111
+                       ],
+                       "url": "https://t.co/oC6grVE4di"
+                   }
+               ],
+               "user_mentions": []
+           },
+           "favorite_count": 4,
+           "favorited": false,
+           "geo": null,
+           "id": 708316560780185601,
+           "id_str": "708316560780185601",
+           "in_reply_to_screen_name": null,
+           "in_reply_to_status_id": null,
+           "in_reply_to_status_id_str": null,
+           "in_reply_to_user_id": null,
+           "in_reply_to_user_id_str": null,
+           "is_quote_status": false,
+           "lang": "ja",
+           "place": null,
+           "possibly_sensitive": false,
+           "retweet_count": 0,
+           "retweeted": false,
+           "source": "<a href=\"http://eiken-001.seesaa.net/\" rel=\"nofollow\">英単語リスト＠英検１級英単語</a>",
+           "text": "counterclockwise /kàuntəklɑ'kwaiz/　〔形〕〔副〕（米）反時計回り［左回り］の［に］（⇔clockwise，英ではanticlockwise） https://t.co/oC6grVE4di",
+           "truncated": false,
+           "user": {
+               "id": 125180877,
+               "id_str": "125180877"
+           }
+       },
+       "quoted_status_id": 708316560780185601,
+       "quoted_status_id_str": "708316560780185601",
+       "retweet_count": 0,
+       "retweeted": false,
+       "source": "<a href=\"http://twitter.com\" rel=\"nofollow\">Twitter Web Client</a>",
+       "text": "リツイートテスト。あとでリツイートを取り消すテストをする。 https://t.co/xOBVFOcEyA",
+       "truncated": false,
+       "user": {
+           "id": 461058152,
+           "id_str": "461058152"
+       }
+   }
+
+ブラウザーで当該 retweet と元 tweet を見ると、
+どのように処理されているのかが理解できるだろう。
+以下にリンクを示す。
+
+* https://twitter.com/showa_yojyo/status/708317138675630082
+* https://twitter.com/eiken_1/status/708316560780185601
+
 POST statuses/update_with_media
 ======================================================================
 ドキュメントによると
