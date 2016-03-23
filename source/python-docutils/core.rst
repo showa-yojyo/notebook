@@ -13,7 +13,10 @@
 処理を一箇所に閉じ込めて、クライアントとの窓口にして機能するように設計されている。
 クライアントというのは、後述する関数 ``publish_xxxx`` 系がまさに相当する。
 
-.. todo:: Show class diagram or object diagram.
+.. figure:: /_static/docutils-publisher-od.png
+   :align: center
+   :alt: (component diagram)
+   :scale: 100%
 
 メンバー
 ----------------------------------------------------------------------
@@ -83,7 +86,10 @@
   #. 構文木の変換 ``self.apply_transforms``
   #. 書き出し処理 ``self.writer.write``
 
-  .. todo:: Interaction Diagram を示す。
+  .. figure:: /_static/docutils-publisher-sd.png
+     :align: center
+     :alt: (component diagram)
+     :scale: 100%
 
 ``process_command_line(self, argv=None, ...)``
   コマンドライン引数を解析して、メンバーデータ ``self.settings`` をセットする。
