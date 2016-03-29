@@ -128,7 +128,6 @@ Nose をインストールすると、Python パッケージだけでなく、
        [nosetests]
        verbosity=2
        with-doctest=true
-       ...
 
 * テスト結果の出力書式は、標準の ``unittest`` のそれと基本的には同一。
 
@@ -446,7 +445,7 @@ Nose のバージョンが上がってから勉強しに行こう。
        test_linalg.TestCond2.test_sq_cases ... ok
        test_linalg.TestCondInf.test ... ok
        test_linalg.TestCondSVD.test_sq_cases ... ok
-       ... 省略 ...
+       ... more results ...
        Ticket 627. ... ok
        test_svd_no_uv (test_regression.TestRegression) ... ok
 

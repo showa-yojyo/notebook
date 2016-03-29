@@ -322,7 +322,7 @@ Python 組み込みの ``range`` とよく似ている集合。
      In [2]: L = Lambda((r, th), (r * cos(th), r * sin(th)))
 
      In [3]: D = ImageSet(L, Interval(0, 1) * Interval(0, 2 * pi, False, True)); D
-     Out[3]:  {(r*cos(theta), r*sin(theta)) | r, theta in [0, 1] × [0, 2*pi)}
+     Out[3]: ImageSet(Lambda((r, theta), (r*cos(theta), r*sin(theta))), [0, 1] x [0, 2*pi))
 
      In [4]: D.issubset(S.Reals * S.Reals)
      Out[4]: False

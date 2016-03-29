@@ -70,7 +70,7 @@ or the unittest2 testing framework for Python 2.3-2.6> (p. 2)
    >> import apgl
    >> apgl.test()
    Running tests from D:\Python35\lib\site-packages\apgl
-   ... ドットの列 ...
+   ... more dots ...
    ----------------------------------------------------------------------
    Ran 438 tests in 40.034s
 

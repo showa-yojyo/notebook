@@ -39,7 +39,7 @@ HTML と PDF ファイルの形で利用できるようになっている。
      NumPy is installed in D:\Python34\lib\site-packages\numpy
      Python version 3.4.1 (v3.4.1:c0e311e010fc, May 18 2014, 10:45:13) [MSC v.1600 64 bit (AMD64)]
      nose version 1.3.3
-     ... ドットの列 ...
+     ... more dots ...
      ----------------------------------------------------------------------
      Ran 4762 tests in 207.414s
 

@@ -63,7 +63,7 @@ Windows の「ファイル名を指定して実行」で同実行ファイルを
 
 私の環境でのスタートアップ時の出力を記す。
 
-.. code-block:: ipython
+.. code-block:: none
 
    WARNING: Readline services not available or not loaded.
    WARNING: Proper color support under MS Windows requires the pyreadline library.

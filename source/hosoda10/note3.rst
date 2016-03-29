@@ -125,7 +125,9 @@ ReportLab を紹介している。
      from reportlab import canvas
 
      canvas = canvas.Canvas('helloworld.pdf')
-     ... canvas に色々施す。
+
+     # ... canvas に色々施す。
+
      canvas.save()
 
 * <組み込みの日本語フォント> (p. 355)

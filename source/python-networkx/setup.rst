@@ -39,7 +39,7 @@ NumPy_ や SciPy_ のそれと同じスタイルなので馴染みやすい。
    test_approx_clust_coeff.test_tetrahedral ... ok
    test_approx_clust_coeff.test_dodecahedral ... ok
    test_approx_clust_coeff.test_empty ... ok
-   ... 省略 ...
+   ... more results ...
    ----------------------------------------------------------------------
    Ran 2272 tests in 136.216s
 
