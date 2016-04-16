@@ -31,6 +31,7 @@ Contents:
    loeliger09
    griffiths10
    hosoda10/index
+   omg15/index
 
 .. toctree::
    :maxdepth: 1
