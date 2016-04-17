@@ -15,7 +15,9 @@ Unified Modeling Language 2.5 読書ノート
 .. note::
 
    この仕様書は市販の書籍ではないので、
-   いつもはやっている対象書籍に付随する著者、出版社、ISBN 情報の記載を省く。
+   他では記載することにしている対象書籍に付随する著者、出版社、ISBN 等の情報を省く。
 
 .. toctree::
    :maxdepth: 3
+
+   scope
