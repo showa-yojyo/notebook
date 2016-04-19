@@ -145,8 +145,4 @@ CANNOT
 注釈用のテキストや矢印については UML 図の境界の外側に記すようにしてあるし、
 赤色で描画してある。
 
-.. _Booch: https://en.wikipedia.org/wiki/Booch_method
-.. _OMT: https://en.wikipedia.org/wiki/Object-modeling_technique
-.. _OOSE: https://en.wikipedia.org/wiki/Object-oriented_software_engineering
-.. _OCL: http://www.omg.org/spec/OCL/2.3.1
-.. _MOF: http://www.omg.org/spec/MOF/2.5
+.. include:: /_include/uml-refs.txt

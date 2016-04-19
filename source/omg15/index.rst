@@ -21,3 +21,4 @@ Unified Modeling Language 2.5 読書ノート
    :maxdepth: 3
 
    scope
+   additional-information
