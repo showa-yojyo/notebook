@@ -23,3 +23,4 @@ Unified Modeling Language 2.5 読書ノート
    scope
    additional-information
    common-structure
+   values

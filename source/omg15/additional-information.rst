@@ -60,7 +60,7 @@ UML 2.5 pp. 11-20 に関するノート。
       :doc:`./common-structure` で議論する。
 
       Values
-        8 章で議論する。
+        :doc:`./values` で議論する。
 
       Classifiers
         データ型、クラス、シグナル、インターフェイス、コンポーネント等を指す。
