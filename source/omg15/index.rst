@@ -18,7 +18,7 @@ Unified Modeling Language 2.5 読書ノート
    他では記載することにしている対象書籍に付随する著者、出版社、ISBN 等の情報を省く。
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
 
    scope
    additional-information
