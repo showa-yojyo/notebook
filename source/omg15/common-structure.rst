@@ -21,7 +21,7 @@ UML 2.5 pp. 21-68 に関するノート。この章からノートを簡素に�
 7.2.2 Abstract Syntax
 ----------------------------------------------------------------------
 * Figure 7.1 を初めて見て意味の分からない記法があるならば、
-  前章を再読したほうがいい。
+  前章 (:doc:`./additional-information`) を再読したほうがいい。
 
 7.2.3 Semantics
 ----------------------------------------------------------------------
@@ -157,7 +157,8 @@ UML でのテンプレートは C++ 等の一部プログラミング言語の�
 7.3.1 Summary
 ----------------------------------------------------------------------
 * Template は他のモデル Element によってパラメーター化されるモデル Element である。
-* この節ではテンプレート周辺の概念を導入するにとどめ、詳細は 9 章と 12 章に譲る。
+* この節ではテンプレート周辺の概念を導入するにとどめ、詳細は
+  :doc:`./classification` と 12 章に譲る。
 
 7.3.2 Abstract Syntax
 ----------------------------------------------------------------------
@@ -388,11 +389,12 @@ Figure 7.10 にて新たに登場するクラスと関連を観察しておく�
 
 *Type*
   * 型の概念を説明するのは難しい気がする。
-  * UML における Type はすべて Classifier である。9 章参照。
+  * UML における Type はすべて Classifier である。
+    :doc:`./classification` 参照。
 
 *TypedElement*
   * 何らかの手段で特定の値を表現するような NamedElement である。
-  * この派生概念を 8 章で仕様化するらしい。
+  * この派生概念を :doc:`./values` で仕様化する。
 
 *MultiplicityElement*
   * 多重度は何らかの手段で値の集まりを表現するために生成される Element である。
@@ -421,7 +423,7 @@ A_type_typedElement
 
 A_lowerValue_owningLower, A_upperValue_owningUpper
   * MultiplicityElement から ValueSpecification への関連。
-    ValueSpecification の仕様は 8 章にて。
+    ValueSpecification の仕様は :doc:`./values` にて。
 
   * A_ownedElement_owner から制約 subsets で派生した関連。
   * 属性値の lower, upper とは別に関連端点 lowerValue, upperValue があるのか。

@@ -241,7 +241,7 @@ A_constrainingClassifier_classifierTemplateParameter
 
 9.3.4 Notation
 ----------------------------------------------------------------------
-これは 7 章の Templates の記法の焼き直しのようだ。
+これは :doc:`./common-structure` の Templates の記法の焼き直しのようだ。
 
 ClassifierTemplateParameter
   * TemplateParameter の記法を、選択自由で制約を含めるように拡張する。
