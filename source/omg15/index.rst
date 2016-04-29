@@ -24,3 +24,4 @@ Unified Modeling Language 2.5 読書ノート
    additional-information
    common-structure
    values
+   classification
