@@ -183,7 +183,7 @@ TemplateSignature
   * 単なる TemplateParameter の順序付き composite に見える。
 
 TemplateParameter
-  * 読んで字のごとくテンプレートパラメーターを表す要素だろう。
+  * テンプレートの形式的なパラメーターとして ParameterableElement を晒す (expose) Element である。
   * ParameterableElement に対する 2 系統の関連 (default/parameteredElement) がある。
 
 TemplateParameterSubstitution
@@ -193,13 +193,11 @@ TemplateParameterSubstitution
   * TemplateParameter を 1 個、ParameterableElement を 1 個と関連している。
 
 TemplateBinding
-  * TemplateableElement と TemplateSignature の DirectedRelationship である。
+  * ある TemplateableElement からあるテンプレートへの DirectedRelationship である。
+  * TemplateBinding はそのテンプレートの形式的な (formal) 引数の代わりとなる、
+    実際の (actual) 引数の TemplateParameterSubstitutions を指定する。
 
-    * TemplateableElement と TemplateSignature がそれぞれ source, target である。
-
-  * TemplateParameterSubstitution を composite で関連する。
-
-登場する関連のうち、初めて目にする制約を持つ物をまとめておく。
+登場する関連をまとめておく。
 
 A_parameter_templateSignature
   * TemplateSignature から TemplateParameter への一方通行。
@@ -215,10 +213,13 @@ A_ownedParameter_signature
 
   * ドット記法が所有権が双方向であることを示す？
 
-A_parameteredElement_templateParameter, A_default_templateParameter
-  * TemplateParameter から ParameterableElement への関連は 2 系統ある。
-    それらの基になる関連。
-    要するに「パラメーター化要素」「デフォルトの要素」だろう。
+A_default_templateParameter
+  * TemplateParameter から ParameterableElement への単方向関連。
+  * 関連端 default は、形式的 (formal) な TemplateParameter のデフォルト値？である。
+
+A_parameteredElement_templateParameter
+  * TemplateParameter から ParameterableElement へ双方向ドット付き関連。
+  * 関連端 parameteredElement は、この TemplateParameter が晒す (expose) ものであることを示す。
 
 A_ownedParameteredElement_owningTemplateParameter, A_ownedDefault_templateParameter
   * いつもの所有関連と上述の関連それぞれから subsets された関連となる。
@@ -226,13 +227,51 @@ A_ownedParameteredElement_owningTemplateParameter, A_ownedDefault_templateParame
   * 後者の関連端 templateParameter は制約 ``{redefines templateParameter}`` が付いている。
     これはどういうことだろう？
 
-.. todo:: 主にイタリック体で記されている用語のノート。
+A_formal_templateParameterSubstitution, A_actual_templateParameterSubstitution
+  * それぞれ TemplateParameterSubstitution から TemplateParameter と ParameterableElement への単方向関連。
+  * これらの関連は TemplateBinding の文脈でテンプレート引数
+    formal をパラメーター化可能要素 actual により代入することを指定する。
 
-   * template
-   * bound [element]
-   * (completely | partially | expanded) bound element
-   * exposed
-   * etc.
+A_ownedActual_owningTemplateParameterSubstitution
+  * TemplateParameterSubstitution から ParameterableElement への composite 関連。
+  * 関連 A_ownedElement_owner を subsets する。
+  * 関連 A_actual_templateParameterSubstitution の
+    actual と templateParameterSubstitution をそれぞれ subsets と redefines する。
+  * 実際に ParameterableElement オブジェクトを所有する意味がある。
+
+A_parameterSubstitution_templateBinding
+  * TemplateBinding から TemplateParameterSubstitution への composite 関連。両端にドットが付く。
+  * 関連 A_ownedElement_owner を subsets する。
+
+A_templateBinding_boundElement
+  * TemplateableElement から TemplateBinding への composite 関連。両端にドットが付く。
+  * TemplateableElement がこの TemplateBinding による束縛要素であることを示す。
+  * 関連 A_ownedElement_owner と A_source_directedRelationship を subsets する。
+
+A_signature_templateBinding
+  * TemplateParameterSubstitution から TemplateSignature への単方向関連。
+  * 関連端 signature はこの TemplateBinding のターゲットテンプレートのためのものである。
+  * 関連 A_target_directedRelationship を subsets する。
+
+用語をまとめてみる。
+
+* テンプレート (template) とは、
+  TemplateSignature を用いてパラメーター化された TemplateableElement のことである。
+
+* テンプレートの TemplateSignature は
+  現実のモデル Elements に束縛されてもよい TemplateParameters の集合を一つ定義する。
+  束縛要素 (bound element) はそのような一つ以上の TemplateBindings を持つ
+  TemplateableElement である。
+
+  * 完全束縛要素 (completely bound element) とは、
+    そのすべての TemplateBindings が束縛されているテンプレートの
+    TemplateParameter すべてを束縛する束縛要素である。
+
+  * 不完全束縛要素 (partially bound element) とは、
+    その TemplateBindings のうち少なくとも一つは束縛されているテンプレートの
+    TemplateParameter を束縛しない束縛要素である。
+
+* TODO: 晒す (expose)
 
 7.3.4 Notation
 ----------------------------------------------------------------------
