@@ -19,7 +19,7 @@ UML 2.5 pp. 97-164 に関するノート。
 ----------------------------------------------------------------------
 * Classifier はその Feature に応じたオブジェクトの分類（項目）を表現する。
 * Classifiers は Generalizations によって階層的構造に組織化されている。
-* RedefinableElements は Generalization 階層の文脈にて再定義されてよい。
+* RedefinableElements は Generalization の階層を背景として再定義されてよい。
 
 9.2.2 Abstract Syntax
 ----------------------------------------------------------------------
@@ -31,7 +31,7 @@ UML 2.5 pp. 97-164 に関するノート。
 新登場のクラス
 
 *Classifier*
-  * Namespaces, Type, TemplateableElement, RedefinableElement から派生している。
+  * Namespace, Type, TemplateableElement, RedefinableElement から派生している。
   * Classifier によって分類される値は、その Classifier のインスタンスと呼ぶ。
     私のノートではオブジェクトと書くことにしてる。
 

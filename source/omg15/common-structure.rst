@@ -141,7 +141,7 @@ Notation の節で仕様化することになっている。
 * Comment は「右上が折れた紙切れ」のような図形の中に文字列を記すことで示す。
 * Comment シンボルと annotatedElement(s) のシンボルそれぞれとを破線で結ぶ。
 
-  * 文脈から明らかな場合、または図式中で重要でない場合は、
+  * 周囲の状況から明らかな場合、または図式中で重要でない場合は、
     この破線を隠してもよい。
 
 7.2.5 Examples
@@ -229,7 +229,7 @@ A_ownedParameteredElement_owningTemplateParameter, A_ownedDefault_templateParame
 
 A_formal_templateParameterSubstitution, A_actual_templateParameterSubstitution
   * それぞれ TemplateParameterSubstitution から TemplateParameter と ParameterableElement への単方向関連。
-  * これらの関連は TemplateBinding の文脈でテンプレート引数
+  * これらの関連はある TemplateBinding を背景として、テンプレート引数
     formal をパラメーター化可能要素 actual により代入することを指定する。
 
 A_ownedActual_owningTemplateParameterSubstitution

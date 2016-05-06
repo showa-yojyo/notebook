@@ -37,7 +37,7 @@ LiteralSpecification は ValueSpecification 同様に（まだ）抽象要素で
   * これはリテラル値を指定する ValueSpecification である。
 
 LiteralNull
-  * 文脈にも依るだろうが、何らかの空要素を指定する LiteralSpecification である。
+  * どこで用いられるかに依るが、何らかの空要素を指定する LiteralSpecification である。
   * ゆえに何の属性も持たない。
 
 LiteralString
