@@ -67,7 +67,8 @@ UML 2.5 pp. 11-20 に関するノート。
 
         :doc:`./classification`,
         :doc:`./simple-classifiers`,
-        11 章で議論する。
+        :doc:`./structured-classifiers`
+        で議論する。
 
       Packages
         パッケージおよびプロファイルという概念がある。
@@ -218,7 +219,7 @@ UML 2.5 pp. 11-20 に関するノート。
   これがその端点の所有権に関する情報を示しているようだ。
   私が誤読していなければ、ドットの反対側にあるクラスが所有者を意味するはず。
 
-  * 詳しくは 11 章の該当する節で述べられている。
+  * 詳しくは :doc:`./structured-classifiers` の該当する節で述べられている。
   * 当ノートでは association end を関連端（点）と書くことにする。
 
 * 矢印記法。関連端点の navigability を示すのに用いる。

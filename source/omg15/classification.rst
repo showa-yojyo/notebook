@@ -96,7 +96,7 @@ A_collaborationUse_classifier
   * Classifier から CollaborationUse への composite 関連。
   * 関連 A_ownedElement_owner の subsets である。
   * Classifier は、それを Collaborations に関係させる CollaborationUses を所有してもよい。
-    11 章で述べる。
+    :doc:`./structured-classifiers` で述べる。
 
   A_representation_classifier
     * Classifier から CollaborationUse への単方向関連。
@@ -488,7 +488,7 @@ A_memberEnd_association
   * 関連 A_member_memberNamespace の subsets である。
 
 A_ownedEnd_owningAssociation
-  これは 11 章で説明する。
+  これは :doc:`./structured-classifiers` で説明する。
 
 A_qualifier_associationEnd
   * Property から Property への composite 関連。
@@ -525,7 +525,7 @@ A_redefinedProperty_property
 Property の一般的な記法が BNF 記法で仕様化されている。
 
 * 個人的には prop-modifier がいつも気になっている。
-* 集約の記法は 11 章まで先延ばし。
+* 集約の記法は :doc:`./structured-classifiers` まで先延ばし。
 
 9.5.5 Examples
 ----------------------------------------------------------------------
