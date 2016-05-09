@@ -73,7 +73,7 @@ UML 2.5 pp. 11-20 に関するノート。
       Packages
         パッケージおよびプロファイルという概念がある。
 
-        12 章で議論する。
+        :doc:`./packages` で議論する。
 
   Behavioral Modeling
     Common Behavior

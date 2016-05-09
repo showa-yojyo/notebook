@@ -27,3 +27,4 @@ Unified Modeling Language 2.5 読書ノート
    classification
    simple-classifiers
    structured-classifiers
+   packages
