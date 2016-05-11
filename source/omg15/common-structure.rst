@@ -1,7 +1,7 @@
 ======================================================================
 7 Common Structure
 ======================================================================
-UML 2.5 pp. 21-68 に関するノート。この章からノートを簡素にしたい。
+UML 2.5 pp. 21-68 に関するノート。
 
 .. contents:: ノート目次
 
@@ -12,7 +12,6 @@ UML 2.5 pp. 21-68 に関するノート。この章からノートを簡素に�
 
 7.2 Root
 ======================================================================
-最初なので少々丁寧にノートを取る。
 
 7.2.1 Summary
 ----------------------------------------------------------------------
@@ -20,113 +19,131 @@ UML 2.5 pp. 21-68 に関するノート。この章からノートを簡素に�
 
 7.2.2 Abstract Syntax
 ----------------------------------------------------------------------
-* Figure 7.1 を初めて見て意味の分からない記法があるならば、
-  前章 (:doc:`./additional-information`) を再読したほうがいい。
+* Figure 7.1 Root
+
+  * 初めて見て意味の分からない記法があるならば、
+    前章 (:doc:`./additional-information`) を再読したほうがいい。
+
+  * 登場するクラスは 4 つ。
+    Element, Relationship, DirectedRelationship, Comment である。
+    Comment を除いてすべて抽象クラスである。
 
 7.2.3 Semantics
 ----------------------------------------------------------------------
-登場するクラスは 4 つ。
-
 *Element*
-  すべての要素の基底。
-
+  * すべての UML メタクラスの基底クラスである。
   * 他の Element を所有することができるという性質を有する。
   * その特殊なケースなのだが Comment を所有することができる。
 
 *Relationship*
-  複数 Elements 間のある種の関係性を指定する Element である。
-
+  * 複数 Elements 間のある種の関係性を指定する Element である。
   * 意味はさらなる具象クラスで決まる。
 
 *DirectedRelationship*
-  特殊な Relationship で、
-  ある Element(s) と別の Element(s) との関係性を表現する。
+  * Relationship の一種で、
+    ある Element(s) と別の Element(s) との関係性を表現する。
 
   * 一方の要素群を source(s) と呼び、他方を target(s) を呼ぶ。
   * 「向きの付いた」というのは、この source から target への向きを意味する。
 
 Comment
-  読んで字のごとし。
-
+  * 読んで字のごとし。
   * Element に付随する情報・説明等を余白に書き込みたくなるが、
     それを正式に仕様化した概念なのだろう。
 
-クラス間の関連、図式中の各種矢印が相当する、について、
-仕様説明が済んでいない要素もある。
-より独立性の高い関連からノートを取っていく。
+  * body: コメント本文を表現するための文字列。
 
-* 白い矢先の関連はクラスの継承のようなものという解釈で問題ない。
+.. note::
 
-* Element 自身から自身への関連 (A_ownedElement_owner)
+   クラス間の関連、図式中の各種矢印が相当する、について、
+   仕様説明が済んでいない要素もある。
+   より独立性の高い関連からノートを取っていく。
 
-  owner
-    * 多重度が ``0..1`` となっている。
-      任意の Element について、その所有者がないか、または 1 個だけあることを意味する。
+   * 白い矢先の関連はクラスの継承のようなものという解釈で問題ない。
+     いわゆる is-a 関係、is-a-kind-of 関係である。
 
-    * 関連端点に黒菱型が描画されている。ゆえに composite である。
-      言葉を変えると「owner の生存期間が終わると ownedElement のそれも終わる」。
+A_ownedElement_owner
+  * Element から Element への composite 関連（双方向）。
 
-  ownedElement
-    * 多重度が ``*`` となっている。
-      任意の Element は、ゼロ個を含む任意の個数の Element を所有できることを意味する。
+    * 両関連端にドットが描画されているので、両方向に所有関係がある。
 
-  owner と ownedElement 共通
-    * 制約が ``{readOnly, union}`` となっている。これらについては当分仕様説明がない。
+  * Element は他の Element を所有することができるという性質を表現する関連である。
 
-    * 関連端名の前に付いている ``+`` については今のところよくわからない。
-      アクセスレベルが公開ということか。
+  * ある Element がモデルから取り除かれるときには、
+    すべての ownedElements もまたそのモデルから取り除かれる必要がある。
+
+  * 関連端 ownedElement の多重度は ``*`` となっている。
+    任意の Element は、ゼロ個を含む任意の個数の Element を所有できることを意味する。
+    以下同様。
+
+  * 関連端 owner の多重度が ``0..1`` となっている。
+    任意の Element について、その所有者がないか、または 1 個だけあることを意味する。
+    以下同様。
+
+  * 両関連端共通
+
+    * 制約が ``{readOnly, union}`` となっている。
+      これらについては当分仕様説明がないまま話が進む。
+
+    * 関連端名の前に付いている ``+`` については
+      アクセスレベルが公開ということ。
+      以下同様。
 
     * 関連端名の前に付いている ``/`` については、
       「この関連端は別の関連端が継承するだろう」という意味だった (p. 18)。
+      以下同様。
 
-    * 関連端点にドットが描画されているので、両方向に所有関係がある。
-      すなわち owner から ownedElement に、
-      反対に ownedElement から owner にたどり着くことができる。
+      * ``{union}`` と ``/`` が常に同時に関連端に現れることに気づいた。
 
-* Relationship から Element への関連 (A_relatedElement_relationship)
+A_ownedComment_owningElement
+  * Element から Comment への composite 関連（単方向）。
 
-  relationship
-    * こちらの端点にはドットがない。
+    * 関連端 ownedComment にだけ開いた矢先を持つ。
+      これは owningComment からだけ navigable であることを意味する。
+      ownedComment から owningComment には navigable ではない。
+      以下同様。
 
-    * 多重度が ``*`` なので、
-      「relatedElement の同一の集まりに、複数の異なる関係性が存在する」ことがあり得ると読める。
+    * 関連端 ownedComment にだけドットがある。
+      ゆえに owningComment によって所有されていることを意味する。
+      以下同様。
 
-    * 場合によってはゼロもあるのだが、何の意味がある？
-      無関係に集まった Element 群くらいの意味になるのか？
+  * あるモデリング要素がコメントされていることを表す関連。
 
-  relatedElement
-    * こちらの端点にはドットがあり、開いた矢先を持つ。
-      ゆえに反対側である relationship によって所有されていると読める。
+  * 両側関連端に ``{subsets}`` 制約がある。
+    例えば ownedComment は ``{subsets ownedElement}`` となっている。
+    これは <ownedComment is a subset of ownedElement> の意味に取る。
+    反対に <ownedElement is a superset of ownedComment> が成り立つと推理したい。
+    上手いことに ownedElement には ``{union}`` という制約があったのだった。
 
-    * 多重度が ``1..*`` なので、空でない要素の集まりに関係性を定義できる。
+    以下、このような条件を当ノートでは
+    「A_ownedElement_owner を subsets する」のように簡略して表記する。
 
-  両端点共通
-    * ``{readOnly, union}`` である。やはり union は集合論で用いられる意味と同じか？
+A_annotatedElement_comment
+  * Comment から Element への関連（単方向）。
+  * コメントには必ず何かモデリング要素が関連付けられている。
+  * 多重度が両側 ``*`` なので、
+    一つの要素に複数のコメントが付されていてよいし、
+    複数要素に対して一つのコメントが付されていてもよい。
+
+A_relatedElement_relationship
+  * Relationship から Element への関連（単方向）。
+  * この関連の意味は上記 Relationship を参照。
+  * 関連端 relatedElement の多重度が ``1..*`` なので、
+    空でない要素の集まりに関係性を定義できる。
+
+  * 両関連端共通
+
+    * ``{readOnly, union}`` である。
     * プラス記号とスラッシュ記号が関連端名の前に付いている。
 
-* DirectedRelationship から Element への関連 (A_source_directedRelationship, A_target_directedRelationship)
-
-  ふたつの関連をまとめて記す。
-
-  directedRelationship
-    * 見るべきポイントは制約  ``{subsets relationship}`` だ。
-      これは関連端 directedRelationship が上述の関連端 relationship の部分集合である、の意だ。
-
-    * ある関連端が既存の関連端の部分集合であるとはどういう意味か、微妙なところがある。
-
-  source, target 共通
-    * 「向きという概念のある関連」という概念ゆえ、向きの開始・終了点を Element が表現する。
-      こちら側だけに開いた矢先とドットが付いているので、
-      source や target 側から directedRelationship にたどり着くことはない。
-
-    * 制約 ``{subsets relatedElement}`` については先ほどと同様の様式の解釈でよい。
-    * プラス記号とスラッシュ記号が関連端名の前に付いている。
-      後続の新規導入構文で継承されるのだろう。
-
-次の関連の意味を解釈することをノートを取るための練習問題とする。
-
-* Element から Comment への関連 (A_ownedComment_owningElement)
-* Comment から Element への関連 (A_annotatedElement_comment)
+A_source_directedRelationship, A_target_directedRelationship
+  * DirectedRelationship から Element への関連。
+    ふたつの関連をまとめて記す。
+  * この関連の意味は上記 DirectedRelationship を参照。
+  * 関連端 source または target の多重度が ``1..*`` なので、
+    開始点のない関係もあり得ないし、終了点のない関係もあり得ない。
+    また、一つの関係において開始点が複数あってよいし、
+    終了点が複数あってもよいし、両方共に複数あってもよい。
 
 これ以降の各 Abstract Syntax の節で示される図式については、
 必要に応じてここでやったような方法で新規モデリング要素の意味を汲んでいくことにする。
@@ -146,13 +163,14 @@ Notation の節で仕様化することになっている。
 
 7.2.5 Examples
 ----------------------------------------------------------------------
-* Figure 7.2 Comment notation のみ。特筆すべき事項なし。
+* Figure 7.2 Comment notation
+
+  * 特筆すべき事項なし。
 
 7.3 Templates
 ======================================================================
 原始的なモデリング要素の仕様の直後でなんとテンプレートの話題になる。
 UML でのテンプレートは C++ 等の一部プログラミング言語の定義するそれと似た概念なのだろうか。
-読んでみよう。
 
 7.3.1 Summary
 ----------------------------------------------------------------------
@@ -165,123 +183,192 @@ UML でのテンプレートは C++ 等の一部プログラミング言語の�
 ----------------------------------------------------------------------
 図表が二つに分割されているが、頭の中で混ぜて覚えてよい。以下雑感。
 
-* Figure 7.3 で、一部関連端名のスラッシュが抜けていると思われるものがある。
+* Figure 7.3 Templates
+
+  * TemplateableElement, ParameterableElement,
+    TemplateParameter, TemplateSignature が新登場。
+    すべて Element の直接派生クラス。
+
+* Figure 7.4 Template bindings
+
+  * TemplateParameterSubstitution, TemplateBinding が新登場。
 
 7.3.3 Semantics
 ----------------------------------------------------------------------
-登場する抽象クラスとクラスをまとめておく。
-
 *TempleatableElement*
-  * <A TemplateableElement is an Element that can optionally be defined
-    as a template and bound to other templates>(p. 24)
-  * 後述する TemplateSignature を ``0..1`` 個所有できる。
-  * 後述する TemplateBinding を任意個所有できる。
+  * Element の一種である。
+  * 任意でテンプレートとして定義され、
+    他のテンプレートに束縛されることのできる Element である。
+    そのようなテンプレートは TemplateBinding という関係を用いて、
+    他のモデル要素を生成 (generate) するために利用することが可能。
+
+  * テンプレートは同種の非テンプレート要素と同じやり方で利用することが不可能。
+  * テンプレート要素は次のどちらかの目的でのみ利用可能。
+
+    * 被束縛要素を生成する
+    * 他のテンプレートの詳細の一部になる
+
+  * TemplateableElement は TemplateSignature と TemplateBindings の両方を含んでよい。
+    ゆえに TemplateableElement はテンプレートと被束縛要素の両方であってよい。
 
 *ParameterableElement*
+  * Element の一種である。
   * TemplateParameter や TemplateParameterSubstitution によって所有される要素？
+  * 露出した ParameterableElement を、そのテンプレートが直接間接を問わず所有してよい。
 
 TemplateSignature
-  * 単なる TemplateParameter の順序付き composite に見える。
+  * Element の一種である。
+  * ある TemplateSignature にとっての TemplateParameters は、
+    一つの束縛の中で実引数（またはデフォルト）で置換されるであろう仮引数を指定する。
+
+  * テンプレート (template) とは、
+    TemplateSignature を用いてパラメーター化された TemplateableElement のことである。
+
+  * TemplateSignature のサブクラスは、
+    ある特別な種類のテンプレートの状況下で、
+    どの種類の ParameterableElement が TemplateParameter に用いられるのかを
+    制約する規則をさらに追加することも可能だ。
 
 TemplateParameter
-  * テンプレートの形式的なパラメーターとして ParameterableElement を晒す (expose) Element である。
-  * ParameterableElement に対する 2 系統の関連 (default/parameteredElement) がある。
+  * Element の一種である。
+  * TemplateParameter はその TemplateParameter が部分となる
+    TemplateSignature を所有するテンプレートの内部に含まれる
+    ParameterableElement に関して定義される。
+    そういう要素はその TemplateParameter によって晒されている (to be exposed) と言われる。
+
+    * もっとよい日本語はないか？
 
 TemplateParameterSubstitution
   * <A TemplateParameterSubstitution
     specifies the actual parameter to be substituted for a formal
     TemplateParameter within the context of a TemplateBinding>(p. 24)
-  * TemplateParameter を 1 個、ParameterableElement を 1 個と関連している。
 
 TemplateBinding
-  * ある TemplateableElement からあるテンプレートへの DirectedRelationship である。
-  * TemplateBinding はそのテンプレートの形式的な (formal) 引数の代わりとなる、
-    実際の (actual) 引数の TemplateParameterSubstitutions を指定する。
+  * TemplateableElement からテンプレートへの DirectedRelationship である。
+  * TemplateBinding はそのテンプレートの仮引数 (formal parameter) に代入する
+    実引数 (actual parameter) の TemplateParameterSubstitutions を指定する。
 
-登場する関連をまとめておく。
+  * テンプレートの TemplateSignature は
+    現実のモデル Elements に束縛されてよい TemplateParameters の集合を一つ定義する。
+
+    * 被束縛要素 (a bound element) とは、
+      一つまたはそれ以上のそういう TemplateBindings を持つ
+      TemplateableElement である。
+
+    * 完全被束縛要素 (completely bound element) とは、
+      そのすべての TemplateBindings が束縛されているテンプレートの
+      TemplateParameter すべてを束縛する被束縛要素である。
+
+    * 部分的被束縛要素 (partially bound element) とは、
+      その TemplateBindings のうち少なくとも一つは束縛されているテンプレートの
+      TemplateParameter を束縛しない被束縛要素である。
+
+A_ownedTemplateSignature_template
+  * TemplateableElement から TemplateSignature への composite 関連（双方向）。
+  * テンプレートの TemplateSignature は 
+    ある被束縛要素 (pl.) 内の実際のモデル要素に束縛される
+    TemplateParameters の集合を定義する。
+  * A_ownedElement_owner を subsets する。
+  * 関連端 ownedTemplateSignature の多重度は ``0..1`` である。
 
 A_parameter_templateSignature
-  * TemplateSignature から TemplateParameter への一方通行。
+  * TemplateSignature から TemplateParameter への関連（単方向）。
+  * 他の関連のベースとなる関連である。
+  * 関連端 parameter の多重度が ``1..*`` である。
   * 制約 ``{ordered}`` が parameter の方についている。
     つまり個々の TemplateParameter が厳密に順序付けられている。
 
-A_ownedParameter_signature
-  * TemplateSignature と TemplateParameter の関連だが、
-    両端とも上述の関連の subsets になっている。
-
-  * 制約を見ると、前節で定義を見た関連 (A_ownedElement_owner) を再利用している。
-    これにより TemplateSignature が TemplateParameter の composite であることが示されている。
-
-  * ドット記法が所有権が双方向であることを示す？
+  A_ownedParameter_signature
+    * TemplateSignature から TemplateParameter への composite 関連（双方向）。
+    * 端的に言えば TemplateSignature とは TemplateParameter の順序付き合成集約である。
+      この関連はまさにそのことを示す。
+    * A_ownedElement_owner と A_parameter_templateSignature を subsets する。
+    * 関連端 ownedParameter は ``{ordered}`` である。
 
 A_default_templateParameter
-  * TemplateParameter から ParameterableElement への単方向関連。
-  * 関連端 default は、形式的 (formal) な TemplateParameter のデフォルト値？である。
+  * TemplateParameter から ParameterableElement への関連（単方向）。
+  * 関連端 default は仮引数 TemplateParameter のデフォルト値？である。
+
+  A_ownedDefault_templateParameter
+    * TemplateParameter から ParameterableElement への composite 関連（単方向）。
+    * TemplateParameter がデフォルト値を与える目的で
+      ParameterableElement を所有することを示す関連。
+    * A_ownedElement_owner と A_default_templateParameter を subsets する。
+    * 両関連端の多重度は ``0..1`` である。
 
 A_parameteredElement_templateParameter
-  * TemplateParameter から ParameterableElement へ双方向ドット付き関連。
+  * TemplateParameter から ParameterableElement への関連（両方向）。
   * 関連端 parameteredElement は、この TemplateParameter が晒す (expose) ものであることを示す。
 
-A_ownedParameteredElement_owningTemplateParameter, A_ownedDefault_templateParameter
-  * いつもの所有関連と上述の関連それぞれから subsets された関連となる。
-  * 関連端 owned ホニャララの多重度は両者とも ``0..1`` である。
-  * 後者の関連端 templateParameter は制約 ``{redefines templateParameter}`` が付いている。
-    これはどういうことだろう？
+  A_ownedParameteredElement_owningTemplateParameter
+    * TemplateParameter から ParameterableElement への composite 関連（両方向）。
+    * TemplateParameter がそれを晒す目的で
+      ParameterableElement を所有することを示す関連。
+    * A_ownedElement_owner を subsets する。
+    * A_parameteredElement_templateParameter を片側だけ subsets する。
+      もう片側の templateParameter には制約 ``{redefines}`` が付いている。
+    * 両関連端の多重度は ``0..1`` である。
 
-A_formal_templateParameterSubstitution, A_actual_templateParameterSubstitution
-  * それぞれ TemplateParameterSubstitution から TemplateParameter と ParameterableElement への単方向関連。
-  * これらの関連はある TemplateBinding を背景として、テンプレート引数
-    formal をパラメーター化可能要素 actual により代入することを指定する。
+A_formal_templateParameterSubstitution
+  * TemplateParameterSubstitution から TemplateParameter への関連（単方向）。
+  * ある TemplateBinding におけるテンプレート引数代入の仮引数のようなものへの参照。
+  * 関連端 formal の多重度は 1 である。
 
-A_ownedActual_owningTemplateParameterSubstitution
-  * TemplateParameterSubstitution から ParameterableElement への composite 関連。
-  * 関連 A_ownedElement_owner を subsets する。
-  * 関連 A_actual_templateParameterSubstitution の
-    actual と templateParameterSubstitution をそれぞれ subsets と redefines する。
-  * 実際に ParameterableElement オブジェクトを所有する意味がある。
+A_actual_templateParameterSubstitution
+  * TemplateParameterSubstitution から ParameterableElement への関連（単方向）。
+  * ある TemplateBinding におけるテンプレート引数代入の実引数のようなものへの参照。
+  * 関連端 actual の多重度は 1 である。
+
+  A_ownedActual_owningTemplateParameterSubstitution
+    * TemplateParameterSubstitution から ParameterableElement への composite 関連（単方向）。
+    * 実際に ParameterableElement オブジェクトを所有する意味がある関連。
+    * 関連 A_ownedElement_owner を subsets する。
+    * 関連 A_actual_templateParameterSubstitution の
+      actual と templateParameterSubstitution をそれぞれ subsets と redefines する。
 
 A_parameterSubstitution_templateBinding
-  * TemplateBinding から TemplateParameterSubstitution への composite 関連。両端にドットが付く。
+  * TemplateBinding から TemplateParameterSubstitution への composite 関連（双方向）。
+  * TemplateBinding は TemplateParameterSubstitution を一つ所有する。
   * 関連 A_ownedElement_owner を subsets する。
 
 A_templateBinding_boundElement
-  * TemplateableElement から TemplateBinding への composite 関連。両端にドットが付く。
+  * TemplateableElement から TemplateBinding への composite 関連（双方向）。
   * TemplateableElement がこの TemplateBinding による束縛要素であることを示す。
   * 関連 A_ownedElement_owner と A_source_directedRelationship を subsets する。
 
 A_signature_templateBinding
-  * TemplateParameterSubstitution から TemplateSignature への単方向関連。
+  * TemplateParameterSubstitution から TemplateSignature への関連（単方向）。
   * 関連端 signature はこの TemplateBinding のターゲットテンプレートのためのものである。
   * 関連 A_target_directedRelationship を subsets する。
 
-用語をまとめてみる。
+.. todo::
 
-* テンプレート (template) とは、
-  TemplateSignature を用いてパラメーター化された TemplateableElement のことである。
-
-* テンプレートの TemplateSignature は
-  現実のモデル Elements に束縛されてもよい TemplateParameters の集合を一つ定義する。
-  束縛要素 (bound element) はそのような一つ以上の TemplateBindings を持つ
-  TemplateableElement である。
-
-  * 完全束縛要素 (completely bound element) とは、
-    そのすべての TemplateBindings が束縛されているテンプレートの
-    TemplateParameter すべてを束縛する束縛要素である。
-
-  * 不完全束縛要素 (partially bound element) とは、
-    その TemplateBindings のうち少なくとも一つは束縛されているテンプレートの
-    TemplateParameter を束縛しない束縛要素である。
-
-* TODO: 晒す (expose)
+   テンプレートに関する諸概念の意味 (pp. 25-26) を何とかまとめる。
 
 7.3.4 Notation
 ----------------------------------------------------------------------
-次の各要素の記法を BNF で定義している (p. 26)。
+* TemplateableElement が TemplateParameters を持つならば、
+  まずは小さい破線の矩形をその要素の右上に置く。
 
-* <template-parameter>
-* <template-param-substition>
+  * 破線矩形は TemplateParameters の仮引数リストを含む。
+    空であってはならない。
 
-  代入の記号として ``->`` を用いる。たぶん ``T -> int`` のように書ける。
+  * この仮引数リストは CSV で記すか、一行に一つの仮引数を示す。
+
+  * 一つの TemplateParameter の記法 <template-parameter> は
+    BNF で定義されている (p. 26)。
+
+* 被束縛要素の記法は、その種類の他の要素のそれと同じとする。
+
+* TemplateBinding は破線矢印で示す。
+
+  * 向きは被束縛要素からテンプレートとする。
+  * キーワード ``«bind»`` をラベルに付す。
+  * 束縛情報 <template-param-substition> を CSV で記してよい。
+    BNF で定義されている (p. 26)。
+
+    * 代入の記号として ``->`` を用いる。
+      たぶん ``T -> int`` のように書ける。
 
 7.4 Namespaces
 ======================================================================
@@ -292,81 +379,120 @@ A_signature_templateBinding
 
 7.4.2 Abstract Syntax
 ----------------------------------------------------------------------
-Figure 7.5 をじっくり見る。新登場の記号がいくつかある。
+* Figure 7.5 Namespaces
 
-* VisibilityKind 内の ``«enumeration»`` という記法
-* PackageableElement 内の属性 visibility の説明が込み入っている。
+  * 新登場の記号がいくつかある。
+
+    * VisibilityKind 内の ``«enumeration»`` という記法
+    * PackageableElement 内の属性 visibility の説明が込み入っている。
 
 7.4.3 Semantics
 ----------------------------------------------------------------------
-ここで仕様化された（抽象）クラスを記す。
-
-*NamedElement*
-  * その名前 (name) で識別することができる Element である。
-  * 特に所属する名前空間を省略せずに表記するときの名前を qualifiedName という属性で持つ。
-  * 名前の他に visibility という VisibilityKind 型の値が付随している。
-
 *Namespace*
-  * NamedElement の集合を所有する NamedElement オブジェクトである。
+  * NamedElement の集合を所有する NamedElement である。
     これは ownedMember という関連端名で示されている。
 
-  * その他に PackageableElement, ElementImport, PackageImport, Constraint に関連する。
+  * もし Namespace のある member が N という name を持つ NamedElement ならば、
+    その member を N::x の形式の限定名 (qualified name) により参照することが可能である。
+
+    * この手のルールが色々と説明されているが、
+      私には自明なのでノートを省略する。
+
+*NamedElement*
+  * Element の一種。
+  * モデル内の名前を持ってよい要素である。
+  * name: この値で NamedElement を見分ける。
+  * qualifiedName: 特に所属する名前空間を省略せずに表記するときの名前。
+  * visibility: VisibilityKind 型の値。
+
+  * NamedElements は
+    ある NamedElement が別のものとどのようにして見分けがつくのかを指定する規則に従って
+    Namespace 内に現れてよい。
+
+    * その既定の規則とは、二つの members が見分けがつくのは、
+      それらが異なる names を持つか、同じ names を持つかである。
 
 *PackageableElement*
   * Package が直接所有することのできる NamedElement である。
+
+    * Package については :doc:`./packages` 参照。
+
   * かつ ParameterableElement でもあるので、TemplateParameter としても使える。
   * NamedElement から継承した属性 visibility のデフォルト値は public である？
 
 ElementImport
   * Namespace と PackageableElement との間の DirectedRelationship である。
   * かつ PackageableElement でもある。
+  * ElementImport はその PackageableElement の名前をインポート先 Namespace に追加するものである。
+
+    * その ElementImport の可視性は、
+      インポート元の要素のそれと同じか、より制限されたものかのどちらかになる。
+
+  * 名前衝突の際には、名前空間の外側の名前が隠蔽される。
+    外側のものをアクセスするには限定名を用いることで可能になる。
+
   * 属性には alias と visibility がある。後者はデフォルトで public である？
 
 PackageImport
   * Namespace と Package との間の DirectedRelationship である。
+  * この関係は Namespace が対象の Package の members の名前を、
+    自身の Namespace に追加することを意味する。
+
+  * もし見分けの付かない Elements が Namespace にインポートされようとした場合、
+    その Elements は対象の Namespace に追加されない。
+    それらをそこで用いるためには名前を限定する必要がある。
+
+  * publicly にインポートした Element はインポート先 Namespace の public member である。
+
   * 属性には visibility がある。デフォルトで public である？
 
 .. note:: ここまで出てきた要素名で、まだ仕様化されていないものがいくつかある。
 
-ここで仕様化された関連を記す。
-
 A_member_memberNamespace
-  * Namespace から NamedElement への関連。この方向にのみ navigable である。
-  * いずれの関連端点も ``{readOnly, union}`` かつ多重度が ``*`` である。
-  * 次の 2 関連によって subsets されている。
+  * Namespace から NamedElement への関連（単方向）。
+  * いずれの関連端も ``{readOnly, union}`` かつ多重度が ``*`` である。
 
   A_ownedMember_namespace
-    * Namespace から NamedElement への関連。双方向に所有権？
-    * A_ownedElement_owner をも subsets している。
-    * Namespace が NamedElement の composite になっている。
+    * Namespace から NamedElement への composite 関連（双方向）。
+    * A_member_memberNamespace と A_ownedElement_owner を subsets している。
     * 関連端 namespace の多重度は ``0..1`` になっている。
-    * 次の関連によって subsets されている。
 
     A_ownedRule_context
-      * Namespace から Constraint への関連。
-      * Namespace は Constraint の composite である。
-        関連端 context の多重度 ``0..1`` に対して、
+      * Namespace から Constraint への composite 関連（双方向）。
+      * 関連端 ownedRules はある Namespace のために
+        拘束された要素 (pl.) のための well-formed な規則を表現する。
+
+      * 関連端 context の多重度 ``0..1`` に対して、
         関連端 ownedRule の多重度が ``*`` の関係がある。
 
   A_importedMember_namespace
-    * Namespace から PackageableElement への関連。
+    * Namespace から PackageableElement への関連（単方向）。
 
 A_elementImport_importingNamespace, A_packageImport_importingNamespace
-  * これらは Namespace から ElementImport, PackageImport それぞれへの composite な関連である。
-  * 2 種類の関連 A_ownedElement_owner, A_source_directedRelationship を subsets している。
+  * Namespace から ElementImport, PackageImport それぞれへの composite 関連（双方向）。
+  * Namespace は他の Namespaces から NamedElements をインポートしてよい。
+
+  * A_ownedElement_owner, A_source_directedRelationship を subsets している。
     関連端 importingNamespace 側が source かつ owner である。
 
 A_importedElement_import, A_importedPackage_packageImport
-  * 前者は ElementImport から PackageableElement への関連、
-    後者は PackageImport から Package への関連である。
+  * 前者は ElementImport から PackageableElement への関連（単方向）、
+    後者は PackageImport から Package への関連（単方向）。
 
-  * 両者とも関連 A_target_directedRelationship から派生している。
-    ElementImport と PackageImport が directedRelationship を、
-    PackageableElement と Package が target をそれぞれ subsets している。
+  * A_target_directedRelationship を subsets している。
 
 A_nameExpression_namedElement
+  * NamedElement から StringExpression への composite 関連（単方向）
   * NamedElement は高々 1 個の StringExpression を所有できる。
-  * 関連 A_ownedElement_owner から派生したものだ。
+
+    * テンプレート中では NamedElement は
+      その subexpressions が TemplateParameters が晒す ParameterableElement である、
+      関連 StringExpression を持ってよい。
+
+  * NamedElement は property の name と関連端の nameExpression を両方持ってよい。
+    この場合、name はその NamedElement の別名として用いることが可能。
+
+  * A_ownedElement_owner を subsets する。
 
 同時に VisibilityKind を仕様化している。4 つの可視性タイプからなる。
 
@@ -389,7 +515,9 @@ A_nameExpression_namedElement
 
 7.4.5 Examples
 ----------------------------------------------------------------------
-* Figure 7.6 はテンプレートの例も兼ねている。
+* Figure 7.6 Template package with string parameters
+
+  * テンプレートの記法例も兼ねている。
 
   * 図の上側大枠が Package テンプレート ResourceAllocation というものを示す。
   * パッケージ右上の 3 行が TemplateParameter の記法例。
@@ -401,12 +529,18 @@ A_nameExpression_namedElement
   * 図の下側の ``«bind»`` リストが TemplateParameterSubstitution の記法例。
     StringExpression の値は普通の文字列のようだ。
 
-* Figure 7.7 の下側の矢印およびその付随記号が ElementImport の記法例となる。
+* Figure 7.7 Example of element import
 
-* Figure 7.8 も ElementImport の記法例で「別名付き」である。
+  * 下側の矢印およびその付随記号が ElementImport の記法例となる。
 
-* Figure 7.9 は PackageImport の記法例である。
-  矢印の頭の位置が先程と異なる。
+* Figure 7.8 Example of element import with aliasing
+
+  * こちらも ElementImport の記法例で「別名付き」である。
+
+* Figure 7.9 Examples of public and private package imports
+
+  * PackageImport の記法例である。
+    矢印の頭の位置が先程と異なる。
 
 7.5 Types and Multiplicity
 ======================================================================
@@ -415,29 +549,34 @@ A_nameExpression_namedElement
 7.5.1 Summary
 ----------------------------------------------------------------------
 型と多重度は値を含む Element の宣言に用いられる。
-そのような値の種類と個数に縛りをかける目的がある。
+そのような値の種類と個数を拘束する目的がある。
 
 7.5.2 Abstract Syntax
 ----------------------------------------------------------------------
-Figure 7.10 にて新たに登場するクラスと関連を観察しておく。
+* Figure 7.10 Abstract syntax of types and multiplicity elements
 
-* クラスはすべて抽象。
+  * 新規クラス TypedElement, Type, Multiplicity はすべて抽象。
 
 7.5.3 Semantics
 ----------------------------------------------------------------------
 ここで仕様化された（抽象）クラスを記す。
 
 *Type*
-  * 型の概念を説明するのは難しい気がする。
-  * UML における Type はすべて Classifier である。
+  * PackageableElement の一種。
+  * Type とは、その Type のオブジェクトとして知られている取り得る値の集合を指定するものである。
+  * Type の種類に応じて、そのオブジェクトは生成または消滅されてよい。
+  * UML における Types はすべて Classifiers である。
     :doc:`./classification` 参照。
 
 *TypedElement*
-  * 何らかの手段で特定の値を表現するような NamedElement である。
-  * この派生概念を :doc:`./values` で仕様化する。
+  * NamedElement の一種。
+  * 何らかの手段で特定の値を表現する。
+  * TypedElement の種類としては ValueSpecification や StructuralFeature がある。
+    :doc:`./values` や :doc:`./classification` を参照。
 
 *MultiplicityElement*
-  * 多重度は何らかの手段で値の集まりを表現するために生成される Element である。
+  * Element の一種。
+  * 多重度は何らかの手段で値の集まりを表現するために生成される。
   * 属性 isOrdered は値の集まりが順序付けられているか否かを示す。
   * 属性 isUnique は一意な値の集まりか否かを示す。
 
@@ -454,19 +593,17 @@ Figure 7.10 にて新たに登場するクラスと関連を観察しておく�
     それらに対応するコレクションの型 (e.g. Set, OrderedSet) の名前が面白い。
     詳しくないが Java のクラス名だろうか。
 
-関連について記す。
-
 A_type_typedElement
-  * TypedElement から Type への関連。多重度は ``0..1`` だ。
-    これは TypedElement のとる値の Type が与えられているかどうかを意味する。
+  * TypedElement から Type への関連（単方向）。
+  * 関連端 type の多重度は ``0..1`` だ。
+  * これは TypedElement のとる値の Type が与えられているかどうかを意味する。
     言語にもよるだろうが、ゼロの場合は任意の型の値になれるようだ。
 
 A_lowerValue_owningLower, A_upperValue_owningUpper
-  * MultiplicityElement から ValueSpecification への関連。
-    ValueSpecification の仕様は :doc:`./values` にて。
-
-  * A_ownedElement_owner から制約 subsets で派生した関連。
-  * 属性値の lower, upper とは別に関連端点 lowerValue, upperValue があるのか。
+  * MultiplicityElement から ValueSpecification への composite 関連（単方向）。
+  * ValueSpecification の仕様は :doc:`./values` にて。
+  * A_ownedElement_owner を subsets する。
+  * 属性値の lower, upper とは別に関連端 lowerValue, upperValue がある。
 
 7.5.4 Notation
 ----------------------------------------------------------------------
@@ -481,13 +618,16 @@ A_lowerValue_owningLower, A_upperValue_owningUpper
 
 7.5.5 Examples
 ----------------------------------------------------------------------
-* Figure 7.11 は Customer というクラスシンボルの図式。
+* Figure 7.11 Multiplicity within a textual specification
 
+  * Customer というクラスシンボルの図式。
   * 属性名のすぐ後ろに多重度テキストが現れる見本。
   * 角括弧に多重度を書き込む記法は、まるで配列のそれに見える。
   * ``{ordered, unique}`` 等にも注意したい。
 
-* Figure 7.12 は上述の図式と等価なモデルを関連で表記したもの。
+* Figure 7.12 Multiplicity as an adornment to a symbol
+
+  * 上述の図式と等価なモデルを関連で表記したもの。
 
 7.6 Constraints
 ======================================================================
@@ -502,29 +642,38 @@ satisfied by any valid realization of the model containing the Constraint>
 
 7.6.2 Abstract Syntax
 ----------------------------------------------------------------------
-Figure 7.13 を見ると、クラス Constraint とその関連だけを仕様化するようだ。
+* Figure 7.13 Abstract Syntax of Constraints
+
+  * クラス Constraint とその関連だけを仕様化するようだ。
 
 7.6.3 Semantics
 ----------------------------------------------------------------------
 Constraint
-  * PackageableElement から派生している。
+  * PackageableElement の一種である。
+  * Constraint の specitication は Boolean 型の ValueSpecification により与えられる。
+    その計算には constrainedElements と context を参照してよい。
+
+  * 一般には Constraint の owners としては様々な種類の Elements が考えられる。
+    唯一の制限は、所有者である Element は constrainedElements へのアクセスを持つ必要があるということだ。
+
+    * 所有者はいつ Constraint の specitication が評価されるのかを決定する。
+      例えばある Operation の precondition である Constraint ならば、
+      その操作の発動開始時に評価される。
 
 A_constrainedElement_constraint
-  * Constraint から Element への関連。
+  * Constraint から Element への関連（単方向）。
   * 関連端 constrainedElement の多重度は ``* {ordered}`` である。
   * この constrainedElement が「制約が付随する対象」である。
 
 A_specification_owningConstraint
-  * Constraint から ValueSpecification への関連。
-  * A_ownedElement_owner から制約 subsets で派生された関連。
+  * Constraint から ValueSpecification への composite 関連（単方向）。
+  * A_ownedElement_owner を subsets する。
   * 一つの Constraint が一つの ValueSpecification を所有する。
     具体的に言うと、specification は「制約が満足されているかどうかを示す値」なので、
     値としては true か false をとる。
 
 A_ownedRule_context
-  * Namespace から Constraint への関連。
-  * 双方向に所有権？
-  * この context は「制約を評価する際に参照対象となる」のか？
+  前述の通り。
 
 7.6.4 Notation
 ----------------------------------------------------------------------
@@ -541,9 +690,17 @@ A_ownedRule_context
 
 7.6.5 Examples
 ----------------------------------------------------------------------
-* Figure 7.14 はノートシンボルによる Constraint 表記例。
-* Figure 7.15 はクラスのある属性にその Constraint を示す例。
-* Figure 7.16 は二つの関連に共通する Constraint を示す例。
+* Figure 7.14 Constraint in a note symbol
+
+  * ノートシンボルによる Constraint 表記例。
+
+* Figure 7.15 Constraint attached to an attribute
+
+  * クラスのある属性にその Constraint を示す例。
+
+* Figure 7.16 {xor} constraint
+
+  * 二つの関連に共通する Constraint を示す例。
 
 7.7 Dependencies
 ======================================================================
@@ -556,47 +713,51 @@ A_ownedRule_context
 
 7.7.2 Abstract Syntax
 ----------------------------------------------------------------------
-Figure 7.17 は一部テキストが欠けている。
+* Figure 7.17 Abstract syntax of dependencies
+
+  * 一部テキストが欠けている。
 
 7.7.3 Semantics
 ----------------------------------------------------------------------
 Dependency
-  * DirectedRelationship かつ PackageableElement な概念。
-    client の意味が supplier なしには完全ではないことを含意している。
+  * DirectedRelationship かつ PackageableElement の一種である。
+  * client の意味が supplier なしには完全ではないことを含意している。
   * モデル内の Dependency 関係の存在は、いかなる実行時の意味を持たない。
     そういうのは関連づいている NamedElement (client/supplier) が与える。
 
 Usage
-  * より特殊な Dependency である。
-    ある NamedElement がその完全な実装や操作のために必要とする別の NamedElement(s) があるとき、
+  * Dependency の一種である。
+  * ある NamedElement がその完全な実装や操作のために
+    必要とする別の NamedElement(s) があるとき、
     その依存性を表す。
 
 Abstraction
-  * より特殊な Dependency である。
-    ある抽象水準や視点では同じ概念を表現する NamedElements に関係する Dependency のこと？
+  * Dependency の一種である。
+  * ある抽象水準や視点では同じ概念を表現する NamedElements に関係する Dependency のこと？
   * この関係性は suppliers と clients との間の写像として定義してよい。
   * ``«Derive»``, ``«Refine»``, ``«Trace»`` などの定義済みステレオタイプを持つ。
     これは 22 章で仕様化する。
 
 Realization
-  * より特殊な Abstraction である。
-    これは NamedElements の集合 2 つの間の Abstraction であり、
+  * Abstraction の一種である。
+  * これは NamedElements の集合 2 つの間の Abstraction であり、
     一方 (supplier) は仕様を、他方 (client) は実装を表現する。
 
 A_supplier_supplierDependency
-  * Dependency から NamedElement への単方向関連。
-  * A_target_directedRelationship の subsets 関連。
+  * Dependency から NamedElement への関連（単方向）。
+  * A_target_directedRelationship を subsets する。
   * 関連端 supplier の多重度は ``1..*`` である。ゼロではあり得ない。
 
 A_clientDependency_client
-  * NamedElement と Dependency との間の双方向関連。
-  * A_source_directedRelationship の subsets 関連。
+  * Dependency と NamedElement との間の関連（双方向）。
+  * A_source_directedRelationship を subsets する。
   * 関連端 client の多重度は ``1..*`` である。ゼロではあり得ない。
   * 関連端 clientDependency は subsets される予定があるようだ。
 
 A_mapping_abstraction
-  * Abstraction から OpaqueExpression への composite 関連。
+  * Abstraction から OpaqueExpression への composite 関連（単方向）。
   * 図を見る限り OpaqueExpression によって mapping を表現する、と解釈できる。
+  * A_ownedElement_owner を subsets する。
 
 7.7.4 Notation
 ----------------------------------------------------------------------
@@ -615,9 +776,18 @@ A_mapping_abstraction
 
 7.7.5 Examples
 ----------------------------------------------------------------------
-* Figure 7.19 は謎のキーワード ``«Instantiate»`` を適用した Dependency の記法例。
-* Figure 7.20 は Usage の記法例。
-* Figure 7.21 は Realization の記法例。見慣れたクラス図だ。
+* Figure 7.19 An example of an «Instantiate» Dependency
+
+  * 謎のキーワード ``«Instantiate»`` を適用した Dependency の記法例。
+  * 画質が荒いので破線に見えないのがまずい。
+
+* Figure 7.20 An example of a «use» Dependency
+
+  * Usage の記法例。
+
+* Figure 7.21 An example of a realization Dependency
+
+  * Realization の記法例。見慣れたクラス図だ。
 
 7.8 Classifier Descriptions
 ======================================================================
