@@ -26,7 +26,7 @@ UML 2.5 pp. 181-238 に関するノート。
 
 11.2.2 Abstract Syntax
 ----------------------------------------------------------------------
-* Figure 11.1
+* Figure 11.1 Structured Classifiers
 
   * StructuredClassifier, ConnectableElementTemplateParameter,
     ConnectableElement, Connector, ConnectorEnd
@@ -35,30 +35,59 @@ UML 2.5 pp. 181-238 に関するノート。
 11.2.3 Semantics
 ----------------------------------------------------------------------
 *StructuredClassifier*
-  * Classifier の一種。意味は概要に記した。
+  * Classifier の一種。
+  * StructuredClassifier の Properties は以前 (:doc:`./classification`)
+    仕様化された Property の意味に従う。
 
 *ConnectableElementTemplateParameter*
   * TemplateParameter の一種である。
-  * あるテンプレートの正式 (formal) なパラメーターとして
+  * あるテンプレートの仮引数として
     ConnectableElement を晒すのに介されるクラスである。
 
 *ConnectableElement*
   * TypedElement かつ ParameterableElement である抽象クラス。
   * StructuredClassifier の内部構造中の一つの構成員 (roles) を表現する。
-  * ConnectableElements の接続可能性を確定するのに用いられる、
+  * ConnectableElement の詳細な意味はその抽象型 (pl.) が与える。
 
-    * effective required Interfaces という集合と、
-    * effective provided Interfaces という集合を
+  * 一般的に、各 ConnectableElement は次のものを展示 (exhibit) する。
+    これらの集合は Connectors を用いた ConnectableElements の接続可能性を
+    決定するのに用いられる。
 
-    各 ConnectableElement は見せる。
+    * effective required Interfaces の集合
+    * effective provided Interfaces の集合
+
+  * 委譲 Ports を除いた ConnectableElements にとって、
+    effective required Interfaces はその required Interfaces であり、
+    かつ次のようにして導出される provided Interfaces である。
+
+    * その provided Interface はその ConnectableElement の type と
+      その基底型が実現する Interfaces の集合 (pl.) の和集合を含む。
+      あるいは、それが Interface による型ならば、まさにそれの type を含む集合である。
+
+    * その required Interfaces はその ConnectableElement の type と
+      その基底型が用いる Interfaces の集合 (pl.) の和集合を含む。
 
   * Property は ConnectableElement の一種である。
 
 Connector
   * Feature の一種である。
-  * Connector は StructuredClassifier 内部の roles を演じる 2 つ以上のオブジェクト間のリンク (pl.) を明確にするものである。
+  * Connector は StructuredClassifier 内部の roles を演じる 2 つ以上の
+    オブジェクト間のリンク (pl.) を明確にするものである。
+
+    * ポインターと同じくらい簡単な何かや、
+      ネットワーク接続と同じくらい複雑な何かが各リンクを実現してよい。
+
+    * Connectors は接続された roles を演じているオブジェクトだけの間のリンクを指定する。
+
+  * 各 Connector は、
+    それぞれがその StructuredClassifier のオブジェクト化に寄与する
+    オブジェクト (pl.) の集合を表現しているような、
+    ふたつ以上の ConnectableElements に配線されてよい。
 
     * よく考えると、タコ足のようなトポロジーでも Connector の定義に含まれている。
+
+  * Connector は Association によって型が付けられてよい。
+    その場合には Connector が指定するリンクは Association 型のオブジェクトである。
 
   * 属性 kind は ``{readOnly}`` な ConnectorKind 値である。
     次のどちらかを値として取る
@@ -71,10 +100,27 @@ ConnectorEnd
   * 一つの Connector の端点であり、
     その Connector を一つの ConnectableElement へ取り付ける。
 
+  * MultiplicityElement の意味に従って、
+    ConnectableElements 上の多重度 (pl.) は
+    StructuredClassifier のあるオブジェクトの内部で
+    生成してよいオブジェクトの個数を強制する。
+
+  * 二項 Connector において、
+    その ConnectorEnd の多重度は
+    他方の関連端上の ConnectableElement の各オブジェクトに
+    リンクしてよいオブジェクトの個数を示す。
+
+  * N 項 Connector において、ひとつの関連端の多重度は
+    その他の関連端それぞれにとってのある特定のオブジェクトを含んでいる集合を参照してよい
+    リンクの個数を強制する。
+
+  * 相互接続する ConnectorEnds とそれらの ConnectableElements の多重度 (pl.) の
+    マッチングを生じる位相を、モデルから推論することはいつでもはできない。
+
 A_role_structuredClassifier
-  * StructuredClassifier から ConnectableElement への単方向関連。
+  * StructuredClassifier から ConnectableElement への関連（単方向）。
   * 先述したようにこの関連こそが StructuredClassifier の主な意味である。
-  * 関連 A_member_memberNamespace を subsets している。
+  * A_member_memberNamespace を subsets する。
   * 両端ともに ``{readOnly, union}`` 制約がある。
 
 A_ownedAttribute_structuredClassifier
@@ -86,6 +132,9 @@ A_ownedAttribute_structuredClassifier
 A_part_structuredClassifier
   * StructuredClassifier から Property への単方向関連。
   * 上記 ownedAttributes で ``isComposite == true`` なものを parts とする。
+
+    * よって parts は roles の部分集合を構成する。
+
   * 関連端 part は ``{readOnly}`` である。
 
 A_ownedConnector_structuredClassifier
@@ -193,7 +242,8 @@ A_redefinedConnector_connector
 
 * Figure 11.7 "Array" Connector pattern
 
-  * (i) では関連端の多重度が 1 なので、リンクの意味は (ii) に示すようにパラレルに解釈する。
+  * (i) では関連端の多重度が 1 なので、
+    リンクの意味は (ii) に示すようにパラレルに解釈する。
 
 * Figure 11.8 An assembly Connector ...
 
@@ -226,12 +276,25 @@ A_redefinedConnector_connector
 *EncapsulatedClassifier*
   * 概要に記した性質のある StructuredClassifier の一種である。
 
+  * EncapsulatedClassifier のオブジェクトが生成するときには、
+    それの各 Port に対応するオブジェクトが生成して、
+    各 Port が指定する Slot に、型と多重度に従って、収まる。
+
+    * これらのオブジェクトを相互作用点 (interaction points) と呼ぶ。
+      一意的な参照を与える。
+
 Port
   * Port とは EncapsulatedClassifier の Property であり、
     次のどちらかの間の個々の相互作用点を指定するものである。
 
     * EncapsulatedClassifier 自身とそれがある環境
     * EncapsulatedClassifier の Behavior と内部の roles
+
+  * EncapsulatedClassifier の内部をそれの環境から疎結合することにより、
+    Ports は EncapsulatedClassifier を、
+    環境に依存することなく定義したり、
+    Ports が課す制約に適合するどのような環境においても再利用可能にしたり
+    することを許す。
 
   * 属性 isBehavior はこれが behavior Port であるかを示す。
 
@@ -241,11 +304,43 @@ Port
   * 属性 isConjugated は provided/required Interfaces が
     Property::type にどのように関係するのかを示す。
 
+    true
+      * provided はその Port の type と
+        それの基底型が用いる Interfaces の集合 (pl.) の和集合として導出する。
+
+      * required はその Port の type と
+        それの基底型が実現する Interfaces の集合 (pl.) の和集合として導出する。
+        または、その Port がある Interface の型ならば、
+        その Port の type から直接導出する。
+
+    false
+      私が読み誤っていなければ、
+      provided と required の内容が true の場合の定義とお互い入れ替わる。
+
   * 属性 isService は Port が EncapsulatedClassifier の公開機能を
     提供するのに用いられるか、または実装するのかどうかを示す。
 
+  * 委譲 Connector とは、
+    ある Port と所有 EncapsulatedClassifier 内部のある role をリンクする Connector である。
+
+    * Operations の発動と Signals の運送を表現する。
+    * 振る舞いの階層的な分解をモデル化するのに用いられる。
+
+  * もし複数の Connectors がひとつの Port の一方の側に取り付けられていれば、
+    その Port の反対側のある Connector から導出するリンク上の
+    Port に到着しているどんな依頼も、
+    これらの Connectors に対応するリンク (pl.) の上に転送される。
+
+    * これらの依頼がすべてのリンク上に転送されるのか、
+      またはそれらのリンクのうちのひとつだけに転送されるのかは
+      定義されていない。
+
 A_ownedPort_encapsulatedClassifier
   * EncapsulatedClassifier から Port への composite 関連（単方向）。
+
+  * EncapsulatedClassifier は複数の Ports を定義する能力があり、
+    相異なる通信をそれが起こる Port に基いて区別することが可能になる。
+
   * A_ownedAttribute_structuredClassifier を subsets する。
   * 関連端 ownedPort は ``{readOnly}`` である。
 
@@ -374,6 +469,11 @@ Class
       その classifierBehavior を実行開始して、
       それが完了するか、外部のオブジェクトから停止させられるかしなければ
       終わらないようなもの。
+
+  * Class に対して、生成される初期値を指定する目的で InstanceSpecification を用いてよい。
+
+  * Class のオブジェクトが消滅するときには、
+    その Class の parts オブジェクトと ports すべてが再帰的に消滅する。
 
 A_superClass_class
   * Class から Class への関連（単方向）。
@@ -784,7 +884,7 @@ A_realization_abstraction
   * 意味は上記 ComponentRealization のノート参照。
 
   * A_ownedElement_owner を subsets する。
-  * A_supplier_supplierDependency を subsets する（向き注意）。
+  * A_supplier_supplierDependency を subsets する。
 
 A_realizingClassifier_componentRealization
   * ComponentRealization から Classifier への関連（単方向）。
