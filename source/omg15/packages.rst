@@ -45,12 +45,32 @@ PackageMerge
 
   * Package は直接的、間接的を問わず、自分自身を合併することは許されない。
 
-  .. todo::
+  * Figure 12.2 Illustration of the Meaning of Package Merge
 
-     細かい規則集 (pp. 240-245) をまとめるかどうか。
+    * P2::A は P1::A の増分を定義する。
 
-     * Figure 12.2 Illustration of the Meaning of Package Merge
-     * Figure 12.3 Conceptual View of the Package Merge Semantics
+    * P3::SubA は P2::A のサブクラスの定義である。
+      P3 から見ると、P2::A は P1 と P2 の間のマージ結果の A を表現していると解釈する。
+
+    * P1: mergedPackage (target)
+    * P2: receivingPackage (source, owner) であると同時に resultingPackage
+
+      * マージの before/after で同じところにあるものの呼び方が変わる
+        (receiving/resulting) ことがわかればとりあえず読める。
+
+  * Figure 12.3 Conceptual View of the Package Merge Semantics
+
+    * 図の右側は UML の図式ではない。
+    * この B ダッシュを意識することがコツだと言っている。
+
+ * PackageMerge の意味は制約と変換の集合で定義される。
+   制約は妥当な PackageMerge の事前条件を指定し、
+   一方、変換はその意味的な効果（事後条件のような）の特徴を描く。
+   もし制約のいくつかが破られていれば、
+   その PackageMerge は ill-formed であり、それを含むモデルは不正なものである。
+
+   その「集合」が pp. 240-245 で文書化されている。
+   もしマージの仕様を詳しく把握する状況になったら、ここを参照すること。
 
 Model
   * Package の一種である。

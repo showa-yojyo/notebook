@@ -406,7 +406,7 @@ Parameter
     * delete: in または input な Parameter 限定。
 
   * 属性 isException: これはよくわからない。
-  * 属性 isStream: これもよくわからない。13 章まで待つか。
+  * 属性 isStream: :doc:`./common-behavior` で述べる。
 
 ParameterSet
   * この図からは読み取れないが、NamedElement の一種である。

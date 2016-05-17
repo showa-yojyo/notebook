@@ -147,7 +147,7 @@ Reception
   * オブジェクトが受信した Signal にどのように応じるかの詳細は、
     Reception に関連づいたと Behavior の種類と、
     所有する Classifier や Interface に依る。
-    13 章でやる予定。
+    :doc:`./common-behavior` でやる予定。
   * Reception の名前は Signal の名前と同じである。
   * Reception は Signal の属性、
     名前と型と多重度、
@@ -272,7 +272,7 @@ A_interfaceRealization_implementingClassifier
 
 A_ownedBehavior_behavioredClassifier
   * BehavioredClassifier から Behavior への composite 関連（単方向）。
-  * BehavioredClassifier が Bahaviors を所有することを示す。
+  * BehavioredClassifier が Behaviors を所有することを示す。
   * A_ownedMember_namespace を subsets する。
 
   A_classifierBehavior_behavioredClassifier
