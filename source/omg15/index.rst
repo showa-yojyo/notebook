@@ -29,3 +29,4 @@ Unified Modeling Language 2.5 読書ノート
    structured-classifiers
    packages
    common-behavior
+   statemachines

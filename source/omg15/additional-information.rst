@@ -99,7 +99,7 @@ UML 2.5 pp. 11-20 に関するノート。
         16 章で議論する。
 
         State Machines
-          14 章で議論する。
+          :doc:`./statemachines` で議論する。
 
         Activities
           15 章で議論する。
