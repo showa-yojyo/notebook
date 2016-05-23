@@ -16,7 +16,7 @@ UML 2.5 pp. 303-370 に関するノート。
    * submachine (n.) そのまま綴る。意味は本文でじっくり解説する通り。
 
    * trigger (n.) 普通はカタカナで「トリガー」とするのが一般的だが、
-     実験的に「引き金」や、もっと踏み込んで「撃鉄」なども採用する。
+     実験的に「引き金」や、踏み込んで「撃鉄」なども採用する。
 
 .. contents:: ノート目次
 
@@ -67,9 +67,10 @@ StateMachine
 
   * もし StateMachine が BehavioredClassifier の一種の context があるならば、
     その Classifier はどの Signal と CallEvent の Triggers が
-    StateMachine にとって適用可能なのかを定義する。
+    StateMachine にとって適用可能なのか、
+    そしてどの Features が StateMachine が所有する Behaviors にとって適用可能なのかを定義する。
 
-    * 反対に StateMachine がスタンダロンな Behavior であれば、
+    * 反対に StateMachine に context がなければ、
       それの Triggers は何らかの Classifier のどんな Receptions や Operations にも
       つながっている必要はない。
 
@@ -91,7 +92,7 @@ StateMachine
 
 Region
   * Namespace の一種。
-  * Region はそれの直交する Regions を用いて同時に (concurrently) 実行してもよい、
+  * Region はそれの直交する Regions を用いて同時に (concurrently) 実行してよい、
     ある振る舞いの断片を記述する。
 
     * Regions が互いに直交するの意味は、次のどちらか一方を意味する。
@@ -106,7 +107,7 @@ Region
   * 反対に Region が含む Vertices のひとつにおいて終了となる
     ある Transition から Region に入るときには explicit activation が起こる。
 
-Vertex
+*Vertex*
   * NamedElement の一種。
   * StateMachine グラフの各ノード型のための抽象クラスである。
   * Vertex はどんな個数の Transitions の source and/or target であり得る（例外アリ）。
@@ -123,10 +124,13 @@ Vertex
       * composite State (isComposite): 少なくともひとつの Region を含む。
 
         * substate: composite State の Region 内部に囲まれた State をそう呼ぶ。
-        * direct substate: その他のどの State 内にもない substate をそう呼ぶ。
-        * indirect substate: direct でない substate をそう呼ぶ。
 
-      * submachine State (isSubmachineState): 入れ子になった StateMachine を参照する。
+          * direct substate: その他のどの State 内にもない substate をそう呼ぶ。
+          * indirect substate: direct でない substate をそう呼ぶ。
+
+      * submachine State (isSubmachineState): 
+        ある StateMachine 全体を参照する State であり、
+        概念としては（その全体は）この State の内部に入れ子になっていると考えられる。
 
     * States の複雑な階層は State または StateMachine の state configuration と呼ばれる。
 
@@ -143,11 +147,33 @@ Vertex
       * exit: その State を退場するときにいつでも実行される。
       * doActivity: この仕様は少々複雑なので注意。
 
-    .. todo::
+    * 状態履歴 (state history) という便利な概念がある。
+      これは同じ state configuration に容易に戻すことができるものだ。
+      Pseudostate の deepHistory, shallowHistory を参照。
 
-       * histories: 動作記録を表現する Pseudostate が二種類ある。
-       * entering: 思いのほか複雑な意味がある。
-       * exiting: これも。
+    * State に入場するという意味は、その型と入場方式に依存して決まる。
+
+      * いずれの場合も Transition の effect が完了してから State の entry が実行される。
+        State の doActivity が定義されていれば、先の entry の完了直後に実行を開始する。
+
+      * 単一 Region 内の合成 States の場合は、数通りの選択肢がある。
+
+      * どのように State に入場するかに関わらず、
+        たとえ entry や effect が実行を開始する前であっても、
+        StateMachine はその State に突入したと考えられる。
+
+    * State が退場する際には、
+      exit 以外のすべてに関連した Behaviors が完了してから、
+      exit が実行される。
+
+      * State の doActivity がまだ実行中ならば、それは exit の実行開始前に中断される。
+
+      * 合成 State の退場時は、active state configuration での最も内側の State の exit が開始する。
+      * 直交 State の退場時は、各 Region が退場する。その後に State の exit が実行される。
+
+      * どのように State を退場するかに関わらず、
+        その State の exit が実行完了した後にだけ、
+        StateMachine はその State を離脱したと考えられる。
 
     * Submachines は単一の StateMachine 仕様を複数回再利用可能にする方法である。
 
@@ -224,7 +250,7 @@ Transition
   * 合成 States を source とする Transitions は
     high-level または group Transitions と呼ばれる。
 
-  * Transition には guard という Constraint が関連していてもよい。
+  * Transition には guard という Constraint が関連していてよい。
 
     * 偽に評価される guard を持つ Transitions は使用無効である。
     * 評価されるタイミングは、それを含む複合 Transition が利用可能になる前である。
@@ -256,6 +282,84 @@ Transition
 
 .. todo:: Event Processing for StateMachines
 
+A_region_stateMachine
+  * StateMachine から Region への composite 関連（双方向）。
+  * StateMachine が直接所有する Regions である。
+  * 関連端 region の多重度は ``1..*`` である。必ずひとつは存在する。
+
+A_connectionPoint_stateMachine
+  * StateMachine から ConnectionPointReference への composite 関連（双方向）。
+  * StateMachine が submachine State の一部として用いられているときに定義する。
+
+A_submachineState_submachine
+  * StateMachine から State への関連（双方向）。
+  * submachine State の際に StateMachine が参照する submachine(s) である。
+    複数個を参照する条件は、concurrency が関係してくるらしい。
+
+A_subvertex_container
+  * Region と Vertex の間の composite 関連（双方向）。
+  * Region が Vertices を所有する。
+
+A_transition_container
+  * Region と Transition の間の composite 関連（双方向）。
+  * Region が Transitions を所有する。
+  * 関連端 container の多重度が 1 なので、
+    任意の Transition は必ずある Region に属する。
+
+A_incoming_target, A_outgoing_source
+  * Vertex と Transition の間の関連（双方向）。
+  * ひとつの Transition には source と target という Vertex がひとつずつ対応する。
+  * 関連端 incoming と outgoing は readOnly である。
+
+A_region_state
+  * State から Region への composite 関連（双方向）。
+  * State は StateMachine と同様に Regions を所有する能力がある。
+    ただし関連端 region の多重度は ``*`` である。
+
+A_stateInvariant_owningState
+  * State から Constraint への composite 関連（単方向）。
+  * この State が current であるときに常に成り立つ条件、不変条件である。
+  * 関連端 stateInvariant の多重度は ``0..1`` なので、オプションである。
+
+A_deferrableTrigger_state
+  * State から Trigger への composite 関連（双方向）。
+  * State は遅延可能トリガー（後続のある State configuration に到達するまでに
+    処理されていればよいトリガー）を任意個所有する。
+  * スラッシュの後に書かれているアレ。
+
+A_entry_state, A_doActivity_state, A_exit_state
+  * State から Behavior への参照。
+  * Behavior 側関連端の意味については先ほどのノート参照。
+  * Behavior 側のいずれの関連端の多重度も ``0..1`` なので、
+    これらの振る舞いの定義はオプションである。
+
+A_connection_state
+  * State から ConnectionPointReference への composite 関連（双方向）。
+  * この submachine State と一緒に用いる entry/exit 接続点 (pl.) を所有する。
+  * cf. A_entry_connectionPointReference, A_exit_connectionPointReference
+
+A_connectionPoint_state
+  * State から Pseudostate への composite 関連（双方向）。
+  * 自身が合成 State であるときに限り、その entryPoint と exitPoint を定義・所有する。
+
+A_entry_connectionPointReference, A_exit_connectionPointReference
+  * ConnectionPointReference から Pseudostate への関連（単方向）。
+  * 対応する entryPoint/exitPoint への関連を示す。
+
+A_trigger_transition
+  * Transition から Trigger への composite 関連（単方向）。
+  * この Transition を誘発してよい Triggers である。
+
+A_effect_transition
+  * Transition から Behavior への composite 関連（単方向）。
+  * 関連端 effect はこの Transition が発火するときに実施される振る舞い。
+    多重度が ``0..1`` なのでオプション。
+
+A_guard_transition
+  * Transition から Constraint への composite 関連（単方向）。
+  * ガード条件を表す。この guard が真になれば Transition は使用可能になる。
+  * 関連端 guard の多重度が ``0..1`` なのでオプション。
+
 14.2.4 Notation
 ----------------------------------------------------------------------
 StateMachine 図はある StateMachine を表現するグラフである。
@@ -281,7 +385,7 @@ State
     このスタイルは普通は合成 State の名前を出すのに用いられるが、
     他の場合で用いても構わない。
 
-  * State を水平線で区切って複数区画に分割してもよい。
+  * State を水平線で区切って複数区画に分割してよい。
     区画の構成は次のようになる。
 
     * name
@@ -324,8 +428,8 @@ PseudostateState
     PseudostateKind によって描画法が異なる。
 
   * initial は黒丸で示す。
-  * shallowHistory は``H`` を丸で囲む。
-  * deepHistory は``H*`` を丸で囲む。
+  * shallowHistory は ``H`` を丸で囲む。
+  * deepHistory は ``H*`` を丸で囲む。
   * entryPoint はStateMachine 図等の枠上に小さい丸として関連する名前とともに示す。
   * exitPoint はバツを丸で囲むシンボルと関連する名前とともに、
     entryPoint と同様にして示す。
@@ -346,7 +450,7 @@ Transition
   * テキストによる記法では
     ``<trigger>``, ``<guard>``, ``<behavior-expression>`` が使える。
 
-  * アクションシンボルは矩形で表現する。アクションのテキストでの仕様をつけてもよい。
+  * アクションシンボルは矩形で表現する。アクションのテキストでの仕様をつけてよい。
 
   * Signal 受信シンボルは独特な凹五角形で表現する。
     中には ``<trigger>`` や ``<guard>`` を用いたテキストが含まれる。
@@ -425,9 +529,9 @@ Transition
 * これは Classifier の特殊化の一部としてなされる。
 
 * 特殊化 StateMachine はその一般化 StateMachine のすべての要素を持つだろう、
-  なおかつさらなる要素を含んでもよい。
+  なおかつさらなる要素を含んでよい。
 
-* Regions を追加してもよい。
+* Regions を追加してよい。
   継承した Regions は拡張によって再定義される。
 
   * States と Vertices を継承して、
@@ -435,7 +539,7 @@ Transition
 
 .. 14.3.3.1.1 State redefinition
 
-* 簡単な State をひとつ以上の Regions による合成 State になるように再定義（拡張）してもよい。
+* 簡単な State をひとつ以上の Regions による合成 State になるように再定義（拡張）してよい。
 * 合成 State は次のように再定義（拡張）できる。
 
   * 新しい Regions を追加する。
@@ -446,20 +550,32 @@ Transition
 
 * State の再定義は StateMachine 全体に適用する。
 
-* submachine State もまた再定義してもよい。
-  再定義された submachine StateMachine と同じ entry/exit ポイントを持つという条件の下で、
-  submachine StateMachine は他の submachine StateMachine で置き換えてもよい。
+* submachine State もまた再定義してよい。
+  再定義された submachine StateMachine と同じ entryPoints/exitPoints を持つという条件の下で、
+  submachine StateMachine は他の submachine StateMachine で置き換えてよい。
 
-* 複数の一般化 Classifiers の場合は、
-  拡張 StateMachine が
-  新しい Region に加えて、各一般化 Classifiers の StateMachines についての
-  直交した Regions になることを拡張は暗示する。
+* 複数の一般化 Classifiers の場合には、拡張は次のことを含意する。
+  その拡張 StateMachine は、
+  別個の新規 Region に加えて、一般化 Classifiers の StateMachines のそれぞれを
+  直交 Regions にする。
 
 .. 14.3.3.1.2 Transition redefinition
 
-* 拡張 StateMachine の Transition はその拡張の中で再定義してもよい。
+* 拡張 StateMachine の Transition はその拡張の中で再定義してよい。
 * Transitions はそれらの effect と target State を置き換えさせることができ、
   一方 source と trigger State はそのまま保たれる。
+
+A_extendedStateMachine_stateMachine, A_extendedRegion_region
+  * StateMachine/Region から StateMachine/Region への関連（単方向）。
+  * これがひとつの拡張であるような StateMachine/Region を参照。
+
+A_redefinedState_state, A_redefinedTransition_transition
+  * State/Transition から State/Transition への関連（単方向）。
+  * これがその再定義であるような State/Transition を参照。
+
+A_redefinitionContext_region, A_redefinitionContext_state, A_redefinitionContext_transition
+  * Region/State/Transition から Classifier への関連（単方向）。
+  * これが再定義されることが許容される context Classifier を参照。
 
 14.3.4 Notation
 ----------------------------------------------------------------------
@@ -474,7 +590,7 @@ Transition
   破線または軽い調子の線のどちらかで描かれる。
 
 * State が終端状態 (a leaf state) ならば、
-  State の名前に続いてラベル ``«final»`` を追加してもよい。
+  State の名前に続いてラベル ``«final»`` を追加してよい。
 
 14.3.5 Examples
 ----------------------------------------------------------------------
@@ -552,7 +668,7 @@ ProtocolStateMachine
     所有している Classifier の外観を提示する。
 
   * ProtocolStateMachines は Classifier の振る舞いの black box な展望を与えるものなので、
-    それらの States は内部の behavioral StateMachines の States と必ずしも対応しなくてもよい。
+    それらの States は内部の behavioral StateMachines の States と必ずしも対応しなくてよい。
 
   * ProtocolStateMachine の解釈は異なることがある。
 
@@ -567,7 +683,7 @@ ProtocolStateMachine
     通信手順を表現することを可能にする。
 
   * 複雑な ProtocolStateMachines を「因数分解」するのに
-    サブマシン StateMachines と複合遷移が用いられることがある。
+    submachine StateMachines と複合遷移が用いられることがある。
 
   * Classifier はいくつかの ProtocolStateMachines を持ってよい。
 
@@ -586,8 +702,9 @@ ProtocolTransition
 
   * ProtocolTransition は次のことを指定する。
 
-    * 参照された機能が背景にある Classifier のオブジェクトの上で発動されることが可能である。
-    * その Transition の完了にあたり、そのオブジェクトは事後条件が満たされている target State となるものである。
+    * 操作 referred が Classifier のオブジェクトを背景に発動されることが可能であること。
+    * その Transition の完了にあたり、
+      そのオブジェクトは事後条件が満たされている target State となるものであること。
 
   * ProtocolTransitions は関連する effect Behavior を持たない。
     ある BehavioralFeature 発動の結果として実行される
@@ -615,6 +732,25 @@ ProtocolConformance
     ある一般版 StateMachine 所有者である Classifiers と
     ある関連した独自の StateMachine とは、
     通常は Generalization または Realization が接続する。
+
+A_conformance_specificMachine, A_generalMachine_protocolConformance
+  * 前者は ProtocolStateMachine から ProtocolConformance への composite 関連（双方向）。
+  * 後者は ProtocolConformance から ProtocolStateMachine への関連（単方向）。
+  * 関連端 specificMachine, generalMachine が source, target をそれぞれ subsets する。
+
+A_referred_protocolTransition
+  * ProtocolTransition から Operation への関連（単方向）。
+  * 先ほどの見本中の ``m1`` が preCondition に相当する。
+  * 関連端 referred は readOnly である。
+
+A_preCondition_protocolTransition
+  * ProtocolTransition から Constraint への composite 関連（単方向）。
+  * 先ほどの見本中の ``C1`` が preCondition に相当する。
+
+A_postCondition_owningTransition
+  * ProtocolTransition から Constraint への composite 関連（単方向）。
+  * A_guard_transition の guard と transition をそれぞれ subsets, redefines する関連。
+  * 先ほどの見本中の ``C2`` が preCondition に相当する。
 
 14.4.4 Notation
 ----------------------------------------------------------------------
