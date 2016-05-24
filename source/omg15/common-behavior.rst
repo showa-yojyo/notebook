@@ -80,7 +80,7 @@ UML 2.5 pp. 283-302 に関するノート。
   これらの仕様の仕組みは表現力と適応領域において異なる。
 
   * 有限オートマトン (pl.) をモデル化する StateMachines: :doc:`./statemachines`
-  * Petri ネット的グラフ (pl.) を用いて定義される Activities: 15 章
+  * Petri ネット的グラフ (pl.) を用いて定義される Activities: :doc:`./activities`
   * 事象発生の半順序連続列 (pl.) をモデル化する Interactions: 17 章
 
 13.2.2 Abstract Syntax

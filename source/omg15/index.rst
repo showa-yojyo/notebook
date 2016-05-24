@@ -30,3 +30,4 @@ Unified Modeling Language 2.5 読書ノート
    packages
    common-behavior
    statemachines
+   activities

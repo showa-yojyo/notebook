@@ -102,7 +102,7 @@ UML 2.5 pp. 11-20 に関するノート。
           :doc:`./statemachines` で議論する。
 
         Activities
-          15 章で議論する。
+          :doc:`./activities` で議論する。
 
         Interactions
           17 章で議論する。
