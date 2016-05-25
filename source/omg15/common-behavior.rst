@@ -81,7 +81,7 @@ UML 2.5 pp. 283-302 に関するノート。
 
   * 有限オートマトン (pl.) をモデル化する StateMachines: :doc:`./statemachines`
   * Petri ネット的グラフ (pl.) を用いて定義される Activities: :doc:`./activities`
-  * 事象発生の半順序連続列 (pl.) をモデル化する Interactions: 17 章
+  * 事象発生の半順序連続列 (pl.) をモデル化する Interactions: :doc:`./interactions`
 
 13.2.2 Abstract Syntax
 ----------------------------------------------------------------------

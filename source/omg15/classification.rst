@@ -118,7 +118,8 @@ A_collaborationUse_classifier
 
 A_ownedUseCase_classifier
   * Classifier から UseCase への composite 関連（単方向）。
-  * Classifier は UseCases を所有してもよい。18 章で述べる。
+  * Classifier は UseCases を所有してもよい。
+    :doc:`./usecases` で述べる。
   * A_ownedMember_namespace を subsets する。
 
 A_generalization_specific
@@ -413,7 +414,7 @@ ParameterSet
   * 説明文が that だらけで読みにくい。
   * ParameterSet にある Parameters はすべてが入力であるか、
     すべてが出力であるかでなけれならない。
-  * 詳しくは 16 章で仕様化する。
+  * 詳しくは :doc:`./actions` で仕様化する。
 
 A_feature_featuringClassifier
   先述の通り。
@@ -478,7 +479,7 @@ Parameter
     値は ordered, unordered, unique, nonunique, seq の文字列から任意個選べる。
 
 ParameterSet
-  * 16 章まで待て。
+  * :doc:`./actions` まで待て。
 
 9.5 Properties
 ======================================================================

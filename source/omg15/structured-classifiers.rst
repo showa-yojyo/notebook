@@ -534,7 +534,8 @@ A_extension_metaclass
 * Class::isActive が true なものについては、
   箱の枠の垂直辺両方を二重にして示すことがある。
 
-* ステレオタイプ ``«Metaclass»`` を用いることがある。22 章で見ていく。
+* ステレオタイプ ``«Metaclass»`` を用いることがある。
+  :doc:`standard-profile` で見ていく。
 
 11.4.5 Examples
 ----------------------------------------------------------------------
@@ -836,7 +837,7 @@ Component
   * Component は一つ以上の Artifacts によって表明 (manifested) される。
     そしてその Artifact が実行環境に配備される。
     ある DeploymentSpecification でその Component の実行をパラメーター化する値を定義してよい。
-    19 章で見ていく。
+    :doc:`./deployments` で見ていく。
 
   * システムまたはその他の状況での Components 間の配線 (wiring) は
     互換性のある単純 Ports 等々の間の Dependencies を用いて定義することが可能である。

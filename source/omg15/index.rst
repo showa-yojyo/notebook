@@ -31,3 +31,10 @@ Unified Modeling Language 2.5 読書ノート
    common-behavior
    statemachines
    activities
+   actions
+   interactions
+   usecases
+   deployments
+   informationflows
+   primitive-types
+   standard-profile

@@ -736,7 +736,7 @@ Abstraction
   * ある抽象水準や視点では同じ概念を表現する NamedElements に関係する Dependency のこと？
   * この関係性は suppliers と clients との間の写像として定義してよい。
   * ``«Derive»``, ``«Refine»``, ``«Trace»`` などの定義済みステレオタイプを持つ。
-    これは 22 章で仕様化する。
+    これは :doc:`standard-profile` で仕様化する。
 
 Realization
   * Abstraction の一種である。

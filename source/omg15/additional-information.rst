@@ -96,7 +96,7 @@ UML 2.5 pp. 11-20 に関するノート。
         UML での振る舞いの基本構成単位である。
         より細やかな振る舞いを定義するのに用いられる。
 
-        16 章で議論する。
+        :doc:`./actions` で議論する。
 
         State Machines
           :doc:`./statemachines` で議論する。
@@ -105,19 +105,19 @@ UML 2.5 pp. 11-20 に関するノート。
           :doc:`./activities` で議論する。
 
         Interactions
-          17 章で議論する。
+          :doc:`./interactions` で議論する。
 
   Supplemental Modeling
     その他の補助的な構成概念。構造的でも振る舞い的でもある。
 
     Use Cases
-      18 章で議論する。
+      :doc:`./usecases` で議論する。
 
     Deployments
-      19 章で議論する。
+      :doc:`./deployments` で議論する。
 
     Information Flows
-      20 章で議論する。
+      :doc:`./informationflows` で議論する。
 
 6.3.3 Stable and Transient Behavioral Semantics
 ----------------------------------------------------------------------
@@ -191,7 +191,7 @@ UML 2.5 pp. 11-20 に関するノート。
     * オブジェクト生成作用は、
       いかなる関連された振る舞いの実行をも開始することのないオブジェクトを
       生成するように指定されている。
-      16 章参照。
+      :doc:`./actions` 参照。
 
 6.4 How to Read this Specification
 ======================================================================

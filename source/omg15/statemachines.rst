@@ -456,7 +456,7 @@ Transition
     中には ``<trigger>`` や ``<guard>`` を用いたテキストが含まれる。
 
   * Signal 送信シンボルの記法は SendSignalAction の記法に対応する。
-    16 章参照。
+    :doc:`./actions` 参照。
 
   * 選択点シンボルは choice Pseudostate と同じ記法を使う。
 
