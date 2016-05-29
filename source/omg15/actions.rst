@@ -55,6 +55,18 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 * Figure 16.1 Actions
 
+  * Action は抽象型で、ExecutableNode から派生している。
+
+    * この図式では差し当たり OpaqueAction が Action のひとつの具象型であることを表している。
+    * InputPin と OutputPin とに別々に関連させる。
+
+  * Pin という ObjectNode と MultiplicityElement からの派生要素がある。
+
+    * Pin には InputPin と OutputPin のふたつがある。
+    * InputPin には ActionInputPin と ValuePin のふたつがある。
+      ActionInputPin は Action を、
+      ValuePin は ValueSpecification をそれぞれ関連させる。
+
 16.2.3 Semantics
 ----------------------------------------------------------------------
 .. 16.2.3.1 Actions
@@ -62,23 +74,78 @@ UML 2.5 pp. 439-562 に関するノート。
 .. 16.2.3.3 Pins
 .. 16.2.3.4 Actions and Pins in Activities
 
-
 16.2.4 Notation
 ----------------------------------------------------------------------
 * Figure 16.2 Action
+
+  * Actions は丸角矩形を用いて示す。
+  * Action の名前や他の説明がシンボル中に現れていてよい。
+  * Actions の派生型に特化した記法は後続の節で述べる。
+
 * Figure 16.3 Local pre- and post-conditions
+
+  * 局所的な事前条件と事後条件はそれぞれキーワード
+    ``«localPrecondition»`` と ``«localPostcondition»``
+    と共にコメントとして示す。
+
 * Figure 16.4 Pin notations
+
+  * Pins は ObjectNodes なので、矩形として記す。
+    矩形は所有されている Action シンボルに取り付けられている小さい矩形として記される。
+
+  * Pin の名前はその付近に表示してもよい。
+    単に型だけを見せることがよくある。
+    両者を示すには ``name: type`` のようにラベルする。
+
+  * Action の Pins は、たとえばモデル内にそれが存在していても、
+    記法の省略が許されている。
+
 * Figure 16.5 Pin notations, with arrows
+
+  * InputPins と OutputPins を区別する ActivityEdges が存在しないときには、
+    任意で矢印を Pin 矩形の内部に配置しても構わない。
+
+  * 矢印の向きは InputPins ならば Action に向かう。
+    OutputPins ならばその反対。
+
 * Figure 16.6 Standalone Pin notations
+
+  * ある Action の OutputPin が隣りの Action の InputPin に接続しているような
+    状況では、この図のような記法が許される。
+
+  * この形式は両者の型が同じでないならば避けるべきである。
+
+* 制御 Pins はシンボル付近に ``{control}`` とテキスト的注釈と共に示す。
+* ValuePin はその脇に ValueSpecification が書かれている InputPin として記す。
 
 16.2.5 Examples
 ----------------------------------------------------------------------
 * Figure 16.7 Examples of Actions
+
+  * Send Payment の実施後に Accept Payment が実施される。
+
 * Figure 16.8 Example of action using a tool-specific concrete syntax
+
+  * あるツールに固有の具体的構文で表現されたアクションらしい。
+    ループ処理をひとつの Action で表してよいようだ。
+
 * Figure 16.9 Example of an action with local pre- and post-conditions
+
+  * Dispense Drink という Action の事前条件と事後条件が詳細に記された例。
+    飲み物が自販機から出る前後の状態が普通の英語で仕様化されている。
+
 * Figure 16.10 Pin examples
+
+  * 目を引くのは ``{stream}`` や角括弧付きのラベル。
+
 * Figure 16.11 Specifying selection behavior on an ObjectFlow
+
+  * Pin は ObjectNode なので selection の指定が可能。
+
 * Figure 16.12 Example abstract syntax model showing the use of ActionInputPins
+
+  * ``self.foo->bar(self.baz)`` なるテキストによる具体的構文の表現 (expression) を
+    UML 抽象構文表現 (representation) で示したもの。
 
 16.3 Invocation Actions
 ======================================================================
@@ -103,6 +170,9 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 * Figure 16.13 Invocation Actions
 
+  * 抽象型 InvocationAction から派生する型がいくつかある。
+    概要に書いてあるとおりのクラス図。
+
 16.3.3 Semantics
 ----------------------------------------------------------------------
 .. 16.3.3.1 Call Actions
@@ -112,24 +182,103 @@ UML 2.5 pp. 439-562 に関するノート。
 16.3.4 Notation
 ----------------------------------------------------------------------
 * Figure 16.14 Calling a Behavior
+
+  * CallBehaviorAction の記法は発動される Behavior の名前を持つ
+    Action シンボルと同じようにする。
+    もし Action の名前が Behavior のそれと異なる場合は、
+    代わりに Action 名がシンボルに現れなければならない。
+
+  * Behavior の事前条件と事後条件を先の例と同様に示すことが可能である。
+    その際にはキーワード ``«precondition»`` と ``«postcondition»`` を用いる。
+
 * Figure 16.15 Calling an Activity
+
+  * Activity の呼び出しは Action シンボルの内部に逆さのフォークみたいなものを描いて示す。
+  * 右側の記法は前章で紹介済み。
+
 * Figure 16.16 Calling an Operation
+
+  * CallOperationAction の記法は CallBehaviorAction とほぼ同様。
+    Behavior を Operation に置き換えて理解すればよい。
+
 * Figure 16.17 Calling an Operation, showing the owner name
+
+  * Operation の所有者の名前を任意で Operation の名前の下に見せてよい。
+    ``(OwnerClassName::)`` または ``(OwnerClassName::OperationName)``
+    の形式の文字列とする。
+
 * Figure 16.18 Sending a Signal
+
+  * SendSignalAction はその名前を内側に配した凸五角形として記す。
+    右側が凸。
+
+  * SendObjectAction が常にある Signal を送信することになるように用いられるならば、
+    SendSignalAction の記法がその SendObjectAction を表すために利用が可能である。
+
 * Figure 16.19 Exception Pin annotations
+
+  * isException が真である Parameters に対応する Pins は、
+    小さい三角形を source 側に示す。
+
+  * Pin の小矩形が省略されているときにも三角形は記す。
+
 * Figure 16.20 Effect Pin annotations
+
+  * Pin に対応する Parameter が指定された effect を持つならば、
+    この内容を中括弧に括って、Pin それぞれのエッジのそばに記す。
+
 * Figure 16.21 Stream Pin annotations
+
+  * Pin に対応する Parameter の isStreaming の値を、
+    Pin の近くに ``{stream}`` または ``{nonstream}`` で示す。
+
+  * これらが省略されている場合は ``{nonstream}`` であるものとする。
+
 * Figure 16.22 Stream Pin annotations, with filled arrows and rectangles
+
+  * streaming Parameters を示すためにには、さらなる強調を付加してよい。
+
+    * スタンダロンな Pins に接続している矢印の矢先を黒く塗りつぶしてよい。
+    * さもなければ Pins 自体を黒く塗りつぶしてよい。
+
 * Figure 16.23 Alternative input/outputs using ParameterSet notation
+
+  * ParameterSet が Pins をグループ化することを示すのに、
+    複数 Pins の矩形らを囲む矩形で記す。
+
+  * 引数の AND と OR をこれで見分けるらしい。
 
 16.3.5 Examples
 ----------------------------------------------------------------------
 * Figure 16.24 Invoking an Activity
+
+  * FillOrder という Activity を発動する CallBehaviorAction である。
+    逆さフォークに注意。
+
 * Figure 16.25 Sending Signals
+
+  * 何か発注処理のワークフローの一部を示す図式。
+  * 五角形の Action で Signal が送信されるが、
+    されるということ以外の情報は図からは得られない？
+
 * Figure 16.26 Streaming Pin examples
+
+  * ``{stream}`` のついた Pin の Action は連続的 Behavior と見るのがよさそう。
+
 * Figure 16.27 Exception Pin examples
+
+  * 上のコースは例外送出ケース。
+
 * Figure 16.28 Pin example with effects
+
+  * 中括弧は effect を示す。
+  * Place Order が ``Order`` を ``{create}`` して、
+    Fill Order が ``Order`` を ``{read}`` する。
+
 * Figure 16.29 Alternative input/outputs using ParameterSets
+
+  * Ship Item の InputPins が（それぞれが）グループ化されているので、
+    どちらか一方でも受信すれば Action を開始する。
 
 16.4 Object Actions
 ======================================================================
@@ -148,6 +297,10 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 * Figure 16.30 Object Actions
 
+  * 10 個近くの派生 Actions がある。
+  * 注意深く見ると、InputPin と OutputPin のどちらかしか持たないものと、
+    両方を持つものがあることに気づく。
+
 16.4.3 Semantics
 ----------------------------------------------------------------------
 .. 16.4.3.1 Create Object Actions
@@ -164,9 +317,15 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 * Figure 16.31 ValueSpecificationAction notation
 
+  * ValueSpecificationAction はその ValueSpecification でラベルされる Action として記す。
+
+* その他の種類のオブジェクトアクション固有の記法はない。
+
 16.4.5 Examples
 ----------------------------------------------------------------------
 * Figure 16.32 ValueSpecificationActions
+
+  * 現実味のない見本だが、定数 5 または 6 を出力する Activity である。
 
 16.5 Link End Data
 ======================================================================
@@ -186,6 +345,8 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 * Figure 16.33 Link End Data
 
+  * ここに登場する新要素は全て Element から直接派生しているのか。
+
 16.5.3 Semantics
 ----------------------------------------------------------------------
 .. 16.5.3.1 Link End Data
@@ -194,9 +355,11 @@ UML 2.5 pp. 439-562 に関するノート。
 
 16.5.4 Notation
 ----------------------------------------------------------------------
+* LinkEndData 固有の記法はない。
 
 16.5.5 Examples
 ----------------------------------------------------------------------
+なし。
 
 16.6 Link Actions
 ======================================================================
@@ -211,6 +374,8 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 * Figure 16.34 Link Actions
 
+  * ClearAssociationAction が浮いている。
+
 16.6.3 Semantics
 ----------------------------------------------------------------------
 .. 16.6.3.1 Link Actions
@@ -221,9 +386,11 @@ UML 2.5 pp. 439-562 に関するノート。
 
 16.6.4 Notation
 ----------------------------------------------------------------------
+* LinkActions や ClearAssociationActions に特化した記法は定義されない。
 
 16.6.5 Examples
 ----------------------------------------------------------------------
+なし。
 
 16.7 Link Object Actions
 ======================================================================
@@ -241,6 +408,8 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 * Figure 16.35 Link Object Actions
 
+  * ReadLinkObjectEndAction と ReadLinkObjectEndQualifierAction は構造が同じ。
+
 16.7.3 Semantics
 ----------------------------------------------------------------------
 .. 16.7.3.1 Read Link Object End Actions
@@ -249,9 +418,11 @@ UML 2.5 pp. 439-562 に関するノート。
 
 16.7.4 Notation
 ----------------------------------------------------------------------
+* リンクオブジェクトに作用する Actions に特化した記法は定義されない。
 
 16.7.5 Examples
 ----------------------------------------------------------------------
+なし。
 
 16.8 Structural Feature Actions
 ======================================================================
@@ -265,6 +436,9 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 * Figure 16.36 Structural Feature Actions
 
+  * StructuralFeatureAction から Read, Write, Clear を派生する。
+  * Write から Add と Remove を派生する。
+
 16.8.3 Semantics
 ----------------------------------------------------------------------
 .. 16.8.3.1 Structural Feature Actions
@@ -275,9 +449,11 @@ UML 2.5 pp. 439-562 に関するノート。
 
 16.8.4 Notation
 ----------------------------------------------------------------------
+* StructuralFeatureActions に特化した記法は定義されない。
 
 16.8.5 Examples
 ----------------------------------------------------------------------
+なし。
 
 16.9 Variable Actions
 ======================================================================
@@ -291,6 +467,8 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 * Figure 16.37 Variable Actions
 
+  * 派生のスタイルが先ほどのものと似ている。
+
 16.9.3 Semantics
 ----------------------------------------------------------------------
 .. 16.9.3.1 Variable Action
@@ -303,8 +481,14 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 * Figure 16.38 Presentation option for AddVariableValueAction
 
+  * 上下に分かれているが、上の方は抽象的構文とする。
+
+* AddVariableValueAction::isReplaceAll が true であることを
+  文字列 ``{replaceAll}`` を変数名の近くに置くことで示すことが可能。
+
 16.9.5 Examples
 ----------------------------------------------------------------------
+なし。
 
 16.10 Accept Event Actions
 ======================================================================
@@ -325,6 +509,8 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 * Figure 16.39 Accept Event Actions
 
+  * Action の派生クラスがまだまだ定義されていく。
+
 16.10.3 Semantics
 ----------------------------------------------------------------------
 .. 16.10.3.1 Accept Event Action
@@ -336,12 +522,30 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 * Figure 16.40 AcceptEventAction notations
 
+  * AcceptEventAction は一般には凹五角形で記される。左側が凹。
+    内側にその name を配してもよい。
+
+  * AcceptEventAction が単一の TimeEvent trigger を持つようなものは、
+    砂時計みたいな図形で記す。名前を書くならシンボルの下側である。
+
 16.10.5 Examples
 ----------------------------------------------------------------------
 * Figure 16.41 Implicitly enabled AcceptEventAction
+
+  * Cancel order request は何か Signal を受理するアクションである。
+  * Signal の受理が Cancel Order の発動をもたらす。
+
 * Figure 16.42 Explicitly enabled AcceptEventAction
+
+  * 見た印象どおりのアクションが起こる。
+
 * Figure 16.43 Repetitive time event
+
+  * End of month occurred が砂時計の左側に書いてある。
+
 * Figure 16.44 UnmarshallAction
+
+  * Unmarshall Order が Name, Address, Product の attributes に分解する。
 
 16.11 Structured Actions
 ======================================================================
@@ -361,6 +565,9 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 * Figure 16.45 Structured Actions
 
+  * StructuredActivityNode は Namespace, Action, ActivityGroup から派生している。
+  * その派生型に ConditionalNode, LoopNode, SequenceNode がある。
+
 16.11.3 Semantics
 ----------------------------------------------------------------------
 .. 16.11.3.1 Structured Activity Nodes
@@ -373,8 +580,15 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 * Figure 16.46 Notation for StructuredActivityNode
 
+  * StructuredActivityNode 自体は破線丸角矩形で記す。
+  * 矩形上部にキーワード ``«structured»`` を添える。
+  * 矩形内に nodes と edges を同封する。
+
+* ConditionalNode, LoopNode, SequenceNode には標準的な記法は定義されない。
+
 16.11.5 Examples
 ----------------------------------------------------------------------
+なし。
 
 16.12 Expansion Regions
 ======================================================================
@@ -389,22 +603,55 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 * Figure 16.47 Expansion Regions
 
+  * ExpansionRegion と ExpansionNode だけ。
+  * ExpansionKind という enumeration がある。
+
 16.12.3 Semantics
 ----------------------------------------------------------------------
 
 16.12.4 Notation
 ----------------------------------------------------------------------
 * Figure 16.48 Expansion Region
+
+  * ExpansionRegion は破線丸角箱で記す。
+  * 箱の左上に ExpansionKind の値に対応するキーワード ``«parallel»``, etc. を添える。
+  * 入力と出力の ExpansionNodes は小さい短冊のようなシンボルで記す。
+    これらは箱の枠上に配置する。
+  * ExpansionRegion の内側と外側にある ActivityEdge 矢印は
+    入力と出力のノードを見分けることができる。
+
 * Figure 16.49 Shorthand notation for expansion region containing single node
+
+  * 速記法として、リストボックス記法を Action シンボルで直接配置してよい。
+
 * Figure 16.50 Full form of previous shorthand notation
+
+  * 上の見本を完全版で示すとこうなる。
+
 * Figure 16.51 Notation for expansion region with one behavior invocation
+
+  * 単一の CallBehaviorAction を含む ExpansionRegion に採用可能なさらなる速記例。
+  * キーワードを使う代わりに ``*`` を右上に記す。複数実行を含意している。
 
 16.12.5 Examples
 ----------------------------------------------------------------------
 * Figure 16.52 Expansion region with two inputs and one output
+
+  * ふたつの入力とひとつの出力を持ち、parallel に実行される ExpansionRegion の見本。
+  * 両方のコレクションには同数の要素を持つことを期待している。
+  * 内側は入力コレクションの各要素について一度実行される。
+
 * Figure 16.53 Expansion Region
+
+  * ある高速 Fourier 変換計算の断片が ExpansionRegion を含んでいる見本である。
+
 * Figure 16.54 Examples of expansion region shorthand
+
+  * 航空券の予約とホテルの予約が独立かつ parallel である。
+
 * Figure 16.55 Shorthand notation for expansion region
+
+  * Specify Trip Route が複数の Book Flight アクションに帰着することを示す。
 
 16.13 Other Actions
 ======================================================================
@@ -421,6 +668,9 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 * Figure 16.56 Other Actions
 
+  * ReduceAction は InputPin と OutputPin を両方持つが、
+    RaiseExceptionAction は InputPin だけを持つ。
+
 16.13.3 Semantics
 ----------------------------------------------------------------------
 .. 16.13.3.1 Reduce Actions
@@ -428,6 +678,7 @@ UML 2.5 pp. 439-562 に関するノート。
 
 16.13.4 Notation
 ----------------------------------------------------------------------
+* ReduceActions と RaiseExceptionActions に特化した記法は定義されない。
 
 16.13.5 Examples
 ----------------------------------------------------------------------
