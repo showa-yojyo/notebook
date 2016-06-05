@@ -123,27 +123,163 @@ UML 2.5 pp. 563-636 に関するノート。
 
 17.2 Interactions
 ======================================================================
-.. todo:: ノート作成
 
 17.2.1 Summary
 ----------------------------------------------------------------------
+* 本節では 5 個程度のメタクラスの構文、意味、記法を仕様化する。
 
 17.2.2 Abstract Syntax
 ----------------------------------------------------------------------
 * Figure 17.1 Interactions
 
+  * まず抽象クラス InteractionFragment が NamedElement から特殊化されている。
+    そして InteractionFragment から残りの 4 メタクラスが特殊化されている。
+
+  * メタクラス Interaction は InteractionFragment であると同時に
+    Behavior でもある。
+
 17.2.3 Semantics
 ----------------------------------------------------------------------
+.. 17.2.3.1 Interactions
+
+* Interactions は enclosing Classifier の振る舞いの構成単位である。
+
+* Interaction の意味は traces の集合の対として与えられる。
+  その対のそれぞれは有効な traces と無効な traces を表現する。
+
+* ひとつの trace はイベント発生の連続列のひとつであり、
+  そのそれぞれはモデルにある OccurrenceSpecification により記述される。
+
+* 有効な traces の集合は Negative CombinedFragment または
+  Assertion CombinedFragment の用途に関連する。
+
+* Behavior としての Interaction は一般化可能かつ再定義可能である。
+
+* Interaction を所有している classifier は特殊化されてもよいし、
+  Interaction の特殊化は再定義されてもよい。
+
+* 形式的な Gate は Interaction の内側の境界部に取り付けられ、
+  その Interaction の InteractionUse を通して
+  具象送信者と受信者を樹立するリンク点を与えてもよい。
+
+.. 17.2.3.2 Interaction Fragments
+
+* InteractionFragment の意味は traces の集合の一対である。
+* InteractionFragment は enclosing Interaction に直接含まれるか、
+  CombinedFragment の InteractionOperand の内側に含まれるかの
+  どちらかであることが許される。
+
+.. 17.2.3.3 Occurrence Specifications
+
+* OccurrenceSpecification の意味は単に単一の OccurrenceSpecification の
+  trace である。
+
+* OccurrenceSpecification の理解とより深い意味は
+  関連 Message とそれが伝える情報とに依存する。
+
+.. 17.2.3.4 Execution Specifications
+
+* Interactions の trace の意味は
+  ``<start, finish>`` とみなした Execution を見るだけである。？？？
+
+.. 17.2.3.5 State Invariants
+
+* Constraint は実行中の間じゅうに評価されると仮定する。
+
+  * Constraint は
+    明示的にモデル化されないアクションすべてが実行し終わるように、
+    次の OccurrenceSpecification の実行の直前に評価される。
+
+  * Constraint が真ならば、その trace は有効な trace である。
+    反対に偽ならば、その trace は無効な trace である。
+
+  * 言い換えると、偽に評価される Constraint のある StateInvariant を持つ
+    traces はすべて無効であると判断される。
 
 17.2.4 Notation
 ----------------------------------------------------------------------
+.. 17.2.4.1 Interaction
+
+* Sequence 図における Interaction を表す記法は実線矩形である。
+
+  * 矩形の左上隅に五角形を描き、そこに
+    文字列 ``sd`` と Interaction 名と引数をこの順に記す。
+
+* 五角形の記述子の内側の記法は Behaviors の名前を表すのに用いる
+  記法一般に従う。
+
+* Interaction 図は局所的な属性の定義を含むことが許される。
+  その構文は一般にはクラスシンボル区画で示されるものと同じである。
+
+  * これらの属性が現れることが許されるのは、
+    図の枠の上部付近または図のどこかのコメントシンボル内部である。
+
+.. 17.2.4.2 InteractionFragment
+
+* InteractionFragment については一般的な記法がない。
+  個々のサブクラスが独自の記法を定義する。
+
+.. 17.2.4.3 OccurrenceSpecification
+
+* OccurrenceSpecifications は単に
+
+  * Messages の両端もしくは
+  * ExecutionSpecification の開始・終了
+
+  における構文的な点である。
+
+.. 17.2.4.4 ExecutionSpecification
+
+* ExecutionSpecifications は生存線上の細い（灰色か白色の）矩形として表現される。
+
+* または ExecutionSpecification を幅広のラベル付き矩形により表現してもよく、
+  ラベルはたいていは実行されたアクションを識別する。
+
+* ある Signal の属性を読み取るというような不可分なアクション (pl.) を参照する
+  ExecutionSpecification の代わりに、
+  Action 全体がただひとつの OccurrenceSpecification に関連していることを
+  強調する目的で、
+  Action シンボルは線の付いた受領 OccurrenceSpecification に関連してもよい。
+
 * Figure 17.2 Overlapping ExecutionSpecifications
+
+  * 同一生存線上で重なりあう ExecutionSpecifications は
+    やはり重なりあう矩形で表現される。
+
+.. 17.2.4.5 StateInvariant
+
+* 起こり得る関連 Constraint は生存線上に中括弧に囲まれたテキストで示される。
+
+* 準拠ツールは StateInvariant を
+  OccurrenceSpecification に関連した Note として示してもよい。
+
+* 状態シンボルは
+  Lifeline により表現されるオブジェクトの状態を調べる制約の等価性を表現する。
+
+* 領域は状態 (pl.) の直交領域を表現する。
+  識別子は状態を部分的に定義しさえすればよい。
+
+.. 17.2.4.6 Formal Gate
+
+* 形式的な Gate は枠の内側にある単なる点であり、メッセージの端点である。
 
 17.2.5 Examples
 ----------------------------------------------------------------------
 * Figure 17.3 An example of an Interaction in the form of a Sequence Diagram
+
+  * 矢印がメッセージ。
+  * 明らかにメッセージ CardOut と OK が非同期的に見える。
+  * 最後のメッセージ Unlock の出口が formal Gate の例である。
+
 * Figure 17.4 OccurrenceSpecification
+
+  * メッセージ msg の矢印の根本が OccurrenceSpecification の例である。
+  * 先と同様に矢印の矢先が図枠に至っている点が formal Gate の例である。
+
 * Figure 17.5 Sequence Diagram with time and timing concepts
+
+  * 以前やった時間にまつわる記法が再録されているので復習したい。
+    例えば CardOut は 0 から 13 時間単位の間じゅう継続するように拘束されている。
 
 17.3 Lifelines
 ======================================================================
