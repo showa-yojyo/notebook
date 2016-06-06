@@ -8,6 +8,8 @@ UML 2.5 pp. 563-636 に関するノート。
    * lifeline (n.) 某文書では「生存線」という用語を採用しているようなので
      拝借する。
 
+   * trace (n.) 「跡」しか思いつかないし、辞書を当たってもいいのがない。
+
 .. contents:: ノート目次
    :depth: 2
 
@@ -140,8 +142,8 @@ UML 2.5 pp. 563-636 に関するノート。
 
 17.2.3 Semantics
 ----------------------------------------------------------------------
-.. 17.2.3.1 Interactions
-
+17.2.3.1 Interactions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Interactions は enclosing Classifier の振る舞いの構成単位である。
 
 * Interaction の意味は traces の集合の対として与えられる。
@@ -162,28 +164,28 @@ UML 2.5 pp. 563-636 に関するノート。
   その Interaction の InteractionUse を通して
   具象送信者と受信者を樹立するリンク点を与えてもよい。
 
-.. 17.2.3.2 Interaction Fragments
-
+17.2.3.2 Interaction Fragments
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * InteractionFragment の意味は traces の集合の一対である。
 * InteractionFragment は enclosing Interaction に直接含まれるか、
   CombinedFragment の InteractionOperand の内側に含まれるかの
   どちらかであることが許される。
 
-.. 17.2.3.3 Occurrence Specifications
-
+17.2.3.3 Occurrence Specifications
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * OccurrenceSpecification の意味は単に単一の OccurrenceSpecification の
   trace である。
 
 * OccurrenceSpecification の理解とより深い意味は
   関連 Message とそれが伝える情報とに依存する。
 
-.. 17.2.3.4 Execution Specifications
-
+17.2.3.4 Execution Specifications
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Interactions の trace の意味は
   ``<start, finish>`` とみなした Execution を見るだけである。？？？
 
-.. 17.2.3.5 State Invariants
-
+17.2.3.5 State Invariants
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Constraint は実行中の間じゅうに評価されると仮定する。
 
   * Constraint は
@@ -198,8 +200,8 @@ UML 2.5 pp. 563-636 に関するノート。
 
 17.2.4 Notation
 ----------------------------------------------------------------------
-.. 17.2.4.1 Interaction
-
+17.2.4.1 Interaction
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Sequence 図における Interaction を表す記法は実線矩形である。
 
   * 矩形の左上隅に五角形を描き、そこに
@@ -214,13 +216,13 @@ UML 2.5 pp. 563-636 に関するノート。
   * これらの属性が現れることが許されるのは、
     図の枠の上部付近または図のどこかのコメントシンボル内部である。
 
-.. 17.2.4.2 InteractionFragment
-
+17.2.4.2 InteractionFragment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * InteractionFragment については一般的な記法がない。
   個々のサブクラスが独自の記法を定義する。
 
-.. 17.2.4.3 OccurrenceSpecification
-
+17.2.4.3 OccurrenceSpecification
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * OccurrenceSpecifications は単に
 
   * Messages の両端もしくは
@@ -228,8 +230,8 @@ UML 2.5 pp. 563-636 に関するノート。
 
   における構文的な点である。
 
-.. 17.2.4.4 ExecutionSpecification
-
+17.2.4.4 ExecutionSpecification
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * ExecutionSpecifications は生存線上の細い（灰色か白色の）矩形として表現される。
 
 * または ExecutionSpecification を幅広のラベル付き矩形により表現してもよく、
@@ -246,8 +248,8 @@ UML 2.5 pp. 563-636 に関するノート。
   * 同一生存線上で重なりあう ExecutionSpecifications は
     やはり重なりあう矩形で表現される。
 
-.. 17.2.4.5 StateInvariant
-
+17.2.4.5 StateInvariant
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * 起こり得る関連 Constraint は生存線上に中括弧に囲まれたテキストで示される。
 
 * 準拠ツールは StateInvariant を
@@ -259,8 +261,8 @@ UML 2.5 pp. 563-636 に関するノート。
 * 領域は状態 (pl.) の直交領域を表現する。
   識別子は状態を部分的に定義しさえすればよい。
 
-.. 17.2.4.6 Formal Gate
-
+17.2.4.6 Formal Gate
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * 形式的な Gate は枠の内側にある単なる点であり、メッセージの端点である。
 
 17.2.5 Examples
@@ -340,24 +342,178 @@ UML 2.5 pp. 563-636 に関するノート。
 
 17.4 Messages
 ======================================================================
-.. todo:: ノート作成
 
 17.4.1 Summary
 ----------------------------------------------------------------------
+* 本節ではメタクラス Message およびその関連型の構文法、意味、表記法を指定する。
+  全部合わせて 7 個の型を扱う。
 
 17.4.2 Abstract Syntax
 ----------------------------------------------------------------------
 * Figure 17.7 Messages
 
+  * Message と MessageEnd は NamedElement の一種である。
+  * MessageEnd には特殊型が直接、間接合わせて 3 個ある。
+  * Message のある属性を実現するために列挙型
+    MessageKind と MessageSort がある。
+
 17.4.3 Semantics
 ----------------------------------------------------------------------
+17.4.3.1 Messages
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* 完全 Message の意味は単純に trace ``<sendEvent, receiveEvent>`` のことである。
+
+* 消失 Message とは送信イベントの発生がどこであるかが知られているが、
+  受信イベントの発生がない Message である。
+  意味としては trace ``<sendEvent>`` である。
+
+* 発見 Message とは受信イベントの発生がどこであるか知られているが、
+  （既知の）送信イベントの発生がない Message である。
+  意味としては trace ``<receiveEvent>`` である。
+
+* Message の signature は Operation または Signal の一方を参照する。
+  Message の名前は参照される Operation または Signal の名前と同じであるものとする。
+
+* Message signature が Operation であるならば、
+  Message は次のうちのひとつを表す。
+
+  * もし messageSort が synchCall または asyncCall ならば、
+    Message は Operation に対する同期的または非同期的な呼び出し
+    および Operation の実行の開始を表す。
+
+  * もし messageSort が reply ならば、
+    Message はその Operation に対する非同期的呼び出しの戻り値を表す。
+
+* Message signature が Signal であるならば、
+  messageSort は asyncSignal であるものとし、
+  Message は Signal オブジェクトの非同期的な送信と受信を表す。
+
+* Message の実引数は ValueSpecification である。
+
+* Message が応答ならば、それの実引数それぞれは
+  高々ひとつの operand を持つ Expression であるものとする。
+
+* 応答 Message の実引数 Expression のシンボルは
+  実引数の代入対象 (assignment target) を表し、
+  そこに実引数の戻り値が代入されることになるものとする。
+  そういった代入対象のシンボルを表すための次の値らには標準の解釈がある。
+
+  Unknown
+    空文字列であり、未知の代入対象を表す。
+
+  Interaction Parameter
+    包囲する Interaction::ownedParameter の修飾なしの名前であり、
+    出力、入出力、戻り値 Parameter のいずれかであるものとする。
+
+  Attribute
+    包囲する相互作用の context Behavior の属性の名前または
+    Message の受信 Lifeline の（おそらく修飾ありの）名前である。
+
+* 他の値で代入対象シンボルとして許されているものがあるが、
+  それらの解釈は本仕様で定義されていない。
+
+17.4.3.2 Message Ends
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* MessageEnd のサブクラスはそれらが表す概念に相応しい特有の意味を定義する。
+
+17.4.3.3 Message Occurrence Specifications
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* MessageOccurrenceSpecification はふたつの Lifelines の間にある
+  メッセージに関連する送信イベントや受信イベントを表す。
+
+17.4.3.4 Destruction Occurrence Specifications
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* DestructionOccurrenceSpecification はそれを含む生存線により
+  記述されるオブジェクトの破壊を表す。
+
+17.4.3.5 Gates
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Gate とは
+  Message ごとに具体的な送信者と受信者を樹立する
+  Interaction や InteractionUse や CombinedFragment の
+  境界上で用いられる MessageEnd である。
+
+* Gate オブジェクトは、
+  ふたつの Message オブジェクトを結びつける対になった仕方で存在するので、
+  それ自身明示的には整列されない。
+  Gates は次のどちらかのものの間に接続点を与える MessageEnds である。
+
+  * InteractionUse の外側にある Message と
+    Interaction の内側にある Message
+
+  * CombinedFragment の外側にある Message と、
+    CombinedFragment 内の InteractionOperand の内側にある Message
+
+* MessageOccurrenceSpecifications は次の規則に則った半順序が入る。
+
+  * MessageOccurrenceSpecification オブジェクトが
+    所有される Lifeline 上で整列されており、
+
+  * MessageOccurrenceSpecification オブジェクトは
+    Message オブジェクトを横断して整列されているか、
+    match された gates の一対を通じてリンクされた Message オブジェクトの
+    一対を横断して整列されている。
+
+* Message オブジェクト自体は整列されない。
+
+* Gates は 4 種類あり、それらの関連により区別される。
+
+  #. formal Gate
+  #. actual Gate
+  #. inner CombinedFragment Gate
+  #. outer CombinedFragment Gate
+
+* Gates は明示的にも暗黙的にも名前を付けられる。
+  後者の場合、メッセージの方向とメッセージの名前を連結することで
+  識別子を構築する。例えば ``out_CardOut`` のようになる。
+
+* マッチされる Gates への Messages は一致しなければならない？
 
 17.4.4 Notation
 ----------------------------------------------------------------------
+17.4.4.1 Message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Message は送信者 MessageEnd から受信者 MessageEnd までの線分として示される。
+  線分や矢先の形状は Message の性質を表す。
+
+  * ``messageSort == asynchCall || asynchSignal`` ⇒ 矢先を開く
+  * ``messageSort == synchCall`` ⇒ 矢先を塗りつぶす
+  * ``messageSort == reply`` ⇒ 破線
+  * ``messageSort == createMessage`` ⇒ 破線＋開いた矢先
+  * ``messageSort == deleteMessage`` ⇒ DestructionOccurrenceSpecification で終わる
+  * 消失 Message ⇒ 終点を小黒丸とする
+  * 発見 Message ⇒ 始点を小黒丸とする
+  * Communication 図における Messages は番号とかも添える。後述。
+
+* 図中の Message ラベルの構文は BNF で定義されている (pp. 575-576)。
+
+* もし応答 Message の同一性が明白ならば、
+  ラベルを省いて図を簡単にすることが許される。
+
+17.4.4.2 DestructionOccurrenceSpecification
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 17.8 DestructionOccurrenceSpecification symbol
+
+  * DestructionOccurrenceSpecification は Lifeline の底部に
+    バツ印を記すことで示す。
+
+17.4.4.3 Gate
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Gates は枠上の単なる点であり、メッセージの端点である。
 
 17.4.5 Examples
 ----------------------------------------------------------------------
+* 先述の Figure 17.3 では非同期 Messages しか見なかった。
+  こういう Messages は互いに追い抜いてもよい。
+
+* 後述の Figure 17.14 では応答に伴う同期メソッド呼び出しを見る。
+  またオブジェクトを生成することを表現する Message も見る。
+
+* 後述の Figure 17.26 では Communication 図ではどのように
+  Messages が記されるのかを見る。
+
+* メッセージ識別のテキスト的構文の種々の適用のいくらかを
+  Figure 17.14 で見られる。
 
 17.5 Occurrences
 ======================================================================
