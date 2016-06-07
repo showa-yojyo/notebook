@@ -517,24 +517,75 @@ UML 2.5 pp. 563-636 に関するノート。
 
 17.5 Occurrences
 ======================================================================
-.. todo:: ノート作成
 
 17.5.1 Summary
 ----------------------------------------------------------------------
+* 本節では次のメタクラスの構文法、意味、表記法を指定する。
+
+  * ActionExecutionSpecification
+  * BehaviorExecutionSpecification
+  * *ExecutionSpecification*
+  * GeneralOrdering
 
 17.5.2 Abstract Syntax
 ----------------------------------------------------------------------
 * Figure 17.9 Occurrences
 
+  * ExecutionSpecification の派生元が図では示されていないが、
+    先述の InteractionFragment である。
+
+  * ActionExecutionSpecification と BehaviorExecutionSpecification は兄弟。
+
 17.5.3 Semantics
 ----------------------------------------------------------------------
+17.5.3.1 Action Execution Specificiations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* ActionExecutionSpecification はアクションから生じるメッセージを
+  相互作用が指定するのに用いられる。
+  このアクションらは他の振る舞いによって所有されていてよい。
+
+17.5.3.2 Behavior Execution Specifications
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* BehaviorExecutionSpecification は振る舞いから生じるメッセージを
+  相互作用が指定するのに用いられる。
+
+17.5.3.3 Execution Occurrence Specifications
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* ExecutionOccurrenceSpecification はある生存線上において
+  ExecutionSpecification の開始イベントもしくは終了イベントを表現する。
+
+17.5.3.4 General Orderings
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* GeneralOrdering はあり得る連続列の集合を制限する。
+  OccurrenceSpecifications の半順序は GeneralOrderings の集合により制約を課せられる。
 
 17.5.4 Notation
 ----------------------------------------------------------------------
+17.5.4.1 ActionExecutionSpecificiation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* 派生元 ExecutionSpecification の記法を採用するようだ。
+
+17.5.4.2 BehaviorExecutionSpecification
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* こちらも同様。
+
+17.5.4.3 ExecutionOccurrenceSpecification
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* ExecutionOccurrenceSpecification は生存線上の ExecutionSpecification を
+  表す垂直な箱の始点または終点によって表現される (Figure 17.2)。
+
+17.5.4.4 GeneralOrdering
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* GeneralOrdering はふたつの OccurrenceSpecifications を接続する点線として示される。
+
+  * 矢印の方向を示すシンボルは線分の中ほどに描かれる。
+    矢印の矢先には描かない。
 
 17.5.5 Examples
 ----------------------------------------------------------------------
 * Figure 17.10 Example showing GeneralOrdering in a sequence diagram
+
+  * 図式中の斜めに走っている線分が GeneralOrdering の見本だと言っている。
 
 17.6 Fragments
 ======================================================================
