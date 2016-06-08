@@ -589,29 +589,313 @@ UML 2.5 pp. 563-636 に関するノート。
 
 17.6 Fragments
 ======================================================================
-.. todo:: ノート作成
 
 17.6.1 Summary
 ----------------------------------------------------------------------
+* 本節では次のメタクラスの構文法、意味、表記法を指定する。
+
+  * InteractionOperand
+  * InteractionConstraint
+  * CombinedFragment
+  * ConsiderIgnoreFragment
+  * Continuation
+  * InteractionOperatorKind: これは列挙体。
 
 17.6.2 Abstract Syntax
 ----------------------------------------------------------------------
 * Figure 17.11 Fragments
 
+  * InteractionConstraint と InteractionOperatorKind を除いて
+    抽象クラス InteractionFragment の直接的または間接的特殊型である。
+
+    * そのうち InteractionOperand は Namespace の一種でもある。
+
+  * InteractionConstraint は Constraint の特殊型である。
+  * InteractionOperatorKind はやたら literals が多い。
+
 17.6.3 Semantics
 ----------------------------------------------------------------------
+.. todo:: クロスリファレンスのすべてに誤植があるような気がするので問い合わせる。
+
+17.6.3.1 Interaction Operands
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* InteractionOperand は CombinedFragment の内部にある領域である。
+* InteractionOperand の意味は
+  暗黙の seq 演算により結合された、
+  その構成要素たる InteractionFragments により与えられる。
+
+17.6.3.2 Interaction Constraints
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* InteractionConstraints は常に CombinedFragments と共に用いられる。
+
+17.6.3.3 Combined Fragments
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* CombinedFragment の意味はその interactionOperator に依存する。
+* CombinedFragment に関連する Gates は
+  CombinedFragment とそれが取り囲んでいる物との間の
+  構文上のインターフェイスを表現する。
+  これはインターフェイスが他の InteractionFragments に向けられていることを意味する。
+
+17.6.3.4 Consider Ignore Fragments
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* ConsiderIgnoreFragment とは Ignore または Consider の
+  interactionOperator 値を持つ CombinedFragment である。
+
+17.6.3.5 Continuations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Continuations は Alternative CombinedFragments と（弱）順序と共に
+  あるときしか意味を持たない。
+
+* Alternative CombinedFragment の InteractionOperand が
+  名前が X という Continuation で終わるならば、
+  その X で始まっている InteractionFragments しか追加が可能にならない。
+
+17.6.3.6 Interaction Operator Kind Values
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* CombinedFragment の意味を決定するのに interactionOperator の値は深い意味がある。
+
+17.6.3.7 Alternatives
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* InteractionOperatorKind::alt は CombinedFragment が振る舞いの
+  選択肢ひとつを表現することを明示する。
+
+* 選択肢ひとつを定義する traces の集合は、
+  operands の（ガードされた）traces の和集合である。
+
+* ``else`` によってガードされる operand は
+  包囲している CombinedFragment にある他のガードすべての
+  論理和の否定となるガードである。
+
+* もしどの operand も真を評価するガードを持たないならば、
+  どの operand も実行されず、
+  包囲している InteractionFragment の残りが実行される。
+
+* もし内側の CombinedFragment Gate が
+  alt CombinedFragment の InteractionOperand のどれかに用いられているならば、
+  同名の Gate がその alt CombinedFragment の InteractionOperand それぞれに
+  よって用いられるものとする。
+
+17.6.3.8 Option
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* InteractionOperatorKind::opt は CombinedFragment が
+  その単独の operand が起こるのか、何も起こらないのか一方となるような
+  振る舞いの選択肢ひとつを表現することを明示する。
+
+17.6.3.9 Break
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* InteractionOperatorKind::break は、
+  operand が包囲している InteractionFragment の残りの代わりに
+  実施されるシナリオであるという理解で、
+  CombinedFragment がシナリオの中断を表現することを明示する。
+
+* InteractionOperatorKind::break のある CombinedFragment は
+  包囲している InteractionFragment の Lifelines すべてに及ぶものとする。
+
+17.6.3.10 Parallel
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* InteractionOperatorKind::par は CombinedFragment が
+  operands の振る舞いの間の平行な合流を表現することを明示する。
+
+* 平行な合流は operand 内部にある
+  OccurrenceSpecifications の順序を乱すことなく
+  operands の OccurrenceSpecifications が interleave されても
+  よいような手段すべてを記述する traces の集合を定義する。
+
+17.6.3.11 Weak Sequencing
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* InteractionOperatorKind::seq は CombinedFragment が operands の
+  振る舞いの間における弱配列を表現することを明示する。
+
+* 弱配列はこれらの性質を持つ traces の集合により定義される。
+
+  #. 結果において operands のそれぞれの内部にある
+     OccurrenceSpecifications の順序は維持される。
+
+  #. 異なる operands からの異なる生存線上の
+     OccurrenceSpecifications はどのような順序になってもよい。
+
+  #. 異なる operands からの同一生存線上の
+     OccurrenceSpecifications は、
+     最初の operand の OccurrenceSpecification が
+     その次の operand のそれの前に来るような順序になる。
+
+* 弱配列は operands が参加者の素集合系にあるときに
+  ひとつの平行な合流へ縮合する。
+
+17.6.3.12 Strict Sequencing
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* InteractionOperatorKind::strict は CombinedFragment が operands の
+  振る舞いの間における強配列を表現することを明示する。
+
+17.6.3.13 Negative
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* InteractionOperatorKind::neg は
+  無効であると定義される traces を
+  CombinedFragment が表現することを明示する。
+
+* InteractionOperatorKind::neg を持つ CombinedFragment を定義した
+  traces の集合はそのただひとつの operand により与えられた traces の集合に等しく、
+  有効な traces というよりは無効な集合であるというだけに過ぎない。
+
+17.6.3.14 Critical Region
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* InteractionOperatorKind::critical は CombinedFragment が
+  critical region を表現することを明示する。
+
+  * 他の OccurrenceSpecifications によって領域の traces が
+    interleave され得ないというのが critical region の意味である。
+
+* 包囲している構成要素らの traces の集合は
+  critical regions により制限される。
+
+17.6.3.15 Ignore / Consider
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* InteractionOperatorKind::ignore は
+  CombinedFragment 内部には示されていないメッセージの種類が
+  いくつかあることを明示する。
+
+* 反対に InteractionOperatorKind::consider は
+  CombinedFragment 内部にはどのメッセージが熟考されるべきかを明示する。
+
+17.6.3.16 Assertion
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* InteractionOperatorKind::assert は
+  CombinedFragment がある断定を表現することを明示する。
+
+17.6.3.17 Loop
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* InteractionOperatorKind::loop は
+  CombinedFragment があるループを表現することを明示する。
+  ループ operand は繰り返しの回数である。
+
+* ガードには Boolean 式に加えてループの繰り返し回数の下限と上限を含めてよい。
+
+* もしループが指定を持つ独立した InteractionConstraint を含むならば、
+  ループで指定された反復の最小数に関係なく、
+  その指定が実行中は真と評価するならば、
+  ループは続行するだけである。
 
 17.6.4 Notation
 ----------------------------------------------------------------------
 
+17.6.4.1 InteractionOperand
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* InteractionOperands は水平な破線で分離される。
+* Sequence 図の InteractionOperand ひとつの内側では
+  InteractionFragments の順序は単に垂直方向の上から与えられる。
+
+17.6.4.2 InteractionConstraint
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* InteractionConstraint は最初のイベント発生が起こる
+  生存線を覆う角括弧で示され、
+  そのイベントの上に位置し、
+  含んでいる Interaction または InteractionOperand の中にある。
+
+* InteractionConstraint が省略されているときには、真が仮定される。
+
+17.6.4.3 CombinedFragment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Sequence 図中の CombinedFragment の表記は実線の矩形である。
+  演算子はその矩形の左上隅の五角形中に示される。
+
+* ひとつを超える演算子が五角形の記述子中に示されてもかまわない。
+
+* CombinedFragment の operands は CombinedFragment のグラフ領域を
+  タイル貼りすることで示される。
+
+  * 水平の破線を用いて operands に対応する領域群に分割する。
+
+17.6.4.4 ConsiderIgnoreFragment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* ConsiderIgnoreFragment の表記は演算子を指し示す
+  consider または ignore のある CombinedFragments すべてに対して同じである。
+
+* 注意することは ignore と consider はひとつの矩形の中に
+  演算子の他の種類と共に結合されることが可能であることだ。
+
+17.6.4.5 Continuation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Continuations は States と同じように示されるが、
+  ひとつを超える Lifeline を覆うことが許される。
+
+* Continuations はまた Interaction Overview 図の動線上に現れてもよい。
+
+* InteractionFragment で孤独な Continuation は
+  包囲する InteractionFragment の末端にあると考慮される。
+
+17.6.4.6 InteractionOperatorKind
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* InteractionOperatorKind の値は CombinedFragment 枠の左上隅の小区画で
+  テキストとして与えられる。後述する特別な表記法がある。
+
+17.6.4.7 Strict interactionOperator
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* 表記法上は、含まれる部品の垂直座標が
+  ある Lifeline 上だけでなく CombinedFragment の全範囲において
+  重要であることを意味する。
+
+17.6.4.8 Ignore / Consider interactionOperator
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* 言及済み。
+
+17.6.4.9 Loop interactionOperator
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* BNF 記法による仕様の引用符が釣り合っていない。
+
+17.6.4.10 Parallel interactionOperator
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* 準拠ツールは単一 Lifeline 内にある coregion area の速記法を用いてよい。
+* この coregion というのは平行に結合された部品を表す速記法であり、
+  ある Lifeline 上のイベント発生（または他の入れ子になった部品）の
+  順序が取るに足らない普通の状況で用いられる。
+
 17.6.5 Examples
 ----------------------------------------------------------------------
+* InteractionOperand の見本については 17.14 を参照。
+* InteractionConstraints の見本については 17.14, 17.27 を参照。
+* 多彩な interactionOperators のある CombinedFragments の見本については
+  17.12, 17.13, 17.14 を参照。
+
 * Figure 17.12 Critical Region
+
+  * 米国における 911 呼び出しの処理が切れ目なく処理されなければならないことを
+    示している。
+
+  * 演算子 par と critical の見本。
+
 * Figure 17.13 Loop CombinedFragment
+
+  * 演算子 loop の見本。ガード付きの方は入れ子になっている。
+
 * Figure 17.14 CombinedFragment
+
+  * 演算子 alt の見本。モデルに意味がないので理解しにくい。
+
 * Figure 17.15 Continuation
+
+  * Sequence 図がふたつに分割されていて、左側の図中の ref 区画が
+    右側の Sequence 図自体に対応している。
+
 * Figure 17.16 Continuation interpretation
+
+  * 前述の左右の Sequence 図を合体させるとこれと等価になる。
+
 * Figure 17.17 Ignore, consider, assert with StateInvariants
+
+  * 図の見出しに ``sd M Ignore {t, r}`` とあるので、
+    メッセージタイプが ``t`` および ``r`` のものは無視されている。
+    実システムではこれらのメッセージを処理するだろうが、
+    この図では取り扱わないと言っているだけだ。
+
+  * Y にある ``mystate`` は StateInvariant の例。
+    これ以降のイベントが起こるのに先立って実行時に直接評価される。
+
+  * consider 部品に入れ子になっている assert 部品は、
+    メッセージ ``v`` がいったんここで発生すると、
+    メッセージ ``q`` が起こることを期待していることを意味する。
+
+  * ``{Y.p == 15}`` なる StateInvariant は
+    Y の次のイベント発生に先立って評価される。
 
 17.7 Interaction Uses
 ======================================================================
