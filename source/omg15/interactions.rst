@@ -899,51 +899,209 @@ UML 2.5 pp. 563-636 に関するノート。
 
 17.7 Interaction Uses
 ======================================================================
-.. todo:: ノート作成
 
 17.7.1 Summary
 ----------------------------------------------------------------------
+* 本節では次のメタクラスの構文法、意味、表記法を指定する。
+
+  * InteractionUse
+  * PartDecomposition
 
 17.7.2 Abstract Syntax
 ----------------------------------------------------------------------
 * Figure 17.18 InteractionUses
 
+  * InteractionUse は InteractionFragment の特殊型。
+    ValueSpecification に二種類の composition 関連、
+    Gate に composition 関連、
+    Interaction に関連がある。
+
+  * PartDecomposition は InteractionUse の特殊型。
+    Lifeline から参照される。
+
 17.7.3 Semantics
 ----------------------------------------------------------------------
+17.7.3.1 Interaction Uses
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* InteractionUse とは、
+  引数を置き換える実引数のようなものに束縛されている、
+  総称的な部分のすべてであるばかりでなく、
+  入口が解決される被参照 Interaction の意味の traces の集合でもある。
+
+* 実 Gate は InteractionUse の外側の境界に付属されてよい。
+  その InteractionUse により被参照 Interaction にある
+  具体的な送信者と受信者を樹立するリンク点を与える。
+
+17.7.3.2 Part Decompositions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Interaction の側にある Interaction 内部にある生存線の Decomposition は
+  厳密に InteractionUse として解釈される。
+
+* 分解された Lifeline は InteractionUse として解釈されるので、
+  PartDecomposition の意味は
+  入口と引数が match される分解により参照される Interaction の意味である。
+
+* CombinedFragment が大域外 (extra-global) であるということが描写するのは、
+  分解された Lifeline を覆う同じ演算子を持つ CombinedFragment が
+  その Interaction にあるということである。
 
 17.7.4 Notation
 ----------------------------------------------------------------------
+17.7.4.1 InteractionUse
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* InteractionUse は演算子が ref と呼ばれる CombinedFragment シンボルとして示される。
+
+  * 名前の構文はここにある BNF の通りに記す。
+
+17.7.4.2 PartDecomposition
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* PartDecomposition は 17.3.4 節で見られるように
+  Lifeline の見出しにある参照する節により明示される。
+
+* 部品分解が分解された生存線の下にインラインで示されて、
+  分解節が ``strict`` であれば、これは
+  インライン分解内にある部分生存線すべての上にある構成要素が
+  強配列で整列されることを意味する。
+
+* 大域外 CombinedFragment は矩形枠を分解 Interaction の境界の外側に行くようにする。
+
+.. 17.7.4.2.1 Style Guidelines
+
+* 分解に伴う Interaction の名前はその名前、
+  分解されている Part の型名と、
+  分解を生じている Interaction の名前とを含めることに利がある。
 
 17.7.5 Examples
 ----------------------------------------------------------------------
 * Figure 17.19 InteractionUse
+
+  * 左上隅に ref のタグの付いた矩形が InteractionUse の見本である。
+  * EstablishAccess のほうは実引数まで記してある。
+    一方 OpenDoor のほうは、これは引数をとらないのか、そういうのは記されていない。
+
 * Figure 17.20 InteractionUse with value return
+
+  * Lifeline ``a_op_b`` がこの Interaction の戻り値。
+  * Lifeline ``w`` がこの Interaction の入出力引数。
+  * InteractionUse は ``a_util_b`` という何かを参照している。
+
+    * オブジェクト ``:xx`` の属性 ``xc`` に戻り値 9 を代入することを示す。
+    * 入出力引数 ``w`` の出力としての値が 12 であることを示す。
+
 * Figure 17.21 PartDecomposition - the decomposed part
+
+  * 右の Lifeline の見出しの 2 行目に ``ref AC_UserAccess`` と記されている。
+    この一本に見える Lifeline が実は次に示す sd と等価だ。
+
 * Figure 17.22 PartDecomposition - the decomposition
+
+  * 前述の ``ACSystem`` を分解がこの図である。
+    この ``AC_UserAccess`` はクラス ACSystem が所有する Interaction である。
+
+  * ``AC_UserAccess`` が ACSystem を覆う UserAccess の構成要素に
+    match する大域的な構成要素を持つ。
+
+  * 左上隅に opt とあるのが extra-global CombinedFragment の例である。
+    この構成概念が UserAccess のある CombinedFragment に対応する。
+
+  * ``:AccessPoint`` の下に付いている ``p1`` と ``p2`` は
+    inner ConnectableElements である。
+
 * Figure 17.23 Sequence Diagrams where two Lifelines refer to (...)
+
+  * ``sd N`` 内の右向きの ``m3`` はそれぞれ別物らしい。
+  * ``sd N`` 内の左向きのメッセージを受け取る順序は任意である。
+    このことを示すのが、角括弧で挟まれた部分 (coregion) である。
+
+    * この coregion 内で成立している条件が StateInvariant ``{x == 2}`` である。
+
 * Figure 17.24 Describing Collaborations and their binding
+
+  * 図には示されていないが A と B はそれぞれ superA と superB の特殊型。
+    ゆえに ``E`` のような ``W`` の CollaborationUse の binding が認められる。
 
 17.8 Sequence Diagrams
 ======================================================================
-.. todo:: ノート作成
+* Interaction Diagram のもっとも普通の種類は Sequence Diagram であり、
+  これは数々の Lifelines の間を飛び交う Message に注視するものだ。
+
+* Sequence Diagram は Interaction を
+  Lifelines 上にあるそれらに対応する OccurrenceSpecifications と一緒に、
+  交わされる Messages の配列に注目を集めることにより記述する。
+
+* Sequence Diagrams により記述される Interactions は
+  Interactions パッケージにあるメタクラスらの意味を理解することへの
+  基礎を形作る。
 
 17.8.1 Sequence Diagram Notation
 ----------------------------------------------------------------------
+17.8.1.1 Graphic Nodes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Table 17.1 に Sequence Diagrams に含めることができる図表要素一覧が
+  示されている。
+
+17.8.1.2 Graphic Paths
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Table 17.2 に上述の要素間に描かれる各種経路のシンボル一覧が与えられている。
+
+* Interactions は包囲している Classifier の振る舞いの構成単位の集合体。
+  Interactions は
+  Classifier の ConnectableElements 間を往来する Messages と一緒に
+  情報の通行に焦点を合わせる。
 
 17.8.2 Example Sequence Diagram
 ----------------------------------------------------------------------
 * Figure 17.25 Overview of Metamodel elements of a Sequence Diagram
 
+  * 上の Interaction ``N`` は説明してもらわなくてももう理解できる。
+  * 下のオブジェクト図で理解が漏れそうなのは OccurrenceSpecifications だろう。
+  * Interaction モデルとしては瑣末なオブジェクトはメタモデルから
+    省いてあると断りがある。
+    例えば Part s や Class B や Message が参照する連結器は示されていない。
+
 17.9 Communication Diagrams
 ======================================================================
-.. todo:: ノート作成
+* Communication Diagrams は内部構造の設計概念と
+  これがメッセージの往来にどう対応するのかが中心になる
+  Lifelines 間の相互作用に関心を集中するものだ。
+
+* Communication Diagrams は
+  InteractionUses や CombinedFragments のような構造化の機構を用いない
+  簡単な Sequence Diagrams に対応する。
 
 17.9.1 Communication Diagram Notation
 ----------------------------------------------------------------------
+17.9.1.1 Graphic Paths
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. note:: 見出しの文言は編集ミスと思われる。
+
+* Table 17.3 では Communication Diagrams の構成要素各種の記法がまとめられている。
+  と言ってもノードが Frame と Lifeline のふたつしかない。
+
+17.9.1.2 Graphic Paths
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Table 17.4 は項目がひとつしかない図表である。
+  Message はラベル付き実線で記される。
+
+17.9.1.3 Sequence expression
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Message のラベルを BNF 記法で与えている。
+* 輪番式は輪番項のドット区切りリストにコロンが続くものである。
+* 各項は全相互作用内部の手続きに関する入れ子の深さを表現する。
+  例えば Message 3.1.4 は 3.1 内の 3.1.3 に続く。
+
+* 輪番項の ``name`` は制御の concurrent thread を表現する。
+  例えば Message 3.1a と 3.1b は 3.1 内で concurrent である
+  （どちらを先に実施してもよいし、平行に実施してもよい、の意）。
+
+* ``recurrence`` は条件付きか反復実行を表現する。
+  UML としてはその書式を規定しない。
 
 17.9.2 Example Communication Diagram
 ----------------------------------------------------------------------
 * Figure 17.26 Communication diagram
+
+  * メッセージ ``m1`` と ``m3`` が concurrently に送られている。
 
 17.10 Interaction Overview Diagrams
 ======================================================================
