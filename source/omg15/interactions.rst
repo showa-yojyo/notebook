@@ -1105,57 +1105,86 @@ UML 2.5 pp. 563-636 に関するノート。
 
 17.10 Interaction Overview Diagrams
 ======================================================================
-.. todo:: ノート作成
+* Interaction Overview Diagrams は制御フローの概観を促進するように
+  Activity Diagrams の変種を通じて Interactions を定義する。
+
+* Interaction Overview Diagrams は
+  ノードが Interactions もしくは InteractionUsers である
+  制御の流れの概観に関心を集中させる。
 
 17.10.1 Interaction Overview Diagram Notation
 ----------------------------------------------------------------------
+17.10.1.1 Graphic Nodes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Interaction Overview Diagrams は Interactions を表現する
+  Activity Diagrams の特殊化である。
+
+  * Activity Diagrams の ObjectNodes の代わりに、
+    Interaction Overview Diagrams は（インラインの）
+    Interactions か InteractionUses のどちらか一方しか持てない。
+
+  * Alternative CombinedFragments は DecisionNode と対応する MergeNode で表現される。
+
+  * Parallel CombinedFragments は ForkNode と対応する JoinNode で表現される。
+
+  * Loop CombinedFragments は簡単な輪 (pl.) で表現される。
+
+  * Interaction Overview Diagrams では分岐と接合は正しく入れ子になっているものとする。
+    Activity Diagrams よりも制限が厳しい。
+
+  * Interaction Overview Diagrams は
+    Interaction Diagrams の他の形式を包囲する枠と同じ種類の
+    枠にはめられている。
+
+* Table 17.5 では Interaction Overview Diagrams のノード 3 種が表になっている。
 
 17.10.2 Examples of Interaction Overview Diagrams
 ----------------------------------------------------------------------
 * Figure 17.27 Interaction Overview Diagram representing a High Level Interaction diagram
 
+  * パッと見た限り、本文で言うように Activity 図のノード系要素が
+    Interaction や InteractionUse に置き換わっている図式に見える。
+
+  * これは Figure 17.19 で示した振る舞いを別のやり方で記述したもので、
+    時間的拘束をいくつか加えてある。
+
 17.11 Timing Diagrams
 ======================================================================
-.. todo:: ノート作成
+* Timing Diagrams は線形の時間軸に沿った Lifelines の内部と間を変化する
+  条件に関心を集める。
+
+* Timing Diagrams は個々の classifiers と classifiers の相互作用の
+  両方の振る舞いを記述するもので、
+  モデル化された Lifelines の条件において
+  変化を引き起こすイベントの発生の時間に注意を集める。
 
 17.11.1 Timing Diagram Notation
 ----------------------------------------------------------------------
+17.11.1.1 Graphic Nodes and Paths
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Table 17.6 で Timing 図のシンボルすべてが表にまとまっている。
 
 17.11.2 Examples of Timing Diagrams
 ----------------------------------------------------------------------
 * Figure 17.28 A Lifeline for a discrete object
+
+  * Figure 17.5 の ``:User`` を Timing Diagram で描いたもの。
+  * ``:User`` は ``Idle`` と ``WaitCard`` と ``WaitAccess`` の状態を
+    行ったり来たりするようで、その時間的推移がこの図から読み取れる。
+
 * Figure 17.29 Compact Lifeline with States
+
+  * 上述の図の <more economical and compact> 版。
+
 * Figure 17.30 Timing Diagram with more than one Lifeline and with Messages
+
+  * ``:User`` に加えて ``:ACSystem`` の Lifeline も記述している。
+  * これは図を読むときに定規が要る気がする。
+    時間軸上の目盛りとグラフが遠い。
 
 17.12 Classifier Descriptions
 ======================================================================
 機械生成による節。
-
-.. 17.12.1 ActionExecutionSpecification [Class]
-.. 17.12.2 BehaviorExecutionSpecification [Class]
-.. 17.12.3 CombinedFragment [Class]
-.. 17.12.4 ConsiderIgnoreFragment [Class]
-.. 17.12.5 Continuation [Class]
-.. 17.12.6 DestructionOccurrenceSpecification [Class]
-.. 17.12.7 ExecutionOccurrenceSpecification [Class]
-.. 17.12.8 ExecutionSpecification [Abstract Class]
-.. 17.12.9 Gate [Class]
-.. 17.12.10 GeneralOrdering [Class]
-.. 17.12.11 Interaction [Class]
-.. 17.12.12 InteractionConstraint [Class]
-.. 17.12.13 InteractionFragment [Abstract Class]
-.. 17.12.14 InteractionOperand [Class]
-.. 17.12.15 InteractionOperatorKind [Enumeration]
-.. 17.12.16 InteractionUse [Class]
-.. 17.12.17 Lifeline [Class]
-.. 17.12.18 Message [Class]
-.. 17.12.19 MessageEnd [Abstract Class]
-.. 17.12.20 MessageKind [Enumeration]
-.. 17.12.21 MessageOccurrenceSpecification [Class]
-.. 17.12.22 MessageSort [Enumeration]
-.. 17.12.23 OccurrenceSpecification [Class]
-.. 17.12.24 PartDecomposition [Class]
-.. 17.12.25 StateInvariant [Class]
 
 17.13 Association Descriptions
 ======================================================================
