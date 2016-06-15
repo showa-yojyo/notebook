@@ -38,3 +38,8 @@ Unified Modeling Language 2.5 読書ノート
    informationflows
    primitive-types
    standard-profile
+   diagrams
+   interchange
+   keywords
+   tabular-notation
+   serialization
