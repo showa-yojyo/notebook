@@ -222,26 +222,212 @@ B.2.7 UML Styles
 
 B.3 Structure
 ======================================================================
-.. todo:: ノート作成
 
 B.3.1 Summary
 ----------------------------------------------------------------------
+* UML DI の Structure 部分は構造の図表とその中身の図表上の外観を捕捉する。
 
 B.3.2 Structure Diagrams
 ----------------------------------------------------------------------
 * Figure B.8 Structure Diagrams
 
+  * UMLStructureDiagram の特殊化クラスが多い。
+
+  * UMLDiagram を構造の要素を描写する図式を表すための
+    最も一般的なクラス UMLStructureDiagram へと間接的に特殊化して、
+    それをさまざまな種類の構造の図表へと特殊化する。
+
+* UMLStructureDiagrams はすべて modelElements がないが、
+  例外として UMLCompositeStructureDiagrams は除く。
+  これらはちょうどひとつあり、
+  すべてに関連 (UMLDiagramWithAssociations) を表すための図表的オプションがある。
+
+* UMLDiagramWithAssociations の内容に関して注意点をいくつか挙げる。
+
+  * これらの図式はドット記法を関連を表すのに用いてよいし、用いなくてもよい。
+    どちらになるのかは isAssociationDotShow により指示される。
+
+  * navigabilityNotation と nonnavigabilityNotation で決定される
+    航行可能記法は
+    Associations を modelElements として持つ UMLEdges や、
+    Association を classifier として持つ InstanceSpecifications や、
+    Properties や Slots に適用する。
+
+  * 関連線の間にある Generalization の矢印 (pl.) は
+    modelElements としての Generalizations の付いた UMLEdges と交換されて、
+    線で示される AssociationClasses を含む Associations の付いた
+    UMLEdges である sources と targets は modelElements と交換される。
+
+  * Generalizations を示す破線は modelElements として
+    GeneralizationSets の付いた UMLShapes と交換される。
+
+  * 限定された Association memberEnds を表す記法は
+    modelElement として memberEnd の付いた UMLShapes と交換され、
+    modelElement として Association を持つ UMLEdges により所有され、
+    modelElements として qualifiers (UMLProperty) の付いた UMLLabels を所有する。
+
+  * modelElements として InstanceSpecifications を持つ UMLShapes の間にある UMLEdges と
+    リンクを示すつもりであるそれは、
+    classifier としてリンクを分類する Association を持つ
+    modelElements として InstanceSpecifications を持つ。
+
+* UMLStructureDiagrams の内容に関して注意点をいくつか挙げる。
+
+  * 線で示される Properties または Slots は modelElements として
+    Properties または Slots の付いた UMLEdges にそれぞれ交換される。
+
+  * modelElements として Packages の付いた、
+    それらの内側に描画される UMLShapes を持たない UMLShapes は
+    Package の name をタブにではなく、大きい方の矩形に示す。
+    そうでない UMLShapes はタブに name を示す。
+
+  * modelElement として Namespace と NamedElement を持つ
+    UMLShapes の間にある、modelElements のない UMLEdges は、
+    Namespace 端点でマルに囲まれた十字線を用いて示される。
+
+  * modelElements として Interfaces を持ち、
+    ball or socket 記法で描画される UMLClassifierShapes は
+    modelElements として次に記すものの間にある Dependencies を持つ
+    UMLEdges の source または target であってよい。
+
+    #. Interfaces を要求するか供給する Ports
+    #. suppliers として Interfaces を持つ
+       InterafaceRealization または Usage Dependencies
+
+  * required と provided Interfaces を表す ball and socket 記法は
+    isIcon の値が ``true`` である UMLClassifierShapes と交換される。
+
+* UMLCompositeStructureDiagrams は
+  StructuredClassifiers または
+  StructuredClassifier である classifier のある InstanceSpecifications である
+  modelElements を持つ。
+
+* UMLCompositeStructureDiagrams に限定して内容に関する注意点をいくつか挙げる。
+
+  * modelElements として Interfaces を持ち、
+    ball or socket 記法で描画される UMLClassifierShapes は、
+    Interfaces を要求するか提供する Ports である
+    roles を持つ ConnectorEnds を持つ
+    modelElements として Connectors を持つ
+    UMLEdges の source または target であってよい。
+
+  * modelElements として Connectors を持つ UMLEdges は
+    source か target あるいはその両方として
+    modelElements として Interfaces を持つ UMLClassifierShapes を持ってよく、
+    ball or socket 記法で描画してよい。
+    このとき、Connector end roles は
+    partWithPort に値を持つ Ports であり、
+    ちょうどひとつの Interface を要求または提供する。
+
+  * modelElements として Interfaces を持ち、
+    ball or socket 記法で描画される UMLClassifierShapes は、
+    partWithPort に値を持つ Ports であり、
+    ちょうどひとつの Interface を要求または提供する
+    end roles と共に Connectors を見せるために、
+    （ボールがソケットの中にあり、それらの間に線がないように）
+    お互いの近くに描画してよい。
+
+* UMLProfileDiagrams に関する注意点をいくつか挙げる。
+
+  * Stereotype 定義は UMLClassifierShapes と共に示されるものとする。
+
+  * modelElements として Extensions の付いた UMLEdges は
+    先が塗られた実線矢印として描画されるものとする。
+    なお、矢印には航行可能矢印や他の関連装飾は付かない。
+
+  * modelElements として ProfileApplications の付いた UMLEdges は
+    先が開いた破線矢印として描画されるものとする。
+
+* Template signature 矩形は modelElements として TemplateSignatures の付いた
+  UMLShapes と交換されるものとし、それは
+  modelElement として TemplateSignature の付いた単独の UMLLabel か
+  modelElement として UMLLabel ごとにひとつの TemplateParameter の付いた
+  複数の UMLLabels のどちらかを含む。
+
 B.3.3 Classifier Shapes
 ----------------------------------------------------------------------
 * Figure B.9 Classifier Shapes
+
+  * UMLCompartmentableShape を UMLClassifierShape に特殊化することで、
+    特性を追加し、ちょうどひとつの Classifier を見せるように制限する。
+
+* UMLClassifierShapes に関する注意をいくつか挙げる。
+
+  * ownedElements UMLClassifierShapes であり、
+    modelElements として Classifiers を持ち、
+    UMLLabel の特殊化のどれにも分類されない UMLLabels は、
+    UML で指定されたテキストに Classifier の情報を与えさせるものとする。
+
+  * UMLClassifierShape compartments の中にテキスト的に
+    整って示された Classifier features は
+    modelElements として単独の Feature それぞれを持つ UMLLabels と交換されるものとする。
+
+  * UMLClassifierShape compartments の中にテキスト的に整って示された
+    Classifier features の下に現れる省略記号 ``...`` は
+    modelElements のない UMLLabels と交換されるものとし、
+    UMLCompartments::orderedElement の最後のものとして扱われる。
+
+  * modelElements として Components を持つ UMLClassifierShapes は
+    modelElements として Components の required または provided Interfaces の付いた
+    ownedElements として UMLLabels を持つ
+    ownedElements として UMLCompartments を持ってよい。
+    ここで、UMLLabals は Interfaces の names を示す。
 
 B.3.4 Multiplicity and Association End Labels
 ----------------------------------------------------------------------
 * Figure B.10 Multiplicity and Association End Labels
 
+  * UMLLabel を UMLMultiplicityLabel と UMLAssociationEndLabel に特殊化することで、
+    ただひとつの MultiplicityElement または
+    ただひとつの Association memberEnd についての情報を見せるように
+    それぞれ制限する。
+
+* UMLMultiplicityLabels と UMLAssociationEndLabels に関する注意をいくつか挙げる。
+
+  * UMLCompartments にあるテキストで示される Properties に関する情報は
+    UMLMultiplicityLabels でも UMLAssociationEndLabel でもなく、
+    UMLLabel を用いて直接交換されるものとする。
+    たとえ Property が Association memberEnd であろうと、
+    Multiplicity が示されていようとそのようにする。
+
+  * UMLMultiplicityLabel は
+    Property のような、modelElements を分類するであろう
+    MultiplicityElement の他の特殊化ではなく、
+    MultiplicityElement が定義する modelElements の部分に関する情報を
+    見せるのに用いるものとする
+
+  * ConnectorEnds は UMLMultiplicityLabel を用いて示すものとする。
+    ConnectorEnds により取り入れられた唯一の非由来 Property つまり role は、
+    modelElements として Connectors を持つ UMLEdges の targets により示され、
+    ConnectorEnd の唯一の一般化は MultiplicityElement である。
+
+  * UMLAssociationEndLabels は、
+    UMLMultiplicityLabel を用いて示されるもの以外の
+    Association memberEnds に関する情報を示すのに用いられるものとする。
+
+  * modelElements として ExtensionEnds を持つ UMLAssociationEndLabels は
+    modelElements が lower の値が 1 であるときにだけしか用いられないものとする。
+    この場合には
+    UMLAssociationEndLabels は text の値が ``{required}`` であるものとする。
+
 B.3.5 Association, Connector, and Link Shapes
 ----------------------------------------------------------------------
 * Figure B.11 Association, Connector, and Link Shapes
+
+  * UMLShape を UMLAssociationOrConnectorOrLinkShape に特殊化して、
+    特性を追加し、ちょうどひとつの Association, Connector, または
+    Association classifier の付いた InstanceSpecification を見せるように制限する。
+
+* kind の値が ``diamond`` である UMLAssociationOrConnectorOrLinkShapes は
+  菱型として描画されるものとし、
+  ふたつの memberEnds を持つ Association classifier か、
+  ふたつの ends を持つ Connector か、
+  またはふたつの memberEnds を持つ Association classifier を持つ InstanceSpecification
+  のいずれかである modelElement を持つものとする。
+
+* kind の値が ``triangle`` である UMLAssociationOrConnectorOrLinkShapes は
+  それと同じ modelElement を持つ UMLEdge を註釈する
+  塗られた三角形として描画されるものとする。
 
 B.4 Behavior
 ======================================================================
