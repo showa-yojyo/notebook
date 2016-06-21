@@ -581,7 +581,7 @@ B.4.2 Behavior Diagrams
       ``inputElement`` と ``outputElement`` をそれぞれ
       ``target`` と ``source`` として持つものとする。
 
-    * もうひとつの表記法は平行モードの ExpansionRegions にだけのものである。
+    * もうひとつの表記法は並列モードの ExpansionRegions にだけのものである。
       それは ``inputElement`` と ``outputElement`` を見せてはならない。
 
   * 割り込み activity ``edges`` は割り込み可能な区域により見分ける。
@@ -701,7 +701,46 @@ B.4.3 Activity Diagram Labels
     UMLShapes の近くにある UMLLabels は次に示す速記法を
     交換するのに用いてよい。
 
-    .. todo:: Action ごとに決められた記法の説明。
+    * ActivityParameterNode を ``source`` とする ObjectFlow の
+      ``target`` として InputPin を持つ Actions は、
+      Action, InputPin, そして
+      ``parameter`` を ``modelElement`` とする UMLLabel として交換される
+      ActivityParameterNode の ``parameter`` の ``name`` だけを示す
+      速記法で示してよい。
+
+    * ActivityParameterNode を ``target`` とする ObjectFlow の
+      ``source`` として OutputPin を持つ Actions は、
+      Action, OutputPin, そして
+      ``parameter`` を ``modelElement`` とする UMLLabel として交換される
+      ActivityParameterNode の ``parameter`` の ``name`` のすぐ近くだけを示す
+      速記法で示してよい。
+
+    * 別の Action の OutputPin を ``source`` とする ObjectFlow の
+      ``target`` として InputPin を持ち、
+      ``target`` として FlowFinal を持つ ObjectFlow の ``source`` である
+      OutputPin を持つ AddVariableValueActions は、
+      もう一方の Action, OutputPin, そして
+      ``variable`` を ``modelElement`` とする UMLLabel により示される
+      AddVariableValueActions の ``variable`` の ``name`` のすぐ近くだけを示す
+      速記法で示してよい。
+
+    * ReadVariableActions である ``fromActions`` と一緒の ActionInputPins は
+      ActionInputPin と
+      ``variable`` を ``modelElement`` とする UMLNameLabel として交換される
+      ReadVariableAction の ``variable`` の ``name`` のすぐ近くだけを示す
+      速記法で示してよい。
+
+    * ReadSelfObjectActions である ``fromActions`` と一緒の ActionInputPins は
+      ActionInputPin と
+      ReadSelfObjectAction を ``modelElement`` とする UMLLabel として交換される
+      文字列 ``self`` のすぐ近くだけを示す
+      速記法で示してよい。
+
+    * ValueSpecificationActions である ``fromActions`` と一緒の ActionInputPins は
+      ActionInputPin と
+      ``value`` を ``modelElement`` とする UMLLabel として交換される
+      ValueSpecificationAction の ``value`` のすぐ近くだけを示す
+      速記法で示してよい。
 
   * ActivityPartitions の表題は
     それらの ActivityPartition を ``modelElement`` とする
