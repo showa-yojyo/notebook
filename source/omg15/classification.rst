@@ -473,7 +473,7 @@ A_constrainingClassifier_classifierTemplateParameter
 
 * Figure 9.6 Anonymous Bound Class
 
-  * 無名 bound Class の見本。C++ 風に書くと ``FArray<Point>`` を表現する図。
+  * 無名被束縛 Class の見本。C++ 風に書くと ``FArray<Point>`` を表現する図。
 
 * Figure 9.7 Template Class with constrained Class parameter
 
@@ -485,10 +485,10 @@ A_constrainingClassifier_classifierTemplateParameter
 
 * Figure 9.8 Bound Class
 
-  * これは bound Class の記法の見本。
-  * bound Class の名前は DieselCar である。
+  * これは被束縛 Class の記法の見本。
+  * 被束縛 Class の名前は DieselCar である。
   * TemplateParameter である CarEngine と n に対して
-    DieselEngine と 2 をそれぞれ bind している。
+    DieselEngine と 2 をそれぞれ束縛している。
 
 9.4 Features
 ======================================================================
@@ -594,7 +594,7 @@ A_condition_parameterSet
 
   * ``attribute`` の多重度が ``0`` であれば、値がないものとする。
 
-* StructuralFeature に ``isStatic`` が true であると印がついていると、
+* StructuralFeature に ``isStatic`` が true であると、
   上記の点はオブジェクトの個々に対してではなく、
   ある実行スコープの範囲内にある見分けられる個体とみなされる
   Classifier 自身に関係する。
@@ -614,7 +614,7 @@ A_condition_parameterSet
      StructuralFeature は別々かつ独立した値または値の集まりを持つ。
      これらの意味は Ruby や Smalltalk でのクラスインスタンス変数に対応する。
 
-* StructuralFeature に ``isReadOnly`` が true であると印がついているならば、
+* StructuralFeature に ``isReadOnly`` が true であるならば、
   いったんそれが初期値を割り当てられると、更新されてはならない。
 
 9.4.3.3 Behavioral Features
@@ -688,7 +688,7 @@ A_condition_parameterSet
 * BehavioralFeature は、
   ひとつを超える Parameter に対して、
   その方向を return にセットするという手段により、
-  return Parameter と印をつけることは許されない。
+  return Parameter と特徴づけることは許されない。
 
 * ``effect`` 特性は、
   Parameter に入出力されたオブジェクトに何を起こすかを指定するのに用いてよい。
@@ -758,9 +758,9 @@ A_condition_parameterSet
 ----------------------------------------------------------------------
 * Property は次のものを表現する StructuralFeature である。
 
-  * Classifier::attributes
-  * Association::memberEnds
-  * StructuralFeature::parts
+  * Classifier::``attributes``
+  * Association::``memberEnds``
+  * StructuralFeature::``parts``
 
 9.5.2 Abstract Syntax
 ----------------------------------------------------------------------
@@ -770,20 +770,18 @@ A_condition_parameterSet
 
 A_ownedAttribute_interface, A_ownedAttribute_datatype, A_ownedAttribute_class
   * それぞれ Interface, DataType, Class から Property への composite 関連（両方向）。
-  * 関連端 ownedAttribute は Classifier の attribute であるということを表している。
+  * 関連端 ownedAttribute は Classifier の ``attribute`` であるということを表している。
   * A_attribute_classifier と A_ownedMember_namespace を subsets する。
     さらに Class 版関連だけはまだ説明されていない関連を subsets または redefines する。
 
 A_memberEnd_association
   * Association と Property 間の関連（両方向）。
-  * 関連端 memberEnd は Association の一方の関連端であることを表す。
+  * 関連端 ``memberEnd`` は Association の一方の関連端であることを表す。
 
-    * 二項関連においては、Property は同時に ownedAttribute と memberEnd であってもよい。
+    * 二項関連においては、Property は同時に ``ownedAttribute`` と ``memberEnd`` であってもよい。
       どちらか一方の場合、生成されたときに Property は
       関連の位数に従った個数の Classifier のオブジェクトに関連したある値・値の集まりを表現する。
-      この Classifiers の集まりをその Property の context を呼ぶ。
-
-      * 何を書いているのかわからない。
+      この Classifiers の集まりをその Property の ``context`` と呼ぶ。
 
   * A_member_memberNamespace を subsets する。
 
@@ -792,15 +790,13 @@ A_ownedEnd_owningAssociation
 
 A_qualifier_associationEnd
   * Property から Property への composite 関連（両方向）。
-  * 上述の関連端 memberEnd な Property はそれ自身が
-    qualifiers として働くような他の Properties を持ってもよい。
-  * 関連端 qualifier は ``{ordered}`` である。
+  * 上述の関連端 ``memberEnd`` な Property はそれ自身が
+    ``qualifiers`` として働くような他の Properties を持ってもよい。
+  * 関連端 ``qualifier`` は ``{ordered}`` である。
   * A_ownedElement_owner を subsets する。
 
 A_defaultValue_owningProperty
   * Propery から ValueSpecification への composite 関連（単方向）。
-  * defaultValue が指定されていれば、Property のオブジェクトが生成時に、
-    これに対する設定がなければ評価されて、初期値となる。
   * 関連 A_ownedElement_owner を subsets する。
   * 多重度は両端ともに ``0..1`` である。
 
@@ -812,7 +808,7 @@ A_opposite_property
 A_subsettedProperty_property
   * Property から Property への関連（単方向）。
   * これは Property が集約であるときに、
-    subsetttedProperty が property から重複構成要素を除外した集合であることを表す。
+    ``subsetttedProperty`` が ``property`` から重複構成要素を除外した集合であることを表す。
 
 A_redefinedProperty_property
   * Property から Property への関連（単方向）。
@@ -822,58 +818,120 @@ A_redefinedProperty_property
 
 9.5.3 Semantics
 ----------------------------------------------------------------------
-Property
-  * Property は Classifier::attribute または Association::memberEnd を表現して構わない。
+* Property は Classifier の ``attribute`` か、
+  Association::``memberEnd`` か、
+  場合によっては両者を同時に表現することが許される。
 
-    * モデリングの際には型が Class の Property を関連端に、
-      型が DataType の Property を属性用区画に記すのが便利な慣習だ。
+* 一般的なモデリングのシナリオで便利な慣習は、
+  型が Class の一種の Property が Association 端であることで、
+  それに対して型が DataType の一種の Property はそうではない。
 
-  * ConnectableElement かつ StructuralFeature かつ DeploymentTarget である。
+* Property はひとつまたはそれ以上のオブジェクトの宣言された状態を、
+  値への名前のついた関係に関して表現する。
 
-  * 属性 aggregation は AggregationKind 型の値を取る。候補値は次のとおり。
+* ``memberEnd`` である Property はそれ自身が
+  ``qualifiers`` の役に立つ他の Property を持ってよい。
+
+* Property が ``ownedAttribute`` を介して
+  Association 以外の Classifier によって所有されるときに、
+  それは Classifier の ``attribute`` を表す。
+
+* Property に ``defaultValue`` が指定されていると、
+  Property に対して特定の設定が不在であるか、
+  Property に特定の値を持つことを要求する制約がモデルにあれば、
+  Property のオブジェクトが生成されるときにこの既定値が評価される。
+
+* Property の ``isDerived`` が true であると、
+  それは派生されたものであり、
+  その値は他の情報から計算されてもよい。
+
+* Property は間接的に RedefinableElement の一種であるので、
+  Properties を再定義してよい。
+
+* 派生された Property は派生されていないものを再定義してよい。
+
+* Property に指定された既定値があり、
+  Property が別の Property を指定された既定値で再定義するならば、
+  再定義された Property から得られるより一般的な既定値の代わりに
+  再定義する Property の既定値が使われる。
+
+* 時々 Property はあるオブジェクトがオブジェクトの集合を
+  グループ化するのに使われる情況をモデル化するのに用いられる。
+  これは集約 (aggregation) と呼ばれる。
+
+  * AggregationKind は次のリテラル値からなる列挙型である。
 
     * none: Property は集約の意味を持たない。
     * shared: Property の集約の意味は「共有」である。
-      共有集約の正確な意味はモデラーなどによって変化する。
+      共有集約の正確な意味は応用領域と設計者によって異なる。
     * composite: Property が複合的に集約されている。
       これは集約の強い形であり、全体・部分の関係を表現していると解釈する。
 
-  * 属性 isDerived が true ならば、Property は派生したものであり、
-    その値は他の情報から計算されてもよい。
+* 合成集約とは、
+  ``part`` オブジェクトが高々ひとつの合成オブジェクトに
+  同時に含まれることを必要とする集約の強い形式である。
+  合成オブジェクトが削除されれば、
+  その ``part`` オブジェクトのすべてが一緒に削除される。
 
-  * 属性 isComposite が true ならば、
-    この Property を含むオブジェクトがそのオブジェクトまたは
-    Property が含む値のための container である。
+  .. todo:: 
 
-  * 属性 isDerivedUnion:
+     原文は instance と object を明らかに使い分けている。
+     私は両者のニュアンスの差を全く理解していない。
 
-    * <This means that
-      the collection of values denoted by the Property in some context
-      is derived by being the strict union of all of the values denoted,
-      in the same context,
-      by Properties defined to subset it>(pp. 110-111)
+* 合成は推移的削除性の有向非循環グラフにつなげてよい。
+  つまり、グラフの部品であるオブジェクトをひとつ削除すると、その結果
+  そのオブジェクト下のサブグラフのオブジェクトすべての削除をも生じる。
 
-    * <Specifies whether the property is derived as the union of
-      all of the Properties that are constrained to subset it>(p. 147)
+* Property は別の ``subsetttedProperty`` の部分集合として特徴づけてよい。
 
-    * ある Property が、
-      そのすべての ``{subsets}`` である Properties の和集合と一致するとき、
-      その Property は derived union であると呼ぶのだろう。
+* Property は
+  ``isDerivedUnion`` を true に設定することで
+  導出和集合 (derived union) であると特徴づけてよい。
 
-    * ``{union}`` という表記はその性質を示している。
+  * ある Property が、
+    そのすべての ``{subsets}`` である Properties の和集合と一致するとき、
+    その Property は導出和集合であると呼ぶのだろう。
 
-  * 属性 isID は Property が Classifiers の識別子となる member であることを示せる。
-    データベースの主キーや、XML の ID 属性のような役割を果たせる。
+* 導出和集合として特徴付けられた属性が ``isOrded`` が true であり、
+  特定の状況においてそれの部分集合である特性のすべてが
+  順序付けられているか、上限が 1 であると特徴づけられていて、
+  Classifier::allAttributes() 操作のその状況での値が
+  well-defined な順序付けを与えるときには、
+  和集合の順序は部分集合の特性を
+  allAttributes() の結果に出現する順序により評価することと、
+  結果を連結することで定義される。
 
-    * データベースの類比からすると isID = true な Property が複数あっても構わない。
+* Property は ``isID`` 特性を通じて、
+  それが ``member`` である Classifiers を見分ける識別子である
+  （または部分である）と特徴づけてよい。
+
+* Property は ParameterableElement を特殊化して、
+  Property が仮の ConnectableElementTemplateParameter とて露出されてよいことと、
+  テンプレートの束縛で実引数として与えられてよいことを指定する。
 
 9.5.4 Notation
 ----------------------------------------------------------------------
-Property の一般的な記法が BNF 記法で仕様化されている。
+* Property の一般的な記法が BNF 記法で仕様化されている。
 
-* PDF のこのページにブックマークを入れておきたい。
-* 個人的には prop-modifier がいつも気になっている。
-* 集約の記法は :doc:`./structured-classifiers` まで先延ばし。
+  * 個人的には prop-modifier がいつも気になっている。
+
+* 限定子 (qualifiers) を表す表記法は :doc:`./structured-classifiers` で定義する。
+
+* Property の集約を表す表記法は :doc:`./structured-classifiers` で定義する。
+
+* Classifier では、型、可視性、既定値、多重度、特性文字列を、
+  モデルに存在するときであっても、表示しないようにしてよい。
+
+* Classifier では、属性の個々の特性を連続的な文字列としてではなく、
+  列で示してよい。
+
+* Classifier では、属性は関連の表記法を使って示してもよいが、
+  そこには集約の修飾物（白または黒塗りダイヤモンド）しか
+  矢印の末尾に示してはいけない。
+
+* Property によるテンプレート Classifier を引数化するのに用いられる
+  ConnectableElementTemplateParameter を表す表記法は p. 112 末端の
+  BNF 記法が指定するもので与えられる。
 
 9.5.5 Examples
 ----------------------------------------------------------------------
@@ -883,21 +941,16 @@ Property の一般的な記法が BNF 記法で仕様化されている。
 
 * Figure 9.12 Association-like notation for attributes
 
-  * 関連の記法では属性がどう示されるのかを示す。
+  * 属性が関連の記法でどう示されるのかを示す。
 
 9.6 Operations
 ======================================================================
 
 9.6.1 Summary
 ----------------------------------------------------------------------
-* Operation は次のものが所有してもよい BehavioralFeature である。
-
-  * Interface
-  * DataType
-  * Class
-
-* Operation をテンプレート化してもよいし、
-  テンプレート引数として用いてもよい。
+* Operation とは、Interface, DataType, または Class が
+  所有することが許される BehavioralFeature である。
+  Operations はテンプレート化することもテンプレート引数として使うことも許される。
 
 9.6.2 Abstract Syntax
 ----------------------------------------------------------------------
@@ -909,7 +962,7 @@ Property の一般的な記法が BNF 記法で仕様化されている。
 A_ownedOperation_interface, A_ownedOperation_datatype, A_ownedOperation_class
   * Interface, DataType, Class いずれかから Operation への composite 関連（双方向）。
   * 各 Classifier が Operation(s) を所有してもよいという意味。
-  * ownedOperation は ``{ordered}`` である。
+  * ``ownedOperation`` は ``{ordered}`` である。
   * A_feature_featuringClassifier を subsets する。
   * A_redefinitionContext_redefinableElement を subsets する。
   * A_ownedMember_namespace を subsets する。
@@ -923,19 +976,19 @@ A_ownedParameter_operation
 
 A_precondition_preContext, A_postcondition_postContext, A_bodyCondition_bodyContext
   * Operation から Constraint への composite 関連（単方向）。
-  * precondition と postcondition は Operation の呼び出しに関する事前条件と事後条件をそれぞれ意味する。
-  * bodyCondition は Operation の戻す結果をその仕様が計算する値によって縛りをかける。
+  * ``precondition`` と ``postcondition`` は Operation の呼び出しに関する事前条件と事後条件をそれぞれ意味する。
+  * ``bodyCondition`` は Operation の戻す結果をその仕様が計算する値によって縛りをかける。
   * A_ownedRule_context を subsets する。
 
 A_raisedException_operation
   * Operation から Type への関連（単方向）。
   * Operation はその呼出期間中に例外を送出してもよい。
-    そういう場合は上述の postcondition や bodyCondition は成立していると仮定するべきではない。
+    そういう場合は上述の ``postcondition`` や ``bodyCondition`` は成立していると仮定するべきではない。
 
   * A_raisedException_behavioralFeature を subsets する。
 
-    * 図では operation が ``{subsets}`` で
-      raisedException が ``{redefines}`` になっている？
+    * 図では ``operation`` が ``{subsets}`` で
+      ``raisedException`` が ``{redefines}`` になっている？
 
 A_redefinedOperation_operation
   * Operation から Operation への関連（単方向）。
@@ -950,28 +1003,55 @@ A_parameteredElement_templateParameter
 ----------------------------------------------------------------------
 9.6.3.1 Operations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Operation
-  * Operation は Interface, DataType, Class のどれかの BehavioralFeature である。
-    なおかつ BehavioralFeature と ParameterableElement である。
+* Operation は Interface, DataType, または Class の BehavioralFeature である。
 
-  * 属性 isOrdered は Operation が戻り値を持つならば、その isOrdered と同じ。
+* 戻り値があれば、Operation の型はこの Parameter の方と同じである。
+  そうでなければ Operation には型がない。
 
-  * 属性 isQuery が true ならば、
-    その Operation の呼び出しはそのオブジェクトまたはモデル内のどの要素の状態を修正してはならない。
+* Operation の ``precondition`` は Operation が発動されるときに
+  true であるとする条件を定義する。
 
-    * C++ で言うところの const メンバー関数のような概念だろう。
-      それより条件が強いように見える。
+* Operation の ``postcondition`` は Operation の発動が成功裡に完了するときに
+  true である条件を定義する。
 
-  * 属性 isUnique は Operation が戻り値を持つならば、その isUnique と同じ。
-  * 属性 lower, upper: Operation が戻り値を持つならば、そのそれぞれと同じ。
+* Operation の ``bodyCondition`` は
+  ``bodyCondition`` の仕様により計算される値に対し返る結果を抑制する。
+
+* Operation は発動の間に例外を送出してよい。
+
+* Operation は ``featuringClassifier`` の特殊化で再定義してよい。
+
+* Operation が特殊化で再定義されるときに、
+  異なる型適合システムは、
+  引数と結果の型がどのように変わってよいのかを決める、
+  異なる概略を採用する。
+
+  * 型が異なってはならないときは、それは不変性 (invariance) と呼ばれる。
+  * 引数型が特殊型に特殊化されてよいときは、それは共変性 (covariance) と呼ばれる。
+  * 引数型が特殊型で一般化されてよいときは、それは反変性 (contravariance) と呼ばれる。
+
+* ``isQuery`` 特性が true であると、
+  Operation の発動はオブジェクトまたはモデル内の他のどんな要素の
+  状態を修正しないものとする。
+
+  * C++ で言うところの const メンバー関数のような概念だろう。
+    それより条件が強いように見える。
 
 9.6.3.2 Template Operations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-OperationTemplateParameter
-  * パラメーター化要素が Operation である TemplateParameter である。
+* Operation は
+  テンプレート Operations と被束縛 Operations の特殊化を支援するために
+  TemplateableElement を特殊化する。
 
 9.6.3.3 Operation Template Parameters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Operation はテンプレートによって
+  OperationTemplateParameter を通じて、
+  仮テンプレート引数として露出してよい。
+
+* OperationTemplateParameter のための既定値は
+  露出された Operation と同じ引数型、方向、多重度を持った
+  Operation でなければならない。
 
 9.6.4 Notation
 ----------------------------------------------------------------------
@@ -984,18 +1064,24 @@ OperationTemplateParameter
 * さらに OperationTemplateParameter の記法を仕様化している。
   これは TemplateParameter の記法を拡張することでなされる。
 
+* 例外とストリーミング Parameters およびストリーミング Operations の
+  クラス図における表記法には、
+  特性文字列にキーワード ``execption`` および ``stream`` がある。
+
 9.6.5 Examples
 ----------------------------------------------------------------------
-テンプレートが絡む記法は山括弧がダブって読みにくくなる。
-まるで C++ のコード。
+* テンプレートが絡む記法は山括弧がダブって読みにくくなる。
+  まるで C++ のコード。
 
 9.7 Generalization Sets
 ======================================================================
 
 9.7.1 Summary
 ----------------------------------------------------------------------
-* GeneralizationSet は Generalizations を直交にグループ分けする手段を提供する。
-* この節で紹介する分類技法は面白い。
+* GeneralizationSet は Generalizations を直交する寸法にグループ分けする
+  手段を与える。
+  GeneralizationSet はその ``powertype`` と呼ばれる Classifier と結びつけてよい。
+  これらの技法は分類階層を組織化にさらなる表現力を与える。
 
 9.7.2 Abstract Syntax
 ----------------------------------------------------------------------
@@ -1012,27 +1098,33 @@ A_powertypeExtent_powertype
   * Classifier と GeneralizationSet との間の関連（両方向）。
   * この関連が意味するのは、
     GeneralizationSet の各 Generalization に対して、
-    特殊化 Classifier が powertype のオブジェクトに一意に関連している、
+    特殊化 Classifier が ``powertype`` のオブジェクトに一意に関連している、
     ということだ。
 
-    * すなわち powertype オブジェクトと対応する Classifiers が意味的に等価であると扱われる。
+    * すなわち ``powertype`` オブジェクトと対応する Classifiers が意味的に等価であると扱われる。
 
 9.7.3 Semantics
 ----------------------------------------------------------------------
-困ったことに Examples を先に見たほうが理解しやすい。
+* Generalizations は一般化の直交寸法を表現するのにグループ化されてよい。
+  グループのそれぞれは GeneralizationSet により表現される。
 
-GeneralizationSet
-  * PackageableElement から派生。
-  * 属性 isCovering: Generalizations の特定する Classifiers が完全であるかどうかを示す。
-    つまり、Classifier の任意の派生型オブジェクトは、
-    ここにある Classifiers の少なくとも一つのもののそれであることが常に成り立つ。
+* GeneralizationSet の ``isCovering`` 特性は、
+  その集合にある Generalizations の特定の Classifiers が完全であるかどうかを示す。
+  つまり、Classifier の任意の派生型オブジェクトは、
+  ここにある Classifiers の少なくとも一つのもののそれであることが常に成り立つ。
 
-  * 属性 isDisjoint: Generalizations の特定する Classifiers が部分的に重なりを持たないことを示す。
-    つまり、Classifier の派生型をここから一つ取った時、
-    それはそれ以外のどの型でもないと言っている。
+* ``isDisjoint`` 特性は
+  その集合にある Generalizations の特定の Classifiers が
+  部分的に重なりを持つ (false) かどうかを指定する。
+
+* GeneralizationSet は任意で ``powertype`` と呼ばれる Classifier と
+  結びつけてよい。
 
 9.7.4 Notation
 ----------------------------------------------------------------------
+* Generalization 関係の線分に名前があるとき、
+  その名前は Generalization が所属する GeneralizationSet を指名する。
+
 * Figure 9.15 GeneralizationSets designated by name
 
   * Generalization の名前をいつもの矢印のラベルに記している。
@@ -1048,7 +1140,7 @@ GeneralizationSet
 
 * Table 9.1 GeneralizationSet constraints
 
-  * isCovering と isDisjoint の記法は制約の記法に準じる。
+  * ``isCovering`` と ``isDisjoint`` の記法は制約の記法に準じる。
 
 * Figure 9.18 GeneralizationSet constraint notation with shared target style
 * Figure 9.19 GeneralizationSet constraint notation with dashed line style
@@ -1058,7 +1150,7 @@ GeneralizationSet
 * Figure 9.20 Power type notation with shared target style
 * Figure 9.21 Power type notation with dashed line style
 
-  * powertype の記法は GeneralizationSet のそれに準じる。
+  * ``powertype`` の記法は GeneralizationSet のそれに準じる。
     名前の前にコロンを付す。
 
 9.7.5 Examples
@@ -1067,7 +1159,13 @@ GeneralizationSet
 
 * Figure 9.22 GeneralizationSet notation options
 
-  * 抽象型 Person を異なる基準で specialize していることがよくわかる。
+  * 抽象クラス Person が Woman および Man に特殊化されている。
+    独立して、Employee に特殊化されている。
+    Woman と Man への特殊化が GeneralizationSet をひとつ、
+    Employee への特殊化が別の GeneralizationSet を構成している。
+    この見本はさまざまな表記法形式を使って (employs) いる。
+
+  * 抽象型 Person を異なる基準で特殊化していることがよくわかる。
 
 * Figure 9.23 GeneralizationSets and constraints
 
@@ -1076,22 +1174,27 @@ GeneralizationSet
 
 * Figure 9.24 Power type example
 
-  * powertype TreeSpecies による Tree の派生モデル。
+  * ``powertype`` TreeSpecies による Tree の派生モデル。
 
 * Figure 9.25 More power type examples
 
-  * powertype いろいろ。
+  * ``powertype`` いろいろ。
+  * GeneralizationSet でコロンで始まる名前は
+    ``powertype`` であることを示す。
 
 * Figure 9.26 More than one powertype
 
-  * powertype が複数存在する場合は、ラベルを明確に記すことが重要だ。
+  * ``powertype`` が複数存在するときには、
+    ``powertypes`` と共にサブタイプの集まりにラベルを付けることが
+    ますます重要になってくる。
 
 9.8 Instances
 ======================================================================
 
 9.8.1 Summary
 ----------------------------------------------------------------------
-* InstanceSpecification は Classifier のオブジェクトを表現する。
+* InstanceSpecifications はモデル化されたシステムで
+  Classifiers のオブジェクトを表現する。
 
 9.8.2 Abstract Syntax
 ----------------------------------------------------------------------
@@ -1105,7 +1208,7 @@ A_slot_owningInstance
 A_classifier_instanceSpecification
   * InstanceSpecification から Classifier への関連（単方向）。
   * InstanceSpecification のオブジェクトの種類として参照する。
-  * 例えば classifier が
+  * 例えば ``classifier`` が
 
     * Class ならばその Class のオブジェクトの特徴を述べ、
     * Association ならばその Association のリンクの特徴を述べ、
@@ -1135,52 +1238,80 @@ A_instance_instanceValue
 
 9.8.3 Semantics
 ----------------------------------------------------------------------
-InstanceSpecification
-  * DeploymentTarget, PackageableElement, DeployedArtifact の一種である。
-  * モデル化されたシステム内のオブジェクトの在り様を表現する。
+* InstanceSpecification はモデル化されたシステムで
+  あり得るまたはオブジェクトの現実の存在を表し、
+  それらのオブジェクトを完全にまたは部分的に記述する。
 
-  * InstanceSpecification は次のものを表現してよい。
+* Slot は InstanceSpecification により模されるオブジェクトが
+  特定の StructuralFeature のために値を持つことを指定する。
+  それは
+  ``classifier`` が
+  再定義された StructuralFeatures を除いた Association であるならば、
+  直接の属性、継承された属性、一般化において private な属性、
+  または ``memberEnd`` であるということにより
+  Slot を所有する InstanceSpecification の
+  ``classifier`` に関する StructuralFeature であるものとする。
 
-    * 一つ以上の Classifiers によるオブジェクトの分類。いずれかは抽象でもよい。
-    * それの classifiers に基づくオブジェクトの種類。
-    * そのオブジェクトの StructuralFeatures の値の仕様。それらは Slots に収まる。
-    * ValueSpecification による、
-      オブジェクトの計算方法、継承方法、構築方法の選択自由の仕様。
+* InstanceSpecification は次のものを表現してよい。
 
-  * InstanceSpecification はあるオブジェクトのスナップショットである。
-  * InstanceSpecification はあるオブジェクトの性質を部分的にだけ決定するのかもしれないので、
-    実際にはその InstanceSpecification の要件を満足するオブジェクトが複数あり得る。
+  * 一つまたはそれ以上の Classifiers によるオブジェクトの分類。
+    いずれも抽象でよい。
 
-Slot
-  * Element の一種である。
-  * ある InstanceSpecification がモデル化したオブジェクトが、
-    特定の StructuralFeature に対して値を持つということを指定する Element である。
+  * それの ``classifiers`` に基づくオブジェクトの種類。
 
-  * Slot の値はその Slot の定義 StructuralFeature に適合する (conform) 必要がある。
-  * Slot の値は ValueSpecifications を用いて指定される。
+  * オブジェクトの StructuralFeatures の値の仕様。
+    値は Slots に含まれる。
 
-InstanceValue
-  * ValueSpecification の一種である。
-  * その値が InstanceSpecification を用いて指定される。
+  * ValueSpecification による、
+    オブジェクトの計算方法、導出方法、構築方法の選択自由の仕様。
+
+* InstanceSpecification はある時点におけるオブジェクト、
+  スナップショットを表してよい。
+
+* InstanceSpecification はモデル要素であって、
+  モデル化しているオブジェクトと混同するべきではないということを
+  留意することは重要である。
+
+* InstanceValue とは、
+  値が InstanceSpecification を用いて指定される
+  ValueSpecification の一種である。
+
+* InstanceValue はそれが参照する InstanceSpecification を所有しない。
+  それに対して InstanceValues は同じ InstanceSpecification を参照してよい。
 
 9.8.4 Notation
 ----------------------------------------------------------------------
-InstanceSpecification
-  * その classifiers と似た記法で表す。
-    オブジェクト名があれば Classifier の名前の前にコロンで区切ってくっつける。
-    そして下線を引く。
+* InstanceSpecification はその ``classifiers`` と似た記法を用いて描かれるが、
+  Classifier の名前が現れる代わりに、
+  もしあればオブジェクト名、コロン、Classifier の名前（たち）を連結し、
+  下線を引く。
 
-  * classifiers が Association のものはリンクを表現する。
-    関連の記法と同じものを用いて示す。
+* InstanceSpecification の ``classifier`` が Association であるものは
+  リンクを表現し、Association の同じ記法を用いて示すが、
+  実線のパスは Classifiers ではなく InstanceSpecifications を接続する。
 
-Slot
-  * 対応する StructuralFeature のそれに似た記法を用いて示す。
-  * さらにイコール記号を書き、値の仕様が続く。
+* Classifiers と InstanceSpecifications では名前はオプションである。
 
-InstanceValue
-  * テキストによる記法またはグラフィカルな記法を用いて出てくる。
+* 無名 (unnamed) Classifier の無名 (anonymous) InstanceSpecification 標準表記は
+  下線のついたコロンである。
 
-その他、細かい条件の下での記法について説明があるが省略。
+* Slots は対応する StructuralFeatures のそれに似た記法を用いて示す。
+
+* InstanceValue はテキストによる記法または図表的な表記法を用いて現れてよい。
+
+* InstanceValue である Slot 値は代わりに
+  リンクのそれに似た図式的表記法を用いて示してよい。
+
+* StructuredClassifier により分類される InstanceSpecification では、
+  それはその役目を演じるオブジェクトを表す、
+  入れ子の矩形を含んでよい。
+
+* InstanceSpecification の名前にオブジェクトが演じる役目の名前を続けてよい。
+
+* InstanceSpecification が Slot 値と役目を描写する
+  入れ子の矩形の両方を含むところでは、
+  それは属性に類する区画と
+  対応する StructuredClassifier の内部構造区画に分割される。
 
 9.8.5 Examples
 ----------------------------------------------------------------------
