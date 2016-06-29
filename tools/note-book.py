@@ -14,7 +14,7 @@ import csv
 from jinja2 import Environment
 from isbn_hyphenate import hyphenate
 
-__version__ = '1.1.1'
+__version__ = '1.2.0'
 
 TEMPLATE = '''\
 ======================================================================
@@ -27,8 +27,8 @@ TEMPLATE = '''\
 ======================================================================
 
 :著者: {{ book["authors"] }}
-{%- if "reinterpreters" in book %}
-:訳者: {{ book["reinterpreters"] }}
+{%- if "translators" in book %}
+:訳者: {{ book["translators"] }}
 {%- endif %}
 :出版社: {{ book["publisher"] }}
 :発行年: {{ book["pubyear"] }} 年
@@ -37,7 +37,7 @@ TEMPLATE = '''\
 :関連 URL: `あり <{{ book["url"] }}>`__
 {% else %}
 :関連 URL: なし
-{%- endif %}
+{% endif %}
 .. todo::
 
    寸評を記す。
@@ -45,7 +45,7 @@ TEMPLATE = '''\
 '''
 
 def configure():
-    """Return the command line parameter."""
+    """Return the command line arguments."""
 
     parser = ArgumentParser()
     parser.add_argument(
@@ -58,7 +58,7 @@ def configure():
         type=FileType(mode='r', encoding='utf-8'),
         default=sys.stdin)
 
-    return parser
+    return parser.parse_args()
 
 def read(source):
     """Read TSV from the source."""
@@ -73,8 +73,8 @@ def parse(input):
     """Parse the input data."""
 
     for i in input:
-        if i["reinterpreters"] == "n/a":
-            del i["reinterpreters"]
+        if i["translators"] == "n/a":
+            del i["translators"]
         if i["url"] == 'unknown':
             del i["url"]
 
@@ -93,7 +93,7 @@ def write(output, destination):
 def main():
     """The main function."""
 
-    args = configure().parse_args()
+    args = configure()
 
     header, books = read(args.file)
     write(parse(books), sys.stdout)
