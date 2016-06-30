@@ -3,21 +3,21 @@
 ======================================================================
 UML 2.5 pp. 165-180 に関するノート。
 
-.. todo:: 最低でもあと一回は編集する。
+.. todo:: 誤訳や変な解釈がいかにもありそうなので、発覚次第修正する。
 
 .. contents:: ノート目次
    :depth: 2
 
 10.1 Summary
 ======================================================================
-この章では複雑な内部構造でない Classifier 各種を詳細に記す。
+* この章では複雑な内部構造でない Classifier 各種を詳細に記す。
 
 10.2 DataTypes
 ======================================================================
 
 10.2.1 Summary
 ----------------------------------------------------------------------
-* DataType はそのオブジェクトたちが値にのみによって見分けのつくような Type である。
+* DataTypes はオブジェクトたちが値によってしか区別されない Types をモデル化する。
 
   * C/C++ 用語の POD に相当する概念と思われる。
 
@@ -28,44 +28,6 @@ UML 2.5 pp. 165-180 に関するノート。
   * DataType を中心に置いた図式。
   * 新登場の要素は DataType, PrimitiveType, Enumeration, EnumerationLiteral である。
 
-10.2.3 Semantics
-----------------------------------------------------------------------
-DataType
-  * Classifier の一種。
-  * 値ベースで扱える Classifier である。
-  * もし DataType が attributes を持つならば、それは構造化されていると言う。
-
-    * 構造化された DataType のオブジェクト同士が等しいとは、
-      それらの構造と対応する attributes の値が等しいとき、かつそのときに限る。
-
-  * DataType は引数にしたり、束縛されたり、TemplateParameters として用いてよい。
-
-PrimitiveType
-  * DataType の一種。
-  * あらかじめ定義されている DataType であり、どんな部分構造をも持たない。
-  * PrimitiveType は代数が入っていてよい。その演算は UML の外部で定義される。
-    実行時の PrimitiveType のオブジェクトは、数学的な要素に対応する値である。
-
-    * ここで言う代数というのは、数学の一研究分野というよりは、
-      代数的構造を持つモデル程度の意味のほうに解釈したい。
-
-Enumeration
-  * DataType の一種。
-  * その各値がユーザー定義の EnumerationLiteral の一つに対応する。
-  * Enumeration は Classifier の specialization なので、
-    generatization 関係に関与することが可能である。
-
-    * 特殊化された Enumeration には、新しい EnumerationLiteral を定義してよい。
-
-EnumerationLiteral
-  * InstanceSpecification の一種。
-  * Enumeration の要素を定義する。
-  * EnumerationLiteral に対応する値は不変 (immutable) であり、
-    等価性を調べるための比較がなされてもよい。
-  * EnumerationLiteral はその内部で識別するのに用いられる必要がある名前を持つ。
-    それを含む Enumeration の内部において一意である必要がある。
-  * EnumerationLiteral の名前は一般用途のためには限定される (be qualified) 必要がある。
-
 A_ownedAttribute_datatype
   :doc:`./classification` Figure 9.10 で見た。
 
@@ -75,7 +37,7 @@ A_ownedOperation_datatype
 A_ownedLiteral_enumeration
   * Enumeration から EnumerationLiteral への composite 集約（両方向）。
   * A_ownedMember_namespace を subsets する関連。
-  * ownedLiteral は ``{ordered}`` である。
+  * ``ownedLiteral`` は ``{ordered}`` である。
 
 A_classifier_enumerationLiteral
   * EnumerationLiteral から Enumeration への関連（単方向）。
@@ -83,17 +45,72 @@ A_classifier_enumerationLiteral
   * EnumerationLiterals はその状態を変化することが許されないので、
     Enumeration の任意の属性は ``{readOnly}`` である必要がある。
 
+10.2.3 Semantics
+----------------------------------------------------------------------
+10.2.3.1 DataTypes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* DataType とは Classifier の一種である。
+  DataType は Class とは値によってしか識別されないという点が異なる。
+
+* DataType が ``attributes`` を持つならば、
+  それは構造化された DataType と呼ばれる。
+
+  * 構造化された DataType のオブジェクト同士は、
+    それらの構造と対応する ``attributes`` の値が等しいとき、
+    かつそのときに限り等しいとみなされる。
+
+* DataType は引数化したり、束縛したり、TemplateParameters として用いてよい。
+
+10.2.3.2 Primitive Types
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* PrimitiveType はあらかじめ定義されている DataType であり、
+  どんな部分構造をも持たない。
+
+  * PrimitiveType には代数があってよく、
+    演算は UML の外部で定義される。
+    実行時の PrimitiveType のオブジェクトは、
+    UML の外側で定義された数学的な要素に対応する値である。
+
+    * 例えば Intergers がそうである。
+
+    * ここで言う代数というのは、数学の一研究分野というよりは、
+      代数的構造を持つモデル程度の意味のほうに解釈したい。
+
+10.2.3.3 Enumerations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Enumeration は DataType の一種である。
+  Enumeration の値それぞれがそれのユーザー定義のひとつに対応する。
+
+* Enumeration は Classifier の specialization なので、
+  一般化関係に関与することが可能である。
+
+  * 特殊化された Enumeration には、新しい EnumerationLiteral を定義してよい。
+
+* EnumerationLiteral は Enumeration の実行時拡張の要素を定義する。
+
+  * EnumerationLiteral に対応する値は不変 (immutable) であり、
+    等価性を調べるために比較してもよい。
+
+* EnumerationLiteral にはその内部で識別するのに用いられる必要がある名前がある。
+
+  * EnumerationLiteral の名前は一般用途のために限定される (be qualified) ものとする。
+
 10.2.4 Notation
 ----------------------------------------------------------------------
-DataType
-  * Classifier の記法を用いて、キーワード ``«dataType»`` と一緒に示す。
+* DataType は Classifier の記法（矩形）を用いて、
+  キーワード ``«dataType»`` と一緒に指名するか、
+  それが参照される際に DataType の名前で指名する。
 
-PrimitiveType
-  * 同様にキーワード ``«primitive»`` と一緒に示す。
+* PrimitiveType はキーワード ``«primitive»`` を
+  PrimitiveType の名前の上または後ろに記して同様に指名する。
 
-Enumeration
-  * またしても同様にキーワード ``«enumeration»`` と一緒に示す。
-  * EnumerationLiteral を一行当たり一個、列挙していく。
+* Enumeration も同様に指名する。
+  Enumeration の名前をキーワード ``«enumeration»`` を
+  名前の上または後ろに記した区画の上部に置く。
+
+  * EnumerationLiterals のリストは、
+    操作区画の下にある literals と名付けられた区画に、
+    一行当たり一個を列挙してよい。
 
 10.2.5 Examples
 ----------------------------------------------------------------------
@@ -116,8 +133,8 @@ Enumeration
 
 10.3.1 Summary
 ----------------------------------------------------------------------
-Signal と Reception を定義する。
-これらはオブジェクト同士の非同期通信をモデル化するのに用いられる。
+* Signals と Receptions は
+  オブジェクト同士の非同期通信をモデル化するのに用いられる。
 
 10.3.2 Abstract Syntax
 ----------------------------------------------------------------------
@@ -126,56 +143,61 @@ Signal と Reception を定義する。
   * 比較的小さな図式。
   * 概要にある通り Signal と Reception からなる関連図。
 
-10.3.3 Semantics
-----------------------------------------------------------------------
-.. note::
-
-   困ったことに respond, react, reply を日本語で表現すると同じ言葉になってしまう。
-   辞書を当たると、これらの単語の意味合いが微妙に異なるようだ。
-
-Signal
-  * Classifier の一種。
-  * 反応が受信者側で返信なしに非同期的に引き起こされる、オブジェクト間の通信の一種の詳細。
-  * Signal はそれを処理する Classifiers とは独立して定義される。
-  * Signal の送信者は応答を待機することをブロックしようとはせずに、
-    即時に実行を継続する。
-  * 与えられた Signal に関連付いた Reception を宣言することで、
-    ある Classifier はその Signal を受信する能力のあるそのオブジェクト (pl.) を指定し、
-    指示された Behavior で反応しようとする。
-  * Signal は引数にしたり、束縛されたり、TemplateParameters として用いてよい。
-
-Reception
-  * BehavioralFeature の一種。
-  * ある Signal の受領に反応する支度の整った Class または Interface を指定する。
-  * オブジェクトが受信した Signal にどのように応じるかの詳細は、
-    Reception に関連づいたと Behavior の種類と、
-    所有する Classifier や Interface に依る。
-    :doc:`./common-behavior` でやる予定。
-  * Reception の名前は Signal の名前と同じである。
-  * Reception は Signal の属性、
-    名前と型と多重度、
-    においてマッチする入力 Parameters のみを持つことが許される。
-
 A_ownedAttribute_owningSignal
   * Signal から Property への composite 関連（単方向）。
   * A_attribute_classifier と A_ownedMember_namespace を subsets する。
-  * 関連端 ownedAttribute は通信が伝送するデータを表現する。
+  * 関連端 ``ownedAttribute`` は通信が伝送するデータを表現する。
 
     * 制約 ``{ordered}`` がある。
 
 A_signal_reception
   * Reception から Signal への関連（単方向）。
   * Reception が Signal にマッチするのは、
-    受信した Signal が signal の派生型 (specialization) である場合である。
+    受信した Signal が ``signal`` の特殊化である場合である。
+
+10.3.3 Semantics
+----------------------------------------------------------------------
+
+10.3.3.1 Signals
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Signal とは、
+  反応が返信なしに受信者側で非同期的に引き起こされる
+  オブジェクト間の通信の一種の詳細である。
+
+  * Signal はそれを処理する Classifiers とは独立して定義される。
+
+* Signal の送信者は応答を待機することをブロックしようとはせずに、
+  即時に実行を継続する。
+
+  * 与えられた Signal に結びついた Reception を宣言することで、
+    Classifier はそのオブジェクト (pl.) はその Signal あるいはその派生型を
+    受信する能力のあるということを指定し、
+    指名された Behavior を使ってそれに対して反応するものである。
+
+* Signal は引数化したり、束縛したり、TemplateParameters として用いてよい。
+
+10.3.3.2 Receptions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Reception は、所有する Class または Interface が
+  Signal の受領に反応する支度を整っていることを指定する。
+
+  * オブジェクトが受信した Signal にどのように応じるかの詳細は、
+    Reception に関連づいたと Behavior の種類と、
+    所有する Classifier や Interface に依る。
+    :doc:`./common-behavior` でやる予定。
+
+  * Reception の名前は Signal の名前と同じである。
+
+  * Reception は Signal の属性が名前、型、多重度においてマッチする
+    入力 Parameters しか持つことを許されない。
 
 10.3.4 Notation
 ----------------------------------------------------------------------
-Signal
-  * Classifier の記法を用いて、キーワード ``«signal»`` と一緒に示す。
+* Signal はキーワード ``«signal»`` の付いた Classifier の記号で描かれる。
 
-Reception
-  * Operation の記法を用いて、キーワード ``«signal»`` と一緒に示す。
-    このキーワードは name の前に書くようだ。
+* Reception はキーワード ``«signal»`` を用いて、
+  Operations を表すのと同じ表記法を使って、
+  受領区画に示される。
 
 10.3.5 Examples
 ----------------------------------------------------------------------
@@ -192,9 +214,9 @@ Reception
 
 10.4.1 Summary
 ----------------------------------------------------------------------
-Interfaces は InterfaceRealizations を通じてその Interfaces を実装する
-BehavioredClassifiers によって実装された、首尾一貫した (coherent) システムを宣言する。
-変な日本語になった。
+* Interfaces は InterfaceRealizations を通じて Interfaces を実装する
+  BehavioredClassifiers で実装された
+  首尾一貫した (coherent) サービスを宣言する。
 
 10.4.2 Abstract Syntax
 ----------------------------------------------------------------------
@@ -202,42 +224,6 @@ BehavioredClassifiers によって実装された、首尾一貫した (coherent
 
   * 概要で言及された Interface, InterfaceRealization, BehavioredClassifier を擁する図式。
   * 関連端の制約の記述に一部誤りがある。
-
-10.4.3 Semantics
-----------------------------------------------------------------------
-Interface
-  * Classifier の一種。
-
-  * 首尾一貫したシステムを共に構成する、
-    public な Features の集合と責務を表現する。
-
-  * Interfaces はオブジェクト化されることは許されない。
-    代わりに詳細を BehavioredClassifier が実装または実現する。
-
-    * 一つの BehavioredClassifier が複数の Interfaces を実装してもよいし、
-      複数の BehavioredClassifiers が一つの Interface を実装してもよい。
-
-  * 実現している BehavioredClassifiers が支配 (possess) する必要のある
-    公開 Features と責務のグループ (pl.) を、
-    仕切ったり特徴付けるための手段を Interfaces は提供する。
-
-  * Interface はそれがどのように実装されるべきかを指示しない。
-    単に何が実現している BehavioredClassifiers により支持される必要があるのかを指定する。
-
-  * Interface は引数にしたり、束縛されたり、TemplateParameters として用いてよい。
-
-InterfaceRealization
-  * Realization の一種。
-
-  * BehavioredClassifier と Interface の間の Realization である。
-    BehavioredClassifier は、Interface およびその親が所有する
-    Features の集合を支える (support) ことで
-    Interface が指定する契約に従う。
-
-*BehavioredClassifier*
-  * Classifier の一種。
-  * BehavioredClassifier が実現する Interfaces の集合のことをその provided Interfaces という。
-  * BehavioredClassifier と対応する Interfaces との間の Usage が指定する Interfaces を required Interfaces という。
 
 A_ownedAttribute_interface, A_ownedOperation_interface
   これらの関連は既に述べている。
@@ -258,7 +244,7 @@ A_redefinedInterface_interface
 
 A_protocol_interface
   * Interface から ProtocolStateMachine への composite 関連（単方向）。
-  * 関連端 protocol がもしあれば、
+  * 関連端 ``protocol`` がもしあれば、
     それはイベント列と関連端 interface が述べる Operations と Receptions の事前・事後条件を指定する。
 
 A_contract_interfaceRealization
@@ -283,32 +269,105 @@ A_ownedBehavior_behavioredClassifier
     * BehavioredClassifier 自身の振る舞いを指定する Behavior である。
     * 上述の A_ownedBehavior_behavioredClassifier を redefines または subsets する。
 
+10.4.3 Semantics
+----------------------------------------------------------------------
+10.4.3.1 Interfaces
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Interface とは、
+  公開の Features の集合と、
+  一体となって首尾一貫したサービスを構成する責務の
+  宣言を表現する Classifier の一種である。
+
+* Interfaces はオブジェクト化されることは許されない。
+  代わりに Interface 仕様は BehavioredClassifier によって
+  実装または実現される。
+  このことは、BehavioredClassifier は
+  Interface の仕様に適合する公開の facade を表現することを意味する。
+
+  * 与えられた BehavioredClassifier が複数の Interfaces を実装してもよいし、
+    Interface が異なる BehavioredClassifiers のいくつかにより実装されてもよい。
+
+* Interfaces は実現している BehavioredClassifiers が支配 (possess) するものとする
+  公開 Features と責務のグループ (pl.) を、
+  仕切ったり特徴付ける手段を与える。
+
+  * Interface が ``attribute`` を宣言するならば、これは必ずしも
+    実現する BehavioredClassifier がその実装で
+    そういう ``attribute`` を必ず持つということを意味しないで、
+    外側の観測者に対してはそのように現れるということにしか過ぎない。
+
+* BehavioredClassifier により実現される Interfaces の集合は
+  それの provided Interfaces であり、
+  それはその BehavioredClassifier のオブジェクトがクライアントに提供する
+  サービスと責務を表現する。
+  Interfaces は required Interfaces を指定するのにも用いてよく、
+  BehavioredClassifier と対応する Interfaces との間の
+  Usage 依存により指定される。
+
+* Interfaces により所有される Properties は、
+  実現する BehavioredClassifier が
+  型と Property の多重度の情報を維持し、
+  その情報の取得及び修正を促進するべきであることを暗に示す。
+
+* Interfaces は、
+  事象列、Operations に関する事前・事後条件、
+  Interface により記述される Receptions を指定する ProtocolStateMachine を
+  所有してよい。
+
+* Interface は引数化したり、束縛したり、TemplateParameters として用いてよい。
+
+* BehavioredClassifier と Interface の間の InterfaceRealization 関係は、
+  Interface およびその親 Interfaces の任意のものにより
+  所有される Features の集合を支援することで、
+  BehavioredClassifier が Interface により指定される契約に適合することを
+  暗に示す。
+
 10.4.4 Notation
 ----------------------------------------------------------------------
-Interface
-  * Classifier の記法を用いて、キーワード ``«interface»`` と一緒に示す。
-  * ボールとかロリポップとかと呼ばれるラベル付きマルで示す。
-    これをその Interface を実現する BehavioredClassifier に実線で結ぶ。
+* Interface は Classifier の既定の記法を
+  キーワード ``«interface»`` と共に使って指名してよい。
 
-Usage
-  * Classifier から Interface への依存だが、このときは Interface を半円、
-    ソケットと呼ぶ形状で示す。
+* 代わりとして、BehavioredClassifier から Interface への
+  InterfaceRealization 依存では、
+  Interface の名前でラベルが付けられ、
+  この Interface を実現する BehavioredClassifier への実線で取り付けられた、
+  円つまりボール、しばしばロリポップとも呼ばれるものにより
+  Interface を表現することにより示してよい。
+
+* Classifier から Interface への Usage 依存は、
+  Interface の名前でラベルが付けられ、
+  この Interface を要求する Classifier への実線で取り付けられた、
+  半円つまりソケットで
+  Interface を表現することにより示してよい。
+
+* BehavioredClassifier の一般化を継承した Interfaces は、
+  図式ではロリポップを通して記してよい。
+  これらの Interfaces は図式では
+  キャレット記号が Interface の名前の前に来ることで示される。
+
+* Dependency がソケットとロリポップを使って表現されている
+  Usage から InterfaceRealization へ配線されていれば、
+  依存矢印はソケットをロリポップへ接合して示してよい。
 
 10.4.5 Examples
 ----------------------------------------------------------------------
 * Figure 10.8 ISensor is a provided Interface of ProximitySensor
 
+  * ProximitySensor から ISensor への InterfaceRealization が
+    ボール（ロリポップ）表記法を使って示されている。
+
   * ISensor は ProximitySensor の provided Interface である。
-  * このグラフは一つの InterfaceRealization を示していることになる。
 
 * Figure 10.9 ISensor, a provided Interface of ProximitySensor, (...)
 
+  * 継承された provided Interface に対するロリポップ表記法。
   * ISensor の前にキャレットが付いていることに注意。
   * CapacitiveSensor が ISensor を継承することを示している？
 
 * Figure 10.10 ISensor is a required Interface of TheftAlarm
 
-  * ISensor とは書いていないが、
+  * TheftAlarm から ISensor への Usage 依存をソケット表記法を使って示している。
+  * ISensor とは書いていない（書き忘れだろう）が、
     このソケットが TheftAlerm の required Interface である。
 
 * Figure 10.11 Alternative notation for required and provided Interface
@@ -318,17 +377,24 @@ Usage
   * InterfaceRealization を破線矢印で表現。矢頭は白三角である。
   * Usage を破線矢印で表現。キーワード ``«use»`` に注意。矢頭は開く。
 
+* ふたつまたはそれを超える Interfaces が
+  アプリケーション固有の依存を通じて相互に結合する事例が
+  実際にはよくある。
+  そういう状況では、
+  Interface のそれぞれは多者間の通信規約で特有の役目を表現する。
+
 * Figure 10.12 A set of collaborating Interfaces
 
-  * IAlerm と ISensor の間に 1:1 の関連が付いている。
+  * IAlerm と ISensor の間に一対一の関連が付いている。
     これが意味するところは、
 
-    #. ISensor の任意の実装は属性 theAlarm を実現するのに必要な情報を維持する必要があり、
-    #. また同様な必要が IAlerm と theSensor に対してある。
+    #. ISensor のどんな実装も ``theAlarm`` 特性を実現するのに
+       必要な情報を維持しなければならず、
 
-    本文中ではこれを mutually coupled と表現している。
+    #. IAlerm と ``theSensor`` ついても同様である。
 
-  * IBuzzer は IAlarm の実装がアクセス可能でなければならない Interface の特徴を述べている。
+  * IBuzzer は IAlarm の実装がアクセス可能でなければならない
+    Interface の特徴を述べている。
 
 10.5 Classifier Descriptions
 ======================================================================
