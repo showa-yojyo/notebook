@@ -10,20 +10,29 @@ UML 2.5 pp. 181-238 に関するノート。
 
 11.1 Summary
 ======================================================================
-* StructuredClassifier = 内部構造 + 外部構造 な Classifier
+* StructuredClassifier とは、
+  リンクされた ``roles`` のネットワークを形成する内部構造と
+  ひとつまたはそれを超える Ports から構成される外部構造を
+  持つことが許される Classifier である。
 
-  * 内部構造 = roles をリンクしたネットワーク
-  * 外部構造 = Ports
+* EncapsulatedClassifiers の Ports は
+  遠くにいる協力者らの局地的な代理人として振る舞い、
+  EncapsulatedClassifiers が
+  それらに直接に結合されることなく、
+  それらを識別することをできるようにする。
 
-* EncapsulatedClassifier = ?
+* Classes, Components, Associations および Collaborations は
+  これらの能力を使う具象的メタクラスである。
 
 11.2 Structured Classifiers
 ======================================================================
 
 11.2.1 Summary
 ----------------------------------------------------------------------
-* StructuredClassifier は接続された要素群の内部構造を持つことが許されている。
-  各要素はこの StructuredClassifier がモデル化する全体の振る舞いの一つの role を演じる。
+* StructuredClassifiers は、
+  それぞれが StructuredClassifier によりモデル化された
+  振る舞い全部で ``role`` を演じるような
+  接続要素の、内部構造を含むことが許されている。
 
 * この節を 11.5 節といっしょに読むことが役に立つ。
 
@@ -35,91 +44,6 @@ UML 2.5 pp. 181-238 に関するノート。
     ConnectableElement, Connector, ConnectorEnd
   * «enumeration» ConnectorKind
 
-11.2.3 Semantics
-----------------------------------------------------------------------
-*StructuredClassifier*
-  * Classifier の一種。
-  * StructuredClassifier の Properties は以前 (:doc:`./classification`)
-    仕様化された Property の意味に従う。
-
-*ConnectableElementTemplateParameter*
-  * TemplateParameter の一種である。
-  * あるテンプレートの仮引数として
-    ConnectableElement を晒すのに介されるクラスである。
-
-*ConnectableElement*
-  * TypedElement かつ ParameterableElement である抽象クラス。
-  * StructuredClassifier の内部構造中の一つの構成員 (roles) を表現する。
-  * ConnectableElement の詳細な意味はその抽象型 (pl.) が与える。
-
-  * 一般的に、各 ConnectableElement は次のものを展示 (exhibit) する。
-    これらの集合は Connectors を用いた ConnectableElements の接続可能性を
-    決定するのに用いられる。
-
-    * effective required Interfaces の集合
-    * effective provided Interfaces の集合
-
-  * 委譲 Ports を除いた ConnectableElements にとって、
-    effective required Interfaces はその required Interfaces であり、
-    かつ次のようにして導出される provided Interfaces である。
-
-    * その provided Interface はその ConnectableElement の type と
-      その基底型が実現する Interfaces の集合 (pl.) の和集合を含む。
-      あるいは、それが Interface による型ならば、まさにそれの type を含む集合である。
-
-    * その required Interfaces はその ConnectableElement の type と
-      その基底型が用いる Interfaces の集合 (pl.) の和集合を含む。
-
-  * Property は ConnectableElement の一種である。
-
-Connector
-  * Feature の一種である。
-  * Connector は StructuredClassifier 内部の roles を演じる 2 つ以上の
-    オブジェクト間のリンク (pl.) を明確にするものである。
-
-    * ポインターと同じくらい簡単な何かや、
-      ネットワーク接続と同じくらい複雑な何かが各リンクを実現してよい。
-
-    * Connectors は接続された roles を演じているオブジェクトだけの間のリンクを指定する。
-
-  * 各 Connector は、
-    それぞれがその StructuredClassifier のオブジェクト化に寄与する
-    オブジェクト (pl.) の集合を表現しているような、
-    ふたつ以上の ConnectableElements に配線されてよい。
-
-    * よく考えると、タコ足のようなトポロジーでも Connector の定義に含まれている。
-
-  * Connector は Association によって型が付けられてよい。
-    その場合には Connector が指定するリンクは Association 型のオブジェクトである。
-
-  * 属性 kind は ``{readOnly}`` な ConnectorKind 値である。
-    次のどちらかを値として取る
-
-    * assembly: delegation でない。
-    * delegation: Ports にだけ関係する。
-
-ConnectorEnd
-  * MultiplicityElement の一種である。
-  * 一つの Connector の端点であり、
-    その Connector を一つの ConnectableElement へ取り付ける。
-
-  * MultiplicityElement の意味に従って、
-    ConnectableElements 上の多重度 (pl.) は
-    StructuredClassifier のあるオブジェクトの内部で
-    生成してよいオブジェクトの個数を強制する。
-
-  * 二項 Connector において、
-    その ConnectorEnd の多重度は
-    他方の関連端上の ConnectableElement の各オブジェクトに
-    リンクしてよいオブジェクトの個数を示す。
-
-  * N 項 Connector において、ひとつの関連端の多重度は
-    その他の関連端それぞれにとってのある特定のオブジェクトを含んでいる集合を参照してよい
-    リンクの個数を強制する。
-
-  * 相互接続する ConnectorEnds とそれらの ConnectableElements の多重度 (pl.) の
-    マッチングを生じる位相を、モデルから推論することはいつでもはできない。
-
 A_role_structuredClassifier
   * StructuredClassifier から ConnectableElement への関連（単方向）。
   * 先述したようにこの関連こそが StructuredClassifier の主な意味である。
@@ -128,17 +52,19 @@ A_role_structuredClassifier
 
 A_ownedAttribute_structuredClassifier
   * StructuredClassifier から Property への composite 関連（単方向）。
-  * A_attribute_classifier, A_ownedMember_namespace, A_role_structuredClassifier を subsets する。
+  * A_attribute_classifier, A_ownedMember_namespace,
+    A_role_structuredClassifier を subsets する。
   * 関連端 ownedAttributes に制約 ``{ordered}`` を付ける。
   * 関連端 structuredClassifier を ``{redefines}`` する。
 
 A_part_structuredClassifier
   * StructuredClassifier から Property への単方向関連。
-  * 上記 ownedAttributes で ``isComposite == true`` なものを parts とする。
+  * 上記 ``ownedAttributes`` で ``isComposite == true`` なものを
+    ``parts`` とする。
 
-    * よって parts は roles の部分集合を構成する。
+    * よって ``parts`` は ``roles`` の部分集合を構成する。
 
-  * 関連端 part は ``{readOnly}`` である。
+  * 関連端 ``part`` は ``{readOnly}`` である。
 
 A_ownedConnector_structuredClassifier
   * StructuredClassifier から Connector への composite 関連（単方向）。
@@ -153,16 +79,16 @@ A_templateParameter_parameteredElement
 
 A_end_role
   * ConnectableElement と ConnectorEnd の関連（双方向）。
-  * Connector の端点を一つ取れば、対応する role が一意に対応する。
-  * 関連端 end は ``{readOnly}`` である。
+  * Connector の端点を一つ取れば、対応する ``role`` が一意に対応する。
+  * 関連端 ``end`` は ``{readOnly}`` である。
 
 A_definingEnd_connectorEnd
   不明。説明文の意味を理解できない。
 
 A_end_connector
   * Connector から ConnectorEnd への composite 関連（単方向）。
-  * 先述した定義により関連端 end の多重度は ``2..*`` である。
-  * 関連端 end は ``{ordered}`` である。
+  * 先述した定義により関連端 ``end`` の多重度は ``2..*`` である。
+  * 関連端 ``end`` は ``{ordered}`` である。
   * A_ownedElement_owner を subsets する。
 
 A_contract_connector
@@ -176,31 +102,191 @@ A_type_connector
 A_redefinedConnector_connector
   * Connector から Connector への関連。
   * Connector が含む Classifier が何かの特殊化であるときに、再定義することが許されている。
-    このとき、Association (type) や ConnectorEnds (ends) の型もそれぞれの特殊化にすることが許されている。
+    このとき、Association (``type``) や ConnectorEnds (``ends``) の型もそれぞれの特殊化にすることが許されている。
     さらに ConnectorEnds の Property は置き換えてもよい。
+
+11.2.3 Semantics
+----------------------------------------------------------------------
+11.2.3.1 Connectable Elements
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* ConnectableElement は抽象的クラスである。
+  ConnectableElement それぞれは StructuredClassifier の
+  内部構造の内部にある参加者を表現する。
+  これらの参加者は ``roles`` と呼ばれる。
+
+* ConnectableElement の詳細な意味はその具象型が与える。
+  一般的に、ConnectableElement それぞれが
+  有効 required Interfaces の集合と
+  有効 provided Interfaces の集合を展示する。
+  これらの集合は Connectors を用いた ConnectableElements の接続可能性を
+  決定するのに用いられる。
+
+* 委譲 Ports を除いた ConnectableElements に対して、
+  有効 required Interfaces は required Interfaces であり、
+  有効 provided Interfaces は provided Interfaces であり、
+  次のように導かれる：
+
+  * provided Interface は ConnectableElement とその上位型の ``type`` により
+    実現される Interfaces の集合 (pl.) の和集合を形成する。
+    すなわち、それが Interface による型ならば、
+    ちょうど ``type`` を含む集合である。
+
+  * required Interface は ConnectableElement とその上位型の ``type`` により
+    使われる Interfaces の集合 (pl.) の和集合を形成する。
+
+* ConnectableElement は
+  テンプレートに対する仮引数としての
+  ConnectableElementTemplateParameter を介して露出されてよい。
+
+11.2.3.2 Parts and Roles
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* StructuredClassifier の Properties は
+  :doc:`./classification` で指定された意味に従う。
+
+* Property は ConnectableElement の一種である。
+  StructuredClassifier の ``ownedAttributes`` のすべては ``roles`` であり、
+  Connectors を使って接続することが可能である。
+
+* ``isComposite`` が true の StructuredClassifier の ``ownedAttributes`` は
+  それの ``parts`` であるという。
+  それゆえ ``parts`` は ``roles`` の部分集合を構成する。
+
+11.2.3.3 Connectors
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Connector は StructuredClassifier 内部の
+  所有または継承された ``roles`` を演じる
+  ふたつまたはそれを超えるオブジェクト間のリンクを指定する。
+
+  * リンクのそれぞれはポインターと同じくらい簡単な何かや、
+    ネットワーク接続と同じくらい複雑な何かにより実現されることが許され、
+    オブジェクトが通信可能であることを表してよい。
+
+* Associations が関連された Classifiers の
+  適切な型のどのオブジェクト間のリンクを指定するのに対して、
+  Connectors は接続された ``roles`` しか演じないオブジェクト間の
+  リンクを指定する。
+
+* Connector それぞれは
+  ふたつまたはそれを超える ConnectableElements に取り付けてよく、
+  それぞれは含んでいる StructuredClassifier のオブジェクト化に
+  貢献するオブジェクトの集合を表現している。
+
+* ConnectorEnd とは Connector の端点で、
+  Connector を ConnectableElement へ取り付けるものである。
+
+* Connectors に対応するリンクは
+  含んでいる StructuredClassifier のオブジェクトの生成に続いて
+  生成してよい。
+  含んでいる StructuredClassifier オブジェクトが破壊されると
+  そのようなリンクはすべて破壊される。
+
+* Connector は Association によって型が付けられてよく、
+  Connector が指定するリンクが Association 型のオブジェクトの場合である。
+
+* Connector の一端における ConnectableElement それぞれの
+  有効 required Interfaces それぞれの機能それぞれは、
+  他方の端における ConnectableElements の
+  有効 provided Interfaces の機能の中に
+  互換機能を少なくともひとつ持つはずである。
+
+* 単一の ConnectableElement に取り付けられた複数の接続器があると、
+  その意味は、
+  ConnectableElement を
+  複数の接続器を介して接続された ConnectableElements のすべてに
+  接続する単一の n 項 Connector と同じになる。
+
+* Connectors には種類があり、
+  その値は assembly か delegation である。
+
+* ConnectorKind は次のリテラル値の列挙体である：
+
+  * assembly: Connector は assembly Connector である。
+  * delegation: Connector は delegation Connector である。
+
+* Behaviors は Connectors に ``contracts`` として結び付けてよく、
+  Connector の両端で有効な相互作用パターンを指定する。
+
+11.2.3.4 Multiplicities and topologies
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* ConnectableElements 上の多重度は
+  含む StructuredClassifier のオブジェクト内部で
+  生成が許されるオブジェクトの個数を強制し、
+  それは MultiplicityElement の意味に従う。
+
+* 二項 Connector に対しては、
+  ConnectorEnd の多重度は
+  他方の関連端での ConnectableElement のオブジェクトそれぞれに
+  リンクしてよいオブジェクトの個数を示す。
+  n 項 Connector に対しては、
+  一方の関連端の多重度は
+  他方の関連端それぞれに対する特定のオブジェクトを含む集合を参照してよい
+  リンクの個数を強制する。
+
+* StructuredClassifier のオブジェクトの ``role`` からオブジェクトを取り除くと、
+  ``role`` と他のものの間の Connectors によって存在するリンクは破壊される。
+
+* ConnectorEnds の多重度と、
+  それらが相互接続する ConnectableElements のそれらとを
+  マッチングすることにより生じる位相は、
+  モデルから推論することはいつでも可能とは限らない。
 
 11.2.4 Notation
 ----------------------------------------------------------------------
-* StructuredClassifier の内部構造はズバリ "internal structure" とラベルされた区画で示す。
-* part は箱を入れ子で実線で描くことで示す。
-* role は箱を入れ子で破線で描くことで示す。
-  なお、どちらの場合でも part box と呼ばれる。
-* part の provided/required Interfaces を示すのには、
-  例のロリポップ・ソケット記法を用いて示してもよい。
+* StructuredClassifier の内部構造は
+  名前が "internal structure" である分離区画に示す。
+  この区画は必須である。
 
-* Property の多重度はいつもの記法を用いて part box の右上に記す。
+* ``part`` は
+  内部構造区画の内側で
+  ``part`` を表す実線輪郭の箱記号の図式的な入れ子で示してよい。
+  合成ではない ``role`` oは
+  破線輪郭の箱記号の図式的な入れ子で示してよい。
 
-少し先の仕様に関する記法も導入している。
+  * 厳密には合成だけが ``parts`` であるにもかかわらず、
+    いずれの場合にも箱を part box と呼んでよい。
 
-* role が EncapsulatedClassifier 型のとき、その Ports はすべて小さな四角で示す。
-  その role を表す part box の枠に重なるように置く。
-* role が Class 以外の型のとき、適宜 ``«component»`` のようなキーワードを名前に応じて添える。
+* Property に対する多重度は、
+  記法を用いて part box の右上隅に描かれた多重度マークとして示してもよい。
 
-* Connector の記法は Association のそれに準じる。
-  type があるときにはその Association の名前を含めることも許されている。
+* ``role`` が EncapsulatedClassifier 型のときは、
+  ``type`` の Ports はいずれも
+  ``role`` を表す part box の境界に重なり合う
+  小さな四角記号として示してもよい。
 
-* parts が単純な Ports を持つときには、ball-and-socket 記法を用いてもよい。
-* n 項 Connector には channeled ball-and-socket 記法というものがある。
+* ``role`` が Class でない classifier の型であれば、
+  part box 記号の名前区画は名前の上に
+  適宜 ``«component»`` のようなキーワードを含む。
+
+* Connector は Association に対するそれと同様の表記法を使って描く。
+
+* ConnectorEnd では Association の端での修飾と同じ表記法を使って
+  修飾を見せてよい。
+
+* ConnectorEnd が内部構造の ``part`` または ``role`` 上の
+  Port に取り付けられており、多重度が示されていなければ、
+  ConnectorEnd の多重度は Port の多重度と
+  ``role`` の多重度の積に等しい。
+
+* 下の三つの表記法の仕様はオプションである。
+  準拠ツールは実装する必要はない。
+
+  * ``parts`` が単純な Ports を持つならば、
+    ball and socket 記法を Ports 間の assembly Connectors を表すのに用いてもよい。
+
+  * 単純 Ports を接続するときには
+    assembly または delegation に対しての普通の Connector 表記法を
+    Port 記号自身へではなく ball or socket 記号へ接続されるように（？）
+    示してよい（原文で動詞がふたつあるような？）。
+
+  * ふたつを超える単純 Ports を接続する n 項 Connector があり、
+    ふたつまたはそれを超える Ports が同じまたは互換な Interfaces を
+    与えるか要求するときには、
+    Interface を表す単一の記号が示されることが可能であり、
+    Components から伸びる線がその記号へ引かれることが可能であるが、
+    これは channeled ball and socket 表記法である。
+
+* 内部構造区画は CollaborationUses を表す記号を含んでもよいが、
+  それは 11.7.4 で記される表記法に従う。
 
 11.2.5 Examples
 ----------------------------------------------------------------------
@@ -221,7 +307,7 @@ A_redefinedConnector_connector
 
   * Ports あり EncapsulatedClassifiers 型属性の part boxes の見本である。
   * Wheel 側からはボールが、Engine 側からはソケットが生えている。
-    箱の枠線に重なる小さい四角がある。
+    どちらも箱の枠線に重なる小さい四角がある。
 
 * Figure 11.4 Alternative notations for connecting parts and roles with Ports
 
@@ -240,7 +326,7 @@ A_redefinedConnector_connector
 
 * Figure 11.6 "Star" Connector pattern
 
-  * 関連端の多重度が付随する roles の多重度とがマッチしている場合 (i)、
+  * 関連端の多重度が付随する ``roles`` の多重度とがマッチしている場合 (i)、
     何か n 部グラフのようなリンク構造に解釈 (ii) する。
 
 * Figure 11.7 "Array" Connector pattern
@@ -250,13 +336,13 @@ A_redefinedConnector_connector
 
 * Figure 11.8 An assembly Connector ...
 
-  * 単純 Ports のついた Component 型 parts の記法例。
-  * 選択自由の ball-and-socket 記法を採用している。
+  * 単純 Ports のついた Component 型 ``parts`` の記法例。
+  * 選択自由の ball and socket 記法を採用している。
     この記法は互換性のある Ports 間の組み立て Connector を表現する。
 
 * Figure 11.9 An n-ary Connector ...
 
-  * ある 4 項 Connector のための channeled ball-and-socket 記法の見本。
+  * ある 4 項 Connector のための channeled ball and socket 記法の見本。
   * ボールのほうが provided Interfaces; Client is-a Person とのこと。
   * ソケットのほうが required Interfaces
 
