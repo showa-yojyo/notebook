@@ -189,10 +189,10 @@ A_redefinedConnector_connector
   有効 provided Interfaces の機能の中に
   互換機能を少なくともひとつ持つはずである。
 
-* 単一の ConnectableElement に取り付けられた複数の接続器があると、
+* 単一の ConnectableElement に取り付けられた複数の連結器があると、
   その意味は、
   ConnectableElement を
-  複数の接続器を介して接続された ConnectableElements のすべてに
+  複数の連結器を介して接続された ConnectableElements のすべてに
   接続する単一の n 項 Connector と同じになる。
 
 * Connectors には種類があり、
@@ -351,78 +351,15 @@ A_redefinedConnector_connector
 
 11.3.1 Summary
 ----------------------------------------------------------------------
-* EncapsulatedClassifier は Ports を所有する能力のある StructuredClassifier である。
-* これは EncapsulatedClassifier を環境から分離する仕組みである。
+* EncapsulatedClassifier は Ports を所有する能力を持たせるように
+  StructuredClassifier を拡張するもので、
+  EncapsulatedClassifier を環境から分離する仕組みである。
 
 11.3.2 Abstract Syntax
 ----------------------------------------------------------------------
 * Figure 11.10 Encapsulated Classifiers
 
   * EncapsulatedClassifier と Port の関連を中心とした図式。
-
-11.3.3 Semantics
-----------------------------------------------------------------------
-*EncapsulatedClassifier*
-  * 概要に記した性質のある StructuredClassifier の一種である。
-
-  * EncapsulatedClassifier のオブジェクトが生成するときには、
-    それの各 Port に対応するオブジェクトが生成して、
-    各 Port が指定する Slot に、型と多重度に従って、収まる。
-
-    * これらのオブジェクトを相互作用点 (interaction points) と呼ぶ。
-      一意的な参照を与える。
-
-Port
-  * Port とは EncapsulatedClassifier の Property であり、
-    次のどちらかの間の個々の相互作用点を指定するものである。
-
-    * EncapsulatedClassifier 自身とそれがある環境
-    * EncapsulatedClassifier の Behavior と内部の roles
-
-  * EncapsulatedClassifier の内部をそれの環境から疎結合することにより、
-    Ports は EncapsulatedClassifier を、
-    環境に依存することなく定義したり、
-    Ports が課す制約に適合するどのような環境においても再利用可能にしたり
-    することを許す。
-
-  * 属性 isBehavior はこれが behavior Port であるかを示す。
-
-    この Port に到着したどんな要求でも、所有者の EncapsulatedClassifier オブジェクトの
-    Behavior が処理するという Port である。
-
-  * 属性 isConjugated は provided/required Interfaces が
-    Property::type にどのように関係するのかを示す。
-
-    true
-      * provided はその Port の type と
-        それの基底型が用いる Interfaces の集合 (pl.) の和集合として導出する。
-
-      * required はその Port の type と
-        それの基底型が実現する Interfaces の集合 (pl.) の和集合として導出する。
-        または、その Port がある Interface の型ならば、
-        その Port の type から直接導出する。
-
-    false
-      私が読み誤っていなければ、
-      provided と required の内容が true の場合の定義とお互い入れ替わる。
-
-  * 属性 isService は Port が EncapsulatedClassifier の公開機能を
-    提供するのに用いられるか、または実装するのかどうかを示す。
-
-  * 委譲 Connector とは、
-    ある Port と所有 EncapsulatedClassifier 内部のある role をリンクする Connector である。
-
-    * Operations の発動と Signals の運送を表現する。
-    * 振る舞いの階層的な分解をモデル化するのに用いられる。
-
-  * もし複数の Connectors がひとつの Port の一方の側に取り付けられていれば、
-    その Port の反対側のある Connector から導出するリンク上の
-    Port に到着しているどんな依頼も、
-    これらの Connectors に対応するリンク (pl.) の上に転送される。
-
-    * これらの依頼がすべてのリンク上に転送されるのか、
-      またはそれらのリンクのうちのひとつだけに転送されるのかは
-      定義されていない。
 
 A_ownedPort_encapsulatedClassifier
   * EncapsulatedClassifier から Port への composite 関連（単方向）。
@@ -431,26 +368,26 @@ A_ownedPort_encapsulatedClassifier
     相異なる通信をそれが起こる Port に基いて区別することが可能になる。
 
   * A_ownedAttribute_structuredClassifier を subsets する。
-  * 関連端 ownedPort は ``{readOnly}`` である。
+  * 関連端 ``ownedPort`` は ``{readOnly}`` である。
 
 A_required_port
   * Port から Interface への関連（単方向）。
-  * 関連端 required は port を通じて
+  * 関連端 required は ``port`` を通じて
     EncapsulatedClassifier から環境への依頼を特徴づける
     Interfaces である。
     EncapsulatedClassifier オブジェクトは
     required Interfaces が所収する Features が、
     環境下の一つ以上のオブジェクトが提示することを期待している。
-  * 関連端 required は ``{readOnly}`` である。
+  * 関連端 ``required`` は ``{readOnly}`` である。
 
 A_provided_port
   * Port から Interface への関連（単方向）。
-  * 関連端 provided は port を通じて
+  * 関連端 provided は ``port`` を通じて
     EncapsulatedClassifier への、環境が作る依頼を特徴づける
     Interfaces である。
     所有者である EncapsulatedClassifier は
     provided Interfaces が所有する Features を提示する必要がある。
-  * 関連端 provided は ``{readOnly}`` である。
+  * 関連端 ``provided`` は ``{readOnly}`` である。
 
 A_protocol_port
   * Port から ProtocolStateMachine への関連（単方向）。
@@ -467,34 +404,150 @@ A_partWithPort_connectorEnd
   * ConnectorEnd から Property への関連（単方向）。
   * Port-on-Property の場合に ConnectorEnd が参照する実際の接続先 Property を表す。
 
+11.3.3 Semantics
+----------------------------------------------------------------------
+11.3.3.1 Ports
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Ports は
+  それを EncapsulatedClassifier がそれの環境と連絡を取るために
+  相互作用点を表現する。
+
+  * EncapsulatedClassifier の内部をそれの環境から疎結合することにより、
+    Ports は EncapsulatedClassifier が環境に依存することなく
+    定義できるようにし、
+    Ports により課せられる制約に適合する環境のどれにおいても
+    EncapsulatedClassifier が再利用可能になる。
+
+* Port とは、
+  次のどちらかの別個の相互作用点を指定する
+  EncapsulatedClassifier の Property である。
+
+  * EncapsulatedClassifier とそれの環境との間
+  * EncapsulatedClassifier の Behavior とそれの内部の ``roles``
+
+* 特性 ``isService`` が true であると、
+  この Port が EncapsulatedClassifier の公表された機能を与えるのに
+  用いられることを指し示す。
+
+* 成句「Port on Port」、より一般には「Port on Property」は、
+  StructuredClassifier で ``role`` を演じる Property が
+  Ports を持つ EncapsulatedClassifier により型付けられるという
+  状況を知らせる。
+
+* Port に結び付いた Interfaces は
+  それを超えて起こり得る相互作用の本質を指定する。
+
+* Property の一種なので、Port は ``type`` を持つ。
+  Port の ``provided`` および ``required`` Interfaces は
+  ``isConjugated`` の値により仲介された
+  それの ``type`` に関係する。
+
+  * ``isConjugated`` が true だと、
+    ``provided`` は Port の ``type`` およびそれの上位型により
+    用いられる Interfaces の集合 (pl.) の和集合として得られる。
+    それに対して、
+    ``required`` は Port の ``type`` およびそれの上位型により
+    実現される Interfaces の集合 (pl.) の和集合として得られる。
+    すなわち、
+    Port がある Interface によって型付けられると、
+    Port の ``type`` から直接得られる。
+
+  * ``isConjugated`` が false だと、上記の定義があべこべになる。
+
+* Interfaces は
+  Port をまたぐ相互作用の正確な順序を必ずしも制定しない。
+
+* EncapsulatedClassifier のオブジェクトが生成すると、
+  それの Port それぞれに対応するオブジェクトが生成されて、
+  それの ``type`` と多重度どおりに、
+  Port それぞれが指定する Slots に収容される。
+  これらのオブジェクトは相互作用点 (interaction points) と呼ばれ、
+  一意な参照を与える。
+
+* 次において、
+  「Port に到着する要求」とは
+  「この Port に対応するこのオブジェクトの相互作用点に到着する
+  要求の出来事」を意味するものとする。
+
+* 特性 ``isBehavior`` を true とすることにより、
+  この Port に到着するどんな要求も、
+  含まれているオブジェクトのどれに転送されるのでもなく、
+  所有する EncapsulatedClassifier のオブジェクトの
+  Behavior により処理される
+  ことを指定する能力を Port が有する。
+  このような Port は振る舞い Port と呼ばれる。
+
+* 委譲 Connector とは、
+  Port と所有する EncapsulatedClassifier で ``role`` を
+  リンクする Connector である。
+
+  * 要求の転送を表現する。
+
+* 委譲 Connectors は振る舞いの階層的な分解をモデル化するのに用いられ、
+  EncapsulatedClassifier により与えられるサービスは、
+  究極的にはその内部に複数階層の深さに入れ子になったもので
+  実現されることが許される。
+
+* ConnectableElement であるので、
+  Port の有効 provided Interfaces はそれの provided Interfaces であり、
+  有効 required Interfaces はそれの required Interfaces である。
+  しかし、委譲 Port
+  つまり委譲 Connector の一端にあって、
+  かつ ``role`` 上にはなく、
+  なおかつ振る舞い Port ではない Port に対しては、
+  有効 provided Interfaces はそれの required Interfaces であり、
+  有効 required Interfaces はそれの provided Interfaces となる。
+
+* Connectors のいくつかが Port の一方の側に取り付けられてるならば、
+  Port の反対側のある Connector から得られるリンク上の
+  Port に到着する要求はいずれも
+  これらの Connectors に対応するリンクで転送されるはずである。
+
+  * これらの要求がすべてのリンクを使って転送されるものなのか、
+    またはそれらのリンクのうちのひとつしか使われないものなのかは
+    定義されていない。
+
 11.3.4 Notation
 ----------------------------------------------------------------------
-* EncapsulatedClassifier の Port は小さい四角で示す。
+* EncapsulatedClassifier の Port は小さい正方形で示す。
 
-  * Port の名前を四角のそばに置く。
+  * Port の名前を正方形の近くに置く。
 
-    * Port の名前は隠してもよい。
+  * Port 記号は EncapsulatedClassifier を示す矩形記号の境界と重ね合わせてもよいし、
+    矩形記号の内側に示してもよい。
 
-  * Port の四角は EncapsulatedClassifier の枠に重ねても、内側に置いてもよい。
-  * Port が区画の内側にある（ように見える）要素に接続しているときは、
-    四角はその枠に関して先ほどの規則に準じて置くこと。
+  * 内部構造区画にある ``parts`` や ``roles`` のように、
+    Port が EncapsulatedClassifier の区画に視覚上含まれる要素に接続しているときは、
+    Port 記号はその区画の境界の内部に置かれるか、
+    重なり合うはずである。
 
-* Port の type を名前に続けて示してもよい。
+* Port の ``type`` を名前に続けて示してもよく、コロンで区切られる。
 
-  * 名前とはコロンで区切る。
-  * isConjugated な Port の場合は、type の前に ``~`` を示す。
+  * Port に対する ``isConjugated`` が true のとき、
+    Port の ``type`` はチルダを前に付加して示す。
 
-* behavior Port は EncapsulatedClassifier 内に何か描かれている小さいシンボルに接続されている。
+* behavior Port は線分を通じて、
+  含んでいる EncapsulatedClassifier を表す記号の内側に描かれる
+  小さい状態記号へ接続されている Port により示す。
+  小さい状態記号は含んでいる EncapsulatedClassifier の
+  Behavior を示す。
 
-* Port が複数の Interfaces に関連するならば、
-  一つの Interface のロリポップにそれらをカンマで区切ってリストしてよい。
+* Port の名前は隠してよい。
 
-* required Interface の単純 Port から provided Interface の単純 Port をつなぐ Dependency の場合、
-  ソケットからロリポップへ依存矢印を結ぶかどうかは記法上は自由。
+* 複数の Interfaces が Port に結びついていると、
+  これらの Interfaces は一つの Interface のロリポップで
+  列記してよく、それらはカンマで区切られる。
+
+* required Interface の単純 Port から
+  provided Interface の単純 Port をつなぐ Dependency では、
+  ソケットからロリポップへと結ぶ依存矢印を見せるかどうかは
+  表記法上任意である。
 
 11.3.5 Examples
 ----------------------------------------------------------------------
 * Figure 11.11 Port notation
+
+  * Ports に対する表記法を説明する図である。
 
   * 図の上側の意味は学習済み。
   * 図の下側
@@ -509,26 +562,38 @@ A_partWithPort_connectorEnd
 
 * Figure 11.12 Behavior Port notation
 
+  * 振る舞い Port の p を説明する。
   * p のラベルの位置と、小さい四角にくっついたオマケのシンボルに注意。
 
 * Figure 11.13 Port notation showing multiple provided Interfaces
+
+  * ふたつの provided Interfaces, OrderEntry と Tracking がある
+    Class OrderProcess にくっついている Port OnlineServices を示す。
 
   * ロリポップに provided Interfaces の名前をふたつまとめて示す。
 
 * Figure 11.14 Port examples
 
+  * provided Interface である IPowerTrain により
+    型付けられた Port p を持つ Class Engine を示す図。
+
   * 右側の Car と Boat の内部構造それぞれの
     Port の付き方の違いを説明できるようにしておくこと。
 
+  * 単純 Ports なので、Boat 内部の連結器の描写は
+    Figure 11.4 で示された表記法選択肢のどれを使って
+    示してもよかった。
+
 11.4 Classes
 ======================================================================
-仕様書の 11 章の中盤でようやくクラスの仕様が与えられる。
 
 11.4.1 Summary
 ----------------------------------------------------------------------
-* Class は EncapsulatedClassifier と BehavioredClassifier の具体的な実現である。
-* Class の目的はオブジェクトの分類を指定することと、
-  それらオブジェクトの構造と振る舞いを特徴づける Features を指定することである。
+* Class は EncapsulatedClassifier と BehavioredClassifier の
+  具象的実現である。
+  Class の目的はオブジェクトの分類を指定することと、
+  それらのオブジェクトの構造と振る舞いを特徴づける
+  Features を指定することである。
 
 11.4.2 Abstract Syntax
 ----------------------------------------------------------------------
@@ -537,94 +602,142 @@ A_partWithPort_connectorEnd
   * Class は自らを再定義する関連と、
     何かを所有するといういくつかの関連が加わる程度。
 
-11.4.3 Semantics
-----------------------------------------------------------------------
-Class
-  * それの Features が Properties, Operations, Receptions, Ports, Connectors
-    である一種の EncapsulatedClassifier である。
-
-  * Class は別のクラスの private な Features にアクセスする能力はない。
-    また、自分の祖先ではない別のクラスの protected な Features にもアクセスできない。
-
-  * 属性 isAbstract: 説明がない？
-
-  * 属性 isActive: Class には active/passive という概念がある。
-    それを示すブーリアン値。
-
-    * Class が active であることと、
-      その Class のオブジェクトそれぞれが active であることは同値。
-
-    * あるオブジェクトが active であるとは、
-      その classifierBehavior を実行開始して、
-      それが完了するか、外部のオブジェクトから停止させられるかしなければ
-      終わらないようなもの。
-
-  * Class に対して、生成される初期値を指定する目的で InstanceSpecification を用いてよい。
-
-  * Class のオブジェクトが消滅するときには、
-    その Class の parts オブジェクトと ports すべてが再帰的に消滅する。
-
 A_superClass_class
   * Class から Class への関連（単方向）。
   * Class は継承することができる。
-  * A_general_classifier を class 側で subsets し、
-    superClass 側で redefines する。
+  * A_general_classifier を ``class`` 側で subsets し、
+    ``superClass`` 側で redefines する。
 
 A_nestedClassifier_nestingClass
   * Class から Classifier への composite 関連（単方向）。
   * Class のスコープ内にいくつか Classifiers を入れ子で含めることがあり、
     Class はそれらに対する名前空間として振る舞う。
 
-    * 入れ子は情報の隠蔽の役に立つ。
-
   * A_ownedMember_namespace, A_redefinitionContext_redefinableElement
     を subsets する。
-  * 関連端 nestedClassifier は ``{ordered}`` である。
+  * 関連端 ``nestedClassifier`` は ``{ordered}`` である。
 
 A_ownedAttribute_class
   * Class から Property への composite 関連（双方向）。
   * Class の Features の内 Properties なものである。
   * Class の Attributes は、その Class が所有する Properties である。
     これらの属性のうちいくつかは二項 Attributes の関連端を表現する。
-  * A_attribute_classifier, A_ownedMember_namespace, A_ownedAttribute_structuredClassifier
+  * A_attribute_classifier, A_ownedMember_namespace,
+    A_ownedAttribute_structuredClassifier
     を subsets する。ownedAttributes は redefines する。
-  * 関連端 ownedAttributes は ``{ordered}`` である。
+  * 関連端 ``ownedAttributes`` は ``{ordered}`` である。
 
 A_ownedOperation_class
   * Class から Operation への composite 関連（双方向）。
   * Class の Features の内 Operations なものである。
-  * Class の Operations は（何らかのパラメーターを伴って）オブジェクトの上で発動される。
-  * A_feature_featuringClassifier, A_ownedMember_namespace, A_redefinitionContext_redefinableElement
+  * Class の Operations は（何らかのパラメーターを伴って）
+    オブジェクトの上で発動される。
+  * A_feature_featuringClassifier, A_ownedMember_namespace, 
+    A_redefinitionContext_redefinableElement
     を subsets する。
   * 関連端 ownedOperation は ``{ordered}`` である。
 
 A_ownedReception_class
   * Class から Reception への composite 関連（単方向）。
-  * Class の持つ Receptions はどの Signals をこの Class のオブジェクトが扱うのかを指定する。
   * A_feature_featuringClassifier, A_ownedMember_namespace を subsets する。
 
 A_extension_metaclass
   * Class から Extension への関連（双方向）。
-  * Class は Profiles と metamodels の定義中で metaclass として振る舞ってよい。
-    12 章で見ていく。
   * 両端ともに ``{readOnly}`` である。
+
+11.4.3 Semantics
+----------------------------------------------------------------------
+11.4.3.1 Classes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Class とは、
+  それの Features が Properties, Operations, Receptions, Ports, Connectors
+  である EncapsulatedClassifier の一種である。
+
+  * Class の属性とは、
+    Class により所有される Properties である。
+    これらの ``attributes`` のいくつかは二項 Associations の端点を
+    表現することが許される。
+
+* Class のオブジェクトは
+  Class のメンバーである ``attribute`` それぞれに対して、
+  例えばそれの ``type`` と多重度のような ``attribute`` の特徴に
+  従って、値を含む必要がある。
+
+* Class でオブジェクトが生成されると、
+  既定値が指定された Class の ``attribute`` ごとに対して、
+  ``attribute`` の初期値がその生成にとって明示的に指定されていなければ、
+  既定の ValueSpecification が評価されて、
+  オブジェクトに対する ``attribute`` の初期値を設定する。
+
+* Operation の引数に対する値の特定の集合があれば、
+  :doc:`./classification` で指定された意味に従い、
+  Class の Operations はオブジェクトで発動することが可能でる。
+
+* Class は別のクラスの非公開 Features や、
+  また、自分の祖先ではない別のクラスの保護 Features には
+  アクセスすることができない。
+
+* Class はスコープ内部で定義されたさまざまな種類の Classifiers
+  に対する名前空間として振る舞う。
+  入れ子の Classifiers は含む Class の名前空間のメンバーである。
+  Classifier の入れ子は情報隠蔽の理由のために用いられる。
+
+* Class は ``isActive`` を true とすることにより
+  active であるとされるように指示してよい。
+  ``isActive`` が false だとその Class は passive である。
+
+* オブジェクトが active であるとは、
+  その生成の直接のなりゆきとして、
+  その ``classifierBehavior`` を実行することを開始し、
+  完全 Behaviored が実行されるか、
+  オブジェクトがある外的オブジェクトにより停止されるかのどちらかまでは
+  中断しないオブジェクトである。
+
+* Class の Receptions は
+  どの Signals がこの Class のオブジェクトを処理するかを指定する。
+
+* InstanceSpecification を用いて
+  Class に対して生成される初期値を指定してもよい。
+
+* Class のオブジェクトが削除されるときには、
+  その Class の ``parts`` オブジェクトと Ports に対応する
+  オブジェクトのすべてが再帰的に削除される。
+
+* Class は Profiles とメタモデルの定義でメタクラスとして振る舞ってよい。
+  :doc:`./packages` で見ていく。
 
 11.4.4 Notation
 ----------------------------------------------------------------------
 * Class の記法は Classifier のそれを用いる。
-
-* 最も広く用いられる Classifier であるため、
+  最も広く用いられる Classifier であるため、
   Class を指定するようなキーワードは不要である。
 
-* 4 つの存在必須な区画 attributes, operations, receptions, internal structure がある。
+* 4 つの存在必須な区画 attributes, operations,
+  receptions, internal structure がある。
 
-* ステレオタイプ ``«Create»`` を Class のコンストラクターにマークする。
+* Class の operations 区画は
+  :doc:`./packages` で指定された表記法を使う
+  その ``ownedOperations`` を表す表記法を含む。
+  receptions 区画は
+  :doc:`./simple-classifiers` で指定された表記法を使う
+  ``ownedReceptions`` を含む。
 
-* Class::isActive が true なものについては、
-  箱の枠の垂直辺両方を二重にして示すことがある。
+* 使用依存は InstanceSpecification をクラスに対するコンストラクターに
+  関係させてよく、コンストラクター Operation により返される
+  単一の値を記述する。
 
-* ステレオタイプ ``«Metaclass»`` を用いることがある。
-  :doc:`standard-profile` で見ていく。
+  * Operation が ``client`` であり、
+    生成オブジェクトが ``supplier`` である。
+
+  * ステレオタイプ ``«Create»`` を Class のコンストラクターにマークする。
+
+* ``isActive`` が true な Class を
+  箱の枠の垂直辺のどちらとも二重にすることで示してよい。
+
+* メタクラスを表現する Class は
+  オプションのステレオタイプ ``«Metaclass»`` を
+  その名前の上または前に付すことで拡張してよい。
+  :doc:`./standard-profile` を参照。
 
 11.4.5 Examples
 ----------------------------------------------------------------------
@@ -636,7 +749,8 @@ A_extension_metaclass
 
 * Figure 11.17 Class notation: attributes and Operations grouped according to visibility
 
-  * 可視性で属性と操作をグループ化できる。どこか C++ のコードを思わせるような記法。
+  * 可視性で属性と操作をグループ化できる。
+    どこか C++ のコードを思わせるような記法。
 
 * Figure 11.18 Active Class
 
@@ -668,7 +782,8 @@ A_extension_metaclass
 
 * Figure 11.24 Showing that the extended Class is a metaclass
 
-  * 拡張された Class Interface が実は metaclass であるということが明らさまになった。
+  * 拡張された Class Interface が実はメタクラスであるということが
+    明白になった。
   * とあるが、わかりやすさは微妙。
 
 11.5 Associations
