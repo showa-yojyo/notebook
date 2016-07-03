@@ -791,7 +791,9 @@ A_extension_metaclass
 
 11.5.1 Summary
 ----------------------------------------------------------------------
-* Association は型のあるオブジェクト間のリンクを表現する tuple_ の集合を分類する。
+* Association は型のあるオブジェクト間のリンクを表現する
+  tuple_ の集合を分類する。
+
 * AssociationClass は Association と Class の両方である。
 
 11.5.2 Abstract Syntax
@@ -801,49 +803,12 @@ A_extension_metaclass
   * 新クラスは Association と AssociationClass のふたつある。
   * この図式に現れる関連は、これまで見た関連のすべての中で最も重要であると思われる。
 
-11.5.3 Semantics
-----------------------------------------------------------------------
-Association
-  * Relationship かつ Classifier の一種である。
-  * 形のあるオブジェクトの間に出て来る (occur) 意味関係を指定する。
-
-  * isDerived: この Association が他のモデル要素（他の Associations 等）
-    から得られるものかどうかを指定する。
-
-  * この関連の関連端の isUnique の値が false であるとき、
-    いくつかのリンクにオブジェクトの同じ集合を関連付けることが可能である。
-
-  * この関連の関連端の isOrdered の値が true であるとき、
-    リンクは関連端の値に加え、順序情報を携える。
-
-  * N 個の memberEnds からなる Association に対して、
-    任意の N - 1 個の関連端を選ぶ。
-    その他の関連端を形成する Property を oep と呼ぶことにしよう。
-    選んだ N - 1 個の関連端における Classifiers が oep の context となる。
-
-  * 関連端の subset は Property のそれと同じ意味である。
-
-  * 関連の specialization とは、
-    特殊化している Association が分類するリンクが、
-    特殊化されている Association もまた分類することを意味する。
-
-  * 二項 Association は composite 集約（全体・部分関係）を表現してよい。
-
-    * composition であることは関連端 part 側の属性 isComposite を true にすることで表現する。
-    * 関連端 Property が shared または composition として印をつけてよいのは、
-      その関連が二項かつ他方の関連端が shared 印も composition 印も付いていないときに限る。
-
-AssociationClass
-  * AssociationClass は Association と Class の両方である。
-    ということは Classifier を二度継承することになるが、
-    そこは重複しないで受け継ぐものとする。
-
 A_endType_association
   * Association から Type への関連（単方向）。
   * 関連端の型を表現する関連。
     複数の関連端が同じ型であってもよいので、多重度は ``1..*`` になる。
   * A_relatedElement_relationship を subsets する。
-  * 関連端 endType は ``{readOnly}`` である。
+  * 関連端 ``endType`` は ``{readOnly}`` である。
 
 A_memberEnd_association
   * Association から Property への関連（双方向）。
@@ -854,7 +819,7 @@ A_memberEnd_association
 
 A_ownedEnd_owningAssociation
   * Association から Property への composite 関連（双方向）。
-  * 関連端 ownedEnd は、その Association 自身が所有するような関連端のことである。
+  * 関連端 ``ownedEnd`` は、その Association 自身が所有するような関連端のことである。
   * A_feature_featuringClassifier,
     A_redefinitionContext_redefinableElement,
     A_ownedMember_namespace,
@@ -864,90 +829,240 @@ A_ownedEnd_owningAssociation
 
 A_navigableOwnedEnd_association
   * Association から Property への関連（単方向）。
-  * ある Association のある end Property が、ある end Class によって所有されているとする。
-    このとき、その Association が反対側の ends から navigable であることを示唆する。
-
-    * 実行時に、リンクに関与するオブジェクトは反対側の ends のオブジェクトから
-      効率的にアクセスできることを意味する概念が navigability である。
-
-    * もしある関連端が navigable でないならば、
-      反対側の関連端からそれにアクセス可能かもしれないし、そうでないかもしれない。
-      そしてもしアクセス可能ならば、効率的ではないだろう。
-
   * 上述の A_ownedEnd_owningAssociation を subsets する。
 
 A_qualifier_associationEnd
   * Property から Property への composite 関連（双方向）。
-  * qualified 関連端は qualifiers という、
-    関連端におけるオブジェクトに関連するオブジェクト群を仕切るものを持つ。
-    各仕切りに qualifiers の一つの値が対応する。
-
   * A_ownedEnd_owner を subsets する。
-  * 関連端 qualifier は ``{ordered}`` である。
+  * 関連端 ``qualifier`` は ``{ordered}`` である。
+
+11.5.3 Semantics
+----------------------------------------------------------------------
+11.5.3.1 Associations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Association は型付けられたオブジェクト間にあり得る意味論的関係を指定する。
+  Properties で表される ``memberEnds`` を少なくともふたつ持ち、
+  それぞれには端の型がある。
+
+* Association は
+  その型が関連した型に対して適合したり実装したりするオブジェクト間の
+  リンクが存在することが可能であることを宣言する。
+  リンクは Association の ``memberEnd`` それぞれについての
+  値の組であり、値それぞれは端における型に適合したり、
+  型を実装したりするオブジェクトである。
+
+* リンクの全てが Association によって分類される必要はない。
+
+* Association のひとつまたはそれを超える端で ``isUnique`` が false だと、
+  リンクのいくつかを同じオブジェクトの集合に関連させることができる。
+  そういう場合には、リンクは端の値とは別にさらなる識別子を含む。
+
+* Association のひとつまたはそれを超える端が順序付けられていると、
+  リンクはその端の値に加えて順序情報を含む。
+
+* N 個の ``memberEnds`` がある Association に対して、
+  任意の N - 1 個の端を選ぶ。
+  その他の端を制定する Property を oep と呼ぶことにして、
+  選んだ N - 1 個の端における Classifiers が oep にとっての
+  context となるようにする。
+
+* Association の端の部分集合を作ることは
+  Property のために指定された意味を持つ。
+
+* 特殊化とは、部分集合を作ることに対して、
+  作為的な意味の領域にある関係であり、
+  つまり、
+  メンバーシップによってではなく、
+  集まりにあるメンバーシップが定義されることによって
+  規範を特徴付けることである。
+
+* n 項 Associations では端の多重度の下限は典型的にゼロである。
+  n 項 Association の端に対する多重度の下限が 1 であることは、
+  リンク一個がその他の端に対する値のあり得る組み合わせごとに
+  存在するはずであることを含意する。
+
+* 二項 Association は合成集約（全体・部分関係）を表現してよい。
+
+  * 合成は Association の ``part`` 端の ``isComposite`` 属性を
+    true とすることで表現する。
+
+  * その関連が二項であり、
+    もう一方の端が shared にも composition にも
+    特徴づけられていないならば、
+    Association の端 Property が shared または composition としてしか
+    特徴づけられてはならない。
+
+* 端 Class により所有される Association か、
+  Association の ``navigableOwnedEnd`` である Association の端 Property は
+  Association が反対側の端 (pl.) から航行可能であることを示す。
+  そうでなければ、
+  Association は反対側の端 (pl.) から航行可能でない。
+
+  * 航行可能性が意味するのは、
+    実行時にリンクに関与するオブジェクト、Association のオブジェクト、は、
+    Association の他方の端にあるオブジェクトから効率的にアクセス
+    できることである。
+
+  * 端が航行可能でないと、
+    反対側の端からのアクセスが可能であってもなくても構わない。
+    そしてもし可能ならば、効率的ではないかもしれない。
+
+* 限定された Associaiton 端は
+  端におけるオブジェクトに結び付いたオブジェクト、
+  被限定オブジェクト、たちを分割する``qualifiers`` を持つ。
+
+  * 各分割は ``qualifier`` 値で指名されるが、
+    これは各 ``qualifier`` に対するある値を含む組である。
+
+* 関連の有無はモデルの他の情報より求められてよい。
+  Associaiton の派生とその端の派生との間の論理的な関係はモデル固有である。
+
+11.5.3.2 Association Classes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* AssociationClass とは、
+  それ自身の Features の集合を持つ Association の宣言である。
+
+* AssociationClass は Association と Class の両方であるゆえ、
+  Features を持つ能力だとか、
+  ``name`` を持つことだとか、
+  共通する特性の集合を持つ。
+  これらの特性は同じ構造から複数回継承されて、重複されない。
+
+* AssociationClass は合成 Properties Class::``ownedAttribute`` と
+  Association::``ownedEnd`` を継承する。
+
+* AssociationClass のオブジェクトは
+  Association の一種としての AssociationClass のオブジェクト化を表す
+  リンクと、
+  Class の一種としての AssociationClass のオブジェクト化を表す
+  オブジェクトの両方の特徴を備える。
+
+* AssociationClass の端すべてが ``isUnique`` が true であるとしても、
+  オブジェクトのいくつかに端 Classes のオブジェクトの同じ集合を
+  結びつけさせることができる。
+
+* AssociationClass は Association または Class の一般化になり得ない。
 
 11.5.4 Notation
 ----------------------------------------------------------------------
-やや細かくノートをとりたい。
+* どんな Association も
+  ダイヤモンドが端の型である Classifier に接続している
+  Association ``memberEnd`` それぞれに
+  一本の実線の付いた一個のダイヤモンドとして描いてよい。
+  二個を超える端を持つ Association はこの方法でしか描くことができない。
 
-* どんな Association もダイヤモンド付き実線で描かれる。
 * 二項 Association は通常二つの Classifiers を接続する実線として描かれる。
   両者が同じ Classifier の場合は、関連端が重ならないようにして描く。
 * 実線は折れ線で構わない。意味も変わらない。
 
-* Association 記号自体（関連端ではなく）にある種の装飾をしてもよい。
+* Association 記号には次のように修飾をしてもよい：
 
-* 二項 Association の装飾として、黒三角が描かれることがある。
-  文書目的のためだけに描かれるもの。
+  * Association の名前を名前文字列として Association 記号の付近に、
+    ただし端の名前と間違えるほど十分近くではないところに、
+    示すことができる。
 
-* Associations 間の Generalizations は、一つの generatization 矢印で示される。
+  * Association の名前の前に、
+    または名前が示されていなければ名前の代わりに
+    現れるスラッシュは、
+    Association を導出されるものとして特徴付ける。
 
-* 関連端は Association を示す線と Classifier を示すアイコン（箱）との間の接続である。
-  名前をその近くに置いてもよい。これは選択自由で非表示にできる。
+  * 特性文字列は Association 記号の付近に、
+    ただし端の特性文字列を間違えぬよう十分離して
+    配置することが許される。
 
-* 関連端の近くに置ける各種記法は次のとおり。
+* 実線として描画される二項 Association で、
+  Association の名前の隣にあるかまたは代わりとなる、
+  ある端の方向の直線に沿って指し示す黒三角は、
+  その端が Association の端順序で末尾に来るものとすることを示す。
+
+* Associations 間の Generalizations は、
+  Association 記号間にある一般化矢印を使って示される。
+
+* Association 端は
+  Association を描く直線と
+  接続された Classifier を描くアイコン（しばしば箱）との間の接続である。
+  名前文字列を直線の端の近くに置いて
+  Association 端の名前を示すのもよい。
+  名前は選択自由で非表示にできる。
+
+* 直線の端の近くに置ける他の記法各種は次のとおり：
 
   * 多重度
-  * 中括弧で括られたアレ
-  * 可視性を示す記号
+  * 中括弧で括られた <prop-modifier>
+  * <visibility> 記号
 
-* 先の開いた矢印は、そちら側は navigable な関連端である。
-  小さなバツジルシがあれば、そちら側は navigable でない関連端である。
+* Association の端にある開いた矢先は、その端が航行可能であることを示す。
+  Association の端にある小さなバツジルシは、
+  その端が航行可能でないことを示す。
 
-* 関連端が派生であるとき、名前の前にスラッシュを付けることでそのことを示してよい。
+* Association 端が導出されていれば、
+  これを名前がなければその代わりに、
+  名前があればその前にスラッシュを付けることで示してよい。
 
-* 二項 Association は一つの関連端の aggregation の値として
-  shared または composite を持ってよい。
+* 二項 Association は一方の端の ``aggregation`` が
+  AggregationKind::shared または AggregationKind::composite であってよい。
 
-  * shared ならば反対側の関連端に中身のないダイヤモンドを装飾する。
-  * composite ならば同様に中身の詰まったダイヤモンドを装飾する。
+  * shared ならば反対側の関連端を中身のないダイヤモンドで修飾する。
+  * composite ならば同様に中身の詰まったダイヤモンドで修飾する。
 
-* 関連 Classifier による関連端の所有権を示すのには小さいマル、通称ドットを用いる。
+* 関連 Classifier による Association 端の所有権は小さい黒塗りの円で
+  図式的に示してよいが、簡潔さのためにドットと呼ぶことにする。
 
   * ドットは Classifier と関連矢印の間に描く。
-    集約記号や navigability 記号と組み合わせて描かれてよい。
+    集約記号や航行可能記号と組み合わせて描かれてよい。
 
   * ドットが示すのは、ドットの触れた Classifier 型の Property を
     そのモデルが含むということである。
     この Property はもう一方の関連端点にある Classifier が所有する。
 
-* 関連端の所有権を明示することは強制ではない。
+* 端の所有権の表記法は強制ではない。
+  すなわち、準拠ツールがそれを支援しないことがあり得る。
 
-  * Figure 11.26 のような場合、
-    ドットが付いている endA は Classifier B が所有すると解釈するが、
-    ドットの付いていない endB は曖昧さなしに BinaryAssociationAB が所有すると解釈する。
+* Figure 11.26 のような場合、
+  ドットが付いている endA は Classifier B が所有すると解釈するが、
+  ドットの付いていない endB は曖昧さなしに
+  BinaryAssociationAB が所有すると解釈する。
 
-* AssociationClass は破線の Association に付着した Class として示す。
+* 航行可能の表記法は過去において非公式の習慣に従ってよく使われたが、
+  航行可能な端は他方の端の Classifier により所有されると仮定された
+  ゆえに、
+  航行不可能な端は Association により所有されると仮定されたのであった。
+  この慣習は今では嫌われている。
 
-* 別々の関連線が図式内で交差する場合、電気回路図のように交点を半円にしてよい。
+* AssociationClass は破線の Association 経路に取り付けられた
+  Class 記号として示す。
 
-* 実用上、関連の navigability を表す矢印とバツを非表示にするのが便利である。
+* 論理的には AssociationClass と Association は同じ意味の実体であるが、
+  それらは図式的には見分けられる。
+
+* 二本の関連線が交差するときには、準拠ツールは
+  電気回路図のように交点を半円にして示すオプションを提供してよい。
+
+* 関連端の航行可能性を知らせる矢印とバツのいくつかを
+  非表示にするのが便利であることが実用上ではよくある。
   その非表示のオプションが 3 つある。
 
-* qualifier は関連端に付随する小さな矩形で示す。
+* ふたつまたはそれを超える集約が同じ集まりを指すならば、
+  準拠ツールは純粋に表現上のオプションとして、
+  集約端を黒塗りまたは白抜きの集約ダイヤモンド記号で修飾された
+  単一の欠片に併合することによる木として示してよい。
+
+* ``qualifier`` は
+  最終経路欠片とそれに接続する Classifier の記号の間にある
+  関連パスの端に取り付けられた小さな矩形として示す。
 
   * Classifier の一部というより、Association の線の一部として示す。
-  * 属性は qualifier box の内部に描く。記法は Classifier の属性と同じである。
-  * qualifier を非表示にしてはならない。
+
+* 対象端に取り付けられた多重度は
+  限定されたオブジェクトと限定する値を対にすることで
+  選択された対象オブジェクトの集合の取り得る濃度を記す。
+
+* 限定子属性は qualifier box の内部に描く。
+
+* いささか珍しいのではあるが、
+  限定子を単一の関連の端ごとに持たせることが認められる。
+
+* 限定子を非表示にしてはならない。
 
 11.5.5 Examples
 ----------------------------------------------------------------------
@@ -955,13 +1070,12 @@ A_qualifier_associationEnd
 
 * Figure 11.27 Binary and ternary Associations
 
-  * この例では偶然 Year が navigable なので有り難みがわかりにくいが、
-    Association の名前を黒三角付きで直接記すことで、向きを表せるのは一般には助かる。
-
+  * 黒塗り三角は Player PlayedInYear Year という読み順を示す。
   * 関連端にある goalie はゴールキーパーの意。
 
 * Figure 11.28 Association ends with various adornments
 
+  * さまざまな修飾の付いた Association 端の例。
   * ``{subsets x}`` の意味をはっきり例示している。
     この場合は「クラス C のオブジェクトにとっては、
     集合 d は集合 b の部分集合である」の意味だ。
@@ -979,11 +1093,20 @@ A_qualifier_associationEnd
   * 関連端の名前の違いを除けば GH は AB と同値である。
 
 * Figure 11.31 Example of attribute notation for navigable end owned by an end Class
+
+  * Class により所有された Association 端は属性でもあるので、
+    属性表記法が Class により所有された Association 端を表すのに
+    用いることが可能である。
+    冗長につき普通は非表示となるものなのだが、
+    この表記法を関連表記法と共に用いて、
+    属性が Association 端でもあることをはっきりとさせてよい。
+
 * Figure 11.32 Derived supersets (union)
 
-  * 以前理解できなかった derived union の説明もある。
-  * 結論を言うと b は d から得られる。図式としては違和感があるが。
-    「b はその部分集合となるような属性の全ての strict union を取ると得られる」である。
+  * 以前理解できなかった derived union の説明。
+  * 結論を言うと b は d から求められる。
+    「b はその部分集合となるような属性の
+    全ての strict union を取ると求められる」である。
 
 * Figure 11.33 Composite aggregation is depicted as a black diamond
 
