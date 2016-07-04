@@ -275,7 +275,7 @@ A_redefinedConnector_connector
 
   * 単純 Ports を接続するときには
     assembly または delegation に対しての普通の Connector 表記法を
-    Port 記号自身へではなく ball or socket 記号へ接続されるように（？）
+    Port 記号自身へではなく ball and socket 記号へ接続されるように（？）
     示してよい（原文で動詞がふたつあるような？）。
 
   * ふたつを超える単純 Ports を接続する n 項 Connector があり、
@@ -1136,14 +1136,30 @@ A_qualifier_associationEnd
 
 11.6.1 Summary
 ----------------------------------------------------------------------
-* 本節では任意の大きさと複雑さを持つソフトウェアシステムを定義するのに用いる構造の集合を仕様化する。
-* Component とは何か、Component ベースの開発の要点は何か、等々。
+* 本節では任意の大きさと複雑さを持つソフトウェアシステムを
+  定義するのに用ることができる構成概念の集合を仕様化する。
 
-  * 先に構築した Component の再利用は、Component ベースの開発の重要な観点。
-  * Component は provided/required Interfaces を有する。
-  * Component は可能な限り独立したものとして扱われるように設計されている。
+* Component を基礎とする開発の重要な様相は
+  先に構築した Components の再利用である。
 
-* Components パッケージは論理的なものと物理的なものの両面の仕様化を支える。
+  * Component にはひとつまたはそれを超える
+    ``provided`` and/or ``required`` Interfaces があるが、
+    Component の内部は、
+    それの Interfaces により与えられたもの以外は、
+    隠蔽されてアクセスできない。
+
+  * 要求されている Interfaces に関しては
+    Component は他の要素に依存してよいかもしれないが、
+    Component はカプセル化され、その Dependencies は
+    Component は可能な限り独立して扱われることができるように
+    設計されている。
+
+* 自律と再利用の様相は配備時における Components にまで及ぶ。
+
+* Components パッケージは論理的な Components と
+  物理的な Components の両方の仕様を、
+  それらとそれらが配備かつ実行されるノードを実装する成果物と一緒に
+  支援する。
 
 11.6.2 Abstract Syntax
 ----------------------------------------------------------------------
@@ -1151,98 +1167,158 @@ A_qualifier_associationEnd
 
   * Component と ComponentRealization が新登場する。
 
-11.6.3 Semantics
-----------------------------------------------------------------------
-Component
-  * Component は Class の一種である。
-
-  * Component は中身をカプセル化するシステムの一つのモジュール部品を表現し、
-    それの manifestation がその環境の内部で取り替えることができるようなものである。
-
-  * Component はいくらかの Classifiers の状態と振る舞いをカプセル化する自給自足な構成単位である。
-
-  * Component は一つ以上の Artifacts によって表明 (manifested) される。
-    そしてその Artifact が実行環境に配備される。
-    ある DeploymentSpecification でその Component の実行をパラメーター化する値を定義してよい。
-    :doc:`./deployments` で見ていく。
-
-  * システムまたはその他の状況での Components 間の配線 (wiring) は
-    互換性のある単純 Ports 等々の間の Dependencies を用いて定義することが可能である。
-
-  * Component は external view というものを持つ。
-    その public な Properties と Operations によった view である。
-
-  * Component は internal view というものを持つ。
-    その private な Properties と実現 Classifiers によった view である。
-
-  * Component に適用する UML 標準ステレオタイプがいくつかある。
-    ``«Subsystem»``, ``«Specification»``, ``«Realization»`` 等ある。
-
-  * isIndirectlyInstantiated: Component に適用するオブジェクト化の種類を示す。
-    ここの説明文、意味がわからない。
-
-ComponentRealization
-  * Realization の一種。
-  * Component はいくらかの Classifiers によって実現（または実装）されてよい。
-    その場合、Component はそういう Classifiers への ComponentRealizations の集合を所有する。
-
 A_required_component, A_provided_component
   * Component から Interface への関連（単方向）。
-  * Component がそのサービスの契約をクライアントに指定するのは provided Interfaces による。
-  * Component が他の Components やシステムのサービスに必要とする契約は required Interfaces による。
-  * これらの Interfaces が等価な機能を有する Components 同士は、
-    設計時または実行において置換可能である。
-
-  * Component は provided Interface を直接実装してもよいし、
-    その実現 Classifiers が実装してもよいし、
-    継承してもよい。
-
-  * required/provided Interfaces は Ports を通じて組織化されてよい。
+  * Component がそのサービスの契約をクライアントに指定するのは
+    ``provided`` Interfaces による。
+  * Component が他の Components やシステムのサービスに必要とする契約は
+    ``required`` Interfaces による。
 
 A_packagedElement_component
   * Component から PackageableElement への composite 関連（単方向）。
-  * Component はその定義に係る全てのモデル要素に対してはある Package のように振る舞う。
-    そういうものは所有されるか明示的にインポートされるかのどちらかであるべきだ。
-    典型的には Component を実現する Classifiers はその Component が所有する。
-
   * A_ownedMember_namespace を subsets する。
 
 A_realization_abstraction
   * Component から ComponentRealization への composite 関連（双方向）。
-  * 意味は上記 ComponentRealization のノート参照。
-
   * A_ownedElement_owner を subsets する。
   * A_supplier_supplierDependency を subsets する。
 
 A_realizingClassifier_componentRealization
   * ComponentRealization から Classifier への関連（単方向）。
-  * 意味は上記 ComponentRealization のノート参照。
-
-  * 関連端 realizingClassifier の多重度は ``1..*`` である。
+  * 関連端 ``realizingClassifier`` の多重度は ``1..*`` である。
   * A_clientDependency_client を subsets する（向き注意）。
+
+11.6.3 Semantics
+----------------------------------------------------------------------
+11.6.3.1 Components
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Component はそれの中身をカプセル化するシステムのモジュール式部品を表現するものであり、
+  それの現れるものがその環境の内部で取り替えることができるようなものである。
+
+* Component はいくらかの Classifiers の状態と振る舞いをカプセル化する
+  自給自足な構成単位である。
+
+  * Component は
+    それのクライアントに与えるのと、
+    システムにある他の Components やサービスを必要とするものとの、
+    サービスの正式な契約を
+    それの ``provided`` および ``required`` Interfaces に関して指定する。
+
+* Component は、
+  それの Interfaces の互換性に基づいて等価な機能がある Component により、
+  設計時または稼働時に置換可能な構成単位である。
+
+* Component は開発のライフサイクルで終始モデル化されて、
+  配置時と稼働時に向けて逐次洗練される。
+
+  * Component は一つまたはそれを超える Artifacts によって具現化されてよく、
+    そして次に、その Artifact が実行環境に配備されてよい。
+    DeploymentSpecification でその Component の実行を引数にする
+    値を定義してよい。
+    :doc:`./deployments` 参照。
+
+* Component の ``required`` および ``provided`` Interfaces は
+  Operations や Receptions のような BehavioralFeatures だけではなく、
+  ``attributes`` や Association 端のような StructuralFeatures の
+  仕様も考慮に入れる。
+
+  * Component は ``provided`` Interface を直接実装してもよいし、
+    その実現 Classifiers がそうしてもよいし、
+    それらが継承されてもよい。
+
+  * ``required`` および ``provided`` Interfaces は
+    Ports で任意で組織化されてよい。
+
+* Component は
+  それの公的に視認できる Properties と Operations によって
+  external view すなわち black-box view を持つ。
+
+* システムまたはその他の状況での Components 間の配線 (wiring) は
+  互換性のある単純 Ports 間または、
+  Usages と Component 図の Components にあるソケットとロリポップにより
+  表される匹敵する InterfaceRealizations との間にある
+  Dependencies を用いて構造的に定義することが可能である。
+
+* Component は
+  その非公開な Properties と実現 Classifiers によって
+  internal view すなわち white-box view を持つ。
+
+* Component にある assembly Connector にとっての実行時の意味とは、
+  Connector のオブジェクトに沿って巡回する要求
+  （シグナルと操作発動）である。
+
+* Component に適用する UML 標準ステレオタイプがいくつかある。
+  例えば巨大な規模の Components をモデル化する ``«Subsystem»`` や、
+  異なった仕様と実現化の定義で Components をモデル化するには
+  ``«Specification»`` と ``«Realization»`` 等がある。
+  ここで、仕様ひとつは複数の実現化を持つことが許される。
+  :doc:`./standard-profile` 参照。
+
+* Component はいくらかの Classifiers によって実現（または実装）されてよい。
+  その場合、Component はこれらの Classifiers に対する
+  ComponentRealizations の集合を所有する。
+
+* Component はその定義に必要とされるか、関係するモデル要素全部に対しては
+  Package のように振る舞うが、
+  それは所有されているか明示的にインポートされているかの
+  どちらかであるはずである。
+
+* ``isIndirectlyInstantiated`` 特性は
+  Component に対して適用するオブジェクト化の種類を示す。
+
+  * false であると、Component は addressable オブジェクトとして
+    オブジェクト化される。
+
+  * true であると、Component は設計時には定義されるが、
+    稼働時（または実行時）には Component により指定されるオブジェクトは
+    存在しない。
+    すなわち、
+    Component は間接的にオブジェクト化されて、
+    それの実現する Classifiers または ``parts`` のオブジェクト化の終わりまで。
 
 11.6.4 Notation
 ----------------------------------------------------------------------
-* Component は Classifier の記法プラスキーワード ``«component»`` で示す。
+* Component はキーワード ``«component»`` を付した Classifier 矩形として示す。
 
-  * オプションでコンポーネントアイコン（二つの小四角形が突き出た四角形）
+  * 任意で Component アイコン（二つの小四角形が突き出た四角形）
     を右上隅に展示することが可能。この場合はキーワードが非表示でもよい。
 
-  * 属性、操作、内部構造すべてが通常の意味を持つ。
+* 属性、操作、内部構造区画はすべて通常の意味を持つ。
 
-  * Component の provided/required Interfaces はボール・ソケット記法で示してよい。
-    それらの棒が Component の矩形から突き出るように描く。
+* Component の ``provided`` および ``required`` Interfaces は
+  ボール（ロリポップ）・ソケット記法で示してよい。
+  ここでは、ロリポップとソケットは Component の矩形の外に突き出る。
 
-* ComponentRealization は Realization 依存と同じ記法。
-  すなわち一般的な破線矢印、矢の頭を白い三角とする。
+* Component の ``provided`` および ``required`` Interfaces の
+  フルネームを表示するために、
+  Interfaces は通常の伸張可能な Classifier 矩形として表示することも可能である。
+  このオプションを使うときには、
+  適切な依存矢印により Interface 矩形を Component 矩形に対して接続する。
 
-* Component::packagedElements は選択自由の区画 "packaged elements" に展示してよい。
+  * :doc:`./common-structure` や :doc:`./simple-classifiers` を参照。
+
+* 準拠ツールは任意で "provided interfaces" と "required interfaces" という名前の、
+  ``provided`` および ``required`` Interfaces を名前で列記する
+  区画を支援してもよい。
+
+* さらなる任意の区画 "realizations" および "artifacts" を
+  実現する Classifiers および
+  具現化する Artifacts を列記するのに用いてよい。
+
+* ComponentRealization は Realization 依存と同じ方法で記される。
+  すなわち矢先が白抜き三角である一般的な破線矢印である。
+
+* Component の ``packagedElements`` は、
+  :doc:`./classification` で取り扱った
+  ``ownedMembers`` のオプション区画についての仕様に従って、
+  オプション区画 "packaged elements" に表示してよい。
 
 11.6.5 Examples
 ----------------------------------------------------------------------
 * Figure 11.39 Example of an overview diagram (...)
 
-  * Order は Account と Product に依存しているが、依存の種類は特記されていない。
+  * Order は Account と Product に依存しているが、
+    依存の種類は特記されていない。
 
 * Figure 11.40 A Component with two provided and three required Interfaces
 
@@ -1263,7 +1339,7 @@ A_realizingClassifier_componentRealization
 
 * Figure 11.43 Explicit representation of provided and required Interfaces (...)
 
-  * Dependency 記法を用いて provided/required Interfaces を明示的に表現している。
+  * Dependency 記法を用いて ``provided`` と ``required`` Interfaces を明示的に表現している。
   * 矢印の描き分け方に注意。
 
 * Figure 11.44 A representation of the realization of a complex Component
@@ -1279,18 +1355,18 @@ A_realizingClassifier_componentRealization
 * Figure 11.46 Example model of a Component, its provided and required Interfaces, (...)
 
   * Components 間の配線。込み入った図式。
-  * /OrderableItem は Product のスーパータイプが実装する Interface であることを示す。
+  * /OrderableItem は Product の上位型が実装する Interface であることを示す。
   * Component は AccountPayable が OrderHeader に依存していることを要求している。
 
 * Figure 11.47 Internal structure of a Component
 
   * Component の内部構造の white-box view の見本。
   * 区画 "internal structure" に他の Components がいる。
-  * 単純 Ports に ball-and-socket 記法が連結している。
+  * 単純 Ports に ball and socket 記法が連結している。
 
 * Figure 11.48 Delegation Connectors connect externally provided Interfaces to the parts (...)
 
-  * この例では区画 "internal structure" にある parts は、
+  * この例では区画 "internal structure" にある ``parts`` は、
     区画 "packaged elements" にある Classes を型とする。
 
 11.7 Collaborations
@@ -1298,10 +1374,12 @@ A_realizingClassifier_componentRealization
 
 11.7.1 Summary
 ----------------------------------------------------------------------
-* Collaborations の主な目的は、
-  通信要素のシステムがどのように特定の課題を達成するかを説明することである。
+* Collaborations の第一の目的とは、
+  通信要素のシステムがどのように特定の課題または課題の集合を併せて達成するかを
+  説明と無関係である詳細と結び付く必要性なしに説明することである。
 
-* CollaborationUse はその collaborationRoles を演じている特定の要素が絡んでいる特定の状況に対して、
+* CollaborationUse はそれの ``collaborationRoles`` を演じる
+  特定の要素を巻き込む特定の状況への、
   Collaboration によって記述されるパターンの応用を表現する。
 
 11.7.2 Abstract Syntax
@@ -1310,101 +1388,117 @@ A_realizingClassifier_componentRealization
 
   * Collaboration と CollaborationUse を見ていく。
 
-11.7.3 Semantics
-----------------------------------------------------------------------
-Collaboration
-  * StructuredClassifier と BehavioredClassifier の両方の一種である。
-  * Collaboration は協調しているオブジェクト群が、
-    ある共同のタスクやタスクの集合を、
-    どのように果たすのかを説明するのに用いられる。
-
-CollaborationUse
-  * NamedElement の一種である。
-  * CollaborationUse は要素群の間の関係を表現する
-    Collaboration の特定の利用法を説明するために表現する。
-
 A_collaborationRole_collaboration
   * Collaboration から ConnectableElement への関連（単方向）。
-
-  * ある与えられたオブジェクトは同時に複数の異なる Collaborations の
-    collaborationRoles を演じてもよい。
-
-  * collaborationRoles 間の Connectors はどういう通信路が
-    参加オブジェクト間に存在する必要があるのかを指定する。
-
-  * 特定の Collaboration において、
-    全ての Features や、参加オブジェクトの全ての中身や、
-    オブジェクト間の全てのリンクは必ずしも必要ではない。
-    それゆえ、collaborationRoles は Interfaces によって定義されることがよくある。
-
-  * Collaborations は他の Collaborations から特殊化されてよい。
-    特殊化先の collaborationRoles の型は、特殊化元のそれの型に適合している必要がある。
-
-  * Collaboration は直接オブジェクト化できるものではない。
-
   * A_role_structuredClassifier を subsets する。
 
 A_type_collaborationUse
   * CollaborationUse から Collaboration への関連（単方向）
-  * 関連端 type はこの CollaborationUse で使われている Collaboration である。
-  * 関連端 type の多重度は 1 である。
+  * 関連端 ``type`` はこの CollaborationUse で使われている Collaboration である。
+  * 関連端 ``type`` の多重度は 1 である。
 
 A_roleBinding_collaborationUse
   * CollaborationUse から Dependency への composite 関連（単方向）。
-  * roleBindings はその CollaborationUse が所有する Dependencies を使って実装される。
-  * もし同じ ConnectableElement が Collaboration とその表現要素の両方で用いられているならば、
-    roleBindings は必要ない。
-  * roleBindings 中の client 要素と supplier 要素が互換性があるとき以上のことは仕様化されていない。
-
   * A_ownedElement_owner を subsets する。
 
 A_collaborationUse_classifier
   * Classifier から CollaborationUse への composite 関連（単方向）。
-
-  * 一つの Classifier の内側には与えられた Collaboration に関係する
-    CollaborationUses が複数あってよい。
-
   * A_ownedElement_owner を subsets する。
 
 A_representation_classifier
   * Classifier から CollaborationUse への関連（単方向）。
-
-  * Classifier が所有する CollaborationUses の一つを
-    その Classifier を総括する Behavior を代表するものとして拾い出してよい。
-    これをその Classifier の representation と呼ぶ。
-
   * A_collaborationUse_classifier を subsets する。
+
+11.7.3 Semantics
+----------------------------------------------------------------------
+11.7.3.1 Collaborations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Collaboration は協調しているオブジェクト群が、
+  ある共同の課題や課題の集合を、
+  どのように果たすのかを説明するのに用いてよい。
+
+* Collaboration は与えられた課題をこなすのに必要とされる
+  共同の参加者の集合を定義する。
+
+* Features 全部も、参加オブジェクトの内容全部も、
+  これらのオブジェクトの間にあるリンク全部もいずれも
+  特定の Collaboration に常には必要とされない。
+  それゆえ Collaboration は Interfaces で型付けられた
+  ``collaborationRoles`` によって定義されることがよくある。
+
+* Collaborations は他の Collaborations から特殊化されてよい。
+
+* Collaboration は直接オブジェクト化可能なものではない。
+
+11.7.3.2 CollaborationUses
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* CollaborationUse は要素の集合間の関係の説明になる
+  Collaboration の特定の利用法を表現する。
+
+* ``roleBinding`` は CollaborationUse が所有する Dependencies を
+  使って実装される。
+
+* CollaborationUse を型とする Collaboration にある Connectors は
+  対応する Connectors が
+  context Classifier に束縛された要素の間にある必要があり、
+  これらの対応する Connectors は Collaboration Connectors と
+  同じか、より一般の型とする必要がある。
+
+* Classifier が所有する CollaborationUses のうちのひとつを
+  総括して Classifier の Behavior を代表するものとして選び出してよい。
+  これを Classifier の ``representation`` と呼ぶ。
+
+* Collaboration に取り付けられた Behavior のどれもが
+  ``collaborationRoles`` の集合および
+  与えられた CollaborationUses で束縛された Connectors に適用する。
+  例えば、Collaboration の ``parts`` の間の相互作用は
+  単一の CollaborationUse に束縛された Classifier ``parts`` に適用する。
+
+* 同じ ConnectableElement が Collaboration と代表された要素の両方で
+  使われると ``roleBinding`` はひとつも要らない。
+
+* ``roleBindings`` の顧客要素と仕入先要素が互換ならば、
+  それ以上のことは指定されない。
 
 11.7.4 Notation
 ----------------------------------------------------------------------
-* Collaboration は破線の楕円で示す。
+* Collaboration はその名前を含む破線の楕円形で示す。
 
-  * その名前を楕円内に含める。
-  * collaborationRoles と Connectors で構成された内部構造を楕円内の区画に示してよい。
+  * ``collaborationRoles`` と Connectors で構成された
+    Collaboration の内部構造を破線楕円内の区画に示してよい。
     この区画は Classifier の内部構造区画と同じ記法仕様に準じる。
 
 * 代わりに composite structure 図が使える。
   あるいは通常の Classifier 矩形をキーワード ``«collaboration»`` を付けて使える。
 
-* Properties でない collaborationRoles を持つ Collaboration の記法は定義がない。
+* Properties でない ``collaborationRoles`` を持つ
+  Collaboration を表す記法は定義されていない。
 
-* Collaboration の楕円とその Properties の矩形を離して描いて線で結ぶ記法もある。
+* Properties を表す代替表記法を使う場合は、
+  楕円形の Collaboration の形から
+  Collaboration の Properties の型である Classifiers の記号である矩形へ
+  直線を引いてよい。
 
-* CollaborationUse は背景となる Classifier の内部構造区画内部に示す。
+* CollaborationUse は背景となる Classifier の内部構造区画内部に
+  その出来事の名前を含む破線楕円、コロン、
+  それに Collaboration ``type`` で示す。
 
-  * 各 roleBinding に対して、楕円からその client 要素へ破線がある。
+  * ``roleBinding`` ごとに対して、楕円からその ``client`` 要素へ破線がある。
+    対して、破線は ``client`` 端上 ``supplier`` 要素の名前でラベルされている。
 
-* CollaborationUse の選択自由な記法は、キーワード ``«occurrence»`` 付きの破線矢印を、
-  使う側の Classifier から使われる側の Collaboration へ結ぶ方法。
+* CollaborationUse を表す選択自由な記法は、
+  破線矢印がキーワード ``«occurrence»`` の付いた、
+  使う Classifier から使われる Collaboration へ向くようにする。
 
-  * これと共に roleBindings は普通の Dependency 矢印として示される。
+  * これと共に ``roleBindings`` は普通の Dependency 矢印として示される。
 
 11.7.5 Examples
 ----------------------------------------------------------------------
 * Figure 11.50 The internal structure of the Observer Collaboration
 
   * 破線楕円全体が Collaboration Observer である。
-  * 区画内にある矩形がこの collaborationRoles であり、オブジェクトの名前が示してある。
+  * 区画内にある矩形がこの ``collaborationRoles`` であり、
+    オブジェクトの名前が示してある。
   * オブジェクト間の実線が Connector を示す。
 
 * Figure 11.51 Alternative notation for the parts of the Observer Collaboration.
@@ -1413,13 +1507,13 @@ A_representation_classifier
 
 * Figure 11.52 The Sale Collaboration
 
-  * Sale は collaborationRoles buyer と seller の間の Collaboration である。
+  * Sale は ``collaborationRoles`` buyer と seller の間の Collaboration である。
 
 * Figure 11.53 The BrokeredSale Collaboration
 
-  * BrokeredSale は 3 つの collaborationRoles (producer, broker, consumer) の間の Collaboration である。
+  * BrokeredSale は 3 つの ``collaborationRoles`` (producer, broker, consumer) の間の Collaboration である。
   * 同時に 2 種類の CollaborationUses (wholesale, retail) を含むことを示している。
-    broker だけは両方の CollaborationUses が client 要素として共有する。
+    broker だけは両方の CollaborationUses が ``client`` 要素として共有する。
 
 * Figure 11.54 A subset of the BrokeredSale Collaboration using «occurrence» and Dependency arrows
 
