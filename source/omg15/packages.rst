@@ -10,8 +10,9 @@ UML 2.5 pp. 239-282 に関するノート。
 
 12.1 Summary
 ======================================================================
-* Packages は UML の主な包括的な構造化、組織化能力を提供する。
-* UML に拡張を組織化する特殊化 Models と Profiles がある。
+* Packages は UML の主な包括的な構造化および組織化能力を与える。
+  Models に関する特殊化および
+  UML に対する拡張を組織化する Profiles に関する特殊化がある。
 
 12.2 Packages
 ======================================================================
@@ -26,70 +27,6 @@ UML 2.5 pp. 239-282 に関するノート。
 
   * Package, Model, PackageMerge が新しく現れた。
   * Type も PackageableElement の一種であることが図では省略してある。
-
-12.2.3 Semantics
-----------------------------------------------------------------------
-Package
-  * TemplateableElement, Namespace, PackageableElement の一種である。
-
-  * Package は他の Packages の内容物を、
-    自分の包含要素の合併 (merging) を通じて拡張することが可能である。
-
-  * Package は TemplateableElement なのでテンプレートとして定義して、
-    他のテンプレートに束縛してもよい。
-
-  * URI: Package を一意に特定する識別子を提供するように指定可能である。
-    UML 内部では、プロファイルを除けば、URI の前もって決定された利用法というものはない。
-
-PackageMerge
-  * DirectedRelationship の一種である。
-  * PackageMerge はふたつの Packages 間の有向関係である。
-    一方の Package の中身が他方の Package に結合されるという関係である。
-
-  * Package は直接的、間接的を問わず、自分自身を合併することは許されない。
-
-  * Figure 12.2 Illustration of the Meaning of Package Merge
-
-    * P2::A は P1::A の増分を定義する。
-
-    * P3::SubA は P2::A のサブクラスの定義である。
-      P3 から見ると、P2::A は P1 と P2 の間のマージ結果の A を表現していると解釈する。
-
-    * P1: mergedPackage (target)
-    * P2: receivingPackage (source, owner) であると同時に resultingPackage
-
-      * マージの before/after で同じところにあるものの呼び方が変わる
-        (receiving/resulting) ことがわかればとりあえず読める。
-
-  * Figure 12.3 Conceptual View of the Package Merge Semantics
-
-    * 図の右側は UML の図式ではない。
-    * この B ダッシュを意識することがコツだと言っている。
-
- * PackageMerge の意味は制約と変換の集合で定義される。
-   制約は妥当な PackageMerge の事前条件を指定し、
-   一方、変換はその意味的な効果（事後条件のような）の特徴を描く。
-   もし制約のいくつかが破られていれば、
-   その PackageMerge は ill-formed であり、それを含むモデルは不正なものである。
-
-   その「集合」が pp. 240-245 で文書化されている。
-   もしマージの仕様を詳しく把握する状況になったら、ここを参照すること。
-
-Model
-  * Package の一種である。
-  * Model というのはあるシステムの記述である。
-    最も広義の意味でのシステムであり、ソフトウェアやハードウェアだけでなく、
-    組織や工程をも意味する。
-
-  * viewpoint: Model がシステムを記述する見地。
-    異なる Models が同じシステムを定義することも可能である。
-    大抵はこれらは相補的になっていて、
-    それぞれはシステムの相異なる利害関係者の見地から定義されている。
-
-  * Model は次のものの間の Abstraction Dependencies を持つことが可能。
-
-    * refinement （標準プロファイル ``«Refine»`` でステレオタイプされる）
-    * mapping （例えば標準プロファイル ``«Trace»`` でステレオタイプされる）
 
 A_packagedElement_owningPackage
   * Package から PackageableElement への composite 関連（単方向）。
@@ -108,24 +45,185 @@ A_packagedElement_owningPackage
 
 A_packageMerge_receivingPackage
   * Package から PackageMerge への composite 関連（双方向）。
-  * 関連端 receivingPackage 側の Package が合併前後で構成要素が増える方を指す。
+  * 関連端 ``receivingPackage`` 側の Package が合併前後で構成要素が増える方を指す。
   * A_ownedElement_owner と A_source_directedRelationship を subsets する。
-  * 関連端 receivingPackage の多重度はちょうど 1 である。
+  * 関連端 ``receivingPackage`` の多重度はちょうど 1 である。
   * cf. A_mergedPackage_packageMerge
 
 A_mergedPackage_packageMerge
   * PackageMerge から Package への関連（単方向）。
-  * 関連端 mergedPackage は合併前後でその構成内容物が変わらない方を指す。
+  * 関連端 ``mergedPackage`` は合併前後でその構成内容物が変わらない方を指す。
   * A_target_directedRelationship を subsets する。
-  * 関連端 mergedPackage の多重度はちょうど 1 である。
+  * 関連端 ``mergedPackage`` の多重度はちょうど 1 である。
   * cf. A_packageMerge_receivingPackage
+
+12.2.3 Semantics
+----------------------------------------------------------------------
+12.2.3.1 Package
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Package はそれの ``members`` についての名前空間であり、
+  ``packagedElement`` で結び付けられた構成員の要素を含み、
+  インポートされたものを含む。
+
+* Package の定義は他の Packages の内容を、
+  自分の包含要素の合併 (merging) により拡張することが可能である。
+
+* Package をテンプレートとして定義してよく、
+  他のテンプレートに対して束縛してもよい。
+
+  * 詳しくは :doc:`./common-structure` を参照。
+
+* URI を Package にとって一意な識別子を与えるように指定することが可能である。
+  UML 内部では、プロファイルを除いた場合では、
+  前もって決定されたこれにとっての利用法はない。
+
+12.2.3.2 PackageMerge
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* PackageMerge とは、
+  下で定義される規則集に従って、
+  対象の ``mergedPackage`` の内容が
+  出処の ``receivingPackage`` に結合されることを示す
+  ふたつの Packages 間の有向関係である。
+
+* Generalization と同じように、
+  Package は自分自身を合併することは
+  直接的、間接的を問わず許されない。
+
+* この能力は、
+  さまざまな Packages で定義された要素が同じ ``name`` であり、
+  同じ概念を意図するときに用いられるべく設計されている。
+
+* 受け手側 Package に含まれるモデル要素に対する参照のどれもが、
+  Package に含まれる増分に対してではなく、
+  合併結果に対する参照を含意する。
+
+* Figure 12.2 Illustration of the Meaning of Package Merge
+
+  * P2::A は P1::A の増分を定義する。
+
+  * P3::SubA は P2::A のサブクラスの定義である。
+    P3 から見ると、P2::A は P1 と P2 の間のマージ結果の A を表現していると解釈する。
+
+  * P1: ``mergedPackage`` (target)
+  * P2: ``receivingPackage`` (source, owner) であると同時に
+    ``resultingPackage``
+
+    * マージの before/after で同じところにあるものの呼び方が変わる
+      (receiving/resulting) ことがわかればとりあえず読める。
+
+* PackageMerge は
+  合併される Package の内容を受け手側の内容と結合することによって、
+  （それ自身が変換の集合である）操作として考察することができる。
+
+* PackageMerge の規則を理解するには、
+  三種の別個の実体の間をはっきりと見分ける必要がある：
+
+  #. ``mergedPackage``
+  #. ``receivingPackage``
+  #. 合併変換の結果
+
+.. todo::
+
+   各種用語の導入。
+
+   * この専門用語は Figure 12.3 の図解により表される PackageMerge の概念上の見方に基づく。
+
+* Figure 12.3 Conceptual View of the Package Merge Semantics
+
+  * 図の右側は UML の図式ではない。
+  * この B ダッシュを意識することがコツだと言っている。
+
+* PackageMerge の意味は制約と変換の集合で定義される。
+  制約は有効な PackageMerge にとっての事前条件を指定し、
+  それに対して、変換はその意味的な効果（事後条件）を記述する。
+  制約のいくつかが破られていれば
+  PackageMerge は ill-formed であり、それを含むモデルは無効ある。
+
+  * その「集合」が pp. 240-245 で文書化されている。
+    もしマージの仕様を詳しく把握する状況になったら、ここを参照すること。
+
+* この仕様では、
+  他の種類の要素メタタイプ（例えば状態機械や相互作用）の意味が
+  複雑かつ領域固有であるので、
+  明示的な合併変換は一定の一般的メタモデル
+  (Packages, Classes, Associations, Properties, etc.) に
+  たいてい見出される要素メタタイプについてしか定義されていない。
+
+12.2.3.3 General Package Merge Rules
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* 合併される要素と受け取る要素が一致する (match) とは、
+  それらがそれらのメタタイプについての一致規則を満足することを言う。
+
+.. todo:: 規則集を消化する。
+
+12.2.3.4 Package Rules
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Package の種類の Elements は ``name`` およびメタタイプにより一致する。
+
+.. todo:: 規則集を消化する。
+
+12.2.3.5 Class and DataType Rules
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Class や DataType の種類の Elements は ``name`` およびメタタイプにより一致する。
+
+.. todo:: 規則集を消化する。
+
+12.2.3.6 Property Rules
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Property の種類の Elements は ``name`` およびメタタイプにより一致する。
+
+.. todo:: 規則集を消化する。
+
+12.2.3.7 Association Rules
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Association の種類の Elements は ``name`` およびメタタイプにより一致する。
+
+.. todo:: 規則集を消化する。
+
+12.2.3.8 Operation Rules
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Operation の種類の Elements は ``name``, Parameter の順序および
+  Parameter の型により一致する。戻り値の型のいずれも含まない。
+
+.. todo:: 規則集を消化する。
+
+12.2.3.9 Enumeration Rules
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* EnumerationLiteral の種類の Elements は
+  所有する Enumeration およびリテラル ``name`` により一致する。
+
+.. todo:: 規則集を消化する。
+
+12.2.3.10 Constraint Rules
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. todo:: 規則集を消化する。
+
+12.2.3.11 Model
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Model とはシステムの記述である。
+  ここでシステムは、
+  最も幅広い意味で意図されていて、
+  ソフトウェアやハードウェアだけでなく、組織や工程をも含んでよい。
+
+* Package と同じように、Model は
+  モデル化されているシステムを協力して記述する ``members`` の集合を持つ。
+
+* 種々の Models を同じシステムに対して定義することが可能であり、
+  典型的にはこの種々の Models は相補的であり、
+  種々のシステム利害関係者の観点から定義されている。
+
+* Model は次のものの間にある Abstraction Dependencies を持つことが可能。
+
+  * refinement （標準プロファイル ``«Refine»`` でステレオタイプされる）
+  * mapping （例えば標準プロファイル ``«Trace»`` でステレオタイプされる）
 
 12.2.4 Notation
 ----------------------------------------------------------------------
 * Package は大きい矩形の左上に小さい矩形（タブ）を付けた形状で示す。
 
   * Package の内容物は大きい矩形の内部に示してよい。
-  * マルにプラスを付けた記号を使って、Package の外部から要素に線を引くような記法がある。
+  * マルにプラスを付けた記号を使って、
+    Package の外部から要素に線を引くような記法がある。
 
   * PackageImport や ElementImport を通じて持ち込んだ要素は、
     色を変えて描かれることがある。
@@ -141,7 +239,7 @@ A_mergedPackage_packageMerge
 
 * PackageMerge は開いた矢先を持つ破線矢印を用いて示す。
 
-  * 矢印の向きは receivingPackage から mergedPackage である。
+  * 矢印の向きは ``receivingPackage`` から ``mergedPackage`` である。
   * キーワード ``«merge»`` を破線のそばに示す。
 
 * Model は通常の Package シンボルに小さな三角を大矩形の右上隅に描いたもので記す。
