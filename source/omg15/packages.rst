@@ -3,7 +3,7 @@
 ======================================================================
 UML 2.5 pp. 239-282 に関するノート。
 
-.. todo:: 最低でもあと一回は編集する。
+.. todo:: 誤訳や変な解釈がいかにもありそうなので、発覚次第修正する。
 
 .. contents:: ノート目次
    :depth: 2
@@ -122,11 +122,38 @@ A_mergedPackage_packageMerge
   #. ``receivingPackage``
   #. 合併変換の結果
 
-.. todo::
+* この専門用語は Figure 12.3 の図解により表される PackageMerge の概念上の見方に基づく。
 
-   各種用語の導入。
+  併合されたパッケージ (merged package)
+    受領パッケージに併合されることになるパッケージ。
 
-   * この専門用語は Figure 12.3 の図解により表される PackageMerge の概念上の見方に基づく。
+  受領パッケージ (receiving package)
+    概念上の、併合の結果を含むパッケージであるのだが、
+    この用語は併合変換が実施される前の
+    パッケージおよびそれの中身を参照するのに用いる。
+
+  結果パッケージ (resulting package)
+    概念上の、併合の結果を含むパッケージである。
+    モデルでは当然ながらこれは受領パッケージと同じであるが、
+    この特別の用語は併合変換が実施された後の
+    パッケージおよびそれの中身を参照するのに用いる。
+
+  併合された要素 (merged element)
+    併合されたパッケージに存在するモデル要素。
+
+  受領要素 (receiving element)
+    受領パッケージにあるモデル要素。
+
+  結果要素 (resulting element)
+    併合が実施された後の結果パッケージにあるモデル要素。
+
+  要素型 (element type)
+    Parameter や StructuralFeature の ``type`` のような、
+    TypedElement のどんな種類の ``type`` をも指す。
+
+  要素メタタイプ (element metatype)
+    モデル要素の MOF 型である。
+    例えば Classifier, Association, Feature である。
 
 * Figure 12.3 Conceptual View of the Package Merge Semantics
 
@@ -151,52 +178,213 @@ A_mergedPackage_packageMerge
 
 12.2.3.3 General Package Merge Rules
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 合併される要素と受け取る要素が一致する (match) とは、
+* 合併される要素と受領要素が一致する (match) とは、
   それらがそれらのメタタイプについての一致規則を満足することを言う。
 
-.. todo:: 規則集を消化する。
+CONSTRAINTS
+  #. «merge» 有向グラフに閉路はあり得ない。
+  #. Package はそれに含まれている Package を合併することはできない。
+  #. Package はそれが含む Package を合併することはできない。
+
+  #. メタタイプが Package, Class, DataType, Property, Association,
+     Operation, Constraint, Enumeration または EnumerationLiteral の
+     一種ではないような併合された要素は、
+     その受領要素が併合された要素のそのままのコピーではない限りは、
+     同じ名前とメタタイプの受領要素を持ち得ない。
+
+  #. PackageMerge は
+     併合を実施するのに要求される制約のすべてが成り立つとき、
+     かつそのときに限って有効である。
+
+  #. 型付けられた要素の一致は適合する型を持つ必要がある。
+     Classes または DataTypes である型の場合、
+     適合型は同一の型あるいは共通する上位型のいずれかである。
+     他のすべての場合では、適合とは型が同一であることを意味する。
+
+  #. 受領要素は併合された要素のどれに対しても
+     明示的な参照を持つことはあり得ない。
+
+  #. 一致する RedefinableElements に結び付いた再定義はいずれも
+     矛盾してはならない。
+
+TRANSFORATIONS
+  #. （既定の規則）
+     一致する要素のない合併された要素または受領要素は
+     結果のパッケージの中に deep copy される。
+
+  #. ふたつの要素を
+     一致するお互いのそっくりなコピーである名前とメタタイプに
+     合併する結果が受領要素になる。
+
+  #. 一致する要素はそれらのメタタイプに固有の変換規則に従って連結され、
+     結果は生じる Package に含まれる。
+
+  #. 結果パッケージに行き着く型の付いた要素に対する型参照のすべては
+     対応する結果 TypedElements への参照に変換される。
+
+  #. 一致する要素全ての場合、
+     一致する要素の両方とも private ``visibility`` を持つと、
+     結果要素は private ``visibility`` を持つ。
+     そうでなければ、結果要素は public ``visibility`` を持つ。
+
+  #. 一致する Classifier 要素全ての場合、
+     一致する要素の両方とも ``isAbstract`` が true だと、
+     結果要素は``isAbstract`` が true である。
+     そうでなければ、結果要素は ``isAbstract`` が false である。
+
+  #. 一致する Classifier 要素全ての場合、
+     一致する要素の両方とも ``isFinalSpecialization`` が true だと、
+     結果要素は``isFinalSpecialization`` が true である。
+     そうでなければ、結果要素は ``isFinalSpecialization`` が false である。
+
+  #. 一致する要素全ての場合、
+     一致する要素の両方とも導出されないならば、
+     結果要素もまた導出されない。
+     そうでなければ、結果要素は導出される。
+
+  #. 一致する MultiplicityElements 全ての場合、
+     結果要素の ``lower`` は一致する要素の ``lower`` の小さいほうである。
+
+  #. 一致する MultiplicityElements 全ての場合、
+     結果要素の ``upper`` は一致する要素の ``upper`` の大きいほうである。
+
+  #. 併合された要素か受領要素の一方にあるモデル要素に適用された
+     ステレオタイプはどれもが対応する結果要素にも適用される。
+
+  #. 一致する RedefinableElements の場合、
+     一致する RedefinableElements の異なる再定義はすべてが
+     結果要素に適用される。
+
+  #. 一致する RedefinableElements の場合、
+     一致する要素の両方とも ``isLeaf`` が true だと、
+     結果要素も``isLeaf`` が true である。
+     そうでなければ、結果要素は ``isLeaf`` が false である。
 
 12.2.3.4 Package Rules
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Package の種類の Elements は ``name`` およびメタタイプにより一致する。
 
-.. todo:: 規則集を消化する。
+CONSTRAINTS
+  #. 合併された Package にある Classifiers はすべてが
+     空でない ``qualifiedName`` を持つ必要があり、
+     合併された Package で
+     ``isDistinguishableFrom()`` の値が true となる。
+
+  #. 受領 Package にある Classifiers はすべてが
+     空でない ``qualifiedName`` を持つ必要があり、
+     受領 Package で
+     ``isDistinguishableFrom()`` の値が true となる。
+
+TRANSFORATIONS
+  #. 併合された Package からの ``nestedPackage`` は
+     受領 Package が一致する ``nestedPackage`` をまだ含まない限り、
+     同じ ``name`` と内容が結果の Package にある
+     ``nestedPackage`` に変換される。
+
+  #. 受領 Package の ``elementImport`` である ElementImport は
+     生じる Package の対応する ElementImport に変換される。
 
 12.2.3.5 Class and DataType Rules
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Class や DataType の種類の Elements は ``name`` およびメタタイプにより一致する。
 
-.. todo:: 規則集を消化する。
+TRANSFORATIONS
+  #. 併合された Classifier の ``ownedAttributes`` である Properties はすべてが
+     受領 Classifier に併合されて、
+     下に指定される Property 変換規則に従って、
+     結果の Classifier を生じる。
+
+  #. ``nestedClassifiers`` は同じ規則に従って再帰的に併合される。
 
 12.2.3.6 Property Rules
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Property の種類の Elements は ``name`` およびメタタイプにより一致する。
 
-.. todo:: 規則集を消化する。
+CONSTRAINTS
+  #. 一致する Properties の ``isStatic`` の値が同じである必要がある。
+  #. 一致する Properties の ``isUnique`` の値が同じである必要がある。
+  #. 一致する Properties に結び付いた Constraints のいずれも
+     矛盾があってはならない。
+
+TRANSFORATIONS
+  #. 一致する受領 Property を持たない併合された Properties の場合は、
+     結果 Property は併合された Property と同じ結果 Classifier にある
+     Property である。
+
+  #. 一致する受領 Property を持つ併合された Properties の場合は、
+     結果 Property は同じ名前と特徴が異なるものを除いた特徴がある
+     Property である。
+
+  #. （以下略）
 
 12.2.3.7 Association Rules
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Association の種類の Elements は ``name`` およびメタタイプにより一致する。
 
-.. todo:: 規則集を消化する。
+CONSTRAINTS
+  #. これらの規則は二項 Association にしか適用しない。
+
+  #. 一致する併合された関連端の ``aggregation`` が composite であると、
+     受領関連端の ``aggregation`` が composite である必要がある。
+
+  #. 一致する併合された関連端が Association により所有されていると、
+     受領関連端はその Association により所有されている必要がある。
+
+TRANSFORATIONS
+  #. 一致する Associations の併合は、
+     Properties についての規則に従い、
+     かつ関連端についての規則に従って、
+     Association classifiers の併合と
+     それらの対応する ``ownedEnd`` Properties の併合によって達成される。
+
+  #. 一致する関連端の場合、
+     もしどの関連端も ``ownedNavigableEnd`` になければ、
+     結果の関連端もまた ``ownedNavigableEnd`` にない。
+     他の場合のすべてにおいては、結果の関連端は ``ownedNavigableEnd`` にある。
 
 12.2.3.8 Operation Rules
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Operation の種類の Elements は ``name``, Parameter の順序および
   Parameter の型により一致する。戻り値の型のいずれも含まない。
 
-.. todo:: 規則集を消化する。
+CONSTRAINTS
+  #. Operation Parameters とその型は、
+     Properties に対して定義されたかのように、
+     型と多重度に対する同じ規則に適合する必要がある。
+
+  #. 一致する合併された Operation の ``isQuery`` が true だと、
+     受領 Operation は ``isQuery`` が true である必要がある。
+
+TRANSFORATIONS
+  #. 一致する受領 Operation を持たない併合された Operations の場合は、
+     結果 Operation は同じ名前と同じ signature が結果 classifier にある
+     Operation である。
+
+  #. 一致する受領 Operation を持つ併合された Operations の場合は、
+     結果 Operation は一致する併合された Operations と受領 Operations の
+     併合の結果であり、
+     Parameter 変換が上で定義された Property 変換に従って実施されている。
 
 12.2.3.9 Enumeration Rules
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * EnumerationLiteral の種類の Elements は
   所有する Enumeration およびリテラル ``name`` により一致する。
 
-.. todo:: 規則集を消化する。
+CONSTRAINTS
+  #. 一致する EnumerationLiterals は同じ順序である必要がある。
+
+TRANSFORATIONS
+  #. 併合された Enumeration 由来の一致しない EnumerationLiterals は
+     受領 Enumeration に含まれる。
 
 12.2.3.10 Constraint Rules
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.. todo:: 規則集を消化する。
+CONSTRAINTS
+  #. Constraints は互いに矛盾がないようにする必要がある。
+
+TRANSFORATIONS
+  #. 併合されたモデル要素の Constraints はすべて
+     受領モデル要素の Constraints に加わる。
 
 12.2.3.11 Model
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
