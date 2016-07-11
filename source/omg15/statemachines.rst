@@ -9,13 +9,20 @@ UML 2.5 pp. 303-370 に関するノート。
 
    訳語検討。
 
+   * configuration (n.) ここでは「配置」とする。
+
    * enter (v.) 入場する。
    * exit (v.) 退場する。
 
-   * protocol (n.) 通信手順。
+   * orthogonal (adj.) 「直交の」だが、
+     たいていの場合、幾何学的な意味あいでとは限らない。
+
+   * protocol (n.) 通信等の手順。
+     「約束によって成り立っている規則」くらいの意味だろう。
      辞書には儀礼とか典礼ともあり、むしろここではこれらが相応しい？
 
-   * submachine (n.) そのまま綴る。意味は本文でじっくり解説する通り。
+   * submachine (n.) 「部分機械」と機械的に訳すことにする。
+   * substate (n.) 「部分状態」。
 
    * trigger (n.) 普通はカタカナで「トリガー」とするのが一般的だが、
      実験的に「引き金」や、踏み込んで「撃鉄」なども採用する。
@@ -25,28 +32,33 @@ UML 2.5 pp. 303-370 に関するノート。
 
 14.1 Summary
 ======================================================================
-* 有限状態機械の形式論を用いて、
-  離散的なイベント駆動の Behaviors をモデリングするのに用いられる概念の集合を定義する。
+* StateMachines パッケージは、
+  有限状態機械の形式論を使って離散的イベント駆動の Behaviors を
+  モデリングすることに対して用いることができる概念の集合を定義する。
 
-* あるシステムの部分の Behavior を表現することに加えて、
-  妥当な相互作用の連続するもの（プロトコルと呼ばれる）を表現するのにも用いられる。
+  * システムの部分の Behavior を表現することに加えて、
+    状態機械は有効な相互作用の連続、プロトコルと呼ばれるもの
+    を表現するために用いることもできる。
 
-* これらの二種類はそれぞれ behavior state machines と protocol state machines と呼ばれる。
+  * これらの StateMachines の二種類はそれぞれ
+    挙動状態機械 (behavior state machines) と
+    規約状態機械 (protocol state machines) と呼ばれる。
 
-* UML で用いられる有限状態機械の特有な表現形式は、
-  David Harel の statecharts 形式論のオブジェクト指向な変種に基づく。
+* UML で用いられる有限状態機械の特有の表現形式は、
+  David Harel の statecharts 形式論のオブジェクト指向の変種に基づく。
 
 14.2 Behavior StateMachines
 ======================================================================
 
 14.2.1 Summary
 ----------------------------------------------------------------------
-* Behavior StateMachines を次のものを明確に記述することに用いることが可能だ。
+* Behavior StateMachines を次のどれを
+  明確に記述することに用いることが可能だ。
 
-  * 能動的な Class の classifierBehavior
-  * BehavioredClassifier の classifierBehavior ではない ownedBehavior
-  * 該当する BehavioredClassifier を持たない Behavior
-  * BehaviorFeature に対応するメソッド（つまり Operation か Reception のこと）
+  * 能動的な Class の ``classifierBehavior``
+  * BehavioredClassifier の ``classifierBehavior`` でない ``ownedBehavior``
+  * 対応する BehavioredClassifier を持たない Behavior
+  * BehaviorFeature (Operation or Reception) に対応するメソッド
 
 14.2.2 Abstract Syntax
 ----------------------------------------------------------------------
@@ -60,243 +72,18 @@ UML 2.5 pp. 303-370 に関するノート。
     Pseudostate, ConnectionPointReference, State, FinalState
     と、とにかく多い。
 
-14.2.3 Semantics
-----------------------------------------------------------------------
-
-StateMachine
-  * Behavior の一種。
-  * ひとつ以上の Regions を構成する。
-  * StateMachine の実行は適切な Event の出来事が誘発する。
-
-  * もし StateMachine が BehavioredClassifier の一種の context があるならば、
-    その Classifier はどの Signal と CallEvent の Triggers が
-    StateMachine にとって適用可能なのか、
-    そしてどの Features が StateMachine が所有する Behaviors にとって適用可能なのかを定義する。
-
-    * 反対に StateMachine に context がなければ、
-      それの Triggers は何らかの Classifier のどんな Receptions や Operations にも
-      つながっている必要はない。
-
-  * StateMachine がある BehavioralFeature の method を指定する情況では、
-    その StateMachine の Parameters はその BehavioralFeature のそれに
-    match するものとする。
-
-  * 定義から、StateMachine の実行の発動は triggered effects に帰着する。
-    それゆえ、そのような実行に結び付くイベントプールがある。
-    そのプールは
-
-    * StateMachine の context Classifier オブジェクトか、
-    * その StateMachine がある BehavioralFeature の method を定義するものであれば、
-      その BehavioralFeature を所有している Classifier のオブジェクトに所属する。
-
-  * そのイベント駆動型という性質のため、
-    StateMachine の実行は in transit か in state のどちらかであり、
-    両者を行ったり来たりする。
-
-Region
-  * Namespace の一種。
-  * Region はそれの直交する Regions を用いて同時に (concurrently) 実行してよい、
-    ある振る舞いの断片を記述する。
-
-    * Regions が互いに直交するの意味は、次のどちらか一方を意味する。
-
-      * 同一の State が Regions を所有する。
-      * 最上位において同一の StateMachine が Regions を所有する。
-
-  * Region は Vertices と Transitions の集合で構成されているグラフを含む。
-  * Region には自身の FinalState はもちろん、自身の initial Pseudostate もあってよい。
-
-  * もし暗に Region に入るならば、その Region の default activation が起こる。
-  * 反対に Region が含む Vertices のひとつにおいて終了となる
-    ある Transition から Region に入るときには explicit activation が起こる。
-
-*Vertex*
-  * NamedElement の一種。
-  * StateMachine グラフの各ノード型のための抽象クラスである。
-  * Vertex はどんな個数の Transitions の source and/or target であり得る（例外アリ）。
-
-  State
-    * Namespace の一種。
-    * State とはある StateMachine Behavior の実行におけるひとつの情況をモデル化するものである。
-    * stable
-
-    * State には次の 3 種類の特徴があり、
-      それぞれブーリアン型属性でわかる。
-
-      * simple State (isSimple): 内部に Vertices も Transitions もない。
-      * composite State (isComposite): 少なくともひとつの Region を含む。
-
-        * substate: composite State の Region 内部に囲まれた State をそう呼ぶ。
-
-          * direct substate: その他のどの State 内にもない substate をそう呼ぶ。
-          * indirect substate: direct でない substate をそう呼ぶ。
-
-      * submachine State (isSubmachineState): 
-        ある StateMachine 全体を参照する State であり、
-        概念としては（その全体は）この State の内部に入れ子になっていると考えられる。
-
-    * States の複雑な階層は State または StateMachine の state configuration と呼ばれる。
-
-      * 実行中のある一時点での state configuration は active state configuration と呼ばれる。
-      * ある State が active であるとは、それが active state configuration の部分であることを指す。
-      * ある state configuration が stable であるとは、
-
-        * その state configuration からそれ以上遷移可能な Transitions がなく、
-        * すべての entry Behaviors が（もしあれば）完了したことを言う。
-
-    * State に entry, exit, doActivity という Behavior にそれぞれひとつ関連づけてよい。
-
-      * entry: 外部の Transition を通じてその State に入場するときにいつでも実行される。
-      * exit: その State を退場するときにいつでも実行される。
-      * doActivity: この仕様は少々複雑なので注意。
-
-    * 状態履歴 (state history) という便利な概念がある。
-      これは同じ state configuration に容易に戻すことができるものだ。
-      Pseudostate の deepHistory, shallowHistory を参照。
-
-    * State に入場するという意味は、その型と入場方式に依存して決まる。
-
-      * いずれの場合も Transition の effect が完了してから State の entry が実行される。
-        State の doActivity が定義されていれば、先の entry の完了直後に実行を開始する。
-
-      * 単一 Region 内の合成 States の場合は、数通りの選択肢がある。
-
-      * どのように State に入場するかに関わらず、
-        たとえ entry や effect が実行を開始する前であっても、
-        StateMachine はその State に突入したと考えられる。
-
-    * State が退場する際には、
-      exit 以外のすべてに関連した Behaviors が完了してから、
-      exit が実行される。
-
-      * State の doActivity がまだ実行中ならば、それは exit の実行開始前に中断される。
-
-      * 合成 State の退場時は、active state configuration での最も内側の State の exit が開始する。
-      * 直交 State の退場時は、各 Region が退場する。その後に State の exit が実行される。
-
-      * どのように State を退場するかに関わらず、
-        その State の exit が実行完了した後にだけ、
-        StateMachine はその State を離脱したと考えられる。
-
-    * Submachines は単一の StateMachine 仕様を複数回再利用可能にする方法である。
-
-      * プログラミング言語におけるマクロのように、相異なる Behavior の仕様である。
-        State::isSubmachineState はこれを達成する属性である。
-
-      * ひとつの submachine State は該当する submachine StateMachine の
-        仕様のマクロ的な付け加えを含意する。ある合成 State と意味としては等価である。
-
-    FinalState
-      * State の一種。
-      * FinalState は包囲している Region が完了したことを知らせる特別な種類の State である。
-      * FinalState へ連絡する Transition はその FinalState を含んでいる
-        Region の振る舞い (pl.) の完了を表現する。
-
-  ConnectionPointReference
-    * Vertex の一種。
-    * ConnectionPointReference は
-      ある submachine State が参照する StateMachine が定義する
-      entry/exit 点の使用 (usage) を表現するものである。
-
-    * Transitions の sources/targets として利用されることが可能である。
-      それらは submachine State が参照する submachine StateMachine に対する出入りを表現する。
-
-    * transitive
-
-  Pseudostate
-    * Vertex の一種。
-    * Pseudostate とは StateMachine グラフ内の
-      transient Vertices の種々の型を取り囲む抽象的概念である。
-      Pseudostates は通常、複数の Transitions をより複雑な
-      複合遷移 (compound transitions) となるように連鎖させるのに用いる。
-
-    * Pseudostate の意味は PseudostateKind 型の属性 kind で定義される種類に依る。
-      次に種類と意味を記す。
-
-      * initial: Region の開始点。
-      * deepHistory: 所有 Region の直近の active state configuration を表現する変数の一種。
-      * shallowHistory: deepHistory のようなものだが、
-        その substate の substates とはならないもの。
-      * join: ふたつ以上の Transitions の共通の target Vertex として役に立つ。
-      * fork: ふたつ以上の Transitions に分裂するのに適う。
-      * junction: 複数の Transitions を接続して States 間の複合パスを作るのに用いる。
-      * choice: junction に似ているが、
-        出て行く Transitions すべての guard Constraints を動的に評価する点が異なる。
-      * entryPoint: StateMachine または composite State のための入口。
-      * exitPoint: StateMachine または composite State のための出口。
-      * terminate: ここに入ることは StateMachine の実行が直ちに終結することを暗示する。
-
-    * transitive
-
-Transition
-  * Namespace の一種。
-  * Transition とは、単一の source Vertex を始点とし、
-    単一の target Vertex を終点とする単方向リンクである。
-
-  * Transitions はより複雑な複合遷移の一部として実行される。
-
-  * 実行の途中において、Transition オブジェクトは次のどれかであると言う。
-
-    * reached: StateMachine 実行が source Vertex に到達したときに。
-    * traversed: それが目下実行されているとき。
-    * completed: それが target Vertex 到達した後で。
-
-  * Transition は Triggers の集合を所有してよい。
-
-  * Transition の意味はその source Vertex との関係に依存して決まる。
-    Transition::kind の値が定義する。取り得る値は以下の 3 通り。
-
-    * external: その Transition はその source から退場する、の意。
-    * local: その Transition はそれを含む State から退場しない、の意。
-    * internal: その Transition は自己遷移をする、の意。
-
-  * 合成 States を source とする Transitions は
-    high-level または group Transitions と呼ばれる。
-
-  * Transition には guard という Constraint が関連していてよい。
-
-    * 偽に評価される guard を持つ Transitions は使用無効である。
-    * 評価されるタイミングは、それを含む複合 Transition が利用可能になる前である。
-    * 関連する guard がない Transition は、
-      あたかもそれが常に真に評価される guard を持つかのように取り扱われる。
-
-  * Event の出来事が利用可能な Transition の引き金となるか、
-    または StateMachine の実行が生成したときには、
-    ある stable state configuration に至るまでの間、
-    接続されて入れ子になった Transitions と Vertices の集合の横断 (traversal) が新しく始まることがある。
-    一般の場合に、この横断の軌跡は複合遷移 (compound transition) として知られる。
-
-    * 複合遷移は非循環有向グラフである。
-    * このグラフの root (source) は次のうちのひとつであることがある。
-
-      * ひとつ以上の Triggers が定義された状態の Transition
-      * 完了 Transition
-      * ある共通の join Pseudostate 上に集まる、
-        相異なる直交 Regions から始まる Transitions の集合
-      * 最上位 Region の initial Pseudostate から始まる Transition
-
-    * and more
-
-  * Transition の所有者は明示的に制限されていない。
-    含まれている Region は直接間接を問わずその StateMachine が必ず所有するものではあるが。
-
-    * 提案される所有者は、
-      その source と vertex の両方を含む Region のうち最も内側のものである。
-
-.. todo:: Event Processing for StateMachines
-
 A_region_stateMachine
   * StateMachine から Region への composite 関連（双方向）。
   * StateMachine が直接所有する Regions である。
-  * 関連端 region の多重度は ``1..*`` である。必ずひとつは存在する。
+  * 関連端 ``region`` の多重度は ``1..*`` である。必ずひとつは存在する。
 
 A_connectionPoint_stateMachine
   * StateMachine から ConnectionPointReference への composite 関連（双方向）。
-  * StateMachine が submachine State の一部として用いられているときに定義する。
+  * StateMachine が ``submachine`` State の一部として用いられているときに定義する。
 
 A_submachineState_submachine
   * StateMachine から State への関連（双方向）。
-  * submachine State の際に StateMachine が参照する submachine(s) である。
+  * ``submachine`` State の際に StateMachine が参照する ``submachine(s)`` である。
     複数個を参照する条件は、concurrency が関係してくるらしい。
 
 A_subvertex_container
@@ -306,23 +93,24 @@ A_subvertex_container
 A_transition_container
   * Region と Transition の間の composite 関連（双方向）。
   * Region が Transitions を所有する。
-  * 関連端 container の多重度が 1 なので、
+  * 関連端 ``container`` の多重度が 1 なので、
     任意の Transition は必ずある Region に属する。
 
 A_incoming_target, A_outgoing_source
   * Vertex と Transition の間の関連（双方向）。
-  * ひとつの Transition には source と target という Vertex がひとつずつ対応する。
-  * 関連端 incoming と outgoing は readOnly である。
+  * ひとつの Transition には ``source`` と ``target`` という
+    Vertex がひとつずつ対応する。
+  * 関連端 ``incoming`` と ``outgoing`` は readOnly である。
 
 A_region_state
   * State から Region への composite 関連（双方向）。
   * State は StateMachine と同様に Regions を所有する能力がある。
-    ただし関連端 region の多重度は ``*`` である。
+    ただし関連端 ``region`` の多重度は ``*`` である。
 
 A_stateInvariant_owningState
   * State から Constraint への composite 関連（単方向）。
   * この State が current であるときに常に成り立つ条件、不変条件である。
-  * 関連端 stateInvariant の多重度は ``0..1`` なので、オプションである。
+  * 関連端 ``stateInvariant`` の多重度は ``0..1`` なので、オプションである。
 
 A_deferrableTrigger_state
   * State から Trigger への composite 関連（双方向）。
@@ -338,7 +126,7 @@ A_entry_state, A_doActivity_state, A_exit_state
 
 A_connection_state
   * State から ConnectionPointReference への composite 関連（双方向）。
-  * この submachine State と一緒に用いる entry/exit 接続点 (pl.) を所有する。
+  * この ``submachine`` State と一緒に用いる entry/exit 接続点 (pl.) を所有する。
   * cf. A_entry_connectionPointReference, A_exit_connectionPointReference
 
 A_connectionPoint_state
@@ -355,13 +143,457 @@ A_trigger_transition
 
 A_effect_transition
   * Transition から Behavior への composite 関連（単方向）。
-  * 関連端 effect はこの Transition が発火するときに実施される振る舞い。
+  * 関連端 ``effect`` はこの Transition が発火するときに実施される振る舞い。
     多重度が ``0..1`` なのでオプション。
 
 A_guard_transition
   * Transition から Constraint への composite 関連（単方向）。
-  * ガード条件を表す。この guard が真になれば Transition は使用可能になる。
-  * 関連端 guard の多重度が ``0..1`` なのでオプション。
+  * ガード条件を表す。この ``guard`` が真になれば
+    Transition は使用可能になる。
+  * 関連端 ``guard`` の多重度が ``0..1`` なのでオプション。
+
+14.2.3 Semantics
+----------------------------------------------------------------------
+14.2.3.1 StateMachine
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* 挙動 StateMachine はひとつまたはそれを超える Regions を構成し、
+  Region のそれぞれは
+  Transitions を表す辺によって相互に接続されている
+  Vertices の集合を（もしかすると階層的に）構成するグラフを含んでいる。
+
+* StateMachine に BehavioredClassifier 脈絡の一種があれば、
+  その Classifier は
+  どの Signal と CallEvent の引き金が StateMachine にとって適用可能なのか、
+  そしてどの Features が StateMachine が所有する Behaviors にとって
+  適用可能なのかを定義する。
+
+* StateMachine に BehavioredClassifier 脈絡がなければ、
+  つまり Behavior が単独動作するものならば、
+  それの Triggers は何か Classifier の Receptions や Operations のどれにも
+  結び付いている必要がない。
+
+* StateMachine が BehavioralFeature (Operation or Reception) の
+  ``method`` を指定する場合には、
+  StateMachine の Parameters はその BehavioralFeature の Parameters に
+  一致するものとする。
+
+* 定義から、StateMachine の実行の発動はきっかけとなった効果に帰着する。
+  それゆえ、そのような実行に結び付いた事象プールがある。
+
+* それのイベント駆動型という性質のため、
+  StateMachine の実行は in transit か in state のどちらかであり、
+  両者を行ったり来たりする。
+
+* StateMachine の実行は、
+  それが安定状態配置で落ち着いたとき、
+  それの活性状態配置に結び付いた ``doActivity`` Behaviors が
+  ある場合であっても、
+  Behaviors を実行していることが許される。
+
+14.2.3.2 Regions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Region は、それの直交する Regions と共に
+  同時に実行することが許される挙動の断片を記す。
+
+  * Regions が互いに直交するの意味は、次のどちらかを意味する。
+
+    * 同一の State が Regions を所有する。
+    * 最上位において同一の StateMachine が Regions を所有する。
+
+  * Region それぞれは Vertices と Transitions の集合を所有し、
+    それは Region 内部の挙動の流れを決定付ける。
+
+  * Region にはそれ自身の FinalState はもちろん、
+    自身の **initial** Pseudostate があってよい。
+
+* Region の既定の活性化は Region が暗黙的に入場されると、
+  すなわち、それの成分の Vertices を終端とする流入 Transition を
+  経由せずに入場されると発生する。
+
+* 既定の活性化とは、
+  実行が Region の **initial** Pseudostate を起点とする Transition で開始する
+  ことを意味する。
+
+* 逆に、
+  Region が Region が含む Vertices のひとつを終端とする
+  Transition により入場されると、
+  明示的な活性化が発生する。
+
+14.2.3.3 Vertices
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Vertex とは、
+  StateMachine グラフにある異なる具象型ノード
+  (States, Pseudostates, or ConnectionPointReferences)
+  の色々なものに共通する特徴を捉える抽象的クラスである。
+
+  * 下で述べるある例外の場合には、
+    Vertex はどんな個数の Transitions の ``source`` または ``target``
+    またはその両方であり得る。
+
+* Vertices の個々の種類の意味は下で述べる。
+
+14.2.3.4 States
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* State は
+  その間中に何らかの不変条件が成り立つ
+  StateMachine Behavior の実行における情況をモデル化する。
+
+  * たいていの場合、この状況は明示的に定義されず、暗黙的にされ、
+    ふつうは State に結び付いた名前で定義される。
+
+  * 例えば Figure 14.36 では、これは電話器の挙動のモデル化であるが、
+    状態 Idle と Active は電話が使用中と未使用中である状況をそれぞれ表す。
+
+14.2.3.4.1 Kinds of States
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* State の次の 3 種類が区別される：
+
+  単純 State (``isSimple`` = true)
+    単純 State には内部的な Vertices も Transitions もない。
+
+  合成 State (``isComposite`` = true)
+    合成 State は少なくともひとつの Region を含む。
+
+  部分機械 State (``isSubmachineState`` = true)
+    部分機械 State は StateMachine 丸ごとを参照し、
+    これは概念的にはこの State の内部に「入れ子」になっていると考えられる。
+
+* 合成 State の Region で取り囲まれた State はどれでもが
+  その合成 State の部分状態であると呼ばれる。
+
+  直接的部分状態
+    他のどの State 内にもない部分状態をそう呼ぶ。
+
+  間接的部分状態
+    直接的部分状態でない State をそう呼ぶ。
+
+14.2.3.4.2 State configurations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* 一般には、StateMachine には Regions が複数あり得て、
+  それぞれは自身の States を含み、
+  それらの中には自身の Regions 等による複数合成物であるものもあってよい。
+
+  * States の複雑な階層は State または StateMachine の状態配置と呼ばれる。
+
+  * 実行している StateMachine オブジェクトは
+    一度に厳密に一つの状態配置にならないが、
+    このことはそれの活性状態配置と呼ばれる。
+
+* State が活性であるとは、それが活性状態配置の部分であるときを言う。
+
+* 状態配置が安定であるとは、
+
+  * その状態配置からそれ以上遷移可能な Transitions がなく、
+  * その状態配置の ``entry`` Behaviors が（もしあれば）すべてが
+    完了したときである。
+
+* StateMachine は生成して最初の Transition を完了した後に、
+  いつでも何らかの状態配置になる。
+
+* Event の発生の遅延、完了、または他の種類のいずれかが
+  その StateMachine の事象プールで未決になっているときでさえ、
+  配置は安定していると考えられる。
+
+14.2.3.4.3 State entry, exit, and doActivity Behaviors
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* State には付随する ``entry`` Behavior があってよい。
+  この Behavior が定義されていれば、
+  State が **external** Transition を通じて入場したときにはいつでも実行される。
+
+  * さらに、State には付随する ``exit`` Behavior があってよい。
+    これが定義されていると、State が退場するときにはいつでも実行される。
+
+* State には ``doActivity`` Behavior があってもよい。
+  この Behavior は State に入場されると
+  （ただし State ``entry`` Behavior が完了した後に）
+  実行を開始し、
+  State に付随してよい他の Behaviors のどれとも同時に、
+  次に挙げるものまで実行する。
+
+  * それが完了する（完了事象が生成される場合）か、
+  * State が退場されるとき。
+    それは ``doActivity`` Behavior の実行が中断される場合である。
+
+* State の ``doActivity`` Behavior の実行は
+  その State の **internal** Transition の発射の影響を受けない。
+
+14.2.3.4.4 State history
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* State 履歴の概念は David Harel によって
+  原作の状態図表形式論で導入された。
+  Region がそれが最後に退場したときの状態配置を追跡するということによる
+  合成 States の Regions に付随する便利な概念であり、
+
+* 履歴 Pseudostates には二種類がある。
+
+  * 深い履歴 (**deepHistory**) は最近訪れた Region の完全な状態配置を表す。
+  * 浅い履歴 (**shallowHistory**) は最近の状態配置の
+    最上位の部分状態のみに対する復帰を表し、
+    既定の入場規則を使って入場される。
+
+* State が以前に入場されていない（つまり先だっての履歴がない）ときか、
+  それの FinalState に到達したときに、
+  Transition が履歴 Pseudostate で停止すると、
+  遷移を特定の部分状態に強制する選択肢、既定の履歴機構を使うこと、がある。
+
+* State はその State で遅延してよい Event の型の集合を指定してよい。
+
+* Event は合成 State または部分機械 States によって遅延されてよいが、
+  合成 State が活性配置のままである限りは、
+  それは遅延されたままという状況である。
+
+14.2.3.4.5 Entering a State
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* State に入場するという意味は、
+  State の型と入場方式に依存して決まる。
+
+  * いずれの場合も、
+    流入 Transition に付随した ``effect`` のどれもが完了した後に、
+    State の ``entry`` Behavior が（定義されていれば）入場時に実行される。
+
+  * その上、
+    ``doActivity`` Behavior が State に対して定義されていれば、
+    この Behavior は先の ``entry`` の完了直後に実行を開始する。
+
+* 単一 Region からなる合成 States の場合には、次の選択肢がある。
+
+  既定の入場
+    合成 State が Transition の直接的 ``target`` であるときにこの状況になる。
+
+  明示的入場
+    流入 Transition やその連続物が合成 State の直接的に含まれた部分状態で
+    停止すれば、その部分状態は活性化して、
+    その ``entry`` Behavior は含んでいる合成 State の
+    ``entry`` Behavior の実行の後に実行される。
+
+  浅い履歴の入場
+    流入 Transition が合成 State の Region の **shallowHistory** Pseudostate で
+    停止すれば、活性部分状態はこの入場に先立つ最近活性だった部分状態となる。
+
+  深い履歴の入場
+    この場合の規則は、
+    ``target`` Pseudostate が **deepHistory** 型であることと、
+    このものの下の活性状態配置のすべての階層に対して
+    規則が再帰的に適用されることを除いて、
+    浅い履歴の場合と同じである。
+
+  入口点入場
+    Transition が **entryPoint** Pseudostate を通じて合成 State に入場すれば、
+    その入口点を起点とし、その State に入り込む
+    流出 Transition に付随する ``effect`` Behavior が
+    （合成 State の ``entry`` Behavior が実行された後に）実行される？
+
+* 合成 State が Regions を複数持つ直交 State でもあると、
+  その Regions のそれぞれもまた既定入場または明示的入場により入場される。
+
+* どのように State に入場するかに関わらず、
+  たとえその State の ``entry`` や ``effect`` が（定義されていれば）
+  実行を開始する前であっても、
+  StateMachine はその State に「なる」と考えられる。
+
+14.2.3.4.6 Exiting a State
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* State を退場する際には、それが単純であるか合成であるかに関係なく、
+  出口において必然的に起こる最終段階は、
+  出口に付随する他の Behaviors すべてが完了後の、
+  その State の ``exit`` Behavior の実行である。
+
+  * State の退場時に ``doActivity`` がまだ実行中ならば、
+    それは ``exit`` の実行開始前に中断される。
+
+* 合成 State からの退場時は、
+  活性状態配置の最も内側の State の ``exit`` が開始する。
+
+* 直交 State からの退場時は、
+  その Region のそれぞれが退場される。
+  その後に State の ``exit`` Behavior が実行される。
+
+* どのように State を退場するかに関わらず、
+  その State の ``exit`` Behavior が実行完了した後にしか
+  StateMachine はその State を離脱したと考えられない。
+
+* Transitions が State に直接入り込むのを認めず、
+  その内部の Vertices のひとつで停止しないようにすることで、
+  合成 State をカプセル化することが有用であるモデリング状況がある。
+
+* 入口点は流入 Transitions については停止点 (``sources``) を表す。
+  合成 State の内部 Vertex のなにかで停止する Transitions については
+  開始点 (``targets``) を表す。
+
+* 出口点は入口点の逆のものである。
+
+14.2.3.4.7 Submachine States and submachines
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* 部分機械は単一の StateMachine 仕様を複数回再利用可能にする方法である。
+
+  * プログラミング言語におけるマクロのように、相異なる Behavior の仕様である。
+    ``isSubmachineState`` はこれを達成する属性である。
+
+* 部分機械 State は該当する部分機械 StateMachine の
+  仕様のマクロ的な付け加えを含意する。
+  それはゆえに、意味としては合成 State と同値である。
+
+* たとえ二個またはそれを超える部分機械 States が
+  同じ部分機械を参照するときでも、
+  部分機械 State のそれぞれは部分機械の区別されたオブジェクト化を表す。
+
+* 部分機械 StateMachine はその既定の (**initial**) Pseudostate を経てか、
+  あるいはその入口点のどれかを経て入場されることができる。
+
+* 同様に、部分機械 StateMachine は次の結果として退場されることができる。
+
+  * その FinalState に到達する
+  * 部分機械 State を起点とするグループ Transition のきっかけ
+  * その出口点のどれかを経て
+
+* FinalState を経て退場するのと、
+  グループ Transition によって退場するのは、
+  普通の合成 States の場合は同じ意味を持つ
+
+14.2.3.5 ConnectionPointReference
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* 上で述べたように、
+  ConnectionPointReference は
+  部分機械 State で参照される StateMachine で定義された
+  入口点・出口点の（部分機械 State の部分としての）用法を表す。
+
+* ConnectionPointReferences は、
+  部分機械 State により参照される部分機械 StateMachine からの出口点
+  またはそれへの入口点を含意する
+  Transitions の ``sources`` または ``targets`` である。
+
+* Transition の対象としての入口点の ConnectionPointReference は、
+  Transition の ``target`` が
+  部分機械 State の部分機械で定義された
+  **entryPoint** Pseudostate であることを含意する。
+
+* Transition の出処としての出口点の ConnectionPointReference は、
+  Transition の ``source`` が
+  部分機械 State の部分機械で定義された
+  出口点 Pseudostate であることを含意する。
+
+14.2.3.6 FinalState
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* FinalState とは、
+  取り囲んでいる Region が完了したことを知らせる
+  特別な種類の State である。
+  このように、FinalState へ遷移する Transition は
+  その FinalState を含んでいる Region の挙動の完了を表す。
+
+14.2.3.7 Pseudostate and PseudostateKind
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Pseudostate とは StateMachine グラフ内にある
+  一時滞在 Vertices の種々の型を取り囲む抽象的概念である。
+  Pseudostates は通常、複数の Transitions をより複雑な
+  複合遷移となるように連鎖させるのに用いる。
+
+* Pseudostate の特別な意味は Pseudostate の型に依存し、
+  それは型 PseudostateKind の ``kind`` 属性に定義される。
+  次に種類と意味を記す。
+
+  initial
+    Region の開始点。
+
+  deepHistory
+    所有 Region の直近の活性状態配置を表現する変数の一種。
+
+  shallowHistory
+    **deepHistory** のようなものだが、
+    その部分状態の部分状態ではないもの。
+
+  join
+    ふたつ以上の Transitions の共通の ``target`` Vertex として役に立つ。
+
+  fork
+    ふたつ以上の Transitions に分岐するのに適う。
+
+  junction
+    複数の Transitions を接続して States 間の複合パスを作るのに用いる。
+
+  choice
+    **junction** に似ているが、
+    流出 Transitions すべての ``guard`` Constraints を動的に評価する点が異なる。
+
+  entryPoint
+    StateMachine または合成 State に対する入口。
+
+  exitPoint
+    StateMachine または合成 State に対する出口。
+
+  terminate
+    ここに入場することは StateMachine の実行が直ちに停止することを暗示する。
+
+14.2.3.8 Transitions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Transition
+  * Namespace の一種。
+  * Transition とは、単一の source Vertex を始点とし、
+    単一の target Vertex を終点とする単方向リンクである。
+
+  * Transitions はより複雑な複合遷移の一部として実行される。
+
+  * 実行の途中において、Transition オブジェクトは次のどれかであると言う。
+
+    * reached: StateMachine 実行が source Vertex に到達したときに。
+    * traversed: それが目下実行されているとき。
+    * completed: それが target Vertex 到達した後で。
+
+  * Transition は Triggers の集合を所有してよい。
+
+14.2.3.8.1 Transition kinds relative to source
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* Transition の意味はその source Vertex との関係に依存して決まる。
+  Transition::kind の値が定義する。取り得る値は以下の 3 通り。
+
+  * external: その Transition はその source から退場する、の意。
+  * local: その Transition はそれを含む State から退場しない、の意。
+  * internal: その Transition は自己遷移をする、の意。
+
+14.2.3.8.2 High-level (group) Transitions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* 合成 States を source とする Transitions は
+  high-level または group Transitions と呼ばれる。
+
+* Transition には guard という Constraint が関連していてよい。
+
+  * 偽に評価される guard を持つ Transitions は使用無効である。
+  * 評価されるタイミングは、それを含む複合 Transition が利用可能になる前である。
+  * 関連する guard がない Transition は、
+    あたかもそれが常に真に評価される guard を持つかのように取り扱われる。
+
+14.2.3.8.3 Completion Transitions and completion events
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+14.2.3.8.4 Compound transitions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* Event の出来事が利用可能な Transition の引き金となるか、
+  または StateMachine の実行が生成したときには、
+  ある stable state configuration に至るまでの間、
+  接続されて入れ子になった Transitions と Vertices の集合の横断 (traversal) が新しく始まることがある。
+  一般の場合に、この横断の軌跡は複合遷移 (compound transition) として知られる。
+
+  * 複合遷移は非循環有向グラフである。
+  * このグラフの root (source) は次のうちのひとつであることがある。
+
+    * ひとつ以上の Triggers が定義された状態の Transition
+    * 完了 Transition
+    * ある共通の join Pseudostate 上に集まる、
+      相異なる直交 Regions から始まる Transitions の集合
+    * 最上位 Region の initial Pseudostate から始まる Transition
+
+  * and more
+
+14.2.3.8.5 Transition ownership
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* Transition の所有者は明示的に制限されていない。
+  含まれている Region は直接間接を問わずその StateMachine が必ず所有するものではあるが。
+
+  * 提案される所有者は、
+    その source と vertex の両方を含む Region のうち最も内側のものである。
+
+14.2.3.9 Event Processing for StateMachines
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. todo:: Event Processing for StateMachines
 
 14.2.4 Notation
 ----------------------------------------------------------------------
