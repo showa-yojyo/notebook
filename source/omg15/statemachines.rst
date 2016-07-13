@@ -443,11 +443,11 @@ A_guard_transition
 * 同様に、部分機械 StateMachine は次の結果として退場されることができる。
 
   * その FinalState に到達する
-  * 部分機械 State を起点とするグループ Transition のきっかけ
+  * 部分機械 State を起点とする集団 Transition のきっかけ
   * その出口点のどれかを経て
 
 * FinalState を経て退場するのと、
-  グループ Transition によって退場するのは、
+  集団 Transition によって退場するのは、
   普通の合成 States の場合は同じ意味を持つ
 
 14.2.3.5 ConnectionPointReference
@@ -525,75 +525,281 @@ A_guard_transition
 
 14.2.3.8 Transitions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Transition
-  * Namespace の一種。
-  * Transition とは、単一の source Vertex を始点とし、
-    単一の target Vertex を終点とする単方向リンクである。
+* Transition とは、
+  単一の ``source`` Vertex を始点とし、
+  単一の ``target`` Vertex を終点とする単方向リンクであり、
+  StateMachine Behavior の有効な断片を指定するものである。
 
-  * Transitions はより複雑な複合遷移の一部として実行される。
+  * ここで ``source`` と ``target`` は同じ Vertex であることが許される。
+  * Transition は関連する ``effect`` Behavior を持つことができ、
+    Transition が走査されるときに実行される。
 
-  * 実行の途中において、Transition オブジェクトは次のどれかであると言う。
+* Transition 走査の期間は未定義であるが、
+  さまざまな意味上の解釈を考慮して、
+  ゼロと非ゼロ時間の両方を含んでいる。
 
-    * reached: StateMachine 実行が source Vertex に到達したときに。
-    * traversed: それが目下実行されているとき。
-    * completed: それが target Vertex 到達した後で。
+* Transitions は、
+  StateMachine 実行をある安定状態配置から別の配置へと持っていく
+  より複雑な複合遷移の一部として実行される。
 
-  * Transition は Triggers の集合を所有してよい。
+* 実行の途中では、Transition オブジェクトは次のどれかであると言う。
+
+  reached
+    その StateMachine 実行の実行が
+    その ``source`` Vertex に到達した
+    （つまりその ``source`` State が活性状態配置にある）とき。
+
+  traversed
+    それが（関連する ``effect`` Behavior のどれとも一緒に）
+    目下実行されているとき。
+
+  completed
+    それが ``target`` Vertex に到達した後。
+
+* Transition は Triggers の集合を所有してよく、
+  それぞれはそれの出来事が発送されたときに
+  Transition の走査のきっかけになれる Event を指定する。
 
 14.2.3.8.1 Transition kinds relative to source
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-* Transition の意味はその source Vertex との関係に依存して決まる。
-  Transition::kind の値が定義する。取り得る値は以下の 3 通り。
+* Transition の意味はその ``source`` Vertex との関係に依存して決まる。
+  三個の異なる可能性が定義されており、
+  Transition の ``kind`` 属性の値に依存している。
 
-  * external: その Transition はその source から退場する、の意。
-  * local: その Transition はそれを含む State から退場しない、の意。
-  * internal: その Transition は自己遷移をする、の意。
+  external
+    Transition はその ``source`` から退場する、の意。
+
+  local
+    **external** の反対であり、
+    Transition はそれを含む State から退場しない、の意。
+
+  internal
+    自己遷移をする **local** Transition の特別な場合であり、
+    State が決して退場されないようになり、
+    この Transition が実行されるときに
+    出口 Behavior も入口 Behavior も実行されないことを意味する。
 
 14.2.3.8.2 High-level (group) Transitions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-* 合成 States を source とする Transitions は
-  high-level または group Transitions と呼ばれる。
-
-* Transition には guard という Constraint が関連していてよい。
-
-  * 偽に評価される guard を持つ Transitions は使用無効である。
-  * 評価されるタイミングは、それを含む複合 Transition が利用可能になる前である。
-  * 関連する guard がない Transition は、
-    あたかもそれが常に真に評価される guard を持つかのように取り扱われる。
+* ``source`` Vertex が合成 States である Transitions は、
+  高水準または集団 Transitions と呼ばれる。
 
 14.2.3.8.3 Completion Transitions and completion events
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* 特別な種類の Transition は完了 Transition であり、暗黙の Trigger を持つ。
+  合成または部分機械 States の場合は、
+  完了事象は次の条件で生成される：
+
+  * 内部の活動（例えば ``entry`` と ``doActivity`` Behaviors）のすべてが
+    実行を完了して、
+
+  * State が合成 State であれば、
+    その直交 Regions のすべてが FinalState に到達したか、
+
+  * State が部分機械 State であれば、
+    その ``submachine`` StateMachine の実行が FinalState に到達した。
+
+* 完了事象は発送優先権がある。
+  つまり、それらは事象プールにある未決 Event の出来事の
+  どれよりも早くに発送される。
+
+* Transition に付随する ``guard`` Constraint があってよい。
+
+  * 偽に評価される ``guard`` を持つ Transitions は使用不能である。
+
+  * 評価されるタイミングは、
+    それを含む複合 Transition が利用可能になる前である。
+
+  * 付随する ``guard`` がない Transition は、
+    あたかもそれが常に真に評価される ``guard`` があるかのように取り扱われる。
 
 14.2.3.8.4 Compound transitions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-* Event の出来事が利用可能な Transition の引き金となるか、
-  または StateMachine の実行が生成したときには、
-  ある stable state configuration に至るまでの間、
-  接続されて入れ子になった Transitions と Vertices の集合の横断 (traversal) が新しく始まることがある。
-  一般の場合に、この横断の軌跡は複合遷移 (compound transition) として知られる。
+* 先に述べたように、
+  Event の出来事が利用可能な Transition のきっかけとなったり、
+  または StateMachine の実行が生成したりすると、
+  安定状態配置に至るまでは、
+  これは接続されて入れ子になった Transitions と Vertices の集合の
+  走査を新しく始まることがある。
+  一般の場合に、この走査の追跡は複合遷移として知られていて、
+  非循環有向グラフとして表すことができる。
+  このグラフの根は次のうちのひとつであるはずである。
 
-  * 複合遷移は非循環有向グラフである。
-  * このグラフの root (source) は次のうちのひとつであることがある。
+  * ひとつまたはそれを超える Triggers が定義された Transition
 
-    * ひとつ以上の Triggers が定義された状態の Transition
-    * 完了 Transition
-    * ある共通の join Pseudostate 上に集まる、
-      相異なる直交 Regions から始まる Transitions の集合
-    * 最上位 Region の initial Pseudostate から始まる Transition
+  * 完了 Transition
 
-  * and more
+  * ある共通の **join** Pseudostate に収束する
+    相異なる直交 Regions を起点とする Transitions の集合
+
+  * 最上位 Region の **initial** Pseudostate を起点とする Transition
+
+* 複合遷移で実行の分岐が生じるのは、
+
+  * Transtion を実行することが
+    直行する Regions が複数あり、
+    別々の分岐が Region それぞれに対して生成されている
+    State への既定の入場を実施するときのいつでもか、
+
+  * または **fork** Pseudostate に遭遇したときである。
+
+* ``guards`` のある流出 Transtions が複数ある
+  **choice** または **join** 点に到着すると、
+  Transtion の ``guard`` が true と評価するものが取られる。
 
 14.2.3.8.5 Transition ownership
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-* Transition の所有者は明示的に制限されていない。
-  含まれている Region は直接間接を問わずその StateMachine が必ず所有するものではあるが。
+* Transition が含まれている Region は
+  直接間接を問わず StateMachine が所有する必要があるのだが、
+  Transition の所有者は明示的に制限されていない。
 
-  * 提案される所有者は、
-    その source と vertex の両方を含む Region のうち最も内側のものである。
+  * Transition の推奨される所有者は、
+    その ``source`` と ``vertex`` の両方を含む Region の
+    最も内側のものである。
 
 14.2.3.9 Event Processing for StateMachines
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.. todo:: Event Processing for StateMachines
+14.2.3.9.1 The run-to-completion paradigm
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* StateMachine 実行による Event 出来事の処理手順は、
+  :doc:`./common-behavior` で定義した一般的な意味に従う。
+
+* StateMachine は完了事象に対してだけではなく、
+  :doc:`./common-behavior` で記述した Event の種類のどれに対しても
+  応答することができる。
+
+* 上で説明したように、
+  完了事象には優先権があり、事象プールにある未決 Event 出来事のどれよりも早く
+  送達されるものである。
+
+* Event 出来事は StateMachine 実行によって一つずつ検知、送達、処理される。
+
+* さまざな予定決定計算法を考慮に入れて、
+  事象送達の順序は未定義のままにしてある。
+
+* ???
+
+* Event 出来事が検知されて送達されると、
+  ひとつまたはそれを超える Transitions が点火可能になることが許される。
+
+* 直交 Regions があるため、
+  （異なる Regions にある）複数の Transitions を
+  同じ Event 出来事がきっかけとして起こることができる。
+
+* 上で言ったように、
+  Region にある複数の互いに排他的な Transitions が
+  同じ Event 出来事によって点火可能になることが可能である。
+
+* Transition の間じゅうずっと、行動 Behaviors がいくつか実行されてよい。
+
+* Run-to-completion をさまざまな手段で実装してよい。
+
+* Run-to-completion は、
+  実行している StateMachine は割り込まれないことを
+  含意するものと誤って解釈されることがよくあるが、
+  これは当然、時間に繊細なシステムでは優先権逆転問題に誘導しようとする。
+
+14.2.3.9.2 Enabled Transitions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* Transition は次の時に、かつその時に限って使用可能になる：
+
+  * その ``source`` States のすべてが活性状態配置にある。
+
+  * Transition の ``triggers`` の少なくともひとつに
+    送達された Event 出来事の Event 型により一致する Event がある。
+
+  * 起点状態配置から目標状態配置または
+    ``guards`` 条件すべてが true である
+    動的な **choice** Pseudostate の
+    どちらかに至る完全経路が少なくともひとつ存在する。
+
+* ひとつを超える Transition が同じ Event 出来事によって
+  使用可能になることが認められているので、
+  Transition の点火が使用可能になることは必要だが十分条件ではない。
+
+14.2.3.9.3 Conflicting Transitions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* ひとつを超える Transition が StateMachine では使用可能になることができる。
+  もしそれが起こるならば、そのような Transitions は互いに相容れなくてよい。
+
+* ふたつの Transitions が衝突するとは、
+  それら両方が同じ State を退場することを、
+  より正確には、
+  それらが退場する States の集合の共通部分が空ではないことである。
+
+* State の **internal** Transition は
+  その State からの退場の原因になる Transitions にしか衝突しない。
+
+14.2.3.9.4 Firing priorities
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* 衝突する Transitions がある状況では、
+  どの Transitions が点火するかという選択は、
+  暗黙の優先権にいくらか基づく。
+
+* Transition の優先権はその ``source`` State に基いて定義される。
+
+* 一般に、t1 を ``source`` State が s1 の Transition とし、
+  t2 が ``source`` s2 を持つものとするならば：
+
+  * s1 が s2 の直接または間接的に入れ子になった部分状態ならば、
+    t1 には t2 よりも高い優先権がある。
+
+  * s1 と s2 が同じ状態配置になければ、
+    t1 と t2 の間に優先権の違いはない。
+
+14.2.3.9.5 Transition selection algorithm
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* 点火することになる Transitions の集合は、
+  次の諸条件を満たす現在の状態配置の Regions にある Transitions である：
+
+  * 集合にある Transitions すべてが使用可能である。
+  * 集合には衝突 Transitions がない。
+  * 集合にある Transition よりも高い優先権のある
+    集合の外側に Transition があるということがない。
+
+* これは強欲な選択計算法により実装することができ、
+  活性状態配置の直截な走査を伴う。
+
+14.2.3.9.6 Transition execution sequence
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* **internal** および **local** Transitions を除き、
+  どの Transition も ``source`` State の退場および
+  ``target`` State の入場をもたらす。
+  これらふたつの States は、合成でもよいが、
+  Transition の主始点と主終点としてそれぞれ指名される。
+
+* 主始点は ``source`` States を含む Region の直接部分状態であり、
+  主終点は ``target`` States を含む Region の直接部分状態である。
+
+* ある Region から同じ直接取り囲む合成 State にある
+  別の Region への Transition は許されない。
+
+* いったん Transition が使用可能となって点火するように選択されると、
+  次の処置がこの順に実施される：
+
+  #. 主始点 State から開始して、
+     その主始点 State を含む States が
+     先に述べた State 退場規則に則って退場される。
+
+  #. 主始点と主終点の両方を直接または間接的に含む最初の Region に到達するまで、
+     State 退場の系列が続行する。
+
+  #. 主終点 State を含む States の配置に入場し、
+     主終点 State を含む Region の最小共通先祖にある
+     最も外側の State で開始する。
+
+* この遷移実行法は Figure 14.2 の StateMachine 見本が図解する。
+
+* Figure 14.2 Compound transition example
+
+  * この場合、StateMachine が State S11 にある間、
+    事象 sig が送達されて、次の行動の列が実行されるはずである：
+
+    xS11; t1; xS1; t2; eT1; eT11; t3; eT111
+
+  * 要点は入れ子になっている States と Transitions の遷移順序が
+    外側からなのか内側からなのかが始点に近いか終点に近いかで
+    決まるということのようだ。
 
 14.2.4 Notation
 ----------------------------------------------------------------------
