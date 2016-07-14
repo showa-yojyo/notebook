@@ -1186,10 +1186,12 @@ State または **internal** Transition に付随するさまざまな Behaviors
 
 14.3.1 Summary
 ----------------------------------------------------------------------
-* StateMachines は Behavior の定義に用いる。
-* Class の特殊化の一部として、
-  それの Behavior の定義を特殊化する必要があることがある。
-  特殊化された Behavior の定義は「再定義」を用いて達成する。
+* StateMachines は例えば一般化できる Classes のような Behavior の定義に用いる。
+  Class の特殊化の一部として、
+  それの Behavior の定義を特殊化することが必要とされてよい。
+  これは
+  再定義を用いる一般の Classifier の Behavior の拡張として、
+  特殊化された Classifier の Behavior を定義することにより果たされる。
 
 14.3.2 Abstract Syntax
 ----------------------------------------------------------------------
@@ -1199,56 +1201,6 @@ State または **internal** Transition に付随するさまざまな Behaviors
   * ただし、Region, State, Transition の親クラスが
     RedefinableElement のみとなっていることが違う。
     以前見た Figure 14.1 では Namespace のみが親クラスとして示されていた。
-
-14.3.3 Semantics
-----------------------------------------------------------------------
-.. 14.3.3.1 StateMachine Extension
-
-* StateMachine は一般化可能。
-  特殊化 StateMachine は 一般化 StateMachine のひとつの拡張である。
-
-  * 新たな Regions, Vertices, Transitions を追加してよい。
-  * Regions と States を再定義してよい。
-  * Transitions を再定義してよい。
-
-* これは Classifier の特殊化の一部としてなされる。
-
-* 特殊化 StateMachine はその一般化 StateMachine のすべての要素を持つだろう、
-  なおかつさらなる要素を含んでよい。
-
-* Regions を追加してよい。
-  継承した Regions は拡張によって再定義される。
-
-  * States と Vertices を継承して、
-    そして StateMachine の Regions の States と Transitions を再定義してよい。
-
-.. 14.3.3.1.1 State redefinition
-
-* 簡単な State をひとつ以上の Regions による合成 State になるように再定義（拡張）してよい。
-* 合成 State は次のように再定義（拡張）できる。
-
-  * 新しい Regions を追加する。
-  * 継承した Regions に Vertices と Transitions を追加する。
-  * もし一般化 State が何も持っていなければ、
-    entry/exit/doActivity Behaviors を追加する。
-  * States と Transitions を再定義する。
-
-* State の再定義は StateMachine 全体に適用する。
-
-* submachine State もまた再定義してよい。
-  再定義された submachine StateMachine と同じ entryPoints/exitPoints を持つという条件の下で、
-  submachine StateMachine は他の submachine StateMachine で置き換えてよい。
-
-* 複数の一般化 Classifiers の場合には、拡張は次のことを含意する。
-  その拡張 StateMachine は、
-  別個の新規 Region に加えて、一般化 Classifiers の StateMachines のそれぞれを
-  直交 Regions にする。
-
-.. 14.3.3.1.2 Transition redefinition
-
-* 拡張 StateMachine の Transition はその拡張の中で再定義してよい。
-* Transitions はそれらの effect と target State を置き換えさせることができ、
-  一方 source と trigger State はそのまま保たれる。
 
 A_extendedStateMachine_stateMachine, A_extendedRegion_region
   * StateMachine/Region から StateMachine/Region への関連（単方向）。
@@ -1260,51 +1212,118 @@ A_redefinedState_state, A_redefinedTransition_transition
 
 A_redefinitionContext_region, A_redefinitionContext_state, A_redefinitionContext_transition
   * Region/State/Transition から Classifier への関連（単方向）。
-  * これが再定義されることが許容される context Classifier を参照。
+  * これが再定義されることが許容される ``context`` Classifier を参照。
+
+14.3.3 Semantics
+----------------------------------------------------------------------
+14.3.3.1 StateMachine Extension
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* StateMachine は一般化可能。
+  特殊化 StateMachine は 一般 StateMachine の拡張であり、
+
+  * 新たな Regions, Vertices, Transitions を追加してよい。
+
+  * Regions と States を再定義してよい。
+    例えば、単純 States は合成 States として再定義することができ、
+    それに対して合成 States は States と Transitions を追加することで
+    再定義することができる。
+
+  * Transitions を再定義してよい。
+
+* これは Classifier の特殊化の一部としてなされる。すなわち、
+  一般 Classifier により所有される StateMachine ``behaviors`` と
+  ``classifierBehaviors`` は
+  一般 Classifier の BehavioralFeatures のメソッドを指定する
+  StateMachines として特殊化することができる。
+
+* 特殊化 StateMachine は一般 StateMachine の要素を
+  すべて持つはずであり、
+  かつさらなる要素を含んでよい。
+
+  * Regions を追加してよい。
+    継承した Regions は拡張によって再定義してよい。つまり、
+    States および Vertices を継承して、
+    StateMachine の Regions の States と Transitions を再定義してよい。
+
+14.3.3.1.1 State redefinition
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* 単純 State を再定義（拡張）して、
+  ひとつまたはそれを超える Regions による合成 State になるようにしてよい。
+  合成 State は次のように再定義（拡張）できる。
+
+  * 新しい Regions を追加する。
+
+  * 継承した Regions に Vertices と Transitions を追加する。
+
+  * もし一般 State が何も持っていなければ、
+    ``entry``/``exit``/``doActivity`` Behaviors を追加する。
+
+  * States と Transitions を再定義する。
+
+* State の再定義は StateMachine 全体に適用する。
+
+* 部分機械 State も再定義してよい。
+  部分機械 StateMachine は他の部分機械 StateMachine で置き換えてよく、
+  ただし、再定義された部分機械 StateMachine と
+  同じ入場点・退場点を持つという条件が付く。
+  とは言え、追加で入場点・退場点を持つことは許される。
+
+* 一般 Classifiers が複数の場合は、拡張は、
+  拡張 StateMachine が個別の新規 Region の他に、
+  一般 Classifiers の StateMachines のそれぞれに対して
+  直交 Regions を得ることを含意する。
+
+14.3.3.1.2 Transition redefinition
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* 拡張 StateMachine の Transition はその StateMachine 拡張で再定義してよい。
+  Transitions はそれらの ``effect`` と ``target`` State を
+  置き換えさせることができるが、
+  その一方 ``source`` State と ``trigger`` はそのままである。
 
 14.3.4 Notation
 ----------------------------------------------------------------------
-* 一般 Classifier 中の StateMachine の拡張である StateMachine は、
-  その StateMachine の名前に関連してキーワード ``«extended»`` を持つだろう。
+* 一般 Classifier での StateMachine の拡張である StateMachine は、
+  StateMachine の名前が関連するキーワード ``«extended»`` を持つはずである。
 
-* 同様に、継承した Region が拡張されたか、
-  State が拡張されたことを示すのに
-  キーワード ``«extended»`` を要素の名前に続けて記す。
+  * 同様に、継承 Region が拡張されたか、
+    State が拡張されたことを示すのに
+    キーワード ``«extended»`` を要素の名前に追加される。
 
-* StateMachine 内の継承した要素、Region または State は
-  破線または軽い調子の線のどちらかで描かれる。
+  * StateMachine 内の継承要素か Region か State は
+    破線または軽い調子の線のどちらかで描かれる。
 
-* State が終端状態 (a leaf state) ならば、
-  State の名前に続いてラベル ``«final»`` を追加してよい。
+  * State が終端状態 (``isLeaf`` == true) ならば、
+    State の名前に従う付加的なラベルを追加してよく、
+    キーワード ``«final»`` が含まれる。
 
 14.3.5 Examples
 ----------------------------------------------------------------------
-この例題は理解しやすい。
-
 * Figure 14.38 A general StateMachine
 
-  * VerifyCard, OutOfService, VerifyTransaction の各 State が
-    final として指定されている。
-    これらは再定義不可能。
+  * ATM StateMachine にある States
+    VerifyCard, OutOfService, VerifyTransaction が
+    **final** として指定されているが、
+    それらが ATM の特殊化において再定義できないことを意味する。
 
-    * その他の States は再定義可能である。
+    * 他の States はすべて再定義可能である。
 
-  * 図式内下方にある Transaction もまた final と指定されている。
-    それの effect Behavior と target State は再定義不可能。
+  * 図式内下方にある Transition もまた **final** と指定されている。
+    それの ``effect`` Behavior も ``target`` State も
+    再定義できないことを意味する。
 
 * Figure 14.39 An extended StateMachine
 
   * 上述の図式で示された StateMachine を特殊化したもの。
 
-  * 利用者が所望の金額を入力できるように、合成状態 ReadAmount を拡張する。
-    状態 EnterAmount とひとつの Transition を追加することによって定義する。
+  * ATM StateMachine がある Class の特殊化である Class の StateMachine が
+    State と Transition を追加することで合成 State を拡張することで
+    定義されていて、
+    利用者が希望額を記入できるようになっている。
+
+  * さらに継承 State から始まり新規導入 State に至る
+    Transition が追加されている。
 
     * 継承した状態は破線で描画されていることに注意。
-
-  * その上さらに、
-    継承した状態 VerifyTransaction から
-    新しく導入した状態 ReadAmount::EnterAmount に遷移するような
-    Transition を追加する。
 
 * Figure 14.40 Adding Transitions
 
