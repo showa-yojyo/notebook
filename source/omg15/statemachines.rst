@@ -803,136 +803,380 @@ A_guard_transition
 
 14.2.4 Notation
 ----------------------------------------------------------------------
-StateMachine 図はある StateMachine を表現するグラフである。
-States および Vertices は適当なシンボルで描画される。
-Transitions はそれらのシンボルを結ぶ有向辺で普通は描画される。
+14.2.4.1 StateMachine Diagrams
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* StateMachine 図は StateMachines を明確に定義する。
 
-StateMachine
-  * デフォルトの Classifier 向けの矩形記法が利用可能。
-  * キーワード ``«statemachine»`` を StateMachine の名前の前または上に置く。
+* StateMachine 図は StateMachine を表すグラフである。
+  StateMachine グラフにある States およびさまざまな型の Vertices は
+  適当な State および Pseudostate 記号で描画される。
+  それに対して、Transitions は普通はそれらを接続する有向辺か、
+  Transition の Behavior の動作を表す制御器号によって描画される。
 
-Region
-  * Regions を有する合成 State や StateMachine は、
-    破線を引いて全体を Regions に分割するような描き方をする。
+14.2.4.2 StateMachine
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* クラス図で StateMachine 再定義を描くときは、
+  Classifier に対する既定の矩形表記法を用いることができ、
+  キーワード ``«statemachine»`` が StateMachine の名前の上または前にある。
 
-  * 一個だけ Region を持つものは、そのグラフ Region 内部の
-    入れ子になった状態図を見せることで示される。
+* StateMachine とその ``context`` Classifier または BehavioralFeatures の
+  間の関連には特別な図表的表現がない。
 
-  * Figure 14.3 Notation for a composite State with Regions を参考にするとよい。
+14.2.4.3 Region
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Regions を有する合成 State や StateMachine は、
+  破線を引いて全体を Regions に分割するような描き方をする。
 
-State
-  * 状態名を内部に示した、角の丸い矩形で示す。
-  * あるいは矩形形状のタブをつけ、そこに State の名前を示す。
-    このスタイルは普通は合成 State の名前を出すのに用いられるが、
-    他の場合で用いても構わない。
+* Figure 14.3 Notation for a composite State with Regions
+
+  * Regions をふたつ持つ合成 State を示す。
+
+14.2.4.4 表題不明
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* 一個だけ Region を持つ合成 State や StateMachine は、
+  グラフ Region で入れ子になった状態図を見せることで示される。
+
+14.2.4.5 State
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Figure 14.4 State notation
+
+  * State は名前が内部に示されている角の丸い矩形として示す。
+
+* Figure 14.5 State with a name tab
+
+  * あるいは名前タブを取り付けてよい。
+  * 名前タブは矩形であり、普通は State の上辺外側に安置されて、
+    その State の名前を含む。
+    これは普通は直交 Regions のある合成 State の名前を持つのに用いられるが、
+    他の場合でも用いて構わない。
+
+* Figure 14.6 State with compartments
 
   * State を水平線で区切って複数区画に分割してよい。
-    区画の構成は次のようになる。
+  * 区画の構成は次のようになる。
 
-    * name
-    * internal Behaviors
-    * internal Transitions
-    * decomposition
+    名前区画
+      この区画では State の名前（オプション）を文字列として保持する。
+      部分機械 State の場合は、参照される StateMachine の名前を
+      State の名前の後にコロンが続く文字列として示す。
 
-  * 合成 State
+    内部 Behaviors 区画
+      この区画では State に付随する内部 Behaviors のリストを保持する。
+      書式説明省略。
 
-    * 合成 State はひとつ以上の entry/exitPoints をその状態の枠の外側
-      もしくは枠の十分近いところ（内でも外でも可）に記してよい。
+    内部 Transitions 区画
+      この区画では **internal** Transitions のリストを含む。
+      書式説明省略。
 
-    * Figure 14.7 Composite State with two States
+    分解区画
+      合成 State のみこの区画を使える。次の節参照。
 
-      * Dialing は Start と Partial Dial のふたつの States を含む合成 State である。
+代わりに、テキストの挙動式の代わりに、
+State または **internal** Transition に付随するさまざまな Behaviors を
+適切な図表上の表現を使って別々の図式に表すことができる。
 
-    * Figure 14.8 Composite State with a hidden decomposition indicator icon
+14.2.4.5.1 Composite State
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* 分解区画では Regions, States, Transition に関してその合成構造がわかる。
 
-      * 合成 State の分解を非表示にすることは便利である。
-      * 非表示であることを、メガネのようなシンボルを State 内の右下に記すことで示す。
+* 合成 State の分解を非表示にすることが便利な場合がある。
 
-    * Figure 14.9 Composite State with Regions
+* ここでの「非表示」とは純粋に図表上の便宜の事柄であって、
+  アクセス制限に関しての意味はない。
 
-      * 状態 Studying は 3 個の Regions からなる。
+* 合成 State には
+  ひとつまたはそれを超える ``entry`` 点と ``exit`` 点が、
+  境界の外側にあるか、
+  その境界の十分近いところ（内でも外でも可）にあってよい。
 
-    * Figure 14.10 Composite State with two Regions and entry, exit, and do Behaviors
+* Figure 14.7 Composite State with two States
 
-      * entry: この状態 (LightOn) に入場する際に履行される Behavior (entry) である。
-      * do: この状態にある間中履行される Behavior (doActivity) である。
-      * exit: この状態から退場する際に履行される Behavior (exit) である。
-      * 文書中に記述がないのでこれは憶測になるが、
-        左の Region がメインの照明、右の Region がサブの照明を示している。
+  * Dialing は Start と Partial Dial のふたつの States を含む合成 State である。
 
-FinalState
-  * 小さい黒丸を囲む丸で示す。
-  * Figure 14.17 FinalState notation 参照。
+* Figure 14.8 Composite State with a hidden decomposition indicator icon
 
-PseudostateState
-  * 見本となる図は Figure 14.18 から Figure 14.27 まで。
-    PseudostateKind によって描画法が異なる。
+  * 合成 State の分解を非表示にすることは便利である。
+  * 非表示であることを、メガネのようなシンボルを State 内の右下に記すことで示す。
 
-  * initial は黒丸で示す。
-  * shallowHistory は ``H`` を丸で囲む。
-  * deepHistory は ``H*`` を丸で囲む。
-  * entryPoint はStateMachine 図等の枠上に小さい丸として関連する名前とともに示す。
-  * exitPoint はバツを丸で囲むシンボルと関連する名前とともに、
-    entryPoint と同様にして示す。
-  * junction は黒丸で示す。
-  * choice はダイヤモンドで示す。
-  * terminate はバツで示す。
-  * fork と join は共に太い棒として示す。
-    棒に接続している Transitions の出入り状況で両者を区別すればよい。
+* Figure 14.9 Composite State with Regions
 
-ConnectionPointReference
-  * 見本となる図は Figure 14.28 から Figure 14.31 まで。
-  * Pseudostate の entryPoint と exitPoint の記法と同じになるが、
-    シンボルは対象の State または submachine State の枠上に配置する。
-  * 代替記法があり、丸ベースのシンボルを用いずに、
-    テキスト ``(via <name>)`` を State へ至る Transition の矢印上に配置するというものである。
+  * 状態 Studying は 3 個の Regions からなる。
 
-Transition
-  * テキストによる記法では
-    ``<trigger>``, ``<guard>``, ``<behavior-expression>`` が使える。
+* Figure 14.10 Composite State with two Regions and entry, exit, and do Behaviors
 
-  * アクションシンボルは矩形で表現する。アクションのテキストでの仕様をつけてよい。
+  * entry: この状態 (LightOn) に入場する際に履行される Behavior (``entry``) である。
+  * do: この状態にある間中履行される Behavior (``doActivity``) である。
+  * exit: この状態から退場する際に履行される Behavior (``exit``) である。
+  * 文書中に記述がないのでこれは憶測になるが、
+    左の Region がメインの照明、右の Region がサブの照明を示している。
 
-  * Signal 受信シンボルは独特な凹五角形で表現する。
-    中には ``<trigger>`` や ``<guard>`` を用いたテキストが含まれる。
+14.2.4.5.2 Submachine State
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* 部分機械 State は通常の State として描かれる。
+
+* 部分機械 State 記号はひとつまたはそれを超える ``entry`` 点への参照と、
+  ひとつまたはそれを超える ``exit`` 点への参照とを含んでよい。
+
+* 部分機械 StateMachine が既定の **initial** Pseudostate を通って入場されるか、
+  部分機械の完了の結果として退場されるならば、
+  入場点と退場点の表記法を使う必要はない。
+
+* 同じ部分機械を発動する部分機械 States は、
+  入場点と退場点が異なる Transitions の部分となっている
+  同じ状態図に複数回現れてよい。
+
+* Figure 14.11 Submachine State example
+
+  * 部分機械 State (FailureSumbachine) が参照される
+    StateMachine 図のある断片である。
+
+  * Event "error1" がきっかけとなる Transition は FailureSumbachine の
+    入場点 "sub1" にて停止するはずである。
+    Transition "error3" は FailureSumbachine の既定の Transition を取る含みがある。
+
+  * 部分機械の退場点 "subEnd" から始まる Transition は、
+    StateMachine HandleFailure で実行されるものばかりでなく、
+    Behavior "fixed1" を実行するはずである。
+
+  * State の名前で StateMachine に対する参照がないかもしれないということを除き、
+    同じ表記法を合成 States に対して適用するだろう。
+
+* Figure 14.12 StateMachine with an exit point as part of the StateMachine graph
+
+  * ふたつの退場点が定義された StateMachine の見本。
+
+* Figure 14.13 StateMachine with an exit point on the border
+
+  * 同じ StateMachine を StateMachine の枠上に入場点・退場点を記して示す。
+
+* Figure 14.14 Submachine Sate that uses an exit point
+
+  * Figure 14.13 で示した StateMachine が部分機械 State で参照されており、
+    State 記号上に退場点のある表現オプションを示す。
+
+14.2.4.5.3 State list notation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* State リストは実際上時々起こるある状況に対して図表上の略記法を与える。
+
+* これらは純粋に対応する抽象的構文表現がない表記法の形式である。
+
+* 異なる States から始まる同じ Trigger 値を持つ
+  ``effect`` のない複数の Transitions で、すべてが
+
+  * 単一の流出 Transition のある共通 **junction** Vertex を終点とするか、
+  * 同じ終点 State で停止するか
+
+  であるものは、始まりの States の名前の列記でラベルが付いた、
+  State のような図表要素から始まる
+  単一の Transition のような辺で表してよい。
+
+* Figure 14.15 State list notation option
+
+  * 両者の可能性があることがわかる。
+
+* Figure 14.16 Diagram equivalent to Figure 14.15 without using statelists
+
+  * 状態リストを用いることなしの同値の図。
+
+14.2.4.6 FinalState
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* FinalState は小さい黒丸を囲む丸で示す。
+
+* Figure 14.17 FinalState notation
+
+  * FinalState の見本である。合成 State 内部の States の最も右のもの。
+
+14.2.4.7 Pseudostate
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Figure 14.18 initial Pseudostate
+
+  * **initial** Pseudostate は小さい黒丸を囲む丸で見せる。
+
+* Figure 14.19 shallowHistory Pseudostate
+
+  * **shallowHistory** Pseudostate は ``H`` を囲む小さい丸で見せる。
+
+* Figure 14.20 deepHistory Pseudostate
+
+  * **deepHistory** Pseudostate は ``H*`` を囲む小さい丸で見せる。
+
+* Figure 14.21 entryPoint Pseudostate
+
+  * 入場点 は StateMachine 図または合成状態の枠上に小さい丸で、
+    関連する名前とともに見せる。
+
+* Figure 14.22 exitPoint Pseudostate
+
+  * 退場点は StateMachine 図または合成状態の枠上にバツの付いた小さい丸で、
+    関連する名前とともに見せる。
+
+* Figure 14.23 entryPoint and exitPoints on a composite State
+
+  * 合成 States の入場点と退場点を描く場合の表記法を図解する。
+
+* Figure 14.24 junction Pseudostate with incoming and outgoing Transitions
+
+  * **junction** は黒丸で見せる。
+
+* Figure 14.25 choice Pseudostates
+
+  * **choice** Pseudostate はダイヤモンド形の記号で見せる。
+
+* Figure 14.26 terminate Pseudostate
+
+  * **terminate** Pseudostate はバツで見せる。
+
+* Figure 14.27 fork and join Pseudostates
+
+  * **fork** と **join** を表す表記法は太い棒である。
+
+14.2.4.8 ConnectionPointReference
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Figure 14.28 Entry point ConnectionPointReference notation
+
+  * 入場点に対する接続点参照は ``entry`` Pseudostate と同じ表記法を持つ。
+
+* Figure 14.29 Exit point ConnectionPointReference notation
+
+  * 退場点に対する接続点参照は ``exit`` Pseudostate と同じ表記法を持つ。
+
+* Figure 14.30 Alternative entry point ConnectionPointReference notation
+
+  * 代わりに、
+    入場点に対する接続点参照は「括弧付きの余白」記号を使って見せることもできる。
+
+  * テキスト ``(via <name>)`` を State へ至る Transition の矢印上に配置するというものである。
+
+* Figure 14.31 Alternative exit point ConnectionPointReference notation
+
+  * 退場点に対する接続点参照は「括弧付きの余白」記号を使って見せることもできる。
+
+14.2.4.9 Transition
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Transition を表す既定のテキスト表記法は BNF 式
+  ``<trigger>``, ``<guard>``, ``<behavior-expression>`` により定義される。
+
+  * ``<trigger>`` は Triggers を表す標準表記法である。
+  * ``<guard>`` は ``guard`` を表す Boolean 式である。
+  * ``<behavior-expression>`` はオプションで、
+    何らかの言語で書かれた ``effect`` Behavior を指定する式である。
+
+* 代替として、
+  ``effect`` Behavior を Actions の配列に基づいた制御フローとして
+  記述できるならば、
+  Activities に対して使われる表記法と類似する、
+  Transitions と複合遷移を表す図式的表現がある。
+
+* この代替表記法は Activities を表すのに使われる表記法を
+  思い起こさせる図表要素を含むものの、
+  StateMachines に対してしか適用できない異なる形式であり、
+  その要素は適当な StateMachine の概念に写像する。
+
+* この表記法は有向グラフの形をしていて、
+  制御フローを表す有向辺で相互接続された、
+  ひとつまたはそれを超える図表記号からなる。
+
+* Transition が **initial** Pseudostate から始まると、
+  開始記号は初期記号であり、
+  それは **initial** Pseudostate を表すのに使うものと同じである。
+  つまり黒塗りの丸である。
+
+* 経路を停止する終了記号を除いて、
+  次の記号のどれもが適切に連鎖して現れることができる。
+
+  * 行動記号
+  * 選択点記号
+  * Signal 送信記号
+  * 合併記号
+
+* これらの有向グラフにある停止記号はいつでも
+  遷移の ``target`` State を表す State 似の記号か
+  最終状態記号である。
+
+14.2.4.9.1 Action symbols
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* 行動記号それぞれはオプションのテキストの行動仕様のある矩形で表す。
+
+14.2.4.9.2 Signal receipt symbol
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* Signal 受信記号は独特な凹五角形で表現する。
+  中には ``<trigger>`` や ``<guard>`` を用いたテキストが含まれる。
+
+14.2.4.9.3 Signal send symbol
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* これは信号を送信する特別な行動を表し、
+  対応する Transition の ``effect`` Behavior を記述する
+  Activity の部分である
+  SendSignalAction へ直接写像する。
 
   * Signal 送信シンボルの記法は SendSignalAction の記法に対応する。
     :doc:`./actions` 参照。
 
-  * 選択点シンボルは choice Pseudostate と同じ記法を使う。
+14.2.4.9.4 Choice point symbol
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* この記号は **choice** Pseudostate へ直接写像し、同じ記法を使う。
+* どの Activity の部分でもない。
 
-  * マージシンボルは junction Pseudostate と同じ記法を使う。
+14.2.4.9.5 Merge symbol
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* 併合記号は複数の制御フロー辺を合流するのに使われて、
+  **junction** Pseudostate へ直接写像し、
+  同じ表記法を使う。
+  どの Activity の部分でもない。
 
-  * Figure 14.32 Symbols for Signal reception, Sending, and Actions on a Transition
+* Figure 14.32 Symbols for Signal reception, Sending, and Actions on a Transition
 
-    * Idle からダイヤモンドの間
+  * Idle からダイヤモンドの間
 
-      * ``Req(id)`` が Signal 受信シンボル。
-      * ダイヤモンドが選択点シンボル。
+    * ``Req(id)`` が Signal 受信シンボル。
+    * ダイヤモンドが選択点シンボル。
 
-    * ダイヤモンドから黒丸の間（左右それぞれ）
+  * ダイヤモンドから黒丸の間（左右それぞれ）
 
-      * ``Minor(id)`` たちが Signal 送信シンボル。
-      * ``MinorReq := id;`` たちがアクションシンボル。
+    * ``Minor(id)`` たちが Signal 送信シンボル。
+    * ``MinorReq := id;`` たちがアクションシンボル。
 
-    * 黒丸から Busy の間
+  * 黒丸から Busy の間
 
-      * 黒丸はマージシンボル。
+    * 黒丸はマージシンボル。
 
-  * 遅延可能トリガーは State の内側にリストし、
-    スラッシュ記号とラベル ``defer`` を付けることで示す。
+14.2.4.9.6 Deferred triggers
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* 遅延可能な引き金は State の内側にリストし、
+  スラッシュ記号とラベル ``defer`` を付けることで示す。
 
-  * Figure 14.33 Deferred Trigger notation
+* Figure 14.33 Deferred Trigger notation
 
-    * Initializing と Primed のどちらの状態にも ``request/defer`` とある。
-      イベント ``request`` は Operational に到達するとすぐに処理される。
+  * Initializing と Primed のどちらの状態にも ``request/defer`` とある。
+    イベント ``request`` は Operational に到達するとすぐに処理される。
+
+14.2.4.10 TransitionKind
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* 種類が **internal** の Transitions は図式中に明示的には見られない。
+
+* 種類が **local** の Transitions は
+  含む合成 State の境界、
+  それの入場点のうちのひとつ、
+  または合成 State にある Vertex から始まることができる。
+
+* 種類が **external** の Transitions は
+  ``source`` Vertex の内部に含まれる Vertex のいずれかか、
+  外部にある Vertex のいずれかで終わることができる。
+
+* Figure 14.34 Local Transitions
+
+  * ここにある Transitions のすべてが **local** である。
+
+* Figure 14.35 External Transitions
+
+  * ここにある Transitions のすべてが **external** である。
 
 14.2.5 Examples
 ----------------------------------------------------------------------
 * Figure 14.36 StateMachine diagram representing a telephone
 
   * 簡単な電話のための StateMachine の図式。
-  * Idle の右についている黒丸 (initial Pseudostate) と、
+  * Idle の右についている黒丸 (**initial** Pseudostate) と、
     大きい枠の左上外部にある白丸 (activeEntry) が入口候補。
 
   * FinalState に加えて、マルバツ印の aborted が出口候補。
