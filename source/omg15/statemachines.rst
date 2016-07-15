@@ -3,7 +3,7 @@
 ======================================================================
 UML 2.5 pp. 303-370 に関するノート。
 
-.. todo:: 最低でもあと一回は編集する。
+.. todo:: 誤訳や変な解釈がいかにもありそうなので、発覚次第修正する。
 
 .. todo::
 
@@ -1334,14 +1334,14 @@ A_redefinitionContext_region, A_redefinitionContext_state, A_redefinitionContext
 
 14.4.1 Summary
 ----------------------------------------------------------------------
-* ProtocolStateMachines は慣習協定 (usage protocols) を表現するのに用いられる。
+* ProtocolStateMachines は慣習規約を表現するのに用いられる。
+  ProtocolStateMachines は
+  関連した BehavioredClassifier の Behaviors が従う必要がある
+  Event の出来事の合法な順序を表現する。
 
-* ProtocolStateMachines は
-  ある関連した BehavioredClassifier の Behavior が適合する必要がある
-  Event の出来事 (pl.) の合法な順序を表現する。
-
-* Classifier の振る舞いに関する機能 (pl.) の発動順序を定義するのには、
-  StateMachine の記法は便利な方法である。
+* StateMachine の記法は
+  Classifier の挙動の特徴の発動の順序を定義するのに
+  便利な手段である。
 
 * ProtocolStateMachines は Classifiers, Interfaces, Ports に関連することが可能。
 
@@ -1352,127 +1352,202 @@ A_redefinitionContext_region, A_redefinitionContext_state, A_redefinitionContext
   * 新クラスは ProtocolStateMachine, ProtocolConformance, ProtocolTransition のみ。
   * グラフが分離しているのが不思議。
 
-14.4.3 Semantics
-----------------------------------------------------------------------
-ProtocolStateMachine
-  * StateMachine の一種。
-  * ProtocolStateMachine はいつでもある Classifier を背景に定義される。
-  * その Classifier のオブジェクトの lifecycle のとある仕様は外界の立場が定義する。
-
-  * 次のものを指定することによって
-    Classifier の BehavioralFeatures がどの順番で発動するのかを定義するには
-    ProtocolStateMachines が役に立つ。
-
-    * BehavioralFeatures が正当に発動する behavioral context
-    * 発動の正当な順序
-    * 発動の期待される成果
-
-  * ProtocolStateMachines は、
-    その協力者たちが認める (perceive) ように
-    所有している Classifier の外観を提示する。
-
-  * ProtocolStateMachines は Classifier の振る舞いの black box な展望を与えるものなので、
-    それらの States は内部の behavioral StateMachines の States と必ずしも対応しなくてよい。
-
-  * ProtocolStateMachine の解釈は異なることがある。
-
-    #. 宣言的 ProtocolStateMachines
-    #. 実行可能 ProtocolStateMachines
-
-  * 振る舞いに関する StateMachines で遭遇した、
-    複合 Transitions や合成 States 等のより精巧なモデリング形式は
-    ProtocolStateMachines をモデル化するのにも利用可能である。
-    例えば concurrent Regions は
-    オブジェクトがいくつかの active States を同時に持つような
-    通信手順を表現することを可能にする。
-
-  * 複雑な ProtocolStateMachines を「因数分解」するのに
-    submachine StateMachines と複合遷移が用いられることがある。
-
-  * Classifier はいくつかの ProtocolStateMachines を持ってよい。
-
-  * ProtocolStateMachines の States はそれらの context Classifiers の利用者に晒される。
-  * その Classifier のオブジェクトがどんな BehavioralFeature 発動も処理していないときには、
-    このオブジェクトの利用者はいつでもそれの状態構成を知ることができる。
-  * ProtocolStateMachine の State は entry/exit/doActivity Behaviors を定義できない。
-
-ProtocolTransition
-  * Transition の一種。
-  * ProtocolTransition はその背景にある Classifier の
-    ある BehavioralFeature の発動に関しての
-    法的な Transition を指定する。
-
-  * ProtocolTransitions は事前条件、撃鉄、事後条件を持つ。
-
-  * ProtocolTransition は次のことを指定する。
-
-    * 操作 referred が Classifier のオブジェクトを背景に発動されることが可能であること。
-    * その Transition の完了にあたり、
-      そのオブジェクトは事後条件が満たされている target State となるものであること。
-
-  * ProtocolTransitions は関連する effect Behavior を持たない。
-    ある BehavioralFeature 発動の結果として実行される
-    ProtocolTransition の結果は言外である。
-
-  * Figure 14.42 An example of a ProtocolTransition (...)
-
-    * ``[C1]m1/[c2]`` の読み方を習得すること。
-      状態 S1 において条件 C1 が成立しているときに操作 m1 が呼びだされ、
-      状態 S2 に到達したときには条件 C2 が成立している。
-
-  * Figure 14.43 Example of several ProtocolTransitions (...)
-
-    * 上記例題の複数版。単に操作 m1 が共通していることに注意すれば十分。
-
-ProtocolConformance
-  * DirectedRelationship の一種（図から漏れている）。
-
-  * ProtocolStateMachines はより独特なものへ改良することができる。
-    ProtocolConformance は
-    一般版 ProtocolStateMachine 用に指定された各規則と制約が
-    改良版 ProtocolStateMachine に適用するという宣言を表現する。
-
-  * ProtocolStateMachine は Classifier が所有する。
-    ある一般版 StateMachine 所有者である Classifiers と
-    ある関連した独自の StateMachine とは、
-    通常は Generalization または Realization が接続する。
-
 A_conformance_specificMachine, A_generalMachine_protocolConformance
   * 前者は ProtocolStateMachine から ProtocolConformance への composite 関連（双方向）。
   * 後者は ProtocolConformance から ProtocolStateMachine への関連（単方向）。
-  * 関連端 specificMachine, generalMachine が source, target をそれぞれ subsets する。
+  * 関連端 ``specificMachine``, ``generalMachine`` が 
+    ``source``, ``target`` をそれぞれ subsets する。
 
 A_referred_protocolTransition
   * ProtocolTransition から Operation への関連（単方向）。
-  * 先ほどの見本中の ``m1`` が preCondition に相当する。
-  * 関連端 referred は readOnly である。
+  * Figure 14.42 の ``m1`` が ``preCondition`` に相当する。
+  * 関連端 ``referred`` は readOnly である。
 
 A_preCondition_protocolTransition
   * ProtocolTransition から Constraint への composite 関連（単方向）。
-  * 先ほどの見本中の ``C1`` が preCondition に相当する。
+  * Figure 14.42 の ``C1`` が ``preCondition`` に相当する。
 
 A_postCondition_owningTransition
   * ProtocolTransition から Constraint への composite 関連（単方向）。
-  * A_guard_transition の guard と transition をそれぞれ subsets, redefines する関連。
-  * 先ほどの見本中の ``C2`` が preCondition に相当する。
+  * A_guard_transition の ``guard`` と ``transition`` をそれぞれ subsets, redefines する関連。
+  * Figure 14.42 の ``C2`` が ``preCondition`` に相当する。
+
+14.4.3 Semantics
+----------------------------------------------------------------------
+14.4.3.1 ProtocolStateMachine
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* ProtocolStateMachine は Classifier の背景でいつでも定義される。
+
+* ProtocolStateMachines は
+  Classifier の BehavioralFeatures が発動される順序を定義するのに
+  次のものを指定することによって役に立つ：
+
+  * BehavioralFeatures が合法的に発動する挙動的背景（状態と事前条件）
+  * 発動の合法的な順序
+  * 発動の期待される成果（事後条件）
+
+* ProtocolStateMachines は、
+  その協力者たちに気づいてもらえるように、
+  所有している Classifier の外観を提示する。
+
+* ProtocolStateMachines は Classifier の挙動の "black box" な展望を
+  与えるものなので、
+  それらの States は内部の挙動的 StateMachines の States と
+  必ずしも対応しなくてよい。
+
+* ProtocolStateMachine の解釈は異なることがある。
+
+  #. 宣言的 ProtocolStateMachines
+
+     これは BehavioralFeatures の発動に対する合法的な Transitions を指定する。
+
+  #. 実行可能 ProtocolStateMachines
+
+     これはあるオブジェクトが
+     受信かつ処理してよい Event 出来事のすべてを、
+     これらがきっかけとなる Transitions と共に指定する。
+
+* 両者の解釈に対する仕様は同じであり、
+  唯一の違いは後者の解釈が規定する直接の動的な意味合いである。
+
+* 複合 Transitions や、部分機械 StateMachines や、
+  合成 States や、同時直交 Regions などの
+  挙動的 StateMachines で出くわすモデリングの
+  より洗練された形式は、
+  ProtocolStateMachines をモデル化するのにも利用できる。
+
+  * 例えば同時 Regions は
+    オブジェクトがいくつかの活性 States を同時に持つような
+    規約を表現することを可能にする。
+
+  * 部分機械 StateMachines と複合遷移を
+    複雑な ProtocolStateMachines の「因数分解」に
+    用いることができる。
+
+* Classifier は ProtocolStateMachines をいくつか持ってよい。
+
+* ProtocolStateMachines の States はそれらの状況 Classifiers の利用者に晒される。
+
+  * Classifier のオブジェクトが BehavioralFeature の発動のどれをも処理していないと、
+    このオブジェクトの利用者はいつでもそれの状態配置を知ることができる。
+
+* ProtocolStateMachine の State には
+  ``entry``/``exit``/``doActivity`` Behaviors を定義できない。
+
+14.4.3.2 ProtocolTransition
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* ProtocolTransition はその背景にある Classifier の
+  BehavioralFeature の発動について合法的な Transition を指定する。
+
+* ProtocolTransitions は事前条件、撃鉄、事後条件を持つ。
+
+* ProtocolTransition は次のことを指定する。
+
+  * 付随する（参照される）特徴が
+    状況 Classifier のオブジェクトで
+    発動されるのが可能である。
+
+  * Transition の完了にあたり、
+    そのオブジェクトが事後条件が成り立つ ``target`` State にいるはずである。
+
+* ProtocolTransitions には付随する ``effect`` Behavior がない。
+  BehavioralFeature の発動の結果として実行される
+  ProtocolTransition の結果は言外である。
+  つまり、
+  発動された BehavioralFeature に対応するメソッドの実行である。
+
+14.4.3.2.1 Unexpected trigger reception
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* 現在の State に対する合法的な引き金に一致しない Event 出来事の
+  受領の解釈、状態不変、または事前条件は定義されない。
+  （例えば、それを無視、拒絶、または遅延できる、
+  または例外を送出できる、
+  あるいは適用はエラーで停止できる）
+
+14.4.3.2.2 Unexpected Behavior
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* 予期しない Behavior の解釈、つまり
+  Transition の予期しない結果
+  （誤った FinalState, FinalState 不変性、事後条件）
+  もまた定義されない。
+  これを ProtocolStateMachine の実装の誤りとして解釈するべきである。
+
+14.4.3.2.3 Equivalences to pre- and post-conditions of operations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* ProtocolTransition は
+  付随する操作の事前条件と事後条件の言葉で意味上は解釈できる。
+
+* Figure 14.42 An example of a ProtocolTransition (...)
+
+  * ``[C1]m1/[c2]`` の読み方を習得すること。
+    状態 S1 において条件 C1 が成立しているときに操作 m1 が呼びだされ、
+    状態 S2 に到達したときには条件 C2 が成立している。
+
+* Figure 14.43 Example of several ProtocolTransitions (...)
+
+  * 上記例題の複数版。単に操作 m1 が共通していることに注意すれば十分。
+
+* ProtocolStateMachine はその Transitions により参照される
+  BehavioralFeature それぞれに対する合法的な ProtocolTransition すべてを
+  指定する。
+
+* BehavioralFeature が ProtocolTransition のどれからも参照されていなければ、
+  ProtocolStateMachine の State のどれに対しても操作を呼び出すことができ、
+  その操作は現在の State や事前条件、事後条件を変更しないはずである。
+
+14.4.3.2.4 Using other types of Events in ProtocolStateMachines
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* BehavioralFeatures の発動の他に、
+  ProtocolStateMachines の挙動を表現するために
+  他の Events を用いてもよい。
+
+14.4.3.3 ProtocolConformance
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* ProtocolStateMachines はより特殊な ProtocolStateMachines へ改良することができる。
+  ProtocolConformance は、
+  特殊 ProtocolStateMachine が
+  一般 ProtocolStateMachine によって指定された規約に
+  準拠する規約を指定することを宣言する。
+
+* ProtocolStateMachine は Classifier が所有する。
+  一般版 StateMachine 所有者である Classifiers と
+  付随する特殊版 StateMachine とを、
+  Generalization または Realization が一般には接続する。
+
+* ProtocolConformance は
+  一般版 ProtocolStateMachine に対する規則と制約のどれもが
+  特殊版 ProtocolStateMachine に対して適用する
+  という宣言を表す。
 
 14.4.4 Notation
 ----------------------------------------------------------------------
 この節は Examples も兼ねているようだ。
 
+14.4.4.1 ProtocolStateMachine
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* ProtocolStateMachine を表す表記法は
+  挙動の StateMachines についてのそれとたいへん似ている。
+  StateMachine の名前の近くに置かれたキーワード ``«protocol»`` が
+  ProtocolStateMachine 図を図表的に差別化する。
+
 * Figure 14.44 ProtocolStateMachine example
 
-  * 振る舞いに関する StateMachines の記法とたいへん似ている。
-  * 図式名の右にキーワード ``«protocol»`` を置く。
   * 戸外が無人になれば扉は閉められる。
 
 * Figure 14.45 Notation for a State with an invariant
 
-  * State 名の右または下に角括弧で不変条件を明記することもできる。
+  * ProtocolStateMachine の State に付随するテキストの不変式は、
+    その State の名前の後ろまたは下に配置することで表され、
+    角括弧で括られる。
+
+14.4.4.2 ProtocolTransition
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* 通常の StateMachine 表記法が適用する。
+  違いは ProtocolTransitions について ``effect`` Behaviors が
+  指定されていないことと、事後条件が存在できることである。
 
 * Figure 14.46 ProtocolTransition notation
 
-  * effect のない Transition として記す。
   * スラッシュの後にガード条件と同じ記法で事後条件を記すことがある。
 
 14.5 Classifier Descriptions
