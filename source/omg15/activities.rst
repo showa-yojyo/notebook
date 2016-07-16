@@ -16,7 +16,14 @@ UML 2.5 pp. 371-438 に関するノート。
 
    * concurrent (adj.) 本文中にあるように、必ずしも「同時に起こる」とは限らない。
 
-   * flow (n.) 「流れ」で済ませたい。
+   * flow (n.) 「流れ」「流動」で済ませたい。
+
+   * offer (v.) 語源は「～の方へ運ぶ」を意味するラテン語らしいのだが、
+     まさにこの文脈に相応しい。
+
+   * token (n.) 「トークン」とする。
+     代用硬貨とかではさすがに意味が通らないが、
+     本質的な意味はまさにそれ。
 
    * workflow (n.) 「仕事の流れ」としたが、おそらく不適当。
 
@@ -27,7 +34,7 @@ UML 2.5 pp. 371-438 に関するノート。
 ======================================================================
 * Activity とは、
   エッジにより相互接続されるノードのグラフとして決定される
-  Behavior の一種 (:doc:`./common-behaior`) である。
+  Behavior の一種 (:doc:`./common-behavior`) である。
 
   * そのノードの部分集合は、
     その Activity 全体の低水準の処理手順を具体化する
@@ -72,14 +79,24 @@ UML 2.5 pp. 371-438 に関するノート。
 
 15.2.1 Summary
 ----------------------------------------------------------------------
-* Activity は下位ユニットの配列として指定される Behavior である。
+* Activity は下位ユニットの配列として指定される Behavior であり、
+  制御およびデータフローモデルを使う。
 
-  * 実行の流れは ActivityNodes と ActivityEdges とがモデル化する。
-  * ExecutableNode は下位の振る舞い（算術計算のような）の実行であることがある。
+  * 実行の流れは ActivityEdges によって接続される ActivityNodes として
+    モデル化される。
 
-* この節はノードとエッジのグラフとしての activity model の
+  * ExecutableNode は、
+    算術計算、操作の呼び出し、オブジェクトの内容物の操縦のような、
+    従属的挙動の実行であることがある。
+
+  * ActivityNodes は、
+    同期、決定、同時制御のような、制御の流れに関する構成要素をも含む。
+
+* この節はノードとエッジのグラフとしての活動モデルの
   根本的な構造および流れの意味を述べる。
-  後続の小節では ActivityNodes 各種を述べる。
+  それから後続の節では
+  Activity が含んでよい ActivityNodes 各種を述べ、
+  どのようにこれらのノードを Activity でグループ化してよいのかを述べる。
 
 15.2.2 Abstract Syntax
 ----------------------------------------------------------------------
@@ -92,180 +109,324 @@ UML 2.5 pp. 371-438 に関するノート。
 ----------------------------------------------------------------------
 15.2.3.1 Activities
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Activity とは ActivityNodes と ActivityEdge からなる有向グラフである。
-* Activity の実行を記述するのに、トークンという仮想的なモデルを用いる。
+* Activity における ActivityNode ひとつの実行は、
+  その Activity にある他の ActivityNodes の実行に
+  影響を与えることができ、かつ影響されることができる。
 
-  * オブジェクトトークンは値を運ぶもので、ObjectFlow 上を流れる。
+  * ある ActivityNode の別の ActivityNode に対する効果は、
+    それらの ActivityNodes の間にある ActivityEdges を渡る
+    トークンの流れにより決定される。
+
+* トークンは Activity で明示的にモデル化されないが、
+  Activity の実行を記述するために用いられる。
+
+  * オブジェクトトークンは ObjectFlow エッジ上を流れる値を運ぶものである。
     モノによっては ControlFlow 上を流れることができる。
+
   * 値のないオブジェクトトークンは空トークンと呼ばれる。
-  * 制御トークンはノードの実行に影響するが、値は運ばず、
-    ControlFlow 上に限り流れる。
 
-* ActivityNodes と ActivityEdges には名前をつけてもよく、
-  その Activity の内部で一意な名前を持たせることが必要でない。
+  * 制御トークンは ActivityNodes の実行に影響するが、
+    データはどれも運ばず、
+    ControlFlow 上しか流れない。
 
-  * というのも、Activity からすると nodes も edges も
-    自身の ownedElements であって ownedMembers ではないからである。
+* ActivityEdges は有向辺であり、
+  トークンが ``source`` ActivityNode から
+  ``targets`` ActivityNode へ流れる。
 
-  * 例えば、同じような nodes には同じ名前を与えることが許される。
+* ActivityNodes と ActivityEdges には名前をつけてもよいが、
+  Activity の ``nodes`` と ``edges`` が
+  その Activity の内部で一意な名前を持つ必要はない。
+
+  * 例えば、同じような ``nodes`` には同じ名前を与えることが許される。
+
+* Activities は Classes であり、
+  次のような Properties を支援することが許される。
+
+  * その工程がどの程度長く実行するか、
+    それがどの程度高く付くのかということ
+
+  * 実行の行為者、誰に完了を報告するのか、使用中の資源のような、
+    オブジェクトに関するリンクを指定する Associations
+
+  * 開始、停止、中断、等々のような、
+    それらのオブジェクトの実行を管理するための Operations
+
+  * 開始、一時停止、等々のような、
+    実行の状態を決定する StateMachines
 
 15.2.3.2 Activity Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* ActivityNode は Activity の振る舞いの一段階をモデル化する要素である。
-* ノードに差し出されたトークンが指定条件を満たしていれば実行可能となる。
-  条件はノードの種類に依存するものである。
+* ActivityNodes は Activity により指定される挙動の
+  個々の段階をモデル化するのに使われる。
 
-* 複数ノードの実行順序は ActivityEdges の関係が明示的に制限する。
-* 本文中に出てくる concurrent という用語は、基本的には
-  「要求される実行順序というものはない」の意である。
-  したがって、対象ノードを任意の順で逐次実行しても並行実行してもよろしい。
+* ActivityNode が実行を開始することができるようになるのは、
+  指定された条件が ``incoming`` ActivityEdges において
+  そのノードに差し出されたトークンを使って成り立つときである。
+  それに対して、条件はノードの種類に依存する。
 
-* ノードは複数のエッジの source であってもよいので、
-  同一トークンを複数の targets に差し出すことが可能である。
-  ただし、同一トークンは同一タイミングで受け取れるだけということだ。
+* 複数個の ActivityNodes の相対的な実行順序についての
+  制限は全てが ActivityEdge の関係によって明示的に強制される。
+  ふたつの ActivityNodes が ActivityEdge によって順序付いて
+  いないと、それらは同時に実行することが許される。
+
+* 本文中に出てくる同時実行は、
+  ノードが実行されなければならない
+  順序で必要とされるものはないということを単に意味する。
+  したがって、
+  Activity の実行をノードを任意の順で逐次実行してもよいし、
+  ノードを並行実行してもよい。
+
+* ActivityNode は ActivityEdges 複数個の ``source`` でもよいので、
+  同一トークンを ``targets`` 複数個に運び出すことが可能である。
+  しかしながら、
+  同一トークンは一度にひとつの ``target`` でしか受け取れない。
 
   * 複数同時に差し出せても、受け取るのは高々ひとつのノードであるし、
     具体的にどのノードがトークンを得るのかを完全に決定するものはない。
 
-* ActivityNodes には以下の 3 種類がある。詳細は後続の節にて仕様化される。
+* ActivityNodes には以下の 3 種類がある。
 
-  * ControlNode: 交通スイッチのように振る舞う。
-  * ObjectNode: オブジェクトトークンを保持する。
-  * ExecutableNode: 所望の振る舞いを実際に実施する。
+  #. ControlNodes:
+     ActivityEdges 上のトークンの流動を管理する
+     交通スイッチのように振る舞う。
+
+  #. ObjectNodes:
+     ``incoming`` ObjectFlows から受け取ったオブジェクトトークンを保持して、
+     その後それらを ``outgoing`` ObjectFlows に対して運び出してよい。
+
+  #. ExecutableNodes:
+     Activity の所望の挙動を実際に実施する。
+
+* ActivityNodes のこれら三種のそれぞれは後続の節でさらに述べる。
 
 15.2.3.3 Activity Edges
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* ActivityEdges は Activity 内のノード間を接続する有向エッジを表現する。
-* ActivityEdge は guard という ValueSpecification を持つことが許される。
+* ActivityEdges はトークンが流動することができる、
+  ふたつの ActivityNodes の間の有向接続であり、
+  ``source``  ActivityNode から ``target`` ActivityNode へと流れる。
 
-  * これはトークンがこのエッジに差し出されたときに評価される。
+* トークンは ActivityEdge の ``source`` ActivityNode によって、
+  そのエッジに向けて運び出される。
+
+* ActivityEdge は ``guard`` という、
+  エッジに運び出されるトークンそれぞれに対して
+  評される ValueSpecification を持つことが許される。
+
+  * トークンがこのエッジに差し出されたときに評価される。
     この評価値が真であることが、トークンを渡す条件になる。
 
-* 任意の個数のトークンをエッジに渡すことが可能で、一度でも複数回に分けてもよい。
+* 任意の個数のトークンを ActivityEdge に渡すことが可能で、
+  一度に複数グループでも、複数回に分割してでもよい。
 
-  * 属性 weight が示すのは、同時にエッジを通り抜ける必要のある個数の最小値である。
+  * ``weight`` 特性は、
+    同時にエッジを走査する必要のあるトークンの最小個数を命じる。
 
-* ActivityEdges には以下の 2 種類がある。詳細は後続の節にて仕様化される。
+* ``weight`` に対する弱いけれども簡単な代替法は、
+  単一のトークンが必要データを全て運ぶように、
+  情報を大きなオブジェクトたちにグループ分けすることである。
 
-  * ControlFlow: 制御トークン専用エッジ。
-  * ObjectFlow: オブジェクトトークンを持てるエッジ。
+* ActivityEdges には以下の 2 種類がある。
+
+  * ControlFlow: 制御トークンしか引き渡さない ActivityEdge
+  * ObjectFlow: オブジェクトトークンがそれに沿って引き渡す
+    ことができる ActivityEdge
+
+* ControlFlows とは異なり、下に述べるように、
+  ObjectFlows は多重送受信、
+  ObjectNodes からトークンを選択、
+  およびトークンの変換に対しての追加の支援をも備えている。
 
 15.2.3.4 Object Flows
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* オブジェクトトークンは ObjectFlow 沿いに通過する。
+* オブジェクトトークンは ObjectFlow 上を通過し、
+  それらの値を介して Activity を通してデータを運ぶか、
+  またはデータを運ばない（空トークン）。
 
-* ObjectFlow は transformation Behavior というものを持ってもよい。
+* ObjectFlow は単一の入力 Parameter と単一の出力 Parameter を持つ
+  ``transformation`` Behavior を持ってよい。
 
-  * この Behavior は単一の入力引数と単一の出力引数を持つ。
-  * 差し出されたオブジェクトトークンを入力として処理し、
-    この出力を次のノードに差し出す。
+  * ``transformation`` Behavior が指定されていると、
+    その Behavior が ObjectFlow に運び出された
+    オブジェクトトークンごとに発動されて、
+    トークンの値がその Behavior に対して入力として引き渡された状態になる。
 
-* ObjectFlow は selection Behavior というものを持ってもよい。
+* ObjectFlow は単一の入力 Parameter と単一の出力 Parameter を持つ
+  ``selection`` Behavior を持ってよい。
 
-  * 入力は unordered, nonunique かつ多重度が ``0..*`` であるものとする。
-  * 出力は多重度が 1 であるものとする。
+  * 入力 Parameter は unordered, nonunique かつ多重度が ``0..*`` である
+    ものとする。
+
+  * 出力 Parameter は多重度の上限が 1 であるものとする。
+
   * オブジェクトトークンを入力として処理して、次のノードに出力を引き渡す。
 
-* ObjectFlow が transformation と selection の両者を持つならば、
-  先に transformation が発動されて、
-  その出力が selection の発動に用いられる。
+* ObjectFlow が ``transformation`` と ``selection`` を両方持つならば、
+  新しいトークンが ObjectFlow に運び出されるときには、
+  まず ``transformation`` Behavior が発動されて、
+  その結果の値が ``selection`` 挙動の発動に用いられる。
 
-* 本文中にある理由により、これらの Behaviors は副作用を持ってはならない。
+* トークンが ``target`` ノードに向けて運び出される間に
+  ``transformation`` または ``selection`` Behavior が使われるので、
+  そのトークンが ``target`` ノードに受け入れられる前に
+  何度も同じトークンで走らされてよい。
+  この事は、その Behavior が副作用を持ってはならないことを意味する。
 
-.. 15.2.3.5 Variables
+* 多重送信と多重受信は ActivityPartitions といっしょに使われて、
+  発行購読能力により決定される
+  オブジェクトの責任がある Behaviors の間の流れをモデル化する。
 
-* Activity 内でデータをやり取りするもう一つの手段が Variables によるものである。
+15.2.3.5 Variables
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* ObjectFlows は Activity でデータを移動することに対する主な方法をもたらす。
+  Variables はデータを間接的に引き渡すことに関する代替法をもたらす。
 
-* Activity の実行中は各 Variable はひとつ以上の値を保持してよい。
-  これらにアクセスするための Actions がある。
-  :doc:`./actions` で述べる。
+* :doc:`./actions` で述べるように、
+  Activity の実行中は、
+  Activity の Variables のそれぞれはひとつまたはそれを超える値を保持してよい。
+  Variables に値を書き出して、
+  続いて値をそれら Variables から読み取る Actions がある。
+
+* Variable の使用は、
+  値が Variable に書き出される点から
+  その値が Variable から読み取られる点のすべてへの
+  間接的データ流動経路を効率的に実現する。
+
+* Variable は ConnectableElement の一種であり、それ自体が
+  TypedElement である。
+  Variable に保持される値はいずれも Variable の Typed と
+  適合しなければならない。
+  :doc:`./structured-classifiers` および
+  :doc:`./common-structure` 参照。
+
+* Variable は MultiplicityElement でもある。
+  :doc:`./common-structure` 参照。
+
+* Variables は、
+  オブジェクトフロー情報が容易にアクセス可能になることを要求しない
+  それら (=Variables?) の応用について、
+  普通のプログラミング言語を活動モデルに翻訳することを
+  簡素化するために導入された。
 
 15.2.3.6 Activity Execution
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Activity は事前条件と事後条件を持ってもよい。
-  これらの条件は Activity 内の全発動に全体的に適用される。
+* Behavior を継承したので、
+  Activity は ``precondition`` と ``postcondition`` Constraints を持ってもよい。
+  これらは Activity の全発動に全体的に適用する。
 
-* Activity は Parameters を持ってもよい。
-  このような Parameter に対応した ActivityParameterNode というノードを持つ。
-  詳しくは後述する。
+* Behavior であるので、Activity は Parameters を持ってもよい。
+  このような Parameter それぞれに対し、
+  Activity は 対応する ActivityParameterNode というノードを持つ。
 
-  * Activity が起動したときに入力引数として引き渡された値は、
-    オブジェクトトークンに入れられ、
-    （それらは）対応する入力 ActivityParameterNodes に配置される。
-    そのあとにトークンは外向エッジに差し出される。
+* Activity が発動されると、
+  その入力 Parameters に引き渡された値はどれもが、
+  オブジェクトトークンに入れられ、
+  Activity に対して対応する入力 ActivityParameterNodes に置かれる。
+  これらの ActivityParameterNodes は
+  それからトークンを ``outgoing`` ActivityEdges に運び出す。
 
-* 属性 isSingleExecution が示すのは、
-  その Activity の同一の実行が全ての発動に対してトークンを処理するのか、
-  またはその Activity の別々の実行が各発動に対して生成されるのかということである。
+* Activity が最初に発動されると、
+  入力 ActivityParameterNodes 以外のノードは何一つ
+  どんなトークンも初めに保持しないはずである。
 
-  * 単一実行を利用するならば、
-    モデル作者はグラフ中を移動するトークンストリーム複数の相互作用を考慮する必要がある。
+* Activity の続いて起こる発動それぞれで、
+  ``isSingleExecution`` 特性は
+  Activity の同じ実行が発動すべてに対してトークンを処理するのか、
+  または Activity の別々の実行が発動それぞれに対して生成されるのか
+  を示す。
 
-  * 別々の実行を利用するならば、
-    いくつかの発動からやって来たトークンらは相互に作用しない。
-    こちらの方式がデフォルトである。
+* Activity の単一実行を発動のすべてに対して利用すると、
+  モデル作者は ActivityNodes と ActivityEdges を移動する
+  トークンの流れ複数の間の相互作用を考慮する必要がある。
+
+* Activity の別々の実行を発動のそれぞれについて利用すると（これは既定である）、
+  さまざまな発動から来たトークンらは相互に作用しない。
 
 * もし Activity が streaming Parameters を持つならば、
   単一実行の途中でさえあっても、
-  そのときはさらなるトークンらがその Activity に流入、流出してもよい。
+  さらなるトークンらがその Activity に
+  （対応する ActivityParameterNodes を経て）流入出してもよい。
 
 * streaming Parameters を持たない Activity の実行が完了するのは、
+  実行しているノードがすでになくなり、実行可能なノードがないときか、
+  ActivityFinalNode を用いることで明示的に停止されたときである。
 
-  #. もう実行しているノードがなくなり、実行可能なノードがないときか、
-  #. ActivityFinalNode を用いることで明示的に停止されたときである。
+  * streaming Parameters を持つ Activity は、
+    その入出力の累積数が規定値に達するまでは停止してはならない。
 
-* streaming Parameters を持つ Activity は、
-  その入出力の累積数が規定値に達するまでは停止してはならない。
+* Activity の実行が完了すると、
+  非 streaming 出力 Parameters に対応する ActivityParameterNodes はすべて、
+  少なくとも対応 Parameter の多重度の下限で与えられたとおりの個数の、
+  空でないオブジェクトトークンを保持するものとする。
 
-* Activity の実行が完了するときには、
-  非 streaming 出力 Parameters に対応しているすべての ActivityParameterNodes が
-  それらの対応 Parameter の多重度が示すだけの（空でない）オブジェクトトークンを保持するものとする。
+* 出力 Parameter は ``isException`` を true とすることで、
+  例外 Parameter とみなしてもよい。
 
-* 出力 Parameter はその isException を true にさせることで、例外 Parameter としてもよろしい。
-
-* Activity 内の全ての流れを中断する要望があるときに限り、例外 Parameters を使うものとする。
+* その Activity にある流れ全てを中断する要望があるときに限り、
+  例外 Parameters を Activities で使うものとする。
 
 15.2.3.7 Activity Generalization
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Activity を特殊化してもよい。
+* Activity は Classifier であり、それ自体として、
+  Generalization 関係に参加してよい。
 
-  * 特殊 Activity は nodes と edges を継承する。
-  * ActivityNodes と ActivityEdges を特殊 Activity 中において定義し直してもよい。
+* 一般 Activity から ActivityNode を再定義する
+  特殊 Activity にある ActivityNode は、
+  その再定義された ActivityNode を始点または終点として持っていた
+  継承 ActivityEdges のどれもを、
+  その再定義された ActivityNode で置き換えるとみなされる。
 
-* ノードの再定義もエッジの再定義も、置き換えの考え方による。
+* 特殊 Activity を実行するときに使われるノードとエッジの有効な集合は、
+  継承したノードとエッジ（再定義されたノードとエッジを含まない）と、
+  その特殊 Activity で定義されたノードとエッジ
+  （再定義するノードとエッジをどれをも含む）との和集合から構成されている。
 
 15.2.4 Notation
 ----------------------------------------------------------------------
+* 本節では Activities を表す図表的表記法を指定する。
+  この表記法は準拠ツールがテキスト上の具象的構文を代わりに使えるという
+  点で選択自由である。
+
 * Activity の記法は、それが含む ActivityNodes と ActivityEdges の
-  記法の組み合わせたものに、枠を加えて名前を左上に表示するものとする。
+  記法の組み合わせたものに、
+  境界と左上に表示された名前が加えたものである。
 
-* ActivityParameterNodes は Activity の枠上に表示する。
-* Behavior から継承した事前条件と事後条件は、
-  キーワード ``«precondition»``, ``«postcondition»``
-  と共にテキストとしてそれぞれ示される。
+  * ActivityParameterNodes は Activity の境界上に表示する。
 
-* isSingleExecution が真である Activities にはキーワード ``«singleExecution»`` を用いる。
+  * Behavior から継承した事前条件と事後条件を、
+    キーワード ``«precondition»``, ``«postcondition»`` と共に
+    テキスト上の式としてそれぞれ示す。
+
+  * ``isSingleExecution`` が true である Activities については、
+    キーワード ``«singleExecution»`` を用いる。
 
 * Figure 15.2 Activity notation
 
-  * 丸角は Annex A で述べられた枠記法で置き換えてよろしい。
-  * 丸角にせよ枠にせよ完全に省略してよろしい。
-    その場合には ActivityParameterNodes は図式内のどのような箇所に現れても構わない。
+  * 図の丸角縁は :doc:`./diagrams` で述べられた枠記法で置き換えてよい。
+  * 丸角縁にせよ枠にせよ完全に省略してよい。
+    その場合には ActivityParameterNodes は図式内のどの箇所に現れても構わない。
 
 * Figure 15.3 Activity class notation
 
-  * Activity の機能群を図表化するのに Class 記法を利用することもある。
+  * Classes を表す表記法を Activity の特徴を図表化するのに利用することもある。
   * キーワードは ``«activity»`` である。
 
 * Figure 15.4 ActivityNode notation
 
-  * ActivityNodes 各種の記法のカタログ。次の節で詳しく議論する。
+  * ActivityNodes 各種の記法のカタログ。
+    次の節と :doc:`./actions` で詳しく議論する。
 
 * Figure 15.5 ActivityEdge notation
 
   * ActivityEdges 各種の記法のカタログ。
   * 矢先はすべて開いた形状を用いる。
-  * イラストにはないが guards を記すには角括弧を用いる。
+  * イラストにはないが ``guards`` を記すには角括弧を用いる。
+
+* ActivityEdge は連結器を使って記すことも許されており、
+  連結器はエッジの名前が中に書かれた小さい丸である。
+
+  * ラベルの付いたすべての接続器は、
+    同一 Activity 図で同一ラベルのついた他のものの
+    正確にひとつに対して対になっていなければならない。
 
 * Figure 15.6 ActivityEdge connector notation
 
@@ -273,12 +434,14 @@ UML 2.5 pp. 371-438 に関するノート。
 
 * Figure 15.7 ActivityEdge notation
 
-  * エッジの weight は中括弧と ValueSpecification の記法を用いる。
-  * InterruptibleActivityRegion の interruptingEdge は稲妻型の矢印とする。
+  * エッジの重みは中括弧と ValueSpecification の記法を用いる。
+    :doc:`./values` 参照。
+
+  * InterruptibleActivityRegion の ``interruptingEdge`` は稲妻型の矢印とする。
 
 * Figure 15.8 ControlFlow notation
 
-  * 制御フローはふたつのアクションを接続する矢印として示す。
+  * 制御フローはふたつの行動を接続する矢印で示す。
 
 * Figure 15.9 ObjectFlow notations
 
@@ -287,23 +450,42 @@ UML 2.5 pp. 371-438 に関するノート。
 
 * Figure 15.10 Specifying selection behavior on an ObjectFlow
 
-  * selection Behavior の記法にはキーワード ``«selection»`` とコメントを用いる。
-  * transformation Behavior も同様にする。キーワードは ``«transformation»`` とする。
+  * ``selection`` Behavior の記法にはキーワード ``«selection»`` が
+    註釈記号に置かれ、
+    適切な ObjectFlow 記号に取り付けられた状態で明記される。
+
+  * ``transformation`` Behavior は
+    キーワードは ``«transformation»`` を使って同様に明記される。
 
 * Figure 15.11 Eliding objects flowing on the edge
 
-  * 図式が散らかるのを緩和するために、Pins はある程度省略してよろしい。
+  * 複雑な図式では乱雑さを緩和するために、Pins は省略してよい。
     省略されていることをわからせるために、
-    矢印の少し上あたりに小さい四角を表示する。
+    小さい正方形を矢印の少し上あたりに表示する。
+
+* 多重送信および多重受信は ObjectFlow を
+  ``«multicast»`` または ``«multireceive»`` で註釈することで
+  それぞれ明記する。
 
 15.2.5 Examples
 ----------------------------------------------------------------------
 * Figure 15.12 Activity node example (...)
 
-  * 代表的な ActivityNodes の記法の見本となる。
+  * 次の種類の ActivityNodes の記法の見本となる。
+
+    * ExecutableNodes: Receive Order, Fill Orde, etc.
+    * ObjectNodes: Invoice
+    * ControlNodes:
+
+      * InitialNode: 先頭の黒丸
+      * DecisionNode: 始めの方のダイヤモンド
+      * ForkNode, JoinNode: Ship Order 前後の縦棒
+      * MergeNode: 終わりの方のダイヤモンド
+      * ActivityFinalNode: 末尾の目玉
 
 * Figure 15.13 ActivityEdge examples
 
+  * 矢印は ControlFlow か ObjectFlow である。
   * 右上。ObjectNode の前後にある矢印は両方 ObjectFlow である。
     Invoice オブジェクトの移動を暗示する。
 
@@ -313,11 +495,12 @@ UML 2.5 pp. 371-438 に関するノート。
 
 * Figure 15.15 Eliding objects flowing on the edge
 
-  * 省略版だとオブジェクトの個数に関わらず小さい四角がひとつになる？
+  * 省略版だとオブジェクトの個数に関わらず小さい正方形がひとつになる？
 
 * Figure 15.16 Specifying selection and transformation Behaviors on an ObjectFlow
 
-  * selection および transformation Behaviors の見本。コメント頼み。
+  * ``selection`` および ``transformation`` Behaviors の見本。
+    註釈頼み。
 
 * Figure 15.17 Linking a class diagram to an object node
 
@@ -360,7 +543,7 @@ UML 2.5 pp. 371-438 に関するノート。
 
 * Figure 15.25 Activity with attributes and operations
 
-  * Activity を Class の記法で示す見本。
+  * Activity のクラスの特徴を Class の記法で示す見本。
 
 15.3 Control Nodes
 ======================================================================
