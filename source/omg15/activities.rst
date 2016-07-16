@@ -9,35 +9,63 @@ UML 2.5 pp. 371-438 に関するノート。
 
    訳語検討。
 
-   * activity (n.)
+   * activity (n.) 他にも良さそうなのはあるが、
+     active (adj.) を「活性」とする都合もあり、「活動」にしておく。
+
+   * across the edge: 「エッジの端から端まで」の意。「横切る」などではない。
+
    * concurrent (adj.) 本文中にあるように、必ずしも「同時に起こる」とは限らない。
+
    * flow (n.) 「流れ」で済ませたい。
+
+   * workflow (n.) 「仕事の流れ」としたが、おそらく不適当。
 
 .. contents:: ノート目次
    :depth: 2
 
 15.1 Summary
 ======================================================================
-* Activity とは ノードとエッジのグラフとして指定される Behavior の一種である。
+* Activity とは、
+  エッジにより相互接続されるノードのグラフとして決定される
+  Behavior の一種 (:doc:`./common-behaior`) である。
 
-  * ノードの部分集合は実行可能ノード (executable nodes) である。
-  * オブジェクトノード (object nodes) は
+  * そのノードの部分集合は、
+    その Activity 全体の低水準の処理手順を具体化する
+    実行可能ノードである。
 
-    #. 実行可能ノードの入出力するデータを保持し、
-    #. オブジェクトフロー (object flow) エッジを横断する。
+  * オブジェクトノードは実行可能ノードに対して入出力するデータを保持し、
+    オブジェクトフローエッジを端から端まで移動する。
 
-  * 制御ノード (control nodes) は制御フロー (control flow) エッジを経て、
-    実行可能ノードの配列を指定する。
+  * 制御ノードは制御フローエッジを経て、
+    実行可能ノードの配列を決定する。
 
-* Activities は手続きの計算を記述することも許される。
+* Activities は手続きの計算を記述することも許されて、
+  他の Activities を発動する Activities の階層を形成するか、
+  オブジェクト指向モデルでは、
+  直接的に発動される Operations に束縛されたメソッドとして、
+  それらを間接的に発動することも許される。
 
-  #. 他の Activities を発動する Activities の階層を形成するものか、
-  #. 直接的に発動される Operations に束縛したメソッドとして
-     間接的に発動されることも許される。
+  * Activities を
+    業務工程工学と仕事の流れに対して
+    組織的モデリングに適用することが認められている。
 
-* Activities は
-  business process engineering と workflow のための
-  組織的モデリングにも適用されることが認められている。
+* この章の残りでは、
+  どのようにして活動モデルが構造化され、
+  さまざまな種類のオブジェクトと制御ノードが構造化されるのかを
+  述べる。
+
+  * UML では実行可能ノードの唯一の種類は Actions であり、
+    :doc:`./actions` で完全に述べられる。
+
+  * Actions を表す具体的構文は Activities を表す具体的構文の
+    部分集合であり、
+    本章で指定される Actions を表す具体的構文もある。
+
+    * Action 表記法は Activity 図でしか現れない。
+
+  * この章では実行可能ノードを使うことで
+    Actions から分離されたある独立性を実現するが、
+    それでもなお :doc:`./actions` と一緒に読む必要がある。
 
 15.2 Activities
 ======================================================================
@@ -996,40 +1024,5 @@ UML 2.5 pp. 371-438 に関するノート。
 15.8 Association Descriptions
 ======================================================================
 機械生成による節。
-
-.. 15.8.1 A_containedEdge_inGroup [Association]
-.. 15.8.2 A_containedNode_inGroup [Association]
-.. 15.8.3 A_decisionInputFlow_decisionNode [Association]
-.. 15.8.4 A_decisionInput_decisionNode [Association]
-.. 15.8.5 A_edge_activity [Association]
-.. 15.8.6 A_edge_inPartition [Association]
-.. 15.8.7 A_exceptionInput_exceptionHandler [Association]
-.. 15.8.8 A_exceptionType_exceptionHandler [Association]
-.. 15.8.9 A_group_inActivity [Association]
-.. 15.8.10 A_guard_activityEdge [Association]
-.. 15.8.11 A_handlerBody_exceptionHandler [Association]
-.. 15.8.12 A_handler_protectedNode [Association]
-.. 15.8.13 A_inInterruptibleRegion_node [Association]
-.. 15.8.14 A_inPartition_node [Association]
-.. 15.8.15 A_inState_objectNode [Association]
-.. 15.8.16 A_incoming_target_node [Association]
-.. 15.8.17 A_interruptingEdge_interrupts [Association]
-.. 15.8.18 A_joinSpec_joinNode [Association]
-.. 15.8.19 A_node_activity [Association]
-.. 15.8.20 A_outgoing_source_node [Association]
-.. 15.8.21 A_parameter_activityParameterNode [Association]
-.. 15.8.22 A_partition_activity [Association]
-.. 15.8.23 A_redefinedEdge_activityEdge [Association]
-.. 15.8.24 A_redefinedNode_activityNode [Association]
-.. 15.8.25 A_represents_activityPartition [Association]
-.. 15.8.26 A_selection_objectFlow [Association]
-.. 15.8.27 A_selection_objectNode [Association]
-.. 15.8.28 A_structuredNode_activity [Association]
-.. 15.8.29 A_subgroup_superGroup [Association]
-.. 15.8.30 A_subpartition_superPartition [Association]
-.. 15.8.31 A_transformation_objectFlow [Association]
-.. 15.8.32 A_upperBound_objectNode [Association]
-.. 15.8.33 A_variable_activityScope [Association]
-.. 15.8.34 A_weight_activityEdge [Association]
 
 .. include:: /_include/uml-refs.txt
