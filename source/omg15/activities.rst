@@ -550,8 +550,12 @@ UML 2.5 pp. 371-438 に関するノート。
 
 15.3.1 Summary
 ----------------------------------------------------------------------
-* ControlNode は ActivityNode の一種で、Activity 内のトークンの流れを処理するのに用いる。
-* 本節では数個ある ControlNode の具象型を述べる。
+* ControlNode は ActivityNode の一種で、
+  Activity 内の他のノード間を流れるトークンの流れを処理するのに用いる。
+  本節では
+  InitialNodes, FinalNodes, ForkNodes,
+  JoinNodes, MergeNodes, DecisionNodes
+  を含むさまざまな ControlNode の具象型を述べる。
 
 15.3.2 Abstract Syntax
 ----------------------------------------------------------------------
@@ -564,154 +568,236 @@ UML 2.5 pp. 371-438 に関するノート。
 ----------------------------------------------------------------------
 15.3.3.1 Initial Node
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* InitialNode は Activity の実行の開始するノードとして振る舞う。
-* ひとつの Activity にひとつを超える InitialNode があっても構わない。
-  各点から concurrent な制御フローが開始することになる。
+* InitialNode とは、
+  Activity を実行するための開始点として振る舞う ControlNode である。
 
-* InitialNode はどんな incoming エッジをも持ってはならない。
-* InitialNode の outgoing エッジはすべて ControlFlows であるものとする。
-* InitialNodes は ControlNodes はトークンを保持できないという規則の例外である。
-  場合によってはトークンがとどまることがある。
+  * Activity にひとつを超える InitialNode があっても構わない。
+    Activity にひとつを超える InitialNode があれば、
+    InitialNode のそれぞれに対して
+    Activity の発動が複数の同時制御フローを開始する。
+
+* InitialNode はいかなる ``incoming`` ActivityEdges を
+  持ってはならないものとし、
+  このことは、
+  Activity が実行を開始すると Activity に所有される InitialNodes がいつでも使用可能である
+  はずであることと、
+  Activity が実行を開始すると
+  単一の制御トークンがそういった InitialNode のそれぞれに置かれると
+  いうことを意味する。
+
+  * InitialNode の ``outgoing`` ActivityEdges は
+    すべてが ControlFlows でなければならない。
+
+* InitialNodes は ControlNodes がトークンを保持することができず、
+  それらの流れの処理しかできないという規則の例外である。
 
 15.3.3.2 Final Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* FinalNode は Activity 中のある流れが停止するノードである。
-* FinalNode は outgoing エッジを持ってはならない。
-* FinalNode は incoming エッジから差し出されるトークンをすべて受理する。
+* FinalNode とは Activity のある流れがそこで停止するような ControlNode である。
+
+  * FinalNode には ``outgoing`` ActivityEdges がないものとする。
+  * FinalNode は ``incoming`` ActivityEdges により
+    運び込まれたトークンすべてを受理する。
+
 * FinalNode には FlowFinalNode と ActivityFinalNode の 2 種類がある。
 
-  * FlowFinalNode はひとつの流れを終了するノードである。
+  #. FlowFinalNode とは、ひとつの流れを停止する FinalNode である。
+     FlowFinalNode が受理したトークンは全て破壊される。
 
-    * ここで受理したトークンは全て消滅する。
+  #. ActivityFinalNode とは、Activity のすべての流れを停止するノードである。
+     Activity に所有される ActivityFinalNode に到達するトークンは、
+     その Activity の実行を停止する。
 
-  * ActivityFinalNode は Activity 内のすべての流れを停止するノードである。
-    トークンがここに到達することで、Activity の実行が停止する。
+     * Activity の実行の停止は、出力 ActivityParameterNodes 以外の
+       ObjectNodes のどれもが保持するトークンのすべてを
+       破壊するものとし、
+       かつ、Activity から同期的に呼び出した
+       挙動のどの実行をも停止するものとする。
 
-    * Activity の実行の停止はすべての ObjectNodes が保持するトークンを
-      破棄するものとする。かつ、Activity から同期的に呼び出したすべての
-      振る舞いの実行を停止するものとする。
+     * いったん Activity の実行が停止すると、
+       前節で述べたようにその Activity の発動は完了する。
 
-    * いったん Activity の実行が停止すると、
-      前節で述べたようにその発動は完了する。
+* Activity の流れの全てを中止するのが望みでなければ、
+  FlowFinalNode を使う。
+  ActivityFinalNode は使わない。
 
 15.3.3.3 Fork Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* ForkNode はひとつの流れを複数の concurrent な流れ (pl.) に分割するノードである。
-* ForkNode は厳密にひとつの incoming エッジを持つものとする。
-* ForkNode の incoming と outgoing のエッジの型は一致しているものとする。
+* ForkNode とは、
+  流れを同時に発生する複数の流れに分割する ControlNode である。
 
-* ForkNode に差し出されたトークンは、そのノードのすべての outgoing エッジに差し出される。
-  もしその差し出しのうちの少なくともひとつが受理されれば、
-  差し出されたトークンは発生元から取り除かれ、受理者はそのコピーを受け入れる。
+  * ForkNode には ``outgoing`` ActivityEdges を複数あってよいけれども、
+    ``incoming`` ActivityEdge は厳密にひとつあるものとする。
 
-* ガードの失敗が原因でトークンを受理することに失敗する outgoing エッジは、
-  それらトークンのコピーを受け入れてはならない。
+  * ``incoming`` エッジが ControlFlow ならば、
+    ``outgoing`` エッジはすべて ControlFlows であるものとし、
+    ``incoming`` エッジが ObjectFlow ならば、
+    ``outgoing`` エッジはすべて ObjectFlows であるものとする。
 
-* もしある ForkNode から生えている outgoing エッジでガードが利用されているならば、
-  下流には ガードされたエッジを通じて渡されるトークンの到着に
-  依存する JoinNodes がないことをモデル作者が保証しなくてはならない。
-  それが回避できなければ、フォークとガード付きエッジとの間に
-  DecisionNode を導入しなくてはならない。
+* ForkNode に運び込まれたトークンは、
+  そのノードの ``outgoing`` ActivityEdges のすべてに運び込まれる。
+  それらのうちの少なくともひとつが受理されると、
+  運び込まれたトークンは発生元から取り除かれ、
+  受理者はトークンの複製を受け入れる。
+
+* ``outgoing`` ActivityEdges の目標ではなく、
+  それらの ``guard`` の失敗が原因で
+  運び込みを受理することに失敗するそれらはどれもが、
+  それらのトークンの複製を受理しないものとする。
+
+* ForkNode から生えている ``outgoing`` ActivityEdges で
+  ``guards`` が使われていると、
+  防御されたエッジで引き渡されるトークンの到着に
+  依存する下流 JoinNodes がないことをモデル作者が保証するべきである。
+  それが回避できなければ、
+  トークンが防御が失敗すると下流 JoinNode へ逸れてもよいように、
+  ForkNode とその防御の付いたエッジとの間に
+  DecisionNode を導入するべきである。
 
 15.3.3.4 Join Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * JoinNode は複数の流れを同期するノードである。
-* JoinNode は厳密にひとつの outgoing エッジを持つものとする。
-* JoinNode の incoming と outgoing のエッジの型は一致しているものとする。
 
-* JoinNode は joinSpec という ValueSpecification を持つことが許される。
-  これは合流がトークンを放つ条件を決定するものである。
+  * JoinNode には厳密にひとつの ``outgoing`` ActivityEdge があるものとするが、
+    ``incoming`` ActivityEdges が複数あることは許される。
 
-  * ノードが joinSpec を持つ場合は、incoming エッジから新しいトークンが
-    差し出されるといつでもこの条件が評価される。
+  * JoinNode の ``incoming`` エッジのどれかが ObjectFlows であると、
+    ``outgoing`` エッジは ObjectFlow であるものとする。
+    そうでなければ ``outgoing`` エッジは ControlFlow であるものとする。
 
-  * もし joinSpec がテキスト表現で与えられるならば、
-    incoming エッジの名前を使用して次のものを表してよい。
+* JoinNode は ``joinSpec`` という 
+  合流がトークンを放つ条件を決定する
+  ValueSpecification を持つことが許される。
 
-    #. ControlFlow からの差し出しの有無を示すブーリアン値か、
-    #. ObjectFlow から差し出されたオブジェクトトークンに結び付けられた値
+  * JoinNode に ``joinSpec`` があれば、
+    ``incoming`` ActivityEdge のどれからでも新しいトークンが JoinNode に
+    運び出されるときにはいつでも
+    この ValueSpecification が評価される。
 
-  * JoinNode が joinSpec を持たないならば、
-    ブーリアン演算の AND で示される表現の joinSpec を持つものと等価として扱う。
+* ``joinSpec`` ValueSpecification がテキストによる式で与えられると、
+  ``incoming`` エッジの名前を次のものを示すために使ってよい：
 
-  * JoinNode::joinSpec が真と評価されるとき、
-    次の規則に従ってトークンが差し出される。
+  * ControlFlow からの運び込みの有無を示す Boolean 値
+  * ObjectFlow から運び込まれたオブジェクトトークンに付随する値
 
-    #. incoming エッジで差し出されるすべてのトークンが制御トークンならば、
-       ひとつの制御トークンが outgoing エッジに差し出される。
+* JoinNode に ``joinSpec`` がなければ、
+  これは Boolean 演算子 "and" のある ``joinSpec`` 式に同値である。
+  つまり、暗黙の既定の ``joinSpec`` 条件とは、
+  少なくともひとつのトークンで ``incoming`` ActivityEdge のそれぞれで
+  運び込まれていることである。
 
-    #. incoming エッジで差し出されるトークンが制御トークンとオブジェクトトークンならば、
-       オブジェクトトークンのみが outgoing エッジに差し出される。
+* JoinNode の暗黙または明示的な ``joinSpec`` が true と評価されると、
+  次の規則に従って
+  トークンが JoinNode の ``outgoing`` ActivityEdge で運び込まれる。
 
-       * JoinNode::isCombinedDuplicate が真ならば、
-         複数トークンは重複があればそれらをまとめてから
-         outgoing エッジに差し出される。
+  #. ``incoming`` エッジで運び込まれるトークンがすべて制御トークンならば、
+     制御トークンのひとつが ``outgoing`` エッジに運び出される。
+
+  #. ``incoming`` エッジで運び込まれるトークンで、
+     制御トークンとオブジェクトトークンであるものがあれば、
+     オブジェクトトークンのみが ``outgoing`` エッジに運び出される。
+
+     * JoinNode に対して ``isCombinedDuplicate`` が true ならば、
+       オブジェクトトークンが ``outgoing`` エッジに運び出される前に、
+       それらの含む同じ素性のオブジェクトはひとつのトークンに結合される。
+
+* この規則は、
+  同じ ``incoming`` エッジから運び込まれる複数トークンの場合を含み、
+  JoinNode に運び込まれるトークンすべてに適用する。
+
+* どのトークンでも JoinNode の ``outgoing`` ActivityEdge に運び込まれると、
+  さらなるトークンが ``outgoing`` エッジに運び込まれる前に、
+  目標によって受理されるか、
+  またはエッジ上を走査するのを拒絶される
+  （例えば失敗した防御のため）ものとする。
 
 15.3.3.5 Merge Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* MergeNode は複数の流れを同期せずに結合する制御ノードである。
-* MergeNode は厳密にひとつの outgoing エッジを持つものとする。
-* MergeNode の incoming と outgoing のエッジの型は一致しているものとする。
-* MergeNode に差し出されたトークンは、
-  そのノードのすべての outgoing エッジに差し出される。
-* 流れまたはトークンの合流の同期はない。
+* MergeNode とは、
+  複数の流れを同期なしでまとめる制御ノードである。
+
+  * MergeNode は厳密にひとつの ``outgoing`` ActivityEdge を持つものとする。
+
+  * MergeNode の incoming と outgoing のエッジの型は一致しているものとする。
+
+  * MergeNode の ``outgoing`` エッジが ControlFlow ならば、
+    ``incoming`` エッジはすべて ControlFlows でなければならず、
+    ``outgoing`` エッジが ObjectFlow ならば、
+    ``incoming`` エッジはすべて ObjectFlows でなければならない。
+
+* MergeNode の ``incoming`` エッジで運び込まれたトークンはすべて、
+  ``outgoing`` エッジに運び出される。
+  流れまたはトークンの合流の同期はない。
 
 15.3.3.6 Decision Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* DecisionNode は outgoing の流れをひとつ選択するノードである。
+* DecisionNode とは、
+  ``outgoing`` の流れを選択する ControlNode である。
 
-* DecisionNode は第一 incoming エッジ上のトークンを受理し、
-  それらをすべての outgoing エッジに差し出す。
+* DecisionNode は第一 ``incoming`` エッジ上のトークンを受理し、
+  それらを ``outgoing`` エッジすべてに運び出す。
 
-* DecisionNode の outgoing エッジでガードを持つものがあれば、
-  それらが各 incoming トークンに対して評価される。
+* DecisionNode の ``outgoing`` エッジで防御を持つものがあれば、
+  これらが ``incoming`` トークンそれぞれに対して評価される。
 
-* DecisionNode が decisionInputFlow を持つならば、
-  第一 incoming エッジからのトークンが outgoing エッジに差し出されるよりも前に、
-  第一 incoming エッジと decisionInputFlow の両方に差し出される必要がある。
+* DecisionNode が ``decisionInputFlow`` を持つならば、
+  第一 ``incoming`` エッジからのトークンが
+  ``outgoing`` エッジに運び出される前に、
+  第一 ``incoming`` エッジと ``decisionInputFlow`` の両方に
+  運び込まれる必要がある。
 
-* DecisionNode が decisionInput を持つならば、
-  これは戻り値は持つがその他の出力引数は持たない Behavior である必要がある。
+* DecisionNode が ``decisionInput`` を持つならば、
+  これは戻り Parameter は持つがその他の出力 Parameters は持たない
+  Behavior でなければならない。
 
-* DecisionNode の第一 incoming エッジが ControlFlow であり、
-  DecisionNode が decisionInput を持つが decisionInputFlow を持たぬならば、
-  decisionInput は入力引数を持ってはならない。
+* DecisionNode の第一 ``incoming`` エッジが ControlFlow であり、
+  DecisionNode が ``decisionInput`` を持つが ``decisionInputFlow`` を持たぬならば、
+  ``decisionInput`` は入力 Parameters を持たないものとする。
 
-* DecisionNode の第一 incoming エッジが ObjectFlow であり、
-  DecisionNode が decisionInput を持つが decisionInputFlow を持たぬならば、
-  decisionInput は入力 Parameter を持たねばならない。
+* DecisionNode の第一 ``incoming`` エッジが ObjectFlow であり、
+  DecisionNode が ``decisionInput`` を持つが ``decisionInputFlow`` を持たぬならば、
+  ``decisionInput`` は入力 Parameter を持つものとし、
+  Behavior がそのトークンに対して発動されたときには、
+  第一 ``incoming`` エッジで運び込まれたオブジェクトトークンに含まれる値は、
+  この Parameter を経て引き渡される。
 
-  * そして、第一 incoming エッジで差し出されたオブジェクトトークンに含まれる値は、
-    Behavior がそのトークンに関係して発動されたときには、
-    この Parameter を経て引き渡される。
+* DecisionNode の第一 ``incoming`` エッジで運び込まれたトークンは、
+  ``guard`` が false に評価される ``outgoing`` エッジのいずれをも
+  走査しないものとする。
 
-* DecisionNode の第一 incoming エッジが差し出したトークンは、
-  guard が偽に評価される outgoing エッジを通り抜けてはならない。
+* 非決定的な挙動を回避するべく、
+  モデル作者は ``incoming`` トークンそれぞれに対して、
+  高々ひとつの ``guard`` が true であると評価されるように
+  取り決めるものとする。
 
-* 振る舞いが非決定的になることを回避するべく、
-  モデル作者は各 incoming トークンに対して高々ひとつの
-  guard が真であると評価されるように取り決めるものとする。
-
-* 定義済みの guard ``else`` を高々ひとつの outgoing エッジに用いて構わない。
-  このガードが真であると評価されるのは、
-  DecisionNode から生えているその他のどの outgoing エッジも
+* DecisionNodes 限定で、
+  定義済みの ``guard`` "else" を高々ひとつの ``outgoing`` エッジについて
+  用いて構わない。
+  この防御が true と評価されるのは、
+  DecisionNode から生えている他の ``outgoing`` エッジのどれによってでも
   トークンを受理しないときに限る。
 
 15.3.4 Notation
 ----------------------------------------------------------------------
+15.3.4.1 Initial and Final Nodes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 15.27 InitialNode notation
 
+  * InitialNodes は黒塗りの丸として記す。
   * 既視感のある黒丸シンボル。
 
 * Figure 15.28 FinalNode notation
 
-  * ActivityFinal は黒丸を丸で囲むシンボル。
-  * FlowFinalNode はマルバツシンボル。
+  * ActivityFinalNodes は白丸に囲まれた黒丸として記す。
+  * FlowFinalNodes はバツが内側にある丸として記す。
 
+15.3.4.2 Fork and Join Nodes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 15.29 ForkNode and JoinNode notation
 
-  * 両者とも太めの線分として記すが、向きは任意でよいらしい。
-  * この線分に outgoing/incoming ActivityEdges のシンボルを必要に応じて接続する。
+  * ForkNode と JoinNode の両者に対する表記法は、単に線分である。
+  * この線分に ``outgoing``/``incoming`` ActivityEdges のシンボルを
+    必要に応じて接続する。
 
 * Figure 15.30 joinSpec notation
 
@@ -722,49 +808,69 @@ UML 2.5 pp. 371-438 に関するノート。
 
   * JoinNode と ForkNode が隣接？している状況では、両者を癒着できる。
 
+15.3.4.3 Merge Nodes and Decision Nodes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 15.32 MergeNode notation
 
-  * MergeNode 自体は白ダイヤモンドシンボルで表す。
-  * ふたつ以上の incoming ActivityEdges および
-    ひとつの outgoing ActivityEdge を持つ必要がある。
+  * MergeNodes と DecisionNodes の両者を表す表記法は、
+    ダイヤモンド記号である。
+
+  * MergeNode はふたつまたはそれを超える ``incoming`` ActivityEdges および
+    単一の ``outgoing`` ActivityEdge を持つ必要がある。
+    それに対して、
+    DecisionNode はあり得る ``decisionInputFlow`` 以外では、
+    単一の ``incoming`` ActivityEdge と
+    複数の ``outgoing`` ActivityEdges を持つ必要がある。
 
 * Figure 15.33 DecisionNode notation
 
-  * DecisionNode 自体は白ダイヤモンドシンボルで表す。
-  * ひとつの incoming ActivityEdge および
-    ふたつ以上の outgoing ActivityEdges を持つ必要がある。
-  * decisionInput はキーワード ``«decisionInput»`` と共にコメントの記法で示す。
-  * decisionInputFlow はキーワード ``«decisionInputFlow»`` をその矢印のそばに添える。
+  * ``decisionInput`` はキーワード ``«decisionInput»`` と共に
+    註釈の記法で示す。
+
+  * ``decisionInputFlow`` はキーワード ``«decisionInputFlow»`` を
+    その矢印のそばに添える。
 
 * Figure 15.34 Combined MergeNode/DecisionNode notation
 
-  * MergeNode と DecisionNode はシンボルを共有することがある。
-  * incoming/outgoing ActivityEdges シンボルを複数示すことになる。
+  * MergeNode と DecisionNode は記号を共有することがある。
+  * ``incoming``/``outgoing`` ActivityEdges 記号を複数示すことになる。
 
 15.3.5 Examples
 ----------------------------------------------------------------------
+15.3.5.1 Initial Nodes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 15.35 InitialNode example
 
-  * InitialNode から無条件で Receive Order ノードに至る。
+  * Activity の実行の開始時点において、
+    InitialNode は Receive Order ExecutableNode に制御を渡す。
 
+15.3.5.2 Fork and Join Nodes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 15.36 ForkNode example
 
-  * Fill Order が完了したときに、ShipOrder と SendInvoice の
-    両方に制御を引き渡す。
+  * Fill Order が完了したときに、
+    ForkNode は ShipOrder と SendInvoice の
+    両方に制御を渡す。
 
 * Figure 15.37 JoinNode example
 
-  * ShipOrder と SendInvoice の両方が完了したときに（同期）、
-    Close Order に制御を引き渡す。
+  * JoinNode は
+    ShipOrder と SendInvoice の処理を同期するのに使われる。
+    両方が完了したときに Close Order に制御を引き渡す。
 
 * Figure 15.38 joinSpec example
 
   * 自動販売機の制御が Dispense Drink に引き渡されるには、
-    この joinSpec にある条件が満たされる必要がある。
+    この ``joinSpec`` にある条件が満たされる必要がある。
 
+15.3.5.3 Merge and Decision Nodes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 15.39 MergeNode example
 
-  * 要注意。場合によっては Ship Item が二度実行される。
+  * Buy Item と Make Item のどちらか一方または両方共が
+    実行されたのかもしれない。
+
+  * 場合によっては Ship Item が二度実行される。
 
 * Figure 15.40 DecisionNode example
 
@@ -772,11 +878,14 @@ UML 2.5 pp. 371-438 に関するノート。
 
 * Figure 15.41 DecisionNode example with decisionInput
 
-  * decisionInput のコメントに分岐条件を書き下している。
+  * ``decisionInput`` の註釈に分岐条件を書き下している。
 
+15.3.5.4 Final Nodes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 15.42 ActivityFinalNode example
 
-  * Close Order 完了時に無条件で FinalNode に至る。
+  * Close Order 完了時に FinalNode に至る。
+    Activity は停止する。
 
 * Figure 15.43 ActivityFinalNode example
 
@@ -797,6 +906,8 @@ UML 2.5 pp. 371-438 に関するノート。
 
   * ActivityFinalNode に至るとすると、左側のループはもはや実行中ではないはず？
 
+15.3.5.5 Various Control Nodes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 15.47 ControlNode examples (...)
 
   * この Activity には既視感がある。
