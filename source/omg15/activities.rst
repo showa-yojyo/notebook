@@ -917,10 +917,18 @@ UML 2.5 pp. 371-438 に関するノート。
 
 15.4.1 Summary
 ----------------------------------------------------------------------
-* ObjectNode は ActivityNode の一種で、
-  Activity の実行中に値を含むオブジェクトトークンを保持するのに用いる。
+* ObjectNode とは ActivityNode の一種であり、
+  Activity の実行中に値を含むオブジェクトトークンを保持するのに
+  用いるものである。
 
-* 本節では ObjectNode 一般の話を述べ、その具象型 3 種を述べる。
+  * 本節では
+    その具象型 3 種 ActivityParameterNodes, CentralBufferNodes,
+    DataStoreNodes ばかりでなく、
+    ObjectNode 一般の話を述べる。
+
+  * ObjectNode の 4 番目の種類である Pins は、
+    常に Actions に結び付けられ、
+    :doc:`./actions` で述べられる。
 
 15.4.2 Abstract Syntax
 ----------------------------------------------------------------------
@@ -935,99 +943,143 @@ UML 2.5 pp. 371-438 に関するノート。
 * ObjectNode は Activity の実行途中にオブジェクトトークンを保持する。
 
 * ObjectNode は同じ値を持つ複数のオブジェクトトークンを含んでよい。
+  そのようなトークンは通常は結合しない。
 
 * ObjectNodes は TypedElements である。
+  ObjectNode に ``type`` が指定されていると、
+  ObjectNode が保持するオブジェクトトークンはどれも
+  ObjectNode の ``type`` に適合する値を持つものとする。
 
-* ObjectNodes は States の inState 集合を指定することも許される。
+  * ``type`` が指定されていなければ、
+    値はどのような ``type`` であってもよい。
 
-* ObjectNode はその upperBound がある場合、
+  * 空トークンはオブジェクトノードすべての型を満足する。
+
+* ObjectNodes は States の ``inState`` 集合を指定することも許される。
+
+* ObjectNode はその ``upperBound`` がある場合、
   それが指定する値を超える個数のトークンを含むことは許されない。
 
-* ObjectNode::ordering はどういう順序で
-  その outgoing エッジに差し出されるトークンを決めるかを指定する。
+* ObjectNode の ``ordering`` は、
+  ノードが保持するトークンを
+  ``outgoing`` ActivityEdges に運び出す順序を指定する。
+  この特性は次の値のひとつである：
 
   * unordered: 順序を定義しない。
-  * FIFO
-  * LIFO
-  * ordered: selection Behavior を用いたモデル作者定義による順序とする。
+  * FIFO: ObjectNode が受理した順番で ``outgoing`` エッジに運び出す。
+  * LIFO: ObjectNode が受理したのと逆の順番で ``outgoing`` エッジに運び出す。
+  * ordered: ``selection`` Behavior を用いたモデル作者定義による順序とする。
 
-* ObjectNode::ordering の値が ordered であるときに限り、
-  この ObjectNode は selection Behavior を持たねばならない。
+* ``ordering`` == ordered であるとき、かつそのときに限って、
+  ObjectNode は ``selection`` Behavior を持つものとする。
 
-* ObjectNode::selection はそのノードの outgoing エッジにトークンがひとつ
-  差し出された時にはいつでも実行される。
+* ObjectNode の ``selection`` は
+  そのノードの ``outgoing`` エッジにトークンがひとつ
+  運び出されることになるときにはいつでも実行される。
 
-* ObjectNode::selection はそのノードの outgoing ObjectFlows で定義されている
-  どの selection を以ってでも上書きされる。
+* ObjectNode の ``selection`` は
+  その ``outgoing`` ObjectFlows の
+  ``selection`` Behavior のどれによっても上書きされる。
 
-* ordering のためにお互いを追い越すトークン (pl.) は、
-  Activity の各発動がその Activity の別々の実行によって処理される
+* ``ordering`` のために互いを追い越すトークン (pl.) は、
+  Activity の発動のそれぞれが
+  その Activity の別々の実行によって処理される
   場合からは独立している。
 
-* ObjectNode::isControlType が真ならば、
-  ControlFlows はそのノードの incoming および outgoing になってよろしい。
-  オブジェクトトークン (pl.) は ControlFlows をたどることが可能である。
+* ObjectNode に対する ``isControlType`` が true であると、
+  ControlFlows が ObjectNode に対する ``incoming`` および ``outgoing``
+  であってよく、
+  オブジェクトトークンは ControlFlows に沿って
+  ObjectNode に出入りすることが可能であり、
+  それらのトークンは ObjectNode の下流に到達される
+  ControlFlows に沿って流れることが可能である。
 
 15.4.3.2 Activity Parameter Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Activity は Behavior の一種なので Parameters を持つことが許される。
+  Activity が発動されると、
+  値を入力 Parameters (in/inout) で Activity の実行の中へ引き渡してよく、
+  値を出力 Parameters (inout/out/return) で Activity の実行の外へ引き渡してよい。
 
-* Activity の入出力は ActivityParameterNodes を用いて処理される。
+* Activity では、
+  Activity の入出力は ActivityParameterNodes を用いて処理される。
+  ActivityParameterNode それぞれには、
+  そのノードを所有する Activity の Parameter ひとつが結び付けられる。
 
-* ActivityParameterNode は次のどちらか一方であるものとする。
-
-  * すべてのエッジが incoming である
-  * すべてのエッジが outgoing である
+* ActivityParameterNode は
+  すべてが ``incoming`` ActivityEdges であるか、
+  すべてが ``outgoing`` ActivityEdges であるかのどちらかであるものとする。
 
 * Activity は
-  入力引数、出力引数、戻り値それぞれに対応する ActivityParameterNode をひとつ、
-  入出力引数それぞれに対応する ActivityParameterNodes をふたつ持たねばならない。
+  入力引数、出力引数、戻り値それぞれに対応する ActivityParameterNode を
+  ひとつ、
+  入出力引数それぞれに対応する ActivityParameterNodes を
+  ふたつ持つものとする。
 
-* 入力 ActivityParameterNode が非 streaming 引数に結び付けられていれば、
-  Activity が発動された時に、その引数を用いて引き渡された値はいずれも
-  オブジェクトトークン (pl.) に wrap され、
+* 入力 ActivityParameterNode が非 streaming Parameter に結び付けられていれば、
+  含む Activity が発動された時に、
+  その Parameter を用いて引き渡された値はいずれも
+  オブジェクトトークン (pl.) に包み込まれて、
   Activity 実行の開始点にある ActivityParameterNode に配置される。
 
 * Activity の実行途中では、オブジェクトトークン (pl.) は
-  その Activity の出力 ActivityParameterNodes に流出してよい。
+  Activity の出力 ActivityParameterNodes に流出してよい。
 
-* 入力 ActivityParameterNode 非 streaming 引数に結び付けられていれば、
-  新しい値がその引数に post されるときにはいつでも、
-  その値がオブジェクトトークンに wrap されて、
-  ActivityParameterNode に配置されて、すべての outgoing エッジに差し出される。
+* 入力 ActivityParameterNode 非 streaming Paramter に結び付けられていれば、
+  新しい値がその Parameter に post されるときにはいつでも、
+  その値がオブジェクトトークンに包み込まれて、
+  ActivityParameterNode に配置されて、
+  ``outgoing`` エッジすべてに運び出される。
 
 15.4.3.3 Central Buffer Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* CentralBufferNode は incoming ObjectFlows と outgoing ObjectFlows の間の
-  緩衝材として振る舞う。
-  具体的に言うと ordering に従ってオブジェクトトークンが処理される。
+* CentralBufferNode は ``incoming`` ObjectFlows と
+  ``outgoing`` ObjectFlows の間の緩衝材として振る舞う。
 
 15.4.3.4 Data Store Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* DataStoreNode は Activity が実行している間は
+* DataStoreNode とは、
+  Activity が実行している間じゅう
   そのオブジェクトトークン (pl.) を永続的に保持する CentralBufferNode である。
 
-* DataStoreNode が保持するオブジェクトトークンへの差し入れを
-  下流のノードが受理するときに、
-  差し出したトークンは（通常の CentralBufferNode の意味で）
+* DataStoreNode が保持するオブジェクトトークンについての運び出しを
+  下流のオブジェクトノードが受理すると、
+  その運び出されたトークンは（通常の CentralBufferNode の意味で）
   DataStoreNode から取り除かれる。
 
-* DataStoreNode がオブジェクトトークンを受理するときに、
-  もしそのノードがすでに同一のトークンを保持していれば、
-  その DataStoreNode 上に重複してトークンを配置してはならない。
-  CentralBufferNode とは異なり、DataStoreNode は一意なオブジェクト群を含む。
+* DataStoreNode がオブジェクトトークンを受理すると、
+  もしそのトークンがすでにそのノードによって
+  保持されているトークンに含まれる
+  オブジェクトと同一のオブジェクトを含んでいれば、
+  重複オブジェクトトークンは DataStoreNode 上に配置しないものとする。
+  正規の CentralBufferNode とは異なり、
+  DataStoreNode は一意なオブジェクト群を含む。
 
-* outgoing ObjectFlows 上の selection と transformation Behaviors は、
-  DataStoreNode の外側にある情報を取得するのに利用することが可能。
+* ``outgoing`` ObjectFlows にある
+  ``selection`` と ``transformation`` Behaviors は、
+  まるで問い合わせが実施されたかのように
+  DataStoreNode の外側に情報を出すのに利用することが可能である。
 
 15.4.4 Notation
 ----------------------------------------------------------------------
+15.4.4.1 Object Nodes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 15.49 ObjectNode notations
 
-  * ObjectNode は矩形とテキストで示す。
-  * コレクションを表現する ObjectNode はそのようにラベルに示す。
-  * Signal 付きの ObjectNode は矩形ではなく、初心者マークみたいな多角形で示す。
+  * ObjectNodes は矩形で示す。
+
+  * ノードを分類する名前を記号の内側に置き、
+    ここで名前とは ObjectNode の ``type`` または
+    "name:type" の書式でノードの ``name`` と ``type`` を示す。
+
+  * コレクションを表現する ObjectNode はそのようにラベルする。
+  * Signal 付きの ObjectNode は矩形ではなく、
+    初心者マークみたいな多角形で示す。
     左が凹で右が凸。
+
+* ObjectNode に States の集合 ``inState`` があれば、
+  この集合にある States の名前が中括弧付きカンマ区切りリストとして書かれて、
+  ObjectNode の名前の下に置かれる。
 
 * Figure 15.50 ObjectNode annotations
 
@@ -1035,32 +1087,46 @@ UML 2.5 pp. 371-438 に関するノート。
 
 * Figure 15.51 Specifying selection behavior on an ObjectNode
 
-  * ObjectNode の selection Behavior はコメントの記法を用いて示す。
-  * キーワード ``«selection»`` が必要。
+  * ObjectNode の ``selection`` Behavior は
+    キーワード ``«selection»`` が付いた註釈記号で指定され、
+    ObjectNode 記号に取り付けられる。
+
+15.4.4.2 Activity Parameter Nodes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* ActivityParameterNode は ObjectNode として記されるが、
+  付随する Parameter の完全テキスト仕様が
+  普通の名前・型ラベルの代わりに
+  ActivityParameterNode をラベル付けするのに用いられることは除く。
 
 * Figure 15.52 Notation for stream and exception parameters
 
   * streaming Parameter に関連する ActivityParameterNode の記法は、
-    文字列 ``{stream}`` をノードシンボルの近くに記すものとする。
+    文字列 ``{stream}`` をノード記号の近くに記すものとする。
 
   * 例外 Parameter に関連する ActivityParameterNode の記法は、
-    小さな三角のシンボルをノードシンボルの近くに記すものとする。
+    小さな三角をノード記号の近くに記すものとする。
 
 * Figure 15.53 Presentation option for flows between pins and parameter nodes
 
   * Activity の上側の表現と下側の表現は等価である。
   * Parameters は Activity の境界でやり取りする。
 
+15.4.4.3 Central Buffer and Data Store Nodes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 15.54 Optional CentralBufferNode notation
 
-  * ObjectNode の記法に、オプションでキーワード ``«centralBuffer»`` を付けるものとする。
+  * CentralBufferNode 記号は ObjectNode の記法に、
+    オプションでキーワード ``«centralBuffer»`` を含んでよい。
 
 * Figure 15.55 DataStoreNode notation
 
-  * ObjectNode の記法に、キーワード ``«datastore»`` を付けるものとする。
+  * DataStoreNode はキーワード ``«datastore»`` が付いた
+    ObjectNode として記す。
 
 15.4.5 Examples
 ----------------------------------------------------------------------
+15.4.5.1 Activity Parameter Nodes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 15.56 Example of ActivityParameterNodes for regular and exception Parameters
 
  * ここで見るべきは境界上のノードのみ。
@@ -1072,13 +1138,15 @@ UML 2.5 pp. 371-438 に関するノート。
   * 入出力どちらの ActivityParameterNodes でも streaming たり得る。
   * ちなみに streaming であることと例外であることは両立してはならない。
 
+15.4.5.2 Central Buffer and Data Store Nodes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 15.58 CentralBufferNode example
 
   * 予備部品と採用部品の区別法を示していないことに注意。
 
 * Figure 15.59 DataStoreNode example
 
-  * selection Behavior の説明が欲しい。
+  * ``selection`` Behavior の説明が欲しい。
   * Once a year というシンボルがあるが、これは Timer の類だろう。
 
 15.5 Executable Nodes
