@@ -1154,16 +1154,16 @@ UML 2.5 pp. 371-438 に関するノート。
 
 15.5.1 Summary
 ----------------------------------------------------------------------
-* ExecutableNode は ActivityNode の一種で、
-  Activity の所望の振る舞い全体のうちの
-  ひとつの段階として実行される。
+* ExecutableNode とは、
+  Activity の所望の挙動全体のうちの
+  ひとつの段階として実行されてよい
+  ActivityNode の一種である。
 
-* 本節では ExecutableNode の一般的な意味と、
-  どの ExecutableNode も ExceptionHandler を
-  付属させる能力を有することについて議論する。
-
-* ExecutableNode のすべての具象型は Action であり、
+* ExecutableNodes の具象型はすべてが Actions であり、
   :doc:`./actions` で述べる。
+  本節では Activity における ExecutableNodes の一般的な意味と、
+  どの ExecutableNode についても ExceptionHandler を
+  付属させる能力が有することを議論する。
 
 15.5.2 Abstract Syntax
 ----------------------------------------------------------------------
@@ -1176,80 +1176,106 @@ UML 2.5 pp. 371-438 に関するノート。
 ----------------------------------------------------------------------
 15.5.3.1 Executable Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* ExecutableNode はそれを含む Activity の実質的な (substantive) 振る舞いのステップを
+* ExecutableNode とは、
+  それを含む Activity の実質的な挙動の一段階を
   実施する ActivityNode である。
 
-* ExecutableNode はすべての incoming ControlFlows がトークンを差し出すまでは
-  実行してはならない。
-  つまり、incoming ControlFlows 上には暗黙の join が存在する。
+* ExecutableNode は ``incoming`` ControlFlows すべてが
+  トークンを与えるまで実行しないものとする。
+  つまり ``incoming`` ControlFlows 上には暗黙の合流が存在する。
 
 * ExecutableNode が実行を開始する前に、
-  incoming ControlFlows において差し出されたすべてのトークンを受理する。
+  ``incoming`` ControlFlows から運び込まれるトークンすべてを受理する。
 
-* ExecutableNode が実行している限り、
+* ExecutableNode が実行している間は、
   ある単独の制御がそれが実行であることを示しているとみなされる。
 
 * ExecutableNode が実行を完了するときは、
-  その実行を表現している制御トークンがそのノードから取り除かれ、
-  制御トークン (pl.) がそのノードの outgoing ControlFlows すべてに差し出される。
-  つまり、ノードから outgoing ControlFlows の間に暗黙の fork が存在する。
+  その実行を表現している制御トークンがその ExecutableNode から取り除かれ、
+  制御トークン (pl.) がその ExecutableNode の
+  ``outgoing`` ControlFlows すべてに運び出される。
+  つまり、ExecutableNode から ``outgoing`` ControlFlows への
+  制御の流れの暗黙の分岐点が存在する。
 
 15.5.3.2 Exceptions and Exception Handlers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 例外とは、ある実行の完了様式が正常ではないことを確認するために用いられる値である。
+* 例外とは、
+  実行の完了様式が正常ではないことを確認するために用いられる値である。
 
 * ExecutableNode は
-  ExecutableNode (protectedNode) の外側に広まることもある例外 (pl.) を対処するための
-  ExceptionHandlers (handlers) をひとつ以上持つことが許される。
+  ExecutableNode の外側に広まることもある例外 (pl.) を対処するために
+  使われる ExceptionHandlers を
+  ひとつまたはそれを超える個数持つことが許される。
+  その例外たちの ``handlers`` の ``protectedNode`` である。
 
-* ExceptionHandler が例外を捕捉するならば、
-  その例外はハンドラー用の execptionInput ノード上に設置されている
-  あるオブジェクトトークンに wrap される。
+* ExceptionHandler が例外を捕捉すると、
+  その例外はその処理者に対する ``execptionInput``  ObjectNode に
+  設置されているオブジェクトトークンに包み込まれる。
 
-* 例外捕捉後、ExceptionHandler::handlerBody が実行を完了するときに、
-  あたかも protectedNode が正常に完了したかのごとき同じ方法で、
-  制御トークンが ExceptionHandler::protectedNode の
-  outgoing ControlFlows で差し出される。
+* 例外捕捉後、ExceptionHandler の ``handlerBody`` が実行を完了すると、
+  あたかも ``protectedNode`` が正常に完了したかのごとき正確に同じ方法で、
+  制御トークンが ExceptionHandler の ``protectedNode`` の
+  ``outgoing`` ControlFlows に運び込まれる。
 
-* ExceptionHandler::handlerBody は incoming にせよ outgoing にせよ
-  ActivityEdges を持ってはならない。
+* ExceptionHandler の ``handlerBody`` は
+  ``incoming`` にせよ ``outgoing`` にせよ
+  ActivityEdges を持たないものとする。
 
-* ExceptionHandler::handlerBody は ExceptionHandler::protectedNode と同じ
-  owner を持たねばならない。
-  また、ExceptionHandler::exceptionInput を所有せねばならない。
+* ExceptionHandler の ``handlerBody`` は
+  ExceptionHandler の ``protectedNode`` と同じ
+  ``owner`` を持つものとし、
+  ExceptionHandler の ``exceptionInput`` を所有するものとする。
 
-* もし ExecutableNode がある例外を広めるのに、
-  そのノードが handlers も
-  広まった例外に match する handler も持たなければ、
+* もし ExecutableNode が例外を広めて、
+  そのノードには ``handlers`` がないか、
+  広まった例外に一致する ``handler`` がないならば、
   その例外はより外側へと広まり続ける。
 
 15.5.4 Notation
 ----------------------------------------------------------------------
+15.5.4.1 Executable Nodes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 15.61 ExecutableNode notation
 
-  * ExecutableNode シンボルは角丸矩形。
-  * ただし特殊型では記法も特殊化されるだろう。
+  * ExecutableNode は一般的には丸い角の矩形として描かれる。
+  * Actions のさまざまな種類に対するより特殊化した表記法は
+    :doc:`./actions` で述べる。
 
+15.5.4.2 Exception Handlers
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 15.62 ExceptionHandler notation
 
-  * ExceptionHandler は稲妻矢印として記す。
+  * ExceptionHandler は稲妻記号で描かれる。
 
-    * 矢印の始点は protectedNode である。
-    * exceptionType の名前を稲妻のそばに記す。
-    * 矢印の終点 exceptionInput ノードは小さい四角で示す。
+    * 矢印の始点は ``protectedNode`` である。
+    * ``exceptionType`` の名前を稲妻のそばに記す。
+    * 矢印の終点 ``exceptionInput`` ノードは小さい正方形で示す。
 
 * Figure 15.63 Alternative ExceptionHandler notation
 
   * 矢印自体を稲妻にする代わりに、ジグザグマークを
-    普通の矢印に添えて ExceptionHandler としてもよろしい。
+    普通の矢印に添えて ExceptionHandler としてもよい。
 
 15.5.5 Examples
 ----------------------------------------------------------------------
 * Figure 15.64 ExceptionHandler example
 
-  * 何らかの（方程式を解く？）行列演算の Activity で、例外送出の仕様を表現している。
-  * 逆行列が求まらない例外と、オーバーフローの例外を区別している。
-  * 経過がどうあれ、Print Results は実行される。
+  * まず逆行列を求め、
+    それからベクトルを乗じることで別のベクトルを得る。
+
+  * 行列が非正則ならば、逆行列演算は失敗するはずで
+    SingularMatrix 例外が送出される。
+    この例外は ``exceptionType`` SingularMatrix に対する
+    ExceptionHandler により処理されるが、
+    それは Substitute Vector1 Action を含む領域を実行する。
+
+  * 逆行列演算またはベクトル乗算のどちらかの処理中に
+    Overflow 例外が発生すると、
+    Substitute Vector1 Action を含む領域が実行される。
+
+  * 行列演算が例外なしで完了するか、
+    ExceptionHandlers のうちのひとつがきっかけとなったかに関わらず、
+    活動 Print Results は次に実行される。
 
 15.6 Activity Groups
 ======================================================================
