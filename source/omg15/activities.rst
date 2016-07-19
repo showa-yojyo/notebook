@@ -3,7 +3,7 @@
 ======================================================================
 UML 2.5 pp. 371-438 に関するノート。
 
-.. todo:: 最低でもあと一回は編集する。
+.. todo:: 誤訳や変な解釈がいかにもありそうなので、発覚次第修正する。
 
 .. todo::
 
@@ -1282,115 +1282,161 @@ UML 2.5 pp. 371-438 に関するノート。
 
 15.6.1 Summary
 ----------------------------------------------------------------------
-* ActivityGroup はノードとエッジをグループ化する構成要素である。
-* ノードとエッジは一個を超えるグループに所属することが可能である。
-* 本節では ActivityGroup のふたつの具象型について述べる。
+* ActivityGroup は ActivityNodes と ActivityEdges に対する
+  集団化構成要素である。
 
-* StructuredActivityNode という具象型が存在するが、
-  これについては :doc:`./actions` で議論する。
+  * ノードとエッジはひとつを超える集団に所属することが可能である。
+
+  * 本節では ActivityGroup のふたつの具象型、
+    ActivityPartitions と InterruptibleActivityRegions について述べる。
+
+  * StructuredActivityNode は ActivityGroup の第三種であるが、
+    それらは Actions でもあるから
+    :doc:`./actions` で議論する。
 
 15.6.2 Abstract Syntax
 ----------------------------------------------------------------------
 * Figure 15.65 ActivityGroups
 
   * ActivityGroup の特殊型として ActivityPartition と InterruptibleActivityRegion がある。
-  * ActivityGroup は subgraph を表現するためのものだろう。
+  * ActivityGroup は ``subgraph`` を表現するためのものだろう。
 
 15.6.3 Semantics
 ----------------------------------------------------------------------
 15.6.3.1 Activity Partitions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* ActivityPartition は ActivityGroup の一種で、
-  何らかの共通する性質を持つ ActivityNodes を同一視するために用いるものである。
+* ActivityPartition とは、
+  ある共通の性質を有する ActivityNodes を同一視するために用いる
+  ActivityGroup の一種である。
 
 * ActivityPartitions はモデルのトークンの流れには影響を及ぼさない。
-  その仕切りの containedNodes と containedEdges の実行によって
-  発動する Behaviors について制約を加えたりビューを与えたりするものである。
+  それらは仕切りの ``containedNodes`` と ``containedEdges`` の実行のため
+  発動される Behaviors についてのビューを抑制したり、
+  ビューを実現したりする。
 
-  * 仕切りが表現する要素 (ActivityPartition::represents) の種類に従い、
-    制約は異なる。
+  * Constraints は仕切りが表現する要素 (``represents``) の種類に従い、
+    変化する。
 
-    * Classifier: この仕切りで発動した Behaviors は
-      represents の Classifier のオブジェクトである責任がある。
+    * Classifier: 仕切りで発動した Behaviors は
+      ``represents`` の Classifier のオブジェクトである責任がある。
 
     * InstanceSpecification: この仕切りで発動した Behaviors は
-      represents の InstanceSpecification によりモデル化されるオブジェクトである責任がある。
+      ``represents`` の InstanceSpecification により
+      モデル化されるオブジェクトである責任がある。
 
     * Property: この仕切りで発動した Behaviors は
-      represents の Property により保持されるオブジェクト (s./pl.) である責任がある。
+      ``represents`` の Property により保持される
+      オブジェクト (s./pl.) である責任がある。
 
-  * ActivityPartition は上に挙げた以外の Elements を表現してもよろしいが、
-    当仕様書はそれらの意味を定義しない。
+* ActivityPartition は上に挙げた以外の他の種類の Elements を表現してもよいが、
+  当仕様書はそれらの意味を定義しない。
 
-* ActivityPartition は subpartitions を持ってよい。
-  もし ActivityPartition::isDimension が真ならば、
-  それは subpartitions を収めるための仕切りである。
+* ActivityPartition には ``subpartitions`` があってもよい。
+  ActivityPartition の ``isDimension`` が true であれば、
+  それは ``subpartitions`` を収めるための寸法？である。
 
-* ActivityPartition がある Property を表現し、
-  かつその subpartitions が InstanceSpecifications を表現するならば、
-  その InstanceSpecifications はその Property が保持する値をモデル化するものとする。
+* ActivityPartition が Property を表現し、
+  かつその ``subpartitions`` が InstanceSpecifications を表現するならば、
+  InstanceSpecifications は Property が保持する値を
+  モデル化するものとする。
 
-* ActivityPartition がある Classifier::attribute Property を表現し、
+* ActivityPartition が Classifier の ``attribute`` である Property を表現し、
   別の仕切りがそれを含むならば、
-  その superPartition はその Classifier か、
-  その Classifier が type となるある Property を表現するものとする。
+  その ``superPartition`` はその Classifier か、
+  ``type`` がその Classifier となる Property を表現するものとする。
 
-* 非外部 ActivityPartition がある Classifier を表現し、
-  別の仕切りに含まれているならば、その superPartition もまた
-  ある Classifier を表現するものとし、
-  その subpartition の Classifier は次のどちらかである必要がある。
+* 非外部 ActivityPartition が Classifier を表現し、
+  別の仕切りに含まれているならば、
+  ``superPartition`` もまた Classifier を表現するものとし、
+  ``subpartition`` の Classifier は次のどちらかでなければならない。
 
-  #. Classifier::nestedClassifier または Classifier::ownedBehavior である
-  #. composition 関連の末尾に含まれる
+  * ``superPartition`` が表現する Classifier の 
+    ``nestedClassifier`` または ``ownedBehavior`` であるか、
 
-* 外部 ActivityPartition とは isExternal の値が true であるものを指す。
+  * ``superPartition`` が表現する Classifier に
+    付随した合成 Association の端点末尾に含まれる。
+
+* 外部 ActivityPartition とは ``isExternal`` が true であるものである。
   これは仕切りの構造の規則に対する作為的な例外である。
 
-* ActivityPartitions は、
+* ActivityPartitions を
   実行のそれとしては不十分ではあるが、
-  高水準のモデル作者によるレビューには不足のない情報を
-  提供するのに利用されてもよい。
+  高水準のモデル作者による検討には十分な情報を
+  与えるのに利用してよい。
 
 15.6.3.2 Interruptible Activity Regions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* InterruptibleActivityRegion は Activity の
-  ある一部分の停止を支援する ActivityGroup である。
+* InterruptibleActivityRegion とは、
+  Activity の一部分の停止を支援する ActivityGroup である。
 
   * InterruptibleActivityRegion は ActivityNodes しか含まない。
 
-* AcceptEventActions うんぬんは :doc:`./actions` でやろう。
+  * また、InterruptibleActivityRegion は
+    その ``source`` が領域内に、その ``target`` が領域外にある
+    ある ActivityEdges を ``interruptingEdge`` として明らかにする。
 
-* もし何らかの場合に領域内のすべてのフローを中止するのを望まないならば、
-  InterruptibleActivityRegion を使わない。
+* 領域にある AcceptEventActions で ``incoming`` エッジがないものは、
+  トークンが AcceptEventAction に向かっていないときでさえ、
+  その領域にトークンが入場するときにしか使用可能にはならない。
+
+  * AcceptEventActions の完全な記述については :doc:`./actions` を参照。
+
+* もし何らかの場合に領域内の流れの全てを中止するのを望まないならば、
+  InterruptibleActivityRegion は使わない。
 
 15.6.4 Notation
 ----------------------------------------------------------------------
+15.6.4.1 Activity Partitions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* ActivityPartition は、
+  二本の、ふつうは水平か垂直のどちらかの平行な線と、
+  箱の中の一端に仕切りに名前のラベルを付けて記す。
+
 * Figure 15.66 ActivityPartition notations
 
-  * 罫線を駆使して ActivityPartition を記す。
-    この記法を swimlane と呼ぶ。
+  a. これらの線に挟まれて置かれる
+     ActivityNodes と ActivityEdges のいずれもが
+     その仕切りの中に含まれるとみなされる。
+     この ActivityPartition の表記法は俗に言う swimlane として知られる。
+
+  b. ``superPartition`` のさらなる仕切りとして
+     ``subpartitions`` を表現することで階層的な仕切りを表現することができる。
+
+  c. swim cell のそれぞれは複数の仕切りの交差である。
+
+* 罫線による ActivityPartitions の図式化は実践的ではないことがある。
+  その場合には次に示す代替記法を検討する。
 
 * Figure 15.67 ActivityPartition notations
 
-  * 罫線による ActivityPartitions の図式化は実践的ではないことがある。
-    その場合にはここで示す代替記法を検討する。
+  a. 仕切りの名前を括弧付きで ActivityNode の名前の上に置く。
+  b. 外側の仕切りはキーワード ``«external»`` を付けてラベルする。
 
+15.6.4.2 Interruptible Activity Regions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 15.68 InterruptableActivityRegion
 
   * InterruptableActivityRegion は破線丸角矩形で記す。
-  * その interruptingEdge を先述の記法で記す。
+  * ``interruptingEdge`` を稲妻 ActivityEdge を使って記す。
 
 * Figure 15.69 InterruptableActivityRegion alternative notation
 
-  * 先述の通り interruptingEdge の矢印をストレートにしてジグザグマークを添えてもよい。
+  * 先述の通り ``interruptingEdge`` の矢印をストレートにして
+    ジグザグマークを添えてもよい。
 
 15.6.5 Examples
 ----------------------------------------------------------------------
+15.6.5.1 Activity Partitions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 15.70 ActivityPartitions using swimlane notation
 
   * いつもの例題に swimlanes を明記したもの。
-  * ところで swimlanes をまたぐ ActivityEdges は、
-    どのサブ ActivityPartition の所属でもない。
+    上段が Order Department の担当する Activity の部分を含む。
+    中段が Account Department で、
+    下段が Customer である。
+
+  * ところで仕切りをまたぐ ActivityEdges は、
+    どの ``subpartitions`` にも含まれない。
 
 * Figure 15.71 ActivityPartitions using annotation
 
@@ -1401,9 +1447,18 @@ UML 2.5 pp. 371-438 に関するノート。
 
   * 紙に描くものである以上、多次元と言っても高々 2 である。
 
+15.6.5.2 Interruptible Activity Regions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 15.73 InterruptableActivityRegion example
 
   * InterruptableActivityRegion と凹五角形シンボルの組み合わせは使い易そうだ。
+
+  * 受注、記入、出荷の間に注文取消しが起こると、
+    その流れは停止されて Cancel Order ノードが実行される。
+
+  * これが Fill Order が終了した後に起こると、
+    Fill Order の後の ForkNode のために、
+    請求処理はもう初期化してしまったかもしれない。
 
 15.7 Classifier Descriptions
 ======================================================================
