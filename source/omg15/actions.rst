@@ -8,54 +8,72 @@ UML 2.5 pp. 439-562 に関するノート。
 
 .. todo::
 
-   * unmarshal (v.) のスペリングに注意。
-     仕様書では最後の l をどんな場合でも重ねるが、
-     辞書によると不定詞では l は一個しかない。
-
-   * reduce (v.) 数学とかプログラミングとかでよくある状況での用法での訳。
-     ここでは「縮合する」と訳しておく。
-
-   * tool (n.) なぜだか「道具」や「器具」ではしっくりと来ない。
-
    * open end (n.) これがピンと来ないのはマズイ。
+
    * qualifier value (n.)
      何かを限定する値の意だとは思う。
 
      C++ だと ``const`` や ``volatile`` を qualifier だと言うのだが、
      ここでは忘れてよい。
 
+   * reduce (v.) 数学とかプログラミングとかでよくある状況での用法での訳。
+     ここでは「縮合する」と訳しておく。
+
+   * tool (n.) なぜだか「道具」や「器具」ではしっくりと来ない。
+
+   * unmarshal (v.) のスペリングに注意。
+     仕様書では最後の l をどんな場合でも重ねるが、
+     辞書によると不定詞では l は一個しかない。
+
 .. contents:: ノート目次
    :depth: 2
 
 16.1 Summary
 ======================================================================
-* Action とは UML における振る舞いの仕様の基本的な単位である。
+* Action とは UML に挙動の指定の基本的な単位である。
+  Action は入力の集合を取り、出力の集合を生じるが、
+  その集合の一方または両方がからであってもよい。
+  Action が実行するシステムの状態を変更する Actions もあってよい。
+
 * Actions は Behaviors に、
   特に Activities と Interactions に含まれている。
+  これらの Behaviors は Actions がいつ実行するのかと、
+  それらが持つ入力が何であるかを決定する。
 
 16.1.1.1 Concrete Syntax
 ----------------------------------------------------------------------
 .. note:: 節番号のレベルがおかしいのは原書通り。
 
-* UML 仕様は Actions をグラフィカルな記法で表すための比較的単純な集合を提供する。
+* UML 仕様は Actions を表す図表的表記法の相対的に極小な集合を実現する。
 
-* 具象的な構文は高水準の構成要素を UML の抽象的な構文で仕様化された Actions へと
+  * 準拠ツールはツール固有の
+    標準の Action 抽象的構文へ写像する
+    図表的またはテキスト的表現を備えてよい。
+    そのような表現は具象的構文と呼ばれる。
+
+* 具象的構文は高水準の構成要素を
+  UML 抽象的構文で指定された Actions へ
   写像することが可能である。
 
-* もっとも原始的な Actions は具体的な構文の写像の最大範囲を
-  可能にするために定義されている。
+* 当仕様でのもっとも原始的な Actions は、
+  具体的構文の写像の最大範囲を
+  使用可能にするために定義されている。
 
 16.1.1.2 Execution Engines
 ----------------------------------------------------------------------
 .. note:: 節番号のレベルがおかしいのは原書通り。
 
 * 実行機関 (an execution engine) とは UML Actions を実行する道具のことである。
+  Actions はさまざまなやり方の特徴を持ったさまざまな実行機関の
+  構成要素を使用可能にするために定義される。
 
-* モデル作者は、彼らが
-  その実行の最適化に関しての特別の知識を持つときに、
+* モデル作者は、
+  その実行を最適化するの価値があるかもしれない
+  領域解決法の特別な知識が彼らにあるときに、
   実行機関に対してヒントを与えることが可能である。
 
-* Actions の実行が UML の実行時の振る舞いを制約する構造的意味に違反するときには、
+* Actions の実行が実行時の挙動を強制する
+  UML の構造的意味の様相に違反するときは、
   Actions の意味は未定義のままとする。
 
 16.2 Actions
@@ -64,8 +82,8 @@ UML 2.5 pp. 439-562 に関するノート。
 16.2.1 Summary
 ----------------------------------------------------------------------
 * 本節では Actions および Pins の初歩的な抽象構文について定義する。
-* Pins は Actions の入力と出力を指定するのに用いられる。
-* OpaqueAction 以外の Actions の諸々の具象型は後続の節で述べる。
+  Pins は Actions に対する入力と出力を指定するのに用いられる。
+  OpaqueAction 以外は、Actions の諸々の具象型は後続の節で述べる。
 
 16.2.2 Abstract Syntax
 ----------------------------------------------------------------------
@@ -87,116 +105,180 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 16.2.3.1 Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Action とは Behavior 内部に直接的または間接的に含まれる、
+* Action とは Behavior に直接的または間接的に含まれる、
   実行可能機能の基本的な単位である。
+  Action の実行はモデル化されたシステムにおける
+  ある変換や過程を表す。
+  システムは計算機システムであるか、さもなければ別のシステムである。
 
-* もし Action を含んでいる Behavior が context BehavioredClassifier を持つならば、
-  その BehavioredClassifier はその Action に関連する context Classifiers でもある。
+  * Action の実行は別の Behavior の発動をも引き起こしてよい。
 
-* Action は入力を受け付け、出力をもたらす。
-  Actions の InputPins と OutputPins が入力と出力をそれぞれ指定する。
+* Action を含んでいる Behavior に背景となる BehavioredClassifier があれば、
+  その BehavioredClassifier はその Action に対する
+  ``context`` Classifiers でもある。
+
+* Action の InputPins と OutputPins が指定するように、
+  Action は入力を受け付け、出力を生じる。
+  Action の Pin それぞれが、その Action の
+  固有の入力または出力についての型および多重度を指定する。
 
 * Action が実行する時間と、
-  各実行が受け付ける入力が何であるのかは、次で決まる。
+  各実行が受け付ける入力が何であるのかは、
+  Action の種類と、
+  InputPins の特徴と、
+  それが使われる Behavior とによって決定される。
+  いったん Action が実行することが決定されると
+  その実行に対する一般的な手順は次の通りである：
 
-  * Action の種類
-  * InputPins の性質
-  * 用いられる Behavior
-
-* それらがいったん決定されると Action が実行するが、
-  その一般的な手順は次の通りである。
-
-  #. Action はその Action のすべての InputPins における入力データを
-     各 InputPin の多重度 upper の値の個数まで (up to) 消費する。
+  #. Action の実行は、
+     その Action の InputPins すべてにおける入力データを、
+     InputPin それぞれについての多重度 ``upper`` 個まで (up to) 消費する。
 
   #. Action はそれが完了するまでは実行を続行する。
      実行の詳細な意味と完了の定義は実行される Action の種類に依存する。
 
-  #. 完了時に、Action 実行はその Action の OutputPins における
-     出力データを与えてから終了する。
+  #. 完了したら、Action の実行は OutputPins における
+     出力データのどれでもを求めて、停止する。
 
-* Actions の意味の仕様上、Behaviors は同じ種類の Action を複数回再利用しても構わない。
-  そしてその Action の意味は各用法に別々に適用する。
+* Actions の意味の仕様上、
+  Behaviors は同じ種類の Action を複数回再利用することが許されていて、
+  Action の意味は用法のそれぞれに別個に適用する。
 
-* もし Action が局所的に再入可能でない (``!isLocallyReentrant``) ならば、
-  ひとつを超える実行が任意の時点において含んでいる Behavior の単独の実行の内部には存在してはならない。
+* Action が局所的に再入可能でない (``isLocallyReentrant`` == false) ならば、
+  ひとつを超える実行が任意の時点において含んでいる
+  Behavior の単独の実行内には存在することは許されない。
 
-* 非再入可能 Behavior の CallAction もまた、
-  その isLocallyReentrant の値が何であれ、
-  その CallAction が局所的に非再入可能であるかのように振る舞うものである。
+* 非再入可能 Behavior (``isReentrant`` == true) に対する CallAction もまた、
+  その活動に対する ``isLocallyReentrant`` 特性の値が何であれ、
+  あたかも CallAction が局所的に非再入可能であるかのように振る舞うはずである。
 
-* Action における localPrecondition と localPostcondition は、
-  それぞれ Action の実行が開始するときと終了するときに
-  成り立つべき Constraints である。
+* Action についての ``localPrecondition`` と ``localPostcondition`` は、
+  Action の実行が開始するときと終了するときに
+  それぞれ成り立つべき Constraints である。
+  ``localPrecondition`` または ``localPostcondition`` は
+  モデル作者が定義する Constraint であるので、
+  違反とは UML Action 実行の意味が未定義であることではない。
 
 16.2.3.2 Opaque Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* OpaqueAction とは、その仕様が UML 外のテキスト的な具体的語法で与えられる Action である。
-* OpaqueAction には属性 body があり、その Action の振る舞いを指定する文字列で構成される。
-* もし OpaqueAction がひとつを超える body を持つならば、
-  そのどれもが OpaqueAction の振る舞いを決定するのに用いられる可能性がある。
+* OpaqueAction とは、
+  その仕様が UML 外のテキスト的な具体的構文で与えられてよい Action である。
+  何か他の種類の Action が選ばれる前に
+  OpaqueAction を一時的な代用として使ってもよい。
+
+* OpaqueAction には、
+  その Action の挙動を指定する代用法を表すテキスト Strings の列で構成される
+  ``body`` がある。
+  ``language`` Strings の対応する列を、
+  その ``body`` Strings のそれぞれが解釈されることになる言語を
+  指定するのに使ってよい。
+  言語を ``body`` Strings と順番に一致する。
+
+* OpaqueAction にひとつを超える ``body`` があれば、
+  ``bodies`` のどのものも OpaqueAction の挙動を決定するのに
+  使われる可能性がある。
   その選択がどうなされるかについては UML は決定しない。
 
 16.2.3.3 Pins
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Pin とは Action の入力と出力を表現するものである。
-* Pin は ObjectNode の一種なので、指定された型の値を含むオブジェクトトークン (pl.) を保持する。
-* Pin は属性 ObjectNode::ordering と MultiplicityElement::isOrdered を両方継承する。
-* InputPin は Action が消費する入力値を保持する Pin である。
-* OutputPin は Action がもたらす出力値を保持する Pin である。
+* Pin とは Action についての入力と出力を表現するものである。
+
+  * InputPin が入力を表し、一方 OutputPin が出力を表す。
+  * Action に所有される入力と出力の集合のそれぞれは順序付いている。
+  * Action の InputPins と OutputPins は Action の種類により決定される。
+
+* Pin は ObjectNode の一種なので、
+  指定された Type の値を含むオブジェクトトークンを保持する。
+
+  * Action の InputPin のトークンに保持される値は
+    Action の実行に対する入力データを与え、
+    Action の実行から生じた出力データは
+    オブジェクトトークンに包み込まれて、
+    Action の OutputPins に置かれる。
+
+* Pin は属性 ``ordering`` を ObjectNode から、
+  属性 ``isOrdered`` を MultiplicityElement から両方継承する。
+  これらの属性の値は独立に定めてよい。
+
+  * 例えば ``isOrdered`` が true で ``ordering`` が FIFO であると、
+    MultiplicityElement と同じ順序で Pin から値が取られるはずである。
+
+* InputPin とは Action が消費する入力値を保持する Pin である。
+
+* OutputPin とは Action がもたらす出力値を保持する Pin である。
+
 * ValuePins と ActionInputPins は InputPins であるが、
   Action が実行可能であるかどうかの決定では用いられない。
+
 * ValuePin は ValueSpecification を評価することで値を与える。
-* ActionInputPin は別の Action を実行することで値 (pl.) を与える。
+  Action が他の手段によって使用可能であると、
+  ValuePin の ValueSpecification が評価されて、
+  その結果が実行を開始するときの Action に対する入力として求められる。
+
+* ActionInputPin は別の Action を実行することで値を与える。
+  Action が他の手段によって使用可能であると、
+  Action が所有する ActionInputPins のどの ``fromActions`` もまた使用可能になる。
 
 16.2.3.4 Actions and Pins in Activities
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* もし Action が（ということは Pins も）が Activity に含まれるならば、
+* Action が（ということは Pins も）が Activity に含まれるならば、
   いつトークンが Pins に出入りするのかと、
   いつその Action が実行するのかは、
   Actions はもちろんのこと Activities の意味によって決定する。
 
 * Activity にある Action を実行することは、
-  そのすべての InputPins がすべての必要なトークン (pl.) に、
-  それらの最小の多重度が指定するとおりに
-  差し出されることを必要とする。
+  その InputPins すべてが、
+  それらの最小の多重度が指定するとおりに、
+  必要なトークンすべてを受け入れるつもりであることを
+  必要とする。
 
-* Activity にある Action が実行を完了するときに、
-  その OutputPins に配置された出力データのための
-  オブジェクトトークン (pl.) は、Pins から出ている
-  どの outgoing ObjectFlows に差し出されても構わない。
+* Activity にある Action が実行を完了すると、
+  その OutputPins に配置された出力データについての
+  オブジェクトトークンは、
+  Pins から出ている ``outgoing`` ObjectFlows の
+  どれに運び込まれてもよい。
 
-* もし Action が局所的に再入可能ではない (!isLocallyReentrant) ならば、
-  一度実行を開始すると、その Action および InputPins は
-  実行が終了するまでは差し出されるトークンを一切受け付けない。
+* Action が局所的に再入可能ではない (``isLocallyReentrant`` == false) ならば、
+  いったん実行を開始すると、その Action および InputPins は
+  実行が終了するまでは運び込まれるトークンをどれも受け付けない。
 
-* 制御 Pin は制御の種類を持つものとする。
-  そうすることで ControlFlows と一緒に使ってよいようになる。
+* 制御 Pin (``isControl`` == true) は
+  制御の種類を持つもの (``isControlType`` == true) とする。
+  そうすることで ControlFlows と一緒に使ってよくなる。
 
 16.2.4 Notation
 ----------------------------------------------------------------------
+* 本節では Activities で使われる Actions を表す図表的表記法を指定する。
+  この表記法は準拠ツールがテキスト上の具象的構文を代わりに使えるという
+  点で選択自由である。
+
+16.2.4.1 Actions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 16.2 Action
 
   * Actions は丸角矩形を用いて示す。
-  * Action の名前や他の説明がシンボル中に現れていてよい。
+  * Action の名前や他の説明が記号中に現れてよい。
   * Actions の派生型に特化した記法は後続の節で述べる。
 
 * Figure 16.3 Local pre- and post-conditions
 
   * 局所的な事前条件と事後条件はそれぞれキーワード
     ``«localPrecondition»`` と ``«localPostcondition»``
-    と共にコメントとして示す。
+    が付いた発動に取り付けられた註釈として示す。
 
+16.2.4.2 Pins
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 16.4 Pin notations
 
   * Pins は ObjectNodes なので、矩形として記す。
-    矩形は所有されている Action シンボルに取り付けられている小さい矩形として記される。
+    矩形は所有されている Action 記号に取り付けられている
+    小さい矩形として記される。
 
-  * Pin の名前はその付近に表示してもよい。
+  * Pin の名前をその付近に表示してもよい。
     単に型だけを見せることがよくある。
     両者を示すには ``name: type`` のようにラベルする。
 
-  * Action の Pins は、たとえばモデル内にそれが存在していても、
+  * Action の Pins は、モデル内にそれが存在しているときでさえ、
     記法の省略が許されている。
 
 * Figure 16.5 Pin notations, with arrows
@@ -204,21 +286,25 @@ UML 2.5 pp. 439-562 に関するノート。
   * InputPins と OutputPins を区別する ActivityEdges が存在しないときには、
     任意で矢印を Pin 矩形の内部に配置しても構わない。
 
-  * 矢印の向きは InputPins ならば Action に向かう。
-    OutputPins ならばその反対。
+  * InputPins には Action の方向を指し示す矢印があり、
+    OutputPins には Action から離れる方向を指し示す矢印がある。
 
 * Figure 16.6 Standalone Pin notations
 
-  * ある Action の OutputPin が隣りの Action の InputPin に接続しているような
-    状況では、この図のような記法が許される。
+  * ある Action の OutputPin が ObjectFlow を介して
+    別の Action の同名の InputPin に接続している状況では、
+    この図のようなオプションの記法で示すことが許される。
 
   * この形式は両者の型が同じでないならば避けるべきである。
 
-* 制御 Pins はシンボル付近に ``{control}`` とテキスト的注釈と共に示す。
+* 制御 Pins はその Pin 記号付近に ``{control}`` とテキスト的注釈と共に示す。
+
 * ValuePin はその脇に ValueSpecification が書かれている InputPin として記す。
 
 16.2.5 Examples
 ----------------------------------------------------------------------
+16.2.5.1 Actions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 16.7 Examples of Actions
 
   * Send Payment の実施後に Accept Payment が実施される。
@@ -233,18 +319,20 @@ UML 2.5 pp. 439-562 に関するノート。
   * Dispense Drink という Action の事前条件と事後条件が詳細に記された例。
     飲み物が自販機から出る前後の状態が普通の英語で仕様化されている。
 
+16.2.5.2 Pins
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 16.10 Pin examples
 
   * 目を引くのは ``{stream}`` や角括弧付きのラベル。
 
 * Figure 16.11 Specifying selection behavior on an ObjectFlow
 
-  * Pin は ObjectNode なので selection の指定が可能。
+  * Pin は ObjectNode なので ``selection`` の指定が可能。
 
 * Figure 16.12 Example abstract syntax model showing the use of ActionInputPins
 
-  * ``self.foo->bar(self.baz)`` なるテキストによる具体的構文の表現 (expression) を
-    UML 抽象構文表現 (representation) で示したもの。
+  * ``self.foo->bar(self.baz)`` なるテキストによる具体的構文の式を
+    UML 抽象構文式で示したもの。
 
 16.3 Invocation Actions
 ======================================================================
