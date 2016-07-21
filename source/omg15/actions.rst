@@ -8,12 +8,11 @@ UML 2.5 pp. 439-562 に関するノート。
 
 .. todo::
 
-   * open end (n.) これがピンと来ないのはマズイ。
+   * open end (n.) 違うと思うが「開放端」にしておく。
 
    * qualifier value (n.)
      何かを限定する値の意だとは思う。
-
-     C++ だと ``const`` や ``volatile`` を qualifier だと言うのだが、
+     C++ だと ``const`` や ``volatile`` を qualifier と言うのだが、
      ここでは忘れてよい。
 
    * reduce (v.) 数学とかプログラミングとかでよくある状況での用法での訳。
@@ -339,13 +338,13 @@ UML 2.5 pp. 439-562 に関するノート。
 
 16.3.1 Summary
 ----------------------------------------------------------------------
-* InvocationAction は直接的または間接的にある Behavior の発動に帰着する
-  Action である。
+* InvocationAction とは、
+  直接的または間接的に Behavior の発動に帰する Action である。
 
-* InvocationActions である CallActions には、
-
-  * Operations や Behaviors を呼び出したり、
-  * 以前オブジェクト化された Behaviors を開始したりするものがある。
+* InvocationActions には、
+  Operations または Behaviors を呼び出すもののと、
+  以前オブジェクト化された Behaviors を開始するものとの
+  CallActions がある。
 
 * さらなる InvocationActions の種類には次を考慮したものがある。
 
@@ -363,175 +362,278 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 16.3.3.1 Call Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* CallAction は Behavior または Operation を呼び出す InvocationAction である。
-  次の 3 種類が存在する。
+* CallAction とは、
+  Behavior または Operation を呼び出す InvocationAction である。
+  次の 3 種類が存在する：
 
-  #. CallBehaviorAction は直接 Behavior を発動する CallAction である。
-  #. CallOperationAction は Operation 呼び出し要求メッセージを
-     目標オブジェクトに伝達する CallAction であり、
-     伝達先では関連 Behavior の発動を引き起こす。
-  #. StartObjectBehaviorAction は直接オブジェクト化された Behavior か、
-     あるオブジェクトの classifierBehavior のどちらか一方の実行を開始する
-     CallAction である。
+  #. CallBehaviorAction とは、
+     直接 Behavior を発動する CallAction であり、
+     Behavior の発動を代わる代わる引き起こす BehavioralFeature を
+     呼び出すことではない。
+
+  #. CallOperationAction とは、
+     Operation 呼び出し要求メッセージを
+     対象オブジェクトに伝達する CallAction であり、
+     伝達先では関連 Behavior の発動を引き起こしてよい。
+
+  #. StartObjectBehaviorAction とは、
+     直接オブジェクト化された Behavior か、
+     あるオブジェクトの ``classifierBehavior`` のどちらか一方の
+     実行を開始する CallAction である。
 
 * CallAction は
-  直接的にか、またはある Operation 呼び出しのどちらかを通じてかで、
-  同期的または非同期的に Behavior 発動に帰着する。
+  直接的にか、またはある Operation 呼び出しのを通じてのどちらかで、
+  同期的または非同期的に Behavior 発動に帰する。
 
-  * もし呼び出しが同期的 (isSynchronous) ならば、
-    その Action の実行は
-    発動された Behavior の実行が（正常にかどうかを問わず）完了するまで
-    完了しない。
+  * 呼び出しが同期的 (``isSynchronous`` == true) ならば、
+    発動された Behavior の実行が
+    （正常にかどうかを問わず）完了するまで
+    その Action の実行は完了しない。
 
-  * もし呼び出しが非同期的 (!isSynchronous) ならば、
+  * 呼び出しが非同期的 (``isSynchronous`` == false) ならば、
     その Action の実行はその Behavior が発動されるとすぐに完了する。
 
-* もし CallAction が発動する Behavior が再入可能でなければ、
-  ひとつを超える実行が任意の与えられた時点において存在してはならない。
+* CallAction が発動する Behavior が再入可能でなければ、
+  それのひとつを超える実行は
+  与えられた時点のどこにおいても存在しないものとする。
 
-* Behaviors と Operations は所有 Parameters の全順序リストを持っていて、
-  これらの Parameters はその順序を用いて CallAction の Pins に match される。
+* Behaviors と Operations は所有される Parameters の全順序リストを持っていて、
+  その順序を用いてこれらの Parameters を CallAction の Pins に一致する。
 
-* CallAction の実行時には、その argument Pins にある値を、
-  対応する入力 Parameters のところにある
+* CallAction を実行すると、その ``argument`` Pins にある値を、
+  対応する入力 Parameters で
   発動される Behavior または Operation に引き渡す。
 
-* もし Parameters のうちのどれが streaming ならば、
+* Parameters のどれもが streaming (``isStream`` == true) ならば、
   その呼び出しは同期的であるものとする。
-  13 章も参照。
+  :doc:`./common-behavior` も参照。
 
 * Actions についての実行規則に加えて、
-  streaming Parameters を伴う Behavior や Operation を発動する
-  CallAction は次の規則も適用する。
+  次の規則が streaming Parameters を伴う、
+  Behavior や Operation を発動する CallAction に適用する。
 
   * 通常の規則によって CallAction が実行が可能となるのに先立って、
-    すべての InputPins が各 Pin の多重度以上の個数の値を
-    差し出してもらう必要がある。
+    CallAction に対する InputPins のすべては
+    Pin それぞれの多重度下限値以上の個数の値を
+    与えられるものとする。
 
   * CallAction が正常に実行を完了することが可能になる前に、
     ある streaming Parameter に対応している
-    CallAction の各実引数 Pin の多重度の下限以上の値が受理されるものとする。
+    CallAction の ``argument`` Pin それぞれの
+    多重度下限値以上の個数の値が
+    受理されなければならない。
 
   * 発動された Behavior の実行が正常に完了する前に、
-    少なくとも CallAction の各 result Pin の多重度の下限に等しい
-    個数の値がその実行が完了するまでの時間内に post されなければならない。
+    少なくとも CallAction の ``result`` Pin それぞれの
+    多重度下限に等しい個数の値が
+    その実行が完了するまでの時間内に post されなければならない。
 
 * ParameterSets にグループ化されている Parameters を伴う
-  Behavior や Operation を発動する CallAction には特別な規則も併せて適用する。
+  Behavior や Operation を発動する CallAction には特別な規則も適用する。
 
   * Behavior や Operation が入力 ParameterSets を持つならば、
     CallAction が実行することが許されるときの 16.2.3 節の規則が、
-    各入力 ParameterSet にある Parameters に対応している
-    InputPins の（多分に重なり合う）集合に個別に適用される。
+    入力 ParameterSet それぞれにある Parameters に対応している
+    InputPins の（重なり合うこともある）集合に個別に適用される。
 
-  * Behavior や Operation が出力 ParameterSets を持ち、
+  * Behavior または Operation に出力 ParameterSets があり、
     かつ CallAction が正常完了するならば、
     その CallAction はある出力 ParameterSet に対応している
-    OutPins 上にのみ、
-    これらの OutPins の多重度の下限値に見合う出力を生じなければならない。
-    かつ、オブジェクトトークンがこれらの OutputPins から流出している ActivityEdges に差し出される。
+    OutPins 上にしか
+    これらの OutPins の多重度の下限値に見合う出力を生じないのとする。
+    かつ、オブジェクトトークンがこれらの OutputPins から
+    流出している ActivityEdges に運び出される。
 
 16.3.3.2 Send Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 送信系 Action は目標オブジェクト (pl.) にオブジェクト (s.) を
+* 送信 Action とは、オブジェクトを
+  ひとつまたはそれを超える対象オブジェクトに
   非同期的に伝えるものである。
+  送信 Action は常に非同期的なので、
+  ``argument`` 入力はあってもよいのだが、
+  ``result`` 出力はない。
+  Action はオブジェクトが送信されると
+  それが受信されたかどうかに関わらず、
+  すぐに完了する。
 
 * 次の 3 種類の送信 Actions がある。
 
-  #. SendSignalAction は Signal オブジェクトを生成してそれを
-     目標の InputPin で与えられるオブジェクトに伝える InvocationAction である。
+  #. SendSignalAction とは Signal オブジェクトを生成してそれを
+     対象の InputPin で与えられるオブジェクトに伝える
+     InvocationAction である。
 
-  #. BroadcastSignalAction は SendSignalAction 同様に、
+  #. BroadcastSignalAction とは SendSignalAction 同様に、
+     その ``argument`` InputPins から取った値を使って
      Signal オブジェクトを生成する InvocationAction である。
-     ただし生成オブジェクトをシステム内のすべての利用可能な目標に伝達する。
+     ただし、
+     Signal オブジェクトを単一の対象オブジェクトに送信する代わりに、
+     生成オブジェクトをシステム内の利用可能な対象オブジェクトのすべてに
+     潜在的に伝達する。
 
-  #. SendObjectAction は目標の InputPin で与えられるオブジェクトに向けて
-     任意の種類のオブジェクトを伝える InvocationAction である。
+  #. SendObjectAction とは対象の InputPin で与えられるオブジェクトに向けて
+     どんな種類のオブジェクトでも伝える InvocationAction である。
 
-* SendSignalActions と BroadcastSignalActions は、
-  argument InputPins は命令により送信される Signal の Properties に match される。
+* SendSignalActions と BroadcastSignalActions の場合、
+  ``argument`` InputPins を順番に送信されている Signal の
+  Properties に一致する。
 
-* 送信系 Action の目標オブジェクト (s./pl.) は局地にあっても遠隔地にあっても構わない。
+* 送信 Action の対象オブジェクトは
+  局所にあっても遠隔地にあってもよい。
 
-.. 16.3.3.3 Invocation Actions and Ports
-
-* CallOperationAction, SendSignalAction, SendObjectAction は
+16.3.3.3 Invocation Actions and Ports
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* CallOperationAction, SendSignalAction, SendObjectAction は、
+  Port を持ち、その Action の ``onPort`` 属性を使って
+  Port を特定するオブジェクトを対象とすることによって、
   Port を通じて要求を送信する。
 
-* もし onPort が与えられるならば、
-  その Port はその Action の target InputPin の type の、
-  所有されたまたは継承された feature である必要がある。
+* ``onPort`` が与えられるならば、
+  Port は Action の ``target`` InputPin の ``type`` の
+  ``feature`` に所有されるか、それを継承するものとする。
 
-* ある Action があるオブジェクトの内側で実行するとは、
-  その Action が内部で実行している Behavior 実行の context オブジェクトが
+* Action があるオブジェクトの内側で実行するとは、
+  その Action が内部で実行している Behavior の実行の背景にあるオブジェクトが、
   次のどちらか一方であるときに言われる。
 
-  * 与えられたオブジェクトと同じである
+  * 与えられたオブジェクトと同じであるか、
   * 与えられたオブジェクトに（合成リンクによる推移的関係性の意味で）
-    直接・間接的に所有される
+    直接・間接的に所有される。
 
 * CallOperationAction の場合には、
-  与えられた Port の provided または required Interface は
-  呼び出される Operation を feature として持つ必要がある。
+  与えられた Port の ``provided`` または ``required`` Interface は
+  呼び出される Operation を ``feature`` として持つものとする。
+  ``object`` InputPin にそれの ``type`` として
+  Signal がある SendSignalAction または SendObjectAction の場合、
+  与えられた Port の ``provided`` または ``required`` Interface には
+  特定された Signal に対する Reception があってよいが、
+  これは必要とはされない。
+  どちらの場合でも、関連のある Operation または Reception は
+  次の規則において、発動された BehavioralFeature と呼ばれる。
 
-  * ここは長いので後回し。
+  * 発動された BehavioralFeature がある ``provided`` Interface にはあって、
+    どの ``required`` Interface にもないならば、
+    InvocationAction が実行されると、
+    その発動は与えられた Port を通り抜けて、
+    対象の InputPin で与えられたオブジェクトで作られ、
+    その受領は節 11.3.3 で述べられたように処理される。
 
-* onPort を指定していない CallOperationAction, SendSignalAction, SendObjectAction は、
-  目標オブジェクトとして「相互作用点」
-  （つまり Port で生成したオブジェクト）オブジェクトを用いることもできる。
+    * このことは、InvocationAction が
+      自身が所有する Ports のうちの
+      ひとつの ``provided`` Interface を通して
+      メッセージを送り戻す可能性がある
+      対象オブジェクトの内側で
+      実行されることを可能にする。
+
+  * 発動された BehavioralFeature がある ``required`` Interface にはあって、
+    どの ``provided`` Interface にもないならば、
+    InvocationAction が対象の InputPin で与えられたオブジェクトの
+    内部で実行されていると、
+    節 11.3.3 で述べられたように、
+    与えられた Port を通って、対象オブジェクトの外部へと転送される。
+
+  * 発動された BehavioralFeature がある ``required`` と
+    ``required`` Interface の両方にあるか、または
+    発動された BehavioralFeature がないならば、
+    InvocationAction が対象の InputPin で与えられたオブジェクトの
+    内部で実行されていると、
+    発動は与えられた Port を通って対象オブジェクトの外部で作られる。
+
+    * この場合は、
+      InvocationAction が対象オブジェクトの内側で実行すると、
+      その対象オブジェクトへメッセージを送り戻すことはできない。
+      そういうメッセージは ``required`` Interface を通じて
+      出て行こうとするためである。
+
+* 対象オブジェクトとして「相互作用点」
+  （つまり Port で生成したオブジェクト）オブジェクトを
+  ``onPort`` を指定することなしに、
+  CallOperationAction, SendSignalAction, SendObjectAction に対する
+  対象オブジェクトとして用いることもできる。
 
 16.3.4 Notation
 ----------------------------------------------------------------------
+* ``onPort`` の値は
+  特定の InvocationAction を意味する記号の名前文字列にある
+  句 ``via <port>`` によって示す。
+
+16.3.4.1 Call Behavior Actions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 16.14 Calling a Behavior
 
-  * CallBehaviorAction の記法は発動される Behavior の名前を持つ
-    Action シンボルと同じようにする。
-    もし Action の名前が Behavior のそれと異なる場合は、
-    代わりに Action 名がシンボルに現れなければならない。
+  * CallBehaviorAction は
+    Action 記号の内側に置かれた発動された Behavior の名前を持つ
+    Action として表記されるものとする。
 
-  * Behavior の事前条件と事後条件を先の例と同様に示すことが可能である。
-    その際にはキーワード ``«precondition»`` と ``«postcondition»`` を用いる。
+  * Action の名前が Behavior のそれと異なる場合は、
+    代わりに Action 名がシンボルに現れるものとする。
+
+  * Behavior の ``precondition`` と ``postcondition`` を
+    Figure 16.3 と同様にして示すことが可能であるが、
+    キーワード ``«precondition»`` と ``«postcondition»`` を用いる。
 
 * Figure 16.15 Calling an Activity
 
-  * Activity の呼び出しは Action シンボルの内部に逆さのフォークみたいなものを描いて示す。
+  * Activity の呼び出しは Action 記号の内部に
+    逆さのフォークみたいなものを置くことによって示す。
+
   * 右側の記法は前章で紹介済み。
 
+16.3.4.2 Call Operation Actions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 16.16 Calling an Operation
 
-  * CallOperationAction の記法は CallBehaviorAction とほぼ同様。
-    Behavior を Operation に置き換えて理解すればよい。
+  * CallOperationAction は発動された Operation の ``name`` が
+    Action 記号の内側に置かれた Action として表記される。
+
+  * Action の ``name`` が空でなく、Operation の名前と異なるならば、
+    Action の ``name`` が記号の代わりに現れるものとする。
+
+  * Operation の ``precondition`` と ``postcondition`` を
+    Figure 16.3 と同様にして示すことが可能であるが、
+    キーワード ``«precondition»`` と ``«postcondition»`` を用いる。
 
 * Figure 16.17 Calling an Operation, showing the owner name
 
-  * Operation の所有者の名前を任意で Operation の名前の下に見せてよい。
+  * Operation の ``owner`` の ``name`` を任意で
+    Operation の ``name`` の下に見せてよい。
     ``(OwnerClassName::)`` または ``(OwnerClassName::OperationName)``
     の形式の文字列とする。
 
+16.3.4.3 Send Signal and Send Object Actions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 16.18 Sending a Signal
 
-  * SendSignalAction はその名前を内側に配した凸五角形として記す。
-    右側が凸。
+  * SendSignalAction は Signal の ``name`` が
+    その内側に置かれた凸五角形として記される。
 
-  * SendObjectAction が常にある Signal を送信することになるように用いられるならば、
-    SendSignalAction の記法がその SendObjectAction を表すために利用が可能である。
+    * 右側が凸。
 
+  * SendObjectAction が常にある Signal を結果的に送信するようになるように
+    用いられるならば、
+    SendSignalAction の記法がその SendObjectAction を表すために
+    利用できる。
+
+16.3.4.4 Pin Annotations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 16.19 Exception Pin annotations
 
-  * isException が真である Parameters に対応する Pins は、
-    小さい三角形を source 側に示す。
+  * ``isException`` が true である Parameters に対応する Pins は、
+    小さい三角形が
+    例外ピンから出るエッジの始点を註釈するように示す。
 
   * Pin の小矩形が省略されているときにも三角形は記す。
 
 * Figure 16.20 Effect Pin annotations
 
-  * Pin に対応する Parameter が指定された effect を持つならば、
-    この内容を中括弧に括って、Pin それぞれのエッジのそばに記す。
+  * Pin に対応する Parameter に ``effect`` が指定されていると、
+    これを ``effect`` を中括弧に括って、
+    エッジと Pin との接点付近に記す。
 
 * Figure 16.21 Stream Pin annotations
 
-  * Pin に対応する Parameter の isStreaming の値を、
-    Pin の近くに ``{stream}`` または ``{nonstream}`` で示す。
+  * Pin に対応する Parameter の ``isStreaming`` が true であるか
+    false であるかを、
+    Pin の近くに ``{stream}`` または ``{nonstream}`` でそれぞれ示す。
 
   * これらが省略されている場合は ``{nonstream}`` であるものとする。
 
@@ -539,32 +641,50 @@ UML 2.5 pp. 439-562 に関するノート。
 
   * streaming Parameters を示すためにには、さらなる強調を付加してよい。
 
-    * スタンダロンな Pins に接続している矢印の矢先を黒く塗りつぶしてよい。
+    * 単体の Pin に接続している矢印の矢先を黒く塗りつぶしてよい。
     * さもなければ Pins 自体を黒く塗りつぶしてよい。
+
+16.3.4.5 Parameter Sets
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* InvocationAction の Pins に出入りしている複数の ObjectFlows は
+  典型的には "and" 条件として扱われる。
+  しかし、時々流れのグループのひとつは他のものに対して
+  排他的であるようにできる。
+  これは ParameterSets を使ってモデル化されて、
+  ひとつまたはそれを超える Pins を取り囲む矩形として表記される。
 
 * Figure 16.23 Alternative input/outputs using ParameterSet notation
 
   * ParameterSet が Pins をグループ化することを示すのに、
     複数 Pins の矩形らを囲む矩形で記す。
 
-  * 引数の AND と OR をこれで見分けるらしい。
+  * 入力に対する disjunctive normal form を表している。
+    "and" の流れのグループひとつが "or" のグループ分けによって
+    分離されている。
 
 16.3.5 Examples
 ----------------------------------------------------------------------
+16.3.5.1 Call Behavior Actions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 16.24 Invoking an Activity
 
-  * FillOrder という Activity を発動する CallBehaviorAction である。
+  * Fill Order という Activity を発動する CallBehaviorAction である。
     逆さフォークに注意。
 
+16.3.5.2 Send Signal Actions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 16.25 Sending Signals
 
   * 何か発注処理のワークフローの一部を示す図式。
   * 五角形の Action で Signal が送信されるが、
     されるということ以外の情報は図からは得られない？
 
+16.3.5.3 Pin Annotations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 16.26 Streaming Pin examples
 
-  * ``{stream}`` のついた Pin の Action は連続的 Behavior と見るのがよさそう。
+  * Order Filling は周期的にオブジェクトを放出する連続的 Behavior であり、
+    必ずしも完了するものではない。
 
 * Figure 16.27 Exception Pin examples
 
@@ -576,6 +696,8 @@ UML 2.5 pp. 439-562 に関するノート。
   * Place Order が ``Order`` を ``{create}`` して、
     Fill Order が ``Order`` を ``{read}`` する。
 
+16.3.5.4 Parameter Sets
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 16.29 Alternative input/outputs using ParameterSets
 
   * Ship Item の InputPins が（それぞれが）グループ化されているので、
@@ -588,9 +710,8 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 * オブジェクト Actions は Classifiers のオブジェクトの
   生成、破壊、比較を取り扱う。
-
-* 与えられた Classifier のオブジェクトの読み取りや、
-  あるオブジェクトの分類の確認、
+  また、与えられた Classifier のオブジェクトの読み取りや、
+  オブジェクトの分類の確認、
   さらに分類の変更をする Actions をも含む。
 
 16.4.2 Abstract Syntax
@@ -605,46 +726,54 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 16.4.3.1 Create Object Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* CreateObjectAction は与えられた Classifier の直系オブジェクトを生成し、
-  その新しいオブジェクトを result OutputPin 上に配置する Action である。
+* CreateObjectAction とは、
+  与えられた Classifier の直系オブジェクトを生成し、
+  その新しいオブジェクトを ``result`` OutputPin 上に配置する Action である。
 
-* もしオブジェクト化される Classifier が Behavior ならば、
+* オブジェクト化される Classifier が Behavior ならば、
   その生成オブジェクトがその Behavior の実行である。
   ただしその実行は生成時にすぐに自動的に開始することはない。
 
 16.4.3.2 Destroy Object Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* DestroyObjectAction とはその対象の InputPin にあるオブジェクトを破壊する Action である。
+* DestroyObjectAction とは、
+  その対象の InputPin にあるオブジェクトを破壊する Action である。
 
-* もし DestroyObjectAction::isDestroyLinks が真ならば、
+* ``isDestroyLinks`` が true ならば、
   そのオブジェクトが関与するリンクは（リンクオブジェクトは除いて）
   DestroyLinkAction の意味に従いそのオブジェクトと一緒に破壊される。
 
-* 既に破壊されたオブジェクトを破壊することは何ら効果はない。
+* 既に破壊されたオブジェクトを破壊することは効果がない。
 
 16.4.3.3 Test Identity Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * TestIdentityAction とは、その InputPins に与えられるふたつの値が
   全く同一のものであるかどうかを調べる Action である。
 
-* もしあるオブジェクトがひとつまたはそれ以上の Classes のオブジェクトであると
-  単に分類されるならば、それがもう一方の「同じ」オブジェクトであるかどうかを
-  調べることは、オブジェクトの同一性に基づき、
+* オブジェクトがひとつまたはそれを超える Classes のオブジェクトであると
+  単に分類されるならば、
+  それが別の「同じオブジェクト」であるかどうかを調べることは、
+  オブジェクトの同一性に基づいていて、
   その StructuralFeatures としての現在の値や、
   それが関与するリンクのどれからも独立している。
+
+* オブジェクトがひとつまたはそれを超える DataTypes のオブジェクトであると
+  単に分類されるならば、
+  それが別の「同じオブジェクト」であるかどうかを調べることは、
+  それが同じ値を持つかどうかに依存する。
 
 * Classes にも DataTypes にも分類されるオブジェクトや、
   その他の種類の Classifiers に分類されるオブジェクトに対する
   TestIdentityAction の結果は定義されないが、
-  どの場合においても Action は結果として Boolean 値をもたらす。
+  どの場合においても Action は結果として Boolean 値を生じる。
 
 16.4.3.4 Read Self Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* ReadSelfAction とは、その Action の実行の context オブジェクトを
-  その result OutputPin に配置する Action である。
+* ReadSelfAction とは、その Action の実行の背景となるオブジェクトを
+  その ``result`` OutputPin に配置する Action である。
 
-* 例えば、もし ReadSelfAction がある Operation のメソッドである
-  Behavior に含まれるならば、それが返す context オブジェクトは
+* 例えば、ReadSelfAction がある Operation のメソッドである
+  Behavior に含まれるならば、それが返す背景オブジェクトは
   その Operation 発動の対象であった Operation の所有している
   Classifier のオブジェクトになる。
 
@@ -652,13 +781,13 @@ UML 2.5 pp. 439-562 に関するノート。
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * ValueSpecificationAction とは、
   ある ValueSpecification を評価して、
-  結果の値をその result OutputPin に配置する Action である。
+  結果の値をその ``result`` OutputPin に配置する Action である。
 
 16.4.3.6 Read Extent Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * ReadExtentAction とは、
   ある Classifier の現在の範囲 (extent) にあるオブジェクトを取得して、
-  それらをその result OutputPin に配置する Action である。
+  それらをその ``result`` OutputPin に配置する Action である。
 
   * ある Classifier の範囲とは、
     その特殊型を含むある Classifier の、任意の一時点に存在している、
@@ -670,20 +799,20 @@ UML 2.5 pp. 439-562 に関するノート。
 16.4.3.7 Reclassify Object Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * ReclassifyObjectAction とは、
-  どの Classifiers がその object InputPin に与えられるオブジェクトを
+  どの Classifiers がその ``object`` InputPin に与えられるオブジェクトを
   分類するのかを変更する Action である。
 
 * その Action が完了する後で、
-  入力オブジェクトは各 newClassifier とによって分類されて
-  oldClassifier ではない。
+  入力オブジェクトは各 ``newClassifier`` とによって分類されて
+  ``oldClassifier`` ではない。
 
-* 入力オブジェクトの同一性は維持され、どの振る舞いも実行されず、
-  どのデフォルト値の式も評価されない。
+* 入力オブジェクトの同一性は維持され、挙動は何も実行されず、
+  どの既定値の式も評価されない。
 
-* もし isReplaceAll が真ならば、
-  ある newClassifier がもうその入力オブジェクトを分類する場合を除いて、
+* ``isReplaceAll`` が true ならば、
+  ある ``newClassifier`` がもうその入力オブジェクトを分類する場合を除いて、
   そのオブジェクトを扱うために存在する Classifiers すべては
-  newClassifiers が追加されるよりも前に取り除かれる。
+  ``newClassifiers`` が追加されるよりも前に取り除かれる。
 
 * オブジェクトから Classifiers を全部取り除くことと、
   どのような新しいものをも追加しないことの効果は定義されていない。
@@ -691,19 +820,19 @@ UML 2.5 pp. 439-562 に関するノート。
 16.4.3.8 Read-Is-Classified-Object Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * ReadIsClassifiedObjectAction とは
-  その object InputPin に与えられたオブジェクトが、
+  その ``object`` InputPin に与えられたオブジェクトが、
   何か与えられた Classifier によって分類されているかどうかを決定する
   Action である。
 
-* もし isDirect が真ならば、
+* ``isDirect`` が真ならば、
   調べる内容はそのオブジェクトが指定 Classifier により直接的に分類されるかどうかであり、
   そのどんな特殊化によってではない。
-  反対に isDirect が偽ならば、特殊化をも認める。
+  反対に ``isDirect`` が偽ならば、特殊化をも認める。
 
 16.4.3.9 Start Classifier Behavior Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * StartClassifierBehaviorAction とは
-  その object InputPin に与えられたオブジェクトの classifierBehavior の
+  その ``object`` InputPin に与えられたオブジェクトの ``classifierBehavior`` の
   実行を開始する Action である。
 
 * これは旧版の UML との互換性のために与えられる型である。
@@ -713,7 +842,8 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 * Figure 16.31 ValueSpecificationAction notation
 
-  * ValueSpecificationAction はその ValueSpecification でラベルされる Action として記す。
+  * ValueSpecificationAction は
+    その ValueSpecification でラベルされる Action として記す。
 
 * その他の種類のオブジェクトアクション固有の記法はない。
 
@@ -732,8 +862,8 @@ UML 2.5 pp. 439-562 に関するノート。
   つまり AssociationClass のオブジェクトではない Association のオブジェクトは、
   Action に対して実行時の値を引き渡すことが不可能である。
 
-* その代わり、リンクはその関連端の値により識別する。
-  LinkEndData とはそういうリンクの（片側の）関連端の値の仕様であり、
+* その代わり、リンクはその端の値により識別する。
+  LinkEndData とはそういうリンクの（片側の）端の値の仕様であり、
   LinkActions で用いられるリンクの識別に用いられる。
 
 16.5.2 Abstract Syntax
@@ -746,45 +876,50 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 16.5.3.1 Link End Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* LinkEndData とはあるリンクの一端にある値に
-  match するのに用いられる入力を指定する Element である。
+* LinkEndData とは、あるリンクの一端にある値に
+  一致するのに用いられる入力を指定する Element である。
 
-* 各 LinkEndData には三つの部分がある。
+* LinkEndData 要素それぞれには三つの部分がある。
 
-  #. match されているリンクの end の特定
-  #. リンクの与えられた end で期待される値を与える value InputPin
-  #. リンクの与えられた end の qualifiers の
+  #. 一致されているリンクの ``end`` の特定
+  #. リンクの与えられた ``end`` で期待される値を与える ``value`` InputPin
+  #. リンクの与えられた ``end`` の ``qualifiers`` の
      期待される値を与える InputPins を特定する、
      選択自由な QualifierValues
 
 16.5.3.2 Link End Creation Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* LinkEndCreationData とは LinkEndData の特殊型のひとつであり、
+* LinkEndCreationData とは、LinkEndData の特殊型のひとつであり、
   CreateLinkAction によって作成されるリンクの一端を特定するのに用いる。
+  正規の LinkEndData に含まれるものに加えて、
+  LinkEndCreationData は次のものを含む：
 
-* オプション isReplaceAll は新しいリンクを
-  直前にこの端における値に match したリンク全部で置き換えるかどうかを指定する。
+  * オプション ``isReplaceAll`` は新しいリンクを
+    直前にこの端における値に一致したリンク全部で置き換えるかどうかを指定する。
 
-* もし与えられた end が順序付きならば、
-  type が UnlimitedNatural であり多重度が 1 の
-  ある insertAt InputPin が
-  この end での順序付き値で新しいリンクの挿入点を与えるように
-  指定されていなければならない。
+  * 与えられた ``end`` が順序付きならば、
+    ``type`` が UnlimitedNatural であり多重度が 1 の
+    ある ``insertAt`` InputPin が
+    この ``end`` での順序付き値で新しいリンクの挿入点を与えるように
+    指定されていなければならない。
 
 16.5.3.3 Link End Destruction Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* LinkEndDestructionData とは LinkEndData の特殊型のひとつであり、
+* LinkEndDestructionData とは、LinkEndData の特殊型のひとつであり、
   DestroyLinkAction によって破壊されるリンクの一端を特定するのに用いる。
+  正規の LinkEndData に含まれるものに加えて、
+  LinkEndDestructionData は次のものを含む：
 
-* オプション isDestroyDuplicates が真であれば、
-  この end の値に match しているリンク全てが破壊される必要があることを指定する。
+ * オプション ``isDestroyDuplicates`` が true であれば、
+   この ``end`` の値に一致するリンク全てが破壊されるものとする
+   ことを指定する。
 
-* もし与えられた end が順序付きかつ非一意であり、
-  isDestroyDuplicates が偽であれば、
-  type が UnlimitedNatural であり多重度が 1 の
-  ある insertAt InputPin が
-  破壊されるリンクのこの end での位置を表す値を与えるように
-  指定されていなければならない。
+ * 与えられた ``end`` が順序付きかつ非一意であり、
+   ``isDestroyDuplicates`` が false であれば、
+   ``type`` が UnlimitedNatural であり多重度が 1 の
+   ある ``insertAt`` InputPin が
+   破壊されるリンクのこの ``end`` での位置を表す値を与えるように
+   指定されていなければならない。
 
 16.5.4 Notation
 ----------------------------------------------------------------------
@@ -801,6 +936,7 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 * LinkActions と ClearAssociationAction は
   Associations とそれらのオブジェクト（リンク）に作用する。
+  これには AssociationClasses である Associations を含む。
 
 16.6.2 Abstract Syntax
 ----------------------------------------------------------------------
@@ -812,63 +948,81 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 16.6.3.1 Link Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* LinkAction とはある Association のリンクを
+* LinkAction とは、ある Association のリンクを
   読み取ったり、生成したり、破壊したりする Action である。
   Association は AssociationClass であってもよい。
 
 16.6.3.2 Read Link Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* ReadLinkAction とはある Association の一端の値を取得して、
-  それらを result OutputPin に配置する LinkAction である。
+* ReadLinkAction とは、ある Association の一端の値を取得して、
+  それらを ``result`` OutputPin に配置する LinkAction である。
+  その読み取られている一端は、
+  その ReadLinkAction に対する開放端 (open end) と呼ばれる。
 
-* ある ReadLinkAction が実行するときに、次のすべてに match する
+* ある ReadLinkAction が実行すると、次のすべてに一致する
   Association の存在するリンクすべての部分集合を特定する。
 
-  * その endData オブジェクトの値
-  * その open end 以外の端点すべてについての qualifier values
-  * その open end における qualifier values
+  * その ``endData`` オブジェクトの値
+  * その開放端以外の端点すべてについての qualifier values
+  * その開放端における qualifier values
 
-* ReadLinkAction の result OutputPin は
-  その open end と型と順序が同じである必要がある。
+* ReadLinkAction の ``result`` OutputPin は
+  その開放端と型と順序が同じである必要がある。
 
 16.6.3.3 Create Link Action
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* CreateLinkAction とはリンクを作成する LinkAction である。
-* CreateLinkAction は LinkEndCreationData という LinkEndData の特殊型を用いる。
-* 順序付き端付き Associations は
-  LinkEndCreationData の追加の insertAt InputPin により
-  実行時に指定される挿入点によって支援されている。
+* CreateLinkAction とは、リンクを作成するための LinkAction である。
 
-* その insertAt Pin は type が UnlimitedNatural で多重度が 1 である。
+* CreateLinkAction は LinkEndCreationData という
+  LinkEndData の特殊型を用いる。
 
-* 抽象型の Association を接続するリンクを作成することの意味は未定義である。
+* 順序付き端付き Associations が
+  LinkEndCreationData の追加の ``insertAt`` InputPin により
+  実行時に指定される挿入点と一緒に支援されているが、
+  それは
+  ``isReplaceAll`` が false であるときの
+  順序付き Association 端にとっては必要とされ、
+  順序なし端にとっては省略される。
+
+* Association 端は上限多重度が 1 であるときでさえ順序付きであってよい。
+
+* その ``insertAt`` Pin は ``type`` が UnlimitedNatural で多重度が 1 である。
+
+* 抽象型の Association を接続するためのリンクを作成することの意味は
+  未定義である。
 
 * 他の関連端オブジェクトの初期化の後において、
   作成されているリンクが既に存在するわけではない限りは、
-  isReadOnly が真である関連端を持つリンクを作成することの意味は未定義である。
+  ``isReadOnly`` が true である関連端を持つリンクを作成することの意味は未定義である。
 
 16.6.3.4 Destroy Link Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* DestroyLinkAction とは指定された LinkEndData に match しているリンクを
+* DestroyLinkAction とは、
+  指定された LinkEndData に一致するリンクを
   破壊する Action である。
 
-* DestroyLinkAction はリンクオブジェクトを破壊することに用いても構わない。
-  たとえ破壊するオブジェクトがやはり LinkEndData を用いて同様に指定されているとしても。
+* 破壊するオブジェクトは
+  やはり LinkEndData を用いて同様に指定されているのだが、
+  DestroyLinkAction はリンクオブジェクトを破壊することに用いても構わない。
 
 * DestroyLinkAction は LinkEndDestructionData という LinkEndData の特殊型を用いる。
 
 * 順序付きかつ非一意な端を持つ Associations は、
-  LinkEndDestructionData の追加の destroyAt InputPin により
-  実行時に指定される削除位置によって支援されている。
+  LinkEndDestructionData の追加の ``destroyAt`` InputPin により
+  実行時に指定される削除位置によって支援されていて、
+  ``isDestroyDuplicates`` が false であるときの
+  順序付き非一意的 Association 端にとっては必要とされ、
+  他の端に対しては省略される。
 
 * 他の関連端オブジェクトの初期化の後において、
-  その endData に match するリンクがない限りは、
-  isReadOnly が真である関連端を持つリンクを破壊することの意味は未定義である。
+  その ``endData`` に一致するリンクがない限りは、
+  ``isReadOnly`` が true である関連端を持つリンクを
+  破壊することの意味は未定義である。
 
 16.6.3.5 Clear Association Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* ClearAssociationAction とはある特定のオブジェクトが関与する
-  ある Association のリンク全てを破壊する Action であり、
+* ClearAssociationAction とは、ある特定のオブジェクトが関与する
+  Association のリンク全てを破壊する Action であり、
   AssociationClass のリンクオブジェクトを含む。
 
 16.6.4 Notation
@@ -886,8 +1040,7 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 * リンクオブジェクト Actions はリンクオブジェクトに作用する、
   AssociationClasses のオブジェクトである。
-
-* LinkActions もまたリンクオブジェクトに作用するが、
+  LinkActions もまたリンクオブジェクトに作用するが、
   それらを違うように見分ける。
 
 16.7.2 Abstract Syntax
@@ -900,19 +1053,24 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 16.7.3.1 Read Link Object End Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* ReadLinkObjectEndAction とはあるリンクオブジェクトから
+* ReadLinkObjectEndAction とは、あるリンクオブジェクトから
   端オブジェクトをひとつ取得する Action である。
+
+* このことは
+  開放端として指定された端を使って
+  リンクオブジェクトの Association のリンクを読み取ることと
+  同じではない。
 
 16.7.3.2 Read Link Object End Qualifier Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* ReadLinkObjectEndQualifierAction とはあるリンクオブジェクトから
+* ReadLinkObjectEndQualifierAction とは、あるリンクオブジェクトから
   qualifier 端の値をひとつ取得する Action である。
 
 16.7.3.3 Create Link Object Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* CreateLinkObjectAction とは
+* CreateLinkObjectAction とは、
   リンクオブジェクトをひとつ作成するための
-  CreateLinkAction の特殊化である。
+  特殊化された CreateLinkAction である。
 
 16.7.4 Notation
 ----------------------------------------------------------------------
@@ -941,70 +1099,84 @@ UML 2.5 pp. 439-562 に関するノート。
 16.8.3.1 Structural Feature Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * StructuralFeatureAction とは、
-  静的に指定されたある Classifier の StructuralFeature が与えられ、
-  その object InputPin にあるオブジェクトに作用するものである。
+  静的に指定された Classifier の StructuralFeature が与えられると、
+  その ``object`` InputPin にあるオブジェクトに作用するものである。
 
-* オブジェクトが関与する StructuralFeatures と AssociationClasses は動的分類ゆえ
-  繰り返し変化してよいが、
-  StructuralFeatureAction の object InputPin の型は単一の Classifier であり、
+* オブジェクトが関与する StructuralFeatures と AssociationClasses は
+  動的分類ゆえ繰り返し変化してよいが、
+  StructuralFeatureAction の ``object`` InputPin の型は
+  単一の Classifier であり、
   その Action に引き渡されるオブジェクトが（直接か間接かを問わず）
-  その Classifier により分類されているときに限って、その意味が定義される。
+  その Classifier により分類されているときに限って、
+  その意味が定義される。
+
+* ReadStructuralFeatureAction は StructuralFeature の値を読み取り、
+  これらの値をその ``result`` OutputPin に置く。
 
 16.8.3.2 Read Structural Feature Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* ReadStructuralFeatureAction とは
+* ReadStructuralFeatureAction とは、
   StructuralFeature の値を取得して、
-  それらを result OutputPin に配置する StructuralFeatureAction である。
+  それらをその ``result`` OutputPin に配置する
+  StructuralFeatureAction である。
 
-* result OutputPin の型と順序はその StructuralFeature のそれらと同じである。
+* ``result`` OutputPin の型と順序は
+  その StructuralFeature のそれらと同じである。
 
 16.8.3.3 Add Structural Feature Value Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * AddStructuralFeatureValueAction とは、
-  あるオブジェクトの StructuralFeature ひとつに値を追加するのに用いられる
+  あるオブジェクトの StructuralFeature ひとつに値を追加するための
   StructuralFeatureAction である。
 
-* もし isReplaceAll が真ならば、値の追加というよりは交換のようなことをする。
+* ``isReplaceAll`` が true ならば、
+  StructuralFeature の既存の値は、
+  その StructuralFeature がすでにその新しい値を含む場合を除外して、
+  新しい値が追加される前に取り除かれる。
 
 * 順序付き StructuralFeature に値を追加するには、
-  insertAt InputPin に与えられる新しい値を置くための挿入点が必要である。
-  これが必要なのは isReplaceAll が偽の場合であり、
+  ``insertAt`` InputPin に与えられる新しい値を置くための挿入点が必要である。
+  これは ``isReplaceAll`` が false のときには
+  順序付き StructuralFeatures に対しては必要とされて、
   順序なしの StructuralFeatures については省略される。
 
-* もし insertAt InputPin があれば、
+* StructuralFeatures の値は上限多重度が 1 であるときでさえ順序付きであってよい。
+
+* ``insertAt`` InputPin があれば、
   それは型が UnlimitedNatural で多重度が 1 である。
 
 * StructuralFeature の上側の多重度に違反する値を追加することと、
-  isReadOnly が真である StructuralFeature に対する、
-  そのオブジェクトの初期化後に新しい値を追加すること
-  の意味は未定義である。
+  ``isReadOnly`` が true である StructuralFeature に対して
+  その値を持つであろうオブジェクトの初期化後に
+  新しい値を追加することの意味は未定義である。
 
 16.8.3.4 Remove Structural Feature Value Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* RemoveStructuralFeatureValueAction とは
+* RemoveStructuralFeatureValueAction とは、
   あるオブジェクトの StructuralFeature ひとつから値を取り除くのに用いられる
   StructuralFeatureAction である。
 
-* 後述の場合を除き、取り除かれる値は value InputPin が与えるものであり、
+* 後述の場合を除き、取り除かれる値は ``value`` InputPin が与えるものであり、
   これはその StructuralFeature と同じ型で多重度が 1 である。
 
-* もし isRemoveDuplicates が偽で、
+* ``isRemoveDuplicates`` が false であり、
   かつ StructuralFeature が順序付きで非一意ならば、
-  value InputPin はなく、
-  代わって取り除かれる値は removeAt InputPin の位置により与えられる。
+  ``value`` InputPin はなく、
+  代わって取り除かれる値は ``removeAt`` InputPin の位置により与えられる。
 
-* 所有しているオブジェクトの初期化以降において、
-  readOnly が真である StructuralFeature の既存の値を取り除くことの意味は未定義とする。
+* 所有するオブジェクトの初期化後に、
+  ``readOnly`` が true である StructuralFeature の既存の値を
+  取り除くことの意味は未定義とする。
 
 16.8.3.5 Clear Structural Feature Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* ClearStructuralFeatureAction とは
-  たとえその StructuralFeature の多重度の下限がゼロより大きくても、
+* ClearStructuralFeatureAction とは、
+  たとえその StructuralFeature の多重度の下限がゼロより大きい場合でさえ、
   StructuralFeature の値全てを取り除く StructuralFeatureAction である。
 
-* StructuralFeature を所有しているオブジェクトの初期化以降において、
-  それが値を持っていないのでもない限りは、
-  readOnly が真である StructuralFeature の意味は未定義とする。
+* StructuralFeature を所有するオブジェクトの初期化後に、
+  それが値を持たないのでない限りは、
+  ``readOnly`` が true である StructuralFeature の意味は未定義とする。
 
 16.8.4 Notation
 ----------------------------------------------------------------------
@@ -1036,37 +1208,47 @@ UML 2.5 pp. 439-562 に関するノート。
 16.9.3.2 Read Variable Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * ReadVariableAction とは Variable の値を取得して
-  それらを result OutputPin に配置する VariableAction である。
+  それらを ``result`` OutputPin に配置する VariableAction である。
 
-* result OutputPin の型と順序はその Variable のそれらと同じである。
+* ``result`` OutputPin の型と順序はその Variable のそれらと同じである。
 
 16.9.3.3 Add Variable Value Action
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* AddVariableValueAction とは値を Variable に追加するためのものである。
-* もし isReplaceAll が真ならば、Variable に新しい値が追加される前に
-  既存の値は取り除かれる。
+* AddVariableValueAction とは、
+  値を Variable に追加するためのものである。
 
-* 順序付き Variable に値を追加するには、挿入点が必要である。
-  必要になるのは isReplaceAll が偽の順序付き Variable に対してであり、
-  順序なし Variable では省略される。
+* ``isReplaceAll`` が true ならば、
+  Variable の既存の値は、
+  その Variable がすでにその新しい値を含む場合を除外して、
+  新しい値が追加される前に取り除かれる。
 
-* Variable の多重度の上限に違反する値の追加については意味は未定義とする。
+* 順序付き Variable に値を追加することは、
+  ``insertAt`` InputPin を使う新しい値のための挿入点を必要とするが、
+  ``isReplaceAll`` が false のときの順序付き Variable に対しては必要とされ。
+  順序なし Variable については省略される。
+
+* Variable の上限多重度に違反する値を追加することについての意味は未定義とする。
 
 16.9.3.4 Remove Variable Value Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* RemoveVariableValueAction とは Variable から値を取り除く VariableAction である。
-* 取り除かれる値は value InputPin 上に与えられ、
+* RemoveVariableValueAction とは、
+  Variable から値を取り除く VariableAction である。
+
+* 取り除かれる値は ``value`` InputPin で与えられ、
   それは Variable と同じ型であり多重度は 1 である。
 
-* isRemoveDuplicates が偽であり、なおかつ
+* ``isRemoveDuplicates`` が false であり、なおかつ
   その Variable が順序付きで非一意ならば、
-  value InputPin がなく、
-  取り除かれる値は removeAt InputPin の指す位置により与えることで指定される。
+  ``value`` InputPin はなく、
+  取り除かれる値は ``removeAt`` InputPin の指す位置を
+  与えることで指定されるが、
+  これは ``type`` が UnlimitedNatural であり、
+  多重度は 1 である。
 
 16.9.3.5 Clear Variable Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* ClearVariableAction とは
-  たとえその Variable の多重度の下限がゼロより大きくても、
+* ClearVariableAction とは、
+  たとえその Variable の多重度の下限がゼロより大きい場合でさえ、
   Variable の値全てを取り除く VariableAction である。
 
 16.9.4 Notation
@@ -1075,8 +1257,9 @@ UML 2.5 pp. 439-562 に関するノート。
 
   * 上下に分かれているが、上の方は抽象的構文とする。
 
-* AddVariableValueAction::isReplaceAll が true であることを
-  文字列 ``{replaceAll}`` を変数名の近くに置くことで示すことが可能。
+* AddVariableValueAction の ``isReplaceAll`` が true であると、
+  このことはテキストの註釈 ``{replaceAll}`` が
+  変数名の近くにあることでわかる。
 
 16.9.5 Examples
 ----------------------------------------------------------------------
