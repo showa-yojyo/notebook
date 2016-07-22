@@ -4,7 +4,7 @@
 UML 2.5 pp. 439-562 に関するノート。
 本章は記述の分量が多いので、ノート用ファイルを分割するのがよいかもしれない。
 
-.. todo:: 最低でもあと一回は編集する。
+.. todo:: 誤訳や変な解釈がいかにもありそうなので、発覚次第修正する。
 
 .. todo::
 
@@ -17,6 +17,9 @@ UML 2.5 pp. 439-562 に関するノート。
 
    * reduce (v.) 数学とかプログラミングとかでよくある状況での用法での訳。
      ここでは「縮合する」と訳しておく。
+
+   * successor (n.) 「後者」としておく。
+     ペアノの公理での successor と単語の使われ方が似ているから。
 
    * tool (n.) なぜだか「道具」や「器具」ではしっくりと来ない。
 
@@ -1270,10 +1273,10 @@ UML 2.5 pp. 439-562 に関するノート。
 
 16.10.1 Summary
 ----------------------------------------------------------------------
-* AcceptEventAction はひとつまたはそれ以上の Events の出来事を待機する。
-* もし受理した Event の出来事がある CallEvent を要求するものならば、
-  ひとつの ReplyAction をそれに返信するのに用いてよい。
-* もし受理した Event の出来事がある SignalEvent を要求するものならば、
+* AcceptEventAction はひとつまたはそれを超える Events の出来事を待機する。
+  受理した Event の出来事が CallEvent を要求するものならば、
+  ReplyAction をそれに返信するのに用いてよい。
+  受理した Event の出来事がある SignalEvent を要求するものならば、
   受信した Signal オブジェクトは、
 
   * 直ちにその属性の値へと unmarshal されるか、
@@ -1289,76 +1292,92 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 16.10.3.1 Accept Event Action
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* AcceptEventAction とはひとつまたはそれ以上の Events を引き起こす Triggers を備えた Action である。
+* AcceptEventAction とは、ひとつまたはそれを超える Events についての
+  Triggers を備えた Action である。
 
-* もし AcceptEventAction を起こす Event 出来事の matching が
-  イベントプールから発送されるのであれば、
-  そのアクションは利用可能になって続行する。
+* AcceptEventAction についての一致する Event 出来事が
+  事象プールから発送されるならば、
+  その AcceptEventAction は続行するために使用可能になる。
 
-* SignalEvent を引き起こす trigger のある AcceptEventAction は
-  非公式に an accept signal action と呼ばれる。
+* SignalEvent を引き起こす ``trigger`` のある AcceptEventAction は
+  信号受理活動 (an accept signal action) と非公式に呼ばれる。
 
-* TimeEvent を引き起こす trigger のある AcceptEventAction は
-  非公式に a wait time action と呼ばれる。
+* TimeEvent を引き起こす ``trigger`` のある AcceptEventAction は
+  待機時間活動 (a wait time action) と非公式に呼ばれる。
 
-* もし AcceptEventAction の triggers がすべて
-  ChangeEvents と CallEvents だけを引き起こすものならば、
-  AcceptEventAction は result OutputPins を持たない。
+* AcceptEventAction の ``triggers`` がすべて
+  ChangeEvents または CallEvents またはその両方についてのものならば、
+  AcceptEventAction は ``result`` OutputPins を持たない。
 
   * ただし AcceptEventAction は AcceptCallAction ではないものとする。
 
-* もし AcceptEventAction::triggers のうちのひとつが AnyReceiveEvent であり、
-  Event の出来事が同じ AcceptEventAction にある SignalEvent trigger にも
-  CallEvent trigger にも match されないメッセージを扱うのならば、
-  Event の出来事は AnyReceiveEvent を引き起こす trigger に match する。
+* AcceptEventAction の ``triggers`` のうちのひとつが AnyReceiveEvent であり、
+  Event の出来事が同じ AcceptEventAction にある SignalEvent または
+  CallEvent の ``trigger`` に一致されないメッセージに対するものならば、
+  Event の出来事は AnyReceiveEvent を引き起こす ``trigger`` に一致する。
 
-* AcceptEventAction が Activity で用いられるのならば、
-  それが利用可能になるときを支配するための特別な規則がある。
+* AcceptEventAction が Activity で使われると、
+  それがいつ利用可能になるのかを決める特別な規則がある。
 
 16.10.3.2 Accept Call Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* AcceptCallAction とは CallEvent の出来事を処理するために特殊化された
+* AcceptCallAction とは、CallEvent の出来事を処理するために特殊化された
   AcceptEventAction である。
 
-* AcceptCallAction は CallEvent の出来事に match すると、
-  普通の AcceptEventAction と同じ方法で誘発される。
+* AcceptCallAction は一致する CallEvent の出来事で
+  普通の AcceptEventAction と同じ方法で起こされる。
 
-* 非同期呼び出しにより誘発された AcceptCallAction は、
-  やはりその returnInformation OutputPin に値をもたらすが、
-  値を受理する ReplyAction は
+* 非同期呼び出しにより起こされた AcceptCallAction は、
+  やはりその ``returnInformation`` OutputPin に値を生じるが、
+  その値を受理する ReplyAction は
   非同期呼び出しにとっての戻り値が与えられると、
   何も起こらずに直ちに完了する。
+
+* AcceptCallAction の CallEvent で参照される Operation には
+  付随するメソッド Behavior があるべきではない。
+  そうではなく、
+  Operation に対する呼び出しはそのメソッドの実行の直接効果を持つはずであり、
+  その背景となるオブジェクトについての事象プールへ置かれることはないであろう。
+  このように、
+  Operation に対する呼び出しは AcceptCallAction に送達されることは決してない。
 
 16.10.3.3 Reply Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * ReplyAction とは直前の AcceptCallAction によって受理された
   呼び出しの処理を完了する Action である。
 
-* ReplyAction が実行するときに、
-  最初の呼び出し要求メッセージに対する返答メッセージを発生する。
-  その replyValue InputPins から得られる値が利用される。
+* ReplyAction が実行すると、
+  最初の呼び出し要求メッセージに対する返答メッセージを発生し、
+  その ``replyValue`` InputPins から得られる値を利用する。
 
 * 返答の情報は複製されたり、オブジェクトに格納されたり、引き渡したりしてもよいが、
-  ReplyAction の中で一度だけ利用されてよい。
+  ReplyAction の中で一度しか利用されてはならない。
+
+* ReplyAction が同期的呼び出しからの返却情報で決して実行されないならば、
+  呼び出し側は決して返答を受信しないので、
+  それゆえ実行を完了することがないはずである。
+  このことは違法ではないが、普通は望ましくない。
 
 16.10.3.4 Unmarshall Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* UnmarshallAction とはオブジェクトの StructuralFeatures の値を取得して、
+* UnmarshallAction とは、
+  オブジェクトの StructuralFeatures の値を取得して、
   それらを OutputPins に配置する Action である。
 
-* Signal の所有 Properties には順序があるが、
-  Generalization 関係ゆえ
-  Classifier もまた他の Classifiers から Properties を継承してもよい。
-  この場合、unmarshallType の Properties は順序が付けられ、
-  所有 Properties すべては継承された Properties のどれよりも先に来るようになる。
+* Signal の所有された Properties には順序があるが、
+  Generalization 関係のため、
+  Classifier は他の Classifiers から Properties を継承してもよい。
+  この場合、
+  所有 Properties すべては継承された Properties のどれよりも先に来るように
+  ``unmarshallType`` の Properties は順序付けられる。
 
-* UnmarshallAction が実行するときに、
+* UnmarshallAction が実行すると、
   その InputPin からオブジェクトを取り、
-  オブジェクトから unmarshallType の Properties の値を取得して、
+  オブジェクトから ``unmarshallType`` の Properties の値を取得して、
   これらの値を対応する OutputPins に配置する。
 
 * UnmarshallAction は、例えば、
-  isUnmarshall が偽である AcceptEventAction により生成された
+  ``isUnmarshall`` が false である AcceptEventAction により生成された
   Signal オブジェクトの属性値を得るのに有用である。
 
 16.10.4 Notation
@@ -1366,10 +1385,11 @@ UML 2.5 pp. 439-562 に関するノート。
 * Figure 16.40 AcceptEventAction notations
 
   * AcceptEventAction は一般には凹五角形で記される。左側が凹。
-    内側にその name を配してもよい。
+    内側にその ``name`` を配してもよい。
 
-  * AcceptEventAction が単一の TimeEvent trigger を持つようなものは、
-    砂時計みたいな図形で記す。名前を書くならシンボルの下側である。
+  * AcceptEventAction が単一の TimeEvent ``trigger`` を持つようなものは、
+    砂時計みたいな記号で記す。
+    名前を書くなら記号の下側である。
 
 16.10.5 Examples
 ----------------------------------------------------------------------
@@ -1380,28 +1400,36 @@ UML 2.5 pp. 439-562 に関するノート。
 
 * Figure 16.42 Explicitly enabled AcceptEventAction
 
-  * 見た印象どおりのアクションが起こる。
+  * Process Order が処理された後に、
+    Request Payment Signal が送信される。
+    Payment confirmed AcceptEventAction がそれを受信すると、
+    Ship Order が行われる。
 
 * Figure 16.43 Repetitive time event
 
+  * 砂時計は待機時間活動の記号である。
   * End of month occurred が砂時計の左側に書いてある。
+    Report Meter Reading は毎月末に起こる。
 
 * Figure 16.44 UnmarshallAction
 
-  * Unmarshall Order が Name, Address, Product の attributes に分解する。
+  * Unmarshall Order は Order から
+    Name, Address, Product の属性の値を生じる。
 
 16.11 Structured Actions
 ======================================================================
 
 16.11.1 Summary
 ----------------------------------------------------------------------
-* StructuredActivityNode は ActivityGroup でもある Action である。
-  つまり、その実行時の振る舞いを定義する ActivityNodes と ActivityEdges を含む。
+* StructuredActivityNode とは、
+  ActivityGroup でもある Action である。
+  つまり、その実行時の振る舞いを定義する
+  ActivityNodes と ActivityEdges を含む。
 
 * StructuredActivityNodes の特殊型、名前を挙げると
   ConditionalNodes, LoopNodes, SequenceNodes らは、
   それらの中にある ExecutableNodes がどのように実行されるのかという、
-  それぞれの型固有の制御意味を定義する。
+  それぞれの型固有の制御の意味を定義する。
 
 16.11.2 Abstract Syntax
 ----------------------------------------------------------------------
@@ -1414,35 +1442,41 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 16.11.3.1 Structured Activity Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* StructuredActivityNode とは ActivityGroup でもあり、
-  その振る舞いがそれが含む ActivityNodes と ActivityEdges とで指定される
+* StructuredActivityNode とは、
+  ActivityGroup でもあり、
+  その挙動がそれが含む ActivityNodes と ActivityEdges とで指定される
   Action である。
 
-* StructuredActivityNode はまた Variables の定義をも含んで構わない。
+* StructuredActivityNode は Variables の定義を含んでもよい。
 
-* StructuredActivityNode は使用可能になり、
+* この表題のすぐ下に続く議論は
+  StructuredActivityNodes の特殊化のひとつのオブジェクトでない
+  StructuredActivityNode の意味についてのものである。
+
+* StructuredActivityNode は使用可能であり、
   Action に関する通常の規則に則った実行を始める。
 
 * StructuredActivityNode の InputPins は、
-  これに含まれている ActivityEdges へ至る sources であることが許されている。
+  これに含まれている ActivityEdges へ至る ``sources`` であってよい。
 
 * 同様にして、StructuredActivityNode の OutputPins は、
-  これに含まれている ActivityEdges の targets であることが許されている。
+  これに含まれている ActivityEdges の ``targets`` であってよい。
 
 * StructuredActivityNode に含まれている ActivityEdge は必ず
-  エッジの source と target の両者を持ち、それらは
+  エッジの ``source`` と ``target`` の両者を持ち、それらは
 
   * StructuredActivityNode に（直接的にでも間接的にでも）含まれるか、
   * StructuredActivityNode に所有される Pin であるものとする。
 
-* もし ActivityEdge の source が StructuredActivityNode の外部にあり、
-  target がその内部にあるならば、そのエッジに差し出された物はどれでも、
+* ActivityEdge の ``source`` が StructuredActivityNode の外部にあり、
+  ``target`` がその内部にあるならば、
+  そのエッジに運び込まれたものはどれでも、
   StructuredActivityNode が実行を始めるまでは保留されたままになる。
 
-* もし ActivityEdge の source が StructuredActivityNode の内部にあり、
-  target がその外部にあるならば、
+* ActivityEdge の ``source`` が StructuredActivityNode の内部にあり、
+  ``target`` がその外部にあるならば、
   StructuredActivityNode が実行しているのではない限り、
-  そのエッジには何物も差し出されることはない。
+  そのエッジには何も運び込まれることはない。
 
 * StructuredActivityNode は Activity の実行の完了にまつわる同じ規則に
   従って実行を完了する。
@@ -1451,15 +1485,15 @@ UML 2.5 pp. 439-562 に関するノート。
   その内部へと進出している実行はすべて停止されて、
   それに含まれるトークンはすべて破壊されるが、
   StructuredActivityNode の OutputPins にある、
-  つまり outgoing エッジに向けて差し出されているものは例外とする。
+  つまり ``outgoing`` エッジに向けて運び込まれているものは例外とする。
 
 16.11.3.2 Isolation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Behaviors の内側にあったりまたがったりする Actions の実行に備わっている
-  concurrent な本質のため、オブジェクトメモリへのアクセスと変更に
+* Behaviors の内側にあったりまたがったりする Actions の実行の
+  同時性のため、オブジェクトメモリへのアクセスと変更に
   一貫性を保証することは難しくなる可能性がある。
 
-* もしフラグ StructuredActivityNode::mustIsolate が真ならば、
+* もしフラグ ``mustIsolate`` が true ならば、
   ノード内部にある Action によるオブジェクトへのどのアクセスも
   ノード外側にある Action によるオブジェクトへのアクセスと
   衝突してはならない。
@@ -1470,29 +1504,46 @@ UML 2.5 pp. 439-562 に関するノート。
 
 16.11.3.3 Conditional Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* ConditionalNode とは ExecutableNodes の選択対象である集まりの
-  いくつかの中から選択して実行する StructuredActivityNode である。
+* ConditionalNode とは、
+  実行する ExecutableNodes の別の集まりの
+  いくつかからひとつを選択する StructuredActivityNode である。
 
 * ConditionalNode が実行を始めるときには、
   その内部にある InitialNodes のどれもが直ちに利用可能となる。
 
 * いったん ConditionalNode が実行中になると、
-  predecessorClauses を持たない Clauses のどんな test セクションも実行される。
+  ``predecessorClauses`` を持たない Clauses の
+  どんな ``test`` 節も実行される。
 
-* もし ConditionalNode::isAssured が真であるならば、
-  これは少なくともひとつの test セクションは真を返すことを断言する。
+* ``test`` 節の実行が「同時である」と指定されるところでは、
+  この事はモデルがそれらの実行の順序に何も課さないことを意味する。
 
-* いったん test セクションの実行手順が終わると、
-  もし実行可能な body セクションが厳密にひとつあれば、
-  その body セクションは実行される。
+* ConditionalNode について ``isAssured`` が true であると、
+  これは少なくともひとつの ``test`` 節が true 値を
+  返すはずであることを断言する。
+  ``isDeterminate`` が true であると、
+  これは高々ひとつの ``test`` 節が true 値を
+  返すはずであることを断言する。
 
-* else Clause とは ConditionalNode にあるその他の節全ての後ろにあり、
-  その test セクションの結果が常に真となる Clause である。
+* これらの断言を自動的に確かめることは一般には不可能であり、
+  それらを強いることは必要とされないが、
+  実行機関に対して有用な情報を与えることが許される。
 
-* body セクションが実行可能状態になるときにはいつでも、
-  それ以上の test セクション実行の完了よりも前に本当に実行される。
+* いったん ``test`` 節の実行工程が終わると、
+  実行可能な ``body`` 節が厳密にひとつあれば、
+  その ``body`` 節は実行される。
 
-* ConditionalNode は result OutputPins の順序付き集合を持つ。
+* else Clause とは、
+  ConditionalNode にある他の節全てに対する後者 (successor) であり、
+  ``test`` 節が結果として常に true となる Clause である。
+
+* ``body`` 節が実行可能になるときにはいつでも、
+  さらなる ``test`` 節実行のどの完了よりも
+  前に実際に実行されてよい。
+
+* ConditionalNode は ``result`` OutputPins の順序付き集合を持つ。
+
+* OutputPins はどの ``outgoing`` エッジにも応じられる。
 
 * いったん ConditionalNode が実行を完了すると、
   内部で進行中の実行全てが停止されて、
@@ -1502,46 +1553,53 @@ UML 2.5 pp. 439-562 に関するノート。
 
 16.11.3.4 Loop Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* LoopNode とは反復的なループを表現する StructuredActivityNode である。
+* LoopNode とは、反復的なループを表現する StructuredActivityNode である。
+  LoopNode は ``setupPart``, ``test`` および ``bodyPart`` から
+  構成されていて、
+  LoopNode に含まれる ExecutableNodes の部分集合を識別する。
+  LoopNode にある ExecutableNode はいずれも
+  ``setupPart``, ``test`` または ``bodyPart`` に
+  含まれていなければならない。
 
 * LoopNode が実行を始めると、その内部にある InitialNodes はどれもが
   直ちに利用可能になる。
 
-* まず LoopNode::setupPart が実行される。
-  それが実行を完了するときに、ループの反復的な実行が始まる。
+* まず LoopNode の ``setupPart`` が実行される。
+  ``setupPart`` が実行を完了すると、ループの反復的な実行が始まる。
 
-* test セクションには
-  LoopNode により見分けられる Boolean 型の
-  decider OutputPin を所有している Action がある。
+* ``test`` 節には
+  LoopNode により識別される Boolean 型の
+  ``decider`` OutputPin を所有している Action がある。
 
-* bodyPart の実行それぞれの後に、
-  ループの次の反復に備えて再び test セクションが実行される。
+* ``bodyPart`` の実行それぞれの後に、
+  ループの次の反復に備えて ``test`` 節が再び実行される。
 
 * LoopNode は
   各反復の間に現れる途中の値を保持するのに用いられる
-  loopVariable OutputPins の集合を定義することも許される。
+  ``loopVariable`` OutputPins の集合を定義してもよい。
 
-* LoopNode が実行を始めるときに、
+* LoopNode が実行を始めると、
   ループの初回反復に先立って
-  loopVariableInput InputPins にあるトークンは
-  対応する loopVariable OutputPins に移される。
+  ``loopVariableInput`` InputPins にあるトークンは
+  対応する ``loopVariable`` OutputPins に移される。
 
-* LoopNode に上で述べた以外の InputPins と OutputPins が
-  あることは許されない。
+* LoopNode には、上で述べた以外の InputPins と OutputPins が
+  あってはならない。
 
 16.11.3.5 Sequence Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * SequenceNode は完全な、
-  それが含む全ての ActivityNodes の順序を定義する。
-  なお ActivityNodes は全て ExecutableNodes であるものとする。
+  それが含む ActivityNodes 全ての順序を定義するが、
+  それらは全て ExecutableNodes でなければならない。
 
 16.11.4 Notation
 ----------------------------------------------------------------------
 * Figure 16.46 Notation for StructuredActivityNode
 
-  * StructuredActivityNode 自体は破線丸角矩形で記す。
-  * 矩形上部にキーワード ``«structured»`` を添える。
-  * 矩形内に nodes と edges を同封する。
+  * StructuredActivityNode は、
+    その ``nodes`` と ``edges`` を囲んでいる、
+    上部にキーワード ``«structured»`` のある
+    破線丸角矩形で記される。
 
 * ConditionalNode, LoopNode, SequenceNode には標準的な記法は定義されない。
 
@@ -1554,7 +1612,8 @@ UML 2.5 pp. 439-562 に関するノート。
 
 16.12.1 Summary
 ----------------------------------------------------------------------
-* ExpansionRegion は入力コレクションの要素に対応している、
+* ExpansionRegion とは、
+  入力コレクションの要素に対応している、
   それが含む要素を複数回実行する StructuredActivityNode である。
 
 16.12.2 Abstract Syntax
@@ -1566,57 +1625,75 @@ UML 2.5 pp. 439-562 に関するノート。
 
 16.12.3 Semantics
 ----------------------------------------------------------------------
-* ExpansionRegion とは値のコレクションのひとつまたはそれ以上を入力として取り、
+* ExpansionRegion とは、
+  値のコレクションをを入力としてひとつまたはそれを超えて取り、
   それらの値それぞれに対して包含する ActivityNodes と ActivityEdges を実行する
   StructuredActivityNode である。
 
-* ExpansionNode とは ExpansionRegion の境界を超えていく流れを指示するのに用いられる
+* ExpansionNode とは、
+  ExpansionRegion の境界を超えていく流れを指示するのに用いられる
   ObjectNode である。
+
+* 実行機関は、それが支援する（集合、袋、等々）、
+  個々のオブジェクトがそこから要素値から構築されてよい、
+  かつ、そこからそれらの要素値が後で得られてよいような、
+  多様な種類のコレクション型を定義してよい。
 
 * ExpansionRegion に入力 ExpansionNodes が複数あれば、
   異なるコレクションにある要素の種類が変化することが許されているけれども、
-  それぞれは同種のコレクション（集合、バッグ、その他）を処理するものとする。
+  それぞれは同種のコレクション（集合、袋、等々）を処理するものとする。
 
-* ExpansionRegion は Action の通常の規則に則って実行を始める。
+* ExpansionRegion は Action についての通常の規則に則って実行を始める。
 
-* ExpansionRegion に包含されている ActivityNodes と ActivityEdges の
+* ExpansionRegion に含まれる ActivityNodes と ActivityEdges の
   グループは入力コレクションの要素それぞれについて一度だけ実行される。
-  これらは ExpansionRegion の expansion executions と呼ばれるものである。
+  これらは ExpansionRegion の拡大実行 (expansion executions) と
+  呼べるであろう。
 
 * 一般の StructuredActivityNode の実行と同じ意味の下に、
   各 expansion execution はその他の実行とは独立して進行するが、
   次の特別な規則は除外される。
 
-  * 各 expansion execution 内部では、単一のトークンは
-    ExpansionRegion の内側にある source と target のように
-    入力 ExpansionNode のついている ActivityEdge それぞれに差し出される。
+  * 拡大実行それぞれの内部では、単一のトークンは
+    入力 ExpansionNode がその ``source`` であり、
+    その ``target`` が ExpansionRegion の内側にある
+    ActivityEdge それぞれに運び出される。
 
-  * 各 expansion execution は結果として
-    ExpansionRegion の内側にあるその source と
-    その target としての出力 ExpansionNode とを持つ
-    ActivityEdge に差し出されるトークンをもたらしてよい。
+  * 拡大実行それぞれは、
+    その ``source`` がExpansionRegion の内側にあり、
+    その出力 ExpansionNode がその ``target`` となる
+    ActivityEdge に運び出されるトークンに帰着してよい。
 
   * ExpansionRegion の InputPins 上に配置されたトークンは
-    expansion execution それぞれに複製されて、
-    InputPins から流出する ActivityEdges 上にあるトークンの
-    異なるコピーを各 expansion execution は差し出される。
+    拡大実行のそれぞれに複製されて、
+    拡大実行のそれぞれには
+    InputPins から流出する ActivityEdges にあるトークンの
+    異なる複製が運び込まれるようにする。
 
-  * ExpansionRegions はその内側から ExpansionRegion の外に交わる
-    OutputPins と ActivityEdges を持ってよい。
+  * ExpansionRegions には、
+    その内側から ExpansionRegion の外に交わる
+    OutputPins と ActivityEdges があってよい。
 
-* ExpansionRegion が増設物の実行すべてを完了するときには、
-  出力コレクションをその出力 ExpansionNodes に差し出す。
+* ExpansionRegion が拡大実行のすべてを完了すると、
+  出力コレクションは
+  それらのノードから流出する ActivityEdges のいずれの
+  出力 ExpansionNodes に与えられる。
 
-* ExpansionRegion::mode はその増設部の実行がどのように進行するかを制御する。
+* ExpansionRegion の ``mode`` はその拡大実行の実行が
+  どのように進行するかを制御する。
 
-  * parallel: 増設部の実行は concurrently に進行する。
-    ただし concurrent の意味はいつものように解釈すること。
+  * parallel: 拡大実行の実行は同時に進行する。
+    これは実行期間が実行を平行に稼動させるか、
+    さもなくば時間上部分的に重なることを可能にするが、これは必要ではない。
+    しかし、実行が逐次的に稼動されるならば、
+    それらが稼動される順番は定義されない。
 
-  * iterative: 増設部の実行は反復的な順序で起こるものとする。
+  * iterative: 拡大実行の実行は反復的な順序で起こるものとする。
     あるものが完了してから他のものが始まることが可能になる。
 
-  * stream: 厳密にひとつの増設部の実行があり、
-    値はコレクションそれぞれからの流れにより、この実行に差し出される。
+  * stream: 厳密にひとつの拡大実行の実行があり、
+    値はコレクションそれぞれからの流れにより、
+    この実行に与えられる。
 
 16.12.4 Notation
 ----------------------------------------------------------------------
@@ -1624,14 +1701,14 @@ UML 2.5 pp. 439-562 に関するノート。
 
   * ExpansionRegion は破線丸角箱で記す。
   * 箱の左上に ExpansionKind の値に対応するキーワード ``«parallel»``, etc. を添える。
-  * 入力と出力の ExpansionNodes は小さい短冊のようなシンボルで記す。
+  * 入力と出力の ExpansionNodes は小さい短冊のような記号で記す。
     これらは箱の枠上に配置する。
   * ExpansionRegion の内側と外側にある ActivityEdge 矢印は
     入力と出力のノードを見分けることができる。
 
 * Figure 16.49 Shorthand notation for expansion region containing single node
 
-  * 速記法として、リストボックス記法を Action シンボルで直接配置してよい。
+  * 速記法として、リストボックス記法を Action 記号で直接配置してよい。
 
 * Figure 16.50 Full form of previous shorthand notation
 
@@ -1639,20 +1716,37 @@ UML 2.5 pp. 439-562 に関するノート。
 
 * Figure 16.51 Notation for expansion region with one behavior invocation
 
-  * 単一の CallBehaviorAction を含む ExpansionRegion に採用可能なさらなる速記例。
-  * キーワードを使う代わりに ``*`` を右上に記す。複数実行を含意している。
+  * 単一の CallBehaviorAction を含む ExpansionRegion に採用可能な
+    さらなる速記例。
+
+  * キーワードを使う代わりに ``*`` を右上に記す。
+    複数実行を含意している。
 
 16.12.5 Examples
 ----------------------------------------------------------------------
 * Figure 16.52 Expansion region with two inputs and one output
 
-  * ふたつの入力とひとつの出力を持ち、parallel に実行される ExpansionRegion の見本。
+  * ふたつの入力とひとつの出力を持ち、
+    parallel に実行される ExpansionRegion の見本。
+
   * 両方のコレクションには同数の要素を持つことを期待している。
   * 内側は入力コレクションの各要素について一度実行される。
 
 * Figure 16.53 Expansion Region
 
-  * ある高速 Fourier 変換計算の断片が ExpansionRegion を含んでいる見本である。
+  * ExpansionRegion を含む高速 Fourier 変換計算の断片の見本である。
+  * ExpansionRegion の外側で複素数の配列の演算がある。
+  * S, Slower, Supper, V は配列である。
+
+  * ExpansionRegions 中の式に見える
+    cut および shuffle は配列に作用する演算である。
+
+  * 領域の内側では、ふたつの算術演算が
+    入力配列 3 個 (lower, upper, root) の要素に対してなされ、
+    出力配列 2 個 (nxteven, nxtodd) を求める。
+
+  * 配列内の異なる位置同士は相互作用しないので、
+    ExpansionRegion はすべての位置で平行に実行することができる。
 
 * Figure 16.54 Examples of expansion region shorthand
 
@@ -1667,10 +1761,12 @@ UML 2.5 pp. 439-562 に関するノート。
 
 16.13.1 Summary
 ----------------------------------------------------------------------
-* 本節では ReduceAction と RaiseExceptionAction を扱う。
-* ReduceAction とはあるコレクションの値らを単一の値にまで縮合するために
-  ひとつの Behavior を繰り返し発動する Action である。
-* RaiseExceptionAction は例外を送出するための Action である。
+* 本節では Actions のさらなる種類である
+  ReduceAction と RaiseExceptionAction を扱う。
+  ReduceAction とは、ある値のコレクションを
+  単一の値にまで縮合するために
+  ひとつの Behavior を繰り返し発動する Action であり、
+  RaiseExceptionAction とは、例外を送出するための Action である。
 
 16.13.2 Abstract Syntax
 ----------------------------------------------------------------------
@@ -1684,35 +1780,49 @@ UML 2.5 pp. 439-562 に関するノート。
 16.13.3.1 Reduce Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * ReduceAction とは、
-  コレクションの要素を合体して単一の値に縮合する Action である。
+  コレクションの要素を結合することで
+  コレクションを単一の値に縮合する Action である。
+
+* 実行機関は、それが支援する（集合、袋、等々）、
+  個々のオブジェクトがそこから要素値から構築されてよい、
+  かつ、そこからそれらの要素値が後で得られてよいような、
+  多様な種類のコレクション型を定義してよい。
+
+  * これは以前に書いた文をコピーアンドペーストしたものだ。
+
+* 代わりに、実行機関は
+  InputPin で一緒に置かれたトークンの一団に
+  渡された値の集合として暗にコレクションを支援してもよい。
 
 * ReduceAction は入力コレクションの中間生成コピーの
-  reducer Behavior を繰り返し発動することで実行する。
+  ``reducer`` Behavior を繰り返し発動することで実行する。
 
 * 入力コレクションが順序なしであるか、
-  または InputPin::isOrdered が偽であれば、
-  中間生成コレクションのどの要素が reducer の実引数として選択されたのかが
-  不確定となる。
+  または InputPin に対する ``isOrdered`` が false であれば、
+  中間生成コレクションのどの要素が ``reducer`` の実引数として
+  選択されたのかが不確定となる。
 
-* もし reducer Behavior が可換律かつ結合律を満たす操作であれば、
-  順序なしコレクションは ReduceAction の結果を左右しない。
-  このことは、
-  縮合計算がどのように実行されてよいのかということにかなりの自由さを与える。
+* もし ``reducer`` Behavior が可換律かつ結合律を満たす操作であれば、
+  順序なしコレクションまたは ``isOrdered`` が false であると
+  ReduceAction の結果に普通は影響しないはずであり、
+  縮合計算がどう実行されてよいのかということに
+  かなりの自由さを与える。
 
-* その発動がお互いに影響するような副作用が reducer Behavior にあれば、
-  isOrdered が偽である ReduceAction の結果は予測不能であって構わない。
+* その発動がお互いに影響するような副作用が ``reducer`` Behavior にあれば、
+  ``isOrdered`` が false である ReduceAction の結果は
+  予測不能であってよい。
 
 16.13.3.2 Raise Exception Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* RaiseExceptionAction とは例外を発生させる Action である。
+* RaiseExceptionAction とは、例外を発生させる Action である。
   正常に終了するというよりは、常に例外を送出することで完了する。
-  execption という InputPin において与えられた値が例外として送出される。
+  ``exception`` InputPin において与えられた値が例外として送出される。
 
-* RaiseExceptionAction 送出された例外に match する ExceptionHandler を
+* RaiseExceptionAction 送出された例外に一致する ExceptionHandler を
   自分で持つならば、例外はそのハンドラーによって捕捉される。
   そうでなければ、例外はいちばん内側から外側に向かって拡がっていく。
 
-* 例外が StructuredActivityNode の外に伝わるときには
+* 例外が StructuredActivityNode の外に伝わると
   （ノードにおける ExceptionHandler によって捕捉されている場合も含み）、
   その StructuredActivityNode は停止する。
 
@@ -1726,11 +1836,19 @@ UML 2.5 pp. 439-562 に関するノート。
 
 16.13.5 Examples
 ----------------------------------------------------------------------
-* ReduceAction の例として整数の和をとる演算を reducer として挙げている。
-  整数の組 (2, 7, 5, 3) を入力コレクションと仮定すると、
-  結果は 11 になるだろう。
+* ReduceAction は数のリストをその数の和へ縮合するのに使える。
+  そのような ReduceAction には
+  数のコレクションに対する InputPin がひとつと、
+  数に対する OutputPin がひとつと、
+  ``reducer`` Behavior として加算関数とがある。
 
-* isOrdered が偽の場合はオペランドをどの順で reduce してもよい。
+  * 例えば、入力コレクションに整数の組 :math:`(2, 7, 5, 3)` があると仮定する。
+    ReduceAction を加算関数でこのコレクションに適用する結果は 11 である。
+
+  * ``isOrdered`` が既定の false の場合は、
+    これはいくつかのやり方で、例えば、
+    :math:`(((2+7) + 5) + 3), (2 + (7 + (5 + 3))), ((2 + 7) + (5 + 3))`
+    で計算することが可能である。
 
 16.14 Classifier Descriptions
 ======================================================================
