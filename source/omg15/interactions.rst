@@ -3,15 +3,36 @@
 ======================================================================
 UML 2.5 pp. 563-636 に関するノート。
 
-.. todo:: 最低でもあと一回は編集する。
+.. todo:: 誤訳や変な解釈がいかにもありそうなので、発覚次第修正する。
 
 .. note::
+
+   訳語検討。
+
+   * coregion (n.) codomain のようなものだろう。
+
+   * critical region (n.) 「危急区域」とする。
+     誰もこんな訳語は使っていない。
+
+   * guard (n.) 「防御」にしておくが、しっくりこない。
+
+   * interleave (v.) 「交互に配置する」で我慢する。
 
    * lifeline (n.) 某文書では「生存線」という用語を採用しているようなので
      拝借する。
 
+   * operand (n.) 「演算子 (operator) が作用する対象」を意味する英単語だ。
+     しかし、本文を読むと operator が演算子であるように感じられない。
+     意味がやや限定されている。
+     「演算」よりは「作用」に寄っている感じがするので、
+     「被演算子」よりは「作用対象」のほうが訳語としてましと思われる。
+     そうすると operator も「作用素」にしたくなるところだが、
+     少しは検討してから変えるかどうか決める。
+
    * partial ordering (n.) 「半順序」とする。
      集合論の教科書で現れる用語と同じものだろう。
+
+   * region (n.) 「領域」「区域」など。
 
    * trace (n.) 「跡」「足跡」「痕跡」「形跡」「線」「記録」など。
 
@@ -66,7 +87,7 @@ UML 2.5 pp. 563-636 に関するノート。
   生存線 (lifelines) の間にあるメッセージである。
   メッセージの列が状況の理解に重要であると考えられる。
 
-* 我々は interleaving という言葉を、次の意味を表すものとして用いる。
+* 我々は交互配置 (interleaving) という言葉を、次の意味を表すものとして用いる。
 
   ふたつまたはそれを超える形跡を
   異なる形跡から来た事象が結果の形跡にどのような順序で現れても
@@ -84,7 +105,7 @@ UML 2.5 pp. 563-636 に関するノート。
   ここで ``P`` は有効な形跡の集合であり、
   ``I`` は無効な形跡の集合である。
 
-  * ``P`` と ``I`` の和集合が形跡の全集合である必要はない。
+  * :math:`P \cup I` が形跡の全集合である必要はない。
   * ふたつの Interactions が等価となるのは、
     両者の形跡集合の対が等しいときである。
 
@@ -445,7 +466,7 @@ UML 2.5 pp. 563-636 に関するノート。
 * Message の実引数は ValueSpecification である。
 
 * Message が応答ならば、それの実引数それぞれは
-  高々ひとつの operand を持つ Expression であるものとする。
+  高々ひとつの作用対象を持つ Expression であるものとする。
 
 * 応答 Message の実引数 Expression の記号は
   実引数の代入対象 (assignment target) を表し、
@@ -607,7 +628,7 @@ UML 2.5 pp. 563-636 に関するノート。
 
   * ActionExecutionSpecification
   * BehaviorExecutionSpecification
-  * *ExecutionSpecification*
+  * ExecutionOccurrenceSpecification
   * GeneralOrdering
 
 17.5.2 Abstract Syntax
@@ -625,32 +646,33 @@ UML 2.5 pp. 563-636 に関するノート。
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * ActionExecutionSpecification はアクションから生じるメッセージを
   相互作用が指定するのに用いられる。
-  このアクションらは他の振る舞いによって所有されていてよい。
+  このアクションらは他の挙動によって所有されていてよい。
 
 17.5.3.2 Behavior Execution Specifications
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* BehaviorExecutionSpecification は振る舞いから生じるメッセージを
+* BehaviorExecutionSpecification は挙動から生じるメッセージを
   相互作用が指定するのに用いられる。
 
 17.5.3.3 Execution Occurrence Specifications
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * ExecutionOccurrenceSpecification はある生存線上において
-  ExecutionSpecification の開始イベントもしくは終了イベントを表現する。
+  ExecutionSpecification の開始事象もしくは終了事象を表現する。
 
 17.5.3.4 General Orderings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* GeneralOrdering はあり得る連続列の集合を制限する。
-  OccurrenceSpecifications の半順序は GeneralOrderings の集合により制約を課せられる。
+* GeneralOrdering はあり得る列の集合を制限する。
+  OccurrenceSpecifications の半順序は GeneralOrderings の集合により
+  強制される。
 
 17.5.4 Notation
 ----------------------------------------------------------------------
 17.5.4.1 ActionExecutionSpecificiation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 派生元 ExecutionSpecification の記法を採用するようだ。
+* 17.2.4.4 参照。
 
 17.5.4.2 BehaviorExecutionSpecification
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* こちらも同様。
+* 17.2.4.4 参照。
 
 17.5.4.3 ExecutionOccurrenceSpecification
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -661,7 +683,7 @@ UML 2.5 pp. 563-636 に関するノート。
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * GeneralOrdering はふたつの OccurrenceSpecifications を接続する点線として示される。
 
-  * 矢印の方向を示すシンボルは線分の中ほどに描かれる。
+  * 矢印の方向を示す記号は線分の中ほどに描かれる。
     矢印の矢先には描かない。
 
 17.5.5 Examples
@@ -698,165 +720,188 @@ UML 2.5 pp. 563-636 に関するノート。
 
 17.6.3 Semantics
 ----------------------------------------------------------------------
-.. todo:: クロスリファレンスのすべてに誤植があるような気がするので問い合わせる。
+.. todo:: 
+
+   クロスリファレンスのすべてに誤植があるような気がするので問い合わせる。
+   17.6.3.x の x が欠けている。当ノートで勝手に訂正する。
 
 17.6.3.1 Interaction Operands
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * InteractionOperand は CombinedFragment の内部にある領域である。
+  意味の計算には true な防御の InteractionOperands しか含まれない。
+  防御がない場合は、この事を true の防御を意味するものと解釈する。
+
+  * 後述の 17.6.3.3 参照。
+
 * InteractionOperand の意味は
-  暗黙の seq 演算により結合された、
+  暗黙の **seq** 演算により結合された、
   その構成要素たる InteractionFragments により与えられる。
+
+  * 後述の 17.6.3.3 参照。
 
 17.6.3.2 Interaction Constraints
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * InteractionConstraints は常に CombinedFragments と共に用いられる。
 
+  * 後述の 17.6.3.3 参照。
+
 17.6.3.3 Combined Fragments
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* CombinedFragment の意味はその interactionOperator に依存する。
+* CombinedFragment の意味はその ``interactionOperator`` に、
+  ``interactionOperator`` の種類それぞれに対して、
+  下に説明するように依存する。
+
 * CombinedFragment に関連する Gates は
   CombinedFragment とそれが取り囲んでいる物との間の
   構文上のインターフェイスを表現する。
-  これはインターフェイスが他の InteractionFragments に向けられていることを意味する。
+  これはインターフェイスが他の InteractionFragments に
+  向けられていることを意味する。
 
 17.6.3.4 Consider Ignore Fragments
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* ConsiderIgnoreFragment とは Ignore または Consider の
-  interactionOperator 値を持つ CombinedFragment である。
+* ConsiderIgnoreFragment は Ignore または Consider の
+  ``interactionOperator`` 値を持つ CombinedFragment である。
+
+  * 後述の 17.6.3.15 参照。
 
 17.6.3.5 Continuations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Continuations は Alternative CombinedFragments と（弱）順序と共に
-  あるときしか意味を持たない。
+  あるときしか意味をなさない。
 
 * Alternative CombinedFragment の InteractionOperand が
   名前が X という Continuation で終わるならば、
-  その X で始まっている InteractionFragments しか追加が可能にならない。
+  その Continuation X から始まっている InteractionFragments しか
+  追加できない。
 
 17.6.3.6 Interaction Operator Kind Values
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* CombinedFragment の意味を決定するのに interactionOperator の値は深い意味がある。
+* CombinedFragment の意味を決定するのに ``interactionOperator`` の値は
+  重要であり、
+  ``interactionOperator`` 列挙値それぞれに対して
+  下に指定されるとおりである。
 
 17.6.3.7 Alternatives
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* InteractionOperatorKind::alt は CombinedFragment が振る舞いの
-  選択肢ひとつを表現することを明示する。
+* ``interactionOperator`` **alt** は CombinedFragment が挙動の
+  選択肢のひとつを表現することを示す。
 
-* 選択肢ひとつを定義する traces の集合は、
-  operands の（ガードされた）traces の和集合である。
+* 選択肢ひとつを定義する形跡の集合は、
+  作用対象の（防御された）形跡の和集合である。
 
-* ``else`` によってガードされる operand は
-  包囲している CombinedFragment にある他のガードすべての
-  論理和の否定となるガードである。
+* ``else`` によって防御される作用対象は
+  包囲している CombinedFragment にある他の防御すべての
+  論理和の否定となる防御である。
 
-* もしどの operand も真を評価するガードを持たないならば、
-  どの operand も実行されず、
+* もしどの作用対象も true に評価する防御を持たないならば、
+  どの作用対象も実行されず、
   包囲している InteractionFragment の残りが実行される。
 
 * もし内側の CombinedFragment Gate が
-  alt CombinedFragment の InteractionOperand のどれかに用いられているならば、
-  同名の Gate がその alt CombinedFragment の InteractionOperand それぞれに
+  **alt** CombinedFragment の InteractionOperand のどれかに用いられているならば、
+  同名の Gate がその **alt** CombinedFragment の InteractionOperand それぞれに
   よって用いられるものとする。
 
 17.6.3.8 Option
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* InteractionOperatorKind::opt は CombinedFragment が
-  その単独の operand が起こるのか、何も起こらないのか一方となるような
-  振る舞いの選択肢ひとつを表現することを明示する。
+* ``interactionOperator`` **opt** は CombinedFragment が
+  その単独の作用対象が起こるのか、何も起こらないのか一方となるような
+  挙動の選択肢ひとつを表現することを示す。
 
 17.6.3.9 Break
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* InteractionOperatorKind::break は、
-  operand が包囲している InteractionFragment の残りの代わりに
-  実施されるシナリオであるという理解で、
-  CombinedFragment がシナリオの中断を表現することを明示する。
+* ``interactionOperator`` **break** は、
+  作用対象が包囲している InteractionFragment の残りの代わりに
+  行われるシナリオであるという意味で、
+  CombinedFragment がシナリオの中断を表現することを示す。
 
-* InteractionOperatorKind::break のある CombinedFragment は
-  包囲している InteractionFragment の Lifelines すべてに及ぶものとする。
+* ``interactionOperator`` **break**  のある CombinedFragment は
+  包囲している InteractionFragment の Lifelines すべてを
+  覆うべきである。
 
 17.6.3.10 Parallel
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* InteractionOperatorKind::par は CombinedFragment が
-  operands の振る舞いの間の平行な合流を表現することを明示する。
+* ``interactionOperator`` **par** は CombinedFragment が
+  作用対象の挙動の間の平行な合流を表現することを示す。
 
-* 平行な合流は operand 内部にある
+* 平行な合流は作用対象内部にある
   OccurrenceSpecifications の順序を乱すことなく
-  operands の OccurrenceSpecifications が interleave されても
-  よいような手段すべてを記述する traces の集合を定義する。
+  作用対象の OccurrenceSpecifications が交互配置されても
+  よいような手段すべてを記述する形跡の集合を定義する。
 
 17.6.3.11 Weak Sequencing
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* InteractionOperatorKind::seq は CombinedFragment が operands の
-  振る舞いの間における弱配列を表現することを明示する。
+* ``interactionOperator`` **seq** は CombinedFragment が作用対象の
+  挙動の間における弱配列を表現することを示す。
 
-* 弱配列はこれらの性質を持つ traces の集合により定義される。
+* 弱配列はこれらの性質を持つ形跡の集合により定義される：
 
-  #. 結果において operands のそれぞれの内部にある
-     OccurrenceSpecifications の順序は維持される。
+  #. 作用対象のそれぞれの内部にある
+     OccurrenceSpecifications の順序は結果に維持される。
 
-  #. 異なる operands からの異なる生存線上の
+  #. 異なる作用対象からの異なる生存線上の
      OccurrenceSpecifications はどのような順序になってもよい。
 
-  #. 異なる operands からの同一生存線上の
+  #. 異なる作用対象からの同一生存線上の
      OccurrenceSpecifications は、
-     最初の operand の OccurrenceSpecification が
-     その次の operand のそれの前に来るような順序になる。
+     最初の作用対象の OccurrenceSpecification が
+     その次の作用対象のそれの前に来るような順序になる。
 
-* 弱配列は operands が参加者の素集合系にあるときに
-  ひとつの平行な合流へ縮合する。
+* 作用対象が参加者の互いに素である集合にあるときに
+  弱配列はひとつの平行な合流へ縮合する。
 
 17.6.3.12 Strict Sequencing
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* InteractionOperatorKind::strict は CombinedFragment が operands の
-  振る舞いの間における強配列を表現することを明示する。
+* ``interactionOperator`` **strict** は CombinedFragment が作用対象の
+  挙動の間における強配列を表現することを明示する。
 
 17.6.3.13 Negative
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* InteractionOperatorKind::neg は
-  無効であると定義される traces を
+* ``interactionOperator`` neg は
+  無効であると定義される形跡を
   CombinedFragment が表現することを明示する。
 
-* InteractionOperatorKind::neg を持つ CombinedFragment を定義した
-  traces の集合はそのただひとつの operand により与えられた traces の集合に等しく、
-  有効な traces というよりは無効な集合であるというだけに過ぎない。
+* ``interactionOperator`` neg を持つ CombinedFragment を定義した
+  形跡の集合はそのただひとつの作用対象により与えられた形跡の集合に等しく、
+  有効な形跡というよりは無効な集合であるというだけに過ぎない。
 
 17.6.3.14 Critical Region
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* InteractionOperatorKind::critical は CombinedFragment が
-  critical region を表現することを明示する。
+* ``interactionOperator`` **critical** は CombinedFragment が
+  危急区域を表現することを示す。
 
-  * 他の OccurrenceSpecifications によって領域の traces が
-    interleave され得ないというのが critical region の意味である。
+  * 他の OccurrenceSpecifications によって領域の形跡が
+    交互配置され得ないというのが危急区域の意味である。
 
-* 包囲している構成要素らの traces の集合は
-  critical regions により制限される。
+* 包囲している構成要素らの形跡の集合は
+  危急区域により制限される。
 
 17.6.3.15 Ignore / Consider
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* InteractionOperatorKind::ignore は
+* ``interactionOperator`` **ignore** は
   CombinedFragment 内部には示されていないメッセージの種類が
-  いくつかあることを明示する。
+  いくつかあることを示す。
 
-* 反対に InteractionOperatorKind::consider は
-  CombinedFragment 内部にはどのメッセージが熟考されるべきかを明示する。
+* 反対に ``interactionOperator`` **consider** は
+  CombinedFragment 内部ではどのメッセージを重んじるべきかを示す。
 
 17.6.3.16 Assertion
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* InteractionOperatorKind::assert は
-  CombinedFragment がある断定を表現することを明示する。
+* ``interactionOperator`` **assert** は
+  CombinedFragment がある断定を表現することを示す。
 
 17.6.3.17 Loop
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* InteractionOperatorKind::loop は
-  CombinedFragment があるループを表現することを明示する。
-  ループ operand は繰り返しの回数である。
+* ``interactionOperator`` **loop** は
+  CombinedFragment があるループを表現することを示す。
+  ループ作用対象は繰り返しの回数である。
 
-* ガードには Boolean 式に加えてループの繰り返し回数の下限と上限を含めてよい。
+* 防御には Boolean 式に加えてループの繰り返し回数の下限と上限を含めてよい。
 
-* もしループが指定を持つ独立した InteractionConstraint を含むならば、
+* ループが指定を持つ独立した InteractionConstraint を含むと、
   ループで指定された反復の最小数に関係なく、
-  その指定が実行中は真と評価するならば、
-  ループは続行するだけである。
+  その指定が実行中は true と評価するときに
+  ループが続行するだけである。
 
 17.6.4 Notation
 ----------------------------------------------------------------------
@@ -864,47 +909,51 @@ UML 2.5 pp. 563-636 に関するノート。
 17.6.4.1 InteractionOperand
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * InteractionOperands は水平な破線で分離される。
-* Sequence 図の InteractionOperand ひとつの内側では
+  InteractionOperands は協力して枠にはまった CombinedFragment を構成する。
+
+* Sequence 図の InteractionOperand の内側では
   InteractionFragments の順序は単に垂直方向の上から与えられる。
 
 17.6.4.2 InteractionConstraint
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* InteractionConstraint は最初のイベント発生が起こる
+* InteractionConstraint は最初の事象発生が起こる
   生存線を覆う角括弧で示され、
-  そのイベントの上に位置し、
+  その事象の上に位置し、
   含んでいる Interaction または InteractionOperand の中にある。
 
-* InteractionConstraint が省略されているときには、真が仮定される。
+* InteractionConstraint が省略されているときには true が仮定される。
 
 17.6.4.3 CombinedFragment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Sequence 図中の CombinedFragment の表記は実線の矩形である。
+* Sequence 図の CombinedFragment の表記は実線の矩形である。
   演算子はその矩形の左上隅の五角形中に示される。
 
 * ひとつを超える演算子が五角形の記述子中に示されてもかまわない。
+  これは入れ子になった CombinedFragment の速記法である。
 
-* CombinedFragment の operands は CombinedFragment のグラフ領域を
+* CombinedFragment の作用対象は CombinedFragment のグラフ領域を
   タイル貼りすることで示される。
 
-  * 水平の破線を用いて operands に対応する領域群に分割する。
+  * 水平の破線を用いて作用対象に対応する領域群に分割する。
 
 17.6.4.4 ConsiderIgnoreFragment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* ConsiderIgnoreFragment の表記は演算子を指し示す
-  consider または ignore のある CombinedFragments すべてに対して同じである。
+* ConsiderIgnoreFragment の表記は、
+  **consider** または **ignore** が演算子を示す
+  CombinedFragments のすべてについて同じである。
 
-* 注意することは ignore と consider はひとつの矩形の中に
-  演算子の他の種類と共に結合されることが可能であることだ。
+* **ignore** と **consider** はひとつの矩形の中に
+  他の種の演算子と共に結びつくことが可能であることに注意。
 
 17.6.4.5 Continuation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Continuations は States と同じように示されるが、
+* Continuations は States と同じ記号で示されるが、
   ひとつを超える Lifeline を覆うことが許される。
 
 * Continuations はまた Interaction Overview 図の動線上に現れてもよい。
 
-* InteractionFragment で孤独な Continuation は
-  包囲する InteractionFragment の末端にあると考慮される。
+* InteractionFragment で単独である Continuation は
+  包囲する InteractionFragment の末端にあると考えられる。
 
 17.6.4.6 InteractionOperatorKind
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -919,7 +968,7 @@ UML 2.5 pp. 563-636 に関するノート。
 
 17.6.4.8 Ignore / Consider interactionOperator
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 言及済み。
+* 17.6.4.4 参照。
 
 17.6.4.9 Loop interactionOperator
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -927,36 +976,37 @@ UML 2.5 pp. 563-636 に関するノート。
 
 17.6.4.10 Parallel interactionOperator
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 準拠ツールは単一 Lifeline 内にある coregion area の速記法を用いてよい。
-* この coregion というのは平行に結合された部品を表す速記法であり、
-  ある Lifeline 上のイベント発生（または他の入れ子になった部品）の
+* 準拠ツールは単一 Lifeline 内にある "coregion area" の速記法を用いてよい。
+
+* この "coregion" とは、平行に結合された部品を表す速記法であり、
+  ある Lifeline 上の事象発生（または他の入れ子になった部品）の
   順序が取るに足らない普通の状況で用いられる。
 
 17.6.5 Examples
 ----------------------------------------------------------------------
-* InteractionOperand の見本については 17.14 を参照。
-* InteractionConstraints の見本については 17.14, 17.27 を参照。
-* 多彩な interactionOperators のある CombinedFragments の見本については
-  17.12, 17.13, 17.14 を参照。
+* InteractionOperand の見本については Figure 17.14 を参照。
+* InteractionConstraints の見本については Figure 17.14, Figure 17.27 を参照。
+* 多彩な ``interactionOperators`` のある CombinedFragments の見本については
+  Figure 17.12, Figure 17.13, Figure 17.14 を参照。
 
 * Figure 17.12 Critical Region
 
   * 米国における 911 呼び出しの処理が切れ目なく処理されなければならないことを
     示している。
 
-  * 演算子 par と critical の見本。
+  * 演算子 **par** と **critical** の見本。
 
 * Figure 17.13 Loop CombinedFragment
 
-  * 演算子 loop の見本。ガード付きの方は入れ子になっている。
+  * 演算子 **loop** の見本。防御付きの方は入れ子になっている。
 
 * Figure 17.14 CombinedFragment
 
-  * 演算子 alt の見本。モデルに意味がないので理解しにくい。
+  * 演算子 **alt** の見本。モデルに意味がないので理解しにくい。
 
 * Figure 17.15 Continuation
 
-  * Sequence 図がふたつに分割されていて、左側の図中の ref 区画が
+  * Sequence 図がふたつに分割されていて、左側の図中の **ref** 区画が
     右側の Sequence 図自体に対応している。
 
 * Figure 17.16 Continuation interpretation
@@ -971,14 +1021,14 @@ UML 2.5 pp. 563-636 に関するノート。
     この図では取り扱わないと言っているだけだ。
 
   * Y にある ``mystate`` は StateInvariant の例。
-    これ以降のイベントが起こるのに先立って実行時に直接評価される。
+    これ以降の事象が起こるのに先立って実行時に直接評価される。
 
   * consider 部品に入れ子になっている assert 部品は、
     メッセージ ``v`` がいったんここで発生すると、
     メッセージ ``q`` が起こることを期待していることを意味する。
 
   * ``{Y.p == 15}`` なる StateInvariant は
-    Y の次のイベント発生に先立って評価される。
+    Y の次の事象発生に先立って評価される。
 
 17.7 Interaction Uses
 ======================================================================
@@ -1006,14 +1056,14 @@ UML 2.5 pp. 563-636 に関するノート。
 ----------------------------------------------------------------------
 17.7.3.1 Interaction Uses
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* InteractionUse とは、
-  引数を置き換える実引数のようなものに束縛されている、
+* InteractionUse の意味とは、
+  仮引数を置き換える実引数のようなものに束縛されている
   総称的な部分のすべてであるばかりでなく、
-  入口が解決される被参照 Interaction の意味の traces の集合でもある。
+  入口が解決される被参照 Interaction の意味の形跡の集合でもある。
 
 * 実 Gate は InteractionUse の外側の境界に付属されてよい。
   その InteractionUse により被参照 Interaction にある
-  具体的な送信者と受信者を樹立するリンク点を与える。
+  具体的な送信者と受信者を確率するリンク点を与える。
 
 17.7.3.2 Part Decompositions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1022,7 +1072,7 @@ UML 2.5 pp. 563-636 に関するノート。
 
 * 分解された Lifeline は InteractionUse として解釈されるので、
   PartDecomposition の意味は
-  入口と引数が match される分解により参照される Interaction の意味である。
+  入口と引数が一致される分解により参照される Interaction の意味である。
 
 * CombinedFragment が大域外 (extra-global) であるということが描写するのは、
   分解された Lifeline を覆う同じ演算子を持つ CombinedFragment が
@@ -1032,14 +1082,17 @@ UML 2.5 pp. 563-636 に関するノート。
 ----------------------------------------------------------------------
 17.7.4.1 InteractionUse
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* InteractionUse は演算子が ref と呼ばれる CombinedFragment シンボルとして示される。
+* InteractionUse は演算子が **ref** と呼ばれる
+  CombinedFragment 記号として示される。
 
   * 名前の構文はここにある BNF の通りに記す。
+
+* 実引数の構文は 17.4.4 で説明されている。
 
 17.7.4.2 PartDecomposition
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * PartDecomposition は 17.3.4 節で見られるように
-  Lifeline の見出しにある参照する節により明示される。
+  Lifeline の見出しにある参照する節により示される。
 
 * 部品分解が分解された生存線の下にインラインで示されて、
   分解節が ``strict`` であれば、これは
@@ -1048,8 +1101,8 @@ UML 2.5 pp. 563-636 に関するノート。
 
 * 大域外 CombinedFragment は矩形枠を分解 Interaction の境界の外側に行くようにする。
 
-.. 17.7.4.2.1 Style Guidelines
-
+17.7.4.2.1 Style Guidelines
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 * 分解に伴う Interaction の名前はその名前、
   分解されている Part の型名と、
   分解を生じている Interaction の名前とを含めることに利がある。
@@ -1058,9 +1111,10 @@ UML 2.5 pp. 563-636 に関するノート。
 ----------------------------------------------------------------------
 * Figure 17.19 InteractionUse
 
-  * 左上隅に ref のタグの付いた矩形が InteractionUse の見本である。
+  * 左上隅に **ref** のタグの付いた矩形が InteractionUse の見本である。
   * EstablishAccess のほうは実引数まで記してある。
-    一方 OpenDoor のほうは、これは引数をとらないのか、そういうのは記されていない。
+    一方 OpenDoor のほうは、これは引数をとらないのか、
+    そういうのは記されていない。
 
 * Figure 17.20 InteractionUse with value return
 
@@ -1082,9 +1136,9 @@ UML 2.5 pp. 563-636 に関するノート。
     この ``AC_UserAccess`` はクラス ACSystem が所有する Interaction である。
 
   * ``AC_UserAccess`` が ACSystem を覆う UserAccess の構成要素に
-    match する大域的な構成要素を持つ。
+    一致する大域的な構成要素を持つ。
 
-  * 左上隅に opt とあるのが extra-global CombinedFragment の例である。
+  * 左上隅に **opt** とあるのが extra-global CombinedFragment の例である。
     この構成概念が UserAccess のある CombinedFragment に対応する。
 
   * ``:AccessPoint`` の下に付いている ``p1`` と ``p2`` は
@@ -1106,11 +1160,11 @@ UML 2.5 pp. 563-636 に関するノート。
 17.8 Sequence Diagrams
 ======================================================================
 * Interaction Diagram のもっとも普通の種類は Sequence Diagram であり、
-  これは数々の Lifelines の間を飛び交う Message に注視するものだ。
+  これは数々の Lifelines の間を飛び交う Message に集中する。
 
 * Sequence Diagram は Interaction を
   Lifelines 上にあるそれらに対応する OccurrenceSpecifications と一緒に、
-  交わされる Messages の配列に注目を集めることにより記述する。
+  交わされる Messages の配列に集中することにより記述する。
 
 * Sequence Diagrams により記述される Interactions は
   Interactions パッケージにあるメタクラスらの意味を理解することへの
@@ -1125,9 +1179,9 @@ UML 2.5 pp. 563-636 に関するノート。
 
 17.8.1.2 Graphic Paths
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Table 17.2 に上述の要素間に描かれる各種経路のシンボル一覧が与えられている。
+* Table 17.2 に上述の要素間に描かれる各種経路の記号一覧が与えられている。
 
-* Interactions は包囲している Classifier の振る舞いの構成単位の集合体。
+* Interactions は包囲している Classifier の挙動の構成単位の集合体。
   Interactions は
   Classifier の ConnectableElements 間を往来する Messages と一緒に
   情報の通行に焦点を合わせる。
@@ -1221,6 +1275,14 @@ UML 2.5 pp. 563-636 に関するノート。
 
 * Table 17.5 では Interaction Overview Diagrams のノード 3 種が表になっている。
 
+* Interaction Overview Diagrams はノードが Interactions か InteractionUses
+  のどちらかである Activity 図表記法を使う。
+  Interaction Overview Diagrams は Interactions を
+  Messages と Lifelines を消し去って記述するひとつの手段である。
+  もっとも純粋な形式では、
+  Activities はすべて InteractionUses であり、
+  それから Messages も Lifelines も図式中に全く現れなくなる。
+
 17.10.2 Examples of Interaction Overview Diagrams
 ----------------------------------------------------------------------
 * Figure 17.27 Interaction Overview Diagram representing a High Level Interaction diagram
@@ -1228,27 +1290,33 @@ UML 2.5 pp. 563-636 に関するノート。
   * パッと見た限り、本文で言うように Activity 図のノード系要素が
     Interaction や InteractionUse に置き換わっている図式に見える。
 
-  * これは Figure 17.19 で示した振る舞いを別のやり方で記述したもので、
+  * これは Figure 17.19 で示した挙動を別のやり方で記述したもので、
     時間的拘束をいくつか加えてある。
 
 17.11 Timing Diagrams
 ======================================================================
 * Timing Diagrams は線形の時間軸に沿った Lifelines の内部と間を変化する
-  条件に関心を集める。
+  条件に集中する。
 
 * Timing Diagrams は個々の classifiers と classifiers の相互作用の
-  両方の振る舞いを記述するもので、
+  両方の挙動を記述するもので、
   モデル化された Lifelines の条件において
-  変化を引き起こすイベントの発生の時間に注意を集める。
+  変化を引き起こす事象の発生の時間に注意を集める。
 
 17.11.1 Timing Diagram Notation
 ----------------------------------------------------------------------
 17.11.1.1 Graphic Nodes and Paths
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Table 17.6 で Timing 図のシンボルすべてが表にまとまっている。
+* Table 17.6 で Timing 図の記号すべてが表にまとまっている。
 
 17.11.2 Examples of Timing Diagrams
 ----------------------------------------------------------------------
+* Timing 図では時間上の状態の変化や構造的な要素の他の状態がわかる。
+  用いられる形式は少しはある。
+
+* Interactions の主要な形式としての
+  Sequence Diagrams は時間の観測と時間的制約を描いてもよい。
+
 * Figure 17.28 A Lifeline for a discrete object
 
   * Figure 17.5 の ``:User`` を Timing Diagram で描いたもの。
@@ -1272,44 +1340,5 @@ UML 2.5 pp. 563-636 に関するノート。
 17.13 Association Descriptions
 ======================================================================
 機械生成による節。
-
-.. 17.13.1 A_action_actionExecutionSpecification [Association]
-.. 17.13.2 A_action_interaction [Association]
-.. 17.13.3 A_actualGate_interactionUse [Association]
-.. 17.13.4 A_argument_interactionUse [Association]
-.. 17.13.5 A_argument_message [Association]
-.. 17.13.6 A_before_toAfter [Association]
-.. 17.13.7 A_behavior_behaviorExecutionSpecification [Association]
-.. 17.13.8 A_cfragmentGate_combinedFragment [Association]
-.. 17.13.9 A_connector_message [Association]
-.. 17.13.10 A_covered_coveredBy [Association]
-.. 17.13.11 A_covered_events [Association]
-.. 17.13.12 A_covered_stateInvariant [Association]
-.. 17.13.13 A_decomposedAs_lifeline [Association]
-.. 17.13.14 A_execution_executionOccurrenceSpecification [Association]
-.. 17.13.15 A_finish_executionSpecification [Association]
-.. 17.13.16 A_formalGate_interaction [Association]
-.. 17.13.17 A_fragment_enclosingInteraction [Association]
-.. 17.13.18 A_fragment_enclosingOperand [Association]
-.. 17.13.19 A_generalOrdering_interactionFragment [Association]
-.. 17.13.20 A_guard_interactionOperand [Association]
-.. 17.13.21 A_invariant_stateInvariant [Association]
-.. 17.13.22 A_lifeline_interaction [Association]
-.. 17.13.23 A_maxint_interactionConstraint [Association]
-.. 17.13.24 A_message_considerIgnoreFragment [Association]
-.. 17.13.25 A_message_interaction [Association]
-.. 17.13.26 A_message_messageEnd [Association]
-.. 17.13.27 A_minint_interactionConstraint [Association]
-.. 17.13.28 A_operand_combinedFragment [Association]
-.. 17.13.29 A_receiveEvent_endMessage [Association]
-.. 17.13.30 A_refersTo_interactionUse [Association]
-.. 17.13.31 A_represents_lifeline [Association]
-.. 17.13.32 A_returnValueRecipient_interactionUse [Association]
-.. 17.13.33 A_returnValue_interactionUse [Association]
-.. 17.13.34 A_selector_lifeline [Association]
-.. 17.13.35 A_sendEvent_endMessage [Association]
-.. 17.13.36 A_signature_message [Association]
-.. 17.13.37 A_start_executionSpecification [Association]
-.. 17.13.38 A_toBefore_after [Association]
 
 .. include:: /_include/uml-refs.txt
