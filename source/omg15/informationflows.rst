@@ -3,8 +3,6 @@
 ======================================================================
 UML 2.5 pp. 667-674 に関するノート。
 
-.. todo:: 最低でもあと一回は編集する。
-
 .. contents:: ノート目次
    :depth: 2
 
@@ -33,47 +31,47 @@ UML 2.5 pp. 667-674 に関するノート。
 
     * 関連する型がかなり多くある。
 
-      * Classifier (conveyed)
-      * Relationship (realization)
-      * NamedElement (informationSource, informationTarget)
-      * Connector (realizingConnector)
-      * ActivityEdge (realizingActivityEdge)
-      * Message (realizingMessage)
+      * Classifier (``conveyed``)
+      * Relationship (``realization``)
+      * NamedElement (``informationSource``, ``informationTarget``)
+      * Connector (``realizingConnector``)
+      * ActivityEdge (``realizingActivityEdge``)
+      * Message (``realizingMessage``)
 
   * InformationItem は Classifier の特殊化である。
 
-    * InformationItem は InformationItem (represented) に関連する。
+    * InformationItem は InformationItem (``represented``) に関連する。
 
 20.1.3 Semantics
 ----------------------------------------------------------------------
 * InformationFlows は情報品目の一方通行なある種の情報経路を必要とする。
 
-* InformationFlow の sources と targets は
+* InformationFlow の ``sources`` と ``targets`` は
   伝達された InformationItems や Classifiers を
-  送信 (sources) または受信 (targets) することが
+  送信 (``sources``) または受信 (``targets``) することが
   可能なオブジェクトの集合を指定する。
 
-* InformationFlow の sources と targets は
+* InformationFlow の ``sources`` と ``targets`` は
   それらの型であるか、
   それらによって含まれている（＝所有されている）かの
   可能性のあるオブジェクトのすべてを代表する。
 
-  * 例えばもし source または target が Classifier ならば、
+  * 例えばもし ``source`` または ``target`` が Classifier ならば、
     それは Classifier の潜在的オブジェクトすべてを代表する。
 
 * 情報経路は
-  sources と targets の本質に付随したさまざまな方法により
+  ``sources`` と ``targets`` の本質に付随したさまざまな方法により
   実現化されることが可能である。
 
   * Relationships, Connectors, ActivityEdges, Messages によって
     実現化されることが可能である。
 
 * 典型的には InformationFlows は
-  sources から targets に流れる InformationItems を見分けるのだが、
+  ``sources`` から ``targets`` に流れる InformationItems を見分けるのだが、
   Class などの具象 Classifiers もまた伝達されることが許される。
 
 * InformationItems は
-  sources から targets に流れることが可能な
+  ``sources`` から ``targets`` に流れることが可能な
   たくさんの種類の情報を
   たいへん抽象的なやり方で表現する。
 
@@ -119,20 +117,20 @@ UML 2.5 pp. 667-674 に関するノート。
 ----------------------------------------------------------------------
 * Figure 20.2 Example of InformationFlows conveying InformationItems
 
-  * Company から Customer へ一方的に ``product`` が流れていく。
-  * Company から Employee へ一方的に ``wage`` が流れていく。
+  * Company から Customer へ一方的に product が流れていく。
+  * Company から Employee へ一方的に wage が流れていく。
 
 * Figure 20.3 Information Item represented as a classifier
 
   * 独立した InformationItem の表記例。
-  * どちらの ``wage`` も同じ InformationItem を意味する。
+  * どちらの wage も同じ InformationItem を意味する。
 
 * Figure 20.4 Examples of «representation» notation
 
-  * 左図では ``travel document`` は ``passport`` と ``plane ticket``
+  * 左図では travel document は passport と plane ticket
     の両方を代表している。
 
-  * 右図では ``Wage`` は具象クラス ``Salary`` と ``Bonus`` の両方の
+  * 右図では Wage は具象クラス Salary と Bonus の両方の
     「代役」として振る舞う。
 
 * Figure 20.5 InformationItems attached to Connectors
@@ -150,14 +148,5 @@ UML 2.5 pp. 667-674 に関するノート。
 20.3 Association Descriptions
 ======================================================================
 機械生成による節。
-
-.. 20.3.1 A_conveyed_conveyingFlow [Association]
-.. 20.3.2 A_informationSource_informationFlow [Association]
-.. 20.3.3 A_informationTarget_informationFlow [Association]
-.. 20.3.4 A_realization_abstraction_flow [Association]
-.. 20.3.5 A_realizingActivityEdge_informationFlow [Association]
-.. 20.3.6 A_realizingConnector_informationFlow [Association]
-.. 20.3.7 A_realizingMessage_informationFlow [Association]
-.. 20.3.8 A_represented_representation [Association]
 
 .. include:: /_include/uml-refs.txt

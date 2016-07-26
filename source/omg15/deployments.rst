@@ -3,8 +3,6 @@
 ======================================================================
 UML 2.5 pp. 651-666 に関するノート。
 
-.. todo:: 最低でもあと一回は編集する。
-
 .. todo::
 
    * component profile (n.)
@@ -62,23 +60,24 @@ UML 2.5 pp. 651-666 に関するノート。
 
 * 個別の Deployment の関係は、
 
-  * 特定の用途に対して、配置か引数、またはその両者による情報を含む
-    DeploymentSpecifications を追加することにより作られることが可能であり、
+  * 配置か引数、またはその両者による情報を含む
+    DeploymentSpecifications を追加することにより
+    特定の用途に対して合うようにすることが可能であり、
 
   * 特定の component profiles で拡張されることが許される。
 
 * DeploymentSpecification 情報は
-  DeploymentTarget::deployedElement リンクを経由して
+  それらの ``deployedElement`` リンクを経由して
   DeploymentTargets に関連した components に対する実行時入力になる。
 
 * DeployedArtifact と DeploymentTarget の間の Deployment 関係は
-  type レベルにおいてと instance レベルにおいて
-  定義されることが可能である。
+  "type" レベルにおいてと "instance" レベルにおいて
+  定義することが可能である。
 
 * 複合的な構造からなる複雑なモデルをモデル化することを可能にするために、
   Property は、部分の役目を果たして
   （すなわち composition で所有され）、
-  Deployment の target になることが許される。
+  Deployment の対象になることが許される。
 
 19.2.4 Notation
 ----------------------------------------------------------------------
@@ -105,8 +104,8 @@ UML 2.5 pp. 651-666 に関するノート。
 
 * Figure 19.2 A visual representation of the deployment location of artifacts, (...)
 
-  * ``:AppServer1`` という配備対象には
-    成果物 ``ShoppingCart.jar`` と ``Order.jar`` を配備する。
+  * ":AppServer1" という配備対象には
+    成果物 "ShoppingCart.jar" と "Order.jar" を配備する。
     前者は後者に依存関係がある。
 
 * Figure 19.3 Alternative deployment representation of using a dependency (...)
@@ -125,12 +124,12 @@ UML 2.5 pp. 651-666 に関するノート。
 
 * Figure 19.6 DeploymentSpecifications related to the DeployedArtifacts that they parameterize
 
-  * ``ShpiingAppdesc.xml`` と ``Orderdesc.xml`` の違いを説明できない。
-    前者は ``ShoppingApp.ear`` の実行時入力という解釈で正しいか。
+  * "ShpiingAppdesc.xml" と "Orderdesc.xml" の違いを説明できない。
+    前者は "ShoppingApp.ear" の実行時入力という解釈で正しいか。
 
 * Figure 19.7 A DeploymentSpecification for a DeployedArtifact
 
-  * DeploymentSpecification ``Orderdesc.xml`` が実行時入力となる。
+  * DeploymentSpecification "Orderdesc.xml" が実行時入力となる。
 
 19.3 Artifacts
 ======================================================================
@@ -151,13 +150,13 @@ UML 2.5 pp. 651-666 に関するノート。
 
   * Artifact は DeployedArtifact の特殊化であり、
     同時に Classifier の特殊化である。
-    後者の性質により、任意個の Operations (ownedOperations) と
-    Properties (ownedAttributes) を所有することが許される。
+    後者の性質により、任意個の Operations (``ownedOperations``) と
+    Properties (``ownedAttributes``) を所有することが許される。
 
   * Artifact は任意の個数の Artifacts を入れ子にできる。
-    その場合は子を ownedMembers として所有することになる。
+    その場合は子を ``ownedMembers`` として所有することになる。
 
-  * Artifact は Manifestations (manifestation) を所有することが許されている。
+  * Artifact は Manifestations (``manifestation``) を所有することが許されている。
 
   * Manifestation は Abstraction の特殊化である。
   * Manifestation は PackageableElement ひとつに関連が付けられる。
@@ -302,16 +301,5 @@ UML 2.5 pp. 651-666 に関するノート。
 19.6 Association Descriptions
 ======================================================================
 機械生成による節。
-
-.. 19.6.1 A_configuration_deployment [Association]
-.. 19.6.2 A_deployedArtifact_deploymentForArtifact [Association]
-.. 19.6.3 A_deployedElement_deploymentTarget [Association]
-.. 19.6.4 A_deployment_location [Association]
-.. 19.6.5 A_manifestation_artifact [Association]
-.. 19.6.6 A_nestedArtifact_artifact [Association]
-.. 19.6.7 A_nestedNode_node [Association]
-.. 19.6.8 A_ownedAttribute_artifact [Association]
-.. 19.6.9 A_ownedOperation_artifact [Association]
-.. 19.6.10 A_utilizedElement_manifestation [Association]
 
 .. include:: /_include/uml-refs.txt
