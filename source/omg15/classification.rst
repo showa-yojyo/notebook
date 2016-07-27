@@ -298,7 +298,7 @@ A_substitution_substitutingClassifier
 * RedefinableElement を表す一般的な表記法はない。
 
 * Substitution は Dependency の記法を用いる。
-  キーワードは ``«substitute»`` とする。
+  キーワードは «substitute» とする。
 
 * Classifier が継承した ``members`` を
   仮に ``member`` が継承されていなかったら示されたであろうテキスト的表現に対して

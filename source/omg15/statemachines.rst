@@ -817,7 +817,7 @@ A_guard_transition
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * クラス図で StateMachine 再定義を描くときは、
   Classifier に対する既定の矩形表記法を用いることができ、
-  キーワード ``«statemachine»`` が StateMachine の名前の上または前にある。
+  キーワード «statemachine» が StateMachine の名前の上または前にある。
 
 * StateMachine とその ``context`` Classifier または BehavioralFeatures の
   間の関連には特別な図表的表現がない。
@@ -1283,18 +1283,18 @@ A_redefinitionContext_region, A_redefinitionContext_state, A_redefinitionContext
 14.3.4 Notation
 ----------------------------------------------------------------------
 * 一般 Classifier での StateMachine の拡張である StateMachine は、
-  StateMachine の名前が関連するキーワード ``«extended»`` を持つはずである。
+  StateMachine の名前が関連するキーワード «extended» を持つはずである。
 
   * 同様に、継承 Region が拡張されたか、
     State が拡張されたことを示すのに
-    キーワード ``«extended»`` を要素の名前に追加される。
+    キーワード «extended» を要素の名前に追加される。
 
   * StateMachine 内の継承要素か Region か State は
     破線または軽い調子の線のどちらかで描かれる。
 
   * State が終端状態 (``isLeaf`` == true) ならば、
     State の名前に従う付加的なラベルを追加してよく、
-    キーワード ``«final»`` が含まれる。
+    キーワード «final» が含まれる。
 
 14.3.5 Examples
 ----------------------------------------------------------------------
@@ -1527,7 +1527,7 @@ A_postCondition_owningTransition
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * ProtocolStateMachine を表す表記法は
   挙動の StateMachines についてのそれとたいへん似ている。
-  StateMachine の名前の近くに置かれたキーワード ``«protocol»`` が
+  StateMachine の名前の近くに置かれたキーワード «protocol» が
   ProtocolStateMachine 図を図表的に差別化する。
 
 * Figure 14.44 ProtocolStateMachine example

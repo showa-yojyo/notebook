@@ -93,24 +93,24 @@ UML 2.5 pp. 667-674 に関するノート。
 20.1.4 Notation
 ----------------------------------------------------------------------
 * InformationFlow は Dependency と同じ表記法を用いて表現されるが、
-  キーワード ``«flow»`` を破線に添えておく。
+  キーワード «flow» を破線に添えておく。
 
 * InformationItems の表現はそれらが表示される周辺状況により決定される。
 
-  * InformationFlow の ``«flow»`` 破線に付属するときには、
+  * InformationFlow の «flow» 破線に付属するときには、
     InformationItem の名前が適切な線の近くに表示される。
 
   * InformationFlows と独立して表示されるときには、
     InformationItems はそれらが Classifiers であるゆえ、
     矩形内部の名前として表現されてよい。
-    矩形にはキーワード ``«information»`` か
+    矩形にはキーワード «information» か
     黒塗りの二等辺三角形を付ける。
 
   * InformationFlow の情報経路の実現化に付属するときには、
     情報経路上の黒塗りの二等辺三角形が情報の流れの方向を指示する。
 
   * InformationItem が他の InformationItems や Classifiers を代表するときには、
-    キーワード ``«representation»`` を添えられた破線矢印を用いて
+    キーワード «representation» を添えられた破線矢印を用いて
     接続される。
 
 20.1.5 Examples

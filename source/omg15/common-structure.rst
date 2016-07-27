@@ -427,7 +427,7 @@ A_signature_templateBinding
 * TemplateBinding は破線矢印で示す。
 
   * 向きは被束縛要素からテンプレートとする。
-  * キーワード ``«bind»`` をラベルに付す。
+  * キーワード «bind» をラベルに付す。
   * 束縛情報 <template-param-substition> を CSV で記してよい。
     BNF で定義されている (p. 26)。
 
@@ -448,7 +448,7 @@ A_signature_templateBinding
 
   * 新登場の記号がいくつかある。
 
-    * VisibilityKind 内の ``«enumeration»`` という記法
+    * VisibilityKind 内の «enumeration» という記法
     * PackageableElement 内の属性 ``visibility`` の説明が込み入っている。
 
 A_member_memberNamespace
@@ -591,8 +591,8 @@ A_nameExpression_namedElement
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * PackageImport/ElementImport は頭が開いた破線矢印で表現する。
 
-  * visibility = public の場合は ``«import»`` を付す。
-    さもなくば ``«access»`` を付す。
+  * visibility = public の場合は «import» を付す。
+    さもなくば «access» を付す。
 
   * このキーワードの後または下に ``alias`` を示してもよい。
 
@@ -614,7 +614,7 @@ A_nameExpression_namedElement
 
   * ``$a<Resource>Allocation$`` 等のテキストが NamedElement/StringExpression の記法例。
 
-  * 図の下側の ``«bind»`` リストが TemplateParameterSubstitution の記法例。
+  * 図の下側の «bind» リストが TemplateParameterSubstitution の記法例。
     StringExpression の値は普通の文字列のようだ。
 
 7.4.5.2 Imports
@@ -860,7 +860,7 @@ A_mapping_abstraction
 
 * この関係性は ``suppliers`` と ``clients`` との間の写像として定義してよい。
 
-* ``«Derive»``, ``«Refine»``, ``«Trace»`` などの定義済みステレオタイプを持つ。
+* «Derive», «Refine», «Trace» などの定義済みステレオタイプを持つ。
   これは :doc:`standard-profile` で仕様化する。
 
 7.7.3.4 Realization
@@ -878,9 +878,9 @@ A_mapping_abstraction
   * 複数の ``clients``/``suppliers`` がある場合、矢印を束ねる。
     お望みなら小さいドットを破線の分岐点に置くことができる。
 
-* Usage の記法は Dependency に準じ、キーワード ``«use»`` を添える。
+* Usage の記法は Dependency に準じ、キーワード «use» を添える。
 * Abstraction の記法は Dependency に準じ、
-  キーワード ``«abstraction»`` または固有の定義済みステレオタイプを添える。
+  キーワード «abstraction» または固有の定義済みステレオタイプを添える。
 
 * Realization は頭が白三角の破線矢印として示す。
 
@@ -888,7 +888,7 @@ A_mapping_abstraction
 ----------------------------------------------------------------------
 * Figure 7.19 An example of an «Instantiate» Dependency
 
-  * 謎のキーワード ``«Instantiate»`` を適用した Dependency の記法例。
+  * 謎のキーワード «Instantiate» を適用した Dependency の記法例。
   * 画質が荒いので破線に見えないのがまずい。
 
 * Figure 7.20 An example of a «use» Dependency

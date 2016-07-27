@@ -393,11 +393,11 @@ UML 2.5 pp. 371-438 に関するノート。
   * ActivityParameterNodes は Activity の境界上に表示する。
 
   * Behavior から継承した事前条件と事後条件を、
-    キーワード ``«precondition»``, ``«postcondition»`` と共に
+    キーワード «precondition», «postcondition» と共に
     テキスト上の式としてそれぞれ示す。
 
   * ``isSingleExecution`` が true である Activities については、
-    キーワード ``«singleExecution»`` を用いる。
+    キーワード «singleExecution» を用いる。
 
 * Figure 15.2 Activity notation
 
@@ -408,7 +408,7 @@ UML 2.5 pp. 371-438 に関するノート。
 * Figure 15.3 Activity class notation
 
   * Classes を表す表記法を Activity の特徴を図表化するのに利用することもある。
-  * キーワードは ``«activity»`` である。
+  * キーワードは «activity» である。
 
 * Figure 15.4 ActivityNode notation
 
@@ -450,12 +450,12 @@ UML 2.5 pp. 371-438 に関するノート。
 
 * Figure 15.10 Specifying selection behavior on an ObjectFlow
 
-  * ``selection`` Behavior の記法にはキーワード ``«selection»`` が
+  * ``selection`` Behavior の記法にはキーワード «selection» が
     註釈記号に置かれ、
     適切な ObjectFlow 記号に取り付けられた状態で明記される。
 
   * ``transformation`` Behavior は
-    キーワードは ``«transformation»`` を使って同様に明記される。
+    キーワードは «transformation» を使って同様に明記される。
 
 * Figure 15.11 Eliding objects flowing on the edge
 
@@ -464,7 +464,7 @@ UML 2.5 pp. 371-438 に関するノート。
     小さい正方形を矢印の少し上あたりに表示する。
 
 * 多重送信および多重受信は ObjectFlow を
-  ``«multicast»`` または ``«multireceive»`` で註釈することで
+  «multicast» または «multireceive» で註釈することで
   それぞれ明記する。
 
 15.2.5 Examples
@@ -509,7 +509,7 @@ UML 2.5 pp. 371-438 に関するノート。
 
 * Figure 15.18 Specifying multicast and multireceive on the edge
 
-  * キーワード ``«multicast»`` と ``«multireceive»`` の見本。
+  * キーワード «multicast» と «multireceive» の見本。
   * スイムレーンは送信者と受信者を示す重要な機能である。
 
 * Figure 15.19 ActivityEdge connector example
@@ -824,10 +824,10 @@ UML 2.5 pp. 371-438 に関するノート。
 
 * Figure 15.33 DecisionNode notation
 
-  * ``decisionInput`` はキーワード ``«decisionInput»`` と共に
+  * ``decisionInput`` はキーワード «decisionInput» と共に
     註釈の記法で示す。
 
-  * ``decisionInputFlow`` はキーワード ``«decisionInputFlow»`` を
+  * ``decisionInputFlow`` はキーワード «decisionInputFlow» を
     その矢印のそばに添える。
 
 * Figure 15.34 Combined MergeNode/DecisionNode notation
@@ -1088,7 +1088,7 @@ UML 2.5 pp. 371-438 に関するノート。
 * Figure 15.51 Specifying selection behavior on an ObjectNode
 
   * ObjectNode の ``selection`` Behavior は
-    キーワード ``«selection»`` が付いた註釈記号で指定され、
+    キーワード «selection» が付いた註釈記号で指定され、
     ObjectNode 記号に取り付けられる。
 
 15.4.4.2 Activity Parameter Nodes
@@ -1116,11 +1116,11 @@ UML 2.5 pp. 371-438 に関するノート。
 * Figure 15.54 Optional CentralBufferNode notation
 
   * CentralBufferNode 記号は ObjectNode の記法に、
-    オプションでキーワード ``«centralBuffer»`` を含んでよい。
+    オプションでキーワード «centralBuffer» を含んでよい。
 
 * Figure 15.55 DataStoreNode notation
 
-  * DataStoreNode はキーワード ``«datastore»`` が付いた
+  * DataStoreNode はキーワード «datastore» が付いた
     ObjectNode として記す。
 
 15.4.5 Examples
@@ -1410,7 +1410,7 @@ UML 2.5 pp. 371-438 に関するノート。
 * Figure 15.67 ActivityPartition notations
 
   a. 仕切りの名前を括弧付きで ActivityNode の名前の上に置く。
-  b. 外側の仕切りはキーワード ``«external»`` を付けてラベルする。
+  b. 外側の仕切りはキーワード «external» を付けてラベルする。
 
 15.6.4.2 Interruptible Activity Regions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1441,7 +1441,7 @@ UML 2.5 pp. 371-438 に関するノート。
 * Figure 15.71 ActivityPartitions using annotation
 
   * 先の見本から swimlane を外したもの。
-  * 丸括弧とキーワード ``«external»`` で所属する ActivityPartition がわかる。
+  * 丸括弧とキーワード «external» で所属する ActivityPartition がわかる。
 
 * Figure 15.72 ActivityPartitions using multidimensional swimlane notation
 

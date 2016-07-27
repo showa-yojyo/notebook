@@ -255,7 +255,7 @@ A_redefinedConnector_connector
 
 * ``role`` が Class でない classifier の型であれば、
   part box 記号の名前区画は名前の上に
-  適宜 ``«component»`` のようなキーワードを含む。
+  適宜 «component» のようなキーワードを含む。
 
 * Connector は Association に対するそれと同様の表記法を使って描く。
 
@@ -729,13 +729,13 @@ A_extension_metaclass
   * Operation が ``client`` であり、
     生成オブジェクトが ``supplier`` である。
 
-  * ステレオタイプ ``«Create»`` を Class のコンストラクターにマークする。
+  * ステレオタイプ «Create» を Class のコンストラクターにマークする。
 
 * ``isActive`` が true な Class を
   箱の枠の垂直辺のどちらとも二重にすることで示してよい。
 
 * メタクラスを表現する Class は
-  オプションのステレオタイプ ``«Metaclass»`` を
+  オプションのステレオタイプ «Metaclass» を
   その名前の上または前に付すことで拡張してよい。
   :doc:`./standard-profile` を参照。
 
@@ -773,7 +773,7 @@ A_extension_metaclass
 
 * Figure 11.22 InstanceSpecification indicating a constructor
 
-  * コンストラクターの操作の文頭に標準ステレオタイプ ``«Create»`` を付す。
+  * コンストラクターの操作の文頭に標準ステレオタイプ «Create» を付す。
   * 戻り値の表現だろう、破線矢印で操作名とオブジェクトシンボルとを結ぶ。
 
 * Figure 11.23 A constructor for the Car Class
@@ -1248,9 +1248,9 @@ A_realizingClassifier_componentRealization
   （シグナルと操作発動）である。
 
 * Component に適用する UML 標準ステレオタイプがいくつかある。
-  例えば巨大な規模の Components をモデル化する ``«Subsystem»`` や、
+  例えば巨大な規模の Components をモデル化する «Subsystem» や、
   異なった仕様と実現化の定義で Components をモデル化するには
-  ``«Specification»`` と ``«Realization»`` 等がある。
+  «Specification» と «Realization» 等がある。
   ここで、仕様ひとつは複数の実現化を持つことが許される。
   :doc:`./standard-profile` 参照。
 
@@ -1278,7 +1278,7 @@ A_realizingClassifier_componentRealization
 
 11.6.4 Notation
 ----------------------------------------------------------------------
-* Component はキーワード ``«component»`` を付した Classifier 矩形として示す。
+* Component はキーワード «component» を付した Classifier 矩形として示す。
 
   * 任意で Component アイコン（二つの小四角形が突き出た四角形）
     を右上隅に展示することが可能。この場合はキーワードが非表示でもよい。
@@ -1469,7 +1469,7 @@ A_representation_classifier
     この区画は Classifier の内部構造区画と同じ記法仕様に準じる。
 
 * 代わりに composite structure 図が使える。
-  あるいは通常の Classifier 矩形をキーワード ``«collaboration»`` を付けて使える。
+  あるいは通常の Classifier 矩形をキーワード «collaboration» を付けて使える。
 
 * Properties でない ``collaborationRoles`` を持つ
   Collaboration を表す記法は定義されていない。
@@ -1487,7 +1487,7 @@ A_representation_classifier
     対して、破線は ``client`` 端上 ``supplier`` 要素の名前でラベルされている。
 
 * CollaborationUse を表す選択自由な記法は、
-  破線矢印がキーワード ``«occurrence»`` の付いた、
+  破線矢印がキーワード «occurrence» の付いた、
   使う Classifier から使われる Collaboration へ向くようにする。
 
   * これと共に ``roleBindings`` は普通の Dependency 矢印として示される。

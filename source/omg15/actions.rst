@@ -264,9 +264,9 @@ UML 2.5 pp. 439-562 に関するノート。
 
 * Figure 16.3 Local pre- and post-conditions
 
-  * 局所的な事前条件と事後条件はそれぞれキーワード
-    ``«localPrecondition»`` と ``«localPostcondition»``
-    が付いた発動に取り付けられた註釈として示す。
+  * 局所的な事前条件と事後条件はそれぞれ
+    キーワード «localPrecondition» と «localPostcondition» が
+    付いた発動に取り付けられた註釈として示す。
 
 16.2.4.2 Pins
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -572,7 +572,7 @@ UML 2.5 pp. 439-562 に関するノート。
 
   * Behavior の ``precondition`` と ``postcondition`` を
     Figure 16.3 と同様にして示すことが可能であるが、
-    キーワード ``«precondition»`` と ``«postcondition»`` を用いる。
+    キーワード «precondition» と «postcondition» を用いる。
 
 * Figure 16.15 Calling an Activity
 
@@ -593,7 +593,7 @@ UML 2.5 pp. 439-562 に関するノート。
 
   * Operation の ``precondition`` と ``postcondition`` を
     Figure 16.3 と同様にして示すことが可能であるが、
-    キーワード ``«precondition»`` と ``«postcondition»`` を用いる。
+    キーワード «precondition» と «postcondition» を用いる。
 
 * Figure 16.17 Calling an Operation, showing the owner name
 
@@ -1598,7 +1598,7 @@ UML 2.5 pp. 439-562 に関するノート。
 
   * StructuredActivityNode は、
     その ``nodes`` と ``edges`` を囲んでいる、
-    上部にキーワード ``«structured»`` のある
+    上部にキーワード «structured» のある
     破線丸角矩形で記される。
 
 * ConditionalNode, LoopNode, SequenceNode には標準的な記法は定義されない。
@@ -1700,7 +1700,7 @@ UML 2.5 pp. 439-562 に関するノート。
 * Figure 16.48 Expansion Region
 
   * ExpansionRegion は破線丸角箱で記す。
-  * 箱の左上に ExpansionKind の値に対応するキーワード ``«parallel»``, etc. を添える。
+  * 箱の左上に ExpansionKind の値に対応するキーワード «parallel», etc. を添える。
   * 入力と出力の ExpansionNodes は小さい短冊のような記号で記す。
     これらは箱の枠上に配置する。
   * ExpansionRegion の内側と外側にある ActivityEdge 矢印は

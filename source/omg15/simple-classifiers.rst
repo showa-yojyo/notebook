@@ -98,14 +98,14 @@ A_classifier_enumerationLiteral
 10.2.4 Notation
 ----------------------------------------------------------------------
 * DataType は Classifier の記法（矩形）を用いて、
-  キーワード ``«dataType»`` と一緒に指名するか、
+  キーワード «dataType» と一緒に指名するか、
   それが参照される際に DataType の名前で指名する。
 
-* PrimitiveType はキーワード ``«primitive»`` を
+* PrimitiveType はキーワード «primitive» を
   PrimitiveType の名前の上または後ろに記して同様に指名する。
 
 * Enumeration も同様に指名する。
-  Enumeration の名前をキーワード ``«enumeration»`` を
+  Enumeration の名前をキーワード «enumeration» を
   名前の上または後ろに記した区画の上部に置く。
 
   * EnumerationLiterals のリストは、
@@ -193,9 +193,9 @@ A_signal_reception
 
 10.3.4 Notation
 ----------------------------------------------------------------------
-* Signal はキーワード ``«signal»`` の付いた Classifier の記号で描かれる。
+* Signal はキーワード «signal» の付いた Classifier の記号で描かれる。
 
-* Reception はキーワード ``«signal»`` を用いて、
+* Reception はキーワード «signal» を用いて、
   Operations を表すのと同じ表記法を使って、
   受領区画に示される。
 
@@ -325,7 +325,7 @@ A_ownedBehavior_behavioredClassifier
 10.4.4 Notation
 ----------------------------------------------------------------------
 * Interface は Classifier の既定の記法を
-  キーワード ``«interface»`` と共に使って指名してよい。
+  キーワード «interface» と共に使って指名してよい。
 
 * 代わりとして、BehavioredClassifier から Interface への
   InterfaceRealization 依存では、
@@ -373,9 +373,9 @@ A_ownedBehavior_behavioredClassifier
 * Figure 10.11 Alternative notation for required and provided Interface
 
   * これまで出てきたイラストを別の表現にし、いくつか情報を加えたもの。
-  * ISensor を長方形記法で表現。キーワード ``«interface»`` に注意。
+  * ISensor を長方形記法で表現。キーワード «interface» に注意。
   * InterfaceRealization を破線矢印で表現。矢頭は白三角である。
-  * Usage を破線矢印で表現。キーワード ``«use»`` に注意。矢頭は開く。
+  * Usage を破線矢印で表現。キーワード «use» に注意。矢頭は開く。
 
 * ふたつまたはそれを超える Interfaces が
   アプリケーション固有の依存を通じて相互に結合する事例が

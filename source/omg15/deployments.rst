@@ -93,10 +93,10 @@ UML 2.5 pp. 651-666 に関するノート。
   * Deployment 関係が DeploymentTarget の絵の中に示されるときには
     ラベルは不必要である。
     DeploymentTarget の絵の外にあるときには
-    キーワード ``«deploy»`` を付けて装飾することが可能である。
+    キーワード «deploy» を付けて装飾することが可能である。
 
 * DeploymentSpecifications は classifier 矩形として図式的に表示されて、
-  キーワード ``«deploymentspec»`` を付けて装飾するのもよい。
+  キーワード «deploymentspec» を付けて装飾するのもよい。
 
 19.2.5 Examples
 ----------------------------------------------------------------------
@@ -112,7 +112,7 @@ UML 2.5 pp. 651-666 に関するノート。
 
   * 前述の図と同じ意味。
     成果物を遠近感のある立方体の絵の外に描いたので、
-    Deployment の矢印にキーワード ``«deploy»`` を付けた。
+    Deployment の矢印にキーワード «deploy» を付けた。
 
 * Figure 19.4 Textual list based representation of DeployedArtifacts
 
@@ -173,11 +173,11 @@ UML 2.5 pp. 651-666 に関するノート。
   拡張されることが許される。
 
   * UML では Artifacts 用の標準ステレオタイプをいくつか定義していて、
-    ``«source»`` と ``«executable»`` はその例である。
+    «source» と «executable» はその例である。
 
     * 必要次第ではさらに特殊化してよい。
-      例えば ``«jar»`` を実行可能な Java アーカイブのために
-      ``«executable»`` のサブクラスとして定義することがあるかもしれない。
+      例えば «jar» を実行可能な Java アーカイブのために
+      «executable» のサブクラスとして定義することがあるかもしれない。
 
 * Artifact はモデル要素のいくらかを具体化するか、
   明白にするかが認められる。
@@ -186,13 +186,13 @@ UML 2.5 pp. 651-666 に関するノート。
 
   * Profiles は Manifestation 関係を拡張して、
     特定の具体化の形式 (pl.) を指し示すことが許される。
-    例えば ``«tool generated»`` と ``«custom code»`` は
+    例えば «tool generated» と «custom code» は
     Artifact に具体化された異なる Classes に対しての
     ふたつの Manifestations であるかもしれない。
 
 19.3.4 Notation
 ----------------------------------------------------------------------
-* Artifact はキーワード ``«artifact»`` を付けた普通の Class 矩形を用いて
+* Artifact はキーワード «artifact» を付けた普通の Class 矩形を用いて
   示される。
 
   * またはアイコンにより描かれてもよい。
@@ -200,7 +200,7 @@ UML 2.5 pp. 651-666 に関するノート。
 
 * Manifestation は Abstraction と同じように記される。
   すなわち、破線の矢先が開いた矢印を用い、
-  キーワード ``«manifest»`` をラベルとする。
+  キーワード «manifest» をラベルとする。
 
 19.3.5 Examples
 ----------------------------------------------------------------------
@@ -245,8 +245,8 @@ UML 2.5 pp. 651-666 に関するノート。
   * ExecutionEnvironments はアプリケーション構成部品が
     実行時に要求する標準のソフトウェアシステムを表現する。
 
-    * 特定の profiles は ExecutionEnvironments のために、例えば
-      ``«OS»``, ``«workflow engine»``, ``«database system»``,
+    * 特定の profiles は ExecutionEnvironments のために、
+      例えば «OS», «workflow engine», «database system»,
       ``«J2EE container»`` のような
       stereotypes を定義することがあるかもしれない。
 
@@ -255,8 +255,8 @@ UML 2.5 pp. 651-666 に関するノート。
   物理的な計算上の手段である。
 
   * Devices の例を挙げると、
-    ``«application server»``, ``«client workstation»``,
-    ``«mobile device»``, ``«embedded device»`` といったものになるだろう。
+    «application server», «client workstation»,
+    «mobile device», «embedded device» といったものになるだろう。
 
 * 典型的に ExecutionEnvironments は
   往々にして高水準な Device や一般のシステム Node に
@@ -274,12 +274,12 @@ UML 2.5 pp. 651-666 に関するノート。
 19.4.4 Notation
 ----------------------------------------------------------------------
 * Node は DeploymentTarget と同じ表現を用いて描かれる。
-* Device はキーワード ``«device»`` を付した Node として示される。
-* ExecutionEnvironment はキーワード ``«executionEnvironment»``
-  を付した Node として示される。
+* Device はキーワード «device» を付した Node として示される。
+* ExecutionEnvironment はキーワード «executionEnvironment» を
+  付した Node として示される。
 * Nodes 間の CommunicationPaths は通常の Association リンクと同じものを
   用いて描かれる。
-* キーワード ``«deploy»`` 付きの破線矢印は、
+* キーワード «deploy» 付きの破線矢印は、
   ノードが外部に描かれた DeployedArtifact を支援する能力を示す。
   そうする代わりに、Node シンボルの内側に
   DeployedArtifact の絵を入れ子にすることで示されてよい。

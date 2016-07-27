@@ -217,7 +217,7 @@ UML 2.5 pp. 637-650 に関するノート。
 * Actor は棒人間アイコンにより表現される。
   Actor の名前はアイコンの近くに書かれる。
 
-* Actor はキーワード ``«actor»`` の付いた Classifier 矩形で示してもよい。
+* Actor はキーワード «actor» の付いた Classifier 矩形で示してもよい。
 
 * 他の Actor の種類を伝えるアイコンもまた Actor を記すのに用いてよい。
 
@@ -227,11 +227,11 @@ UML 2.5 pp. 637-650 に関するノート。
 
 * UseCases 間の Extend 関係は先の開いた破線の矢印で示される。
   矢印の方向は拡張している UseCase から拡張されている UseCase に向いている。
-  矢印のラベルにはキーワード ``«extend»`` が付く。
+  矢印のラベルにはキーワード «extend» が付く。
 
 * UseCases 間の Include 関係は先の開いた破線の矢印で示される。
   矢印の方向は根本の UseCase から包含される UseCase に向いている。
-  矢印のラベルにはキーワード ``«include»`` が付く。
+  矢印のラベルにはキーワード «include» が付く。
 
 18.1.5 Examples
 ----------------------------------------------------------------------
@@ -273,7 +273,7 @@ UML 2.5 pp. 637-650 に関するノート。
 
 * Figure 18.7 Actor notation using Class rectangle
 
-  * 矩形を描き、内部にキーワード  ``«actor»`` 付き Actor 名を記す。
+  * 矩形を描き、内部にキーワード  «actor» 付き Actor 名を記す。
 
 * Figure 18.8 Actor notation using icon
 
@@ -304,8 +304,8 @@ UML 2.5 pp. 637-650 に関するノート。
 
     * 区画 "owned behaviors" の記載は任意。
 
-    * StateMachine "Call" はここでは矩形プラスキーワード ``«statemachine»``
-      のみで示されている。
+    * StateMachine "Call" はここでは矩形プラス
+      キーワード «statemachine» のみで示されている。
 
 18.2 Classifier Descriptions
 ======================================================================

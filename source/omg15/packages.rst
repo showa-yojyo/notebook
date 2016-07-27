@@ -402,8 +402,8 @@ TRANSFORATIONS
 
 * Model は次のものの間にある Abstraction Dependencies を持つことが可能。
 
-  * refinement （標準プロファイル ``«Refine»`` でステレオタイプされる）
-  * mapping （例えば標準プロファイル ``«Trace»`` でステレオタイプされる）
+  * refinement （標準プロファイル «Refine» でステレオタイプされる）
+  * mapping （例えば標準プロファイル «Trace» でステレオタイプされる）
 
 12.2.4 Notation
 ----------------------------------------------------------------------
@@ -428,14 +428,14 @@ TRANSFORATIONS
 * PackageMerge は開いた矢先を持つ破線矢印を用いて示す。
 
   * 矢印の向きは ``receivingPackage`` から ``mergedPackage`` である。
-  * キーワード ``«merge»`` を破線のそばに示す。
+  * キーワード «merge» を破線のそばに示す。
 
 * Model は通常の Package シンボルに小さな三角を大矩形の右上隅に描いたもので記す。
 
   * 大矩形内部に要素が示されているならば、
     小三角はタブの右側に描いてよい。
 
-  * またはキーワード ``«model»`` をモデル名の上に付記することで、
+  * またはキーワード «model» をモデル名の上に付記することで、
     あとは通常の Package の記法を用いることもまた許される。
 
 12.2.5 Examples
@@ -937,24 +937,24 @@ A_type_extensionEnd
     * 多重度の明記とも関係している。
 
 * Profile は Package と同じ記法を用いる。
-  ただし名前の前または上にキーワード ``«profile»`` をつける。
+  ただし名前の前または上にキーワード «profile» をつける。
 
   * ``metaclassReference``, ``metamodelReference`` は
     ``elementImport``, ``packageImport`` とそれぞれ同じ記法プラス
-    キーワード ``«reference»``。
+    キーワード «reference»。
 
 * ProfileApplication は破線矢印で示す。
 
   * 矢先は開く。
   * 向きは Package から各 appiled Profile に向かう。
-  * キーワード ``«apply»`` か、
-    ``isStrict`` が true ならばキーワード ``«strict»`` を矢印のラベルとする。
+  * キーワード «apply» か、
+    ``isStrict`` が true ならばキーワード «strict» を矢印のラベルとする。
 
 * 複数の ``appliedProfiles`` が同名の Stereotypes を持つならば、
   必要に応じてその Stereotype の名前を限定 (qualify) する。
 
 * Stereotype は Class と同じ記法を用いる。
-  ただし名前の前または上にキーワード ``«stereotype»`` をつける。
+  ただし名前の前または上にキーワード «stereotype» をつける。
 
   * モデル要素が図式的に表示されているとき、
     カッコ対が要素の右上に現れる。
@@ -1111,7 +1111,7 @@ A_type_extensionEnd
 * Figure 12.28 Using a Stereotype
 
   * クラス StopWatch に Clock を適用した。
-    単に ``«Clock»`` をクラス名の上に付記するだけで示せる。
+    単に «Clock» をクラス名の上に付記するだけで示せる。
 
 * Figure 12.29 Showing Values of Stereotypes and a Simple Instance Specification
 
@@ -1125,7 +1125,7 @@ A_type_extensionEnd
 * Figure 12.31 Other Notational Forms for Depicting Stereotype Values
 
   * Stereotype の Property 値を記述する代わりの記法の例。
-  * 属性区画に ``«Clock»`` と断ってから値を列挙。
+  * 属性区画に «Clock» と断ってから値を列挙。
   * 中括弧記法があるようだ。
 
 * Figure 12.32 Example of a Profile defining Classes and (...)
@@ -1142,7 +1142,7 @@ A_type_extensionEnd
 
   * 上記 IssuesProfile の適用例。
   * Profile IssueExample は IssuesProfile を適用している。
-  * 重要なのは矢印のラベルに現れる ``«IssueTag»`` の意味だ。
+  * 重要なのは矢印のラベルに現れる «IssueTag» の意味だ。
 
   * 本文ではこの図のオブジェクト部分を表現する XMI コードと、
     リンク部分を表現する XMI コードを分けて掲載している。
