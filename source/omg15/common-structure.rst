@@ -72,7 +72,7 @@ A_ownedElement_owner
 A_ownedComment_owningElement
   * Element から Comment への composite 関連（単方向）。
 
-    * 関連端 ``ownedComment`` にだけ開いた矢先を持つ。
+    * 関連端 ``ownedComment`` にだけ開いた矢先がある。
       これは ``owningComment`` からだけ navigable であることを意味する。
       ``ownedComment`` から ``owningComment`` には navigable ではない。
       以下同様。
@@ -298,7 +298,7 @@ A_signature_templateBinding
   実際のモデル Elements に束縛されてよい TemplateParameters の集合を定義する。
 
   * 被束縛要素 (a bound element) とは、
-    一つまたはそれ以上のそういう TemplateBindings を持つ
+    一つまたはそれを超えるそういう TemplateBindings を有する
     TemplateableElement のことである。
 
 * 完全被束縛要素 (completely bound element) とは、
@@ -346,7 +346,7 @@ A_signature_templateBinding
     ``actual`` 引数が ``formal`` TemplateParameter に代入されること
     を指定するものである。
 
-* 被束縛要素は複数の束縛を持ってよく、
+* 被束縛要素には複数の束縛があってよく、
   事によると同じテンプレートに適用される。
 
 * TemplateableElement は TemplateSignature と TemplateBindings の
@@ -364,7 +364,7 @@ A_signature_templateBinding
 * TemplateBinding は
   あたかも対象の TemplateSignature を所有するテンプレートの内容が
   被束縛要素にコピーされたかのように
-  被束縛要素は同じ well-formedness 制約と意味を持つことを含意するが、
+  被束縛要素には同じ well-formedness 制約と意味があることを含意するが、
   TemplateBinding において
   ``formal`` TemplateParameters として露出された任意の ParameterableElements へ
   ``actual`` テンプレート引数として指定された対応する ParameterableElements を
@@ -380,7 +380,7 @@ A_signature_templateBinding
   #. 複製がテンプレートである Elements を何であれ特殊化するならば、
      ``general`` 要素に向けて同じ TemplateBinding を用いて、
      Generalization 関係を等価な被束縛要素に方向転換する。
-     複製がテンプレートでもある関連 ``method`` を持つ Operation であれば、
+     複製がテンプレートでもある関連 ``method`` を有する Operation であれば、
      同じテンプレート束縛を用いて、
      その ``method`` を等価な被束縛要素で置き換える。
 
@@ -394,7 +394,7 @@ A_signature_templateBinding
      もしこれが TemplateSignature から TemplateParameters を全部
      取り除こうものならば、TemplateSignature 丸ごとを取り除く。
 
-* 被束縛要素が一個を超える TemplateBinding を持つならば、
+* 被束縛要素に一個を超える TemplateBinding があれば、
   固有の拡張被束縛要素を TemplateBinding それぞれに基いた定義が可能である。
 
 * モデルにある被束縛要素を含むことは、
@@ -411,7 +411,7 @@ A_signature_templateBinding
 
 7.3.4 Notation
 ----------------------------------------------------------------------
-* TemplateableElement が TemplateParameters を持つならば、
+* TemplateableElement に TemplateParameters があれば、
   まずは小さい破線の矩形をその要素の右上に置く。
 
   * 破線矩形は TemplateParameters の仮引数リストを含む。
@@ -485,11 +485,11 @@ A_nameExpression_namedElement
   * NamedElement から StringExpression への composite 関連（単方向）
   * NamedElement は高々 1 個の StringExpression を所有できる。
 
-    * テンプレート中では NamedElement は
-      その subexpressions が TemplateParameters が晒す ParameterableElement である、
-      関連 StringExpression を持ってよい。
+    * テンプレート中では NamedElement には、
+      その subexpressions が TemplateParameters が晒す ParameterableElement である
+      関連 StringExpression があってよい。
 
-  * NamedElement は property の ``name`` と関連端の ``nameExpression`` を両方持ってよい。
+  * NamedElement には特性の ``name`` と関連端の ``nameExpression`` の両方があってもよい。
     この場合 ``name`` はその NamedElement の別名として用いることが可能。
 
   * A_ownedElement_owner を subsets する。
@@ -503,8 +503,9 @@ A_nameExpression_namedElement
 * Namespace は NamedElements の容器を与えるものであり、
   中身の方はその ``ownedMembers`` と呼ばれる。
 
-  * もし Namespace のある ``member`` が N という ``name`` を持つ NamedElement ならば、
-    その ``member`` を N::``x`` の形式の限定名 (qualified name) により参照することが可能である。
+  * もし Namespace のある ``member`` が N という ``name`` の NamedElement ならば、
+    その ``member`` を N::``x`` の形式の限定名 (qualified name) により
+    参照することが可能である。
 
 * 区別が必要なときには、
   Namespace 名を使って限定されていない簡素な名前を
@@ -521,25 +522,25 @@ A_nameExpression_namedElement
 
 7.4.3.2 Named Elements
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* NamedElement とは ``name`` を持つことが許される、
-  モデル内の Element である。
+* NamedElement とは、
+  ``name`` を有することが許される、モデル内の Element である。
 
 * NamedElements は
   ある NamedElement が別のものとどのように区別が付くのかを指定する
   規則に従って Namespace 内に現れてよい。
   その既定の規則とは、二つの ``members`` が見分けがつくのは、
-  それらが異なる ``names`` を持つか、同じ ``names`` を持つかである。
+  それらが異なる ``names`` であるか、同じ ``names`` であるかである。
 
 * NamedElement の可視性は Element の用途を抑制する手段を与えるが、
   それは Namespaces においてか、Element へのアクセスにおいての
   どちらかである。
 
-* NamedElement は明示的な ``name`` を持つことに加えて、
+* NamedElement には明示的な ``name`` があることに加えて、
   NamedElement を表す計算された名前を指定するのに用いてよい
   StringExpression に関連付けられてよい。
 
-* NamedElement はそれに関連する
-  ``name`` と ``nameExpression`` を両方持ってよい。
+* NamedElement にはそれに関連する
+  ``name`` と ``nameExpression`` の両方があってよい。
 
 7.4.3.3 Packageable Elements and Imports
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -676,7 +677,7 @@ A_lowerValue_owningLower, A_upperValue_owningUpper
   * TypedElement の種類としては ValueSpecification や StructuralFeature がある。
     :doc:`./values` や :doc:`./classification` を参照。
 
-* TypedElement が関連 Type を持つならば、
+* TypedElement に関連 Type があれば、
   TypedElement で表現される値はどれもが
   与えられた Type のオブジェクトであるものとする。
 
@@ -767,7 +768,7 @@ A_ownedRule_context
 
 * 一般には Constraint の ``owners`` としては様々な種類の Elements が考えられる。
   唯一の制限は、所有者である Element は
-  ``constrainedElements`` へのアクセスを持つ必要があるということだ。
+  ``constrainedElements`` へのアクセス手段が必要であるということだ。
 
   * Constraint の ``owner`` はいつ Constraint の ``specitication`` が評価されるのかを決定する。
     例えば、Operation の ``precondition`` である Constraint は
@@ -776,7 +777,7 @@ A_ownedRule_context
     発動の締めくくりに評価される。
 
 * Constraint はその ``specitication`` を評価することで評価される。
-  真に評価されるならば、Constraint はその時点において満足されている。
+  true に評価されるならば、Constraint はその時点において満足されている。
 
 7.6.4 Notation
 ----------------------------------------------------------------------
@@ -841,7 +842,7 @@ A_mapping_abstraction
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Dependency は ``clients`` の意味が ``suppliers`` なしには完全ではないことを含意している。
 
-* モデル内の Dependency 関係の存在は、いかなる実行時の意味を持たない。
+* モデル内の Dependency 関係の存在には、いかなる実行時の意味はない。
   そういうのは関連づいている NamedElement (``client``/``supplier``) が与える。
 
 7.7.3.2 Usage
@@ -860,7 +861,7 @@ A_mapping_abstraction
 
 * この関係性は ``suppliers`` と ``clients`` との間の写像として定義してよい。
 
-* «Derive», «Refine», «Trace» などの定義済みステレオタイプを持つ。
+* «Derive», «Refine», «Trace» などの定義済みステレオタイプがある。
   これは :doc:`standard-profile` で仕様化する。
 
 7.7.3.4 Realization

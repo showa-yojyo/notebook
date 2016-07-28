@@ -37,7 +37,7 @@ UML 2.5 pp. 97-164 に関するノート。
 A_inheritedMember_inheritingClassifier
   * Classifier から NamedElement への関連（単方向）。
   * 継承されたメンバーの集合のことをその ``inheritedMember`` と呼ぶ。
-    特に断りのない限り、private な可視性を持たぬ ``member`` である。
+    特に断りのない限り、private な可視性ではない ``member`` である。
 
   * 関連 A_member_memberNamespace を subsets する。
 
@@ -137,7 +137,7 @@ A_substitution_substitutingClassifier
 ----------------------------------------------------------------------
 9.2.3.1 Classifiers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Classifier は Features の集合を持ち、
+* Classifier には Features の集合があり、
   それらのいくつかは Classifier の ``attributes`` と呼ばれる Properties である。
   Features のそれぞれは Classifier の ``member`` である
   （:doc:`./common-structure` を参照）。
@@ -191,8 +191,8 @@ A_substitution_substitutingClassifier
   * 例えば、Circle を Ellipse の特殊化として定義してよく、
     そのオブジェクトは Ellipse の特性にアクセスすることを伴う
     環境のすべてで置換可能となるかもしれない。
-    だが、もし Ellipse がその長軸の長さしか変更しない振る舞いを定義しようものなら、
-    Circle オブジェクトはそのような振る舞いを実装することはどうしても不可能だろう。
+    だが、もし Ellipse がその長軸の長さしか変更しない挙動を定義しようものなら、
+    Circle オブジェクトはそのような挙動を実装することはどうしても不可能だろう。
 
   * ``isSubstitutable`` 特性を、
     特殊な Classifier が一般の Classifier が用いられる環境すべてで
@@ -214,7 +214,7 @@ A_substitution_substitutingClassifier
 * 再定義する要素ひとつが RedefinableElements を複数再定義してよい。
 
 * ``isLeaf`` 特性が true のとき、
-  その RedefinableElement が再定義を何も持ってはならないものとすることを指定する。
+  その RedefinableElement には再定義を何もあってはならないものとすることを指定する。
 
 * 再定義の詳細な意味は RedefinableElement の特殊化のそれぞれについて異なる。
 
@@ -278,7 +278,7 @@ A_substitution_substitutingClassifier
 
 * 準拠ツールは区画の命名を任意に支援してよい。
 
-* Classifier が Classifiers である ``ownedMembers`` を持つならば、
+* Classifier に Classifiers である ``ownedMembers`` があれば、
   準拠ツールは所有される Classifiers とその間の関係を
   所有する Classifier の矩形の区画の別々の内部に入れ子にして図式的に
   示すためのオプションを提供してよい。
@@ -375,14 +375,14 @@ A_constrainingClassifier_classifierTemplateParameter
 
 * RedefinableTemplateSignature を使って引数化された Classifier は
   テンプレート Classifier と呼ばれる。
-  一方、ひとつまたはそれ以上の TemplateBindings を持つ Classifier は
+  一方、ひとつまたはそれを超える TemplateBindings がある Classifier は
   被束縛 Classifier と呼ばれる。
 
 * テンプレートの一般的な意味は :doc:`./common-structure` で定義されているとおりである。
 
 * 拡張被束縛 Classifier のメンバーを束縛において実引数として用いてよい。
 
-* 被束縛 Classifier は束縛の結果生じるものに加えて中身を持ってよい。
+* 被束縛 Classifier には束縛の結果生じるものに加えて中身があってよい。
 
 * テンプレート Classifier の引数は TemplateParameter のどんな種類の可能性もある。
 
@@ -495,7 +495,7 @@ A_constrainingClassifier_classifierTemplateParameter
 
 9.4.1 Summary
 ----------------------------------------------------------------------
-* Features は Classifiers の構造的特徴と振る舞いの特徴を表現する。
+* Features は Classifiers の構造的特徴と挙動の特徴を表現する。
 
 9.4.2 Abstract Syntax
 ----------------------------------------------------------------------
@@ -514,7 +514,7 @@ A_raisedException_behavioralFeature
 A_method_specification
   * BehavioralFeature と Behavior の間の関連（両方向）。
   * 多重度は ``specification`` ``0..1`` に対して ``method`` ``*`` である。
-  * BehavioralFeature の振る舞いの応答を定義する一つの方法は、
+  * BehavioralFeature の挙動の応答を定義する一つの方法は、
     それを実装するような Behavior を一つまたは複数指定することである。
     この関連はその指定を示す。
 
@@ -561,7 +561,7 @@ A_condition_parameterSet
   Feature は
   ``qualifiers`` として振る舞う Properties を除いて、
   それの ``featuringClassifier`` を表す
-  ある構造的または振る舞い的特徴を表現する。
+  ある構造的または挙動的特徴を表現する。
 
 * ``isStatic`` 特性はその特徴が Classifier 自身に関係する (true) のか、
   Classifier のオブジェクトそれぞれに関係するのかを指定する。
@@ -611,7 +611,7 @@ A_condition_parameterSet
 
   #. 実行スコープ内では
      所有する Classifier とそれを継承する Classifier それぞれに、
-     StructuralFeature は別々かつ独立した値または値の集まりを持つ。
+     StructuralFeature には別々かつ独立した値または値の集まりがある。
      これらの意味は Ruby や Smalltalk でのクラスインスタンス変数に対応する。
 
 * StructuralFeature に ``isReadOnly`` が true であるならば、
@@ -621,7 +621,7 @@ A_condition_parameterSet
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * 非静的 BehavioralFeature は
   それの  ``featuringClassifier`` のオブジェクトが、
-  固有の振る舞いの応答を実施することによって、
+  固有の挙動の応答を実施することによって、
   BehavioralFeature の発動 (invocation) に反応することを指定する。
 
 * ``ownedParameters`` のリストは、
@@ -635,13 +635,13 @@ A_condition_parameterSet
 
 * BehavioralFeature はその発動の間に例外を送出することが許される。
 
-* BehavioralFeature の振る舞いの応答を定義する方法のひとつは、
+* BehavioralFeature の挙動の応答を定義する方法のひとつは、
   BehavioralFeature を実装する ``methods`` として、
-  ひとつまたはそれ以上の Behaviors を指定することである。
+  ひとつまたはそれを超える Behaviors を指定することである。
 
   * ``isAbstract`` 特性が true のときには、
-    BehavioralFeature はそれを実装する ``methods`` を
-    何も持たないことを指定する。
+    BehavioralFeature にはそれを実装する ``methods`` が
+    何もないことを指定する。
 
 * ``concurrency`` 特性は同一オブジェクトに対する 
   同時に起こる呼び出しの意味を指定する。
@@ -706,7 +706,7 @@ A_condition_parameterSet
   ストリーミング Parameter を示す。
   ストリーミング Parameter は
   この機能を実装する Behavior のどれもが、
-  この Parameter 上でストリーミングな振る舞いを呈するという期待を表す。
+  この Parameter 上でストリーミングな挙動を呈するという期待を表す。
   :doc:`./common-behavior` で述べる。
 
 * BehavioralFeature が所有する ParameterSet とは、
@@ -790,8 +790,8 @@ A_ownedEnd_owningAssociation
 
 A_qualifier_associationEnd
   * Property から Property への composite 関連（両方向）。
-  * 上述の関連端 ``memberEnd`` な Property はそれ自身が
-    ``qualifiers`` として働くような他の Properties を持ってもよい。
+  * 上述の関連端 ``memberEnd`` な Property にはそれ自身が
+    ``qualifiers`` として働くような他の Properties があってもよい。
   * 関連端 ``qualifier`` は ``{ordered}`` である。
   * A_ownedElement_owner を subsets する。
 
@@ -826,11 +826,11 @@ A_redefinedProperty_property
   型が Class の一種の Property が Association 端であることで、
   それに対して型が DataType の一種の Property はそうではない。
 
-* Property はひとつまたはそれ以上のオブジェクトの宣言された状態を、
+* Property はひとつまたはそれを超えるオブジェクトの宣言された状態を、
   値への名前のついた関係に関して表現する。
 
-* ``memberEnd`` である Property はそれ自身が
-  ``qualifiers`` の役に立つ他の Property を持ってよい。
+* ``memberEnd`` である Property にはそれ自身が
+  ``qualifiers`` の役に立つ他の Property があってよい。
 
 * Property が ``ownedAttribute`` を介して
   Association 以外の Classifier によって所有されるときに、
@@ -838,7 +838,7 @@ A_redefinedProperty_property
 
 * Property に ``defaultValue`` が指定されていると、
   Property に対して特定の設定が不在であるか、
-  Property に特定の値を持つことを要求する制約がモデルにあれば、
+  Property に特定の値であることを要求する制約がモデルにあれば、
   Property のオブジェクトが生成されるときにこの既定値が評価される。
 
 * Property の ``isDerived`` が true であると、
@@ -861,7 +861,7 @@ A_redefinedProperty_property
 
   * AggregationKind は次のリテラル値からなる列挙型である。
 
-    * none: Property は集約の意味を持たない。
+    * none: Property には集約の意味はない。
     * shared: Property の集約の意味は「共有」である。
       共有集約の正確な意味は応用領域と設計者によって異なる。
     * composite: Property が複合的に集約されている。
@@ -1050,7 +1050,7 @@ A_parameteredElement_templateParameter
   仮テンプレート引数として露出してよい。
 
 * OperationTemplateParameter のための既定値は
-  露出された Operation と同じ引数型、方向、多重度を持った
+  露出された Operation と同じ引数型、方向、多重度である
   Operation でなければならない。
 
 9.6.4 Notation
@@ -1114,8 +1114,8 @@ A_powertypeExtent_powertype
   ここにある Classifiers の少なくとも一つのもののそれであることが常に成り立つ。
 
 * ``isDisjoint`` 特性は
-  その集合にある Generalizations の特定の Classifiers が
-  部分的に重なりを持つ (false) かどうかを指定する。
+  その集合にある Generalizations の特定の Classifiers に
+  部分的に重なりがある (false) かどうかを指定する。
 
 * GeneralizationSet は任意で ``powertype`` と呼ばれる Classifier と
   結びつけてよい。
@@ -1243,7 +1243,7 @@ A_instance_instanceValue
   それらのオブジェクトを完全にまたは部分的に記述する。
 
 * Slot は InstanceSpecification により模されるオブジェクトが
-  特定の StructuralFeature のために値を持つことを指定する。
+  特定の StructuralFeature のために値であることを指定する。
   それは
   ``classifier`` が
   再定義された StructuralFeatures を除いた Association であるならば、
@@ -1254,7 +1254,7 @@ A_instance_instanceValue
 
 * InstanceSpecification は次のものを表現してよい。
 
-  * 一つまたはそれ以上の Classifiers によるオブジェクトの分類。
+  * 一つまたはそれを超える Classifiers によるオブジェクトの分類。
     いずれも抽象でよい。
 
   * それの ``classifiers`` に基づくオブジェクトの種類。

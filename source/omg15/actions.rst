@@ -40,7 +40,7 @@ UML 2.5 pp. 439-562 に関するノート。
 * Actions は Behaviors に、
   特に Activities と Interactions に含まれている。
   これらの Behaviors は Actions がいつ実行するのかと、
-  それらが持つ入力が何であるかを決定する。
+  それらにある入力が何であるかを決定する。
 
 16.1.1.1 Concrete Syntax
 ----------------------------------------------------------------------
@@ -66,7 +66,7 @@ UML 2.5 pp. 439-562 に関するノート。
 .. note:: 節番号のレベルがおかしいのは原書通り。
 
 * 実行機関 (an execution engine) とは UML Actions を実行する道具のことである。
-  Actions はさまざまなやり方の特徴を持ったさまざまな実行機関の
+  Actions はさまざまなやり方の特徴があるさまざまな実行機関の
   構成要素を使用可能にするために定義される。
 
 * モデル作者は、
@@ -231,21 +231,21 @@ UML 2.5 pp. 439-562 に関するノート。
 * Activity にある Action を実行することは、
   その InputPins すべてが、
   それらの最小の多重度が指定するとおりに、
-  必要なトークンすべてを受け入れるつもりであることを
+  必要なトークンすべてを与えられることになることを
   必要とする。
 
 * Activity にある Action が実行を完了すると、
   その OutputPins に配置された出力データについての
   オブジェクトトークンは、
   Pins から出ている ``outgoing`` ObjectFlows の
-  どれに運び込まれてもよい。
+  どれに与えられてもよい。
 
 * Action が局所的に再入可能ではない (``isLocallyReentrant`` == false) ならば、
   いったん実行を開始すると、その Action および InputPins は
-  実行が終了するまでは運び込まれるトークンをどれも受け付けない。
+  実行が終了するまでは与えられるトークンをどれも受け付けない。
 
-* 制御 Pin (``isControl`` == true) は
-  制御の種類を持つもの (``isControlType`` == true) とする。
+* 制御 Pin (``isControl`` == true) には
+  制御の種類があるもの (``isControlType`` == true) とする。
   そうすることで ControlFlows と一緒に使ってよくなる。
 
 16.2.4 Notation
@@ -400,7 +400,7 @@ UML 2.5 pp. 439-562 に関するノート。
   それのひとつを超える実行は
   与えられた時点のどこにおいても存在しないものとする。
 
-* Behaviors と Operations は所有される Parameters の全順序リストを持っていて、
+* Behaviors と Operations には所有される Parameters の全順序リストがあり、
   その順序を用いてこれらの Parameters を CallAction の Pins に一致する。
 
 * CallAction を実行すると、その ``argument`` Pins にある値を、
@@ -434,7 +434,7 @@ UML 2.5 pp. 439-562 に関するノート。
 * ParameterSets にグループ化されている Parameters を伴う
   Behavior や Operation を発動する CallAction には特別な規則も適用する。
 
-  * Behavior や Operation が入力 ParameterSets を持つならば、
+  * Behavior や Operation に入力 ParameterSets があれば、
     CallAction が実行することが許されるときの 16.2.3 節の規則が、
     入力 ParameterSet それぞれにある Parameters に対応している
     InputPins の（重なり合うこともある）集合に個別に適用される。
@@ -445,7 +445,7 @@ UML 2.5 pp. 439-562 に関するノート。
     OutPins 上にしか
     これらの OutPins の多重度の下限値に見合う出力を生じないのとする。
     かつ、オブジェクトトークンがこれらの OutputPins から
-    流出している ActivityEdges に運び出される。
+    流出している ActivityEdges に与えられる。
 
 16.3.3.2 Send Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -485,8 +485,8 @@ UML 2.5 pp. 439-562 に関するノート。
 
 16.3.3.3 Invocation Actions and Ports
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* CallOperationAction, SendSignalAction, SendObjectAction は、
-  Port を持ち、その Action の ``onPort`` 属性を使って
+* CallOperationAction, SendSignalAction, SendObjectAction には、
+  Port があり、その Action の ``onPort`` 属性を使って
   Port を特定するオブジェクトを対象とすることによって、
   Port を通じて要求を送信する。
 
@@ -503,8 +503,8 @@ UML 2.5 pp. 439-562 に関するノート。
     直接・間接的に所有される。
 
 * CallOperationAction の場合には、
-  与えられた Port の ``provided`` または ``required`` Interface は
-  呼び出される Operation を ``feature`` として持つものとする。
+  与えられた Port の ``provided`` または ``required`` Interface には
+  呼び出される Operation が ``feature`` としてあるものとする。
   ``object`` InputPin にそれの ``type`` として
   Signal がある SendSignalAction または SendObjectAction の場合、
   与えられた Port の ``provided`` または ``required`` Interface には
@@ -564,7 +564,7 @@ UML 2.5 pp. 439-562 に関するノート。
 * Figure 16.14 Calling a Behavior
 
   * CallBehaviorAction は
-    Action 記号の内側に置かれた発動された Behavior の名前を持つ
+    Action 記号の内側に置かれた発動された Behavior の名前を有する
     Action として表記されるものとする。
 
   * Action の名前が Behavior のそれと異なる場合は、
@@ -722,8 +722,8 @@ UML 2.5 pp. 439-562 に関するノート。
 * Figure 16.30 Object Actions
 
   * 10 個近くの派生 Actions がある。
-  * 注意深く見ると、InputPin と OutputPin のどちらかしか持たないものと、
-    両方を持つものがあることに気づく。
+  * 注意深く見ると、InputPin と OutputPin のどちらかしかないものと、
+    両方があるものがあることに気づく。
 
 16.4.3 Semantics
 ----------------------------------------------------------------------
@@ -763,7 +763,7 @@ UML 2.5 pp. 439-562 に関するノート。
 * オブジェクトがひとつまたはそれを超える DataTypes のオブジェクトであると
   単に分類されるならば、
   それが別の「同じオブジェクト」であるかどうかを調べることは、
-  それが同じ値を持つかどうかに依存する。
+  それが同じ値であるかどうかに依存する。
 
 * Classes にも DataTypes にも分類されるオブジェクトや、
   その他の種類の Classifiers に分類されるオブジェクトに対する
@@ -827,10 +827,10 @@ UML 2.5 pp. 439-562 に関するノート。
   何か与えられた Classifier によって分類されているかどうかを決定する
   Action である。
 
-* ``isDirect`` が真ならば、
+* ``isDirect`` が true ならば、
   調べる内容はそのオブジェクトが指定 Classifier により直接的に分類されるかどうかであり、
   そのどんな特殊化によってではない。
-  反対に ``isDirect`` が偽ならば、特殊化をも認める。
+  反対に ``isDirect`` が false ならば、特殊化をも認める。
 
 16.4.3.9 Start Classifier Behavior Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -996,7 +996,7 @@ UML 2.5 pp. 439-562 に関するノート。
 
 * 他の関連端オブジェクトの初期化の後において、
   作成されているリンクが既に存在するわけではない限りは、
-  ``isReadOnly`` が true である関連端を持つリンクを作成することの意味は未定義である。
+  ``isReadOnly`` が true である関連端を有するリンクを作成することの意味は未定義である。
 
 16.6.3.4 Destroy Link Actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1010,7 +1010,7 @@ UML 2.5 pp. 439-562 に関するノート。
 
 * DestroyLinkAction は LinkEndDestructionData という LinkEndData の特殊型を用いる。
 
-* 順序付きかつ非一意な端を持つ Associations は、
+* 順序付きかつ非一意な端を有する Associations は、
   LinkEndDestructionData の追加の ``destroyAt`` InputPin により
   実行時に指定される削除位置によって支援されていて、
   ``isDestroyDuplicates`` が false であるときの
@@ -1019,7 +1019,7 @@ UML 2.5 pp. 439-562 に関するノート。
 
 * 他の関連端オブジェクトの初期化の後において、
   その ``endData`` に一致するリンクがない限りは、
-  ``isReadOnly`` が true である関連端を持つリンクを
+  ``isReadOnly`` が true である関連端を有するリンクを
   破壊することの意味は未定義である。
 
 16.6.3.5 Clear Association Actions
@@ -1150,7 +1150,7 @@ UML 2.5 pp. 439-562 に関するノート。
 
 * StructuralFeature の上側の多重度に違反する値を追加することと、
   ``isReadOnly`` が true である StructuralFeature に対して
-  その値を持つであろうオブジェクトの初期化後に
+  その値であろうオブジェクトの初期化後に
   新しい値を追加することの意味は未定義である。
 
 16.8.3.4 Remove Structural Feature Value Actions
@@ -1178,7 +1178,7 @@ UML 2.5 pp. 439-562 に関するノート。
   StructuralFeature の値全てを取り除く StructuralFeatureAction である。
 
 * StructuralFeature を所有するオブジェクトの初期化後に、
-  それが値を持たないのでない限りは、
+  それに値がないのでない限りは、
   ``readOnly`` が true である StructuralFeature の意味は未定義とする。
 
 16.8.4 Notation
@@ -1307,7 +1307,7 @@ UML 2.5 pp. 439-562 に関するノート。
 
 * AcceptEventAction の ``triggers`` がすべて
   ChangeEvents または CallEvents またはその両方についてのものならば、
-  AcceptEventAction は ``result`` OutputPins を持たない。
+  AcceptEventAction には ``result`` OutputPins はない。
 
   * ただし AcceptEventAction は AcceptCallAction ではないものとする。
 
@@ -1336,7 +1336,7 @@ UML 2.5 pp. 439-562 に関するノート。
 * AcceptCallAction の CallEvent で参照される Operation には
   付随するメソッド Behavior があるべきではない。
   そうではなく、
-  Operation に対する呼び出しはそのメソッドの実行の直接効果を持つはずであり、
+  Operation に対する呼び出しはそのメソッドの実行の直接効果があるはずであり、
   その背景となるオブジェクトについての事象プールへ置かれることはないであろう。
   このように、
   Operation に対する呼び出しは AcceptCallAction に送達されることは決してない。
@@ -1387,7 +1387,7 @@ UML 2.5 pp. 439-562 に関するノート。
   * AcceptEventAction は一般には凹五角形で記される。左側が凹。
     内側にその ``name`` を配してもよい。
 
-  * AcceptEventAction が単一の TimeEvent ``trigger`` を持つようなものは、
+  * AcceptEventAction が単一の TimeEvent ``trigger`` を有するようなものは、
     砂時計みたいな記号で記す。
     名前を書くなら記号の下側である。
 
@@ -1423,7 +1423,7 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 * StructuredActivityNode とは、
   ActivityGroup でもある Action である。
-  つまり、その実行時の振る舞いを定義する
+  つまり、その実行時の挙動を定義する
   ActivityNodes と ActivityEdges を含む。
 
 * StructuredActivityNodes の特殊型、名前を挙げると
@@ -1462,21 +1462,21 @@ UML 2.5 pp. 439-562 に関するノート。
 * 同様にして、StructuredActivityNode の OutputPins は、
   これに含まれている ActivityEdges の ``targets`` であってよい。
 
-* StructuredActivityNode に含まれている ActivityEdge は必ず
-  エッジの ``source`` と ``target`` の両者を持ち、それらは
+* StructuredActivityNode に含まれている ActivityEdge には必ず
+  エッジの ``source`` と ``target`` の両者があり、それらは
 
   * StructuredActivityNode に（直接的にでも間接的にでも）含まれるか、
   * StructuredActivityNode に所有される Pin であるものとする。
 
 * ActivityEdge の ``source`` が StructuredActivityNode の外部にあり、
   ``target`` がその内部にあるならば、
-  そのエッジに運び込まれたものはどれでも、
+  そのエッジに与えられたものはどれでも、
   StructuredActivityNode が実行を始めるまでは保留されたままになる。
 
 * ActivityEdge の ``source`` が StructuredActivityNode の内部にあり、
   ``target`` がその外部にあるならば、
   StructuredActivityNode が実行しているのではない限り、
-  そのエッジには何も運び込まれることはない。
+  そのエッジには何も与えられることはない。
 
 * StructuredActivityNode は Activity の実行の完了にまつわる同じ規則に
   従って実行を完了する。
@@ -1485,7 +1485,7 @@ UML 2.5 pp. 439-562 に関するノート。
   その内部へと進出している実行はすべて停止されて、
   それに含まれるトークンはすべて破壊されるが、
   StructuredActivityNode の OutputPins にある、
-  つまり ``outgoing`` エッジに向けて運び込まれているものは例外とする。
+  つまり ``outgoing`` エッジに向けて与えているものは例外とする。
 
 16.11.3.2 Isolation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1512,7 +1512,7 @@ UML 2.5 pp. 439-562 に関するノート。
   その内部にある InitialNodes のどれもが直ちに利用可能となる。
 
 * いったん ConditionalNode が実行中になると、
-  ``predecessorClauses`` を持たない Clauses の
+  ``predecessorClauses`` がない Clauses の
   どんな ``test`` 節も実行される。
 
 * ``test`` 節の実行が「同時である」と指定されるところでは、
@@ -1541,7 +1541,7 @@ UML 2.5 pp. 439-562 に関するノート。
   さらなる ``test`` 節実行のどの完了よりも
   前に実際に実行されてよい。
 
-* ConditionalNode は ``result`` OutputPins の順序付き集合を持つ。
+* ConditionalNode には ``result`` OutputPins の順序付き集合がある。
 
 * OutputPins はどの ``outgoing`` エッジにも応じられる。
 
@@ -1549,7 +1549,7 @@ UML 2.5 pp. 439-562 に関するノート。
   内部で進行中の実行全てが停止されて、
   その内部にあるトークンすべては破壊される。
 
-* ConditionalNode が InputPins を持つことは認められない。
+* ConditionalNode に InputPins があることは認められない。
 
 16.11.3.4 Loop Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1657,18 +1657,18 @@ UML 2.5 pp. 439-562 に関するノート。
   * 拡大実行それぞれの内部では、単一のトークンは
     入力 ExpansionNode がその ``source`` であり、
     その ``target`` が ExpansionRegion の内側にある
-    ActivityEdge それぞれに運び出される。
+    ActivityEdge それぞれに与えられる。
 
   * 拡大実行それぞれは、
     その ``source`` がExpansionRegion の内側にあり、
     その出力 ExpansionNode がその ``target`` となる
-    ActivityEdge に運び出されるトークンに帰着してよい。
+    ActivityEdge に与えられるトークンに帰着してよい。
 
   * ExpansionRegion の InputPins 上に配置されたトークンは
     拡大実行のそれぞれに複製されて、
     拡大実行のそれぞれには
     InputPins から流出する ActivityEdges にあるトークンの
-    異なる複製が運び込まれるようにする。
+    異なる複製が与えられるようにする。
 
   * ExpansionRegions には、
     その内側から ExpansionRegion の外に交わる
@@ -1726,10 +1726,10 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 * Figure 16.52 Expansion region with two inputs and one output
 
-  * ふたつの入力とひとつの出力を持ち、
+  * ふたつの入力とひとつの出力があり、
     parallel に実行される ExpansionRegion の見本。
 
-  * 両方のコレクションには同数の要素を持つことを期待している。
+  * 両方のコレクションには同数の要素があることを期待している。
   * 内側は入力コレクションの各要素について一度実行される。
 
 * Figure 16.53 Expansion Region
@@ -1772,8 +1772,8 @@ UML 2.5 pp. 439-562 に関するノート。
 ----------------------------------------------------------------------
 * Figure 16.56 Other Actions
 
-  * ReduceAction は InputPin と OutputPin を両方持つが、
-    RaiseExceptionAction は InputPin だけを持つ。
+  * ReduceAction には InputPin と OutputPin の両方があるが、
+    RaiseExceptionAction には InputPin だけがある。
 
 16.13.3 Semantics
 ----------------------------------------------------------------------
@@ -1818,8 +1818,8 @@ UML 2.5 pp. 439-562 に関するノート。
   正常に終了するというよりは、常に例外を送出することで完了する。
   ``exception`` InputPin において与えられた値が例外として送出される。
 
-* RaiseExceptionAction 送出された例外に一致する ExceptionHandler を
-  自分で持つならば、例外はそのハンドラーによって捕捉される。
+* RaiseExceptionAction 自身に送出された例外に一致する ExceptionHandler が
+  あるならば、例外はそのハンドラーによって捕捉される。
   そうでなければ、例外はいちばん内側から外側に向かって拡がっていく。
 
 * 例外が StructuredActivityNode の外に伝わると

@@ -188,21 +188,21 @@ CONSTRAINTS
 
   #. メタタイプが Package, Class, DataType, Property, Association,
      Operation, Constraint, Enumeration または EnumerationLiteral の
-     一種ではないような併合された要素は、
+     一種ではないような併合された要素には、
      その受領要素が併合された要素のそのままのコピーではない限りは、
-     同じ名前とメタタイプの受領要素を持ち得ない。
+     同じ名前とメタタイプの受領要素はあり得ない。
 
   #. PackageMerge は
      併合を実施するのに要求される制約のすべてが成り立つとき、
      かつそのときに限って有効である。
 
-  #. 型付けられた要素の一致は適合する型を持つ必要がある。
+  #. 型付けられた要素の一致は適合する型である必要がある。
      Classes または DataTypes である型の場合、
      適合型は同一の型あるいは共通する上位型のいずれかである。
      他のすべての場合では、適合とは型が同一であることを意味する。
 
   #. 受領要素は併合された要素のどれに対しても
-     明示的な参照を持つことはあり得ない。
+     明示的な参照があることはあり得ない。
 
   #. 一致する RedefinableElements に結び付いた再定義はいずれも
      矛盾してはならない。
@@ -223,9 +223,9 @@ TRANSFORATIONS
      対応する結果 TypedElements への参照に変換される。
 
   #. 一致する要素全ての場合、
-     一致する要素の両方とも private ``visibility`` を持つと、
-     結果要素は private ``visibility`` を持つ。
-     そうでなければ、結果要素は public ``visibility`` を持つ。
+     一致する要素の両方とも private ``visibility`` であると、
+     結果要素は private ``visibility`` である。
+     そうでなければ、結果要素は public ``visibility`` である。
 
   #. 一致する Classifier 要素全ての場合、
      一致する要素の両方とも ``isAbstract`` が true だと、
@@ -265,13 +265,13 @@ TRANSFORATIONS
 * Package の種類の Elements は ``name`` およびメタタイプにより一致する。
 
 CONSTRAINTS
-  #. 合併された Package にある Classifiers はすべてが
-     空でない ``qualifiedName`` を持つ必要があり、
+  #. 合併された Package にある Classifiers のすべてに
+     空でない ``qualifiedName`` がある必要があり、
      合併された Package で
      ``isDistinguishableFrom()`` の値が true となる。
 
-  #. 受領 Package にある Classifiers はすべてが
-     空でない ``qualifiedName`` を持つ必要があり、
+  #. 受領 Package にある Classifiers のすべてに
+     空でない ``qualifiedName`` がある必要があり、
      受領 Package で
      ``isDistinguishableFrom()`` の値が true となる。
 
@@ -307,11 +307,11 @@ CONSTRAINTS
      矛盾があってはならない。
 
 TRANSFORATIONS
-  #. 一致する受領 Property を持たない併合された Properties の場合は、
+  #. 一致する受領 Property のない併合された Properties の場合は、
      結果 Property は併合された Property と同じ結果 Classifier にある
      Property である。
 
-  #. 一致する受領 Property を持つ併合された Properties の場合は、
+  #. 一致する受領 Property を有する併合された Properties の場合は、
      結果 Property は同じ名前と特徴が異なるものを除いた特徴がある
      Property である。
 
@@ -356,11 +356,11 @@ CONSTRAINTS
      受領 Operation は ``isQuery`` が true である必要がある。
 
 TRANSFORATIONS
-  #. 一致する受領 Operation を持たない併合された Operations の場合は、
+  #. 一致する受領 Operation のない併合された Operations の場合は、
      結果 Operation は同じ名前と同じ signature が結果 classifier にある
      Operation である。
 
-  #. 一致する受領 Operation を持つ併合された Operations の場合は、
+  #. 一致する受領 Operation を有する併合された Operations の場合は、
      結果 Operation は一致する併合された Operations と受領 Operations の
      併合の結果であり、
      Parameter 変換が上で定義された Property 変換に従って実施されている。
@@ -393,14 +393,14 @@ TRANSFORATIONS
   最も幅広い意味で意図されていて、
   ソフトウェアやハードウェアだけでなく、組織や工程をも含んでよい。
 
-* Package と同じように、Model は
-  モデル化されているシステムを協力して記述する ``members`` の集合を持つ。
+* Package と同じように、Model には
+  モデル化されているシステムを協力して記述する ``members`` の集合がある。
 
 * 種々の Models を同じシステムに対して定義することが可能であり、
   典型的にはこの種々の Models は相補的であり、
   種々のシステム利害関係者の観点から定義されている。
 
-* Model は次のものの間にある Abstraction Dependencies を持つことが可能。
+* Model には次のものの間にある Abstraction Dependencies があることが可能。
 
   * refinement （標準プロファイル «Refine» でステレオタイプされる）
   * mapping （例えば標準プロファイル «Trace» でステレオタイプされる）
@@ -425,7 +425,7 @@ TRANSFORATIONS
 
   * URI を ``{uri = <uri>}`` の形式でパッケージ名の後に示してよい。
 
-* PackageMerge は開いた矢先を持つ破線矢印を用いて示す。
+* PackageMerge は開いた矢先の破線矢印を用いて示す。
 
   * 矢印の向きは ``receivingPackage`` から ``mergedPackage`` である。
   * キーワード «merge» を破線のそばに示す。
@@ -506,7 +506,7 @@ TRANSFORATIONS
 * UML を拡張するのがよいかもしれない理由がいくつかある。
 
   * 特定のプラットフォームやドメインに適合される用語法 (a terminology) を与える。
-  * 記法を持たぬ諸構成概念に構文を与える。
+  * 記法のない諸構成概念に構文を与える。
   * 既存の諸記号に異なる記法を与える。
   * UML や特定のメタクラス (pl.) にさらなる意味を追加する。
   * UML に存在しない型を追加する。
@@ -729,8 +729,8 @@ A_type_extensionEnd
 
 * モデルまたはそのある部分に対する Profile の適用を削除することが
   モデル自身の XMI 直列化を修正してはならないので、
-  Part (1) にある XMI 要素はすべて
-  Part (2) にある XMI 要素のどれに対する参照を持つことはできない。
+  Part (1) にある XMI 要素はどれもが
+  Part (2) にある XMI 要素のどれに対する参照もできない。
 
 .. * 下の XMI では Figure 12.13 のモデルがどう XMI に直列化されるかがわかる。
 
@@ -844,7 +844,7 @@ A_type_extensionEnd
     States, Transitions, Activities, UseCases, Components, Properties, Dependencies,
     etc. はすべて Stereotypes で拡張が可能である。
 
-* Class と同じようにして、Stereotype は Properties を持つことが許されるが、
+* Class と同じようにして、Stereotype に Properties があることが許されるが、
   それは習慣的に Tag Definitions と呼ばれてきた。
   Stereotype がモデル要素に適用されているとき、
   Tag Definitions の値のことを慣習的に `tag values` という呼び方をする。
@@ -950,7 +950,7 @@ A_type_extensionEnd
   * キーワード «apply» か、
     ``isStrict`` が true ならばキーワード «strict» を矢印のラベルとする。
 
-* 複数の ``appliedProfiles`` が同名の Stereotypes を持つならば、
+* 複数の ``appliedProfiles`` に同名の Stereotypes があれば、
   必要に応じてその Stereotype の名前を限定 (qualify) する。
 
 * Stereotype は Class と同じ記法を用いる。
@@ -962,7 +962,7 @@ A_type_extensionEnd
   * 複数の Stereotypes が適用されているならば、
     それらの名前をカッコ内に CSV として示す。
 
-  * 拡張モデル要素がキーワードを持つときは、
+  * 拡張モデル要素にキーワードがあるときは、
     ステレオタイプ名はそのキーワードの近くに表示されるだろう。
     一つのカッコに名前をまとめてもよいし、別々のカッコを用いてもよい。
 
@@ -1007,7 +1007,7 @@ A_type_extensionEnd
   参照された Image を
   Stereotype が適用されたモデル要素に対して図式的に添えることができる。
 
-* 図表的表現を持つすべてのモデル要素がアイコンを付けることが可能。
+* 図表的表現を有するすべてのモデル要素がアイコンを付けることが可能。
   モデル要素が
 
   * 箱として図表的に表現されると、

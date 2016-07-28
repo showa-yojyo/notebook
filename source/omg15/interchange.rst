@@ -812,7 +812,7 @@ B.4.4 State Shapes
 * Figure B.13 State Shapes
 
   * UMLCompartmentableShape を UMLStateShape に特殊化することで、
-    特性をひとつ追加し、ひとつまたはそれ以上の States を示すように制限する。
+    特性をひとつ追加し、ひとつまたはそれを超える States を示すように制限する。
 
     * ``isTabbed`` は形状の上部にタブを追加して、
       State の名前を表示するものとするかどうかを指示する。

@@ -21,6 +21,12 @@ UML 2.5 pp. 371-438 に関するノート。
    * offer (v.) 語源は「～の方へ運ぶ」を意味するラテン語らしいのだが、
      まさにこの文脈に相応しい。
 
+     * 本文を読み返したら 11.3.3.1 節の第 2 パラグラフに
+       provides (offers) と書いてあったので、
+       やはり provide と同じように訳すのが良いだろう。
+       ということは、
+       やはり訳しづらい単語であることには変わりないということだが。
+
    * token (n.) 「トークン」とする。
      代用硬貨とかではさすがに意味が通らないが、
      本質的な意味はまさにそれ。
@@ -120,7 +126,7 @@ UML 2.5 pp. 371-438 に関するノート。
 * トークンは Activity で明示的にモデル化されないが、
   Activity の実行を記述するために用いられる。
 
-  * オブジェクトトークンは ObjectFlow エッジ上を流れる値を運ぶものである。
+  * オブジェクトトークンは ObjectFlow エッジ上を流れる値の入れ物である。
     モノによっては ControlFlow 上を流れることができる。
 
   * 値のないオブジェクトトークンは空トークンと呼ばれる。
@@ -134,8 +140,8 @@ UML 2.5 pp. 371-438 に関するノート。
   ``targets`` ActivityNode へ流れる。
 
 * ActivityNodes と ActivityEdges には名前をつけてもよいが、
-  Activity の ``nodes`` と ``edges`` が
-  その Activity の内部で一意な名前を持つ必要はない。
+  Activity の ``nodes`` と ``edges`` とが
+  その Activity の内部で一意な名前である必要はない。
 
   * 例えば、同じような ``nodes`` には同じ名前を与えることが許される。
 
@@ -161,7 +167,7 @@ UML 2.5 pp. 371-438 に関するノート。
 
 * ActivityNode が実行を開始することができるようになるのは、
   指定された条件が ``incoming`` ActivityEdges において
-  そのノードに差し出されたトークンを使って成り立つときである。
+  そのノードに与えられたトークンを使って成り立つときである。
   それに対して、条件はノードの種類に依存する。
 
 * 複数個の ActivityNodes の相対的な実行順序についての
@@ -177,11 +183,11 @@ UML 2.5 pp. 371-438 に関するノート。
   ノードを並行実行してもよい。
 
 * ActivityNode は ActivityEdges 複数個の ``source`` でもよいので、
-  同一トークンを ``targets`` 複数個に運び出すことが可能である。
+  同一トークンを ``targets`` 複数個に与えることが可能である。
   しかしながら、
   同一トークンは一度にひとつの ``target`` でしか受け取れない。
 
-  * 複数同時に差し出せても、受け取るのは高々ひとつのノードであるし、
+  * 複数同時に与えても、受け取るのは高々ひとつのノードであるし、
     具体的にどのノードがトークンを得るのかを完全に決定するものはない。
 
 * ActivityNodes には以下の 3 種類がある。
@@ -192,7 +198,7 @@ UML 2.5 pp. 371-438 に関するノート。
 
   #. ObjectNodes:
      ``incoming`` ObjectFlows から受け取ったオブジェクトトークンを保持して、
-     その後それらを ``outgoing`` ObjectFlows に対して運び出してよい。
+     その後それらを ``outgoing`` ObjectFlows に対して与えてよい。
 
   #. ExecutableNodes:
      Activity の所望の挙動を実際に実施する。
@@ -206,14 +212,14 @@ UML 2.5 pp. 371-438 に関するノート。
   ``source``  ActivityNode から ``target`` ActivityNode へと流れる。
 
 * トークンは ActivityEdge の ``source`` ActivityNode によって、
-  そのエッジに向けて運び出される。
+  そのエッジに向けて与えられる。
 
-* ActivityEdge は ``guard`` という、
-  エッジに運び出されるトークンそれぞれに対して
-  評される ValueSpecification を持つことが許される。
+* ActivityEdge には ``guard`` という、
+  エッジに与えられるトークンそれぞれに対して
+  評価される ValueSpecification があることが許される。
 
-  * トークンがこのエッジに差し出されたときに評価される。
-    この評価値が真であることが、トークンを渡す条件になる。
+  * トークンがこのエッジに与えられたときに評価される。
+    この評価値が true であることが、トークンを渡す条件になる。
 
 * 任意の個数のトークンを ActivityEdge に渡すことが可能で、
   一度に複数グループでも、複数回に分割してでもよい。
@@ -242,16 +248,16 @@ UML 2.5 pp. 371-438 に関するノート。
   それらの値を介して Activity を通してデータを運ぶか、
   またはデータを運ばない（空トークン）。
 
-* ObjectFlow は単一の入力 Parameter と単一の出力 Parameter を持つ
-  ``transformation`` Behavior を持ってよい。
+* ObjectFlow には単一の入力 Parameter と単一の出力 Parameter がある
+  ``transformation`` Behavior があってよい。
 
   * ``transformation`` Behavior が指定されていると、
-    その Behavior が ObjectFlow に運び出された
+    その Behavior が ObjectFlow に与えられた
     オブジェクトトークンごとに発動されて、
     トークンの値がその Behavior に対して入力として引き渡された状態になる。
 
-* ObjectFlow は単一の入力 Parameter と単一の出力 Parameter を持つ
-  ``selection`` Behavior を持ってよい。
+* ObjectFlow には単一の入力 Parameter と単一の出力 Parameter がある
+  ``selection`` Behavior があってよい。
 
   * 入力 Parameter は unordered, nonunique かつ多重度が ``0..*`` である
     ものとする。
@@ -260,16 +266,16 @@ UML 2.5 pp. 371-438 に関するノート。
 
   * オブジェクトトークンを入力として処理して、次のノードに出力を引き渡す。
 
-* ObjectFlow が ``transformation`` と ``selection`` を両方持つならば、
-  新しいトークンが ObjectFlow に運び出されるときには、
+* ObjectFlow に ``transformation`` と ``selection`` の両方があるならば、
+  新しいトークンが ObjectFlow に与えられるときには、
   まず ``transformation`` Behavior が発動されて、
   その結果の値が ``selection`` 挙動の発動に用いられる。
 
-* トークンが ``target`` ノードに向けて運び出される間に
+* トークンが ``target`` ノードに向けて与えられる間に
   ``transformation`` または ``selection`` Behavior が使われるので、
   そのトークンが ``target`` ノードに受け入れられる前に
   何度も同じトークンで走らされてよい。
-  この事は、その Behavior が副作用を持ってはならないことを意味する。
+  この事は、その Behavior に副作用があってはならないことを意味する。
 
 * 多重送信と多重受信は ActivityPartitions といっしょに使われて、
   発行購読能力により決定される
@@ -310,19 +316,19 @@ UML 2.5 pp. 371-438 に関するノート。
 15.2.3.6 Activity Execution
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Behavior を継承したので、
-  Activity は ``precondition`` と ``postcondition`` Constraints を持ってもよい。
+  Activity には ``precondition`` と ``postcondition`` Constraints があってもよい。
   これらは Activity の全発動に全体的に適用する。
 
-* Behavior であるので、Activity は Parameters を持ってもよい。
+* Behavior であるので、Activity には Parameters があってもよい。
   このような Parameter それぞれに対し、
-  Activity は 対応する ActivityParameterNode というノードを持つ。
+  Activity には 対応する ActivityParameterNode というノードがある。
 
 * Activity が発動されると、
   その入力 Parameters に引き渡された値はどれもが、
   オブジェクトトークンに入れられ、
   Activity に対して対応する入力 ActivityParameterNodes に置かれる。
   これらの ActivityParameterNodes は
-  それからトークンを ``outgoing`` ActivityEdges に運び出す。
+  それからトークンを ``outgoing`` ActivityEdges に与える。
 
 * Activity が最初に発動されると、
   入力 ActivityParameterNodes 以外のノードは何一つ
@@ -341,16 +347,16 @@ UML 2.5 pp. 371-438 に関するノート。
 * Activity の別々の実行を発動のそれぞれについて利用すると（これは既定である）、
   さまざまな発動から来たトークンらは相互に作用しない。
 
-* もし Activity が streaming Parameters を持つならば、
+* もし Activity に streaming Parameters があるならば、
   単一実行の途中でさえあっても、
   さらなるトークンらがその Activity に
   （対応する ActivityParameterNodes を経て）流入出してもよい。
 
-* streaming Parameters を持たない Activity の実行が完了するのは、
+* streaming Parameters のない Activity の実行が完了するのは、
   実行しているノードがすでになくなり、実行可能なノードがないときか、
   ActivityFinalNode を用いることで明示的に停止されたときである。
 
-  * streaming Parameters を持つ Activity は、
+  * streaming Parameters を有する Activity は、
     その入出力の累積数が規定値に達するまでは停止してはならない。
 
 * Activity の実行が完了すると、
@@ -371,7 +377,7 @@ UML 2.5 pp. 371-438 に関するノート。
 
 * 一般 Activity から ActivityNode を再定義する
   特殊 Activity にある ActivityNode は、
-  その再定義された ActivityNode を始点または終点として持っていた
+  その再定義された ActivityNode を始点または終点としていた
   継承 ActivityEdges のどれもを、
   その再定義された ActivityNode で置き換えるとみなされる。
 
@@ -576,8 +582,8 @@ UML 2.5 pp. 371-438 に関するノート。
     InitialNode のそれぞれに対して
     Activity の発動が複数の同時制御フローを開始する。
 
-* InitialNode はいかなる ``incoming`` ActivityEdges を
-  持ってはならないものとし、
+* InitialNode にはいかなる ``incoming`` ActivityEdges が
+  あってはならないものとし、
   このことは、
   Activity が実行を開始すると Activity に所有される InitialNodes がいつでも使用可能である
   はずであることと、
@@ -597,7 +603,7 @@ UML 2.5 pp. 371-438 に関するノート。
 
   * FinalNode には ``outgoing`` ActivityEdges がないものとする。
   * FinalNode は ``incoming`` ActivityEdges により
-    運び込まれたトークンすべてを受理する。
+    与えられたトークンすべてを受理する。
 
 * FinalNode には FlowFinalNode と ActivityFinalNode の 2 種類がある。
 
@@ -634,15 +640,15 @@ UML 2.5 pp. 371-438 に関するノート。
     ``incoming`` エッジが ObjectFlow ならば、
     ``outgoing`` エッジはすべて ObjectFlows であるものとする。
 
-* ForkNode に運び込まれたトークンは、
-  そのノードの ``outgoing`` ActivityEdges のすべてに運び込まれる。
+* ForkNode に与えられたトークンは、
+  そのノードの ``outgoing`` ActivityEdges のすべてに与えられる。
   それらのうちの少なくともひとつが受理されると、
-  運び込まれたトークンは発生元から取り除かれ、
+  与えられたトークンは発生元から取り除かれ、
   受理者はトークンの複製を受け入れる。
 
 * ``outgoing`` ActivityEdges の目標ではなく、
   それらの ``guard`` の失敗が原因で
-  運び込みを受理することに失敗するそれらはどれもが、
+  供与を受理することに失敗するそれらはどれもが、
   それらのトークンの複製を受理しないものとする。
 
 * ForkNode から生えている ``outgoing`` ActivityEdges で
@@ -665,48 +671,48 @@ UML 2.5 pp. 371-438 に関するノート。
     ``outgoing`` エッジは ObjectFlow であるものとする。
     そうでなければ ``outgoing`` エッジは ControlFlow であるものとする。
 
-* JoinNode は ``joinSpec`` という 
+* JoinNode には ``joinSpec`` という 
   合流がトークンを放つ条件を決定する
-  ValueSpecification を持つことが許される。
+  ValueSpecification があることが許される。
 
   * JoinNode に ``joinSpec`` があれば、
     ``incoming`` ActivityEdge のどれからでも新しいトークンが JoinNode に
-    運び出されるときにはいつでも
+    与えられるときにはいつでも
     この ValueSpecification が評価される。
 
 * ``joinSpec`` ValueSpecification がテキストによる式で与えられると、
   ``incoming`` エッジの名前を次のものを示すために使ってよい：
 
-  * ControlFlow からの運び込みの有無を示す Boolean 値
-  * ObjectFlow から運び込まれたオブジェクトトークンに付随する値
+  * ControlFlow からの供与の有無を示す Boolean 値
+  * ObjectFlow から与えられたオブジェクトトークンに付随する値
 
 * JoinNode に ``joinSpec`` がなければ、
   これは Boolean 演算子 "and" のある ``joinSpec`` 式に同値である。
   つまり、暗黙の既定の ``joinSpec`` 条件とは、
   少なくともひとつのトークンで ``incoming`` ActivityEdge のそれぞれで
-  運び込まれていることである。
+  与えられていることである。
 
 * JoinNode の暗黙または明示的な ``joinSpec`` が true と評価されると、
   次の規則に従って
-  トークンが JoinNode の ``outgoing`` ActivityEdge で運び込まれる。
+  トークンが JoinNode の ``outgoing`` ActivityEdge で与えられる。
 
-  #. ``incoming`` エッジで運び込まれるトークンがすべて制御トークンならば、
-     制御トークンのひとつが ``outgoing`` エッジに運び出される。
+  #. ``incoming`` エッジで与えられるトークンがすべて制御トークンならば、
+     制御トークンのひとつが ``outgoing`` エッジに与えられる。
 
-  #. ``incoming`` エッジで運び込まれるトークンで、
+  #. ``incoming`` エッジで与えられるトークンで、
      制御トークンとオブジェクトトークンであるものがあれば、
-     オブジェクトトークンのみが ``outgoing`` エッジに運び出される。
+     オブジェクトトークンのみが ``outgoing`` エッジに与えられる。
 
      * JoinNode に対して ``isCombinedDuplicate`` が true ならば、
-       オブジェクトトークンが ``outgoing`` エッジに運び出される前に、
+       オブジェクトトークンが ``outgoing`` エッジに与えられる前に、
        それらの含む同じ素性のオブジェクトはひとつのトークンに結合される。
 
 * この規則は、
-  同じ ``incoming`` エッジから運び込まれる複数トークンの場合を含み、
-  JoinNode に運び込まれるトークンすべてに適用する。
+  同じ ``incoming`` エッジから与えられる複数トークンの場合を含み、
+  JoinNode に与えられるトークンすべてに適用する。
 
-* どのトークンでも JoinNode の ``outgoing`` ActivityEdge に運び込まれると、
-  さらなるトークンが ``outgoing`` エッジに運び込まれる前に、
+* どのトークンでも JoinNode の ``outgoing`` ActivityEdge に与えられると、
+  さらなるトークンが ``outgoing`` エッジに与えられる前に、
   目標によって受理されるか、
   またはエッジ上を走査するのを拒絶される
   （例えば失敗した防御のため）ものとする。
@@ -716,7 +722,7 @@ UML 2.5 pp. 371-438 に関するノート。
 * MergeNode とは、
   複数の流れを同期なしでまとめる制御ノードである。
 
-  * MergeNode は厳密にひとつの ``outgoing`` ActivityEdge を持つものとする。
+  * MergeNode には厳密にひとつの ``outgoing`` ActivityEdge があるものとする。
 
   * MergeNode の incoming と outgoing のエッジの型は一致しているものとする。
 
@@ -725,8 +731,8 @@ UML 2.5 pp. 371-438 に関するノート。
     ``outgoing`` エッジが ObjectFlow ならば、
     ``incoming`` エッジはすべて ObjectFlows でなければならない。
 
-* MergeNode の ``incoming`` エッジで運び込まれたトークンはすべて、
-  ``outgoing`` エッジに運び出される。
+* MergeNode の ``incoming`` エッジで与えられたトークンはすべて、
+  ``outgoing`` エッジに与えられる。
   流れまたはトークンの合流の同期はない。
 
 15.3.3.6 Decision Nodes
@@ -735,33 +741,33 @@ UML 2.5 pp. 371-438 に関するノート。
   ``outgoing`` の流れを選択する ControlNode である。
 
 * DecisionNode は第一 ``incoming`` エッジ上のトークンを受理し、
-  それらを ``outgoing`` エッジすべてに運び出す。
+  それらを ``outgoing`` エッジすべてに与える。
 
-* DecisionNode の ``outgoing`` エッジで防御を持つものがあれば、
+* DecisionNode の ``outgoing`` エッジで防御を有するものがあれば、
   これらが ``incoming`` トークンそれぞれに対して評価される。
 
-* DecisionNode が ``decisionInputFlow`` を持つならば、
+* DecisionNode に ``decisionInputFlow`` があれば、
   第一 ``incoming`` エッジからのトークンが
-  ``outgoing`` エッジに運び出される前に、
+  ``outgoing`` エッジに与えられる前に、
   第一 ``incoming`` エッジと ``decisionInputFlow`` の両方に
-  運び込まれる必要がある。
+  与えられる必要がある。
 
-* DecisionNode が ``decisionInput`` を持つならば、
-  これは戻り Parameter は持つがその他の出力 Parameters は持たない
+* DecisionNode に ``decisionInput`` があれば、
+  これは戻り Parameter はあるがその他の出力 Parameters はない
   Behavior でなければならない。
 
 * DecisionNode の第一 ``incoming`` エッジが ControlFlow であり、
-  DecisionNode が ``decisionInput`` を持つが ``decisionInputFlow`` を持たぬならば、
-  ``decisionInput`` は入力 Parameters を持たないものとする。
+  DecisionNode には ``decisionInput`` があるが ``decisionInputFlow`` はないならば、
+  ``decisionInput`` には入力 Parameters がないものとする。
 
 * DecisionNode の第一 ``incoming`` エッジが ObjectFlow であり、
-  DecisionNode が ``decisionInput`` を持つが ``decisionInputFlow`` を持たぬならば、
-  ``decisionInput`` は入力 Parameter を持つものとし、
+  DecisionNode には ``decisionInput`` があるが ``decisionInputFlow`` はないならば、
+  ``decisionInput`` には入力 Parameter があるものとし、
   Behavior がそのトークンに対して発動されたときには、
-  第一 ``incoming`` エッジで運び込まれたオブジェクトトークンに含まれる値は、
+  第一 ``incoming`` エッジで与えられたオブジェクトトークンに含まれる値は、
   この Parameter を経て引き渡される。
 
-* DecisionNode の第一 ``incoming`` エッジで運び込まれたトークンは、
+* DecisionNode の第一 ``incoming`` エッジで与えられたトークンは、
   ``guard`` が false に評価される ``outgoing`` エッジのいずれをも
   走査しないものとする。
 
@@ -815,12 +821,12 @@ UML 2.5 pp. 371-438 に関するノート。
   * MergeNodes と DecisionNodes の両者を表す表記法は、
     ダイヤモンド記号である。
 
-  * MergeNode はふたつまたはそれを超える ``incoming`` ActivityEdges および
-    単一の ``outgoing`` ActivityEdge を持つ必要がある。
+  * MergeNode にはふたつまたはそれを超える ``incoming`` ActivityEdges および
+    単一の ``outgoing`` ActivityEdge が必要である。
     それに対して、
-    DecisionNode はあり得る ``decisionInputFlow`` 以外では、
+    DecisionNode には、あり得る ``decisionInputFlow`` 以外では、
     単一の ``incoming`` ActivityEdge と
-    複数の ``outgoing`` ActivityEdges を持つ必要がある。
+    複数の ``outgoing`` ActivityEdges が必要である。
 
 * Figure 15.33 DecisionNode notation
 
@@ -942,13 +948,13 @@ UML 2.5 pp. 371-438 に関するノート。
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * ObjectNode は Activity の実行途中にオブジェクトトークンを保持する。
 
-* ObjectNode は同じ値を持つ複数のオブジェクトトークンを含んでよい。
+* ObjectNode には同じ値である複数のオブジェクトトークンを含んでよい。
   そのようなトークンは通常は結合しない。
 
 * ObjectNodes は TypedElements である。
   ObjectNode に ``type`` が指定されていると、
-  ObjectNode が保持するオブジェクトトークンはどれも
-  ObjectNode の ``type`` に適合する値を持つものとする。
+  ObjectNode が保持するオブジェクトトークンにはどれも
+  ObjectNode の ``type`` に適合する値があるものとする。
 
   * ``type`` が指定されていなければ、
     値はどのような ``type`` であってもよい。
@@ -962,20 +968,20 @@ UML 2.5 pp. 371-438 に関するノート。
 
 * ObjectNode の ``ordering`` は、
   ノードが保持するトークンを
-  ``outgoing`` ActivityEdges に運び出す順序を指定する。
+  ``outgoing`` ActivityEdges に与える順序を指定する。
   この特性は次の値のひとつである：
 
   * unordered: 順序を定義しない。
-  * FIFO: ObjectNode が受理した順番で ``outgoing`` エッジに運び出す。
-  * LIFO: ObjectNode が受理したのと逆の順番で ``outgoing`` エッジに運び出す。
+  * FIFO: ObjectNode が受理した順番で ``outgoing`` エッジに与える。
+  * LIFO: ObjectNode が受理したのと逆の順番で ``outgoing`` エッジに与える。
   * ordered: ``selection`` Behavior を用いたモデル作者定義による順序とする。
 
 * ``ordering`` == ordered であるとき、かつそのときに限って、
-  ObjectNode は ``selection`` Behavior を持つものとする。
+  ObjectNode には ``selection`` Behavior があるものとする。
 
 * ObjectNode の ``selection`` は
   そのノードの ``outgoing`` エッジにトークンがひとつ
-  運び出されることになるときにはいつでも実行される。
+  与えられることになるときにはいつでも実行される。
 
 * ObjectNode の ``selection`` は
   その ``outgoing`` ObjectFlows の
@@ -996,7 +1002,7 @@ UML 2.5 pp. 371-438 に関するノート。
 
 15.4.3.2 Activity Parameter Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Activity は Behavior の一種なので Parameters を持つことが許される。
+* Behavior の一種なので、Activity には Parameters があることが許される。
   Activity が発動されると、
   値を入力 Parameters (in/inout) で Activity の実行の中へ引き渡してよく、
   値を出力 Parameters (inout/out/return) で Activity の実行の外へ引き渡してよい。
@@ -1010,11 +1016,11 @@ UML 2.5 pp. 371-438 に関するノート。
   すべてが ``incoming`` ActivityEdges であるか、
   すべてが ``outgoing`` ActivityEdges であるかのどちらかであるものとする。
 
-* Activity は
-  入力引数、出力引数、戻り値それぞれに対応する ActivityParameterNode を
+* Activity には
+  入力引数、出力引数、戻り値それぞれに対応する ActivityParameterNode が
   ひとつ、
-  入出力引数それぞれに対応する ActivityParameterNodes を
-  ふたつ持つものとする。
+  入出力引数それぞれに対応する ActivityParameterNodes が
+  ふたつあるものとする。
 
 * 入力 ActivityParameterNode が非 streaming Parameter に結び付けられていれば、
   含む Activity が発動された時に、
@@ -1029,7 +1035,7 @@ UML 2.5 pp. 371-438 に関するノート。
   新しい値がその Parameter に post されるときにはいつでも、
   その値がオブジェクトトークンに包み込まれて、
   ActivityParameterNode に配置されて、
-  ``outgoing`` エッジすべてに運び出される。
+  ``outgoing`` エッジすべてに与えられる。
 
 15.4.3.3 Central Buffer Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1042,9 +1048,9 @@ UML 2.5 pp. 371-438 に関するノート。
   Activity が実行している間じゅう
   そのオブジェクトトークン (pl.) を永続的に保持する CentralBufferNode である。
 
-* DataStoreNode が保持するオブジェクトトークンについての運び出しを
+* DataStoreNode が保持するオブジェクトトークンについての供与を
   下流のオブジェクトノードが受理すると、
-  その運び出されたトークンは（通常の CentralBufferNode の意味で）
+  その与えられたトークンは（通常の CentralBufferNode の意味で）
   DataStoreNode から取り除かれる。
 
 * DataStoreNode がオブジェクトトークンを受理すると、
@@ -1185,7 +1191,7 @@ UML 2.5 pp. 371-438 に関するノート。
   つまり ``incoming`` ControlFlows 上には暗黙の合流が存在する。
 
 * ExecutableNode が実行を開始する前に、
-  ``incoming`` ControlFlows から運び込まれるトークンすべてを受理する。
+  ``incoming`` ControlFlows から与えられるトークンすべてを受理する。
 
 * ExecutableNode が実行している間は、
   ある単独の制御がそれが実行であることを示しているとみなされる。
@@ -1193,7 +1199,7 @@ UML 2.5 pp. 371-438 に関するノート。
 * ExecutableNode が実行を完了するときは、
   その実行を表現している制御トークンがその ExecutableNode から取り除かれ、
   制御トークン (pl.) がその ExecutableNode の
-  ``outgoing`` ControlFlows すべてに運び出される。
+  ``outgoing`` ControlFlows すべてに与えられる。
   つまり、ExecutableNode から ``outgoing`` ControlFlows への
   制御の流れの暗黙の分岐点が存在する。
 
@@ -1202,10 +1208,10 @@ UML 2.5 pp. 371-438 に関するノート。
 * 例外とは、
   実行の完了様式が正常ではないことを確認するために用いられる値である。
 
-* ExecutableNode は
+* ExecutableNode には
   ExecutableNode の外側に広まることもある例外 (pl.) を対処するために
-  使われる ExceptionHandlers を
-  ひとつまたはそれを超える個数持つことが許される。
+  使われる ExceptionHandlers が
+  ひとつまたはそれを超える個数あることが許される。
   その例外たちの ``handlers`` の ``protectedNode`` である。
 
 * ExceptionHandler が例外を捕捉すると、
@@ -1215,15 +1221,15 @@ UML 2.5 pp. 371-438 に関するノート。
 * 例外捕捉後、ExceptionHandler の ``handlerBody`` が実行を完了すると、
   あたかも ``protectedNode`` が正常に完了したかのごとき正確に同じ方法で、
   制御トークンが ExceptionHandler の ``protectedNode`` の
-  ``outgoing`` ControlFlows に運び込まれる。
+  ``outgoing`` ControlFlows に与えられる。
 
-* ExceptionHandler の ``handlerBody`` は
+* ExceptionHandler の ``handlerBody`` には、
   ``incoming`` にせよ ``outgoing`` にせよ
-  ActivityEdges を持たないものとする。
+  ActivityEdges はないものとする。
 
-* ExceptionHandler の ``handlerBody`` は
+* ExceptionHandler の ``handlerBody`` には
   ExceptionHandler の ``protectedNode`` と同じ
-  ``owner`` を持つものとし、
+  ``owner`` があるものとし、
   ExceptionHandler の ``exceptionInput`` を所有するものとする。
 
 * もし ExecutableNode が例外を広めて、

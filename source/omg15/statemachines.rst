@@ -57,7 +57,7 @@ UML 2.5 pp. 303-370 に関するノート。
 
   * 能動的な Class の ``classifierBehavior``
   * BehavioredClassifier の ``classifierBehavior`` でない ``ownedBehavior``
-  * 対応する BehavioredClassifier を持たない Behavior
+  * 対応する BehavioredClassifier のない Behavior
   * BehaviorFeature (Operation or Reception) に対応するメソッド
 
 14.2.2 Abstract Syntax
@@ -122,7 +122,7 @@ A_entry_state, A_doActivity_state, A_exit_state
   * State から Behavior への参照。
   * Behavior 側関連端の意味については先ほどのノート参照。
   * Behavior 側のいずれの関連端の多重度も ``0..1`` なので、
-    これらの振る舞いの定義はオプションである。
+    これらの挙動の定義はオプションである。
 
 A_connection_state
   * State から ConnectionPointReference への composite 関連（双方向）。
@@ -143,12 +143,12 @@ A_trigger_transition
 
 A_effect_transition
   * Transition から Behavior への composite 関連（単方向）。
-  * 関連端 ``effect`` はこの Transition が発火するときに実施される振る舞い。
+  * 関連端 ``effect`` はこの Transition が発火するときに実施される挙動。
     多重度が ``0..1`` なのでオプション。
 
 A_guard_transition
   * Transition から Constraint への composite 関連（単方向）。
-  * ガード条件を表す。この ``guard`` が真になれば
+  * ガード条件を表す。この ``guard`` が true になれば
     Transition は使用可能になる。
   * 関連端 ``guard`` の多重度が ``0..1`` なのでオプション。
 
@@ -383,7 +383,7 @@ A_guard_transition
     流出 Transition に付随する ``effect`` Behavior が
     （合成 State の ``entry`` Behavior が実行された後に）実行される？
 
-* 合成 State が Regions を複数持つ直交 State でもあると、
+* 合成 State が Regions を複数有する直交 State でもあると、
   その Regions のそれぞれもまた既定入場または明示的入場により入場される。
 
 * どのように State に入場するかに関わらず、
@@ -448,7 +448,7 @@ A_guard_transition
 
 * FinalState を経て退場するのと、
   集団 Transition によって退場するのは、
-  普通の合成 States の場合は同じ意味を持つ
+  普通の合成 States の場合は同じ意味である。
 
 14.2.3.5 ConnectionPointReference
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -531,7 +531,7 @@ A_guard_transition
   StateMachine Behavior の有効な断片を指定するものである。
 
   * ここで ``source`` と ``target`` は同じ Vertex であることが許される。
-  * Transition は関連する ``effect`` Behavior を持つことができ、
+  * Transition には関連する ``effect`` Behavior があってもよく、
     Transition が走査されるときに実行される。
 
 * Transition 走査の期間は未定義であるが、
@@ -586,7 +586,7 @@ A_guard_transition
 
 14.2.3.8.3 Completion Transitions and completion events
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-* 特別な種類の Transition は完了 Transition であり、暗黙の Trigger を持つ。
+* 特別な種類の Transition は完了 Transition であり、暗黙の Trigger がある。
   合成または部分機械 States の場合は、
   完了事象は次の条件で生成される：
 
@@ -605,13 +605,13 @@ A_guard_transition
 
 * Transition に付随する ``guard`` Constraint があってよい。
 
-  * 偽に評価される ``guard`` を持つ Transitions は使用不能である。
+  * false に評価される ``guard`` を有する Transitions は使用不能である。
 
   * 評価されるタイミングは、
     それを含む複合 Transition が利用可能になる前である。
 
   * 付随する ``guard`` がない Transition は、
-    あたかもそれが常に真に評価される ``guard`` があるかのように取り扱われる。
+    あたかもそれが常に true に評価される ``guard`` があるかのように取り扱われる。
 
 14.2.3.8.4 Compound transitions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -739,7 +739,7 @@ A_guard_transition
 * Transition の優先権はその ``source`` State に基いて定義される。
 
 * 一般に、t1 を ``source`` State が s1 の Transition とし、
-  t2 が ``source`` s2 を持つものとするならば：
+  t2 に ``source`` s2 があるものとするならば：
 
   * s1 が s2 の直接または間接的に入れ子になった部分状態ならば、
     t1 には t2 よりも高い優先権がある。
@@ -829,11 +829,11 @@ A_guard_transition
 
 * Figure 14.3 Notation for a composite State with Regions
 
-  * Regions をふたつ持つ合成 State を示す。
+  * Regions がふたつある合成 State を示す。
 
 14.2.4.4 表題不明
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 一個だけ Region を持つ合成 State や StateMachine は、
+* 一個だけ Region を有する合成 State や StateMachine は、
   グラフ Region で入れ子になった状態図を見せることで示される。
 
 14.2.4.5 State
@@ -960,7 +960,7 @@ State または **internal** Transition に付随するさまざまな Behaviors
 
 * これらは純粋に対応する抽象的構文表現がない表記法の形式である。
 
-* 異なる States から始まる同じ Trigger 値を持つ
+* 異なる States から始まる同じ Trigger 値を有する
   ``effect`` のない複数の Transitions で、すべてが
 
   * 単一の流出 Transition のある共通 **junction** Vertex を終点とするか、
@@ -1034,11 +1034,11 @@ State または **internal** Transition に付随するさまざまな Behaviors
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Figure 14.28 Entry point ConnectionPointReference notation
 
-  * 入場点に対する接続点参照は ``entry`` Pseudostate と同じ表記法を持つ。
+  * 入場点に対する接続点参照は ``entry`` Pseudostate と同じ表記法である。
 
 * Figure 14.29 Exit point ConnectionPointReference notation
 
-  * 退場点に対する接続点参照は ``exit`` Pseudostate と同じ表記法を持つ。
+  * 退場点に対する接続点参照は ``exit`` Pseudostate と同じ表記法である。
 
 * Figure 14.30 Alternative entry point ConnectionPointReference notation
 
@@ -1236,8 +1236,8 @@ A_redefinitionContext_region, A_redefinitionContext_state, A_redefinitionContext
   一般 Classifier の BehavioralFeatures のメソッドを指定する
   StateMachines として特殊化することができる。
 
-* 特殊化 StateMachine は一般 StateMachine の要素を
-  すべて持つはずであり、
+* 特殊化 StateMachine には一般 StateMachine の要素が
+  すべてあるはずであり、
   かつさらなる要素を含んでよい。
 
   * Regions を追加してよい。
@@ -1255,7 +1255,7 @@ A_redefinitionContext_region, A_redefinitionContext_state, A_redefinitionContext
 
   * 継承した Regions に Vertices と Transitions を追加する。
 
-  * もし一般 State が何も持っていなければ、
+  * もし一般 State に何もなければ、
     ``entry``/``exit``/``doActivity`` Behaviors を追加する。
 
   * States と Transitions を再定義する。
@@ -1265,8 +1265,8 @@ A_redefinitionContext_region, A_redefinitionContext_state, A_redefinitionContext
 * 部分機械 State も再定義してよい。
   部分機械 StateMachine は他の部分機械 StateMachine で置き換えてよく、
   ただし、再定義された部分機械 StateMachine と
-  同じ入場点・退場点を持つという条件が付く。
-  とは言え、追加で入場点・退場点を持つことは許される。
+  同じ入場点・退場点があるという条件が付く。
+  とは言え、追加で入場点・退場点があることは許される。
 
 * 一般 Classifiers が複数の場合は、拡張は、
   拡張 StateMachine が個別の新規 Region の他に、
@@ -1282,8 +1282,8 @@ A_redefinitionContext_region, A_redefinitionContext_state, A_redefinitionContext
 
 14.3.4 Notation
 ----------------------------------------------------------------------
-* 一般 Classifier での StateMachine の拡張である StateMachine は、
-  StateMachine の名前が関連するキーワード «extended» を持つはずである。
+* 一般 Classifier での StateMachine の拡張である StateMachine には、
+  StateMachine の名前が関連するキーワード «extended» があるはずである。
 
   * 同様に、継承 Region が拡張されたか、
     State が拡張されたことを示すのに
@@ -1417,14 +1417,14 @@ A_postCondition_owningTransition
   ProtocolStateMachines をモデル化するのにも利用できる。
 
   * 例えば同時 Regions は
-    オブジェクトがいくつかの活性 States を同時に持つような
+    オブジェクトにいくつかの活性 States が同時にあるような
     規約を表現することを可能にする。
 
   * 部分機械 StateMachines と複合遷移を
     複雑な ProtocolStateMachines の「因数分解」に
     用いることができる。
 
-* Classifier は ProtocolStateMachines をいくつか持ってよい。
+* Classifier には ProtocolStateMachines がいくつかあってよい。
 
 * ProtocolStateMachines の States はそれらの状況 Classifiers の利用者に晒される。
 
@@ -1439,7 +1439,7 @@ A_postCondition_owningTransition
 * ProtocolTransition はその背景にある Classifier の
   BehavioralFeature の発動について合法的な Transition を指定する。
 
-* ProtocolTransitions は事前条件、撃鉄、事後条件を持つ。
+* ProtocolTransitions には事前条件、撃鉄、事後条件がある。
 
 * ProtocolTransition は次のことを指定する。
 

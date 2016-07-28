@@ -124,7 +124,7 @@ A_ownedParameterSet_behavior
   * Behavior から Parameter への関連 composite 関連（単方向）。
 
     * Behavior が非同期的に発動されたならば、
-      振る舞いの実行が完了するときにはどんな結果値も失われる。
+      挙動の実行が完了するときにはどんな結果値も失われる。
 
   * A_ownedMember_namespace を subsets する。
   * ``ownedParameter`` は ordered である。
@@ -134,7 +134,7 @@ A_ownedParameterSet_behavior
   * 入力 ParameterSets を伴う Behavior は一実行当たり、
     ひとつの集合の Parameters から入力を受け入れられるだけ。
   * 出力 ParameterSets を伴う Behavior は一実行当たり、
-    ひとつの集合の Parameters に出力を差し出せるだけ。
+    ひとつの集合の Parameters に出力を与えられるだけ。
   * A_ownedMember_namespace を subsets する。
 
 A_ownedBehavior_behavioredClassifier
@@ -165,7 +165,7 @@ A_context_behavior
 
 * UML では Behaviors は Classes の一種であり、
   それは Behaviors をオブジェクト化してよいということを意味する。
-  Behavior のオブジェクトは振る舞いの実行 (behavior execution) として知られる。
+  Behavior のオブジェクトは挙動の実行 (behavior execution) として知られる。
 
   * Behavior を発動することはその Behavior をオブジェクト化することに相当し、
     Behavior 実行それぞれに対応する固有の execution trace がある。
@@ -182,18 +182,18 @@ A_context_behavior
 * Behavior を同期的に、または非同期的に発動してよい。
 
 * Behavior に対する ``preconditions`` は Behavior が発動される際に
-  真であるものとする条件を定義する。
+  true であるものとする条件を定義する。
   ``precondition`` が成り立たないときの Behavior の発動の意味は
   意図的に未定義である。
 
 * Behavior に対する ``postconditions`` は
   ``preconditions`` が成り立っていたという仮定で、
-  Behavior の発動が成功に完了すると真となるはずの条件を定義する。
+  Behavior の発動が成功に完了すると true となるはずの条件を定義する。
 
 13.2.3.2 Behavior Parameters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Behavior は実行に値を引き渡すのと、
-  実行から値を受け取る能力のある Parameters を持ってよい。
+* Behavior には実行に値を引き渡すのと、
+  実行から値を受け取る能力のある Parameters があってよい。
 
 * Behavior が発動されると、
   入力方向または入出力方向が
@@ -214,14 +214,14 @@ A_context_behavior
   ストリーム出力が発動者で非同期的な応答のきっかけになる可能性があるときでさえ、
   発動された Behavior は同期的に発動される必要がある。
 
-* 再入可能な Behavior はストリーミング Parameters を持たないものとする。
+* 再入可能な Behavior にはストリーミング Parameters がないものとする。
   複数の実行が同時に進む可能性があり、
   どの実行がストリーム値を受領したり提示したりしようとするのかが
   あいまいになろうとするためである。
 
-* Behavior は
+* Behavior には
   ``isException`` が true である出力 Parameters を
-  ひとつまたはそれを超える個数持ってよい。
+  ひとつまたはそれを超える個数分あってよい。
 
 * 入力 ParameterSets のある Behavior は
   実行ごとに集合のうちのひとつの
@@ -232,13 +232,13 @@ A_context_behavior
 * OpaqueBehavior とは
   その詳細が UML 以外のテキスト言語で与えられる Behavior である。
 
-* OpaqueBehavior は
+* OpaqueBehavior には
   要求される挙動を記述する別の手段を表すテキスト Strings の列からなる
-  ``body`` を持つ。
+  ``body`` がある。
 
 * 言語を指定する必要はない。
 
-* OpaqueBehavior がひとつを超える ``body`` String を持つならば、
+* OpaqueBehavior にひとつを超える ``body`` String があれば、
   ``bodies`` の任意のひとつが OpaqueBehavior の挙動を決定付けるのに使うことができる。
 
 * FunctionBehavior とは
@@ -257,38 +257,38 @@ A_context_behavior
   出力結果値の集合に変換するような関数を表現する。
 
   * FunctionBehaviors の実行はその実引数にのみ依存して、
-    結果の値を計算すること以外の効果を持たない。
+    結果の値を計算すること以外の効果はない。
 
   * FunctionBehaviors としてモデル化されるかもしれない関数の例として、
     初等的算術、論理値、文字列関数がある。
 
 13.2.3.4 Behaviored Classifiers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* BehavioredClassifier とは ``ownedBehaviors`` を持ってよい Classifier であり、
+* BehavioredClassifier とは ``ownedBehaviors`` があってよい Classifier であり、
   そのうちの高々ひとつが BehavioredClassifier 自身の挙動を指定するのに考慮される
   ものである。
 
-* BehavioredClassifier の直接の ``ownedBehavior`` ではない Behavior は
-  それでもなお ``context`` を持つ。
+* BehavioredClassifier の直接の ``ownedBehavior`` ではない Behavior には
+  それでもなお ``context`` がある。
 
 * Class により
   ``ownedBehavior`` としてではなく、
-  ``nestedClassifier`` として直接所有される Behavior は、
-  それの ``context`` としては Class を持たない。
+  ``nestedClassifier`` として直接所有される Behavior には、
+  それの ``context`` としては Class がない。
 
-* Behavior が ``context`` を持つならば、
-  Behavior の実行は
+* Behavior に ``context`` があれば、
+  Behavior の実行には
   ``context`` BehavioredClassifier のオブジェクトである
-  関連脈絡オブジェクトをいつでも持つ。
+  関連脈絡オブジェクトがいつでもある。
 
-* BehavioredClassifier は、それの ``classifierBehavior`` と呼ばれる
-  目立った ``ownedBehavior`` を持ってよい。
+* BehavioredClassifier には、それの ``classifierBehavior`` と呼ばれる
+  目立った ``ownedBehavior`` があってよい。
 
 * ``classifierBehavior`` の正確な意味はそれを所有する BehavioredClassifier の
   種類に依存する。
 
-  * ``isActive`` が false である Class は
-    ``classifierBehavior`` を持たないものとする。
+  * ``isActive`` が false である Class には
+    ``classifierBehavior`` がないものとする。
 
 13.2.3.5 Behavioral Features and Methods
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -321,8 +321,8 @@ A_context_behavior
     ``method`` が見つかるか、階層の根に到達するまでは
     このようにして一般化の階層を上がっていく。
 
-* Operation の ``method`` は Operation の Parameters に
-  対応する Parameters を持つものとする。
+* Operation の ``method`` には Operation の Parameters に
+  対応する Parameters があるものとする。
 
 * しかしながら、
   ``method`` の Parameters を
@@ -356,7 +356,7 @@ A_context_behavior
 ----------------------------------------------------------------------
 * Event とは、
   ある特定の瞬間に起こり得る何かである。
-  ひとつの Event はたくさんの発生を持ってよく、
+  ひとつの Event にはたくさんの発生があってよく、
   それらは相異なる時刻において起こってよい。
   この道理だと、
   Events は実際には UML の Classifiers ではないが、
@@ -425,15 +425,15 @@ A_when_timeEvent
   * 単一の Event はいくつかの異なる Triggers で用いてよい。
 
 * 13.2.3 節で論じたように、
-  Behavior の実行はいつでも関連脈絡オブジェクト
-  （実行それ自身であってよい）を持つ。
+  Behavior の実行にはいつでも関連脈絡オブジェクト
+  （実行それ自身であってよい）がある。
 
   * 脈絡オブジェクトは
     それの関連した Behavior 実行の全てについて
     Event 発生の処理を仲介する。
 
   * ある脈絡オブジェクトが Event 発生を認めると、
-    それは即時効果を持つか、
+    それは即時効果があるか、
     それは遅れたきっかけとなった効果のために保存されてよい。
 
   * 即時効果は
@@ -518,8 +518,8 @@ A_when_timeEvent
 
 * Operation に対する CallEvent
   または受信者の Reception に一致する Signal に対する SignalEvent の場合、
-  その Operation なり Reception なりが
-  ひとつまたはそれを超える ``methods`` を持つならば、
+  その Operation なり Reception なりに
+  ひとつまたはそれを超える ``methods`` があれば、
   13.2.3 節で述べた ``method`` 解決処理が
   MessageEvent の出来事を処理するのに用いられる ``method`` を決定付けるのに
   実施されるものとする。
@@ -564,10 +564,10 @@ A_when_timeEvent
 
 * 13.3.3.1 節で論じたように、
   事象の出来事が送達されてよいところで利用可能な、
-  ひとつまたはそれを超える Triggers を持つ待機点に
+  ひとつまたはそれを超える Triggers を有する待機点に
   Behavior は到達してよい。
 
-  * もしそのような未済 Trigger が相対 TimeEvent を持つならば、
+  * もしそのような未済 Trigger に相対 TimeEvent があれば、
     その TimeEvent についての開始時刻は Behavior が待機点に到達した時刻である。
 
 13.3.4 Notation

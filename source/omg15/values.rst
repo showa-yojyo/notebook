@@ -39,7 +39,7 @@ UML 2.5 pp. 69-96 に関するノート。
 
   #. LiteralNull は値の欠損を明示的に模すために用いられることを意図されている。
 
-     * 下限がゼロである多重度を持つ MultiplicityElement においては、
+     * 下限がゼロである多重度の MultiplicityElement においては、
        これは空集合に対応する。
        Element に対して値を何も指定しないことと同値である。
 
@@ -91,8 +91,8 @@ A_operand_expression
   * Expression から ValueSpecification への composite 関連（単方向）。
   * 関連端 ``operand`` には制約 ``{ordered}`` がある。当然だ。
 
-    * もし ``operands`` を持たないならば、この Expression は端末ノードを表す。
-    * 持つ場合は、この Expression は ``operands`` に適用される記号により
+    * もし ``operands`` がないならば、この Expression は端末ノードを表す。
+    * ある場合は、この Expression は ``operands`` に適用される記号により
       与えられる演算子を表す。
 
   * A_ownedElement_owner を subsets する。
@@ -104,7 +104,7 @@ A_subExpression_owningExpression
 
 A_behavior_opaqueExpression, A_result_opaqueExpression
   * OpaqueExpression から Behavior への関連（単方向）。
-  * この関連は OpaqueExpression::``body`` がない場合に意味を持つ。
+  * この関連は OpaqueExpression::``body`` がない場合に意味がある。
   * 関連端 ``result`` は ``{readOnly}`` である。
 
 8.3.3 Semantics
@@ -137,7 +137,7 @@ A_behavior_opaqueExpression, A_result_opaqueExpression
   NamedElements の名前を指定することに利用するものである。
 
   * StringExpression 全体か、
-    ``subExpressions`` の一つまたはそれ以上のどちらか一方が
+    ``subExpressions`` の一つまたはそれを超えるどちらか一方が
     TemplateParameters の ParameterableElements として用いられてよく、
     NamedElement の名前がそのテンプレートの内側で引数化されることを許す。
 
@@ -147,14 +147,14 @@ A_behavior_opaqueExpression, A_result_opaqueExpression
   UML 以外の言語でのテキストの言明に基づいたものかのどちらかの
   値の集合の計算を指定する。
 
-* OpaqueExpression は値を計算する手段の代替を表現する
-  テキスト Strings の列からなる ``body`` を持ってよい。
+* OpaqueExpression には値を計算する手段の代替を表現する
+  テキスト Strings の列からなる ``body`` があってよい。
 
-* OpaqueExpression は戻り値以外の Parameters を持たないように
+* OpaqueExpression には戻り値以外の Parameters がないように
   制限された UML Behavior により定義されてもよい。
 
-* もし OpaqueExpression がひとつを超える ``body`` 文字列を持つか、
-  ひとつまたはそれ以上の ``body`` 文字列に加えて ``behavior`` をも持つならば、
+* もし OpaqueExpression にひとつを超える ``body`` 文字列があるか、
+  ひとつまたはそれを超える ``body`` 文字列に加えて ``behavior`` をもあるならば、
   ``bodies`` や ``behavior`` のうちのどれもが
   OpaqueExpression を評価するのに用いられてもよい。
   UML の仕様としてはこの選択がどのようになされるかは決定しない。
@@ -173,14 +173,14 @@ A_behavior_opaqueExpression, A_result_opaqueExpression
 
 8.3.4.2 OpaqueExpression
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* OpaqueExpression がひとつまたはそれ以上の ``body`` Strings を有するとき、
+* OpaqueExpression がひとつまたはそれを超える ``body`` Strings を有するとき、
   これらはそれの含む要素の文脈で OpaqueExpression を表示するのに用いられる。
 
 * OpaqueExpression に対して ``languages`` が指定されていれば、
   対応する各 ``body`` String の前に
   ``language`` の名前を中括弧に入れて表示してよい。
 
-* ``language`` がその言語名を定義する仕様を持つならば、
+* ``language`` にその言語名を定義する仕様があるならば、
   OpaqueExpression で使われるその言語名が
   その言語仕様で現れる通りに正確に綴られ大文字で書かれるべきである。
 
@@ -217,7 +217,7 @@ A_expr_timeExpression, A_expr_duration
   * A_ownedElement_owner を subsets する。
   * 関連端 ``expr`` の多重度は ``0..1`` である。
 
-  * TimeExpression (Duration) が ``expr`` を持つ場合、
+  * TimeExpression (Duration) に ``expr`` がある場合、
     TimeExpression (Duration) の結果をもたらすために評価される。
 
     * ``expr`` は単一の値を評価する必要がある。
@@ -226,8 +226,8 @@ A_expr_timeExpression, A_expr_duration
       * ``observation`` がない場合、
         ``expr`` はある定数時点（期間）に評価する。
 
-  * TimeExpression (Duration) が ``expr`` を持たない場合、
-    単一の TimeObservation (DurationObservation) を持ち、
+  * TimeExpression (Duration) に ``expr`` がない場合、
+    単一の TimeObservation (DurationObservation) があり、
     かつその観測結果 ``observation`` がこの TimeExpression (Duration) の値でなければならない。
 
 A_observation_timeExpression, A_observation_duration
@@ -251,7 +251,7 @@ A_event_timeObservation, A_event_durationObservation
 
   * 事象 (event) とは、
     Property の値の変化や Activity の実行の開始など、
-    モデル化されようとしている性質と振る舞いに関して
+    モデル化されようとしている性質と挙動に関して
     興味のある何かが起こる (happen) 特定の時点に起こり (occur) 得る
     何かの仕様である。
 
@@ -261,7 +261,7 @@ A_event_timeObservation, A_event_durationObservation
 * 期間 (duration) は二つの事象の発生の間の時間の期間 (period) であり、
   それらの事象の時間座標の差として計算される。
 
-  * モデル Element が振る舞いの効果を持つならば、
+  * モデル Element に挙動の効果があれば、
     この効果はある期間上に起こり得る。
     この期間の開始事象は Element の入場 (entering) として知られ、
     終了事象は Element の退場として知られる。
@@ -291,7 +291,7 @@ A_event_timeObservation, A_event_durationObservation
   * 二つ：観測期間は一つ目の要素の入場事象か退場事象どちらか一方と、
     続いて起こる二つ目の要素の入場事象か退場事象の間。
 
-  * 属性 ``firstEvent`` も一つまたは二つ持つ。
+  * 属性 ``firstEvent`` も一つまたは二つある。
     意味は TimeObservation のそれと同じ。
 
 8.4.3.3 TimeExpression
@@ -300,11 +300,11 @@ A_event_timeObservation, A_event_durationObservation
   ある時間的瞬間の時間座標を評価する ValueSpecification であり、
   事によると与えられた ``observations`` の集合に関する。
 
-* TimeExpression が ``expr`` を持つならば、
+* TimeExpression に ``expr`` があれば、
   これが TimeExpression の結果を生じるために評価される。
 
-* TimeExpression が ``expr`` を持たないならば、
-  それは単一の TimeObservation を持つ必要があり、
+* TimeExpression に ``expr`` がなければ、
+  それには単一の TimeObservation が必要であり、
   その ``observation`` の結果は ``TimeExpression`` の値である。
 
 8.4.3.4 Duration
@@ -313,11 +313,11 @@ A_event_timeObservation, A_event_durationObservation
   何らかの期間を時間で評価する ValueSpecification であり、
   事によると与えられた ``observations`` の集合に関する。
 
-* Duration が ``expr`` を持つならば、
+* Duration に ``expr`` があれば、
   これが DurationExpression の結果を生じるために評価される。
 
-* Duration が ``expr`` を持たないならば、
-  それは単一の DurationObservation を持つ必要があり、
+* Duration に ``expr`` がなければ、
+  それは単一の DurationObservation が必要であり、
   その ``observation`` の結果は ``Duration`` の値である。
 
 8.4.4 Notation
@@ -351,7 +351,7 @@ A_event_timeObservation, A_event_durationObservation
 8.5.1 Summary
 ----------------------------------------------------------------------
 * Interval とは値一組で定義される区間、範囲であり、
-  何か他の Element が与えられた範囲にある値を持つことを断言する
+  何か他の Element が与えられた範囲にある値であることを断言する
   Constraints での用途を主とする。
 
 * Intervals は値の型のどれに対しても定義できるが、

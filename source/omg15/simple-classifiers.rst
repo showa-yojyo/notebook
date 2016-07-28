@@ -52,7 +52,7 @@ A_classifier_enumerationLiteral
 * DataType とは Classifier の一種である。
   DataType は Class とは値によってしか識別されないという点が異なる。
 
-* DataType が ``attributes`` を持つならば、
+* DataType に ``attributes`` があるならば、
   それは構造化された DataType と呼ばれる。
 
   * 構造化された DataType のオブジェクト同士は、
@@ -64,7 +64,7 @@ A_classifier_enumerationLiteral
 10.2.3.2 Primitive Types
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * PrimitiveType はあらかじめ定義されている DataType であり、
-  どんな部分構造をも持たない。
+  どんな部分構造もない。
 
   * PrimitiveType には代数があってよく、
     演算は UML の外部で定義される。
@@ -74,7 +74,7 @@ A_classifier_enumerationLiteral
     * 例えば Intergers がそうである。
 
     * ここで言う代数というのは、数学の一研究分野というよりは、
-      代数的構造を持つモデル程度の意味のほうに解釈したい。
+      代数的構造があるモデル程度の意味のほうに解釈したい。
 
 10.2.3.3 Enumerations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -188,8 +188,8 @@ A_signal_reception
 
   * Reception の名前は Signal の名前と同じである。
 
-  * Reception は Signal の属性が名前、型、多重度においてマッチする
-    入力 Parameters しか持つことを許されない。
+  * Reception には Signal の属性が名前、型、多重度においてマッチする
+    入力 Parameters だけがあることが許される。
 
 10.3.4 Notation
 ----------------------------------------------------------------------
@@ -266,7 +266,7 @@ A_ownedBehavior_behavioredClassifier
 
   A_classifierBehavior_behavioredClassifier
     * BehavioredClassifier から Behavior への関連（単方向）。
-    * BehavioredClassifier 自身の振る舞いを指定する Behavior である。
+    * BehavioredClassifier 自身の挙動を指定する Behavior である。
     * 上述の A_ownedBehavior_behavioredClassifier を redefines または subsets する。
 
 10.4.3 Semantics
@@ -292,8 +292,8 @@ A_ownedBehavior_behavioredClassifier
   仕切ったり特徴付ける手段を与える。
 
   * Interface が ``attribute`` を宣言するならば、これは必ずしも
-    実現する BehavioredClassifier がその実装で
-    そういう ``attribute`` を必ず持つということを意味しないで、
+    実現する BehavioredClassifier にその実装で
+    そういう ``attribute`` が必ずあるということを意味しないで、
     外側の観測者に対してはそのように現れるということにしか過ぎない。
 
 * BehavioredClassifier により実現される Interfaces の集合は

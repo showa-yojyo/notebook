@@ -12,8 +12,8 @@ UML 2.5 pp. 181-238 に関するノート。
 ======================================================================
 * StructuredClassifier とは、
   リンクされた ``roles`` のネットワークを形成する内部構造と
-  ひとつまたはそれを超える Ports から構成される外部構造を
-  持つことが許される Classifier である。
+  ひとつまたはそれを超える Ports から構成される外部構造が
+  あることが許される Classifier である。
 
 * EncapsulatedClassifiers の Ports は
   遠くにいる協力者らの局地的な代理人として振る舞い、
@@ -31,7 +31,7 @@ UML 2.5 pp. 181-238 に関するノート。
 ----------------------------------------------------------------------
 * StructuredClassifiers は、
   それぞれが StructuredClassifier によりモデル化された
-  振る舞い全部で ``role`` を演じるような
+  挙動全部で ``role`` を演じるような
   接続要素の、内部構造を含むことが許されている。
 
 * この節を 11.5 節といっしょに読むことが役に立つ。
@@ -187,7 +187,7 @@ A_redefinedConnector_connector
   有効 required Interfaces それぞれの機能それぞれは、
   他方の端における ConnectableElements の
   有効 provided Interfaces の機能の中に
-  互換機能を少なくともひとつ持つはずである。
+  互換機能が少なくともひとつあるはずである。
 
 * 単一の ConnectableElement に取り付けられた複数の連結器があると、
   その意味は、
@@ -270,7 +270,7 @@ A_redefinedConnector_connector
 * 下の三つの表記法の仕様はオプションである。
   準拠ツールは実装する必要はない。
 
-  * ``parts`` が単純な Ports を持つならば、
+  * ``parts`` に単純な Ports があるならば、
     ball and socket 記法を Ports 間の assembly Connectors を表すのに用いてもよい。
 
   * 単純 Ports を接続するときには
@@ -351,7 +351,7 @@ A_redefinedConnector_connector
 
 11.3.1 Summary
 ----------------------------------------------------------------------
-* EncapsulatedClassifier は Ports を所有する能力を持たせるように
+* EncapsulatedClassifier は Ports が所有できるように
   StructuredClassifier を拡張するもので、
   EncapsulatedClassifier を環境から分離する仕組みである。
 
@@ -430,14 +430,14 @@ A_partWithPort_connectorEnd
   用いられることを指し示す。
 
 * 成句「Port on Port」、より一般には「Port on Property」は、
-  StructuredClassifier で ``role`` を演じる Property が
-  Ports を持つ EncapsulatedClassifier により型付けられるという
+  StructuredClassifier で ``role`` を演じる Property に
+  Ports がある EncapsulatedClassifier により型付けられるという
   状況を知らせる。
 
 * Port に結び付いた Interfaces は
   それを超えて起こり得る相互作用の本質を指定する。
 
-* Property の一種なので、Port は ``type`` を持つ。
+* Property の一種なので、Port には ``type`` がある。
   Port の ``provided`` および ``required`` Interfaces は
   ``isConjugated`` の値により仲介された
   それの ``type`` に関係する。
@@ -475,7 +475,7 @@ A_partWithPort_connectorEnd
   所有する EncapsulatedClassifier のオブジェクトの
   Behavior により処理される
   ことを指定する能力を Port が有する。
-  このような Port は振る舞い Port と呼ばれる。
+  このような Port は挙動 Port と呼ばれる。
 
 * 委譲 Connector とは、
   Port と所有する EncapsulatedClassifier で ``role`` を
@@ -483,7 +483,7 @@ A_partWithPort_connectorEnd
 
   * 要求の転送を表現する。
 
-* 委譲 Connectors は振る舞いの階層的な分解をモデル化するのに用いられ、
+* 委譲 Connectors は挙動の階層的な分解をモデル化するのに用いられ、
   EncapsulatedClassifier により与えられるサービスは、
   究極的にはその内部に複数階層の深さに入れ子になったもので
   実現されることが許される。
@@ -494,7 +494,7 @@ A_partWithPort_connectorEnd
   しかし、委譲 Port
   つまり委譲 Connector の一端にあって、
   かつ ``role`` 上にはなく、
-  なおかつ振る舞い Port ではない Port に対しては、
+  なおかつ挙動 Port ではない Port に対しては、
   有効 provided Interfaces はそれの required Interfaces であり、
   有効 required Interfaces はそれの provided Interfaces となる。
 
@@ -562,7 +562,7 @@ A_partWithPort_connectorEnd
 
 * Figure 11.12 Behavior Port notation
 
-  * 振る舞い Port の p を説明する。
+  * 挙動 Port の p を説明する。
   * p のラベルの位置と、小さい四角にくっついたオマケのシンボルに注意。
 
 * Figure 11.13 Port notation showing multiple provided Interfaces
@@ -575,7 +575,7 @@ A_partWithPort_connectorEnd
 * Figure 11.14 Port examples
 
   * provided Interface である IPowerTrain により
-    型付けられた Port p を持つ Class Engine を示す図。
+    型付けられた Port p がある Class Engine を示す図。
 
   * 右側の Car と Boat の内部構造それぞれの
     Port の付き方の違いを説明できるようにしておくこと。
@@ -592,7 +592,7 @@ A_partWithPort_connectorEnd
 * Class は EncapsulatedClassifier と BehavioredClassifier の
   具象的実現である。
   Class の目的はオブジェクトの分類を指定することと、
-  それらのオブジェクトの構造と振る舞いを特徴づける
+  それらのオブジェクトの構造と挙動を特徴づける
   Features を指定することである。
 
 11.4.2 Abstract Syntax
@@ -812,7 +812,7 @@ A_endType_association
 
 A_memberEnd_association
   * Association から Property への関連（双方向）。
-  * Association は Properties が表現する関連端 memberEnds を ``2..*`` 個持つ。
+  * Association には Properties が表現する関連端 memberEnds を ``2..*`` 個ある。
     各関連端は Association リンク中のその関連端に接続されたオブジェクト群の関与を表現する。
   * A_member_memberNamespace を subsets する。
   * 関連端 memberEnd は ``{ordered}`` である。
@@ -841,7 +841,7 @@ A_qualifier_associationEnd
 11.5.3.1 Associations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Association は型付けられたオブジェクト間にあり得る意味論的関係を指定する。
-  Properties で表される ``memberEnds`` を少なくともふたつ持ち、
+  Properties で表される ``memberEnds`` が少なくともふたつあり、
   それぞれには端の型がある。
 
 * Association は
@@ -867,7 +867,7 @@ A_qualifier_associationEnd
   context となるようにする。
 
 * Association の端の部分集合を作ることは
-  Property のために指定された意味を持つ。
+  Property のために指定された意味がある。
 
 * 特殊化とは、部分集合を作ることに対して、
   作為的な意味の領域にある関係であり、
@@ -907,9 +907,9 @@ A_qualifier_associationEnd
     反対側の端からのアクセスが可能であってもなくても構わない。
     そしてもし可能ならば、効率的ではないかもしれない。
 
-* 限定された Associaiton 端は
+* 限定された Associaiton 端には
   端におけるオブジェクトに結び付いたオブジェクト、
-  被限定オブジェクト、たちを分割する``qualifiers`` を持つ。
+  被限定オブジェクト、たちを分割する``qualifiers`` がある。
 
   * 各分割は ``qualifier`` 値で指名されるが、
     これは各 ``qualifier`` に対するある値を含む組である。
@@ -920,12 +920,12 @@ A_qualifier_associationEnd
 11.5.3.2 Association Classes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * AssociationClass とは、
-  それ自身の Features の集合を持つ Association の宣言である。
+  それ自身の Features の集合がある Association の宣言である。
 
-* AssociationClass は Association と Class の両方であるゆえ、
+* AssociationClass には Association と Class の両方であるゆえ、
   Features を持つ能力だとか、
-  ``name`` を持つことだとか、
-  共通する特性の集合を持つ。
+  ``name`` があることだとか、
+  共通する特性の集合がある。
   これらの特性は同じ構造から複数回継承されて、重複されない。
 
 * AssociationClass は合成 Properties Class::``ownedAttribute`` と
@@ -949,7 +949,7 @@ A_qualifier_associationEnd
   ダイヤモンドが端の型である Classifier に接続している
   Association ``memberEnd`` それぞれに
   一本の実線の付いた一個のダイヤモンドとして描いてよい。
-  二個を超える端を持つ Association はこの方法でしか描くことができない。
+  二個を超える端のある Association はこの方法でしか描くことができない。
 
 * 二項 Association は通常二つの Classifiers を接続する実線として描かれる。
   両者が同じ Classifier の場合は、関連端が重ならないようにして描く。
@@ -1060,7 +1060,7 @@ A_qualifier_associationEnd
 * 限定子属性は qualifier box の内部に描く。
 
 * いささか珍しいのではあるが、
-  限定子を単一の関連の端ごとに持たせることが認められる。
+  限定子が単一の関連の端ごとにあることが認められる。
 
 * 限定子を非表示にしてはならない。
 
@@ -1136,7 +1136,7 @@ A_qualifier_associationEnd
 
 11.6.1 Summary
 ----------------------------------------------------------------------
-* 本節では任意の大きさと複雑さを持つソフトウェアシステムを
+* 本節では任意の大きさと複雑さであるソフトウェアシステムを
   定義するのに用ることができる構成概念の集合を仕様化する。
 
 * Component を基礎とする開発の重要な様相は
@@ -1195,7 +1195,7 @@ A_realizingClassifier_componentRealization
 * Component はそれの中身をカプセル化するシステムのモジュール式部品を表現するものであり、
   それの現れるものがその環境の内部で取り替えることができるようなものである。
 
-* Component はいくらかの Classifiers の状態と振る舞いをカプセル化する
+* Component はいくらかの Classifiers の状態と挙動をカプセル化する
   自給自足な構成単位である。
 
   * Component は
@@ -1229,9 +1229,9 @@ A_realizingClassifier_componentRealization
   * ``required`` および ``provided`` Interfaces は
     Ports で任意で組織化されてよい。
 
-* Component は
+* Component には
   それの公的に視認できる Properties と Operations によって
-  external view すなわち black-box view を持つ。
+  external view すなわち black-box view がある。
 
 * システムまたはその他の状況での Components 間の配線 (wiring) は
   互換性のある単純 Ports 間または、
@@ -1239,9 +1239,9 @@ A_realizingClassifier_componentRealization
   表される匹敵する InterfaceRealizations との間にある
   Dependencies を用いて構造的に定義することが可能である。
 
-* Component は
+* Component には
   その非公開な Properties と実現 Classifiers によって
-  internal view すなわち white-box view を持つ。
+  internal view すなわち white-box view がある。
 
 * Component にある assembly Connector にとっての実行時の意味とは、
   Connector のオブジェクトに沿って巡回する要求
@@ -1251,7 +1251,7 @@ A_realizingClassifier_componentRealization
   例えば巨大な規模の Components をモデル化する «Subsystem» や、
   異なった仕様と実現化の定義で Components をモデル化するには
   «Specification» と «Realization» 等がある。
-  ここで、仕様ひとつは複数の実現化を持つことが許される。
+  ここで、仕様ひとつに複数の実現化があることが許される。
   :doc:`./standard-profile` 参照。
 
 * Component はいくらかの Classifiers によって実現（または実装）されてよい。
@@ -1283,7 +1283,7 @@ A_realizingClassifier_componentRealization
   * 任意で Component アイコン（二つの小四角形が突き出た四角形）
     を右上隅に展示することが可能。この場合はキーワードが非表示でもよい。
 
-* 属性、操作、内部構造区画はすべて通常の意味を持つ。
+* 属性、操作、内部構造区画はすべて通常の意味でのものである。
 
 * Component の ``provided`` および ``required`` Interfaces は
   ボール（ロリポップ）・ソケット記法で示してよい。
@@ -1471,7 +1471,7 @@ A_representation_classifier
 * 代わりに composite structure 図が使える。
   あるいは通常の Classifier 矩形をキーワード «collaboration» を付けて使える。
 
-* Properties でない ``collaborationRoles`` を持つ
+* Properties でない ``collaborationRoles`` を有する
   Collaboration を表す記法は定義されていない。
 
 * Properties を表す代替表記法を使う場合は、

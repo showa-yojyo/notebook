@@ -466,7 +466,7 @@ UML 2.5 pp. 563-636 に関するノート。
 * Message の実引数は ValueSpecification である。
 
 * Message が応答ならば、それの実引数それぞれは
-  高々ひとつの作用対象を持つ Expression であるものとする。
+  高々ひとつの作用対象がある Expression であるものとする。
 
 * 応答 Message の実引数 Expression の記号は
   実引数の代入対象 (assignment target) を表し、
@@ -538,7 +538,7 @@ UML 2.5 pp. 563-636 に関するノート。
      Interaction の内側の Message を、
      ある actual Gate が
      別の Interaction の InteractionUse の外側に取り付けられた
-     MessageEnd として持つ Interaction の Message に（から）
+     MessageEnd として有する Interaction の Message に（から）
      伝えるものである。
 
   #. actual Gate は InteractionUse に関連しており、
@@ -570,8 +570,8 @@ UML 2.5 pp. 563-636 に関するノート。
 
 * 一致した Gates に対する Messages は対応しなければならない。
   同じ方向を向いているばかりではなく、
-  それらが同一の名前と ``messageSort`` と
-  signature 特性値とを持つならば Messages は対応する。
+  それらに同一の名前と ``messageSort`` と
+  signature 特性値とがあれば Messages は対応する。
 
 17.4.4 Notation
 ----------------------------------------------------------------------
@@ -760,7 +760,7 @@ UML 2.5 pp. 563-636 に関するノート。
 17.6.3.4 Consider Ignore Fragments
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * ConsiderIgnoreFragment は Ignore または Consider の
-  ``interactionOperator`` 値を持つ CombinedFragment である。
+  ``interactionOperator`` 値がある CombinedFragment である。
 
   * 後述の 17.6.3.15 参照。
 
@@ -793,7 +793,7 @@ UML 2.5 pp. 563-636 に関するノート。
   包囲している CombinedFragment にある他の防御すべての
   論理和の否定となる防御である。
 
-* もしどの作用対象も true に評価する防御を持たないならば、
+* もしどの作用対象にも true に評価する防御がないならば、
   どの作用対象も実行されず、
   包囲している InteractionFragment の残りが実行される。
 
@@ -834,7 +834,7 @@ UML 2.5 pp. 563-636 に関するノート。
 * ``interactionOperator`` **seq** は CombinedFragment が作用対象の
   挙動の間における弱配列を表現することを示す。
 
-* 弱配列はこれらの性質を持つ形跡の集合により定義される：
+* 弱配列はこれらの性質を有する形跡の集合により定義される：
 
   #. 作用対象のそれぞれの内部にある
      OccurrenceSpecifications の順序は結果に維持される。
@@ -861,7 +861,7 @@ UML 2.5 pp. 563-636 に関するノート。
   無効であると定義される形跡を
   CombinedFragment が表現することを明示する。
 
-* ``interactionOperator`` neg を持つ CombinedFragment を定義した
+* ``interactionOperator`` neg を有する CombinedFragment を定義した
   形跡の集合はそのただひとつの作用対象により与えられた形跡の集合に等しく、
   有効な形跡というよりは無効な集合であるというだけに過ぎない。
 
@@ -898,7 +898,7 @@ UML 2.5 pp. 563-636 に関するノート。
 
 * 防御には Boolean 式に加えてループの繰り返し回数の下限と上限を含めてよい。
 
-* ループが指定を持つ独立した InteractionConstraint を含むと、
+* ループが指定のある独立した InteractionConstraint を含むと、
   ループで指定された反復の最小数に関係なく、
   その指定が実行中は true と評価するときに
   ループが続行するだけである。
@@ -1075,7 +1075,7 @@ UML 2.5 pp. 563-636 に関するノート。
   入口と引数が一致される分解により参照される Interaction の意味である。
 
 * CombinedFragment が大域外 (extra-global) であるということが描写するのは、
-  分解された Lifeline を覆う同じ演算子を持つ CombinedFragment が
+  分解された Lifeline を覆う同じ演算子の CombinedFragment が
   その Interaction にあるということである。
 
 17.7.4 Notation
@@ -1135,8 +1135,8 @@ UML 2.5 pp. 563-636 に関するノート。
   * 前述の ``ACSystem`` を分解がこの図である。
     この ``AC_UserAccess`` はクラス ACSystem が所有する Interaction である。
 
-  * ``AC_UserAccess`` が ACSystem を覆う UserAccess の構成要素に
-    一致する大域的な構成要素を持つ。
+  * ACSystem を覆う UserAccess の構成要素に
+    一致する大域的な構成要素が ``AC_UserAccess`` にある。
 
   * 左上隅に **opt** とあるのが extra-global CombinedFragment の例である。
     この構成概念が UserAccess のある CombinedFragment に対応する。
@@ -1257,8 +1257,8 @@ UML 2.5 pp. 563-636 に関するノート。
   Activity Diagrams の特殊化である。
 
   * Activity Diagrams の ObjectNodes の代わりに、
-    Interaction Overview Diagrams は（インラインの）
-    Interactions か InteractionUses のどちらか一方しか持てない。
+    Interaction Overview Diagrams には（インラインの）
+    Interactions か InteractionUses のどちらか一方しかない。
 
   * Alternative CombinedFragments は DecisionNode と対応する MergeNode で表現される。
 

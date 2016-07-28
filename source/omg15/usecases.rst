@@ -55,7 +55,7 @@ UML 2.5 pp. 637-650 に関するノート。
   行うことができる何らかの挙動を指定する。
 
 * UseCase の ``subject`` はシステムあるいは
-  挙動を持つことができる他の要素のいずれか、
+  挙動を有することができる他の要素のいずれか、
   例えば Component や Class などである可能性がある。
   UseCase のそれぞれはその ``subject`` が利用者に対して実現する
   有用な機能の構成単位を指定する。
@@ -299,8 +299,8 @@ UML 2.5 pp. 637-650 に関するノート。
 
 * Figure 18.12 Example UseCase with associated StateMachine
 
-  * 左側は UseCase "MakeCall" が StateMachine をその
-    ``ownedBehaviors`` のひとつとして持つことを示している。
+  * 左側は UseCase "MakeCall" に StateMachine がその
+    ``ownedBehaviors`` のひとつとしてあることを示している。
 
     * 区画 "owned behaviors" の記載は任意。
 
