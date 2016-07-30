@@ -31,6 +31,8 @@ sys.path.append(os.path.abspath('./_extension'))
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = [
+    'IPython.sphinxext.ipython_console_highlighting',
+    'IPython.sphinxext.ipython_directive',
     'sphinx.ext.todo',
     'sphinx.ext.mathjax',
     'japanesesupport']
