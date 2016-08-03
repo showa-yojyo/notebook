@@ -68,6 +68,7 @@ Contents:
    python-pygame
    python-py2exe
    python-upgrade
+   python-miniconda
 
 .. toctree::
    :maxdepth: 1

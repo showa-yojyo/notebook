@@ -8,7 +8,7 @@ Nose 利用ノート
    * 本稿を読む前に Python_ 本体の ``unittest`` を理解しておくべし。
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_ 2.6.6, 2.7.3, 3.4.1, 3.5.0
+     * Python_ 2.6.6, 2.7.3, 3.4.1, 3.5.0, 3.5.2
      * Nose_ 1.0.0, 1.1.2, 1.3.3, 1.3.7
 
    * 当ノートでは ``--verbosity`` オプションを多用しているが、
@@ -37,10 +37,7 @@ Python 標準の ``unittest`` だけで単体テストをやろうとすると�
 
 インストール
 ======================================================================
-他の Python サードパーティー製パッケージ同様に、Nose_ のインストール方法もまた複数存在する。
-最近では pip 一択になってきたので、実は特に覚え書きを残すようなトピックでもないのかもしれない。
-
-どの手順でインストールをするにせよ、インストールが成功終了後は、Python 環境は次のように変化している。
+インストールが成功終了後は、Python 環境は次のように変化している。
 
 * ``Lib/site-packages/nose`` フォルダーが存在する。
   当然その中には py モジュールが含まれている。
@@ -48,9 +45,12 @@ Python 標準の ``unittest`` だけで単体テストをやろうとすると�
 * ``Scripts`` フォルダーに実行ファイル :file:`nosetests` が存在する。
   特に Windows の場合、これは exe ファイルである。
 
-方法 1 -- pip 経由でインストール
+方法 1 -- conda または pip 経由でインストール
 ----------------------------------------------------------------------
-インターネットが利用できる環境ではいつも通りコンソールウィンドウで ``pip install`` を実行する。
+インターネットが利用できる環境では
+コンソールウィンドウで ``conda install nose`` または ``pip install nose`` を実行する。
+前者は Python 環境を Anaconda_ または Miniconda_ で構築しているときに実施するもので、
+後者は正規の Python 環境において実施する。
 
 .. code-block:: console
 
@@ -60,8 +60,12 @@ Python 標準の ``unittest`` だけで単体テストをやろうとすると�
    Installing collected packages: nose
    Successfully installed nose-1.3.7
 
-本当は Github のレポジトリーをクローンして ``pip install -e`` としたいところだが、
-Python 3 環境では 2to3 周りの挙動に微妙な点があるのか、うまくいかない。
+.. note::
+
+   関連ノートも参照。
+
+   * :doc:`./python-miniconda`
+   * :doc:`./python-pip`
 
 方法 2 -- setuptools を利用してソースからインストール
 ----------------------------------------------------------------------
@@ -143,18 +147,26 @@ collect-only オプション -- テスト名だけを調べる
 .. code-block:: console
 
    $ nosetests --collect-only --with-id --verbosity=2
-   #1 testeven.test_evens(0, 0) ... ok
-   testeven.test_evens(1, 3) ... ok
-   testeven.test_evens(2, 6) ... ok
-   ---- 省略 ----
-   #2 test_choice (testrandom.TestSequenceFunctions) ... ok
-   #3 test_sample (testrandom.TestSequenceFunctions) ... ok
-   #4 test_shuffle (testrandom.TestSequenceFunctions) ... ok
-   #5 test_default_size (testwidget.WidgetTestCase) ... ok
-   #6 test_resize (testwidget.WidgetTestCase) ... ok
+   #1 A regular test case ... ok
+   #2 A very slow test case ... ok
+   #3 A test with attribute ... ok
+   #4 A test with attribute specific value ... ok
+   #5 testattr.test_tags ... ok
+   #6 testattr2.test_load_all_images ... ok
+   #7 testattr2.test_download_hardcore_images ... ok
+   #8 testeven.test_evens(0, 0) ... ok
+   #8 testeven.test_evens(1, 3) ... ok
+      testeven.test_evens(2, 6) ... ok
+      testeven.test_evens(3, 9) ... ok
+      testeven.test_evens(4, 12) ... ok
+   #9 test_choice (testrandom.TestSequenceFunctions) ... ok
+   #10 test_sample (testrandom.TestSequenceFunctions) ... ok
+   #11 test_shuffle (testrandom.TestSequenceFunctions) ... ok
+   #12 test_default_size (testwidget.WidgetTestCase) ... ok
+   #13 test_resize (testwidget.WidgetTestCase) ... ok
 
    ----------------------------------------------------------------------
-   Ran 10 tests in 0.070s
+   Ran 17 tests in 0.101s
 
    OK
 
@@ -189,15 +201,15 @@ Python の pdb デバッガが起動する。
 .. code-block:: console
 
    $ nosetests --pdb-failures
-   .> d:\home\yojyo\note\sample\nose\testeven.py(6)check_even()
+   .> d:\home\yojyo\devel\all-note\notebook\source\_sample\nose\testeven.py(9)check_even()
    -> assert n % 2 == 0 or nn % 2 == 0
    (Pdb) l
-     1     def test_evens():
-     2         for i in range(0, 5):
-     3             yield check_even, i, i*3
-     4
-     5     def check_even(n, nn):
-     6  ->     assert n % 2 == 0 or nn % 2 == 0
+     4     def test_evens():
+     5         for i in range(0, 5):
+     6             yield check_even, i, i*3
+     7
+     8     def check_even(n, nn):
+     9  ->     assert n % 2 == 0 or nn % 2 == 0
    [EOF]
    (Pdb) p n, n % 2, nn % 2
    (1, 1, 1)
@@ -433,27 +445,31 @@ Nose のバージョンが上がってから勉強しに行こう。
     .. code-block:: pycon
 
        >>> import numpy
-       >>> numpy.linalg.test(verbose=2)
+       >>> np.linalg.test(verbose=2)
        Running unit tests for numpy.linalg
-       NumPy version 1.8.2
-       NumPy is installed in D:\Python34\lib\site-packages\numpy
-       Python version 3.4.1 (v3.4.1:c0e311e010fc, May 18 2014, 10:45:13) [MSC v.1600 64 bit (AMD64)]
-       nose version 1.3.3
+       NumPy version 1.11.1
+       NumPy relaxed strides checking option: False
+       NumPy is installed in D:\Miniconda3\lib\site-packages\numpy
+       Python version 3.5.2 |Continuum Analytics, Inc.| (default, Jul  5 2016, 11:41:13) [MSC v.1900 64 bit (AMD64)]
+       nose version 1.3.7
        test_lapack (test_build.TestF77Mismatch) ... SKIP: Skipping test: test_lapack: Skipping fortran compiler mismatch on non Linux platform
        Check mode='full' FutureWarning. ... ok
        test_linalg.TestBoolPower.test_square ... ok
        test_linalg.TestCond2.test_sq_cases ... ok
+       test_linalg.TestCond2.test_stacked_arrays_explicitly ... ok
        test_linalg.TestCondInf.test ... ok
        test_linalg.TestCondSVD.test_sq_cases ... ok
+       test_linalg.TestCondSVD.test_stacked_arrays_explicitly ... ok
+       test_linalg.TestDet.test_sq_cases ... ok
        ... more results ...
-       Ticket 627. ... ok
+       test_svd_build (test_regression.TestRegression) ... ok
        test_svd_no_uv (test_regression.TestRegression) ... ok
 
        ----------------------------------------------------------------------
-       Ran 118 tests in 42.034s
+       Ran 134 tests in 17.999s
 
        OK (SKIP=2)
-       <nose.result.TextTestResult run=118 errors=0 failures=0>
+       <nose.result.TextTestResult run=134 errors=0 failures=0>
 
 * 未調査項目
 

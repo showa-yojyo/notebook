@@ -16,12 +16,21 @@ NumPy_, SciPy_, Matplotlib_ のドキュメントを読んでいるとこのツ�
 
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_ 3.4.1, 3.5.0
-     * IPython_ 3.0.0, 4.0.0
-     * PyReadline_ 2.0, 2.1
+     * Python_ 3.4.1, 3.5.0, 3.5.2
+     * IPython_ 3.0.0, 4.0.0, 5.0.0
+     * PyReadline_ 2.0, 2.1, n/a
      * Nose_ 1.3.4, 1.3.7
-     * PyQt_ v5.3.1 for Python v3.4 (x64), n/a for Python v3.5 (x64)
-     * PyZMQ_ 14.5.0, 14.7.0
+     * PyQt_ v5.3.1 for Python v3.4 (x64), n/a for Python v3.5 (x64), 4.11.4
+     * PyZMQ_ 14.5.0, 14.7.0, TODO
+
+.. note::
+
+   本稿では文字列 ``%PYTHONDIR%`` を python.exe が存在するディレクトリーのパスを意味する
+   環境変数のようなものを表現するものであることにする。
+   例えば、正規の Python 3.5 インストーラーを用いて D ドライブ直下にインストールした環境では
+   この値は :file:`D:\\Python35` であり、
+   Miniconda の 3.5 インストーラーを用いて D ドライブ直下にインストールした環境では
+   この値は :file:`D:\\Miniconda3` である。
 
 IPython とは何か
 ======================================================================
@@ -34,8 +43,7 @@ for the standard interactive interpreter> だそうだ。
 次の条件を初回条件と呼ぶことにする。
 
 * Python がインストール済みである。
-* pip の実行ファイルのあるフォルダーに PATH が通っている。
-  私の場合は ``D:/Python34/Scripts`` である。
+* conda または pip の実行ファイルのあるフォルダーに PATH が通っている。
 
 これを満たす環境において、IPython をインストールする方法を記す。
 
@@ -55,9 +63,81 @@ IPython をインストールするもっとも単純な方法は、おそらく
 ドキュメントによるとオプショナルな依存パッケージがいくつかあるようだ。
 場合により別途利用者がインストールすることになる。
 
+conda によるインストール
+----------------------------------------------------------------------
+Anaconda_ または Miniconda_ 環境で Python を利用している場合には
+pip でも構わないが conda を利用したい。
+
+.. code-block:: console
+
+   $ conda install ipython
+   Fetching package metadata: ....
+   Solving package specifications: .........
+
+   Package plan for installation in environment D:\Miniconda3:
+
+   The following packages will be downloaded:
+
+       package                    |            build
+       ---------------------------|-----------------
+       vs2015_runtime-14.0.25123  |                0         1.9 MB
+       colorama-0.3.7             |           py35_0          19 KB
+       conda-env-2.5.2            |           py35_0          67 KB
+       decorator-4.0.10           |           py35_0          12 KB
+       ipython_genutils-0.1.0     |           py35_0          33 KB
+       menuinst-1.4.1             |           py35_0         107 KB
+       path.py-8.2.1              |           py35_0          47 KB
+       pycosat-0.6.1              |           py35_1          80 KB
+       pygments-2.1.3             |           py35_0         1.3 MB
+       pyyaml-3.11                |           py35_4         169 KB
+       requests-2.10.0            |           py35_0         656 KB
+       ruamel_yaml-0.11.14        |           py35_0         217 KB
+       setuptools-23.0.0          |           py35_0         692 KB
+       simplegeneric-0.8.1        |           py35_1           7 KB
+       six-1.10.0                 |           py35_0           8 KB
+       wcwidth-0.1.7              |           py35_0          21 KB
+       win_unicode_console-0.5    |           py35_0          27 KB
+       conda-4.1.11               |           py35_0         247 KB
+       pickleshare-0.7.3          |           py35_0           8 KB
+       pip-8.1.2                  |           py35_0         1.6 MB
+       prompt_toolkit-1.0.3       |           py35_0         308 KB
+       traitlets-4.2.2            |           py35_0         113 KB
+       ipython-5.0.0              |           py35_0         1.0 MB
+       ------------------------------------------------------------
+                                              Total:         8.6 MB
+
+   The following NEW packages will be INSTALLED:
+
+       colorama:            0.3.7-py35_0
+       conda:               4.1.11-py35_0
+       conda-env:           2.5.2-py35_0
+       decorator:           4.0.10-py35_0
+       ipython:             5.0.0-py35_0
+       ipython_genutils:    0.1.0-py35_0
+       menuinst:            1.4.1-py35_0
+       path.py:             8.2.1-py35_0
+       pickleshare:         0.7.3-py35_0
+       pip:                 8.1.2-py35_0
+       prompt_toolkit:      1.0.3-py35_0
+       pycosat:             0.6.1-py35_1
+       pygments:            2.1.3-py35_0
+       pyyaml:              3.11-py35_4
+       requests:            2.10.0-py35_0
+       ruamel_yaml:         0.11.14-py35_0
+       setuptools:          23.0.0-py35_0
+       simplegeneric:       0.8.1-py35_1
+       six:                 1.10.0-py35_0
+       traitlets:           4.2.2-py35_0
+       vs2015_runtime:      14.0.25123-0
+       wcwidth:             0.1.7-py35_0
+       wheel:               0.29.0-py35_0
+       win_unicode_console: 0.5-py35_0
+
+   Proceed ([y]/n)?
+
 初回起動
 ----------------------------------------------------------------------
-``D:\Python34\Scripts\ipython3.exe`` を起動するだけでよい。
+:file:`%PYTHONDIR%\\Scripts\\ipython3.exe` を起動するだけでよい。
 Windows の「ファイル名を指定して実行」で同実行ファイルを指定すると、
 コンソールウィンドウが出現する。
 
@@ -87,6 +167,11 @@ Windows の「ファイル名を指定して実行」で同実行ファイルを
 
 PyReadline をインストール
 ----------------------------------------------------------------------
+
+.. note::
+
+   このパッケージは IPython 5.0.0 では依存関係がなくなっているようだ。
+
 名前からして Python 版 readline と思われるパッケージを pip でインストールして、
 再度 IPython を起動したい。
 
@@ -170,6 +255,11 @@ IPython 4.0.0
 
    You may wish to rerun these, with:
      iptest core
+
+IPython 5.0.0
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Conda で IPython をインストールしたところ、:file:`Scripts` に ``iptest3`` がないようだ。
+開発版では当然存在する。
 
 環境設定
 ======================================================================
@@ -355,7 +445,6 @@ IPython コンソールウィンドウでの各種機能をひと通り試して
 
 .. todo::
 
-   * タブキー補間。Emacs の dabbrev-expand 程度のものを期待したいが、できるか調査する。
    * デフォルトでは ``%history`` の履歴リストが長い。Bash でいうところの $HISTSIZE 的なものがあるか調べる。
    * Windows だと ``!`` コマンドが使えてもあまりうれしくない。Cygwin のコマンドを使いたいので設定可能か調べる。単に
      ``/bin`` に PATH を通すだけかもしれない。
@@ -393,7 +482,7 @@ Windows の「ファイル名を指定して実行」で次のように指定す
 
 .. code-block:: text
 
-   D:\Python34\Scripts\ipython3.exe qtconsole
+   %PYTHONDIR%\Scripts\ipython3.exe qtconsole
 
 一旦真っ黒なウィンドウが表示され、次に Qt ウィンドウが表示される。後者がコンソールとなる。
 通常の IPython のように使えるだけでなく、よく見ると便利なコマンドを起動するメニューがウィンドウ上部に備えられている。
@@ -407,7 +496,7 @@ Matplotlib のプロット図をインラインに Qt コンソール内に描�
 
 .. code-block:: text
 
-   D:\Python34\Scripts\ipython3.exe qtconsole --pylab=inline
+   %PYTHONDIR%\Scripts\ipython3.exe qtconsole --pylab=inline
 
 試しに Matplotlib を内部的に利用した NetworkX のメソッドを経由して描画してみよう。
 

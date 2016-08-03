@@ -22,8 +22,8 @@ Pylint は Python で書かれたコードを解析して、構文エラーの�
 
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_: 3.4.1, 3.5.0
-     * Pylint_: 1.3.1, 1.4.4
+     * Python_: 3.4.1, 3.5.0, 3.5.2
+     * Pylint_: 1.3.1, 1.4.4, 1.5.4
 
 関連リンク
 ======================================================================
@@ -33,6 +33,13 @@ Pylint_
 インストール
 ======================================================================
 Pylint をインストールする手順を記す。
+
+* Anaconda_ または Miniconda_ 環境においては conda を利用してインストールする。
+  :doc:`./python-miniconda` を参照。
+
+* それ以外の場合は pip_ を利用してインストールする。
+
+ここでは pip を利用する場合の手順を記すが、conda の場合もほぼ同様である。
 まずはいつものように pip を利用して、
 関連するモジュールおよびスクリプトをインスールする。
 
@@ -58,8 +65,6 @@ Pylint をインストールする手順を記す。
    # or
    $ pylint.exe args
 
-以下、コマンドライン用例ではバッチファイルの呼び出しで Pylint の利用を表現する。
-
 :file:`.pylintrc` を作成する
 ----------------------------------------------------------------------
 Pylint の設定ファイルについて記す。デフォルトでは Pylint はファイル
@@ -74,17 +79,23 @@ Pylint の設定ファイルについて記す。デフォルトでは Pylint �
 
 .. code-block:: console
 
-   $ pylint.bat --generate-rcfile > ~/.pylintrc
+   $ pylint --generate-rcfile > ~/.pylintrc
 
-困ったことに下記のような DEPRECATED な設定項目が出力されるので、それらを削除しておく。
+次にこの設定ファイルのスケルトンに対して構文チェックをしておこう。
+単に ``pylint --version`` をすることで、
+:file:`.pylintrc` のチェックをさせることにもなる。
 
-.. code-block:: ini
+.. code-block:: console
 
-   # DEPRECATED
-   include-ids=no
+   $ pylint --version
+   Warning: option ignore-iface-methods is obsolete and it is slated for removal in Pylint 1.6.
+   Warning: option zope is obsolete and it is slated for removal in Pylint 1.6.
+   pylint-script.py 1.5.4,
+   astroid 1.4.4
+   Python 3.5.2 |Continuum Analytics, Inc.| (default, Jul  5 2016, 11:41:13) [MSC v.1900 64 bit (AMD64)]
 
-   # DEPRECATED
-   symbols=no
+上記のような Warning が出力されていれば、
+:file:`.pylintrc` をエディターで開いて、対応する項目を削除しておくとよい。
 
 Pylint の設定ファイルはプロジェクトごとにコーディングルールに沿って微調整したものを用意するのが普通だろう。
 自動テストの一環としてコード解析を行う工程が想像できる。
@@ -104,14 +115,6 @@ Pylint の設定ファイルはプロジェクトごとにコーディングル�
 
 スクリプト単体の構文チェック
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.. warning::
-
-   現在 (Python 3.5 + Pylint 1.4.4) この構文チェックで下記エラーが出る。
-
-   .. code-block:: text
-
-      AttributeError: 'Call' object has no attribute 'starargs'
-
 Pylint はオプションなしで実行すると、どんなに品の良いコードを与えたとしても、
 たいへんな量のテキストを出力することで知られている。
 特に出力後半の統計部分が個人的には用がないので
@@ -120,11 +123,11 @@ Pylint はオプションなしで実行すると、どんなに品の良いコ�
 
 .. code-block:: console
 
-   # 統計を出さない。つまり
-   # R: リファクタリング、C: 規約違反、W: 警告、E: エラー項目の出力のみをする。
+   # Suppress statistics, i.e. display only
+   # R: refactor, C: convention, W: warning, and E: error.
    $ pylint -rn mymodule.py
 
-   # エラー項目 (E) のみ表示する。
+   # Display only errors (E).
    $ pylint -E mymodule.py
 
 Pylint の出力はコード解析結果と統計結果のふたつの部分からなる。
@@ -141,7 +144,7 @@ Pylint の出力はコード解析結果と統計結果のふたつの部分か�
 
 .. code-block:: console
 
-   # パッケージ名を指定する。どこかのディレクトリーの名前だ。
+   # Specify the package name.
    $ pylint -rn mypackage
 
 Python コード修正
