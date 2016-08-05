@@ -1,20 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+""" testattr2.py: Demonstrate Nose.
+"""
 from nose.plugins.attrib import attr
 
 @attr(speed='slow')
 def test_load_all_images():
-   # 数分かかるテストケース
-
-   # ...
-   pass
+    """A test cast that takes several minutes."""
+    # ...
+    pass
 
 @attr(online=True)
 def test_download_hardcore_images():
-   # 何かインターネットに接続しないと意味のないテスト
+    """A test that makes sense only with network access."""
+    # ...
+    pass
 
-   # ...
-   pass
-
-# その他のテスト
-# ...
+# Other test cases...

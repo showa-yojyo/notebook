@@ -1,13 +1,20 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
+"""alltset.py: Demonstrate some of unittest.
+"""
 import unittest
 import testrandom
 import testwidget
 
-suite1 = testrandom.suite()
-suite2 = testwidget.suite()
-alltests = unittest.TestSuite([suite1, suite2])
+def main():
+    """Main function."""
+    suite1 = testrandom.build_suite()
+    suite2 = testwidget.build_suite()
+    alltests = unittest.TestSuite([suite1, suite2])
 
-#unittest.TextTestRunner(verbosity=2).run(alltests)
+    unittest.TextTestRunner(verbosity=2).run(alltests)
+    #unittest.main()
 
-unittest.main()
+if __name__ == '__main__':
+    main()

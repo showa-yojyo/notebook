@@ -1,5 +1,7 @@
 #!/usr/bin/env python
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
+""" testattr.py: Demonstrate Nose.
+"""
 import nose
 from nose.plugins.attrib import attr
 
@@ -26,4 +28,5 @@ def test_big_download3():
 
 @attr(tags=['http'])
 def test_tags():
+    """A method."""
     pass

@@ -64,8 +64,8 @@ Python 標準の ``unittest`` だけで単体テストをやろうとすると�
 
    関連ノートも参照。
 
-   * :doc:`./python-miniconda`
-   * :doc:`./python-pip`
+   * :doc:`/python-miniconda`
+   * :doc:`/python-pip`
 
 方法 2 -- setuptools を利用してソースからインストール
 ----------------------------------------------------------------------
@@ -184,8 +184,8 @@ attr オプション -- 属性を指定することで起動するテストを�
 
 .. code-block:: console
 
-   $ nosetests -a '!online' tests.py
-   $ nosetests -A "speed != slow" tests.py
+   $ nosetests -a '!online' testattr2.py
+   $ nosetests -A "speed != slow" testattr2.py
 
 * 上のコマンドラインの実行では ``test_download_hardcore_images`` は実行されない。
 * 下のコマンドラインの実行では ``test_load_all_images`` は実行されない。
@@ -200,18 +200,18 @@ Python の pdb デバッガが起動する。
 
 .. code-block:: console
 
-   $ nosetests --pdb-failures
-   .> d:\home\yojyo\devel\all-note\notebook\source\_sample\nose\testeven.py(9)check_even()
-   -> assert n % 2 == 0 or nn % 2 == 0
+   $ nosetests --pdb-failures testeven.py
+   .> d:\home\yojyo\devel\all-note\notebook\source\_sample\nose\testeven.py(13)check_even()
+   -> assert val1 % 2 == 0 or val2 % 2 == 0
    (Pdb) l
-     4     def test_evens():
-     5         for i in range(0, 5):
-     6             yield check_even, i, i*3
-     7
-     8     def check_even(n, nn):
-     9  ->     assert n % 2 == 0 or nn % 2 == 0
+     8         for i in range(0, 5):
+     9             yield check_even, i, i * 3
+    10
+    11     def check_even(val1, val2):
+    12         """Determine if either of numbers is even."""
+    13  ->     assert val1 % 2 == 0 or val2 % 2 == 0
    [EOF]
-   (Pdb) p n, n % 2, nn % 2
+   (Pdb) p val1, val1 % 2, val2 % 2
    (1, 1, 1)
    (Pdb)
 

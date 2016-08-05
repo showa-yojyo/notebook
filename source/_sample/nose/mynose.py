@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import unittest
+"""mynose.py: Demonstrate Nose package.
+"""
 import nose
 
 def test():
+    """A method."""
     assert False
 
 def setup_func():
@@ -16,7 +18,7 @@ def teardown_func():
 
 @nose.with_setup(setup_func, teardown_func)
 def test2():
-    """test2"""
+    """A method."""
     assert True
 
 if __name__ == '__main__':
