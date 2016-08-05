@@ -193,10 +193,12 @@
   .. math::
      :nowrap:
 
+     \begin{eqnarray*}
      \left(\cos \frac{\theta}{2},\,
            n_x \sin \frac{\theta}{2},\,
            n_y \sin \frac{\theta}{2},\,
            n_z \sin \frac{\theta}{2}\right)
+     \end{eqnarray*}
 
   となる。この各成分を ``q0`` から ``q3`` までこの順序で指定する。
 

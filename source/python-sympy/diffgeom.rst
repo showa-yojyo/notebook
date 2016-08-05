@@ -441,10 +441,12 @@
   .. math::
      :nowrap:
 
+     \begin{eqnarray*}
      \frac{\partial f}{\partial x} =
      \frac{\partial f}{\partial r}\frac{\partial r}{\partial x} +
      \frac{\partial f}{\partial \theta}\frac{\partial \theta}{\partial x} +
      \frac{\partial f}{\partial \phi}\frac{\partial \phi}{\partial x}
+     \end{eqnarray*}
 
 微分形式と外微分
 ----------------------------------------------------------------------
@@ -607,7 +609,9 @@
   .. math::
      :nowrap:
 
+     \begin{eqnarray*}
      \gamma(t) = (\gamma_0(t), \gamma_1(t)) = (x_0 \cos t - y_0 \sin t, y_0 \cos t + x_0 \sin t)
+     \end{eqnarray*}
 
   SymPy の関数 ``dsolve`` をそのまま用いてもよいが、
   この状況での初期値 ``ics`` の指定方法が不明。
@@ -650,7 +654,9 @@
   .. math::
      :nowrap:
 
+     \begin{eqnarray*}
      M_{ij} = \omega\left(\frac{\partial}{\partial x_j}, \frac{\partial}{\partial x_i}\right)
+     \end{eqnarray*}
 
 添字の順序については、実装を正とするならばドキュメントの記述が誤りだと思う。
 例として、先ほどうまくいかなかった外微分 :math:`d\omega` がちょうど 2-形式なので、
@@ -719,11 +725,13 @@ Riemman-Christoffel 曲率テンソル
     .. math::
        :nowrap:
 
+       \begin{eqnarray*}
        R^\rho{}_{\sigma \mu \nu} = 
        \Gamma_{\sigma \nu, \mu}^\rho
        - \Gamma_{\sigma \mu, \nu}^\rho
        + \Gamma_{\sigma \nu}^l \Gamma_{l \mu}^\rho
        - \Gamma_{\sigma \mu}^l \Gamma_{l \nu}^\rho
+       \end{eqnarray*}
 
    * 実装では当然ながら関数 ``metric_to_Christoffel_2nd`` を用いている。
 
@@ -738,7 +746,9 @@ Ricci 曲率テンソル
     .. math::
        :nowrap:
 
+       \begin{eqnarray*}
        R_{ij} = R^k {}_{i k j}
+       \end{eqnarray*}
 
   * 実装では当然ながら関数 ``metric_to_Riemann_components`` を用いている。
 

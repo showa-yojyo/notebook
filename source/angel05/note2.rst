@@ -391,6 +391,7 @@ Setting Matrices Directly
      :label: share-matrix
      :nowrap:
 
+     \begin{eqnarray*}
      \left(
          \begin{array}{cccc}
              1 &\cot(\theta) &0 &0 \\
@@ -399,6 +400,7 @@ Setting Matrices Directly
              0 &0            &0 &1
          \end{array}
      \right)
+     \end{eqnarray*}
 
 * **oblique projection** を実現することもできる。
 
@@ -415,6 +417,7 @@ Setting Matrices Directly
      :label: shadow-matrix
      :nowrap:
 
+     \begin{eqnarray*}
      \left(
          \begin{array}{rrrr}
              1 &0             &0 &0 \\
@@ -423,6 +426,7 @@ Setting Matrices Directly
              0 &-\cfrac{1}{y} &0 &0
          \end{array}
      \right)
+     \end{eqnarray*}
 
   で与えられる。コードは大体次のような構造になる。
 

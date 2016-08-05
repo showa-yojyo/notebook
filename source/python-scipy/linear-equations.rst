@@ -25,6 +25,7 @@ LU 分解がどうだのという議論に終始するものだ。
 .. math::
    :nowrap:
 
+   \begin{eqnarray*}
    \left\{
    \begin{array}{ccccc}
     2x& -y& +2z& =& 8\\
@@ -32,6 +33,7 @@ LU 分解がどうだのという議論に終始するものだ。
    -2x& +y& -z&  =& -6
    \end{array}
    \right.
+   \end{eqnarray*}
 
 .. literalinclude:: /_sample/scipy/linear-equation.py
    :language: python3
@@ -57,6 +59,7 @@ LU 分解
   .. math::
      :nowrap:
 
+     \begin{eqnarray*}
      \left(
          \begin{array}{ccc}
              1 &2 &2\\
@@ -64,6 +67,7 @@ LU 分解
              3 &8 &12\\
          \end{array}
      \right)
+     \end{eqnarray*}
 
 .. literalinclude:: /_sample/scipy/lu.py
    :language: python3

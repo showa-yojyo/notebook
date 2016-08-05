@@ -433,7 +433,9 @@ Using Luminace
      :label: luminance
      :nowrap:
 
+     \begin{eqnarray*}
      L = .30R + .59G + .11B
+     \end{eqnarray*}
 
   明らかに G 成分が支配的。
 

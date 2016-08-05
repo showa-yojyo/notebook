@@ -148,10 +148,12 @@ SymPy で常微分方程式を解くには、関数 ``dsolve`` を用いる。
     .. math::
        :nowrap:
 
+       \begin{eqnarray*}
        \frac{\partial \eta}{\partial x} + \left(\frac{\partial \eta}{\partial y}
         - \frac{\partial \xi}{\partial x}\right)\frac{dy}{dx}
         - \frac{\partial \xi}{\partial y} \left(\frac{dy}{dx}\right)^{2}
         - \xi\frac{\partial h}{\partial x} - \eta\frac{\partial h}{\partial y}
+       \end{eqnarray*}
 
     すなわち、妥当な関数を与えればリストが含む要素はすべて ``(True, 0)`` となる。
 
