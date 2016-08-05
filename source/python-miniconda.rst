@@ -53,7 +53,7 @@ Conda の機能の一つである ``conda install`` コマンドを使えば、
 
 補足として、通常の Python 環境と同様に ``pip install`` を併用することも可能であることを
 記し添えておく。
-:doc:`./python-pip` も参照。
+:doc:`/python-pip` も参照。
 
 環境構築手順
 ======================================================================
@@ -187,7 +187,7 @@ Conda の各種設定はホームディレクトリーに所定の書式で記�
     私にとっては本物は一つでいいので捨てる。
 
   * 元の Python 環境での ``pip freeze`` の出力結果を控えておくこと。
-    :doc:`./python-pip` 参照。
+    :doc:`/python-pip` 参照。
 
 * ``conda`` のコマンドライン操作の設計が
   ドキュメントに頼る必要がないほど質素であるため、
@@ -201,8 +201,8 @@ Conda の各種設定はホームディレクトリーに所定の書式で記�
 
   * 応急処置としてはバックエンドを ``Qt4Agg`` にセットすることだ。
     これにより ``plt.show()`` などの呼び出しで落ちることはなくなる。
-    設定方法については :doc:`./python-matplotlib/basic` および
-    :doc:`./python-matplotlib/config` を参照。
+    設定方法については :doc:`/python-matplotlib/basic` および
+    :doc:`/python-matplotlib/config` を参照。
 
   * 仮に ``conda install matplotlib`` ではなく、
     いつもの非公式バイナリーを ``pip install`` したら

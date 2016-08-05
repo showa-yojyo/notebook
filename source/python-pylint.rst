@@ -35,7 +35,7 @@ Pylint_
 Pylint をインストールする手順を記す。
 
 * Anaconda_ または Miniconda_ 環境においては conda を利用してインストールする。
-  :doc:`./python-miniconda` を参照。
+  :doc:`/python-miniconda` を参照。
 
 * それ以外の場合は pip_ を利用してインストールする。
 
