@@ -1,11 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""interp-spline-3d.py: Demonstrate spline interpolation.
+"""interp_spline_3d.py: Demonstrate spline interpolation.
 """
 from scipy.interpolate import splprep, splev
 import numpy as np
 import matplotlib.pyplot as plt
+# pylint: disable=unused-import
 from mpl_toolkits.mplot3d import Axes3D
+
+# pylint: disable=invalid-name, bad-whitespace
 
 # Set 3D points.
 points = np.array(
@@ -30,12 +33,15 @@ for i, xyz in zip(u, np.asarray(splev(u, tck)).T):
 # Plot points and the curve.
 fig = plt.figure()
 ax = fig.gca(projection='3d')
-ax.scatter(xs=points[0], ys=points[1], zs=points[2], color='black', label='target points')
-ax.plot(xs=tck[1][0], ys=tck[1][1], zs=tck[1][2], color='pink', label='control points')
+ax.scatter(xs=points[0], ys=points[1], zs=points[2],
+           color='black', label='target points')
+ax.plot(xs=tck[1][0], ys=tck[1][1], zs=tck[1][2],
+        color='pink', label='control points')
 
 params = np.linspace(u[0], u[-1], num=50, endpoint=True)
 values = splev(params, tck)
-ax.plot(xs=values[0], ys=values[1], zs=values[2], color='deeppink', label='cubic spline')
+ax.plot(xs=values[0], ys=values[1], zs=values[2],
+        color='deeppink', label='cubic spline')
 
 for pt in points.T:
     ptlabel = "({:d}, {:d}, {:d})".format(pt[0], pt[1], pt[2])

@@ -1,14 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Demonstrate some SciPy integration functions.
+"""integrate.py: Demonstrate some SciPy integration functions.
 """
 from scipy.integrate import trapz, simps, quad
 import numpy as np
 
-def f(x):
+# pylint: disable=invalid-name
+
+def f(t):
     """Integrand function."""
 
-    return np.sin(x)
+    return np.sin(t)
 
 # Define sample points.
 x = np.linspace(0, np.pi, num=100, endpoint=True)

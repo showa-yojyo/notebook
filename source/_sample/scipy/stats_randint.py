@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Demonstrate how ``scipy.stats.randint`` works.
+"""stats_randint.py: Demonstrate how ``scipy.stats.randint`` works.
 """
 from scipy.stats import randint
-import numpy as np
+
+# pylint: disable=invalid-name
 
 # Define a dice model.
 low = 1

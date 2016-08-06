@@ -31,7 +31,7 @@
 
 コード例を示す。
 
-.. literalinclude:: /_sample/scipy/least-squares.py
+.. literalinclude:: /_sample/scipy/least_squares.py
    :language: python3
 
 私の環境での実行結果は次のとおり。

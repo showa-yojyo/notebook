@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Demonstrate solving an ordinary differential equation by using odeint.
+"""odeint.py: Demonstrate solving an ordinary differential equation by using
+odeint.
 
 References:
   * Solving Ordinary Differential Equations (ODEs) using Python
@@ -9,8 +10,11 @@ from scipy.integrate import odeint
 import numpy as np
 import matplotlib.pyplot as plt
 
+# pylint: disable=invalid-name
+
 # Solve y''(t) + a y'(t) + b y(t) == 0.
 
+# pylint: disable=unused-argument
 def deriv(y, t):
     """Return derivatives of the array y."""
     a = 3.0
@@ -28,7 +32,7 @@ y = odeint(deriv, yinit, time)
 
 plt.figure()
 # y[:,0] is the first column of y
-plt.plot(time, y[:,0], color='deeppink')
+plt.plot(time, y[:, 0], color='deeppink')
 plt.xlabel("t")
 plt.ylabel("y")
 plt.show()

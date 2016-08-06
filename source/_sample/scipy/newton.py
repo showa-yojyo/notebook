@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Demonstrate equation solvers of SciPy.
+"""newton.py: Demonstrate equation solvers of SciPy.
 """
 from scipy.optimize import newton
 import numpy as np
+
+# pylint: disable=invalid-name
 
 def func(x):
     """A function."""

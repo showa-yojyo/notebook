@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Demonstrate spline interpolation.
+"""interp_spline_interest.py: Demonstrate spline interpolation.
 """
 from scipy.interpolate import splrep, splev
 import numpy as np
 import matplotlib.pyplot as plt
+
+# pylint: disable=invalid-name
 
 # Interest rates of Jan, Feb, Mar, Jun, Dec.
 x = np.array([1, 2, 3, 6, 12])

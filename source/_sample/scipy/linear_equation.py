@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Demonstrate solving linear equations by using SciPy.
+"""linear_equation.py: Demonstrate solving linear equations by using SciPy.
 """
 import numpy as np
 from scipy.linalg import solve
+
+# pylint: disable=invalid-name
 
 A = np.array([[2, -1, 2],
               [1, -1, -2],

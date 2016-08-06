@@ -26,7 +26,7 @@ SciPy のドキュメントでは、大体 20 個以上の点を寄越してく�
 コード例を示す。
 `Wikipedia <http://en.wikipedia.org/wiki/Lagrange_polynomial>`_ の例から拝借した。
 
-.. literalinclude:: /_sample/scipy/interp-lagrange.py
+.. literalinclude:: /_sample/scipy/interp_lagrange.py
    :language: python3
 
 私の環境での実行結果は次のとおり。
@@ -77,7 +77,7 @@ SciPy のドキュメントでは、大体 20 個以上の点を寄越してく�
 `Japanese yen LIBOR interest rates in 2015 <http://www.global-rates.com/interest-rates/libor/japanese-yen/2015.aspx>`_
 から拝借した。
 
-.. literalinclude:: /_sample/scipy/interp-spline-interest.py
+.. literalinclude:: /_sample/scipy/interp_spline_interest.py
    :language: python3
 
 私の環境での実行結果は次のとおり。
@@ -135,7 +135,7 @@ SciPy のドキュメントでは、大体 20 個以上の点を寄越してく�
 コード例を示す。点列 (0, 0, 0), (100, 0, 50), (100, 100, 100), (0, 100, 150) を通過する
 cubic spline を作成するはずだ。
 
-.. literalinclude:: /_sample/scipy/interp-spline-3d.py
+.. literalinclude:: /_sample/scipy/interp_spline_3d.py
    :language: python3
 
 私の環境での実行結果は次のとおり。

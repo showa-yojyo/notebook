@@ -35,7 +35,7 @@ LU 分解がどうだのという議論に終始するものだ。
    \right.
    \end{eqnarray*}
 
-.. literalinclude:: /_sample/scipy/linear-equation.py
+.. literalinclude:: /_sample/scipy/linear_equation.py
    :language: python3
 
 私の環境での実行結果は次のとおり（見栄えのために一部空白文字を手動で挿入）。

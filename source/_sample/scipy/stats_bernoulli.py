@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Demonstrate how ``scipy.stats.bernoulli`` works.
+"""stats_bernoulli.py: Demonstrate how ``scipy.stats.bernoulli`` works.
 """
 from scipy.stats import bernoulli
-import numpy as np
+
+# pylint: disable=invalid-name
 
 # Let p be the probability of the coin landing heads.
 p = 0.5

@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Demonstrate LU decomposition.
+"""lu.py: Demonstrate LU decomposition.
 """
 import numpy as np
 from scipy.linalg import lu
+
+# pylint: disable=invalid-name
 
 A = np.array([[1, 2, 2],
               [2, 5, 6],

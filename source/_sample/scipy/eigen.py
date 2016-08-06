@@ -1,11 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Demonstrate computing eigenvalues and eigenvectors.
+"""eigen.py: Demonstrate computing eigenvalues and eigenvectors for a regular
+matrix.
 """
 import numpy as np
 from scipy import linalg
 
-# Let A be a 3x3 matrix.
+# pylint: disable=invalid-name
+
+# Let A be a 3x3 regular matrix.
 A = np.array([[2, -1, -1],
               [-1, 1, 0],
               [-1, 0, 1]])
@@ -19,4 +22,4 @@ for val in eigval:
 
 print("eigenvectors: ")
 for i in range(A.shape[0]):
-    print(eigvec[:,i])
+    print(eigvec[:, i])

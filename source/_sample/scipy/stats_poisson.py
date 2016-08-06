@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Demonstrate how ``scipy.stats.poisson`` works.
+"""stats_poisson.py: Demonstrate how ``scipy.stats.poisson`` works.
 """
 from scipy.stats import poisson
-import numpy as np
+
+# pylint: disable=invalid-name
 
 mu = 1 / 256
 rv = poisson(mu)

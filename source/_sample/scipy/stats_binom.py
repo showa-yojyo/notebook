@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Demonstrate how ``scipy.stats.binom`` works.
+"""stats_binom.py: Demonstrate how ``scipy.stats.binom`` works.
 """
 from scipy.stats import binom
-import numpy as np
+
+# pylint: disable=invalid-name
 
 N = 6
 p = 0.25

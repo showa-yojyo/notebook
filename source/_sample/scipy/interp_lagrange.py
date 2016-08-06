@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Demonstrate Lagrange interpolating.
+"""interp_lagrange.py: Demonstrate Lagrange interpolating.
 """
 from scipy.interpolate import lagrange
 import numpy as np
+
+# pylint: disable=invalid-name
 
 # x-coordinates of a set of datapoints
 x = np.array([-1.5, -0.75, 0, 0.75, 1.5])

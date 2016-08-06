@@ -36,7 +36,7 @@ Reference Guide の例を一部改変したものを記す。
 
    Target: [43.831, 54.762, 83.131]
    Closest:  [40 50 80]
-   Distance: 6.867646253691044
+   Distance: 6.867049293546685
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt

@@ -53,7 +53,7 @@ IPython_ を起動していれば、下記コードをクリップボードに�
 
 ノート :doc:`/python-scipy/interpolate` で示した例を再掲する。
 
-.. literalinclude:: /_sample/scipy/interp-spline-3d.py
+.. literalinclude:: /_sample/scipy/interp_spline_3d.py
    :language: python3
 
 Matplotlib 関連の処理の説明を補足する

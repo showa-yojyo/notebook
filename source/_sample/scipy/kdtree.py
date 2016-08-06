@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Demonstrate class KDTree of SciPy.
+"""kdtree.py: Demonstrate class KDTree of SciPy.
 """
 import numpy as np
 from scipy.spatial import KDTree
+
+# pylint: disable=invalid-name
 
 # Genrate 3D points: (0, 0, 0), (0, 0, 10), (0, 0, 20), ...
 x, y, z = np.mgrid[0:100:10, 0:100:10, 0:100:10]

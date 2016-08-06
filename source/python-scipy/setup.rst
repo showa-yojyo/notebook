@@ -16,6 +16,29 @@
 * SciPy_ は単体テストに Nose_ を利用している。
   NumPy_ インストール時に併せてインストールしてあるハズ。
 
+* Anaconda_ もしくは Miniconda_ 環境ではコマンドラインから
+  インストールまたはアップグレードを容易に実施できる。
+
+  .. code-block:: console
+
+     $ conda install scipy
+     Fetching package metadata .........
+     Solving package specifications: ..........
+
+     Package plan for installation in environment D:\Miniconda3:
+
+     The following packages will be downloaded:
+
+         package                    |            build
+         ---------------------------|-----------------
+         scipy-0.18.0               |      np111py35_0        11.7 MB
+
+     The following NEW packages will be INSTALLED:
+
+         scipy: 0.18.0-np111py35_0
+
+     Proceed ([y]/n)?
+
 * Windows 環境ではインストーラーからインストールするのが吉。
   :file:`scipy-x.y.z-win32-superpack-python2.6.exe` みたいな名前のインストーラーを
   SciPy_ のサイトから検索して入手しておけばよい。
