@@ -2,8 +2,7 @@
 # -*- coding: utf-8 -*-
 """grabdemo.py: Demonstrate how to use function ImageGrab.grab.
 """
-from PIL import Image
-from PIL import ImageGrab
+from PIL import (Image, ImageGrab)
 
 # Take a snapshot of the whole screen.
 img = ImageGrab.grab()

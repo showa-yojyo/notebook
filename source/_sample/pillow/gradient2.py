@@ -15,3 +15,4 @@ for i in range(WORK_SIZE):
     gradient.putpixel((0, i), WORK_SIZE - i)
 
 img.putalpha(gradient.resize(img.size))
+img.show()

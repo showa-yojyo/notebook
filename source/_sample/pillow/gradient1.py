@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """gradient1.py: Demonstrate drawing linear gradient.
 """
-from PIL import Image, ImageColor
+from PIL import (Image, ImageColor)
 import numpy as np
 
 COLOR_START = ImageColor.getrgb('antiquewhite')
@@ -19,3 +19,4 @@ for i, rgb in enumerate(gradient.T):
     img.putpixel((0, i), tuple(rgb))
 
 img = img.resize((IMAGE_WIDTH, IMAGE_HEIGHT))
+img.show()

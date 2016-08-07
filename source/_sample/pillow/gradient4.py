@@ -2,9 +2,7 @@
 # -*- coding: utf-8 -*-
 """gradient4.py: Demonstrate drawing radial gradient.
 """
-from PIL import Image
-from PIL import ImageColor
-from PIL import ImageDraw
+from PIL import (Image, ImageColor, ImageDraw)
 import numpy as np
 
 COLOR_START = ImageColor.getrgb('antiquewhite')
@@ -19,3 +17,5 @@ gradient = np.array(
     dtype=int)
 for i, rgb in enumerate(gradient.T):
     draw.ellipse([i, i, WORK_SIZE - i, WORK_SIZE - i], fill=tuple(rgb))
+
+img.show()
