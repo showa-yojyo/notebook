@@ -7,6 +7,10 @@
 
 Matplotlib の依存パッケージと関連パッケージをインストール
 ======================================================================
+Python 環境を Anaconda_ もしくは Miniconda_ で実現しているのであれば、
+この節と次の節は読み飛ばして構わない。
+本体が必要とする他のパッケージを自動で察知してインストールを推奨してくれるので、
+作業漏れが起こりにくい。
 
 NumPy をインストール
 ----------------------------------------------------------------------
@@ -63,7 +67,7 @@ VC のコンパイラーを要するような特殊な Python パッケージに
    Successfully installed matplotlib
    Cleaning up...
 
-* ``matplotlib-1.4.3-cp34-none-win_amd64.whl`` というアーカイブ名から、
+* :file:`matplotlib-1.4.3-cp34-none-win_amd64.whl` というアーカイブ名から、
   当方の環境 (Python 3.4, Windows 7 64bit) を考慮していることが窺える。
 
 * ``Found existing installation: matplotlib 1.4.2`` とあるが、
@@ -75,7 +79,7 @@ Python 3.5
 `Python Extension Packages for Windows - Christoph Gohlke`_ が配布するインストーラーに頼った。
 
 * パッケージのビルドに利用している MSVC のバージョンに対応するランタイムが環境に必要なことに注意。
-  特に ``msvcp140.dll`` がない可能性がある。
+  特に :file:`msvcpxxx.dll` がない可能性がある。
 
 動作確認
 ======================================================================
@@ -83,40 +87,61 @@ Matplotlib の初回インストールまたはアップグレード直後に確
 
 バージョンを確認する
 ----------------------------------------------------------------------
+Matplotlib のモジュールから直接バージョン番号を得ることで確認するには次のようにする。
+
 .. code-block:: console
 
    $ python -c 'import matplotlib as mpl; print(mpl.__version__)'
    1.4.3
 
-もしくは pip を用いる。
+Anaconda または Miniconda で Python 環境を管理しているのであれば、
+コマンドラインで :program:`conda` を用いる。
+
+.. code-block:: console
+
+   $ conda list matplotlib
+   # packages in environment at D:\Miniconda3:
+   #
+   matplotlib                1.5.1               np111py35_0
+
+もしくは :program:`pip` を用いる。
 
 .. code-block:: console
 
    $ pip show matplotlib
    ---
-   Metadata-Version: 2.0
+   Metadata-Version: 1.1
    Name: matplotlib
-   Version: 1.4.3
+   Version: 1.5.1
    Summary: Python plotting package
    Home-page: http://matplotlib.org
    Author: John D. Hunter, Michael Droettboom
-   Author-email: mdroe@stsci.edu
+   Author-email: matplotlib-users@python.org
    License: BSD
-   Location: d:\python35\lib\site-packages
-   Requires: six, numpy, pyparsing, pytz, python-dateutil
+   Location: d:\miniconda3\lib\site-packages
+   Requires: numpy, python-dateutil, pytz, cycler, pyparsing
+   Classifiers:
+     Development Status :: 5 - Production/Stable
+     Intended Audience :: Science/Research
+     License :: OSI Approved :: Python Software Foundation License
+     Programming Language :: Python
+     Programming Language :: Python :: 2
+     Programming Language :: Python :: 3
+     Topic :: Scientific/Engineering :: Visualization
 
 簡単なプロットを確認する
 ----------------------------------------------------------------------
 次のようなコードを実行してみて、それらしいイメージを目視で確認できたら
 Matplotlib のインストールまたはアップグレードが成功したと判断してよい。
-ちなみに IPython_ を利用する場合は、デフォルト設定でこのインポート文が省略できて楽だ。
+ちなみに IPython_ を利用する場合は、デフォルト設定でこのインポート文が省略できて
+いきなり :code:`plt` の別名を参照することができて楽だ。
 
 >>> import matplotlib.pyplot as plt
->>> plt.plot([1,2,3,4])
+>>> plt.plot(range(4))
 >>> plt.show()
 
 環境設定にも依存するが、
-基本的には ``plt.show()`` の実行開始直後に下の画像のような、
+基本的には :code:`plt.show()` の実行開始直後に下の画像のような、
 プロットを描画するウィンドウが現れる。
 
 .. figure:: /_static/mpl-tkagg.png
@@ -125,6 +150,9 @@ Matplotlib のインストールまたはアップグレードが成功したと
    :width: 660px
    :height: 553px
    :scale: 50%
+
+ここで Segmentation fault が出るようであれば、
+後述するバックエンドを試行錯誤する必要がある。
 
 ドキュメントを確保する
 ======================================================================

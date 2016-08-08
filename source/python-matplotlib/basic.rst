@@ -10,7 +10,7 @@
 .. note::
 
    特に断らない限り、以降のテキストおよびコード片においては、
-   各種 ``import`` を次のようにしたものと仮定している。
+   各種 :code:`import` を次のようにしたものと仮定している。
 
    .. code-block:: python3
 
@@ -24,23 +24,23 @@
 ======================================================================
 下の表を見てからヘルプを当たる。
 
-後で見るように、モジュール ``matplotlib.pyplot`` の関数の機能は、
+後で見るように、モジュール :code:`matplotlib.pyplot` の関数の機能は、
 ある種の「アクティブな」オブジェクトのメソッド呼び出しをするだけに過ぎない。
 
 .. csv-table::
-   :delim: :
+   :delim: @
    :header: 関数, 機能
    :widths: 10, 90
 
-   ``plt.plot(...)``:グラフを描く
-   ``plt.hist(...)``:ヒストグラムを描く
-   ``plt.show(...)``:イメージを一気に表示
-   ``plt.savefig(...)``:イメージをファイルに保存
-   ``plt.setp(...)``:プロット線の属性等、描画パラメーターの取得・指定
-   ``plt.axis(...)``:ビューポート範囲指定
-   ``plt.grid(...)``:グリッド描画をするかしないか指定
+   :code:`plt.plot(...)`@グラフを描く
+   :code:`plt.hist(...)`@ヒストグラムを描く
+   :code:`plt.show(...)`@イメージを一気に表示
+   :code:`plt.savefig(...)`@イメージをファイルに保存
+   :code:`plt.setp(...)`@プロット線の属性等、描画パラメーターの取得・指定
+   :code:`plt.axis(...)`@ビューポート範囲指定
+   :code:`plt.grid(...)`@グリッド描画をするかしないか指定
 
-IPython_ を利用している場合はおもむろに ``plt?`` とタイプするのもお勧めだ。
+IPython_ を利用している場合はおもむろに :code:`plt?` とタイプするのもお勧めだ。
 Matplotlib の概要がサインカーブのプロットを表示する簡素な例とともにコンソールに出力する。
 
 Figure と Axes の概念を理解する
@@ -49,26 +49,26 @@ Matplotlib には current figure と current axes という概念がある。
 これを利用して、複数個のグラフをワンシーンに定義できるようだ。
 
 .. csv-table::
-   :delim: :
+   :delim: @
    :header: 関数, 機能
    :widths: 10, 90
 
-   ``plt.figure(...)``:指定の figure をカレントにする
-   ``plt.subplot(...)``:指定の axes をカレントにする
+   :code:`plt.figure(...)`@指定の figure をカレントにする
+   :code:`plt.subplot(...)`@指定の axes をカレントにする
 
-``Figure``
+Figure
   大抵の本にはいくつかの図がしばしばキャプション付きで載っている。
   Figure という語は、それに対応するクラスだと解釈したい。
   図の一つ一つが Figure のオブジェクトになると思えば、個人的にはコードが理解できる。
 
-``Axes``
+Axes
   普通は一つの図にグラフ一つを載せるわけだが、
   同じようなグラフを並べたものを一つの図としたい場合もある。
   Axes という語が意味するのが、そのグラフだと解釈すればよいか。
 
   余談だが MS Word のグラフ API にも Axes というコンセプトがあったと記憶している。
 
-次の図にふたつの ``Axes`` を持たせたひとつの ``Figure`` を示す。
+次の図にふたつの Axes を持たせたひとつの Figure を示す。
 
 .. figure:: /_static/mpl-axes.png
    :align: center
@@ -77,14 +77,14 @@ Matplotlib には current figure と current axes という概念がある。
    :height: 615px
    :scale: 50%
 
-* ``plt.figure(n)`` で current figure を指定する。
-* ``plt.subplot(n0n1n2)`` で current axes を指定する。
-  ``n0``, ``n1``, ``n2`` がそれぞれ縦方向の区画数、横方向の区画数、
+* :code:`plt.figure(n)` で current figure を指定する。
+* :code:`plt.subplot(n0n1n2)` で current axes を指定する。
+  `n0`, `n1`, `n2` がそれぞれ縦方向の区画数、横方向の区画数、
   「どの区画か」を意味する。
 
-  ``n2`` は 1 以上 ``n1 * n2`` 以下の値でなければならない。
+  `n2` は 1 以上 `n1 * n2` 以下の値でなければならない。
 
-* ``plt`` のプロットコマンドはすべて current axes に作用する。
+* :code:`plt` のプロットコマンドはすべて current axes に作用する。
 
   .. code-block:: python3
 
@@ -125,19 +125,19 @@ Matplotlib には current figure と current axes という概念がある。
 ======================================================================
 当ノートの目的のひとつに、「数式を含むテキストを表示する」ことがある。
 そのためには、事前に単純ななテキスト描画の方法を学習する必要があるだろう。
-モジュール ``plt`` からテキストに強く関連していそうな機能を表にしてみよう。
+モジュール :code:`plt` からテキストに強く関連していそうな機能を表にしてみよう。
 
 .. csv-table::
-   :delim: :
+   :delim: @
    :header: 関数, 機能
    :widths: 10, 90
 
-   ``plt.text(...)``:ビューポート内にテキストを描く
-   ``plt.xlabel(...)``:`X` 軸用キャプション
-   ``plt.ylabel(...)``:`Y` 軸用キャプション
-   ``plt.title(...)``:グラフ全体のキャプション
+   :code:`plt.text(...)`@ビューポート内にテキストを描く
+   :code:`plt.xlabel(...)`@X 軸用キャプション
+   :code:`plt.ylabel(...)`@Y 軸用キャプション
+   :code:`plt.title(...)`@グラフ全体のキャプション
 
-* ``plt.text()`` は指定位置にテキストを描画するコマンドと考える。
+* :code:`plt.text()` は指定位置にテキストを描画するコマンドと考える。
 
 テキストプロパティ
 ----------------------------------------------------------------------
@@ -158,7 +158,7 @@ Matplotlib には current figure と current axes という概念がある。
    ``weight``:0 から 1000 までの値を指定するか ``"bold"`` 等の予約名を指定する。
 
 * テキストの基準位置は ``horizontalalignment``, ``verticalalignment`` キーワード引数で指示できる。
-  例えば ``x``, ``y`` 引数をテキストの右下位置としたい場合には次のようにする。
+  例えば `x`, `y` 引数をテキストの右下位置としたい場合には次のようにする。
 
   .. code-block:: python3
 
@@ -168,9 +168,9 @@ Matplotlib には current figure と current axes という概念がある。
 
 日本語のテキストを描画する
 ----------------------------------------------------------------------
-``matplotlib.font_manager.FontProperties`` を明示的に利用する手段を見つけた。
+:code:`matplotlib.font_manager.FontProperties` を明示的に利用する手段を見つけた。
 
-.. literalinclude:: /_sample/mpl/japanese-text.py
+.. literalinclude:: /_sample/mpl/japanese_text.py
    :language: python3
 
 結果のスクリーンショットは次のようなものだ。
@@ -182,23 +182,23 @@ Matplotlib には current figure と current axes という概念がある。
    :height: 615px
    :scale: 50%
 
-``Artists`` 関連
+Artists 関連
 ======================================================================
-* primitives: ``Line2D``, ``Rectangle``, ``Text``, ``AxesImage``, etc.
-* containers: ``Axis``, ``Axes``, ``Figure``, etc.
+* primitives: Line2D, Rectangle, Text, AxesImage, etc.
+* containers: Axis, Axes, Figure, etc.
 
 コンテナーを攻略していく。
 
-* ``Axes`` はプロッティングエリア。
-* ``Subplot`` は ``Axes`` の特別なもの。コード的にもサブクラスで表現されている。
-* ``Patch`` というクラス名は MATLAB から受け継いだ。
+* Axes はプロッティングエリア。
+* Subplot は Axes の特別なもの。コード的にもサブクラスで表現されている。
+* Patch というクラス名は MATLAB から受け継いだ。
 
-* プロパティー一覧は ``matplotlib.artist.getp`` 関数で確認できる。
+* プロパティー一覧は :code:`matplotlib.artist.getp` 関数で確認できる。
 
-``Figure`` (``matplotlib.figure.Figure``)
+Figure (:code:`matplotlib.figure.Figure`)
 ----------------------------------------------------------------------
-* ``Figure`` オブジェクトが "current axes" を管理している。
-* ``Figure`` は（グラフのものではない）自身の座標系を持っていて、
+* Figure オブジェクトが "current axes" を管理している。
+* Figure は（グラフのものではない）自身の座標系を持っていて、
   矩形の左下と右上がそれぞれ `(0, 0)`, `(1, 1)` となっている。
 
   変な例だが、画像全体に対角線を一本引くにはこうする。
@@ -216,45 +216,45 @@ Matplotlib には current figure と current axes という概念がある。
      :height: 615px
      :scale: 50%
 
-``Axes`` (``matplotlib.axes.Axes``)
+Axes (:code:`matplotlib.axes.Axes`)
 ----------------------------------------------------------------------
-``Axes`` オブジェクトが図形・テキスト・目盛・グリッド・ラベル各オブジェクトを管理する。
+Axes オブジェクトが図形・テキスト・目盛・グリッド・ラベル各オブジェクトを管理する。
 まずコンテナーメンバーのうち、馴染みのあるものだけ表にまとめておく。
 
 .. csv-table::
-   :delim: :
+   :delim: @
    :header: メンバー名, 内容物
    :widths: 10, 90
 
-   ``lines``:``plot`` 等で作成した ``Line2D`` オブジェクト。
-   ``patches``:各種 ``Patch`` オブジェクト。``Ellipse``, ``Polygon``, etc.
-   ``texts``:``text`` や ``annotate`` で作成した各種テキスト。
+   :code:`lines`@:code:`plot` 等で作成した Line2D オブジェクト。
+   :code:`patches`@各種 Patch オブジェクト。Ellipse, Polygon, etc.
+   :code:`texts`@:code:`text` や :code:`annotate` で作成した各種テキスト。
 
 非コンテナーメンバーも少しだけ押さえておく。
 
 .. csv-table::
-   :delim: :
+   :delim: @
    :header: メンバー名, オブジェクト
    :widths: 10, 90
 
-   ``patch``:``Axes`` の背景用 ``Rectangle`` オブジェクト。
-   ``xaxis``:``XAxis`` オブジェクト。
-   ``yaxis``:``YAxis`` オブジェクト。
+   :code:`patch`@Axes の背景用 Rectangle オブジェクト。
+   :code:`xaxis`@XAxis オブジェクト。
+   :code:`yaxis`@YAxis オブジェクト。
 
-``Axis`` (``matplotlib.axis.Axis``)
+Axis (:code:`matplotlib.axis.Axis`)
 ----------------------------------------------------------------------
 グラフの目盛、グリッド、目盛に付けるラベル等を管理する。
-``Axes`` オブジェクトの ``xaxis`` および ``yaxis`` メンバーでアクセスできる。
+Axes オブジェクトの ``xaxis`` および ``yaxis`` メンバーでアクセスできる。
 
 使用頻度の高いものだけ表にしておく。
 
 .. csv-table::
-   :delim: :
+   :delim: @
    :header: メソッド, 機能
    :widths: 10, 90
 
-   ``get_major_ticks``:目盛 (``matplotlib.ticker.Ticker``) オブジェクトを返す。
-   ``grid``:グリッド線を描画するしないを指示。
+   :code:`get_major_ticks`@目盛 (:code:`matplotlib.ticker.Ticker`) オブジェクトを返す。
+   :code:`grid`@グリッド線を描画するしないを指示。
 
 .. code-block:: python3
 
@@ -276,7 +276,7 @@ Matplotlib には current figure と current axes という概念がある。
 
 ユーザーインターフェイスバックエンドとハードコピーバックエンドの二種類があり、
 前者はウィンドウ、後者はファイル形式とおおまかに考えられる。
-それぞれ ``plt.show()`` と ``plt.savefig()`` の振る舞いに影響する。
+それぞれ :code:`plt.show()` と :code:`plt.savefig()` の振る舞いに影響する。
 
 ここではコードでのバックエンド設定方法を述べる。
 設定ファイルによる設定方法は :doc:`config` を参照。
@@ -294,9 +294,9 @@ Matplotlib には current figure と current axes という概念がある。
    import matplotlib as mpl
    mpl.use('Qt5Agg')
 
-なお ``mpl.use`` 関数を呼び出すタイミングは、最初の ``import matplotlib``
+なお :code:`mpl.use` 関数を呼び出すタイミングは、最初の :code:`import matplotlib`
 の直後がベストのようだ。
-IPython_ のセッションであらかじめ ``matplotlib.plt`` 等がインポートされていて、
+IPython_ のセッションであらかじめ :code:`matplotlib.plt` 等がインポートされていて、
 同関数が呼び出せない状況に陥っているというのがありがちだ。
 
 上記のコードが機能するには、環境に PyQt5 がインストール済みである必要がある。
@@ -349,16 +349,16 @@ IPython_ のセッションであらかじめ ``matplotlib.plt`` 等がインポ
 実数 :math:`x` の多項式 :math:`f(x)` について :math:`y = f(x)` のグラフを描きたい。
 次の容量で曲線を定義する。
 
-#. プロットする ``x`` のサンプル点を関数 ``numpy.arange`` で適宜準備する。
+#. プロットする `x` のサンプル点を関数 :code:`numpy.arange` で適宜準備する。
    やり方を忘れていたら :doc:`/python-numpy/index` を参照。
 
-#. 多項式 ``f`` を関数 ``numpy.poly1d`` の戻り値で表現する。
+#. 多項式 `f` を関数 :code:`numpy.poly1d` の戻り値で表現する。
 
-#. 評価する変数を関数 ``np.linspace`` で用意する。
-#. プロットする値を ``np.array`` オブジェクトに対する broadcasting を利用して一気に得る。
+#. 評価する変数を関数 :code:`np.linspace` で用意する。
+#. プロットする値を :code:`np.array` オブジェクトに対する broadcasting を利用して一気に得る。
 
 なお、サンプルコードではさらに曲線に対して接線を引いた。
-``f`` の一次導関数を ``f.deriv()`` で得られることを利用する。
+`f` の一次導関数を :code:`f.deriv()` で得られることを利用する。
 
 .. literalinclude:: /_sample/mpl/polynomial.py
    :language: python3
@@ -379,13 +379,13 @@ Bézier 曲線
 
 手順はこういう感じのようだ：
 
-#. クラス ``matplotlib.path.Path`` のオブジェクトを作成する。
+#. クラス :code:`matplotlib.path.Path` のオブジェクトを作成する。
    この引数として、Bézier 曲線の制御点リストと「打点命令」のリストを渡す。
 
 #. そのパスオブジェクトを引数として、クラス
-   ``matplotlib.patches.PathPatch`` のオブジェクトを作成する。
+   :code:`matplotlib.patches.PathPatch` のオブジェクトを作成する。
 
-#. そのパッチオブジェクトを対象の ``axes`` オブジェクトに ``add_patch`` する。
+#. そのパッチオブジェクトを対象の :code:`axes` オブジェクトに :code:`add_patch` する。
 
 Matplotlib は制御点列を与えて Bézier 曲線を定義する流儀のようだ。
 
@@ -397,7 +397,7 @@ Matplotlib は制御点列を与えて Bézier 曲線を定義する流儀のよ
 * 中間の制御点は、放物線の両端点それぞれの接線の交点と一致する。
 * よって、出来上がりの曲線形状が把握できる。
 
-``Path`` オブジェクト構築は次のようになる。
+Path オブジェクト構築は次のようになる。
 
 .. literalinclude:: /_sample/mpl/bezier.py
    :language: python3
@@ -411,7 +411,7 @@ Matplotlib は制御点列を与えて Bézier 曲線を定義する流儀のよ
   また、最後の制御点とその前の制御点を結ぶ直線が、曲線の終点での接線に一致する。
 * 曲線全体は、制御点列からなる多角形の内部に位置する。
 
-``Path`` オブジェクト構築は次のようになる。
+Path オブジェクト構築は次のようになる。
 
 .. literalinclude:: /_sample/mpl/bezier.py
    :language: python3
