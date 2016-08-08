@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import matplotlib as mpl
+"""annotation.py: Demonstrate how to show an annotation.
+"""
 import matplotlib.pyplot as plt
-from matplotlib.font_manager import FontProperties
 
-ax = plt.gca()
-ann = ax.annotate(
+cur_axes = plt.gca()
+ann = cur_axes.annotate(
     'An annotate',
     xy=(1.0, 3.0),
     xycoords='data',
@@ -13,11 +13,11 @@ ann = ax.annotate(
     textcoords='data',
     arrowprops=dict(arrowstyle='->'))
 
-line = ax.plot((1, 2, 3, 4))
+line = cur_axes.plot((1, 2, 3, 4))
 
-ax.xaxis.grid(True)
-ax.xaxis.set_label('TEST')
-for label in ax.xaxis.get_ticklabels(minor=False):
+cur_axes.xaxis.grid(True)
+cur_axes.xaxis.set_label('TEST')
+for label in cur_axes.xaxis.get_ticklabels(minor=False):
     label.set_color('red')
     label.set_rotation(-45.)
     label.set_fontsize(16)

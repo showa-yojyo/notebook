@@ -1,16 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import matplotlib as mpl
+"""histogram.py: Demonstrate how to show a histogram.
+"""
+
 import matplotlib.pyplot as plt
-import numpy as np
+from numpy.random import randn
 
-ax = plt.gca()
-n, bins, rects = ax.hist(np.random.randn(1000), 50, facecolor='yellow')
+cur_axes = plt.gca()
+_, bins, rects = cur_axes.hist(randn(1000), 50, facecolor='yellow')
 
-for tick in ax.xaxis.get_minor_ticks():
+for tick in cur_axes.xaxis.get_minor_ticks():
     tick.tick1On = True
 
-for tick in ax.yaxis.get_major_ticks():
+for tick in cur_axes.yaxis.get_major_ticks():
     tick.gridOn = True
     tick.tick1On = False
     tick.tick2On = True

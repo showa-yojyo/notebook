@@ -4,10 +4,9 @@
 """
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-import numpy as np
-
 from matplotlib.path import Path
 import matplotlib.patches as patches
+import numpy as np
 
 # Unset the face color.
 mpl.rcParams['patch.facecolor'] = 'none'
