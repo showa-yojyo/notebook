@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""drawing-tree.py: draw a tree graph with pydot_layout.
+"""drawing_tree.py: draw a tree graph with pydot_layout.
 """
+import colorsys
+
 import networkx as nx
 import matplotlib.pyplot as plt
-import pydot
-import colorsys
 
 # A tree graph is given.
 branching = 2
@@ -15,7 +15,7 @@ G = nx.balanced_tree(branching, height)
 #pos = nx.spring_layout(G) # default; bad
 #pos = nx.shell_layout(G) # bad
 #pos = nx.spectral_layout(G) # poor
-pos = nx.pydot_layout(G, prog='dot') # good
+pos = nx.nx_pydot.pydot_layout(G, prog='dot') # good
 
 # Node colors.
 ncolors = []

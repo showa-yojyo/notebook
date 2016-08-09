@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""all_pairs_dijkstra_path demonstration"""
+"""dijkstra.py: all_pairs_dijkstra_path demonstration
+"""
 
 import networkx as nx
 from networkx.algorithms.shortest_paths.weighted import all_pairs_dijkstra_path_length
@@ -22,8 +23,8 @@ G.add_weighted_edges_from(
 
 # Compute the shortest path lengths between all nodes in graph G.
 all_pairs = all_pairs_dijkstra_path_length(G)
-for source, map in all_pairs:
-    for target in map.keys():
+for source, mapping in all_pairs.items():
+    for target in mapping.keys():
         if source != target:
-            dist = map[target]
+            dist = mapping[target]
             print("({}, {}): {:4.1f}".format(source, target, dist))

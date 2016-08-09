@@ -18,7 +18,7 @@ Matplotlib との連携
 関数 ``nx.draw_networkx`` 系統の描画関数だけでグラフをウィンドウに描画するコードの例を示す。
 日本語テキストが描画可能であることを示したいので、ノードラベルをすべて日本語文字列とした。
 
-.. literalinclude:: /_sample/networkx/drawing-mpl.py
+.. literalinclude:: /_sample/networkx/drawing_mpl.py
    :language: python3
 
 コードの解説は正直に言って自信がない。
@@ -154,7 +154,7 @@ Python3 動作版 pydot のセットアップ
 出来合いのものを利用するのが望ましい。
 実物の ``nx.circular_layout`` の実装はもっとスマートだ。
 
-.. literalinclude:: /_sample/networkx/drawing-comp.py
+.. literalinclude:: /_sample/networkx/drawing_comp.py
    :language: python3
 
 正多角形を描くだけのサンプルではビジュアル的にさみしいので、点の色に変化をつけてみた。
@@ -179,7 +179,7 @@ Python3 動作版 pydot のセットアップ
 結論から言うと Graphviz 任せになる。
 コツは関数 ``nx.pydot_layout`` のキーワード引数 ``prog`` を下のように指示することのようだ。
 
-.. literalinclude:: /_sample/networkx/drawing-tree.py
+.. literalinclude:: /_sample/networkx/drawing_tree.py
    :language: python3
 
 実行結果は次のようになるはずだ。例によって議論の本筋とは無関係にノードを着色してある。

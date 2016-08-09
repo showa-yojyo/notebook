@@ -75,7 +75,7 @@
 
 .. literalinclude:: /_sample/networkx/eulerian.py
    :language: python3
-   :lines: 85-87
+   :lines: 84-86
 
 出力例を示す。なお、関数 ``nx.eulerian_circuit`` の結果は実行するごとにランダムに変わるようなので、
 再度実行してもこれと同じ結果が得られない場合がある。

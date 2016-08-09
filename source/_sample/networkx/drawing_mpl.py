@@ -1,18 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""drawing-mpl.py: Demonstrate nx.draw_networkx.
+"""drawing_mpl.py: Demonstrate nx.draw_networkx.
 """
 import networkx as nx
 import matplotlib.pyplot as plt
 from matplotlib.font_manager import FontProperties
-from matplotlib.text import Text
+#from matplotlib.text import Text
 
 def main():
     """Display a graph with Matplotlib."""
 
     G = nx.DiGraph()
     G.add_edge('賢者の石', '金塊', weight=1)
-    G.add_edge('賢者の石', 'オリハルコン', weight=1),
+    G.add_edge('賢者の石', 'オリハルコン', weight=1)
     G.add_edge('賢者の石', 'せかいじゅのしずく', weight=1)
     G.reverse(False)
 
@@ -29,9 +29,9 @@ def main():
     text_items = nx.draw_networkx_labels(G, pos)
 
     # Change the font for node labels.
-    fp = FontProperties(fname=r'C:\WINDOWS\Fonts\meiryo.ttc')
+    font_prop = FontProperties(fname=r'C:\WINDOWS\Fonts\meiryo.ttc')
     for t in text_items.values():
-        t.set_fontproperties(fp)
+        t.set_fontproperties(font_prop)
 
     # Display with Matplotlib.
     plt.show()

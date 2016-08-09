@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""strongly-connected-components.py: demonstrate strongly_connected_components.
+"""strongly_connected_components.py: demonstrate strongly_connected_components.
 """
-import networkx as nx
 from itertools import groupby
+import networkx as nx
 
 def main():
     """The main function."""

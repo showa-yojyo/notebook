@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""maximum-matching.py: demonstrate max_weight_matching.
+"""maximum_matching.py: demonstrate max_weight_matching.
 """
 import networkx as nx
 

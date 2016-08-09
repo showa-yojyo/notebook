@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""nx.draw_networkx demonstration"""
+"""neteworkx_draw.py: nx.draw_networkx demonstration"""
 
 import networkx as nx
 import matplotlib.pyplot as plt

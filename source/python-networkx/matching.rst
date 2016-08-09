@@ -13,7 +13,7 @@ Wikipedia_ のイラストを参考にしてグラフを構築し、
 それぞれに対して関数 ``nx.maximal_matching`` を呼び出すコードを書いた。
 目的は、結果とイラストを比較して NetworkX_ の機能を確認することだ。
 
-.. literalinclude:: /_sample/networkx/maximal-matching.py
+.. literalinclude:: /_sample/networkx/maximal_matching.py
    :language: python3
 
 実行結果は次の通り。当該記事の図とは異なるエッジセットが得られた。
@@ -48,7 +48,7 @@ Wikipedia_ のイラストを参考にしてグラフを構築し、
 コード例は左記の物とほぼ同様につき、差分のみを示す。
 関数 ``nx.max_weight_matching`` にはキーワード引数があるが、今回は未使用とする。
 
-.. literalinclude:: /_sample/networkx/maximum-matching.py
+.. literalinclude:: /_sample/networkx/maximum_matching.py
    :language: python3
    :lines: 7-11
 

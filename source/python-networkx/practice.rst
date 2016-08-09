@@ -25,7 +25,7 @@ Dijkstra 法による最短経路
 先程のグラフを Matplotlib_ の表示機能を利用してウィンドウに出力する方法を示す。
 試行錯誤の結果、次のコードが最も見やすいイメージを描画してくれた。
 
-.. literalinclude:: /_sample/networkx/networkx-draw.py
+.. literalinclude:: /_sample/networkx/networkx_draw.py
    :language: python3
 
 スクリプトをコンソールから実行すると、

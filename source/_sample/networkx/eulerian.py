@@ -5,7 +5,6 @@
 Compute the most efficient career path in DRAGON QUEST 7 (2000).
 """
 import networkx as nx
-import pprint
 
 def main():
     """The main function.
@@ -15,69 +14,71 @@ def main():
     """
 
     G = nx.Graph()
-    G.add_edge('せんし', 'とうぞく', skill='ぬすっと斬り')
-    G.add_edge('せんし', 'おどりこ', skill='つるぎのまい')
-    G.add_edge('せんし', 'ぎんゆうしじん', skill='たたかいの歌')
-    G.add_edge('せんし', 'ふなのり', skill='かもめ返し')
-    G.add_edge('せんし', 'ひつじかい', skill='みねうち')
-    G.add_edge('せんし', 'わらわせし', skill='へんてこ斬り')
-    G.add_edge('ぶとうか', 'まほうつかい', skill='火の息')
-    G.add_edge('ぶとうか', 'とうぞく', skill='きゅうしょ突き')
-    G.add_edge('ぶとうか', 'おどりこ', skill='マッスルダンス')
-    G.add_edge('ぶとうか', 'ぎんゆうしじん', skill='おたけび')
-    G.add_edge('ぶとうか', 'ふなのり', skill='すいめんげり')
-    G.add_edge('ぶとうか', 'ひつじかい', skill='マトンアタック')
-    G.add_edge('ぶとうか', 'わらわせし', skill='しっぺ返し')
-    G.add_edge('まほうつかい', 'ぶとうか', skill='火の息')
-    G.add_edge('まほうつかい', 'とうぞく', skill='マホトラ')
-    G.add_edge('まほうつかい', 'おどりこ', skill='マホキテ')
-    G.add_edge('まほうつかい', 'ぎんゆうしじん', skill='のろいの歌')
-    G.add_edge('まほうつかい', 'ふなのり', skill='いなずま')
-    G.add_edge('まほうつかい', 'ひつじかい', skill='ラリホーマ')
-    G.add_edge('まほうつかい', 'わらわせし', skill='メダパニ')
-    G.add_edge('そうりょ', 'おどりこ', skill='死のおどり')
-    G.add_edge('そうりょ', 'ぎんゆうしじん', skill='やすらぎの歌')
-    G.add_edge('そうりょ', 'ふなのり', skill='ノアのはこぶね')
-    G.add_edge('そうりょ', 'ひつじかい', skill='スクルト')
-    G.add_edge('とうぞく', 'せんし', skill='ぬすっと斬り')
-    G.add_edge('とうぞく', 'ぶとうか', skill='きゅうしょ突き')
-    G.add_edge('とうぞく', 'まほうつかい', skill='マホトラ')
-    G.add_edge('とうぞく', 'おどりこ', skill='マホトラおどり')
-    G.add_edge('とうぞく', 'わらわせし', skill='しのび笑い')
-    G.add_edge('おどりこ', 'せんし', skill='つるぎのまい')
-    G.add_edge('おどりこ', 'ぶとうか', skill='マッスルダンス')
-    G.add_edge('おどりこ', 'まほうつかい', skill='マホキテ')
-    G.add_edge('おどりこ', 'そうりょ', skill='死のおどり')
-    G.add_edge('おどりこ', 'とうぞく', skill='マホトラおどり')
-    G.add_edge('おどりこ', 'ふなのり', skill='船上ダンス')
-    G.add_edge('おどりこ', 'ひつじかい', skill='ひつじのダンス')
-    G.add_edge('おどりこ', 'わらわせし', skill='ステテコダンス')
-    G.add_edge('ぎんゆうしじん', 'せんし', skill='たたかいの歌')
-    G.add_edge('ぎんゆうしじん', 'ぶとうか', skill='おたけび')
-    G.add_edge('ぎんゆうしじん', 'まほうつかい', skill='のろいの歌')
-    G.add_edge('ぎんゆうしじん', 'そうりょ', skill='やすらぎの歌')
-    G.add_edge('ぎんゆうしじん', 'ふなのり', skill='さざなみの歌')
-    G.add_edge('ぎんゆうしじん', 'ひつじかい', skill='ひつじかぞえ歌')
-    G.add_edge('ぎんゆうしじん', 'わらわせし', skill='コミックソング')
-    G.add_edge('ふなのり', 'せんし', skill='かもめ返し')
-    G.add_edge('ふなのり', 'ぶとうか', skill='すいめんげり')
-    G.add_edge('ふなのり', 'まほうつかい', skill='いなずま')
-    G.add_edge('ふなのり', 'そうりょ', skill='ノアのはこぶね')
-    G.add_edge('ふなのり', 'おどりこ', skill='船上ダンス')
-    G.add_edge('ふなのり', 'ぎんゆうしじん', skill='さざなみの歌')
-    G.add_edge('ひつじかい', 'せんし', skill='みねうち')
-    G.add_edge('ひつじかい', 'ぶとうか', skill='マトンアタック')
-    G.add_edge('ひつじかい', 'まほうつかい', skill='ラリホーマ')
-    G.add_edge('ひつじかい', 'そうりょ', skill='スクルト')
-    G.add_edge('ひつじかい', 'おどりこ', skill='ひつじのダンス')
-    G.add_edge('ひつじかい', 'ぎんゆうしじん', skill='ひつじかぞえ歌')
-    G.add_edge('わらわせし', 'せんし', skill='へんてこ斬り')
-    G.add_edge('わらわせし', 'ぶとうか', skill='しっぺ返し')
-    G.add_edge('わらわせし', 'まほうつかい', skill='メダパニ')
-    G.add_edge('わらわせし', 'とうぞく', skill='しのび笑い')
-    G.add_edge('わらわせし', 'おどりこ', skill='ステテコダンス')
-    G.add_edge('わらわせし', 'ぎんゆうしじん', skill='コミックソング')
-    #G.add_edge('けんじゃ', 'スーパースター', skill='メガザルダンス')
+    G.add_edges_from((
+        ('せんし', 'とうぞく', dict(skill='ぬすっと斬り')),
+        ('せんし', 'おどりこ', dict(skill='つるぎのまい')),
+        ('せんし', 'ぎんゆうしじん', dict(skill='たたかいの歌')),
+        ('せんし', 'ふなのり', dict(skill='かもめ返し')),
+        ('せんし', 'ひつじかい', dict(skill='みねうち')),
+        ('せんし', 'わらわせし', dict(skill='へんてこ斬り')),
+        ('ぶとうか', 'まほうつかい', dict(skill='火の息')),
+        ('ぶとうか', 'とうぞく', dict(skill='きゅうしょ突き')),
+        ('ぶとうか', 'おどりこ', dict(skill='マッスルダンス')),
+        ('ぶとうか', 'ぎんゆうしじん', dict(skill='おたけび')),
+        ('ぶとうか', 'ふなのり', dict(skill='すいめんげり')),
+        ('ぶとうか', 'ひつじかい', dict(skill='マトンアタック')),
+        ('ぶとうか', 'わらわせし', dict(skill='しっぺ返し')),
+        ('まほうつかい', 'ぶとうか', dict(skill='火の息')),
+        ('まほうつかい', 'とうぞく', dict(skill='マホトラ')),
+        ('まほうつかい', 'おどりこ', dict(skill='マホキテ')),
+        ('まほうつかい', 'ぎんゆうしじん', dict(skill='のろいの歌')),
+        ('まほうつかい', 'ふなのり', dict(skill='いなずま')),
+        ('まほうつかい', 'ひつじかい', dict(skill='ラリホーマ')),
+        ('まほうつかい', 'わらわせし', dict(skill='メダパニ')),
+        ('そうりょ', 'おどりこ', dict(skill='死のおどり')),
+        ('そうりょ', 'ぎんゆうしじん', dict(skill='やすらぎの歌')),
+        ('そうりょ', 'ふなのり', dict(skill='ノアのはこぶね')),
+        ('そうりょ', 'ひつじかい', dict(skill='スクルト')),
+        ('とうぞく', 'せんし', dict(skill='ぬすっと斬り')),
+        ('とうぞく', 'ぶとうか', dict(skill='きゅうしょ突き')),
+        ('とうぞく', 'まほうつかい', dict(skill='マホトラ')),
+        ('とうぞく', 'おどりこ', dict(skill='マホトラおどり')),
+        ('とうぞく', 'わらわせし', dict(skill='しのび笑い')),
+        ('おどりこ', 'せんし', dict(skill='つるぎのまい')),
+        ('おどりこ', 'ぶとうか', dict(skill='マッスルダンス')),
+        ('おどりこ', 'まほうつかい', dict(skill='マホキテ')),
+        ('おどりこ', 'そうりょ', dict(skill='死のおどり')),
+        ('おどりこ', 'とうぞく', dict(skill='マホトラおどり')),
+        ('おどりこ', 'ふなのり', dict(skill='船上ダンス')),
+        ('おどりこ', 'ひつじかい', dict(skill='ひつじのダンス')),
+        ('おどりこ', 'わらわせし', dict(skill='ステテコダンス')),
+        ('ぎんゆうしじん', 'せんし', dict(skill='たたかいの歌')),
+        ('ぎんゆうしじん', 'ぶとうか', dict(skill='おたけび')),
+        ('ぎんゆうしじん', 'まほうつかい', dict(skill='のろいの歌')),
+        ('ぎんゆうしじん', 'そうりょ', dict(skill='やすらぎの歌')),
+        ('ぎんゆうしじん', 'ふなのり', dict(skill='さざなみの歌')),
+        ('ぎんゆうしじん', 'ひつじかい', dict(skill='ひつじかぞえ歌')),
+        ('ぎんゆうしじん', 'わらわせし', dict(skill='コミックソング')),
+        ('ふなのり', 'せんし', dict(skill='かもめ返し')),
+        ('ふなのり', 'ぶとうか', dict(skill='すいめんげり')),
+        ('ふなのり', 'まほうつかい', dict(skill='いなずま')),
+        ('ふなのり', 'そうりょ', dict(skill='ノアのはこぶね')),
+        ('ふなのり', 'おどりこ', dict(skill='船上ダンス')),
+        ('ふなのり', 'ぎんゆうしじん', dict(skill='さざなみの歌')),
+        ('ひつじかい', 'せんし', dict(skill='みねうち')),
+        ('ひつじかい', 'ぶとうか', dict(skill='マトンアタック')),
+        ('ひつじかい', 'まほうつかい', dict(skill='ラリホーマ')),
+        ('ひつじかい', 'そうりょ', dict(skill='スクルト')),
+        ('ひつじかい', 'おどりこ', dict(skill='ひつじのダンス')),
+        ('ひつじかい', 'ぎんゆうしじん', dict(skill='ひつじかぞえ歌')),
+        ('わらわせし', 'せんし', dict(skill='へんてこ斬り')),
+        ('わらわせし', 'ぶとうか', dict(skill='しっぺ返し')),
+        ('わらわせし', 'まほうつかい', dict(skill='メダパニ')),
+        ('わらわせし', 'とうぞく', dict(skill='しのび笑い')),
+        ('わらわせし', 'おどりこ', dict(skill='ステテコダンス')),
+        ('わらわせし', 'ぎんゆうしじん', dict(skill='コミックソング')),
+        #('けんじゃ', 'スーパースター', dict(skill='メガザルダンス')),
+        ))
 
     if nx.is_eulerian(G):
         print_cycle(G)
@@ -90,6 +91,7 @@ def print_cycle(G, source=None):
     """Print an Eulerian cycle in G.
 
     Args:
+      G: A Graph.
       source: Starting node for circuit.
 
     Returns:
@@ -104,8 +106,8 @@ def print_cycle(G, source=None):
             else:
                 skill = skills[(i[1], i[0])]
             print('{} {}'.format(i, skill))
-    except nx.NetworkXError as e:
-        print(e)
+    except nx.NetworkXError as ex:
+        print(ex)
 
 if __name__ == '__main__':
     main()
