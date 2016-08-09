@@ -18,7 +18,7 @@
 
 お手軽な手法
 ----------------------------------------------------------------------
-NetworkX_ では最大フローを求める関数はズバリ ``nx.maximum_flow`` だ。
+NetworkX_ では最大フローを求める関数はズバリ :code:`nx.maximum_flow` だ。
 まずはキーワード引数を全く指定せずに利用する例を示す。
 すなわち、グラフと始点と終点だけを指定するだけで最大フローを求める。
 
@@ -47,7 +47,7 @@ Wikipedia_ の説明文の図を拝借して、実行してみる。
 
 残余ネットワーク計算アルゴリズムを指定する手法
 ----------------------------------------------------------------------
-ここでは関数 ``nx.maximum_flow`` のキーワード引数
+ここでは関数 :code:`nx.maximum_flow` のキーワード引数
 ``flow_func`` を明示的に指示する方法を記す。
 出来合いのアルゴリズムでは、以下の表に示すものが利用できる。
 グラフや容量の特性に合わせてアルゴリズムを選択するのだ？
@@ -57,15 +57,15 @@ Wikipedia_ の説明文の図を拝借して、実行してみる。
    :header: 関数, 計算量, コメント
    :widths: 16, 24, 60
 
-   ``preflow_push``@:math:`O(n^2 \sqrt{m})`@デフォルトのアルゴリズム。
-   ``ford_fulkerson``@:math:`O(nm^2)`@レガシーな実装とのこと。
-   ``edmonds_karp``@:math:`O(n m^2)`@``ford_fulkerson`` の「特殊版」の実装。
-   ``shortest_augmenting_path``@:math:`O(\min(n^{2/3}, m^{1/2}) m)` @最短増大路。
+   :code:`preflow_push`@:math:`O(n^2 \sqrt{m})`@デフォルトのアルゴリズム。
+   :code:`ford_fulkerson`@:math:`O(nm^2)`@レガシーな実装とのこと。
+   :code:`edmonds_karp`@:math:`O(n m^2)`@``ford_fulkerson`` の「特殊版」の実装。
+   :code:`shortest_augmenting_path`@:math:`O(\min(n^{2/3}, m^{1/2}) m)` @最短増大路。
 
-関数 ``nx.maximum_flow`` の実装を調べると、
+関数 :code:`nx.maximum_flow` の実装を調べると、
 どうもこれらの関数のラッパーなのではないかという気がする。
 
-インポートについては、例えば ``shortest_augmenting_path`` ならば次のように書けばよい。
+インポートについては、例えば :code:`shortest_augmenting_path` ならば次のように書けばよい。
 
 .. code-block:: python3
 
@@ -74,7 +74,7 @@ Wikipedia_ の説明文の図を拝借して、実行してみる。
 最大フロー最小カット
 ======================================================================
 先程の例と同じグラフを用いて、最小カットを求める手順を以下に示す。
-関数 ``nx.minimum_cut`` を利用するだけでよいのだが、
+関数 :code:`nx.minimum_cut` を利用するだけでよいのだが、
 最小カットが複数存在する場合でも、そのうちの一つを求めるようだ。
 
 .. literalinclude:: /_sample/networkx/mincut.py
@@ -98,7 +98,7 @@ Wikipedia_ の説明文の図を拝借して、実行してみる。
    :scale: 100%
    :target: http://commons.wikimedia.org/wiki/File:Max_flow.svg
 
-当然ながら関数 ``nx.minimum_cut`` もキーワード引数
+当然ながら関数 :code:`nx.minimum_cut` もキーワード引数
 ``flow_func`` をサポートしているので、
 グラフの特性に適したアルゴリズムを指示するとよいだろう。
 
@@ -124,7 +124,7 @@ Wikipedia_ の説明文の図を拝借して、実行してみる。
 これは、各辺の容量とコストが与えられているときに、
 ある始点からある終点までの、可能な限り安くつく最大フローを求める問題だ。
 これを解くには、各属性を持つ辺の集合から有向グラフを適宜構築し、
-関数 ``nx.max_flow_min_cost`` と ``nx.cost_of_flow``
+関数 :code:`nx.max_flow_min_cost` と :code:`nx.cost_of_flow`
 を用いて最大フローを得るという手順を踏むのがよさそうだ。
 
 関数 ``nx.network_simplex``
@@ -132,11 +132,11 @@ Wikipedia_ の説明文の図を拝借して、実行してみる。
 さらに、グラフの辺に輸送コストも付けたり、
 グラフの点に需要供給量を指定した状況でのフロー問題を解く機能について記す。
 
-これには関数 ``nx.network_simplex`` を利用する。
+これには関数 :code:`nx.network_simplex` を利用する。
 ただし必要に応じて、グラフの点に属性 ``demand`` を付加する。
 「流れ」が発生する点には負の値を、消費する点には正の値を指定する。
 
-なお、最小コスト系の関数はすべて関数 ``nx.network_simplex`` で実装されている。
+なお、最小コスト系の関数はすべて関数 :code:`nx.network_simplex` で実装されている。
 
 .. _NetworkX: https://networkx.github.io/
 .. _Wikipedia: http://en.wikipedia.org/wiki/Maximum_flow_problem

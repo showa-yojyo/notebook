@@ -6,30 +6,33 @@ NetworkX の描画機能は、以下で紹介する外部パッケージのい�
 
 ここで紹介する外部パッケージのいずれを採用するにせよ、
 グラフ描画の編集については最終的には手作業が入りがちだ。
-自作プログラムが出力した dot ファイルの記述は、そのまま Graphviz_ のプロセッサーにかけると、
-こちらの想定した形状にはなってくれていない場合がほとんどだ。
+自作プログラムが出力した dot ファイルの記述を
+そのまま Graphviz_ のプロセッサーにかけると、
+ほとんどの場合にこちらの想定した形状になってくれていない。
 それでテキストエディターで dot のコードを修正することになる。
-例えば、完全グラフのデモなら、ノードが正多角形を構成するような描画になるように dot を編集するのだ。
+例えば、完全グラフのデモなら、
+ノードが正多角形を構成するような描画になるように dot を編集するのだ。
 
 .. contents::
    
 Matplotlib との連携
 ======================================================================
-関数 ``nx.draw_networkx`` 系統の描画関数だけでグラフをウィンドウに描画するコードの例を示す。
-日本語テキストが描画可能であることを示したいので、ノードラベルをすべて日本語文字列とした。
+関数 :code:`nx.draw_networkx` 系統の描画関数だけでグラフをウィンドウに描画するコードの例を示す。
+日本語テキストが描画可能であることを示したいので、
+ノードラベルをすべて日本語文字列とした。
 
 .. literalinclude:: /_sample/networkx/drawing_mpl.py
    :language: python3
 
 コードの解説は正直に言って自信がない。
 
-* ``G.reverse`` については深い意味はなく、
+* :code:`G.reverse` については深い意味はなく、
   グラフの辺の向きをアイテムの生成方向にしたかっただけ。
-* ``nx.shell_layout`` は勘。キーワード引数の指定が面倒なため、デフォルト任せ。
-* グラフ描画のメインは ``nx.draw`` なのだが、
-  普通は ``nx.draw_networkx`` を使ったほうがよさそうだ。
+* :code:`nx.shell_layout` は勘。キーワード引数の指定が面倒なため、デフォルト任せ。
+* グラフ描画のメインは :code:`nx.draw` なのだが、
+  普通は :code:`nx.draw_networkx` を使ったほうがよさそうだ。
   ここではエッジラベルとノードラベルの描画をそれぞれ細かく指示したかったので、
-  単純版である ``nx.draw`` を採用した。
+  単純版である :code:`nx.draw` を採用した。
 * ノードラベルは日本語なので、適切なフォントをセットする必要がある。
   どうも Matplotlib のインスタンスを直接操作せねばならぬようなので、このようにした。
 
@@ -45,7 +48,6 @@ Matplotlib との連携
 PyGraphviz との連携
 ======================================================================
 Python 3.5 環境では、現時点で PyGraphviz_ を利用するには自分でビルドをする必要がありそうだ。
-
 
 .. code-block:: console
 
@@ -63,6 +65,8 @@ Python 3.5 環境では、現時点で PyGraphviz_ を利用するには自分�
        building 'pygraphviz._graphviz' extension
        error: Unable to find vcvarsall.bat
 
+.. warning:: こちらは最新環境では試していない。
+
 pydot との連携
 ======================================================================
 本家の pydot_ は Python3 に対応していない。
@@ -72,7 +76,7 @@ pydot との連携
 Python3 動作版 pydot のセットアップ
 ----------------------------------------------------------------------
 試行錯誤した結果、どうも `nlhepler 版 pydot <https://github.com/nlhepler/pydot>`_
-を利用するのがもっとも安定した動作実績を得られることがわかったので、本稿ではそれを採用する。
+を利用するのがもっとも安定した動作実績を得られることがわかった。
 バージョンは 1.0.29 だ。
 
 .. code-block:: console
@@ -81,15 +85,37 @@ Python3 動作版 pydot のセットアップ
    $ cd pydot
    $ pip install -e .
 
-モジュール ``networkx.drawing.nx_pydot`` の関数の動作確認
+パッケージ nxpydot のセットアップ
+----------------------------------------------------------------------
+別の方法を見つけたので記す。
+それは nxpydot_ というサードパーティー製パッケージを利用するやり方だ。
+本稿ではこちらを採用する。
+
+.. code-block:: console
+
+   $ pip install nxpydot
+   Collecting nxpydot
+     Downloading nxpydot-0.1-py3-none-any.whl
+   Collecting pydotplus (from nxpydot)
+     Downloading pydotplus-2.0.2.tar.gz (278kB)
+       ...
+   Requirement already satisfied (use --upgrade to upgrade): pyparsing>=2.0.1 in d:\miniconda3\lib\site-packages (from pydotplus->nxpydot)
+   Building wheels for collected packages: pydotplus
+     Running setup.py bdist_wheel for pydotplus ... done
+     ...
+   Successfully built pydotplus
+   Installing collected packages: pydotplus, nxpydot
+   Successfully installed nxpydot-0.1 pydotplus-2.0.2
+
+モジュール :code:`networkx.nx_pydot` の関数の動作確認
 ----------------------------------------------------------------------
 以上の環境で、簡単な NetworkX のグラフインスタンスを作成し、
-モジュール ``networkx.drawing.nx_pydot`` がエクスポートしている各関数の動作を確認した。
+モジュール :code:`networkx.nx_pydot` がエクスポートしている各関数の動作を確認した。
 
 >>> N = nx.complete_graph(5)
->>> P = nx.to_pydot(N)
+>>> P = nx.nx_pydot.to_pydot(N)
 >>> path = 'D:/Temp/nx_pydot.dot'
->>> nx.write_dot(N, path)
+>>> nx.nx_pydot.write_dot(N, path)
 >>> # etc.
 
 現時点での利用可否状況は次のような感じだと思う。
@@ -99,11 +125,11 @@ Python3 動作版 pydot のセットアップ
    :header: 関数, 呼び出し結果
    :widths: 16, 32
 
-   ``nx.from_pydot(P)``@OK
-   ``nx.to_pydot(N, ...)``@OK
-   ``nx.write_dot(P, path)``@OK
-   ``nx.read_dot(path)``@OK
-   ``nx.pydot_layout(G, ...)`` @NG; ``IndexError: list index out of range``
+   :code:`nx.nx_pydot.from_pydot(P)`@OK
+   :code:`nx.nx_pydot.to_pydot(N, ...)`@OK
+   :code:`nx.nx_pydot.write_dot(P, path)`@OK
+   :code:`nx.nx_pydot.read_dot(path)`@OK
+   :code:`nx.nx_pydot.pydot_layout(G, ...)`@OK
 
 テキストファイルの内容はこのようになる。
 
@@ -127,45 +153,30 @@ Python3 動作版 pydot のセットアップ
    3 -- 4;
    }
 
-最後の関数 ``nx.pydot_layout`` の失敗は、例外送出のケースが 2 通りある。
-どちらも状況がわからない。
-
-以上のことから、利用パターンは次のものに限られるのではないだろうか。
-
-* dot 形式のテキストファイルを ``nx.read_dot`` して、
-  NetworkX のグラフインスタンスを生成する。
-  それから、所望のグラフアルゴリズムを適用する。
-* NetworkX のグラフインスタンスをグラフィカルに描画したい場合は、関数
-  ``nx.write_dot`` を用いて dot ファイルに書き出し、Graphviz のツールで画像化する。
-
-.. todo::
-
-   ``nx.pydot_layout`` 問題をクリアする。
-
 形状別描画手引
 ======================================================================
 
 完全グラフを正多角形の頂点に描画したい
 ----------------------------------------------------------------------
-完全グラフを描画するには、描画関数 ``nx.draw_circular`` 一発で済ませるか、
-あるいはレイアウト関数 ``nx.circular_layout`` と汎用描画関数の組み合わせのどちらかを利用したい。
+完全グラフを描画するには、描画関数 :code:`nx.draw_circular` 一発で済ませるか、
+あるいはレイアウト関数 :code:`nx.circular_layout` と汎用描画関数の組み合わせのどちらかを利用したい。
 ここでは後者の例を示す。
 コード中の if ブロックの else の処理は自力でグラフノードの座標を指示する一例であるが、
 出来合いのものを利用するのが望ましい。
-実物の ``nx.circular_layout`` の実装はもっとスマートだ。
+実物の :code:`nx.circular_layout` の実装はもっとスマートだ。
 
 .. literalinclude:: /_sample/networkx/drawing_comp.py
    :language: python3
 
 正多角形を描くだけのサンプルではビジュアル的にさみしいので、点の色に変化をつけてみた。
 
-コード中の ``set_aspect`` うんぬんは Matplotlib 側の事情による。
+コード中の :code:`set_aspect` うんぬんは Matplotlib 側の事情による。
 私の環境では、この呼び出しを行わないとプロットの座標系の縦横比が 1 : 1 にならない。
 
 実行結果は次のようになるはずだ。
 仮に自力で点の座標を指示すると、原点を中止とする単位円周上に配列される。
 もっとも、グラフを図示するときには点の物理的な座標は気にしないはずなので、
-``plt.axis('off')`` する等して座標軸の描画をやめるとよい。
+:code:`plt.axis('off')` する等して座標軸の描画をやめるとよい。
 
 .. figure:: /_static/networkx-drawing-comp.png
    :align: center
@@ -177,7 +188,7 @@ Python3 動作版 pydot のセットアップ
 木を描画したい
 ----------------------------------------------------------------------
 結論から言うと Graphviz 任せになる。
-コツは関数 ``nx.pydot_layout`` のキーワード引数 ``prog`` を下のように指示することのようだ。
+コツは関数 :code:`nx.pydot_layout` のキーワード引数 ``prog`` を下のように指示することのようだ。
 
 .. literalinclude:: /_sample/networkx/drawing_tree.py
    :language: python3
@@ -191,11 +202,6 @@ Python3 動作版 pydot のセットアップ
    :height: 295px
    :scale: 80%
 
-.. ただし先述の ``IndexError`` を引き起こさぬように、NetworkX のコードを改造しなくてはならない。
-.. それは、``nx_pydot.py`` に定義されている関数 ``pydot_layout`` の途中の
-.. ``encode('utf-8')`` の呼び出しをコメントアウトすることだ。
-.. こちらの修正はさらに上述の Python3 版 pydot の導入とセットで行うこと。
-
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
 .. _NetworkX: https://networkx.github.io/
@@ -203,3 +209,4 @@ Python3 動作版 pydot のセットアップ
 .. _PyGraphviz: http://pygraphviz.github.io/
 .. _pydot: https://code.google.com/p/pydot/
 .. _Pyparsing: http://pyparsing.wikispaces.com/
+.. _nxpydot: http://github.com/pfmoore/nxpydot

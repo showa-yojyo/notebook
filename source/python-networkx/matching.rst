@@ -10,7 +10,7 @@
 極大マッチングは関数呼び出し一発で求められる。
 
 Wikipedia_ のイラストを参考にしてグラフを構築し、
-それぞれに対して関数 ``nx.maximal_matching`` を呼び出すコードを書いた。
+それぞれに対して関数 :code:`nx.maximal_matching` を呼び出すコードを書いた。
 目的は、結果とイラストを比較して NetworkX_ の機能を確認することだ。
 
 .. literalinclude:: /_sample/networkx/maximal_matching.py
@@ -37,7 +37,7 @@ Wikipedia_ のイラストを参考にしてグラフを構築し、
 
 最小極大マッチング
 ======================================================================
-関数 ``min_maximal_matching`` が最小極大マッチングを求めるものなのだろうが、
+関数 :code:`min_maximal_matching` が最小極大マッチングを求めるものなのだろうが、
 その実装は……。
 
 最大マッチング
@@ -46,7 +46,7 @@ Wikipedia_ のイラストを参考にしてグラフを構築し、
 こちらの例も Wikipedia_ から拝借して、結果を見比べてみよう。
 
 コード例は左記の物とほぼ同様につき、差分のみを示す。
-関数 ``nx.max_weight_matching`` にはキーワード引数があるが、今回は未使用とする。
+関数 :code:`nx.max_weight_matching` にはキーワード引数があるが、今回は未使用とする。
 
 .. literalinclude:: /_sample/networkx/maximum_matching.py
    :language: python3
@@ -57,7 +57,7 @@ Wikipedia_ のイラストを参考にしてグラフを構築し、
 
 .. code-block:: console
 
-   $ python maximum-matching.py
+   $ python maximum_matching.py
    {0: 2, 1: 5, 2: 0, 5: 1}
    {0: 1, 1: 0, 2: 4, 3: 5, 4: 2, 5: 3}
    {1: 3, 2: 4, 3: 1, 4: 2}

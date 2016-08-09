@@ -42,7 +42,7 @@ NetworkX_ のドキュメントから shortest path を検索すると、
     経路長の上限を指定することになる。
     つまり、戻り値の（個々の）経路のエッジの重み総和が ``cutoff`` を超えない。
 
-* 関数 ``all_pairs_xxxx`` は ``single_source_xxxx`` の簡単な反復呼び出しで実装されている。
+* 関数 :code:`all_pairs_xxxx` は :code:`single_source_xxxx` の簡単な反復呼び出しで実装されている。
 
 .. _dijkstra:
 
@@ -63,14 +63,14 @@ Dijkstra 法による最短経路探索関数
    :height: 251px
    :scale: 100%
 
-ここでは当然関数 ``all_pairs_dijkstra_path_length`` を利用する。
+ここでは当然関数 :code:`all_pairs_dijkstra_path_length` を利用する。
 グラフの定義から最短経路の長さを計算するまでの処理を行うコードは次のようなものになる。
 
 .. literalinclude:: /_sample/networkx/dijkstra.py
    :language: python3
 
 実行結果は次のようなものになる。出力の見やすさにこだわりがなければ、
-単に ``print(all_edges)`` でも各経路の最短距離を目視できる。
+単に :code:`print(all_edges)` でも各経路の最短距離を目視できる。
 インポートの手間に見合う結果が得られたのではないかな。
 
 .. code-block:: none
