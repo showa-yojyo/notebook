@@ -10,81 +10,81 @@ SymPy_ は多項式の取り扱いをかなり重要視しているようで、
 基本
 ======================================================================
 モジュールとしては ``sympy.polys`` にある関数を見ていく。
-ここで紹介する関数は ``from sympy import *`` で利用できるが、
+ここで紹介する関数は :code:`from sympy import *` で利用できるが、
 実際に定義されているモジュールは下の方にある。
 
 除算
 ----------------------------------------------------------------------
-多項式同士の除算を行うには関数 ``div`` を用いる。
+多項式同士の除算を行うには関数 :code:`div` を用いる。
 
-関数 ``div(f, g, *gens, **kwargs)``
+関数 :code:`div(f, g, *gens, **kwargs)`
   多項式の Euclid 除法を計算する。商と余りを同時に計算する。
 
-  * 戻り値は ``tuple`` オブジェクトで、先頭から順に商、余りだ。
+  * 戻り値は tuple オブジェクトで、先頭から順に商、余りだ。
 
-  * キーワード引数 ``domain`` で係数の属する体を指定することが可能。
+  * キーワード引数 :code:`domain` で係数の属する体を指定することが可能。
     ``'ZZ'`` や ``'QQ'`` というキーワードになる。
     それぞれ整数、有理数を意味する。
 
   * 多変数多項式にも対応している。
     どのシンボルが変数なのかを明示的に指示する方法があるらしい。
 
-  * ``f`` と ``g`` を両方定数にすると、なんと計算に失敗する。
+  * :code:`f` と :code:`g` を両方定数にすると、なんと計算に失敗する。
 
 最大公約式と最小公倍式
 ----------------------------------------------------------------------
 多項式同士の GCD および LCM を計算する関数を利用できる。
 
-関数 ``gcd(f, g, *gens, **kwargs)``, ``gcd_list(seq, *gens, **args)``
+関数 :code:`gcd(f, g, *gens, **kwargs)`, :code:`gcd_list(seq, *gens, **args)`
   最大公約式を計算する。
 
   * 結果の多項式の最高次数係数がどうなるかは引数に依存する。
-    例えば有理数係数同士の ``gcd`` はモニックになる。
+    例えば有理数係数同士の :code:`gcd` はモニックになる。
   * 多変数多項式にも対応している。変数はアルファベット順に並んでいる。
 
-関数 ``lcm(f, g, *gens, **kwargs)``, ``lcm_list(seq, *gens, **args)``
+関数 :code:`lcm(f, g, *gens, **kwargs)`, :code:`lcm_list(seq, *gens, **args)`
   最小公倍多項式を計算する。
 
-  * ``lcm(f, g) * gcd(f, g) == f * g`` が満たされるように結果を決める。
+  * :code:`lcm(f, g) * gcd(f, g) == f * g` が満たされるように結果を決める。
 
-どちらも定数同士を評価できるが、別のモジュールに ``igcd``, ``ilcm`` という関数がある。
+どちらも定数同士を評価できるが、
+別のモジュールに :code:`igcd`, :code:`ilcm` という関数がある。
 しかも複数個の評価ができる。
 多項式の場合は整数の場合とは異なり、ペアの評価か複数個の評価によって関数を使い分ける。
-例えば複数個の GCD を求める場合には関数 ``gcd`` ではなく関数 ``gcd_list`` を用いる。
-引数 ``seq`` にリストなどを渡せばよい。
+例えば複数個の GCD を求める場合には関数 :code:`gcd` ではなく関数 :code:`gcd_list` を用いる。
+引数 :code:`seq` にリストなどを渡せばよい。
 
-関数 ``resultant(f, g, *gens, **args)``
+関数 :code:`resultant(f, g, *gens, **args)`
   多項式同士の集結式を計算する。
 
-  * キーワード引数 ``includePRS=True`` を指定すれば、主部分終結式係数のリストをも生成する。
-    このとき、戻り値は集結式と主部分終結式係数のリストの ``tuple`` オブジェクトとなる。
-    ちなみに後者のみを返す関数 ``subresultants`` というものがある。
+  * キーワード引数 :code:`includePRS=True` を指定すれば、主部分終結式係数のリストをも生成する。
+    このとき、戻り値は集結式と主部分終結式係数のリストの tuple オブジェクトとなる。
+    ちなみに後者のみを返す関数 :code:`subresultants` というものがある。
 
 無平方因子分解
 ----------------------------------------------------------------------
 ここでは square-free factorization を無平方因子分解と呼ぶことにする。
 
-関数 ``sqf(f, *gens, **args)``, ``sqf_list(f, *gens, **args)``
+関数 :code:`sqf(f, *gens, **args)`, :code:`sqf_list(f, *gens, **args)`
   多項式を無平方因子分解する。
 
   * 多変数多項式も対応する。
-  * ``sqf`` の戻り値は単に多項式である。
-    一方 ``sqf_list`` の戻り値は次の構造の ``tuple`` オブジェクトである。
+  * :code:`sqf` の戻り値は単に多項式である。
+    一方 :code:`sqf_list` の戻り値は次の構造の tuple オブジェクトである。
 
     #. 無平方因子分解の最高次数項の係数
-    #. 無平方因数とその指数からなるペアを並べた ``list`` オブジェクト
+    #. 無平方因数とその指数からなるペアを並べた list オブジェクト
 
-他にも ``sqf_`` な関数はある。
+他にも :code:`sqf_` な関数はある。
 
 因数分解
 ----------------------------------------------------------------------
-
-関数 ``factor(f, *gens, **args)``, ``factor_list(f, *gens, **args)``
+関数 :code:`factor(f, *gens, **args)`, :code:`factor_list(f, *gens, **args)`
   多項式を（デフォルトでは有理数の範囲で）因数分解する。
 
   * 一変数多項式だけではなく、多変数多項式も因数分解する。
   * 定数を因数分解させると、引数そのものが戻り値として得られる。
-    特に整数を因数分解したい場合は、別に関数 ``factorint`` が用意されている。
+    特に整数を因数分解したい場合は、別に関数 :code:`factorint` が用意されている。
   * キーワード引数各種により因数分解の範囲を「拡大」できる。
 
     .. code-block:: ipython
@@ -102,24 +102,24 @@ Gröbner 基底
 ----------------------------------------------------------------------
 多項式の方程式を解くのに用いられる概念である。
 
-関数 ``groebner(F, *gens, **args)``
+関数 :code:`groebner(F, *gens, **args)`
   Gröbner 基底を計算する。
 
-  最初の引数の ``F`` が多項式のコレクションを指定して、
+  最初の引数の :code:`F` が多項式のコレクションを指定して、
   次に多項式の変数を引数リストに並べて呼び出す。
 
-  * キーワード引数 ``order`` で基底の項順序を指定することができる。
-    デフォルトでは ``order='lex'`` とのこと。
+  * キーワード引数 :code:`order` で基底の項順序を指定することができる。
+    デフォルトでは :code:`order='lex'` とのこと。
 
 多項式の方程式、連立方程式を解く
 ----------------------------------------------------------------------
 以下では「多項式の方程式」という用語は polynomial equation(s) を指す。
 これらの関数を用いる際には、多項式変数シンボルを引数リストで明示的に指定する。
 
-関数 ``solve(f, *symbols, **flags)``, ``solve_poly_system(seq, *gens, **args)``
+関数 :code:`solve(f, *symbols, **flags)`, :code:`solve_poly_system(seq, *gens, **args)`
   汎用の方程式ソルバーが多項式方程式を解く際にも用いられる。
 
-  * ところでキーワード引数 ``domain='ZZ'`` のようなものはサポートされていないのだろうか。
+  * ところでキーワード引数 :code:`domain='ZZ'` のようなものはサポートされていないのだろうか。
     次のようにシンボルを設定し直せば意図通りの動きはするようだが。
 
     .. code-block:: ipython
@@ -157,31 +157,31 @@ Gröbner 基底
 
    調査中。関数名を見れば何とかなりそうだ。
 
-* 関数 ``degree(f, *gens, **args)``, ``degree_list(f, *gens, **args)``
-* 関数 ``LC(f, *gens, **args)``
-* 関数 ``LM(f, *gens, **args)``
-* 関数 ``LT(f, *gens, **args)``
-* 関数 ``rem(f, g, *gens, **args)``
-* 関数 ``quo(f, g, *gens, **args)``
-* 関数 ``discriminant(f, *gens, **args)``
-* 関数 ``monic(f, *gens, **args)``
-* 関数 ``compose(f, g, *gens, **args)``
-* 関数 ``decompose(f, *gens, **args)``
-* 関数 ``count_roots(f, inf=None, sup=None)``
-* 関数 ``real_roots(f, multiple=True)``
-* 関数 ``cancel(f, *gens, **args)``
+* 関数 :code:`degree(f, *gens, **args)`, :code:`degree_list(f, *gens, **args)`
+* 関数 :code:`LC(f, *gens, **args)`
+* 関数 :code:`LM(f, *gens, **args)`
+* 関数 :code:`LT(f, *gens, **args)`
+* 関数 :code:`rem(f, g, *gens, **args)`
+* 関数 :code:`quo(f, g, *gens, **args)`
+* 関数 :code:`discriminant(f, *gens, **args)`
+* 関数 :code:`monic(f, *gens, **args)`
+* 関数 :code:`compose(f, g, *gens, **args)`
+* 関数 :code:`decompose(f, *gens, **args)`
+* 関数 :code:`count_roots(f, inf=None, sup=None)`
+* 関数 :code:`real_roots(f, multiple=True)`
+* 関数 :code:`cancel(f, *gens, **args)`
 
 モジュール ``sympy.polys.polyfuncs``
 ----------------------------------------------------------------------
-関数 ``symmetrize(F, *gens, **args)``
+関数 :code:`symmetrize(F, *gens, **args)`
   与えられた対称多項式をいくつかの基本対称式の和として書き換える。
-  戻り値は対称式の ``tuple`` オブジェクトなので、
-  受け取る側でこれを ``sum`` すれば全体になる。
+  戻り値は対称式の tuple オブジェクトなので、
+  受け取る側でこれを :code:`sum` すれば全体になる。
 
   * 引数が対称でない多項式でもエラーなしで呼び出せる。
     戻り値内の多項式に、元の多項式に含まれていた文字が残ってしまうだけ。
 
-  * キーワード引数 ``formal=True`` を指定すること、
+  * キーワード引数 :code:`formal=True` を指定すること、
     基本対称式を名前で出してくれる。
 
     .. code-block:: ipython
@@ -189,14 +189,14 @@ Gröbner 基底
        In [1]: symmetrize(x**3 + y**3 + z**3, formal=True)
        Out[1]: (s1**3 - 3*s1*s2 + 3*s3, 0, [(s1, x + y + z), (s2, x*y + x*z + y*z), (s3, x*y*z)])
 
-関数 ``interpolate(data, x)``
+関数 :code:`interpolate(data, x)`
   引数の点列データを通過するような多項式を生成する。補間。
-  データ ``data`` の型は ``list`` か ``dict`` で通じる。
+  データ :code:`data` の型は list か dict で通じる。
   次のものはどれも同じ多項式を生成する。
 
-  * ``[(1, 1), (2, 4), (3, 9), (4, 16)]``
-  * ``{1:1, 2:4, 3:9, 4:16}``
-  * ``[1, 4, 9, 16]``
+  * :code:`[(1, 1), (2, 4), (3, 9), (4, 16)]`
+  * :code:`{1:1, 2:4, 3:9, 4:16}`
+  * :code:`[1, 4, 9, 16]`
 
   .. code-block:: ipython
 
@@ -214,40 +214,40 @@ Gröbner 基底
 ----------------------------------------------------------------------
 代数的数、代数体、その辺り。多項式の話題から離れる可能性がある。
 
-関数 ``minimal_polynomial(ex, x=None, **args)``, ``minpoly``
+関数 :code:`minimal_polynomial(ex, x=None, **args)`, :code:`minpoly`
   代数的数の最小多項式を求める。
 
-  * ``minpoly`` は単なる別名。
-  * キーワード引数 ``domain`` で最小多項式をどの体上で求めるかを指定できる。
+  * :code:`minpoly` は単なる別名。
+  * キーワード引数 :code:`domain` で最小多項式をどの体上で求めるかを指定できる。
 
 モジュール ``sympy.polys.monomials``
 ----------------------------------------------------------------------
 単項式関連のモジュールだ。関数だけ見ていく。
 
-ジェネレーター ``itermonomials(variables, degree)``
+ジェネレーター :code:`itermonomials(variables, degree)`
   指定次数の単項式に含まれるすべての単項式を返す。
 
   * 次数ゼロの項、すなわち ``1`` をも返す。
   * 返ってくる単項式の順序は不定。受け取り側で適宜ソートすればよい。
 
-    * ソートのキーには別モジュールにある関数 ``monomial_key`` という（ドキュメントがないようだ）ものを用いる。
+    * ソートのキーには別モジュールにある関数 :code:`monomial_key` という（ドキュメントがないようだ）ものを用いる。
 
-関数 ``monomial_count(V, N)``
-  相異なる ``V`` 個の文字からなる ``N`` 次多項式が含む単項式の個数を返す。
+関数 :code:`monomial_count(V, N)`
+  相異なる :code:`V` 個の文字からなる :code:`N` 次多項式が含む単項式の個数を返す。
 
 モジュール ``sympy.polys.polyroots``
 ----------------------------------------------------------------------
-関数 ``roots(f, *gens, **flags)``
+関数 :code:`roots(f, *gens, **flags)`
   一変数多項式の根を計算する。
 
   色々とキーワード引数があるが、利用する可能性のあるのはこれぐらいか。
 
-  * ``filter=R`` などのようにして、根を求める範囲を限定できる。
+  * :code:`filter=R` などのようにして、根を求める範囲を限定できる。
 
-    * デフォルトでは複素数の範囲になっている。すなわち ``filter=C`` だ。
-    * 別の関数では ``domain`` と言っていた。
+    * デフォルトでは複素数の範囲になっている。すなわち :code:`filter=C` だ。
+    * 別の関数では :code:`domain` と言っていた。
 
-  * ``multiple=True`` とすると、重根を丁寧に出力するようだ。
+  * :code:`multiple=True` とすると、重根を丁寧に出力するようだ。
 
     .. code-block:: ipython
 
@@ -268,27 +268,27 @@ Gröbner 基底
 ----------------------------------------------------------------------
 わかる範囲で。
 
-関数 ``interpolating_poly(n, x, X='x', Y='y')``
+関数 :code:`interpolating_poly(n, x, X='x', Y='y')`
   Lagrange の補間多項式を生成する。
   
   * 第 1 引数は補間点列の点数。
   * 第 2 引数は多項式の変数文字を指定する。
-  * 通過点列はデフォルトで ``(x0, y0)``, ``(x1, y1)``, ... となる。
+  * 通過点列はデフォルトで :code:`(x0, y0)`, :code:`(x1, y1)`, ... となる。
 
-関数 ``cyclotomic_poly(n, x=None, **args)``
-  位数 ``n`` の円分多項式を生成する。
+関数 :code:`cyclotomic_poly(n, x=None, **args)`
+  位数 :code:`n` の円分多項式を生成する。
 
-  * デフォルトだと生成する多項式の変数文字が ``_x`` とかいう汚いものになる？
+  * デフォルトだと生成する多項式の変数文字が :code:`_x` とかいう汚いものになる？
 
-関数 ``symmetric_poly(n, *gens, **args)``
-  与えた複数の文字における ``n`` 番目の基本対称多項式を生成する。
+関数 :code:`symmetric_poly(n, *gens, **args)`
+  与えた複数の文字における :code:`n` 番目の基本対称多項式を生成する。
 
   .. code-block:: ipython
 
      In [1]: symmetric_poly(4, symbols('x0:5'))
      Out[1]: x0*x1*x2*x3 + x0*x1*x2*x4 + x0*x1*x3*x4 + x0*x2*x3*x4 + x1*x2*x3*x4
 
-関数 ``random_poly(x, n, inf, sup, domain=ZZ, polys=False)``
+関数 :code:`random_poly(x, n, inf, sup, domain=ZZ, polys=False)`
   各項の係数がランダムかつ指定範囲に収まるような多項式を生成する。
 
   .. code-block:: ipython
@@ -309,7 +309,7 @@ Gröbner 基底
 ----------------------------------------------------------------------
 このモジュールには多項式の直交系に関係する関数が置いてある。
 
-関数 ``chebyshevt_poly(n, x=None, **args)``, ``chebyshevu_poly(n, x=None, **args)``
+関数 :code:`chebyshevt_poly(n, x=None, **args)`, :code:`chebyshevu_poly(n, x=None, **args)`
   それぞれ第一種 Chebyshev 多項式、第二種 Chebyshev 多項式を求める。
 
   .. code-block:: ipython
@@ -338,15 +338,15 @@ Gröbner 基底
 
   この定積分の計算時間が若干長い。
 
-関数 ``gegenbauer_poly(n, a, x=None, **args)``
+関数 :code:`gegenbauer_poly(n, a, x=None, **args)`
   Gegenbauer 多項式 a.k.a. 超球関数を求める。
 
-関数 ``hermite_poly(n, x=None, **args)``
+関数 :code:`hermite_poly(n, x=None, **args)`
   Hermite の多項式を求める。
 
   * 積分したら返ってこない。
 
-関数 ``jacobi_poly(n, a, b, x=None, **args)``
+関数 :code:`jacobi_poly(n, a, b, x=None, **args)`
   Jacobi の多項式を求める。
 
   .. code-block:: ipython
@@ -358,7 +358,7 @@ Gröbner 基底
      In [3]: integrate(P * Q * (1 - x)**10 * (1 + x)**20, (x, -1, 1))
      Out[3]: 0
 
-関数 ``legendre_poly(n, x=None, **args)``
+関数 :code:`legendre_poly(n, x=None, **args)`
   Legendre の多項式を求める。
 
   .. code-block:: ipython
@@ -370,7 +370,7 @@ Gröbner 基底
      In [3]: integrate(P3 * P7, (x, -1, 1))
      Out[3]: 0
 
-関数 ``laguerre_poly(n, x=None, alpha=None, **args)``
+関数 :code:`laguerre_poly(n, x=None, alpha=None, **args)`
   Laguerre の多項式を求める。
   スペリングが紛らわしいので、コンソールでテキスト補完のときは注意。
 
@@ -380,18 +380,18 @@ Gröbner 基底
 ----------------------------------------------------------------------
 このモジュールの代表的な機能は次の関数だ。
 
-関数 ``together(expr, deep=False)``
-  有理式 ``expr`` の通分を実行する。
+関数 :code:`together(expr, deep=False)`
+  有理式 :code:`expr` の通分を実行する。
   正確に言うと、有理式の和の形になっているものを単一の有理式にする。
 
-  * キーワード引数で ``deep=True`` とすると、通分の適用を与式の「内側」まで有効にする。
-  * 関数 ``apart`` と逆の働きをする。
+  * キーワード引数で :code:`deep=True` とすると、通分の適用を与式の「内側」まで有効にする。
+  * 関数 :code:`apart` と逆の働きをする。
 
 モジュール ``sympy.polys.partfrac``
 ----------------------------------------------------------------------
 部分分数分解に関係する機能を含むモジュール。
 
-関数 ``apart(f, x=None, full=False, **options)``, ``apart_list(f, x=None, dummies=None, **options)``
+関数 :code:`apart(f, x=None, full=False, **options)`, :code:`apart_list(f, x=None, dummies=None, **options)`
   有理関数を部分分数分解する。
 
   .. code-block:: ipython
@@ -402,10 +402,10 @@ Gröbner 基底
      In [2]: apart(_)
      Out[2]: 2 + 3/(x + 1) - 3/(x - 1)
 
-  * キーワード引数 ``full=True`` がわからない。
+  * キーワード引数 :code:`full=True` がわからない。
 
-関数 ``assemble_partfrac_list(partial_list)``
-  上述の ``apart_list`` の戻り値から有理関数の部分分数分解を復元する。
+関数 :code:`assemble_partfrac_list(partial_list)`
+  上述の :code:`apart_list` の戻り値から有理関数の部分分数分解を復元する。
 
 モジュール ``sympy.polys.dispersion``
 ----------------------------------------------------------------------

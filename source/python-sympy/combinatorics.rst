@@ -20,21 +20,21 @@
 巡回置換と置換
 ======================================================================
 モジュール ``sympy.combinatorics.permutations`` に群論オブジェクトのための重要な構成要素がある。
-クラス ``Cycle`` と ``Permutation`` がそれで、
+クラス Cycle と Permutation がそれで、
 後で見る各種有限群オブジェクトの基礎となるデータ型を表現する。
-SymPy_ のドキュメントでは先に ``Permutation`` を説明しているが、
-私は ``Cycle`` を先に理解するのがよいと思うので、
+SymPy_ のドキュメントでは先に Permutation を説明しているが、
+私は Cycle を先に理解するのがよいと思うので、
 ここではそのようにノートを記す。
 
-クラス ``Cycle``
+クラス Cycle
 ----------------------------------------------------------------------
 巡回置換を表現する。基本的な構成要素なので少々細かく見てきたい。
 
 * 要素は自然数で表現する。0 から始まる。
 
-  * したがって、恒等置換を生成するには ``Cycle(0)`` とする。位数 1 の巡回が生成する。
+  * したがって、恒等置換を生成するには :code:`Cycle(0)` とする。位数 1 の巡回が生成する。
 
-* 例を挙げる。``Cycle(0, 3, 7)`` は次のような巡回置換を表現する。
+* 例を挙げる。:code:`Cycle(0, 3, 7)` は次のような巡回置換を表現する。
 
   * 0 → 3
   * 3 → 7
@@ -43,8 +43,8 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
 
 * IPython 等の Python シェルでオブジェクトをダンプする際には
 
-  * ``c.list()`` のようにして確認できる。
-  * または明示的に Python 組み込み関数 ``print`` を用いる。
+  * :code:`c.list()` のようにして確認できる。
+  * または明示的に Python 組み込み関数 :code:`print` を用いる。
 
 * 巡回置換を合成するにはコンストラクター呼び出し直後にさらに括弧を付けて巡回置換を追加する。
   例を示す。
@@ -54,13 +54,13 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
      In [1]: Cycle(0, 3, 7)(1, 2).list()
      Out[1]: [3, 2, 1, 7, 4, 5, 6, 0]
 
-* このクラスは実は Python の ``dict`` をスーパークラスに持つだけなので、
+* このクラスは実は Python の dict をスーパークラスに持つだけなので、
   あまり SymPy のオブジェクトという感じがしない。
 
-* 極端に大きい値を巡回させると ``MemoryError`` が送出される。
-  例えば ``Cycle(1000000, 100)(10000, 1, 100000000)`` などとしないほうがよい。
+* 極端に大きい値を巡回させると MemoryError が送出される。
+  例えば :code:`Cycle(1000000, 100)(10000, 1, 100000000)` などとしないほうがよい。
 
-クラス ``Permutation``
+クラス Permutation
 ----------------------------------------------------------------------
 置換を表現する。土台となる概念は上述の巡回置換なので、
 要素周りの規則はそれに準じる。
@@ -84,7 +84,7 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
 
 * 上のコンストラクターのみの場合では、与える巡回置換は互いに素である必要がある。
 
-* キーワード引数 ``size`` が便利。
+* キーワード引数 :code:`size` が便利。
   要素数は多いが置換部分が少ない置換を生成するときにはこれだ。
 
   .. code-block:: ipython
@@ -92,27 +92,28 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
      In [1]: Permutation([[44, 88],], size=100)
      Out[1]: Permutation(99)(44, 88)
 
-* 長さ ``n`` の恒等置換の生成法をひとつマスターしておく。
-  一番楽なのは ``Permutation(size=n)`` だろう。
+* 長さ `n` の恒等置換の生成法をひとつマスターしておく。
+  一番楽なのは :code:`Permutation(size=n)` だろう。
 
 置換の合成・積
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 置換の合成の記法も複数あるので注意。
-次のものはすべて ``i`` に対して同じ作用を示す。いずれもまず ``p`` を作用する。
+次のものはすべて :code:`i` に対して同じ作用を示す。
+いずれもまず :code:`p` を作用する。
 
-* ``(p * q)(i)``
-* ``q(p(i))``
-* ``i^p^q``
-* ``i^(p * q)``
+* :code:`(p * q)(i)`
+* :code:`q(p(i))`
+* :code:`i^p^q`
+* :code:`i^(p * q)`
 
 オブジェクトの出力
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-``Permutation`` オブジェクトを出力する方法がいくつかある。
+Permutation オブジェクトを出力する方法がいくつかある。
 
-* ``array_form``: e.g. ``[5, 2, 1, 3, 4, 6, 0]``
-* ``cyclic_form``: e.g. ``[[0, 5, 6], [1, 2]]``
+* :code:`array_form`: e.g. :code:`[5, 2, 1, 3, 4, 6, 0]`
+* :code:`cyclic_form`: e.g. :code:`[[0, 5, 6], [1, 2]]`
 
-デフォルトの出力パターンは ``Permutation.print_cyclic`` フラグで設定する。
+デフォルトの出力パターンは :code:`Permutation.print_cyclic` フラグで設定する。
 
 置換による像を得る
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -137,7 +138,7 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
 
 置換によって動く要素を求める
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-メソッド ``support()`` を用いる。
+メソッド :code:`support()` を用いる。
 
 .. code-block:: ipython
 
@@ -152,8 +153,8 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
 
 置換をランダムに生成する
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-ランダムな置換の生成にはクラスメソッド ``random(n)`` を用いる。
-次数 ``n`` の対称群にある置換をランダムに一個返すと言えばよい？
+ランダムな置換の生成にはクラスメソッド :code:`random(n)` を用いる。
+次数 `n` の対称群にある置換をランダムに一個返すと言えばよい？
 
 .. code-block:: ipython
 
@@ -167,11 +168,11 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
    Out[3]: Permutation(0, 7, 6, 8, 1, 9, 3, 2, 5, 4)
 
 * どういう種類のランダムなのか Python だけが知っている。
-* ちなみに ``random(0)`` と ``random(1)`` の結果は異なる。
+* ちなみに :code:`random(0)` と :code:`random(1)` の結果は異なる。
 
 置換のべき乗を求める
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-べき乗演算子 ``**`` を置換オブジェクトに適用することができる。
+べき乗演算子 :code:`**` を置換オブジェクトに適用することができる。
 試しに適当な置換オブジェクトをその位数乗すると、恒等置換が得られることを見よう。
 
 .. code-block:: ipython
@@ -187,7 +188,7 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
 
 逆置換を求める
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-逆置換オブジェクトを生成するにはべき乗演算子 ``**`` を援用する。
+逆置換オブジェクトを生成するにはべき乗演算子 :code:`**` を援用する。
 指数を -1 にすればよい。
 
 .. code-block:: ipython
@@ -203,7 +204,7 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
 
 置換の巡回表記を互換の積へ分解する
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-メソッド ``transpositions()`` を用いることで、置換を互換の積として表現できる。
+メソッド :code:`transpositions()` を用いることで、置換を互換の積として表現できる。
 置換と同等のあみだくじの描き方がわかるということだ。
 
 .. code-block:: ipython
@@ -218,10 +219,10 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
 
 置換の符号、偶置換、奇置換判定
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-置換の符号を得るにはメソッド ``signature()`` を、
-置換の偶置換、奇置換の判定にはプロパティー ``is_even``, ``is_odd`` をそれぞれ用いる。
+置換の符号を得るにはメソッド :code:`signature()` を、
+置換の偶置換、奇置換の判定にはプロパティー :code:`is_even`, :code:`is_odd` をそれぞれ用いる。
 
-先ほどの 3 つの互換の積で表せる ``p`` を再利用して動作を確認する。
+先ほどの 3 つの互換の積で表せる :code:`p` を再利用して動作を確認する。
 
 .. code-block:: ipython
 
@@ -239,19 +240,19 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
 モジュール ``sympy.combinatorics.generators`` にあるジェネレーターおよび関数は、
 よく使われる群を参照するのに便利だ。下に示す表はこのモジュールが提供する機能だ。
 
-いずれも対応する群の元を ``Permutation`` オブジェクトとして生成する。
+いずれも対応する群の元を Permutation オブジェクトとして生成する。
 
 .. csv-table::
-   :delim: :
+   :delim: @
    :header: ジェネレーターまたは関数, 機能
    :widths: 16, 32
 
-   ``alternating(n)``:``n`` 次の交代群を列挙する。
-   ``cyclic(n)``:``n`` 次の巡回群を列挙する。
-   ``dihedral(n)``:``2 * n`` 次の二面体群を列挙する。
-   ``rubik(n)``:``n * n`` 次のルービックキューブ群を生成する。
-   ``rubik_cube_generators()``:普通のルービックキューブ群を生成する。
-   ``symmetric(n)``:``n`` 次の対称群を列挙する。
+   :code:`alternating(n)`@`n` 次の交代群を列挙する。
+   :code:`cyclic(n)`@`n` 次の巡回群を列挙する。
+   :code:`dihedral(n)`@:code:`2 * n` 次の二面体群を列挙する。
+   :code:`rubik(n)`@:code:`n * n` 次のルービックキューブ群を生成する。
+   :code:`rubik_cube_generators()`@普通のルービックキューブ群を生成する。
+   :code:`symmetric(n)`@`n` 次の対称群を列挙する。
 
 ジェネレーターの動きを見よう。
 
@@ -317,12 +318,13 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
 
 置換群
 ======================================================================
-モジュール ``sympy.combinatorics.perm_groups`` に置換群を表現するクラス ``PermutationGroup`` が宣言されている。
+モジュール ``sympy.combinatorics.perm_groups`` に
+置換群を表現するクラス PermutationGroup が宣言されている。
 
 コンストラクター
 ----------------------------------------------------------------------
-置換群を表現するクラス ``PermutationGroup`` のコンストラクターには、
-その群の生成元を表すいくつかの ``Permutation`` オブジェクトを渡す。
+置換群を表現するクラス PermutationGroup のコンストラクターには、
+その群の生成元を表すいくつかの Permutation オブジェクトを渡す。
 
 手作業で一つ一つオブジェクトを用意するのもよいし、
 先述のジェネレーターを利用するのもよいだろう。
@@ -331,15 +333,15 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
 ----------------------------------------------------------------------
 理解している範囲で記す。
 
-``base``
-  群の基底。整数点の ``list`` オブジェクトである。
+:code:`base`
+  群の基底。整数点の list オブジェクトである。
 
   * Schreier-Sims アルゴリズムから得られる。
   * この置換群の恒等置換（単位元）以外のどんな置換を適用しても、
-    ``base`` のすべての整数点を固定することがない。
+    :code:`base` のすべての整数点を固定することがない。
 
-    例。5 次の対称群 ``S5 = SymmetricGroup(5)`` を下処理
-    （後述の ``is_group`` の記述を参照）したものに対して試す。
+    例。5 次の対称群 :code:`S5 = SymmetricGroup(5)` を下処理
+    （後述の :code:`is_group` の記述を参照）したものに対して試す。
 
     .. code-block:: ipython
 
@@ -348,13 +350,13 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
        .....:        (i == g(i) for i in S5.base)) for g in S5 if not g.is_Identity))
        Out[1]: True
 
-``basic_orbits``
+:code:`basic_orbits`
   群の基底と強生成元に関する軌道。
 
   * Schreier-Sims アルゴリズムから得られる。
-  * 上述のプロパティー ``base`` と後述のメソッド ``orbit`` とを組み合わせたものと考える。
+  * 上述のプロパティー :code:`base` と後述のメソッド :code:`orbit` とを組み合わせたものと考える。
   * 例。テキトーに作った置換群で動作確認をする。
-    ``basic_orbits`` と ``base`` がすべての軌道とそれらの代表元をそれぞれ表しているのか。
+    :code:`basic_orbits` と :code:`base` がすべての軌道とそれらの代表元をそれぞれ表しているのか。
 
     .. code-block:: ipython
 
@@ -379,13 +381,13 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
        {5, 6}
        {5, 6}
 
-``basic_stabilizers``
+:code:`basic_stabilizers`
   群の基底と強生成元に関する固定群鎖。
 
   * Schreier-Sims アルゴリズムから得られる。
   * このリストは先頭から大きい順に部分群が並んでいる。
 
-    例。8 次の対称群 ``S8 = SymmetricGroup(8)`` で試す。
+    例。8 次の対称群 :code:`S8 = SymmetricGroup(8)` で試す。
 
     .. code-block:: ipython
 
@@ -400,11 +402,11 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
        In [4]: all(i.is_subgroup(j) for i, j in zip(islice(L, 1, None), L))
        Out[4]: True
 
-``basic_transversals``
-  群の ``basic_orbits`` の代表系。
+:code:`basic_transversals`
+  群の :code:`basic_orbits` の代表系。
 
-  * 型は ``dict`` の ``list`` である。
-    キーと値は ``basic_orbits`` の要素とそれに対応する代表元をそれぞれ表す。
+  * 型は dict の list である。
+    キーと値は :code:`basic_orbits` の要素とそれに対応する代表元をそれぞれ表す。
 
     .. code-block:: ipython
 
@@ -420,34 +422,34 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
         {5: Permutation(6), 6: Permutation(5, 6)},
         {1: Permutation(6), 3: Permut ation(6)(1, 3)}]
 
-``degree``
+:code:`degree`
   群が含む置換のサイズ。置換が対象とする文字数。
 
-``generators``
-  群の生成元を保持する ``list`` オブジェクトだ。
+:code:`generators`
+  群の生成元を保持する list オブジェクトだ。
 
-``is_abelian``
+:code:`is_abelian`
   群がアーベル群かどうかを返す。
 
-``is_nilpotent``
+:code:`is_nilpotent`
   群がべき零群かどうかを返す。
 
   * 実装ではこの群の降中心列の末端の部分群が恒等群かどうかを（入念なやり方で）見ている。
   * べき零群は可解群である。
 
-``is_solvable``
+:code:`is_solvable`
   群が可解群かどうかを返す。
 
-  * 実装が上述の ``is_nilpotent`` と酷似しているので見ておくとよい。
+  * 実装が上述の :code:`is_nilpotent` と酷似しているので見ておくとよい。
     降中心列ではなく導来列を調べる。
 
-``is_trivial``
+:code:`is_trivial`
   群が自明な群、恒等群かどうかを返す。
 
-  * そのような群を得たければ何か適当な ``n`` を用いて
-    ``PermutationGroup(Permutation(size=n))`` とでもしよう。
+  * そのような群を得たければ何か適当な `n` を用いて
+    :code:`PermutationGroup(Permutation(size=n))` とでもしよう。
 
-``strong_gens``
+:code:`strong_gens`
   群の強生成元。
 
   * Schreier-Sims アルゴリズムから得られる。
@@ -455,19 +457,19 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
 メソッド
 ----------------------------------------------------------------------
 理解している範囲で記す。
-以下、第一引数の ``self`` を省略する。
+以下、第一引数の :code:`self` を省略する。
 
-``center()``
+:code:`center()`
   群の中心を返す。
 
-``centralizer(other)``
-  この置換群と ``other`` の中心化群を返す。
-  ここで ``other`` は置換の ``list`` または置換群をとる。
+:code:`centralizer(other)`
+  この置換群と :code:`other` の中心化群を返す。
+  ここで :code:`other` は置換の list または置換群をとる。
 
-  * ``G.center() == G.centralizer(G)`` が成り立つ。
+  * :code:`G.center() == G.centralizer(G)` が成り立つ。
 
-``commutator(G, H)``
-  群の部分群 ``G`` と ``H`` の交換子を生成する。
+:code:`commutator(G, H)`
+  群の部分群 :code:`G` と :code:`H` の交換子を生成する。
   特に引数として両方とも自身を与えると、交換子群が生成する。
 
   .. code-block:: ipython
@@ -481,17 +483,19 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
      In [4]: G.is_normal(A4) and A4.is_normal(G)
      Out[4]: True
 
-``contains(g, strict=True)``
-  置換 ``g`` が群に含まれているかどうかを返す。
+:code:`contains(g, strict=True)`
+  置換 :code:`g` が群に含まれているかどうかを返す。
 
-  * キーワード引数を ``strict=False`` などとした場合は、
+  * キーワード引数を :code:`strict=False` などとした場合は、
     群と引数の置換のサイズ不整合時に適宜考慮してくれる。
 
-``coset_factor(g, factor_index=False)``
-  群の元 ``g`` を「因数分解」する。
+:code:`coset_factor(g, factor_index=False)`
+  群の元 :code:`g` を「因数分解」する。
 
-  * 戻り値は置換の ``list`` であり、末端から先頭に向かって掛けると ``g`` が得られる。
-  * さきほどの ``G`` で試そう。
+  * 戻り値は置換の list であり、
+    末端から先頭に向かって掛けると :code:`g` が得られる。
+
+  * さきほどの :code:`G` で試そう。
 
     .. code-block:: ipython
 
@@ -512,39 +516,41 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
        In [9]: perm == Permutation.rmul(*Out[57])
        Out[9]: True
 
-``coset_rank(g)``
-  群の元 ``g`` のインデックスを得る。
-  つまり ``G[k] == g`` を満たす値 ``k`` を得る。
+:code:`coset_rank(g)`
+  群の元 :code:`g` のインデックスを得る。
+  つまり :code:`G[k] == g` を満たす値 `k` を得る。
 
-  * 当然 ``G.contains(g)`` なる元にしか意味がない。
+  * 当然 :code:`G.contains(g)` なる元にしか意味がない。
 
-``coset_unrank(rank, af=False)``
-  群の ``rank`` 番目の元を得る。
+:code:`coset_unrank(rank, af=False)`
+  群の :code:`rank` 番目の元を得る。
 
-  * 普通は ``G[rank]`` の記法のほうが楽だ。
-  * キーワード引数 ``af`` は戻り値を ``list`` オブジェクトにするか ``Permutation`` オブジェクトで得るかを指定する。
+  * 普通は :code:`G[rank]` の記法のほうが楽だ。
+  * キーワード引数 :code:`af` は戻り値を list オブジェクトにするか
+    Permutation オブジェクトで得るかを指定する。
 
-``derived_series()``
+:code:`derived_series()`
   群の導来列を求める。日本語はこれで適切か知らないが。
 
-  * 戻り値は ``PermutationGroup`` オブジェクトの ``list`` オブジェクト。
+  * 戻り値は PermutationGroup オブジェクトの list オブジェクト。
   * 列の先頭と末尾はそれぞれこの群自身と恒等群である。
-  * 実装はメソッド ``derived_subgroup`` を反復的に利用している。
+  * 実装はメソッド :code:`derived_subgroup` を反復的に利用している。
 
-``derived_subgroup()``
+:code:`derived_subgroup()`
   群の導来部分群（交換子部分群）を求める。
 
-``generate(method='coset', af=False)``
+:code:`generate(method='coset', af=False)`
   群の要素をすべて列挙する。
 
   * 名前の通りジェネレーターである。
-  * キーワード引数 ``af=True`` とすると ``Permutation`` オブジェクトではなく ``list`` オブジェクトを列挙する。
+  * キーワード引数 :code:`af=True` とすると
+    Permutation オブジェクトではなく list オブジェクトを列挙する。
 
-``is_group()``
+:code:`is_group()`
   この群が本当に群かどうかを返す。
 
   * 後述する名前付き群オブジェクトと正多面体群オブジェクトを用いるときは要注意。
-    次のように前処理をしないと ``True`` を返してくれない場合がある。
+    次のように前処理をしないと True を返してくれない場合がある。
 
     .. code-block:: ipython
 
@@ -559,13 +565,13 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
        Out[4]: True
 
   * そしてこの関数はおそらくかなりのコストがかかる。
-  * 本稿では上の例の ``S5`` の作り直しのような処理を「下処理」と呼ぶことにする。
+  * 本稿では上の例の :code:`S5` の作り直しのような処理を「下処理」と呼ぶことにする。
     群としてみなされるための下処理。
 
-``is_normal(gr)``
-  この群が群 ``gr`` の正規部分群かどうかを返す。
+:code:`is_normal(gr)`
+  この群が群 :code:`gr` の正規部分群かどうかを返す。
 
-``is_primitive(randomized=True)``
+:code:`is_primitive(randomized=True)`
   この群が原始的かどうかを返す。
 
   .. code-block:: ipython
@@ -576,107 +582,109 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
      In [2]: CyclicGroup(4).is_primitive()
      Out[2]: False
 
-``is_subgroup(G, strict=True)``
-  この群が群 ``G`` の部分群であるかどうかを返す。
+:code:`is_subgroup(G, strict=True)`
+  この群が群 :code:`G` の部分群であるかどうかを返す。
 
-  * キーワード引数 ``strict`` については別のメソッドのそれと同じ意味だ。
+  * キーワード引数 :code:`strict` については別のメソッドのそれと同じ意味だ。
 
-``is_transitive(strict=True)``
+:code:`is_transitive(strict=True)`
   この群が推移的かどうかを返す。
 
   * 軌道が一個だけかどうかを調べる。
-  * ``strict=False`` の場合は、長さが 1 ではない軌道が一個だけあるのかを調べる。
+  * :code:`strict=False` の場合は、
+    長さが 1 ではない軌道が一個だけあるのかを調べる。
 
-``lower_central_series()``
+:code:`lower_central_series()`
   群の降中心列を返す。
 
-  * 戻り値は ``PermutationGroup`` オブジェクトの ``list`` オブジェクト。
+  * 戻り値は PermutationGroup オブジェクトの list オブジェクト。
   * もちろん列の先頭がこの群自身だ。
-  * 実装はメソッド ``commutator`` を反復的に利用している。
+  * 実装はメソッド :code:`commutator` を反復的に利用している。
 
-``orbit(alpha, action='tuples')``
-  群の置換の作用による整数点 ``alpha`` の軌道を求める。
+:code:`orbit(alpha, action='tuples')`
+  群の置換の作用による整数点 :code:`alpha` の軌道を求める。
 
-  * 整数点を複数指定することも可能。そのときは ``action='union'`` が便利だ。
+  * 整数点を複数指定することも可能。
+    そのときは :code:`action='union'` が便利だ。
 
-``orbits(rep=False)``
+:code:`orbits(rep=False)`
   群自身の軌道を全て返す。
 
-  * 戻り値の型は各軌道を ``set`` オブジェクトで表した ``list`` オブジェクトだ。
-  * キーワード引数 ``rep`` の意味は不明。
+  * 戻り値の型は各軌道を set オブジェクトで表した list オブジェクトだ。
+  * キーワード引数 :code:`rep` の意味は不明。
 
-``order()``
+:code:`order()`
   群の位数を求める。
 
   * 全部でいくつの置換を生成できるかということ。
 
-``pointwise_stabilizer(points, incremental=True)``
-  整数点 ``points`` を動かさない、この群の置換の部分群を返す。
+:code:`pointwise_stabilizer(points, incremental=True)`
+  整数点 :code:`points` を動かさない、この群の置換の部分群を返す。
 
-``random(af=False)``
+:code:`random(af=False)`
   ランダムで群の元を返す。
-  キーワード引数は戻り値を ``list`` と ``PermutationGroup`` のどちらを得るかを指定する。
+  キーワード引数は戻り値を list と PermutationGroup のどちらを得るかを指定する。
 
-``stabilizer(alpha)``
-  整数点 ``alpha`` を動かさない、この群の置換の部分群を返す。
+:code:`stabilizer(alpha)`
+  整数点 :code:`alpha` を動かさない、この群の置換の部分群を返す。
 
 その他のメンバー
 ----------------------------------------------------------------------
 演算子や特別な関数をここに記す。
-ここでは ``G`` などを ``PermutationGroup`` オブジェクトとする。
+ここでは :code:`G` などを PermutationGroup オブジェクトとする。
 
-``G[i]``
-  置換群の ``i`` 番目の生成元を参照する。
+:code:`G[i]`
+  置換群の `i` 番目の生成元を参照する。
   乗法表を書くときや、「下処理」に用いる。
 
-``len(G)``
+:code:`len(G)`
   置換群の生成元の個数を返す。
 
-``G == H``
-  ``G`` と ``H`` それぞれのすべての生成元が同じかどうかを返す。
+:code:`G == H`
+  :code:`G` と :code:`H` それぞれのすべての生成元が同じかどうかを返す。
 
-  * オブジェクトの由来次第では両辺の置換群が同型であっても ``False`` を返すことがある。
-    これは実装では ``.generators`` を比較していることによる。
+  * オブジェクトの由来次第では両辺の置換群が同型であっても False を返すことがある。
+    これは実装では :code:`.generators` を比較していることによる。
 
-``G * H``
+:code:`G * H`
   直積群を置換群として生成する。
-  次節の関数 ``DirectProduct`` も参照。
+  次節の関数 :code:`DirectProduct` も参照。
 
 直積群
 ======================================================================
 モジュール ``sympy.combinatorics.group_constructs`` に群オブジェクトのコレクションから
 直積群オブジェクトを生成する関数がある。
 
-関数 ``DirectProduct(*groups)``
-  複数の ``PermutationGroup`` オブジェクトの直積をひとつの ``PermutationGroup`` として生成する。
+関数 :code:`DirectProduct(*groups)`
+  複数の PermutationGroup オブジェクトの直積をひとつの PermutationGroup として生成する。
 
-  * 単に ``G1 * G2 * ...`` としても同じ結果が得られる。
+  * 単に :code:`G1 * G2 * ...` としても同じ結果が得られる。
     効率の観点からは当関数を利用するほうが有利だそうだ。
 
-  * この関数の恩恵をもっとも受けるのは、おそらく後述する関数 ``AbelianGroup`` である。
+  * この関数の恩恵をもっとも受けるのは、おそらく後述する関数 :code:`AbelianGroup` である。
 
 名前付き群
 ======================================================================
 モジュール ``sympy.combinatorics.named_groups`` にある群オブジェクト生成関数を見ていく。
-これらの関数は最終的にひとつの ``PermutationGroup`` オブジェクトを生成する。
+これらの関数は最終的にひとつの PermutationGroup オブジェクトを生成する。
 
 勝手に「名前付き」と訳したが、「名前のある」「名前を持っている」くらいの意味だろう。
 
 .. csv-table::
-   :delim: :
+   :delim: @
    :header: 関数, 機能
    :widths: 16, 24
 
-   ``AbelianGroup(*cyclic_orders)``:巡回群の直積群を生成する。
-   ``AlternatingGroup(n)``:``n`` 次交代群を生成する。
-   ``CyclicGroup(n)``:``n`` 次巡回群を生成する。
-   ``DihedralGroup(n)``:``2 * n`` 次の二面体群を生成する。
-   ``SymmetricGroup(n)``:``n`` 次対称群を生成する。
-   ``RubikGroup(n)``:``PermutationGroup(rubik(n))`` を返す。
+   :code:`AbelianGroup(*cyclic_orders)`@巡回群の直積群を生成する。
+   :code:`AlternatingGroup(n)`@`n` 次交代群を生成する。
+   :code:`CyclicGroup(n)`@`n` 次巡回群を生成する。
+   :code:`DihedralGroup(n)`@:code:`2 * n` 次の二面体群を生成する。
+   :code:`SymmetricGroup(n)`@`n` 次対称群を生成する。
+   :code:`RubikGroup(n)`@:code:`PermutationGroup(rubik(n))` を返す。
 
-``AbelianGroup``
+AbelianGroup
 ----------------------------------------------------------------------
-名前はアーベル群だが、実体は先ほどの ``DirectProduct`` の計算の利用による巡回群の直積群である。
+名前はアーベル群だが、実体は先ほどの DirectProduct の計算の利用による巡回群の直積群である。
 引数で与えたものの和が次数、積が位数になると覚えておくとよい。
 
 .. code-block:: ipython
@@ -711,7 +719,7 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
    In [5]: [i.order() for i in AbelianGroup(3, 3).generate()]
    Out[5]: [1, 3, 3, 3, 3, 3, 3, 3, 3]
 
-``AlternatingGroup``
+AlternatingGroup
 ----------------------------------------------------------------------
 交代群。ここでは群の要素がすべて偶置換であることを見ておく。
 
@@ -725,7 +733,7 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
    In [3]: all(i.is_even for i in A4.generate())
    Out[3]: True
 
-``CyclicGroup`` 
+CyclicGroup
 ----------------------------------------------------------------------
 巡回群。
 
@@ -756,7 +764,7 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
    In [6]: C8.is_abelian
    Out[6]: True
 
-``DihedralGroup``
+DihedralGroup
 ----------------------------------------------------------------------
 二面体群。引数は次数の半分を指定する。
 ここでは位数 2, 4, 6, 8 の二面体群の乗法表をそれぞれ出力する。
@@ -803,7 +811,7 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
    6 3 4 1 2 7 0 5
    7 0 1 4 5 6 3 2
 
-``SymmetricGroup``
+SymmetricGroup
 ----------------------------------------------------------------------
 対称群。
 
@@ -826,7 +834,7 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
    In [6]: C5.is_normal(S5)
    Out[6]: False
 
-``RubikGroup``
+RubikGroup
 ----------------------------------------------------------------------
 ルービックキューブ群を生成する。通常は 3x3 なので 3 を指定する。
 整数点とキューブ小面との対応関係のイラストを用意しないと読み解けない。
@@ -868,21 +876,21 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
 そして、各正多面体に対応するオブジェクトが生成されており、
 ユーザーはこれらを参照することができる。
 
-クラス ``Polyhedron``
+クラス Polyhedron
 ----------------------------------------------------------------------
 正多面体群を表現する。
 
-* 基底クラスが ``Basic`` であることをうまく利用できるかもしれない。
-* このクラスと ``PermutationGroup`` との間に has-a 関係がある。
+* 基底クラスが Basic であることをうまく利用できるかもしれない。
+* このクラスと PermutationGroup との間に has-a 関係がある。
 
 プロパティー
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-クラス ``Polyhedron`` のプロパティーは次のものがある。
+クラス Polyhedron のプロパティーは次のものがある。
 
-``array_form``, ``cyclic_form``
+:code:`array_form`, :code:`cyclic_form`
   それぞれ頂点のインデックスを先述の形式で得る。
 
-``corners``, ``vertices``, ``size``
+:code:`corners`, :code:`vertices`, :code:`size`
   最初のふたつのプロパティーは同一で、多面体の全頂点を返す。
   最後のプロパティーはこの多面体の頂点数を返す。
 
@@ -895,9 +903,9 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
      In [2]: [s.size for s in solids]
      Out[2]: [4, 8, 6, 20, 12]
 
-``edges``, ``faces``
+:code:`edges`, :code:`faces`
   それぞれ多面体の全辺、全面を返す。
-  どちらも頂点列を表す ``tuple`` の ``set`` オブジェクト。
+  どちらも頂点列を表す tuple の set オブジェクト。
 
   例。正四面体の辺と面を出力する。
   また、各多面体において Euler の多面体公式を確認する。
@@ -913,8 +921,8 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
      In [3]: [s.size - len(s.edges) + len(s.faces) for s in solids]
      Out[3]: [2, 2, 2, 2, 2]
 
-``pgroup``
-  多面体群を返す。``PermutationGroup`` オブジェクト。
+:code:`pgroup`
+  多面体群を返す。PermutationGroup オブジェクト。
 
   例。正四面体群の位数が 12 であることと 4 次の交代群と同型であることを見る。
 
@@ -937,18 +945,21 @@ SymPy_ のドキュメントでは先に ``Permutation`` を説明している�
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 メソッドはそれほど多くない。
 
-``reset()``
+:code:`reset()`
   オブジェクトを「初期状態」に復元する。
 
-``rotate(perm)``
-  この多面体に置換 ``perm`` を作用させる。
+:code:`rotate(perm)`
+  この多面体に置換 :code:`perm` を作用させる。
 
-  * メソッドは引数の置換が妥当であるか判断しないので、呼び出し側で気を遣う必要がある。
+  * メソッドは引数の置換が妥当であるか判断しないので、
+    呼び出し側で気を遣う必要がある。
 
 テンソルの正規化
 ======================================================================
-モジュール ``sympy.combinatorics.tensor_con`` にはテンソルの正規化に関する関数が何個かある。
-どの関数も ``PermutationGroup`` を利用しているため、この階層にこのモジュールがある。
+モジュール ``sympy.combinatorics.tensor_con`` には
+テンソルの正規化に関する関数が何個かある。
+どの関数も PermutationGroup を利用しているため、
+この階層にこのモジュールがある。
 本格的なテンソル代数モジュールが別にあるので、
 そちらを見てから再びここに戻ってくる予定。
 

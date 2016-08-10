@@ -17,7 +17,7 @@
 
 確率変数
 ======================================================================
-``from sympy.stats import *`` を実行すると、クラスというよりは関数がインポートされる。
+:code:`from sympy.stats import *` を実行すると、クラスというよりは関数がインポートされる。
 確率変数生成関数と統計的関数の 2 種類に分類して見ていくと効率が良さそうだ。
 ここに記すいくつかの関数については、演習のコーナーにて実際に動作を確かめる。
 
@@ -30,85 +30,85 @@
    :delim: :
    :widths: 12, 12, 36
 
-   ``Bernoulli``:``SingleFinitePSpace``:
-   ``Binomial``:``SingleFinitePSpace``:
-   ``Coin``:``SingleFinitePSpace``:コイントスをモデル化した確率変数。
-   ``Die``:``SingleFinitePSpace``:偏りのないサイコロをモデル化した確率変数。
-   ``DiscreteUniform``:``SingleFinitePSpace``:
-   ``FiniteRV``:``SingleFinitePSpace``:有限確率変数を密度を表現する ``dict`` オブジェクトから生成する。
-   ``Hypergeometric``:``SingleFinitePSpace``:
-   ``Rademacher``:``SingleFinitePSpace``:
-   ``Arcsin``:``SingleContinuousPSpace``:
-   ``Benini``:``SingleContinuousPSpace``:
-   ``Beta``:``SingleContinuousPSpace``:
-   ``BetaPrime``:``SingleContinuousPSpace``:
-   ``Cauchy``:``SingleContinuousPSpace``:
-   ``Chi``:``SingleContinuousPSpace``:
-   ``ChiNoncentral``:``SingleContinuousPSpace``:
-   ``ChiSquared``:``SingleContinuousPSpace``:
-   ``Dagum``:``SingleContinuousPSpace``:
-   ``Erlang``:``SingleContinuousPSpace``:
-   ``Exponential``:``SingleContinuousPSpace``:
-   ``FDistribution``:``SingleContinuousPSpace``:
-   ``FisherZ``:``SingleContinuousPSpace``:
-   ``Frechet``:``SingleContinuousPSpace``:
-   ``Gamma``:``SingleContinuousPSpace``:
-   ``GammaInverse``:``SingleContinuousPSpace``:
-   ``Kumaraswamy``:``SingleContinuousPSpace``:
-   ``Laplace``:``SingleContinuousPSpace``:
-   ``Logistic``:``SingleContinuousPSpace``:
-   ``LogNormal``:``SingleContinuousPSpace``:
-   ``Maxwell``:``SingleContinuousPSpace``:
-   ``Nakagami``:``SingleContinuousPSpace``:
-   ``Normal``:``SingleContinuousPSpace``:
-   ``Pareto``:``SingleContinuousPSpace``:
-   ``QuadraticU``:``SingleContinuousPSpace``:
-   ``RaisedCosine``:``SingleContinuousPSpace``:
-   ``Rayleigh``:``SingleContinuousPSpace``:
-   ``StudentT``:``SingleContinuousPSpace``:
-   ``Triangular``:``SingleContinuousPSpace``:
-   ``Uniform``:``SingleContinuousPSpace``:
-   ``UniformSum``:``SingleContinuousPSpace``:
-   ``VonMises``:``SingleContinuousPSpace``:
-   ``Weibull``:``SingleContinuousPSpace``:
-   ``WignerSemicircle``:``SingleContinuousPSpace``:
-   ``Geometric``:``SingleDiscretePSpace``:
-   ``Poisson``:``SingleDiscretePSpace``:
+   Bernoulli:SingleFinitePSpace:
+   Binomial:SingleFinitePSpace:
+   Coin:SingleFinitePSpace:コイントスをモデル化した確率変数。
+   Die:SingleFinitePSpace:偏りのないサイコロをモデル化した確率変数。
+   DiscreteUniform:SingleFinitePSpace:
+   FiniteRV:SingleFinitePSpace:有限確率変数を密度を表現する dict オブジェクトから生成する。
+   Hypergeometric:SingleFinitePSpace:
+   Rademacher:SingleFinitePSpace:
+   Arcsin:SingleContinuousPSpace:
+   Benini:SingleContinuousPSpace:
+   Beta:SingleContinuousPSpace:
+   BetaPrime:SingleContinuousPSpace:
+   Cauchy:SingleContinuousPSpace:
+   Chi:SingleContinuousPSpace:
+   ChiNoncentral:SingleContinuousPSpace:
+   ChiSquared:SingleContinuousPSpace:
+   Dagum:SingleContinuousPSpace:
+   Erlang:SingleContinuousPSpace:
+   Exponential:SingleContinuousPSpace:
+   FDistribution:SingleContinuousPSpace:
+   FisherZ:SingleContinuousPSpace:
+   Frechet:SingleContinuousPSpace:
+   Gamma:SingleContinuousPSpace:
+   GammaInverse:SingleContinuousPSpace:
+   Kumaraswamy:SingleContinuousPSpace:
+   Laplace:SingleContinuousPSpace:
+   Logistic:SingleContinuousPSpace:
+   LogNormal:SingleContinuousPSpace:
+   Maxwell:SingleContinuousPSpace:
+   Nakagami:SingleContinuousPSpace:
+   Normal:SingleContinuousPSpace:
+   Pareto:SingleContinuousPSpace:
+   QuadraticU:SingleContinuousPSpace:
+   RaisedCosine:SingleContinuousPSpace:
+   Rayleigh:SingleContinuousPSpace:
+   StudentT:SingleContinuousPSpace:
+   Triangular:SingleContinuousPSpace:
+   Uniform:SingleContinuousPSpace:
+   UniformSum:SingleContinuousPSpace:
+   VonMises:SingleContinuousPSpace:
+   Weibull:SingleContinuousPSpace:
+   WignerSemicircle:SingleContinuousPSpace:
+   Geometric:SingleDiscretePSpace:
+   Poisson:SingleDiscretePSpace:
 
 確率空間クラスについては後述する。
 
 統計的関数
 ----------------------------------------------------------------------
-すべての確率変数生成関数の戻り値は ``RandomSymbol`` というクラスのオブジェクトである。
-ここでは ``X``, ``Y`` などを ``RandomSymbol`` オブジェクトまたはそれから構成される式とする。
+すべての確率変数生成関数の戻り値は RandomSymbol というクラスのオブジェクトである。
+ここでは :code:`X`, :code:`Y` などを RandomSymbol オブジェクトまたはそれから構成される式とする。
 このオブジェクトの利用法は、そのメソッドを呼び出すというよりは、
 次に示す各種確率統計的関数の引数として用いる。
 
 .. csv-table::
    :header: 関数, 説明, 別名
-   :delim: :
+   :delim: @
    :widths: 12, 24, 8
 
-   ``probability``:``X`` に関するある条件が真となる確率を求める。:``P``
-   ``expectation``:``X`` に関するある式の期待値を求める。:``E``
-   ``density``:``X`` の確率密度を求める。:
-   ``where``:``X`` に関するある条件が真である domain を返す。:
-   ``given``:``X`` の条件付き確率空間を生成する。:
-   ``pspace``:``X`` の土台となる確率空間を返す。:
-   ``cdf``:``X`` の累積分布関数を求める。:
-   ``sample``:``sample_iter`` の非 iterator 版。:
-   ``sample_iter``:``X`` から標本値をランダムに列挙する。:
-   ``sampling_density``:``sample`` の密度版。:
-   ``independent``:``dependent`` の否定を返す。:
-   ``dependent``:``X`` と ``Y`` が独立かどうかを返す。:
-   ``moment``:``X`` の `n` 次モーメントを求める。:
-   ``variance``:``X`` の分散を求める。:
-   ``standard_deviation``:``X`` の標準偏差を求める。:``std``
-   ``covariance``:``X`` と ``Y`` の確率変数の共分散を求める。:
-   ``correlation``:``X`` と ``Y`` の確率変数の相関係数を求める。:
-   ``cmoment``:``X`` の `n` 次中心モーメントを求める。:
-   ``smoment``:``X`` の `n` 次標準化モーメントを求める。:
-   ``skewness``:``X`` の歪度を求める。:
+   :code:`probability`@:code:`X` に関するある条件が真となる確率を求める。@:code:`P`
+   :code:`expectation`@:code:`X` に関するある式の期待値を求める。@:code:`E`
+   :code:`density`@:code:`X` の確率密度を求める。@
+   :code:`where`@:code:`X` に関するある条件が真である domain を返す。@
+   :code:`given`@:code:`X` の条件付き確率空間を生成する。@
+   :code:`pspace`@:code:`X` の土台となる確率空間を返す。@
+   :code:`cdf`@:code:`X` の累積分布関数を求める。@
+   :code:`sample`@:code:`sample_iter` の非 iterator 版。@
+   :code:`sample_iter`@:code:`X` から標本値をランダムに列挙する。@
+   :code:`sampling_density`@:code:`sample` の密度版。@
+   :code:`independent`@:code:`dependent` の否定を返す。@
+   :code:`dependent`@:code:`X` と :code:`Y` が独立かどうかを返す。@
+   :code:`moment`@:code:`X` の `n` 次モーメントを求める。@
+   :code:`variance`@:code:`X` の分散を求める。@
+   :code:`standard_deviation`@:code:`X` の標準偏差を求める。@:code:`std`
+   :code:`covariance`@:code:`X` と :code:`Y` の確率変数の共分散を求める。@
+   :code:`correlation`@:code:`X` と :code:`Y` の確率変数の相関係数を求める。@
+   :code:`cmoment`@:code:`X` の `n` 次中心モーメントを求める。@
+   :code:`smoment`@:code:`X` の `n` 次標準化モーメントを求める。@
+   :code:`skewness`@:code:`X` の歪度を求める。@
 
 クラス
 ======================================================================
@@ -175,41 +175,42 @@
 
 ここにあるほとんどすべてのクラスは、次のクラスを共通基底クラスとしている。
 
-``Basic``
+Basic
     SymPy の主要クラスに共通する基底クラスであり、いまさら説明はしない。
 
-``NamedArgsMixin``
+NamedArgsMixin
     当モジュールで定義された補助クラスであり、
-    オブジェクトに対して演算子 ``[]`` で属性値にアクセスすることができるようにするものだ。
+    オブジェクトに対して演算子 :code:`[]` で属性値にアクセスすることができるようにするものだ。
 
 大量にある分布モデルクラスは、それらの基底クラスによって次の 3 系統に分類できることがわかる。
 
-``SingleContinuousDistribution``
+SingleContinuousDistribution
   連続分布。
 
-  * 定義域は ``Interval(-oo, oo)`` すなわち実数である。派生クラスでは事情が異なるかもしれない。
-  * オブジェクトに対する丸括弧呼び出しでメソッド ``pdf`` を呼び出す。
-  * メソッドとして ``pdf, ``cdf``, ``sample``, ``expectation`` がある。
-  * デバッグ用途だと思うが静的メソッド ``check`` がある。
+  * 定義域は :code:`Interval(-oo, oo)` すなわち実数である。
+    派生クラスでは事情が異なるかもしれない。
+  * オブジェクトに対する丸括弧呼び出しでメソッド :code:`pdf` を呼び出す。
+  * メソッドとして :code:`pdf`, :code:`cdf`, :code:`sample`, :code:`expectation` がある。
+  * デバッグ用途だと思うが静的メソッド :code:`check` がある。
 
-``SingleDiscreteDistribution``
+SingleDiscreteDistribution
   離散分布。
 
-  * 定義域は ``S.Integers`` すなわち整数である。
-  * あとは ``SingleContinuousDistribution`` で記した各項目と同じ。
+  * 定義域は :code:`S.Integers` すなわち整数である。
+  * あとは SingleContinuousDistribution で記した各項目と同じ。
 
-``SingleFiniteDistribution``
+SingleFiniteDistribution
   有限分布。これだけ毛色が異なる。
 
-  * オブジェクトに対する丸括弧呼び出しでメソッド ``pdf`` を呼び出す。
-  * メソッドとして ``pdf`` がある。
+  * オブジェクトに対する丸括弧呼び出しでメソッド :code:`pdf` を呼び出す。
+  * メソッドとして :code:`pdf` がある。
   * 辞書オブジェクトのような振る舞いをするようだ。
 
 定義域クラス
 ----------------------------------------------------------------------
 ここではある確率密度関数の定義域を domain と呼ぶものと解釈する。
 
-クラス ``RandomDomain`` を基底クラスとする継承関係を図に示したいが、
+クラス RandomDomain を基底クラスとする継承関係を図に示したいが、
 複雑なダイヤモンド型継承を多用しているので、アスキーアートでは厳しいものがある。
 素朴な表でごまかす。
 
@@ -218,32 +219,32 @@
    :delim: :
    :widths: 20, 30
 
-   ``RandomDomain``:``Basic``
-   ``SingleDomain``:``RandomDomain``
-   ``ProductDomain``:``RandomDomain``
-   ``ContinuousDomain``:``RandomDomain``
-   ``ConditionalDomain``:``RandomDomain``
-   ``FiniteDomain``:``RandomDomain``
-   ``SingleDiscreteDomain``:``SingleDomain``
-   ``SingleContinuousDomain``:``ContinuousDomain``, ``SingleDomain``
-   ``SingleFiniteDomain``:``FiniteDomain``
-   ``ProductContinuousDomain``:``ProductDomain``, ``ContinuousDomain``
-   ``ProductFiniteDomain``:``ProductDomain``, ``FiniteDomain``
-   ``ConditionalContinuousDomain``:``ContinuousDomain``, ``ConditionalDomain``
-   ``ConditionalFiniteDomain``:``ConditionalDomain``, ``ProductFiniteDomain``
+   RandomDomain:Basic
+   SingleDomain:RandomDomain
+   ProductDomain:RandomDomain
+   ContinuousDomain:RandomDomain
+   ConditionalDomain:RandomDomain
+   FiniteDomain:RandomDomain
+   SingleDiscreteDomain:SingleDomain
+   SingleContinuousDomain:ContinuousDomain, SingleDomain
+   SingleFiniteDomain:FiniteDomain
+   ProductContinuousDomain:ProductDomain, ContinuousDomain
+   ProductFiniteDomain:ProductDomain, FiniteDomain
+   ConditionalContinuousDomain:ContinuousDomain, ConditionalDomain
+   ConditionalFiniteDomain:ConditionalDomain, ProductFiniteDomain
 
-クラス ``RandomDomain``
+クラス RandomDomain
   ある確率密度関数の定義域を表現するクラスのための基底クラス。
 
-  * プロパティー ``self.symbols``
-  * プロパティー ``self.set``
-  * 演算子 ``in`` をオブジェクトに対して適用できることになっている。
-  * メソッド ``integrate(expr)`` を各派生クラスが実装する。
+  * プロパティー :code:`self.symbols`
+  * プロパティー :code:`self.set`
+  * 演算子 :code:`in` をオブジェクトに対して適用できることになっている。
+  * メソッド :code:`integrate(expr)` を各派生クラスが実装する。
     この戻り値が何らかの確率密度関数を示すようになる。
 
 確率空間クラス
 ----------------------------------------------------------------------
-クラス ``PSpace`` を基底クラスとする継承関係を図に示したいが、
+クラス PSpace を基底クラスとする継承関係を図に示したいが、
 こちらも少々のダイヤモンド継承関係があるので表でごまかす。
 
 .. csv-table::
@@ -251,29 +252,29 @@
    :delim: :
    :widths: 20, 30
 
-   ``PSpace``:``Basic``
-   ``SinglePSpace``:``PSpace``
-   ``ProductPSpace``:``PSpace``
-   ``ContinuousPSpace``:``PSpace``
-   ``FinitePSpace``:``PSpace``
-   ``SingleDiscretePSpace``:``PSpace``
-   ``SingleContinuousPSpace``:``SinglePSpace``, ``ContinuousPSpace``
-   ``SingleFinitePSpace``:``SinglePSpace``, ``FinitePSpace``
-   ``ProductContinuousPSpace``:``ProductPSpace``, ``ContinuousPSpace``
-   ``ProductFinitePSpace``:``ProductPSpace``, ``FinitePSpace``
+   PSpace:Basic
+   SinglePSpace:PSpace
+   ProductPSpace:PSpace
+   ContinuousPSpace:PSpace
+   FinitePSpace:PSpace
+   SingleDiscretePSpace:PSpace
+   SingleContinuousPSpace:SinglePSpace, ContinuousPSpace
+   SingleFinitePSpace:SinglePSpace, FinitePSpace
+   ProductContinuousPSpace:ProductPSpace, ContinuousPSpace
+   ProductFinitePSpace:ProductPSpace, FinitePSpace
 
-クラス ``PSpace``
+クラス PSpace
   確率空間を表現するクラス。
 
-  * プロパティーとして ``domain``, ``density``, ``values``, ``symbols`` がある。
-  * メソッドとして ``compute_density``, ``integrate``, ``probability``, ``sample``, ``where`` がある。
+  * プロパティーとして :code:`domain`, :code:`density`, :code:`values`, :code:`symbols` がある。
+  * メソッドとして :code:`compute_density`, :code:`integrate`, :code:`probability`, :code:`sample`, :code:`where` がある。
 
   ユーザーはこれらには直接触れずに、先述の統計的関数によって間接的に利用する。
 
-クラス ``RandomSymbol``
+クラス RandomSymbol
 ----------------------------------------------------------------------
-クラス ``RandomSymbol`` は確率空間クラスのメソッド ``values`` 系の戻り値の型として利用されている。
-このオブジェクトを関数 ``P``, ``E`` の引数として指定する。
+クラス RandomSymbol は確率空間クラスのメソッド :code:`values` 系の戻り値の型として利用されている。
+このオブジェクトを関数 :code:`P`, :code:`E` の引数として指定する。
 
 このオブジェクトはユーザーが直接生成するというよりは、
 前述の確率変数生成関数の戻り値として得られる。
@@ -285,12 +286,12 @@
 * `Probability and Statistics <http://reference.wolfram.com/language/guide/ProbabilityAndStatistics.html>`_
 * `Descriptive Statistics <http://reference.wolfram.com/language/guide/DescriptiveStatistics.html>`_
 
-確率変数生成関数に ``name`` を指定するのが存外面倒なので、
-以下、特に問題がなければ ``X`` で通す。
+確率変数生成関数に :code:`name` を指定するのが存外面倒なので、
+以下、特に問題がなければ :code:`X` で通す。
 
-関数 ``probability`` で確率を評価する
+関数 :code:`probability` で確率を評価する
 ----------------------------------------------------------------------
-短い別名 ``P`` が付いているので、対話型コードでは主にこちらを採用する。
+短い別名 :code:`P` が付いているので、対話型コードでは主にこちらを採用する。
 
 .. code-block:: ipython
 
@@ -299,7 +300,7 @@
    In [2]: simplify(P(X < 3))
    Out[2]: erf(3*sqrt(2)/2)/2 + 1/2
 
-* [1] ``Normal`` の各引数はデフォルト引数として定義して欲しいという気がする。
+* [1] Normal の各引数はデフォルト引数として定義して欲しいという気がする。
 
 .. code-block:: ipython
 
@@ -327,7 +328,7 @@
 
    NotImplementedError:
 
-* [1][2] どうも ``Poisson`` は動作しにくい傾向がある。
+* [1][2] どうも Poisson は動作しにくい傾向がある。
 
 .. code-block:: ipython
 
@@ -352,9 +353,9 @@
    In [2]: P(X**2 > 1, X > Rational(1, 2))
    Out[2]: 0.367879441171442
 
-関数 ``expectation`` で期待値または平均値を評価する
+関数 :code:`expectation` で期待値または平均値を評価する
 ----------------------------------------------------------------------
-正式な関数名は ``expectation`` であるが、略名 ``E`` が与えられている。
+正式な関数名は :code:`expectation` であるが、略名 :code:`E` が与えられている。
 SymPy では自然対数の底にもこの名前が付いているので注意。
 冒頭に述べたインポート文でこれが上書きされる。
 
@@ -381,7 +382,7 @@ SymPy では自然対数の底にもこの名前が付いているので注意�
 
 確率密度関数を評価する
 ----------------------------------------------------------------------
-確率密度関数は下のように ``pspace`` オブジェクトを経由しないとアクセスできないのか。
+確率密度関数は下のように :code:`pspace` オブジェクトを経由しないとアクセスできないのか。
 
 .. code-block:: ipython
 
@@ -394,7 +395,7 @@ SymPy では自然対数の底にもこの名前が付いているので注意�
 
 累積分布関数を評価する
 ----------------------------------------------------------------------
-累積分布関数を得るにはフリー関数 ``cdf`` を用いる。
+累積分布関数を得るにはフリー関数 :code:`cdf` を用いる。
 
 .. code-block:: ipython
 
@@ -415,7 +416,7 @@ SymPy では自然対数の底にもこの名前が付いているので注意�
    In [2]: [i for i in sample_iter(X, numsamples=10)]
    Out[2]: [-1.04146627871984, 0.363794003745111, -1.13748652670554, 1.048567943992, -0.479638133723148, 1.29475387658596, -1.15722394615277, 1.57550171698866, -0.545623114068184, -1.52095054404692]
 
-関数 ``moment`` でモーメントを評価する
+関数 :code:`moment` でモーメントを評価する
 ----------------------------------------------------------------------
 ここでは 2 次のモーメントを計算する。
 
@@ -429,11 +430,11 @@ SymPy では自然対数の底にもこの名前が付いているので注意�
 
 分散と標準偏差を評価する
 ----------------------------------------------------------------------
-関数 ``variance`` は ``E(X - E(X)**2)`` と同じ値を計算する。
-実装が ``cmoment`` を利用していることによる。
+関数 :code:`variance` は :code:`E(X - E(X)**2)` と同じ値を計算する。
+実装が :code:`cmoment` を利用していることによる。
 
-関数 ``standard_deviation`` は単に ``variance`` の正の平方根を返す。
-短い別名 ``std`` が宣言されている。
+関数 :code:`standard_deviation` は単に :code:`variance` の正の平方根を返す。
+短い別名 :code:`std` が宣言されている。
 
 数値計算の例を示す。
 
@@ -447,7 +448,7 @@ SymPy では自然対数の底にもこの名前が付いているので注意�
    In [3]: std(X)
    Out[3]: 2.10330837550013
 
-関数 ``covariance`` で共分散を評価する
+関数 :code:`covariance` で共分散を評価する
 ----------------------------------------------------------------------
 あまりやることがない。
 
@@ -458,7 +459,7 @@ SymPy では自然対数の底にもこの名前が付いているので注意�
    In [2]: covariance(X, Y)
    Out[2]: (-a/2 + b/2)*(-x/2 + y/2)/4 + (-a/2 + b/2)*(x/2 - y/2)/4 + (a/2 - b/2)*(-x/2 + y/2)/4 + (a/2 - b/2)*(x/2 - y/2)/4
 
-関数 ``correlation`` で相関を評価する
+関数 :code:`correlation` で相関を評価する
 ----------------------------------------------------------------------
 これもあまりやることがない。
 
@@ -469,7 +470,7 @@ SymPy では自然対数の底にもこの名前が付いているので注意�
    In [2]: correlation(X, Y)
    Out[2]: ((-a/2 + b/2)*(-x/2 + y/2)/4 + (-a/2 + b/2)*(x/2 - y/2)/4 + (a/2 - b/2)*(-x/2 + y/2)/4 + (a/2 - b/2)*(x/2 - y/2)/4)/(sqrt((-a/2 + b/2)**2/2 + (a/2 - b/2)**2/2)*sqrt((-x/2 + y/2)**2/2 + (x/2 - y/2)**2/2))
 
-関数 ``cmoment`` で中央モーメントを評価する
+関数 :code:`cmoment` で中央モーメントを評価する
 ----------------------------------------------------------------------
 色々な確率分布の 2 次の中央モーメントを評価しよう。
 
@@ -484,16 +485,16 @@ SymPy では自然対数の底にもこの名前が付いているので注意�
    In [3]: cmoment(Normal('X', symbols('mu'), symbols('sigma', positive=True)), 2)
    Out[3]: sigma**2
 
-関数 ``smoment`` で標準化モーメントを評価する
+関数 :code:`smoment` で標準化モーメントを評価する
 ----------------------------------------------------------------------
-関数 ``smoment`` は `n` 次の中央モーメントを標準偏差の `n` 乗で割った値を評価する。
+関数 :code:`smoment` は `n` 次の中央モーメントを標準偏差の `n` 乗で割った値を評価する。
 歪度や尖度を評価する関数の実装にはこれを利用する。
 
 この関数を直接利用する例は見当たらない。
 
-関数 ``skewness`` で歪度を評価する
+関数 :code:`skewness` で歪度を評価する
 ----------------------------------------------------------------------
-関数 ``skewness`` は 3 次の ``smoment`` を評価する。
+関数 :code:`skewness` は 3 次の :code:`smoment` を評価する。
 この指標は例えば戻り値の符号でグラフの裾野が広いほうがわかる。
 
 .. code-block:: ipython

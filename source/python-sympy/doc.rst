@@ -13,9 +13,7 @@ SymPy のドキュメントは Sphinx_ を用いて生成する。
 
 .. code-block:: console
 
-   $ cd ~/devel/sympy
-   $ cd doc
-   $ make html
+   $ make -C ~/devel/sympy/doc html
 
 前準備
 ======================================================================
@@ -25,8 +23,8 @@ SymPy 専用 Sphinx 拡張モジュールコードの編集を必要とした。
 
 画像生成のための Cygwin パッケージ導入
 ----------------------------------------------------------------------
-:file:`Makefile` を読むとわかるように、仮にコンソールから ``make html`` と入力すると、
-Sphinx の既定の処理群を行う前に ``make logo`` 相当の処理が入る。
+:file:`Makefile` を読むとわかるように、仮にコンソールから :code:`make html` と入力すると、
+Sphinx の既定の処理群を行う前に :code:`make logo` 相当の処理が入る。
 そこでは Python スクリプト :file:`generate_logos.py` を起動して、
 次のタイプの画像ファイルを生成する。
 
@@ -36,8 +34,8 @@ Sphinx の既定の処理群を行う前に ``make logo`` 相当の処理が入�
 
 スクリプトの冒頭にコメントされているように、次のパッケージが必要だ。
 
-* rsvg-convert (:file:`rsvg-convert`)
-* imagemagick (:file:`convert`)
+* rsvg-convert (:program:`rsvg-convert`)
+* imagemagick (:program:`convert`)
 
 私は Cygwin で Sphinx のビルド処理をするので、
 これらを含むパッケージをインストーラー (:file:`setup-x86_64.exe`) でダウンロードかつインストールした。
@@ -58,7 +56,7 @@ Cygwin のインストーラーでパッケージ構成を更新したら、
 こうなってしまうと :file:`generate_logos.py` は異常終了する。
 こういう事態を上手に避けること。
 
-コンソールから ``make logo`` して、無事に ``Logo generated.`` のメッセージが画面に出力されればここまでは成功だ。
+コンソールから :code:`make logo` して、無事に ``Logo generated.`` のメッセージが画面に出力されればここまでは成功だ。
 
 .. todo::
 
@@ -117,11 +115,11 @@ Sphinx 拡張モジュールの修正
    ...
    $ popd
 
-私の場合は以上の修正作業のみで ``make html`` が通った。
+私の場合は以上の修正作業のみで :code:`make html` が通った。
 
 ビルド完了
 ======================================================================
-ビルド ``make html`` の結果、次のようになる。
+ビルド :code:`make html` の結果、次のようになる。
 
 * ディレクトリー :file:`doc/_build/html` に SymPy の HTML ドキュメントが生成されている。
   インターネットに接続しなくてもいつものドキュメントが読めるようになった。

@@ -19,104 +19,104 @@
 
 基本機能
 ======================================================================
-ここに記す関数は isympy シェルがデフォルトで実行するインポート ``from sympy import *`` だけで利用可能だ。
+ここに記す関数は isympy シェルがデフォルトで実行するインポート :code:`from sympy import *` だけで利用可能だ。
 
-SymPy で常微分方程式を解くには、関数 ``dsolve`` を用いる。
+SymPy で常微分方程式を解くには、関数 :code:`dsolve` を用いる。
 簡単なケースではこれ一本で事足りる。
 何か凝ったことをする場合に、その他の関数やデータを併用するという方針でよさそうだ。
 
-関数 ``dsolve(eq, ...)``
+関数 :code:`dsolve(eq, ...)`
   常微分方程式系を解く。
 
-  方程式を一個解くときには、引数 ``eq`` には何か導関数を含むような数式オブジェクトを指定する。
-  方程式を複数個解くときには、同様に数式オブジェクトの ``list`` オブジェクトを指定する。
+  方程式を一個解くときには、引数 :code:`eq` には何か導関数を含むような数式オブジェクトを指定する。
+  方程式を複数個解くときには、同様に数式オブジェクトの list オブジェクトを指定する。
   ソルバーは各方程式が 0 と等しい条件を求める。
 
-  * キーワード引数 ``func=None`` は ``eq`` がどの一変数関数に関する微分方程式なのかを指示する。
-    方程式を複数個解くときには、やはり ``list`` の形式をとる。
+  * キーワード引数 :code:`func=None` は :code:`eq` がどの一変数関数に関する微分方程式なのかを指示する。
+    方程式を複数個解くときには、やはり list の形式をとる。
     普通はソルバーが自動検出するため、指定しない。
 
-  * キーワード引数 ``hint='default'`` ではソルバーに微分方程式のタイプについてヒントを教える。
+  * キーワード引数 :code:`hint='default'` ではソルバーに微分方程式のタイプについてヒントを教える。
     このヒントによって方程式の解法を調整することになる。
 
     方程式を一個解くときには、与え得るパラメーターは次のとおり（すべて文字列だが、引用符を省略する）。
 
-    * ``default``: 後述の関数 ``classify_ode(eq, ...)`` にて記す。
+    * :code:`default`: 後述の関数 :code:`classify_ode(eq, ...)` にて記す。
 
-    * ``all``: 全部の解法候補を適用する。
-      この場合はソルバーの戻り値がキーと値をタイプ名と解からなる ``dict`` オブジェクトになる。
-      タイプ名は文字列で、解は ``Equality`` オブジェクトだと思われる。
+    * :code:`all`: 全部の解法候補を適用する。
+      この場合はソルバーの戻り値がキーと値をタイプ名と解からなる dict オブジェクトになる。
+      タイプ名は文字列で、解は Equality オブジェクトだと思われる。
       それに加えて、ベスト解や階数等の副次的な情報も併せて含む。
 
-    * ``all_Integral``: ``all`` と同様に振る舞うが、
-      もしタイプ ``xxx`` とタイプ ``xxx_Integral`` が候補にある場合、
+    * :code:`all_Integral`: :code:`all` と同様に振る舞うが、
+      もしタイプ xxx とタイプ xxx_Integral が候補にある場合、
       前者を省略するという点が異なる。
-      後者の解法は結果オブジェクト内に ``Integral`` オブジェクトが未評価のまま残るが、
+      後者の解法は結果オブジェクト内に Integral オブジェクトが未評価のまま残るが、
       計算処理が速いという特徴がある。
 
-    * ``best``: 全部の候補を試して、もっとも解が単純なものを返す。
+    * :code:`best`: 全部の候補を試して、もっとも解が単純なものを返す。
 
-    * あるいはユーザーが別途関数 ``classify_ode(eq, ...)`` を呼び出して得たタイプのうちの一つ。
+    * あるいはユーザーが別途関数 :code:`classify_ode(eq, ...)` を呼び出して得たタイプのうちの一つ。
 
-  * キーワード引数 ``simplify=True`` はソルバー内部が関数 ``odesimp`` を呼び出すかどうかを指定する。
+  * キーワード引数 :code:`simplify=True` はソルバー内部が関数 :code:`odesimp` を呼び出すかどうかを指定する。
 
-  * キーワード引数 ``ics=None`` は境界条件を ``dict`` オブジェクトで指定できる。
+  * キーワード引数 :code:`ics=None` は境界条件を dict オブジェクトで指定できる。
 
-    * キーの例 ``func(x0)``, ``func(x).diff(x).subs(x, x2)``
+    * キーの例 :code:`func(x0)`, :code:`func(x).diff(x).subs(x, x2)`
     * 利用可能になる条件は一階常微分方程式のべき級数？
 
-  * キーワード引数 ``xi=None`` および ``eta=None`` は無限小関数。
-    後述する関数 ``infinitesimals`` の項で解説する。
+  * キーワード引数 :code:`xi=None` および :code:`eta=None` は無限小関数。
+    後述する関数 :code:`infinitesimals` の項で解説する。
 
-  * キーワード引数 ``x0=0`` は微分方程式のべき級数解をどの点周りに評価するかを指定する。
-  * キーワード引数 ``n=6`` はべき級数の指数をどこまで上げてよいかを指定する。
+  * キーワード引数 :code:`x0=0` は微分方程式のべき級数解をどの点周りに評価するかを指定する。
+  * キーワード引数 :code:`n=6` はべき級数の指数をどこまで上げてよいかを指定する。
 
-関数 ``classify_ode(eq, ...)``
-  常微分方程式 ``eq == 0`` のタイプを返す。
+関数 :code:`classify_ode(eq, ...)`
+  常微分方程式 :code:`eq == 0` のタイプを返す。
   微分方程式の教科書と考え方は同じで、
   ソルバーは微分方程式を解く手法を何種類かに名前をつけて分類している。
   この関数は与えられた微分方程式を解くのに相応しいであろう手法の名前を列挙するものだ。
 
-  * キーワード引数 ``func=None`` および ``ics=None`` はソルバー関数と同じ。
-  * キーワード引数 ``dict=False`` はソルバー関数が内々に利用するもの。
+  * キーワード引数 :code:`func=None` および :code:`ics=None` はソルバー関数と同じ。
+  * キーワード引数 :code:`dict=False` はソルバー関数が内々に利用するもの。
 
-  * 戻り値は文字列からなる ``tuple`` オブジェクトである。
+  * 戻り値は文字列からなる tuple オブジェクトである。
 
     * ソルバーが方程式を解くのにデフォルトで採用するのは、この最初のタイプである。
-      特定の方法で解かせたいならば、関数 ``dsolve`` の ``hint`` として、
+      特定の方法で解かせたいならば、関数 :code:`dsolve` の :code:`hint` として、
       この候補のいずれかのタイプを指定する。
 
     * タイプは基本的には「このタイプとみなせば、方程式を解きやすいだろう」という順序で列挙されている。
 
-  * サポートするタイプは ``allhints`` という ``tuple`` オブジェクトが知っている。
+  * サポートするタイプは :code:`allhints` という tuple オブジェクトが知っている。
     手許の環境では 34 個ある。
 
-関数 ``checkodesol(ode, sol, ...)``
+関数 :code:`checkodesol(ode, sol, ...)`
   これは微分方程式の解を求めた後に、それを検算するのに用いる。
-  オブジェクト ``sol`` をソルバーに渡したものと同じ ``ode`` に代入して、
+  オブジェクト :code:`sol` をソルバーに渡したものと同じ :code:`ode` に代入して、
   ゼロになることを見たい。
 
-  * 戻り値は 2 要素の ``tuple`` である。
+  * 戻り値は 2 要素の tuple である。
 
-    * [0]: 代入結果がゼロならば ``True`` であり、そうでなければ ``False`` である。
-    * [1]: [0] が ``True`` ならば ``0`` である（逆は必ずしも成り立たない）。
+    * [0]: 代入結果がゼロならば True であり、そうでなければ False である。
+    * [1]: [0] が True ならば ``0`` である（逆は必ずしも成り立たない）。
       それ以外は代入結果が何になったのかを表現する値が入る。
 
   * この関数の呼び出しがなかなか返って来ないときは、
-    間違いなく ``simplify`` がキツイためだろう。
+    間違いなく :code:`simplify` がキツイためだろう。
 
-関数 ``homogeneous_order(eq, *symbols)``
-  同次方程式 ``eq == 0`` の次数を返す。
+関数 :code:`homogeneous_order(eq, *symbols)`
+  同次方程式 :code:`eq == 0` の次数を返す。
 
-  * 非同次であれば ``None`` を返す。
-  * シンボル関数も ``eq`` になれるが、関数のすべての変数がシンボルである必要がある。
-    なおかつ、数式中のその関数の変数が ``*symbols`` にマッチしている必要がある。
+  * 非同次であれば None を返す。
+  * シンボル関数も :code:`eq` になれるが、関数のすべての変数がシンボルである必要がある。
+    なおかつ、数式中のその関数の変数が :code:`*symbols` にマッチしている必要がある。
 
 下回りの機能
 ======================================================================
 ここからはモジュール ``sympy.solvers.ode`` からの明示的なインポートを必要とする機能を記す。
 
-関数 ``infinitesimals(eq, ...)``
+関数 :code:`infinitesimals(eq, ...)`
   一階常微分方程式 :math:`y' = f(x, y)` に対して、
   次の条件をみたすような点変換 :math:`\xi(x, y)` と :math:`\eta(x, y)` を返す：
 
@@ -131,17 +131,18 @@ SymPy で常微分方程式を解くには、関数 ``dsolve`` を用いる。
      y^* &=& Y(x, y;\varepsilon) = y + \varepsilon \eta(x, y)
      \end{eqnarray*}
 
-  * 戻り値は ``dict`` の ``list`` の型をとる。
-    内側の ``dict`` は、キーが点変換関数オブジェクトで、
-    値が ``Function`` 系オブジェクトまたは定数である。
+  * 戻り値は dict の list の型をとる。
+    内側の dict は、キーが点変換関数オブジェクトで、
+    値が Function 系オブジェクトまたは定数である。
 
-  * キーワード引数 ``hint`` を用いて、点変換関数の計算方法のヒューリスティックを調整できるもよう。
+  * キーワード引数 :code:`hint` を用いて、
+    点変換関数の計算方法のヒューリスティックを調整できるもよう。
 
-関数 ``checkinfsol(eq, infinitesimals, ...)``
-  この関数は上述の関数 ``infinitesimals`` の結果を検証するのに用いられる。
+関数 :code:`checkinfsol(eq, infinitesimals, ...)`
+  この関数は上述の関数 :code:`infinitesimals` の結果を検証するのに用いられる。
 
-  * 引数 ``infinitesimals`` の型は（というか値は）先ほどの関数の戻り値と同じようにする。
-  * 戻り値は ``list`` オブジェクトである。
+  * 引数 :code:`infinitesimals` の型は（というか値は）先ほどの関数の戻り値と同じようにする。
+  * 戻り値は list オブジェクトである。
     この要素は各点変換のペアに対応するブーリアン値と検算結果の値とのペアである。
     検算結果とは、次の偏微分に点変換関数を代入して評価した値である。
 
@@ -155,45 +156,45 @@ SymPy で常微分方程式を解くには、関数 ``dsolve`` を用いる。
         - \xi\frac{\partial h}{\partial x} - \eta\frac{\partial h}{\partial y}
        \end{eqnarray*}
 
-    すなわち、妥当な関数を与えればリストが含む要素はすべて ``(True, 0)`` となる。
+    すなわち、妥当な関数を与えればリストが含む要素はすべて :code:`(True, 0)` となる。
 
-関数 ``odesimp(eq, func, order, constants, hint)``
+関数 :code:`odesimp(eq, func, order, constants, hint)`
   常微分方程式の単純化処理のための関数。
 
-  * 関数 ``dsolve`` が本関数を呼び出すので、
+  * 関数 :code:`dsolve` が本関数を呼び出すので、
     これを単体で利用するケースというのは一般ユーザーにはまれだということだ。
 
-関数 ``constant_renumber(expr, symbolname, startnumber, endnumber)``
+関数 :code:`constant_renumber(expr, symbolname, startnumber, endnumber)`
   式に含まれる任意定数の番号付けを変更する関数。
 
-  式 ``expr`` 中にはいくつかの ``Symbol`` オブジェクトがあるという前提。
-  そのオブジェクト名が ``symbolname`` に末尾から数字のくっついたもので、
+  式 :code:`expr` 中にはいくつかの Symbol オブジェクトがあるという前提。
+  そのオブジェクト名が :code:`symbolname` に末尾から数字のくっついたもので、
   さらにその数字が範囲 `[startnumber, endnumber)` にあれば、リネームの対象になる。
   新たに 1 から範囲の長さまでの連番が振られる。
 
-関数 ``constantsimp(expr, constants)``
+関数 :code:`constantsimp(expr, constants)`
   式に含まれる任意定数に対する単純化処理のための関数。
 
-  * ``C1 + C2`` → ``C1``
-  * ``C1 * C2`` → ``C1``
-  * ``exp(C1)`` → ``C1``
+  * :code:`C1 + C2` → :code:`C1`
+  * :code:`C1 * C2` → :code:`C1`
+  * :code:`exp(C1)` → :code:`C1`
   * etc.
 
-関数 ``ode_sol_simplicity(sol, func, trysolving=True)``
+関数 :code:`ode_sol_simplicity(sol, func, trysolving=True)`
   解の簡単さを示す数値を返す関数。
-  例えば ``ode_sol_simplicity(A, f) < ode_sol_simplicity(B, f)`` なる ``A`` と ``B`` については、
-  ``A`` のほうが ``B`` よりも解が簡単であると解釈する。
+  例えば :code:`ode_sol_simplicity(A, f) < ode_sol_simplicity(B, f)` なる :code:`A` と :code:`B` については、
+  :code:`A` のほうが :code:`B` よりも解が簡単であると解釈する。
 
   * ``-2`` や ``-1`` が戻ってくる場合は「解けている」または「解けていないが、解ける」を意味する。
-  * 何か正の整数が戻ってくる場合は「解けない」か「与えられた ``func`` について解けない」を意味する。
+  * 何か正の整数が戻ってくる場合は「解けない」か「与えられた :code:`func` について解けない」を意味する。
     この値は解の文字列的な長さである。長い方程式のほうが難しそうだからこうしたのか。
-  * ``oo`` が戻ってくる場合、解が未評価の ``Integral`` オブジェクトを含むことを意味する。
+  * :code:`oo` が戻ってくる場合、解が未評価の Integral オブジェクトを含むことを意味する。
 
-  * キーワード引数 ``trysolving`` は、
+  * キーワード引数 :code:`trysolving` は、
     ユーザーが既に解が解けないことを知っているときに利用できる。
-    値 ``False`` を指示することで、計算を省略する。
+    値 False を指示することで、計算を省略する。
 
-    * ``dsolve`` の ``simplify=False`` と連動している。
+    * :code:`dsolve` の :code:`simplify=False` と連動している。
 
 特化型ソルバー
 ======================================================================
@@ -203,28 +204,29 @@ SymPy のドキュメントが関数名と微分方程式の数式 (LaTeX) を�
 ここでは関数名だけを列挙するに留める。
 対応するヒント名を併記するとメモ代わりになるか。
 
-* ``ode_1st_exact``
-* ``ode_1st_homogeneous_coeff_subs_dep_div_indep``
-* ``ode_1st_homogeneous_coeff_subs_indep_div_dep``
-* ``ode_1st_linear``
-* ``ode_almost_linear``
-* ``ode_Bernoulli``
-* ``ode_linear_coefficients``
-* ``ode_Liouville``
-* ``ode_nth_linear_constant_coeff_homogeneous``
-* ``ode_nth_linear_constant_coeff_undetermined_coefficients``
-* ``ode_nth_linear_constant_coeff_variation_of_parameters``
-* ``ode_Riccati_special_minus2``
-* ``ode_separable``
-* ``ode_separable_reduced``
+* :code:`ode_1st_exact`
+* :code:`ode_1st_homogeneous_coeff_subs_dep_div_indep`
+* :code:`ode_1st_homogeneous_coeff_subs_indep_div_dep`
+* :code:`ode_1st_linear`
+* :code:`ode_almost_linear`
+* :code:`ode_Bernoulli`
+* :code:`ode_linear_coefficients`
+* :code:`ode_Liouville`
+* :code:`ode_nth_linear_constant_coeff_homogeneous`
+* :code:`ode_nth_linear_constant_coeff_undetermined_coefficients`
+* :code:`ode_nth_linear_constant_coeff_variation_of_parameters`
+* :code:`ode_Riccati_special_minus2`
+* :code:`ode_separable`
+* :code:`ode_separable_reduced`
 
 連立常微分方程式
 ======================================================================
-連立常微分方程式を ``dsolve`` に評価させると、最初に関数 ``classify_sysode`` を呼ぶ。
+連立常微分方程式を :code:`dsolve` に評価させると、
+最初に関数 :code:`classify_sysode` を呼ぶ。
 これで方程式のタイプを判定して、特化型のソルバーに処理を委ねる。
 
 このタイプ判定が下の図のように入れ子になっていて、
-末端のソルバーでは結局 ``dsolve`` を単一の方程式に対して適用することを繰り返す。
+末端のソルバーでは結局 :code:`dsolve` を単一の方程式に対して適用することを繰り返す。
 
 .. code-block:: text
 
@@ -257,16 +259,16 @@ SymPy のドキュメントが関数名と微分方程式の数式 (LaTeX) を�
 * 長い数式で表現される常微分方程式は SymPy のオブジェクトとしても長い表現になる。
   何度もタイプするハメにならぬように、素直にローカル変数を宣言してバインドしておく。
 
-* ソルバーに渡す前に関数 ``classify_ode`` で常微分方程式のタイプを判定しておく。
-  その結果が次の ``dsolve`` 呼び出しの ``hint`` パラメーターを
-  ``all`` にするか ``all_Integral`` にするかの判断材料になる。
+* ソルバーに渡す前に関数 :code:`classify_ode` で常微分方程式のタイプを判定しておく。
+  その結果が次の :code:`dsolve` 呼び出しの :code:`hint` パラメーターを
+  :code:`all` にするか :code:`all_Integral` にするかの判断材料になる。
 
-  * 空の ``tuple`` オブジェクトが戻ってくるようならば、
+  * 空の tuple オブジェクトが戻ってくるようならば、
     残念だがその常微分方程式を SymPy で解くのを諦める。
 
-* 関数 ``dsolve`` を呼び出すときは許される限り ``all_Integral`` を指定する。
+* 関数 :code:`dsolve` を呼び出すときは許される限り :code:`all_Integral` を指定する。
   この戻り値をザッと見ると、未評価の積分オブジェクトが一般解に含まれているだろう。
-  必要ならばこれを ``doit()`` にて手動で遅延評価する。
+  必要ならばこれを :code:`doit()` にて手動で遅延評価する。
 
 常微分方程式
 ----------------------------------------------------------------------
@@ -274,7 +276,7 @@ SymPy のドキュメントが関数名と微分方程式の数式 (LaTeX) を�
 
 求積法だけで解が求まる常微分方程式
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-次のデモは単に ``integrate`` するだけで解が得られる常微分方程式を与えるものだ。
+次のデモは単に :code:`integrate` するだけで解が得られる常微分方程式を与えるものだ。
 SymPy のソルバーは一階線形常微分方程式の特別に単純な場合として処理する。
 
 .. code-block:: ipython
@@ -423,7 +425,7 @@ Bernoulli 常微分方程式を解く。
 Riccati 常微分方程式
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ある Riccati 常微分方程式を試したところ、
-ベストは ``separable_reduced`` だと判定された。
+ベストは :code:`separable_reduced` だと判定された。
 それにしては解の有理式の形がやや不自然なようだ。
 
 .. code-block:: ipython
@@ -646,7 +648,7 @@ SymPy は Airy 関数も Bessel 関数も持っているのに、
 
 二階線形非同次常微分方程式
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-解けているように見えるが、ヒントを ``all`` にすると返って来ない？
+解けているように見えるが、ヒントを :code:`all` にすると返って来ない？
 後半で同次版も解いてみる。
 
 .. code-block:: ipython
@@ -872,9 +874,9 @@ SymPy のソルバーは 2 階以上は全部高階扱い。
    Out[6]: [Eq(x(t), -6*C1*exp(t) - 6*C2*exp(2*t)),
             Eq(y(t), -3*C1*exp(t) - 2*C2*exp(2*t))]
 
-次の常微分方程式系は ``type_of_equation`` が ``None`` とされている。
+次の常微分方程式系は :code:`type_of_equation` が None とされている。
 つまりタイプ不明ゆえ解けない。
-こういう場合は ``dsolve`` の呼び出しを諦めてしまってよい。
+こういう場合は :code:`dsolve` の呼び出しを諦めてしまってよい。
 
 .. code-block:: ipython
 
@@ -1001,7 +1003,7 @@ SymPy のソルバーは 2 階以上は全部高階扱い。
    Out[4]: [Eq(x(t), (C1*cos(Integral(tan(t), t)) + C2*sin(Integral(tan(t), t)))*exp(Integral(exp(t), t))), Eq(y(t), (-C1*sin(Integral(tan(t), t)) + C2*cos(Integral(tan(t), t)))*exp(Integral(exp(t), t)))]
 
 次のものは解けないと言われる。
-本筋とは外れるが、関数 ``classify_sysode`` の出力にある ``dict`` オブジェクトのアイテム順はなんとかならないか。
+本筋とは外れるが、関数 :code:`classify_sysode` の出力にある dict オブジェクトのアイテム順はなんとかならないか。
 
 .. code-block:: ipython
 

@@ -23,80 +23,80 @@
 
 座標系およびベクトル
 ----------------------------------------------------------------------
-* 座標系としては現在は 3 次元直交座標系を表現するクラス ``CoordSysCartesian`` だけがある。
+* 座標系としては現在は 3 次元直交座標系を表現するクラス CoordSysCartesian だけがある。
 * オブジェクトの生成はコンストラクターでの直接生成でよい。
   その際には簡単な名前をつける。
 
-以下 ``N`` をクラス ``CoordSysCartesian`` のオブジェクトとする。
+以下 :code:`N` をクラス CoordSysCartesian のオブジェクトとする。
 
 * 座標系の基底ベクトルに次の方法でアクセスできる。
 
-  * プロパティー ``N.i``, ``N.j``, ``N.k``
-  * メソッド ``N.base_vectors``
+  * プロパティー :code:`N.i`, :code:`N.j`, :code:`N.k`
+  * メソッド :code:`N.base_vectors`
 
 * 一応記すが、各基底ベクトルは対応する座標軸に沿う長さ 1 のものである。正規直交基底。
-* 基底ベクトルはクラス ``BaseVector`` のオブジェクトである。
+* 基底ベクトルはクラス BaseVector のオブジェクトである。
   これの「線形結合」を表現しようとすると、SymPy 的には
-  ``BaseVector``, ``VectorAdd``, ``VectorMul`` オブジェクトの composite になる。
+  BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。
 
-* 名前が紛らわしいので要注意だが、これらのベクトル関連クラスの基底クラスが ``Vector`` である。
+* 名前が紛らわしいので要注意だが、これらのベクトル関連クラスの基底クラスが Vector である。
 
-* 零ベクトルは ``Vector.zero`` オブジェクトで表現されている。
+* 零ベクトルは :code:`Vector.zero` オブジェクトで表現されている。
 
-以下 ``u`` および ``v`` をベクトルオブジェクトとする。
+以下 :code:`u` および :code:`v` をベクトルオブジェクトとする。
 
 * ベクトルのドット積 :math:`\mathbf{u} \cdot \mathbf{v}` は次のどちらかで表現する。
 
-  * ``u.dot(v)``
-  * ``u & v``
+  * :code:`u.dot(v)`
+  * :code:`u & v`
 
 * ベクトルのクロス積 :math:`\mathbf{u} \times \mathbf{v}` は次のどちらかで表現する。
 
-  * ``u.cross(v)``
-  * ``u ^ v``
+  * :code:`u.cross(v)`
+  * :code:`u ^ v`
 
 オブジェクト指向プログラミング言語のコードでベクトルをクラスとして表現することはしばしばある。
 演算子オーバーロードをサポートする言語では、
 このふたつの積を計算する処理を演算子として実装することが多い。
 その時は常にプログラマーは演算子の優先順位に注意することになる。
 
-* ベクトルの長さはメソッド ``magnitude()`` を用いる。
-* ベクトルの長さを単位化するメソッドは ``normalize()`` である。
+* ベクトルの長さはメソッド :code:`magnitude()` を用いる。
+* ベクトルの長さを単位化するメソッドは :code:`normalize()` である。
   新しいベクトルを返し、自分自身は変わらない。
-* ベクトルの成分はプロパティー ``components`` で確認できる。
-  ただし型が ``dict`` で使い勝手に疑問点がある。
-  キーが ``BaseVector`` オブジェクトで、値が係数すなわち成分である。
+* ベクトルの成分はプロパティー :code:`components` で確認できる。
+  ただし型が dict で使い勝手に疑問点がある。
+  キーが BaseVector オブジェクトで、値が係数すなわち成分である。
   こういう設計になっている理由は、
   「関連のない別々の座標系からとってきたベクトルの和」のようなオブジェクトが許されることから来るものと思う。
 
 ベクトルに対する SymPy 演算
 ----------------------------------------------------------------------
-``Vector`` オブジェクトに対して、次の関数およびクラスによる SymPy 演算を適用することができる。
+Vector オブジェクトに対して、次の関数およびクラスによる SymPy 演算を適用することができる。
 ベクトルの各要素ごと、つまり各基底ベクトルの係数に演算がそれぞれ作用する。
 
-* ``simplify``
-* ``trigsimp``
-* ``factor``
-* ``diff``, ``Derivative``
-* ``integrate``, ``Integral``
+* :code:`simplify`
+* :code:`trigsimp`
+* :code:`factor`
+* :code:`diff`, Derivative
+* :code:`integrate`, Integral
 
 点
 ----------------------------------------------------------------------
 ある座標系に点を生成することができるのだが、少し特徴的な方法による。
 
-* プロパティー ``origin`` が座標系原点を表現する。
-  すなわち ``N.origin`` は座標系 ``N`` の原点を意味する。
-  このオブジェクトの型がクラス ``Point`` である。
+* プロパティー :code:`origin` が座標系原点を表現する。
+  すなわち :code:`N.origin` は座標系 :code:`N` の原点を意味する。
+  このオブジェクトの型がクラス Point である。
 
-* 新しく点を生成するには、この原点なり既存の点なりのメソッド ``locate_new`` を用いる。
+* 新しく点を生成するには、この原点なり既存の点なりのメソッド :code:`locate_new` を用いる。
   引数にはその点から生成したい点への変位をベクトルで指定する。
 
-以下 ``P``, ``Q`` をクラス ``Point`` のオブジェクトとする。
+以下 :code:`P`, :code:`Q` をクラス Point のオブジェクトとする。
 
-* メソッド ``position_wrt`` を用いて位置ベクトルを得られる。
-  点 ``P`` の ``Q`` に対する位置ベクトルは ``P.position_wrt(Q)`` である。
+* メソッド :code:`position_wrt` を用いて位置ベクトルを得られる。
+  点 :code:`P` の :code:`Q` に対する位置ベクトルは :code:`P.position_wrt(Q)` である。
 
-* メソッド ``express_coordinates`` により、点の座標を得られる。
+* メソッド :code:`express_coordinates` により、点の座標を得られる。
   引数は座標系を指定する。
 
 設計は常識的なのだが、実際使うときにはクセがあるように感じられる。
@@ -105,10 +105,10 @@
 
 二項テンソル
 ----------------------------------------------------------------------
-ベクトル同士の二項テンソルをオブジェクトとして表現するクラス ``Dyadic`` がある。
+ベクトル同士の二項テンソルをオブジェクトとして表現するクラス Dyadic がある。
 
 * オブジェクトをコンストラクターで直接生成することはまれであり、
-  通常は ``Vector`` のメソッド ``outer`` もしくは演算子 ``|`` により生成する。
+  通常は Vector のメソッド :code:`outer` もしくは演算子 :code:`|` により生成する。
 
   .. code-block:: ipython
 
@@ -125,10 +125,10 @@
            + a1*b0*(N.j|N.i) + a1*b1*(N.j|N.j) + a1*b2*(N.j|N.k)
            + a2*b0*(N.k|N.i) + a2*b1*(N.k|N.j) + a2*b2*(N.k|N.k)
 
-* ``Dyadic`` の関連クラスは ``Vector`` のそれと酷似している。
-  すなわち ``BaseDyadic``, ``DyadicAdd``, ``DyadicMul``, etc. である。
+* Dyadic の関連クラスは Vector のそれと酷似している。
+  すなわち BaseDyadic, DyadicAdd, DyadicMul, etc. である。
 
-* 零元はオブジェクト ``Dyaric.zero`` で表現している。
+* 零元はオブジェクト :code:`Dyaric.zero` で表現している。
 
 * ベクトルのスカラー積、クロス積とも混ぜて利用可能。
 
@@ -143,49 +143,50 @@
 
 複数座標系
 ======================================================================
-既存の座標系オブジェクト ``N`` から、新たに別の座標系オブジェクト ``M`` を生成することができる。
+既存の座標系オブジェクト :code:`N` から、
+新たに別の座標系オブジェクト :code:`M` を生成することができる。
 モデリングソフト等でお馴染みの方法論でもある。
 
 並進のみによる指定
 ----------------------------------------------------------------------
+メソッド :code:`locate_new(name, position, vector_names=None, variable_names=None)`
+  新しく CoordSysCartesian オブジェクトを生成できる。
 
-メソッド ``locate_new(name, position, vector_names=None, variable_names=None)``
-  新しく ``CoordSysCartesian`` オブジェクトを生成できる。
+  * 引数 :code:`name` は座標系の名前を指定する。主にデバッグ作業用？
+  * 引数 :code:`position` にはその点から生成したい点への変位をベクトルで指定する。
+  * 残りのキーワード引数は :code:`base_vectors` と :code:`base_scalars` の名前のためのもの。
 
-  * 引数 ``name`` は座標系の名前を指定する。主にデバッグ作業用？
-  * 引数 ``position`` にはその点から生成したい点への変位をベクトルで指定する。
-  * 残りのキーワード引数は ``base_vectors`` と ``base_scalars`` の名前のためのもの。
+* :code:`N` に対する :code:`M` の変位を得るには、次のどちらかを行う。
 
-* ``N`` に対する ``M`` の変位を得るには、次のどちらかを行う。
-
-  * ``M.position_wrt(N)``
-  * ``M.origin.express_coordinates(N)``
+  * :code:`M.position_wrt(N)`
+  * :code:`M.origin.express_coordinates(N)`
 
 回転のみによる指定
 ----------------------------------------------------------------------
 次は新たな座標系に回転（だけ）を施す。
 
-メソッド ``orient_new_axis(name, angle, axis, location=None, vector_names=None, variable_names=None)``
-  座標系 ``M`` に対してベクトル ``axis`` 周りに角度 ``angle`` だけ回転して得られる座標系 ``N`` を生成する。
+メソッド :code:`orient_new_axis(name, angle, axis, location=None, vector_names=None, variable_names=None)`
+  座標系 :code:`M` に対してベクトル :code:`axis` 周りに
+  角度 :code:`angle` だけ回転して得られる座標系 :code:`N` を生成する。
 
-  * ``axis`` に関しては細かい条件が不明。零ベクトルだとアウトなことは想像できる。
-  * ``location`` にベクトルを指定すると、回転プラス並進となるが、後述。
+  * :code:`axis` に関しては細かい条件が不明。零ベクトルだとアウトなことは想像できる。
+  * :code:`location` にベクトルを指定すると、回転プラス並進となるが、後述。
 
 その他にも次のようなメソッドにより、新しい座標系を生成できる。
 
-メソッド ``orient_new_body(name, angle1, angle2, angle3, rotation_order, ...)``
+メソッド :code:`orient_new_body(name, angle1, angle2, angle3, rotation_order, ...)`
   座標系を 3 回の座標軸周りの回転により生成する。
 
-  * 引数 ``angle1``, ``angle2``, ``angle3`` が各座標軸に関する回転角を表す。
-  * 引数 ``rotation_order`` が回転を施す座標軸の順序を示す文字列。
+  * 引数 :code:`angle1`, :code:`angle2`, :code:`angle3` が各座標軸に関する回転角を表す。
+  * 引数 :code:`rotation_order` が回転を施す座標軸の順序を示す文字列。
     例えば x, z, y 軸の順に回転する場合は ``'132'`` または ``'XZY'`` を指定する。
   * 回転軸が新座標系のそれを基準とすることに注意。
     最初の回転は新旧一致しているが、次の回転は前の回転の影響を受けている。
 
-メソッド ``orient_new_space(name, angle1, angle2, angle3, rotation_order, ...)``
-  上のものと似ているが、回転の基準が 3 回転とも ``M`` の座標軸に沿う。
+メソッド :code:`orient_new_space(name, angle1, angle2, angle3, rotation_order, ...)`
+  上のものと似ているが、回転の基準が 3 回転とも :code:`M` の座標軸に沿う。
 
-メソッド ``orient_new_quaternion(name, q0, q1, q2, q3, ...)``
+メソッド :code:`orient_new_quaternion(name, q0, q1, q2, q3, ...)`
   Hamilton の四元数による回転を与えて新たな座標系を生成する。
 
   単位ベクトル :math:`(n_x, n_y, n_z)` の周りに角度 :math:`\theta` だけの回転を表す四元数は
@@ -200,19 +201,19 @@
            n_z \sin \frac{\theta}{2}\right)
      \end{eqnarray*}
 
-  となる。この各成分を ``q0`` から ``q3`` までこの順序で指定する。
+  となる。この各成分を :code:`q0` から :code:`q3` までこの順序で指定する。
 
-より一般的には、メソッド ``orient_new`` および以下のクラスのオブジェクトを用いる。
+より一般的には、メソッド :code:`orient_new` および以下のクラスのオブジェクトを用いる。
 
-* ``AxisOrienter``
-* ``BodyOrienter``
-* ``SpaceOrienter``
-* ``QuaternionOrienter``
+* AxisOrienter
+* BodyOrienter
+* SpaceOrienter
+* QuaternionOrienter
 
-生成手順は ``M = N.orient_new(name, (orienter1, orienter2, ...))`` である。
+生成手順は :code:`M = N.orient_new(name, (orienter1, orienter2, ...))` である。
 
 * 以上の 4 つの座標変換について、新旧座標系の原点は一致している。
-* ``N.rotation_matrix(M)`` にて、回転変換を表現する 3 次正則行列を得られる。
+* :code:`N.rotation_matrix(M)` にて、回転変換を表現する 3 次正則行列を得られる。
   すべての上記 4 つの座標変換について、行列式の絶対値が 1 になると思われる。
 
   ここでは控えめに絶対値と言ったが、
@@ -223,41 +224,42 @@
 ----------------------------------------------------------------------
 最後に並進と回転を組み合わせる方法を記す。
 
-* メソッド ``orient_new`` およびその仲間たちには、キーワード引数 ``locate`` が指定できる。
+* メソッド :code:`orient_new` およびその仲間たちには、
+  キーワード引数 :code:`locate` が指定できる。
   これを用いて変位量をベクトルで与えれば、
   新しい座標系は、原点の周りに指定の回転を施された後、指定の変位だけ移動したものになる。
 
-* 関数 ``express`` を用いて、一方の座標系の座標を他方の座標系のそれで表現できる。
-  呼び出し形式は ``express(point, coord_sys)`` である。
+* 関数 :code:`express` を用いて、一方の座標系の座標を他方の座標系のそれで表現できる。
+  呼び出し形式は :code:`express(point, coord_sys)` である。
 
-関数 ``express``
+関数 :code:`express`
 ----------------------------------------------------------------------
-関数 ``express`` が指定の座標系の表現に書き直せるのは点やベクトルだけではない。
+関数 :code:`express` が指定の座標系の表現に書き直せるのは点やベクトルだけではない。
 
 * ベクトルを含む SymPy 式
-* ``Dyaric`` オブジェクト
+* Dyaric オブジェクト
 
   * 座標系オブジェクトを 2 個引数として渡せる。
     特に、引数の二項テンソルがふたつの座標系にまたがるようなものに対して有効。
 
-* ``BaseScalar`` オブジェクト
+* BaseScalar オブジェクト
 
-  * ポイントはキーワード引数 ``variables=True`` を指定すること。
-    例えば座標系 ``N`` で定義したスカラー場を ``M`` での表現に書き直せる。
+  * ポイントはキーワード引数 :code:`variables=True` を指定すること。
+    例えば座標系 :code:`N` で定義したスカラー場を :code:`M` での表現に書き直せる。
 
 スカラー場とベクトル場
 ======================================================================
 内容が若干 :doc:`./diffgeom` で見る外積周りの話題と重複する。
 
-* 座標系 ``R`` でのスカラー場やベクトル場を構成するには、
-  クラス ``BaseScalar`` のオブジェクトである
-  ``R.x``, ``R.y``, ``R.z`` を用いる。
+* 座標系 :code:`R` でのスカラー場やベクトル場を構成するには、
+  クラス BaseScalar のオブジェクトである
+  :code:`R.x`, :code:`R.y`, :code:`R.z` を用いる。
 
 ナブラ
 ----------------------------------------------------------------------
-クラス ``CoordSysCartesian`` のプロパティー ``delop`` がナブラ :math:`\nabla` を表現する。
+クラス CoordSysCartesian のプロパティー :code:`delop` がナブラ :math:`\nabla` を表現する。
 英語圏の人はこれをデルと呼ぶことが多い。
-そしてみんなが知っているが、小文字の ``del`` は Python の予約語である。
+そしてみんなが知っているが、小文字の :code:`del` は Python の予約語である。
 
 例を示す。
 
@@ -279,8 +281,8 @@
 ----------------------------------------------------------------------
 3 次元空間のベクトルの回転 :math:`\nabla \times \mathbf{F}` を計算する方法がふたつある。
 
-* メソッド ``delop.cross`` を用いる。
-* 関数 ``curl`` を用いる。
+* メソッド :code:`delop.cross` を用いる。
+* 関数 :code:`curl` を用いる。
 
 例を示す。
 
@@ -304,8 +306,8 @@
 ----------------------------------------------------------------------
 3 次元空間のベクトルの発散 :math:`\nabla \cdot \mathbf{F}` を計算する方法がふたつある。
 
-* メソッド ``delop.dot`` を用いる。
-* 関数 ``divergence`` を用いる。
+* メソッド :code:`delop.dot` を用いる。
+* 関数 :code:`divergence` を用いる。
 
 例を示す。
 
@@ -327,11 +329,11 @@
 ----------------------------------------------------------------------
 3 次元空間上の実数値関数の勾配 :math:`\nabla f` を計算する方法がふたつある。
 
-* メソッド ``delop.gradient`` を用いる。
-* 関数 ``gradient`` を用いる。
+* メソッド :code:`delop.gradient` を用いる。
+* 関数 :code:`gradient` を用いる。
 
 例を示す。
-または関数メソッド ``gradient`` を呼ぶことで、
+または関数メソッド :code:`gradient` を呼ぶことで、
 スカラー関数から勾配ベクトル場オブジェクトが生成できている。
 
 .. code-block:: ipython
@@ -350,11 +352,11 @@
 
 方向微分
 ----------------------------------------------------------------------
-方向微分は ``(v.dot(coord_sys.delop))(field)`` のようにする。ここで、
+方向微分は :code:`(v.dot(coord_sys.delop))(field)` のようにする。ここで、
 
-* ``coord_sys`` はクラス ``CoordSysCartesian`` オブジェクト、
-* ``v`` は ``coord_sys`` 上のクラス ``Vector`` オブジェクト、
-* ``field`` は ``coord_sys.base_scalars()`` で表現されているスカラー場なりベクトル場である。
+* :code:`coord_sys` はクラス CoordSysCartesian オブジェクト、
+* :code:`v` は :code:`coord_sys` 上のクラス Vector オブジェクト、
+* :code:`field` は :code:`coord_sys.base_scalars()` で表現されているスカラー場なりベクトル場である。
 
 例を示す。
 
@@ -374,26 +376,26 @@
 
 ポテンシャル
 ----------------------------------------------------------------------
-関数 ``is_conservative(field)``
+関数 :code:`is_conservative(field)`
   ベクトル場が保存場であるかどうかをテストする。
 
-  * 実装は ``curl(field, coord_sys) == Vector.zero`` を丁寧に調べている。
+  * 実装は :code:`curl(field, coord_sys) == Vector.zero` を丁寧に調べている。
 
-関数 ``is_solenoidal(field)``
+関数 :code:`is_solenoidal(field)`
   ベクトル場がソレノイド場であるかどうかをテストする。
 
-  * 実装は ``divergence(field, coord_sys) == 0`` を丁寧に調べている。
+  * 実装は :code:`divergence(field, coord_sys) == 0` を丁寧に調べている。
 
-関数 ``scalar_potential(field, coord_sys)``
+関数 :code:`scalar_potential(field, coord_sys)`
   保存場に関するスカラーポテンシャルを（積分定数を除いて）求める。
 
   * 実装では実際に各座標軸の区間ごとに積分を一度ずつ都合 3 回計算している。
 
-関数 ``scalar_potential_difference(field, coord_sys, point1, point2)``
+関数 :code:`scalar_potential_difference(field, coord_sys, point1, point2)`
   保存場に関する指定 2 点間のポテンシャルの差を計算する。
   引数は保存ベクトル場でも、そのスカラーポテンシャルでもよい。
 
-  * ``point2`` でのポテンシャルと ``point1`` でのそれとの差。
+  * :code:`point2` でのポテンシャルと :code:`point1` でのそれとの差。
 
 演習
 ======================================================================
@@ -401,7 +403,7 @@
 :math:`\mathbf{F} = 2 x y^3 z^4 \mathbf{i} + 3 x^2 y^2 z^4 \mathbf{j} + 4 x^2 y^3 z^3 \mathbf{k}`
 が保存場であることを確認し、そのスカラーポテンシャルを先述の関数で求める。
 また、このベクトル場の始点と終点をそれぞれ :math:`P_0(0, 0, 0)` と :math:`P_1(10, 10, 10)` とする、
-何らかの経路上の線積分を関数 ``scalar_potential_difference`` を利用して求める手続きの例を示す。
+何らかの経路上の線積分を関数 :code:`scalar_potential_difference` を利用して求める手続きの例を示す。
 
 .. code-block:: ipython
 
@@ -431,7 +433,7 @@
 * [5] 求めたスカラーポテンシャルには定数項が表現されていないので注意。
 * [7] どう考えても点の座標の指定が面倒だ。
 * [8] ここでは上品に求めたばかりのスカラーポテンシャルを引数として指定したが、
-  先述のように ``F`` を直接渡してよい。その場合は上における [5] が不要になる。
+  先述のように :code:`F` を直接渡してよい。その場合は上における [5] が不要になる。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt

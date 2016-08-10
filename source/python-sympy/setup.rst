@@ -36,7 +36,7 @@ SymPy のドキュメントによると、ソースからのインストール�
 そしてそのソースの入手方法は次のいずれかになる。
 
 #. ダウンロードページで配布しているソースの圧縮ファイルを解凍して、
-   コマンドラインから ``python setup.py install`` する。
+   コマンドラインから :code:`python setup.py install` する。
 
 #. Git でレポジトリーをローカルに複製して、以下同文。
 
@@ -77,7 +77,7 @@ SymPy のドキュメントによると、ソースからのインストール�
    Successfully installed mpmath sympy
    Cleaning up...
 
-* 公式ドキュメントには ``setupegg.py install`` せよとあるが、私のところでは動かなかった。
+* 公式ドキュメントには :code:`setupegg.py install` せよとあるが、私のところでは動かなかった。
   代わりに上記のように pip_ を用いた。
 
 * 依存パッケージに ``mpmath`` というのが見える。
@@ -137,17 +137,17 @@ SymPy のドキュメントによると、ソースからのインストール�
 * コンソールに羅列されていく数学用語を見ると、
   身に余る物をインストールしてしまったという気分を感じられる。
 * 微分方程式のソルバーのテストに時間がかかるようだ。
-* ``rst doctest start`` 以降は時間がなかったので Ctrl + C で中止した。
+* :code:`rst doctest start` 以降は時間がなかったので Ctrl + C で中止した。
 * ``[OK]`` がほとんどのようだから、全く動作しないということはなさそうに思える。
 
-``isympy`` を実行する
+:program:`isympy` を実行する
 ======================================================================
 コマンドラインから :file:`bin/isympy` を起動すると、そのまま Python の対話モードが始まる。
-IPython_ が利用可能な環境では、IPython のそれが始まる。
+IPython_ が利用可能な環境では IPython のそれが始まる。
 
 * 私の場合は Cygwin のコマンドラインから直接スクリプトを走らせるよりは、
-  Windows の「ファイル名を指定して実行」から :file:`python.exe` 経由で
-  :file:`isympy` を走らせるとキーバインド等の具合がよい。
+  Windows の「ファイル名を指定して実行」から :program:`python` 経由で
+  :program:`isympy` を走らせるとキーバインド等の具合がよい。
   私の場合は下記コマンドラインのようにする。
 
   .. code-block:: text
@@ -156,7 +156,8 @@ IPython_ が利用可能な環境では、IPython のそれが始まる。
 
   私の都合で SymPy 利用時に限り IPython の設定ファイルによる設定を上書きしたいので、
   コマンドライン引数の最後にそれを指定する。
-  こう書いておくと、IPython は設定ファイル :file:`$HOME/.ipython/profile_sympy/ipython_config.py` を採用する。
+  こう書いておくと、IPython は設定ファイル
+  :file:`$HOME/.ipython/profile_sympy/ipython_config.py` を採用する。
   次の行を編集してある。
 
   .. code-block:: python3
@@ -164,11 +165,12 @@ IPython_ が利用可能な環境では、IPython のそれが始まる。
      c.InteractiveShellApp.pylab_import_all = False
 
   これの意味を簡単に述べると、
-  いつもなら便利な ``from numpy import *`` 等の自動インポートを避けるということだ。
+  いつもなら便利な :code:`from numpy import *` 等の自動インポートを避けるということだ。
   いかにも NumPy と SymPy で何らかの名前衝突を起こしそうなことは想像に難くない。
 
   * 関連ノートとして :doc:`/python-ipython` の環境設定の節を参照。
-  * 後になって SymPy どころか、``all`` や ``sum`` 等の組み込みの関数の名前をも隠すことが発覚した。
+  * 後になって SymPy どころか、
+    :code:`all` や :code:`sum` 等の組み込みの関数の名前をも隠すことが発覚した。
 
 * ConEmu の Predefined Tasks にこのコマンドラインを含めておく。
   :doc:`/python-upgrade` も参照。

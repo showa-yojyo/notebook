@@ -36,12 +36,13 @@ SymPy 利用ノート
      * Windows 7 Home Premium x64 SP1
      * Windows 10 Home x64
 
-   * Python_: 3.4.1, 3.5.0
-   * SymPy_: 0.7.7dev
-   * IPython_: 3.0.0, 4.0.0
-   * Sphinx_: 1.3.1
-   * NumPy_: 1.9.2, 1.10.0
-   * Matplotlib_: 1.4.3
+   * Python_: 3.4.1, 3.5.0, 3.5.2
+   * SymPy_: 0.7.7dev, 1.0.1.dev0
+   * IPython_: 3.0.0, 4.0.0, 5.0.0
+   * Sphinx_: 1.3.1, 1.4.5
+   * NumPy_: 1.9.2, 1.10.0, 1.11.1
+   * Matplotlib_: 1.4.3, 1.5.1
+   * QtConsole: 4.2.1
 
 関連リンク
 ======================================================================
