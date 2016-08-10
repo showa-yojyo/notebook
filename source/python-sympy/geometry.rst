@@ -346,7 +346,7 @@ SymPy_ のサブパッケージ ``sympy.geometry`` に関わる覚え書きを�
 具体的な座標を与えないとどうも上手くいかないようなので、数値計算に切り替えて様子見だ。
 さらに難易度？を落とし、方べきの定理を再現してみたい。
 
-.. literalinclude:: /_sample/sympy/circle-power.py
+.. literalinclude:: /_sample/sympy/circle_power.py
    :language: python3
 
 円を単位円に固定する代わり、円周上の 4 点をランダムにとり、
@@ -354,10 +354,10 @@ SymPy_ のサブパッケージ ``sympy.geometry`` に関わる覚え書きを�
 
 .. code-block:: console
 
-   $ ./circle-power.py
+   $ ./circle_power.py
    PA * PB = 0.245325501000245
    PC * PD = 0.245325501000245
-   $ ./circle-power.py
+   $ ./circle_power.py
    PA * PB = 0.0519999915840500
    PC * PD = 0.0519999915840500
 

@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Demonstrate power-of-a-point theorem with SymPy."""
-from sympy import Point, Line, Circle
+"""circle_power.py: Demonstrate power-of-a-point theorem with SymPy.
+"""
+from sympy import (Point, Line, Circle)
 
 def demonstrate_circle_power(circle):
     """Demonstrate power-of-a-point theorem."""
@@ -17,6 +18,7 @@ def demonstrate_circle_power(circle):
     print("PA * PB =", PAPB.evalf())
     print("PC * PD =", PCPD.evalf())
 
-center = Point(0, 0)
-radius = 1
-demonstrate_circle_power(Circle(center, radius))
+if __name__ == '__main__':
+    center = Point(0, 0)
+    radius = 1
+    demonstrate_circle_power(Circle(center, radius))

@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Demonstrate Menelaus' theorem with SymPy."""
-from sympy import Point, Line, simplify, symbols
+"""meneraus.py: Demonstrate Menelaus' theorem with SymPy.
+"""
+from sympy import (Point, Line, symbols)
 
 def demonstrate_menelaus(l, A, B, C):
     """Demonstrate Menelaus' theorem."""
@@ -22,13 +23,17 @@ def demonstrate_menelaus(l, A, B, C):
     # Or show simplify(numer/denom).
     print((numer/denom).evalf())
 
-if True:
-    l = Line(Point(0, 0), Point(1, 1))
-    A = Point(21, 344)
-    B = Point(-143, -22)
-    C = Point(59, 300)
-else:
-    l = Line(*[Point(i, j) for i, j in zip(symbols('X1:3'), symbols('Y1:3'))])
-    A, B, C = [Point(i, j) for i, j in zip(symbols('x1:4'), symbols('y1:4'))]
+if __name__ == '__main__':
+    if True:
+        line = Line(Point(0, 0), Point(1, 1))
+        vertices = (Point(21, 344),
+                    Point(-143, -22),
+                    Point(59, 300),)
+    else:
+        line = Line(*[Point(i, j) for i, j in
+                      zip(symbols('X1:3'), symbols('Y1:3'))])
+        vertices = [Point(i, j) for i, j in
+                    zip(symbols('x1:4'), symbols('y1:4'))]
 
-demonstrate_menelaus(l, A, B, C)
+    assert len(vertices) == 3
+    demonstrate_menelaus(line, *vertices)
