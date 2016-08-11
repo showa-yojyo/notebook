@@ -300,7 +300,26 @@ Laplace 方程式のもっとも簡単な形のものを試してみよう。
 .. code-block:: ipython
 
    In [1]: classify_pde(Eq(u.diff(x, x) + u.diff(y, y), 0))
-   Out[1]: ()
+   ---------------------------------------------------------------------------
+   ValueError                                Traceback (most recent call last)
+   <ipython-input-13-d4ae5395f9e0> in <module>()
+   ----> 1 classify_pde(Eq(u.diff(x, x) + u.diff(y, y), 0))
+
+   D:\home\yojyo\devel\sympy\sympy\solvers\pde.py in classify_pde(eq, func, dict, **kwargs)
+       277
+       278     if prep or func is None:
+   --> 279         prep, func_ = _preprocess(eq, func)
+       280         if func is None:
+       281             func = func_
+
+   D:\home\yojyo\devel\sympy\sympy\solvers\deutils.py in _preprocess(expr, func, hint)
+        75         if len(funcs) != 1:
+        76             raise ValueError('The function cannot be '
+   ---> 77                 'automatically detected for %s.' % expr)
+        78         func = funcs.pop()
+        79     fvars = set(func.args)
+
+   ValueError: The function cannot be automatically detected for True.
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt

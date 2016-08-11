@@ -60,7 +60,26 @@ SymPy のドキュメントの出来が良いので、特に付け足すこと�
    In [1]: eq = 7*x + 7*y + 7*z - 2*x*y - 2*y*z - 2*z*x
 
    In [2]: diophantine(eq)
-   Out[2]: set()
+   ---------------------------------------------------------------------------
+   NotImplementedError                       Traceback (most recent call last)
+   <ipython-input-5-b6fe808b8a42> in <module>()
+   ----> 1 diophantine(eq)
+
+   D:\home\yojyo\devel\sympy\sympy\solvers\diophantine.py in diophantine(eq, param, syms)
+       197         var_t, _, eq_type = classify_diop(base, _dict=False)
+       198         _, base = signsimp(base, evaluate=False).as_coeff_Mul()
+   --> 199         solution = diop_solve(base, param)
+       200
+       201         if eq_type in [
+
+   D:\home\yojyo\devel\sympy\sympy\solvers\diophantine.py in diop_solve(eq, param)
+       341     else:
+       342         raise NotImplementedError(
+   --> 343             'No solver has been written for %s.' % eq_type)
+       344
+       345
+
+   NotImplementedError: No solver has been written for inhomogeneous_ternary_quadratic.
 
    In [3]: eq.subs({x:1, y:3, z:22})
    Out[3]: 0
@@ -85,7 +104,26 @@ SymPy のドキュメントの出来が良いので、特に付け足すこと�
    In [2]: eq =  x**2 + 2*y**2 + 2*z**2 - 2*x*y + 2*y*z - 2*x*z - 5
 
    In [3]: diophantine(x**2 + 2*y**2 + 2*z**2 - 2*x*y + 2*y*z - 2*z*x - 5)
-   Out[3]: set()
+   ---------------------------------------------------------------------------
+   NotImplementedError                       Traceback (most recent call last)
+   <ipython-input-9-b6fe808b8a42> in <module>()
+   ----> 1 diophantine(eq)
+
+   D:\home\yojyo\devel\sympy\sympy\solvers\diophantine.py in diophantine(eq, param, syms)
+       197         var_t, _, eq_type = classify_diop(base, _dict=False)
+       198         _, base = signsimp(base, evaluate=False).as_coeff_Mul()
+   --> 199         solution = diop_solve(base, param)
+       200
+       201         if eq_type in [
+
+   D:\home\yojyo\devel\sympy\sympy\solvers\diophantine.py in diop_solve(eq, param)
+       341     else:
+       342         raise NotImplementedError(
+   --> 343             'No solver has been written for %s.' % eq_type)
+       344
+       345
+
+   NotImplementedError: No solver has been written for inhomogeneous_general_quadratic.
 
    In [4]: eq.subs({x:3, y:1, z:2})
    Out[4]: 0

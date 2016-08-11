@@ -112,7 +112,7 @@ Vector オブジェクトに対して、次の関数およびクラスによる 
 
   .. code-block:: ipython
 
-     In [1]: from sympy.vector import CoordSysCartesian
+     In [1]: from sympy.vector import *
 
      In [2]: N = CoordSysCartesian('N')
 
@@ -136,7 +136,7 @@ Vector オブジェクトに対して、次の関数およびクラスによる 
 
      In [6]: c = sum((i * j for i, j in zip(symbols('c0:3'), N.base_vectors())), Vector.zero)
 
-     In [7]: a.dot(b.outer(vc))
+     In [7]: a.dot(b.outer(c))
      Out[7]: (a0*b0*c0 + a1*b1*c0 + a2*b2*c0)*N.i
            + (a0*b0*c1 + a1*b1*c1 + a2*b2*c1)*N.j
            + (a0*b0*c2 + a1*b1*c2 + a2*b2*c2)*N.k
@@ -265,14 +265,14 @@ Vector オブジェクトに対して、次の関数およびクラスによる 
 
 .. code-block:: ipython
 
-   In [1]: from sympy.vector import CoordSysCartesian
+   In [1]: from sympy.vector import *
 
    In [2]: N = CoordSysCartesian('N')
 
    In [3]: f = Function('f')(N.x, N.y, N.z); f
    Out[3]: f(N.x, N.y, N.z)
 
-   In [4]: N.delop(p)
+   In [4]: N.delop(f)
    Out[4]: (Derivative(f(N.x, N.y, N.z), N.x))*N.i
          + (Derivative(f(N.x, N.y, N.z), N.y))*N.j
          + (Derivative(f(N.x, N.y, N.z), N.z))*N.k
@@ -288,19 +288,21 @@ Vector オブジェクトに対して、次の関数およびクラスによる 
 
 .. code-block:: ipython
 
-   In [1]: from sympy.vector import CoordSysCartesian, curl
+   In [1]: from sympy.vector import *
 
    In [2]: N = CoordSysCartesian('N')
 
    In [3]: fx, fy, fz = [i(N.x, N.y, N.z) for i in symbols('fx fy fz', type=Function)]
 
    In [4]: curl(fx * N.i + fy * N.j + fz * N.k, N)
-   Out[4]: (-Derivative(fy(N.x, N.y, N.z), N.z) + Derivative(fz(N.x, N.y, N.z), N.y))*N.i
-         + (Derivative(fx(N.x, N.y, N.z), N.z) - Derivative(fz(N.x, N.y, N.z), N.x))*N.j
-         + (-Derivative(fx(N.x, N.y, N.z), N.y) + Derivative(fy(N.x, N.y, N.z), N.x))*N.k
+   Out[4]: (-Subs(Derivative(fy(N.x, N.y, _xi_2), _xi_2), (_xi_2,), (N.z,)) + Subs(Derivative(fz(N.x, _xi_2, N.z), _xi_2), (_xi_2,), (N.y,)))*N.i
+         + (Subs(Derivative(fx(N.x, N.y, _xi_2), _xi_2), (_xi_2,), (N.z,)) - Subs(Derivative(fz(_xi_2, N.y, N.z), _xi_2), (_xi_2,), (N.x,)))*N.j 
+         + (-Subs(Derivative(fx(N.x, _xi_2, N.z), _xi_2), (_xi_2,), (N.y,)) + Subs(Derivative(fy(_xi_2, N.y, N.z), _xi_2), (_xi_2,), (N.x,)))*N.k
 
-   In [5]: N.delop.cross(fx * N.i + fy * N.j + fz * N.k) == _
-   Out[5]: True
+   In [5]: N.delop.cross(fx * N.i + fy * N.j + fz * N.k)
+   Out[5]: (-Derivative(fy(N.x, N.y, N.z), N.z) + Derivative(fz(N.x, N.y, N.z), N.y))*N.i 
+         + (Derivative(fx(N.x, N.y, N.z), N.z) - Derivative(fz(N.x, N.y, N.z), N.x))*N.j 
+         + (-Derivative(fx(N.x, N.y, N.z), N.y) + Derivative(fy(N.x, N.y, N.z), N.x))*N.k
 
 発散
 ----------------------------------------------------------------------
@@ -313,17 +315,19 @@ Vector オブジェクトに対して、次の関数およびクラスによる 
 
 .. code-block:: ipython
 
-   In [1]: from sympy.vector import CoordSysCartesian, divergence
+   In [1]: from sympy.vector import *
 
    In [2]: # Create N, fx, fy, and fz...
 
    In [3]: divergence(fx * N.i + fy * N.j + fz * N.k, N)
-   Out[3]: Derivative(fx(N.x, N.y, N.z), N.x)
+   Out[3]: Subs(Derivative(fx(_xi_2, N.y, N.z), _xi_2), (_xi_2,), (N.x,))
+         + Subs(Derivative(fy(N.x, _xi_2, N.z), _xi_2), (_xi_2,), (N.y,))
+         + Subs(Derivative(fz(N.x, N.y, _xi_2), _xi_2), (_xi_2,), (N.z,))
+
+   In [4]: N.delop.dot(fx * N.i + fy * N.j + fz * N.k)
+   Out[4]: Derivative(fx(N.x, N.y, N.z), N.x)
          + Derivative(fy(N.x, N.y, N.z), N.y)
          + Derivative(fz(N.x, N.y, N.z), N.z)
-
-   In [4]: N.delop.dot(fx * N.i + fy * N.j + fz * N.k) == _
-   Out[4]: True
 
 勾配
 ----------------------------------------------------------------------
@@ -338,17 +342,19 @@ Vector オブジェクトに対して、次の関数およびクラスによる 
 
 .. code-block:: ipython
 
-   In [1]: from sympy.vector import CoordSysCartesian, gradient
+   In [1]: from sympy.vector import *
 
    In [2]: # Create N, and f(x, y, z).
 
    In [3]: gradient(f, N)
-   Out[3]: (Derivative(f(N.x, N.y, N.z), N.x))*N.i
+   Out[3]: (Subs(Derivative(f(_xi_2, N.y, N.z), _xi_2), (_xi_2,), (N.x,)))*N.i
+         + (Subs(Derivative(f(N.x, _xi_2, N.z), _xi_2), (_xi_2,), (N.y,)))*N.j
+         + (Subs(Derivative(f(N.x, N.y, _xi_2), _xi_2), (_xi_2,), (N.z,)))*N.k
+
+   In [4]: N.delop.gradient(f)
+   Out[4]: (Derivative(f(N.x, N.y, N.z), N.x))*N.i
          + (Derivative(f(N.x, N.y, N.z), N.y))*N.j
          + (Derivative(f(N.x, N.y, N.z), N.z))*N.k
-
-   In [4]: N.delop.gradient(f) == _
-   Out[4]: True
 
 方向微分
 ----------------------------------------------------------------------
@@ -365,14 +371,20 @@ Vector オブジェクトに対して、次の関数およびクラスによる 
    In [1]: # Create N, a, b, f(x, y, z), fx, fy, and fz.
 
    In [2]: (a.dot(N.delop))(f)
-   Out[2]: a0*Derivative(f(N.x, N.y, N.z), N.x)
-         + a1*Derivative(f(N.x, N.y, N.z), N.y)
-         + a2*Derivative(f(N.x, N.y, N.z), N.z)
+   Out[2]: a0*Subs(Derivative(f(_xi_2, N.y, N.z), _xi_2), (_xi_2,), (N.x,))
+         + a1*Subs(Derivative(f(N.x, _xi_2, N.z), _xi_2), (_xi_2,), (N.y,))
+         + a2*Subs(Derivative(f(N.x, N.y, _xi_2), _xi_2), (_xi_2,), (N.z,))
 
    In [3]: (b.dot(N.delop))(fx * N.i + fy * N.j + fz * N.k)
-   Out[3]: (b0*Derivative(fx(N.x, N.y, N.z), N.x) + b1*Derivative(fx(N.x, N.y, N.z), N.y) + b2*Derivative(fx(N.x, N.y, N.z), N.z))*N.i
-         + (b0*Derivative(fy(N.x, N.y, N.z), N.x) + b1*Derivative(fy(N.x, N.y, N.z), N.y) + b2*Derivative(fy(N.x, N.y, N.z), N.z))*N.j
-         + (b0*Derivative(fz(N.x, N.y, N.z), N.x) + b1*Derivative(fz(N.x, N.y, N.z), N.y) + b2*Derivative(fz(N.x, N.y, N.z), N.z))*N.k
+   Out[3]: (b0*Subs(Derivative(fx(_xi_2, N.y, N.z), _xi_2), (_xi_2,), (N.x,))
+          + b1*Subs(Derivative(fx(N.x, _xi_2, N.z), _xi_2), (_xi_2,), (N.y,))
+          + b2*Subs(Derivative(fx(N.x, N.y, _xi_2), _xi_2), (_xi_2,), (N.z,)))*N.i
+         + (b0*Subs(Derivative(fy(_xi_2, N.y, N.z),_xi_2), (_xi_2,), (N.x,))
+          + b1*Subs(Derivative(fy(N.x, _xi_2, N.z), _xi_2), (_xi_2,), (N.y,))
+          + b2*Subs(Derivative(fy(N.x, N.y, _xi_2), _xi_2), (_xi_2,), (N.z,)))*N.j
+         + (b0*Subs(Derivative(fz(_xi_2, N.y, N.z), _xi_2), (_xi_2,), (N.x,))
+          + b1*Subs(Derivative(fz(N.x, _xi_2, N.z), _xi_2), (_xi_2,), (N.y,))
+          + b2*Subs(Derivative(fz(N.x, N.y, _xi_2), _xi_2), (_xi_2,), (N.z,)))*N.k
 
 ポテンシャル
 ----------------------------------------------------------------------
@@ -423,7 +435,7 @@ Vector オブジェクトに対して、次の関数およびクラスによる 
 
    In [6]: p0 = N.origin
 
-   In [7]: p1 = N.origin.locate_new(10 * N.i + 10 * N.j + 10 * N.k)
+   In [7]: p1 = N.origin.locate_new('p1', 10 * N.i + 10 * N.j + 10 * N.k)
 
    In [8]: scalar_potential_difference(f, N, p0, p1)
    Out[8]: 1000000000

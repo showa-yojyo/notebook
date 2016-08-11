@@ -583,7 +583,8 @@ Berkowitz のアルゴリズムを検証する
            [a20, a21, a22]])
 
    In [2]: Mberk = M.berkowitz(); Mberk
-   Out[2]: ((1,
+   Out[2]: ((1,),
+            (1,
              -a00),
             (1,
              -a00 - a11,
@@ -602,7 +603,7 @@ Berkowitz のアルゴリズムを検証する
    In [4]: all(simplify(i - j) == 0 for i, j in zip(Mcharpoly, Mberk[-1]))
    Out[4]: True
 
-   In [5]: simplify(M.cofactor(2, 2) - Mberk[1][-1])
+   In [5]: simplify(M.cofactor(2, 2) - Mberk[2][-1])
    Out[5]: 0
 
    In [6]: simplify(M.det() + Mberk[-1][-1])
@@ -617,7 +618,7 @@ Berkowitz のアルゴリズムを検証する
   両者が一致することを見る。
 
 * [5] :code:`M` の対角成分末端（行列の右下）要素の余因子は
-  :code:`berkowitz` の戻り値の 2 ステップ目 :code:`Mberk[1]` の末尾の要素に等しい。
+  :code:`berkowitz` の戻り値の 2 ステップ目 :code:`Mberk[2]` の末尾の要素に等しい。
   これは同ステップのミニ正方行列の行列式でもある。
 
 * [6] :code:`M` の行列式は :code:`berkowitz` の戻り値の末尾の末尾に符号を考慮したものである。

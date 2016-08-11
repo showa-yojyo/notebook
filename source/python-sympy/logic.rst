@@ -188,6 +188,12 @@ SymPy では Sum of Products form と Product of Sums form を扱っている。
      In [2]: to_nnf(A >> B)
      Out[2]: Or(B, Not(A))
 
+.. warning::
+
+   上記サンプルではあらかじめ下記のインポートが必要である。
+
+   >>> from sympy.logic.boolalg import (is_nnf, is_cnf, is_dnf)
+
 単純化
 ----------------------------------------------------------------------
 関数 :code:`simplify_logic(expr, form=None, deep=True)`

@@ -837,7 +837,7 @@ SymPy のソルバーは 2 階以上は全部高階扱い。
 .. code-block:: python3
 
    from sympy.solvers.ode import classify_sysode
-   x, y, z = symbols('x, y', function=True)
+   x, y, z = symbols('x y z', function=True)
 
 まずは定数係数の例を示す。
 
@@ -1053,17 +1053,24 @@ SymPy のソルバーは 2 階以上は全部高階扱い。
    In [3]: classify_sysode(sys, funcs=[p(t), q(t), r(t), s(t)])
    ---------------------------------------------------------------------------
    KeyError                                  Traceback (most recent call last)
-   <ipython-input-258-65d1e646ce2f> in <module>()
+   <ipython-input-25-65d1e646ce2f> in <module>()
    ----> 1 classify_sysode(sys, funcs=[p(t), q(t), r(t), s(t)])
-   
-   D:\home\yojyo\devel\sympy\sympy\solvers\ode.py in classify_sysode(eq, funcs, **kwargs)
-      1374     func_dict = dict()
-      1375     for func in funcs:
-   -> 1376         if not order[func]:
-      1377             max_order = 0
-      1378             for i, eqs_ in enumerate(eq):
 
-   KeyError: p(t)
+   D:\home\yojyo\devel\sympy\sympy\solvers\ode.py in classify_sysode(eq, funcs, **kwargs)
+      1389                 func_dict[eq_no] = func
+      1390             order[func] = max_order
+   -> 1391     funcs = [func_dict[i] for i in range(len(func_dict))]
+      1392     matching_hints['func'] = funcs
+      1393     for func in funcs:
+
+   D:\home\yojyo\devel\sympy\sympy\solvers\ode.py in <listcomp>(.0)
+      1389                 func_dict[eq_no] = func
+      1390             order[func] = max_order
+   -> 1391     funcs = [func_dict[i] for i in range(len(func_dict))]
+      1392     matching_hints['func'] = funcs
+      1393     for func in funcs:
+
+   KeyError: 2
 
 次の例ではソルバーの処理中に謎のエラーが出る。
 
@@ -1093,29 +1100,29 @@ SymPy のソルバーは 2 階以上は全部高階扱い。
    In [4]: dsolve(sys)
    ---------------------------------------------------------------------------
    TypeError                                 Traceback (most recent call last)
-   <ipython-input-264-094226d3d973> in <module>()
+   <ipython-input-30-094226d3d973> in <module>()
    ----> 1 dsolve(sys)
 
    D:\home\yojyo\devel\sympy\sympy\solvers\ode.py in dsolve(eq, func, hint, simplify, ics, xi, eta, x0, n, **kwargs)
-       614             else:
-       615                 solvefunc = globals()['sysode_nonlinear_%(no_of_equation)seq_order%(order)s' % match]
-   --> 616             sols = solvefunc(match)
-       617             return sols
-       618     else:
+       615             else:
+       616                 solvefunc = globals()['sysode_nonlinear_%(no_of_equation)seq_order%(order)s' % match]
+   --> 617             sols = solvefunc(match)
+       618             return sols
+       619     else:
 
    D:\home\yojyo\devel\sympy\sympy\solvers\ode.py in sysode_nonlinear_2eq_order1(match_)
-      7785         sol = _nonlinear_2eq_order1_type2(x, y, t, eq)
-      7786     elif match_['type_of_equation'] == 'type3':
-   -> 7787         sol = _nonlinear_2eq_order1_type3(x, y, t, eq)
-      7788     elif match_['type_of_equation'] == 'type4':
-      7789         sol = _nonlinear_2eq_order1_type4(x, y, t, eq)
+      7772         sol = _nonlinear_2eq_order1_type2(x, y, t, eq)
+      7773     elif match_['type_of_equation'] == 'type3':
+   -> 7774         sol = _nonlinear_2eq_order1_type3(x, y, t, eq)
+      7775     elif match_['type_of_equation'] == 'type4':
+      7776         sol = _nonlinear_2eq_order1_type4(x, y, t, eq)
 
    D:\home\yojyo\devel\sympy\sympy\solvers\ode.py in _nonlinear_2eq_order1_type3(x, y, t, eq)
-      7907     G = r2[g].subs(x(t),u).subs(y(t),v)
-      7908     sol2r = dsolve(Eq(diff(v(u),u), G.subs(v,v(u))/F.subs(v,v(u))))
-   -> 7909     for sol2s in sol2r:
-      7910         sol1 = solve(Integral(1/F.subs(v, sol2s.rhs), u).doit() - t - C2, u)
-      7911     sol = []
+      7894     G = r2[g].subs(x(t),u).subs(y(t),v)
+      7895     sol2r = dsolve(Eq(diff(v(u),u), G.subs(v,v(u))/F.subs(v,v(u))))
+   -> 7896     for sol2s in sol2r:
+      7897         sol1 = solve(Integral(1/F.subs(v, sol2s.rhs), u).doit() - t - C2, u)
+      7898     sol = []
 
    TypeError: 'Equality' object is not iterable
 

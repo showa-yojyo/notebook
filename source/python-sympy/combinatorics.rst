@@ -74,13 +74,13 @@ SymPy_ のドキュメントでは先に Permutation を説明しているが、
 .. code-block:: ipython
 
    In [1]: Permutation(2, 1)(0, 5, 6)
-   Out[1]: Permutation(0, 5, 6)(1, 2)
+   Out[1]: (0 5 6)(1 2)
 
    In [2]: Permutation([[2, 1], [0, 5, 6]])
-   Out[2]: Permutation(0, 5, 6)(1, 2)
+   Out[2]: (0 5 6)(1 2)
 
    In [3]: Permutation(2, 1) * Permutation(0, 5, 6)
-   Out[3]: Permutation(0, 5, 6)(1, 2)
+   Out[3]: (0 5 6)(1 2)
 
 * 上のコンストラクターのみの場合では、与える巡回置換は互いに素である必要がある。
 
@@ -90,7 +90,7 @@ SymPy_ のドキュメントでは先に Permutation を説明しているが、
   .. code-block:: ipython
 
      In [1]: Permutation([[44, 88],], size=100)
-     Out[1]: Permutation(99)(44, 88)
+     Out[1]: (99)(44 88)
 
 * 長さ `n` の恒等置換の生成法をひとつマスターしておく。
   一番楽なのは :code:`Permutation(size=n)` だろう。
@@ -124,7 +124,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
    In [1]: p = Permutation(2, 1)(0, 5, 6)
 
    In [2]: p(0), p(1), p(2)
-   Out[2]: (5, 2, 1)
+   Out[2]: (5 2 1)
 
 同サイズの文字列・コレクションの像も同様に得られる。
 
@@ -159,13 +159,13 @@ Permutation オブジェクトを出力する方法がいくつかある。
 .. code-block:: ipython
 
    In [1]: Permutation.random(10)
-   Out[1]: Permutation(0, 5, 3, 4, 8)(1, 2, 9)(6, 7)
+   Out[1]: (0 5 3 4 8)(1 2 9)(6 7)
 
    In [2]: Permutation.random(10)
-   Out[2]: Permutation(0, 4, 5, 8)(1, 2, 3, 6)(7, 9)
+   Out[2]: (0 4 5 8)(1 2 3 6)(7 9)
 
    In [3]: Permutation.random(10)
-   Out[3]: Permutation(0, 7, 6, 8, 1, 9, 3, 2, 5, 4)
+   Out[3]: (0 7 6 8 1 9 3 2 5 4)
 
 * どういう種類のランダムなのか Python だけが知っている。
 * ちなみに :code:`random(0)` と :code:`random(1)` の結果は異なる。
@@ -178,13 +178,13 @@ Permutation オブジェクトを出力する方法がいくつかある。
 .. code-block:: ipython
 
    In [1]: p = Permutation(2, 1)(0, 5, 6); p
-   Out[1]: Permutation(0, 5, 6)(1, 2)
+   Out[1]: (0 5 6)(1 2)
 
    In [2]: p.order()
    Out[2]: 6
 
    In [3]: p ** 6
-   Out[3]: Permutation(6)
+   Out[3]: (6)
 
 逆置換を求める
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -194,13 +194,13 @@ Permutation オブジェクトを出力する方法がいくつかある。
 .. code-block:: ipython
 
    In [1]: p = Permutation(2, 1)(0, 5, 6); p
-   Out[1]: Permutation(0, 5, 6)(1, 2)
+   Out[1]: (0 5 6)(1 2)
 
    In [2]: p ** -1
-   Out[2]: Permutation(0, 6, 5)(1, 2)
+   Out[2]: (0 6 5)(1 2)
 
    In [3]: p * (p**-1)
-   Out[3]: Permutation(6)
+   Out[3]: (6)
 
 置換の巡回表記を互換の積へ分解する
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -210,7 +210,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
 .. code-block:: ipython
 
    In [1]: p = Permutation(2, 1)(0, 5, 6); p
-   Out[1]: Permutation(0, 5, 6)(1, 2)
+   Out[1]: (0 5 6)(1 2)
 
    In [2]: p.transpositions()
    Out[2]: [(0, 6), (0, 5), (1, 2)]
@@ -417,10 +417,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
        Out[2]: [[0, 2, 4], [5, 6], [1, 3]]
 
        In [3]: G.basic_transversals
-       Out[3]:
-       [{0: Permutation(6), 2: Permutation(6)(0, 2, 4)(1, 3), 4: Permutation(6)(0, 4, 2)},
-        {5: Permutation(6), 6: Permutation(5, 6)},
-        {1: Permutation(6), 3: Permut ation(6)(1, 3)}]
+       Out[3]: [{0: (6), 2: (6)(0 2 4)(1 3), 4: (6)(0 4 2)}, {5: (6), 6: (5 6)}, {1: (6), 3: (6)(1 3)}]
 
 :code:`degree`
   群が含む置換のサイズ。置換が対象とする文字数。
@@ -500,20 +497,17 @@ Permutation オブジェクトを出力する方法がいくつかある。
     .. code-block:: ipython
 
        In [5]: G.basic_transversals
-       Out[5]:
-       [{0: Permutation(6), 2: Permutation(6)(0, 2, 4)(1, 3), 4: Permutation(6)(0, 4, 2)},
-        {5: Permutation(6), 6: Permutation(5, 6)},
-        {1: Permutation(6), 3: Permut ation(6)(1, 3)}]
+       Out[5]: [{0: (6), 2: (6)(0 2 4)(1 3), 4: (6)(0 4 2)}, {5: (6), 6: (5 6)}, {1: (6), 3: (6)(1 3)}]
 
        In [6]: perm = Permutation(0, 2, 4)(1, 3)(5, 6)
 
        In [7]: G.coset_factor(perm)
-       Out[7]: [Permutation(6)(0, 2, 4)(1, 3), Permutation(5, 6), Permutation(6)]
+       Out[7]: [(6)(0 2 4)(1 3), (5 6), (6)]
 
        In [8]: G.coset_factor(perm, True)
        Out[8]: [2, 6, 1]
 
-       In [9]: perm == Permutation.rmul(*Out[57])
+       In [9]: perm == Permutation.rmul(*Out[7])
        Out[9]: True
 
 :code:`coset_rank(g)`
@@ -692,9 +686,9 @@ AbelianGroup
    In [1]: G = AbelianGroup(2, 2, 3); G
    Out[1]:
        PermutationGroup([
-       Permutation(6)(0, 1),
-       Permutation(6)(2, 3),
-       Permutation(4, 5, 6)])
+       (6)(0 1),
+       (6)(2 3),
+       (4 5 6)])
 
    In [2]: G.order()
    Out[2]: 12
@@ -826,7 +820,7 @@ SymmetricGroup
    Out[3]: True
 
    In [4]: S5.generators
-   Out[4]: [Permutation(0, 1, 2, 3, 4), Permutation(4)(0, 1)]
+   Out[4]: [(0, 1, 2, 3, 4), (4)(0, 1)]
 
    In [5]: C5.is_subgroup(S5)
    Out[5]: True
@@ -845,12 +839,12 @@ RubikGroup
 
    In [2]: print(R3)
    PermutationGroup([
-       Permutation(53)(6, 44, 47, 18)(7, 41, 46, 21)(8, 38, 45, 24)(9, 15, 17, 11)(10, 12, 16, 14),
-       Permutation(53)(3, 43, 50, 19)(4, 40, 49, 22)(5, 37, 48, 25),
-       Permutation(2, 11, 47, 33)(5, 14, 50, 30)(8, 17, 53, 27)(18, 24, 26, 20)(19, 21, 25, 23),
-       Permutation(53)(1, 10, 46, 34)(4, 13, 49, 31)(7, 16, 52, 28),
-       Permutation(15, 42, 33, 24)(16, 43, 34, 25)(17, 44, 35, 26)(45, 51, 53, 47)(46, 48, 52, 50),
-       Permutation(53)(12, 39, 30, 21)(13, 40, 31, 22)(14, 41, 32, 23)])
+       (53)(6 44 47 18)(7 41 46 21)(8 38 45 24)(9 15 17 11)(10 12 16 14),
+       (53)(3 43 50 19)(4 40 49 22)(5 37 48 25),
+       (2 11 47 33)(5 14 50 30)(8 17 53 27)(18 24 26 20)(19 21 25 23),
+       (53)(1 10 46 34)(4 13 49 31)(7 16 52 28),
+       (15 42 33 24)(16 43 34 25)(17 44 35 26)(45 51 53 47)(46 48 52 50),
+       (53)(12 39 30 21)(13 40 31 22)(14 41 32 23)])
 
    In [3]: R3.order()
    Out[3]: 43252003274489856000
