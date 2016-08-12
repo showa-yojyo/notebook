@@ -6,16 +6,18 @@ Pygments 利用ノート
 
 .. note::
 
+   本稿執筆時の動作環境は次のとおり。
+
    * OS
 
      * Windows XP Home Edition SP3
      * Windows 7 Home Premium x64 SP1
      * Windows 10 Home x64
 
-   * 本稿において、利用した各パッケージのバージョンは次のとおり。
+   * Python およびパッケージ
 
-     * Python_: 2.6.6, 2.7.3, 3.4.1, 3.5.0
-     * Pygments_: 1.4, 1.6, 2.0.2
+     * Python_: 2.6.6, 2.7.3, 3.4.1, 3.5.0, 3.5.2
+     * Pygments_: 1.4, 1.6, 2.0.2, 2.1.3
 
 関連リンク
 ======================================================================
@@ -31,31 +33,33 @@ Python_ 製パッケージ」とでも言えばいいのだろうか。
 インストール
 ======================================================================
 正しいインストール方法はいつものように複数ある。
-公式にはいずれの方法においても Python 2.4 以上が必要。
+アップグレードの方法もインストールとほぼ同様なので省略する。
 
-方法 1 -- pip 経由でインストール
+普通は Sphinx のインストールを済ませていると思われるので、
+その依存パッケージである Pygments もすでに利用可能になっているはずだ。
+
+:program:`conda` でインストール
 ----------------------------------------------------------------------
-インターネットが利用できる環境ではいつも通りコンソールウィンドウで
-``pip install pygments`` とタイプすればよい。
+Python 環境を Anaconda_ もしくは Miniconda_ を利用して管理しているのであれば、
+コンソールで :code:`conda install pygments` とすればパッケージがインストールできる。
 
-方法 2 -- ソースコード一式からインストール
+* :program:`conda` については :doc:`/python-miniconda` 参照。
+
+:program:`pip` でインストール
 ----------------------------------------------------------------------
-インターネットがない環境ではこの方法に頼るしかない。
-まずは学校・職場・漫画喫茶等に行き Pygments_ のコード一式をダウンロードして、
-それを USB メモリか何かに入れて持ち帰る。
+Python 環境を正規のインストーラーから構築しているのであれば pip_ が利用可能だ。
+コンソールで ``pip install pygments`` とする。
 
-万が一 setuptools_ がない場合は、それも持ち帰ってインストールを済ませておくこと。
+* :program:`pip` については :doc:`/python-pip` 参照。
 
-圧縮ファイルを解凍して :file:`setup.py` のあるフォルダーに ``cd`` して
-``setup.py install`` するべし。
-
-方法 3 -- 開発版コードをダウンロード
+開発版コードをダウンロード
 ----------------------------------------------------------------------
 Mercurial_ とやらが必要なのでパス。
 
 ドキュメントも確保する
 ----------------------------------------------------------------------
-学習の都合上、公式サイト http://pygments.org/download/
+学習の都合上、
+`公式サイト <http://pygments.org/download/>`__
 からオフライン用のドキュメント一式をダウンロードしておくとよいだろう。
 
 いきなり使ってみる
@@ -65,8 +69,11 @@ Mercurial_ とやらが必要なのでパス。
 * 簡単に言うと Pygments の設計様式は 4 本柱。
   よく読むと大事なのはこのうちの 2 本だけか。
 
-  * ``lexers``: ソースコードを解析して、これはキーワード、これはリテラル文字列、等々に分解する
-    （この処理をトークンに分解すると言う）。プログラミング言語毎に専用の lexer が存在する。
+  * ``lexers``: ソースコードを解析して、
+    これはキーワード、これはリテラル文字列、等々というふうに分類する。
+
+    * この処理をトークンに分解すると言う。
+    * プログラミング言語毎に専用の lexer が存在する。
 
   * ``filters``: lexer からの出力（トークンストリーム）をテキスト的な加工をするときに利用する。
 
@@ -78,31 +85,33 @@ Mercurial_ とやらが必要なのでパス。
 Python コードから Pygments の機能を利用する
 ----------------------------------------------------------------------
 ドキュメントに紹介されている例を検討してみる。
+ここでは PythonLexer に代えて Python3Lexer を適用してみる。
 
 .. code-block:: python3
 
    from pygments import highlight
-   from pygments.lexers import PythonLexer
+   from pygments.lexers import Python3Lexer
    from pygments.formatters import HtmlFormatter
   
    code = 'print("Hello World")'
-   print(highlight(code, PythonLexer(), HtmlFormatter()))
+   print(highlight(code, Python3Lexer(), HtmlFormatter()))
 
 これは「Python のソースコードを HTML コード片に変換する」例のごく単純なもので、
-最後に ``highlight`` 関数で締めくくっている。
+最後に :code:`highlight` 関数で締めくくっている。
 
 出力結果を示す。
 
 .. code-block:: html
 
-   <div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
+   <div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello World&quot;</span><span class="p">)</span>
    </pre></div>
 
 何が highlight なのかと言うと、HTML コードに装飾用のマークアップが付いていることが認められる。
 
 * コード片全体が ``highlight`` というクラスの ``DIV`` タグに囲まれている。
-* キーワード ``print`` が ``k`` というクラスの ``SPAN`` タグに囲まれている。
-* リテラル文字列 ``Hello World`` が ``s`` というクラスの ``SPAN`` タグに囲まれている。
+* 丸括弧が ``p`` というクラスの ``SPAN`` タグに囲まれている。
+* キーワード ``print`` が ``nb`` というクラスの ``SPAN`` タグに囲まれている。
+* リテラル文字列 ``Hello World`` が ``s2`` というクラスの ``SPAN`` タグに囲まれている。
   ついでに言うと、ダブルクォーテーションがエスケープ済み。
 
 どうやら CSS を自分で好きに書けば、ハイライト（色付けやら何やら）を実現できるということか。
@@ -136,8 +145,7 @@ Pygments をインストールすると、
    # -L オプションで利用可能なコンポーネントを画面にリスト。
    $ pygmentize -L lexers
 
-   # -H オプションでより詳しい説明を画面に出力するらしい
-   # が出て来ない。
+   # -H オプションでより詳しい説明を画面に出力する。
    $ pygmentize -H lexer python
 
 コンポーネント
@@ -170,26 +178,26 @@ Sphinx_ の ``code-block`` ディレクティブの引数がこの aliases と�
 * 最初に全ての lexers をザッと眺めておくと、
   自分が使うであろう lexer の当たりがつけやすい。
 
-* ``pygments.lexers.get_all_lexers`` 関数で、各 lexer を表現する
-  ``(name, aliases, filetypes, mimetypes)`` を指すイテレータが得られる。
+* :code:`pygments.lexers.get_all_lexers` 関数で、各 lexer を表現する
+  :code:`(name, aliases, filetypes, mimetypes)` を指すイテレータが得られる。
 
-  * ``name`` は文字列。特に使わない。
-  * ``aliases`` は文字列の tuple で、これのいずれかを引数にして関数
-    ``get_lexer_by_name`` に渡すと、対応する lexer オブジェクトが得られる。
-  * ``filetypes`` 等も使わない。
+  * :code:`name` は文字列。特に使わない。
+  * :code:`aliases` は文字列の tuple で、これのいずれかを引数にして関数
+    :code:`get_lexer_by_name` に渡すと、対応する lexer オブジェクトが得られる。
+  * :code:`filetypes` 等も使わない。
 
 * もし「言語 XXX の lexer は存在するだろうか」と思ったら、
   XXX のファイル拡張子を知っているならば、関数
-  ``guess_lexer_by_filename`` をダミー文字列と共に呼び出してみる。
+  :code:`guess_lexer_by_filename` をダミー文字列と共に呼び出してみる。
 
 Formatters
 ----------------------------------------------------------------------
-いつもお世話になるのは ``pygments.formatters.html.HtmlFormatter`` クラスだが、
+いつもお世話になるのは :code:`pygments.formatters.html.HtmlFormatter` クラスだが、
 意外にたくさんの formatters が用意されている。画像もアリなのか。
 
-* ``ImageFilter`` 系を利用するには、別途 PIL パッケージのインストールが必要だそうだ。
-* ``RtfFormatter`` は MS Word にコピー＆ペーストができるデータを出力するようだ。
-* ``SvgFormatter`` は実験段階らしい。
+* ImageFilter 系を利用するには、別途 PIL パッケージのインストールが必要だそうだ。
+* RtfFormatter は MS Word にコピー＆ペーストができるデータを出力するようだ。
+* SvgFormatter は実験段階らしい。
 
 Filters
 ----------------------------------------------------------------------
