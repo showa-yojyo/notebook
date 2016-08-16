@@ -112,12 +112,16 @@ class AppBase(metaclass=ABCMeta):
         GLUT.glutMotionFunc(self.motion)
         GLUT.glutCloseFunc(self.cleanup)
 
-        print("Vendor: {}\nRenderer: {}\nVersion: {}\nGLSL: {}".format(
-            GL.glGetString(GL.GL_VENDOR).decode(),
-            GL.glGetString(GL.GL_RENDERER).decode(),
-            GL.glGetString(GL.GL_VERSION).decode(),
-            GL.glGetString(GL.GL_SHADING_LANGUAGE_VERSION).decode()),
-              file=sys.stderr, flush=True)
+        aspects = [('Vendor', GL.GL_VENDOR),
+                   ('Renderer', GL.GL_RENDERER),
+                   ('Version', GL.GL_VERSION),]
+        if self.context_version[0] > 1:
+            aspects.append(('GLSL', GL.GL_SHADING_LANGUAGE_VERSION))
+
+        for i in aspects:
+            print('{}: {}'.format(i[0],
+                                  GL.glGetString(i[1]).decode()),
+                  file=sys.stderr, flush=True)
 
     @abstractmethod
     def init_program(self):
