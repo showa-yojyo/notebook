@@ -13,6 +13,37 @@
 
 .. contents::
 
+.. warning::
+
+   私の環境でプログラムが適切なグラフィックドライバーを取得できない不具合が発生しており、
+   本稿のスクリプトを実行すると、次のエラーメッセージが生じて異常終了する。
+   ちなみに description のテキストは「無効な列挙」だ。
+
+   .. code-block:: console
+
+      $ ./shaderdemo.py
+      freeglut (./shaderdemo.py): OpenGL >2.1 context requested but wglCreateContextAttribsARB is not available! Falling back to legacycontext creation
+      freeglut (./shaderdemo.py): fgInitGL2: fghGenBuffers is NULL
+      Vendor: Microsoft Corporation
+      Renderer: GDI Generic
+      Version: 1.1.0
+      Traceback (most recent call last):
+        File "./shaderdemo.py", line 214, in <module>
+          sys.exit(main(sys.argv))
+        File "./shaderdemo.py", line 211, in main
+          app.run(sys.argv)
+        File "D:\home\yojyo\devel\all-note\notebook\source\_sample\pyopengl\appbase.py", line 69, in run
+          self.init_glut(args)
+        File "D:\home\yojyo\devel\all-note\notebook\source\_sample\pyopengl\appbase.py", line 120, in init_glut
+          GL.glGetString(i[1]).decode()),
+        File "errorchecker.pyx", line 53, in OpenGL_accelerate.errorchecker._ErrorChecker.glCheckError (src\errorchecker.c:1218)
+      OpenGL.error.GLError: GLError(
+              err = 1280,
+              description = b'\x96\xb3\x8c\xf8\x82\xc8\x97\xf1\x8b\x93',
+              baseOperation = glGetString,
+              cArguments = (GL_SHADING_LANGUAGE_VERSION,)
+      )
+
 サンプルプログラムを探す
 ======================================================================
 なにぶん知識がないものだから Google で GLSL 等の単語を検索して、色々と漁ってみるしかない。
