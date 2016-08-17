@@ -10,7 +10,7 @@ References:
   * Tutorials for modern OpenGL (3.3+)
     <http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/>
 """
-# pylint: disable=unused-argument,no-self-use
+# pylint: disable=unused-argument, no-self-use
 import sys
 import numpy as np
 import OpenGL.GL as GL

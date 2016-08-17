@@ -10,14 +10,13 @@ References:
   * Tutorials for modern OpenGL (3.3+)
     <http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/>
 """
-# pylint: disable=unused-argument,no-self-use
+# pylint: disable=unused-argument, no-self-use
 import sys
 import numpy as np
 import OpenGL.GL as GL
 from appbase import AppBase
 from program_manager import ProgramManager
-from transform import lookat
-from transform import perspective
+from transform import (lookat, perspective)
 
 class ModernApp(AppBase):
     """The base class for classes that never use deprecated features

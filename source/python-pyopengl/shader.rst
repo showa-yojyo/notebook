@@ -44,7 +44,7 @@
 ----------------------------------------------------------------------
 .. literalinclude:: /_sample/pyopengl/shaderdemo.py
    :language: python3
-   :lines: 15-22
+   :lines: 14-23
 
 * 頂点の RGB を指定するのを間接的に行う予定で、標準モジュールの ``colorsys`` をインポートする。
 * 後述するバッファーデータのオフセット指定のために、
@@ -61,7 +61,7 @@ Python の場合はトリプルクォート記法が便利だ。
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .. literalinclude:: /_sample/pyopengl/shaderdemo.py
    :language: glsl
-   :lines: 25-43
+   :lines: 26-44
 
 * OpenGL コンテキストバージョンを 3.1 以上に上げると、
   シェーダーコードの先頭行を ``#version 330`` のようにバージョンの宣言をするのがほぼ必須となる。
@@ -77,7 +77,7 @@ Python の場合はトリプルクォート記法が便利だ。
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .. literalinclude:: /_sample/pyopengl/shaderdemo.py
    :language: glsl
-   :lines: 47-61
+   :lines: 48-62
 
 * 頂点シェーダーの出力がフラグメントシェーダーの入力となる。
 * 最新バージョンの GLSL では ``gl_FragColor`` が廃止されたらしいので、
@@ -91,7 +91,7 @@ OpenGL 3.0 以降準拠の PyOpenGL スクリプトのためのベースクラ�
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .. literalinclude:: /_sample/pyopengl/shaderdemo.py
    :language: python3
-   :lines: 67-78
+   :lines: 68-79
 
 * コンテキストバージョンは、コンストラクターに明示的に指示のない限り、本稿の意図通りに 3.1 とする。
 * メンバーデータ ``buffer_id`` および ``index_buffer_id`` を、
@@ -106,7 +106,7 @@ OpenGL 3.0 以降準拠の PyOpenGL スクリプトのためのベースクラ�
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .. literalinclude:: /_sample/pyopengl/shaderdemo.py
    :language: python3
-   :lines: 80-85
+   :lines: 81-86
 
 メソッド ``get_shader_source`` は前述のシェーダープログラム初期化メソッドから呼び出すためのテンプレートメソッドとする。
 頂点シェーダーやフラグメントシェーダーのソースコードをメンバーデータの辞書に設定する。
@@ -115,7 +115,7 @@ OpenGL 3.0 以降準拠の PyOpenGL スクリプトのためのベースクラ�
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .. literalinclude:: /_sample/pyopengl/shaderdemo.py
    :language: python3
-   :lines: 87-136
+   :lines: 88-137
 
 主に頂点バッファーオブジェクトを定義する。
 
@@ -173,7 +173,7 @@ VertexAttrib 系関数の呼び出しを初期化メソッドで済ませてい�
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .. literalinclude:: /_sample/pyopengl/shaderdemo.py
    :language: python3
-   :lines: 138-166
+   :lines: 139-167
 
 前半部では、ファイルシステムにある PNG ファイルからテクスチャーパターンを生成している。
 これをフラグメントシェーダーの ``texture_sampler`` に送る。
@@ -184,7 +184,7 @@ VertexAttrib 系関数の呼び出しを初期化メソッドで済ませてい�
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .. literalinclude:: /_sample/pyopengl/shaderdemo.py
    :language: python3
-   :lines: 168-173
+   :lines: 169-174
 
 上述のメソッドでがんばったおかげで、
 関数 ``glDrawElements`` の最後の引数は ``None`` で済むようになった。
@@ -193,7 +193,7 @@ VertexAttrib 系関数の呼び出しを初期化メソッドで済ませてい�
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .. literalinclude:: /_sample/pyopengl/shaderdemo.py
    :language: python3
-   :lines: 175-199
+   :lines: 176-200
 
 * 関数 ``glDisableVertexAttribArray`` により、VBO を効かなくする。
 * 関数 ``glBindBuffer`` で ``0`` を指定して VBO を効かなくしてから、
@@ -211,7 +211,7 @@ VertexAttrib 系関数の呼び出しを初期化メソッドで済ませてい�
 ----------------------------------------------------------------------
 .. literalinclude:: /_sample/pyopengl/shaderdemo.py
    :language: python3
-   :lines: 201-210
+   :lines: 202-211
 
 このように各種パラメーターを指定して、
 クラス ``ShaderDemoApp`` のオブジェクトを生成、実行をする。

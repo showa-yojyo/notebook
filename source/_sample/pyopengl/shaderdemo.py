@@ -10,16 +10,17 @@ References:
   * Tutorials for modern OpenGL (3.3+)
     <http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/>
 """
-# pylint: disable=unused-argument,no-self-use
-# pylint: disable=invalid-name
+# pylint: disable=unused-argument, no-self-use, invalid-name, no-member
 import sys
 import os
 import colorsys
-import numpy as np
 from ctypes import c_void_p
-import OpenGL.GL as GL
-from modernapp import ModernApp
+
+import numpy as np
 from PIL import Image
+import OpenGL.GL as GL
+
+from modernapp import ModernApp
 
 VERT_SHADER_SOURCE = """
 #version 330 core

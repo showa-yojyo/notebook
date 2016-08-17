@@ -34,7 +34,7 @@
 ======================================================================
 .. literalinclude:: /_sample/pyopengl/viewnavigation.py
    :language: python3
-   :lines: 15-56
+   :lines: 13-54
 
 このクラスはマウスドラッグイベントを表現・記録する機能をサブクラスに提供するためだけにある。
 
@@ -59,7 +59,7 @@
 ----------------------------------------------------------------------
 .. literalinclude:: /_sample/pyopengl/viewnavigation.py
    :language: python3
-   :lines: 68-72
+   :lines: 66-70
 
 マウスドラッグ開始時のマウスポインターのウィンドウ座標的なものを、
 トラックボール（仮想半球）上の点の座標に読み替える。
@@ -68,7 +68,7 @@
 ----------------------------------------------------------------------
 .. literalinclude:: /_sample/pyopengl/viewnavigation.py
    :language: python3
-   :lines: 74-92
+   :lines: 72-90
 
 * マウスの動きが微小なときには、メソッドが ``False`` を返してウィンドウの再描画をさせない。
 * 直前のマウス位置、現在のマウス位置にそれぞれ対応する仮想半球上の変位の回転量を計算する。
@@ -92,7 +92,7 @@
 
 .. literalinclude:: /_sample/pyopengl/viewnavigation.py
    :language: python3
-   :lines: 102-109
+   :lines: 100-107
 
 * マウスがドラッグ開始地点から上方向に動いていればズームイン（拡大）、
   下方向ならばスームアウト（縮小）というふうに振る舞う。
@@ -109,7 +109,7 @@
 
 .. literalinclude:: /_sample/pyopengl/viewnavigation.py
    :language: python3
-   :lines: 111-
+   :lines: 109-
 
 関数 ``nds_coord``
 ----------------------------------------------------------------------

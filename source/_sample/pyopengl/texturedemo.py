@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """texturedemo.py: Demonstrate how to use OpenGL texture with PIL."""
-# pylint: disable=unused-argument,no-self-use
-# pylint: disable=invalid-name
+# pylint: disable=unused-argument, no-self-use, invalid-name
 import sys
 import os
-from deprecatedapp import DeprecatedApp
 import OpenGL.GL as GL
 from PIL import Image
+from deprecatedapp import DeprecatedApp
 
 class TextureDemoApp(DeprecatedApp):
     """Demonstrate how to use OpenGL texture (bitmap)."""

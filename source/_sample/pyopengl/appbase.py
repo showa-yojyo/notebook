@@ -8,16 +8,13 @@ Reference:
   * OpenGLBook.com <openglbook.com>
 """
 
-# pylint: disable=unused-argument,no-self-use
-# pylint: disable=invalid-name
+# pylint: disable=unused-argument, no-self-use, invalid-name
 import sys
-from abc import ABCMeta
-from abc import abstractmethod
+from abc import (ABCMeta, abstractmethod)
 import OpenGL.GL as GL
 import OpenGL.GLUT as GLUT
 from Quaternion import Quat
-from viewnavigation import ViewRotate
-from viewnavigation import ViewZoom
+from viewnavigation import (ViewRotate, ViewZoom)
 
 CONTEXT_VERSION = (3, 1)
 WINDOW_TITLE = b"PyOpenGL Demo"
@@ -30,7 +27,7 @@ CAMERA_EYE = (0., 10., 0.)
 CAMERA_CENTER = (0., 0., 0.)
 CAMERA_UP = (0., 1., 0.)
 
-# pylint: disable=abstract-class-not-used
+# pylint: disable=too-many-instance-attributes
 class AppBase(metaclass=ABCMeta):
     """This class represents skeleton of OpenGL programs."""
 

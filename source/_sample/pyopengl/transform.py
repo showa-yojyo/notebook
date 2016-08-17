@@ -13,7 +13,7 @@ Reference:
     <http://wiki.delphigl.com/index.php/gluPerspective>
     <http://wiki.delphigl.com/index.php/gluLookAt>
 """
-import sys
+# pylint: disable=invalid-name, no-member
 import numpy as np
 from numpy.linalg import norm
 

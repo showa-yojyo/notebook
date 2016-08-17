@@ -25,7 +25,7 @@ PNG ファイルからテクスチャーを生成する
 
 .. literalinclude:: /_sample/pyopengl/texturedemo.py
    :language: python3
-   :lines: 12-19
+   :lines: 14-18
 
 * 新しいサンプルコードを書くのが面倒なので、
   昔書いたレガシー API を使ったコードをリファクタリングする。
@@ -36,7 +36,7 @@ PNG ファイルからテクスチャーを生成する
 ----------------------------------------------------------------------
 .. literalinclude:: /_sample/pyopengl/texturedemo.py
    :language: python3
-   :lines: 15-26
+   :lines: 20-25
 
 メソッド ``init_gl`` で ``GL_TEXTURE_2D`` 機能を有効にしておくことを忘れずに。
 
@@ -46,7 +46,7 @@ PNG ファイルからテクスチャーを生成する
 
 .. literalinclude:: /_sample/pyopengl/texturedemo.py
    :language: python3
-   :lines: 28-54
+   :lines: 27-53
 
 空間座標・テクスチャー座標・色からなる頂点データをレガシー API で定義する。
 
@@ -54,7 +54,7 @@ PNG ファイルからテクスチャーを生成する
 ----------------------------------------------------------------------
 .. literalinclude:: /_sample/pyopengl/texturedemo.py
    :language: python3
-   :lines: 56-78
+   :lines: 55-77
 
 PNG ファイルからテクスチャーを作成している（:doc:`/python-pillow` 参照）。
 メソッド ``tostring`` で矩形イメージの RGBA バイト列を得られるということが本質的だ。
@@ -74,7 +74,7 @@ PNG ファイルからテクスチャーを作成している（:doc:`/python-pi
 
 .. literalinclude:: /_sample/pyopengl/texturedemo.py
    :language: python3
-   :lines: 80-86
+   :lines: 79-96
 
 * メソッド ``set_modelview_matrix`` については :doc:`deprecatedapp` を参照。
 

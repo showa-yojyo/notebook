@@ -2,10 +2,8 @@
 # -*- coding: utf-8 -*-
 """viewnavigation.py: Implement zooming and rotation.
 """
-# pylint: disable=unused-argument,no-self-use
-# pylint: disable=invalid-name
-from abc import ABCMeta
-from abc import abstractmethod
+# pylint: disable=unused-argument, no-self-use, invalid-name, no-member
+from abc import (ABCMeta, abstractmethod)
 import numpy as np
 from numpy.linalg import norm
 import OpenGL.GLUT as GLUT

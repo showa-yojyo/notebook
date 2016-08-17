@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """textdemo.py: Demonstrate how to use OpenGL texture with PIL."""
-# pylint: disable=unused-argument,no-self-use
-# pylint: disable=invalid-name
+# pylint: disable=unused-argument, no-self-use, invalid-name
 import sys
-from texturedemo import TextureDemoApp
 import OpenGL.GL as GL
+from texturedemo import TextureDemoApp
 from texture import draw_text
 
 class TextDemoApp(TextureDemoApp):
