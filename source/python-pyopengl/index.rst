@@ -1,6 +1,45 @@
 ======================================================================
 PyOpenGL 利用ノート
 ======================================================================
+
+.. important::
+
+   動作環境の OS をアップグレードして Windows 10 環境にした途端、
+   グラフィックドライバーがデグレードしてしまった。
+   その結果、サポートする OpenGL のバージョン (``GL_VERSION``) が 1.1 に落ちぶれてしまった。
+   現在当ノートの改訂作業ができない状態だ。
+
+   現在の ``glGetString`` による情報を示す。
+   稼動時の情報については後述する。
+
+   .. csv-table:: 
+      :delim: :
+      :header: 名前, 値
+      :widths: 20, 50
+
+      ``GL_VENDER``: Microsoft Corporation
+      ``GL_RENDERER``: GDI Generic
+      ``GL_VERSION``: 1.1.0
+      ``GL_SHADING_LANGUAGE_VERSION``: 表示できない
+      ``GL_EXTENSIONS``: ``GL_WIN_swap_hint GL_EXT_bgra GL_EXT_paletted_texture``
+
+   デグレードと記したものの、Windows のデバイスマネージャーで確認したところ、
+   グラフィックドライバーは別段古いものではなかった。
+
+   OpenGL Extensions Viewer を導入して、
+   稼働中のグラフィックドライバーが OpenGL の GLSL をサポートしていることを
+   （ついでに関数 ``wglCreateContextAttribsARB`` が利用可能であることも）確認したり、
+   ベンダーのツールでドライバーを最新に更新できないか試したりと努力はしたが、
+   本文で述べる PyOpenGL で書いたコードがどうしても正しいグラフィックドライバーを認識せず、
+   Microsoft の GDI Generic だと断言するのを改めようとしない。
+
+   そうこうしていると Windows のブルースクリーンが出てしまった。
+   再起動したら画面がバグってしまって何も操作できないという、
+   たいへんな危機的状況になってしまった。
+   もう一度再起動しても画面がカーソルの残像で埋め尽くされて何も見えないという始末。
+   なんとか Windows の自動修復機能を強引に発動させて原状回復を果たしたが、もう懲りた。
+   無念だが本稿用の研究を全て打ち切る。
+
 本稿は、筆者の個人的な PyOpenGL の環境構築方法および、コードの記述方法等の覚え書きである。
 
 筆者が昔 OpenGL をやる必要に迫られたときに、当時所持していた PC のスペックでは C/C++ の環境をまともに構築できず、研究ができない状態になって一瞬困った。
@@ -32,27 +71,6 @@ OpenGL の勉強には Python を使う。これはなかなかよいコツか�
      * Quaternion_: 0.3.1
      * PIL_: 1.1.7 (unofficial) 現在は Pillow に取って代わられた。
      * Pillow_: 2.5.1, 3.0.0, 3.2.0
-
-.. warning::
-
-   動作環境の OS をアップグレードして Windows 10 環境にした途端、
-   グラフィックドライバーがデグレードしてしまった。
-   その結果、サポートする OpenGL のバージョン (``GL_VERSION``) が 1.1 に落ちぶれてしまった。
-   現在当ノートの改訂作業ができない状態だ。
-
-   現在の ``glGetString`` による情報を示す。
-   稼動時の情報については後述する。
-
-   .. csv-table:: 
-      :delim: :
-      :header: 名前, 値
-      :widths: 20, 50
-
-      ``GL_VENDER``: Microsoft Corporation
-      ``GL_RENDERER``: GDI Generic
-      ``GL_VERSION``: 1.1.0
-      ``GL_SHADING_LANGUAGE_VERSION``: 表示できない
-      ``GL_EXTENSIONS``: ``GL_WIN_swap_hint GL_EXT_bgra GL_EXT_paletted_texture``
 
 関連リンク
 ======================================================================
