@@ -55,10 +55,11 @@ Matplotlib 環境のユーザー設定ファイルについて記す。
     コメントアウトによるデフォルト値適用の解釈がなされないようだ。
     何らかのバックエンドを明示的に指定する必要があるもよう。
 
-* Miniconda_ 管理下における Python 3.5.2 環境では PyQt5 は今のところ使用不可能であり、
-  また、Matplotlib 既定のバックエンドである TkAgg が指定されたままであると、
+* Miniconda_ 管理下における Python 3.5.2 環境では
+  既定のバックエンドである TkAgg が指定されたままであると、
   私の環境では実行時に Segmentation fault を引き起こす。
-  そのため、唯一動作確認できたバックエンドである :code:`backend : Qt4Agg` を指定しておく。
+  そのため、唯一動作確認できたバックエンドである :code:`backend : Qt4Agg` を、
+  PyQt5 を利用可能な環境にあれば :code:`backend : Qt5Agg` を設定してしのぎたい。
 
 * :code:`plt.plot` の線の色は ``axes.prop_cycle`` で指定する。
 

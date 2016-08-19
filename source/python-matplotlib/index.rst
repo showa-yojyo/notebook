@@ -28,13 +28,15 @@ Matplotlib で目的を拡大し過ぎないように、ここまでできれば
 
 .. note::
 
+   本稿執筆時の動作環境は次のとおり。
+
    * OS
 
      * Windows XP Home Edition SP3
      * Windows 7 Home Premium x64 SP1
      * Windows 10 Home x64
 
-   * 本稿において、利用した各パッケージのバージョンは次のとおり。
+   * パッケージ
 
      * Python_ 2.6.6, 2.7.3, 3.4.1, 3.5.0, 3.5.2
      * Setuptools_ 0.6c11, n/a
@@ -42,7 +44,7 @@ Matplotlib で目的を拡大し過ぎないように、ここまでできれば
      * NumPy_ 1.6.0, 1.6.2, 1.8.2, 1.9.2, 1.10.0, 1.11.1
      * Pillow_: 2.8.1, 3.0.0, 3.2.0
      * PyParsing_ 2.0.2, 2.0.3, 2.1.4
-     * PyQt_ 4.8.4, 4.11.4, 5.3.1, n/a
+     * PyQt_ 4.8.4, 4.11.4, 5.3.1, 5.5.1
 
 関連リンク
 ======================================================================
@@ -57,6 +59,9 @@ Matplotlib_
 
 :doc:`/python-ipython`
   IPython_ を Python シェルとして利用すると、入力周りが快適かつ便利だ。
+
+:doc:`/python-pyqt5`
+  バックエンドとしてデフォルトの Tk ではなく Qt5 を指定することもできる。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
