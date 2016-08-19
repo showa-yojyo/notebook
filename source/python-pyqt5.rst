@@ -5,17 +5,24 @@ PyQt5 利用ノート
 
 .. contents:: ノート目次
 
-.. warning::
-
-   現在 Python 3.5 版のビルドが存在していないので、本ノートの更新を中断している。
-
 .. note::
 
    本稿執筆時の動作環境は次のとおり。
 
-   * OS: Windows 7 Home Premium x64 SP1
-   * Python_: 3.4.1 (x64)
-   * PyQt_: GPL v5.4.1 for Python v3.4 (x64)
+   * OS
+
+     * Windows 7 Home Premium x64 SP1
+     * Windows 10 Home x64
+
+   * Python_
+
+     * 3.4.1 (x64)
+     * 3.5.2 (x64)
+
+   * PyQt_
+
+     * GPL v5.4.1 for Python v3.4 (x64)
+     * 5.5.1 (mmcauliffe)
 
 関連リンク
 ======================================================================
@@ -50,9 +57,13 @@ C# による GUI プログラミングをするほうが Windows しか使わな
 
 インストール
 ======================================================================
-PyQt5 をソースコードのビルドからではなく、
-公式サイトが提供するバイナリーパッケージを利用してインストールする方法を記す。
+公式サイトが提供するバイナリーパッケージを利用してインストールする方法と、
+Miniconda_ を利用してインストールする方法を記す。
+前者の方法は Python を標準インストーラーによりインストールした場合に採用し、
+後者の方法は Miniconda で Python 環境を管理している場合に採用することになるはずだ。
 
+インストーラーによる方法
+----------------------------------------------------------------------
 #. `PyQt Download`_ のページで利用環境に適した Windows 用のインストーラーをダウンロードする。
    本稿では :file:`PyQt5-5.4.1-gpl-Py3.4-Qt5.4.1-x64.exe` をインストーラーとしている。
 
@@ -61,8 +72,85 @@ PyQt5 をソースコードのビルドからではなく、
    * 途中の選択肢はほとんどない。Full インストールを選択する程度。
    * 普通はインストールが無事に終了する。
 
+Miniconda による方法
+----------------------------------------------------------------------
+こちらの方法は手動による設定作業を部分的に要するので自信がない。
+
+以下、デフォルト環境に PyQt5 をインストールする手順を記すが、
+当然ながら PyQt5 動作確認用の環境を :program:`conda` を用いて作成して、
+そこで構築してもよい。その場合は以下に示す各種ファイルパス等を適宜読み替えて欲しい。
+
+大まかな手順は次の通りだ。すべてコマンドライン処理になる。
+
+#. コマンド :code:`conda install pyqt5` を実行する。
+#. 環境変数 ``QT_QPA_PLATFORM_PLUGIN_PATH`` を設定する。
+
+実行例を示す。言い忘れたが Cygwin :program:`bash` のセッションだ。
+
+.. code-block:: console
+
+   $ conda install -c mmcauliffe pyqt5
+   Fetching package metadata ...........
+   Solving package specifications: ..........
+
+   Package plan for installation in environment D:\Miniconda3:
+
+   The following packages will be downloaded:
+
+       package                    |            build
+       ---------------------------|-----------------
+       icu-56.1                   |                0        11.1 MB  mmcauliffe
+       qt5-5.5.1                  |                0        28.8 MB  mmcauliffe
+       pyqt5-5.5.1                |           py35_0         3.9 MB  mmcauliffe
+       ------------------------------------------------------------
+                                              Total:        43.9 MB
+
+   The following NEW packages will be INSTALLED:
+
+       icu:   56.1-0       mmcauliffe
+       pyqt5: 5.5.1-py35_0 mmcauliffe
+       qt5:   5.5.1-0      mmcauliffe
+
+   Proceed ([y]/n)?
+
+   Fetching packages ...
+   icu-56.1-0.tar 100% |###############################| Time: X:XX:XX XXX.XX kB/s
+   qt5-5.5.1-0.ta 100% |###############################| Time: X:XX:XX XXX.XX kB/s
+   pyqt5-5.5.1-py 100% |###############################| Time: X:XX:XX XXX.XX kB/s
+   Extracting packages ...
+   [      COMPLETE      ]|##################################################| 100%
+   Linking packages ...
+   INFO:progress.update:('pyqt5', 2)#######################                 |  66%
+   [      COMPLETE      ]|##################################################| 100%
+   INFO:progress.stop:None
+
+   $ export QT_QPA_PLATFORM_PLUGIN_PATH='D:/Miniconda3/Library/lib/qt5/plugins/platforms/'
+
+* :program:`conda` のオプション引数に :code:`-c` を追加して、
+  パッケージをダウンロードする channel を明示的に指定する必要があった。
+  いずれ標準のパッケージサイトから入手可能になれば、これは不要になると思われる。
+
+* 最後は :program:`bash` の組み込みコマンドで環境変数を set しているが、
+  恒久的に指定してよいのであれば、セッション外で定義する。
+  例えば Windows の環境変数を追加するようなやり方で定義する。
+  PyQt5 稼働テスト用環境とスイッチしながら作業する前提ならば、
+  何か手軽に当該環境変数を set/unset するツールを自作しておくべきだろう。
+
+.. note::
+
+   Miniconda の基本利用法については :doc:`/python-miniconda` 参照。
+
+.. note::
+
+   PyQt4 との共存については調査中。
+   特に Matplotlib のバックエンド関連での挙動に興味がある。
+
 動作確認
 ----------------------------------------------------------------------
+.. warning::
+
+   本節の内容はインストーラーで PyQt5 をインストールした場合を前提とする。
+
 Windows のスタートメニューから適当に辿っていくと
 ``PyQt GPL v5.4.1 for Python v3.4 (x64)`` のような項目ができている。
 
@@ -82,11 +170,19 @@ PyQt で実装された様々なデモアプリのランチャーが出現する
 
 ドキュメント
 ======================================================================
+.. warning::
+
+   本節の内容はインストーラーで PyQt5 をインストールした場合を前提とする。
+
 前述のスタートメニューの ``Documentation`` > ``Qt Documentation`` を選択すると、
 `オンラインヘルプ <http://qt-project.org/doc/qt-5/>`_ がブラウザーで読める。
 
 PyQt を利用したプログラムを作成する
 ======================================================================
+.. warning::
+
+   本節の内容はインストーラーで PyQt5 をインストールした場合を前提とする。
+
 * Qt Desinger は GUI を XML ファイルとして記述、保存するためのツール。
 
   * PyQt4 のときと同じように使える。
