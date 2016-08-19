@@ -1,13 +1,17 @@
 #!/usr/bin/env pythonw
 # -*- coding: utf-8 -*-
+"""myapp1.pyw: Create an instance of Ui_Form.
+"""
+# pylint: disable=no-name-in-module
 import sys
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import (QApplication, QWidget)
 
 # pyuic5.bat myform.ui > ui_myform.py
 from ui_myform import Ui_Form
 
-if __name__ == '__main__':
+def main():
+    """Main loop."""
+
     app = QApplication(sys.argv)
     window = QWidget()
     ui = Ui_Form()
@@ -15,3 +19,6 @@ if __name__ == '__main__':
 
     window.show()
     sys.exit(app.exec_())
+
+if __name__ == '__main__':
+    main()

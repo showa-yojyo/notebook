@@ -1,9 +1,10 @@
 #!/usr/bin/env pythonw
 # -*- coding: utf-8 -*-
+"""myapp3.pyw: Use setupUI in a subclass of both QWidget and Ui_From.
+"""
+# pylint: disable=no-name-in-module
 import sys
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import (QApplication, QMessageBox, QWidget)
 
 # pyuic5.bat myform.ui > ui_myform.py
 from ui_myform import Ui_Form
@@ -17,18 +18,25 @@ class Form(QWidget, Ui_Form):
         self.pushButton.clicked.connect(self.accept)
 
     def accept(self):
+        """Event handler."""
+
         QMessageBox.information(
             self,
-            "Information",
-            'checkState: %d\nselectedData: %s' % (
+            'Information',
+            'checkState: {}\nselectedData: {}'.format(
                 self.checkBox.checkState(),
                 self.calendarWidget.selectedDate().toString(
                     'yyyy/MM/dd (ddd)')),
             QMessageBox.Ok)
         self.close()
 
-if __name__ == '__main__':
+def main():
+    """Main loop."""
+
     app = QApplication(sys.argv)
     window = Form()
     window.show()
     sys.exit(app.exec_())
+
+if __name__ == '__main__':
+    main()
