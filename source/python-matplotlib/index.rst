@@ -24,6 +24,7 @@ Matplotlib で目的を拡大し過ぎないように、ここまでできれば
    setup
    basic
    advanced
+   study
    config
 
 .. note::
