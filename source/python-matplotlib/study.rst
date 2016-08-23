@@ -168,7 +168,22 @@ MPEG ファイルを保存するコードが動かないのが残念だ。
 ----------------------------------------------------------------------
 色に関係する処理の見本集。
 
-.. todo:: 調査する。
+:file:`colormaps_reference.py`
+  ``Colormap Vega10 is not recognized`` というエラーが出て完全には動作しない。
+
+  * 動作するものについては、色見本が画面に描かれる。
+
+:file:`color_cycle_default.py`
+  現在存在しない :code:`set_facecolor` への参照があるコード。動作しない。
+
+:file:`color_cycle_demo.py`
+  RGBY と CMYK とでプロット曲線の色を変えていくデモ。
+
+  * 関数 :code:`plt.rc` の呼び出しでプロット曲線の特性を指定することができる。
+  * またはメソッド :code:`Axes.set_prop_cycle` を用いてもよい。
+
+:file:`named_colors.py`
+  現在存在しない :code:`BASE_COLORS` への参照があるコード。動作しない。
 
 :file:`event_handling`
 ----------------------------------------------------------------------
@@ -247,8 +262,26 @@ MPEG ファイルを保存するコードが動かないのが残念だ。
 
 :file:`shapes_and_collections`
 ----------------------------------------------------------------------
+:file:`artist_reference.py`
+  Matplotlib の各種図表要素 (artists) の図解のようなものを描く見本コード。
 
-.. todo:: 調査する。
+  * モジュール :code:`mpl.patches` には Circle, Rectangle, Wedge,
+    RegularPolygon, Ellipse, Arrow, FancyBboxPatch という図表的要素クラスがある。
+
+  * PatchCollection というクラスでこれらの要素を集約することができる。
+
+  * レイアウトを微調整する関数 :code:`plt.subplots_adjust` を忘れないでおきたい。
+
+:file:`path_patch_demo.py`
+  区分的 Bézier 曲線の構成方法の見本。
+  :code:`mpl.path.Path`, :code:`mpl.path.PathPatch` の利用法が理解できる。
+
+:file:`scatter_demo.py`
+  散布図の見本。
+
+  * この見本コードが散布図を描画するもっとも単純なものだろう。
+  * 与える点列データは座標だけでなく大きさと色も指定することができる。
+  * 関数 :code:`plt.scatter` による。
 
 :file:`showcase`
 ----------------------------------------------------------------------
@@ -273,8 +306,32 @@ MPEG ファイルを保存するコードが動かないのが残念だ。
 
 :file:`specialty_plots`
 ----------------------------------------------------------------------
+シェーディング（のようなもの）が関係する画像を生成する見本コード集。
 
-.. todo:: 調査する。
+:file:`advanced_hillshading.py`
+  3 種類の異なるデモを含むコード。
+
+  * :code:`plt.cm.cupper` という銅の色みを扱うオブジェクトがある。
+  * モジュール :code:`mpl.colors` にあるクラス LightSource のオブジェクトが
+    メソッド :code:`shade` で色の数値を評価する。
+  * メソッド :code:`Figure.colorbar` が色の棒をサブプロットの側に配置する。
+  * モジュール :code:`mpl.colors` にあるクラス Normalize のオブジェクトは
+    与えらえた数値を指定範囲内に制限する。
+
+:file:`hinton_demo.py`
+  Hinton 図のデモコード。
+  白と黒でさまざまな大きさの正方形を格子上に描画する。
+
+  * これは面白いから Matplotlib 本体に組み込んでもよいのでは。
+  * 関数 :code:`np.ndenumerate` は馴染みがなかった。いつか活用したい。
+
+:file:`topographic_hillshading.py`
+  航空写真にありがちな地形に陰影を付けてプロット？するデモコード。
+
+  * LightSource にそのものズバリのメソッド :code:`hillshade` がある。
+    この戻り値を :code:`Axes.imshow` に引き渡す。
+
+  * exaggregate (v.): 「誇張する」の意。
 
 :file:`statistics`
 ----------------------------------------------------------------------
@@ -283,8 +340,42 @@ MPEG ファイルを保存するコードが動かないのが残念だ。
 
 :file:`style_sheets`
 ----------------------------------------------------------------------
+モジュール :code:`mpl.pyplot.style` の見本コード集。
 
-.. todo:: 調査する。
+:file:`plot_bmh.py`
+  ヒストグラム重ねあわせ。
+
+  * :code:`plt.style.use('bmh')` を適用。
+    これは `Bayesian Methods for Hackers` という書籍で用いられているテーマだそうだ。
+
+  * 無意味なデータを生成するのに :code:`np.random.beta` を利用。
+
+:file:`plot_dark_background.py`
+  プロットの背景を黒くするだけのデモ。
+
+  * 単に :code:`plt.style.use('dark_background')` するだけで実現できる。
+    このとき、通常は黒塗りで描画される図表要素は白色で描画される。
+
+:file:`plot_fivethirtyeight.py`
+  特に変わったことはない？
+
+  * :code:`plt.style.context('fivethirtyeight')` を適用。
+    この際に with ブロックを用いる。
+
+:file:`plot_ggplot.py`
+  サブプロット 4 個
+
+  * スタイルを `R <Bayesian Methods for Hackers>`__ の一般的なパッケージである ggplot 風にするのに
+    :code:`plt.style.use('ggplot')` とする。
+
+  * スクリプトの docstring の文言が笑える。いちおう許可は取ってあるのか。
+  * 無意味なデータを生成するのに :code:`np.random.normal` と
+    :code:`np.random.randint` を利用。
+
+:file:`plot_grayscale.py`
+  サブプロット 2 個でグレースケール。
+
+  * :code:`plt.style.use('grayscale')` でよい。
 
 :file:`subplots_axes_and_figures`
 ----------------------------------------------------------------------
@@ -330,13 +421,57 @@ MPEG ファイルを保存するコードが動かないのが残念だ。
 
 :file:`text_labels_and_annotations`
 ----------------------------------------------------------------------
+:file:`autowrap_demo.py`
+  関数 :code:`plt.text` のデモ。
 
-.. todo:: 調査する。
+  * この関数のキーワード引数はクラス Text の特性と対応している。
+    例えば、キーワード引数 :code:`wrap=True` と指定することで、
+    長いテキストを自動的に折り返してくれる。
+
+:file:`rainbow_text.py`
+  テキストの部分だけを着色するデモ。かなりの工夫をすることになるようだ。
+
+  * :code:`mpl.transforms.offset_copy` なる関数までも動員する。
+
+:file:`text_demo_fontdict.py`
+  テキストを入力とする Matplotlib の各種関数には
+  キーワード引数 ``fontdict`` があり、
+  利用するフォントの各情報を dict オブジェクトに詰め込める。
+
+:file:`unicode_demo.py`
+  テキストを入力とする Matplotlib の各種関数は Unicode を当然のように受け付ける。
 
 :file:`ticks_and_spines`
 ----------------------------------------------------------------------
+:file:`spines_demo.py`
+  Axes は既定で四辺すべてに枠線が引かれるが、これを辺ごとに設定できることを示すデモ。
 
-.. todo:: 調査する。
+  * 私の見たところ :code:`ax1.spines['top'].set_visible(False)` が効いていない。
+
+:file:`spines_demo_bounds.py`
+  さらに辺の一部だけに枠線を引くこともできる。
+
+  * :code:`ax.spines['left'].set_bounds(-1, 1)` がそれを実現する。
+
+:file:`spines_demo_dropped.py`
+  Axes の枠線を既定の位置からオフセットするようにずらすやり方を示すデモ。
+
+  * :code:`ax.spines['left'].set_position(('outward', 10))` のようにする。
+  * プロット用ダミーデータとして乱数 :code:`np.random.uniform` を利用。
+
+:file:`ticklabels_demo_rotation.py`
+  目盛のラベル文字を決めるデモ。
+
+  * メソッド :code:`Axis.set_major_formatter` 等を使う。
+    さらにクラス FuncFormatter の利用と自作の書式設定関数の作成が必要となる。
+
+  * メソッド :code:`Axis.set_major_locator` で目盛ラベルの出現に制約をつける。
+
+:file:`tick_labels_from_values.py`
+  目盛のラベルを決めるデモ。
+
+  * 関数 :code:`plt.xticks` の 2 番目の引数として、
+    ラベル文字列からなる list オブジェクトを引き渡すことで指定できる。
 
 :file:`units`
 ----------------------------------------------------------------------
