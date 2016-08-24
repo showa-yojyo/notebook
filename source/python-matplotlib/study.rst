@@ -162,7 +162,58 @@ MPEG ファイルを保存するコードが動かないのが残念だ。
 ----------------------------------------------------------------------
 モジュール :code:`mpl_toolkits.axisartist` に関連する見本の集まり。
 
-.. todo:: 調査する。
+:file:`demo_axisline_style.py`
+  プロットの座標軸と枠線の処理方法についての見本。
+
+  * クラス SubplotZero は図の内部にある Axes オブジェクトを生成・操作するメソッドを与える。
+    この見本ではオブジェクト :code:`fig` から生成する。
+
+  * 両座標軸ともに正の方向に矢印の矢先を描くために :code:`ax.axis[direction].set_axisline_style("-|>")` する。
+
+:file:`demo_curvelinear_grid.py`
+  クラス Subplot, SubplotHost, GridHelperCurveLinear, ParasiteAxesAuxTrans の見本。
+  直交座標のプロットと極座標のプロットを描いて、
+  それぞれにおいてグリッドや目盛をカスタマイズする。
+
+  * かなり手が込んでいる。
+
+:file:`demo_curvelinear_grid2.py`
+  x 軸の目盛間隔が一様でないデモ？
+
+  * 先ほどの見本もそうだが、クラス GridHelperCurveLinear の操作法が面倒そうだ。
+
+:file:`demo_floating_axes.py`
+  サブモジュール :code:`mpl_toolkits.axisartist.floating_axes` デモ。
+  3 個のサブプロットを生成する。
+
+  * サブプロット全体に affine 変換を施すことができる。
+    それにはクラス Affine2D のオブジェクトを生成して適切な変換を定義しておく必要がある。
+    それから別のオブジェクトに引き渡す。
+
+  * 直交座標系の棒グラフでは
+    :code:`floating_axes.GridHelperCurveLinear` と
+    :code:`floating_axes.FloatingSubplot` を上手く使う。
+
+  * バウムクーヘンのような極座標系の散布図では
+    FixedLocator, DictFormatter, MaxNLocator の各クラスを利用して、
+    座標軸の目盛ラベルをカスタマイズする。
+
+  * 扇型の極座標系の散布図では
+    モジュール :code:`mpl_toolkits.axisartist.angle_helper` の機能を上手く使う。
+
+:file:`demo_floating_axis.py`
+  極座標？
+
+  * Matplotlib 本体コードで RuntimeWarning が送出される。
+    とりあえずサブプロットは表示されるが、この内容で正しいかは知らない。
+
+:file:`demo_parasite_axes2.py`
+  密度、温度、速度。何やら座標軸が多い。
+
+  * 関数 :code:`mpl_toolkits.axes_grid1.host_subplot` で生成したオブジェクトから
+    メソッド :code:`twinx` を二度呼び出す。
+
+  * このデモはモノクロでわかりにくい。色を変えてみよう。
 
 :file:`color`
 ----------------------------------------------------------------------
@@ -193,13 +244,134 @@ MPEG ファイルを保存するコードが動かないのが残念だ。
 
 :file:`images_contours_and_fields`
 ----------------------------------------------------------------------
+画像およびベクトル場関連といったところか。
 
-.. todo:: 調査する。
+:file:`contourf_log.py`
+  グラデーションになっていないが、意図通りか？
+  コード量は多くはないが、どのステップの処理も珍しい。
+
+  * 二変数 Gauss 分布関数が :code:`mlab.bivariate_normal` として実装されている。
+  * 関数 :code:`plt.contourf` で等高線プロットを描画する。
+  * 関数 :code:`plt.colorbar` でカラーバーを図のそばに付属させる。
+
+:file:`image_demo.py`
+  ウィンドウに Lovelace 伯爵夫人の画像を表示する見本コード。
+
+  * 画像の読み込みは関数 :code:`plt.imread` で行い、
+    戻り値を :code:`plt.imshow` に渡せばよい。
+
+  * :code:`plt.axis('off')` して座標軸を非表示にしておく。
+
+:file:`image_demo_clip_path.py`
+  ウィンドウに Grace Hopper 准将の画像を表示する見本コード。
+
+  * 円形にくり抜いてあるが、これは画像オブジェクトのメソッド :code:`set_clip_path` で行う。
+    引数のパッチオブジェクトはここでは Circle オブジェクトを採用している。
+
+:file:`interpolation_methods.py`
+  色補間 18 種のカタログ。
+
+  * 18 個ものサブプロットオブジェクトを :code:`plt.subplots(3, 6, ...)` で生成している。
+
+  * メソッド :code:`imshow` のキーワード引数 ``interpolation`` に指定する文字列が
+    Matplotlib から得られるとよいだろう。
+
+:file:`interpolation_none_vs_nearest.py`
+  色補間ナシと最近補間の比較デモ。
+
+  * 補間 ``none`` がよく効くのは大きな画像を小さく表示するときで、
+    補間 ``nearest`` がよく効くのは小さな画像を大きく表示するときらしい。
+
+  * Matplotlib 自体の話題ではないのだが、
+    スクリプト後半のコメントに PDF を PNG に変換する処理について、
+    興味深いことが書かれている。
+
+:file:`pcolormesh_levels.py`
+  :code:`Axes.pcolormesh` と :code:`Axes.contourf` の比較デモ。
+  メッシュ対点。
+
+  * クラス :code:`mpl.colors.BoundaryNorm` はカラーマップのインデックスを
+    離散的な（整数の）区間に基いて生成する。
+    このオブジェクトをメッシュプロット関数に渡すので、
+    メッシュのほうはモザイクっぽい見栄えになる。
+    それに対して、点のほうは曲線的な等高線がくっきりと見える。
+
+  * :code:`plt.tight_layout` を呼び出し、上下のサブプロットの座標軸の目盛ラベルが
+    重なり合わぬように、隙間を調整する。
+
+:file:`streamplot_demo_features.py`
+  ベクトル場プロットデモ。
+
+  * メソッド :code:`Axes.streamplot` で描画する。
+    引数には座標とベクトルを意味する配列を必要とするものがある。
+
+:file:`streamplot_demo_masking.py`
+  ベクトル場プロットデモのはず。
+
+  * 実行時に MaskedArrayFutureWarning がスクリプトから送出される。
+    これを修正できるくらいに理解を深めたい。
+
+:file:`streamplot_demo_start_points.py`
+  不明。
+
+  * ``ValueError: operands could not be broadcast together with shapes (6,) (100,) (6,)`` なる例外が送出される。
+    これを修正できるくらいに理解を深めたい。
 
 :file:`lines_bars_and_markers`
 ----------------------------------------------------------------------
+ここには初歩的な見本コードがある。
 
-.. todo:: 調査する。
+:file:`barh_demo.py`
+  水平棒グラフの見本。
+
+  * 関数 :code:`plt.barh` でデータを描画する。
+
+:file:`fill_demo.py`
+  プロット曲線と x 軸とで囲まれた領域に色を塗る単純なデモコード。
+
+  * 単に関数 :code:`plt.fill(x, y)` を呼び出すだけでよい。
+    プロット曲線と閉領域の着色を同時に行う。
+
+:file:`fill_demo_features.py`
+  複数のプロット曲線と x 軸とで囲まれた領域に色を塗る単純なデモコード。
+
+  * 関数 :code:`plt.fill` の呼び出しが一度で済むことを理解すること。
+
+:file:`line_demo_dash_control.py`
+  プロット曲線を破線で描く方法を示す見本。
+
+  * まずは :code:`plt.plot` の引数に文字列 ``--`` を指定して破線にする。
+  * これだけでも破線になるが、点描のパターンを :code:`set_dashes` で細かく指定できる。
+
+:file:`line_styles_reference.py`
+  プロット曲線の線スタイルのカタログ。
+
+:file:`marker_fillstyle_reference.py`
+  マーカースタイルのカタログ。
+
+  * :code:`Line2D.fillStyles` の要素が有効なスタイル。
+    これをプロット関数の :code:`fillstyle` として指定する。
+
+  * マーカーはだいたいマルに縦線や横線が入った記号で、
+    半円部が別の色で塗られている。
+
+:file:`marker_reference.py`
+  マーカースタイルのカタログ。塗りナシと塗りアリの二種類を展示するデモ。
+
+  * マーカーを指示するのに有効な値は
+    Line2D.markers, Line2D.filled_markers, Line2D.filled_markers から得られる。
+    例えば：
+
+    .. code-block:: ipython
+
+       In [1]: Line2D.filled_markers
+       Out[1]: ('o', 'v', '^', '<', '>', '8', 's', 'p', '*', 'h', 'H', 'D', 'd')
+
+:file:`scatter_with_legend.py`
+  凡例付き散布図のデモ。
+
+  * 散布図のプロット関数は :code:`plt.scatter` だ。
+  * 凡例は関数 :code:`plt.legend` を呼び出す。
 
 :file:`misc`
 ----------------------------------------------------------------------
@@ -296,7 +468,7 @@ MPEG ファイルを保存するコードが動かないのが残念だ。
 :file:`integral_demo.py`
   典型的な定積分のイラスト。
 
-  * 関数 code:`plt.text` 等 LaTeX 数式を指定できることは学習済み。
+  * 関数 :code:`plt.text` 等 LaTeX 数式を指定できることは学習済み。
   * 求積領域の形状を Polygon を用いて表現する。
 
 :file:`xkcd.py`
