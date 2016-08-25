@@ -647,8 +647,91 @@ MPEG ファイルを保存するコードが動かないのが残念だ。
 
 :file:`units`
 ----------------------------------------------------------------------
+このディレクトリーの見本コード群は
+モジュール :file:`basic_units.py` を定義しておき、
+それ以外のスクリプトがこれを import するという構造である。
 
-.. todo:: 調査する。
+:file:`basic_units.py`
+  難しいコードだ。これを理解するのが本題だ。
+
+  * 一般利用者が理解するという目的からすると、
+    必要以上に複雑になっている可能性がある。
+
+以下はこのモジュールを応用するデモコードだ。
+
+:file:`annotate_with_units.py`
+  距離単位オブジェクトの利用を除けば、注釈矢印のデモコード。
+  一方の矢印は単位系を全て :code:`basic_units.cm` で明示し、
+  他方はラベル座標の単位系を無次元単位で指定しているというもの。
+
+  * さらに両者の引数 ``textcoords`` の値が異なることに注意。
+    前者は ``data`` つまり注釈されるオブジェクトの座標系が適用されるのに対して、
+    後者は ``axes fraction`` つまりサブプロット領域の正規化座標系が適用される。
+
+:file:`artist_tests.py`
+  Line2D 等が座標変換を扱えることを示すデモコード。
+
+  * メソッド :code:`Axis.set_units` に :code:`basic_units.cm` を引き渡す。
+
+  * Line2D, Rectangle, Text それぞれについて、
+    オブジェクトの位置や長さをやはり :code:`basic_units.cm` を用いて指定する。
+
+:file:`bar_demo2.py`
+  同一データを座標軸ごとに単位系の異なる複数のサブプロットに描くデモコード。
+
+  * 先頭に :code:`cms = cm * np.arange(0, 10, 2)` というオブジェクトが現れる。
+    これをいずれのサブプロットにおいても棒グラフで描く。
+
+  * メソッド :code:`Axes.bar` のキーワード引数 ``xunits`` と ``yunits`` について
+    単位オブジェクト :code:`basic_units.cm` や :code:`basic_units.inch` を指定する。
+
+:file:`bar_unit_demo.py`
+  棒グラフだが、データは人間の身長の統計のようだ。
+
+  * モデルデータに単位オブジェクトを含める。
+  * サブプロットの y 軸にだけ :code:`Axis.set_units` に :code:`basic_units.cm` を引き渡す。
+  * あとはメソッド :code:`Axes.autoscale_view` が適宜調整してくれるようだ。
+
+:file:`ellipse_with_units.py`
+  同じ形状を定義した上で Ellipse と Arc を比較する。
+
+  * 中心、長径、短径のすべてを :code:`basic_units.cm` で定義する。
+  * サブプロットの座標系単位系は明示的に指定しない。
+
+:file:`evans_test.py`
+  このデモは :file:`basic_units.py` を必要としない。
+
+  * コードの前半はモジュール :code:`mpl.units` にカスタム単位を登録する方法の見本だ。
+    ユーザーがクラスを 2 個書く必要があるようだ。
+
+  * コードの後半は単位のついたデータ量を、
+    サブプロットに対しては直接単位系を指定せずにプロットする。
+
+:file:`radian_demo.py`
+  :code:`basic_units.radians` と :code:`basic_units.degrees` のデモコード。
+
+  * ふたつサブプロットを用意しておき、
+    メソッド :code:`Axes.plot` のキーワード引数 ``xunits`` に
+    一方は ``radians`` を、他方には ``degrees`` を指定してプロットする。
+    その結果、座標軸の目盛ラベルがそれぞれ違って見える。
+
+:file:`units_sample.py`
+  :code:`basic_units.cm` と :code:`basic_units.inch` のデモコード。
+
+  * サブプロットを 4 個用意して、
+    それぞれのメソッド :code:`Axes.plot` の呼び出しに対して
+    キーワード引数 ``xunits`` および ``yunits`` に考えられる組み合わせで単位を指定する。
+
+:file:`units_scatter.py`
+  散布図の y 軸にだけカスタム単位を適用するデモコード。
+
+  * サンプルデータの単位は :code:`basic_units.secs` とする。
+  * メソッド :code:`Axes.scatter` の ``yunits`` は :code:`basic_units.secs` とする。
+  * 一番下のサブプロットだけメソッド :code:`Axis.set_units` を呼び出して
+    :code:`basic_units.herz` を指定する。
+
+  * NumPy から ``UserWarning: Warning: converting a masked element to nan.`` が生じるが、
+    気にしないでおく。
 
 :file:`user_interfaces`
 ----------------------------------------------------------------------
