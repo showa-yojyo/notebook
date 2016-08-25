@@ -740,8 +740,93 @@ MPEG ファイルを保存するコードが動かないのが残念だ。
 
 :file:`widgets`
 ----------------------------------------------------------------------
+ウィンドウ部品のデモコード一式。GUI の学習はここから始めてよい。
 
-.. todo:: 調査する。
+:file:`buttons.py`
+  プッシュボタンのデモ。ボタンを押すたびに波形の振動数が増減する。
+
+  * ここでは関数 :code:`plt.axes` をボタンを配置する空間を確保するものとして利用している。
+    戻り値を Button コンストラクターの引数に使う。
+
+  * メソッド :code:`Button.on_clicked` に押された時に呼び出される振る舞いを指定する。
+
+  * 関数 :code:`plt.draw` でサブプロットを更新描画する。
+
+:file:`check_buttons.py`
+  チェックボックスのデモ。チェックボックスに対応する波形の表示が切り替わる。
+
+  * スペース確保とイベントハンドラー周りのコードは前回同様。
+
+  * クラス CheckButtons のコンストラクターには場所とラベルに加えて初期状態も指定する。
+
+  * プロットオブジェクトには:code:`visible` のような属性があって、
+    これを関連メソッドで操作する。また、生成時にもキーワード引数で初期値を指示できる。
+
+:file:`cursor.py`
+  マウスカーソルの位置に追従してサブプロット上にクロスヘアを描くデモ。
+
+  * ``AttributeError: Unknown property facecolor`` という例外が生じるので、
+    これを引き起こすコードを削除しておく。
+
+  * クラス Cursor のコンストラクターを適当に呼び出すだけでよい。
+
+:file:`lasso_selector_demo.py`
+  このデモは期待通りに動作しない。投げ縄選択で水玉を囲むデモだと思われる。
+
+:file:`menu.py`
+  メニューのデモ。
+
+  * ``AttributeError: module 'matplotlib.colors' has no attribute 'to_rgba'`` 例外が生じる。
+    これを解決するために、クラス :code:`colors.ColorConverter` のオブジェクトを導入しておく。
+
+  * コードがたいへん込み入っている。未知のクラスを相当利用したデモコードだ。
+
+  * クラス MenuItem を :code:`artist.Artist` のサブクラスとしてここで実装している。
+    それ以外のユーザー定義クラスは全てが object からのサブクラスだ。
+
+  * イベントハンドラーの定義はメソッド :code:`fig.canvas.mpl_connect` から行う。
+
+:file:`multicursor.py`
+  マウスカーソルの位置に追従してふたつのサブプロット上に縦線を描くデモ。
+
+  * クラス MultiCursor の最初の引数に :code:`fig.canvas` を指定する。
+    次の引数には対象のサブプロットを含む list または tuple を指定する。
+
+:file:`radio_buttons.py`
+  ラジオボタンのデモ。各項目に対応する波形の描画スタイルが切り替わる。
+
+  * クラス RadioButtons を使うコードの構造は Button や CheckButtons とよく似る。
+
+  * ``AttributeError: Unknown property facecolor`` という例外が生じるので、
+    これを引き起こすコードを削除しておく。
+
+:file:`rectangle_selector.py`
+  マウスによる矩形領域選択のデモ。
+
+  * クラス RectangleSelector を用いる。
+
+  * イベントハンドラーの指定がこれまでと異なる。
+    まず RectangleSelector コンストラクターの引数に一個、
+    次に関数 :code:`plt.connect` を呼び出してもう一個、という感じだ。
+    前者のハンドラーはマウス操作のコールバックとして、
+    後者のハンドラーはキー操作のコールバックとして指定する。
+
+:file:`slider_demo.py`
+  Slider と RadioButtons のデモ。
+
+  * ``AttributeError: Unknown property facecolor`` という例外が生じるので、
+    これを引き起こすコードを削除しておく。
+
+  * クラス Slider の使い方はこれまでの widget と大体同じ。
+    イベントハンドラーは :code:`on_changed` となる。
+
+:file:`span_selector.py`
+  サブプロット上の横幅をマウスで選択するデモ。
+
+  * クラス SpanSelector を用いる。
+
+  * ``AttributeError: Unknown property facecolor`` という例外が生じるので、
+    これを引き起こすコードを削除しておく。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
