@@ -376,8 +376,98 @@ MPEG ファイルを保存するコードが動かないのが残念だ。
 :file:`misc`
 ----------------------------------------------------------------------
 雑多なコード例を集積したディレクトリーだろう。
+すぐに動作しないコードもある。
 
-.. todo:: 調査する。
+:file:`contour_manual.py`
+  クラス ContourSet のデモコード。
+
+:file:`font_indexing.py`
+  開発者向けコード。
+  というより、フォントファイルがなくて動作しない。
+  用意すれば動くだろう。
+
+:file:`ftface_props.py`
+  開発者向けコード。
+  というより、フォントファイルがなくて動作しない。
+  用意すれば動くだろう。
+
+:file:`image_thumbnail.py`
+  指定ディレクトリーにある全ての PNG ファイルからサムネイル画像を生成するデモコード。
+  モジュール :code:`mpl.image` に PIL と似た機能があるようだ。
+
+:file:`longshort.py`
+  インターネットから CSV ファイルを取得して、データを読み込み、
+  プロットを表示するデモコード。
+
+  * Python 標準ライブラリーの関数 :code:`urllib.request.urlretrieve` でファイルをダウンロードする。
+  * 関数 :code:`mpl.mlab.csv2rec` で CSV データをオブジェクト化する。
+    それから CSV データを編集する。
+
+  * メソッド :code:`Figure.autofmt_xdate` でラベルの日付文字列を適宜見やすくさせる。
+
+:file:`multiprocess.py`
+  Python の :code:`multiprocessing.Process` と :code:`multiprocessing.Pipe` を絡めたデモコード。
+
+  * :code:`matplotlib.use('GtkAgg')` しているが、これが必要なのか。
+  * ``ImportError: No module named 'gobject'`` が発生してダメ。
+
+:file:`rasterization_demo.py`
+  ビットマップ化関係か？
+
+  * ダミーのメッシュプロットを生成するのに :code:`np.meshgrid` が向いている。
+  * ポイントは :code:`Axis.pclormesh` の戻り値オブジェクトに対する
+    :code:`set_rasterized(True)` や :code:`set_zorder(-20)` だろう。
+
+  * 最後に関数 :code:`plt.savefig` を呼び出して PDF, EPS, SVG ファイルを出力する。
+
+  * 生成した SVG ファイルを Inkscape で開こうとしたらモッサリしてダメ。
+    それ以外のファイルはそれぞれのビューワーで普通に閲覧できた。
+
+:file:`rc_traits.py`
+  ``ImportError: No module named 'traits'`` となってダメ。
+
+:file:`rec_groupby_demo.py`
+  ``AttributeError: module 'numpy' has no attribute 'string0'`` となってダメ。
+
+:file:`rec_join_demo.py`
+  ``AttributeError: module 'numpy' has no attribute 'string0'`` となってダメ。
+
+:file:`sample_data_demo.py`
+  ウィンドウに Lovelace 伯爵夫人の画像を表示する見本コード。
+
+  * 関数 :code:`mpl.cbook.get_sample_data` のデモコード。
+    あとは :code:`plt.imread` と :code:`plt.imshow` を呼び出す。
+
+:file:`svg_filter_line.py`
+  プロットを SVG データ化し、かつ XML コードをそこへ追加するようなデモコード。
+
+  * 関数 :code:`plt.savefig` を BytesIO オブジェクトに対して作用させているのがポイント。
+
+  * Inkscape で開くと、折れ線グラフにドロップシャドウが付いているのが目視できる。
+    デモコードの後半部で、このエフェクトフィルターに相当する XML コード片を
+    XML オブジェクトツリーに自力で挿入している。
+
+  * UserWarning が発生するので、気になるかもしれない。
+
+:file:`svg_filter_pie.py`
+  コードの構造は上記デモコードと同様。円グラフ版。
+
+:file:`tight_bbox_test.py`
+  プロットをウィンドウだけでなく、さまざまな形式のファイルに出力するデモコード。
+
+  .. code-block:: ipython
+
+     In [1]: %run ./misc/tight_bbox_test.py
+     saving tight_bbox_test.png
+     saving tight_bbox_test.pdf
+     saving tight_bbox_test.svg
+     saving tight_bbox_test.svgz
+     saving tight_bbox_test.eps
+
+  * 関数 :code:`plt.savefig` を用いる。
+    ファイル形式は最初の引数のパス文字列の拡張子で自動判別されるらしい。
+
+  * 関数呼び出し一発で PDF ファイルにプロットを出力できるのは強力。
 
 :file:`mplot3d`
 ----------------------------------------------------------------------
@@ -507,8 +597,108 @@ MPEG ファイルを保存するコードが動かないのが残念だ。
 
 :file:`statistics`
 ----------------------------------------------------------------------
+統計データに相性の良いプロット各種のデモコード。
 
-.. todo:: 調査する。
+:file:`boxplot_color_demo.py`
+  箱プロットのデモ。
+
+  * ダミーデータは :code:`np.random.normal` を利用して生成。正規分布。
+  * メソッド :code:`Axes.boxplot` によるプロット。
+  * キーワード引数 ``notch`` を指定すると、箱の形状が V 字型にえぐれる。
+
+:file:`boxplot_demo.py`
+  箱プロットにさまざまなオプションおよび描画スタイルを適用するデモ。
+
+  * ダミーデータは :code:`np.random.lognormal` を利用して生成。正規分布。
+  * サブプロットを複数作成して、それぞれでメソッド :code:`Axes.boxplot` を
+    さまざまなオプションと共に呼び出す。
+    ここでは ``showmeans``, ``showbox``, ``meanline``, ``showcaps``,
+    ``notch``, ``bootstrap`` 等のキーワード引数を指定する。
+
+  * 描画用の引数として ``boxprops``, ``flierprops``, ``medianprops`` がある。
+    いずれも dict オブジェクトを渡す前提だ。
+
+  * メソッド :code:`Figure.suptitle` で中央寄せの見出しを図に付ける。
+
+:file:`boxplot_vs_violin_demo.py`
+  バイオリンプロットと箱プロットの比較デモ。
+
+  * メソッド :code:`Axes.violinplot` によるプロット。
+    ここでは :code:`showmeans=False, showmedians=True` としている。
+    これは隣のサブプロットに描く箱プロットととの比較をしやすくしているのだろう。
+
+  * バイオリンプロットの一つのデータの形状は、なるほどバイオリンのような輪郭だ。
+
+:file:`bxp_demo.py`
+  プロットデータ計算と描画を分けて実現するデモ？
+
+  * デモコードの働きはふたつ上のデモコードと同じ。
+
+  * 関数 :code:`mpl.cbook.boxplot_stats` でサンプルデータから統計データ？を計算しておく。
+  * 次にメソッド :code:`Axes.bxp` でこのデータの箱＆ヒゲプロットを描画する。
+    このメソッドの引数は :code:`Axes.boxplot` とかなり共通している。
+
+:file:`errorbars_and_boxes.py`
+  メソッド :code:`Axes.errorbar` のデモ。
+
+  * このデモでは 2 次元のダミーデータを用いる。
+  * 四角い部分の描画は PatchCollection オブジェクトによる。
+
+:file:`errorbar_demo.py`
+  関数 :code:`plt.errorbar` の使い方を説明する基本的なデモ。
+
+  * キーワード引数 ``xerr`` と ``yerr`` でそれぞれに対応する軸方向の
+    アイビームの長さを指定する。
+
+:file:`errorbar_demo_features.py`
+  エラー部分の線を対称形にしたり非対称形にしたりするデモ。
+
+  * 上のサブプロットはエラーを y 軸方向に、
+    下のサブプロットは x 軸方向にそれぞれ表示する。
+
+  * メソッド :code:`Axies.errorbar` においてエラー量を指定する引数は
+    ``xerr``, ``yerr`` である。
+
+  * 意味はないが、下のサブプロットでは y 軸を対数グラフにしている。
+    :code:`ax1.set_yscale('log')` による。
+
+:file:`errorbar_limits.py`
+  エラー部分のさまざまなスタイル設定のデモ。
+
+  * メソッド :code:`Axies.errorbar` においてキーワード引数
+    ``uplims``, ``lolims``, ``xlolims``, ``xuplims`` を用いる。
+
+:file:`histogram_demo_cumulative.py`
+  累積的ヒストグラムのデモ。
+
+  * ヒストグラムをプロットする関数は :code:`plt.hist` だ。
+    この引数の ``cumulative`` に True を指定すれば累積的になるし、
+    -1 を指定すれば逆累積ヒストグラムになる。
+
+:file:`histogram_demo_features.py`
+  別のページで説明したので省略。
+
+:file:`histogram_demo_histtypes.py`
+  ヒストグラムのデモ。
+
+  * :code:`histtype='stepfilled'` とするとビン同士の間の線がバーの色で塗りつぶされる。
+  * 第 2 引数にビンの幅の list オブジェクトを渡すと、ビン間隔が非一様なヒストグラムが描ける。
+
+:file:`histogram_demo_multihist.py`
+  複数データを同一のサブプロットに描くデモ。
+
+  :code:`stacked=True` としたり、データそのものが入れ子の配列だったりと
+  いろいろなパターンがある。
+
+:file:`multiple_histograms_side_by_side.py`
+  複数のヒストグラムを同一サブプロット内で一列に並べるデモ。
+
+:file:`violinplot_demo.py`
+  バイオリンプロットのデモ。
+
+  * メソッド :code:`Axes.violinplot` のキーワード引数
+    ``showmedians``, ``showextrema``, ``showmeans``,
+    ``bw_method`` のデモ。
 
 :file:`style_sheets`
 ----------------------------------------------------------------------
