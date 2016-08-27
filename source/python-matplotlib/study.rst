@@ -156,7 +156,175 @@ MPEG ファイルを保存するコードが動かないのが残念だ。
 ----------------------------------------------------------------------
 モジュール :code:`mpl_toolkits.axes_grid1` に関連する見本の集まり。
 
-.. todo:: 調査する。
+:file:`demo_axes_divider.py`
+  複数サブプロット、カラーバーの配置方法のデモ。
+
+  * デモコード定義の関数 :code:`get_demo_image` はプロット対象となるデータを
+    NumPy の配列オブジェクトとして返す。
+    この関数は他のデモコードでも登場する。
+
+  * 最初のサブプロットでは単にデモデータを描画する。
+    メソッド :code:`Axes.imshow` でイメージを描画し、
+    さらに関数 :code:`plt.colorbar` でカラーバーを付属させる。
+
+  * 次のサブプロットでは、先の処理をより複雑にすることで
+    カラーバーの高さをイメージプロットのそれに合わせる。
+    クラス SubplotDivider, LocatableAxes, Size と
+    メソッド :code:`Figure.add_axes` を使いこなす力量を要求される。
+
+  * 次のサブプロットもやることは同じだが、手続きが簡略化した。
+    関数 `make_axes_locatable` をサブプロットに適用して
+    レイアウトマネージャーのようなものを利用する。
+
+  * 最後のサブプロットは同じイメージプロットを横一列に並べる。
+    つまり、先の例でカラーバーの代わりに元のイメージプロットと同じものを置く。
+
+:file:`demo_axes_grid.py`
+  さらに複雑な複数サブプロットの配置方法のデモ。
+
+  * 最初のサブプロット群は田の字に配置するもの。
+    クラス ImageGrid に Figure オブジェクトを渡す。
+
+  * 次のサブプロット群も田の字だが、カラーバーをひとつ付属させる。
+    横長カラーバーが田の字の上部に出る。
+    ImageGrid コンストラクターの後半のキーワード引数がそれを指示する。
+
+  * 次のサブプロット群も田の字だが、カラーバーがそれぞれに付属する。
+    ImageGrid の :code:`cbar_mode="each"` がポイントだ。
+
+  * 最後のサブプロット群も田の字。カラーバーも個別。
+    ただしカラーバーの範囲をサブプロットごとに変える。
+
+:file:`demo_axes_grid2.py`
+  ImageGrid のデモコード。
+
+  * 最初のグループはサブプロットそれぞれにカラーバーを付属させる。
+    ImageGrid の引数については以前のデモで理解できるだろう。
+
+  * デモコード定義の関数 :code:`add_inner_title` はサブプロット内にテキストを配置する。
+    主にクラス AnchoredText を利用するが、それ以外の機能はあまり馴染みがない。
+
+  * 次のグループはサブプロットにひとつのカラーバーを共有させる。
+    ImageGrid の :code:`cbar_mode="single"` がポイントだ。
+
+:file:`demo_axes_hbox_divider.py`
+  サブプロットを並べて、それにまたがるようにテキストを入れるデモ？
+
+  * モジュール :code:`mpl_toolkits.axes_grid1.axes_size` にあるクラス
+    AxesX, AxesY, Scaled, Fixed を利用してレイアウトマネージャー的な役割がある
+    クラス HBoxDivider のオブジェクトを生成する。
+    このマネージャーを最初に作った Axes のいずれにも :code:`set_axes_locator` する。
+
+  * テキスト部は実は Axes オブジェクト。
+    メソッド :code:`Axes.annotate` でテキスト内容とレイアウト内容を指定する。
+
+:file:`demo_axes_rgb.py`
+  モジュール :code:`mpl_toolkits.axes_grid1.axes_rgb` を利用したサブプロットの RGB 分解のデモ。
+
+  * 関数 :code:`make_rgb_axes` でサブプロットから RGB 別のサブプロットを生成する。
+
+  * デモコード内で定義された、画像から RGB 値を分解するコードの処理内容が理解できない。
+    謎のスライス。
+
+  * クラス RGBAxes で Figure からサブプロットを内部に 4 つ持つサブプロットを生成する
+    サブプロットそれぞれには :code:`.RGB`, :code:`.R`, :code:`.G`, :code:`.B` でアクセスする。
+
+  * この場合にはメソッド :code:`Axes.imshow_rgb` で描画内容生成。
+
+:file:`demo_colorbar_with_inset_locator.py`
+  カラーバーを関数 :code:`mpl_toolkits.axes_grid1.inset_locator.inset_axes` で実現するデモ。
+
+  * 関数 :code:`inset_axes` で既存のサブプロットの内側に指定サイズの
+    新規サブプロットを作成する。
+    それから :code:`plt.colorbar` のキーワード引数 ``cax`` としてそれを指定する。
+
+:file:`demo_edge_colorbar.py`
+  クラス AxesGrid のデモ。
+
+  * 最初のグループではカラーバーを 2 個ずつ共有するデモ。下に付く。
+    クラス AxesGrid を ImageGrid のように使うが、
+    キーワード引数 :code:`cbar_mode="edge"` がポイント。
+
+  * 次のグループではカラーバーを 2 個ずつ共有するデモ。右に付く。
+
+  * ところで :code:`plt.get_cmap("autumn")` 等が気になる。
+
+:file:`demo_imagegrid_aspect.py`
+  クラス ImageGrid のデモ。
+
+  * コンストラクターの引数 :code:`aspect=True` でアスペクト比を指定可能な
+    オブジェクトを作成することを指示する？
+
+  * アスペクト比自体は :code:`set_aspect` を用いる。
+
+:file:`inset_locator_demo.py`
+  モジュール :code:`mpl_toolkits.axes_grid1.inset_locator` のデモ。
+  サブプロット内に別のサブプロットを入れる？
+
+  * 関数 :code:`zoomed_inset_axes` で既存のサブプロットから指定倍率を持つ
+    新規サブプロットを作成する。
+
+:file:`inset_locator_demo2.py`
+  モジュール :code:`mpl_toolkits.axes_grid1.inset_locator` のデモ。
+  サブプロット内の一部を拡大して表示する。
+
+  * 関数 :code:`mark_inset` でこれらのサブプロットの位置関係を指定する。
+
+:file:`make_room_for_ylabel_using_axesgrid.py`
+  関数 :code:`mpl_toolkits.axes_grid1.axes_divider.make_axes_area_auto_adjustable` その他のデモ。
+  サブプロットのマージン？の大きさを自動調整可能にする？
+
+:file:`parasite_simple2.py`
+  クラス SubplotHost のデモ？
+
+  * SubplotHost のコンストラクターに Figure オブジェクトと寸法を指定する。
+  * あとは何をやりたいのかわからない。
+
+:file:`scatter_hist.py`
+  関数 :code:`mpl_toolkits.axes_grid1.make_axes_locatable` のデモ。
+  ヒストグラム 2 個と散布図 1 個をウィンドウに表示する。
+
+  * まずは単に散布図を定義し、それを引数にして :code:`make_axes_locatable` を呼ぶ。
+    この戻り値オブジェクトのメソッド :code:`append_axes` を呼び出して、
+    散布図の上や右に新しくサブプロットを作成する。
+
+  * 棒が横に伸びるヒストグラムを作るには
+    :code:`hist` の引数に :code:`orientation='horizontal'` を指定する。
+
+:file:`simple_anchored_artists.py`
+  各種図形、特にモジュール :code:`mpl_toolkits.axes_grid1.anchored_artists` にある
+  図形要素をサブプロットに配置するデモ。
+
+  * クラス AnchoredText は小さいテキストラベル。
+  * クラス AnchoredDrawingArea はサブプロット内の小さな矩形。
+    コンテナーとして振る舞う。
+    この例では Circle を別途作成し、自身の管理する :code:`add_artist` により含める。
+  * クラス AnchoredEllipse はサブプロットに所属する小さな楕円。
+  * クラス AnchoredSizeBar はサブプロットに所属する「縮尺を表す線」。
+
+  * 上記のクラスはすべて AnchoredOffsetBox の間接サブクラスである。
+    オブジェクトはどれも :code:`Axes.add_artist` に渡すことになる。
+
+:file:`simple_axesgrid.py`
+  クラス ImageGrid のデモ。
+
+  * ImageGrid のコンストラクターに Figure オブジェクトと格子の寸法を指定する。
+  * ここでは適当に定義した線形データを :code:`imshow` に渡している。
+
+:file:`simple_axesgrid2.py`
+  同じくクラス ImageGrid のデモ。
+  画像を 3 分割してそれぞれを 3 つの格子それぞれに描画する。
+
+  * ImageGrid の引数で格子間の長さを指定する等する。
+  * 画像の分割は単に NumPy の配列をスライスするだけで得られる。
+
+:file:`simple_axisline4.py`
+  座標軸の目盛ラベルデモ。
+  サブプロットにサインカーブを描き、上辺は円周率単位で、下辺は 1 単位で目盛を付ける。
+
+  * メソッド :code:`Axes.twin` でサブプロット上辺の座標軸を
+    表すオブジェクトが得られるので、
+    これに対して :code:`set_xticks`, :code:`set_xticklabels` を操作する。
 
 :file:`axisartist`
 ----------------------------------------------------------------------
