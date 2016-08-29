@@ -1269,8 +1269,184 @@ MPEG ファイルを保存するコードが動かないのが残念だ。
 
 :file:`user_interfaces`
 ----------------------------------------------------------------------
+Matplotlib は wxPython, PyGTK, Tkinter, PyQt4/5 の GUI アプリケーションに直接埋め込む
+ことができることを示すデモコードの集まり。
+ここでは私の環境で実行できたデモコードをコメントする。
 
-.. todo:: 調査する。
+:file:`embedding_in_gtk.py`
+  要 GTK につき実行できない。
+
+:file:`embedding_in_gtk2.py`
+  要 GTK につき実行できない。
+
+:file:`embedding_in_gtk3.py`
+  要 GTK につき実行できない。
+
+:file:`embedding_in_gtk3_panzoom.py`
+  要 GTK につき実行できない。
+
+:file:`embedding_in_qt4.py`
+  クラス :code:`matplotlib.backends.backend_qt4agg.FigureCanvasQTAgg` のサブクラス化のデモ。
+
+  * PyQt4 だけでなく PyQt5 もインストールされている環境で実行すると
+    ``RuntimeError: the PyQt4.QtCore and PyQt5.QtCore modules both wrap the QObject class``
+    という例外が発生する。
+
+:file:`embedding_in_qt4_wtoolbar.py`
+  クラス :code:`matplotlib.backends.backend_qt4agg.NavigationToolbar2QT` のデモ。
+  実行するとツールバーが下部に付いたウィンドウが表示される。
+
+  * PyQt4 だけでなく PyQt5 もインストールされている環境で実行すると
+    ``RuntimeError: the PyQt4.QtCore and PyQt5.QtCore modules both wrap the QObject class``
+    という例外が発生する。
+
+  * 警告 ``MatplotlibDeprecationWarning: This module has been deprecated in 1.4 ...`` が出現する。
+
+  * クラス FigureCanvasQTAgg をこのデモでも当然利用する。
+    このオブジェクトの生成時に Figure オブジェクトを渡す。
+    キャンバスは QVBoxLayout に渡す。
+
+  * メソッド :code:`on_draw` でいちいちサブプロットを生成、描画する。
+
+  * キーイベントは :code:`on_key_press` で処理する。
+    ただしツールバー自体も処理したいようなので、そちらにもイベントを横流しする。
+    例えば :kbd:`s` を押すと、ファイル保存ダイアログボックスが現れる。
+
+:file:`embedding_in_qt5.py`
+  クラス :code:`matplotlib.backends.backend_qt5agg.FigureCanvasQTAgg` のサブクラス化のデモ。
+
+  * 最初のモジュールインポート文の感じが :file:`embedding_in_qt4.py` と異なる。
+
+  * サブクラスとして MyMplCanvas, MyStaticMplCanvas, MyDynamicMplCanvas を定義する。
+    最初のクラスは残りのもののスーパークラスとする。
+    ここで Matplotlib の Figure や Axes オブジェクトを保持し、
+    Qt のウィンドウオブジェクトの設定を行う。
+
+  * クラス MyStaticMplCanvas では単純な正弦波をプロットする。
+
+  * クラス MyDynamicMplCanvas では Qt のタイマークラスを用いて
+    折れ線プロットのアニメーションを実現する。
+
+  * クラス ApplicationWindow は Qt アプリケーションでよく見られる
+    QMainWindow のサブクラス。ウィンドウ部品を手動でレイアウトしたり、
+    メニューアイテムを実装したりする。
+
+  * 最後の数行は PyQt アプリケーションにありがちなメイン関数のコードだ。
+
+:file:`embedding_in_tk.py`
+  現在 Tk の DLL が壊れているのだろうか、Python ごと落ちる。
+
+:file:`embedding_in_tk2.py`
+  現在 Tk の DLL が壊れているのだろうか、Python ごと落ちる。
+
+:file:`embedding_in_tk_canvas.py`
+  現在 Tk の DLL が壊れているのだろうか、Python ごと落ちる。
+
+:file:`embedding_in_wx2.py`
+  要 wxPython 2.8.12 以上とのことなので実行できない。
+
+:file:`embedding_in_wx3.py`
+  要 wxPython 2.8.12 以上とのことなので実行できない。
+
+:file:`embedding_in_wx4.py`
+  要 wxPython 2.8.12 以上とのことなので実行できない。
+
+:file:`embedding_in_wx5.py`
+  要 wxPython 2.8.12 以上とのことなので実行できない。
+  エラーメッセージが他のものと少々異なる。
+
+:file:`embedding_webagg.py`
+  簡単なプロットをブラウザーに表示し、
+  いつものウィンドウでの簡単な操作に加え、各種フォーマットのファイルをダウンロードすることが
+  可能なことを示すデモ。
+
+  * 要 Tornado とのこと。
+    実行してみたらファイアーウォールの解除も必要なことがわかる。
+
+  * モジュール :code:`matplotlib.backends.backend_webagg_core` から
+    クラスと関数を import する。
+
+  * クラス MyApplication をクラス :code:`tornado.web.Application` のサブクラスとして定義する。
+    ここは Tornado を学習しないことには何とも言えない。
+    Matplotlib の Figure オブジェクトを関数
+    :code:`new_figure_manager_given_figure` に渡す。
+    このオブジェクト :code:`figure` が HTML ファイルの対応する部分に埋め込まれる。
+
+  * MyApplication のコンストラクターでクラス FigureManagerWebAgg のクラスメソッド
+    :code:`get_static_file_path` を用いる。
+
+  * MyApplication の内部クラス WebSocket が明らかに重要そうなのだが、
+    私にはコードの意味がはっきりとわからない。
+
+  * スクリプト実行後に出力される URL をブラウザーに与えればプロットが現れる。
+
+:file:`fourier_demo_wx.py`
+  要 wxPython 2.8.12 以上とのことなので実行できない。
+
+:file:`gtk_spreadsheet.py`
+  要 GTK につき実行できない。
+  エラーメッセージが他のものと少々異なる。
+
+:file:`histogram_demo_canvasagg.py`
+  無反応？
+
+:file:`interactive.py`
+  要 GTK につき実行できない。
+
+:file:`interactive2.py`
+  要 GTK につき実行できない。
+
+:file:`lineprops_dialog_gtk.py`
+  要 GTK につき実行できない。
+
+:file:`mathtext_wx.py`
+  要 wxPython 2.8.12 以上とのことなので実行できない。
+
+:file:`mpl_with_glade.py`
+  要 GTK につき実行できない。
+
+:file:`mpl_with_glade_316.py`
+  要 GTK につき実行できない。
+
+:file:`pylab_with_gtk.py`
+  要 GTK につき実行できない。
+
+:file:`rec_edit_gtk_custom.py`
+  要 GTK につき実行できない。
+
+:file:`rec_edit_gtk_simple.py`
+  要 GTK につき実行できない。
+
+:file:`svg_histogram.py`
+  SVG ファイルにヒストグラムを出力し、そこにある凡例の棒をクリックすると
+  プロット上の対応する棒の表示状態が切り替わるというデモ。
+  SVG ファイルに JavaScript を埋め込むので、動作確認にはそれなりのブラウザーが必要。
+
+  * プロット部品に対してメソッド :code:`.set_gid` を呼び出すことで
+    SVG 要素用の ID を適宜割り振っていく。
+
+  * 関数 :code:`plt.savefig` にキーワード引数 :code:`format="svg"` を指定することで
+    ファイル風オブジェクトにプロットの内容を SVG 形式で出力する。
+
+  * 後半は Python 標準ライブラリーにあるクラス :code:`xml.etree.ElementTree` の機能を利用。
+    SVG 要素としてのパッチ要素にイベントハンドラーを属性値として設定する。
+
+  * JavaScript のコードテンプレートを here string で書いて（デモなので）実引数を与える。
+    関数 :code:`json.dumps` はこういう使い方もするのか。
+
+  * 最後に ElementTree オブジェクトを生成して
+    直ちにメソッド :code:`write` を用いて SVG ファイルを保存する。
+
+:file:`svg_tooltip.py`
+  SVG ファイルに図形を含むプロットを出力し、
+  そこにある図形の上にマウスポインターを重ねるとツールチップが出現するというデモ。
+  デモ :file:`svg_histogram.py` と共通するところが多い。
+
+:file:`toolmanager.py`
+  要 GTK につき実行できない。
+
+:file:`wxcursor_demo.py`
+  要 wxPython 2.8.12 以上とのことなので実行できない。
 
 :file:`widgets`
 ----------------------------------------------------------------------
