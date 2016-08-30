@@ -817,7 +817,220 @@ MPEG ファイルを保存するコードが動かないのが残念だ。
 ----------------------------------------------------------------------
 立体的なモデルをウィンドウ上で表現する方法を示す見本集。
 
-.. todo:: 調査する。
+:file:`2dcollections3d_demo.py`
+  プロット空間内にプロット曲線と散布図を描くデモ。基本。
+
+  * 明示的な import 文 :code:`from mpl_toolkits.mplot3d import Axes3D` が必要。
+    この他のデモでも、コード中に明確に 3D 系クラスなり関数なりが出て来ない場合には
+    このようなダミーの import 文を必要とする。
+
+  * メソッド :code:`Figure.gca` のキーワード引数が :code:`projection='3d'` 必要。
+    この戻り値のオブジェクトの型が Axes3D なのだろう。
+
+  * メソッド :code:`Axes.plot` にも :code:`Axes.scatter` にも
+    キーワード引数 ``zdir`` を指定する。この例ではサンプルデータは平面的なので、
+    その平面の法線方向の座標成分を指示する。
+    この事はこの他のデモコードすべてのプロット系メソッドに言える。
+
+  * メソッド :code:`Axes3D.set_xlim3d` 等でプロット空間の座標成分ごとの範囲を指定する。
+
+  * メソッド :code:`Axes3D.view_init` でカメラの位置と姿勢を指示する。
+    引数の与え方が難しそうだ。
+
+:file:`bars3d_demo.py`
+  平面的棒グラフを奥行き方向に配列するデモ。基本。
+
+  * メソッド :code:`Figure.add_subplot` のキーワード引数が :code:`projection='3d'` 必要。
+
+:file:`contour3d_demo.py`
+  関数 :code:`axes3d.get_test_data` を利用してプロット空間内に等高線図を描くデモ。基本。
+
+  * メソッド :code:`Axes.contour` に 3 次元分の点列を渡す。
+  * メソッド :code:`ContourSet.clabel` で等高線にラベルする。
+
+:file:`contour3d_demo2.py`
+  その等高線をリボン化するデモ。
+
+  * メソッド :code:`Axes.contour` のキーワード引数 :code:`extend3d=True` とすることで、
+    描画される等高線は高さ方向に幅広くなる。
+
+:file:`contour3d_demo3.py`
+  その等高線データをプロット曲面とその射影を等高線図として表現するデモ。
+
+  * 曲面プロットはメソッド :code:`plot_surface` による。
+    3 次元分の点列を渡す。
+
+  * メソッド :code:`Axes.contour` を ``zdir`` を各座標成分ごとに呼び出すことで、
+    等高線プロットを各座標平面に射影する。
+    このときキーワード引数 ``offset`` を指定して、若干浮かせる。
+
+:file:`contourf3d_demo.py`
+  隣接する等高線同士でその対応する「高さ」部分を塗るデモ。基本。
+
+  * メソッド :code:`Axes.contourf` を用いる。
+
+:file:`contourf3d_demo2.py`
+  その等高線データをプロット曲面とその射影を等高線図として表現するデモ。塗りアリ版。
+
+  * メソッド :code:`Axes.contourf` を用いる。
+
+:file:`custom_shaded_3d_surface.py`
+  これは高級。
+
+  * オブジェクト :code:`np.s_` は配列の添字からなる tuple オブジェクトを生成するもの。
+
+  * ここでクラス LightSource のコンストラクターに与えている実引数は
+    それぞれ方位角と仰角を指定する。
+
+  * このオブジェクトについてメソッド
+    :code:`shade` を呼ぶことで色データ ``rgb`` を算出する。
+    座標成分 z しか必要としない？
+
+  * それから :code:`Axes.plot_surface` を呼び出す。
+    キーワード引数 ``facecolors`` に今得た RGB データを指定する。
+    自分で色を与えるので :code:`shade=False` とするのだろう。
+
+:file:`hist3d_demo.py`
+  3D 棒グラフのデモコード。基本。
+
+  * 関数 :code:`np.histogram2d` でヒストグラムデータを作成する。
+  * さらに 16 本の棒の位置を決める配列を :code:`np.meshgdi` 等で決める。
+  * メソッド :code:`Axes.bar3d` で棒グラフを描画する。
+    注目したいのはキーワード引数 :code:`zsort='average'` で、
+    この影響でビューをグリグリ回転させると、ある棒の辺と隣の棒の面との
+    前後関係の描画が乱れることがある。
+
+:file:`lines3d_demo.py`
+  3D 曲線のデモコード。基本。
+
+  * メソッド :code:`Axes.plot` に 3 次元分の点列を渡す。
+
+:file:`lorenz_attractor.py`
+  Lorenz attractor を描画するデモ。
+
+  * 点列を生成するコードはさすがに凝っているが、描画コードはたいへん基本的。
+
+:file:`mixed_subplots_demo.py`
+  同一 Figure に 2D の Axes と 3D の Axes を掲載するデモコード。
+
+  * 二度目のメソッド :code:`Figure.add_subplot` の呼び出しには、
+    キーワード引数 :code:`projection='3d'` を指定する。
+
+:file:`offset_demo.py`
+  テキストをオフセットして描画するデモらしいが、見てもよくわからない。
+
+  * メソッド :code:`Axes.plot_surface` の x 軸と y 軸データの値が
+    :code:`+ 1e5` されている。これが要点らしい。
+
+:file:`pathpatch3d_demo.py`
+  テキストをプロット空間内に描画するデモ。これは参考用だ。
+
+  * モジュール :code:`mpl_toolkits.mplot3d.art3d` に関数 :code:`pathpatch_2d_to_3d` というのがある。
+  * ちなみに実行時間がけっこう長い。裏で LaTeX が起動する。
+
+:file:`polys3d_demo.py`
+  平面的折れ線グラフ（を輪郭とする多角形）を奥行き方向に配列するデモ。基本。
+
+  * そのまま実行すると例外
+    ``AttributeError: module 'matplotlib.colors' has no attribute 'to_rgba'``
+    が発生するので、これらの箇所にあるコードを書き換える必要がある
+    （クラス ColorConverter を利用する）。
+
+  * メソッド :code:`Axes.add_collection3d` をキーワード引数 ``zdir`` の指定と共に呼ぶ。
+    ステンドグラス的な多角形は PolyCollection でよい。
+
+:file:`quiver3d_demo.py`
+  箙プロットのデモ。基本。
+
+  * ``AttributeError: Unknown property normalize`` という例外が出るので、
+    :code:`norm=True` に修正する。
+
+  * データとなるベクトル群の全始点を関数 :code:`np.meshgrid` で一気に作成する。
+
+  * メソッド :code:`Axes.quiver` で箙プロットを描画する。
+
+:file:`rotate_axes3d_demo.py`
+  謎。
+
+  * :code:`plt.show()` が抜けているので補足したが、それでも謎。
+
+:file:`scatter3d_demo.py`
+  散布図デモ。基本。
+
+  * メソッド :code:`Axes.scatter` に 3 次元分の点列を渡す。
+
+:file:`subplot3d_demo.py`
+  曲面プロットデモ。基本。
+
+  * メソッド :code:`Axes.plot_wireframe` で曲面をワイヤーフレームで描画する。
+
+:file:`surface3d_demo.py`
+  曲面プロットデモ。基本。
+
+  * :code:`Axes.zaxis` にアクセスできることに注意。
+
+:file:`surface3d_demo2.py`
+  曲面プロットデモ。基本。
+
+:file:`surface3d_demo3.py`
+  曲面プロットにおいて面の各マスに色を指定するデモ。
+
+  * メソッド :code:`Axes.plot_surface` のキーワード引数 ``facecolors`` に
+    色値からなる 2 次元配列を渡す。
+
+:file:`surface3d_radial_demo.py`
+  曲面プロットデモ。基本。
+
+  * メソッド :code:`Axes.plot_surface` は極座標は知らないので、
+    そのような点データを呼び出し側で直交座標系に変換する必要がある。
+
+:file:`text3d_demo.py`
+  テキストデモ。基本。
+
+  * メソッド :code:`Axes.text` と :code:`Axes.text2D` とがある。
+  * キーワード引数 ``zdir`` にはベクトルを表す配列を渡すこともできる。
+
+:file:`tricontour3d_demo.py`
+  Triangulation および :code:`plt.tricontour` のデモコード。
+  曲面 tessellation による描画。3D CAD でよく見かける手法に似ている。
+
+  * ある円周からクラス Triangulation を利用して三角形格子を得る。
+    オブジェクト :code:`triang.triangles` は点列の添字三つ組の配列である。
+
+  * メソッド :code:`Triangulation.set_mask` で要らない三角形を指定？
+
+  * 関数 :code:`plt.tricontour` で tessellation をプロットする。
+    ここで Triangulation オブジェクトと点列の z 成分配列を指定する。
+
+:file:`tricontourf3d_demo.py`
+  Triangulation および :code:`plt.tricontourf` のデモコード。上のと同じ。
+
+:file:`trisurf3d_demo.py`
+  :code:`Axes.plot_trisurf` のデモコード。
+
+  * おそらく :code:`Axes.plot_trisurf` に渡す点列データに何かの制約があると思われる。
+    そうでないと tessellate できない。
+
+  * 引数に x, y, z および Triangulation オブジェクトを渡す方法と、
+    Triangulation および z を渡す方法が許される。
+
+:file:`trisurf3d_demo2.py`
+  変わった曲面のデモ。
+
+:file:`wire3d_animation_demo.py`
+  ワイヤーフレーム曲面のアニメーションデモ。
+
+  * MatplotlibDeprecationWarning が発生するが、気にしない。
+  * 関数 :code:`plt.pause` を利用。これがマズい。
+
+:file:`wire3d_demo.py`
+  ワイヤーフレーム曲面デモ。基本。
+
+:file:`wire3d_zero_stride.py`
+  ワイヤーフレーム曲面デモ。基本。
+
+  * 曲面プロット系メソッドのキーワード引数 ``rstride`` や ``cstride`` にゼロを指定すると、
+    曲面上の x または y の値が一定の曲線しか描かれない。
 
 :file:`pie_and_polar_charts`
 ----------------------------------------------------------------------
@@ -1469,7 +1682,7 @@ Matplotlib は wxPython, PyGTK, Tkinter, PyQt4/5 の GUI アプリケーショ�
 
   * クラス CheckButtons のコンストラクターには場所とラベルに加えて初期状態も指定する。
 
-  * プロットオブジェクトには:code:`visible` のような属性があって、
+  * プロットオブジェクトには :code:`visible` のような属性があって、
     これを関連メソッドで操作する。また、生成時にもキーワード引数で初期値を指示できる。
 
 :file:`cursor.py`
