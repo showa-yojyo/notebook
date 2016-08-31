@@ -150,7 +150,267 @@ MPEG ファイルを保存するコードが動かないのが残念だ。
 
 :file:`api`
 ----------------------------------------------------------------------
-.. todo:: 調査する。
+ここにあるコードは原則的に :code:`plt` の関数呼び出しを厳しく限定していて、
+Figure オブジェクトを生成する関数、関数 :code:`plt.show` それに関数
+:code:`plt.close` しか利用を認めていない。
+オブジェクト指向プログラミング風のコードを推奨するということだろう。
+
+:file:`agg_oo.py`
+  簡単なプロットを描画して画像ファイルとして保存する。
+  クラス :code:`matplotlib.backends.backend_agg.FigureCanvasAgg` のデモ。基本。
+
+  * Figure, FigureCanvasAgg/Axes の順にオブジェクトを生成する。
+    最初のふたつはコンストラクターから直接生成し、最後のものは
+    メソッド :code:`fig.add_subplot` を用いる。
+
+  * メソッド `canvas.print_figure` の呼び出しで画像ファイルを保存する。
+    拡張子がないが SVG ファイルができる。
+
+:file:`barchart_demo.py`
+  棒グラフのデモ。基本。
+
+:file:`bbox_intersect.py`
+  クラス Bbox のデモ。12 本のランダムな線分と矩形が共通点を持つかテストする。
+
+  * 本当なら関数 :code:`plt.gca` の戻り値を一時変数に取り、
+    その Axes オブジェクトのメソッドでプロットをすることが
+    このデモディレクトリーの方針に適う。
+
+  * Bbox のオブジェクトをクラスメソッド :code:`Bbox.from_bounds` で生成する。
+  * 交点の存在テストには :code:`Path.intersects_bbox` を利用したいので、
+    線分を Path オブジェクトとして一時的に生成する。
+
+:file:`collections_demo.py`
+  クラス LineCollection, PolyCollection, RegularPolyCollection と自動スケール調整のデモコード。
+
+  * そのまま実行すると例外
+    ``AttributeError: module 'matplotlib.colors' has no attribute 'to_rgba'``
+    が発生するので、これらの箇所にあるコードを書き換える必要がある
+    （クラス ColorConverter を利用する）。
+
+  * 珍しく :code:`np.random.RandomState` を利用している。
+    このクラスは Mersenne Twister 乱数生成器を表す。
+
+  * コレクションクラスのキーワード引数の ``transOffset`` には、
+    オブジェクトが所属する Axes の :code:`.transData` を指定する。
+    その後にオブジェクトの :code:`.set_transform` に
+    独自の Transform オブジェクトを指定する。
+
+  * オブジェクトを Axes に :code:`.add_collection` した後に
+    メソッド :code:`.autoscale_view` を呼び出す。
+
+:file:`colorbar_only.py`
+  カラーバーしか図に載せないデモ。応用。
+
+:file:`compound_path.py`
+  区分的曲線（ここでは線分だが）のデモ。基本。
+
+  * 曲線の構成は Path オブジェクトと PathPatch オブジェクトの二段階構造だ。
+    まずデータである Path を作成してから図表要素である PathPatch を作成する。
+
+  * パッチは :code:`Axes.add_patch` で追加する。
+  * 最後に :code:`Axes.autoscale_view` で描画範囲を適切に設定する。
+
+:file:`custom_projection_example.py`
+  Axes をサブクラス化して、独自の投影クラスを作成するデモ。応用。
+
+:file:`custom_scale_example.py`
+  Mercator 図法なプロットを自作するデモ。応用。
+
+  おおまかに言うと :code:`mpl.scale.ScaleBase` のサブクラスを適切に実装し、
+  それを関数 :code:`mpl.scale.register_scale` 呼び出しでクラス自身を与える。
+  その後に Axes を作成して、メソッド :code:`.set_yscale` に
+  自作クラスのクラスプロパティー :code:`.name` を指定する。
+
+:file:`date_demo.py`
+  プロット x 軸の目盛ラベルに西暦 4 桁を描画するデモ。
+  また、ステータスバーに表示するマウスポインター位置の座標の表示のカスタマイズもする。
+  モジュール :code:`mpl.dates` にある各クラスを利用する。
+
+  * メソッド :code:`Axis.set_major_locator` で 長目盛の位置決めオブジェクトを指定する。
+  * メソッド :code:`Axis.set_minor_locator` で 短目盛の位置決めオブジェクトを指定する。
+  * メソッド :code:`Axis.set_major_formatter` で長目盛のラベル書式オブジェクトを指定する。
+  * 面白いことに :code:`Axis.set_xlim` の値が :code:`date` 型オブジェクトだ。
+  * プロパティー :code:`Axis.format_xdata` に
+    ステータスバーの x 座標表示用書式オブジェクトを指定する。
+    プロパティー :code:`Axis.format_ydata` も同様。
+  * メソッド :code:`Figure.autofmt_xdate` という、日付ラベル回転調整機能がある。
+
+:file:`date_index_formatter.py`
+  より細かい日付ラベルのデモ。
+
+  * メソッド :code:`Axis.set_major_formatter` の実引数が複雑になっている。
+    自作の関数をさらに FuncFormatter でラップする。
+
+:file:`demo_affine_image.py`
+  画像に対する affine 変換のデモ。
+
+  * 自作関数 :code:`get_image` でダミー画像を生成する。
+  * メソッド :code:`AxesImage.set_transform` に Affine2D オブジェクトを指定する。
+  * このデモコードにはプロット表示処理がないので、お望みなら自分で書け。
+
+:file:`donut_demo.py`
+  同心円の着色に関するデモ。だからドーナツ。
+
+  * これは Path と PathPatch のコンビで同心円を
+    辺数の多い多角形で近似することで定義して、
+    「穴」を塗ったり、または塗らないままにする方法を示している。
+
+:file:`engineering_formatter.py`
+  クラス EngFormatter のデモ。対数グラフの座標軸ラベルのカスタマイズを示す。
+
+  * このデモでは :code:`EngFormatter(unit='Hz', places=1)` というオブジェクトを生成する。
+    これにより、目盛ラベルは適当な所で Hz, kHz, MHz, ... という単位表示になる。
+    数値は小数点以下一位まで見せる。
+
+  * ダミーデータの構成での NumPy の対数関係の関数の使い方が上手なので参考になる。
+
+:file:`filled_step.py`
+  残念だが ``AttributeError: Unknown property bottom_margin`` という例外が生じる。
+  可能なら勝手に直したいところだ。
+
+:file:`font_family_rc.py`
+  :code:`rcParams` の中身を直接変更することでフォントを指定するデモ。
+
+  * コードの一番最初で :code:`rcParams` を import する必要がある。
+    それ以外の Matplotlib モジュールの import 文を書くのは、
+    その変更処理が全部終わってからとなる？
+
+:file:`font_file.py`
+  クラス FontProperties のデモ。
+
+  * フォントパスを指定して FontProperties オブジェクトを生成する。
+  * メソッド :code:`Axes.set_title` のキーワード引数 ``fontproperties`` に
+    このオブジェクトを渡すことで、テキストをこのフォントで描画するようになる。
+
+:file:`histogram_path_demo.py`
+  ヒストグラムを PathPatch オブジェクトを使って描画するデモ。
+
+  * ダミーのヒストグラムデータは :code:`np.histogram` で適当に用意する。
+    それからやや面倒な配列処理で、各棒の輪郭を定義する。
+
+  * Path オブジェクトを生成する。今回はクラスメソッドの
+    :code:`.make_compound_path_from_polys` を利用する。
+
+:file:`image_zcoord.py`
+  画像プロットだが、ステータスバーに強引に z 座標を表示するデモ。
+
+  * プロパティー :code:`Axes.format_coord` に自作の関数を割り当てる。
+    自作の関数ではステータスバーに表示する文字列そのものを戻すようにする。
+
+:file:`joinstyle.py`
+  折れ線の折れた部分のスタイル 3 種のデモ。
+
+  * メソッド :code:`Axes.plot` のキーワード引数 ``solid_joinstyle`` に対して
+    文字列 ``'miter'``, ``'round'``, ``'bevel'`` のいずれかを指定する。
+
+:file:`legend_demo.py`
+  凡例のデモ。基本。
+
+  * 関数 :code:`plt.legend` で凡例を図に表示する。
+
+:file:`line_with_text.py`
+  Line2D のサブクラスデモ。どのメソッドをオーバーライドすればよいかわかる。
+
+:file:`logo2.py`
+  Matplotlib のロゴバナーを生成、表示するデモ。
+
+  * デモというよりアートと呼びたい。
+
+:file:`mathtext_asarray.py`
+  クラス MathTextParser のデモ。
+
+  * 冒頭の関数 :code:`rc` 呼び出しが気になる。
+  * MathTextParser オブジェクトをコンストラクターで生成する。
+  * メソッド :code:`.to_png` で指定した LaTeX の文字列を
+    処理した結果を PNG ファイルに保存する。
+  * メソッド :code:`.to_rgba` で指定した LaTeX の文字列を
+    処理した結果をオブジェクトにする。
+  * メソッド :code:`Figure.figimage` でそれを描画する。
+    呼び出し側が RGB 値を正規化する。
+
+:file:`patch_collection.py`
+  主に Wedge パッチのデモコード。
+
+:file:`power_norm_demo.py`
+  2D ヒストグラムで PowerNorm オブジェクトを渡すデモ。基本。
+
+  * 関数 :code:`plt.hist2d` を利用する。
+    見てくれは画像プロットのようだ。
+    このキーワード引数 ``norm`` にオブジェクト :code:`PowerNorm(gamma)` を指定する。
+    :code:`gamma` は適当なスカラー。
+
+:file:`quad_bezier.py`
+  2 次 Bézier 曲線のデモコード。基本。
+
+  * Path オブジェクトを生成するときに :code:`Path.CURVE3` を適宜指示する。
+
+:file:`radar_chart.py`
+  レーダーチャートデモ。応用。
+
+  * PolarAxes のサブクラスとして RadarAxes を定義する。必要なメンバーをオーバーライドする。
+  * 関数 :code:`mpl.projections.register_projection` にこの :code:`.name` を指定する。
+
+:file:`sankey_demo_basics.py`
+  クラス Sankey のデモコード。
+
+  * メソッド :code:`.add` で矢印形状を追加できる。
+    形状が確定したら :code:`.finish` を呼ぶ。
+    この戻り値を介して図式のスタイルを調整する。
+
+:file:`sankey_demo_links.py`
+  クラス Sankey のデモコード。
+  メソッド :code:`.add` を駆使して、たいへん長い Sankey 図を生成する。
+
+:file:`sankey_demo_old.py`
+  クラス Sankey を利用せず、自力で Sankey 図を描画するデモ。研究。
+
+:file:`sankey_demo_rankine.py`
+  クラス Sankey を利用して Rankine サイクルの図を描くという、かなり実践的なデモ。
+
+  * メソッド :code:`.add` の引数が複雑なので、何とかしたい。
+
+:file:`scatter_piecharts.py`
+  散布図のマーカーが円グラフというふざけたデモコード。
+
+:file:`skewt.py`
+  斜交座標系のデモコード。研究。
+
+  * クラス XTick, XAxis, Spine, Axes からそれぞれのサブクラスを定義する。
+  * 関数 :code:`mpl.projections.register_projection` に Axes の
+    サブクラスの :code:`.name` を指定する。
+
+  * プロットデータの生成に :code:`np.loadtxt` を使っているのが面白い。
+
+  * メソッド :code:`Axes.semilogy` で y 軸が対数寸法になる。
+  * メソッド :code:`Axes.axvline` は x 一定の線を引くものだが、
+    このデモでは斜めになる。
+  * ScalarFormatter と MultipleLocator の使用例も見られる。
+
+:file:`span_regions.py`
+  クラス BrokenBarHCollection のデモコード。
+
+  * メソッド :code:`Axes.axhline` は y 一定の線を引く。
+
+:file:`two_scales.py`
+  プロットの両側に y 軸目盛を付けるデモコード。
+
+:file:`unicode_minus.py`
+  マイナス記号差し替えデモ。
+
+  * :code:`rcParams['axes.unicode_minus'] = False` とすると、
+    マイナス記号に Unicode のそれを使わなくなる。代わりにハイフンになる。
+
+:file:`watermark_image.py`
+  図の背景に透かしを入れるデモ。
+
+  * アルファチャンネルありの画像をメソッド :code:`Figure.figimage` に渡す。
+
+:file:`watermark_text.py`
+  図の背景に透かしを入れるデモ。
+
+  * 単にメソッド :code:`Figure.text` の呼び出しでキーワード引数を
+    :code:`alpha=0.5` のようにすればよい。
 
 :file:`axes_grid1`
 ----------------------------------------------------------------------
