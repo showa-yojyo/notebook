@@ -261,5 +261,20 @@ Conda の各種設定はホームディレクトリーに所定の書式で記�
   それらのどれにも書くハメになっていた、
   インストールおよびアップグレードの云々をする必要がなくなったのも大きい。
 
+* 一般のサードパーティー製 Python パッケージのインストール手順は
+  次の図のようにすることにした。
+  ここではローカルにあるソースコードを :code:`pip install -e` でインストールする状況は
+  考慮していない。
+
+  .. _python-pkg-proc:
+
+  .. figure:: /_static/python-pkg-proc.png
+     :align: left
+     :width: 550px
+     :height: 320px
+     :scale: 100%
+
+     一般のサードパーティー製 Python パッケージのインストール手順
+
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt

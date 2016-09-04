@@ -45,28 +45,10 @@ for the standard interactive interpreter> だそうだ。
 * Python がインストール済みである。
 * :program:`conda` または :program:`pip` の実行ファイルのあるフォルダーに PATH が通っている。
 
-これを満たす環境において、IPython をインストールする方法を記す。
+これを満たす環境において、
+:ref:`python-pkg-proc` に示したようにすると IPython をインストールできる。
 
-pip によるインストール
-----------------------------------------------------------------------
-IPython をインストールするもっとも単純な方法は、おそらく :program:`pip` によるものだろう。
-コンソールウィンドウで次のようにタイプすればよい。速やかに終了するはずだ。
-
-.. code-block:: console
-
-   $ pip ipython
-   Downloading/unpacking ipython
-   Installing collected packages: ipython
-   Successfully installed ipython
-   Cleaning up...
-
-ドキュメントによるとオプショナルな依存パッケージがいくつかあるようだ。
-場合により別途利用者がインストールすることになる。
-
-conda によるインストール
-----------------------------------------------------------------------
-Anaconda_ または Miniconda_ 環境で Python を利用している場合には
-:program:`pip` でも構わないが :program:`conda` を利用したい。
+次に :program:`conda` によるインストール手続きの例を示す。
 
 .. code-block:: console
 

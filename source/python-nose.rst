@@ -37,6 +37,7 @@ Python 標準の ``unittest`` だけで単体テストをやろうとすると�
 
 インストール
 ======================================================================
+方法については :ref:`python-pkg-proc` で図示したので、そちらを参照して欲しい。
 インストールが成功終了後は、Python 環境は次のように変化している。
 
 * ``Lib/site-packages/nose`` フォルダーが存在する。
@@ -44,45 +45,6 @@ Python 標準の ``unittest`` だけで単体テストをやろうとすると�
 
 * ``Scripts`` フォルダーに実行ファイル :file:`nosetests` が存在する。
   特に Windows の場合、これは exe ファイルである。
-
-方法 1 -- conda または pip 経由でインストール
-----------------------------------------------------------------------
-インターネットが利用できる環境では
-コンソールウィンドウで ``conda install nose`` または ``pip install nose`` を実行する。
-前者は Python 環境を Anaconda_ または Miniconda_ で構築しているときに実施するもので、
-後者は正規の Python 環境において実施する。
-
-.. code-block:: console
-
-   $ pip install nose
-   Collecting nose
-     Using cached nose-1.3.7-py3-none-any.whl
-   Installing collected packages: nose
-   Successfully installed nose-1.3.7
-
-.. note::
-
-   関連ノートも参照。
-
-   * :doc:`/python-miniconda`
-   * :doc:`/python-pip`
-
-方法 2 -- setuptools を利用してソースからインストール
-----------------------------------------------------------------------
-まずは学校・職場・漫画喫茶等に行き、インターネットにアクセス。
-
-自宅環境に `setuptools`_ をインストールしていなかったならば、先に入手すること。
-これも持ち帰る。
-
-目的の Nose_ のコード一式（おそらく ``nose-1.0.tar.gz`` のような名前）
-を公式サイトからダウンロードして、それを USB メモリか何かに入れて持ち帰る。
-
-解凍した後、次のようにする。
-
-.. code-block:: console
-
-   $ cd nose-1.0.0
-   $ python setup.py install
 
 利用方法
 ======================================================================

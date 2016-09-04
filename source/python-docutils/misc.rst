@@ -5,26 +5,8 @@
 
 インストール
 ======================================================================
-いつも同じ方法なのでもう書かなくてもいいかという気がしている。
+:ref:`python-pkg-proc` を参照。もっとも、
 Sphinx をインストールしたときに、Docutils も同時に自動的にインストールされているはず。
-
-.. code-block:: console
-
-   $ pip install --upgrade docutils
-   Requirement already up-to-date: docutils in d:\python35\lib\site-packages
-   $ pip show docutils
-   ---
-   Metadata-Version: 2.0
-   Name: docutils
-   Version: 0.12
-   Summary: Docutils -- Python Documentation Utilities
-   Home-page: http://docutils.sourceforge.net/
-   Author: docutils-develop list
-   Author-email: docutils-develop@lists.sourceforge.net
-   License: public domain, Python, 2-Clause BSD, GPL 3 (see COPYING.txt)
-   Location: d:\python35\lib\site-packages
-   Requires:
-   $
 
 各種スクリプト
 ======================================================================

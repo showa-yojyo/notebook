@@ -12,24 +12,7 @@ HTML と PDF ファイルの形で利用できるようになっている。
 
 パッケージをインストールする
 ======================================================================
-.. note::
-
-   関連ノートも参照。
-
-   * :doc:`/python-miniconda`
-   * :doc:`/python-pip`
-
-* Anaconda_ または Miniconda_ で Python 環境を管理しているのであれば、
-  素直に ``conda install numpy`` で問題ないはずだ。
-
-* そうでない Windows 環境ではインストーラーからインストールするのが吉。
-  :file:`numpy-x.y.z-win32-superpack-python2.6.exe` みたいな名前のインストーラーを
-  NumPy の `SourceForge <http://www.numpy.org/>`_ ページから検索して入手しておけばよい。
-  最近は Python 3.x 系もサポートするようになった。
-
-  64 ビット環境の場合は公式サイトではなく、
-  `Python Extension Packages for Windows - Christoph Gohlke`_ を利用させてもらう。
-  :file:`numpy-MKL-x.y.z.win-amd64-py3.4.exe` のような名前のインストーラーをダウンロードすることができる。
+基本的には :ref:`python-pkg-proc` の図のとおりに進めればよい。
 
 * インストールを終了したら、何はさておき :file:`README.txt` と :file:`INSTALL.txt` を一読すること。
   目をひくのは単体テストが実行できるということだが、

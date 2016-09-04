@@ -39,19 +39,7 @@ Pillow_
 
 インストール
 ======================================================================
-Anaconda_ または Miniconda_ で Python 環境を管理しているのであれば、
-コマンドラインで Pillow をインストールすることは容易い。
-単に :code:`conda install Pillow` と入力するだけでよい。
-
-それ以外の環境では pip_ を用いることになる。
-
-.. code-block:: console
-
-   $ pip install Pillow
-   Collecting Pillow
-     Using cached Pillow-3.0.0-cp35-none-win_amd64.whl
-   Installing collected packages: Pillow
-   Successfully installed Pillow-3.0.0
+:ref:`python-pkg-proc` の方針に従ってインストールする。
 
 ちなみに PIL が既に環境に居座っている場合は、Pillow をインストールする前に
 PIL をアンインストールする必要があるようだ。
