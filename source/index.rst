@@ -49,6 +49,7 @@ Contents:
    python-restview
    python-nose
    python-ipython
+   python-jupyter
    python-numpy/index
    python-scipy/index
    python-sympy/index
