@@ -14,10 +14,24 @@ Jupyter 利用ノート
    * Python_: 3.5.2 (64 bit)
    * Jupyter_: 1.0.0
 
+     * jupyter_client: 4.3.0
+     * jupyter_console: 5.0.0
+     * jupyter_core: 4.1.1
+
 関連リンクおよび参考サイト
 ======================================================================
 `Project Jupyter <http://jupyter.org/>`__
   Jupyter 開発サイトのホームページ。
+
+`Jupyter console <https://jupyter-console.readthedocs.io/en/latest/>`__
+  Jupyter Console 開発サイトのホームページ。
+  中身は開発者向けであり、利用者に対する気の利いた文書のようなものはない。
+
+`The Jupyter notebook <https://jupyter-notebook.readthedocs.io/en/latest/>`__
+  Jupyter Notebook 開発サイトのホームページ。
+
+`A Qt Console for Jupyter <https://jupyter.org/qtconsole/stable/>`__
+  Jupyter QtConsole 開発サイトのホームページ。
 
 インストール
 ======================================================================
@@ -99,8 +113,231 @@ Jupyter 利用ノート
 * 同じことを確認するためのコマンドライン入力は
   :code:`conda create --dry-run -n jupyter-demo jupyter` でもよい。
 
-起動する
+設定を理解する
 ======================================================================
+
+設定ファイルの仕組みを理解する
+----------------------------------------------------------------------
+コマンドラインツールとして実装されている Jupyter の各サブコマンドには
+それぞれ専用の設定ファイルが対応する。
+設定ファイル自身は optional なので、
+利用者が不要と判断すればわざわざ作成することはない。
+
+例えば後述するサブコマンド :code:`jupyter nbconvert` はそれ専用の
+設定ファイルを扱っており、その既定のパスは
+:file:`$HOME/.jupyter/jupyter_nbconvert_config.py` である。
+このファイルのスケルトンを得るには、次のようにする（一部加工済）。
+
+.. code-block:: console
+
+   $ jupyter nbconvert --generate-config
+   Writing default config to: $HOME\.jupyter\jupyter_nbconvert_config.py
+
+* 他のサブコマンドも同様にオプション ``--generate-config`` を指定することで
+  そのサブコマンド専用設定ファイルのスケルトンを
+  既定のディレクトリーに生成することができるものがある。
+
+* 設定ファイルで指定できる項目はいずれもコマンドライン引数の形でも指定できる。
+  同じ項目について、設定ファイルとコマンドラインとで衝突するような値をそれぞれで指定すると、
+  コマンドラインでの指定が常に優先されるはずだ。
+
+関連ディレクトリーを理解する
+----------------------------------------------------------------------
+端末から :program:`jupyter` を次のように実行すると Jupyter が参照する
+ディレクトリーをすべて確認できる（一部加工済）：
+
+.. code-block:: console
+
+   $ jupyter --paths
+   config:
+       $HOME\.jupyter
+       D:\Miniconda3\etc\jupyter
+       C:\ProgramData\jupyter
+   data:
+       C:\Users\$USER\AppData\Roaming\jupyter
+       D:\Miniconda3\share\jupyter
+       C:\ProgramData\jupyter
+   runtime:
+       C:\Users\$USER\AppData\Roaming\jupyter\runtime
+
+* :program:`jupyter` は上の三種の区分別にディレクトリーを表示するための
+  コマンドラインオプションも提供している。
+
+* ``config:`` で列挙されたものは Jupyter のサブコマンドの設定ファイル置き場だ。
+  設定ファイルについては、それを扱う個々のサブコマンドのところで述べる。
+
+環境変数を理解する
+----------------------------------------------------------------------
+Jupyter は先述の関係ディレクトリーの区分に対応する環境変数を規定している。
+
+* :envvar:`JUPYTER_CONFIG_DIR`
+* :envvar:`JUPYTER_PATH`
+* :envvar:`JUPYTER_RUNTIME_DIR`
+
+環境変数のどれかに何らかのディレクトリーパスを指定すると、
+それが対応する区分のものの地点を表すものとして取り扱われる。
+
+サブコマンドを確認する
+======================================================================
+:program:`jupyter` のサブコマンドを知るには、
+この実行ファイルがあるディレクトリーでファイル :file:`jupyter-*.exe` を表示すればよい。
+ハイフン以降拡張子以前の文字列がサブコマンド名と合致する。
+
+.. code-block:: console
+
+   $ cd /d/Miniconda3/Scripts
+   $ ls jupyter*.exe
+   jupyter.exe*             jupyter-nbextension.exe*
+   jupyter-console.exe*     jupyter-notebook.exe*
+   jupyter-kernelspec.exe*  jupyter-qtconsole.exe*
+   jupyter-migrate.exe*     jupyter-serverextension.exe*
+   jupyter-nbconvert.exe*   jupyter-trust.exe*
+
+* :code:`jupyter subcommand args` を実行すると、実際には
+  :code:`jupyter-subcommand args` を実行することと同じであると考えられる。
+
+* どのサブコマンドもオプション ``--help`` と ``--help-all`` を提供している。
+* サブコマンドにはさらにサブコマンドが存在することがある。
+  一例を挙げると :code:`jupyter nbextenion list` だ。
+
+サブコマンド :code:`jupyter console`
+======================================================================
+このサブコマンドはコンソールアプリケーションのセッションを現在の端末ウィンドウに開始する。
+
+:code:`jupyter console`
+  このコマンドを実行すると、その場で IPython のセッションが開始する。
+  :doc:`/python-ipython` で習得した物事が全て通用する。
+
+:code:`jupyter console --kernel kernel_name`
+  開始するための既定のカーネルを指定する。
+  このオプションがないと ``python`` が指定されたものとして振る舞う。
+
+* そういうわけで、Python 以外にも何かカーネルをインストールしないと面白くない。
+
+* オプション ``--generate-config`` を与えると、
+  このサブコマンド専用の設定ファイルのスケルトンを
+  前述のディレクトリーに生成する。
+
+.. todo:: カーネルを何か入れてから再度サブコマンドを試す。
+
+サブコマンド :code:`jupyter kernelspec`
+======================================================================
+このサブコマンドは Jupyter のカーネルの詳細を管理するためのものだ。
+Jupyter インストール直後にサブコマンド ``list`` を実行するとこのような結果を出力する。
+
+.. code-block:: console
+
+   $ jupyter kernelspec list
+   Available kernels:
+     python3    D:\Miniconda3\lib\site-packages\ipykernel\resources
+
+* 上記ディレクトリーの中身は Python ロゴが描かれたサイズの異なる PNG ファイル 2 個だ。
+
+.. todo:: これの正体は何だ？
+
+サブコマンド :code:`jupyter migrate`
+======================================================================
+私はこれを利用する必要はないらしい。
+事実、IPython から Jupyter に移行したい資源は何もなかったはずだ。
+
+.. code-block:: console
+
+   $ jupyter migrate
+   [JupyterMigrate] Found nothing to migrate.
+
+サブコマンド :code:`jupyter nbconvert`
+======================================================================
+このサブコマンドを ipynb ファイルから指定する形式のファイルを生成変換するツールとして利用する。
+実際にいくつかの用例を試したので、感想を記す。
+
+:code:`jupyter nbconvert helloworld.ipynb`
+  ファイル :file:`helloworld.ipynb` から :file:`helloworld.html` を生成する。
+
+* これは Jupyter Notebook 稼働中にブラウザーで目にするものと同じだが、
+  これをブラウザー上で編集することはできない。
+
+* ちなみにこのコマンドラインで生成する HTML ファイルはサイズが思いのほか大きくなる。
+  見栄えがショボくても気にならないようなときには
+  オプション :code:`--template basic` を与えることで
+  単純な HTML ファイルを生成させたい。
+
+:code:`jupyter nbconvert --to latex helloworld.ipynb`
+  本来ならば LaTeX ファイルを生成するのだが、現在次の例外が発生して失敗する。
+  Pandoc というものを準備する必要があるようだ。
+
+  .. code-block:: console
+
+     [NbConvertApp] Converting notebook helloworld.ipynb to latex
+     [NbConvertApp] ERROR | Error while converting 'helloworld.ipynb'
+     Traceback (most recent call last):
+       File "D:\Miniconda3\lib\site-packages\nbconvert\nbconvertapp.py", line 357, in export_single_notebook
+         output, resources = self.exporter.from_filename(notebook_filename, resources=resources)
+
+       --- 略 ---
+
+       File "D:\Miniconda3\lib\site-packages\nbconvert\utils\pandoc.py", line 76, in get_pandoc_version
+         raise PandocMissing()
+     nbconvert.utils.pandoc.PandocMissing: Pandoc wasn't found.
+     Please check that pandoc is installed:
+     http://pandoc.org/installing.html
+
+* オプション ``--to`` を明示的に指示しないと ``html`` と指定されたものとして振る舞う。
+* オプション ``--to`` の受け付ける引数には ``html`` の他に
+  ``latex``, ``pdf``, ``markdown``, ``rst`` といった、
+  試しがいのある書式が含まれているようだ。
+
+* オプション ``--stdout`` を与えると、指示した変換内容を標準出力に書き出す。
+* オプション ``--generate-config`` を与えると、
+  このサブコマンド専用の設定ファイルのスケルトンを
+  前述のディレクトリーに生成する。
+
+.. todo:: Pandoc とやらを調査する。
+
+サブコマンド :code:`jupyter nbextension`
+======================================================================
+このサブコマンドは Notebook の拡張を管理するためのものだ。
+Jupyter インストール直後にサブコマンド ``list`` を実行するとこのような結果を出力する。
+
+.. code-block:: console
+
+   $ jupyter nbextension list
+   Known nbextensions:
+     config dir: D:\Miniconda3\etc\jupyter\nbconfig
+       notebook section
+         nb_conda/main enabled
+         - Validating: ok
+         nbpresent/js/nbpresent.min enabled
+         - Validating: ok
+         jupyter-js-widgets/extension enabled
+         - Validating: ok
+         nb_anacondacloud/main enabled
+         - Validating: ok
+       tree section
+         nb_conda/tree enabled
+         - Validating: ok
+
+サブコマンド :code:`jupyter notebook`
+======================================================================
+このサブコマンドは Jupyter Notebook を管理するものだ。
+通常実行することで Tornado ベースの HTTP サーバーを起動し、
+Notebook クライアントが利用可能になる。
+
+:code:`jupyter notebook`
+  Jupyter Notepad を起動する。
+  同時にダッシュボードページをブラウザーで開く。
+  次節で詳しく述べる。
+
+:code:`jupyter notebook --no-browser`
+  Jupyter Notepad を起動するが、ブラウザーでダッシュボードページを開かない。
+  つまり、開きたい ipynb ファイルがあれば利用者がそれに対応するアドレスに、
+  好きな手段によりアクセスする。
+
+* オプション ``--generate-config`` を与えると、
+  このサブコマンド専用の設定ファイルのスケルトンを
+  前述のディレクトリーに生成する。
+
+Jupyter Notebook を起動する
+----------------------------------------------------------------------
 端末ウィンドウで作業する。適当な作業ディレクトリーに移動してから
 :program:`jupyter` を実行する。
 
@@ -125,14 +362,19 @@ Jupyter 利用ノート
 
 * これはサービスプロセスなので、専用のコンソールウィンドウで実行するのがよいだろう。
   ConEmu の Tasks にコマンドラインを定義しておくか。
+  下にコマンドラインの一例を記す。好みで ConEmu に対するアイコンやタブ名を指定するのもよい。
+
+  .. code-block:: text
+
+     D:\Miniconda3\Scripts\jupyter.exe notebook -new_console:d:D:\home\yojyo\jupyter
 
 * :code:`jupyter notebook` には当然ながらコマンドラインオプションがある。
   利用価値のありそうなものがあれば洗い出しておきたい。
 
 * 起動時ログの警告の類を解決しておきたい。PDF うんぬんは気になる。
 
-終了する
-======================================================================
+Jupyter Notebook を終了する
+----------------------------------------------------------------------
 サービスを起動した端末ウィンドウで :kbd:`Ctrl + C` を押すと、サービスが停止する。
 
 .. code-block:: console
@@ -141,9 +383,69 @@ Jupyter 利用ノート
    [I HH:MM:SS.298 NotebookApp] Kernel shutdown: f887fdc0-f81c-410c-a941-6820a4b2a5c7
    $ 
 
+サブコマンド :code:`jupyter qtconsole`
+======================================================================
+このサブコマンドは Jupyter QtConsole アプリケーション、
+すなわち Qt ベースのコンソール風アプリケーションを起動する。
+Qt ウィンドウで実現された IPython セッションと表現すれば適当だろうか。
+下の図は Jupyter QtConsole を起動し、たまたま手許にある
+Matplotlib のデモコードを一つ実行したときの画面だ。
+
+.. figure:: /_static/jupyter-qtconsole.png
+   :align: center
+   :alt: Jupyter QtConsole
+   :scale: 50%
+
+   Jupyter QtConsole
+
+:code:`jupyter qtconsole`
+  Jupyter QtConsole を起動する。
+
+* 何か既視感があると思ったが、これは :doc:`/python-ipython` で調査した
+  :code:`ipython qtconsole` の挙動と酷似している。
+  確認のために久しぶりに :code:`ipython qtconsole` してみたら、
+  ウィンドウタイトルが :guilabel:`Jupyter QtConsole` となっていた。
+  つまり、両者は同一のアプリケーションなのだろう。
+
+* オプション ``--generate-config`` を与えると、
+  このサブコマンド専用の設定ファイルのスケルトンを
+  前述のディレクトリーに生成する。
+
+サブコマンド :code:`jupyter serverextension`
+======================================================================
+Jupyter インストール直後にサブコマンド ``list`` を実行するとこのような結果を出力する。
+
+.. code-block:: console
+
+  $ jupyter serverextension list
+  config dir: D:\Miniconda3\etc\jupyter
+      nb_anacondacloud enabled
+      - Validating...
+        nb_anacondacloud  ok
+      nb_conda enabled
+      - Validating...
+        nb_conda  ok
+      nbpresent enabled
+      - Validating...
+        nbpresent  ok
+
+* この情報は Jupyter Notebook のダッシュボードでも形を変えて確認できそうだ。
+
+サブコマンド :code:`jupyter trust`
+======================================================================
+.. todo:: 調査する。
+
 ノート
 ======================================================================
-.. todo:: 鋭意調査中。
+Jupyter の一連の機能を利用して気付いた点や思い付き等を記す。
+
+* YouTube で検索すると Jupyter の基礎的な利用法をコーチするビデオが多数見つかるだろう。
+
+* Jupyter Notebook のサービス実行用と ipynb ファイルの実行用の両方がそれぞれ
+  Python のプロセスを管理する。
+  プアな環境だと Python プロセスによるメモリ食いが気になる。
+
+* :program:`jupyter` の利用可能な「サブコマンド」の集合が文書化されていない？
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
