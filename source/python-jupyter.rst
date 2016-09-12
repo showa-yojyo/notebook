@@ -33,7 +33,80 @@ Jupyter 利用ノート
 `A Qt Console for Jupyter <https://jupyter.org/qtconsole/stable/>`__
   Jupyter QtConsole 開発サイトのホームページ。
 
-インストール
+`IPython kernels for other languages <https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages>`__
+  カーネル一覧。
+  どうやら一般的にカーネルごとにインストール方法が異なるらしい。
+
+Pandoc_
+  Notebook ファイルを LaTeX やさらには PDF 形式に変換するのにこれが必要になる。
+
+Jupyter の概要を把握する
+======================================================================
+IPython と Jupyter Notebook がどのように作用し合うかをまとめた、
+次の文書を読むと良い：
+
+* `How IPython and Jupyter Notebook work <http://jupyter.readthedocs.io/en/latest/architecture/how_jupyter_ipython_work.html>`__
+
+Terminal IPython
+----------------------------------------------------------------------
+* 承知しているが IPython とは REPL モデルの端末である。
+
+The IPython Kernel
+----------------------------------------------------------------------
+* IPython Kernel は分離したプロセスであって、
+  ユーザーコードを走らせたり補完を計算するようなことについての責任がある。
+
+* Notebook や Qt コンソールのようなフロントエンドは
+  ZeroMQ ソケッツを使って送信される JSON メッセージを用いて
+  IPython Kernel とやりとりをする。
+
+* 最初の図式。
+  Terminal IPython と IPython Kernel との共通部分が実行部ということか。
+  Terminal IPython には JSON も ZeroMQ も関係がなく、
+  IPython Kernel には標準入出力のどちらも関係しない。
+
+* 新しい言語を支援するには、
+  その言語でのカーネルを開発することで可能になるのだが、
+  この事をより実践的にするために開発陣は IPython を洗練している。
+
+* 二番目の図式は別の言語のカーネルを実装するふたつの方法を表現している？
+  ラッパー式とネイティブ式があることは理解できる。
+  対象言語の実行と通信とを両方とも実装する方式は後者に相当する。
+
+* octave_kernel や bash_kernel はラッパー式で、
+  IJulia や IHaskell はネイティブ式だ。
+
+Notebooks
+----------------------------------------------------------------------
+* Notebook も IPython Kernel のフロントエンドの一つであるが、
+  ある特別なことをする。
+
+* ユーザーコードを走らせることに加えて、
+  Notebook 専用の書式の編集可能な文書に
+  コード、出力、Markdown テキストを保存する。
+
+* ユーザーが保存するときに、ブラウザーからサーバーに文書データが送信されて、
+  ディスクに拡張子 ``.ipynb`` の JSON ファイルとして保存する。
+
+* カーネルではなくサーバーが Notebook データの保存や読み込みを行う。
+  そのため、編集したいノートの言語カーネルをユーザーが持っていなくても編集は可能である。
+
+Exporting notebooks to other formats
+----------------------------------------------------------------------
+* Nbconvert についての概要。
+  後述する :code:`jupyter nbconvert` の覚え書きで見ていく。
+
+* ウェブ上の ``ipynb`` ファイルの URL を指定すると
+  HTML に変換してそのままブラウザーで閲覧できる
+  `nbviewer <http://nbviewer.jupyter.org/>`__ というサービスがある。
+
+IPython.parallel
+----------------------------------------------------------------------
+IPython は IPython.parallel という名の平行計算フレームワークを含む。
+多数の個々のエンジンを制御することができる、
+上に述べた IPython Kernel の拡張版である。
+
+Jupyter をインストールする
 ======================================================================
 :ref:`python-pkg-proc` を参照してインストールすること。
 図で示されているところの :program:`conda` を利用するルートになる。
@@ -208,6 +281,13 @@ Jupyter は先述の関係ディレクトリーの区分に対応する環境変
   このコマンドを実行すると、その場で IPython のセッションが開始する。
   :doc:`/python-ipython` で習得した物事が全て通用する。
 
+  単に :program:`ipython` を起動するのとは異なり、このサブコマンドでは
+  Python のプロセスが 2 個起動する。
+  後述するサブコマンドにもこのような挙動のものがある。
+  なぜこのようになるかを説明できるようにしておくこと。
+
+* コマンドラインオプション ``--existing`` はこのことと関係する？
+
 :code:`jupyter console --kernel kernel_name`
   開始するための既定のカーネルを指定する。
   このオプションがないと ``python`` が指定されたものとして振る舞う。
@@ -215,10 +295,42 @@ Jupyter は先述の関係ディレクトリーの区分に対応する環境変
 * そういうわけで、Python 以外にも何かカーネルをインストールしないと面白くない。
 
 * オプション ``--generate-config`` を与えると、
-  このサブコマンド専用の設定ファイルのスケルトンを
+  このサブコマンド専用の設定ファイル :file:`jupyter_console_config.py` のスケルトンを
   前述のディレクトリーに生成する。
 
-.. todo:: カーネルを何か入れてから再度サブコマンドを試す。
+bash_kernel_ をインストールして（次の節参照）コンソールを
+起動してみたところ、謎の例外が発生した。
+
+.. code-block:: console
+
+   $ jupyter console --kernel=bash
+   Traceback (most recent call last):
+     File "D:\Miniconda3\lib\runpy.py", line 184, in _run_module_as_main
+       "__main__", mod_spec)
+     File "D:\Miniconda3\lib\runpy.py", line 85, in _run_code
+       exec(code, run_globals)
+     File "D:\Miniconda3\lib\site-packages\bash_kernel\__main__.py", line 3, in <module>
+       IPKernelApp.launch_instance(kernel_class=BashKernel)
+     File "D:\Miniconda3\lib\site-packages\traitlets\config\application.py", line 595, in launch_instance
+       app.initialize(argv)
+     File "<decorator-gen-121>", line 2, in initialize
+     File "D:\Miniconda3\lib\site-packages\traitlets\config\application.py", line 74, in catch_config_error
+       return method(app, *args, **kwargs)
+     File "D:\Miniconda3\lib\site-packages\ipykernel\kernelapp.py", line 454, in initialize
+       self.init_kernel()
+     File "D:\Miniconda3\lib\site-packages\ipykernel\kernelapp.py", line 365, in init_kernel
+       user_ns=self.user_ns,
+     File "D:\Miniconda3\lib\site-packages\traitlets\config\configurable.py", line 412, in instance
+       inst = cls(*args, **kwargs)
+     File "D:\Miniconda3\lib\site-packages\bash_kernel\kernel.py", line 46, in __init__
+       self._start_bash()
+     File "D:\Miniconda3\lib\site-packages\bash_kernel\kernel.py", line 55, in _start_bash
+       self.bashwrapper = replwrap.bash()
+     File "D:\Miniconda3\lib\site-packages\pexpect\replwrap.py", line 110, in bash
+       child = pexpect.spawn(command, ['--rcfile', bashrc], echo=False,
+   AttributeError: module 'pexpect' has no attribute 'spawn'
+
+他所製のモジュールで困ったことになっているようだ。
 
 サブコマンド :code:`jupyter kernelspec`
 ======================================================================
@@ -233,7 +345,31 @@ Jupyter インストール直後にサブコマンド ``list`` を実行する�
 
 * 上記ディレクトリーの中身は Python ロゴが描かれたサイズの異なる PNG ファイル 2 個だ。
 
-.. todo:: これの正体は何だ？
+なお、
+bash_kernel_ を Python 環境にインストールし、
+それから Jupyter 環境にインストールし、最後に本サブコマンドを実行すると
+次のようになる（一部加工済）：
+
+.. code-block:: console
+
+   $ pip install bash_kernel
+   Collecting bash_kernel
+     Downloading bash_kernel-0.4.1-py2.py3-none-any.whl
+   Collecting pexpect>=3.3 (from bash_kernel)
+     Downloading pexpect-4.2.1-py2.py3-none-any.whl (55kB)
+       100% |笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎| 61kB 140kB/s
+   Collecting ptyprocess>=0.5 (from pexpect>=3.3->bash_kernel)
+     Downloading ptyprocess-0.5.1-py2.py3-none-any.whl
+   Installing collected packages: ptyprocess, pexpect, bash-kernel
+   Successfully installed bash-kernel-0.4.1 pexpect-4.2.1 ptyprocess-0.5.1
+
+   $ python -m bash_kernel.install
+   Installing IPython kernel spec
+
+   $ jupyter kernelspec list
+   Available kernels:
+     python3    D:\Miniconda3\lib\site-packages\ipykernel\resources
+     bash       $APPDATA\Roaming\jupyter\kernels\bash
 
 サブコマンド :code:`jupyter migrate`
 ======================================================================
@@ -247,7 +383,10 @@ Jupyter インストール直後にサブコマンド ``list`` を実行する�
 
 サブコマンド :code:`jupyter nbconvert`
 ======================================================================
-このサブコマンドを ipynb ファイルから指定する形式のファイルを生成変換するツールとして利用する。
+このサブコマンドを ipynb ファイルから
+HTML, LaTeX, PDF, Markdown, reStructuredText といった、
+指定する形式のファイルを生成変換するツールとして利用する。
+
 実際にいくつかの用例を試したので、感想を記す。
 
 :code:`jupyter nbconvert helloworld.ipynb`
@@ -263,7 +402,7 @@ Jupyter インストール直後にサブコマンド ``list`` を実行する�
 
 :code:`jupyter nbconvert --to latex helloworld.ipynb`
   本来ならば LaTeX ファイルを生成するのだが、現在次の例外が発生して失敗する。
-  Pandoc というものを準備する必要があるようだ。
+  Pandoc_ というものを準備する必要があるようだ。
 
   .. code-block:: console
 
@@ -288,10 +427,45 @@ Jupyter インストール直後にサブコマンド ``list`` を実行する�
 
 * オプション ``--stdout`` を与えると、指示した変換内容を標準出力に書き出す。
 * オプション ``--generate-config`` を与えると、
-  このサブコマンド専用の設定ファイルのスケルトンを
+  このサブコマンド専用の設定ファイル :file:`jupyter_nbconvert_console.py` のスケルトンを
   前述のディレクトリーに生成する。
 
-.. todo:: Pandoc とやらを調査する。
+.. todo:: Pandoc_ とやらを調査する。
+
+端末からのコマンドライン入力だけでなく、
+例えば IPython のセッションから本サブコマンドの機能をモジュールの形で
+参照、利用することも可能だ。
+
+.. code-block:: ipython
+
+   In [1]: import nbconvert
+
+   In [2]: nbconvert.export_latex?
+   Signature: nbconvert.export_latex(nb, **kw)
+   Docstring:
+   Export a notebook object to latex format
+
+   nb : :class:`~nbformat.NotebookNode`
+       The notebook to export.
+   config : config (optional, keyword arg)
+       User configuration instance.
+   resources : dict (optional, keyword arg)
+       Resources used in the conversion process.
+
+   Returns
+   -------
+   tuple
+       output : str
+           Jinja 2 output.  This is the resulting converted notebook.
+       resources : dictionary
+           Dictionary of resources used prior to and during the conversion
+           process.
+       exporter_instance : Exporter
+           Instance of the Exporter class used to export the document.  Useful
+           to caller because it provides a 'file_extension' property which
+           specifies what extension the output should be saved as.
+   File:      d:\miniconda3\lib\site-packages\nbconvert\exporters\export.py
+   Type:      function
 
 サブコマンド :code:`jupyter nbextension`
 ======================================================================
@@ -333,7 +507,7 @@ Notebook クライアントが利用可能になる。
   好きな手段によりアクセスする。
 
 * オプション ``--generate-config`` を与えると、
-  このサブコマンド専用の設定ファイルのスケルトンを
+  このサブコマンド専用の設定ファイル :file:`jupyter_notebook_console.py` のスケルトンを
   前述のディレクトリーに生成する。
 
 Jupyter Notebook を起動する
@@ -408,7 +582,7 @@ Matplotlib のデモコードを一つ実行したときの画面だ。
   つまり、両者は同一のアプリケーションなのだろう。
 
 * オプション ``--generate-config`` を与えると、
-  このサブコマンド専用の設定ファイルのスケルトンを
+  このサブコマンド専用の設定ファイル :file:`jupyter_qtconsole_config.py` のスケルトンを
   前述のディレクトリーに生成する。
 
 サブコマンド :code:`jupyter serverextension`
@@ -450,3 +624,5 @@ Jupyter の一連の機能を利用して気付いた点や思い付き等を記
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
 .. _Jupyter: http://jupyter.org/
+.. _Pandoc: http://pandoc.org/
+.. _bash_kernel: https://github.com/takluyver/bash_kernel
