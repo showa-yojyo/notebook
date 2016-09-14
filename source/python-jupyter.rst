@@ -401,11 +401,20 @@ HTML, LaTeX, PDF, Markdown, reStructuredText といった、
   単純な HTML ファイルを生成させたい。
 
 :code:`jupyter nbconvert --to latex helloworld.ipynb`
-  本来ならば LaTeX ファイルを生成するのだが、現在次の例外が発生して失敗する。
-  Pandoc_ というものを準備する必要があるようだ。
+  このサブコマンドが動作する事前条件の一つに Pandoc_ が利用可能であることがある。
+  正常に動作すれば、次のようにファイル拡張子が ``.tex`` のものが生成される：
 
   .. code-block:: console
 
+     $ jupyter nbconvert --to=latex helloworld.ipynb
+     [NbConvertApp] Converting notebook helloworld.ipynb to latex
+     [NbConvertApp] Writing 18947 bytes to helloworld.tex
+
+  Pandoc が利用可能でなければ次のように失敗する：
+
+  .. code-block:: console
+
+     $ jupyter nbconvert --to=latex helloworld.ipynb
      [NbConvertApp] Converting notebook helloworld.ipynb to latex
      [NbConvertApp] ERROR | Error while converting 'helloworld.ipynb'
      Traceback (most recent call last):
@@ -429,8 +438,6 @@ HTML, LaTeX, PDF, Markdown, reStructuredText といった、
 * オプション ``--generate-config`` を与えると、
   このサブコマンド専用の設定ファイル :file:`jupyter_nbconvert_console.py` のスケルトンを
   前述のディレクトリーに生成する。
-
-.. todo:: Pandoc_ とやらを調査する。
 
 端末からのコマンドライン入力だけでなく、
 例えば IPython のセッションから本サブコマンドの機能をモジュールの形で
@@ -615,11 +622,27 @@ Jupyter の一連の機能を利用して気付いた点や思い付き等を記
 
 * YouTube で検索すると Jupyter の基礎的な利用法をコーチするビデオが多数見つかるだろう。
 
+* Github を検索すると実践的な ``ipynb`` ファイルが多数見つかるだろう。
+  それを含むリポジトリーを clone して、ローカルで編集や書式変換の研究材料にするのもよい。
+
+* Github も ``ipynb`` ビューワーを提供しているが、たまに不発する。
+
 * Jupyter Notebook のサービス実行用と ipynb ファイルの実行用の両方がそれぞれ
   Python のプロセスを管理する。
   プアな環境だと Python プロセスによるメモリ食いが気になる。
 
 * :program:`jupyter` の利用可能な「サブコマンド」の集合が文書化されていない？
+
+* Pandoc は Windows ではすぐにインストールできる。
+  Graphviz や Git と同じようにして環境変数 :envvar:`PATH` を参照させることで
+  サブコマンドから :program:`pandoc` にアクセス可能にしておく。
+
+* 問題になりそうなのは :code:`jupyter nbconvert` で直接 PDF ファイルを
+  生成する場合だ。「原稿」に日本語文字を使うことが多いはずなので、
+  既定の後処理では中間生成物の LaTeX ファイルから PDF に変換するのに失敗する。
+  単に処理がエラーコードを返す等して失敗する場合と、
+  PDF ファイルは生成したものの、日本語文字がまったく印字できていない等して
+  失敗する場合が考えられる。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
