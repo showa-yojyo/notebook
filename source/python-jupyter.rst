@@ -474,6 +474,21 @@ HTML, LaTeX, PDF, Markdown, reStructuredText といった、
    File:      d:\miniconda3\lib\site-packages\nbconvert\exporters\export.py
    Type:      function
 
+設定ファイルを編集する
+----------------------------------------------------------------------
+Notebook 文書から PDF ファイルに書式変換する際のコマンドラインオプションに
+相当する設定を :file:`$HOME/.jupyter/jupyter_nbconvert_config.py` に指定する。
+それ以外に Dashboard のダウンロードメニューの挙動を制御する術がない。
+
+Google を利用する等して色々と調査した結果、
+日本語文書を扱うには :program:`ptex2pdf` を用いるのが一般的なようなので、
+それをコマンドラインで実行する際の定番オプションをここに適用する。
+
+.. code-block:: python3
+
+   # Shell command used to compile latex.
+   c.PDFExporter.latex_command = ['ptex2pdf', '-l', '-ot', '-kanji=utf8', '{filename}']
+
 サブコマンド :code:`jupyter nbextension`
 ======================================================================
 このサブコマンドは Notebook の拡張を管理するためのものだ。
@@ -759,11 +774,18 @@ Jupyter の一連の機能を利用して気付いた点や思い付き等を記
   PDF ファイルは生成したものの、日本語文字がまったく印字できていない等して
   失敗する場合が考えられる。
 
-  * この件は LaTeX についてかなり詳しくないと解決できなそうなので、保留。
+  * 日本語が出ない件は :program:`ptex2pdf` を指定することで解決する。
+    Google で調べたところによると :program:`xelatex` を使う国の人もいるようだ。
 
   * 日本語に対応するべく LaTeX のテンプレートを自作し、
     そこで指定する文書クラスに ``pandoc`` と指定する作戦まであるようだ。
-    私は結局文字が出ずに失敗したが。
+
+* 余談に近いが :code:`jupyter nbconvert --to pdf` を実行するときには
+  環境変数 :envvar:`PATH` の内容に注意。
+  Windows のコンソールでは PDF が生成されるのに、
+  Cygwin のコンソールでは :program:`ptex2pdf` が失敗するので調べたら、
+  私が :program:`bash` で作業するときに :file:`$SYSTEMROOT/System32` を削っていたのが
+  どうやら原因らしい。
 
 * GitHub の Gist に ``ipynb`` ファイルを作成すると、
   一応 Jupyter Notebook 風のレンダリングをしてくれる。
