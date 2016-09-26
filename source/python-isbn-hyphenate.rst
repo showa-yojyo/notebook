@@ -40,7 +40,7 @@ isbn-hyphenate_ は ISBN の数字列に適切にハイフンを配置するた�
 
    $ pip install isbn-hyphenate
 
-または Github のレポジトリーを clone して、そこで ``pip install -e .`` してもよいだろう。
+または GitHub のレポジトリーを clone して、そこで ``pip install -e .`` してもよいだろう。
 
 単体テスト
 ----------------------------------------------------------------------
