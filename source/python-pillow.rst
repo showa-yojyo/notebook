@@ -183,7 +183,7 @@ PyOpenGL のプログラムで画像ファイルからテクスチャーを生�
 各ピクセルの RGB 値を次の式でグレースケール化してモノクロ化するようだ。
 
 .. math::
-   :label: luminance
+   :label: luminance-rational
    :nowrap:
 
    \begin{eqnarray*}

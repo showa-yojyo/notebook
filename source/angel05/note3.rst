@@ -430,7 +430,7 @@ Using Luminace
 * RGB 値から luminance の値を計算する式は次で与えられるらしい。
 
   .. math::
-     :label: luminance
+     :label: luminance-float
      :nowrap:
 
      \begin{eqnarray*}
