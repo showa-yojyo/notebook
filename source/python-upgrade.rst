@@ -343,9 +343,9 @@ ConEmu の Settings... > Startup > Tasks の Predefined tasks を更新する。
 
 * IPython の各 profile は別途仕込んでおく。
 
-残項目
-----------------------------------------------------------------------
-* PyQt5 の Python 3.5 版のインストール
+3.5 から 3.6 への移行
+======================================================================
+3.5 運用の途中から Miniconda_ 環境に移行したので :doc:`/python-miniconda` に記す。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt

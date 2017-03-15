@@ -11,9 +11,9 @@ Miniconda_ の利用に関する事実関係の覚え書きと、
    本稿執筆時の動作環境は次のとおり。
 
    * OS: Windows 10 Home (64 bit)
-   * Cygwin: 2.5.2-1 (64 bit)
-   * bash: 4.3.42(4)-release (x86_64-unknown-cygwin)
-   * Miniconda_: 4.0.5, 4.1.11
+   * Cygwin: 2.5.2-1, 2.7.0 (64 bit)
+   * bash: 4.3.42(4)-release, 4.4.12(3)-release (x86_64-unknown-cygwin)
+   * Miniconda_: 4.0.5, 4.1.11, 4.3.14
 
    Python 本体および Python 製パッケージのバージョンについては、
    必要に応じて本文で明記していく。
@@ -30,8 +30,7 @@ Conda とは、オープンソースパッケージの管理システムであ�
 
 する機能がある。
 Conda は Python プログラムについて製作されたものだったということだが、
-現在ではどのようなソフトウェアでもパッケージにしたり配布したりすることが可能である
-そうだ。
+現在ではどのようなソフトウェアでもパッケージにしたり配布したりすることが可能であるそうだ。
 
 次に Conda を含むシステムとして Anaconda_ と Miniconda_ が存在することを一応述べる。
 本稿では後者のシステムのみを解説していく。
@@ -269,12 +268,174 @@ Conda の各種設定はホームディレクトリーに所定の書式で記�
   .. _python-pkg-proc:
 
   .. figure:: /_static/python-pkg-proc.png
-     :align: left
      :width: 550px
      :height: 320px
      :scale: 100%
 
      一般のサードパーティー製 Python パッケージのインストール手順
+
+3.5 から 3.6 への移行手順ノート
+======================================================================
+この節では ``root`` として Python 3.5 系の環境を構築してあるところに、
+そのバックアップ環境を残しながらも Python 3.6 系の環境を構築するときの手順の一例を記す。
+基本方針を列挙すると次のようになる：
+
+* 旧 ``root`` 環境を ``3.5`` という名前の環境にバックアップする。
+* 旧 ``root`` 環境にあるサードパーティー製パッケージを可能な限り新 ``root`` 環境にも導入する。
+* 新 ``root`` 環境は Python 3.6 で動作するものとする。
+
+バックアップ
+----------------------------------------------------------------------
+現在の ``root`` 環境とそっくり同じものを ``3.5`` として作成し、
+管理されているパッケージ群を専用コマンドでテキストファイルに出力する。
+
+.. code:: console
+
+   $ conda create -n 3.5
+   $ conda env export -n 3.5 > 3.5.yml
+
+新 ``root`` 環境を構築
+----------------------------------------------------------------------
+まずは ``root`` 環境の Python を 3.6 にアップグレードする。
+これには ``update`` コマンドではなく ``install`` を用いる必要がある：
+
+.. code:: console
+
+   $ conda install python=3.6
+   Fetching package metadata ...........
+   Solving package specifications: .
+
+
+   UnsatisfiableError: The following specifications were found to be in conflict:
+     - nbpresent -> _nb_ext_conf -> nb_anacondacloud -> python 2.7*
+     - python 3.6*
+   Use "conda info <package>" to see the dependencies for each package.
+
+すると上記のようなエラーが発生した。これは人によっては異なるだろう。
+いったん指摘されたパッケージを取り除いて、後で再インストールを試みるという作戦でいきたい：
+
+.. code:: console
+
+   $ conda uninstall nbpresent
+   Fetching package metadata ...........
+   Solving package specifications: .
+
+   Package plan for package removal in environment D:\Miniconda3:
+
+   The following packages will be REMOVED:
+
+       _nb_ext_conf:     0.3.0-py35_0
+       nb_anacondacloud: 1.2.0-py35_0
+       nb_conda:         2.0.0-py35_0
+       nb_conda_kernels: 2.0.0-py35_0
+       nbpresent:        3.0.2-py35_0
+
+   Proceed ([y]/n)?
+
+再度 ``install`` コマンドを試す：
+
+.. code:: console
+
+   $ conda install python=3.6
+   Fetching package metadata ...........
+   Solving package specifications: .
+
+   Package plan for installation in environment D:\Miniconda3\:
+
+   The following packages will be UPDATED:
+
+       anaconda-client:     1.6.2-py35_0        --> 1.6.2-py36_0
+       astroid:             1.4.9-py35_0        --> 1.4.9-py36_0
+       bleach:              1.5.0-py35_0        --> 1.5.0-py36_0
+       cffi:                1.9.1-py35_0        --> 1.9.1-py36_0
+       clyent:              1.2.2-py35_0        --> 1.2.2-py36_0
+       colorama:            0.3.7-py35_0        --> 0.3.7-py36_0
+       cryptography:        1.7.1-py35_0        --> 1.7.1-py36_0
+       cycler:              0.10.0-py35_0       --> 0.10.0-py36_0
+       decorator:           4.0.11-py35_0       --> 4.0.11-py36_0
+       entrypoints:         0.2.2-py35_1        --> 0.2.2-py36_1
+       html5lib:            0.999-py35_0        --> 0.999-py36_0
+       idna:                2.2-py35_0          --> 2.2-py36_0
+       ipykernel:           4.5.2-py35_0        --> 4.5.2-py36_0
+       ipython:             5.3.0-py35_0        --> 5.3.0-py36_0
+       ipython_genutils:    0.1.0-py35_0        --> 0.1.0-py36_0
+       ipywidgets:          6.0.0-py35_0        --> 6.0.0-py36_0
+       isort:               4.2.5-py35_0        --> 4.2.5-py36_0
+       jinja2:              2.9.5-py35_0        --> 2.9.5-py36_0
+       jsonschema:          2.5.1-py35_0        --> 2.5.1-py36_0
+       jupyter:             1.0.0-py35_3        --> 1.0.0-py36_3
+       jupyter_client:      5.0.0-py35_0        --> 5.0.0-py36_0
+       jupyter_console:     5.1.0-py35_0        --> 5.1.0-py36_0
+       jupyter_core:        4.3.0-py35_0        --> 4.3.0-py36_0
+       lazy-object-proxy:   1.2.2-py35_0        --> 1.2.2-py36_0
+       markupsafe:          0.23-py35_2         --> 0.23-py36_2
+       matplotlib:          2.0.0-np112py35_0   --> 2.0.0-np112py36_0
+       menuinst:            1.4.4-py35_0        --> 1.4.4-py36_0
+       mistune:             0.7.4-py35_0        --> 0.7.4-py36_0
+       nbconvert:           5.1.1-py35_0        --> 5.1.1-py36_0
+       nbformat:            4.3.0-py35_0        --> 4.3.0-py36_0
+       networkx:            1.11-py35_0         --> 1.11-py36_0
+       nose:                1.3.7-py35_1        --> 1.3.7-py36_1
+       notebook:            4.4.1-py35_0        --> 4.4.1-py36_0
+       numpy:               1.12.0-py35_0       --> 1.12.0-py36_0
+       olefile:             0.44-py35_0         --> 0.44-py36_0
+       pandocfilters:       1.4.1-py35_0        --> 1.4.1-py36_0
+       path.py:             10.1-py35_0         --> 10.1-py36_0
+       pickleshare:         0.7.4-py35_0        --> 0.7.4-py36_0
+       pillow:              4.0.0-py35_1        --> 4.0.0-py36_1
+       pip:                 9.0.1-py35_1        --> 9.0.1-py36_1
+       prompt_toolkit:      1.0.13-py35_0       --> 1.0.13-py36_0
+       pyasn1:              0.2.3-py35_0        --> 0.2.3-py36_0
+       pycosat:             0.6.1-py35_1        --> 0.6.1-py36_1
+       pycparser:           2.17-py35_0         --> 2.17-py36_0
+       pycrypto:            2.6.1-py35_5        --> 2.6.1-py36_5
+       pygments:            2.2.0-py35_0        --> 2.2.0-py36_0
+       pylint:              1.6.4-py35_1        --> 1.6.4-py36_1
+       pyopengl:            3.1.1a1-np112py35_0 --> 3.1.1a1-np112py36_0
+       pyopengl-accelerate: 3.1.1a1-np112py35_0 --> 3.1.1a1-np112py36_0
+       pyopenssl:           16.2.0-py35_0       --> 16.2.0-py36_0
+       pyparsing:           2.1.4-py35_0        --> 2.1.4-py36_0
+       pyqt:                5.6.0-py35_2        --> 5.6.0-py36_2
+       python:              3.5.3-0             --> 3.6.0-0
+       python-dateutil:     2.6.0-py35_0        --> 2.6.0-py36_0
+       pytz:                2016.10-py35_0      --> 2016.10-py36_0
+       pywin32:             220-py35_2          --> 220-py36_2
+       pyyaml:              3.12-py35_0         --> 3.12-py36_0
+       pyzmq:               16.0.2-py35_0       --> 16.0.2-py36_0
+       qtconsole:           4.2.1-py35_2        --> 4.2.1-py36_2
+       requests:            2.13.0-py35_0       --> 2.13.0-py36_0
+       ruamel_yaml:         0.11.14-py35_1      --> 0.11.14-py36_1
+       scipy:               0.19.0-np112py35_0  --> 0.19.0-np112py36_0
+       setuptools:          27.2.0-py35_1       --> 27.2.0-py36_1
+       simplegeneric:       0.8.1-py35_1        --> 0.8.1-py36_1
+       sip:                 4.18-py35_0         --> 4.18-py36_0
+       six:                 1.10.0-py35_0       --> 1.10.0-py36_0
+       testpath:            0.3-py35_0          --> 0.3-py36_0
+       tornado:             4.4.2-py35_0        --> 4.4.2-py36_0
+       traitlets:           4.3.2-py35_0        --> 4.3.2-py36_0
+       wcwidth:             0.1.7-py35_0        --> 0.1.7-py36_0
+       wheel:               0.29.0-py35_0       --> 0.29.0-py36_0
+       widgetsnbextension:  2.0.0-py35_0        --> 2.0.0-py36_0
+       win_unicode_console: 0.5-py35_0          --> 0.5-py36_0
+       wrapt:               1.10.8-py35_0       --> 1.10.8-py36_0
+
+   Proceed ([y]/n)?
+
+この画面まで行けば問題はない。
+ここからは :program:`conda` が自動でパッケージを大量にダウンロード、インストールしてくれる。
+まだ ``UnsatisfiableError`` が生じるようならば、再度対象パッケージの ``remove`` を都度実行する。
+なお :program:`conda` 以外の方法で導入したパッケージは別途インストールすること。
+
+補足
+----------------------------------------------------------------------
+``UnsatisfiableError`` を引き起こしたパッケージを改めてインストールしたい場合に注意が要る。
+:code:`conda install` の予告リストのパッケージバージョンが 3.6 に一致するか指差し確認したい。
+
+せっかく作った 3.6 環境に 3.5 のパッケージをインストールすると、
+それ以外のパッケージも 3.5 のものにダウングレードしてしまうようだ。
+そのことについては :program:`conda` は警告しない。
+
+欲しいパッケージの 3.6 版がない場合は、それ以上の作業は見送るのがよい。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
