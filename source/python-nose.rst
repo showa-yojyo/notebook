@@ -411,7 +411,7 @@ Nose のバージョンが上がってから勉強しに行こう。
 
     .. code-block:: pycon
 
-       >>> import numpy
+       >>> import numpy as np
        >>> np.linalg.test(verbose=2)
        Running unit tests for numpy.linalg
        NumPy version 1.11.1
