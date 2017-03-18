@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """stats_poisson.py: Demonstrate how ``scipy.stats.poisson`` works.
 """
 from scipy.stats import poisson

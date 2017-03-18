@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """grabdemo.py: Demonstrate how to use function ImageGrab.grab.
 """
 from PIL import (Image, ImageGrab)

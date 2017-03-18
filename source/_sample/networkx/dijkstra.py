@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """dijkstra.py: all_pairs_dijkstra_path demonstration
 """
 

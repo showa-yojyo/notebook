@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 #
 # Lily in Desert documentation build configuration file, created by
 # sphinx-quickstart on Tue Dec 01 00:36:12 2009.

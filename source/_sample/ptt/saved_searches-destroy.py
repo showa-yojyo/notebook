@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 # Demonstration POST saved_searches/destroy
 # See https://dev.twitter.com/rest/reference/post/saved_searches/destroy/%3Aid

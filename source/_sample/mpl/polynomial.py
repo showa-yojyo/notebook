@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """polynomial.py: Demonstrate how to draw a polynomial curve.
 """
 import matplotlib.pyplot as plt

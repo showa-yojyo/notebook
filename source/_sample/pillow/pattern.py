@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """pattern.py: An example like <Rolling an image> in Pillow document.
 """
 import os.path

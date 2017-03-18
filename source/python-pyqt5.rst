@@ -274,7 +274,7 @@ Qt Designer で設計した Widget が出てくるわけではない。
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .. literalinclude:: /_sample/pyqt5/myapp2.pyw
    :language: python3
-   :lines: 12-
+   :lines: 11-
 
 インポートは先程と同様。
 
@@ -282,7 +282,7 @@ Qt Designer で設計した Widget が出てくるわけではない。
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .. literalinclude:: /_sample/pyqt5/myapp3.pyw
    :language: python3
-   :lines: 15-18
+   :lines: 14-17
 
 インポートと :code:`main` は先程と同様。
 

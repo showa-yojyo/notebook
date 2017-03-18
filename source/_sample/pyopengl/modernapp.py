@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """glmodernapp.py: For OpenGL 3.x applications.
 
 References:

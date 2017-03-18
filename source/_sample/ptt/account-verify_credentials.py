@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 # Demonstration GET account/verify_credentials
 # See https://dev.twitter.com/rest/reference/get/account/verify_credentials

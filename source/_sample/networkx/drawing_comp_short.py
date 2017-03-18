@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """drawing_comp_short.py: Draw a complete graph.
 """
 import colorsys

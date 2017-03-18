@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """kdtree.py: Demonstrate class KDTree of SciPy.
 """
 import numpy as np

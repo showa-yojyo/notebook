@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 # Demonstration GET statuses/user_timeline
 # See https://dev.twitter.com/rest/reference/get/statuses/user_timeline

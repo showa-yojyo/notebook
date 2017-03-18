@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 # Demonstration POST direct_messages/destroy
 # See https://dev.twitter.com/rest/reference/post/direct_messages/destroy

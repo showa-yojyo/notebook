@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """connectivity.py: demonstrate NetworkX edge_connectivity, etc.
 """
 import networkx as nx

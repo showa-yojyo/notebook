@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """bezier.py: Demonstrate how to draw Bezier curves.
 """
 import matplotlib as mpl

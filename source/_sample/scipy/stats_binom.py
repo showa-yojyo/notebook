@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """stats_binom.py: Demonstrate how ``scipy.stats.binom`` works.
 """
 from scipy.stats import binom

@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """diagonal.py: Demonstrate how to draw a diagonal line which joins
 two opposite corners of the figure.
 """

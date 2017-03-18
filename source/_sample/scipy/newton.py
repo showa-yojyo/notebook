@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """newton.py: Demonstrate equation solvers of SciPy.
 """
 from scipy.optimize import newton

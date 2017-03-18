@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 # Demonstration POST statuses/retweet/:id
 # See https://dev.twitter.com/rest/reference/post/statuses/retweet/%3Aid

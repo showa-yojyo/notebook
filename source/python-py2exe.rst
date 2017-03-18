@@ -42,8 +42,6 @@ hello.py
 
 .. code-block:: python
 
-   # -*- coding: utf-8 -*-
-   #
    # hello.py
 
    print 'Hello world'
@@ -54,8 +52,6 @@ setup.py
 
 .. code-block:: python
 
-   # -*- coding: utf-8 -*-
-   #
    # setup.py
 
    from distutils.core import setup
@@ -114,7 +110,6 @@ MSVC9 系ランタイム DLL が必要になる。
 
   .. code-block:: python
 
-     # -*- coding: utf-8 -*-
      from distutils.core import setup
      import py2exe
      from glob import glob
@@ -137,7 +132,6 @@ PIL
 
 .. code-block:: python
 
-   # -*- coding: utf-8 -*-
    import sys
    import Image
 
@@ -163,7 +157,6 @@ Py2exe が予想以上に色々な pyd ファイルを同梱してくれるの�
 
 .. code-block:: python
 
-   # -*- coding: utf-8 -*-
    import numpy as np
    from scipy.spatial import KDTree
 
@@ -236,7 +229,6 @@ Matplotlib
 
 .. code-block:: python
 
-   # -*- coding: utf-8 -*-
    import matplotlib as mpl
    import matplotlib.pyplot as plt
 
@@ -326,7 +318,6 @@ GLUT ベースの簡単なプログラムに対して、Py2exe ビルドを試�
 
 .. code-block:: python
 
-   # -*- coding: utf-8 -*-
    import sys
    from OpenGL.GL import *
    from OpenGL.GLU import *
@@ -401,7 +392,6 @@ PyQt4
 
 .. code-block:: python
 
-   # -*- coding: utf-8 -*-
    import sys
    from PyQt4 import QtGui, QtCore
 

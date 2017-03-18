@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """mywidget.py: Define class Widget for demonstration of Nose.
 """
 

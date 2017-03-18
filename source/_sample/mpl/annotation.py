@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """annotation.py: Demonstrate how to show an annotation.
 """
 import matplotlib.pyplot as plt

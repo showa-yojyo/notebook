@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """eulerian.py: demonstrate NetworkX is_eulerian and eulerian_circuit.
 
 Compute the most efficient career path in DRAGON QUEST 7 (2000).

@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 # Demonstration POST users/report_spam
 # See https://dev.twitter.com/rest/reference/post/users/report_spam

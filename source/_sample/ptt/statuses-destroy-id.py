@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 # Demonstration POST statuses/destroy/:id
 # See https://dev.twitter.com/rest/reference/post/statuses/destroy/%3Aid

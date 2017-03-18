@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 # Demonstration GET blocks/list
 # See https://dev.twitter.com/rest/reference/get/blocks/list

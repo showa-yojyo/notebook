@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """strongly_connected_components.py: demonstrate strongly_connected_components.
 """
 from itertools import groupby

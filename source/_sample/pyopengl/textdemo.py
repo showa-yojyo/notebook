@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """textdemo.py: Demonstrate how to use OpenGL texture with PIL."""
 # pylint: disable=unused-argument, no-self-use, invalid-name
 import sys

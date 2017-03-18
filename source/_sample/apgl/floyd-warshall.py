@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 from apgl.graph.GeneralVertexList import GeneralVertexList
 from apgl.graph.SparseGraph import SparseGraph
 

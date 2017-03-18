@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """alphapaste.py: Demonstrate how to composite two images with alpha values.
 """
 import os.path

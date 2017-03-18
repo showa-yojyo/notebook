@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """polynomial.py: Demonstrate equation solvers of SciPy.
 """
 from numpy.polynomial.polynomial import Polynomial

@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """linear_equation.py: Demonstrate solving linear equations by using SciPy.
 """
 import numpy as np

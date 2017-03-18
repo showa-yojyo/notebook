@@ -486,7 +486,6 @@ Python コード
 
 .. code-block:: python3
 
-   # -*- encoding: utf-8 -*-
    from jinja2 import Environment, FileSystemLoader
    from calendar import Calendar
    import datetime

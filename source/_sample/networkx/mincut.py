@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """mincut.py: demonstrate NetworkX (minimum_cut).
 """
 import networkx as nx

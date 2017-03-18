@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """interp_spline_interest.py: Demonstrate spline interpolation.
 """
 from scipy.interpolate import splrep, splev

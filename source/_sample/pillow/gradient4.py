@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """gradient4.py: Demonstrate drawing radial gradient.
 """
 from PIL import (Image, ImageColor, ImageDraw)

@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """integrate.py: Demonstrate some SciPy integration functions.
 """
 from scipy.integrate import trapz, simps, quad

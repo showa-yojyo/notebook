@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """transform.py: Provide some of deprecated transform features of OpenGL 3.0.
 
 Reference:

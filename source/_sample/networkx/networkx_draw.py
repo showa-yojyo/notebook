@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """neteworkx_draw.py: nx.draw_networkx demonstration"""
 
 import networkx as nx

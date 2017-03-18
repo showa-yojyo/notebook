@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """cutset.py: demonstrate NetworkX minimum_(edge|node)_cut.
 """
 import networkx as nx

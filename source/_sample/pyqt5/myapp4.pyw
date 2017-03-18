@@ -1,5 +1,4 @@
 #!/usr/bin/env pythonw
-# -*- coding: utf-8 -*-
 """myapp4.pyw: Directly load Widget from myform.ui.
 """
 # pylint: disable=no-name-in-module

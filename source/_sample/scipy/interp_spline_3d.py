@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """interp_spline_3d.py: Demonstrate spline interpolation.
 """
 from scipy.interpolate import splprep, splev

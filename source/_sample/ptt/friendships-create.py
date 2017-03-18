@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 # Demonstration POST friendships/create
 # See https://dev.twitter.com/rest/reference/post/friendships/create

@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """gradient3.py: Demonstrate drawing linear gradient on an image.
 """
 import os.path

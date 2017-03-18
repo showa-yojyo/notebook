@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """tex.py: Demonstrate how to use TeX notation in Matplotlib.
 
 You can obtain the original script file from:

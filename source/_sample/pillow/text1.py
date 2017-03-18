@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """text1.py: Demonstrate how to draw a text with PIL.
 """
 from PIL import (Image, ImageDraw)

@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 # Demonstration GET accout/settings
 # https://dev.twitter.com/rest/reference/get/account/settings

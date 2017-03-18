@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 # Demonstration GET application/rate_limit_status
 # See https://dev.twitter.com/rest/reference/get/application/rate_limit_status

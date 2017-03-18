@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 # Demonstration POST account/update_delivery_device
 # See https://dev.twitter.com/rest/reference/post/account/update_delivery_device

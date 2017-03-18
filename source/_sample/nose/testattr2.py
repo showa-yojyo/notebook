@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """ testattr2.py: Demonstrate Nose.
 """
 from nose.plugins.attrib import attr

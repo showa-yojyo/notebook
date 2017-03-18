@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """meneraus.py: Demonstrate Menelaus' theorem with SymPy.
 """
 from sympy import (Point, Line, symbols)

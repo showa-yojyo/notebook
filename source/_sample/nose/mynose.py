@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """mynose.py: Demonstrate Nose package.
 """
 import nose

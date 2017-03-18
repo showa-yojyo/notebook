@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """batch.py: Demonstrate converting GIF files to PNG files.
 """
 import os.path

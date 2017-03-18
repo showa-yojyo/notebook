@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """japanese_text.py: Demonstrate how to draw Japanese text.
 """
 import matplotlib.pyplot as plt

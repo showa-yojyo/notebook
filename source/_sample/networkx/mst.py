@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """mst.py: demonstrate NetworkX (minimum_spanning_tree)
 
 This code solves the problem #2, presented by:

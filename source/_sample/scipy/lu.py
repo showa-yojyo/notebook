@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """lu.py: Demonstrate LU decomposition.
 """
 import numpy as np

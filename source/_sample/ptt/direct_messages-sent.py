@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 # Demonstration GET direct_messages/sent
 # See https://dev.twitter.com/rest/reference/get/direct_messages/sent

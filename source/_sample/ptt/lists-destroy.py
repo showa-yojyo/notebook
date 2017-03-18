@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 # Demonstration POST lists/destroy
 # https://dev.twitter.com/rest/reference/post/lists/destroy

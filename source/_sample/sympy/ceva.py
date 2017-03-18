@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """ceva.py: Demonstrate Ceva's theorem with SymPy.
 """
 from sympy import (Point, Line, symbols)

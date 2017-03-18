@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """drawing_comp.py: demonstrate NetworkX (circular_layout).
 """
 import colorsys

@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 # Demonstration GET users/suggestions/:slug
 # See https://dev.twitter.com/rest/reference/get/users/suggestions/%3Aslug

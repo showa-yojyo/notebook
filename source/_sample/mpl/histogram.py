@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """histogram.py: Demonstrate how to show a histogram.
 """
 

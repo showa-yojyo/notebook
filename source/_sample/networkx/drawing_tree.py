@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """drawing_tree.py: draw a tree graph with pydot_layout.
 """
 import colorsys

@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """text2.py: Demonstrate how to draw multi-line text using ImageFont.
 """
 from PIL import (Image, ImageDraw, ImageFont)

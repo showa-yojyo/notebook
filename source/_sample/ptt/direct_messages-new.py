@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 # Demonstration POST direct_messages/new
 # See https://dev.twitter.com/rest/reference/post/direct_messages/new

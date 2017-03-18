@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 # Demonstration POST account/remove_profile_banner
 # See https://dev.twitter.com/rest/reference/post/account/remove_profile_banner

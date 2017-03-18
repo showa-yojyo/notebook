@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """stats_bernoulli.py: Demonstrate how ``scipy.stats.bernoulli`` works.
 """
 from scipy.stats import bernoulli

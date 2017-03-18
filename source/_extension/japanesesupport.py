@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """japanesesupport.py: A custom Sphinx extension module.
 
 This extension removes the unwanted white spaces among Japanese characters

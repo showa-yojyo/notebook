@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """interp_lagrange.py: Demonstrate Lagrange interpolating.
 """
 from scipy.interpolate import lagrange

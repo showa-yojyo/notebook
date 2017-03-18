@@ -1,5 +1,4 @@
 #!/usr/bin/env pythonw
-# -*- coding: utf-8 -*-
 """myapp2.pyw: Use setupUI in a subclass of QWidget.
 """
 # pylint: disable=no-name-in-module

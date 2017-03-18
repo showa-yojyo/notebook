@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """tsort.py: demonstrate NetworkX (topological_sort)
 """
 import networkx as nx

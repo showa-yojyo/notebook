@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 # g.findAllDistances demonstration
 
 from apgl.graph.SparseGraph import SparseGraph

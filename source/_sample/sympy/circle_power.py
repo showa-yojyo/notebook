@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """circle_power.py: Demonstrate power-of-a-point theorem with SymPy.
 """
 from sympy import (Point, Line, Circle)

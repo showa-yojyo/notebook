@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 # Demonstration GET geo/id/:place_id
 # See https://dev.twitter.com/rest/reference/get/geo/id/%3Aplace_id

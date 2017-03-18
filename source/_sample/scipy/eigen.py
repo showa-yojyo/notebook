@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """eigen.py: Demonstrate computing eigenvalues and eigenvectors for a regular
 matrix.
 """

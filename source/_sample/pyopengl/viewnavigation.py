@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """viewnavigation.py: Implement zooming and rotation.
 """
 # pylint: disable=unused-argument, no-self-use, invalid-name, no-member

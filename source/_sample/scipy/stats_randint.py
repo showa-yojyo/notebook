@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """stats_randint.py: Demonstrate how ``scipy.stats.randint`` works.
 """
 from scipy.stats import randint

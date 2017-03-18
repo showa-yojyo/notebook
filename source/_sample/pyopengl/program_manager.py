@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """program_manager.py: Define class ProgramManager.
 """
 import OpenGL.GL as GL

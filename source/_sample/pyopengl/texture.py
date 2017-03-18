@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """texture.py: Provide a helper function.
 """
 from PIL import (Image, ImageDraw, ImageFont)

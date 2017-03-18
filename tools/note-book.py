@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """note-book.py: Convert tab-separeted values to a Sphinx document.
 
 Requirements

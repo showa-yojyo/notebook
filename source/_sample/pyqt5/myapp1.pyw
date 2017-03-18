@@ -1,5 +1,4 @@
 #!/usr/bin/env pythonw
-# -*- coding: utf-8 -*-
 """myapp1.pyw: Create an instance of Ui_Form.
 """
 # pylint: disable=no-name-in-module
