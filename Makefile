@@ -187,4 +187,4 @@ pseudoxml:
 	@echo "Build finished. The pseudo-XML files are in $(BUILDDIR)/pseudoxml."
 
 gh-pages: html
-	@bash gh-pages.sh "$(message)"
+	@bash gh-pages.sh "$(COMMIT_MESSAGE)"
