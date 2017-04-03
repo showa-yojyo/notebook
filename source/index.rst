@@ -32,6 +32,7 @@ Contents:
    griffiths10
    hosoda10/index
    omg15/index
+   slatkin16
 
 .. toctree::
    :maxdepth: 1
