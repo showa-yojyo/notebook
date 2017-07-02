@@ -13,14 +13,9 @@ import csv
 from jinja2 import Environment
 from isbn_hyphenate import hyphenate
 
-__version__ = '1.2.0'
+__version__ = '1.3.0'
 
 TEMPLATE = '''\
-======================================================================
-ノート準備中書籍群
-======================================================================
-
-.. contents::
 {% for book in books %}
 {{ book["title"] }}
 ======================================================================
@@ -63,10 +58,7 @@ def read(source):
     """Read TSV from the source."""
 
     reader = csv.DictReader(source, delimiter='\t', quoting=csv.QUOTE_NONE)
-    header = reader.fieldnames
-    books = [book for book in reader]
-
-    return header, books
+    return tuple(book for book in reader)
 
 def parse(input):
     """Parse the input data."""
@@ -93,9 +85,7 @@ def main():
     """The main function."""
 
     args = configure()
-
-    header, books = read(args.file)
-    write(parse(books), sys.stdout)
+    write(parse(read(args.file)), sys.stdout)
 
 if __name__ == '__main__':
     main()
