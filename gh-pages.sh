@@ -27,10 +27,10 @@ cd "$TARGET_DIR"
 
 COMMIT_MESSAGE="${1:+ ($1)}"
 git add -A
-git commit -m "Update 1.4.0dev$COMMIT_MESSAGE."
+git commit -m "Build 1.4.0dev$COMMIT_MESSAGE."
 
 NUM=5
 echo Most recent $NUM commits:
-git --no-pager log --oneline HEAD~$NUM..
+git --no-pager log --pretty=format:'%C(auto)%h %ad%d %s %C(bold blue)[%cn]' --decorate --date=iso HEAD~$NUM..
 
 cd -
