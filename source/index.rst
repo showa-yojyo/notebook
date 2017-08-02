@@ -31,6 +31,7 @@ Contents:
    loeliger09
    griffiths10
    hosoda10/index
+   nishiyama12
    omg15/index
    stepanov15
    slatkin16
