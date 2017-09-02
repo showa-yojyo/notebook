@@ -488,6 +488,72 @@ j 不変量
 
 第 10 章 射影空間とグラスマン多様体
 ======================================================================
+
+10.1 n 次元射影空間
+----------------------------------------------------------------------
+序盤を忘れているのならば 8 章を読み直せ。
+
+(1, n) 型放物型部分群 :math:`P_{(1, n)}`
+  次のような :math:`\mathit{GL}_{n + 1}(\mathbb{C})` の部分群のことをそう呼ぶ：
+
+  .. math::
+     :nowrap:
+
+     \begin{align*}
+     \lbrace
+     \left(
+     \begin{array}{c|c}
+       \lambda & \begin{array}{ccc} u_2 & \cdots & u_n \end{array} \\ \hline
+     \begin{array}{c} 0 \\ \vdots \\ 0 \end{array}  & {\Huge{A}}
+     \end{array}
+     \right)
+     \mid \lambda \in \mathbb{C}^\times, A \in \mathit{GL}_{n + 1}(\mathbb{C}) \rbrace
+     \end{align*}
+
+* 定理 10.2: 等質空間 :math:`\mathbb{P}^{n}(\mathbb{C}) \cong \mathit{GL}_{n + 1}(\mathbb{C}) / P_{(1, n)}`
+* 定理 10.3: 等質空間 :math:`\mathbb{P}^{n}(\mathbb{C}) \cong \mathit{U}_{n + 1}/(\mathit{U}_1(\mathbb{C}) \times \mathit{U}_n(\mathbb{C}))`
+* 定理 10.4: :math:`\mathbb{P}^{n}(\mathbb{C})` はコンパクト。
+
+10.2 2 次曲面と点の配置空間
+----------------------------------------------------------------------
+2 次曲面
+  :math:`{}^t\mathbf{x} S \mathbf{x} = 0`,
+  :math:`S \in \mathit{Sym}_{n + 1}(\mathbb{C})`,
+  :math:`{}^t\mathbf{x} = (x_0, \cdots, x_n)` は同次座標で
+  :math:`\det S \ne 0`
+
+最大階数の行列
+  本文の説明ではピンと来ない。おそらく ``rank(A) = max(A.nrow, A.ncol)`` のような行列 ``A`` の意味と思われる。
+
+:math:`\mathit{M}_{n + 1, m}^{\circ}(\mathbb{C})`
+  上で述べた最大階数行列全てからなる空間。
+
+:math:`\mathit{Sym}_{n + 1}^{\circ}(\mathbb{C})`
+  :math:`:= \lbrace S \in \mathit{Sym}_{n + 1}(\mathbb{C}) \mid \det S \ne 0 \rbrace`
+
+* :math:`m \le n` とする。
+
+  * 作用 :math:`\rho(g)(S, A) = ({}^t g^{-1} S g^{-1}, gA)`
+  * :math:`\mathit{Sym}_{n + 1}^{\circ}(\mathbb{C}) \times \mathit{M}_{n + 1, m}^{\circ}(\mathbb{C}) / (\mathit{GL}_{n + 1}(\mathbb{C}) \times T^m)`
+    が非退化 2 次曲面と :math:`\mathbb{P}^{n}(\mathbb{C})` の m 点配置を表す。
+
+    * :math:`T^m := (\mathbb{C}^\times)^m` を n 次元トーラス群と呼ぶ。
+
+* 定理 10.7 不変式環の生成元に関する定理。どうなっているか。
+* 定理 10.8 :math:`m = 2` のときの :math:`\mathit{GL}_{n + 1}(\mathbb{C}) \times T^m` の
+  :math:`\mathit{Sym}_{n + 1}^{\circ}(\mathbb{C}) \times \mathit{M}_{n + 1, m}^{\circ}(\mathbb{C})` への作用に関する
+  不変式環の生成元についての定理。
+
+10.3 グラスマン多様体
+----------------------------------------------------------------------
+TBW
+
+10.4 プリュッカー座標
+----------------------------------------------------------------------
+TBW
+
+10.5 点配置と多重旗多様体
+----------------------------------------------------------------------
 TBW
 
 附録：集合と写像
