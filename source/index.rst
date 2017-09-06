@@ -32,7 +32,7 @@ Contents:
    loeliger09
    griffiths10
    hosoda10/index
-   nishiyama12
+   nishiyama12/index
    omg15/index
    stepanov15
    slatkin16
