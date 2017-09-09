@@ -5,11 +5,12 @@ Examples:
   $ scratch.py milestone09
   $ scratch.py gamma95 --pages=3
 """
+import sys
 from argparse import ArgumentParser
 from pathlib import Path
 from jinja2 import (Environment, FileSystemLoader)
 
-def main(args):
+def run(args):
     """The main function.
 
     Args:
@@ -23,7 +24,7 @@ def main(args):
     num_page = args.pages
 
     params = dict(title=args.title,
-                  notename=note_name)
+                  note_name=note_name)
 
     # Case of a single page is specified.
     if num_page == 1:
@@ -55,7 +56,7 @@ def main(args):
             print(template.render(params, page=i, totalpages=num_page),
                   file=fout)
 
-if __name__ == '__main__':
+def parse_args(args):
     parser = ArgumentParser(description='Generate note templates.')
     parser.add_argument(
         'note_name',
@@ -78,5 +79,10 @@ if __name__ == '__main__':
         '--page_template',
         default='note.rst_t',
         help='specify the template file name for all pages (default to note.rst_t)')
+    return parser.parse_args(args or ["--help"])
 
-    main(parser.parse_args())
+def main(args=sys.argv[1:]):
+    sys.exit(run(parse_args(args)))
+
+if __name__ == '__main__':
+    main()
