@@ -26,7 +26,7 @@ Contents:
    angel05/index
    yamamoto05/index
    newham05/index
-   tsuboi05
+   tsuboi05/index
    subramaniam06
    asaoka06
    loeliger09
