@@ -123,6 +123,7 @@
 
     * p - 1 以下ならば
       :math:`\operatorname{im} D\Phi_{(u^0)}` を点 :math:`x^0 \in M` における接空間と呼ぶ。
+      直線 :math:`A ^{-1}(A(\boldsymbol{x^0}))` が :math:`\boldsymbol{x^0}` において接する。
 
     あるいは、:math:`\operatorname{rank}(L D\Phi_{(u^0)})` の値が
 
