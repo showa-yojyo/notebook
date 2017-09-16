@@ -1,7 +1,7 @@
 ======================================================================
 幾何学 I 多様体入門 読書ノート 3/8
 ======================================================================
-
+:math:`\require{AMScd}`
 :doc:`note2` からの続き。
 
 .. contents:: ノート目次
@@ -67,7 +67,7 @@
     * 各 :math:`\varphi_i^\pm` は対応する :math:`U_i^\pm` 上で連続となり、
       逆写像もまた連続となる。これで同相写像であることは言える。
 
-    * 次に座標変換 :math:`\varphi_j^+(U_i^- \cap U_j^+) \to \varphi_i^i(U_i^- \cap U_j^+)` などを計算して、
+    * 次に座標変換 :math:`\varphi_j^+(U_i^- \cap U_j^+) \to \varphi_i^-(U_i^- \cap U_j^+)` などを計算して、
       これらがすべて滑らかであることを示す。
 
   * 後半は射影空間が多様体であることを示す。
@@ -131,12 +131,32 @@
     商空間の任意の点について、それを含む開近傍が
     :math:`Y_+` か :math:`Y_-` にあると結論できる。
 
+    .. math::
+       :nowrap:
+
+       \begin{align*}
+       \begin{CD}
+       \mathbb R @>{f^\pm}>> Z @>{p_Y}>> Y_\pm \subset Y\\
+       @.        @V{p}VV   @V{\underline{p}}VV\\
+       @.             \mathbb R @. \mathbb R
+       \end{CD}
+       \end{align*}
+
   * 商空間はハウスドルフではない。
     数直線の正の部分と負の部分が（見てくれに反して）分離できない。
 
 * 問題 3.3.3: 平面から原点を取り除いた空間において、
   直角双曲線と座標軸に沿う半直線 4 本で埋め尽くされる商空間
   （双曲線や座標軸の部品を点とみなす）は多様体とはならない。
+
+  .. math::
+     :nowrap:
+
+     \begin{CD}
+     \mathbb R @>{g_\pm,\ h_\pm}>> Z @>{p_X}>> X_\pm^g, X_\pm^h = X\\
+     @.        @V{p}VV   @V{\underline{p}}VV\\
+     @.             \mathbb R @. \mathbb R
+     \end{CD}
 
   * 商空間の任意の点に対して、それを含む開近傍が存在して、ある開区間と同相とはなるものの、
   * 商空間はハウスドルフではない。
@@ -153,6 +173,13 @@
   * 写像 :math:`p_s: Z \to S` を射影とする。
   * 写像 :math:`i: I \times \mathbb{R} \subset Z \to Z` を包含写像とする。
   * 写像 :math:`s: W := (p_s \circ i)(I \times \mathbb{R}) \to I \times \mathbb{R}` を代表元を取る写像として構成したい。
+
+    .. math::
+       :nowrap:
+
+       \begin{CD}
+       I \times \mathbb{R} @>{\iota}>> Z @>{p_s}>> W \subset S @>{s}>> I \times \mathbb{R}
+       \end{CD}
 
     * 連続であることをも示す。ここが理解できていない。
 
@@ -225,10 +252,10 @@
 
 :math:`C^s` 級
   写像 :math:`F: M_1 \to m_2` が :math:`C^s` 級 であるとは、
-  写像 :math:`\psi \circ F \circ \phi^{-1}(U): \phi(U) \to \psi(V)` が :math:`C^s` 級 であることとする。
+  写像 :math:`\psi \circ F \circ \varphi^{-1}: \varphi(U) \to \psi(V)` が :math:`C^s` 級 であることとする。
 
 微分同相写像
-  写像 :math:`F_1 \text(or) F_2` が微分同相写像であるとは、
+  写像 :math:`F_1 \text{or} F_2` が微分同相写像であるとは、
   :math:`F_1 \circ F_2 = \operatorname{id}_{M_2}` かつ
   :math:`F_2 \circ F_1 = \operatorname{id}_{M_1}` であることとする。
 
@@ -241,7 +268,7 @@
   :math:`\mathbb{C}P^1 = (\mathbb{C}^2 \setminus \lbrace 0 \rbrace) / \mathbb{C} ^ \times \cong S^2`
 
   #. ヒントに従うと、次のふたつの射影による座標近傍系を定義できる。
-  #. :math:`\mathbb{C}P^1` に開集合 :math:`V_i = \lbrace [x] \in (\mathbb{C}^2 \setminus \lbrace 0 \rbrace) / \sim \mid x_i \ne 0 \rbrace,\ (i = 0, 1)` を入れる。
+  #. :math:`\mathbb{C}P^1` に開集合 :math:`V_i = \lbrace [x] \in (\mathbb{C}^2 \setminus \lbrace 0 \rbrace) / \sim\ \mid x_i \ne 0 \rbrace,\ (i = 0, 1)` を入れる。
 
      * TODO: 可換図式みたいなのを挿れたい。
 
