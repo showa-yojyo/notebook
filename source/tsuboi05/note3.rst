@@ -232,12 +232,12 @@
   * 多様体であることを示すために、局所座標系 :math:`\lbrace (V_i, \varphi_i) \rbrace` を定義する。
 
     .. math::
-         :nowrap:
+       :nowrap:
 
-         \begin{align*}
-         V_i & = \lbrace [\boldsymbol{x}] \in \mathbb{R}^{n + 1} \setminus \lbrace 0 \rbrace \mid x_i \ne 0 \rbrace,\\
-         \varphi_i([\boldsymbol{x}]) &= \left( \frac{x_0}{x_i}, \dotsc, \widehat{(i)}, \dotsc, \frac{x_n}{x_i} \right)
-         \end{align*}
+       \begin{align*}
+       V_i & = \lbrace [\boldsymbol{x}] \in \mathbb{R}^{n + 1} \setminus \lbrace 0 \rbrace \mid x_i \ne 0 \rbrace,\\
+       \varphi_i([\boldsymbol{x}]) &= \left( \frac{x_0}{x_i}, \dotsc, \widehat{(i)}, \dotsc, \frac{x_n}{x_i} \right)
+       \end{align*}
 
     * TODO: ここに包含写像を説明する可換図式みたいなものを挿れたい。
 
@@ -299,23 +299,124 @@
   * この有限群は位数 :math:`p` の巡回群 :math:`\mathbb{Z}/p\mathbb{Z}` になり、
     :math:`S^3` へ作用する。定理 3.4.8 により :math:`S^3/F` は多様体となる。
 
-    * これを :math:`L_{p, q}` と表す。ちなみに :math:`\mathbb{R}P^3` と微分同相となる。
+    * これを :math:`L_{p, q}` と表す。ちなみに :math:`L_{2, 1}` は
+      :math:`\mathbb{R}P^3` と微分同相となる。
 
 3.5 座標変換
 ----------------------------------------------------------------------
-<多様体の定義において最も重要なものは、座標近傍系である> (p. 61)
+* <多様体の定義において最も重要なものは、座標近傍系である> (p. 61)
+* 座標変換から多様体を構成する手法がファイバー束、ベクトル束の全空間を
+  多様体と考えるときに必要となる。
 
-* 用語
+* 例題 3.5.1: 座標近傍の同相写像がまた同相写像となる。
 
-  * ファイバー
-  * ファイバー束
+  * :math:`\gamma_{ij}: \varphi_j(U_i \cap U_j) \to \varphi_i(...)` を
+    :math:`\gamma_{ij} = \varphi_i \circ (\varphi_j|U_i \cap U_j)^{-1}` で定義する。
+    このとき :math:`\varphi_k(U_i \cap U_j \cap U_k)` 上は
+    :math:`\gamma_{ij} \circ \gamma_{jk} = \gamma_{ik}` となる。
+
+    * 図を描いて確認しよう。定義域が怪しくないことも確認する。
+
+  * 以下紙幅の都合上 :math:`V_i = \varphi_i(U_i),\ V_{ij} = \varphi_j(V_i \cap V_j)` とおく。
+  * 写像 :math:`\gamma_{ij}` は :math:`\mathbb R^n` の開集合の間の同相写像となる。
+
+    .. math::
+       :nowrap:
+
+       \begin{CD}
+       V_{ik} \cap V_{jk} @>{\gamma_{jk}}>> V_{ij} \cap V_{kj} @>{\gamma_{ij}}>> V_{jk} \cap V_{ki}
+       \end{CD}
+
+* 一般の開集合 :math:`V_i \subset \mathbb R^n` の直和について。
+
+  * :math:`{ \displaystyle \bigsqcup_{i \in I} V_i = \bigsqcup_{i \in I} V_i \times \{i\} \subset \mathbb R^n \times I}`
+
+  * 左辺は :math:`\mathbb R^n \times I` の直積位相から誘導される位相を入れる。
+  * :math:`\mathbb R^n` の位相はいつものユークリッド空間位相を入れる。
+  * 添字集合 :math:`I` には離散位相を入れる。
+  * c.f. この直和位相（仮称）を一般の位相空間に対する直和位相
+
+* 例題 3.5.2: 例題 3.5.1 の記号の一部を流用し、開集合の直和に同値関係を入れて商空間を定義する。
+
+  #. まず :math:`x_i \sim x_j \Leftrightarrow x_j \in V_{ij} \subset V_j,
+     x_i = \gamma_{ij}(x_j)` とする。これは同値関係になることを確認する。
+
+  #. ここで :math:`X = (\bigsqcup V_i / \sim)` がハウスドルフであれば、多様体となるといえる。
+
+     * 射影 :math:`p: \bigsqcup V_i \to X` を考える。
+       :math:`V_i` と :math:`p(V_i)` が同相である。
+       代表元を取る写像を :math:`s_i` とすると、次のようにして連続であることがわかる：
+
+       :math:`V_i` の開集合 :math:`W` に対して
+       :math:`s_i^{-1}(W)` が開集合であり、
+       :math:`p^{-1}(s_i^{-1}(W)) \subset \bigcup V_i` が開集合であることによる。
+
+     * 写像 :math:`s_i` は同相である。なぜなら :math:`p \circ s_i = \operatorname{id}_{p(V_i)}` かつ
+       :math:`s_i \circ p = \operatorname{id}_{V_i}` だから。
+
+     * 最後に、商空間の近傍系 :math:`\{(p(V_i), s_i)\}_{i \in I}` の座標変換が滑らかであることを
+       示して（最初から商空間はハウスドルフと言っているから）多様体であることが示せる。
+
+  #. n 次元 :math:`C^\infty` 多様体 :math:`M` と上述の商空間 :math:`X` とが微分同相となる。
+     例題 3.5.1 の記号を流用すると、
+
+     * 写像 :math:`\iota: x_i \in V_i \mapsto \varphi_i^{-1}(x_i)` を考える。
+       このとき、誘導される写像 :math:`\underline{\iota}: X \to M` は連続となる。
+
+       なぜなら :math:`x_i \in V_{ij}, \iota(\gamma_{ji}(x_i)) = \iota(x_i)` だから。
+
+     * 写像 :math:`p \circ \varphi_i: U_i \to p(V_i)` は同相の合成で同相。
+
+     * :math:`\underline{\iota} \circ (p \circ \varphi_i) = \operatorname{id}_{U_i}` かつ
+       :math:`(p \circ \varphi_i) \circ (\underline{\iota} \mid p(V_i)) = \operatorname{id}_{p(V_i)}` となるので、
+       :math:`\underline{\iota} ^{-1} = (p \circ \varphi_i)` は連続。
+       したがって :math:`M` と :math:`X` は同相であり、
+       :math:`X` はハウスドルフだ。
+
+     * あとは座標近傍系
+       :math:`\{(U_i), \varphi_i)\}`,
+       :math:`\{(p(V_i), s_i)\}`
+       同士を比較することで :math:`\underline{\iota}` が微分同相であると結論する。
+
+* 問題 3.5.3: ファイバー束
+
+  * :math:`E, B, F` を位相空間とする。
+  * 写像 :math:`p: E \to B` は連続とする。
+  * :math:`\forall b \in B` に対する開近傍を :math:`U_b` とする。
+  * 直積 :math:`U_b \times F` の第一成分への射影を :math:`\operatorname{pr}_1` とする。
+
+  このとき :math:`B, F` がハウスドルフならば :math:`E` もまたしかり。
+
+  .. math::
+     :nowrap:
+
+     \begin{CD}
+     E @>{p}>> B\\
+     @A{\subset}AA @A{\subset}AA\\
+     p^{-1}(U_b) @>{p}>> U_b\\
+     @V{h}VV @A{\operatorname{pr}_1}AA\\
+     U_b \times F
+     \end{CD}
+
+  * この状況における位相空間 :math:`E` をファイバー束といい、
+    位相空間 :math:`F` を :math:`B` 上のファイバーという。
+
+  * 証明には :math:`\operatorname{pr}_2` も考える必要がある。
 
 3.6 向き付け（展開）
 ----------------------------------------------------------------------
 ある多様体が向き付けを持つとは、各座標変換のヤコビアンがすべて正であるような
 座標近傍系が存在することを意味する。
 
-ここ難しい。
+* 連結多様体 :math:`M` から常に「向き付けを持つ」多様体 :math:`\widehat{M}` を構成できる。
+
+  * :math:`\widehat{M} \cong M \times \{\pm 1\} \Leftrightarrow \forall \gamma_{ij}, \det (D\gamma_{ij}) > 0`
+
+    このとき :math:`M` 自身がすでに向き付け可能。
+
+  * :math:`M` が向き付け不可能で連結であっても :math:`\widehat{M}` は向き付け可能。
+  * :math:`P: \widehat{M} \to M` において :math:`P^{-1}(y)` の二点を入れ替える写像
+    :math:`F: \widehat{M} \to \widehat{M}` は、向き付けを反対にする微分同相写像だ。
 
 * 例 3.6.2: 実射影空間は多様体次元の偶数奇数によって向き付け可能性が決まる。
   偶数次元は向きが付けられない。
@@ -329,7 +430,19 @@
 ----------------------------------------------------------------------
 * :math:`C^\infty (M, N)` は十分たくさんの元を有し、トポロジーも何か入る。
 * :math:`C^\infty (M, \mathbb{R})` を :math:`C^\infty (M)` と略記する。
-* 問題 3.7.1 の関数を利用すれば、多様体上の :math:`C^\infty` 級関数を構成できる。
+
+* 問題 3.7.1: 微分積分の教科書を参照。
+
+  #. :math:`e^x` のマクローリン展開から得られる評価や変数変換（逆数）を駆使する。
+
+  #. 平均値の定理から明らか。
+
+  #. この関数 :math:`\displaystyle
+     \rho(x) = 0\ (x \le 0),\ \exp\left(-\frac{1}{x}\right)\ (0 < x)`
+     を利用すれば、多様体上の :math:`C^\infty` 級関数を構成できる。
+
+  #. :math:`\mathbb R^n` の連結な折れ線は、実数全体を定義域とする
+     :math:`C^\infty` 級写像の像とできるという事実は大事。
 
 3.8 第 3 章の解答
 ----------------------------------------------------------------------
