@@ -1,8 +1,7 @@
 ======================================================================
 幾何学 I 多様体入門 読書ノート 4/8
 ======================================================================
-
-.. include:: /_include/book-details/tsuboi05.txt
+:math:`\require{AMScd}`
 
 .. contents:: ノート目次
 
@@ -128,15 +127,199 @@
 
 4.3 接写像
 ----------------------------------------------------------------------
-TBW
+接写像
+  :math:`F \in C^\infty(M, N),\ x \in M,\ c: (a, b) \to M,\ c(t_0) = x` を仮定する。
+  点 :math:`F(x) \in N` を通る曲線 :math:`F \circ c: (a, b) \to N,\ (F \circ c)(t_0) = F(x)` という具合になる。
+  接ベクトルを接ベクトルに対応させられる。
+  このことから線形写像 :math:`F_*: T_x \to T_{f(x)} N` が定義できる。
+  この写像 :math:`F_*` を接写像という。
+
+  * <多様体の間の写像の微分を接空間から接空間への線形写像として定義したもの> だ。
+  * 記号は他にも :math:`T_x F,\ D_x F,\ (dF)_x` などがある。
+  * 接写像は共変性 :math:`(f \circ g)_* = f_* \circ g_*` が成り立つ。
+  * 接写像のランクは :math:`\operatorname{rank} D(\psi \circ F \circ \varphi ^{-1})_{(\varphi(x_0))}` だ。
+
+:math:`F_*` のランクが :math:`n = \dim M = \dim N` であったとしても
+:math:`M` と :math:`F(M)` が微分同相であるとは限らない。
+
+* 例題 4.3.1: ただし :math:`M` のコンパクト集合 :math:`K` 上で :math:`F|K` が単射ならば、
+  近傍 :math:`V` から :math:`F(V)` への微分同相となる。
+
+  * :math:`F|U_x: U_x \to V_{F(x)}` が微分同相となるような近傍 :math:`U_x \subset U_i` は存在する（∵逆写像定理）。
+  * この近傍 :math:`U_x` はその閉包がコンパクトになるように取れる（らしい）。
+  * :math:`K` の開被覆 :math:`\{U_x\}_{x \in K}` は有限開被覆 :math:`\{U_{x_k}\}_{k = 0,\dots\,k_0}` を持つ（∵コンパクト）。
+
+  ここから先の減少列に関する議論がわからない。
+  次のような :math:`\{U_x^m\}` があると言えるらしい。
+
+  .. math::
+     :nowrap:
+
+     \begin{gather*}
+     U_x \supset \overline{U_x^1} \supset U_x^1 \supset U_x^1 \supset \overline{U_x^2} \supset U_x^2 \supset \dots,\\
+     \bigcap_{m = 1}^\infty U_x^m = \{ x \}
+     \end{gather*}
+
+  * 各 :math:`\{U_x^m\}_{x \in K}` の有限部分？被覆 :math:`\{U_{x_k}^m\}_{k = 1, \dots, k_0^m}` が得られる（∵コンパクト）。
+  * :math:`W = \bigcup_k U_{x_k}^m` とおくと
+    :math:`W_1 \supset \overline{W_2} \supset W_2 \supset \dots,\ \bigcap\overline{Q_m} = K` とできる。
+
+  * するとある番号があって :math:`F: W_m \to F(W_m)` が単射となる（背理法と完備性を利用する）。
+
+* 問題 4.3.2: 商空間 :math:`\mathbb R^2/\mathbb Z^2`
+
+  #. ハウスドルフであること
+
+     * 次の性質を満たす連続関数をうまく見つける。理屈は「任意の二点を関数で分離したい」だ。
+       :math:`\alpha, \beta\ (\alpha \ne \beta) \implies f(\alpha) \ne f(\beta).`
+
+     * 解答例では :math:`f_{[x_0, y_0]}(x, y) = \cos 2\pi(x - x_0) + cos 2 \pi(y - y_0)` を採用している。
+
+  #. 商空間が 2 次元の多様体であること
+
+     .. math::
+        :nowrap:
+
+        \begin{CD}
+        \mathbb R^2 @>{p_x}>> \mathbb R^2/\mathbb Z^2\\
+        @A{\subset}AA @A{\subset}AA\\
+        B_x @>{p_x|B_x}>> p_x(B_x)
+        \end{CD}
+
+     前章の例題や問題で頻出した技法を適用する。上の図式で、
+
+     * :math:`B_x` は点 :math:`x` を中心とする平面上の半径 1/4 の開円盤。
+     * :math:`p_x` は射影とする。
+
+     商空間の点から平面の代表元を取る操作を :math:`s_x` とし、
+     座標近傍系を :math:`\{(p_x(B_x), s_x)\}_{x \in \mathbb R^2}` で定義する。
+
+     * :math:`s_x` は連続である。
+       なぜならば開集合 :math:`U \subset B_x` に対して
+       :math:`p^{-1}(s_x^{-1}(U)) = \bigcup_{m, n \in \mathbb Z} (U + (m, n))` が開集合であるから。
+
+     * :math:`s_x` は同相写像である。
+       なぜならば :math:`s_x \circ (p_x|B_x) = \operatorname{id}_{B_x},\ (p_x|B_x) \circ s_x = \operatorname{id}_{p(B_x)}` だから。
+
+     * 座標変換は :math:`C^\infty` 級である。
+       なぜならば点 :math:`z \in p_x(B_x) \cap p_y(B_y)` に対して次を満たす整数の組が何かあるから：
+       :math:`s_x(z) = s_y(z) + (m, n)`
+
+     以上とハウスドルフ性により商空間は多様体であると結論できる。
+
+  #. 行列 :math:`A \in M_2(\mathbb Z)` の定める :math:`\mathbb R^2` 上の線形変換は
+     :math:`\mathbb R^2/\mathbb Z^2` 上の微分可能な変換 :math:`F_A` を定義する。
+
+     * 同値な点が同値な点に写ることはすぐに示せる。写像 :math:`F_A` が well-defined である。
+     * 商空間の座標近傍系を前項と同様に定義すると、写像
+       :math:`s_{A(x)} \circ F_A \circ p_x` は点 :math:`x` の近傍で元の線形変換と一致するので、
+       :math:`F_A` が :math:`C^\infty` 級であるといえる。
+
+  #. :math:`\operatorname{rank} F_A = \operatorname{rank} DF_A = \operatorname{rank} A`
+
+* 問題 4.4.3: リー群。
+
+  #. :math:`L_g: h \mapsto gh` は :math:`C^\infty` 級微分同相である。
+
+     * これは微分同相の定義を確認するだけで済む。
+       :math:`L_g \circ L_{g^{-1}} = L_{g^{-1}} \circ L_g = \operatorname{id}_G`
+
+  #. 接写像 :math:`T_{(g, h)}(G \times G) \to T_{gh}G` のランク。
+
+     * 群の多様体次元と一致することを示すわけだが、ヒントから何をしていいかわからない。
+     * 定数関数 :math:`G \owns c_g: g \mapsto a \in \mathbb R` を取る。
+     * 次のような演算の列を考える。
+
+       .. math::
+          :nowrap:
+
+          \begin{CD}
+          G @>{c_g,\ L_h}>> G \times G @>{(op)}>> G @>{L_{(gh)^{-1}}}>> G\\
+          @.     @.         @.     @.\\
+          T_1 G @>{c_g,\ L_h}_{\ *}>> T_{(g, h)}(G \times G) @>{(op)_*}>> T_{gh}G @>{L_{(gh)^{-1}}}_{\ *}>> T_1 G
+          \end{CD}
+
+       左から右まででで恒等写像となり、接写像 :math:`L_{(gh)^{-1}*}` が全単射で、
+       中央の写像が全射であることから、ランクが :math:`\dim G` と一致すると結論できる（らしい）。
+
+  #. 逆元を取る演算は :math:`C^\infty` 級である。
+  
+     * 陰関数定理、逆元写像の接写像 :math:`T_(g, g^{-1})(G \times G) \to T_1 G` グラフ？
 
 4.4 部分多様体
 ----------------------------------------------------------------------
-TBW
+.. todo:: 例題＆問題
+
+* 定義 4.4.1: 部分多様体
+
+  * 多様体 :math:`N` に対して :math:`M \subset N` に次の性質があるとき、
+    それを p 次元部分多様体であるという。
+
+    .. math::
+       :nowrap:
+
+       \begin{align*}
+       \forall x_0 \in M, \exists(U, \varphi): M \cap U = \{x \in U \mid x_{p + 1} = \dots = x_n = 0\}
+       \end{align*}
+
+はめ込み
+  写像 :math:`F: M \to N` に対し、接写像 :math:`F_*` のランクが
+  任意の :math:`x \in M` に対して :math:`\dim M\ (\dim M < \dim N)` となるとき、
+  この写像ははめ込みであるという。
+
+埋め込み
+  はめ込み :math:`F` によって :math:`N` の位相から誘導される位相が :math:`M` の位相そのものと一致するような
+  :math:`F` ははめ込みであるという。
+
+  * :math:`F(M)` は部分多様体となる。
+
+* 定理 4.4.2: はめ込みが単射であれば、コンパクトな多様体の像は部分多様体となる。
+
+沈み込み
+  接写像のランクが任意の :math:`x \in M` に対して :math:`\dim N\ (\dim M \ge \dim N)` となるとき、
+  この写像は沈み込みであるという。
+
+  * :math:`F^{-1}(y)` は :math:`m - n` 次元部分多様体となる。
 
 4.5 接束（展開）
 ----------------------------------------------------------------------
-TBW
+冒頭のユークリッド空間内の多様体から多様体と接空間のペアの空間を構成する部分は前座。
+
+接束
+  前章の記号 :math:`V_i, V_{ij}, \gamma_{ij}` 等を流用する。
+  次のようにして構成する商空間を多様体の接束という：
+
+  #. 直和 :math:`\bigsqcup V_i` に同値関係 :math:`x_i \sim x_j \Leftrightarrow x_i = \gamma_{ij}(x_j)` を導入する。
+     このとき、商空間 :math:`X = (\bigsqcup V_i / \sim)` は :math:`M` と微分同相になる（例題 3.5.2 などを参照）。
+
+  #. 直積の直和 :math:`\bigsqcup (V_i \times \mathbb R^n)` に次の同値関係を導入する。
+
+     .. math::
+        :nowrap:
+
+        \begin{align*}
+        (x_i, v_i) \sim (x_j, v_j) \Leftrightarrow \exists \gamma_{ij}:
+        x_i = \gamma_{ij}(x_j),\ v_i = (D\gamma_{ij})_{(x_j)} v_j
+        \end{align*}
+
+     同値関係となる理由：
+
+     * 写像 :math:`G_{ij}: (x_i, v_i) \mapsto (\gamma_{ij}(xj), (D\gamma_{ij})_{(x_j)} v_j)` を考える。
+       これは微分同相となる。
+     * そして :math:`G_{ij} \circ G_{jk} = G_{ik}` （ただし :math:`G_{ii} = \operatorname{id}` と約束する）が成り立つ。
+
+     このとき、商空間 :math:`Y = (\bigsqcup (V_i \times \mathbb R^n))/\sim` はハウスドルフとなり、
+     :math:`2n` 次元多様体となる。
+
+     ハウスドルフとなる理由（面倒）：
+
+     * 射影をいくつか定義して、その合成写像による商空間の開集合の逆像もまた開集合であることを示し、
+       :math:`Y \to X` に連続写像が存在することを示せる。
+     * 次に、直和から商空間への射影二種 :math:`p_x, p_y` を適宜制限して同相写像を得る。
+     * 写像 :math:`P^{-1}: (p_x(V_i)) \to p_x(V_i) \times \mathbb R^n` が同相であることを示す。
+     * 最後に問題 3.5.3 を利用する。
+
+  接束はベクトル束の一種である (pp. 85-86)。
 
 ----
 
