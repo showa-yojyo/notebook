@@ -248,7 +248,6 @@
 
 4.4 部分多様体
 ----------------------------------------------------------------------
-.. todo:: 例題＆問題
 
 * 定義 4.4.1: 部分多様体
 
@@ -262,6 +261,9 @@
        \forall x_0 \in M, \exists(U, \varphi): M \cap U = \{x \in U \mid x_{p + 1} = \dots = x_n = 0\}
        \end{align*}
 
+微分可能構造
+  座標近傍系の同値類について注意しておく。
+
 はめ込み
   写像 :math:`F: M \to N` に対し、接写像 :math:`F_*` のランクが
   任意の :math:`x \in M` に対して :math:`\dim M\ (\dim M < \dim N)` となるとき、
@@ -269,7 +271,7 @@
 
 埋め込み
   はめ込み :math:`F` によって :math:`N` の位相から誘導される位相が :math:`M` の位相そのものと一致するような
-  :math:`F` ははめ込みであるという。
+  :math:`F` は埋め込みであるという。
 
   * :math:`F(M)` は部分多様体となる。
 
@@ -280,6 +282,62 @@
   この写像は沈み込みであるという。
 
   * :math:`F^{-1}(y)` は :math:`m - n` 次元部分多様体となる。
+
+* 例題 4.4.3: 部分多様体間の :math:`C^\infty` 級写像が誘導する写像も :math:`C^\infty` 級となる。
+
+  * TODO: ここはノートが特にダメ。やり直し。
+
+  * 多様体が :math:`N_1, N_2`, それらの部分多様体が :math:`M_1, M_2`,
+    写像が :math:`F: N_1 \to N_2` で、誘導される写像が :math:`G: M_1 \to M_2` であるような図を入れたい。
+
+  * :math:`F(M_1) \subset F(M_2)` とする（？）
+
+  * :math:`M_2 \subset N_2` のある座標近傍 :math:`(V, \varphi)` を次のようにとれる：
+    :math:`(x_1, \dotsc, x_p, 0, \dots, 0)` in :math:`M_2 \cap V`
+
+  * 残りの座標成分のほうを考える。
+    :math:`(x_1, \dotsc, x_p) \circ F \circ \varphi^{-1}` が :math:`C^\infty` 級となる。
+    したがって :math:`G: M_1 \to M_2` も :math:`C^\infty` 級となる。
+
+* 問題 4.4.4: :math:`GL_2(\mathbb R)` と :math:`SL_n(\mathbb R)`
+
+  * 前者は :math:`n^2` 次元多様体、後者は :math:`n^2 - 1` 次元部分多様体である。
+
+    * GL については :math:`GL_n(\mathbb R) \cong \mathbb R^{n^2}` ゆえ、前者の主張は当然だ。
+      解答例によると :math:`\{A \in M_n(\mathbb R) \mid \det A \ne 0\}` が
+      :math:`M_n(\mathbb R)` の開集合であることを注意している。
+
+    * SL について。まず定義を書き下してみると :math:`SL_n(\mathbb R) = \{A \in GL_n(\mathbb R) \mid \det A = 1\}` だ。
+      そこでこの空間を「写像」 :math:`\det: GL_n(\mathbb R) \to \mathbb R` における「単位元の逆像」とみなす。
+
+    * :math:`\det` のヤコビ行列なるものを考える。余因子展開を意識することで
+      :math:`\det(x_{ij}) = \sum x_{ij} A_{ij}` のように書かれるから、
+      :math:`{ \displaystyle \frac{\partial \det}{\partial x_{ij}} = A_{ij}}` で、
+      右辺は :math:`(n - 1)^2` 次正方行列の行列式になっている。
+
+    * SL では :math:`D(\det) \ne 0` であることに注意。
+
+  * 行列の積、逆行列を取る演算はどちらも :math:`C^\infty` 級の写像である。
+
+    * 両者ともリー群なので問題 4.4.3 を利用できる。
+
+* 問題 4.4.5: 直交群 :math:`O(n)` は多様体である。
+
+  * 写像 :math:`C: A \mapsto {}^tAA` を考える。直交群は「単位元の逆像」となる。
+  * 微分を考える。
+    :math:`DC_{(A)}X = {}^tXA + {}^tAX` という形をよく見ると二つの写像
+    :math:`X \mapsto {}^AX` と :math:`X \mapsto {}^tX + X` の合成であることに気付く。
+
+    * 前者の写像のランクは :math:`n^2` である。
+    * 後者の写像のランクは :math:`{ \displaystyle \frac{n(n + 1)}{2}}` である。
+    * 合成写像のランクは :math:`{ \displaystyle \frac{n(n + 1)}{2}}` である。
+
+  * よって :math:`{ \displaystyle \dim O(n) = \dim \mathbb R^{n^2} - \operatorname{rank}C = \frac{n(n - 1)}{2} }`
+
+* 例題 4.4.7: 横断的に交わる二つの部分多様体の共通部もまた部分多様体である。
+
+  * :math:`\forall x \in X \cap Z, T_x Y + T_x Z = T_x X`
+  * これはあとでやる。部分ベクトル空間の取り扱い方に自信がない。
 
 4.5 接束（展開）
 ----------------------------------------------------------------------
@@ -320,6 +378,16 @@
      * 最後に問題 3.5.3 を利用する。
 
   接束はベクトル束の一種である (pp. 85-86)。
+
+* 問題 4.5.2: :math:`F \in C^\infty(M, N)` の引き起こす接束の間の写像
+  :math:`F_*: TM \to TN` は :math:`C^\infty` 級である。
+
+* 問題 4.5.3: ユークリッド空間内の多様体 :math:`M \subset \mathbb R^N` に対して
+  :math:`TM` と :math:`X = \{(x, v) \mid x in M, v \in T_x M\}` は微分同相である。
+  
+  * 点 :math:`x_0 \in M` の近傍におけるグラフ表示から :math:`X` のグラフ表示を構成する。
+  * :math:`TM` の商空間座標近傍系の近傍？から :math:`\mathbb R^N \times \mathbb R^N` への連続写像を定義する。
+    これの逆写像を検討する（連続であることと :math:`C^\infty` 級であること）。
 
 ----
 
