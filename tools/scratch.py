@@ -24,7 +24,8 @@ def run(args):
     num_page = args.pages
 
     params = dict(title=args.title,
-                  note_name=note_name)
+                  note_name=note_name,
+                  num_format='%d',)
 
     # Case of a single page is specified.
     if num_page == 1:
@@ -50,8 +51,19 @@ def run(args):
 
     # Generate note[1-9].rst.
     template = env.get_template(args.page_template)
+
+    rst_name_format = 'note{:d}.rst'
+    if 9 < num_page < 100:
+        rst_name_format = 'note{:02d}.rst'
+        params['num_format'] = '%02d'
+    elif 100 <= num_page:
+        from math import (floor, log)
+        num_digits = str(floor(log(N, 10)) + 1)
+        rst_name_format = 'note{:0' + num_digits + 'd}.rst'
+        params['num_format'] = '%0' + num_digits + 'd'
+
     for i in range(1, num_page + 1):
-        with open(dest / 'note{:d}.rst'.format(i),
+        with open(dest / rst_name_format.format(i),
                   mode='w', encoding='utf8') as fout:
             print(template.render(params, page=i, totalpages=num_page),
                   file=fout)
