@@ -50,7 +50,7 @@
     憶え方として「k + m 次元から m 次元」というのもアリ。
     タイプ量の都合上、以下 :math:`k = n - m` を導入する。
 
-  * :math:`\operatorname{rank}DF_{(x^0)} = n` ならば、
+  * :math:`\operatorname{rank}DF_{(x^0)} = m` ならば、
     :math:`F` と同級の写像 :math:`g` と近傍
     :math:`W \subset \mathbb{R}^k` が何か存在して、そこで次を満たす。
 
@@ -58,7 +58,7 @@
        :nowrap:
 
        \begin{align*}
-                           & g(x_1^0, \dotsc, x_k^0)  & = & (x_{k + 1}^0, \dotsc, x_n^0) \\
+                           & g(x_1^0, \dotsc, x_k^0)  & = & (x_{k + 1}^0, \dotsc, x_n^0)\\
        F(x_1, \dotsc, x_k, & g(x_1^0, \dotsc, x_k^0)) & = & F(x^0)
        \end{align*}
 
