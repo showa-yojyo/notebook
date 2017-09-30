@@ -402,7 +402,7 @@ Land of Lisp
 
 .. include:: /_include/book-details/tsuboi05.txt
 
-ノートを作成した。:doc:`/tsuboi05`
+ノートを作成した。:doc:`/tsuboi05/index`
 
 池上彰の教養のススメ
 ======================================================================
@@ -449,4 +449,4 @@ Land of Lisp
 
 .. include:: /_include/book-details/nishiyama12.txt
 
-ノートを作成した。:doc:`/nishiyama12`
+ノートを作成した。:doc:`/nishiyama12/index`
