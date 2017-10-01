@@ -13,7 +13,7 @@ import csv
 from jinja2 import Environment
 from isbn_hyphenate import hyphenate
 
-__version__ = '1.3.0'
+__version__ = '1.3.1'
 
 TEMPLATE = '''\
 {% for book in books %}
@@ -38,7 +38,7 @@ TEMPLATE = '''\
 {% endfor -%}
 '''
 
-def configure():
+def parse_args(args):
     """Return the command line arguments."""
 
     parser = ArgumentParser()
@@ -52,7 +52,7 @@ def configure():
         type=FileType(mode='r', encoding='utf-8'),
         default=sys.stdin)
 
-    return parser.parse_args()
+    return parser.parse_args(args=args or ('--help',))
 
 def read(source):
     """Read TSV from the source."""
@@ -81,11 +81,11 @@ def write(output, destination):
 
     print(output, file=destination)
 
-def main():
-    """The main function."""
+def main(args=sys.argv[1:]):
+    sys.exit(run(parse_args(args)))
 
-    args = configure()
-    write(parse(read(args.file)), sys.stdout)
+def run(args, stdout=sys.stdout):
+    write(parse(read(args.file)), stdout)
 
 if __name__ == '__main__':
     main()
