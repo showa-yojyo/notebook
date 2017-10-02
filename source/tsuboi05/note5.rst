@@ -79,7 +79,7 @@
 
 * 問題 5.1.6: 方向微分。
   多様体 :math:`M` 上で定義されている :math:`C^\infty` 級関数 :math:`f, g` と点 :math:`p \in M` に対して、
-  演算 :math:`D` が定義できて :math:`D(f \cdot g) = Df g(p) + f(p) Dg` が成り立つとする（これを方向微分と呼ぶ）。
+  線形な演算 :math:`D` が定義できて :math:`D(f \cdot g) = Df g(p) + f(p) Dg` が成り立つとする（これを方向微分と呼ぶ）。
 
   #. 点 :math:`p \in M` における方向微分全てからなる空間 :math:`\mathcal{D}_p` は実ベクトル空間である。
   #. 多様体 :math:`M` 上の曲線 :math:`c(t)\ (c(0) = p)` について
@@ -94,6 +94,112 @@
      * :math:`{ \displaystyle \left(\frac{\partial}{\partial x_k} \right)_p}` は関数
        :math:`{ \displaystyle t \mapsto \varphi^{-1}(0, \dotsc, \overset{(k)}t, \dotsc, 0)}` における方向微分とする (cf. p. 76)。
      * これを証明するのに補題 5.1.5 を利用する。
+
+5.2 コンパクト多様体のユークリッド空間への埋め込み
+----------------------------------------------------------------------
+* 例題 5.2.1: コンパクトハウスドルフ空間は `正規空間 <http://mathworld.wolfram.com/NormalSpace.html>`__ である。
+
+  * 位相空間論の教科書を参照する。
+  * まず一点 vs 閉集合について証明する。それから普通の閉集合 vs 閉集合について証明する。
+
+* 例題 5.2.2: コンパクトハウスドルフ空間 :math:`X` の開被覆 :math:`\{U_i\}` に対し、
+  次のような開被覆 :math:`\{V_i\}` が存在する：
+  :math:`\overline{V_i} \subset U_i`
+
+  * 位相空間論の教科書を参照する。証明方針は次のような感じだ：
+  * コンパクト性により、有限開被覆 :math:`\{U_1, \dotsc, U_k\}` が :math:`\{U_i\}` から選べる。
+    証明のポイントは元の開被覆を有限開被覆とそれ以外のものとに分けて扱うことにある。
+
+  * 開集合 :math:`V_i` を次のようにとる：
+
+    .. math::
+       :nowrap:
+
+       \begin{align*}
+       V_i = \left\{
+       \begin{array}{ll}
+       U_i & (i = 1, \dotsc, k),\\
+       \varnothing & (otherwise)
+       \end{array}
+       \right.
+       \end{align*}
+
+  * 閉集合 :math:`{ \displaystyle K_j = X \setminus \left(\bigcup_{i = 1}^j V_i \cup \bigcup_{i = j + 1}^k U_i\right)}`
+    を考える（何か :math:`V_i` 周りの記号が帰納法の提示の関係でわかりにくい。ノートをミスったか）。
+    例題 5.2.1 により次のような開集合 :math:`V_j, W_j` が（帰納法により）存在する：
+    :math:`K_j \subset V_j, X \setminus U_j \subset W_j, V_j \cap W_j = \varnothing`
+
+  * このとき :math:`\overline{V_i} \subset U_i` かつ :math:`\bigcup V_i = X` となっている。
+
+* 定理 5.2.3: コンパクト多様体はユークリッド空間に埋め込める。
+
+  * ポイント：例題 5.2.2 の開被覆の構成手順を二重に行う。
+    つまり :math:`\overline{V_i} \subset U_i,\ \overline{W_i} \subset V_i` のようなものを取る。
+    これらの有限開被覆の個数を :math:`k` としておく。
+
+  * 閉集合 :math:`\overline{V_i}` に関して定理 5.1.3 の条件を満たす :math:`C^\infty` 級関数 :math:`\nu_i` を取る。
+  * 閉集合 :math:`\overline{W_i}` に関して定理 5.1.2 の条件を満たす :math:`C^\infty` 級関数 :math:`\mu_i` を取る。
+  * 座標近傍 :math:`(U_i, \varphi_i)` の局所座標 :math:`\varphi_i = (x_1^{(i)}, \dotsc, x_n^{(i)})` に対して
+    関数 :math:`\nu_i \varphi_i := (\nu_i x_1^{(i)}, \dotsc, \nu_i x_n^{(i)})` を取ると、これは :math:`C^\infty` 級となる。
+
+  * ここで :math:`\Phi = (\mu_1, \nu_1 \varphi_1, \dotsc, \mu_k, \nu_k \varphi_k)` とおくと、
+    これが多様体から :math:`\mathbb R^{k(n + 1)}` への埋め込みとなる：
+
+    * 定理 4.4.2 の上にある説明により :math:`\Phi_*: T_xM \to \mathbb R^{k(n + 1)}` のランクが
+      :math:`n` で :math:`\Phi` が単射であるから。
+
+      * ランクが :math:`n` であることは :math:`(\nu_i \varphi_i | V_i) \circ \varphi_i^{-1} = id_{\varphi_i(V_i)}` から示せる。
+      * 単射であることは :math:`\Phi(x) = \Phi(y) \implies x = y` を示すのに
+        :math:`\mu_i` の成分と :math:`\nu_i` の成分の単射性を別々に示す。
+        関数の非ゼロ性と局所座標の微分同相性が使えるので容易に示せる。
+
+ユークリッド空間が利用できるようになったので、内積の話題が出て来るようになる。
+
+法束
+  :math:`\nu M = \{(x, v) \in \mathbb R^N \times \mathbb R^N \mid v \perp T_xM \}`
+
+  これはユークリッド空間内の :math:`N` 次元多様体になっている。
+
+法空間
+  :math:`\nu_x M = \{v \in \mathbb R^N \mid v \perp T_xM \}`
+
+* TODO: (pp. 96-97) の可換図式を何とかここに描きたい。
+* 接束 :math:`TM` が :math:`(V_i \times \mathbb R^n, \gamma_{ij} \times D\gamma_{ij})` から構成されたのと似て、
+  法束 :math:`\nu M` は :math:`(V_i \times \mathbb R^{N - n}, \gamma_{ij} \times A_{ij})` から構成される。
+  ここで :math:`A_{ij_{(x_j)}} \in GL_{N - n}(\mathbb R)` である。
+
+* 注意 5.2.4: ユークリッド空間 :math:`\mathbb R^{n + 1}` 内の
+  :math:`n` 次元コンパクト多様体は向き付け可能とある。理屈が飲み込めない。
+
+* 問題 5.2.5: ユークリッド空間に埋め込まれるコンパクト多様体の性質。
+  後回しにしたい。
+
+  #. 法束は :math:`N` 次元多様体になっている。
+  #. 写像 :math:`(x, y) \mapsto x + y` は :math:`X \cap (\mathbb R^N \times \{0\})` 近傍で微分同相である。
+
+5.3 :math:`C^\infty` 級写像と多様体の埋め込み、はめ込み
+----------------------------------------------------------------------
+TBW
+
+5.4 サードの定理とモース関数
+----------------------------------------------------------------------
+TBW
+
+5.5 サードの定理の証明の概略（展開）
+----------------------------------------------------------------------
+TBW
+
+5.6 モース関数の存在の証明の概略（展開）
+----------------------------------------------------------------------
+TBW
+
+5.7 関数の空間、写像の空間（展開）
+----------------------------------------------------------------------
+TBW
+
+5.8 第 5 章の問題の解答
+----------------------------------------------------------------------
+TBW
 
 ----
 
