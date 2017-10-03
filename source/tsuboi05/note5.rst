@@ -256,15 +256,98 @@
 
 5.4 サードの定理とモース関数
 ----------------------------------------------------------------------
-TBW
+式で定義されている図形は、多くの場合多様体である。
+
+* 定理 5.4.1: `サードの定理 <http://mathworld.wolfram.com/SardsTheorem.html>`__
+
+  * :math:`C\infty` 級写像 :math:`F: M \to N` の臨界値は測度が 0 である。
+
+* 定義 5.4.2: 非退化、`モース関数 <http://mathworld.wolfram.com/MorseFunction.html>`__
+
+  * 臨界点 :math:`x` が非退化であるとは、点 :math:`x` における関数のヘッセ行列が正則であることをいう。
+  * 関数 :math:`f \in C^\infty(M)` がモース関数であるとは、
+    多様体上のどの臨界点においても非退化であることをいう。
+
+* ヘッセ行列の正則性は座標近傍の取り方によらない。
+* 同様に、二次曲面の行列の符号数も取り方によらない。
+  ちなみに負の固有値の個数をモース臨界点の指数という。
+
+* 補題 5.4.3: モースの補題
+
+  * 関数 :math:`f` の非退化な臨界点 :math:`x^0 \in M` の座標近傍 :math:`(U_i, \varphi_i = (x_1, \dotsc, x_n))` で
+    次のようなものがある：
+
+    .. math::
+       :nowrap:
+
+       \begin{align*}
+       (f \circ \varphi_i^{-1})(x_1, \dotsc, x_n) = f(x^0) - \sum_{i = 1}^k x_i^2 + \sum_{i = k + 1}^n x_i^2.
+       \end{align*}
+
+  * 証明方針を挙げていく：
+
+    * 点 :math:`x^0` を原点に移動して考えたい。つまり :math:`f - f(x^0)` を最初から考える。
+    * 線形変換しておいて :math:`\displaystyle \frac{\partial^2 f}{\partial x_i \partial x_j}(0, \dotsc, 0)` が対角化されているようにする。
+    * 関数 :math:`f` をアダマールの補題（先述）による書き方にしておく。
+    * 平方完成と座標変換を順次適用する。本書参照。
+
+* 例 5.4.4: 例題 2.4.1 の吟味
+
+  * この関数は実はモース関数なのであった。
+  * 球面上には指数 0, 1, 2 の臨界点がそれぞれ 2 個ずつある。
+
+* 問題 5.4.5: :math:`f(x, y) = (2 + \cos y)(a\cos x + b \sin x) + c \sin y,\ ((a, b, c) \ne (0, 0, 0))`
+
+  この関数は :math:`F: \mathbb R^2/(2\pi\mathbb Z)^2 \to \mathbb R` を定義する。
+  臨界点の個数が有限となる条件と退化する条件とを求める。
+
+  * まずはヤコビ行列を計算する。
+  * それからヘッセ行列を計算する。
+  * あとは三角関数の性質を利用する。
+
+* 問題 5.4.6: 複素射影空間 :math:`\mathbb CP^n = (\mathbb C^{n + 1} \setminus \{0\})/\mathbb C^\times` の
+  単位球面 :math:`S^{2n + 1} = \{(z_1, \dotsc, z_{n + 1}) \in \mathbb C^{n + 1} \mid \lvert z \rvert = 1\}` と
+  :math:`U(1) = \{e^{\sqrt{-1}\theta} \mid \theta \in \mathbb R\}` について
+
+  直球のような設問。この問題は理解していないといけない。
+
+  * :math:`g \in U(1)` に対して :math:`(g, z) \mapsto (gz_1, \dotsc, gz_n)` とすると、これは群の作用となる。
+  * :math:`S^{2n + 1} \overset{i}{\longrightarrow} \mathbb C^{n + 1}\setminus\{0\} \overset{p}{\longrightarrow} \mathbb CP^n` のランクはいくらか。
+    ただし :math:`i,\ p` は包含写像と射影である。
+  * 次に示す関数は :math:`F: \mathbb CP^n \to \mathbb R` を誘導する：
+
+    .. math::
+       :nowrap:
+
+       \begin{align*}
+       f(z) = \frac{\displaystyle \sum_{k = 1}^{n + 1} k \lvert z_k \rvert ^2}{\displaystyle \sum_{k = 1}^{n + 1} \lvert z_k \rvert ^2}.
+       \end{align*}
+
+  * :math:`F` の臨界点は :math:`F_*: T_x \mathbb CP^n \to \mathbb R` がゼロとなる
+    :math:`x \in \mathbb CP^n` である。
+
+  * ヘッセ行列を求める。
+
+* ほとんどすべての射影がモース関数である (p. 107)。
+
+* 問題 5.4.8: 問題 5.2.5 の続き。後回しにしたい。
+
+  * 同じ記号を引き続き用いる上で、次の仮定を追加する：
+
+    * :math:`i: M \to \mathbb R^N` を包含写像、
+    * :math:`\operatorname{pr}_2: \mathbb R^N \to \mathbb R^N` を第二成分への射影、
+    * :math:`L: \mathbb R^N \to \mathbb R` を線形写像 :math:`{\displaystyle L(\boldsymbol x) = \sum_{i = 1}^N a_i x_i}` とする。
+
+  * :math:`\boldsymbol a \in \mathbb R^N` が :math:`\operatorname{pr}_2|X` の正則値であることと、
+    :math:`L \circ i` がモース関数であることは同値である。
 
 5.5 サードの定理の証明の概略（展開）
 ----------------------------------------------------------------------
-TBW
+証明のアウトラインが記されている。どうも測度論、例えばフビニの定理の知識を要するようだ。
 
 5.6 モース関数の存在の証明の概略（展開）
 ----------------------------------------------------------------------
-TBW
+定理 5.2.3 と問題 5.4.8 を合わせるとモース関数の存在を示すことができる (p. 111)。
 
 5.7 関数の空間、写像の空間（展開）
 ----------------------------------------------------------------------
