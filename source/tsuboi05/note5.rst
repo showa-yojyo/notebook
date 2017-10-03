@@ -100,7 +100,12 @@
 * 例題 5.2.1: コンパクトハウスドルフ空間は `正規空間 <http://mathworld.wolfram.com/NormalSpace.html>`__ である。
 
   * 位相空間論の教科書を参照する。
-  * まず一点 vs 閉集合について証明する。それから普通の閉集合 vs 閉集合について証明する。
+  * まず `正則空間 <http://mathworld.wolfram.com/RegularSpace.html>`__ であること、すなわち一点 vs 閉集合について証明する。
+
+    * 実はパッと読んだ時点で「？」だったが、有限開被覆 :math:`\{U_{y_i}\}` の各開集合の点 :math:`y_i` に対応して
+      被覆 :math:`V_{y_i} \owns x_0` が決まるということが気付かなかっただけだった。
+
+  * それから普通の閉集合 vs 閉集合について証明する。
 
 * 例題 5.2.2: コンパクトハウスドルフ空間 :math:`X` の開被覆 :math:`\{U_i\}` に対し、
   次のような開被覆 :math:`\{V_i\}` が存在する：
@@ -108,28 +113,22 @@
 
   * 位相空間論の教科書を参照する。証明方針は次のような感じだ：
   * コンパクト性により、有限開被覆 :math:`\{U_1, \dotsc, U_k\}` が :math:`\{U_i\}` から選べる。
-    証明のポイントは元の開被覆を有限開被覆とそれ以外のものとに分けて扱うことにある。
 
-  * 開集合 :math:`V_i` を次のようにとる：
+  * 帰納法の部分のメモ
 
-    .. math::
-       :nowrap:
+    * :math:`V_1, \dotsc, V_{j - 1}` が :math:`\overline{V_p} \subset U_p\ (p = 1, \dotsc, j - 1)`,
+      :math:`{\displaystyle X = \bigcup_{i = 1}^{j - 1}V_i \cup \bigcup_{i = j}^k U_i}` が成り立っていると仮定する。
 
-       \begin{align*}
-       V_i = \left\{
-       \begin{array}{ll}
-       U_i & (i = 1, \dotsc, k),\\
-       \varnothing & (otherwise)
-       \end{array}
-       \right.
-       \end{align*}
+    * 閉集合 :math:`{ \displaystyle K_j = X \setminus \left(\bigcup_{i = 1}^{j - 1} V_i \cup \bigcup_{i = j + 1}^k U_i\right) \subset U_j}`
+      を考える（部分となることは式を展開すると納得できる）。
 
-  * 閉集合 :math:`{ \displaystyle K_j = X \setminus \left(\bigcup_{i = 1}^j V_i \cup \bigcup_{i = j + 1}^k U_i\right)}`
-    を考える（何か :math:`V_i` 周りの記号が帰納法の提示の関係でわかりにくい。ノートをミスったか）。
-    例題 5.2.1 により次のような開集合 :math:`V_j, W_j` が（帰納法により）存在する：
-    :math:`K_j \subset V_j, X \setminus U_j \subset W_j, V_j \cap W_j = \varnothing`
+    * :math:`K_j \cap (X \setminus U_j) = \varnothing` だから（集合の部分からその集合を差し引くのだから）、
+      例題 5.2.1 で見た正規空間の性質によって次のような開集合 :math:`V_j, W_j` が（帰納法により）存在する：
+      :math:`K_j \subset V_j, X \setminus U_j \subset W_j, V_j \cap W_j = \varnothing`
 
-  * このとき :math:`\overline{V_i} \subset U_i` かつ :math:`\bigcup V_i = X` となっている。
+  * このとき :math:`\overline{V_i} \subset U_i` かつ
+    :math:`{\displaystyle X = \bigcup_{i = 1}^j V_i \cup \bigcup_{i = j + 1}^k U_i}`
+    となっている。
 
 * 定理 5.2.3: コンパクト多様体はユークリッド空間に埋め込める。
 
@@ -235,7 +234,7 @@
   * 問題 2.5.1 では図のソリッドな曲線が臨界値となっている。
   * これらによると、アウトラインが大体臨界値であるということが推測される。
 
-* 例題 5.3.6: 1 の分割
+* 例題 5.3.6: `1 の分割 <http://mathworld.wolfram.com/PartitionofUnity.html>`__
 
   * :math:`M, \{(U_i, \varphi_i)\}` をそれぞれコンパクト多様体とその座標近傍系とする。
   * :math:`\exists \lambda_i: M \to \mathbb R\ s.t. \lambda_i \in C^\infty(M),\ 0 \le \lambda_i(x) \le 1,\ \operatorname{supp} \lambda_i \subset U_i.`
