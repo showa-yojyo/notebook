@@ -351,7 +351,117 @@
 
 5.7 関数の空間、写像の空間（展開）
 ----------------------------------------------------------------------
-TBW
+関数空間 :math:`C^\infty(M)` の位相を何か定義して、コンパクト多様体上のモース関数の性質を述べたい。
+
+以下で使用する記号として
+
+* :math:`\{(U_i, \varphi_i = (x_1^{(i)}, \dotsc, x_n^{(i)}))\}` を有限座標近傍系、
+* :math:`V_i \subset \overline{V_i} \subset U_i,\ \{V_i\}_{i = 1, \dotsc, k}` を開被覆
+
+とする。
+
+目標は :math:`C^r` 位相というものを定めること、つまり関数 :math:`f \in C^\infty(M)` の
+:math:`\varepsilon > 0` 近傍 :math:`N_\varepsilon^r = N_\varepsilon^r(f, \{V_i\})` を定めること。
+
+.. math::
+   :nowrap:
+
+   \begin{gather*}
+   N_\varepsilon^r(f, \{V_i\}) = \left\{
+       f + h \in C^\infty(M)
+       \mid s \le r,\ 
+       \lVert D^s((h \circ \varphi_i^{-1})|\varphi_i(\overline{V_i})) \rVert < \varepsilon
+   \right\}.
+   \end{gather*}
+
+「ヤコビ行列の :math:`s \le r` 乗のノルムが抑えられる」の意。
+ノルムが具体的に何であるかを述べていない気がする。何か読み落としているか？
+
+* 補題 5.7.1: 有限座標近傍系を別のものにしても :math:`C^r` 位相は等しい。
+
+  証明に使用する記号を定義しておく。
+
+  * 別の座標近傍系をダッシュを付けて表し、座標は :math:`y_i` で表す。
+  * 座標変換をいつものように :math:`\gamma_{ij} = (\varphi_i \circ \varphi_j^{-1})|\varphi_j'(U_i \cap U_j')` で表す。
+    :math:`h \circ \varphi_j'^{-1} = (h \circ \varphi_i^{-1}) \circ \gamma_{ij}` のようになる。
+
+  帰納法で示せば良いようだ。
+
+  * :math:`r = 0` のときは成り立つ（単位行列のノルムは普通は 1 だと思うが？）
+  * :math:`r = 1` のとき：
+
+    * :math:`D(h \circ \varphi_j'^{-1}) = D(h \circ \varphi_i^{-1}) \circ \gamma_{ij} D\gamma_{ij}` であり、
+    * そして :math:`N_\varepsilon^1(f, \{V_i\}) \subset N_K^1(f, \{V_i'\})` を満たす
+      :math:`\varepsilon` に依存する正の数 :math:`K` が下のようにしてとれるので成り立つ：
+
+      .. math::
+         :nowrap:
+
+         \begin{gather*}
+         K = \max_{i, j}
+         \max_{x \in \varphi_j'(\overline{V_i} \cap \overline{V_j}')}
+         \lVert D\gamma_{ij(x)}\rVert.
+         \end{gather*}
+
+      添字が有限個であることと、各 :math:`\overline{V_i} \cap \overline{V_j}'` がコンパクトであることによる。
+
+  * :math:`r = 2` のときは p. 104 のような（ここにはとても記せられない）計算をして
+    :math:`N_\varepsilon^2(f, \{V_i\}) \subset N_K^2(f, \{V_i'\})` を満たす
+    :math:`\varepsilon` 依存の正数 :math:`K` を取れることを示す。
+
+  * 一般の :math:`r = s` のときは、chain rule を順次実行して、
+    上記の場合の成立を根拠に成り立つことを示す。
+
+    * `ファー・ディ・ブルーノの公式 <http://mathworld.wolfram.com/FaadiBrunosFormula.html>`__
+      という、合成写像の高次の微分を書き下すやり方がある。
+
+* 定義 5.7.2: コンパクト多様体に関する関数空間 :math:`f \in C^\infty(M)` の :math:`C^r` 位相。
+* 注意 5.7.3: コンパクトでない多様体の場合について。
+* 定理 5.7.4: :math:`f \in C^\infty(M)` の :math:`C^2` 位相で、モース関数全体は開かつ稠密。
+
+コンパクト多様体間の写像全体の空間 :math:`C^\infty(M, N)` についても :math:`C^r` 位相を考えられる。
+
+* 多様体 :math:`N` の有限局所座標系を :math:`\{(W_j, \psi_j)\}` とする。
+
+  * このとき次のような開被覆 :math:`\{V_{ji}\}` が存在するのであった：
+    :math:`V_{ji} \subset \overline{V_{ji}} \subset U_i \cap F^{-1}(W_j).`
+
+  * 開近傍の取り方は次のようになる：
+
+    .. math::
+       :nowrap:
+
+       \begin{gather*}
+       N_\varepsilon^r(F, \{V_{ji}\}, \{W_j\}) = \left\{
+           H \in C^\infty(M, N)
+           \mid s \le r,\ 
+           \forall i, j,
+           \lVert D^s((\psi_j \circ H \circ \varphi_i^{-1} - \psi_j \circ F \circ \varphi_i^{-1})|\varphi_i(\overline{V_{ji}})) \rVert < \varepsilon
+       \right\}.
+       \end{gather*}
+
+    :math:`\varphi_i(\overline{V_{ji}})` はコンパクトゆえ、上の長い関数 :math:`\varphi_i(\overline{V_{ji}}) \to \psi_j(V_j) \subset \mathbb R^n`
+    に近い :math:`C^\infty` 写像の像は :math:`\psi_j(V_j)` にあり、微分が定義できる。
+
+  * :math:`C^r` 位相は各有限座標近傍系のとり方によらない。
+
+写像の空間の開かつ稠密な集合は横断性を考えることで与えられる (p. 115)。
+
+* 定理 5.7.6: 横断性定理。
+  :math:`C^\infty(M, N)` の :math:`C^1` 位相において、
+  :math:`N` の部分多様体 :math:`L` を横断的な写像は開かつ稠密である。
+
+  * :math:`F \in C^\infty(M, N)` について :math:`F(x) \in L` ならば
+    :math:`F_x(T_x(M)) + T_{F(x)}L = T_{F(x)}N` が成り立つものの性質に関する定理。
+
+  * 証明では線形代数の何かをまず利用する。
+  * 途中、サードの定理を必要とする。
+
+* 注意 5.7.7: :math:`F: M \to N` が :math:`L \subset N` と横断的ならば、
+  :math:`F^{-1}(L)` は :math:`M` の余次元が :math:`L` のそれに等しいような部分多様体である。
+
+* 注意 5.7.8: これは何を言っているのかわからない。
+  包含写像の一方を近似する写像と取り替えると横断的となるとは？
 
 5.8 第 5 章の問題の解答
 ----------------------------------------------------------------------
