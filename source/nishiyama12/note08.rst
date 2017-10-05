@@ -8,51 +8,74 @@
 
 第 8 章 軌道空間の幾何的構造
 ======================================================================
-ノートが上手くとれていない。
 
 8.1 等質空間
 ----------------------------------------------------------------------
-等質空間
-  位相群 G の閉部分群 H による商空間 G/H のこと。
+* 定義 8.1: `推移的な作用 <http://mathworld.wolfram.com/TransitiveGroupAction.html>`__
 
-推移的
-  群 G が空間 X への推移的作用であるとは、
-  :math:`\forall x, y \in X, \exists g \in G such that gx = y` であることを言う。
-
-  * X 自身が一つの G 軌道である。
+  * 群 :math:`G` が空間 :math:`X` への推移的作用であるとは、
+    :math:`\forall x, y \in X, \exists g \in G s.t. gx = y` であることを言う。
+  * :math:`X` 自身が一つの :math:`G` 軌道である。
   * :math:`\Omega_{G}(X)` と :math:`X/G` は一点からなる。
 
-固定部分群
-  :math:`G_x = \lbrace g \in G \mid gx = x \rbrace` を x の固定部分群という。
+* 定義 8.2: `固定部分群 <http://mathworld.wolfram.com/IsotropyGroup.html>`__
 
-  :math:`G = \bigsqcup aG_x (a \in G/G_x)` を右剰余類を用いた軌道分解という。
+  * :math:`G_x = \lbrace g \in G \mid gx = x \rbrace` を :math:`x \in X` の固定部分群という。
+  * :math:`G_x` による :math:`G` への右移動による作用では
+    :math:`G/G_x = \{aG_x \mid a \in G\}` は右剰余類の空間である。
+    :math:`G = \bigsqcup aG_x (a \in G/G_x)` を右剰余類を用いた軌道分解という。
 
-* 定理 8.3: G が位相空間 X に連続かつ推移的に作用しているならば、X の任意の元 x に対して
-  写像 :math:`G/G_x \longrightarrow X` が存在して、それは連続かつ全単射である。
+* 定理 8.3: 連続な全単射 :math:`\mu: G/G_x \to X` の存在
 
-* 定理 8.6: :math:`G/G_x \cong X` を紹介するだけか。詳細がわからない。
-* 例 8.7: :math:`G = \mathit{SO}_3(\mathbb{R})` の :math:`S^2 \subset \mathbb{R}^3` への作用。
-  球面の「北極」の固定部分群を求めると、これが :math:`G = \mathit{SO}_2(\mathbb{R})` と同型であることがわかるので、
-  先の定理より :math:`\mathit{SO}_3(\mathbb{R}) / \mathit{SO}_2(\mathbb{R}) \cong S^2` が結論できる。
+  * ここで :math:`G` は連続群、
+    :math:`X` は位相空間、作用は連続かつ推移的であるものと仮定する。
 
-* 例 8.8: 複素平面上の単位円について
+  * 証明としては :math:`\mu(gG_x) = gx` とすればこれが次のことを満たせばよい：
+
+    * :math:`\mu` が well-defined である。
+    * :math:`\mu` が全単射である。
+
+      * 全射であることを示すのに作用が推移的であることを必要とする。
+
+    * :math:`\mu` が連続である。
+
+      * 商写像 :math:`\pi: G \to G/G_x` を考えて :math:`\mu` との合成写像を考える。
+        開集合 :math:`U \subset X` の逆像が開集合であることを示すのに、
+        作用が連続であることを必要とする。
+
+* 例 8.4: 上記の連続な全単射は一般には微分同相とはならない。
+
+* 定義 8.5: `等質空間 <http://mathworld.wolfram.com/HomogeneousSpace.html>`__
+
+  * 連続群 :math:`G` の閉部分群 :math:`H` による商空間 :math:`G/H` のこと。
+
+* 定理 8.6: ある条件が満たされていれば :math:`G/G_x \cong X`
+
+  * 証明なし。
+
+* 例 8.7: :math:`\mathit{SO}_3(\mathbb{R}) / \mathit{SO}_2(\mathbb{R}) \cong S^2`
+
+  * :math:`G = \mathit{SO}_3(\mathbb{R})` の :math:`S^2 \subset \mathbb{R}^3` への作用。
+  * 球面の「北極」の固定部分群を求めると、これが :math:`G = \mathit{SO}_2(\mathbb{R})` と同型であることがわかるので、
+    先の定理より結論できる。
+
+* 例 8.8: :math:`\mathbb R/\mathbb Z \cong S^1`,
+  :math:`\mathbb R^2/\mathbb Z^2 \cong (\mathbb R/\mathbb Z) \times (\mathbb R/\mathbb Z) \cong S^1 \times S^1 \times T^1`
 
   * 実数を加法群とみなして :math:`e^{2 \pi i \xi} (\xi \in \mathbb{R})` の乗算によって作用している。
   * 1 の固定部分群が整数である。
-  * よって :math:`G/\mathbb{Z} \cong S^1`
+  * トーラスも固定部分群を :math:`\lbrace (2 \pi n, 2 \pi m) \mid n, m \in \mathbb{Z} \rbrace` とすれば
+    :math:`\mathbb{R}^2/\mathbb{Z}^2 \cong S^1 \times S^1`
 
-トーラスも固定部分群を :math:`\lbrace (2 \pi n, 2 \pi m) \mid n, m \in \mathbb{Z} \rbrace` とすれば
-:math:`\mathbb{R}^2/\mathbb{Z}^2 \cong S^1 \times S^1`
+* 例 8.9: 曲面 :math:`x^2 + y^2 - z^2 = k`
 
-* 例 8.9: 曲面 :math:`x^2 + y^2 - z^2 = k` ただし k は実数。
-
-  * k が正ならば一葉双曲面（連結）
-  * k が負ならばニ葉双曲面
+  * :math:`k > 0` ならば一葉双曲面（連結）
+  * :math:`k < 0` ならばニ葉双曲面
   * :math:`G = O_{21}(\mathbb{R})` が自然に作用している。
-  * :math:`Q = {}^t\xi \operatorname{diag}(1, 1, -1) \xi` とすると :math:`Q(g \xi) = Q(\xi)` なので、
-    この二次形式は G の作用による不変式。つまり双曲面上の点は双曲面上の点に移る。
+  * :math:`Q = {}^t\!\xi \operatorname{diag}(1, 1, -1) \xi` とすると :math:`Q(g \xi) = Q(\xi)` なので、
+    この二次形式は :math:`G` の作用による不変式。つまり双曲面上の点は双曲面上の点に移る。
 
-  * k が 1 のとき（以下、曲面を :math:`X_1` とする）
+  * :math:`k = 1` のとき（以下、曲面を :math:`X_1` とする）
 
     * :math:`O_{21}(\mathbb{R})` は :math:`X_1` に推移的に作用する。
     * スペースの都合でここには成分を記せないが、
@@ -62,19 +85,40 @@
         断面の双曲線に沿った動き。
 
     * :math:`X_1` のパラメーター表示が得られた。
-    * この後、点 (1, 0, 0) に関する固定部分群を求めて、定理 8.6 を用いて
+    * この後、点 :math:`(1, 0, 0)` に関する固定部分群を求めて、定理 8.6 を用いて
       :math:`X_1 \cong O_{21}(\mathbb{R}) / O_{11}(\mathbb{R})` を導く。
       :math:`I_{11} = \operatorname{diag}(1, -1)`
 
     * 結論: 一葉双曲面は連結であり、唯一の軌道からなる。
 
-  * k が -1 のときは :math:`X_{-1} \cong O_{21}(\mathbb{R}) / O_2(\mathbb{R})` が成り立つ。
+  * :math:`k = -1` のときは :math:`X_{-1} \cong O_{21}(\mathbb{R}) / O_2(\mathbb{R})` が成り立つ。
     連結ではなく、唯一の軌道からなる。
 
-  * k が 0 のときは見てくれどおり
+  * :math:`k = 0` のときは見てくれどおり
     :math:`\lbrace 0 \rbrace \sqcup X_0 \setminus \lbrace 0 \rbrace` だとしか言えない。
 
-TODO: 8.1 最後の鏡映の話がノートから漏れた。
+* 演習 8.10: 実は :math:`a_t \in SO_{2,1}(\mathbb R)` が成り立つ：
+
+  .. math::
+     :nowrap:
+
+     \begin{align*}
+     a_t = 
+     \left(
+     \begin{array}{ c c c}
+     \cosh t & 0 & \sinh t\\
+     0 & 1 & 0\\
+     \sinh t & 0 & \cosh t
+     \end{array}
+     \right)
+     \in O_{2,1}(\mathbb R).
+     \end{align*}
+
+* 演習 8.11: :math:`X_1` のパラメーター表示
+
+  :math:`x = \cos \theta \cosh t, y = \sin \theta \cosh t, z = \sinh t,\ 0 \le \theta < 2\pi, t \in \mathbb R`
+
+* 系 8.12: :math:`\mathbb P^2(\mathbb R) \cong O_3(\mathbb R)/(O_2(\mathbb R) \times O_1(\mathbb R))`
 
 8.2 同伴ファイバー束
 ----------------------------------------------------------------------
@@ -118,7 +162,123 @@ TODO: 8.1 最後の鏡映の話がノートから漏れた。
 
   * 同伴ファイバー束と球面の接束 :math:`TS^2` は同一視できる。
 
-.. todo:: 8.3 and 8.4
+8.3 二次曲線と直線の配置問題
+----------------------------------------------------------------------
+次のものはしばらく使う記号と用語：
+
+* :math:`Sym_3^\circ (\mathbb R)`: 正則な :math:`Sym_3(\mathbb R)` の行列全て。
+* :math:`X = Sym_3(\mathbb R) \times (\mathbb R^3 \setminus \{(0, 0, 0)\})` を考える対象の空間とし、
+* :math:`\varphi(g)(Q, w) = (gQ{}^t\!g, gw),\ g \in G, (Q, w) \in X` を作用とする。
+
+  * テーマ別に :math:`G` を変える。
+
+軌道空間 :math:`\Omega_G(X)` を求めるには :math:`G(\operatorname{diag}(\pm 1, \pm 1, \pm 1), w)` 形の軌道を求めれば十分。
+
+* 符号数 :math:`(p, q)` の :math:`Sym_3(\mathbb R)` の部分を :math:`Sym_3^{(p, q)}(\mathbb R)` で表す。
+
+  * :math:`Sym_3^+(\mathbb R) := Sym_3^{(3, 0)}(\mathbb R)` の元を正定値対称行列、
+  * :math:`Sym_3^-(\mathbb R) := Sym_3^{(0, 3)}(\mathbb R)` の元を負定値対称行列と呼ぶ。
+
+:math:`\displaystyle Sym_3^\circ (\mathbb R) = \bigsqcup_{p + q = 3} Sym_3^{(p,\ q)}(\mathbb R)` である。
+
+8.3.1 直交群の軌道
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* 補題 8.15: 例 7.3 のおさらい
+
+  * :math:`X` は 9 次元の空間で、軌道 :math:`G(E, re_1)` はその中で 8 次元の超曲面の一部となっている。
+
+* 定理 8.16: :math:`G = GL_3(\mathbb R)` の :math:`X` への作用
+
+  * :math:`K = O_3(\mathbb R)` とおく。
+
+  * 点 :math:`(\operatorname{diag}(1, 1, 1), re_1) \in X` の軌道 :math:`G(\operatorname{diag}(1, 1, 1), re_1)` について
+    同型 :math:`G(\operatorname{diag}(1, 1, 1), re_1) \cong G \times_K S_r` が成り立つ。
+
+    * 右辺は :math:`G/K \cong Sym_3^+(\mathbb R)` 上の半径 :math:`r` の球面
+      :math:`S_r` をファイバーとする同伴ファイバー束を表す。
+
+  * :math:`\dim G(\operatorname{diag}(1, 1, 1), re_1) = \dim G/K + \dim S_r = 6 + 2 = 8`
+  * 証明は写像 :math:`\Psi([g, w]) = (g{}^t\!g, gw)` について次を示す：
+
+    #. :math:`\Psi` が well-defind であること
+    #. :math:`\Psi` が全単射であること
+    #. :math:`\Psi` が微分同相であること（接空間のチェック）
+
+8.3.2 不定値直交群の場合
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+不定値二次形式 :math:`Q(w) = x^2 + y^2 - z^2 = {}^t\!w \operatorname{diag}(1, 1, -1) w = 0` に関する
+軌道が :math:`G(\operatorname{diag}(1, 1, -1), w)` の形のものを考える。
+
+* :math:`H = O_{2, 1}(\mathbb R)` によって :math:`w \in \mathbb R^3 \setminus \{0\}` を動かすことによって
+  表 (8.7) を得る。
+
+* 定理 8.17: :math:`Hyp_k := \{[x : y : z] \mid x^2 + y^2 - z^2 = k\}` とおくと次が成り立つ。
+
+  .. math::
+     :nowrap:
+
+     \begin{align*}
+     G((\operatorname{diag}(1, 1, -1), re_1)    & \cong G \times_H Hyp_{r^2}\\
+     G((\operatorname{diag}(1, 1, -1), r + e_3) & \cong G \times_H Hyp_0\\
+     G((\operatorname{diag}(1, 1, -1), re_3)    & \cong G \times_H Hyp_{-r^2}
+     \end{align*}
+
+  上から一葉双曲面、開零錐、ニ葉双曲面。
+
+残る議論は :math:`Q` の代わりに :math:`-Q` を考えればよい。
+
+8.3.3 二次曲線と直線
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+:math:`Q(\xi) = 0` と直線 :math:`w \cdot \xi = 0\ (w \in \mathbb R^3 \setminus \{0\})` を考える。
+
+* 考えるべき作用は :math:`\varphi(g, s, t)(Q, w) = (sgQ{}^t\!g, tgw),\ g \in G, s, t \in \mathbb R^\times` である。
+  ここで :math:`G_1 = G \times \mathbb R \times \mathbb R` とおく。
+
+  * 先ほど言ったように正定値か符号数 :math:`(2, 1)` の :math:`Q` だけを考えればよい。
+    さらに正定値の場合は二次曲線は（実数上では）空集合になるので除外する。
+
+  * :math:`G_1` の軌道の代表元はやはり
+    :math:`G(\operatorname{diag}(1, 1, -1), re_1),\ G((\operatorname{diag}(1, 1, -1), r + e_3),\ G((\operatorname{diag}(1, 1, -1), re_3)` しかない。
+    それぞれ：
+
+    * 直線と二点で交わる、
+    * 直線と接する、
+    * 直線と交わらない、
+
+    となる。
+
+8.4 円とトーラス
+----------------------------------------------------------------------
+* 例 8.8 をさらに考える。
+* :math:`\mathbb Z` や :math:`\mathbb Z^2` のような群を格子群という。
+
+8.4.1 円と三角関数
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+:math:`G = \mathbb Z,\ X = \mathbb R, \varphi(m)x = x + 2\pi m` とする。
+当然ながら :math:`Gx = \{x + 2\pi m \mid m \in \mathbb Z\}` であり、前に述べたように :math:`\mathbb R/\mathbb Z \cong S^1` である。
+
+* 商写像 :math:`p: \mathbb R \to \mathbb R/2\pi \mathbb Z \cong S^1` を :math:`p(x) = (\cos x, \sin x)` で定める。
+* 関数 :math:`\cos x` や :math:`\sin x` は :math:`\mathbb R` 上の :math:`\mathbb Z` 不変な関数であると言っている。
+
+* 定理 8.18: フーリエ級数定理
+
+  * :math:`f(x)` は :math:`\mathbb R` 上の :math:`\mathbb Z` 不変な :math:`C^2` 級関数であると仮定しているが、
+    級数の絶対収束性を要求しなければ、有界変動の連続関数であればよい。
+
+    * フーリエ級数やルベーグ積分の教科書を参照。
+
+  * 関数 :math:`\cos x` や :math:`\sin x` は :math:`G` 不変式の生成元だと言っている。
+
+:math:`\displaystyle \frac{1}{\sin x}` の部分分数分解や :math:`\sin x` の無限乗積展開に :math:`G` の作用が表れる。
+
+8.4.2 トーラスと楕円関数
+----------------------------------------------------------------------
+これまでの議論における :math:`\mathbb R^2` と :math:`\mathbb Z^2` をそれぞれ
+:math:`\mathbb C` と :math:`L = L(\omega_1, \omega_2) = \{m\omega_1 + n\omega_2 \mid m, n \in \mathbb Z\}` に置き換えて考える。
+
+ただし :math:`\displaystyle \frac{\omega_1}{\omega_2} \notin \mathbb R,\ \frac{\omega_1}{\omega_2} \in \mathfrak H` となるように複素数二つを取る。
+
+TBW
 
 ----
 
