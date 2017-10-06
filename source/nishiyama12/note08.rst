@@ -177,7 +177,8 @@
 * 符号数 :math:`(p, q)` の :math:`Sym_3(\mathbb R)` の部分を :math:`Sym_3^{(p, q)}(\mathbb R)` で表す。
 
   * :math:`Sym_3^+(\mathbb R) := Sym_3^{(3, 0)}(\mathbb R)` の元を正定値対称行列、
-  * :math:`Sym_3^-(\mathbb R) := Sym_3^{(0, 3)}(\mathbb R)` の元を負定値対称行列と呼ぶ。
+  * :math:`Sym_3^-(\mathbb R) := Sym_3^{(0, 3)}(\mathbb R)` の元を
+    `負定値対称行列 <http://mathworld.wolfram.com/NegativeDefiniteMatrix.html>`__ と呼ぶ。
 
 :math:`\displaystyle Sym_3^\circ (\mathbb R) = \bigsqcup_{p + q = 3} Sym_3^{(p,\ q)}(\mathbb R)` である。
 
@@ -278,7 +279,113 @@
 
 ただし :math:`\displaystyle \frac{\omega_1}{\omega_2} \notin \mathbb R,\ \frac{\omega_1}{\omega_2} \in \mathfrak H` となるように複素数二つを取る。
 
-TBW
+* :math:`(L, +)` は群であり、加法群 :math:`\mathbb Z` と同型。
+* :math:`(L, +) \subset (\mathbb C, +)` は部分群。
+* :math:`T = T(\omega_1, \omega_2) = \mathbb C/L` は
+
+  * 位相空間としてはトーラスであり、
+  * 加法群であり、
+  * 複素多様体である。
+
+* トーラスは楕円曲線と同型である。これを示すのに複素平面上で :math:`L` 不変な関数を構成したい。
+  `次の関数 <http://mathworld.wolfram.com/WeierstrassEllipticFunction.html>`__ について考察する：
+
+  .. math::
+     :nowrap:
+
+     \begin{align*}
+     \wp(z) = \frac{1}{z^2} + \sum_{\omega \in L \setminus \{0\}}\left(\frac{1}{(z + \omega)^2} - \frac{1}{\omega^2}\right).
+     \end{align*}
+
+  これは :math:`z \notin L` において絶対広義一様収束する。
+
+* 定理 8.19: 関数 :math:`\wp` の性質
+
+  * :math:`\wp` は :math:`\mathbb C` 上の :math:`L` 不変な有理型関数である。
+  * 極は :math:`L` にあって、
+  * どの極も 2 位である。
+
+  証明としては、単に与式を微分すればよい。絶対収束性から項別微分できて
+
+  .. math::
+     :nowrap:
+
+     \begin{align*}
+     \wp'(z) = -2 \sum_{\omega \in L}\frac{1}{(z + \omega)^3}.
+     \end{align*}
+
+  * まずは :math:`z = 0` が 2 位の極であることがわかる。
+  * :math:`\wp'(z + \omega) = \wp'(\omega)\quad(\omega \in L)` により
+    :math:`\wp(z + \omega) - \wp(z)` が定数であることが言える。
+
+* 補題 8.20: 関数 :math:`\wp` は偶関数
+
+  * :math:`-L = L` が効く。
+    :math:`\wp(z + \omega_1) = \wp(z + \omega_2) = \wp(z)` が言える。
+    :math:`\omega_1, \omega_2` が :math:`L` の生成元であるので :math:`\forall \omega \in L,\ \wp(z + \omega) = \wp(z).`
+
+  * 先ほど :math:`z = 0` が 2 位の極であることがわかったので、これを :math:`L` で写した
+    :math:`\forall \omega \in L` も同様。
+
+  * 導関数 :math:`\wp'(z)` も :math:`L` 不変な有理型関数である。
+
+* 定理 8.21
+
+  .. math::
+     :nowrap:
+
+     \begin{gather*}
+     \wp'(z)^2 = 4 \wp(z)^3 - g_2 \wp(z) - g_3,\quad
+         g_2 = 60\!\sum_{\omega \in L \setminus \{0\}} \omega^{-4},\ 
+         g_3 = 140\!\sum_{\omega \in L \setminus \{0\}} \omega^{-6}.
+     \end{gather*}
+
+  証明はテイラー展開を考える。
+  左辺マイナス右辺を評価すると、:math:`L` 不変性と全平面で有界であることからこれが定数となることが言える。
+  原点に注目すると左辺マイナス右辺はゼロであることが結論できる。
+
+写像 :math:`R: \mathbb C \to \mathbb C^2` を :math:`R(z) = (\wp(z), \wp'(z))` で定義すると、
+これは :math:`L` 不変ではあるのだが、:math:`\wp` の極が :math:`\infty` となる問題があるのでそのままでは使えない。
+代わりに写像 :math:`E: \mathbb C \setminus L \to \mathbb P^2(\mathbb C)`, :math:`E(z) = [\wp(z), \wp'(z), 1]` を考える。
+
+* :math:`E(z) = [z^3 \wp(z), z^3\wp'(z), z^3] \to [0 : -2 : 0] = [0 : 1 : 0] (z \to 0)` ゆえ（各成分を定数倍した）、
+  :math:`E(0) = [0 : 1 : 0]` と定義する。
+
+* これで商写像 :math:`E: \mathbb C / L \to \overset{\sim}{\mathscr C} (zy^2 = 4x^3 - g_2xz^2 - g_3z^3)` が定義できた。
+
+  * この :math:`z = 1` における曲線を `楕円曲線 <http://mathworld.wolfram.com/EllipticCurve.html>`__ と言う。
+
+* 定理 8.22: :math:`\overset{\sim}{\mathscr C} \cong \mathbb C/L`, 楕円曲線は群である、等々。
+* 演習 8.23: 積分
+
+  * :math:`f(z)` を :math:`L` 不変な有理型関数、
+  * :math:`\omega_1, \omega_2` が生成する平行四辺形の周を
+    :math:`\varepsilon` だけずらした閉曲線を :math:`C_\varepsilon`
+
+  とする。このとき :math:`C_\varepsilon` が :math:`f(z)` の極を含まなければ、
+  この閉曲線に沿った関数の積分値はゼロとなる。
+
+* 演習 8.24: 同じ状況で、閉曲線が囲む領域内で :math:`f(z) = c` となる点の個数は位数分の重複を込めて
+  領域内の極の個数と等しい。
+
+  * 閉曲線上では :math:`f(z) \ne c` を仮定する。
+  * 偏角の原理を用いる。
+
+* 演習 8.25: 分離
+
+  * :math:`(\wp(z), \wp'(z))` は上記閉曲線内部の点をすべて分離する。すなわち商写像は一対一である。
+
+* 演習 8.26: `リーマン球面 <http://mathworld.wolfram.com/RiemannSphere.html>`__
+
+  * :math:`\sqrt{4z^3 - g_2z - g_3}` はリーマン球面上で 4 つの分岐点があり、
+    `リーマン面 <http://mathworld.wolfram.com/RiemannSurface.html>`__ はトーラスになる。
+
+* 演習 8.27: 楕円積分
+
+  * 有理関数 :math:`R(x, y)` について積分 :math:`\displaystyle \int R(x, \sqrt{4x^3 - g_2x - g_3})dx` は
+    置換積分法により :math:`\displaystyle \int R(\wp(z), \wp'(z))\wp'(z)dz` である。
+
+  * 楕円関数の逆関数 :math:`\displaystyle \wp^{-1}(z) = \int \frac{dx}{\sqrt{4x^3 - g_2x - g_3}}` を楕円積分という。
 
 ----
 
