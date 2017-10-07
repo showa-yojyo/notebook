@@ -387,7 +387,7 @@
 
   帰納法で示せば良いようだ。
 
-  * :math:`r = 0` のときは成り立つ（単位行列のノルムは普通は 1 だと思うが？）
+  * :math:`r = 0` のときは :math:`N_\varepsilon^0(f_i, \{V_i\}) = N_\varepsilon^0(f_i, \{V_i'\})` は成り立つ（なぜ？）
   * :math:`r = 1` のとき：
 
     * :math:`D(h \circ \varphi_j'^{-1}) = D(h \circ \varphi_i^{-1}) \circ \gamma_{ij} D\gamma_{ij}` であり、
@@ -404,6 +404,8 @@
          \end{gather*}
 
       添字が有限個であることと、各 :math:`\overline{V_i} \cap \overline{V_j}'` がコンパクトであることによる。
+
+      * 行列のノルムを :math:`\displaystyle \lVert A \rVert = \sup_{x \ne 0}\frac{\lVert A \boldsymbol{x} \rVert}{ \lVert \boldsymbol{x} \rVert}` とする。
 
   * :math:`r = 2` のときは p. 104 のような（ここにはとても記せられない）計算をして
     :math:`N_\varepsilon^2(f, \{V_i\}) \subset N_K^2(f, \{V_i'\})` を満たす
