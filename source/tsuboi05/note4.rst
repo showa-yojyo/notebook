@@ -324,10 +324,10 @@
 
 * 問題 4.4.5: 直交群 :math:`O(n)` は多様体である。
 
-  * 写像 :math:`C: A \mapsto {}^tAA` を考える。直交群は「単位元の逆像」となる。
+  * 写像 :math:`C: A \mapsto {}^t\!AA` を考える。直交群は「単位元の逆像」となる。
   * 微分を考える。
-    :math:`DC_{(A)}X = {}^tXA + {}^tAX` という形をよく見ると二つの写像
-    :math:`X \mapsto {}^AX` と :math:`X \mapsto {}^tX + X` の合成であることに気付く。
+    :math:`DC_{(A)}X = {}^t\!XA + {}^t\!AX` という形をよく見ると二つの写像
+    :math:`X \mapsto {}^AX` と :math:`X \mapsto {}^t\!X + X` の合成であることに気付く。
 
     * 前者の写像のランクは :math:`n^2` である。
     * 後者の写像のランクは :math:`{ \displaystyle \frac{n(n + 1)}{2}}` である。

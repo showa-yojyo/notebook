@@ -39,11 +39,11 @@
 
        \begin{align*}
        R_v(\alpha) & = I \cos \alpha
-                    + (1 - \cos \alpha) \boldsymbol{v} \cdot {}^t\boldsymbol{v}
+                    + (1 - \cos \alpha) \boldsymbol{v} \cdot {}^t\!\boldsymbol{v}
                     + \sin \alpha (\boldsymbol{v} \times \boldsymbol{e_1}\quad
                                    \boldsymbol{v} \times \boldsymbol{e_2}\quad
                                    \boldsymbol{v} \times \boldsymbol{e_3}),\\
-       S_u & = I - 2 \boldsymbol{u} \cdot {}^t\boldsymbol{u}
+       S_u & = I - 2 \boldsymbol{u} \cdot {}^t\!\boldsymbol{u}
        \end{align*}
 
 * 例 3.7: 巡回群 :math:`\mathbb Z / n \mathbb Z` の表現は一次元で

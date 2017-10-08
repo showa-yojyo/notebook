@@ -37,9 +37,9 @@
 10.2 2 次曲面と点の配置空間
 ----------------------------------------------------------------------
 2 次曲面
-  :math:`{}^t\mathbf{x} S \mathbf{x} = 0`,
+  :math:`{}^t\!\mathbf{x} S \mathbf{x} = 0`,
   :math:`S \in \mathit{Sym}_{n + 1}(\mathbb{C})`,
-  :math:`{}^t\mathbf{x} = (x_0, \cdots, x_n)` は同次座標で
+  :math:`{}^t\!\mathbf{x} = (x_0, \cdots, x_n)` は同次座標で
   :math:`\det S \ne 0`
 
 最大階数の行列
@@ -53,7 +53,7 @@
 
 * :math:`m \le n` とする。
 
-  * 作用 :math:`\rho(g)(S, A) = ({}^t g^{-1} S g^{-1}, gA)`
+  * 作用 :math:`\rho(g)(S, A) = ({}^t\! g^{-1} S g^{-1}, gA)`
   * :math:`\mathit{Sym}_{n + 1}^{\circ}(\mathbb{C}) \times \mathit{M}_{n + 1, m}^{\circ}(\mathbb{C}) / (\mathit{GL}_{n + 1}(\mathbb{C}) \times T^m)`
     が非退化 2 次曲面と :math:`\mathbb{P}^{n}(\mathbb{C})` の m 点配置を表す。
 

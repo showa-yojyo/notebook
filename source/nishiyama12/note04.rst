@@ -129,7 +129,7 @@
      :nowrap:
 
      \begin{align*}
-     F(x, y) = {}^tvAv,\quad
+     F(x, y) = {}^t\!vAv,\quad
      A = \left(
      \begin{array}{ c c c }
        a & b & d \\
@@ -148,7 +148,7 @@
 
 * 対称行列全体を :math:`\operatorname{Sym}_3(\mathbb R)` で表す（これを二次曲線全体とみなしてよい）。
 
-* 定理 4.14: 作用 :math:`E_2^\curvearrowright \operatorname{Sym}_3(\mathbb R): A \mapsto {}^tg^{-1}Ag^{-1}` の不変式環
+* 定理 4.14: 作用 :math:`E_2^\curvearrowright \operatorname{Sym}_3(\mathbb R): A \mapsto {}^t\!g^{-1}Ag^{-1}` の不変式環
   :math:`\mathbb C[\operatorname{Sym}_3(\mathbb R)]^{E_2}` は
   :math:`a + c, ac - b^2, \det A` から生成される。
 

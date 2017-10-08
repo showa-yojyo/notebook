@@ -139,7 +139,7 @@
    \begin{gather*}
    A = \left(\begin{array}{c c}
    X     & u\\
-   {}^t u & f
+   {}^t\! u & f
    \end{array}\right),\
    \det A \ne 0,
    X = \left(\begin{array}{c c}
@@ -151,10 +151,10 @@
    e
    \end{array}\right),\
    \\
-   A \mapsto {}^tgAg = 
+   A \mapsto {}^t\!gAg = 
    \left(\begin{array}{c c}
-   {}^thXh         & {}^tXv + {}^thu\\
-   {}^tXh + {}^tuh & f + {}^tXv + 2u \cdot v
+   {}^t\!hXh         & {}^t\!Xv + {}^t\!hu\\
+   {}^t\!Xh + {}^tuh & f + {}^t\!Xv + 2u \cdot v
    \end{array}\right).
    \end{gather*}
 
@@ -175,8 +175,8 @@
      \end{align*}
 
   * 相対有理不変式。
-  * 証明方針は、不変量の定義式で :math:`\Delta \leftarrow \Delta (gA) = \det({}^tg^{-1}Ag^{-1})`,
-    :math:`X \leftarrow {}^th^{-1}Xh^{-1}` として計算すればよい。
+  * 証明方針は、不変量の定義式で :math:`\Delta \leftarrow \Delta (gA) = \det({}^t\!g^{-1}Ag^{-1})`,
+    :math:`X \leftarrow {}^t\!h^{-1}Xh^{-1}` として計算すればよい。
 
   * :math:`P_2` の符号で曲線の形状を分類できることは書いたが、
     この符号はアフィン変換が保存することがわかったと言っている。
