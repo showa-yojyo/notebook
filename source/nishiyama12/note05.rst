@@ -48,7 +48,7 @@
        f(gx) = \chi_f(g) f(x)\quad(x \in X)
        \end{align*}
 
-    * このとき :math:`\chi_f: G \to \mathbb C` を指標という。
+    * このとき :math:`\chi_f: G \longrightarrow \mathbb C` を指標という。
 
       * 指標は一次元表現である。
       * 例えば行列式の性質 :math:`\det(AB) = \det A \det B` は指標の性質であるといえる。

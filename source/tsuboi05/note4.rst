@@ -21,7 +21,7 @@
         :nowrap:
 
         \begin{align*}
-        \mathcal{C}_{x_0} := \lbrace c_i: (a_i,\ b_i) \to M \mid c_i(t_i) = x_0 \rbrace _{i \in I}
+        \mathcal{C}_{x_0} := \lbrace c_i: (a_i,\ b_i) \longrightarrow M \mid c_i(t_i) = x_0 \rbrace _{i \in I}
         \end{align*}
 
   #. 次にこの一点を含む座標近傍 :math:`(U, \varphi)` をとって、
@@ -68,7 +68,7 @@
 
 * 接ベクトル空間は実ベクトル空間である。
 * 曲線族の曲線に :math:`\mathbb{R}^n` の接ベクトルを対応させる写像は
-  全単射 :math:`\varphi_{*}: \mathcal{C}_{x_0} / \sim \to \mathbb{R}^n` を誘導する。
+  全単射 :math:`\varphi_{*}: \mathcal{C}_{x_0} / \sim \longrightarrow \mathbb{R}^n` を誘導する。
 * 単射であることは同値類の定義から従う。
 * 全射であることについて。これを示すのに面白い技法を使う。
 
@@ -129,10 +129,10 @@
 4.3 接写像
 ----------------------------------------------------------------------
 接写像
-  :math:`F \in C^\infty(M, N),\ x \in M,\ c: (a, b) \to M,\ c(t_0) = x` を仮定する。
-  点 :math:`F(x) \in N` を通る曲線 :math:`F \circ c: (a, b) \to N,\ (F \circ c)(t_0) = F(x)` という具合になる。
+  :math:`F \in C^\infty(M, N),\ x \in M,\ c: (a, b) \longrightarrow M,\ c(t_0) = x` を仮定する。
+  点 :math:`F(x) \in N` を通る曲線 :math:`F \circ c: (a, b) \longrightarrow N,\ (F \circ c)(t_0) = F(x)` という具合になる。
   接ベクトルを接ベクトルに対応させられる。
-  このことから線形写像 :math:`F_*: T_x \to T_{f(x)} N` が定義できる。
+  このことから線形写像 :math:`F_*: T_x \longrightarrow T_{f(x)} N` が定義できる。
   この写像 :math:`F_*` を接写像という。
 
   * <多様体の間の写像の微分を接空間から接空間への線形写像として定義したもの> だ。
@@ -146,7 +146,7 @@
 * 例題 4.3.1: ただし :math:`M` のコンパクト集合 :math:`K` 上で :math:`F|K` が単射ならば、
   近傍 :math:`V` から :math:`F(V)` への微分同相となる。
 
-  * :math:`F|U_x: U_x \to V_{F(x)}` が微分同相となるような近傍 :math:`U_x \subset U_i` は存在する（∵逆写像定理）。
+  * :math:`F|U_x: U_x \longrightarrow V_{F(x)}` が微分同相となるような近傍 :math:`U_x \subset U_i` は存在する（∵逆写像定理）。
   * この近傍 :math:`U_x` はその閉包がコンパクトになるように取れる（らしい）。
   * :math:`K` の開被覆 :math:`\{U_x\}_{x \in K}` は有限開被覆 :math:`\{U_{x_k}\}_{k = 0,\dots\,k_0}` を持つ（∵コンパクト）。
 
@@ -165,7 +165,7 @@
   * :math:`W = \bigcup_k U_{x_k}^m` とおくと
     :math:`W_1 \supset \overline{W_2} \supset W_2 \supset \dots,\ \bigcap\overline{Q_m} = K` とできる。
 
-  * するとある番号があって :math:`F: W_m \to F(W_m)` が単射となる（背理法と完備性を利用する）。
+  * するとある番号があって :math:`F: W_m \longrightarrow F(W_m)` が単射となる（背理法と完備性を利用する）。
 
 * 問題 4.3.2: 商空間 :math:`\mathbb R^2/\mathbb Z^2`
 
@@ -225,7 +225,7 @@
      * これは微分同相の定義を確認するだけで済む。
        :math:`L_g \circ L_{g^{-1}} = L_{g^{-1}} \circ L_g = \operatorname{id}_G`
 
-  #. 接写像 :math:`T_{(g, h)}(G \times G) \to T_{gh}G` のランク。
+  #. 接写像 :math:`T_{(g, h)}(G \times G) \longrightarrow T_{gh}G` のランク。
 
      * 群の多様体次元と一致することを示すわけだが、ヒントから何をしていいかわからない。
      * 定数関数 :math:`G \owns c_g: g \mapsto a \in \mathbb R` を取る。
@@ -245,7 +245,7 @@
 
   #. 逆元を取る演算は :math:`C^\infty` 級である。
   
-     * 陰関数定理、逆元写像の接写像 :math:`T_(g, g^{-1})(G \times G) \to T_1 G` グラフ？
+     * 陰関数定理、逆元写像の接写像 :math:`T_(g, g^{-1})(G \times G) \longrightarrow T_1 G` グラフ？
 
 4.4 部分多様体
 ----------------------------------------------------------------------
@@ -266,7 +266,7 @@
   座標近傍系の同値類について注意しておく。
 
 はめ込み
-  写像 :math:`F: M \to N` に対し、接写像 :math:`F_*` のランクが
+  写像 :math:`F: M \longrightarrow N` に対し、接写像 :math:`F_*` のランクが
   任意の :math:`x \in M` に対して :math:`\dim M\ (\dim M < \dim N)` となるとき、
   この写像ははめ込みであるという。
 
@@ -289,7 +289,7 @@
   * TODO: ここはノートが特にダメ。やり直し。
 
   * 多様体が :math:`N_1, N_2`, それらの部分多様体が :math:`M_1, M_2`,
-    写像が :math:`F: N_1 \to N_2` で、誘導される写像が :math:`G: M_1 \to M_2` であるような図を入れたい。
+    写像が :math:`F: N_1 \longrightarrow N_2` で、誘導される写像が :math:`G: M_1 \longrightarrow M_2` であるような図を入れたい。
 
   * :math:`F(M_1) \subset F(M_2)` とする（？）
 
@@ -298,7 +298,7 @@
 
   * 残りの座標成分のほうを考える。
     :math:`(x_1, \dotsc, x_p) \circ F \circ \varphi^{-1}` が :math:`C^\infty` 級となる。
-    したがって :math:`G: M_1 \to M_2` も :math:`C^\infty` 級となる。
+    したがって :math:`G: M_1 \longrightarrow M_2` も :math:`C^\infty` 級となる。
 
 * 問題 4.4.4: :math:`GL_2(\mathbb R)` と :math:`SL_n(\mathbb R)`
 
@@ -309,7 +309,7 @@
       :math:`M_n(\mathbb R)` の開集合であることを注意している。
 
     * SL について。まず定義を書き下してみると :math:`SL_n(\mathbb R) = \{A \in GL_n(\mathbb R) \mid \det A = 1\}` だ。
-      そこでこの空間を「写像」 :math:`\det: GL_n(\mathbb R) \to \mathbb R` における「単位元の逆像」とみなす。
+      そこでこの空間を「写像」 :math:`\det: GL_n(\mathbb R) \longrightarrow \mathbb R` における「単位元の逆像」とみなす。
 
     * :math:`\det` のヤコビ行列なるものを考える。余因子展開を意識することで
       :math:`\det(x_{ij}) = \sum x_{ij} A_{ij}` のように書かれるから、
@@ -373,15 +373,15 @@
      ハウスドルフとなる理由（面倒）：
 
      * 射影をいくつか定義して、その合成写像による商空間の開集合の逆像もまた開集合であることを示し、
-       :math:`Y \to X` に連続写像が存在することを示せる。
+       :math:`Y \longrightarrow X` に連続写像が存在することを示せる。
      * 次に、直和から商空間への射影二種 :math:`p_x, p_y` を適宜制限して同相写像を得る。
-     * 写像 :math:`P^{-1}: (p_x(V_i)) \to p_x(V_i) \times \mathbb R^n` が同相であることを示す。
+     * 写像 :math:`P^{-1}: (p_x(V_i)) \longrightarrow p_x(V_i) \times \mathbb R^n` が同相であることを示す。
      * 最後に問題 3.5.3 を利用する。
 
   接束はベクトル束の一種である (pp. 85-86)。
 
 * 問題 4.5.2: :math:`F \in C^\infty(M, N)` の引き起こす接束の間の写像
-  :math:`F_*: TM \to TN` は :math:`C^\infty` 級である。
+  :math:`F_*: TM \longrightarrow TN` は :math:`C^\infty` 級である。
 
 * 問題 4.5.3: ユークリッド空間内の多様体 :math:`M \subset \mathbb R^N` に対して
   :math:`TM` と :math:`X = \{(x, v) \mid x in M, v \in T_x M\}` は微分同相である。

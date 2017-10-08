@@ -571,7 +571,7 @@ Commutator に基づくため wedge 積が出現しないことによる。
 例を示す。
 
 ベクトル場 :math:`X = -y \frac{\partial}{\partial x} + x \frac{\partial}{\partial y}` の
-積分曲線 :math:`\gamma: (t_0, t_1) \to M (M \subset \mathbb{R}^2)` をそれぞれの関数を用いて求める。
+積分曲線 :math:`\gamma: (t_0, t_1) \longrightarrow M (M \subset \mathbb{R}^2)` をそれぞれの関数を用いて求める。
 
 .. code-block:: ipython
 

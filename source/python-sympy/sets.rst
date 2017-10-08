@@ -327,7 +327,7 @@ Python 組み込みの :code:`range` とよく似ている集合。
      In [4]: D.issubset(S.Reals * S.Reals)
      Out[4]: False
 
-  * [2] 写像 :math:`f: \mathbb{R}^2 \to \mathbb{R}^2` を
+  * [2] 写像 :math:`f: \mathbb{R}^2 \longrightarrow \mathbb{R}^2` を
     :math:`f: (r, \theta) \mapsto (r \cos \theta, r \sin \theta)` で定義する。
   * [3] :math:`[0, 1] \times [0, 2 \pi)` の f による像を計算する。
     それらしいオブジェクトが得られる。

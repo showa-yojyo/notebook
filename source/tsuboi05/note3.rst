@@ -34,7 +34,7 @@
     （ハットの部分は除去を意味する記法）。
 
   * 開集合 :math:`U_i^\pm` をすべて合併させると曲面全体を覆う。
-  * 写像 :math:`\varphi_i^\pm: Q \to \mathbb{R}^{n - 1}` はちょっとした計算により同相写像であることを示せる。
+  * 写像 :math:`\varphi_i^\pm: Q \longrightarrow \mathbb{R}^{n - 1}` はちょっとした計算により同相写像であることを示せる。
   * 座標変換 :math:`\varphi_i^\sigma \circ (\varphi_j^\tau)^{-1}` が :math:`C^{\infty}` 級であることも同様にして示せる。
 
 * 例 3.1.6: 多様体の直積、直和はどちらも多様体となる。次のようにして位相が定まる：
@@ -67,12 +67,12 @@
     * 各 :math:`\varphi_i^\pm` は対応する :math:`U_i^\pm` 上で連続となり、
       逆写像もまた連続となる。これで同相写像であることは言える。
 
-    * 次に座標変換 :math:`\varphi_j^+(U_i^- \cap U_j^+) \to \varphi_i^-(U_i^- \cap U_j^+)` などを計算して、
+    * 次に座標変換 :math:`\varphi_j^+(U_i^- \cap U_j^+) \longrightarrow \varphi_i^-(U_i^- \cap U_j^+)` などを計算して、
       これらがすべて滑らかであることを示す。
 
   * 後半は射影空間が多様体であることを示す。
 
-    * 射影 :math:`p: S^n \to \mathbb{R}P^n;\quad [x] \mapsto \lbrace x, -x \rbrace` は同値類への写像となる。
+    * 射影 :math:`p: S^n \longrightarrow \mathbb{R}P^n;\quad [x] \mapsto \lbrace x, -x \rbrace` は同値類への写像となる。
     * 局所座標系 :math:`\lbrace (V_i, \varphi_i) \rbrace` を次のように定義する。
 
       .. math::
@@ -120,10 +120,10 @@
 
   * 考察する写像
 
-    * :math:`p: Z \to \mathbb{R}; \quad (x, y) \mapsto y`
-    * :math:`\underline{p}: Y \to \mathbb{R}; \quad [x, y] \mapsto y`
-    * :math:`f^\pm: \mathbb{R} \to Z; \quad y \mapsto (\pm 1, y)`
-    * :math:`p_Y: Z \to Y;` （射影）
+    * :math:`p: Z \longrightarrow \mathbb{R}; \quad (x, y) \mapsto y`
+    * :math:`\underline{p}: Y \longrightarrow \mathbb{R}; \quad [x, y] \mapsto y`
+    * :math:`f^\pm: \mathbb{R} \longrightarrow Z; \quad y \mapsto (\pm 1, y)`
+    * :math:`p_Y: Z \longrightarrow Y;` （射影）
 
   * 合成写像 :math:`p_Y \circ f_\pm` を考える。
     :math:`Y_\pm := (p_Y \circ f_\pm)(\mathbb{R})` とおくと、
@@ -170,9 +170,9 @@
   * 対象となる空間は :math:`Z = \mathbb{R}^2 \setminus \lbrace (0, 0) \rbrace,\ S = Z / \sim`
   * これはまだ理解していないが、
     :math:`(x, y) \in Z` に対して開区間 :math:`{ \displaystyle I =  \left( \cfrac{1}{\sqrt{a}}x, \sqrt{a}x \right)}` を導入する。
-  * 写像 :math:`p_s: Z \to S` を射影とする。
-  * 写像 :math:`i: I \times \mathbb{R} \subset Z \to Z` を包含写像とする。
-  * 写像 :math:`s: W := (p_s \circ i)(I \times \mathbb{R}) \to I \times \mathbb{R}` を代表元を取る写像として構成したい。
+  * 写像 :math:`p_s: Z \longrightarrow S` を射影とする。
+  * 写像 :math:`i: I \times \mathbb{R} \subset Z \longrightarrow Z` を包含写像とする。
+  * 写像 :math:`s: W := (p_s \circ i)(I \times \mathbb{R}) \longrightarrow I \times \mathbb{R}` を代表元を取る写像として構成したい。
 
     .. math::
        :nowrap:
@@ -216,7 +216,7 @@
 
 * 例題 3.3.6: :math:`\mathbb{R}P^n = S^n / \lbrace \pm 1 \rbrace = (\mathbb{R}^{n + 1} \setminus \lbrace 0 \rbrace) / \mathbb{R}^\times`
 
-  * 次のような写像 :math:`f: \mathbb{R}^{n + 1} \setminus \lbrace 0 \rbrace \to \mathbb{R}` をまず定義し、
+  * 次のような写像 :math:`f: \mathbb{R}^{n + 1} \setminus \lbrace 0 \rbrace \longrightarrow \mathbb{R}` をまず定義し、
     これが well-defined であることを確認する。
 
     .. math::
@@ -251,8 +251,8 @@
 ここでは :math:`s \le r` とする。
 
 :math:`C^s` 級
-  写像 :math:`F: M_1 \to m_2` が :math:`C^s` 級 であるとは、
-  写像 :math:`\psi \circ F \circ \varphi^{-1}: \varphi(U) \to \psi(V)` が :math:`C^s` 級 であることとする。
+  写像 :math:`F: M_1 \longrightarrow m_2` が :math:`C^s` 級 であるとは、
+  写像 :math:`\psi \circ F \circ \varphi^{-1}: \varphi(U) \longrightarrow \psi(V)` が :math:`C^s` 級 であることとする。
 
 微分同相写像
   写像 :math:`F_1 \text{or} F_2` が微分同相写像であるとは、
@@ -310,7 +310,7 @@
 
 * 例題 3.5.1: 座標近傍の同相写像がまた同相写像となる。
 
-  * :math:`\gamma_{ij}: \varphi_j(U_i \cap U_j) \to \varphi_i(...)` を
+  * :math:`\gamma_{ij}: \varphi_j(U_i \cap U_j) \longrightarrow \varphi_i(...)` を
     :math:`\gamma_{ij} = \varphi_i \circ (\varphi_j|U_i \cap U_j)^{-1}` で定義する。
     このとき :math:`\varphi_k(U_i \cap U_j \cap U_k)` 上は
     :math:`\gamma_{ij} \circ \gamma_{jk} = \gamma_{ik}` となる。
@@ -343,7 +343,7 @@
 
   #. ここで :math:`X = (\bigsqcup V_i / \sim)` がハウスドルフであれば、多様体となるといえる。
 
-     * 射影 :math:`p: \bigsqcup V_i \to X` を考える。
+     * 射影 :math:`p: \bigsqcup V_i \longrightarrow X` を考える。
        :math:`V_i` と :math:`p(V_i)` が同相である。
        代表元を取る写像を :math:`s_i` とすると、次のようにして連続であることがわかる：
 
@@ -361,11 +361,11 @@
      例題 3.5.1 の記号を流用すると、
 
      * 写像 :math:`\iota: x_i \in V_i \mapsto \varphi_i^{-1}(x_i)` を考える。
-       このとき、誘導される写像 :math:`\underline{\iota}: X \to M` は連続となる。
+       このとき、誘導される写像 :math:`\underline{\iota}: X \longrightarrow M` は連続となる。
 
        なぜなら :math:`x_i \in V_{ij}, \iota(\gamma_{ji}(x_i)) = \iota(x_i)` だから。
 
-     * 写像 :math:`p \circ \varphi_i: U_i \to p(V_i)` は同相の合成で同相。
+     * 写像 :math:`p \circ \varphi_i: U_i \longrightarrow p(V_i)` は同相の合成で同相。
 
      * :math:`\underline{\iota} \circ (p \circ \varphi_i) = \operatorname{id}_{U_i}` かつ
        :math:`(p \circ \varphi_i) \circ (\underline{\iota} \mid p(V_i)) = \operatorname{id}_{p(V_i)}` となるので、
@@ -381,7 +381,7 @@
 * 問題 3.5.3: ファイバー束
 
   * :math:`E, B, F` を位相空間とする。
-  * 写像 :math:`p: E \to B` は連続とする。
+  * 写像 :math:`p: E \longrightarrow B` は連続とする。
   * :math:`\forall b \in B` に対する開近傍を :math:`U_b` とする。
   * 直積 :math:`U_b \times F` の第一成分への射影を :math:`\operatorname{pr}_1` とする。
 
@@ -415,8 +415,8 @@
     このとき :math:`M` 自身がすでに向き付け可能。
 
   * :math:`M` が向き付け不可能で連結であっても :math:`\widehat{M}` は向き付け可能。
-  * :math:`P: \widehat{M} \to M` において :math:`P^{-1}(y)` の二点を入れ替える写像
-    :math:`F: \widehat{M} \to \widehat{M}` は、向き付けを反対にする微分同相写像だ。
+  * :math:`P: \widehat{M} \longrightarrow M` において :math:`P^{-1}(y)` の二点を入れ替える写像
+    :math:`F: \widehat{M} \longrightarrow \widehat{M}` は、向き付けを反対にする微分同相写像だ。
 
 * 例 3.6.2: 実射影空間は多様体次元の偶数奇数によって向き付け可能性が決まる。
   偶数次元は向きが付けられない。

@@ -15,7 +15,7 @@
 * 微分同相写像で互いに写り合う多様体同士を同じものと考える (p. 123)。
 
 アイソトピー
-  :math:`t \in [0, 1]` に対して連続的に変化する微分同相写像 :math:`F_t: M \to M` で、
+  :math:`t \in [0, 1]` に対して連続的に変化する微分同相写像 :math:`F_t: M \longrightarrow M` で、
   :math:`F_0 = \operatorname{id}_M` を満たすものを `アイソトピー <http://mathworld.wolfram.com/Isotopy.html>`__ という。
 
   * :math:`\mathbb R \times M` の :math:`[0, 1] \times M` への制限。

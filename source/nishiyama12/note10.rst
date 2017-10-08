@@ -103,7 +103,7 @@
      \rbrace
      \end{align*}
 
-  #. 等質空間の全単射 :math:`\mathit{GL}(V)/P_{(d, n - d)} \to Gr_d(V)` が存在する。
+  #. 等質空間の全単射 :math:`\mathit{GL}(V)/P_{(d, n - d)} \longrightarrow Gr_d(V)` が存在する。
   #. この全単射を利用して :math:`Gr_d(V)` に位相を入れる（複素多様体）。
 
 * 定理 10.11
@@ -120,7 +120,7 @@
 目標はグラスマン多様体を高次の射影空間に埋め込むことだ。
 
 プリュッカー座標
-  プリュッカー座標とは、次の写像 :math:`\mathscr{P}: \mathit{M}_{4, 2}^{\circ}(\mathbb{C}) \to \mathbb{P}^5(\mathbb{C})` の値を言う。
+  プリュッカー座標とは、次の写像 :math:`\mathscr{P}: \mathit{M}_{4, 2}^{\circ}(\mathbb{C}) \longrightarrow \mathbb{P}^5(\mathbb{C})` の値を言う。
 
   .. math::
      :nowrap:

@@ -93,19 +93,19 @@
 * （用語）横断的、接超平面 or 接空間
 
   * 直線は :math:`\lbrace \boldsymbol{x^0} + t\boldsymbol{v^0} \mid t \in \mathbb{R}\rbrace` または
-    ランクが n - 1 の何らかの線形写像 :math:`A: \mathbb{R}^n \to \mathbb{R}^{n - 1}` と
+    ランクが n - 1 の何らかの線形写像 :math:`A: \mathbb{R}^n \longrightarrow \mathbb{R}^{n - 1}` と
     何らかの定点 :math:`\boldsymbol{y} \in \mathbb{R}^{n - 1}` を用いて
     :math:`\lbrace \boldsymbol{x} \in \mathbb{R}^n \mid A\boldsymbol{x} = \boldsymbol{y} \rbrace` として書かれる。
 
     * 定点を変化させると平行な直線族が得られる。
 
   * 超平面は :math:`\lbrace \boldsymbol{x} \in \mathbb{R}^n \mid L\boldsymbol{x} = a\rbrace` と書かれる。
-    ただし :math:`L: \mathbb{R}^n \to \mathbb{R}` と :math:`a \in \mathbb{R}` は
+    ただし :math:`L: \mathbb{R}^n \longrightarrow \mathbb{R}` と :math:`a \in \mathbb{R}` は
     何らかのゼロでない線形写像と、何らかの実数であるとする。
 
   ここまでが用語を定義するための舞台設定。
 
-  * 超曲面 :math:`S` の局所的パラメーター表示 :math:`\Phi: W \to \mathbb{R}^n`
+  * 超曲面 :math:`S` の局所的パラメーター表示 :math:`\Phi: W \longrightarrow \mathbb{R}^n`
     と上記 :math:`A` と近傍内の点 :math:`u^0 \in W` とを取る。
 
     * :math:`A D\Phi_{(u^0)}` が正則である場合、上記直線族は :math:`\boldsymbol{x^0} = \Phi(u^0)` の近傍で

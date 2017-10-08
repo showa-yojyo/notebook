@@ -57,7 +57,7 @@
   #. :math:`\nu|K(x) = 1`
   #. :math:`\operatorname{supp} \nu` が :math:`U` のコンパクト集合である。
 
-* 注意 5.1.4 の :math:`\nu f: M \to \mathbb R,\ \nu|K = f|K` の意味とは？
+* 注意 5.1.4 の :math:`\nu f: M \longrightarrow \mathbb R,\ \nu|K = f|K` の意味とは？
 
 ここまでの議論で、多様体上には多くの :math:`C^\infty` 級関数が存在することがわかった。
 
@@ -144,7 +144,7 @@
   * ここで :math:`\Phi = (\mu_1, \nu_1 \varphi_1, \dotsc, \mu_k, \nu_k \varphi_k)` とおくと、
     これが多様体から :math:`\mathbb R^{k(n + 1)}` への埋め込みとなる：
 
-    * 定理 4.4.2 の上にある説明により :math:`\Phi_*: T_xM \to \mathbb R^{k(n + 1)}` のランクが
+    * 定理 4.4.2 の上にある説明により :math:`\Phi_*: T_xM \longrightarrow \mathbb R^{k(n + 1)}` のランクが
       :math:`n` で :math:`\Phi` が単射であるから。
 
       * ランクが :math:`n` であることは :math:`(\nu_i \varphi_i | V_i) \circ \varphi_i^{-1} = id_{\varphi_i(V_i)}` から示せる。
@@ -213,10 +213,10 @@
 
 * 例 5.3.3: メビウス帯の像、ホイットニーの傘、クロスキャップ
 
-* <写像 :math:`F: M \to N` が与えられ、:math:`N` の形と :math:`F^{-1}(y)\ (y \in N)` の形が理解できれば、
+* <写像 :math:`F: M \longrightarrow N` が与えられ、:math:`N` の形と :math:`F^{-1}(y)\ (y \in N)` の形が理解できれば、
   :math:`M` の形がわかることが期待できる> (p. 101)
 
-  * 写像 :math:`F` については :math:`F_*|T_xM \to T_{F(x)}N` のランクが :math:`\dim N` であるようなものがよいと思われる。
+  * 写像 :math:`F` については :math:`F_*|T_xM \longrightarrow T_{F(x)}N` のランクが :math:`\dim N` であるようなものがよいと思われる。
     こういう :math:`x` とそれに対応する :math:`y` はそれぞれ正則点、正則値であるという。
 
     * 言葉に引っ張られないように。正則「値」と言っても多様体上の点を指している。
@@ -237,7 +237,7 @@
 * 例題 5.3.6: `1 の分割 <http://mathworld.wolfram.com/PartitionofUnity.html>`__
 
   * :math:`M, \{(U_i, \varphi_i)\}` をそれぞれコンパクト多様体とその座標近傍系とする。
-  * :math:`\exists \lambda_i: M \to \mathbb R\ s.t. \lambda_i \in C^\infty(M),\ 0 \le \lambda_i(x) \le 1,\ \operatorname{supp} \lambda_i \subset U_i.`
+  * :math:`\exists \lambda_i: M \longrightarrow \mathbb R\ s.t. \lambda_i \in C^\infty(M),\ 0 \le \lambda_i(x) \le 1,\ \operatorname{supp} \lambda_i \subset U_i.`
     有限個の添字を除いて :math:`\lambda_i = 0,\ \sum \lambda_i = 1.`
 
   * 証明では例題 5.2.2 およびその元となる各種命題を利用している。
@@ -260,7 +260,7 @@
 
 * 定理 5.4.1: `サードの定理 <http://mathworld.wolfram.com/SardsTheorem.html>`__
 
-  * :math:`C\infty` 級写像 :math:`F: M \to N` の臨界値は測度が 0 である。
+  * :math:`C\infty` 級写像 :math:`F: M \longrightarrow N` の臨界値は測度が 0 である。
 
 * 定義 5.4.2: 非退化、`モース関数 <http://mathworld.wolfram.com/MorseFunction.html>`__
 
@@ -298,7 +298,7 @@
 
 * 問題 5.4.5: :math:`f(x, y) = (2 + \cos y)(a\cos x + b \sin x) + c \sin y,\ ((a, b, c) \ne (0, 0, 0))`
 
-  この関数は :math:`F: \mathbb R^2/(2\pi\mathbb Z)^2 \to \mathbb R` を定義する。
+  この関数は :math:`F: \mathbb R^2/(2\pi\mathbb Z)^2 \longrightarrow \mathbb R` を定義する。
   臨界点の個数が有限となる条件と退化する条件とを求める。
 
   * まずはヤコビ行列を計算する。
@@ -314,7 +314,7 @@
   * :math:`g \in U(1)` に対して :math:`(g, z) \mapsto (gz_1, \dotsc, gz_n)` とすると、これは群の作用となる。
   * :math:`S^{2n + 1} \overset{i}{\longrightarrow} \mathbb C^{n + 1}\setminus\{0\} \overset{p}{\longrightarrow} \mathbb CP^n` のランクはいくらか。
     ただし :math:`i,\ p` は包含写像と射影である。
-  * 次に示す関数は :math:`F: \mathbb CP^n \to \mathbb R` を誘導する：
+  * 次に示す関数は :math:`F: \mathbb CP^n \longrightarrow \mathbb R` を誘導する：
 
     .. math::
        :nowrap:
@@ -323,7 +323,7 @@
        f(z) = \frac{\displaystyle \sum_{k = 1}^{n + 1} k \lvert z_k \rvert ^2}{\displaystyle \sum_{k = 1}^{n + 1} \lvert z_k \rvert ^2}.
        \end{align*}
 
-  * :math:`F` の臨界点は :math:`F_*: T_x \mathbb CP^n \to \mathbb R` がゼロとなる
+  * :math:`F` の臨界点は :math:`F_*: T_x \mathbb CP^n \longrightarrow \mathbb R` がゼロとなる
     :math:`x \in \mathbb CP^n` である。
 
   * ヘッセ行列を求める。
@@ -334,9 +334,9 @@
 
   * 同じ記号を引き続き用いる上で、次の仮定を追加する：
 
-    * :math:`i: M \to \mathbb R^N` を包含写像、
-    * :math:`\operatorname{pr}_2: \mathbb R^N \to \mathbb R^N` を第二成分への射影、
-    * :math:`L: \mathbb R^N \to \mathbb R` を線形写像 :math:`{\displaystyle L(\boldsymbol x) = \sum_{i = 1}^N a_i x_i}` とする。
+    * :math:`i: M \longrightarrow \mathbb R^N` を包含写像、
+    * :math:`\operatorname{pr}_2: \mathbb R^N \longrightarrow \mathbb R^N` を第二成分への射影、
+    * :math:`L: \mathbb R^N \longrightarrow \mathbb R` を線形写像 :math:`{\displaystyle L(\boldsymbol x) = \sum_{i = 1}^N a_i x_i}` とする。
 
   * :math:`\boldsymbol a \in \mathbb R^N` が :math:`\operatorname{pr}_2|X` の正則値であることと、
     :math:`L \circ i` がモース関数であることは同値である。
@@ -442,7 +442,7 @@
        \right\}.
        \end{gather*}
 
-    :math:`\varphi_i(\overline{V_{ji}})` はコンパクトゆえ、上の長い関数 :math:`\varphi_i(\overline{V_{ji}}) \to \psi_j(V_j) \subset \mathbb R^n`
+    :math:`\varphi_i(\overline{V_{ji}})` はコンパクトゆえ、上の長い関数 :math:`\varphi_i(\overline{V_{ji}}) \longrightarrow \psi_j(V_j) \subset \mathbb R^n`
     に近い :math:`C^\infty` 写像の像は :math:`\psi_j(V_j)` にあり、微分が定義できる。
 
   * :math:`C^r` 位相は各有限座標近傍系のとり方によらない。
@@ -459,7 +459,7 @@
   * 証明では線形代数の何かをまず利用する。
   * 途中、サードの定理を必要とする。
 
-* 注意 5.7.7: :math:`F: M \to N` が :math:`L \subset N` と横断的ならば、
+* 注意 5.7.7: :math:`F: M \longrightarrow N` が :math:`L \subset N` と横断的ならば、
   :math:`F^{-1}(L)` は :math:`M` の余次元が :math:`L` のそれに等しいような部分多様体である。
 
 * 注意 5.7.8: これは何を言っているのかわからない。

@@ -25,7 +25,7 @@
     :math:`G/G_x = \{aG_x \mid a \in G\}` は右剰余類の空間である。
     :math:`G = \bigsqcup aG_x (a \in G/G_x)` を右剰余類を用いた軌道分解という。
 
-* 定理 8.3: 連続な全単射 :math:`\mu: G/G_x \to X` の存在
+* 定理 8.3: 連続な全単射 :math:`\mu: G/G_x \longrightarrow X` の存在
 
   * ここで :math:`G` は連続群、
     :math:`X` は位相空間、作用は連続かつ推移的であるものと仮定する。
@@ -39,7 +39,7 @@
 
     * :math:`\mu` が連続である。
 
-      * 商写像 :math:`\pi: G \to G/G_x` を考えて :math:`\mu` との合成写像を考える。
+      * 商写像 :math:`\pi: G \longrightarrow G/G_x` を考えて :math:`\mu` との合成写像を考える。
         開集合 :math:`U \subset X` の逆像が開集合であることを示すのに、
         作用が連続であることを必要とする。
 
@@ -258,7 +258,7 @@
 :math:`G = \mathbb Z,\ X = \mathbb R, \varphi(m)x = x + 2\pi m` とする。
 当然ながら :math:`Gx = \{x + 2\pi m \mid m \in \mathbb Z\}` であり、前に述べたように :math:`\mathbb R/\mathbb Z \cong S^1` である。
 
-* 商写像 :math:`p: \mathbb R \to \mathbb R/2\pi \mathbb Z \cong S^1` を :math:`p(x) = (\cos x, \sin x)` で定める。
+* 商写像 :math:`p: \mathbb R \longrightarrow \mathbb R/2\pi \mathbb Z \cong S^1` を :math:`p(x) = (\cos x, \sin x)` で定める。
 * 関数 :math:`\cos x` や :math:`\sin x` は :math:`\mathbb R` 上の :math:`\mathbb Z` 不変な関数であると言っている。
 
 * 定理 8.18: フーリエ級数定理
@@ -344,14 +344,14 @@
   左辺マイナス右辺を評価すると、:math:`L` 不変性と全平面で有界であることからこれが定数となることが言える。
   原点に注目すると左辺マイナス右辺はゼロであることが結論できる。
 
-写像 :math:`R: \mathbb C \to \mathbb C^2` を :math:`R(z) = (\wp(z), \wp'(z))` で定義すると、
+写像 :math:`R: \mathbb C \longrightarrow \mathbb C^2` を :math:`R(z) = (\wp(z), \wp'(z))` で定義すると、
 これは :math:`L` 不変ではあるのだが、:math:`\wp` の極が :math:`\infty` となる問題があるのでそのままでは使えない。
-代わりに写像 :math:`E: \mathbb C \setminus L \to \mathbb P^2(\mathbb C)`, :math:`E(z) = [\wp(z), \wp'(z), 1]` を考える。
+代わりに写像 :math:`E: \mathbb C \setminus L \longrightarrow \mathbb P^2(\mathbb C)`, :math:`E(z) = [\wp(z), \wp'(z), 1]` を考える。
 
 * :math:`E(z) = [z^3 \wp(z), z^3\wp'(z), z^3] \to [0 : -2 : 0] = [0 : 1 : 0] (z \to 0)` ゆえ（各成分を定数倍した）、
   :math:`E(0) = [0 : 1 : 0]` と定義する。
 
-* これで商写像 :math:`E: \mathbb C / L \to \overset{\sim}{\mathscr C} (zy^2 = 4x^3 - g_2xz^2 - g_3z^3)` が定義できた。
+* これで商写像 :math:`E: \mathbb C / L \longrightarrow \overset{\sim}{\mathscr C} (zy^2 = 4x^3 - g_2xz^2 - g_3z^3)` が定義できた。
 
   * この :math:`z = 1` における曲線を `楕円曲線 <http://mathworld.wolfram.com/EllipticCurve.html>`__ と言う。
 
