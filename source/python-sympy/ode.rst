@@ -126,10 +126,10 @@ SymPy で常微分方程式を解くには、関数 :code:`dsolve` を用いる�
   .. math::
      :nowrap:
 
-     \begin{eqnarray*}
-     x^* &=& X(x, y;\varepsilon) = x + \varepsilon \xi(x, y),\\
-     y^* &=& Y(x, y;\varepsilon) = y + \varepsilon \eta(x, y)
-     \end{eqnarray*}
+     \begin{align*}
+     x^* &=& X(x, y;\eps) = x + \eps \xi(x, y),\\
+     y^* &=& Y(x, y;\eps) = y + \eps \eta(x, y)
+     \end{align*}
 
   * 戻り値は dict の list の型をとる。
     内側の dict は、キーが点変換関数オブジェクトで、

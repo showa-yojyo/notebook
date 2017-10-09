@@ -262,11 +262,11 @@
    :header: オブジェクト, クラス, 名前, 意味
    :widths: 8, 10, 10, 16
 
-   :code:`R2`@Manifold@``'R^2'``@:math:`\mathbb{R}^2`
+   :code:`R2`@Manifold@``'R^2'``@:math:`\RR^2`
    :code:`R2_origin`@Patch@``'origin'``@:code:`R2` のパッチ
    :code:`R2_r`@CoordSystem@``'rectangular'``@:code:`R2_origin` の直交座標系
    :code:`R2_p`@CoordSystem@``'polar'``@:code:`R2_origin` の極座標系
-   :code:`R3`@Manifold@``'R^3'``@:math:`\mathbb{R}^3`
+   :code:`R3`@Manifold@``'R^3'``@:math:`\RR^3`
    :code:`R3_origin`@Patch@``'origin'``@:code:`R3` のパッチ
    :code:`R3_r`@CoordSystem@``'rectangular'``@:code:`R3_origin` の直交座標系
    :code:`R3_c`@CoordSystem@``'cylindrical'``@:code:`R3_origin` の円柱座標系
@@ -490,7 +490,7 @@
    In [7]: domega(R3_r.e_x, R3_r.e_y, R3_r.e_z)
    Out[7]: a*x*y - a*x*z - b*x**2 + 2*b*x*z - 3*x**2 + 6*x*y
 
-* [1]-[4] :math:`\mathbb{R}^3` 上の 1-形式 :code:`omega` のセットアップ。
+* [1]-[4] :math:`\RR^3` 上の 1-形式 :code:`omega` のセットアップ。
 * [5] 内容の確認。ちなみに各単項式の次数が一致していることに気付いて欲しい。
 * [6] 外微分オブジェクト :code:`domega` を生成する。
 * [7] 丸括弧評価。ここが期待通りにならない。
@@ -571,7 +571,7 @@ Commutator に基づくため wedge 積が出現しないことによる。
 例を示す。
 
 ベクトル場 :math:`X = -y \frac{\partial}{\partial x} + x \frac{\partial}{\partial y}` の
-積分曲線 :math:`\gamma: (t_0, t_1) \longrightarrow M (M \subset \mathbb{R}^2)` をそれぞれの関数を用いて求める。
+積分曲線 :math:`\gamma: (t_0, t_1) \longto M (M \subset \RR^2)` をそれぞれの関数を用いて求める。
 
 .. code-block:: ipython
 

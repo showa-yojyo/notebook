@@ -307,7 +307,7 @@ Python 組み込みの :code:`range` とよく似ている集合。
   ただし、結果は元の集合と同じものになる。
 * FiniteSet の元は数に限らない。
 
-* :code:`R2 = S.Reals * S.Reals` または :code:`R2 = S.Reals ** 2` とすれば :math:`\mathbb{R}^2` を表現できる。
+* :code:`R2 = S.Reals * S.Reals` または :code:`R2 = S.Reals ** 2` とすれば :math:`\RR^2` を表現できる。
 
   * :code:`(0, 0) in R2` のようなコードが書ける。
 
@@ -327,10 +327,10 @@ Python 組み込みの :code:`range` とよく似ている集合。
      In [4]: D.issubset(S.Reals * S.Reals)
      Out[4]: False
 
-  * [2] 写像 :math:`f: \mathbb{R}^2 \longrightarrow \mathbb{R}^2` を
+  * [2] 写像 :math:`f: \RR^2 \longto \RR^2` を
     :math:`f: (r, \theta) \mapsto (r \cos \theta, r \sin \theta)` で定義する。
   * [3] :math:`[0, 1] \times [0, 2 \pi)` の f による像を計算する。
     それらしいオブジェクトが得られる。
-  * [4] これはおかしい。:math:`D \subset \mathbb{R}^2` のつもりなのだが。
+  * [4] これはおかしい。:math:`D \subset \RR^2` のつもりなのだが。
 
 .. include:: /_include/python-refs-sci.txt

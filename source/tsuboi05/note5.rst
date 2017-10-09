@@ -18,7 +18,7 @@
      :nowrap:
 
      \begin{align*}
-     \operatorname{supp}f = \overline{\{x \in M \mid f(x) \ne 0\}}
+     \supp{f} = \overline{\{x \in M \mid f(x) \ne 0\}}
      \end{align*}
 
   補集合について次のことが成り立つことに注意する：
@@ -27,7 +27,7 @@
      :nowrap:
 
      \begin{align*}
-     x \in M \setminus \operatorname{supp}F \Leftrightarrow \exists U \owns x: f(U) = \{0\}
+     x \in M \setminus \supp{F} \Leftrightarrow \exists U \owns x: f(U) = \{0\}
      \end{align*}
 
   * 定義上、多様体という条件を位相空間まで緩められる。
@@ -36,8 +36,8 @@
   次のような :math:`M` を定義域とする :math:`C^\infty` 級関数 :math:`\mu` が存在する：
 
   #. :math:`\mu(x) \ge 0`
-  #. :math:`\mu(x_0) > 0, \operatorname{supp} \mu \in V`
-  #. :math:`\operatorname{supp} \mu` がコンパクトである。
+  #. :math:`\mu(x_0) > 0, \supp{\mu} \in V`
+  #. :math:`\supp{\mu}` がコンパクトである。
 
   証明方針：問題 3.7.1 の関数 :math:`\rho(x)` を加工してなんとか関数 :math:`\mu(x)` を構成する。
 
@@ -46,7 +46,7 @@
 
   #. :math:`\nu(x) \ge 0`
   #. :math:`\nu|K(x) > 0`
-  #. :math:`\operatorname{supp} \nu` が :math:`U` のコンパクト集合である。
+  #. :math:`\supp{\nu}` が :math:`U` のコンパクト集合である。
 
   証明方針：定理 5.1.1 の関数 :math:`\mu(x)` をいくつか足して関数 :math:`\nu(x)` を構成する。
 
@@ -55,15 +55,15 @@
 
   #. :math:`0 \le \nu(x) \le 1`
   #. :math:`\nu|K(x) = 1`
-  #. :math:`\operatorname{supp} \nu` が :math:`U` のコンパクト集合である。
+  #. :math:`\supp{\nu}` が :math:`U` のコンパクト集合である。
 
-* 注意 5.1.4 の :math:`\nu f: M \longrightarrow \mathbb R,\ \nu|K = f|K` の意味とは？
+* 注意 5.1.4 の :math:`\nu f: M \longto \RR,\ \nu|K = f|K` の意味とは？
 
 ここまでの議論で、多様体上には多くの :math:`C^\infty` 級関数が存在することがわかった。
 
 * 補題 5.1.5: アダマール。
 
-  :math:`\mathbb R^n` 内の原点の開近傍で定義されている :math:`C^\infty` 級関数 :math:`f` に対して、
+  :math:`\RR^n` 内の原点の開近傍で定義されている :math:`C^\infty` 級関数 :math:`f` に対して、
   次のように書けるような :math:`C^\infty` 関数 :math:`g_k (k = 0, \dotsc, n)` が存在する：
 
   .. math::
@@ -142,9 +142,9 @@
     関数 :math:`\nu_i \varphi_i := (\nu_i x_1^{(i)}, \dotsc, \nu_i x_n^{(i)})` を取ると、これは :math:`C^\infty` 級となる。
 
   * ここで :math:`\Phi = (\mu_1, \nu_1 \varphi_1, \dotsc, \mu_k, \nu_k \varphi_k)` とおくと、
-    これが多様体から :math:`\mathbb R^{k(n + 1)}` への埋め込みとなる：
+    これが多様体から :math:`\RR^{k(n + 1)}` への埋め込みとなる：
 
-    * 定理 4.4.2 の上にある説明により :math:`\Phi_*: T_xM \longrightarrow \mathbb R^{k(n + 1)}` のランクが
+    * 定理 4.4.2 の上にある説明により :math:`\Phi_*: T_xM \longto \RR^{k(n + 1)}` のランクが
       :math:`n` で :math:`\Phi` が単射であるから。
 
       * ランクが :math:`n` であることは :math:`(\nu_i \varphi_i | V_i) \circ \varphi_i^{-1} = id_{\varphi_i(V_i)}` から示せる。
@@ -155,26 +155,26 @@
 ユークリッド空間が利用できるようになったので、内積の話題が出て来るようになる。
 
 法束
-  :math:`\nu M = \{(x, v) \in \mathbb R^N \times \mathbb R^N \mid v \perp T_xM \}`
+  :math:`\nu M = \{(x, v) \in \RR^N \times \RR^N \mid v \perp T_xM \}`
 
   これはユークリッド空間内の :math:`N` 次元多様体になっている。
 
 法空間
-  :math:`\nu_x M = \{v \in \mathbb R^N \mid v \perp T_xM \}`
+  :math:`\nu_x M = \{v \in \RR^N \mid v \perp T_xM \}`
 
 * TODO: (pp. 96-97) の可換図式を何とかここに描きたい。
-* 接束 :math:`TM` が :math:`(V_i \times \mathbb R^n, \gamma_{ij} \times D\gamma_{ij})` から構成されたのと似て、
-  法束 :math:`\nu M` は :math:`(V_i \times \mathbb R^{N - n}, \gamma_{ij} \times A_{ij})` から構成される。
-  ここで :math:`A_{ij_{(x_j)}} \in GL_{N - n}(\mathbb R)` である。
+* 接束 :math:`TM` が :math:`(V_i \times \RR^n, \gamma_{ij} \times D\gamma_{ij})` から構成されたのと似て、
+  法束 :math:`\nu M` は :math:`(V_i \times \RR^{N - n}, \gamma_{ij} \times A_{ij})` から構成される。
+  ここで :math:`A_{ij_{(x_j)}} \in GL_{N - n}(\RR)` である。
 
-* 注意 5.2.4: ユークリッド空間 :math:`\mathbb R^{n + 1}` 内の
+* 注意 5.2.4: ユークリッド空間 :math:`\RR^{n + 1}` 内の
   :math:`n` 次元コンパクト多様体は向き付け可能とある。理屈が飲み込めない。
 
 * 問題 5.2.5: ユークリッド空間に埋め込まれるコンパクト多様体の性質。
   後回しにしたい。
 
   #. 法束は :math:`N` 次元多様体になっている。
-  #. 写像 :math:`(x, y) \mapsto x + y` は :math:`X \cap (\mathbb R^N \times \{0\})` 近傍で微分同相である。
+  #. 写像 :math:`(x, y) \mapsto x + y` は :math:`X \cap (\RR^N \times \{0\})` 近傍で微分同相である。
 
 5.3 :math:`C^\infty` 級写像と多様体の埋め込み、はめ込み
 ----------------------------------------------------------------------
@@ -182,41 +182,41 @@
 
 * 例 5.3.1: 色々なコンパクト多様体
 
-  * 円周、球面は当然ユークリッド空間 :math:`\mathbb R^2` と :math:`\mathbb R^3` にそれぞれ埋め込まれる。
-  * :math:`\mathbb RP^2` は :math:`\mathbb R^3` に埋め込めない。メビウス帯を部分空間として含むことによる。
+  * 円周、球面は当然ユークリッド空間 :math:`\RR^2` と :math:`\RR^3` にそれぞれ埋め込まれる。
+  * :math:`\RR P^2` は :math:`\RR^3` に埋め込めない。メビウス帯を部分空間として含むことによる。
 
 <埋め込みやはめ込みの空間は、数学的に非常に興味深い> (p. 99)
 
 * 例 5.3.2: 円周 :math:`S^1` の埋め込み
 
-  * 円周の :math:`\mathbb R^2` への埋め込みは円板 :math:`D^2` を囲む。
-    :math:`D^2` の :math:`\mathbb R^2` への埋め込みの境界への制限（ジョルダンの閉曲線定理）。
+  * 円周の :math:`\RR^2` への埋め込みは円板 :math:`D^2` を囲む。
+    :math:`D^2` の :math:`\RR^2` への埋め込みの境界への制限（ジョルダンの閉曲線定理）。
 
-  * 円周の :math:`\mathbb R^3` への埋め込みは制限とはならない。分類＝結び目理論。
-  * 円周の :math:`\mathbb R^n\ (n \le 4)` への埋め込みは
-    円板 :math:`D^2` の :math:`\mathbb R^n` への埋め込みの境界への制限。
+  * 円周の :math:`\RR^3` への埋め込みは制限とはならない。分類＝結び目理論。
+  * 円周の :math:`\RR^n\ (n \le 4)` への埋め込みは
+    円板 :math:`D^2` の :math:`\RR^n` への埋め込みの境界への制限。
 
 * 多様体の形を理解するには、超球面 :math:`S^n` などのよくわかる多様体から構成的に理解するのがよい。
 
   * コンパクト連結一次元多様体は :math:`S^1` と微分同相。
-  * コンパクトではない可分な連結一次元多様体は :math:`\mathbb R` と微分同相。
+  * コンパクトではない可分な連結一次元多様体は :math:`\RR` と微分同相。
   * コンパクト連結二次元多様体
 
     * 向き付け可能： :math:`S^2, T^2, \Sigma_2, \Sigma_3, \Sigma_4, \dots`; 有向閉曲面は可算個。
 
-      * 有向閉曲面 :math:`\Sigma_k \subset \mathbb R^3` の定義は p. 100 を参照。
+      * 有向閉曲面 :math:`\Sigma_k \subset \RR^3` の定義は p. 100 を参照。
 
-    * 向き付け不可能： :math:`\mathbb RP^2, K, N_3, N_4, \dots`; 非有向閉曲面は可算個。
+    * 向き付け不可能： :math:`\RR P^2, K, N_3, N_4, \dots`; 非有向閉曲面は可算個。
     
       * :math:`\forall x \in \Sigma_k, -x \in \Sigma_k` なので同値関係を定義して :math:`\Sigma_k/\sim` を定義できる。
         このとき、これは多様体となり非有向閉曲面 :math:`N_{k + 1}` となる。
 
 * 例 5.3.3: メビウス帯の像、ホイットニーの傘、クロスキャップ
 
-* <写像 :math:`F: M \longrightarrow N` が与えられ、:math:`N` の形と :math:`F^{-1}(y)\ (y \in N)` の形が理解できれば、
+* <写像 :math:`F: M \longto N` が与えられ、:math:`N` の形と :math:`F^{-1}(y)\ (y \in N)` の形が理解できれば、
   :math:`M` の形がわかることが期待できる> (p. 101)
 
-  * 写像 :math:`F` については :math:`F_*|T_xM \longrightarrow T_{F(x)}N` のランクが :math:`\dim N` であるようなものがよいと思われる。
+  * 写像 :math:`F` については :math:`F_*|T_xM \longto T_{F(x)}N` のランクが :math:`\dim N` であるようなものがよいと思われる。
     こういう :math:`x` とそれに対応する :math:`y` はそれぞれ正則点、正則値であるという。
 
     * 言葉に引っ張られないように。正則「値」と言っても多様体上の点を指している。
@@ -237,7 +237,7 @@
 * 例題 5.3.6: `1 の分割 <http://mathworld.wolfram.com/PartitionofUnity.html>`__
 
   * :math:`M, \{(U_i, \varphi_i)\}` をそれぞれコンパクト多様体とその座標近傍系とする。
-  * :math:`\exists \lambda_i: M \longrightarrow \mathbb R\ s.t. \lambda_i \in C^\infty(M),\ 0 \le \lambda_i(x) \le 1,\ \operatorname{supp} \lambda_i \subset U_i.`
+  * :math:`\exists \lambda_i: M \longto \RR\ s.t. \lambda_i \in C^\infty(M),\ 0 \le \lambda_i(x) \le 1,\ \supp{\lambda_i} \subset U_i.`
     有限個の添字を除いて :math:`\lambda_i = 0,\ \sum \lambda_i = 1.`
 
   * 証明では例題 5.2.2 およびその元となる各種命題を利用している。
@@ -251,7 +251,7 @@
        \{U_{i_j}\},\
        \overline{V_{i_j}} \subset U_{i_j},\
        \mu_{i_j}|\overline{V_{i_j}} > 0,\
-       \operatorname{supp} \mu_{i_j} \subset U_{i_j}.
+       \supp \mu_{i_j} \subset U_{i_j}.
        \end{gather*}
 
 5.4 サードの定理とモース関数
@@ -260,7 +260,7 @@
 
 * 定理 5.4.1: `サードの定理 <http://mathworld.wolfram.com/SardsTheorem.html>`__
 
-  * :math:`C\infty` 級写像 :math:`F: M \longrightarrow N` の臨界値は測度が 0 である。
+  * :math:`C\infty` 級写像 :math:`F: M \longto N` の臨界値は測度が 0 である。
 
 * 定義 5.4.2: 非退化、`モース関数 <http://mathworld.wolfram.com/MorseFunction.html>`__
 
@@ -298,23 +298,23 @@
 
 * 問題 5.4.5: :math:`f(x, y) = (2 + \cos y)(a\cos x + b \sin x) + c \sin y,\ ((a, b, c) \ne (0, 0, 0))`
 
-  この関数は :math:`F: \mathbb R^2/(2\pi\mathbb Z)^2 \longrightarrow \mathbb R` を定義する。
+  この関数は :math:`F: \RR^2/(2\pi\ZZ)^2 \longto \RR` を定義する。
   臨界点の個数が有限となる条件と退化する条件とを求める。
 
   * まずはヤコビ行列を計算する。
   * それからヘッセ行列を計算する。
   * あとは三角関数の性質を利用する。
 
-* 問題 5.4.6: 複素射影空間 :math:`\mathbb CP^n = (\mathbb C^{n + 1} \setminus \{0\})/\mathbb C^\times` の
-  単位球面 :math:`S^{2n + 1} = \{(z_1, \dotsc, z_{n + 1}) \in \mathbb C^{n + 1} \mid \lvert z \rvert = 1\}` と
-  :math:`U(1) = \{e^{\sqrt{-1}\theta} \mid \theta \in \mathbb R\}` について
+* 問題 5.4.6: 複素射影空間 :math:`\CC P^n = (\CC^{n + 1} \setminus \{0\})/\CC^\times` の
+  単位球面 :math:`S^{2n + 1} = \{(z_1, \dotsc, z_{n + 1}) \in \CC^{n + 1} \mid \lvert z \rvert = 1\}` と
+  :math:`U(1) = \{e^{\sqrt{-1}\theta} \mid \theta \in \RR\}` について
 
   直球のような設問。この問題は理解していないといけない。
 
   * :math:`g \in U(1)` に対して :math:`(g, z) \mapsto (gz_1, \dotsc, gz_n)` とすると、これは群の作用となる。
-  * :math:`S^{2n + 1} \overset{i}{\longrightarrow} \mathbb C^{n + 1}\setminus\{0\} \overset{p}{\longrightarrow} \mathbb CP^n` のランクはいくらか。
+  * :math:`S^{2n + 1} \overset{i}{\longto} \CC^{n + 1}\setminus\{0\} \overset{p}{\longto} \CC P^n` のランクはいくらか。
     ただし :math:`i,\ p` は包含写像と射影である。
-  * 次に示す関数は :math:`F: \mathbb CP^n \longrightarrow \mathbb R` を誘導する：
+  * 次に示す関数は :math:`F: \CC P^n \longto \RR` を誘導する：
 
     .. math::
        :nowrap:
@@ -323,8 +323,8 @@
        f(z) = \frac{\displaystyle \sum_{k = 1}^{n + 1} k \lvert z_k \rvert ^2}{\displaystyle \sum_{k = 1}^{n + 1} \lvert z_k \rvert ^2}.
        \end{align*}
 
-  * :math:`F` の臨界点は :math:`F_*: T_x \mathbb CP^n \longrightarrow \mathbb R` がゼロとなる
-    :math:`x \in \mathbb CP^n` である。
+  * :math:`F` の臨界点は :math:`F_*: T_x \CC P^n \longto \RR` がゼロとなる
+    :math:`x \in \CC P^n` である。
 
   * ヘッセ行列を求める。
 
@@ -334,11 +334,11 @@
 
   * 同じ記号を引き続き用いる上で、次の仮定を追加する：
 
-    * :math:`i: M \longrightarrow \mathbb R^N` を包含写像、
-    * :math:`\operatorname{pr}_2: \mathbb R^N \longrightarrow \mathbb R^N` を第二成分への射影、
-    * :math:`L: \mathbb R^N \longrightarrow \mathbb R` を線形写像 :math:`{\displaystyle L(\boldsymbol x) = \sum_{i = 1}^N a_i x_i}` とする。
+    * :math:`i: M \longto \RR^N` を包含写像、
+    * :math:`\operatorname{pr}_2: \RR^N \longto \RR^N` を第二成分への射影、
+    * :math:`L: \RR^N \longto \RR` を線形写像 :math:`{\displaystyle L(\bm x) = \sum_{i = 1}^N a_i x_i}` とする。
 
-  * :math:`\boldsymbol a \in \mathbb R^N` が :math:`\operatorname{pr}_2|X` の正則値であることと、
+  * :math:`\bm a \in \RR^N` が :math:`\operatorname{pr}_2|X` の正則値であることと、
     :math:`L \circ i` がモース関数であることは同値である。
 
 5.5 サードの定理の証明の概略（展開）
@@ -361,16 +361,16 @@
 とする。
 
 目標は :math:`C^r` 位相というものを定めること、つまり関数 :math:`f \in C^\infty(M)` の
-:math:`\varepsilon > 0` 近傍 :math:`N_\varepsilon^r = N_\varepsilon^r(f, \{V_i\})` を定めること。
+:math:`\eps > 0` 近傍 :math:`N_\eps^r = N_\eps^r(f, \{V_i\})` を定めること。
 
 .. math::
    :nowrap:
 
    \begin{gather*}
-   N_\varepsilon^r(f, \{V_i\}) = \left\{
+   N_\eps^r(f, \{V_i\}) = \left\{
        f + h \in C^\infty(M)
        \mid s \le r,\ 
-       \lVert D^s((h \circ \varphi_i^{-1})|\varphi_i(\overline{V_i})) \rVert < \varepsilon
+       \lVert D^s((h \circ \varphi_i^{-1})|\varphi_i(\overline{V_i})) \rVert < \eps
    \right\}.
    \end{gather*}
 
@@ -387,12 +387,12 @@
 
   帰納法で示せば良いようだ。
 
-  * :math:`r = 0` のときは :math:`N_\varepsilon^0(f_i, \{V_i\}) = N_\varepsilon^0(f_i, \{V_i'\})` は成り立つ（なぜ？）
+  * :math:`r = 0` のときは :math:`N_\eps^0(f_i, \{V_i\}) = N_\eps^0(f_i, \{V_j'\})` は成り立つ（なぜ？）
   * :math:`r = 1` のとき：
 
     * :math:`D(h \circ \varphi_j'^{-1}) = D(h \circ \varphi_i^{-1}) \circ \gamma_{ij} D\gamma_{ij}` であり、
-    * そして :math:`N_\varepsilon^1(f, \{V_i\}) \subset N_K^1(f, \{V_i'\})` を満たす
-      :math:`\varepsilon` に依存する正の数 :math:`K` が下のようにしてとれるので成り立つ：
+    * そして :math:`N_\eps^1(f, \{V_i\}) \subset N_K^1(f, \{V_j'\})` を満たす
+      :math:`\eps` に依存する正の数 :math:`K` が下のようにしてとれるので成り立つ：
 
       .. math::
          :nowrap:
@@ -405,11 +405,11 @@
 
       添字が有限個であることと、各 :math:`\overline{V_i} \cap \overline{V_j}'` がコンパクトであることによる。
 
-      * 行列のノルムを :math:`\displaystyle \lVert A \rVert = \sup_{x \ne 0}\frac{\lVert A \boldsymbol{x} \rVert}{ \lVert \boldsymbol{x} \rVert}` とする。
+      * 行列のノルムを :math:`\displaystyle \lVert A \rVert = \sup_{x \ne 0}\frac{\lVert A \bm{x} \rVert}{ \lVert \bm{x} \rVert}` とする。
 
   * :math:`r = 2` のときは p. 104 のような（ここにはとても記せられない）計算をして
-    :math:`N_\varepsilon^2(f, \{V_i\}) \subset N_K^2(f, \{V_i'\})` を満たす
-    :math:`\varepsilon` 依存の正数 :math:`K` を取れることを示す。
+    :math:`N_\eps^2(f, \{V_i\}) \subset N_K^2(f, \{V_j'\})` を満たす
+    :math:`\eps` 依存の正数 :math:`K` を取れることを示す。
 
   * 一般の :math:`r = s` のときは、chain rule を順次実行して、
     上記の場合の成立を根拠に成り立つことを示す。
@@ -434,15 +434,15 @@
        :nowrap:
 
        \begin{gather*}
-       N_\varepsilon^r(F, \{V_{ji}\}, \{W_j\}) = \left\{
+       N_\eps^r(F, \{V_{ji}\}, \{W_j\}) = \left\{
            H \in C^\infty(M, N)
            \mid s \le r,\ 
            \forall i, j,
-           \lVert D^s((\psi_j \circ H \circ \varphi_i^{-1} - \psi_j \circ F \circ \varphi_i^{-1})|\varphi_i(\overline{V_{ji}})) \rVert < \varepsilon
+           \lVert D^s((\psi_j \circ H \circ \varphi_i^{-1} - \psi_j \circ F \circ \varphi_i^{-1})|\varphi_i(\overline{V_{ji}})) \rVert < \eps
        \right\}.
        \end{gather*}
 
-    :math:`\varphi_i(\overline{V_{ji}})` はコンパクトゆえ、上の長い関数 :math:`\varphi_i(\overline{V_{ji}}) \longrightarrow \psi_j(V_j) \subset \mathbb R^n`
+    :math:`\varphi_i(\overline{V_{ji}})` はコンパクトゆえ、上の長い関数 :math:`\varphi_i(\overline{V_{ji}}) \longto \psi_j(V_j) \subset \RR^n`
     に近い :math:`C^\infty` 写像の像は :math:`\psi_j(V_j)` にあり、微分が定義できる。
 
   * :math:`C^r` 位相は各有限座標近傍系のとり方によらない。
@@ -459,7 +459,7 @@
   * 証明では線形代数の何かをまず利用する。
   * 途中、サードの定理を必要とする。
 
-* 注意 5.7.7: :math:`F: M \longrightarrow N` が :math:`L \subset N` と横断的ならば、
+* 注意 5.7.7: :math:`F: M \longto N` が :math:`L \subset N` と横断的ならば、
   :math:`F^{-1}(L)` は :math:`M` の余次元が :math:`L` のそれに等しいような部分多様体である。
 
 * 注意 5.7.8: これは何を言っているのかわからない。

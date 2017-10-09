@@ -45,21 +45,21 @@
 
 * 定理 1.2.3: 陰関数定理
 
-  * :math:`C^r` 級写像 :math:`F` が :math:`\mathbb{R}^n` の開集合から
-    :math:`\mathbb{R}^m` (:math:`m \le n`) へのものとなっている。
+  * :math:`C^r` 級写像 :math:`F` が :math:`\RR^n` の開集合から
+    :math:`\RR^m` (:math:`m \le n`) へのものとなっている。
     憶え方として「k + m 次元から m 次元」というのもアリ。
     タイプ量の都合上、以下 :math:`k = n - m` を導入する。
 
-  * :math:`\operatorname{rank}DF_{(x^0)} = m` ならば、
+  * :math:`\rank DF_{(x^0)} = m` ならば、
     :math:`F` と同級の写像 :math:`g` と近傍
-    :math:`W \subset \mathbb{R}^k` が何か存在して、そこで次を満たす。
+    :math:`W \subset \RR^k` が何か存在して、そこで次を満たす。
 
     .. math::
        :nowrap:
 
        \begin{align*}
-                           & g(x_1^0, \dotsc, x_k^0)  & = & (x_{k + 1}^0, \dotsc, x_n^0)\\
-       F(x_1, \dotsc, x_k, & g(x_1^0, \dotsc, x_k^0)) & = & F(x^0)
+                            & g(x_1^0, \dotsc, x_k^0)  & = & (x_{k + 1}^0, \dotsc, x_n^0)\\
+       F(x_1, \dotsc, x_k,\ & g(x_1^0, \dotsc, x_k^0)) & = & F(x^0)
        \end{align*}
 
 * 例題 1.2.4: chain rule を書くために行ベクトルで書くほうがよい。

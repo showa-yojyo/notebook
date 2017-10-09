@@ -13,7 +13,7 @@
 ----------------------------------------------------------------------
 * 定義 4.1: 等長変換
 
-  * :math:`\lVert f(\boldsymbol{p}) - f(\boldsymbol{q}) \rVert = \lVert \boldsymbol{p} - \boldsymbol{q} \rVert`
+  * :math:`\lVert f(\bm{p}) - f(\bm{q}) \rVert = \lVert \bm{p} - \bm{q} \rVert`
   * 平行移動、回転、鏡映。
 
 * 注意 4.2: 本書で変換と言う場合は全単射であるとする。
@@ -34,7 +34,7 @@
 * 演習 4.5: 単に :math:`a = \alpha + i \beta` とすればよさそうだ。
 
 * 例 4.6: 鏡映。実軸に対して対称の場合と任意の直線
-  :math:`l = \{ e^{i\theta} + u \mid t \in \mathbb R\}`
+  :math:`l = \{ e^{i\theta} + u \mid t \in \RR\}`
   に関して対称の場合。
 
   .. math::
@@ -45,12 +45,12 @@
      f(z) &= g^{-1} (\overline{g(z)}),\text{ where }g(z) = e^{-i\theta}(z - u)
      \end{align*}
 
-* 演習 4.7: 滑り鏡映 :math:`f(z) = \overline{z} + \alpha\quad (\alpha \in \mathbb R)`
+* 演習 4.7: 滑り鏡映 :math:`f(z) = \overline{z} + \alpha\quad (\alpha \in \RR)`
 
-* 定理 4.8: :math:`\mathbb C` 上の等長変換は :math:`f(z) = uz + v` の形に限られる。
+* 定理 4.8: :math:`\CC` 上の等長変換は :math:`f(z) = uz + v` の形に限られる。
   ここで、:math:`u` は絶対値が 1 であるとする。
 
-* 補題 4.9: :math:`\mathbb C` 上で三角形を固定する等長変換は恒等写像だ。
+* 補題 4.9: :math:`\CC` 上で三角形を固定する等長変換は恒等写像だ。
 
 4.2 合同変換群の不変式
 ----------------------------------------------------------------------
@@ -60,16 +60,16 @@
     これを合同変換群 or 運動群と呼ぶ。
 
   * 合同変換群は次章で扱うアフィン変換群の部分群である。
-  * 合同変換群 :math:`E_2` は直交群 :math:`O_2(\mathbb R)` と平行移動のなす部分群 :math:`\mathbb R^2` によって生成されている。
+  * 合同変換群 :math:`E_2` は直交群 :math:`O_2(\RR)` と平行移動のなす部分群 :math:`\RR^2` によって生成されている。
 
-    * 平行移動のなす部分群 :math:`\mathbb R^2` は合同変換群 :math:`E_2` の正規部分群だ。
-    * :math:`E_2 = O_2(\mathbb R) \ltimes \mathbb R^2` は半直積群だ。
+    * 平行移動のなす部分群 :math:`\RR^2` は合同変換群 :math:`E_2` の正規部分群だ。
+    * :math:`E_2 = O_2(\RR) \ltimes \RR^2` は半直積群だ。
 
-* :math:`E_2` の不変式全体は :math:`V = (\mathbb R^2)^m` として
-  :math:`\mathfrak{I} = \{F \in \mathbb C[V] \mid F(g(\boldsymbol{p_1}, \dotsc, \boldsymbol{p_m}) = F(\boldsymbol{p_1}, \dotsc, \boldsymbol{p_m})\quad (\forall g \in E_2)\}`
+* :math:`E_2` の不変式全体は :math:`V = (\RR^2)^m` として
+  :math:`\mathfrak{I} = \{F \in \CC[V] \mid F(g(\bm{p_1}, \dotsc, \bm{p_m}) = F(\bm{p_1}, \dotsc, \bm{p_m})\quad (\forall g \in E_2)\}`
   という不変式環をなす。
 
-* 定理 4.11: :math:`\mathfrak{I}` は :math:`\{(\boldsymbol{p_i} - \boldsymbol{p_j}) \dot (\boldsymbol{p_k} - \boldsymbol{p_l})\}` で生成される。
+* 定理 4.11: :math:`\mathfrak{I}` は :math:`\{(\bm{p_i} - \bm{p_j}) \dot (\bm{p_k} - \bm{p_l})\}` で生成される。
 
   * 証明を見ると、まず一つの成分をゼロにする平行移動を利用して直交群の作用の不変式環を求める問題に帰着させる。
   * 回転行列 :math:`u_\theta` と鏡映行列 :math:`s` による不変な多項式を考える。
@@ -115,10 +115,10 @@
           0 & 1
        \end{array} \right)
      \mid
-     h \in O_2(\mathbb R), v \in \mathbb{R}^2\rbrace
+     h \in O_2(\RR), v \in \RR^2\rbrace
      = \left(
        \begin{array}{ c c }
-         O_2(\mathbb R) & \mathbb{R}^2\\
+         O_2(\RR) & \RR^2\\
          0 & 1
        \end{array} \right)
      \end{align*}
@@ -146,10 +146,10 @@
 
   * ここで用いられている技法は、CG プログラミングのそれと同じではないか。なるほど。
 
-* 対称行列全体を :math:`\operatorname{Sym}_3(\mathbb R)` で表す（これを二次曲線全体とみなしてよい）。
+* 対称行列全体を :math:`Sym_3(\RR)` で表す（これを二次曲線全体とみなしてよい）。
 
-* 定理 4.14: 作用 :math:`E_2^\curvearrowright \operatorname{Sym}_3(\mathbb R): A \mapsto {}^t\!g^{-1}Ag^{-1}` の不変式環
-  :math:`\mathbb C[\operatorname{Sym}_3(\mathbb R)]^{E_2}` は
+* 定理 4.14: 作用 :math:`E_2^\curvearrowright Sym_3(\RR): A \mapsto {}^t\!g^{-1}Ag^{-1}` の不変式環
+  :math:`\CC[Sym_3(\RR)]^{E_2}` は
   :math:`a + c, ac - b^2, \det A` から生成される。
 
   * 証明を見ると、これらが不変量であることを示し、これらの多項式もまた不変式であることを示す。
@@ -168,8 +168,8 @@
      :nowrap:
 
      \begin{align*}
-     P_1 = \cfrac{\operatorname{trace} X}{\sqrt[3]{\Delta^2}},
-     P_2 = \cfrac{\det X}{\sqrt[3]{\Delta^2}},
+     P_1 = \frac{\trace X}{\sqrt[3]{\Delta^2}},
+     P_2 = \frac{\det X}{\sqrt[3]{\Delta^2}},
      \text{ where }
      X = \left(
      \begin{array}{c c}

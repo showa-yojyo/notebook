@@ -14,7 +14,7 @@
 序盤を忘れているのならば 8 章を読み直せ。
 
 (1, n) 型放物型部分群 :math:`P_{(1, n)}`
-  次のような :math:`\mathit{GL}_{n + 1}(\mathbb{C})` の部分群のことをそう呼ぶ：
+  次のような :math:`\mathit{GL}_{n + 1}(\CC)` の部分群のことをそう呼ぶ：
 
   .. math::
      :nowrap:
@@ -27,47 +27,47 @@
      \begin{array}{c} 0 \\ \vdots \\ 0 \end{array}  & {\Huge{A}}
      \end{array}
      \right)
-     \mid \lambda \in \mathbb{C}^\times,\ A \in \mathit{GL}_{n + 1}(\mathbb{C}) \rbrace
+     \mid \lambda \in \CC^\times,\ A \in \mathit{GL}_{n + 1}(\CC) \rbrace
      \end{align*}
 
-* 定理 10.2: 等質空間 :math:`\mathbb{P}^{n}(\mathbb{C}) \cong \mathit{GL}_{n + 1}(\mathbb{C}) / P_{(1, n)}`
-* 定理 10.3: 等質空間 :math:`\mathbb{P}^{n}(\mathbb{C}) \cong \mathit{U}_{n + 1}/(\mathit{U}_1(\mathbb{C}) \times \mathit{U}_n(\mathbb{C}))`
-* 定理 10.4: :math:`\mathbb{P}^{n}(\mathbb{C})` はコンパクト。
+* 定理 10.2: 等質空間 :math:`\mathbb{P}^{n}(\CC) \cong \mathit{GL}_{n + 1}(\CC) / P_{(1, n)}`
+* 定理 10.3: 等質空間 :math:`\mathbb{P}^{n}(\CC) \cong \mathit{U}_{n + 1}/(\mathit{U}_1(\CC) \times \mathit{U}_n(\CC))`
+* 定理 10.4: :math:`\mathbb{P}^{n}(\CC)` はコンパクト。
 
 10.2 2 次曲面と点の配置空間
 ----------------------------------------------------------------------
 2 次曲面
   :math:`{}^t\!\mathbf{x} S \mathbf{x} = 0`,
-  :math:`S \in \mathit{Sym}_{n + 1}(\mathbb{C})`,
+  :math:`S \in \mathit{Sym}_{n + 1}(\CC)`,
   :math:`{}^t\!\mathbf{x} = (x_0, \cdots, x_n)` は同次座標で
   :math:`\det S \ne 0`
 
 最大階数の行列
   本文の説明ではピンと来ない。おそらく ``rank(A) = max(A.nrow, A.ncol)`` のような行列 ``A`` の意味と思われる。
 
-:math:`\mathit{M}_{n + 1, m}^{\circ}(\mathbb{C})`
+:math:`\mathit{M}_{n + 1, m}^{\circ}(\CC)`
   上で述べた最大階数行列全てからなる空間。
 
-:math:`\mathit{Sym}_{n + 1}^{\circ}(\mathbb{C})`
-  :math:`:= \lbrace S \in \mathit{Sym}_{n + 1}(\mathbb{C}) \mid \det S \ne 0 \rbrace`
+:math:`\mathit{Sym}_{n + 1}^{\circ}(\CC)`
+  :math:`:= \lbrace S \in \mathit{Sym}_{n + 1}(\CC) \mid \det S \ne 0 \rbrace`
 
 * :math:`m \le n` とする。
 
   * 作用 :math:`\rho(g)(S, A) = ({}^t\! g^{-1} S g^{-1}, gA)`
-  * :math:`\mathit{Sym}_{n + 1}^{\circ}(\mathbb{C}) \times \mathit{M}_{n + 1, m}^{\circ}(\mathbb{C}) / (\mathit{GL}_{n + 1}(\mathbb{C}) \times T^m)`
-    が非退化 2 次曲面と :math:`\mathbb{P}^{n}(\mathbb{C})` の m 点配置を表す。
+  * :math:`\mathit{Sym}_{n + 1}^{\circ}(\CC) \times \mathit{M}_{n + 1, m}^{\circ}(\CC) / (\mathit{GL}_{n + 1}(\CC) \times T^m)`
+    が非退化 2 次曲面と :math:`\mathbb{P}^{n}(\CC)` の m 点配置を表す。
 
-    * :math:`T^m := (\mathbb{C}^\times)^m` を n 次元トーラス群と呼ぶ。
+    * :math:`T^m := (\CC^\times)^m` を n 次元トーラス群と呼ぶ。
 
 * 定理 10.7 不変式環の生成元に関する定理。どうなっているか。
-* 定理 10.8 :math:`m = 2` のときの :math:`\mathit{GL}_{n + 1}(\mathbb{C}) \times T^m` の
-  :math:`\mathit{Sym}_{n + 1}^{\circ}(\mathbb{C}) \times \mathit{M}_{n + 1, m}^{\circ}(\mathbb{C})` への作用に関する
+* 定理 10.8 :math:`m = 2` のときの :math:`\mathit{GL}_{n + 1}(\CC) \times T^m` の
+  :math:`\mathit{Sym}_{n + 1}^{\circ}(\CC) \times \mathit{M}_{n + 1, m}^{\circ}(\CC)` への作用に関する
   不変式環の生成元についての定理。
 
 10.3 グラスマン多様体
 ----------------------------------------------------------------------
 部分空間
-  ベクトル空間 :math:`V = \mathbb{C}^n` から線形独立なベクトルを d 個取ってきて
+  ベクトル空間 :math:`V = \CC^n` から線形独立なベクトルを d 個取ってきて
   それらの張る部分空間を :math:`W = \langle v_1, \cdots, v_d \rangle` とする。
   このとき :math:`\mathbb{P}(W) := \lbrace [w] \mid w \in W \rbrace \subset \mathbb{P}(V)` は
   n - 1 次元部分空間であるという。
@@ -76,18 +76,18 @@
 
 * 定理 10.9: :math:`\mathscr{W} = \lbrace \mathbb{P}(W_{v_1}, \cdots, W_{v_d}) \mid v_i \in V \rbrace`
   つまり射影部分空間の全体に対し、
-  :math:`\mathit{GL}(V) = \mathit{GL}_n(\mathbb{C})` が射影変換として推移的に作用する。
+  :math:`\mathit{GL}(V) = \mathit{GL}_n(\CC)` が射影変換として推移的に作用する。
 
 グラスマン多様体
   ベクトル空間の部分空間全体のことをそう呼ぶ。
 
-  * 記号は :math:`Gr_d(V)`, :math:`Gr_d^n(\mathbb{C})` を用いる。
+  * 記号は :math:`Gr_d(V)`, :math:`Gr_d^n(\CC)` を用いる。
     ここで d と n は部分空間の次元と元のベクトル空間の次元をそれぞれ表す。
 
   * :math:`Gr_1(V) = \mathbb{P}(V)` は n - 1 次元射影空間だ。
 
 放物型部分群
-  :math:`\mathit{GL}_n(\mathbb{C})` の部分群で、次の形のものを言う。
+  :math:`\mathit{GL}_n(\CC)` の部分群で、次の形のものを言う。
 
   .. math::
      :nowrap:
@@ -95,24 +95,24 @@
      \begin{align*}
      P_{(d, n - d)} := 
      \lbrace
-     \left(\begin{array}{cc} A & B\\ 0 & D \end{array}\right)
+     \left(\begin{array}{cc} A & B\ 0 & D \end{array}\right)
      \mid
-     A \in \mathit{GL}_d(\mathbb{C}),\ 
-     D \in \mathit{GL}_{n - d}(\mathbb{C}),\ 
-     B \in \mathit{M}_{d, n - d}(\mathbb{C})
+     A \in \mathit{GL}_d(\CC),\ 
+     D \in \mathit{GL}_{n - d}(\CC),\ 
+     B \in \mathit{M}_{d, n - d}(\CC)
      \rbrace
      \end{align*}
 
-  #. 等質空間の全単射 :math:`\mathit{GL}(V)/P_{(d, n - d)} \longrightarrow Gr_d(V)` が存在する。
+  #. 等質空間の全単射 :math:`\mathit{GL}(V)/P_{(d, n - d)} \longto Gr_d(V)` が存在する。
   #. この全単射を利用して :math:`Gr_d(V)` に位相を入れる（複素多様体）。
 
 * 定理 10.11
 
-  * :math:`V = \mathbb{C}^n` として :math:`U_n(\mathbb{C})` は :math:`Gr_d(V)` に推移的に作用する。
+  * :math:`V = \CC^n` として :math:`U_n(\CC)` は :math:`Gr_d(V)` に推移的に作用する。
   * :math:`W_{std} := \langle \mathbf{e}_1, \cdots, \mathbf{e}_d \rangle` における
-    固定部分群は :math:`U_d(\mathbb{C}^n) \times U_{n - d}(\mathbb{C}^n)` に同型だ。
+    固定部分群は :math:`U_d(\CC^n) \times U_{n - d}(\CC^n)` に同型だ。
 
-  * よって :math:`Gr_d(V) \cong U_n(\mathbb{C}^n)/(U_d(\mathbb{C}^n) \times U_{n - d}(\mathbb{C}^n))`
+  * よって :math:`Gr_d(V) \cong U_n(\CC^n)/(U_d(\CC^n) \times U_{n - d}(\CC^n))`
   * :math:`Gr_d(V)` はコンパクトかつエルミート対称空間だ。
 
 10.4 プリュッカー座標
@@ -120,7 +120,7 @@
 目標はグラスマン多様体を高次の射影空間に埋め込むことだ。
 
 プリュッカー座標
-  プリュッカー座標とは、次の写像 :math:`\mathscr{P}: \mathit{M}_{4, 2}^{\circ}(\mathbb{C}) \longrightarrow \mathbb{P}^5(\mathbb{C})` の値を言う。
+  プリュッカー座標とは、次の写像 :math:`\mathscr{P}: \mathit{M}_{4, 2}^{\circ}(\CC) \longto \mathbb{P}^5(\CC)` の値を言う。
 
   .. math::
      :nowrap:
@@ -129,8 +129,8 @@
      A \mapsto [D_{12}(A) : D_{13}(A) : D_{14}(A) : D_{32}(A) : D_{42}(A) : D_{34}(A)]
      \end{align*}
 
-* 定理 10.3: 写像 :math:`\mathscr{P}` は :math:`Gr_2(\mathbb{C}^4)` から
-  :math:`\mathbb{P}^5(\mathbb{C})` 内の二次曲面への同型写像である。
+* 定理 10.3: 写像 :math:`\mathscr{P}` は :math:`Gr_2(\CC^4)` から
+  :math:`\mathbb{P}^5(\CC)` 内の二次曲面への同型写像である。
 
   * これをプリュッカー埋め込みという。
 
@@ -144,7 +144,7 @@
 
 * この節の主題は次の対象の記述だ。
 
-  * :math:`(\mathit{GL}_n(\mathbb{C})/P_{1, n - 1})^k / \mathit{GL}_n(\mathbb{C})`
+  * :math:`(\mathit{GL}_n(\CC)/P_{1, n - 1})^k / \mathit{GL}_n(\CC)`
   * :math:`(Gr_{d_1}^n(V) \times \cdots \times Gr_{d_k}^n(V))/G \cong (G/P_{(d_1, n - d_1)} \times \cdots \times G/P_{(d_k, n - d_k)})/G`
 
 附録：集合と写像

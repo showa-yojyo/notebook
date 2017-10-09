@@ -16,7 +16,7 @@
 
 * 定義 3.1
 
-  * 表現とは、群の準同型 :math:`\pi: G \longrightarrow GL(V)` における組 :math:`(\pi, V)` のことをいう。
+  * 表現とは、群の準同型 :math:`\pi: G \longto GL(V)` における組 :math:`(\pi, V)` のことをいう。
   * 表現の作用素とは、群の元 :math:`g \in G` に対する :math:`\pi(g)` のことをいう。行列。
   * 表現空間とは、表現におけるベクトル空間 V のことをいう。
   * 行列表現とは、行列で表される :math:`\pi(g)\pi(h)` のような表現のことをいう。
@@ -39,21 +39,21 @@
 
        \begin{align*}
        R_v(\alpha) & = I \cos \alpha
-                    + (1 - \cos \alpha) \boldsymbol{v} \cdot {}^t\!\boldsymbol{v}
-                    + \sin \alpha (\boldsymbol{v} \times \boldsymbol{e_1}\quad
-                                   \boldsymbol{v} \times \boldsymbol{e_2}\quad
-                                   \boldsymbol{v} \times \boldsymbol{e_3}),\\
-       S_u & = I - 2 \boldsymbol{u} \cdot {}^t\!\boldsymbol{u}
+                    + (1 - \cos \alpha) \bm{v} \cdot {}^t\!\bm{v}
+                    + \sin \alpha (\bm{v} \times \bm{e_1}\quad
+                                   \bm{v} \times \bm{e_2}\quad
+                                   \bm{v} \times \bm{e_3}),\\
+       S_u & = I - 2 \bm{u} \cdot {}^t\!\bm{u}
        \end{align*}
 
-* 例 3.7: 巡回群 :math:`\mathbb Z / n \mathbb Z` の表現は一次元で
-  :math:`k \mapsto e^{2km \pi i/n} \in \mathbb{C}^\times = GL_1(\mathbb C)` のようになる。
+* 例 3.7: 巡回群 :math:`\ZZ / n \ZZ` の表現は一次元で
+  :math:`k \mapsto e^{2km \pi i/n} \in \CC^\times = GL_1(\CC)` のようになる。
 
   * この写像が well-defined かつ準同型であることを一応確認しておく。
 
 3.2 群の作用と表現
 ----------------------------------------------------------------------
-* 群 :math:`G` と空間 :math:`X` について準同型 :math:`\varphi: G \longrightarrow Aut(X)` が存在するとき、
+* 群 :math:`G` と空間 :math:`X` について準同型 :math:`\varphi: G \longto Aut(X)` が存在するとき、
   :math:`G` は :math:`X` に作用するという。
 
   * このことを記号 :math:`G ^\curvearrowright X` で示す。
@@ -66,8 +66,8 @@
 
 * 例 3.12: 対称群の多項式表現
 
-  * :math:`V = \mathbb{C}^n` とし、n 変数多項式関数全部を :math:`\mathbb C [V]` とする。
-    さらにその d 次の同次多項式関数全体を :math:`R_d = \mathbb C [V]_d` とする。
+  * :math:`V = \CC^n` とし、n 変数多項式関数全部を :math:`\CC [V]` とする。
+    さらにその d 次の同次多項式関数全体を :math:`R_d = \CC [V]_d` とする。
     これは対称群 :math:`\mathfrak{S}_n` の :math:`R_d` 上の表現となる。
     これを対称群の d 次多項式表現という。
 
@@ -77,22 +77,22 @@
 
 3.3 不変式
 ----------------------------------------------------------------------
-* 多項式環 :math:`\mathbb C [V]` は環の構造と表現が両立している。
+* 多項式環 :math:`\CC [V]` は環の構造と表現が両立している。
 
 * 定義 3.14
 
-  * :math:`f(x) \in \mathbb C [V]` が :math:`G` の不変式であるとは、
+  * :math:`f(x) \in \CC [V]` が :math:`G` の不変式であるとは、
     任意の :math:`g \in G` に対して :math:`(\pi(g)(f))(x) = f(x)` が成り立つことをいう。
 
-  * 記号 :math:`\mathfrak{I} = \mathfrak{I}(V) = \mathbb C [V]^G` で
+  * 記号 :math:`\mathfrak{I} = \mathfrak{I}(V) = \CC [V]^G` で
     不変式全体のなす集合を表す。
 
-* 例 3.15: 素朴な例 :math:`X = \{1, \dotsc, n\}` とその上のすべての関数のなすベクトル空間 :math:`\mathbb{C}[X]` と
+* 例 3.15: 素朴な例 :math:`X = \{1, \dotsc, n\}` とその上のすべての関数のなすベクトル空間 :math:`\CC[X]` と
   作用する群 :math:`G = \mathfrak{S}_n` とする。
 
   * :math:`G` の作用に関する不変式は定数関数しかない。
   * :math:`X = A \sqcup B` として部分群 :math:`H = \{ \sigma \in G \mid \sigma(A) = A,\ \sigma(B) = B\}` とすると、
-    :math:`\mathbb{C}[X]^H = \{\alpha \chi_A + \beta \chi_B \mid \alpha, \beta \in \mathbb C\}` となる。
+    :math:`\CC[X]^H = \{\alpha \chi_A + \beta \chi_B \mid \alpha, \beta \in \CC\}` となる。
 
     * ここで :math:`\chi_A` などは指示関数（測度論の教科書参照）とする。
 
@@ -100,13 +100,13 @@
 
   * 二面体群の作用で不変なのは、距離と原点を通る放射状の直線束。
 
-* 定理 3.18: :math:`\mathbb{C}[X]^G` は 多項式環 :math:`\mathbb C [V]` の部分環である。
+* 定理 3.18: :math:`\CC[X]^G` は 多項式環 :math:`\CC [V]` の部分環である。
   これを不変式環という。
 
 3.4 対称式
 ----------------------------------------------------------------------
 * 対称式とは
-  :math:`\mathbb C^n` 上の多項式環 :math:`\mathbb C[x_1, \dotsc, x_n]` における
+  :math:`\CC^n` 上の多項式環 :math:`\CC[x_1, \dotsc, x_n]` における
   n 次対称群の不変式である。
 
 * 対象式には「基本対象式」「冪和対象式」「完全対称式」がある。

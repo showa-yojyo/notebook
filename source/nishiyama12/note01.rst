@@ -22,7 +22,7 @@
 ----------------------------------------------------------------------
 * 例 1.4: 加法群、乗法群。
 
-  * :math:`\mathbb{Q},\ \mathbb{R},\ \mathbb{C}` のどれかを :math:`K` とおく。
+  * :math:`\QQ,\ \RR,\ \CC` のどれかを :math:`K` とおく。
     このとき :math:`K` からゼロを取り除いた集合は乗法群であり :math:`K ^ \times` という記号で書く。
 
   * 用語：単元
@@ -43,22 +43,22 @@
      \begin{align*}
      \sigma_0 = \left(
        \begin{array}{ c r }
-          1 & 0 \\
+          1 & 0 \
           0 & 1
        \end{array} \right),\quad
      \sigma_1 = \left(
        \begin{array}{ r r }
-          0 & 1 \\
+          0 & 1 \
           1 & 0
        \end{array} \right),\quad
      \sigma_2 = \left(
        \begin{array}{ r r }
-          0 & -i \\
+          0 & -i \
           i & 0
        \end{array} \right),\quad
      \sigma_3 = \left(
        \begin{array}{ r r }
-          1 & 0 \\
+          1 & 0 \
           0 & -1
        \end{array} \right)
      \end{align*}
@@ -127,7 +127,7 @@
 一般線形群
   :math:`GL_n(K) := \lbrace g \in M_n(K) \mid \det g \ne 0 \rbrace`
 
-  * 部分群 :math:`SL_n(K),\ O_n(\mathbb{R}),\ U_n(\mathbb{C}),\ Sp_{2n}(K)`
+  * 部分群 :math:`SL_n(K),\ O_n(\RR),\ U_n(\CC),\ Sp_{2n}(K)`
   * ド・シッター群 :math:`SO(?)`
 
 1.5.3 変換群
@@ -138,19 +138,19 @@
 
 1.5.4 一次分数変換
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-複素平面の上半分 :math:`\mathfrak{H} := \lbrace z \in \mathbb{C} \mid \Im z > 0 \rbrace` は多様体である。
+複素平面の上半分 :math:`\mathfrak{H} := \lbrace z \in \CC \mid \Im z > 0 \rbrace` は多様体である。
 
 一次分数変換
-  関数 :math:`{ \displaystyle f_g(z) = \frac{az + b}{cz + d}\ (\ z \in \mathfrak{H},\ g \in SL_2(\mathbb{R}))}` のこと。
+  関数 :math:`{ \displaystyle f_g(z) = \frac{az + b}{cz + d}\ (\ z \in \mathfrak{H},\ g \in SL_2(\RR))}` のこと。
 
 * 命題 1.24: :math:`f_g` についての諸性質。
 
-  * :math:`SL_2(\mathbb{R})` が群の演算を保つ。
+  * :math:`SL_2(\RR)` が群の演算を保つ。
 
-* :math:`g \in SL_2(\mathbb{R})` に対して :math:`-g` もまた同じ変換を指定するので、
+* :math:`g \in SL_2(\RR)` に対して :math:`-g` もまた同じ変換を指定するので、
   これらを同一視してしまう。
 
-  :math:`PSL_2(\mathbb{R}) := SL_2(\mathbb{R}) / \sim`;
+  :math:`PSL_2(\RR) := SL_2(\RR) / \sim`;
 
 ----
 

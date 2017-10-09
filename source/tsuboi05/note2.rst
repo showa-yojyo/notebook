@@ -30,12 +30,12 @@
 * 定理 2.1.3: 陰関数表示、グラフ表示、パラメーター表示の同値性
 
   * この命題は <折れ曲がりや交差がない滑らかな曲線であるという性質を
-    :math:`\mathbb{R}^n` の部分集合に対して表す> ものだ。
+    :math:`\RR^n` の部分集合に対して表す> ものだ。
 
   * この意味での曲線を一次元多様体と呼ぶ。
 
     * 接線が自然に定義されて、パラメーター表示でも陰関数表示でも書かれる。
-    * :math:`\ker DF_{\Phi(t^0)} = \lbrace t D\Phi_{(t^0)} \mid t \in \mathbb{R} \rbrace`
+    * :math:`\ker DF_{\Phi(t^0)} = \lbrace t D\Phi_{(t^0)} \mid t \in \RR \rbrace`
 
   * 陰関数とグラフ表示は「ある近傍」だが、パラメーター表示だけ「任意の近傍」。
     パラメーターの主張は曲線とパラメーターの位相が同じになると述べている。
@@ -49,7 +49,7 @@
 
 * 例 2.1.7: 二次曲面
 
-  * :math:`\boldsymbol{x^0} \in Q` における接超平面
+  * :math:`\bm{x^0} \in Q` における接超平面
   * 曲面の形状分類（一葉双曲面かニ葉双曲面か）で符号数という概念が出てくる。
     行列の固有値のプラスマイナスの個数の組のことだ。
 
@@ -65,9 +65,9 @@
 * （用語）接空間とは、ある点を通過する多様体上の曲線の接線の集まりだ。
 
   * パラメーター表示ならば
-    :math:`\lbrace \boldsymbol{x^0} + DF_{\Phi(u^0)}\boldsymbol{v} \mid \boldsymbol{v} \in \mathbb{R}^p \rbrace`
+    :math:`\lbrace \bm{x^0} + DF_{\Phi(u^0)}\bm{v} \mid \bm{v} \in \RR^p \rbrace`
   * 陰関数表示ならば
-    :math:`\lbrace \boldsymbol{x^0} + \boldsymbol{v} \mid DF_{(x^0)} \boldsymbol{v} = 0 \rbrace`
+    :math:`\lbrace \bm{x^0} + \bm{v} \mid DF_{(x^0)} \bm{v} = 0 \rbrace`
 
 * 問題 2.2.2: 即答できないとダメ。
   線形代数の復習をしないといけない。
@@ -92,43 +92,43 @@
 
 * （用語）横断的、接超平面 or 接空間
 
-  * 直線は :math:`\lbrace \boldsymbol{x^0} + t\boldsymbol{v^0} \mid t \in \mathbb{R}\rbrace` または
-    ランクが n - 1 の何らかの線形写像 :math:`A: \mathbb{R}^n \longrightarrow \mathbb{R}^{n - 1}` と
-    何らかの定点 :math:`\boldsymbol{y} \in \mathbb{R}^{n - 1}` を用いて
-    :math:`\lbrace \boldsymbol{x} \in \mathbb{R}^n \mid A\boldsymbol{x} = \boldsymbol{y} \rbrace` として書かれる。
+  * 直線は :math:`\lbrace \bm{x^0} + t\bm{v^0} \mid t \in \RR\rbrace` または
+    ランクが n - 1 の何らかの線形写像 :math:`A: \RR^n \longto \RR^{n - 1}` と
+    何らかの定点 :math:`\bm{y} \in \RR^{n - 1}` を用いて
+    :math:`\lbrace \bm{x} \in \RR^n \mid A\bm{x} = \bm{y} \rbrace` として書かれる。
 
     * 定点を変化させると平行な直線族が得られる。
 
-  * 超平面は :math:`\lbrace \boldsymbol{x} \in \mathbb{R}^n \mid L\boldsymbol{x} = a\rbrace` と書かれる。
-    ただし :math:`L: \mathbb{R}^n \longrightarrow \mathbb{R}` と :math:`a \in \mathbb{R}` は
+  * 超平面は :math:`\lbrace \bm{x} \in \RR^n \mid L\bm{x} = a\rbrace` と書かれる。
+    ただし :math:`L: \RR^n \longto \RR` と :math:`a \in \RR` は
     何らかのゼロでない線形写像と、何らかの実数であるとする。
 
   ここまでが用語を定義するための舞台設定。
 
-  * 超曲面 :math:`S` の局所的パラメーター表示 :math:`\Phi: W \longrightarrow \mathbb{R}^n`
+  * 超曲面 :math:`S` の局所的パラメーター表示 :math:`\Phi: W \longto \RR^n`
     と上記 :math:`A` と近傍内の点 :math:`u^0 \in W` とを取る。
 
-    * :math:`A D\Phi_{(u^0)}` が正則である場合、上記直線族は :math:`\boldsymbol{x^0} = \Phi(u^0)` の近傍で
+    * :math:`A D\Phi_{(u^0)}` が正則である場合、上記直線族は :math:`\bm{x^0} = \Phi(u^0)` の近傍で
       超曲面 :math:`S` に突き刺さる。この状況を「直線族が超曲面と横断的である」という。
 
     * 正則でない場合は :math:`\operatorname{im}D\Phi_{(u^0)}` のことを
-      超曲面の点 :math:`\boldsymbol{x^0}` における接超平面 or 接空間と呼ぶ。
+      超曲面の点 :math:`\bm{x^0}` における接超平面 or 接空間と呼ぶ。
 
   * 一般の部分多様体の場合。
     上記の超曲面を p 次元部分多様体 :math:`M` に置き換えて読み替える。
-    :math:`\operatorname{rank}(A D\Phi_{(u^0)})` の値が
+    :math:`\rank(A D\Phi_{(u^0)})` の値が
 
     * p ならば
-      :math:`\operatorname{im} A\Phi` は :math:`\mathbb{R}^{n - 1}` の多様体（の条件を一部満たす）。
+      :math:`\operatorname{im} A\Phi` は :math:`\RR^{n - 1}` の多様体（の条件を一部満たす）。
 
     * p - 1 以下ならば
       :math:`\operatorname{im} D\Phi_{(u^0)}` を点 :math:`x^0 \in M` における接空間と呼ぶ。
-      直線 :math:`A ^{-1}(A(\boldsymbol{x^0}))` が :math:`\boldsymbol{x^0}` において接する。
+      直線 :math:`A ^{-1}(A(\bm{x^0}))` が :math:`\bm{x^0}` において接する。
 
-    あるいは、:math:`\operatorname{rank}(L D\Phi_{(u^0)})` の値が
+    あるいは、:math:`\rank(L D\Phi_{(u^0)})` の値が
 
     * 1 ならば p - 1 次元多様体。
-    * 0 ならば :math:`L^{-1}(L(\boldsymbol{x^0}))` を点 :math:`\boldsymbol{x^0} \in M` における接空間と呼ぶ。
+    * 0 ならば :math:`L^{-1}(L(\bm{x^0}))` を点 :math:`\bm{x^0} \in M` における接空間と呼ぶ。
 
 * 問題 2.5.1: 曲面が陰関数表示で与えられているから、ヤコビアンを素直に計算する。
 

@@ -12,7 +12,7 @@
 9.1 射影空間と連比
 ----------------------------------------------------------------------
 連比
-  :math:`[z_0 : ... : z_n] = [\alpha z_0 : ... : \alpha z_n ] (z_i \in \mathbb{C}, \alpha \in \mathbb{C}^\times)`
+  :math:`[z_0 : ... : z_n] = [\alpha z_0 : ... : \alpha z_n ] (z_i \in \CC, \alpha \in \CC^\times)`
   オールゼロのものを除く。
 
 射影空間
@@ -22,7 +22,7 @@
   上記の各 :math:`z_i` のことを言う。本ノートでは漢字変換の都合で同次座標と記す。
 
 包含写像
-  写像 :math:`\iota: \mathbb{C}^n \hookrightarrow \mathbb{P}^n` で、
+  写像 :math:`\iota: \CC^n \hookrightarrow \mathbb{P}^n` で、
   複素ベクトルに、そのベクトルの全成分に加えて、最後に 1 を付け加えた連比を対応させるもの。
 
   * これは単射。
@@ -34,28 +34,28 @@
 無限遠点
   :math:`w = [w_0 : ... : w_{n - 1} : 0]` のタイプの点。
 
-  * :math:`\mathbb{P}^n = \mathbb{C}^n \cup \mathbb{P}^{n - 1}`
+  * :math:`\mathbb{P}^n = \CC^n \cup \mathbb{P}^{n - 1}`
 
 基本アフィン開集合
-  開集合 :math:`U_j = \lbrace [w_0 : ... : 1 : ... w_n] \mid (w_0, ..., \widehat{w_j}, ..., w_n) \in \mathbb{C}^n \rbrace`
+  開集合 :math:`U_j = \lbrace [w_0 : ... : 1 : ... w_n] \mid (w_0, ..., \widehat{w_j}, ..., w_n) \in \CC^n \rbrace`
   のことをそう呼ぶ。
 
-  * :math:`U_j` が :math:`\mathbb{C}^n` と同型になる。
+  * :math:`U_j` が :math:`\CC^n` と同型になる。
   * :math:`U_j` で :math:`\mathbb{P}^n` に位相を入れられる。
 
 9.2 射影
 ----------------------------------------------------------------------
 1 次元トーラス群
-  :math:`\mathbb{C}^\times` のこと。
+  :math:`\CC^\times` のこと。
 
-  この群は :math:`\mathbb{C}^{n + 1} \setminus \lbrace 0 \rbrace` にスカラーの乗算により自然に作用している。
-  :math:`\mathbb{P}^n \cong (\mathbb{C}^{n + 1} \setminus \lbrace 0 \rbrace) / \mathbb{C}^\times` と書ける。
+  この群は :math:`\CC^{n + 1} \setminus \lbrace 0 \rbrace` にスカラーの乗算により自然に作用している。
+  :math:`\mathbb{P}^n \cong (\CC^{n + 1} \setminus \lbrace 0 \rbrace) / \CC^\times` と書ける。
 
 射影空間
-  ベクトル空間 V に対して :math:`\mathbb{P}(V) = (V \setminus \lbrace 0 \rbrace) / \mathbb{C}^\times` をそう呼ぶ。
+  ベクトル空間 V に対して :math:`\mathbb{P}(V) = (V \setminus \lbrace 0 \rbrace) / \CC^\times` をそう呼ぶ。
 
   * :math:`\mathbb{P}(V) = \mathbb{P}^n` とも記す。肩の n は多様体次元であって、ベクトル空間のそれではない。
-  * :math:`\mathbb{P}(V)` は多様体だが :math:`V / \mathbb{C}^\times` のほうはハウスドルフ空間ですらない。
+  * :math:`\mathbb{P}(V)` は多様体だが :math:`V / \CC^\times` のほうはハウスドルフ空間ですらない。
   * 2 ベクトルの張る部分空間を射影化すると、射影直線と同型となる。
 
 （射影）部分空間
@@ -69,15 +69,15 @@
 ----------------------------------------------------------------------
 射影変換
   射影空間から自身への自己同型写像。行列を使う。
-  :math:`g \in \mathit{GL}_{n + 1}(\mathbb{C}), V = \mathbb{C}` をとる。
+  :math:`g \in \mathit{GL}_{n + 1}(\CC), V = \CC` をとる。
   自己同型写像 :math:`\pi_g: [v] \mapsto [gv]` は :math:`\mathbb{P}(V)` の射影変換であるという。
 
 射影一般線形群
-  :math:`\mathit{PGL}_{n + 1}(\mathbb{C}) := \mathit{GL}_{n + 1}(\mathbb{C})/\mathbb{C}^\times` は
+  :math:`\mathit{PGL}_{n + 1}(\CC) := \mathit{GL}_{n + 1}(\CC)/\CC^\times` は
   :math:`\mathbb{P}^n` 上の射影変換のなす群となる。
 
 アフィン変換群
-  スペースの都合で書けないが、この三次正方行列のなす群を :math:`A_2(\mathbb{C})` と書いてアフィン変換群と呼ぶ。
+  スペースの都合で書けないが、この三次正方行列のなす群を :math:`A_2(\CC)` と書いてアフィン変換群と呼ぶ。
 
   * この変換は複素平面を保つ。
 
@@ -90,12 +90,12 @@
    :nowrap:
 
    \begin{eqnarray*}
-   \pi_g(z)      &=& \cfrac{az + b}{cz + d} & (cz + d \ne 0) & \text{or} & \infty (cz + d = 0)\\
+   \pi_g(z)      &=& \cfrac{az + b}{cz + d} & (cz + d \ne 0) & \text{or} & \infty (cz + d = 0)\
    \pi_g(\infty) &=& \cfrac{a}{c}           & (c \ne 0)      & \text{or} & \infty (c = 0)
    \end{eqnarray*}
 
-* 定理 9.9: :math:`\mathbb{P}^1` 上の一次分数変換のうち、上半平面を保つものは :math:`\mathit{SL}_2(\mathbb{R})` から取れる。
-* 定理 9.10: 上半平面は :math:`\mathit{SL}_2(\mathbb{R})/\mathit{SO}_2(\mathbb{R})` と同型。
+* 定理 9.9: :math:`\mathbb{P}^1` 上の一次分数変換のうち、上半平面を保つものは :math:`\mathit{SL}_2(\RR)` から取れる。
+* 定理 9.10: 上半平面は :math:`\mathit{SL}_2(\RR)/\mathit{SO}_2(\RR)` と同型。
 
 9.5 複比
 ----------------------------------------------------------------------
@@ -136,7 +136,7 @@
   点の順序を入れ替えた複比はどれも :math:`\lambda` の有理関数として表される（全部で 6 通り）。
 
 * 定理 9.27: プリュッカーの関係式。
-  :math:`(v_1, ..., v_4) \in M_{2,4}(\mathbb{C})` に対して 9.5 の記号と同じものを用いると
+  :math:`(v_1, ..., v_4) \in M_{2,4}(\CC)` に対して 9.5 の記号と同じものを用いると
   :math:`D_{12}D_{34} + D_{13}D_{42} + D_{14}D_{23} = 0`
 
 * 定理 9.29: プトレマイオス。

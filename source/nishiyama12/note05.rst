@@ -20,7 +20,7 @@
    A_2 = \lbrace
    \left(
      \begin{array}{ c c }
-       \operatorname{GL}_2(\mathbb R) & \mathbb{R}^2\\
+       GL_2(\RR) & \RR^2\\
        0 & 1
      \end{array} \right)
    \rbrace
@@ -29,8 +29,8 @@
 * 演習 5.1: アフィン変換を :math:`g \in A_2` による行列の積としてみなすと、
   平面上の三角形の像で変換が決まる。
 
-* 定理 5.2: 作用 :math:`A_2^\curvearrowright (\mathbb R^2)^m: p \mapsto gp` の不変式環
-  :math:`\mathbb C[(\mathbb R^2)^m]^{A_2}` は定数関数しかない。
+* 定理 5.2: 作用 :math:`A_2^\curvearrowright (\RR^2)^m: p \mapsto gp` の不変式環
+  :math:`\CC[(\RR^2)^m]^{A_2}` は定数関数しかない。
 
 * 補題 5.3, 定理 5.4: アフィン変換は平行な直線を平行な直線へ写す。
 
@@ -39,7 +39,7 @@
 * 定義 5.5: 相対不変式、指標。
 
   * 作用 :math:`G^\curvearrowright X` においてゼロでない :math:`f \in X` が相対不変式であるとは、
-    群の任意の要素に対して、次の性質がある定数 :math:`\chi_f(g) \in \mathbb C` が存在することをいう。
+    群の任意の要素に対して、次の性質がある定数 :math:`\chi_f(g) \in \CC` が存在することをいう。
 
     .. math::
        :nowrap:
@@ -48,12 +48,12 @@
        f(gx) = \chi_f(g) f(x)\quad(x \in X)
        \end{align*}
 
-    * このとき :math:`\chi_f: G \longrightarrow \mathbb C` を指標という。
+    * このとき :math:`\chi_f: G \longto \CC` を指標という。
 
       * 指標は一次元表現である。
       * 例えば行列式の性質 :math:`\det(AB) = \det A \det B` は指標の性質であるといえる。
 
-* 演習 5.6: ベクトル :math:`a, b, c \in \mathbb R^2` に対して関数
+* 演習 5.6: ベクトル :math:`a, b, c \in \RR^2` に対して関数
   :math:`f(a, b, c) = \det(a - c\quad b - c)` を定める。
   この関数は :math:`A_2` の不変式であり、指標 :math:`\chi_f` はアフィン変換行列の
   線形変換部分の行列式と一致する。
@@ -68,7 +68,7 @@
 
   #. 和 :math:`\chi_\varphi + \chi_\psi` は :math:`\chi_\varphi = \chi_\psi` でなければ相対不変式ではない。
 
-* 定理 5.8: 作用 :math:`A_2^\curvearrowright (\mathbb R^2)^m` について。
+* 定理 5.8: 作用 :math:`A_2^\curvearrowright (\RR^2)^m` について。
 
   * 相対不変式は行列式の同次積とその一次結合を取ることで全て得られる。
   * 相対不変有利式とは、商 :math:`{ \displaystyle \frac{\varphi(x)}{\psi(x)} }` のことであり、
@@ -104,7 +104,7 @@
 
   * 証明方針は :math:`g: x \mapsto hx + v` とおくと、原点を頂点の一つとする三角形に対して
     :math:`0 = g(0)` より :math:`v = 0` である。
-    さらに :math:`\forall a, b \in \mathbb R^2,\ h(a b) = (a b)` より :math:`h = I` である。
+    さらに :math:`\forall a, b \in \RR^2,\ h(a b) = (a b)` より :math:`h = I` である。
 
 * 定理 5.13: 同一線上にない線分の比は、アフィン変換によって一般には不変ではない。
 
@@ -159,7 +159,7 @@
    \end{gather*}
 
 * :math:`\det X \ne 0` のときは標準形は
-  :math:`\operatorname{diag}(\alpha, \beta, \gamma)\ (\alpha, \beta, \gamma \ne 0` の形となる。
+  :math:`\diag(\alpha, \beta, \gamma)\ (\alpha, \beta, \gamma \ne 0` の形となる。
   これは :math:`x^2 + y^2 = \pm 1` または :math:`x^2 - y^2 = \pm 1` を意味する。
   空集合か円か双曲線ということだ。
 
