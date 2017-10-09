@@ -73,31 +73,53 @@
     * :math:`F: \RR^n \longto \RR^n` は微分同相であり、
     * :math:`DF_{(\bm{x})} - E` の成分の絶対値が :math:`\displaystyle \eps\quad (< \frac{1}{2n})` より小さいとする。
 
-  * 結論
+  * 結論（ただし本書の関数定義には誤植があると思われるので勝手に修正する）
 
-    * :math:`F_t(\bm{x}) = (1 - t) \bm{x} + F(\bm{x})` は微分同相であり、
+    * :math:`F_t(\bm{x}) = (1 - t) \bm{x} + t F(\bm{x})` は微分同相であり、
     * :math:`F_0 = \id_{\RR^n},\ F_1 = F` である。
 
   * 証明
 
     #. :math:`DF_{(\bm{x})}` は正則である。
 
-       これがよくわからない。仮定の評価式から次の式の級数が絶対収束することからすぐにわかるようだ。
-       :math:`\displaystyle (E + t(DF_{(\bm{x})} - E))\sum_{k = 0}^\infty (-t)^k (DF_{(\bm{x})} - E)^k = E` 
+       * 単純計算により :math:`DF_{(\bm x)} = (E + t(DF_{(\bm{x})} - E)).`
+       * 高校数学の :math:`\displaystyle \frac{1}{1 + x}` の級数展開を参考に次の式が浮かぶ：
+
+         .. math::
+            :nowrap:
+
+            \begin{gather*}
+            (E + t(DF_{(\bm{x})} - E))\sum_{k = 0}^\infty (-t)^k (DF_{(\bm{x})} - E)^k = E
+            \end{gather*}
+
+         問題は級数の収束性だが（行列式の評価には注意したい）、
+         これは仮定の評価から絶対収束であることがわかる：
+
+         .. math::
+            :nowrap:
+
+            \begin{split}
+            \lvert (-t)^k (DF_{(\bm{x})} - E)^k \rvert
+                &<& \lvert t^k n^{k - 1} \eps^k \rvert\\
+                &<& n^{k - 1} \eps^k\\
+                &<& \frac{1}{2^{k - 1}}\eps.
+            \end{split}
+
+         以上で :math:`DF_{(\bm x)}` の逆行列が存在して、それが上記の級数で与えられることがわかった。
 
     #. :math:`F_t` は単射である。
 
-       :math:`H_t(\bm{x}) = \bm{x} - F_t(\bm{x})`, :math:`\bm{y} \in \RR^b` とおくと
+       :math:`H_t(\bm{x}) = \bm{x} - F_t(\bm{x})`, :math:`\bm{y} \in \RR^n` とおくと
        次のように評価できる：
 
        .. math::
           :nowrap:
 
-          \begin{gather*}
+          \begin{split}
           \lVert H_t(\bm{x}) - H_t(\bm{y}) \rVert & \le nt\eps \lVert \bm{x} - \bm{y} \rVert\\
           & \le \frac{1}{2}\lVert \bm{x} - \bm{y} \rVert\\
           \therefore \lVert F_t(\bm{x}) - F_t(\bm{y}) \rVert & \ge \frac{1}{2}\lVert \bm{x} - \bm{y} \rVert
-          \end{gather*}
+          \end{split}
 
     #. :math:`F_t` は全射である。
 
@@ -107,11 +129,11 @@
        .. math::
           :nowrap:
 
-          \begin{gather*}
-          \lVert \bm{x}_{k+1} - \bm{x}\rVert & \le \frac{1}{2^{k-1}}\lVert \bm{x}_2 - \bm{x}_1 \rVert\\
-          & = \frac{1}{2^{k-1}}\lVert \bm{y} - F_t(\bm{y}) \rVert\\
-          &\therefore \bm{x}_k \to \bm{y}\ s.t.\ \bm{y} = F_t(\bm{y}). 
-          \end{gather*}
+          \begin{split}
+          \lVert \bm{x}_{k+1} - \bm{x}\rVert & \le& \frac{1}{2^{k-1}}\lVert \bm{x}_2 - \bm{x}_1 \rVert\\
+          & =& \frac{1}{2^{k-1}}\lVert \bm{y} - F_t(\bm{y}) \rVert\\
+          &\therefore& \bm{x}_k \to \bm{y}\ s.t.\ \bm{y} = F_t(\bm{y}). 
+          \end{split}
 
 ----
 
