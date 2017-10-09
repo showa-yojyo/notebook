@@ -135,6 +135,40 @@
           &\therefore& \bm{x}_k \to \bm{y}\ s.t.\ \bm{y} = F_t(\bm{y}). 
           \end{split}
 
+6.2 フロー
+----------------------------------------------------------------------
+`フロー <http://mathworld.wolfram.com/Flow.html>`__
+  フローとは次の性質を満たすアイソトピーである：
+  :math:`F_s \circ F_t = F_{s + t}.`
+
+  * フローは加法群 :math:`\RR` の多様体への群作用である。
+  * ベクトル場 :math:`X_t` は、あるいは局所座標系で書かれた常微分方程式は :math:`t` に依存しない。
+  * ベクトル場 :math:`X = X_t` はフローを :math:`F_t` を生成するベクトル場であるという。
+    生成の主従を逆に見ることもある。
+
+* 例 6.2.1: 軌道
+
+  :math:`\RR^n` のベクトル :math:`\bm x = (x_i)` と行列 :math:`A = (a_{ij})` を考える。
+
+  * :math:`F_t(\bm x) = \mathrm{e}^{tA} \bm x` は :math:`\RR^n` 上のベクトル場
+    :math:`\displaystyle \sum_{i = 1}^n \left( \sum_{j = 1}^n a_{ij} x_j \right)\frac{\partial}{\partial x_j}` が生成するフローである。
+
+  * フロー :math:`\{ F_t(\bm x) \mid t \in \RR\}` を :math:`\bm x` を通る軌道という。
+    この軌道は :math:`M` 上の同値関係を定義する。
+
+  * 軌道は一点、円周、実数全体のいずれかでパラメーター付けられる。
+
+    * 円周ならば一次元部分多様体である。
+
+* 例 6.2.2: 平面上の線形ベクトル場の生成するフローの軌道カタログ
+
+  * 式にすれば :math:`\displaystyle \sum_{i, j = 1}^2 a_{ij} x_j \frac{\partial}{\partial x_j}` だが、
+    本書の図によると三種類に分類できるようだ。
+
+* 問題 6.2.3: コンパクト多様体上のフローについて（後回し）
+
+  * TBW
+
 ----
 
 :doc:`note7` へ。
