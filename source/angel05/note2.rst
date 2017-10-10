@@ -388,10 +388,9 @@ Setting Matrices Directly
 * shear 変換を実現するには、この直接行列指示でなければならない。
 
   .. math::
-     :label: share-matrix
      :nowrap:
 
-     \begin{eqnarray*}
+     \begin{align*}
      \left(
          \begin{array}{cccc}
              1 &\cot(\theta) &0 &0 \\
@@ -400,7 +399,7 @@ Setting Matrices Directly
              0 &0            &0 &1
          \end{array}
      \right)
-     \end{eqnarray*}
+     \end{align*}
 
 * **oblique projection** を実現することもできる。
 
@@ -414,10 +413,9 @@ Setting Matrices Directly
 * 影の計算なども面白い。光源を :math:`(x, y, z)` として、z 平面に影を付ける変換は
 
   .. math::
-     :label: shadow-matrix
      :nowrap:
 
-     \begin{eqnarray*}
+     \begin{align*}
      \left(
          \begin{array}{rrrr}
              1 &0             &0 &0 \\
@@ -426,7 +424,7 @@ Setting Matrices Directly
              0 &-\cfrac{1}{y} &0 &0
          \end{array}
      \right)
-     \end{eqnarray*}
+     \end{align*}
 
   で与えられる。コードは大体次のような構造になる。
 

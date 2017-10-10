@@ -89,10 +89,21 @@
 .. math::
    :nowrap:
 
-   \begin{eqnarray*}
-   \pi_g(z)      &=& \cfrac{az + b}{cz + d} & (cz + d \ne 0) & \text{or} & \infty (cz + d = 0)\
-   \pi_g(\infty) &=& \cfrac{a}{c}           & (c \ne 0)      & \text{or} & \infty (c = 0)
-   \end{eqnarray*}
+   \begin{align*}
+   \pi_g(z) = \left\{
+   \begin{array}{cc}
+   \dfrac{az + b}{cz + d} & (cz + d \ne 0)\\
+   \infty & (cz + d = 0)\\
+   \end{array}
+   \right.
+   \quad
+   \pi_g(\infty) = \left\{
+   \begin{array}{cc}
+   \dfrac{a}{c} & (c \ne 0)\\
+   \infty & (c = 0)\\
+   \end{array}
+   \right.
+   \end{align*}
 
 * 定理 9.9: :math:`\mathbb{P}^1` 上の一次分数変換のうち、上半平面を保つものは :math:`\mathit{SL}_2(\RR)` から取れる。
 * 定理 9.10: 上半平面は :math:`\mathit{SL}_2(\RR)/\mathit{SO}_2(\RR)` と同型。

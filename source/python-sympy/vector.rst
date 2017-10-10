@@ -194,12 +194,12 @@ Vector オブジェクトに対して、次の関数およびクラスによる 
   .. math::
      :nowrap:
 
-     \begin{eqnarray*}
-     \left(\cos \frac{\theta}{2},\,
-           n_x \sin \frac{\theta}{2},\,
-           n_y \sin \frac{\theta}{2},\,
-           n_z \sin \frac{\theta}{2}\right)
-     \end{eqnarray*}
+     \begin{align*}
+     \left(\cos \frac{\theta}{2},\ 
+           n_x\!\sin \frac{\theta}{2},\ 
+           n_y\!\sin \frac{\theta}{2},\ 
+           n_z\!\sin \frac{\theta}{2}\right)
+     \end{align*}
 
   となる。この各成分を :code:`q0` から :code:`q3` までこの順序で指定する。
 

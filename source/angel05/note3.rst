@@ -430,12 +430,11 @@ Using Luminace
 * RGB 値から luminance の値を計算する式は次で与えられるらしい。
 
   .. math::
-     :label: luminance-float
      :nowrap:
 
-     \begin{eqnarray*}
+     \begin{align*}
      L = .30R + .59G + .11B
-     \end{eqnarray*}
+     \end{align*}
 
   明らかに G 成分が支配的。
 

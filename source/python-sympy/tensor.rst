@@ -241,12 +241,12 @@
   .. math::
      :nowrap:
 
-     \begin{eqnarray*}
-     (F_{01}, F_{02}, F_{03}) &=& \left(\frac{E_x}{c}, \frac{E_y}{c}, \frac{E_z}{c}\right)\\
-     (F^{01}, F^{02}, F^{03}) &=& \left(-\frac{E_x}{c}, -\frac{E_y}{c}, -\frac{E_z}{c}\right)\\
-     (F_{23}, F_{31}, F_{12}) &=& (-B_x, -B_y, -B_z)\\
-     (F^{23}, F^{31}, F^{12}) &=& (-B_x, -B_y, -B_z)
-     \end{eqnarray*}
+     \begin{align*}
+     (F_{01}, F_{02}, F_{03}) &= \left(\frac{E_x}{c}, \frac{E_y}{c}, \frac{E_z}{c}\right)\\
+     (F^{01}, F^{02}, F^{03}) &= \left(-\frac{E_x}{c}, -\frac{E_y}{c}, -\frac{E_z}{c}\right)\\
+     (F_{23}, F_{31}, F_{12}) &= (-B_x, -B_y, -B_z)\\
+     (F^{23}, F^{31}, F^{12}) &= (-B_x, -B_y, -B_z)
+     \end{align*}
 
 もっと確かめる。
 

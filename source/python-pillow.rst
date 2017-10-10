@@ -183,12 +183,11 @@ PyOpenGL のプログラムで画像ファイルからテクスチャーを生�
 各ピクセルの RGB 値を次の式でグレースケール化してモノクロ化するようだ。
 
 .. math::
-   :label: luminance-rational
    :nowrap:
 
-   \begin{eqnarray*}
-   L = \cfrac{299}{1000} R + \cfrac{587}{1000} G + \cfrac{114}{1000} B
-   \end{eqnarray*}
+   \begin{align*}
+   L = \frac{299}{1000} R + \frac{587}{1000} G + \frac{114}{1000} B
+   \end{align*}
 
 >>> ...
 >>> im = Image.open("illvelo.png")
