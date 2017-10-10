@@ -390,16 +390,12 @@ Setting Matrices Directly
   .. math::
      :nowrap:
 
-     \begin{align*}
-     \left(
-         \begin{array}{cccc}
-             1 &\cot(\theta) &0 &0 \\
-             0 &1            &0 &0 \\
-             0 &0            &1 &0 \\
-             0 &0            &0 &1
-         \end{array}
-     \right)
-     \end{align*}
+     \begin{pmatrix}
+     1 & \cot \theta & 0 & 0 \\
+     0 & 1           & 0 & 0 \\
+     0 & 0           & 1 & 0 \\
+     0 & 0           & 0 & 1
+     \end{pmatrix}
 
 * **oblique projection** を実現することもできる。
 
@@ -421,7 +417,7 @@ Setting Matrices Directly
              1 &0             &0 &0 \\
              0 &1             &0 &0 \\
              0 &0             &1 &0 \\
-             0 &-\cfrac{1}{y} &0 &0
+             0 &-\dfrac{1}{y} &0 &0
          \end{array}
      \right)
      \end{align*}

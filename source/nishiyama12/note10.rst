@@ -94,13 +94,13 @@
 
      \begin{align*}
      P_{(d, n - d)} := 
-     \lbrace
-     \left(\begin{array}{cc} A & B\ 0 & D \end{array}\right)
+     \left\{
+     \begin{pmatrix} A & B\\ 0 & D \end{pmatrix}
      \mid
      A \in \mathit{GL}_d(\CC),\ 
      D \in \mathit{GL}_{n - d}(\CC),\ 
      B \in \mathit{M}_{d, n - d}(\CC)
-     \rbrace
+     \right\}
      \end{align*}
 
   #. 等質空間の全単射 :math:`\mathit{GL}(V)/P_{(d, n - d)} \longto Gr_d(V)` が存在する。

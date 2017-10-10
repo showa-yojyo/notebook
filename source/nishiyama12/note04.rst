@@ -108,19 +108,18 @@
      :nowrap:
 
      \begin{align*}
-     E_2 = \lbrace
-     g = \left(
-       \begin{array}{ c c }
+     E_2 = \left\{
+     g = \begin{pmatrix}
           h & v \\
           0 & 1
-       \end{array} \right)
+       \end{pmatrix}
      \mid
-     h \in O_2(\RR), v \in \RR^2\rbrace
-     = \left(
-       \begin{array}{ c c }
+     h \in O_2(\RR), v \in \RR^2
+     \right\}
+     = \begin{pmatrix}
          O_2(\RR) & \RR^2\\
          0 & 1
-       \end{array} \right)
+       \end{pmatrix}
      \end{align*}
 
   こうすると曲線を次のように記せる：
@@ -130,18 +129,16 @@
 
      \begin{align*}
      F(x, y) = {}^t\!vAv,\quad
-     A = \left(
-     \begin{array}{ c c c }
+     A = \begin{pmatrix}
        a & b & d \\
        b & c & e \\
        d & e & f
-     \end{array} \right),\quad
-     v = \left(
-       \begin{array}{ c }
+     \end{pmatrix},\quad
+     v = \begin{pmatrix}
        x \\
        y \\
        1
-     \end{array} \right)
+     \end{pmatrix}
      \end{align*}
 
   * ここで用いられている技法は、CG プログラミングのそれと同じではないか。なるほど。
@@ -171,11 +168,10 @@
      P_1 = \frac{\trace X}{\sqrt[3]{\Delta^2}},
      P_2 = \frac{\det X}{\sqrt[3]{\Delta^2}},
      \text{ where }
-     X = \left(
-     \begin{array}{c c}
+     X = \begin{pmatrix}
        a & b\\
        c & d
-     \end{array} \right).
+     \end{pmatrix}
      \end{align*}
 
   * この二つの不変量が一致する曲線同士が合同となる。逆もしかり。

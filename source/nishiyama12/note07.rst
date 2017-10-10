@@ -50,7 +50,7 @@
 
        \begin{align*}
        O_3(\RR) = \mathit{SO}_3(\RR) \sqcup h \mathit{SO}_3(\RR),\
-       h = \left( \begin{array}{c c c} 1 & 0 & 0\\ 0 & 1 & 0\\ 0 & 0 & -1 \end{array} \right).
+       h = \left( \begin{array}{c c r} 1 & 0 & 0\\ 0 & 1 & 0\\ 0 & 0 & -1 \end{array} \right).
        \end{align*}
 
   * 軌道を考えると、これは球になる。

@@ -17,13 +17,12 @@
    :nowrap:
 
    \begin{align*}
-   A_2 = \lbrace
-   \left(
-     \begin{array}{ c c }
+   A_2 = \left\{
+   \begin{pmatrix}
        GL_2(\RR) & \RR^2\\
        0 & 1
-     \end{array} \right)
-   \rbrace
+   \end{pmatrix}
+   \right\}
    \end{align*}
 
 * 演習 5.1: アフィン変換を :math:`g \in A_2` による行列の積としてみなすと、
@@ -135,27 +134,27 @@
 
 .. math::
    :nowrap:
-   
+
    \begin{gather*}
-   A = \left(\begin{array}{c c}
+   A = \begin{pmatrix}
    X     & u\\
    {}^t\! u & f
-   \end{array}\right),\
+   \end{pmatrix},\
    \det A \ne 0,
-   X = \left(\begin{array}{c c}
+   X = \begin{pmatrix}
    a & b\\
    b & c
-   \end{array}\right),\
-   u = \left(\begin{array}{c}
+   \end{pmatrix},\
+   u = \begin{pmatrix}
    d\\
    e
-   \end{array}\right),\
+   \end{pmatrix},\
    \\
    A \mapsto {}^t\!gAg = 
-   \left(\begin{array}{c c}
+   \begin{pmatrix}
    {}^t\!hXh         & {}^t\!Xv + {}^t\!hu\\
    {}^t\!Xh + {}^tuh & f + {}^t\!Xv + 2u \cdot v
-   \end{array}\right).
+   \end{pmatrix}.
    \end{gather*}
 
 * :math:`\det X \ne 0` のときは標準形は

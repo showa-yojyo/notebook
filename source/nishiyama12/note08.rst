@@ -103,14 +103,12 @@
      :nowrap:
 
      \begin{align*}
-     a_t = 
-     \left(
-     \begin{array}{ c c c}
+     a_t =
+     \begin{pmatrix}
      \cosh t & 0 & \sinh t\\
      0 & 1 & 0\\
      \sinh t & 0 & \cosh t
-     \end{array}
-     \right)
+     \end{pmatrix}
      \in O_{2,1}(\RR).
      \end{align*}
 

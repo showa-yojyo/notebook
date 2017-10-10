@@ -164,7 +164,7 @@
 
 * 問題 3.3.4: 平面から原点を除いた部分を図形で埋め尽くして同値類のなす商空間が多様体にならないパターンの問題。
 
-  * 行列 :math:`A = { \displaystyle \left( \begin{array}{ c c } a & 0 \\ 0 & \cfrac{1}{a} \end{array} \right) \ (a > 1) }` をとり、
+  * 行列 :math:`A = { \displaystyle \begin{pmatrix} a & 0 \\ 0 & \dfrac{1}{a} \end{pmatrix}\ (a > 1) }` をとり、
     元の空間における同値関係を :math:`z_1 \sim z_2 \Leftrightarrow \exists n \in \ZZ: A^n z_1 = z_2` で定義する。
 
   * 対象となる空間は :math:`Z = \RR^2 \setminus \lbrace (0, 0) \rbrace,\ S = Z / \sim`
