@@ -75,7 +75,7 @@
      \end{align*}
 
   初等的な方法で示せる。
-  :math:`{ \displaystyle g_k(x_1, \dotsc, x_n) = \int_0^1 \frac{\partial f}{\partial x_k} (tx_1, \dotsc, tx_n) dt}`
+  :math:`{ \displaystyle g_k(x_1, \dotsc, x_n) = \int_0^1 \frac{\partial f}{\partial x_k} (tx_1, \dotsc, tx_n)\,\dd{t}}`
 
 * 問題 5.1.6: 方向微分。
   多様体 :math:`M` 上で定義されている :math:`C^\infty` 級関数 :math:`f, g` と点 :math:`p \in M` に対して、
@@ -83,7 +83,7 @@
 
   #. 点 :math:`p \in M` における方向微分全てからなる空間 :math:`\mathcal{D}_p` は実ベクトル空間である。
   #. 多様体 :math:`M` 上の曲線 :math:`c(t)\ (c(0) = p)` について
-     :math:`{ \displaystyle D_c: f \mapsto \frac{d(f \circ c)}{dt}(0)}` は点 :math:`p` における方向微分である。
+     :math:`{ \displaystyle D_c: f \mapsto \diff{(f \circ c)}{t}(0)}` は点 :math:`p` における方向微分である。
   #. :math:`\mathcal{D}_p` の基底は :math:`{ \displaystyle
      \left\{
      \left(\frac{\partial}{\partial x_1} \right)_p,

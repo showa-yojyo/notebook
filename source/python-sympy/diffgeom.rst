@@ -156,7 +156,7 @@
 クラス BaseVectorField
 ----------------------------------------------------------------------
 このクラスが表現するのは接ベクトルの基底だと思われる。
-つまり接ベクトル :math:`\sum_{i=0} a_i \left(\frac{\partial}{\partial x_i}\right)_p` の
+つまり接ベクトル :math:`\displaystyle \sum_{i=0} a_i \left(\frac{\partial}{\partial x_i}\right)_p` の
 :math:`\frac{\partial}{\partial x_i}` の部分を表現している。
 
 このクラスはベクトル場を表現するための素材に過ぎない。
@@ -302,10 +302,10 @@
 
 .. math::
 
-   \begin{eqnarray*}
-   T_{rp}&:& (x, y) \mapsto (\sqrt{x^2 + y^2}, \tan^{-1} \frac{y}{x})\\
-   T_{pr}&:& (r, \theta) \mapsto (r \cos \theta, r \sin \theta)
-   \end{eqnarray*}
+   \begin{align*}
+   T_{rp}: (x, y) & \mapsto & (\sqrt{x^2 + y^2}, \tan^{-1} \frac{y}{x})\\
+   T_{pr}: (r, \theta) & \mapsto & (r \cos \theta, r \sin \theta)
+   \end{align*}
 
 3 次元オブジェクト
 ----------------------------------------------------------------------
@@ -318,28 +318,28 @@
 
 .. math::
 
-   \begin{eqnarray*}
-   T_{rc}&:& (x, y, z) \mapsto (\sqrt{x^2 + y^2}, \tan^{-1} \frac{y}{x}, z)\\
-   T_{cr}&:& (\rho, \psi, z) \mapsto (\rho \cos \psi, \rho \sin \psi, z)
-   \end{eqnarray*}
+   \begin{align*}
+   T_{rc}: (x, y, z) & \mapsto & (\sqrt{x^2 + y^2}, \tan^{-1} \frac{y}{x}, z)\\
+   T_{cr}: (\rho, \psi, z) & \mapsto & (\rho \cos \psi, \rho \sin \psi, z)
+   \end{align*}
 
 直交座標系と球座標系間の座標変換は次のように与えられている。
 
 .. math::
 
-   \begin{eqnarray*}
-   T_{rs}&:& (x, y, z) \mapsto (\sqrt{x^2 + y^2 + z^2}, \cos^{-1} \frac{z}{\sqrt{x^2 + y^2 + z^2}}, \tan^{-1} \frac{y}{x})\\
-   T_{sr}&:& (r, \theta, \phi) \mapsto (r \sin \theta \cos \phi, r \sin \theta \sin \phi, r \cos \theta)
-   \end{eqnarray*}
+   \begin{align*}
+   T_{rs}: (x, y, z) & \mapsto & (\sqrt{x^2 + y^2 + z^2}, \cos^{-1} \frac{z}{\sqrt{x^2 + y^2 + z^2}}, \tan^{-1} \frac{y}{x})\\
+   T_{sr}: (r, \theta, \phi) & \mapsto & (r \sin \theta \cos \phi, r \sin \theta \sin \phi, r \cos \theta)
+   \end{align*}
 
 円柱座標系と球座標系間の座標変換は次のように与えられている。
 
 .. math::
 
-   \begin{eqnarray*}
-   T_{cs}&:& (\rho, \psi, z) \mapsto (\sqrt{\rho^2 + z^2}, \cos^{-1} \frac{z}{\sqrt{\rho^2 + z^2}}, \psi)\\
-   T_{sc}&:& (r, \theta, \phi) \mapsto (r \sin \theta, \phi, r \cos \theta)
-   \end{eqnarray*}
+   \begin{align*}
+   T_{cs}: (\rho, \psi, z) & \mapsto & (\sqrt{\rho^2 + z^2}, \cos^{-1} \frac{z}{\sqrt{\rho^2 + z^2}}, \psi)\\
+   T_{sc}: (r, \theta, \phi) & \mapsto & (r \sin \theta, \phi, r \cos \theta)
+   \end{align*}
 
 コード例（基本編）
 ======================================================================
@@ -446,12 +446,12 @@
   .. math::
      :nowrap:
 
-     \begin{eqnarray*}
+     \begin{align*}
      \frac{\partial f}{\partial x} =
      \frac{\partial f}{\partial r}\frac{\partial r}{\partial x} +
      \frac{\partial f}{\partial \theta}\frac{\partial \theta}{\partial x} +
      \frac{\partial f}{\partial \phi}\frac{\partial \phi}{\partial x}
-     \end{eqnarray*}
+     \end{align*}
 
 微分形式と外微分
 ----------------------------------------------------------------------
@@ -463,10 +463,10 @@
 .. math::
    :nowrap:
 
-   \begin{eqnarray*}
-   \omega &=& a x y z \,dx + b x^2 z \,dy -3 x^2 y \,dz\\
-   d \omega &=& (-bx^2 - 3x^2) \,dy \wedge dz + (axy + 6xy) \,dz \wedge dx + (2bxz - axz) \,dx \wedge dy
-   \end{eqnarray*}
+   \begin{align*}
+   \omega &=& a x y z \,\dx + b x^2 z \,\dy -3 x^2 y \,\dz\\
+   \dd{\omega} &=& (-bx^2 - 3x^2) \,\dy \wedge \dz + (axy + 6xy) \,\dz \wedge \dx + (2bxz - axz) \,\dx \wedge \dy.
+   \end{align*}
 
 しかし考えられる二通りの方法を試したところ、どうも所望の出力にならない。
 まずは Differential だけでがんばる。
@@ -570,8 +570,8 @@ Commutator に基づくため wedge 積が出現しないことによる。
 
 例を示す。
 
-ベクトル場 :math:`X = -y \frac{\partial}{\partial x} + x \frac{\partial}{\partial y}` の
-積分曲線 :math:`\gamma: (t_0, t_1) \longto M (M \subset \RR^2)` をそれぞれの関数を用いて求める。
+ベクトル場 :math:`\displaystyle X = -y \frac{\partial}{\partial x} + x \frac{\partial}{\partial y}` の
+積分曲線 :math:`\gamma: (t_0, t_1) \longto M\ (M \subset \RR^2)` をそれぞれの関数を用いて求める。
 
 .. code-block:: ipython
 
@@ -604,21 +604,21 @@ Commutator に基づくため wedge 積が出現しないことによる。
   .. math::
      :nowrap:
 
-     \begin{eqnarray*}
-     \gamma_1(t) + \frac{d}{dt} \gamma_0(t) = 0\\
-     - \gamma_0(t) + \frac{d}{dt} \gamma_1(t) = 0\\
+     \begin{align*}
+     \gamma_1(t) + \diff{}{t} \gamma_0(t) = 0\\
+     - \gamma_0(t) + \diff{}{t} \gamma_1(t) = 0\\
      -x_0 + \gamma_0(0) = 0\\
      -y_0 + \gamma_1(0) = 0\\
-     \end{eqnarray*}
+     \end{align*}
 
   これを何らかの手段で解けば次の積分曲線が求まる。
 
   .. math::
      :nowrap:
 
-     \begin{eqnarray*}
+     \begin{align*}
      \gamma(t) = (\gamma_0(t), \gamma_1(t)) = (x_0 \cos t - y_0 \sin t, y_0 \cos t + x_0 \sin t)
-     \end{eqnarray*}
+     \end{align*}
 
   SymPy の関数 :code:`dsolve` をそのまま用いてもよいが、
   この状況での初期値 :code:`ics` の指定方法が不明。
@@ -662,12 +662,12 @@ Commutator に基づくため wedge 積が出現しないことによる。
   .. math::
      :nowrap:
 
-     \begin{eqnarray*}
+     \begin{align*}
      M_{ij} = \omega\left(\frac{\partial}{\partial x_j}, \frac{\partial}{\partial x_i}\right)
-     \end{eqnarray*}
+     \end{align*}
 
 添字の順序については、実装を正とするならばドキュメントの記述が誤りだと思う。
-例として、先ほどうまくいかなかった外微分 :math:`d\omega` がちょうど 2-形式なので、
+例として、先ほどうまくいかなかった外微分 :math:`\dd{\omega}` がちょうど 2-形式なので、
 ここで試そう。
 
 .. code-block:: ipython
@@ -687,7 +687,7 @@ Commutator に基づくため wedge 積が出現しないことによる。
 
 * [2] 関数 :code:`twoform_to_matrix` を呼び出す。
   対角成分がゼロの 3 次交代行列が返るが、これは wedge 積の性質による。
-* [3] この行列からは先ほどの :math:`d\omega` の各基底 2-form の係数が得られるようだ。
+* [3] この行列からは先ほどの :math:`\dd{\omega}` の各基底 2-form の係数が得られるようだ。
   こちらを用いればよかったのだ。
 
 計量テンソル
@@ -733,13 +733,13 @@ Riemman-Christoffel 曲率テンソル
     .. math::
        :nowrap:
 
-       \begin{eqnarray*}
+       \begin{align*}
        R^\rho{}_{\sigma \mu \nu} = 
        \Gamma_{\sigma \nu, \mu}^\rho
        - \Gamma_{\sigma \mu, \nu}^\rho
        + \Gamma_{\sigma \nu}^l \Gamma_{l \mu}^\rho
        - \Gamma_{\sigma \mu}^l \Gamma_{l \nu}^\rho
-       \end{eqnarray*}
+       \end{align*}
 
    * 実装では当然ながら関数 :code:`metric_to_Christoffel_2nd` を用いている。
 
@@ -754,9 +754,9 @@ Ricci 曲率テンソル
     .. math::
        :nowrap:
 
-       \begin{eqnarray*}
+       \begin{align*}
        R_{ij} = R^k {}_{i k j}
-       \end{eqnarray*}
+       \end{align*}
 
   * 実装では当然ながら関数 :code:`metric_to_Riemann_components` を用いている。
 

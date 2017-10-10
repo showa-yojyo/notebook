@@ -36,7 +36,7 @@
     * :math:`(\varphi \circ (F_t \circ F_{t_0}^{-1})\circ\varphi^{-1}(x_1, \dotsc, x_n)` を
       :math:`(f_1(t, t_0, x_1, \dotsc, x_n), \dotsc, f_n(t, t_0, x_1, \dotsc, x_n),)` と書く。
 
-    * :math:`\displaystyle X_i = \sum_{i = 1}^n \frac{df_i}{dt}(t, t_0, x_1, \dotsc, x_n) \frac{\partial}{\partial x_i}.`
+    * :math:`\displaystyle X_i = \sum_{i = 1}^n \diff{f_i}{t}(t, t_0, x_1, \dotsc, x_n) \frac{\partial}{\partial x_i}.`
 
     * :math:`(t_0, \varphi(y_0))` の近傍で定義されている :math:`\RR^n` に値を持つ :math:`C^\infty` 級写像である。
     * :math:`(t_0, \varphi(y_0))` の近傍において :math:`X(t, y) = X_t(y)` による写像
@@ -49,7 +49,7 @@
   そこで、こういう性質を持つ :math:`C^\infty` 級写像 :math:`X: M \longto TM` を
   :math:`M` 上の :math:`C^\infty` 級ベクトル場と言う。
 
-  * :math:`\displaystyle \frac{dF_t}{dt} = X_t \circ F_t,\ F_{t_0} = \id_M`
+  * :math:`\displaystyle \diff{F_t}{t} = X_t \circ F_t,\ F_{t_0} = \id_M`
   * :math:`F_{t_0} = \id_M` となる :math:`F_t` により :math:`F_{t_1}(A_0) = A_1` となることは、
     ベクトル場の定める常微分方程式の解により :math:`A_0` を :math:`A_1` に写すことと同じである。
 
@@ -60,7 +60,7 @@
   * 以下 :math:`A(t) \in M_n(\RR)` を :math:`t` について連続な行列、
     成分を :math:`A(t) = (a_{ij}(t))` と表し、ベクトル :math:`\bm{x} = (x_j)` と表す。
 
-  * :math:`\displaystyle \frac{d}{dt}\bm{x} = A(t)\bm{x}` について、
+  * :math:`\displaystyle \diff{}{t}\bm{x} = A(t)\bm{x}` について、
     これは接ベクトル場 :math:`\displaystyle \sum_{i = 1}^n\left(\sum_{j = 1}^n a_{ij}(t)x_j\right)\frac{\partial}{\partial x_i}` である。
 
   * :math:`A(t)` が :math:`t` に非依存ならば

@@ -24,7 +24,7 @@ SciPy の関数を紹介し、次に使い勝手のよい定積分計算関数�
    :language: python3
    :lines: 1-20
 
-:math:`\int_{0}^{\pi} \sin x dx` という簡単な例で面白くないが、見ていこう。
+:math:`\displaystyle \int_{0}^{\pi} \sin x\,\dd{x}` という簡単な例で面白くないが、見ていこう。
 
 まずは NumPy の関数 ``linspace`` を用いて、
 積分区間 :math:`[0, \pi]` を百等分した列 ``x`` を用意する。
@@ -71,7 +71,7 @@ Simpson の公式
 実行結果
 ======================================================================
 前述までの計算結果を一挙に記す。
-すべて :math:`\int_{0}^{\pi} \sin x dx` である。
+すべて :math:`\displaystyle \int_{0}^{\pi} \sin x\,\dx` である。
 
 .. code-block:: text
 

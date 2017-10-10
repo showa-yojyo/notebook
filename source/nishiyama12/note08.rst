@@ -382,10 +382,10 @@
 
 * 演習 8.27: 楕円積分
 
-  * 有理関数 :math:`R(x, y)` について積分 :math:`\displaystyle \int R(x, \sqrt{4x^3 - g_2x - g_3})dx` は
-    置換積分法により :math:`\displaystyle \int R(\wp(z), \wp'(z))\wp'(z)dz` である。
+  * 有理関数 :math:`R(x, y)` について積分 :math:`\displaystyle \int R(x, \sqrt{4x^3 - g_2x - g_3})\,\dd{x}` は
+    置換積分法により :math:`\displaystyle \int R(\wp(z), \wp'(z))\wp'(z)\,\dz` である。
 
-  * 楕円関数の逆関数 :math:`\displaystyle \wp^{-1}(z) = \int \frac{dx}{\sqrt{4x^3 - g_2x - g_3}}` を楕円積分という。
+  * 楕円関数の逆関数 :math:`\displaystyle \wp^{-1}(z) = \int \frac{\dx}{\sqrt{4x^3 - g_2x - g_3}}` を楕円積分という。
 
 ----
 

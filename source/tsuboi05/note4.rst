@@ -32,16 +32,16 @@
 
         \begin{align*}
         c_1 \sim c_2 \Longleftrightarrow 
-        \exists t_1 \in I_{c_1},\ t_2 \in I_{c_2}: \frac{d (\varphi \circ c_1)}{dt}(t_1) = \frac{d (\varphi \circ c_2)}{dt}(t_2)
+        \exists t_1 \in I_{c_1},\ t_2 \in I_{c_2}: \diff{(\varphi \circ c_1)}{t}(t_1) = \diff{(\varphi \circ c_2)}{t}(t_2)
         \end{align*}
 
-* :math:`{\displaystyle \frac{d (\varphi \circ c_1)}{dt}(t_1)}` 等は :math:`\RR^n` のベクトルであって
+* :math:`{\displaystyle \diff{d (\varphi \circ c_1)}{t}(t_1)}` 等は :math:`\RR^n` のベクトルであって
   点 :math:`\varphi(x_0) \in \varphi(U)` から「生えている」ようなイメージか？
 
 * 別の近傍 :math:`(V, \psi)` をとって
-  :math:`{\displaystyle \frac{d (\psi \circ c_i)}{dt}(t_i)}` を考えると
-  「:math:`{\displaystyle \frac{d (\varphi \circ c_i)}{dt}(t_i)}` が同じであることと
-  :math:`{\displaystyle\frac{d (\psi \circ c_i)}{dt}(t_i)}` が同じであること」となる。
+  :math:`{\displaystyle \diff{(\psi \circ c_i)}{t}(t_i)}` を考えると
+  「:math:`{\displaystyle \diff{(\varphi \circ c_i)}{t}(t_i)}` が同じであることと
+  :math:`{\displaystyle \diff{(\psi \circ c_i)}{t}(t_i)}` が同じであること」となる。
 
   * それはなぜか。
     :math:`\psi \circ c_i = (\psi \circ \varphi^{-1}) \circ (\varphi \circ c_i)` であるので、
@@ -52,10 +52,10 @@
 
        \begin{equation*}
        \begin{split}
-       \frac{d (\psi \circ c_i)}{dt}(t_i)
-       & = D(\psi \circ \varphi^{-1})_{\varphi(x_0)} \frac{d (\varphi \circ c_i)}{dt}(t_i) \quad \because \text{chain rule}\\
-       & = D(\psi \circ \varphi^{-1})_{\varphi(x_0)} \frac{d (\varphi \circ c_j)}{dt}(t_j) \quad \because c_i \sim c_j \text{ for } (U, \varphi)\\
-       & = \frac{d (\psi \circ c_j)}{dt}(t_j) \quad \because \text{chain rule}
+       \diff{(\psi \circ c_i)}{t}(t_i)
+       & = D(\psi \circ \varphi^{-1})_{\varphi(x_0)} \diff{(\varphi \circ c_i)}{t}(t_i) \quad \because \text{chain rule}\\
+       & = D(\psi \circ \varphi^{-1})_{\varphi(x_0)} \diff{d (\varphi \circ c_j)}{t}(t_j) \quad \because c_i \sim c_j \text{ for } (U, \varphi)\\
+       & = \diff{(\psi \circ c_j)}{t}(t_j) \quad \because \text{chain rule}
        \end{split}
        \end{equation*}
 
@@ -84,8 +84,8 @@
      \begin{equation*}
      \begin{split}
      \varphi_*(c_\varphi ^\bm{v})
-         & = \frac{d(\varphi \circ (\varphi ^{-1} (t \bm{v} + \varphi (x_0))))}{dt}(0) \\
-         & = \frac{d(t \bm{v} + \varphi (x_0))}{dt}(0) \\
+         & = \diff{(\varphi \circ (\varphi ^{-1} (t \bm{v} + \varphi (x_0))))}{t}(0) \\
+         & = \diff{(t \bm{v} + \varphi (x_0))}{t}(0) \\
          & = \bm{v}
      \end{split}
      \end{equation*}
@@ -102,11 +102,11 @@
 
      \begin{equation*}
      \begin{split}
-     \frac{d(\psi \circ c_\varphi^{a_1 \bm{v_1} + a_2 \bm{v_2}})}{dt}(0)
-     &= D(\psi \circ \varphi^{-1})_{\varphi(x_0)} \frac{d(t(a_1 \bm{v_1} + a_2 \bm{v_2}) + \varphi(x_0))}{dt}(0)\\
+     \diff{(\psi \circ c_\varphi^{a_1 \bm{v_1} + a_2 \bm{v_2}})}{t}(0)
+     &= D(\psi \circ \varphi^{-1})_{\varphi(x_0)} \diff{(t(a_1 \bm{v_1} + a_2 \bm{v_2}) + \varphi(x_0))}{t}(0)\\
      &= D(\psi \circ \varphi^{-1})_{\varphi(x_0)}(a_1 \bm{v_1} + a_2 \bm{v_2})\\
      &= a_1 D(\psi \circ \varphi^{-1})_{\varphi(x_0)} \bm{v_1} + a_2 D(\psi \circ \varphi^{-1})_{\varphi(x_0)} \bm{v_2}\\
-     &= a_1 \frac{d(\psi \circ c_\varphi^{\bm{v_1}})}{dt}(0) + a_2 \frac{d(\psi \circ c_\varphi^{\bm{v_2}})}{dt}(0)
+     &= a_1 \diff{(\psi \circ c_\varphi^{\bm{v_1}})}{t}(0) + a_2 \diff{(\psi \circ c_\varphi^{\bm{v_2}})}{t}(0)
      \end{split}
      \end{equation*}
 
@@ -119,7 +119,7 @@
   * 理由 1: 曲線は（偏）微分 or 方向微分を表しているとみなせるから。
   * 理由 2: 座標近傍を換えたときの基底変換が形式的にできるから。
 
-    * 接ベクトルは :math:`{ \displaystyle \sum \frac{d(x_i \circ c)}{dt}(t_0) \frac{\partial}{\partial x_i} = \sum \frac{d(y_i \circ c)}{dt}(t_0) \frac{\partial}{\partial y_i} }`
+    * 接ベクトルは :math:`{ \displaystyle \sum \diff{(x_i \circ c)}{t}(t_0) \frac{\partial}{\partial x_i} = \sum \diff{(y_i \circ c)}{t}(t_0) \frac{\partial}{\partial y_i} }`
     * 座標変換は :math:`\psi \circ \varphi^{-1} = (y_1(x_1, \dotsc, x_n), \dotsc, y_n(x_1, \dotsc, x_n))`
     * ヤコビ行列は :math:`{ \displaystyle \left( \frac{\partial y_i}{\partial x_j} \right) }`
     * 接ベクトルの変換は :math:`{ \displaystyle \frac{\partial}{\partial x_j}}` を
