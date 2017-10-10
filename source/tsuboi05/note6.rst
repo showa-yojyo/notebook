@@ -169,6 +169,77 @@
 
   * TBW
 
+6.3 常微分方程式の解の存在と一意性（基本）
+----------------------------------------------------------------------
+* ベクトル場 :math:`X` に対して次のような :math:`F_t` が存在するのかを考える：
+  :math:`F_t: M \longto M,\ F_s circ F_t = F_{s + t}.`
+* これは多様体上で常微分方程式を考える問題だ。
+* 開集合 :math:`U \subset \RR^n` とコンパクト集合 :math:`K \subset U` があると仮定すれば、
+  :math:`\forall \bm x \in K, \exists B_\eps(\bm x) \subset U` が成り立つ。
+  コンパクト性から :math:`\eps > 0` の取り方は :math:`\bm x \in K` に依存しないというのがポイントだ。
+
+* 定理 6.3.1 常微分方程式の解の存在、一意性、初期値に対する連続性
+
+  * 仮定
+
+    * リプシッツ条件：
+      :math:`\exists L > 0 \text{ s.t. } \t \in (a, b),\ \bm x_1, \bm x_2 \in U: \lVert X(t, \bm x_1) - X(t, \bm x_2) \rVert \le L \lVert \bm x_1 - \bm x_2 \rVert.`
+
+    * 有界性：
+      :math:`X: (a, b) \times U \longto \RR^n` は有界連続とする：
+      :math:`\sup_{t, \bm x \in (a, b) \times U} X(t, \bm x) \le M.`
+
+      * :math:`M` の記号がカブっている。
+
+  * 結論
+
+    :math:`\exists \eps_0 > 0, \exists F: (t_0 - \eps_0, t_0 + \eps_0) \times K \longto U,`
+
+    * :math:`F(t, \bm x)` は :math:`t` について微分可能であり :math:`\bm x` について連続。
+    * :math:`\displaystyle F(t_0, \bm x) = \bm x,\ \diff{F}{t} = X(t, F(t, \bm x)).`
+
+  * 証明
+
+    * そのある関数とは
+      :math:`\displaystyle F(t, \bm x) = \bm x + \int_{t_0}^t \diff{F(s, \bm x)}{s}\ \dd{s} = \bm x + \int_{t_0}^t\! X(s, F(s, \bm x))\,\dd{s}` となる。
+
+    * アイディア :math:`I_{\eps_0} := (t_0 - \eps_0, t_0 + \eps_0),\quad C = C^0(I_{\eps_0}, U),`
+
+      ..math::
+        :nowrap:
+
+        \begin{align*}
+        \Gamma[F(t, \bm x)] := \bm x + \int_{t_0}^t X(s, F(s, \bm x))\,\dd{s} \in C^0(I_{\eps_0}, U).
+        \end{align*}
+
+    * :math:`F_1, F_2 \in C, \sup \lVert \Gamma[F_1] - \Gamma[F_2]\rVert \le \eps_0 L \sup \lVert F_1 - F_2 \rVert.` となる。
+    * :math:`F_0(t, \bm x) = \bm x,\ F_1 = \Gamma(F_0)` とすると :math:`\sup \lVert F_1 - F_0 \rVert \le \eps_0 M.`
+    * ここで
+      :math:`\displaystyle \eps_0 = \min\left\{\frac{1}{2L}, \frac{\eps}{4M}\right\}` とすればよいことわがかる。
+    * :math:`\displaystyle \eps_0 \le \frac{1}{2L}` と :math:`\displaystyle \eps_0 \le \frac{\eps}{4M}` から解の一意性と微分可能性をそれぞれ示す。
+    * :math:`C^0(I_{\eps_0} \times K, \RR^n)` 上に距離を入れてリプシッツ性を利用する。
+
+* 注意 6.3.2 によると仮定を少し緩められるらしい。
+  :math:`(a, b) \times U \times \Lambda,\ \lVert X(t, \bm x_1, \lambda) - X(t, \bm x_2, \lambda) \rVert \le L\lVert \bm x_1 - \bm x_2 \rVert.`
+
+* 問題 6.3.3: :math:`C^1` 級ベクトル場と線形常微分方程式
+
+  * TBW
+
+* 注意 6.3.4: :math:`\displaystyle \frac{\partial F(t, \bm x)}{\partial t} = X(t, F(t, \bm x))` は
+  :math:`\bm x` と :math:`t` のどちらについても連続であることが
+  :math:`F` が :math:`C^1` 級であることに注意。
+
+* 問題 6.3.5: ベクトル場が :math:`C^\infty` 級ならば解は :math:`C^\infty` 級である
+
+  * 帰納法。
+
+* 注意 6.3.6
+
+  #. :math:`C^\infty` 級ベクトル場が生成するフローはまた :math:`C^\infty` 級である。
+  #. パラメーターに対して :math:`C^\infty` 級に依存するベクトル場が生成するフローもまた
+     パラメーターに対して :math:`C^\infty` 級に依存する。
+
 ----
 
 :doc:`note7` へ。
