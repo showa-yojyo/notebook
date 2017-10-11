@@ -247,6 +247,97 @@
   #. パラメーターに対して :math:`C^\infty` 級に依存するベクトル場が生成するフローもまた
      パラメーターに対して :math:`C^\infty` 級に依存する。
 
+6.4 コンパクト多様体上のベクトル場
+----------------------------------------------------------------------
+コンパクト多様体上の :math:`C^\infty` 級ベクトル場はフロー :math:`F_t` を生成する。
+
+* 定理 6.4.1: :math:`\displaystyle X = \diff{F_t}{t} \circ F_{-t}`
+
+  * いつもの開被覆からさらに次のような :math:`V_i, W_i` をとる：
+
+    * :math:`U_i \supset \overline{V_i} \supset V_i \supset \overline{W_i} \supset W_i`
+    * :math:`\bigcup W_i = M`
+
+  * 証明は三段階に分けて理解する。
+
+    #. :math:`C^\infty` 級写像 :math:`\displaystyle F: (-\eps, \eps) \times M \longto \RR^n,\quad \diff{F}{t}(t, x) = X(F(t, x))` が存在することを示す。
+
+       * :math:`\displaystyle X = \sum_{k}\xi_k^{(i)}\frac{\partial}{\partial x_k^{(i)}}` とおく。
+         閉包のコンパクト性から :math:`\varphi_i(V_i)` 上で有界連続でリプシッツ条件を満たす。
+
+       * :math:`\varphi_i(\overline{W_i}) \subset \varphi_i(V_i)` において次のような :math:`\eps^{(i)} > 0` が存在する：
+
+         .. math::
+            :nowrap:
+
+            \begin{align*}
+            & F^{(i)}: (-\eps^{(i)}, \eps^{(i)}) \times \varphi_i(\overline{W_i}) \longto \varphi_i(V_i)\\
+            & \diff{F^{(i)}}{t}(t, \bm x) = \xi^{(i)}(F^{(i)}(t, \bm x))\\
+            \end{align*}
+
+         ここで :math:`\xi^{(i)} = (\xi_1^{(i)}, \dotsc, \xi_n^{(i)})` とした。
+
+       * :math:`\eps = \min\{\eps^{(i)}\}` とすると全ての :math:`x \in M` に対して次の性質を満たすような近傍 :math:`W^i` が存在する：
+
+         .. math::
+            :nowrap:
+
+            \begin{align*}
+            & F^i(t, x) = \varphi_i^{-1}(F^{(i)}(t, \varphi_i(x)))\\
+            & F_x^i: (-\eps, \eps) \longto M\\
+            & \diff{F_x^i}{t}(t) = X(F_x^i(t)).
+            \end{align*}
+
+       * 別の :math:`W_j \owns x` について :math:`F_x^j` を上のように定義すると
+         :math:`F_x^j = F_x^i` となる（常微分方程式の解の比較）。
+
+    #. 解の接続。上記写像の定義域を :math:`\RR \times M` にまで拡張した写像が存在することを示す。
+
+       * :math:`\displaystyle t \in \left(-\eps,\ \frac{\eps}{2}\eps\right)` のときは
+         :math:`\displaystyle t \in \left(\frac{n - 1}{2}\eps,\ \frac{n + 1}{2}\eps\right)` に対して改めて
+         :math:`\displaystyle F(t, x) = F\!\left(t - \frac{n - 1}{2}\eps,\ F\!\left(\frac{n - 1}{2}\eps,\ x\right)\!\right)` とする。
+
+       * :math:`\displaystyle t \in \left(-\frac{\eps}{2}\eps,\ \eps\right)` のときは
+         上でやった区間の「反対側」に対して改めて
+         :math:`\displaystyle F(t, x) = F\!\left( t + \frac{n - 1}{2}\eps,\ F\!\left( -\frac{n - 1}{2}\eps,\ x\right)\!\right)` とする。
+
+       どちらも :math:`\displaystyle \diff{F}{t}(t, x) = X(F(t, x))` が成り立っている。
+
+    #. :math:`F(t + s, x) = F(t, F(s, x))` を示す。
+
+* 例題 6.4.3: 連結コンパクト一次元多様体が向き付け可能であることを使えば、
+  多様体上にゼロでないベクトル場が存在することがわかり、
+  :math:`M \cong \RR/\ZZ` が成り立つ。
+
+  * 各座標近傍 :math:`U_i` に対し 1 の分割 :math:`\lambda_i` を導入する。
+  * :math:`U_i` に台を持つベクトル場 :math:`\displaystyle \lambda_i \frac{\partial}{\partial t^{(i)}}` を考える。
+    ここで :math:`t^{(i)}` は座標とする。
+
+  * :math:`\displaystyle X = \sum_i \lambda_i \frac{\partial}{\partial t^{(i)}} \ne 0` を示す。
+
+    * :math:`D\gamma_{ij} > 0` および :math:`\sum_i \lambda_i = 1` を利用する。
+
+  * :math:`X` が生成するフローの軌道は前に述べたように 3 通り。
+    このうち連結コンパクトなのは円周しかなかった。
+
+* 注意 6.4.4 は長いが、連結コンパクト一次元多様体が向き付け可能であること自体の証明だ。
+
+* 問題 6.4.5: 次の条件を満たす :math:`\displaystyle \mu\frac{\partial}{\partial x_1}` が生成するフロー
+  :math:`\Phi_t` の :math:`\displaystyle \lim_{t \to \infty}\Phi_t(\bm x)` と
+  :math:`\displaystyle \lim_{t \to -\infty}\Phi_t(\bm x)` の値
+
+  * :math:`\mu: \RR^n \longto \RR` は :math:`C^\infty` 級で、
+  * :math:`\supp \mu = \{\bm x \in \RR^n \mid \lVert \bm x \rVert \le 1\},`
+  * :math:`\lVert \bm x \rVert < 1 \implies \mu(\bm x) > 0` と仮定する。
+
+  #. 単位超球面上およびその外側
+
+     :math:`\mu(\bm x) = 0` なので極限値はどちらも :math:`\bm x` となる。
+
+  #. 単位超球面内部の場合
+
+     TBW
+
 ----
 
 :doc:`note7` へ。
