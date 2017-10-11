@@ -34,7 +34,7 @@
 
     * :math:`y_0 \in M` 周りの座標近傍を :math:`(U, \varphi)` とし、
     * :math:`(\varphi \circ (F_t \circ F_{t_0}^{-1})\circ\varphi^{-1}(x_1, \dotsc, x_n)` を
-      :math:`(f_1(t, t_0, x_1, \dotsc, x_n), \dotsc, f_n(t, t_0, x_1, \dotsc, x_n),)` と書く。
+      :math:`(f_1(t, t_0, x_1, \dotsc, x_n), \dotsc, f_n(t, t_0, x_1, \dotsc, x_n))` と書く。
 
     * :math:`\displaystyle X_i = \sum_{i = 1}^n \diff{f_i}{t}(t, t_0, x_1, \dotsc, x_n) \frac{\partial}{\partial x_i}.`
 
@@ -137,12 +137,19 @@
 
 6.2 フロー
 ----------------------------------------------------------------------
+序盤から難しい。
+
 `フロー <http://mathworld.wolfram.com/Flow.html>`__
   フローとは次の性質を満たすアイソトピーである：
   :math:`F_s \circ F_t = F_{s + t}.`
 
   * フローは加法群 :math:`\RR` の多様体への群作用である。
   * ベクトル場 :math:`X_t` は、あるいは局所座標系で書かれた常微分方程式は :math:`t` に依存しない。
+
+    * :math:`F_t` がフローの場合は :math:`\displaystyle X_{t_0}(y_0) = \frac{\partial F}{\partial t}(t_0, F_{t_0}^{-1}(y_0)) = \frac{\partial F}{\partial t}(0, y_0) = X_0(y_0)` とあるが、
+      二番目の等号が成立する根拠がわからない。
+      :math:`F_t = F_{t - t_0} \circ F_{t_0}` であることがどう関わっているのか。
+
   * ベクトル場 :math:`X = X_t` はフローを :math:`F_t` を生成するベクトル場であるという。
     生成の主従を逆に見ることもある。
 
@@ -172,7 +179,7 @@
 6.3 常微分方程式の解の存在と一意性（基本）
 ----------------------------------------------------------------------
 * ベクトル場 :math:`X` に対して次のような :math:`F_t` が存在するのかを考える：
-  :math:`F_t: M \longto M,\ F_s circ F_t = F_{s + t}.`
+  :math:`F_t: M \longto M,\ F_s \circ F_t = F_{s + t}.`
 * これは多様体上で常微分方程式を考える問題だ。
 * 開集合 :math:`U \subset \RR^n` とコンパクト集合 :math:`K \subset U` があると仮定すれば、
   :math:`\forall \bm x \in K, \exists B_\eps(\bm x) \subset U` が成り立つ。
@@ -183,11 +190,11 @@
   * 仮定
 
     * リプシッツ条件：
-      :math:`\exists L > 0 \text{ s.t. } \t \in (a, b),\ \bm x_1, \bm x_2 \in U: \lVert X(t, \bm x_1) - X(t, \bm x_2) \rVert \le L \lVert \bm x_1 - \bm x_2 \rVert.`
+      :math:`\exists L > 0 \text{ s.t. } t \in (a, b),\ \bm x_1, \bm x_2 \in U: \lVert X(t, \bm x_1) - X(t, \bm x_2) \rVert \le L \lVert \bm x_1 - \bm x_2 \rVert.`
 
     * 有界性：
       :math:`X: (a, b) \times U \longto \RR^n` は有界連続とする：
-      :math:`\sup_{t, \bm x \in (a, b) \times U} X(t, \bm x) \le M.`
+      :math:`\displaystyle \sup_{t, \bm x \in (a, b) \times U} X(t, \bm x) \le M.`
 
       * :math:`M` の記号がカブっている。
 
@@ -205,15 +212,15 @@
 
     * アイディア :math:`I_{\eps_0} := (t_0 - \eps_0, t_0 + \eps_0),\quad C = C^0(I_{\eps_0}, U),`
 
-      ..math::
-        :nowrap:
+      .. math::
+         :nowrap:
 
-        \begin{align*}
-        \Gamma[F(t, \bm x)] := \bm x + \int_{t_0}^t X(s, F(s, \bm x))\,\dd{s} \in C^0(I_{\eps_0}, U).
-        \end{align*}
+         \begin{align*}
+         \Gamma[F(t, \bm x)] := \bm x + \int_{t_0}^t X(s, F(s, \bm x))\,\dd{s} \in C^0(I_{\eps_0}, U).
+         \end{align*}
 
-    * :math:`F_1, F_2 \in C, \sup \lVert \Gamma[F_1] - \Gamma[F_2]\rVert \le \eps_0 L \sup \lVert F_1 - F_2 \rVert.` となる。
-    * :math:`F_0(t, \bm x) = \bm x,\ F_1 = \Gamma(F_0)` とすると :math:`\sup \lVert F_1 - F_0 \rVert \le \eps_0 M.`
+    * :math:`F_1, F_2 \in C, \sup \lVert \Gamma[F_1] - \Gamma[F_2]\rVert \le \eps_0 L \sup \lVert F_1 - F_2 \rVert` となる。
+    * :math:`F_0(t, \bm x) = \bm x,\ F_1 = \Gamma[F_0]` とすると :math:`\sup \lVert F_1 - F_0 \rVert \le \eps_0 M.`
     * ここで
       :math:`\displaystyle \eps_0 = \min\left\{\frac{1}{2L}, \frac{\eps}{4M}\right\}` とすればよいことわがかる。
     * :math:`\displaystyle \eps_0 \le \frac{1}{2L}` と :math:`\displaystyle \eps_0 \le \frac{\eps}{4M}` から解の一意性と微分可能性をそれぞれ示す。
