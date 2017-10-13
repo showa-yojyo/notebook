@@ -36,6 +36,7 @@ Contents:
    omg15/index
    stepanov15
    slatkin16
+   mathjax
 
 .. toctree::
    :maxdepth: 1
