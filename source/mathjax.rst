@@ -11,6 +11,12 @@ MathJaX 利用ノート
 .. contents:: ノート目次
    :depth: 3
 
+.. note::
+
+   本稿執筆時の動作環境は次のとおり。
+
+   * Sphinx_: 1.6.4
+
 関連リンクおよび参考サイト
 ======================================================================
 MathJax_
@@ -38,7 +44,8 @@ MathJax を試す
 
 直接 HTML を作成する場合の方法
 ======================================================================
-本稿の本題である自作の HTML ファイルで数式画像混じりの文書を作成する方法について記す。
+本稿の本題である自作の HTML ファイルで数式画像混じりの文書を作成するための、
+最低限の方法について記す。
 まず、上記プレビューページの HTML コードの本質部分を抽出して編集対象の HTML に組み込む。
 
 MathJax を自作 HTML ファイルから機能させるための手順を列挙するとこのようになる：
@@ -101,35 +108,50 @@ MathJax のロード指定と併せて、本文中のどの数式を MathJax に
 Sphinx で生成する場合の方法
 ======================================================================
 以上を踏まえて、Sphinx で MathJax の機能を利用可能にする手順を述べる。
-実践的な作業項目を次に挙げる：
+
+既存の Sphinx プロジェクトが MathJax 機能を無視して構築されている場合の手順としては次のようになる：
 
 * Sphinx の構成ファイルを編集する
 * MathJax の構成ファイルを作成する
 * HTML テンプレートを編集する
 
+ゼロから Sphinx プロジェクトを開始する場合には ``sphinx-quickstart`` の対話的処理で
+MathJax の拡張機能を有効とするように指示すればよい。
+
+.. code:: text
+
+   Please indicate if you want to use one of the following Sphinx extensions:
+   ...
+   > mathjax: include math, rendered in the browser by MathJax (y/n) [n]: y
+   ...
+
 以下、各項目を説明する。
 
 Sphinx の構成ファイルを編集する
 ----------------------------------------------------------------------
+既存の Sphinx プロジェクトが MathJax 機能を無視して構築されている場合、この手順を必要とする。
+
 Sphinx プロジェクト用の構成ファイル :file:`conf.py` をテキストエディターで編集する。
 次のように変更する：
 
 * リスト ``extensions`` に ``'sphinx.ext.mathjax'`` を追加する
-* 変数 ``mathjax_path`` を例えば次のように設定する：
 
-  .. code:: python3
-
-     mathjax_path = https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML
+  * ゼロから Sphinx プロジェクトを開始する場合には ``sphinx-quickstart`` の対話的処理で
+    MathJax の拡張機能を有効とするように指示してあれば、リストにこの値があるはずだ。
 
 MathJax の構成ファイルを作成する
 ----------------------------------------------------------------------
+とりあえず最低の動作確認しかしたくないのであれば、ここは飛ばして構わない。
+
+後ほど MathJax の機能を調整することを見込んで、
 Sphinx プロジェクトディレクトリー :file:`_static` に次の内容のテキストファイルを作成する。
 
 .. code-block:: javascript
 
    window.MathJax = {
 
-       // ... 先ほどの MathJax.Hub.Config 呼び出しの実引数と同じ内容を書く
+       // ... 先ほどの MathJax.Hub.Config 呼び出しの実引数と同じ内容を書く。
+       // ただし tex2jax オブジェクトの inlineMath と displayMath を普通は外す。
 
    };
 
@@ -137,19 +159,25 @@ Sphinx プロジェクトディレクトリー :file:`_static` に次の内容�
 
 HTML テンプレートを編集する
 ----------------------------------------------------------------------
-Sphinx プロジェクト用の HTML テンプレート :file:`layout.html` に次のコードを含める：
+とりあえず最低の動作確認しかしたくないのであれば、ここは飛ばして構わない。
 
-.. code:: text
+* Sphinx プロジェクト用の HTML テンプレート :file:`layout.html` について、
 
-   {% extends "classic/layout.html" %}
-   {% set script_files = ["_static/mathjaxconf.js"] + script_files]%}
+  * このテンプレートファイルが Sphinx プロジェクトディレクトリーにない場合、
+    Sphinx プロジェクトのテンプレートディレクトリ―（既定では ``_template`` という名前である）に
+    空の内容の :file:`layout.html` を作成し、以下の内容で保存すればよい。
 
-その他のスクリプトがある場合は、二行目を適宜書き換えるとよい。
+    .. code:: text
 
-なお、このテンプレートファイルが Sphinx プロジェクトディレクトリーにない場合、
-Sphinx プロジェクト構成ファイル :file:`conf.py` の ``html_theme`` という変数に
-テンプレートファイルを格納するディレクトリーの名前を設定して、
-そこに空の内容の :file:`layout.html` を作成し、上の内容で保存すればよい。
+       {% extends "!layout.html" %}
+       {% set script_files = ["_static/mathjaxconf.js"] + script_files %}
+
+  * 自前で Sphinx のテーマをカスタマイズしているのであれば、
+    そちらの :file:`layout.html` で ``script_files`` の値を適宜設定する。
+    例えばその他のスクリプトがある場合などは、
+    上述のリスト内リストが ``"_static/mathjaxconf.js"`` 以外にもパス文字列があるはずだ。
+
+* 書式は Jinja2_ に従う。
 
 マクロを定義する
 ======================================================================
@@ -188,4 +216,5 @@ Sphinx プロジェクト構成ファイル :file:`conf.py` の ``html_theme`` �
 
 .. _MathJax: http://docs.mathjax.org/en/latest/index.html
 .. _Dynamic Preview of Textarea with MathJax Content: https://cdn.rawgit.com/mathjax/MathJax/master/sample-dynamic-2.html
-
+.. _Jinja2: http://jinja.pocoo.org/
+.. _Sphinx: http://www.sphinx-doc.org/
