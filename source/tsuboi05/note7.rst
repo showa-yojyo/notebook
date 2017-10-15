@@ -104,6 +104,87 @@
     #. :math:`{}^t\!(Dp^{-1})(Dp^{-1})` を計算する（積分の途中で使うため）
     #. 積分 :math:`L(p^{-1} \circ c)` を計算する
 
+7.2 リーマン計量
+----------------------------------------------------------------------
+冒頭の議論が少々雑然としている感がある。
+
+* 定義 7.2.1: リーマン計量
+
+  #. :math:`T_xM` の元の長さの自乗を与える関数 :math:`q: T_xM \longto \RR` は存在するだろうか？
+  #. それは次のような :math:`C^\infty` 級関数 :math:`q: TM \longto \RR` が存在すれば定まる：
+     「:math:`q|T_xM` が `正値二次形式 <http://mathworld.wolfram.com/PositiveDefiniteQuadraticForm.html>`__ となる」
+  #. このとき同時に正値 `対称双一次形式 <http://mathworld.wolfram.com/SymmetricBilinearForm.html>`__
+     :math:`g: T_xM \times T_xM \longto \RR` が定まる。
+
+  この上記の :math:`q: TM \longto \RR` をリーマン計量というのだが、
+  :math:`g: T_xM \times T_xM \longto \RR` のほうをそう呼ぶことが多い。
+
+  * :math:`\displaystyle v = \sum_i v_i\frac{\partial}{\partial x_i} \in T_xM` とすると
+    :math:`\displaystyle q(v) = g(v, v) = \sum_{i, j} g_{ij}(x) v_i v_j` と書ける。
+
+    * 行列 :math:`(g_{ij}(x))` は正値対称行列。
+    * :math:`i, j` を固定すると :math:`g_{ij}: U \longto \RR` は :math:`C^\infty` 級関数。
+
+  * リーマン多様体上では曲線の長さを測ることができる：
+
+    .. math::
+       :nowrap:
+
+       \begin{gather*}
+       L(c) = \int_0^1 \sqrt{q\left(\diff{c}{t}\right)}\,dt
+            = \int_0^1 \sqrt{g\left(\diff{c}{t}, \diff{c}{t}\right)}\,dt.
+       \end{gather*}
+
+* 例 7.2.2: :math:`\RR^n` の原点近傍における :math:`\displaystyle\left. q(v) = \sum_{i = 1}^n v_i^2 \middle/ \left(1 + a \sum_{i = 1}^n x_i^2 \right)^2\right.\quad (a \in \RR)`
+
+  * :math:`q` がリーマン計量を与えるような近傍が :math:`a` の符号によって異なる。
+  * 点 :math:`(0, \dots, 0)` と点 :math:`(r, 0, \dots, 0)` を結ぶ線分の長さを計算する。
+  * 円周 :math:`(r\cos\theta, r\sin\theta, 0, \dots, 0)` の長さを計算する。
+
+    * 計算結果によると「円周率」が半径に依存することが見られる。
+
+* 先ほどの距離がリーマン多様体上で距離の公理を満たすことを確認する。
+
+  * 距離の公理のうち :math:`d(x, y) = 0 \implies x = y` だけが不明なので確認：
+
+    * :math:`x \in M` の座標近傍 :math:`(U, \varphi)` 上のリーマン計量 :math:`g_{ij}` を考える。
+
+    * まず :math:`\delta > 0` を :math:`g_{ij}(x)` の固有値の最小値を超えないように取る。
+      このとき、:math:`\displaystyle \sum_{i, j} g_{ij}v_i v_j \le \delta \sum_{i} v_i^2` が
+      開球 :math:`V = B_\eps(\varphi(x))` で成り立つような :math:`\eps > 0` が存在する。
+
+      * :math:`y \in \varphi^{-1}(V)` であれば :math:`d(x, y) \le \sqrt{\delta}\lVert \varphi(x) - \varphi(y)\rVert`
+        :math:`\therefore\ d(x, y) = 0 \implies \varphi(x) = \varphi(y) \implies x = y.`
+
+      * :math:`y \notin \varphi^{-1}(V)` のときは面倒で、次のような関数を説明することになる：
+
+        .. math::
+           :nowrap:
+
+           \begin{align*}
+           F(z) = \left\{
+           \begin{array}{lr}
+           \lVert \varphi(x) - \varphi(z)\rVert^2 & : z \in \varphi^{-1}(V)\\
+           \eps^2 + 1                             & : z \notin \varphi^{-1}(V)
+           \end{array}
+           \right.
+           \end{align*}
+
+        このとき、
+
+        * :math:`x` と :math:`y` を結ぶ曲線は :math:`\varphi^{-1}(\partial V)` と交わって（∵中間値の定理）、
+        * 境界 :math:`\partial V` 上では :math:`\lVert z - \varphi(x)\rVert = \eps`
+
+        なので、
+        :math:`d(x, y) \le \min\{d(z, x) \mid \varphi(z) \in \partial V\} \le \sqrt{\delta}\eps.`
+        以下略。
+
+    以上で :math:`d(x, y) = 0 \implies x = y` が示せた。
+
+* 定義 7.2.3: リーマン計量により定まる距離
+
+  :math:`d(x, y) = d_g(x, y) = \inf\{L(c) \mid c: [0, 1] \longto M,\ c(0) = x,\ c(1) = y\}.`
+
 ----
 
 :doc:`note8` へ。
