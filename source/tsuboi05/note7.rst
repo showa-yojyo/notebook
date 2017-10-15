@@ -185,6 +185,105 @@
 
   :math:`d(x, y) = d_g(x, y) = \inf\{L(c) \mid c: [0, 1] \longto M,\ c(0) = x,\ c(1) = y\}.`
 
+7.3 測地線
+----------------------------------------------------------------------
+
+`測地線 <http://mathworld.wolfram.com/Geodesic.html>`__
+  :math:`C^1` 級曲線 :math:`c: [0, 1] \longto M` の次の積分の最小値問題を考える：
+  
+  .. math::
+     :nowrap:
+  
+     \begin{align*}
+     L(c) = \int_0^1\!\sqrt{\sum_{i, j}g_{ij}\left(\diff{c_i}{t}, \diff{c_j}{t}\right)}\,dt
+     \end{align*}
+  
+  * ちなみに曲線のパラメーターの取り方は積分の値に影響しない。
+  * 作用 :math:`\displaystyle A(c) = \int_0^1\!\sum_{i, j}g_{ij} \circ \diff{c_i}{t} \diff{c_j}{t}\,dt`
+    について、本章の冒頭で述べたように :math:`L(c)^2 \le A(c)` が成りたつ。
+  
+    * 関数の内積、コーシー・シュワルツの不等式の等号成立条件などの検討をする。
+  
+  * 問題をすり替えて :math:`A(c)` の最小値問題とする。
+    これを最小とするための必要条件を求めるのに、変分法という技法を適用する。
+  
+    * :math:`C^\infty` 級曲線 :math:`\eps: [0, 1] \longto \RR^n` で :math:`\eps(0) = \eps(1) = \bm 0` かつ
+      ある十分小さい :math:`s \in \RR` に対して :math:`c(t) + s \eps(t)` は多様体に含まれるようなものを考える。
+  
+    * このとき :math:`A(c + s\eps)` は定まる。
+      意味は :math:`s` の関数として :math:`s = 0` のときに :math:`A(c)` は最小であると仮定している。
+  
+  * :math:`\displaystyle \left.\diff{}{s}\right|_{s = 0} A(c + s\eps) = 0` が必要だ。
+  
+  * 各 :math:`k` に対して :math:`\displaystyle \sum_i g_{ik}\mdiff{c_i}{2}{t} = \sum_{i, j}\left(\frac{1}{2} \frac{\partial g_{ij}}{\partial x_k} - \frac{\partial g_{ik}}{\partial x_j}\right) \diff{c_j}{t} \diff{c_i}{t}`
+    が必要。
+  
+  * 整形すると次のようになる。ただし :math:`g^{ij} = g_{ij}^{-1}` とする。
+    :math:`\sum_k g^{lk}g_{kj} = \delta_{ij}` や :math:`g_{ij},\ g^{ij}` が対称行列であることに注意。
+    
+    .. math::
+       :nowrap:
+       
+       \begin{align*}
+       \mdiff{c_l}{2}{t} & = \sum_{i, k}g^{kl}g_{ik}\mdiff{c_i}{2}{t}\\
+                         & = \sum_k g^{kl} \left(\frac{1}{2} \frac{\partial g_{ij}}{\partial x_k} - \frac{\partial g_{ik}}{\partial x_j}\right) \diff{c_j}{t} \diff{c_i}{t}.
+       \end{align*}
+  
+  * この常微分方程式を満たす曲線 :math:`c` を測地線と呼ぶ。
+  * 常微分方程式のかっこ内部分と :math:`\displaystyle \diff{c_j}{t}\diff{c_i}{t}` をかけて
+    足し合わせたものの「対象成分」が測地線を決める：
+    
+    .. math::
+       :nowrap:
+       
+       \begin{align*}
+       \frac{1}{2}\left(\frac{\partial g_{ij}}{\partial x_k}
+                       -\frac{\partial g_{jk}}{\partial x_i}
+                       -\frac{\partial g_{ik}}{\partial x_j}\right).
+       \end{align*}
+
+`クリストッフェルの記号 <http://mathworld.wolfram.com/ChristoffelSymbol.html>`__
+  クリストッフェルの記号とは、上記微分方程式を次の形式で書いたときの :math:`\Gamma_{ij}^l` 部分のことを言う：
+  
+  .. math::
+     :nowrap:
+
+     \begin{align*}
+     \mdiff{c_l}{2}{t} + \sum_{i, j}\Gamma_{ij}^l\diff{c_j}{t} \diff{c_i}{t} = 0.
+     \end{align*}
+
+  :math:`\displaystyle \Gamma_{ij}^l = -\frac{1}{2}\sum_k g^{kl} \left( \frac{\partial g_{ij}}{\partial x_k} -\frac{\partial g_{jk}}{\partial x_i} -\frac{\partial g_{ik}}{\partial x_j}\right)`
+  とすれば :math:`\Gamma_{ij}^l = \Gamma_{ji}^l` となる。
+
+* :math:`\displaystyle v_l = \diff{c_l}{t}` とおいて、常微分方程式の階数を一つ落とす。
+  :math:`v(t) \in T_{c(t)}M` に対しての常微分方程式
+  :math:`\displaystyle \diff{v_l}{t} + \sum_{i,j}\Gamma_{ij}^l \diff{c_i}{t}v_j = 0` という見方もできる。
+
+  * :math:`v(t)` は一意的に定まる。
+  * `ユークリッド計量 <http://mathworld.wolfram.com/EuclideanMetric.html>`__
+    :math:`g_{ij} = \delta_{ij}` に対しては :math:`\Gamma_{ij}^l = 0,\ v(t) = const` であり、
+    :math:`v^0 \in T_{c(0)}\RR^n` を :math:`v^0 \in T_{c(t)}\RR^n` に平行移動したものになる。
+
+* 問題 7.3.1: 上述の一階常微分方程式の解 :math:`v(t)` について :math:`q(v(t))` は一定である
+
+  * 直接計算による。
+
+* 先の一階常微分方程式の解二つ :math:`v(t), w(t)` について、さらに次のことが言える：
+  :math:`q(v(t) + w(t))` も :math:`g(v(t), w(t))` も一定値を取る。
+
+  * 正規直交基底をなすベクトルの組 :math:`v^{1}(0), \dotsc, v^{(n)}(0)` を初期値とする常微分方程式の解
+    :math:`v^{1}(t), \dotsc, v^{(n)}(t)` も正規直交基底をなす。
+
+  * 先の一階常微分方程式の解を用いて :math:`T_{c(0)}M` の一つの基底を :math:`c(t)` に沿って動かすことで
+    :math:`T_{c(t)}M` に基底を定めることができる。
+    このことを :math:`\Gamma_{ij}^l` により接続が与えられているという。
+
+    * 特に :math:`\Gamma_{ij}^l` がリーマン計量から定まる接続を
+      `レビチビタ接続 <http://mathworld.wolfram.com/Levi-CivitaConnection.html>`__
+      という（正規直交系を正規直交系に平行移動）。
+
+* 注意 7.3.2: 平行移動は曲線 :math:`c(t)` に依存して決まる。
+
 ----
 
 :doc:`note8` へ。

@@ -20,6 +20,7 @@ window.MathJax = {
             eps: "{\\varepsilon}",
             id: "{{\\operatorname{id}}}",
             longto: "\\longrightarrow",
+            mdiff: ["{\\frac{\\dd[#2]#1}{\\dd #3^{#2}}}", 3],
             rank: "{{\\operatorname{rank}}}",
             supp: "{{\\operatorname{supp}}}",
             trace: "{{\\operatorname{trace}}}"
