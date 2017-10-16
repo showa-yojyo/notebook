@@ -190,52 +190,52 @@
 
 `測地線 <http://mathworld.wolfram.com/Geodesic.html>`__
   :math:`C^1` 級曲線 :math:`c: [0, 1] \longto M` の次の積分の最小値問題を考える：
-  
+
   .. math::
      :nowrap:
-  
+
      \begin{align*}
      L(c) = \int_0^1\!\sqrt{\sum_{i, j}g_{ij}\left(\diff{c_i}{t}, \diff{c_j}{t}\right)}\,dt
      \end{align*}
-  
+
   * ちなみに曲線のパラメーターの取り方は積分の値に影響しない。
   * 作用 :math:`\displaystyle A(c) = \int_0^1\!\sum_{i, j}g_{ij} \circ \diff{c_i}{t} \diff{c_j}{t}\,dt`
     について、本章の冒頭で述べたように :math:`L(c)^2 \le A(c)` が成りたつ。
-  
+
     * 関数の内積、コーシー・シュワルツの不等式の等号成立条件などの検討をする。
-  
+
   * 問題をすり替えて :math:`A(c)` の最小値問題とする。
     これを最小とするための必要条件を求めるのに、変分法という技法を適用する。
-  
+
     * :math:`C^\infty` 級曲線 :math:`\eps: [0, 1] \longto \RR^n` で :math:`\eps(0) = \eps(1) = \bm 0` かつ
       ある十分小さい :math:`s \in \RR` に対して :math:`c(t) + s \eps(t)` は多様体に含まれるようなものを考える。
-  
+
     * このとき :math:`A(c + s\eps)` は定まる。
       意味は :math:`s` の関数として :math:`s = 0` のときに :math:`A(c)` は最小であると仮定している。
-  
+
   * :math:`\displaystyle \left.\diff{}{s}\right|_{s = 0} A(c + s\eps) = 0` が必要だ。
-  
+
   * 各 :math:`k` に対して :math:`\displaystyle \sum_i g_{ik}\mdiff{c_i}{2}{t} = \sum_{i, j}\left(\frac{1}{2} \frac{\partial g_{ij}}{\partial x_k} - \frac{\partial g_{ik}}{\partial x_j}\right) \diff{c_j}{t} \diff{c_i}{t}`
     が必要。
-  
+
   * 整形すると次のようになる。ただし :math:`g^{ij} = g_{ij}^{-1}` とする。
     :math:`\sum_k g^{lk}g_{kj} = \delta_{ij}` や :math:`g_{ij},\ g^{ij}` が対称行列であることに注意。
-    
+
     .. math::
        :nowrap:
-       
+
        \begin{align*}
        \mdiff{c_l}{2}{t} & = \sum_{i, k}g^{kl}g_{ik}\mdiff{c_i}{2}{t}\\
                          & = \sum_k g^{kl} \left(\frac{1}{2} \frac{\partial g_{ij}}{\partial x_k} - \frac{\partial g_{ik}}{\partial x_j}\right) \diff{c_j}{t} \diff{c_i}{t}.
        \end{align*}
-  
+
   * この常微分方程式を満たす曲線 :math:`c` を測地線と呼ぶ。
   * 常微分方程式のかっこ内部分と :math:`\displaystyle \diff{c_j}{t}\diff{c_i}{t}` をかけて
     足し合わせたものの「対象成分」が測地線を決める：
-    
+
     .. math::
        :nowrap:
-       
+
        \begin{align*}
        \frac{1}{2}\left(\frac{\partial g_{ij}}{\partial x_k}
                        -\frac{\partial g_{jk}}{\partial x_i}
@@ -244,7 +244,7 @@
 
 `クリストッフェルの記号 <http://mathworld.wolfram.com/ChristoffelSymbol.html>`__
   クリストッフェルの記号とは、上記微分方程式を次の形式で書いたときの :math:`\Gamma_{ij}^l` 部分のことを言う：
-  
+
   .. math::
      :nowrap:
 
@@ -283,6 +283,86 @@
       という（正規直交系を正規直交系に平行移動）。
 
 * 注意 7.3.2: 平行移動は曲線 :math:`c(t)` に依存して決まる。
+
+7.4 局所的最短性
+----------------------------------------------------------------------
+先の議論は :math:`\displaystyle \diff{c}{t} = 0` となる点を含む曲線は除外していた。それを見直す。
+
+:math:`V \subset \RR^n` 上で定義された正規形二階常微分方程式を
+:math:`V \subset \RR^n` 上の正規形一階常微分方程式に書き直す。
+
+#. 初期値を :math:`\displaystyle c(0) = \bm x \in V,\quad \diff{c}{t}(0) = \bm v \in \RR^n` とする。
+#. 本書 p. 149 の測地線方程式において :math:`c(t)` が解であれば :math:`c(at)\quad (a \in \RR)` も解である。
+
+   * :math:`(0, 0)` で :math:`(\bm x, \bm v)` をとる。
+   * :math:`c(at)` の定義域は元のそれの :math:`a^{-1}` 倍であるが、問題ない。
+
+#. :math:`V \times \RR^n` 上の初期値を :math:`(\bm x, \bm X)` とする解は次の形をしている：
+   :math:`\displaystyle \left(c(t, \bm x, \bm X), \diff{c}{t}(t, \bm x, \bm X)\right).`
+
+#. 一階常微分方程式を :math:`V \times \RR^n` 上のベクトル場として書く。
+#. そのベクトル場が生成するフロー :math:`F` は次を満たす：
+   :math:`F(at, \bm x, \bm v) = F(t, \bm x, a\bm v).`
+   したがって原点の近傍の :math:`\bm v` について次の写像を定義することができる：
+   :math:`E_{\bm x}(\bm v) = F(1, \bm x, \bm v).`
+
+#. :math:`E_{\bm x}: \bm v \longmapsto F(1, \bm x, \bm v)` は原点の近傍から
+   :math:`\bm x` の近傍への微分同相写像である。
+   この写像を `指数写像 <http://mathworld.wolfram.com/ExponentialMap.html>`__ という。
+
+* 問題 7.4.1: 球面上の二点の「距離」を定義する曲線は大円に含まれる
+
+  * 一点を北極に固定して証明してよい。
+
+測地線の局所的最短性。これは難しい。
+
+#. 曲線 :math:`c: [0, 1] \longto \RR^n,\ c(0) = \bm x,\ c(1) = \bm y = E_{\bm x}(\bm v)` から始める。
+#. :math:`c(s) = E_{\bm x}(t(s)\bm v(s))` で :math:`s` を定義する。
+
+   * :math:`t(s)` は :math:`s` について :math:`C^1` 級であり、
+     :math:`t(s) = 0 \Longleftrightarrow s = 0` を仮定しても最短性の議論に差し支えない。
+   * :math:`\bm v(s)` は :math:`s \ne 0` において :math:`s` について :math:`C^1` 級。
+
+#. 関数 :math:`H(t, s) = E_{\bm x}(t \bm v(s)) = F(1, \bm x, t\bm v(s)) = F(t, \bm x, \bm v(s))` を考える。
+
+   * :math:`q(\bm v(s)) = g(\bm v(s)) = 1` とすると直接計算より
+     :math:`\displaystyle \frac{\partial H}{\partial t} \perp \frac{\partial H}{\partial s}` がわかる。
+
+#. :math:`\displaystyle \diff{c}{s} = \frac{\partial H}{\partial t}\diff{t}{s} + \frac{\partial H}{\partial s}.`
+   であるから、
+   :math:`\displaystyle \frac{\partial H}{\partial t} \perp \frac{\partial H}{\partial s}` ならば
+   :math:`\displaystyle g\left(\frac{\partial H}{\partial t}, \frac{\partial H}{\partial s}\right) = 0.`
+
+#. よって :math:`\displaystyle \sqrt{q\left(\diff{c}{s}\right)} \le \sqrt{q\left(\frac{\partial H}{\partial t} \frac{\partial H}{\partial s}\right)} = \sqrt{\left(\diff{t}{s}\right)^2} = \left|\diff{t}{s}\right|.`
+#. 積分して :math:`\displaystyle \int_0^1\sqrt{q\left(\diff{c}{s}\right)}\,ds \le \int_0^1 \left|\diff{t}{s}\right|\,ds \le \lvert t(1) - t(0) \rvert.`
+
+以上により測地線は最短であることが示せた（らしい）。
+
+* 例 7.4.2: 例題 7.1.4 のトーラス上のリーマン計量についての測地線の方程式
+
+  * 以前書いた :math:`{}^t\!(D\Phi)D\Phi` はリーマン計量を意味していた。
+  * 式変形がわかりにくいので、結局自分で計算することになる。
+    ここでは :math:`\Gamma_{ij}^1,\ \Gamma_{ij}^2` をそれぞれ一行にまとめて記している。
+    左辺はスカラーに見えるが、実は行列の :math:`(i, j)` 成分がこの式であるような行列であると読者側が了解しないといけない。
+
+  * 各 :math:`\Gamma_{ij}^l\quad(l = 1, 2)` を計算する。
+    :math:`g` が対角行列なので逆行列が計算しやすくて助かる。
+
+  * 最終的に二階常微分方程式が得られるが、
+    :math:`\displaystyle \mdiff{x_1}{2}{t}` は :math:`\displaystyle \diff{x_1}{t}\diff{x_2}{t}` の、
+    :math:`\displaystyle \mdiff{x_2}{2}{t}` は :math:`\displaystyle \left(\diff{x_1}{t}\right)^2` の項からそれぞれなる。
+
+    * 余裕があれば SymPy で計算させてみたい。
+
+* 問題 7.4.3: コンパクトリーマン多様体 :math:`M` の接束と :math:`M \times M` の対角集合の近傍は微分同相である
+
+  * TODO
+
+* 問題 7.4.4: コンパクト連結リーマン多様体の微分同相 :math:`\Phi: M \longto M` が
+  :math:`C^1` 位相で恒等写像と十分近いのであれば、次のようなアイソトピー :math:`\Phi_t` が存在する：
+  :math:`\Phi_0 = id_M,\ \Phi_1 = \Phi.`
+
+  * TODO
 
 ----
 
