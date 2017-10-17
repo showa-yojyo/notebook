@@ -364,6 +364,87 @@
 
   * TODO
 
+7.5 測地流（展開）
+----------------------------------------------------------------------
+`測地流 <http://mathworld.wolfram.com/GeodesicFlow.html>`__
+  測地線の方程式は接束上のベクトル場として表わされる。
+
+  * 測地線 :math:`c(t)` は次を満たす：
+    :math:`\displaystyle q\left(\diff{c}{t}\right) = const`
+  * :math:`a > 0` に対して :math:`q^{-1}(a)` はコンパクトであり、
+    さっきのベクトル場はフローを生成するので、次のフローを定義できる：
+    :math:`F_t: q^{-1}(a) \longto q^{-1}(a);\quad F_t: TM \longto TM.`
+
+* 定理 7.5.1: `ホップ・リノウの定理 <http://mathworld.wolfram.com/Hopf-RinowTheorem.html>`__
+
+  コンパクト連結多様体の任意の二点について、測地線が存在するという主張か。
+
+  * 任意の二点が一致するときはどうだ。点（定値写像）も測地線の一種ということでよい？
+
+  * 指数写像 :math:`E_x: T_xM \longto M` の像となることを示したい。
+
+    #. :math:`\forall \eps > 0` で :math:`T_xM` の半径 :math:`2\eps` の閉球体が
+       :math:`E_x` により :math:`M` と全射となるようにとる。
+    #. :math:`\forall k \in NN` :math:`\ E_x: T_xM \longto M` が
+       :math:`\{y \in M \mid d(x, y) < k\eps\}` 上への全射となることを示す。
+
+* （最短測地線）コンパクト連結リーマン多様体の任意の二点に対して、
+
+  #. それらを結ぶ最小の長さの曲線が存在して、
+  #. それは測地線で表される。
+
+* リーマン多様体が距離空間的に完備であれば、
+
+  #. それらを結ぶ最小の長さの曲線が存在し、
+  #. :math:`E_x` が全射となる。
+
+* 例 7.5.2: 球面
+
+  * :math:`T_1 S^2` を :math:`TS^2` のうち長さが 1 のベクトルの全体とする。
+    これは :math:`SO(3)` と同一視できる。
+  * 測地流は :math:`T_1 S^2` 上のフローとなっている。
+  * :math:`(\bm v_1, \bm v_2, \bm v_3) \in SO(3)` に対して :math:`\bm v_1 \in S^2` における
+    接ベクトル :math:`\bm v_2` を対応させるとフロー :math:`F_t: T_1 S^2 \longto T_1 S^2` は計算できて
+    次のようになる：
+
+    .. math::
+       :nowrap:
+
+       \begin{align*}
+       F_t((\bm v_1, \bm v_2, \bm v_3)) 
+       &=
+       \begin{pmatrix}
+       \bm v_1 \cos t + \bm v_2 \sin t & - \bm v_1 \sin t + \bm v_2 \cos t & \bm v3
+       \end{pmatrix}
+       \\
+       &= (\bm v_1, \bm v_2, \bm v_3)
+       \begin{pmatrix}
+       \cos t & -\sin t & 0\\
+       \sin t &  \cos t & 0\\
+       0 & 0 & 0
+       \end{pmatrix}
+       \end{align*}
+
+* 例 7.5.3: :math:`T^2 = \RR^2/\ZZ^2` に :math:`\RR^2` のユークリッド計量から誘導されるリーマン計量
+
+  * :math:`T_1T^2` を :math:`TT^2` のうち長さが 1 のベクトルの全体とする。
+  * 測地流は :math:`T_1T^2` 上のフローであり次のように書ける：
+    :math:`F_t((x_1, x_2), (v_1, v_2)) = ((x_1 + tv_1, x_2 + tv_2), (v_1, v_2))`
+  * 測地流の軌道は
+
+    * 閉軌道 if :math:`v_2/v_1 \in \QQ \cup \{\infty\}`
+    * :math:`(\RR/\ZZ)^2 \times \{(v_1, v_2)\}` において稠密な軌道
+      if :math:`v_2/v_1 \in \RR\setminus\QQ`
+
+* 例 7.5.4: トーラスの測地流の振る舞い
+
+  * フロー上では :math:`q(x)^2 = v_1^2(2 + \cos x_2)^2 + v_2^2 = const` なので
+    :math:`const = 1` の軌道の全体を考える。
+  * :math:`\cos \theta = v_1^2(2 + \cos x_2)^2,\quad \sin\theta = v_2` と変数変換すると
+    :math:`\displaystyle \diff{\theta}{t} = \frac{\sin x_2}{2 + \cos x_2},\quad \diff{x_2}{t} = \sin\theta` を得る。
+  * :math:`f(x_2, \theta) = (2 + \cos x_2)\cos\theta` とおくと :math:`\displaystyle \diff{f}{t} = 0.`
+    軌道は :math:`f` の等位線上にある（本書図 7.5 参照）。
+
 ----
 
 :doc:`note8` へ。
