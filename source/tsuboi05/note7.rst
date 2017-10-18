@@ -528,6 +528,52 @@
 
 * 与えられたリーマン計量を変形して、もっとよいリーマン計量を得るという問題がある。
 
+7.7 リーマン計量の存在
+----------------------------------------------------------------------
+* 定理 7.7.1: :math:`n` 次元コンパクト多様体 :math:`M` 上にはリーマン計量が存在する
+
+  証明方針は、とにかく正値二次形式 :math:`q(v)` を構成する。
+
+  #. 有限開被覆 :math:`\{(U_i, \varphi_i)\}_{i = 1, \dotsc, k}` をとり、さらに
+     いつものように次の包含関係を満たす開被覆 :math:`\{(V_i, \varphi_i)\}__{i = 1, \dotsc, k}` をとる：
+     :math:`U_i \supset \overline{V_i} \supset V_i.`
+
+  #. 非負関数 :math:`\mu_i: M \to \RR` を次のようにとる：
+     :math:`\supp \mu_i = U_i,\ \mu_i(x) > 0 \text{ if } x \in \overline{V_i}.`
+
+  #. 次のように :math:`\mu_i q_i(v)` をとると、
+     :math:`TM` 上 :math:`C^\infty` 級かつ :math:`T_xM` 上二次形式となる：
+
+     .. math::
+        :nowrap:
+
+        \begin{align*}
+        \mu_i q_i(v) =
+        \left\{
+        \begin{array}{lr}
+        \displaystyle
+        \mu_i(x)\sum_{i=1}^n(v_i^{(i)})^2 &\\
+        0 & (\text{ if } v \in T_xM)
+        \end{array}
+        \right.
+        \end{align*}
+
+  #. :math:`\displaystyle q(v) = \sum_{i = 1}^k \mu_i q_i(v)` とすると、
+     これが :math:`TM` 上 :math:`C^\infty` 級かつ :math:`T_xM` 上正値二次形式となる。
+
+* 問題 7.7.2: コンパクト多様体の微分同相写像からなる有限群 :math:`F` に対して、
+  次を満たすリーマン計量 :math:`g` が存在する：
+  :math:`\forall f \in F, f^*g = g.`
+
+  * TBW
+
+* 問題 7.7.3: リーマン多様体間の等長変換はリーマン計量をリーマン計量に写す微分同相写像である。
+  すなわち :math:`d_{g_N}(f(x), f(y)) = d_{g_M}(x, y) \implies g_N(f_* v_1, f_* v_2) = g_M(v_1, v_2).`
+
+  * TBW
+
+* 最後に `ナッシュの埋め込み定理 <https://en.wikipedia.org/wiki/Nash_embedding_theorem>`__ について触れている。
+
 ----
 
 :doc:`note8` へ。
