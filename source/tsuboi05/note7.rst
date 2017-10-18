@@ -445,6 +445,89 @@
   * :math:`f(x_2, \theta) = (2 + \cos x_2)\cos\theta` とおくと :math:`\displaystyle \diff{f}{t} = 0.`
     軌道は :math:`f` の等位線上にある（本書図 7.5 参照）。
 
+7.6 等長変換群（展開）
+----------------------------------------------------------------------
+リーマン計量を持つ多様体上で距離を不変に保つ等長変換を考えると、
+多様体の性質がよくわかることがある。
+
+* 定義 7.6.1: `等長変換 <http://mathworld.wolfram.com/Isometry.html>`__
+
+  二つのリーマン多様体 :math:`(M, g_M),\ (N, g_N)` に対して次のような微分同相写像
+  :math:`F: M \longto N` が存在する：
+  :math:`F^* g_N = g_M.`
+
+  * ここで :math:`(F^* g_N)(v_1, v_2) := g_N(F_* v_1, F_* v_2)` とする。
+  * これは :math:`M` 上のリーマン計量となる。
+
+* :math:`(M, g)` から自身への等長写像の全体 :math:`\operatorname{Isom}(M)` は群となる。
+
+  * これは高々 :math:`\displaystyle \frac{n(n + 1)}{2}` 次元多様体である。
+
+  * :math:`T_xM` に正規直交基底を定義する。二つ定義すると、それらは :math:`O(n)` で写り合う。
+  * 点 :math:`x` のある座標近傍 :math:`(U, \varphi)` で :math:`T_yM\ (y \in U)` の
+    正規直交基底の全体は多様体 :math:`U \times O(n)` でパラメーター付けられる。
+
+  * 以上を各点 :math:`x \in M` で考える。
+    すると :math:`T_xM` の正規直交基底全体は :math:`U \times O(n)` の座標近傍により
+    :math:`\displaystyle \frac{n(n + 1)}{2}` 次元多様体となる。
+
+  * これを記号 :math:`\operatorname{Fr}(M)` で :math:`T_xM\ (x \in M)` で表す。
+    接正規直交 `n 枠束 <http://mathworld.wolfram.com/FrameBundle.html>`__ という。
+
+  * :math:`\operatorname{Isom}(M)` は :math:`\operatorname{Fr}(M)` の閉部分集合である。
+
+  * 自然な射影 :math:`p: \operatorname{Fr}M \longto M` について
+    :math:`p^{-1}(U)` は :math:`U \times O(n)` と微分同相となる。
+    ファイバー束を構造として持つとみなせる。
+
+`マイヤーズ・スティンロッドの定理 <https://en.wikipedia.org/wiki/Myers%E2%80%93Steenrod_theorem>`__
+  ここよくわからない。
+
+  #. 点 :math:`x_0 \in M` とその :math:`T_{x_0}M` 上の正規直交基底 :math:`E_0 = (e_1, \dotsc, e_n)` を固定する。
+  #. 等長変換 :math:`F: M \longto M,\ F_*E_0 = (F_*e_0, \dotsc, F_*e_n) \in \operatorname{Fr}M.`
+  #. 点 :math:`y \in M,` 二点を結ぶ測地線 :math:`E_{x_0}(tv)\ (v \in T_{x_0}M, E_{x_0}(v) = y` をとる。
+
+     :math:`F(E_{x_0}(tv)) = E_{F(x_0)}(tF_*v)` より
+     :math:`F(y) = E_{F(x_0)}(F_*v)` となり、
+     :math:`F` は :math:`F_*E_0` で定まる。
+
+  #. したがって :math:`\operatorname{Isom}(M)` は :math:`\operatorname{Fr}M` に埋め込まれる。
+
+* 例 7.6.2: 単位球面の等長変換群
+
+  * :math:`O(n + 1)`
+  * :math:`\displaystyle \frac{n(n + 1)}{2}` 次元多様体である。
+
+* :math:`n` 次元ユークリッド空間の等長変換群は
+  直交群と平行移動群との `半直積 <http://mathworld.wolfram.com/SemidirectProduct.html>`__
+  :math:`O(n) \ltimes \RR^n` として表され、
+  :math:`\displaystyle \frac{n(n + 1)}{2}` 次元多様体である。
+
+* 球面の直積 :math:`S^m \times S^n\ (m \ne n)` のリーマン計量をそれぞれの計量の直積とする。
+  このとき :math:`\operatorname{Isom}(S^m \times S^n) = O(m + 1) \times O(n + 1).`
+
+* コンパクト 2 次元連結多様体 :math:`M` とそのリーマン計量 :math:`g` について
+
+  * 各 :math:`x \in M` に対して長さが 1 の接ベクトル :math:`v \in T_xM` をとると、
+    次のような近傍 :math:`U_v \subset M` が存在する：
+
+      :math:`v_1 \in T_{x_1}M,\ v_2 \in T_{x_2}M` に対して
+      等長変換 :math:`F_{v_1 v_2}: U_{v_2} \longto U_{v_1}` が存在して
+      :math:`(F_{v_1 v_2})_* v_2 = v_1` となる。
+
+  * :math:`g` から来るガウス曲率が一定になるだとか、
+    :math:`g` は局所的に対称性が高いだとかに触れている。
+
+* コンパクト 2 次元連結多様体は次の三つしかない：
+
+  #. :math:`S^2,\ \RR P^2`
+  #. :math:`\RR^2/\ZZ^2,\ \RR^2/G\ (G \cong \ZZ/2\ZZ \ltimes \ZZ^2):` クラインボトル
+  #. :math:`D^2/GP,` ここで :math:`G` は
+     `ポアンカレ円板 <http://mathworld.wolfram.com/PoincareHyperbolicDisk.html>`__
+     の等長変換群の部分群とする
+
+* 与えられたリーマン計量を変形して、もっとよいリーマン計量を得るという問題がある。
+
 ----
 
 :doc:`note8` へ。
