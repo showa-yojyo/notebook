@@ -535,7 +535,7 @@
   証明方針は、とにかく正値二次形式 :math:`q(v)` を構成する。
 
   #. 有限開被覆 :math:`\{(U_i, \varphi_i)\}_{i = 1, \dotsc, k}` をとり、さらに
-     いつものように次の包含関係を満たす開被覆 :math:`\{(V_i, \varphi_i)\}__{i = 1, \dotsc, k}` をとる：
+     いつものように次の包含関係を満たす開被覆 :math:`\{(V_i, \varphi_i)\}_{i = 1, \dotsc, k}` をとる：
      :math:`U_i \supset \overline{V_i} \supset V_i.`
 
   #. 非負関数 :math:`\mu_i: M \to \RR` を次のようにとる：
