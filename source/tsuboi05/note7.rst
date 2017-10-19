@@ -574,6 +574,65 @@
 
 * 最後に `ナッシュの埋め込み定理 <https://en.wikipedia.org/wiki/Nash_embedding_theorem>`__ について触れている。
 
+7.8 ユークリッド空間の超曲面の測地線
+----------------------------------------------------------------------
+* :math:`f(\bm x) = 0` で表される曲面の測地線を求める。
+
+  #. :math:`f(\bm x) = 0` を二度微分する。
+  #. ある関数 :math:`a(\bm x, \bm v)` に対して、測地線の方程式を次のように立てる：
+
+     .. math::
+        :nowrap:
+
+        \begin{gather*}
+        \diff{x_i}{t} = v_i,\ \diff{v_i}{t} = a(\bm x, \bm v)\frac{\partial}{\partial x_i}(\bm x).
+        \end{gather*}
+
+  #. この式を二度微分した式に代入して :math:`a(\bm x, \bm v)` について表す：
+
+     .. math::
+        :nowrap:
+
+        \begin{gather*}
+        a(\bm x, \bm v) = - \frac
+            {\displaystyle \sum_{i, j = 1}^n \frac{\partial^2 f}{\partial x_i \partial x_j}(\bm x) v_i v_j}
+            {\displaystyle \sum_{i, j = 1}^n \left(\frac{\partial f}{\partial x_i}(\bm x)\right)^2}
+        \end{gather*}
+
+  #. 最後にこの式を測地線の方程式に代入して :math:`a(\bm x, \bm v)` を消去する。
+
+* :math:`z = h(x_1, x_2)` とグラフ表示される曲面では :math:`f = -h(x_1, x_2) + z` ととることで
+  次の式で測地線を表せる：
+
+  .. math::
+     :nowrap:
+
+     \begin{gather*}
+     \diff{v_i}{t} = -\frac
+       {\displaystyle \frac{\partial h}{\partial x_i}}
+       {\displaystyle 1 
+         + \left(\frac{\partial h}{\partial x_1}\right)^2 
+         + \left(\frac{\partial h}{\partial x_2}\right)^2}
+     \left(
+       \frac{\partial^2 h }{\partial x_1^2}v_1^2 
+         + 2 \frac{\partial^2 h}{\partial x_1 \partial x_2}v_1 v_2
+         + \frac{\partial^2 h}{\partial x_2^2} v_2^2
+       \right)
+     \ \text{ for } i = 1, 2.
+     \end{gather*}
+
+* 例 7.8.1: `双曲放物面 <http://mathworld.wolfram.com/HyperbolicParaboloid.html>`__  :math:`z = x_1 x_2 = h`
+
+  * TBW
+
+* 例 7.8.2: `放物面 <http://mathworld.wolfram.com/EllipticParaboloid.html>`__ :math:`z = -x_1^2 - x_2^2`
+
+  * TBW
+
+7.9 第 7 章の問題の解答
+----------------------------------------------------------------------
+TBW
+
 ----
 
 :doc:`note8` へ。
