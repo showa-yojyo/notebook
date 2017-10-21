@@ -18,6 +18,7 @@ window.MathJax = {
             dy: "{\\mathrm d y}",
             dz: "{\\mathrm d z}",
             eps: "{\\varepsilon}",
+            grad: "{{\\operatorname{grad}}}",
             id: "{{\\operatorname{id}}}",
             longto: "\\longrightarrow",
             mdiff: ["{\\frac{\\dd[#2]#1}{\\dd #3^{#2}}}", 3],

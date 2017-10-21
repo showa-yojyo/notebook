@@ -101,7 +101,7 @@
        :math:`((\varphi_{-t})_*Y)(\bm x) = \mathrm e^{-tA}B \mathrm e^{tA} \bm x`
 
        .. math::
-       
+
           \begin{align*}
           \diff{}{t}((\varphi_{-t})_*Y)(\bm x)
                     &= \diff{}{t}(\mathrm e^{-tA}B \mathrm e^{tA} \bm x)\\
@@ -265,4 +265,68 @@ k 次元接平面場 or k 次元分布
   * 共通部分できれいに貼り合わさる。
   * 「正則とは限らない」部分多様体とは？
   * `葉層 <http://mathworld.wolfram.com/Foliation.html>`__ 構造（本書図 8.2 参照）
+
+8.5 勾配ベクトル場
+----------------------------------------------------------------------
+多様体上の微分可能関数 :math:`f \in C^1(M)` とベクトル場 :math:`X` とリーマン計量 :math:`g` に対して、
+ベクトル場 :math:`\grad f` を次で定義する：
+
+.. math::
+
+   \begin{align*}
+   Xf &= g(X, \grad f),\text{ or }\\
+   \grad f &= \sum_{i = 1}^n \sum_{j = 1}^n g^{ij} \frac{\partial f}{\partial x_j}\frac{\partial}{\partial x_i}.
+   \end{align*}
+
+* :math:`f` の等位面が部分多様体であるとき、
+  :math:`f^{-1}(a)` と :math:`\grad f` は直交する。
+  なぜならば :math:`f^{-1}(a)` の接ベクトル :math:`v` を取ると
+  :math:`f_*v = 0` であって :math:`g(v, \grad f) = 0` が成り立つ。
+
+* :math:`\grad f` が生成するフローを gradient flow と呼ぶ。
+
+* 例 8.5.1: 球面上の微分可能関数に対する勾配ベクトル場
+
+  * :math:`S^2` のパラメーター表示を
+    :math:`(x, y, z) = (\cos\theta\cos\cos\varphi, \sin\theta\cos\varphi, \sin\varphi)` とおく。
+
+  * ベクトル場の基底を :math:`\displaystyle \frac{\partial}{\partial \theta}, \frac{\partial}{\partial \varphi}` ととる。
+  * リーマン計量は :math:`\displaystyle g = \begin{pmatrix}\cos^2\varphi & 0\\0 & 1\end{pmatrix}` と書ける。
+
+  * 次のようにおいて :math:`g(\grad f, X)` と :math:`X(f)` をそれぞれ計算する：
+
+    .. math::
+
+       \begin{align*}
+       \grad f &= a\frac{\partial}{\partial \theta} + b\frac{\partial}{\partial \varphi},\\
+       X &= u\frac{\partial}{\partial \theta} + v\frac{\partial}{\partial \varphi}.
+       \end{align*}
+
+    計算の結果 :math:`\displaystyle \grad f = \cos\varphi \frac{\partial}{\partial \varphi}` となる。
+    直交座標系で書くと :math:`\displaystyle -xz\frac{\partial}{\partial x} - yz\frac{\partial}{\partial y} + (1 - z^2)\frac{\partial}{\partial z}.`
+
+* 例題 8.5.2
+
+  #. :math:`f(x, y) = x^3 - x + y^2` のグラフを描け。
+  #. :math:`\diff{x}{t} = \frac{\partial}{\partial x},\ \diff{y}{t} = \frac{\partial}{\partial y}` の解曲線を求めろ。
+
+  フローが等位線と直交するように描くのが鉄則。
+
+* 問題 8.5.3
+
+  :math:`\grad f \ne 0` なる点で定義されるベクトル場
+  :math:`\displaystyle Y = \frac{\grad f}{g(\grad f, \grad f)}` およびその解曲線
+  :math:`c(t)` について。
+
+  定義域では :math:`f(c(t_0 + t)) - f(c(t_0)) = t.`
+  :math:`Yf = 1` より :math:`\displaystyle \diff{(f \circ \varphi_t)(x)}{t} = (Yf)(\varphi_t(x)) = 1.`
+  :math:`\therefore\ f(\varphi_t(x)) - f(x) = t.`
+
+* 例 8.5.4: トーラス
+
+  * :math:`f(x, y) = a(2 + \cos y)\cos x + c \sin y` を :math:`\RR^3` 内のトーラス (p. 24) として考える。
+  * :math:`\displaystyle Df = \begin{pmatrix}-a(2 + \cos y)\sin x & -a \sin y\cos x + a \cos y\end{pmatrix}`
+  * :math:`\displaystyle g = \begin{pmatrix}(2 + \cos y)^2 & 0\\0 & 1\end{pmatrix}` (cf. 例題 7.1.4)
+
+  :math:`\displaystyle \grad f = -\frac{a\sin x}{2 + \cos y}\frac{\partial}{\partial x} + (-a \sin y\cos x + c\cos y)\frac{\partial}{\partial y}.`
 
