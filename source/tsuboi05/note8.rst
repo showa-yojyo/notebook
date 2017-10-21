@@ -88,13 +88,13 @@
 
   #. 式で書き下す。
 
-     :math:`X = \sum_{i, j}^n a_{ij} x_j \frac{\partial}{\partial x_i}`,
-     :math:`Y = \sum_{i, j}^n b_{ij} x_j \frac{\partial}{\partial x_i}`
+     :math:`\displaystyle X = \sum_{i, j}^n a_{ij} x_j \frac{\partial}{\partial x_i}`,
+     :math:`\displaystyle Y = \sum_{i, j}^n b_{ij} x_j \frac{\partial}{\partial x_i}`
      と置いてひたすら式を展開する。
      最終的に :math:`\sum` 記号が三つ並ぶ。
 
   #. :math:`X` が :math:`\varphi_t` を生成するとして :math:`(\varphi_{-t}Y)` を書いて、
-     それに基いて :math:`[X, Y] = `\left.\diff{}{t}\right|_{t = 0}(\varphi_{-t})_*Y)` を求める。
+     それに基いて :math:`[X, Y] = \left.\diff{}{t}\right|_{t = 0}((\varphi_{-t})_*Y)` を求める。
 
      * :math:`A = (a_{ij}), B = (b_{ij})` とする。
        :math:`X` のフローは微分方程式を解いて :math:`\varphi_t(\bm x) = \mathrm e^{tA} \bm x` であるから、
