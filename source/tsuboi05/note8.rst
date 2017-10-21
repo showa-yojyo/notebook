@@ -195,3 +195,74 @@
   ただし、長さは「臨界的である」ことで定義される。
 
 * 指数写像とは、リーマン多様体上の測地線の方程式により定義される写像だ。
+
+8.4 k-枠場（展開）
+----------------------------------------------------------------------
+k-枠場
+  多様体 :math:`M` 上の一次独立なベクトル場 k 個の組を意味する。
+  :math:`0 \le k \le \dim M`
+
+  * 例：二次元曲面 :math:`\Sigma_g\ (g \le 2)` 上には 1-枠場と 2-枠場のどちらも存在しない。
+    一方、トーラス :math:`T^2` 上にはどちらも存在する。
+
+  * n-枠場を持つ n 次元多様体を `平行可能化多様体 <http://mathworld.wolfram.com/Parallelizable.html>`__ と呼ぶ。
+
+2-枠場のある多様体 :math:`M` 上で :math:`[\xi_1, \xi_2] = 0` であれば
+:math:`\RR^2` の :math:`M` への作用 :math:`(\varphi_1^{t_1} \circ \varphi_2^{t_2})(x)` を定義することで
+:math:`\RR^2` 作用の軌道の族で :math:`M` を分割することができる。
+このとき、軌道は :math:`M` の各点の近傍に対して二次元の共通部分を持つ。
+
+* :math:`x \in M` を固定すると作用の接写像のランクが 2 である。
+* 共通部分は高々可算個である。
+
+これを 2 から k に拡張する。
+:math:`[\xi_i, \xi_j] = 0,\ \RR^k \times M \longto N,\ \rank F = n - k,\ U \longto \RR^{n - k}.`
+軌道と近傍 :math:`U` の共通部分が……。
+
+* 例 8.4.1: :math:`\RR^3` 上のベクトル場
+
+  * :math:`f \in C^\infty(\RR^2).`
+  * :math:`\displaystyle \xi_1 = \frac{\partial}{\partial x_1} + \frac{\partial f}{\partial x_1}\frac{\partial}{\partial x_3},`
+    :math:`\displaystyle \xi_2 = \frac{\partial}{\partial x_2} + \frac{\partial f}{\partial x_2}\frac{\partial}{\partial x_3}.`
+  * :math:`[\xi_1, \xi_2] = 0.`
+  * :math:`h = x_3 - f(x_1, f_2)` が一定である点からなる曲面が :math:`\RR^2` 作用の軌道となる。
+
+* 例 8.4.2: ダメな例
+
+  * :math:`\displaystyle \xi_1 = \frac{\partial}{\partial x_1} - x_2 \frac{\partial}{\partial x_3},`
+    :math:`\displaystyle \xi_2 = \frac{\partial}{\partial x_2}.`
+
+  * :math:`\because [\xi_1, \xi_2] = \frac{\partial}{\partial x_3}.`
+
+k 次元接平面場 or k 次元分布
+  多様体 :math:`M` 上の k 次元接平面場に対して、各点の近傍ではその
+  k 次元接平面場を張る k 枠場に取り替えられる。
+
+* 定理 8.4.3:
+  :math:`\RR^n` の開集合 :math:`U` 上の k-枠場が :math:`U` の各点の近傍に対して
+  :math:`[\xi_i, \xi_j]` が 0 となる k-枠場 に取り替えられることは、
+  :math:`[\xi_i, \xi_j]` が :math:`\xi_1, \dotsc, \xi_k` の張る k-枠場に値を持つことと同値である。
+
+  * 証明がよくわからない。
+
+* フローの可換性の成立だけで :math:`U` 内の「軌道」が :math:`F` によって定まる
+  :math:`U` の k 次元部分多様体となるといえる。
+
+  * 「軌道」と書いたが、
+    :math:`x` において k 次元接平面場は :math:`T_x(F^{-1}(F(x)))` と一致する。
+
+* 定理 8.4.4: `フロベニウス <https://en.wikipedia.org/wiki/Frobenius_theorem_(differential_topology)>`__
+
+  * :math:`[\xi_i, \xi_j]` が k 次元接平面場に値を持つということを
+    `（完全）積分可能条件 <https://en.wikipedia.org/wiki/Integrability_conditions_for_differential_systems>`__ という。
+
+  * :math:`F_V^{-1}(F_V(x)),\ T_x(F_V^{-1}(F_V(x))) \subset T_xM` と
+    :math:`x` における k 次元接平面場が一致する。
+
+  * （極大）積分多様体
+    or `葉 <http://mathworld.wolfram.com/FoliationLeaf.html>`__
+
+  * 共通部分できれいに貼り合わさる。
+  * 「正則とは限らない」部分多様体とは？
+  * `葉層 <http://mathworld.wolfram.com/Foliation.html>`__ 構造（本書図 8.2 参照）
+
