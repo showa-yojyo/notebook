@@ -330,3 +330,71 @@ k 次元接平面場 or k 次元分布
 
   :math:`\displaystyle \grad f = -\frac{a\sin x}{2 + \cos y}\frac{\partial}{\partial x} + (-a \sin y\cos x + c\cos y)\frac{\partial}{\partial y}.`
 
+8.6 ファイバー束（展開）
+----------------------------------------------------------------------
+* 例題 8.6.1: ファイブレーション定理
+
+  * :math:`M, N` をコンパクト連結多様体で :math:`\dim M > \dim N` であり、
+  * :math:`F \in C^\infty(M, N)` が
+  * :math:`\forall x \in M, F_*: T_xM \longto T_{F(x)}N` が全射である
+
+  とする。このとき :math:`\forall y \in N` に次のような近傍 :math:`V_y \owns y` と
+  同相写像 :math:`h` が存在する：
+
+  * :math:`h: F^{-1}(V_y) \longto V_y \times F^{-1}(y),`
+  * :math:`F = \operatorname{pr}_1 \circ h,`
+  * :math:`\operatorname{pr_1}` は自然な射影。
+
+  証明：
+
+  * TBW
+
+`ファイバー束 <http://mathworld.wolfram.com/FiberBundle.html>`__
+  位相空間 :math:`E, B` と連続写像 :math:`p: E \longto B` について
+  次が成り立つ位相空間 :math:`F` が存在すれば、これを `ファイバー <http://mathworld.wolfram.com/Fiber.html>`__ といい、
+  :math:`p` をファイバー束という：
+
+  .. math::
+
+     \forall b \in B, \exists U_b \owns b \text{ s.t. }
+     \exists h: p^{-1}(U_b) \longto U_b \times F,\
+     \operatorname{pr}_1 \circ h = p.
+
+ファイバー束の接続
+  同じ記号を使う。
+  :math:`L` やら :math:`\nu` やらは何だ？
+
+  #. :math:`N` 上のベクトル場 :math:`\xi` に対して :math:`M` 上のベクトル場
+     :math:`\overset{\sim}{\xi}` を次のように一意的に定めることができる：
+
+     .. math::
+
+        \overset{\sim}{\xi} \in \nu_x(L),\ F_*(\overset{\sim}{\xi}(x)) = \xi(F(x)).
+
+     ここで :math:`\nu_x(L) \subset T_xM` は線型部分空間であり、
+     :math:`F_*|\nu_x(L)` は線形同型写像である。
+
+  #. この :math:`\overset{\sim}{\xi}` を :math:`\xi` の `持ち上げ <http://mathworld.wolfram.com/Lift.html>`__ という。
+
+平坦な接続
+  :math:`[\overset{\sim}{\xi}, \overset{\sim}{\eta}]` を考える。
+
+  * :math:`F_*[\overset{\sim}{\xi}, \overset{\sim}{\eta}] = [F_*\overset{\sim}{\xi}, F_*\overset{\sim}{\eta}] = [\xi, \eta].`
+  * 特に :math:`\displaystyle \xi = \xi_i = \frac{\partial}{\partial x_i}, \eta = \eta_j = \frac{\partial}{\partial x_j}` と書けば、
+    :math:`[\xi, \eta] = 0` なので
+    :math:`[\overset{\sim}{\xi}, \overset{\sim}{\eta}]` は
+    ファイバーの方向のベクトル場である（？）
+
+  * さらに :math:`\forall \zeta_i, \zeta_j,\ [\overset{\sim}{\zeta_i}, \overset{\sim}{\zeta_j}] = 0`
+    のときには接続が平坦な接続であるという。
+
+  * TBW
+
+* ファイバーがリー群であるようなファイバー束を考えることができる。
+* n 次元リーマン多様体の :math:`\operatorname{Fr}M` はファイバーが :math:`O(n)` であるような
+  :math:`M` 上のファイバー束となっている。
+* `レビチビタ接続 <http://mathworld.wolfram.com/Levi-CivitaConnection.html>`__ とはこのファイバー束の接続である。
+
+8.7 第 8 章の問題の回答
+----------------------------------------------------------------------
+TBW
