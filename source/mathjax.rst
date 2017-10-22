@@ -195,8 +195,8 @@ HTML テンプレートを編集する
            QQ: "{\\mathbb Q}",
            RR: "{\\mathbb R}",
            CC: "{\\mathbb C}",
-           dd: ["{\\mathrm d^{#1}}", 1, ""],
-           diff: ["{\\frac{\\dd {#1}}{\\dd {#2}}}", 2],
+           dd: ["\\mathrm d^{#1}", 1, ""],
+           diff: ["\\frac{\\dd {#1}}{\\dd {#2}}", 2],
            // ...
        }
    }
@@ -212,6 +212,11 @@ HTML テンプレートを編集する
 * バックスラッシュはエスケープする必要がある。
 
 * マクロ定義は LaTeX ディレクトリーの :file:`/texmf-dist/tex/latex/akktex/*.stty` が大いに参考になる。
+  いくつかコツがある。
+
+  * まず `stty` コードのバックスラッシュをバックスラッシュでエスケープする必要がある。
+  * `\newcommand` を定義するブロックを囲むための中括弧は削除する。
+
 * もし開発環境に LaTeX がインストールされていなければ、インターネットから検索しても十分間に合う。
 
 .. _MathJax: http://docs.mathjax.org/en/latest/index.html
