@@ -23,6 +23,19 @@ window.MathJax = {
             longto: "\\longrightarrow",
             mdiff: ["{\\frac{\\dd[#2]#1}{\\dd #3^{#2}}}", 3],
             rank: "{{\\operatorname{rank}}}",
+
+            set: ["{\\{#1\\}}", 1],
+            openSet: "\\!\\left\\{\\left.",
+            closeSet: "\\right.\\right\\}\\!",
+            Set: ["{\\openSet #1 \\closeSet}", 1],
+            sth: "{\\,|\\,}",
+            Sth: "\\right| \\left.",
+            setcomp: ["{{\\overline{{#1}}}}", 1],
+            closure: "\\setcomp",
+            zeroset: "{{\\set 0}}",
+            minuszero: "{{\\setminus\\zeroset}}",
+            Minuszero: "{{\\!\\setminus\\!\\zeroset}}",
+
             supp: "{{\\operatorname{supp}}}",
             trace: "{{\\operatorname{trace}}}"
         }
