@@ -308,7 +308,7 @@ k 次元接平面場 or k 次元分布
 * 例題 8.5.2
 
   #. :math:`f(x, y) = x^3 - x + y^2` のグラフを描け。
-  #. :math:`\diff{x}{t} = \frac{\partial}{\partial x},\ \diff{y}{t} = \frac{\partial}{\partial y}` の解曲線を求めろ。
+  #. :math:`\displaystyle \diff{x}{t} = \frac{\partial}{\partial x},\ \diff{y}{t} = \frac{\partial}{\partial y}` の解曲線を求めろ。
 
   フローが等位線と直交するように描くのが鉄則。
 
