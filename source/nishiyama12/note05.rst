@@ -114,12 +114,9 @@
 * 系 5.16: 数式での表現。
 
   .. math::
-     :nowrap:
 
-     \begin{align*}
-     \cfrac{\det(d - a\quad c - a)}{\det (d - b\quad c - b)} & = \cfrac{\det(d' - a'\quad c' - a')}{\det (d' - b'\quad c' - b')}\\
-     \cfrac{\det(a - c\quad b - c)}{\det (a - d\quad b - d)} & = \cfrac{\det(a' - c'\quad b' - c')}{\det (a' - d'\quad b' - d')}
-     \end{align*}
+     \frac{\det(d - a\quad c - a)}{\det (d - b\quad c - b)} & = \frac{\det(d' - a'\quad c' - a')}{\det (d' - b'\quad c' - b')}\\
+     \frac{\det(a - c\quad b - c)}{\det (a - d\quad b - d)} & = \frac{\det(a' - c'\quad b' - c')}{\det (a' - d'\quad b' - d')}
 
   証明では十分条件を示す。4 点のうち 3 点を固定して考える。
   例えば :math:`a = a', b = b', c = c'` を原点、x 軸上の点、y 軸上の点として取る。

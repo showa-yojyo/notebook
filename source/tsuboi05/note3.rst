@@ -169,7 +169,7 @@
 
   * 対象となる空間は :math:`Z = \RR^2 \setminus \lbrace (0, 0) \rbrace,\ S = Z / \sim`
   * これはまだ理解していないが、
-    :math:`(x, y) \in Z` に対して開区間 :math:`{ \displaystyle I =  \left( \cfrac{1}{\sqrt{a}}x, \sqrt{a}x \right)}` を導入する。
+    :math:`(x, y) \in Z` に対して開区間 :math:`{ \displaystyle I =  \left( \frac{1}{\sqrt{a}}x, \sqrt{a}x \right)}` を導入する。
   * 写像 :math:`p_s: Z \longto S` を射影とする。
   * 写像 :math:`i: I \times \RR \subset Z \longto Z` を包含写像とする。
   * 写像 :math:`s: W := (p_s \circ i)(I \times \RR) \longto I \times \RR` を代表元を取る写像として構成したい。
@@ -223,7 +223,7 @@
        :nowrap:
 
        \begin{align*}
-       f(\bm{x_2}) = \cfrac{\lvert \bm{x_1} \cdot \bm{x_2} \rvert }{\lVert \bm{x_1} \rVert \cdot \lVert \bm{x_2} \rVert}
+       f(\bm{x_2}) = \frac{\lvert \bm{x_1} \cdot \bm{x_2} \rvert }{\lVert \bm{x_1} \rVert \lVert \bm{x_2} \rVert}
        \end{align*}
 
   * 次に誘導される写像 :math:`\underline{f}` が連続であることを示し、

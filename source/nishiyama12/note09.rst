@@ -115,7 +115,7 @@
 
   .. math::
 
-     \operatorname{cr}([v_1], [v_2]; [v_3], [v_4]) = \cfrac{D_{13} D_{24}}{D_{14} D_{23}}
+     \operatorname{cr}([v_1], [v_2]; [v_3], [v_4]) = \frac{D_{13} D_{24}}{D_{14} D_{23}}
 
   ここで :math:`D_{ij} = \det(v_i v_j)` とする。
 
@@ -129,7 +129,7 @@
 
   .. math::
 
-     \operatorname{cr}([z_1], [z_2]; [z_3], [z_4]) = \cfrac{z_1 - z_3}{z_1 - z_4} \cfrac{z_2 - z_4}{z_2 - z_3}
+     \operatorname{cr}([z_1], [z_2]; [z_3], [z_4]) = \frac{z_1 - z_3}{z_1 - z_4} \frac{z_2 - z_4}{z_2 - z_3}
 
 * 定理 9.19
 
