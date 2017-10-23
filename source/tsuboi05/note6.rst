@@ -160,7 +160,7 @@
   * :math:`F_t(\bm x) = \mathrm{e}^{tA} \bm x` は :math:`\RR^n` 上のベクトル場
     :math:`\displaystyle \sum_{i = 1}^n \left( \sum_{j = 1}^n a_{ij} x_j \right)\frac{\partial}{\partial x_j}` が生成するフローである。
 
-  * フロー :math:`\{ F_t(\bm x) \mid t \in \RR\}` を :math:`\bm x` を通る軌道という。
+  * フロー :math:`\set{ F_t(\bm x) \sth t \in \RR}` を :math:`\bm x` を通る軌道という。
     この軌道は :math:`M` 上の同値関係を定義する。
 
   * 軌道は一点、円周、実数全体のいずれかでパラメーター付けられる。
@@ -222,7 +222,7 @@
     * :math:`F_1, F_2 \in C, \sup \lVert \Gamma[F_1] - \Gamma[F_2]\rVert \le \eps_0 L \sup \lVert F_1 - F_2 \rVert` となる。
     * :math:`F_0(t, \bm x) = \bm x,\ F_1 = \Gamma[F_0]` とすると :math:`\sup \lVert F_1 - F_0 \rVert \le \eps_0 M.`
     * ここで
-      :math:`\displaystyle \eps_0 = \min\left\{\frac{1}{2L}, \frac{\eps}{4M}\right\}` とすればよいことわがかる。
+      :math:`\displaystyle \eps_0 = \min\Set{\frac{1}{2L}, \frac{\eps}{4M}}` とすればよいことわがかる。
     * :math:`\displaystyle \eps_0 \le \frac{1}{2L}` と :math:`\displaystyle \eps_0 \le \frac{\eps}{4M}` から解の一意性と微分可能性をそれぞれ示す。
     * :math:`C^0(I_{\eps_0} \times K, \RR^n)` 上に距離を入れてリプシッツ性を利用する。
 
@@ -255,7 +255,7 @@
 
   * いつもの開被覆からさらに次のような :math:`V_i, W_i` をとる：
 
-    * :math:`U_i \supset \overline{V_i} \supset V_i \supset \overline{W_i} \supset W_i`
+    * :math:`U_i \supset \closure{V_i} \supset V_i \supset \closure{W_i} \supset W_i`
     * :math:`\bigcup W_i = M`
 
   * 証明は三段階に分けて理解する。
@@ -265,19 +265,19 @@
        * :math:`\displaystyle X = \sum_{k}\xi_k^{(i)}\frac{\partial}{\partial x_k^{(i)}}` とおく。
          閉包のコンパクト性から :math:`\varphi_i(V_i)` 上で有界連続でリプシッツ条件を満たす。
 
-       * :math:`\varphi_i(\overline{W_i}) \subset \varphi_i(V_i)` において次のような :math:`\eps^{(i)} > 0` が存在する：
+       * :math:`\varphi_i(\closure{W_i}) \subset \varphi_i(V_i)` において次のような :math:`\eps^{(i)} > 0` が存在する：
 
          .. math::
             :nowrap:
 
             \begin{align*}
-            & F^{(i)}: (-\eps^{(i)}, \eps^{(i)}) \times \varphi_i(\overline{W_i}) \longto \varphi_i(V_i)\\
+            & F^{(i)}: (-\eps^{(i)}, \eps^{(i)}) \times \varphi_i(\closure{W_i}) \longto \varphi_i(V_i)\\
             & \diff{F^{(i)}}{t}(t, \bm x) = \xi^{(i)}(F^{(i)}(t, \bm x))\\
             \end{align*}
 
          ここで :math:`\xi^{(i)} = (\xi_1^{(i)}, \dotsc, \xi_n^{(i)})` とした。
 
-       * :math:`\eps = \min\{\eps^{(i)}\}` とすると全ての :math:`x \in M` に対して次の性質を満たすような近傍 :math:`W^i` が存在する：
+       * :math:`\eps = \min\set{\eps^{(i)}}` とすると全ての :math:`x \in M` に対して次の性質を満たすような近傍 :math:`W^i` が存在する：
 
          .. math::
             :nowrap:
@@ -327,7 +327,7 @@
   :math:`\displaystyle \lim_{t \to -\infty}\Phi_t(\bm x)` の値
 
   * :math:`\mu: \RR^n \longto \RR` は :math:`C^\infty` 級で、
-  * :math:`\supp \mu = \{\bm x \in \RR^n \mid \lVert \bm x \rVert \le 1\},`
+  * :math:`\supp \mu = \set{\bm x \in \RR^n \sth \lVert \bm x \rVert \le 1},`
   * :math:`\lVert \bm x \rVert < 1 \implies \mu(\bm x) > 0` と仮定する。
 
   #. 単位超球面上およびその外側
@@ -359,7 +359,7 @@
     #. :math:`x_1, \dots, x_{n - 1} \in M` を :math:`y_1, \dots, y_{n - 1} \in M` にそれぞれ写す
        微分同相写像 :math:`F_1: M \longto M` が存在すると仮定する。
 
-       * :math:`M' = M \setminus \{y_1, \dots, y_{n - 1}\}` とおくと、これは連結である（この証明がメインか？）。
+       * :math:`M' = M \setminus \set{y_1, \dots, y_{n - 1}}` とおくと、これは連結である（この証明がメインか？）。
        * :math:`F': M' \longto M,\quad F'(F_1(x_n)) = y_n` となる :math:`F'` が例題 6.5.1 により存在する。
        * :math:`F'` の定義域を元の多様体に次のように拡張して :math:`\hat{F'}` とすれば、
          :math:`F = \hat{F'} \circ F_1` が求める微分同相写像だ。

@@ -39,7 +39,7 @@
 
 * 問題 7.1.2: :math:`C^1` 級曲線の長さ
 
-  * :math:`\Delta = \{ 0 = t_0 \le \dots \le t_m = 1\}` を区間 :math:`[0, 1]` の細分とすると
+  * :math:`\Delta = \set{ 0 = t_0 \le \dots \le t_m = 1}` を区間 :math:`[0, 1]` の細分とすると
     :math:`\displaystyle \int_{0}^{1}\!\left\lVert \diff{c(t)}{t} \right\rVert\,dt = \sup_{\Delta}\sum_{k = 1}^m \left\lVert c(t_k) - c(t_{k - 1})\right\rVert`
 
   * 証明全体は微積分の教科書を参照。
@@ -71,7 +71,7 @@
    :nowrap:
 
    \begin{align*}
-   \forall x, y \in M, d(x, y) = \inf\{L(c) \mid c: [0, 1] \longto M,\ c(0) = x,\ c(1) = y\}
+   \forall x, y \in M, d(x, y) = \inf\set{L(c) \sth c: [0, 1] \longto M,\ c(0) = x,\ c(1) = y}
    \end{align*}
 
 * 例題 7.1.4: 曲線の合成？
@@ -176,14 +176,14 @@
         * 境界 :math:`\partial V` 上では :math:`\lVert z - \varphi(x)\rVert = \eps`
 
         なので、
-        :math:`d(x, y) \le \min\{d(z, x) \mid \varphi(z) \in \partial V\} \le \sqrt{\delta}\eps.`
+        :math:`d(x, y) \le \min\set{d(z, x) \sth \varphi(z) \in \partial V} \le \sqrt{\delta}\eps.`
         以下略。
 
     以上で :math:`d(x, y) = 0 \implies x = y` が示せた。
 
 * 定義 7.2.3: リーマン計量により定まる距離
 
-  :math:`d(x, y) = d_g(x, y) = \inf\{L(c) \mid c: [0, 1] \longto M,\ c(0) = x,\ c(1) = y\}.`
+  :math:`d(x, y) = d_g(x, y) = \inf\set{L(c) \sth c: [0, 1] \longto M,\ c(0) = x,\ c(1) = y}.`
 
 7.3 測地線
 ----------------------------------------------------------------------
@@ -386,7 +386,7 @@
     #. :math:`\forall \eps > 0` で :math:`T_xM` の半径 :math:`2\eps` の閉球体が
        :math:`E_x` により :math:`M` と全射となるようにとる。
     #. :math:`\forall k \in NN` :math:`\ E_x: T_xM \longto M` が
-       :math:`\{y \in M \mid d(x, y) < k\eps\}` 上への全射となることを示す。
+       :math:`\set{y \in M \sth d(x, y) < k\eps}` 上への全射となることを示す。
 
 * （最短測地線）コンパクト連結リーマン多様体の任意の二点に対して、
 
@@ -432,8 +432,8 @@
     :math:`F_t((x_1, x_2), (v_1, v_2)) = ((x_1 + tv_1, x_2 + tv_2), (v_1, v_2))`
   * 測地流の軌道は
 
-    * 閉軌道 if :math:`v_2/v_1 \in \QQ \cup \{\infty\}`
-    * :math:`(\RR/\ZZ)^2 \times \{(v_1, v_2)\}` において稠密な軌道
+    * 閉軌道 if :math:`v_2/v_1 \in \QQ \cup \set{\infty}`
+    * :math:`(\RR/\ZZ)^2 \times \set{(v_1, v_2)}` において稠密な軌道
       if :math:`v_2/v_1 \in \RR\setminus\QQ`
 
 * 例 7.5.4: トーラスの測地流の振る舞い
@@ -534,12 +534,12 @@
 
   証明方針は、とにかく正値二次形式 :math:`q(v)` を構成する。
 
-  #. 有限開被覆 :math:`\{(U_i, \varphi_i)\}_{i = 1, \dotsc, k}` をとり、さらに
-     いつものように次の包含関係を満たす開被覆 :math:`\{(V_i, \varphi_i)\}_{i = 1, \dotsc, k}` をとる：
-     :math:`U_i \supset \overline{V_i} \supset V_i.`
+  #. 有限開被覆 :math:`\set{(U_i, \varphi_i)}_{i = 1, \dotsc, k}` をとり、さらに
+     いつものように次の包含関係を満たす開被覆 :math:`\set{(V_i, \varphi_i)}_{i = 1, \dotsc, k}` をとる：
+     :math:`U_i \supset \closure{V_i} \supset V_i.`
 
   #. 非負関数 :math:`\mu_i: M \to \RR` を次のようにとる：
-     :math:`\supp \mu_i = U_i,\ \mu_i(x) > 0 \text{ if } x \in \overline{V_i}.`
+     :math:`\supp \mu_i = U_i,\ \mu_i(x) > 0 \text{ if } x \in \closure{V_i}.`
 
   #. 次のように :math:`\mu_i q_i(v)` をとると、
      :math:`TM` 上 :math:`C^\infty` 級かつ :math:`T_xM` 上二次形式となる：

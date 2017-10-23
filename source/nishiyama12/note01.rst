@@ -33,7 +33,7 @@
 
   * 四元数体 :math:`\mathbb{H}` は非可換体であり、
     :math:`\mathbb{H} ^ \times` は非可換群となる。
-  * :math:`\lbrace \pm 1, \pm i, \pm j, \pm k \rbrace \subset \mathbb{H} ^ \times` は有限部分群。
+  * :math:`\set{\pm 1, \pm i, \pm j, \pm k} \subset \mathbb{H} ^ \times` は有限部分群。
 
 * 演習 1.8: パウリ行列
 
@@ -41,26 +41,26 @@
      :nowrap:
 
      \begin{align*}
-     \sigma_0 = \left(
-       \begin{array}{ c r }
-          1 & 0 \
+     \sigma_0 =
+       \begin{pmatrix}
+          1 & 0\\
           0 & 1
-       \end{array} \right),\quad
-     \sigma_1 = \left(
-       \begin{array}{ r r }
-          0 & 1 \
+       \end{pmatrix},\quad
+     \sigma_1 =
+       \begin{pmatrix}
+          0 & 1\\
           1 & 0
-       \end{array} \right),\quad
-     \sigma_2 = \left(
-       \begin{array}{ r r }
-          0 & -i \
+       \end{pmatrix},\quad
+     \sigma_2 =
+       \begin{pmatrix}
+          0 & -i\\
           i & 0
-       \end{array} \right),\quad
-     \sigma_3 = \left(
-       \begin{array}{ r r }
-          1 & 0 \
+       \end{pmatrix},\quad
+     \sigma_3 =
+       \begin{pmatrix}
+          1 & 0\\
           0 & -1
-       \end{array} \right)
+       \end{pmatrix}
      \end{align*}
 
 1.3 対称群
@@ -72,7 +72,7 @@
     LaTeX では ``\mathfrak`` を用いる。
 
 * 演習 1.9: :math:`\mathfrak{S}_3` の記述。
-* 演習 1.10: :math:`H_{\lbrace1, 2\rbrace}` と :math:`K_{\lbrace1, 2\rbrace}` をそれぞれ書き出せばよいか？
+* 演習 1.10: :math:`H_{\set{1, 2}}` と :math:`K_{\set{1, 2}}` をそれぞれ書き出せばよいか？
 
 1.4 図形の対称性と群
 ----------------------------------------------------------------------
@@ -87,15 +87,15 @@
 * n 次の二面体群 :math:`D_n` は正 n 角形の対称群のこと。
 * 原点は :math:`D_n` 「によって不変である」or「の固定群である」。
 
-* 補題 1.11: :math:`D_n` に属する回転移動は :math:`\lbrace a^k \mid 0 \le k < n \rbrace`
+* 補題 1.11: :math:`D_n` に属する回転移動は :math:`\set{a^k \sth 0 \le k < n}`
   ここで :math:`a` は角度 :math:`2 \pi / n` の回転を表す。
 
 * 演習 1.12: 合同変換がある直線に関して不変であるとき、その変換は恒等変換または鏡映変換である。
   以下、鏡映変換を :math:`b` で表す。
 
-* 定理 1.13: :math:`D_n = \lbrace a^k, a^k b \mid 0 \le k < n \rbrace`
+* 定理 1.13: :math:`D_n = \set{a^k, a^k b \sth 0 \le k < n}`
 
-  * :math:`\lbrace a, b \rbrace` を生成元 or 生成系という。
+  * :math:`\set{a, b}` を生成元 or 生成系という。
 
 * 演習 1.14: :math:`abab = e`
 * 演習 1.15: :math:`D_3` は :math:`\mathfrak{S}_3` と同型であるが、
@@ -119,13 +119,13 @@
 1.5.1 自由群
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * （用語）語、空語。
-* :math:`F_2 = \lbrace a, b \rbrace`, 一般に :math:`F_k = \lbrace a_1, \dotsc, a_k \rbrace` を自由群という。
+* :math:`F_2 = \set{a, b}`, 一般に :math:`F_k = \set{a_1, \dotsc, a_k}` を自由群という。
 * 正規表現の本で似たようなものを見た記憶がある。
 
 1.5.2 行列群
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 一般線形群
-  :math:`GL_n(K) := \lbrace g \in M_n(K) \mid \det g \ne 0 \rbrace`
+  :math:`GL_n(K) := \set{g \in M_n(K) \sth \det g \ne 0}`
 
   * 部分群 :math:`SL_n(K),\ O_n(\RR),\ U_n(\CC),\ Sp_{2n}(K)`
   * ド・シッター群 :math:`SO(?)`
@@ -138,7 +138,7 @@
 
 1.5.4 一次分数変換
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-複素平面の上半分 :math:`\mathfrak{H} := \lbrace z \in \CC \mid \Im z > 0 \rbrace` は多様体である。
+複素平面の上半分 :math:`\mathfrak{H} := \set{z \in \CC \sth \Im z > 0}` は多様体である。
 
 一次分数変換
   関数 :math:`{ \displaystyle f_g(z) = \frac{az + b}{cz + d}\ (\ z \in \mathfrak{H},\ g \in SL_2(\RR))}` のこと。

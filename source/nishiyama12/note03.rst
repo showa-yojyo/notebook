@@ -87,12 +87,12 @@
   * 記号 :math:`\mathfrak{I} = \mathfrak{I}(V) = \CC [V]^G` で
     不変式全体のなす集合を表す。
 
-* 例 3.15: 素朴な例 :math:`X = \{1, \dotsc, n\}` とその上のすべての関数のなすベクトル空間 :math:`\CC[X]` と
+* 例 3.15: 素朴な例 :math:`X = \set{1, \dotsc, n}` とその上のすべての関数のなすベクトル空間 :math:`\CC[X]` と
   作用する群 :math:`G = \mathfrak{S}_n` とする。
 
   * :math:`G` の作用に関する不変式は定数関数しかない。
-  * :math:`X = A \sqcup B` として部分群 :math:`H = \{ \sigma \in G \mid \sigma(A) = A,\ \sigma(B) = B\}` とすると、
-    :math:`\CC[X]^H = \{\alpha \chi_A + \beta \chi_B \mid \alpha, \beta \in \CC\}` となる。
+  * :math:`X = A \sqcup B` として部分群 :math:`H = \set{\sigma \in G \sth \sigma(A) = A,\ \sigma(B) = B}` とすると、
+    :math:`\CC[X]^H = \set{\alpha \chi_A + \beta \chi_B \sth \alpha, \beta \in \CC}` となる。
 
     * ここで :math:`\chi_A` などは指示関数（測度論の教科書参照）とする。
 

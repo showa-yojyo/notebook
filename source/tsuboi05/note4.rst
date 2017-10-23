@@ -21,7 +21,7 @@
         :nowrap:
 
         \begin{align*}
-        \mathcal{C}_{x_0} := \lbrace c_i: (a_i,\ b_i) \longto M \mid c_i(t_i) = x_0 \rbrace _{i \in I}
+        \mathcal{C}_{x_0} := \set{c_i: (a_i,\ b_i) \longto M \sth c_i(t_i) = x_0}_{i \in I}
         \end{align*}
 
   #. 次にこの一点を含む座標近傍 :math:`(U, \varphi)` をとって、
@@ -148,22 +148,21 @@
 
   * :math:`F|U_x: U_x \longto V_{F(x)}` が微分同相となるような近傍 :math:`U_x \subset U_i` は存在する（∵逆写像定理）。
   * この近傍 :math:`U_x` はその閉包がコンパクトになるように取れる（らしい）。
-  * :math:`K` の開被覆 :math:`\{U_x\}_{x \in K}` は有限開被覆 :math:`\{U_{x_k}\}_{k = 0,\dots\,k_0}` を持つ（∵コンパクト）。
+  * :math:`K` の開被覆 :math:`\set{U_x}_{x \in K}` は有限開被覆 :math:`\set{U_{x_k}}_{k = 0,\dots\,k_0}` を持つ（∵コンパクト）。
 
   ここから先の減少列に関する議論がわからない。
-  次のような :math:`\{U_x^m\}` があると言えるらしい。
+  次のような :math:`\set{U_x^m}` があると言えるらしい。
 
   .. math::
-     :nowrap:
 
      \begin{gather*}
-     U_x \supset \overline{U_x^1} \supset U_x^1 \supset U_x^1 \supset \overline{U_x^2} \supset U_x^2 \supset \dots,\\
-     \bigcap_{m = 1}^\infty U_x^m = \{ x \}
+     U_x \supset \closure{U_x^1} \supset U_x^1 \supset \closure{U_x^2} \supset U_x^2 \supset \dots,\\
+     \bigcap_{m = 1}^\infty U_x^m = \set{ x }
      \end{gather*}
 
-  * 各 :math:`\{U_x^m\}_{x \in K}` の有限部分？被覆 :math:`\{U_{x_k}^m\}_{k = 1, \dots, k_0^m}` が得られる（∵コンパクト）。
+  * 各 :math:`\set{U_x^m}_{x \in K}` の有限部分？被覆 :math:`\set{U_{x_k}^m}_{k = 1, \dots, k_0^m}` が得られる（∵コンパクト）。
   * :math:`W = \bigcup_k U_{x_k}^m` とおくと
-    :math:`W_1 \supset \overline{W_2} \supset W_2 \supset \dots,\ \bigcap\overline{Q_m} = K` とできる。
+    :math:`W_1 \supset \closure{W_2} \supset W_2 \supset \dots,\ \bigcap\closure{Q_m} = K` とできる。
 
   * するとある番号があって :math:`F: W_m \longto F(W_m)` が単射となる（背理法と完備性を利用する）。
 
@@ -193,7 +192,7 @@
      * :math:`p_x` は射影とする。
 
      商空間の点から平面の代表元を取る操作を :math:`s_x` とし、
-     座標近傍系を :math:`\{(p_x(B_x), s_x)\}_{x \in \RR^2}` で定義する。
+     座標近傍系を :math:`\set{(p_x(B_x), s_x)}_{x \in \RR^2}` で定義する。
 
      * :math:`s_x` は連続である。
        なぜならば開集合 :math:`U \subset B_x` に対して
@@ -244,7 +243,7 @@
        中央の写像が全射であることから、ランクが :math:`\dim G` と一致すると結論できる（らしい）。
 
   #. 逆元を取る演算は :math:`C^\infty` 級である。
-  
+
      * 陰関数定理、逆元写像の接写像 :math:`T_(g, g^{-1})(G \times G) \longto T_1 G` グラフ？
 
 4.4 部分多様体
@@ -259,7 +258,7 @@
        :nowrap:
 
        \begin{align*}
-       \forall x_0 \in M, \exists(U, \varphi): M \cap U = \{x \in U \mid x_{p + 1} = \dots = x_n = 0\}
+       \forall x_0 \in M, \exists(U, \varphi): M \cap U = \set{x \in U \sth x_{p + 1} = \dots = x_n = 0}
        \end{align*}
 
 微分可能構造
@@ -305,10 +304,10 @@
   * 前者は :math:`n^2` 次元多様体、後者は :math:`n^2 - 1` 次元部分多様体である。
 
     * GL については :math:`GL_n(\RR) \cong \RR^{n^2}` ゆえ、前者の主張は当然だ。
-      解答例によると :math:`\{A \in M_n(\RR) \mid \det A \ne 0\}` が
+      解答例によると :math:`\set{A \in M_n(\RR) \sth \det A \ne 0}` が
       :math:`M_n(\RR)` の開集合であることを注意している。
 
-    * SL について。まず定義を書き下してみると :math:`SL_n(\RR) = \{A \in GL_n(\RR) \mid \det A = 1\}` だ。
+    * SL について。まず定義を書き下してみると :math:`SL_n(\RR) = \set{A \in GL_n(\RR) \sth \det A = 1}` だ。
       そこでこの空間を「写像」 :math:`\det: GL_n(\RR) \longto \RR` における「単位元の逆像」とみなす。
 
     * :math:`\det` のヤコビ行列なるものを考える。余因子展開を意識することで
@@ -384,8 +383,8 @@
   :math:`F_*: TM \longto TN` は :math:`C^\infty` 級である。
 
 * 問題 4.5.3: ユークリッド空間内の多様体 :math:`M \subset \RR^N` に対して
-  :math:`TM` と :math:`X = \{(x, v) \mid x \in M, v \in T_x M\}` は微分同相である。
-  
+  :math:`TM` と :math:`X = \set{(x, v) \sth x \in M, v \in T_x M}` は微分同相である。
+
   * 点 :math:`x_0 \in M` の近傍におけるグラフ表示から :math:`X` のグラフ表示を構成する。
   * :math:`TM` の商空間座標近傍系の近傍？から :math:`\RR^N \times \RR^N` への連続写像を定義する。
     これの逆写像を検討する（連続であることと :math:`C^\infty` 級であること）。

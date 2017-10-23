@@ -27,10 +27,10 @@
 
   * 第 2 可算公理
 
-* 例 3.1.5: 2 次曲面 :math:`{ \displaystyle Q = \lbrace (X_1, \dotsc, X_n) \in \RR^n \mid \sum_{i = 1}^{n} \lambda_i X_i^2 = b \rbrace \quad (b \ne 0) }`
+* 例 3.1.5: 2 次曲面 :math:`{ \displaystyle Q = \set{(X_1, \dotsc, X_n) \in \RR^n \sth \sum_{i = 1}^{n} \lambda_i X_i^2 = b} \quad (b \ne 0) }`
 
   * 座標近傍系を定義することで、曲面が多様体であることを示す。
-  * :math:`U_i^+ := Q \cap \lbrace X_i > 0 \rbrace, \varphi_i^+(X_1, \dotsc, X_n) = (X_1, \dotsc, \widehat{X_i}, \dotsc, X_n)` などと置く
+  * :math:`U_i^+ := Q \cap \set{X_i > 0}, \varphi_i^+(X_1, \dotsc, X_n) = (X_1, \dotsc, \widehat{X_i}, \dotsc, X_n)` などと置く
     （ハットの部分は除去を意味する記法）。
 
   * 開集合 :math:`U_i^\pm` をすべて合併させると曲面全体を覆う。
@@ -51,13 +51,13 @@
 
   * 前半は「球面」が多様体であることを示す。
 
-    * 局所座標系 :math:`\lbrace (U_i^\pm, \varphi_i^\pm)\rbrace` を次のように定義する。
+    * 局所座標系 :math:`\set{(U_i^\pm, \varphi_i^\pm)}` を次のように定義する。
 
       .. math::
          :nowrap:
 
          \begin{align*}
-         U_i^\pm & = \lbrace (x_0, \dotsc, x_n) \in S^n \mid \pm x_i > 0 \rbrace,\\
+         U_i^\pm & = \set{(x_0, \dotsc, x_n) \in S^n \sth \pm x_i > 0},\\
          \varphi_i^\pm (x_0, \dotsc, x_n) & =
          \left(
          \frac{x_0}{x_i}, \dotsc, \widehat{(i)}, \dotsc, \frac{x_n}{x_i}
@@ -72,14 +72,14 @@
 
   * 後半は射影空間が多様体であることを示す。
 
-    * 射影 :math:`p: S^n \longto \RR P^n;\quad [x] \mapsto \lbrace x, -x \rbrace` は同値類への写像となる。
-    * 局所座標系 :math:`\lbrace (V_i, \varphi_i) \rbrace` を次のように定義する。
+    * 射影 :math:`p: S^n \longto \RR P^n;\quad [x] \mapsto \set{x, -x}` は同値類への写像となる。
+    * 局所座標系 :math:`\set{(V_i, \varphi_i)}` を次のように定義する。
 
       .. math::
          :nowrap:
 
          \begin{align*}
-         V_i & = \lbrace [\bm{x}] \in \RR P^n \mid x_i \ne 0 \rbrace,\\
+         V_i & = \set{[\bm{x}] \in \RR P^n \sth x_i \ne 0},\\
          \varphi_i([\bm{x}]) &= \varphi_i^\pm(\bm{x})
          \end{align*}
 
@@ -115,7 +115,7 @@
 
   * 考察対象の空間
 
-    * :math:`Z = \RR^2 \setminus \lbrace 0 \rbrace`,
+    * :math:`Z = \RR^2 \minuszero`,
     * :math:`Y = Z / \sim`
 
   * 考察する写像
@@ -167,7 +167,7 @@
   * 行列 :math:`A = { \displaystyle \begin{pmatrix} a & 0 \\ 0 & \dfrac{1}{a} \end{pmatrix}\ (a > 1) }` をとり、
     元の空間における同値関係を :math:`z_1 \sim z_2 \Leftrightarrow \exists n \in \ZZ: A^n z_1 = z_2` で定義する。
 
-  * 対象となる空間は :math:`Z = \RR^2 \setminus \lbrace (0, 0) \rbrace,\ S = Z / \sim`
+  * 対象となる空間は :math:`Z = \RR^2 \minuszero,\ S = Z / \sim`
   * これはまだ理解していないが、
     :math:`(x, y) \in Z` に対して開区間 :math:`{ \displaystyle I =  \left( \frac{1}{\sqrt{a}}x, \sqrt{a}x \right)}` を導入する。
   * 写像 :math:`p_s: Z \longto S` を射影とする。
@@ -191,7 +191,7 @@
   * 同値関係 :math:`x_1 \sim x_2 \Leftrightarrow x_1 - x_2 \in \ZZ` で商空間 :math:`\RR/\sim` を定義する。
   * 射影を :math:`p` とする。
 
-    * ある閉集合の像 :math:`p(\lbrace 0 \le x \le 1 \rbrace)` が空間全体となるゆえ、商空間はコンパクトであるといえる。
+    * ある閉集合の像 :math:`p(\set{0 \le x \le 1})` が空間全体となるゆえ、商空間はコンパクトであるといえる。
 
   * 座標近傍系を次のように構成する。
 
@@ -199,12 +199,12 @@
     * 同値類からその代表元を :math:`I_x` の中にあるように取る（？）写像を :math:`s_x` を定義する。
 
       * :math:`s_x` は連続となる。なぜなら開集合 :math:`U \subset I_x` に対して
-        :math:`{ \displaystyle p^{-1}(s_x^{-1}(U)) = \bigcup_{n \in \ZZ}\lbrace x + n \mid x \in U \rbrace }` は開集合だから。
+        :math:`{ \displaystyle p^{-1}(s_x^{-1}(U)) = \bigcup_{n \in \ZZ}\set{x + n \sth x \in U} }` は開集合だから。
 
       * :math:`s_x` は同相となる。なぜなら
         :math:`(p|I_x) \circ s_x = \id,\quad s_x \circ (p|I_x) = \id` であるから。
 
-    * :math:`\lbrace (p(I_x), s_x) \rbrace_{x \in \RR}` が構成できた。
+    * :math:`\set{(p(I_x), s_x)}_{x \in \RR}` が構成できた。
 
   * これがハウスドルフであることを直接示すのは面倒。
 
@@ -214,9 +214,9 @@
     * 誘導される写像 :math:`\underline{h} = h \circ p^{-1}` が定義でき、
       これが全射であるだけでなく、単射であることを示せば、同相であると結論できる。
 
-* 例題 3.3.6: :math:`\RR P^n = S^n / \lbrace \pm 1 \rbrace = (\RR^{n + 1} \setminus \lbrace 0 \rbrace) / \RR^\times`
+* 例題 3.3.6: :math:`\RR P^n = S^n / \set{\pm 1} = (\RR^{n + 1} \minuszero) / \RR^\times`
 
-  * 次のような写像 :math:`f: \RR^{n + 1} \setminus \lbrace 0 \rbrace \longto \RR` をまず定義し、
+  * 次のような写像 :math:`f: \RR^{n + 1} \minuszero \longto \RR` をまず定義し、
     これが well-defined であることを確認する。
 
     .. math::
@@ -229,13 +229,13 @@
   * 次に誘導される写像 :math:`\underline{f}` が連続であることを示し、
     コーシー・シュワルツの不等式の等式成立条件などからハウスドルフであることを示す。
 
-  * 多様体であることを示すために、局所座標系 :math:`\lbrace (V_i, \varphi_i) \rbrace` を定義する。
+  * 多様体であることを示すために、局所座標系 :math:`\set{(V_i, \varphi_i)}` を定義する。
 
     .. math::
        :nowrap:
 
        \begin{align*}
-       V_i & = \lbrace [\bm{x}] \in \RR^{n + 1} \setminus \lbrace 0 \rbrace \mid x_i \ne 0 \rbrace,\\
+       V_i & = \set{[\bm{x}] \in \RR^{n + 1} \zeroset \sth x_i \ne 0},\\
        \varphi_i([\bm{x}]) &= \left( \frac{x_0}{x_i}, \dotsc, \widehat{(i)}, \dotsc, \frac{x_n}{x_i} \right)
        \end{align*}
 
@@ -244,7 +244,7 @@
   * 座標変換が滑らかであることを示す。
   * 射影空間では超平面とそれに含まれない直線とは必ず一点で交わる。
 
-* 問題 3.3.7: :math:`\CC P^n := (\CC^{n + 1} \setminus \lbrace 0 \rbrace) / \CC ^ \times` は多様体になる。
+* 問題 3.3.7: :math:`\CC P^n := (\CC^{n + 1} \minuszero) / \CC ^ \times` は多様体になる。
 
 3.4 :math:`C^r` 級多様体の間の :math:`C^s` 級写像、微分同相写像
 ----------------------------------------------------------------------
@@ -265,10 +265,10 @@
   #. :math:`\RR^2/(2 \pi \ZZ)^2 \cong T^1`
 
 * 問題 3.4.4: 複素射影直線と球面は微分同相である。
-  :math:`\CC P^1 = (\CC^2 \setminus \lbrace 0 \rbrace) / \CC ^ \times \cong S^2`
+  :math:`\CC P^1 = (\CC^2 \minuszero) / \CC ^ \times \cong S^2`
 
   #. ヒントに従うと、次のふたつの射影による座標近傍系を定義できる。
-  #. :math:`\CC P^1` に開集合 :math:`V_i = \lbrace [x] \in (\CC^2 \setminus \lbrace 0 \rbrace) / \sim\ \mid x_i \ne 0 \rbrace,\ (i = 0, 1)` を入れる。
+  #. :math:`\CC P^1` に開集合 :math:`V_i = \set{[x] \in (\CC^2 \minuszero) / \sim \sth x_i \ne 0},\ (i = 0, 1)` を入れる。
 
      * TODO: 可換図式みたいなのを挿れたい。
 
@@ -285,13 +285,13 @@
   * :math:`C^\infty` 級に作用する or 滑らかに作用する
   * 効果的
 
-    * :math:`K = \lbrace g \in G \mid gx = x \rbrace` のとき。
+    * :math:`K = \set{g \in G \sth gx = x}` のとき。
     * :math:`K` は正規部分群となる。
 
 * <群の構造だけを取り出した群> とは？
 
 * 定理 3.4.8: 滑らかな多様体の滑らかな有限変換群に対する商空間は、滑らかな多様体となる。
-* 例題 3.4.9: レンズ空間 :math:`S^3 := \lbrace (z_1, z_2) \in \CC^2 \mid \lvert z_1 \rvert ^2 + \lvert z_2 \rvert ^2 = 1 \rbrace`
+* 例題 3.4.9: レンズ空間 :math:`S^3 := \set{(z_1, z_2) \in \CC^2 \sth \lvert z_1 \rvert ^2 + \lvert z_2 \rvert ^2 = 1}`
 
   * 有限変換群 :math:`F` の元は互いに素な自然数の組 :math:`p, q` を用いて構成できる。
     LaTeX を書くと字が潰れるので省略。
@@ -329,7 +329,7 @@
 
 * 一般の開集合 :math:`V_i \subset \RR^n` の直和について。
 
-  * :math:`{ \displaystyle \bigsqcup_{i \in I} V_i = \bigsqcup_{i \in I} V_i \times \{i\} \subset \RR^n \times I}`
+  * :math:`{ \displaystyle \bigsqcup_{i \in I} V_i = \bigsqcup_{i \in I} V_i \times \set{i} \subset \RR^n \times I}`
 
   * 左辺は :math:`\RR^n \times I` の直積位相から誘導される位相を入れる。
   * :math:`\RR^n` の位相はいつものユークリッド空間位相を入れる。
@@ -354,7 +354,7 @@
      * 写像 :math:`s_i` は同相である。なぜなら :math:`p \circ s_i = \id_{p(V_i)}` かつ
        :math:`s_i \circ p = \id_{V_i}` だから。
 
-     * 最後に、商空間の近傍系 :math:`\{(p(V_i), s_i)\}_{i \in I}` の座標変換が滑らかであることを
+     * 最後に、商空間の近傍系 :math:`\set{(p(V_i), s_i)}_{i \in I}` の座標変換が滑らかであることを
        示して（最初から商空間はハウスドルフと言っているから）多様体であることが示せる。
 
   #. n 次元 :math:`C^\infty` 多様体 :math:`M` と上述の商空間 :math:`X` とが微分同相となる。
@@ -368,14 +368,14 @@
      * 写像 :math:`p \circ \varphi_i: U_i \longto p(V_i)` は同相の合成で同相。
 
      * :math:`\underline{\iota} \circ (p \circ \varphi_i) = \id_{U_i}` かつ
-       :math:`(p \circ \varphi_i) \circ (\underline{\iota} \mid p(V_i)) = \id_{p(V_i)}` となるので、
+       :math:`(p \circ \varphi_i) \circ (\underline{\iota}|p(V_i)) = \id_{p(V_i)}` となるので、
        :math:`\underline{\iota} ^{-1} = (p \circ \varphi_i)` は連続。
        したがって :math:`M` と :math:`X` は同相であり、
        :math:`X` はハウスドルフだ。
 
      * あとは座標近傍系
-       :math:`\{(U_i), \varphi_i)\}`,
-       :math:`\{(p(V_i), s_i)\}`
+       :math:`\set{(U_i), \varphi_i)}`,
+       :math:`\set{(p(V_i), s_i)}`
        同士を比較することで :math:`\underline{\iota}` が微分同相であると結論する。
 
 * 問題 3.5.3: ファイバー束
@@ -410,7 +410,7 @@
 
 * 連結多様体 :math:`M` から常に「向き付けを持つ」多様体 :math:`\widehat{M}` を構成できる。
 
-  * :math:`\widehat{M} \cong M \times \{\pm 1\} \Leftrightarrow \forall \gamma_{ij}, \det (D\gamma_{ij}) > 0`
+  * :math:`\widehat{M} \cong M \times \set{\pm 1} \Leftrightarrow \forall \gamma_{ij}, \det (D\gamma_{ij}) > 0`
 
     このとき :math:`M` 自身がすでに向き付け可能。
 

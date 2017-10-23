@@ -14,15 +14,15 @@
 * 定義 8.1: `推移的な作用 <http://mathworld.wolfram.com/TransitiveGroupAction.html>`__
 
   * 群 :math:`G` が空間 :math:`X` への推移的作用であるとは、
-    :math:`\forall x, y \in X, \exists g \in G s.t. gx = y` であることを言う。
+    :math:`\forall x, y \in X, \exists g \in G \text{ s.t. } gx = y` であることを言う。
   * :math:`X` 自身が一つの :math:`G` 軌道である。
   * :math:`\Omega_{G}(X)` と :math:`X/G` は一点からなる。
 
 * 定義 8.2: `固定部分群 <http://mathworld.wolfram.com/IsotropyGroup.html>`__
 
-  * :math:`G_x = \lbrace g \in G \mid gx = x \rbrace` を :math:`x \in X` の固定部分群という。
+  * :math:`G_x = \set{g \in G \sth gx = x}` を :math:`x \in X` の固定部分群という。
   * :math:`G_x` による :math:`G` への右移動による作用では
-    :math:`G/G_x = \{aG_x \mid a \in G\}` は右剰余類の空間である。
+    :math:`G/G_x = \set{aG_x \sth a \in G}` は右剰余類の空間である。
     :math:`G = \bigsqcup aG_x (a \in G/G_x)` を右剰余類を用いた軌道分解という。
 
 * 定理 8.3: 連続な全単射 :math:`\mu: G/G_x \longto X` の存在
@@ -64,7 +64,7 @@
 
   * 実数を加法群とみなして :math:`e^{2 \pi i \xi} (\xi \in \RR)` の乗算によって作用している。
   * 1 の固定部分群が整数である。
-  * トーラスも固定部分群を :math:`\lbrace (2 \pi n, 2 \pi m) \mid n, m \in \ZZ \rbrace` とすれば
+  * トーラスも固定部分群を :math:`\set{(2 \pi n, 2 \pi m) \sth n, m \in \ZZ}` とすれば
     :math:`\RR^2/\ZZ^2 \cong S^1 \times S^1`
 
 * 例 8.9: 曲面 :math:`x^2 + y^2 - z^2 = k`
@@ -95,7 +95,7 @@
     連結ではなく、唯一の軌道からなる。
 
   * :math:`k = 0` のときは見てくれどおり
-    :math:`\lbrace 0 \rbrace \sqcup X_0 \setminus \lbrace 0 \rbrace` だとしか言えない。
+    :math:`\set{0} \sqcup X_0 \minuszero` だとしか言えない。
 
 * 演習 8.10: 実は :math:`a_t \in SO_{2,1}(\RR)` が成り立つ：
 
@@ -127,7 +127,7 @@
 
   * 集合としては軌道空間と同じ。:math:`G \times_{H} W = \Omega_{H}(G \times W)`
   * 右辺の直積には同値関係 :math:`(g, w) \sim (gh^{-1}, hw)` が入る。
-    :math:`G \times_{H} W = \lbrace [g, w] \mid (g, w) \in G \times W \rbrace = G \times W / \sim`
+    :math:`G \times_{H} W = \set{[g, w] \sth (g, w) \in G \times W} = G \times W / \sim`
 
 ファイバー束から底空間への射影
   写像 :math:`[g, w] \mapsto gH \in G/H` とすると、この逆像は部分群が作用する空間と同型になる。
@@ -165,7 +165,7 @@
 次のものはしばらく使う記号と用語：
 
 * :math:`Sym_3^\circ (\RR)`: 正則な :math:`Sym_3(\RR)` の行列全て。
-* :math:`X = Sym_3(\RR) \times (\RR^3 \setminus \{(0, 0, 0)\})` を考える対象の空間とし、
+* :math:`X = Sym_3(\RR) \times (\RR^3 \minuszero)` を考える対象の空間とし、
 * :math:`\varphi(g)(Q, w) = (gQ{}^t\!g, gw),\ g \in G, (Q, w) \in X` を作用とする。
 
   * テーマ別に :math:`G` を変える。
@@ -208,10 +208,10 @@
 不定値二次形式 :math:`Q(w) = x^2 + y^2 - z^2 = {}^t\!w \diag(1, 1, -1) w = 0` に関する
 軌道が :math:`G(\diag(1, 1, -1), w)` の形のものを考える。
 
-* :math:`H = O_{2, 1}(\RR)` によって :math:`w \in \RR^3 \setminus \{0\}` を動かすことによって
+* :math:`H = O_{2, 1}(\RR)` によって :math:`w \in \RR^3 \minuszero` を動かすことによって
   表 (8.7) を得る。
 
-* 定理 8.17: :math:`Hyp_k := \{[x : y : z] \mid x^2 + y^2 - z^2 = k\}` とおくと次が成り立つ。
+* 定理 8.17: :math:`Hyp_k := \set{[x : y : z] \sth x^2 + y^2 - z^2 = k}` とおくと次が成り立つ。
 
   .. math::
      :nowrap:
@@ -228,7 +228,7 @@
 
 8.3.3 二次曲線と直線
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-:math:`Q(\xi) = 0` と直線 :math:`w \cdot \xi = 0\ (w \in \RR^3 \setminus \{0\})` を考える。
+:math:`Q(\xi) = 0` と直線 :math:`w \cdot \xi = 0\ (w \in \RR^3 \minuszero)` を考える。
 
 * 考えるべき作用は :math:`\varphi(g, s, t)(Q, w) = (sgQ{}^t\!g, tgw),\ g \in G, s, t \in \RR^\times` である。
   ここで :math:`G_1 = G \times \RR \times \RR` とおく。
@@ -254,7 +254,7 @@
 8.4.1 円と三角関数
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 :math:`G = \ZZ,\ X = \RR, \varphi(m)x = x + 2\pi m` とする。
-当然ながら :math:`Gx = \{x + 2\pi m \mid m \in \ZZ\}` であり、前に述べたように :math:`\RR/\ZZ \cong S^1` である。
+当然ながら :math:`Gx = \set{x + 2\pi m \sth m \in \ZZ}` であり、前に述べたように :math:`\RR/\ZZ \cong S^1` である。
 
 * 商写像 :math:`p: \RR \longto \RR/2\pi \ZZ \cong S^1` を :math:`p(x) = (\cos x, \sin x)` で定める。
 * 関数 :math:`\cos x` や :math:`\sin x` は :math:`\RR` 上の :math:`\ZZ` 不変な関数であると言っている。
@@ -273,7 +273,7 @@
 8.4.2 トーラスと楕円関数
 ----------------------------------------------------------------------
 これまでの議論における :math:`\RR^2` と :math:`\ZZ^2` をそれぞれ
-:math:`\CC` と :math:`L = L(\omega_1, \omega_2) = \{m\omega_1 + n\omega_2 \mid m, n \in \ZZ\}` に置き換えて考える。
+:math:`\CC` と :math:`L = L(\omega_1, \omega_2) = \set{m\omega_1 + n\omega_2 \sth m, n \in \ZZ}` に置き換えて考える。
 
 ただし :math:`\displaystyle \frac{\omega_1}{\omega_2} \notin \RR,\ \frac{\omega_1}{\omega_2} \in \mathfrak H` となるように複素数二つを取る。
 
@@ -292,7 +292,7 @@
      :nowrap:
 
      \begin{align*}
-     \wp(z) = \frac{1}{z^2} + \sum_{\omega \in L \setminus \{0\}}\left(\frac{1}{(z + \omega)^2} - \frac{1}{\omega^2}\right).
+     \wp(z) = \frac{1}{z^2} + \sum_{\omega \in L \minuszero}\left(\frac{1}{(z + \omega)^2} - \frac{1}{\omega^2}\right).
      \end{align*}
 
   これは :math:`z \notin L` において絶対広義一様収束する。
@@ -334,8 +334,8 @@
 
      \begin{gather*}
      \wp'(z)^2 = 4 \wp(z)^3 - g_2 \wp(z) - g_3,\quad
-         g_2 = 60\!\sum_{\omega \in L \setminus \{0\}} \omega^{-4},\ 
-         g_3 = 140\!\sum_{\omega \in L \setminus \{0\}} \omega^{-6}.
+         g_2 = 60\!\sum_{\omega \in L \minuszero} \omega^{-4},\ 
+         g_3 = 140\!\sum_{\omega \in L \minuszero} \omega^{-6}.
      \end{gather*}
 
   証明はテイラー展開を考える。

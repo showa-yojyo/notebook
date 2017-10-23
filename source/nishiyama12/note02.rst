@@ -42,7 +42,7 @@
 * 定理 2.10: :math:`\ker f` と :math:`\operatorname{im} f` はそれぞれ
   定義域および値域の部分群となる。
 * 定義 2.11: 正規部分群
-* 定理 2.12: :math:`\ker f = \lbrace e \rbrace` であることと :math:`f` が同型写像であることは同値。
+* 定理 2.12: :math:`\ker f = \set{e}` であることと :math:`f` が同型写像であることは同値。
 * 定理 2.13: :math:`Aut(T_4) \cong \mathfrak{S}_4`
 
 2.3 4 次方程式
@@ -74,7 +74,7 @@
 そこで :math:`N = \ker \varphi` とおくと、:math:`\tau N` の形の集合の間に演算が定義できる。
 
 * 演習 2.22: :math:`[\tau] := \tau N` と書く。これは群をなす。
-* 定義 2.23: 商群 :math:`G/N := \lbrace [\tau] \mid \tau \in G \rbrace`
+* 定義 2.23: 商群 :math:`G/N := \set{[\tau] \sth \tau \in G}`
 * 定理 2.24: 準同型定理。
 
 :math:`\forall \sigma \in G_2 = \operatorname{im}\varphi,\ \exists \tau \in G_1:\ \tau \ker \varphi = \varphi^{-1} \ker \varphi` ということ。

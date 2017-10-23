@@ -35,7 +35,7 @@
   * この意味での曲線を一次元多様体と呼ぶ。
 
     * 接線が自然に定義されて、パラメーター表示でも陰関数表示でも書かれる。
-    * :math:`\ker DF_{\Phi(t^0)} = \lbrace t D\Phi_{(t^0)} \mid t \in \RR \rbrace`
+    * :math:`\ker DF_{\Phi(t^0)} = \set{t D\Phi_{(t^0)} \sth t \in \RR}`
 
   * 陰関数とグラフ表示は「ある近傍」だが、パラメーター表示だけ「任意の近傍」。
     パラメーターの主張は曲線とパラメーターの位相が同じになると述べている。
@@ -65,9 +65,9 @@
 * （用語）接空間とは、ある点を通過する多様体上の曲線の接線の集まりだ。
 
   * パラメーター表示ならば
-    :math:`\lbrace \bm{x^0} + DF_{\Phi(u^0)}\bm{v} \mid \bm{v} \in \RR^p \rbrace`
+    :math:`\set{\bm{x^0} + DF_{\Phi(u^0)}\bm{v} \sth \bm{v} \in \RR^p}`
   * 陰関数表示ならば
-    :math:`\lbrace \bm{x^0} + \bm{v} \mid DF_{(x^0)} \bm{v} = 0 \rbrace`
+    :math:`\set{\bm{x^0} + \bm{v} \sth DF_{(x^0)} \bm{v} = 0}`
 
 * 問題 2.2.2: 即答できないとダメ。
   線形代数の復習をしないといけない。
@@ -92,14 +92,14 @@
 
 * （用語）横断的、接超平面 or 接空間
 
-  * 直線は :math:`\lbrace \bm{x^0} + t\bm{v^0} \mid t \in \RR\rbrace` または
+  * 直線は :math:`\set{\bm{x^0} + t\bm{v^0} \sth t \in \RR}` または
     ランクが n - 1 の何らかの線形写像 :math:`A: \RR^n \longto \RR^{n - 1}` と
     何らかの定点 :math:`\bm{y} \in \RR^{n - 1}` を用いて
-    :math:`\lbrace \bm{x} \in \RR^n \mid A\bm{x} = \bm{y} \rbrace` として書かれる。
+    :math:`\set{\bm{x} \in \RR^n \sth A\bm{x} = \bm{y}}` として書かれる。
 
     * 定点を変化させると平行な直線族が得られる。
 
-  * 超平面は :math:`\lbrace \bm{x} \in \RR^n \mid L\bm{x} = a\rbrace` と書かれる。
+  * 超平面は :math:`\set{\bm{x} \in \RR^n \sth L\bm{x} = a}` と書かれる。
     ただし :math:`L: \RR^n \longto \RR` と :math:`a \in \RR` は
     何らかのゼロでない線形写像と、何らかの実数であるとする。
 

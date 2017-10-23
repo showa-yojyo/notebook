@@ -37,7 +37,7 @@
   * :math:`\mathbb{P}^n = \CC^n \cup \mathbb{P}^{n - 1}`
 
 基本アフィン開集合
-  開集合 :math:`U_j = \lbrace [w_0 : ... : 1 : ... w_n] \mid (w_0, ..., \widehat{w_j}, ..., w_n) \in \CC^n \rbrace`
+  開集合 :math:`U_j = \set{[w_0 : ... : 1 : ... w_n] \sth (w_0, ..., \widehat{w_j}, ..., w_n) \in \CC^n}`
   のことをそう呼ぶ。
 
   * :math:`U_j` が :math:`\CC^n` と同型になる。
@@ -48,11 +48,11 @@
 1 次元トーラス群
   :math:`\CC^\times` のこと。
 
-  この群は :math:`\CC^{n + 1} \setminus \lbrace 0 \rbrace` にスカラーの乗算により自然に作用している。
-  :math:`\mathbb{P}^n \cong (\CC^{n + 1} \setminus \lbrace 0 \rbrace) / \CC^\times` と書ける。
+  この群は :math:`\CC^{n + 1} \minuszero` にスカラーの乗算により自然に作用している。
+  :math:`\mathbb{P}^n \cong (\CC^{n + 1} \minuszero) / \CC^\times` と書ける。
 
 射影空間
-  ベクトル空間 V に対して :math:`\mathbb{P}(V) = (V \setminus \lbrace 0 \rbrace) / \CC^\times` をそう呼ぶ。
+  ベクトル空間 V に対して :math:`\mathbb{P}(V) = (V \minuszero) / \CC^\times` をそう呼ぶ。
 
   * :math:`\mathbb{P}(V) = \mathbb{P}^n` とも記す。肩の n は多様体次元であって、ベクトル空間のそれではない。
   * :math:`\mathbb{P}(V)` は多様体だが :math:`V / \CC^\times` のほうはハウスドルフ空間ですらない。
@@ -62,7 +62,7 @@
   k 点 :math:`[a_1], ..., [a_k] \in \mathbb{P}^{n}` を含む最小の射影空間のことをそう呼ぶ。
 
 一般の位置
-  各 :math:`\lbrace a_i \rbrace` が V で一次独立であること。
+  各 :math:`\set{a_i}` が V で一次独立であること。
   :math:`\mathbb{P}(W) \cong \mathbb{P}^{k - 1}`
 
 9.3 射影変換

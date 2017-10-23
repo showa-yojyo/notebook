@@ -40,7 +40,7 @@
 
   * ここからは難しいか？
 
-  * 軌道は :math:`\{(x + t, y + \alpha t) \in \RR^2/\ZZ^2 \mid t \in \RR\}.`
+  * 軌道は :math:`\set{(x + t, y + \alpha t) \in \RR^2/\ZZ^2 \sth t \in \RR}.`
 
 * 問題 8.1.2: コンパクト多様体上のベクトル場 :math:`X` と :math:`C^\infty` 級関数 :math:`f` について
   :math:`Xf = 0 \implies f = 0`

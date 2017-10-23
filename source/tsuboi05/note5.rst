@@ -18,7 +18,7 @@
      :nowrap:
 
      \begin{align*}
-     \supp{f} = \overline{\{x \in M \mid f(x) \ne 0\}}
+     \supp{f} = \closure{\set{x \in M \sth f(x) \ne 0}}
      \end{align*}
 
   補集合について次のことが成り立つことに注意する：
@@ -27,7 +27,7 @@
      :nowrap:
 
      \begin{align*}
-     x \in M \setminus \supp{F} \Leftrightarrow \exists U \owns x: f(U) = \{0\}
+     x \in M \setminus \supp{F} \Leftrightarrow \exists U \owns x: f(U) = \set{0}
      \end{align*}
 
   * 定義上、多様体という条件を位相空間まで緩められる。
@@ -85,11 +85,11 @@
   #. 多様体 :math:`M` 上の曲線 :math:`c(t)\ (c(0) = p)` について
      :math:`{ \displaystyle D_c: f \mapsto \diff{(f \circ c)}{t}(0)}` は点 :math:`p` における方向微分である。
   #. :math:`\mathcal{D}_p` の基底は :math:`{ \displaystyle
-     \left\{
+     \Set{
      \left(\frac{\partial}{\partial x_1} \right)_p,
      \dotsc,
      \left(\frac{\partial}{\partial x_n} \right)_p
-     \right\}}` である。
+     }` である。
 
      * :math:`{ \displaystyle \left(\frac{\partial}{\partial x_k} \right)_p}` は関数
        :math:`{ \displaystyle t \mapsto \varphi^{-1}(0, \dotsc, \overset{(k)}t, \dotsc, 0)}` における方向微分とする (cf. p. 76)。
@@ -102,21 +102,21 @@
   * 位相空間論の教科書を参照する。
   * まず `正則空間 <http://mathworld.wolfram.com/RegularSpace.html>`__ であること、すなわち一点 vs 閉集合について証明する。
 
-    * 実はパッと読んだ時点で「？」だったが、有限開被覆 :math:`\{U_{y_i}\}` の各開集合の点 :math:`y_i` に対応して
+    * 実はパッと読んだ時点で「？」だったが、有限開被覆 :math:`\set{U_{y_i}}` の各開集合の点 :math:`y_i` に対応して
       被覆 :math:`V_{y_i} \owns x_0` が決まるということが気付かなかっただけだった。
 
   * それから普通の閉集合 vs 閉集合について証明する。
 
-* 例題 5.2.2: コンパクトハウスドルフ空間 :math:`X` の開被覆 :math:`\{U_i\}` に対し、
-  次のような開被覆 :math:`\{V_i\}` が存在する：
-  :math:`\overline{V_i} \subset U_i`
+* 例題 5.2.2: コンパクトハウスドルフ空間 :math:`X` の開被覆 :math:`\set{U_i}` に対し、
+  次のような開被覆 :math:`\set{V_i}` が存在する：
+  :math:`\closure{V_i} \subset U_i`
 
   * 位相空間論の教科書を参照する。証明方針は次のような感じだ：
-  * コンパクト性により、有限開被覆 :math:`\{U_1, \dotsc, U_k\}` が :math:`\{U_i\}` から選べる。
+  * コンパクト性により、有限開被覆 :math:`\set{U_1, \dotsc, U_k}` が :math:`\set{U_i}` から選べる。
 
   * 帰納法の部分のメモ
 
-    * :math:`V_1, \dotsc, V_{j - 1}` が :math:`\overline{V_p} \subset U_p\ (p = 1, \dotsc, j - 1)`,
+    * :math:`V_1, \dotsc, V_{j - 1}` が :math:`\closure{V_p} \subset U_p\ (p = 1, \dotsc, j - 1)`,
       :math:`{\displaystyle X = \bigcup_{i = 1}^{j - 1}V_i \cup \bigcup_{i = j}^k U_i}` が成り立っていると仮定する。
 
     * 閉集合 :math:`{ \displaystyle K_j = X \setminus \left(\bigcup_{i = 1}^{j - 1} V_i \cup \bigcup_{i = j + 1}^k U_i\right) \subset U_j}`
@@ -126,18 +126,18 @@
       例題 5.2.1 で見た正規空間の性質によって次のような開集合 :math:`V_j, W_j` が（帰納法により）存在する：
       :math:`K_j \subset V_j, X \setminus U_j \subset W_j, V_j \cap W_j = \varnothing`
 
-  * このとき :math:`\overline{V_i} \subset U_i` かつ
+  * このとき :math:`\closure{V_i} \subset U_i` かつ
     :math:`{\displaystyle X = \bigcup_{i = 1}^j V_i \cup \bigcup_{i = j + 1}^k U_i}`
     となっている。
 
 * 定理 5.2.3: コンパクト多様体はユークリッド空間に埋め込める。
 
   * ポイント：例題 5.2.2 の開被覆の構成手順を二重に行う。
-    つまり :math:`\overline{V_i} \subset U_i,\ \overline{W_i} \subset V_i` のようなものを取る。
+    つまり :math:`\closure{V_i} \subset U_i,\ \closure{W_i} \subset V_i` のようなものを取る。
     これらの有限開被覆の個数を :math:`k` としておく。
 
-  * 閉集合 :math:`\overline{V_i}` に関して定理 5.1.3 の条件を満たす :math:`C^\infty` 級関数 :math:`\nu_i` を取る。
-  * 閉集合 :math:`\overline{W_i}` に関して定理 5.1.2 の条件を満たす :math:`C^\infty` 級関数 :math:`\mu_i` を取る。
+  * 閉集合 :math:`\closure{V_i}` に関して定理 5.1.3 の条件を満たす :math:`C^\infty` 級関数 :math:`\nu_i` を取る。
+  * 閉集合 :math:`\closure{W_i}` に関して定理 5.1.2 の条件を満たす :math:`C^\infty` 級関数 :math:`\mu_i` を取る。
   * 座標近傍 :math:`(U_i, \varphi_i)` の局所座標 :math:`\varphi_i = (x_1^{(i)}, \dotsc, x_n^{(i)})` に対して
     関数 :math:`\nu_i \varphi_i := (\nu_i x_1^{(i)}, \dotsc, \nu_i x_n^{(i)})` を取ると、これは :math:`C^\infty` 級となる。
 
@@ -155,12 +155,12 @@
 ユークリッド空間が利用できるようになったので、内積の話題が出て来るようになる。
 
 法束
-  :math:`\nu M = \{(x, v) \in \RR^N \times \RR^N \mid v \perp T_xM \}`
+  :math:`\nu M = \set{(x, v) \in \RR^N \times \RR^N \sth v \perp T_xM }`
 
   これはユークリッド空間内の :math:`N` 次元多様体になっている。
 
 法空間
-  :math:`\nu_x M = \{v \in \RR^N \mid v \perp T_xM \}`
+  :math:`\nu_x M = \set{v \in \RR^N \sth v \perp T_xM }`
 
 * TODO: (pp. 96-97) の可換図式を何とかここに描きたい。
 * 接束 :math:`TM` が :math:`(V_i \times \RR^n, \gamma_{ij} \times D\gamma_{ij})` から構成されたのと似て、
@@ -174,7 +174,7 @@
   後回しにしたい。
 
   #. 法束は :math:`N` 次元多様体になっている。
-  #. 写像 :math:`(x, y) \mapsto x + y` は :math:`X \cap (\RR^N \times \{0\})` 近傍で微分同相である。
+  #. 写像 :math:`(x, y) \mapsto x + y` は :math:`X \cap (\RR^N \times \zeroset)` 近傍で微分同相である。
 
 5.3 :math:`C^\infty` 級写像と多様体の埋め込み、はめ込み
 ----------------------------------------------------------------------
@@ -236,7 +236,7 @@
 
 * 例題 5.3.6: `1 の分割 <http://mathworld.wolfram.com/PartitionofUnity.html>`__
 
-  * :math:`M, \{(U_i, \varphi_i)\}` をそれぞれコンパクト多様体とその座標近傍系とする。
+  * :math:`M, \set{(U_i, \varphi_i)}` をそれぞれコンパクト多様体とその座標近傍系とする。
   * :math:`\exists \lambda_i: M \longto \RR\ s.t. \lambda_i \in C^\infty(M),\ 0 \le \lambda_i(x) \le 1,\ \supp{\lambda_i} \subset U_i.`
     有限個の添字を除いて :math:`\lambda_i = 0,\ \sum \lambda_i = 1.`
 
@@ -247,10 +247,10 @@
        :nowrap:
 
        \begin{gather*}
-       \lambda_{i_{i_j}} = \dfrac{\mu_{i_j}} {\sum_{l = 1}^k \mu_{i_l}},\
-       \{U_{i_j}\},\
-       \overline{V_{i_j}} \subset U_{i_j},\
-       \mu_{i_j}|\overline{V_{i_j}} > 0,\
+       \lambda_{i_{i_j}} = \frac{\mu_{i_j}}{\displaystyle \sum_{l = 1}^k \mu_{i_l}},\
+       \set{U_{i_j}},\
+       \closure{V_{i_j}} \subset U_{i_j},\
+       \mu_{i_j}|\closure{V_{i_j}} > 0,\
        \supp \mu_{i_j} \subset U_{i_j}.
        \end{gather*}
 
@@ -305,14 +305,14 @@
   * それからヘッセ行列を計算する。
   * あとは三角関数の性質を利用する。
 
-* 問題 5.4.6: 複素射影空間 :math:`\CC P^n = (\CC^{n + 1} \setminus \{0\})/\CC^\times` の
-  単位球面 :math:`S^{2n + 1} = \{(z_1, \dotsc, z_{n + 1}) \in \CC^{n + 1} \mid \lvert z \rvert = 1\}` と
-  :math:`U(1) = \{e^{\sqrt{-1}\theta} \mid \theta \in \RR\}` について
+* 問題 5.4.6: 複素射影空間 :math:`\CC P^n = (\CC^{n + 1} \minuszero)/\CC^\times` の
+  単位球面 :math:`S^{2n + 1} = \set{(z_1, \dotsc, z_{n + 1}) \in \CC^{n + 1} \sth \lvert z \rvert = 1}` と
+  :math:`U(1) = \set{e^{\sqrt{-1}\theta} \sth \theta \in \RR}` について
 
   直球のような設問。この問題は理解していないといけない。
 
   * :math:`g \in U(1)` に対して :math:`(g, z) \mapsto (gz_1, \dotsc, gz_n)` とすると、これは群の作用となる。
-  * :math:`S^{2n + 1} \overset{i}{\longto} \CC^{n + 1}\setminus\{0\} \overset{p}{\longto} \CC P^n` のランクはいくらか。
+  * :math:`S^{2n + 1} \overset{i}{\longto} \CC^{n + 1}\minuszero \overset{p}{\longto} \CC P^n` のランクはいくらか。
     ただし :math:`i,\ p` は包含写像と射影である。
   * 次に示す関数は :math:`F: \CC P^n \longto \RR` を誘導する：
 
@@ -355,23 +355,23 @@
 
 以下で使用する記号として
 
-* :math:`\{(U_i, \varphi_i = (x_1^{(i)}, \dotsc, x_n^{(i)}))\}` を有限座標近傍系、
-* :math:`V_i \subset \overline{V_i} \subset U_i,\ \{V_i\}_{i = 1, \dotsc, k}` を開被覆
+* :math:`\set{(U_i, \varphi_i = (x_1^{(i)}, \dotsc, x_n^{(i)}))}` を有限座標近傍系、
+* :math:`V_i \subset \closure{V_i} \subset U_i,\ \set{V_i}_{i = 1, \dotsc, k}` を開被覆
 
 とする。
 
 目標は :math:`C^r` 位相というものを定めること、つまり関数 :math:`f \in C^\infty(M)` の
-:math:`\eps > 0` 近傍 :math:`N_\eps^r = N_\eps^r(f, \{V_i\})` を定めること。
+:math:`\eps > 0` 近傍 :math:`N_\eps^r = N_\eps^r(f, \set{V_i})` を定めること。
 
 .. math::
    :nowrap:
 
    \begin{gather*}
-   N_\eps^r(f, \{V_i\}) = \left\{
+   N_\eps^r(f, \set{V_i}) = \Set{
        f + h \in C^\infty(M)
-       \mid s \le r,\ 
-       \lVert D^s((h \circ \varphi_i^{-1})|\varphi_i(\overline{V_i})) \rVert < \eps
-   \right\}.
+       \Sth s \le r,\ 
+       \lVert D^s((h \circ \varphi_i^{-1})|\varphi_i(\closure{V_i})) \rVert < \eps
+   }.
    \end{gather*}
 
 「ヤコビ行列の :math:`s \le r` 乗のノルムが抑えられる」の意。
@@ -387,11 +387,11 @@
 
   帰納法で示せば良いようだ。
 
-  * :math:`r = 0` のときは :math:`N_\eps^0(f_i, \{V_i\}) = N_\eps^0(f_i, \{V_j'\})` は成り立つ（なぜ？）
+  * :math:`r = 0` のときは :math:`N_\eps^0(f_i, \set{V_i}) = N_\eps^0(f_i, \set{V_j'})` は成り立つ（なぜ？）
   * :math:`r = 1` のとき：
 
     * :math:`D(h \circ \varphi_j'^{-1}) = D(h \circ \varphi_i^{-1}) \circ \gamma_{ij} D\gamma_{ij}` であり、
-    * そして :math:`N_\eps^1(f, \{V_i\}) \subset N_K^1(f, \{V_j'\})` を満たす
+    * そして :math:`N_\eps^1(f, \set{V_i}) \subset N_K^1(f, \set{V_j'})` を満たす
       :math:`\eps` に依存する正の数 :math:`K` が下のようにしてとれるので成り立つ：
 
       .. math::
@@ -399,16 +399,16 @@
 
          \begin{gather*}
          K = \max_{i, j}
-         \max_{x \in \varphi_j'(\overline{V_i} \cap \overline{V_j}')}
+         \max_{x \in \varphi_j'(\closure{V_i} \cap \closure{V_j}')}
          \lVert D\gamma_{ij(x)}\rVert.
          \end{gather*}
 
-      添字が有限個であることと、各 :math:`\overline{V_i} \cap \overline{V_j}'` がコンパクトであることによる。
+      添字が有限個であることと、各 :math:`\closure{V_i} \cap \closure{V_j}'` がコンパクトであることによる。
 
       * 行列のノルムを :math:`\displaystyle \lVert A \rVert = \sup_{x \ne 0}\frac{\lVert A \bm{x} \rVert}{ \lVert \bm{x} \rVert}` とする。
 
   * :math:`r = 2` のときは p. 104 のような（ここにはとても記せられない）計算をして
-    :math:`N_\eps^2(f, \{V_i\}) \subset N_K^2(f, \{V_j'\})` を満たす
+    :math:`N_\eps^2(f, \set{V_i}) \subset N_K^2(f, \set{V_j'})` を満たす
     :math:`\eps` 依存の正数 :math:`K` を取れることを示す。
 
   * 一般の :math:`r = s` のときは、chain rule を順次実行して、
@@ -423,10 +423,10 @@
 
 コンパクト多様体間の写像全体の空間 :math:`C^\infty(M, N)` についても :math:`C^r` 位相を考えられる。
 
-* 多様体 :math:`N` の有限局所座標系を :math:`\{(W_j, \psi_j)\}` とする。
+* 多様体 :math:`N` の有限局所座標系を :math:`\set{(W_j, \psi_j)}` とする。
 
-  * このとき次のような開被覆 :math:`\{V_{ji}\}` が存在するのであった：
-    :math:`V_{ji} \subset \overline{V_{ji}} \subset U_i \cap F^{-1}(W_j).`
+  * このとき次のような開被覆 :math:`\set{V_{ji}}` が存在するのであった：
+    :math:`V_{ji} \subset \closure{V_{ji}} \subset U_i \cap F^{-1}(W_j).`
 
   * 開近傍の取り方は次のようになる：
 
@@ -434,15 +434,15 @@
        :nowrap:
 
        \begin{gather*}
-       N_\eps^r(F, \{V_{ji}\}, \{W_j\}) = \left\{
+       N_\eps^r(F, \set{V_{ji}}, \set{W_j}) = \Set{
            H \in C^\infty(M, N)
-           \mid s \le r,\ 
+           \Sth s \le r,\ 
            \forall i, j,
-           \lVert D^s((\psi_j \circ H \circ \varphi_i^{-1} - \psi_j \circ F \circ \varphi_i^{-1})|\varphi_i(\overline{V_{ji}})) \rVert < \eps
-       \right\}.
+           \lVert D^s((\psi_j \circ H \circ \varphi_i^{-1} - \psi_j \circ F \circ \varphi_i^{-1})|\varphi_i(\closure{V_{ji}})) \rVert < \eps
+       }.
        \end{gather*}
 
-    :math:`\varphi_i(\overline{V_{ji}})` はコンパクトゆえ、上の長い関数 :math:`\varphi_i(\overline{V_{ji}}) \longto \psi_j(V_j) \subset \RR^n`
+    :math:`\varphi_i(\closure{V_{ji}})` はコンパクトゆえ、上の長い関数 :math:`\varphi_i(\closure{V_{ji}}) \longto \psi_j(V_j) \subset \RR^n`
     に近い :math:`C^\infty` 写像の像は :math:`\psi_j(V_j)` にあり、微分が定義できる。
 
   * :math:`C^r` 位相は各有限座標近傍系のとり方によらない。

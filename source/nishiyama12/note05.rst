@@ -17,12 +17,12 @@
    :nowrap:
 
    \begin{align*}
-   A_2 = \left\{
+   A_2 = \Set{
    \begin{pmatrix}
        GL_2(\RR) & \RR^2\\
        0 & 1
    \end{pmatrix}
-   \right\}
+   }.
    \end{align*}
 
 * 演習 5.1: アフィン変換を :math:`g \in A_2` による行列の積としてみなすと、

@@ -20,12 +20,12 @@
 
 * 群の軌道の定義を確認。
 
-  * 軌道とは群が作用している空間の部分集合 :math:`\{\varphi(g)x \mid g \in G\}` のことをいう。
+  * 軌道とは群が作用している空間の部分集合 :math:`\set{\varphi(g)x \sth g \in G}` のことをいう。
   * 記号は色々あって :math:`\mathbb{O}_x,\ \mathbb{O}_x^G,\ \varphi(G)x,\ Gx` などがある。
 
 * 軌道空間の定義を確認。
 
-  * 軌道空間とは空間上の軌道全部を意味する。すなわち集合族 :math:`\{Gx \mid x \in X\}` だ。
+  * 軌道空間とは空間上の軌道全部を意味する。すなわち集合族 :math:`\set{Gx \sth x \in X}` だ。
   * 記号は :math:`\Omega_G(X)` とする。
 
 * 補題 7.2: 軌道空間の基本的な性質。
@@ -58,10 +58,10 @@
 
     .. math::
        :nowrap:
-       
+
        \begin{align*}
-       \RR^3 = \bigsqcup_{r > 0} S_r \sqcup \{0\},\ 
-       S_r = \{x \in \RR^3 \mid \lVert x \rVert = 1\}.
+       \RR^3 = \bigsqcup_{r > 0} S_r \sqcup \zeroset,\ 
+       S_r = \set{x \in \RR^3 \sth \lVert x \rVert = 1}.
        \end{align*}
 
 * 例 7.4: :math:`\Omega_{\ZZ}(\RR),\ \Omega_{\ZZ^2}(\RR^2)`
@@ -100,7 +100,7 @@
 
 * 例 7.9: 共役類。
 
-  * 有限群の共役による作用に関する軌道 :math:`C_G(x) := \{gxg^{-1} \mid g \in G\}` のことを共役類という。
+  * 有限群の共役による作用に関する軌道 :math:`C_G(x) := \set{gxg^{-1} \sth g \in G}` のことを共役類という。
 
 * 例 7.10: 左移動、左剰余類、左剰余類分解。
 
@@ -174,7 +174,7 @@
 
 * 例 7.31: :math:`(e^t x, e^t y)`
 
-  * :math:`X/G = S^1 \cup \{A_{0,0}\}`
+  * :math:`X/G = S^1 \cup \set{A_{0,0}}`
   * 原点の開近傍は :math:`X/G` しかない。ゆえに定数関数となる。
   * 最後の軌道を分離する二つの関数という考え方はまたどこかで出て来るはず。
 

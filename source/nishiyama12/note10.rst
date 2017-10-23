@@ -20,14 +20,15 @@
      :nowrap:
 
      \begin{align*}
-     \lbrace
+     \Set{
      \left(
      \begin{array}{c|c}
        \lambda & \begin{array}{ccc} u_2 & \cdots & u_n \end{array} \\ \hline
      \begin{array}{c} 0 \\ \vdots \\ 0 \end{array}  & {\Huge{A}}
      \end{array}
      \right)
-     \mid \lambda \in \CC^\times,\ A \in \mathit{GL}_{n + 1}(\CC) \rbrace
+     \Sth \lambda \in \CC^\times,\ A \in \mathit{GL}_{n + 1}(\CC)
+     }
      \end{align*}
 
 * 定理 10.2: 等質空間 :math:`\mathbb{P}^{n}(\CC) \cong \mathit{GL}_{n + 1}(\CC) / P_{(1, n)}`
@@ -49,7 +50,7 @@
   上で述べた最大階数行列全てからなる空間。
 
 :math:`\mathit{Sym}_{n + 1}^{\circ}(\CC)`
-  :math:`:= \lbrace S \in \mathit{Sym}_{n + 1}(\CC) \mid \det S \ne 0 \rbrace`
+  :math:`:= \set{S \in \mathit{Sym}_{n + 1}(\CC) \sth \det S \ne 0}`
 
 * :math:`m \le n` とする。
 
@@ -69,12 +70,12 @@
 部分空間
   ベクトル空間 :math:`V = \CC^n` から線形独立なベクトルを d 個取ってきて
   それらの張る部分空間を :math:`W = \langle v_1, \cdots, v_d \rangle` とする。
-  このとき :math:`\mathbb{P}(W) := \lbrace [w] \mid w \in W \rbrace \subset \mathbb{P}(V)` は
+  このとき :math:`\mathbb{P}(W) := \set{[w] \sth w \in W} \subset \mathbb{P}(V)` は
   n - 1 次元部分空間であるという。
 
   * ベクトル 2 個だけからなるものならば :math:`\mathbb{P}(W)` は射影直線。
 
-* 定理 10.9: :math:`\mathscr{W} = \lbrace \mathbb{P}(W_{v_1}, \cdots, W_{v_d}) \mid v_i \in V \rbrace`
+* 定理 10.9: :math:`\mathscr{W} = \set{\mathbb{P}(W_{v_1}, \cdots, W_{v_d}) \sth v_i \in V}`
   つまり射影部分空間の全体に対し、
   :math:`\mathit{GL}(V) = \mathit{GL}_n(\CC)` が射影変換として推移的に作用する。
 
@@ -87,20 +88,20 @@
   * :math:`Gr_1(V) = \mathbb{P}(V)` は n - 1 次元射影空間だ。
 
 放物型部分群
-  :math:`\mathit{GL}_n(\CC)` の部分群で、次の形のものを言う。
+  :math:`\mathit{GL}_n(\CC)` の部分群で、次の形のものを言う：
 
   .. math::
      :nowrap:
 
      \begin{align*}
-     P_{(d, n - d)} := 
-     \left\{
+     P_{(d, n - d)} :=
+     \Set
      \begin{pmatrix} A & B\\ 0 & D \end{pmatrix}
-     \mid
+     \Sth
      A \in \mathit{GL}_d(\CC),\ 
      D \in \mathit{GL}_{n - d}(\CC),\ 
      B \in \mathit{M}_{d, n - d}(\CC)
-     \right\}
+     }.
      \end{align*}
 
   #. 等質空間の全単射 :math:`\mathit{GL}(V)/P_{(d, n - d)} \longto Gr_d(V)` が存在する。

@@ -34,7 +34,7 @@
 * 演習 4.5: 単に :math:`a = \alpha + i \beta` とすればよさそうだ。
 
 * 例 4.6: 鏡映。実軸に対して対称の場合と任意の直線
-  :math:`l = \{ e^{i\theta} + u \mid t \in \RR\}`
+  :math:`l = \set{\mathrm e^{i\theta} + u \sth t \in \RR}`
   に関して対称の場合。
 
   .. math::
@@ -66,10 +66,10 @@
     * :math:`E_2 = O_2(\RR) \ltimes \RR^2` は半直積群だ。
 
 * :math:`E_2` の不変式全体は :math:`V = (\RR^2)^m` として
-  :math:`\mathfrak{I} = \{F \in \CC[V] \mid F(g(\bm{p_1}, \dotsc, \bm{p_m}) = F(\bm{p_1}, \dotsc, \bm{p_m})\quad (\forall g \in E_2)\}`
+  :math:`\mathfrak{I} = \set{F \in \CC[V] \sth F(g(\bm{p_1}, \dotsc, \bm{p_m}) = F(\bm{p_1}, \dotsc, \bm{p_m})\quad (\forall g \in E_2)}`
   という不変式環をなす。
 
-* 定理 4.11: :math:`\mathfrak{I}` は :math:`\{(\bm{p_i} - \bm{p_j}) \dot (\bm{p_k} - \bm{p_l})\}` で生成される。
+* 定理 4.11: :math:`\mathfrak{I}` は :math:`\set{(\bm{p_i} - \bm{p_j}) \cdot (\bm{p_k} - \bm{p_l})}` で生成される。
 
   * 証明を見ると、まず一つの成分をゼロにする平行移動を利用して直交群の作用の不変式環を求める問題に帰着させる。
   * 回転行列 :math:`u_\theta` と鏡映行列 :math:`s` による不変な多項式を考える。
@@ -108,14 +108,14 @@
      :nowrap:
 
      \begin{align*}
-     E_2 = \left\{
+     E_2 = \Set{
      g = \begin{pmatrix}
           h & v \\
           0 & 1
        \end{pmatrix}
-     \mid
+     \Sth
      h \in O_2(\RR), v \in \RR^2
-     \right\}
+     }
      = \begin{pmatrix}
          O_2(\RR) & \RR^2\\
          0 & 1
@@ -151,7 +151,7 @@
 
   * 証明を見ると、これらが不変量であることを示し、これらの多項式もまた不変式であることを示す。
   * 次に逆を示す。線形代数の教科書参照。
-  
+
   :math:`\Delta = \det A` とおき、これを二次曲線の判別式という。
 
 * 演習 4.15: :math:`\Delta = 0` ならば曲線は空集合、一点、二本以下の直線のいずれかである。
