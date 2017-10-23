@@ -95,7 +95,7 @@
     連結ではなく、唯一の軌道からなる。
 
   * :math:`k = 0` のときは見てくれどおり
-    :math:`\set{0} \sqcup X_0 \minuszero` だとしか言えない。
+    :math:`\zeroset \sqcup X_0 \minuszero` だとしか言えない。
 
 * 演習 8.10: 実は :math:`a_t \in SO_{2,1}(\RR)` が成り立つ：
 

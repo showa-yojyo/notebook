@@ -27,7 +27,7 @@
      :nowrap:
 
      \begin{align*}
-     x \in M \setminus \supp{F} \Leftrightarrow \exists U \owns x: f(U) = \set{0}
+     x \in M \setminus \supp{F} \Leftrightarrow \exists U \owns x: f(U) = \zeroset
      \end{align*}
 
   * 定義上、多様体という条件を位相空間まで緩められる。
