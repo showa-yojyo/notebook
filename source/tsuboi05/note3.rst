@@ -8,36 +8,44 @@
 
 第 3 章 多様体の定義
 ======================================================================
+多様体はユークリッド空間内になくてもよさそうだという考えが
+微分可能多様体の概念が生まれるきっかけとなった。
 
 3.1 微分可能多様体の定義
 ----------------------------------------------------------------------
-* 用語確認
+* 定義 3.1.1: n 次元 `（微分可能）多様体 <http://mathworld.wolfram.com/SmoothManifold.html>`__
 
-  * n 次元（微分可能）多様体
+  * 以降、単に「多様体」と書くときは「微分可能多様体」を意味するものとする。
 
-    * :math:`C^{\infty}` 級多様体の定義は、前章までに見てきた位相多様体や
-      :math:`C^{r}` 級多様体の上位？概念のように捉えられる。
+  * :math:`C^\infty` 級多様体の定義は、前章までに見てきた位相多様体や
+    :math:`C^r` 級多様体の上位？概念のように捉えられる。
 
-  * 局所座標 or 座標近傍
-  * 局所座標系 or 座標近傍系
-  * 座標変換
-  * パラコンパクト
+  * `局所座標 or 座標近傍 <http://mathworld.wolfram.com/CoordinateChart.html>`__
+  * `局所座標系 or 座標近傍系 <http://mathworld.wolfram.com/Atlas.html>`__
+  * `座標変換 <http://mathworld.wolfram.com/TransitionFunction.html>`__
 
-    * 知らないか、またはど忘れしている。調べておく。
+* 注意 3.1.3: `パラコンパクト <http://mathworld.wolfram.com/ParacompactSpace.html>`__
 
-  * 第 2 可算公理
+  * 本書でこれ以降扱う多様体はパラコンパクト性（と同値な性質）があるものとする。
+  * 特に `第 2 可算 <http://mathworld.wolfram.com/SecondCountableTopology.html>`__ 公理を満たす。
 
-* 例 3.1.5: 2 次曲面 :math:`{ \displaystyle Q = \set{(X_1, \dotsc, X_n) \in \RR^n \sth \sum_{i = 1}^{n} \lambda_i X_i^2 = b} \quad (b \ne 0) }`
+* 例 3.1.5: 2 次曲面
+
+  .. math::
+
+     Q = \Set{(X_1, \dotsc, X_n) \in \RR^n \Sth \sum_{i = 1}^n \lambda_i X_i^2 = b\quad(\ne 0)}
 
   * 座標近傍系を定義することで、曲面が多様体であることを示す。
-  * :math:`U_i^+ := Q \cap \set{X_i > 0}, \varphi_i^+(X_1, \dotsc, X_n) = (X_1, \dotsc, \widehat{X_i}, \dotsc, X_n)` などと置く
-    （ハットの部分は除去を意味する記法）。
+  * :math:`U_i^+ := Q \cap \set{X_i > 0}, \varphi_i^+(X_1, \dotsc, X_n) = (X_1, \dotsc, \widehat{(i)}, \dotsc, X_n)` などと置く
+    （ハットの部分は除去を意味する）。
 
   * 開集合 :math:`U_i^\pm` をすべて合併させると曲面全体を覆う。
   * 写像 :math:`\varphi_i^\pm: Q \longto \RR^{n - 1}` はちょっとした計算により同相写像であることを示せる。
-  * 座標変換 :math:`\varphi_i^\sigma \circ (\varphi_j^\tau)^{-1}` が :math:`C^{\infty}` 級であることも同様にして示せる。
+  * 座標変換 :math:`\varphi_i^\sigma \circ (\varphi_j^\tau)^{-1}` が :math:`C^\infty` 級であることも同様にして示せる。
 
-* 例 3.1.6: 多様体の直積、直和はどちらも多様体となる。次のようにして位相が定まる：
+* 例 3.1.6: 多様体の直積、直和はどちらも多様体
+
+  次のようにして位相が定まる：
 
   * 直積の位相: :math:`U_1 \times U_2` の任意個の和集合を開集合とする。
   * 直和の位相: :math:`U_1 \sqcup U_2` を開集合とする。
@@ -47,7 +55,9 @@
 * 確認: 商空間 :math:`X/\sim` の位相の入れ方、誘導される写像。
 
 * 例 3.2.1: n + 1 次元空間内の「球面」
-  :math:`S^n` の対蹠点を同一視することで構成される射影空間 :math:`\RR P^n` は多様体となる。
+
+  :math:`S^n` の `対蹠点 <http://mathworld.wolfram.com/AntipodalPoints.html>`__
+  を同一視することで構成される射影空間 :math:`\RR P^n` は多様体となる。
 
   * 前半は「球面」が多様体であることを示す。
 
@@ -97,15 +107,61 @@
 ----------------------------------------------------------------------
 * 用語確認
 
-  * 位相空間の変換群
-
-    * 同相写像の場合、写像の合成と逆写像をとる操作で閉じている。
-
-  * 作用する
+  * 位相空間の変換群：
+    同相写像の場合、写像の合成と逆写像をとる操作で閉じている。
+  * `作用 <http://mathworld.wolfram.com/Action.html>`__ する
 
 * 定理 3.3.1: 位相空間の有限変換群による商空間はハウスドルフ空間となる。
 
-  * 元の位相空間自身はハウスドルフ空間である必要はないことがポイントか。
+  * 元の位相空間自身はハウスドルフ空間である必要はない。
+
+  :math:`[x] \ne [y]` となる :math:`x, y \in X` をとる。
+  変換群を :math:`F = \set{f_i}_{i = 1, \dots, n},\ f_1 = \id` とおく。
+
+  #. まず各 :math:`i` に対して次が成り立つ開集合 :math:`U_i, V_i \subset X` があることに注意：
+
+     .. math::
+
+        x \in U_i, f_i(y) \in V_i, U_i \cap V_i = \varnothing.
+
+     これは背理法で示せるのだが、簡単なためか紙幅の都合上か本書では触れていない。
+
+  #. 次に :math:`\displaystyle U = \bigcap_{i = 1}^n U_i,\ V = \bigcap_{i = 1}^n f_i^{-1}(V_i)` とおく。
+     このとき次が成り立つ：
+
+     * :math:`x \in U,\ y \in V.`
+     * :math:`f_i(U) \cap f_j(V) = \varnothing \text{ for } i, j = 1, \dots, n.`
+
+     二番目の等式は :math:`f_i^{-1} \circ = f_j = f_k` と表すと、次のようにしてわかる：
+
+     .. math::
+
+        \begin{align*}
+        f_i^{-1}(f_i(U) \cap f_j(V))
+        &= U \cap (f_i^{-1} \circ f_j)(V)\\
+        &= U \cap f_k(V)\\
+        &\subset U_k \cap U_k
+        = \varnothing.
+        \end{align*}
+
+  #. このとき射影 :math:`p: X \longto X/F` に対して :math:`[x] \in p(U),\ [y] \in p(V)` である。
+
+     * 例えば :math:`\displaystyle p^{-1}(p(U)) = \bigcup_{i = 1}^n f_i(U)` であるから
+       （もっと丁寧に説明したい）
+       :math:`[x] \in p(U)` と言える。
+       :math:`[y] \in p(V)` についても同じ。
+
+  #. 最後に :math:`p^{-1}(p(U) \cap p(V)) = \varnothing` を示して、
+     :math:`P(U)` と :math:`P(V)` が先の同値類を分離する開集合であることを示す。
+     射影が連続写像なのでこういう等式変形となる：
+
+     .. math::
+
+        \begin{align*}
+        p^{-1}(p(U) \cap p(V)) &= p^{-1}(p(U)) \cap p^{-1}(p(V))\\
+        &= \left(\bigcup_{i = 1}^n f_i(U)\right) \cap \left(\bigcup_{i = 1}^n f_i(V)\right)\\
+        &= \varnothing \quad(\because f_i(U) \cap f_j(V).)
+        \end{align*}
 
 この節は例題と問題が多い。どれも大切。
 ハウスドルフ空間であることを示すために、二点が「関数で分離される」ことを示す必要がある場合のコツなど。
@@ -162,29 +218,59 @@
   * 商空間はハウスドルフではない。
   * この問題は、考える写像がけっこうあるので図式をスケッチしながら解く。
 
-* 問題 3.3.4: 平面から原点を除いた部分を図形で埋め尽くして同値類のなす商空間が多様体にならないパターンの問題。
+* 問題 3.3.4: 平面から原点を除いた部分を図形で埋め尽くして
+  同値類のなす商空間が多様体にならないパターンの問題。
 
-  * 行列 :math:`A = { \displaystyle \begin{pmatrix} a & 0 \\ 0 & \dfrac{1}{a} \end{pmatrix}\ (a > 1) }` をとり、
+  * 行列 :math:`A = \displaystyle \begin{pmatrix} a & 0 \\ 0 & \dfrac{1}{a} \end{pmatrix}\ (a > 1)` をとり、
     元の空間における同値関係を :math:`z_1 \sim z_2 \Leftrightarrow \exists n \in \ZZ: A^n z_1 = z_2` で定義する。
 
+    * 同値関係であることを確認するのは簡単なので紙幅を割いていない。
+
   * 対象となる空間は :math:`Z = \RR^2 \minuszero,\ S = Z / \sim`
-  * これはまだ理解していないが、
-    :math:`(x, y) \in Z` に対して開区間 :math:`{ \displaystyle I =  \left( \frac{1}{\sqrt{a}}x, \sqrt{a}x \right)}` を導入する。
-  * 写像 :math:`p_s: Z \longto S` を射影とする。
-  * 写像 :math:`i: I \times \RR \subset Z \longto Z` を包含写像とする。
-  * 写像 :math:`s: W := (p_s \circ i)(I \times \RR) \longto I \times \RR` を代表元を取る写像として構成したい。
+  * 前半は、:math:`S` の各点に :math:`\RR^2` と同相な近傍があることを示す。
 
-    .. math::
-       :nowrap:
+    * 点 :math:`(x, y) \in Z` に対して
 
-       \begin{CD}
-       I \times \RR @>{\iota}>> Z @>{p_s}>> W \subset S @>{s}>> I \times \RR
-       \end{CD}
+      * :math:`x \ne 0` ならば開区間 :math:`\displaystyle I = \left(\frac{1}{\sqrt{a}}x, \sqrt{a}x \right)` を導入して :math:`I \times \RR` を、
+      * :math:`y \ne 0` ならば開区間 :math:`\displaystyle I = \left(\frac{1}{\sqrt{a}}y, \sqrt{a}y \right)` を導入して :math:`\RR \times I` をそれぞれ考える。
 
-    * 連続であることをも示す。ここが理解できていない。
+      このような直積を対応する点を含む :math:`Z` の開集合とする。
+      以下、しばらくは :math:`x \ne 0` で話をすすめる。
 
-  * :math:`s \circ (p_s \circ i)` と :math:`(p_s \circ i) \circ s` がそれぞれ恒等写像であることを示す。
-    :math:`W \cong I \times \RR \implies I \times \RR \cong \RR^2\ ([x] \in W)` を示す。
+    * 写像 :math:`p_s: Z \longto S` を射影とする。
+    * 写像 :math:`i: I \times \RR \longto Z` を包含写像とする。
+    * 写像 :math:`s: W := (p_s \circ i)(I \times \RR) \longto I \times \RR` を代表元を取る写像とする。
+
+      .. math::
+         :nowrap:
+
+         \begin{CD}
+         I \times \RR @>{i}>> Z @>{p_s}>> W \subset S @>{s}>> I \times \RR
+         \end{CD}
+
+      次の点を確認する必要がある：
+
+      #. :math:`s` は well-defined である
+
+         これは :math:`I \times \RR` と各同値類の交点が高々一点であることから成り立つ。
+         どう確かめるのがいいのか。
+
+      #. :math:`s` は連続写像である
+
+         開集合 :math:`U \subset I \times RR` をとると :math:`s^{-1}(U)` が開集合であればよい。
+         :math:`p^{-1}\circ s^{-1}(U)` が開集合であることを示すのがよい。
+         :math:`\displaystyle \bigcup_{n \in \ZZ}A^n(U)` の代表元がどうなるかを考える。
+
+      #. :math:`s` は同相写像である
+
+         すなわち :math:`W \cong I \times \RR` を示す。
+         :math:`s \circ (p_s \circ i) = \id_{I \times \RR}` と
+         :math:`(p_s \circ i) \circ s = \id_W` であると言う。
+
+      :math:`W \cong I \times \RR \implies I \times \RR \cong \RR^2\ ([x] \in W)` を示す。
+
+  * 後半のハウスドルフではないことの証明は、
+    :math:`[1, 0]` の近傍と :math:`[0, 1]` の近傍がどうしても共通部分があることを示すことにする。
 
 * 例題 3.3.5: :math:`\RR/\ZZ \cong S^1` は多様体になる。
 
@@ -223,7 +309,7 @@
        :nowrap:
 
        \begin{align*}
-       f(\bm{x_2}) = \frac{\lvert \bm{x_1} \cdot \bm{x_2} \rvert }{\lVert \bm{x_1} \rVert \lVert \bm{x_2} \rVert}
+       f(\bm{x_2}) = \frac{\lvert \bm{x_1} \cdot \bm{x_2} \rvert}{\lVert \bm{x_1} \rVert \lVert \bm{x_2} \rVert}.
        \end{align*}
 
   * 次に誘導される写像 :math:`\underline{f}` が連続であることを示し、
@@ -244,7 +330,62 @@
   * 座標変換が滑らかであることを示す。
   * 射影空間では超平面とそれに含まれない直線とは必ず一点で交わる。
 
-* 問題 3.3.7: :math:`\CC P^n := (\CC^{n + 1} \minuszero) / \CC ^ \times` は多様体になる。
+* 問題 3.3.7: :math:`\CC P^n`
+
+  #. :math:`\CC P^n` はハウスドルフである
+
+     * 例題 3.3.6 と同様の実数値関数 :math:`f: (\CC^{n + 1})^\times \longto \RR` を定義する。
+     * 同様の理由により、:math:`f` は :math:`\bm z_1` の取り方によらず値が確定する。
+       また、誘導される関数 :math:`\underline f: (\CC^{n + 1})^\times/\sim = \CC P^n \longto \RR` も
+       同様の理由により連続関数として確定する。
+     * 再びコーシー・シュワルツの不等式より :math:`\underline f \le 1.`
+       等号成立条件は :math:`\exists \lambda \in \CC^\times \text{ s.t. } \bm z_1 = \lambda \bm z_2.`
+       これは :math:`[\bm z_1] = [\bm z_2]` を意味する。
+       ゆえに :math:`[\bm z_1] \ne [\bm z_2] \Longleftrightarrow \underline f([\bm z_1]) \ne \underline f([\bm z_2]).`
+     * 相異なる二点を連続関数で分離されることを示せたので、
+       この空間はハウスドルフである。
+
+  #. :math:`\CC P^n` は実 :math:`2n` 次元多様体である
+
+     * 座標近傍系を次のように定義する：
+
+       .. math::
+
+          \begin{align*}
+          V_i &= \set{[\bm z] \in (\CC^{n + 1})^\times/\sim \sth z_i \ne 0},\\
+          \varphi_i([\bm z]) &= \left(\frac{x_0}{x_i}, \dotsc, \widehat{(i)}, \dotsc, \frac{x_n}{x_i}\right).
+          \end{align*}
+
+       次の性質がある：
+
+       * 各座標 :math:`\varphi_i` は :math:`V_i` 上の連続関数である（分母はゼロでないから）。
+       * 各座標 :math:`\varphi_i` は同相写像である。
+
+         これを示すには :math:`\iota_i: \CC^n \longto \CC^{n + 1}` を次のように定め、
+         これまでの問題にあるように射影 :math:`p` と合成して
+         :math:`\varphi_i \circ (p \circ \iota_i) = \id_{\CC^n}` かつ
+         :math:`(p \circ \iota_i) \circ \varphi_i = \id_{V_i}` であるから同相となると言う：
+
+         .. math::
+
+            \iota_i: (z_0, \dotsc, z_{i - 1}, z_{i + 1}, \dotsc, z_n) \longmapsto
+            (z_0, \dotsc, z_{i - 1}, 1, z_{i + 1}, \dotsc, z_n)
+
+     * 座標変換 :math:`\varphi_i \circ \varphi_j^{-1}` を確かめる。
+       :math:`i > j` とすると、この変換は次のようなものとなり、
+       複素数では :math:`n` 個の、実数では :math:`2n` 個の座標成分があるとみなせる。
+
+       .. math::
+
+          (z_0, \dotsc, z_{j - 1}, z_{j + 1}, \dotsc, z_n) \longmapsto
+          \left(\frac{z_0}{z_i},
+          \dotsc, \frac{z_{i - 1}}{z_i}, \frac{z_{i + 1}}{z_i},
+          \dotsc, \frac{z_{j - 1}}{z_i}, \frac{1}{z_i}, \frac{z_{j + 1}}{z_i},
+          \dotsc, \frac{z_n}{z_i}
+          \right).
+
+     * 座標変換が :math:`C^\infty` 級であり、
+       :math:`\CC P^n` はハウスドルフであるので、多様体である。
 
 3.4 :math:`C^r` 級多様体の間の :math:`C^s` 級写像、微分同相写像
 ----------------------------------------------------------------------
@@ -254,8 +395,9 @@
   写像 :math:`F: M_1 \longto m_2` が :math:`C^s` 級 であるとは、
   写像 :math:`\psi \circ F \circ \varphi^{-1}: \varphi(U) \longto \psi(V)` が :math:`C^s` 級 であることとする。
 
-微分同相写像
-  写像 :math:`F_1 \text{or} F_2` が微分同相写像であるとは、
+* 定義 3.4.2: `微分同相写像 <http://mathworld.wolfram.com/Diffeomorphism.html>`__
+
+  写像 :math:`F_1: M_1 \longto M_2` が微分同相写像であるとは、
   :math:`F_1 \circ F_2 = \id_{M_2}` かつ
   :math:`F_2 \circ F_1 = \id_{M_1}` であることとする。
 
@@ -264,18 +406,36 @@
   #. :math:`\RR/\ZZ \cong S^1`
   #. :math:`\RR^2/(2 \pi \ZZ)^2 \cong T^1`
 
-* 問題 3.4.4: 複素射影直線と球面は微分同相である。
-  :math:`\CC P^1 = (\CC^2 \minuszero) / \CC ^ \times \cong S^2`
+* 問題 3.4.4: :math:`\CC P^1 = (\CC^2 \minuszero) / \CC ^ \times \cong S^2`
 
-  #. ヒントに従うと、次のふたつの射影による座標近傍系を定義できる。
-  #. :math:`\CC P^1` に開集合 :math:`V_i = \set{[x] \in (\CC^2 \minuszero) / \sim \sth x_i \ne 0},\ (i = 0, 1)` を入れる。
+  * ヒントに従うと、次の射影 :math:`p_\pm: S^2 \longto \RR^2` による座標近傍系を定義できる。
 
-     * TODO: 可換図式みたいなのを挿れたい。
+    .. math::
 
-* 問題 3.4.5: 四元数を意識したクイズ。
+       \begin{align*}
+       p_\pm(x, y, z) &= \left(\frac{x}{1 \mp z}, \frac{y}{1 \mp z}\right),\\
+       p_\pm^{-1}(x, y) &= \left(\frac{2x}{x^2 + y^2 + 1}, \frac{2y}{x^2 + y^2 + 1}, \frac{x^2 + y^2 - 1}{x^2 + y^2 + 1}\right),\\
+       p_- \circ p_+^{-1}(x, y) &= \left(\frac{x}{x^2 + y^2}, \frac{y}{x^2 + y^2}\right).
+       \end{align*}
 
-  * これは線形代数が相当得意でないと解けないと見た。
-    例えば :math:`SO_3` の行列の固有値が :math:`\lambda, \bar{\lambda}, 1` であることを知らない程度では歯が立たない。
+  * :math:`\CC P^1` では座標
+
+    * 問題 3.3.7 の記号で言うと :math:`\displaystyle \varphi_i: V_i \longto \CC,\ z \in \CC^\times, \varphi_1 \circ \varphi_0^{-1}(z) = \frac{1}{z}.`
+    * 写像 :math:`\bar\iota: \RR^2 \longto \RR^2` を :math:`(x, y) \longmapsto (x, -y)` で定義し、
+      :math:`S^2` に新たに座標近傍系 :math:`\set{(U_+, p_+), (U_-, \bar\iota \circ p_-)}` を定義する。
+
+      .. math::
+
+         (\bar\iota \circ p_-) \circ p_+^{-1}(x, y) = \left(\frac{x}{x^2 + y^2}, -\frac{y}{x^2 + y^2}\right)
+
+      となるが、これは :math:`\displaystyle \varphi_0^{-1}(z) = \frac{1}{z}` で :math:`z = x + y \sqrt{-1}` としたものと一致している。
+
+* 問題 3.4.5: 四元数を意識したクイズ
+
+  * 相当難しい。
+    これは線形代数が相当得意でないと解けないと見た。
+    例えば :math:`SO_3` の行列の固有値が :math:`\lambda, \bar{\lambda}, 1`
+    であることを知らない程度では歯が立たない。
 
 * 例題 3.4.7: 自身への微分同相の例として対蹠点、平行移動、行列式が非ゼロである線型写像を挙げている。
 
@@ -283,7 +443,7 @@
 
   * :math:`C^\infty` 級変換群
   * :math:`C^\infty` 級に作用する or 滑らかに作用する
-  * 効果的
+  * `効果的 <http://mathworld.wolfram.com/EffectiveAction.html>`__
 
     * :math:`K = \set{g \in G \sth gx = x}` のとき。
     * :math:`K` は正規部分群となる。
@@ -291,7 +451,12 @@
 * <群の構造だけを取り出した群> とは？
 
 * 定理 3.4.8: 滑らかな多様体の滑らかな有限変換群に対する商空間は、滑らかな多様体となる。
-* 例題 3.4.9: レンズ空間 :math:`S^3 := \set{(z_1, z_2) \in \CC^2 \sth \lvert z_1 \rvert ^2 + \lvert z_2 \rvert ^2 = 1}`
+
+  * これは定理 3.3.1 の上位互換版のような定理だ。実際、証明にそれを利用している。
+
+* 例題 3.4.9: `レンズ空間 <http://mathworld.wolfram.com/LensSpace.html>`__
+
+  :math:`S^3 := \set{(z_1, z_2) \in \CC^2 \sth \lvert z_1 \rvert ^2 + \lvert z_2 \rvert ^2 = 1}`
 
   * 有限変換群 :math:`F` の元は互いに素な自然数の組 :math:`p, q` を用いて構成できる。
     LaTeX を書くと字が潰れるので省略。
@@ -380,12 +545,20 @@
 
 * 問題 3.5.3: ファイバー束
 
-  * :math:`E, B, F` を位相空間とする。
-  * 写像 :math:`p: E \longto B` は連続とする。
-  * :math:`\forall b \in B` に対する開近傍を :math:`U_b` とする。
-  * 直積 :math:`U_b \times F` の第一成分への射影を :math:`\operatorname{pr}_1` とする。
+  * :math:`E, B` は位相空間であり、
+  * 写像 :math:`p: E \longto B` は連続であり、
+  * 次を満たす位相空間 :math:`F` が存在するとする：
 
-  このとき :math:`B, F` がハウスドルフならば :math:`E` もまたしかり。
+    .. math::
+
+       \forall b \in B, \exists U_b \owns b
+       \text{ s.t. }
+       \exists h: p^{-1}(U_b) \longto U_b \times F,\ \operatorname{pr}_1 \circ h = p.
+
+    ただし :math:`h` は同相写像であり、
+    :math:`\operatorname{pr}_1` は直積 :math:`U_b \times F` の第一成分への射影とする。
+
+  このとき :math:`B, F` がハウスドルフならば :math:`E` もそうである。
 
   .. math::
      :nowrap:
@@ -401,16 +574,54 @@
   * この状況における位相空間 :math:`E` をファイバー束といい、
     位相空間 :math:`F` を :math:`B` 上のファイバーという。
 
-  * 証明には :math:`\operatorname{pr}_2` も考える必要がある。
+  * 証明は場合分けをする。
+
+    * :math:`x_1 \ne x_2 \in E,\ p(x_1) \ne p(x_2)` のとき：
+
+      * ハウスドルフ性により、次のような開集合 :math:`U_1, U_2` が存在する：
+        :math:`p(x_1) \in U_1, p(x_2) \in U_2, U_1 \cap U_2 = \varnothing.`
+      * :math:`p` の連続性により、:math:`p^{-1}(U_1) \owns x_1,\ p^{-1}(U_2) \owns x_2` は
+        :math:`E` の開集合である。
+
+    * :math:`x_1 \ne x_2 \in E,\ p(x_1) = p(x_2) = b` のとき：
+
+      * ファイバー性により次のような同相写像 :math:`h: p^{-1}(U_b) \longto U_b \times F` が存在する：
+        :math:`\operatorname{pr}_1 \circ h = p.`
+
+      * :math:`x_1 \ne x_2` であるので :math:`\operatorname{pr}_2 \circ h(x_1) \ne \operatorname{pr}_2 \circ h(x_2) \in F.`
+      * :math:`F` のハウスドルフ性により、次を満たす開集合 :math:`V_1, V_2 \subset F` が存在する：
+
+        .. math::
+
+           \operatorname{pr}_2 \circ h(x_1) \in V_1,\
+           \operatorname{pr}_2 \circ h(x_2) \in V_2,\
+           V_1 \cap V_2 = \varnothing.
+
+      * :math:`h^{-1}(U_b \times V_1) \owns x_1, h^{-1}(U_b \times V_2) \owns x_2` もまた開集合であるので、
+        :math:`h^{-1}(U_b \times V_1) \cap h^{-1}(U_b \times V_2) = \varnothing.`
+
+  後ほど例題 8.6.1 で同じ状況が現れる。
 
 3.6 向き付け（展開）
 ----------------------------------------------------------------------
-ある多様体が向き付けを持つとは、各座標変換のヤコビアンがすべて正であるような
-座標近傍系が存在することを意味する。
+* 連結多様体からある商空間を構成すると、ファイバー束の性質が利用できて
+  `向き付けを持つ多様体 <http://mathworld.wolfram.com/OrientableManifold.html>`__
+  を得られる。
+
+* ある多様体が向き付けを持つとは、各座標変換のヤコビアンの行列式がすべて正であるような
+  座標近傍系が存在することを意味する。
+
+* 本文中の記号 :math:`p_M` の定義が与えられていないので、ここを理解できないでいる。
+
+  .. math::
+
+     P^{-1}(p_M(V_i)) =V_{i+} \sqcup V_{i-} \approx V_i \times \set{\pm 1}.
+
+  * :math:`\set{\pm 1}` がハウスドルフであるというのは意表を突かれた感がある。
 
 * 連結多様体 :math:`M` から常に「向き付けを持つ」多様体 :math:`\widehat{M}` を構成できる。
 
-  * :math:`\widehat{M} \cong M \times \set{\pm 1} \Leftrightarrow \forall \gamma_{ij}, \det (D\gamma_{ij}) > 0`
+  * :math:`\widehat{M} \cong M \times \set{\pm 1} \Longleftrightarrow \forall \gamma_{ij}, \det (D\gamma_{ij}) > 0`
 
     このとき :math:`M` 自身がすでに向き付け可能。
 
@@ -419,12 +630,15 @@
     :math:`F: \widehat{M} \longto \widehat{M}` は、向き付けを反対にする微分同相写像だ。
 
 * 例 3.6.2: 実射影空間は多様体次元の偶数奇数によって向き付け可能性が決まる。
-  偶数次元は向きが付けられない。
+
+  * 偶数次元は向きが付けられない。
 
 * 例 3.6.3
 
-  * メビウスバンドのパラメーター表示が紹介されているので有用。
-  * 実射影平面から一点を除くとこれと微分同相となる。
+  * `メビウスバンド <http://mathworld.wolfram.com/MoebiusStrip.html>`__
+    のパラメーター表示が紹介されているので有用。
+  * `実射影平面 <http://mathworld.wolfram.com/RealProjectivePlane.html>`__
+     から一点を除くとこれと微分同相となる。
 
 3.7 :math:`C^\infty` 級写像の存在について
 ----------------------------------------------------------------------
@@ -433,13 +647,16 @@
 
 * 問題 3.7.1: 微分積分の教科書を参照。
 
-  #. :math:`e^x` のマクローリン展開から得られる評価や変数変換（逆数）を駆使する。
+  #. :math:`\mathrm e^x` のマクローリン展開から得られる評価や変数変換（逆数）を駆使する。
 
   #. 平均値の定理から明らか。
 
   #. この関数 :math:`\displaystyle
      \rho(x) = 0\ (x \le 0),\ \exp\left(-\frac{1}{x}\right)\ (0 < x)`
      を利用すれば、多様体上の :math:`C^\infty` 級関数を構成できる。
+
+     * 本題は :math:`\rho^{(m)}(0) = 0` が成り立つことを
+       帰納法をメインに示すことだが、敢えて導関数を書き下してみたい。
 
   #. :math:`\RR^n` の連結な折れ線は、実数全体を定義域とする
      :math:`C^\infty` 級写像の像とできるという事実は大事。
