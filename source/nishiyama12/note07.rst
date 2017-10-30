@@ -61,7 +61,7 @@
 
        \begin{align*}
        \RR^3 = \bigsqcup_{r > 0} S_r \sqcup \zeroset,\ 
-       S_r = \set{x \in \RR^3 \sth \lVert x \rVert = 1}.
+       S_r = \set{x \in \RR^3 \sth \norm{x} = 1}.
        \end{align*}
 
 * 例 7.4: :math:`\Omega_{\ZZ}(\RR),\ \Omega_{\ZZ^2}(\RR^2)`

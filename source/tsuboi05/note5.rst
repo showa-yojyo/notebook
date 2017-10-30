@@ -306,7 +306,7 @@
   * あとは三角関数の性質を利用する。
 
 * 問題 5.4.6: 複素射影空間 :math:`\CC P^n = (\CC^{n + 1} \minuszero)/\CC^\times` の
-  単位球面 :math:`S^{2n + 1} = \set{(z_1, \dotsc, z_{n + 1}) \in \CC^{n + 1} \sth \lvert z \rvert = 1}` と
+  単位球面 :math:`S^{2n + 1} = \set{(z_1, \dotsc, z_{n + 1}) \in \CC^{n + 1} \sth \abs{z} = 1}` と
   :math:`U(1) = \set{e^{\sqrt{-1}\theta} \sth \theta \in \RR}` について
 
   直球のような設問。この問題は理解していないといけない。
@@ -320,7 +320,7 @@
        :nowrap:
 
        \begin{align*}
-       f(z) = \frac{\displaystyle \sum_{k = 1}^{n + 1} k \lvert z_k \rvert ^2}{\displaystyle \sum_{k = 1}^{n + 1} \lvert z_k \rvert ^2}.
+       f(z) = \frac{\displaystyle \sum_{k = 1}^{n + 1} k \abs{z_k} ^2}{\displaystyle \sum_{k = 1}^{n + 1} \lvert z_k \rvert ^2}.
        \end{align*}
 
   * :math:`F` の臨界点は :math:`F_*: T_x \CC P^n \longto \RR` がゼロとなる
@@ -370,7 +370,7 @@
    N_\eps^r(f, \set{V_i}) = \Set{
        f + h \in C^\infty(M)
        \Sth s \le r,\ 
-       \lVert D^s((h \circ \varphi_i^{-1})|\varphi_i(\closure{V_i})) \rVert < \eps
+       \norm{D^s((h \circ \varphi_i^{-1})|\varphi_i(\closure{V_i}))} < \eps
    }.
    \end{gather*}
 
@@ -400,12 +400,12 @@
          \begin{gather*}
          K = \max_{i, j}
          \max_{x \in \varphi_j'(\closure{V_i} \cap \closure{V_j}')}
-         \lVert D\gamma_{ij(x)}\rVert.
+         \norm{D\gamma_{ij(x)}}.
          \end{gather*}
 
       添字が有限個であることと、各 :math:`\closure{V_i} \cap \closure{V_j}'` がコンパクトであることによる。
 
-      * 行列のノルムを :math:`\displaystyle \lVert A \rVert = \sup_{x \ne 0}\frac{\lVert A \bm{x} \rVert}{ \lVert \bm{x} \rVert}` とする。
+      * 行列のノルムを :math:`\displaystyle \norm{A} = \sup_{x \ne 0}\frac{\lVert A \bm{x} \rVert}{ \lVert \bm{x} \rVert}` とする。
 
   * :math:`r = 2` のときは p. 104 のような（ここにはとても記せられない）計算をして
     :math:`N_\eps^2(f, \set{V_i}) \subset N_K^2(f, \set{V_j'})` を満たす
@@ -438,7 +438,7 @@
            H \in C^\infty(M, N)
            \Sth s \le r,\ 
            \forall i, j,
-           \lVert D^s((\psi_j \circ H \circ \varphi_i^{-1} - \psi_j \circ F \circ \varphi_i^{-1})|\varphi_i(\closure{V_{ji}})) \rVert < \eps
+           \norm{D^s((\psi_j \circ H \circ \varphi_i^{-1} - \psi_j \circ F \circ \varphi_i^{-1})|\varphi_i(\closure{V_{ji}}))} < \eps
        }.
        \end{gather*}
 

@@ -9,6 +9,7 @@ window.MathJax = {
             QQ: "{\\mathbb Q}",
             RR: "{\\mathbb R}",
             CC: "{\\mathbb C}",
+
             bm: ["\\boldsymbol #1",1],
             dd: ["\\mathrm d^{#1}", 1, ""],
             diff: ["\\frac{\\dd {#1}}{\\dd {#2}}", 2],
@@ -23,6 +24,11 @@ window.MathJax = {
             longto: "\\longrightarrow",
             mdiff: ["\\frac{\\dd[#2]#1}{\\dd #3^{#2}}", 3],
             rank: "{\\operatorname{rank}}",
+
+            abs: ["{|#1|}", 1],
+            Abs: ["{\\left|#1\\right|}", 1],
+            norm: ["{\\| #1 \\|}", 1],
+            Norm: ["{\\left\\| #1 \\right\\|}", 1],
 
             set: ["\\{#1\\}", 1],
             openSet: "\\!\\left\\{\\left.",

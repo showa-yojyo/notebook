@@ -138,7 +138,7 @@
   .. math::
 
      \forall \bm x, \bm x + \bm v \in A,\ 
-     \lVert G(\bm x + \bm v) - G(\bm x)\rVert \le \sqrt{mn}K\lVert \bm v \rVert.
+     \norm{G(\bm x + \bm v) - G(\bm x)} \le \sqrt{mn}K\lVert \bm v \rVert.
 
   * 証明方針
 
@@ -147,7 +147,7 @@
 
        .. math::
 
-          g_i(\bm x + \bm v) - g_i(\bm x) = \sum_{j = 1}^n\frac{\partial g_i}{\partial x_j}v_j + \eps_i(\bm x, \bm v)\lVert \bm v \rVert,\\
+          g_i(\bm x + \bm v) - g_i(\bm x) = \sum_{j = 1}^n\frac{\partial g_i}{\partial x_j}v_j + \eps_i(\bm x, \bm v)\norm{\bm v},\\
           \eps_i(\bm x, \bm v) \to 0 \text{ as } \bm v \to 0.
 
     #. この関係式を :math:`\bm x + (t + s)\bm v` と :math:`\bm x + t\bm v` に対して適用すると
@@ -160,23 +160,23 @@
           \diff{g_i(\bm x + t\bm v)}{t} = \sum_{j = 1}^n\frac{\partial g_i(\bm x + t\bm v)}{\partial x_j}v_j.
 
     #. 定積分を利用する後半の評価式は大丈夫。気をつけるのは
-       :math:`\displaystyle \sum_{j = 1}^n\left|v_j\right| \le \sqrt{n}\lVert \bm v \rVert` くらいか。
+       :math:`\displaystyle \sum_{j = 1}^n\left|v_j\right| \le \sqrt{n}\norm{\bm v}` くらいか。
 
        * 両辺とも正の値であるから :math:`\displaystyle \left(\sum_{j = 1}^n \left|v_i\right|\right)^2 \le \sum_{j = 1}^n nv_i^2` を示せばいい。
          不等式の右辺マイナス左辺を展開すると :math:`\displaystyle \sum_{i \ne j}^n(\left|v_i\right| - \left|v_j\right|)^2` の形になる。
          確かにこの値は負にならない。
 
-       * 今得られた :math:`\left|g_i(\bm x + \bm v) - g_i(\bm x)\right| \le \sqrt{n}KlVert \bm v \rVert`
+       * 今得られた :math:`\left|g_i(\bm x + \bm v) - g_i(\bm x)\right| \le \sqrt{n}KlVert \bm v}`
          を利用して最後の評価を次のようにする：
 
          .. math::
 
             \begin{align*}
-            \lVert G(\bm x + \bm v) - G(\bm x) \rVert
-              &\le \sqrt{m}\lVert \bm v\rVert
+            \norm{G(\bm x + \bm v) - G(\bm x)}
+              &\le \sqrt{m}\norm{\bm v}
               = \sqrt{m} \sum_{i = 1}^m \left|g_i(\bm x + \bm v) - g_i(\bm x)\right|^2\\
-              &\le \sqrt{m} \sqrt{n}K\lVert \bm v \rVert\\
-              &\le \sqrt{mn}K \lVert \bm v \rVert.
+              &\le \sqrt{m} \sqrt{n}K\norm{\bm v}\\
+              &\le \sqrt{mn}K \norm{\bm v}.
             \end{align*}
 
 * 例題 1.2.8: `chain rule <http://mathworld.wolfram.com/ChainRule.html>`__
@@ -189,7 +189,7 @@
 
     .. math::
 
-       \sum_{k = 1}^l\left(\sum_{j = 1}^m \frac{\partial f_i}{\partial y_j}\frac{\partial g_j}{\partial x_k}\right)u_k + (\dots)\lVert \bm u \rVert
+       \sum_{k = 1}^l\left(\sum_{j = 1}^m \frac{\partial f_i}{\partial y_j}\frac{\partial g_j}{\partial x_k}\right)u_k + (\dots)\norm{\bm u}
 
     ただ、証明の骨格は一変数関数についての合成関数の微分法の公式の証明と同じに見える。
 
@@ -246,12 +246,12 @@
 
     .. math::
 
-       \lVert \bm x \rVert < \delta \implies \left|\frac{\partial h_i}{\partial x_j}\right| \le \eps.
+       \norm{\bm x} < \delta \implies \left|\frac{\partial h_i}{\partial x_j}\right| \le \eps.
 
-  * 例題 1.2.7 のリプシッツ評価式を利用して :math:`\lVert H(\bm x + \bm v) - H(\bm x)\rVert \le \eps n \lVert \bm v \rVert.`
-  * :math:`\displaystyle \lVert \bm y \rVert \le \frac{\delta}{2}` とすると
-    :math:`\displaystyle \lVert \bm x_{k + 1} - \bm x_k \rVert = \lVert H(\bm x_k) - H(\bm x_{k - 1}) \rVert \le \frac{1}{2^k}\lVert \bm x_1 - \bm x_0 \rVert` より
-    :math:`\lVert \bm x_{k + 1} \rVert < \delta` が成り立つ。
+  * 例題 1.2.7 のリプシッツ評価式を利用して :math:`\norm{H(\bm x + \bm v) - H(\bm x)} \le \eps n \lVert \bm v \rVert.`
+  * :math:`\displaystyle \norm{\bm y} \le \frac{\delta}{2}` とすると
+    :math:`\displaystyle \norm{\bm x_{k + 1} - \bm x_k} = \lVert H(\bm x_k) - H(\bm x_{k - 1}) \rVert \le \frac{1}{2^k}\lVert \bm x_1 - \bm x_0 \rVert` より
+    :math:`\norm{\bm x_{k + 1}} < \delta` が成り立つ。
     各点に対して上述のリプシッツ評価式が成り立つから
     :math:`\set{\bm x_i}` はコーシー列であり、極限が :math:`\bm x` であることが示せた。
 
@@ -264,7 +264,7 @@
     .. math::
 
        \begin{align*}
-       F(\bm x_2) - F(\bm x_1) = DF_{(\bm x_1)}(\bm x_2 - \bm x_1) + r(\bm x_1, \bm x_2)\lVert \bm x_2 - \bm x_1\rVert,\\
+       F(\bm x_2) - F(\bm x_1) = DF_{(\bm x_1)}(\bm x_2 - \bm x_1) + r(\bm x_1, \bm x_2)\norm{\bm x_2 - \bm x_1},\\
        r(\bm x_1, \bm x_2) \to 0 \text{ as } \bm x_2 \to \bm x_1
        \end{align*}
 
@@ -275,13 +275,13 @@
        \begin{align*}
        \bm y_2 - \bm y_1 &= DF_{(G(\bm y_1))}(G(\bm y_2) - G(\bm y_1))
                 + r(G(\bm y_1), G(\bm y_2))
-                \frac{\lVert G(\bm y_2) - G(\bm y_1)\rVert}{\lVert \bm y_2 - \bm y_1 \rVert}
-                \lVert \bm y_2 - \bm y_1 \rVert
+                \frac{\norm{G(\bm y_2) - G(\bm y_1)}}{\lVert \bm y_2 - \bm y_1 \rVert}
+                \norm{\bm y_2 - \bm y_1}
        \\
        G(\bm y_2) - G(\bm y_1) &= {DF_{(G(\bm y_1))}}^{-1}(\bm y_2 - \bm y_1)
                 - r(G(\bm y_1), G(\bm y_2))
-                \frac{\lVert G(\bm y_2) - G(\bm y_1)\rVert}{\lVert \bm y_2 - \bm y_1 \rVert}
-                \lVert \bm y_2 - \bm y_1 \rVert
+                \frac{\norm{G(\bm y_2) - G(\bm y_1)}}{\lVert \bm y_2 - \bm y_1 \rVert}
+                \norm{\bm y_2 - \bm y_1}
        \end{align*}
 
   * ここで :math:`(DH)^k` の各成分の絶対値が :math:`\displaystyle \frac{1}{2^kn}` を超えないので、

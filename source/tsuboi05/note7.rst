@@ -14,7 +14,7 @@
 
 7.1 ユークリッド空間内の多様体上の曲線（基礎）
 ----------------------------------------------------------------------
-:math:`\displaystyle L(c) = \int_{t_0}^{t_1}\!\left\lVert \diff{c(t)}{t} \right\rVert\,dt`
+:math:`\displaystyle L(c) = \int_{t_0}^{t_1}\!\Norm{\diff{c(t)}{t}}\,dt`
 
 * 例題 7.1.1: 最小問題
 
@@ -23,11 +23,11 @@
   #. この二点を結ぶ曲線の中で長さが最小のものは線分である。
 
      * 別解が面白い。
-       :math:`\displaystyle \bm v = \frac{x^1 - x^0}{\lVert x^1 - x^0 \rVert}` として
-       :math:`\displaystyle \left\lVert \diff{c(t)}{t} \right\rVert \le \left\lvert \diff{c(t)}{t} \cdot \bm v \right\rvert`
+       :math:`\displaystyle \bm v = \frac{x^1 - x^0}{\norm{x^1 - x^0}}` として
+       :math:`\displaystyle \Norm{\diff{c(t)}{t}} \le \Abs{\diff{c(t)}{t} \cdot \bm v}`
        を利用する。
 
-  #. :math:`\displaystyle A(c) = \int_0^1\!\left\lVert \diff{c(t)}{t} \right\rVert ^2\,dt`
+  #. :math:`\displaystyle A(c) = \int_0^1\!\Norm{\diff{c(t)}{t}} ^2\,dt`
      を最小とする曲線は :math:`c(t) = x^0 + t(x^1 - x^0)` である。
 
      * :math:`A(c + s\eps)` なる量を考える。展開すると :math:`s` の二次式が得られる。
@@ -40,7 +40,7 @@
 * 問題 7.1.2: :math:`C^1` 級曲線の長さ
 
   * :math:`\Delta = \set{ 0 = t_0 \le \dots \le t_m = 1}` を区間 :math:`[0, 1]` の細分とすると
-    :math:`\displaystyle \int_{0}^{1}\!\left\lVert \diff{c(t)}{t} \right\rVert\,dt = \sup_{\Delta}\sum_{k = 1}^m \left\lVert c(t_k) - c(t_{k - 1})\right\rVert`
+    :math:`\displaystyle \int_{0}^{1}\!\Norm{\diff{c(t)}{t}}\,dt = \sup_{\Delta}\sum_{k = 1}^m \left\norm{c(t_k) - c(t_{k - 1})\right}`
 
   * 証明全体は微積分の教科書を参照。
 
@@ -59,9 +59,9 @@
      :nowrap:
 
      \begin{align*}
-     \int_{0}^{1}\!\left\lVert \diff{p \circ c(t)}{t} \right\rVert\,dt
-     =   \int_{0}^{1}\!\left\lVert (Dp)_{c(t)} c'(t) \right\rVert\,dt
-     \le \int_{0}^{1}\!\left\lVert c'(t) \right\rVert\,dt
+     \int_{0}^{1}\!\Norm{\diff{p \circ c(t)}{t}}\,dt
+     =   \int_{0}^{1}\!\Norm{(Dp)_{c(t)} c'(t)}\,dt
+     \le \int_{0}^{1}\!\Norm{c'(t)}\,dt
      \end{align*}
 
 連結多様体 :math:`M` には次のようにすると距離が入る。
@@ -85,8 +85,8 @@
 
        \begin{gather*}
        \begin{split}
-       \left\lVert \diff{(\Phi \circ c)(t)}{t} \right\rVert
-       &= \left\lVert (D\Phi)_{c(t)} \diff{c(t)}{t} \right\rVert\\
+       \Norm{\diff{(\Phi \circ c)(t)}{t}}
+       &= \Norm{(D\Phi)_{c(t)} \diff{c(t)}{t}}\\
        &= \left({}^t\!\left((D\Phi)_{c(t)} \diff{c(t)}{t}\right) \cdot \left((D\Phi)_{c(t)} \diff{c(t)}{t}\right)\right)^\frac{1}{2}\\
        &= \left({}^t\!\left(\diff{c}{t}\right) {}^t\!D\Phi \cdot D\Phi \diff{c}{t}\right)^\frac{1}{2}
        \end{split}
@@ -153,7 +153,7 @@
       このとき、:math:`\displaystyle \sum_{i, j} g_{ij}v_i v_j \le \delta \sum_{i} v_i^2` が
       開球 :math:`V = B_\eps(\varphi(x))` で成り立つような :math:`\eps > 0` が存在する。
 
-      * :math:`y \in \varphi^{-1}(V)` であれば :math:`d(x, y) \le \sqrt{\delta}\lVert \varphi(x) - \varphi(y)\rVert`
+      * :math:`y \in \varphi^{-1}(V)` であれば :math:`d(x, y) \le \sqrt{\delta}\norm{\varphi(x) - \varphi(y)}`
         :math:`\therefore\ d(x, y) = 0 \implies \varphi(x) = \varphi(y) \implies x = y.`
 
       * :math:`y \notin \varphi^{-1}(V)` のときは面倒で、次のような関数を説明することになる：
@@ -164,7 +164,7 @@
            \begin{align*}
            F(z) = \left\{
            \begin{array}{lr}
-           \lVert \varphi(x) - \varphi(z)\rVert^2 & : z \in \varphi^{-1}(V)\\
+           \norm{\varphi(x) - \varphi(z)}^2 & : z \in \varphi^{-1}(V)\\
            \eps^2 + 1                             & : z \notin \varphi^{-1}(V)
            \end{array}
            \right.
@@ -173,7 +173,7 @@
         このとき、
 
         * :math:`x` と :math:`y` を結ぶ曲線は :math:`\varphi^{-1}(\partial V)` と交わって（∵中間値の定理）、
-        * 境界 :math:`\partial V` 上では :math:`\lVert z - \varphi(x)\rVert = \eps`
+        * 境界 :math:`\partial V` 上では :math:`\norm{z - \varphi(x)} = \eps`
 
         なので、
         :math:`d(x, y) \le \min\set{d(z, x) \sth \varphi(z) \in \partial V} \le \sqrt{\delta}\eps.`
@@ -334,7 +334,7 @@
    :math:`\displaystyle g\left(\frac{\partial H}{\partial t}, \frac{\partial H}{\partial s}\right) = 0.`
 
 #. よって :math:`\displaystyle \sqrt{q\left(\diff{c}{s}\right)} \le \sqrt{q\left(\frac{\partial H}{\partial t} \frac{\partial H}{\partial s}\right)} = \sqrt{\left(\diff{t}{s}\right)^2} = \left|\diff{t}{s}\right|.`
-#. 積分して :math:`\displaystyle \int_0^1\sqrt{q\left(\diff{c}{s}\right)}\,ds \le \int_0^1 \left|\diff{t}{s}\right|\,ds \le \lvert t(1) - t(0) \rvert.`
+#. 積分して :math:`\displaystyle \int_0^1\sqrt{q\left(\diff{c}{s}\right)}\,ds \le \int_0^1 \left|\diff{t}{s}\right|\,ds \le \abs{t(1) - t(0)}.`
 
 以上により測地線は最短であることが示せた（らしい）。
 

@@ -99,8 +99,8 @@
             :nowrap:
 
             \begin{split}
-            \lvert (-t)^k (DF_{(\bm{x})} - E)^k \rvert
-                &<& \lvert t^k n^{k - 1} \eps^k \rvert\\
+            \abs{(-t)^k (DF_{(\bm{x})} - E)^k}
+                &<& \abs{t^k n^{k - 1} \eps^k}\\
                 &<& n^{k - 1} \eps^k\\
                 &<& \frac{1}{2^{k - 1}}\eps.
             \end{split}
@@ -116,9 +116,9 @@
           :nowrap:
 
           \begin{split}
-          \lVert H_t(\bm{x}) - H_t(\bm{y}) \rVert & \le nt\eps \lVert \bm{x} - \bm{y} \rVert\\
-          & \le \frac{1}{2}\lVert \bm{x} - \bm{y} \rVert\\
-          \therefore \lVert F_t(\bm{x}) - F_t(\bm{y}) \rVert & \ge \frac{1}{2}\lVert \bm{x} - \bm{y} \rVert
+          \norm{H_t(\bm{x}) - H_t(\bm{y})} & \le nt\eps \lVert \bm{x} - \bm{y} \rVert\\
+          & \le \frac{1}{2}\norm{\bm{x} - \bm{y}}\\
+          \therefore \norm{F_t(\bm{x}) - F_t(\bm{y})} & \ge \frac{1}{2}\lVert \bm{x} - \bm{y} \rVert
           \end{split}
 
     #. :math:`F_t` は全射である。
@@ -130,8 +130,8 @@
           :nowrap:
 
           \begin{split}
-          \lVert \bm{x}_{k+1} - \bm{x}\rVert & \le& \frac{1}{2^{k-1}}\lVert \bm{x}_2 - \bm{x}_1 \rVert\\
-          & =& \frac{1}{2^{k-1}}\lVert \bm{y} - F_t(\bm{y}) \rVert\\
+          \norm{\bm{x}_{k+1} - \bm{x}} & \le& \frac{1}{2^{k-1}}\lVert \bm{x}_2 - \bm{x}_1 \rVert\\
+          & =& \frac{1}{2^{k-1}}\norm{\bm{y} - F_t(\bm{y})}\\
           &\therefore& \bm{x}_k \to \bm{y}\ s.t.\ \bm{y} = F_t(\bm{y}). 
           \end{split}
 
@@ -190,7 +190,7 @@
   * 仮定
 
     * リプシッツ条件：
-      :math:`\exists L > 0 \text{ s.t. } t \in (a, b),\ \bm x_1, \bm x_2 \in U: \lVert X(t, \bm x_1) - X(t, \bm x_2) \rVert \le L \lVert \bm x_1 - \bm x_2 \rVert.`
+      :math:`\exists L > 0 \text{ s.t. } t \in (a, b),\ \bm x_1, \bm x_2 \in U: \norm{X(t, \bm x_1) - X(t, \bm x_2)} \le L \lVert \bm x_1 - \bm x_2 \rVert.`
 
     * 有界性：
       :math:`X: (a, b) \times U \longto \RR^n` は有界連続とする：
@@ -219,15 +219,15 @@
          \Gamma[F(t, \bm x)] := \bm x + \int_{t_0}^t X(s, F(s, \bm x))\,\dd{s} \in C^0(I_{\eps_0}, U).
          \end{align*}
 
-    * :math:`F_1, F_2 \in C, \sup \lVert \Gamma[F_1] - \Gamma[F_2]\rVert \le \eps_0 L \sup \lVert F_1 - F_2 \rVert` となる。
-    * :math:`F_0(t, \bm x) = \bm x,\ F_1 = \Gamma[F_0]` とすると :math:`\sup \lVert F_1 - F_0 \rVert \le \eps_0 M.`
+    * :math:`F_1, F_2 \in C, \sup \norm{\Gamma[F_1] - \Gamma[F_2]} \le \eps_0 L \sup \lVert F_1 - F_2 \rVert` となる。
+    * :math:`F_0(t, \bm x) = \bm x,\ F_1 = \Gamma[F_0]` とすると :math:`\sup \norm{F_1 - F_0} \le \eps_0 M.`
     * ここで
       :math:`\displaystyle \eps_0 = \min\Set{\frac{1}{2L}, \frac{\eps}{4M}}` とすればよいことわがかる。
     * :math:`\displaystyle \eps_0 \le \frac{1}{2L}` と :math:`\displaystyle \eps_0 \le \frac{\eps}{4M}` から解の一意性と微分可能性をそれぞれ示す。
     * :math:`C^0(I_{\eps_0} \times K, \RR^n)` 上に距離を入れてリプシッツ性を利用する。
 
 * 注意 6.3.2 によると仮定を少し緩められるらしい。
-  :math:`(a, b) \times U \times \Lambda,\ \lVert X(t, \bm x_1, \lambda) - X(t, \bm x_2, \lambda) \rVert \le L\lVert \bm x_1 - \bm x_2 \rVert.`
+  :math:`(a, b) \times U \times \Lambda,\ \norm{X(t, \bm x_1, \lambda) - X(t, \bm x_2, \lambda)} \le L\lVert \bm x_1 - \bm x_2 \rVert.`
 
 * 問題 6.3.3: :math:`C^1` 級ベクトル場と線形常微分方程式
 
@@ -327,8 +327,8 @@
   :math:`\displaystyle \lim_{t \to -\infty}\Phi_t(\bm x)` の値
 
   * :math:`\mu: \RR^n \longto \RR` は :math:`C^\infty` 級で、
-  * :math:`\supp \mu = \set{\bm x \in \RR^n \sth \lVert \bm x \rVert \le 1},`
-  * :math:`\lVert \bm x \rVert < 1 \implies \mu(\bm x) > 0` と仮定する。
+  * :math:`\supp \mu = \set{\bm x \in \RR^n \sth \norm{\bm x} \le 1},`
+  * :math:`\norm{\bm x} < 1 \implies \mu(\bm x) > 0` と仮定する。
 
   #. 単位超球面上およびその外側
 
