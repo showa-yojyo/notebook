@@ -11,7 +11,7 @@
 
 5.1 関数の台
 ----------------------------------------------------------------------
-関数の台
+関数の `台 <http://mathworld.wolfram.com/Support.html>`__
   多様体 :math:`M` で定義された関数 :math:`f` に対する次の部分集合のことを関数の台という。
 
   .. math::
@@ -21,79 +21,199 @@
      \supp{f} = \closure{\set{x \in M \sth f(x) \ne 0}}
      \end{align*}
 
-  補集合について次のことが成り立つことに注意する：
+  * ノート上は集合の閉包を上線で表現してあるはず。補集合ではない。
+  * ちなみに補集合については次のことが成り立つことに注意する：
 
-  .. math::
-     :nowrap:
+    .. math::
+       :nowrap:
 
-     \begin{align*}
-     x \in M \setminus \supp{F} \Leftrightarrow \exists U \owns x: f(U) = \zeroset
-     \end{align*}
+       \begin{align*}
+       x \in M \setminus \supp{F} \Longleftrightarrow \exists U \owns x: f(U) = \zeroset
+       \end{align*}
 
-  * 定義上、多様体という条件を位相空間まで緩められる。
+  * 定義上、多様体という条件を位相空間にまで緩められる。
 
 * 定理 5.1.1: 任意の :math:`x_0 \in M` とその任意の近傍 :math:`V \in M` に対して、
   次のような :math:`M` を定義域とする :math:`C^\infty` 級関数 :math:`\mu` が存在する：
 
-  #. :math:`\mu(x) \ge 0`
-  #. :math:`\mu(x_0) > 0, \supp{\mu} \in V`
-  #. :math:`\supp{\mu}` がコンパクトである。
+  * :math:`\mu(x) \ge 0`
+  * :math:`\mu(x_0) > 0, \supp{\mu} \in V`
+  * :math:`\supp{\mu}` がコンパクトである。
 
-  証明方針：問題 3.7.1 の関数 :math:`\rho(x)` を加工してなんとか関数 :math:`\mu(x)` を構成する。
+  証明方針：問題 3.7.1 の関数 :math:`\rho(x)` を再利用してなんとか関数 :math:`\mu(x)` を構成する。
+
+  #. プロトタイプとして非負関数 :math:`\mu_0(\bm x) = \rho(1 - \norm{\bm x})` を定義する。
+
+     * これは :math:`\norm{\bm x} \le 1 \implies \mu_0 \ge 0` を満たす。
+
+  #. プロトタイプを若干変形した非負関数
+     :math:`\displaystyle \mu1 = \mu0\left(\frac{2}{\eps}(\bm x - \varphi(x_0))\right)`
+     を定義する。
+
+     * まず :math:`x_0` を含む座標近傍 :math:`(U, \varphi)` をとり、
+       これを :math:`V` との共通部分の座標の像 :math:`\varphi(U \cap V) \subset \RR^n` を思い浮かべるといい。
+       点 :math:`\varphi(x_0)` について次を満たす :math:`\eps > 0` が何か存在する：
+
+       .. math::
+
+          B_\eps(\varphi(x_0)) \subset \varphi(U \cap V).
+
+     * このボールのさらに半径が半分の（卵ならば黄身の部分）部分集合を座標とする :math:`V` の点について、
+       :math:`0 \le \mu_1 \le 1` が成りたつ。
+       卵ならば白身の部分ではゼロとなる。
+
+  #. 最後に :math:`\mu_1` を定義域を全体に拡張すれば所望の関数が得られる：
+
+     .. math::
+
+        \mu(x) =
+        \begin{cases}
+        \mu_1(\varphi(x)) & \quad \text{if } x \in U \cap V\\
+        0 & \quad \text{if } x \in M \setminus (U \cap V).
+        \end{cases}
 
 * 定理 5.1.2: :math:`M` のコンパクト集合 :math:`K` とそれを含む開集合 :math:`U` があるとき、
   次のような :math:`M` を定義域とする :math:`C^\infty` 級関数 :math:`\nu` が存在する：
 
-  #. :math:`\nu(x) \ge 0`
-  #. :math:`\nu|K(x) > 0`
-  #. :math:`\supp{\nu}` が :math:`U` のコンパクト集合である。
+  * :math:`\nu(x) \ge 0`
+  * :math:`\nu|K(x) > 0`
+  * :math:`\supp{\nu}` が :math:`U` のコンパクト集合である。
 
   証明方針：定理 5.1.1 の関数 :math:`\mu(x)` をいくつか足して関数 :math:`\nu(x)` を構成する。
+
+  #. 前定理を再利用すると以下の条件が成り立つような各関数が存在する：
+
+     .. math::
+
+        \forall x_0 \in K, \exists \mu_{x_0}: M \longto \RR \quad \text{s.t. }
+        \forall x \in M, \mu_{x_0}(x) \le 0, \mu_{x_0}(x_0) > 0, \supp \mu_{x_0} \subset U.
+
+  #. :math:`\set{x \in M \sth \mu_{x_0}(x) > 0} = \int(\supp \mu_{x_0})` であることに注意。
+     :math:`K` のコンパクト性により、次が成り立つ：
+
+     .. math::
+
+        \exists x_1, \dotsc x_k \quad \text{s.t } K \subset \bigcup_{i = 1}^k \operatorname{int}(\supp \mu_{x_i}).
+
+  #. 最後に和を取れば所望の関数となる：
+     :math:`\displaystyle \sum_{i = 1}^k \mu_{x_i}(x).`
 
 * 定理 5.1.3: 定理 5.1.2 と同じ仮定の下で
   次のような :math:`M` を定義域とする :math:`C^\infty` 級関数 :math:`\nu` が存在する：
 
-  #. :math:`0 \le \nu(x) \le 1`
-  #. :math:`\nu|K(x) = 1`
-  #. :math:`\supp{\nu}` が :math:`U` のコンパクト集合である。
+  * :math:`0 \le \nu(x) \le 1`
+  * :math:`\nu|K(x) = 1`
+  * :math:`\supp{\nu}` が :math:`U` のコンパクト集合である。
 
-* 注意 5.1.4 の :math:`\nu f: M \longto \RR,\ \nu|K = f|K` の意味とは？
+  証明方針：
+
+  #. 前定理の性質を満たす関数 :math:`\nu_1: M \longto \RR` をとる。
+  #. :math:`K = \supp \nu_1 \setminus \operatorname{int}(\supp \nu_1)` は
+     開集合 :math:`U \setminus K` のコンパクト部分集合である。
+  #. 繰り返し前定理を再利用し、関数 :math:`\nu_2: M \longto \RR` がとれる。
+     :math:`(\nu_1 + \nu_2)|\supp \nu_1 > 0` より次の関数を考える：
+
+     .. math::
+
+        \nu(x) =
+        \begin{cases}
+        \displaystyle \frac{\nu_1}{\nu_1 + \nu_2} & \quad \text{if } x \in \operatorname{int}(\supp(\nu_1 + \nu_2))\\
+        0 & \quad \text{if } x \in M \setminus \operatorname{int}(\supp(\nu_1 + \nu_2)).
+        \end{cases}
+
+     これは所望の条件をすべて満たす。
+
+* 注意 5.1.4 の :math:`\nu f: M \longto \RR,\ \nu|K = f|K` の意味は、
+  このあとの方向微分の問題で効いてくる。
 
 ここまでの議論で、多様体上には多くの :math:`C^\infty` 級関数が存在することがわかった。
 
-* 補題 5.1.5: アダマール。
+* 補題 5.1.5: `アダマールの補題 <https://en.wikipedia.org/wiki/Hadamard%27s_lemma>`__
 
   :math:`\RR^n` 内の原点の開近傍で定義されている :math:`C^\infty` 級関数 :math:`f` に対して、
-  次のように書けるような :math:`C^\infty` 関数 :math:`g_k (k = 0, \dotsc, n)` が存在する：
+  次のように書けるような :math:`C^\infty` 関数 :math:`g_k\ (k = 0, \dotsc, n)` が存在する：
 
   .. math::
      :nowrap:
 
      \begin{align*}
-     f(x_1, \dotsc, x_n) & = f(0, \dotsc, 0) + \sum_{k = i}^{n}x_k g_k(x_1, \dotsc, x_n)\\
+     f(x_1, \dotsc, x_n) & = f(0, \dotsc, 0) + \sum_{k = i}^{n}x_i g_i(x_1, \dotsc, x_n)\\
      \frac{\partial f}{\partial x_k}(0, \dotsc, 0) & = g_k(0, \dotsc, 0)
      \end{align*}
 
   初等的な方法で示せる。
   :math:`{ \displaystyle g_k(x_1, \dotsc, x_n) = \int_0^1 \frac{\partial f}{\partial x_k} (tx_1, \dotsc, tx_n)\,\dd{t}}`
 
-* 問題 5.1.6: 方向微分。
+* 問題 5.1.6: `方向微分 <http://mathworld.wolfram.com/DirectionalDerivative.html>`__
+
   多様体 :math:`M` 上で定義されている :math:`C^\infty` 級関数 :math:`f, g` と点 :math:`p \in M` に対して、
   線形な演算 :math:`D` が定義できて :math:`D(f \cdot g) = Df g(p) + f(p) Dg` が成り立つとする（これを方向微分と呼ぶ）。
 
   #. 点 :math:`p \in M` における方向微分全てからなる空間 :math:`\mathcal{D}_p` は実ベクトル空間である。
+
+     * 解答にあるように、:math:`D_1, D_2 \in \mathcal D_p,\quad a_1, a_2 \in \RR` に対して
+       :math:`(a_1 D_1 + a_2 D_2)(fg) = (a_1 D_1 + a_2 D_2)f g(p) + f(p) (a_1 D_1 + a_2 D_2) g` を示せばよい。
+
   #. 多様体 :math:`M` 上の曲線 :math:`c(t)\ (c(0) = p)` について
-     :math:`{ \displaystyle D_c: f \mapsto \diff{(f \circ c)}{t}(0)}` は点 :math:`p` における方向微分である。
-  #. :math:`\mathcal{D}_p` の基底は :math:`{ \displaystyle
+     :math:`\displaystyle D_c: f \longmapsto \diff{(f \circ c)}{t}(0)` は点 :math:`p` における方向微分である。
+
+     * これも計算だけで済む。次の二点を確認すればよい：
+     
+       .. math::
+       
+          &&D_c(a_1 f_1 + a_2 f_2) = a_1 D_c(f_1) + a_2 D_c(f_2)\\
+          &&D_c(fg) = D_c(f)g(0) + D_c f(0)(g)
+
+  #. :math:`\mathcal{D}_p` の基底は :math:`\displaystyle
      \Set{
      \left(\frac{\partial}{\partial x_1} \right)_p,
      \dotsc,
-     \left(\frac{\partial}{\partial x_n} \right)_p
-     }` である。
+     \left(\frac{\partial}{\partial x_n} \right)_p}` である。
 
-     * :math:`{ \displaystyle \left(\frac{\partial}{\partial x_k} \right)_p}` は関数
-       :math:`{ \displaystyle t \mapsto \varphi^{-1}(0, \dotsc, \overset{(k)}t, \dotsc, 0)}` における方向微分とする (cf. p. 76)。
-     * これを証明するのに補題 5.1.5 を利用する。
+     ここで :math:`\displaystyle \left(\frac{\partial}{\partial x_k} \right)_p` とは曲線
+     :math:`\displaystyle t \longmapsto \varphi^{-1}(0, \dotsc, \overset{(k)}t, \dotsc, 0)` における方向微分とする (cf. p. 76)。
+
+     * :math:`Df` が点 :math:`p` の近傍で定義された :math:`C^\infty` 級関数に対して定義されることを示す。
+       この際に定理 5.1.3 の関数 :math:`\nu` および注意 5.1.4 の事実を用いる。
+
+     * :math:`D \in \mathcal D_p` が上述の一次結合で表されることを示す。
+       :math:`f \in C^\infty(M)` に対して :math:`\displaystyle \left(\frac{\partial}{\partial x_i} \right)_p f = \frac{\partial(f \circ \varphi^{-1})}{\partial x_i}(0, \dotsc, 0).`
+
+       :math:`(\nu f) \circ \varphi^{-1}` を :math:`\RR^n` 上の関数とみなして、
+       アダマールの補題を適用して次のような :math:`g_i` を定義する（これ合っているか？）：
+
+       .. math::
+
+          \begin{align*}
+          &(\nu f) \circ \varphi^{-1} = f(p) + \sum_{i = 1}^n x_i g_i(x_1, \dotsc, x_n),\\
+          &g_i(0, \dotsc, 0) = \frac{\partial(f \circ \varphi^{-1})}{\partial x_i}(0, \dotsc, 0).
+          \end{align*}
+
+     * 点 :math:`p` の近傍では :math:`\displaystyle f = f(p) + \sum_{i = 1}^n (x_i \circ \varphi^{-1})(g_i \circ \varphi^{-1})`
+       となっている。よって次のようにすれば線形結合になっていることが示される：
+       
+       .. math::
+       
+          \begin{align*}
+          Df &= D(f(p)) + \sum_{i = 1}^n (D(x_i)g_i(0) + 0 \cdot D(g_i))\\
+             &= \sum_{i = 1}^n D(x_i)\frac{\partial(f \circ \varphi^{-1})}{\partial x_i}(0, \dotsc, 0)\\
+             &= \sum_{i = 1}^n D(x_i) \left(\frac{\partial}{\partial x_i} \right)_p f.
+          \end{align*}
+
+      * 最後に各基底の一次独立性を示しておく。
+      
+        .. math::
+        
+           \left(\frac{\partial}{\partial x_i} \right)_p x_j
+           = \left(\frac{\partial x_j}{\partial x_i} \right)(0, \dotsc, 0)
+           = \delta_{ij}.
+
+   ヒントをどこで利用したのかを分かりやすくしておきたい。
+
+   * :math:`D(const) = 0.`
+   * :math:`Df` は関数 :math:`f` の点 :math:`p` の近傍の値（だけ）で決まる。
+   * 点 :math:`p` の近傍で定義されている任意の関数 :math:`f` に対して、
+     :math:`V \subset U` 上 :math:`f` に一致する :math:`C^\infty` 級関数がある。
 
 5.2 コンパクト多様体のユークリッド空間への埋め込み
 ----------------------------------------------------------------------
@@ -150,12 +270,12 @@
       * ランクが :math:`n` であることは :math:`(\nu_i \varphi_i | V_i) \circ \varphi_i^{-1} = id_{\varphi_i(V_i)}` から示せる。
       * 単射であることは :math:`\Phi(x) = \Phi(y) \implies x = y` を示すのに
         :math:`\mu_i` の成分と :math:`\nu_i` の成分の単射性を別々に示す。
-        関数の非ゼロ性と局所座標の微分同相性が使えるので容易に示せる。
+        関数の非ゼロ性と局所座標の同相性が使えるので容易に示せる。
 
 ユークリッド空間が利用できるようになったので、内積の話題が出て来るようになる。
 
 法束
-  :math:`\nu M = \set{(x, v) \in \RR^N \times \RR^N \sth v \perp T_xM }`
+  :math:`\nu M = \set{(x, v) \in \RR^N \times \RR^N \sth v \perp T_xM}`
 
   これはユークリッド空間内の :math:`N` 次元多様体になっている。
 
@@ -167,14 +287,58 @@
   法束 :math:`\nu M` は :math:`(V_i \times \RR^{N - n}, \gamma_{ij} \times A_{ij})` から構成される。
   ここで :math:`A_{ij_{(x_j)}} \in GL_{N - n}(\RR)` である。
 
-* 注意 5.2.4: ユークリッド空間 :math:`\RR^{n + 1}` 内の
-  :math:`n` 次元コンパクト多様体は向き付け可能とある。理屈が飲み込めない。
+* 注意 5.2.4
 
-* 問題 5.2.5: ユークリッド空間に埋め込まれるコンパクト多様体の性質。
-  後回しにしたい。
+  * ユークリッド空間 :math:`\RR^{n + 1}` 内の n 次元コンパクト多様体の法束は
+    1 次元ベクトル空間をファイバーとするベクトル束である。
+
+  * ユークリッド空間 :math:`\RR^{n + 1} \quad(n \le 2)` 内の
+    :math:`n` 次元コンパクト多様体は向き付け可能とある。理屈が飲み込めない。
+
+* 問題 5.2.5: ユークリッド空間 :math:`\RR^N` に埋め込まれる p 次元コンパクト多様体 :math:`M` の性質
 
   #. 法束は :math:`N` 次元多様体になっている。
-  #. 写像 :math:`(x, y) \mapsto x + y` は :math:`X \cap (\RR^N \times \zeroset)` 近傍で微分同相である。
+  
+     :math:`X = \nu M = \set{(\bm x, \bm y) \in \RR^{2N} \sth \bm x \in M, \bm y \perp T_{\bm x}M}.`
+
+     * 問題 4.5.3 でやったように :math:`M` のグラフ表示を考えることから始める。
+       同じような記号を使う。
+
+       :math:`(\bm x, \bm y) \in X \Longleftrightarrow \bm y = (\bm y_1, \bm y_2)` とは、
+       次が成り立つことと同値である：
+       
+       .. math::
+       
+          \begin{align*}
+          &\bm x_2 = g(\bm x_1),\\
+          &\begin{pmatrix}\bm y_1 & \bm y_2\end{pmatrix}
+           \begin{pmatrix}I_p \\ Dg\end{pmatrix}
+          = \bm 0.
+          \end{align*}
+
+       :math:`X` は :math:`(\bm x_1, \bm x_2) \longmapsto (g(\bm x_1), -bm y_2 Dg_{(\bm x_1)})` の
+       グラフとして表されている。よってこの空間は多様体である。
+
+  #. 写像 :math:`e: (\bm x, \bm y) \longmapsto \bm x + \bm y` は
+     :math:`X \cap (\RR^N \times \zeroset)` 近傍で微分同相である。
+
+     * 先ほどのグラフの写像を :math:`F` とすると
+       :math:`(e \circ F)(\bm x_1, \bm y_2) = (\bm x_1 - \bm y_2 Dg_{\bm x_1}, g(\bm x_1) + \bm y_2).`
+       
+     * :math:`\bm y_2 = 0` すなわち :math:`(\bm x_1^0, \bm 0)` における微分は次のようになる：
+     
+       .. math::
+       
+          \begin{pmatrix}
+          I_p              & -{}^t\!Dg_{(\bm x_0^1)}\\
+          Dg_{(\bm x_0^0)} & I_{N - p}
+          \end{pmatrix}.
+
+       この行列の右上のブロックと左下のブロック（第 :math:`i` 列と第 :math:`p + j` 列）が直交するので、
+       これはランクが :math:`N` である。
+
+     * 写像 :math:`e` を :math:`\bm y_2 = \bm 0` に制限した写像は
+       例題 4.3.1 の仮定をみたすので、主張の近傍で微分同相となる。
 
 5.3 :math:`C^\infty` 級写像と多様体の埋め込み、はめ込み
 ----------------------------------------------------------------------
@@ -211,7 +375,9 @@
       * :math:`\forall x \in \Sigma_k, -x \in \Sigma_k` なので同値関係を定義して :math:`\Sigma_k/\sim` を定義できる。
         このとき、これは多様体となり非有向閉曲面 :math:`N_{k + 1}` となる。
 
-* 例 5.3.3: メビウス帯の像、ホイットニーの傘、クロスキャップ
+* 例 5.3.3: メビウス帯の像、
+  `ホイットニーの傘 <http://mathworld.wolfram.com/WhitneyUmbrella.html>`__
+  `クロスキャップ <http://mathworld.wolfram.com/Cross-Cap.html>`__
 
 * <写像 :math:`F: M \longto N` が与えられ、:math:`N` の形と :math:`F^{-1}(y)\ (y \in N)` の形が理解できれば、
   :math:`M` の形がわかることが期待できる> (p. 101)
@@ -230,7 +396,7 @@
 * 例 5.3.4: 例題 2.4.1 の関数の検討
 * 例 5.3.5
 
-  * ポーイ・アペリ曲面の平面への射影（写像）など。
+  * `ボーイ・アペリ曲面 <http://mathworld.wolfram.com/BoySurface.html>`__ の平面への射影（写像）など。
   * 問題 2.5.1 では図のソリッドな曲線が臨界値となっている。
   * これらによると、アウトラインが大体臨界値であるということが推測される。
 
@@ -268,9 +434,20 @@
   * 関数 :math:`f \in C^\infty(M)` がモース関数であるとは、
     多様体上のどの臨界点においても非退化であることをいう。
 
-* ヘッセ行列の正則性は座標近傍の取り方によらない。
-* 同様に、二次曲面の行列の符号数も取り方によらない。
-  ちなみに負の固有値の個数をモース臨界点の指数という。
+* ヘッセ行列の正則性は座標近傍の取り方によらない：
+  :math:`H(f \circ \varphi^{-1}) = {}^t\!PH(f \circ \psi^{-1})P.`
+
+* 二次曲面の形は行列 :math:`\displaystyle \sum_{i, j}^n \frac{\partial^2(f \circ \varphi^{-1}}{\partial x_i \partial x_j}(\varphi(x))`
+  の重複を込めた正と負それぞれの固有値の個数で分類できる。
+
+* 二次曲面を変換して座標系を正則行列に取り替えることで、次の標準形に書き換えられる：
+
+  .. math::
+  
+     -\sum_{i = 1}^k x_i^2 + \sum_{i = k + 1}^n x_i^2.
+
+* 二次曲面の行列の符号数も取り方によらない。
+* ちなみに負の固有値の個数をモース臨界点の指数という。
 
 * 補題 5.4.3: モースの補題
 
