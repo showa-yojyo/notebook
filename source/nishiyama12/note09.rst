@@ -70,7 +70,7 @@
 射影変換
   射影空間から自身への自己同型写像。行列を使う。
   :math:`g \in \mathit{GL}_{n + 1}(\CC), V = \CC` をとる。
-  自己同型写像 :math:`\pi_g: [v] \mapsto [gv]` は :math:`\mathbb{P}(V)` の射影変換であるという。
+  自己同型写像 :math:`\pi_g: [v] \longmapsto [gv]` は :math:`\mathbb{P}(V)` の射影変換であるという。
 
 射影一般線形群
   :math:`\mathit{PGL}_{n + 1}(\CC) := \mathit{GL}_{n + 1}(\CC)/\CC^\times` は

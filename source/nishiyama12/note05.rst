@@ -28,7 +28,7 @@
 * 演習 5.1: アフィン変換を :math:`g \in A_2` による行列の積としてみなすと、
   平面上の三角形の像で変換が決まる。
 
-* 定理 5.2: 作用 :math:`A_2^\curvearrowright (\RR^2)^m: p \mapsto gp` の不変式環
+* 定理 5.2: 作用 :math:`A_2^\curvearrowright (\RR^2)^m: p \longmapsto gp` の不変式環
   :math:`\CC[(\RR^2)^m]^{A_2}` は定数関数しかない。
 
 * 補題 5.3, 定理 5.4: アフィン変換は平行な直線を平行な直線へ写す。
@@ -101,7 +101,7 @@
 
 * 定理 5.12: 三角形の各頂点をまったく移動させないような変換は恒等写像しかない。
 
-  * 証明方針は :math:`g: x \mapsto hx + v` とおくと、原点を頂点の一つとする三角形に対して
+  * 証明方針は :math:`g: x \longmapsto hx + v` とおくと、原点を頂点の一つとする三角形に対して
     :math:`0 = g(0)` より :math:`v = 0` である。
     さらに :math:`\forall a, b \in \RR^2,\ h(a b) = (a b)` より :math:`h = I` である。
 
@@ -147,7 +147,7 @@
    e
    \end{pmatrix},\
    \\
-   A \mapsto {}^t\!gAg = 
+   A \longmapsto {}^t\!gAg = 
    \begin{pmatrix}
    {}^t\!hXh         & {}^t\!Xv + {}^t\!hu\\
    {}^t\!Xh + {}^tuh & f + {}^t\!Xv + 2u \cdot v

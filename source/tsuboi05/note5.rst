@@ -488,7 +488,7 @@
 
   直球のような設問。この問題は理解していないといけない。
 
-  * :math:`g \in U(1)` に対して :math:`(g, z) \mapsto (gz_1, \dotsc, gz_n)` とすると、これは群の作用となる。
+  * :math:`g \in U(1)` に対して :math:`(g, z) \longmapsto (gz_1, \dotsc, gz_n)` とすると、これは群の作用となる。
   * :math:`S^{2n + 1} \overset{i}{\longto} \CC^{n + 1}\minuszero \overset{p}{\longto} \CC P^n` のランクはいくらか。
     ただし :math:`i,\ p` は包含写像と射影である。
   * 次に示す関数は :math:`F: \CC P^n \longto \RR` を誘導する：

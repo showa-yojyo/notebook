@@ -130,7 +130,7 @@
     :math:`G \times_{H} W = \set{[g, w] \sth (g, w) \in G \times W} = G \times W / \sim`
 
 ファイバー束から底空間への射影
-  写像 :math:`[g, w] \mapsto gH \in G/H` とすると、この逆像は部分群が作用する空間と同型になる。
+  写像 :math:`[g, w] \longmapsto gH \in G/H` とすると、この逆像は部分群が作用する空間と同型になる。
 
 底空間
   商群 :math:`G/H` のことをそう呼ぶ。
@@ -152,7 +152,7 @@
   :math:`H = \mathit{SO}_2(\RR)` を z 軸周りの回転で :math:`G = \mathit{SO}_3(\RR)` の部分群とする。
 
   * このとき同伴ファイバー束から 3 次元空間への射影を
-    :math:`[g, w] \mapsto g(\mathbf{e}_3 + w)` で定めると、
+    :math:`[g, w] \longmapsto g(\mathbf{e}_3 + w)` で定めると、
 
     * well-defined かつ
     * 値は :math:`g\mathbf{e}_3` における接平面であり、

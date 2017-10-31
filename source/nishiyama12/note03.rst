@@ -47,7 +47,7 @@
        \end{align*}
 
 * 例 3.7: 巡回群 :math:`\ZZ / n \ZZ` の表現は一次元で
-  :math:`k \mapsto e^{2km \pi i/n} \in \CC^\times = GL_1(\CC)` のようになる。
+  :math:`k \longmapsto e^{2km \pi i/n} \in \CC^\times = GL_1(\CC)` のようになる。
 
   * この写像が well-defined かつ準同型であることを一応確認しておく。
 

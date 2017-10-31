@@ -257,7 +257,7 @@
 
 * 問題 4.3.3: `リー群 <http://mathworld.wolfram.com/LieGroup.html>`__
 
-  #. :math:`L_g: h \mapsto gh` は :math:`C^\infty` 級微分同相である。
+  #. :math:`L_g: h \longmapsto gh` は :math:`C^\infty` 級微分同相である。
 
      * これは微分同相の定義を確認するだけで済む。
        :math:`L_g \circ L_{g^{-1}} = L_{g^{-1}} \circ L_g = \id_G`
@@ -265,7 +265,7 @@
   #. 接写像 :math:`T_{(g, h)}(G \times G) \longto T_{gh}G` のランク。
 
      * 群の多様体次元と一致することを示すわけだが、ヒントから何をしていいかわからない。
-     * 定数関数 :math:`G \owns c_g: g \mapsto a \in \RR` を取る。
+     * 定数関数 :math:`G \owns c_g: g \longmapsto a \in \RR` を取る。
      * 次のような演算の列を考える。
 
        .. math::
@@ -466,7 +466,7 @@
 
      同値関係となる理由：
 
-     * 写像 :math:`G_{ij}: (x_i, v_i) \mapsto (\gamma_{ij}(xj), (D\gamma_{ij})_{(x_j)} v_j)` を考える。
+     * 写像 :math:`G_{ij}: (x_i, v_i) \longmapsto (\gamma_{ij}(xj), (D\gamma_{ij})_{(x_j)} v_j)` を考える。
        これは微分同相となる。
      * そして :math:`G_{ij} \circ G_{jk} = G_{ik}` （ただし :math:`G_{ii} = \id` と約束する）が成り立つ。
 

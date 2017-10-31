@@ -303,8 +303,8 @@
 .. math::
 
    \begin{align*}
-   T_{rp}: (x, y) & \mapsto & (\sqrt{x^2 + y^2}, \tan^{-1} \frac{y}{x})\\
-   T_{pr}: (r, \theta) & \mapsto & (r \cos \theta, r \sin \theta)
+   T_{rp}: (x, y) & \longmapsto & (\sqrt{x^2 + y^2}, \tan^{-1} \frac{y}{x})\\
+   T_{pr}: (r, \theta) & \longmapsto & (r \cos \theta, r \sin \theta)
    \end{align*}
 
 3 次元オブジェクト
@@ -319,8 +319,8 @@
 .. math::
 
    \begin{align*}
-   T_{rc}: (x, y, z) & \mapsto & (\sqrt{x^2 + y^2}, \tan^{-1} \frac{y}{x}, z)\\
-   T_{cr}: (\rho, \psi, z) & \mapsto & (\rho \cos \psi, \rho \sin \psi, z)
+   T_{rc}: (x, y, z) & \longmapsto & (\sqrt{x^2 + y^2}, \tan^{-1} \frac{y}{x}, z)\\
+   T_{cr}: (\rho, \psi, z) & \longmapsto & (\rho \cos \psi, \rho \sin \psi, z)
    \end{align*}
 
 直交座標系と球座標系間の座標変換は次のように与えられている。
@@ -328,8 +328,8 @@
 .. math::
 
    \begin{align*}
-   T_{rs}: (x, y, z) & \mapsto & (\sqrt{x^2 + y^2 + z^2}, \cos^{-1} \frac{z}{\sqrt{x^2 + y^2 + z^2}}, \tan^{-1} \frac{y}{x})\\
-   T_{sr}: (r, \theta, \phi) & \mapsto & (r \sin \theta \cos \phi, r \sin \theta \sin \phi, r \cos \theta)
+   T_{rs}: (x, y, z) & \longmapsto & (\sqrt{x^2 + y^2 + z^2}, \cos^{-1} \frac{z}{\sqrt{x^2 + y^2 + z^2}}, \tan^{-1} \frac{y}{x})\\
+   T_{sr}: (r, \theta, \phi) & \longmapsto & (r \sin \theta \cos \phi, r \sin \theta \sin \phi, r \cos \theta)
    \end{align*}
 
 円柱座標系と球座標系間の座標変換は次のように与えられている。
@@ -337,8 +337,8 @@
 .. math::
 
    \begin{align*}
-   T_{cs}: (\rho, \psi, z) & \mapsto & (\sqrt{\rho^2 + z^2}, \cos^{-1} \frac{z}{\sqrt{\rho^2 + z^2}}, \psi)\\
-   T_{sc}: (r, \theta, \phi) & \mapsto & (r \sin \theta, \phi, r \cos \theta)
+   T_{cs}: (\rho, \psi, z) & \longmapsto & (\sqrt{\rho^2 + z^2}, \cos^{-1} \frac{z}{\sqrt{\rho^2 + z^2}}, \psi)\\
+   T_{sc}: (r, \theta, \phi) & \longmapsto & (r \sin \theta, \phi, r \cos \theta)
    \end{align*}
 
 コード例（基本編）

@@ -127,7 +127,7 @@
      :nowrap:
 
      \begin{align*}
-     A \mapsto [D_{12}(A) : D_{13}(A) : D_{14}(A) : D_{32}(A) : D_{42}(A) : D_{34}(A)]
+     A \longmapsto [D_{12}(A) : D_{13}(A) : D_{14}(A) : D_{32}(A) : D_{42}(A) : D_{34}(A)]
      \end{align*}
 
 * 定理 10.3: 写像 :math:`\mathscr{P}` は :math:`Gr_2(\CC^4)` から

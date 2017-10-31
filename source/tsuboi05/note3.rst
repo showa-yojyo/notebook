@@ -82,7 +82,7 @@
 
   * 後半は射影空間が多様体であることを示す。
 
-    * 射影 :math:`p: S^n \longto \RR P^n;\quad [x] \mapsto \set{x, -x}` は同値類への写像となる。
+    * 射影 :math:`p: S^n \longto \RR P^n;\quad [x] \longmapsto \set{x, -x}` は同値類への写像となる。
     * 局所座標系 :math:`\set{(V_i, \varphi_i)}` を次のように定義する。
 
       .. math::
@@ -176,9 +176,9 @@
 
   * 考察する写像
 
-    * :math:`p: Z \longto \RR; \quad (x, y) \mapsto y`
-    * :math:`\underline{p}: Y \longto \RR; \quad [x, y] \mapsto y`
-    * :math:`f^\pm: \RR \longto Z; \quad y \mapsto (\pm 1, y)`
+    * :math:`p: Z \longto \RR; \quad (x, y) \longmapsto y`
+    * :math:`\underline{p}: Y \longto \RR; \quad [x, y] \longmapsto y`
+    * :math:`f^\pm: \RR \longto Z; \quad y \longmapsto (\pm 1, y)`
     * :math:`p_Y: Z \longto Y;` （射影）
 
   * 合成写像 :math:`p_Y \circ f_\pm` を考える。
@@ -296,7 +296,7 @@
 
   * 円周 :math:`S^1` と同相となることを示せる。
 
-    * 実数から円周への写像 :math:`h: x \mapsto (\cos 2\pi x, \sin 2 \pi x)` を定義する。
+    * 実数から円周への写像 :math:`h: x \longmapsto (\cos 2\pi x, \sin 2 \pi x)` を定義する。
     * 誘導される写像 :math:`\underline{h} = h \circ p^{-1}` が定義でき、
       これが全射であるだけでなく、単射であることを示せば、同相であると結論できる。
 
@@ -525,7 +525,7 @@
   #. n 次元 :math:`C^\infty` 多様体 :math:`M` と上述の商空間 :math:`X` とが微分同相となる。
      例題 3.5.1 の記号を流用すると、
 
-     * 写像 :math:`\iota: x_i \in V_i \mapsto \varphi_i^{-1}(x_i)` を考える。
+     * 写像 :math:`\iota: x_i \in V_i \longmapsto \varphi_i^{-1}(x_i)` を考える。
        このとき、誘導される写像 :math:`\underline{\iota}: X \longto M` は連続となる。
 
        なぜなら :math:`x_i \in V_{ij}, \iota(\gamma_{ji}(x_i)) = \iota(x_i)` だから。
