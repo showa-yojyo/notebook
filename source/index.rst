@@ -37,7 +37,6 @@ Contents:
    stepanov15
    slatkin16
    speinellis17
-   mathjax
 
 .. toctree::
    :maxdepth: 1
@@ -85,3 +84,4 @@ Contents:
    twitter
    inkscape/index
    git/index
+   mathjax
