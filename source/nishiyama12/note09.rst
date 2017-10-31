@@ -87,23 +87,18 @@
 この写像は以下のようにして :math:`\mathbb{P}^1` に作用する。
 
 .. math::
-   :nowrap:
 
-   \begin{align*}
-   \pi_g(z) = \left\{
-   \begin{array}{cc}
-   \dfrac{az + b}{cz + d} & (cz + d \ne 0)\\
-   \infty & (cz + d = 0)\\
-   \end{array}
-   \right.
-   \quad
-   \pi_g(\infty) = \left\{
-   \begin{array}{cc}
-   \dfrac{a}{c} & (c \ne 0)\\
-   \infty & (c = 0)\\
-   \end{array}
-   \right.
-   \end{align*}
+   \pi_g(z) =
+   \begin{cases}
+   \dfrac{az + b}{cz + d} & \quad \text{if } cz + d \ne 0\\
+   \infty & \quad \text{if } cz + d = 0
+   \end{cases}
+   \qquad
+   \pi_g(\infty) =
+   \begin{cases}
+   \dfrac{a}{c} & \quad \text{if } c \ne 0\\
+   \infty & \quad \text{if } c = 0
+   \end{cases}
 
 * 定理 9.9: :math:`\mathbb{P}^1` 上の一次分数変換のうち、上半平面を保つものは :math:`\mathit{SL}_2(\RR)` から取れる。
 * 定理 9.10: 上半平面は :math:`\mathit{SL}_2(\RR)/\mathit{SO}_2(\RR)` と同型。

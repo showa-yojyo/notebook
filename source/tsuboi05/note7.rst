@@ -40,7 +40,7 @@
 * 問題 7.1.2: :math:`C^1` 級曲線の長さ
 
   * :math:`\Delta = \set{ 0 = t_0 \le \dots \le t_m = 1}` を区間 :math:`[0, 1]` の細分とすると
-    :math:`\displaystyle \int_{0}^{1}\!\Norm{\diff{c(t)}{t}}\,dt = \sup_{\Delta}\sum_{k = 1}^m \left\norm{c(t_k) - c(t_{k - 1})\right}`
+    :math:`\displaystyle \int_{0}^{1}\!\Norm{\diff{c(t)}{t}}\,dt = \sup_{\Delta}\sum_{k = 1}^m \norm{c(t_k) - c(t_{k - 1})}`
 
   * 証明全体は微積分の教科書を参照。
 
@@ -159,16 +159,12 @@
       * :math:`y \notin \varphi^{-1}(V)` のときは面倒で、次のような関数を説明することになる：
 
         .. math::
-           :nowrap:
 
-           \begin{align*}
-           F(z) = \left\{
-           \begin{array}{lr}
-           \norm{\varphi(x) - \varphi(z)}^2 & : z \in \varphi^{-1}(V)\\
-           \eps^2 + 1                             & : z \notin \varphi^{-1}(V)
-           \end{array}
-           \right.
-           \end{align*}
+           F(z) = 
+           \begin{cases}
+           \norm{\varphi(x) - \varphi(z)}^2 & \quad \text{if } z \in \varphi^{-1}(V)\\
+           \eps^2 + 1 & \quad \text{if } z \notin \varphi^{-1}(V)
+           \end{cases}
 
         このとき、
 
@@ -545,18 +541,12 @@
      :math:`TM` 上 :math:`C^\infty` 級かつ :math:`T_xM` 上二次形式となる：
 
      .. math::
-        :nowrap:
 
-        \begin{align*}
         \mu_i q_i(v) =
-        \left\{
-        \begin{array}{lr}
-        \displaystyle
-        \mu_i(x)\sum_{i=1}^n(v_i^{(i)})^2 &\\
-        0 & (\text{ if } v \in T_xM)
-        \end{array}
-        \right.
-        \end{align*}
+        \begin{cases}
+        \displaystyle \mu_i(x)\sum_{i=1}^n(v_i^{(i)})^2 & \quad \text{if } v \notin T_xM\\
+        0 & \quad \text{if } v \in T_xM
+        \end{cases}
 
   #. :math:`\displaystyle q(v) = \sum_{i = 1}^k \mu_i q_i(v)` とすると、
      これが :math:`TM` 上 :math:`C^\infty` 級かつ :math:`T_xM` 上正値二次形式となる。
