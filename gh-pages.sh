@@ -31,6 +31,6 @@ git commit -m "Build 1.4.0dev$COMMIT_MESSAGE."
 
 NUM=5
 echo Most recent $NUM commits:
-git --no-pager log --pretty=format:'%C(auto)%h %ad%d %s %C(bold blue)[%cn]' --decorate --date=iso HEAD~$NUM..
+git --no-pager log --pretty=tformat:'%C(auto)%h %ad%d %s %C(bold blue)[%cn]%C(reset)' --decorate --date=iso HEAD~$NUM..
 
 cd -
