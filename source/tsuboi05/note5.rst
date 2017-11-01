@@ -497,7 +497,7 @@
        :nowrap:
 
        \begin{align*}
-       f(z) = \frac{\displaystyle \sum_{k = 1}^{n + 1} k \abs{z_k} ^2}{\displaystyle \sum_{k = 1}^{n + 1} \lvert z_k \rvert ^2}.
+       f(z) = \frac{\displaystyle \sum_{k = 1}^{n + 1} k \abs{z_k} ^2}{\displaystyle \sum_{k = 1}^{n + 1} \abs{z_k} ^2}.
        \end{align*}
 
   * :math:`F` の臨界点は :math:`F_*: T_x \CC P^n \longto \RR` がゼロとなる
@@ -582,7 +582,7 @@
 
       添字が有限個であることと、各 :math:`\closure{V_i} \cap \closure{V_j}'` がコンパクトであることによる。
 
-      * 行列のノルムを :math:`\displaystyle \norm{A} = \sup_{x \ne 0}\frac{\lVert A \bm{x} \rVert}{ \lVert \bm{x} \rVert}` とする。
+      * 行列のノルムを :math:`\displaystyle \norm{A} = \sup_{x \ne 0}\frac{\norm{A \bm{x}}}{ \lVert \bm{x} \rVert}` とする。
 
   * :math:`r = 2` のときは p. 104 のような（ここにはとても記せられない）計算をして
     :math:`N_\eps^2(f, \set{V_i}) \subset N_K^2(f, \set{V_j'})` を満たす

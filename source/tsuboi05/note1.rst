@@ -138,7 +138,7 @@
   .. math::
 
      \forall \bm x, \bm x + \bm v \in A,\ 
-     \norm{G(\bm x + \bm v) - G(\bm x)} \le \sqrt{mn}K\lVert \bm v \rVert.
+     \norm{G(\bm x + \bm v) - G(\bm x)} \le \sqrt{mn}K\norm{\bm v}.
 
   * 証明方針
 
@@ -248,9 +248,9 @@
 
        \norm{\bm x} < \delta \implies \left|\frac{\partial h_i}{\partial x_j}\right| \le \eps.
 
-  * 例題 1.2.7 のリプシッツ評価式を利用して :math:`\norm{H(\bm x + \bm v) - H(\bm x)} \le \eps n \lVert \bm v \rVert.`
+  * 例題 1.2.7 のリプシッツ評価式を利用して :math:`\norm{H(\bm x + \bm v) - H(\bm x)} \le \eps n \norm{\bm v}.`
   * :math:`\displaystyle \norm{\bm y} \le \frac{\delta}{2}` とすると
-    :math:`\displaystyle \norm{\bm x_{k + 1} - \bm x_k} = \lVert H(\bm x_k) - H(\bm x_{k - 1}) \rVert \le \frac{1}{2^k}\lVert \bm x_1 - \bm x_0 \rVert` より
+    :math:`\displaystyle \norm{\bm x_{k + 1} - \bm x_k} = \norm{H(\bm x_k) - H(\bm x_{k - 1})} \le \frac{1}{2^k}\lVert \bm x_1 - \bm x_0 \rVert` より
     :math:`\norm{\bm x_{k + 1}} < \delta` が成り立つ。
     各点に対して上述のリプシッツ評価式が成り立つから
     :math:`\set{\bm x_i}` はコーシー列であり、極限が :math:`\bm x` であることが示せた。
@@ -275,12 +275,12 @@
        \begin{align*}
        \bm y_2 - \bm y_1 &= DF_{(G(\bm y_1))}(G(\bm y_2) - G(\bm y_1))
                 + r(G(\bm y_1), G(\bm y_2))
-                \frac{\norm{G(\bm y_2) - G(\bm y_1)}}{\lVert \bm y_2 - \bm y_1 \rVert}
+                \frac{\norm{G(\bm y_2) - G(\bm y_1)}}{\norm{\bm y_2 - \bm y_1}}
                 \norm{\bm y_2 - \bm y_1}
        \\
        G(\bm y_2) - G(\bm y_1) &= {DF_{(G(\bm y_1))}}^{-1}(\bm y_2 - \bm y_1)
                 - r(G(\bm y_1), G(\bm y_2))
-                \frac{\norm{G(\bm y_2) - G(\bm y_1)}}{\lVert \bm y_2 - \bm y_1 \rVert}
+                \frac{\norm{G(\bm y_2) - G(\bm y_1)}}{\norm{\bm y_2 - \bm y_1}}
                 \norm{\bm y_2 - \bm y_1}
        \end{align*}
 

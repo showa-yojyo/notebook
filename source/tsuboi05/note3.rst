@@ -309,7 +309,7 @@
        :nowrap:
 
        \begin{align*}
-       f(\bm{x_2}) = \frac{\abs{\bm{x_1} \cdot \bm{x_2}}}{\norm{\bm{x_1}} \lVert \bm{x_2} \rVert}.
+       f(\bm{x_2}) = \frac{\abs{\bm{x_1} \cdot \bm{x_2}}}{\norm{\bm{x_1}} \norm{\bm{x_2}}}.
        \end{align*}
 
   * 次に誘導される写像 :math:`\underline{f}` が連続であることを示し、
@@ -456,7 +456,7 @@
 
 * 例題 3.4.9: `レンズ空間 <http://mathworld.wolfram.com/LensSpace.html>`__
 
-  :math:`S^3 := \set{(z_1, z_2) \in \CC^2 \sth \abs{z_1} ^2 + \lvert z_2 \rvert ^2 = 1}`
+  :math:`S^3 := \set{(z_1, z_2) \in \CC^2 \sth \abs{z_1} ^2 + \abs{z_2} ^2 = 1}`
 
   * 有限変換群 :math:`F` の元は互いに素な自然数の組 :math:`p, q` を用いて構成できる。
     LaTeX を書くと字が潰れるので省略。

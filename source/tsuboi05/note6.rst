@@ -116,9 +116,9 @@
           :nowrap:
 
           \begin{split}
-          \norm{H_t(\bm{x}) - H_t(\bm{y})} & \le nt\eps \lVert \bm{x} - \bm{y} \rVert\\
+          \norm{H_t(\bm{x}) - H_t(\bm{y})} & \le nt\eps \norm{\bm{x} - \bm{y}}\\
           & \le \frac{1}{2}\norm{\bm{x} - \bm{y}}\\
-          \therefore \norm{F_t(\bm{x}) - F_t(\bm{y})} & \ge \frac{1}{2}\lVert \bm{x} - \bm{y} \rVert
+          \therefore \norm{F_t(\bm{x}) - F_t(\bm{y})} & \ge \frac{1}{2}\norm{\bm{x} - \bm{y}}
           \end{split}
 
     #. :math:`F_t` は全射である。
@@ -130,7 +130,7 @@
           :nowrap:
 
           \begin{split}
-          \norm{\bm{x}_{k+1} - \bm{x}} & \le& \frac{1}{2^{k-1}}\lVert \bm{x}_2 - \bm{x}_1 \rVert\\
+          \norm{\bm{x}_{k+1} - \bm{x}} & \le& \frac{1}{2^{k-1}}\norm{\bm{x}_2 - \bm{x}_1}\\
           & =& \frac{1}{2^{k-1}}\norm{\bm{y} - F_t(\bm{y})}\\
           &\therefore& \bm{x}_k \to \bm{y}\ s.t.\ \bm{y} = F_t(\bm{y}). 
           \end{split}
@@ -190,7 +190,7 @@
   * 仮定
 
     * リプシッツ条件：
-      :math:`\exists L > 0 \text{ s.t. } t \in (a, b),\ \bm x_1, \bm x_2 \in U: \norm{X(t, \bm x_1) - X(t, \bm x_2)} \le L \lVert \bm x_1 - \bm x_2 \rVert.`
+      :math:`\exists L > 0 \text{ s.t. } t \in (a, b),\ \bm x_1, \bm x_2 \in U: \norm{X(t, \bm x_1) - X(t, \bm x_2)} \le L \norm{\bm x_1 - \bm x_2}.`
 
     * 有界性：
       :math:`X: (a, b) \times U \longto \RR^n` は有界連続とする：
@@ -219,7 +219,7 @@
          \Gamma[F(t, \bm x)] := \bm x + \int_{t_0}^t X(s, F(s, \bm x))\,\dd{s} \in C^0(I_{\eps_0}, U).
          \end{align*}
 
-    * :math:`F_1, F_2 \in C, \sup \norm{\Gamma[F_1] - \Gamma[F_2]} \le \eps_0 L \sup \lVert F_1 - F_2 \rVert` となる。
+    * :math:`F_1, F_2 \in C, \sup \norm{\Gamma[F_1] - \Gamma[F_2]} \le \eps_0 L \sup \norm{F_1 - F_2}` となる。
     * :math:`F_0(t, \bm x) = \bm x,\ F_1 = \Gamma[F_0]` とすると :math:`\sup \norm{F_1 - F_0} \le \eps_0 M.`
     * ここで
       :math:`\displaystyle \eps_0 = \min\Set{\frac{1}{2L}, \frac{\eps}{4M}}` とすればよいことわがかる。
@@ -227,7 +227,7 @@
     * :math:`C^0(I_{\eps_0} \times K, \RR^n)` 上に距離を入れてリプシッツ性を利用する。
 
 * 注意 6.3.2 によると仮定を少し緩められるらしい。
-  :math:`(a, b) \times U \times \Lambda,\ \norm{X(t, \bm x_1, \lambda) - X(t, \bm x_2, \lambda)} \le L\lVert \bm x_1 - \bm x_2 \rVert.`
+  :math:`(a, b) \times U \times \Lambda,\ \norm{X(t, \bm x_1, \lambda) - X(t, \bm x_2, \lambda)} \le L\norm{\bm x_1 - \bm x_2}.`
 
 * 問題 6.3.3: :math:`C^1` 級ベクトル場と線形常微分方程式
 
