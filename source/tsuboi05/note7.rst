@@ -14,7 +14,7 @@
 
 7.1 ユークリッド空間内の多様体上の曲線（基礎）
 ----------------------------------------------------------------------
-:math:`\displaystyle L(c) = \int_{t_0}^{t_1}\!\Norm{\diff{c(t)}{t}}\,dt`
+:math:`\displaystyle L(c) = \int_{t_0}^{t_1}\!\Norm{\diff{c(t)}{t}}\,dd{t}`
 
 * 例題 7.1.1: 最小問題
 
@@ -27,7 +27,7 @@
        :math:`\displaystyle \Norm{\diff{c(t)}{t}} \le \Abs{\diff{c(t)}{t} \cdot \bm v}`
        を利用する。
 
-  #. :math:`\displaystyle A(c) = \int_0^1\!\Norm{\diff{c(t)}{t}} ^2\,dt`
+  #. :math:`\displaystyle A(c) = \int_0^1\!\Norm{\diff{c(t)}{t}} ^2\,\dd{t}`
      を最小とする曲線は :math:`c(t) = x^0 + t(x^1 - x^0)` である。
 
      * :math:`A(c + s\eps)` なる量を考える。展開すると :math:`s` の二次式が得られる。
@@ -40,7 +40,7 @@
 * 問題 7.1.2: :math:`C^1` 級曲線の長さ
 
   * :math:`\Delta = \set{ 0 = t_0 \le \dots \le t_m = 1}` を区間 :math:`[0, 1]` の細分とすると
-    :math:`\displaystyle \int_{0}^{1}\!\Norm{\diff{c(t)}{t}}\,dt = \sup_{\Delta}\sum_{k = 1}^m \norm{c(t_k) - c(t_{k - 1})}`
+    :math:`\displaystyle \int_{0}^{1}\!\Norm{\diff{c(t)}{t}}\,\dd{t} = \sup_{\Delta}\sum_{k = 1}^m \norm{c(t_k) - c(t_{k - 1})}`
 
   * 証明全体は微積分の教科書を参照。
 
@@ -59,9 +59,9 @@
      :nowrap:
 
      \begin{align*}
-     \int_{0}^{1}\!\Norm{\diff{p \circ c(t)}{t}}\,dt
-     =   \int_{0}^{1}\!\Norm{(Dp)_{c(t)} c'(t)}\,dt
-     \le \int_{0}^{1}\!\Norm{c'(t)}\,dt
+     \int_{0}^{1}\!\Norm{\diff{p \circ c(t)}{t}}\,\dd{t}
+     =   \int_{0}^{1}\!\Norm{(Dp)_{c(t)} c'(t)}\,\dd{t}
+     \le \int_{0}^{1}\!\Norm{c'(t)}\,\dd{t}
      \end{align*}
 
 連結多様体 :math:`M` には次のようにすると距離が入る。
@@ -74,10 +74,14 @@
    \forall x, y \in M, d(x, y) = \inf\set{L(c) \sth c: [0, 1] \longto M,\ c(0) = x,\ c(1) = y}
    \end{align*}
 
-* 例題 7.1.4: 曲線の合成？
+* 例題 7.1.4: トーラスに投影した曲線の長さ
+
+  * :math:`\Phi(x_1, x_2) = ((2 + \cos x_2)\cos x_1,\ (2 + \cos x_2)\sin x_1,\ sin x_2)` はトーラスだ。
+  * :math:`c(t) = (\xi(t), \eta(t)) \subset \RR^2` に関する
+    :math:`\Phi \circ c: [0, 1] \longto M` の長さを求めるのが本題だ。
 
   * 本題である長さの計算というより計算途中で
-    :math:`\displaystyle {}^t\!D\Phi D\Phi` という量が出てくることのほうが気になる。
+    :math:`{}^t\!(D\Phi) D\Phi` という量が出てくることのほうが気になる。
     これは次のようにして得られる：
 
     .. math::
@@ -94,15 +98,45 @@
 
 * 問題 7.1.5: 球面に投影した曲線の長さ
 
+  * :math:`c(t) = (\xi(t), \eta(t)) \subset \RR^2` に関する
+    :math:`p^{-1} \circ c: [0, 1] \longto M` の長さを求めるのが本題だ。
+
   * :math:`S_r` を曲面 :math:`x^2 + y^2 + (z + R)^2 = R^2` とする。
-  * 平面曲線を :math:`c(t) = (\xi(t), \eta(t)),\quad t \in [0, 1]` とする。
-  * 球面上の点を平面に投影する写像を :math:`p: S_r \setminus (0, 0, -2R) \longto \RR^2` とする。
+  * 球面上の点を平面に投影する写像を :math:`p: S_r \setminus \set{(0, 0, -2R)} \longto \RR^2` とする。
   * 考え方は問題 7.1.3 や例題 7.1.4 と同じ。次の手順で計算する：
 
-    #. :math:`p^{-1}` を計算する（球面上への投影写像）
+    #. :math:`p(x, y, z)` を求める：
+
+       .. math::
+
+          \left(\frac{2Rx}{2R + z}, \frac{2Ry}{2R + z}\right).
+
+    #. :math:`p^{-1}(u, v)` を計算する（球面上への投影写像）：
+
+       .. math::
+
+          \left(\frac{4R^2u}{u^2 + v^2 + 4R^2}, \frac{4R^2v}{u^2 + v^2 + 4R^2}, -\frac{2R(u^2 + v^2)}{u^2 + v^2 + 4R^2}\right).
+
     #. :math:`Dp^{-1}` を計算する
+
+       .. todo::
+
+          TeX コードを何とか生成する。
+
     #. :math:`{}^t\!(Dp^{-1})(Dp^{-1})` を計算する（積分の途中で使うため）
-    #. 積分 :math:`L(p^{-1} \circ c)` を計算する
+
+       .. math::
+
+          \begin{pmatrix}
+          \left(\dfrac{4R^2}{u^2 + v^2 + 4R^2}\right)^2 & 0\\
+          0 & \left(\dfrac{4R^2}{u^2 + v^2 + 4R^2}\right)^2
+          \end{pmatrix}
+
+    #. 積分 :math:`\displaystyle L(p^{-1} \circ c) = \int_0^1\!\Norm{\diff{(p^{-1}\circ c)}{t}}\,\dd{t}` を書き下す
+
+       .. math::
+
+          \int_0^1\! \dfrac{(4R^2) (\xi'(t)^2 + \eta'(t)^2)}{\xi(t)^2 + \eta(t)^2 + 4R^2} \,\dd{t}.
 
 7.2 リーマン計量
 ----------------------------------------------------------------------
@@ -131,8 +165,8 @@
        :nowrap:
 
        \begin{gather*}
-       L(c) = \int_0^1 \sqrt{q\left(\diff{c}{t}\right)}\,dt
-            = \int_0^1 \sqrt{g\left(\diff{c}{t}, \diff{c}{t}\right)}\,dt.
+       L(c) = \int_0^1 \sqrt{q\left(\diff{c}{t}\right)}\,\dd{t}
+            = \int_0^1 \sqrt{g\left(\diff{c}{t}, \diff{c}{t}\right)}\,\dd{t}.
        \end{gather*}
 
 * 例 7.2.2: :math:`\RR^n` の原点近傍における :math:`\displaystyle\left. q(v) = \sum_{i = 1}^n v_i^2 \middle/ \left(1 + a \sum_{i = 1}^n x_i^2 \right)^2\right.\quad (a \in \RR)`
@@ -191,11 +225,11 @@
      :nowrap:
 
      \begin{align*}
-     L(c) = \int_0^1\!\sqrt{\sum_{i, j}g_{ij}\left(\diff{c_i}{t}, \diff{c_j}{t}\right)}\,dt
+     L(c) = \int_0^1\!\sqrt{\sum_{i, j}g_{ij}\left(\diff{c_i}{t}, \diff{c_j}{t}\right)}\,\dd{t}
      \end{align*}
 
   * ちなみに曲線のパラメーターの取り方は積分の値に影響しない。
-  * 作用 :math:`\displaystyle A(c) = \int_0^1\!\sum_{i, j}g_{ij} \circ \diff{c_i}{t} \diff{c_j}{t}\,dt`
+  * 作用 :math:`\displaystyle A(c) = \int_0^1\!\sum_{i, j}g_{ij} \circ \diff{c_i}{t} \diff{c_j}{t}\,dd{t}`
     について、本章の冒頭で述べたように :math:`L(c)^2 \le A(c)` が成りたつ。
 
     * 関数の内積、コーシー・シュワルツの不等式の等号成立条件などの検討をする。
@@ -262,7 +296,24 @@
 
 * 問題 7.3.1: 上述の一階常微分方程式の解 :math:`v(t)` について :math:`q(v(t))` は一定である
 
-  * 直接計算による。
+  * 直接 :math:`\displaystyle \diff{q(v(t))}{t} = 0` を計算によって示す：
+
+    .. math::
+
+       \begin{align*}
+       \diff{q(v(t))}{t}
+       & = \diff{}{t}g(v(t), v(t)) = \diff{}{t}\sum_{i, j} g_{ij}v_i v_j\\
+       &= \sum_{i, j, k}\frac{\partial g_{ik}}{\partial x_j} \diff{c_j}{t} v_i v_k + 2 \sum_{i, j}g_{ij}\diff{v_i}{t}v_j\\
+       &= \sum_{i, j, k}\frac{\partial g_{ik}}{\partial x_j} \diff{c_j}{t} v_i v_k + \sum_{i, j, k}\left(
+         \frac{\partial g_{ij}}{\partial x_k}
+        -\frac{\partial g_{jk}}{\partial x_i}
+        -\frac{\partial g_{ik}}{\partial x_j}
+       \right)\diff{c_i}{t}v_j v_k\\
+       &= 0.
+       \end{align*}
+
+  * クリストッフェル記号の定義式を逆に見ることと、
+    最後の和でうまく組み合わせるとゼロであることがわかるのが難しい。
 
 * 先の一階常微分方程式の解二つ :math:`v(t), w(t)` について、さらに次のことが言える：
   :math:`q(v(t) + w(t))` も :math:`g(v(t), w(t))` も一定値を取る。
@@ -308,7 +359,26 @@
 
 * 問題 7.4.1: 球面上の二点の「距離」を定義する曲線は大円に含まれる
 
+  * :math:`S^2` のパラメーター表示を例えば
+    :math:`\Phi(\theta, \psi) = (\cos\psi\cos\theta, \cos\psi\sin\theta, \sin\psi)`
+    とする。
+
   * 一点を北極に固定して証明してよい。
+    点 :math:`(0, 0, 1)` と点 :math:`\Phi(\theta_0, \psi_0)` を結ぶ曲線を調べることにする。
+
+  * :math:`D\Phi` を求め、:math:`{}^t\!(D\Phi)(D\Phi) = \cos^2\psi \theta'^2 + \psi'^2` を得る。
+  * 本問では長さを不等式で評価すれば十分だ：
+
+    .. math::
+    
+       \begin{align*}
+       L &= \int_0^1\!\sqrt{\cos^2\psi \theta'^2 + \psi'^2}\,\dd{t}
+       \ge \int_0^1\! \sqrt{\psi'^2}\,\dd{t}
+       = \int_0^1\! \abs{\psi'}\,\dd{t}\\
+       &\ge \abs{\psi(1) - \psi(0)} = \frac{\pi}{2} - \psi_0.
+       \end{align*}
+
+  * よって :math:`\theta = \theta_0` なる大円の弧が長さが最短となる。
 
 測地線の局所的最短性。これは難しい。
 
@@ -330,7 +400,7 @@
    :math:`\displaystyle g\left(\frac{\partial H}{\partial t}, \frac{\partial H}{\partial s}\right) = 0.`
 
 #. よって :math:`\displaystyle \sqrt{q\left(\diff{c}{s}\right)} \le \sqrt{q\left(\frac{\partial H}{\partial t} \frac{\partial H}{\partial s}\right)} = \sqrt{\left(\diff{t}{s}\right)^2} = \left|\diff{t}{s}\right|.`
-#. 積分して :math:`\displaystyle \int_0^1\sqrt{q\left(\diff{c}{s}\right)}\,ds \le \int_0^1 \left|\diff{t}{s}\right|\,ds \le \abs{t(1) - t(0)}.`
+#. 積分して :math:`\displaystyle \int_0^1\sqrt{q\left(\diff{c}{s}\right)}\,\dd{s} \le \int_0^1 \left|\diff{t}{s}\right|\,\dd{s} \le \abs{t(1) - t(0)}.`
 
 以上により測地線は最短であることが示せた（らしい）。
 
@@ -352,13 +422,52 @@
 
 * 問題 7.4.3: コンパクトリーマン多様体 :math:`M` の接束と :math:`M \times M` の対角集合の近傍は微分同相である
 
-  * TODO
+  仮定をまとめる：
+
+  * :math:`F: TM \longto M \times M` を :math:`T_xM \longmapsto (x, E_x(X))` である。
+    ただし :math:`X \in T_xM` である。
+
+  * :math:`\Delta = \set{(x, x) \sth x \in M}.`
+
+  * 写像 :math:`s_0: M \longto TM` が `零切断 <http://mathworld.wolfram.com/ZeroSection.html>`__ である。
+    つまり次の性質がある：
+    :math:`s_0(x) = 0 \in T_xM.`
+
+  :math:`F` は :math:`s_0` の像の近傍から対角集合 :math:`\Delta` の近傍への微分同相写像であることを証明する。
+
+  * 接写像 :math:`F_*: T_X TM \longto T(M \times M) = T_xM \times T_xM` を考える。
+
+    * :math:`T_{s_0(x)}(TM) = T_x(s_0(M)) \times T_x(M) = T_xM \times T_xM.`
+    * 次の二つの制限を考える：
+    
+      .. math::
+      
+         \begin{align*}
+         (F_*)_{s_0(x)}|(T_x(s_0(M)) \times \zeroset) &= (\id_{T_xM}, 0)\\
+         (F_*)_{s_0(x)}|(\zeroset \times T_x(s_0(M))) &= (0, \id_{T_xM}).
+         \end{align*}
+
+      ゆえに :math:`\displaystyle (F_*)_{s_0(x)} = \begin{pmatrix}\id_{T_xM} & 0\\0 & \id_{T_xM}\end{pmatrix}` である。
+
+  * 逆写像定理により :math:`F` は :math:`s_0(M)` 上単射であることが言える。
+  * そして例題 4.3.1 より :math:`F` は求める微分同相写像であると言える。
 
 * 問題 7.4.4: コンパクト連結リーマン多様体の微分同相 :math:`\Phi: M \longto M` が
   :math:`C^1` 位相で恒等写像と十分近いのであれば、次のようなアイソトピー :math:`\Phi_t` が存在する：
   :math:`\Phi_0 = id_M,\ \Phi_1 = \Phi.`
 
-  * TODO
+  * 問題 7.4.3 の結論を再利用したい。
+    :math:`\id_M` のグラフが :math:`\Delta` であるので、部分集合
+    :math:`\set{(x, \Phi(x)) \sth x \in M} \subset M \times M` は前問のように構成される
+    :math:`F` が微分同相写像となるような :math:`\Delta` の近傍に含まれる。
+
+  * :math:`\xi = F^{-1}(x, \Phi(x))` は :math:`M` 上のベクトル場である。
+  * :math:`F` の局所的微分同相性のため、
+    「:math:`F` が :math:`\id_M` に :math:`C^1` 位相で近いこと」と
+    「:math:`\xi: M \longto TM` が 0 に :math:`C^1` 位相で近いこと」は同値である。
+
+  以上より :math:`\Phi_t: M \longto M` を
+  :math:`(x, \Phi_t(x)) = F(t\xi(x))` と定義すればよい。
 
 7.5 測地流（展開）
 ----------------------------------------------------------------------
