@@ -14,9 +14,9 @@
 ----------------------------------------------------------------------
 * 微分同相写像で互いに写り合う多様体同士を同じものと考える (p. 123)。
 
-アイソトピー
+`アイソトピー <http://mathworld.wolfram.com/Isotopy.html>`__
   :math:`t \in [0, 1]` に対して連続的に変化する微分同相写像 :math:`F_t: M \longto M` で、
-  :math:`F_0 = \id_M` を満たすものを `アイソトピー <http://mathworld.wolfram.com/Isotopy.html>`__ という。
+  :math:`F_0 = \id_M` を満たすものをアイソトピーという。
 
   * :math:`\RR \times M` の :math:`[0, 1] \times M` への制限。
   * :math:`A_0, A_1 \subset M` は多様体の部分集合であるとすると、
@@ -30,7 +30,7 @@
     #. :math:`\forall y_0 \in M, x_0 = F_{t_0}^{-1}(y_0)` とすると :math:`T_{y_0}M` の接ベクトルが定まる。
        なぜなら  :math:`F_{t_0}` が微分同相だから。
 
-  * :math:`\displaystyle X_t := \frac{\partial F_t}{\partial t} \circ F_t^{-1}: M \longto T_{y_0}M` なる量を考える。
+  * :math:`X_t := \dfrac{\partial F_t}{\partial t} \circ F_t^{-1}: M \longto T_{y_0}M` なる量を考える。
 
     * :math:`y_0 \in M` 周りの座標近傍を :math:`(U, \varphi)` とし、
     * :math:`(\varphi \circ (F_t \circ F_{t_0}^{-1})\circ\varphi^{-1}(x_1, \dotsc, x_n)` を
@@ -42,7 +42,7 @@
     * :math:`(t_0, \varphi(y_0))` の近傍において :math:`X(t, y) = X_t(y)` による写像
       :math:`X: \RR \times R \longto TM` は :math:`C^\infty` 級写像である。
 
-ベクトル場
+`ベクトル場 <http://mathworld.wolfram.com/VectorField.html>`__
   各 :math:`t` について :math:`X_t: M \longto TM` は
   :math:`p \circ X_t = \id_M` となる :math:`C^\infty` 級写像である。
 
@@ -71,7 +71,7 @@
   * 仮定
 
     * :math:`F: \RR^n \longto \RR^n` は微分同相であり、
-    * :math:`DF_{(\bm{x})} - E` の成分の絶対値が :math:`\displaystyle \eps\quad (< \frac{1}{2n})` より小さいとする。
+    * :math:`DF_{(\bm{x})} - I_n` の成分の絶対値が :math:`\displaystyle \eps\quad (< \frac{1}{2n})` より小さいとする。
 
   * 結論（ただし本書の関数定義には誤植があると思われるので勝手に修正する）
 
@@ -82,14 +82,14 @@
 
     #. :math:`DF_{(\bm{x})}` は正則である。
 
-       * 単純計算により :math:`DF_{(\bm x)} = (E + t(DF_{(\bm{x})} - E)).`
+       * 単純計算により :math:`DF_{(\bm x)} = (I_n + t(DF_{(\bm{x})} - I_n)).`
        * 高校数学の :math:`\displaystyle \frac{1}{1 + x}` の級数展開を参考に次の式が浮かぶ：
 
          .. math::
             :nowrap:
 
             \begin{gather*}
-            (E + t(DF_{(\bm{x})} - E))\sum_{k = 0}^\infty (-t)^k (DF_{(\bm{x})} - E)^k = E
+            (I_n + t(DF_{(\bm{x})} - I_n))\sum_{k = 0}^\infty (-t)^k (DF_{(\bm{x})} - I_n)^k = I_n
             \end{gather*}
 
          問題は級数の収束性だが（行列式の評価には注意したい）、
@@ -99,7 +99,7 @@
             :nowrap:
 
             \begin{split}
-            \abs{(-t)^k (DF_{(\bm{x})} - E)^k}
+            \abs{(-t)^k (DF_{(\bm{x})} - I_n)^k}
                 &<& \abs{t^k n^{k - 1} \eps^k}\\
                 &<& n^{k - 1} \eps^k\\
                 &<& \frac{1}{2^{k - 1}}\eps.
@@ -132,7 +132,7 @@
           \begin{split}
           \norm{\bm{x}_{k+1} - \bm{x}} & \le& \frac{1}{2^{k-1}}\norm{\bm{x}_2 - \bm{x}_1}\\
           & =& \frac{1}{2^{k-1}}\norm{\bm{y} - F_t(\bm{y})}\\
-          &\therefore& \bm{x}_k \to \bm{y}\ s.t.\ \bm{y} = F_t(\bm{y}). 
+          &\therefore& \bm{x}_k \to \bm{y}\ \text{s.t. } \bm{y} = F_t(\bm{y}). 
           \end{split}
 
 6.2 フロー
@@ -160,6 +160,8 @@
   * :math:`F_t(\bm x) = \mathrm{e}^{tA} \bm x` は :math:`\RR^n` 上のベクトル場
     :math:`\displaystyle \sum_{i = 1}^n \left( \sum_{j = 1}^n a_{ij} x_j \right)\frac{\partial}{\partial x_j}` が生成するフローである。
 
+    * :math:`\displaystyle \diff{F_t}{t}\circ F_{-t} = A \mathrm e^{At\bm x} \mathrm e^{-At\bm x} = A\bm x = \sum\sum a_{ij}x_j.`
+
   * フロー :math:`\set{ F_t(\bm x) \sth t \in \RR}` を :math:`\bm x` を通る軌道という。
     この軌道は :math:`M` 上の同値関係を定義する。
 
@@ -172,9 +174,58 @@
   * 式にすれば :math:`\displaystyle \sum_{i, j = 1}^2 a_{ij} x_j \frac{\partial}{\partial x_j}` だが、
     本書の図によると三種類に分類できるようだ。
 
-* 問題 6.2.3: コンパクト多様体上のフローについて（後回し）
+* 問題 6.2.3: コンパクト多様体上のフローについて
 
-  * TBW
+  #. :math:`\varphi_{t_1}(x_0) = \varphi_{t_2}(x_0)` ならば
+     :math:`\exists T \le 0,\ \exists n \in \ZZ \ \text{s.t. } t_2 - t_1 = nT.`
+
+     * まとめて考えるために :math:`A = \set{t \in \RR \sth \varphi_t(x_0) (= \varphi_0(x_0)) = x_0} \subset \RR` とおく。
+       :math:`A` が群であることと、閉集合であることを示す：
+
+       * :math:`0 \in A`
+       * :math:`a_1, a_2 \in A` について
+         :math:`\varphi_{a_1 + a_2}(x_0) = \varphi_{a_1} \circ \varphi_{a_2}(x_0) = \varphi_{a_1}(x_0) = x_0` だから
+         :math:`a_1 + a_2 \in A.`
+
+       よって :math:`A` は :math:`\RR` の部分群となっている。
+
+     * 閉集合であることを示すために :math:`A` の収束点列の極限が :math:`A` にあることを示す。
+
+       * :math:`\varphi_t(x_0)` は :math:`t` について連続であるので、
+         点列 :math:`\set{a_i}` が :math:`\displaystyle \lim_{i \to \infty} a_i = a` とおくと、
+         次のようになる：
+
+         .. math::
+
+            \varphi_a(x_0) = \lim_{i \to \infty}\varphi_{a_i}(x_0)
+              = \lim_{i \to \infty}x_0 = x_0.
+
+       したがって :math:`A` は :math:`\RR` の閉集合となっている。
+
+     * :math:`A = \zeroset` と仮定すると :math:`T = 0` が求める値となる。
+     * :math:`A \ne \zeroset` と仮定すると :math:`T = \inf\set{a \in A \sth a > 0}` が求める値である。
+       要するに :math:`A` の中でゼロの次に小さい値である。
+
+       * :math:`T > 0` のときは :math:`A = \ZZ T`
+
+         * :math:`A \in \ZZ T, \exists n\ \text{s.t. } \abs{a - nT} < T`
+           しかし :math:`a - nT \in A \implies a = nT.`
+
+       * :math:`T = 0` のときは :math:`A = \RR`
+
+         * さっきと同じように :math:`\set{a_i} \in A, a_i > 0, \lim a_i = 0 \implies \bigcup\set{n a_i \sth n \in \ZZ} \subset \RR` は
+           稠密であるが、:math:`A` が閉集合であるために :math:`A = \RR.`
+           :math:`\therefore t \in \RR,\ \varphi_t(x_0) = x_0.`
+           これは仮定の「定数関数ではない」に反する。
+
+     となる。
+
+  #. :math:`\exists y \in M,\ \text{s.t. } \forall U_y \owns y, \sup\set{t \in \RR \sth \varphi_t(x_0) \in U_y} = \infty.`
+
+     * :math:`\varphi_t(x_0) = x_0, t \ne 0` ならば :math:`y = x_0` である。
+     * そうでなければ :math:`\set{\varphi_t(x_0) \sth t \in \NN}` の集積点を :math:`y` とする。
+
+  この問題が言いたいことは図を描いて理解するのがいい？
 
 6.3 常微分方程式の解の存在と一意性（基本）
 ----------------------------------------------------------------------
@@ -210,28 +261,139 @@
     * そのある関数とは
       :math:`\displaystyle F(t, \bm x) = \bm x + \int_{t_0}^t \diff{F(s, \bm x)}{s}\ \dd{s} = \bm x + \int_{t_0}^t\! X(s, F(s, \bm x))\,\dd{s}` となる。
 
-    * アイディア :math:`I_{\eps_0} := (t_0 - \eps_0, t_0 + \eps_0),\quad C = C^0(I_{\eps_0}, U),`
+    * アイディア
 
-      .. math::
-         :nowrap:
+      * :math:`I_{\eps_0} := (t_0 - \eps_0, t_0 + \eps_0),\quad \mathcal C = C^0(I_{\eps_0}, U).`
 
-         \begin{align*}
-         \Gamma[F(t, \bm x)] := \bm x + \int_{t_0}^t X(s, F(s, \bm x))\,\dd{s} \in C^0(I_{\eps_0}, U).
-         \end{align*}
+        .. math::
+           :nowrap:
 
-    * :math:`F_1, F_2 \in C, \sup \norm{\Gamma[F_1] - \Gamma[F_2]} \le \eps_0 L \sup \norm{F_1 - F_2}` となる。
+           \begin{align*}
+           \Gamma[F(t, \bm x)] := \bm x + \int_{t_0}^t X(s, F(s, \bm x))\,\dd{s} \in C^0(I_{\eps_0}, U).
+           \end{align*}
+
+        このとき :math:`F \in \mathcal C \implies \Gamma[F] \in C(I_{\eps_0} \times K, \RR^n).`
+
+      * :math:`C^0(I_{\eps_0} \times K, \RR^n)` 上に次の距離を入れてリプシッツ性を利用する。
+
+        .. math::
+
+           \norm{F_1 - F_2} = \sup_{I \times K} \norm{F_1 - F_2}
+
+    以下、上限記号の範囲指定を略記するが、
+    だいたい :math:`I_{\eps_0} \times K` とかだ。
+
+    * :math:`F_1, F_2 \in \mathcal C, \sup \norm{\Gamma[F_1] - \Gamma[F_2]} \le \eps_0 L \sup \norm{F_1 - F_2}` となる。
+
     * :math:`F_0(t, \bm x) = \bm x,\ F_1 = \Gamma[F_0]` とすると :math:`\sup \norm{F_1 - F_0} \le \eps_0 M.`
-    * ここで
-      :math:`\displaystyle \eps_0 = \min\Set{\frac{1}{2L}, \frac{\eps}{4M}}` とすればよいことわがかる。
-    * :math:`\displaystyle \eps_0 \le \frac{1}{2L}` と :math:`\displaystyle \eps_0 \le \frac{\eps}{4M}` から解の一意性と微分可能性をそれぞれ示す。
-    * :math:`C^0(I_{\eps_0} \times K, \RR^n)` 上に距離を入れてリプシッツ性を利用する。
+      ここで :math:`\eps_0 = \min\Set{\dfrac{1}{2L}, \dfrac{\eps}{4M}}` とすればよいことわがかる。
+
+    * :math:`\eps_0 \le \dfrac{1}{2L}` と
+      :math:`\eps_0 \le \dfrac{\eps}{4M}` から解の一意性と微分可能性をそれぞれ示す。
+
+    * 微分可能性：
+
+      * :math:`\norm{F_1 - F_0} \le \dfrac{\eps}{4}` より :math:`F_1 \in \mathcal C.`
+      * :math:`F_{k + 1} = \Gamma[F_k] (F_k \in \mathcal C)` とすると次のように評価できる：
+
+        .. math::
+
+           \begin{align*}
+           \norm{F_{k + 1} - F_k}
+           &= \norm{\Gamma[F_k] - \Gamma[F_{k - 1}]}\\
+           &\le \frac{1}{2} \norm{F_k - F_{k - 1}}\\
+           &\le \frac{1}{2^k} \norm{F_1 - F_0}\\
+           &\le \frac{\eps}{2^{k + 2}}\\
+           \therefore
+           \norm{F_{k + 1} - F_0} &\le \sum_{j = 0}^k \norm{F_{j + 1} - F_j}
+           \le \sum{j = 0}^k \frac{\eps}{2^{j + 2}}
+           < \frac{\eps}{2}.
+           \end{align*}
+
+        ゆえに :math:`\set{F_k}` は一様収束する。
+
+      * 極限を :math:`F_\infty \in C^0(I_{\eps_0} \times K, \RR^n)` とすると
+        :math:`F_\infty = \Gamma[F_infty].`
+
+        .. math::
+
+           \therefore F_\infty(t, \bm x) = \bm x + \int_{t_0}^t X(s, F_\infty(s, \bm x))\,\dd{s}.
+
+    * 解の一意性：
+
+      * :math:`F_p = \Gamma[F_p],\ F_q = \Gamma[F_q]` であるとすると、
+        :math:`\norm{F_p - F_q} \le \dfrac{1}{2}\norm{F_p - F_q}`
+        ゆえに :math:`F_p = F_q.`
+      * リプシッツ連続が関係する命題でいつもやっている証明方法だ。
 
 * 注意 6.3.2 によると仮定を少し緩められるらしい。
   :math:`(a, b) \times U \times \Lambda,\ \norm{X(t, \bm x_1, \lambda) - X(t, \bm x_2, \lambda)} \le L\norm{\bm x_1 - \bm x_2}.`
 
 * 問題 6.3.3: :math:`C^1` 級ベクトル場と線形常微分方程式
 
-  * TBW
+  * ベクトル場 :math:`X(t, \bm x)` は :math:`t` について :math:`C^1` 級であり、
+  * 解 :math:`F(t, \bm x) = (f_i(t, \bm x))_i` が次を満たすとする：
+
+    * :math:`t = t_0` で初期値が :math:`\bm x` である。
+    * :math:`A_{ij}(t, \bm x) = \dfrac{\partial f_i}{\partial x_j}(t, \bm x)`
+      （☆）が次を満たす：
+
+      .. math::
+
+         \diff{A_{ij}(t, \bm x)}{t} = \sum_{k = 1}^n \frac{\partial \xi_i}{\partial x_k}(t, F(t, \bm x)) A_{kj}(t, \bm x).
+
+  このとき :math:`F` は :math:`\bm x` についても :math:`C^1` 級である。
+
+  * 証明の前半では :math:`F` が偏微分可能であることを示す。
+    つまり、:math:`F(t, \bm x)` の初期値に対する :math:`\bm v` 方向の微分」が存在することを示す。
+    そのために次の極限がある常微分方程式の解（で初期値が :math:`\bm v` であるもの）であることを
+    アダマールの補題を応用して示す：
+
+    .. math::
+
+       \lim_{s \to 0}\frac{F(t, \bm x + s\bm v) - F(t, \bm x)}{s}.
+
+  * アダマールの補題より、次のように書ける：
+
+    .. math::
+
+       \begin{align*}
+       &X(t + \bm x + \bm v) - X(t + \bm x) = \sum_{i = 1}^n v_i Y_i(t, \bm x, \bm v),\\
+       &Y_i(t, \bm x, \bm 0) = \frac{\partial X}{\partial x_i}(t, \bm x, \bm 0).
+       \end{align*}
+
+    これを仮定の常微分方程式に当てはめると次のようになる：
+
+    .. math::
+
+       \begin{align*}
+       &\diff{}{t}(F(t, \bm x + s\bm v) - F(t, \bm x)) = X(t, F(t, \bm x + s\bm v)) - X(t, F(t, \bm x))\\
+       &= \sum_{i = 1}^n(f_i(t, \bm x + s\bm v) - f_i(t, \bm x)) Y_i(t, F(t, \bm x), F(t, \bm x + s\bm v) - F(t, \bm x)).
+       \end{align*}
+
+  * 行列 :math:`Y = (Y_i)_i` に対して
+    :math:`Y(s) = (Y_i(t, F(t, \bm x), F(t, \bm x + s\bm v) - F(t, \bm x))_i` とおくと、
+    常微分方程式 :math:`\displaystyle \diff{\bm u}{t} = Y(s)\bm u`
+    （★）の解は先ほどの極限の対象となる。
+
+    * :math:`Y(s)` は :math:`s` について連続である。
+    * そして :math:`s = 0` のときも連続に定義されている。
+      解は（★）の解に収束する。この根拠は注意 6.3.2 から来ている。
+
+      .. math::
+
+         Y(0) = \frac{\partial \xi_i}{\partial x_j}(t, F(t, \bm x))
+
+  * （☆）の :math:`A_{ij}(t, \bm x)` は次を満たす：
+
+    * :math:`A_{ij}(t_0, \bm x) = \delta_{ij}`
+    * （☆）の次に書いた常微分方程式
+
+    :math:`\displaystyle \frac{\partial \xi_i}{\partial x_k}(t, F(t, \bm x))` を
+    :math:`\bm x` をパラメーターとして見ると再び注意 6.3.2 から
+    :math:`A_{ij}` は :math:`\bm x` について連続である。
+
+    したがって :math:`F` は :math:`\bm x` について :math:`C^1` 級である。
 
 * 注意 6.3.4: :math:`\displaystyle \frac{\partial F(t, \bm x)}{\partial t} = X(t, F(t, \bm x))` は
   :math:`\bm x` と :math:`t` のどちらについても連続であることが
@@ -239,12 +401,35 @@
 
 * 問題 6.3.5: ベクトル場が :math:`C^\infty` 級ならば解は :math:`C^\infty` 級である
 
-  * 帰納法。
+  :math:`X: (a, b) \times U \longto \RR^n` が :math:`C^\infty` 級であるならば、
+  :math:`t = t_0` で解 :math:`\bm x` を持つ関数 :math:`F(t, \bm x)` は :math:`C^\infty` 級である。
+
+  * まず :math:`A_{ij}(t, \bm x) = \dfrac{\partial f_i}{\partial x_j}(t, \bm x)`
+    とおくとこうなる（再掲）：
+
+    .. math::
+
+       \diff{A_{ij}(t, \bm x)}{t} = \sum_{k = 1}^n \frac{\partial \xi_i}{\partial x_k}(t, F(t, \bm x)) A_{kj}(t, \bm x).
+
+  * 帰納法で示す：
+    「:math:`X` が :math:`C^r` 級であるとき、解 :math:`F` も :math:`C^r` 級である」とすると、
+
+    #. 偏微分の項は :math:`C^r` 級である。
+       なぜならば :math:`\dfrac{\partial \xi_i}{\partial x_k}` と :math:`F` の両方が
+       :math:`C^r` 級であるから。
+
+    #. :math:`\displaystyle \diff{F(t, \bm x)}{t} = X(t, F(t, \bm x))` については
+       :math:`X` と :math:`F` が :math:`C^r` 級だから :math:`t` について
+       :math:`C^r` 級である。
+
+    ゆえに :math:`F` は :math:`C^{r + 1}` 級である。
 
 * 注意 6.3.6
 
-  #. :math:`C^\infty` 級ベクトル場が生成するフローはまた :math:`C^\infty` 級である。
-  #. パラメーターに対して :math:`C^\infty` 級に依存するベクトル場が生成するフローもまた
+  #. :math:`C^\infty` 級ベクトル場フローを生成するならば、
+     そのフローは :math:`C^\infty` 級である。
+
+  #. パラメーターに依存する場合、パラメーターに対して :math:`C^\infty` 級に依存するベクトル場が生成するフローもまた
      パラメーターに対して :math:`C^\infty` 級に依存する。
 
 6.4 コンパクト多様体上のベクトル場
@@ -307,20 +492,39 @@
 
 * 例題 6.4.3: 連結コンパクト一次元多様体が向き付け可能であることを使えば、
   多様体上にゼロでないベクトル場が存在することがわかり、
-  :math:`M \cong \RR/\ZZ` が成り立つ。
+  :math:`M` と :math:`\RR/\ZZ` は微分同相であると言える。
 
   * 各座標近傍 :math:`U_i` に対し 1 の分割 :math:`\lambda_i` を導入する。
   * :math:`U_i` に台を持つベクトル場 :math:`\displaystyle \lambda_i \frac{\partial}{\partial t^{(i)}}` を考える。
     ここで :math:`t^{(i)}` は座標とする。
 
-  * :math:`\displaystyle X = \sum_i \lambda_i \frac{\partial}{\partial t^{(i)}} \ne 0` を示す。
+  * :math:`\displaystyle X = \sum_i \lambda_i \frac{\partial}{\partial t^{(i)}} \ne 0` が求めるものの一つである。
 
     * :math:`D\gamma_{ij} > 0` および :math:`\sum_i \lambda_i = 1` を利用する。
 
-  * :math:`X` が生成するフローの軌道は前に述べたように 3 通り。
-    このうち連結コンパクトなのは円周しかなかった。
+      .. math::
+
+         X = \sum_i \lambda_i (D\gamma_{ji} \circ \varphi_i)\frac{\partial}{\partial t^{(i)}} > 0.
+
+  * :math:`\varphi_t` を :math:`X` のフローとする（記号が座標とカブっている）。
+    フローの軌道は前に述べたように 3 通りなので、これで場合分けする。
+
+    #. 一点のみのケースはあらかじめ仮定より除外されている。
+    #. :math:`M` 全体となるケースはコンパクト性により円周と同相である。
+    #. :math:`M` と一致しないケース：
+
+       :math:`A = \set{\varphi_t(x_0) \sth t \in \RR}` をとり、
+       :math:`x \in M \setminus A` とする。
+       ここで次のような近傍 :math:`U_i \owns x` が存在するが、
+       これは :math:`X` の :math:`U_i` 上の軌道が :math:`U_i` を含むことになり、
+       :math:`U_i \subset A` となって :math:`x \in M \setminus A` に矛盾する：
+
+       .. math::
+
+          x \in U_i,\ U_i \cap A \ne \varnothing.
 
 * 注意 6.4.4 は長いが、連結コンパクト一次元多様体が向き付け可能であること自体の証明だ。
+  フロー、連結成分直和分割、接写像、中間値の定理などを使う。
 
 * 問題 6.4.5: 次の条件を満たす :math:`\displaystyle \mu\frac{\partial}{\partial x_1}` が生成するフロー
   :math:`\Phi_t` の :math:`\displaystyle \lim_{t \to \infty}\Phi_t(\bm x)` と
@@ -336,7 +540,21 @@
 
   #. 単位超球面内部の場合
 
-     TBW
+     * 内部ではベクトル場が非ゼロであるので、どちらの極限も球面上の点となる。
+     * :math:`\Phi_t(\bm x) = (\varphi_t(\bm x), x_2, \dotsc, x_n)` と書けるが、
+
+       * :math:`t < 0 \implies \varphi_t(\bm x) < x_1,`
+       * :math:`t > 0 \implies \varphi_t(\bm x) > x_1`
+
+       なので次のようになるという解釈か：
+
+       .. math::
+
+          \lim_{t \to \pm\infty}\Phi_t(\bm x) = (
+            \pm\sqrt{1 - x_2^2 - \dotsb - x_n^2},
+            x_2, \dotsc, x_n).
+
+     解答例では具体的に :math:`\varphi_t` を求めていないように読める。
 
 6.5 連結多様体上の部分集合の比較
 ----------------------------------------------------------------------
@@ -347,9 +565,21 @@
   * 証明には前問 6.4.5 の技法を用いる。
   * 連結多様体上の一点を固定して、微分同相で写り合う点は同値関係となる。
     この同値類が開集合であることを示す必要がある。
-  * <同値類が開集合であることを示したから、閉集合でもある> (p. 135) とあるが、ここが理解できない。
 
-* 注意 6.5.2: 例えばアイソトピーもとれることが上のようにわかる。
+    .. math::
+
+       A_{x_1} = \set{x \in M \sth \exists F: M \longto M,\ F(x_1) = x}.
+
+    を考えると、こういう集合が同値類になって :math:`M` を非交和分割できる。
+
+  * <同値類が開集合であることを示したから、閉集合でもある> (p. 135) とあるが、
+    ここが理解できない。
+
+* 注意 6.5.2
+
+  * アイソトピーもとれることが上のようにしてわかる。
+  * コンパクト外では恒等写像としておけば微分同相写像であるようにできる。
+
 * 問題 6.5.3: 多様体次元が 2 以上の連結多様体上には、
   相異なる :math:`n` 点と別の相異なる :math:`n` 点とについて、一方を他方に写す微分同相写像が存在する。
 
@@ -364,28 +594,71 @@
        * :math:`F'` の定義域を元の多様体に次のように拡張して :math:`\hat{F'}` とすれば、
          :math:`F = \hat{F'} \circ F_1` が求める微分同相写像だ。
 
-         * 点 :math:`y_i` の近傍の点 :math:`y` に対しては :math:`F' = \id \text{ i.e. } F'(y) = y.`
+         * 点 :math:`y_i` の近傍の点 :math:`y` に対しては :math:`F' = \id\ \text{i.e. } F'(y) = y.`
 
 * 問題 6.5.4: 連結多様体上の任意の二点 :math:`x_0, x_1` に対して次のようなフロー :math:`F_t` が存在する：
   :math:`F_t(x_0) = x_1.`
 
+  * 問題 6.4.5 の要領で座標近傍に台を持つフロー :math:`F_t` を構成する。
+  * 問題 6.5.3 によると次のような微分同相写像 :math:`G: M \longto M` が存在する：
+    :math:`G(y_0) = x_0,\ G(y_1) = x_1.`
+  * 合成写像 :math:`G \circ F_t \circ G^{-1}` を改めて :math:`F_t` とすれば
+    それが求めるフローである。
+
 :math:`F: M \longto N` の二つの正則値 :math:`y_0, y_1` に対する :math:`F^{-1}(y_0), F^{-1}(y_1)` の比較をしたい。
 
-* 例題 6.5.5: TBW
+* 例題 6.5.5: ベクトル場の射影
 
   * :math:`M, N` をコンパクト連結多様体、
   * :math:`F \in C^\infty(M, N),`
   * :math:`\xi, \eta` をベクトル場とする。
   * :math:`\xi, \eta` の生成するフローをそれぞれ :math:`\varphi_t, \psi_t` とする。
-
-  :math:`\forall x \in M, F_*(\xi(x)) = \eta(F(x)) \implies F(\varphi_t(x)) = \psi_t(F(x)).`
+  * :math:`\forall x \in M, F_*(\xi(x)) = \eta(F(x)) \implies F(\varphi_t(x)) = \psi_t(F(x)).`
 
   * 証明するには :math:`\displaystyle \diff{F(\varphi_t(x))}{t} = \eta(F(\varphi_t(x)))` を示す。
 
+    .. math::
+
+       \diff{F(\varphi_t(x))}{t} = F_*\left(\diff{\varphi_t(x)}{t}\right)
+       = F_*\left(\xi(\varphi_t(x))\right)
+       = \eta(F(\varphi_t(x))).
+
+    等号の根拠は順に接写像の性質、
+    ベクトル場 :math:`\xi` がフロー :math:`\varphi_t(x)` を生成すること、
+    射影条件による。
+
+    一方、:math:`t = t_0` のとき :math:`F(\varphi_0(x)) = F(x).`
+    常微分方程式の解の一意性により :math:`\psi_t(F(x)) = F(\varphi_t(x)).`
+
 * 問題 6.5.6: コンパクト連結多様体 :math:`M` 上の :math:`C^\infty` 級関数 :math:`f` について
   :math:`[a, b] \subset \RR` はすべて正則値であるとすると、次が成り立つ：
+  :math:`f^{-1}([a, b])` と :math:`f^{-1}(a) \times [a, b]` は微分同相である。
 
-  :math:`f^{-1}([a, b]) \cong f^{-1}(a) \times [a, b].`
+  * 次のようにおく：
+
+    * :math:`\set{(U_i, \varphi_i)}_{i = 1, \dotsc, k}` を有限開被覆、
+    * :math:`\lambda_i(x) \le 0` を :math:`U_i` を台とする 1 の分割、
+    * また、:math:`f^{-1}([a, b])` と交わる :math:`\varphi_t` の第一座標成分
+      :math:`x_1{(i)} = f` であると仮定してもよい（なぜか）。
+
+  * ベクトル場 :math:`X_i = \lambda_i(x)\dfrac{\partial}{\partial x_1^{(i)}}` は
+    :math:`M \setminus U_i` 上ゼロである。
+  * :math:`(f_*)_x(X_i) = \lambda_i(x)\dfrac{\partial}{\partial t}.`
+  * :math:`\xi = \sum(X_i)` とすると :math:`(f_*)_x\xi(x) = \sum\lambda_i(x)\dfrac{\partial}{\partial t} = \dfrac{\partial}{\partial t}.`
+    したがって :math:`\xi` の生成するフロー :math:`F_t` について次が成り立つ：
+
+    .. math::
+
+       x \in f^{-1}([a, b]),\ a - f(x) \le t \le b - f(x) \implies f(F_t(x)) = f(x) + t.
+
+  * 次に写像 :math:`p: f^{-1}([a, b]) \longto f^{-1}(a)` を
+    :math:`x \longmapsto F_{a - f(x)}(x)` で定義する（なかなか思いつかない）。
+
+    * さらに写像 :math:`(p, f): f^{-1}([a, b]) \longto f^{-1} \times [a, b]` を考える。
+      この逆写像を :math:`G(x', t)` とおくと :math:`G(x', t) = F_{t - a}(x').`
+
+    * :math:`(p, f)` と :math:`G` のどちらも :math:`C^\infty` 級であるので、
+      これらは微分同相写像である。
 
 * 問題 6.5.7: フローボックス定理
 
@@ -395,21 +668,41 @@
     * :math:`N \subset M` を :math:`m - 1` 次元コンパクト部分多様体、
     * :math:`\xi` をベクトル場、
     * :math:`\varphi_t(x)` を :math:`\xi` が生成するフロー、
-    * :math:`\forall x \in N, \xi(x) \notin T_x N` とする。
+    * :math:`\forall x \in N, \xi(x) \notin T_x N` とする
+      （部分多様体から見れば接ベクトルがはみ出す）。
 
   * 結論
 
     * 次を満たす写像と数 :math:`\eps > 0` が存在する：
-
       写像 :math:`(-\eps, \eps) \times N \longto M` が :math:`M` の開集合への埋め込みである。
 
   * 証明
 
-    TBW
+    * まず写像 :math:`F: \RR \times N \longto M` を
+      :math:`F: (t, x) \longmapsto \varphi_t(x)` で定義する。
+      :math:`t = 0` で接写像 :math:`F_*: \RR \times T_xN \longto T_xM` を考えると
+      点 :math:`(0, x)` で次が成り立つ：
+
+      .. math::
+
+         \begin{align*}
+         &F_*|T_xN = \id_{T_xN},\\
+         &F_*|\left(\frac{\partial}{\partial t}\right)_{(0, x)} = \xi(x).
+         \end{align*}
+
+      よって :math:`\rank F_* = m` である。
+
+  * 逆写像定理より :math:`\zeroset \times N` 上では :math:`F` は単射である。
+  * 例題 4.3.1 より :math:`F` は
+
+    * :math:`\zeroset \times N` の近傍、すなわち :math:`(-\eps, \eps) \times N` から
+    * :math:`N \subset M` の近傍への
+
+    微分同相写像である。
 
 6.6 第 6 章の解答
 ----------------------------------------------------------------------
-TBW
+ノートはすでに書いた。
 
 ----
 
