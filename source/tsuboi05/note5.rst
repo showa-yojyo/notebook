@@ -487,7 +487,7 @@
 
       このとき :math:`g_i(0, \dotsc, 0) = 0` および :math:`h_{11} = \dfrac{\partial^2 f}{\partial x_1^2} \ne 0` に注意。
 
-    * :math:`f = \sum h_{ij} x_i x_j` だが、これを :math:`h_ij = \dfrac{h_{ij} + h_{ji}}{2}` と置き換えて
+    * :math:`f = \sum h_{ij} x_i x_j` だが、これを :math:`h_{ij} = \dfrac{h_{ij} + h_{ji}}{2}` と置き換えて
       :math:`h_{ij} = h_{ji}` としてもよい。
 
     * 平方完成と座標変換を順次適用する。最初はこうする：
@@ -683,7 +683,7 @@
            y_{p + 1}, \dotsc, y_N\right).
         \end{align*}
 
-  #. ヤコビ行列を計算すると :math:`\sum y_k g_k` の二階微分の行列が現れるので、
+  #. ヤコビ行列を計算すると :math:`\sum y_k g_k` の二階微分からなる成分が現れるので、
      このブロックの正則性が条件となる。
 
   #. 一方、:math:`(L \circ i)(\bm x_1, g(\bm x_1)) = \sum a_k x_k + \sum a_k g_k` が
