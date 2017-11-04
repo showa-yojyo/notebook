@@ -28,7 +28,7 @@
        :nowrap:
 
        \begin{align*}
-       x \in M \setminus \supp{F} \Longleftrightarrow \exists U \owns x: f(U) = \zeroset
+       x \in M \setminus \supp{F} \iff \exists U \owns x: f(U) = \zeroset
        \end{align*}
 
   * 定義上、多様体という条件を位相空間にまで緩められる。
@@ -304,7 +304,7 @@
      * 問題 4.5.3 でやったように :math:`M` のグラフ表示を考えることから始める。
        同じような記号を使う。
 
-       :math:`(\bm x, \bm y) \in X \Longleftrightarrow \bm y = (\bm y_1, \bm y_2)` とは、
+       :math:`(\bm x, \bm y) \in X \iff \bm y = (\bm y_1, \bm y_2)` とは、
        次が成り立つことと同値である：
 
        .. math::
@@ -518,7 +518,7 @@
   臨界点の個数が有限となる条件と退化する条件とを求める。
 
   * :math:`F` が well-defined であることを確かめる。
-    いつも通り :math:`[x_1, y_1] = [x_2, y_2] \Longleftrightarrow f(x_1, y_1) = f(x_2, y_2)` を示せばよい。
+    いつも通り :math:`[x_1, y_1] = [x_2, y_2] \iff f(x_1, y_1) = f(x_2, y_2)` を示せばよい。
     これは三角関数の性質より明らか。
 
   * :math:`F` が :math:`C^\infty` 級であることも確認する。
@@ -632,8 +632,8 @@
        .. math::
 
           \begin{align*}
-          &D f\circ (\varphi_i^\pm)^{-1} = 0 \Longleftrightarrow z_k = 0 (k \ne i)\\
-          &D f\circ (\psi_i^\pm)^{-1} = 0 \Longleftrightarrow z_k = 0 (k \ne i)
+          &D f\circ (\varphi_i^\pm)^{-1} = 0 \iff z_k = 0 (k \ne i)\\
+          &D f\circ (\psi_i^\pm)^{-1} = 0 \iff z_k = 0 (k \ne i)
           \end{align*}
 
     #. 以上より :math:`\bm z \in S^{2n + 1}` が正則点であることは、

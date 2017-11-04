@@ -222,7 +222,7 @@
   同値類のなす商空間が多様体にならないパターンの問題。
 
   * 行列 :math:`A = \displaystyle \begin{pmatrix} a & 0 \\ 0 & \dfrac{1}{a} \end{pmatrix}\ (a > 1)` をとり、
-    元の空間における同値関係を :math:`z_1 \sim z_2 \Leftrightarrow \exists n \in \ZZ: A^n z_1 = z_2` で定義する。
+    元の空間における同値関係を :math:`z_1 \sim z_2 \iff \exists n \in \ZZ: A^n z_1 = z_2` で定義する。
 
     * 同値関係であることを確認するのは簡単なので紙幅を割いていない。
 
@@ -274,7 +274,7 @@
 
 * 例題 3.3.5: :math:`\RR/\ZZ \cong S^1` は多様体になる。
 
-  * 同値関係 :math:`x_1 \sim x_2 \Leftrightarrow x_1 - x_2 \in \ZZ` で商空間 :math:`\RR/\sim` を定義する。
+  * 同値関係 :math:`x_1 \sim x_2 \iff x_1 - x_2 \in \ZZ` で商空間 :math:`\RR/\sim` を定義する。
   * 射影を :math:`p` とする。
 
     * ある閉集合の像 :math:`p(\set{0 \le x \le 1})` が空間全体となるゆえ、商空間はコンパクトであるといえる。
@@ -341,7 +341,7 @@
      * 再びコーシー・シュワルツの不等式より :math:`\underline f \le 1.`
        等号成立条件は :math:`\exists \lambda \in \CC^\times \text{ s.t. } \bm z_1 = \lambda \bm z_2.`
        これは :math:`[\bm z_1] = [\bm z_2]` を意味する。
-       ゆえに :math:`[\bm z_1] \ne [\bm z_2] \Longleftrightarrow \underline f([\bm z_1]) \ne \underline f([\bm z_2]).`
+       ゆえに :math:`[\bm z_1] \ne [\bm z_2] \iff \underline f([\bm z_1]) \ne \underline f([\bm z_2]).`
      * 相異なる二点を連続関数で分離されることを示せたので、
        この空間はハウスドルフである。
 
@@ -503,7 +503,7 @@
 
 * 例題 3.5.2: 例題 3.5.1 の記号の一部を流用し、開集合の直和に同値関係を入れて商空間を定義する。
 
-  #. まず :math:`x_i \sim x_j \Leftrightarrow x_j \in V_{ij} \subset V_j,
+  #. まず :math:`x_i \sim x_j \iff x_j \in V_{ij} \subset V_j,
      x_i = \gamma_{ij}(x_j)` とする。これは同値関係になることを確認する。
 
   #. ここで :math:`X = (\bigsqcup V_i / \sim)` がハウスドルフであれば、多様体となるといえる。
@@ -621,7 +621,7 @@
 
 * 連結多様体 :math:`M` から常に「向き付けを持つ」多様体 :math:`\widehat{M}` を構成できる。
 
-  * :math:`\widehat{M} \cong M \times \set{\pm 1} \Longleftrightarrow \forall \gamma_{ij}, \det (D\gamma_{ij}) > 0`
+  * :math:`\widehat{M} \cong M \times \set{\pm 1} \iff \forall \gamma_{ij}, \det (D\gamma_{ij}) > 0`
 
     このとき :math:`M` 自身がすでに向き付け可能。
 

@@ -36,7 +36,7 @@
         :nowrap:
 
         \begin{align*}
-        c_1 \sim c_2 \Longleftrightarrow 
+        c_1 \sim c_2 \iff 
         \exists t_1 \in I_{c_1},\ t_2 \in I_{c_2}: \diff{(\varphi \circ c_1)}{t}(t_1) = \diff{(\varphi \circ c_2)}{t}(t_2)
         \end{align*}
 
@@ -451,7 +451,7 @@
   前章の記号 :math:`V_i, V_{ij}, \gamma_{ij}` 等を流用する。
   次のようにして構成する商空間を多様体の接束という：
 
-  #. 直和 :math:`\bigsqcup V_i` に同値関係 :math:`x_i \sim x_j \Leftrightarrow x_i = \gamma_{ij}(x_j)` を導入する。
+  #. 直和 :math:`\bigsqcup V_i` に同値関係 :math:`x_i \sim x_j \iff x_i = \gamma_{ij}(x_j)` を導入する。
      このとき、商空間 :math:`X = (\bigsqcup V_i / \sim)` は :math:`M` と微分同相になる（例題 3.5.2 などを参照）。
 
   #. 直積の直和 :math:`\bigsqcup (V_i \times \RR^n)` に次の同値関係を導入する。
@@ -460,7 +460,7 @@
         :nowrap:
 
         \begin{align*}
-        (x_i, v_i) \sim (x_j, v_j) \Leftrightarrow \exists \gamma_{ij}:
+        (x_i, v_i) \sim (x_j, v_j) \iff \exists \gamma_{ij}:
         x_i = \gamma_{ij}(x_j),\ v_i = (D\gamma_{ij})_{(x_j)} v_j
         \end{align*}
 
@@ -508,7 +508,7 @@
        \bm x^0 = (\bm x_1^0, \bm x_2^0) \in \RR^p \times \RR^{N - p},
 
     :math:`\bm x_1^0 \in W` 上のグラフ表示 :math:`g: W \longto \RR^{N - p},\ M \cap U = \set{(\bm x_1, g(\bm x_1)) \sth \bm x_1 \in W}`
-    とすると :math:`\bm v \in T_{(\bm x_1, g(\bm x_1))}M \Longleftrightarrow \bm v = (\bm v_1, Dg_{(\bm x_1)}\bm v_1)).`
+    とすると :math:`\bm v \in T_{(\bm x_1, g(\bm x_1))}M \iff \bm v = (\bm v_1, Dg_{(\bm x_1)}\bm v_1)).`
 
     :math:`X \cap (U \times \RR^N) = \set{(\bm x_1, g(\bm x_1)), (\bm v_1, Dg_{(\bm x_1)}\bm v_1)) \sth (\bm u_1, \bm v_1) \in W \times \RR^p}.`
 

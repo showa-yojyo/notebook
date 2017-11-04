@@ -386,7 +386,7 @@
 #. :math:`c(s) = E_{\bm x}(t(s)\bm v(s))` で :math:`s` を定義する。
 
    * :math:`t(s)` は :math:`s` について :math:`C^1` 級であり、
-     :math:`t(s) = 0 \Longleftrightarrow s = 0` を仮定しても最短性の議論に差し支えない。
+     :math:`t(s) = 0 \iff s = 0` を仮定しても最短性の議論に差し支えない。
    * :math:`\bm v(s)` は :math:`s \ne 0` において :math:`s` について :math:`C^1` 級。
 
 #. 関数 :math:`H(t, s) = E_{\bm x}(t \bm v(s)) = F(1, \bm x, t\bm v(s)) = F(t, \bm x, \bm v(s))` を考える。

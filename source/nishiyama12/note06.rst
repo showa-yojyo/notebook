@@ -30,7 +30,7 @@
      :nowrap:
 
      \begin{align*}
-     (x, y, z) \sim (x', y', z') \Longleftrightarrow
+     (x, y, z) \sim (x', y', z') \iff
      \exists k \in \RR, k \ne 0: (x', y', z') = (kx, ky, kz)
      \end{align*}
 
