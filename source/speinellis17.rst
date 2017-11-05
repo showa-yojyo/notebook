@@ -87,7 +87,7 @@ Effective Debugging 読書ノート
 * 進捗のドキュメントを残すことも重要だ。
 
 知らなかった単語：
-  JIRA, SaaS, オンプレミス
+  JIRA_, SaaS, オンプレミス
 
 項目 2: 問題に対する洞察を得るにはウェブで焦点を絞って検索する
 ----------------------------------------------------------------------
@@ -95,7 +95,7 @@ Effective Debugging 読書ノート
 * 質問の出し方
 
 知らなかった単語：
-  SSCCE, SourceLair, JSFiddle
+  SSCCE, SourceLair_, JSFiddle_
 
 項目 3: 前条件と後条件が満たされていることを確認する
 ----------------------------------------------------------------------
@@ -120,15 +120,15 @@ Effective Debugging 読書ノート
 --------------------------------------------------------------------------
 * トレースツールについて
 
-  * 汎用：DTrace, SystemTap
-  * システムコール：:command:`strace`, :command:`truss`, Procmon
-  * DLL トレース： :command:`ltrace`, Procmon
-  * ネットワークトレース： :command:`tcpdump`, Wireshark
+  * 汎用：DTrace, SystemTap_
+  * システムコール：:command:`strace`, :command:`truss`, Procmon_
+  * DLL トレース： :command:`ltrace`, Procmon_
+  * ネットワークトレース： :command:`tcpdump`, Wireshark_
   * その他 SQL データベース呼び出しをトレースするもの等
 
 * 環境変数、OS, etc. 多過ぎるシステムの振る舞いに影響する要素。
 * バージョン間二分探索 (:command:`git bisect`)
-* ログファイルの diff では先に本質的でない行をフィルターしておくのがコツだ。
+* ログファイルの :command:`diff` では先に本質的でない行をフィルターしておくのがコツだ。
   例えば :command:`grep -v` などでノイズを除去する。
   場合によっては :command:`sort` してからの :command:`comm` の投入まである。
 
@@ -142,7 +142,7 @@ Effective Debugging 読書ノート
 * SQL の ``explain`` 文。
 
 知らなかった単語：
-  Postfix
+  Postfix_
 
 項目 7: ビルドと実行環境を多様化する
 ----------------------------------------------------------------------
@@ -152,7 +152,7 @@ Effective Debugging 読書ノート
 * 他の実行環境でデバッグする三つの方式
 
   #. 仮想マシンソフト
-  #. 小型の安価な計算機 e.g. Raspberry Pi;
+  #. 小型の安価な計算機 e.g. `Raspberry Pi`_;
      Windows や OS X ユーザーには有益。
   #. クラウドベースのホストを借りる
 
@@ -181,7 +181,7 @@ Effective Debugging 読書ノート
 * 再現可能な実行環境。
 
 知らなかった単語：
-  Docker, Ansible, CFEngine, Chef, Puppet, Salt
+  Docker_, Ansible_, CFEngine_, Chef_, Puppet_, Salt_
 
   システム構成管理ツール
 
@@ -216,7 +216,7 @@ Effective Debugging 読書ノート
 * I/O やネットワークとかハード間のやりとり。
 
 知らなかった単語：
-  Wireshark, :command:`tcpdump -w`
+  Wireshark_, :command:`tcpdump -w`
 
 項目 17: 失敗による結果をさらに際立たせる
 ----------------------------------------------------------------------
@@ -235,7 +235,7 @@ Effective Debugging 読書ノート
 * 本書では KVM over IP と標語的に表現している。
 
 知らなかった単語：
-  TeamViewer, :command:`strace`, :command:`truss`, シム
+  TeamViewer_, :command:`strace`, :command:`truss`, シム
 
 項目 19: デバッグタスクを自動化する
 ----------------------------------------------------------------------
@@ -243,6 +243,7 @@ Effective Debugging 読書ノート
   自分でもやってみたい。
 
   * Cygwin でちょっと試したら、シェル組み込みの :command:`time` しかなくてダメだった。
+    インストーラーで明示的にパッケージを取得する必要がある。
 
 項目 20: デバッグの前後で大掃除をする
 ----------------------------------------------------------------------
@@ -256,7 +257,7 @@ Effective Debugging 読書ノート
 
 3 章 汎用ツールと技法
 ======================================================================
-The Art of Command Line は気になるから確認しよう。
+`The Art of Command Line`_ は気になるから確認しよう。
 
 項目 22: デバッグデータを Unix コマンドラインツールで分析する
 ----------------------------------------------------------------------
@@ -304,7 +305,7 @@ The Art of Command Line は気になるから確認しよう。
 項目 27: 独立なプロセスからなるシステムの監視ツールを使う
 ----------------------------------------------------------------------
 知らなかった単語：
-  Nagios
+  Nagios_
 
 4 章 デバッガ技法
 ======================================================================
@@ -344,7 +345,7 @@ The Art of Command Line は気になるから確認しよう。
 * リアルタイムで監視するならばウォッチが有用だ。
 * 特別なデータ構造のオブジェクトについては専用のデバッガー拡張、ツールを用いる。
 
-  * Python Tutor の図がすごい。
+  * `Python Tutor <http://pythontutor.com/>`__ の図がすごい。
 
 項目 34: 実行プロセスにどのようにデバッガをアタッチするかを知っておく
 ----------------------------------------------------------------------
@@ -477,8 +478,8 @@ The Art of Command Line は気になるから確認しよう。
 
   * コンパイラーも静的プログラム解析ツールの一種であると解釈したい。
 
-* Gramma Tech, Code Sonar, Coverity Code Advisor, Find Bugs, Polyspace
-  Bug, Finder などの解析ツールがある。
+* `GrammaTech CodeSonar`_, `Coverity Code Advisor`_, FindBugs_,
+  `Polyspace Bug Finder`_ などの解析ツールがある。
 
   * 他に知りたければ ``static code analyzer`` で検索すればいい。
 
@@ -534,10 +535,10 @@ The Art of Command Line は気になるから確認しよう。
 * カバレッジツールいろいろ。
 
   * :command:`gcov` (C/C++),
-  * JCov, JaCoCo, Clover (Java),
-  * NCover, OpenCover (.NET)
+  * JCov_, JaCoCo_, Clover_ (Java),
+  * NCover, OpenCover_ (.NET)
   * coverage (Python)
-  * blanket.js (JavaScript)
+  * `blanket.js`_ (JavaScript)
 
 項目 55: 迅速に失敗させる
 ----------------------------------------------------------------------
@@ -556,7 +557,7 @@ The Art of Command Line は気になるから確認しよう。
 * :command:`syslogd` の話がわからない。
 * Java の Apache log4j の紹介。
 * ログレコードの分析方法など。
-* ELK, Logstash, loggy, Splunk, :command:`wevtutil`
+* ELK, Logstash_, loggy_, Splunk, :command:`wevtutil`
 * 障害が起こった時刻の前後のエントリーを調べるか、失敗したコマンド名のような、
   関係する文字列をログから検索する。その後にログを遡る。
 * 基本的にはテキスト処理になる。
@@ -579,12 +580,12 @@ The Art of Command Line は気になるから確認しよう。
 
 * プロファイル対策は p. 159 に詳細に述べられている。
 
-  * :command:`gprof`, :command:`gcov`, VisualVM, JProfiler, Java Mission Control,
-    CLR (.NET)
+  * :command:`gprof`, :command:`gcov`, VisualVM_, JProfiler_, Java Mission Control,
+    CLR_ (.NET)
 
 * メモリモニターは色々ある：
 
-  * Valgrind, Visual VM, Aspect J, Spring AOP, :command:`perf`, :command:`oprofile`,
+  * Valgrind_, VisualVM_, AspectJ_, Spring AOP, :command:`perf`, :command:`oprofile`,
     :command:`perfmon2`
 
 項目 58: コード実行をトレースする
@@ -594,7 +595,7 @@ The Art of Command Line は気になるから確認しよう。
 * 呼び出しトレースツールには次のようなものがある：
 
   * :command:`ltrace`, :command:`strace`, :command:`ktrace`, :command:`truss`,
-    JProfiler, Process Monitor
+    JProfiler_, Process Monitor
 
 * トレーサーの出力を Unix ツールで処理して、デバッグ能力を向上させる。
   ``strace -fo >( ... ) prog`` のようにする。
@@ -603,17 +604,17 @@ The Art of Command Line は気になるから確認しよう。
 
   * Python で言えば ``python -m trae --trace ...`` が該当する。
 
-* DTrace, SystamTap, LTTng
+* DTrace, SystemTap_, LTTng_
 * :command:`dtrace` コマンドの紹介をしている。
-* JVM には Byteman を使う。
+* JVM には Byteman_ を使う。
 * Windows ならば Windows ADK が含む WPT が含む WPR と WPA を使う。
 
 項目 59: 動的なプログラム解析ツールを使う
 ----------------------------------------------------------------------
 * 実行が劇的に遅いので、デバッグ中の問題を示すためだけの特別なテストに対して使うのが最良。
 * この手のツールは未初期化変数の使用、リーク、不当なメモリアクセスの検出機能を備えている。
-* Valgrind が広く使われている。
-* JavaScript ならば Jalangi が使える。
+* Valgrind_ が広く使われている。
+* JavaScript ならば Jalangi_ が使える。
 
 8 章 マルチスレッドコードのデバッグ
 ======================================================================
@@ -657,7 +658,7 @@ The Art of Command Line は気になるから確認しよう。
 
 項目 62: 専用ツールでデッドロックと競合条件を見つける
 ----------------------------------------------------------------------
-* FindBugs (Java)
+* FindBugs_ (Java)
 * OpenMP, POSIX Threads のコードの問題の特定。Intel Inspector
 * ``valgrind --tool=helgrind prog`` で潜在的デッドロックを検出する。
 
@@ -669,7 +670,7 @@ The Art of Command Line は気になるから確認しよう。
 項目 64: 競合制約状態を調べてスケーラビリティ問題を検討する
 ----------------------------------------------------------------------
 * 英語の contention のこの文脈での意味がよくわからない。
-* Java Flight Recorder, VTune Amplifier
+* Java Flight Recorder, `VTune Amplifier`_
 
 項目 65: 性能カウンタを使ってフォールスシェアリングを探す
 ----------------------------------------------------------------------
@@ -703,9 +704,9 @@ The Art of Command Line は気になるから確認しよう。
 
 * Java には Collections.parallelStream がある。
 * C++ の Qt ライブラリーには QtConcurrent がある。
-* Apache Hadoop 分散処理。
+* `Apache Hadoop`_ 分散処理。
 * MapReduce 技法
-* BLAS が使えるときはそうする。
+* BLAS_ が使えるときはそうする。
 * マルチコアを意識したプログラミング言語を採用する。
 
   * Clojure, Scale, F#, Haskell, R, Erlang.
@@ -721,4 +722,45 @@ The Art of Command Line は気になるから確認しよう。
 ----------------------------------------------------------------------
 * システム管理者（企画、運用担当含む）管理者にも本書を勧める。
 * デバッグは重要であるが、文献が少ない。
-* The Art of Command Line は気になるので是非チェックしたい。
+* `The Art of Command Line`_ は気になるので是非チェックしたい。
+
+.. _JIRA: https://ja.atlassian.com/software/jira
+.. _SourceLair: https://www.sourcelair.com/
+.. _JSFiddle: https://jsfiddle.net/
+.. _SystemTap: http://sourceware.org/systemtap/
+.. _ProcMon: https://technet.microsoft.com/ja-jp/sysinternals/processmonitor.aspx
+.. _Wireshark: https://www.wireshark.org/
+.. _Postfix: http://www.postfix.org/
+.. _Raspberry Pi: https://www.raspberrypi.org/
+.. _Docker: https://www.docker.com/
+.. _Ansible: https://www.ansible.com/
+.. _CFEngine: https://cfengine.com/
+.. _Chef: https://www.chef.io/chef/
+.. _Puppet: https://puppet.com/
+.. _Salt: https://saltstack.com/community/
+.. _TeamViewer: https://www.teamviewer.com/ja/
+.. _Nagios: https://www.nagios.org/
+.. _GrammaTech CodeSonar : https://www.grammatech.com/products/codesonar
+.. _Coverity Code Advisor: https://www.synopsys.com/software-integrity.html
+.. _FindBugs: http://findbugs.sourceforge.net/
+.. _Polyspace Bug Finder: https://www.mathworks.com/products/polyspace-bug-finder.html
+.. _JCov: https://wiki.openjdk.java.net/display/CodeTools/jcov
+.. _JaCoCo: http://www.eclemma.org/jacoco/
+.. _Clover: https://bitbucket.org/atlassian/clover
+.. _NCover: https://www.ncover.com/
+.. _OpenCover: https://github.com/OpenCover/opencover
+.. _blanket.js: http://blanketjs.org/
+.. _Logstash: https://www.elastic.co/jp/products/logstash
+.. _loggy: https://www.loggly.com/
+.. _VisualVM: https://visualvm.github.io/
+.. _JProfiler: https://www.ej-technologies.com/products/jprofiler/overview.html
+.. _CLR: https://clrprofiler.codeplex.com/
+.. _Valgrind: http://valgrind.org/
+.. _AspectJ: https://www.eclipse.org/aspectj/
+.. _LTTng: http://lttng.org/
+.. _Byteman: http://byteman.jboss.org/
+.. _Jalangi: http://people.eecs.berkeley.edu/~gongliang13/jalangi_ff/
+.. _`VTune Amplifier`: https://software.intel.com/en-us/intel-vtune-amplifier-xe
+.. _`Apache Hadoop`: http://hadoop.apache.org/
+.. _BLAS: http://www.netlib.org/blas/
+.. _`The Art of Command Line`: https://github.com/jlevy/the-art-of-command-line
