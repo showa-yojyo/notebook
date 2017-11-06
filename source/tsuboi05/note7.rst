@@ -14,7 +14,7 @@
 
 7.1 ユークリッド空間内の多様体上の曲線（基礎）
 ----------------------------------------------------------------------
-:math:`\displaystyle L(c) = \int_{t_0}^{t_1}\!\Norm{\diff{c(t)}{t}}\,dd{t}`
+:math:`\displaystyle L(c) = \int_{t_0}^{t_1}\!\Norm{\diff{c(t)}{t}}\,\dd{t}`
 
 * 例題 7.1.1: 最小問題
 
@@ -173,7 +173,19 @@
 
   * :math:`q` がリーマン計量を与えるような近傍が :math:`a` の符号によって異なる。
   * 点 :math:`(0, \dots, 0)` と点 :math:`(r, 0, \dots, 0)` を結ぶ線分の長さを計算する。
+
+    .. math::
+
+       L = \int_0^r\!\frac{\dd{t}}{1 + a^2}
+
+    * :math:`a > 0` ならば :math:`L = \dfrac{1}{\sqrt{a}}\left[\arctan\sqrt{a}t\right]_0^r = \dfrac{1}{\sqrt{a}}\arctan\sqrt{a}r.`
+    * :math:`a < 0` ならば :math:`L = \dfrac{1}{2\sqrt{-a}}\left[\log\dfrac{1 + \sqrt{-a}t}{1 - \sqrt{-a}t}\right]_0^r = \dfrac{1}{2\sqrt{-a}}\log\dfrac{1 + \sqrt{-a}r}{1 - \sqrt{-a}r}.`
+
   * 円周 :math:`(r\cos\theta, r\sin\theta, 0, \dots, 0)` の長さを計算する。
+
+    .. math::
+
+       L = \int_0^{2\pi}\!\dfrac{\dd{\theta}}{1 + ar^2} = \dfrac{2\pi}{1 + ar^2}.
 
     * 計算結果によると「円周率」が半径に依存することが見られる。
 
@@ -291,7 +303,7 @@
 
   * :math:`v(t)` は一意的に定まる。
   * `ユークリッド計量 <http://mathworld.wolfram.com/EuclideanMetric.html>`__
-    :math:`g_{ij} = \delta_{ij}` に対しては :math:`\Gamma_{ij}^l = 0,\ v(t) = const` であり、
+    :math:`g_{ij} = \delta_{ij}` に対しては :math:`\Gamma_{ij}^l = 0,\ v(t) = const.` であり、
     :math:`v^0 \in T_{c(0)}\RR^n` を :math:`v^0 \in T_{c(t)}\RR^n` に平行移動したものになる。
 
 * 問題 7.3.1: 上述の一階常微分方程式の解 :math:`v(t)` について :math:`q(v(t))` は一定である
@@ -299,16 +311,25 @@
   * 直接 :math:`\displaystyle \diff{q(v(t))}{t} = 0` を計算によって示す：
 
     .. math::
+       :nowrap:
 
        \begin{align*}
        \diff{q(v(t))}{t}
-       & = \diff{}{t}g(v(t), v(t)) = \diff{}{t}\sum_{i, j} g_{ij}v_i v_j\\
-       &= \sum_{i, j, k}\frac{\partial g_{ik}}{\partial x_j} \diff{c_j}{t} v_i v_k + 2 \sum_{i, j}g_{ij}\diff{v_i}{t}v_j\\
-       &= \sum_{i, j, k}\frac{\partial g_{ik}}{\partial x_j} \diff{c_j}{t} v_i v_k + \sum_{i, j, k}\left(
-         \frac{\partial g_{ij}}{\partial x_k}
-        -\frac{\partial g_{jk}}{\partial x_i}
-        -\frac{\partial g_{ik}}{\partial x_j}
+       & = \diff{}{t}g(v(t), v(t)) = \diff{}{t}\sum_{i, j} g_{ik}v_i v_k\\
+
+       &= \sum_{i, j, k}\frac{\partial g_{ik}}{\partial x_j} \diff{c_j}{t} v_i v_k
+        + \frac{1}{2}\sum_{i, k}\diff{v_i}{t}v_k\\
+
+       &= \sum_{i, j, k}\frac{\partial g_{ik}}{\partial x_j} \diff{c_j}{t} v_i v_k 
+        + \sum_{i, j, k}\left(
+          \frac{\partial g_{ij}}{\partial x_k}
+         -\frac{\partial g_{jk}}{\partial x_i}
+         -\frac{\partial g_{ik}}{\partial x_j}
        \right)\diff{c_i}{t}v_j v_k\\
+
+       &= \sum_{i, j, k}\left(\frac{\partial g_{ik}}{\partial x_j} \diff{c_j}{t} v_i v_k -\frac{\partial g_{jk}}{\partial x_i} \diff{c_i}{t}v_j v_k \right)
+        + \sum_{i, j, k}\left(\frac{\partial g_{ij}}{\partial x_k} -\frac{\partial g_{ik}}{\partial x_j} \right) \diff{c_i}{t}v_j v_k \\
+
        &= 0.
        \end{align*}
 
@@ -363,6 +384,8 @@
     :math:`\Phi(\theta, \psi) = (\cos\psi\cos\theta, \cos\psi\sin\theta, \sin\psi)`
     とする。
 
+    * この表示では :math:`\psi` 一定が赤道に平行な面の大円となっている。
+
   * 一点を北極に固定して証明してよい。
     点 :math:`(0, 0, 1)` と点 :math:`\Phi(\theta_0, \psi_0)` を結ぶ曲線を調べることにする。
 
@@ -370,7 +393,7 @@
   * 本問では長さを不等式で評価すれば十分だ：
 
     .. math::
-    
+
        \begin{align*}
        L &= \int_0^1\!\sqrt{\cos^2\psi \theta'^2 + \psi'^2}\,\dd{t}
        \ge \int_0^1\! \sqrt{\psi'^2}\,\dd{t}
@@ -439,9 +462,9 @@
 
     * :math:`T_{s_0(x)}(TM) = T_x(s_0(M)) \times T_x(M) = T_xM \times T_xM.`
     * 次の二つの制限を考える：
-    
+
       .. math::
-      
+
          \begin{align*}
          (F_*)_{s_0(x)}|(T_x(s_0(M)) \times \zeroset) &= (\id_{T_xM}, 0)\\
          (F_*)_{s_0(x)}|(\zeroset \times T_x(s_0(M))) &= (0, \id_{T_xM}).
@@ -475,7 +498,7 @@
   測地線の方程式は接束上のベクトル場として表わされる。
 
   * 測地線 :math:`c(t)` は次を満たす：
-    :math:`\displaystyle q\left(\diff{c}{t}\right) = const`
+    :math:`\displaystyle q\left(\diff{c}{t}\right) = const.`
   * :math:`a > 0` に対して :math:`q^{-1}(a)` はコンパクトであり、
     さっきのベクトル場はフローを生成するので、次のフローを定義できる：
     :math:`F_t: q^{-1}(a) \longto q^{-1}(a);\quad F_t: TM \longto TM.`
@@ -483,15 +506,46 @@
 * 定理 7.5.1: `ホップ・リノウの定理 <http://mathworld.wolfram.com/Hopf-RinowTheorem.html>`__
 
   コンパクト連結多様体の任意の二点について、測地線が存在するという主張か。
+  ここで示すのは :math:`\forall x, y \in M, \exists c: [0, 1] \longto M,\quad \text{s.t. } c(0) = x, c(1) = y, d(x, y) = L(c).`
 
   * 任意の二点が一致するときはどうだ。点（定値写像）も測地線の一種ということでよい？
 
-  * 指数写像 :math:`E_x: T_xM \longto M` の像となることを示したい。
+  * 証明では :math:`M` の任意の点が指数写像 :math:`E_x: T_xM \longto M` の像となることを示す。
+  * そのために :math:`\forall k \in NN` に対して :math:`\ E_x: T_xM \longto M` が
+    :math:`\set{y \in M \sth d(x, y) < k\eps}` 上への全射となることを示す。
 
-    #. :math:`\forall \eps > 0` で :math:`T_xM` の半径 :math:`2\eps` の閉球体が
-       :math:`E_x` により :math:`M` と全射となるようにとる。
-    #. :math:`\forall k \in NN` :math:`\ E_x: T_xM \longto M` が
-       :math:`\set{y \in M \sth d(x, y) < k\eps}` 上への全射となることを示す。
+  * 帰納法で :math:`k = 2` のときと、
+    :math:`k` のときに成り立てば :math:`k + 1` のときに成り立つことを示す。
+
+    #. :math:`T_xM` の半径 :math:`2\eps` の閉球体が
+       :math:`E_x` により :math:`M` に単射されるように :math:`\eps > 0` をとる。
+
+       * :math:`E_x|\set{v \in T_xM \sth g(v, v) \le 4\eps^2} \longto M` が単射？
+
+    #. :math:`k` のときに成り立つと仮定する。
+
+       * 指数写像 :math:`E_y: T_yM \longto M` によるボール :math:`S_\eps = \set{v \in T_yM \sth g(v, v) = \eps^2}` および
+         像 :math:`E_y(S_\eps)` を考える。
+
+       * コンパクト性により、:math:`\exists z \in S_y(v) \in E_y(S_\eps) \quad \text{s.t. }`
+         次のような写像 :math:`M \longto \RR` がある：
+
+           :math:`z \longmapsto d(x, y)` の制限 :math:`|E_y(S_\eps)` が最小値 :math:`m` をとる。
+
+       * :math:`x, y` を結ぶ曲線は :math:`E_y(S_\eps)` の点を通過するから :math:`m < k\eps.`
+       * :math:`\exists w \in M\quad\text{s.t. } z = E_y(v) = E_x(w), g(w, w)^2 = d(x, z)^2, d(z, y) = \eps.`
+       * ここで次の二つのベクトルが線形独立であるとすると、
+         :math:`\exists z' \in E_y(S_\eps)\quad\text{s.t. } z' \ne z, d(x, z') < d(x, z).`
+         これは :math:`z` のとり方に矛盾する。
+         したがってこの二つの測地線は互いに反対を向いている。
+
+         .. math::
+
+            \left.\diff{E_x(tw)}{t}\right|_{t = 1} \in T_zM,\ 
+            \left.\diff{E_y(tv)}{t}\right|_{t = 1} \in T_zM.
+
+       * ゆえに :math:`E_x(\dfrac{m + \eps}{m}) = y.`
+         これで :math:`k + 1` のときも成り立っていることが示された。
 
 * （最短測地線）コンパクト連結リーマン多様体の任意の二点に対して、
 
@@ -503,10 +557,12 @@
   #. それらを結ぶ最小の長さの曲線が存在し、
   #. :math:`E_x` が全射となる。
 
-* 例 7.5.2: 球面
+* 例 7.5.2: 球面にユークリッド計量から決まるリーマン計量
 
   * :math:`T_1 S^2` を :math:`TS^2` のうち長さが 1 のベクトルの全体とする。
-    これは :math:`SO(3)` と同一視できる。
+    これは :math:`SO(3)` と同一視できる。前にも書かれている。
+  * 軌道は大円の接ベクトルとなる。
+  * すべての軌道は閉である。
   * 測地流は :math:`T_1 S^2` 上のフローとなっている。
   * :math:`(\bm v_1, \bm v_2, \bm v_3) \in SO(3)` に対して :math:`\bm v_1 \in S^2` における
     接ベクトル :math:`\bm v_2` を対応させるとフロー :math:`F_t: T_1 S^2 \longto T_1 S^2` は計算できて
@@ -543,11 +599,21 @@
 
 * 例 7.5.4: トーラスの測地流の振る舞い
 
-  * フロー上では :math:`q(x)^2 = v_1^2(2 + \cos x_2)^2 + v_2^2 = const` なので
-    :math:`const = 1` の軌道の全体を考える。
+  * フロー上では :math:`q(x)^2 = v_1^2(2 + \cos x_2)^2 + v_2^2` が不変量であるので、
+    この値が 1 である軌道の全体を考える。
+
   * :math:`\cos \theta = v_1^2(2 + \cos x_2)^2,\quad \sin\theta = v_2` と変数変換すると
-    :math:`\displaystyle \diff{\theta}{t} = \frac{\sin x_2}{2 + \cos x_2},\quad \diff{x_2}{t} = \sin\theta` を得る。
-  * :math:`f(x_2, \theta) = (2 + \cos x_2)\cos\theta` とおくと :math:`\displaystyle \diff{f}{t} = 0.`
+    次の常微分方程式を得る：
+
+    .. math::
+
+       \begin{align*}
+       \diff{\theta}{t} &= \frac{\sin x_2}{2 + \cos x_2},\\
+       \diff{x_2}{t} &= \sin\theta
+       \end{align*}
+
+  * さらに :math:`f(x_2, \theta) = (2 + \cos x_2)\cos\theta` とおくと
+    常微分方程式 :math:`\displaystyle \diff{f}{t} = 0` が得られる。
     軌道は :math:`f` の等位線上にある（本書図 7.5 参照）。
 
 7.6 等長変換群（展開）
@@ -660,16 +726,56 @@
   #. :math:`\displaystyle q(v) = \sum_{i = 1}^k \mu_i q_i(v)` とすると、
      これが :math:`TM` 上 :math:`C^\infty` 級かつ :math:`T_xM` 上正値二次形式となる。
 
+     * :math:`\forall a \in \RR, q(av) = a^2 q(v)` はすぐにわかる。
+     * :math:`q(u + v) - q(u) - q(v) = \sum \mu_i(q_i(u + v) - q_i(u) - q_i(v))` であるが、
+       カッコの中身が bilinear なので和をとっても bilinear だ。
+
+  #. :math:`q(v) = 0, v \in T_xM \implies \forall i, x \in V_i,`
+
+     .. math::
+
+        v = \sum_j v_i^{(i)}\frac{\partial}{\partial x_j^{(i)}},\quad
+        q_i(v) = \sum (v_i^{(i)})^2 = 0.\quad
+        \therefore v = 0.
+
 * 問題 7.7.2: コンパクト多様体の微分同相写像からなる有限群 :math:`F` に対して、
   次を満たすリーマン計量 :math:`g` が存在する：
   :math:`\forall f \in F, f^*g = g.`
 
-  * TBW
+  * 記号を導入する：
+
+    * :math:`F = \set{f_1 = \id_M, f_2, \dotsc, f_k}` と書く。
+    * 写像 :math:`q: TM \longto M` を「各接空間でリーマン計量を与える二次形式を与える」ようにとる。
+    * ヒントにあるように写像 :math:`\hat{q}(v) = \dfrac{1}{k}\sum(q((f_i)_*v)` を定義する。
+
+  * :math:`(f_i)_*: T_xM \longto T_{f_i(x)}M` は線形写像である。
+  * :math:`q((f_i)_*v)` は :math:`T_xM` 上は正定値二次形式である。
+    これを :math:`k` で割っても正定値二次形式である。
+
+  * ゆえに :math:`\hat{q}` は :math:`M` 上でリーマン計量を与える。
+
+  .. math::
+
+     \begin{align*}
+     (f^*\hat{q})(v) & = \hat{q}(f_*v) \quad(\because \text{pull-back})\\
+     &= \frac{1}{k}\sum_{i = 1}^k q((f_i)_*(f_*v))\\
+     &= \frac{1}{k}\sum_{i = 1}^k q((f_if)_*v) \quad(\because \text{covariant})\\
+     &= \frac{1}{k}\sum_{i = 1}^k q((f_i)_*v) \quad(\because \text{property of }F)\\
+     &= \hat{q}(v).\\
+     \therefore f^*g &= g.
+     \end{align*}
 
 * 問題 7.7.3: リーマン多様体間の等長変換はリーマン計量をリーマン計量に写す微分同相写像である。
   すなわち :math:`d_{g_N}(f(x), f(y)) = d_{g_M}(x, y) \implies g_N(f_* v_1, f_* v_2) = g_M(v_1, v_2).`
 
-  * TBW
+  * 解答の :math:`F: TM \longto TN` をどのように捻出したのかがわからない。
+    問題文の :math:`f` について :math:`f_* = F` となる :math:`F` を最初に定義するわけだが。
+
+  * 指数写像 :math:`E_x: T_xM \longto M` と測地線 :math:`\gamma(t)` の接ベクトル
+    :math:`s\bm v_1` と :math:`s\bm v_2` に対する像を考える。
+    これらの :math:`M` 上の :math:`t : 1 - t` の内分点の逆像ベクトルの
+    :math:`s \to 0` の極限が :math:`t\bm v_1 + (1 - t)\bm v_2` になることを確認して、
+    指数写像に関係する :math:`F` が線形であることを示す。
 
 * 最後に `ナッシュの埋め込み定理 <https://en.wikipedia.org/wiki/Nash_embedding_theorem>`__ について触れている。
 
@@ -722,15 +828,34 @@
 
 * 例 7.8.1: `双曲放物面 <http://mathworld.wolfram.com/HyperbolicParaboloid.html>`__  :math:`z = x_1 x_2 = h`
 
-  * TBW
+  * :math:`Dh = \begin{pmatrix}x_2 & x_1\end{pmatrix}`
+  * :math:`H_h = \begin{pmatrix}0 & 1\\1 & 0\end{pmatrix}`
 
-* 例 7.8.2: `放物面 <http://mathworld.wolfram.com/EllipticParaboloid.html>`__ :math:`z = -x_1^2 - x_2^2`
+  .. math::
 
-  * TBW
+     \mdiff{}{2}{t}\begin{pmatrix}x_1\\x_2\end{pmatrix} =
+     - \frac{2}{1 + x_1^2 + x_2^2}
+     \diff{x_1}{t}\diff{x_2}{t}
+     \begin{pmatrix}x_2\\x_1\end{pmatrix}.
+
+* 例 7.8.2: `放物面 <http://mathworld.wolfram.com/EllipticParaboloid.html>`__ :math:`z = -x_1^2 - x_2^2 = h`
+
+  * :math:`Dh = \begin{pmatrix}-2x_1\quad -2x_2\end{pmatrix}`
+  * :math:`H_h = \begin{pmatrix}-2 & 0\\0 & -2\end{pmatrix}`
+
+  .. math::
+
+     \mdiff{}{2}{t}\begin{pmatrix}x_1\\x_2\end{pmatrix} =
+     -\frac{4}{1 + 4x_1^2 + 4x_2^2}
+     \left(
+       \left(\mdiff{x_1}{2}{t}\right)^2 +
+       \left(\mdiff{x_2}{2}{t}\right)^2
+     \right)
+     \begin{pmatrix}x_1\\x_2\end{pmatrix}.
 
 7.9 第 7 章の問題の解答
 ----------------------------------------------------------------------
-TBW
+本文中に埋めた。
 
 ----
 
