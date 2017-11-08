@@ -41,7 +41,7 @@
 
   * 開集合 :math:`U_i^\pm` をすべて合併させると曲面全体を覆う。
   * 写像 :math:`\varphi_i^\pm: Q \longto \RR^{n - 1}` はちょっとした計算により同相写像であることを示せる。
-  * 座標変換 :math:`\varphi_i^\sigma \circ (\varphi_j^\tau)^{-1}` が :math:`C^\infty` 級であることも同様にして示せる。
+  * 座標変換 :math:`\varphi_i^\sigma \circ (\varphi_j^\tau)\inv` が :math:`C^\infty` 級であることも同様にして示せる。
 
 * 例 3.1.6: 多様体の直積、直和はどちらも多様体
 
@@ -94,11 +94,11 @@
          \end{align*}
 
     * このとき、写像 :math:`\varphi_i` は well-defined かつ連続写像かつ逆写像が存在する。
-    * 逆写像 :math:`\varphi_i^{-1}` は :math:`p \circ (\varphi_i^+)^{-1} = p \circ (\varphi_i^-)^{-1}` となって連続である。
+    * 逆写像 :math:`\varphi_i\inv` は :math:`p \circ (\varphi_i^+)\inv = p \circ (\varphi_i^-)\inv` となって連続である。
       図を入れたい。
 
     * 次に座標変換が滑らかであることを示す。
-      これは :math:`\varphi_i \circ \varphi_j^{-1}` が「球面」のときと同じ式で定義されることから言える。
+      これは :math:`\varphi_i \circ \varphi_j\inv` が「球面」のときと同じ式で定義されることから言える。
 
     * 射影空間がハウスドルフであることを示す。
       「球面」がハウスドルフであることと :math:`[\bm{x^1}] \ne [\bm{x^2}] \implies \bm{x^1} \ne \pm \bm{x^2}` であることから地道に示す。
@@ -126,19 +126,19 @@
 
      これは背理法で示せるのだが、簡単なためか紙幅の都合上か本書では触れていない。
 
-  #. 次に :math:`\displaystyle U = \bigcap_{i = 1}^n U_i,\ V = \bigcap_{i = 1}^n f_i^{-1}(V_i)` とおく。
+  #. 次に :math:`\displaystyle U = \bigcap_{i = 1}^n U_i,\ V = \bigcap_{i = 1}^n f_i\inv(V_i)` とおく。
      このとき次が成り立つ：
 
      * :math:`x \in U,\ y \in V.`
      * :math:`f_i(U) \cap f_j(V) = \varnothing \text{ for } i, j = 1, \dots, n.`
 
-     二番目の等式は :math:`f_i^{-1} \circ = f_j = f_k` と表すと、次のようにしてわかる：
+     二番目の等式は :math:`f_i\inv \circ = f_j = f_k` と表すと、次のようにしてわかる：
 
      .. math::
 
         \begin{align*}
-        f_i^{-1}(f_i(U) \cap f_j(V))
-        &= U \cap (f_i^{-1} \circ f_j)(V)\\
+        f_i\inv(f_i(U) \cap f_j(V))
+        &= U \cap (f_i\inv \circ f_j)(V)\\
         &= U \cap f_k(V)\\
         &\subset U_k \cap U_k
         = \varnothing.
@@ -146,19 +146,19 @@
 
   #. このとき射影 :math:`p: X \longto X/F` に対して :math:`[x] \in p(U),\ [y] \in p(V)` である。
 
-     * 例えば :math:`\displaystyle p^{-1}(p(U)) = \bigcup_{i = 1}^n f_i(U)` であるから
+     * 例えば :math:`\displaystyle p\inv(p(U)) = \bigcup_{i = 1}^n f_i(U)` であるから
        （もっと丁寧に説明したい）
        :math:`[x] \in p(U)` と言える。
        :math:`[y] \in p(V)` についても同じ。
 
-  #. 最後に :math:`p^{-1}(p(U) \cap p(V)) = \varnothing` を示して、
+  #. 最後に :math:`p\inv(p(U) \cap p(V)) = \varnothing` を示して、
      :math:`P(U)` と :math:`P(V)` が先の同値類を分離する開集合であることを示す。
      射影が連続写像なのでこういう等式変形となる：
 
      .. math::
 
         \begin{align*}
-        p^{-1}(p(U) \cap p(V)) &= p^{-1}(p(U)) \cap p^{-1}(p(V))\\
+        p\inv(p(U) \cap p(V)) &= p\inv(p(U)) \cap p\inv(p(V))\\
         &= \left(\bigcup_{i = 1}^n f_i(U)\right) \cap \left(\bigcup_{i = 1}^n f_i(V)\right)\\
         &= \varnothing \quad(\because f_i(U) \cap f_j(V).)
         \end{align*}
@@ -257,8 +257,8 @@
 
       #. :math:`s` は連続写像である
 
-         開集合 :math:`U \subset I \times RR` をとると :math:`s^{-1}(U)` が開集合であればよい。
-         :math:`p^{-1}\circ s^{-1}(U)` が開集合であることを示すのがよい。
+         開集合 :math:`U \subset I \times RR` をとると :math:`s\inv(U)` が開集合であればよい。
+         :math:`p\inv\circ s\inv(U)` が開集合であることを示すのがよい。
          :math:`\displaystyle \bigcup_{n \in \ZZ}A^n(U)` の代表元がどうなるかを考える。
 
       #. :math:`s` は同相写像である
@@ -285,7 +285,7 @@
     * 同値類からその代表元を :math:`I_x` の中にあるように取る（？）写像を :math:`s_x` を定義する。
 
       * :math:`s_x` は連続となる。なぜなら開集合 :math:`U \subset I_x` に対して
-        :math:`{ \displaystyle p^{-1}(s_x^{-1}(U)) = \bigcup_{n \in \ZZ}\set{x + n \sth x \in U} }` は開集合だから。
+        :math:`{ \displaystyle p\inv(s_x\inv(U)) = \bigcup_{n \in \ZZ}\set{x + n \sth x \in U} }` は開集合だから。
 
       * :math:`s_x` は同相となる。なぜなら
         :math:`(p|I_x) \circ s_x = \id,\quad s_x \circ (p|I_x) = \id` であるから。
@@ -297,7 +297,7 @@
   * 円周 :math:`S^1` と同相となることを示せる。
 
     * 実数から円周への写像 :math:`h: x \longmapsto (\cos 2\pi x, \sin 2 \pi x)` を定義する。
-    * 誘導される写像 :math:`\underline{h} = h \circ p^{-1}` が定義でき、
+    * 誘導される写像 :math:`\underline{h} = h \circ p\inv` が定義でき、
       これが全射であるだけでなく、単射であることを示せば、同相であると結論できる。
 
 * 例題 3.3.6: :math:`\RR P^n = S^n / \set{\pm 1} = (\RR^{n + 1} \minuszero) / \RR^\times`
@@ -371,7 +371,7 @@
             \iota_i: (z_0, \dotsc, z_{i - 1}, z_{i + 1}, \dotsc, z_n) \longmapsto
             (z_0, \dotsc, z_{i - 1}, 1, z_{i + 1}, \dotsc, z_n)
 
-     * 座標変換 :math:`\varphi_i \circ \varphi_j^{-1}` を確かめる。
+     * 座標変換 :math:`\varphi_i \circ \varphi_j\inv` を確かめる。
        :math:`i > j` とすると、この変換は次のようなものとなり、
        複素数では :math:`n` 個の、実数では :math:`2n` 個の座標成分があるとみなせる。
 
@@ -393,7 +393,7 @@
 
 :math:`C^s` 級
   写像 :math:`F: M_1 \longto m_2` が :math:`C^s` 級 であるとは、
-  写像 :math:`\psi \circ F \circ \varphi^{-1}: \varphi(U) \longto \psi(V)` が :math:`C^s` 級 であることとする。
+  写像 :math:`\psi \circ F \circ \varphi\inv: \varphi(U) \longto \psi(V)` が :math:`C^s` 級 であることとする。
 
 * 定義 3.4.2: `微分同相写像 <http://mathworld.wolfram.com/Diffeomorphism.html>`__
 
@@ -414,21 +414,21 @@
 
        \begin{align*}
        p_\pm(x, y, z) &= \left(\frac{x}{1 \mp z}, \frac{y}{1 \mp z}\right),\\
-       p_\pm^{-1}(x, y) &= \left(\frac{2x}{x^2 + y^2 + 1}, \frac{2y}{x^2 + y^2 + 1}, \frac{x^2 + y^2 - 1}{x^2 + y^2 + 1}\right),\\
-       p_- \circ p_+^{-1}(x, y) &= \left(\frac{x}{x^2 + y^2}, \frac{y}{x^2 + y^2}\right).
+       p_\pm\inv(x, y) &= \left(\frac{2x}{x^2 + y^2 + 1}, \frac{2y}{x^2 + y^2 + 1}, \frac{x^2 + y^2 - 1}{x^2 + y^2 + 1}\right),\\
+       p_- \circ p_+\inv(x, y) &= \left(\frac{x}{x^2 + y^2}, \frac{y}{x^2 + y^2}\right).
        \end{align*}
 
   * :math:`\CC P^1` では座標
 
-    * 問題 3.3.7 の記号で言うと :math:`\displaystyle \varphi_i: V_i \longto \CC,\ z \in \CC^\times, \varphi_1 \circ \varphi_0^{-1}(z) = \frac{1}{z}.`
+    * 問題 3.3.7 の記号で言うと :math:`\displaystyle \varphi_i: V_i \longto \CC,\ z \in \CC^\times, \varphi_1 \circ \varphi_0\inv(z) = \frac{1}{z}.`
     * 写像 :math:`\bar\iota: \RR^2 \longto \RR^2` を :math:`(x, y) \longmapsto (x, -y)` で定義し、
       :math:`S^2` に新たに座標近傍系 :math:`\set{(U_+, p_+), (U_-, \bar\iota \circ p_-)}` を定義する。
 
       .. math::
 
-         (\bar\iota \circ p_-) \circ p_+^{-1}(x, y) = \left(\frac{x}{x^2 + y^2}, -\frac{y}{x^2 + y^2}\right)
+         (\bar\iota \circ p_-) \circ p_+\inv(x, y) = \left(\frac{x}{x^2 + y^2}, -\frac{y}{x^2 + y^2}\right)
 
-      となるが、これは :math:`\displaystyle \varphi_0^{-1}(z) = \frac{1}{z}` で :math:`z = x + y \sqrt{-1}` としたものと一致している。
+      となるが、これは :math:`\displaystyle \varphi_0\inv(z) = \frac{1}{z}` で :math:`z = x + y \sqrt{-1}` としたものと一致している。
 
 * 問題 3.4.5: 四元数を意識したクイズ
 
@@ -476,7 +476,7 @@
 * 例題 3.5.1: 座標近傍の同相写像がまた同相写像となる。
 
   * :math:`\gamma_{ij}: \varphi_j(U_i \cap U_j) \longto \varphi_i(...)` を
-    :math:`\gamma_{ij} = \varphi_i \circ (\varphi_j|U_i \cap U_j)^{-1}` で定義する。
+    :math:`\gamma_{ij} = \varphi_i \circ (\varphi_j|U_i \cap U_j)\inv` で定義する。
     このとき :math:`\varphi_k(U_i \cap U_j \cap U_k)` 上は
     :math:`\gamma_{ij} \circ \gamma_{jk} = \gamma_{ik}` となる。
 
@@ -513,8 +513,8 @@
        代表元を取る写像を :math:`s_i` とすると、次のようにして連続であることがわかる：
 
        :math:`V_i` の開集合 :math:`W` に対して
-       :math:`s_i^{-1}(W)` が開集合であり、
-       :math:`p^{-1}(s_i^{-1}(W)) \subset \bigcup V_i` が開集合であることによる。
+       :math:`s_i\inv(W)` が開集合であり、
+       :math:`p\inv(s_i\inv(W)) \subset \bigcup V_i` が開集合であることによる。
 
      * 写像 :math:`s_i` は同相である。なぜなら :math:`p \circ s_i = \id_{p(V_i)}` かつ
        :math:`s_i \circ p = \id_{V_i}` だから。
@@ -525,7 +525,7 @@
   #. n 次元 :math:`C^\infty` 多様体 :math:`M` と上述の商空間 :math:`X` とが微分同相となる。
      例題 3.5.1 の記号を流用すると、
 
-     * 写像 :math:`\iota: x_i \in V_i \longmapsto \varphi_i^{-1}(x_i)` を考える。
+     * 写像 :math:`\iota: x_i \in V_i \longmapsto \varphi_i\inv(x_i)` を考える。
        このとき、誘導される写像 :math:`\underline{\iota}: X \longto M` は連続となる。
 
        なぜなら :math:`x_i \in V_{ij}, \iota(\gamma_{ji}(x_i)) = \iota(x_i)` だから。
@@ -534,7 +534,7 @@
 
      * :math:`\underline{\iota} \circ (p \circ \varphi_i) = \id_{U_i}` かつ
        :math:`(p \circ \varphi_i) \circ (\underline{\iota}|p(V_i)) = \id_{p(V_i)}` となるので、
-       :math:`\underline{\iota} ^{-1} = (p \circ \varphi_i)` は連続。
+       :math:`\underline{\iota} \inv = (p \circ \varphi_i)` は連続。
        したがって :math:`M` と :math:`X` は同相であり、
        :math:`X` はハウスドルフだ。
 
@@ -553,7 +553,7 @@
 
        \forall b \in B, \exists U_b \owns b
        \text{ s.t. }
-       \exists h: p^{-1}(U_b) \longto U_b \times F,\ \operatorname{pr}_1 \circ h = p.
+       \exists h: p\inv(U_b) \longto U_b \times F,\ \operatorname{pr}_1 \circ h = p.
 
     ただし :math:`h` は同相写像であり、
     :math:`\operatorname{pr}_1` は直積 :math:`U_b \times F` の第一成分への射影とする。
@@ -566,7 +566,7 @@
      \begin{CD}
      E @>{p}>> B\\
      @A{\subset}AA @A{\subset}AA\\
-     p^{-1}(U_b) @>{p}>> U_b\\
+     p\inv(U_b) @>{p}>> U_b\\
      @V{h}VV @A{\operatorname{pr}_1}AA\\
      U_b \times F
      \end{CD}
@@ -580,12 +580,12 @@
 
       * ハウスドルフ性により、次のような開集合 :math:`U_1, U_2` が存在する：
         :math:`p(x_1) \in U_1, p(x_2) \in U_2, U_1 \cap U_2 = \varnothing.`
-      * :math:`p` の連続性により、:math:`p^{-1}(U_1) \owns x_1,\ p^{-1}(U_2) \owns x_2` は
+      * :math:`p` の連続性により、:math:`p\inv(U_1) \owns x_1,\ p\inv(U_2) \owns x_2` は
         :math:`E` の開集合である。
 
     * :math:`x_1 \ne x_2 \in E,\ p(x_1) = p(x_2) = b` のとき：
 
-      * ファイバー性により次のような同相写像 :math:`h: p^{-1}(U_b) \longto U_b \times F` が存在する：
+      * ファイバー性により次のような同相写像 :math:`h: p\inv(U_b) \longto U_b \times F` が存在する：
         :math:`\operatorname{pr}_1 \circ h = p.`
 
       * :math:`x_1 \ne x_2` であるので :math:`\operatorname{pr}_2 \circ h(x_1) \ne \operatorname{pr}_2 \circ h(x_2) \in F.`
@@ -597,8 +597,8 @@
            \operatorname{pr}_2 \circ h(x_2) \in V_2,\
            V_1 \cap V_2 = \varnothing.
 
-      * :math:`h^{-1}(U_b \times V_1) \owns x_1, h^{-1}(U_b \times V_2) \owns x_2` もまた開集合であるので、
-        :math:`h^{-1}(U_b \times V_1) \cap h^{-1}(U_b \times V_2) = \varnothing.`
+      * :math:`h\inv(U_b \times V_1) \owns x_1, h\inv(U_b \times V_2) \owns x_2` もまた開集合であるので、
+        :math:`h\inv(U_b \times V_1) \cap h\inv(U_b \times V_2) = \varnothing.`
 
   後ほど例題 8.6.1 で同じ状況が現れる。
 
@@ -615,7 +615,7 @@
 
   .. math::
 
-     P^{-1}(p_M(V_i)) =V_{i+} \sqcup V_{i-} \approx V_i \times \set{\pm 1}.
+     P\inv(p_M(V_i)) =V_{i+} \sqcup V_{i-} \approx V_i \times \set{\pm 1}.
 
   * :math:`\set{\pm 1}` がハウスドルフであるというのは意表を突かれた感がある。
 
@@ -626,7 +626,7 @@
     このとき :math:`M` 自身がすでに向き付け可能。
 
   * :math:`M` が向き付け不可能で連結であっても :math:`\widehat{M}` は向き付け可能。
-  * :math:`P: \widehat{M} \longto M` において :math:`P^{-1}(y)` の二点を入れ替える写像
+  * :math:`P: \widehat{M} \longto M` において :math:`P\inv(y)` の二点を入れ替える写像
     :math:`F: \widehat{M} \longto \widehat{M}` は、向き付けを反対にする微分同相写像だ。
 
 * 例 3.6.2: 実射影空間は多様体次元の偶数奇数によって向き付け可能性が決まる。

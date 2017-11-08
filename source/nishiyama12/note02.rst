@@ -68,8 +68,8 @@
 
 * 用語：逆像 or ファイバー。ある一点の写像前の元全て。
 
-一つの元 :math:`\tau_1 \in \varphi^{-1}(\sigma)` と :math:`\ker \varphi` が既にわかっていれば、
-ファイバーは容易に求まる。すなわち :math:`\varphi^{-1}(\sigma) = \tau_1 \ker \varphi` がそれだ。
+一つの元 :math:`\tau_1 \in \varphi\inv(\sigma)` と :math:`\ker \varphi` が既にわかっていれば、
+ファイバーは容易に求まる。すなわち :math:`\varphi\inv(\sigma) = \tau_1 \ker \varphi` がそれだ。
 
 そこで :math:`N = \ker \varphi` とおくと、:math:`\tau N` の形の集合の間に演算が定義できる。
 
@@ -77,7 +77,7 @@
 * 定義 2.23: 商群 :math:`G/N := \set{[\tau] \sth \tau \in G}`
 * 定理 2.24: 準同型定理。
 
-:math:`\forall \sigma \in G_2 = \operatorname{im}\varphi,\ \exists \tau \in G_1:\ \tau \ker \varphi = \varphi^{-1} \ker \varphi` ということ。
+:math:`\forall \sigma \in G_2 = \operatorname{im}\varphi,\ \exists \tau \in G_1:\ \tau \ker \varphi = \varphi\inv \ker \varphi` ということ。
 
 任意の準同型写像の任意のファイバーの任意のニ元について、
 一方ともう一方の逆元を乗じれば、それは準同型写像の核に属する。

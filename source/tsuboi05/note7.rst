@@ -99,7 +99,7 @@
 * 問題 7.1.5: 球面に投影した曲線の長さ
 
   * :math:`c(t) = (\xi(t), \eta(t)) \subset \RR^2` に関する
-    :math:`p^{-1} \circ c: [0, 1] \longto M` の長さを求めるのが本題だ。
+    :math:`p\inv \circ c: [0, 1] \longto M` の長さを求めるのが本題だ。
 
   * :math:`S_r` を曲面 :math:`x^2 + y^2 + (z + R)^2 = R^2` とする。
   * 球面上の点を平面に投影する写像を :math:`p: S_r \setminus \set{(0, 0, -2R)} \longto \RR^2` とする。
@@ -111,19 +111,19 @@
 
           \left(\frac{2Rx}{2R + z}, \frac{2Ry}{2R + z}\right).
 
-    #. :math:`p^{-1}(u, v)` を計算する（球面上への投影写像）：
+    #. :math:`p\inv(u, v)` を計算する（球面上への投影写像）：
 
        .. math::
 
           \left(\frac{4R^2u}{u^2 + v^2 + 4R^2}, \frac{4R^2v}{u^2 + v^2 + 4R^2}, -\frac{2R(u^2 + v^2)}{u^2 + v^2 + 4R^2}\right).
 
-    #. :math:`Dp^{-1}` を計算する
+    #. :math:`Dp\inv` を計算する
 
        .. todo::
 
           TeX コードを何とか生成する。
 
-    #. :math:`{}^t\!(Dp^{-1})(Dp^{-1})` を計算する（積分の途中で使うため）
+    #. :math:`{}^t\!(Dp\inv)(Dp\inv)` を計算する（積分の途中で使うため）
 
        .. math::
 
@@ -132,7 +132,7 @@
           0 & \left(\dfrac{4R^2}{u^2 + v^2 + 4R^2}\right)^2
           \end{pmatrix}
 
-    #. 積分 :math:`\displaystyle L(p^{-1} \circ c) = \int_0^1\!\Norm{\diff{(p^{-1}\circ c)}{t}}\,\dd{t}` を書き下す
+    #. 積分 :math:`\displaystyle L(p\inv \circ c) = \int_0^1\!\Norm{\diff{(p\inv\circ c)}{t}}\,\dd{t}` を書き下す
 
        .. math::
 
@@ -199,22 +199,22 @@
       このとき、:math:`\displaystyle \sum_{i, j} g_{ij}v_i v_j \le \delta \sum_{i} v_i^2` が
       開球 :math:`V = B_\eps(\varphi(x))` で成り立つような :math:`\eps > 0` が存在する。
 
-      * :math:`y \in \varphi^{-1}(V)` であれば :math:`d(x, y) \le \sqrt{\delta}\norm{\varphi(x) - \varphi(y)}`
+      * :math:`y \in \varphi\inv(V)` であれば :math:`d(x, y) \le \sqrt{\delta}\norm{\varphi(x) - \varphi(y)}`
         :math:`\therefore\ d(x, y) = 0 \implies \varphi(x) = \varphi(y) \implies x = y.`
 
-      * :math:`y \notin \varphi^{-1}(V)` のときは面倒で、次のような関数を説明することになる：
+      * :math:`y \notin \varphi\inv(V)` のときは面倒で、次のような関数を説明することになる：
 
         .. math::
 
            F(z) = 
            \begin{cases}
-           \norm{\varphi(x) - \varphi(z)}^2 & \quad \text{if } z \in \varphi^{-1}(V)\\
-           \eps^2 + 1 & \quad \text{if } z \notin \varphi^{-1}(V)
+           \norm{\varphi(x) - \varphi(z)}^2 & \quad \text{if } z \in \varphi\inv(V)\\
+           \eps^2 + 1 & \quad \text{if } z \notin \varphi\inv(V)
            \end{cases}
 
         このとき、
 
-        * :math:`x` と :math:`y` を結ぶ曲線は :math:`\varphi^{-1}(\partial V)` と交わって（∵中間値の定理）、
+        * :math:`x` と :math:`y` を結ぶ曲線は :math:`\varphi\inv(\partial V)` と交わって（∵中間値の定理）、
         * 境界 :math:`\partial V` 上では :math:`\norm{z - \varphi(x)} = \eps`
 
         なので、
@@ -260,7 +260,7 @@
   * 各 :math:`k` に対して :math:`\displaystyle \sum_i g_{ik}\mdiff{c_i}{2}{t} = \sum_{i, j}\left(\frac{1}{2} \frac{\partial g_{ij}}{\partial x_k} - \frac{\partial g_{ik}}{\partial x_j}\right) \diff{c_j}{t} \diff{c_i}{t}`
     が必要。
 
-  * 整形すると次のようになる。ただし :math:`g^{ij} = g_{ij}^{-1}` とする。
+  * 整形すると次のようになる。ただし :math:`g^{ij} = g_{ij}\inv` とする。
     :math:`\sum_k g^{lk}g_{kj} = \delta_{ij}` や :math:`g_{ij},\ g^{ij}` が対称行列であることに注意。
 
     .. math::
@@ -363,7 +363,7 @@
 #. 本書 p. 149 の測地線方程式において :math:`c(t)` が解であれば :math:`c(at)\quad (a \in \RR)` も解である。
 
    * :math:`(0, 0)` で :math:`(\bm x, \bm v)` をとる。
-   * :math:`c(at)` の定義域は元のそれの :math:`a^{-1}` 倍であるが、問題ない。
+   * :math:`c(at)` の定義域は元のそれの :math:`a\inv` 倍であるが、問題ない。
 
 #. :math:`V \times \RR^n` 上の初期値を :math:`(\bm x, \bm X)` とする解は次の形をしている：
    :math:`\displaystyle \left(c(t, \bm x, \bm X), \diff{c}{t}(t, \bm x, \bm X)\right).`
@@ -484,7 +484,7 @@
     :math:`\set{(x, \Phi(x)) \sth x \in M} \subset M \times M` は前問のように構成される
     :math:`F` が微分同相写像となるような :math:`\Delta` の近傍に含まれる。
 
-  * :math:`\xi = F^{-1}(x, \Phi(x))` は :math:`M` 上のベクトル場である。
+  * :math:`\xi = F\inv(x, \Phi(x))` は :math:`M` 上のベクトル場である。
   * :math:`F` の局所的微分同相性のため、
     「:math:`F` が :math:`\id_M` に :math:`C^1` 位相で近いこと」と
     「:math:`\xi: M \longto TM` が 0 に :math:`C^1` 位相で近いこと」は同値である。
@@ -499,9 +499,9 @@
 
   * 測地線 :math:`c(t)` は次を満たす：
     :math:`\displaystyle q\left(\diff{c}{t}\right) = const.`
-  * :math:`a > 0` に対して :math:`q^{-1}(a)` はコンパクトであり、
+  * :math:`a > 0` に対して :math:`q\inv(a)` はコンパクトであり、
     さっきのベクトル場はフローを生成するので、次のフローを定義できる：
-    :math:`F_t: q^{-1}(a) \longto q^{-1}(a);\quad F_t: TM \longto TM.`
+    :math:`F_t: q\inv(a) \longto q\inv(a);\quad F_t: TM \longto TM.`
 
 * 定理 7.5.1: `ホップ・リノウの定理 <http://mathworld.wolfram.com/Hopf-RinowTheorem.html>`__
 
@@ -648,7 +648,7 @@
   * :math:`\operatorname{Isom}(M)` は :math:`\operatorname{Fr}(M)` の閉部分集合である。
 
   * 自然な射影 :math:`p: \operatorname{Fr}M \longto M` について
-    :math:`p^{-1}(U)` は :math:`U \times O(n)` と微分同相となる。
+    :math:`p\inv(U)` は :math:`U \times O(n)` と微分同相となる。
     ファイバー束を構造として持つとみなせる。
 
 `マイヤーズ・スティンロッドの定理 <https://en.wikipedia.org/wiki/Myers%E2%80%93Steenrod_theorem>`__

@@ -54,7 +54,7 @@
 
 * :math:`m \le n` とする。
 
-  * 作用 :math:`\rho(g)(S, A) = ({}^t\! g^{-1} S g^{-1}, gA)`
+  * 作用 :math:`\rho(g)(S, A) = ({}^t\! g\inv S g\inv, gA)`
   * :math:`\mathit{Sym}_{n + 1}^{\circ}(\CC) \times \mathit{M}_{n + 1, m}^{\circ}(\CC) / (\mathit{GL}_{n + 1}(\CC) \times T^m)`
     が非退化 2 次曲面と :math:`\mathbb{P}^{n}(\CC)` の m 点配置を表す。
 

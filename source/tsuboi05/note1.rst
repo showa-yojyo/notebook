@@ -278,14 +278,14 @@
                 \frac{\norm{G(\bm y_2) - G(\bm y_1)}}{\norm{\bm y_2 - \bm y_1}}
                 \norm{\bm y_2 - \bm y_1}
        \\
-       G(\bm y_2) - G(\bm y_1) &= {DF_{(G(\bm y_1))}}^{-1}(\bm y_2 - \bm y_1)
+       G(\bm y_2) - G(\bm y_1) &= {DF_{(G(\bm y_1))}}\inv(\bm y_2 - \bm y_1)
                 - r(G(\bm y_1), G(\bm y_2))
                 \frac{\norm{G(\bm y_2) - G(\bm y_1)}}{\norm{\bm y_2 - \bm y_1}}
                 \norm{\bm y_2 - \bm y_1}
        \end{align*}
 
   * ここで :math:`(DH)^k` の各成分の絶対値が :math:`\displaystyle \frac{1}{2^kn}` を超えないので、
-    :math:`\displaystyle DF^{-1} = \sum_{k = 0}^\infty(1 - DF)^k = \sum_{k = 0}^\infty (DH)^k` であることを利用すると、
+    :math:`\displaystyle DF\inv = \sum_{k = 0}^\infty(1 - DF)^k = \sum_{k = 0}^\infty (DH)^k` であることを利用すると、
     :math:`DF` は :math:`G(V)` で正則である。
 
     * 無限級数に気づかないといけない。
@@ -306,12 +306,12 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 一般の場合は次のようにして上の場合に帰着させる。
 
-* :math:`L(\bm x) = DF_{(\bm x^0)}(\bm x - \bm x^0) + F(\bm x^0)` とすると :math:`L^{-1}` が存在して
-  :math:`L^{-1}(\bm y) = {DF_{(\bm x^0)}}^{-1}(\bm y - F(\bm x^0)) + \bm x^0` が成り立つ。
+* :math:`L(\bm x) = DF_{(\bm x^0)}(\bm x - \bm x^0) + F(\bm x^0)` とすると :math:`L\inv` が存在して
+  :math:`L\inv(\bm y) = {DF_{(\bm x^0)}}\inv(\bm y - F(\bm x^0)) + \bm x^0` が成り立つ。
 
-* :math:`F_0(\bm x) = L^{-1}(F(\bm x + \bm x^0))` とおくと、
+* :math:`F_0(\bm x) = L\inv(F(\bm x + \bm x^0))` とおくと、
   原点の近傍上定義された局所的逆写像 :math:`G_0` がある。
-  あとは :math:`G(\bm y) = G_0(L^{-1}(\bm y)) + \bm x^0` とおく。
+  あとは :math:`G(\bm y) = G_0(L\inv(\bm y)) + \bm x^0` とおく。
 
 1.4 本書の概要
 ----------------------------------------------------------------------

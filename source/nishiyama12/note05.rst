@@ -171,8 +171,8 @@
      \end{align*}
 
   * 相対有理不変式。
-  * 証明方針は、不変量の定義式で :math:`\Delta \leftarrow \Delta (gA) = \det({}^t\!g^{-1}Ag^{-1})`,
-    :math:`X \leftarrow {}^t\!h^{-1}Xh^{-1}` として計算すればよい。
+  * 証明方針は、不変量の定義式で :math:`\Delta \leftarrow \Delta (gA) = \det({}^t\!g\invAg\inv)`,
+    :math:`X \leftarrow {}^t\!h\invXh\inv` として計算すればよい。
 
   * :math:`P_2` の符号で曲線の形状を分類できることは書いたが、
     この符号はアフィン変換が保存することがわかったと言っている。

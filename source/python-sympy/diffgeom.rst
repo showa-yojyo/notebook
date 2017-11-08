@@ -303,7 +303,7 @@
 .. math::
 
    \begin{align*}
-   T_{rp}: (x, y) & \longmapsto & (\sqrt{x^2 + y^2}, \tan^{-1} \frac{y}{x})\\
+   T_{rp}: (x, y) & \longmapsto & (\sqrt{x^2 + y^2}, \tan\inv \frac{y}{x})\\
    T_{pr}: (r, \theta) & \longmapsto & (r \cos \theta, r \sin \theta)
    \end{align*}
 
@@ -319,7 +319,7 @@
 .. math::
 
    \begin{align*}
-   T_{rc}: (x, y, z) & \longmapsto & (\sqrt{x^2 + y^2}, \tan^{-1} \frac{y}{x}, z)\\
+   T_{rc}: (x, y, z) & \longmapsto & (\sqrt{x^2 + y^2}, \tan\inv \frac{y}{x}, z)\\
    T_{cr}: (\rho, \psi, z) & \longmapsto & (\rho \cos \psi, \rho \sin \psi, z)
    \end{align*}
 
@@ -328,7 +328,7 @@
 .. math::
 
    \begin{align*}
-   T_{rs}: (x, y, z) & \longmapsto & (\sqrt{x^2 + y^2 + z^2}, \cos^{-1} \frac{z}{\sqrt{x^2 + y^2 + z^2}}, \tan^{-1} \frac{y}{x})\\
+   T_{rs}: (x, y, z) & \longmapsto & (\sqrt{x^2 + y^2 + z^2}, \cos\inv \frac{z}{\sqrt{x^2 + y^2 + z^2}}, \tan\inv \frac{y}{x})\\
    T_{sr}: (r, \theta, \phi) & \longmapsto & (r \sin \theta \cos \phi, r \sin \theta \sin \phi, r \cos \theta)
    \end{align*}
 
@@ -337,7 +337,7 @@
 .. math::
 
    \begin{align*}
-   T_{cs}: (\rho, \psi, z) & \longmapsto & (\sqrt{\rho^2 + z^2}, \cos^{-1} \frac{z}{\sqrt{\rho^2 + z^2}}, \psi)\\
+   T_{cs}: (\rho, \psi, z) & \longmapsto & (\sqrt{\rho^2 + z^2}, \cos\inv \frac{z}{\sqrt{\rho^2 + z^2}}, \psi)\\
    T_{sc}: (r, \theta, \phi) & \longmapsto & (r \sin \theta, \phi, r \cos \theta)
    \end{align*}
 

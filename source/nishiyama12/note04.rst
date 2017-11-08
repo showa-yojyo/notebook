@@ -42,7 +42,7 @@
 
      \begin{align*}
      f(z) &= \overline{z}\\
-     f(z) &= g^{-1} (\overline{g(z)}),\text{ where }g(z) = e^{-i\theta}(z - u)
+     f(z) &= g\inv (\overline{g(z)}),\text{ where }g(z) = e^{-i\theta}(z - u)
      \end{align*}
 
 * 演習 4.7: 滑り鏡映 :math:`f(z) = \overline{z} + \alpha\quad (\alpha \in \RR)`
@@ -145,7 +145,7 @@
 
 * 対称行列全体を :math:`Sym_3(\RR)` で表す（これを二次曲線全体とみなしてよい）。
 
-* 定理 4.14: 作用 :math:`E_2^\curvearrowright Sym_3(\RR): A \longmapsto {}^t\!g^{-1}Ag^{-1}` の不変式環
+* 定理 4.14: 作用 :math:`E_2^\curvearrowright Sym_3(\RR): A \longmapsto {}^t\!g\invAg\inv` の不変式環
   :math:`\CC[Sym_3(\RR)]^{E_2}` は
   :math:`a + c, ac - b^2, \det A` から生成される。
 

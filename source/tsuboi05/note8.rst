@@ -14,7 +14,7 @@
 8.1 フローと関数
 ----------------------------------------------------------------------
 * フロー :math:`F_t` と :math:`C^\infty` 級関数 :math:`f` について、フローの軌道に沿う変化が考えられる。
-  すなわちフローを生成するベクトル場を :math:`\displaystyle X = \diff{F_t}{t} \circ F_t^{-1}` とすると
+  すなわちフローを生成するベクトル場を :math:`\displaystyle X = \diff{F_t}{t} \circ F_t\inv` とすると
 
   .. math::
 
@@ -352,16 +352,16 @@
 それぞれの測地線の方程式を調べる。ただしどちらの与え方も
 :math:`G` の左作用が接ベクトルの長さを不変にするように定義する。
 
-#. :math:`\trace {}^t\!(c'){}^t\!(c^{-1})c^{-1}c'`
-#. :math:`\trace c^{-1}c'c^{-1}c'`
+#. :math:`\trace {}^t\!(c'){}^t\!(c\inv)c\invc'`
+#. :math:`\trace c\invc'c\invc'`
 
 * 単位行列 :math:`I_n` においては :math:`n^2` 次元ユークリッド空間の計量と一致する。
 * この前と同じく変分法を適用して、値がゼロになる必要条件をそれぞれ調べる。
 
 それぞれの測地線の方程式は次のようになる：
 
-#. :math:`-c^{-1}c'' + {}^t\!(c^{-1}c')(c^{-1}c') + (c^{-1}c')^2 - (c^{-1}c')\ {}^t\!(c^{-1}c') = 0`
-#. :math:`-(c^{-1}c')' = 0`
+#. :math:`-c\invc'' + {}^t\!(c\invc')(c\invc') + (c\invc')^2 - (c\invc')\ {}^t\!(c\invc') = 0`
+#. :math:`-(c\invc')' = 0`
 
 * 例題 8.3.1: 最初の :math:`c(t) = \mathrm e^{tA}` が測地線である条件
 
@@ -462,14 +462,14 @@ k 次元接平面場 or k 次元分布
   :math:`U` の k 次元部分多様体となるといえる。
 
   * 「軌道」と書いたが、
-    :math:`x` において k 次元接平面場は :math:`T_x(F^{-1}(F(x)))` と一致する。
+    :math:`x` において k 次元接平面場は :math:`T_x(F\inv(F(x)))` と一致する。
 
 * 定理 8.4.4: `フロベニウス <https://en.wikipedia.org/wiki/Frobenius_theorem_(differential_topology)>`__
 
   * :math:`[\xi_i, \xi_j]` が k 次元接平面場に値を持つということを
     `（完全）積分可能条件 <https://en.wikipedia.org/wiki/Integrability_conditions_for_differential_systems>`__ という。
 
-  * :math:`F_V^{-1}(F_V(x)),\ T_x(F_V^{-1}(F_V(x))) \subset T_xM` と
+  * :math:`F_V\inv(F_V(x)),\ T_x(F_V\inv(F_V(x))) \subset T_xM` と
     :math:`x` における k 次元接平面場が一致する。
 
   * （極大）積分多様体
@@ -492,8 +492,8 @@ k 次元接平面場 or k 次元分布
    \end{align*}
 
 * :math:`f` の等位面が部分多様体であるとき、
-  :math:`f^{-1}(a)` と :math:`\grad f` は直交する。
-  なぜならば :math:`f^{-1}(a)` の接ベクトル :math:`v` を取ると
+  :math:`f\inv(a)` と :math:`\grad f` は直交する。
+  なぜならば :math:`f\inv(a)` の接ベクトル :math:`v` を取ると
   :math:`f_*v = 0` であって :math:`g(v, \grad f) = 0` が成り立つ。
 
   .. math::
@@ -554,14 +554,14 @@ k 次元接平面場 or k 次元分布
        \grad f = -2 \sum_{i = 1}^\lambda x_i \frac{\partial}{\partial x_i}  + 2 \sum_{i = \lambda + 1}^n x_i\frac{\partial}{\partial x_i}.
 
   * 解曲線は :math:`(\mathrm e^{-2t}x_1, \dotsc, \mathrm e^{-2t}x_{\lambda}, \mathrm e^{2t}x_{\lambda + 1}, \dotsc, \mathrm e^{2t}x_n).`
-  * :math:`f^{-1}(x^0 - \eps)` と :math:`f^{-1}(x^0 + \eps)` の間には二枚の平面を除いて対応が付いている。
+  * :math:`f\inv(x^0 - \eps)` と :math:`f\inv(x^0 + \eps)` の間には二枚の平面を除いて対応が付いている。
 
 * 例 8.5.4: トーラス :math:`f(x, y) = a(2 + \cos y)\cos x + c \sin y`
 
   * :math:`\RR^3` 内のトーラス (p. 24) として考える。
   * :math:`\displaystyle Df = \begin{pmatrix}-a(2 + \cos y)\sin x & -a \sin y\cos x + a \cos y\end{pmatrix}.`
   * :math:`\displaystyle g = \begin{pmatrix}(2 + \cos y)^2 & 0\\0 & 1\end{pmatrix}.` (cf. 例題 7.1.4)
-  * :math:`\displaystyle g^{-1} = \begin{pmatrix}\dfrac{1}{(2 + \cos y)^2} & 0\\0 & 1\end{pmatrix}.`
+  * :math:`\displaystyle g\inv = \begin{pmatrix}\dfrac{1}{(2 + \cos y)^2} & 0\\0 & 1\end{pmatrix}.`
 
   定義に従って勾配ベクトル場を計算するのは容易い：
 
@@ -580,14 +580,14 @@ k 次元接平面場 or k 次元分布
   とする。このとき :math:`\forall y \in N` に次のような近傍 :math:`V_y \owns y` と
   同相写像 :math:`h` が存在する：
 
-  * :math:`h: F^{-1}(V_y) \longto V_y \times F^{-1}(y),`
+  * :math:`h: F\inv(V_y) \longto V_y \times F\inv(y),`
   * :math:`F = \operatorname{pr}_1 \circ h,`
   * :math:`\operatorname{pr_1}` は第一成分への射影。
 
   証明：
 
   * リーマン計量を :math:`g` とする。
-  * 接空間の部分集合 :math:`\nu_x = \set{v \in T_x(M) \sth \forall w \in T_x(F^{-1}(F(x))), g(v, w) = 0}` を定義する。
+  * 接空間の部分集合 :math:`\nu_x = \set{v \in T_x(M) \sth \forall w \in T_x(F\inv(F(x))), g(v, w) = 0}` を定義する。
 
     * :math:`F_*|\nu_x` が同型写像になるという性質がある。
 
@@ -607,7 +607,7 @@ k 次元接平面場 or k 次元分布
 
     .. math::
 
-       t\norm{\bm a} < \eps \implies \Psi_{\bm a}^t(y^0) = \psi^{-1}(t\bm a).
+       t\norm{\bm a} < \eps \implies \Psi_{\bm a}^t(y^0) = \psi\inv(t\bm a).
 
   * :math:`F_*|\nu_x` は同型なので :math:`\xi_i` に対して
     :math:`M` 上のベクトル場 :math:`\overset{\sim}{\xi_i}` を次が成り立つように一意的に取れる：
@@ -632,11 +632,11 @@ k 次元接平面場 or k 次元分布
 
        F \circ \Phi_{\bm a}^t = \Psi_{\bm a}^t \circ F.
 
-  * 写像 :math:`H: \set{\bm a \in \RR^n \sth \norm{\bm a} < \eps} \times F^{-1}(y^0) \longto M` を
+  * 写像 :math:`H: \set{\bm a \in \RR^n \sth \norm{\bm a} < \eps} \times F\inv(y^0) \longto M` を
     :math:`H(\bm a, x) = \Phi_{\bm a}^1(x)` で定義する。
 
     * 注意 6.3.6 より :math:`H` は :math:`C^\infty` 級である。
-    * :math:`F(H(\bm a, x)) = \Psi_{\bm a}^1(F(x)) = \Psi_{\bm a}^1(y^0) = \psi^{-1}(a).`
+    * :math:`F(H(\bm a, x)) = \Psi_{\bm a}^1(F(x)) = \Psi_{\bm a}^1(y^0) = \psi\inv(a).`
     * :math:`H` の逆写像は :math:`x \longmapsto (\psi(F(x)), \Phi_{\psi(F(x))}(x))` で与えられる。
 
     よって写像 :math:`H` は微分同相写像である。
@@ -649,7 +649,7 @@ k 次元接平面場 or k 次元分布
   .. math::
 
      \forall b \in B, \exists U_b \owns b \quad \text{ s.t. }
-     \exists h: p^{-1}(U_b) \longto U_b \times F,\
+     \exists h: p\inv(U_b) \longto U_b \times F,\
      \operatorname{pr}_1 \circ h = p.
 
 平坦な接続

@@ -171,32 +171,32 @@
      \left(\frac{\partial}{\partial x_n} \right)_p}` である。
 
      ここで :math:`\displaystyle \left(\frac{\partial}{\partial x_k} \right)_p` とは曲線
-     :math:`\displaystyle t \longmapsto \varphi^{-1}(0, \dotsc, \overset{(k)}t, \dotsc, 0)` における方向微分とする (cf. p. 76)。
+     :math:`\displaystyle t \longmapsto \varphi\inv(0, \dotsc, \overset{(k)}t, \dotsc, 0)` における方向微分とする (cf. p. 76)。
 
      * :math:`Df` が点 :math:`p` の近傍で定義された :math:`C^\infty` 級関数に対して定義されることを示す。
        この際に定理 5.1.3 の関数 :math:`\nu` および注意 5.1.4 の事実を用いる。
 
      * :math:`D \in \mathcal D_p` が上述の一次結合で表されることを示す。
-       :math:`f \in C^\infty(M)` に対して :math:`\displaystyle \left(\frac{\partial}{\partial x_i} \right)_p f = \frac{\partial(f \circ \varphi^{-1})}{\partial x_i}(0, \dotsc, 0).`
+       :math:`f \in C^\infty(M)` に対して :math:`\displaystyle \left(\frac{\partial}{\partial x_i} \right)_p f = \frac{\partial(f \circ \varphi\inv)}{\partial x_i}(0, \dotsc, 0).`
 
-       :math:`(\nu f) \circ \varphi^{-1}` を :math:`\RR^n` 上の関数とみなして、
+       :math:`(\nu f) \circ \varphi\inv` を :math:`\RR^n` 上の関数とみなして、
        アダマールの補題を適用して次のような :math:`g_i` を定義する（これ合っているか？）：
 
        .. math::
 
           \begin{align*}
-          &(\nu f) \circ \varphi^{-1} = f(p) + \sum_{i = 1}^n x_i g_i(x_1, \dotsc, x_n),\\
-          &g_i(0, \dotsc, 0) = \frac{\partial(f \circ \varphi^{-1})}{\partial x_i}(0, \dotsc, 0).
+          &(\nu f) \circ \varphi\inv = f(p) + \sum_{i = 1}^n x_i g_i(x_1, \dotsc, x_n),\\
+          &g_i(0, \dotsc, 0) = \frac{\partial(f \circ \varphi\inv)}{\partial x_i}(0, \dotsc, 0).
           \end{align*}
 
-     * 点 :math:`p` の近傍では :math:`\displaystyle f = f(p) + \sum_{i = 1}^n (x_i \circ \varphi^{-1})(g_i \circ \varphi^{-1})`
+     * 点 :math:`p` の近傍では :math:`\displaystyle f = f(p) + \sum_{i = 1}^n (x_i \circ \varphi\inv)(g_i \circ \varphi\inv)`
        となっている。よって次のようにすれば線形結合になっていることが示される：
 
        .. math::
 
           \begin{align*}
           Df &= D(f(p)) + \sum_{i = 1}^n (D(x_i)g_i(0) + 0 \cdot D(g_i))\\
-             &= \sum_{i = 1}^n D(x_i)\frac{\partial(f \circ \varphi^{-1})}{\partial x_i}(0, \dotsc, 0)\\
+             &= \sum_{i = 1}^n D(x_i)\frac{\partial(f \circ \varphi\inv)}{\partial x_i}(0, \dotsc, 0)\\
              &= \sum_{i = 1}^n D(x_i) \left(\frac{\partial}{\partial x_i} \right)_p f.
           \end{align*}
 
@@ -267,7 +267,7 @@
     * 定理 4.4.2 の上にある説明により :math:`\Phi_*: T_xM \longto \RR^{k(n + 1)}` のランクが
       :math:`n` で :math:`\Phi` が単射であるから。
 
-      * ランクが :math:`n` であることは :math:`(\nu_i \varphi_i | V_i) \circ \varphi_i^{-1} = \id_{\varphi_i(V_i)}` から示せる。
+      * ランクが :math:`n` であることは :math:`(\nu_i \varphi_i | V_i) \circ \varphi_i\inv = \id_{\varphi_i(V_i)}` から示せる。
       * 単射であることは :math:`\Phi(x) = \Phi(y) \implies x = y` を示すのに
         :math:`\mu_i` の成分と :math:`\nu_i` の成分の単射性を別々に示す。
         関数の非ゼロ性と局所座標の同相性が使えるので容易に示せる。
@@ -379,7 +379,7 @@
   `ホイットニーの傘 <http://mathworld.wolfram.com/WhitneyUmbrella.html>`__
   `クロスキャップ <http://mathworld.wolfram.com/Cross-Cap.html>`__
 
-* <写像 :math:`F: M \longto N` が与えられ、:math:`N` の形と :math:`F^{-1}(y)\ (y \in N)` の形が理解できれば、
+* <写像 :math:`F: M \longto N` が与えられ、:math:`N` の形と :math:`F\inv(y)\ (y \in N)` の形が理解できれば、
   :math:`M` の形がわかることが期待できる> (p. 101)
 
   * 写像 :math:`F` については :math:`F_*|T_xM \longto T_{F(x)}N` のランクが :math:`\dim N` であるようなものがよいと思われる。
@@ -387,7 +387,7 @@
 
     * 言葉に引っ張られないように。正則「値」と言っても多様体上の点を指している。
 
-  * 正則値の逆像 :math:`F^{-1}(y)` は :math:`\dim M - \dim N` 次元部分多様体である。
+  * 正則値の逆像 :math:`F\inv(y)` は :math:`\dim M - \dim N` 次元部分多様体である。
   * 臨界点とは、正則点でない点である。
   * 臨界値とは、臨界点全ての集合の像である。
   * :math:`\dim M < \dim N` のときは、:math:`F(M),\ N \setminus F(M)` がそれぞれ臨界値、正則値である。
@@ -437,18 +437,18 @@
 * ヘッセ行列の正則性は座標近傍の取り方によらない：
 
   臨界点 :math:`x` と座標近傍 :math:`(U, \varphi = (x_1, \dotsc, x_n))` について
-  行列 :math:`\left(\dfrac{\partial^2 (f \circ \varphi^{-1})}{\partial x_i \partial x_j}(\varphi(x))\right)_{i, j}` が
+  行列 :math:`\left(\dfrac{\partial^2 (f \circ \varphi\inv)}{\partial x_i \partial x_j}(\varphi(x))\right)_{i, j}` が
   ヘッセ行列だ。
 
-  * この座標近傍で関数が二次関数 :math:`\displaystyle \sum_{i, j}^n \left(\dfrac{\partial^2 (f \circ \varphi^{-1})}{\partial x_i \partial x_j}\right)(\varphi(x))x_i x_j` で
+  * この座標近傍で関数が二次関数 :math:`\displaystyle \sum_{i, j}^n \left(\dfrac{\partial^2 (f \circ \varphi\inv)}{\partial x_i \partial x_j}\right)(\varphi(x))x_i x_j` で
     近似できることを意味する。
 
   * ヘッセ行列が正則であるかどうかは座標近傍によらない。なぜなら、
     別の座標近傍 :math:`(U, \psi = (y_1, \dots, y_n))` について
     :math:`P = \left(\dfrac{\partial y_k}{\partial x_i}\right)_{i, k}` とおくと
-    :math:`H(f \circ \varphi^{-1}) = {}^t\!PH(f \circ \psi^{-1})P` が成り立つからだ。
+    :math:`H(f \circ \varphi\inv) = {}^t\!PH(f \circ \psi\inv)P` が成り立つからだ。
 
-* 二次曲面の形は行列 :math:`\displaystyle \sum_{i, j}^n \frac{\partial^2(f \circ \varphi^{-1}}{\partial x_i \partial x_j}(\varphi(x))`
+* 二次曲面の形は行列 :math:`\displaystyle \sum_{i, j}^n \frac{\partial^2(f \circ \varphi\inv}{\partial x_i \partial x_j}(\varphi(x))`
   の重複を込めた正と負それぞれの固有値の個数で分類できる。
 
 * 二次曲面を変換して座標系を正則行列に取り替えることで、次の標準形に書き換えられる：
@@ -469,7 +469,7 @@
        :nowrap:
 
        \begin{align*}
-       (f \circ \varphi_i^{-1})(x_1, \dotsc, x_n) = f(x^0) - \sum_{i = 1}^k x_i^2 + \sum_{i = k + 1}^n x_i^2.
+       (f \circ \varphi_i\inv)(x_1, \dotsc, x_n) = f(x^0) - \sum_{i = 1}^k x_i^2 + \sum_{i = k + 1}^n x_i^2.
        \end{align*}
 
   * 証明方針を挙げていく：
@@ -600,14 +600,14 @@
       :math:`F(\bm z) = F(\bm z')` が成り立つ。
 
     * :math:`C^\infty` 級であることを確認する：
-      これは :math:`F \circ \varphi_i^{-1}` を調べる必要がある。
+      これは :math:`F \circ \varphi_i\inv` を調べる必要がある。
       :math:`(x_1, \dotsc, x_n) \in \varphi_i(V_i)` に対して
-      :math:`\varphi_i^{-1}(x_1, \dotsc, x_n) = (z_1, \dotsc, z_{i - 1}, 1, z_{i + 1}, \dotsc, z_n).`
+      :math:`\varphi_i\inv(x_1, \dotsc, x_n) = (z_1, \dotsc, z_{i - 1}, 1, z_{i + 1}, \dotsc, z_n).`
 
-      * :math:`F \circ \varphi_i^{-1}` の分子を計算すると
+      * :math:`F \circ \varphi_i\inv` の分子を計算すると
         :math:`\displaystyle \sum_{k = 1}^{i - 1}k\abs{x_k}^2 + i \cdot 1^2 + \sum_{k = i + 1}^{n + 1}k\abs{x_k}^2 = i + \sum_{k = 1}^{i - 1}k\abs{x_k}^2 + \sum_{k = i}^n(k + 1)\abs{x_k}^2.`
 
-      * :math:`F \circ \varphi_i^{-1}` の分母を計算すると
+      * :math:`F \circ \varphi_i\inv` の分母を計算すると
         :math:`\displaystyle \sum_{k = 1}^{i - 1}k\abs{x_k}^2 + 1^2 + \sum_{k = i + 1}^{n + 1}k\abs{x_k}^2 = 1 + \sum_{k = 1}^{i - 1}k\abs{x_k}^2 + \sum_{k = i + 1}^n(k + 1)\abs{x_k}^2.`
 
       分母がゼロになることはない。
@@ -626,14 +626,14 @@
           V_i^\pm = \set{\bm z \in S^{2n + 1} \sth \Im z_i \gtrless 0}, & \quad \psi_i^\pm(\bm z) = (z_1, \dotsc, z_{i - 1}, \Re z_i, z_{i + 1}, \dotsc, z_{n + 1}).
           \end{align*}
 
-    #. :math:`f \circ (\varphi_i^\pm)^{-1} = i + \sum(k - i)\abs{z_k}^2` および
-       :math:`f \circ (\psi_i^\pm)^{-1} = i + \sum(k - i)\abs{z_k}^2` を考える。
+    #. :math:`f \circ (\varphi_i^\pm)\inv = i + \sum(k - i)\abs{z_k}^2` および
+       :math:`f \circ (\psi_i^\pm)\inv = i + \sum(k - i)\abs{z_k}^2` を考える。
 
        .. math::
 
           \begin{align*}
-          &D f\circ (\varphi_i^\pm)^{-1} = 0 \iff z_k = 0 (k \ne i)\\
-          &D f\circ (\psi_i^\pm)^{-1} = 0 \iff z_k = 0 (k \ne i)
+          &D f\circ (\varphi_i^\pm)\inv = 0 \iff z_k = 0 (k \ne i)\\
+          &D f\circ (\psi_i^\pm)\inv = 0 \iff z_k = 0 (k \ne i)
           \end{align*}
 
     #. 以上より :math:`\bm z \in S^{2n + 1}` が正則点であることは、
@@ -646,12 +646,12 @@
 
   * 臨界点におけるヘッセ行列を求める。
 
-    * ポイントは :math:`V_i` 上 :math:`F \circ \varphi_i^{-1}` を無限級数の形に展開して、
+    * ポイントは :math:`V_i` 上 :math:`F \circ \varphi_i\inv` を無限級数の形に展開して、
       :math:`\abs{z_k}^4` 以降の項を捨てる。
 
       .. math::
 
-         F \circ \varphi_i^{-1}(\bm w) = i + \sum_{k = 1}^{i - 1}(k - i)\abs{w_k}^2 + \sum_{k = i}^n(k + 1 - i)\abs{w_k}^2 + \dotsb.
+         F \circ \varphi_i\inv(\bm w) = i + \sum_{k = 1}^{i - 1}(k - i)\abs{w_k}^2 + \sum_{k = i}^n(k + 1 - i)\abs{w_k}^2 + \dotsb.
 
     * 上の式からヘッセ行列を求めると次のようになるので、モース臨界点の指数は :math:`2(i - 1)` である。
 
@@ -730,7 +730,7 @@
    N_\eps^r(f, \set{V_i}) = \Set{
        f + h \in C^\infty(M)
        \Sth s \le r,\ 
-       \norm{D^s((h \circ \varphi_i^{-1})|\varphi_i(\closure{V_i}))} < \eps
+       \norm{D^s((h \circ \varphi_i\inv)|\varphi_i(\closure{V_i}))} < \eps
    }.
    \end{gather*}
 
@@ -754,8 +754,8 @@
     
        N_\eps^r(f, \set{V_i}) \subset N_{K\eps}^r(f, \set{V_j'})
 
-  * 座標変換をいつものように :math:`\gamma_{ij} = (\varphi_i \circ \varphi_j^{-1})|\varphi_j'(U_i \cap U_j')` で表す。
-    :math:`h \circ \varphi_j'^{-1} = (h \circ \varphi_i^{-1}) \circ \gamma_{ij}` のようになる。
+  * 座標変換をいつものように :math:`\gamma_{ij} = (\varphi_i \circ \varphi_j\inv)|\varphi_j'(U_i \cap U_j')` で表す。
+    :math:`h \circ \varphi_j'\inv = (h \circ \varphi_i\inv) \circ \gamma_{ij}` のようになる。
 
   帰納法で示せば良いようだ。
 
@@ -766,7 +766,7 @@
 
   * :math:`r = 1` のとき：
 
-    * :math:`D(h \circ \varphi_j'^{-1}) = D(h \circ \varphi_i^{-1}) \circ \gamma_{ij} D\gamma_{ij}` であり、
+    * :math:`D(h \circ \varphi_j'\inv) = D(h \circ \varphi_i\inv) \circ \gamma_{ij} D\gamma_{ij}` であり、
     * そして :math:`N_\eps^1(f, \set{V_i}) \subset N_K^1(f, \set{V_j'})` を満たす
       :math:`\eps` に依存する正の数 :math:`K` が下のようにしてとれるので成り立つ：
 
@@ -804,7 +804,7 @@
 * 多様体 :math:`N` の有限局所座標系を :math:`\set{(W_j, \psi_j)}` とする。
 
   * このとき次のような開被覆 :math:`\set{V_{ji}}` が存在するのであった：
-    :math:`V_{ji} \subset \closure{V_{ji}} \subset U_i \cap F^{-1}(W_j).`
+    :math:`V_{ji} \subset \closure{V_{ji}} \subset U_i \cap F\inv(W_j).`
 
   * 開近傍の取り方は次のようになる：
 
@@ -816,7 +816,7 @@
            H \in C^\infty(M, N)
            \Sth s \le r,\ 
            \forall i, j,
-           \norm{D^s((\psi_j \circ H \circ \varphi_i^{-1} - \psi_j \circ F \circ \varphi_i^{-1})|\varphi_i(\closure{V_{ji}}))} < \eps
+           \norm{D^s((\psi_j \circ H \circ \varphi_i\inv - \psi_j \circ F \circ \varphi_i\inv)|\varphi_i(\closure{V_{ji}}))} < \eps
        }.
        \end{gather*}
 
@@ -841,7 +841,7 @@
   * 途中、サードの定理を必要とする。
 
 * 注意 5.7.7: :math:`F: M \longto N` が :math:`L \subset N` と横断的ならば、
-  :math:`F^{-1}(L)` は :math:`M` の余次元が :math:`L` のそれに等しいような部分多様体である。
+  :math:`F\inv(L)` は :math:`M` の余次元が :math:`L` のそれに等しいような部分多様体である。
 
 * 注意 5.7.8: これは何を言っているのかわからない。
   包含写像の一方を近似する写像と取り替えると横断的となるとは？

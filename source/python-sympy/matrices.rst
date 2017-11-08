@@ -356,7 +356,7 @@
    :code:`is_diagonal()`@行列が対角行列かどうかを返す。
    :code:`is_diagonalizable(...)`@行列が対角化可能かどうかを返す。
 
-* 行列 :code:`M` に対して :math:`D = P^{-1} M P` とすると、
+* 行列 :code:`M` に対して :math:`D = P\inv M P` とすると、
   メソッド :code:`diagonalize` は :code:`(P, D)` を返す。
 
 * 対角化可能性の判定は、各固有値の多重度をチェックすることでなされる。
@@ -400,7 +400,7 @@ LU 分解は :math:`A = LU` というものだ。
 * :code:`LUdecomposition_Simple` の戻り値は :code:`(A, p)` の形である。
   ただし :code:`A` は :code:`L` と :code:`U` の合いの子のような行列だ。
 
-* :code:`LUdecompositionFF` は :math:`PA = L D^{-1} U` を満たす行列の組
+* :code:`LUdecompositionFF` は :math:`PA = L D\inv U` を満たす行列の組
   :code:`(P, L, D, U)` を返す。特徴は元の行列がある整域上のものであるとき、
   :code:`L`, :code:`D`, :code:`U` のいずれも同じ整域に属するというものだ。
 

@@ -27,13 +27,13 @@
     #. :math:`(t_0, x_0)` を固定すると :math:`T_{F_{t_0}(x_0)}M` の接ベクトルが定まる。
        なぜなら :math:`F_t(x_0)` が :math:`F_{t_0}(x_0)` を通過するから。
 
-    #. :math:`\forall y_0 \in M, x_0 = F_{t_0}^{-1}(y_0)` とすると :math:`T_{y_0}M` の接ベクトルが定まる。
+    #. :math:`\forall y_0 \in M, x_0 = F_{t_0}\inv(y_0)` とすると :math:`T_{y_0}M` の接ベクトルが定まる。
        なぜなら  :math:`F_{t_0}` が微分同相だから。
 
-  * :math:`X_t := \dfrac{\partial F_t}{\partial t} \circ F_t^{-1}: M \longto T_{y_0}M` なる量を考える。
+  * :math:`X_t := \dfrac{\partial F_t}{\partial t} \circ F_t\inv: M \longto T_{y_0}M` なる量を考える。
 
     * :math:`y_0 \in M` 周りの座標近傍を :math:`(U, \varphi)` とし、
-    * :math:`(\varphi \circ (F_t \circ F_{t_0}^{-1})\circ\varphi^{-1}(x_1, \dotsc, x_n)` を
+    * :math:`(\varphi \circ (F_t \circ F_{t_0}\inv)\circ\varphi\inv(x_1, \dotsc, x_n)` を
       :math:`(f_1(t, t_0, x_1, \dotsc, x_n), \dotsc, f_n(t, t_0, x_1, \dotsc, x_n))` と書く。
 
     * :math:`\displaystyle X_i = \sum_{i = 1}^n \diff{f_i}{t}(t, t_0, x_1, \dotsc, x_n) \frac{\partial}{\partial x_i}.`
@@ -53,7 +53,7 @@
   * :math:`F_{t_0} = \id_M` となる :math:`F_t` により :math:`F_{t_1}(A_0) = A_1` となることは、
     ベクトル場の定める常微分方程式の解により :math:`A_0` を :math:`A_1` に写すことと同じである。
 
-  * :math:`t \sim t_0` のとき :math:`F_t \circ F_{t_0}^{-1}` を局所座標表示するとわかる。
+  * :math:`t \sim t_0` のとき :math:`F_t \circ F_{t_0}\inv` を局所座標表示するとわかる。
 
 * 例 6.1.1: 線形常微分方程式を :math:`\RR^n` 上の接ベクトルとして書く。
 
@@ -64,7 +64,7 @@
     これは接ベクトル場 :math:`\displaystyle \sum_{i = 1}^n\left(\sum_{j = 1}^n a_{ij}(t)x_j\right)\frac{\partial}{\partial x_i}` である。
 
   * :math:`A(t)` が :math:`t` に非依存ならば
-    :math:`F_t \circ F_{t_0}^{-1}(\bm{x}) = e^{(t - t_0)A}\bm{x}` である。
+    :math:`F_t \circ F_{t_0}\inv(\bm{x}) = e^{(t - t_0)A}\bm{x}` である。
 
 * 例題 6.1.2: 微分同相からアイソトピーを構成する？
 
@@ -146,7 +146,7 @@
   * フローは加法群 :math:`\RR` の多様体への群作用である。
   * ベクトル場 :math:`X_t` は、あるいは局所座標系で書かれた常微分方程式は :math:`t` に依存しない。
 
-    * :math:`F_t` がフローの場合は :math:`\displaystyle X_{t_0}(y_0) = \frac{\partial F}{\partial t}(t_0, F_{t_0}^{-1}(y_0)) = \frac{\partial F}{\partial t}(0, y_0) = X_0(y_0)` とあるが、
+    * :math:`F_t` がフローの場合は :math:`\displaystyle X_{t_0}(y_0) = \frac{\partial F}{\partial t}(t_0, F_{t_0}\inv(y_0)) = \frac{\partial F}{\partial t}(0, y_0) = X_0(y_0)` とあるが、
       二番目の等号が成立する根拠がわからない。
       :math:`F_t = F_{t - t_0} \circ F_{t_0}` であることがどう関わっているのか。
 
@@ -468,7 +468,7 @@
             :nowrap:
 
             \begin{align*}
-            & F^i(t, x) = \varphi_i^{-1}(F^{(i)}(t, \varphi_i(x)))\\
+            & F^i(t, x) = \varphi_i\inv(F^{(i)}(t, \varphi_i(x)))\\
             & F_x^i: (-\eps, \eps) \longto M\\
             & \diff{F_x^i}{t}(t) = X(F_x^i(t)).
             \end{align*}
@@ -602,10 +602,10 @@
   * 問題 6.4.5 の要領で座標近傍に台を持つフロー :math:`F_t` を構成する。
   * 問題 6.5.3 によると次のような微分同相写像 :math:`G: M \longto M` が存在する：
     :math:`G(y_0) = x_0,\ G(y_1) = x_1.`
-  * 合成写像 :math:`G \circ F_t \circ G^{-1}` を改めて :math:`F_t` とすれば
+  * 合成写像 :math:`G \circ F_t \circ G\inv` を改めて :math:`F_t` とすれば
     それが求めるフローである。
 
-:math:`F: M \longto N` の二つの正則値 :math:`y_0, y_1` に対する :math:`F^{-1}(y_0), F^{-1}(y_1)` の比較をしたい。
+:math:`F: M \longto N` の二つの正則値 :math:`y_0, y_1` に対する :math:`F\inv(y_0), F\inv(y_1)` の比較をしたい。
 
 * 例題 6.5.5: ベクトル場の射影
 
@@ -632,13 +632,13 @@
 
 * 問題 6.5.6: コンパクト連結多様体 :math:`M` 上の :math:`C^\infty` 級関数 :math:`f` について
   :math:`[a, b] \subset \RR` はすべて正則値であるとすると、次が成り立つ：
-  :math:`f^{-1}([a, b])` と :math:`f^{-1}(a) \times [a, b]` は微分同相である。
+  :math:`f\inv([a, b])` と :math:`f\inv(a) \times [a, b]` は微分同相である。
 
   * 次のようにおく：
 
     * :math:`\set{(U_i, \varphi_i)}_{i = 1, \dotsc, k}` を有限開被覆、
     * :math:`\lambda_i(x) \le 0` を :math:`U_i` を台とする 1 の分割、
-    * また、:math:`f^{-1}([a, b])` と交わる :math:`\varphi_t` の第一座標成分
+    * また、:math:`f\inv([a, b])` と交わる :math:`\varphi_t` の第一座標成分
       :math:`x_1{(i)} = f` であると仮定してもよい（なぜか）。
 
   * ベクトル場 :math:`X_i = \lambda_i(x)\dfrac{\partial}{\partial x_1^{(i)}}` は
@@ -649,12 +649,12 @@
 
     .. math::
 
-       x \in f^{-1}([a, b]),\ a - f(x) \le t \le b - f(x) \implies f(F_t(x)) = f(x) + t.
+       x \in f\inv([a, b]),\ a - f(x) \le t \le b - f(x) \implies f(F_t(x)) = f(x) + t.
 
-  * 次に写像 :math:`p: f^{-1}([a, b]) \longto f^{-1}(a)` を
+  * 次に写像 :math:`p: f\inv([a, b]) \longto f\inv(a)` を
     :math:`x \longmapsto F_{a - f(x)}(x)` で定義する（なかなか思いつかない）。
 
-    * さらに写像 :math:`(p, f): f^{-1}([a, b]) \longto f^{-1} \times [a, b]` を考える。
+    * さらに写像 :math:`(p, f): f\inv([a, b]) \longto f\inv \times [a, b]` を考える。
       この逆写像を :math:`G(x', t)` とおくと :math:`G(x', t) = F_{t - a}(x').`
 
     * :math:`(p, f)` と :math:`G` のどちらも :math:`C^\infty` 級であるので、
