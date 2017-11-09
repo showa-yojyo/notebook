@@ -422,8 +422,8 @@
    :math:`\displaystyle \frac{\partial H}{\partial t} \perp \frac{\partial H}{\partial s}` ならば
    :math:`\displaystyle g\left(\frac{\partial H}{\partial t}, \frac{\partial H}{\partial s}\right) = 0.`
 
-#. よって :math:`\displaystyle \sqrt{q\left(\diff{c}{s}\right)} \le \sqrt{q\left(\frac{\partial H}{\partial t} \frac{\partial H}{\partial s}\right)} = \sqrt{\left(\diff{t}{s}\right)^2} = \left|\diff{t}{s}\right|.`
-#. 積分して :math:`\displaystyle \int_0^1\sqrt{q\left(\diff{c}{s}\right)}\,\dd{s} \le \int_0^1 \left|\diff{t}{s}\right|\,\dd{s} \le \abs{t(1) - t(0)}.`
+#. よって :math:`\displaystyle \sqrt{q\left(\diff{c}{s}\right)} \le \sqrt{q\left(\frac{\partial H}{\partial t} \frac{\partial H}{\partial s}\right)} = \sqrt{\left(\diff{t}{s}\right)^2} = \abs{\diff{t}{s}}.`
+#. 積分して :math:`\displaystyle \int_0^1\sqrt{q\left(\diff{c}{s}\right)}\,\dd{s} \le \int_0^1 \abs{\diff{t}{s}}\,\dd{s} \le \abs{t(1) - t(0)}.`
 
 以上により測地線は最短であることが示せた（らしい）。
 

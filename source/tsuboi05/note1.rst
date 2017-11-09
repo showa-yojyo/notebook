@@ -130,7 +130,7 @@
   * 開集合 :math:`U \subset \RR^n` で定義された
   * 関数 :math:`G \in C^1(U, \RR^m)` が、
   * :math:`G(\bm x) = (g_1(x_1, \dotsc, x_n), \dotsc, g_m(x_1, \dotsc, x_n))` とおくと
-  * 凸な閉集合 :math:`A \subset U` において :math:`\displaystyle \left|\frac{\partial g_i}{\partial x_j}\right| \le K`
+  * 凸な閉集合 :math:`A \subset U` において :math:`\displaystyle \abs{\frac{\partial g_i}{\partial x_j}} \le K`
     なる定数 :math:`K > 0` があるとする。
 
   このとき次が成り立つ：
@@ -160,13 +160,13 @@
           \diff{g_i(\bm x + t\bm v)}{t} = \sum_{j = 1}^n\frac{\partial g_i(\bm x + t\bm v)}{\partial x_j}v_j.
 
     #. 定積分を利用する後半の評価式は大丈夫。気をつけるのは
-       :math:`\displaystyle \sum_{j = 1}^n\left|v_j\right| \le \sqrt{n}\norm{\bm v}` くらいか。
+       :math:`\displaystyle \sum_{j = 1}^n\abs{v_j} \le \sqrt{n}\norm{\bm v}` くらいか。
 
-       * 両辺とも正の値であるから :math:`\displaystyle \left(\sum_{j = 1}^n \left|v_i\right|\right)^2 \le \sum_{j = 1}^n nv_i^2` を示せばいい。
-         不等式の右辺マイナス左辺を展開すると :math:`\displaystyle \sum_{i \ne j}^n(\left|v_i\right| - \left|v_j\right|)^2` の形になる。
+       * 両辺とも正の値であるから :math:`\displaystyle \left(\sum_{j = 1}^n \abs{v_i}\right)^2 \le \sum_{j = 1}^n nv_i^2` を示せばいい。
+         不等式の右辺マイナス左辺を展開すると :math:`\displaystyle \sum_{i \ne j}^n(\abs{v_i} - \abs{v_j})^2` の形になる。
          確かにこの値は負にならない。
 
-       * 今得られた :math:`\left|g_i(\bm x + \bm v) - g_i(\bm x)\right| \le \sqrt{n}KlVert \bm v}`
+       * 今得られた :math:`\abs{g_i(\bm x + \bm v) - g_i(\bm x)} \le \sqrt{n}K\norm{\bm v}`
          を利用して最後の評価を次のようにする：
 
          .. math::
@@ -174,7 +174,7 @@
             \begin{align*}
             \norm{G(\bm x + \bm v) - G(\bm x)}
               &\le \sqrt{m}\norm{\bm v}
-              = \sqrt{m} \sum_{i = 1}^m \left|g_i(\bm x + \bm v) - g_i(\bm x)\right|^2\\
+              = \sqrt{m} \sum_{i = 1}^m \abs{g_i(\bm x + \bm v) - g_i(\bm x)}^2\\
               &\le \sqrt{m} \sqrt{n}K\norm{\bm v}\\
               &\le \sqrt{mn}K \norm{\bm v}.
             \end{align*}
@@ -246,7 +246,7 @@
 
     .. math::
 
-       \norm{\bm x} < \delta \implies \left|\frac{\partial h_i}{\partial x_j}\right| \le \eps.
+       \norm{\bm x} < \delta \implies \abs{\frac{\partial h_i}{\partial x_j}} \le \eps.
 
   * 例題 1.2.7 のリプシッツ評価式を利用して :math:`\norm{H(\bm x + \bm v) - H(\bm x)} \le \eps n \norm{\bm v}.`
   * :math:`\displaystyle \norm{\bm y} \le \frac{\delta}{2}` とすると
