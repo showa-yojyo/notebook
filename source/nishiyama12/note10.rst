@@ -91,11 +91,10 @@
   :math:`\mathit{GL}_n(\CC)` の部分群で、次の形のものを言う：
 
   .. math::
-     :nowrap:
 
      \begin{align*}
      P_{(d, n - d)} :=
-     \Set
+     \Set{
      \begin{pmatrix} A & B\\ 0 & D \end{pmatrix}
      \Sth
      A \in \mathit{GL}_d(\CC),\ 
