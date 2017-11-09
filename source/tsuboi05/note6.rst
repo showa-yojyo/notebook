@@ -15,7 +15,7 @@
 * 微分同相写像で互いに写り合う多様体同士を同じものと考える (p. 123)。
 
 `アイソトピー <http://mathworld.wolfram.com/Isotopy.html>`__
-  :math:`t \in [0, 1]` に対して連続的に変化する微分同相写像 :math:`F_t: M \longto M` で、
+  :math:`t \in [0, 1]` に対して連続的に変化する微分同相写像 :math:`\fn{F_t}{M}M` で、
   :math:`F_0 = \id_M` を満たすものをアイソトピーという。
 
   * :math:`\RR \times M` の :math:`[0, 1] \times M` への制限。
@@ -30,7 +30,7 @@
     #. :math:`\forall y_0 \in M, x_0 = F_{t_0}\inv(y_0)` とすると :math:`T_{y_0}M` の接ベクトルが定まる。
        なぜなら  :math:`F_{t_0}` が微分同相だから。
 
-  * :math:`X_t := \dfrac{\partial F_t}{\partial t} \circ F_t\inv: M \longto T_{y_0}M` なる量を考える。
+  * :math:`X_t := \fn{\dfrac{\partial F_t}{\partial t} \circ F_t\inv}{M}T_{y_0}M` なる量を考える。
 
     * :math:`y_0 \in M` 周りの座標近傍を :math:`(U, \varphi)` とし、
     * :math:`(\varphi \circ (F_t \circ F_{t_0}\inv)\circ\varphi\inv(x_1, \dotsc, x_n)` を
@@ -40,13 +40,13 @@
 
     * :math:`(t_0, \varphi(y_0))` の近傍で定義されている :math:`\RR^n` に値を持つ :math:`C^\infty` 級写像である。
     * :math:`(t_0, \varphi(y_0))` の近傍において :math:`X(t, y) = X_t(y)` による写像
-      :math:`X: \RR \times R \longto TM` は :math:`C^\infty` 級写像である。
+      :math:`\fn{X}{\RR \times R}TM` は :math:`C^\infty` 級写像である。
 
 `ベクトル場 <http://mathworld.wolfram.com/VectorField.html>`__
-  各 :math:`t` について :math:`X_t: M \longto TM` は
+  各 :math:`t` について :math:`\fn{X_t}{M}TM` は
   :math:`p \circ X_t = \id_M` となる :math:`C^\infty` 級写像である。
 
-  そこで、こういう性質を持つ :math:`C^\infty` 級写像 :math:`X: M \longto TM` を
+  そこで、こういう性質を持つ :math:`C^\infty` 級写像 :math:`\fn{X}{M}TM` を
   :math:`M` 上の :math:`C^\infty` 級ベクトル場と言う。
 
   * :math:`\displaystyle \diff{F_t}{t} = X_t \circ F_t,\ F_{t_0} = \id_M`
@@ -70,7 +70,7 @@
 
   * 仮定
 
-    * :math:`F: \RR^n \longto \RR^n` は微分同相であり、
+    * :math:`\fn{F}{\RR^n}\RR^n` は微分同相であり、
     * :math:`DF_{(\bm{x})} - I_n` の成分の絶対値が :math:`\displaystyle \eps\quad (< \frac{1}{2n})` より小さいとする。
 
   * 結論（ただし本書の関数定義には誤植があると思われるので勝手に修正する）
@@ -230,7 +230,7 @@
 6.3 常微分方程式の解の存在と一意性（基本）
 ----------------------------------------------------------------------
 * ベクトル場 :math:`X` に対して次のような :math:`F_t` が存在するのかを考える：
-  :math:`F_t: M \longto M,\ F_s \circ F_t = F_{s + t}.`
+  :math:`\fn{F_t}{M}M,\ F_s \circ F_t = F_{s + t}.`
 * これは多様体上で常微分方程式を考える問題だ。
 * 開集合 :math:`U \subset \RR^n` とコンパクト集合 :math:`K \subset U` があると仮定すれば、
   :math:`\forall \bm x \in K, \exists B_\eps(\bm x) \subset U` が成り立つ。
@@ -244,14 +244,14 @@
       :math:`\exists L > 0 \text{ s.t. } t \in (a, b),\ \bm x_1, \bm x_2 \in U: \norm{X(t, \bm x_1) - X(t, \bm x_2)} \le L \norm{\bm x_1 - \bm x_2}.`
 
     * 有界性：
-      :math:`X: (a, b) \times U \longto \RR^n` は有界連続とする：
+      :math:`\fn{X}{(a, b) \times U}\RR^n` は有界連続とする：
       :math:`\displaystyle \sup_{t, \bm x \in (a, b) \times U} X(t, \bm x) \le M.`
 
       * :math:`M` の記号がカブっている。
 
   * 結論
 
-    :math:`\exists \eps_0 > 0, \exists F: (t_0 - \eps_0, t_0 + \eps_0) \times K \longto U,`
+    :math:`\exists \eps_0 > 0, \exists \fn{F}{(t_0 - \eps_0, t_0 + \eps_0) \times K}U,`
 
     * :math:`F(t, \bm x)` は :math:`t` について微分可能であり :math:`\bm x` について連続。
     * :math:`\displaystyle F(t_0, \bm x) = \bm x,\ \diff{F}{t} = X(t, F(t, \bm x)).`
@@ -401,7 +401,7 @@
 
 * 問題 6.3.5: ベクトル場が :math:`C^\infty` 級ならば解は :math:`C^\infty` 級である
 
-  :math:`X: (a, b) \times U \longto \RR^n` が :math:`C^\infty` 級であるならば、
+  :math:`\fn{X}{(a, b) \times U}\RR^n` が :math:`C^\infty` 級であるならば、
   :math:`t = t_0` で解 :math:`\bm x` を持つ関数 :math:`F(t, \bm x)` は :math:`C^\infty` 級である。
 
   * まず :math:`A_{ij}(t, \bm x) = \dfrac{\partial f_i}{\partial x_j}(t, \bm x)`
@@ -445,7 +445,7 @@
 
   * 証明は三段階に分けて理解する。
 
-    #. :math:`C^\infty` 級写像 :math:`\displaystyle F: (-\eps, \eps) \times M \longto \RR^n,\quad \diff{F}{t}(t, x) = X(F(t, x))` が存在することを示す。
+    #. :math:`C^\infty` 級写像 :math:`\displaystyle \fn{F}{(-\eps, \eps) \times M}\RR^n,\quad \diff{F}{t}(t, x) = X(F(t, x))` が存在することを示す。
 
        * :math:`\displaystyle X = \sum_{k}\xi_k^{(i)}\frac{\partial}{\partial x_k^{(i)}}` とおく。
          閉包のコンパクト性から :math:`\varphi_i(V_i)` 上で有界連続でリプシッツ条件を満たす。
@@ -456,7 +456,7 @@
             :nowrap:
 
             \begin{align*}
-            & F^{(i)}: (-\eps^{(i)}, \eps^{(i)}) \times \varphi_i(\closure{W_i}) \longto \varphi_i(V_i)\\
+            & \fn{F^{(i)}}{(-\eps^{(i)}, \eps^{(i)}) \times \varphi_i(\closure{W_i})}\varphi_i(V_i)\\
             & \diff{F^{(i)}}{t}(t, \bm x) = \xi^{(i)}(F^{(i)}(t, \bm x))\\
             \end{align*}
 
@@ -469,7 +469,7 @@
 
             \begin{align*}
             & F^i(t, x) = \varphi_i\inv(F^{(i)}(t, \varphi_i(x)))\\
-            & F_x^i: (-\eps, \eps) \longto M\\
+            & \fn{F_x^i}{(-\eps, \eps)}M\\
             & \diff{F_x^i}{t}(t) = X(F_x^i(t)).
             \end{align*}
 
@@ -530,7 +530,7 @@
   :math:`\Phi_t` の :math:`\displaystyle \lim_{t \to \infty}\Phi_t(\bm x)` と
   :math:`\displaystyle \lim_{t \to -\infty}\Phi_t(\bm x)` の値
 
-  * :math:`\mu: \RR^n \longto \RR` は :math:`C^\infty` 級で、
+  * :math:`\fn{\mu}{\RR^n}\RR` は :math:`C^\infty` 級で、
   * :math:`\supp \mu = \set{\bm x \in \RR^n \sth \norm{\bm x} \le 1},`
   * :math:`\norm{\bm x} < 1 \implies \mu(\bm x) > 0` と仮定する。
 
@@ -568,7 +568,7 @@
 
     .. math::
 
-       A_{x_1} = \set{x \in M \sth \exists F: M \longto M,\ F(x_1) = x}.
+       A_{x_1} = \set{x \in M \sth \exists \fn{F}{M}M,\ F(x_1) = x}.
 
     を考えると、こういう集合が同値類になって :math:`M` を非交和分割できる。
 
@@ -587,10 +587,10 @@
 
     #. 一点対一点の場合は例題 6.5.1 により成り立つ。
     #. :math:`x_1, \dots, x_{n - 1} \in M` を :math:`y_1, \dots, y_{n - 1} \in M` にそれぞれ写す
-       微分同相写像 :math:`F_1: M \longto M` が存在すると仮定する。
+       微分同相写像 :math:`\fn{F_1}{M}M` が存在すると仮定する。
 
        * :math:`M' = M \setminus \set{y_1, \dots, y_{n - 1}}` とおくと、これは連結である（この証明がメインか？）。
-       * :math:`F': M' \longto M,\quad F'(F_1(x_n)) = y_n` となる :math:`F'` が例題 6.5.1 により存在する。
+       * :math:`\fn{F'}{M'}M,\quad F'(F_1(x_n)) = y_n` となる :math:`F'` が例題 6.5.1 により存在する。
        * :math:`F'` の定義域を元の多様体に次のように拡張して :math:`\hat{F'}` とすれば、
          :math:`F = \hat{F'} \circ F_1` が求める微分同相写像だ。
 
@@ -600,12 +600,12 @@
   :math:`F_t(x_0) = x_1.`
 
   * 問題 6.4.5 の要領で座標近傍に台を持つフロー :math:`F_t` を構成する。
-  * 問題 6.5.3 によると次のような微分同相写像 :math:`G: M \longto M` が存在する：
+  * 問題 6.5.3 によると次のような微分同相写像 :math:`\fn{G}{M}M` が存在する：
     :math:`G(y_0) = x_0,\ G(y_1) = x_1.`
   * 合成写像 :math:`G \circ F_t \circ G\inv` を改めて :math:`F_t` とすれば
     それが求めるフローである。
 
-:math:`F: M \longto N` の二つの正則値 :math:`y_0, y_1` に対する :math:`F\inv(y_0), F\inv(y_1)` の比較をしたい。
+:math:`\fn{F}{M}N` の二つの正則値 :math:`y_0, y_1` に対する :math:`F\inv(y_0), F\inv(y_1)` の比較をしたい。
 
 * 例題 6.5.5: ベクトル場の射影
 
@@ -651,10 +651,10 @@
 
        x \in f\inv([a, b]),\ a - f(x) \le t \le b - f(x) \implies f(F_t(x)) = f(x) + t.
 
-  * 次に写像 :math:`p: f\inv([a, b]) \longto f\inv(a)` を
+  * 次に写像 :math:`\fn{p}{f\inv([a, b])}f\inv(a)` を
     :math:`x \longmapsto F_{a - f(x)}(x)` で定義する（なかなか思いつかない）。
 
-    * さらに写像 :math:`(p, f): f\inv([a, b]) \longto f\inv \times [a, b]` を考える。
+    * さらに写像 :math:`\fn{(p, f)}{f\inv([a, b])}f\inv \times [a, b]` を考える。
       この逆写像を :math:`G(x', t)` とおくと :math:`G(x', t) = F_{t - a}(x').`
 
     * :math:`(p, f)` と :math:`G` のどちらも :math:`C^\infty` 級であるので、
@@ -678,9 +678,9 @@
 
   * 証明
 
-    * まず写像 :math:`F: \RR \times N \longto M` を
+    * まず写像 :math:`\fn{F}{\RR \times N}M` を
       :math:`F: (t, x) \longmapsto \varphi_t(x)` で定義する。
-      :math:`t = 0` で接写像 :math:`F_*: \RR \times T_xN \longto T_xM` を考えると
+      :math:`t = 0` で接写像 :math:`\fn{F_*}{\RR \times T_xN}T_xM` を考えると
       点 :math:`(0, x)` で次が成り立つ：
 
       .. math::

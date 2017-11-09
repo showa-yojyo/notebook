@@ -193,19 +193,19 @@
 * （用語）横断的、接超平面 or 接空間
 
   * 直線は :math:`\set{\bm{x^0} + t\bm{v^0} \sth t \in \RR}` または
-    ランクが n - 1 の何らかの線形写像 :math:`A: \RR^n \longto \RR^{n - 1}` と
+    ランクが n - 1 の何らかの線形写像 :math:`\fn{A}{\RR^n}\RR^{n - 1}` と
     何らかの定点 :math:`\bm{y} \in \RR^{n - 1}` を用いて
     :math:`\set{\bm{x} \in \RR^n \sth A\bm{x} = \bm{y}}` として書かれる。
 
     * 定点を変化させると平行な直線族が得られる。
 
   * 超平面は :math:`\set{\bm{x} \in \RR^n \sth L\bm{x} = a}` と書かれる。
-    ただし :math:`L: \RR^n \longto \RR` と :math:`a \in \RR` は
+    ただし :math:`\fn{L}{\RR^n}\RR` と :math:`a \in \RR` は
     何らかのゼロでない線形写像と、何らかの実数であるとする。
 
   ここまでが用語を定義するための舞台設定。
 
-  * 超曲面 :math:`S` の局所的パラメーター表示 :math:`\Phi: W \longto \RR^n`
+  * 超曲面 :math:`S` の局所的パラメーター表示 :math:`\fn{\Phi}{W}\RR^n`
     と上記 :math:`A` と近傍内の点 :math:`u^0 \in W` とを取る。
 
     * :math:`A D\Phi_{(u^0)}` が正則である場合、上記直線族は :math:`\bm{x^0} = \Phi(u^0)` の近傍で

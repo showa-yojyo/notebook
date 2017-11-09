@@ -71,14 +71,14 @@
    :nowrap:
 
    \begin{align*}
-   \forall x, y \in M, d(x, y) = \inf\set{L(c) \sth c: [0, 1] \longto M,\ c(0) = x,\ c(1) = y}
+   \forall x, y \in M, d(x, y) = \inf\set{L(c) \sth \fn{c}{[0, 1]}M,\ c(0) = x,\ c(1) = y}
    \end{align*}
 
 * 例題 7.1.4: トーラスに投影した曲線の長さ
 
   * :math:`\Phi(x_1, x_2) = ((2 + \cos x_2)\cos x_1,\ (2 + \cos x_2)\sin x_1,\ sin x_2)` はトーラスだ。
   * :math:`c(t) = (\xi(t), \eta(t)) \subset \RR^2` に関する
-    :math:`\Phi \circ c: [0, 1] \longto M` の長さを求めるのが本題だ。
+    :math:`\fn{\Phi \circ c}{[0, 1]}M` の長さを求めるのが本題だ。
 
   * 本題である長さの計算というより計算途中で
     :math:`{}^t\!(D\Phi) D\Phi` という量が出てくることのほうが気になる。
@@ -99,10 +99,10 @@
 * 問題 7.1.5: 球面に投影した曲線の長さ
 
   * :math:`c(t) = (\xi(t), \eta(t)) \subset \RR^2` に関する
-    :math:`p\inv \circ c: [0, 1] \longto M` の長さを求めるのが本題だ。
+    :math:`\fn{p\inv \circ c}{[0, 1]}M` の長さを求めるのが本題だ。
 
   * :math:`S_r` を曲面 :math:`x^2 + y^2 + (z + R)^2 = R^2` とする。
-  * 球面上の点を平面に投影する写像を :math:`p: S_r \setminus \set{(0, 0, -2R)} \longto \RR^2` とする。
+  * 球面上の点を平面に投影する写像を :math:`\fn{p}{S_r \setminus \set{(0, 0, -2R)}}\RR^2` とする。
   * 考え方は問題 7.1.3 や例題 7.1.4 と同じ。次の手順で計算する：
 
     #. :math:`p(x, y, z)` を求める：
@@ -144,20 +144,20 @@
 
 * 定義 7.2.1: リーマン計量
 
-  #. :math:`T_xM` の元の長さの自乗を与える関数 :math:`q: T_xM \longto \RR` は存在するだろうか？
-  #. それは次のような :math:`C^\infty` 級関数 :math:`q: TM \longto \RR` が存在すれば定まる：
+  #. :math:`T_xM` の元の長さの自乗を与える関数 :math:`\fn{q}{T_xM}\RR` は存在するだろうか？
+  #. それは次のような :math:`C^\infty` 級関数 :math:`\fn{q}{TM}\RR` が存在すれば定まる：
      「:math:`q|T_xM` が `正値二次形式 <http://mathworld.wolfram.com/PositiveDefiniteQuadraticForm.html>`__ となる」
   #. このとき同時に正値 `対称双一次形式 <http://mathworld.wolfram.com/SymmetricBilinearForm.html>`__
-     :math:`g: T_xM \times T_xM \longto \RR` が定まる。
+     :math:`\fn{g}{T_xM \times T_xM}\RR` が定まる。
 
-  この上記の :math:`q: TM \longto \RR` をリーマン計量というのだが、
-  :math:`g: T_xM \times T_xM \longto \RR` のほうをそう呼ぶことが多い。
+  この上記の :math:`\fn{q}{TM}\RR` をリーマン計量というのだが、
+  :math:`\fn{g}{T_xM \times T_xM}\RR` のほうをそう呼ぶことが多い。
 
   * :math:`\displaystyle v = \sum_i v_i\frac{\partial}{\partial x_i} \in T_xM` とすると
     :math:`\displaystyle q(v) = g(v, v) = \sum_{i, j} g_{ij}(x) v_i v_j` と書ける。
 
     * 行列 :math:`(g_{ij}(x))` は正値対称行列。
-    * :math:`i, j` を固定すると :math:`g_{ij}: U \longto \RR` は :math:`C^\infty` 級関数。
+    * :math:`i, j` を固定すると :math:`\fn{g_{ij}}{U}\RR` は :math:`C^\infty` 級関数。
 
   * リーマン多様体上では曲線の長さを測ることができる：
 
@@ -178,7 +178,7 @@
 
        L = \int_0^r\!\frac{\dd{t}}{1 + a^2}
 
-    * :math:`a > 0` ならば :math:`L = \dfrac{1}{\sqrt{a}}\left[\arctan\sqrt{a}t\right]_0^r = \dfrac{1}{\sqrt{a}}\arctan\sqrt{a}r.`
+    * :math:`a > 0` ならば :math:`L = \dfrac{1}{\sqrt{a}}\left[\tan\inv\sqrt{a}t\right]_0^r = \dfrac{1}{\sqrt{a}}\tan\inv\sqrt{a}r.`
     * :math:`a < 0` ならば :math:`L = \dfrac{1}{2\sqrt{-a}}\left[\log\dfrac{1 + \sqrt{-a}t}{1 - \sqrt{-a}t}\right]_0^r = \dfrac{1}{2\sqrt{-a}}\log\dfrac{1 + \sqrt{-a}r}{1 - \sqrt{-a}r}.`
 
   * 円周 :math:`(r\cos\theta, r\sin\theta, 0, \dots, 0)` の長さを計算する。
@@ -225,13 +225,13 @@
 
 * 定義 7.2.3: リーマン計量により定まる距離
 
-  :math:`d(x, y) = d_g(x, y) = \inf\set{L(c) \sth c: [0, 1] \longto M,\ c(0) = x,\ c(1) = y}.`
+  :math:`d(x, y) = d_g(x, y) = \inf\set{L(c) \sth \fn{c}{[0, 1]}M,\ c(0) = x,\ c(1) = y}.`
 
 7.3 測地線
 ----------------------------------------------------------------------
 
 `測地線 <http://mathworld.wolfram.com/Geodesic.html>`__
-  :math:`C^1` 級曲線 :math:`c: [0, 1] \longto M` の次の積分の最小値問題を考える：
+  :math:`C^1` 級曲線 :math:`\fn{c}{[0, 1]}M` の次の積分の最小値問題を考える：
 
   .. math::
      :nowrap:
@@ -249,7 +249,7 @@
   * 問題をすり替えて :math:`A(c)` の最小値問題とする。
     これを最小とするための必要条件を求めるのに、変分法という技法を適用する。
 
-    * :math:`C^\infty` 級曲線 :math:`\eps: [0, 1] \longto \RR^n` で :math:`\eps(0) = \eps(1) = \bm 0` かつ
+    * :math:`C^\infty` 級曲線 :math:`\fn{\eps}{[0, 1]}\RR^n` で :math:`\eps(0) = \eps(1) = \bm 0` かつ
       ある十分小さい :math:`s \in \RR` に対して :math:`c(t) + s \eps(t)` は多様体に含まれるようなものを考える。
 
     * このとき :math:`A(c + s\eps)` は定まる。
@@ -405,7 +405,7 @@
 
 測地線の局所的最短性。これは難しい。
 
-#. 曲線 :math:`c: [0, 1] \longto \RR^n,\ c(0) = \bm x,\ c(1) = \bm y = E_{\bm x}(\bm v)` から始める。
+#. 曲線 :math:`\fn{c}{[0, 1]}\RR^n,\ c(0) = \bm x,\ c(1) = \bm y = E_{\bm x}(\bm v)` から始める。
 #. :math:`c(s) = E_{\bm x}(t(s)\bm v(s))` で :math:`s` を定義する。
 
    * :math:`t(s)` は :math:`s` について :math:`C^1` 級であり、
@@ -447,18 +447,18 @@
 
   仮定をまとめる：
 
-  * :math:`F: TM \longto M \times M` を :math:`T_xM \longmapsto (x, E_x(X))` である。
+  * :math:`\fnm{F}{TM}{M \times M}{T_xM}(x, E_x(X))` である。
     ただし :math:`X \in T_xM` である。
 
   * :math:`\Delta = \set{(x, x) \sth x \in M}.`
 
-  * 写像 :math:`s_0: M \longto TM` が `零切断 <http://mathworld.wolfram.com/ZeroSection.html>`__ である。
+  * 写像 :math:`\fn{s_0}{M}TM` が `零切断 <http://mathworld.wolfram.com/ZeroSection.html>`__ である。
     つまり次の性質がある：
     :math:`s_0(x) = 0 \in T_xM.`
 
   :math:`F` は :math:`s_0` の像の近傍から対角集合 :math:`\Delta` の近傍への微分同相写像であることを証明する。
 
-  * 接写像 :math:`F_*: T_X TM \longto T(M \times M) = T_xM \times T_xM` を考える。
+  * 接写像 :math:`\fn{F_*}{T_X TM}T(M \times M) = T_xM \times T_xM` を考える。
 
     * :math:`T_{s_0(x)}(TM) = T_x(s_0(M)) \times T_x(M) = T_xM \times T_xM.`
     * 次の二つの制限を考える：
@@ -475,7 +475,7 @@
   * 逆写像定理により :math:`F` は :math:`s_0(M)` 上単射であることが言える。
   * そして例題 4.3.1 より :math:`F` は求める微分同相写像であると言える。
 
-* 問題 7.4.4: コンパクト連結リーマン多様体の微分同相 :math:`\Phi: M \longto M` が
+* 問題 7.4.4: コンパクト連結リーマン多様体の微分同相 :math:`\fn{\Phi}{M}M` が
   :math:`C^1` 位相で恒等写像と十分近いのであれば、次のようなアイソトピー :math:`\Phi_t` が存在する：
   :math:`\Phi_0 = id_M,\ \Phi_1 = \Phi.`
 
@@ -487,9 +487,9 @@
   * :math:`\xi = F\inv(x, \Phi(x))` は :math:`M` 上のベクトル場である。
   * :math:`F` の局所的微分同相性のため、
     「:math:`F` が :math:`\id_M` に :math:`C^1` 位相で近いこと」と
-    「:math:`\xi: M \longto TM` が 0 に :math:`C^1` 位相で近いこと」は同値である。
+    「:math:`\fn{\xi}{M}TM` が 0 に :math:`C^1` 位相で近いこと」は同値である。
 
-  以上より :math:`\Phi_t: M \longto M` を
+  以上より :math:`\fn{\Phi_t}{M}M` を
   :math:`(x, \Phi_t(x)) = F(t\xi(x))` と定義すればよい。
 
 7.5 測地流（展開）
@@ -501,17 +501,17 @@
     :math:`\displaystyle q\left(\diff{c}{t}\right) = const.`
   * :math:`a > 0` に対して :math:`q\inv(a)` はコンパクトであり、
     さっきのベクトル場はフローを生成するので、次のフローを定義できる：
-    :math:`F_t: q\inv(a) \longto q\inv(a);\quad F_t: TM \longto TM.`
+    :math:`\fn{F_t}{q\inv(a)}q\inv(a);\quad \fn{F_t}{TM}TM.`
 
 * 定理 7.5.1: `ホップ・リノウの定理 <http://mathworld.wolfram.com/Hopf-RinowTheorem.html>`__
 
   コンパクト連結多様体の任意の二点について、測地線が存在するという主張か。
-  ここで示すのは :math:`\forall x, y \in M, \exists c: [0, 1] \longto M,\quad \text{s.t. } c(0) = x, c(1) = y, d(x, y) = L(c).`
+  ここで示すのは :math:`\forall x, y \in M, \exists \fn{c}{[0, 1]}M \quad \text{s.t. } c(0) = x, c(1) = y, d(x, y) = L(c).`
 
   * 任意の二点が一致するときはどうだ。点（定値写像）も測地線の一種ということでよい？
 
-  * 証明では :math:`M` の任意の点が指数写像 :math:`E_x: T_xM \longto M` の像となることを示す。
-  * そのために :math:`\forall k \in NN` に対して :math:`\ E_x: T_xM \longto M` が
+  * 証明では :math:`M` の任意の点が指数写像 :math:`\fn{E_x}{T_xM}M` の像となることを示す。
+  * そのために :math:`\forall k \in NN` に対して :math:`\fn{E_x}{T_xM}M` が
     :math:`\set{y \in M \sth d(x, y) < k\eps}` 上への全射となることを示す。
 
   * 帰納法で :math:`k = 2` のときと、
@@ -524,7 +524,7 @@
 
     #. :math:`k` のときに成り立つと仮定する。
 
-       * 指数写像 :math:`E_y: T_yM \longto M` によるボール :math:`S_\eps = \set{v \in T_yM \sth g(v, v) = \eps^2}` および
+       * 指数写像 :math:`\fn{E_y}{T_yM}M` によるボール :math:`S_\eps = \set{v \in T_yM \sth g(v, v) = \eps^2}` および
          像 :math:`E_y(S_\eps)` を考える。
 
        * コンパクト性により、:math:`\exists z \in S_y(v) \in E_y(S_\eps) \quad \text{s.t. }`
@@ -565,7 +565,7 @@
   * すべての軌道は閉である。
   * 測地流は :math:`T_1 S^2` 上のフローとなっている。
   * :math:`(\bm v_1, \bm v_2, \bm v_3) \in SO(3)` に対して :math:`\bm v_1 \in S^2` における
-    接ベクトル :math:`\bm v_2` を対応させるとフロー :math:`F_t: T_1 S^2 \longto T_1 S^2` は計算できて
+    接ベクトル :math:`\bm v_2` を対応させるとフロー :math:`\fn{F_t}{T_1 S^2}T_1 S^2` は計算できて
     次のようになる：
 
     .. math::
@@ -624,7 +624,7 @@
 * 定義 7.6.1: `等長変換 <http://mathworld.wolfram.com/Isometry.html>`__
 
   二つのリーマン多様体 :math:`(M, g_M),\ (N, g_N)` に対して次のような微分同相写像
-  :math:`F: M \longto N` が存在する：
+  :math:`\fn{F}{M}N` が存在する：
   :math:`F^* g_N = g_M.`
 
   * ここで :math:`(F^* g_N)(v_1, v_2) := g_N(F_* v_1, F_* v_2)` とする。
@@ -647,7 +647,7 @@
 
   * :math:`\operatorname{Isom}(M)` は :math:`\operatorname{Fr}(M)` の閉部分集合である。
 
-  * 自然な射影 :math:`p: \operatorname{Fr}M \longto M` について
+  * 自然な射影 :math:`\fn{p}{\operatorname{Fr}M}M` について
     :math:`p\inv(U)` は :math:`U \times O(n)` と微分同相となる。
     ファイバー束を構造として持つとみなせる。
 
@@ -655,7 +655,7 @@
   ここよくわからない。
 
   #. 点 :math:`x_0 \in M` とその :math:`T_{x_0}M` 上の正規直交基底 :math:`E_0 = (e_1, \dotsc, e_n)` を固定する。
-  #. 等長変換 :math:`F: M \longto M,\ F_*E_0 = (F_*e_0, \dotsc, F_*e_n) \in \operatorname{Fr}M.`
+  #. 等長変換 :math:`\fn{F}{M}M,\ F_*E_0 = (F_*e_0, \dotsc, F_*e_n) \in \operatorname{Fr}M.`
   #. 点 :math:`y \in M,` 二点を結ぶ測地線 :math:`E_{x_0}(tv)\ (v \in T_{x_0}M, E_{x_0}(v) = y` をとる。
 
      :math:`F(E_{x_0}(tv)) = E_{F(x_0)}(tF_*v)` より
@@ -683,7 +683,7 @@
     次のような近傍 :math:`U_v \subset M` が存在する：
 
       :math:`v_1 \in T_{x_1}M,\ v_2 \in T_{x_2}M` に対して
-      等長変換 :math:`F_{v_1 v_2}: U_{v_2} \longto U_{v_1}` が存在して
+      等長変換 :math:`\fn{F_{v_1 v_2}}{U_{v_2}}U_{v_1}` が存在して
       :math:`(F_{v_1 v_2})_* v_2 = v_1` となる。
 
   * :math:`g` から来るガウス曲率が一定になるだとか、
@@ -745,10 +745,10 @@
   * 記号を導入する：
 
     * :math:`F = \set{f_1 = \id_M, f_2, \dotsc, f_k}` と書く。
-    * 写像 :math:`q: TM \longto M` を「各接空間でリーマン計量を与える二次形式を与える」ようにとる。
+    * 写像 :math:`\fn{q}{TM}M` を「各接空間でリーマン計量を与える二次形式を与える」ようにとる。
     * ヒントにあるように写像 :math:`\hat{q}(v) = \dfrac{1}{k}\sum(q((f_i)_*v)` を定義する。
 
-  * :math:`(f_i)_*: T_xM \longto T_{f_i(x)}M` は線形写像である。
+  * :math:`\fn{(f_i)_*}{T_xM}T_{f_i(x)}M` は線形写像である。
   * :math:`q((f_i)_*v)` は :math:`T_xM` 上は正定値二次形式である。
     これを :math:`k` で割っても正定値二次形式である。
 
@@ -768,10 +768,10 @@
 * 問題 7.7.3: リーマン多様体間の等長変換はリーマン計量をリーマン計量に写す微分同相写像である。
   すなわち :math:`d_{g_N}(f(x), f(y)) = d_{g_M}(x, y) \implies g_N(f_* v_1, f_* v_2) = g_M(v_1, v_2).`
 
-  * 解答の :math:`F: TM \longto TN` をどのように捻出したのかがわからない。
+  * 解答の :math:`\fn{F}{TM}TN` をどのように捻出したのかがわからない。
     問題文の :math:`f` について :math:`f_* = F` となる :math:`F` を最初に定義するわけだが。
 
-  * 指数写像 :math:`E_x: T_xM \longto M` と測地線 :math:`\gamma(t)` の接ベクトル
+  * 指数写像 :math:`\fn{E_x}{T_xM}M` と測地線 :math:`\gamma(t)` の接ベクトル
     :math:`s\bm v_1` と :math:`s\bm v_2` に対する像を考える。
     これらの :math:`M` 上の :math:`t : 1 - t` の内分点の逆像ベクトルの
     :math:`s \to 0` の極限が :math:`t\bm v_1 + (1 - t)\bm v_2` になることを確認して、

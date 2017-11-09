@@ -22,8 +22,8 @@
 
   ベクトル場による関数の微分とは、ベクトル場が生成するフローの軌道に沿った変化率ということか。
 
-* :math:`Xf: M \longto \RR` は :math:`C^\infty` 級である。
-* :math:`X: C^\infty(M) \longto C^\infty(M)` は線形写像かつライプニッツ則を満たす (cf. 問題 5.1.6)。
+* :math:`\fn{Xf}{M}\RR` は :math:`C^\infty` 級である。
+* :math:`\fn{X}{C^\infty(M)}C^\infty(M)` は線形写像かつライプニッツ則を満たす (cf. 問題 5.1.6)。
 * :math:`Xf = 0 \implies f(F_t(x)) = f(x).`
 
 * 問題 8.1.1: :math:`X = \dfrac{\partial}{\partial x} + \alpha \dfrac{\partial}{\partial y},\ \alpha \in \RR \setminus \QQ`
@@ -150,7 +150,7 @@
   仮定：
 
   * :math:`M, N` をコンパクト多様体、
-  * :math:`F: M \longto N` を :math:`C^\infty` 級写像、
+  * :math:`\fn{F}{M}N` を :math:`C^\infty` 級写像、
   * :math:`X, Y` を :math:`N` 上のベクトル場とし、
   * :math:`\overset{\sim}{X}, \overset{\sim}{Y}` を :math:`M` 上のベクトル場で次のようになっている：
     :math:`F_*\overset{\sim}{X} = X,\ F_*\overset{\sim}{Y} = Y.`
@@ -158,7 +158,7 @@
   結論：
 
   * :math:`F_*([\overset{\sim}{X}, \overset{\sim}{Y}]) = [X, Y].`
-  * 特に :math:`F: N \longto N` が微分同相ならば :math:`F_*([X, Y]) = [F_*X, F_*Y].`
+  * 特に :math:`\fn{F}{N}N` が微分同相ならば :math:`F_*([X, Y]) = [F_*X, F_*Y].`
 
   証明：
 
@@ -352,16 +352,16 @@
 それぞれの測地線の方程式を調べる。ただしどちらの与え方も
 :math:`G` の左作用が接ベクトルの長さを不変にするように定義する。
 
-#. :math:`\trace {}^t\!(c'){}^t\!(c\inv)c\invc'`
-#. :math:`\trace c\invc'c\invc'`
+#. :math:`\trace {}^t\!(c'){}^t\!(c\inv)c\inv c'`
+#. :math:`\trace c\inv c'c\inv c'`
 
 * 単位行列 :math:`I_n` においては :math:`n^2` 次元ユークリッド空間の計量と一致する。
 * この前と同じく変分法を適用して、値がゼロになる必要条件をそれぞれ調べる。
 
 それぞれの測地線の方程式は次のようになる：
 
-#. :math:`-c\invc'' + {}^t\!(c\invc')(c\invc') + (c\invc')^2 - (c\invc')\ {}^t\!(c\invc') = 0`
-#. :math:`-(c\invc')' = 0`
+#. :math:`-c\inv c'' + {}^t\!(c\inv c')(c\inv c') + (c\inv c')^2 - (c\inv c')\ {}^t\!(c\inv c') = 0`
+#. :math:`-(c\inv c')' = 0`
 
 * 例題 8.3.1: 最初の :math:`c(t) = \mathrm e^{tA}` が測地線である条件
 
@@ -403,7 +403,7 @@ k-枠場
    \varphi_1^{t_1} \circ \dotsb \circ \varphi_k^{t_k} (x)
 
 :math:`M` の各点の近傍 :math:`U` においてランク :math:`n - k` の写像
-:math:`F: U \longto \RR^{n - k}` が存在して、軌道と近傍の共通部分が
+:math:`\fn{F}{U}\RR^{n - k}` が存在して、軌道と近傍の共通部分が
 :math:`F` で決まる近傍の k 次元部分多様体の和集合となる。
 
 * 例 8.4.1: :math:`\RR^3` 上のベクトル場
@@ -433,7 +433,7 @@ k 次元接平面場 or k 次元分布
   * 証明がよくわからない。
 
   * :math:`(\xi_1, \dotsc, \xi_k)` と :math:`(\eta_1, \dotsc, \eta_k)` が同じ接平面場を与えるならば
-    :math:`\exists a_{ij}: U \longto GL_k(\RR)\quad\text{s.t. } \eta_i = \sum_{j = 1}^k a_{ij}\xi_j`
+    :math:`\exists \fn{a_{ij}}{U}GL_k(\RR)\quad\text{s.t. } \eta_i = \sum_{j = 1}^k a_{ij}\xi_j`
     を示す。
 
     * 一方の括弧積を計算することで、他方の括弧積と同時に接平面場に値を持つことがわかる：
@@ -446,7 +446,7 @@ k 次元接平面場 or k 次元分布
          &= \sum_{i, j} a_{li}\xi_j(a_{mj})\xi_j - \sum_{i,j} a_{mj}(\xi_j a_{li})\xi_i + \sum_{i,j}a_{li}a_{mj}[\xi_i, \xi_j].
          \end{align*}
 
-  * 十分：適当に座標を取り替えて写像 :math:`p: \RR^n \longto \RR^k` を
+  * 十分：適当に座標を取り替えて写像 :math:`\fn{p}{\RR^n}\RR^k` を
     :math:`p(\bm x) = (x_1, \dotsc, x_k)` で定義する。
 
     * 点の近傍上 :math:`p_*` を接平面場に制限した接写像は何かとの同型を与える。
@@ -575,12 +575,12 @@ k 次元接平面場 or k 次元分布
 
   * :math:`M, N` をコンパクト連結多様体で :math:`\dim M > \dim N` であり、
   * :math:`F \in C^\infty(M, N)` が
-  * :math:`\forall x \in M, F_*: T_xM \longto T_{F(x)}N` が全射である
+  * :math:`\forall x \in M, \fn{F_*}{T_xM}T_{F(x)}N` が全射である
 
   とする。このとき :math:`\forall y \in N` に次のような近傍 :math:`V_y \owns y` と
   同相写像 :math:`h` が存在する：
 
-  * :math:`h: F\inv(V_y) \longto V_y \times F\inv(y),`
+  * :math:`\fn{h}{F\inv(V_y)}V_y \times F\inv(y),`
   * :math:`F = \operatorname{pr}_1 \circ h,`
   * :math:`\operatorname{pr_1}` は第一成分への射影。
 
@@ -593,7 +593,7 @@ k 次元接平面場 or k 次元分布
 
   * ある一点 :math:`y^0 \in N` の開被覆として :math:`(V, \psi = (y_1, \dotsc, y_n)),\ \psi(y^0) = (0, \dotsc, 0)` をとる。
   * 近傍 :math:`W \owns y^0` を :math:`\closure{W} \subset V` となるようにとる。
-  * :math:`C^\infty` 級関数 :math:`\mu: N \longto \RR` を次のように定義する：
+  * :math:`C^\infty` 級関数 :math:`\fn{\mu}{N}\RR` を次のように定義する：
 
     * :math:`\supp \mu = V,`
     * :math:`y \in \closure{W} \implies \mu(y) = 1.`
@@ -632,7 +632,7 @@ k 次元接平面場 or k 次元分布
 
        F \circ \Phi_{\bm a}^t = \Psi_{\bm a}^t \circ F.
 
-  * 写像 :math:`H: \set{\bm a \in \RR^n \sth \norm{\bm a} < \eps} \times F\inv(y^0) \longto M` を
+  * 写像 :math:`\fn{H}{\set{\bm a \in \RR^n \sth \norm{\bm a} < \eps} \times F\inv(y^0)}M` を
     :math:`H(\bm a, x) = \Phi_{\bm a}^1(x)` で定義する。
 
     * 注意 6.3.6 より :math:`H` は :math:`C^\infty` 級である。
@@ -642,14 +642,14 @@ k 次元接平面場 or k 次元分布
     よって写像 :math:`H` は微分同相写像である。
 
 `ファイバー束 <http://mathworld.wolfram.com/FiberBundle.html>`__
-  位相空間 :math:`E, B` と連続写像 :math:`p: E \longto B` について
+  位相空間 :math:`E, B` と連続写像 :math:`\fn{p}{E}B` について
   次が成り立つ位相空間 :math:`F` が存在すれば、これを `ファイバー <http://mathworld.wolfram.com/Fiber.html>`__ といい、
   :math:`p` をファイバー束という：
 
   .. math::
 
      \forall b \in B, \exists U_b \owns b \quad \text{ s.t. }
-     \exists h: p\inv(U_b) \longto U_b \times F,\
+     \exists \fn{h}{p\inv(U_b)}U_b \times F,\
      \operatorname{pr}_1 \circ h = p.
 
 平坦な接続

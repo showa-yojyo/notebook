@@ -40,7 +40,7 @@
     （ハットの部分は除去を意味する）。
 
   * 開集合 :math:`U_i^\pm` をすべて合併させると曲面全体を覆う。
-  * 写像 :math:`\varphi_i^\pm: Q \longto \RR^{n - 1}` はちょっとした計算により同相写像であることを示せる。
+  * 写像 :math:`\fn{\varphi_i^\pm}{Q}\RR^{n - 1}` はちょっとした計算により同相写像であることを示せる。
   * 座標変換 :math:`\varphi_i^\sigma \circ (\varphi_j^\tau)\inv` が :math:`C^\infty` 級であることも同様にして示せる。
 
 * 例 3.1.6: 多様体の直積、直和はどちらも多様体
@@ -82,7 +82,7 @@
 
   * 後半は射影空間が多様体であることを示す。
 
-    * 射影 :math:`p: S^n \longto \RR P^n;\quad [x] \longmapsto \set{x, -x}` は同値類への写像となる。
+    * 射影 :math:`\fnm{p}{S^n}{\RR P^n}{[x]}\set{x, -x}` は同値類への写像となる。
     * 局所座標系 :math:`\set{(V_i, \varphi_i)}` を次のように定義する。
 
       .. math::
@@ -144,7 +144,7 @@
         = \varnothing.
         \end{align*}
 
-  #. このとき射影 :math:`p: X \longto X/F` に対して :math:`[x] \in p(U),\ [y] \in p(V)` である。
+  #. このとき射影 :math:`\fn{p}{X}X/F` に対して :math:`[x] \in p(U),\ [y] \in p(V)` である。
 
      * 例えば :math:`\displaystyle p\inv(p(U)) = \bigcup_{i = 1}^n f_i(U)` であるから
        （もっと丁寧に説明したい）
@@ -176,10 +176,10 @@
 
   * 考察する写像
 
-    * :math:`p: Z \longto \RR; \quad (x, y) \longmapsto y`
-    * :math:`\underline{p}: Y \longto \RR; \quad [x, y] \longmapsto y`
-    * :math:`f^\pm: \RR \longto Z; \quad y \longmapsto (\pm 1, y)`
-    * :math:`p_Y: Z \longto Y;` （射影）
+    * :math:`\fnm{p}{Z}{\RR}{(x, y)}y`
+    * :math:`\fnm{\underline{p}}{Y}{\RR}{[x, y]}y`
+    * :math:`\fnm{f^\pm}{\RR}{Z}{y}(\pm 1, y)`
+    * :math:`\fn{p_Y}{Z}Y` （射影）
 
   * 合成写像 :math:`p_Y \circ f_\pm` を考える。
     :math:`Y_\pm := (p_Y \circ f_\pm)(\RR)` とおくと、
@@ -237,9 +237,9 @@
       このような直積を対応する点を含む :math:`Z` の開集合とする。
       以下、しばらくは :math:`x \ne 0` で話をすすめる。
 
-    * 写像 :math:`p_s: Z \longto S` を射影とする。
-    * 写像 :math:`i: I \times \RR \longto Z` を包含写像とする。
-    * 写像 :math:`s: W := (p_s \circ i)(I \times \RR) \longto I \times \RR` を代表元を取る写像とする。
+    * 写像 :math:`\fn{p_s}{Z}S` を射影とする。
+    * 写像 :math:`\fn{i}{I \times \RR}Z` を包含写像とする。
+    * 写像 :math:`\fn{s: W }{= (p_s \circ i)(I \times \RR) } I \times \RR` を代表元を取る写像とする。
 
       .. math::
          :nowrap:
@@ -302,7 +302,7 @@
 
 * 例題 3.3.6: :math:`\RR P^n = S^n / \set{\pm 1} = (\RR^{n + 1} \minuszero) / \RR^\times`
 
-  * 次のような写像 :math:`f: \RR^{n + 1} \minuszero \longto \RR` をまず定義し、
+  * 次のような写像 :math:`\fn{f}{\RR^{n + 1} \minuszero}\RR` をまず定義し、
     これが well-defined であることを確認する。
 
     .. math::
@@ -334,9 +334,9 @@
 
   #. :math:`\CC P^n` はハウスドルフである
 
-     * 例題 3.3.6 と同様の実数値関数 :math:`f: (\CC^{n + 1})^\times \longto \RR` を定義する。
+     * 例題 3.3.6 と同様の実数値関数 :math:`\fn{f}{(\CC^{n + 1})^\times}\RR` を定義する。
      * 同様の理由により、:math:`f` は :math:`\bm z_1` の取り方によらず値が確定する。
-       また、誘導される関数 :math:`\underline f: (\CC^{n + 1})^\times/\sim = \CC P^n \longto \RR` も
+       また、誘導される関数 :math:`\fn{\underline f}{(\CC^{n + 1})^\times/\sim = \CC P^n} \RR` も
        同様の理由により連続関数として確定する。
      * 再びコーシー・シュワルツの不等式より :math:`\underline f \le 1.`
        等号成立条件は :math:`\exists \lambda \in \CC^\times \text{ s.t. } \bm z_1 = \lambda \bm z_2.`
@@ -361,7 +361,7 @@
        * 各座標 :math:`\varphi_i` は :math:`V_i` 上の連続関数である（分母はゼロでないから）。
        * 各座標 :math:`\varphi_i` は同相写像である。
 
-         これを示すには :math:`\iota_i: \CC^n \longto \CC^{n + 1}` を次のように定め、
+         これを示すには :math:`\fn{\iota_i}{\CC^n}\CC^{n + 1}` を次のように定め、
          これまでの問題にあるように射影 :math:`p` と合成して
          :math:`\varphi_i \circ (p \circ \iota_i) = \id_{\CC^n}` かつ
          :math:`(p \circ \iota_i) \circ \varphi_i = \id_{V_i}` であるから同相となると言う：
@@ -392,12 +392,12 @@
 ここでは :math:`s \le r` とする。
 
 :math:`C^s` 級
-  写像 :math:`F: M_1 \longto m_2` が :math:`C^s` 級 であるとは、
-  写像 :math:`\psi \circ F \circ \varphi\inv: \varphi(U) \longto \psi(V)` が :math:`C^s` 級 であることとする。
+  写像 :math:`\fn{F}{M_1}m_2` が :math:`C^s` 級 であるとは、
+  写像 :math:`\fn{\psi \circ F \circ \varphi\inv}{\varphi(U)}\psi(V)` が :math:`C^s` 級 であることとする。
 
 * 定義 3.4.2: `微分同相写像 <http://mathworld.wolfram.com/Diffeomorphism.html>`__
 
-  写像 :math:`F_1: M_1 \longto M_2` が微分同相写像であるとは、
+  写像 :math:`\fn{F_1}{M_1}M_2` が微分同相写像であるとは、
   :math:`F_1 \circ F_2 = \id_{M_2}` かつ
   :math:`F_2 \circ F_1 = \id_{M_1}` であることとする。
 
@@ -408,7 +408,7 @@
 
 * 問題 3.4.4: :math:`\CC P^1 = (\CC^2 \minuszero) / \CC ^ \times \cong S^2`
 
-  * ヒントに従うと、次の射影 :math:`p_\pm: S^2 \longto \RR^2` による座標近傍系を定義できる。
+  * ヒントに従うと、次の射影 :math:`\fn{p_\pm}{S^2}\RR^2` による座標近傍系を定義できる。
 
     .. math::
 
@@ -420,8 +420,8 @@
 
   * :math:`\CC P^1` では座標
 
-    * 問題 3.3.7 の記号で言うと :math:`\displaystyle \varphi_i: V_i \longto \CC,\ z \in \CC^\times, \varphi_1 \circ \varphi_0\inv(z) = \frac{1}{z}.`
-    * 写像 :math:`\bar\iota: \RR^2 \longto \RR^2` を :math:`(x, y) \longmapsto (x, -y)` で定義し、
+    * 問題 3.3.7 の記号で言うと :math:`\fn{\varphi_i}{V_i}\CC,\ z \in \CC^\times, \varphi_1 \circ \varphi_0\inv(z) = \dfrac{1}{z}.`
+    * 写像 :math:`\fnm{\bar\iota}{\RR^2}{\RR^2}{(x, y)}(x, -y)` を定義し、
       :math:`S^2` に新たに座標近傍系 :math:`\set{(U_+, p_+), (U_-, \bar\iota \circ p_-)}` を定義する。
 
       .. math::
@@ -475,7 +475,7 @@
 
 * 例題 3.5.1: 座標近傍の同相写像がまた同相写像となる。
 
-  * :math:`\gamma_{ij}: \varphi_j(U_i \cap U_j) \longto \varphi_i(...)` を
+  * :math:`\fn{\gamma_{ij}}{\varphi_j(U_i \cap U_j)}\varphi_i(...)` を
     :math:`\gamma_{ij} = \varphi_i \circ (\varphi_j|U_i \cap U_j)\inv` で定義する。
     このとき :math:`\varphi_k(U_i \cap U_j \cap U_k)` 上は
     :math:`\gamma_{ij} \circ \gamma_{jk} = \gamma_{ik}` となる。
@@ -508,7 +508,7 @@
 
   #. ここで :math:`X = (\bigsqcup V_i / \sim)` がハウスドルフであれば、多様体となるといえる。
 
-     * 射影 :math:`p: \bigsqcup V_i \longto X` を考える。
+     * 射影 :math:`\fn{p}{\bigsqcup V_i}X` を考える。
        :math:`V_i` と :math:`p(V_i)` が同相である。
        代表元を取る写像を :math:`s_i` とすると、次のようにして連続であることがわかる：
 
@@ -525,12 +525,12 @@
   #. n 次元 :math:`C^\infty` 多様体 :math:`M` と上述の商空間 :math:`X` とが微分同相となる。
      例題 3.5.1 の記号を流用すると、
 
-     * 写像 :math:`\iota: x_i \in V_i \longmapsto \varphi_i\inv(x_i)` を考える。
-       このとき、誘導される写像 :math:`\underline{\iota}: X \longto M` は連続となる。
+     * 写像 :math:`\fnm{\iota}{V_i}{\RR^n}{x_i}\varphi_i\inv(x_i)` を考える。
+       このとき、誘導される写像 :math:`\fn{\underline{\iota}}{X}M` は連続となる。
 
        なぜなら :math:`x_i \in V_{ij}, \iota(\gamma_{ji}(x_i)) = \iota(x_i)` だから。
 
-     * 写像 :math:`p \circ \varphi_i: U_i \longto p(V_i)` は同相の合成で同相。
+     * 写像 :math:`\fn{p \circ \varphi_i}{U_i}p(V_i)` は同相の合成で同相。
 
      * :math:`\underline{\iota} \circ (p \circ \varphi_i) = \id_{U_i}` かつ
        :math:`(p \circ \varphi_i) \circ (\underline{\iota}|p(V_i)) = \id_{p(V_i)}` となるので、
@@ -546,14 +546,14 @@
 * 問題 3.5.3: ファイバー束
 
   * :math:`E, B` は位相空間であり、
-  * 写像 :math:`p: E \longto B` は連続であり、
+  * 写像 :math:`\fn{p}{E}B` は連続であり、
   * 次を満たす位相空間 :math:`F` が存在するとする：
 
     .. math::
 
        \forall b \in B, \exists U_b \owns b
        \text{ s.t. }
-       \exists h: p\inv(U_b) \longto U_b \times F,\ \operatorname{pr}_1 \circ h = p.
+       \exists \fn{h}{p\inv(U_b)}U_b \times F,\ \operatorname{pr}_1 \circ h = p.
 
     ただし :math:`h` は同相写像であり、
     :math:`\operatorname{pr}_1` は直積 :math:`U_b \times F` の第一成分への射影とする。
@@ -585,7 +585,7 @@
 
     * :math:`x_1 \ne x_2 \in E,\ p(x_1) = p(x_2) = b` のとき：
 
-      * ファイバー性により次のような同相写像 :math:`h: p\inv(U_b) \longto U_b \times F` が存在する：
+      * ファイバー性により次のような同相写像 :math:`\fn{h}{p\inv(U_b)}U_b \times F` が存在する：
         :math:`\operatorname{pr}_1 \circ h = p.`
 
       * :math:`x_1 \ne x_2` であるので :math:`\operatorname{pr}_2 \circ h(x_1) \ne \operatorname{pr}_2 \circ h(x_2) \in F.`
@@ -626,8 +626,8 @@
     このとき :math:`M` 自身がすでに向き付け可能。
 
   * :math:`M` が向き付け不可能で連結であっても :math:`\widehat{M}` は向き付け可能。
-  * :math:`P: \widehat{M} \longto M` において :math:`P\inv(y)` の二点を入れ替える写像
-    :math:`F: \widehat{M} \longto \widehat{M}` は、向き付けを反対にする微分同相写像だ。
+  * :math:`\fn{P}{\widehat{M}}M` において :math:`P\inv(y)` の二点を入れ替える写像
+    :math:`\fn{F}{\widehat{M}}\widehat{M}` は、向き付けを反対にする微分同相写像だ。
 
 * 例 3.6.2: 実射影空間は多様体次元の偶数奇数によって向き付け可能性が決まる。
 

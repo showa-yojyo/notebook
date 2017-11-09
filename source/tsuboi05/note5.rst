@@ -85,7 +85,7 @@
 
      .. math::
 
-        \forall x_0 \in K, \exists \mu_{x_0}: M \longto \RR \quad \text{s.t. }
+        \forall x_0 \in K, \exists \fn{\mu_{x_0}}{M}\RR \quad \text{s.t. }
         \forall x \in M, \mu_{x_0}(x) \le 0, \mu_{x_0}(x_0) > 0, \supp \mu_{x_0} \subset U.
 
   #. :math:`\set{x \in M \sth \mu_{x_0}(x) > 0} = \int(\supp \mu_{x_0})` であることに注意。
@@ -107,10 +107,10 @@
 
   証明方針：
 
-  #. 前定理の性質を満たす関数 :math:`\nu_1: M \longto \RR` をとる。
+  #. 前定理の性質を満たす関数 :math:`\fn{\nu_1}{M}\RR` をとる。
   #. :math:`K = \supp \nu_1 \setminus \operatorname{int}(\supp \nu_1)` は
      開集合 :math:`U \setminus K` のコンパクト部分集合である。
-  #. 繰り返し前定理を再利用し、関数 :math:`\nu_2: M \longto \RR` がとれる。
+  #. 繰り返し前定理を再利用し、関数 :math:`\fn{\nu_2}{M}\RR` がとれる。
      :math:`(\nu_1 + \nu_2)|\supp \nu_1 > 0` より次の関数を考える：
 
      .. math::
@@ -123,7 +123,7 @@
 
      これは所望の条件をすべて満たす。
 
-* 注意 5.1.4 の :math:`\nu f: M \longto \RR,\ \nu|K = f|K` の意味は、
+* 注意 5.1.4 の :math:`\fn{\nu f}{M}\RR,\ \nu|K = f|K` の意味は、
   このあとの方向微分の問題で効いてくる。
 
 ここまでの議論で、多様体上には多くの :math:`C^\infty` 級関数が存在することがわかった。
@@ -264,7 +264,7 @@
   * ここで :math:`\Phi = (\mu_1, \nu_1 \varphi_1, \dotsc, \mu_k, \nu_k \varphi_k)` とおくと、
     これが多様体から :math:`\RR^{k(n + 1)}` への埋め込みとなる：
 
-    * 定理 4.4.2 の上にある説明により :math:`\Phi_*: T_xM \longto \RR^{k(n + 1)}` のランクが
+    * 定理 4.4.2 の上にある説明により :math:`\fn{\Phi_*}{T_xM}\RR^{k(n + 1)}` のランクが
       :math:`n` で :math:`\Phi` が単射であるから。
 
       * ランクが :math:`n` であることは :math:`(\nu_i \varphi_i | V_i) \circ \varphi_i\inv = \id_{\varphi_i(V_i)}` から示せる。
@@ -379,10 +379,10 @@
   `ホイットニーの傘 <http://mathworld.wolfram.com/WhitneyUmbrella.html>`__
   `クロスキャップ <http://mathworld.wolfram.com/Cross-Cap.html>`__
 
-* <写像 :math:`F: M \longto N` が与えられ、:math:`N` の形と :math:`F\inv(y)\ (y \in N)` の形が理解できれば、
+* <写像 :math:`\fn{F}{M}N` が与えられ、:math:`N` の形と :math:`F\inv(y)\ (y \in N)` の形が理解できれば、
   :math:`M` の形がわかることが期待できる> (p. 101)
 
-  * 写像 :math:`F` については :math:`F_*|T_xM \longto T_{F(x)}N` のランクが :math:`\dim N` であるようなものがよいと思われる。
+  * 写像 :math:`F` については :math:`\fn{F_*}{T_xM}T_{F(x)}N` のランクが :math:`\dim N` であるようなものがよいと思われる。
     こういう :math:`x` とそれに対応する :math:`y` はそれぞれ正則点、正則値であるという。
 
     * 言葉に引っ張られないように。正則「値」と言っても多様体上の点を指している。
@@ -403,7 +403,7 @@
 * 例題 5.3.6: `1 の分割 <http://mathworld.wolfram.com/PartitionofUnity.html>`__
 
   * :math:`M, \set{(U_i, \varphi_i)}` をそれぞれコンパクト多様体とその座標近傍系とする。
-  * :math:`\exists \lambda_i: M \longto \RR\ s.t. \lambda_i \in C^\infty(M),\ 0 \le \lambda_i(x) \le 1,\ \supp{\lambda_i} \subset U_i.`
+  * :math:`\exists \fn{\lambda_i}{M}\RR\quad\text{s.t. }\lambda_i \in C^\infty(M),\ 0 \le \lambda_i(x) \le 1,\ \supp{\lambda_i} \subset U_i.`
     有限個の添字を除いて :math:`\lambda_i = 0,\ \sum \lambda_i = 1.`
 
   * 証明では例題 5.2.2 およびその元となる各種命題を利用している。
@@ -426,7 +426,7 @@
 
 * 定理 5.4.1: `サードの定理 <http://mathworld.wolfram.com/SardsTheorem.html>`__
 
-  * :math:`C\infty` 級写像 :math:`F: M \longto N` の臨界値は測度が 0 である。
+  * :math:`C\infty` 級写像 :math:`\fn{F}{M}N` の臨界値は測度が 0 である。
 
 * 定義 5.4.2: 非退化、`モース関数 <http://mathworld.wolfram.com/MorseFunction.html>`__
 
@@ -514,7 +514,7 @@
 
 * 問題 5.4.5: :math:`f(x, y) = (2 + \cos y)(a\cos x + b \sin x) + c \sin y,\ ((a, b, c) \ne (0, 0, 0))`
 
-  この関数は :math:`F: \RR^2/(2\pi\ZZ)^2 \longto \RR` を誘導する。
+  この関数は :math:`\fn{F}{\RR^2/(2\pi\ZZ)^2}\RR` を誘導する。
   臨界点の個数が有限となる条件と退化する条件とを求める。
 
   * :math:`F` が well-defined であることを確かめる。
@@ -586,7 +586,7 @@
     * 点 :math:`\varphi_i((p \circ i)(\bm z^0))` を通る :math:`C^\infty` 級曲線を考える。
     * TBW
 
-  * 次に示す関数は :math:`F: \CC P^n \longto \RR` を誘導する：
+  * 次に示す関数は :math:`\fn{F}{\CC P^n}\RR` を誘導する：
 
     .. math::
        :nowrap:
@@ -612,7 +612,7 @@
 
       分母がゼロになることはない。
 
-  * :math:`F` の臨界点は :math:`F_*: T_x \CC P^n \longto \RR` がゼロとなる
+  * :math:`F` の臨界点は :math:`\fn{F_*}{T_x \CC P^n}\RR` がゼロとなる
     :math:`x \in \CC P^n` である。
 
     * ヒントには合成写像 :math:`T_zS^{2n + 1} \longto T_x\CC P^n \longto \RR` を考えろとある。
@@ -665,9 +665,9 @@
 
   同じ記号を引き続き用いる上で、次の仮定を追加する：
 
-  * :math:`i: M \longto \RR^N` を包含写像、
-  * :math:`\operatorname{pr}_2: \RR^N \longto \RR^N` を第二成分への射影、
-  * :math:`L: \RR^N \longto \RR` を線形写像 :math:`\displaystyle L(\bm x) = \sum_{i = 1}^N a_i x_i` とする。
+  * :math:`\fn{i}{M}\RR^N` を包含写像、
+  * :math:`\fn{\operatorname{pr}_2}{\RR^N}\RR^N` を第二成分への射影、
+  * :math:`\fn{L}{\RR^N}\RR` を線形写像 :math:`\displaystyle L(\bm x) = \sum_{i = 1}^N a_i x_i` とする。
 
   このとき :math:`\bm a \in \RR^N` が :math:`\operatorname{pr}_2|X` の正則値であることと、
   :math:`L \circ i` がモース関数であることは同値である。
@@ -840,7 +840,7 @@
   * 証明では線形代数の何かをまず利用する。
   * 途中、サードの定理を必要とする。
 
-* 注意 5.7.7: :math:`F: M \longto N` が :math:`L \subset N` と横断的ならば、
+* 注意 5.7.7: :math:`\fn{F}{M}N` が :math:`L \subset N` と横断的ならば、
   :math:`F\inv(L)` は :math:`M` の余次元が :math:`L` のそれに等しいような部分多様体である。
 
 * 注意 5.7.8: これは何を言っているのかわからない。

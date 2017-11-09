@@ -25,7 +25,7 @@
     :math:`G/G_x = \set{aG_x \sth a \in G}` は右剰余類の空間である。
     :math:`G = \bigsqcup aG_x (a \in G/G_x)` を右剰余類を用いた軌道分解という。
 
-* 定理 8.3: 連続な全単射 :math:`\mu: G/G_x \longto X` の存在
+* 定理 8.3: 連続な全単射 :math:`\fn{\mu}{G/G_x}X` の存在
 
   * ここで :math:`G` は連続群、
     :math:`X` は位相空間、作用は連続かつ推移的であるものと仮定する。
@@ -39,7 +39,7 @@
 
     * :math:`\mu` が連続である。
 
-      * 商写像 :math:`\pi: G \longto G/G_x` を考えて :math:`\mu` との合成写像を考える。
+      * 商写像 :math:`\fn{\pi}{G}G/G_x` を考えて :math:`\mu` との合成写像を考える。
         開集合 :math:`U \subset X` の逆像が開集合であることを示すのに、
         作用が連続であることを必要とする。
 
@@ -256,7 +256,7 @@
 :math:`G = \ZZ,\ X = \RR, \varphi(m)x = x + 2\pi m` とする。
 当然ながら :math:`Gx = \set{x + 2\pi m \sth m \in \ZZ}` であり、前に述べたように :math:`\RR/\ZZ \cong S^1` である。
 
-* 商写像 :math:`p: \RR \longto \RR/2\pi \ZZ \cong S^1` を :math:`p(x) = (\cos x, \sin x)` で定める。
+* 商写像 :math:`\fn{p}{\RR}\RR/2\pi \ZZ \cong S^1` を :math:`p(x) = (\cos x, \sin x)` で定める。
 * 関数 :math:`\cos x` や :math:`\sin x` は :math:`\RR` 上の :math:`\ZZ` 不変な関数であると言っている。
 
 * 定理 8.18: フーリエ級数定理
@@ -342,14 +342,14 @@
   左辺マイナス右辺を評価すると、:math:`L` 不変性と全平面で有界であることからこれが定数となることが言える。
   原点に注目すると左辺マイナス右辺はゼロであることが結論できる。
 
-写像 :math:`R: \CC \longto \CC^2` を :math:`R(z) = (\wp(z), \wp'(z))` で定義すると、
+写像 :math:`\fn{R}{\CC}\CC^2` を :math:`R(z) = (\wp(z), \wp'(z))` で定義すると、
 これは :math:`L` 不変ではあるのだが、:math:`\wp` の極が :math:`\infty` となる問題があるのでそのままでは使えない。
-代わりに写像 :math:`E: \CC \setminus L \longto \mathbb P^2(\CC)`, :math:`E(z) = [\wp(z), \wp'(z), 1]` を考える。
+代わりに写像 :math:`\fn{E}{\CC \setminus L}\mathbb P^2(\CC)`, :math:`E(z) = [\wp(z), \wp'(z), 1]` を考える。
 
 * :math:`E(z) = [z^3 \wp(z), z^3\wp'(z), z^3] \to [0 : -2 : 0] = [0 : 1 : 0] (z \to 0)` ゆえ（各成分を定数倍した）、
   :math:`E(0) = [0 : 1 : 0]` と定義する。
 
-* これで商写像 :math:`E: \CC / L \longto \overset{\sim}{\mathscr C} (zy^2 = 4x^3 - g_2xz^2 - g_3z^3)` が定義できた。
+* これで商写像 :math:`\fn{E}{\CC / L}\overset{\sim}{\mathscr C} (zy^2 = 4x^3 - g_2xz^2 - g_3z^3)` が定義できた。
 
   * この :math:`z = 1` における曲線を `楕円曲線 <http://mathworld.wolfram.com/EllipticCurve.html>`__ と言う。
 

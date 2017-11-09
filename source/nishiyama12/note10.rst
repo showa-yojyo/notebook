@@ -121,7 +121,7 @@
 目標はグラスマン多様体を高次の射影空間に埋め込むことだ。
 
 プリュッカー座標
-  プリュッカー座標とは、次の写像 :math:`\mathscr{P}: \mathit{M}_{4, 2}^{\circ}(\CC) \longto \mathbb{P}^5(\CC)` の値を言う。
+  プリュッカー座標とは、次の写像 :math:`\fn{\mathscr{P}}{\mathit{M}_{4, 2}^{\circ}(\CC)}\mathbb{P}^5(\CC)` の値を言う。
 
   .. math::
      :nowrap:

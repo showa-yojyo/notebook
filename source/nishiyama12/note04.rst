@@ -145,7 +145,7 @@
 
 * 対称行列全体を :math:`Sym_3(\RR)` で表す（これを二次曲線全体とみなしてよい）。
 
-* 定理 4.14: 作用 :math:`E_2^\curvearrowright Sym_3(\RR): A \longmapsto {}^t\!g\invAg\inv` の不変式環
+* 定理 4.14: 作用 :math:`E_2^\curvearrowright Sym_3(\RR): A \longmapsto {}^t\!g\inv Ag\inv` の不変式環
   :math:`\CC[Sym_3(\RR)]^{E_2}` は
   :math:`a + c, ac - b^2, \det A` から生成される。
 

@@ -47,7 +47,7 @@
        f(gx) = \chi_f(g) f(x)\quad(x \in X)
        \end{align*}
 
-    * このとき :math:`\chi_f: G \longto \CC` を指標という。
+    * このとき :math:`\fn{\chi_f}{G}\CC` を指標という。
 
       * 指標は一次元表現である。
       * 例えば行列式の性質 :math:`\det(AB) = \det A \det B` は指標の性質であるといえる。
@@ -171,8 +171,8 @@
      \end{align*}
 
   * 相対有理不変式。
-  * 証明方針は、不変量の定義式で :math:`\Delta \leftarrow \Delta (gA) = \det({}^t\!g\invAg\inv)`,
-    :math:`X \leftarrow {}^t\!h\invXh\inv` として計算すればよい。
+  * 証明方針は、不変量の定義式で :math:`\Delta \leftarrow \Delta (gA) = \det({}^t\!g\inv Ag\inv)`,
+    :math:`X \leftarrow {}^t\!h\inv Xh\inv` として計算すればよい。
 
   * :math:`P_2` の符号で曲線の形状を分類できることは書いたが、
     この符号はアフィン変換が保存することがわかったと言っている。

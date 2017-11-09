@@ -218,8 +218,8 @@
 ヤコビアンが原点において単位行列であり、かつ開集合が原点を含む場合を示す：
 
   :math:`\RR^n` の原点を含む開集合 :math:`U` で定義された :math:`C^r` 級写像
-  :math:`F: U \longto \RR^n` に対して、次のような開集合 :math:`V` と
-  :math:`C^r` 級写像 :math:`G: V \longto U` が存在する：
+  :math:`\fn{F}{U}\RR^n` に対して、次のような開集合 :math:`V` と
+  :math:`C^r` 級写像 :math:`\fn{G}{V}U` が存在する：
 
   .. math::
 

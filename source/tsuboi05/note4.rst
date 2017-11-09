@@ -26,7 +26,7 @@
         :nowrap:
 
         \begin{align*}
-        \mathcal{C}_{x_0} := \set{c_i: (a_i,\ b_i) \longto M \sth c_i(t_i) = x_0}_{i \in I}
+        \mathcal{C}_{x_0} := \set{\fn{c_i}{(a_i,\ b_i)}M \sth c_i(t_i) = x_0}_{i \in I}
         \end{align*}
 
   #. 次にこの一点を含む座標近傍 :math:`(U, \varphi)` をとって、
@@ -73,7 +73,7 @@
 
 * 接ベクトル空間は実ベクトル空間である。
 * 曲線族の曲線に :math:`\RR^n` の接ベクトルを対応させる写像は
-  全単射 :math:`\varphi_{*}: \mathcal{C}_{x_0} / \sim \longto \RR^n` を誘導する。
+  全単射 :math:`\fn{\varphi_{*}}{\mathcal{C}_{x_0}/\sim}\RR^n` を誘導する。
 * 単射であることは同値類の定義から従う。
 * 全射であることについて。これを示すのに面白い技法を使う。
 
@@ -134,10 +134,10 @@
 4.3 接写像
 ----------------------------------------------------------------------
 `接写像 <http://mathworld.wolfram.com/TangentMap.html>`__
-  :math:`F \in C^\infty(M, N),\ x \in M,\ c: (a, b) \longto M,\ c(t_0) = x` を仮定する。
-  点 :math:`F(x) \in N` を通る曲線 :math:`F \circ c: (a, b) \longto N,\ (F \circ c)(t_0) = F(x)` という具合になる。
+  :math:`F \in C^\infty(M, N),\ x \in M,\ \fnm{c}{(a, b)}{M}{t_0}x` を仮定する。
+  点 :math:`F(x) \in N` を通る曲線 :math:`\fnm{F \circ c}{(a, b)}{N}{t_0}F(x)` という具合になる。
   接ベクトルを接ベクトルに対応させられる。
-  このことから線形写像 :math:`F_*: T_x \longto T_{f(x)} N` が定義できる。
+  このことから線形写像 :math:`\fn{F_*}{T_x}T_{f(x)}N` が定義できる。
   この写像 :math:`F_*` を接写像という。
 
   色々な性質をまとめておく：
@@ -158,7 +158,7 @@
 * 例題 4.3.1: ただし :math:`M` のコンパクト集合 :math:`K` 上で :math:`F|K` が単射ならば、
   近傍 :math:`V` から :math:`F(V)` への微分同相となる。
 
-  * :math:`F|U_x: U_x \longto V_{F(x)}` が微分同相となるような近傍
+  * :math:`\fn{F|U_x}{U_x}V_{F(x)}` が微分同相となるような近傍
     :math:`U_x \subset U_i` は存在する（∵逆写像定理）。
   * この近傍 :math:`U_x` はその閉包がコンパクトになるように取れる（らしい）。
   * :math:`K` の開被覆 :math:`\set{U_x}_{x \in K}` は
@@ -180,7 +180,7 @@
   * :math:`W = \bigcup_k U_{x_k}^m` とおくと
     :math:`W_1 \supset \closure{W_2} \supset W_2 \supset \dots,\ \bigcap\closure{Q_m} = K` とできる。
 
-  * するとある番号があって :math:`F: W_m \longto F(W_m)` が単射となる（背理法と完備性を利用する）。
+  * するとある番号があって :math:`\fn{F}{W_m}F(W_m)` が単射となる（背理法と完備性を利用する）。
 
 * 問題 4.3.2: 商空間 :math:`\RR^2/\ZZ^2`
 
@@ -192,9 +192,9 @@
 
      * 解答例では :math:`f^{[x_0, y_0]}(x, y) = \cos 2\pi(x - x_0) + \cos 2\pi(y - y_0)` を採用している。
 
-       * この関数 :math:`f: \RR^2 \longto \RR` は余弦関数の性質より :math:`[x_0, y_0]` の
+       * この関数 :math:`\fn{f}{\RR^2}\RR` は余弦関数の性質より :math:`[x_0, y_0]` の
          同値類のとり方によらず、また :math:`[x, y]` の同値類上で同じ値となるので、
-         誘導される関数 :math:`\underline f: \RR^2/\ZZ^2 \longto \RR` も確定する。
+         誘導される関数 :math:`\fn{\underline f}{\RR^2/\ZZ^2}\RR` も確定する。
 
        * よって :math:`[x_0, y_0] \ne [x, y]` ならば :math:`\underline f(x, y) \ne 2` であり、
          :math:`[x_0, y_0] = [x, y]` ならば :math:`\underline f(x, y) = 2` であるので、
@@ -303,7 +303,7 @@
   座標近傍系の同値類について注意しておく。
   座標近傍系の両立という概念の上位互換な概念が微分可能構造だ。
 
-:math:`F: M \longto N,\ \rank F_* = \min{m = \dim M, n = \dim N}` とすると、
+:math:`\fn{F}{M}N,\ \rank F_* = \min{m = \dim M, n = \dim N}` とすると、
 
 .. math::
 
@@ -319,7 +319,7 @@
 
 `はめ込み <http://mathworld.wolfram.com/Immersion.html>`__
   :math:`m < n` のときに、
-  写像 :math:`F: M \longto N` に対し、:math:`\rank F_* = m` であればはめ込みであるという。
+  写像 :math:`\fn{F}{M}N` に対し、:math:`\rank F_* = m` であればはめ込みであるという。
 
 `埋め込み <http://mathworld.wolfram.com/Embedding.html>`__
   はめ込み :math:`F` によって :math:`N` の位相から誘導される位相が
@@ -343,7 +343,7 @@
   * 仮定をまとめる：
 
     * :math:`N_1, N_2` をそれぞれ :math:`n_1, n_2` 次元多様体とし、
-    * :math:`C^\infty` 級写像 :math:`F: N_1 \longto N_2` があり、
+    * :math:`C^\infty` 級写像 :math:`\fn{F}{N_1}N_2` があり、
     * :math:`M_1 \subset N_1,\ M_2 \subset N_2` はそれぞれ部分多様体であり、
     * さらに :math:`F(M_1) \subset M_2` が成り立つとする。
 
@@ -353,7 +353,7 @@
 
   * 残りの座標成分のほうを考えと
     :math:`(y_1, \dotsc, y_{m_2}) \circ F \circ \varphi\inv` が :math:`C^\infty` 級となる。
-    したがって 誘導される写像 :math:`G: M_1 \longto M_2` も :math:`C^\infty` 級となる。
+    したがって 誘導される写像 :math:`\fn{G}{M_1}M_2` も :math:`C^\infty` 級となる。
 
 * 問題 4.4.4: :math:`GL_2(\RR)` と :math:`SL_n(\RR)`
 
@@ -364,7 +364,7 @@
       これは :math:`n^2` 次元多様体である。
 
     * GL については :math:`GL_n(\RR) = \set{A \in M_n(\RR) \sth \det A \ne 0}` である。
-      連続写像 :math:`\det: M_n(\RR) \longto \RR` の開集合 :math:`\set{x \in \RR \sth x \ne 0}` の
+      連続写像 :math:`\fn{\det}{M_n(\RR)}\RR` の開集合 :math:`\set{x \in \RR \sth x \ne 0}` の
       逆像とみなすことで開集合となり、先ほどと同じ要領で座標近傍系を構成すれば
       :math:`n^2` 次元多様体である。
 
@@ -379,7 +379,7 @@
       * SL では :math:`D\det \ne 0` であることに注意。
         :math:`\det` は :math:`n^2` 次元から :math:`1` 次元への関数であり、
         陰関数定理により、ある近傍 :math:`W` と :math:`C^\infty` 級写像（座標になる）
-        :math:`\varphi: W \longto \RR^{n^2 - 1}` が存在する。
+        :math:`\fn{\varphi}{W}\RR^{n^2 - 1}` が存在する。
 
   * 行列の積、逆行列を取る演算はどちらも :math:`C^\infty` 級の写像である。
 
@@ -410,7 +410,7 @@
   * よって陰関数定理により、:math:`C\inv(I_n) = O(n)` の
     近傍 :math:`W` と :math:`C^\infty` 級写像 :math:`W \longto \RR^\frac{n(n - 1)}{2}` が存在する。
 
-    * 写像 :math:`C: M_n(\RR) \longto M_n(\RR)` は :math:`n^2` 次元空間から
+    * 写像 :math:`\fn{C}{M_n(\RR)}M_n(\RR)` は :math:`n^2` 次元空間から
       :math:`\displaystyle \frac{n(n + 1)}{2}` 次元空間へのものだとわかったことによる。
 
 * 例題 4.4.7: 横断的に交わる二つの部分多様体の共通部もまた部分多様体である。
@@ -421,16 +421,16 @@
   以下、ノートの都合上 :math:`a = \dim X - \dim Y,\ b = \dim X - \dim Z` と書く。
 
   * :math:`x_0 \in Y \cap Z` の座標近傍を :math:`(U, \varphi)` とする。
-  * まず次のような写像 :math:`F_Y: U \longto \RR^a` が存在する：
+  * まず次のような写像 :math:`\fn{F_Y}{U}\RR^a` が存在する：
     :math:`U \cap Y = F_Y\inv(F_Y(x_0)).`
-  * さらに :math:`\forall x \in U, \rank F_{Y*} = a\quad(F_{Y*}: T_xX \longto \RR^a.)`
+  * さらに :math:`\forall x \in U, \rank F_{Y*} = a\quad(\fn{F_{Y*}}{T_xX}\RR^a.)`
   * 同様な性質の :math:`F_Z` も存在する。
 
   * 写像の直積を構成することで :math:`F_{Y*}, F_{Z*}` を適当に制限すると同型写像が得られることを示す：
 
     .. math::
 
-       (F_{Y*}, F_{Z*}): U \longto \RR^a \times \RR^b.
+       \fn{(F_{Y*}, F_{Z*})}{U}\RR^a \times \RR^b.
 
     * 接空間を :math:`T_xY = (T_xY \cap T_xZ) \oplus V_Y` のように部分空間の直和に分解する。
       このとき :math:`F_{Y*}|V_Y \cong \RR^a` となる。
@@ -478,13 +478,13 @@
      * 射影をいくつか定義して、その合成写像による商空間の開集合の逆像もまた開集合であることを示し、
        :math:`Y \longto X` に連続写像が存在することを示せる。
      * 次に、直和から商空間への射影二種 :math:`p_x, p_y` を適宜制限して同相写像を得る。
-     * 写像 :math:`P\inv: p_x(V_i) \longto p_x(V_i) \times \RR^n` が同相であることを示す。
+     * 写像 :math:`\fn{P\inv}{p_x(V_i)}p_x(V_i) \times \RR^n` が同相であることを示す。
      * 最後に問題 3.5.3 を利用する。
 
   接束は `ベクトル束 <http://mathworld.wolfram.com/VectorBundle.html>`__ の一種である (pp. 85-86)。
 
 * 問題 4.5.2: :math:`F \in C^\infty(M, N)` の引き起こす接束の間の写像
-  :math:`F_*: TM \longto TN` は :math:`C^\infty` 級である。
+  :math:`\fn{F_*}{TM}TN` は :math:`C^\infty` 級である。
 
   * :math:`TM` は :math:`\bigcup \varphi_i(U_i) \times \RR^m` の商空間である。
   * :math:`TM` の座標近傍系は :math:`\varphi_i(U_i) \times \RR^m` の像および
@@ -507,7 +507,7 @@
 
        \bm x^0 = (\bm x_1^0, \bm x_2^0) \in \RR^p \times \RR^{N - p},
 
-    :math:`\bm x_1^0 \in W` 上のグラフ表示 :math:`g: W \longto \RR^{N - p},\ M \cap U = \set{(\bm x_1, g(\bm x_1)) \sth \bm x_1 \in W}`
+    :math:`\bm x_1^0 \in W` 上のグラフ表示 :math:`\fn{g}{W}\RR^{N - p},\ M \cap U = \set{(\bm x_1, g(\bm x_1)) \sth \bm x_1 \in W}`
     とすると :math:`\bm v \in T_{(\bm x_1, g(\bm x_1))}M \iff \bm v = (\bm v_1, Dg_{(\bm x_1)}\bm v_1)).`
 
     :math:`X \cap (U \times \RR^N) = \set{(\bm x_1, g(\bm x_1)), (\bm v_1, Dg_{(\bm x_1)}\bm v_1)) \sth (\bm u_1, \bm v_1) \in W \times \RR^p}.`
