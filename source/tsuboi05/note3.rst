@@ -651,12 +651,37 @@
 
   #. 平均値の定理から明らか。
 
-  #. この関数 :math:`\displaystyle
-     \rho(x) = 0\ (x \le 0),\ \exp\left(-\frac{1}{x}\right)\ (0 < x)`
+  #. この関数
+  
+     .. math::
+
+        \rho(x) =
+        \begin{cases}
+        0 & \quad\text{if } x \le 0,\\
+        \exp\left(-\dfrac{1}{x}\right) & \quad\text{if } 0 < x.
+        \end{cases}
+
      を利用すれば、多様体上の :math:`C^\infty` 級関数を構成できる。
 
      * 本題は :math:`\rho^{(m)}(0) = 0` が成り立つことを
        帰納法をメインに示すことだが、敢えて導関数を書き下してみたい。
+
+     * SymPy に計算させたら式の展開結果がいきなりゼロになったので導関数を得られなかった。
+       代わりに、最初の数階分だけ導関数と極限を計算させるとこうなる：
+
+       .. math::
+
+          \begin{align*}
+          \diff{\rho(x)}{x} &= \frac{\mathrm e^{- \frac{1}{x}}}{x^{2}} & \quad \to 0 \quad(x \to +0)\\
+          \mdiff{\rho(x)}{2}{x} &= \frac{\mathrm e^{- \frac{1}{x}}}{x^{3}} \left(-2 + \frac{1}{x}\right) & \quad \to 0 \quad(x \to +0)\\
+          \mdiff{\rho(x)}{3}{x} &= \frac{\mathrm e^{- \frac{1}{x}}}{x^{4}} \left(6 - \frac{6}{x} + \frac{1}{x^{2}}\right) & \quad \to 0 \quad(x \to +0)\\
+          \mdiff{\rho(x)}{4}{x} &= \frac{\mathrm e^{- \frac{1}{x}}}{x^{5}} \left(-24 + \frac{36}{x} - \frac{12}{x^{2}} + \frac{1}{x^{3}}\right) & \quad \to 0 \quad(x \to +0)\\
+          \mdiff{\rho(x)}{5}{x} &= \frac{\mathrm e^{- \frac{1}{x}}}{x^{6}} \left(120 - \frac{240}{x} + \frac{120}{x^{2}} - \frac{20}{x^{3}} + \frac{1}{x^{4}}\right) & \quad \to 0 \quad(x \to +0)
+          \end{align*}
+
+       上の展開から
+       :math:`x^{2m}\rho^{(m)}(x) = \rho(x)P(x)` の形に書けて、
+       :math:`x \to +0` のときに :math:`\rho^{(m)}(x) \to 0` であると言えばよいであろうことがわかる。
 
   #. :math:`\RR^n` の連結な折れ線は、実数全体を定義域とする
      :math:`C^\infty` 級写像の像とできるという事実は大事。
