@@ -13,7 +13,7 @@
 
 代数系
   集合 X の上に何種類かの多項演算があって、それらの間に何らかの関係が成り立つときに、
-  組 (X, operations) をそう呼ぶ。
+  組 ``(X, operations)`` をそう呼ぶ。
 
 * 定義 1.2: 群の公理。ここに書いてあることはさすがに心得ている。
 * 用語：可換律、可換群 or アーベル群、非可換群。
@@ -35,33 +35,7 @@
     :math:`\mathbb{H} ^ \times` は非可換群となる。
   * :math:`\set{\pm 1, \pm i, \pm j, \pm k} \subset \mathbb{H} ^ \times` は有限部分群。
 
-* 演習 1.8: パウリ行列
-
-  .. math::
-     :nowrap:
-
-     \begin{align*}
-     \sigma_0 =
-       \begin{pmatrix}
-          1 & 0\\
-          0 & 1
-       \end{pmatrix},\quad
-     \sigma_1 =
-       \begin{pmatrix}
-          0 & 1\\
-          1 & 0
-       \end{pmatrix},\quad
-     \sigma_2 =
-       \begin{pmatrix}
-          0 & -i\\
-          i & 0
-       \end{pmatrix},\quad
-     \sigma_3 =
-       \begin{pmatrix}
-          1 & 0\\
-          0 & -1
-       \end{pmatrix}
-     \end{align*}
+* 演習 1.8: `パウリ行列 <http://mathworld.wolfram.com/PauliMatrices.html>`__
 
 1.3 対称群
 ----------------------------------------------------------------------
@@ -84,7 +58,7 @@
 1.4.1 二面体群
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * 対称群という用語が再定義されている？
-* n 次の二面体群 :math:`D_n` は正 n 角形の対称群のこと。
+* n 次の `二面体群 <http://mathworld.wolfram.com/DihedralGroup.html>`__ :math:`D_n` とは正 n 角形の対称群のこと。
 * 原点は :math:`D_n` 「によって不変である」or「の固定群である」。
 
 * 補題 1.11: :math:`D_n` に属する回転移動は :math:`\set{a^k \sth 0 \le k < n}`
@@ -95,7 +69,7 @@
 
 * 定理 1.13: :math:`D_n = \set{a^k, a^k b \sth 0 \le k < n}`
 
-  * :math:`\set{a, b}` を生成元 or 生成系という。
+  * :math:`\set{a, b}` を `生成元 or 生成系 <http://mathworld.wolfram.com/GroupGenerators.html>`__ という。
 
 * 演習 1.14: :math:`abab = e`
 * 演習 1.15: :math:`D_3` は :math:`\mathfrak{S}_3` と同型であるが、
@@ -107,7 +81,9 @@
 * 演習 1.17: オイラーの関係式 :math:`f - e + v = 2`
 * 定理 1.18
 
-  * 各面が正 p 角形の正多面体群の位数は :math:`2fp = 4e` となる。
+  * 各面が正 p 角形の `正多面体群 <http://mathworld.wolfram.com/PolyhedralGroup.html>`__ の位数は
+    :math:`2fp = 4e` となる。
+
   * その回転のみからなる部分群の位数はその半分の :math:`fp = 2e` である。
 
 * 演習 1.19: ある辺を固定する部分群の位数および
@@ -119,12 +95,13 @@
 1.5.1 自由群
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * （用語）語、空語。
-* :math:`F_2 = \set{a, b}`, 一般に :math:`F_k = \set{a_1, \dotsc, a_k}` を自由群という。
+* :math:`F_2 = \set{a, b}`, 一般に :math:`F_k = \set{a_1, \dotsc, a_k}` を
+  `自由群 <http://mathworld.wolfram.com/FreeGroup.html>`__ という。
 * 正規表現の本で似たようなものを見た記憶がある。
 
 1.5.2 行列群
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-一般線形群
+`一般線形群 <http://mathworld.wolfram.com/GeneralLinearGroup.html>`__
   :math:`GL_n(K) := \set{g \in M_n(K) \sth \det g \ne 0}`
 
   * 部分群 :math:`SL_n(K),\ O_n(\RR),\ U_n(\CC),\ Sp_{2n}(K)`
@@ -132,7 +109,8 @@
 
 1.5.3 変換群
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 用語：変換（自身から自身への全単射）、線形変換、変換群 or 自己同型群
+* 用語：変換（自身から自身への全単射）、線形変換、変換群 or
+  `自己同型群 <http://mathworld.wolfram.com/AutomorphismGroup.html>`__
 
   * 自己同型群の記号は :math:`Aut(X)` のようになる。
 

@@ -15,10 +15,10 @@
 3 次の二面体群を利用して 3 次方程式 :math:`x^3 + Ax^2 + Bx + C = 0` の解の公式を導く（係数の符号が本と異なるかも）。
 
 * 用語：対称式、基本対称式。
-* 定理 2.1: 対称式の基本定理
+* 定理 2.1: `対称式の基本定理 <http://mathworld.wolfram.com/FundamentalTheoremofSymmetricFunctions.html>`__
 * 演習 2.2: これは高校数学の教科書を参照という感じだ。
 
-カルダーノの公式を得る手順の概略は次のようになる。
+`カルダーノの公式 <http://mathworld.wolfram.com/CubicFormula.html>`__ を得る手順の概略は次のようになる。
 
 #. 1 の原始 3 乗根 :math:`\omega` をとる。
 #. :math:`r = \alpha + \beta + \gamma,\ s = \alpha + \omega\beta + \omega^2\gamma,\ \alpha + \omega^2 \beta + \omega \gamma` とする。
@@ -37,11 +37,11 @@
 ----------------------------------------------------------------------
 群論の教科書を参照すればよさそうだ。
 
-* 定義 2.7: 準同型写像
+* 定義 2.7: `準同型写像 <http://mathworld.wolfram.com/GroupHomomorphism.html>`__
 * 定義 2.9: 同型、同型写像。記号としては :math:`G_1 \cong G_2` を用いる。
 * 定理 2.10: :math:`\ker f` と :math:`\operatorname{im} f` はそれぞれ
   定義域および値域の部分群となる。
-* 定義 2.11: 正規部分群
+* 定義 2.11: `正規部分群 <http://mathworld.wolfram.com/NormalSubgroup.html>`__
 * 定理 2.12: :math:`\ker f = \set{e}` であることと :math:`f` が同型写像であることは同値。
 * 定理 2.13: :math:`Aut(T_4) \cong \mathfrak{S}_4`
 
@@ -66,7 +66,8 @@
 ----------------------------------------------------------------------
 この節では別に断らない限り :math:`\fn{\varphi}{G_1}G_2` を全射としている。
 
-* 用語：逆像 or ファイバー。ある一点の写像前の元全て。
+* 用語：逆像 or `ファイバー <http://mathworld.wolfram.com/Fiber.html>`__。
+  ある一点の写像前の元全て。
 
 一つの元 :math:`\tau_1 \in \varphi\inv(\sigma)` と :math:`\ker \varphi` が既にわかっていれば、
 ファイバーは容易に求まる。すなわち :math:`\varphi\inv(\sigma) = \tau_1 \ker \varphi` がそれだ。

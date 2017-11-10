@@ -16,7 +16,8 @@
 
 * 定義 3.1
 
-  * 表現とは、群の準同型 :math:`\fn{\pi}{G} GL(V)` における組 :math:`(\pi, V)` のことをいう。
+  * `表現 <http://mathworld.wolfram.com/GroupRepresentation.html>`__ とは、
+    群の準同型 :math:`\fn{\pi}{G} GL(V)` における組 :math:`(\pi, V)` のことをいう。
   * 表現の作用素とは、群の元 :math:`g \in G` に対する :math:`\pi(g)` のことをいう。行列。
   * 表現空間とは、表現におけるベクトル空間 V のことをいう。
   * 行列表現とは、行列で表される :math:`\pi(g)\pi(h)` のような表現のことをいう。
@@ -24,11 +25,13 @@
 * 例 3.2: 対称群の置換表現
 
   * ある置換 :math:`\sigma` に対して行列 :math:`T_\sigma := (\delta_{i \sigma(j)})_{1 \le i,\ j \le n}` を定める
-    写像は対称群の行列表現となる。これを置換表現といい、作用素を置換行列という。
+    写像は対称群の行列表現となる。
+    これを置換表現といい、作用素を置換行列という。
 
 * 例 3.3: 二面体群の自然表現
 
-  * 回転にせよ鏡映にせよ、一次変換であるので行列で表現できる。これを自然表現 or 定義表現という。
+  * 回転にせよ鏡映にせよ、一次変換であるので行列で表現できる。
+    これを自然表現 or 定義表現という。
 
 * 例 3.4: 正多面体群
 
@@ -43,21 +46,22 @@
                     + \sin \alpha (\bm{v} \times \bm{e_1}\quad
                                    \bm{v} \times \bm{e_2}\quad
                                    \bm{v} \times \bm{e_3}),\\
-       S_u & = I - 2 \bm{u} \cdot {}^t\!\bm{u}
+       S_u & = I - 2 \bm{u} \cdot {}^t\!\bm{u}.
        \end{align*}
 
 * 例 3.7: 巡回群 :math:`\ZZ / n \ZZ` の表現は一次元で
-  :math:`k \longmapsto e^{2km \pi i/n} \in \CC^\times = GL_1(\CC)` のようになる。
+  :math:`k \longmapsto \mathrm e^{2km \pi i/n} \in \CC^\times = GL_1(\CC)` のようになる。
 
   * この写像が well-defined かつ準同型であることを一応確認しておく。
 
 3.2 群の作用と表現
 ----------------------------------------------------------------------
 * 群 :math:`G` と空間 :math:`X` について準同型 :math:`\fn{\varphi}{G}Aut(X)` が存在するとき、
-  :math:`G` は :math:`X` に作用するという。
+  :math:`G` は :math:`X` に `作用する <http://mathworld.wolfram.com/GroupAction.html>`__ という。
 
   * このことを記号 :math:`G ^\curvearrowright X` で示す。
-  * 忠実な作用であるとは、群 :math:`G` が :math:`X` の部分群であることだ。
+  * `忠実な作用 <http://mathworld.wolfram.com/FaithfulGroupAction.html>`__ であるとは、
+    群 :math:`G` が :math:`X` の部分群であることだ。
   * 空間がベクトル空間であり、かつ :math:`Aut(X)` が線形同型全体であれば、
     作用と表現とは実質的に同じとなる。
 
@@ -113,7 +117,8 @@
 
   * 完全対称式だけ妙に数式化が面倒だ。
 
-* 母関数中の有利式をべき級数の形に（収束性を気にせずに）展開する。
+* `母関数 <http://mathworld.wolfram.com/GeneratingFunction.html>`__ 中の有理式を
+  べき級数の形に（収束性を気にせずに）展開する。
 
 * 演習 3.19: 基本対称式 :math:`e_m` は :math:`m \le n` のときに
   :math:`\sum_{k = 0}^{m - 1} (-1)^{m - 1 - k} e_k h_{m - k}` が成り立つので
@@ -130,7 +135,8 @@
 * 方程式 :math:`\sum a_k x^(n - k) = 0` の根を :math:`\xi_1, \dotsc, \xi_n` とする。それに対して
 
   * 差積を :math:`\Delta(\xi) = \Delta(\xi_1, \dotsc, \xi_n) = \prod(\xi_i - \xi_j)` で、
-  * 判別式を :math:`D = a_0^{2n - 2} \Delta (\xi)^2` でそれぞれ定義する。
+  * `判別式 <http://mathworld.wolfram.com/PolynomialDiscriminant.html>`__ を
+    :math:`D = a_0^{2n - 2} \Delta (\xi)^2` でそれぞれ定義する。
 
 * 定理 3.23: 判別式がゼロであることと、対応する方程式が重根を持つことは同値。
 * 演習 3.24: 二次方程式 :math:`a_0 x^2 + a_1 x^1 + a_2 = 0` の判別式を定義に従って求める。
@@ -145,7 +151,7 @@
   先の例のケースに帰着させる。
 
 * 定理 3.28: 多項式の判別式は係数の同次多項式になる。
-* 差積は Vandermonde の行列式という表示方法もある。
+* 差積は `Vandermonde の行列式 <http://mathworld.wolfram.com/VandermondeDeterminant.html>`__ という表示方法もある。
 * 演習 3.29: :math:`\Delta(\xi)^2` の変形で、行列式の単純展開による。
 * 演習 3.30: :math:`\Delta(\xi)^2` の変形で、冪和対称式を成分とする行列式で表示する。
 

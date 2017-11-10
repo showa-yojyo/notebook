@@ -11,7 +11,7 @@
 
 4.1 等長変換
 ----------------------------------------------------------------------
-* 定義 4.1: 等長変換
+* 定義 4.1: `等長変換 <http://mathworld.wolfram.com/Isometry.html>`__
 
   * :math:`\norm{f(\bm{p}) - f(\bm{q})} = \norm{\bm{p} - \bm{q}}`
   * 平行移動、回転、鏡映。
@@ -25,10 +25,10 @@
      :nowrap:
 
      \begin{align*}
-     f(z) &= e^{i\varphi} z\\
+     f(z) &= \mathrm e^{i\varphi} z\\
      \\
-     f(z) &= e^{i\varphi} (z - a) + a\\
-          &= e^{i\varphi} z + a(1 - e^{i\varphi})
+     f(z) &= \mathrm e^{i\varphi} (z - a) + a\\
+          &= \mathrm e^{i\varphi} z + a(1 - \mathrm e^{i\varphi}).
      \end{align*}
 
 * 演習 4.5: 単に :math:`a = \alpha + i \beta` とすればよさそうだ。
@@ -42,7 +42,7 @@
 
      \begin{align*}
      f(z) &= \overline{z}\\
-     f(z) &= g\inv (\overline{g(z)}),\text{ where }g(z) = e^{-i\theta}(z - u)
+     f(z) &= g\inv (\overline{g(z)}),\text{ where }g(z) = \mathrm e^{-i\theta}(z - u).
      \end{align*}
 
 * 演習 4.7: 滑り鏡映 :math:`f(z) = \overline{z} + \alpha\quad (\alpha \in \RR)`
@@ -88,7 +88,7 @@
          \begin{array}{ c r }
           1&  0\\
           0& -1
-         \end{array} \right)
+         \end{array} \right).
        \end{align*}
 
   * 複素数を導入して :math:`z_j, \overline{z_j}` の多項式で :math:`u_\theta`
@@ -109,7 +109,7 @@
 
      \begin{align*}
      E_2 = \Set{
-     g = \begin{pmatrix}
+     \begin{pmatrix}
           h & v \\
           0 & 1
        \end{pmatrix}
@@ -119,7 +119,7 @@
      = \begin{pmatrix}
          O_2(\RR) & \RR^2\\
          0 & 1
-       \end{pmatrix}
+       \end{pmatrix}.
      \end{align*}
 
   こうすると曲線を次のように記せる：
@@ -138,7 +138,7 @@
        x \\
        y \\
        1
-     \end{pmatrix}
+     \end{pmatrix}.
      \end{align*}
 
   * ここで用いられている技法は、CG プログラミングのそれと同じではないか。なるほど。
@@ -167,11 +167,11 @@
      \begin{align*}
      P_1 = \frac{\trace X}{\sqrt[3]{\Delta^2}},
      P_2 = \frac{\det X}{\sqrt[3]{\Delta^2}},
-     \text{ where }
+     \quad\text{where }
      X = \begin{pmatrix}
        a & b\\
        c & d
-     \end{pmatrix}
+     \end{pmatrix}.
      \end{align*}
 
   * この二つの不変量が一致する曲線同士が合同となる。逆もしかり。
@@ -183,10 +183,12 @@
 
   * 周長については楕円関数をいうものも現れる。
 
-* 演習 4.18: 双曲線。
-* 例 4.19: 放物線。準線と焦点の距離を :math:`P_1` で表す。
+* 演習 4.18: `双曲線 <http://mathworld.wolfram.com/Hyperbola.html>`__
+* 例 4.19: `放物線 <http://mathworld.wolfram.com/Parabola.html>`__。
+  準線と焦点の距離を :math:`P_1` で表す。
 * 演習 4.20: パラボラアンテナ。
-* 演習 4.21: 離心率を :math:`P_1, P_2` で表す。極表示で考える。
+* 演習 4.21: `離心率 <http://mathworld.wolfram.com/Eccentricity.html>`__ を
+  :math:`P_1, P_2` で表す。極座標表示で考える。
 
 ----
 
