@@ -27,14 +27,13 @@
   定数倍の同値関係で同一して得られる（無限遠点を含む）点全体のなす平面。
 
   .. math::
-     :nowrap:
 
      \begin{align*}
      (x, y, z) \sim (x', y', z') \iff
-     \exists k \in \RR, k \ne 0: (x', y', z') = (kx, ky, kz)
+     \exists k \in \RR^\times \quad\text{s.t. } (x', y', z') = (kx, ky, kz)
      \end{align*}
 
-  * 射影平面は無限遠点を含む。
+  * 射影平面は `無限遠点 <http://mathworld.wolfram.com/PointatInfinity.html>`__ を含む。
   * 射影平面の代表元をこの点の同次座標と呼んで、これを :math:`(x, y, z)` 形式で表記する。
     一方、射影平面の元は :math:`[x : y : z]` の形式で表記する。
   * 「スクリーン」上の対応する点を非同次座標と呼んで、これを :math:`(\xi, \eta)` 形式で表記する。
@@ -59,7 +58,8 @@
 * 射影直線とは射影空間内で :math:`ax + by + cz = 0` の表す図形だ。
 
   * :math:`a \ne 0` または :math:`b \ne 0` ならば無限遠点は :math:`[-b : a : 0]` のただ一点のみ（一点コンパクト化）。
-  * :math:`a = b = 0, c \ne 0` ならば直線 :math:`z = 0` は無限遠直線だ。
+  * :math:`a = b = 0, c \ne 0` ならば直線 :math:`z = 0` は
+    `無限遠直線 <http://mathworld.wolfram.com/LineatInfinity.html>`__ だ。
   * このどちらも射影直線 :math:`\mathbb P^1 (\RR)` と同型だ。
 
 * 定理 6.2: :math:`\mathbb P^2 (\RR)` の相異なる二点を通る直線がただ一つ存在する。
@@ -101,7 +101,7 @@
 
 * 演習 6.7: 上の式を同次座標の二次形式の形で書け。
 * 演習 6.8: :math:`f(x, y, z) = 0` は、もし左辺が実一次式の積の形に因数分解できれば、
-  この二次曲線は退化している。
+  この二次曲線は `退化 <http://mathworld.wolfram.com/Degenerate.html>`__ している。
 
 射影変換の :math:`f(v) = 0` への作用は :math:`Q \longmapsto {}^t\!A\inv QA\inv \in Sym_3(\RR)` だ。
 

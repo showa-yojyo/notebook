@@ -14,7 +14,7 @@
 * 定義 8.1: `推移的な作用 <http://mathworld.wolfram.com/TransitiveGroupAction.html>`__
 
   * 群 :math:`G` が空間 :math:`X` への推移的作用であるとは、
-    :math:`\forall x, y \in X, \exists g \in G \text{ s.t. } gx = y` であることを言う。
+    :math:`\forall x, y \in X, \exists g \in G \quad\text{s.t. } gx = y` であることを言う。
   * :math:`X` 自身が一つの :math:`G` 軌道である。
   * :math:`\Omega_{G}(X)` と :math:`X/G` は一点からなる。
 
@@ -100,7 +100,6 @@
 * 演習 8.10: 実は :math:`a_t \in SO_{2,1}(\RR)` が成り立つ：
 
   .. math::
-     :nowrap:
 
      \begin{align*}
      a_t =
@@ -120,7 +119,7 @@
 
 8.2 同伴ファイバー束
 ----------------------------------------------------------------------
-同伴するファイバー束
+`同伴するファイバー束 <http://mathworld.wolfram.com/AssociatedFiberBundle.html>`__
   G, H, W をそれぞれ群、G の部分群、H が作用する空間とする。
   :math:`G \times_{H} W` を :math:`(G \times W) / H` で定義し、
   それを同伴するファイバー束と呼ぶ。
@@ -214,7 +213,6 @@
 * 定理 8.17: :math:`Hyp_k := \set{[x : y : z] \sth x^2 + y^2 - z^2 = k}` とおくと次が成り立つ。
 
   .. math::
-     :nowrap:
 
      \begin{align*}
      G((\diag(1, 1, -1), re_1)    & \cong G \times_H Hyp_{r^2}\\
@@ -259,7 +257,7 @@
 * 商写像 :math:`\fn{p}{\RR}\RR/2\pi \ZZ \cong S^1` を :math:`p(x) = (\cos x, \sin x)` で定める。
 * 関数 :math:`\cos x` や :math:`\sin x` は :math:`\RR` 上の :math:`\ZZ` 不変な関数であると言っている。
 
-* 定理 8.18: フーリエ級数定理
+* 定理 8.18: `フーリエ級数 <http://mathworld.wolfram.com/FourierSeries.html>`__ 定理
 
   * :math:`f(x)` は :math:`\RR` 上の :math:`\ZZ` 不変な :math:`C^2` 級関数であると仮定しているが、
     級数の絶対収束性を要求しなければ、有界変動の連続関数であればよい。
@@ -268,7 +266,8 @@
 
   * 関数 :math:`\cos x` や :math:`\sin x` は :math:`G` 不変式の生成元だと言っている。
 
-:math:`\displaystyle \frac{1}{\sin x}` の部分分数分解や :math:`\sin x` の無限乗積展開に :math:`G` の作用が表れる。
+:math:`\dfrac{1}{\sin x}` の部分分数分解や
+:math:`\sin x` の無限乗積展開に :math:`G` の作用が表れる。
 
 8.4.2 トーラスと楕円関数
 ----------------------------------------------------------------------
@@ -289,11 +288,8 @@
   `次の関数 <http://mathworld.wolfram.com/WeierstrassEllipticFunction.html>`__ について考察する：
 
   .. math::
-     :nowrap:
 
-     \begin{align*}
      \wp(z) = \frac{1}{z^2} + \sum_{\omega \in L \minuszero}\left(\frac{1}{(z + \omega)^2} - \frac{1}{\omega^2}\right).
-     \end{align*}
 
   これは :math:`z \notin L` において絶対広義一様収束する。
 
@@ -306,11 +302,8 @@
   証明としては、単に与式を微分すればよい。絶対収束性から項別微分できて
 
   .. math::
-     :nowrap:
 
-     \begin{align*}
      \wp'(z) = -2 \sum_{\omega \in L}\frac{1}{(z + \omega)^3}.
-     \end{align*}
 
   * まずは :math:`z = 0` が 2 位の極であることがわかる。
   * :math:`\wp'(z + \omega) = \wp'(\omega)\quad(\omega \in L)` により
@@ -330,7 +323,6 @@
 * 定理 8.21
 
   .. math::
-     :nowrap:
 
      \begin{gather*}
      \wp'(z)^2 = 4 \wp(z)^3 - g_2 \wp(z) - g_3,\quad

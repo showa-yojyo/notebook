@@ -17,7 +17,6 @@
   次のような :math:`\mathit{GL}_{n + 1}(\CC)` の部分群のことをそう呼ぶ：
 
   .. math::
-     :nowrap:
 
      \begin{align*}
      \Set{
@@ -79,7 +78,7 @@
   つまり射影部分空間の全体に対し、
   :math:`\mathit{GL}(V) = \mathit{GL}_n(\CC)` が射影変換として推移的に作用する。
 
-グラスマン多様体
+`グラスマン多様体 <http://mathworld.wolfram.com/GrassmannManifold.html>`__
   ベクトル空間の部分空間全体のことをそう呼ぶ。
 
   * 記号は :math:`Gr_d(V)`, :math:`Gr_d^n(\CC)` を用いる。
@@ -123,11 +122,8 @@
   プリュッカー座標とは、次の写像 :math:`\fn{\mathscr{P}}{\mathit{M}_{4, 2}^{\circ}(\CC)}\mathbb{P}^5(\CC)` の値を言う。
 
   .. math::
-     :nowrap:
 
-     \begin{align*}
      A \longmapsto [D_{12}(A) : D_{13}(A) : D_{14}(A) : D_{32}(A) : D_{42}(A) : D_{34}(A)]
-     \end{align*}
 
 * 定理 10.3: 写像 :math:`\mathscr{P}` は :math:`Gr_2(\CC^4)` から
   :math:`\mathbb{P}^5(\CC)` 内の二次曲面への同型写像である。

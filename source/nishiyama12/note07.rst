@@ -18,7 +18,7 @@
   * 点を固定してパラメーターのように :math:`t \in \RR` を「動かす」と平面上に図形が描かれる。
   * これにより平面を双曲線の各連結成分、各座標軸、原点とに直和分解できる。
 
-* 群の軌道の定義を確認。
+* `群の軌道 <http://mathworld.wolfram.com/GroupOrbit.html>`__ の定義を確認。
 
   * 軌道とは群が作用している空間の部分集合 :math:`\set{\varphi(g)x \sth g \in G}` のことをいう。
   * 記号は色々あって :math:`\mathbb{O}_x,\ \mathbb{O}_x^G,\ \varphi(G)x,\ Gx` などがある。
@@ -46,7 +46,6 @@
   * 直交群は次のように分解できる。
 
     .. math::
-       :nowrap:
 
        \begin{align*}
        O_3(\RR) = \mathit{SO}_3(\RR) \sqcup h \mathit{SO}_3(\RR),\
@@ -57,7 +56,6 @@
     従って実空間は原点と半径 r > 0 の球との非交和に分解できる。
 
     .. math::
-       :nowrap:
 
        \begin{align*}
        \RR^3 = \bigsqcup_{r > 0} S_r \sqcup \zeroset,\ 
@@ -102,7 +100,7 @@
 
   * 有限群の共役による作用に関する軌道 :math:`C_G(x) := \set{gxg\inv \sth g \in G}` のことを共役類という。
 
-* 例 7.10: 左移動、左剰余類、左剰余類分解。
+* 例 7.10: 左移動、`左剰余類 <http://mathworld.wolfram.com/LeftCoset.html>`__、左剰余類分解。
 
   * 左（右）剰余類の定義を確認。剰余類の空間は元の群の軌道分解となる。
   * 左剰余類では :math:`G = \bigsqcup Ha`
@@ -153,7 +151,7 @@
 連続な不変関数のなす（ベクトル）空間を :math:`C(X)^G` を書く。
 :math:`C(X)^G = Fun(X)^G \cap C(X)` が成り立つ。
 
-* 引き戻し
+* `引き戻し <http://mathworld.wolfram.com/PullbackMap.html>`__
 
   * 位相空間 :math:`X` から :math:`Y` への連続写像を :math:`\pi` とする。
     さらに各空間の連続関数全体をそれぞれ :math:`C(X),\ C(Y)` とする。

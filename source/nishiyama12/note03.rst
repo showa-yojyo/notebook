@@ -38,7 +38,6 @@
   * 同様の事情により、回転にも鏡映にも自然表現ができる。
 
     .. math::
-       :nowrap:
 
        \begin{align*}
        R_v(\alpha) & = I \cos \alpha
