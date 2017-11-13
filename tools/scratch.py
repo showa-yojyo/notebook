@@ -25,7 +25,8 @@ def run(args):
 
     params = dict(title=args.title,
                   note_name=note_name,
-                  num_format='%d',)
+                  num_format='%d',
+                  prefix=args.prefix,)
 
     # Case of a single page is specified.
     if num_page == 1:
@@ -52,14 +53,15 @@ def run(args):
     # Generate note[1-9].rst.
     template = env.get_template(args.page_template)
 
-    rst_name_format = 'note{:d}.rst'
+    prefix = params['prefix']
+    rst_name_format = prefix + '{:d}.rst'
     if 9 < num_page < 100:
-        rst_name_format = 'note{:02d}.rst'
+        rst_name_format = prefix + '{:02d}.rst'
         params['num_format'] = '%02d'
     elif 100 <= num_page:
         from math import (floor, log)
         num_digits = str(floor(log(N, 10)) + 1)
-        rst_name_format = 'note{:0' + num_digits + 'd}.rst'
+        rst_name_format = prefix + '{:0' + num_digits + 'd}.rst'
         params['num_format'] = '%0' + num_digits + 'd'
 
     for i in range(1, num_page + 1):
@@ -84,6 +86,10 @@ def parse_args(args):
         default='1',
         help='specify the number of pages (default to 1)')
     parser.add_argument(
+        '--prefix',
+        default='note',
+        help='specify the file name prefix (default to `note\')')
+    parser.add_argument(
         '--index_template',
         default='toc.rst_t',
         help='specify the template file name for TOC page (default to toc.rst_t)')
@@ -91,6 +97,7 @@ def parse_args(args):
         '--page_template',
         default='note.rst_t',
         help='specify the template file name for all pages (default to note.rst_t)')
+
     return parser.parse_args(args or ["--help"])
 
 def main(args=sys.argv[1:]):
