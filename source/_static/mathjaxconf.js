@@ -19,7 +19,6 @@ window.MathJax = {
             dy: "\\ \\mathrm d y",
             dz: "\\ \\mathrm d z",
             eps: "\\varepsilon",
-            grad: "{\\operatorname{grad}}",
             mdiff: ["\\frac{\\dd[#2]#1}{\\dd #3^{#2}}", 3],
             rank: "{\\operatorname{rank}}",
 
@@ -46,6 +45,11 @@ window.MathJax = {
             inverse: ["{#1}\\inv", 1],
             fn: ["#1 \\colon #2 \\longto", 2],
             fnm: ["\\fn{#1}{#2} #3, \\quad #4 \\longmapsto", 4],
+
+            grad: "{\\operatorname{grad}}",
+            div: "{\\operatorname{div}}",
+            rot: "{\\operatorname{rot}}",
+            curl: "{\\operatorname{curl}}",
 
             supp: "{\\operatorname{supp}}",
             trace: "{\\operatorname{trace}}"
