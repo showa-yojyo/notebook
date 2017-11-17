@@ -33,6 +33,8 @@
 
   * 定義上、多様体という条件を位相空間にまで緩められる。
 
+.. _tsuboi05.5.1.1:
+
 * 定理 5.1.1: 任意の :math:`x_0 \in M` とその任意の近傍 :math:`V \in M` に対して、
   次のような :math:`M` を定義域とする :math:`C^\infty` 級関数 :math:`\mu` が存在する：
 
@@ -40,7 +42,9 @@
   * :math:`\mu(x_0) > 0, \supp{\mu} \in V`
   * :math:`\supp{\mu}` がコンパクトである。
 
-  証明方針：問題 3.7.1 の関数 :math:`\rho(x)` を再利用してなんとか関数 :math:`\mu(x)` を構成する。
+  証明方針：
+  :ref:`問題 3.7.1 <tsuboi05.3.7.1>` の関数 :math:`\rho(x)`
+  を再利用してなんとか関数 :math:`\mu(x)` を構成する。
 
   #. プロトタイプとして非負関数 :math:`\mu_0(\bm x) = \rho(1 - \norm{\bm x})` を定義する。
 
@@ -72,6 +76,8 @@
         0 & \quad \text{if } x \in M \setminus (U \cap V).
         \end{cases}
 
+.. _tsuboi05.5.1.2:
+
 * 定理 5.1.2: :math:`M` のコンパクト集合 :math:`K` とそれを含む開集合 :math:`U` があるとき、
   次のような :math:`M` を定義域とする :math:`C^\infty` 級関数 :math:`\nu` が存在する：
 
@@ -79,7 +85,9 @@
   * :math:`\nu|K(x) > 0`
   * :math:`\supp{\nu}` が :math:`U` のコンパクト集合である。
 
-  証明方針：定理 5.1.1 の関数 :math:`\mu(x)` をいくつか足して関数 :math:`\nu(x)` を構成する。
+  証明方針：
+  :ref:`定理 5.1.1 <tsuboi05.5.1.1>` の関数 :math:`\mu(x)` をいくつか足して
+  関数 :math:`\nu(x)` を構成する。
 
   #. 前定理を再利用すると以下の条件が成り立つような各関数が存在する：
 
@@ -98,7 +106,9 @@
   #. 最後に和を取れば所望の関数となる：
      :math:`\displaystyle \sum_{i = 1}^k \mu_{x_i}(x).`
 
-* 定理 5.1.3: 定理 5.1.2 と同じ仮定の下で
+.. _tsuboi05.5.1.3:
+
+* 定理 5.1.3: :ref:`定理 5.1.2 <tsuboi05.5.1.2>` と同じ仮定の下で
   次のような :math:`M` を定義域とする :math:`C^\infty` 級関数 :math:`\nu` が存在する：
 
   * :math:`0 \le \nu(x) \le 1`
@@ -227,6 +237,8 @@
 
   * それから普通の閉集合 vs 閉集合について証明する。
 
+.. _tsuboi05.5.2.2:
+
 * 例題 5.2.2: コンパクトハウスドルフ空間 :math:`X` の開被覆 :math:`\set{U_i}` に対し、
   次のような開被覆 :math:`\set{V_i}` が存在する：
   :math:`\closure{V_i} \subset U_i`
@@ -252,7 +264,8 @@
 
 * 定理 5.2.3: コンパクト多様体はユークリッド空間に埋め込める。
 
-  * ポイント：例題 5.2.2 の開被覆の構成手順を二重に行う。
+  * ポイント：
+    :ref:`例題 5.2.2 <tsuboi05.5.2.2>` の開被覆の構成手順を二重に行う。
     つまり :math:`\closure{V_i} \subset U_i,\ \closure{W_i} \subset V_i` のようなものを取る。
     これらの有限開被覆の個数を :math:`k` としておく。
 
@@ -400,13 +413,15 @@
   * 問題 2.5.1 では図のソリッドな曲線が臨界値となっている。
   * これらによると、アウトラインが大体臨界値であるということが推測される。
 
+.. _tsuboi05.5.3.6:
+
 * 例題 5.3.6: `1 の分割 <http://mathworld.wolfram.com/PartitionofUnity.html>`__
 
   * :math:`M, \set{(U_i, \varphi_i)}` をそれぞれコンパクト多様体とその座標近傍系とする。
   * :math:`\exists \fn{\lambda_i}{M}\RR\quad\text{s.t. }\lambda_i \in C^\infty(M),\ 0 \le \lambda_i(x) \le 1,\ \supp{\lambda_i} \subset U_i.`
     有限個の添字を除いて :math:`\lambda_i = 0,\ \sum \lambda_i = 1.`
 
-  * 証明では例題 5.2.2 およびその元となる各種命題を利用している。
+  * 証明では :ref:`例題 5.2.2 <tsuboi05.5.2.2>` およびその元となる各種命題を利用している。
     :math:`U_i` 上にある性質の関数 :math:`\mu_{i_j}` を構成して、次のような開被覆および関数を構成する：
 
     .. math::
@@ -618,7 +633,7 @@
     * ヒントには合成写像 :math:`T_zS^{2n + 1} \longto T_x\CC P^n \longto \RR` を考えろとある。
 
     #. :math:`S^{2n + 1}` 上の関数 :math:`f` と座標近傍 :math:`(U_i^\pm, \varphi_i^\pm), (V_i^\pm, \psi_i^\pm)` を考える。
-       
+
        .. math::
 
           \begin{align*}
@@ -691,7 +706,7 @@
      :math:`\bm x^0` が :math:`\displaystyle a_l + \sum_{k = p + 1}^N a_k \frac{\partial g_k}{\partial x_l} = 0\quad(l = 1, \dotsc, p)`
      を満たすときにヘッセ行列 :math:`\displaystyle \left(\sum_{p + 1}^N a_k \frac{\partial^2 g_k}{\partial x_l \partial x_m}\right)_{l, m}` が
      正則であることと同値である。
-     
+
      これは :math:`\bm a = (a_j) \in \RR^N` が :math:`F` のグラフ上で
      :math:`\operatorname{pr}_2|X` の正則値である条件と同じだ。
 
@@ -749,9 +764,9 @@
   * 別の座標近傍系を :math:`\set{(U_j', \varphi_j' = (y_1, \dotsc, y_n))}` とおく。
     このとき、先ほどと同じように開集合、コンパクト集合列 :math:`V_j' \subset \closure{V_j'} \subset U_j'` を取り、
     次を示すことを目標とする：
-    
+
     .. math::
-    
+
        N_\eps^r(f, \set{V_i}) \subset N_{K\eps}^r(f, \set{V_j'})
 
   * 座標変換をいつものように :math:`\gamma_{ij} = (\varphi_i \circ \varphi_j\inv)|\varphi_j'(U_i \cap U_j')` で表す。
