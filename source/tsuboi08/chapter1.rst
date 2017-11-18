@@ -313,6 +313,8 @@
   * 各 :math:`f_{x_{i_1}} \dots f_{x_{i_p}}` を連続関数とする。
   * この p を微分形式の次数という。
 
+.. _tsuboi08.1.6.2:
+
 * 定義 1.6.2: `外積 <http://mathworld.wolfram.com/WedgeProduct.html>`__
 
   * 同じ添字が一つでもあれば :math:`\dd{x_{i_1}} \wedge \dotsb \wedge \dd{x_{i_p}} = 0.`
@@ -332,6 +334,8 @@
 
        \overbrace{\omega \wedge \dotsb \wedge \omega}^\text{n}
        = n\,! \dd{x_1} \wedge \dotsb \wedge \dd{x_{2n}}.
+
+.. _tsuboi08.1.6.4:
 
 * 例題 1.6.4: 次数付き可換性
 
@@ -485,6 +489,8 @@
 
      \int_\gamma\!\varphi^*\alpha = \int_{\varphi \circ \gamma}\!\alpha.
 
+.. _tsuboi08.1.8.3:
+
 * 定義 1.8.3: p 形式の引き戻し
 
   .. math::
@@ -569,6 +575,8 @@
     * 後半は三角関数の simplify に注意。
 
 * 微分形式の引き戻しの外積は外積の引き戻しである。
+
+.. _tsuboi08.1.8.8:
 
 * 例題 1.8.8: :math:`\varphi^*(\alpha \wedge \beta) = \varphi^*\alpha \wedge \varphi^* \beta`
 

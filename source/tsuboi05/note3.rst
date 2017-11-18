@@ -13,6 +13,9 @@
 
 3.1 微分可能多様体の定義
 ----------------------------------------------------------------------
+
+.. _tsuboi05.3.1.1:
+
 * 定義 3.1.1: n 次元 `（微分可能）多様体 <http://mathworld.wolfram.com/SmoothManifold.html>`__
 
   * 以降、単に「多様体」と書くときは「微分可能多様体」を意味するものとする。
@@ -23,6 +26,8 @@
   * `局所座標 or 座標近傍 <http://mathworld.wolfram.com/CoordinateChart.html>`__
   * `局所座標系 or 座標近傍系 <http://mathworld.wolfram.com/Atlas.html>`__
   * `座標変換 <http://mathworld.wolfram.com/TransitionFunction.html>`__
+
+.. _tsuboi05.3.1.3:
 
 * 注意 3.1.3: `パラコンパクト <http://mathworld.wolfram.com/ParacompactSpace.html>`__
 

@@ -51,6 +51,8 @@ window.MathJax = {
             rot: "{\\operatorname{rot}}",
             curl: "{\\operatorname{curl}}",
 
+            extp: "{\\bigwedge\\nolimits}",
+
             supp: "{\\operatorname{supp}}",
             trace: "{\\operatorname{trace}}"
         }
