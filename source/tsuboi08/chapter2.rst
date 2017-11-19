@@ -315,6 +315,8 @@
 
   * cf. :ref:`定義 2.1.7 <tsuboi08.2.1.7>`
 
+.. _tsuboi05.2.3.5:
+
 * 例 2.3.5: n 次元トーラス :math:`T^n = \RR^n/\ZZ^n`
 
   * これは多様体である：
@@ -407,7 +409,97 @@
 
 2.4 外微分とドラーム・コホモロジー
 ----------------------------------------------------------------------
-TBW
+* 定義 2.4.1: 外微分
+
+  * cf. :ref:`定義 1.6.5 <tsuboi08.1.6.5>`
+  * :ref:`定義 2.1.7 <tsuboi08.2.1.7>` と :ref:`定理 1.8.11 <tsuboi08.1.8.11>` を参照。
+
+* 定理 2.4.2: :math:`\fn{\dd \circ \dd}{\Omega^p(M)}\Omega^{p + 2}(M)` は 0 準同型である
+
+  下の図式は準同型の系列である：
+
+  .. math::
+
+     \require{AMScd}
+     \begin{CD}
+     0 @>{\dd}>> \Omega^0(M) @>{\dd}>> \Omega^1(M) @>{\dd}>> \cdots @>{\dd}>> \Omega^n(M) @>{\dd}>> 0
+     \end{CD}
+
+  * 準同型＝ベクトル空間の線形写像と思って読んでいる。
+  * cf. :ref:`定理 1.7.1 <tsuboi08.1.7.1>`
+
+* 定義 2.4.3: 多様体のドラーム複体
+
+  * 先ほどの図式、正式に言うと
+    多様体の微分形式の `コチェイン複体 <http://mathworld.wolfram.com/CochainComplex.html>`__ 
+    を多様体 :math:`M` のドラーム複体と呼ぶ。
+
+  * 記号は :math:`\Omega^*(M)` とする。
+  * 複体というのは性質 :math:`\dd \circ \dd = 0` のことだ。
+  * :math:`\im(\dd) \subset \ker(\dd)` の「差」をはかるのに
+    コホモロジー群という群を使う。
+
+* 定義 2.4.4: `ドラーム・コホモロジー <http://mathworld.wolfram.com/deRhamCohomology.html>`__ 群
+
+  .. math::
+  
+     \begin{align*}
+     \H^p(M) &=
+     \ker(\fn{\dd}{\Omega^p(M)}\Omega^{p + 1}(M))/
+     \im(\fn{\dd}{\Omega^{p - 1}(M)}\Omega^p}(M))\\
+     &= Z^p(M)/B^p(M).
+     \end{align*}
+
+  * :math:`\H^p(M)` はベクトル空間の商（？）としてベクトル空間である。
+  * :math:`Z^p(M) = \ker(\fn{\dd}{\Omega^p(M)}\Omega^{p + 1}(M))` の元を
+    `閉 p 形式 <http://mathworld.wolfram.com/ClosedForm.html>`__ という。
+  * :math:`B^p(M) = \im(\fn{\dd}{\Omega^{p - 1}(M)}\Omega^p}(M))` の元を
+    `完全 p 形式 <http://mathworld.wolfram.com/ExactForm.html>`__ という。
+  * :math:`[\alpha] \in \H^p(M)` を :math:`\alpha \in \Omega^p(M)` の
+    `コホモロジー <http://mathworld.wolfram.com/Cohomology.html>`__ 類という。
+  * :math:`\H^*(M) = \bigoplus_{p = 0}^n \H^p(M)` と書く。
+
+    * このベクトル空間の直和は何を意味するのかが今はわからない。
+
+* 例 2.4.5:
+
+  #. :math:`\H^0(M)` は :math:`M` の連結成分で定数となる関数全体のなすベクトル空間である。
+     これは閉 0 形式が局所的定数関数であることによる。
+
+  #. 星型 :math:`U \subset \RR^n` に対して次が成り立つ：
+
+     .. math::
+     
+        \H^p(U)
+        \begin{cases}
+        \cong \RR & \text{if } p = 0,\\
+        = 0 & \text{if } p > 0.
+        \end{cases}
+
+* 例 2.4.6: :math:`S^1 = \RR/\ZZ,\ \H^1(S^1) \cong \RR`
+
+  * :math:`\Omega^1(S^1)` の元はすべて閉形式である。
+  * 完全形式であることと :math:`\displaystyle \int_0^1\! f(t)\,\dd t = 0` であることは同値である。
+    整数周期性による。
+  * 次の対応が同型である：
+  
+    .. math::
+    
+       [\alpha] \longmapsto \int_0^1\!\alpha.
+
+* 例 2.4.7: :math:`T^n`
+
+  :math:`\displaystyle \sum_{i_1 < \dotsb < i_p} a_{i_1 \dots \i_p}\,\dd x_{i_1} \wedge \dotsb \wedge \dd x_{i_p}`
+  は完全形式である。
+
+* 例 2.4.8: :math:`T^2` 上の微分形式は :math:`\RR^2` 上の周期関数を係数とする
+  微分形式で表される。
+
+  * `例 2.3.5 <tsuboi05.2.3.5>` を参照。
+  
+  :math:`\H^2(T^2)` とは何か？
+
+  .. todo:: フーリエ展開がよくわからないので後回し。
 
 ----
 

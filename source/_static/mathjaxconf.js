@@ -40,6 +40,7 @@ window.MathJax = {
             Minuszero: "{\\!\\setminus\\!\\zeroset}",
 
             id: "{\\operatorname{id}}",
+            im: "{\\operatorname{im}}",
             longto: "\\longrightarrow",
             inv: "^{-1}",
             inverse: ["{#1}\\inv", 1],
@@ -52,6 +53,7 @@ window.MathJax = {
             curl: "{\\operatorname{curl}}",
 
             extp: "{\\bigwedge\\nolimits}",
+            H: "H_{DR}",
 
             supp: "{\\operatorname{supp}}",
             trace: "{\\operatorname{trace}}"

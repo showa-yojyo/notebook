@@ -346,6 +346,8 @@
   * :math:`pq` 回の隣接ペアの swap で一方が他方に移るから。
   * これをしっかり意識しないとたいていの計算を間違うことになる。
 
+.. _tsuboi08.1.6.5:
+
 * 定義 1.6.5: `外微分 <http://mathworld.wolfram.com/ExteriorDerivative.html>`__
 
   .. math::
@@ -433,9 +435,11 @@
   * :math:`p < 0 \text{ or } n < p \implies \Omega^p(U) = \zeroset` とする。
   * 演算 :math:`\fn{\dd{}}{\Omega^p(U)}\Omega^{p + 1}(U)` は線形写像である。
 
-.. todo:: `コチェイン複体 <http://mathworld.wolfram.com/CochainComplex.html>`__ の定義。図の描き方を忘れた。
+.. todo:: `コチェイン複体 <http://mathworld.wolfram.com/CochainComplex.html>`__ の定義。
 
-* 定理 1.7.1: :math:`\fn{\dd{} \circ \dd{}}{\Omega^p(U)}\Omega^{p + 2}(U)` は 0 準同型である
+.. _tsuboi08.1.7.1:
+
+* 定理 1.7.1: :math:`\fn{\dd \circ \dd}{\Omega^p(U)}\Omega^{p + 2}(U)` は 0 準同型である
 
   * 基底に対しては :math:`\dd{(\dd{x_{i_1}} \wedge \dotsb \wedge \dd{x_{i_p}})} = 0.`
   * 一般には次のようになってやはりゼロだ：
