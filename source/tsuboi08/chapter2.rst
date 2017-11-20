@@ -350,9 +350,13 @@
 
   引き戻しが定義できることがわかる。
 
+.. _tsuboi08.2.3.6:
+
 * 命題 2.3.6: 引き戻し :math:`\fn{F^*}{\Omega^p(N)}\Omega^p(M)`
 
   * :ref:`定義 1.8.3 <tsuboi08.1.8.4>` と同じ命題？
+
+.. _tsuboi08.2.3.7:
 
 * 命題 2.3.7: 反変性 :math:`(F \circ G)^* = G^* \circ F^*`
 
@@ -442,18 +446,18 @@
 * 定義 2.4.4: `ドラーム・コホモロジー <http://mathworld.wolfram.com/deRhamCohomology.html>`__ 群
 
   .. math::
-  
+
      \begin{align*}
      \H^p(M) &=
      \ker(\fn{\dd}{\Omega^p(M)}\Omega^{p + 1}(M))/
-     \im(\fn{\dd}{\Omega^{p - 1}(M)}\Omega^p}(M))\\
+     \im(\fn{\dd}{\Omega^{p - 1}(M)}\Omega^p(M))\\
      &= Z^p(M)/B^p(M).
      \end{align*}
 
   * :math:`\H^p(M)` はベクトル空間の商（？）としてベクトル空間である。
   * :math:`Z^p(M) = \ker(\fn{\dd}{\Omega^p(M)}\Omega^{p + 1}(M))` の元を
     `閉 p 形式 <http://mathworld.wolfram.com/ClosedForm.html>`__ という。
-  * :math:`B^p(M) = \im(\fn{\dd}{\Omega^{p - 1}(M)}\Omega^p}(M))` の元を
+  * :math:`B^p(M) = \im(\fn{\dd}{\Omega^{p - 1}(M)}\Omega^p(M))` の元を
     `完全 p 形式 <http://mathworld.wolfram.com/ExactForm.html>`__ という。
   * :math:`[\alpha] \in \H^p(M)` を :math:`\alpha \in \Omega^p(M)` の
     `コホモロジー <http://mathworld.wolfram.com/Cohomology.html>`__ 類という。
@@ -469,7 +473,7 @@
   #. 星型 :math:`U \subset \RR^n` に対して次が成り立つ：
 
      .. math::
-     
+
         \H^p(U)
         \begin{cases}
         \cong \RR & \text{if } p = 0,\\
@@ -482,24 +486,249 @@
   * 完全形式であることと :math:`\displaystyle \int_0^1\! f(t)\,\dd t = 0` であることは同値である。
     整数周期性による。
   * 次の対応が同型である：
-  
+
     .. math::
-    
+
        [\alpha] \longmapsto \int_0^1\!\alpha.
 
 * 例 2.4.7: :math:`T^n`
 
-  :math:`\displaystyle \sum_{i_1 < \dotsb < i_p} a_{i_1 \dots \i_p}\,\dd x_{i_1} \wedge \dotsb \wedge \dd x_{i_p}`
+  :math:`\displaystyle \sum_{i_1 < \dotsb < i_p} a_{i_1 \dots i_p}\,\dd x_{i_1} \wedge \dotsb \wedge \dd x_{i_p}`
   は完全形式である。
 
 * 例 2.4.8: :math:`T^2` 上の微分形式は :math:`\RR^2` 上の周期関数を係数とする
   微分形式で表される。
 
-  * `例 2.3.5 <tsuboi05.2.3.5>` を参照。
-  
+  * :ref:`例 2.3.5 <tsuboi05.2.3.5>` を参照。
+
   :math:`\H^2(T^2)` とは何か？
 
   .. todo:: フーリエ展開がよくわからないので後回し。
+
+* 問題 2.4.9
+
+  * 仮定
+
+    * :math:`A = \RR^2\minuszero`
+    * :math:`r > 1`
+    * :math:`(x_1, x_2) \sim (y_1, y_2) \iff \exists n \in \ZZ \quad\text{s.t. }(y_1, y_2) = (r^n x_1, r^n x_2).`
+    * :math:`X = A/\sim`
+    * :math:`\fn{\pi}{A}X` を射影とする。
+
+  #. 次が成り立つ：
+
+     .. math::
+
+        \alpha = \frac{a_{11}x_1 + a_{12}x_2}{x_1^2 + x_2^2}\,\dd x_1
+                +\frac{a_{21}x_1 + a_{22}x_2}{x_1^2 + x_2^2}\,\dd x_2
+        \in \Omega^1(A),\\
+        \exists \beta \in \Omega^1(X)\quad\text{s.t. }
+        \alpha = \pi^* \beta.
+
+     * 解答を読んでも理屈がわからない。
+       :math:`\fn{h^n}{A}{A}{(x_1, x_2)}(r^n x_1, r^n x_2)` を考えると
+       :math:`(h^n)^* \alpha = \alpha` が成り立つことはわかるのだが。
+
+  #. :math:`\beta` が閉形式となる条件
+
+     * この条件は :math:`\alpha` が閉形式となる条件と同値である。
+     * :math:`\dd \alpha = 0` を吟味すると :math:`a_{11} = a_{22}, a_{21} = -a_{12}` が条件だとわかる。
+
+     .. todo:: SymPy を利用して数式コードを生成する。
+
+  #. 次の条件における :math:`\gamma_1` に沿った閉形式 :math:`\beta` の線積分
+
+     * :math:`\rho > 0`
+     * :math:`\fnm{\gamma_1}{[0, 1]}{X}{t}\pi(\rho\cos 2\pi t, \rho\sin 2\pi t)`
+
+     円周率の記号と射影の記号がカブっているが、我慢する。
+
+     :math:`\gamma_1 = \pi \circ \gamma` とおくと最初の展開が理解できる。
+     最後には上の結果を用いて式を簡略化できる：
+
+     .. math::
+
+        \begin{align*}
+        \int_{\gamma_1}\!\beta
+        &= \int_{\pi \circ \gamma}\!\beta
+        = \int_\gamma\!\pi^*\beta = \int_\gamma\!\alpha\\
+        &= \int_0^1\!\alpha \circ \gamma\,\dd t\\
+        &= \cdots
+        \end{align*}
+
+     .. todo:: SymPy で計算して答え合わせ
+
+  #. 次の条件における :math:`\gamma_2` に沿った閉形式 :math:`\beta` の線積分
+
+     * :math:`\theta \in \RR`
+     * :math:`\fnm{\gamma_2}{[0, 1]}{X}{t}\pi(r^t\cos\theta, r^t\sin\theta)`
+
+     .. todo:: SymPy で計算して答え合わせ
+
+     .. a_1 \log r
+
+* 命題 2.4.10: コチェイン写像
+
+  :math:`C^\infty` 写像 :math:`\fn{F}{M}N` に対する引き戻し
+  :math:`\fn{F^*}{\Omega^p(N)}\Omega^p(M)` はコチェイン写像である：
+
+  .. math::
+
+     F^*\,\dd = \dd\,F^*.
+
+  * :ref:`命題 2.3.6 <tsuboi08.2.3.6>` と :ref:`定理 1.8.11 <tsuboi08.1.8.11>` を参照。
+
+* 定理 2.4.11: 上記 :math:`F` は準同型 :math:`\fn{F^*}{\H^p(N)}\H^p(M)` を引き起こす
+
+  * 閉 p 形式 :math:`\alpha \in \Omega^p(N)` に対して :math:`\dd \alpha = 0` だから
+    :math:`0 = F^*\,\dd \alpha = \dd F^*\alpha` であるので、
+    :math:`F^* \alpha` も閉形式である。
+
+  * 完全 p 形式 :math:`\alpha` に対して :math:`\alpha = \dd \beta` なる
+    :math:`\beta \in \Omega^p(N)` が存在する。一方、
+    :math:`F^* \alpha = F^*\,\dd \beta = \dd F^*\beta` より
+    :math:`F^* \alpha` も完全形式である。
+
+  以上より、次の対応は準同型であると言える：
+
+  .. math::
+
+     \fn{F^*}{\ker(\fn{\dd}{\Omega^p(N)}\Omega^{p + 1}(N))}
+     \im(\fn{\dd}{\Omega^{p - 1}(N)}\Omega^p(N))
+
+  * ベクトル空間としても外積代数としても準同型である。
+
+* 命題 2.4.12: :ref:`例題 1.6.7 <tsuboi08.1.6.7>` の多様体バージョン
+
+* 命題 2.4.13: ドラーム・コホモロジーにおける外積
+
+  * 外積 :math:`\fn{\wedge}{\Omega^p(M) \times \Omega^q(M)}\Omega^{p + q}(M)` は
+    :math:`\H^p*(M)` 上に外積
+    :math:`\fn{\wedge}{\H^p(M) \times \H^q(M)}\H^{p + q}(M)` を定義する。
+
+  * :math:`[\alpha] \wedge [\beta] = [\alpha \wedge \beta]` という演算規則が成り立つ。
+  * :math:`C^\infty` 写像 :math:`\fn{F}{M}N` に対して、
+    :math:`F^*([\alpha] \wedge [\beta]) = F^*([\alpha]) \wedge F^*([\beta])` が成り立つ（外積代数の準同型）。
+
+* 注意 2.4.14: 2.9.6 予告。
+
+.. _tsuboi08.2.4.15:
+
+* 命題 2.4.15: :ref:`注意 1.9.2 <tsuboi08.1.9.2>` 多様体バージョン
+
+  :math:`\fn{I_a^{(U)}}{\Omega^p([0, 1] \times M)}\Omega^{p - 1}([0, 1] \times M)` に対して
+  次が成り立つ：
+
+  .. math::
+
+     \dd I_a(\alpha) + I_a(\dd \alpha) = \alpha - \pi^*(\iota_a^*\alpha).
+
+  * これを示すには :math:`(\id \times (\varphi \circ \psi\inv))^* I_a^{(U)}\alpha^{(U)} = I_a^{(U)}\alpha^{(U)}` を示し、
+    次に :ref:`定義 2.1.7 <tsuboi08.2.1.7>` により無印の :math:`I_a` が定義される。
+    この :math:`I_a` は :ref:`命題 1.9.1 <tsuboi08.1.9.1>` と
+    :ref:`注意 1.9.2 <tsuboi08.1.9.2>` により上の式を満たす。
+
+  * 座標近傍 :math:`(U, \varphi)`, :math:`(V, \psi)` および微分形式 :math:`\alpha \in \Omega^p([0, 1] \times M)` の
+
+    * :math:`[0, 1] \times \varphi(U)` における表示 :math:`\alpha^{(U)}` の :math:`\dd x_0` を含む成分
+
+    を :math:`(\id \times (\varphi \circ \psi\inv))^*` で引き戻すと、:math:`\alpha` の
+
+    *  :math:`[0, 1] \times \psi(V)` における表示 :math:`\alpha^{(V)}` の :math:`\dd x_0` を含む成分
+
+    に :math:`[0, 1] \times \psi(U \cap V)` 上一致する。
+    なぜならば :math:`\alpha^{(V)} = (\id \times (\varphi \circ \psi\inv))^*\alpha^{(U)}` だったから。
+
+.. _tsuboi08.2.4.16:
+
+* 定理 2.4.16: :math:`[0, 1] \times M \cong \H^p(M)`
+
+  * :math:`\fn{\pi}{[0, 1] \times M)}M`,
+    :math:`\fn{\iota_a}{M}[0, 1] \times M` が
+    ドラーム・コホモロジー群に誘導する写像
+    :math:`\fn{\pi^*}{\H^p(M)}\H^p([0, 1] \times M)`,
+    :math:`\fn{\iota_a^*}{\H^p([0, 1] \times M)}M`
+    は同型である。
+
+  * さらに
+
+    .. math::
+
+       \begin{align*}
+       \iota_a^* \pi^* &= \id_{\H^p(M)}\\
+       \pi^* \iota_a^* &= \id_{\H^p([0, 1] \times M)}
+       \end{align*}
+
+    である。したがって :math:`\iota_0^* = (\pi^*)\inv = \iota_1.`
+
+  * 証明
+
+    * :math:`\pi \circ \iota_a = \id_M` および :ref:`命題 2.3.7 <tsuboi08.2.3.7>` より
+      :math:`\iota_a^* \pi^* = \id_M^*,\ \id_M^* = \id_{\H^p(M)}.`
+
+    * :math:`(\iota_a \circ \pi)^* = \pi^* \circ \iota_a^*` および
+      :ref:`命題 2.4.15 <tsuboi08.2.4.15>` より
+
+      * :math:`p > 0` のときは次が成り立つ
+        :math:`\dd I_a(\alpha) + I_a(\dd \alpha) = \alpha - \pi^*(\iota_a^*\alpha),\ \alpha`
+        が存在する：
+
+        .. math::
+
+           \dd I_a(\alpha) + I_a(\dd \alpha) = \alpha - \pi^*(\iota_a^*\alpha).
+
+        * :math:`\alpha` を :math:`[0, 1] \times M` 上の閉 p 形式にとると、
+          つまり :math:`\dd \alpha = 0` につき :math:`\dd I_a(\alpha) = \alpha - \pi^*(\iota_a^*\alpha).`
+
+        * これをコホモロジー類で考えると
+          :math:`[\alpha] - [\pi^*(\iota_a^*\alpha)] = 0.`
+
+        * ゆえに :math:`\pi^*\iota_a = \id_{\H^p([0, 1] \times M)}.`
+
+      * :math:`p = 0` のときは :math:`[0, 1] \times M` 上の閉 0 形式
+        :math:`\alpha` とは局所的定数関数であるので :math:`\pi^*(\iota_a^*\alpha)` と一致する。
+
+* 定義 2.4.17: :math:`C^\infty` `ホモトピック <http://mathworld.wolfram.com/Homotopic.html>`__
+
+  二つの :math:`C^\infty` 級写像 :math:`\fn{\varphi_0, \varphi_1}{M}N` が
+  :math:`C^\infty` ホモトピックであるとは、
+  次の性質を満たす :math:`C^\infty` 級写像 :math:`\fn{\varphi}{[0, 1] \times M}N` が存在することをいう：
+
+  .. math::
+
+     \varphi_0 = \varphi(0, x),\\
+     \varphi_1 = \varphi(1, x).
+
+* 定理 2.4.18: :math:`\varphi_0, \varphi_1` がホモトピックならば
+  :math:`\varphi_0^*, \varphi_1^*` もホモトピックである
+
+  * :math:`\varphi_k = \varphi \circ \iota_k\ (k = 0, 1)` と
+  * :ref:`定理 2.4.16 <tsuboi08.2.4.16>` により
+
+  :math:`\fn{\iota_0^* = \iota_1^*}{\H^p([0, 1] \times M)}\H^p(M)` である。
+  したがって
+  :math:`\varphi_0^* = \iota_0^* \varphi^* = \iota_1^* \varphi^* = \varphi_1^*.`
+
+* 問題 2.4.19: :math:`\RR^m \times M` に対し :math:`\H^p(\RR^m \times M) \cong \H^p(M)`
+
+  * :math:`\fnm{\pi}{\RR^m \times M}{M}{(\bm x, y)}y`
+  * :math:`\fnm{\iota}{M}{\RR^m \times M}{y}(0, y)`
+
+  とおくと、
+  :math:`\pi \circ \iota = \id_M` より :math:`(\pi \circ \iota)^* = \iota^*\pi^* = \id_{\H^p(M)}.`
+
+  * :math:`\fnm{\varphi}{[0, 1]\times \RR^m}{\RR^m \times M}{(t, \bm x, y)}(t\bm x, y)` とおいて、
+    ホモトピー
+
+    * :math:`\varphi_0 = \iota\circ\pi`
+    * :math:`\varphi_1 = \id_{\RR^m \times M}`
+
+    を与える。
+
+    * :math:`(\iota\circ\pi)^* = \id_{\RR^m \times M}^* = \id_{\H^p(\RR^m \times M)}.`
+
+  * :math:`(\iota\circ\pi)^* = \pi^*\circ\iota^*` だから :math:`\pi^*, \iota^*` は
+    同型写像である。
 
 ----
 

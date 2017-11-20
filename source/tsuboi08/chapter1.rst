@@ -368,11 +368,13 @@
        n\,! \dd{x_1} \wedge \dotsb \wedge \dd{x_{2n + 1}}.
      \end{align*}
 
+.. _tsuboi08.1.6.7:
+
 * 例題 1.6.7
 
   .. math::
 
-     \dd{(\alpha \wedge \beta)} = \dd{\alpha} \wedge \beta + (-1)^p\alpha \wedge \beta.
+     \dd(\alpha \wedge \beta) = \dd\alpha \wedge \beta + (-1)^p\alpha \wedge \beta.
 
   * 例によって符号が次数に依ることに注意。
   * 証明方法は具体的に微分形式を定義して計算すればよい。
@@ -436,6 +438,7 @@
   * 演算 :math:`\fn{\dd{}}{\Omega^p(U)}\Omega^{p + 1}(U)` は線形写像である。
 
 .. todo:: `コチェイン複体 <http://mathworld.wolfram.com/CochainComplex.html>`__ の定義。
+
 
 .. _tsuboi08.1.7.1:
 
@@ -737,6 +740,8 @@
   #. :math:`x_0 = 1` とすると写像 :math:`\fn{\iota_1}{U}[0, 1] \times U` による引き戻しによって
      :math:`\alpha = \iota_1^*\beta = \iota_1^* \dd{(I(\beta))} = \dd{(\iota_1^* I(\beta))}.`
 
+.. _tsuboi08.1.9.2:
+
 * 注意 1.9.2
 
   特に :math:`a \in [0, 1]` に対して :math:`I_a(\alpha)` を上に倣って定義し、
@@ -744,7 +749,7 @@
 
   .. math::
 
-     \dd{I_a(\alpha)} + I_a(\dd{\alpha}) = \alpha - \pi^*(\iota_a^*\alpha).
+     \dd I_a(\alpha) + I_a(\dd \alpha) = \alpha - \pi^*(\iota_a^*\alpha).
 
 1.10 第 1 章の問題の解答
 ----------------------------------------------------------------------
