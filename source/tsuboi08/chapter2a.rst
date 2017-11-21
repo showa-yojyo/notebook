@@ -576,6 +576,8 @@
 
   * :ref:`命題 2.3.6 <tsuboi08.2.3.6>` と :ref:`定理 1.8.11 <tsuboi08.1.8.11>` を参照。
 
+.. _tsuboi08.2.4.11:
+
 * 定理 2.4.11: 上記 :math:`F` は準同型 :math:`\fn{F^*}{\H^p(N)}\H^p(M)` を引き起こす
 
   * 閉 p 形式 :math:`\alpha \in \Omega^p(N)` に対して :math:`\dd \alpha = 0` だから

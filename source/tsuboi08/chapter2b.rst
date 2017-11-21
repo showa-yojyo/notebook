@@ -6,6 +6,57 @@
 
 .. contents:: ノート目次
 
+2.5 関手という見方
+======================================================================
+* 本書では `関手 <http://mathworld.wolfram.com/Functor.html>`__ の正式な定義は与えていない。
+
+* 下に挙げるような、
+
+  #. `対象 <http://mathworld.wolfram.com/Object.html>`__ と
+  #. 合成写像と恒等写像があるような `射 <http://mathworld.wolfram.com/Morphism.html>`__
+
+  の組を抽象化する理論があるらしい。以下その例：
+
+  * :math:`C^\infty` 級多様体全部とそれらの間の :math:`C^\infty` 級写像の全体
+  * ベクトル空間全部と線型写像全部
+  * コチェイン複体全部とコチェイン写像全部
+
+* 多様体に微分形式を与える対応は（多様体、写像）から
+  （コチェイン複体、コチェイン写像）への `反変関手 <http://mathworld.wolfram.com/ContravariantFunctor.html>`__
+  であるといえる。
+
+  * :math:`\fn{F}{M}N` から
+    :math:`\fn{F^*}{\Omega^*(N)}\Omega^*(M)` への対応をいう。
+
+  * :math:`(F_2 \circ F_1)^* = F_1^* \circ F_2^*` という性質がある。
+
+* コホモロジー群をとる対応は（コチェイン複体、コチェイン写像）から
+  （ベクトル空間、線型写像）への `共変関手 <http://mathworld.wolfram.com/CovariantFunctor.html>`__
+  である。
+
+  * :math:`\fn{F^*}{\Omega^*(N)}\Omega^*(M)` から
+    :math:`\fn{F^*}{\H^p(N)}{\H^p(M)}` への対応をいう。
+
+* この二つの結合（反変関手となる）のことが
+  :ref:`定理 2.4.11 <tsuboi08.2.4.11>` である。
+
+* やはり同定理より :math:`M` と :math:`N` が微分同相であれば :math:`\H^p(M) \cong \H^p(N)` である。
+
+  * 微分同相でなくとも、
+
+    * :math:`\fn{f}{M}N,\ \fn{g}{N}M` が存在して、
+    * 合成写像 :math:`f \circ g` と
+      恒等写像 :math:`\id_N` が :math:`C^\infty` ホモトピックであり、
+    * 合成写像 :math:`g \circ f` と
+      恒等写像 :math:`\id_M` が :math:`C^\infty` ホモトピックである
+
+    ならば :math:`\H^p(M) \cong \H^p(N)` といえる。
+
+* 注意 2.5.1: 上記 :math:`f, g` は実は連続写像にまで緩められる。
+  :math:`M` と :math:`N` がホモトピー同値であれば、ドラーム・コホモロジー群は同型となる。
+
+2.6 マイヤー・ビエトリス完全系列
+======================================================================
 TBW
 
 ----
