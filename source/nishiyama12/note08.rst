@@ -49,6 +49,8 @@
 
   * 連続群 :math:`G` の閉部分群 :math:`H` による商空間 :math:`G/H` のこと。
 
+.. _nishiyama12.8.6:
+
 * 定理 8.6: ある条件が満たされていれば :math:`G/G_x \cong X`
 
   * 証明なし。
@@ -59,8 +61,10 @@
   * 球面の「北極」の固定部分群を求めると、これが :math:`G = \mathit{SO}_2(\RR)` と同型であることがわかるので、
     先の定理より結論できる。
 
+.. _nishiyama12.8.8:
+
 * 例 8.8: :math:`\RR/\ZZ \cong S^1`,
-  :math:`\RR^2/\ZZ^2 \cong (\RR/\ZZ) \times (\RR/\ZZ) \cong S^1 \times S^1 \times T^1`
+  :math:`\RR^2/\ZZ^2 \cong (\RR/\ZZ) \times (\RR/\ZZ) \cong S^1 \times S^1 \cong T^2`
 
   * 実数を加法群とみなして :math:`e^{2 \pi i \xi} (\xi \in \RR)` の乗算によって作用している。
   * 1 の固定部分群が整数である。
@@ -85,7 +89,8 @@
         断面の双曲線に沿った動き。
 
     * :math:`X_1` のパラメーター表示が得られた。
-    * この後、点 :math:`(1, 0, 0)` に関する固定部分群を求めて、定理 8.6 を用いて
+    * この後、点 :math:`(1, 0, 0)` に関する固定部分群を求めて、
+      :ref:`定理 8.6 <nishiyama12.8.6>` を用いて
       :math:`X_1 \cong O_{21}(\RR) / O_{11}(\RR)` を導く。
       :math:`I_{11} = \diag(1, -1)`
 
@@ -151,10 +156,10 @@
   :math:`H = \mathit{SO}_2(\RR)` を z 軸周りの回転で :math:`G = \mathit{SO}_3(\RR)` の部分群とする。
 
   * このとき同伴ファイバー束から 3 次元空間への射影を
-    :math:`[g, w] \longmapsto g(\mathbf{e}_3 + w)` で定めると、
+    :math:`[g, w] \longmapsto g(\bm e_3 + w)` で定めると、
 
     * well-defined かつ
-    * 値は :math:`g\mathbf{e}_3` における接平面であり、
+    * 値は :math:`g\bm e_3` における接平面であり、
     * 同型写像を与える。
 
   * 同伴ファイバー束と球面の接束 :math:`TS^2` は同一視できる。
@@ -189,13 +194,13 @@
 
   * :math:`K = O_3(\RR)` とおく。
 
-  * 点 :math:`(\diag(1, 1, 1), re_1) \in X` の軌道 :math:`G(\diag(1, 1, 1), re_1)` について
-    同型 :math:`G(\diag(1, 1, 1), re_1) \cong G \times_K S_r` が成り立つ。
+  * 点 :math:`(\diag(1, 1, 1), r \bm e_1) \in X` の軌道 :math:`G(\diag(1, 1, 1), r \bm e_1)` について
+    同型 :math:`G(\diag(1, 1, 1), r \bm e_1) \cong G \times_K S_r` が成り立つ。
 
     * 右辺は :math:`G/K \cong Sym_3^+(\RR)` 上の半径 :math:`r` の球面
       :math:`S_r` をファイバーとする同伴ファイバー束を表す。
 
-  * :math:`\dim G(\diag(1, 1, 1), re_1) = \dim G/K + \dim S_r = 6 + 2 = 8`
+  * :math:`\dim G(\diag(1, 1, 1), r\bm e_1) = \dim G/K + \dim S_r = 6 + 2 = 8`
   * 証明は写像 :math:`\Psi([g, w]) = (g{}^t\!g, gw)` について次を示す：
 
     #. :math:`\Psi` が well-defind であること
@@ -215,9 +220,9 @@
   .. math::
 
      \begin{align*}
-     G((\diag(1, 1, -1), re_1)    & \cong G \times_H Hyp_{r^2}\\
-     G((\diag(1, 1, -1), r + e_3) & \cong G \times_H Hyp_0\\
-     G((\diag(1, 1, -1), re_3)    & \cong G \times_H Hyp_{-r^2}
+     G((\diag(1, 1, -1), r \bm e_1)    & \cong G \times_H Hyp_{r^2}\\
+     G((\diag(1, 1, -1), r + \bm e_3) & \cong G \times_H Hyp_0\\
+     G((\diag(1, 1, -1), r \bm e_3)    & \cong G \times_H Hyp_{-r^2}
      \end{align*}
 
   上から一葉双曲面、開零錐、ニ葉双曲面。
@@ -235,7 +240,7 @@
     さらに正定値の場合は二次曲線は（実数上では）空集合になるので除外する。
 
   * :math:`G_1` の軌道の代表元はやはり
-    :math:`G(\diag(1, 1, -1), re_1),\ G((\diag(1, 1, -1), r + e_3),\ G((\diag(1, 1, -1), re_3)` しかない。
+    :math:`G(\diag(1, 1, -1), r \bm e_1),\ G((\diag(1, 1, -1), r + \bm e_3),\ G((\diag(1, 1, -1), r\bm e_3)` しかない。
     それぞれ：
 
     * 直線と二点で交わる、
@@ -246,7 +251,7 @@
 
 8.4 円とトーラス
 ----------------------------------------------------------------------
-* 例 8.8 をさらに考える。
+* :ref:`例 8.8 <nishiyama12.8.8>` をさらに考える。
 * :math:`\ZZ` や :math:`\ZZ^2` のような群を格子群という。
 
 8.4.1 円と三角関数

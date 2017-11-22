@@ -37,9 +37,9 @@
 10.2 2 次曲面と点の配置空間
 ----------------------------------------------------------------------
 2 次曲面
-  :math:`{}^t\!\mathbf{x} S \mathbf{x} = 0`,
+  :math:`{}^t\!\bm x S \bm x = 0`,
   :math:`S \in \mathit{Sym}_{n + 1}(\CC)`,
-  :math:`{}^t\!\mathbf{x} = (x_0, \cdots, x_n)` は同次座標で
+  :math:`{}^t\!\bm x = (x_0, \cdots, x_n)` は同次座標で
   :math:`\det S \ne 0`
 
 最大階数の行列
@@ -108,7 +108,7 @@
 * 定理 10.11
 
   * :math:`V = \CC^n` として :math:`U_n(\CC)` は :math:`Gr_d(V)` に推移的に作用する。
-  * :math:`W_{std} := \langle \mathbf{e}_1, \cdots, \mathbf{e}_d \rangle` における
+  * :math:`W_{std} := \langle \bm e_1, \cdots, \bm e_d \rangle` における
     固定部分群は :math:`U_d(\CC^n) \times U_{n - d}(\CC^n)` に同型だ。
 
   * よって :math:`Gr_d(V) \cong U_n(\CC^n)/(U_d(\CC^n) \times U_{n - d}(\CC^n))`
