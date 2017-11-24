@@ -301,11 +301,14 @@
        .. math::
 
           \begin{align*}
-          \diff{\rho(x)}{x} &= \frac{\mathrm e^{- \frac{1}{x}}}{x^{2}} & \quad \to 0 \quad(x \to +0)\\
-          \mdiff{\rho(x)}{2}{x} &= \frac{\mathrm e^{- \frac{1}{x}}}{x^{3}} \left(-2 + \frac{1}{x}\right) & \quad \to 0 \quad(x \to +0)\\
-          \mdiff{\rho(x)}{3}{x} &= \frac{\mathrm e^{- \frac{1}{x}}}{x^{4}} \left(6 - \frac{6}{x} + \frac{1}{x^{2}}\right) & \quad \to 0 \quad(x \to +0)\\
-          \mdiff{\rho(x)}{4}{x} &= \frac{\mathrm e^{- \frac{1}{x}}}{x^{5}} \left(-24 + \frac{36}{x} - \frac{12}{x^{2}} + \frac{1}{x^{3}}\right) & \quad \to 0 \quad(x \to +0)\\
-          \mdiff{\rho(x)}{5}{x} &= \frac{\mathrm e^{- \frac{1}{x}}}{x^{6}} \left(120 - \frac{240}{x} + \frac{120}{x^{2}} - \frac{20}{x^{3}} + \frac{1}{x^{4}}\right) & \quad \to 0 \quad(x \to +0)
+          \diff{\rho(x)}{x} &= \frac{\mathrm e^{- \frac{1}{x}}}{x^2},& \quad
+          &\lim_{x \to +0} \diff{\rho(x)}{x} = 0\\
+          \mdiff{\rho(x)}{2}{x} &= \frac{\mathrm e^{- \frac{1}{x}}}{x^4} (- 2x + 1),& \quad
+          &\lim_{x \to +0} \mdiff{\rho(x)}{2}{x} = 0\\
+          \mdiff{\rho(x)}{3}{x} &= \frac{\mathrm e^{- \frac{1}{x}}}{x^6} (6x^2 - 6x + 1),& \quad
+          &\lim_{x \to +0} \mdiff{\rho(x)}{3}{x} = 0\\
+          \mdiff{\rho(x)}{4}{x} &= \frac{\mathrm e^{- \frac{1}{x}}}{x^8} (- 24x^3 + 36 x^2 - 12x + 1),& \quad
+          &\lim_{x \to +0} \mdiff{\rho(x)}{4}{x} = 0
           \end{align*}
 
        上の展開から
