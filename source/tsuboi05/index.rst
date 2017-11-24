@@ -12,4 +12,4 @@ Sphinx でテキストを入力する便宜上、本書の記号とは一部異�
    :maxdepth: 3
    :glob:
 
-   note*
+   chapter*
