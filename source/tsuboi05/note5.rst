@@ -133,6 +133,8 @@
 
      これは所望の条件をすべて満たす。
 
+.. _tsuboi05.5.1.4:
+
 * 注意 5.1.4 の :math:`\fn{\nu f}{M}\RR,\ \nu|K = f|K` の意味は、
   このあとの方向微分の問題で効いてくる。
 
@@ -153,6 +155,8 @@
 
   初等的な方法で示せる。
   :math:`{ \displaystyle g_k(x_1, \dotsc, x_n) = \int_0^1 \frac{\partial f}{\partial x_k} (tx_1, \dotsc, tx_n)\,\dd{t}}`
+
+.. _tsuboi05.5.1.6:
 
 * 問題 5.1.6: `方向微分 <http://mathworld.wolfram.com/DirectionalDerivative.html>`__
 
@@ -184,7 +188,8 @@
      :math:`\displaystyle t \longmapsto \varphi\inv(0, \dotsc, \overset{(k)}t, \dotsc, 0)` における方向微分とする (cf. p. 76)。
 
      * :math:`Df` が点 :math:`p` の近傍で定義された :math:`C^\infty` 級関数に対して定義されることを示す。
-       この際に定理 5.1.3 の関数 :math:`\nu` および注意 5.1.4 の事実を用いる。
+       この際に :ref:`定理 5.1.3 <tsuboi05.5.3.1>` の関数 :math:`\nu`
+       および :ref:`注意 5.1.4 <tsuboi05.5.1.4>` の事実を用いる。
 
      * :math:`D \in \mathcal D_p` が上述の一次結合で表されることを示す。
        :math:`f \in C^\infty(M)` に対して :math:`\displaystyle \left(\frac{\partial}{\partial x_i} \right)_p f = \frac{\partial(f \circ \varphi\inv)}{\partial x_i}(0, \dotsc, 0).`
@@ -227,6 +232,9 @@
 
 5.2 コンパクト多様体のユークリッド空間への埋め込み
 ----------------------------------------------------------------------
+
+.. _tsuboi05.5.2.1:
+
 * 例題 5.2.1: コンパクトハウスドルフ空間は `正規空間 <http://mathworld.wolfram.com/NormalSpace.html>`__ である。
 
   * 位相空間論の教科書を参照する。
@@ -255,12 +263,14 @@
       を考える（部分となることは式を展開すると納得できる）。
 
     * :math:`K_j \cap (X \setminus U_j) = \varnothing` だから（集合の部分からその集合を差し引くのだから）、
-      例題 5.2.1 で見た正規空間の性質によって次のような開集合 :math:`V_j, W_j` が（帰納法により）存在する：
+      :ref:`例題 5.2.1 <tsuboi05.5.2.1>` で見た正規空間の性質によって次のような開集合 :math:`V_j, W_j` が（帰納法により）存在する：
       :math:`K_j \subset V_j, X \setminus U_j \subset W_j, V_j \cap W_j = \varnothing`
 
   * このとき :math:`\closure{V_i} \subset U_i` かつ
     :math:`{\displaystyle X = \bigcup_{i = 1}^j V_i \cup \bigcup_{i = j + 1}^k U_i}`
     となっている。
+
+.. _tsuboi05.5.2.3:
 
 * 定理 5.2.3: コンパクト多様体はユークリッド空間に埋め込める。
 
@@ -269,15 +279,18 @@
     つまり :math:`\closure{V_i} \subset U_i,\ \closure{W_i} \subset V_i` のようなものを取る。
     これらの有限開被覆の個数を :math:`k` としておく。
 
-  * 閉集合 :math:`\closure{V_i}` に関して定理 5.1.3 の条件を満たす :math:`C^\infty` 級関数 :math:`\nu_i` を取る。
-  * 閉集合 :math:`\closure{W_i}` に関して定理 5.1.2 の条件を満たす :math:`C^\infty` 級関数 :math:`\mu_i` を取る。
+  * 閉集合 :math:`\closure{V_i}` に関して :ref:`定理 5.1.3 <tsuboi05.5.1.3>` の条件を満たす
+    :math:`C^\infty` 級関数 :math:`\nu_i` を取る。
+  * 閉集合 :math:`\closure{W_i}` に関して :ref:`定理 5.1.2 <tsuboi05.5.1.2>` の条件を満たす
+    :math:`C^\infty` 級関数 :math:`\mu_i` を取る。
   * 座標近傍 :math:`(U_i, \varphi_i)` の局所座標 :math:`\varphi_i = (x_1^{(i)}, \dotsc, x_n^{(i)})` に対して
     関数 :math:`\nu_i \varphi_i := (\nu_i x_1^{(i)}, \dotsc, \nu_i x_n^{(i)})` を取ると、これは :math:`C^\infty` 級となる。
 
   * ここで :math:`\Phi = (\mu_1, \nu_1 \varphi_1, \dotsc, \mu_k, \nu_k \varphi_k)` とおくと、
     これが多様体から :math:`\RR^{k(n + 1)}` への埋め込みとなる：
 
-    * 定理 4.4.2 の上にある説明により :math:`\fn{\Phi_*}{T_xM}\RR^{k(n + 1)}` のランクが
+    * :ref:`定理 4.4.2 <tsuboi05.4.4.2>` の上にある説明により
+      :math:`\fn{\Phi_*}{T_xM}\RR^{k(n + 1)}` のランクが
       :math:`n` で :math:`\Phi` が単射であるから。
 
       * ランクが :math:`n` であることは :math:`(\nu_i \varphi_i | V_i) \circ \varphi_i\inv = \id_{\varphi_i(V_i)}` から示せる。
@@ -316,7 +329,8 @@
 
      :math:`X = \nu M = \set{(\bm x, \bm y) \in \RR^{2N} \sth \bm x \in M, \bm y \perp T_{\bm x}M}.`
 
-     * 問題 4.5.3 でやったように :math:`M` のグラフ表示を考えることから始める。
+     * :ref:`問題 4.5.3 <tsuboi05.4.5.3>` でやったように
+       :math:`M` のグラフ表示を考えることから始める。
        同じような記号を使う。
 
        :math:`(\bm x, \bm y) \in X \iff \bm y = (\bm y_1, \bm y_2)` とは、
@@ -353,11 +367,14 @@
        これはランクが :math:`N` である。
 
      * 写像 :math:`e` を :math:`\bm y_2 = \bm 0` に制限した写像は
-       例題 4.3.1 の仮定をみたすので、主張の近傍で微分同相となる。
+       :ref:`例題 4.3.1 <tsuboi05.4.3.1>` の仮定をみたすので、
+       主張の近傍で微分同相となる。
 
 5.3 :math:`C^\infty` 級写像と多様体の埋め込み、はめ込み
 ----------------------------------------------------------------------
 <どのような次元のユークリッド空間に埋め込まれるかというのは多様体の複雑さをはかる量になる> (p. 98)
+
+.. _tsuboi05.5.3.1:
 
 * 例 5.3.1: 色々なコンパクト多様体
 
@@ -408,11 +425,11 @@
   * :math:`\dim M < \dim N` のときは、:math:`F(M),\ N \setminus F(M)` がそれぞれ臨界値、正則値である。
     正則値の逆像は空集合になる。
 
-* 例 5.3.4: 例題 2.4.1 の関数の検討
+* 例 5.3.4: :ref:`例題 2.4.1 <tsuboi05.2.4.1>` の関数の検討
 * 例 5.3.5
 
   * `ボーイ・アペリ曲面 <http://mathworld.wolfram.com/BoySurface.html>`__ の平面への射影（写像）など。
-  * 問題 2.5.1 では図のソリッドな曲線が臨界値となっている。
+  * :ref:`問題 2.5.1 <tsuboi05.2.5.1>` では図のソリッドな曲線が臨界値となっている。
   * これらによると、アウトラインが大体臨界値であるということが推測される。
 
 .. _tsuboi05.5.3.6:
@@ -594,7 +611,7 @@
     ただし :math:`i,\ p` は包含写像と射影である。
 
     * 解答は :math:`2n` なのだが、接写像 :math:`(p \circ i)_*` が全射であることを示すことによる。
-    * :math:`\CC P^n` の座標近傍系は問題 3.3.7 と同じものを用いる。
+    * :math:`\CC P^n` の座標近傍系は :ref:`問題 3.3.7 <tsuboi05.3.3.7>` と同じものを用いる。
       添字の記号が包含写像とカブるのは意図的なもの。
     * :math:`\bm z^0 \in S^{2n + 1}` に対して :math:`(p \circ i)(\bm z^0) \in V_i.`
 
@@ -678,7 +695,9 @@
 
 * ほとんどすべての射影がモース関数である (p. 107)。
 
-* 問題 5.4.8: 問題 5.2.5 の続き。
+.. _tsuboi05.5.4.8:
+
+* 問題 5.4.8: :ref:`問題 5.2.5 <tsuboi05.5.2.5>` の続き。
 
   同じ記号を引き続き用いる上で、次の仮定を追加する：
 
@@ -689,7 +708,7 @@
   このとき :math:`\bm a \in \RR^N` が :math:`\operatorname{pr}_2|X` の正則値であることと、
   :math:`L \circ i` がモース関数であることは同値である。
 
-  #. 問題 5.2.5 のグラフ表示の記号群を再利用する。
+  #. :ref:`問題 5.2.5 <tsuboi05.5.2.5>` のグラフ表示の記号群を再利用する。
 
      .. math::
 
@@ -723,7 +742,8 @@
 
 5.6 モース関数の存在の証明の概略（展開）
 ----------------------------------------------------------------------
-定理 5.2.3 と問題 5.4.8 を合わせるとモース関数の存在を示すことができる (p. 111)。
+:ref:`定理 5.2.3 <tsuboi05.5.2.3>` と :ref:`問題 5.4.8 <tsuboi05.5.4.8>` を合わせると
+モース関数の存在を示すことができる (p. 111)。
 
 5.7 関数の空間、写像の空間（展開）
 ----------------------------------------------------------------------
@@ -802,7 +822,7 @@
     :math:`N_\eps^2(f, \set{V_i}) \subset N_K^2(f, \set{V_j'})` を満たす
     :math:`\eps` 依存の正数 :math:`K` を取れることを示す。
 
-  * 一般の :math:`r = s` のときは、chain rule を順次実行して、
+  * 一般の :math:`r = s` のときは :ref:`chain rule <tsuboi05.1.2.8>` を順次実行して、
     上記の場合の成立を根拠に成り立つことを示す。
 
     * `ファー・ディ・ブルーノの公式 <http://mathworld.wolfram.com/FaadiBrunosFormula.html>`__

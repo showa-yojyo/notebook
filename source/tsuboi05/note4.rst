@@ -50,7 +50,7 @@
 
   * それはなぜか。
     :math:`\psi \circ c_i = (\psi \circ \varphi\inv) \circ (\varphi \circ c_i)` であるので、
-    chain rule によって適当な近傍において次のようになるから。
+    :ref:`chain rule <tsuboi05.1.2.8>` によって適当な近傍において次のようになるから。
 
     .. math::
        :nowrap:
@@ -155,6 +155,8 @@
     * :math:`F_*` のランクが :math:`n = \dim M = \dim N` であったとしても
       :math:`M` と :math:`F(M)` が微分同相であるとは限らない。
 
+.. _tsuboi05.4.3.1:
+
 * 例題 4.3.1: ただし :math:`M` のコンパクト集合 :math:`K` 上で :math:`F|K` が単射ならば、
   近傍 :math:`V` から :math:`F(V)` への微分同相となる。
 
@@ -255,6 +257,8 @@
        * :math:`A \ne O` のときは :math:`\rank F_{A*} = \rank A = 1,`
        * :math:`A = O` のときは :math:`\rank F_{A*} = \rank A = 0.`
 
+.. _tsuboi05.4.3.3:
+
 * 問題 4.3.3: `リー群 <http://mathworld.wolfram.com/LieGroup.html>`__
 
   #. :math:`L_g: h \longmapsto gh` は :math:`C^\infty` 級微分同相である。
@@ -328,6 +332,8 @@
 
   * :math:`F(M)` は :math:`N` の正則な部分多様体となる。
 
+.. _tsuboi05.4.4.2:
+
 * 定理 4.4.2: はめ込みが単射であれば、コンパクトな多様体の像は部分多様体となる。
 
 `沈み込み <http://mathworld.wolfram.com/Submersion.html>`__
@@ -336,7 +342,9 @@
   この写像は沈み込みであるという。
 
   * :math:`F\inv(y)` は :math:`m - n` 次元部分多様体となる。
-  * この特殊な状況を例題 8.6.1 ファイブレーション定理で取り扱う。
+  * この特殊な状況を :ref:`例題 8.6.1 ファイブレーション定理 <tsuboi05.8.6.1>` で取り扱う。
+
+.. _tsuboi05.4.4.3:
 
 * 例題 4.4.3: 部分多様体間の :math:`C^\infty` 級写像が誘導する写像も :math:`C^\infty` 級となる。
 
@@ -383,7 +391,7 @@
 
   * 行列の積、逆行列を取る演算はどちらも :math:`C^\infty` 級の写像である。
 
-    * 両者ともリー群なので問題 4.3.3 を利用できる。
+    * 両者ともリー群なので :ref:`問題 4.3.3 <tsuboi05.4.4.3>` を利用できる。
     * 積も逆行列も多項式の演算に、せいぜい非ゼロの値の除算が加わるものなので
       :math:`C^\infty` 級の写像だという主張には問題あるまい。
 
@@ -452,7 +460,8 @@
   次のようにして構成する商空間を多様体の接束という：
 
   #. 直和 :math:`\bigsqcup V_i` に同値関係 :math:`x_i \sim x_j \iff x_i = \gamma_{ij}(x_j)` を導入する。
-     このとき、商空間 :math:`X = (\bigsqcup V_i / \sim)` は :math:`M` と微分同相になる（例題 3.5.2 などを参照）。
+     このとき、商空間 :math:`X = (\bigsqcup V_i / \sim)` は :math:`M` と微分同相になる（
+     :ref:`例題 3.5.2 <tsuboi05.3.5.2>` などを参照）。
 
   #. 直積の直和 :math:`\bigsqcup (V_i \times \RR^n)` に次の同値関係を導入する。
 
@@ -479,7 +488,7 @@
        :math:`Y \longto X` に連続写像が存在することを示せる。
      * 次に、直和から商空間への射影二種 :math:`p_x, p_y` を適宜制限して同相写像を得る。
      * 写像 :math:`\fn{P\inv}{p_x(V_i)}p_x(V_i) \times \RR^n` が同相であることを示す。
-     * 最後に問題 3.5.3 を利用する。
+     * 最後に :ref:`問題 3.5.3 <tsuboi05.3.5.3>` を利用する。
 
   接束は `ベクトル束 <http://mathworld.wolfram.com/VectorBundle.html>`__ の一種である (pp. 85-86)。
 
@@ -497,6 +506,8 @@
 
        (\bm u_i, \bm v_i) \longmapsto ((\psi \circ F \circ \varphi_i\inv)(\bm u_i),
                                       D(\psi \circ F \circ \varphi_i\inv)_{(\bm u_i)}(\bm v_i)).
+
+.. _tsuboi05.4.5.3:
 
 * 問題 4.5.3: ユークリッド空間内の多様体 :math:`M \subset \RR^N` に対して
   :math:`TM` と :math:`X = \set{(x, v) \sth x \in M, v \in T_x M}` は微分同相である。

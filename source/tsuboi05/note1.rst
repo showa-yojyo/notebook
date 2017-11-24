@@ -125,6 +125,8 @@
 
 本書では陰関数定理を証明するのに逆写像定理を利用する。
 
+.. _tsuboi05.1.2.7:
+
 * 例題 1.2.7: リプシッツ連続性
 
   * 開集合 :math:`U \subset \RR^n` で定義された
@@ -179,6 +181,8 @@
               &\le \sqrt{mn}K \norm{\bm v}.
             \end{align*}
 
+.. _tsuboi05.1.2.8:
+
 * 例題 1.2.8: `chain rule <http://mathworld.wolfram.com/ChainRule.html>`__
 
   * 合成写像のヤコビアン :math:`D(F \circ G) =  DF_{(G)} DG` の証明するのに、
@@ -204,7 +208,7 @@
 
 * 例題 1.2.9: :math:`C^r` 級写像の合成
 
-  * chain rule および帰納法で示す。
+  * :ref:`chain rule <tsuboi05.1.2.8>` および帰納法で示す。
   * 行列の積が :math:`C^\infty` 写像とみなせることに注意。
   * ヤコビアンをとる演算が :math:`C^{r-1}` 級であるならば、
     ヤコビアンの対象となる写像は :math:`C^r` 級である。
@@ -248,7 +252,8 @@
 
        \norm{\bm x} < \delta \implies \abs{\frac{\partial h_i}{\partial x_j}} \le \eps.
 
-  * 例題 1.2.7 のリプシッツ評価式を利用して :math:`\norm{H(\bm x + \bm v) - H(\bm x)} \le \eps n \norm{\bm v}.`
+  * :ref:`例題 1.2.7 <tsuboi05.1.2.7>` のリプシッツ評価式を利用して
+    :math:`\norm{H(\bm x + \bm v) - H(\bm x)} \le \eps n \norm{\bm v}.`
   * :math:`\displaystyle \norm{\bm y} \le \frac{\delta}{2}` とすると
     :math:`\displaystyle \norm{\bm x_{k + 1} - \bm x_k} = \norm{H(\bm x_k) - H(\bm x_{k - 1})} \le \frac{1}{2^k}\lVert \bm x_1 - \bm x_0 \rVert` より
     :math:`\norm{\bm x_{k + 1}} < \delta` が成り立つ。

@@ -23,7 +23,8 @@
   ベクトル場による関数の微分とは、ベクトル場が生成するフローの軌道に沿った変化率ということか。
 
 * :math:`\fn{Xf}{M}\RR` は :math:`C^\infty` 級である。
-* :math:`\fn{X}{C^\infty(M)}C^\infty(M)` は線形写像かつライプニッツ則を満たす (cf. 問題 5.1.6)。
+* :math:`\fn{X}{C^\infty(M)}C^\infty(M)` は線形写像かつライプニッツ則を満たす
+  (cf. :ref:`問題 5.1.6 <tsuboi05.5.1.6>`)。
 * :math:`Xf = 0 \implies f(F_t(x)) = f(x).`
 
 * 問題 8.1.1: :math:`X = \dfrac{\partial}{\partial x} + \alpha \dfrac{\partial}{\partial y},\ \alpha \in \RR \setminus \QQ`
@@ -145,6 +146,8 @@
      ({\varphi_t}_*Y)(x) &= {\varphi_t}_*(Y(\varphi_{-t}(x))).
      \end{align*}
 
+.. _tsuboi05.8.2.3:
+
 * 例題 8.2.3
 
   仮定：
@@ -162,7 +165,8 @@
 
   証明：
 
-  * 方針：例題 6.5.5 の恒等式 :math:`F \circ \overset{\sim}{\varphi_t} = \varphi_t \circ F`
+  * :ref:`例題 6.5.5 <tsuboi05.6.5.5>` の恒等式
+    :math:`F \circ \overset{\sim}{\varphi_t} = \varphi_t \circ F`
     を利用する。
   * あとなぜか :math:`\displaystyle [\overset{\sim}{X}, \overset{\sim}{Y}] = \lim_{t \to 0}\frac{1}{t}(\overset{\sim}{\varphi_{-t}}_* \overset{\sim}{Y} - \overset{\sim}{Y})`
     を利用する。
@@ -178,7 +182,7 @@
      \end{align*}
 
   * 最初の等号は括弧積の定義による。
-  * 次の等号は例題 6.5.5 の恒等式による。
+  * 次の等号は :ref:`例題 6.5.5 <tsuboi05.6.5.5>` の恒等式による。
   * その次の等号は本問の仮定を使った。
   * 最後の等号は再び括弧積の定義による。
 
@@ -254,13 +258,15 @@
 
 * リー群（多様体でもある）の構造の解析にはそれに即したベクトル場を用いる。
 
+.. _tsuboi05.8.2.6:
+
 * 問題 8.2.6: リー群
 
   #. 左不変ベクトル場全体 :math:`\mathfrak g` は :math:`\dim G` 次元のベクトル空間である
      （`リー環 or リー代数 <http://mathworld.wolfram.com/LieAlgebra.html>`__）。
 
      * :math:`X` が左不変ベクトル場であるとは :math:`\forall g \in G, (L_g)_*X = X` であることをいう。
-     * :math:`L_g` の定義は 4.3.3 でやった。
+     * :math:`L_g` の定義は :ref:`4.3.3 <tsuboi05.4.3.3>` でやった。
      * :math:`\mathfrak g = \set{X \in \mathcal X(G) \sth (L_g)_*X = X}.`
 
      証明は :math:`\mathfrak g` と :math:`T_1G` が同型であることを示す。
@@ -301,7 +307,7 @@
         &\therefore [\xi, \eta] \in \mathfrak g.
         \end{align*}
 
-     ここで例題 8.2.3 の結果を利用している。
+     ここで :ref:`例題 8.2.3 <tsuboi05.8.2.3>` の結果を利用している。
 
   #. :math:`\xi` が生成するフローを :math:`\varphi_t` とする。このとき
      :math:`\forall g \in G, \varphi_t(g) = g\varphi_t(1).`
@@ -344,7 +350,7 @@
       :math:`\displaystyle \diff{F_t(A)}{t} = F_t(A)X` を満たすので
       :math:`F_t(A) = \mathrm e^{tX}.`
 
-  * 問題 8.2.6 の :math:`\exp` はリー群版の指数写像である。
+  * :ref:`問題 8.2.6 <tsuboi05.8.2.6>` の :math:`\exp` はリー群版の指数写像である。
 
 8.3 行列群上の計量（展開）
 ----------------------------------------------------------------------
@@ -560,7 +566,8 @@ k 次元接平面場 or k 次元分布
 
   * :math:`\RR^3` 内のトーラス (p. 24) として考える。
   * :math:`\displaystyle Df = \begin{pmatrix}-a(2 + \cos y)\sin x & -a \sin y\cos x + a \cos y\end{pmatrix}.`
-  * :math:`\displaystyle g = \begin{pmatrix}(2 + \cos y)^2 & 0\\0 & 1\end{pmatrix}.` (cf. 例題 7.1.4)
+  * :math:`\displaystyle g = \begin{pmatrix}(2 + \cos y)^2 & 0\\0 & 1\end{pmatrix}.`
+    (cf. :ref:`例題 7.1.4 <tsuboi05.7.1.4>`)
   * :math:`\displaystyle g\inv = \begin{pmatrix}\dfrac{1}{(2 + \cos y)^2} & 0\\0 & 1\end{pmatrix}.`
 
   定義に従って勾配ベクトル場を計算するのは容易い：
@@ -571,6 +578,9 @@ k 次元接平面場 or k 次元分布
 
 8.6 ファイバー束（展開）
 ----------------------------------------------------------------------
+
+.. _tsuboi05.8.6.1:
+
 * 例題 8.6.1: ファイブレーション定理
 
   * :math:`M, N` をコンパクト連結多様体で :math:`\dim M > \dim N` であり、
@@ -625,7 +635,7 @@ k 次元接平面場 or k 次元分布
   * :math:`\displaystyle \overset{\sim}{\xi}_{\bm a} = \sum_{i = 1}^n a_i \overset{\sim}{\xi_i}` とおくと
     :math:`F_* \overset{\sim}{\xi}_{\bm a} = \overset{\sim}{\xi}_{\bm a}.`
 
-    ゆえに 6.6.5 のベクトル場の射影の性質により、
+    ゆえに :ref:`例題 6.5.5 <tsuboi05.6.5.5>` のベクトル場の射影の性質により、
     :math:`\overset{\sim}{\xi}_{\bm a}` のフロー :math:`\Phi_{\bm a}^t` について次が成り立つ：
 
     .. math::
@@ -635,7 +645,7 @@ k 次元接平面場 or k 次元分布
   * 写像 :math:`\fn{H}{\set{\bm a \in \RR^n \sth \norm{\bm a} < \eps} \times F\inv(y^0)}M` を
     :math:`H(\bm a, x) = \Phi_{\bm a}^1(x)` で定義する。
 
-    * 注意 6.3.6 より :math:`H` は :math:`C^\infty` 級である。
+    * :ref:`注意 6.3.6 <tsuboi05.6.3.6>` より :math:`H` は :math:`C^\infty` 級である。
     * :math:`F(H(\bm a, x)) = \Psi_{\bm a}^1(F(x)) = \Psi_{\bm a}^1(y^0) = \psi\inv(a).`
     * :math:`H` の逆写像は :math:`x \longmapsto (\psi(F(x)), \Phi_{\psi(F(x))}(x))` で与えられる。
 
@@ -653,12 +663,12 @@ k 次元接平面場 or k 次元分布
      \operatorname{pr}_1 \circ h = p.
 
 平坦な接続
-  例題 8.6.1 における :math:`[\overset{\sim}{\xi}, \overset{\sim}{\eta}]` を考える。
+  :ref:`例題 8.6.1 <tsuboi05.8.6.1>` における :math:`[\overset{\sim}{\xi}, \overset{\sim}{\eta}]` を考える。
 
   * 持ち上げによってベクトル場 :math:`[\overset{\sim}{\xi}, \overset{\sim}{\eta}]` は
     :math:`F_*[\overset{\sim}{\xi}, \overset{\sim}{\eta}] = [F_*\overset{\sim}{\xi}, F_*\overset{\sim}{\eta}] = [\xi, \eta].`
 
-    * 最初と最後の等号はそれぞれ例題 8.2.3 と持ち上げによる。
+    * 最初と最後の等号はそれぞれ :ref:`例題 8.2.3 <tsuboi05.8.2.3>` と持ち上げによる。
 
   * 特に座標近傍上で :math:`\displaystyle \xi = \zeta_i = \frac{\partial}{\partial x_i}` をとれば、
     :math:`[\zeta_i, \zeta_j] = 0` なので
