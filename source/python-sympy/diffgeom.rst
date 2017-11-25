@@ -456,20 +456,18 @@
 微分形式と外微分
 ----------------------------------------------------------------------
 クラス Differential と WedgeProduct の基本動作を見たい。
-例えば次の微分形式とその外微分をこれらのクラスを用いて再現したい。
+例えば次の微分形式 :math:`\omega` とその外微分 :math:`\dd \omega` をこれらのクラスを用いて再現したい。
 上側の数式（出典はネットで拾ってきたどこかのベクトル解析の演習問題）のほうをオブジェクトとして表現して、
 それをうまく処理して下側の数式に相当するオブジェクトを得たい。
 
 .. math::
-   :nowrap:
 
    \begin{align*}
-   \omega &=& a x y z \,\dx + b x^2 z \,\dy -3 x^2 y \,\dz\\
-   \dd{\omega} &=& (-bx^2 - 3x^2) \,\dy \wedge \dz + (axy + 6xy) \,\dz \wedge \dx + (2bxz - axz) \,\dx \wedge \dy.
+   \omega &= axyz \,\dx + bx^2z\,\dd y -3x^2y\,\dd z\\
+   \dd{\omega} &= (-bx^2 - 3x^2)\,\dd y \wedge \dd z + (axy + 6xy)\,\dd z \wedge \dd x + (2bxz - axz)\,\dd x \wedge \dd y.
    \end{align*}
 
-しかし考えられる二通りの方法を試したところ、どうも所望の出力にならない。
-まずは Differential だけでがんばる。
+まずは Differential だけでがんばる：
 
 .. code-block:: ipython
 
@@ -487,17 +485,21 @@
    In [6]: domega = Differential(omega); domega
    Out[6]: d(a*x*y*z*dx + b*x**2*z*dy - 3*x**2*y*dz)
 
-   In [7]: domega(R3_r.e_x, R3_r.e_y, R3_r.e_z)
-   Out[7]: a*x*y - a*x*z - b*x**2 + 2*b*x*z - 3*x**2 + 6*x*y
+   In [7]: domega(ey, ez), domega(ez, ex), domega(ex, ey)
+   Out[7]: (-b*x**2 - 3*x**2, a*x*y + 6*x*y, -a*x*z + 2*b*x*z)
 
 * [1]-[4] :math:`\RR^3` 上の 1-形式 :code:`omega` のセットアップ。
 * [5] 内容の確認。ちなみに各単項式の次数が一致していることに気付いて欲しい。
 * [6] 外微分オブジェクト :code:`domega` を生成する。
-* [7] 丸括弧評価。ここが期待通りにならない。
+* [7] 丸括弧評価。ここでは
+  :math:`\dd y \wedge \dd z` 等の :math:`\extp^2(\RR^3)` の基底ごとに係数を得ている。
 
-期待通りにならない理由は :code:`Differential()` の計算ロジックが
-Commutator に基づくため wedge 積が出現しないことによる。
-そこで手動で WedgeProduct を適用することで :code:`omega` の外微分を求めることを考える。
+  * 先ほどの数式の :math:`\dd \omega` 全体を一度に得られる方法はないのか？
+
+  * なぜ :math:`\omega\left(\dfrac{\partial}{\partial y}, \dfrac{\partial}{\partial z}\right)` で
+    それが得られるのか、考えてみよう。
+
+次に手動で WedgeProduct を適用することで :math:`\dd \omega` を求めるやり方をとる。
 
 .. code-block:: ipython
 
@@ -505,17 +507,18 @@ Commutator に基づくため wedge 積が出現しないことによる。
       ...: for (f, oneform) in zip((fx, fy, fz), R3_r.base_oneforms()))
    Out[8]: WedgeProduct(d(-3*x**2*y), dz) + WedgeProduct(d(b*x**2*z), dy) + WedgeProduct(d(a*x*y*z), dx)
 
-   In [9]: domega2.rcall(R3_r.e_x, R3_r.e_y, R3_r.e_z)
-   Out[9]: 2*a*x*y - 2*a*x*z - 2*b*x**2 + 4*b*x*z - 6*x**2 + 12*x*y
-
-しかし期待は外れた。
+   In [9]: domega2.rcall(ey, ez), domega2.rcall(ez, ex), domega2.rcall(ex, ey)
+   Out[9]: (-b*x**2 - 3*x**2, a*x*y + 6*x*y, -a*x*z + 2*b*x*z)
 
 * [8] :code:`omega` と同じものを表すハズの :code:`omega2` をセットアップ。
-* [9] 今度は素の丸括弧は効かないので（式全体が単なる Add オブジェクトだから）、
-  代わりに :code:`rcall` したものの、結果は悪化している。
+  外積代数における次の関係式を意識している：
 
-  * またも wedge 積オブジェクトが見当たらない。
-  * 出力が本来の倍？になっている。おそらく wedge 積の反対称性が加味されていないことによる。
+  .. math::
+
+     \dd \left(\sum_{i = 1}^n f_i\,\dd x_i\right) = \sum_{i = 1}^n \dd f_i\,\wedge \dd x_i
+
+* [9] 今度は素の丸括弧は効かないので（式全体が単なる Add オブジェクトだから）、
+  代わりに :code:`rcall` を適用する。
 
 余談だが、テストモジュール :code:`test_function_diffgeom_book` の
 関数 :code:`test_functional_diffgeom_ch6` を参考にして、
@@ -667,7 +670,7 @@ Commutator に基づくため wedge 積が出現しないことによる。
      \end{align*}
 
 添字の順序については、実装を正とするならばドキュメントの記述が誤りだと思う。
-例として、先ほどうまくいかなかった外微分 :math:`\dd{\omega}` がちょうど 2-形式なので、
+例として、先ほどの外微分 :math:`\dd{\omega}` がちょうど 2-形式なので、
 ここで試そう。
 
 .. code-block:: ipython
@@ -688,7 +691,6 @@ Commutator に基づくため wedge 積が出現しないことによる。
 * [2] 関数 :code:`twoform_to_matrix` を呼び出す。
   対角成分がゼロの 3 次交代行列が返るが、これは wedge 積の性質による。
 * [3] この行列からは先ほどの :math:`\dd{\omega}` の各基底 2-form の係数が得られるようだ。
-  こちらを用いればよかったのだ。
 
 計量テンソル
 ======================================================================
