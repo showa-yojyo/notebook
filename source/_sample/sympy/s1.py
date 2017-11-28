@@ -8,7 +8,7 @@ from sympy.diffgeom import (Manifold, Patch, CoordSystem)
 
 def main():
     # A unit circle in \RR^2:
-    S1 = Manifold('S1', 1)
+    S1 = Manifold('S**1', 1)
 
     # Coordinate charts :math:`(U_i^\pm, \phi_i^\pm)` for S1:
     # 0, 1 -> x0, x1

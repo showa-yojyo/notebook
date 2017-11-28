@@ -130,7 +130,7 @@
   * 戻り値は Matrix オブジェクトとなる。
 
 :code:`jacobian(to_sys, coords)`
-  当座標系から座標系 :code:`to_sys` に関する Jacobi 行列を求める。
+  当座標系から座標系 :code:`to_sys` に関するヤコビアンを求める。
   先程から Matrix 型が頻出しているのは、このメソッドとの相性のためだろう。
 
 利用例は後述する。
@@ -181,7 +181,7 @@
 クラス BaseVectorField
 ----------------------------------------------------------------------
 このクラスが表現するのは多様体上のベクトル場の基底の一つだと思われる。
-つまりベクトル場 :math:`\displaystyle \sum_{i=0}^n a_i \left(\frac{\partial}{\partial x_i}\right)` の
+つまりベクトル場 :math:`\displaystyle \sum_{i=0}^n a_i \frac{\partial}{\partial x_i}` の
 :math:`\dfrac{\partial}{\partial x_i}` の部分を表現している。
 
 このクラスはベクトル場を表現するための素材に過ぎない。
@@ -202,11 +202,11 @@
 
 クラス Commutator
 ----------------------------------------------------------------------
-ふたつのベクトル場の交換子を表現する。
+ふたつのベクトル場の交換子、括弧積を表現する。
 
-* :code:`Commutator(v1, v2)` は
-  :math:`v_1(v_2(f)) - v_2(v_1(f))` で定義されるベクトル場を意味する。
-  :code:`f` は多様体上のスカラー場。
+* :code:`Commutator(X, Y)` は
+  :math:`[X, Y]f := X(Yf) - Y(Xf)` で定義されるベクトル場を意味する。
+  ここで :code:`f` は多様体上で定義される関数を意味する。
 
   * 丸括弧で :code:`f` を評価する前に、交換子オブジェクトがゼロでないことを確認する必要がある。
 
@@ -229,7 +229,7 @@
     1-形式 :code:`Differential(f_i)` をすべての `i` 成分について生成したものに他ならない。
 
   * 多様体上の関数 :code:`f` からは全微分 :code:`df` が得られる。
-    任意のベクトル :code:`v` について :code:`df(v) == v(df)` が成り立つ。
+  * 任意のベクトル場 :code:`X` について :code:`df(X) == X(df)` が成り立つ。
 
 * 丸括弧で評価する際のオペランドはスカラー関数オブジェクトまたはベクトル場でよい。
   今度は BaseVectorField オブジェクトの線形結合で通じるし、
@@ -277,7 +277,7 @@
 ======================================================================
 本節ではサブモジュール ``sympy.diffgeom.rn`` に定義されているオブジェクトを見ていく。
 
-前節で述べた一連の機能をすぐに試したいが、オブジェクト生成が面倒で困る。
+前節で述べた一連の機能をすぐに試したいが、後で見るように比較的簡単な多様体を構成することすら面倒で困る。
 そこで、ここにある定義済みオブジェクトをインポートすることが考えられる。
 それらのオブジェクトを試して、感触を確かめるのがよいだろう。
 
@@ -286,15 +286,18 @@
    :header: オブジェクト, クラス, 名前, 意味
    :widths: 8, 10, 10, 16
 
-   :code:`R2`@Manifold@``'R^2'``@:math:ユークリッド空間 `\RR^2` を多様体としてみたもの
+   :code:`R2`@Manifold@``'R^2'``@ユークリッド空間 :math:`\RR^2` を多様体としてみたもの
    :code:`R2_origin`@Patch@``'origin'``@:code:`R2` の局所（というか大域）座標近傍
-   :code:`R2_r`@CoordSystem@``'rectangular'``@:code:`R2_origin` の局所座標系を直交座標系で表現したもの
+   :code:`R2_r`@CoordSystem@``'rectangular'``@:code:`R2_origin` の局所座標を直交座標系で表現したもの
    :code:`R2_p`@CoordSystem@``'polar'``@:code:`R2_origin` の極座標系
    :code:`R3`@Manifold@``'R^3'``@ユークリッド空間 :math:`\RR^3` を多様体としてみたもの
    :code:`R3_origin`@Patch@``'origin'``@:code:`R3` の局所（というか大域）座標近傍
-   :code:`R3_r`@CoordSystem@``'rectangular'``@:code:`R3_origin` の局所座標系を直交座標系で表現したもの
-   :code:`R3_c`@CoordSystem@``'cylindrical'``@:code:`R3_origin` の局所座標系を円柱座標系で表現したもの
-   :code:`R3_s`@CoordSystem@``'spherical'``@:code:`R3_origin` の局所座標系を球座標系で表現したもの
+   :code:`R3_r`@CoordSystem@``'rectangular'``@:code:`R3_origin` の局所座標を直交座標系で表現したもの
+   :code:`R3_c`@CoordSystem@``'cylindrical'``@:code:`R3_origin` の局所座標を円柱座標系で表現したもの
+   :code:`R3_s`@CoordSystem@``'spherical'``@:code:`R3_origin` の局所座標を球座標系で表現したもの
+
+どちらの次元の多様体にも開集合としての局所座標近傍は一つしか定義されていないが、
+それに対して複数の局所座標系が与えられていて、それらの間の座標変換も定義済みだ。
 
 2 次元オブジェクト
 ----------------------------------------------------------------------
@@ -327,14 +330,17 @@
 .. math::
 
    \begin{align*}
-   T_{rp}: (x, y) & \longmapsto & (\sqrt{x^2 + y^2}, \tan\inv \frac{y}{x})\\
-   T_{pr}: (r, \theta) & \longmapsto & (r \cos \theta, r \sin \theta)
+   \varphi_{pr}: (x, y) & \longmapsto & (\sqrt{x^2 + y^2}, \tan\inv \frac{y}{x})\\
+   \varphi_{rp}: (r, \theta) & \longmapsto & (r \cos \theta, r \sin \theta)
    \end{align*}
+
+ただし :math:`\varphi_rp = \varphi_r \circ \varphi_p\inv` 等と記した。
+以下同様。
 
 3 次元オブジェクト
 ----------------------------------------------------------------------
 :code:`R3` 側でも同様の考えの下に、
-各オブジェクトに局所座標成分、接ベクトル、1-形式のメンバーデータが付与されて、
+各オブジェクトに局所座標成分、接ベクトル基底、1-形式基底のメンバーデータが付与されて、
 関連する 3 座標系の間に相互に座標変換が定義されている。
 
 以下、座標変換だけ記す。
@@ -343,8 +349,8 @@
 .. math::
 
    \begin{align*}
-   T_{rc}: (x, y, z) & \longmapsto & (\sqrt{x^2 + y^2}, \tan\inv \frac{y}{x}, z)\\
-   T_{cr}: (\rho, \psi, z) & \longmapsto & (\rho \cos \psi, \rho \sin \psi, z)
+   \varphi_{cr}: (x, y, z) & \longmapsto (\sqrt{x^2 + y^2}, \tan\inv \frac{y}{x}, z)\\
+   \varphi_{rc}: (\rho, \psi, z) & \longmapsto (\rho \cos \psi, \rho \sin \psi, z)
    \end{align*}
 
 直交座標系と球座標系間の座標変換は次のように与えられている。
@@ -352,8 +358,8 @@
 .. math::
 
    \begin{align*}
-   T_{rs}: (x, y, z) & \longmapsto & (\sqrt{x^2 + y^2 + z^2}, \cos\inv \frac{z}{\sqrt{x^2 + y^2 + z^2}}, \tan\inv \frac{y}{x})\\
-   T_{sr}: (r, \theta, \phi) & \longmapsto & (r \sin \theta \cos \phi, r \sin \theta \sin \phi, r \cos \theta)
+   \varphi_{sr}: (x, y, z) & \longmapsto (\sqrt{x^2 + y^2 + z^2}, \cos\inv \frac{z}{\sqrt{x^2 + y^2 + z^2}}, \tan\inv \frac{y}{x})\\
+   \varphi_{rs}: (r, \theta, \phi) & \longmapsto (r \sin \theta \cos \phi, r \sin \theta \sin \phi, r \cos \theta)
    \end{align*}
 
 円柱座標系と球座標系間の座標変換は次のように与えられている。
@@ -361,8 +367,8 @@
 .. math::
 
    \begin{align*}
-   T_{cs}: (\rho, \psi, z) & \longmapsto & (\sqrt{\rho^2 + z^2}, \cos\inv \frac{z}{\sqrt{\rho^2 + z^2}}, \psi)\\
-   T_{sc}: (r, \theta, \phi) & \longmapsto & (r \sin \theta, \phi, r \cos \theta)
+   \varphi_{sc}: (\rho, \psi, z) & \longmapsto (\sqrt{\rho^2 + z^2}, \cos\inv \frac{z}{\sqrt{\rho^2 + z^2}}, \psi)\\
+   \varphi_{cs}: (r, \theta, \phi) & \longmapsto (r \sin \theta, \phi, r \cos \theta)
    \end{align*}
 
 コード例（基本編）
@@ -405,7 +411,7 @@
 * [5] 同じことをメソッド :code:`CoordSystem.coord_tuple_transform_to` で。
   これがあるので [2] の前処理なしで済むことがある。
 
-ドキュメントのそれとたいして変わらないが、Jacobi 行列の例を示す。
+ドキュメントのそれとたいして変わらないが、ヤコビアンの例を示す。
 
 .. code-block:: ipython
 
@@ -430,9 +436,9 @@
    [sin(th),  r*cos(th)]])
 
 * [2] 一応見ておくだけだが、
-  自分自身の座標系で Jacobi 行列を求めると、恒等行列が得られる。
-* [3] 2 次元直交座標系から極座標系への変換の Jacobi 行列。
-* [4] 2 次元極座標系から直交座標系への変換の Jacobi 行列。
+  自分自身の座標系でヤコビアンを求めると、恒等行列が得られる。
+* [3] 2 次元直交座標系から極座標系への変換のヤコビアン。
+* [4] 2 次元極座標系から直交座標系への変換のヤコビアン。
 
 単位円 :math:`S^1`
 ----------------------------------------------------------------------
@@ -451,7 +457,7 @@
 
   それぞれ表現するためのものだ。
 
-* 次に各座標変換 :math:`\varphi_j^\pm \circ \varphi_i^\pm\inv` を指定する。
+* 次に各座標変換 :math:`\varphi_j^\pm \circ \varphi_i^\pm{}\inv` を指定する。
   ここでは :code:`inverse=False` として逆写像を自動で計算させる機能を無効化する。
 
   * こうしないとなぜか :code:`-sqrt(1 - x0**2)` の逆写像の評価に失敗するのでそうしているに過ぎない。
@@ -459,6 +465,8 @@
 
 * 次にオーバーラップする局所座標近傍における座標変換のヤコビアンを出力する。
   多様体次元が 1 であるため、一次正方行列として評価される。
+
+  * 余裕があればヤコビアンから多様体の臨界点を求める処理を考えてみよう。
 
 * 最後に適当な局所座標近傍上の点について座標変換を見る。
   :math:`\pm\dfrac{1}{2}` は :math:`\pm\dfrac{\sqrt{3}}{2}` または
@@ -488,8 +496,13 @@
 ベクトル場
 ----------------------------------------------------------------------
 クラス BaseVectorField の例を示す。3 次元空間に何か適当な、
-例えば原点からの距離の平方に反比例する値を返すスカラー場 :code:`f` を定義し、
-各座標成分について適用させて、方向微分を見よう。
+例えば原点からの距離の平方に反比例する値を返すスカラー場
+
+.. math::
+
+   \fnm{f}{\RR^2}{\RR}{(r, \theta, \phi)}-\frac{k}{r^2}.
+
+を :code:`f` として定義し、各座標成分について適用させて方向微分を見よう。
 
 .. code-block:: ipython
 
@@ -506,12 +519,12 @@
    In [5]: R3_c.e_rho(f), R3_c.e_psi(f), R3_c.e_z(f)
    Out[5]: (2*k*rho/(sqrt(rho**2 + z**2)*r**3), 0, 2*k*z/(sqrt(rho**2 + z**2)*r**3))
 
-* [2] 球座標系でスカラー場 :math:`f(r, \theta, \phi) = -\frac{k}{r^2}` を定義する。
+* [2] 球座標系でスカラー場 :math:`f(r, \theta, \phi) = -\dfrac{k}{r^2}` を定義する。
 
 * [3] まず球座標系 :code:`R3_s` の BaseVectorField オブジェクト
   :code:`e_r`, :code:`e_theta`, :code:`e_psi` の丸括弧演算を全成分で評価する。
-  つまり単に勾配を手動で求めることになる。
-  前述したとおり :math:`\frac{\partial f}{\partial r}` 等が得られている。
+  つまり単に勾配ベクトルを手動で求めることになる。
+  前述したとおり :math:`\dfrac{\partial f}{\partial r}` 等が得られている。
 
 * [4][5] 直交座標系 :code:`R3_r` と 円柱座標系 :code:`R3_s` で同じことをする。
   例えば :code:`R3_r.e_x(f)` を見ると、
@@ -519,7 +532,6 @@
   これは一応次の式に合致した結果である。
 
   .. math::
-     :nowrap:
 
      \begin{align*}
      \frac{\partial f}{\partial x} =
@@ -615,20 +627,22 @@
 再びサブモジュール ``sympy.diffgeom.diffgeom`` に戻り、残りの機能を調べる。
 
 ベクトル場の積分曲線を計算するための関数が定義されている。
-級数版と微分方程式版のふたつの関数がある。
+ベクトル場を :math:`X` とし、局所的に対応する積分曲線を :math:`\gamma(t)` とする
+常微分方程式 :math:`\displaystyle \diff{\gamma(t)}{t} = X(\gamma(t))` の一般解を求めるための関数だ。
+級数版と微分方程式版のふたつがある。
 仕様を順に記してから、例を示す。
 
 関数 :code:`intcurve_series(vector_field, param, start_point, n=6, coord_sys=None, coeffs=False)`
-  ベクトル場の積分曲線を級数展開の形で返す。
+  ベクトル場が満たす積分曲線を級数展開の形で返す。
 
-  * 引数 :code:`vector_field` はベクトル場。
+  * 引数 :code:`vector_field` は（何らかのフローを生成するような）ベクトル場。
   * 引数 :code:`param` は積分曲線のパラメーター記号。
     差し当たり :code:`symbols('t')` などを渡せば十分。
-  * 引数 :code:`start_point` は積分曲線の :code:`param=0` に対応する M 上の点。
+  * 引数 :code:`start_point` は積分曲線の :code:`param=0` に対応する多様体上の点。
     ここでは Point オブジェクトを渡す。
   * キーワード引数 `n` は級数展開の次数。
-    デフォルトの ``6`` ならば :math:`O(n^6)` の項はカットされる。
-  * キーワード引数 :code:`coord_sys` は級数展開を行う座標系を指定する。
+    デフォルトの ``6`` ならば :math:`O(n^6)` の部分はカットされる。
+  * キーワード引数 :code:`coord_sys` は級数展開を行う局所座標系を指定する。
     他の引数で示されるものとは異なる座標系を用いる場合にこれを用いる。
   * キーワード引数 :code:`coeffs` を True にすると、
     戻り値を級数展開の要素のリストとして返すようになる。
@@ -638,7 +652,7 @@
     内容は変数 :code:`param` に関する多項式である。
 
 関数 :code:`intcurve_diffequ(vector_field, param, start_point, coord_sys=None)`
-  ベクトル場の積分曲線を微分方程式の形で返す。
+  ベクトル場が満たす積分曲線を常微分方程式の形で返す。
   各引数の意味は級数版と同じ。
 
   * 戻り値は 2 要素 tuple オブジェクトである。
@@ -647,9 +661,13 @@
     * [1]: それらに対応する、初期条件オブジェクトからなる list オブジェクト。
 
 例を示す。
+ユークリッド空間 :math:`\RR^2` 上の各点で定義される次のベクトル場 :math:`X` が
+生成するフロー :math:`\fn{\gamma}{\RR^2}\RR^2` で、点 :math:`(x_0, y_0)` を通るようなものを、
+上述のそれぞれの関数を用いて求める。
 
-ベクトル場 :math:`\displaystyle X = -y \frac{\partial}{\partial x} + x \frac{\partial}{\partial y}` の
-積分曲線 :math:`\fn{\gamma}{(t_0, t_1)}M\quad(M \subset \RR^2)` をそれぞれの関数を用いて求める。
+.. math::
+
+   X = -y \frac{\partial}{\partial x} + x \frac{\partial}{\partial y}.
 
 .. code-block:: ipython
 
@@ -676,30 +694,30 @@
 * [1]-[3] ベクトル場 :code:`X` と多様体上の点 :code:`p0` をセットする。
 * [4] 関数 :code:`intcurve_series` を必要最低限の情報だけで呼び出す。
   戻り値には積分曲線 :math:`\gamma(t) = (\gamma_0(t), \gamma_1(t))` の級数展開が見える。
-  パッと見は cos と sin の一次結合のようだ。
-* [5] 関数 :code:`intcurve_diffequ` を呼び出す。戻り値は次を意味する。
+  パッと見は :math:`\cos` と :math:`\sin` の一次結合のようだ。
+* [5] 関数 :code:`intcurve_diffequ` を呼び出す。戻り値は次を意味する：
 
   .. math::
-     :nowrap:
 
      \begin{align*}
-     \gamma_1(t) + \diff{}{t} \gamma_0(t) = 0\\
-     - \gamma_0(t) + \diff{}{t} \gamma_1(t) = 0\\
+     \gamma_1(t) + \diff{\gamma_0(t)}{t}  = 0\\
+     - \gamma_0(t) + \diff{\gamma_1(t)}{t} = 0\\
      -x_0 + \gamma_0(0) = 0\\
      -y_0 + \gamma_1(0) = 0\\
      \end{align*}
 
-  これを何らかの手段で解けば次の積分曲線が求まる。
+  この常微分方程式の解曲線が積分曲線であり、具体的には次のものである：
 
   .. math::
-     :nowrap:
 
-     \begin{align*}
-     \gamma(t) = (\gamma_0(t), \gamma_1(t)) = (x_0 \cos t - y_0 \sin t, y_0 \cos t + x_0 \sin t)
-     \end{align*}
+     \gamma(t) = (\gamma_0(t), \gamma_1(t)) = (x_0 \cos t - y_0 \sin t, x_0 \sin t + y_0 \cos t).
 
-  SymPy の関数 :code:`dsolve` をそのまま用いてもよいが、
-  この状況での初期値 :code:`ics` の指定方法が不明。
+  :math:`\displaystyle X(0) = \left.\diff{\gamma(t)}{t}\right|_{t = 0} = (x_0, y_0)` が成り立つ。
+
+  .. todo::
+
+     上の常微分方程式は簡単なので SymPy に頼らずに解を求めて書いたが、
+     もちろん SymPy で解きたい。
 
 補助関数
 ======================================================================
@@ -722,7 +740,7 @@
   ロジックの概要は次のとおり。
 
   #. 式 :code:`expr` に含まれるすべての BaseVectorField オブジェクトに対して、
-     座標値の変換メソッドで見たのと同様に Jacobi 行列を評価する。
+     座標値の変換メソッドで見たのと同様にヤコビアンを評価する。
 
   #. 線形代数の要領でベクトルの基底変換を行う。
 
