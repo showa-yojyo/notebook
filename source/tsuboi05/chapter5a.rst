@@ -23,7 +23,7 @@
        :nowrap:
 
        \begin{align*}
-       x \in M \setminus \supp{F} \iff \exists U \owns x: f(U) = \zeroset
+       x \in M \setminus \supp{F} \iff \exists U \owns \quad\text{s.t.}\quad f(U) = \zeroset
        \end{align*}
 
   * 定義上、多様体という条件を位相空間にまで緩められる。
@@ -88,10 +88,10 @@
 
      .. math::
 
-        \forall x_0 \in K, \exists \fn{\mu_{x_0}}{M}\RR \quad \text{s.t. }
+        \forall x_0 \in K, \exists \fn{\mu_{x_0}}{M}\RR \quad \text{s.t.} \quad
         \forall x \in M, \mu_{x_0}(x) \le 0, \mu_{x_0}(x_0) > 0, \supp \mu_{x_0} \subset U.
 
-  #. :math:`\set{x \in M \sth \mu_{x_0}(x) > 0} = \int(\supp \mu_{x_0})` であることに注意。
+  #. :math:`\set{x \in M \sth \mu_{x_0}(x) > 0} = \operatorname{int}(\supp \mu_{x_0})` であることに注意。
      :math:`K` のコンパクト性により、次が成り立つ：
 
      .. math::
@@ -244,7 +244,7 @@
 
 * 例題 5.2.2: コンパクトハウスドルフ空間 :math:`X` の開被覆 :math:`\set{U_i}` に対し、
   次のような開被覆 :math:`\set{V_i}` が存在する：
-  :math:`\closure{V_i} \subset U_i`
+  :math:`V_i \subset \closure{V_i} \subset U_i`
 
   * 位相空間論の教科書を参照する。証明方針は次のような感じだ：
   * コンパクト性により、有限開被覆 :math:`\set{U_1, \dotsc, U_k}` が :math:`\set{U_i}` から選べる。
@@ -295,7 +295,7 @@
 
 ユークリッド空間が利用できるようになったので、内積の話題が出て来るようになる。
 
-法束
+`法束 <http://mathworld.wolfram.com/NormalBundle.html>`__
   :math:`\nu M = \set{(x, v) \in \RR^N \times \RR^N \sth v \perp T_xM}`
 
   これはユークリッド空間内の :math:`N` 次元多様体になっている。
@@ -340,7 +340,7 @@
           = \bm 0.
           \end{align*}
 
-       :math:`X` は :math:`(\bm x_1, \bm x_2) \longmapsto (g(\bm x_1), -bm y_2 Dg_{(\bm x_1)})` の
+       :math:`X` は :math:`(\bm x_1, \bm x_2) \longmapsto (g(\bm x_1), -\bm y_2 Dg_{(\bm x_1)})` の
        グラフとして表されている。よってこの空間は多様体である。
 
   #. 写像 :math:`e: (\bm x, \bm y) \longmapsto \bm x + \bm y` は
@@ -432,7 +432,7 @@
 * 例題 5.3.6: `1 の分割 <http://mathworld.wolfram.com/PartitionofUnity.html>`__
 
   * :math:`M, \set{(U_i, \varphi_i)}` をそれぞれコンパクト多様体とその座標近傍系とする。
-  * :math:`\exists \fn{\lambda_i}{M}\RR\quad\text{s.t. }\lambda_i \in C^\infty(M),\ 0 \le \lambda_i(x) \le 1,\ \supp{\lambda_i} \subset U_i.`
+  * :math:`\exists \fn{\lambda_i}{M}\RR\quad\text{s.t.}\quad\lambda_i \in C^\infty(M),\ 0 \le \lambda_i(x) \le 1,\ \supp{\lambda_i} \subset U_i.`
     有限個の添字を除いて :math:`\lambda_i = 0,\ \sum \lambda_i = 1.`
 
   * 証明では :ref:`例題 5.2.2 <tsuboi05.5.2.2>` およびその元となる各種命題を利用している。

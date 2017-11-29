@@ -32,7 +32,7 @@
     :math:`P = \left(\dfrac{\partial y_k}{\partial x_i}\right)_{i, k}` とおくと
     :math:`H(f \circ \varphi\inv) = {}^t\!PH(f \circ \psi\inv)P` が成り立つからだ。
 
-* 二次曲面の形は行列 :math:`\displaystyle \sum_{i, j}^n \frac{\partial^2(f \circ \varphi\inv}{\partial x_i \partial x_j}(\varphi(x))`
+* 二次曲面の形は行列 :math:`\displaystyle \sum_{i, j}^n \frac{\partial^2(f \circ \varphi\inv)}{\partial x_i \partial x_j}(\varphi(x))`
   の重複を込めた正と負それぞれの固有値の個数で分類できる。
 
 * 二次曲面を変換して座標系を正則行列に取り替えることで、次の標準形に書き換えられる：
@@ -224,7 +224,7 @@
        :math:`\bm z` が :math:`i \ne j \implies z_i \ne z_j` であることを同値である。
 
     #. :math:`F \circ (p \circ i) = f` が成り立つので :math:`F_* \circ (p \circ i)_* = f_*` である。
-       ゆえに :math:`f` の正則点 :math:`bm z` は :math:`F \circ (p \circ i)(\bm z)` が :math:`F` の正則点となる。
+       ゆえに :math:`f` の正則点 :math:`\bm z` は :math:`F \circ (p \circ i)(\bm z)` が :math:`F` の正則点となる。
 
     #. 臨界点は各 :math:`(p \circ i)(\bm e_i)\quad(n = 1, \dotsc, n + 1)` である。
 

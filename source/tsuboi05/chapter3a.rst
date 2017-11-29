@@ -136,7 +136,7 @@
      * :math:`x \in U,\ y \in V.`
      * :math:`f_i(U) \cap f_j(V) = \varnothing \text{ for } i, j = 1, \dots, n.`
 
-     二番目の等式は :math:`f_i\inv \circ = f_j = f_k` と表すと、次のようにしてわかる：
+     二番目の等式は :math:`f_i\inv \circ f_j = f_k` と表すと、次のようにしてわかる：
 
      .. math::
 
@@ -144,7 +144,7 @@
         f_i\inv(f_i(U) \cap f_j(V))
         &= U \cap (f_i\inv \circ f_j)(V)\\
         &= U \cap f_k(V)\\
-        &\subset U_k \cap U_k
+        &\subset U_k \cap V_k
         = \varnothing.
         \end{align*}
 
@@ -261,7 +261,7 @@
 
       #. :math:`s` は連続写像である
 
-         開集合 :math:`U \subset I \times RR` をとると :math:`s\inv(U)` が開集合であればよい。
+         開集合 :math:`U \subset I \times \RR` をとると :math:`s\inv(U)` が開集合であればよい。
          :math:`p\inv\circ s\inv(U)` が開集合であることを示すのがよい。
          :math:`\displaystyle \bigcup_{n \in \ZZ}A^n(U)` の代表元がどうなるかを考える。
 

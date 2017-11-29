@@ -37,7 +37,7 @@
         \exists t_1 \in I_{c_1},\ t_2 \in I_{c_2}: \diff{(\varphi \circ c_1)}{t}(t_1) = \diff{(\varphi \circ c_2)}{t}(t_2)
         \end{align*}
 
-* :math:`{\displaystyle \diff{d (\varphi \circ c_1)}{t}(t_1)}` 等は :math:`\RR^n` のベクトルであって
+* :math:`{\displaystyle \diff{(\varphi \circ c_1)}{t}(t_1)}` 等は :math:`\RR^n` のベクトルであって
   点 :math:`\varphi(x_0) \in \varphi(U)` から「生えている」ようなイメージか？
 
 * 別の近傍 :math:`(V, \psi)` をとって
@@ -56,7 +56,7 @@
        \begin{split}
        \diff{(\psi \circ c_i)}{t}(t_i)
        & = D(\psi \circ \varphi\inv)_{\varphi(x_0)} \diff{(\varphi \circ c_i)}{t}(t_i) \quad \because \text{chain rule}\\
-       & = D(\psi \circ \varphi\inv)_{\varphi(x_0)} \diff{d (\varphi \circ c_j)}{t}(t_j) \quad \because c_i \sim c_j \text{ for } (U, \varphi)\\
+       & = D(\psi \circ \varphi\inv)_{\varphi(x_0)} \diff{(\varphi \circ c_j)}{t}(t_j) \quad \because c_i \sim c_j \text{ for } (U, \varphi)\\
        & = \diff{(\psi \circ c_j)}{t}(t_j) \quad \because \text{chain rule}
        \end{split}
        \end{equation*}
