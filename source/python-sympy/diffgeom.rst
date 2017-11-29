@@ -330,11 +330,11 @@
 .. math::
 
    \begin{align*}
-   \varphi_{pr}: (x, y) & \longmapsto & (\sqrt{x^2 + y^2}, \tan\inv \frac{y}{x})\\
-   \varphi_{rp}: (r, \theta) & \longmapsto & (r \cos \theta, r \sin \theta)
+   \varphi_{pr}: (x, y) & \longmapsto (\sqrt{x^2 + y^2}, \tan\inv \frac{y}{x})\\
+   \varphi_{rp}: (r, \theta) & \longmapsto (r \cos \theta, r \sin \theta)
    \end{align*}
 
-ただし :math:`\varphi_rp = \varphi_r \circ \varphi_p\inv` 等と記した。
+ただし :math:`\varphi_{rp} = \varphi_r \circ \varphi_p\inv` 等と記した。
 以下同様。
 
 3 次元オブジェクト
