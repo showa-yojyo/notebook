@@ -170,7 +170,7 @@
 
 .. _tsuboi05.3.5.3:
 
-* 問題 3.5.3: ファイバー束
+* 問題 3.5.3: `ファイバー束 <http://mathworld.wolfram.com/FiberBundle.html>`__
 
   * :math:`E, B` は位相空間であり、
   * 写像 :math:`\fn{p}{E}B` は連続であり、
@@ -179,8 +179,8 @@
     .. math::
 
        \forall b \in B, \exists U_b \owns b
-       \text{ s.t. }
-       \exists \fn{h}{p\inv(U_b)}U_b \times F,\ \operatorname{pr}_1 \circ h = p.
+       \quad\text{s.t.}\quad
+       \exists \fn{h}{p\inv(U_b)}U_b \times F,\ \operatorname{pr}_1 \circ h = p|p\inv(U_b).
 
     ただし :math:`h` は同相写像であり、
     :math:`\operatorname{pr}_1` は直積 :math:`U_b \times F` の第一成分への射影とする。
@@ -193,13 +193,19 @@
      \begin{CD}
      E @>{p}>> B\\
      @A{\subset}AA @A{\subset}AA\\
-     p\inv(U_b) @>{p}>> U_b\\
+     p\inv(U_b) @>{p|p\inv(U_b)}>> U_b\\
      @V{h}VV @A{\operatorname{pr}_1}AA\\
      U_b \times F
      \end{CD}
 
   * この状況における位相空間 :math:`E` をファイバー束といい、
     位相空間 :math:`F` を :math:`B` 上のファイバーという。
+
+    * また、:math:`E` と :math:`B` をそれぞれ
+      `全空間 <http://mathworld.wolfram.com/TotalSpace.html>`__ および
+      `底空間 <http://mathworld.wolfram.com/BaseSpace.html>`__ という。
+
+    * 同相写像 :math:`h` をファイバー :math:`F` に対する局所自明化という。
 
   * 証明は場合分けをする。
 
@@ -265,7 +271,7 @@
   * `メビウスバンド <http://mathworld.wolfram.com/MoebiusStrip.html>`__
     のパラメーター表示が紹介されているので有用。
   * `実射影平面 <http://mathworld.wolfram.com/RealProjectivePlane.html>`__
-     から一点を除くとこれと微分同相となる。
+    から一点を除くとこれと微分同相となる。
 
 3.7 :math:`C^\infty` 級写像の存在について
 ======================================================================
@@ -311,8 +317,8 @@
           &\lim_{x \to +0} \mdiff{\rho(x)}{4}{x} = 0
           \end{align*}
 
-       上の展開から
-       :math:`x^{2m}\rho^{(m)}(x) = \rho(x)P(x)` の形に書けて、
+       上の展開からすべての階数について多項式 :math:`P_m(x)` が存在し、
+       :math:`x^{2m}\rho^{(m)}(x) = \rho(x)P_m(x)` の形に書けて、
        :math:`x \to +0` のときに :math:`\rho^{(m)}(x) \to 0` であると言えばよいであろうことがわかる。
 
   #. :math:`\RR^n` の連結な折れ線は、実数全体を定義域とする
