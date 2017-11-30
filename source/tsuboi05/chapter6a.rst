@@ -29,14 +29,14 @@
   * :math:`X_t := \fn{\dfrac{\partial F_t}{\partial t} \circ F_t\inv}{M}T_{y_0}M` なる量を考える。
 
     * :math:`y_0 \in M` 周りの座標近傍を :math:`(U, \varphi)` とし、
-    * :math:`(\varphi \circ (F_t \circ F_{t_0}\inv)\circ\varphi\inv(x_1, \dotsc, x_n)` を
+    * :math:`\varphi \circ (F_t \circ F_{t_0}\inv)\circ\varphi\inv(x_1, \dotsc, x_n)` を
       :math:`(f_1(t, t_0, x_1, \dotsc, x_n), \dotsc, f_n(t, t_0, x_1, \dotsc, x_n))` と書く。
 
     * :math:`\displaystyle X_i = \sum_{i = 1}^n \diff{f_i}{t}(t, t_0, x_1, \dotsc, x_n) \frac{\partial}{\partial x_i}.`
 
     * :math:`(t_0, \varphi(y_0))` の近傍で定義されている :math:`\RR^n` に値を持つ :math:`C^\infty` 級写像である。
     * :math:`(t_0, \varphi(y_0))` の近傍において :math:`X(t, y) = X_t(y)` による写像
-      :math:`\fn{X}{\RR \times R}TM` は :math:`C^\infty` 級写像である。
+      :math:`\fn{X}{\RR \times M}TM` は :math:`C^\infty` 級写像である。
 
 `ベクトル場 <http://mathworld.wolfram.com/VectorField.html>`__
   各 :math:`t` について :math:`\fn{X_t}{M}TM` は
@@ -49,7 +49,7 @@
   * :math:`F_{t_0} = \id_M` となる :math:`F_t` により :math:`F_{t_1}(A_0) = A_1` となることは、
     ベクトル場の定める常微分方程式の解により :math:`A_0` を :math:`A_1` に写すことと同じである。
 
-  * :math:`t \sim t_0` のとき :math:`F_t \circ F_{t_0}\inv` を局所座標表示するとわかる。
+  * :math:`t = t_0` のとき :math:`F_t \circ F_{t_0}\inv` を局所座標表示するとわかる。
 
 * 例 6.1.1: 線形常微分方程式を :math:`\RR^n` 上の接ベクトルとして書く。
 

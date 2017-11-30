@@ -10,7 +10,7 @@
 
 * 定理 5.4.1: `サードの定理 <http://mathworld.wolfram.com/SardsTheorem.html>`__
 
-  * :math:`C\infty` 級写像 :math:`\fn{F}{M}N` の臨界値は測度が 0 である。
+  * :math:`C^\infty` 級写像 :math:`\fn{F}{M}N` の臨界値は測度が 0 である。
 
 * 定義 5.4.2: 非退化、`モース関数 <http://mathworld.wolfram.com/MorseFunction.html>`__
 
@@ -129,7 +129,12 @@
 
   * それからヘッセ行列を計算する。
 
-    .. todo:: ヘッセ行列のコードを挿れる。
+    .. math::
+
+       \begin{pmatrix}
+       (-a\cos x - b\sin x)(\cos y + 2) & (a\sin x - b\cos x)\sin y\\
+       (a\sin x - b\cos x)\sin y & (a\cos x - b\sin x)\cos y - c\sin y
+       \end{pmatrix}
 
   * あとは三角関数の性質を利用する。
   * 臨界点を調べる。対角行列が得られるので、符号数を確かめることになる。
