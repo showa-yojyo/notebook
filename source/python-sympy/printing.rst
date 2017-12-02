@@ -111,6 +111,84 @@ LaTeX
 ほとんどないだろう。テキストエディターに出力結果テキストを展開して、
 手動で括弧を間引いたり、スペースを補ったり、コマンドを一部自作のマクロに置き換えたりすることになる。
 
+LatexPrinter をカスタマイズする
+----------------------------------------------------------------------
+ここでは 関数 :code:`latex` による SymPy オブジェクトの一部の出力文字列を変更する方法を記す。
+例を挙げる。外微分周りの表示で以下の二点を目的としたカスタマイズ手順を説明する。
+
+* 座標成分が太字になるのを回避したい。
+* 外微分演算子を自作のマクロに置き換えたい。
+
+ここでは正攻法とはとても言えない方法を採っている。
+いずれ改良案を考えたい。
+
+#. 必要なクラスをインポートする。
+
+   .. literalinclude:: /_sample/sympy/extp.py
+      :language: python3
+      :lines: 6-7
+
+#. 対応する SymPy オブジェクトの型に従い、カスタムメソッドを実装する。
+
+   今回の例だと対象となるのは BaseScalerField と Differential だ。
+   このときは名前が ``_print_BaseScalarField`` および ``_print_Differential``
+   というメソッドを適当なスコープで実装する。
+
+   コード例を以下に示す：
+
+   .. literalinclude:: /_sample/sympy/extp.py
+      :language: python3
+      :lines: 11-21
+
+   実装の必要に応じてインポート文を追加する（この場合は Symbol を含める）。
+   実装例は LatexPrinter のソースコードを手本にすればよい。
+
+   一般にクラス CLASSNAME の LaTeX 出力を書き換える場合には
+   メソッド ``_print_CLASSNAME`` を実装する。
+
+#. LatexPrinter 本来のメソッドをカスタムメソッドで置き換える。
+
+   Python 組み込み関数 :code:`setattr` を活用する：
+
+   .. literalinclude:: /_sample/sympy/extp.py
+      :language: python3
+      :lines: 23-24
+
+ここまでできれば、既定の :code:`latex` や :code:`print_latex` をそのまま呼び出すことで、
+カスタムメソッドが SymPy の出力システムから呼び出される。
+
+オブジェクト指向プログラミング言語のライブラリー設計だと、
+何か ``set_latex_printer`` のようなインターフェイスが存在して、
+そこに LatexPrinter のサブクラスを設定できて然るべきなのだが、
+LatexPrinter に関してはそのようなものは提供されていない。
+
+なお、正攻法で行くのならば、LatexPrinter をサブクラスして、
+自分用の関数 :code:`latex` と :code:`print_latex` を実装するのが妥当と思われる。
+
+実装例
+----------------------------------------------------------------------
+これまでに説明してきた方法を一つにまとめたスクリプトおよびその実行結果を以下に示す。
+
+.. literalinclude:: /_sample/sympy/extp.py
+   :language: python3
+   :lines: 5-
+
+このコードの途中の 2 行をコメントアウトすることによって得られる出力は次のようなものだが::
+
+   - 3 \boldsymbol{\mathrm{x}}^{2} \boldsymbol{\mathrm{y}} \mathrm{d}z + \boldsymbol{\mathrm{x}}^{2} \boldsymbol{\mathrm{z}} b \mathrm{d}y + \boldsymbol{\mathrm{x}} \boldsymbol{\mathrm{y}} \boldsymbol{\mathrm{z}} a \mathrm{d}x
+   d(- 3 \boldsymbol{\mathrm{x}}^{2} \boldsymbol{\mathrm{y}} \mathrm{d}z + \boldsymbol{\mathrm{x}}^{2} \boldsymbol{\mathrm{z}} b \mathrm{d}y + \boldsymbol{\mathrm{x}} \boldsymbol{\mathrm{y}} \boldsymbol{\mathrm{z}} a \mathrm{d}x)
+   - \boldsymbol{\mathrm{x}}^{2} b - 3 \boldsymbol{\mathrm{x}}^{2}
+   \boldsymbol{\mathrm{x}} \boldsymbol{\mathrm{y}} a + 6 \boldsymbol{\mathrm{x}} \boldsymbol{\mathrm{y}}
+   - \boldsymbol{\mathrm{x}} \boldsymbol{\mathrm{z}} a + 2 \boldsymbol{\mathrm{x}} \boldsymbol{\mathrm{z}} b
+
+カスタム版を適用した出力は次のようになる::
+
+   - 3 x^{2} y \dd z + x^{2} z b \dd y + x y z a \dd x
+   \dd(- 3 x^{2} y \dd z + x^{2} z b \dd y + x y z a \dd x)
+   - x^{2} b - 3 x^{2}
+   x y a + 6 x y
+   - x z a + 2 x z b
+
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
 
