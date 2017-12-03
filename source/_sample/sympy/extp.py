@@ -10,7 +10,7 @@ from sympy.diffgeom.rn import R3_r
 
 def _print_BaseScalarField(self, field):
     string = field._coord_sys._names[field._index]
-    return r'%s' % self._print(Symbol(string))
+    return '{}'.format(self._print(Symbol(string)))
 
 def _print_Differential(self, diff):
     field = diff._form_field
