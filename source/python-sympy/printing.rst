@@ -195,6 +195,9 @@ LatexPrinter に関してはそのようなものは提供されていない。
 オブジェクトを文字列として出力する以外に、画像として出力する方法もある。
 関数 :code:`preview` はそのような画像生成と出力の両方を行なうことができる。
 
+詳細はモジュール ``sympy.printing.preview`` のコードを確認するといい。
+プロセス生成の手順は理解しやすい。
+
 PNG 出力
 ----------------------------------------------------------------------
 キーワード引数 ``output=png`` を指定するか、あるいはこのキーワード引数を省略すると、
@@ -219,13 +222,102 @@ SymPy オブジェクトに相当する数式が描画された PNG 画像を生
 
   .. code:: ipython
 
-     In [1]: preview(cos(x)**2 + sin(x)**2, viewer='file', filename='preview.png')
+     In [2]: preview(cos(x)**2 + sin(x)**2, viewer='file', filename='preview.png')
 
 * また、画像をメモリに保存する機能もある。
   これには BytesIO オブジェクトをあらかじめ生成しておき、
   キーワード引数 ``viewer='BytesIO'`` に加えてキーワード引数 ``outputbuffer`` を指定し、
   そのオブジェクトをその引数に設定する必要がある。
   利用予定がないので詳細を割愛する。
+
+DVI 出力
+----------------------------------------------------------------------
+関数 :code:`preview` にキーワード引数 ``output='dvi'`` を指定することで、
+出力データの形式が DVI となる。
+PNG のときと同様に、閲覧プログラムを実行させたり、データをファイルに保存させたりできる。
+
+ちなみにここでの LaTeX 環境は `TeX Live <https://www.tug.org/texlive/>`__ であり、
+環境変数 :envvar:`PATH` には :command:`dviout` 等の実行形式格納フォルダーのパスが含まれている。
+
+.. code:: ipython
+
+   In [1]: preview(cos(x)**2 + sin(x)**2, output='dvi', viewer='dviout')
+
+   In [2]: preview(cos(x)**2 + sin(x)**2, output='dvi', viewer='file', filename='preview.dvi')
+
+PDF 出力
+----------------------------------------------------------------------
+関数 :code:`preview` にキーワード引数 ``output='pdf'`` を指定することで、
+出力データの形式が PDF となる。
+
+キーワード引数 ``output='pdf'`` を指定すると、
+次のコマンドラインを実行することと同等の処理が入る。
+TeX Live では :command:`dvipdf` が存在しないためにこれが通じず、実行時エラーを引き起こす。
+
+.. code:: shell
+
+   $ dvipdf texput.dvi texput.pdf
+
+SymPy のコードを修正して、次のようなコマンドライン実行に差し替えられれば動作するだろう：
+
+.. code:: shell
+
+   $ dvipdfmx texput.dvi
+
+SVG 出力
+----------------------------------------------------------------------
+関数 :code:`preview` にキーワード引数 ``output='svg'`` を指定することで、
+出力データの形式が SVG となる。
+
+* 実行環境に :command:`dvisvgm` が存在すること必要だ。TeX Live ユーザーならば問題ないだろう。
+* 即表示する場合はキーワード引数 ``viewer`` に SVG ファイルを描画できるプログラムを指定するわけだが、
+  普通は Web ブラウザーで十分だ。Inkscape だと起動に時間がかかる。
+
+TeX ファイルを保存する
+----------------------------------------------------------------------
+関数 :code:`preview` に対してキーワード引数 ``outputTexFile`` に保存先パスを指定すると、
+処理中に中間生成する TeX ファイルを捨てずにとっておくことができる。
+SymPy の生成する TeX コードをテキストエディターで清書するにはこの手段を採用する。
+
+.. code:: ipython
+
+   In [1]: preview(cos(x)**2 + sin(x)**2, outputTexFile='preview.tex', ...)
+
+ついでに preamble についても説明する。既定の内容は次のようなものだ：
+
+.. code:: latex
+
+   \documentclass[12pt]{article}
+   \pagestyle{empty}
+ 
+   \usepackage{amsmath}
+   \usepackage{amsfonts}
+   \usepackage{euler}
+ 
+   \begin{document}
+
+これをキーワード引数 ``preamble`` を指定することで変更できる。
+次に説明する TeX 数式直接指定の際に、必要パッケージを指示するためにはこれが使える。
+
+.. code:: ipython
+
+   In [2]: preamble = r'''\documentclass[10pt]{article}
+      ...: \usepackage{amsmath,amsfonts}
+      ...: \begin{document}
+      ...: '''
+
+   In [3]: preview(cos(x)**2 + sin(x)**2, outputTexFile='preview.tex', preamble=preamble, ...)
+
+入力
+----------------------------------------------------------------------
+実は関数 :code:`preview` の引数としては SymPy オブジェクトだけではなく、
+TeX 数式を表す文字列も受け付ける。
+
+.. code:: ipython
+
+   In [1]: preview(r'$\cos^2 x + \sin^2 x$', output='png', viewer='mspaint')
+
+今ならば MathJax があるので、この機能はそれほど便利なわけではない。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
