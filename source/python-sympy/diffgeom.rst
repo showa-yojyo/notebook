@@ -98,7 +98,7 @@
 
 :code:`base_oneform(coord_index)`, :code:`base_oneforms()`
   余接空間の基底を返す。
-  微分幾何の教科書で言う :math:\dd x_1, \dotsc, \dd x_n` に相当する。
+  微分幾何の教科書で言う :math:`\dd x_1, \dotsc, \dd x_n` に相当する。
 
   * 単数形の場合、オブジェクトの型は後述のクラス Differential 
 
@@ -241,21 +241,49 @@
 
 クラス TensorProduct
 ----------------------------------------------------------------------
-クラス TensorProduct は k-形式のテンソル積を表現するクラス。
+クラス TensorProduct はベクトル場と微分形式からなるテンソル場を構成する基底を表現する。
+例えば :math:`\RR^n` の (a, b) 型テンソル場は数式では次のように表すものだ
+（いまさらだが、テンソルの話題になるので添字の上下を厳密に書く）：
 
-* コンストラクターの引数は k-形式オブジェクトである。複数個渡してよい。
+.. math::
 
-  * 言い忘れたが、k-形式として認められる型はだいたい次のような感じらしい。
+   \xi = \sum_{\substack{i_1, \dotsc, i_a = 1,\\j_1, \dotsc, j_b = 1}}^n \xi_{j_1, \dotsc, j_b}^{i_i, \dotsc, i_a}
+         \frac{\partial}{\partial x^{i_1}} \otimes \dotsb \otimes \frac{\partial}{\partial x^{i_a}}
+         \otimes
+         \dd x^{j_1} \otimes \dotsb \otimes \dd x^{j_b}.
 
-    * 定数
-    * Function オブジェクト
-    * BaseScalarField オブジェクト
-    * Differential オブジェクト
+クラス TensorProduct は上記のシグマ記号の「中身」を表現することができる。
+SymPy を使うとこのようにできる：
 
-* 丸括弧の引数はベクトル場オブジェクトである。
-* 戻り値の型もまた TensorProduct であるのだが、
-  状況により Mul になったり、あるいは定数になったりする。
-  このときは丸括弧は使えない。
+.. code:: ipython
+
+   In [1]: M = Manifold('R^5', 5)
+
+   In [2]: U = CoordSystem('x', Patch('U', M))
+
+   In [3]: x_0, x_1, x_2, x_3, x_4 = U.coord_functions()
+      ...: X_0, X_1, X_2, X_3, X_4 = U.base_vectors()
+      ...: dx0, dx_1, dx_2, dx_3, dx_4 = U.base_oneforms()
+      ...:
+
+   In [4]: T = TensorProduct(X_1, X_4, dx_0, dx_2, dx_3)
+
+   In [5]: assert covariant_order(T) == 3
+
+   In [6]: assert contravariant_order(T) == 2
+
+数式中の :math:`\xi_{j_1, \dotsc, j_b}^{i_i, \dotsc, i_a}` は多様体上の :math:`C^\infty` 級関数であるが、
+それは保留していったん先へ進む。
+
+SymPy では次のように丸括弧演算子でテンソル積の作用（内積みたいなもの）を計算する：
+
+.. code:: ipython
+
+   In [7]: T(x_1)(x_4)(X_0)(X_2)(X_3)
+   Out[7]: 1
+
+   In [8]: T(x1 ** -2, x4, X0, X0 + X1 + X2 + X3 + X4, X3)
+   Out[8]: -2/x_1**3
 
 クラス WedgeProduct
 ----------------------------------------------------------------------
