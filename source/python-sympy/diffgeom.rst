@@ -302,6 +302,70 @@ SymPy では次のように丸括弧演算子でテンソル積の作用（内�
 
   という現象を説明するものだろうか。
 
+クラス LieDerivative
+----------------------------------------------------------------------
+クラス LieDerivative はリー微分を表現する。
+すなわち何らかのベクトル場に対して (a, b) 型テンソル場から (a, b) 型テンソル場を生成する。
+
+.. code:: ipython
+
+   In [1]: M = Manifold('R^5', 5)
+
+   In [2]: U = CoordSystem('x', Patch('U', M))
+
+   In [3]: x_0, x_1, x_2, x_3, x_4 = U.coord_functions()
+      ...: X_0, X_1, X_2, X_3, X_4 = U.base_vectors()
+      ...: dx0, dx_1, dx_2, dx_3, dx_4 = U.base_oneforms()
+      ...:
+
+   In [5]: var('c:5', real=True)
+
+   In [6]: X = c0 * X0 + c1 * X1 + c2 * X2 + c3 * X3 + c4 * X4
+
+   In [7]: Lie, Com = LieDerivative, Commutator
+
+ここまでの設定で簡単なテンソル場のリー微分を試すことにする。
+最初に :math:`\mathcal L_xf = X(f)` と :math:`\mathcal L_XY = [X, Y]` を試してみよう：
+
+.. code-block:: ipython
+
+   In [8]: f = x0 ** 2 + x1 ** 2
+
+   In [9]: assert L(X, f) == X.rcall(f)
+
+   In [10]: Y = 8 * x3 * X0 + 9 * x1 * X2 + 3 * x0 * X4
+
+   In [11]: assert L(X, Y) == Commutator(X, Y)
+
+次にライプニッツ則スカラー場バージョンを試す：
+
+.. code-block:: ipython
+
+   In [12]: g = x3 ** 2 + x4 ** 2
+
+   In [13]: assert (L(X, f * g).expand() == (f * L(X, g) + L(X, f) * g).expand())
+
+SymPy の FAQ にあるように、こういう複雑な等式のテストには
+メソッド :code:`expand()` を適用したり、左辺マイナス右辺をゼロと比較したりする必要があることが多い。
+
+.. todo::
+
+   :math:`f, g \in C^\infty(M)`, :math:`X, Y \in \mathfrak X(M)`,
+   :math:`\omega \in \Omega^1(M)`,
+   :math:`\xi \in \Gamma(T(a, b)),\ \eta \in \Gamma(T(a', b'))` に対して、
+   例えば次に挙げるリー微分の性質が成り立っているかどうかを試したい：
+
+   .. math::
+
+      \begin{align*}
+      &(\mathcal L_X \omega)(Y) = X(\omega(Y)) - \omega([X, Y])\\
+      &(\mathcal L_X \omega)(fY) = f(\mathcal L_X\omega)(Y)\\
+      &\mathcal L_X(fY) = f \mathcal L_X(Y) + (\mathcal L_Xf) Y\\
+      &\mathcal L_X(f\omega) = f \mathcal L_X(\omega) + (\mathcal L_Xf) \omega\\
+      &\mathcal L_{[X, Y]} = \mathcal L_X \circ \mathcal L_Y - \mathcal L_Y \circ \mathcal L_X\\
+      &\mathcal L_X(\xi \otimes \eta) = \mathcal L_X\xi \otimes \eta + \xi \otimes \mathcal L_X\eta
+      \end{align*}
+
 定義済み多様体オブジェクト
 ======================================================================
 本節ではサブモジュール ``sympy.diffgeom.rn`` に定義されているオブジェクトを見ていく。
