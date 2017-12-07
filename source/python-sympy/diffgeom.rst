@@ -214,6 +214,35 @@
 * ドキュメントにあるように、現行の実装は少々弱いようだ。
   展開し切れないケースがままある。
 
+:math:`[X, Y] = -[Y, X]` や :math:`[X, Y] = XY - YX` を実感してみよう。
+次の例では、適当な次元の多様体とその上の適当なベクトル場二つを定義し、
+この数式の左辺と右辺それぞれに対応する SymPy オブジェクトを生成して、
+さらに多様体上で定義された適当な関数を評価することによって、
+間接的に両辺を比較する：
+
+.. code:: ipython
+
+   In [1]: M = Manifold('R^5', 5)
+
+   In [2]: U = CoordSystem('x', Patch('U', M))
+
+   In [3]: x_0, x_1, x_2, x_3, x_4 = U.coord_functions()
+      ...: X_0, X_1, X_2, X_3, X_4 = U.base_vectors()
+      ...: dx0, dx_1, dx_2, dx_3, dx_4 = U.base_oneforms()
+      ...:
+
+   In [4]: X = x2**2 * X0 + exp(x3) * X1 - X4
+
+   In [5]: Y = (x1 ** 3 + x0 ** 2) * X3
+
+   In [6]: Commutator(X, Y) + Commutator(Y, X)
+   Out[6]: 0
+
+   In [7]: f = x0 ** 2 + x1 ** 2 + x2 ** 4 + x3 ** 4
+
+   In [8]: Commutator(X, Y).rcall(f) - (X.rcall(Y.rcall(f)) - Y.rcall(X.rcall(f)))
+   Out[8]: 0
+
 クラス Differential
 ----------------------------------------------------------------------
 クラス Differential は外微分を意味する。
