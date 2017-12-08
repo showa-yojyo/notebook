@@ -236,6 +236,141 @@
   * 核にあるのが閉形式、像にあるのが完全形式。
   * 全般的に閉形式の性質と :ref:`p. 62 <tsuboi08.p.62>` の図を駆使する。
 
+2.7 球面のドラーム・コホモロジー
+----------------------------------------------------------------------
+以下で使う記号：
+
+* :math:`S^1 = \RR/\ZZ` を円とする。
+* :math:`\fn{\pi}{\RR}\RR/\ZZ` をその射影とする。
+* :math:`M_1 = \pi((0, 1)),\ M_2 = \pi((-1/2, 1/2))` とおくと :math:`S^1` の開被覆となる。
+
+  * 前者は円周を 0 度から 360 度までを、後者は -180 度から 180 度までを表現している。
+
+* :math:`M_{12} = M_1 \cap M_2` とおく。
+
+このマイヤー・ビエトリス完全系列を書くと次のようになる：
+
+.. math::
+
+   \begin{CD}
+   0 @>>> \H^0(S^1)
+   @>>> \H^0(M_1) \oplus \H^0(M_2)
+   @>>> \H^0(M_{12})\\
+   @.\\
+   @>>> \H^1(S^1)
+   @>>> 0
+   \end{CD}
+
+上の完全系列は次のものと同型である：
+
+.. math::
+
+   \begin{CD}
+   0 @>>> \RR
+   @>>> \RR \oplus \RR
+   @>>> \RR \oplus \RR\\
+   @.\\
+   @>>> \H^1(S^1)
+   @>>> 0
+   \end{CD}
+
+* この例に限らず、:math:`\H^0(\cdot)` は「連結成分上の定数関数」と同一視する。
+* 意味のあるコホモロジー群の最初と最後を見ると :math:`\H^1(S^1) \cong \RR` と言える。
+
+.. _tsuboi08.2.7.1:
+
+* 例題 2.7.1: 円の連結準同型
+
+  円周上の :math:`C^\infty` 関数 :math:`\fn{\nu_1}{[0, 1/2]}[0, 1]`,
+  :math:`\fn{\nu_2}{[1/2, 1]}[0, 1]` が次のように定義されているときの
+  :math:`\fn{\Delta^*}{\H^0(M_{12})}{H^1(S^1)}` の記述はどのようなものか：
+  
+  .. math::
+  
+     \begin{align*}
+     \nu_1(t) &= \begin{cases}
+     0 & \quad\text{if } t \in \left[0, \dfrac{1}{6}\right],\\
+     \text{(unknown)} & \quad\text{if } t \in \left[\dfrac{1}{6}, \dfrac{1}{3}\right],\\
+     1 & \quad\text{if } t \in \left[\dfrac{1}{3}, \dfrac{1}{2}\right],\\
+     \end{cases}
+     \\
+     \nu_2(t) &= \nu_1\left(t - \frac{1}{2}\right).
+     \end{align*}
+
+  * まず :math:`M_1, M_2` に従属する 1 の分割 :math:`\lambda_1, \lambda_2` を適宜構成する：
+
+    .. math::
+
+       \begin{align*}
+       \lambda_1(t) &=
+       \begin{cases}
+       \nu_1(t)     & \quad\text{if } t \in \left[0, \dfrac{1}{2}\right],\\
+       1 - \nu_2(t) & \quad\text{if } t \in \left[\dfrac{1}{2}, 1\right],
+       \end{cases}
+       \\
+       \lambda_2(t) &= 1 - \lambda_1(t).
+       \end{align*}
+
+    これが 1 の分割になっていることは、本書の図を見れば納得できる。
+
+  * 次に :math:`a, b \in \RR` を何かとって、関数 :math:`\fn{M_{12}}\RR` を次のように定義する：
+  
+    .. math::
+    
+       f(x) =
+       \begin{cases}
+       a & \quad\text{if } t \in \pi\left(\!\left(0, \dfrac{1}{2}\right)\!\right),\\
+       b & \quad\text{if } t \in \pi\left(\!\left(\dfrac{1}{2}, 1\right)\!\right).
+       \end{cases}
+    
+  * 次のように :math:`M_1, M_2` 上の :math:`C^\infty` 級関数を構成すると、
+    :math:`i_1^* f_1 - i_2^* f_2 = f` をみたす（暗算で確認できる）：
+
+    .. math::
+
+       \begin{align*}
+       f_1(x) &= \lambda_2(t) f(x) =
+       \begin{cases}
+       a(1 - \nu_1(t)) & \quad\text{if } t \in \left[0, \dfrac{1}{2}\right],\\
+       b \nu_2(t)      & \quad\text{if } t \in \left[\dfrac{1}{2}, 1\right],
+       \end{cases}
+       \\
+       f_2(x) &= -\lambda_1(t) f(x) =
+       \begin{cases}
+       -a\nu_1(t)       & \quad\text{if } t \in \left[0, \dfrac{1}{2}\right],\\
+       -b(1 - \nu_2(t)) & \quad\text{if } t \in \left[\dfrac{1}{2}, 1\right].
+       \end{cases}
+       \end{align*}
+
+    :math:`f_1` が :math:`M_1` 上滑らかであることは :math:`t = 1/2` における微分可能性を確認すればよい。
+    同様に :math:`f_2` が :math:`M_2` 上滑らかであることは :math:`t = 0` を確認すればよい。
+
+  * :math:`M_{12}` 上において :math:`\dd f_1 = \dd f_2 = -a\dd \nu_1 + b\dd v_2` となる。
+    この値を :math:`\alpha` とすると次がわかる：
+    
+    .. math::
+    
+       \alpha = -a\dd \nu_1 + b\dd v_2
+       = \left(-a\diff{\nu_1}{t} + b\diff{\nu_2}{t}\right)\dd t
+       \in \Omega^1(S^1).
+
+  * したがって :math:`\Delta^*(a, b) = [\alpha]` である。
+
+.. _tsuboi08.2.7.2:
+
+* 注意 2.7.2: 補足
+
+  * :math:`a = b` ならば :math:`f = (i_1^* - i_2^*)(a, 0)`, :math:`\Delta^*(a, a) = 0`
+    (:math:`\alpha = \dd(a\lambda_2)`).
+
+  * :math:`a \ne b` ならば :math:`\Delta^*(a, b)` が :math:`\H^1(S^1)` の基底となる。
+    :math:`\displaystyle \int_0^1\!\left(-a\diff{\nu_1}{t} + b\diff{\nu_2}{t}\right)\dd t = b - a`
+    となって :math:`\nu_1, \nu_2` が消去する。
+
+    * :math:`[\alpha] = [(b - a)\dd t]`
+
+  * :ref:`2.4.6 <tsuboi08.2.4.6>` も参照。
+
 TBW
 
 ----

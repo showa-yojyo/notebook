@@ -478,6 +478,8 @@
         = 0 & \text{if } p > 0.
         \end{cases}
 
+.. _tsuboi08.2.4.6:
+
 * 例 2.4.6: :math:`S^1 = \RR/\ZZ,\ \H^1(S^1) \cong \RR`
 
   * :math:`\Omega^1(S^1)` の元はすべて閉形式である。
