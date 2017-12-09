@@ -237,7 +237,7 @@
   * 全般的に閉形式の性質と :ref:`p. 62 <tsuboi08.p.62>` の図を駆使する。
 
 2.7 球面のドラーム・コホモロジー
-----------------------------------------------------------------------
+======================================================================
 以下で使う記号：
 
 * :math:`S^1 = \RR/\ZZ` を円とする。
@@ -284,9 +284,9 @@
   円周上の :math:`C^\infty` 関数 :math:`\fn{\nu_1}{[0, 1/2]}[0, 1]`,
   :math:`\fn{\nu_2}{[1/2, 1]}[0, 1]` が次のように定義されているときの
   :math:`\fn{\Delta^*}{\H^0(M_{12})}{H^1(S^1)}` の記述はどのようなものか：
-  
+
   .. math::
-  
+
      \begin{align*}
      \nu_1(t) &= \begin{cases}
      0 & \quad\text{if } t \in \left[0, \dfrac{1}{6}\right],\\
@@ -314,15 +314,15 @@
     これが 1 の分割になっていることは、本書の図を見れば納得できる。
 
   * 次に :math:`a, b \in \RR` を何かとって、関数 :math:`\fn{M_{12}}\RR` を次のように定義する：
-  
+
     .. math::
-    
+
        f(x) =
        \begin{cases}
        a & \quad\text{if } t \in \pi\left(\!\left(0, \dfrac{1}{2}\right)\!\right),\\
        b & \quad\text{if } t \in \pi\left(\!\left(\dfrac{1}{2}, 1\right)\!\right).
        \end{cases}
-    
+
   * 次のように :math:`M_1, M_2` 上の :math:`C^\infty` 級関数を構成すると、
     :math:`i_1^* f_1 - i_2^* f_2 = f` をみたす（暗算で確認できる）：
 
@@ -347,9 +347,9 @@
 
   * :math:`M_{12}` 上において :math:`\dd f_1 = \dd f_2 = -a\dd \nu_1 + b\dd v_2` となる。
     この値を :math:`\alpha` とすると次がわかる：
-    
+
     .. math::
-    
+
        \alpha = -a\dd \nu_1 + b\dd v_2
        = \left(-a\diff{\nu_1}{t} + b\diff{\nu_2}{t}\right)\dd t
        \in \Omega^1(S^1).
@@ -371,6 +371,174 @@
 
   * :ref:`2.4.6 <tsuboi08.2.4.6>` も参照。
 
+.. _tsuboi08.2.7.3:
+
+* 命題 2.7.3: 一般の多様体次元の :math:`\H^*(S^k)`
+
+  .. math::
+
+     \H^p(S^k) \cong
+     \begin{cases}
+     \RR & \quad\text{if } p = 0, k\\
+     0   & \quad\text{if } 0 < p < k
+     \end{cases}
+
+  * まず :math:`H^0(S^k) \cong \RR` であることは言える。
+    0 次元のドラームコホモロジー群が球面上の定数関数全体と同一視できるからだ。
+
+  * それ以外の場合については多様体次元 :math:`k` についての帰納法で示す。
+    そのために :math:`M_1 = S^k \setminus \set{p_S}`, :math:`M_2 = S^k \setminus \set{p_N}`
+    とおく。ここで :math:`p_S, p_N` はそれぞれ南極、北極に相当する点とする。
+
+    * :math:`M_{12} = M_1 \cap M_2` は :math:`(-1, 1) \times S^{k - 1}` と微分同相だ。
+
+  * :ref:`問題 2.4.19 <tsuboi08.2.4.19>` によると :math:`\H^p(M_{12}) \cong H^p(S^{k - 1})` だ。
+
+  * マイヤー・ビエトリス完全系列：
+
+    .. math::
+
+       \begin{CD}
+       \cdots @>>> \H^{k - 1}(M_1) \oplus \H^{k - 1}(M_2)
+              @>>> \H^{k - 1}(M_{12})
+              @>>> \H^k(S^k)
+              @>>> 0
+       \end{CD}
+
+    においては、帰納法の仮定：
+
+    .. math::
+
+       \H^p(S^{k - 1}) \cong
+       \begin{cases}
+       \RR & \quad\text{if } p = 0, k - 1\\
+       0   & \quad\text{if } 0 < p < k - 1
+       \end{cases}
+
+    より、次の系列と同型と言える：
+
+    .. math::
+
+       \begin{CD}
+       \cdots @>>> 0 \oplus 0
+              @>>> \RR
+              @>>> \H^k(S^k)
+              @>>> 0
+       \end{CD}
+
+    したがって主張が成り立つ。
+
+  * 証明は終わったが次のようなコメントがある。
+
+    * :math:`\lambda_1, \lambda_2` を :math:`M_1, M_2` に従属する 1 の分割とし、
+    * :math:`[\omega^{k - 1}]` を :math:`\H^{k - 1}(S^{k - 1})` の基底である
+
+    とすると、次式が成り立つように :math:`\H^k(S^k)` の基底 :math:`[\omega^k]` をとれる：
+
+    .. math::
+
+       [\omega^k] = \Delta^*[\omega^{k - 1}] = [\dd(\lambda_2 \pi^* \omega^{k - 1})].
+
+.. _tsuboi08.2.7.4:
+
+* 問題 2.7.4: :ref:`問題 2.2.6 <tsuboi08.2.2.6>` の状況で
+
+  #. :math:`\RR^3` 上の次の微分形式に対する :math:`(\pi_S\inv)^*(\omega|S^2)` とは：
+
+     .. math::
+
+        \omega = x_1 \dd x_2 \wedge \dd x_3
+                -x_2 \dd x_1 \wedge \dd x_3
+                +x_3 \dd x_1 \wedge \dd x_2
+
+     まず :math:`\dd x_1, \dd x_2, \dd x_3` を計算する。
+     各座標を :math:`u_1, u_2` で表す必要があることに注意。
+
+     .. todo:: SymPy で計算してみる。
+     .. 結果だけ書くと :math:`\frac{4 \dd u_1 \wedge \dd u_2}{(1 + u_1^2 + u_2^2)^2}`
+
+  #. :math:`\RR^3\minuszero \times \RR` 上の次の微分形式 :math:`\alpha` に対して、
+     全微分がゼロとなる。また、:math:`\RR^2\minuszero` 上の微分形式
+     :math:`(\pi_S\inv)^*(\alpha|S^2\setminus\set{p_N, p_S})` は何か。
+
+     .. math::
+
+        \alpha = \dfrac{x_1 \dd x_2 - x_2 \dd x_1}{x_1^2 + x_2^2}.
+
+     前半は直接計算により示せる。後半も直接計算か。
+
+     .. todo:: SymPy で計算してみる。
+     .. 結果だけ書くと :math:`\frac{u_1 \dd u_2 - u_2 \dd u_1}{u_1^2 + u_2^2}`
+
+  #. :math:`\fnm{\gamma}{[0, 1]}{\RR^3}{t}(\cos 2\pi t, \sin 2\pi t, 0)` に沿った :math:`\alpha` の線積分。
+
+     解答で省略されている部分を記す：
+
+     .. math::
+
+        \begin{align*}
+        \int_\gamma\!\alpha &= \int_\id\!\gamma^*\alpha\\
+        &=\int_0^1\!\sum_{i = 1}^2 \alpha_i(\gamma_i(t))\diff{\gamma_i}{t}\,\dd t\\
+        &=\int_0^1\! (-\sin 2\pi t)(-2\pi \sin 2\pi t) + \cos 2\pi t (2\pi \cos 2\pi t))\,\dd t\\
+        &= \cdots\\
+        &= 2\pi.
+        \end{align*}
+
+  #. :math:`\alpha_1 = \dfrac{1 - x_3}{2}\alpha` は :math:`S^2\setminus\set{p_S}` 上の
+     微分形式である。
+
+     * これも直接計算するといい。
+
+     .. todo:: SymPy で計算してみる。
+     .. 結果だけ書くと :math:`\alpha_1 = \frac{u_1 \dd u_2 - u_2 \dd u_1}{1 + u_1^2 + u_2^2}`
+
+     * また、同様にして :math:`\alpha_2 = \dfrac{1 + x_3}{2}\alpha` は
+       :math:`S^2\setminus\set{p_N}` 上の微分形式であることもわかる。
+       そして :math:`\alpha = \alpha_1 - \alpha_2` に注意するとよい。
+
+.. _tsuboi08.2.7.5:
+
+* 問題 2.7.5: :ref:`前問 <tsuboi08.2.7.4>` の続き
+
+  * :math:`M_1 = S^2 \setminus \set{p_S}`, :math:`M_2 = S^2 \setminus \set{p_N}`
+  * :math:`M_{12} = M_1 \cap M_2`
+
+  とする。このとき次の二つのマイヤー・ビエトリス完全系列は同型である：
+
+  .. math::
+
+     \begin{CD}
+     \cdots @>>> \H^1(M_1) \oplus \H^1(M_2)
+            @>>> \H^1(M_{12})
+            @>>> \H^2(S^2)
+            @>>> 0,\\
+     @.\\
+     \cdots @>>> 0 \oplus 0
+            @>>> \RR
+            @>>> \H^2(S^2)
+            @>>> 0.
+     \end{CD}
+
+  * :ref:`前問 <tsuboi08.2.7.4>` の :math:`\alpha` は完全形式であり、
+    かつ :math:`\H^1(M_{12})` の生成元である。
+
+    * それぞれ :ref:`前問 <tsuboi08.2.7.4>` の小問 2 と 3 による。
+      （生成元の辺りはきちんと説明できるか？）
+
+  :math:`\Delta^* [\alpha|M_{12}]` を代表する 2 形式とは何か。
+
+  * :math:`\dd \alpha` を計算していくと、
+    :ref:`前問 <tsuboi08.2.7.4>` の小問 1 の値が出てくる。
+    このことから次式が成り立つ：
+
+    .. math::
+
+       \Delta^* [\alpha|M_{12}] = \frac{1}{2}[\omega|S^2].
+
+    なぜなのか、よく考えてみること。
+
+2.8 コンパクト多様体のドラーム・コホモロジー
+======================================================================
 TBW
 
 ----

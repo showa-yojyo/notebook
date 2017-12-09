@@ -177,6 +177,8 @@
   * :math:`\fn{F^*}{C^\infty(N)}C^\infty(M)` として準同型であるので、
     余接空間の写像として見ても準同型である。
 
+.. _tsuboi08.2.2.6:
+
 * 問題 2.2.6: ステレオグラフ
 
   多様体上では 1 形式と接ベクトルとをはっきり区別して考える必要があることを示すデモのような問題だ。
@@ -712,6 +714,8 @@
   :math:`\fn{\iota_0^* = \iota_1^*}{\H^p([0, 1] \times M)}\H^p(M)` である。
   したがって
   :math:`\varphi_0^* = \iota_0^* \varphi^* = \iota_1^* \varphi^* = \varphi_1^*.`
+
+.. _tsuboi08.2.4.19:
 
 * 問題 2.4.19: :math:`\RR^m \times M` に対し :math:`\H^p(\RR^m \times M) \cong \H^p(M)`
 
