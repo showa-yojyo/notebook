@@ -539,6 +539,202 @@
 
 2.8 コンパクト多様体のドラーム・コホモロジー
 ======================================================================
+* 臨界点、ヘッセ行列、非退化、モース関数、モースの補題などのおさらい。
+
+  * :ref:`幾何学 I 問題 5.4.8 <tsuboi05.5.4.8>`
+  * :ref:`幾何学 I 補題 5.4.3 <tsuboi05.5.4.3>`
+
+  などを参照する。ノートを見返したら難しかったのでまともにやっていなかった。
+
+* モース関数の gradient flow を用いることで次がわかる：
+
+  :math:`M` の開集合 :math:`N_1, \dotsc, N_k` で
+
+  * :math:`\varnothing = N_0 \subset N_1 \subset \dotsb N_k = M`,
+  * :math:`N_j = N_{j - 1} \cup B_j \quad(0 < j \le k)`
+
+  なるものがある。
+  ここで各 :math:`B_j` は n 次元開球 :math:`B^n` と微分同相であり、
+
+  * :math:`N_{j - 1} \cap B_j = \varnothing`
+  * またはある :math:`m_j` が存在して :math:`0 \le m_j \le n - 1` のときに
+    :math:`N_{j - 1} \cap B_j` と :math:`B^{n - m_j} \times S^{m_j}` が微分同相である。
+
+.. _tsuboi08.2.8.1:
+
+* 定理 2.8.1: コンパクト多様体のドラーム・コホモロジー群は有限次元ベクトル空間である
+
+  証明は :math:`N_j = N_{j - 1} \cup B_j` についてのマイヤー・ビエトリス完全系列に対する帰納法による。
+
+  .. math::
+
+     \begin{CD}
+     @. \cdots
+     @>{(j_1^*,\ j_2^*)}>> \H^{p - 1}(N_{j - 1}) \oplus \H^{p - 1}(B_j)
+     @>{i_1^* - i_2^*}>> \H^{p - 1}(N_{j - 1} \cap B_j)\\
+     @.\\
+     @>{\Delta^*}>> \H^p(N_j)
+     @>{(j_1^*,\ j_2^*)}>> \H^p(N_{j - 1}) \oplus \H^p(B_j)
+     @>{i_1^* - i_2^*}>> \H^p(N_{j - 1} \cap B_j)\\
+     @.\\
+     @>{\Delta^*}>> \cdots
+     \end{CD}
+
+  * まず完全系列であることにより :math:`\H^p(N_j) \cong \im \Delta^* \oplus \H^p(N_j)/\ker (j_1^*,\ j_2^*).`
+    ベクトル空間として同型。
+
+    * :math:`\im \Delta^* \cong \H^{p - 1}(N_{j - 1} \cap B_j)/\ker \Delta^*` が成り立つ（同様）。
+
+      * :math:`\H^{p - 1}(N_{j - 1} \cap B_j) \cong H^{p - 1}(S^{m_j})`.
+        商空間として有限次元ベクトル空間と同型（本節冒頭を参照）。
+
+    * :math:`\H^p(N_j)/\ker (j_1^*,\ j_2^*) \cong \im (j_1^*,\ j_2^*) \subset H^p(N_{j - 1}) \oplus H^p(B_j).`
+      包含写像の像が有限次元ベクトル空間の部分ベクトル空間であると言っている。
+      最右辺の直和が有限次元であることは、帰納法でわかる。
+
+    以上の二点により :math:`\H^p(N_j)` は有限次元である。
+
+.. _tsuboi08.2.8.2:
+
+* 注意 2.8.2: モース理論による :math:`N_j` への分解はいろいろと有用である。
+
+.. _tsuboi08.2.8.3:
+
+* 問題 2.8.3: :ref:`幾何学 I 問題 5.4.6 の複素射影空間ファイブレーション <tsuboi05.5.4.6>` 参照
+
+  * 特に参照先の関数 :math:`f, F` および臨界点、指数、臨界値についての知識を本問では用いる。
+
+  :math:`\CC P^n` のドラーム・コホモロジー群はどのようなものか。
+  
+  * まずは誘導された関数 :math:`F` により次のような開集合が確定する：
+  
+    * :math:`\varnothing = N_0 \subset N_1 \subset \dotsb N_{n + 1} = \CC P^n`
+    * :math:`N_j = N_{j - 1} \cup B_j\quad(0 < j \le n + 1)`
+    * :math:`B_j \cong B^n`
+    * :math:`N_{j - 1} \cap B_j \cong B^{2n - 2(j - 1) + 1} \times S^{2(j - 1) - 1}\quad(j \ge 2)`
+
+  * 次に :math:`N_j = N_{j - 1} \cup B_j` に関するマイヤー・ビエトリス完全系列を考える。
+  
+    .. math::
+    
+       \begin{CD}
+       @. \cdots
+       @>>> \H^{p - 1}(N_{j - 1}) \oplus \H^{p - 1}(B_j)
+       @>>> \H^{p - 1}(S^{2(j - 1)-1})\\
+       @.\\
+       @>>> \H^p(N_j)
+       @>>> \H^p(N_{j - 1}) \oplus \H^p(B_j)
+       @>>> \H^p(S^{2(j - 1)-1})\\
+       \end{CD}
+       
+    これにより :math:`\H^p(N_{j - 1})` が :math:`\H^p(N_j)` を定める。
+    なぜならば
+    
+    .. math::
+    
+       \H^p(N_{j - 1}) \cong
+       \begin{cases}
+       \RR & \quad\text{if } p = 0, 2, \dotsc, 2(j - 1)\\
+       0   & \quad\text{otherwise}
+       \end{cases}
+
+    が示されると、
+
+    .. math::
+    
+       \H^p(N_j) \cong
+       \begin{cases}
+       \RR & \quad\text{if } p = 0, 2, \dotsc, 2j\\
+       0   & \quad\text{otherwise}
+       \end{cases}
+
+    が示される。ゆえに：
+    
+    .. math::
+    
+       \H^p(\CC P^n) \cong
+       \begin{cases}
+       \RR & \quad\text{if } p = 0, 2, \dotsc, 2n\\
+       0   & \quad\text{otherwise}
+       \end{cases}
+
+.. _tsuboi08.2.8.4:
+
+* 問題 2.8.4: コンパクト連結多様体 :math:`M^2`
+
+  この多様体上にモース関数 :math:`f` が存在して、その
+  
+  * 極小点が 1 個、
+  * 極大点が 1 個、
+  * 指数 1 の臨界点が k 個
+  
+  あるとする。このときドラーム・コホモロジー群は次のようになる：
+  
+  .. math::
+    
+     \H^p(M^2) \cong
+     \begin{cases}
+     \RR   & \quad\text{if } p = 0\\
+     \RR^k & \quad\text{if } p = 1\\
+     \RR   & \quad\text{if } p = 2
+     \end{cases}
+     \quad\text{or }
+     \H^p(M^2) \cong
+     \begin{cases}
+     \RR        & \quad\text{if } p = 0\\
+     \RR^{k - 1}& \quad\text{if } p = 1\\
+     0          & \quad\text{if } p = 2
+     \end{cases}
+
+  以下証明。例によって開集合列を構成して、
+  完全系列を :math:`N_j` と :math:`M^2` それぞれについて見ていく。
+
+  * 開集合を構成する：
+
+    * :math:`\varnothing = N_0 \subset N_1 \subset \dotsb N_{k + 2} = M^2`
+    * :math:`N_j = N_{j - 1} \cup B_j\quad(0 < j \le k + 2)`
+    * :math:`B_j \cong B^2`
+    * :math:`N_{j - 1} \cap B_j \cong B^2 \times S^0\quad(2 \le j \le k + 1)`
+    * :math:`N_{k + 1} \cap B_{k + 2} \cong B^1 \times S^1`
+
+  * :math:`N_j = N_{j - 1} \cup B_j` のマイヤー・ビエトリス完全系列を検討する。
+    完全系列はいつものように描くと 3 行からなるが、省略。
+    
+    * いつものように :math:`\H^0(\cdot)` は（局所的）定数関数で代表されるので、
+      1 行目の :math:`i_1^* - i_2^*` を行列 :math:`\begin{pmatrix}1 & -1\\1 & -1\end{pmatrix}` で表現できる。
+
+    * :math:`\H^1(B_j) = 0,\ H^1(B^2 S^0) = 0` ゆえ :math:`\H^1(N_j) \cong \H^1(N_{j - 1}) \oplus \RR` ← 2 行目
+    * :math:`\H^1(N_1) = 0` ゆえ :math:`\H^1(N_j) \cong \RR^{j - 1}`
+    * :math:`\H^2(N_j) = 0\quad(j \le k + 1)` は容易い。
+
+  * :math:`M^2 = N_{k + 1} = N_{k + 1} \cup B_{k + 2}` のマイヤー・ビエトリス完全系列を検討する。
+
+    * 1 行目の :math:`i_1^* - i_2^*` は全射。
+    * 2 行目の :math:`i_1^* - i_2^*` は断定できないので場合分け。
+    
+      * 全射であれば :math:`\H^1(N_{k + 2}) \cong \RR^k/\RR \cong \RR^{k - 1}`, :math:`\H^2(N_{k + 2}) = 0`.
+      * ゼロ写像であれば :math:`\H^1(N_{k + 2}) \cong \RR^k`,  :math:`\H^2(N_{k + 2}) = \RR`.
+
+.. _tsuboi08.2.8.5:
+
+* 注意 2.8.5:
+
+  * :ref:`問題 2.8.4 <tsuboi08.2.8.4>` の「または～」の側は種数 k の向き付け不能閉曲面に相当する。
+  * :math:`k = 2g` のときの :math:`\H^p(M) \cong \RR \text{ or } \RR^{2g} \text{ or } \RR` に対して、
+    種数 g の向き付け不能閉曲面。
+  * 向き付け可能のとき :math:`\H^1(M)` が偶数次元である必要があることは、
+    ポアンカレ双対原理による。
+
+2.9 直積のドラーム・コホモロジー（展開）
+======================================================================
+TBW
+
+2.10 チェック・ドラーム複体（展開）
+======================================================================
+TBW
+
+2.11 第 2 章の問題の解答
+======================================================================
 TBW
 
 ----
