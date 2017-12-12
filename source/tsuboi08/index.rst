@@ -7,7 +7,7 @@ TBW
 .. include:: /_include/book-details/tsuboi08.txt
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :glob:
 
    chapter*
