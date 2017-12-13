@@ -454,6 +454,8 @@
        &= 0.
        \end{align*}
 
+.. _tsuboi08.1.7.2:
+
 * 定理 1.7.2: `ポアンカレの補題 <http://mathworld.wolfram.com/PoincaresLemma.html>`__
 
   * 星型 :math:`U` 上の p 形式 :math:`\alpha` が :math:`\dd{\alpha} = 0` ならば

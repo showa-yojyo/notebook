@@ -238,12 +238,232 @@
 
 2.10 チェック・ドラーム複体（展開）
 ======================================================================
-TBW
+* コンパクト多様体の開被覆を工夫して、ドラーム・コホモロジー群が有限次元であることを示す。
+  以下、
+
+  * :math:`M` をコンパクト多様体、
+  * :math:`\set{U_i}_{i = 1 \dots N}` をその開被覆、
+  * :math:`U_{i_0 \dots i_k} = U_{i_0} \cap \dotsb \cap U_{i_k}\quad(1 \le i_0 < \dotsb < i_k \le N` とおく。
+    ここで各 :math:`U_{i_0 \dots i_k}` は :math:`\RR^n` と微分同相であるか、空集合であるとする。
+
+..
+
+.. math::
+
+   \begin{CD}
+   @. @. @.\\
+   @. @AA{\dd}A @AA{\dd}A @AA{\dd}A @AA{\dd}A\\
+   0 @>{r}>> \Omega^3(M) @>{\delta}>> \bigoplus_i \Omega^3(U_i) @>{\delta}>> \bigoplus_{i_0 < i_1} \Omega^3(U_{i_0 i_1}) @>{\delta}>> \bigoplus_{i_0 < i_1 < i_2} \Omega^3(U_{i_0 i_1 i_2}) @>{\delta}>>\\
+   @. @AA{\dd}A @AA{\dd}A @AA{\dd}A @AA{\dd}A\\
+   0 @>{r}>> \Omega^2(M) @>{\delta}>> \bigoplus_i \Omega^2(U_i) @>{\delta}>> \bigoplus_{i_0 < i_1} \Omega^2(U_{i_0 i_1}) @>{\delta}>> \bigoplus_{i_0 < i_1 < i_2} \Omega^2(U_{i_0 i_1 i_2}) @>{\delta}>>\\
+   @. @AA{\dd}A @AA{\dd}A @AA{\dd}A @AA{\dd}A\\
+   0 @>{r}>> \Omega^1(M) @>{\delta}>> \bigoplus_i \Omega^1(U_i) @>{\delta}>> \bigoplus_{i_0 < i_1} \Omega^1(U_{i_0 i_1}) @>{\delta}>> \bigoplus_{i_0 < i_1 < i_2} \Omega^1(U_{i_0 i_1 i_2}) @>{\delta}>>\\
+   @. @AA{\dd}A @AA{\dd}A @AA{\dd}A @AA{\dd}A\\
+   0 @>{r}>> \Omega^0(M) @>{\delta}>> \bigoplus_i \Omega^0(U_i) @>{\delta}>> \bigoplus_{i_0 < i_1} \Omega^0(U_{i_0 i_1}) @>{\delta}>> \bigoplus_{i_0 < i_1 < i_2} \Omega^0(U_{i_0 i_1 i_2}) @>{\delta}>>\\
+   @. @. @AA{\iota}A @AA{\iota}A @AA{\iota}A\\
+   @. @. \bigoplus_i \RR(U_i) @>{\delta}>> \bigoplus_{i_0 < i_1} \RR(U_{i_0 i_1}) @>{\delta}>> \bigoplus_{i_0 < i_1 < i_2} \RR(U_{i_0 i_1 i_2}) @>{\delta}>>\\
+   @. @. @AAA @AAA @AAA\\
+   @. @. 0 @. 0 @. 0
+   \end{CD}
+
+* \p. 77 の可換図式の見方。
+
+  * 縦向きの系列
+
+    * 当然 :math:`\dd` は外微分を意味する。
+    * 一番下の列 :math:`\displaystyle \bigoplus_{i_0 < \dotsb < i_k}\RR(U_{i_0 \dots i_k})` は
+      :math:`\set{U_{i_0 \dots i_k}}_{i_0 < \dotsb < i_k}` を基底とするベクトル空間として見る。
+    * 写像 :math:`\fn{\iota}{\RR(U_{i_0 \dots i_k})}\Omega^0(U_{i_0 \dots i_k})` は定数関数の埋め込みである。
+
+      * :math`\Omega^0` の行は各開集合上における関数全体であることに注意したい。
+        定数関数はその部分と捉えられる。
+
+    以上のような条件と :ref:`定理 1.7.2 <tsuboi08.1.7.2>` により、これは完全系列である。
+    ポアンカレの補題が要。
+
+  * 横向きの系列
+
+    * 写像 :math:`\fn{r_i}{\Omega^p(M)}\Omega^p{U_i}` を制限とすることで :math:`r = \bigoplus r_i.`
+    * 添字 :math:`i_0 < \dotsb < i_k` とこの中の :math:`i_s` について
+      写像 :math:`\Omega^p(U_{i_0 \dots i_{s-1} i_{s+1} \dots i_k}) \longto \Omega^p(U_{i_0 \dots i_k})` は制限
+      :math:`r_{i_0 \dots i_k}^{i_0 \dots i_{s-1} i_{s+1} \dots i_k}` の :math:`(-1)^s` 倍である。
+    * :math:`\displaystyle \delta = \bigoplus \sum (-1)^s r_{i_0 \dots i_k}^{i_0 \dots i_{s-1} i_{s+1} \dots i_k}`
+      と定義する。
+
+    もう一つ見るべきことがあり、それが次の補題だ。
+
+.. _tsuboi08.2.10.1:
+
+* 補題 2.10.1: :math:`0 \longto \Omega^p(M) \longto \cdots` の行は完全系列
+
+  * 関数 :math:`\displaystyle f^{(k)} \in \bigoplus_{i_0 < \dotsb < i_k} \Omega^p(U_{i_0 \dots i_k}) \cong \Omega^p\left(\bigsqcup_{i_0 < \dotsb < i_k} U_{i_0 \dots i_k} \right)`
+    の :math:`\Omega^p(U_{i_0 \dots i_k})` の成分を :math:`f^{(k)}|U_{i_0 \dots i_k}` または
+    :math:`f^{(k)}_{i_0 \dots i_k}` の使いやすい方で表すことにする。
+
+  * :math:`\delta` の定義により：
+
+    .. math::
+
+       (\delta f^{(k)})|U_{i_0 \dots i_k i_{k + 1}}
+       = \sum_{j = 0}^{k + 1} (-1)^j f^{(k)}_{i_0 \dots i_{j-1} i_{j+1} \dots i_k}|U_{i_0 \dots i_k i_{k + 1}}
+
+  * :math:`(\delta(\delta(f^{(k)}))|U_{i_0 \dots i_{k + 2}} = \cdots = 0.`
+    つまり :math:`\delta \circ \delta = 0.`
+
+  * :math:`\displaystyle f^{(k + 1)} \in \bigoplus_{i_0 < \dotsb < i_{k + 1}} \Omega^p(U_{i_0 \dots i_{k + 1}}) \cong \Omega^p\left(\bigsqcup_{i_0 < \dotsb < i_k} U_{i_0 \dots i_k} \right)`
+    に対して
+
+    .. math::
+
+       Sf^{(k + 1)} \in \bigoplus_{i_0 < \dotsb < i_k} \Omega^p(U_{i_0 \dots i_k}) \cong \Omega^p\left(\bigsqcup_{i_0 < \dotsb < i_k} U_{i_0 \dots i_k} \right)
+
+    を次の式で定義する：
+
+    .. math::
+
+       (Sf^{(k + 1)})|U_{i_0 \dots i_k} = \sum_m \lambda_m f^{(k + 1)}_{m i_0 \dots i_k}.
+
+    ここで :math:`\lambda_i` は :math:`U_i` に従属する 1 の分割とし、
+
+    .. math::
+
+       f^{(k + 1)}_{m i_0 \dots i_k} =
+       \begin{cases}
+       0 & \quad \text{if } m \in \set{i_0, \dotsc, i_k},\\
+       (-1)^j f^{(k + 1)}_{i_0 \dots i_{j - 1} m i_j \dots i_k} & \quad \text{otherwise}
+       \end{cases}
+
+    とし、:math:`\lambda_m f_{m i_0 \dots i_k} \in \Omega^p(U_{i_0 \dots i_k})` とみなす。
+
+  * :math:`\delta(Sf^{(k)}) + S(\delta f^{(k)}) = f^{(k)}` を示して、
+    :math:`\delta f^{(k)} = 0 \implies f^{(k)} = \delta(Sf^{(k)})` となり、
+    横向きの系列は完全系列であることがわかる。
+
+    * :math:`\im \delta` が次の :math:`\ker \delta` と一致すると言っている。
+
+..
+
+* \p. 77 の図の一番下の行をチェック複体という。
+  そのコホモロジー群を `チェック・コホモロジー群 <http://mathworld.wolfram.com/CechCohomology.html>`__ という。
+  記号 :math:`\check{H}^p(M, \set{U_i})` で表す。
+
+  .. math::
+
+     \begin{CD}
+     0 @>{\delta}>> \bigoplus_i \RR(U_i)
+       @>{\delta}>> \bigoplus_{i_0 < i_1} \RR(U_{i_0 i_1})
+       @>{\delta}>> \bigoplus_{i_0 < i_1 < i_2} \RR(U_{i_0 i_1 i_2})
+       @>{\delta}>> \cdots
+     \end{CD}
+
+.. _tsuboi08.2.10.2:
+
+* 定理 2.10.2: チェック・ドラームの定理 :math:`\H^p(M) \cong \check H^p(M, \set{U_i})`
+
+  証明が長いし、
+  `コサイクル <http://mathworld.wolfram.com/Cocycle.html>`__ だの
+  `コバウンダリー <http://mathworld.wolfram.com/Coboundary.html>`__ だの見慣れぬ用語があるのが気になる。
+
+  * Stage 1: 閉 p 形式に対して「チェック複体の p コサイクル」が対応する：
+
+    .. math::
+
+       \alpha \longmapsto \alpha^{(p, -1)}.
+       
+    これは閉形式 :math:`\alpha \in \Omega^p(M)` から出発して図式を下へ下へと辿っていく。
+    帰納法で最下段に到達すると :math:`\iota \delta \alpha^{(p, -1)} = \delta\delta\alpha^{(p-1, 0)}`
+    なる :math:`\alpha^{(p, -1)}` が存在することがわかる。
+    そして :math:`\iota` の単射性により :math:`\delta \alpha^{(p, -1)}.`
+    
+    以上をまとめると、:math:`\alpha \in \Omega^p(M)` に対して
+    :math:`\alpha^{(p, -1)} \in \bigoplus_{i_0 < \dotsb i_p} \RR(U_{i_0 \dots i_p})` が何か存在するということだ。
+
+  * Stage 2: この対応がコホモロジー群の準同型を導き、well-defined である。
+    これにより準同型 :math:`\H^p(M) \longto \check H^p(M, \set{U_i})` が定まる。
+    
+    今度は完全形式 :math:`\alpha \in \Omega^p(M)` から出発して最下段へ向かう。
+    :math:`\iota\delta\beta^{(p-1, -1)} = \iota\alpha^{(p, -1)}` なる :math:`\beta^{(p-1, -1)}` が存在し、
+    やはり :math:`\iota` の単射性により :math:`\alpha^{(p, -1)} = \delta \beta^{(p - 1, -1)}.`
+    
+    前の結果とまとめて、準同型 :math:`\H^p(M) \longto \check H^p(M, \set{U_i})` が得られたことになる。
+
+  * Stage 3: 縦と横の役割を入れ替えて議論すると、
+    準同型 :math:`\check H^p(M, \set{U_i}) \longto \H^p(M)` も導かれると言える。
+    両者は互いに逆写像である。それゆえ表題の同型が結論できる。
+
+.. _tsuboi08.2.10.3:
+
+* 例 2.10.3: :math:`S^2` に内接する正四面体 :math:`v_1 v_2 v_3 v_4` の面上投影
+
+  * 球面三角形 :math:`v_2 v_3 v_4` の補集合（開集合とする）を :math:`U_1` とする。
+    その他の球面三角形についても同様にして開集合を対応させておく。
+
+  * だいたいの :math:`U_{12}, U_{13}`, etc. は開球 :math:`B^2` と微分同相であるが、
+    :math:`U_{1234}` のみ空集合となる。
+
+  以上より、チェック・ドラームの定理が適用できることがわかる。
+
+  * :math:`\Omega^*(S^2)` については :ref:`命題 2.7.3 <tsuboi08.2.7.3>` で見たように次が成り立つ：
+
+    .. math::
+
+       \H^p(S^2) \cong
+       \begin{cases}
+       \RR & \quad\text{if } p = 0, 2\\
+       0   & \quad\text{otherwise}
+       \end{cases}
+
+  * チェック複体は :math:`0 \longto \RR^4 \longto \RR^6 \longto \RR^4 \longto 0` となる。
+  
+    * 4 や 6 は組み合わせから来ているわけだが、なおのこと両端のゼロに注意。
+
+  * 関数 :math:`\chi_{i_0 \dots i_p}` を :math:`U_{i_0 \dots i_p}` 上で 1 をとるものとする。
+
+    * さらに次の二つを計算する：
+
+      .. math::
+
+         \begin{align*}
+         &\delta\left(\sum_{i = 1}^4 a_i\chi_i\right)
+         = \sum_{i_0 < i_1} (a_{i_0} - a_{i_1})\chi_{i_0 i_1}\\
+         &\delta\left(\sum_{i_0 < i_1} b_{i_0 i_1}\right)
+         = \sum_{i_0 < i_1 < i_2}(b_{i_1 i_2} - b_{i_0 i_2} + b_{i_0 i_1})\chi_{i_0 i_1 i_2}
+         \end{align*}
+
+      本書では（紙幅の都合で？）行列の形にしてある。
+      基底 :math:`\chi_1, \dotsc, \chi_4, \chi_{12}, \dotsc, \chi_{34}, \chi_{123}, \dotsc, \chi_{234}`
+      に対して：
+
+      .. math::
+
+         \begin{pmatrix}
+         -1 & 1 & 0 & 0\\
+         -1 & 0 & 1 & 0\\
+         -1 & 0 & 0 & 1\\
+         0 & -1 & 1 & 0\\
+         0 & -1 & 0 & 1\\
+         0 & 0 & -1 & 0
+         \end{pmatrix},
+         \begin{pmatrix}
+         1 & -1 & 0 & 1 & 0 & 0\\
+         1 & 0 & -1 & 0 & 1 & 0\\
+         0 & 1 & -1 & 0 & 0 & 1\\
+         0 & 0 & 0 & 1 & -1 & 1
+         \end{pmatrix}.
+
+  * :math:`\ker`, :math:`\im` をそれぞれ計算して次が得られる：
+
+    .. math::
+
+       \check H^p(S^2, \set{U_i}) \cong
+       \begin{cases}
+       \RR & \quad\text{if } p = 0, 2\\
+       0   & \quad\text{otherwise}
+       \end{cases}
 
 2.11 第 2 章の問題の解答
 ======================================================================
-TBW
-
+すでに書き込んだ。
 
 ----
 
