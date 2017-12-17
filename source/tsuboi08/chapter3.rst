@@ -144,6 +144,278 @@
 
 3.2 単体からの写像に沿う積分
 ======================================================================
-TBW
+まずは直方体。p 形式を p 次元直方体上で積分する。
 
+* :math:`\fn{\kappa}{[a_1, b_1] \times \dotsb \times [a_p, b_p]}M`
+* :math:`\alpha \in \Omega^p(M)`
 
+このとき :math:`\kappa^*\alpha \in \Omega^p([a_1, b_1] \times \dotsb \times [a_p, b_p]).`
+:math:`\kappa^*\alpha = f(t_1, \dotsc, t_p)\,\dd t_1 \wedge \dotsb \wedge \dd t_p` となる
+関数 :math:`f` が存在するので、直方体上の p 形式の積分を次で定義する：
+
+.. math::
+
+   \int_\kappa\!\alpha = \int_\id\!\kappa^*\alpha
+   = \int_{a_1}^{b_1}\dotsi\int_{a_p}^{b_p}\!f(t_1, \dotsc, t_p)\,\dd t_1 \dots \dd t_p.
+
+次に単体に沿う積分を定義する。
+
+* p 次元標準 `単体 <http://mathworld.wolfram.com/Simplex.html>`__ を定義する：
+
+  .. math::
+
+     \Delta^p = \set{(x_1, \dotsc, x_p) \in \RR^p \sth 1 \ge x_1 \ge \dotsb \ge x_p \ge 0}.
+
+* 単体からの写像に沿う積分を次で定義する：
+
+  .. math::
+
+     \int_{\Delta^p}\!f(x_1, \dotsc, x_p)\,\dd t_1 \wedge \dotsb \wedge \dd t_p
+     = \int_{x_1 = 0}^1\dotsi \int_{x_i = 0}^{x_{i - 1}}\dotsi \int_{x_p = 0}^{x_{p - 1}}\!
+     f(x_1, \dotsc, x_p)\,\dd x_p \dots \dd x_i \dots \dd x_1.
+
+* :math:`C^\infty` 級写像 :math:`\fn{\sigma}{\Delta^p}M` に沿う積分を次で定義する：
+
+  .. math::
+
+     \int_\sigma\!\alpha = \int_{\Delta^p}\!\sigma^*\alpha.
+
+  * 写像 :math:`\sigma` を :math:`C^\infty` 級特異 p 単体
+    or p 次元 :math:`C^\infty` 級特異単体という。
+
+  * 特異 p 単体有限個の形式的な線形結合を :math:`C^\infty` 級特異 p チェイン
+    or p 次元 :math:`C^\infty` 級特異チェインという。
+
+    .. math::
+
+       \sum_{i = 1}^j a_i \sigma_i, \quad a_i \in \RR.
+
+* :math:`C^\infty` 級特異 p チェイン上の積分を次で定義する：
+
+  .. math::
+
+     \int_{\sum a_i \sigma_i}\!\alpha = \sum a_i \int_{\sigma_i}\!\alpha = \sum a_i\int_{\Delta^p}\!\sigma_i^*\alpha.
+
+以下、:ref:`例題 1.6.9 <tsuboi08.1.6.9>` で見たストークスの定理の単体バージョンを考えたい。
+
+* 写像 :math:`\fn{\eps_k}{\Delta^{p - 1}}\Delta^p` を次で定義する：
+
+  .. math::
+
+     \eps_k\colon (x_1, \dotsc, x_{p - 1}) \longmapsto
+     \begin{cases}
+     (1, x_1, \dotsc, x_{p - 1}) & \quad \text{if } k = 0\\
+     (x_1, \dotsc, x_k, x_k, \dotsc, x_{p - 1}) & \quad \text{if } 0 < k < p\\
+     (x_1, \dotsc, x_{p - 1}, 0) & \quad \text{if } k = p
+     \end{cases}
+
+* 境界 :math:`\partial \sigma` を次で定義する：
+
+  .. math::
+
+     \partial \sigma = \sum_{k = 0}^p (-1)^k \sigma \circ \eps_k.
+
+.. _tsuboi08.3.2.1:
+
+* 定理 3.2.1: ストークスの定理単体バージョン
+
+  :math:`\sigma` を特異 p 単体、
+  :math:`\alpha \in \Omega^{p - 1}(M)` とすると：
+
+  .. math::
+
+     \int_\sigma\!\dd\alpha = \int_{\partial \sigma}\!\alpha.
+
+  証明の方針は、まず :math:`\sigma^*\alpha` を次のように表したときに：
+
+  .. math::
+
+     \begin{align*}
+     \sigma^*\alpha &= \sum_{k = 1}^{p - 1}\alpha_k
+     = \sum_{k = 1}^{p - 1}(-1)^k f_k \dd x_1 \wedge \dotsb
+       \wedge \dd x_{k - 1} \wedge \dd x_{k + 1} \dotsb
+       \wedge \dd x_p,
+     \\
+     \sigma^* \dd\alpha &= \dd \sigma^*\alpha =
+     \sum_{k = 1}^p \frac{\partial f_k}{\partial x_k}\dd x_1 \wedge \dd x_p
+     \end{align*}
+
+  和の各項における、次の等式を示されれば、主張も示されることになる：
+
+  .. math::
+
+     \int_{\Delta^p}\!\frac{\partial f_k}{\partial x_k}\dd x_1 \wedge \dotsb \wedge \dd x_p
+     = \int_{\sum_{i = 0}^p(-1)^i\eps_i}\!\alpha_k.
+
+  以下、:math:`k = p` のときとそれ以外とで場合分けして示す。
+
+  * :math:`k = p` のとき：
+
+    .. math::
+
+       \begin{align*}
+       \int_{\Delta^p}\!\frac{\partial f_p}{\partial x_p}\,\dd x_1 \wedge \dotsb \wedge \dd x_p
+       &= \int_{x_1 = 0}^1\dotsi\int_{x_p = 0}^{x_{p - 1}}\!\frac{\partial f_p}{\partial x_p}\,\dd x_p \dots \dd x_1\\
+       &= \int_{x_1 = 0}^1\dotsi\int_{x_{p - 1} = 0}^{x_{p - 2}}\!f_p(x_1, \dotsc, x_{p - 1}, x_{p - 1}) - f_p(x_1, \dotsc, x_{p - 1}, 0)\,\dd x_{p - 1} \dots \dd x_1\\
+       &= \int_{\eps_{p - 1} - \eps_p}\!(-1)^{p - 1}\alpha_p\\
+       &= \int_{(-1)^{p - 1}\eps_{p - 1} + (-1)^p\eps_p}\!\alpha_p\\
+       &= \int_{\sum_{i = 0}^p (-1)^i\eps_i}\!\alpha_p.
+       \end{align*}
+
+    * 最初の等号は単体に沿う積分の定義そのもの。
+    * 二番目の等号は中央の定積分を展開しただけ。
+    * 三番目の等号。ここがわからない。かなりギャップがあるような。
+    * 四番目の等号は :math:`i \ne p - 1, p` ならば
+      :math:`\displaystyle \int_{\eps_i}\!(-1)^p\alpha_p = 0` から導かれる。
+    * 最後の等号は和をシグマ記号にまとめただけ。
+
+    となって OK となる。
+
+  * :math:`k < p` のとき：細かい技巧があるようだ。
+
+    * :math:`\displaystyle F(x_1, \dotsc, x_k) = \int_{x_{k + 2} = 0}^{x_{k + 1}}\dotsi\int_{x_p = 0}^{x_{p - 1}}\!\frac{\partial f_k}{\partial x_k}\,\dd x_p \dots \dd x_{k + 2}`
+      とおく。
+    * ふつうのニ変数の積分の順序交換により、次のように書き換えられる：
+
+      .. math::
+
+         \int_{x_k = 0}^{x_{k - 1}}\int_{x_{k + 1} = 0}^{x_k}\!F(\cdot)\,\dd x_{k + 1}\dd x_k
+         = \int_{x_{k + 1} = 0}^{x_{k - 1}}\int_{x_k = x_{k + 1}}^{x_{k - 1}}\!F(\cdot)\,\dd x_k\dd x_{k + 1}.
+
+      この右辺の内側の定積分を展開すると次のようになる：
+
+      .. math::
+
+         \int_{x_{k + 2} = 0}^{x_{k + 1}}\dotsi\int_{x_p = 0}^{x_{p - 1}}\!
+         f_k(x_1, \dotsc, x_{k - 1}, x_{k - 1}, x_{k + 1}, \dotsc, x_p) -
+         f_k(x_1, \dotsc, x_{k - 1}, x_{k + 1}, x_{k + 1}, \dotsc, x_p)\,
+         \dd x_p \dots \dd x_{k + 2}.
+
+    以上を利用して：
+
+    .. math::
+
+       \begin{align*}
+       \int_{\Delta^p}\!\frac{\partial f_k}{\partial x_k}\,\dd x_1 \wedge \dotsb \wedge \dd x_p
+       &= \int_{x_1 = 0}^1\dotsi\int_{x_{k - 1} = 0}^{x_{k - 2}}\int_{x_{k + 1} = 0}^{x_{k - 1}}\int_{x_{k + 2} = 0}^{x_{k + 1}}\dotsi\int_0^{x_{p - 1}}
+          \!f_k(\cdot) - f_k(\cdot)\,
+          \dd x_p \dots \dd x_{k + 2} \dd x_{k + 1} \dd x_{k - 1} \dots \dd x_1\\
+       &= \int_{\eps_{k - 1} - \eps_k}\!(-1)^{k - 1}\alpha_k\\
+       &= \int_{(-1)^{k - 1}\eps_{k - 1} + (-1)^k\eps_k}\!\alpha_k\\
+       &= \int_{\sum_{i = 0}^k (-1)^i\eps_i}\!\alpha_k.
+       \end{align*}
+
+    * 最初の等号：単体に沿う積分の定義に上記を加味した変形による。
+    * 二番目の等号：:math:`k + 1` 以降を :math:`k` に置き換えることで得られるらしい。
+    * 三番目の等号：:math:`j \ne k - 1, k` ならば
+      :math:`\displaystyle \int_{\eps_i}\!(-1)^k\alpha_k = 0` から導かれる。
+    * 以降の等号成立の理由については先ほどの場合を参照。
+
+    となって OK となる。
+
+  以上でストークスの定理単体バージョンが示された。
+
+..
+
+* 上記定理の検討？
+
+  特異 p チェインの次の集合を定義する：
+
+  .. math::
+
+     S_p^\infty(M) = \Set{\sum_i^{\text{finite}}a_i \sigma_i
+       \Sth a_i \in \RR,\ \sigma_i \in C^\infty(\Delta^p, M)}
+
+  このとき、次の双線型写像が考えられる（ストークスの定理が成り立つ）：
+
+  .. math::
+
+     S_p^\infty(M) \times \Omega^p(M) \longto \RR,
+     \quad
+     (c, \alpha) \longmapsto
+     \int_c\!\alpha = \sum a_i \int_{\sigma_i}\!\alpha
+
+  * 境界準同型 :math:`\partial` が特異 p チェイン全体 :math:`S_*^\infty(M)` に
+    対して定義されていて :math:`\partial \circ \partial = 0.`
+    そこで次の系列は複体となり、これを :math:`C^\infty` 級特異単体複体という：
+
+    .. math::
+
+       \require{AMScd}
+       \begin{CD}
+       0 @<{\partial}<< S_0^\infty(M) @<{\partial}<< S_1^\infty(M) @<{\partial}<< \cdots
+       \end{CD}
+
+  * :math:`Z_p^\infty(M) = \ker(\fn{\partial}{S_p^\infty}S_{p - 1}^\infty)` の元を
+    p 次元 :math:`C^\infty` 級特異サイクルという。
+
+  * :math:`B_p^\infty(M) = \ker(\fn{\partial}{S_{p + 1}^\infty}S_p^\infty)` の元を
+    p 次元 :math:`C^\infty` 級特異バウンダリーという。
+
+  * :math:`H_p^\infty(M) = Z_p^\infty(M) / B_p^\infty(M)` を
+    p 次元 :math:`C^\infty` 級特異ホモロジー群という。
+
+* 閉 p 形式 :math:`\alpha` と完全 p 形式 :math:`\beta` とが :math:`\alpha = \dd \beta` を満たすならば、
+  積分 :math:`\displaystyle \int_c\!\alpha = \int_c\!\dd \beta = \int_{\partial c}\!\beta` は
+  :math:`\partial c = 0` なる :math:`c` に対しては常にゼロである。
+
+* 閉 p 形式 :math:`\alpha` と :math:`c \in S_p^\infty(M)` について
+  :math:`\int_c\!\alpha = 0 \implies \alpha = \dd \beta.`
+
+  * :math:`c \in S_p^\infty(M) \iff \partial c = 0.`
+
+* :math:`c` がバウンダリーであって :math:`c = \partial b` であるとするならば、
+  閉形式 :math:`\alpha` について :math:`\displaystyle \int_c\!\alpha = \int_{\partial b}\!\alpha = \int_b\!\dd \alpha = 0.`
+
+* :math:`H_p^\infty(M)` の基底の代表各サイクル :math:`c_i` に対して
+  :math:`\displaystyle \int_{c_i}\!\alpha = 0 \implies \alpha = \dd \beta`
+
+* :math:`k = \dim H_p^\infty(M) = \dim \H^p(M)` とし、
+  基底 :math:`[c_1], \dotsc, [c_k]` と閉形式 :math:`\alpha` が
+  :math:`\displaystyle \int_{c_i}\!\alpha = 0` を満たすならば :math:`\alpha = \dd \beta.`
+
+  * cf. :ref:`例題 3.3.1 <tsuboi08.3.1.1>`
+
+.. _tsuboi08.3.2.2:
+
+* 注意 3.2.2: :math:`C^\infty` 級特異単体複体のチェインを定義する係数を
+  整数にするとどうなるかを説明している。
+
+.. _tsuboi08.3.2.3:
+
+* 問題 3.2.3: ホモトピックサイクルについては積分が一致する
+
+  * 特異 p サイクル :math:`c_0, c_1` がホモトピックサイクルであるとは、
+    :math:`\displaystyle c_t = \sum_i a_i \sigma_i^{(t)}\quad(t \in [0, 1])` が
+    写像 :math:`(t, x) \longmapsto \sigma_i^{(t)}(x)` が滑らかであるように与えられていることをいう。
+
+  * 閉 :math:`\alpha \in \Omega^p(M)` に対して :math:`\displaystyle \int_{c_0}\!\alpha = \int_{c_1}\!\alpha.`
+
+  * :math:`\fn{F_i}{[0, 1]\times \Delta^p}{M}{(x, t)}\sigma_i^{(t)}(x)` と写像を定義する。
+
+    .. math::
+
+       \partial F_i = \sigma_0^{(1)} - \sigma_0^{(0)} - \sum_{k = 0}^p (-1)^k F_i \circ (\id, \eps_k).
+
+  * :math:`c_i` の性質によって：
+
+    .. math::
+
+       \begin{align*}
+       &\partial c_t = \sum_i a_i \sum_{k = 0}^p \sigma_i^{(t)}\circ \eps_k = 0,\\
+       &\text{i.e. } \sum_i a_i \sum_{k = 0}^p (-1)^k F_i \circ (\id, \eps_k) = 0.\\
+       &\therefore
+       \partial \sum_i a_i F_i = \sum_i a_i \sigma_i^{(1)} - \sum_i a_i \sigma_i^{(0)} = c_1 - c_0.
+       \end{align*}
+
+  * :ref:`定理 3.2.1 <tsuboi08.3.2.1>` および :ref:`例題 1.6.9 <tsuboi08.1.6.9>` のどちらかを利用できる。
+    ストークスの定理を :math:`[0, 1] \times \Delta^p` からの写像に沿って考えるか、
+    :math:`[0, 1] \times \Delta^p` を単体に分割して考えることで次を得る：
+
+    .. math::
+
+       \begin{align*}
+       0 = \int_F\!\dd\alpha
+       &= \int_{\partial F}\!\alpha\\
+       &= \int_{c_1}\!\alpha - \int_{c_0}\!\alpha.
+       \end{align*}
