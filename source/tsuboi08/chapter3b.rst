@@ -249,3 +249,237 @@
 
 * 三角形分割のとり方に依らないので :math:`\Omega^*` と :math:`C^*` が等しい？
 * オイラー標数は多様体に対して定まる量になっている。
+
+3.4 向きを持つ多様体上の積分
+======================================================================
+* 直方体あるいは単体からの写像には自然に向きが定まっている。
+* コンパクト n 次元多様体は n 次元単体からの :math:`C^1` 級の写像の像でうまく覆うことができる。
+* 多様体に向きが定まっているときは、積分をすることができる。
+
+.. _tsuboi08.3.4.1:
+
+* 定義 3.4.1: `向き付けを持つ or 向き付け可能である多様体 <http://mathworld.wolfram.com/OrientableManifold.html>`__
+
+  * 幾何学 I の :ref:`3.6 節 <tsuboi05.3.6>` を参照。
+
+.. _tsuboi08.3.4.2:
+
+* 定義 3.4.2: 向き付けられている多様体
+
+  * ユークリッド空間には、その座標の順による向きが定まっている。
+    例えば直方体の積分の定義にそれが表れている。
+
+  * 向き付けを持つことと、向き付けられていることは別の概念であるらしい。
+    上記のリンク先も参照。
+
+.. _tsuboi08.3.4.3:
+
+* 定義 3.4.3: 微分形式の台
+
+  * 関数の台と定義は似ているが、:math:`\alpha(x)` という式が気になる。
+
+..
+
+:math:`\alpha \in \Omega^n(M)` ということは :math:`\alpha = f(\bm x)\,\dd x_1 \wedge \dotsb \wedge \dd x_n`
+となる多様体上の関数 :math:`f` が局所的に存在するということだ。
+この局所座標近傍を :math:`(U, \varphi)` とし、コンパクト集合 :math:`K \subset U` をとる。
+このときコンパクト集合 :math:`\varphi(K)` を有限個の disjoint な直方体で被覆できる。
+この直方体の逆像を :math:`\kappa` とすると、次の式で積分をうまく定義できる：
+
+.. math::
+
+   \int_\kappa\!\alpha = \int_{\text{box}}\!f(\bm x)\,\dd x_1 \dots \dd x_n.
+
+これを :math:`\alpha` の :math:`\varphi\inv` に沿う積分と呼ぶ。
+
+.. _tsuboi08.3.4.4:
+
+* 定義 3.4.4: :math:`U` のコンパクト部分 :math:`K` に台を持つ :math:`\alpha` の :math:`\varphi\inv` に沿う積分
+
+  .. math::
+
+     \int_{\varphi\inv}\!\alpha = \int_{\varphi(U)}\!f(\bm x)\,\dd x_1 \dots \dd x_n.
+
+以下、多様体は向き付けられているものとする。
+
+.. _tsuboi08.3.4.5:
+
+* 命題 3.4.5: 座標近傍の取り方に依らない
+
+  座標近傍 :math:`U, V` の共通部分のコンパクト部分集合 :math:`K` に台を持つ
+  :math:`\alpha` の積分の値は等しい：
+
+  .. math::
+
+     \int_{\varphi\inv}\!\alpha = \int_{\psi\inv}\!\alpha.
+
+  * :math:`(V, \psi)` から見て :math:`\alpha = g(\bm y)\,\dd y_1 \wedge \dotsb \wedge \dd y_n` と表す。
+  * 座標変換 :math:`\varphi \circ \psi\inv` を考える：
+    :math:`(\varphi \circ \psi\inv)(\bm y) = (x_1(\bm y), \dotsc, x_n(\bm y))`
+
+    .. math::
+
+       \begin{align*}
+       g(\bm y)\,\dd y_1 \wedge \dotsb \wedge \dd y_n
+       &= f(x_1(\bm y), \dotsc, x_n(\bm y))\,\dd x_1 \wedge \dotsb \wedge \dd x_n\\
+       &= f(x_1(\bm y), \dotsc, x_n(\bm y)) \det\frac{\partial(x_1, \dotsc, x_n)}{\partial(y_1, \dotsc, y_n)}\,\dd y_1 \wedge \dotsb \wedge \dd y_n.
+       \end{align*}
+
+    ここまではよく見かける論証。
+
+  * 積分は次のようになる：
+
+    .. math::
+
+       \begin{align*}
+       \int_{\varphi\inv|\varphi(U \cap V)}\!\alpha
+       &= \int_{\varphi(U \cap V)}\!f(\bm x)\,\dd x_1 \dots \dd x_n\\
+       &= \int_{\psi(U \cap V)}\! f(x_1(\bm y), \dotsc, x_n(\bm y)) \Abs{\det{\frac{\partial(x_1, \dotsc, x_n)}{\partial(y_1, \dotsc, y_n)}}}\,\dd y_1 \dots \dd y_n\\
+       &= \int_{\psi(U \cap V)}\! g(\bm y)\,\dd y_1 \dots \dd y_n\\
+       &= \int_{\psi\inv|\psi(U \cap V)}\!\alpha.
+       \end{align*}
+
+    * 最初と最後の等号は :ref:`定義 3.4.4 <tsuboi08.3.4.4>` による。
+    * 二番目の等号は重積分の変数変換か？
+    * 三番目の等号は多様体が向き付けられていることにより、
+      絶対値を取らなくても行列式の符号が正であることによる。
+
+.. _tsuboi08.3.4.6:
+
+* 命題 3.4.6: 向き付けられた二つの座標近傍系にそれぞれに従属する 1 の分割についての等式
+
+  .. math::
+
+     \sum_i \int_{\varphi\inv}\!\lambda_i\alpha =
+     \sum_j \int_{\psi\inv}\!\mu_j\alpha.
+
+  証明は、開被覆 :math:`\set{U_i \cap V_j}` およびそれに従属する
+  1 の分割 :math:`\set{\lambda_i \mu_j}` を考えて
+  :ref:`命題 3.4.5 <tsuboi08.3.4.5>` を用いる。
+
+.. _tsuboi08.3.4.7:
+
+* 定義 3.4.7: コンパクトで向き付けられた多様体上の微分形式の積分
+
+  .. math::
+
+     \int_M\!\alpha = \sum_i \int_{\varphi\inv}\!\lambda_i \alpha.
+
+  * :math:`\set{(U_i, \varphi_i)}` に従属する 1 の分割を用いている。
+  * この定義が well-defined であることは、
+    :ref:`命題 3.4.6 <tsuboi08.3.4.6>` による。
+
+.. _tsuboi08.3.4.8:
+
+* 定理 3.4.8: ドラーム・コホモロジー群の性質
+
+  * コンパクト・向き付けを持つ・連結 n 次元多様体 :math:`M` について :math:`\H^n(M) \cong \RR.`
+  * 写像 :math:`\displaystyle \Omega^n(M) \owns \alpha \longmapsto \int_M\!\alpha \in \RR` は
+    同型写像 :math:`\H^n(M) \longto \RR` を誘導する。
+
+  これがまともな準同型であることをまず示す。
+
+  * :math:`\alpha` が向き付けを持つ :math:`(U, (x_1, \dotsc, x_n))` 上に台を持ち、
+    非負関数を用いて :math:`\alpha = f\,\dd x_1 \wedge \dotsb \wedge \dd x_n` の形に書けるとする。
+
+  * このときに :math:`\displaystyle \int_M\!\alpha > 0` となるから、ゼロ準同型ではない。
+
+  あとは :math:`\H^n(M) \le 1` を示す。
+
+  * 多様体の三角形分割を適用することで、
+    :ref:`2.10 節 <tsuboi08.2.10>` の議論におけるコホモロジー群の同型と
+    3.3.4 節の複体の同型により次が成り立つ：
+
+    .. math::
+
+       \dim \H^n(M) = \dim H^n(K).
+
+  * また :ref:`命題 3.3.4 <tsuboi08.3.3.4>` により :math:`\dim H^n(K) = \dim H_n(K)` である。
+  * ここがわからない。n サイクル :math:`\sum a_i \sigma_i` の図を用いた議論によって、
+    この次元が高々 1 であることが観察できる。
+
+.. _tsuboi08.3.4.9:
+
+* 例題 3.4.9: モース関数を利用した :ref:`定理 3.4.8 <tsuboi08.3.4.8>` の証明
+
+  :ref:`2.8 節 <tsuboi08.2.8>` で多用した技法を採用する。
+
+  * :math:`\varnothing = N_0 \subset N_1 \subset \dotsb \subset N_k = M`
+  * :math:`j < k` のとき :math:`N_{j - 1}\cap B_j` は空集合であるか、
+    :math:`B^{n - m_j} \times S^{m_j}` と微分同相であり、
+  * :math:`N_{k - 1} \cap B_k` は :math:`B^1 \times S^{n - 1}` と微分同相である。
+
+  * :ref:`定理 2.8.1 <tsuboi08.2.8.1>` のマイヤー・ビエトリス完全系列を見ると、
+    :math:`j < k` のとき :math:`\dim\H^n(N_j) = 0.`
+
+  * よって :math:`\dim\H^n(M) \le 1.`
+
+至るところゼロでない微分形式が存在するならば、多様体は向き付け可能である。
+
+.. _tsuboi08.3.4.10:
+
+* 命題 3.4.10: :math:`M` が境界なし・向き付け不可能・コンパクト・連結ならば
+  :math:`\H^n(M) \cong H_n(K) \cong 0`
+
+  :math:`M` は向き付け不可能であるが、
+  :ref:`幾何学 I 3.6 節 <tsuboi05.3.6>` にあるように次のような多様体
+  :math:`\widehat M` と写像 :math:`\varphi` がとれる：
+
+  * :math:`\widehat M` は向き付け可能・連結であり、
+  * 写像 :math:`\fn{\varphi}{\widehat M}\widehat M` は向きを反対にし、不動点がない。
+
+    * :math:`\varphi \circ \varphi = \id_{\widehat M},`
+    * :math:`\widehat M/\varphi \cong M.`
+
+  ここで :math:`\alpha \in \Omega^n(M)` をとり、
+  射影を :math:`\fn{\pi}{\widehat M}M` とおく。
+
+  * :math:`\pi = \pi \circ \varphi` ゆえ :math:`\varphi^*\pi^*\alpha = \pi^*\alpha.`
+    したがって：
+
+    .. math::
+
+       \int_{\widehat M}\!\varphi^*\pi^*\alpha
+       = \int_{\widehat M}\!\pi^*\alpha.
+
+  * 写像 :math:`\varphi` の反転性により：
+
+    .. math::
+
+       \int_{\widehat M}\!\varphi^*\pi^*\alpha
+       = -\int_{\widehat M}\!\pi^*\alpha.
+
+  * この二つの等式より：
+
+    .. math::
+
+       \int_{\widehat M}\!\pi^*\alpha = 0.
+
+  * ここで :ref:`定理 3.4.8 <tsuboi08.3.4.8>` により、
+    :math:`\pi^*\alpha = \dd \beta \in \Omega^n(M)`
+    （外微分をオメガの元と見るのが新鮮）
+
+  * :math:`\displaystyle \beta_1 = \frac{1}{2}(\beta + \varphi^*\beta) \in \Omega^{n - 1}(\widehat M)` に対して、
+    :math:`\varphi^*\beta_1 = \beta_1` より :math:`\beta_1 = \pi^*\beta_2 \in \Omega^{n - 1}(\widehat M).`
+
+  .. math::
+
+     \begin{align*}
+     \pi^*(\dd \beta_2) &= \dd(\pi^*\beta_2) = \dd \beta_1\\
+     &= \frac{1}{2}\dd(\beta + \varphi^*\beta)\\
+     &= \frac{1}{2}(\dd \beta + \varphi^* \dd \beta)\\
+     &= \frac{1}{2}(\pi^*\alpha + \varphi^*\pi^*\alpha)\\
+     &= \pi^*\alpha.
+     \end{align*}
+
+  :math:`\pi` が単射だからか :math:`\dd \beta_2 = \alpha` となる。
+
+.. _tsuboi08.3.4.11:
+
+* 命題 3.4.11: まとめ
+
+  * :math:`\H^n(M)` は :math:`\RR` と同型またはゼロである。
+  * :math:`M` が向き付け可能であることと、:math:`\H^n(M) \cong \RR` とが同値である。
+
+  これは :ref:`定理 3.4.8 <tsuboi08.3.4.8>` および
+  :ref:`命題 3.4.10 <tsuboi08.3.4.10>` をまとめたものだ。
