@@ -99,11 +99,15 @@
   * このことは :math:`\dd{(\varphi^*f)} = \varphi^*\dd f` や
     :math:`f_k \circ \psi\inv = f_k \circ \varphi\inv \circ \varphi \circ \psi\inv` を使って示せる。
 
+.. _tsuboi08.2.2.1:
+
 * 定義 2.2.1: `余接空間 <https://en.wikipedia.org/wiki/Cotangent_space>`__
 
   .. math::
 
      T_x^*M = C^\infty(M)/\sim.
+
+.. _tsuboi08.2.2.2:
 
 * 例題 2.2.2: 余接空間は :math:`C^\infty(M)` の実ベクトル空間から定まるベクトル空間である。
 
@@ -148,6 +152,8 @@
      (\dd x_j)_{\varphi(x)}.
      \end{align*}
 
+.. _tsuboi08.2.2.3:
+
 * 定義 2.2.3: 多様体上の 1 形式
 
   * :math:`x \in M`
@@ -155,6 +161,8 @@
 
   このとき各座標近傍上での一次結合への対応
   :math:`x \longmapsto \displaystyle \sum_{i = 1}^n f_i\,\dd x_i \in T_x^*M` を表題のように呼ぶ。
+
+.. _tsuboi08.2.2.4:
 
 * 定義 2.2.4: 多様体上の全微分
 
@@ -269,12 +277,16 @@
 
 2.3 p 次外積の空間
 ======================================================================
+.. _tsuboi08.2.3.1:
+
 * 定義 2.3.1: p 次外積の空間 :math:`\extp^p T_x^*M`
 
   余接空間 :math:`T_x^*M` の p 次外積空間とは、
   :math:`1 \le i_1 \le \dotsb \le i_p \le n` なる自然数の添字に対応する
   記号 :math:`\dd x_{i_1} \wedge \dotsb \wedge \dd x_{i_p}` を基底とする
   ベクトル空間のことをいう。
+
+.. _tsuboi08.2.3.2:
 
 * 例 2.3.2: 4 次元空間の 2 次外積空間は 6 次元ベクトル空間である。
 
@@ -299,7 +311,11 @@
 
   * cf. :ref:`定義 1.6.8 <tsuboi08.1.6.8>`
 
+.. _tsuboi08.2.3.3:
+
 * 注意 2.3.3: 外積空間の座標変換は外積と両立するように定義されている。
+
+.. _tsuboi08.2.3.4:
 
 * 定義 2.3.4: 多様体上の微分形式 (2)
 
@@ -364,6 +380,8 @@
 
   * cf. :ref:`例題 1.8.9 <tsuboi08.1.8.9>`
 
+.. _tsuboi08.2.3.8:
+
 * 例 2.3.8: 制限と射影
 
   * :math:`\RR^n` 内の開集合 :math:`U` と多様体 :math:`M^m` について
@@ -381,6 +399,8 @@
     :math:`\alpha` を :math:`\RR^n` 上で表示する p 形式である。
 
     * 「:math:`\ZZ^n` 周期的」という修飾があるが……。
+
+.. _tsuboi08.2.3.9:
 
 * 定義 2.3.9 外積
 
@@ -401,9 +421,13 @@
 
   * :ref:`定義 2.1.7 <tsuboi08.2.1.7>` と :ref:`例題 1.8.8 <tsuboi08.1.8.8>` を参照。
 
+.. _tsuboi08.2.3.10:
+
 * 命題 2.3.10: 次数付き可換性
 
   * ユークリッド空間バージョンの :ref:`例題 1.6.4 <tsuboi08.1.6.4>` を参照。
+
+.. _tsuboi08.2.3.11:
 
 * 命題 2.3.11: 引き戻しの分配律
 
@@ -411,10 +435,14 @@
 
 2.4 外微分とドラーム・コホモロジー
 ======================================================================
+.. _tsuboi08.2.4.1:
+
 * 定義 2.4.1: 外微分
 
   * cf. :ref:`定義 1.6.5 <tsuboi08.1.6.5>`
   * :ref:`定義 2.1.7 <tsuboi08.2.1.7>` と :ref:`定理 1.8.11 <tsuboi08.1.8.11>` を参照。
+
+.. _tsuboi08.2.4.2:
 
 * 定理 2.4.2: :math:`\fn{\dd \circ \dd}{\Omega^p(M)}\Omega^{p + 2}(M)` は 0 準同型である
 
@@ -430,6 +458,8 @@
   * 準同型＝ベクトル空間の線形写像と思って読んでいる。
   * cf. :ref:`定理 1.7.1 <tsuboi08.1.7.1>`
 
+.. _tsuboi08.2.4.3:
+
 * 定義 2.4.3: 多様体のドラーム複体
 
   * 先ほどの図式、正式に言うと
@@ -440,6 +470,8 @@
   * 複体というのは性質 :math:`\dd \circ \dd = 0` のことだ。
   * :math:`\im(\dd) \subset \ker(\dd)` の「差」をはかるのに
     コホモロジー群という群を使う。
+
+.. _tsuboi08.2.4.4:
 
 * 定義 2.4.4: `ドラーム・コホモロジー <http://mathworld.wolfram.com/deRhamCohomology.html>`__ 群
 
@@ -462,6 +494,8 @@
   * :math:`\H^*(M) = \bigoplus_{p = 0}^n \H^p(M)` と書く。
 
     * このベクトル空間の直和は何を意味するのかが今はわからない。
+
+.. _tsuboi08.2.4.5:
 
 * 例 2.4.5:
 
@@ -491,6 +525,8 @@
 
        [\alpha] \longmapsto \int_0^1\!\alpha.
 
+.. _tsuboi08.2.4.7:
+
 * 例 2.4.7: :math:`T^n`
 
   :math:`\displaystyle \sum_{i_1 < \dotsb < i_p} a_{i_1 \dots i_p}\,\dd x_{i_1} \wedge \dotsb \wedge \dd x_{i_p}`
@@ -506,6 +542,8 @@
   :math:`\H^2(T^2)` とは何か？
 
   .. todo:: フーリエ展開がよくわからないので後回し。
+
+.. _tsuboi08.2.4.9:
 
 * 問題 2.4.9
 
@@ -604,7 +642,11 @@
 
   * ベクトル空間としても外積代数としても準同型である。
 
+.. _tsuboi08.2.4.12:
+
 * 命題 2.4.12: :ref:`例題 1.6.7 <tsuboi08.1.6.7>` の多様体バージョン
+
+.. _tsuboi08.2.4.13:
 
 * 命題 2.4.13: ドラーム・コホモロジーにおける外積
 
@@ -615,6 +657,8 @@
   * :math:`[\alpha] \wedge [\beta] = [\alpha \wedge \beta]` という演算規則が成り立つ。
   * :math:`C^\infty` 写像 :math:`\fn{F}{M}N` に対して、
     :math:`F^*([\alpha] \wedge [\beta]) = F^*([\alpha]) \wedge F^*([\beta])` が成り立つ（外積代数の準同型）。
+
+.. _tsuboi08.2.4.14:
 
 * 注意 2.4.14: 2.9.6 予告。
 
@@ -694,6 +738,8 @@
       * :math:`p = 0` のときは :math:`[0, 1] \times M` 上の閉 0 形式
         :math:`\alpha` とは局所的定数関数であるので :math:`\pi^*(\iota_a^*\alpha)` と一致する。
 
+.. _tsuboi08.2.4.17:
+
 * 定義 2.4.17: :math:`C^\infty` `ホモトピック <http://mathworld.wolfram.com/Homotopic.html>`__
 
   二つの :math:`C^\infty` 級写像 :math:`\fn{\varphi_0, \varphi_1}{M}N` が
@@ -704,6 +750,8 @@
 
      \varphi_0 = \varphi(0, x),\\
      \varphi_1 = \varphi(1, x).
+
+.. _tsuboi08.2.4.18:
 
 * 定理 2.4.18: :math:`\varphi_0, \varphi_1` がホモトピックならば
   :math:`\varphi_0^*, \varphi_1^*` もホモトピックである
