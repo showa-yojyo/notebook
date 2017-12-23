@@ -152,13 +152,13 @@
        まず被積分微分形式を外微分することになる：
 
        .. math::
-  
+
           3 - \dfrac{2}{\sqrt{x_1^2 + x_2^2}}\,\dd x_1 \wedge \dd x_2 \wedge \dd x_3.
 
        これにより変数変換を施した上で次のようになる：
 
        .. math::
- 
+
           \begin{align*}
           \cdots &= \int_H\!\left(3 - \frac{2}{r}\right)r\,\dd r \dd \theta \dd x_3\\
           &= \int_{-1}^1\!\int_0^{2\pi}
@@ -293,5 +293,190 @@
     * :math:`\beta \in Z^2(X)` のとき :math:`0 = [\beta] \in \H^2(X).`
 
 3.6 写像度
+======================================================================
+.. _tsuboi08.3.6.1:
+
+* 定理 3.6.1: 写像度
+
+  * :math:`M_1, M_2` を向き付けられたコンパクト n 次元多様体とする。
+  * :math:`\fn{F}{M_1}M_2` を写像とする。
+
+  このときある整数 :math:`m \in \ZZ` が存在して、
+  任意の :math:`\alpha \in \Omega^n(M_2)` に対して次の等式が成り立つ：
+
+  .. math::
+
+     \int_{M_1}\!F^*\alpha = m \int_{M_2}\!\alpha.
+
+  本書の図 3.9 がわかりやすい。こういうイラストを自分で描けるようにしたいものだ。
+
+  1. :math:`\fn{F}{M_1}M_2` の臨界値の集合を :math:`C \subset M_2` とおく。
+     :ref:`幾何学 I 定理 5.4.1 サードの定理 <tsuboi05.5.4.1>` によると、
+     :math:`C` の測度はゼロである。
+
+  2. :math:`M_1` のコンパクト性により、:math:`M_1` の臨界点の集合もコンパクトである。
+     ゆえに :math:`C` もコンパクトである。
+
+  3. 補集合 :math:`M_2 \setminus C` は空集合ではない開集合である。
+
+  4. 点 :math:`y \in M_2 \setminus C` をとる。さらにその逆像を
+     :math:`F\inv(y) = \set{x_1, \dotsc, x_k}` とおく。
+
+     * 有限個で済む理由を考えないといけない。
+
+     このとき、各点 :math:`x_1, \dotsc, x_k` の座標近傍をそれぞれ
+     :math:`U_1, \dotsc, U_k` とおく。
+     これらはいずれも :math:`y` の座標近傍 :math:`V` と微分同相である。
+
+  5. 点 :math:`y` を含んでいない集合 :math:`\displaystyle F(M_1\setminus \bigcup_{i=1}^k U_i)`
+     はコンパクトである。
+
+  6. よって、その補集合 :math:`\displaystyle M_2 \setminus F(M_1\setminus \bigcup_{i=1}^k U_i)` は開集合であり、
+     :math:`y \in W \subset V` なる開集合 :math:`W` がとれる。
+
+  7. 以上により
+
+     * :math:`\displaystyle F\inv(W) = \bigcup_{i=1}^k (F\inv(W) \cap U_i)`
+     * :math:`F|(F\inv(W) \cap U_i)` は微分同相
+
+     である。
+
+  8. :math:`\alpha \in \Omega^n(M_2)` で
+
+     * :math:`\displaystyle \int_{M_2}\!\alpha > 0` かつ
+     * :math:`\supp{F^*\alpha} = W`
+
+     なるものをとる。
+
+  9. :math:`F^*\alpha \in \Omega^n(M_1)` は :math:`\supp{\alpha} = W` を満たす。
+
+  10. 次の等式が 7. により成り立つ：
+
+      .. math::
+
+         \int_{F\inv(W) \cap U_i}\!(F^*\alpha)|(F\inv(W) \cap U_i) = \pm\int_W\!\alpha|W.
+
+  11. この等式が成り立つということは、ある整数が存在してうんぬんという主張が成り立つということだ。
+
+  12. :math:`[\alpha] \in \H^n(M_2)` は生成元である。
+      :math:`\fn{F^*}{\H^n(M_2)}\H^n(M_1)` は :math:`\RR \longto \RR` の準同型であるから、
+      8. の :math:`\alpha` は任意でよい。
+
+      * :ref:`定理 2.4.11 <tsuboi08.2.4.11>` による？
+
+.. _tsuboi08.3.6.2:
+
+* 定義 3.6.2: `写像度 <http://mathworld.wolfram.com/BrouwerDegree.html>`__
+
+  上述の整数 :math:`m` を :math:`F` の写像度という。
+
+.. _tsuboi08.3.6.3:
+
+* 注意 3.6.3: ホモトピックな関数について
+
+  * :math:`C^\infty` ホモトピックな写像同士の写像度は等しい。
+  * これは :ref:`定理 2.4.18 <tsuboi08.2.4.18>` による。
+
+.. _tsuboi08.3.6.4:
+
+* 問題 3.6.4: 複素射影直線と代数学の基本定理
+
+  * :math:`z \in \CC` と :math:`n \in \NN` に対して
+
+    * :math:`P_0(z) = z^n`,
+    * :math:`P(z)` を n 次多項式とする。
+
+  * :math:`\fn{f}{\CC P^1}\CC P^1` を次の条件を満たす写像とする：
+
+    * :math:`[z : 1] \longmapsto [P(z) : 1]`
+    * :math:`[1 : 0] \longmapsto [1 : 0]`
+
+  * :math:`\fn{f_0}{\CC P^1}\CC P^1` を次の条件を満たす写像とする：
+
+    * :math:`[z : 1] \longmapsto [P_0(z) : 1]`
+    * :math:`[1 : 0] \longmapsto [1 : 0]`
+
+  * \(1) :math:`f` は :math:`C^\infty` 級である。
+
+    1. :math:`\CC P^1` の座標近傍系を次のようにとれる：
+       :math:`\set{(U_1, \varphi_1), (U_2, \varphi_2)}`
+
+       * :math:`U_1 = \CC P^1\setminus\set{[1 : 0]}`
+       * :math:`U_2 = \CC P^1\setminus\set{[0 : 1]}`
+       * :math:`\varphi_1\colon [z_1 : z_2] \longmapsto z_1/z_2`
+       * :math:`\varphi_2\colon [z_1 : z_2] \longmapsto z_2/z_1`
+
+    2. :math:`\varphi_1 \circ f|U_1 \circ \varphi_1\inv(z) = P(z)` となるので、
+       :math:`f` は :math:`U_1` 上に制限すれば :math:`C^\infty` 級である。
+
+    3. :math:`[0 : 1]` の近傍で :math:`\varphi_2 \circ f \circ \varphi_2\inv` が
+       原点付近で :math:`C^\infty` 級であることを見ればよい：
+
+       .. math::
+
+          \begin{align*}
+          \varphi_2 \circ f \circ \varphi_2\inv(w)
+          &= \cfrac{1}{P\left(\dfrac{1}{w}\right)}\\
+          &= \frac{w^n}{a_0 + \dotsb + a_n w^n}.
+          \end{align*}
+
+       分母は原点付近ではゼロにはならない（不等式で評価する）。
+       よって、:math:`f` は :math:`[0 : 1]` の近傍で :math:`C^\infty` 級である。
+
+    以上の 2. と 3. により、:math:`f` は :math:`C^\infty` 級である。
+
+  * \(2) 次の条件を満たす :math:`C^\infty` 級写像 :math:`\fn{F}{\CC P^1 \times [0, 1]}\CC P^1` が
+    存在する：
+
+    .. math::
+
+       \begin{align*}
+       F|\CC P^1 \times \zeroset &= f_0,\\
+       F|\CC P^1 \times \set{1} &= f.\\
+       \end{align*}
+
+    1. :math:`P_z(t) = r_0\mathrm{e}^{i t \theta_0}z^n + t(a_1 z^{n - 1} + \dotsb + a_n)` とおく。
+    2. 写像 :math:`F` を :math:`(\CC P^1 \setminus \set{[1 : 0]}) \times [0, 1]` に制限したところで
+       :math:`F([z : 1], t) = [P_z(t) : 1]` と定義する。
+       そうすることで、この制限定義域上では :math:`C^\infty` 級である。
+
+    3. :math:`[0 : 1]` の近傍で :math:`\varphi_2 \circ F_t \circ \varphi_2\inv` が
+       原点付近で :math:`C^\infty` 級であることを見ればよい：
+
+       .. math::
+
+          \begin{align*}
+          \varphi_2 \circ F_t \circ \varphi_2\inv(w)
+          &= \cfrac{1}{P_t\left(\dfrac{1}{w}\right)}\\
+          &= \frac{w^n}{r_0 \mathrm{e}^{i t \theta_0} + \dotsb + a_n w^n}.
+          \end{align*}
+
+       先ほどと同様の評価をすることで、分母は原点付近ではゼロにはならないことを示す。
+
+    4. :math:`\set{[0 : 1]} \times [0, 1]` の近傍で :math:`F` は :math:`C^\infty` 級である。
+
+  * \(3) :math:`\fn{f^* = f_0^}{\H^2(\CC P^1)}\H^2(\CC P^1)`
+
+    * :ref:`定理 2.4.18 <tsuboi08.2.4.18>` による。
+
+  * \(4) :math:`\displaystyle \alpha \in \Omega^2(\CC P^1) \longmapsto \int\!\alpha` は
+    写像 :math:`\fn{I}{\H^2(\CC P^1)}\RR` を導く。
+    :math:`f_0^*` は何か。
+
+    * これは解答を見てもわからない。
+      :ref:`定理 3.6.1 <tsuboi08.3.6.1>` と同じ条件で
+      :math:`\displaystyle \int_{\CC P^1}\!f_0^*\alpha = n\int_{\CC P^1}\!\alpha` が
+      成り立っている。
+
+    * :math:`f_0([\alpha]) = n[\alpha]` とは？
+
+  * \(5) :math:`P(z) = 0` なる :math:`z` が存在しなければ、
+    写像 :math:`f` は定数写像 :math:`[1 : 0]` とホモトピックであり、
+    :math:`f^* = 0.`
+
+    * この辺はわからない。
+      :math:`G_t([z : w]) = \varphi_2\inv(t \varphi_2 f([z : w]))` がなぜ生じる？
+
+3.7 ガウス写像
 ======================================================================
 TBW
