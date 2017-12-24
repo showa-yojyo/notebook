@@ -479,4 +479,138 @@
 
 3.7 ガウス写像
 ======================================================================
-TBW
+* `ガウス写像 <http://mathworld.wolfram.com/GaussMap.html>`__
+
+  * :math:`M` を向き付けられた 2 次元多様体とする。
+  * 写像 :math:`\fn{\iota}{M}\RR^3` を埋め込み（はめ込み）とする。
+  * ベクトル :math:`\bm n(p)` を :math:`\iota(M)` の単位法ベクトルとする。
+    次の性質がある：
+
+    * :math:`\bm n(p) \in T_{\iota(p)}\RR^3`
+    * :math:`\norm{\bm n(p)} = 1`
+    * :math:`\bm n(p) \perp \iota_*(T_pM)`
+
+  写像 :math:`\fn{\bm n}{M}S^2` を、
+  :math:`T_{\iota(p)}\RR^3` と :math:`\RR^3` を同一視して、ガウス写像という。
+
+  これは、曲面 :math:`M` の一点上における長さが 1 の法線ベクトルを
+  全部まとめて考えたいと言っている。
+  法線ベクトルの先端が球面をどれだけ被覆するのかに興味があるのだろう。
+
+.. _tsuboi08.3.7.1:
+
+* 問題 3.7.1: トーラス
+
+  :math:`T^2 = \set{(\cos u)(2 + \cos v), (\sin u)(2 + \cos v), \sin v) \in \RR^3 \sth u, v \in \RR}`
+
+  * \(1) :math:`\bm n(u, v)` はどういうものか。
+
+    これは単純にベクトル :math:`\dfrac{\partial \iota}{\partial u} \times \dfrac{\partial \iota}{\partial v}`
+    を計算して、長さを 1 に直せばよい。
+
+    .. math::
+
+       \bm n(u, v)
+       = \cos u \cos v \dfrac{\partial}{\partial x_1}
+       + \sin u \sin v \dfrac{\partial}{\partial x_2}
+       + \sin v \dfrac{\partial}{\partial x_3}.
+
+    クロス積の計算時点で長さは 1 になっているので、そのままガウス写像が得られたことになる。
+
+  * \(2) 次の微分形式に対して積分 :math:`\displaystyle \int_{T^2}\!\bm{n}^*\omega` はいくらか。
+
+    .. math::
+
+       \omega = x_1 \dd x_2 \wedge \dd x_3 - x_2 \dd x_1 \wedge \dd x_3 + x_3 \dd x_1 \wedge \dd x_2.
+
+    1. :math:`\bm{n}^*\omega` を計算する：
+
+       .. math::
+
+          \begin{align*}
+          \bm{n}^*\omega
+          &= \omega \circ \bm n\\
+          &= \cos u \cos v\,\dd{(\sin u \sin v)} \wedge \dd{\sin v} - \sin u \sin v\,\dd{(\cos u \cos v)} \wedge \dd{\sin v} + \sin v\,\dd{(\cos u \cos v)} \wedge \dd{(\sin u \sin v)}\\
+          &= \cos u \,\dd u \wedge \dd v.
+          \end{align*}
+
+    2. 定義に従って重積分に置き換える：
+
+       .. math::
+
+          \begin{align*}
+          \int_{T^2}\!\bm{n}^*\omega
+          &= \int_0^{2\pi}\!\int_0^{2\pi}\!\cos u\,\dd u\dd v\\
+          &= 0.
+          \end{align*}
+
+.. _tsuboi08.3.7.2:
+
+* 問題 3.7.2: ガウス・ボンネの定理の証明
+
+  連結性が要る。
+
+  * \(1) 本節冒頭の滑らかな埋め込み（はめ込み）の族 :math:`\iota_t` に対して、
+    :math:`\fn{\bm n_t}{M}S^2` を各埋め込み（はめ込み）に対応するガウス写像とする。
+    このとき、:ref:`問題 3.5.2 <tsuboi08.3.5.2>` の :math:`\omega|S^2` に対して積分
+    :math:`\displaystyle \int_{M}\!\bm n_t^*(\omega|S^2)` は :math:`4 \pi` の倍数である。
+
+    1. :math:`\bm n_t` のホモトピー性（:ref:`注意 3.6.3 <tsuboi08.3.6.3>` 参照）により、
+       :math:`\bm n_t` の写像度を表す値 :math:`m \in \ZZ` が一意的に存在する。
+       ゆえに任意の :math:`t` に対して：
+
+       .. math::
+
+          \int_M\!\bm n_t^*(\omega|S^2) = m\int_{S^2}\!\omega.
+
+    2. 再び :ref:`問題 3.5.2 <tsuboi08.3.5.2>` により、
+       :math:`\displaystyle \int_{S^2}\!\omega = 4\pi` であるから、1. に代入して
+
+       .. math::
+
+          \int_M\!\bm n_t^*(\omega|S^2) = 4\pi m.
+
+  * \(2) :math:`\iota, \bm n` に対して :math:`(0, 0, \pm 1)` が正則値であるとする。
+    このとき座標 :math:`x_3` は :math:`M` 上のモース関数である。
+
+    * ポイント：逆像 :math:`\bm n\inv(0, 0, \pm 1)` の各点において、
+      :math:`x_3(x_1, x_2)` のヘッセ行列が非退化であることを直接示す。
+
+  * \(3) :math:`x_3` についての極大値、極小値、鞍点のそれぞれの個数を :math:`a, b, c` とすると
+    :math:`\bm n` の写像度は :math:`\dfrac{1}{2}(a + b + c)` で与えられる。
+
+    * ポイント：逆像 :math:`\bm n\inv(0, 0, 1)` と :math:`\bm n\inv(0, 0, -1)` を分けて考える。
+    * 各点でヤコビアンが正であることと、:math:`x_3` の極大・極小をそこでとることが同値である。
+    * 各点でヤコビアンが負であることと、:math:`x_3` の鞍点をそこでとることが同値である。
+
+.. _tsuboi08.3.7.3:
+
+* 問題 3.7.3: `ガウス・ボンネの定理 <http://mathworld.wolfram.com/Gauss-BonnetFormula.html>`__
+
+  :math:`M` を向き付けられた 2 次元連結多様体であるとし、
+  :math:`\fn{\bm n}{M}S^2` を埋め込み（はめ込み）に対するガウス写像である
+
+  とする。
+
+  * :ref:`問題 3.7.2 <tsuboi08.3.7.2>` の (3) の :math:`\dfrac{1}{2}(a + b + c)` は
+    :math:`\chi(M)` そのものである。
+    だから、この値は :math:`\iota` のとり方によらないはずだ。
+
+  * :ref:`問題 3.7.2 <tsuboi08.3.7.2>` の (1) より、埋め込み（はめ込み）を変形すれば
+    :math:`(0, 0, \pm 1)` を正則値としてもよい。それゆえ :math:`\bm n` の写像度は
+    :math:`\dfrac{1}{2}\chi(M)` と等しい。
+
+  * :ref:`問題 3.5.2 <tsuboi08.3.5.2>` の :math:`\omega|S^2` は「面積要素」であり、
+    :math:`\displaystyle \int_{S^2}\!\omega|S^2 = 4\pi.`
+
+  以上を組み合わせて次の等式を得る：
+
+  .. math::
+
+     \int_M\!\bm n^*(\omega|S^2) = 2\pi \chi M.
+
+  この被積分部をガウスの曲率形式という。
+
+3.8 第 3 章の問題の解答
+======================================================================
+吟味中。
