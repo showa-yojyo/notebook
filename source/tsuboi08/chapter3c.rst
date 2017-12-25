@@ -58,22 +58,29 @@
     * 空集合の場合は両辺ともにゼロとなり等しくなる。
 
       * 右辺は境界上で微分形式がゼロであることから、積分もゼロ。
-      * 左辺：
+      * 左辺。
+
+        .. math::
+
+           {\varphi\inv}^*\alpha_i|[a_1, b_1] \times \dotsb \times \set{a_k, b_k} \times \dotsb \times [a_n, b_n] = 0
+
+        であるので：
 
         .. math::
 
            \begin{align*}
            \int_M\!\dd \alpha_i
-           &= \int_{\varphi\inv|\varphi(U_i)}\!\dd \alpha_i\\
            &= \int_{\varphi\inv|([a_1, b_1] \times \dotsb \times [a_n, b_n])}\!\dd \alpha_i\\
-           &= \text{TODO}\\
-           &= 0.
+           &= \int_{[a_1, b_1] \times \dotsb \times [a_n, b_n]}\! {\varphi\inv}^* \dd \alpha_i\\
+           &= \int_{\partial([a_1, b_1] \times \dotsb \times [a_n, b_n])}\! {\varphi\inv}^* \alpha_i\\
+           &= 0
            \end{align*}
 
+        となる。
         最後から二番目の等号に :ref:`例題 1.6.9 <tsuboi08.1.6.9>` を使う。
 
     * 空集合でない場合は :math:`a_1 < 0,\ b_1 = 0` が成り立っている。
-      :math:`k > 1` ならば
+      :math:`k > 1` ならば、やはり
 
       .. math::
 
@@ -85,8 +92,8 @@
 
          \begin{align*}
          \int_M\!\dd \alpha_i
-         &= \int_{\varphi\inv|\varphi(U_i)}\!\dd a_i\\
-         &= \int_{\varphi\inv|\zeroset \times \dots}\!\alpha_i\\
+         &= \int_{\varphi\inv|([a_1, b_1] \times \dotsb \times [a_n, b_n])}\!\dd a_i\\
+         &= \int_{\varphi\inv|\zeroset \times [a_2, b_2] \times \dotsb \times [a_n, b_n]}\!\alpha_i\\
          &= \int_{\partial M}\!\alpha.
          \end{align*}
 
@@ -94,7 +101,7 @@
 
 * 問題 3.5.2: :math:`\omega = x_1 \dd x_2 \wedge \dd x_3 - x_2 \dd x_1 \wedge \dd x_3 + x_3 \dd x_1 \wedge \dd x_2`
 
-  埋め込み :math:`\fn{\iota}{\S^2}\RR^3` について、
+  埋め込み :math:`\fn{\iota}{S^2}\RR^3` について、
   球面 :math:`S^2` に閉球 :math:`B^3` の境界としての向きを定義する。
 
   * \(1) :math:`\displaystyle \int_{S^2}\!\iota^*\omega` の値は何か。
@@ -106,6 +113,17 @@
 
     * 広義積分 :math:`\displaystyle \int_0^{2\pi}\!\int_0^\infty\!\frac{4r}{(1 + r^2)^2}\,\dd r \dd \theta = 4 \pi`
       に帰着することを示したい。
+
+    * 後半は次のように計算する（解答例で省略されていて困った）：
+
+      .. math::
+
+         \begin{align*}
+         \int_0^{2\pi}\!\int_0^\infty\!\frac{4r}{(1 + r^2)^2}\,\dd r \dd \theta
+         &= \int_0^{2\pi}\!\left[\frac{-2}{(1 + r^2)}\right]_0^\infty\,\dd \theta\\
+         &= \int_0^{2\pi}\!(0 - (-2))\,\dd \theta\\
+         &= 4\pi.
+         \end{align*}
 
   .. todo:: 外微分の展開を計算する。
 
@@ -169,6 +187,14 @@
           \end{align*}
 
   * 別解の三角関数バージョン引き戻しも面白い。
+    埋め込み（はめ込み）の :math:`\iota` を後述の :ref:`問題 3.7.1 <tsuboi08.3.7.1>`
+    にあるトーラスの式で定義して、
+
+    .. math::
+
+       \iota^* \omega = (2 + \cos v)\,\dd u \wedge \dd v
+
+    であることを利用するものだ。
 
 .. _tsuboi08.3.5.4:
 
@@ -197,7 +223,7 @@
       これが引き戻し :math:`\widetilde \alpha` なのだ。
 
   * \(2) :math:`0 \ne \bm v = (v_1, v_2, v_3) \in \RR^3` に対して閉曲線
-    :math:`\fnm{\gamma_v}{[0, 1]}{X}{t}{\pi\circ r^t(v_1, v_2, v_3)}` とする。
+    :math:`\fnm{\gamma_v}{[0, 1]}{X}{t}{\pi \circ r^t(v_1, v_2, v_3)}` とする。
     積分 :math:`\displaystyle \int_{\gamma_v}\!\alpha` は何か。
 
     * 元の空間上への曲線 :math:`\fnm{\widetilde \gamma_v}{A}{t}r^t(v_1, v_2, v_3)` を考える。
@@ -512,16 +538,19 @@
 
        \bm n(u, v)
        = \cos u \cos v \dfrac{\partial}{\partial x_1}
-       + \sin u \sin v \dfrac{\partial}{\partial x_2}
+       + \sin u \cos v \dfrac{\partial}{\partial x_2}
        + \sin v \dfrac{\partial}{\partial x_3}.
 
-    クロス積の計算時点で長さは 1 になっているので、そのままガウス写像が得られたことになる。
+    クロス積の計算時点で長さは :math:`\cos(v) + 2` になっているので、
+    これで割ればそのままガウス写像が得られたことになる。
 
   * \(2) 次の微分形式に対して積分 :math:`\displaystyle \int_{T^2}\!\bm{n}^*\omega` はいくらか。
 
     .. math::
 
-       \omega = x_1 \dd x_2 \wedge \dd x_3 - x_2 \dd x_1 \wedge \dd x_3 + x_3 \dd x_1 \wedge \dd x_2.
+       \omega = x_1\,\dd x_2 \wedge \dd x_3
+              - x_2\,\dd x_1 \wedge \dd x_3
+              + x_3\,\dd x_1 \wedge \dd x_2.
 
     1. :math:`\bm{n}^*\omega` を計算する：
 
@@ -530,9 +559,27 @@
           \begin{align*}
           \bm{n}^*\omega
           &= \omega \circ \bm n\\
-          &= \cos u \cos v\,\dd{(\sin u \sin v)} \wedge \dd{\sin v} - \sin u \sin v\,\dd{(\cos u \cos v)} \wedge \dd{\sin v} + \sin v\,\dd{(\cos u \cos v)} \wedge \dd{(\sin u \sin v)}\\
-          &= \cos u \,\dd u \wedge \dd v.
+          &= \cos u \cos v\,\dd{(\sin u \cos v)} \wedge \dd{\sin v}\\
+          &\qquad - \sin u \cos v\,\dd{(\cos u \cos v)} \wedge \dd{\sin v}\\
+          &\qquad + \sin v\,\dd{(\cos u \cos v)} \wedge \dd{(\sin u \cos v)}\\
+          &= \cos u \cos v\,(\cos u \cos v\,\dd u - \sin u \sin v\,\dd v) \wedge \cos v\,\dd v\\
+          &\qquad- \sin u \cos v\,(-\sin u \cos v\,\dd u - \cos u \sin v\,\dd v) \wedge \cos v\,\dd v\\
+          &\qquad+ \sin v\,(-\sin u \cos v\,\dd u - \cos u \sin v\,\dd v) \wedge (\cos u \cos v\,\dd u - \sin u \sin v\,\dd v)\\
+          &= \cos u \cos v\,(\cos u \cos v\,\dd u) \wedge \cos v\,\dd v - \sin u \cos v\,(-\sin u \cos v\,\dd u) \wedge \cos v\,\dd v\\
+          &\qquad + \sin^2 u \cos v \sin^2 v\,\dd u \wedge \dd v\\
+          &\qquad - \cos^2 u \cos v \sin^2 v\,\dd v \wedge \dd u\\
+          &= \cos^2 u \cos^3 v\,\dd u \wedge \dd v + \sin^2 u \cos^3 v\,\dd u \wedge \dd v\\
+          &\qquad + \sin^2 u \cos v \sin^2 v\,\dd u \wedge \dd v\\
+          &\qquad - \cos^2 u \cos v \sin^2 v\,\dd v \wedge \dd u\\
+          &= (\cos^2 u \cos^3 v + \sin^2 u \cos^3 v + \sin^2 u \cos v \sin^2 v + \cos^2 u \cos v \sin^2 v)\,\dd u \wedge \dd v\\
+          &= \cos v (\cos^2 u \cos^2 v + \sin^2 u \cos^2 v + \sin^2 u \sin^2 v + \cos^2 u \sin^2 v)\,\dd u \wedge \dd v\\
+          &= \cos v (\cos^2 u \cos^2 v + \cos^2 u \sin^2 v + \sin^2 u \sin^2 v + \sin^2 u \cos^2 v)\,\dd u \wedge \dd v\\
+          &= \cos v (\cos^2 u + \sin^2 u)\,\dd u \wedge \dd v\\
+          &= \cos v\,\dd u \wedge \dd v.
           \end{align*}
+
+       SymPy にやらせようとしたが上手くいかず、結局自力で計算することになった。
+       検算が面倒過ぎる。
 
     2. 定義に従って重積分に置き換える：
 
@@ -570,18 +617,96 @@
 
           \int_M\!\bm n_t^*(\omega|S^2) = 4\pi m.
 
-  * \(2) :math:`\iota, \bm n` に対して :math:`(0, 0, \pm 1)` が正則値であるとする。
-    このとき座標 :math:`x_3` は :math:`M` 上のモース関数である。
+  * \(2) :math:`\iota` に対して定義されるガウス写像を :math:`\bm n` とする。
+    :math:`(0, 0, \pm 1)` が正則値であるとする。
+    このとき、座標 :math:`x_3` は :math:`M` 上のモース関数である。
 
-    * ポイント：逆像 :math:`\bm n\inv(0, 0, \pm 1)` の各点において、
-      :math:`x_3(x_1, x_2)` のヘッセ行列が非退化であることを直接示す。
+    ポイント：逆像 :math:`\bm n\inv(0, 0, \pm 1)` の各点において、
+    :math:`x_3(x_1, x_2)` のヘッセ行列が非退化であることを直接示す。
+
+    1. ヒントに従って :math:`\bm n\inv(0, 0, \pm 1)` の近傍の点を :math:`(x_1, x_2, x_3(x_1, x_2))`
+       と表すことにする。
+
+    2. :math:`x_3` の臨界点の集合は、
+
+       * :math:`\dfrac{\partial x_3}{\partial x_1} = \dfrac{\partial x_3}{\partial x_2} = 0` を満たす点の集合と、
+       * :math:`\bm n = (0, 0, \pm 1)` を満たす点の集合の
+
+       共通部分である。
+
+    3. :math:`\bm n(x_1, x_2)` を求めると、次のベクトルの長さを 1 に正規化したものである：
+
+       .. math::
+
+          \left(-\dfrac{\partial x_3}{\partial x_1},
+                -\dfrac{\partial x_3}{\partial x_2},
+                \pm1\right).
+
+    4. ここがポイント。
+       :math:`(0, 0, \pm 1)` の近傍における :math:`S^2` の座標関数をヒントに従って
+
+       .. math::
+
+          (x_1, x_2, x_3) \longmapsto \left(\dfrac{\partial x_1}{\partial x_3}, \dfrac{\partial x_2}{\partial x_3}\right)
+
+       とすると、:math:`\bm n(x_1, x_2) = \left(\dfrac{\partial x_3}{\partial x_1}, \dfrac{\partial x_3}{\partial x_2}\right)` より、
+
+       .. math::
+
+          D\bm n =
+          \begin{pmatrix}
+          \dfrac{\partial^2 x_3}{\partial x_1^2} && \dfrac{\partial^2 x_3}{\partial x_1 \partial x_2}\\
+          \dfrac{\partial^2 x_3}{\partial x_1 \partial x_2} && \dfrac{\partial^2 x_3}{\partial x_2^2}
+          \end{pmatrix}.
+
+    5. :math:`(0, 0, \pm 1)` が正則値であるならば、
+       :math:`\bm n\inv(0, 0, \pm 1)` の点において :math:`x_3(x_1, x_2)` のヘッセ行列は非退化である。
 
   * \(3) :math:`x_3` についての極大値、極小値、鞍点のそれぞれの個数を :math:`a, b, c` とすると
     :math:`\bm n` の写像度は :math:`\dfrac{1}{2}(a + b + c)` で与えられる。
 
     * ポイント：逆像 :math:`\bm n\inv(0, 0, 1)` と :math:`\bm n\inv(0, 0, -1)` を分けて考える。
-    * 各点でヤコビアンが正であることと、:math:`x_3` の極大・極小をそこでとることが同値である。
-    * 各点でヤコビアンが負であることと、:math:`x_3` の鞍点をそこでとることが同値である。
+    * 各点でヤコビアンの行列式が正であることと、:math:`x_3` の極大・極小をそこでとることが同値である。
+    * 各点でヤコビアンの行列式が負であることと、:math:`x_3` の鞍点をそこでとることが同値である。
+
+    1. :math:`\bm n\inv(0, 0, 1) = \set{p_1, \dotsc, p_k}` とし、
+       開集合 :math:`U_i \in M` を
+ 
+       * 点 :math:`p_i` の近傍であり、
+       * :math:`\fn{\bm n}{U_i}S^2` について :math:`\bm n(U_i)` と微分同相である
+       
+       ようにとる。
+       
+    2. :math:`(0, 0, 1)` の近傍 :math:`V_+` を次のようにとる：
+    
+       .. math::
+       
+          V_+ \cap \bm n\left(M \setminus \bigcap_{i = 1}^k \closure{U_i}\right) = \varnothing.
+
+    3. :math:`\alpha \in \Omega^2(S^2)` を :math:`\supp\alpha = V_+` となるようにとる。
+    
+    4. 上述 (2) より
+    
+       * \(A+): :math:`\det{D\bm n} > 0 \iff` :math:`x_3` の極大点・極小点
+       * \(B+): :math:`\det{D\bm n} < 0 \iff` :math:`x_3` の鞍点
+
+    5. 以上より次の式が成り立つ：
+    
+       .. math::
+       
+          \int_M\!\bm n^*\alpha = \sum_{\text{(A+)}}\int_{S^2}\!\alpha - \sum_{\text{(B+)}}\int_{S^2}\!\alpha.
+
+    6. :math:`\bm n\inv(0, 0, -1)` に対しても 1. から 5. までと同様に考える：
+
+       .. math::
+       
+          \int_M\!\bm n^*\beta = \sum_{\text{(A-)}}\int_{S^2}\!\beta - \sum_{\text{(B-)}}\int_{S^2}\!\beta.
+          
+    7. 写像度を求めることができる。
+    
+       :math:`\displaystyle \int_{S^2}\!\alpha = \int_{S^2}\!\beta` ととれれば（？）、
+       :math:`\displaystyle \int_M\!\bm n^*\alpha = \int_M\!\bm n^*\beta` となる。
+       これらを割り、5. と 6. を適用すれば題意の和を得る。
 
 .. _tsuboi08.3.7.3:
 
@@ -613,4 +738,4 @@
 
 3.8 第 3 章の問題の解答
 ======================================================================
-吟味中。
+.. todo:: 吟味中。
