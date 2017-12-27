@@ -211,8 +211,8 @@
        .. math::
 
           \begin{align*}
-          F^*\alpha &= \sum\sum(f_i \circ F)\dfrac{\partial x_i}{\partial y_j}\,\dd y_j.\\
-          F_*\inv \xi &= \sum\sum(\xi_i \circ F)\dfrac{\partial y_j}{\partial x_i}\dfrac{\partial}{\partial y_j}.
+          F^*\alpha &= \sum_i^n \sum_j^n (f_i \circ F)\dfrac{\partial x_i}{\partial y_j}\,\dd y_j.\\
+          F_*\inv \xi &= \sum_i^n \sum_j^n (\xi_i \circ F)\dfrac{\partial y_j}{\partial x_i}\dfrac{\partial}{\partial y_j}.
           \end{align*}
 
     4. 与式右辺を 3. を組み合わせて求める：
@@ -220,8 +220,8 @@
        .. math::
 
           \begin{align*}
-          \sum\sum(f_i \circ F)\dfrac{\partial x_i}{\partial y_j}(\xi_i \circ F)\dfrac{\partial y_j}{\partial x_i}
-          &= \sum(f_i \circ F)(\xi_i \circ F)\\
+          \sum_i^n \sum_j^n(f_i \circ F)\dfrac{\partial x_i}{\partial y_j}(\xi_i \circ F)\dfrac{\partial y_j}{\partial x_i}
+          &= \sum_i^n(f_i \circ F)(\xi_i \circ F)\\
           &= F^*(i_\xi\alpha).
           \end{align*}
 
@@ -249,48 +249,309 @@
 
 4.1.3 カルタンの公式
 ----------------------------------------------------------------------
-TBW
-
 .. _tsuboi08.4.1.8:
 
 * 命題 4.1.8: カルタンの公式
+
+  :math:`\alpha \in \Omega^p(M),\ \xi \in \mathfrak{X}(M)` に対して次の等式が成り立つ：
+
+  .. math::
+
+     L_\xi\alpha = \dd(\alpha(\xi)) + i_\xi(\dd\alpha).
+
+  :ref:`問題 4.1.7 <tsuboi08.4.1.7>` と同じように証明する：
+
+  1. :math:`p = 0, 1` に対しては前節の議論によって示されている。
+  2. 一般の :math:`p` に対して示すために、与式が :math:`\alpha \in \Omega^p(M),\ \beta \in \Omega^q(M)`
+     のときに成り立つと仮定し、外積に対して同等の等式：
+
+     .. math::
+
+        L_\xi(\alpha \wedge \beta)
+        = \dd(i_\xi(\alpha \wedge \beta)) + i_\xi(\dd(\alpha \wedge \beta))`
+
+     が示せれば、同じ論理で一般の場合に対して成り立つことになる。
+
+..
+
+* 復習だと思うが括弧積の成分表示：
+
+  .. math::
+
+     [\xi, \eta] = \sum_j^n\sum_i^n\left(
+       \xi_i \dfrac{\partial \eta_j}{\partial x_i}
+       - \eta_i \dfrac{\partial \xi_j}{\partial x_i}\right)
+       \dfrac{\partial}{\partial x_j}.
 
 .. _tsuboi08.4.1.9:
 
 * 問題 4.1.9: リー微分と括弧積に関する等式 1 形式版
 
+  * :math:`\alpha \in \Omega^1(M)`
+  * :math:`\xi, \eta \in \in \mathfrak{X}(M)`
+
+  ならば、次が成り立つ：
+
+  .. math::
+
+     L_\xi L_\eta \alpha - L_\eta L_\xi \alpha = L_{[\xi, \eta]}\alpha.
+
+  証明は直接計算になる：
+
+  1. :math:`\alpha = \sum f_i,\dd x_i` とおく。
+  2. :math:`L_\xi\alpha` をそれで表す：
+
+     .. math::
+
+        L_\xi\alpha = \sum_i^n\sum_j^n\left(
+          \dfrac{\partial f_i}{\partial x_j}\xi_j
+          + f_j \dfrac{\partial \xi_j}{\partial x_i}\right)
+          \,\dd x_i.
+
+  3. :math:`L_\xi L_\eta \alpha` と :math:`L_\eta L_\xi \alpha` を直接計算する。
+  4. 3. の差を計算すると、本書の解答例の式で言うところの奇数項が打ち消し合って
+     次のようになる：
+
+     .. math::
+
+        \sum_i \sum_k \sum_j \left(
+          \dfrac{\partial f_i}{\partial x_j}\left(
+            \dfrac{\partial \eta_j}{\partial x_k}\xi_k
+          - \dfrac{\partial \xi_j}{\partial x_k}\eta_k\right)
+          + f_j \dfrac{\partial}{\partial x_i}\left(
+            \dfrac{\partial \eta_j}{\partial x_k}\xi_k
+          - \dfrac{\partial \xi_j}{\partial x_k}\eta_k\right)\right)
+          \,\dd x_i.
+
+     これは括弧積によるリー微分である。
+
 .. _tsuboi08.4.1.10:
 
 * 問題 4.1.10: リー微分と括弧積に関する等式 p 形式版
+
+  :ref:`問題 4.1.9 <tsuboi08.4.1.9>` において :math:`\alpha \in \Omega^p(M)` と
+  仮定を一般の次数に緩めても同じ等式が成り立つ。
+
+  1. math:`p = 0` のとき成り立つことを示す。
+     つまり関数 :math:`f \in \Omega^0(M)` で確認する：
+
+     .. math::
+
+        \begin{align*}
+        L_\xi L_\eta f - L_\eta L_\xi f
+        &= \xi(\eta(f)) - \eta(\xi(f))\\
+        &= [\xi, \eta](f)\\
+        &= L_{[\xi, \eta]}f.
+        \end{align*}
+
+  2. :math:`p = 1` のときは既に :ref:`問題 4.1.9 <tsuboi08.4.1.9>` において証明済みである。
+  3. 与式が :math:`\alpha \in \Omega^p(M),\ \beta \in \Omega^q(M)`
+     のときに成り立つと仮定し、
+     :ref:`問題 4.1.7 <tsuboi08.4.1.7>` での証明技法を用いる。
+     つまり、次の等式が成り立つことを示す：
+
+     .. math::
+
+        L_\xi L_\eta (\alpha \wedge \beta) - L_\eta L_\xi (\alpha \wedge \beta)
+        = L_{[\xi, \eta]}(\alpha \wedge \beta).
 
 .. _tsuboi08.4.1.11:
 
 * 問題 4.1.11: 内部積とリー微分と括弧積
 
+  * :math:`\alpha \in \Omega^p(M)`
+  * :math:`\xi, \eta \in \in \mathfrak{X}(M)`
+
+  ならば、次が成り立つ：
+
+  .. math::
+
+     i_\xi L_\eta \alpha - L_\eta i_\xi \alpha = i_{[\xi, \eta]}\alpha.
+
+  1. :math:`p = 1` のときを示す。
+     :math:`\alpha = \sum f_i,\dd x_i` に対して直接計算で示す。
+
+  2. あとは :ref:`問題 4.1.7 <tsuboi08.4.1.7>` での証明技法を用いる。
+     直接計算で次を示せば十分：
+
+     .. math::
+
+        (i_\xi L_\eta - L_\eta i_\xi)(\alpha \wedge \beta) = i_{[\xi, \eta]}(\alpha \wedge \beta).
+
 .. _tsuboi08.4.1.12:
 
 * 問題 4.1.12: カルタンの公式の応用？
 
+  * \(1) :math:`\omega = \dd x_1 \wedge \dd x_2 \wedge \dd x_3 \in \Omega^3(\RR^3)` とする。
+    :math:`\displaystyle \xi = \sum_{i, j = 1}^3 a_{ij}x_j \dfrac{\partial}{\partial x_i}` による
+    リー微分 :math:`L_\xi\omega` がゼロとなる条件とは何か。
+
+    ポイントは :math:`\dd \omega = 0` であるから、カルタンの公式が簡単になることを利用することだ。
+
+    .. math::
+
+       \begin{align*}
+       L_\xi\omega
+       &= \dd(i_\xi\omega) + i_\xi(\dd \omega)\\
+       &= \dd(i_\xi\omega)\\
+       &= \dd(\xi_1\,\dd x_2 \wedge \dd x_3 - \xi_2\,\dd x_1 \wedge \dd x_3 + \xi_3\,\dd x_1 \wedge \dd x_2)\\
+       &= \sum_{i = 1}^3 \dfrac{\partial \xi_i}{\partial x_i}\omega\\
+       &= \sum_{i = 1}^3 a_{ii}\omega.
+       \end{align*}
+
+    ただし :math:`\xi_1 = \sum_{j = 1}^3 a_{1j}x_j` などとした。
+
+    よって求める条件は :math:`\sum a_{ii} = 0` となる。
+
+  * \(2) :math:`\alpha = x_1\,\dd x_2 \wedge \dd x_3 - x_2\,\dd x_1 \wedge \dd x_3 + x_3\,\dd x_1 \wedge \dd x_2 \in \Omega^2(\RR^3)`
+    についてはどうか。
+
+    直接計算による方法と :math:`\dd \alpha = 3 \omega` を利用する方法がある。
+    :math:`L_\xi\omega = 0 \iff L_\xi\alpha = 0` を示す。
+
+    1. 直接計算により :math:`\dd \alpha = 3 \omega` がわかる。
+
+    2. :math:`L_\xi\alpha = 0 \implies L_\xi\alpha = 0` を示す：
+
+         :math:`\dd(L_\xi\alpha) = 0` に :ref:`問題 4.1.4 <tsuboi08.4.1.4>` の順序交換を適用して
+         :math:`L_\xi(\dd\alpha) = 0`
+
+         ここで 1. を利用すると :math:`L_\xi(\dd\alpha) = L_\xi(3\omega) = 3L_\xi\omega.`
+
+         ゆえに :math:`L_\xi\alpha = 0 \implies L_\xi\alpha = 0` が成り立つ。
+
+    3. :math:`L_\xi\omega = 0 \implies L_\xi\alpha = 0` を示す：
+
+         まず :math:`\displaymode \eps = \sum_{i, j = 1}^3 \delta_{ij}x_j\dfrac{\partial}{\partial x_i}`
+         とおくと次の等式が成り立つ：
+
+         * :math:`[\eps, \xi] = 0`
+         * :math:`i_\eps\alpha = 0`
+
+         :ref:`問題 4.1.11 <tsuboi08.4.1.11>` により次の等式が成り立つ：
+
+         .. math::
+
+            i_\eps L_\xi \omega - L_\xi i_\eps \omega = i_{[\eps, \xi]}\omega.
+
+         * :math:`[\eps, \xi] = 0` なので、右辺、結局両辺ともにゼロである。
+         * 一方 :math:`L_\xi\omega = 0` であることから、
+           左辺は :math:`-L_\xi i_\eps \omega = - L_\xi \alpha` に等しい。
+
+       以上より :math:`L_\xi\omega = 0 \implies L_\xi\alpha = 0` が成り立つ。
+
+    4. 主張の同値性が 2. と 3. により示された。
+       従って、求める条件とは (1) のそれと同じである。
+
 4.1.4 微分形式のベクトル場における値
 ----------------------------------------------------------------------
-TBW
+冒頭、外積代数 :math:`\extp^p T^*M` のベクトル束とは何？
 
 .. _tsuboi08.4.1.13:
 
 * 定義 4.1.13: 微分形式のベクトル場における値
 
+  .. math::
+
+     \alpha(\xi_1, \dotsc, \xi_p) = i_{\xi_p} \dots i_{\xi_1}\alpha.
+
+  内部積で定義される値のようだ。
+
 .. _tsuboi08.4.1.14:
 
-* 注意 4.1.14:
+* 注意 4.1.14: 上記の右辺を :math:`p!` で割った値を定義とする流儀もあるらしい。
 
 .. _tsuboi08.4.1.15:
 
-* 問題 4.1.15: 外積と微分形式のベクトル場における値
+* 問題 4.1.15: 外積の微分形式のベクトル場における値
+
+  :math:`\alpha \in \Omega^p(M),\ \beta \in \Omega^q(M)` のとき、
+  外積のベクトル場における値は次のとおり：
+
+  .. math::
+
+     (\alpha \wedge \beta)(\xi_1, \dotsc, \xi_{p + q})
+     = \sum_{j_1 < \dotsb < j_p\\k_1 < \dotsb < k_q}
+     \operatorname{sgn}
+     \begin{pmatrix}
+     1 & \cdots & p & p + 1 & \cdots & p + q\\
+     j_1 & \cdots & j_p & k_1 & \cdots & k_q
+     \end{pmatrix}
+     \alpha(\xi_{j_1}, \dotsc, \xi_{j_p})
+     \beta (\xi_{k_1}, \dotsc, \xi_{k_q})
+
+  1. :ref:`定義 4.1.13 <tsuboi08.4.1.13>` の右辺を
+     :ref:`問題 4.1.7 <tsuboi08.4.1.7>` に基いて軽く計算すると、
+     おおまかには次の形になる：
+
+     .. math::
+
+        i_{\xi_{p + q}} \dots i_{\xi_1}(\alpha \wedge \beta)
+        = \sum (-1)^?
+          (i_{\xi_{j_p}} \dots i_{\xi_{j_1}}\alpha)
+          (i_{\xi_{k_q}} \dots i_{\xi_{k_1}}\beta).
+
+  2. :math:`i_\xi i_\eta = -i_\eta i_\xi` なので
+     :math:`i_{\xi_{k_q}} \dots i_{\xi_{k_1}} i_{\xi_{j_p}} \dots i_{\xi_{j_1}}(\alpha \wedge \beta)`
+     における :math:`(i_{\xi_{j_p}} \dots i_{\xi_{j_1}}\alpha)(i_{\xi_{k_q}} \dots i_{\xi_{k_1}}\beta)`
+     の :math:`\operatorname{sgn}` はプラス。
+
+  3. よって 1. の左辺における 2. 最終式の符号は主張の置換の符号に等しい。
 
 .. _tsuboi08.4.1.16:
 
 * 問題 4.1.16: 外微分とリー微分の性質（あるいは定義）
 
-4.2 リー群
-======================================================================
-TBW
+  * \(1) :math:`\alpha \in \Omega^1(M)` に対して次の等式が成り立つ：
+
+    .. math::
+
+       (\dd \alpha)(\xi_1, \xi_2)
+       = \xi_1(\alpha(\xi_2)) - \xi_2(\alpha(\xi_1)) - \alpha([\xi_1, \xi_2]).
+
+    1. :ref:`問題 4.1.11 <tsuboi08.4.1.11>` の等式に
+       カルタンの公式 :ref:`命題 4.1.8 <tsuboi08.4.1.8>` を適用する。
+
+    2. :ref:`定義 4.1.13 <tsuboi08.4.1.13>` を用いて書き換えれば示される。
+
+  * \(2) :math:`\alpha \in \Omega^p(M)` に対して次の等式が成り立つ：
+
+    .. math::
+
+       (\dd \alpha)(\xi_1, \dotsc, \xi_{p + 1})
+       = \sum_{i = 1}^{p + 1} (-1)^{i - 1}\xi_i(\alpha(\xi_1, \overset{(\text{pop }i)}{\dotsc}, \xi_{p + 1}))
+         + \sum_{i < j}(-1)^{i + j} \alpha([\xi_i, \xi_j], \xi_1,
+           \overset{(\text{pop }i, j)}{\dotsc}, \xi_{p + 1}).
+
+    これは難しい。
+    :ref:`問題 4.1.11 <tsuboi08.4.1.11>` の拡張版と（ふつうの）帰納法による。
+
+  * \(3) :math:`\alpha \in \Omega^p(M)` に対して次の等式が成り立つ：
+
+    .. math::
+
+       (L_\xi\alpha)(\xi_1, \dotsc, \xi_p)
+       = \xi(\alpha(\xi_1, \dotsc, \xi_p))
+         - \sum_{i = 1}^p \alpha(\xi_1, \dotsc, [\xi, \xi_i], \dotsc, \xi_p).
+
+    左辺からひたすら計算する。
+
+    .. math::
+
+       \begin{align*}
+       i_{\xi_p}\dots i_{\xi_1} L_\xi\alpha
+       &= i_{\xi_p}\dots i_{\xi_2}i_{[\xi_1, \xi]}\alpha +
+          i_{\xi_p}\dots i_{\xi_2}L_\xi i_{\xi_x}\alpha\\
+       &= i_{\xi_p}\dots i_{[\xi_1, \xi]}\alpha +
+          i_{\xi_p}\dots i_{\xi_3}i_{[\xi_2, \xi]} i_{\xi_1} \alpha +
+          i_{\xi_p}\dots i_{\xi_3} L_\xi i_{\xi_2} i_{\xi_1} \alpha\\
+       &= \cdots\\
+       &= \sum_{i = 1}^n i_{\xi_p} \dots i_{[\xi_i, \xi]} \dots i_{xi_1} \alpha
+         + L_\xi i_{\xi_p} \dots i_{xi_1} \alpha\\
+       &= \xi(\alpha(\xi_1, \dotsc, \xi_p))
+         - \sum_{i = 1}^p \alpha(\xi_1, \dotsc, [\xi, \xi_i], \dotsc, \xi_p).
+       \end{align*}
+
+    * 最後の等号で、直前の二項が入れ替わった。
+
+  本によってはこちらが外微分・リー微分の定義として採用されているらしい。
