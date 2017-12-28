@@ -23,6 +23,8 @@
   (cf. :ref:`問題 5.1.6 <tsuboi05.5.1.6>`)。
 * :math:`Xf = 0 \implies f(F_t(x)) = f(x).`
 
+.. _tsuboi05.8.1.1:
+
 * 問題 8.1.1: :math:`X = \dfrac{\partial}{\partial x} + \alpha \dfrac{\partial}{\partial y},\ \alpha \in \RR \setminus \QQ`
   は :math:`\RR^2/\ZZ^2` 上のベクトル場を与える。
   このとき :math:`f \in C^\infty(M)` が :math:`Xf = 0` であるならば :math:`f` は定数関数である。
@@ -54,6 +56,8 @@
       これは :math:`\infty` に発散する。
       しかし、これは :math:`\RR^2/\ZZ^2` の面積 1 を超えるので矛盾となる。
 
+.. _tsuboi05.8.1.2:
+
 * 問題 8.1.2: コンパクト多様体上のベクトル場 :math:`X` と多様体上の :math:`C^\infty` 級関数
   :math:`f` について :math:`Xf = 0 \implies f = 0`
 
@@ -80,6 +84,8 @@
   .. math::
 
      ((F_t)_*X)(F_t(x)) = (F_t)_*X(x).
+
+.. _tsuboi05.8.2.1:
 
 * 定義 8.2.1: `ブラケット積 or 括弧積 <http://mathworld.wolfram.com/Commutator.html>`__
 
@@ -110,6 +116,8 @@
        Y = \sum_{i}Y_i \frac{\partial}{\partial x_i}.
 
   * 幾何的解釈は「ベクトル場 :math:`Y` を :math:`F_{-t}` で動かしたときの変化率」である。
+
+.. _tsuboi05.8.2.2:
 
 * 例題 8.2.2: :math:`n` 次元ユークリッド空間上の線形ベクトル場の括弧積
 
@@ -188,6 +196,8 @@
   * その次の等号は本問の仮定を使った。
   * 最後の等号は再び括弧積の定義による。
 
+.. _tsuboi05.8.2.4:
+
 * 例題 8.2.4
 
   仮定：
@@ -219,6 +229,8 @@
 
   したがって :math:`{\varphi_{-s}}_*\eta(x) = \id_*\eta(x) = \eta(x).`
   すなわち :math:`{\varphi_{-s}}_*\eta = \eta.`
+
+.. _tsuboi05.8.2.5:
 
 * 問題 8.2.5
 
@@ -361,6 +373,8 @@
 
      * あとは逆写像定理による。
 
+.. _tsuboi05.8.2.7:
+
 * 注意 8.2.7
 
   * :math:`G \subset GL_n(\RR)` を部分群とすると、
@@ -389,6 +403,8 @@
 
 #. :math:`-c\inv c'' + {}^t\!(c\inv c')(c\inv c') + (c\inv c')^2 - (c\inv c')\ {}^t\!(c\inv c') = 0`
 #. :math:`-(c\inv c')' = 0`
+
+.. _tsuboi05.8.3.1:
 
 * 例題 8.3.1: 最初の :math:`c(t) = \mathrm e^{tA}` が測地線である条件
 
