@@ -75,6 +75,12 @@
 
 8.2 フローとベクトル場
 ======================================================================
+* ベクトル場 :math:`X` とそれが生成するフロー :math:`F_t` との関係は次のとおり：
+
+  .. math::
+
+     ((F_t)_*X)(F_t(x)) = (F_t)_*X(x).
+
 * 定義 8.2.1: `ブラケット積 or 括弧積 <http://mathworld.wolfram.com/Commutator.html>`__
 
   :math:`X, Y` をベクトル場、
@@ -262,37 +268,56 @@
      （`リー環 or リー代数 <http://mathworld.wolfram.com/LieAlgebra.html>`__）。
 
      * :math:`X` が左不変ベクトル場であるとは :math:`\forall g \in G, (L_g)_*X = X` であることをいう。
+     * その全体を :math:`\mathfrak g = \set{X \in \mathfrak X(G) \sth \forall g \in G, (L_g)_*X = X}` で表す。
      * :math:`L_g` の定義は :ref:`4.3.3 <tsuboi05.4.3.3>` でやった。
-     * :math:`\mathfrak g = \set{X \in \mathcal X(G) \sth (L_g)_*X = X}.`
 
      証明は :math:`\mathfrak g` と :math:`T_1G` が同型であることを示す。
 
-     * 写像 :math:`E(\xi) = xi(1)` を考える。これはベクトル空間の準同型写像であるので、
+     * 写像 :math:`E(\xi) = \xi(1)` を考える。これはベクトル空間の準同型写像であるので、
        あとは全単射性を示せばよい。
 
      * :math:`E` が単射であること：
 
        * :math:`E(\xi) = 0 \implies \xi = 0` を示す。
-       * :math:`g, h \in G` と :math:`\xi \in \mathfrak g` に対してこうなっている：
+       * :math:`g, h \in G` と :math:`\xi \in \mathfrak g` に対して、
+         ベクトル場と左移動の関係は次で定義されている：
 
          .. math::
 
-            \xi(h) = (L_g)_*\xi(h) = \xi(L_g(h)) = \xi(gh).\\
+            ((L_g)_*\xi)(L_g(h)) = (L_g)_*\xi(h).
 
-       * 特に :math:`h = 1` とすると :math:`\xi(g) = {L_g}_*\xi(1) = {L_g}_*E(1)` なので
-         :math:`E(\xi) = 0 \implies \xi = 0` が成り立つ。
+         左辺は左不変性と左移動の定義により :math:`\xi(gh)` に等しい。
+
+       * この式に :math:`h = 1` を代入すると
+         :math:`\xi(g) = {L_g}_*\xi(1) = {L_g}_*E(1)` がわかる。
+
+       * :math:`E(\xi) = \xi(1)` より :math:`\xi(g) = (L_g)_*E(\xi).`
+
+       * したがって :math:`E(\xi) = 0 \implies \xi(g) = 0.`
+         :math:`g \in G` は任意だから :math:`\xi = 0` が成り立つ。
+
+       :math:`\ker E = 0` が示されたので、:math:`E` は単射である。
 
      * :math:`E` が全射であること：
 
-       * :math:`v \in T_1G` に対して :math:`\xi(h) = {L_h}_*\xi(1)` となる
-         :math:`\xi \in \mathcal X(G)` および :math:`h \in G` をとる。
-         このとき：
+       * :math:`v \in T_1G` に対してベクトル場を :math:`\fnm{\xi}{G}{TG}{h}(L_h)_*v` とおく。
+         つまり :math:`\xi(h) = (L_h)_* v` とおく。
+
+       * 再びベクトル場と左移動の関係の定義を思い出す。
+
+         * 左辺は :math:`((L_g)_*\xi)(L_g(h)) = ((L_g)_*\xi)(gh).`
+         * 右辺は :math:`(L_g)_*\xi(h) = (L_g)_*(L_h)_* v = (L_{gh})_*v = \xi(gh).`
+
+       * これらの最右辺が等しいということは、 :math:`(L_g)_*\xi = \xi` であるということだ。
+         よって :math:`\xi \in \mathfrak g.`
+
+       * 次のようにして :math:`E(\xi) = v` がわかる：
 
          .. math::
 
-            L_g(\xi(h)) = {L_g}_*({L_h}_* v) = {L_{gh}}v = \xi(gh).
+            E(\xi) = \xi(1) = (L_1)_* v = \id_* v = v.
 
-       * したがって :math:`\xi \in \mathfrak g` かつ :math:`E(\xi) = v` である。
+       以上により、:math:`E` が全射であることが示された。
 
   #. :math:`\xi, \eta` を左不変ベクトル場とすると :math:`[\xi, \eta]` もそうである。
 
