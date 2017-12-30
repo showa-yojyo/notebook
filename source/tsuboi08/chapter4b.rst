@@ -237,24 +237,223 @@
 
 4.2.2 リー群の作用
 ----------------------------------------------------------------------
+.. todo::
+
+   冒頭の微分形式の平均の議論のノートを見返したら、
+   リー微分の記号と左移動の記号が紛らわしくて使い物になっていない。
+   もう一度読み直し。
 
 .. _tsuboi08.4.2.3:
 
 * 定理 4.2.3: コンパクト多様体にコンパクト連結リー群が作用していると
 
+  * :math:`M` と :math:`G` をそれぞれコンパクト多様体とコンパクト連結リー群であるとする。
+  * :math:`G` は :math:`M` に作用しているとする。
+
+  このとき、:math:`M` のドラーム・コホモロジー群は、
+  :math:`M` の :math:`G` 不変微分形式のなすコチェイン複体のドラーム・コホモロジー群である。
+
+..
+
+* :math:`G` の自身への作用を考えると、
+
+  * 左不変微分形式は有限次元であり、
+  * :math:`G` 不変微分形式のドラーム・コホモロジー群が有限ベクトル空間のコチェイン複体上の
+    外微分の計算で求まる
+
+  ことになる。
+
 .. _tsuboi08.4.2.4:
 
-* 例 4.2.4: 正則行列群各種のコチェイン複体
+* 例 4.2.4: 特殊線形群のコチェイン複体
+
+  :ref:`問題 4.2.2 <tsuboi08.4.2.2>` (1) のコチェイン複体は次のようになる：
+
+  .. math::
+
+     \require{AMScd}
+     \begin{CD}
+     0 @>{\dd}>> \RR[1]
+       @>{\dd}>> \RR[e_1^*] \oplus \RR[e_2^*] \oplus \RR[e_3^*]
+       @>{\dd}>> \RR[e_2^* \wedge e_3^*] \oplus \RR[e_1^* \wedge e_3^*] \oplus \RR[e_1^* \wedge e_2^*]
+       @>{\dd}>> \RR[e_1^* \wedge e_2^* \wedge e_3^*]
+       @>{\dd}>> 0.
+     \end{CD}
+
+  これよりドラーム・コホモロジー群は次のようになる：
+
+  .. math::
+
+     \H^k(SO(3)) \cong
+     \begin{cases}
+     \RR &\quad\text{if }k = 0, 3\\
+     0   &\quad\text{otherwise}
+     \end{cases}
 
 .. _tsuboi08.4.2.5:
 
 * 問題 4.2.5: :math:`U(2)` の左不変微分形式のなすコチェイン複体およびドラーム・コホモロジー群
 
+  :math:`U(2) = \set{A \in M_2(\CC) \sth AA^* = I_2}.`
+
+  1. :math:`U(2)` のリー代数は次である：
+
+     .. math::
+
+        \mathfrak{u}(2) = \set{A \in M_2(\CC) \sth A + A^* = O}.`
+
+  2. :math:`\mathfrak{u}(2)` の基底をとる。
+     記号はなぜか :math:`e_1, e_2, t, e_3` とする。
+     定義は本書参照。
+
+  3. 基底の各括弧積を計算する。次のようになる：
+
+     .. math::
+
+        \begin{align*}
+        &[t, e_1] = 0,\ [t, e_2] = 0,\ [t, e_3] = 0,\\
+        &[e_1, e_2] = e_3,\ [e_1, e_3] = -e_2,\\
+        &[e_2, e_3] = e_1.
+        \end{align*}
+
+  4. 左不変 1 形式の基底として、3. の双対基底 :math:`e_1^*, e_2^*, t^*, e_3^*` をとる。
+  5. 左不変 1 形式の基底の外微分を求める。
+     方法は :ref:`問題 4.2.2 <tsuboi08.4.2.2>` などで見たとおり：
+
+     .. math::
+
+        \begin{align*}
+        \dd e_1^* &= -e_2^* \wedge e_3^*,\\
+        \dd e_2^* &= e_1^* \wedge e_3^*,\\
+        \dd e_3^* &= -e_1^* \wedge e_2^*,\\
+        \dd t^* &= 0,
+        \end{align*}
+
+  6. コチェイン複体を 5. より書き下す。面倒なので書かないが 1-4-6-4-1 型。
+  7. ドラーム・コホモロジー群は次のようになる：
+
+     .. math::
+
+        \H^k(SO(3)) \cong
+        \begin{cases}
+        \RR &\quad\text{if }k = 0, 1, 3, 4\\
+        0   &\quad\text{otherwise}
+        \end{cases}
+
+     :math:`\dd(e_1^* \wedge t^*) = (\dd e_1^*) \wedge \dd t^*` に注意が要る。
+
+  別解としてリー群の同型 :math:`U(2) \cong SU(2) \times U(1)` と
+  :math:`S^3 \times S^1` に :ref:`定理 2.9.1 キネットの公式 <tsuboi08.2.9.1>`
+  を用いる方法もあるとのこと。
+  上述の :math:`e_1, e_2, e_3` と :math:`t` という名前は
+  :math:`SU(2)` と :math:`U(1)` への同型を意識していたのだ。
+
 4.2.3 :math:`U(1)` の自由作用
 ----------------------------------------------------------------------
+* 最も簡単なコンパクトリー群は
+
+  .. math::
+
+     U(1) = \set{\mathrm{e}^{\sqrt{-1}\theta} \sth \theta \in \RR}
+
+  である。
+
+* 多様体 :math:`M` に :math:`U(1)` が作用していて、つまり：
+
+  * :math:`R_{\theta_1} R_{\theta_2} x = R_{\theta_1 + \theta_2}x`
+  * :math:`R_0 x = x`
+
+  であって、かつそれが `自由に作用 <http://mathworld.wolfram.com/FreeAction.html>`__、
+  つまり：
+
+  * :math:`R_\theta x = x` なる :math:`x \in M` に対して、
+    :math:`\mathrm{e}^{\sqrt{-1}\theta} = 1` であることが同値である
+
+  とする。
+
+* :math:`M` 上の同値関係を次のように導入する：
+
+  .. math::
+
+     x \sim y \iff \exists \theta \in \RR \quad\text{s.t. }R_\theta x = y.
+
+* :math:`M/U(1) = M/\sim` と書くことにすると、
+  この空間は :math:`\dim M  - 1` 次元多様体であり、射影 :math:`\fn{p}{M}{M/U(1)}` は
+  `沈み込み <http://mathworld.wolfram.com/Submersion.html>`__ となる。
+
+* :math:`U(1)` 作用はベクトル場 :math:`\displaystyle X_x = \left(\diff{}{\theta}\right)_{\theta = 0} R_\theta x`
+  で生成されていて、作用が自由であればこのベクトル場はゼロではない。
 
 .. _tsuboi08.4.2.6:
 
 * 問題 4.2.6: :math:`U(1)` の自由作用
 
+  * ベクトル場 :math:`X` が :math:`M` 上の :math:`U(1)` の自由作用を生成していて、
+  * :math:`\beta \in \Omega^k(M)` が :math:`i_X\beta = L_X\beta = 0` を満たして
 
+  いるとする。このとき次が成り立つ：
+
+  * :math:`\exists \underline\beta \in \Omega^k(M/U(1)) \quad\text{s.t. } p^*\underline\beta = \beta.`
+  * :math:`\beta \in Z^k(M) \implies \underline\beta \in Z^k(M/U(1)).`
+
+  沈み込みの活用がわからない。:math:`\ker p^*` が :math:`X` のスカラー倍とは？
+
+  1. 点 :math:`y \in M/U(1)` をとる。
+     それに対応する :math:`p(x) = y` を満たす :math:`x \in M` をとる。
+
+     * 射影 :math:`p` は全射である。
+
+  2. 接ベクトルの対応を一つ決める。
+     ここでは :math:`i = 1, \dotsc, k = \dim M` に対して、
+     :math:`Y_i \in T_y(M/U(1))` と
+     :math:`p_* \widetilde Y_i = Y_i` を満たす :math:`\widetilde Y_i \in T_xM` が対応するとする。
+
+  3. ここで別の :math:`\widetilde Y'_i \in T_xM` が存在して :math:`p_* \widetilde Y'_i = Y_i`
+     が成り立つと仮定する。すると：
+
+     .. math::
+
+        \begin{align*}
+        p_* \widetilde Y'_i = p_* \widetilde Y_i
+        & \iff p_*(\widetilde Y'_i - \widetilde Y_i)\\
+        & \iff \widetilde Y'_i - \widetilde Y_i \in \ker p_*.
+        \end{align*}
+
+     すなわち :math:`\widetilde Y'_i - \widetilde Y_i = aX \in T_xM`
+     が成り立つようなスカラー :math:`a \in \RR` が存在する。
+
+  4. :math:`i_X\beta = 0` より
+     :math:`\beta(\widetilde Y_1, \dotsc, \widetilde Y_k) = \beta(\widetilde Y'_1, \dotsc, \widetilde Y'_k)` が言える。
+
+  5. :math:`\forall \theta \in \RR,\quad p \circ R_\theta = p` であるから
+     :math:`p_* \circ {R_\theta}_* = p_*.`
+
+  6. :math:`L_X\beta = 0` より
+     :math:`\forall \theta \in \RR,\quad R_\theta^*\beta = \beta.`
+
+  7. :math:`x \sim x'` なる :math:`x' \in M` をとり、
+     :math:`\theta \in \RR` を :math:`x = R_\theta x'` を満たすものに固定する。
+
+  8. :math:`p_*\widetilde Y'_i = Y_i` を満たす :math:`\widetilde Y'_i \in T_{x'}M` がとれれば
+     次が成り立つ：
+
+     .. math::
+
+        \begin{align*}
+        \beta(\widetilde Y'_1, \dotsc, \widetilde Y'_k)
+        &= R_\theta^*\beta(\widetilde Y'_1, \dotsc, \widetilde Y'_k)\\
+        &= \beta({R_\theta}_*\widetilde Y'_1, \dotsc, \widetilde {R_\theta}_*Y'_k)\\
+        &= \beta(\widetilde Y_1, \dotsc, \widetilde Y_k).
+        \end{align*}
+
+     * 最初の等号は 6. による。
+     * 次の等号は？
+     * 最後の等号は 3. と 5. より :math:`p_* \widetilde Y'_i = p_* \circ {R_\theta}_* \widetilde Y'_i = Y_i`
+       であることによる。
+
+  9. よって :math:`\underline\beta(Y_1, \dotsc, Y_k) = \beta(\widetilde Y_1, \dotsc, \widetilde Y_k)`
+     は一意的な定義になっている。
+
+  10. 一意的であることが言えたので、:math:`\beta \in Z^k(M)` であれば
+      :math:`0 = \dd \beta = p^*\dd \underline\beta` から :math:`\dd \underline\beta = 0`
+      と結論できる。
