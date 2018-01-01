@@ -4,6 +4,8 @@
 
 .. contents:: ノート目次
 
+.. _tsuboi05.8.4:
+
 8.4 k-枠場（展開）
 ======================================================================
 k-枠場
@@ -36,6 +38,8 @@ k-枠場
 :math:`\fn{F}{U}\RR^{n - k}` が存在して、軌道と近傍の共通部分が
 :math:`F` で決まる近傍の k 次元部分多様体の和集合となる。
 
+.. _tsuboi05.8.4.1:
+
 * 例 8.4.1: :math:`\RR^3` 上のベクトル場
 
   * :math:`f \in C^\infty(\RR^2).`
@@ -43,6 +47,8 @@ k-枠場
     :math:`\displaystyle \xi_2 = \frac{\partial}{\partial x_2} + \frac{\partial f}{\partial x_2}\frac{\partial}{\partial x_3}.`
   * :math:`[\xi_1, \xi_2] = 0.`
   * :math:`h = x_3 - f(x_1, f_2)` が一定である点からなる曲面が :math:`\RR^2` 作用の軌道となる。
+
+.. _tsuboi05.8.4.2:
 
 * 例 8.4.2: ダメな例
 
@@ -54,6 +60,8 @@ k-枠場
 k 次元接平面場 or k 次元分布
   多様体 :math:`M` 上の k 次元接平面場に対して、各点の近傍ではその
   k 次元接平面場を張る k 枠場に取り替えられる。
+
+.. _tsuboi05.8.4.3:
 
 * 定理 8.4.3:
   :math:`\RR^n` の開集合 :math:`U` 上の k-枠場が :math:`U` の各点の近傍に対して
@@ -94,6 +102,8 @@ k 次元接平面場 or k 次元分布
   * 「軌道」と書いたが、
     :math:`x` において k 次元接平面場は :math:`T_x(F\inv(F(x)))` と一致する。
 
+.. _tsuboi05.8.4.4:
+
 * 定理 8.4.4: `フロベニウス <https://en.wikipedia.org/wiki/Frobenius_theorem_(differential_topology)>`__
 
   * :math:`[\xi_i, \xi_j]` が k 次元接平面場に値を持つということを
@@ -132,6 +142,8 @@ k 次元接平面場 or k 次元分布
 
 * :math:`\grad f` が生成するフローを gradient flow と呼ぶ。
 
+.. _tsuboi05.8.5.1:
+
 * 例 8.5.1: 球面上の微分可能関数に対する勾配ベクトル場
 
   * :math:`S^2` のパラメーター表示を
@@ -151,6 +163,8 @@ k 次元接平面場 or k 次元分布
     計算の結果 :math:`\grad f = \cos\varphi \dfrac{\partial}{\partial \varphi}` となる。
     直交座標系で書くと :math:`-xz\dfrac{\partial}{\partial x} - yz\dfrac{\partial}{\partial y} + (1 - z^2)\dfrac{\partial}{\partial z}.`
 
+.. _tsuboi05.8.5.2:
+
 * 例題 8.5.2
 
   #. :math:`f(x, y) = x^3 - x + y^2` のグラフを描け。
@@ -162,6 +176,8 @@ k 次元接平面場 or k 次元分布
        非減少である。
 
   #. :math:`\displaystyle \diff{x}{t} = \frac{\partial}{\partial x},\ \diff{y}{t} = \frac{\partial}{\partial y}` の解曲線を求めろ。
+
+.. _tsuboi05.8.5.3:
 
 * 問題 8.5.3
 
@@ -185,6 +201,8 @@ k 次元接平面場 or k 次元分布
 
   * 解曲線は :math:`(\mathrm e^{-2t}x_1, \dotsc, \mathrm e^{-2t}x_{\lambda}, \mathrm e^{2t}x_{\lambda + 1}, \dotsc, \mathrm e^{2t}x_n).`
   * :math:`f\inv(x^0 - \eps)` と :math:`f\inv(x^0 + \eps)` の間には二枚の平面を除いて対応が付いている。
+
+.. _tsuboi05.8.5.4:
 
 * 例 8.5.4: トーラス :math:`f(x, y) = a(2 + \cos y)\cos x + c \sin y`
 
