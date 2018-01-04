@@ -12,6 +12,8 @@
 ======================================================================
 :math:`\displaystyle L(c) = \int_{t_0}^{t_1}\!\Norm{\diff{c(t)}{t}}\,\dd{t}`
 
+.. _tsuboi05.7.1.1:
+
 * 例題 7.1.1: 最小問題
 
   曲線 :math:`c` は :math:`c(0) = x^0,\ c(1) = x^1` とする。
@@ -32,6 +34,8 @@
        仮定を満たすものは :math:`c(t) = x^0 + t(x^1 - x^0)` しかない。
 
      * なお :math:`A(c)` と :math:`L(c)` の最小値を与える :math:`c(t)` は同じものである。
+
+.. _tsuboi05.7.1.2:
 
 * 問題 7.1.2: :math:`C^1` 級曲線の長さ
 
@@ -96,6 +100,8 @@
        \end{split}
        \end{gather*}
 
+.. _tsuboi05.7.1.5:
+
 * 問題 7.1.5: 球面に投影した曲線の長さ
 
   * :math:`c(t) = (\xi(t), \eta(t)) \subset \RR^2` に関する
@@ -143,9 +149,13 @@
 
           \int_0^1\! \dfrac{4R^2 \sqrt{\xi'(t)^2 + \eta'(t)^2}}{\xi(t)^2 + \eta(t)^2 + 4R^2} \,\dd{t}.
 
+.. _tsuboi05.7.2:
+
 7.2 リーマン計量
 ======================================================================
 冒頭の議論が少々雑然としている感がある。
+
+.. _tsuboi05.7.2.1:
 
 * 定義 7.2.1: リーマン計量
 
@@ -173,6 +183,8 @@
        L(c) = \int_0^1 \sqrt{q\left(\diff{c}{t}\right)}\,\dd{t}
             = \int_0^1 \sqrt{g\left(\diff{c}{t}, \diff{c}{t}\right)}\,\dd{t}.
        \end{gather*}
+
+.. _tsuboi05.7.2.2:
 
 * 例 7.2.2: :math:`\RR^n` の原点近傍における :math:`\displaystyle\left. q(v) = \sum_{i = 1}^n v_i^2 \middle/ \left(1 + a \sum_{i = 1}^n x_i^2 \right)^2\right.\quad (a \in \RR)`
 
@@ -227,6 +239,8 @@
         以下略。
 
     以上で :math:`d(x, y) = 0 \implies x = y` が示せた。
+
+.. _tsuboi05.7.2.3:
 
 * 定義 7.2.3: リーマン計量により定まる距離
 
@@ -311,6 +325,8 @@
     :math:`g_{ij} = \delta_{ij}` に対しては :math:`\Gamma_{ij}^l = 0,\ v(t) = const.` であり、
     :math:`v^0 \in T_{c(0)}\RR^n` を :math:`v^0 \in T_{c(t)}\RR^n` に平行移動したものになる。
 
+.. _tsuboi05.7.3.1:
+
 * 問題 7.3.1: 上述の一階常微分方程式の解 :math:`v(t)` について :math:`q(v(t))` は一定である
 
   * 直接 :math:`\displaystyle \diff{q(v(t))}{t} = 0` を計算によって示す：
@@ -355,6 +371,8 @@
       `レビチビタ接続 <http://mathworld.wolfram.com/Levi-CivitaConnection.html>`__
       という（正規直交系を正規直交系に平行移動）。
 
+.. _tsuboi05.7.3.2:
+
 * 注意 7.3.2: 平行移動は曲線 :math:`c(t)` に依存して決まる。
 
 7.4 局所的最短性
@@ -382,6 +400,8 @@
 #. :math:`E_{\bm x}: \bm v \longmapsto F(1, \bm x, \bm v)` は原点の近傍から
    :math:`\bm x` の近傍への微分同相写像である。
    この写像を `指数写像 <http://mathworld.wolfram.com/ExponentialMap.html>`__ という。
+
+.. _tsuboi05.7.4.1:
 
 * 問題 7.4.1: 球面上の二点の「距離」を定義する曲線は大円に含まれる
 
@@ -431,6 +451,8 @@
 #. 積分して :math:`\displaystyle \int_0^1\sqrt{q\left(\diff{c}{s}\right)}\,\dd{s} \le \int_0^1 \abs{\diff{t}{s}}\,\dd{s} \le \abs{t(1) - t(0)}.`
 
 以上により測地線は最短であることが示せた（らしい）。
+
+.. _tsuboi05.7.4.2:
 
 * 例 7.4.2: :ref:`例題 7.1.4 <tsuboi05.7.1.4>` のトーラス上のリーマン計量についての測地線の方程式
 
@@ -482,6 +504,8 @@
   * 逆写像定理により :math:`F` は :math:`s_0(M)` 上単射であることが言える。
   * そして :ref:`例題 4.3.1 <tsuboi05.4.3.1>` より
     :math:`F` は求める微分同相写像であると言える。
+
+.. _tsuboi05.7.4.4:
 
 * 問題 7.4.4: コンパクト連結リーマン多様体の微分同相 :math:`\fn{\Phi}{M}M` が
   :math:`C^1` 位相で恒等写像と十分近いのであれば、次のようなアイソトピー :math:`\Phi_t` が存在する：
