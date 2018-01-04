@@ -66,7 +66,7 @@
   1. :math:`\mathfrak{g} \cong T_1G` の基底を何かとって :math:`e_1, \dotsc, e_n` とする。
   2. :math:`T_1^*G` における双対基底を :math:`e_1^*, \dotsc, e_n^*` とする。
   3. :math:`\displaystyle [e_i, e_j] = \sum_{k = 1}^n c_{ij}^k e_k` とおく。
-  4. :math:`(\dd(e_k^*)(e_i, e_j) = -c_{ij}^k` を示す：
+  4. :math:`\dd(e_k^*)(e_i, e_j) = -c_{ij}^k` を示す：
 
      .. math::
 

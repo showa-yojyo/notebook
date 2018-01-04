@@ -129,7 +129,7 @@
 ----------------------------------------------------------------------
 .. _tsuboi08.4.1.5:
 
-* 定義 4.1.5: 内部積
+* 定義 4.1.5: `内部積 <http://mathworld.wolfram.com/InteriorProduct.html>`__
 
   1. :math:`\alpha \in \Omega^1(M)` のベクトル場 :math:`\xi` による
      リー微分 :math:`L_\xi(\alpha)` の書き換えを考えたい。
@@ -150,7 +150,7 @@
      i_{\frac{\partial}{\partial x_k}}(\dd x_{i_1} \wedge \dotsb \wedge \dd x_{i_p}) =
      \begin{cases}
      \displaystyle \sum_{j = 1}^p (-1)^{j - 1}\,
-        (\dd x_{i_1} \wedge \overset{(\text{pop }\dd x_{i_j})}{\dotsb} \wedge \dd x_{i_p})
+        \dd x_{i_1} \wedge \overset{(\text{pop }\dd x_{i_j})}{\dotsb} \wedge \dd x_{i_p}
         & \quad \text{if }k = i_j,\\
      0  & \quad \text{if }k \notin \set{i_1, \dotsc, i_p}.
      \end{cases}
@@ -162,7 +162,8 @@
 
      i_\xi\alpha = \sum_{i_1 < \dotsb < i_p}\sum_{j = 1}^p (-1)^{j - 1}
        f_{i_1 \dots i_p}\xi_{ij}
-       \,\dd x_{i_1} \wedge \overset{(\text{pop }\dd i_j)}{\dotsb} \wedge \dd x_{i_p}.
+       \,\dd x_{i_1} \wedge \overset{(\text{pop }\dd i_j)}{\dotsb} \wedge \dd x_{i_p}
+       \in \Omega^{p - 1}(M).
 
   関数 :math:`f \in \Omega^0(M)` の内部積はゼロとする：
 
@@ -268,7 +269,7 @@
      .. math::
 
         L_\xi(\alpha \wedge \beta)
-        = \dd(i_\xi(\alpha \wedge \beta)) + i_\xi(\dd(\alpha \wedge \beta))`
+        = \dd(i_\xi(\alpha \wedge \beta)) + i_\xi(\dd(\alpha \wedge \beta))
 
      が示せれば、同じ論理で一般の場合に対して成り立つことになる。
 
@@ -332,7 +333,7 @@
   :ref:`問題 4.1.9 <tsuboi08.4.1.9>` において :math:`\alpha \in \Omega^p(M)` と
   仮定を一般の次数に緩めても同じ等式が成り立つ。
 
-  1. math:`p = 0` のとき成り立つことを示す。
+  1. :math:`p = 0` のとき成り立つことを示す。
      つまり関数 :math:`f \in \Omega^0(M)` で確認する：
 
      .. math::
@@ -360,7 +361,7 @@
 * 問題 4.1.11: 内部積とリー微分と括弧積
 
   * :math:`\alpha \in \Omega^p(M)`
-  * :math:`\xi, \eta \in \in \mathfrak{X}(M)`
+  * :math:`\xi, \eta \in \mathfrak{X}(M)`
 
   ならば、次が成り立つ：
 
@@ -369,7 +370,7 @@
      i_\xi L_\eta \alpha - L_\eta i_\xi \alpha = i_{[\xi, \eta]}\alpha.
 
   1. :math:`p = 1` のときを示す。
-     :math:`\alpha = \sum f_i,\dd x_i` に対して直接計算で示す。
+     :math:`\alpha = \sum f_i\,\dd x_i` に対して直接計算で示す。
 
   2. あとは :ref:`問題 4.1.7 <tsuboi08.4.1.7>` での証明技法を用いる。
      直接計算で次を示せば十分：
@@ -399,7 +400,7 @@
        &= \sum_{i = 1}^3 a_{ii}\omega.
        \end{align*}
 
-    ただし :math:`\xi_1 = \sum_{j = 1}^3 a_{1j}x_j` などとした。
+    ただし :math:`\displaystyle \xi_1 = \sum_{j = 1}^3 a_{1j}x_j` などとした。
 
     よって求める条件は :math:`\sum a_{ii} = 0` となる。
 
@@ -422,7 +423,7 @@
 
     3. :math:`L_\xi\omega = 0 \implies L_\xi\alpha = 0` を示す：
 
-         まず :math:`\displaymode \eps = \sum_{i, j = 1}^3 \delta_{ij}x_j\dfrac{\partial}{\partial x_i}`
+         まず :math:`\displaystyle \eps = \sum_{i, j = 1}^3 \delta_{ij}x_j\dfrac{\partial}{\partial x_i}`
          とおくと次の等式が成り立つ：
 
          * :math:`[\eps, \xi] = 0`
