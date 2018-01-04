@@ -59,7 +59,7 @@
 
      .. math::
 
-        0 = \sum_i\sum_k\sum_j f_i \dfrac{\partial f_k}{\partial x_j}\,\dd x_i \wedge \dd x_j \wedge \dd x_k.`
+        0 = \sum_i\sum_k\sum_j f_i \dfrac{\partial f_k}{\partial x_j}\,\dd x_i \wedge \dd x_j \wedge \dd x_k.
 
   3. 括弧積を定義に従って計算すると次のようになる：
 
@@ -163,7 +163,7 @@
 次のテーマは写像 :math:`\fn{F}{U}\RR^q` で定まる多様体の族である。
 
 * :math:`\rank F = q` とする。
-  このとき座標 :math:`\fn{\varphi}{U}\RR^n で :math:`F` が射影
+  このとき座標 :math:`\fn{\varphi}{U}\RR^n` で :math:`F` が射影
   :math:`\RR^n \longto \RR^q` に一致するものがうまくとれる。
 
   * 射影でない方の座標を :math:`(x_1, \dotsc, x_p)`
@@ -428,11 +428,254 @@
 
 .. _tsuboi08.4.3.11:
 
-* 注意 4.3.11: モーザーアイソトピー
+* 注意 4.3.11: モーザーのアイソトピー
+
+  コンパクトで向き付け可能な多様体 :math:`M` と、その上の
+  微分形式 :math:`\Omega_1 \ne 0, \Omega_2 \ne 0` に対して、
+
+  .. math::
+
+     \int_M\!\Omega_0 = \int_M\!\Omega_1
+
+  が成り立つのであれば、次の条件を満たすアイソトピー :math:`\fn{F_t}{M}M` が存在する：
+
+  .. math::
+
+     F_0 = \id_M,\ F_1^*\Omega_0 = \Omega_1.
 
 4.3.4 シンプレクティク形式とハミルトン・ベクトル場
 ----------------------------------------------------------------------
-TBW
+.. _tsuboi08.4.3.12:
+
+* 問題 4.3.12: ユークリッド空間原点近傍の 2 形式の核がゼロしかないとき
+
+  * :math:`\omega` を n 次元ユークリッド空間の 2 形式とし、
+  * :math:`\ker\omega = 0` であるとする。
+
+  このとき次のすべてが成り立つ：
+
+  * ユークリッド空間の次元 n は偶数 :math:`n = 2m` である。
+  * 原点における接空間 :math:`T_0\RR^n` の基底 :math:`e_1, \dotsc, e_{2m}` に対する
+    双対基底 :math:`e_1^*, \dotsc, e_{2m}^*` を使って次のように書ける：
+
+    .. math::
+
+       \omega(0) = e_1^* \wedge e_2^* + \dotsb + e_{2m - 1}^* \wedge e_{2m}^*.
+
+  * :math:`\omega^m \ne 0` である。
+
+  逆に
+
+  * 偶数次元ユークリッド空間の原点近傍で定義されている 2 形式
+    :math:`\omega` が :math:`\omega^m \ne 0` であるならば、
+    :math:`\omega(0)` は上の形に書ける。
+
+  まずベクトル場 :math:`\xi, \eta \in \mathfrak{X}(\RR^n)` に対する
+  値 :math:`\omega(\xi, \eta)` を考える。
+
+  1. :math:`\omega(\xi, \eta) = -\omega(\eta, \xi)` が成り立つ（交代形式）。
+  2. :math:`\ker\omega = 0` より、これは非退化である。すなわち
+     :math:`\xi \ne 0 \text{or } \eta \ne 0 \implies \omega(\xi, \eta) \ne 0.`
+
+  3. 原点における接空間 :math:`T_0\RR^n` の基底 :math:`\dfrac{\partial}{\partial x_i}` をとって、
+     各ベクトル場に成分表示を与えておく：
+
+     .. math::
+
+        \begin{align*}
+        \xi &= \sum_{i = 1}^n \xi_i \dfrac{\partial}{\partial x_i}\\
+        \eta &= \sum_{i = 1}^n \eta_i \dfrac{\partial}{\partial x_i}
+        \end{align*}
+
+  4. まず 3. により :math:`\displaystyle \omega(\xi, \eta) = \sum a_{ij}\xi_i\eta_j` の形に表せる。
+     さらに 1. により :math:`a_{ij} = -a_{ji}` が成り立つ。
+
+  5. 行列 :math:`A = (a_{ij})` とおく。
+     これは実交代行列であるので線形代数論により、
+     ある直交行列が存在して次の形の行列に対して共役となる：
+
+     .. math::
+
+        \bigcup_k
+        \begin{pmatrix}
+        0 & \lambda_k\\
+        -\lambda_k & 0
+        \end{pmatrix}
+        \cup
+        \begin{pmatrix}
+        0 & 0\\
+        0 & 0
+        \end{pmatrix}
+
+  6. したがって対応する :math:`T_0\RR^n` の基底 :math:`e'_1, \dotsc, e'_n` およびその双対基底
+     :math:`{e_1^*}', \dotsc, {e_n^*}'` がとれて次の形に書ける：
+
+     .. math::
+
+        \omega = \lambda_1 {e_1^*}' \wedge {e_2^*}'
+          + \dotsb + \lambda_m {e_{2m - 1}^*}' \wedge {e_{2m}^*}'
+        \quad(2m \le n).
+
+     * 本書では接空間の基底の外積の線形結合で書かれていたが、
+       余接空間の基底に勝手に直しておく。
+     * 不等式は固有値の重複度を考慮したからか？
+
+  7. :math:`\ker\omega = 0` ゆえ 6. の式は :math:`2m = n` で成り立つ。
+  8. 基底を調節して :math:`e_{2k - 1} = \dfrac{e'_{2k - 1}}{\lambda_{2k - 1}},\ e_{2k} = e'_{2k}`
+     と置き換え、:math:`e_i` の双対基底を :math:`e_i^*` と書けば、
+     本問の冒頭の :math:`\omega(0)` に関する等式が成り立つことになる。
+
+.. _tsuboi08.4.3.13:
+
+* 注意 4.3.13: 閉形式の場合
+
+  さらに :math:`\omega` が閉形式であれば、後述する :ref:`問題 4.3.17 <tsuboi08.4.3.17>`
+  により空間各点の座標近傍で次の形のものがあることがわかる：
+
+  .. math::
+
+     \omega = \dd x_1 \wedge \dd x_2 + \dotsb + \dd x_{2m - 1} \wedge \dd x_{2m}.
+
+.. _tsuboi08.4.3.14:
+
+* 定義 4.3.14: `シンプレクティク形式 <http://mathworld.wolfram.com/SymplecticForm.html>`__
+
+  * :math:`\omega \in Z^2(M), \ker\omega = 0` をみたす :math:`\omega` をシンプレクティク形式という。
+  * シンプレクティク多様体とは、シンプレクティク形式を備えた多様体のことをいう。
+
+..
+
+* ハミルトン関数
+
+  * :math:`\RR^{2m}` 上のシンプレクティク形式 :math:`\omega` に対し、
+    ベクトル場 :math:`\xi` がそれを保つならば、
+    :ref:`命題 4.1.8 <tsuboi08.4.1.8>` カルタンの公式と
+    :ref:`定理 1.7.2 <tsuboi08.1.7.2>` ポアンカレの補題により
+    :math:`i_\xi\omega = \dd f` をみたす関数 :math:`f` が存在する。
+
+  * ベクトル場 :math:`\xi` が生成するフローによって :math:`f` は一定である。
+
+    * なぜならば :math:`\xi(f) = (\dd f)(\xi) = i_\xi i_\xi \omega = 0`
+
+  * 逆に :math:`\alpha \in Z^1(\RR^{2m}),\ i_\xi\alpha = 0` なるベクトル場 :math:`\xi` は
+    一意的に定まる。この :math:`\xi` が生成するフローは :math:`\omega` を保つ。
+    フローの軌道は葉層構造の葉の上にある。
+
+    * ここで :ref:`定理 4.3.1 <tsuboi08.4.3.1>` により :math:`\alpha \ne 0.`
+
+* `ハミルトン・ベクトル場 <https://en.wikipedia.org/wiki/Hamiltonian_vector_field>`__
+
+  シンプレクティク多様体 :math:`M` 上の関数 :math:`f` に対して、
+  ベクトル場 :math:`X_f` が次の式で定まる。これをハミルトン・ベクトル場と呼ぶ：
+
+  .. math::
+
+     i_{X_f}\omega = \dd f.
+
+  * 例えば :ref:`注意 4.3.13 <tsuboi08.4.3.13>` のシンプレクティク形式に対する
+    関数 :math:`f(x_1, \dotsc, x_{2m})` のハミルトン・ベクトル場はこうである：
+
+    .. math::
+
+       \dfrac{\partial f}{\partial x_2}\dfrac{\partial}{\partial x_1}
+       - \dfrac{\partial f}{\partial x_1}\dfrac{\partial}{\partial x_2}
+       + \dotsb +
+       \dfrac{\partial f}{\partial x_{2m}}\dfrac{\partial}{\partial x_{2m - 1}}
+       - \dfrac{\partial f}{\partial x_{2m - 1}}\dfrac{\partial}{\partial x_{2m}}.
+
+* `余接束 <http://mathworld.wolfram.com/CotangentBundle.html>`__ には
+  標準的シンプレクティク形式が定まる。
+
+  1. 状況
+
+     * 多様体 :math:`M` の次元を n とする。
+     * ある点の座標近傍を :math:`(U, \varphi = (x_1, \dotsc, x_n))` とおく。
+     * 射影を :math:`\fn{p}{T^*M}M` とおく。
+     * 写像 :math:`\fn{\widehat{\varphi}}{p\inv(U)}\varphi(U) \times \RR^n` を定義する。
+       ここで像の点 :math:`(x_1, \dotsc, x_n, y_1, \dotsc, y_n)` の後半部分は
+       前半部分が表す点に対する接空間の双対ベクトルか。
+
+  2. ここで :math:`\theta = \sum_{i = 1}^n y_i\,\dd x_i \in \Omega^1(T^*M)` とおく。
+
+     * これは座標近傍の取り方に依存しない。
+
+  3. :math:`\displaystyle \omega = -\dd \theta = \sum_{i = 1}^n \dd x_i \wedge \dd y_i` は
+     余接束上のシンプレクティク形式になる。
+
+* リーマン多様体の余接束上には二次形式が定まる。
+
+  .. math::
+
+     q^*\colon \sum_{i = 1}^n y_i\,\dd x_i \longmapsto \sum_{i,j = 1}^n g^{ij}y_i y_j.
+
+  ここでリーマン計量を :math:`g_{ij}` とし、その逆行列を :math:`g^{ij}` とする。
+
+.. _tsuboi08.4.3.15:
+
+* 問題 4.3.15: リーマン計量の二次形式が余接束に定めるハミルトン・ベクトル場
+
+  :ref:`幾何学 I 7.2 <tsuboi05.7.2>` や後述の節を参照。
+
+  .. todo:: これは後ほど取り組む。
+
+.. _tsuboi08.4.3.16:
+
+* 問題 4.3.16: 全微分と余接束のシンプレクティク形式
+
+  :math:`M` 上の関数 :math:`f` の全微分は写像 :math:`\fn{\dd f}{M}T^*M` とみなせる。
+
+  :math:`T^*M` のシンプレクティク形式 :math:`\omega` に対して
+  :math:`(\dd f)^*\omega = 0` が成り立つ。
+
+  1. 全微分はこのような和である：
+
+     .. math::
+
+        \dd f = \sum_{i = 1}^n \dfrac{\partial f}{\partial x_i}\,\dd x_i.
+
+     先ほどの座標表記を用いると：
+
+     .. math::
+
+        \dd f\colon (x_1, \dotsc, x_n) \longmapsto
+        \left(x_1, \dotsc, x_n,
+              \dfrac{\partial f}{\partial x_1},
+              \dotsc,
+              \dfrac{\partial f}{\partial x_n}\right).
+
+  2. 引き戻しを計算する：
+
+     .. math::
+
+        \begin{align*}
+        (\dd f)^*\omega
+        &= (\dd f)^*\left(\sum_{i = 1}^n \dd x_i \wedge \dd y_i\right)\\
+        &= \sum_{i = 1}^n \dd x_i \wedge \dd\left(\dfrac{\partial f}{\partial x_i}\right)\\
+        &= \sum_{i = 1}^n \dd x_i \wedge \sum_{j = 1}^n \dfrac{\partial^2 f}{\partial x_i}{\partial x_j}\,\dd x_j\\
+        &= \sum{1 \le i < j \le n}\dfrac{\partial^2 f}{\partial x_i}{\partial x_j}(
+            \dd x_i \wedge \dd x_j + \dd x_j \wedge \dd x_i)\\
+        &= 0.
+        \end{align*}
+
+     * 最初の等号は余接束の標準的シンプレクティク形式。
+     * 二番目の等号は 1. による。
+     * 三番目の等号は関数の全微分である。
+     * 四番目の等号は直接計算。ここは本書の解答例とみてくれが異なるが、意味は同じ。
+     * 最後の等号は外積の反対称性による。
+
+.. _tsuboi08.4.3.17:
+
+* 定理 4.3.17: ダルブーの定理（シンプレクティク版）
+
+  :math:`2m` 次元シンプレクティク多様体 :math:`M` のシンプレクティク形式 :math:`\omega`
+  に対し、点 :math:`x_0 \in M` の座標近傍 :math:`(U, \varphi = (y_1, \dotsc, y_{2m}))` で
+  次のように書けるものがある：
+
+  .. math::
+
+     \omega = \dd y_1 \wedge \dd y_2 + \dotsb + \dd y_{2m - 1} \wedge \dd y_{2m}.
+
+  .. todo:: 難しい。
 
 4.3.5 接触形式とレーブ・ベクトル場
 ----------------------------------------------------------------------
