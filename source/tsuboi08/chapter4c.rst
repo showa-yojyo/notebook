@@ -679,4 +679,164 @@
 
 4.3.5 接触形式とレーブ・ベクトル場
 ----------------------------------------------------------------------
-TBW
+* 奇数次元多様体 :math:`M^{2m + 1}` 上の
+
+  * 値がゼロにならない :math:`\alpha \in \Omega^1(M^{2m + 1})` は
+    :math:`2m` 次元の核を持つ。
+
+  * :math:`\dd\alpha \in \Omega^2(M^{2m + 1})` は
+    次元が 1 以上の核を持つ。
+    :ref:`定理 4.3.12 <tsuboi08.4.3.12>` 参照。
+
+.. _tsuboi08.4.3.18:
+
+* 問題 4.3.18: 奇数次元空間で :math:`\ker(\dd\alpha)` :math:`\ker\alpha` が横断的に交わる状況
+
+  :math:`\alpha \in \Omega^1(\RR^{2m + 1})` が :math:`\ker(\dd\alpha) \cap \ker\alpha = 0`
+  を満たすならば、原点における接空間の基底 :math:`e_0, e_1, \dotsc, e_{2m}` で次を満たす
+  ものが存在する：
+
+  .. math::
+
+     \alpha(0) = e_0,\quad
+     \dd\alpha(0) = e_1 \wedge e_2 + \dotsb + \wedge e_{2m - 1} \wedge e_{2m}.
+
+  また、:math:`\alpha \in \Omega^1(\RR^{2m + 1})` が
+  :math:`\alpha \wedge (\dd\alpha)^m \ne 0` であれば、
+  :math:`\alpha(0)` は上の形になる。
+
+  証明手順は :ref:`問題 4.3.12 <tsuboi08.4.3.12>` と似ている。
+
+  1. 横断的であることから :math:`\ker((\dd\alpha)|\ker\alpha) = 0.`
+  2. :math:`\ker\alpha(0)` の基底 :math:`e'_1, \dotsc, e'_{2m}` をとり、
+     次のように表せる：
+
+     .. math::
+
+        (\dd\alpha)|\ker\alpha = {e_1^*}' \wedge {e_2^*}' + \dotsb + {e_{2m - 1}^*}' \wedge {e_{2m}^*}'.
+
+     :math:`\ker\alpha(0)` 上の交代形式に対する基底とする。
+
+  3. :math:`\alpha(0)(e'_0) = 1` となるように :math:`e'_0` を定め、
+     接空間 :math:`T_0\RR^{2m + 1}` の基底 :math:`e'_0, e'_1, \dotsc, e'_{2m}` を得る。
+
+  4. \3. の双対基底に対して次が成り立つような :math:`\set{a_i}` が存在する：
+
+     .. math::
+
+        \begin{align*}
+        \alpha(0) &= {e_0^*}',\\
+        (\dd\alpha)(0) &= \sum_{i = 1}^{2m}
+          a_i {e_0^*}' \wedge {e_i^*}'
+          + {e_1^*}' \wedge {e_2^*}' + \dotsb + {e_{2m - 1}^*}' \wedge {e_{2m}^*}'.
+        \end{align*}
+
+  5. 接空間 :math:`T_0\RR^{2m + 1}` の基底 :math:`e_0, e_1, \dotsc, e_{2m}` を
+     4. を用いて次のようにして得る：
+
+     .. math::
+
+        e_i =
+        \begin{cases}
+        \displaystyle \sum_{j = 1}^m(a_{2j}e_{2j - 1} - a_{2j - 1}e_{2j}) &\quad\text{if }i = 0,\\
+        e_i' & \quad\text{otherwise}.
+        \end{cases}
+
+  6. そして 5. の双対基底を次のようにする：
+
+     .. math::
+
+        \begin{align*}
+        e_0^* &= {e_0^*}',\\
+        e_{2j - 1}^* &= {e_{2j - 1}^*}' + a_{2j}{e_0^*}',\\
+        e_{2j}^* &= {e_{2j}^*}' - a_{2j - 1}{e_0^*}'.
+        \end{align*}
+
+  7. 奇数項の外積を計算すると：
+
+     .. math::
+
+        \begin{align*}
+        e_{2j - 1}^* \wedge e_{2j}^*
+        &= ({e_{2j - 1}^*}' + a_{2j}{e_0^*}') \wedge ({e_{2j}^*}' - a_{2j - 1}{e_0^*}')\\
+        &= {e_{2j - 1}^*}' \wedge {e_{2j}^*}' + a_{2j - 1}{e_0^*}' \wedge {e_{2j - 1}^*}'
+          + a_{2j}{e_0^*}' \wedge {e_{2j}^*}'.
+        \end{align*}
+
+     よって主張の等式の両方を得る。
+
+  ここから後半を証明する。
+
+  8. :math:`\alpha \wedge (\dd\alpha)^m \ne 0` であれば、
+     :math:`\alpha \ne 0` かつ :math:`\ker((\dd\alpha)^m|\ker\alpha) = 0.`
+
+  9. :math:`\ker((\dd\alpha)|\ker\alpha) \subset \ker((\dd\alpha)^m|\ker\alpha)`
+     であるから :math:`\ker((\dd\alpha)|\ker\alpha) = 0.`
+     あとは 1. 以降の議論に合流する。
+
+.. _tsuboi08.4.3.19:
+
+* 注意 4.3.19: 実は :ref:`定理 4.3.24 <tsuboi08.4.3.24>` ダルブーの定理によると
+  より強いことが言える。
+
+.. _tsuboi08.4.3.20:
+
+* 定義 4.3.20: 接触形式
+
+  :math:`\alpha \in \Omega^1(M)` が接触形式であるとは、
+  :math:`\alpha \wedge (\dd\alpha)^m \ne 0` であって、
+  値がゼロとならないものをいう。
+
+.. _tsuboi08.4.3.21:
+
+* 定義 4.3.21: `接触構造・接触多様体 <https://en.wikipedia.org/wiki/Contact_geometry#Contact_forms_and_structures>`__
+
+  * 接触構造とは、多様体 :math:`M` 上の余次元 1 の平面場 :math:`E` であって、
+    各点の周りで :math:`E = \ker\alpha` が成り立つ :math:`\alpha \in \Omega^1(M)` が
+    接触形式であるものをいう。
+
+  * 多様体が接触多様体であるとは、それが接触構造を有することを意味する。
+
+.. _tsuboi08.4.3.22:
+
+* 問題 4.3.22: :math:`4m - 1` 次元接触多様体は向き付け可能
+
+  1. 接触形式と非ゼロ関数をそれぞれ :math:`\alpha` と :math:`g` とおく。
+  2. 体積形式 :math:`\alpha \wedge (\dd\alpha)^{2m - 1}` を意識して、
+     :math:`g\alpha` の定める体積形式を計算する：
+
+     .. math::
+
+        (g\alpha) \wedge (\dd(g\alpha))^{2m - 1}
+        = g^{2m}\alpha \wedge (\dd\alpha)^{2m - 1}
+
+     * 式変形において :math:`\dd(g\alpha) = \dd{g}\alpha + g\,\dd\alpha` を用いる。
+
+  3. \1. により :math:`g^{2m} > 0` であるから多様体に対する向き付けは
+     :math:`\alpha` のとり方に依存しない。すなわち多様体が向き付け可能であることを意味する。
+
+..
+
+* `レーブ・ベクトル場 <https://en.wikipedia.org/wiki/Contact_geometry#Reeb_vector_field>`__
+
+  ベクトル場 :math:`\xi` がレーブ・ベクトル場であるとは、
+  奇数次元多様体上の接触形式 :math:`\alpha` に対するベクトル場であって、
+
+  * :math:`\alpha(\xi) = 1`
+  * :math:`i_\xi\dd\alpha = 0`
+
+  を満たすものをいう。
+
+* 接触多様体の接触構造を保つ群は、多様体に推移的に作用する。
+
+.. _tsuboi08.4.3.23:
+
+* 問題 4.3.23: :math:`\CC^{n + 1}` 上のシンプレクティク形式
+
+  * TBW
+
+.. _tsuboi08.4.3.24:
+
+* 定理 4.3.24: ダルブーの定理
+
+  * TBW
