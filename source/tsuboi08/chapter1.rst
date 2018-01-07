@@ -7,6 +7,9 @@
 1.1 微積分学の基本定理（基礎）
 ======================================================================
 * 定義 1.1.1: 原始関数
+
+.. _tsuboi08.1.1.2:
+
 * 定理 1.1.2: 定積分の存在
 
 .. _tsuboi08.1.1.3:
@@ -18,6 +21,9 @@
 
 1.2 微積分学の基本定理の多変数化（基礎）
 ======================================================================
+
+.. _tsuboi08.1.2.1:
+
 * 定義 1.2.1: 微分 1 形式、
   `線積分 <http://mathworld.wolfram.com/LineIntegral.html>`__
 
@@ -50,6 +56,8 @@
   * 各 :math:`\dd{x_i}` を 何らかの n 次元線形空間の
     :math:`x_i` 方向の基底のようなものという解釈を今のところはとることにする。
 
+.. _tsuboi08.1.2.2:
+
 * 定義 1.2.2: 全微分
 
   先ほどの式の最後の線積分の被積分部を :math:`f` の全微分と言う：
@@ -57,6 +65,8 @@
   .. math::
 
      \dd{f} = \sum_{i = 0}^n \frac{\partial f}{\partial x_i}\dd{x}_i.
+
+.. _tsuboi08.1.2.3:
 
 * 定理 1.2.3: :ref:`定理 1.1.3 <tsuboi08.1.1.3>` の一般化
 
@@ -76,6 +86,8 @@
 
      \dd{F} = \sum_{i = 1}^n f_i \dd{x_i}.
 
+.. _tsuboi08.1.2.4:
+
 * 例 1.2.4: 2 次元のある例
 
   .. math::
@@ -85,6 +97,8 @@
      \dd{F} = f_1 \dd{x_1} + f_2 \dd{x_2}.
 
   なぜならば二つ目の定積分を :math:`x_1` について偏微分して、積分可能条件が使えるから。
+
+.. _tsuboi08.1.2.5:
 
 * 例 1.2.5: 積分可能条件を満たすが、:math:`F` が存在しない例
 
@@ -96,8 +110,12 @@
 
      -\frac{x_2}{x_1^2 + x_2^2}\dd{x_1} + \frac{x_1}{x_1^2 + x_2^2}\dd{x_2}.
 
+.. _tsuboi08.1.2.6:
+
 * 注意 1.2.6: これは円周上の関数が何か存在していて、
   それが微分になる関数を求めるときの問題である。
+
+.. _tsuboi08.1.2.7:
 
 * 定義 1.2.7: `星型 <http://mathworld.wolfram.com/StarConvex.html>`__
 
@@ -200,6 +218,8 @@
 
      \sum_{1 \le i \le j \le n}f_{ij}\dd{x_i}\wedge\dd{x_j}.
 
+.. _tsuboi08.1.3.3:
+
 * 定義 1.3.3: 1 形式同士の外積
 
   .. math::
@@ -209,6 +229,8 @@
      &= \sum_{i, j = 1}^n f_i g_j \dd{x_i} \wedge \dd{x_j}\\
      &= \sum_{1 \le i < j \le n} (f_i g_j - f_j g_i) \dd{x_i} \wedge \dd{x_j}.
      \end{align*}
+
+.. _tsuboi08.1.3.4:
 
 * 定義 1.3.4: 1 形式の外微分
 
@@ -225,16 +247,22 @@
 
 * `閉形式 <http://mathworld.wolfram.com/ClosedForm.html>`__
 
+.. _tsuboi08.1.3.5:
+
 * 定理 1.3.5: :ref:`定理 1.1.3 <tsuboi08.1.1.3>` の多変数バージョン
 
   :math:`U \subset \RR^n` が星型であれば、この集合上の閉 1 形式は
   :math:`U` 上で定義された関数の全微分になっている。
+
+.. _tsuboi08.1.3.6:
 
 * 問題 1.3.6: 開集合 :math:`U \subset \RR^n` 上の閉 1 形式 :math:`\alpha` は
   :math:`\alpha \wedge \alpha = 0`
 
   * :math:`\alpha = \sum f_i \dd{x_i}` とおくと :math:`\dd{\alpha} = 0.`
   * (p. 12) の「:ref:`定義 1.3.2 <tsuboi08.1.3.2>` の形で書けば……」の展開式を利用する。
+
+.. _tsuboi08.1.3.7:
 
 * 問題 1.3.7: 開集合 :math:`U \subset \RR^n` 上の :math:`C^2` 級関数の全微分は閉形式である
 
@@ -259,6 +287,8 @@
 
   * 上の式の :math:`D` はヤコビアンのつもり。実際は 2 次の行列。
   * また、シグマ記号の添字は :math:`i, j = 1` バージョンも考えられる。
+
+.. _tsuboi08.1.4.1:
 
 * 問題 1.4.1: 1 形式の外微分に対する、長方形から開集合 :math:`U` への微分可能写像に沿う積分は
   線積分の和として表される。
@@ -296,6 +326,8 @@
   * :math:`\div \vec g = 0 \iff \dd{\beta} = 0`
   * etc.
 
+.. _tsuboi08.1.5.1:
+
 * 問題 1.5.1: :math:`\rot \circ \grad = 0,\ \div \circ \rot = 0`
 
   * 完全に直接計算だけの証明となるので、あとで SymPy にやらせたい。
@@ -306,6 +338,8 @@
 
 * 一般の次元のユークリッド空間の開集合上に p 形式を定義したいので、
   :math:`\dd{x_{i_1}} \wedge \dotsb \wedge \dd{x_{i_p}}` をすべて定義する。
+
+.. _tsuboi08.1.6.1:
 
 * 定義 1.6.1: `p 形式 <http://mathworld.wolfram.com/Differentialk-Form.html>`__
 
@@ -323,6 +357,8 @@
     * あとで出てくる :ref:`定義 1.6.8 <tsuboi08.1.6.8>` のほうが見やすい。
 
   * 結合則は普通に使える。
+
+.. _tsuboi08.1.6.3:
 
 * 例 1.6.3: 標準的 `シンプレクティック形式 <http://mathworld.wolfram.com/SymplecticForm.html>`__
 
@@ -355,6 +391,8 @@
      = \sum_{i_1 < \dotsb < i_p} \dd{f_{i_1 \dots i_p}} \wedge \dd{x_{i_1}} \wedge \dotsb \wedge \dd{x_{i_p}}.
 
   .. TeX コードをタイプするのがたいへん面倒なので、マクロを定義しないとダメか？
+
+.. _tsuboi08.1.6.6:
 
 * 例 1.6.6: 標準的接触形式
 
@@ -438,7 +476,6 @@
 
 .. todo:: `コチェイン複体 <http://mathworld.wolfram.com/CochainComplex.html>`__ の定義。
 
-
 .. _tsuboi08.1.7.1:
 
 * 定理 1.7.1: :math:`\fn{\dd \circ \dd}{\Omega^p(U)}\Omega^{p + 2}(U)` は 0 準同型である
@@ -490,7 +527,12 @@
   * 最後の等式は形式的なものだ。
   * 関数の引き戻しを :math:`\varphi^* f = f \circ \varphi` で定義する。
 
+.. _tsuboi08.1.8.2:
+
 * 命題 1.8.2: :math:`\dd{(\varphi^* f)} = \varphi^* \dd{f}`
+
+..
+
 * 1 形式 :math:`\alpha` に対して次が成り立つ：
 
   .. math::
@@ -532,6 +574,8 @@
 
     添字が :math:`m + 1` 以上の項はない。
 
+.. _tsuboi08.1.8.5:
+
 * 問題 1.8.5: 線形写像の引き戻し？
 
   * 仮定
@@ -552,6 +596,8 @@
            a_{1\sigma(1)}\dots a_{n\sigma(n)})
            \dd{x_1} \wedge \dotsb \wedge \dd{x_n}.
 
+.. _tsuboi08.1.8.6:
+
 * 問題 1.8.6: :math:`\omega = \dd{x_1} \wedge \dd{x_2} + \dd{x_3} \wedge \dd{x_4}`
 
   * :math:`\fnm{L}{\RR^2}{\RR^4}{(u_1, u_2)}\left(\sum_{j = 1, 2}a_{ij}u_j\right)_{i = 1, \dotsc, 4}`
@@ -559,6 +605,8 @@
 
     * これは素直に計算すればわかる。
       結局 :math:`\dd{u_1} \wedge \dd{u_2}` の係数がゼロになる条件を求めることになる。
+
+.. _tsuboi08.1.8.7:
 
 * 問題 1.8.7: 引き戻しと外微分の計算 :math:`\alpha = \dd{z} + x\dd{y}`
 
@@ -651,6 +699,8 @@
        &= \varphi^*\left(\sum_{i_1 < \dotsb < i_p} \dd{f_{i_1 \dots i_p}} \wedge \dd{y_{i_1}} \wedge \dotsb \wedge \dd{y_{i_p}}\right)\\
        &= \varphi^*\dd{\alpha}.
        \end{align*}
+
+..
 
 * :ref:`例題 1.6.9 <tsuboi08.1.6.9>` の別解を紹介している。
 
