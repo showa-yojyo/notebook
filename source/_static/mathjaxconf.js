@@ -9,6 +9,7 @@ window.MathJax = {
             QQ: "{\\mathbb Q}",
             RR: "{\\mathbb R}",
             CC: "{\\mathbb C}",
+            HH: "{\\mathbb H}",
 
             bm: ["\\boldsymbol #1",1],
             dd: ["\\mathrm d^{#1}", 1, ""],
@@ -51,6 +52,7 @@ window.MathJax = {
             div: "{\\operatorname{div}}",
             rot: "{\\operatorname{rot}}",
             curl: "{\\operatorname{curl}}",
+            Laplace: "{\\mathop{}\\!\\mathbin\\bigtriangleup}",
 
             extp: "{\\bigwedge\\nolimits}",
             H: "H_{DR}",

@@ -67,7 +67,9 @@
 
      \Set{\xi^{(k)} = \sum_{i = 1}^n \xi_i^{(k)}\frac{\partial}{\partial x_i}}
 
-  をとる。これに対応する余接空間の基底
+  をとる。正規直交基底なので :math:`g_x(\xi^{(k)}, \xi^{(l)}) = \delta_{kl}` となる。
+
+  これに対応する余接空間の基底
 
   .. math::
 
@@ -113,22 +115,284 @@
 
 * 問題 4.4.1: 向き付けられたリーマン多様体の向き付けられた座標近傍における体積形式
 
+  この問題でリーマン多様体の体積形式を具体的に求める。
+
+  1. リーマン計量を :math:`g_{ij}` とする：
+
+     .. math::
+
+        g = \sum g_{ij} \dd x_i \otimes \dd x_j.
+
+  2. 余接空間 :math:`T_x^*M` の正規直交基底を :math:`\alpha^{(k)}` とする：
+
+     .. math::
+
+        \alpha^{(k)} = \set{\sum_{i = 1}^n \alpha^{(k)}\,\dd x_i}.
+
+  3. 本節冒頭で述べた双線型写像を適用すると
+     :math:`\displaystyle \sum_{i, j = 1}^n g^{ij}\alpha_i^{(k)}\alpha_i^{(l)} = \delta_{kl}`
+     すなわち :math:`{}^t\!AG\inv A = I_n` の形に書ける。
+     ここで :math:`G = (g_{ij}),\ A = (\alpha_i^{(k)})` とした。
+
+  4. :ref:`問題 1.8.5 <tsuboi08.1.8.5>` の結果より
+
+     .. math::
+
+        \alpha^{(1)} \wedge \dotsb \wedge \alpha^{(n)}
+        = \det A \,\dd x_1 \wedge \dotsb \wedge \dd x_n.
+
+  5. \3. より :math:`(\det A)^2 = \det G` である。
+
+  6. \4. と 5. より求める体積形式は次のように表せる：
+
+     .. math::
+
+        \alpha^{(1)} \wedge \dotsb \wedge \alpha^{(n)}
+        = \sqrt{\det G}\,\dd x_1 \wedge \dotsb \wedge \dd x_n.
+
 .. _tsuboi08.4.4.2:
 
 * 定理 4.4.2: ガウス・グリーンの公式
+
+  向き付けられたコンパクトリーマン多様体の体積形式に関するベクトル場の発散に関する公式だ。
+
+  * :math:`\Omega_{(M, g)}` をリーマン多様体の体積形式とし、
+  * :math:`\xi` を :math:`L_\xi\Omega_{(M, g)} = \div(\xi) \Omega_{(M, g)}` を満たすベクトル場
+
+  とする。このとき、次の積分に関する等式が成り立つ：
+
+  .. math::
+
+     \int_M\!\div(\xi)\Omega_{(M, g)} = \int_{\partial M}\!g(n, \xi)\Omega_{(\partial M, g|\partial M)}.
+
+  ここで :math:`n` は単位ベクトル場であり、多様体の境界 :math:`\partial M` において
+  それに直交かつ外向きであるとする。
+
+  この積分は、境界がない多様体についてはゼロであると解釈する。
+
+  1. ベクトル場 :math:`\xi` についての仮定および :ref:`命題 4.1.8 <tsuboi08.4.1.8>`
+     カルタンの公式より：
+
+     .. math::
+
+        \begin{align*}
+        \int_M\!\div(\xi)\Omega_{(M, g)}
+        &= \int_M\!L_\xi\Omega_{(M, g)}\\
+        &= \int_M\!\dd i_\xi\Omega_{(M, g)}\\
+        &= \int_{\partial M}\!i_\xi \Omega_{(M, g)}.
+        \end{align*}
+
+     * 最後の等式はストークスの定理による。
+
+  2. 主張のベクトル場 :math:`n` は適当に定義域を多様体全体に拡張してよい。
+
+     .. math::
+
+        i_n\Omega_{(M, g)}|\partial M = \Omega_{(\partial M, g|\partial M)}.
+
+  3. 正規直交基底 :math:`\set{e_i}` をとる。
+     ただし、境界に沿って局所的に :math:`n = e_1` となるようなものとする。
+     このとき :math:`\xi = \sum a_i e_i` について：
+
+     .. math::
+
+        \begin{align*}
+        i_\xi\Omega|\partial M
+        &= a_1 e_2^* \wedge \dotsb \wedge e_n^*\\
+        &= g(n, \xi)\Omega_{(\partial M, g|\partial M)}
+        \end{align*}
+
+     * ここは何をやっているのかわからない。
 
 .. _tsuboi08.4.4.3:
 
 * 例 4.4.3: ガウス・グリーンの公式の特殊化
 
+  * 領域 :math:`B \subset \RR^2` に対して次が成り立つ：
+
+    .. math::
+
+       \int_B\!\left(\frac{\partial \xi_1}{\partial x_1} + \frac{\partial \xi_2}{\partial x_2}\right)\,\dd x_1\dd x_2
+       = \int_{\partial B}\!n \cdot \xi\,\dd s.
+
+    ただし :math:`s` は領域の境界 :math:`\partial B` の向きに沿ったパラメーターとする。
+
+  * 領域 :math:`B \subset \RR^3` に対して次が成り立つ：
+
+    .. math::
+
+       \int_B\!\left(\frac{\partial \xi_1}{\partial x_1} + \frac{\partial \xi_2}{\partial x_2} + \frac{\partial \xi_3}{\partial x_3}\right)\,\dd x_1\dd x_2\dd x_3
+       = \int_{\partial B}\!n \cdot \xi\,\dd S.
+
+    ただし :math:`\dd S` は領域の境界 :math:`\partial B` の「面積要素」である。
+
+..
+
+* 一般の k 形式に対しても :math:`\displaystyle \sum_{i_1 < \dotsb < i_k} f_{i_1 \dots i_k} \alpha^{(i_1)} \wedge \dotsb \wedge \alpha^{(i_k)}`
+  と書いたときの :math:`\displaystyle \sum_{i_1 < \dotsb < i_k} f_{i_1 \dots i_k}^2`
+  の値は正規直交基底のとり方に依存しないで定まる。
+
+  * したがって「長さ」も定まると言いたい？
+
 .. _tsuboi08.4.4.4:
 
 * 問題 4.4.4: 行列式の計算
 
+  * 行列 :math:`A` を :math:`m \times n` サイズ、
+  * 行列 :math:`B` を :math:`n \times m` サイズで
+
+  あるとする。このとき :math:`\det(AB)` はどう書けるかという問題。
+
+..
+
+* 正規直交基底 :math:`\set{\alpha^{(1)}, \dotsc, \alpha^{(n)}}` に対して、
+  :math:`\alpha^{(i_1)} \wedge \dotsb \wedge \alpha^{(i_k)}` が k 次外積の
+  空間における自然な内積についての正規直交基底になっていることが今のでわかる。
+  自然な内積とは次のものだ：
+
+  .. math::
+
+     \sum_{i_1 < \dotsb < i_k} f_{i_1 \dots i_k} \alpha^{(i_1)} \wedge \dotsb \wedge \alpha^{(i_k)},
+     \sum_{i_1 < \dotsb < i_k} g_{i_1 \dots i_k} \alpha^{(i_1)} \wedge \dotsb \wedge \alpha^{(i_k)}
+     \longmapsto
+     \sum_{i_1 < \dotsb < i_k} f_{i_1 \dots i_k} g_{i_1 \dots i_k}.
+
+* 微分形式同士の内積を定義する。
+
+  * 多様体 :math:`M` は向き付けられたコンパクト閉多様体であり、
+  * :math:`\alpha, \beta` は k 形式であり、
+  * :math:`(\alpha, \beta)_x` を :math:`\extp^k T_x^*M` の内積である
+
+  とすると、次で定義される：
+
+  .. math::
+
+     (\alpha, \beta) = \int_M\!(\alpha, \beta)_x\Omega_{(M, g)}.
+
+..
+
+* `ホッジのスター作用素 <http://mathworld.wolfram.com/HodgeStar.html>`__
+
+  :math:`\fn{*}{\extp^k T^*M}\extp^{n - k}T^*M` を次のように定義する：
+
+  .. math::
+
+     *(\alpha^{(i_1)} \wedge \dotsb \wedge \alpha^{(i_k)})
+     = \operatorname{sgn}
+     \begin{pmatrix}
+     1   & \cdots & \cdots & \cdots & \cdots & n\\
+     i_1 & \cdots & i_k & j_1 & \cdots & j_{n - k}
+     \end{pmatrix}
+     \alpha^{(j_1)} \wedge \dotsb \wedge \alpha^{(j_{n - k})}
+
+  * ここで各 :math:`\alpha^{(\cdot)}` は正の向きの正規直交基底であり、
+  * :math:`i_1 < \dotsb < i_k,\ j_1 < \dotsb < j_{n - k}` であり、
+  * :math:`\operatorname{sgn}` ホニャララは n 個の添字の置換の符号を意味するものとする。
+
 .. _tsuboi08.4.4.5:
 
-* 問題 4.4.5: ホッジスターの定義は正規直交基底のとり方に依存しない
+* 問題 4.4.5: スター作用素の定義は正規直交基底のとり方に依存しない
+
+  1. 正の向きの正規直交基底 :math:`\set{\alpha^{(\cdot)}}, \set{\beta^{(\cdot)}}` に対して
+     次の等式を満たす行列 :math:`A = (a_{ij}) \in SO(n)` が存在する：
+
+     .. math::
+
+        \beta^{(i)} = \sum_{j = 1}^n a_{ij}\alpha^{(j)}.
+
+  2. :math:`*(\beta^{(i_1)} \wedge \dotsb \wedge \beta^{(i_k)}) = P \alpha^{(l_1)} \wedge \dotsb \wedge \alpha^{(l_{n - k})}`
+     の形に書き表す。:math:`P` の部分は本書にあるようにゴチャゴチャしている。
+
+  3. :math:`\displaystyle \alpha^{(l)} = \sum_{m = 1}^n a_{ml}\beta^{(m)}` を用いて
+     2. の :math:`\alpha^{(l_1)} \wedge \dotsb \wedge \alpha^{(l_{n - k})}` を
+     :math:`Q \beta^{(m_1)} \wedge \dotsb \wedge \beta^{(m_{n - k})}` の形に書き表す。
+     :math:`Q` の部分はやはりゴチャゴチャしている。
+
+  4. \3. を 2. に代入して次のように変形したい：
+
+     .. math::
+
+        \operatorname{sgn}\begin{pmatrix}
+        1   & \cdots & \cdots & \cdots & \cdots & n\\
+        i_1 & \cdots & i_k & m_1 & \cdots & m_{n - k}
+        \end{pmatrix}
+        \beta^{(m_1)} \wedge \dotsb \wedge \beta^{(m_{n - k})}
+
+     それには :math:`P` と :math:`Q` が上記の置換の符号と一致することを、
+     大量のシグマ記号と置換をうまく捌いて示せば十分。
+
+..
+
+* ホッジのスター作用素の性質いろいろ
+
+  * :math:`*` は内積を保つ線形同型写像である。
+  * :math:`* \circ * = (-1)^{k(n - k)}.`
+  * :math:`*` は写像 :math:`\fn{*}{\Omega^k(M)}\Omega^{n - k}(M)` を引き起こす。
+    :math:`\Omega^k(M)` の内積を次のように書かれる：
+
+    .. math::
+
+       \begin{align*}
+       (\alpha, \beta)
+       &= \int_M\!(\alpha, \beta)_x \Omega_{(M, g)}\\
+       &= \int_M\!\alpha \wedge *\beta\\
+       &= \int_M\!*\alpha \wedge \beta.
+       \end{align*}
+
+    * :math:`\alpha \in \Omega^{k - 1}(M),\ \beta \in \Omega^k(M)` とする。
+
+      * 写像 :math:`\fn{\delta}{\Omega^k(M)}\Omega^{k - 1}(M)` を次のように定義する：
+
+        .. math::
+
+           \delta\beta = (-1)^{n(k + 1) + 1}(* \circ \dd{} \circ *)\beta.
+
+      このとき :math:`(\dd\alpha, \beta) = (\alpha, \delta\beta)` が成り立つ：
+
+      .. math::
+
+         \begin{align*}
+         (\dd\alpha, \beta)
+         &= \int_M\!(\dd\alpha) \wedge *\beta\\
+         &= \int_M\!\dd(\alpha \wedge *\beta) - (-1)^{k - 1}\alpha \wedge \dd(*\beta)\\
+         &= -\int_M\!(-1)^{k - 1}\alpha \wedge (-1)^{(n - k + 1)(k - 1)}(* \circ *)\dd(*\beta)\\
+         &= -(-1)^{(n - k)(k - 1)}(-1)^{n(k + 1) + 1} \int_M\!\alpha \wedge *\delta\beta\\
+         &= \int_M\!\alpha \wedge *\delta\beta\\
+         &= (\alpha, \delta\beta).
+         \end{align*}
+
+      * 式変形の途中でムリヤリ :math:`\delta` を出現させるところが急所。
+
+..
+
+* :math:`\delta` の性質いろいろ
+
+  * :math:`\delta \circ \delta = 0` であることから :math:`(\Omega^*(M), \delta)` は複体である。
+  * :math:`(\dd\alpha, \beta) = (\alpha, \delta\beta)` などが成り立つことから、
+    部分空間の直交性 :math:`\ker\dd \perp \im\delta,\ \im\delta \perp \ker\delta` がある。
+
+    * 直交するとは、内積がゼロとなることである。
+
+  * :math:`\Omega^k(M)` には互いに直交する部分空間 :math:`\ker\dd \cap \ker\delta,\ \im\dd,\ \im\delta`
+    が存在する。
+  * :math:`\HH^k = \set{\alpha \in \Omega^k(M) \sth (\dd\delta + \delta\dd)\alpha = 0}` とおくと、
+    :math:`\HH^k = \ker\dd{} \cap \ker\delta` が成り立つ。
+
+    * :math:`\alpha \in \HH^k` ならば :math:`0 = (\dd\delta + \delta\dd)\alpha, \alpha) = (\delta\alpha, \delta\alpha) + (\dd\alpha, \dd\alpha)`
+      であるので :math:`\alpha \in \ker\dd{} \cap \ker\delta` と言える。
+    * :math:`\alpha \in \ker\dd{} \cap \ker\delta` ならば当然 :math:`\alpha \in \HH^k` である。
+
+  * :math:`\Laplace = \dd\delta + \delta\dd` と書き、
+    `ラプラシアン <http://mathworld.wolfram.com/Laplacian.html>`__ と呼ぶ。
+
+    * :math:`\Laplace\alpha = 0` を満たす :math:`\alpha` を
+      調和形式という。
 
 .. _tsuboi08.4.4.6:
 
 * 定理 4.4.6: ホッジ・ドラーム・小平の定理
+
+  :math:`\Omega^k(M) = \HH^k \oplus \im\dd{} \oplus \im\delta` は
+  直交する部分空間への直和分解である。
+
+  * 証明は参考文献にあるようだ。
