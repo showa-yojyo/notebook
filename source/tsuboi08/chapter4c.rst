@@ -833,7 +833,166 @@
 
 * 問題 4.3.23: :math:`\CC^{n + 1}` 上のシンプレクティク形式
 
-  * TBW
+  * :math:`\CC^{n + 1} = \set{\bm z = (z_1, \dotsc, z_{n + 1}) \sth z_1 \in \CC, \dotsc, z_{n + 1} \in \CC}`
+  * :math:`\displaystyle \omega = \sum_{k = 1}^{n + 1}\,\dd x_k \wedge \dd y_k`
+  * :math:`z_k = x_k + \sqrt{-1}y_k`
+
+  とおく。
+
+  * \(1) 関数 :math:`\displaystyle f(\bm z) = \frac{1}{2}\sum_{k = 1}^{n + 1}\abs{z_k}^2`
+    に対するハミルトン・ベクトル場 :math:`X_f` は？
+
+    :math:`i_{X_f}\omega = \dd f` を満たすベクトル場 :math:`X_f` を計算で求める。
+
+    1. 直接計算により :math:`\dd f` を求める：
+
+       .. math::
+
+          \dd f = -\sum_{k = 1}^{n + 1}(x_k,\dd x_k + y_k,\dd y_k).
+
+    2. これが :math:`\displaystyle i_{X_f}\omega = i_{X_f}\left(\sum_{k = 1}^{n + 1}\,\dd x_k \wedge \dd y_k\right)`
+       と等しくなるようにベクトル場 :math:`X_f` を決める。
+
+       :ref:`定義 4.1.5 <tsuboi08.4.1.5>` のとおりにやれば出てくるが、
+       符号 :math:`(-1)^{j - 1}` に注意して計算ミスをしないようにすること。
+
+       .. math::
+
+          X_f = \sum_{k = 1}^{n + 1}\left(x_k \frac{\partial}{\partial y_k} - y_k \frac{\partial}{\partial x_k} \right).
+
+  * \(2) ハミルトン・ベクトル場 :math:`X_f` はリー群 :math:`U(1)` の
+    :math:`\CC^{n + 1}` 上へ次の作用を生成する：
+
+    .. math::
+
+       \mathrm{e}^{\sqrt{-1}\theta} \in U(1),\ \bm z \longmapsto \mathrm{e}^{\sqrt{-1}\theta}\bm z.
+
+    ベクトル場が生成するフローを常微分方程式を解くことで求める。
+
+    1. :math:`X_f` に対応する常微分方程式は次である：
+
+       .. math::
+
+          \diff{}{t}
+          \begin{pmatrix} x_k \\ y_k \end{pmatrix}
+          =
+          \begin{pmatrix}
+          0 & -1\\
+          1 & 0
+          \end{pmatrix}
+          \begin{pmatrix} x_k \\ y_k \end{pmatrix}.
+
+     2. 初期条件を :math:`(x_k, y_k)` とすると、1. の解は次のとおり：
+
+        .. math::
+
+           \begin{pmatrix}
+           \cos t & -\sin t\\
+           \sin t & \cos t
+           \end{pmatrix}
+           \begin{pmatrix} x_k \\ y_k \end{pmatrix}.
+
+     3. これを複素数で表現すると求めるフロー :math:`R_\theta` は
+        （パラメーターを :math:`\theta` と書き換えて）次である：
+
+        .. math::
+
+           R_\theta(\bm z) = \mathrm{e}^{\sqrt{-1}\theta}\bm z.
+
+  * \(3) 微分 1 形式 :math:`\alpha \in \Omega^1(\RR^{2n + 1})` を次で定義する：
+
+    .. math::
+
+       \alpha = \frac{1}{2}\sum_{k = 1}^{n + 1}(-y_k\,\dd x_k + x_k\,\dd y_k).
+
+    このとき :math:`\alpha` は :math:`U(1)` の作用で不変である。
+
+    * この問題は :math:`L_{X_f}\alpha = 0` を示せば十分。
+      :ref:`命題 4.1.8 <tsuboi08.4.1.8>` カルタンの公式を用いる。
+
+  * \(4) :math:`S^{2n + 1} \in \CC^{n + 1}` を単位球面とする。
+
+    * \(4.1) :math:`U(1)` 作用はこの球面上に自由に作用する。
+
+      :math:`\bm z \in \CC^{n + 1}\minuszero` に対して
+      :math:`\mathrm{e}^{\sqrt{-1}\theta}\bm z = \bm z \implies \mathrm{e}^{\sqrt{-1}\theta} = 1`
+      であるから OK である。
+
+    * \(4.2) :math:`\dd\alpha|S^{2n + 1} = \omega|S^{2n + 1}` に対して次が成り立つ：
+
+      .. math::
+
+         i_{X_f}(\dd\alpha|S^{2n + 1}) = L_{X_f}(\dd\alpha|S^{2n + 1}) = 0.
+
+      1. 急所の一つは :math:`\dd f` が :math:`f` の等位面である :math:`S^{2n + 1}` 上でゼロであることだ。
+         これは (3) の計算の一部による。
+         それゆえ :math:`i_{X_f}(\dd\alpha|S^{2n + 1}) = 0.`
+
+      2. もう一つの急所は :ref:`注意 4.1.2 <tsuboi08.4.1.2>` と
+         :ref:`問題 4.1.4 <tsuboi08.4.1.4>` の可換性にある：
+
+         .. math::
+
+            \begin{align*}
+            L_{X_f}(\dd\alpha|S^{2n + 1})
+            &= \dd L_{X_f}(\alpha|S^{2n + 1})\\
+            &= \dd((L_{X_f}\alpha)|S^{2n + 1})\\
+            &= 0.
+            \end{align*}
+
+    * \(4.3) :math:`\alpha|S^{2n + 1}` は接触形式である。
+
+      1. :math:`(\dd\alpha)^n` を計算する：
+
+         .. math::
+
+            (\dd\alpha)^n = n!\sum_{k = 1}^{n + 1}\,\dd x_1 \wedge \dd y_1 \wedge
+            \overset{(\text{pop }\dd x_k \wedge \dd y_k)}{\dotsb}
+            \wedge \dd x_{n + 1} \wedge \dd y_{n + 1}.
+
+      2. :math:`\alpha \wedge (\dd\alpha)^n` を計算する：
+
+         .. math::
+
+            \begin{align*}
+            \alpha \wedge (\dd\alpha)^n
+            &= \frac{1}{2}\sum_{k = 1}^{n + 1}(-y_k,\dd x_k + x_k\,\dd y_k) \wedge (\dd\alpha)^n\\
+            &= \frac{n!}{2}\sum_{k = 1}^{n + 1}(-y_k,\dd x_1 \wedge \dd y_1 \wedge
+               \overset{(\text{replace with }\dd x_k)}{\dotsb}
+               \wedge \dd x_{n + 1} \wedge \dd y_{n + 1}\\
+               &\quad + x_k\,\dd x_1 \wedge \dd y_1 \wedge
+               \overset{(\text{replace with }\dd y_k)}{\dotsb}
+               \wedge \dd x_{n + 1} \wedge \dd y_{n + 1})\\
+            &= \frac{n!}{2}i_{\grad(f)}\,\dd x_1 \wedge \dd y_1 \wedge
+               \dotsb \wedge \dd x_{n + 1} \wedge \dd y_{n + 1}.
+            \end{align*}
+
+         ここで :math:`\grad(f) = -X_f` である。
+
+      3. :math:`\grad(f)` は球面に直交するベクトル場であるから、
+         この球面上では 2. の値はゼロではない。
+
+  * \(5) :math:`\CC P^n = S^{2n + 1}/U(1)` 上に定まる閉 2 形式 :math:`\omega_{\CC P^n}\in Z^2(\CC P^n)`
+    について次が成り立つ：
+
+    * :math:`\omega_{\CC P^n}^n \in \Omega^{2n}(\CC P^n)`
+    * :math:`\omega_{\CC P^n}^n(\cdot) \ne 0`
+
+    1. :math:`\beta = \dd\alpha|S^{2n + 1} = \omega|S^{2n + 1} \in \Omega^2(S^{2n + 1})` とおく。
+    2. \(4) より :math:`i_{X_f}\,\dd\beta = L_{X_f},\dd\beta = 0.`
+    3. :ref:`問題 4.2.6 <tsuboi08.4.2.6>` より :math:`\omega_{\CC P^n} = \beta \in Z^2(\CC P^n).`
+    4. 射影を :math:`p` とすると、
+       :math:`p^*(\omega_{\CC P^n}^n) = (\dd\alpha)^n` は :math:`\ker\alpha` 上ではゼロではない。
+    5. ここがわかりにくかった。
+
+       .. math::
+
+          i_{X_f}\alpha = \frac{1}{2}\sum_{k = 1}^{n + 1}(y_k^2 + x_k^2) = \frac{1}{2}
+
+       であるので、接写像 :math:`\fn{p_*}{TS^{2n + 1}}T\CC P^n` を
+       :math:`\ker\alpha` 上に制限すればこれは全射である。
+
+    以上で主張二点が示せた。
 
 .. _tsuboi08.4.3.24:
 
