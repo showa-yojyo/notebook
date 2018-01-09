@@ -2,12 +2,12 @@
 幾何学 III 微分形式 読書ノート
 ======================================================================
 
-TBW
+本ノートは :doc:`/tsuboi05/index` のすぐ次に取り組んでいる。
 
 .. include:: /_include/book-details/tsuboi08.txt
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :glob:
 
    chapter*
