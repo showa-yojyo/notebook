@@ -668,14 +668,97 @@
 * 定理 4.3.17: ダルブーの定理（シンプレクティク版）
 
   :math:`2m` 次元シンプレクティク多様体 :math:`M` のシンプレクティク形式 :math:`\omega`
-  に対し、点 :math:`x_0 \in M` の座標近傍 :math:`(U, \varphi = (y_1, \dotsc, y_{2m}))` で
+  に対し、点 :math:`x^0 \in M` の座標近傍 :math:`(U, \varphi = (y_1, \dotsc, y_{2m}))` で
   次のように書けるものがある：
 
   .. math::
 
      \omega = \dd y_1 \wedge \dd y_2 + \dotsb + \dd y_{2m - 1} \wedge \dd y_{2m}.
 
-  .. todo:: 難しい。
+  「こういう座標近傍が存在する」というのが主張であることに注意。
+
+  1. 色々なものを定義する：
+
+     * 開集合 :math:`U \subset M` を :math:`x^0` の近傍とする。
+     * 関数 :math:`\fn{y_1}{U}\RR` を :math:`(\dd y_1)_{(x^0)} \ne 0` となるように定める。
+     * この関数についてのハミルトン・ベクトル場 :math:`X_{y_1}` を定義する。
+       すなわち :math:`i_{X_{y_1}}\omega = \dd y_1` が成り立つ。
+     * およびこのベクトル場が生成する局所フローを :math:`\varphi_t^{(1)}(x)` とする。
+
+  2. このとき次の条件を満たす :math:`2m - 1` 次元部分多様体 :math:`D^{2m - 1} \subset M`
+     が存在する：
+
+     * :math:`x^0 \in D^{2m - 1}`
+     * :math:`X_{y_1}` に横断的である。
+
+     なぜならば 1. より :math:`(\dd y_1)_{(x^0)} \ne 0 \implies (X_{y_1})_{x^0} \ne 0` だからだ。
+
+  3. 関数 :math:`\fn{y_2}{U}\RR` を :math:`\varphi_{-y_2(x)}^{(1)} \in D^{2m - 1}` となるように定める。
+  4. :math:`y_1 = \text{const.}` および :math:`y_2 = \text{const.}` であるような
+     二つの :math:`2m - 1` 次元部分多様体は :math:`x^0` の近傍で横断的に交わる。
+  5. \3. の関数に対応するハミルトン・ベクトル場を :math:`X_{y_2}` とする。
+     すなわち :math:`i_{X_{y_2}}\omega = \dd y_2` が成り立つ。
+     さらにこのベクトル場が生成する局所フローを :math:`\varphi_t^{(2)}(x)` とする。
+     このとき、
+
+     * :math:`i_{X_{y_1}} i_{X_{y_2}} \omega = i{X_{y_1}}`
+     * :math:`\dd y_2 = 1`
+
+     より :math:`i_{X_{y_2}} i_{X_{y_1}} \omega = i_{X_{y_2}}\,\dd y_1` が言えるから、
+     フロー :math:`\varphi_t^{(2)}` は
+
+     * :math:`y_1 = -t` に写し、
+     * :math:`X_{y_1}, X_{y_2}` は可換
+
+       .. math::
+
+          \begin{align*}
+          i_{[X_{y_1}, X_{y_2}]}\omega
+          &= (i_{X_{y_1}}L_{X_{y_2}} - L_{X_{y_2}}i_{X_{y_1}})\omega\\
+          &= i_{X_{y_1}}0 - L_{X_{y_2}}\,\dd y_1\\
+          &= -\dd i_{X_{y_2}}\,\dd y_1\\
+          &= -\dd(-1)\\
+          &= 0.
+          \end{align*}
+
+     である。よって二つのフロー :math:`\varphi_s^{(1)}, \varphi_t^{(2)}` は可換である。
+
+  6. \4. における二つの部分多様体の交差部分からなる部分多様体を :math:`B^{2m - 2}` とおく。
+     このとき、接空間 :math:`T_xB^{2m - 2}` と :math:`T_xM` の両方の部分空間
+     :math:`\langle X_{y_1}, X_{y_2} \rangle` は :math:`\omega` に対して直交する。
+
+     * なぜならば :math:`\forall v \in T_xB^{2m - 2}` に対して
+       :math:`0 = v(y_k) = i_v(\dd y_k) = i_v i_{X_{y_k}} \omega\quad(k = 1, 2)` だからだ。
+
+     ゆえに :math:`\ker(\omega|B^{2m - 2}) = 0.`
+
+  7. \6. より :math:`\omega|B^{2m - 2} \in Z^2(B^{2m - 2})` はシンプレクティク形式である。
+
+  ここまでが証明の前半部分。残りは帰納法となる。
+
+  8. 本定理の主張が :math:`2, 4, \dotsc, 2m - 2` 次元のシンプレクティク多様体に対して
+     成り立っていると仮定する。
+     このとき :math:`B^{2m - 2}` 上の座標 :math:`(y_3, \dotsc, y_{2m})` で次のように
+     表せるものが存在する：
+
+     .. math::
+
+        \omega|B^{2m - 2} = \dd y_3 \wedge \dd y_4 + \dotsb + \dd y_{2m - 1} \wedge \dd y_{2m}.
+
+     ここは複雑に見える。次の条件を満たす :math:`\eps > 0` が存在するということらしい：
+
+       :math:`\set{(\varphi_s^{(1)}(x), \varphi_t^{(2)}(x)) \sth s, t \in (-\eps, \eps)}` と
+       :math:`(-\eps, \eps) \times (-\eps, \eps)` は微分同相である。
+
+  9. 二つのフローの可換性により、この各座標をフロー不変であるように :math:`x^0` の近傍で
+     定められる。このとき、ベクトル場 :math:`X_j\quad(j = 3, \dotsc, 2m)` を
+     ハミルトン・ベクトル場として定める：
+     :math:`i_{X_j}\omega = \dd y_j.`
+
+     ベクトル場 :math:`X_j, X_k\quad(j, k = 3, \dotsc, 2m)` は可換である。
+
+  10. 関数 :math:`y_1, y_2, y_3, \dotsc, y_{2m}` を座標にとると、
+      :math:`\omega` は主張のように書かれる。
 
 4.3.5 接触形式とレーブ・ベクトル場
 ----------------------------------------------------------------------
@@ -996,6 +1079,73 @@
 
 .. _tsuboi08.4.3.24:
 
-* 定理 4.3.24: ダルブーの定理
+* 定理 4.3.24: `ダルブーの定理 <https://en.wikipedia.org/wiki/Darboux%27s_theorem>`__
 
-  * TBW
+  * :math:`M^{2m + 1}` を接触多様体、
+  * :math:`\alpha \in \Omega^1(M^{2m + 1})` を局所的な接触形式
+
+  とする。このとき :math:`x^0 \in M^{2m + 1}` の座標近傍
+  :math:`(U, \varphi=(x_0, \dotsc, x_{2m}))` で :math:`\alpha` を次のように表せるものが存在する：
+
+  .. math::
+
+     \alpha = \dd x_0 + x_2\,\dd x_2 + \dotsb + x_{2m - 1}\,\dd x_{2m}.
+
+  証明のポイントはポアンカレの補題と
+  ダルブーの定理シンプレクティク版を利用することだ。
+
+  1. 次の準備をする：
+
+     * :math:`W = M^{2m + 1} \times \RR_+` とする。:math:`2m + 2` 次元多様体である。
+     * :math:`\fn{p}{W}M` を射影とする。
+     * :math:`\beta = tp^*\alpha \in \Omega^1(W),\ t \in \RR_+` とする。
+       :math:`t` を座標と考える。
+
+  2. :math:`\dd\beta` が :math:`W` 上のシンプレクティク形式である (:math:`\ker\dd\beta = 0`) ことを示す。
+
+     .. math::
+
+        \begin{align*}
+        (\dd\beta)^{m + 1}
+        &= (\dd t \wedge p^*\alpha + tp^*\,\dd\alpha)^{m + 1}\\
+        &= (m + 1)t^m\,\dd t \wedge p^*\alpha \wedge (p^*\,\dd\alpha)^m + t(p^*\,\dd\alpha)^{m + 1}\\
+        &= (m + 1)t^m\,\dd t \wedge p^*\alpha \wedge (p^*\,\dd\alpha)^m + tp^*(\dd\alpha)^{m + 1}\\
+        &= (m + 1)t^m\,\dd t \wedge p^*(\alpha \wedge (\dd\alpha)^m)\\
+        &\ne 0.
+        \end{align*}
+
+     * 三番目の等号は :math:`2m + 2` 形式の引き戻しを利用した。
+
+  3. シンプレクティク形式 :math:`\dd\beta` に :ref:`定理 4.3.17 <tsuboi08.4.3.17>`
+     ダルブーの定理シンプレクティク版を適用する。これにより
+     :math:`(x^0, 1) \in W` の近傍で次のように表せる（次元に注意）：
+
+     .. math::
+
+        \dd\beta = \dd y_1 \wedge \dd y_2 + \dotsb + \dd y_{2m + 1} \wedge \dd y_{2m}.
+
+  4. もう一つ 1 形式 :math:`\widehat\alpha = y_1\,\dd y_2 + \dotsb + y_{2m + 1}\,\dd y_{2m}` を考える。
+     :math:`\dd\widehat\alpha = \dd\beta` が成り立つ。
+     そこで :ref:`定理 1.7.2 <tsuboi08.1.7.2>` ポアンカレの補題を適用すると、
+     次の条件を満たす関数 :math:`f` が :math:`(x^0, 1)` の近傍で存在する：
+
+     * :math:`\beta - \widehat\alpha = \dd f`
+     * :math:`f(x^0, 1) = 0`
+
+  5. :ref:`定理 4.3.17 <tsuboi08.4.3.17>` における関数 :math:`y_1` はゼロでさえなければよいので、
+     :math:`y_1 = t` としてよい：
+
+     .. math::
+
+        \beta = \widehat\alpha + \dd f
+        = t\,\dd y_2 + \dd f + y_3\,\dd y_4 + \dotsb + y_{2m - 1}\,\dd y_{2m} + y_{2m + 1}\,\dd y_{2m + 2}.
+
+  6. 写像 :math:`\fnm{s}{M}{W}{x}(x, 1)` を定義する。このとき次の等式が成り立つ：
+
+     .. math::
+
+        \alpha = s^*\beta = \dd y_2 + \dd f + y_3\,\dd y_4 + \dotsb + y_{2m - 1}\,\dd y_{2m} + y_{2m + 1}\,\dd y_{2m + 2}.
+
+  7. :math:`s^*(y_2 + f), s^* y_3, \dotsc, s^* y_{2m + 2}` をそれぞれ
+     :math:`x_0, x_1, \dotsc, x_{2m}` とおいて座標関数とすれば、
+     :math:`\alpha` は主張の形となる。
