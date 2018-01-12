@@ -278,7 +278,7 @@
   .. math::
 
      *(\alpha^{(i_1)} \wedge \dotsb \wedge \alpha^{(i_k)})
-     = \operatorname{sgn}
+     = \sgn
      \begin{pmatrix}
      1   & \cdots & \cdots & \cdots & \cdots & n\\
      i_1 & \cdots & i_k & j_1 & \cdots & j_{n - k}
@@ -287,7 +287,7 @@
 
   * ここで各 :math:`\alpha^{(\cdot)}` は正の向きの正規直交基底であり、
   * :math:`i_1 < \dotsb < i_k,\ j_1 < \dotsb < j_{n - k}` であり、
-  * :math:`\operatorname{sgn}` ホニャララは n 個の添字の置換の符号を意味するものとする。
+  * :math:`\sgn` ホニャララは n 個の添字の置換の符号を意味するものとする。
 
 .. _tsuboi08.4.4.5:
 
@@ -312,7 +312,7 @@
 
      .. math::
 
-        \operatorname{sgn}\begin{pmatrix}
+        \sgn\begin{pmatrix}
         1   & \cdots & \cdots & \cdots & \cdots & n\\
         i_1 & \cdots & i_k & m_1 & \cdots & m_{n - k}
         \end{pmatrix}

@@ -305,7 +305,7 @@
 
     .. math::
 
-       \dd{y_{j_1}} \wedge \dotsb \wedge \dd{y_{j_p}} = \operatorname{sign}
+       \dd{y_{j_1}} \wedge \dotsb \wedge \dd{y_{j_p}} = \sgn
        \begin{pmatrix}j_1 & \dots & j_p\\k_1 & \dots & k_p\end{pmatrix}
        \dd{y_{k_1}} \wedge \dotsb \wedge \dd{y_{k_p}}.
 

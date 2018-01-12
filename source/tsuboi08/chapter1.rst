@@ -437,7 +437,7 @@
 
     .. math::
 
-       \dd{x_{j_1}} \wedge \dotsb \wedge \dd{x_{j_p}} = \operatorname{sign}
+       \dd{x_{j_1}} \wedge \dotsb \wedge \dd{x_{j_p}} = \sgn
        \begin{pmatrix}j_1 & \dots & j_p\\i_1 & \dots & i_p\end{pmatrix}
        \dd{x_{i_1}} \wedge \dotsb \wedge \dd{x_{i_p}}.
 
@@ -592,7 +592,7 @@
 
       .. math::
 
-         \sum_{\sigma \in \mathfrak S^n} \operatorname{sign} \sigma(
+         \sum_{\sigma \in \mathfrak S^n} \sgn \sigma(
            a_{1\sigma(1)}\dots a_{n\sigma(n)})
            \dd{x_1} \wedge \dotsb \wedge \dd{x_n}.
 

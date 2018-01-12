@@ -92,7 +92,7 @@
 
       .. math::
 
-         f = \operatorname{sign}(h_{11})y_1^2 + \sum_{i, j = 2}^n h'_{ij}(x_2, \dotsc, x_n) x_i x_j.
+         f = \sgn(h_{11})y_1^2 + \sum_{i, j = 2}^n h'_{ij}(x_2, \dotsc, x_n) x_i x_j.
 
       ここで :math:`h'` を関数化させた。
       この平方完成と座標変換をシグマの項に対して順次適用すると、主張の等式が得られる。

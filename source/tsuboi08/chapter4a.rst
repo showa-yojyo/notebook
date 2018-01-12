@@ -473,7 +473,7 @@
 
      (\alpha \wedge \beta)(\xi_1, \dotsc, \xi_{p + q})
      = \sum_{j_1 < \dotsb < j_p\\k_1 < \dotsb < k_q}
-     \operatorname{sgn}
+     \sgn
      \begin{pmatrix}
      1 & \cdots & p & p + 1 & \cdots & p + q\\
      j_1 & \cdots & j_p & k_1 & \cdots & k_q
@@ -495,7 +495,7 @@
   2. :math:`i_\xi i_\eta = -i_\eta i_\xi` なので
      :math:`i_{\xi_{k_q}} \dots i_{\xi_{k_1}} i_{\xi_{j_p}} \dots i_{\xi_{j_1}}(\alpha \wedge \beta)`
      における :math:`(i_{\xi_{j_p}} \dots i_{\xi_{j_1}}\alpha)(i_{\xi_{k_q}} \dots i_{\xi_{k_1}}\beta)`
-     の :math:`\operatorname{sgn}` はプラス。
+     の :math:`\sgn` はプラス。
 
   3. よって 1. の左辺における 2. 最終式の符号は主張の置換の符号に等しい。
 

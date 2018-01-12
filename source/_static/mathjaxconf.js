@@ -22,6 +22,7 @@ window.MathJax = {
             eps: "\\varepsilon",
             mdiff: ["\\frac{\\dd[#2]#1}{\\dd #3^{#2}}", 3],
             rank: "{\\operatorname{rank}}",
+            sgn: "{\\operatorname{sign}}",
 
             abs: ["{|#1|}", 1],
             Abs: ["{\\left|#1\\right|}", 1],
@@ -54,6 +55,7 @@ window.MathJax = {
             curl: "{\\operatorname{curl}}",
             Laplace: "{\\mathop{}\\!\\mathbin\\bigtriangleup}",
 
+            bsd: "{\\operatorname{bsd}}",
             extp: "{\\bigwedge\\nolimits}",
             H: "H_{DR}",
 
