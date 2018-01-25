@@ -15,6 +15,8 @@ window.MathJax = {
             dd: ["\\mathrm d^{#1}", 1, ""],
             diff: ["\\frac{\\dd {#1}}{\\dd {#2}}", 2],
             diag: "\\operatorname{diag}",
+            diam: "\\operatorname{diam}",
+            dist: "\\operatorname{dist}",
             dt: "\\ \\mathrm d t",
             dx: "\\ \\mathrm d x",
             dy: "\\ \\mathrm d y",
