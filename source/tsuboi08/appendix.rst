@@ -162,6 +162,142 @@
 * \2. 立方体分割の正則分割 :math:`L` を変形して、
   多様体に対して一般の位置にある三角形分割 :math:`\widehat{L}` を構成する。
 
+  :math:`L` は直径 :math:`2\delta_0` の立方体による立方体分割である。
+  単体では直径は :math:`\delta_0` である。
+
+  * 2.1 立方体分割のすべての頂点 :math:`I^0 = b_{I^0}` に対して次を行なう：
+
+    * この点から距離 :math:`\rho_0 \delta_0` 以下、
+    * :math:`M` から距離 :math:`\frac{\delta_N \rho_0}{2}\delta_0` 以上
+
+    離れた点をとり、それを :math:`\widehat{b_{I^0}}` とする。
+
+  * 2.2 各 :math:`k\quad(1 \le k < N - n)` 次元立方体 :math:`I^k` の重心 :math:`b_{I^k}` に対して次を行なう：
+
+    * この点から距離 :math:`\rho_0 \delta_0` 以下、
+    * :math:`M` から距離 :math:`\frac{\delta_N \rho_0}{2}\delta_0` 以上
+
+    離れた点をとり、それを :math:`\widehat{b_{I^k}}` とする。さらに
+
+    * :math:`\langle\widehat{b_{I^0}} \dots \widehat{b_{I^k}}\rangle \cap M = \varnothing.`
+
+    上記左辺の l 単体 :math:`\tau^l\quad(0 \le l \le k)` を :math:`M` から距離
+
+    .. math::
+
+       \frac{\delta_N^{l + 1}\rho_0^{l + 1}\delta_0}{2^{2l + 1}(1 + 2\rho_0)^l}
+
+    以上離しておいて、:math:`l = 0` のとき頂点と :math:`M` の距離、および
+    k 単体と :math:`M` が交わらないことを保証する。
+
+    :math:`k = 1, 2, \dotsc` について帰納的に :math:`b_{I^1}, b_{I^2}, \dotsc` を
+    順に処理し、:math:`k - 1` 次元まで（距離の）不等式が成り立っているとする：
+
+    .. math::
+
+       \tau^l \subset \langle\widehat{b_{I^0}} \dots \widehat{b_{I^{k - 1}}}\rangle
+       \implies \dist(\tau^l, M) \ge
+       \frac{\delta_N^{l + 1}\rho_0^{l + 1}\delta_0}{2^{2l + 1}(1 + 2\rho_0)^l}.
+
+    :math:`M` の点の位置関係により場合分けをする：
+
+    * 点が :math:`B_{3\delta_0}(b_{I^k})` に含まれない場合。
+      このときは :math:`\widehat{b_{I^k}} = b_{I^k}` とする。
+      これを頂点とする新しい l 単体はすぐ上に記した距離に関する不等式を満たす。
+
+    * 点が :math:`B_{3\delta_0}(b_{I^k})` に含まれる場合。
+
+      その点を :math:`p \in B_{3\delta_0}(b_{I^k})` とする。
+
+      * :math:`\tau^{l - 1}\quad(l - 1 < N - n - 1)` を接空間 :math:`T_xM` と
+        立方体分割 :math:`L` の :math:`k - 1` 骨格（これが何なのかわからない）上の立方体の
+        重心からなる単体であるとする。
+
+      * :math:`\widehat{\tau^{l - 1}}` を単体 :math:`\tau^{l - 1}` を移動した単体であるとする。
+
+      これらについて :math:`T_xM` と :math:`\widehat{\tau^{l - 1}}` の
+      両方を含む :math:`n + l` 次元 affine 部分空間を考える。
+      このような部分空間は高々 :math:`k_N` 個しかない。なぜならば：
+
+      * 空間の次元が :math:`n + l \le n + k < N` を満たし、
+      * :math:`b_{I^k} * \widehat{\tau^{l - 1}}` が立方体分割の単体であるような
+        :math:`\widehat{\tau^{l - 1}}` のとり方が高々 :math:`k_N` 個しかない
+
+      ことによる。
+
+      これらの affine 空間の :math:`\delta_N\rho_0\delta_0` 近傍の和集合を
+      :math:`B_{\rho_0\delta_0}(b_{I^k})` で考えると、1.5 より
+      ある点 :math:`\widehat{b_{I^k}}` がこの和集合と近傍の共通部分外に存在して、
+
+      .. math::
+
+         \dist(T_pM, \widehat{b_{I^k}}) \ge \delta_N\rho_0\delta_0
+
+      を満たす。
+
+      一方 1.7 により :math:`\dist(\widehat{b_{I^k}}, M) \ge \dfrac{\delta_N\rho_0}{2}\delta_0`
+      である。したがって :math:`M \cap B_{4\delta_0}(p)` は :math:`T_xM` の
+      :math:`\dfrac{\delta_N\rho_0}{2}\delta_0` 近傍に含まれる。
+
+      新 l 単体は :math:`\widehat{b_{I^k}} * \sigma^{l - 1}` のように書ける。
+      そして 2.2 の序盤での評価と 1.7 により次の評価が成り立つ：
+
+      .. math::
+
+         \dist(T_xM, \sigma^{l - 1}) \ge
+         \frac{\delta_N^l\rho_0^l\delta_0}{2^2l(1 + 2\rho_0)^{l - 1}}.
+
+      これに :math:`\dist(T_xM, \widehat{b_{I^k}}) \ge \delta_N\rho_0\delta_0`
+      と 1.6 を用いて次を得る：
+
+      .. math::
+
+         \begin{align*}
+         \dist(\widehat{b_{I^k}} * \sigma, TxM)
+         &\ge \frac{\delta_N^l\rho_0^l\delta_0}{2^2l(1 + 2\rho_0)^{l - 1}}
+         \cdot \delta_N\rho_0\delta_0 \cdot
+         \frac{1}{(1 + 2\rho_0)\delta_0}\\
+         &= \frac{\delta_N^{l+1}\rho_0^{l+1}\delta_0}{2^2l(1 + 2\rho_0)^l}.
+         \end{align*}
+
+      したがって 1.7 より：
+
+      .. math::
+
+         \dist(\widehat{b_{I^k}} * \sigma, M) \ge
+         \frac{\delta_N^{l+1}\rho_0^{l+1}\delta_0}{2^{2l + 1}(1 + 2\rho_0)^l}.
+
+  * 2.3 :math:`k \ge N - n` に対して :math:`b_{I^k}` を基に新しい点 :math:`\widehat{b_{I^k}}`
+    を決める：
+
+    * この点から距離 :math:`\rho_0 \delta_0` 以下、
+    * :math:`M` から距離 :math:`\frac{\delta_N \rho_0}{2}\delta_0` 以上
+
+    だけ離れた位置にあるとする。
+
+    2.2 における :math:`\widehat{b_{I^k}}` のとり方をすでに移された
+    :math:`l - 1` 単体 :math:`(l < k)` だけを考えて行なうことで、
+    :math:`\langle\widehat{b_{I^0}} \dots \widehat{b_{I^k}}\rangle` の
+    l 単体は :math:`l < N - n` ならば：
+
+    .. math::
+
+       \dist(\sigma^l, M) \ge
+       \frac{\delta_N^{l+1}\rho_0^{l+1}\delta_0}{2^{2l + 1}(1 + 2\rho_0)^l}
+
+    とできることがわかる。
+
+  * 2.4 1.7 の :math:`c` を用いて表すと、
+    :math:`\widehat{L}` の :math:`N - n - 1` 骨格は :math:`M` から
+    :math:`2(1 + 2\rho_0)\delta_0 c` 以上の離れとなる。
+
+    1.7 から :math:`x \in M` に対して
+
+    * :math:`T_xM \cap B_{8\delta_0}(x)` と
+    * :math:`\widehat{L}` の :math:`N - n - 1` 骨格
+
+    との距離は :math:`2^2(1 + 2\rho_0)\delta_0` 以上離れている。
+
 * \3. 多様体と :math:`\widehat{L}` の位置関係を記述するための準備する。
 * \4. 多様体と :math:`\widehat{L}` の交わり方と記述する。
 * \5. 多様体の近くに単体複体 :math:`K` を構成する。
