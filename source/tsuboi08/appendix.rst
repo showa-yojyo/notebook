@@ -9,8 +9,6 @@
 * 最初は :ref:`幾何学 I 定理 5.2.3 <tsuboi05.5.2.3>` にある、
   コンパクト多様体がユークリッド空間に埋め込み可能であることから出発する。
 
-.. contents:: ノート目次
-
 * \1. 証明の土台を準備する。
 
   * :math:`C^\infty` 級多様体を :math:`M` とし、コンパクトかつ n 次元であるとする。
@@ -21,7 +19,7 @@
   本書では :math:`M` と :math:`M^n \in \RR^N` を区別しているらしいが、
   ここでは面倒なので単に :math:`M` で済ませる。
 
-.. _tusboi08.appendix.1.1:
+.. _tsuboi08.appendix.1.1:
 
   * 1.1 :math:`\forall \eps > 0, \exists \delta > 0 \text{s.t. }\quad \forall x \in M:`
 
@@ -47,7 +45,7 @@
     * :math:`y, z \in M \cap B_\delta(x)` に対して
       :math:`\norm{(y - \pi(y)) - (z - \pi(z))} \le \eps{\pi(y) - \pi(z)}.`
 
-.. _tusboi08.appendix.1.2:
+.. _tsuboi08.appendix.1.2:
 
   * 1.2 :math:`M` のある近傍 :math:`U` をとれば、法束のゼロ切断の近傍と、
     法束からの指数写像で微分同相である。
@@ -63,7 +61,7 @@
     :math:`\norm{\bm v - \pi(\bm v)} \le \dfrac{1}{2}` が成り立つならば、
     :math:`(p_M)_*\bm v \ne 0.`
 
-.. _tusboi08.appendix.1.3:
+.. _tsuboi08.appendix.1.3:
 
   * 1.3 立方体の正則分割を定義する（本書図 A.2 の左側）。
 
@@ -77,7 +75,7 @@
 
     * :math:`L` の N 単体の直径は :math:`\delta_0` である。
 
-.. _tusboi08.appendix.1.4:
+.. _tsuboi08.appendix.1.4:
 
   * 1.4 標準単体 :math:`\Delta^n` について、
     次を満たす :math:`0 < \rho_0 < \dfrac{1}{2\sqrt{2}}` が何か存在する：
@@ -92,7 +90,7 @@
        ここでいったん保留。
        :math:`\rho_0` をある定数 :math:`H` 以上の値であるとする。
 
-.. _tusboi08.appendix.1.5:
+.. _tsuboi08.appendix.1.5:
 
   * 1.5 空間内の半径 1 の球 :math:`B^N \subset \RR^N` に対して次が成り立つ：
 
@@ -104,7 +102,7 @@
     ここで :math:`A` は次元が :math:`N - 1` 以下の affine 空間であり、
     :math:`\operatorname{vol}_N` は :math:`\RR^N` での「体積」とする。
 
-    * 立方体分割の正則分割 1.3 の頂点に集まる単体の個数は、
+    * 立方体分割の正則分割 :ref:`1.3 <tsuboi08.appendix.1.3>` の頂点に集まる単体の個数は、
       :math:`b_{I^N}` に交わる単体の個数を超えない。
       その個数を :math:`k_N` としておく。
 
@@ -114,7 +112,7 @@
         点が affine 部分空間の和集合 :math:`\displaystyle \bigcup_{i = 1}^{k_N}\delta_N(A_i)`
         に含まれない。
 
-.. _tusboi08.appendix.1.6:
+.. _tsuboi08.appendix.1.6:
 
   * 1.6 :math:`A_0 \subset A_1 \subset \RR^N` を affine 部分空間とし、
     :math:`\sigma \in A_1` を affine 単体とする。
@@ -133,7 +131,7 @@
 
          \dist(p * \sigma) \ge \frac{\dist(\sigma, A_0)\dist(p, A_1)}{\diam(p * \sigma)}.
 
-.. _tusboi08.appendix.1.7:
+.. _tsuboi08.appendix.1.7:
 
   * 1.7 立方体分割の大きさ :math:`c` を次のように定める：
 
@@ -149,8 +147,9 @@
 
     とする。
 
-    * 1.1 で得られる :math:`\delta` をこの :math:`\eps` による値とする。
-    * 1.3 の直径 :math:`\delta_0` に対して :math:`\delta_0 = \dfrac{\delta}{2^3}` とする。
+    * :ref:`1.1 <tsuboi08.appendix.1.1>` で得られる :math:`\delta` をこの :math:`\eps` による値とする。
+    * :ref:`1.3 <tsuboi08.appendix.1.3>` の直径 :math:`\delta_0` に対して
+      :math:`\delta_0 = \dfrac{\delta}{2^3}` とする。
 
     * :math:`M` に交わる立方体分割の立体の 4 倍のスケールの立体は交点の :math:`\delta`
       近傍に含まれる。
@@ -165,6 +164,8 @@
   :math:`L` は直径 :math:`2\delta_0` の立方体による立方体分割である。
   単体では直径は :math:`\delta_0` である。
 
+.. _tsuboi08.appendix.2.1:
+
   * 2.1 立方体分割のすべての頂点 :math:`I^0 = b_{I^0}` に対して次を行なう：
 
     * この点から距離 :math:`\rho_0 \delta_0` 以下、
@@ -172,7 +173,10 @@
 
     離れた点をとり、それを :math:`\widehat{b_{I^0}}` とする。
 
-  * 2.2 各 :math:`k\quad(1 \le k < N - n)` 次元立方体 :math:`I^k` の重心 :math:`b_{I^k}` に対して次を行なう：
+.. _tsuboi08.appendix.2.2:
+
+  * 2.2 各 :math:`k\quad(1 \le k < N - n)` 次元立方体 :math:`I^k` の重心
+    :math:`b_{I^k}` に対して次を行なう：
 
     * この点から距離 :math:`\rho_0 \delta_0` 以下、
     * :math:`M` から距離 :math:`\frac{\delta_N \rho_0}{2}\delta_0` 以上
@@ -226,7 +230,8 @@
       ことによる。
 
       これらの affine 空間の :math:`\delta_N\rho_0\delta_0` 近傍の和集合を
-      :math:`B_{\rho_0\delta_0}(b_{I^k})` で考えると、1.5 より
+      :math:`B_{\rho_0\delta_0}(b_{I^k})` で考えると、
+      :ref:`1.5 <tsuboi08.appendix.1.5>` より
       ある点 :math:`\widehat{b_{I^k}}` がこの和集合と近傍の共通部分外に存在して、
 
       .. math::
@@ -235,12 +240,14 @@
 
       を満たす。
 
-      一方 1.7 により :math:`\dist(\widehat{b_{I^k}}, M) \ge \dfrac{\delta_N\rho_0}{2}\delta_0`
+      一方 :ref:`1.7 <tsuboi08.appendix.1.7>` により
+      :math:`\dist(\widehat{b_{I^k}}, M) \ge \dfrac{\delta_N\rho_0}{2}\delta_0`
       である。したがって :math:`M \cap B_{4\delta_0}(p)` は :math:`T_xM` の
       :math:`\dfrac{\delta_N\rho_0}{2}\delta_0` 近傍に含まれる。
 
       新 l 単体は :math:`\widehat{b_{I^k}} * \sigma^{l - 1}` のように書ける。
-      そして 2.2 の序盤での評価と 1.7 により次の評価が成り立つ：
+      そして :ref:`2.2 <tsuboi08.appendix.2.2>` の序盤での評価と
+      :ref:`1.7 <tsuboi08.appendix.1.7>` により次の評価が成り立つ：
 
       .. math::
 
@@ -248,7 +255,7 @@
          \frac{\delta_N^l\rho_0^l\delta_0}{2^2l(1 + 2\rho_0)^{l - 1}}.
 
       これに :math:`\dist(T_xM, \widehat{b_{I^k}}) \ge \delta_N\rho_0\delta_0`
-      と 1.6 を用いて次を得る：
+      と :ref:`1.6 <tsuboi08.appendix.1.6>` を用いて次を得る：
 
       .. math::
 
@@ -260,12 +267,14 @@
          &= \frac{\delta_N^{l+1}\rho_0^{l+1}\delta_0}{2^2l(1 + 2\rho_0)^l}.
          \end{align*}
 
-      したがって 1.7 より：
+      したがって :ref:`1.7 <tsuboi08.appendix.1.7>` より：
 
       .. math::
 
          \dist(\widehat{b_{I^k}} * \sigma, M) \ge
          \frac{\delta_N^{l+1}\rho_0^{l+1}\delta_0}{2^{2l + 1}(1 + 2\rho_0)^l}.
+
+.. _tsuboi08.appendix.2.3:
 
   * 2.3 :math:`k \ge N - n` に対して :math:`b_{I^k}` を基に新しい点 :math:`\widehat{b_{I^k}}`
     を決める：
@@ -275,7 +284,7 @@
 
     だけ離れた位置にあるとする。
 
-    2.2 における :math:`\widehat{b_{I^k}}` のとり方をすでに移された
+    :ref:`2.2 <tsuboi08.appendix.2.2>` における :math:`\widehat{b_{I^k}}` のとり方をすでに移された
     :math:`l - 1` 単体 :math:`(l < k)` だけを考えて行なうことで、
     :math:`\langle\widehat{b_{I^0}} \dots \widehat{b_{I^k}}\rangle` の
     l 単体は :math:`l < N - n` ならば：
@@ -287,11 +296,13 @@
 
     とできることがわかる。
 
-  * 2.4 1.7 の :math:`c` を用いて表すと、
+.. _tsuboi08.appendix.2.4:
+
+  * 2.4 :ref:`1.7 <tsuboi08.appendix.1.7>` の :math:`c` を用いて表すと、
     :math:`\widehat{L}` の :math:`N - n - 1` 骨格は :math:`M` から
     :math:`2(1 + 2\rho_0)\delta_0 c` 以上の離れとなる。
 
-    1.7 から :math:`x \in M` に対して
+    :ref:`1.7 <tsuboi08.appendix.1.7>` から :math:`x \in M` に対して
 
     * :math:`T_xM \cap B_{8\delta_0}(x)` と
     * :math:`\widehat{L}` の :math:`N - n - 1` 骨格
@@ -299,6 +310,76 @@
     との距離は :math:`2^2(1 + 2\rho_0)\delta_0` 以上離れている。
 
 * \3. 多様体と :math:`\widehat{L}` の位置関係を記述するための準備する。
+
+  * :math:`\widehat{L}` は :math:`\RR^n` の三角形分割であり、
+    :math:`M` に対して一般の位置にある。
+  * :math:`\widehat{L}` の単体と :math:`M` の交点はほとんど凸包である。
+
+.. _tsuboi08.appendix.3.1:
+
+  * 3.1
+
+    :math:`\sigma^k \subset \RR^N` とし、
+    :math:`A` を n 次元 affine 空間 :math:`A` とする。
+
+    * :math:`\dist(\partial \sigma^k, A) > d` かつ
+      :math:`\dist(\sigma, A) < d` であれば、
+      :math:`k + n = N` かつ :math:`\sigma` と :math:`A` はただ一点で交わる。
+
+    * :math:`p_1, p_2 \in \sigma` に対して :math:`\pi_A` を :math:`A` への
+      直交射影とすると、次が成り立つ：
+
+      .. math::
+
+         \norm{(p_1 - \pi_A(p_1)) - (p_2 - \pi_A(p_2))} \ge
+         \frac{d}{\diam(\sigma)}\norm{p_1 - p_2}.
+
+    以上を背理法とユークリッド幾何を用いて示す。
+
+.. _tsuboi08.appendix.3.2:
+
+  * 3.2
+
+    * :math:`\sigma^{N - n} \in \widehat{L}`
+    * :math:`\sigma^{N - n} \subset B_{8\delta_0}(x)\quad\text{for }x \in M`
+    * :math:`\sigma^{N - n} \cap T_xM = \set{r}` (?)
+    * :math:`\bm v` を :math:`\sigma^{N - n}` の接ベクトルであるとし、
+    * :math:`r + t\bm v \in \partial \sigma`
+
+    とすると、
+
+    .. math::
+
+       \begin{align*}
+       \norm{t\bm v - \pi(t\bm v)}
+       &= \norm{r + t\bm v - \pi(r + t\bm v)}\\
+       &\ge 2(1 + 2\rho_0)\delta_0 c.\\
+       \therefore \norm{\bm v - \pi(\bm v)}
+       &\ge \frac{2(1 + 2\rho_0)\delta_0 c}{t\norm{\bm v}}\norm{\bm v}\\
+       &\ge \frac{2(1 + 2\rho_0)\delta_0 c}{\diam{\sigma^{N - n}}}\norm{\bm v}\\
+       &\ge 2c\norm{\bm v}.
+       \end{align*}
+
+.. _tsuboi08.appendix.3.3:
+
+  * 3.3
+
+    * :math:`P(\sigma^{N - n})` を affine 空間であり :math:`\sigma^{N - n}` を含むものであるとする。
+    * :math:`\RR^N/{P(\sigma^{N - n})}` を商空間であり、
+      :math:`P(\sigma^{N - n})` に平行な affine 空間を同一視して扱うものとする。
+    * :math:`\fn{\pi'}{\RR^N}T_xM` を射影であり :math:`P(\sigma^{N - n})` に沿うものとする。
+
+    このとき、次のことが成り立つ：
+
+    * :math:`\forall y \in M \cap B_{8\delta_0}(x), \forall \bm w \in T_yM, \norm{\pi'(\bm w)} \ge \dfrac{15}{16}\norm{\bm w}.`
+    * :math:`\pi'` は :math:`M \cap B_{8\delta_0}(x)` から像への微分同相であり、
+      :math:`\pi'(M \cap B_{8\delta_0}(x)) \supset T_xM \cap B_{7\delta_0}(x).`
+
+      * これらは :ref:`1.1 <tsuboi08.appendix.1.1>` と
+        :ref:`3.2 <tsuboi08.appendix.3.2>` から得られる。
+
+    この不等式から :math:`\pi'|(M \cap B_{8\delta_0}(x))` の接写像が単射であることが言える。
+
 * \4. 多様体と :math:`\widehat{L}` の交わり方と記述する。
 * \5. 多様体の近くに単体複体 :math:`K` を構成する。
 * \6. 法束の射影の制限が求める三角形分割であることを示す。
