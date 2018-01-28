@@ -11,4 +11,4 @@
    :glob:
 
    chapter*
-   appendix
+   appendix*
