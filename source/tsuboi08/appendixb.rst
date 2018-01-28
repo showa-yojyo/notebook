@@ -111,4 +111,37 @@
        \psi(\sigma^{N - n + k}) = \frac{1}{m}\sum_{i = 1}^m \psi(\tau_i).
 
 * \5. 多様体の近くに単体複体 :math:`K` を構成する。
+
+.. _tsuboi08.appendix.5.1:
+
+  * 5.1 :math:`\widehat{L}` の :math:`N - n` 単体の列である
+    :math:`\sigma^{N - k} \prec \sigma^{N - k + 1} \prec \dotsb \prec \sigma^N` と
+    :math:`M` との交点 :math:`\tau_1, \dotsc, \tau_m` を基に
+    :math:`M` の近くに単体複体 :math:`K` を構成する。
+
+    * :ref:`4.4 <tsuboi08.appendix.4.4>` および
+      :ref:`4.4 <tsuboi08.appendix.4.6>` の
+      :math:`\psi(\sigma^{N - n}),\ \psi(\sigma^{N - k + 1})` を用いる。
+
+    * 上記単体の列に :math:`K` の n 単体
+      :math:`\langle \psi(\sigma^{N - k}), \dotsc, \psi(\sigma^N)\rangle` を対応させる
+      ことができる。
+
+.. _tsuboi08.appendix.5.2:
+
+  * 5.2
+
+    * もし :math:`x \in M` に対して単体 :math:`\tau \subset K` が
+      :math:`\tau \subset B_{6\delta_0}(x)` を満たすならば、
+      :math:`\tau` を含む :math:`\widehat{L}` の単体は :math:`B_{8\delta_0}(x)` に含まれる。
+
+    * 単体 :math:`\tau \subset K` のすべての頂点は :math:`B_{8\eps\delta_0}(T_xM)` に
+      含まれる。なぜならばどの頂点も :math:`B_{8\eps\delta_0}(T_xM)` にある
+      :math:`M` の点の平均が :math:`\tau` の頂点であるからだ。
+
+    * それゆえに :math:`\tau \subset B_{8\eps\delta_0}(T_xM).`
+
+    :math:`B_{6\delta_0}(x)` に含まれる :math:`K` の単体は
+    :math:`B_{16\eps\delta_0}(M)` にも含まれる。
+
 * \6. 法束の射影の制限が求める三角形分割であることを示す。
