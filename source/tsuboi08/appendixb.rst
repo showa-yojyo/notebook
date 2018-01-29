@@ -64,13 +64,13 @@
   * 4.4 :math:`\sigma` を :math:`\widehat{L}` の :math:`N - n + k` 単体であるとすると、
     :math:`\sigma \cap M \ne \varnothing` であるならば、次のような :math:`N - n` 単体が存在する：
 
-      各頂点が :math:`\sigma` の頂点を頂点とする。
+      各頂点 :math:`v` が :math:`\sigma` の頂点を頂点とする。
 
     :math:`x \in \sigma \cap M` における :math:`T_xM` と交わる :math:`\sigma` の
     :math:`N - n` 次元の面 :math:`\tau` を :math:`\RR^N/{T_xM}` への射影によって
     :math:`0 = [T_xM]` を含む単体に写る（？）
 
-    さらに :math:`\partial(\tau * \sigma)\setminus\tau` の単体で
+    さらに :math:`\partial(\tau * v)\setminus\tau` の単体で
     :math:`0 = [T_xM]` を含む単体に写るものがある。それに対して
     :math:`? \cap T_xM \ne \varnothing` かつ :math:`? \subset B_{8\delta_0}(x)` により
     :ref:`4.2 <tsuboi08.appendix.4.2>` を用いて :math:`? \cap M \ne \varnothing.`
@@ -145,3 +145,153 @@
     :math:`B_{16\eps\delta_0}(M)` にも含まれる。
 
 * \6. 法束の射影の制限が求める三角形分割であることを示す。
+
+  :math:`B_{16\eps\delta_0}(M) \subset U` としてよい。
+  :ref:`1.2 <tsuboi08.appendix.1.2>` の射影 :math:`\fn{p_M|K}{K}M` が求めるものであることを示す。
+
+.. _tsuboi08.appendix.6.1:
+
+  * 6.1 「:math:`T_xM \cap B_{8\delta}(x)`」 と 「:math:`B_{8\delta}(x)` に含まれる
+    :math:`\widehat{L}` の :math:`N - n + k` 単体」との共通部分は k 次元凸包である。
+
+    * 「:math:`T_xM \cap B_{4\delta}(x)` に交わる :math:`\widehat{L}` の :math:`N` 単体全体」
+      と T_xM の共通部分をとる。すると「:math:`T_xM \cap B_{4\delta}(x)` を含む集合」の
+      凸包による分割が得られる。
+
+    * この凸包による胞体分割に対する正則分割 :math:`K_1` を考える。
+
+    * :math:`\sigma^{N - n}`, :math:`\sigma^{N - n + k}` を :math:`\widehat{L}` の単体であるとする。
+    * :math:`\varphi(\sigma^{N - n})` を :math:`\sigma^{N - n}` と :math:`T_xM` との交点とする。
+
+    * :math:`\sigma^{N - n + k}` と :math:`T_xM` は
+      :math:`\varphi(\tau_i)\quad(i = 1, \dotsc, m)` で張られる凸包となる。
+      ここで :math:`\tau_i\quad(i = 1, \dotsc, m)` は
+      :math:`\sigma^{N - n + k}` の :math:`N - n` 面であり、
+      :math:`T_xM` と交わるものであるとする。
+
+    * :math:`\varphi(\sigma^{N - n + k}) = \dfrac{1}{m}\sum{i = 1}^m \varphi(\tau_i)` とおく。
+
+    * :math:`K_1` は :math:`T_xM \cap B_{4\delta}(x)` においては
+      :math:`T_xM` の単体分割を与える（単体複体である）。
+
+      * :math:`\widehat{L}` の単体列 :math:`\sigma^{N - n} \prec \sigma^{N - n + 1} \prec \dotsb \prec \sigma^N` と
+      * :math:`K_1` の単体 :math:`\langle\sigma^{N - n} \sigma^{N - n + 1} \dots \sigma^N\rangle` とを
+
+      対応させることができる。
+
+    以下、:math:`K` と :math:`K_1` を :math:`T_xM \cap B_{4\delta}(x)` に交わる
+    :math:`\widehat{L}` の N 単体全体との共通部分で考える。
+
+.. _tsuboi08.appendix.6.2:
+
+  * 6.2 単体複体 :math:`K, K_1` の間に頂点を頂点に写す単体写像
+    :math:`\psi(\sigma^{N - n + k}) \longto \varphi(\sigma^{N - n + k})` が定義され、
+    単体複体間の同型を導く。
+
+    :math:`K_1` の単体分割は
+
+    * :math:`T_xM` の分割であり、
+    * PL 多様体の条件を満たしている
+
+    から、:math:`K` も PL 多様体の条件を満たしている。
+
+    * 図 A.5 の見方：平らな形状が :math:`K, K_1, T_xM` だろう。
+
+.. _tsuboi08.appendix.6.3:
+
+  * 6.3 単体複体 :math:`K_t` を構成する。
+
+    .. math::
+
+       \langle\phi_t(\sigma^{N - n})\phi_t(\sigma^{N - n + 1})\dots\phi_t(\sigma^{N})\rangle.
+
+    を n 単体とする。ここで :math:`\phi_t` は次の式で定義するものとする：
+
+    .. math::
+
+       \phi_t(\sigma^{N - n + k}) = (1 - t)\psi(\sigma^{N - n + k}) + t\varphi(\sigma^{N - n + k})
+       \quad(0 \le k \le n).
+
+    * :ref:`4.6 <tsuboi08.appendix.4.6>` が根拠。
+
+    :ref:`4.5 <tsuboi08.appendix.4.5>` と :ref:`4.6 <tsuboi08.appendix.4.6>` と同様に
+    :math:`\varphi(\sigma^{N - n}),\ \varphi(\sigma^{N - n + k})`
+    の重心座標を考える。
+
+    * :ref:`4.5 <tsuboi08.appendix.4.5>` と :ref:`2.4 <tsuboi08.appendix.2.4>` から
+      :math:`\dist(\varphi(\sigma^{N - n}), P(\tau_i)) \ge 2^2(1 + 2\rho_0)\delta_0 c` より
+      :math:`t_i \ge 2^2c \ge 2c.`
+
+    * :ref:`4.6 <tsuboi08.appendix.4.6>` で :math:`t_i \ge \dfrac{2^2c}{k_N} \ge \dfrac{2c}{k_N}.`
+
+    :math:`K_t` の頂点 :math:`\phi(\sigma^{N - n + k})` の重心座標について
+    :math:`t_i \ge \dfrac{2c}{k_N}.`
+
+    * 内分点であるから。
+
+.. _tsuboi08.appendix.6.4:
+
+  * 6.4 :math:`K_t` の n 単体 :math:`\tau^n = \langle\phi_t(\sigma^{N - n})\phi_t(\sigma^{N - n + 1})\dots\phi_t(\sigma^{N})\rangle`
+    について、affine 空間 :math:`P(\langle\phi_t(\sigma^{N - n})\phi_t(\sigma^{N - n + 1})\dots\phi_t(\sigma^{N})\rangle)` と
+    :math:`\psi(\sigma^{N - n + k + 1})` の距離は
+    :math:`\dfrac{H\delta_0}{\sqrt{N}}\dfrac{2c}{k_N} \ge \dfrac{\delta_0}{\sqrt{N}}\dfrac{c}{k_N}`
+    以上である。
+
+    * :ref:`6.3 <tsuboi08.appendix.6.3>` を用いた。
+
+    したがって :math:`\tau^n` の辺長も :math:`\dfrac{\delta_0}{\sqrt{N}}\dfrac{c}{k_N}` 以上である。
+    「体積」にいたっては
+
+    .. math::
+
+       \dfrac{\delta_0^n}{n!\sqrt{N}^n}\dfrac{c^n}{k_N^n}
+
+    以上である。
+
+.. _tsuboi08.appendix.6.5:
+
+  * 6.5 単体 :math:`\sigma = \langle v_0 \dots v_k\rangle` に対して
+    :math:`\sigma` を含む :math:`\RR^k` 上での :math:`\sigma` の体積
+    :math:`\operatorname{vol}_k(\sigma),\ \sum_{i = 1}^k a_i(v_i - v_0)` について
+    次の不等式が成り立つ：
+
+    .. math::
+
+       \abs{a_i}\norm{v_i - v_0} \le
+       \dfrac{\norm{\sum_{i = 1}^k a_i(v_i - v_0)} \prod_{i = 1}^k \norm{v_i - v_0}}
+             {k! \operatorname{vol}_k(\sigma)}.
+
+    * 考えてみよう。
+
+.. _tsuboi08.appendix.6.6:
+
+  * 6.6 :math:`K, K_1` を結ぶ :math:`K_t` の n 単体 :math:`\sigma_t` が
+    :math:`p_M` の一点の逆像に横断的であることを示す。
+
+    * :math:`\sigma_t` が :math:`\pi_{T_pM}` と十分な角度をもって横断的であることを
+      示せば十分。
+
+    * :math:`\bm v_{(i, t)} = \phi_t(\sigma^{N - n + i}) - \phi_t(\sigma^{N - n})` とする。
+    * :math:`\displaystyle \bm u = \sum_{i = 1}^n a_i \bm v_{(i, t)}` を
+      :math:`\sigma_t` 上の単位ベクトルであるとする。
+
+      * 微妙な表現である気がする。
+
+    * 次のような評価が :ref:`6.4 <tsuboi08.appendix.6.4>`, :ref:`6.5 <tsuboi08.appendix.6.5>` を用いて得られる：
+
+      .. math::
+
+         \begin{align*}
+         \norm{\bm u - \pi(\bm u)}
+         &\le \dots\\
+         &\le \frac{a}{2c^{n - 1}}(1 + 2\rho_0)^n k_N^{n + 1} n \sqrt{N}^{n + 1}.
+         \end{align*}
+
+    * :math:`a` の値を調整することで :math:`\norm{\bm u - \pi(\bm u)} \le \dfrac{1}{2}`
+      となり、「十分横断的である」ことが示される。
+
+    * :ref:`1.2 <tsuboi08.appendix.1.2>` より :math:`p_M` の一点の逆像に横断的である。
+
+    * :math:`t = 1` のとき :math:`\fn{p_M}{K_1}M` は n 単体の上で局所的に向きを保つ
+      微分同相写像であるから、:math:`t = 0` でもそれは成り立つ。
+      これが :math:`K` の単体から :math:`M` への微分同相写像となる。
