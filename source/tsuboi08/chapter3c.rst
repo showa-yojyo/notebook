@@ -671,39 +671,39 @@
 
     1. :math:`\bm n\inv(0, 0, 1) = \set{p_1, \dotsc, p_k}` とし、
        開集合 :math:`U_i \in M` を
- 
+
        * 点 :math:`p_i` の近傍であり、
        * :math:`\fn{\bm n}{U_i}S^2` について :math:`\bm n(U_i)` と微分同相である
-       
+
        ようにとる。
-       
+
     2. :math:`(0, 0, 1)` の近傍 :math:`V_+` を次のようにとる：
-    
+
        .. math::
-       
+
           V_+ \cap \bm n\left(M \setminus \bigcap_{i = 1}^k \closure{U_i}\right) = \varnothing.
 
     3. :math:`\alpha \in \Omega^2(S^2)` を :math:`\supp\alpha = V_+` となるようにとる。
-    
+
     4. 上述 (2) より
-    
+
        * \(A+): :math:`\det{D\bm n} > 0 \iff` :math:`x_3` の極大点・極小点
        * \(B+): :math:`\det{D\bm n} < 0 \iff` :math:`x_3` の鞍点
 
     5. 以上より次の式が成り立つ：
-    
+
        .. math::
-       
+
           \int_M\!\bm n^*\alpha = \sum_{\text{(A+)}}\int_{S^2}\!\alpha - \sum_{\text{(B+)}}\int_{S^2}\!\alpha.
 
     6. :math:`\bm n\inv(0, 0, -1)` に対しても 1. から 5. までと同様に考える：
 
        .. math::
-       
+
           \int_M\!\bm n^*\beta = \sum_{\text{(A-)}}\int_{S^2}\!\beta - \sum_{\text{(B-)}}\int_{S^2}\!\beta.
-          
+
     7. 写像度を求めることができる。
-    
+
        :math:`\displaystyle \int_{S^2}\!\alpha = \int_{S^2}\!\beta` ととれれば（？）、
        :math:`\displaystyle \int_M\!\bm n^*\alpha = \int_M\!\bm n^*\beta` となる。
        これらを割り、5. と 6. を適用すれば題意の和を得る。

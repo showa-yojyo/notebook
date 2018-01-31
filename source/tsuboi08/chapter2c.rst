@@ -371,22 +371,22 @@
     .. math::
 
        \alpha \longmapsto \alpha^{(p, -1)}.
-       
+
     これは閉形式 :math:`\alpha \in \Omega^p(M)` から出発して図式を下へ下へと辿っていく。
     帰納法で最下段に到達すると :math:`\iota \delta \alpha^{(p, -1)} = \delta\delta\alpha^{(p-1, 0)}`
     なる :math:`\alpha^{(p, -1)}` が存在することがわかる。
     そして :math:`\iota` の単射性により :math:`\delta \alpha^{(p, -1)}.`
-    
+
     以上をまとめると、:math:`\alpha \in \Omega^p(M)` に対して
     :math:`\alpha^{(p, -1)} \in \bigoplus_{i_0 < \dotsb i_p} \RR(U_{i_0 \dots i_p})` が何か存在するということだ。
 
   * Stage 2: この対応がコホモロジー群の準同型を導き、well-defined である。
     これにより準同型 :math:`\H^p(M) \longto \check H^p(M, \set{U_i})` が定まる。
-    
+
     今度は完全形式 :math:`\alpha \in \Omega^p(M)` から出発して最下段へ向かう。
     :math:`\iota\delta\beta^{(p-1, -1)} = \iota\alpha^{(p, -1)}` なる :math:`\beta^{(p-1, -1)}` が存在し、
     やはり :math:`\iota` の単射性により :math:`\alpha^{(p, -1)} = \delta \beta^{(p - 1, -1)}.`
-    
+
     前の結果とまとめて、準同型 :math:`\H^p(M) \longto \check H^p(M, \set{U_i})` が得られたことになる。
 
   * Stage 3: 縦と横の役割を入れ替えて議論すると、
@@ -416,7 +416,7 @@
        \end{cases}
 
   * チェック複体は :math:`0 \longto \RR^4 \longto \RR^6 \longto \RR^4 \longto 0` となる。
-  
+
     * 4 や 6 は組み合わせから来ているわけだが、なおのこと両端のゼロに注意。
 
   * 関数 :math:`\chi_{i_0 \dots i_p}` を :math:`U_{i_0 \dots i_p}` 上で 1 をとるものとする。

@@ -378,17 +378,17 @@
 
   * :math:`\alpha` が p 形式であれば :math:`\kappa^*\alpha` もそうなので、
     トリッキーだと思うが次の式のようにおく：
-    
+
     .. math::
-    
+
        \kappa^*\alpha = \sum_{q = 1}^{p + 1} f_q\,\dd{t_1} \wedge \dotsb \wedge
        \dd{t_{q - 1}} \wedge \dd{t_{q + 1}}
        \wedge \dotsb \wedge \dd{t_{p + 1}}.
 
   * 次に :math:`\kappa^*(\dd{\alpha})` を計算すると、次に示す微分形式の和である：
-  
+
     .. math::
-    
+
        \sum_{q = 1}^{p + 1} (-1)^{q - 1} \frac{\partial f_q}{\partial t_q}
        \dd{t_1} \wedge \dotsb \wedge \dd{t_{p + 1}}.
 
