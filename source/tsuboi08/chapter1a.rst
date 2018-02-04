@@ -8,9 +8,20 @@
 ======================================================================
 * 定義 1.1.1: 原始関数
 
+  * 区間上の連続関数 :math:`f(t)` に対して関数 :math:`F(t)` の導関数が
+    :math:`f(t)` であるとき、:math:`F` は :math:`f` の原始関数であるという。
+    この用語は高校数学で聞いているはず。
+
+  * 相異なる原始関数が常に存在するが、その違いは定数分でしかない。
+
+    * `平均値の定理 <http://mathworld.wolfram.com/Mean-ValueTheorem.html>`__ による。
+    * あとで微分形式の積分を考えるときにこの性質の類比をも考える。
+
 .. _tsuboi08.1.1.2:
 
 * 定理 1.1.2: 定積分の存在
+
+  * 閉区間上の連続関数には定積分が定まる。ここでは「閉」区間と限定していることに注意。
 
 .. _tsuboi08.1.1.3:
 
@@ -254,6 +265,13 @@
   :math:`U \subset \RR^n` が星型であれば、この集合上の閉 1 形式は
   :math:`U` 上で定義された関数の全微分になっている。
 
+  * :ref:`問題 1.2.8 <tsuboi08.1.2.8>` を利用する。
+  * 本書のあとの方に出てくる記号を用いれば次のように覚えられる：
+
+    .. math::
+
+       \forall \alpha \in Z^1(U),\ \exists f \in \Omega^0(U)\text{ s.t. }\dd f = \alpha.
+
 .. _tsuboi08.1.3.6:
 
 * 問題 1.3.6: 開集合 :math:`U \subset \RR^n` 上の閉 1 形式 :math:`\alpha` は
@@ -261,6 +279,20 @@
 
   * :math:`\alpha = \sum f_i \dd{x_i}` とおくと :math:`\dd{\alpha} = 0.`
   * (p. 12) の「:ref:`定義 1.3.2 <tsuboi08.1.3.2>` の形で書けば……」の展開式を利用する。
+
+    .. math::
+
+       \begin{align*}
+       \alpha \wedge \alpha
+       &= \left(\sum_{i = 1}^n f_i\,\dd x_i\right) \wedge \left(\sum_{i = 1}^n f_i\,\dd x_i\right)\\
+       &= \sum_{i, j = 1}^n f_i f_j\,\dd x_i \wedge \dd x_j\\
+       &= \sum_{i < j}(f_i f_j - f_j f_i)\,\dd x_i \wedge \dd x_j\\
+       &= 0.
+       \end{align*}
+
+    * 三番目の等号は :math:`\dd x_i \wedge \dd x_j = -\dd x_j \wedge \dd x_i` による。
+      特に :math:`i = j` の項はキャンセルし合う。
+    * 最後の等号は :math:`f_i f_j = f_j f_i` による。
 
 .. _tsuboi08.1.3.7:
 
