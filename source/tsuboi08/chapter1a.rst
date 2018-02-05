@@ -325,15 +325,69 @@
 * 問題 1.4.1: 1 形式の外微分に対する、長方形から開集合 :math:`U` への微分可能写像に沿う積分は
   線積分の和として表される。
 
+  * :math:`\alpha = \left(\sum_{i = 1}^n f_i\,\dd x_i\right) \in \Omega^1(\RR^n)`
+  * :math:`\fn{[a_1, b_1] \times [a_2, b_2]}U` を :math:`C^\infty` 級である写像
+
+  とする。このとき次の等式が成り立つ：
+
   .. math::
 
      \int_\kappa\!\dd{\left(\sum f_i\,\dd{x_i}\right)} =
-     -\int_{\kappa(\cdot,\ b_2)}\cdot
-     +\int_{\kappa(\cdot,\ a_2)}\cdot
-     +\int_{\kappa(b_1,\ \cdot)}\cdot
-     -\int_{\kappa(a_1,\ \cdot)}\cdot.
+     -\int_{\kappa(\cdot,\ b_2)}\alpha
+     +\int_{\kappa(\cdot,\ a_2)}\alpha
+     +\int_{\kappa(b_1,\ \cdot)}\alpha
+     -\int_{\kappa(a_1,\ \cdot)}\alpha.
 
   * 面積分を線積分で表している。pp. 16-17 も参照。
+
+  .. math::
+
+     \begin{align*}
+     \int_\kappa\!\dd\alpha
+     &= \int_\kappa\!\sum_{i = 1}^n \dd f_i \wedge \dd x_i\\
+     &= \int_\kappa\!\sum_{i < j} \left(
+         \frac{\partial f_i}{\partial x_j} - \frac{\partial f_j}{\partial x_i}\right)
+         \,\dd x_i \wedge \dd x_j\\
+     &= \int_{a_1}^{b_1}\!\int_{a_2}^{b_2}\!\sum_{i < j} \left(
+         \frac{\partial f_i}{\partial x_j} - \frac{\partial f_j}{\partial x_i}\right)
+         \det{\frac{\partial(\kappa_i, \kappa_j)}{\partial(t_1, t_2)}}\,\dd t_1\dd t_2\\
+     &= -\int_{a_1}^{b_1}\!\int_{a_2}^{b_2}\!\sum_{i, j = 1}^n
+         \frac{\partial f_i}{\partial x_j}
+         \det{\frac{\partial(\kappa_i, \kappa_j)}{\partial(t_1, t_2)}}\,\dd t_1\dd t_2\\
+     &= -\int_{a_1}^{b_1}\!\int_{a_2}^{b_2}\!\sum_{i, j = 1}^n\left(
+         \frac{\partial f_i}{\partial x_j} \frac{\partial \kappa_j}{\partial t_2} \frac{\partial \kappa_1}{\partial t_1}
+             - \frac{\partial f_i}{\partial x_j} \frac{\partial \kappa_j}{\partial t_1} \frac{\partial \kappa_1}{\partial t_2}\right)
+         \,\dd t_1\dd t_2\\
+     &= -\int_{a_1}^{b_1}\!\int_{a_2}^{b_2}\!\sum_{i, j = 1}^n\left(
+         \sum_{i = 1}^n \frac{\partial f_i(\kappa)}{\partial t_2}\frac{\partial \kappa_i}{\partial t_1}
+             - \sum_{i = 1}^n \frac{\partial f_i(\kappa)}{\partial t_1}\frac{\partial \kappa_i}{\partial t_2}\right)
+         \,\dd t_1\dd t_2\\
+     \end{align*}
+
+  * 最初の等号は外微分を微分形式に適用した。
+  * 二番目の等号は p. 12 の式による。
+  * 三番目の等号は p. 13 の式による。
+  * 四番目の等号は :math:`i = j` のときには行列式がゼロであることによる。
+  * 以降の式変形では :math:`[a_1, b_1]` 側は :math:`t_2` で、
+    :math:`[a_2, b_2]` 側は :math:`t_1` でそれぞれ積分する。
+
+  式を書くのが面倒なので :math:`[a_1, b_1]` 側のみ展開する：
+
+  .. math::
+
+     \begin{align*}
+     -\int_{a_1}^{b_1}\!\int_{a_2}^{b_2}\!\sum_{i, j = 1}^n\left(
+         \sum_{i = 1}^n \frac{\partial f_i(\kappa)}{\partial t_2}\frac{\partial \kappa_i}{\partial t_1}\right)
+         \,\dd t_1\dd t_2
+     &= -\int_{a_1}^{b_1}\!\left[\sum_{i = 1}^n f_i(\kappa(t))\right]_{a_2}^{b_2}
+         \frac{\partial \kappa_i}{\partial t_i}\,\dd t_1\\
+     &= -\int_{a_1}^{b_1}\!\sum_{i = 1}^n (f_i(\kappa(t_1, b_2)) - f_i(\kappa(t_1, a_2)))
+         \frac{\partial \kappa_i}{\partial t_i}\,\dd t_1\\
+     &= -\int_{\kappa(\cdot,\ b_2)}\alpha
+        +\int_{\kappa(\cdot,\ a_2)}\alpha.
+     \end{align*}
+
+  :math:`[a_2, b_2]` 側も同様にして示せる。
 
 箱の表面で面積分を考えると 2 形式の長方形と 1 形式との関係とよく似ている。
 
@@ -362,4 +416,35 @@
 
 * 問題 1.5.1: :math:`\rot \circ \grad = 0,\ \div \circ \rot = 0`
 
-  * 完全に直接計算だけの証明となるので、あとで SymPy にやらせたい。
+  * :math:`\rot(\grad(f)) = 0` を SymPy で確かめるとこのような感じになる：
+
+    .. code:: ipython
+
+       In [1]: from sympy import Function, symbols
+
+       In [2]: from sympy.vector import CoordSys3D
+
+       In [3]: R = CoordSys3D('R')
+
+       In [4]: f = Function('f')(R.x, R.y, R.z)
+
+       In [5]: from sympy.vector import gradient, curl, divergence
+
+       In [6]: curl(gradient(f)).doit()
+       Out[6]: (Derivative(f(R.x, R.y, R.z), R.y, R.z) - Derivative(f(R.x, R.y, R.z), R.z, R.y))*R.i
+       + (-Derivative(f(R.x, R.y, R.z), R.x, R.z) + Derivative(f(R.x, R.y, R.z), R.z, R.x))*R.j
+       + (Derivative(f(R.x, R.y, R.z), R.x, R.y) - Derivative(f(R.x, R.y, R.z), R.y, R.x))*R.k
+
+  * :math:`\div(\rot(f)) = 0` はこのような感じになる：
+
+    .. code:: ipython
+
+       In [7]: f1, f2, f3 = symbols('f1:4', cls=Function)
+
+       In [8]: divergence(curl(f1(R.x, R.y, R.z)*R.i + f2(R.x, R.y, R.z)*R.y + f3(R.x, R.y, R.z) * R.k))
+       Out[8]: -Derivative(f1(R.x, R.y, R.z), R.y, R.z)
+       + Derivative(f1(R.x, R.y, R.z), R.z, R.y)
+       + Derivative(f2(R.x, R.y, R.z), R.x, R.z)
+       - Derivative(f2(R.x, R.y, R.z), R.z, R.x)
+       - Derivative(f3(R.x, R.y, R.z), R.x, R.y)
+       + Derivative(f3(R.x, R.y, R.z), R.y, R.x)
