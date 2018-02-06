@@ -133,20 +133,34 @@
        \int_{\kappa(\dots b_q \dots)}\,\alpha - \int_{\kappa(\dots a_q \dots)}\,\alpha
        \right).
 
-  * 今のところ証明方法は腕力による。あとで別バージョンが紹介される。
+  今のところ証明方法は腕力による。あとで別バージョンが紹介される。
+
+  1. :math:`\dd\alpha` を計算する。
+  2. 左辺から右辺への等式変形の理由：
+
+     * 最初の等号は :ref:`定義 1.6.8 <tsuboi08.1.6.8>` による。
+     * 次の等号は行列式を第 q 列で展開して書き直すことで得られる。
+     * その次の等号は :math:`t_q` で積分するとこうなる。
 
 1.7 ユークリッド空間の開集合上の微分形式の空間
 ======================================================================
 以下 :math:`C^\infty` 級関数、微分形式のみを考える。
 
-* 約束として 0 形式とは関数全体とする。
+* 約束として 0 形式とは関数とする。
 * 記号 :math:`\Omega^p(U)` で :math:`U` 上の p 形式全体を表す。
 
   * :math:`\Omega^p(U)` は（集合が空集合でなければ）無限次元ベクトル空間である。
   * :math:`p < 0 \text{ or } n < p \implies \Omega^p(U) = \zeroset` とする。
   * 演算 :math:`\fn{\dd{}}{\Omega^p(U)}\Omega^{p + 1}(U)` は線形写像である。
 
-.. todo:: `コチェイン複体 <http://mathworld.wolfram.com/CochainComplex.html>`__ の定義。
+..
+
+* コチェイン複体 <http://mathworld.wolfram.com/CochainComplex.html>`__ の定義。
+
+  * この微分形式全体の空間の系列であって :math:`\dd{} \circ \dd{} = 0` であるものを言う。
+  * 開集合 :math:`U \subset \RR^n` に対する :math:`\Omega^p(U)` を外微分で系列にしたものが
+    コチェイン複体である。この :math:`U` を一般の :math:`C^\infty` 級多様体に
+    置き換えた系列はドラーム複体と呼ばれるということを後でやる。
 
 .. _tsuboi08.1.7.1:
 
