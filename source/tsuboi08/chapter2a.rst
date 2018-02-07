@@ -195,12 +195,41 @@
      \fnm{\pi_N}{S^2\setminus\set{p_N}}{\RR^2}{(x_1, x_2, x_3)}(v_1, v_2) = \left(\frac{x_1}{1 - x_3}, \frac{x_2}{1 - x_3}\right),\\
      \fnm{\pi_S}{S^2\setminus\set{p_S}}{\RR^2}{(x_1, x_2, x_3)}(u_1, u_2) = \left(\frac{x_1}{1 + x_3}, \frac{x_2}{1 + x_3}\right).
 
-  * 各投影写像の逆写像？
-  * 座標近傍系 :math:`\set{(S^2\setminus\set{p_N}, \pi_N), (S^2\setminus\set{p_S}, \pi_S)}` の座標変換？
+  * \(1) 各投影写像の逆写像
 
-  .. todo:: 上の 2 問の解答に必要な数式を SymPy に生成させる。
+    計算方法は球と直線との交点を求めるだけだ。
+    二次方程式を解くことになり、ニ根のうち 1 でないほうを :math:`x_3` とすればよい。
+    SymPy で計算した結果を ``print_latex`` で出力し、それを整形したものを記す：
 
-  * 下に示す平面上の多項式係数のベクトル場について :math:`(\pi_N\inv)_*\xi` が
+    .. math::
+
+       \begin{align*}
+       \pi_N\inv(x_1, x_2, x_3) &= \left(
+           \frac{2 v_1}{v_1^2 + v_2^2 + 1},
+           \frac{2 v_2}{v_1^2 + v_2^2 + 1},
+           \frac{v_1^2 + v_2^2 - 1}{v_1^2 + v_2^2 + 1}\right),\\
+       \pi_S\inv(x_1, x_2, x_3) &= \left(
+           \frac{2 u_1}{u_1^2 + u_2^2 + 1},
+           \frac{2 u_2}{u_1^2 + u_2^2 + 1},
+           -\frac{u_1^2 + u_2^2 - 1}{u_1^2 + u_2^2 + 1}\right).
+       \end{align*}
+
+  * \(2) 座標近傍系 :math:`\set{(S^2\setminus\set{p_N}, \pi_N), (S^2\setminus\set{p_S}, \pi_S)}` の座標変換
+
+    SymPy の出力を整形したものを記す：
+
+    .. math::
+
+       \begin{align*}
+       \pi_N \circ \pi_S\inv(u_1, u_2) &= \left(
+           \frac{u_1}{u_1^2 + u_2^2},
+           \frac{u_2}{u_1^2 + u_2^2}\right)\\
+       \pi_S \circ \pi_N\inv(v_1, v_2) &= \left(
+           \frac{v_1}{v_1^2 + v_2^2},
+           \frac{v_2}{v_1^2 + v_2^2}\right)
+       \end{align*}
+
+  * \(3) 下に示す平面上の多項式係数のベクトル場について :math:`(\pi_N\inv)_*\xi` が
     :math:`S^2` 上でも微分可能である条件とは？
 
     .. math::
@@ -251,7 +280,7 @@
           ((v_2^2 - v_1^2)A - 2v_1v_2B + a_1v_1 - b_1v_2 + c_1)\frac{\partial}{\partial v_1}
           + (-2v_1v_2A - (v_1^2 - v_2^2)B + b_1v_1 + a_1v_2 + c_2)\dfrac{\partial}{\partial v_2}.
 
-  * 下に示す平面上の多項式係数の 1 形式について :math:`\pi_N^* \alpha` が
+  * \(4) 下に示す平面上の多項式係数の 1 形式について :math:`\pi_N^* \alpha` が
     :math:`S^2` 上でも微分可能である条件とは？
 
     .. math::
@@ -499,18 +528,18 @@
 
 * 例 2.4.5:
 
-  #. :math:`\H^0(M)` は :math:`M` の連結成分で定数となる関数全体のなすベクトル空間である。
+  * \(1) :math:`\H^0(M)` は :math:`M` の連結成分で定数となる関数全体のなすベクトル空間である。
      これは閉 0 形式が局所的定数関数であることによる。
 
-  #. 星型 :math:`U \subset \RR^n` に対して次が成り立つ：
+  * \(2) 星型 :math:`U \subset \RR^n` に対して次が成り立つ：
 
-     .. math::
+    .. math::
 
-        \H^p(U)
-        \begin{cases}
-        \cong \RR & \text{if } p = 0,\\
-        = 0 & \text{if } p > 0.
-        \end{cases}
+       \H^p(U)
+       \begin{cases}
+       \cong \RR & \text{if } p = 0,\\
+       = 0 & \text{if } p > 0.
+       \end{cases}
 
 .. _tsuboi08.2.4.6:
 
@@ -534,14 +563,90 @@
 
 .. _tsuboi08.2.4.8:
 
-* 例 2.4.8: :math:`T^2` 上の微分形式は :math:`\RR^2` 上の周期関数を係数とする
-  微分形式で表される。
+* 例 2.4.8: :math:`\H^*(T^2)` をフーリエ展開を利用して求める。
 
-  * :ref:`例 2.3.5 <tsuboi08.2.3.5>` を参照。
+  1. :math:`\H^0(T^2) \cong \RR` である。
+     :ref:`例 2.4.5 (1) <tsuboi08.2.4.5>` による。
 
-  :math:`\H^2(T^2)` とは何か？
+  2. :math:`H^1(T^2)` を求める。
 
-  .. todo:: フーリエ展開がよくわからないので後回し。
+     * :ref:`例 2.3.5 <tsuboi08.2.3.5>` によると
+       :math:`T^2` 上の微分形式は :math:`\RR^2` 上の周期関数を係数とする
+       微分形式で表される。そこで :math:`\alpha = g_1\,\dd x_1 + g_2\,\dd x_2 \in \Omega^1(T^2)`
+       として、各関数をフーリエ級数の形式で表示する：
+
+       .. math::
+
+          g_1 = \sum a_{n_1 n_2} \exp(2\pi\sqrt{-1}(n_1 x_1 + n_2 x_2))\\
+          g_2 = \sum b_{n_1 n_2} \exp(2\pi\sqrt{-1}(n_1 x_1 + n_2 x_2))
+
+     * ここで :math:`g_1, g_2` の性質を確認する。
+
+       * :math:`g_1 \in C^\infty(T^2)` の条件は
+         :math:\forall r > 0, \sum(n_1^2 + n_2^2)^(r/2)\abs{a_{n_1 n_2}} < \infty` である。
+         :math:`g_2` についても同様の条件である。
+
+       * :math:`g_1 \in \RR` の条件は
+         :math:`a_{-n_1 -n_2} = \overline{a_{n_1 n_2}}` である。
+         :math:`g_2` についても同様の条件である。
+
+     * :math:`\dd\alpha` を計算することで
+       :math:`\alpha \in Z^1(T^2)` の条件が :math:`n_1 b_{n_1 n_2} - n_2 a_{n_1 n_2} = 0`
+       であることがわかる。
+
+       このことから :math:`n_1 \ne 0 \implies b_{n_1 0} = 0` と
+       :math:`n_2 \ne 0 \implies a_{0 n_2} = 0` がわかる。
+
+     * 関数 :math:`f = \sum c_{n_1 n_2} \exp(2\pi\sqrt{-1}(n_1 x_1 + n_2 x_2))` が
+       :math:`\dd f = \alpha` を満たす条件を探る。
+
+       .. math::
+
+          \dd f = 2\pi\sqrt{-1}(\sum n_1 c_{n_1 n_2} \exp(\dots)\,\dd x_1
+                               + \sum n_2 c_{n_1 n_2} \exp(\dots)\,\dd x_2).
+
+       したがって次が条件である：
+
+       * :math:`a_{n_1 n_2} = 2\pi\sqrt{-1} n_1 c_{n_1 n_2}`
+       * :math:`b_{n_1 n_2} = 2\pi\sqrt{-1} n_1 c_{n_1 n_2}`
+
+     * 先ほどの :math:`\dd\alpha` の計算結果により、
+       :math:`\dd f = \alpha` には :math:`b_{00} = a_{00} = 0` が必要。
+       このとき :math:`n_1 \ne 0, n_2 \ne 0` ならば、
+       次のように係数をおけば :math:`n_1 b_{n_1 n_2} = n_2 a_{n_1 n_2}` だから
+       適切である。
+
+       .. math::
+
+          c_{n_1 n_2} = \frac{a_{n_1 n_2}}{2\pi\sqrt{-1}n_1}
+                      = \frac{b_{n_1 n_2}}{2\pi\sqrt{-1}n_1}.
+
+     * 次の場合分けで :math:`c_{n_1 n_2}` が :math:`c_{00}` を除いて定まる：
+
+       .. math::
+
+          n_1 \ne 0 \implies c_{n_1 0} = \frac{a_{n_1 0}}{2\pi\sqrt{-1}n_1}\\
+          n_2 \ne 0 \implies c_{0 n_2} = \frac{b_{0 n_2}}{2\pi\sqrt{-1}n_1}.
+
+     * :math:`c_{00} = 0` とすると :math:`f` は :math:`C^\infty` 級であり（収束評価を示す必要がある）、
+       :math:`\dd f = \alpha` が成り立つ。
+
+     以上より :math:`\H^1(T^2) \cong \RR^2` であり、
+     :math:`\alpha` とフーリエ級数の定数項 :math:`(a_{00}, b_{00})` が対応する。
+
+  3. :math:`\H^2(T^2)` を求める。
+
+     :math:`\beta = h\,\dd x_1 \wedge \dd x_2 \in \Omega^2(T^2)` などとおいて、
+     同様の検討を行なう。ここで :math:`\beta = \dd\alpha` かつ
+
+     .. math::
+
+        h = \sum e_{n_1 n_2}\exp(2\pi\sqrt{-1}(n_1 x_1 + n_2 x_2))
+
+     とおく。
+
+     結果だけ書くと :math:`\H^2(T^2) \cong \RR` であり、
+     :math:`\beta` とフーリエ級数の定数項 :math:`e_{00}` が対応する。
 
 .. _tsuboi08.2.4.9:
 
