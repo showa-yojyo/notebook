@@ -449,24 +449,52 @@
                 -x_2 \dd x_1 \wedge \dd x_3
                 +x_3 \dd x_1 \wedge \dd x_2
 
-     まず :math:`\dd x_1, \dd x_2, \dd x_3` を計算する。
-     各座標を :math:`u_1, u_2` で表す必要があることに注意。
+     * あらゆる計算が面倒なので SymPy の力を借りる：
 
-     .. todo:: SymPy で計算してみる。
-     .. 結果だけ書くと :math:`\frac{4 \dd u_1 \wedge \dd u_2}{(1 + u_1^2 + u_2^2)^2}`
+       .. code:: python3
 
-  #. :math:`\RR^3\minuszero \times \RR` 上の次の微分形式 :math:`\alpha` に対して、
-     全微分がゼロとなる。また、:math:`\RR^2\minuszero` 上の微分形式
-     :math:`(\pi_S\inv)^*(\alpha|S^2\setminus\set{p_N, p_S})` は何か。
+          u1, u2 = symbols('u1:3')
+          x1 = 2*u1/(u1**2 + u2**2 + 1)
+          x2 = 2*u2/(u1**2 + u2**2 + 1)
+          x3 = (-u1**2 - u2**2 + 1)/(u1**2 + u2**2 + 1)
+          dx1du1, dx2du1, dx3du1 = x1.diff(u1), x2.diff(u1), x3.diff(u1)
+          dx1du2, dx2du2, dx3du2 = x1.diff(u2), x2.diff(u2), x3.diff(u2)
+          omega123 = x1 * (dx2du1 * dx3du2 - dx2du2 * dx3du1)
+          omega213 = -x2 * (dx1du1 * dx3du2 - dx1du2 * dx3du1)
+          omega312 = x3 * (dx1du1 * dx2du2 - dx1du2 * dx2du1)
+          omega = (omega123 + omega213 + omega312).factor()
+          print_latex(omega)
+
+       SymPy の計算結果はこうなる：
+
+       .. math::
+
+          \frac{4 \dd u_1 \wedge \dd u_2}{(1 + u_1^2 + u_2^2)^2}.
+
+  #. 次の微分形式に対して :math:`\alpha \in Z^1(\RR^3\minuszero)` を示せ。
+     :math:`(\pi_S\inv)^*(\alpha|S^2\setminus\set{p_N, p_S}) \in \Omega^1(\RR^2\minuszero)` を展開しろ。
 
      .. math::
 
         \alpha = \dfrac{x_1 \dd x_2 - x_2 \dd x_1}{x_1^2 + x_2^2}.
 
-     前半は直接計算により示せる。後半も直接計算か。
+     * 前半は直接計算により示せる。外微分を計算すればゼロになる
+       （このくらいの簡単な式であれば暗算でわかってもよい）。
+       後半は SymPy で計算してみる：
 
-     .. todo:: SymPy で計算してみる。
-     .. 結果だけ書くと :math:`\frac{u_1 \dd u_2 - u_2 \dd u_1}{u_1^2 + u_2^2}`
+       .. code:: python3
+
+          d = Differential
+          dx1 = dx1du1 * d(u1) + dx1du2 * d(u2)
+          dx2 = dx2du1 * d(u1) + dx2du2 * d(u2)
+          alpha = (x1 * dx2 - x2 * dx1).factor()/(x1**2 + x2**2).factor()
+          print_latex(alpha)
+
+       次の結果を得る：
+
+       .. math::
+
+          \alpha = \frac{u_1 \dd u_2 - u_2 \dd u_1}{u_1^2 + u_2^2}.
 
   #. :math:`\fnm{\gamma}{[0, 1]}{\RR^3}{t}(\cos 2\pi t, \sin 2\pi t, 0)` に沿った :math:`\alpha` の線積分。
 
@@ -482,17 +510,24 @@
         &= 2\pi.
         \end{align*}
 
-  #. :math:`\alpha_1 = \dfrac{1 - x_3}{2}\alpha` は :math:`S^2\setminus\set{p_S}` 上の
-     微分形式である。
+  #. :math:`\alpha_1 = \dfrac{1 - x_3}{2}\alpha \in \Omega^1(S^2\setminus\set{p_S}).`
 
-     * これも直接計算するといい。
+     * これも SymPy で直接計算する：
 
-     .. todo:: SymPy で計算してみる。
-     .. 結果だけ書くと :math:`\alpha_1 = \frac{u_1 \dd u_2 - u_2 \dd u_1}{1 + u_1^2 + u_2^2}`
+       .. code:: python3
+
+          alpha1 = ((1 - x3)/2 * alpha).simplify()
+          print_latex(alpha1)
+
+       結果を記す：
+
+       .. math::
+
+          \alpha_1 = \frac{u_1 \dd u_2 - u_2 \dd u_1}{1 + u_1^2 + u_2^2}.
 
      * また、同様にして :math:`\alpha_2 = \dfrac{1 + x_3}{2}\alpha` は
        :math:`S^2\setminus\set{p_N}` 上の微分形式であることもわかる。
-       そして :math:`\alpha = \alpha_1 - \alpha_2` に注意するとよい。
+       そして次問に備えて :math:`\alpha = \alpha_1 - \alpha_2` に注意するとよい。
 
 .. _tsuboi08.2.7.5:
 
@@ -501,7 +536,8 @@
   * :math:`M_1 = S^2 \setminus \set{p_S}`, :math:`M_2 = S^2 \setminus \set{p_N}`
   * :math:`M_{12} = M_1 \cap M_2`
 
-  とする。このとき次の二つのマイヤー・ビエトリス完全系列は同型である：
+  とする（この記号を前問で利用して TeX の手間を軽減したかった）。
+  このとき次の二つのマイヤー・ビエトリス完全系列は同型である：
 
   .. math::
 
@@ -511,7 +547,7 @@
             @>>> \H^2(S^2)
             @>>> 0,\\
      @.\\
-     \cdots @>>> 0 \oplus 0
+     \cdots @>>> \RR \oplus \RR
             @>>> \RR
             @>>> \H^2(S^2)
             @>>> 0.
@@ -522,6 +558,7 @@
 
     * それぞれ :ref:`前問 <tsuboi08.2.7.4>` の小問 2 と 3 による。
       （生成元の辺りはきちんと説明できるか？）
+    * :ref:`命題 2.6.2 <tsuboi08.2.6.2>` の周辺の文章をよく読んでおくこと。
 
   :math:`\Delta^* [\alpha|M_{12}]` を代表する 2 形式とは何か。
 
