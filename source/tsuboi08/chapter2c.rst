@@ -154,10 +154,76 @@
 
 * 補題 2.9.2: `Five Lemma <http://mathworld.wolfram.com/FiveLemma.html>`__
 
-  * ベクトル空間と線形写像の二つの完全系列と、その間にある準同型との間にある
-    可換図式に関する補題。リンク先参照。
+  ベクトル空間と線形写像の二つの完全系列と、その間にある準同型との間にある
+  可換図式に関する補題。
 
-  * 簡単なので証明は載っていない。読者がやる。
+  .. math::
+
+     \begin{CD}
+     A_1 @>{f_1}>> A_2 @>{f_2}>> A_3 @>{f_3}>> A_4 @>{f_4}>> A_5\\
+     @V{F_1}VV @V{F_2}VV @V{F_3}VV @V{F_4}VV @V{F_5}VV\\
+     B_1 @>{g_1}>> B_2 @>{g_2}>> B_3 @>{g_3}>> B_4 @>{g_4}>> B_5
+     \end{CD}
+
+  この図式で、
+
+  * 上下の行が完全系列であり、
+  * :math:`F_1, F_2, F_4, F_5` が同型写像であり、
+  * :math:`F_3` が準同型写像（ふつうの線形写像）である
+
+  とする。このとき :math:`F_3` は同型写像である。
+
+  1. :math:`F_3` が単射であることを示す。
+
+     * :math:`x \in \ker{F_3}` を一つとる。
+     * :math:`F_4 \circ f_3(x) = g_3 \circ F_3(x) = 0` および
+       :math:`F_4` が同型写像であることから :math:`f_3(x) = 0.`
+       したがって :math:`\exists x_2 \in A_2 \text{ s.t. } f_2(x_2) = x.`
+
+     * :math:`g_2 \circ F_2(x_2) = F_3 \circ f_2(x_2) = 0` および
+       :math:`F_2` が同型写像であることから
+       :math:`\exists y_1 \in B_1 \text{ s.t. } g_1(y_1) = F_2(x_2).`
+
+     * :math:`F_1` が同型写像であることから
+       :math:`\exists x_1 \in A_1 \text{ s.t. } F_1(x_1) = y_1.`
+
+     * :math:`F_2 \circ f_1(x_1) = g_1 \circ F_1(x_1)` および
+       :math:`F_2` が同型写像であることから
+       :math:`f_1(x_1) = x_2.`
+
+     * :math:`\im{f_1} = \ker{f_2}` に注意して :math:`x = f_2 \circ f_1(x_1) = 0.`
+
+     :math:`\ker{F_3} = \zeroset` つまり :math:`F_3` は単射である。
+
+  2. :math:`F_3` が全射であることを示す。
+
+     * :math:`y \in B_3` を一つとる。
+     * :math:`F_4` が同型写像であることから
+       :math:`\exists x_4 \in A_4 \text{ s.t. } F_4(x_4) = g_3(y).`
+     * :math:`F_5 \circ f_4(x_4) = g_4 \circ F_4(x_4) = g_4 \circ g_3(y) = 0`
+       および `F_5` が同型写像であることから
+       :math:`f_4(x_4) = 0.`
+     * 一行目が完全系列であることから
+       :math:`\exists x_3 \in A_3 \text{ s.t. } f_3(x_3) = x_4.`
+     * :math:`g_3 \circ F_3(x_3) = F_4 \circ f_3(x_3) = g_3(y)` だから
+       :math:`y - F_3(x_3) \in \ker{g_3}.`
+
+     * :math:`\exists y_2 \in B_2 \text{ s.t. } g_2(y_2) = y - F_3(x_3).`
+     * :math:`F_2` が同型写像であることから
+       :math:`\exists x_2 \in A_2 \text{ s.t. } F_2(x_2) = y_2.`
+
+     このとき次が成り立つので :math:`F_3` は全射である。
+
+     .. math::
+
+        \begin{align*}
+        F_3(f_2(x_2) + x_3)
+        &= g_2 \circ F_2(x_2) + F_3(x_3)\\
+        &= g_2(y_2) + + F_3(x_3)\\
+        &= y.
+        \end{align*}
+
+  3. 以上 1. と 2. により :math:`F_3` は同型写像である。
 
 .. _tsuboi08.2.9.3:
 
@@ -179,7 +245,46 @@
 
   もまた完全系列である。
 
-  * 簡単なので証明は載っていない。読者がやる。
+  1. まず与えられた完全系列上の線形写像を :math:`\fn{f_i}{A_i}A_{i + 1}` とおく。
+     示すべきは :math:`(f_1 \otimes \id_B) \circ (f_0 \otimes \id_B) = 0` である。
+
+  2. :math:`0 \ne \bm y \in A_1 \otimes B` をとり :math:`f_1(\bm y) = 0`
+     すなわち :math:`(f_1 \otimes \id_B)(\bm y) = 0` を仮定する。
+
+     ここで、線形独立な :math:`\bm b_1, \dotsc \bm b_m \in B` および
+     :math:`\bm y_1, \dotsc, \bm y_n \in A_1` により次の和で表すものとする：
+
+     .. math::
+
+        \bm y = \sum{i = 1}^n\sum{j = 1}^m \bm y_i \otimes \bm b_j.
+
+  3. 上記の 1. と 2. を合わせると次のように書ける：
+
+     .. math::
+
+        0 = (f_1 \otimes \id_B)(\bm y) = \sum{i = 1}^n\sum{j = 1}^m f_1(\bm y_i) \otimes \bm b_j.
+
+     この式より :math:`\forall i \in \set{0, \dotsc, n}, f_1(\bm y_i) = 0`
+     が必要であることがわかる。
+
+  4. さらに与えられた完全系列から
+     :math:`\forall i \in \set{0, \dotsc, n}, \exists \bm x_i \in A_0 \text{ s.t. } f_0(\bm x_i) = \bm y_i.`
+
+  5. 以上をまとめて：
+
+     .. math::
+
+        \begin{align*}
+        \bm y
+        &= \sum{i = 1}^n\sum{j = 1}^m \bm y_i \otimes \bm b_j\\
+        &= \sum{i = 1}^n\sum{j = 1}^m f_0(\bm x_i) \otimes \bm b_j\\
+        &= (f_0 \otimes \id_)\left(\sum{i = 1}^n\sum{j = 1}^m \bm x_i \otimes \bm b_j \right).
+        \end{align*}
+
+     これと 3. を合成すれば所望の結論が示される。
+
+  参考：
+  https://math.stackexchange.com/questions/1899546/tensor-product-of-an-exact-sequence-of-vector-spaces-by-a-vector-space
 
 .. _tsuboi08.2.9.4:
 
@@ -365,33 +470,165 @@
   証明が長いし、
   `コサイクル <http://mathworld.wolfram.com/Cocycle.html>`__ だの
   `コバウンダリー <http://mathworld.wolfram.com/Coboundary.html>`__ だの見慣れぬ用語があるのが気になる。
+  以下、適宜書き直す：
 
-  * Stage 1: 閉 p 形式に対して「チェック複体の p コサイクル」が対応する：
+  1. :math:`\forall \alpha \in Z^p(M)` に何らかの :math:`\alpha^{(p, -1)} \in \check{Z}^p(M, \set{U_i})`
+     が対応することを示す。
 
-    .. math::
+     本書にイラストが添えられているが、併せて p. 77 の図式も参照すること。
 
-       \alpha \longmapsto \alpha^{(p, -1)}.
+     * :math:`\forall \alpha \in Z^p(M), \dd{r\alpha} = r\dd\alpha = 0.`
+       したがって :math:`\exists \alpha^{(0, p - 1)} \in \bigoplus_i \Omega^{p - 1}(U_i) \text{ s.t. } r\alpha = \dd\alpha^{(0, p - 1)}.`
 
-    これは閉形式 :math:`\alpha \in \Omega^p(M)` から出発して図式を下へ下へと辿っていく。
-    帰納法で最下段に到達すると :math:`\iota \delta \alpha^{(p, -1)} = \delta\delta\alpha^{(p-1, 0)}`
-    なる :math:`\alpha^{(p, -1)}` が存在することがわかる。
-    そして :math:`\iota` の単射性により :math:`\delta \alpha^{(p, -1)}.`
+       * :math:`r` は制限写像 :math:`\fn{r_i}{\Omega^p(M)}\Omega^p(U_i)` の直和である。
+       * そもそも縦列は :ref:`定理 1.7.2 <tsuboi08.1.7.2>` により完全系列である。
 
-    以上をまとめると、:math:`\alpha \in \Omega^p(M)` に対して
-    :math:`\alpha^{(p, -1)} \in \bigoplus_{i_0 < \dotsb i_p} \RR(U_{i_0 \dots i_p})` が何か存在するということだ。
+     * :math:`\dd{\delta\alpha^{(0, p - 1)}} = \delta\dd\alpha^{(0, p - 1)} = \delta r\alpha = 0.`
 
-  * Stage 2: この対応がコホモロジー群の準同型を導き、well-defined である。
-    これにより準同型 :math:`\H^p(M) \longto \check H^p(M, \set{U_i})` が定まる。
+     * 帰納的に
 
-    今度は完全形式 :math:`\alpha \in \Omega^p(M)` から出発して最下段へ向かう。
-    :math:`\iota\delta\beta^{(p-1, -1)} = \iota\alpha^{(p, -1)}` なる :math:`\beta^{(p-1, -1)}` が存在し、
-    やはり :math:`\iota` の単射性により :math:`\alpha^{(p, -1)} = \delta \beta^{(p - 1, -1)}.`
+       .. math::
 
-    前の結果とまとめて、準同型 :math:`\H^p(M) \longto \check H^p(M, \set{U_i})` が得られたことになる。
+          \alpha^{(j - 1, p - j)} \in \bigoplus_{i_0 < \dotsb < i_{j - 1}}\Omega^{p - j}(U_{i_0\dots i_{j - 1}}),
+          \dd{\delta \alpha^{(j - 1, p - j)}} = 0
 
-  * Stage 3: 縦と横の役割を入れ替えて議論すると、
-    準同型 :math:`\check H^p(M, \set{U_i}) \longto \H^p(M)` も導かれると言える。
-    両者は互いに逆写像である。それゆえ表題の同型が結論できる。
+       を仮定すれば、
+
+       .. math::
+
+          \exists \alpha^{(j, p - j - 1)} \in \bigoplus_{i_0 < \dotsb < i_j}\Omega^{p - j - 1}(U_{i_0\dots i_j})
+          \text{ s.t. }
+          \delta \alpha^{(j - 1, p - j)} = \dd{\alpha^{(j, p - j - 1)}}.
+
+       * 境界準同型の性質 :math:`\delta\delta\alpha^{(j - 1, p - j)} = 0` に注意。
+
+     * 帰納法によって
+
+       .. math::
+
+          \exists \alpha^{(p - 1, 0)} \in \bigoplus_{i_0 < \dotsb < i_{p - 1}}\Omega^0(U_{i_0\dots i_{p - 1}}),
+          \exists \alpha^{(p, -1)} \in \bigoplus_{i_0 < \dotsb < i_p} \RR(U_{i_0 \dots i_p})
+          \text{ s.t. }
+          \delta\alpha^{(p - 1, 0)} = \iota\alpha^{(p - 1, 0)}.
+
+       ここで
+
+       .. math::
+
+          \begin{align*}
+          \iota\delta\alpha^{(p - 1, 0)}
+          &= \delta\iota\alpha^{(p - 1, 0)}\\
+          &= \delta\delta\alpha^{(p - 1, 0)}\\
+          &= 0.
+          \end{align*}
+
+       :math:`\iota` が単射であることから :math:`\delta\alpha^{(p - 1, 0)} = 0.`
+
+     よって
+     :math:`\alpha \in \Omega^p(M)` に対して、対応する
+     :math:`\alpha^{(p, -1)} \in \bigoplus_{i_0 < \dotsb i_p} \RR(U_{i_0 \dots i_p})` が何か存在する。
+
+   2. この対応がコホモロジー群の準同型を導き、well-defined であることを示す。
+      これにより準同型 :math:`\H^p(M) \longto \check H^p(M, \set{U_i})` が定まる。
+
+      今度は完全形式 :math:`\alpha \in \Omega^p(M)` から出発して最下段へ向かう。
+
+      * :math:`\forall \alpha \in B^p(M), \exists \beta \in \Omega^{p - 1}(M) \text{ s.t. } \alpha = \dd\beta.`
+      * この :math:`\alpha` に対して 1. の :math:`\alpha^{(0, p - 1)}` を考える。
+
+        :math:`\dd{\alpha^{(0, p - 1)}} = r\alpha = r\dd\beta = \dd r\beta` ゆえ、
+
+        .. math::
+
+           \exists \beta^{(0, p - 2)} \in \bigoplus_{i} \Omega^{p - 2}(U_i)
+           \text{ s.t. }
+           \dd\beta^{(0, p - 2)} = \alpha^{(0, p - 1)} - r\beta.
+
+      * ここで次が成り立つ：
+
+        .. math::
+
+           \dd\delta\beta^{(0, p - 2)} = \delta\dd\beta^{(0, p - 2)}
+           = \delta(\alpha^{(0, p - 1)} - r\beta)
+           = \delta\alpha^{(0, p - 1)}.
+
+      * 帰納的に
+
+        .. math::
+
+           \beta^{(j - 1, p - j - 1)} \in \bigoplus_{i_0 < \dotsb i_{j - 1}}\Omega^{p - j - 1}(U_{i_0\dots i_{j - 1}})
+
+        に対して次を仮定する：
+
+        .. math::
+
+           \dd\delta\beta^{(j - 1, p - j - 1)}
+           = \delta\alpha^{(j - 1, p - j)}
+           = \dd\alpha^{(j, p - j - 1)}.
+
+        このとき：
+
+        .. math::
+
+           \exists \beta^{(j, p - j - 2)} \in \bigoplus_{i_0 < \dotsb i_{j - 2}}\Omega^{p - j - 2}(U_{i_0\dots i_{j - 2}})
+           \text { s.t. }
+           \dd\beta^{(j, p - j - 2)} = \alpha^{(j, p - j - 1)} - \delta\beta^{(j - 1, p - j - 1)}.
+
+        * ここで次に注意する：
+
+          .. math::
+
+             \begin{align*}
+             \dd\delta\beta^{(j, p - j - 2)}
+             &= \delta\dd\beta^{(j, p - j - 2)}\\
+             &= \delta(\alpha^{(j, p - j - 1)} - \delta\beta^{(j - 1, p - j - 1)})\\
+             &= \delta\alpha^{(j, p - j - 1)}.
+             \end{align*}
+
+      * 帰納法によって次が得られる：
+
+        .. math::
+
+           \beta^{(p - 2, 0)} \in \bigoplus_{i_0 < \dotsb i_{p - 2}}\Omega^0(U_{i_0\dots i_{p - 2}}).
+
+        これに対して次を仮定する：
+
+        .. math::
+
+           \dd\delta\beta^{(p - 2, 0)}
+           = \delta\alpha^{(p - 2, 1)}
+           = \dd\alpha^{(p - 1, 0)}.
+
+        すると次が得られる：
+
+        .. math::
+
+           \exists \beta^{(p - 1, -1)} \in \bigoplus_{i_0 < \dotsb < i_{p - 1}}\RR(U_{i_0\dots i_{p - 1}})
+           \text{ s.t. }
+           \iota\beta^{(p - 1, -1)} = \alpha{(p - 1, 0)} - \delta\beta^{(p - 2, 0)}.
+
+        * 次の評価および :math:`\iota` が単射であることから
+          :math:`\alpha^{(p, -1)} = \delta\beta^{(p - 1, -1)}:`
+
+          .. math::
+
+             \begin{align*}
+             \iota\delta\beta^{(p - 1, -1)}
+             &= \delta\iota\beta^{(p - 1, -1)}\\
+             &= \delta(\alpha{(p - 1, 0)} - \delta\beta^{(p - 2, 0)}\\
+             &= \delta\alpha{(p - 1, 0)}\\
+             &= \iota\alpha{(p, -1)}.
+             \end{align*}
+
+        * 「完全形式の差の自由度」は途中の :math:`\beta^{(j, p - j - 2)}` に表されている。
+
+     以上で準同型 :math:`\H^p(M) \longto \check H^p(M, \set{U_i})` が得られたことになる。
+
+  3. 縦と横の役割を入れ替えて議論すると、
+     準同型 :math:`\check H^p(M, \set{U_i}) \longto \H^p(M)` が構成できて、
+     かつ 1. の :math:`\alpha` から :math:`\alpha^{(p, - 1)}` への対応と、
+     入れ替え版の :math:`\alpha^{(p, - 1)}` から :math:`\alpha` への対応が
+     互いに逆写像である。つまり表題の同型が存在する。
 
 .. _tsuboi08.2.10.3:
 
