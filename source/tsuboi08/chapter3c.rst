@@ -106,30 +106,41 @@
 
   * \(1) :math:`\displaystyle \int_{S^2}\!\iota^*\omega` の値は何か。
 
-    * 解は :math:`\displaystyle \int_{B^3}\!\dd \omega = 4 \pi` であることを示したい。
+    .. math::
+
+       \begin{align*}
+       \int_{S^2}\!\iota^*\omega
+       &= \int_{S^2}\!\omega\\
+       &= \int_{\partial B^3}\!\omega\\
+       &= \int_{B^3}\!\dd\omega\\
+       &= \int_{B^3}\! 3 \dd x_1 \wedge \dd x_2 \wedge \dd x_3\\
+       &= 3 \cdot \frac{4}{3}\pi\\
+       &= 4\pi.
+       \end{align*}
+
+    * 最初の等号は包含写像の引き戻しであることによる。
+    * 二番目の等号は本問の仮定による。
+    * 三番目の等号は :ref:`定理 3.5.1 ストークスの定理 <tsuboi08.3.5.1>` による。
+    * 四番目の等号が暗算で出てくるのが望ましい。
+      この積分は球の体積 3 倍を意味する。
 
   * \(2) :ref:`問題 2.7.4 <tsuboi08.2.7.4>` の :math:`(\pi_S\inv)^*(\omega|S^2)` について
     :math:`\displaystyle \int_{\RR^2}\!(\pi_S\inv)^*(\omega|S^2)` の値は何か。
 
-    * 広義積分 :math:`\displaystyle \int_0^{2\pi}\!\int_0^\infty\!\frac{4r}{(1 + r^2)^2}\,\dd r \dd \theta = 4 \pi`
-      に帰着することを示したい。
+    素直に計算して構わない：
 
-    * 後半は次のように計算する（解答例で省略されていて困った）：
+    .. math::
 
-      .. math::
-
-         \begin{align*}
-         \int_0^{2\pi}\!\int_0^\infty\!\frac{4r}{(1 + r^2)^2}\,\dd r \dd \theta
-         &= \int_0^{2\pi}\!\left[\frac{-2}{(1 + r^2)}\right]_0^\infty\,\dd \theta\\
-         &= \int_0^{2\pi}\!(0 - (-2))\,\dd \theta\\
-         &= 4\pi.
-         \end{align*}
-
-  .. todo:: 外微分の展開を計算する。
-
-  この問題は向きの考え方がわかっていないと、例えば
-  :math:`\dd u_1 \wedge \dd u_2` を :math:`\dd u_1 \dd u_2` と
-  してよいかがわからないことに注意。
+       \begin{align*}
+       \int_{\RR^2}\!(\pi_S\inv)^*(\omega|S^2)
+       &= \int_{\RR^2}\! \frac{4}{(1 + u_1^2 + u_2^2)^2}\,\dd u_1 \wedge \dd u_2\\
+       &= \int_{-\infty}^{\infty}\!\int_{-\infty}^{\infty}\!
+           \frac{4}{(1 + (r\cos\theta)^2 + (r\sin\theta)^2)^2}
+           r(\cos^2\theta - (-\sin^2\theta))\,\dd r \dd \theta\\
+       &= \int_0^{2\pi}\!\int_0^\infty\!\frac{4r}{(1 + r^2)^2}\,\dd r \dd \theta\\
+       &= 2\pi \left[-\frac{2}{1 + r^2}\right]_0^\infty\\
+       &= 4\pi.
+       \end{align*}
 
 .. _tsuboi08.3.5.3:
 
@@ -405,7 +416,7 @@
 
 .. _tsuboi08.3.6.4:
 
-* 問題 3.6.4: 複素射影直線と代数学の基本定理
+* 問題 3.6.4: 複素射影直線と `代数学の基本定理 <http://mathworld.wolfram.com/FundamentalTheoremofAlgebra.html>`__
 
   * :math:`z \in \CC` と :math:`n \in \NN` に対して
 
@@ -424,32 +435,54 @@
 
   * \(1) :math:`f` は :math:`C^\infty` 級である。
 
-    1. :math:`\CC P^1` の座標近傍系を次のようにとれる：
-       :math:`\set{(U_1, \varphi_1), (U_2, \varphi_2)}`
+    :math:`\CC P^1` の座標近傍系を次のようにとれる：
+    :math:`\set{(U_1, \varphi_1), (U_2, \varphi_2)}`
 
-       * :math:`U_1 = \CC P^1\setminus\set{[1 : 0]}`
-       * :math:`U_2 = \CC P^1\setminus\set{[0 : 1]}`
-       * :math:`\varphi_1\colon [z_1 : z_2] \longmapsto z_1/z_2`
-       * :math:`\varphi_2\colon [z_1 : z_2] \longmapsto z_2/z_1`
+    ここで各記号は次を意味するものとする：
 
-    2. :math:`\varphi_1 \circ f|U_1 \circ \varphi_1\inv(z) = P(z)` となるので、
-       :math:`f` は :math:`U_1` 上に制限すれば :math:`C^\infty` 級である。
+    * :math:`U_1 = \CC P^1\setminus\set{[1 : 0]}`
+    * :math:`U_2 = \CC P^1\setminus\set{[0 : 1]}`
+    * :math:`\fnm{\varphi_1}{U}{\CC P^1}{[z : w]}\dfrac{z}{w}`
+    * :math:`\fnm{\varphi_2}{V}{\CC P^1}{[z : w]}\dfrac{w}{z}`
 
-    3. :math:`[0 : 1]` の近傍で :math:`\varphi_2 \circ f \circ \varphi_2\inv` が
-       原点付近で :math:`C^\infty` 級であることを見ればよい：
+    1. :math:`\varphi_1 \circ f|U_1 \circ \varphi_1\inv(z) = P(z)` となるので、
+       :math:`f` は :math:`U_1` 上に制限すれば :math:`C^\infty` 級である：
+
+       .. math::
+
+          \begin{align*}
+          \varphi_1 \circ f|U_1 \circ \varphi_1\inv(z)
+          &= \varphi_1 \circ f|U_1([z : 1])\\
+          &= \varphi_1([P(z) : 1])\\
+          &= \frac{P(z)}{1}\\
+          &= P(z).
+          \end{align*}
+
+    2. :math:`\displaystyle \sum_{k = 0}^n a_{n - k}z^k\ (a_0 \ne 0)` とおくと、
+       :math:`[0 : 1]` の近傍では
 
        .. math::
 
           \begin{align*}
           \varphi_2 \circ f \circ \varphi_2\inv(w)
-          &= \cfrac{1}{P\left(\dfrac{1}{w}\right)}\\
-          &= \frac{w^n}{a_0 + \dotsb + a_n w^n}.
+          &= \dfrac{1}{P(\dfrac{1}{w})}\\
+          &= \dfrac{1}{\sum_{k = 0}^n a_{n - k} \dfrac{1}{w^k}}\\
+          &= \dfrac{w^n}{\sum_{k = 0}^n a_k w^k}.
           \end{align*}
 
-       分母は原点付近ではゼロにはならない（不等式で評価する）。
-       よって、:math:`f` は :math:`[0 : 1]` の近傍で :math:`C^\infty` 級である。
+       ここで :math:`\abs{w} < 1` ならば分母の絶対値は次の値以上である：
 
-    以上の 2. と 3. により、:math:`f` は :math:`C^\infty` 級である。
+       .. math::
+
+          \abs{a_0} - \left(\sum_{k = 0}^n \abs{a_k} \right)\abs{w}.
+
+       よって :math:`\abs{w}` は 1 と :math:`\dfrac{\abs{a_0}}{\sum\abs{a_i}}` の
+       小さいほうよりも小さいならば、分母の絶対値はゼロとはならない。
+
+       それゆえ、:math:`[0 : 1]` の近傍で :math:`f` は
+       :math:`C^\infty` 級である。
+
+    以上の 1. と 2. により、:math:`f` は :math:`C^\infty` 級である。
 
   * \(2) 次の条件を満たす :math:`C^\infty` 級写像 :math:`\fn{F}{\CC P^1 \times [0, 1]}\CC P^1` が
     存在する：
@@ -462,11 +495,13 @@
        \end{align*}
 
     1. :math:`P_z(t) = r_0\mathrm{e}^{i t \theta_0}z^n + t(a_1 z^{n - 1} + \dotsb + a_n)` とおく。
-    2. 写像 :math:`F` を :math:`(\CC P^1 \setminus \set{[1 : 0]}) \times [0, 1]` に制限したところで
-       :math:`F([z : 1], t) = [P_z(t) : 1]` と定義する。
+
+       :math:`a_0 = r_0\mathrm{e}^{i\theta_0}` としてある。
+
+    2. :math:`F|(U \times [0, 1])` を :math:`F([z : 1], t) = [P_z(t) : 1]` で定義する。
        そうすることで、この制限定義域上では :math:`C^\infty` 級である。
 
-    3. :math:`[0 : 1]` の近傍で :math:`\varphi_2 \circ F_t \circ \varphi_2\inv` が
+       :math:`\set{[0 : 1]} \times [0 : 1]` の近傍で :math:`\varphi_2 \circ F_t \circ \varphi_2\inv` が
        原点付近で :math:`C^\infty` 級であることを見ればよい：
 
        .. math::
@@ -474,34 +509,62 @@
           \begin{align*}
           \varphi_2 \circ F_t \circ \varphi_2\inv(w)
           &= \cfrac{1}{P_t\left(\dfrac{1}{w}\right)}\\
-          &= \frac{w^n}{r_0 \mathrm{e}^{i t \theta_0} + \dotsb + a_n w^n}.
+          &= \frac{w^n}{r_0 \mathrm{e}^{i t \theta_0} + t(a_1 w + \dotsb + a_n w^n}).
           \end{align*}
 
        先ほどと同様の評価をすることで、分母は原点付近ではゼロにはならないことを示す。
+       :math:`R = \min\set{r_0, 1}` とおく。
 
-    4. :math:`\set{[0 : 1]} \times [0, 1]` の近傍で :math:`F` は :math:`C^\infty` 級である。
+       * :math:`\abs{w} < 1` ならば分母の絶対値は :math:`R - (\sum\abs{a_k})\abs{w_k}`
+         を下回らない。
+       * :math:`\abs{w} < \min\Set{\dfrac{R}{\sum\abs{a_k}}, 1}` ならば
+         分母の絶対値はゼロとはならない。
 
-  * \(3) :math:`\fn{f^* = f_0^}{\H^2(\CC P^1)}\H^2(\CC P^1)`
+  * \(3) :math:`f^* = \fn{f_0^*}{\H^2(\CC P^1)}\H^2(\CC P^1)`
 
-    * :ref:`定理 2.4.18 <tsuboi08.2.4.18>` による。
+    * :ref:`定理 2.4.18 <tsuboi08.2.4.18>` と (2) の結果からわかる
+      :math:`f` と :math:`f_0` のホモトピック関係による。
 
   * \(4) :math:`\displaystyle \alpha \in \Omega^2(\CC P^1) \longmapsto \int\!\alpha` は
     写像 :math:`\fn{I}{\H^2(\CC P^1)}\RR` を導く。
     :math:`f_0^*` は何か。
 
-    * これは解答を見てもわからない。
-      :ref:`定理 3.6.1 <tsuboi08.3.6.1>` と同じ条件で
-      :math:`\displaystyle \int_{\CC P^1}\!f_0^*\alpha = n\int_{\CC P^1}\!\alpha` が
-      成り立っている。
+    * :math:`f_0\inv([1 : 1])` の各点が正則点であるので、
+      :math:`[1 : 1]` は正則値である。
 
-    * :math:`f_0([\alpha]) = n[\alpha]` とは？
+      * 各点とは :math:`\set{\exp(2\pi\sqrt{-1}k/n) \sth k = 0, \dotsc, n - 1}` である。
+      * 正則点であるイコール :math:`\varphi_1 \circ f \circ \varphi_1\inv(z) = z^n` における
+        :math:`Dz^n = nz^{n - 1} \ne 0` を意味する。
+
+    * :math:`D` を :math:`\RR^2` で考えると
+      :math:`D(\varphi_1 \circ f \circ \varphi_1\inv) = \abs{nz^{n - 1}}^2 \ne 0.`
+
+    このあとの証明は :ref:`定理 3.6.1 <tsuboi08.3.6.1>` の証明を含む。
+    :math:`\alpha \in \Omega^n(\CC P^1)` とある :math:`[1 : 1]` の近傍
+    :math:`W` に対して：
+
+    .. math::
+
+       \int_{\CC P^1}\!f_0^*\alpha = n\int_{\CC P^1}\!\alpha.
 
   * \(5) :math:`P(z) = 0` なる :math:`z` が存在しなければ、
     写像 :math:`f` は定数写像 :math:`[1 : 0]` とホモトピックであり、
     :math:`f^* = 0.`
 
-    * この辺はわからない。
-      :math:`G_t([z : w]) = \varphi_2\inv(t \varphi_2 f([z : w]))` がなぜ生じる？
+    * :math:`P(z) = 0` を満たす :math:`z` が存在しないならば、
+      次のようなホモトピー :math:`\fn{G_t}{\CC P^1}\CC P^1` が存在することになる：
+
+      .. math::
+
+         G_t([z : w]) = \varphi_2\inv(t \varphi_2 f([z : w])).
+
+    * :math:`G_1 = f.`
+    * :math:`G_0` は定数関数 :math:`[1 : 0]` である。
+    * :math:`G_t` は写像度ゼロの :math:`G_0` と :math:`C^\infty` 級
+      ホモトピーであることになるので、:math:`f^* = 0.`
+
+    以上は (4) と矛盾するので、零点は存在する。
+    つまり、代数学の基本定理に沿う。
 
 3.7 ガウス写像
 ======================================================================
