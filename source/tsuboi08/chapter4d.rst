@@ -157,21 +157,22 @@
   向き付けられたコンパクトリーマン多様体の体積形式に関するベクトル場の発散に関する公式だ。
 
   * :math:`\Omega_{(M, g)}` をリーマン多様体の体積形式とし、
-  * :math:`\xi` を :math:`L_\xi\Omega_{(M, g)} = \div(\xi) \Omega_{(M, g)}` を満たすベクトル場
+  * :math:`\xi` を :math:`L_\xi\Omega_{(M, g)} = \div(\xi) \Omega_{(M, g)}`
+    を満たすベクトル場であるとし、
+  * :math:`n` は単位ベクトル場であり、多様体の境界 :math:`\partial M` において
+    それに直交かつ外向きであるとする。
 
   とする。このとき、次の積分に関する等式が成り立つ：
 
   .. math::
 
-     \int_M\!\div(\xi)\Omega_{(M, g)} = \int_{\partial M}\!g(n, \xi)\Omega_{(\partial M, g|\partial M)}.
-
-  ここで :math:`n` は単位ベクトル場であり、多様体の境界 :math:`\partial M` において
-  それに直交かつ外向きであるとする。
+     \int_M\!\div(\xi)\Omega_{(M, g)}
+     = \int_{\partial M}\!g(n, \xi)\Omega_{(\partial M, g|\partial M)}.
 
   この積分は、境界がない多様体についてはゼロであると解釈する。
 
   1. ベクトル場 :math:`\xi` についての仮定および :ref:`命題 4.1.8 <tsuboi08.4.1.8>`
-     カルタンの公式より：
+     カルタンの公式より左辺を次のように変形できる：
 
      .. math::
 
@@ -184,25 +185,26 @@
 
      * 最後の等式はストークスの定理による。
 
-  2. 主張のベクトル場 :math:`n` は適当に定義域を多様体全体に拡張してよい。
+  2. ベクトル場 :math:`n` は定義域を多様体全体に拡張してよい。
+     次のように決めて構わない：
 
      .. math::
 
         i_n\Omega_{(M, g)}|\partial M = \Omega_{(\partial M, g|\partial M)}.
 
-  3. 正規直交基底 :math:`\set{e_i}` をとる。
+  3. 正規直交基底 :math:`\set{e_i}\ (i = 1, \dotsc, n)` をとる。
      ただし、境界に沿って局所的に :math:`n = e_1` となるようなものとする。
      このとき :math:`\xi = \sum a_i e_i` について：
 
      .. math::
 
         \begin{align*}
-        i_\xi\Omega|\partial M
+        i_\xi\Omega_{(M, g)}|\partial M
         &= a_1 e_2^* \wedge \dotsb \wedge e_n^*\\
-        &= g(n, \xi)\Omega_{(\partial M, g|\partial M)}
+        &= g(n, \xi)\Omega_{(\partial M, g|\partial M)}.
         \end{align*}
 
-     * ここは何をやっているのかわからない。
+     これを 1. の右辺に適用すればガウス・グリーンの公式を得る。
 
 .. _tsuboi08.4.4.3:
 
@@ -242,6 +244,74 @@
   * 行列 :math:`B` を :math:`n \times m` サイズで
 
   あるとする。このとき :math:`\det(AB)` はどう書けるかという問題。
+
+  * :math:`A = (a_{ij}),`
+  * :math:`B = (b_{jk}),`
+  * :math:`i, k = 1, \dotsc, m,`
+  * :math:`j = 1, \dotsc, n`
+
+  とおく。
+
+  * \(1) :math:`m \ge n` ならば :math:`\det(AB) = 0.`
+
+    :math:`AB` のランクのことを考えれば明らか。
+
+  * \(2) :math:`m \le n` ならば：
+
+    .. math::
+
+       \det(AB) = \sum_{j_1 < \dotsb < j_m}
+           \det((a_{ik})_{\substack{i = 1, \dots, m\\k = j_1, \dotsc, j_m}})
+           \det((b_{ki})_{\substack{i = 1, \dots, m\\k = j_1, \dotsc, j_m}})
+
+    1. 行列の積を考える：
+
+       .. math::
+
+          AB = \left(\sum_{j = 1} a_{ij}b_{jk}\right)_{i, k = 1, \dotsc, m}.
+
+    2. 行列式をひたすら考える：
+
+       .. math::
+
+          \begin{align*}
+          \det(AB)
+          &= \sum_\sigma \sgn(\sigma)
+              \left(\sum_{j_1 = 1} a_{1 j_1} b_{j_1 \sigma(1)}\right)
+              \dotsm
+              \left(\sum_{j_m = 1} a_{m j_m} b_{j_m \sigma(m)}\right)\\
+          &= \sum_\sigma
+             \sum_{J \subset \set{1, \dotsc, n}}
+             \sum_{\set{j_1, \dotsc, j_m} = J}
+              \sgn(\sigma) a_{1 j_1} b_{j_1 \sigma(1)}
+              \dotsm a_{m j_m} b_{j_m \sigma(m)}\\
+          &= \sum_\sigma \sum_{j_1 < \dotsb < j_m} \sum_\tau
+              \sgn(\sigma) a_{1 j_{\tau(1)}} b_{j_{\tau(1)} \sigma(1)}
+              \dotsm a_{m j_{\tau(m)}} b_{j_{\tau(m)} \sigma(m)}.
+          \end{align*}
+
+    3. シグマを一個取った部分を計算すると：
+
+       .. math::
+
+          \begin{align*}
+          \sum_\sigma \sum_\tau
+              \sgn(\sigma) a_{1 j_{\tau(1)}} b_{j_{\tau(1)} \sigma(1)}
+              \dotsm a_{m j_{\tau(m)}} b_{j_{\tau(m)} \sigma(m)}
+          &= \sum_\tau \sgn(\tau)
+              a_{1 j_{\tau(1)}} \dotsm a_{m j_{\tau(m)}}
+              \sum_\sigma \sgn(\sigma)\sgn(\tau)
+              b_{j_{\tau(1)} \sigma(1)}
+              \dotsm b_{j_{\tau(m)} \sigma(m)}\\
+          &= \sum_\tau \sgn(\tau)
+              a_{1 j_{\tau(1)}} \dotsm a_{m j_{\tau(m)}}
+              \sum_\sigma \sgn(\sigma\tau\inv)
+              b_{j_1 \sigma(\tau\inv(1))}
+              \dotsm b_{j_m \sigma(\tau\inv(m))}.
+          \end{align*}
+
+    4. 再び :math:`\displaystyle \sum_{j_1 < \dotsb < j_m}` を適用すると
+       所望の結論を得る。
 
 ..
 
