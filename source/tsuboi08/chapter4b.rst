@@ -66,13 +66,13 @@
   1. :math:`\mathfrak{g} \cong T_1G` の基底を何かとって :math:`e_1, \dotsc, e_n` とする。
   2. :math:`T_1^*G` における双対基底を :math:`e_1^*, \dotsc, e_n^*` とする。
   3. :math:`\displaystyle [e_i, e_j] = \sum_{k = 1}^n c_{ij}^k e_k` とおく。
-  4. :math:`\dd(e_k^*)(e_i, e_j) = -c_{ij}^k` を示す：
+  4. :math:`(\dd e_k^*(e_i, e_j) = -c_{ij}^k` を示す：
 
      .. math::
 
         \begin{align*}
-        (\dd(e_k^*)(e_i, e_j)
-        &= e_i(e_k^*(e_j))) - e_j(e_k^*(e_i))) - e_k^*([e_i, e_j])\\
+        (\dd e_k^*)(e_i, e_j)
+        &= e_i(e_k^*(e_j)) - e_j(e_k^*(e_i)) - e_k^*([e_i, e_j])\\
         &= e_i(\delta_{kj}) - e_j(\delta_{ki}) - e_k^*([e_i, e_j])\\
         &= 0 - 0 - e_k^*([e_i, e_j])\\
         &= - c_{ij}^k.
@@ -133,7 +133,7 @@
 .. e_3 = Matrix([[0, -1, 0], [1, 0, 0], [0, 0, 0]])
 .. H = Matrix([[1, 0], [0, -1]])
 .. S = Matrix([[0, 0], [1, 0]])
-.. U = Matrix([0, 1], [0, 0]])
+.. U = Matrix([[0, 1], [0, 0]])
 
 * 問題 4.2.2: 一般線形群の部分リー群各種
 
@@ -237,11 +237,6 @@
 
 4.2.2 リー群の作用
 ----------------------------------------------------------------------
-.. todo::
-
-   冒頭の微分形式の平均の議論のノートを見返したら、
-   リー微分の記号と左移動の記号が紛らわしくて使い物になっていない。
-   もう一度読み直し。
 
 .. _tsuboi08.4.2.3:
 
@@ -252,6 +247,112 @@
 
   このとき、:math:`M` のドラーム・コホモロジー群は、
   :math:`M` の :math:`G` 不変微分形式のなすコチェイン複体のドラーム・コホモロジー群である。
+
+  以下証明手順。
+
+  1. :math:`M` と :math:`G` の次元をそれぞれ :math:`m, n` とする。
+     また、作用を :math:`\fnm{\operatorname{ev}}{G \times M}{M}{(g, x)}L_g x` とする：
+
+     .. math::
+
+        \begin{align*}
+        &L_{g_1}(L_{g_2}x) = L_{g_1 g_2}x,\\
+        &L_1 x = x.
+        \end{align*}
+
+  2. :math:`G` 上の非ゼロ右不変 n 形式 :math:`\mu` が存在して、
+     :math:`G` 上の積分が 1 となる：
+
+     .. math::
+
+        \forall h \in G, R_h^*\mu = \mu,\\
+        \int_G\!\mu = 1.
+
+     * 本書のように局所座標系表示を議論しなければならない。
+
+  3. 射影を :math:`\fn{\pi_G}{G \times M}G` とする。
+  4. :math:`\alpha \in \Omega^p(M)` に対して、その平均 :math:`m(\alpha)` を
+     次で定義する：
+
+     .. math::
+
+        m(\alpha)(x) = \int_{G \times \set{x}}\!
+            (\pi_G^* \mu) \wedge \operatorname{ev^*}\alpha.
+
+     * 本書のように局所座標系表示を議論しなければならない。
+
+  5. ここで :math:`G \times M` 上への :math:`G` の作用を定義する：
+
+     .. math::
+
+        {\bm L}_h(g, x) = (gh\inv, h \cdot x).
+
+     この写像は :math:`\operatorname{ev} \circ {\bm L}_h = \operatorname{ev}`
+     をみたす。
+
+  6. 写像 :math:`{\bm L}_h` による 4. の被積分部分の引き戻しを計算する：
+
+     .. math::
+
+        \begin{align*}
+        {\bm L}_h^*((\pi_G^* \mu) \wedge \operatorname{ev^*}\alpha)
+        &= ({\bm L}_h^* (\pi_G^* \mu)) \wedge ({\bm L}_h^* \operatorname{ev^*}\alpha)\\
+        &= (\pi_G^* R_{h\inv}^* \mu) \wedge \operatorname{ev^*}\alpha\\
+        &= (\pi_G^*\mu) \wedge \operatorname{ev^*}\alpha.
+        \end{align*}
+
+     この式変形には引き戻しを外積に対して分配できることと、
+     不変作用の性質を使った。
+
+  7. \4. の平均と 1. の左不変作用 :math:`L_x` を組み合わせる：
+
+     .. math::
+
+        \begin{align*}
+        (L_h^*(m(\alpha))(x)
+        &= L_h^*\left(\int_{G \times \set{x}}\!
+            (\pi_G^* \mu) \wedge \operatorname{ev^*}\alpha\right)\\
+        &= \int_{G \times \set{x}}\!
+            {\bm L}_h^*((\pi_G^* \mu) \wedge \operatorname{ev^*}\alpha)\\
+        &= \int_{G \times \set{x}}\!
+            (\pi_G^* \mu) \wedge \operatorname{ev^*}\alpha\\
+        &= m(\alpha).
+        \end{align*}
+
+  8. :math:`\alpha \in Z^p(M)` に対して :math:`G` が弧状連結であれば
+     :math:`m(\alpha) \in Z^p(M)` がわかる。
+
+     * 本書のように :math:`\dd m(\alpha)` について局所座標系表示を議論しなければならない。
+
+  9. ようやく :math:`[m(\alpha)] = [\alpha]` がわかる。
+
+     * まず :math:`\forall c \in Z^p(M)` 上の平均の積分を考える：
+
+       .. math::
+
+          \begin{align*}
+          \int_c\!m(\alpha)
+          &= \int_{G \times c}\!
+              (\pi_G^* \mu) \wedge \operatorname{ev^*}\alpha\\
+          &= \int_G\!\int_{\set{g} \times c}\!
+              (\pi_G^* \mu) \wedge \operatorname{ev^*}\alpha.
+          \end{align*}
+
+     * 内側の積分を展開すると：
+
+       .. math::
+
+          \begin{align*}
+          (\pi_G^* \mu) \wedge \int_{\set{g} \times c}\!\operatorname{ev^*}\alpha
+          &= (\pi_G^* \mu) \wedge \int_{L_g(c)}\!\alpha\\
+          &= (\pi_G^* \mu) \wedge \int_c\!\alpha.
+          \end{align*}
+
+       この式変形には仮定と :ref:`問題 3.2.3 <tsuboi08.3.2.3>` を用いた。
+
+     ゆえに :math:`\displaystyle \int_c\!m(\alpha) = \int_c(\alpha).`
+
+     :ref:`定理 3.3.7 <tsuboi08.3.3.7>` により :math:`[m(\alpha)] = [\alpha].`
 
 ..
 
