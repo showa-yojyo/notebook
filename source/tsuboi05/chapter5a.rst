@@ -135,6 +135,8 @@
 
 ここまでの議論で、多様体上には多くの :math:`C^\infty` 級関数が存在することがわかった。
 
+.. _tsuboi05.5.1.5:
+
 * 補題 5.1.5: `アダマールの補題 <https://en.wikipedia.org/wiki/Hadamard%27s_lemma>`__
 
   :math:`\RR^n` 内の原点の開近傍で定義されている :math:`C^\infty` 級関数 :math:`f` に対して、
@@ -228,6 +230,15 @@
 5.2 コンパクト多様体のユークリッド空間への埋め込み
 ======================================================================
 
+本書で扱われる位相空間各種の関係を、現時点では未登場のものも含んで、ここで図式化しておく：
+
+.. figure:: /_static/cd-topology-spaces.png
+   :align: center
+   :alt: math.topology.spaces
+   :width: 669px
+   :height: 466px
+   :scale: 100%
+
 .. _tsuboi05.5.2.1:
 
 * 例題 5.2.1: コンパクトハウスドルフ空間は `正規空間 <http://mathworld.wolfram.com/NormalSpace.html>`__ である。
@@ -308,6 +319,8 @@
   法束 :math:`\nu M` は :math:`(V_i \times \RR^{N - n}, \gamma_{ij} \times A_{ij})` から構成される。
   ここで :math:`A_{ij_{(x_j)}} \in GL_{N - n}(\RR)` である。
 
+.. _tsuboi05.5.2.4:
+
 * 注意 5.2.4
 
   * ユークリッド空間 :math:`\RR^{n + 1}` 内の n 次元コンパクト多様体の法束は
@@ -378,6 +391,8 @@
 
 <埋め込みやはめ込みの空間は、数学的に非常に興味深い> (p. 99)
 
+.. _tsuboi05.5.3.2:
+
 * 例 5.3.2: 円周 :math:`S^1` の埋め込み
 
   * 円周の :math:`\RR^2` への埋め込みは円板 :math:`D^2` を囲む。
@@ -402,6 +417,8 @@
       * :math:`\forall x \in \Sigma_k, -x \in \Sigma_k` なので同値関係を定義して :math:`\Sigma_k/\sim` を定義できる。
         このとき、これは多様体となり非有向閉曲面 :math:`N_{k + 1}` となる。
 
+.. _tsuboi05.5.3.3:
+
 * 例 5.3.3: メビウス帯の像、
   `ホイットニーの傘 <http://mathworld.wolfram.com/WhitneyUmbrella.html>`__
   `クロスキャップ <http://mathworld.wolfram.com/Cross-Cap.html>`__
@@ -420,7 +437,12 @@
   * :math:`\dim M < \dim N` のときは、:math:`F(M),\ N \setminus F(M)` がそれぞれ臨界値、正則値である。
     正則値の逆像は空集合になる。
 
+.. _tsuboi05.5.3.4:
+
 * 例 5.3.4: :ref:`例題 2.4.1 <tsuboi05.2.4.1>` の関数の検討
+
+.. _tsuboi05.5.3.5:
+
 * 例 5.3.5
 
   * `ボーイ・アペリ曲面 <http://mathworld.wolfram.com/BoySurface.html>`__ の平面への射影（写像）など。
