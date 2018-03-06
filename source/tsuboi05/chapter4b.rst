@@ -7,6 +7,8 @@
 4.4 部分多様体
 ======================================================================
 
+.. _tsuboi05.4.4.1:
+
 * 定義 4.4.1: 部分多様体
 
   * 多様体 :math:`N` に対して :math:`M \subset N` に次の性質があるとき、
@@ -23,7 +25,7 @@
   座標近傍系の同値類について注意しておく。
   座標近傍系の両立という概念の上位互換な概念が微分可能構造だ。
 
-:math:`\fn{F}{M}N,\ \rank F_* = \min{m = \dim M, n = \dim N}` とすると、
+:math:`\fn{F}{M}N,\ \rank F_* = \min\set{m = \dim M, n = \dim N}` とすると、
 
 .. math::
 
@@ -79,6 +81,8 @@
     :math:`(y_1, \dotsc, y_{m_2}) \circ F \circ \varphi\inv` が :math:`C^\infty` 級となる。
     したがって 誘導される写像 :math:`\fn{G}{M_1}M_2` も :math:`C^\infty` 級となる。
 
+.. _tsuboi05.4.4.4:
+
 * 問題 4.4.4: :math:`GL_2(\RR)` と :math:`SL_n(\RR)`
 
   * 前者は :math:`n^2` 次元多様体、後者は :math:`n^2 - 1` 次元部分多様体である。
@@ -111,6 +115,8 @@
     * 積も逆行列も多項式の演算に、せいぜい非ゼロの値の除算が加わるものなので
       :math:`C^\infty` 級の写像だという主張には問題あるまい。
 
+.. _tsuboi05.4.4.5:
+
 * 問題 4.4.5: 直交群 :math:`O(n)` は多様体である。
 
   * 写像 :math:`C: A \longmapsto {}^t\!AA` を考える。
@@ -124,10 +130,10 @@
       これの極限 :math:`X \to O` が :math:`DC_{(A)}X` である。
 
     * :math:`DC_{(A)}X = {}^t\!XA + {}^t\!AX` という形をよく見ると二つの写像
-      :math:`X \longmapsto {}^AX` と :math:`X \longmapsto {}^t\!X + X` の合成であることに気付く。
+      :math:`X \longmapsto AX` と :math:`X \longmapsto {}^t\!X + X` の合成であることに気付く。
 
-      * :math:`\rank(X \longmapsto {}^AX) = n^2` である。
-      * :math:`\displaystyle \rank({}^t\!X + X) = \frac{n(n + 1)}{2})` である。
+      * :math:`\rank(X \longmapsto AX) = n^2` である。
+      * :math:`\displaystyle \rank({}^t\!X + X) = \frac{n(n + 1)}{2}` である。
 
       以上より合成写像のランクは :math:`\displaystyle \frac{n(n + 1)}{2}` である。
 
@@ -136,6 +142,8 @@
 
     * 写像 :math:`\fn{C}{M_n(\RR)}M_n(\RR)` は :math:`n^2` 次元空間から
       :math:`\displaystyle \frac{n(n + 1)}{2}` 次元空間へのものだとわかったことによる。
+
+.. _tsuboi05.4.4.7:
 
 * 例題 4.4.7: 横断的に交わる二つの部分多様体の共通部もまた部分多様体である。
 
@@ -207,6 +215,8 @@
      * 最後に :ref:`問題 3.5.3 <tsuboi05.3.5.3>` を利用する。
 
   接束は `ベクトル束 <http://mathworld.wolfram.com/VectorBundle.html>`__ の一種である (pp. 85-86)。
+
+.. _tsuboi05.4.5.2:
 
 * 問題 4.5.2: :math:`F \in C^\infty(M, N)` の引き起こす接束の間の写像
   :math:`\fn{F_*}{TM}TN` は :math:`C^\infty` 級である。

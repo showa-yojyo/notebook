@@ -38,10 +38,14 @@
   * `ハウスドルフ <http://mathworld.wolfram.com/HausdorffAxioms.html>`__
   * n 次元 `位相多様体 <http://mathworld.wolfram.com/TopologicalManifold.html>`__
 
+.. _tsuboi05.1.1.2:
+
 * 例 1.1.2: `コッホ曲線 <http://mathworld.wolfram.com/KochSnowflake.html>`__
 
   * 「収束先」は円周と同相な図形だが、至るところ微分不可能な閉曲線。
   * 任意の二点間の自然に定義される距離が無限大になる。
+
+.. _tsuboi05.1.1.3:
 
 * 問題 1.1.3: 線分集合が位相多様体となる条件
 
@@ -72,6 +76,8 @@
 ======================================================================
 リプシッツ連続性 ⇒ chain rule ⇒ 合成写像 ⇒ 逆写像定理 ⇒ 陰関数定理という構造か。
 
+.. _tsuboi05.1.2.1:
+
 * 定理 1.2.1: `逆写像定理 <http://mathworld.wolfram.com/InverseFunctionTheorem.html>`__
 
   * 定義確認：逆写像定理の仮定の陳述で `ヤコビアン <http://mathworld.wolfram.com/Jacobian.html>`__
@@ -89,6 +95,8 @@
   * :math:`C^r` 級である
   * :math:`C^\infty` 級 or 無限回微分可能 or `滑らかである <http://mathworld.wolfram.com/SmoothFunction.html>`__
   * :math:`C^0` 級である（連続関数と同義）
+
+.. _tsuboi05.1.2.3:
 
 * 定理 1.2.3: `陰関数定理 <http://mathworld.wolfram.com/ImplicitFunctionTheorem.html>`__
 
@@ -111,13 +119,20 @@
        \end{array}
        \end{align*}
 
+.. _tsuboi05.1.2.4:
+
 * 例題 1.2.4: chain rule を書くために行ベクトルで書くほうがよい。
 
   * 解説中に臨界点という用語が出ている。
     これは正則点でないという意味であり、その点におけるヤコビアンが正則でないの意味にとる。
     詳しくは第 5 章で扱う。
 
+.. _tsuboi05.1.2.5:
+
 * 問題 1.2.5: 計算が面倒。
+
+.. _tsuboi05.1.2.6:
+
 * 問題 1.2.6: もっと面倒。
 
 本書では陰関数定理を証明するのに逆写像定理を利用する。
@@ -202,6 +217,8 @@
 
     :math:`\Delta x \to 0` のときに :math:`\eps_g(\dots)\Delta x \to 0,\ \eps_f(\dots)(g(x + \Delta x) - g(x)) \to 0.`
     一変数版の :math:`\Delta x` が多変数版のヤコビアンの行列式に相当する。
+
+.. _tsuboi05.1.2.9:
 
 * 例題 1.2.9: :math:`C^r` 級写像の合成
 

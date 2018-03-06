@@ -13,16 +13,22 @@
   写像 :math:`\fn{F}{M_1}m_2` が :math:`C^s` 級 であるとは、
   写像 :math:`\fn{\psi \circ F \circ \varphi\inv}{\varphi(U)}\psi(V)` が :math:`C^s` 級 であることとする。
 
+.. _tsuboi05.3.4.2:
+
 * 定義 3.4.2: `微分同相写像 <http://mathworld.wolfram.com/Diffeomorphism.html>`__
 
   写像 :math:`\fn{F_1}{M_1}M_2` が微分同相写像であるとは、
   :math:`F_1 \circ F_2 = \id_{M_2}` かつ
   :math:`F_2 \circ F_1 = \id_{M_1}` であることとする。
 
+.. _tsuboi05.3.4.3:
+
 * 例 3.4.3
 
   #. :math:`\RR/\ZZ \cong S^1`
   #. :math:`\RR^2/(2 \pi \ZZ)^2 \cong T^1`
+
+.. _tsuboi05.3.4.4:
 
 * 問題 3.4.4: :math:`\CC P^1 = (\CC^2 \minuszero) / \CC ^ \times \cong S^2`
 
@@ -48,12 +54,16 @@
 
       となるが、これは :math:`\displaystyle \varphi_0\inv(z) = \frac{1}{z}` で :math:`z = x + y \sqrt{-1}` としたものと一致している。
 
+.. _tsuboi05.3.4.5:
+
 * 問題 3.4.5: 四元数を意識したクイズ
 
   * 相当難しい。
     これは線形代数が相当得意でないと解けないと見た。
     例えば :math:`SO_3` の行列の固有値が :math:`\lambda, \bar{\lambda}, 1`
     であることを知らない程度では歯が立たない。
+
+.. _tsuboi05.3.4.7:
 
 * 例題 3.4.7: 自身への微分同相の例として対蹠点、平行移動、行列式が非ゼロである線型写像を挙げている。
 
@@ -264,9 +274,13 @@
   * :math:`\fn{P}{\widehat{M}}M` において :math:`P\inv(y)` の二点を入れ替える写像
     :math:`\fn{F}{\widehat{M}}\widehat{M}` は、向き付けを反対にする微分同相写像だ。
 
+.. _tsuboi05.3.6.2:
+
 * 例 3.6.2: 実射影空間は多様体次元の偶数奇数によって向き付け可能性が決まる。
 
   * 偶数次元は向きが付けられない。
+
+.. _tsuboi05.3.6.3:
 
 * 例 3.6.3
 

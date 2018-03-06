@@ -15,6 +15,8 @@
     さっきのベクトル場はフローを生成するので、次のフローを定義できる：
     :math:`\fn{F_t}{q\inv(a)}q\inv(a);\quad \fn{F_t}{TM}TM.`
 
+.. _tsuboi05.7.5.1:
+
 * 定理 7.5.1: `ホップ・リノウの定理 <http://mathworld.wolfram.com/Hopf-RinowTheorem.html>`__
 
   コンパクト連結多様体の任意の二点について、測地線が存在するという主張か。
@@ -69,6 +71,8 @@
   #. それらを結ぶ最小の長さの曲線が存在し、
   #. :math:`E_x` が全射となる。
 
+.. _tsuboi05.7.5.2:
+
 * 例 7.5.2: 球面にユークリッド計量から決まるリーマン計量
 
   * :math:`T_1 S^2` を :math:`TS^2` のうち長さが 1 のベクトルの全体とする。
@@ -98,6 +102,8 @@
        \end{pmatrix}
        \end{align*}
 
+.. _tsuboi05.7.5.3:
+
 * 例 7.5.3: :math:`T^2 = \RR^2/\ZZ^2` に :math:`\RR^2` のユークリッド計量から誘導されるリーマン計量
 
   * :math:`T_1T^2` を :math:`TT^2` のうち長さが 1 のベクトルの全体とする。
@@ -108,6 +114,8 @@
     * 閉軌道 if :math:`v_2/v_1 \in \QQ \cup \set{\infty}`
     * :math:`(\RR/\ZZ)^2 \times \set{(v_1, v_2)}` において稠密な軌道
       if :math:`v_2/v_1 \in \RR\setminus\QQ`
+
+.. _tsuboi05.7.5.4:
 
 * 例 7.5.4: トーラスの測地流の振る舞い
 
@@ -132,6 +140,8 @@
 ======================================================================
 リーマン計量を持つ多様体上で距離を不変に保つ等長変換を考えると、
 多様体の性質がよくわかることがある。
+
+.. _tsuboi05.7.6.1:
 
 * 定義 7.6.1: `等長変換 <http://mathworld.wolfram.com/Isometry.html>`__
 
@@ -176,6 +186,8 @@
 
   #. したがって :math:`\operatorname{Isom}(M)` は :math:`\operatorname{Fr}M` に埋め込まれる。
 
+.. _tsuboi05.7.6.2:
+
 * 例 7.6.2: 単位球面の等長変換群
 
   * :math:`O(n + 1)`
@@ -213,6 +225,9 @@
 
 7.7 リーマン計量の存在
 ======================================================================
+
+.. _tsuboi05.7.7.1:
+
 * 定理 7.7.1: :math:`n` 次元コンパクト多様体 :math:`M` 上にはリーマン計量が存在する
 
   証明方針は、とにかく正値二次形式 :math:`q(v)` を構成する。
@@ -250,6 +265,8 @@
         q_i(v) = \sum (v_i^{(i)})^2 = 0.\quad
         \therefore v = 0.
 
+.. _tsuboi05.7.7.2:
+
 * 問題 7.7.2: コンパクト多様体の微分同相写像からなる有限群 :math:`F` に対して、
   次を満たすリーマン計量 :math:`g` が存在する：
   :math:`\forall f \in F, f^*g = g.`
@@ -276,6 +293,8 @@
      &= \hat{q}(v).\\
      \therefore f^*g &= g.
      \end{align*}
+
+.. _tsuboi05.7.7.3:
 
 * 問題 7.7.3: リーマン多様体間の等長変換はリーマン計量をリーマン計量に写す微分同相写像である。
   すなわち :math:`d_{g_N}(f(x), f(y)) = d_{g_M}(x, y) \implies g_N(f_* v_1, f_* v_2) = g_M(v_1, v_2).`
@@ -338,6 +357,8 @@
      \ \text{ for } i = 1, 2.
      \end{gather*}
 
+.. _tsuboi05.7.8.1:
+
 * 例 7.8.1: `双曲放物面 <http://mathworld.wolfram.com/HyperbolicParaboloid.html>`__  :math:`z = x_1 x_2 = h`
 
   * :math:`Dh = \begin{pmatrix}x_2 & x_1\end{pmatrix}`
@@ -349,6 +370,8 @@
      - \frac{2}{1 + x_1^2 + x_2^2}
      \diff{x_1}{t}\diff{x_2}{t}
      \begin{pmatrix}x_2\\x_1\end{pmatrix}.
+
+.. _tsuboi05.7.8.2:
 
 * 例 7.8.2: `放物面 <http://mathworld.wolfram.com/EllipticParaboloid.html>`__ :math:`z = -x_1^2 - x_2^2 = h`
 
