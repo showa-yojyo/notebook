@@ -226,8 +226,8 @@ k 次元接平面場 or k 次元分布
 .. figure:: /_static/cd-topology-bundles.png
    :align: center
    :alt: math.topology.bundles
-   :width: 663px
-   :height: 413px
+   :width: 657px
+   :height: 425px
    :scale: 100%
 
 .. _tsuboi05.8.6.1:
