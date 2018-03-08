@@ -135,7 +135,15 @@
 
 6.2 フロー
 ======================================================================
-序盤から難しい。
+序盤から難しい。ベクトル場とフローの関係を図に示してみる。
+ベクトル場は接束の切断であると理解できる。
+
+.. figure:: /_static/cd-topology-vectorfield.png
+   :align: center
+   :alt: math.topology.vectorfield
+   :width: 694px
+   :height: 325px
+   :scale: 100%
 
 `フロー <http://mathworld.wolfram.com/Flow.html>`__
   フローとは次の性質を満たすアイソトピーである：
