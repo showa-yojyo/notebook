@@ -17,6 +17,13 @@ k-枠場
 
   * n-枠場を持つ n 次元多様体を `平行可能化多様体 <http://mathworld.wolfram.com/Parallelizable.html>`__ と呼ぶ。
 
+.. figure:: /_static/cd-topology-framebundle.png
+   :align: center
+   :alt: math.topology.framebundle
+   :width: 524px
+   :height: 341px
+   :scale: 100%
+
 2-枠場のある多様体 :math:`M` 上で :math:`[\xi_1, \xi_2] = 0` であれば
 :math:`\RR^2` の :math:`M` への作用 :math:`(\varphi_1^{t_1} \circ \varphi_2^{t_2})(x)` を定義することで
 :math:`\RR^2` 作用の軌道の族で :math:`M` を分割することができる。
@@ -55,9 +62,9 @@ k-枠場
   * :math:`\displaystyle \xi_1 = \frac{\partial}{\partial x_1} - x_2 \frac{\partial}{\partial x_3},`
     :math:`\displaystyle \xi_2 = \frac{\partial}{\partial x_2}.`
 
-  * :math:`\because [\xi_1, \xi_2] = \frac{\partial}{\partial x_3}.`
+  * :math:`\because [\xi_1, \xi_2] = \dfrac{\partial}{\partial x_3}.`
 
-k 次元接平面場 or k 次元分布
+`k 次元接平面場 or k 次元分布 <https://en.wikipedia.org/wiki/Distribution_(differential_geometry)>`__
   多様体 :math:`M` 上の k 次元接平面場に対して、各点の近傍ではその
   k 次元接平面場を張る k 枠場に取り替えられる。
 
