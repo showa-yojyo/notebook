@@ -155,7 +155,7 @@
 
 ..
 
-* コチェイン複体 <http://mathworld.wolfram.com/CochainComplex.html>`__ の定義。
+* `コチェイン複体 <http://mathworld.wolfram.com/CochainComplex.html>`__ の定義。
 
   * この微分形式全体の空間の系列であって :math:`\dd{} \circ \dd{} = 0` であるものを言う。
   * 開集合 :math:`U \subset \RR^n` に対する :math:`\Omega^p(U)` を外微分で系列にしたものが
