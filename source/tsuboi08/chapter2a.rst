@@ -11,13 +11,26 @@
 ======================================================================
 序盤は :doc:`/tsuboi05/index` のおさらいのようになっている。
 
+.. figure:: /_static/cd-topology-manifolds.png
+   :align: center
+   :alt: math.topology.manifolds
+   :width: 643px
+   :height: 276px
+   :scale: 100%
+
+.. _tsuboi08.2.1.1:
+
 * 定義 2.1.1: 多様体の定義
 
   * :ref:`第 1 巻定義 3.1.1 <tsuboi05.3.1.1>` と同じ。
 
+.. _tsuboi08.2.1.2:
+
 * 注意 2.1.2: パラコンパクト性に関する注意
 
   * :ref:`第 1 巻注意 3.1.3 <tsuboi05.3.1.3>` と同じ。
+
+.. _tsuboi08.2.1.3:
 
 * 定義 2.1.3: 多様体の間の写像の定義
 
@@ -26,12 +39,20 @@
 .. _tsuboi08.2.1.4:
 
 * 定理 2.1.4: :ref:`第 1 巻定理 5.1.3 <tsuboi05.5.1.3>` と同じ。
-* 定理 2.1.5: :ref:`第 1 巻定理 5.1.3 <tsuboi05.5.3.6>` と同じ。
+
+.. _tsuboi08.2.1.5:
+
+* 定理 2.1.5: :ref:`第 1 巻定理 5.3.6 <tsuboi05.5.3.6>` と同じ。
 
   * 1 の分割は第 1 巻では多様体上に関数がたくさん存在することなどに
     利用されていた。本巻は
     後で出てくるマイヤー・ビエトリス完全系列、チェック・ドラーム複体、
     向き付けられた多様体上の積分の定義に利用される。
+
+.. _tsuboi08.2.1.6:
+
+* 注意 2.1.6: 多様体における 1 の分割が存在する条件は、
+  それがパラコンパクトであることまで緩められる。
 
 以下のノートにおいて、当分の間、多様体の話題が出てくるときには
 多様体、座標近傍系、座標、座標変換、座標近傍の像、
@@ -91,9 +112,11 @@
 
   .. math::
 
-     f_1 \sim f_2 \iff \dd{(f_1 \circ \varphi\inv)}_{(\varphi(x)} = \dd{(f_2 \circ \varphi\inv)}_{(\varphi(x))}.
+     f_1 \sim f_2 \iff \dd{(f_1 \circ \varphi\inv)}_{(\varphi(x))}
+     = \dd{(f_2 \circ \varphi\inv)}_{(\varphi(x))}.
 
-* 座標近傍 :math:`(U, \varphi),\ (V, \psi)` について :math:`f_1 \sim f_2 \implies \dd{(f_1 \circ \psi\inv)}_{(\psi(x)} = \dd{(f_2 \circ \psi\inv)}_{(\psi(x)}`
+* 座標近傍 :math:`(U, \varphi),\ (V, \psi)` について
+  :math:`f_1 \sim f_2 \implies \dd{(f_1 \circ \psi\inv)}_{(\psi(x))} = \dd{(f_2 \circ \psi\inv)}_{(\psi(x))}`
   である。
 
   * このことは :math:`\dd{(\varphi^*f)} = \varphi^*\dd f` や
@@ -111,8 +134,8 @@
 
 * 例題 2.2.2: 余接空間は :math:`C^\infty(M)` の実ベクトル空間から定まるベクトル空間である。
 
-  * 写像 :math:`[f] \in C^\infty(M) \longmapsto \left(\dfrac{\partial f}{\partial x_1}(\varphi(x)), \dotsc, \dfrac{\partial f}{\partial x_n}(\varphi(x))\right) \in \RR^n`
-    が準同型写像（線形写像と言いたい？）となる：
+  * 写像 :math:`[f] \in C^\infty(M)/\sim \longmapsto \left(\dfrac{\partial f}{\partial x_1}(\varphi(x)), \dotsc, \dfrac{\partial f}{\partial x_n}(\varphi(x))\right) \in \RR^n`
+    が準同型写像（線形写像）となる：
 
     .. math::
 
@@ -136,7 +159,8 @@
        = \dd\left(\nu \sum_{i = 1}^n a_i x_i\right)_{\varphi(x)}
        = \sum_{i = 1}^n a_i (\dd x_i)_{\varphi(x)}.
 
-* :math:`T_x^*M` の基底を :math:`\dd x_1, \dotsc, \dd x_n` と書く。
+* 点 :math:`x \in M` の局所座標が :math:`(x_1, \dotsc, x_n)` であるとき、
+  :math:`T_x^*M` の基底を :math:`\dd x_1, \dotsc, \dd x_n` と書く。
 
   * 点を明示する場合もある。
   * 基底の取り方が座標近傍によることに注意。
@@ -311,7 +335,7 @@
 * 定義 2.3.1: p 次外積の空間 :math:`\extp^p T_x^*M`
 
   余接空間 :math:`T_x^*M` の p 次外積空間とは、
-  :math:`1 \le i_1 \le \dotsb \le i_p \le n` なる自然数の添字に対応する
+  :math:`1 \le i_1 < \dotsb < i_p \le n` なる自然数の添字に対応する
   記号 :math:`\dd x_{i_1} \wedge \dotsb \wedge \dd x_{i_p}` を基底とする
   ベクトル空間のことをいう。
 
@@ -350,7 +374,7 @@
 
   * 各座標近傍上で、各点における余接空間の外積空間 :math:`\extp^p T_x^*M` の元を、
     :math:`f_{i_1\dots i_p}` が :math:`C^\infty` 級であるように、
-    :math:`f_{i_1\dots i_p}\,\dd x_{i_1} \wedge \dotsb \dd x_{i_p}` に対応させるものを
+    :math:`f_{i_1\dots i_p}\,\dd x_{i_1} \wedge \dotsb \wedge \dd x_{i_p}` に対応させるものを
     この多様体上の :math:`C^\infty` 級微分 p 形式という。
 
   * 記号 :math:`\Omega^p(M)` で p 形式の空間を表す。
@@ -386,7 +410,7 @@
   .. math::
 
      \begin{align*}
-     F^*((\dd y_{i_1} \wedge \dotsb \wedge y_{i_p})_{F(x)})
+     F^*((\dd y_{i_1} \wedge \dotsb \wedge \dd y_{i_p})_{F(x)})
      &= F^*(\dd y_{i_1})_{F(x)} \wedge \dotsb \wedge F^*(\dd y_{i_p})_{F(x)}\\
      &= \dd (y_{i_1} \circ F)_x \wedge \dotsb \wedge \dd (y_{i_p} \circ F)_x.
      \end{align*}
@@ -529,7 +553,7 @@
 * 例 2.4.5:
 
   * \(1) :math:`\H^0(M)` は :math:`M` の連結成分で定数となる関数全体のなすベクトル空間である。
-     これは閉 0 形式が局所的定数関数であることによる。
+    これは閉 0 形式が局所的定数関数であることによる。
 
   * \(2) 星型 :math:`U \subset \RR^n` に対して次が成り立つ：
 
@@ -583,7 +607,7 @@
      * ここで :math:`g_1, g_2` の性質を確認する。
 
        * :math:`g_1 \in C^\infty(T^2)` の条件は
-         :math:\forall r > 0, \sum(n_1^2 + n_2^2)^(r/2)\abs{a_{n_1 n_2}} < \infty` である。
+         :math:`\forall r > 0, \sum(n_1^2 + n_2^2)^(r/2)\abs{a_{n_1 n_2}} < \infty` である。
          :math:`g_2` についても同様の条件である。
 
        * :math:`g_1 \in \RR` の条件は
