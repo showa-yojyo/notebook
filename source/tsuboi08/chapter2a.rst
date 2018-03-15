@@ -561,6 +561,13 @@
 
     * このベクトル空間の直和は何を意味するのかが今はわからない。
 
+.. figure:: /_static/cd-derham-cohomology.png
+   :align: center
+   :alt: math.TODO
+   :width: 478px
+   :height: 220px
+   :scale: 100%
+
 .. _tsuboi08.2.4.5:
 
 * 例 2.4.5:
@@ -765,7 +772,7 @@
 
 * 定理 2.4.11: 上記 :math:`F` は準同型 :math:`\fn{F^*}{\H^p(N)}\H^p(M)` を引き起こす
 
-  * :math:`\alpha \in \Z^p(N)` に対して :math:`\dd \alpha = 0` だから
+  * :math:`\alpha \in Z^p(N)` に対して :math:`\dd \alpha = 0` だから
     :math:`0 = F^*\,\dd \alpha = \dd F^*\alpha` であるので、
     :math:`F^* \alpha \in Z^p(M).`
 
