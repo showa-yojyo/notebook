@@ -11,17 +11,17 @@
   :ref:`例題 2.4.8 <tsuboi08.2.4.8>` 参照。
 
   * 1 をとる定数関数のコホモロジー類が :math:`\H^0(T^2)` の、
-  * 閉形式 :math:`\dd x_1, \dd x_2` のコホモロジー類が :math:`\H^1(T^2)` の、
-  * 閉形式 :math:`\dd x_1 \wedge \dd x_2` のコホモロジー類が :math:`\H^0(T^2)` の
+  * :math:`\dd x_1, \dd x_2 \in Z^1(T^2)` のコホモロジー類が :math:`\H^1(T^2)` の、
+  * :math:`\dd x_1 \wedge \dd x_2 \in Z^2(T^2)` のコホモロジー類が :math:`\H^2(T^2)` の
 
   基底になることがわかる。
 
 * 二つの多様体 :math:`M, N` の直積に対する射影 :math:`\pi_M, \pi_N` を考えると、
 
-  * :math:`M` の閉 p 形式 :math:`\alpha`,
-  * :math:`N` の閉 q 形式 :math:`\beta`
+  * :math:`\alpha \in Z^p(M)`,
+  * :math:`\beta \in Z^q(N)`
 
-  に対して :math:`M \times N` の閉 :math:`p + q` 形式 :math:`\pi_M^*\alpha \wedge \pi_N^*\beta` が得られる。
+  に対して :math:`\pi_M^*\alpha \wedge \pi_N^*\beta \in Z^{p + q}(M \times N)` が得られる。
 
   * これを :math:`T^2` で考えると :math:`S^1` から導かれたこういう閉形式らがコホモロジー類を生成することがわかる。
 
@@ -45,7 +45,7 @@
 * 定理 2.9.1: `キネットの公式 <https://en.wikipedia.org/wiki/K%C3%BCnneth_theorem>`__
 
   * コンパクト多様体 :math:`M, N` について :math:`\H^*(M \times N) \cong \H^*(M) \otimes \H^*(N).`
-  * 閉形式 :math:`\alpha \in \Omega^p(M),\ \beta \in \Omega^q(N)` に対して
+  * :math:`\alpha \in \Z^p(M),\ \beta \in \Z^q(N)` に対して
     :math:`[\alpha] \otimes [\beta] \in \H^p(M) \otimes \H^q(N)` は
     :math:`[\pi_M^*\alpha \wedge \pi_N^*\beta]` に対応する。
 
@@ -382,7 +382,7 @@
       :math:`\set{U_{i_0 \dots i_k}}_{i_0 < \dotsb < i_k}` を基底とするベクトル空間として見る。
     * 写像 :math:`\fn{\iota}{\RR(U_{i_0 \dots i_k})}\Omega^0(U_{i_0 \dots i_k})` は定数関数の埋め込みである。
 
-      * :math`\Omega^0` の行は各開集合上における関数全体であることに注意したい。
+      * :math:`\Omega^0` の行は各開集合上における関数全体であることに注意したい。
         定数関数はその部分と捉えられる。
 
     以上のような条件と :ref:`定理 1.7.2 <tsuboi08.1.7.2>` により、これは完全系列である。

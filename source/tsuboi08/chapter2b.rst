@@ -174,7 +174,7 @@
 
 * 命題 2.6.2
 
-  #. 閉形式 :math:`\beta \in \Omega^{p + 1}(M)` について
+  #. :math:`\beta \in \Z^{p + 1}(M)` について
      :math:`[\beta]` は :math:`\alpha` に対する :math:`\alpha_1, \alpha_2` の取り方によらない。
 
      * :math:`\alpha = i_1^*\alpha - i_2^*\alpha = i_1^*\alpha' - i_2^*\alpha'` とおく。
@@ -187,7 +187,7 @@
      * したがって :math:`\beta' - \beta = \dd \gamma` となる。
      * ゆえに :math:`[\beta] = [\beta'] \in \H^{p + 1}(M).`
 
-  #. :math:`\alpha` が完全形式であるならば :math:`\beta` もまた完全形式である。
+  #. :math:`\alpha \in B^p(M) \implies \beta \in B^{p + 1}(M).`
 
      * :math:`\alpha = \dd \eta` とする。
      * :math:`\exists \eta_1 \in \Omega^{p - 1}(M_1), \exists \eta_2 \in \Omega^{p - 1}(M_2) \quad\text{s.t.}\quad i_1^*\eta_1 - i_2^*\eta_2 = \eta.`
@@ -195,7 +195,7 @@
      * :math:`\dd \alpha_1 = 0, \dd \alpha_2 = 0.`
      * ゆえに :math:`\beta = 0` ととれる。
      * 先ほどの結果を用いると :math:`\alpha_1, \alpha_2` の取り方によらず
-       :math:`\beta` は完全形式である。
+       :math:`\beta \in B^{p + 1}(M).`
 
 .. _tsuboi08.2.6.3:
 

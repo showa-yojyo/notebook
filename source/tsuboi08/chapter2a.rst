@@ -777,7 +777,7 @@
     :math:`F^* \alpha \in Z^p(M).`
 
   * :math:`\alpha \in B^p(N)` に対して :math:`\alpha = \dd \beta` なる
-    :math:`\beta \in \Omega^p(N)` が存在する。一方、
+    :math:`\beta \in \Omega^{p - 1}(N)` が存在する。一方、
     :math:`F^* \alpha = F^*\,\dd \beta = \dd F^*\beta` より
     :math:`F^* \alpha \in B^p(M).`
 

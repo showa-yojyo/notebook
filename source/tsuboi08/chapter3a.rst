@@ -364,30 +364,32 @@
   * :math:`Z_p^\infty(M) = \ker(\fn{\partial}{S_p^\infty}S_{p - 1}^\infty)` の元を
     p 次元 :math:`C^\infty` 級特異サイクルという。
 
-  * :math:`B_p^\infty(M) = \ker(\fn{\partial}{S_{p + 1}^\infty}S_p^\infty)` の元を
+  * :math:`B_p^\infty(M) = \im(\fn{\partial}{S_{p + 1}^\infty}S_p^\infty)` の元を
     p 次元 :math:`C^\infty` 級特異バウンダリーという。
 
   * :math:`H_p^\infty(M) = Z_p^\infty(M) / B_p^\infty(M)` を
     p 次元 :math:`C^\infty` 級特異ホモロジー群という。
 
-* 閉 p 形式 :math:`\alpha` と完全 p 形式 :math:`\beta` とが :math:`\alpha = \dd \beta` を満たすならば、
+* :math:`\alpha \in Z^p(M)` と :math:`\beta \in B^{p - 1}(M)` とが
+  :math:`\alpha = \dd \beta` を満たすならば、
   積分 :math:`\displaystyle \int_c\!\alpha = \int_c\!\dd \beta = \int_{\partial c}\!\beta` は
   :math:`\partial c = 0` なる :math:`c` に対しては常にゼロである。
 
-* 閉 p 形式 :math:`\alpha` と :math:`c \in S_p^\infty(M)` について
-  :math:`\int_c\!\alpha = 0 \implies \alpha = \dd \beta.`
+* :math:`\alpha \in Z^p(M)` と :math:`c \in S_p^\infty(M)` について
+  :math:`\int_c\!\alpha = 0 \implies \exists \beta \in B^{p - 1}(M)\text{ s.t. }\alpha = \dd \beta.`
 
   * :math:`c \in S_p^\infty(M) \iff \partial c = 0.`
 
-* :math:`c` がバウンダリーであって :math:`c = \partial b` であるとするならば、
-  閉形式 :math:`\alpha` について :math:`\displaystyle \int_c\!\alpha = \int_{\partial b}\!\alpha = \int_b\!\dd \alpha = 0.`
+* :math:`c \in B_p(M)` であって :math:`c = \partial b` であるとするならば、
+  :math:`\forall \alpha \in Z^p(M),\ \displaystyle \int_c\!\alpha = \int_{\partial b}\!\alpha = \int_b\!\dd \alpha = 0.`
 
-* :math:`H_p^\infty(M)` の基底の代表各サイクル :math:`c_i` に対して
-  :math:`\displaystyle \int_{c_i}\!\alpha = 0 \implies \alpha = \dd \beta`
+* :math:`H_p^\infty(M)` の基底の各代表 :math:`c_i \in S_p^\infty(M)` に対して
+  :math:`\displaystyle \int_{c_i}\!\alpha = 0 \implies \alpha = \dd \beta.`
 
 * :math:`k = \dim H_p^\infty(M) = \dim \H^p(M)` とし、
-  基底 :math:`[c_1], \dotsc, [c_k]` と閉形式 :math:`\alpha` が
-  :math:`\displaystyle \int_{c_i}\!\alpha = 0` を満たすならば :math:`\alpha = \dd \beta.`
+  基底 :math:`[c_1], \dotsc, [c_k] \in H_p^\infty(M)` と :math:`\alpha \in Z^p(M)` が
+  :math:`\displaystyle \int_{c_i}\!\alpha = 0` を満たすならば
+  :math:`\exists \beta \in B^{p - 1}(M)\text{ s.t. }\alpha = \dd \beta.`
 
   * cf. :ref:`例題 3.3.1 <tsuboi08.3.1.1>`
 
@@ -400,19 +402,19 @@
 
 * 問題 3.2.3: ホモトピックサイクルについては積分が一致する
 
-  * 特異 p サイクル :math:`c_0, c_1` がホモトピックサイクルであるとは、
+  * :math:`c_0, c_1 \in S_p^\infty(M)` がホモトピックサイクルであるとは、
     :math:`\displaystyle c_t = \sum_i a_i \sigma_i^{(t)}\quad(t \in [0, 1])` が
     写像 :math:`(t, x) \longmapsto \sigma_i^{(t)}(x)` が滑らかであるように与えられていることをいう。
 
-  * 閉 :math:`\alpha \in \Omega^p(M)` に対して :math:`\displaystyle \int_{c_0}\!\alpha = \int_{c_1}\!\alpha.`
+  * :math:`\alpha \in \Z^p(M)` に対して :math:`\displaystyle \int_{c_0}\!\alpha = \int_{c_1}\!\alpha.`
 
-  * :math:`\fn{F_i}{[0, 1]\times \Delta^p}{M}{(x, t)}\sigma_i^{(t)}(x)` と写像を定義する。
+  * 写像 :math:`\fn{F_i}{[0, 1]\times \Delta^p}{M}{(x, t)}\sigma_i^{(t)}(x)` を定義する。
 
     .. math::
 
        \partial F_i = \sigma_0^{(1)} - \sigma_0^{(0)} - \sum_{k = 0}^p (-1)^k F_i \circ (\id, \eps_k).
 
-  * :math:`c_i` の性質によって：
+  * :math:`c_i \in S_p^\infty(M)` の性質によって：
 
     .. math::
 
