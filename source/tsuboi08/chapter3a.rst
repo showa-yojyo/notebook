@@ -393,6 +393,13 @@
 
   * cf. :ref:`例題 3.3.1 <tsuboi08.3.1.1>`
 
+.. figure:: /_static/cd-topology-singular-homology.png
+   :align: center
+   :alt: math.topology.algebraic.singular.homology
+   :width: 756px
+   :height: 370px
+   :scale: 100%
+
 .. _tsuboi08.3.2.2:
 
 * 注意 3.2.2: :math:`C^\infty` 級特異単体複体のチェインを定義する係数を
@@ -406,7 +413,7 @@
     :math:`\displaystyle c_t = \sum_i a_i \sigma_i^{(t)}\quad(t \in [0, 1])` が
     写像 :math:`(t, x) \longmapsto \sigma_i^{(t)}(x)` が滑らかであるように与えられていることをいう。
 
-  * :math:`\alpha \in \Z^p(M)` に対して :math:`\displaystyle \int_{c_0}\!\alpha = \int_{c_1}\!\alpha.`
+  * :math:`\alpha \in Z^p(M)` に対して :math:`\displaystyle \int_{c_0}\!\alpha = \int_{c_1}\!\alpha.`
 
   * 写像 :math:`\fn{F_i}{[0, 1]\times \Delta^p}{M}{(x, t)}\sigma_i^{(t)}(x)` を定義する。
 
