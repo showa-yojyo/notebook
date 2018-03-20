@@ -128,7 +128,10 @@
   .. math::
 
      H_k(K) = \ker(\fn{\partial}{C_k(K)}C_{k - 1}(K))
-      / \im(\fn{\partial}{C_{k + 1}(K)}{C_k(K)})
+      /{\im(\fn{\partial}{C_{k + 1}(K)}{C_k(K)})}
+
+  例によって :math:`Z_k(K) = \ker(\fn{\partial}{C_k(K)}C_{k - 1}(K))` をサイクル、
+  :math:`\im(\fn{\partial}{C_{k + 1}(K)}{C_k(K)})` をバウンダリーと呼ぶ。
 
   実係数であることは、チェインを実係数で構成したことから来ている。
 
@@ -168,6 +171,13 @@
 
      H^k(K) = \ker(\fn{\delta}{C^k(K)}C^{k + 1}(K))
       / \im(\fn{\delta}{C^{k - 1}(K)}C^k(K))
+
+.. figure:: /_static/cd-topology-simplicial.png
+   :align: center
+   :alt: math.topology.algebraic.simplicial
+   :width: 793px
+   :height: 216px
+   :scale: 100%
 
 .. _tsuboi08.3.3.2:
 
@@ -222,7 +232,7 @@
   5. 直交補空間の性質をこの証明で利用したい。
 
      * 行列 :math:`A` を行ベクトル :math:`\bm a_i\ (i = 1, \dotsc, l)` を縦に並べたものとすると、
-       :math:`\ker\partial = \operatorname{span}({}^t!\bm a_1, \dotsc, {}^t!\bm a_l)^\perp.`
+       :math:`\ker\partial = \operatorname{span}({}^t\!\bm a_1, \dotsc, {}^t\!\bm a_l)^\perp.`
 
      * 行列 :math:`B` を列ベクトル :math:`\bm b_i\ (i = 1, \dotsc, n)` を横に並べたものとすると、
        :math:`\im\partial = \operatorname{span}(\bm b_1, \dotsc, \bm b_n).`
@@ -234,37 +244,37 @@
      .. math::
 
         \operatorname{span}(\bm b_1, \dotsc, \bm b_n)
-        \subset \operatorname{span}({}^t!\bm a_1, \dotsc, {}^t!\bm a_l)^\perp.
+        \subset \operatorname{span}({}^t\!\bm a_1, \dotsc, {}^t\!\bm a_l)^\perp.
 
   7. 一方、
 
      * :math:`\ker\delta = \operatorname{span}(\bm b_1, \dotsc, \bm b_n)^\perp,`
-     * :math:`\im\delta = \operatorname{span}({}^t!\bm a_1, \dotsc, {}^t!\bm a_l),`
+     * :math:`\im\delta = \operatorname{span}({}^t\!\bm a_1, \dotsc, {}^t\!\bm a_l),`
      * :math:`\im\delta \subset \ker\delta`
 
      以上より次が成り立つ：
 
      .. math::
 
-        \operatorname{span}({}^t!\bm a_1, \dotsc, {}^t!\bm a_l)
+        \operatorname{span}({}^t\!\bm a_1, \dotsc, {}^t\!\bm a_l)
         \subset \operatorname{span}(\bm b_1, \dotsc, \bm b_n)^\perp.
 
   8. ここで
 
      .. math::
 
-        V = \operatorname{span}({}^t!\bm a_1, \dotsc, {}^t!\bm a_l)^\perp
+        V = \operatorname{span}({}^t\!\bm a_1, \dotsc, {}^t\!\bm a_l)^\perp
           \cap \operatorname{span}(\bm b_1, \dotsc, \bm b_n)^\perp
 
      とおくと、
 
      .. math::
 
-        \operatorname{span}({}^t!\bm a_1, \dotsc, {}^t!\bm a_l)^\perp
+        \operatorname{span}({}^t\!\bm a_1, \dotsc, {}^t\!\bm a_l)^\perp
           /\operatorname{span}(\bm b_1, \dotsc, \bm b_n)
         \cong V
         \cong \operatorname{span}(\bm b_1, \dotsc, \bm b_n)^\perp
-          /\operatorname{span}({}^t!\bm a_1, \dotsc, {}^t!\bm a_l).
+          /\operatorname{span}({}^t\!\bm a_1, \dotsc, {}^t\!\bm a_l).
 
      すなわち :math:`\ker\delta/\im\delta \cong V \cong \ker\delta/\im\delta` が成り立つ。
      したがって :math:`\dim H_k(K) = \dim H^k(K)` である。
@@ -627,7 +637,7 @@
        \int_{\widehat M}\!\varphi^*\pi^*\alpha
        = \int_{\widehat M}\!\pi^*\alpha.
 
-  * 写像 :math:`\varphi` の反転性により：
+  * 写像 :math:`\varphi` の反変性により：
 
     .. math::
 
