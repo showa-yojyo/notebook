@@ -155,18 +155,20 @@
 
        \int_{T^2}\!x_1\,\dd x_2 \wedge \dd x_3 = 4\pi^2.
 
-    .. todo::
+    ストークスの定理を利用すると左辺は次のように変形できる：
 
-       残りを計算する：
+    .. math::
 
-       .. math::
+       \begin{align*}
+       \int_{T^2}\! x_1\,\dd x_2 \wedge \dd x_3
+       &= \int_{\partial H}\! x_1 \,\dd x_2 \wedge \dd x_3\\
+       &= \int_H\! \dd(x_1 \,\dd x_2 \wedge \dd x_3)\\
+       &= \int_H\! \dd x_1 \wedge \dd x_2 \wedge \dd x_3.
+       \end{align*}
 
-          \begin{align*}
-          \int_{T^2}\! x_1\,\dd x_2 \wedge \dd x_3
-          &= \int_{\partial H}\! x_1 \,\dd x_2 \wedge \dd x_3\\
-          &= \int_H\! \dd(x_1 \,\dd x_2 \wedge \dd x_3)\\
-          &= \cdots
-          \end{align*}
+    ここから重積分に展開して計算を続けてもよいが、
+    これは取りも直さずこのトーラス内部の体積を意味するので
+    積分の値は :math:`2\pi^2 \cdot 1 \cdot \sqrt{2}^2 = 4\pi^2` であると言ってよい。
 
   * \(2) 次の積分を示せ：
 
@@ -258,12 +260,12 @@
       * 三番目の等号は射影（の引き戻し）の性質による。
       * 残りの等号は直接計算による。
 
-  * \(3) :math:`\alpha` は閉形式であるだろうか。
-    そして :math:`\alpha` が閉形式であるとすれば、それは完全形式でもあるだろうか。
-    さらに、:math:`\widetilde \alpha` が閉形式であるならば、それは完全形式でもあるだろうか。
+  * \(3) :math:`\alpha \in Z^1(X)` だろうか。
+    そしてもしそうであれば、もっと強く :math:`\alpha \in B^1(X)` だろうか。
+    さらに :math:`\widetilde \alpha \in Z^1(A)` に対してはどうか。
 
-    * :math:`\alpha` が閉形式であるというのは局所的な条件。
-      座標近傍上の表示とみられる :math:`\widetilde \alpha` が閉形式であることと同値である。
+    * :math:`\alpha \in Z^1(X)` というのは局所的な条件。
+      座標近傍上の表示とみられる :math:`\widetilde \alpha \in Z^1(A)` と同値である。
 
     * よって :math:`\dd \widetilde \alpha` を計算すればわかる：
       :math:`\dd \widetilde \alpha = 0 \iff a_1 = a_2 = a_3 = 0.`
@@ -271,7 +273,8 @@
     * :math:`a_1 = a_2 = a_3 = a \ne 0` と仮定すると、小問 (2) の積分はゼロではない。
       だから完全形式であるとは限らない。
 
-    * :math:`\widetilde \alpha` が閉形式であるならば、実は完全形式になっている：
+    * :math:`\widetilde \alpha \in Z^1(A)` ならば、
+      実は :math:`\widetilde \alpha \in B^1(A)` である：
 
       .. math::
 
@@ -284,7 +287,7 @@
 
 * 問題 3.5.5: 商空間の多様体 2-form
 
-  全問の設定をそのまま引き継ぐ。
+  前問の設定をそのまま引き継ぐ。
 
   * :math:`b_1, b_2, b_3 \in \RR`
 
@@ -301,7 +304,7 @@
               {x_1^2 + x_2^2 + x_3^2}
 
     このとき :math:`\widetilde \beta = \pi^* \beta` を満たす
-    :math:`\alpha \in \Omega^2(X)` が存在する。
+    :math:`\beta \in \Omega^2(X)` が存在する。
 
     * :ref:`前問 <tsuboi08.3.5.4>` 参照。
 
@@ -322,8 +325,8 @@
 
       ここで :math:`B^3` は閉球とする。
 
-  * \(3) :math:`\beta` は閉形式であるだろうか。
-    そして :math:`\beta` が閉形式であるとすれば、それは完全形式でもあるだろうか。
+  * \(3) :math:`\beta \in Z^2(X)` か。
+    もしそうならば、より強く :math:`\beta \in B^2(X)` と言えるか。
 
     * まず :math:`\beta \in Z^2(X) \iff \widetilde \beta \in Z^2(A)` に注意する。
     * :math:`\dd \widetilde \beta` を計算して、:math:`b_1 = b_2 = b_3 = 0` が条件であることがわかる。
@@ -412,7 +415,10 @@
 * 注意 3.6.3: ホモトピックな関数について
 
   * :math:`C^\infty` ホモトピックな写像同士の写像度は等しい。
-  * これは :ref:`定理 2.4.18 <tsuboi08.2.4.18>` による。
+    これは :ref:`定理 2.4.18 <tsuboi08.2.4.18>` による。
+  * 写像度はホモトピー不変量であるということだが、
+    逆に写像度が等しい :math:`F_0, F_1` 同士はホモトピックだろうか。
+    考えてみよう。
 
 .. _tsuboi08.3.6.4:
 
@@ -795,7 +801,7 @@
 
   .. math::
 
-     \int_M\!\bm n^*(\omega|S^2) = 2\pi \chi M.
+     \int_M\!\bm n^*(\omega|S^2) = 2\pi \chi(M).
 
   この被積分部をガウスの曲率形式という。
 
