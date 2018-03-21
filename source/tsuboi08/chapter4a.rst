@@ -156,7 +156,8 @@
      \end{cases}
      \end{align*}
 
-  一般のベクトル場による :math:`\alpha \in \Omega^p(M)` の内部積は次のように定義する：
+  一般のベクトル場 :math:`\xi` による :math:`\alpha \in \Omega^p(M)` の内部積
+  :math:`\fn{i_\xi}{\Omega^p(M)}\Omega^{p - 1}(M)` を次のように定義する：
 
   .. math::
 
@@ -164,6 +165,12 @@
        f_{i_1 \dots i_p}\xi_{ij}
        \,\dd x_{i_1} \wedge \overset{(\text{pop }\dd i_j)}{\dotsb} \wedge \dd x_{i_p}
        \in \Omega^{p - 1}(M).
+
+  特に :math:`\alpha \in \Omega^1(M)` の内部積はドット積に一致する：
+
+  .. math::
+
+     i_\xi\alpha = \alpha(\xi).
 
   関数 :math:`f \in \Omega^0(M)` の内部積はゼロとする：
 
@@ -447,6 +454,7 @@
 4.1.4 微分形式のベクトル場における値
 ----------------------------------------------------------------------
 冒頭、外積代数 :math:`\extp^p T^*M` のベクトル束とは何？
+外積代数 :math:`\extp^p T^*M` は余接束 :math:`T^*M` のベクトル束だと言っている？
 
 .. _tsuboi08.4.1.13:
 
@@ -457,6 +465,12 @@
      \alpha(\xi_1, \dotsc, \xi_p) = i_{\xi_p} \dots i_{\xi_1}\alpha.
 
   内部積で定義される値のようだ。
+
+  これを逆に使えば内部積を微分形式の値として表現できる：
+
+  .. math::
+
+     i_{\xi_p}\alpha = \alpha(\xi_p, \xi_1, \dotsc, \xi_{p - 1}).
 
 .. _tsuboi08.4.1.14:
 
