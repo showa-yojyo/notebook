@@ -15,8 +15,11 @@
      :math:`\ker\alpha = \set{v \in T_xM \sth \alpha(v) = 0}` は
      接空間 :math:`T_xM` の :math:`\dim M - 1` 次元部分多様体である。
 
-  2. この :math:`\ker\alpha` の部分空間（接束 :math:`TM` の部分ベクトル束）を
+  2. 対応 :math:`x \longmapsto \ker\alpha` による :math:`TM` の部分ベクトル束を
      接平面場 or 接分布と呼ぶ。
+
+  一般には各点 :math:`x \in M` に接空間 :math:`T_xM` の
+  :math:`r\(r \le \dim M)` 次元部分空間を対応させる写像を接平面場 or 接分布と呼ぶ。
 
 * 関数 :math:`f \in \Omega^0(M)` が点 :math:`x_0 \in M` において
   :math:`\dd f \ne 0` であるとする。
@@ -96,8 +99,21 @@
   これを「多様体 :math:`M` に余次元 1 `葉層構造 <http://mathworld.wolfram.com/Foliation.html>`__
   が与えられている」という。
 
+  葉層構造の定義はこういう感じだ：
+
+    n 次元多様体の弧状連結部分集合族 :math:`\set{L_i \sth i \in I}` が葉層構造であるとは、
+    以下を満たすことをいう：
+
+    #. :math:`i, j \in I, i \ne j \implies L_i \cap L_j = \varnothing.`
+    #. :math:`\bigcup_{i \in I} L_i = M.`
+    #. :math:`x \in M` の座標近傍 :math:`(U, \varphi)` において
+       :math:`U \cap L_i \subset M` が :math:`M` の部分多様体である。
+       この部分多様体の余次元が葉層構造の余次元として定義される。
+
   * 関数の等位面をつなぎ合わせると :math:`\dim M - 1` 次元部分多様体が定義される（局所的）。
   * この部分多様体の極大なものを葉という。
+
+    * 上の定義でいうところの各 :math:`L_i` だ。
 
   * 例えば任意の接ベクトル :math:`v \in T_xM` に対して
     :math:`\alpha(v) \ne 0` なる :math:`\alpha \in Z^1(M)` は定理 4.3.1 の仮定を満たすので、
@@ -197,6 +213,9 @@
   つまり :math:`\beta_{ik} \in \Omega^1(U)` が存在して
   :math:`\dd \alpha_i = \sum \beta_{ik} \wedge \alpha_k` と書けることを意味する。
   これを完全積分可能条件という。
+
+  * 厳密に言うと上記「つまり～」以降は積分可能条件と呼ばれるらしい。
+    本書での多様体は滑らかな多様体であるため、完全積分可能条件と自動的に一致するというのが本当らしい。
 
 .. _tsuboi08.4.3.3:
 
@@ -351,13 +370,13 @@
 
 4.3.2 微分形式の核
 ----------------------------------------------------------------------
-前節の :math:`\ker\alpha` の定義を一般の p 形式に拡張する：
+前節の :math:`\ker\alpha` の定義を一般の :math:`\alpha \in \Omega^p(M)` に拡張する：
 
 .. math::
 
    \ker\alpha = \set{v \in T_xM \sth i_v\alpha = 0 \in \extp^{p - 1}T_x^*M}
 
-これは内部積の性質のおかげで線形空間になっている：
+これもまた線形空間になっている：
 
 .. math::
 
@@ -383,16 +402,26 @@
 
 4.3.3 体積形式とダイバージェンス
 ----------------------------------------------------------------------
-* ベクトル場 :math:`\xi` の n 形式 :math:`\Omega` に対する発散、
+* 冒頭の微分形式 :math:`\Omega` のようなものを体積形式という。
+  つまり、向き付けられた n 次元多様体 :math:`M` における :math:`\Omega \in \Omega^n(M)` が
+  正の局所座標系 :math:`(x_1, \dotsc, x_n)` において各点 :math:`x \in M` において
+
+  .. math::
+
+     \Omega = a\!\dd x_1 \wedge \dotsb \wedge \dd x_n
+
+  と表すと :math:`a > 0` であるようなものだ。
+
+* ベクトル場 :math:`\xi` の体積形式 :math:`\Omega \in \Omega^n(M)` に対する発散、
   :math:`\div\xi` とは次の式を満たす関数である：
 
   .. math::
 
      L_\xi\Omega = (\div\xi)\Omega.
 
-  * :math:`\Omega \in \Omega^n(M^n)` は各点で :math:`\ne 0` とする（多様体が向き付け可能であることと同値）。
+  * :math:`\Omega \in \Omega^n(M)` は各点で :math:`\ne 0` とする（多様体が向き付け可能であることと同値）。
   * :math:`\displaystyle \xi = \sum_i^n\xi\dfrac{\partial}{\partial x_i}` の
-    :math:`\dd x_1 \wedge \dotsb \dd x_n` に対する発散は次のようになる：
+    :math:`\dd x_1 \wedge \dotsb \wedge \dd x_n` に対する発散は次のようになる：
 
     .. math::
 
@@ -540,8 +569,10 @@
 
 * 定義 4.3.14: `シンプレクティク形式 <http://mathworld.wolfram.com/SymplecticForm.html>`__
 
-  * :math:`\omega \in Z^2(M), \ker\omega = 0` をみたす :math:`\omega` をシンプレクティク形式という。
+  * :math:`\ker\omega = 0` をみたす :math:`\omega \in Z^2(M)` をシンプレクティク形式という。
   * シンプレクティク多様体とは、シンプレクティク形式を備えた多様体のことをいう。
+
+    * 例えば :math:`T_x^*M` は p. 156 で言及されているようにシンプレクティク多様体である。
 
 ..
 
@@ -552,6 +583,15 @@
     :ref:`命題 4.1.8 <tsuboi08.4.1.8>` カルタンの公式と
     :ref:`定理 1.7.2 <tsuboi08.1.7.2>` ポアンカレの補題により
     :math:`i_\xi\omega = \dd f` をみたす関数 :math:`f` が存在する。
+    この関数をハミルトン関数という。
+
+  * もう少し用語を追加しておく。
+    ベクトル場 :math:`\xi` がシンプレクティクベクトル場であるとは、
+    シンプレクティク形式 :math:`\omega` に対し次をみたすものをいう：
+
+    .. math::
+
+       L_{\xi}\omega = 0.
 
   * ベクトル場 :math:`\xi` が生成するフローによって :math:`f` は一定である。
 
@@ -565,12 +605,14 @@
 
 * `ハミルトン・ベクトル場 <https://en.wikipedia.org/wiki/Hamiltonian_vector_field>`__
 
-  シンプレクティク多様体 :math:`M` 上の関数 :math:`f` に対して、
-  ベクトル場 :math:`X_f` が次の式で定まる。これをハミルトン・ベクトル場と呼ぶ：
+  シンプレクティク多様体 :math:`M` 上の関数 :math:`f` に対して
+  次の式で定まるベクトル場 :math:`X_f` をハミルトン・ベクトル場と呼ぶ：
 
   .. math::
 
      i_{X_f}\omega = \dd f.
+
+  * ハミルトン・ベクトル場はシンプレクティクベクトル場である。
 
   * 例えば :ref:`注意 4.3.13 <tsuboi08.4.3.13>` のシンプレクティク形式に対する
     関数 :math:`f(x_1, \dotsc, x_{2m})` のハミルトン・ベクトル場はこうである：
@@ -582,6 +624,15 @@
        + \dotsb +
        \dfrac{\partial f}{\partial x_{2m}}\dfrac{\partial}{\partial x_{2m - 1}}
        - \dfrac{\partial f}{\partial x_{2m - 1}}\dfrac{\partial}{\partial x_{2m}}.
+
+* ラグランジュ部分多様体
+
+  正確な定義は難しいので、雑バージョンを記す。
+  シンプレクティック多様体 :math:`(M, \omega)` の部分多様体 :math:`L` がラグランジュ部分多様体
+  であるとは、次の条件を満たすはめ込みまたは埋め込み部分多様体のことである：
+
+  * :math:`\forall x \in L, \forall v \in T_xM, \forall w \in T_xL, \omega(v, w) = 0.`
+  * :math:`\dim L = \dim M / 2.`
 
 * `余接束 <http://mathworld.wolfram.com/CotangentBundle.html>`__ には
   標準的シンプレクティク形式が定まる。
@@ -675,7 +726,10 @@
 
      \omega = \dd y_1 \wedge \dd y_2 + \dotsb + \dd y_{2m - 1} \wedge \dd y_{2m}.
 
-  「こういう座標近傍が存在する」というのが主張であることに注意。
+  * 局所標準形という座標近傍の存在定理である。
+  * また、この座標を（座標成分の順序を変える必要があるかもしれないが）正準座標と呼ぶ。
+
+  以下証明。
 
   1. 色々なものを定義する：
 
@@ -879,6 +933,7 @@
     接触形式であるものをいう。
 
   * 多様体が接触多様体であるとは、それが接触構造を有することを意味する。
+    接触多様体であることを強調するときは :math:`(M, E)` のように表記する。
 
 .. _tsuboi08.4.3.22:
 
@@ -903,14 +958,15 @@
 * `レーブ・ベクトル場 <https://en.wikipedia.org/wiki/Contact_geometry#Reeb_vector_field>`__
 
   ベクトル場 :math:`\xi` がレーブ・ベクトル場であるとは、
-  奇数次元多様体上の接触形式 :math:`\alpha` に対するベクトル場であって、
+  奇数次元多様体上の接触形式 :math:`\alpha` に対して次を満たすベクトル場である：
 
   * :math:`\alpha(\xi) = 1`
   * :math:`i_\xi\dd\alpha = 0`
 
-  を満たすものをいう。
-
 * 接触多様体の接触構造を保つ群は、多様体に推移的に作用する。
+* 接触多様体 :math:`(M, E)` のはめ込みまたは埋め込み部分多様体 :math:`L` が
+  ルジャンドル部分多様体であることは、各点 :math:`x \in L` で
+  :math:`T_xL \in E` を満たすことと同値である。
 
 .. _tsuboi08.4.3.23:
 

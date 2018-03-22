@@ -22,9 +22,10 @@
            \frac{\partial x_j}{\partial y_l}
            \dd y_k \otimes \dd y_l
 
-  を見ると、リーマン計量 :math:`g` は
-  射影 :math:`\fn{p}{T^*M \times T^*M}M` に対し :math:`p \circ g` になるような
-  対称なテンソル積のなす :math:`\dfrac{n(n + 1)}{2}` 次元ベクトル空間をファイバーとする
+  を見ると、リーマン計量 :math:`g` はベクトル束 :math:`(T^*M \otimes T^*M, M, p)` における
+  射影 :math:`\fn{p}{T^*M \times T^*M}M` に対し :math:`p \circ g = id_M` になるような
+  切断である。
+  細かく言うと、対称なテンソル積のなす :math:`\dfrac{n(n + 1)}{2}` 次元ベクトル空間をファイバーとする
   部分ベクトル束の切断である。
 
 * リーマン計量があると、ベクトル場と 1 形式の間に全単射が存在する：
@@ -69,7 +70,7 @@
 
   をとる。正規直交基底なので :math:`g_x(\xi^{(k)}, \xi^{(l)}) = \delta_{kl}` となる。
 
-  これに対応する余接空間の基底
+  これに対応する余接空間 :math:`T_x^*M` の基底
 
   .. math::
 
@@ -94,7 +95,7 @@
      \begin{align*}
      v_{k + 1} &= \frac{\partial}{\partial x_{k + 1}} - \sum_{i = 1}^k
        g\left(\xi^{(i)}, \frac{\partial}{\partial x_{k + 1}}\right)\xi^{(i)},\\
-     \xi^{(k + 1)} &= \frac{v_{k + 1}}{\sqrt{g(v_{k + 1}, g(v_{k + 1})}}
+     \xi^{(k + 1)} &= \frac{v_{k + 1}}{\sqrt{g(v_{k + 1}, v_{k + 1})}}
      \end{align*}
 
   と正規化する。
@@ -104,7 +105,7 @@
 * `リーマン多様体の体積形式 <https://en.wikipedia.org/wiki/Volume_form#Riemannian_volume_form>`__ 
 
   * 余接空間 :math:`T_x^*M` の正規直交基底 :math:`\set{\alpha^{(k)}}` に対して、
-    n 形式 :math:`\alpha^{(1)} \wedge \dotsb \wedge ^{(n)}` は（符号を除いて）リーマン計量で定まる。
+    n 形式 :math:`\alpha^{(1)} \wedge \dotsb \wedge \alpha^{(n)}` は（符号を除いて）リーマン計量で定まる。
 
   * 多様体が向き付け可能であれば、各座標近傍上で正の正規直交基底がとれる。
     そのとき、上述の n 形式の外微分をとると、二つの座標近傍の共通部では
@@ -127,7 +128,7 @@
 
      .. math::
 
-        \alpha^{(k)} = \set{\sum_{i = 1}^n \alpha^{(k)}\,\dd x_i}.
+        \alpha^{(k)} = \Set{\sum_{i = 1}^n \alpha^{(k)}\,\dd x_i}.
 
   3. 本節冒頭で述べた双線型写像を適用すると
      :math:`\displaystyle \sum_{i, j = 1}^n g^{ij}\alpha_i^{(k)}\alpha_i^{(l)} = \delta_{kl}`
@@ -149,6 +150,9 @@
 
         \alpha^{(1)} \wedge \dotsb \wedge \alpha^{(n)}
         = \sqrt{\det G}\,\dd x_1 \wedge \dotsb \wedge \dd x_n.
+
+  この右辺が向き付けられたリーマン多様体 :math:`(M, g)` の体積形式である。
+  以下で :math:`\Omega_{(M, g)}` とあるのは、これである。
 
 .. _tsuboi08.4.4.2:
 
@@ -330,7 +334,7 @@
 * 微分形式同士の内積を定義する。
 
   * 多様体 :math:`M` は向き付けられたコンパクト閉多様体であり、
-  * :math:`\alpha, \beta` は k 形式であり、
+  * :math:`\alpha, \beta \in \Omega^k(M)` であり、
   * :math:`(\alpha, \beta)_x` を :math:`\extp^k T_x^*M` の内積である
 
   とすると、次で定義される：
@@ -395,10 +399,11 @@
 
 * ホッジのスター作用素の性質いろいろ
 
+  * :math:`*1 = \Omega_{(M, g)}.`
   * :math:`*` は内積を保つ線形同型写像である。
   * :math:`* \circ * = (-1)^{k(n - k)}.`
   * :math:`*` は写像 :math:`\fn{*}{\Omega^k(M)}\Omega^{n - k}(M)` を引き起こす。
-    :math:`\Omega^k(M)` の内積を次のように書かれる：
+    :math:`\Omega^k(M)` の内積を次のように書ける：
 
     .. math::
 
@@ -415,7 +420,7 @@
 
         .. math::
 
-           \delta\beta = (-1)^{n(k + 1) + 1}(* \circ \dd{} \circ *)\beta.
+           \delta = (-1)^{n(k + 1) + 1}(* \circ \dd{} \circ *).
 
       このとき :math:`(\dd\alpha, \beta) = (\alpha, \delta\beta)` が成り立つ：
 
@@ -445,24 +450,27 @@
 
   * :math:`\Omega^k(M)` には互いに直交する部分空間 :math:`\ker\dd \cap \ker\delta,\ \im\dd,\ \im\delta`
     が存在する。
-  * :math:`\HH^k = \set{\alpha \in \Omega^k(M) \sth (\dd\delta + \delta\dd)\alpha = 0}` とおくと、
-    :math:`\HH^k = \ker\dd{} \cap \ker\delta` が成り立つ。
+  * :math:`\boldsymbol{H}^k = \set{\alpha \in \Omega^k(M) \sth (\dd\delta + \delta\dd)\alpha = 0}` とおくと、
+    :math:`\boldsymbol{H}^k = \ker\dd{} \cap \ker\delta` が成り立つ。
 
-    * :math:`\alpha \in \HH^k` ならば :math:`0 = (\dd\delta + \delta\dd)\alpha, \alpha) = (\delta\alpha, \delta\alpha) + (\dd\alpha, \dd\alpha)`
+    * :math:`\alpha \in \boldsymbol{H}^k` ならば :math:`0 = (\dd\delta + \delta\dd)\alpha, \alpha) = (\delta\alpha, \delta\alpha) + (\dd\alpha, \dd\alpha)`
       であるので :math:`\alpha \in \ker\dd{} \cap \ker\delta` と言える。
-    * :math:`\alpha \in \ker\dd{} \cap \ker\delta` ならば当然 :math:`\alpha \in \HH^k` である。
+    * :math:`\alpha \in \ker\dd{} \cap \ker\delta` ならば当然 :math:`\alpha \in \boldsymbol{H}^k` である。
 
   * :math:`\Laplace = \dd\delta + \delta\dd` と書き、
-    `ラプラシアン <http://mathworld.wolfram.com/Laplacian.html>`__ と呼ぶ。
+    `ラプラシアン <http://mathworld.wolfram.com/Laplace-BeltramiOperator.html>`__ と呼ぶ。
 
     * :math:`\Laplace\alpha = 0` を満たす :math:`\alpha` を
       調和形式という。
+
+      * :math:`\Laplace\alpha = 0 \iff (\dd\alpha = 0) \land (\delta\alpha = 0) \iff \alpha \in \ker\dd \cap \ker\delta.`
+      * :math:`\boldsymbol{H}^k = \ker\Delta.`
 
 .. _tsuboi08.4.4.6:
 
 * 定理 4.4.6: ホッジ・ドラーム・小平の定理
 
-  :math:`\Omega^k(M) = \HH^k \oplus \im\dd{} \oplus \im\delta` は
+  :math:`\Omega^k(M) = \boldsymbol{H}^k \oplus \im\dd{} \oplus \im\delta` は
   直交する部分空間への直和分解である。
 
   * 証明は参考文献にあるようだ。
