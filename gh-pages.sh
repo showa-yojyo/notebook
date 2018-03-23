@@ -18,7 +18,10 @@ rsync -av \
   --exclude='search.html' \
   --exclude='objects.inv' \
   --exclude='searchindex.js' \
-  --include='_static/*.css' \
+  --include='_static/basic.css' \
+  --include='_static/default.css' \
+  --include='_static/prefab.css' \
+  --include='_static/pygments.css' \
   --include='_static/documentation_options.js' \
   --include='_static/mathjaxconf.js' \
   --include='_static/logos.png' \
