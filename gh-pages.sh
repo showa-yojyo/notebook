@@ -19,7 +19,8 @@ rsync -av \
   --exclude='objects.inv' \
   --exclude='searchindex.js' \
   --include='_static/*.css' \
-  --include='_static/twitter-button.js' \
+  --include='_static/documentation_options.js' \
+  --include='_static/mathjaxconf.js' \
   --include='_static/logos.png' \
   "$SOURCE_DIR" "$TARGET_DIR"
 
