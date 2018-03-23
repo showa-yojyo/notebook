@@ -453,18 +453,22 @@
   * :math:`\boldsymbol{H}^k = \set{\alpha \in \Omega^k(M) \sth (\dd\delta + \delta\dd)\alpha = 0}` とおくと、
     :math:`\boldsymbol{H}^k = \ker\dd{} \cap \ker\delta` が成り立つ。
 
-    * :math:`\alpha \in \boldsymbol{H}^k` ならば :math:`0 = (\dd\delta + \delta\dd)\alpha, \alpha) = (\delta\alpha, \delta\alpha) + (\dd\alpha, \dd\alpha)`
+    * :math:`\alpha \in \boldsymbol{H}^k` ならば :math:`0 = (\dd\delta + \delta\dd)\alpha = (\delta\alpha, \delta\alpha) + (\dd\alpha, \dd\alpha)`
       であるので :math:`\alpha \in \ker\dd{} \cap \ker\delta` と言える。
     * :math:`\alpha \in \ker\dd{} \cap \ker\delta` ならば当然 :math:`\alpha \in \boldsymbol{H}^k` である。
 
   * :math:`\Laplace = \dd\delta + \delta\dd` と書き、
     `ラプラシアン <http://mathworld.wolfram.com/Laplace-BeltramiOperator.html>`__ と呼ぶ。
 
+    * :math:`\boldsymbol{H}^k = \ker\Delta.`
     * :math:`\Laplace\alpha = 0` を満たす :math:`\alpha` を
       調和形式という。
 
-      * :math:`\Laplace\alpha = 0 \iff (\dd\alpha = 0) \land (\delta\alpha = 0) \iff \alpha \in \ker\dd \cap \ker\delta.`
-      * :math:`\boldsymbol{H}^k = \ker\Delta.`
+      .. math::
+
+         \Laplace\alpha = 0
+           \iff (\dd\alpha = 0) \land (\delta\alpha = 0)
+           \iff \alpha \in \ker\dd \cap \ker\delta.
 
 .. _tsuboi08.4.4.6:
 

@@ -19,7 +19,7 @@
      接平面場 or 接分布と呼ぶ。
 
   一般には各点 :math:`x \in M` に接空間 :math:`T_xM` の
-  :math:`r\(r \le \dim M)` 次元部分空間を対応させる写像を接平面場 or 接分布と呼ぶ。
+  :math:`r\ (r \le \dim M)` 次元部分空間を対応させる写像を接平面場 or 接分布と呼ぶ。
 
 * 関数 :math:`f \in \Omega^0(M)` が点 :math:`x_0 \in M` において
   :math:`\dd f \ne 0` であるとする。
@@ -636,7 +636,7 @@
 
 ..
 
-* ラグランジュ部分多様体
+* `ラグランジュ部分多様体 <https://en.wikipedia.org/wiki/Symplectic_manifold#Lagrangian_and_other_submanifolds>`__
 
   正確な定義は難しいので、雑バージョンを記す。
   シンプレクティック多様体 :math:`(M, \omega)` の部分多様体 :math:`L` がラグランジュ部分多様体
@@ -982,6 +982,13 @@
 * 接触多様体 :math:`(M, E)` のはめ込みまたは埋め込み部分多様体 :math:`L` が
   ルジャンドル部分多様体であることは、各点 :math:`x \in L` で
   :math:`T_xL \in E` を満たすことと同値である。
+
+.. figure:: /_static/cd-topology-contact.png
+   :align: center
+   :alt: math.topology.manifolds.contact
+   :width: 613px
+   :height: 277px
+   :scale: 100%
 
 .. _tsuboi08.4.3.23:
 
