@@ -603,6 +603,8 @@
 
     * ここで :ref:`定理 4.3.1 <tsuboi08.4.3.1>` により :math:`\alpha \ne 0.`
 
+..
+
 * `ハミルトン・ベクトル場 <https://en.wikipedia.org/wiki/Hamiltonian_vector_field>`__
 
   シンプレクティク多様体 :math:`M` 上の関数 :math:`f` に対して
@@ -625,6 +627,15 @@
        \dfrac{\partial f}{\partial x_{2m}}\dfrac{\partial}{\partial x_{2m - 1}}
        - \dfrac{\partial f}{\partial x_{2m - 1}}\dfrac{\partial}{\partial x_{2m}}.
 
+.. figure:: /_static/cd-topology-symplectic.png
+   :align: center
+   :alt: math.topology.symplectic
+   :width: 620px
+   :height: 215px
+   :scale: 100%
+
+..
+
 * ラグランジュ部分多様体
 
   正確な定義は難しいので、雑バージョンを記す。
@@ -633,6 +644,8 @@
 
   * :math:`\forall x \in L, \forall v \in T_xM, \forall w \in T_xL, \omega(v, w) = 0.`
   * :math:`\dim L = \dim M / 2.`
+
+..
 
 * `余接束 <http://mathworld.wolfram.com/CotangentBundle.html>`__ には
   標準的シンプレクティク形式が定まる。
@@ -652,6 +665,8 @@
 
   3. :math:`\displaystyle \omega = -\dd \theta = \sum_{i = 1}^n \dd x_i \wedge \dd y_i` は
      余接束上のシンプレクティク形式になる。
+
+..
 
 * リーマン多様体の余接束上には二次形式が定まる。
 
@@ -836,7 +851,7 @@
   .. math::
 
      \alpha(0) = e_0,\quad
-     \dd\alpha(0) = e_1 \wedge e_2 + \dotsb + \wedge e_{2m - 1} \wedge e_{2m}.
+     \dd\alpha(0) = e_1 \wedge e_2 + \dotsb + e_{2m - 1} \wedge e_{2m}.
 
   また、:math:`\alpha \in \Omega^1(\RR^{2m + 1})` が
   :math:`\alpha \wedge (\dd\alpha)^m \ne 0` であれば、
