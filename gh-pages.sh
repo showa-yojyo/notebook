@@ -3,28 +3,16 @@
 REPOSITORY_URL=https://github.com/showa-yojyo/notebook.git
 SOURCE_DIR=./build/html/
 TARGET_DIR=./gh-pages
+RSYNC_INCLUDE_FROM=./rsync-include.txt
+RSYNC_EXCLUDE_FROM=./rsync-exclude.txt
 
 if [ ! -d "$TARGET_DIR" ]; then
     git clone -b gh-pages --single-branch $REPOSITORY_URL "$TARGET_DIR"
 fi
 
-rsync -av \
-  --delete \
-  --exclude='.git/' \
-  --exclude='.nojekyll' \
-  --exclude='.buildinfo' \
-  --exclude='_sources' \
-  --exclude='_static/*' \
-  --exclude='search.html' \
-  --exclude='objects.inv' \
-  --exclude='searchindex.js' \
-  --include='_static/basic.css' \
-  --include='_static/default.css' \
-  --include='_static/prefab.css' \
-  --include='_static/pygments.css' \
-  --include='_static/documentation_options.js' \
-  --include='_static/mathjaxconf.js' \
-  --include='_static/logos.png' \
+rsync -av --delete \
+  --include-from "$RSYNC_INCLUDE_FROM" \
+  --exclude-from "$RSYNC_EXCLUDE_FROM" \
   "$SOURCE_DIR" "$TARGET_DIR"
 
 cd "$TARGET_DIR"
