@@ -398,7 +398,7 @@ Fourier 級数
 
   下の図を参照。カーブが大きいほうが区間指定なしのほうだ。
 
-  .. figure:: /_static/sympy-fourier-series.png
+  .. figure:: /_images/sympy-fourier-series.png
      :align: center
      :alt: フーリエ級数のグラフ
      :width: 815px

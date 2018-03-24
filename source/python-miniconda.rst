@@ -267,7 +267,7 @@ Conda の各種設定はホームディレクトリーに所定の書式で記�
 
   .. _python-pkg-proc:
 
-  .. figure:: /_static/python-pkg-proc.png
+  .. figure:: /_images/python-pkg-proc.png
      :width: 657px
      :height: 407px
      :scale: 100%

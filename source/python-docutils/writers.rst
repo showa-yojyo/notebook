@@ -11,7 +11,7 @@
 クラス ``docutils.readers.Writer`` を中心とした簡易クラス図を以下に示す。
 これまでに述べたクラスについてはグレーアウトしたり、記載そのものを省いたりしている。
 
-.. figure:: /_static/docutils-writers.png
+.. figure:: /_images/docutils-writers.png
    :align: center
    :alt: (class diagram)
    :scale: 100%

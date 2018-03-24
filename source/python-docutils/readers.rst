@@ -12,7 +12,7 @@
 クラス ``docutils.readers.Reader`` を中心とした簡易クラス図を以下に示す。
 これまでに述べたクラスについてはグレーアウトしたり、記載そのものを省いたりしている。
 
-.. figure:: /_static/docutils-readers.png
+.. figure:: /_images/docutils-readers.png
    :align: center
    :alt: (class diagram)
    :scale: 100%

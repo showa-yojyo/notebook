@@ -138,7 +138,7 @@
 序盤から難しい。ベクトル場とフローの関係を図に示してみる。
 ベクトル場は接束の切断であると理解できる。
 
-.. figure:: /_static/cd-topology-vectorfield.png
+.. figure:: /_images/cd-topology-vectorfield.png
    :align: center
    :alt: math.topology.vectorfield
    :width: 694px

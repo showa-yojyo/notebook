@@ -18,7 +18,7 @@ Docutils_ では reStructuredText 形式のデータを処理するために、
 一枚の図に全てを掲載することは紙幅の都合上避ける。
 また、理解し易さを優先するべく、説明の目的とは外れた関係、属性の記載を省略している。
 
-.. figure:: /_static/docutils-nodes.png
+.. figure:: /_images/docutils-nodes.png
    :align: center
    :alt: (class diagram)
    :scale: 100%

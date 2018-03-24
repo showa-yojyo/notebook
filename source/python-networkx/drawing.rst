@@ -38,7 +38,7 @@ Matplotlib との連携
 
 例によって実行するたびにグラフの見てくれが異なる場合がある。次の図はその一例と思って欲しい。
 
-.. figure:: /_static/networkx-drawing-mpl.png
+.. figure:: /_images/networkx-drawing-mpl.png
    :align: center
    :alt: 賢者の石レシピ
    :width: 424px
@@ -178,7 +178,7 @@ Python3 動作版 pydot のセットアップ
 もっとも、グラフを図示するときには点の物理的な座標は気にしないはずなので、
 :code:`plt.axis('off')` する等して座標軸の描画をやめるとよい。
 
-.. figure:: /_static/networkx-drawing-comp.png
+.. figure:: /_images/networkx-drawing-comp.png
    :align: center
    :alt: 正 17 角形
    :width: 821px
@@ -195,7 +195,7 @@ Python3 動作版 pydot のセットアップ
 
 実行結果は次のようになるはずだ。例によって議論の本筋とは無関係にノードを着色してある。
 
-.. figure:: /_static/networkx-drawing-tree.png
+.. figure:: /_images/networkx-drawing-tree.png
    :align: center
    :alt: 完全二分木
    :width: 452px

@@ -145,7 +145,7 @@ Matplotlib のインストールまたはアップグレードが成功したと
 基本的には :code:`plt.show()` の実行開始直後に下の画像のような、
 プロットを描画するウィンドウが現れる。
 
-.. figure:: /_static/mpl-tkagg.png
+.. figure:: /_images/mpl-tkagg.png
    :align: center
    :alt: TkAgg
    :width: 660px

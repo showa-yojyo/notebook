@@ -55,7 +55,7 @@ class TextureDemoApp(DeprecatedApp):
         """Initialize textures."""
 
         source_path = os.path.join(
-            os.path.dirname(__file__), '../../_static/illvelo.png')
+            os.path.dirname(__file__), '../../_images/illvelo.png')
         img = Image.open(source_path).resize((256, 256))
         assert img.mode == 'RGBA'
 

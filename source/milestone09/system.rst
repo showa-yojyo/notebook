@@ -16,7 +16,7 @@
 
 ゲーム画面
 ======================================================================
-.. figure:: /_static/milestone09-coop.png
+.. figure:: /_images/milestone09-coop.png
    :align: center
    :alt: ゲーム画面
    :width: 480px

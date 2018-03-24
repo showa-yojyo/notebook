@@ -14,7 +14,7 @@
 ======================================================================
 本節で登場するクラスを図に示す。
 
-.. figure:: /_static/docutils-base.png
+.. figure:: /_images/docutils-base.png
    :align: center
    :alt: (class diagram)
    :scale: 100%
@@ -74,7 +74,7 @@
 ----------------------------------------------------------------------
 * ``SettingsSpec`` の直接サブクラスは 2 つだけある。図に示す。
 
-  .. figure:: /_static/docutils-settings-spec.png
+  .. figure:: /_images/docutils-settings-spec.png
      :align: center
      :alt: (class diagram)
      :scale: 100%
@@ -111,7 +111,7 @@
 ----------------------------------------------------------------------
 ``TransformSpec`` をスーパークラスとしたクラス図を示す。
 
-  .. figure:: /_static/docutils-transform-spec.png
+  .. figure:: /_images/docutils-transform-spec.png
      :align: center
      :alt: (class diagram)
      :scale: 100%

@@ -91,7 +91,7 @@ BGM
 
 ロード中の一枚絵
 ======================================================================
-.. figure:: /_static/milestone09-loading-god.png
+.. figure:: /_images/milestone09-loading-god.png
    :align: center
    :alt: ロード中の一枚絵の例
    :width: 480px

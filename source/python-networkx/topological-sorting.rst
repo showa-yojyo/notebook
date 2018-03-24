@@ -11,7 +11,7 @@ NetworkX_ でトポロジカルソートを実現する関数は
 
 先にグラフ概形とサンプルコード全体を示す。
 
-.. figure:: /_static/networkx-dag.png
+.. figure:: /_images/networkx-dag.png
    :align: center
    :alt: Public Domain
    :width: 356px

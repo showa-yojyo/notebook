@@ -87,7 +87,7 @@ Python インタラクティブシェル（長いので、以下単にインタ�
 以下の説明で、単にメソッドという用語が現れる場合は、クラス ``Image`` のメソッドの意である。
 また、次のイメージを各操作デモの原像として多用している。
 
-.. figure:: /_static/illvelo.png
+.. figure:: /_images/illvelo.png
    :align: center
    :alt: イルベロ
    :width: 256px
@@ -172,7 +172,7 @@ PyOpenGL のプログラムで画像ファイルからテクスチャーを生�
 
 イメージモノクロ化
 ----------------------------------------------------------------------
-.. figure:: /_static/pillow-illvelo-monochrome.png
+.. figure:: /_images/pillow-illvelo-monochrome.png
    :align: center
    :alt: イルベロ
    :width: 256px
@@ -281,7 +281,7 @@ PyOpenGL プログラムなどで A 値も欲しい場合は関数 ``getcolor`` 
 元画像と処理後の画像はこうなる。
 ここで、元画像のキャラクターの輪郭の外側は完全透明色、内側領域は完全不透明色である。
 
-.. figure:: /_static/pillow-illvelo-blueback.png
+.. figure:: /_images/pillow-illvelo-blueback.png
    :align: center
    :alt: イルベロ
    :width: 256px
@@ -295,7 +295,7 @@ Pillow は直接的にはグラデーションをサポートしていなそう�
 
 線形グラデーション（透過なし）
 ----------------------------------------------------------------------
-.. figure:: /_static/pillow-gradient-opaque.png
+.. figure:: /_images/pillow-gradient-opaque.png
    :align: center
    :alt: 線形グラデーション（透過なし）
    :width: 320px
@@ -317,7 +317,7 @@ Pillow は直接的にはグラデーションをサポートしていなそう�
 
 線形グラデーション（単色にグレースケール透過）
 ----------------------------------------------------------------------
-.. figure:: /_static/pillow-gradient-greyscale.png
+.. figure:: /_images/pillow-gradient-greyscale.png
    :align: center
    :alt: 線形グラデーション（単色にグレースケール透過）
    :width: 320px
@@ -333,7 +333,7 @@ Pillow は直接的にはグラデーションをサポートしていなそう�
 
 線形グラデーション（さらなる応用）
 ----------------------------------------------------------------------
-.. figure:: /_static/pillow-illvelo-gradient.png
+.. figure:: /_images/pillow-illvelo-gradient.png
    :align: center
    :alt: イルベロ
    :width: 256px
@@ -347,7 +347,7 @@ Pillow は直接的にはグラデーションをサポートしていなそう�
 
 放射状グラデーション
 ----------------------------------------------------------------------
-.. figure:: /_static/pillow-gradient-radial.png
+.. figure:: /_images/pillow-gradient-radial.png
    :align: center
    :alt: 放射状グラデーション
    :width: 256px
@@ -375,7 +375,7 @@ Pillow は直接的にはグラデーションをサポートしていなそう�
 
 Hello, world
 ----------------------------------------------------------------------
-.. figure:: /_static/pillow-hello-world.png
+.. figure:: /_images/pillow-hello-world.png
    :align: center
    :alt: Hello, world
    :width: 96px
@@ -393,7 +393,7 @@ Hello, world
 
 日本語テキスト
 ----------------------------------------------------------------------
-.. figure:: /_static/pillow-karous-paradise.png
+.. figure:: /_images/pillow-karous-paradise.png
    :align: center
    :alt: カラス出会い系メールの文面
    :width: 423px
@@ -417,7 +417,7 @@ Hello, world
 
 スクリーンショット
 ----------------------------------------------------------------------
-.. figure:: /_static/pillow-grab.png
+.. figure:: /_images/pillow-grab.png
    :align: center
    :alt: スクリーンキャプチャー
    :width: 256px
@@ -432,7 +432,7 @@ Hello, world
 
 上下左右ループ壁紙パターン生成
 ----------------------------------------------------------------------
-.. figure:: /_static/pillow-illvelo-wallpaper.png
+.. figure:: /_images/pillow-illvelo-wallpaper.png
    :align: center
    :alt: イルベロ
    :width: 256px

@@ -6,7 +6,7 @@ from PIL import Image
 
 WORK_SIZE = 0x100
 SOURCE_PATH = os.path.join(
-    os.path.dirname(__file__), '../../_static/illvelo.png')
+    os.path.dirname(__file__), '../../_images/illvelo.png')
 
 img = Image.open(SOURCE_PATH)
 assert img.mode == 'RGBA'

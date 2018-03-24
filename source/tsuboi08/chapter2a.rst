@@ -9,14 +9,7 @@
 
 2.1 多様体（基礎）
 ======================================================================
-序盤は :doc:`/tsuboi05/index` のおさらいのようになっている。
-
-.. figure:: /_static/cd-topology-manifolds.png
-   :align: center
-   :alt: math.topology.manifolds
-   :width: 643px
-   :height: 276px
-   :scale: 100%
+序盤は :doc:`/tsuboi05/chapter3a` のおさらいのようになっている。
 
 .. _tsuboi08.2.1.1:
 
@@ -382,7 +375,7 @@
 
   * cf. :ref:`定義 2.1.7 <tsuboi08.2.1.7>`
 
-.. figure:: /_static/cd-differentialform.png
+.. figure:: /_images/cd-differentialform.png
    :align: center
    :alt: math.topology.differentialform
    :width: 388px
@@ -561,7 +554,7 @@
 
     * このベクトル空間の直和は何を意味するのかが今はわからない。
 
-.. figure:: /_static/cd-derham-cohomology.png
+.. figure:: /_images/cd-derham-cohomology.png
    :align: center
    :alt: math.TODO
    :width: 478px

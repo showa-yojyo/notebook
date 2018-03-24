@@ -393,7 +393,7 @@
 
   * cf. :ref:`例題 3.3.1 <tsuboi08.3.1.1>`
 
-.. figure:: /_static/cd-topology-singular-homology.png
+.. figure:: /_images/cd-topology-singular-homology.png
    :align: center
    :alt: math.topology.algebraic.singular.homology
    :width: 756px

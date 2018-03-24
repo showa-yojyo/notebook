@@ -12,7 +12,7 @@
 まずは抽象クラス ``NodeVisitor`` および ``Node`` を主に見るべく、
 簡単なクラス図を示す。
 
-.. figure:: /_static/docutils-visitor.png
+.. figure:: /_images/docutils-visitor.png
    :align: center
    :alt: (class diagram)
    :scale: 100%

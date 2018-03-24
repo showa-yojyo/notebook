@@ -70,7 +70,7 @@ Axes
 
 次の図にふたつの Axes を持たせたひとつの Figure を示す。
 
-.. figure:: /_static/mpl-axes.png
+.. figure:: /_images/mpl-axes.png
    :align: center
    :alt: Axes デモ
    :width: 815px
@@ -175,7 +175,7 @@ Axes
 
 結果のスクリーンショットは次のようなものだ。
 
-.. figure:: /_static/mpl-fontprop.png
+.. figure:: /_images/mpl-fontprop.png
    :align: center
    :alt: 御無礼一発です
    :width: 815px
@@ -209,7 +209,7 @@ Figure (:code:`matplotlib.figure.Figure`)
 
   結果は次のスクリーンショットのようなものとなる。
 
-  .. figure:: /_static/mpl-figcs.png
+  .. figure:: /_images/mpl-figcs.png
      :align: center
      :alt: 対角線
      :width: 815px
@@ -298,7 +298,7 @@ IPython_ のセッションであらかじめ :code:`matplotlib.plt` 等がイ�
 上記のコードが機能するには、環境に PyQt5 がインストール済みである必要がある。
 :doc:`/python-pyqt5` 参照。
 
-.. figure:: /_static/mpl-qt5agg.png
+.. figure:: /_images/mpl-qt5agg.png
    :align: center
    :alt: Qt5Agg
    :width: 648px
@@ -330,7 +330,7 @@ IPython_ のセッションであらかじめ :code:`matplotlib.plt` 等がイ�
 
 最終的な描画結果は次のようなものとなる。乱数次第で分布が変化するので注意。
 
-.. figure:: /_static/mpl-histogram.png
+.. figure:: /_images/mpl-histogram.png
    :align: center
    :alt: ヒストグラム
    :width: 815px
@@ -362,7 +362,7 @@ IPython_ のセッションであらかじめ :code:`matplotlib.plt` 等がイ�
 
 描画結果は次のようなものとなる。
 
-.. figure:: /_static/mpl-polynomial.png
+.. figure:: /_images/mpl-polynomial.png
    :align: center
    :alt: 多項式をプロット
    :width: 815px
@@ -416,7 +416,7 @@ Path オブジェクト構築は次のようになる。
 
 最終的な描画結果は次のようなものとなる。
 
-.. figure:: /_static/mpl-bezier.png
+.. figure:: /_images/mpl-bezier.png
    :align: center
    :alt: Bézier 曲線をプロット
    :width: 815px

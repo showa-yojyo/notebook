@@ -627,7 +627,7 @@
        \dfrac{\partial f}{\partial x_{2m}}\dfrac{\partial}{\partial x_{2m - 1}}
        - \dfrac{\partial f}{\partial x_{2m - 1}}\dfrac{\partial}{\partial x_{2m}}.
 
-.. figure:: /_static/cd-topology-symplectic.png
+.. figure:: /_images/cd-topology-symplectic.png
    :align: center
    :alt: math.topology.symplectic
    :width: 620px
@@ -983,7 +983,7 @@
   ルジャンドル部分多様体であることは、各点 :math:`x \in L` で
   :math:`T_xL \in E` を満たすことと同値である。
 
-.. figure:: /_static/cd-topology-contact.png
+.. figure:: /_images/cd-topology-contact.png
    :align: center
    :alt: math.topology.manifolds.contact
    :width: 613px

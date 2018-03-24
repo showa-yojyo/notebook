@@ -22,7 +22,7 @@ Docutils_ のサブパッケージ ``docutils.transforms`` について記す。
   :doc:`./nodes` を参照。
 * ``module`` の意味については :doc:`./languages` を参照。
 
-.. figure:: /_static/docutils-transforms.png
+.. figure:: /_images/docutils-transforms.png
    :align: center
    :alt: (class diagram)
    :scale: 100%

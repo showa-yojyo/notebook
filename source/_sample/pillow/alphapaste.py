@@ -5,7 +5,7 @@ import os.path
 from PIL import Image
 
 SOURCE_PATH = os.path.join(
-    os.path.dirname(__file__), '../../_static/illvelo.png')
+    os.path.dirname(__file__), '../../_images/illvelo.png')
 
 # Layer 1 in Photoshop.
 img = Image.open(SOURCE_PATH)

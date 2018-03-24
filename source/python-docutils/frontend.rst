@@ -13,7 +13,7 @@
 Python 標準のクラスおよび説明済みのクラスはグレーアウトで表し、
 例えば例外クラスのような、本筋とは外れているクラスは省いている。
 
-.. figure:: /_static/docutils-frontend.png
+.. figure:: /_images/docutils-frontend.png
    :align: center
    :alt: (class diagram)
    :scale: 100%

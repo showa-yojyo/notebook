@@ -11,7 +11,7 @@
 でそれぞれ得られる。
 ここでは無向グラフいくつかに対して単に各連結度を計算した。
 
-.. figure:: /_static/networkx-connectivity.png
+.. figure:: /_images/networkx-connectivity.png
    :align: center
    :alt: グラフ連結度
    :width: 300px
@@ -40,7 +40,7 @@
 
 次のコードは図のグラフに対して、両カット関数を色々な (s, t) の組み合わせで呼び出すものだ。
 
-.. figure:: /_static/networkx-cutset.png
+.. figure:: /_images/networkx-cutset.png
    :align: center
    :alt: カットセット
    :width: 200px

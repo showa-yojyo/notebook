@@ -31,7 +31,7 @@ Walk Through
 ======================================================================
 コインを投入する前に画面に出ているアレ。
 
-.. figure:: /_static/milestone09-opening.png
+.. figure:: /_images/milestone09-opening.png
    :align: center
    :alt: オープニング
    :width: 480px
@@ -105,7 +105,7 @@ Walk Through
 ======================================================================
 タダヨが本当によくしゃべる。
 
-.. figure:: /_static/milestone09-instruction.png
+.. figure:: /_images/milestone09-instruction.png
    :align: center
    :alt: Instruction
    :width: 480px
@@ -122,7 +122,7 @@ Stage 1 - DREAMER09 (1)
 いきなりボス戦のような感じからスタート。
 意表を突くやり方としては成功していると思う。
 
-.. figure:: /_static/milestone09-stage01-opening.png
+.. figure:: /_images/milestone09-stage01-opening.png
    :align: center
    :alt: Stage 1 Opening
    :width: 480px
@@ -169,7 +169,7 @@ Stage 2 - 公園
 ======================================================================
 前作の Stage 2 を逆方向に進むような感じなのだろうか。
 
-.. figure:: /_static/milestone09-stage02-opening.png
+.. figure:: /_images/milestone09-stage02-opening.png
    :align: center
    :alt: Stage 2 Opening
    :width: 480px
@@ -328,7 +328,7 @@ Stage 2 - 公園
 
 第 2 段階
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.. figure:: /_static/milestone09-stage02-boss02.png
+.. figure:: /_images/milestone09-stage02-boss02.png
    :align: center
    :alt: Stage 2 ボス第 2 形態
    :width: 480px
@@ -347,7 +347,7 @@ Stage 3 - DREAMER09 (2)
 ======================================================================
 背景が高速道路のようだが、サントラのコメントによると、トンネル面とのこと。
 
-.. figure:: /_static/milestone09-stage03-opening.png
+.. figure:: /_images/milestone09-stage03-opening.png
    :align: center
    :alt: Stage 3 Opening
    :width: 480px
@@ -401,7 +401,7 @@ Stage 4 - 郊外の住宅地風
 難易度が高い仕上がりになっていることを思い知った。
 まだゲーム前半なのに、複数の中型機が同時に小弾や針弾を連射してくるようになっている。
 
-.. figure:: /_static/milestone09-stage04-opening.png
+.. figure:: /_images/milestone09-stage04-opening.png
    :align: center
    :alt: Stage 4 Opening
    :width: 480px
@@ -541,7 +541,7 @@ Stage 4 は道中が妙に長く感じられる構成になっている。
 ボスはイルベロのラスボスに酷似している。
 酷似というか、ロケテ時にはそのものズバリだった。
 
-.. figure:: /_static/milestone09-stage04-boss.png
+.. figure:: /_images/milestone09-stage04-boss.png
    :align: center
    :alt: Stage 4 ボス
    :width: 480px
@@ -574,7 +574,7 @@ Stage 5 - DREAMER09 (3)
 ======================================================================
 夜明前のような空だ。
 
-.. figure:: /_static/milestone09-stage05-opening.png
+.. figure:: /_images/milestone09-stage05-opening.png
    :align: center
    :alt: Stage 5 Opening
    :width: 480px
@@ -638,7 +638,7 @@ Stage 6 - 都市部
 BGM は前作の Stage 3 のアレンジと思われる。
 パターンの反復が引き起こす中毒性が素晴らしい。
 
-.. figure:: /_static/milestone09-stage06-opening.png
+.. figure:: /_images/milestone09-stage06-opening.png
    :align: center
    :alt: Stage 6 Opening
    :width: 480px
@@ -759,7 +759,7 @@ BGM は前作の Stage 3 のアレンジと思われる。
 ----------------------------------------------------------------------
 できれば網ゲージをフルにした状態でここに持って来たい。
 
-.. figure:: /_static/milestone09-stage06-cheepo-msg03.png
+.. figure:: /_images/milestone09-stage06-cheepo-msg03.png
    :align: center
    :alt: チーポ
    :width: 480px
@@ -827,7 +827,7 @@ BGM は前作の Stage 3 のアレンジと思われる。
 
 ボス戦
 ----------------------------------------------------------------------
-.. figure:: /_static/milestone09-stage06-boss.png
+.. figure:: /_images/milestone09-stage06-boss.png
    :align: center
    :alt: Stage 6 ボス
    :width: 480px
@@ -876,7 +876,7 @@ Stage 7 - DREAMER09 (4)
 ======================================================================
 夕暮れの空。
 
-.. figure:: /_static/milestone09-stage07-opening.png
+.. figure:: /_images/milestone09-stage07-opening.png
    :align: center
    :alt: Stage 7 Opening
    :width: 480px
@@ -927,7 +927,7 @@ Stage 8 - 東京上層？
 東京上層で空が見えているという設定かもしれない。
 オレンジ色の空が地面の裂け目からのぞいている。
 
-.. figure:: /_static/milestone09-stage08-opening.png
+.. figure:: /_images/milestone09-stage08-opening.png
    :align: center
    :alt: Stage 8 Opening
    :width: 480px
@@ -1036,7 +1036,7 @@ Stage 8 - 東京上層？
 
 チーポ
 ----------------------------------------------------------------------
-.. figure:: /_static/milestone09-stage08-cheepo.png
+.. figure:: /_images/milestone09-stage08-cheepo.png
    :align: center
    :alt: チーポ
    :width: 480px
@@ -1117,7 +1117,7 @@ Stage 8 - 東京上層？
 
 第 1 段階 - 側面各種砲台
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.. figure:: /_static/milestone09-stage08-boss01.png
+.. figure:: /_images/milestone09-stage08-boss01.png
    :align: center
    :alt: Stage 8 ボス第 1 形態
    :width: 480px
@@ -1134,7 +1134,7 @@ Stage 8 - 東京上層？
 
 第 2 段階 - 屋上各種砲台
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.. figure:: /_static/milestone09-stage08-boss02.png
+.. figure:: /_images/milestone09-stage08-boss02.png
    :align: center
    :alt: Stage 8 ボス第 2 形態
    :width: 480px
@@ -1147,7 +1147,7 @@ Stage 8 - 東京上層？
 
 第 3 段階 - コア砲台
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.. figure:: /_static/milestone09-stage08-boss03.png
+.. figure:: /_images/milestone09-stage08-boss03.png
    :align: center
    :alt: Stage 8 ボス第 3 形態
    :width: 480px
@@ -1180,7 +1180,7 @@ Stage 9 - ヘイヨー乳業工場
 日は沈んでヘイヨー乳業敷地内。サイロやら倉庫やらが点在する広大な土地のようだ。
 後半、崖を越えてからは一面に花が咲き誇っている。何やら幻想的だ。
 
-.. figure:: /_static/milestone09-stage09-opening.png
+.. figure:: /_images/milestone09-stage09-opening.png
    :align: center
    :alt: Stage 9 Opening
    :width: 480px
@@ -1297,7 +1297,7 @@ Stage 9 - ヘイヨー乳業工場
 
 チーポ
 ----------------------------------------------------------------------
-.. figure:: /_static/milestone09-stage09-cheepo.png
+.. figure:: /_images/milestone09-stage09-cheepo.png
    :align: center
    :alt: チーポ
    :width: 480px
@@ -1392,7 +1392,7 @@ Stage 9 - ヘイヨー乳業工場
 
 第 1 段階
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.. figure:: /_static/milestone09-stage09-boss01.png
+.. figure:: /_images/milestone09-stage09-boss01.png
    :align: center
    :alt: Stage 9 ボス第 1 形態
    :width: 480px
@@ -1414,7 +1414,7 @@ Stage 9 - ヘイヨー乳業工場
 
 第 2 段階
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.. figure:: /_static/milestone09-stage09-boss02.png
+.. figure:: /_images/milestone09-stage09-boss02.png
    :align: center
    :alt: Stage 9 ボス第 2 形態
    :width: 480px
@@ -1441,7 +1441,7 @@ Stage 9 - ヘイヨー乳業工場
 
 第 1 段階
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.. figure:: /_static/milestone09-tadayorobo01.png
+.. figure:: /_images/milestone09-tadayorobo01.png
    :align: center
    :alt: メカタダヨ第 1 形態
    :width: 480px
@@ -1477,7 +1477,7 @@ Stage 9 - ヘイヨー乳業工場
 
 第 2 段階
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.. figure:: /_static/milestone09-tadayorobo02.png
+.. figure:: /_images/milestone09-tadayorobo02.png
    :align: center
    :alt: メカタダヨ第 2 形態
    :width: 480px
@@ -1513,7 +1513,7 @@ Stage 9 - ヘイヨー乳業工場
 
 ALL? エンド
 ----------------------------------------------------------------------
-.. figure:: /_static/milestone09-ending-bad01.png
+.. figure:: /_images/milestone09-ending-bad01.png
    :align: center
    :alt: Bad ending
    :width: 480px
@@ -1553,7 +1553,7 @@ ALL? エンド
 
 真 ALL エンド
 ----------------------------------------------------------------------
-.. figure:: /_static/milestone09-ending-good01.png
+.. figure:: /_images/milestone09-ending-good01.png
    :align: center
    :alt: Good ending
    :width: 480px
@@ -1590,7 +1590,7 @@ ALL? エンド
 
 スタッフロール
 ======================================================================
-.. figure:: /_static/milestone09-credits.png
+.. figure:: /_images/milestone09-credits.png
    :align: center
    :alt: スタッフロール
    :width: 480px

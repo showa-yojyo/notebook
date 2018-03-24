@@ -232,7 +232,7 @@
 
 本書で扱われる位相空間各種の関係を、現時点では未登場のものも含んで、ここで図式化しておく：
 
-.. figure:: /_static/cd-topology-spaces.png
+.. figure:: /_images/cd-topology-spaces.png
    :align: center
    :alt: math.topology.spaces
    :width: 669px

@@ -90,7 +90,7 @@ Wikipedia_ の説明文の図を拝借して、実行してみる。
    (S, T): ({'o', 'q', 'p', 's', 'r'}, {'t'})
    cut set: {('r', 't'), ('q', 't')}
 
-.. figure:: /_static/networkx-mincut.png
+.. figure:: /_images/networkx-mincut.png
    :align: center
    :alt: Licensed under CC-BY-SA 3.0
    :width: 400px

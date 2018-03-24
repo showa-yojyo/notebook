@@ -354,7 +354,7 @@ UML 2.5 pp. 11-20 に関するノート。
    右側の文の羅列はここにある矢印から読み取れる、所有権や航行可能性の情報である。
    矢印自体は例えば A_relatedElement_relationship のように呼ぶことができる。
 
-   .. figure:: /_static/omg15-diagram-format.png
+   .. figure:: /_images/omg15-diagram-format.png
       :align: center
       :alt: Diagram Format
 

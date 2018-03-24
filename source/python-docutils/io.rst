@@ -17,14 +17,14 @@ Docutils_ の入出力インターフェイスを扱うモジュール ``docutil
 
 まずはクラス ``Input`` の継承グラフを表現するクラス図だ。次に示す。
 
-.. figure:: /_static/docutils-input.png
+.. figure:: /_images/docutils-input.png
    :align: center
    :alt: (class diagram)
    :scale: 100%
 
 次の図はクラス ``Output`` の継承グラフを表現するクラス図だ。
 
-.. figure:: /_static/docutils-output.png
+.. figure:: /_images/docutils-output.png
    :align: center
    :alt: (class diagram)
    :scale: 100%

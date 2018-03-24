@@ -150,7 +150,7 @@
     簡単なサインカーブのプロットで :code:`line_color` のはたらきを見ると、
     何らかの規則に基づいて線の色が決まっているらしいことは納得した。
 
-    .. figure:: /_static/sympy-plotting-line-color.png
+    .. figure:: /_images/sympy-plotting-line-color.png
        :align: center
        :alt: SymPy によるプロット
        :width: 815px

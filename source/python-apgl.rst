@@ -165,12 +165,16 @@ APGL_ のウェブページに "An Introduction to APGL" という PDF ファイ
 これは各エッジの重みを、そのエッジの長さとみなした
 グラフを構成するすべての頂点ペア最短経路における総距離を一発で計算するものだ。
 
-.. figure:: /_static/apgl-findall.png
+.. _apgl-findall:
+
+.. figure:: /_images/apgl-findall.png
    :align: center
    :alt: 最短経路計算対象グラフ
    :width: 387px
    :height: 251px
    :scale: 100%
+
+   最短経路計算対象グラフ
 
 イラストのグラフの最短経路を計算するコードは次のとおり。
 

@@ -17,7 +17,7 @@ k-枠場
 
   * n-枠場を持つ n 次元多様体を `平行可能化多様体 <http://mathworld.wolfram.com/Parallelizable.html>`__ と呼ぶ。
 
-.. figure:: /_static/cd-topology-framebundle.png
+.. figure:: /_images/cd-topology-framebundle.png
    :align: center
    :alt: math.topology.framebundle
    :width: 524px
@@ -230,7 +230,7 @@ k-枠場
 
 ここでファイバー束およびそれに関係する簡単な概念のいくつかを図式化したものを次に示す。
 
-.. figure:: /_static/cd-topology-bundles.png
+.. figure:: /_images/cd-topology-bundles.png
    :align: center
    :alt: math.topology.bundles
    :width: 657px

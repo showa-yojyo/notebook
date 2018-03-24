@@ -3,7 +3,7 @@
 ======================================================================
 Docutils_ の上位寄りモジュール依存関係を大雑把に表現した図を示す。
 
-.. figure:: /_static/docutils-modules.png
+.. figure:: /_images/docutils-modules.png
    :align: center
    :alt: (component diagram)
    :scale: 100%

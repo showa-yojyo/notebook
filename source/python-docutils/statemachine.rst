@@ -25,7 +25,7 @@ Docutils は reStructuredText というテキスト形式を処理するため�
 クラス ``StateMachine`` および ``State`` から派生したクラス群を大雑把に表現した図を示す。
 他のページの図と同様に、正確さよりも理解し易さを重視して若干の省略とウソが入っている。
 
-.. figure:: /_static/docutils-statemachine.png
+.. figure:: /_images/docutils-statemachine.png
    :align: center
    :alt: (class diagram)
    :scale: 100%

@@ -38,7 +38,7 @@ NetworkX のグラフ描画ルーチンの特性上、
 イメージがその度に異なっているのがわかるハズだ。
 これでは作業の要件によっては支障をきたすかもしれない。
 
-.. figure:: /_static/networkx-draw.png
+.. figure:: /_images/networkx-draw.png
    :align: center
    :alt: NetworkX によるグラフの描画
    :width: 363px

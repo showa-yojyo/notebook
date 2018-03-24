@@ -48,5 +48,5 @@ def quarter_bbox(img):
 
 if __name__ == '__main__':
     result = run(os.path.join(
-        os.path.dirname(__file__), '../../_static/illvelo.png'))
+        os.path.dirname(__file__), '../../_images/illvelo.png'))
     result.show()

@@ -548,7 +548,7 @@ Matplotlib のプロット図をインラインに Qt コンソール内に描�
 
 試しに Matplotlib を内部的に利用した NetworkX のメソッドを経由して描画してみよう。
 
-.. figure:: /_static/ipython-qtconsole-inline.png
+.. figure:: /_images/ipython-qtconsole-inline.png
    :align: center
    :alt: IPython Qt Console
    :width: 614px

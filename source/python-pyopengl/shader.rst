@@ -255,12 +255,12 @@ VertexAttrib 系関数の呼び出しを初期化メソッドで済ませてい�
 表示されるグラフィックは次のようなものだ。
 マウスドラッグでズームや回転を試すこともできる。
 
-.. image:: /_static/pyopengl-shader-demo.png
+.. figure:: /_images/pyopengl-shader-demo.png
    :alt: 初期状態
    :width: 308px
    :height: 327px
    :scale: 100%
-.. image:: /_static/pyopengl-shader-transform.png
+.. figure:: /_images/pyopengl-shader-transform.png
    :alt: ズームと回転
    :width: 308px
    :height: 327px

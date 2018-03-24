@@ -702,7 +702,7 @@ Qt ウィンドウで実現された IPython セッションと表現すれば�
 下の図は Jupyter QtConsole を起動し、たまたま手許にある
 Matplotlib のデモコードを一つ実行したときの画面だ。
 
-.. figure:: /_static/jupyter-qtconsole.png
+.. figure:: /_images/jupyter-qtconsole.png
    :align: center
    :alt: Jupyter QtConsole
    :scale: 50%

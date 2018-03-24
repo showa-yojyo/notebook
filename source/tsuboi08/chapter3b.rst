@@ -172,7 +172,7 @@
      H^k(K) = \ker(\fn{\delta}{C^k(K)}C^{k + 1}(K))
       / \im(\fn{\delta}{C^{k - 1}(K)}C^k(K))
 
-.. figure:: /_static/cd-topology-simplicial.png
+.. figure:: /_images/cd-topology-simplicial.png
    :align: center
    :alt: math.topology.algebraic.simplicial
    :width: 793px

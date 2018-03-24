@@ -33,12 +33,14 @@
 
 本書では下の図式の右下二つの多様体を主に扱うことになる。
 
-.. figure:: /_static/cd-topology-manifolds.png
+.. figure:: /_images/cd-topology-manifolds.png
    :align: center
    :alt: math.topology.manifolds
    :width: 643px
    :height: 276px
    :scale: 100%
+
+   本書が対象とする多様体
 
 .. _tsuboi05.3.1.5:
 

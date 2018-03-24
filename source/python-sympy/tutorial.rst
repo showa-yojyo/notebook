@@ -261,7 +261,7 @@ Setting up Pretty Printing
 
   * 出来た！
 
-    .. figure:: /_static/sympy-printing-latex.png
+    .. figure:: /_images/sympy-printing-latex.png
        :align: center
        :alt: 数式を LaTeX によるイメージで出力する
        :width: 607px

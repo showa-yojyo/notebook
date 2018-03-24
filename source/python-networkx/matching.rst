@@ -27,7 +27,7 @@ Wikipedia_ のイラストを参考にしてグラフを構築し、
    {(0, 1), (2, 4), (3, 5)}
    {(0, 1), (2, 4)}
 
-.. figure:: /_static/networkx-maximal-matching.png
+.. figure:: /_images/networkx-maximal-matching.png
    :align: center
    :alt: Licensed under CC-BY-SA 3.0
    :width: 300px
@@ -65,7 +65,7 @@ Wikipedia_ のイラストを参考にしてグラフを構築し、
 こちらも当該記事とは異なるエッジセットが得られた。
 図の上の行がオリジナルで、下の行が本プログラムによる最大マッチングだ。
 
-.. figure:: /_static/networkx-maximum-matching.png
+.. figure:: /_images/networkx-maximum-matching.png
    :align: center
    :alt: Licensed under CC-BY-SA 3.0
    :width: 300px

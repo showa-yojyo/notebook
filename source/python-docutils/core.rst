@@ -13,7 +13,7 @@
 処理を一箇所に閉じ込めて、クライアントとの窓口にして機能するように設計されている。
 クライアントというのは、後述する関数 ``publish_xxxx`` 系がまさに相当する。
 
-.. figure:: /_static/docutils-publisher-od.png
+.. figure:: /_images/docutils-publisher-od.png
    :align: center
    :alt: (component diagram)
    :scale: 100%
@@ -86,7 +86,7 @@
   #. 構文木の変換 ``self.apply_transforms``
   #. 書き出し処理 ``self.writer.write``
 
-  .. figure:: /_static/docutils-publisher-sd.png
+  .. figure:: /_images/docutils-publisher-sd.png
      :align: center
      :alt: (component diagram)
      :scale: 100%
