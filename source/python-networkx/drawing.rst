@@ -36,13 +36,13 @@ Matplotlib との連携
 * ノードラベルは日本語なので、適切なフォントをセットする必要がある。
   どうも Matplotlib のインスタンスを直接操作せねばならぬようなので、このようにした。
 
-例によって実行するたびにグラフの見てくれが異なる場合がある。次の図はその一例と思って欲しい。
+実行結果を次に示す：
 
 .. figure:: /_images/networkx-drawing-mpl.png
    :align: center
    :alt: 賢者の石レシピ
-   :width: 424px
-   :height: 299px
+   :width: 640px
+   :height: 478px
    :scale: 100%
 
 PyGraphviz との連携
