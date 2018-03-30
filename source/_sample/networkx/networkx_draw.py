@@ -20,7 +20,7 @@ G.add_weighted_edges_from(
      (4, 5, 11.0),))
 
 # Position nodes using Fruchterman-Reingold force-directed algorithm.
-pos = nx.spring_layout(G, k=5.)
+pos = nx.spring_layout(G, k=5., random_state=0)
 
 # Draw labels for nodes and edges.
 nx.draw_networkx_labels(G, pos)
