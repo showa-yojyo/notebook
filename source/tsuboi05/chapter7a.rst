@@ -260,7 +260,7 @@
      \end{align*}
 
   * ちなみに曲線のパラメーターの取り方は積分の値に影響しない。
-  * 作用 :math:`\displaystyle A(c) = \int_0^1\!\sum_{i, j}g_{ij} \circ \diff{c_i}{t} \diff{c_j}{t}\,dd{t}`
+  * 作用 :math:`\displaystyle A(c) = \int_0^1\!\sum_{i, j}g_{ij} \circ \diff{c_i}{t} \diff{c_j}{t}\,\dd{t}`
     について、本章の冒頭で述べたように :math:`L(c)^2 \le A(c)` が成りたつ。
 
     * 関数の内積、コーシー・シュワルツの不等式の等号成立条件などの検討をする。
@@ -280,7 +280,7 @@
     が必要。
 
   * 整形すると次のようになる。ただし :math:`g^{ij} = g_{ij}\inv` とする。
-    :math:`\sum_k g^{lk}g_{kj} = \delta_{ij}` や :math:`g_{ij},\ g^{ij}` が対称行列であることに注意。
+    :math:`\sum_k g^{ik}g_{kj} = \delta_{ij}` や :math:`g_{ij},\ g^{ij}` が対称行列であることに注意。
 
     .. math::
        :nowrap:
@@ -370,6 +370,7 @@
     * 特に :math:`\Gamma_{ij}^l` がリーマン計量から定まる接続を
       `レビチビタ接続 <http://mathworld.wolfram.com/Levi-CivitaConnection.html>`__
       という（正規直交系を正規直交系に平行移動）。
+      先程見たように :math:`\Gamma_{ij}^l = \Gamma_{ji}^l` が成り立つ。
 
 .. _tsuboi05.7.3.2:
 
@@ -400,6 +401,19 @@
 #. :math:`E_{\bm x}: \bm v \longmapsto F(1, \bm x, \bm v)` は原点の近傍から
    :math:`\bm x` の近傍への微分同相写像である。
    この写像を `指数写像 <http://mathworld.wolfram.com/ExponentialMap.html>`__ という。
+
+..
+
+* 指数写像 :math:`E_x` は :math:`T_xM` の原点（零ベクトル）のある小近傍から
+  :math:`M` への微分同相写像になる。
+  平たく言えば点 :math:`x` から方向 :math:`v` に伸びる唯一の測地線
+  :math:`c` 上の点に対応させる写像だ。上の議論は
+
+  .. math::
+
+     v = \diff{c}{t}(0) \in T_xM
+
+  であることを言っている。
 
 .. _tsuboi05.7.4.1:
 
@@ -461,7 +475,7 @@
     ここでは :math:`\Gamma_{ij}^1,\ \Gamma_{ij}^2` をそれぞれ一行にまとめて記している。
     左辺はスカラーに見えるが、実は行列の :math:`(i, j)` 成分がこの式であるような行列であると読者側が了解しないといけない。
 
-  * 各 :math:`\Gamma_{ij}^l\quad(l = 1, 2)` を計算する。
+  * 各 :math:`\Gamma_{ij}^l\ (l = 1, 2)` を計算する。
     :math:`g` が対角行列なので逆行列が計算しやすくて助かる。
 
   * 最終的に二階常微分方程式が得られるが、
@@ -484,6 +498,10 @@
   * 写像 :math:`\fn{s_0}{M}TM` が `零切断 <http://mathworld.wolfram.com/ZeroSection.html>`__ である。
     つまり次の性質がある：
     :math:`s_0(x) = 0 \in T_xM.`
+
+  切断がわからない場合はファイバー束周辺を先に学習することだ。
+  簡単に言うと、切断とはファイバー束の射影と合成すると底空間における恒等写像になるような、
+  底空間から全空間への写像だ。
 
   :math:`F` は :math:`s_0` の像の近傍から対角集合 :math:`\Delta` の近傍への微分同相写像であることを証明する。
 
