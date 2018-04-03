@@ -270,19 +270,10 @@
 
 クラス TensorProduct
 ----------------------------------------------------------------------
-クラス TensorProduct はベクトル場と微分形式からなるテンソル場を構成する基底を表現する。
-例えば :math:`\RR^n` の (a, b) 型テンソル場は数式では次のように表すものだ
-（いまさらだが、テンソルの話題になるので添字の上下を厳密に書く）：
+クラス TensorProduct は多様体の座標近傍における（ふつうは一次の）微分形式とベクトル場からなる
+テンソルを表現することができる。
 
-.. math::
-
-   \xi = \sum_{\substack{i_1, \dotsc, i_a = 1,\\j_1, \dotsc, j_b = 1}}^n \xi_{j_1, \dotsc, j_b}^{i_i, \dotsc, i_a}
-         \frac{\partial}{\partial x^{i_1}} \otimes \dotsb \otimes \frac{\partial}{\partial x^{i_a}}
-         \otimes
-         \dd x^{j_1} \otimes \dotsb \otimes \dd x^{j_b}.
-
-クラス TensorProduct は上記のシグマ記号の「中身」を表現することができる。
-SymPy を使うとこのようにできる：
+次の例ではある 5 次元多様体で簡単な (2, 3) テンソルを定義する：
 
 .. code:: ipython
 
@@ -292,7 +283,7 @@ SymPy を使うとこのようにできる：
 
    In [3]: x_0, x_1, x_2, x_3, x_4 = U.coord_functions()
       ...: X_0, X_1, X_2, X_3, X_4 = U.base_vectors()
-      ...: dx0, dx_1, dx_2, dx_3, dx_4 = U.base_oneforms()
+      ...: dx_0, dx_1, dx_2, dx_3, dx_4 = U.base_oneforms()
       ...:
 
    In [4]: T = TensorProduct(X_1, X_4, dx_0, dx_2, dx_3)
@@ -301,18 +292,53 @@ SymPy を使うとこのようにできる：
 
    In [6]: assert contravariant_order(T) == 2
 
-数式中の :math:`\xi_{j_1, \dotsc, j_b}^{i_i, \dotsc, i_a}` は多様体上の :math:`C^\infty` 級関数であるが、
-それは保留していったん先へ進む。
+TensorProduct 型オブジェクトに対して丸括弧演算子を呼び出すことで、
+テンソルの多重線形写像としての評価を行うことができる。引数として
 
-SymPy では次のように丸括弧演算子でテンソル積の作用（内積みたいなもの）を計算する：
+* 微分形式に対応する引数にはベクトル場を、
+* ベクトル場に対応する引数には局所座標からなるスカラー場を
+
+それぞれ指定する必要がある。
+テンソルの各成分ごとの演算結果の積を計算するものと考えるのがわかりやすい：
 
 .. code:: ipython
 
-   In [7]: T(x_1)(x_4)(X_0)(X_2)(X_3)
-   Out[7]: 1
+   In [7]: from sympy import var
 
-   In [8]: T(x1 ** -2, x4, X0, X0 + X1 + X2 + X3 + X4, X3)
-   Out[8]: -2/x_1**3
+   In [8]: var('k0:5')
+   Out[8]: (k0, k1, k2, k3, k4)
+
+   In [9]: T(k0*x_1, k1*x_4, k2*X_0, k3*X_2, k4*X_3)
+   Out[9]: k0*k1*k2*k3*k4
+
+   In [10]: T(x1 ** -2, x4, X0, X0 + X1 + X2 + X3 + X4, X3)
+   Out[10]: -2/x_1**3
+
+空の TensorProduct オブジェクトは 1 と評価される。
+
+.. code:: ipython
+
+   In [11]: TensorProduct()
+   Out[11]: 1
+
+TensorProduct オブジェクトの ``rcall`` 呼び出しで計量縮約を行なうことができる。
+次の例は 3 次元ユークリッド空間にテキトーな計量 :math:`g` を定義して、
+接空間の各基底（当然テンソルの一種とみなせる）と ``None`` を引数として呼び出すものだ：
+
+.. code:: ipython
+
+   In [12]: TP = TensorProduct
+
+   In [13]: g = k0*TP(R3_r.dx, R3_r.dx) + k1*TP(R3_r.dy, R3_r.dy) + k2*TP(R3_r.dz, R3_r.dz)
+
+   In [14]: g.rcall(R3_r.e_x, None)
+   Out[14]: k0*dx
+
+   In [15]: g.rcall(R3_r.e_y, None)
+   Out[15]: k1*dy
+
+   In [16]: g.rcall(R3_r.e_z, None)
+   Out[16]: k2*dz
 
 クラス WedgeProduct
 ----------------------------------------------------------------------
