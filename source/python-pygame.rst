@@ -40,14 +40,14 @@ Python 3.x 系や 64 ビット環境の場合は公式サイトではなく、
 ----------------------------------------------------------------------
 コンソールから次のようにタイプすると、テストを実行することになっている。
 
-.. code-block:: console
+.. code:: console
 
    $ python34 -m pygame.tests
 
 別のウィンドウがパカパカ開いたり閉じたりするが、根気よく待つ。
 すると、いつもの単体テストの結果らしきテキストがコンソールウィンドウに出力される。
 
-.. code-block:: console
+.. code:: console
 
    skipping pygame.tests._movie_test (tag 'subprocess_ignore')
    skipping pygame.tests.cdrom_test (tag 'interactive')

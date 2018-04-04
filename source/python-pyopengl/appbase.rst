@@ -57,7 +57,7 @@ OpenGL サポートバージョン情報表示機能
   プログラムが利用する OpenGL のバージョンが 2.0 以上のときしか表示しないし、
   することができない。
 
-  .. code-block:: text
+  .. code:: text
 
      Vendor: Intel
      Renderer: Intel(R) HD Graphics

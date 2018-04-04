@@ -40,7 +40,7 @@ LU 分解がどうだのという議論に終始するものだ。
 
 私の環境での実行結果は次のとおり（見栄えのために一部空白文字を手動で挿入）。
 
-.. code-block:: text
+.. code:: text
 
    Solve Ax = b:
     [[ 1.]
@@ -70,7 +70,7 @@ LU 分解
 
 私の環境での実行結果は次のとおり（見栄えのために一部空白文字を手動で挿入）。
 
-.. code-block:: text
+.. code:: text
 
    LU decomposition (A = PLU):
    P:
@@ -104,12 +104,12 @@ LU 分解は一意に定まらないものなので、三角行列が期待し�
 
 SymPy_ を用いた解法について補足する。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: solve([2*x - y + 2*z - 8, x - y - 2*z + 1, -2*x + y - z + 6], [x, y, z])
    Out[1]: {x: 1, y: -2, z: 2}
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: A = Matrix([[1, 2, 2], [2, 5, 6], [3, 8, 12]])
 

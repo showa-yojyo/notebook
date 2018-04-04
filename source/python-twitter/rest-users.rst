@@ -54,7 +54,7 @@ Twitter クライアントを自作する者が利用するのだろう。
 実際にブラウザーで下記 ``url`` にアクセスすると、現在のプロフィール画像が描画されるはずだ。
 なお、私が新しいものに更新しない限り有効だ。
 
-.. code-block:: console
+.. code:: console
 
    $ ./users-profile_banner.py
    {'1500x500': {'h': 500,
@@ -99,7 +99,7 @@ GET users/suggestions は Twitter によるおすすめアカウントのカテ�
 リストには山ほどユーザーを収容していることからこういう構成になっているのだろうかと思う。
 お笑い系はどこにもいないのだが？
 
-.. code-block:: console
+.. code:: console
 
    $ ./users-suggestions.py
    Twitter|twitter|13
@@ -132,7 +132,7 @@ GET users/suggestions/:slug は上記のあるカテゴリーのユーザー群�
 
 次に実行結果を示す。大部分を省略する。
 
-.. code-block:: console
+.. code:: console
 
    $ ./users-suggestions-slug.py
    {
@@ -171,7 +171,7 @@ GET users/suggestions/:slug/members は上記の GET users/suggestions/:slug の
 
 次に実行結果を示す。大部分を省略する。
 
-.. code-block:: console
+.. code:: console
 
    $ ./users-suggestions-slug-members.py
    [

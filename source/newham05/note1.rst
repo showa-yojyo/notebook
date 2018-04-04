@@ -81,7 +81,7 @@
 ~~~~~~~~~~~~~~~~~~
 * 後で以下の入力を試してみる。
 
-  .. code-block:: bash
+  .. code:: bash
 
      echo b{ed,olt,ar}s
      echo b{ar{d,n,k},ed}s
@@ -205,7 +205,7 @@
   ``$if bash`` という条件文を挿入する> (p. 54)
 * <変数を設定するには、``.inputrc`` ファイルで ``set`` コマンドを使用する> (p. 55)
 
-  .. code-block:: bash
+  .. code:: bash
 
      # bash を vi モードで起動するようにする
      set editing-mode vi
@@ -217,7 +217,7 @@
 * <キー配列にシェルコマンドをバインドしたい場合には、
   ``bind -x`` が便利である>
 
-  .. code-block:: bash
+  .. code:: bash
 
      # CTRL+L を ls コマンドにバインドする
      bind -x '"\C-l":ls'
@@ -260,7 +260,7 @@
 
 * エイリアスは再帰的であるが、無限ループに陥らないようにできている。
 
-  .. code-block:: bash
+  .. code:: bash
 
     # 無限ループにならない
     alias ls='ls -l'
@@ -345,7 +345,7 @@
 
 * 特定のサブプロセス環境だけで使用する環境変数を定義することもできる。
 
-  .. code-block:: bash
+  .. code:: bash
 
      TERM=trythisone emacs file-name
 
@@ -358,7 +358,7 @@
 * <原則としては、``.bash_profile`` 内の定義をできるだけ減らし、
   環境定義ファイル (``.bashrc``) の定義をできるだけ増やす> (p. 84)
 
-  .. code-block:: bash
+  .. code:: bash
 
      stty stop ^S intr ^C erase ^?
      date

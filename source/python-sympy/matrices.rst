@@ -13,7 +13,7 @@
    本文中のすべての IPython セッション中のサンプルコードで、
    以下のインポートおよび出力書式設定が済んでいるものとする。
 
-   .. code-block:: python3
+   .. code:: python3
 
       from sympy.matrices import *
       init_printing(pretty_print=False)
@@ -26,7 +26,7 @@
 ----------------------------------------------------------------------
 行列オブジェクトの基本単位を表現するためのクラスの論理的な継承関係は次のようになっている。
 
-.. code-block:: text
+.. code:: text
 
    MatrixBase
        MutableDenseMatrix
@@ -53,7 +53,7 @@
 
 継承ツリーの右側に関連するフリー関数、行列クラスのメソッド、メモを併記する。
 
-.. code-block:: text
+.. code:: text
 
    MatrixExpr
        MatrixSymbol                    シンボル（記号）としての行列
@@ -554,7 +554,7 @@ NumPy の :code:`numpy.array` オブジェクトにコンバートするため�
 関数 :code:`symarray(prefix, shape)`
   説明するよりも動きを示したほうが早い。
 
-  .. code-block:: ipython
+  .. code:: ipython
 
      In [1]: symarray('ppppp', (3, 3))
      Out[1]: array([[ppppp_0_0, ppppp_0_1, ppppp_0_2],
@@ -574,7 +574,7 @@ Berkowitz のアルゴリズムを検証する
 メソッド :code:`berkowitz` を呼び出して戻り値を得る。
 この戻り値から行列のさまざまな属性が得られることを見よう。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]:M = Matrix(3, 3, symbols('a:3:3')); M
    Out[1]:
@@ -631,7 +631,7 @@ LU 分解再挑戦
 ----------------------------------------------------------------------
 :doc:`/python-scipy/linear-equations` で LU 分解した行列を SymPy で分解すると結果が異なるのではないか。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: A = Matrix([[1, 2, 2], [2, 5, 6], [3, 8, 12]])
 

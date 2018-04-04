@@ -22,7 +22,7 @@ Sphinx のビルド対象外の孤立した rst ファイルの確認に用い�
 :ref:`python-pkg-proc` を参照。
 以下に :program:`pip` によるインストールの進行例を示す。
 
-.. code-block:: console
+.. code:: console
 
    $ pip install restview
    Collecting restview
@@ -50,7 +50,7 @@ README.rst を確認する
 直ちにウェブブラウザーが自動的に開いて README の HTML 版を表示する。
 その後、下に示すように HTTP ログを表示し続ける。
 
-.. code-block:: console
+.. code:: console
 
    $ restview README.rst
    Listening on http://localhost:64492/
@@ -67,7 +67,7 @@ README.rst を確認する
 
 次のログは rst ファイルの 99 行目辺りにテキトーにテキストを挿入して保存した例である。
 
-.. code-block:: console
+.. code:: console
 
    127.0.0.1 - - [29/Oct/2015 22:41:55] "HEAD /polling?pathname=/&mtime=1446040040.280132 HTTP/1.1" 200 -
    README.rst:99: (ERROR/3) Unexpected indentation.
@@ -96,7 +96,7 @@ README を見せるのは主に GitHub のページであり、
 * Docutils_ があるのだから、自力で HTML に変換してブラウザーで開いても手間はあまり変わらない。
   ただ Cygwin 環境だと Python のスクリプト呼び出しが若干面倒なので確かに有用かもしれない。
 
-  .. code-block:: console
+  .. code:: console
 
      $ python "$PYTHON_SCRIPTS_DIR/rst2html.py" README.rst > /tmp/README.html
      $ cygstart /tmp/README.html

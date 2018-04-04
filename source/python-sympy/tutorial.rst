@@ -23,7 +23,7 @@ Installtion
   若干異なる。おそらく関数 :code:`init_printing` を異なる引数で適用したか、
   利用するコンソール環境の Unicode サポート状況に違いがあるのだろう。
 
-  .. code-block:: ipython
+  .. code:: ipython
 
      In [1]: a = Integral(cos(x) * exp(x), x)
 
@@ -41,7 +41,7 @@ Installtion
   または起動時にコマンドラインオプション ``--pretty=no`` とすれば、
   出力の書式がコンソールにやさしいものに変わる。
 
-  .. code-block:: ipython
+  .. code:: ipython
 
      In [3]: init_printing(pretty_print=False)
 
@@ -201,7 +201,7 @@ Substitution
 
 * 多変数の同時代入例
 
-  .. code-block:: ipython
+  .. code:: ipython
 
      In [1]: expr = x**3 + 4*x*y - z
 

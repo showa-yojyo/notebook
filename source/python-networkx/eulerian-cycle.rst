@@ -45,7 +45,7 @@
 まず、各ノードの位数を :code:`G.degree()` で確かめる。
 次の出力は :code:`pprint.pprint(G.degree())` の結果である。
 
-.. code-block:: text
+.. code:: text
    :emphasize-lines: 2,5,8,9
 
    {'おどりこ': 8,
@@ -80,7 +80,7 @@
 出力例を示す。なお、関数 :code:`nx.eulerian_circuit` の結果は実行するごとにランダムに変わるようなので、
 再度実行してもこれと同じ結果が得られない場合がある。
 
-.. code-block:: text
+.. code:: text
 
    ('まほうつかい', 'わらわせし') メダパニ
    ('わらわせし', 'ぶとうか') しっぺ返し

@@ -32,7 +32,7 @@ NumPy 利用ノート
    以降の Python インタープリターセッション内にあるコード片では、
    次の ``import`` を済ませてあるものとする。
 
-   .. code-block:: python3
+   .. code:: python3
 
       import numpy as np
 

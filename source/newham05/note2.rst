@@ -24,7 +24,7 @@
   メモリにシェルコードが格納される。
 * 定義方法は次のどちらかとなる。機能差はない。
 
-  .. code-block:: bash
+  .. code:: bash
 
     function function-name
     {
@@ -91,7 +91,7 @@
 * <位置パラメータの値をわかりやすい名前の変数に代入すれば、
   変数名を改善することができる> (p. 98)
 
-  .. code-block:: bash
+  .. code:: bash
 
      filename=$1
      howmany=${2:-10}
@@ -107,7 +107,7 @@
 
 * 置換は ``${variable/pattern/string}`` か ``${variable//pattern/string}`` で行う。
 
-  .. code-block:: bash
+  .. code:: bash
 
      outfile=${filename%.pcx}.jpg
 
@@ -139,7 +139,7 @@
 * 昔はバッククォートで囲んでいたようだが、読みにくいうえに入れ子にできない。
   ドルカッコのほうを使うべし。
 
-  .. code-block:: bash
+  .. code:: bash
 
      ls -l $(type -path -all command-name)
 
@@ -350,7 +350,7 @@
 --------
 * 配列の定義方法はいくつかある。とりあえず次の方法だけ覚える。
 
-  .. code-block:: bash
+  .. code:: bash
 
      # 方法 1
      names[2]=alice
@@ -433,7 +433,7 @@
   関数呼び出しの右側にリダイレクタを書いたり、
   関数定義の終了直後にリダイレクタを書いたりできる。
 
-  .. code-block:: bash
+  .. code:: bash
 
      findterm () {
         # ...関数定義
@@ -441,7 +441,7 @@
 
      findterm < /etc/terms
 
-  .. code-block:: bash
+  .. code:: bash
 
      findterm () {
        # ...関数定義
@@ -457,7 +457,7 @@
   下のコード片だが、``echo -n`` で改行を抑制していることと、
   ``>&2`` で標準出力を標準エラー出力に切り替えていることがポイント。
 
-  .. code-block:: bash
+  .. code:: bash
 
      echo -n 'terminal? ' >&2
 
@@ -491,7 +491,7 @@
   思わぬ結果を招くからだ。バックスラッシュには、
   ``eval`` コマンド自体が実行されるまでの変数の評価を先送りするという働きがある> (p. 198)
 
-  .. code-block:: bash
+  .. code:: bash
 
      eval sort -nr \$1 ${2:+"| head -\$2"}
 

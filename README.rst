@@ -47,7 +47,7 @@ Git_
 一言で言えばコマンドラインから git を用いて GitHub のサーバーからファイルをダウンロードする。
 仮にゼロからビルド環境を構築するとなると、次のことをすれば最新の状態を再現できる。
 
-.. code-block:: console
+.. code:: console
 
    $ cd $MY_DEV_DIR
    $ git clone https://github.com/showa-yojyo/notebook.git
@@ -58,7 +58,7 @@ Git_
 ノートのビルドは ``notebook`` ディレクトリー直下で次のようにする。
 初回のみ ``git clone`` が必要であることに注意して欲しい。
 
-.. code-block:: console
+.. code:: console
 
    $ git clone -b gh-pages --single-branch https://github.com/showa-yojyo/notebook.git gh-pages
    $ make gh-pages
@@ -76,9 +76,6 @@ Git_
 
 * HTML ファイル群の push は普通に行う。
 * 日常ルールではソースコードの push は ``develop`` ブランチのみに限定している。
-
-* プッシュすると Twitter の私のタイムラインにコミット数分だけのログが自動的に流れる。
-  あまり人の目につかない時間帯に push したい。
 
 非読者（一般の皆さん）向け説明
 ----------------------------------------------------------------------

@@ -17,7 +17,7 @@ Git はコマンドもオプションも数が多くてとにかく憶えにく�
 ``[common-options]`` の部分に来るコマンドラインオプションのこととする。
 自分が使う可能性の高いものを記す。
 
-.. code-block:: console
+.. code:: console
 
    $ git [common-options] <command> [command-options] <args>
 
@@ -956,7 +956,7 @@ verify-pack.
 
 次のものはシェルでインデックスから削除されたファイルを本当に削除するときのコマンド例。
 
-.. code-block:: console
+.. code:: console
 
    $ rm $(git ls-files --deleted)
 
@@ -965,7 +965,7 @@ verify-pack.
 そのときは次のようなワンライナーで一気に片付く。
 次にファイル内の文字列 ``OLD_PATTERN`` を ``NEW_PATTERN`` に置換する例を示す。
 
-.. code-block:: console
+.. code:: console
 
    $ git ls-files -z | xargs -0 sed -i -e 's/OLD_PATTERN/NEW_PATTERN/g'
 

@@ -14,7 +14,7 @@
    本文中のすべての IPython セッション中のサンプルコードで、
    以下の出力書式設定が済んでいるものとする。
 
-   .. code-block:: python3
+   .. code:: python3
 
       init_printing(pretty_print=False)
 
@@ -110,7 +110,7 @@ Vector オブジェクトに対して、次の関数およびクラスによる 
 * オブジェクトをコンストラクターで直接生成することはまれであり、
   通常は Vector のメソッド :code:`outer` もしくは演算子 :code:`|` により生成する。
 
-  .. code-block:: ipython
+  .. code:: ipython
 
      In [1]: from sympy.vector import *
 
@@ -132,7 +132,7 @@ Vector オブジェクトに対して、次の関数およびクラスによる 
 
 * ベクトルのスカラー積、クロス積とも混ぜて利用可能。
 
-  .. code-block:: ipython
+  .. code:: ipython
 
      In [6]: c = sum((i * j for i, j in zip(symbols('c0:3'), N.base_vectors())), Vector.zero)
 
@@ -263,7 +263,7 @@ Vector オブジェクトに対して、次の関数およびクラスによる 
 
 例を示す。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: from sympy.vector import *
 
@@ -286,7 +286,7 @@ Vector オブジェクトに対して、次の関数およびクラスによる 
 
 例を示す。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: from sympy.vector import *
 
@@ -313,7 +313,7 @@ Vector オブジェクトに対して、次の関数およびクラスによる 
 
 例を示す。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: from sympy.vector import *
 
@@ -340,7 +340,7 @@ Vector オブジェクトに対して、次の関数およびクラスによる 
 または関数メソッド :code:`gradient` を呼ぶことで、
 スカラー関数から勾配ベクトル場オブジェクトが生成できている。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: from sympy.vector import *
 
@@ -366,7 +366,7 @@ Vector オブジェクトに対して、次の関数およびクラスによる 
 
 例を示す。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: # Create N, a, b, f(x, y, z), fx, fy, and fz.
 
@@ -417,7 +417,7 @@ Vector オブジェクトに対して、次の関数およびクラスによる 
 また、このベクトル場の始点と終点をそれぞれ :math:`P_0(0, 0, 0)` と :math:`P_1(10, 10, 10)` とする、
 何らかの経路上の線積分を関数 :code:`scalar_potential_difference` を利用して求める手続きの例を示す。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: from sympy.vector import *
 

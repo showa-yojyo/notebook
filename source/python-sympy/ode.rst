@@ -13,7 +13,7 @@
    本文中のすべての IPython セッション中のサンプルコードで、
    以下のインポートおよび出力書式設定が済んでいるものとする。
 
-   .. code-block:: python3
+   .. code:: python3
 
       init_printing(pretty_print=False)
 
@@ -228,7 +228,7 @@ SymPy のドキュメントが関数名と微分方程式の数式 (LaTeX) を�
 このタイプ判定が下の図のように入れ子になっていて、
 末端のソルバーでは結局 :code:`dsolve` を単一の方程式に対して適用することを繰り返す。
 
-.. code-block:: text
+.. code:: text
 
    sysode_linear_neq_order<M>
        sysode_linear_neq_order1
@@ -279,7 +279,7 @@ SymPy のドキュメントが関数名と微分方程式の数式 (LaTeX) を�
 次のデモは単に :code:`integrate` するだけで解が得られる常微分方程式を与えるものだ。
 SymPy のソルバーは一階線形常微分方程式の特別に単純な場合として処理する。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: eq = f(x).diff(x) - x**2 * sin(x) + sqrt(1 + x**2)
 
@@ -303,7 +303,7 @@ SymPy のソルバーは一階線形常微分方程式の特別に単純な場�
 次のデモは、変数分離形のつもりで常微分方程式を解いたところ、
 むしろ Bernoulli 型のほうが解きやすい？と言われたものだ。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: eq = f(x).diff(x) - (x ** 2 * f(x) ** 2)/sqrt(3 - x**2)
 
@@ -333,7 +333,7 @@ SymPy のソルバーは一階線形常微分方程式の特別に単純な場�
 
 変数分離形としてだけ扱われる常微分方程式を解く。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [5]: eq = f(x).diff(x) - (x**2 * exp(f(x)))/sqrt(3 - x**2)
 
@@ -352,7 +352,7 @@ SymPy のソルバーは一階線形常微分方程式の特別に単純な場�
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 次のデモは同次常微分方程式を解くものだ。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: eq = f(x).diff(x) + (x**2 - 3 * f(x)**2)/(x * f(x))
 
@@ -374,7 +374,7 @@ SymPy のソルバーは一階線形常微分方程式の特別に単純な場�
 一階線形方程式の例だ。
 どのような常微分方程式のタイプとして扱っても厳しい積分が現れる。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: eq = f(x).diff(x) + x * f(x) - exp(3*x)
 
@@ -394,7 +394,7 @@ Bernoulli 常微分方程式
 Bernoulli 常微分方程式を解く。
 二番目のものは積分に時間が掛かるのだろうか、ついに返って来なかったので諦めた。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: eq = f(x).diff(x) + 11*x*f(x) - x**3 * f(x)**3
 
@@ -428,7 +428,7 @@ Riccati 常微分方程式
 ベストは :code:`separable_reduced` だと判定された。
 それにしては解の有理式の形がやや不自然なようだ。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: eq = f(x).diff(x) + (2/x**2) - 3 * f(x)**2
 
@@ -471,7 +471,7 @@ Riccati 常微分方程式
 特性方程式の解のパターン別に試す。
 ソルバーが適切なタイプ判定をしていることがわかる。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: eq = f(x).diff(x, 2) + 5 * f(x).diff(x) - 6 * f(x)
 
@@ -507,7 +507,7 @@ Euler 常微分方程式
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Euler 常微分方程式のデモを示す。同次。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: eq = x**2 * f(x).diff(x, 2) + 5 * x * f(x).diff(x) + 6 * f(x)
 
@@ -521,7 +521,7 @@ Euler 常微分方程式のデモを示す。同次。
 
 次のものは非同次？
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: eq = x**2 * f(x).diff(x, 2) - 2 * f(x) - x**3 * exp(x)
 
@@ -545,7 +545,7 @@ Euler 常微分方程式のデモを示す。同次。
 Airy 微分方程式を解く。
 ここではべき級数の形で一般解を得たが、よそではある広義積分で与えられる。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: eq = f(x).diff(x, 2) - x * f(x)
 
@@ -565,7 +565,7 @@ Bessel 微分方程式を解く。
 SymPy は Airy 関数も Bessel 関数も持っているのに、
 微分方程式のモジュールには関与していないということだろうか。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: eq = x**2 * f(x).diff(x, 2) + x * f(x).diff(x) + (x**2 - 16)*f(x)
 
@@ -651,7 +651,7 @@ SymPy は Airy 関数も Bessel 関数も持っているのに、
 解けているように見えるが、ヒントを :code:`all` にすると返って来ない？
 後半で同次版も解いてみる。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: eq = x**2 * f(x).diff(x, 2) + f(x) - x**2
 
@@ -676,7 +676,7 @@ SymPy は Airy 関数も Bessel 関数も持っているのに、
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Liouville 型は解ける。それ以外が解けない。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: eq = f(x).diff(x, 2) - 5 * x * f(x).diff(x) - f(x).diff(x)**2
 
@@ -729,7 +729,7 @@ Liouville 型は解ける。それ以外が解けない。
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 SymPy のソルバーは 2 階以上は全部高階扱い。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: eq = f(x).diff(x, 5) - 17 * f(x).diff(x, 4) + 108 * f(x).diff(x, 3) -330 * f(x).diff(x, 2) + 488 * f(x).diff(x) - 280 * f(x)
 
@@ -748,7 +748,7 @@ SymPy のソルバーは 2 階以上は全部高階扱い。
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 SymPy のソルバーは 2 階以上は全部高階扱い。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: eq = x**4 * f(x).diff(x, 4) - 2*x**3 * f(x).diff(x, 3) - x**2 * f(x).diff(x, 2) + 5 * x * f(x).diff(x) + f(x)
 
@@ -789,7 +789,7 @@ SymPy のソルバーは 2 階以上は全部高階扱い。
 次の例題は Airy 関数と Bessel 関数で一般解を返して欲しいもの。
 これはアウトのようだ。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: eq = f(x).diff(x, 3) - 4*(x + 2)*f(x).diff(x) - 2 * f(x)
 
@@ -803,7 +803,7 @@ SymPy のソルバーは 2 階以上は全部高階扱い。
 
 次の例題はある高次整方程式の解で一般解が表現できる。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: eq = f(x).diff(x, 4) - 13 * f(x).diff(x, 2) + 19 * f(x).diff(x) + 33 * f(x) - cos(2*x)
 
@@ -818,7 +818,7 @@ SymPy のソルバーは 2 階以上は全部高階扱い。
 
 こちらは完全にダメだ。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: eq = 7 * f(x).diff(x) * f(x).diff(x, 3) - 11 * f(x).diff(x, 2)**2
    In [1]: classify_ode(eq)
@@ -834,14 +834,14 @@ SymPy のソルバーは 2 階以上は全部高階扱い。
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 以下の例では、次の前処理を実施済みであることを事前条件としている。
 
-.. code-block:: python3
+.. code:: python3
 
    from sympy.solvers.ode import classify_sysode
    x, y, z = symbols('x y z', function=True)
 
 まずは定数係数の例を示す。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: A = Matrix([[4, -6], [1, -1]])
 
@@ -878,7 +878,7 @@ SymPy のソルバーは 2 階以上は全部高階扱い。
 つまりタイプ不明ゆえ解けない。
 こういう場合は :code:`dsolve` の呼び出しを諦めてしまってよい。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: sys = [x(t).diff(t, 3) + y(t), y(t).diff(t, 3) - 64 * x(t)]
 
@@ -910,7 +910,7 @@ SymPy のソルバーは 2 階以上は全部高階扱い。
 
 次は非定数係数の線形常微分方程式系の一例だが、解きたそうなのに解けないようだ。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: sys = [x(t).diff(t) - sin(t)*x(t), y(t).diff(t) - t**2 * y(t)]
 
@@ -975,7 +975,7 @@ SymPy のソルバーは 2 階以上は全部高階扱い。
 
 次は成功例。積分もおそらく評価し切れる。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: A = Matrix([[exp(t), tan(t)], [-tan(t), exp(t)]]; X = Matrix([x(t), y(t)])
 
@@ -1005,7 +1005,7 @@ SymPy のソルバーは 2 階以上は全部高階扱い。
 次のものは解けないと言われる。
 本筋とは外れるが、関数 :code:`classify_sysode` の出力にある dict オブジェクトのアイテム順はなんとかならないか。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: A = Matrix([[exp(t), 2, 3], [0, 2, -1], [0, 0, 1]]); X = Matrix([x(t), y(t), z(t)])
 
@@ -1044,7 +1044,7 @@ SymPy のソルバーは 2 階以上は全部高階扱い。
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 謎のエラーが出てソルバーにたどり着けない。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: p, q, r, s = symbols('p q r s', function=True)
 
@@ -1074,7 +1074,7 @@ SymPy のソルバーは 2 階以上は全部高階扱い。
 
 次の例ではソルバーの処理中に謎のエラーが出る。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: u, v = symbols('u v', function=True)
 

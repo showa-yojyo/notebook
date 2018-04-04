@@ -198,13 +198,13 @@ Smalltalk とはなんぞや。後で調べる気になったら調べればい�
 * <コンストラクタコールを使ってしまうと、このようなことを直接行えない> (p. 57)
   そこで、オブジェクト生成プロセスの抽象化という発想が生まれる。
 
-.. code-block:: c++
+.. code:: c++
 
    ScrollBar* sb = new MotifScrollBar;
 
 ではなく、
 
-.. code-block:: c++
+.. code:: c++
 
    ScrollBar* sb = guiFactory->CreateScrollBar();
 
@@ -252,7 +252,7 @@ Iterator パターンの話になってくる。
 
 Visitor パターンの話になってくる。
 
-.. code-block:: c++
+.. code:: c++
 
    // p. 83
    class Visitor{

@@ -9,7 +9,7 @@ SymPy_ のサブパッケージ ``sympy.geometry`` に関わる覚え書きを�
 ======================================================================
 サブパッケージ ``sympy.geometry`` が提供する主要クラスの継承関係のみを図示するとこういう感じになる。
 
-.. code-block:: text
+.. code:: text
 
    GeometryEntity
        Point
@@ -314,7 +314,7 @@ SymPy_ のサブパッケージ ``sympy.geometry`` に関わる覚え書きを�
   私の環境では :code:`simplify(numer/denom)` が返って来なかった。
 * 具体的な座標を与えた方の検証はうまくいく。
 
-  .. code-block:: console 
+  .. code:: console 
 
      $ ./menelaous.py
      P= Point(-346.683333333333, -346.683333333333)
@@ -333,7 +333,7 @@ SymPy_ のサブパッケージ ``sympy.geometry`` に関わる覚え書きを�
   私の環境では :code:`simplify(numer/denom)` が返って来なかった。
 * 具体的な座標を与えた方の検証はうまくいく。
 
-  .. code-block:: console 
+  .. code:: console 
 
      $ ./ceva.py
      P= Point(13.9279086822051, 228.152408889456)
@@ -354,7 +354,7 @@ SymPy_ のサブパッケージ ``sympy.geometry`` に関わる覚え書きを�
 円を単位円に固定する代わり、円周上の 4 点をランダムにとり、
 それらを結ぶ 2 弦の交点に対する方べきの定理を検証しよう。
 
-.. code-block:: console
+.. code:: console
 
    $ ./circle_power.py
    PA * PB = 0.245325501000245

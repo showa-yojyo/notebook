@@ -24,7 +24,7 @@ POST mutes/create を用いれば特定のユーザーをミュートするこ�
 
 次に実行例を示す。自分で自分をミュートしよう。
 
-.. code-block:: console
+.. code:: console
 
    $ ./mutes-users-create.py
    Traceback (most recent call last):
@@ -72,7 +72,7 @@ POST mutes/users/destroy は既にミュートしていたユーザーのミュ�
 
 次に実行例を示す。ミュートしていないはずの自分を指定解除するとこうなる。
 
-.. code-block:: console
+.. code:: console
 
    $ ./mutes-users-destroy.py
    Traceback (most recent call last):
@@ -125,7 +125,7 @@ GET mutes/users/ids は現時点で自分がミュートしているユーザー
 
 次に実行例を示す。
 
-.. code-block:: console
+.. code:: console
 
    $ mutes-users-ids.py
    {
@@ -157,7 +157,7 @@ GET mutes/users/list は現時点で自分がミュートしているユーザ�
 
 次に実行例を示す。
 
-.. code-block:: console
+.. code:: console
 
    $ ./mutes-users-ids.py
    {

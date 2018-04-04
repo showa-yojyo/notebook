@@ -39,7 +39,7 @@ Exceptional C++ 読書ノート
 まず最初に「大文字小文字を区別しない文字列クラス」を書くことを検討している。
 basic_string テンプレートの traits パラメータに相当する構造体を自作する手法による。
 
-.. code-block:: c++
+.. code:: c++
 
    struct ci_char_traits : public char_traits<char>
    {
@@ -70,7 +70,7 @@ basic_string テンプレートの traits パラメータに相当する構造�
 * テンプレートメンバ関数は、決してコピーコンストラクタ、代入演算子たり得ない。
 * 例外安全という用語が、本書で初めて登場する。
 
-  .. code-block:: c++
+  .. code:: c++
 
      template<typename O, size_t osize>
      fixed_vector<T, size>& operator=(const fixed_vector<O, osize>& other)
@@ -194,7 +194,7 @@ nothrow 保証
   ``StackImpl::vused_`` の更新を行う。
 * 代入演算子。以下のコードが本書最大の功績の一つだろう。
 
-  .. code-block:: c++
+  .. code:: c++
 
      Stack& operator=(const Stack& other)
      {
@@ -319,7 +319,7 @@ nothrow 保証
 * Pimpl とは著者による造語だと思われる。
   クラスの private 部を曝さぬように、隠蔽ポインタメンバーデータを使用するものだ。
 
-  .. code-block:: c++
+  .. code:: c++
 
      // x.h ファイル
      class X
@@ -372,7 +372,7 @@ Koenig の自動照合
 
   例えば、以下のコードはコンパイルされる。
 
-  .. code-block:: c++
+  .. code:: c++
 
      namespace NS
      {
@@ -401,7 +401,7 @@ Koenig の自動照合
   * クラス ``X`` と同じヘッダ内で、フリー関数の引数に ``X`` が用いられるものも、
     ``X`` の構成要素である。例えば
 
-    .. code-block:: c++
+    .. code:: c++
 
        class X{ };
        ostream& operator<<(ostream&, const X&);  // これは構成要素
@@ -411,7 +411,7 @@ Koenig の自動照合
 
 * <Koenig の自動照合は、コンパイラに適切な動作をさせる> (p. 145)
 
-  .. code-block:: c++
+  .. code:: c++
 
      #include <iostream> // cout
      #include <string> // 文字列の operator<<() の宣言を含む
@@ -429,7 +429,7 @@ Koenig の自動照合
 * 名前空間に関数を追加することは、その名前空間の外側のコードを「破壊」する。
   次のコード片で ``A`` と ``B`` の作者・定義場所が違うときのケースを考える。
 
-  .. code-block:: c++
+  .. code:: c++
 
      namespace A
      {
@@ -452,7 +452,7 @@ Koenig の自動照合
 
 a. クラスの通常のインターフェイスのみ使うフリー関数とする方法
 
-   .. code-block:: c++
+   .. code:: c++
 
       class X{ };
 
@@ -464,7 +464,7 @@ a. クラスの通常のインターフェイスのみ使うフリー関数と�
 
 b. クラスのヘルパー関数 ``Print()`` を呼び出すフリー関数とする方法
 
-   .. code-block:: c++
+   .. code:: c++
 
       class X
       {
@@ -560,7 +560,7 @@ C++ で使用する主なメモリ領域
 * ポインタデータメンバを安全にラップすることにも使用できる。
   Pimpl イディオム実装時に頻出。
 
-  .. code-block:: c++
+  .. code:: c++
 
      // c.h
      class C
@@ -621,7 +621,7 @@ C++ で使用する主なメモリ領域
 2. の例として、``string`` が ``const char*`` に暗黙の型変換が存在するとすれば、
 次のコードのコンパイルが通る。
 
-.. code-block:: c++
+.. code:: c++
 
    string s1, s2, s3;
    s1 = s2 - s3; // 右辺は const char* ポインタの差となり、左辺 s1 に代入しようとする
@@ -637,7 +637,7 @@ C++ で使用する主なメモリ領域
 
 変数の初期化──それとも？
 --------------------------
-.. code-block:: c++
+.. code:: c++
 
    T t;  // デフォルト初期化であり、T::T() で初期化される
    T t(); // T 型のオブジェクトを返す関数 t の宣言

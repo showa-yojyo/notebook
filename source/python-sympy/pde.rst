@@ -13,7 +13,7 @@
    本文中のすべての IPython セッション中のサンプルコードで、
    以下のインポートおよび出力書式設定が済んでいるものとする。
 
-   .. code-block:: python3
+   .. code:: python3
 
       init_printing(pretty_print=False)
 
@@ -44,7 +44,7 @@
 関数 :code:`pde_separate_add(eq, fun, sep)`
   偏微分方程式に含まれる従属変数的関数を加法的に変数分離する。
 
-  .. code-block:: ipython
+  .. code:: ipython
 
      In [1]: x, t = symbols('x t')
 
@@ -65,7 +65,7 @@
 関数 :code:`pde_separate_mul(eq, fun, sep)`
   偏微分方程式に含まれる従属変数的関数を乗法的に変数分離する。
 
-  .. code-block:: ipython
+  .. code:: ipython
 
      In [1]: x, y = symbols('x y')
 
@@ -124,7 +124,7 @@
     偏微分方程式バージョンは 4 個しかない。
     実質 3 個だ。
 
-    .. code-block:: ipython
+    .. code:: ipython
 
        In [1]: from sympy.solvers.pde import allhints
 
@@ -166,7 +166,7 @@
 
 以降のコードでは次の前処理を済ませている。
 
-.. code-block:: python3
+.. code:: python3
 
    a, b, c, x, y = symbols('a b c x y')
    u = symbols('u', function=True)
@@ -179,7 +179,7 @@
 定数係数同次一階線形偏微分方程式の例を示す。
 指数が汚いようだ。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: eq = Eq(2 * p + 3 * q + z, 0)
 
@@ -191,7 +191,7 @@
 
 輸送方程式の例を示す。一般解に指数関数が出てこない。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: eq = Eq(p + q, 0)
 
@@ -204,7 +204,7 @@
 非同次一階線形偏微分方程式の例を示す。
 指数が汚いのはソルバーのクセのようなものか。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: eq = Eq(7 * p + 3 * q + z, x + y)
 
@@ -217,7 +217,7 @@
 変数係数同次線形偏微分方程式の例を示す。
 これは残念ながら解けない。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: eq = Eq(sin(x) * p + E**q * p, 0)
 
@@ -226,7 +226,7 @@
 
 変数係数非同次線形偏微分方程式の例を示す。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: eq = Eq(p + x * q, cos(x))
 
@@ -239,7 +239,7 @@
 一階準線形偏微分方程式の例を示す。
 これは残念ながら解けない。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: eq = Eq(p + x * q, z**2 + 5)
 
@@ -249,7 +249,7 @@
 非粘性 Burgers 方程式の例を示す。
 これは残念ながら解けない。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: eq = Eq(p + z * q, 0)
 
@@ -260,7 +260,7 @@
 ----------------------------------------------------------------------
 現在、SymPy のソルバーは一階非線形偏微分方程式に対応していない。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: classify_pde(Eq(p * q, 1)) # simple (envelop 1)
    Out[1]: ()
@@ -297,7 +297,7 @@
 先ほど記したように、SymPy のソルバーは二階偏微分方程式には対応していない。
 Laplace 方程式のもっとも簡単な形のものを試してみよう。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: classify_pde(Eq(u.diff(x, x) + u.diff(y, y), 0))
    ---------------------------------------------------------------------------

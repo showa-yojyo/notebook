@@ -11,7 +11,7 @@
    本文中のすべての IPython セッション中のサンプルコードで、
    以下のインポートおよび出力書式設定が済んでいるものとする。
 
-   .. code-block:: python3
+   .. code:: python3
 
       init_printing(pretty_print=False)
 
@@ -36,7 +36,7 @@
 ----------------------------------------------------------------------
 よくある例を試す。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: limit(x * sin(1 / x), x, 0)
    Out[1]: 0
@@ -52,7 +52,7 @@
 
 シンボルだけの数式の極限を計算する。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: limit(f(x), x, 7)
    Out[1]: f(7)
@@ -64,14 +64,14 @@
 
 数列の極限も計算できる。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: limit((1 + x/n)**n, n, +oo)
    Out[1]: exp(x)
 
 二変数関数の極限を試す。近づけ方の指定がよくわからない。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: limit((x * y) / (x ** 2 + y ** 2), x, 0)
    Out[1]: 0
@@ -84,7 +84,7 @@
 
 うまくいかない例を挙げる。これは SymPy の改良を期待できるだろうか。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: limit(fibonacci(k + 1)/fibonacci(k), k, oo)
    Out[1]: Limit(fibonacci(k + 1)/fibonacci(k), k, oo, dir='-')
@@ -102,7 +102,7 @@
 ----------------------------------------------------------------------
 だいたい想像通りに動作するようだ。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: series(exp(x))
    Out[1]: 1 + x + x**2/2 + x**3/6 + x**4/24 + x**5/120 + O(x**6)
@@ -156,7 +156,7 @@
 ----------------------------------------------------------------------
 何度も言うが、どこへの極限を考えているのかを常に意識するのがよい。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: 1 + x**10 + O(x**5)
    Out[1]: 1 + O(x**5)
@@ -195,7 +195,7 @@
 今は SymPy で Laurant 展開や複素関数の積分計算がサポートされているかどうかわからないので、
 差し当たり単体での動作を見てみよう。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: [residue(1/z**i, z, 0) for i in range(4)]
    Out[1]: [0, 1, 0, 0]
@@ -254,7 +254,7 @@
 ----------------------------------------------------------------------
 このモジュールに定義されているクラスを継承関係だけ図示するとこういう感じになる。
 
-.. code-block:: text
+.. code:: text
 
    SeqBase
        EmptySequence
@@ -374,7 +374,7 @@ Fourier 級数
 利用する側が計算量を減らす工夫をするのが腕の見せどころとなる。
 上述の :code:`s` を引数に取るメソッドが応用できる場合は積極的にそうするのだ。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: fourier_series(t/2).truncate(3)
    Out[1]: sin(t) - sin(2*t)/2 + sin(3*t)/3

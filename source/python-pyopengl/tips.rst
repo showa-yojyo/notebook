@@ -12,14 +12,14 @@ PyOpenGL がなぜこういう仕様にしたのかわからないが、
 ``str`` オブジェクトではなく ``bytes`` オブジェクトを返すようだ。
 よって、OpenGL から受け取る戻り値を確認するときはメソッド ``decode`` で読めるようにする。
 
-.. code-block:: python3
+.. code:: python3
 
    print("Version: ", GL.glGetString(GL.GL_VERSION).decode())
 
 関数 ``glutCreateWindow`` 等、引数に文字列を取るものについても、
 ``str`` オブジェクトではなく ``bytes`` オブジェクトを受け付けると思っていたほうがよい。
 
-.. code-block:: python3
+.. code:: python3
 
    GLUT.glutCreateWindow(b"Texture Demo")
    # or
@@ -31,13 +31,13 @@ GLUT の引数コールバックに、自作クラスのメソッドを渡せる
 ======================================================================
 例えば関数 ``glutReshapeFunc`` のシグニチャーは、オリジナルではこうだった。
 
-.. code-block:: c
+.. code:: c
 
    void glutReshapeFunc(void (*func)(int width, int height));
 
 PyOpenGL では次のようなコードが有効だ。
 
-.. code-block:: python3
+.. code:: python3
 
    def reshape(width, height):
        """the reshape callback for the current window"""
@@ -49,7 +49,7 @@ PyOpenGL では次のようなコードが有効だ。
    
 そして、次のようなコードも有効だ。
 
-.. code-block:: python3
+.. code:: python3
 
    class MyPyOpenGLApp(object):
 
@@ -77,7 +77,7 @@ PyOpenGL では次のようなコードが有効だ。
 
 これを破棄するときを考えると、頭が痛いわけだ。
 
-.. code-block:: python3
+.. code:: python3
 
    glDeleteBuffers(1, [buffer])
    # or
@@ -113,7 +113,7 @@ Python ではどうすればよいのかという、配列要素型の問題が�
 厳密にやりたい場合は、やはりオブジェクト ``np.array`` の生成時にコンストラクターで
 ``dtype`` を明示するのがベストであろう。
 
-.. code-block:: python3
+.. code:: python3
 
    # for GL_FLOAT interface
    vertex = np.array([0, 0, 0, 1], dtype=np.float32)
@@ -124,7 +124,7 @@ Python ではどうすればよいのかという、配列要素型の問題が�
 ======================================================================
 組み込み型のバイトサイズをハードコードしたくない人は次のようにする。
 
-.. code-block:: python3
+.. code:: python3
 
    # GL_FLOAT, float
    assert np.nbytes[np.float32] == 4

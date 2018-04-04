@@ -26,7 +26,7 @@ Constructing a Texture Map
 * <Two dimensional texture mapping is the most familiar case> (p. 171)
 * 二次元的なイメージは、二次元多様体にマップするのが自然だろう。
 
-  .. code-block:: c
+  .. code:: c
 
      glEnable(GL_TEXTURE_2D);
      glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 64, 64, 0, GL_RGB, GL_UNSIGNED_BYTE, myimage);
@@ -51,7 +51,7 @@ Texture Coordinates
 
 * 頂点座標と同様に、テクスチャー座標を行列を用いて変換することができる。
 
-  .. code-block:: c
+  .. code:: c
 
      glMatrixMode(GL_TEXTURE);
 
@@ -79,7 +79,7 @@ Texture Parameters
 * 透視図法でシーンを描いている場合、テクスチャーが歪む場合がよくある。
   そういう場合は ``glHint`` を呼ぶ。
 
-  .. code-block:: c
+  .. code:: c
 
      glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 
@@ -103,7 +103,7 @@ Applying Textures to Surfaces
   Here the texture color multiplies the color computed for each face>
   (p. 181)
 
-  .. code-block:: c
+  .. code:: c
 
      glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
@@ -120,26 +120,26 @@ Borders and Sizing
 
 * 枠の色を別途指示することができる。
 
-  .. code-block:: c
+  .. code:: c
 
      glTexParameter3fv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, color);
 
 * フレームバッファ内のイメージからテクスチャーマップを得ることができる。
   ただし「出力先」はテクスチャーメモリー。
  
-  .. code-block:: c
+  .. code:: c
 
      glCopyTexImage2D(target, level, iformat, x, y, w, h, border);
 
 * 既に存在するテクスチャーから、その部分のコピーを（バイナリの形で）得ることもできる。
 
-  .. code-block:: c
+  .. code:: c
 
      glTexSubImage2D(target, level, xoffset, yoffset, w, h, format, type, texels)
 
 * 応用例がちょっと思いつかないが、テクスチャーメモリ内でコピーすることもできる。
 
-  .. code-block:: c
+  .. code:: c
 
      glCopyTexSubImage2D(target, level, xoffset, yoffset, x, y, w, h)
 
@@ -154,7 +154,7 @@ Mipmaps
 * ``glTexImage2D`` の第二引数 (``level``) に応じて、イメージを変える。
   本文の例では、レベルが低いほど詳細なイメージを指示している。
 
-  .. code-block:: c
+  .. code:: c
 
      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
 
@@ -162,7 +162,7 @@ Mipmaps
 
 * ミップマップセットを生成し、テクスチャーメモリに格納してくれる GLU の関数がある。
 
-  .. code-block:: c
+  .. code:: c
 
      gluBuild2DMipmaps(target, iformat, w, h, format, type, texels);
 
@@ -184,7 +184,7 @@ Automatic Texture Coorinate Generation
 
 * テクスチャー座標自動生成には、例えば (s, t) の場合は以下の呼び出しが必要。
 
-  .. code-block:: c
+  .. code:: c
 
      glEnable(GL_TEXTURE_GEN_S);
      glEnable(GL_TEXTURE_GEN_T);
@@ -374,7 +374,7 @@ Normals and Shading
 -------------------
 * 曲面 evaluator が内部的に生成する頂点に対して法線を指定するには、
 
-  .. code-block:: c
+  .. code:: c
 
     glEnable(GL_AUTO_NORMAL);
 
@@ -387,7 +387,7 @@ Texturing Surfaces
 
   どうするかというと、``glMap2`` で実現できる。
 
-  .. code-block:: c
+  .. code:: c
 
     glMap2f(GL_MAP2_TEXTURE_COORD_2, u0, u1, ...);
 
@@ -422,7 +422,7 @@ Buffers
 * accumulation バッファや stencil バッファを利用するプログラムでは、
   ``glutInitDisplayMode`` の引数に、そのことを明示的に指示する。
 
-  .. code-block:: c
+  .. code:: c
 
     glutInitDisplayMode(GL_XXX | GL_STENCIL | GL_ACCUM);
 

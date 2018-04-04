@@ -146,7 +146,7 @@ MathJax の構成ファイルを作成する
 後ほど MathJax の機能を調整することを見込んで、
 Sphinx プロジェクトディレクトリー :file:`_static` に次の内容のテキストファイルを作成する。
 
-.. code-block:: javascript
+.. code:: javascript
 
    window.MathJax = {
 

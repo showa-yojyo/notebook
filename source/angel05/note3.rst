@@ -170,14 +170,14 @@ Shading the Rotating Cube
 
   * 照光処理を有効にして、利用する光源を有効にする。
 
-    .. code-block:: c
+    .. code:: c
 
        glEnable(GL_LIGHTING);
        glEnable(GL_LIGHT0);
 
   * 現在の材質を設定する。この例では前面だけに指定している。
 
-    .. code-block:: c
+    .. code:: c
 
        glMaterialfv(GL_FRONT, GL_AMBIENT, currentMaterials->ambient);
        glMaterialfv(GL_FRONT, GL_DIFFUSE, currentMaterials->diffuse);
@@ -186,7 +186,7 @@ Shading the Rotating Cube
 
   * 光源の特徴を設定する。
 
-    .. code-block:: c
+    .. code:: c
 
        glLightfv(GL_LIGHT0, GL_AMBIENT, currentLighting->ambient);
        glLightfv(GL_LIGHT0, GL_DIFFUSE, currentLighting->diffuse);
@@ -223,7 +223,7 @@ Working with Normals
 * <The lighting calculations require that the normal vector have unit length> (p. 138)
 * 効率が落ちるのを覚悟で、OpenGL に法線の長さを 1 になるようにお願いすることができる。
 
-  .. code-block:: c
+  .. code:: c
 
      glEnable(GL_NORMALIZE);
 
@@ -238,7 +238,7 @@ Transparancy
 * OpenGL は RGBA 値の A の値の指定は通常無視するが、ブレンディングを
   明示的に有効にすれば意味を持つようになる。
 
-  .. code-block:: c
+  .. code:: c
 
      glEnable(GL_BLEND);
 
@@ -270,7 +270,7 @@ Transparancy
 
   つまり、ソースのアルファ値のみをブレンド率としている。
  
-  .. code-block:: c
+  .. code:: c
 
      glEnable(GL_BLEND);
      glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -357,7 +357,7 @@ Drawing Modes
 * ``glLogicOp(op)`` を利用するには、
   ``glEnable`` で有効にする必要がある。
 
-  .. code-block:: c
+  .. code:: c
 
      glEnable(GL_COLOR_LOGIC_OP);
 

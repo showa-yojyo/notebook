@@ -69,7 +69,7 @@ Matplotlib 環境のユーザー設定ファイルについて記す。
     これを確認するには :doc:`./basic` で示したポリライン複数本描画スクリプトを利用できる。
     下記のリスト内の内容を修正すると、それにつれて曲線の色が変わることがわかる。
 
-    .. code-block:: text
+    .. code:: text
 
        axes.prop_cycle : cycler('color', ['deeppink', 'pink', 'b', 'g', 'r', 'c', 'm', 'y', 'k'])
 
@@ -77,7 +77,7 @@ Matplotlib 環境のユーザー設定ファイルについて記す。
 
 * ハードコピーバックエンドのデフォルト値を ``savefig.format`` で設定できる。
 
-  .. code-block:: text
+  .. code:: text
 
      savefig.format : png      # png, ps, pdf, svg
 

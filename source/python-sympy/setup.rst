@@ -43,7 +43,7 @@ SymPy のドキュメントによると、ソースからのインストール�
 私の場合は Git があるのでこちらのやり方のほうが容易だ。
 次のようにコマンドラインを入力したところ、うまくインストールできた。
 
-.. code-block:: console
+.. code:: console
 
    $ cd ~/devel
    $ git clone git://github.com/sympy/sympy.git
@@ -87,14 +87,14 @@ SymPy のドキュメントによると、ソースからのインストール�
 ======================================================================
 単にバージョンを確認するには、例えば次のようにする。
 
-.. code-block:: console
+.. code:: console
 
    $ python -c 'import sympy; print(sympy.__version__)'
    0.7.7.dev
 
 もしくは pip を利用する。こちらの方法のほうが潰しが効くので憶えておくとよいだろう。
 
-.. code-block:: console
+.. code:: console
 
    $ pip show sympy
    ---
@@ -114,7 +114,7 @@ SymPy のドキュメントによると、ソースからのインストール�
 せっかくソースごとインストールしたので、開発用のものと思われる単体テストを行う。
 私の環境で実施したところ、次のようなレポートが延々と出力されていた。
 
-.. code-block:: console
+.. code:: console
 
    $ python -c 'import sympy; sympy.doctest()'
    ============================= test process starts ==============================
@@ -150,7 +150,7 @@ IPython_ が利用可能な環境では IPython のそれが始まる。
   :program:`isympy` を走らせるとキーバインド等の具合がよい。
   私の場合は下記コマンドラインのようにする。
 
-  .. code-block:: text
+  .. code:: text
 
      D:\Python35\python.exe "D:\home\yojyo\devel\sympy\bin\isympy" --pretty=no -- --profile=sympy
 
@@ -160,7 +160,7 @@ IPython_ が利用可能な環境では IPython のそれが始まる。
   :file:`$HOME/.ipython/profile_sympy/ipython_config.py` を採用する。
   次の行を編集してある。
 
-  .. code-block:: python3
+  .. code:: python3
 
      c.InteractiveShellApp.pylab_import_all = False
 

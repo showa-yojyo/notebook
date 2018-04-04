@@ -144,7 +144,7 @@ Cygwin ユーザーが読んでも役に立つと信じて本章を読む。
 
 8.7 プロセス置換
 ----------------
-.. code-block:: bash
+.. code:: bash
 
    cmp <(program1) <(program2)
 
@@ -181,7 +181,7 @@ Cygwin ユーザーが読んでも役に立つと信じて本章を読む。
 * <1 行目では、``$PATH`` 環境変数を
   ``for`` ループの項目リストとして使用できるようにしている> (p. 268)
 
-  .. code-block:: bash
+  .. code:: bash
 
      IFS=:
      for d in $PATH; do
@@ -297,7 +297,7 @@ B.8 入出力リダイレクト
   2 章で説明した組み込みのテキスト補完機能を拡張するものである> (p. 333)
 * TAB キーが押されたときのシェルの対応を ``complete`` コマンドで指定する。
 
-  .. code-block:: bash
+  .. code:: bash
 
      # -A file が「補完するのはファイルリストだ」ということを指示する
      #
@@ -306,6 +306,6 @@ B.8 入出力リダイレクト
 
 * ``compgen`` は補完文字列を確認するのに利用できる。
 
-  .. code-block:: bash
+  .. code:: bash
 
      complete -A file -X '!*.@(Z|gz|tgz)'

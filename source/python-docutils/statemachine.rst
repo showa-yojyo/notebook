@@ -59,7 +59,7 @@ Docutils は reStructuredText というテキスト形式を処理するため�
 クライアントコードの骨格はこうなる。
 まずは ``WS`` でも ``Search`` でもない版を説明する。
 
-.. code-block:: python3
+.. code:: python3
 
    from statemachine import StateMachine, State, string2lines
    import re
@@ -113,7 +113,7 @@ Docutils は reStructuredText というテキスト形式を処理するため�
       こうすることで、次に呼びだされるメソッドがクラス ``SecondState`` の
       リスト ``initial_transitions`` のどれかが示すメソッドになるはず。
 
-      .. code-block:: python3
+      .. code:: python3
 
          def atransition(self, match, context, next_state):
              # do something

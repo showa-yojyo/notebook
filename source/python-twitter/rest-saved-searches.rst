@@ -32,7 +32,7 @@ GET saved_searches/show:id は保存済みの検索クエリーの詳細を得�
 
 実行結果を示す。
 
-.. code-block:: console
+.. code:: console
 
    $ ./saved_searches-show-id.py
    [{'created_at': 'Fri Nov 27 14:14:19 +0000 2015',
@@ -52,7 +52,7 @@ POST saved_searches/create
 
 実行結果を示す。
 
-.. code-block:: console
+.. code:: console
 
    $ ./saved_searches-list.py
    [{'created_at': 'Fri Nov 27 14:14:19 +0000 2015',

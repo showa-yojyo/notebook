@@ -50,7 +50,7 @@ for the standard interactive interpreter> だそうだ。
 
 次に :program:`conda` によるインストール手続きの例を示す。
 
-.. code-block:: console
+.. code:: console
 
    $ conda install ipython
    Fetching package metadata: ....
@@ -125,7 +125,7 @@ Windows の「ファイル名を指定して実行」で同実行ファイルを
 
 私の環境でのスタートアップ時の出力を記す。
 
-.. code-block:: none
+.. code:: ipython
 
    WARNING: Readline services not available or not loaded.
    WARNING: Proper color support under MS Windows requires the pyreadline library.
@@ -157,7 +157,7 @@ PyReadline をインストール
 名前からして Python 版 readline と思われるパッケージを :program:`pip` でインストールして、
 再度 IPython を起動したい。
 
-.. code-block:: console
+.. code:: console
 
    $ pip install pyreadline
    Downloading/unpacking pyreadline
@@ -190,7 +190,7 @@ IPython 3.0.0
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 公式ドキュメントに従い、初回条件で :program:`iptest` を実行すると以下のようになった。
 
-.. code-block:: console
+.. code:: console
 
    $ iptest3
    Traceback (most recent call last):
@@ -214,7 +214,7 @@ IPython 4.0.0
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 一連の自動テストが実行された。エラーがボロボロと現れる。
 
-.. code-block:: console
+.. code:: console
 
    $ iptest3
 
@@ -267,7 +267,7 @@ IPython 固有の環境変数としては :envvar:`IPYTHON_DIR` ただひとつ�
 :file:`~/.ipython/profile_default` ディレクトリー以下の py ファイルで
 プログラムを書くことがあるようだ。
 
-.. code-block:: console
+.. code:: console
 
    $ ipython3 profile create
    [ProfileCreate] Generating default config file: 'D:/home/yojyo/.ipython/profile_default/ipython_config.py'
@@ -275,7 +275,7 @@ IPython 固有の環境変数としては :envvar:`IPYTHON_DIR` ただひとつ�
 これでテンプレファイル :file:`ipython_config.py` ができあがった。
 テキストエディターでこれを開き、有効にしたい箇所のコメントアウトを解除するとよさそうだ。
 
-.. code-block:: python3
+.. code:: python3
 
    c.InteractiveShellApp.pylab = 'auto'
 
@@ -283,7 +283,7 @@ IPython 固有の環境変数としては :envvar:`IPYTHON_DIR` ただひとつ�
 例えば :code:`import numpy as np` しなくても :code:`np.arange(10)` のようなコードが通じる。
 さらに、下記の項目を有効にすると :code:`np.` すら不要になる。
 
-.. code-block:: python3
+.. code:: python3
 
    c.InteractiveShellApp.pylab_import_all = True
 
@@ -297,7 +297,7 @@ NumPy や Matplotlib のモジュールとしてのインポートだけに留�
 名前付きプロファイルを生成して、設定ファイルの対応項目を False にする。
 そして、IPython 起動時に ``--profile`` コマンドラインオプションで設定名を指示する。
 
-.. code-block:: console
+.. code:: console
 
    $ ipython3 profile create sympy
    $ edit ~/.ipython/profile_sympy/ipython_config.py
@@ -413,7 +413,7 @@ IPython コンソールウィンドウでの各種機能をひと通り試して
 * スクリプトを IPython のセッションから起動できる。
   次のコード片は自作のスクリプトを :code:`%run` コマンドにより起動した様子を再現したものだ。
 
-  .. code-block:: ipython
+  .. code:: ipython
 
      In [1]: %run ~/bin/listmanager.py remove showa_yojyo bot zzz
      0-15: Wait...
@@ -424,7 +424,7 @@ IPython コンソールウィンドウでの各種機能をひと通り試して
 
   * オプション :code:`-t` で実行時間を測定する。例を示す。
 
-    .. code-block:: ipython
+    .. code:: ipython
 
        In [1]: %run -t ./bin/mjscore.py -F --today
        集計期間           2016/09/01 00:40 - 2016/09/01 02:13
@@ -445,7 +445,7 @@ IPython コンソールウィンドウでの各種機能をひと通り試して
   すると IPython のセッションにその内容が伝わる。
   エディターで定義した関数を呼び出すことができる。
 
-  .. code-block:: ipython
+  .. code:: ipython
 
      In [2]: %edit
      IPython will make a temporary file named: D:\Temp\ipython_edit_3cn_y47j\ipython_edit_osmxydqq.py
@@ -459,7 +459,7 @@ IPython コンソールウィンドウでの各種機能をひと通り試して
   :program:`notepad` では逆にテキスト編集の効率が落ちるはずなので、オプション
   ``TerminalInteractiveShell.editor`` で馴染みのテキストエディターを指定する。
 
-  .. code-block:: python3
+  .. code:: python3
 
      # Set the editor used by IPython (default to $EDITOR/vi/notepad).
      c.TerminalInteractiveShell.editor = 'D:/Program Files/xyzzy/xyzzy.exe'
@@ -512,7 +512,7 @@ PyZMQ をインストールする
 PyZMQ_ が何であるのかを理解するのは後回しにして、まずはインストールだ。
 IPython のドキュメントにあるように、素直に :program:`pip` でインストールできる。
 
-.. code-block:: console
+.. code:: console
 
    $ pip install pyzmq
    Downloading/unpacking pyzmq
@@ -526,7 +526,7 @@ Qt コンソールを起動する（シンプル）
 ----------------------------------------------------------------------
 Windows の「ファイル名を指定して実行」で次のように指定する。
 
-.. code-block:: text
+.. code:: text
 
    %PYTHONDIR%\Scripts\ipython3.exe qtconsole
 
@@ -542,7 +542,7 @@ Matplotlib のプロット図をインラインに Qt コンソール内に描�
 まずは IPython を次のようなコマンドライン引数を指定して起動する。ドキュメントには
 :code:`qtconsole --matplotlib inline` と指定すると記されているが、私の環境ではダメだった。
 
-.. code-block:: text
+.. code:: text
 
    %PYTHONDIR%\Scripts\ipython3.exe qtconsole --pylab=inline
 

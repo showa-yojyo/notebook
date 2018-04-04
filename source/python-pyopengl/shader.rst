@@ -19,7 +19,7 @@
    本稿のスクリプトを実行すると、次のエラーメッセージが生じて異常終了する。
    ちなみに description のテキストは「無効な列挙」だ。
 
-   .. code-block:: console
+   .. code:: console
 
       $ ./shaderdemo.py
       freeglut (./shaderdemo.py): OpenGL >2.1 context requested but wglCreateContextAttribsARB is not available! Falling back to legacycontext creation

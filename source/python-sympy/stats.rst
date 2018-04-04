@@ -10,7 +10,7 @@
    本文中のすべての IPython セッション中のサンプルコードで、
    以下のインポートおよび出力書式設定が済んでいるものとする。
 
-   .. code-block:: python3
+   .. code:: python3
 
       from sympy.stats import *
       init_printing(pretty_print=False)
@@ -121,7 +121,7 @@
 これらの確率分布クラスは、前述の各種同じ名前からなる確率変数生成関数によってオブジェクト化され、
 それから、分布に対応する確率空間クラスのオブジェクトを生成する。
 
-.. code-block:: text
+.. code:: text
 
    ContinuousDistribution
        SingleContinuousDistribution
@@ -293,7 +293,7 @@ SingleFiniteDistribution
 ----------------------------------------------------------------------
 短い別名 :code:`P` が付いているので、対話型コードでは主にこちらを採用する。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: X = Normal('X', mean=0, std=1)
 
@@ -302,7 +302,7 @@ SingleFiniteDistribution
 
 * [1] Normal の各引数はデフォルト引数として定義して欲しいという気がする。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: X = Poisson('X', symbols('m', positive=True))
 
@@ -330,14 +330,14 @@ SingleFiniteDistribution
 
 * [1][2] どうも Poisson は動作しにくい傾向がある。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: X = Normal('X', 0, 1)
 
    In [2]: P((X - 1)**2 <= 3*X)
    Out[2]: -erf(sqrt(2)*(-sqrt(21)/2 + 5/2)/2)/2 + erf(sqrt(2)*(sqrt(21)/2 + 5/2)/2)/2
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: X = Die('X', 3)
 
@@ -346,7 +346,7 @@ SingleFiniteDistribution
 
 次の例は数値計算になってしまっているが、真の値は :math:`\frac{1}{e}` だ。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: X = Laplace('X', 0, 1/2)
 
@@ -359,21 +359,21 @@ SingleFiniteDistribution
 SymPy では自然対数の底にもこの名前が付いているので注意。
 冒頭に述べたインポート文でこれが上書きされる。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: X = Normal('X', 0, 1)
 
    In [2]: E(2*X + 3)
    Out[2]: 3
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: X = Poisson('X', symbols('m', positive=True))
 
    In [2]: E(X**2 + 7*X + 8)
    Out[2]: m*(m + 1) + 7*m + 8
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: X = DiscreteUniform('X', symbols('a, b, c, d'))
 
@@ -384,7 +384,7 @@ SymPy では自然対数の底にもこの名前が付いているので注意�
 ----------------------------------------------------------------------
 確率密度関数は下のように :code:`pspace` オブジェクトを経由しないとアクセスできないのか。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: X = Normal('X', 0, 1)
 
@@ -397,7 +397,7 @@ SymPy では自然対数の底にもこの名前が付いているので注意�
 ----------------------------------------------------------------------
 累積分布関数を得るにはフリー関数 :code:`cdf` を用いる。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: cdf(Weibull('X', 2, 5), 4)
    Out[1]: Lambda(_z, Piecewise((1 - exp(-_z**5/32), _z >= 0), (0, True)))
@@ -409,7 +409,7 @@ SymPy では自然対数の底にもこの名前が付いているので注意�
 ----------------------------------------------------------------------
 分布から標本点を抽出すると、毎回結果が異なる。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: X = Normal('X', 0, 1)
 
@@ -420,7 +420,7 @@ SymPy では自然対数の底にもこの名前が付いているので注意�
 ----------------------------------------------------------------------
 ここでは 2 次のモーメントを計算する。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: moment(DiscreteUniform('X', symbols('x1:4')), 2)
    Out[1]: x1**2/3 + x2**2/3 + x3**2/3
@@ -438,7 +438,7 @@ SymPy では自然対数の底にもこの名前が付いているので注意�
 
 数値計算の例を示す。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: X = DiscreteUniform('X', [1.21, 3.4, 2, 4.66, 1.5, 5.61, 7.22])
 
@@ -452,7 +452,7 @@ SymPy では自然対数の底にもこの名前が付いているので注意�
 ----------------------------------------------------------------------
 あまりやることがない。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: X, Y = DiscreteUniform('X', symbols('a b')), DiscreteUniform('Y', symbols('x y'))
 
@@ -463,7 +463,7 @@ SymPy では自然対数の底にもこの名前が付いているので注意�
 ----------------------------------------------------------------------
 これもあまりやることがない。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: X, Y = DiscreteUniform('X', symbols('a b')), DiscreteUniform('Y', symbols('x y'))
 
@@ -474,7 +474,7 @@ SymPy では自然対数の底にもこの名前が付いているので注意�
 ----------------------------------------------------------------------
 色々な確率分布の 2 次の中央モーメントを評価しよう。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: cmoment(DiscreteUniform('X', symbols('x1:4')), 2)
    Out[1]: (-x1/3 - x2/3 + 2*x3/3)**2/3 + (-x1/3 + 2*x2/3 - x3/3)**2/3 + (2*x1/3- x2/3 - x3/3)**2/3
@@ -497,7 +497,7 @@ SymPy では自然対数の底にもこの名前が付いているので注意�
 関数 :code:`skewness` は 3 次の :code:`smoment` を評価する。
 この指標は例えば戻り値の符号でグラフの裾野が広いほうがわかる。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: skewness(DiscreteUniform('X', symbols('a b c')))
    Out[1]: ((-a/3 - b/3 + 2*c/3)**3/3 + (-a/3 + 2*b/3 - c/3)**3/3 + (2*a/3 - b/3- c/3)**3/3)/((-a/3 - b/3 + 2*c/3)**2/3 + (-a/3 + 2*b/3 - c/3)**2/3 + (2*a/3 - b/3 - c/3)**2/3)**(3/2)

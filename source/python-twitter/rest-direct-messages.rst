@@ -21,7 +21,7 @@ POST direct_messages/new はダイレクトメッセージを作成・送信す�
 
 次に実行例を示す。
 
-.. code-block:: console
+.. code:: console
 
    $ ./direct_messages-new.py
    {

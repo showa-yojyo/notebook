@@ -338,7 +338,7 @@ UML 2.5 pp. 11-20 に関するノート。
 * 明示的に命名されていない関連については、次のルールに従い「構築」する (p. 19)。
   ここで ``<association-end-nameX>`` はそれぞれの関連端の名前とする。
 
-  .. code-block:: text
+  .. code:: text
 
      "A_" <association-end-name1> "_" <association-end-name2>
 

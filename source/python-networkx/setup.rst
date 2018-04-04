@@ -12,7 +12,7 @@ NetworkX をインストールする
 もしくは開発版レポジトリーからモジュールをクローンして、
 場合によっては改造して利用するのもありだ。
 
-.. code-block:: console
+.. code:: console
 
    $ git clone https://github.com/networkx/networkx.git
    ...
@@ -27,7 +27,7 @@ NumPy_ や SciPy_ のそれと同じスタイルなので馴染みやすい。
 
 次のコードは、Python コマンドライン上から NetworkX のユニットテストを実行するものだ。
 
-.. code-block:: pycon
+.. code:: pycon
 
    >>> import networkx as nx
    >>> nx.test(verbosity=2)
@@ -44,7 +44,7 @@ NumPy_ や SciPy_ のそれと同じスタイルなので馴染みやすい。
 ``verbosity=2`` でテストすると、いくつかスキップされる項目が出てくる。
 これらより、NetworkX がサポートしていて現在の環境に存在しないサードパーティー製パッケージが判明する。
 
-.. code-block:: none
+.. code:: shell
 
    SKIP: PyGraphviz not available.
    SKIP: pydot not available.

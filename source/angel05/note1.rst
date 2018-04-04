@@ -159,7 +159,7 @@ Coordinate Systems and Transformations
 
 * まず間違いなく以下の手順で利用する。
 
-  .. code-block:: c
+  .. code:: c
 
      glMatrixMode(GL_PROJECTION);
      glLoadIdentity();
@@ -211,7 +211,7 @@ Enabling OpenGL Features
 * OpenGL の機能の中には、明示的にそれを有効にしなければ利用できないものがある。
 * ``glEnable(feature)`` で機能 feature を ON にする。
 
-  .. code-block:: c
+  .. code:: c
 
      glEnable(GL_LINE_STIPPLE);
 
@@ -288,7 +288,7 @@ Polygon Types
 
   ``glPolygonOffset`` 関数は次のようにして利用する。
 
-  .. code-block:: c
+  .. code:: c
 
      glPolygonOffset(1.0, 1.0);
      glEnable(GL_POLYGON_OFFSET_LINE);
@@ -418,7 +418,7 @@ Double Buffering
 * 書くのが最後になったが、ダブルバッファを有効にするには ``glutInitDisplayMode`` で
   指定する。
 
-  .. code-block:: c
+  .. code:: c
 
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_XXXX);
 

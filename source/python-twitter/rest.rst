@@ -30,7 +30,7 @@ Twitter API の利用法は当然ながらリクエストごとに異なるの�
 PTT を利用するプログラムに共通して書く必要のあるコードは次のようなものである。
 認証と Twitter 本体とのインターフェイスとなるインスタンスのセットアップからなる。
 
-.. code-block:: python3
+.. code:: python3
 
    from twitter import *
 
@@ -88,7 +88,7 @@ PTT を利用するプログラムに共通して書く必要のあるコード�
 #. Windows のユーザー環境変数設定で ``PYTHONPATH`` の値に ``%%HOME%%\my-python-modules`` を含める。
 #. PTT を利用する使い捨てのスクリプトの構造を次のようにする。
 
-   .. code-block:: python3
+   .. code:: python3
 
       from secret import twitter_instance
 
@@ -101,7 +101,7 @@ Twitter にリクエストを送信すると、原則的にその結果を JSON 
 Python 的には単に組み込みのコンテナーオブジェクトに変換されている節があるので、
 その辺をうまく加工して画面にテキストを出力するようにしたい。
 
-.. code-block:: python3
+.. code:: python3
 
    response = tw.statuses.user_timeline(**kwargs)
 
@@ -160,7 +160,7 @@ API がツイートのデータ構造をどのように定義しているのか�
 
 コードを示す。
 
-.. code-block:: python3
+.. code:: python3
 
    kwargs = dict(
        screen_name='showa_yojyo',
@@ -203,7 +203,7 @@ API がツイートのデータ構造をどのように定義しているのか�
 
 前項コードとの差分だけを示そう。
 
-.. code-block:: python3
+.. code:: python3
 
    max_id = response[0]['id']
    kwargs['since_id'] = max_id
@@ -230,7 +230,7 @@ API がツイートのデータ構造をどのように定義しているのか�
 ここで ``kwargs`` は API に渡す引数を保持する ``dict`` オブジェクトであり、
 ``process_something`` は Twitter からの応答オブジェクトを処理する関数か何かを意味する。
 
-.. code-block:: python3
+.. code:: python3
 
    next_cursor = -1
    while next_cursor:

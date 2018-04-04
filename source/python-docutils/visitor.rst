@@ -22,7 +22,7 @@
 特にクラス ``Node`` については、大量のサブクラスが存在することに注意が要る。
 下に ``NodeVisitor`` のサブクラスをテキストで列挙しておく。
 
-.. code-block:: text
+.. code:: text
 
    NodeVisitor
        writers.html4css1.HTMLTranslator
@@ -43,7 +43,7 @@
 メソッド ``Node.walk`` の簡略版コードを次に示す。
 ログ出力と、こちらは重要なので載せたいところだが、例外処理コードを省いている。
 
-.. code-block:: python3
+.. code:: python3
 
    def walk(self, visitor):
        stop = False
@@ -72,7 +72,7 @@
 ======================================================================
 メソッド ``Node.walkabout`` の簡略版コードを次に示す。
 
-.. code-block:: python3
+.. code:: python3
 
    def walkabout(self, visitor):
        call_depart = True
@@ -111,7 +111,7 @@
 
 ログ出力等、本質的でない処理を取り除いた簡易コードを示す。
 
-.. code-block:: python3
+.. code:: python3
 
    def dispatch_visit(self, node):
        node_name = node.__class__.__name__
@@ -166,7 +166,7 @@ Visitor のスーパークラスとして利用する。
 クラス ``HTMLTranslator`` を見るとこういうコードがある。
 これの直接スーパークラスは ``NodeVisitor`` だ。
 
-.. code-block:: python3
+.. code:: python3
 
    # From class docutils.writers.html4css1.HTMLTranslator
 
@@ -178,7 +178,7 @@ Visitor のスーパークラスとして利用する。
 
 どのように呼び出されるかというと、このようなものだ。
 
-.. code-block:: python3
+.. code:: python3
 
    # From class docutils.writers.html4css1.Writer:
 

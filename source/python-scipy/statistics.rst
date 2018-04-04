@@ -153,7 +153,7 @@ distribution とかで検索すると色々とわかる。
 
 モーメント量の計算ならば次のようにする。
 
-.. code-block:: python3
+.. code:: python3
 
    from scipy.stats import D
    rv = D(...)

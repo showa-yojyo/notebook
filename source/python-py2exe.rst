@@ -40,7 +40,7 @@ hello.py
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 文字列を標準出力に出力するだけのコード。
 
-.. code-block:: python
+.. code:: python
 
    # hello.py
 
@@ -50,7 +50,7 @@ setup.py
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 :file:`hello.py` と同じフォルダーに :file:`setup.py` を作成する。
 
-.. code-block:: python
+.. code:: python
 
    # setup.py
 
@@ -67,7 +67,7 @@ setup.py
   ``python26`` とあるのは Windows 用 ``python.exe`` のフルパスの alias だ。
 * 配布は :file:`dist` フォルダー全部となる。
 
-.. code-block:: console
+.. code:: console
 
    $ python26 setup.py py2exe
    ... 長い出力
@@ -108,7 +108,7 @@ MSVC9 系ランタイム DLL が必要になる。
 
 #. :file:`setup.py` の内容を修正する。例を示す。
 
-  .. code-block:: python
+  .. code:: python
 
      from distutils.core import setup
      import py2exe
@@ -130,7 +130,7 @@ PIL
 次のコードを考える。コマンドライン引数を画像ファイルとみなし、
 ビューワーで開くだけのものだ。エラー処理は実装していない。
 
-.. code-block:: python
+.. code:: python
 
    import sys
    import Image
@@ -155,7 +155,7 @@ Py2exe が予想以上に色々な pyd ファイルを同梱してくれるの�
 
 ターゲットとなるコードは次のようなものだ。
 
-.. code-block:: python
+.. code:: python
 
    import numpy as np
    from scipy.spatial import KDTree
@@ -183,7 +183,7 @@ Py2exe が予想以上に色々な pyd ファイルを同梱してくれるの�
 ``setup.py py2exe`` すると :file:`dist` フォルダーの中身がマッシブになる。
 Tcl/Tk 関連のランタイムは本当に必要なのだろうか。
 
-.. code-block:: console
+.. code:: console
 
    $ ls -l dist
    合計 24M
@@ -227,7 +227,7 @@ Matplotlib
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 わざとらしく NumPy, SciPy 関連を利用しない Matplotlib プログラムを考える。
 
-.. code-block:: python
+.. code:: python
 
    import matplotlib as mpl
    import matplotlib.pyplot as plt
@@ -254,7 +254,7 @@ Matplotlib
 
 面白いことに、MSVC90 ランタイムに関連するエラーメッセージが出る。
 
-.. code-block:: text
+.. code:: text
 
    *** finding dlls needed ***
    error: MSVCP90.dll: No such file or directory
@@ -262,7 +262,7 @@ Matplotlib
 ここで、先述の仮の措置を適用した setup.py に書き換えると、ビルドが通る。
 そして :file:`dist` の内容がとんでもないことにある。
 
-.. code-block:: console
+.. code:: console
 
    $ ls -l dist
    合計 38M
@@ -316,7 +316,7 @@ PyOpenGL
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 GLUT ベースの簡単なプログラムに対して、Py2exe ビルドを試す。
 
-.. code-block:: python
+.. code:: python
 
    import sys
    from OpenGL.GL import *
@@ -349,7 +349,7 @@ GLUT ベースの簡単なプログラムに対して、Py2exe ビルドを試�
 
 Hello world のときと同じ設定でビルドすると、次の不審なメッセージが現れる。
 
-.. code-block:: text
+.. code:: text
 
    The following modules appear to be missing
    ['OpenGL.GL.GL_EXTENSIONS', 'OpenGL.GL.GL_NUM_EXTENSIONS', 'OpenGL.GL.GL_VERSION
@@ -361,7 +361,7 @@ Hello world のときと同じ設定でビルドすると、次の不審なメ�
 
 EXE はビルドできているので、試しに実行するとエラーメッセージが現れる。
 
-.. code-block:: text
+.. code:: text
 
    Traceback (most recent call last):
      File "main.py", line 3, in <module>
@@ -381,7 +381,7 @@ EXE はビルドできているので、試しに実行するとエラーメッ�
 やはりここは ``setup`` 側で対応したい。
 :file:`main.py` を元に戻して、こういうふうにするのはどうだろうか。
 
-.. code-block:: python
+.. code:: python
 
    setup(console=['main.py'],
          options={"py2exe":{"includes":["OpenGL.platform.win32"]}})
@@ -390,7 +390,7 @@ PyQt4
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 拡張子が ``pyw`` のケースに挑戦してみる。
 
-.. code-block:: python
+.. code:: python
 
    import sys
    from PyQt4 import QtGui, QtCore
@@ -428,14 +428,14 @@ PyQt4
 
 詳細は省くが :file:`setup.py` の ``setup`` 部分は次のようになる。
 
-.. code-block:: python
+.. code:: python
 
    setup(windows=['main.pyw'],
          data_files=data_files)
 
 ビルドして実行する。いきなりエラーメッセージが現れ、ログファイルを見るように言われる。
 
-.. code-block:: text
+.. code:: text
 
    Traceback (most recent call last):
      File "main.pyw", line 6, in <module>
@@ -447,7 +447,7 @@ PyQt4
 これは Py2exe Wiki に解法が書かれていて、例えば次のように書き換えるのがよい。
 ``options`` キーワード引数をいじるのだ。
 
-.. code-block:: python
+.. code:: python
 
    setup(windows=['main.pyw'],
          options={"py2exe":{"includes":["sip"]}},
@@ -455,7 +455,7 @@ PyQt4
 
 ビルド後の :file:`dist` フォルダーはこうなる：
 
-.. code-block:: console
+.. code:: console
 
    $ ls -l dist
    合計 21M

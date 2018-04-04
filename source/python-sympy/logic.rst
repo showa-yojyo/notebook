@@ -10,7 +10,7 @@ Python が組み込みで持っている論理演算を表現しなおした一�
 ======================================================================
 モジュール ``sympy.logic.boolalg`` に定義されているクラスの継承関係だけを図示するとこうなる。
 
-.. code-block:: text
+.. code:: text
 
    Boolean
        BooleanAtom
@@ -98,7 +98,7 @@ SymPy では Sum of Products form と Product of Sums form を扱っている。
 
 まずはテストコードを真似て動きを試してみる。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: SOPform('xyz', [[0, 0, 1], [0, 1, 1], [1, 0, 0], [1, 1, 0]])
    Out[1]: Or(And(x, Not(z)), And(z, Not(x)))
@@ -112,7 +112,7 @@ SymPy では Sum of Products form と Product of Sums form を扱っている。
 次に `Wikipedia の例 <https://en.wikipedia.org/wiki/Quine%E2%80%93McCluskey_algorithm>`_ を再現してみよう。
 ここでは引数 :code:`dontcare` も指定する。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: %paste
    minterms = [[0, 1, 0, 0],
@@ -153,7 +153,7 @@ SymPy では Sum of Products form と Product of Sums form を扱っている。
   論理式オブジェクト :code:`expr` から、等値性を保ったまま
   「複数の論理和オブジェクトをオペランドとする一つの論理積オブジェクト」を生成する。
 
-  .. code-block:: ipython
+  .. code:: ipython
 
      In [1]: is_cnf(A & (B | (C & D)))
      Out[1]: False
@@ -165,7 +165,7 @@ SymPy では Sum of Products form と Product of Sums form を扱っている。
   論理式オブジェクト :code:`expr` から、等値性を保ったまま
   「複数の論理積オブジェクトをオペランドとする一つの論理和オブジェクト」を生成する。
 
-  .. code-block:: ipython
+  .. code:: ipython
 
      In [1]: is_dnf(A & (B | (C & D)))
      Out[1]: False
@@ -180,7 +180,7 @@ SymPy では Sum of Products form と Product of Sums form を扱っている。
   * Not がかかるのが最も内側の論理式（おそらくシンボルだろう）だけである
   * それを除けば、式を構成する演算子は And と Or だけである。
 
-  .. code-block:: ipython
+  .. code:: ipython
 
      In [1]: is_nnf(A >> B)
      Out[1]: False
@@ -218,7 +218,7 @@ SymPy では Sum of Products form と Product of Sums form を扱っている。
   * 論理式 :code:`expr` が真になる可能性があれば、
     そのときのシンボルの組み合わせを一つ返す。
 
-    .. code-block:: ipython
+    .. code:: ipython
 
        In [1]: satisfiable((A | B) & (~A | ~B))
        Out[1]: {B: False, A: True}
@@ -230,7 +230,7 @@ SymPy では Sum of Products form と Product of Sums form を扱っている。
     充足性可能のときのシンボルの組み合わせを全部返そうとする。
     さらに、この関数はジェネレーター化する。
 
-    .. code-block:: ipython
+    .. code:: ipython
 
        In [1]: list(satisfiable((A | B) & (~A | ~B), all_models=True))
        Out[1]: [{B: False, A: True}, {B: True, A: False}]

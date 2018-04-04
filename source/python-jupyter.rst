@@ -116,7 +116,7 @@ Jupyter をインストールする
 どのような他の必要パッケージが一緒にインストールされるのかを調べた。
 下に端末での入出力を掲載するが、かなりの数のパッケージを必要とすることがわかる。
 
-.. code-block:: console
+.. code:: console
 
    $ conda install jupyter
    Fetching package metadata .........
@@ -201,7 +201,7 @@ Jupyter をインストールする
 :file:`$HOME/.jupyter/jupyter_nbconvert_config.py` である。
 このファイルのスケルトンを得るには、次のようにする（一部加工済）。
 
-.. code-block:: console
+.. code:: console
 
    $ jupyter nbconvert --generate-config
    Writing default config to: $HOME\.jupyter\jupyter_nbconvert_config.py
@@ -219,7 +219,7 @@ Jupyter をインストールする
 端末から :program:`jupyter` を次のように実行すると Jupyter が参照する
 ディレクトリーをすべて確認できる（一部加工済）：
 
-.. code-block:: console
+.. code:: console
 
    $ jupyter --paths
    config:
@@ -256,7 +256,7 @@ Jupyter は先述の関係ディレクトリーの区分に対応する環境変
 この実行ファイルがあるディレクトリーでファイル :file:`jupyter-*.exe` を表示すればよい。
 ハイフン以降拡張子以前の文字列がサブコマンド名と合致する。
 
-.. code-block:: console
+.. code:: console
 
    $ cd /d/Miniconda3/Scripts
    $ ls jupyter*.exe
@@ -301,7 +301,7 @@ Jupyter は先述の関係ディレクトリーの区分に対応する環境変
 bash_kernel_ をインストールして（次の節参照）コンソールを
 起動してみたところ、謎の例外が発生した。
 
-.. code-block:: console
+.. code:: console
 
    $ jupyter console --kernel=bash
    Traceback (most recent call last):
@@ -337,7 +337,7 @@ bash_kernel_ をインストールして（次の節参照）コンソールを
 このサブコマンドは Jupyter のカーネルの詳細を管理するためのものだ。
 Jupyter インストール直後にサブコマンド ``list`` を実行するとこのような結果を出力する。
 
-.. code-block:: console
+.. code:: console
 
    $ jupyter kernelspec list
    Available kernels:
@@ -350,7 +350,7 @@ bash_kernel_ を Python 環境にインストールし、
 それから Jupyter 環境にインストールし、最後に本サブコマンドを実行すると
 次のようになる（一部加工済）：
 
-.. code-block:: console
+.. code:: console
 
    $ pip install bash_kernel
    Collecting bash_kernel
@@ -376,7 +376,7 @@ bash_kernel_ を Python 環境にインストールし、
 私はこれを利用する必要はないらしい。
 事実、IPython から Jupyter に移行したい資源は何もなかったはずだ。
 
-.. code-block:: console
+.. code:: console
 
    $ jupyter migrate
    [JupyterMigrate] Found nothing to migrate.
@@ -404,7 +404,7 @@ HTML, LaTeX, PDF, Markdown, reStructuredText といった、
   このサブコマンドが動作する事前条件の一つに Pandoc_ が利用可能であることがある。
   正常に動作すれば、次のようにファイル拡張子が ``.tex`` のものが生成される：
 
-  .. code-block:: console
+  .. code:: console
 
      $ jupyter nbconvert --to=latex helloworld.ipynb
      [NbConvertApp] Converting notebook helloworld.ipynb to latex
@@ -412,7 +412,7 @@ HTML, LaTeX, PDF, Markdown, reStructuredText といった、
 
   Pandoc が利用可能でなければ次のように失敗する：
 
-  .. code-block:: console
+  .. code:: console
 
      $ jupyter nbconvert --to=latex helloworld.ipynb
      [NbConvertApp] Converting notebook helloworld.ipynb to latex
@@ -443,7 +443,7 @@ HTML, LaTeX, PDF, Markdown, reStructuredText といった、
 例えば IPython のセッションから本サブコマンドの機能をモジュールの形で
 参照、利用することも可能だ。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: import nbconvert
 
@@ -484,7 +484,7 @@ Google を利用する等して色々と調査した結果、
 日本語文書を扱うには :program:`ptex2pdf` を用いるのが一般的なようなので、
 それをコマンドラインで実行する際の定番オプションをここに適用する。
 
-.. code-block:: python3
+.. code:: python3
 
    # Shell command used to compile latex.
    c.PDFExporter.latex_command = ['ptex2pdf', '-l', '-ot', '-kanji=utf8', '{filename}']
@@ -494,7 +494,7 @@ Google を利用する等して色々と調査した結果、
 このサブコマンドは Notebook の拡張を管理するためのものだ。
 Jupyter インストール直後にサブコマンド ``list`` を実行するとこのような結果を出力する。
 
-.. code-block:: console
+.. code:: console
 
    $ jupyter nbextension list
    Known nbextensions:
@@ -537,7 +537,7 @@ Jupyter Notebook を起動する
 端末ウィンドウで作業する。適当な作業ディレクトリーに移動してから
 :program:`jupyter` を実行する。
 
-.. code-block:: console
+.. code:: console
 
    $ jupyter notebook
    [W HH:MM:SS.352 NotebookApp] Unrecognized JSON config file version, assuming version 1
@@ -560,7 +560,7 @@ Jupyter Notebook を起動する
   ConEmu の Tasks にコマンドラインを定義しておくか。
   下にコマンドラインの一例を記す。好みで ConEmu に対するアイコンやタブ名を指定するのもよい。
 
-  .. code-block:: text
+  .. code:: text
 
      D:\Miniconda3\Scripts\jupyter.exe notebook -new_console:d:D:\home\yojyo\jupyter
 
@@ -688,7 +688,7 @@ Jupyter Notebook を終了する
 ----------------------------------------------------------------------
 サービスを起動した端末ウィンドウで :kbd:`Ctrl + C` を押すと、サービスが停止する。
 
-.. code-block:: console
+.. code:: console
 
    [I HH:MM:SS.570 NotebookApp] Shutting down kernels
    [I HH:MM:SS.298 NotebookApp] Kernel shutdown: f887fdc0-f81c-410c-a941-6820a4b2a5c7
@@ -726,7 +726,7 @@ Matplotlib のデモコードを一つ実行したときの画面だ。
 ======================================================================
 Jupyter インストール直後にサブコマンド ``list`` を実行するとこのような結果を出力する。
 
-.. code-block:: console
+.. code:: console
 
    $ jupyter serverextension list
    config dir: D:\Miniconda3\etc\jupyter

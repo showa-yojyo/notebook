@@ -10,7 +10,7 @@
    本文中のすべての IPython セッション中のサンプルコードで、
    以下のインポートおよび出力書式設定が済んでいるものとする。
 
-   .. code-block:: python3
+   .. code:: python3
 
       from sympy.tensor.tensor import *
       init_printing(pretty_print=False)
@@ -24,7 +24,7 @@
 この例では主に添字の上げ下げについて見ていく。
 具体的に言えば各階のテンソルに対して関数 :code:`contract_metric` がどのように利用できるのかを示す。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: Lorentz = TensorIndexType('Lorentz', dummy_fmt='L')
 
@@ -55,7 +55,7 @@
 丸括弧により付随する各添字オブジェクトにマイナス符号を付けるかどうかで共変反変の階数を自在に設定できる。
 ここでは回りくどい方法を採る。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [6]: A = tensorhead('A', [Lorentz]*1, [[1]])
 
@@ -95,7 +95,7 @@
 引き続き 2 階のテンソルを定義して、添字の上げ下げを試みる。
 :math:`B^{ij} = g^{il} g^{jm} B_{lm}` などを確かめる。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [12]: B = tensorhead('B', [Lorentz]*2, [[1]*2])
 
@@ -111,7 +111,7 @@
 以下の例ではテンソルオブジェクトの生成、上付き下付き添字の使い分け方、
 内積・ノルムの評価をする。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: Lorentz = TensorIndexType('Lorentz', dummy_fmt='L')
 
@@ -162,7 +162,7 @@
 電磁場の強度は 2 階のテンソルで表現することがある。
 以下の例では、テンソルの行列形式の成分を直接設定して、各種メソッドや関数を試す。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: Lorentz = TensorIndexType('Lorentz', dummy_fmt='L')
 
@@ -250,7 +250,7 @@
 
 もっと確かめる。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [15]: Fmat = F(m, n).get_matrix()
 
@@ -284,7 +284,7 @@ Levi-Civita 記号
 TensorIndexType 型オブジェクトのプロパティー :code:`epsilon` は Levi-Civita 記号を表現する。
 以下の例では、3 階の Levi-Civita 記号の添字の重複のない 6 個の値を見る。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: Lorentz = TensorIndexType('Lorentz', dim=3, dummy_fmt='L')
 

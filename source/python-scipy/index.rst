@@ -41,7 +41,7 @@ SciPy 利用ノート
    SciPy Reference Guide に倣い、以降のコード片においては、
    あらかじめ各種 ``import`` を次のようにしたものとする。
 
-   .. code-block:: python3
+   .. code:: python3
 
       import numpy as np
       import scipy as sp

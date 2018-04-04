@@ -32,7 +32,7 @@ Reference Guide の例を一部改変したものを記す。
 
 私の環境での実行結果を記す。
 
-.. code-block:: text
+.. code:: text
 
    Target: [43.831, 54.762, 83.131]
    Closest:  [40 50 80]

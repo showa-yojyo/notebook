@@ -10,7 +10,7 @@ SymPy オブジェクトを表現するいろいろな方法について記す�
    本文中のすべての IPython セッション中のサンプルコードで、
    以下のインポートおよび出力書式設定が済んでいるものとする。
 
-   .. code-block:: python3
+   .. code:: python3
 
       from sympy import cos, sin
       from sympy.printing import *
@@ -55,7 +55,7 @@ LaTeX
 * ``fold_func_brackets=True`` を指定すると、数学関数呼び出しのカッコを可能な限り省略する。
   例えば三角関数を多く含む式に対して適用すると効果がわかりやすい：
 
-  .. code-block:: ipython
+  .. code:: ipython
 
      In [1]: from sympy import cos, sin
 
@@ -77,7 +77,7 @@ LaTeX
   ただしその場合には行列のカッコを SymPy が別途補うので、
   さらに ``mat_delim`` キーワード引数を空文字列等に指定することでそれを無効化する。
 
-  .. code-block:: ipython
+  .. code:: ipython
 
      In [1]: from sympy import Matrix
 

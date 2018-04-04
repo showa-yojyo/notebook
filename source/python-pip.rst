@@ -64,7 +64,7 @@ Python 3.4 以前の環境では、手動でインストールする必要があ
     * ``easy_install`` が環境にあれば、
       下記コマンドプロンプト入力で ``pip`` のインストールは実現できる。
 
-      .. code-block:: console
+      .. code:: console
 
          $ easy_install pip
 
@@ -87,7 +87,7 @@ Python 3.4 以前の環境では、手動でインストールする必要があ
 言うまでもないが help は目を通したほうがよい。
 コマンドラインオプションはそれほど多くはない。
 
-.. code-block:: console
+.. code:: console
 
    $ pip help # ヘルプ表示
    $ pip --version # バージョン表示
@@ -97,7 +97,7 @@ Python 3.4 以前の環境では、手動でインストールする必要があ
 以前に ``easy_install`` でインストールしてしまったパッケージも
 ``pip`` でアンインストールできる。
 
-.. code-block:: console
+.. code:: console
 
    $ pip uninstall simplejson
    Uninstalling simplejson:
@@ -117,7 +117,7 @@ Python 3.4 以前の環境では、手動でインストールする必要があ
 パッケージ名を指定して ``pip install`` または ``pip install --upgrade`` を実行する。
 この方法でインストールやアップグレードができれば、手間が最小で済む。
 
-.. code-block:: console
+.. code:: console
 
    $ pip install --upgrade httplib2
    Downloading/unpacking httplib2 from http://pypi.python.org/packages/source/h/httplib2/httplib2-0.7.4.tar.gz#md5=略
@@ -142,7 +142,7 @@ pip の引数にそのファイル名を指定することでインストール�
 
 以下、手順のイメージを擬似コードで表現する。
 
-.. code-block:: console
+.. code:: console
 
    $ (download) PyXYZ‑x.y.z‑cp35‑none‑win_amd64.whl
    $ pip install PyXYZ‑x.y.z‑cp35‑none‑win_amd64.whl
@@ -156,7 +156,7 @@ pip の引数にそのファイル名を指定することでインストール�
 以下、手順のイメージを擬似コードで表現する。
 どのディレクトリーで作業をするかは :file:`setup.py` が存在する階層でよいことが多い。
 
-.. code-block:: console
+.. code:: console
 
    $ git clone https://github.com/XYZ/XYZ.git
    ...
@@ -166,7 +166,7 @@ pip の引数にそのファイル名を指定することでインストール�
 インストール済みパッケージをリスト
 ----------------------------------------------------------------------
 
-.. code-block:: console
+.. code:: console
 
    $ pip freeze
    PIL==1.1.7
@@ -188,7 +188,7 @@ pip の引数にそのファイル名を指定することでインストール�
 例えばパッケージ ``alabaster`` は現在はバージョン 0.7.6 が .whl によりインストールされていて、
 更新すると 0.7.7 にアップグレードできることを示している。
 
-.. code-block:: console
+.. code:: console
 
    $ pip list --outdated
    alabaster (0.7.6) - Latest: 0.7.7 [wheel]
@@ -208,7 +208,7 @@ pip の引数にそのファイル名を指定することでインストール�
 コマンド ``pip show`` を実行することで、インストール済みパッケージの情報を出力できる。
 これは当ノートの更新作業のときにしばしば実行する。
 
-.. code-block:: console
+.. code:: console
 
    $ pip show matplotlib
    ---
@@ -231,7 +231,7 @@ pip の引数にそのファイル名を指定することでインストール�
 ``pip freeze`` の出力をテキストファイルに出力しておき、次のようにすることができる。
 今の環境の ``site-packages`` を別の環境で再現するとき等に利用できるというわけだ。
 
-.. code-block:: console
+.. code:: console
 
    $ pip freeze > FILE
    ...
@@ -244,7 +244,7 @@ pip の引数にそのファイル名を指定することでインストール�
 しかも PyPI_ で検索するよりも、コンソールで見たいような状況であれば、
 ``pip search`` の出番だ。
 
-.. code-block:: console
+.. code:: console
 
    $ pip search amazon
    AWSpider                  - Amazon Web Services web crawler
@@ -261,7 +261,7 @@ pip の引数にそのファイル名を指定することでインストール�
 PyPI_ のウェブサイトがダウンしているときには ``pip install`` 系操作は失敗する。
 サーバーが復旧するまで待てない場合、ミラーサイトを指定してインストールを試みることができる。
 
-.. code-block:: console
+.. code:: console
 
    $ pip install --use-mirrors --mirrors=http://d.pypi.python.org/ sphinx
 

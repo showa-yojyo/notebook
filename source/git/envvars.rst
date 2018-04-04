@@ -83,7 +83,7 @@ EMAIL.
 このコマンドはオプション ``--env-filter=<command>`` でそれを行う。
 [SO750172]_ で紹介されていた例を次に引用する。
 
-.. code-block:: console
+.. code:: console
 
    $ git filter-branch -f --env-filter "
    > GIT_AUTHOR_NAME='Newname'
@@ -113,7 +113,7 @@ GIT_EXTERNAL_DIFF
   「外部プログラム」と書いたが、
   下の形式で呼び出すようなので実際にはラッパースクリプトを指定することになりそうだ。
 
-  .. code-block:: console
+  .. code:: console
 
      $ "$GIT_EXTERNAL_DIFF" old-file old-hex old-mode new-file new-hex new-mode
 

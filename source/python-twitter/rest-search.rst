@@ -33,7 +33,7 @@ GET search/tweets
 実行例を示す（出力を一部加工した）。
 リツイートをなんとかするオプションはない。
 
-.. code-block:: console
+.. code:: console
 
    $ ./search-tweets.py
    Sat Nov 28 13:18:55 +0000 2015|@<CENSORED>|RT @<CENSORED>: 明日、クラブセガ秋葉原 新館さんで、稼働記念イベントを開催します！特製のNESiCAシールもプレゼント！プロデューサー間とディレクター鯨岡のトークショーで開発の裏話も・・・。\nご来場お待ちしております！#DFF_A

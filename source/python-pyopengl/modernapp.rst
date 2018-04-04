@@ -46,7 +46,7 @@ OpenGL 3.0 以降の新機能と、古参かつ現役の機能とから何かを
 
 言い忘れたが、頂点シェーダーでの各行列の名前は次のとおりとする。
 
-.. code-block:: glsl
+.. code:: glsl
 
    #version 330 core
 

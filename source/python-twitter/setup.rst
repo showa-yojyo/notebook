@@ -13,7 +13,7 @@ PTT のインストールだけではモノが動かない。Twitter 側の設�
 ----------------------------------------------------------------------
 PTT のインストールはいつものように pip で構わない。
 
-.. code-block:: console
+.. code:: console
 
    $ pip install twitter
 
@@ -21,7 +21,7 @@ PTT のインストールはいつものように pip で構わない。
 インストールが無事に終わったことを知りたいのならば、
 ``import twitter`` の確認で我慢する。
 
-.. code-block:: console
+.. code:: console
 
    $ python -c 'import twitter; help(twitter)'
    Help on package twitter:

@@ -74,7 +74,7 @@ Python コードから Pygments の機能を利用する
 ドキュメントに紹介されている例を検討してみる。
 ここでは PythonLexer に代えて Python3Lexer を適用してみる。
 
-.. code-block:: python3
+.. code:: python3
 
    from pygments import highlight
    from pygments.lexers import Python3Lexer
@@ -88,7 +88,7 @@ Python コードから Pygments の機能を利用する
 
 出力結果を示す。
 
-.. code-block:: html
+.. code:: html
 
    <div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello World&quot;</span><span class="p">)</span>
    </pre></div>
@@ -118,7 +118,7 @@ Pygments をインストールすると、
 が、実際やってみると前者はコントロール文字をガンガン出力するだけで読めたものではない。
 もっぱら後者の用法で利用する。
 
-.. code-block:: console
+.. code:: console
 
    # HTML 形式で出力し、ファイル名を test.html と指定。
    $ pygmentize -f html -o test.html test.py
@@ -146,7 +146,7 @@ Lexers
 名前をおぼえるには aliases 形式が応用が効く。
 Sphinx_ の ``code-block`` ディレクティブの引数がこの aliases と一致することに注意。
 
-.. code-block:: text
+.. code:: text
 
    ('bash', 'sh')
    ('cpp', 'c++')

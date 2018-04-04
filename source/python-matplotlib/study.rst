@@ -27,7 +27,7 @@ PC のディスク残量とインターネットの接続環境に不満がな�
 あるいは既に GitHub にあるリポジトリーのクローンを :code:`pip install -e` していて、
 そのソースコードをそのまま利用中であるならば、前者の方法で問題はない。
 
-.. code-block:: console
+.. code:: console
 
    $ git clone https://github.com/matplotlib/matplotlib.git
    $ cd matplotlib/examples
@@ -39,7 +39,7 @@ PC のディスク残量とインターネットの接続環境に不満がな�
 Git リポジトリーの特定のディレクトリーのスナップショットを得るのに
 古の VCS ツールである :program:`svn` が利用できる。
 
-.. code-block:: console
+.. code:: console
 
    $ svn export https://github.com/matplotlib/matplotlib.git/trunk/examples
    $ mv examples mpl-examples
@@ -966,7 +966,7 @@ Figure オブジェクトを生成する関数、関数 :code:`plt.show` それ�
     Line2D.markers, Line2D.filled_markers, Line2D.filled_markers から得られる。
     例えば：
 
-    .. code-block:: ipython
+    .. code:: ipython
 
        In [1]: Line2D.filled_markers
        Out[1]: ('o', 'v', '^', '<', '>', '8', 's', 'p', '*', 'h', 'H', 'D', 'd')
@@ -1059,7 +1059,7 @@ Figure オブジェクトを生成する関数、関数 :code:`plt.show` それ�
 :file:`tight_bbox_test.py`
   プロットをウィンドウだけでなく、さまざまな形式のファイルに出力するデモコード。
 
-  .. code-block:: ipython
+  .. code:: ipython
 
      In [1]: %run ./misc/tight_bbox_test.py
      saving tight_bbox_test.png
@@ -1581,7 +1581,7 @@ Figure オブジェクトを生成する関数、関数 :code:`plt.show` それ�
 
   IPython セッションからの実行例を次に示そう。途中で :kbd:`Ctrl-C` して中断した。
 
-  .. code-block:: ipython
+  .. code:: ipython
 
      In [1]: %run ./backend_driver.py -bqt5agg
       ..\pylab_examples files not tested: agg_buffer.py, agg_buffer_to_array.py, ...

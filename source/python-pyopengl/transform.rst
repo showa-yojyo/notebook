@@ -40,7 +40,7 @@ OpenGL は新旧共通で行列データを 16 要素の浮動小数点型数の
 ひとつは次の擬似コードのように ``np.array.transpose`` を用いて、
 内部配列を column-major に並び替えることによるものだ。
 
-.. code-block:: python3
+.. code:: python3
 
    matrix = np.identity(4)
    # Set matrix elements...
@@ -51,7 +51,7 @@ OpenGL は新旧共通で行列データを 16 要素の浮動小数点型数の
 もうひとつは、配列はそのままにして OpenGL の「転置バージョン」の行列関数、
 つまり ``glLoadTransposeMatrix`` および ``glMultTransposeMatrix`` を利用するものだ。
 
-.. code-block:: python3
+.. code:: python3
 
    matrix = np.identity(4)
    # Set matrix elements...
@@ -73,7 +73,7 @@ PyOpenGL の場合はオリジナルとは異なり戻り値として配列を�
 ----------------------------------------------------------------------
 頂点シェーダーのコードをこのように書くとする。
 
-.. code-block:: glsl
+.. code:: glsl
 
    #version 330 core
 
@@ -86,7 +86,7 @@ PyOpenGL の場合はオリジナルとは異なり戻り値として配列を�
 * 例えば ``uniform mat4 camera;`` という表現が「4 次正方行列 ``camera`` を扱う」ということを宣言するものだ。
   このオブジェクトの内容を設定するには、「外側」から OpenGL の関数を用いる必要がある。
 
-   .. code-block:: python3
+   .. code:: python3
 
       def init_transform(self):
           # ...
@@ -109,7 +109,7 @@ PyOpenGL の場合はオリジナルとは異なり戻り値として配列を�
 先の例に対応する、行列データの取得コードは次のようなものになる。
 受け取った後に ``.transpose`` をしないと、数学の教科書通りの並びにならない。
 
-.. code-block:: python3
+.. code:: python3
 
    camera_matrix = np.empty(4, dtype=np.float32)
    glGetUniformfv(

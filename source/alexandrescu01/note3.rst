@@ -17,7 +17,7 @@ Abstract Factory デザイン・パターンを使用することによって ``
 
 <ゲーム中に登場する全てのオブジェクトを生成する関数を 1 ヶ所に集めておくのが良いでしょう> (p. 232)
 
-.. code-block:: c++
+.. code:: c++
 
    class AbstractEnemyFactory
    {
@@ -50,7 +50,7 @@ Abstract Factory デザイン・パターンを使用することによって ``
 構造は、以前取り扱った ``GenScatterHierarchy`` と、
 ファクトリーユニットなるクラステンプレートの群を合体させたようなもの。
 
-.. code-block:: c++
+.. code:: c++
 
    // p. 235 より引用。
    template <class T>
@@ -98,7 +98,7 @@ Abstract Factory デザイン・パターンを使用することによって ``
 * ``ConcreteFactory`` はクラステンプレート ``GenLinearHierarchy`` から導出する。
   何をしたいのかと言うと、Factory Unit のクラス継承を直列させたいわけだ。
 
-.. code-block:: c++
+.. code:: c++
 
    // p. 238 より引用
    template <class ConcreteProduct, class Base>
@@ -136,7 +136,7 @@ Prototype バージョンを設計する。
 
 * 先程の ``ConcreteFactory`` がそのまま利用できる。
 
-  .. code-block:: c++
+  .. code:: c++
 
      typedef ConcreteFactory
      <
@@ -168,7 +168,7 @@ Prototype バージョンを設計する。
 
 ここから架空の文書エディターを開発する場合を考察していく。
 
-.. code-block:: c++
+.. code:: c++
 
    // pp. 250-251 引用一部略
    class DocStats // 文書の統計情報
@@ -203,7 +203,7 @@ Prototype バージョンを設計する。
 発想を変えて、``UpdateStats`` を ``DocStats`` に移動させてみると、
 <今度は ``DocStats`` が、処理対象となる具体的な ``DocElement`` に依存することになります> (p. 252)
 
-.. code-block:: c++
+.. code:: c++
 
    // p. 252 より引用一部略
    void DocStats::UpdateStats(DocElement& elem)
@@ -222,7 +222,7 @@ Prototype バージョンを設計する。
 ここで Visitor の導入となる。
 まずはデザインパターンの教科書通りのインターフェイスを持つクラスを書いてみる。
 
-.. code-block:: c++
+.. code:: c++
 
    // p. 253 より
    // まず Visitor の抽象基底クラス
@@ -290,7 +290,7 @@ Prototype バージョンを設計する。
   * ``DocElement`` のサブクラス ``Xxxx::Accept`` 関数にて、
     引数の ``DocElementVisitor`` を ``XxxxVisitor`` に dynamic_cast するテストを加える。
 
-    .. code-block:: c++
+    .. code:: c++
 
        // p. 259 より引用
        void Paragraph::Accept(DocElementVisitor& v)
@@ -304,7 +304,7 @@ Prototype バージョンを設計する。
 
   * 具体的な Visitor クラスの定義は、例えば次のようになる。
 
-    .. code-block:: c++
+    .. code:: c++
 
        // p. 260 より引用。
        class DocStats :
@@ -340,7 +340,7 @@ Prototype バージョンを設計する。
 * ``BaseVisitor`` - 先の例の ``DocElementVisitor`` と同じ。
 * ``Visitor`` - ``XxxxVisitor`` 用。クラステンプレートとして宣言。
 
-  .. code-block:: c++
+  .. code:: c++
 
      // p. 263
      template <class T, typename R = void>
@@ -375,7 +375,7 @@ Prototype バージョンを設計する。
 
 循環式の場合、ユーザーコードが圧倒的に少なくて済むようだ。
 
-.. code-block:: c++
+.. code:: c++
 
    // pp. 270-271 より引用
    typedef CyclicVisitor
@@ -428,7 +428,7 @@ C++ プログラム開発経験者ならまず膝を叩く例が挙げられて�
 最初に一番愚直と思われる方法、力任せに dynamic_cast テストをして、
 動的な型に見合うオーバーロード関数に引き渡すコードを示している。
 
-.. code-block:: c++
+.. code:: c++
 
    // pp. 280-281 より一部抜粋（一部だけで雰囲気が思い出せるから）
 
@@ -465,7 +465,7 @@ C++ プログラム開発経験者ならまず膝を叩く例が挙げられて�
 先程の ``DoubleDispatch`` 相当のコードを、クラステンプレート ``StaticDispatcher`` と
 クラス ``HatchingExecutor`` に分割して、次のような構造で表現する。
 
-.. code-block:: c++
+.. code:: c++
 
    // pp. 283-286 から断続的に引用。
 
@@ -532,7 +532,7 @@ C++ プログラム開発経験者ならまず膝を叩く例が挙げられて�
   元々の（キャストしない） ``lhs`` と ``rhs`` を用いて単に
   ``Executor::OnError`` を呼び出します> (p. 286)
 
-.. code-block:: c++
+.. code:: c++
 
    // p. 286 より。
    typedef StaticDispatcher<HatchingExecutor, Shape,
@@ -566,7 +566,7 @@ C++ プログラム開発経験者ならまず膝を叩く例が挙げられて�
 
   * ``StaticDispatcher::DispatchRhs`` の定義で、if ブロック内をこのようにする。
 
-    .. code-block:: c++
+    .. code:: c++
 
        // p. 291 より引用
        enum { swapArgs = symmetric &&
@@ -602,7 +602,7 @@ C++ プログラム開発経験者ならまず膝を叩く例が挙げられて�
   * テンプレートメンバー関数 ``Add`` を定義し、マップに関数ポインタを動的に追加できるようにする。
   * ``Go`` は次のようになる。
 
-    .. code-block:: c++
+    .. code:: c++
 
        ResultType Go(BaseLhs& lhs, BaseRhs& rhs)
        {
@@ -684,7 +684,7 @@ C++ に関する書籍は、マルチスレッドをテーマにした文章が�
 
 ライブラリでアトミック演算をまとめるようだ。
 
-.. code-block:: c++
+.. code:: c++
 
    template <typename T>
    class SomeThreadingModel
@@ -735,7 +735,7 @@ C++ に関する書籍は、マルチスレッドをテーマにした文章が�
 * <オブジェクト指向プログラムでは、リソースはオブジェクトになります> (p. 323)
 * オブジェクト・レベルのロックと、クラス・レベルのロックがある。
 
-.. code-block:: c++
+.. code:: c++
 
    template <typename Host>
    class ObjectLevelLockable

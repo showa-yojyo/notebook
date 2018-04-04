@@ -58,7 +58,7 @@ Anaconda_ または Miniconda_ で Python 環境を管理しているのであ�
 Anaconda_ または Miniconda_ で Python 環境を管理していて、
 コマンドラインで作業をしているならば、次のように :program:`conda` ツールを用いる。
 
-.. code-block:: console
+.. code:: console
 
    $ conda list Pillow
    # packages in environment at D:\Miniconda3:
@@ -478,14 +478,14 @@ Python ディレクトリーの :file:`Scripts` フォルダーに格納され�
 コマンドラインで :file:`pilconvert.py` を利用する。
 例えば ``sample.gif`` から PNG 形式のファイル ``sample.png`` を作成するには次のように入力する。
 
-.. code-block:: console
+.. code:: console
 
    $ pilconvert.py sample.gif sample.png
 
 カレントディレクトリーのすべての GIF ファイルから PNG ファイルに変換したいならばこうなる。
 ちなみにシェルは bash である。
 
-.. code-block:: console
+.. code:: console
 
    $ for name in *.gif ; do \
    >   pilconvert.py $name ${name%.*}.png ; \
@@ -496,7 +496,7 @@ Python ディレクトリーの :file:`Scripts` フォルダーに格納され�
 コマンドラインで :file:`pildriver.py` を利用する。
 以前にも記したが、バッチモードとインタラクティブモードがある。
 
-.. code-block:: console
+.. code:: console
 
    $ pildriver.py
    PILDriver says hello.

@@ -23,7 +23,7 @@
 
 実行結果は次のようになる。
 
-.. code-block:: console
+.. code:: console
 
    $ python connectivity.py
    G0 is and 1-connected 1-edge connected.
@@ -52,7 +52,7 @@
 
 実行結果は次のようになる。よく見るとあまり面白くない。
 
-.. code-block:: console
+.. code:: console
 
    $ python34 cutset.py
    G: [(0, 1), (0, 2), (1, 3), (1, 4), (2, 4), (3, 4), (3, 5), (4, 6), (5, 6), (5, 7)]

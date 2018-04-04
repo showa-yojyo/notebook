@@ -56,7 +56,7 @@
 
    SymPy_ ならばこのようになる。
 
-   .. code-block:: ipython
+   .. code:: ipython
 
       In [1]: dsolve(f(x).diff(x, 2) + 3 * f(x).diff(x) + 2 * f(x))
       Out[1]: Eq(f(x), (C1 + C2*exp(-x))*exp(-x))

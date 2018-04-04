@@ -65,7 +65,7 @@ Nose をインストールすると、Python パッケージだけでなく、
   モジュール名を指定したり、さらにテスト名を指定したり、
   あるいはモジュールフルパスプラステスト名という指定の仕方がサポートされているようだ。
 
-  .. code-block:: console
+  .. code:: console
 
      $ nosetests test.module
      $ nosetests another.test:TestCase.test_method
@@ -74,7 +74,7 @@ Nose をインストールすると、Python パッケージだけでなく、
 
 * ディレクトリーごと指示するやり方もある。その場合、複数パス指定が許される。
 
-  .. code-block:: console
+  .. code:: console
 
      $ nosetests /path/to/tests /another/path/to/tests
 
@@ -89,7 +89,7 @@ Nose をインストールすると、Python パッケージだけでなく、
   * 設定ファイルの書き方で注意が要るのは、設定項目を
     ``[nosetests]`` セクションに書かねばならないことだ。
 
-    .. code-block:: ini
+    .. code:: ini
 
        [nosetests]
        verbosity=2
@@ -106,7 +106,7 @@ collect-only オプション -- テスト名だけを調べる
 * さらに ``--with-id`` を併用し、テストのインデックスリストも得られる。
 * ``--verbosity`` オプションを併用して、テスト名等を明示させるのがコツ。
 
-.. code-block:: console
+.. code:: console
 
    $ nosetests --collect-only --with-id --verbosity=2
    #1 A regular test case ... ok
@@ -144,7 +144,7 @@ attr オプション -- 属性を指定することで起動するテストを�
 .. literalinclude:: /_sample/nose/testattr2.py
    :language: python3
 
-.. code-block:: console
+.. code:: console
 
    $ nosetests -a '!online' testattr2.py
    $ nosetests -A "speed != slow" testattr2.py
@@ -160,7 +160,7 @@ Python の pdb デバッガが起動する。
 * 通常使いたいのは ``--pdb`` ではなく ``--pdb-faillures`` のほうだと思う。
 * pdb はコンソールベースのデバッガ。正直なところ不慣れなツールだが、この際慣れておく。
 
-.. code-block:: console
+.. code:: console
 
    $ nosetests --pdb-failures testeven.py
    .> d:\home\yojyo\devel\all-note\notebook\source\_sample\nose\testeven.py(13)check_even()
@@ -194,7 +194,7 @@ with-coverage オプション -- コードカバレッジ
 この機能を利用するには、別途 coverage_ という別のパッケージが必要だ。
 インストールは難しくないので、Nose 環境の一部とみなして導入しておくとよさそうだ。
 
-.. code-block:: console
+.. code:: console
 
    $ nosetests --with-coverage -v testrandom.py
    test_choice (testrandom.TestSequenceFunctions) ... ok
@@ -220,7 +220,7 @@ with-profile オプション -- プロファイリング
 テストに関係した全関数に対する呼び出しの回数や時間の統計を取れる。
 いつものテスト結果を出力した直後に、プロファイル結果を出力する。
 
-.. code-block:: console
+.. code:: console
 
             4101 function calls (4084 primitive calls) in 0.201 CPU seconds
 
@@ -376,7 +376,7 @@ Nose のバージョンが上がってから勉強しに行こう。
     例えば Jinja2_ の ``testsuite`` フォルダーの各ファイルからテストを
     全部抽出してリストを作成できたりする。
 
-    .. code-block:: console
+    .. code:: console
 
        $ cd site-packages/jinja2/
        $ python34 -c 'import jinja2; print(jinja2.__version__)'
@@ -409,7 +409,7 @@ Nose のバージョンが上がってから勉強しに行こう。
     例えば線形代数サブパッケージだけテストしたいのならば、
     Python インタープリターから次のようにタイプしてみるだけでよい。
 
-    .. code-block:: pycon
+    .. code:: pycon
 
        >>> import numpy as np
        >>> np.linalg.test(verbose=2)

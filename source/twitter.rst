@@ -120,7 +120,7 @@ API を勉強する前に `search-home`_ をまずは試す。
 
 RSS 用に URL を組み立てる例
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.. code-block:: text
+.. code:: text
 
    マイナーゲームのファンの傾向を知る
    http://search.twitter.com/search.atom?q=%E3%82%A4%E3%83%AB%E3%83%99%E3%83%AD&show_user=true

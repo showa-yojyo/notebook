@@ -8,7 +8,7 @@ NetworkX を利用する
 
 以降、次のインポートを断りなしに用いる。
 
-.. code-block:: python3
+.. code:: python3
 
   import networkx as nx
   import matplotlib.pyplot as plt

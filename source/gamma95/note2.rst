@@ -384,7 +384,7 @@ Bridge
 * Window のサブクラスのメソッドの実装は、
   すべて WindowImp のメソッドで実装している。
 
-  .. code-block:: c++
+  .. code:: c++
 
      // p. 170
      void Window::DrawRect(const Point& p1, const Point& p2){
@@ -468,7 +468,7 @@ Decorator クラスの構造は、
 
 サンプルコード。コンストラクタの呼び出し方にインパクトあり。
 
-.. code-block:: c++
+.. code:: c++
 
    // p. 194
    window->SetContents(

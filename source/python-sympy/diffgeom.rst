@@ -15,7 +15,7 @@
    本文中のすべての IPython セッション中のサンプルコードで、
    以下のインポートおよび出力書式設定が済んでいるものとする。
 
-   .. code-block:: python3
+   .. code:: python3
 
       from sympy.diffgeom import *
       from sympy.diffgeom.rn import *
@@ -531,7 +531,7 @@ SymPy の FAQ にあるように、こういう複雑な等式のテストには
 クラス CoordSystem, Point, BaseScalarField の
 座標成分に関係するメソッドの簡単な例を示す。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: r, th = symbols('r th')
 
@@ -561,7 +561,7 @@ SymPy の FAQ にあるように、こういう複雑な等式のテストには
 
 ドキュメントのそれとたいして変わらないが、ヤコビアンの例を示す。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: x, y, r, th = symbols('x y r th')
 
@@ -652,7 +652,7 @@ SymPy の FAQ にあるように、こういう複雑な等式のテストには
 
 を :code:`f` として定義し、各座標成分について適用させて方向微分を見よう。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: k = symbols('k')
 
@@ -704,7 +704,7 @@ SymPy の FAQ にあるように、こういう複雑な等式のテストには
 
 まずは Differential だけでがんばる：
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: a, b, c = symbols('a b c')
 
@@ -736,7 +736,7 @@ SymPy の FAQ にあるように、こういう複雑な等式のテストには
 
 次に手動で WedgeProduct を適用することで :math:`\dd \omega` を求めるやり方をとる。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [8]: domega2 = sum(WedgeProduct(Differential(f), oneform)\
       ...: for (f, oneform) in zip((fx, fy, fz), R3_r.base_oneforms()))
@@ -759,7 +759,7 @@ SymPy の FAQ にあるように、こういう複雑な等式のテストには
 関数 :code:`test_functional_diffgeom_ch6` を参考にして、
 :code:`omega` と :code:`omega2` が同じらしいことを確認するにはこうする。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [10]: from itertools import permutations
 
@@ -817,7 +817,7 @@ SymPy の FAQ にあるように、こういう複雑な等式のテストには
 
    X = -y \frac{\partial}{\partial x} + x \frac{\partial}{\partial y}.
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: x0, y0, t = symbols('x0 y0 t', real=True)
 
@@ -914,7 +914,7 @@ SymPy の FAQ にあるように、こういう複雑な等式のテストには
 例として、先ほどの外微分 :math:`\dd{\omega}` がちょうど 2-形式なので、
 ここで試そう。
 
-.. code-block:: ipython
+.. code:: ipython
 
    In [1]: # See [1]-[6] in section Differential Form and Exterior Derivative
 

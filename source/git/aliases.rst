@@ -13,13 +13,13 @@
 方法はファイル ``.gitconfig`` での設定による。
 つまりコンソールで次のようにタイプするか、
 
-.. code-block:: console
+.. code:: console
 
    $ git config --global alias.ci 'commit -a'
 
 またはテキストエディターで下のように編集する。
 
-.. code-block:: ini
+.. code:: ini
 
    [alias]
        ci = commit -a

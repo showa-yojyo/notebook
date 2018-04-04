@@ -63,7 +63,7 @@
 これにより個々のエッジの重みも得られる。
 それは次のようなものになる。
 
-.. code-block:: text
+.. code:: text
 
    size of G: 24.0
    size of MST: 5.0

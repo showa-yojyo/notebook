@@ -57,7 +57,7 @@ Git のマニュアルでなくても通用する規則も多い。
 
      普通はコマンド ``git branch`` で指示できそうな名前がわかる。
 
-     .. code-block:: console
+     .. code:: console
 
         $ git branch
            develop
@@ -67,7 +67,7 @@ Git のマニュアルでなくても通用する規則も多い。
      または ``$GIT_DIR/refs/heads`` 以下のファイル名も参考になる。
      下の例で、なぜ ``master`` がないのかを説明できるようにしておきたい。
 
-     .. code-block:: console
+     .. code:: console
 
         $ ls .git/refs/heads
         develop  feature-comp
@@ -76,7 +76,7 @@ Git のマニュアルでなくても通用する規則も多い。
      ブランチ ``feature-comp`` がないのは、
      リモートリポジトリーに push しないようにしているからだと思う。
 
-     .. code-block:: console
+     .. code:: console
 
         $ grep refs/heads/ .git/info/refs
         7e93a8dc8c013297281c13cb95005f617b96635f        refs/heads/develop
@@ -168,7 +168,7 @@ Git のマニュアルでなくても通用する規則も多い。
 
      * コマンド ``git remote [show]`` で該当する名前の一覧を得られる。
 
-       .. code-block:: console
+       .. code:: console
 
           $ git remote
           origin
@@ -192,7 +192,7 @@ Git のマニュアルでなくても通用する規則も多い。
 
      * コマンド ``git tag [-l|--list]`` で該当する名前の一覧を得られる。
 
-       .. code-block:: console
+       .. code:: console
 
           $ git tag
           1.1
@@ -226,7 +226,7 @@ Git のマニュアルでなくても通用する規則も多い。
 ======================================================================
 コンソールで次のコマンドを実行すると、Git 用語集のヘルプドキュメントを閲覧できる。
 
-.. code-block:: console
+.. code:: console
 
    $ git help glossary
 
@@ -398,7 +398,7 @@ reflog
 
   .. hint::
 
-     .. code-block:: console
+     .. code:: console
 
         $ git reflog
         3f97afa HEAD@{0}: checkout: moving from develop to feature-comp
@@ -474,7 +474,7 @@ tree
 
      次の例で両方の意味のツリーを示す。
 
-     .. code-block:: console
+     .. code:: console
 
         $ git log -1
         commit 3f97afac08976e5530105d85ec8d4173a2357cf7

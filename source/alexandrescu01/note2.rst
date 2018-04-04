@@ -50,7 +50,7 @@ Command デザインパターンの解説セクション。
 * ``FunctorImpl`` を部分特殊化をしまくって、
   引数リストのパラメータ数が十分大きくても対応できるようにしておく。
 
-  .. code-block:: c++
+  .. code:: c++
 
      // p. 114 より引用
      template <typename R, class TList>
@@ -114,7 +114,7 @@ Command デザインパターンの解説セクション。
 * Command パターンの話をしていたので、マクロやらアンドゥ・リドゥの話。
 * 「参照の参照」問題回避のため、traits を ``Functor::operator()`` にクッションする。
 
-  .. code-block:: c++
+  .. code:: c++
 
      // 例えば型 Parm1 が組み込み型でない場合、
      // p1 の型は Parm1& となる。
@@ -160,7 +160,7 @@ Command デザインパターンの解説セクション。
 
 * 次のタイプの実装を Meyers の Singleton と呼ぶことにする。
 
-  .. code-block:: c++
+  .. code:: c++
 
      Singleton& Singleton::Instance()
      {
@@ -233,7 +233,7 @@ Singleton のコンセプトとは独立したものです。
 * 今では有名になった手法だが、Doug Schdmit と Tim Harrison が発案した (1996)
   Double-Checked Locking パターンを紹介している。
 
-  .. code-block:: c++
+  .. code:: c++
 
      // p. 157 より引用
      Singleton& Singleton::Instance()
@@ -264,7 +264,7 @@ Singleton のコンセプトとは独立したものです。
   * ``Lifetime``: 「通常」「復活アリ」「寿命制御」「無限」の 4 パターンを提供している。
   * ``Threading``: シングルスレッド or マルチスレッド。
 
-  .. code-block:: c++
+  .. code:: c++
 
      // p. 160 より引用
      template <
@@ -302,7 +302,7 @@ Singleton のコンセプトとは独立したものです。
 * <既存の高品質なスマート・ポインタでは、たいていの場合、
   以下のコードのようにポインタの型によってテンプレート化されています> (p. 168)
 
-  .. code-block:: c++
+  .. code:: c++
 
      template <class T>
      class SmartPtr
@@ -334,7 +334,7 @@ Singleton のコンセプトとは独立したものです。
   なぜかというと、``T`` の解放のためのメンバ関数呼び出しと、
   ``SmartPtr<T>`` のそれが似ていて紛らわしいから。
 
-  .. code-block:: c++
+  .. code:: c++
 
      SmartPtr<Printer> spRes = ...
      ...
@@ -430,7 +430,7 @@ Singleton のコンセプトとは独立したものです。
 * <``SmartPtr`` の宣言中に現れるポリシーの順序は、
   最も良くカスタマイズされるものが先頭に来るようになっています> (p. 201)
 
-  .. code-block:: c++
+  .. code:: c++
 
      template
      <
@@ -515,7 +515,7 @@ C++ という言語が、ユニークで永続的な型 ID を保証していな
 
 ----
 
-.. code-block:: c++
+.. code:: c++
 
    template
    <
@@ -538,14 +538,14 @@ C++ という言語が、ユニークで永続的な型 ID を保証していな
 
 オブジェクト・ファクトリは通常 Singleton であることが自然。
 
-.. code-block:: c++
+.. code:: c++
 
    // p. 228 より引用
    typedef SingletonHolder< Factory<Shape, std::string> > ShapeFactory;
 
 以前の ``Functor`` を ``ProductCreator`` とすることも可能。
 
-.. code-block:: c++
+.. code:: c++
 
    // p. 228 より引用
    typedef SingletonHolder

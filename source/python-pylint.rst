@@ -46,7 +46,7 @@ Pylint_
 環境変数 ``$PATH`` には既に ``$PYTHONDIR/Scripts`` を含ませてあるゆえ、
 私が Pylint をコマンドラインから呼び出すときの記法は次のようになる。
 
-.. code-block:: console
+.. code:: console
 
    $ pylint.bat args
    # or
@@ -64,7 +64,7 @@ Pylint の設定ファイルについて記す。デフォルトでは Pylint �
 設定ファイルの有無は Pylint の機能に支障はないが、この警告文が毎度目につくと煩わしいので、
 まずはダミーの設定ファイルを作成しておく。
 
-.. code-block:: console
+.. code:: console
 
    $ pylint --generate-rcfile > ~/.pylintrc
 
@@ -72,7 +72,7 @@ Pylint の設定ファイルについて記す。デフォルトでは Pylint �
 単に ``pylint --version`` をすることで、
 :file:`.pylintrc` のチェックをさせることにもなる。
 
-.. code-block:: console
+.. code:: console
 
    $ pylint --version
    Warning: option ignore-iface-methods is obsolete and it is slated for removal in Pylint 1.6.
@@ -108,7 +108,7 @@ Pylint はオプションなしで実行すると、どんなに品の良いコ�
 常に ``-rn``, (or ``--reports=n``) を指示する習慣を身につけた。
 興味があるのは、コードのどの行がどのような「まずさ」を有するかということだけなのだ。
 
-.. code-block:: console
+.. code:: console
 
    # Suppress statistics, i.e. display only
    # R: refactor, C: convention, W: warning, and E: error.
@@ -129,7 +129,7 @@ Pylint の出力はコード解析結果と統計結果のふたつの部分か�
 公式ドキュメントによると、開発版の（＝確かめたい）パッケージと、
 環境変数 ``$PYTHONPATH`` にあるそれとを Pylint に混同させないように注意する必要があるそうだ。
 
-.. code-block:: console
+.. code:: console
 
    # Specify the package name.
    $ pylint -rn mypackage
@@ -168,7 +168,7 @@ Pylint の忠告に従いたいが、難しい場合もある。
 ``ABCMeta`` 等については Python のマニュアルを参照して欲しいが、こうすることで私のクラスには
 ``__subclasses__`` というメンバーが確かに存在する。
 
-.. code-block:: python3
+.. code:: python3
 
    from abc import ABCMeta
    from abc import abstractmethod
@@ -179,7 +179,7 @@ Pylint の忠告に従いたいが、難しい場合もある。
 
 しかたがないので、このクラスの宣言の直前に次のコメントを追加しておく。
 
-.. code-block:: python3
+.. code:: python3
 
    # pylint: disable=no-member
    class AbstractMapper(metaclass=ABCMeta):

@@ -24,7 +24,7 @@ GET application/rate_limit_status は現在の API 利用制限状況を知る�
 
 次に実行例を示す。長くなるので一部を省略する。
 
-.. code-block:: console
+.. code:: console
 
    $ ./application-rate_limit_status.py
    {
@@ -71,7 +71,7 @@ GET application/rate_limit_status は現在の API 利用制限状況を知る�
 見慣れた時刻表現にするならば、
 Python 標準のメソッド ``datetime.datetime.fromtimestamp`` を利用する等の方法がある。
 
-.. code-block:: pycon
+.. code:: pycon
 
    >>> import datetime
    >>> datetime.datetime.fromtimestamp(1450622609).strftime('%c')

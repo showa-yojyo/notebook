@@ -35,7 +35,7 @@ GET help/languages を用いることで Twitter がサポートする言語の�
 先のデモコードによる実行例を示す（出力を一部省略する）。
 全部で 33 言語をサポートしていることがわかった。
 
-.. code-block:: console
+.. code:: console
 
    $ ./twhelp.py help/languages
    [

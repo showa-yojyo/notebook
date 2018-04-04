@@ -120,7 +120,7 @@ ReportLab を紹介している。
 * ネットに接続して ``easy_install reportlab`` でインストールできる。
 * 基本的に Python のコード一丁で PDF を生成する。面倒くさい。
 
-  .. code-block:: python
+  .. code:: python
 
      from reportlab import canvas
 
@@ -324,7 +324,7 @@ ReportLab を紹介している。
 * ``threading`` モジュールに ``Lock`` クラスがあるので、それをロックに利用する。
   pp. 502-503 のサンプルコードの構造を頭に叩き込んでおく。
 
-  .. code-block:: python
+  .. code:: python
 
      lock.acquire()
      try:

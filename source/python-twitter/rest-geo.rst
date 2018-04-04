@@ -29,7 +29,7 @@ GET geo/id/:place_id は場所 ID というものを指定して、その詳細�
 
 次に実行例を示す。
 
-.. code-block:: console
+.. code:: console
 
    $ geo-id-place_id.py
    {
@@ -148,7 +148,7 @@ Twitter API が取り扱える値としての場所 ID を得ることができ�
 
 次に実行例を示す（一部加工済み）。
 
-.. code-block:: console
+.. code:: console
 
    $ geo-reverse_geocode.py
    {
@@ -492,7 +492,7 @@ GET geo/search は緯度経度は言うに及ばず、地名、IP アドレス�
 兵庫県神戸市長田区、北海道札幌市清田区、長野県御代田町等も候補として返っており、
 紙幅の都合上ほとんどを省略する。
 
-.. code-block:: console
+.. code:: console
 
    $ geo-search.py
    {

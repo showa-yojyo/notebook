@@ -12,7 +12,7 @@ Python も組み込みでクラス set を提供しているが、
    本文中のすべての IPython セッション中のサンプルコードで、
    以下のインポートおよび出力書式設定が済んでいるものとする。
 
-   .. code-block:: python3
+   .. code:: python3
 
       init_printing(pretty_print=False)
 
@@ -21,7 +21,7 @@ Python も組み込みでクラス set を提供しているが、
 サブパッケージ ``sympy.sets`` が提供する集合を表現するクラスたち。
 インデントが派生関係を意味する。一行空けは特に意味はない。
 
-.. code-block:: text
+.. code:: text
 
    Set
        EmptySet
@@ -315,7 +315,7 @@ Python 組み込みの :code:`range` とよく似ている集合。
 
 * 座標平面上の原点を中心とする円の定義法の例。テストコード改。
 
-  .. code-block:: ipython
+  .. code:: ipython
 
      In [1]: r, th = symbols('r theta', real=True)
 

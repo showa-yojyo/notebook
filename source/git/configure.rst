@@ -34,7 +34,7 @@ browser
 他の構成項目を設定する過程で付随的に ``browser.<tool>.cmd`` や ``browser.<tool>.path`` を設定する必要が生じた場合、
 次のように設定する。
 
-.. code-block:: ini
+.. code:: ini
 
    [browser "sleipnir"]
        cmd = 'C:/Program Files (x86)/Fenrir Inc/Sleipnir6/bin/Sleipnir.exe'
@@ -49,7 +49,7 @@ color
 ``color.branch.<slot>``
   ブランチの色をカスタマイズする場合は次のように設定する。
 
-  .. code-block:: ini
+  .. code:: ini
 
      [color "branch"]
          current = yellow reverse
@@ -59,7 +59,7 @@ color
 ``color.diff.<slot>``
   差分テキストの色をカスタマイズする場合は次のように設定する。
 
-  .. code-block:: ini
+  .. code:: ini
 
      [color "diff"]
          meta = yellow bold
@@ -70,7 +70,7 @@ color
 ``color.status``
   ``git status`` の出力する各種テキストの色を次のようにして設定することができる。
 
-  .. code-block:: ini
+  .. code:: ini
 
      [color "status"]
          added = yellow
@@ -121,7 +121,7 @@ post-image となる一時ファイルがそれぞれ動的にセットされる
 
 ツールの特性に合わせて敢えてこれらのパラメーターを入れ替えて指定することもあり得る。
 
-.. code-block:: ini
+.. code:: ini
 
    [difftool tortoisediff]
        difftool.cmd = \"C:/Program Files/TortoiseGIT/bin/TortoiseGitMerge.exe\" -mine:\"$REMOTE\" -base:\"$LOCAL\"
@@ -156,7 +156,7 @@ mergetool
 ここで ``BASE`` や ``REMOTE`` などのシェル変数を、
 マージ処理に関連する一時ファイル名として指示するのに用いる。
 
-.. code-block:: ini
+.. code:: ini
 
    [mergetool "tortoisemerge"]
        mergetool.cmd = \"C:/Program Files/TortoiseGit/bin/TortoiseGitMerge.exe\" -base:\"$BASE\" -theirs:\"$REMOTE\" -mine:\"$LOCAL\" -merged:\"$MERGED\"

@@ -87,7 +87,7 @@ Miniconda による方法
 
 実行例を示す。言い忘れたが Cygwin :program:`bash` のセッションだ。
 
-.. code-block:: console
+.. code:: console
 
    $ conda install -c mmcauliffe pyqt5
    Fetching package metadata ...........
@@ -231,7 +231,7 @@ Qt Desinger
   をパスの通ったフォルダーにコピーして、コンソールから同バッチを実行する。
   コマンドライン引数は Designer で保存した ui ファイル一丁。
 
-  .. code-block:: console
+  .. code:: console
 
      $ pyuic5.bat myform.ui > ui_myform.py
 
@@ -313,7 +313,7 @@ ui ファイルから直接 ``Widget`` をロードする方法
 #. :file:`qmytextbrowser.py` ファイルを作成し、
    自分でクラスを実装すればよい。
 
-   .. code-block:: python3
+   .. code:: python3
 
       from PyQt5 import QtWidgets
 

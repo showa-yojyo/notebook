@@ -73,7 +73,7 @@ Simpson の公式
 前述までの計算結果を一挙に記す。
 すべて :math:`\displaystyle \int_{0}^{\pi} \sin x\,\dx` である。
 
-.. code-block:: text
+.. code:: text
 
    Trapezoid method:  1.99983216389
    Simpson's method:  1.99999996902

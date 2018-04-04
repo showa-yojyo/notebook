@@ -52,7 +52,7 @@ VC のコンパイラーを要するような特殊な Python パッケージに
 ただし、NumPy だけは先に最新版にアップグレードしておくほうが無難だ。
 公式の NumPy の whl ファイルを参照するようで、これが私の環境にとっては都合が悪い。
 
-.. code-block:: console
+.. code:: console
 
    $ pip install --upgrade matplotlib
    Downloading/unpacking matplotlib from https://pypi.python.org/packages/cp34/m/matplotlib/matplotlib-1.4.3-cp34-none-win_amd64.whl#md5=72e96f66866523cb5974f52038d25242
@@ -90,7 +90,7 @@ Matplotlib の初回インストールまたはアップグレード直後に確
 ----------------------------------------------------------------------
 Matplotlib のモジュールから直接バージョン番号を得ることで確認するには次のようにする。
 
-.. code-block:: console
+.. code:: console
 
    $ python -c 'import matplotlib as mpl; print(mpl.__version__)'
    1.4.3
@@ -98,7 +98,7 @@ Matplotlib のモジュールから直接バージョン番号を得ることで
 Anaconda または Miniconda で Python 環境を管理しているのであれば、
 コマンドラインで :program:`conda` を用いる。
 
-.. code-block:: console
+.. code:: console
 
    $ conda list matplotlib
    # packages in environment at D:\Miniconda3:
@@ -107,7 +107,7 @@ Anaconda または Miniconda で Python 環境を管理しているのであれ�
 
 もしくは :program:`pip` を用いる。
 
-.. code-block:: console
+.. code:: console
 
    $ pip show matplotlib
    ---

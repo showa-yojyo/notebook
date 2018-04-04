@@ -10,7 +10,7 @@ SymPy_ の整数論モジュールについて記す。
    本文中のすべての IPython セッション中のサンプルコードで、
    以下のインポートおよび出力書式設定が済んでいるものとする。
 
-   .. code-block:: python3
+   .. code:: python3
 
       init_printing(pretty_print=False)
 
@@ -117,7 +117,7 @@ SymPy_ の整数論モジュールについて記す。
   * クラス Function のサブクラスなので、
     評価をするには :code:`totient(n)` のようにする。
 
-    .. code-block:: ipython
+    .. code:: ipython
 
        In [1]: [totient(10 ** i) for i in range(10)]
        Out[1]: [1, 4, 40, 400, 4000, 40000, 400000, 4000000, 40000000, 400000000]
@@ -136,7 +136,7 @@ SymPy_ の整数論モジュールについて記す。
   中国剰余定理に基づく問題を解くのに利用できる。
   例を示す。
 
-  .. code-block:: ipython
+  .. code:: ipython
 
      In [1]: crt([3, 5, 7], [2, 3, 2])
      Out[1]: (23, 105)
@@ -148,7 +148,7 @@ SymPy_ の整数論モジュールについて記す。
 
   * キーワード引数 :code:`check=False` の使いどころが不明。
 
-    .. code-block:: ipython
+    .. code:: ipython
 
        In [1]: crt([6, 10], [1, 2], check=True)
 
@@ -201,7 +201,7 @@ SymPy_ の整数論モジュールについて記す。
   これを <the order of `a` modulo `n`> と英語では言うらしい。
   日本語なら「`a` の法 `n` の位数」か。
 
-  .. code-block:: ipython
+  .. code:: ipython
 
      In [1]: n_order(10**100 + 1, prime(1000))
      Out[1]: 3959
@@ -220,7 +220,7 @@ SymPy_ の整数論モジュールについて記す。
   存在するときに限り :code:`p` の最小の原始根を返す。
   つまり :code:`p` と互いに素で、かつ :code:`p` を法とする整数の乗法群の生成元を求める。
 
-  .. code-block:: ipython
+  .. code:: ipython
 
      In [1]: primitive_root(27)
      Out[1]: 2
@@ -246,7 +246,7 @@ SymPy_ の整数論モジュールについて記す。
   * これは微妙に使いにくい。
     値によっては自分でループを書く必要があるだろう。
 
-    .. code-block:: ipython
+    .. code:: ipython
 
        In [1]: from itertools import islice
 
@@ -273,7 +273,7 @@ SymPy_ の整数論モジュールについて記す。
 関数 :code:`continued_fraction_reduce(cf)`
   連分数 :code:`cf` を連分数でない形で返す。
 
-  .. code-block:: ipython
+  .. code:: ipython
 
      In [1]: from sympy.abc import a, b, c
 

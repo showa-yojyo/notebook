@@ -19,7 +19,7 @@
   Nose_ が環境にあれば単体テストが実行できる。
   例によって実行時間は決して短くない。
 
-  .. code-block:: pycon
+  .. code:: pycon
 
      >>> import scipy
      >>> scipy.test()

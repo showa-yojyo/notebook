@@ -40,7 +40,7 @@ Newton-Raphson 法
 もちろん推定根の与え方で戻り値が揺れるが、
 だいたい 10 のマイナス 7, 8 乗の精度で問題ない。
 
-.. code-block:: text
+.. code:: text
 
    Root: 1.99999999195
 
@@ -65,7 +65,7 @@ SciPy というよりは NumPy_ だけで多項式の定義と根の計算が実
 
 私の環境での実行結果を示す。解 :math:`\pm i, 2` がすべて求まっていることがわかる。
 
-.. code-block:: text
+.. code:: text
 
    polynomial:  poly([-2.  1. -2.  1.])
    roots:  [ -1.83880688e-16-1.j  -1.83880688e-16+1.j   2.00000000e+00+0.j]
@@ -75,7 +75,7 @@ SciPy というよりは NumPy_ だけで多項式の定義と根の計算が実
    本節で例示した方程式は SymPy_ を用いれば代数的処理で解を得られる。
    :doc:`/python-sympy/index` 参照。
 
-   .. code-block:: ipython
+   .. code:: ipython
 
       In [1]: solve(x - 2 * sqrt(x - 1))
       Out[1]: [2]

@@ -91,7 +91,7 @@ Docutils_ のサブパッケージ ``docutils.transforms`` について記す。
 構文木ノードのサブクラス ``title``, ``topic``, ``pending`` それぞれのオブジェクトを生成する。
 最後にドキュメントの然るべき場所に収める。
 
-.. code-block:: python3
+.. code:: python3
 
    from docutils import nodes, languages
    from docutils.transforms import Transform, parts

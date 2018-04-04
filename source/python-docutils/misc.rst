@@ -50,7 +50,7 @@ Sphinx をインストールしたときに、Docutils も同時に自動的に�
 
 いずれも次の擬似コードが示すような構造になっている。
 
-.. code-block:: python3
+.. code:: python3
 
    _xxxx_aliases = {
          'name1': 'subpkg1',

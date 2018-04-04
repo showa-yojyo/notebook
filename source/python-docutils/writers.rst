@@ -139,7 +139,7 @@
   メソッド ``translate`` のコードが同一だが、Visitor のオブジェクトが異なるときに、
   その型だけをクラス間で区別して指定できるようにメンバーデータとして括り出している。
 
-  .. code-block:: python3
+  .. code:: python3
 
      class SuperWriter(Writer):
 
@@ -173,7 +173,7 @@
 ======================================================================
 モジュール ``docutils.core`` でオブジェクトの生成処理が確認できる。
 
-.. code-block:: python3
+.. code:: python3
 
    def set_writer(self, writer_name):
         """Set `self.writer` by name."""

@@ -43,7 +43,7 @@ GET media/upload を用いることである程度の画像ファイル等をア
 比較的サイズの小さい PNG 画像ファイルを上述のスクリプトでアップロードすると、
 次のようになる。
 
-.. code-block:: console
+.. code:: console
 
    $ ./twmedia.py ../illvelo.png
    file size = 0 MB

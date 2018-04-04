@@ -28,7 +28,7 @@ POST blocks/create を用いれば特定のユーザーをブロックするこ�
 
 次に実行例を示す。私が私をブロックしようとするとこうなる。
 
-.. code-block:: console
+.. code:: console
 
    $ ./blocks-create.py
    Traceback (most recent call last):
@@ -74,7 +74,7 @@ POST blocks/destroy は既にブロックしていたユーザーのブロック
 
 次に実行例を示す。ブロックしていないはずの自分を解除するとこうなる。
 
-.. code-block:: console
+.. code:: console
 
    $ ./blocks-destroy.py
    {
@@ -105,7 +105,7 @@ GET blocks/ids は現時点で自分がブロックしているユーザーの I
 
 次に実行例を示す。
 
-.. code-block:: console
+.. code:: console
 
    $ ./blocks-ids.py
    {
@@ -137,7 +137,7 @@ GET blocks/list は現時点で自分がブロックしているユーザーの�
 
 次に実行例を示す。
 
-.. code-block:: console
+.. code:: console
 
    $ ./blocks-list.py
    {

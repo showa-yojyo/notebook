@@ -12,7 +12,7 @@
    特に断らない限り、以降のテキストおよびコード片においては、
    各種 :code:`import` を次のようにしたものと仮定している。
 
-   .. code-block:: python3
+   .. code:: python3
 
       import numpy as np
       import scipy as sp
@@ -86,7 +86,7 @@ Axes
 
 * :code:`plt` のプロットコマンドはすべて current axes に作用する。
 
-  .. code-block:: python3
+  .. code:: python3
 
      import matplotlib as mpl
      import matplotlib.pyplot as plt
@@ -160,7 +160,7 @@ Axes
 * テキストの基準位置は ``horizontalalignment``, ``verticalalignment`` キーワード引数で指示できる。
   例えば `x`, `y` 引数をテキストの右下位置としたい場合には次のようにする。
 
-  .. code-block:: python3
+  .. code:: python3
 
      plt.text(x, y, 'aaaa', verticalalignment='bottom', horizontalalignment='right')
 
@@ -256,7 +256,7 @@ Axes オブジェクトの ``xaxis`` および ``yaxis`` メンバーでアク�
    :code:`get_major_ticks`@目盛 (:code:`matplotlib.ticker.Ticker`) オブジェクトを返す。
    :code:`grid`@グリッド線を描画するしないを指示。
 
-.. code-block:: python3
+.. code:: python3
 
    import matplotlib.pyplot as plt
    ax = plt.gca()
@@ -285,7 +285,7 @@ Axes オブジェクトの ``xaxis`` および ``yaxis`` メンバーでアク�
 ----------------------------------------------------------------------
 例えば PyQt5 の UI でグラフをウィンドウに表示する場合、次のようにするとそうなる。
 
-.. code-block:: python3
+.. code:: python3
 
    import matplotlib as mpl
    mpl.use('Qt5Agg')
@@ -312,7 +312,7 @@ IPython_ のセッションであらかじめ :code:`matplotlib.plt` 等がイ�
 その名前の形式のファイルを作成することができる。
 コードで実現するには、次のような手順にしておけばよい。
 
-.. code-block:: python3
+.. code:: python3
 
    import matplotlib as mpl
    mpl.use('PDF')  # We want the image as PDF file.

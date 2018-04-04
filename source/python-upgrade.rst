@@ -39,7 +39,7 @@ Python 2.6 site-packages の状態を保存
 
 ただし、バージョンは不要なので ``cut`` にて削っておく。
 
-.. code-block:: console
+.. code:: console
 
    $ cd D:/Python26/lib/site-packages
    $ pip freeze | cut -d= -f 1 > mypkgs.txt
@@ -65,7 +65,7 @@ Python 2.6 フォルダーから一部のファイルをコピーする
 
 * pip_: :file:`pip.1.1-tar.gz` を入手して、解凍後 :file:`setup.py` を利用する。
 
-  .. code-block:: console
+  .. code:: console
 
      $ python27 setup.py install
 
@@ -102,7 +102,7 @@ PIL, NumPy などのインストーラーモノの行を削除して、このテ
 編集後、おもむろに下記コマンドラインを実行する。
 かなり時間がかかることを覚悟することだ。
 
-.. code-block:: console
+.. code:: console
 
    $ cd D:/Python27/Scripts
    $ ./pip install -r mypkgs.txt
@@ -144,7 +144,7 @@ Subversion の Python binding を利用しているため、これをセット�
 
 エイリアス ``python27`` を追加。
 
-.. code-block:: bash
+.. code:: bash
 
    alias a='alias'
    a python26='D:/Python26/python.exe'
@@ -160,7 +160,7 @@ SendToCygwin.ini
 「Cygwin に送る」というユーティリティがあり、私はこれを偏愛している。
 その設定ファイルを更新しておく。
 
-.. code-block:: ini
+.. code:: ini
 
    *.py =python27 %F ||
    *.pyw =python27 %F ||
@@ -208,7 +208,7 @@ PyQt5 など、それ以外のパッケージについては、それぞれの�
 #. :file:`mypkgs.txt` を編集し、Windows インストーラーでインストールしたパッケージの行を削除する。
 #. 前回移行時と同様の手順に従う。
 
-.. code-block:: console
+.. code:: console
 
    $ cd D:/Python34/Scripts
    $ ./pip install -r mypkgs.txt

@@ -47,7 +47,7 @@ Git はその基礎概念をしっかり理解することが、要領良く習�
 * 6.2.1 ``git log -1 --pretty=oneline XXX``
 * 6.2.2 symref
 
-  .. code-block:: text
+  .. code:: text
 
      refs/
        heads/～
@@ -80,7 +80,7 @@ Git はその基礎概念をしっかり理解することが、要領良く習�
 
 * 8.1
 
-  .. code-block:: text
+  .. code:: text
 
      git diff                           ←作業コピーと index との比較
      git diff コミット                  ←p. 114 fig. 8-1
@@ -89,7 +89,7 @@ Git はその基礎概念をしっかり理解することが、要領良く習�
 
 * 8.2 「インデックスと HEAD との比較」←→ステージ
 
-  .. code-block:: text
+  .. code:: text
 
      git diff           ←作業コピーと index との比較
      git diff HEAD      ←作業コピーと HEAD との比較
@@ -99,21 +99,21 @@ Git はその基礎概念をしっかり理解することが、要領良く習�
 
 * 8.4
 
-  .. code-block:: text
+  .. code:: text
 
      git diff --stat master~5 master Documentation
      git diff -S "octopus" master~50
 
 * 9.1
 
-  .. code-block:: text
+  .. code:: text
 
      git checkout ブランチ
      git merge 別ブランチ
 
 * 9.1.2
 
-  .. code-block:: text
+  .. code:: text
 
      git checkout -b alternate master~
      git log --graph --pretty=oneline --abbrev-commit
@@ -131,7 +131,7 @@ Git はその基礎概念をしっかり理解することが、要領良く習�
 
 * 9.2.5
 
-  .. code-block:: text
+  .. code:: text
 
      git reset --hard HEAD        ←マージ中断
      git reset --hard ORIG_HEAD   ←マージを破棄

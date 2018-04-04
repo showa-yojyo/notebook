@@ -61,7 +61,7 @@ Jinja2 Documentation から引用：
 ----------------------------------------------------------------------
 コンフィグレーションクラスと思えばよい。
 
-.. code-block:: python3
+.. code:: python3
 
    from jinja2 import Environment, PackageLoader
    env = Environment(loader=PackageLoader('yourapplication', 'templates'))
@@ -97,7 +97,7 @@ Jinja2 Documentation から引用：
   ただし、ローダーを指定せずに Environment を生成した場合は、
   :code:`from_string` メソッドで Template オブジェクトを得ることになる。
 
-  .. code-block:: python3
+  .. code:: python3
 
      MY_TEMPLATE = 'Hello {{ name }}!'
 
@@ -117,7 +117,7 @@ Jinja2 Documentation から引用：
   such as the file system> (Jinja2 Documentation) だそうなので、
   リソースが何であるかによって利用するべきローダーが決まるのだろう。
 
-.. code-block:: text
+.. code:: text
 
    BaseLoader
        FileSystemLoader
@@ -143,7 +143,7 @@ Jinja2 Documentation から引用：
 ----------------------------------------------------------------------
 Jinja2 Documentation からそのまま引用してきたテンプレート例を示す。
 
-.. code-block:: jinja
+.. code:: jinja
 
    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
    <html lang="en">
@@ -213,7 +213,7 @@ Jinja2 Documentation からそのまま引用してきたテンプレート例�
 ----------------------------------------------------------------------
 ある条件の成り立つときには違うものを書きたいときに利用する機能。
 
-.. code-block:: jinja
+.. code:: jinja
 
    {% if loop.index is even %}
    <td class="black_cell">
@@ -244,7 +244,7 @@ Jinja2 Documentation からそのまま引用してきたテンプレート例�
 ----------------------------------------------------------------------
 テンプレートタグにマイナス記号をくっつけると、前後の空白文字がカットできる。
 
-.. code-block:: jinja
+.. code:: jinja
 
    {% for item in seq -%}
        {{ item }}
@@ -303,7 +303,7 @@ Jinja2 Documentation からそのまま引用してきたテンプレート例�
 
 * 次のコード例のように、再帰ループを記述することができる。
 
-  .. code-block:: jinja
+  .. code:: jinja
 
      <ul class="sitemap">
      {%- for item in sitemap recursive %}
@@ -326,7 +326,7 @@ Jinja2 Documentation からそのまま引用してきたテンプレート例�
 
 * 通常の ``if`` 構文の他に、inline if expression という使い方がある。
 
-  .. code-block:: text
+  .. code:: text
 
      <do something> if <something is true> else <do something else>
 
@@ -335,7 +335,7 @@ Jinja2 Documentation からそのまま引用してきたテンプレート例�
 テンプレート中にマクロを定義できる。
 Jinja2 で言うマクロというのは、プログラミング言語的関数みたいなもの。
 
-.. code-block:: jinja
+.. code:: jinja
 
    {% macro input(name, value='', type='text', size=20) -%}
        <input type="{{ type }}" name="{{ name }}" value="{{ value|e }}" size="{{ size }}">
@@ -360,7 +360,7 @@ Jinja2 で言うマクロというのは、プログラミング言語的関数�
 マクロ展開中に、マクロ呼び出し元の何かを展開する機能。
 Jinja2 Documentation からそのまま引用した例だが：
 
-.. code-block:: jinja
+.. code:: jinja
 
    {% macro render_dialog(title, class='dialog') -%}
    <div class="{{ class }}">
@@ -378,7 +378,7 @@ Jinja2 Documentation からそのまま引用した例だが：
 
 上のテンプレートの ``call`` ブロックが展開されると次のテキストになるようだ。
 
-.. code-block:: text
+.. code:: text
 
    <div class="dialog">
        <h2>Hello World</h2>
@@ -405,7 +405,7 @@ Jinja2 Documentation からそのまま引用した例だが：
 ----------------------------------------------------------------------
 Python コードよろしく、変数を定義することができる。
 
-.. code-block:: jinja
+.. code:: jinja
 
    {% set 変数名 = 式 %}
 
@@ -413,7 +413,7 @@ Python コードよろしく、変数を定義することができる。
 ----------------------------------------------------------------------
 テンプレートファイルが別のテンプレートファイルをインクルードする機能。
 
-.. code-block:: jinja
+.. code:: jinja
 
    {% include テンプレファイルパス %}
    {% include テンプレファイルパス ignore missing %}
@@ -440,7 +440,7 @@ Jinja2 を利用して何かテキストデータを作成してみよう。
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 次の内容のテキストファイルを :file:`diary.txt_t` として保存する。
 
-.. code-block:: jinja
+.. code:: jinja
 
    {#- 簡単な日記テンプレ -#}
 
@@ -484,7 +484,7 @@ Python コード
 その場で実行すると :file:`diary-2011-04.txt` のような、
 手動で日記を書くためのテキストファイルができる。
 
-.. code-block:: python3
+.. code:: python3
 
    from jinja2 import Environment, FileSystemLoader
    from calendar import Calendar
@@ -511,7 +511,7 @@ Python コード
 
 実行結果
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.. code-block:: text
+.. code:: text
 
    ==================================================
    2011 年 4 月の日記
@@ -542,7 +542,7 @@ TODO
      これは難しくないからやってもやらなくてもよい。
      おそらく次のようなことをするだけで十分。
 
-     .. code-block:: console
+     .. code:: console
 
         $ pip uninstall jinja2
         $ git clone https://github.com/mitsuhiko/jinja2.git

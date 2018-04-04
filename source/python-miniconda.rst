@@ -158,7 +158,7 @@ Conda の各種設定はホームディレクトリーに所定の書式で記�
   Cygwin の :file:`/etc/fstab` あるいは :file:`/etc/fstab.d/$USER` の内容を
   次のように編集する必要が生じていた。
 
-  .. code-block:: text
+  .. code:: text
 
      # For a description of the file format, see the Users Guide
      # http://cygwin.com/cygwin-ug-net/using.html#mount-table
@@ -219,7 +219,7 @@ Conda の各種設定はホームディレクトリーに所定の書式で記�
 
   * 環境にある全パッケージを単にアップグレードするには、次のコマンドでよい。
 
-    .. code-block:: console
+    .. code:: console
 
        $ conda update --all
 
@@ -233,7 +233,7 @@ Conda の各種設定はホームディレクトリーに所定の書式で記�
   * 一括アップグレードを実現する場合、このことが重要である。
     つまり、次のような手順を採用することになるだろう。
 
-    .. code-block:: console
+    .. code:: console
 
        $ conda update --all
        $ pip install --upgrade --requirement reqpip.txt
@@ -249,7 +249,7 @@ Conda の各種設定はホームディレクトリーに所定の書式で記�
   アップグレード目的のため、バージョン文字列はカットしたい。
   こうだろうか。
 
-  .. code-block:: console
+  .. code:: console
 
      $ conda list --export --no-pip | cut -d= -f1 > reqconda.txt
      $ conda list | grep '<pip>' | cut -f1 -d' ' > reqpip.txt

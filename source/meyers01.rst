@@ -176,7 +176,7 @@ vector と string
   vector/string から余分な容量を削除することができる。
   著者はこの技法を "shrink to fit" 方法と呼んでいる。
 
-  .. code-block:: c++
+  .. code:: c++
 
      string s;
      // ...
@@ -184,7 +184,7 @@ vector と string
 
   あるいは
 
-  .. code-block:: c++
+  .. code:: c++
 
      string().swap(s);
 
@@ -238,7 +238,7 @@ vector と string
 
   * ただし「キー以外の部分」については変更することに問題はない。
 
-    .. code-block:: c++
+    .. code:: c++
 
        EmpIDSet::iterator i = se.find(selectedID);
        if(i != se.end()){
@@ -311,7 +311,7 @@ const_iterator を iterator に変換する技法として、
 * ``find`` 等のアルゴリズムに reverse_iterator を与えると、
   その戻り値の型もまた reverse_iterator になる。
 
-  .. code-block:: c++
+  .. code:: c++
 
      vector<int> v;
      // ...
@@ -372,7 +372,7 @@ const_iterator を iterator に変換する技法として、
   ``remove`` の後に ``erase`` を実行しなければならない>
   (pp. 138-139)
 
-  .. code-block:: c++
+  .. code:: c++
 
      vector<int> v;
      // ...
@@ -409,7 +409,7 @@ const_iterator を iterator に変換する技法として、
 * 次のタイプのコードは、業務時に見落とす可能性が大なのでノートをとっておく。
   望ましくない理由と望ましいコードを、読み返したときに思い出せ。
 
-  .. code-block:: c++
+  .. code:: c++
 
      vector<int> v;
      // ...
@@ -546,7 +546,7 @@ STL を使ったプログラミング
 --------
 * 冒頭で次のコードを提示しておき、
 
-  .. code-block:: c++
+  .. code:: c++
 
      v.erase(
        remove_if(find_if(v.rbegin(), v.rend(),
@@ -585,7 +585,7 @@ STL を使ったプログラミング
 ============================================
 * <``x`` と ``y`` が ``std::string`` 型であれば、式 ``x < y`` は次の式と等価である。
 
-  .. code-block:: c++
+  .. code:: c++
 
      std::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());
 
@@ -605,7 +605,7 @@ STL を使ったプログラミング
   関数 ``std::use_facet`` は、ロケールオブジェクトから特定のファセットを抽出する。
   ファセット ``ctype`` は、大文字小文字の変換を含め、文字の分類を処理する> (p. 230)
 
-  .. code-block:: c++
+  .. code:: c++
 
      // L をロケールとして
      const std::ctype<char>& ct = std::use_facet<std::ctype<char> >(L);
@@ -622,7 +622,7 @@ Microsoft の STL プラットフォームについて
 
 STL のメンバ関数テンプレート、特に型の違うコンテナから insert や assign する場合、
 
-.. code-block:: c++
+.. code:: c++
 
    vector<Widget> vw;
    list<Widget> lw;

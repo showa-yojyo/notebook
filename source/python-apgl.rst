@@ -56,7 +56,7 @@ apgl
 ----------------------------------------------------------------------
 pip_ を利用してインストールする。
 
-.. code-block:: console
+.. code:: console
 
    $ pip install apgl
 
@@ -65,7 +65,7 @@ apgl のテストを起動するのがよいだろう。
 <The automatic testing routine requires Python 2.7 or later,
 or the unittest2 testing framework for Python 2.3-2.6> (p. 2)
 
-.. code-block:: pycon
+.. code:: pycon
 
    >> import apgl
    >> apgl.test()
@@ -185,7 +185,7 @@ APGL_ のウェブページに "An Introduction to APGL" という PDF ファイ
 行列 ``dists`` の ij 成分が、頂点 i と頂点 j を結ぶ最短経路のエッジウェイトの総和になっている。
 無向グラフの経路は ``dists[i, j] == dists[j, i]`` となる。
 
-.. code-block:: text
+.. code:: text
 
    [[  0.  10.  14.  12.  29.  33.]
     [ 10.   0.   8.  15.  19.  30.]
@@ -203,7 +203,7 @@ APGL_ のウェブページに "An Introduction to APGL" という PDF ファイ
 
 :file:`PySparseGraph` の冒頭のインポートがおかしいので、自分で修正する。
 
-.. code-block:: python3
+.. code:: python3
 
    #from pysparse.sparse.pysparseMatrix import PysparseMatrix
    from pysparse.pysparseMatrix import PysparseMatrix
