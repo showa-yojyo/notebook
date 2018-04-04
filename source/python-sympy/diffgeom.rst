@@ -360,45 +360,42 @@ TensorProduct オブジェクトの ``rcall`` 呼び出しで計量縮約を行�
 クラス LieDerivative
 ----------------------------------------------------------------------
 クラス LieDerivative はリー微分を表現する。
-すなわち何らかのベクトル場に対して (a, b) 型テンソル場から (a, b) 型テンソル場を生成する。
+あるベクトル場が生成するフローに沿う何かの微分を計算するのに利用できるはずだ。
+
+次の設定で簡単なテンソル場のリー微分を試すことにする：
 
 .. code:: ipython
 
-   In [1]: M = Manifold('R^5', 5)
+   In [1]: U = CoordSystem('x', Patch('U', Manifold('R^5', 5)))
 
-   In [2]: U = CoordSystem('x', Patch('U', M))
-
-   In [3]: x_0, x_1, x_2, x_3, x_4 = U.coord_functions()
+   In [2]: x_0, x_1, x_2, x_3, x_4 = U.coord_functions()
       ...: X_0, X_1, X_2, X_3, X_4 = U.base_vectors()
-      ...: dx0, dx_1, dx_2, dx_3, dx_4 = U.base_oneforms()
+      ...: dx_0, dx_1, dx_2, dx_3, dx_4 = U.base_oneforms()
       ...:
 
-   In [5]: var('c:5', real=True)
+   In [3]: X = sum(ci * Xi for ci, Xi in zip(var('c0:5'), U.base_vectors()))
 
-   In [6]: X = c0 * X0 + c1 * X1 + c2 * X2 + c3 * X3 + c4 * X4
+   In [4]: L, C = LieDerivative, Commutator
 
-   In [7]: Lie, Com = LieDerivative, Commutator
-
-ここまでの設定で簡単なテンソル場のリー微分を試すことにする。
 最初に :math:`\mathcal L_xf = X(f)` と :math:`\mathcal L_XY = [X, Y]` を試してみよう：
 
-.. code-block:: ipython
+.. code:: ipython
 
-   In [8]: f = x0 ** 2 + x1 ** 2
+   In [5]: f = x0 ** 2 + x1 ** 2
 
-   In [9]: assert L(X, f) == X.rcall(f)
+   In [6]: assert L(X, f) == X.rcall(f)
 
-   In [10]: Y = 8 * x3 * X0 + 9 * x1 * X2 + 3 * x0 * X4
+   In [7]: Y = 8 * x_3 * X_0 + 9 * x_1 * X_2 + 3 * x_0 * X_4
 
-   In [11]: assert L(X, Y) == Commutator(X, Y)
+   In [8]: assert L(X, Y) == C(X, Y)
 
 次にライプニッツ則スカラー場バージョンを試す：
 
-.. code-block:: ipython
+.. code:: ipython
 
-   In [12]: g = x3 ** 2 + x4 ** 2
+   In [9]: g = x_3 ** 2 + x_4 ** 2
 
-   In [13]: assert (L(X, f * g).expand() == (f * L(X, g) + L(X, f) * g).expand())
+   In [10]: assert L(X, f * g).expand() == (f * L(X, g) + L(X, f) * g).expand()
 
 SymPy の FAQ にあるように、こういう複雑な等式のテストには
 メソッド :code:`expand()` を適用したり、左辺マイナス右辺をゼロと比較したりする必要があることが多い。
@@ -420,6 +417,9 @@ SymPy の FAQ にあるように、こういう複雑な等式のテストには
       &\mathcal L_{[X, Y]} = \mathcal L_X \circ \mathcal L_Y - \mathcal L_Y \circ \mathcal L_X\\
       &\mathcal L_X(\xi \otimes \eta) = \mathcal L_X\xi \otimes \eta + \xi \otimes \mathcal L_X\eta
       \end{align*}
+
+   今のところ与えるテンソルが平凡過ぎて処理中にスカラーになるのがまずいのか、
+   ``TypeError: 'Add' object is not callable`` というエラーが頻出する。
 
 定義済み多様体オブジェクト
 ======================================================================
