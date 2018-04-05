@@ -296,7 +296,23 @@
 * 問題 4.3.6: :math:`SL_2(\RR)` の左不変完全積分可能 2 次元平面場
 
   本問は :ref:`問題 4.2.2 <tsuboi08.4.2.2>` (2) で途中まで計算済み。
-  :math:`aH^* + bS^* + cU^*` とおいて :math:`\dd\alpha \wedge \alpha = 0` となる条件を示せばよい。
+  :math:`\alpha = aH^* + bS^* + cU^*` とおいて :math:`\dd\alpha \wedge \alpha = 0` となる条件を示せばよい。
+
+  .. math::
+
+     \begin{align*}
+     \dd\alpha \wedge \alpha
+     &= (aS^* \wedge U^* + 2b H^* \wedge U^* -2cH^* \wedge U^*)
+       \wedge (aH^* + bS^* + cU^*)\\
+     &= a^2 S^* \wedge U^* \wedge H^* + 2b^2 H^* \wedge U^* \wedge S^* - 2bc H^* \wedge U^* \wedge S^*\\
+     &= (a^2 - 2b^2 + 2bc)H^* \wedge S^* \wedge U^*\\
+     \end{align*}
+
+  であるから求める 1 形式は次の形のものだ：
+
+  .. math::
+
+     \alpha = 2ab H^* + 2b^2 S^* - (a^2 - 2b^2) U^*.
 
 .. _tsuboi08.4.3.7:
 
