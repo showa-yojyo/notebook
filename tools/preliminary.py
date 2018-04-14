@@ -52,7 +52,7 @@ def parse_args(args):
         type=FileType(mode='r', encoding='utf-8'),
         default=sys.stdin)
 
-    return parser.parse_args(args=args or ('--help',))
+    return parser.parse_args(args=args)
 
 def read(source):
     """Read TSV from the source."""
