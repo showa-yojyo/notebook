@@ -7,12 +7,7 @@ Effective Python 読書ノート
 未取得な必修事項がかなり残っていることを教えてくれた。
 私の場合は 4 章以降の知識がかなり危ない。
 
-:著者: Brett Slatkin
-:訳者: 黒川 利明
-:出版社: オライリー・ジャパン
-:発行年: 2016 年
-:ISBN: 978-4-87311-756-0
-:関連 URL: `版元 <https://www.oreilly.co.jp/books/9784873117560/>`__ `原書 <http://www.effectivepython.com/>`__
+.. include:: /_include/book-details/slakin16.txt
 
 .. contents:: ノート目次
 
