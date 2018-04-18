@@ -84,7 +84,8 @@ Contents:
    :maxdepth: 1
 
    milestone09/index
+   cygwin
+   git/index
    twitter
    inkscape/index
-   git/index
    mathjax
