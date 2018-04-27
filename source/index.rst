@@ -38,6 +38,7 @@ Contents:
    stepanov15
    saha16
    slatkin16
+   guntheroth16
    speinellis17
 
 .. toctree::
