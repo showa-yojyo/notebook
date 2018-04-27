@@ -50,8 +50,10 @@ Contents:
    preliminary2018
 
 .. toctree::
+   :glob:
    :maxdepth: 1
 
+   python-3.*
    python-pip
    python-pylint
    python-docutils/index
