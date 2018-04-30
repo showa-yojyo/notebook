@@ -191,7 +191,7 @@ Windows のそれをそのまま使うのではなく ``.bash_profile`` で完�
 
 .. code:: text
 
-   none / cygdrive binary,posix=0,user,acl 0 0
+   none / cygdrive binary,posix=0,noacl,user 0 0
 
 これを設定することで、ドライブ直下に :command:`cd` する際には
 例えば
