@@ -67,14 +67,14 @@ What's New In Python 3.6 を読んで、個人的に関心のある項目に注�
     .. code:: ipython
 
        In [1]: class IntField:
-           ...:
-           ...:     # this is the new initializer:
-           ...:     def __set_name__(self, owner, name):
-           ...:         self.name = name
-           ...:
-           ...: class Model:
-           ...:     int_field = IntField()
-           ...:
+          ...:
+          ...:     # this is the new initializer:
+          ...:     def __set_name__(self, owner, name):
+          ...:         self.name = name
+          ...:
+          ...: class Model:
+          ...:     int_field = IntField()
+          ...:
 
        In [2]: Model.int_field.name
        Out[2]: 'int_field'
