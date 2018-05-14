@@ -120,3 +120,10 @@ Optimized C++
 .. include:: /_include/book-details/guntheroth16.txt
 
 → :doc:`/guntheroth16`
+
+数学 100 の発見
+======================================================================
+
+.. include:: /_include/book-details/mathseminar72.txt
+
+→ :doc:`/mathseminar72`

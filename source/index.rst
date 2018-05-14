@@ -15,6 +15,7 @@ Contents:
 .. toctree::
    :maxdepth: 1
 
+   mathseminar72
    gamma95/index
    hunt00/index
    sutter00
