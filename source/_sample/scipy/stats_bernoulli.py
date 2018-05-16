@@ -13,19 +13,19 @@ rv = bernoulli(p)
 mean, var, skew, kurt = rv.stats(moments='mvsk')
 
 # mean == p.
-print("mean: {:.3f}".format(float(mean)))
+print(f"mean: {float(mean):.3f}")
 
 # median == 0.5 (if p == 0.5)
-print("median: {:.3f}".format(rv.median()))
+print(f"median: {rv.median():.3f}")
 
 # var == p * (1 - p)
-print("var: {:.3f}".format(float(var)))
+print(f"var: {float(var):.3f}")
 
 # skew == (1 - 2 * p)/np.sqrt(p * (1 - p))
-print("skew: {:.3f}".format(float(skew)))
+print(f"skew: {float(skew):.3f}")
 
 # kurt == -2 (if p == 0.5)
-print("kurt: {:.3f}".format(float(kurt)))
+print(f"kurt: {float(kurt):.3f}")
 
 # std == np.sqrt(var)
-print("std: {:.3f}".format(rv.std()))
+print(f"std: {rv.std():.3f}")

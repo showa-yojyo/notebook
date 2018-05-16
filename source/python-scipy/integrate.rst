@@ -22,7 +22,7 @@ SciPy の関数を紹介し、次に使い勝手のよい定積分計算関数�
 
 .. literalinclude:: /_sample/scipy/integrate.py
    :language: python3
-   :lines: 1-20
+   :lines: 1-19
 
 :math:`\displaystyle \int_{0}^{\pi} \sin x\,\dd{x}` という簡単な例で面白くないが、見ていこう。
 
@@ -42,7 +42,7 @@ Simpson の公式
 
 .. literalinclude:: /_sample/scipy/integrate.py
    :language: python3
-   :lines: 22-23
+   :lines: 21-22
 
 実行結果は関連定積分関数の結果とまとめて後述する。
 
@@ -56,7 +56,7 @@ Simpson の公式
 
 .. literalinclude:: /_sample/scipy/integrate.py
    :language: python3
-   :lines: 1-17, 25-
+   :lines: 1-17, 24-
 
 実行結果は関連定積分関数の結果とまとめて後述する。
 
@@ -73,7 +73,7 @@ Simpson の公式
 前述までの計算結果を一挙に記す。
 すべて :math:`\displaystyle \int_{0}^{\pi} \sin x\,\dx` である。
 
-.. code:: text
+.. code-block:: text
 
    Trapezoid method:  1.99983216389
    Simpson's method:  1.99999996902

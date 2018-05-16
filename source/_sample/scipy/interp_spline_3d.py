@@ -27,7 +27,7 @@ print("parameter values: \n", u)
 
 # Evaluate the curve at each parameter i in u.
 for i, xyz in zip(u, np.asarray(splev(u, tck)).T):
-    print("f({:.3f}) = {}".format(i, xyz))
+    print(f"f({i:.3f}) = {xyz}")
 
 # Plot points and the curve.
 fig = plt.figure()
@@ -43,7 +43,7 @@ ax.plot(xs=values[0], ys=values[1], zs=values[2],
         color='deeppink', label='cubic spline')
 
 for pt in points.T:
-    ptlabel = "({:d}, {:d}, {:d})".format(pt[0], pt[1], pt[2])
+    ptlabel = f"({pt[0]:d}, {pt[1]:d}, {pt[2]:d})"
     ax.text(pt[0], pt[1], pt[2], ptlabel, color='black')
 
 ax.set_xlabel('x')

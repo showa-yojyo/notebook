@@ -12,19 +12,19 @@ rv = poisson(mu)
 mean, var, skew, kurt = rv.stats(moments='mvsk')
 
 # mean == mu
-print("mean: {:.8f}".format(float(mean)))
+print(f"mean: {float(mean):.8f}")
 
 # median
-print("median: {:.8f}".format(rv.median()))
+print(f"median: {rv.median():.8f}")
 
 # var == mu
-print("var: {:.8f}".format(float(var)))
+print(f"var: {float(var):.8f}")
 
 # skew == 1/sqrt(mu)
-print("skew: {:.8f}".format(float(skew)))
+print(f"skew: {float(skew):.8f}")
 
 # kurt == 1/mu
-print("kurt: {:.8f}".format(float(kurt)))
+print(f"kurt: {float(kurt):.8f}")
 
 # std == np.sqrt(var)
-print("std: {:.8f}".format(rv.std()))
+print(f"std: {rv.std():.8f}")

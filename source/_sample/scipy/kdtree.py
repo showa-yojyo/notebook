@@ -15,9 +15,9 @@ tree = KDTree(points)
 
 # A target point included in [0, 100) * [0, 100) * [0, 100).
 target = [43.831, 54.762, 83.131]
-print("Target: {}".format(target))
+print(f"Target: {target}")
 
 # Query for the closest point.
 dist, index = tree.query(target, eps=0.01)
-print("Closest: {}".format(tree.data[index]))
-print("Distance: {}".format(dist))
+print(f"Closest: {tree.data[index]}")
+print(f"Distance: {dist}")

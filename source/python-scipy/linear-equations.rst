@@ -40,7 +40,7 @@ LU 分解がどうだのという議論に終始するものだ。
 
 私の環境での実行結果は次のとおり（見栄えのために一部空白文字を手動で挿入）。
 
-.. code:: text
+.. code-block:: text
 
    Solve Ax = b:
     [[ 1.]
@@ -70,7 +70,7 @@ LU 分解
 
 私の環境での実行結果は次のとおり（見栄えのために一部空白文字を手動で挿入）。
 
-.. code:: text
+.. code-block:: text
 
    LU decomposition (A = PLU):
    P:

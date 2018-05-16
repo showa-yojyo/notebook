@@ -13,9 +13,9 @@ dice = randint(low, high)
 # Compute moments.
 mean, var, skew, kurt = dice.stats(moments='mvsk')
 
-print("mean: {:.3f}".format(float(mean)))
-print("median: {:.3f}".format(dice.median()))
-print("var: {:.3f}".format(float(var)))
-print("skew: {:.3f}".format(float(skew)))
-print("kurt: {:.3f}".format(float(kurt)))
-print("std: {:.3f}".format(dice.std())) # Or np.sqrt(var).
+print(f"mean: {float(mean):.3f}")
+print(f"median: {dice.median():.3f}")
+print(f"var: {float(var):.3f}")
+print(f"skew: {float(skew):.3f}")
+print(f"kurt: {float(kurt):.3f}")
+print(f"std: {dice.std():.3f}") # Or np.sqrt(var).

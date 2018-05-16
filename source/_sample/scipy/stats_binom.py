@@ -13,23 +13,23 @@ rv = binom(N, p)
 mean, var, skew, kurt = rv.stats(moments='mvsk')
 
 # mean == N * p
-print("mean: {:.3f}".format(float(mean)))
+print(f"mean: {float(mean):.3f}")
 
 # median == np.floor(N * p) or np.ceil(N * p) ?
-print("median: {:.3f}".format(rv.median()))
+print(f"median: {rv.median():.3f}")
 
 # var == N * p * (1 - p)
-print("var: {:.3f}".format(float(var)))
+print(f"var: {float(var):.3f}")
 
 # skew == (1 - 2 * p)/np.sqrt(N * p * (1 - p))
-print("skew: {:.3f}".format(float(skew)))
+print(f"skew: {float(skew):.3f}")
 
 # kurt == (1 - 6 * p * (1 - p))/(N * p * (1 - p))
-print("kurt: {:.3f}".format(float(kurt)))
+print(f"kurt: {float(kurt):.3f}")
 
 # std == np.sqrt(var)
-print("std: {:.3f}".format(rv.std()))
+print(f"std: {rv.std():.3f}")
 
 print("How many times you win:")
 for i in range(N + 1):
-    print("{}/{}: {:.8f}".format(i, N, float(rv.pmf(i))))
+    print(f"{i}/{N}: {float(rv.pmf(i)):.8f}")

@@ -22,8 +22,7 @@ print("degree:\n", tck[2])
 
 # Evaluate interest rates for each month.
 for i in range(1, 13):
-    print("month[{0:02d}]: {1:.3f}%".format(
-        i, float(splev(i, tck))))
+    print(f"month[{i:02d}]: {float(splev(i, tck)):.3f}%")
 
 # Plot the interest curve.
 time = np.linspace(1, 12, 1000, endpoint=True)

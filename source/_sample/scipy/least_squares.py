@@ -24,7 +24,7 @@ X, residues, rank, s = lstsq(A, B)
 # Show the regression curve (line).
 a = X[0]
 b = X[1]
-print("Line: y = {:.3f}x {:+.3f}".format(a, b))
+print(f"Line: y = {a:.3f}x {b:+.3f}")
 
 # Plot both the sampling data and the regression curve.
 # pylint: disable=invalid-slice-index

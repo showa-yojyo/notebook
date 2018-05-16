@@ -22,7 +22,7 @@
 
 私の環境での実行結果は次のとおり。
 
-.. code:: text
+.. code-block:: text
 
    eigenvalues:
    (3+0j)
