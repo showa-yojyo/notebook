@@ -29,7 +29,7 @@ def main():
         mat_str='pmatrix', mat_delim=None)
     dcdt = Matrix([Derivative(xi, t, 1), Derivative(eta, t, 1)])
 
-    print_latex(sqrt((dcdt.transpose() * tDPhiDPhi).dot(dcdt)),
+    print_latex(sqrt((dcdt.transpose() @ tDPhiDPhi).dot(dcdt)),
        fold_func_brackets=True)
 
 if __name__ == '__main__':

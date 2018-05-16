@@ -23,13 +23,13 @@ def main():
         Dpinv = simplify(pinv.jacobian([u, v]))
         print_latex(Dpinv, mat_str='pmatrix', mat_delim=None) # OK?
 
-        tDpinvDpinv = factor(Dpinv.transpose() * Dpinv)
+        tDpinvDpinv = factor(Dpinv.transpose() @ Dpinv)
         print_latex(tDpinvDpinv, mat_str='pmatrix', mat_delim=None) # OK
 
         tDpinvDpinv = tDpinvDpinv.subs([(u, xi(t)), (v, eta(t))])
         dcdt = Matrix([xi(t).diff(), eta(t).diff()])
         print_latex(simplify(
-            sqrt((dcdt.transpose() * tDpinvDpinv).dot(dcdt))))
+            sqrt((dcdt.transpose() @ tDpinvDpinv).dot(dcdt))))
     else:
         # directly 
         dpinvc = pinv.subs([(u, xi(t)), (v, eta(t))]).diff(t, 1)
