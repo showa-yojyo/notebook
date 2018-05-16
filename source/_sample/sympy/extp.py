@@ -10,15 +10,15 @@ from sympy.diffgeom.rn import R3_r
 
 def _print_BaseScalarField(self, field):
     string = field._coord_sys._names[field._index]
-    return '{}'.format(self._print(Symbol(string)))
+    return f'{self._print(Symbol(string))}'
 
 def _print_Differential(self, diff):
     field = diff._form_field
     if hasattr(field, '_coord_sys'):
         string = field._coord_sys._names[field._index]
-        return r'\dd {}'.format(self._print(Symbol(string)))
+        return rf'\dd {self._print(Symbol(string))}'
     else:
-        return r'\dd({})'.format(self._print(field))
+        return rf'\dd({self._print(field)})'
 
 for m in (_print_BaseScalarField, _print_Differential):
     setattr(LatexPrinter, m.__name__, m)

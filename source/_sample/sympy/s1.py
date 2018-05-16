@@ -8,7 +8,7 @@ from sympy.diffgeom import (Manifold, Patch, CoordSystem)
 
 def main():
     # A unit circle in \RR^2:
-    S1 = Manifold('S**1', 1)
+    S1 = Manifold('S1', 1)
 
     # Coordinate charts :math:`(U_i^\pm, \phi_i^\pm)` for S1:
     # 0, 1 -> x0, x1
@@ -35,10 +35,8 @@ def main():
 
     # Jacobian matrices:
     for map0, map1 in intersections:
-        print('Jacobian {} -> {}: {}'.format(
-            map0.name, map1.name, map0.jacobian(map1, ['x1'])))
-        print('Jacobian {} -> {}: {}'.format(
-            map1.name, map0.name, map1.jacobian(map0, ['x0'])))
+        print(f'Jacobian {map0.name} -> {map1.name}: ', map0.jacobian(map1, ['x1']))
+        print(f'Jacobian {map1.name} -> {map0.name}: ', map1.jacobian(map0, ['x0']))
 
     # Transition maps:
     data = (
@@ -51,9 +49,8 @@ def main():
         (phim1, 1/2, phip0),
         (phim1, -1/2, phim0),)
     for cfrom, t, cto in data:
-        print('{}({:7.4f}) = {}({:7.4f})'.format(
-            cfrom.name, t, 
-            cto.name, cto.point_to_coords(cfrom.point([t]))[0]))
+        print(f'{cfrom.name}({t:7.4f}) = '
+              f'{cto.name}({cto.point_to_coords(cfrom.point([t]))[0]:7.4f})')
 
 if __name__ == '__main__':
     main()

@@ -37,7 +37,7 @@ SymPy 利用ノート
      * Windows 7 Home Premium x64 SP1
      * Windows 10 Home x64
 
-   * Python_: 3.4.1, 3.5.0, 3.5.2
+   * Python_: 3.4.1, 3.5.0, 3.5.2, 3.6.5
    * SymPy_: 0.7.7dev, 1.0.1.dev0
    * IPython_: 3.0.0, 4.0.0, 5.0.0
    * Sphinx_: 1.3.1, 1.4.5
