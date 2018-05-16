@@ -16,4 +16,4 @@ response = tw.statuses.mentions_timeline(
 
 # [2]
 for stat in response:
-    print('{created_at}|{text}'.format(**stat).replace('\n', '\\n'))
+    print('{created_at}|{text}'.format_map(stat).replace('\n', '\\n'))

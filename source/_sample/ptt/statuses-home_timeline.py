@@ -16,4 +16,4 @@ statuses = tw.statuses.home_timeline(
 
 # [2]
 for stat in statuses:
-    print('{created_at}|{text}'.format(**stat).replace('\n', '\\n'))
+    print('{created_at}|{text}'.format_map(stat).replace('\n', '\\n'))

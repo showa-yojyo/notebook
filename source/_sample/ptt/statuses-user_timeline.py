@@ -18,4 +18,4 @@ response = tw.statuses.user_timeline(
 
 # [2]
 for stat in response:
-    print('{created_at}|@{user[screen_name]}|{text}'.format(**stat).replace('\n', '\\n'))
+    print('{created_at}|@{user[screen_name]}|{text}'.format_map(stat).replace('\n', '\\n'))

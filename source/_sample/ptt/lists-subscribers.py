@@ -15,6 +15,6 @@ while next_cursor:
         cursor=next_cursor)
 
     for item in response['users']:
-        print('{screen_name}: {description}'.format(**item).replace('\n', '\\n'))
+        print('{screen_name}: {description}'.format_map(item).replace('\n', '\\n'))
 
     next_cursor = response['next_cursor']

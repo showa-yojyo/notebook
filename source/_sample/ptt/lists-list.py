@@ -12,4 +12,4 @@ response = tw.lists.list(screen_name='showa_yojyo')
 
 # [2]
 for item in response:
-    print('{mode} {full_name} {description}'.format(**item).replace('\n', '\\n'))
+    print('{mode} {full_name} {description}'.format_map(item).replace('\n', '\\n'))

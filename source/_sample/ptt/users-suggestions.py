@@ -9,4 +9,4 @@ tw = twitter_instance()
 response = tw.users.suggestions()
 
 for i in response:
-    print('{name}|{slug}|{size}'.format(**i))
+    print('{name}|{slug}|{size}'.format_map(i))

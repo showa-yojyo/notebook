@@ -32,8 +32,8 @@ while total < MAX_COUNT:
 
     # [3]
     for tweet in statuses:
-        print('{created_at}|@{user[screen_name]}|{text}'.format(
-            **tweet).replace('\n', '\\n'))
+        print('{created_at}|@{user[screen_name]}|{text}'.format_map(
+            tweet).replace('\n', '\\n'))
 
     # [4]
     kwargs['max_id'] = min_id - 1

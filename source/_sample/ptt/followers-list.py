@@ -21,6 +21,6 @@ while next_cursor:
 {screen_name} / {name}
 {description}
 {url}
-'''.format(**follower))
+'''.format_map(follower))
 
     next_cursor = response['next_cursor']

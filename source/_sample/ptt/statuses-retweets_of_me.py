@@ -12,4 +12,4 @@ response = tw.statuses.retweets_of_me(
     include_user_entities=False,)
 
 for tweet in response:
-    print('{retweet_count}|{text}'.format(**tweet).replace('\n', '\\n'))
+    print('{retweet_count}|{text}'.format_map(tweet).replace('\n', '\\n'))

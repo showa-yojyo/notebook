@@ -15,4 +15,4 @@ params = dict(
     skip_status=False,)
 
 response = tw.lists.members.show(**params)
-print('{screen_name} / {name} {description}'.format(**response).replace('\n', '\\n'))
+print('{screen_name} / {name} {description}'.format_map(response).replace('\n', '\\n'))

@@ -14,6 +14,6 @@ while next_cursor:
         cursor=next_cursor)
 
     for item in response['lists']:
-        print('{mode}:{full_name}:{description}'.format(**item).replace('\n', '\\n'))
+        print('{mode}:{full_name}:{description}'.format_map(item).replace('\n', '\\n'))
 
     next_cursor = response['next_cursor']

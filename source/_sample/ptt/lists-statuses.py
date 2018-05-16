@@ -20,5 +20,5 @@ response = tw.lists.statuses(**kwargs)
 for item in response:
     # [2]
     print(item['user']['screen_name'])
-    print('{text}\n{created_at} {source}'.format(**item))
+    print('{text}\n{created_at} {source}'.format_map(item))
     print('-' * 70)

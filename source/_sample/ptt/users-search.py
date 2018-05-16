@@ -23,5 +23,5 @@ for i in response:
 ツイート数 {statuses_count}
 フォロー {friends_count} 人
 フォロワー {followers_count} 人
-'''.format(**i))
+'''.format_map(i))
 
