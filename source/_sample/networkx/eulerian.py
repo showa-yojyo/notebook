@@ -104,7 +104,7 @@ def print_cycle(G, source=None):
                 skill = skills[i]
             else:
                 skill = skills[(i[1], i[0])]
-            print('{} {}'.format(i, skill))
+            print(f'{i} {skill}')
     except nx.NetworkXError as ex:
         print(ex)
 

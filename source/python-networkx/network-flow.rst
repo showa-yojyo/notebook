@@ -32,7 +32,7 @@ Wikipedia_ の説明文の図を拝借して、実行してみる。
 実行結果は次のようになる。最大フローが得られており、
 各辺の流量が Wikipedia_ の図の各辺のキャプションの ``/`` の左側の値と一致した。
 
-.. code:: console
+.. code:: shell
 
    $ python maxflow.py
    maximum flow: 5
@@ -79,15 +79,15 @@ Wikipedia_ の説明文の図を拝借して、実行してみる。
 
 .. literalinclude:: /_sample/networkx/mincut.py
    :language: python3
-   :lines: 26-39
+   :lines: 25-38
 
 実行結果を次に示す。
 カットセットの構成本数が点 s, t に関する辺連結度 2 と一致している。
 
-.. code:: text
+.. code-block:: text
 
    cut value: 5
-   (S, T): ({'o', 'q', 'p', 's', 'r'}, {'t'})
+   (S, T): ({'o', 'r', 'p', 's', 'q'}, {'t'})
    cut set: {('r', 't'), ('q', 't')}
 
 .. figure:: /_images/networkx-mincut.png

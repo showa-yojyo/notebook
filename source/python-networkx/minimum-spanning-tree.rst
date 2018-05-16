@@ -29,13 +29,13 @@
 
 .. literalinclude:: /_sample/networkx/mst.py
    :language: python3
-   :lines: 1-32
+   :lines: 1-31
 
 所定の条件からグラフを構築する処理を示す。
 
 .. literalinclude:: /_sample/networkx/mst.py
    :language: python3
-   :lines: 33-45
+   :lines: 32-44
 
 テキスト処理程度しか行っていないが、注意点がひとつ。
 グラフに ``add_edge`` するときにコストをしっかりと指示することを忘れてはならない。
@@ -49,7 +49,7 @@
 
 .. literalinclude:: /_sample/networkx/mst.py
    :language: python3
-   :lines: 47-63
+   :lines: 46-62
 
 最初に入力グラフのエッジ全体のコストを出力する。
 ポイントは :code:`G.size` メソッドのキーワード引数 ``weight`` の明示的な指示だ。
@@ -63,7 +63,7 @@
 これにより個々のエッジの重みも得られる。
 それは次のようなものになる。
 
-.. code:: text
+.. code-block:: text
 
    size of G: 24.0
    size of MST: 5.0

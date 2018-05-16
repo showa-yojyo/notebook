@@ -20,7 +20,7 @@ Wikipedia_ のイラストを参考にしてグラフを構築し、
 図の上の行がオリジナルで、下の行が本プログラムによる極大マッチングだ。
 確かにこのエッジセットもそれぞれのグラフの極大マッチングである
 
-.. code:: console
+.. code:: shell
 
    $ python maximal-matching.py
    {(0, 1)}
@@ -50,12 +50,12 @@ Wikipedia_ のイラストを参考にしてグラフを構築し、
 
 .. literalinclude:: /_sample/networkx/maximum_matching.py
    :language: python3
-   :lines: 7-11
+   :lines: 6-10
 
 実行結果は次の通り。
 戻り値の型がノードとノードの辞書なのがマッチング感を演出しているように見受けられる。
 
-.. code:: console
+.. code:: shell
 
    $ python maximum_matching.py
    {0: 2, 1: 5, 2: 0, 5: 1}

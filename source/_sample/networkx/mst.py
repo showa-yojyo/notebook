@@ -53,10 +53,10 @@ def print_spanning(G):
       None
     """
 
-    print('size of G: {}'.format(G.size(weight='weight')))
+    print('size of G:', G.size(weight='weight'))
     T = nx.minimum_spanning_tree(G)
 
-    print('size of MST: {}'.format(T.size(weight='weight')))
+    print('size of MST:', T.size(weight='weight'))
     print('spanning edges:')
     for i in sorted(T.edges(data=True)):
         print(i)

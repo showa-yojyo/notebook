@@ -27,15 +27,15 @@ def main():
     cut_value, partition = nx.minimum_cut(G, 's', 't')
     S, T = partition
 
-    print('cut value: {}'.format(cut_value))
-    print('(S, T): ({}, {})'.format(S, T))
+    print(f'cut value: {cut_value}')
+    print(f'(S, T): ({S}, {T})')
 
     # Compute the cut set of edges that induce the minimum cut
     # as follows:
     cutset = set()
     for u, nbrs in ((n, G[n]) for n in S):
         cutset.update((u, v) for v in nbrs if v in T)
-    print('cut set: {}'.format(cutset))
+    print(f'cut set: {cutset}')
 
 if __name__ == '__main__':
     main()

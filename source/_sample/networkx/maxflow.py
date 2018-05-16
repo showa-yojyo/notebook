@@ -23,12 +23,12 @@ def main():
                       ('r', 't', dict(capacity=3)),))
 
     flow_value, flows = nx.maximum_flow(G, 's', 't')
-    print('maximum flow: {}'.format(flow_value))
+    print(f'maximum flow: {flow_value}')
 
     caps = nx.get_edge_attributes(G, 'capacity')
     for u in nx.topological_sort(G):
         for v, flow in sorted(flows[u].items()):
-            print('({}, {}): {}/{}'.format(u, v, flow, caps[(u, v)]))
+            print(f'({u}, {v}): {flow}/{caps[(u, v)]}')
 
 if __name__ == '__main__':
     main()

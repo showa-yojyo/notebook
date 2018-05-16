@@ -25,7 +25,7 @@
 
 .. literalinclude:: /_sample/networkx/strongly_connected_components.py
    :language: python3
-   :lines: 1-13,221-
+   :lines: 1-13,220-
 
 コード中のグラフ ``G`` は原作版ドラクエ 8 の錬金レシピの依存関係を基に構成した（多重）有向グラフだ。
 素材アイテムおよび生成アイテムがグラフの点であり、
@@ -34,7 +34,7 @@
 
 .. literalinclude:: /_sample/networkx/strongly_connected_components.py
    :language: python3
-   :lines: 14-205
+   :lines: 13-205
 
 まず、興味のある有向グラフの強連結成分をすべて求めることにする。
 ただし、連結成分のうち構成する点がひとつしかないものについては興味がないので、
@@ -42,7 +42,7 @@
 
 .. literalinclude:: /_sample/networkx/strongly_connected_components.py
    :language: python3
-   :lines: 207-219
+   :lines: 206-219
 
 本コードを実行すると、次の結果が得られる。
 これが意味するところは、各連結成分内では、
@@ -52,7 +52,7 @@
 逆に「超辛チーズ」から「ふつうのチーズ」の生成可能性も示している
 （ゲームでは勿体ないからやらないほうがよい）。
 
-.. code:: text
+.. code-block:: text
 
    ['太陽のかんむり', 'ドクロのかぶと']
    ['超辛チーズ', 'ふつうのチーズ', '辛口チーズ', '激辛チーズ', '冷たいチーズ', 'こおりのチーズ', 'こごえるチーズ', 'かがやくチーズ']

@@ -40,7 +40,7 @@ NetworkX_ では関数 :code:`nx.is_directed_acyclic_graph` でグラフが DAG 
 結果はこのようになった。
 見事に Wikipedia_ のどのソート結果とも異なる順列が得られた。
 
-.. code:: text
+.. code-block:: text
 
    [7, 5, 11, 3, 8, 9, 10, 2]
 

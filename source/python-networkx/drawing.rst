@@ -49,7 +49,7 @@ PyGraphviz との連携
 ======================================================================
 Python 3.5 環境では、現時点で PyGraphviz_ を利用するには自分でビルドをする必要がありそうだ。
 
-.. code:: console
+.. code:: shell
 
    $ git clone https://github.com/pygraphviz/pygraphviz.git
    Cloning into 'pygraphviz'...
@@ -79,7 +79,7 @@ Python3 動作版 pydot のセットアップ
 を利用するのがもっとも安定した動作実績を得られることがわかった。
 バージョンは 1.0.29 だ。
 
-.. code:: console
+.. code:: shell
 
    $ git clone https://github.com/nlhepler/pydot.git
    $ cd pydot
@@ -91,7 +91,7 @@ Python3 動作版 pydot のセットアップ
 それは nxpydot_ というサードパーティー製パッケージを利用するやり方だ。
 本稿ではこちらを採用する。
 
-.. code:: console
+.. code:: shell
 
    $ pip install nxpydot
    Collecting nxpydot
@@ -133,7 +133,7 @@ Python3 動作版 pydot のセットアップ
 
 テキストファイルの内容はこのようになる。
 
-.. code:: text
+.. code-block:: text
 
    strict graph "complete_graph(5)" {
    0;

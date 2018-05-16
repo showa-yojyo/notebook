@@ -26,10 +26,10 @@
 .. code:: console
 
    $ python connectivity.py
-   G0 is and 1-connected 1-edge connected.
-   G1 is and 1-connected 1-edge connected.
-   G2 is and 1-connected 2-edge connected.
-   G3 is and 2-connected 2-edge connected.
+   G0 is 1-connected and 1-edge connected.
+   G1 is 1-connected and 1-edge connected.
+   G2 is 1-connected and 2-edge connected.
+   G3 is 2-connected and 2-edge connected.
 
 最小カットセット
 ======================================================================

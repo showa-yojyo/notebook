@@ -22,10 +22,9 @@ def main():
 
     st_pairs = ((0, 7), (0, 6), (1, 7),)
     for f in (nx.minimum_edge_cut, nx.minimum_node_cut):
-        print("{func}: ".format(func=f.__name__))
+        print(f"{f.__name__}: ")
         for s, t in st_pairs:
-            print("(s, t) = ({s}, {t}): cutset = {cutset}".format(
-                s=s, t=t, cutset=f(G, s=s, t=t)))
+            print(f"(s, t) = ({s}, {t}): cutset = {f(G, s=s, t=t)}")
 
 if __name__ == '__main__':
     main()

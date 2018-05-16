@@ -11,10 +11,9 @@ def main():
     """
 
     for i, G in enumerate(generate_graphs()):
-        print("G{} is and {}-connected {}-edge connected.".format(
-            i,
-            nx.node_connectivity(G),
-            nx.edge_connectivity(G)))
+        print(f"G{i} is "
+              f"{nx.node_connectivity(G)}-connected and "
+              f"{nx.edge_connectivity(G)}-edge connected.")
 
 def generate_graphs():
     """Generate graphs to demonstrate connectivities.
