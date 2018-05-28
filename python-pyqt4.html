@@ -1,323 +1,44 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>PyQt4 利用ノート &mdash; 読書ノート v1.4.0dev</title>
-    
+    <title>PyQt4 利用ノート [obsolete] &#8212; 読書ノート v1.4</title>
     <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.4.0dev',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/twitter-button.js"></script>
-    <link rel="top" title="読書ノート v1.4.0dev" href="index.html" />
-    <link rel="next" title="Pygame 利用ノート" href="python-pygame.html" />
-    <link rel="prev" title="PyOpenGL 3.x 利用ノート" href="python-pyopengl.html" /> 
-  </head>
-  <body>
-    <div class="related">
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="PyQt5 利用ノート" href="python-pyqt5.html" />
+    <link rel="prev" title="単純なシェーダープログラムの作成" href="python-pyopengl/shader.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
-        <li><a href="index.html">読書ノート v1.4.0dev</a> &raquo;</li> 
+        <li class="right" style="margin-right: 10px">
+          <a href="python-pyqt5.html" title="PyQt5 利用ノート"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="python-pyopengl/shader.html" title="単純なシェーダープログラムの作成"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
-          <div class="body">
+          <div class="body" role="main">
             
-  <div class="section" id="pyqt4">
-<h1><a class="toc-backref" href="#id8">PyQt4 利用ノート</a><a class="headerlink" href="#pyqt4" title="Permalink to this headline">¶</a></h1>
-<div class="contents topic" id="id1">
-<p class="topic-title first">ノート目次</p>
-<ul class="simple">
-<li><a class="reference internal" href="#pyqt4" id="id8">PyQt4 利用ノート</a><ul>
-<li><a class="reference internal" href="#id2" id="id9">関連リンクおよび参考サイト</a></li>
-<li><a class="reference internal" href="#id3" id="id10">インストール</a></li>
-<li><a class="reference internal" href="#id4" id="id11">ドキュメント</a></li>
-<li><a class="reference internal" href="#pyqt" id="id12">PyQt を利用したプログラムを作成する</a><ul>
-<li><a class="reference internal" href="#qt-desinger" id="id13">Qt Desinger</a></li>
-<li><a class="reference internal" href="#ui-py" id="id14">ui ファイルから生成した py ファイルの利用法</a><ul>
-<li><a class="reference internal" href="#myform-ui-form" id="id15">myform.Ui_Form インスタンスを作成する方法</a></li>
-<li><a class="reference internal" href="#qwidget-ui-form-setupui" id="id16">QWidget のサブクラスで UI_Form.setupUI を利用する方法</a></li>
-<li><a class="reference internal" href="#id5" id="id17">QWidget と Ui_Form のサブクラスで setupUI を利用する方法</a></li>
-<li><a class="reference internal" href="#ui-widget" id="id18">ui ファイルから直接 Widget をロードする方法</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id6" id="id19">サブクラスに差し替える方法</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+  <div class="section" id="pyqt4-obsolete">
+<h1>PyQt4 利用ノート [obsolete]<a class="headerlink" href="#pyqt4-obsolete" title="Permalink to this headline">¶</a></h1>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="python-pyqt5.html"><span class="doc">PyQt5 利用ノート</span></a></p>
 </div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<ul class="last simple">
-<li>OS: Windows XP Home Edition SP 3</li>
-<li>本稿執筆にあたり利用した各パッケージのバージョンは次のとおり。<ul>
-<li><a class="reference external" href="http://www.python.org/">Python</a>: 2.6.6, 2.7.3</li>
-<li><a class="reference external" href="http://www.riverbankcomputing.co.uk/software/pyqt/intro">PyQt</a>: GPL 4.8.4 for Python v 2.6 (x86),
-GPL v4.9.4 for Python v2.7 (x86)</li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="section" id="id2">
-<h2><a class="toc-backref" href="#id9">関連リンクおよび参考サイト</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt><a class="reference external" href="http://www.riverbankcomputing.co.uk/software/pyqt/intro">PyQt</a></dt>
-<dd>PyQt 紹介ページ。リリースニュース、ダウンロード、ドキュメントへの各リンクを提供している。</dd>
-<dt><a class="reference external" href="http://www.riverbankcomputing.co.uk/software/pyqt/download/">PyQt Download</a></dt>
-<dd>自分の環境の Python のバージョンに合ったインストーラーを選択するべし。</dd>
-<dt><a class="reference external" href="http://doc.qt.nokia.com/4.7/">Qt Reference Documentation 4.7</a></dt>
-<dd>Qt 総本山のドキュメント。ここから調査スタートすればよかった。</dd>
-<dt><a class="reference external" href="http://www.diotavelli.net/PyQtWiki/Tutorials">PyQt Wiki Tutorials</a></dt>
-<dd>チュートリアル文書へのリンクページ。
-全部はチェックしていない。</dd>
-<dt><a class="reference external" href="http://zetcode.com/tutorials/pyqt4/">The PyQt Tutorial</a></dt>
-<dd>GUI をコーディングで実装するタイプのチュートリアル。
-最終的にテトリス簡易版を実装する。
-テトリス実装例は PyQt 配布物の <tt class="docutils literal"><span class="pre">examples</span></tt> 内にもある。</dd>
-</dl>
-</div>
-<div class="section" id="id3">
-<h2><a class="toc-backref" href="#id10">インストール</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<p>インストール方法は、よくある Python パッケージとは異なる。
-easy_install/pip を利用するわけではないし、
-ソースコードの <tt class="docutils literal"><span class="pre">setup.py</span> <span class="pre">build</span></tt>, <tt class="docutils literal"><span class="pre">setup.py</span> <span class="pre">install</span></tt> でもない。</p>
-<p><a class="reference external" href="http://www.riverbankcomputing.co.uk/software/pyqt/download/">PyQt Download</a> のページで Windows 用のインストーラーをダウンロードし、
-それを実行するだけで終了となる。</p>
-<ul class="simple">
-<li>インストールが無事に終了すると、
-Windows のスタートメニューから適当に辿っていくと
-<tt class="docutils literal"><span class="pre">PyQt</span> <span class="pre">GPL</span> <span class="pre">v4.8.4</span> <span class="pre">for</span> <span class="pre">Python</span> <span class="pre">v2.6</span> <span class="pre">(x86)</span></tt> のような項目ができているはずだ。</li>
-<li>まずは <tt class="docutils literal"><span class="pre">Examples</span></tt> &gt; <tt class="docutils literal"><span class="pre">PyQt</span> <span class="pre">Examples</span> <span class="pre">and</span> <span class="pre">Demos</span></tt> を選択するとよい。
-PyQt で実装された様々なデモアプリのランチャーが出現する。
-画面左のリストから何か興味のあるものを選択して、
-画面下の <tt class="docutils literal"><span class="pre">Launch</span></tt> ボタンを押すと、デモが開始する。</li>
-</ul>
-</div>
-<div class="section" id="id4">
-<h2><a class="toc-backref" href="#id11">ドキュメント</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
-<p>前述のスタートメニューの <tt class="docutils literal"><span class="pre">Documentation</span></tt> &gt; <tt class="docutils literal"><span class="pre">Qt</span> <span class="pre">Documentation</span></tt> を選択すると、
-オンラインヘルプがブラウザーで読める。</p>
-</div>
-<div class="section" id="pyqt">
-<h2><a class="toc-backref" href="#id12">PyQt を利用したプログラムを作成する</a><a class="headerlink" href="#pyqt" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>事実関係<ul>
-<li>Qt Desinger は GUI を XML ファイルとして記述、保存するためのツール。</li>
-<li>記述ファイルの拡張子は <tt class="docutils literal"><span class="pre">.ui</span></tt> となる。</li>
-<li>Qt Desinger 付属のバッチファイル <tt class="file docutils literal"><span class="pre">pyuic4.bat</span></tt> は
-ui ファイルから py コードを生成するものだ。</li>
-<li>Python コードから ui ファイルに定義されている GUI を利用することができる。
-方法は二系統あり、ui ファイルを直接ロードするものと、
-バッチで生成した py モジュールのクラスをインスタンス化する方法にわかれる。</li>
-</ul>
-</li>
-<li>コメント<ul>
-<li>まずは Qt Designer の利用方法を習得する。
-目標は次の方法を習得することとしよう。<ul>
-<li>ui ファイルを保存する方法。</li>
-<li>ui ファイルから py ファイルを生成する方法。</li>
-<li>ui ファイルで定義した Widget を自作プログラムが利用する方法。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<div class="section" id="qt-desinger">
-<h3><a class="toc-backref" href="#id13">Qt Desinger</a><a class="headerlink" href="#qt-desinger" title="Permalink to this headline">¶</a></h3>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">Designer のチュートリアルを探す。</p>
-</div>
-<p>前述スタートメニューの <tt class="docutils literal"><span class="pre">Designer</span></tt> を選択する。</p>
-<ul>
-<li><p class="first">Designer は GUI を設計するためのツール。
-設計内容は拡張子 ui のファイルに「上書き保存」または「名前を付けて保存」する。</p>
-</li>
-<li><p class="first">新規 widget を作成すると、真っ白なウィンドウを画面中央に出す。
-あとは一般的な RAD ツールと同じように、子 widget をゴテゴテ盛っていく。</p>
-<ul class="simple">
-<li>各 widget 要素の変数名等のプロパティを変更するには、
-画面右のオブジェクトインスペクタやプロパティエディタを利用する。</li>
-</ul>
-</li>
-<li><p class="first">「フォーム＞プレビュー」のショートカットキーは <tt class="docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">R</span></tt> のようだ。</p>
-</li>
-<li><p class="first">「フォーム＞コードを表示」メニュー項目は使いものにならない。
-手動で <tt class="docutils literal"><span class="pre">ui</span></tt> ファイルから <tt class="docutils literal"><span class="pre">py</span></tt> ファイルを生成するしかない。</p>
-<p>PyQt4 インストールフォルダーにある <tt class="docutils literal"><span class="pre">pyuic4.bat</span></tt>
-をパスの通ったフォルダーにコピーして、コンソールから同バッチを実行する。
-コマンドライン引数は Designer で保存した <tt class="docutils literal"><span class="pre">ui</span></tt> ファイル一丁。</p>
-<div class="highlight-console"><div class="highlight"><pre><span class="gp">&gt;</span> pyuic4.bat myform.ui &gt; ui_myform.py
-</pre></div>
-</div>
-</li>
-<li><p class="first">一番親の widget にレイアウトを設定するにはコツが要る。
-ある程度子 widget を親 widget に搭載したら、親で右クリックメニュー表示。
-「レイアウト」のサブメニューに色々あるので、所望の配置スタイルを選択する。</p>
-</li>
-<li><p class="first">Signal/Slot の編集はかなり直感的に設定できる。</p>
-<ul class="simple">
-<li><tt class="docutils literal"><span class="pre">F4</span></tt> キーで Signal/Slot 編集モードに移行。
-<tt class="docutils literal"><span class="pre">connect</span></tt> 関係を定義したい widget 間をドラッグアンドドロップ。
-ドロップ直後にわかりやすい入力フォームが現れるので、そこで指示。</li>
-<li>なお <tt class="docutils literal"><span class="pre">F3</span></tt> キーで GUI 編集モードに移行。</li>
-</ul>
-</li>
-</ul>
-<p>以降の説明では、各ファイル名を次のように決めたものとする。</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="50%" />
-<col width="50%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">ファイルの名前</th>
-<th class="head">ファイルの意味</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td><tt class="file docutils literal"><span class="pre">myform.ui</span></tt></td>
-<td>Qt Designer での GUI 設計内容を保存した XML ファイル。</td>
-</tr>
-<tr class="row-odd"><td><tt class="file docutils literal"><span class="pre">ui_myform.py</span></tt></td>
-<td>上記 ui ファイルを <tt class="file docutils literal"><span class="pre">pyuic4.bat</span></tt> でコンバートした内容を保存したもの。</td>
-</tr>
-<tr class="row-even"><td><tt class="file docutils literal"><span class="pre">myapp.py</span></tt></td>
-<td>設計した GUI を利用する Python スクリプトファイル。</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="section" id="ui-py">
-<h3><a class="toc-backref" href="#id14">ui ファイルから生成した py ファイルの利用法</a><a class="headerlink" href="#ui-py" title="Permalink to this headline">¶</a></h3>
-<p>ファイル <tt class="file docutils literal"><span class="pre">ui_myform.py</span></tt> をそのまま実行しても、
-Qt Designer で設計した Widget が出てくるわけではない。
-別のコード（ここでは <tt class="file docutils literal"><span class="pre">myapp.py</span></tt> としている）から <tt class="docutils literal"><span class="pre">import</span></tt> して利用する。</p>
-<p>色々な流儀があるので、以下に記す。</p>
-<div class="section" id="myform-ui-form">
-<h4><a class="toc-backref" href="#id15">myform.Ui_Form インスタンスを作成する方法</a><a class="headerlink" href="#myform-ui-form" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">PyQt4.QtGui</span> <span class="kn">import</span> <span class="n">QApplication</span><span class="p">,</span> <span class="n">QWidget</span>
-
-<span class="c"># pyuic4.bat myform.ui &gt; ui_myform.py</span>
-<span class="kn">from</span> <span class="nn">ui_myform</span> <span class="kn">import</span> <span class="n">Ui_Form</span>
-
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
-    <span class="n">window</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
-    <span class="n">ui</span> <span class="o">=</span> <span class="n">Ui_Form</span><span class="p">()</span>
-    <span class="n">ui</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="n">window</span><span class="p">)</span>
-
-    <span class="n">window</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">())</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="qwidget-ui-form-setupui">
-<h4><a class="toc-backref" href="#id16">QWidget のサブクラスで UI_Form.setupUI を利用する方法</a><a class="headerlink" href="#qwidget-ui-form-setupui" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># インポートは先程と同様。</span>
-
-<span class="k">class</span> <span class="nc">Form</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">QWidget</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
-        <span class="c"># Set up the user interface from Designer.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">Ui_Form</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
-        <span class="c"># Connect up the buttons.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">pushButton</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accept</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">accept</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>
-
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
-    <span class="n">window</span> <span class="o">=</span> <span class="n">Form</span><span class="p">()</span>
-
-    <span class="n">window</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">())</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="id5">
-<h4><a class="toc-backref" href="#id17">QWidget と Ui_Form のサブクラスで setupUI を利用する方法</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># インポートは先程と同様。</span>
-
-<span class="k">class</span> <span class="nc">Form</span><span class="p">(</span><span class="n">QWidget</span><span class="p">,</span> <span class="n">Ui_Form</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">QWidget</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pushButton</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accept</span><span class="p">)</span>
-
-<span class="c"># main は先程と同様。</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="ui-widget">
-<h4><a class="toc-backref" href="#id18">ui ファイルから直接 Widget をロードする方法</a><a class="headerlink" href="#ui-widget" title="Permalink to this headline">¶</a></h4>
-<p>関数 <tt class="docutils literal"><span class="pre">uic.loadUI</span></tt> を利用する。</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">PyQt4</span> <span class="kn">import</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">uic</span>
-
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">app</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
-    <span class="n">window</span> <span class="o">=</span> <span class="n">uic</span><span class="o">.</span><span class="n">loadUi</span><span class="p">(</span><span class="s">&#39;myform.ui&#39;</span><span class="p">)</span>
-
-    <span class="n">window</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">())</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="section" id="id6">
-<h3><a class="toc-backref" href="#id19">サブクラスに差し替える方法</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
-<p>例えば <tt class="docutils literal"><span class="pre">QTextBrowser</span></tt> を自分でこれから作成する予定のサブクラス
-<tt class="docutils literal"><span class="pre">QMyTextBrowser</span></tt> に差し替えたい場合は次の手順をとる。</p>
-<ol class="arabic">
-<li><p class="first">デザイナー画面の <tt class="docutils literal"><span class="pre">QTextBrowser</span></tt> アイテム上で右クリックメニューを表示し、
-&lt;格上げ先を指定...&gt; を選択する。</p>
-</li>
-<li><p class="first">入力フォームが出現する。
-下部にある &lt;格上げされたクラス名&gt; に <tt class="docutils literal"><span class="pre">QMyTextBrowser</span></tt> と入力する。</p>
-</li>
-<li><p class="first">&lt;追加&gt; を押す。</p>
-</li>
-<li><p class="first">&lt;格上げ&gt; を押す。</p>
-</li>
-<li><p class="first">デザイナーで ui ファイルを保存する。</p>
-</li>
-<li><p class="first"><tt class="docutils literal"><span class="pre">pyuic4.bat</span></tt> で ui ファイルから py ファイルを生成すると、
-ファイルの下の方に <tt class="docutils literal"><span class="pre">import</span> <span class="pre">qmytextbrowser</span></tt> という行が入っているハズ。</p>
-</li>
-<li><p class="first"><tt class="file docutils literal"><span class="pre">qmytextbrowser.py</span></tt> ファイルを作成し、
-自分でクラスを実装すればよい。</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">PyQt4</span> <span class="kn">import</span> <span class="n">QtGui</span>
-
-<span class="k">class</span> <span class="nc">QMyTextBrowser</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QTextBrowser</span><span class="p">):</span>
-    <span class="o">...</span>
-</pre></div>
-</div>
-</li>
-</ol>
-</div>
-</div>
+<p>PyQt5 をインストールする場合、普通は PyQt4 をアンインストールする必要がある。私は PyQt5 を入れたので、ノートの内容を移してここは白紙にした。</p>
 </div>
 
 
@@ -325,28 +46,25 @@ Qt Designer で設計した Widget が出てくるわけではない。
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
-        <li><a href="index.html">読書ノート v1.4.0dev</a> &raquo;</li> 
+        <li class="right" style="margin-right: 10px">
+          <a href="python-pyqt5.html" title="PyQt5 利用ノート"
+             >next</a></li>
+        <li class="right" >
+          <a href="python-pyopengl/shader.html" title="単純なシェーダープログラムの作成"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
       </ul>
     </div>
     <div id="footer">
       <div id="footer_logo">
         <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png" width="88" height="31" /></a>
       </div>
-      <div id="footer_share">
-        <a href="https://twitter.com/share" class="twitter-share-button" data-size="large">Tweet</a>
-        <script type="text/javascript">render_twitter_button(document, 'script', 'twitter-wjs')</script>
-      </div>
       <div id="footer_copyright">
         Since 1999<br />
-        Copyright &copy; 1999-2014, プレハブ小屋 All rights reserved.
-      </div>
-      <div id="footer_spacer">
-        <p>
-          Last updated at 2014/11/29 (Sat) 02:41:42.
-        </p>
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
       </div>
     </div>
   </body>

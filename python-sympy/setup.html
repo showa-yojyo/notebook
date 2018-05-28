@@ -1,0 +1,225 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>インストール &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="ドキュメントをビルドする" href="doc.html" />
+    <link rel="prev" title="SymPy 利用ノート" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="doc.html" title="ドキュメントをビルドする"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="index.html" title="SymPy 利用ノート"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">SymPy 利用ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id7">インストール</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="http://www.sympy.org/">SymPy</a> をインストールする前に、オンラインシェルでまずはその機能を試した。可能性を感じたので、自分の <a class="reference external" href="http://www.python.org/">Python</a> 環境に SymPy をインストールした。その過程をここで述べる。</p>
+<div class="contents topic" id="id2">
+<p class="topic-title first">ノート目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id7">インストール</a><ul>
+<li><a class="reference internal" href="#id3" id="id8">下見する</a></li>
+<li><a class="reference internal" href="#id4" id="id9">パッケージをインストールする</a></li>
+<li><a class="reference internal" href="#id5" id="id10">バージョンを確認する</a></li>
+<li><a class="reference internal" href="#id6" id="id11">単体テストを実施する</a></li>
+<li><a class="reference internal" href="#isympy" id="id12"><strong class="program">isympy</strong> を実行する</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id8">下見する</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>ブラウザーさえあれば SymPy を自分の Python 環境にインストールすることなく触ってみることが可能だ。
+SymPy をインストールするかどうか迷っている場合は、これらの機能で間に合うかどうかを判断してから決めるのがよさそうだ。</p>
+<p>次の手順で SymPy を試すことができる。</p>
+<ol class="arabic simple">
+<li>プロジェクトサイトの右上リンク <a class="reference external" href="http://live.sympy.org/">Online Shell</a> 先のページを開く。</li>
+<li>Python インタラクティブシェルで適宜コマンドを入力する。</li>
+</ol>
+<p>特製シェルの操作方法はページの右側の柱に記述がある。これはオンラインドキュメントからも随時表示させることができる。</p>
+<ul class="simple">
+<li>Enter キーを単に押すだけでは入力した式が実行されない。
+UI の Evaluate ボタンをクリックすると初めて評価される。</li>
+<li>画鋲ボタンはセッションの再現をするための URL を生成する優れ物。</li>
+<li>オンラインシェルの Python のバージョンは 2.7.5 なので、私の 3.4 環境で動作する SymPy はサポートされているのだろうかという疑問がわく。後で試してみたら問題はなかった。</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id9">パッケージをインストールする</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>SymPy のドキュメントによると、ソースからのインストールが推奨手段だそうだ。そしてそのソースの入手方法は次のいずれかになる。</p>
+<ol class="arabic simple">
+<li>ダウンロードページで配布しているソースの圧縮ファイルを解凍して、コマンドラインから <code class="code docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code> する。</li>
+<li>Git でレポジトリーをローカルに複製して、以下同文。</li>
+</ol>
+<p>私の場合は Git があるのでこちらのやり方のほうが容易だ。次のようにコマンドラインを入力したところ、うまくインストールできた。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd ~/devel
+$ git clone git://github.com/sympy/sympy.git
+Cloning into &#39;sympy&#39;...
+$ cd sympy
+$ git pull origin master
+From git://github.com/sympy/sympy
+* branch            master     -&gt; FETCH_HEAD
+Current branch master is up to date.
+$ pip install -e .
+Obtaining file:///D:/home/yojyo/devel/sympy
+  Running setup.py (path:D:/home/yojyo/devel/sympy\setup.py) egg_info for package from file:///D:/home/yojyo/devel/sympy
+
+    no previously-included directories found matching &#39;doc\_build&#39;
+    warning: no files found matching &#39;TODO&#39;
+Downloading/unpacking mpmath&gt;=0.19 (from sympy==0.7.7.dev)
+  Running setup.py (path:D:\Temp\pip_build_work\mpmath\setup.py) egg_info for package mpmath
+
+Installing collected packages: mpmath, sympy
+  Running setup.py install for mpmath
+
+  Running setup.py develop for sympy
+
+    no previously-included directories found matching &#39;doc\_build&#39;
+    warning: no files found matching &#39;TODO&#39;
+    Creating d:\python34\lib\site-packages\sympy.egg-link (link to .)
+    Adding sympy 0.7.7.dev to easy-install.pth file
+    Installing isympy script to D:\Python34\Scripts
+
+    Installed d:\home\yojyo\devel\sympy
+Successfully installed mpmath sympy
+Cleaning up...
+</pre></div>
+</div>
+<ul class="simple">
+<li>公式ドキュメントには <code class="code docutils literal notranslate"><span class="pre">setupegg.py</span> <span class="pre">install</span></code> せよとあるが、私のところでは動かなかった。代わりに上記のように <a class="reference external" href="https://pip.pypa.io/">pip</a> を用いた。</li>
+<li>依存パッケージに <code class="docutils literal notranslate"><span class="pre">mpmath</span></code> というのが見える。任意精度浮動小数点演算のための Python パッケージのようだ。</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id10">バージョンを確認する</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>単にバージョンを確認するには、例えば次のようにする。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -c &#39;import sympy; print(sympy.__version__)&#39;
+0.7.7.dev
+</pre></div>
+</div>
+<p>もしくは pip を利用する。こちらの方法のほうが潰しが効くので憶えておくとよいだろう。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip show sympy
+---
+Metadata-Version: 1.1
+Name: sympy
+Version: 0.7.7.dev0
+Summary: Computer algebra system (CAS) in Python
+Home-page: http://sympy.org
+Author: SymPy development team
+Author-email: sympy@googlegroups.com
+License: BSD
+Location: d:\home\yojyo\devel\sympy
+Requires: mpmath
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id11">単体テストを実施する</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>せっかくソースごとインストールしたので、開発用のものと思われる単体テストを行う。私の環境で実施したところ、次のようなレポートが延々と出力されていた。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -c &#39;import sympy; sympy.doctest()&#39;
+============================= test process starts ==============================
+executable:         D:\Python34\python.exe  (3.4.1-final-0) [CPython]
+architecture:       64-bit
+cache:              yes
+ground types:       python
+hash randomization: on (PYTHONHASHSEED=2926718148)
+
+sympy\assumptions\ask.py[2] ..                                              [OK]
+sympy\assumptions\assume.py[5] .....                                        [OK]
+sympy\assumptions\refine.py[6] ......                                       [OK]
+sympy\assumptions\handlers\calculus.py[2] ..                                [OK]
+-- 略 --
+===== tests finished: 2926 passed, 1 failed, 6 skipped, in 982.39 seconds ======
+DO *NOT* COMMIT!
+============================== rst doctests start ==============================
+-- 中断 --
+</pre></div>
+</div>
+<ul class="simple">
+<li>コンソールに羅列されていく数学用語を見ると、身に余る物をインストールしてしまったという気分を感じられる。</li>
+<li>微分方程式のソルバーのテストに時間がかかるようだ。</li>
+<li><code class="code docutils literal notranslate"><span class="pre">rst</span> <span class="pre">doctest</span> <span class="pre">start</span></code> 以降は時間がなかったので Ctrl + C で中止した。</li>
+<li><code class="docutils literal notranslate"><span class="pre">[OK]</span></code> がほとんどのようだから、全く動作しないということはなさそうに思える。</li>
+</ul>
+</div>
+<div class="section" id="isympy">
+<h2><a class="toc-backref" href="#id12"><strong class="program">isympy</strong> を実行する</a><a class="headerlink" href="#isympy" title="Permalink to this headline">¶</a></h2>
+<p>コマンドラインから <code class="file docutils literal notranslate"><span class="pre">bin/isympy</span></code> を起動すると、そのまま Python の対話モードが始まる。
+<a class="reference external" href="http://ipython.org/">IPython</a> が利用可能な環境では IPython のそれが始まる。</p>
+<ul>
+<li><p class="first">私の場合は Cygwin のコマンドラインから直接スクリプトを走らせるよりは、
+Windows の「ファイル名を指定して実行」から <strong class="program">python</strong> 経由で
+<strong class="program">isympy</strong> を走らせるとキーバインド等の具合がよい。私の場合は下記コマンドラインのようにする。</p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">D</span><span class="p">:</span>\<span class="n">Python35</span>\<span class="n">python</span><span class="o">.</span><span class="n">exe</span> <span class="s2">&quot;D:\home\yojyo\devel\sympy</span><span class="se">\b</span><span class="s2">in\isympy&quot;</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">no</span> <span class="o">--</span> <span class="o">--</span><span class="n">profile</span><span class="o">=</span><span class="n">sympy</span>
+</pre></div>
+</div>
+<p>私の都合で SymPy 利用時に限り IPython の設定ファイルによる設定を上書きしたいので、コマンドライン引数の最後にそれを指定する。こう書いておくと、IPython は設定ファイル
+<code class="file docutils literal notranslate"><span class="pre">$HOME/.ipython/profile_sympy/ipython_config.py</span></code> を採用する。次の行を編集してある。</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">c</span><span class="o">.</span><span class="n">InteractiveShellApp</span><span class="o">.</span><span class="n">pylab_import_all</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+<p>これの意味を簡単に述べると、いつもなら便利な <code class="code docutils literal notranslate"><span class="pre">from</span> <span class="pre">numpy</span> <span class="pre">import</span> <span class="pre">*</span></code> 等の自動インポートを避けるということだ。いかにも NumPy と SymPy で何らかの名前衝突を起こしそうなことは想像に難くない。</p>
+<ul class="simple">
+<li>関連ノートとして <a class="reference internal" href="../python-ipython.html"><span class="doc">IPython 利用ノート</span></a> の環境設定の節を参照。</li>
+<li>後になって SymPy どころか、
+<code class="code docutils literal notranslate"><span class="pre">all</span></code> や <code class="code docutils literal notranslate"><span class="pre">sum</span></code> 等の組み込みの関数の名前をも隠すことが発覚した。</li>
+</ul>
+</li>
+<li><p class="first">ConEmu の Predefined Tasks にこのコマンドラインを含めておく。
+<a class="reference internal" href="../python-upgrade.html"><span class="doc">Python 移行ノート</span></a> も参照。</p>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="doc.html" title="ドキュメントをビルドする"
+             >next</a></li>
+        <li class="right" >
+          <a href="index.html" title="SymPy 利用ノート"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >SymPy 利用ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

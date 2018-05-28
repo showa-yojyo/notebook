@@ -1,0 +1,387 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>テンソル代数 &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="確率統計" href="stats.html" />
+    <link rel="prev" title="出力" href="printing.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="stats.html" title="確率統計"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="printing.html" title="出力"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">SymPy 利用ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id11">テンソル代数</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>モジュール <code class="docutils literal notranslate"><span class="pre">sympy.tensor</span></code> について記す。</p>
+<div class="contents topic" id="id2">
+<p class="topic-title first">ノート目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id11">テンソル代数</a><ul>
+<li><a class="reference internal" href="#id3" id="id12">演習</a><ul>
+<li><a class="reference internal" href="#id4" id="id13">添字操作</a><ul>
+<li><a class="reference internal" href="#id5" id="id14">1 階</a></li>
+<li><a class="reference internal" href="#id6" id="id15">2 階</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7" id="id16">四元運動量</a></li>
+<li><a class="reference internal" href="#id8" id="id17">電磁テンソル</a></li>
+<li><a class="reference internal" href="#levi-civita" id="id18">Levi-Civita 記号</a></li>
+<li><a class="reference internal" href="#id9" id="id19">参考文献</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>本文中のすべての IPython セッション中のサンプルコードで、以下のインポートおよび出力書式設定が済んでいるものとする。</p>
+<div class="code python3 last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sympy.tensor.tensor</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">init_printing</span><span class="p">(</span><span class="n">pretty_print</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id12">演習</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>モジュール <code class="docutils literal notranslate"><span class="pre">sympy.tensor.tensor</span></code> の主要機能の演習を行う。</p>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id13">添字操作</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>この例では主に添字の上げ下げについて見ていく。具体的に言えば各階のテンソルに対して関数 <code class="code docutils literal notranslate"><span class="pre">contract_metric</span></code> がどのように利用できるのかを示す。</p>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">Lorentz</span> <span class="o">=</span> <span class="n">TensorIndexType</span><span class="p">(</span><span class="s1">&#39;Lorentz&#39;</span><span class="p">,</span> <span class="n">dummy_fmt</span><span class="o">=</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">tensor_indices</span><span class="p">(</span><span class="s1">&#39;i j k l m n&#39;</span><span class="p">,</span> <span class="n">Lorentz</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">g</span> <span class="o">=</span> <span class="n">Lorentz</span><span class="o">.</span><span class="n">metric</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">g</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">metric</span><span class="p">(</span><span class="n">Lorentz</span><span class="p">,</span><span class="n">Lorentz</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">g</span><span class="p">(),</span> <span class="n">g</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">g</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="p">(</span><span class="n">metric</span><span class="p">(</span><span class="n">auto_left</span><span class="p">,</span> <span class="o">-</span><span class="n">auto_right</span><span class="p">),</span> <span class="n">metric</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">auto_left</span><span class="p">),</span> <span class="n">metric</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">))</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>[1] オブジェクト <code class="code docutils literal notranslate"><span class="pre">Lorentz</span></code> を生成する。この例では名前とダミー添字のプレフィックスだけを指定しておく。</li>
+<li>[2] <code class="code docutils literal notranslate"><span class="pre">Lorentz</span></code> から生成するテンソルオブジェクト用の添字オブジェクトをまとめて生成しておく。添字オブジェクトの生成は <code class="code docutils literal notranslate"><span class="pre">TensorIndexType</span></code> 型のオブジェクトだけで可能である。</li>
+<li>[3] 計量テンソルに別名 <code class="code docutils literal notranslate"><span class="pre">g</span></code> を付けておく。</li>
+<li>[4][5] <code class="code docutils literal notranslate"><span class="pre">g</span></code> 単体を色々な方法で表示してみる。</li>
+</ul>
+<div class="section" id="id5">
+<h4><a class="toc-backref" href="#id14">1 階</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<p>引き続き 1 階のテンソルを定義して、添字の上げ下げを試みる。</p>
+<p>プログラミング的には上げ下げしたいテンソルオブジェクトに対して、丸括弧により付随する各添字オブジェクトにマイナス符号を付けるかどうかで共変反変の階数を自在に設定できる。ここでは回りくどい方法を採る。</p>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">tensorhead</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">Lorentz</span><span class="p">]</span><span class="o">*</span><span class="mi">1</span><span class="p">,</span> <span class="p">[[</span><span class="mi">1</span><span class="p">]])</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">contract_metric</span><span class="p">(</span><span class="n">g</span><span class="p">(</span><span class="o">-</span><span class="n">i</span><span class="p">,</span> <span class="o">-</span><span class="n">j</span><span class="p">)</span> <span class="o">*</span> <span class="n">A</span><span class="p">(</span><span class="n">j</span><span class="p">),</span> <span class="n">g</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">A</span><span class="p">(</span><span class="o">-</span><span class="n">i</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="n">contract_metric</span><span class="p">(</span><span class="n">g</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">*</span> <span class="n">A</span><span class="p">(</span><span class="o">-</span><span class="n">j</span><span class="p">),</span> <span class="n">g</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="n">A</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="n">g</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">*</span> <span class="n">g</span><span class="p">(</span><span class="o">-</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="n">k</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="n">metric</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">L_0</span><span class="p">)</span><span class="o">*</span><span class="n">metric</span><span class="p">(</span><span class="o">-</span><span class="n">L_0</span><span class="p">,</span> <span class="o">-</span><span class="n">k</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="n">contract_metric</span><span class="p">(</span><span class="n">g</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">*</span> <span class="n">g</span><span class="p">(</span><span class="o">-</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="n">k</span><span class="p">),</span> <span class="n">g</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="n">metric</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="o">-</span><span class="n">k</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">11</span><span class="p">]:</span> <span class="n">contract_metric</span><span class="p">(</span><span class="n">g</span><span class="p">(</span><span class="o">-</span><span class="n">k</span><span class="p">,</span> <span class="o">-</span><span class="n">j</span><span class="p">)</span> <span class="o">*</span> <span class="n">g</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span> <span class="n">g</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">11</span><span class="p">]:</span> <span class="n">metric</span><span class="p">(</span><span class="o">-</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul>
+<li><p class="first">[6] 1 階テンソル <code class="code docutils literal notranslate"><span class="pre">A</span></code> を生成する。引数の見てくれがいかにも特徴的だ。</p>
+</li>
+<li><p class="first">[7][8] 関数またはメソッド版の <code class="code docutils literal notranslate"><span class="pre">contract_metric</span></code> を用いれば
+<span class="math notranslate nohighlight">\(A_i = g_{ij} A^j\)</span> や <span class="math notranslate nohighlight">\(A^i = g^{ij} A_j\)</span> を確認することができる。</p>
+<p>コード的にはマイナス付き添字は下付き・共変を意味する。</p>
+<ul class="simple">
+<li><code class="code docutils literal notranslate"><span class="pre">g(-i,</span> <span class="pre">-j)</span></code>: 共変計量テンソル</li>
+<li><code class="code docutils literal notranslate"><span class="pre">g(i,</span> <span class="pre">j)</span></code>: 反変計量テンソル</li>
+</ul>
+</li>
+<li><p class="first">[9] ところで生のままで <code class="code docutils literal notranslate"><span class="pre">g(i,</span> <span class="pre">j)</span> <span class="pre">*</span> <span class="pre">A(-j)</span></code> を出力すると、添字が縮約されていないように一瞬見えるので困る。</p>
+</li>
+<li><p class="first">[10][11] <span class="math notranslate nohighlight">\(g^{ij} g_{jk} = \delta^i_k\)</span> 等を検証したい。これはどうも無理なようだ？</p>
+</li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h4><a class="toc-backref" href="#id15">2 階</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<p>引き続き 2 階のテンソルを定義して、添字の上げ下げを試みる。
+<span class="math notranslate nohighlight">\(B^{ij} = g^{il} g^{jm} B_{lm}\)</span> などを確かめる。</p>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">12</span><span class="p">]:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">tensorhead</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">Lorentz</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="p">[[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="p">])</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">13</span><span class="p">]:</span> <span class="n">contract_metric</span><span class="p">(</span><span class="n">g</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span> <span class="o">*</span> <span class="n">g</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="n">B</span><span class="p">(</span><span class="o">-</span><span class="n">l</span><span class="p">,</span> <span class="o">-</span><span class="n">m</span><span class="p">),</span> <span class="n">g</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">13</span><span class="p">]:</span> <span class="n">B</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">14</span><span class="p">]:</span> <span class="n">contract_metric</span><span class="p">(</span><span class="n">g</span><span class="p">(</span><span class="o">-</span><span class="n">i</span><span class="p">,</span> <span class="o">-</span><span class="n">l</span><span class="p">)</span> <span class="o">*</span> <span class="n">g</span><span class="p">(</span><span class="o">-</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="n">B</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">),</span> <span class="n">g</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">14</span><span class="p">]:</span> <span class="n">B</span><span class="p">(</span><span class="o">-</span><span class="n">i</span><span class="p">,</span> <span class="o">-</span><span class="n">j</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3><a class="toc-backref" href="#id16">四元運動量</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>四元運動量は 1 階テンソルとして表現できる。以下の例ではテンソルオブジェクトの生成、上付き下付き添字の使い分け方、内積・ノルムの評価をする。</p>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">Lorentz</span> <span class="o">=</span> <span class="n">TensorIndexType</span><span class="p">(</span><span class="s1">&#39;Lorentz&#39;</span><span class="p">,</span> <span class="n">dummy_fmt</span><span class="o">=</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">Lorentz</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">E</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;E c&#39;</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">,</span> <span class="n">pz</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;p_x p_y p_z&#39;</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">P</span> <span class="o">=</span> <span class="n">tensorhead</span><span class="p">(</span><span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">Lorentz</span><span class="p">],</span> <span class="p">[[</span><span class="mi">1</span><span class="p">]])</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">P</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">E</span><span class="o">/</span><span class="n">c</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">,</span> <span class="n">pz</span><span class="p">]</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">i</span> <span class="o">=</span> <span class="n">tensor_indices</span><span class="p">(</span><span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="n">Lorentz</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="n">P</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">P</span><span class="p">(</span><span class="o">-</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">8</span><span class="p">]:</span>
+<span class="p">(</span><span class="n">array</span><span class="p">([</span><span class="n">E</span><span class="o">/</span><span class="n">c</span><span class="p">,</span> <span class="n">p_x</span><span class="p">,</span> <span class="n">p_y</span><span class="p">,</span> <span class="n">p_z</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">),</span>
+ <span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="n">E</span><span class="o">/</span><span class="n">c</span><span class="p">,</span> <span class="n">p_x</span><span class="p">,</span> <span class="n">p_y</span><span class="p">,</span> <span class="n">p_z</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">))</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="p">(</span><span class="n">P</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">P</span><span class="p">(</span><span class="o">-</span><span class="n">i</span><span class="p">))</span><span class="o">.</span><span class="n">data</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="o">-</span><span class="n">E</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">c</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">p_x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">p_y</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">p_z</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="n">P</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="o">-</span><span class="n">E</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">c</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">p_x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">p_y</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">p_z</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>[1][2] オブジェクト <code class="code docutils literal notranslate"><span class="pre">Lorentz</span></code> を生成する。この例題では Minkowski 内積を (-, +, +, +) となるように設定する。</li>
+<li>[3][4] 例題で利用する次の各シンボルを定義する。<ul>
+<li>粒子のエネルギーを表すシンボル <code class="code docutils literal notranslate"><span class="pre">E</span></code></li>
+<li>光速 <code class="code docutils literal notranslate"><span class="pre">c</span></code></li>
+<li>粒子の運動量ベクトル <span class="math notranslate nohighlight">\(\mathbf{P} = (p_x, p_y, p_z)\)</span> の各成分を表すシンボル <code class="code docutils literal notranslate"><span class="pre">px</span></code>, <code class="code docutils literal notranslate"><span class="pre">py</span></code>, <code class="code docutils literal notranslate"><span class="pre">pz</span></code></li>
+</ul>
+</li>
+<li>[5][6] 1 階のテンソルである四元運動量 <span class="math notranslate nohighlight">\(P\)</span> を <code class="code docutils literal notranslate"><span class="pre">P</span></code> として定義する。</li>
+<li>[7] テンソルの添字を表すシンボル <code class="code docutils literal notranslate"><span class="pre">i</span></code> を定義する。一つあれば十分。</li>
+<li>[8] <span class="math notranslate nohighlight">\(P^i\)</span> と <span class="math notranslate nohighlight">\(P_i\)</span> の成分を表示する。</li>
+<li>[9][10] Minkowski ノルム <span class="math notranslate nohighlight">\(P^i P_i\)</span> を計算するにはこのようにする。添字にマイナスの符号をつけることで subscript/covariant を指示する。念のため言及すると、反変と共変を入れ替えても同じ値が得られる。</li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h3><a class="toc-backref" href="#id17">電磁テンソル</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>電磁場の強度は 2 階のテンソルで表現することがある。以下の例では、テンソルの行列形式の成分を直接設定して、各種メソッドや関数を試す。</p>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">Lorentz</span> <span class="o">=</span> <span class="n">TensorIndexType</span><span class="p">(</span><span class="s1">&#39;Lorentz&#39;</span><span class="p">,</span> <span class="n">dummy_fmt</span><span class="o">=</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">Lorentz</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">Ex</span><span class="p">,</span> <span class="n">Ey</span><span class="p">,</span> <span class="n">Ez</span><span class="p">,</span> <span class="n">Bx</span><span class="p">,</span> <span class="n">By</span><span class="p">,</span> <span class="n">Bz</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;E_x E_y E_z B_x B_y B_z&#39;</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">c</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">tensor_indices</span><span class="p">(</span><span class="s1">&#39;m n&#39;</span><span class="p">,</span> <span class="n">Lorentz</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">F</span> <span class="o">=</span> <span class="n">tensorhead</span><span class="p">(</span><span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">Lorentz</span><span class="p">,</span> <span class="n">Lorentz</span><span class="p">],</span> <span class="p">[[</span><span class="mi">2</span><span class="p">]])</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">F</span><span class="p">(</span><span class="o">-</span><span class="n">m</span><span class="p">,</span> <span class="o">-</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="o">.....</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">Ex</span><span class="o">/</span><span class="n">c</span><span class="p">,</span> <span class="n">Ey</span><span class="o">/</span><span class="n">c</span><span class="p">,</span> <span class="n">Ez</span><span class="o">/</span><span class="n">c</span><span class="p">],</span>
+    <span class="o">.....</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="n">Ex</span><span class="o">/</span><span class="n">c</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">Bz</span><span class="p">,</span> <span class="n">By</span><span class="p">],</span>
+    <span class="o">.....</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="n">Ey</span><span class="o">/</span><span class="n">c</span><span class="p">,</span> <span class="n">Bz</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">Bx</span><span class="p">],</span>
+    <span class="o">.....</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="n">Ez</span><span class="o">/</span><span class="n">c</span><span class="p">,</span> <span class="o">-</span><span class="n">By</span><span class="p">,</span> <span class="n">Bx</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="n">F</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">8</span><span class="p">]:</span>
+<span class="n">Matrix</span><span class="p">([</span>
+<span class="p">[</span>    <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">E_x</span><span class="o">/</span><span class="n">c</span><span class="p">,</span> <span class="o">-</span><span class="n">E_y</span><span class="o">/</span><span class="n">c</span><span class="p">,</span> <span class="o">-</span><span class="n">E_z</span><span class="o">/</span><span class="n">c</span><span class="p">],</span>
+<span class="p">[</span><span class="n">E_x</span><span class="o">/</span><span class="n">c</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>   <span class="o">-</span><span class="n">B_z</span><span class="p">,</span>    <span class="n">B_y</span><span class="p">],</span>
+<span class="p">[</span><span class="n">E_y</span><span class="o">/</span><span class="n">c</span><span class="p">,</span>    <span class="n">B_z</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>   <span class="o">-</span><span class="n">B_x</span><span class="p">],</span>
+<span class="p">[</span><span class="n">E_z</span><span class="o">/</span><span class="n">c</span><span class="p">,</span>   <span class="o">-</span><span class="n">B_y</span><span class="p">,</span>    <span class="n">B_x</span><span class="p">,</span>      <span class="mi">0</span><span class="p">]])</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="n">F</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="o">-</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">9</span><span class="p">]:</span>
+<span class="n">Matrix</span><span class="p">([</span>
+<span class="p">[</span>    <span class="mi">0</span><span class="p">,</span> <span class="n">E_x</span><span class="o">/</span><span class="n">c</span><span class="p">,</span> <span class="n">E_y</span><span class="o">/</span><span class="n">c</span><span class="p">,</span> <span class="n">E_z</span><span class="o">/</span><span class="n">c</span><span class="p">],</span>
+<span class="p">[</span><span class="n">E_x</span><span class="o">/</span><span class="n">c</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>   <span class="n">B_z</span><span class="p">,</span>  <span class="o">-</span><span class="n">B_y</span><span class="p">],</span>
+<span class="p">[</span><span class="n">E_y</span><span class="o">/</span><span class="n">c</span><span class="p">,</span>  <span class="o">-</span><span class="n">B_z</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>   <span class="n">B_x</span><span class="p">],</span>
+<span class="p">[</span><span class="n">E_z</span><span class="o">/</span><span class="n">c</span><span class="p">,</span>   <span class="n">B_y</span><span class="p">,</span>  <span class="o">-</span><span class="n">B_x</span><span class="p">,</span>     <span class="mi">0</span><span class="p">]])</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="n">F</span><span class="p">(</span><span class="o">-</span><span class="n">m</span><span class="p">,</span> <span class="o">-</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">10</span><span class="p">]:</span>
+<span class="n">Matrix</span><span class="p">([</span>
+<span class="p">[</span>     <span class="mi">0</span><span class="p">,</span> <span class="n">E_x</span><span class="o">/</span><span class="n">c</span><span class="p">,</span> <span class="n">E_y</span><span class="o">/</span><span class="n">c</span><span class="p">,</span> <span class="n">E_z</span><span class="o">/</span><span class="n">c</span><span class="p">],</span>
+<span class="p">[</span><span class="o">-</span><span class="n">E_x</span><span class="o">/</span><span class="n">c</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>  <span class="o">-</span><span class="n">B_z</span><span class="p">,</span>   <span class="n">B_y</span><span class="p">],</span>
+<span class="p">[</span><span class="o">-</span><span class="n">E_y</span><span class="o">/</span><span class="n">c</span><span class="p">,</span>   <span class="n">B_z</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>  <span class="o">-</span><span class="n">B_x</span><span class="p">],</span>
+<span class="p">[</span><span class="o">-</span><span class="n">E_z</span><span class="o">/</span><span class="n">c</span><span class="p">,</span>  <span class="o">-</span><span class="n">B_y</span><span class="p">,</span>   <span class="n">B_x</span><span class="p">,</span>     <span class="mi">0</span><span class="p">]])</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">11</span><span class="p">]:</span> <span class="n">F</span><span class="p">(</span><span class="o">-</span><span class="n">m</span><span class="p">,</span> <span class="o">-</span><span class="n">n</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">11</span><span class="p">]:</span> <span class="n">array</span><span class="p">([</span><span class="n">E_x</span><span class="o">/</span><span class="n">c</span><span class="p">,</span> <span class="n">E_y</span><span class="o">/</span><span class="n">c</span><span class="p">,</span> <span class="n">E_z</span><span class="o">/</span><span class="n">c</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">12</span><span class="p">]:</span> <span class="n">F</span><span class="p">(</span><span class="o">-</span><span class="n">m</span><span class="p">,</span> <span class="o">-</span><span class="n">n</span><span class="p">)[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">F</span><span class="p">(</span><span class="o">-</span><span class="n">m</span><span class="p">,</span> <span class="o">-</span><span class="n">n</span><span class="p">)[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">F</span><span class="p">(</span><span class="o">-</span><span class="n">m</span><span class="p">,</span> <span class="o">-</span><span class="n">n</span><span class="p">)[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">12</span><span class="p">]:</span> <span class="p">(</span><span class="o">-</span><span class="n">B_x</span><span class="p">,</span> <span class="o">-</span><span class="n">B_y</span><span class="p">,</span> <span class="o">-</span><span class="n">B_z</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">13</span><span class="p">]:</span> <span class="n">F</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">13</span><span class="p">]:</span> <span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="n">E_x</span><span class="o">/</span><span class="n">c</span><span class="p">,</span> <span class="o">-</span><span class="n">E_y</span><span class="o">/</span><span class="n">c</span><span class="p">,</span> <span class="o">-</span><span class="n">E_z</span><span class="o">/</span><span class="n">c</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">14</span><span class="p">]:</span> <span class="n">F</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">)[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">F</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">)[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">F</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">)[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">14</span><span class="p">]:</span> <span class="p">(</span><span class="o">-</span><span class="n">B_x</span><span class="p">,</span> <span class="o">-</span><span class="n">B_y</span><span class="p">,</span> <span class="o">-</span><span class="n">B_z</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul>
+<li><p class="first">[1][2] オブジェクト <code class="code docutils literal notranslate"><span class="pre">Lorentz</span></code> を生成する。計量は (+, -, -, -) とする。</p>
+</li>
+<li><p class="first">[3][4] 例題で利用する次の各シンボルを定義する。</p>
+<ul class="simple">
+<li>電場 <span class="math notranslate nohighlight">\(\mathbf{E} = (E_x, E_y, E_z)\)</span> の各成分を表すシンボル <code class="code docutils literal notranslate"><span class="pre">Ex</span></code>, <code class="code docutils literal notranslate"><span class="pre">Ey</span></code>, <code class="code docutils literal notranslate"><span class="pre">Ez</span></code></li>
+<li>磁束密度 <span class="math notranslate nohighlight">\(\mathbf{B} = (B_x, B_y, B_z)\)</span> の各成分を表すシンボル <code class="code docutils literal notranslate"><span class="pre">Bx</span></code>, <code class="code docutils literal notranslate"><span class="pre">By</span></code>, <code class="code docutils literal notranslate"><span class="pre">Bz</span></code></li>
+<li>光速（スカラー量）を表すシンボル <code class="code docutils literal notranslate"><span class="pre">c</span></code></li>
+</ul>
+</li>
+<li><p class="first">[5] テンソルの添字を表すふたつのシンボル <code class="code docutils literal notranslate"><span class="pre">m</span></code> と <code class="code docutils literal notranslate"><span class="pre">n</span></code> を定義する。この後生成する 2 階のテンソルシンボルとともに用いることになる。</p>
+</li>
+<li><p class="first">[6] 電磁テンソル <span class="math notranslate nohighlight">\(F\)</span> を <code class="code docutils literal notranslate"><span class="pre">F</span></code> として定義する。これは 2 階テンソルとなる。</p>
+</li>
+<li><p class="first">[7] <span class="math notranslate nohighlight">\(F_{m n}\)</span> の行列表現の成分を直接設定する。負の符号付き添字オブジェクトは subscript/covariant を意味する。</p>
+</li>
+<li><p class="first">[8]-[10] <span class="math notranslate nohighlight">\(F^{m n}\)</span>, <span class="math notranslate nohighlight">\(F^m_n\)</span>, <span class="math notranslate nohighlight">\(F_{m n}\)</span> を見る。</p>
+</li>
+<li><p class="first">[11]-[14] 電場の強度と磁束密度をテンソルから取る。</p>
+<div class="math notranslate nohighlight">
+\begin{align*}
+(F_{01}, F_{02}, F_{03}) &amp;= \left(\frac{E_x}{c}, \frac{E_y}{c}, \frac{E_z}{c}\right)\\
+(F^{01}, F^{02}, F^{03}) &amp;= \left(-\frac{E_x}{c}, -\frac{E_y}{c}, -\frac{E_z}{c}\right)\\
+(F_{23}, F_{31}, F_{12}) &amp;= (-B_x, -B_y, -B_z)\\
+(F^{23}, F^{31}, F^{12}) &amp;= (-B_x, -B_y, -B_z)
+\end{align*}</div></li>
+</ul>
+<p>もっと確かめる。</p>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">15</span><span class="p">]:</span> <span class="n">Fmat</span> <span class="o">=</span> <span class="n">F</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">()</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">16</span><span class="p">]:</span> <span class="n">Fmat</span><span class="o">.</span><span class="n">is_anti_symmetric</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">16</span><span class="p">]:</span> <span class="kc">True</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">17</span><span class="p">]:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([</span><span class="n">Bx</span><span class="p">,</span> <span class="n">By</span><span class="p">,</span> <span class="n">Bz</span><span class="p">]);</span> <span class="n">E</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([</span><span class="n">Ex</span><span class="p">,</span> <span class="n">Ey</span><span class="p">,</span> <span class="n">Ez</span><span class="p">])</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">18</span><span class="p">]:</span> <span class="n">simplify</span><span class="p">((</span><span class="n">F</span><span class="p">(</span><span class="o">-</span><span class="n">m</span><span class="p">,</span> <span class="o">-</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">F</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">18</span><span class="p">]:</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="n">E_x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">E_y</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">E_z</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">c</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">B_x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">B_y</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">B_z</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="o">/</span><span class="n">c</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">19</span><span class="p">]:</span> <span class="n">simplify</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">B</span><span class="p">)</span> <span class="o">-</span> <span class="n">E</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">E</span><span class="p">)</span><span class="o">/</span><span class="n">c</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">19</span><span class="p">]:</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="n">E_x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">E_y</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">E_z</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">c</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">B_x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">B_y</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">B_z</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="o">/</span><span class="n">c</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">20</span><span class="p">]:</span> <span class="n">simplify</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">Fmat</span><span class="o">.</span><span class="n">det</span><span class="p">())</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">20</span><span class="p">]:</span> <span class="n">c</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>[15][16] 電磁テンソルの行列形式は交代行列である。</li>
+<li>[17] もっと早く定義しておくべきだったが、電場ベクトル <code class="code docutils literal notranslate"><span class="pre">E</span></code> と磁束密度ベクトル <code class="code docutils literal notranslate"><span class="pre">B</span></code> を生成する。</li>
+<li>[18][19] 電磁テンソルの内積 <span class="math notranslate nohighlight">\(F_{m n} F^{m n}\)</span> は電場と磁束密度の大きさと光速の自乗とで表現できる。</li>
+<li>[20] 行列式 <span class="math notranslate nohighlight">\(\det F\)</span> は電場と磁束密度のスカラー積と光速の自乗とで表現できる。</li>
+</ul>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">この後 4 階の Levi-Civita epsilon をなんとか利用可能な状態にして、双対テンソルの生成をしたい。</p>
+</div>
+</div>
+<div class="section" id="levi-civita">
+<h3><a class="toc-backref" href="#id18">Levi-Civita 記号</a><a class="headerlink" href="#levi-civita" title="Permalink to this headline">¶</a></h3>
+<p>TensorIndexType 型オブジェクトのプロパティー <code class="code docutils literal notranslate"><span class="pre">epsilon</span></code> は Levi-Civita 記号を表現する。以下の例では、3 階の Levi-Civita 記号の添字の重複のない 6 個の値を見る。</p>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">Lorentz</span> <span class="o">=</span> <span class="n">TensorIndexType</span><span class="p">(</span><span class="s1">&#39;Lorentz&#39;</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">dummy_fmt</span><span class="o">=</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">eps</span> <span class="o">=</span> <span class="n">Lorentz</span><span class="o">.</span><span class="n">epsilon</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">eps</span><span class="o">.</span><span class="n">rank</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="mi">3</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">permutations</span><span class="p">(</span><span class="n">tensor_indices</span><span class="p">(</span><span class="s1">&#39;i:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">eps</span><span class="o">.</span><span class="n">rank</span><span class="p">),</span> <span class="n">Lorentz</span><span class="p">)):</span>
+       <span class="o">.....</span><span class="p">:</span>     <span class="n">e</span> <span class="o">=</span> <span class="n">eps</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">)</span>
+       <span class="o">.....</span><span class="p">:</span>     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> == </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">canon_bp</span><span class="p">()))</span>
+       <span class="o">.....</span><span class="p">:</span>
+<span class="n">Eps</span><span class="p">(</span><span class="n">i0</span><span class="p">,</span> <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">)</span> <span class="o">==</span> <span class="n">Eps</span><span class="p">(</span><span class="n">i0</span><span class="p">,</span> <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">)</span>
+<span class="n">Eps</span><span class="p">(</span><span class="n">i0</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">i1</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="n">Eps</span><span class="p">(</span><span class="n">i0</span><span class="p">,</span> <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">)</span>
+<span class="n">Eps</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i0</span><span class="p">,</span> <span class="n">i2</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="n">Eps</span><span class="p">(</span><span class="n">i0</span><span class="p">,</span> <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">)</span>
+<span class="n">Eps</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">i0</span><span class="p">)</span> <span class="o">==</span> <span class="n">Eps</span><span class="p">(</span><span class="n">i0</span><span class="p">,</span> <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">)</span>
+<span class="n">Eps</span><span class="p">(</span><span class="n">i2</span><span class="p">,</span> <span class="n">i0</span><span class="p">,</span> <span class="n">i1</span><span class="p">)</span> <span class="o">==</span> <span class="n">Eps</span><span class="p">(</span><span class="n">i0</span><span class="p">,</span> <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">)</span>
+<span class="n">Eps</span><span class="p">(</span><span class="n">i2</span><span class="p">,</span> <span class="n">i1</span><span class="p">,</span> <span class="n">i0</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="n">Eps</span><span class="p">(</span><span class="n">i0</span><span class="p">,</span> <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">sympy.combinatorics</span> <span class="k">import</span> <span class="n">AlternatingGroup</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">A3</span> <span class="o">=</span> <span class="n">AlternatingGroup</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">A3</span><span class="o">.</span><span class="n">generate</span><span class="p">():</span> <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">array_form</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>[1] いつものようにオブジェクト <code class="code docutils literal notranslate"><span class="pre">Lorentz</span></code> を生成する。3 次元とする。</li>
+<li>[2][3] プロパティー <code class="code docutils literal notranslate"><span class="pre">Lorentz.epsilon</span></code> に別名を付ける。ついでにその階数が 3 であることを確認する。</li>
+<li>[4] 重複のないすべての添字の順列における <code class="code docutils literal notranslate"><span class="pre">eps</span></code> の値と、その canonnical form とのそれの値とを出力する。添字 <code class="code docutils literal notranslate"><span class="pre">(l,</span> <span class="pre">m,</span> <span class="pre">n)</span></code> の置換に関して次のことが正しく表現できている。<ul>
+<li><code class="code docutils literal notranslate"><span class="pre">(i0,</span> <span class="pre">i1,</span> <span class="pre">i2)</span></code> の偶置換ならば <code class="code docutils literal notranslate"><span class="pre">eps(l,</span> <span class="pre">m,</span> <span class="pre">n)</span> <span class="pre">==</span> <span class="pre">eps(i0,</span> <span class="pre">i1,</span> <span class="pre">i2)</span></code></li>
+<li><code class="code docutils literal notranslate"><span class="pre">(i0,</span> <span class="pre">i1,</span> <span class="pre">i2)</span></code> の奇置換ならば <code class="code docutils literal notranslate"><span class="pre">eps(l,</span> <span class="pre">m,</span> <span class="pre">n)</span> <span class="pre">==</span> <span class="pre">-eps(i0,</span> <span class="pre">i1,</span> <span class="pre">i2)</span></code></li>
+</ul>
+</li>
+<li>[5]-[7] 参考までに 3 次交代群の要素をすべて記す。</li>
+</ul>
+<p>ここでは 3 階の例を試したが、テストコードは 4 階で動作確認をしている。</p>
+</div>
+<div class="section" id="id9">
+<h3><a class="toc-backref" href="#id19">参考文献</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>モジュール <code class="docutils literal notranslate"><span class="pre">sympy.tensor.tensor</span></code> の docstring および対応するテストコード</li>
+<li><a class="reference external" href="https://en.wikipedia.org/wiki/Raising_and_lowering_indices">Raising and lowering indices</a></li>
+<li><a class="reference external" href="https://en.wikipedia.org/wiki/Four-momentum">Four-momentum</a>: 英語版のほうが都合が良い符号の取り方をしている。</li>
+<li><a class="reference external" href="https://ja.wikipedia.org/wiki/%E9%9B%BB%E7%A3%81%E3%83%86%E3%83%B3%E3%82%BD%E3%83%AB">電磁テンソル</a></li>
+<li><a class="reference external" href="https://en.wikipedia.org/wiki/Levi-Civita_symbol">Levi-Civita symbol</a>: モデルの視覚的表現物が豊富な英語版の記事のほうを勧める。</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="stats.html" title="確率統計"
+             >next</a></li>
+        <li class="right" >
+          <a href="printing.html" title="出力"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >SymPy 利用ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

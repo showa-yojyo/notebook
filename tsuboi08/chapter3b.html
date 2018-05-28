@@ -1,0 +1,665 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>第 3 章 微分形式の積分 2/3 &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="第 3 章 微分形式の積分 3/3" href="chapter3c.html" />
+    <link rel="prev" title="第 3 章 微分形式の積分 1/3" href="chapter3a.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter3c.html" title="第 3 章 微分形式の積分 3/3"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="chapter3a.html" title="第 3 章 微分形式の積分 1/3"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">幾何学 III 微分形式 読書ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id9">第 3 章 微分形式の積分 2/3</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="id2">
+<p class="topic-title first">ノート目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id9">第 3 章 微分形式の積分 2/3</a><ul>
+<li><a class="reference internal" href="#id3" id="id10">3.3 単体的ドラーム理論（展開）</a><ul>
+<li><a class="reference internal" href="#id4" id="id11">3.3.1 単体複体</a></li>
+<li><a class="reference internal" href="#id5" id="id12">3.3.2 単体複体上の微分形式</a></li>
+<li><a class="reference internal" href="#id6" id="id13">3.3.3 単体的ドラームの定理</a></li>
+<li><a class="reference internal" href="#id7" id="id14">3.3.4 多様体の三角形分割と単体的ドラーム理論</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id8" id="id15">3.4 向きを持つ多様体上の積分</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id10">3.3 単体的ドラーム理論（展開）</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>目標は次のとおり：</p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(\Omega^*(M)\)</span> の p 次元コホモロジー群と単体複体のコホモロジー群は一致する。</li>
+<li>単体複体のコホモロジー群とホモロジー群は同次元の双対空間である。</li>
+</ul>
+<p>これらが言えれば <span class="math notranslate nohighlight">\(\H^p(M) \cong \RR^d\)</span> のときに次の条件を満たす <span class="math notranslate nohighlight">\(c_1, \dotsc, c_d \in Z_p^\infty(M)\)</span> が存在することになる：</p>
+<div class="math notranslate nohighlight">
+\[\alpha \in Z^p(M), \alpha = \dd \beta \iff \int_{c_i}\!\alpha = 0.\]</div>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id11">3.3.1 単体複体</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>有限単体複体を定義するために、記号と用語をいくつか導入する。</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">本書では頂点の記号に <span class="math notranslate nohighlight">\(e_i\)</span> を用いているが、これをユークリッド空間の基底である必要がある勝手に勘違いしてしまったので、本ノート中は別の記号を割り当てる。</p>
+</div>
+<ul>
+<li><p class="first">k 次元単体 <span class="math notranslate nohighlight">\(\langle v_{i_0} \dots v_{i_k}\rangle\)</span></p>
+<p>k 次元単体とは <span class="math notranslate nohighlight">\(\RR^k\)</span> 内の <span class="math notranslate nohighlight">\(k + 1\)</span> 個の頂点で構成される凸包であり、各点は一般の位置にあるものとする。</p>
+<ul>
+<li><p class="first">「各点が一般の位置にある」とは、例えば次のベクトルが一次独立であることを意味する：</p>
+<div class="math notranslate nohighlight">
+\[v_1 - v_0, v_2 - v_0, \dotsc, v_{k + 1} - v_0.\]</div>
+</li>
+</ul>
+</li>
+<li><p class="first"><a class="reference external" href="http://mathworld.wolfram.com/BarycentricCoordinates.html">重心座標</a>
+<span class="math notranslate nohighlight">\((t_{i_0}, \dotsc, t_{i_k})\)</span></p>
+<p>k 次元単体の点を <span class="math notranslate nohighlight">\(\displaystyle \sum_{l = 0}^k t_{i_l} v_{i_l}\)</span> で表したときの基底に対する係数を組にした <span class="math notranslate nohighlight">\((t_0, \dotsc, t_k)\)</span> を重心座標と呼ぶ。</p>
+<ul class="simple">
+<li>各座標成分が非負であることと、座標成分の和が 1 であることに注意。</li>
+</ul>
+</li>
+<li><p class="first">k 次元単体の内部とは、重心座標のどの成分も正となるような点のなす部分と解釈する。特に境界は内部に含まれない。</p>
+</li>
+</ul>
+<ul id="tsuboi08-3-3-1">
+<li><p class="first">定義 3.3.1: <a class="reference external" href="http://mathworld.wolfram.com/SimplicialComplex.html">有限単体複体</a></p>
+<ul>
+<li><p class="first">単数または複数の k 次元単体からなる有限集合で、さらに次の条件を満たすものを有限単体複体という：</p>
+<ol class="arabic">
+<li><p class="first">境界を構成するすべての <span class="math notranslate nohighlight">\(k - 1\)</span> 単体も <span class="math notranslate nohighlight">\(K\)</span> に含まれる。</p>
+<div class="math notranslate nohighlight">
+\[\langle v_{i_0} \dots v_{i_k}\rangle \in K \implies
+\langle v_{i_0} \dots v_{i_{l - 1}} v_{i_{l + 1}} \dots v_{i_k}\rangle \in K.\]</div>
+<p>この規則が再帰的に適用されるので、自動的に全頂点までも <span class="math notranslate nohighlight">\(K\)</span> に含まれることになる。</p>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(K\)</span> のどの二つの単体についても、それらの共通部分が <span class="math notranslate nohighlight">\(K\)</span> に含まれる。</p>
+</li>
+</ol>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(\displaystyle \abs{K} = \bigcup_{\sigma \in K}\sigma\)</span> を
+<a class="reference external" href="http://mathworld.wolfram.com/GeometricRealization.html">幾何的実現</a> という。</p>
+<ul class="simple">
+<li>ユークリッド空間の部分集合、点の集まりとして素朴に解釈すればよい。</li>
+<li>したがって元は重心座標で表される。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p class="first">k チェイン</p>
+<ul>
+<li><p class="first">k チェインとは有限単体複体 <span class="math notranslate nohighlight">\(K\)</span> を決めたときの、その k 単体の実係数有限線形結合である。記号 <span class="math notranslate nohighlight">\(C_k(K)\)</span> で表す。</p>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(C_k(K)\)</span> は k 単体の個数と同じ次元のベクトル空間である。その個数を n とすると、次のように書ける：</p>
+<div class="math notranslate nohighlight">
+\[C_k(K) = \Set{\sum_{i = 1}^n a_i \sigma_i \Sth a_i \in \RR, \sigma_i \in K}.\]</div>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p class="first">境界、境界準同型</p>
+<ul>
+<li><p class="first">単体 <span class="math notranslate nohighlight">\(\sigma \in K\)</span> の境界 <span class="math notranslate nohighlight">\(\partial \sigma\)</span> を次で定義する：</p>
+<div class="math notranslate nohighlight">
+\[\partial \sigma = \sum_{j = 0}^k(-1)^j \langle v_{i_0} \dots v{i_{j - 1}} v_{i_{j + 1}} \dots v_{i_k}\rangle.\]</div>
+<ul class="simple">
+<li>0 単体（頂点、点）の境界はゼロ、</li>
+<li>1 単体（辺、線分）の境界は 0 単体（頂点、点）、</li>
+<li>2 単体（面）の境界は 1 単体（辺、線分）、</li>
+</ul>
+<p>……となる。というわけで</p>
+</li>
+<li><p class="first"><a class="reference external" href="http://mathworld.wolfram.com/BoundaryOperator.html">境界準同型 or 境界演算子</a>
+<span class="math notranslate nohighlight">\(\fn{\partial}{C_k(K)}C_{k - 1}(K)\)</span> が定義される。</p>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(\partial \circ \partial = 0\)</span> という性質がある。</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p class="first">このゼロ準同型の性質より、複体 <span class="math notranslate nohighlight">\(C_*(K)\)</span> が得られる：</p>
+<div class="math notranslate nohighlight">
+\[\require{AMScd}
+\begin{CD}
+0 &#64;&lt;{\partial}&lt;&lt; C_0(K) &#64;&lt;{\partial}&lt;&lt; C_1(K) &#64;&lt;{\partial}&lt;&lt; C_2(K) &#64;&lt;{\partial}&lt;&lt; \cdots
+\end{CD}\]</div>
+</li>
+</ul>
+<ul>
+<li><p class="first">さらに実係数ホモロジー群が得られる：</p>
+<div class="math notranslate nohighlight">
+\[H_k(K) = \ker(\fn{\partial}{C_k(K)}C_{k - 1}(K))
+ /{\im(\fn{\partial}{C_{k + 1}(K)}{C_k(K)})}\]</div>
+<p>例によって <span class="math notranslate nohighlight">\(Z_k(K) = \ker(\fn{\partial}{C_k(K)}C_{k - 1}(K))\)</span> をサイクル、
+<span class="math notranslate nohighlight">\(\im(\fn{\partial}{C_{k + 1}(K)}{C_k(K)})\)</span> をバウンダリーと呼ぶ。</p>
+<p>実係数であることは、チェインを実係数で構成したことから来ている。</p>
+</li>
+</ul>
+<ul class="simple">
+<li>k コチェイン<ul>
+<li>K の k 単体のなす有限集合上の実数値関数を k コチェインという。</li>
+<li>k コチェインからなる有限次元ベクトル空間を <span class="math notranslate nohighlight">\(C^k(K)\)</span> と書く。</li>
+<li><span class="math notranslate nohighlight">\(C^k(K)\)</span> は <span class="math notranslate nohighlight">\(C_k(K)\)</span> の双対ベクトル空間である。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p class="first"><span class="math notranslate nohighlight">\(\fn{\delta}{C^k(K)}C^{k + 1}(K)\)</span> を次で定義する：</p>
+<div class="math notranslate nohighlight">
+\[(\delta c)(i_0, \dotsc, i_{k + 1})
+= \sum_{l = 0}^{k + 1}(-1)^l c(i_0, \dotsc, i_{l - 1}, i_{l + 1}, \dotsc, i_{k + 1})\]</div>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\((\delta c)(\sigma) = c(\delta \sigma)\)</span></li>
+<li><span class="math notranslate nohighlight">\(\delta \circ \delta = 0\)</span> が成り立つ。これは <span class="math notranslate nohighlight">\(\partial \circ \partial = 0\)</span> による。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p class="first"><span class="math notranslate nohighlight">\(K\)</span> のコホモロジー群は <span class="math notranslate nohighlight">\(K\)</span> のコチェイン複体 <span class="math notranslate nohighlight">\(C^*(K)\)</span> のコホモロジー群として定義される：</p>
+<div class="math notranslate nohighlight">
+\[\begin{CD}
+0 &#64;&gt;{\delta}&gt;&gt; C^0(K) &#64;&gt;{\delta}&gt;&gt; C^1(K) &#64;&gt;{\delta}&gt;&gt; C^2(K) &#64;&gt;{\delta}&gt;&gt; \cdots
+\end{CD}\]</div>
+<div class="math notranslate nohighlight">
+\[H^k(K) = \ker(\fn{\delta}{C^k(K)}C^{k + 1}(K))
+ / \im(\fn{\delta}{C^{k - 1}(K)}C^k(K))\]</div>
+</li>
+</ul>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/cd-topology-simplicial.png"><img alt="math.topology.algebraic.simplicial" src="../_images/cd-topology-simplicial.png" style="width: 793.0px; height: 216.0px;" /></a>
+</div>
+<ul id="tsuboi08-3-3-2">
+<li><p class="first">定義 3.3.2: <a class="reference external" href="http://mathworld.wolfram.com/EulerNumber.html">オイラー標数</a></p>
+<ul>
+<li><p class="first"><span class="math notranslate nohighlight">\(\dim C_k(K) = \dim C^k(K)\)</span> は k 単体の個数 <span class="math notranslate nohighlight">\(m_k\)</span> である。</p>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(K\)</span> の単体の次元が高々 n であるとき次の値を <span class="math notranslate nohighlight">\(K\)</span> のオイラー（・ポアンカレ）標数という：</p>
+<div class="math notranslate nohighlight">
+\[\chi(K) = \sum_{k = 0}^n(-1)^k m_k.\]</div>
+</li>
+</ul>
+</li>
+</ul>
+<ul id="tsuboi08-3-3-3">
+<li><p class="first">問題 3.3.3: <span class="math notranslate nohighlight">\(\displaystyle \chi(K) = \sum_{k = 0}^n(-1)^k \dim H_k(K) = \sum_{k = 0}^n(-1)^k \dim H^k(K)\)</span></p>
+<p>複体 <span class="math notranslate nohighlight">\(C_*(K)\)</span> においては</p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(\dim H_k(K) = \dim\ker \partial_k - \dim\im \partial_{k + 1}\)</span> と</li>
+<li>準同型定理 <span class="math notranslate nohighlight">\(\dim\im\partial_{k + 1} = \dim C^{k + 1} - \dim\ker \partial_{k + 1}\)</span></li>
+</ul>
+<p>を利用する。複体 <span class="math notranslate nohighlight">\(C^*(K)\)</span> においても、上の二つに対応する性質を利用する。</p>
+</li>
+</ul>
+<ul id="tsuboi08-3-3-4">
+<li><p class="first">命題 3.3.4: <span class="math notranslate nohighlight">\(\dim H_k(K) = \dim H^k(K)\)</span></p>
+<p>こちらの証明は線形代数。内積を利用するようだ。</p>
+<ol class="arabic">
+<li><p class="first"><span class="math notranslate nohighlight">\(C_*(K)\)</span> の基底を何かとって <span class="math notranslate nohighlight">\(C_k(K)\)</span> が列ベクトル表示されるものとする。</p>
+</li>
+<li><p class="first">境界準同型 <span class="math notranslate nohighlight">\(\partial\)</span> を行列 <span class="math notranslate nohighlight">\(A, B\)</span> を用いて表すものとする。このとき <span class="math notranslate nohighlight">\(\partial \circ \partial = 0\)</span> から <span class="math notranslate nohighlight">\(AB = O\)</span> を満たす。</p>
+<div class="math notranslate nohighlight">
+\[\begin{CD}
+C_{k - 1}(K) &#64;&lt;{\partial}&lt;{A}&lt; C_k(K) &#64;&lt;{\partial}&lt;{B}&lt; C_{k + 1}(K)
+\end{CD}\]</div>
+</li>
+<li><p class="first">同時に <span class="math notranslate nohighlight">\(C^*(K)\)</span> は行ベクトル表示されるものとする。これはコチェインが <span class="math notranslate nohighlight">\(C_k(K)\)</span> 上の微分形式であることによる。準同型 <span class="math notranslate nohighlight">\(\delta\)</span> は行ベクトルに作用するとみなせば同じ <span class="math notranslate nohighlight">\(A, B\)</span> で表される：</p>
+<div class="math notranslate nohighlight">
+\[\begin{CD}
+C^{k - 1}(K) &#64;&gt;{\delta}&gt;{A}&gt; C^k(K) &#64;&gt;{\delta}&gt;{B}&gt; C^{k + 1}(K)
+\end{CD}\]</div>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(C^k(K)\)</span> と <span class="math notranslate nohighlight">\(C_k(K)\)</span> の間の「積」をユークリッド空間の内積として定義する。</p>
+</li>
+<li><p class="first">直交補空間の性質をこの証明で利用したい。</p>
+<ul class="simple">
+<li>行列 <span class="math notranslate nohighlight">\(A\)</span> を行ベクトル <span class="math notranslate nohighlight">\(\bm a_i\ (i = 1, \dotsc, l)\)</span> を縦に並べたものとすると、
+<span class="math notranslate nohighlight">\(\ker\partial = \operatorname{span}({}^t\!\bm a_1, \dotsc, {}^t\!\bm a_l)^\perp.\)</span></li>
+<li>行列 <span class="math notranslate nohighlight">\(B\)</span> を列ベクトル <span class="math notranslate nohighlight">\(\bm b_i\ (i = 1, \dotsc, n)\)</span> を横に並べたものとすると、
+<span class="math notranslate nohighlight">\(\im\partial = \operatorname{span}(\bm b_1, \dotsc, \bm b_n).\)</span></li>
+<li><span class="math notranslate nohighlight">\(\im\partial \subset \ker\delta\)</span></li>
+</ul>
+<p>以上より次が成り立つ：</p>
+<div class="math notranslate nohighlight">
+\[\operatorname{span}(\bm b_1, \dotsc, \bm b_n)
+\subset \operatorname{span}({}^t\!\bm a_1, \dotsc, {}^t\!\bm a_l)^\perp.\]</div>
+</li>
+</ol>
+<ol class="arabic" start="7">
+<li><p class="first">一方、</p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(\ker\delta = \operatorname{span}(\bm b_1, \dotsc, \bm b_n)^\perp,\)</span></li>
+<li><span class="math notranslate nohighlight">\(\im\delta = \operatorname{span}({}^t\!\bm a_1, \dotsc, {}^t\!\bm a_l),\)</span></li>
+<li><span class="math notranslate nohighlight">\(\im\delta \subset \ker\delta\)</span></li>
+</ul>
+<p>以上より次が成り立つ：</p>
+<div class="math notranslate nohighlight">
+\[\operatorname{span}({}^t\!\bm a_1, \dotsc, {}^t\!\bm a_l)
+\subset \operatorname{span}(\bm b_1, \dotsc, \bm b_n)^\perp.\]</div>
+</li>
+<li><p class="first">ここで</p>
+<div class="math notranslate nohighlight">
+\[V = \operatorname{span}({}^t\!\bm a_1, \dotsc, {}^t\!\bm a_l)^\perp
+  \cap \operatorname{span}(\bm b_1, \dotsc, \bm b_n)^\perp\]</div>
+<p>とおくと、</p>
+<div class="math notranslate nohighlight">
+\[\operatorname{span}({}^t\!\bm a_1, \dotsc, {}^t\!\bm a_l)^\perp
+  /\operatorname{span}(\bm b_1, \dotsc, \bm b_n)
+\cong V
+\cong \operatorname{span}(\bm b_1, \dotsc, \bm b_n)^\perp
+  /\operatorname{span}({}^t\!\bm a_1, \dotsc, {}^t\!\bm a_l).\]</div>
+<p>すなわち <span class="math notranslate nohighlight">\(\ker\delta/\im\delta \cong V \cong \ker\delta/\im\delta\)</span> が成り立つ。したがって <span class="math notranslate nohighlight">\(\dim H_k(K) = \dim H^k(K)\)</span> である。</p>
+</li>
+</ol>
+</li>
+</ul>
+<ul class="simple" id="tsuboi08-3-3-5">
+<li>注意 3.3.5: <span class="math notranslate nohighlight">\(C^k(K)\)</span> と <span class="math notranslate nohighlight">\(C_k(K)\)</span> との間の積は
+<span class="math notranslate nohighlight">\(H^k(K)\)</span> と <span class="math notranslate nohighlight">\(H_k(K)\)</span> との間の積を引き起こす。</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id12">3.3.2 単体複体上の微分形式</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<ul id="tsuboi08-3-3-6">
+<li><p class="first">定義 3.3.6: <span class="math notranslate nohighlight">\(\Omega^k(K),\ \H^*(K)\)</span></p>
+<ul>
+<li><p class="first"><span class="math notranslate nohighlight">\(\omega \in \Omega^k(K)\)</span> を次の二点で定義する：</p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(K\)</span> のすべての単体から、その上の k 形式への対応である：
+<span class="math notranslate nohighlight">\(\sigma \longmapsto \omega_\sigma\)</span></li>
+<li>m 単体 <span class="math notranslate nohighlight">\(\sigma\)</span> とその面である m - 1 単体 <span class="math notranslate nohighlight">\(\tau\)</span> に対して
+<span class="math notranslate nohighlight">\(\omega_\sigma|\tau = \omega_\tau\)</span> となる。</li>
+</ul>
+</li>
+<li><p class="first">外微分 <span class="math notranslate nohighlight">\(\fn{\dd{}}{\Omega^k(K)}\Omega^{k+1}(K)\)</span> について</p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(\dd{} \circ \dd{} = 0\)</span></li>
+<li><span class="math notranslate nohighlight">\(\H^*(K) = \ker{\dd{}}/\im{\dd{}}\)</span></li>
+</ul>
+<p>が定義される。</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li>2.10 節の理論を <span class="math notranslate nohighlight">\(K\)</span> のドラーム複体 <span class="math notranslate nohighlight">\(\Omega^*(K)\)</span> に適用することができる。その結果 <span class="math notranslate nohighlight">\(\H^*(K) \cong H^*(K)\)</span> と結論できる。</li>
+</ul>
+<ul class="simple">
+<li>開星状体 <span class="math notranslate nohighlight">\(O(v_i)\)</span> の定義中にある「単体の内部の和集合」がわからない。これは <span class="math notranslate nohighlight">\(v_i \notin O(v_i)\)</span> を意味する？</li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id13">3.3.3 単体的ドラームの定理</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">単体上の積分が <span class="math notranslate nohighlight">\(K\)</span> の <span class="math notranslate nohighlight">\(\Omega^*(K)\)</span> と <span class="math notranslate nohighlight">\(C^*(K)\)</span> の関係を与える。</p>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(\Delta^k\)</span> から <span class="math notranslate nohighlight">\(\sigma = \langle e_{i_0} \dots e_{i_k}\rangle\)</span> への写像をやはり同じ記号で記す：</p>
+<div class="math notranslate nohighlight">
+\[\sigma(x_1, \dotsc, x_k)
+= (1 - x_1)e_{i_0} + (x_1 - x_2)e_{i_1}
++ \dotsb
++ (x_{k - 1} - x_k)e_{i_{k - 1}}
++ x_k e_{i_k}.\]</div>
+</li>
+<li><p class="first">写像 <span class="math notranslate nohighlight">\(\fnm{I}{\Omega^*(K)}{C^*(K)}{(\omega, \sigma)}\int_\sigma\!\omega \in \RR\)</span> は
+<span class="math notranslate nohighlight">\(K\)</span> の k コチェインを与える。</p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(I\)</span> は <a class="reference internal" href="chapter3a.html#tsuboi08-3-2-1"><span class="std std-ref">定理 3.2.1</span></a> により、
+<span class="math notranslate nohighlight">\(I \circ \dd{} = \delta \circ I\)</span> が成り立つコチェイン写像である。</li>
+</ul>
+</li>
+</ul>
+<ul id="tsuboi08-3-3-7">
+<li><p class="first">定理 3.3.7: 単体ドラームの定理</p>
+<p><span class="math notranslate nohighlight">\(I\)</span> は <span class="math notranslate nohighlight">\(\H^*(K)\)</span> と <span class="math notranslate nohighlight">\(H^*(K)\)</span> の間の同型写像を誘導する。</p>
+<ol class="arabic">
+<li><p class="first">コチェイン写像 <span class="math notranslate nohighlight">\(\fn{s}{C^*(K)}\Omega^*(K)\)</span> で
+<span class="math notranslate nohighlight">\(I \circ s = \id_{C^*(K)}\)</span> を満たすものを考える。</p>
+<p>次の事実を利用する：</p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(\fn{I}{\Omega^*(K)}C^*(K)\)</span> は値 <span class="math notranslate nohighlight">\(\displaystyle \int_\sigma\!\omega\)</span> を対応させる写像であり、
+<span class="math notranslate nohighlight">\(I \circ \dd{} = \delta \circ I\)</span> である。</li>
+<li><span class="math notranslate nohighlight">\(I\)</span> は準同型写像 <span class="math notranslate nohighlight">\(\fn{I_*}{\H^*(?)}H^*(K)\)</span> を誘導する。さらに <span class="math notranslate nohighlight">\(\H^*(?) \cong H^*(K)\)</span> および次元が有限であることから同型写像である。</li>
+<li><span class="math notranslate nohighlight">\(s\)</span> は準同型写像 <span class="math notranslate nohighlight">\(\fn{s_*}{H^*(K)}\H^*(?)\)</span> を誘導し、
+<span class="math notranslate nohighlight">\(I_* \circ s_* = \id_{H^*(K)}\)</span> を満たす。</li>
+</ul>
+<p><span class="math notranslate nohighlight">\(c \in C^0(K)\)</span> に対し <span class="math notranslate nohighlight">\(\Omega^0(K)\)</span> の何が対応するのか、どのような <span class="math notranslate nohighlight">\(\abs{K}\)</span> 上の関数であればよいのかを考える。それは頂点 <span class="math notranslate nohighlight">\(e_i\)</span> で値 <span class="math notranslate nohighlight">\(c(i)\)</span> をとる関数を線形に拡張するのがよい：</p>
+<blockquote>
+<div><p><span class="math notranslate nohighlight">\(\sigma = \langle e_{j_0} \dots e_{j_m}\rangle \in K\)</span> 上で
+<span class="math notranslate nohighlight">\(\displaystyle s(c)_{\sigma} = \sum_{l = 0}^m c(j_l)t_{j_l}\)</span> である。</p>
+</div></blockquote>
+<p><span class="math notranslate nohighlight">\(\dd{s(c)_\sigma}\)</span> の計算をする：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+\dd{s(c)_\sigma}
+&amp;= \sum_{l = 0}^m c(j_l) \dd{t_{j_l}}\\
+&amp;= \sum_{\set{i_0, i_1} \subset \set{j_0, \dotsc, j_m}}
+       (c(i_0) - c(i_1))
+       \omega_{i_0 i_1}.
+\end{align*}\end{split}\]</div>
+<ul class="simple">
+<li>上の式変形には p. 107 の式やシグマの展開を行なう。</li>
+</ul>
+<p>ここで <span class="math notranslate nohighlight">\(i_0 &lt; i_1\)</span> としておく。上の式が <span class="math notranslate nohighlight">\(\delta c\)</span> の像であるには
+<span class="math notranslate nohighlight">\(\delta c(i_0, i_1) = c(i_0) - c(i_1)\)</span> であることから
+<span class="math notranslate nohighlight">\(c^1 \in C^1(K)\)</span> に対して次のように定義できることが必要である：</p>
+<div class="math notranslate nohighlight">
+\[s(c^1)_\sigma = \sum_{\set{i_0, i_1} \subset \set{j_0, \dotsc, j_m}}
+    c^1(i_0, i_1)
+    \omega_{i_0 i_1}.\]</div>
+<p>一般の <span class="math notranslate nohighlight">\(c \in C^k(K)\)</span> に対しては次のように <span class="math notranslate nohighlight">\(s\)</span> を定義する：</p>
+<div class="math notranslate nohighlight">
+\[s(c)_\sigma = \sum_{\set{i_0, \dotsc, i_k} \subset \set{j_0, \dotsc, j_m}}
+    c(i_0, \dotsc, i_k)
+    \omega_{i_0 \dots i_k}
+    \quad
+    (m \ge k,\ \sigma = \langle e_{j_0} \dots e_{j_m}\rangle).\]</div>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(\dd{}\circ s = s \circ \delta\)</span> を示す。そのために <span class="math notranslate nohighlight">\(\dd{s(c)_\sigma} = s(\delta(c))_\sigma\)</span> を示す。</p>
+<ul class="simple">
+<li>最初の等号は上記 <span class="math notranslate nohighlight">\(s(c)_\sigma\)</span> の定義に外微分を分配することによる。</li>
+<li>二番目の等号は標準 k 形式の外微分の定義 (p. 108) による。</li>
+<li>三番目の等号はシグマの展開か。</li>
+<li>四番目の等号は <span class="math notranslate nohighlight">\(\delta\)</span> の定義 (p. 102) を当てはめる。</li>
+<li>最後の等号は上記 <span class="math notranslate nohighlight">\(s(c)_\sigma\)</span> の定義で <span class="math notranslate nohighlight">\(c\)</span> を <span class="math notranslate nohighlight">\(\delta c\)</span> に置き換えると得られる。</li>
+</ul>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(s(c)\ (c \in C^k(K))\)</span> を <span class="math notranslate nohighlight">\(\sigma = \langle e_{i_0} \dots e_{i_k}\rangle\)</span> 上で積分するには、<span class="math notranslate nohighlight">\(\sigma\)</span> を含む任意の単体
+<span class="math notranslate nohighlight">\(\langle e_{j_0} \dots e_{j_m}\rangle\)</span> で次のようにする：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+(I \circ s)(c)(i_0, \dotsc, i_k)
+&amp;= \int\sigma\!
+     \sum_{\set{l_0, \dotsc, l_k} \subset \set{j_0, \dotsc, j_m}}
+     c(l_0, \dotsc, l_k)
+     \omega_{l_0, \dotsc, l_k}\\
+&amp;= \sum_{\set{l_0, \dotsc, l_k} \subset \set{j_0, \dotsc, j_m}}
+     c(l_0, \dotsc, l_k)
+     \int\sigma\!
+     \omega_{l_0, \dotsc, l_k}\\
+&amp;= c(i_0, \dotsc, i_k).
+\end{align*}\end{split}\]</div>
+</li>
+</ol>
+</li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h3><a class="toc-backref" href="#id14">3.3.4 多様体の三角形分割と単体的ドラーム理論</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>同相写像 <span class="math notranslate nohighlight">\(\fn{\varphi}{\abs{K}}M\)</span> が各単体上で <span class="math notranslate nohighlight">\(C^\infty\)</span> 級となるものを
+<span class="math notranslate nohighlight">\(M\)</span> の <span class="math notranslate nohighlight">\(C^\infty\)</span> 級 <a class="reference external" href="http://mathworld.wolfram.com/Triangulation.html">三角形分割</a>
+という。</li>
+<li>次の三点により <span class="math notranslate nohighlight">\(\varphi^*\)</span> が <span class="math notranslate nohighlight">\(\H^*(M)\)</span> と <span class="math notranslate nohighlight">\(\H^*(K)\)</span> の同型を与えている：<ul>
+<li><span class="math notranslate nohighlight">\(\H^*(M) \cong H^*(K).\)</span></li>
+<li><span class="math notranslate nohighlight">\(\H^*(K) \cong H^*(K),\)</span> 3.3.2 節参照。</li>
+<li><span class="math notranslate nohighlight">\(\fn{\varphi^*}{\Omega^*(M)}\Omega^*(K)\)</span> の存在。</li>
+</ul>
+</li>
+<li><span class="math notranslate nohighlight">\(\Omega^*(K)\)</span> と <span class="math notranslate nohighlight">\(C^*(K)\)</span> のコホモロジー群の同型も単体に沿う積分から誘導される。</li>
+<li><span class="math notranslate nohighlight">\(H_p(K)\)</span> の生成元 <span class="math notranslate nohighlight">\([c_1], \dotsc, [c_k]\)</span> に対し、
+<span class="math notranslate nohighlight">\(\displaystyle \int_{c_i}\!\alpha = 0\)</span> となる <span class="math notranslate nohighlight">\(\alpha \in Z^p(M)\)</span> は
+<span class="math notranslate nohighlight">\(\alpha \in B^p(M)\)</span> を満たす。</li>
+<li>三角形分割のとり方に依らないので <span class="math notranslate nohighlight">\(\Omega^*\)</span> と <span class="math notranslate nohighlight">\(C^*\)</span> が等しい？</li>
+<li>オイラー標数は多様体に対して定まる量になっている。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id15">3.4 向きを持つ多様体上の積分</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>直方体あるいは単体からの写像には自然に向きが定まっている。</li>
+<li>コンパクト n 次元多様体は n 次元単体からの <span class="math notranslate nohighlight">\(C^1\)</span> 級の写像の像でうまく覆うことができる。</li>
+<li>多様体に向きが定まっているときは、積分をすることができる。</li>
+</ul>
+<ul class="simple" id="tsuboi08-3-4-1">
+<li>定義 3.4.1: <a class="reference external" href="http://mathworld.wolfram.com/OrientableManifold.html">向き付けを持つ or 向き付け可能である多様体</a><ul>
+<li>幾何学 I の <a class="reference internal" href="../tsuboi05/chapter3b.html#tsuboi05-3-6"><span class="std std-ref">3.6 節</span></a> を参照。</li>
+</ul>
+</li>
+</ul>
+<ul class="simple" id="tsuboi08-3-4-2">
+<li>定義 3.4.2: 向き付けられている多様体<ul>
+<li>ユークリッド空間には、その座標の順による向きが定まっている。例えば直方体の積分の定義にそれが表れている。</li>
+<li>向き付けを持つことと、向き付けられていることは別の概念であるらしい。上記のリンク先も参照。</li>
+</ul>
+</li>
+</ul>
+<ul class="simple" id="tsuboi08-3-4-3">
+<li>定義 3.4.3: 微分形式の台<ul>
+<li>関数の台と定義は似ているが、<span class="math notranslate nohighlight">\(\alpha(x)\)</span> という式が気になる。</li>
+</ul>
+</li>
+</ul>
+<p><span class="math notranslate nohighlight">\(\alpha \in \Omega^n(M)\)</span> ということは <span class="math notranslate nohighlight">\(\alpha = f(\bm x)\,\dd x_1 \wedge \dotsb \wedge \dd x_n\)</span>
+となる多様体上の関数 <span class="math notranslate nohighlight">\(f\)</span> が局所的に存在するということだ。この局所座標近傍を <span class="math notranslate nohighlight">\((U, \varphi)\)</span> とし、コンパクト集合 <span class="math notranslate nohighlight">\(K \subset U\)</span> をとる。このときコンパクト集合 <span class="math notranslate nohighlight">\(\varphi(K)\)</span> を有限個の disjoint な直方体で被覆できる。この直方体の逆像を <span class="math notranslate nohighlight">\(\kappa\)</span> とすると、次の式で積分をうまく定義できる：</p>
+<div class="math notranslate nohighlight">
+\[\int_\kappa\!\alpha = \int_{\text{box}}\!f(\bm x)\,\dd x_1 \dots \dd x_n.\]</div>
+<p>これを <span class="math notranslate nohighlight">\(\alpha\)</span> の <span class="math notranslate nohighlight">\(\varphi\inv\)</span> に沿う積分と呼ぶ。</p>
+<ul id="tsuboi08-3-4-4">
+<li><p class="first">定義 3.4.4: <span class="math notranslate nohighlight">\(U\)</span> のコンパクト部分 <span class="math notranslate nohighlight">\(K\)</span> に台を持つ <span class="math notranslate nohighlight">\(\alpha\)</span> の <span class="math notranslate nohighlight">\(\varphi\inv\)</span> に沿う積分</p>
+<div class="math notranslate nohighlight">
+\[\int_{\varphi\inv}\!\alpha = \int_{\varphi(U)}\!f(\bm x)\,\dd x_1 \dots \dd x_n.\]</div>
+</li>
+</ul>
+<p>以下、多様体は向き付けられているものとする。</p>
+<ul id="tsuboi08-3-4-5">
+<li><p class="first">命題 3.4.5: 座標近傍の取り方に依らない</p>
+<p>座標近傍 <span class="math notranslate nohighlight">\(U, V\)</span> の共通部分のコンパクト部分集合 <span class="math notranslate nohighlight">\(K\)</span> に台を持つ
+<span class="math notranslate nohighlight">\(\alpha\)</span> の積分の値は等しい：</p>
+<div class="math notranslate nohighlight">
+\[\int_{\varphi\inv}\!\alpha = \int_{\psi\inv}\!\alpha.\]</div>
+<ul>
+<li><p class="first"><span class="math notranslate nohighlight">\((V, \psi)\)</span> から見て <span class="math notranslate nohighlight">\(\alpha = g(\bm y)\,\dd y_1 \wedge \dotsb \wedge \dd y_n\)</span> と表す。</p>
+</li>
+<li><p class="first">座標変換 <span class="math notranslate nohighlight">\(\varphi \circ \psi\inv\)</span> を考える：
+<span class="math notranslate nohighlight">\((\varphi \circ \psi\inv)(\bm y) = (x_1(\bm y), \dotsc, x_n(\bm y))\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+g(\bm y)\,\dd y_1 \wedge \dotsb \wedge \dd y_n
+&amp;= f(x_1(\bm y), \dotsc, x_n(\bm y))\,\dd x_1 \wedge \dotsb \wedge \dd x_n\\
+&amp;= f(x_1(\bm y), \dotsc, x_n(\bm y)) \det\frac{\partial(x_1, \dotsc, x_n)}{\partial(y_1, \dotsc, y_n)}\,\dd y_1 \wedge \dotsb \wedge \dd y_n.
+\end{align*}\end{split}\]</div>
+<p>ここまではよく見かける論証。</p>
+</li>
+<li><p class="first">積分は次のようになる：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+\int_{\varphi\inv|\varphi(U \cap V)}\!\alpha
+&amp;= \int_{\varphi(U \cap V)}\!f(\bm x)\,\dd x_1 \dots \dd x_n\\
+&amp;= \int_{\psi(U \cap V)}\! f(x_1(\bm y), \dotsc, x_n(\bm y)) \Abs{\det{\frac{\partial(x_1, \dotsc, x_n)}{\partial(y_1, \dotsc, y_n)}}}\,\dd y_1 \dots \dd y_n\\
+&amp;= \int_{\psi(U \cap V)}\! g(\bm y)\,\dd y_1 \dots \dd y_n\\
+&amp;= \int_{\psi\inv|\psi(U \cap V)}\!\alpha.
+\end{align*}\end{split}\]</div>
+<ul class="simple">
+<li>最初と最後の等号は <a class="reference internal" href="#tsuboi08-3-4-4"><span class="std std-ref">定義 3.4.4</span></a> による。</li>
+<li>二番目の等号は重積分の変数変換か？</li>
+<li>三番目の等号は多様体が向き付けられていることにより、絶対値を取らなくても行列式の符号が正であることによる。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul id="tsuboi08-3-4-6">
+<li><p class="first">命題 3.4.6: 向き付けられた二つの座標近傍系にそれぞれに従属する 1 の分割についての等式</p>
+<div class="math notranslate nohighlight">
+\[\sum_i \int_{\varphi\inv}\!\lambda_i\alpha =
+\sum_j \int_{\psi\inv}\!\mu_j\alpha.\]</div>
+<p>証明は、開被覆 <span class="math notranslate nohighlight">\(\set{U_i \cap V_j}\)</span> およびそれに従属する
+1 の分割 <span class="math notranslate nohighlight">\(\set{\lambda_i \mu_j}\)</span> を考えて
+<a class="reference internal" href="#tsuboi08-3-4-5"><span class="std std-ref">命題 3.4.5</span></a> を用いる。</p>
+</li>
+</ul>
+<ul id="tsuboi08-3-4-7">
+<li><p class="first">定義 3.4.7: コンパクトで向き付けられた多様体上の微分形式の積分</p>
+<div class="math notranslate nohighlight">
+\[\int_M\!\alpha = \sum_i \int_{\varphi\inv}\!\lambda_i \alpha.\]</div>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(\set{(U_i, \varphi_i)}\)</span> に従属する 1 の分割を用いている。</li>
+<li>この定義が well-defined であることは、
+<a class="reference internal" href="#tsuboi08-3-4-6"><span class="std std-ref">命題 3.4.6</span></a> による。</li>
+</ul>
+</li>
+</ul>
+<ul id="tsuboi08-3-4-8">
+<li><p class="first">定理 3.4.8: ドラーム・コホモロジー群の性質</p>
+<ul class="simple">
+<li>コンパクト・向き付けを持つ・連結 n 次元多様体 <span class="math notranslate nohighlight">\(M\)</span> について <span class="math notranslate nohighlight">\(\H^n(M) \cong \RR.\)</span></li>
+<li>写像 <span class="math notranslate nohighlight">\(\displaystyle \Omega^n(M) \owns \alpha \longmapsto \int_M\!\alpha \in \RR\)</span> は同型写像 <span class="math notranslate nohighlight">\(\H^n(M) \longto \RR\)</span> を誘導する。</li>
+</ul>
+<p>これがまともな準同型であることをまず示す。</p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(\alpha\)</span> が向き付けを持つ <span class="math notranslate nohighlight">\((U, (x_1, \dotsc, x_n))\)</span> 上に台を持ち、非負関数を用いて <span class="math notranslate nohighlight">\(\alpha = f\,\dd x_1 \wedge \dotsb \wedge \dd x_n\)</span> の形に書けるとする。</li>
+<li>このときに <span class="math notranslate nohighlight">\(\displaystyle \int_M\!\alpha &gt; 0\)</span> となるから、ゼロ準同型ではない。</li>
+</ul>
+<p>あとは <span class="math notranslate nohighlight">\(\H^n(M) \le 1\)</span> を示す。</p>
+<ul>
+<li><p class="first">多様体の三角形分割を適用することで、
+<a class="reference internal" href="chapter2c.html#tsuboi08-2-10"><span class="std std-ref">2.10 節</span></a> の議論におけるコホモロジー群の同型と
+3.3.4 節の複体の同型により次が成り立つ：</p>
+<div class="math notranslate nohighlight">
+\[\dim \H^n(M) = \dim H^n(K).\]</div>
+</li>
+<li><p class="first">また <a class="reference internal" href="#tsuboi08-3-3-4"><span class="std std-ref">命題 3.3.4</span></a> により <span class="math notranslate nohighlight">\(\dim H^n(K) = \dim H_n(K)\)</span> である。</p>
+</li>
+<li><p class="first">ここがわからない。n サイクル <span class="math notranslate nohighlight">\(\sum a_i \sigma_i\)</span> の図を用いた議論によって、この次元が高々 1 であることが観察できる。</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul id="tsuboi08-3-4-9">
+<li><p class="first">例題 3.4.9: モース関数を利用した <a class="reference internal" href="#tsuboi08-3-4-8"><span class="std std-ref">定理 3.4.8</span></a> の証明</p>
+<p><a class="reference internal" href="chapter2b.html#tsuboi08-2-8"><span class="std std-ref">2.8 節</span></a> で多用した技法を採用する。</p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(\varnothing = N_0 \subset N_1 \subset \dotsb \subset N_k = M\)</span></li>
+<li><span class="math notranslate nohighlight">\(j &lt; k\)</span> のとき <span class="math notranslate nohighlight">\(N_{j - 1}\cap B_j\)</span> は空集合であるか、
+<span class="math notranslate nohighlight">\(B^{n - m_j} \times S^{m_j}\)</span> と微分同相であり、</li>
+<li><span class="math notranslate nohighlight">\(N_{k - 1} \cap B_k\)</span> は <span class="math notranslate nohighlight">\(B^1 \times S^{n - 1}\)</span> と微分同相である。</li>
+<li><a class="reference internal" href="chapter2b.html#tsuboi08-2-8-1"><span class="std std-ref">定理 2.8.1</span></a> のマイヤー・ビエトリス完全系列を見ると、
+<span class="math notranslate nohighlight">\(j &lt; k\)</span> のとき <span class="math notranslate nohighlight">\(\dim\H^n(N_j) = 0.\)</span></li>
+<li>よって <span class="math notranslate nohighlight">\(\dim\H^n(M) \le 1.\)</span></li>
+</ul>
+</li>
+</ul>
+<p>至るところゼロでない微分形式が存在するならば、多様体は向き付け可能である。</p>
+<ul id="tsuboi08-3-4-10">
+<li><p class="first">命題 3.4.10: <span class="math notranslate nohighlight">\(M\)</span> が境界なし・向き付け不可能・コンパクト・連結ならば
+<span class="math notranslate nohighlight">\(\H^n(M) \cong H_n(K) \cong 0\)</span></p>
+<p><span class="math notranslate nohighlight">\(M\)</span> は向き付け不可能であるが、
+<a class="reference internal" href="../tsuboi05/chapter3b.html#tsuboi05-3-6"><span class="std std-ref">幾何学 I 3.6 節</span></a> にあるように次のような多様体
+<span class="math notranslate nohighlight">\(\widehat M\)</span> と写像 <span class="math notranslate nohighlight">\(\varphi\)</span> がとれる：</p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(\widehat M\)</span> は向き付け可能・連結であり、</li>
+<li>写像 <span class="math notranslate nohighlight">\(\fn{\varphi}{\widehat M}\widehat M\)</span> は向きを反対にし、不動点がない。<ul>
+<li><span class="math notranslate nohighlight">\(\varphi \circ \varphi = \id_{\widehat M},\)</span></li>
+<li><span class="math notranslate nohighlight">\(\widehat M/\varphi \cong M.\)</span></li>
+</ul>
+</li>
+</ul>
+<p>ここで <span class="math notranslate nohighlight">\(\alpha \in \Omega^n(M)\)</span> をとり、射影を <span class="math notranslate nohighlight">\(\fn{\pi}{\widehat M}M\)</span> とおく。</p>
+<ul>
+<li><p class="first"><span class="math notranslate nohighlight">\(\pi = \pi \circ \varphi\)</span> ゆえ <span class="math notranslate nohighlight">\(\varphi^*\pi^*\alpha = \pi^*\alpha.\)</span>
+したがって：</p>
+<div class="math notranslate nohighlight">
+\[\int_{\widehat M}\!\varphi^*\pi^*\alpha
+= \int_{\widehat M}\!\pi^*\alpha.\]</div>
+</li>
+<li><p class="first">写像 <span class="math notranslate nohighlight">\(\varphi\)</span> の反変性により：</p>
+<div class="math notranslate nohighlight">
+\[\int_{\widehat M}\!\varphi^*\pi^*\alpha
+= -\int_{\widehat M}\!\pi^*\alpha.\]</div>
+</li>
+<li><p class="first">この二つの等式より：</p>
+<div class="math notranslate nohighlight">
+\[\int_{\widehat M}\!\pi^*\alpha = 0.\]</div>
+</li>
+<li><p class="first">ここで <a class="reference internal" href="#tsuboi08-3-4-8"><span class="std std-ref">定理 3.4.8</span></a> により、
+<span class="math notranslate nohighlight">\(\pi^*\alpha = \dd \beta \in \Omega^n(M)\)</span>
+（外微分をオメガの元と見るのが新鮮）</p>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(\displaystyle \beta_1 = \frac{1}{2}(\beta + \varphi^*\beta) \in \Omega^{n - 1}(\widehat M)\)</span> に対して、
+<span class="math notranslate nohighlight">\(\varphi^*\beta_1 = \beta_1\)</span> より <span class="math notranslate nohighlight">\(\beta_1 = \pi^*\beta_2 \in \Omega^{n - 1}(\widehat M).\)</span></p>
+</li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+\pi^*(\dd \beta_2) &amp;= \dd(\pi^*\beta_2) = \dd \beta_1\\
+&amp;= \frac{1}{2}\dd(\beta + \varphi^*\beta)\\
+&amp;= \frac{1}{2}(\dd \beta + \varphi^* \dd \beta)\\
+&amp;= \frac{1}{2}(\pi^*\alpha + \varphi^*\pi^*\alpha)\\
+&amp;= \pi^*\alpha.
+\end{align*}\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(\pi\)</span> が単射だからか <span class="math notranslate nohighlight">\(\dd \beta_2 = \alpha\)</span> となる。</p>
+</li>
+</ul>
+<ul id="tsuboi08-3-4-11">
+<li><p class="first">命題 3.4.11: まとめ</p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(\H^n(M)\)</span> は <span class="math notranslate nohighlight">\(\RR\)</span> と同型またはゼロである。</li>
+<li><span class="math notranslate nohighlight">\(M\)</span> が向き付け可能であることと、<span class="math notranslate nohighlight">\(\H^n(M) \cong \RR\)</span> とが同値である。</li>
+</ul>
+<p>これは <a class="reference internal" href="#tsuboi08-3-4-8"><span class="std std-ref">定理 3.4.8</span></a> および
+<a class="reference internal" href="#tsuboi08-3-4-10"><span class="std std-ref">命題 3.4.10</span></a> をまとめたものだ。</p>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter3c.html" title="第 3 章 微分形式の積分 3/3"
+             >next</a></li>
+        <li class="right" >
+          <a href="chapter3a.html" title="第 3 章 微分形式の積分 1/3"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >幾何学 III 微分形式 読書ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

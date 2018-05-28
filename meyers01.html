@@ -1,47 +1,40 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Effective STL 読書ノート &mdash; 読書ノート v1.4.0dev</title>
-    
+    <title>Effective STL 読書ノート &#8212; 読書ノート v1.4</title>
     <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.4.0dev',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/twitter-button.js"></script>
-    <link rel="top" title="読書ノート v1.4.0dev" href="index.html" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="next" title="More Exceptional C++ 読書ノート" href="sutter02.html" />
-    <link rel="prev" title="Modern C++ Design 読書ノート 3/3" href="alexandrescu01-note3.html" /> 
-  </head>
-  <body>
-    <div class="related">
+    <link rel="prev" title="Modern C++ Design 読書ノート 3/3" href="alexandrescu01/note3.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
-        <li><a href="index.html">読書ノート v1.4.0dev</a> &raquo;</li> 
+        <li class="right" style="margin-right: 10px">
+          <a href="sutter02.html" title="More Exceptional C++ 読書ノート"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="alexandrescu01/note3.html" title="Modern C++ Design 読書ノート 3/3"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="effective-stl">
 <h1><a class="toc-backref" href="#id60">Effective STL 読書ノート</a><a class="headerlink" href="#effective-stl" title="Permalink to this headline">¶</a></h1>
-<p>三大 C++ Effective 本の一つ。
-記者が初めて購入した C++ 関連書籍なので、とっくの昔に読書ノートがない。
-改めて作成する。</p>
+<p>三大 C++ Effective 本の一つ。記者が初めて購入した C++ 関連書籍なので、とっくの昔に読書ノートがない。改めて作成する。</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -52,7 +45,9 @@
 </tr>
 <tr class="field-odd field"><th class="field-name">出版社:</th><td class="field-body">ピアソン・エデュケーション</td>
 </tr>
-<tr class="field-even field"><th class="field-name">ISBN:</th><td class="field-body">4-89471-410-8</td>
+<tr class="field-even field"><th class="field-name">発行年:</th><td class="field-body">2002 年</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">ISBN:</th><td class="field-body">978-4-89471-410-6</td>
 </tr>
 </tbody>
 </table>
@@ -142,26 +137,21 @@
 <div class="section" id="id2">
 <h2><a class="toc-backref" href="#id61">はじめに</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>本書の対象を &lt;STL の使い方は知っているが、
-「効果的に」使用しているかどうか確信が持てない&gt; (p. 1) 読者としている。</li>
+<li>本書の対象を &lt;STL の使い方は知っているが、「効果的に」使用しているかどうか確信が持てない&gt; (p. 1) 読者としている。</li>
 <li>本書では、STL (Standard Template Library) の定義を次のように独自に規定している。
 &lt;反復子を利用する C++ の標準ライブラリの部分&gt; (p. 2)
 この定義を与えることで、本書のカバー領域をも明確に宣言している。</li>
-<li>STL を扱う際には、コンパイラとライブラリの両方を区別できることが重要とある。
-原著を執筆していた当時は、コンパイラもライブラリも標準に準拠し切れていないものが多かったはず。
-著者の苦労が窺い知れる。</li>
+<li>STL を扱う際には、コンパイラとライブラリの両方を区別できることが重要とある。原著を執筆していた当時は、コンパイラもライブラリも標準に準拠し切れていないものが多かったはず。著者の苦労が窺い知れる。</li>
 <li>用語<ul>
 <li>シーケンスコンテナと連想コンテナのおさらい。</li>
 <li>反復子の 5 カテゴリのおさらい。</li>
-<li>&lt;関数呼び出し演算子 <tt class="docutils literal"><span class="pre">operator()</span></tt> をオーバーロードするクラスは「ファンクタクラス」と呼ばれている&gt; (p. 5)</li>
-<li>アルゴリズム等のコストを「定数時間」「対数時間」「線形時間」の三つにザックリ分類している。
-そういえば本書は <em>O(1)</em> とか <em>O(logN)</em> とかの記法は用いていないようだ。</li>
+<li>&lt;関数呼び出し演算子 <code class="docutils literal notranslate"><span class="pre">operator()</span></code> をオーバーロードするクラスは「ファンクタクラス」と呼ばれている&gt; (p. 5)</li>
+<li>アルゴリズム等のコストを「定数時間」「対数時間」「線形時間」の三つにザックリ分類している。そういえば本書は <em>O(1)</em> とか <em>O(logN)</em> とかの記法は用いていないようだ。</li>
 </ul>
 </li>
 <li>コード例<ul>
 <li>著者は typename 派。</li>
-<li>著者は <tt class="docutils literal"><span class="pre">operator==</span></tt> などの二項演算子の関数パラメータに <tt class="docutils literal"><span class="pre">lhs</span></tt> と <tt class="docutils literal"><span class="pre">rhs</span></tt> という名前を付ける習慣がある。
-習慣化しておくと、関数を定義するときに変数名をつけるのに悩む時間をゼロにできて素晴らしい。</li>
+<li>著者は <code class="docutils literal notranslate"><span class="pre">operator==</span></code> などの二項演算子の関数パラメータに <code class="docutils literal notranslate"><span class="pre">lhs</span></code> と <code class="docutils literal notranslate"><span class="pre">rhs</span></code> という名前を付ける習慣がある。習慣化しておくと、関数を定義するときに変数名をつけるのに悩む時間をゼロにできて素晴らしい。</li>
 </ul>
 </li>
 </ul>
@@ -178,13 +168,8 @@
 <div class="section" id="id5">
 <h3><a class="toc-backref" href="#id64">第 2 項</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <ul>
-<li><p class="first">&lt;たとえば vector を使っているが、コンテナを使用するコードを変更せずに、
-後で deque や list などに置き換えられるようにしようとする。
-つまり、「コンテナに依存しないコード」を書こうとするのである。
-ほとんどの場合、よかれと思ってなされるこの種の汎用化は間違っている&gt; (p. 15)</p>
-<p>例えば異なるシーケンスコンテナに適用する反復子を無効化する規則が異なる。
-異なるコンテナは「異なる」のであって、互いを交換するようには設計されていない。
-といった議論を展開している。かなり丁寧に（誰かを）説得している。</p>
+<li><p class="first">&lt;たとえば vector を使っているが、コンテナを使用するコードを変更せずに、後で deque や list などに置き換えられるようにしようとする。つまり、「コンテナに依存しないコード」を書こうとするのである。ほとんどの場合、よかれと思ってなされるこの種の汎用化は間違っている&gt; (p. 15)</p>
+<p>例えば異なるシーケンスコンテナに適用する反復子を無効化する規則が異なる。異なるコンテナは「異なる」のであって、互いを交換するようには設計されていない。といった議論を展開している。かなり丁寧に（誰かを）説得している。</p>
 </li>
 <li><p class="first">コーディングテクニックとして、typedef の効用を説いている。</p>
 </li>
@@ -193,29 +178,26 @@
 <div class="section" id="id6">
 <h3><a class="toc-backref" href="#id65">第 3 項</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>この項目はタイトルが全て。コンテナにオブジェクトを追加するときは、
-必ずそのオブジェクトのコピーが入る。取得も基本的にはコピーを出す。</li>
+<li>この項目はタイトルが全て。コンテナにオブジェクトを追加するときは、必ずそのオブジェクトのコピーが入る。取得も基本的にはコピーを出す。</li>
 </ul>
 </div>
 <div class="section" id="id7">
 <h3><a class="toc-backref" href="#id66">第 4 項</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>&lt;<tt class="docutils literal"><span class="pre">empty</span></tt> はすべての標準コンテナに対して定数時間処理だが、
-<tt class="docutils literal"><span class="pre">size</span></tt> の場合、一部の list の実装には線形時間がかかる&gt; (p. 22)<ul>
-<li>list 実装者が <tt class="docutils literal"><span class="pre">size</span></tt> を定数時間処理にしようとすると、
-今度は <tt class="docutils literal"><span class="pre">splice</span></tt> が線形時間処理にならざるを得ない。</li>
+<li>&lt;<code class="docutils literal notranslate"><span class="pre">empty</span></code> はすべての標準コンテナに対して定数時間処理だが、
+<code class="docutils literal notranslate"><span class="pre">size</span></code> の場合、一部の list の実装には線形時間がかかる&gt; (p. 22)<ul>
+<li>list 実装者が <code class="docutils literal notranslate"><span class="pre">size</span></code> を定数時間処理にしようとすると、今度は <code class="docutils literal notranslate"><span class="pre">splice</span></code> が線形時間処理にならざるを得ない。</li>
 </ul>
 </li>
-<li>コンテナに要素があるか否かをテストするには、常に <tt class="docutils literal"><span class="pre">empty</span></tt> を呼びだす。</li>
+<li>コンテナに要素があるか否かをテストするには、常に <code class="docutils literal notranslate"><span class="pre">empty</span></code> を呼びだす。</li>
 </ul>
 </div>
 <div class="section" id="id8">
 <h3><a class="toc-backref" href="#id67">第 5 項</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>この本を買って、一番最初に感動を覚えた項目。</p>
 <ul>
-<li><p class="first">「vector <tt class="docutils literal"><span class="pre">v1</span></tt> と <tt class="docutils literal"><span class="pre">v2</span></tt> があり、
-<tt class="docutils literal"><span class="pre">v1</span></tt> を <tt class="docutils literal"><span class="pre">v2</span></tt> の後半部分と同じ内容にする」という処理を
-実装するのに、for などのループを使わずに書ければ及第点。</p>
+<li><p class="first">「vector <code class="docutils literal notranslate"><span class="pre">v1</span></code> と <code class="docutils literal notranslate"><span class="pre">v2</span></code> があり、
+<code class="docutils literal notranslate"><span class="pre">v1</span></code> を <code class="docutils literal notranslate"><span class="pre">v2</span></code> の後半部分と同じ内容にする」という処理を実装するのに、for などのループを使わずに書ければ及第点。</p>
 </li>
 <li><p class="first">「範囲メンバ関数」という用語を導入し、その効用を説明している。</p>
 <ul class="simple">
@@ -230,37 +212,35 @@
 <li><p class="first">範囲メンバ関数として、次のものをとりあえず意識しておく。</p>
 <ul class="simple">
 <li>コンストラクタ</li>
-<li><tt class="docutils literal"><span class="pre">insert</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">erase</span></tt> （後述の項目で <tt class="docutils literal"><span class="pre">remove</span></tt> アルゴリズムとのコンボ技を紹介している）</li>
-<li><tt class="docutils literal"><span class="pre">assign</span></tt></li>
+<li><code class="docutils literal notranslate"><span class="pre">insert</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">erase</span></code> （後述の項目で <code class="docutils literal notranslate"><span class="pre">remove</span></code> アルゴリズムとのコンボ技を紹介している）</li>
+<li><code class="docutils literal notranslate"><span class="pre">assign</span></code></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="id9">
 <h3><a class="toc-backref" href="#id68">第 6 項</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
-<p>「関数宣言として解析できるものは関数宣言とみなす」ルールによって、
-コンストラクタから iterator を生成するコードがコンパイルエラーになることがある。</p>
+<p>「関数宣言として解析できるものは関数宣言とみなす」ルールによって、コンストラクタから iterator を生成するコードがコンパイルエラーになることがある。</p>
 </div>
 <div class="section" id="id10">
 <h3><a class="toc-backref" href="#id69">第 7 項</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">new</span></tt> によるポインタを抱えるコンテナを取り扱うことの難しさを説明している。</li>
+<li><code class="docutils literal notranslate"><span class="pre">new</span></code> によるポインタを抱えるコンテナを取り扱うことの難しさを説明している。</li>
 <li>&lt;仮想デストラクタなしにクラスから公開で継承することは、
 C++ でやってはいけないことの 1 つである&gt; (p. 36)</li>
 </ul>
 </div>
 <div class="section" id="id11">
 <h3><a class="toc-backref" href="#id70">第 8 項</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
-<p>そういえば <tt class="docutils literal"><span class="pre">auto_ptr</span></tt> に <tt class="docutils literal"><span class="pre">auto_ptr</span></tt> を代入すると、右辺側は null になるのだった。
-<tt class="docutils literal"><span class="pre">auto_ptr</span></tt> にコピーコンストラクタとコピー代入演算子があるのは、
-どういう理由からだったろうか。</p>
+<p>そういえば <code class="docutils literal notranslate"><span class="pre">auto_ptr</span></code> に <code class="docutils literal notranslate"><span class="pre">auto_ptr</span></code> を代入すると、右辺側は null になるのだった。
+<code class="docutils literal notranslate"><span class="pre">auto_ptr</span></code> にコピーコンストラクタとコピー代入演算子があるのは、どういう理由からだったろうか。</p>
 </div>
 <div class="section" id="id12">
 <h3><a class="toc-backref" href="#id71">第 9 項</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <p>コンテナから要素を消去する方法について。</p>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">remove_if</span></tt> 方式で条件を満たす要素を連想コンテナから削除する場合が少しややこしいか。</li>
+<li><code class="docutils literal notranslate"><span class="pre">remove_if</span></code> 方式で条件を満たす要素を連想コンテナから削除する場合が少しややこしいか。</li>
 <li>削除しながら、何か別のことをする処理を書くには、やはり手でループするしかない。</li>
 </ul>
 </div>
@@ -274,15 +254,12 @@ C++ でやってはいけないことの 1 つである&gt; (p. 36)</li>
 </div>
 <div class="section" id="id15">
 <h3><a class="toc-backref" href="#id74">第 12 項</a><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
-<p>コンテナのスレッドセーフティ（安全性）について。
-あまりうれしいことは書いていない。</p>
+<p>コンテナのスレッドセーフティ（安全性）について。あまりうれしいことは書いていない。</p>
 <ul class="simple">
-<li>&lt;クラスを使ってリソースの有効期限を管理する考え方は、
-一般的に「リソース取得は初期化である」として知られており、
+<li>&lt;クラスを使ってリソースの有効期限を管理する考え方は、一般的に「リソース取得は初期化である」として知られており、
 C++ の総合的な教科書では、必ず説明を読むことができる。
 Stroustrup がこの慣用句を有名にした&gt; (p. 59)
-こういうクラスを利用する方法は、&lt;例外に対して堅牢である。C++ では、
-例外が発生すると、ローカルオブジェクトは破棄されることが保証されている&gt; (p. 60)
+こういうクラスを利用する方法は、&lt;例外に対して堅牢である。C++ では、例外が発生すると、ローカルオブジェクトは破棄されることが保証されている&gt; (p. 60)
 取得してあるリソースが、確実に呼び出されるデストラクタが解放するからだ。</li>
 </ul>
 </div>
@@ -299,8 +276,8 @@ Stroustrup がこの慣用句を有名にした&gt; (p. 59)
 <div class="section" id="id17">
 <h3><a class="toc-backref" href="#id77">第 14 項</a><a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">vector::reserve</span></tt> に関する話題。でもこの例のコードならば、
-<tt class="docutils literal"><span class="pre">resize</span></tt> して <tt class="docutils literal"><span class="pre">operator[]</span></tt> で要素を代入したほうがパフォーマンスがいいのではないか。</li>
+<li><code class="docutils literal notranslate"><span class="pre">vector::reserve</span></code> に関する話題。でもこの例のコードならば、
+<code class="docutils literal notranslate"><span class="pre">resize</span></code> して <code class="docutils literal notranslate"><span class="pre">operator[]</span></code> で要素を代入したほうがパフォーマンスがいいのではないか。</li>
 </ul>
 </div>
 <div class="section" id="id18">
@@ -312,11 +289,10 @@ Stroustrup がこの慣用句を有名にした&gt; (p. 59)
 <div class="section" id="id19">
 <h3><a class="toc-backref" href="#id79">第 16 項</a><a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>配列を受け取る関数に vector <tt class="docutils literal"><span class="pre">v</span></tt> を渡すには、 <tt class="docutils literal"><span class="pre">&amp;v[0]</span></tt> を使う。</li>
-<li><tt class="docutils literal"><span class="pre">const</span> <span class="pre">char*</span></tt> を受け取る関数に string <tt class="docutils literal"><span class="pre">s</span></tt> を渡すには <tt class="docutils literal"><span class="pre">s.c_str()</span></tt> を使う。<ul>
-<li>const の付かない <tt class="docutils literal"><span class="pre">char*</span></tt> を受け取る関数に対しては、
-<tt class="docutils literal"><span class="pre">s</span></tt> を <tt class="docutils literal"><span class="pre">vector&lt;char&gt;</span> <span class="pre">v</span></tt> に一旦作り直してから、
-その関数に <tt class="docutils literal"><span class="pre">&amp;v[0]</span></tt> を渡す。</li>
+<li>配列を受け取る関数に vector <code class="docutils literal notranslate"><span class="pre">v</span></code> を渡すには、<code class="docutils literal notranslate"><span class="pre">&amp;v[0]</span></code> を使う。</li>
+<li><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char*</span></code> を受け取る関数に string <code class="docutils literal notranslate"><span class="pre">s</span></code> を渡すには <code class="docutils literal notranslate"><span class="pre">s.c_str()</span></code> を使う。<ul>
+<li>const の付かない <code class="docutils literal notranslate"><span class="pre">char*</span></code> を受け取る関数に対しては、
+<code class="docutils literal notranslate"><span class="pre">s</span></code> を <code class="docutils literal notranslate"><span class="pre">vector&lt;char&gt;</span> <span class="pre">v</span></code> に一旦作り直してから、その関数に <code class="docutils literal notranslate"><span class="pre">&amp;v[0]</span></code> を渡す。</li>
 </ul>
 </li>
 </ul>
@@ -325,18 +301,16 @@ Stroustrup がこの慣用句を有名にした&gt; (p. 59)
 <h3><a class="toc-backref" href="#id80">第 17 項</a><a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
 <p>この本を買って、二番目に感動した項目。スワップはやはりいい。</p>
 <ul>
-<li><p class="first">vector/string で <tt class="docutils literal"><span class="pre">erase</span></tt> を呼んだ後でも、容量 (<tt class="docutils literal"><span class="pre">capacity</span></tt>) は通常そのまま保たれる。
-それを強制的に削るため、
-<tt class="docutils literal"><span class="pre">swap</span></tt> をトリッキーな呼び出し方をして、
-vector/string から余分な容量を削除することができる。
-著者はこの技法を &#8220;shrink to fit&#8221; 方法と呼んでいる。</p>
-<div class="highlight-c++"><div class="highlight"><pre><span class="n">string</span> <span class="n">s</span><span class="p">;</span>
-<span class="c1">// ...</span>
-<span class="n">string</span><span class="p">(</span><span class="n">s</span><span class="p">).</span><span class="n">swap</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+<li><p class="first">vector/string で <code class="docutils literal notranslate"><span class="pre">erase</span></code> を呼んだ後でも、容量 (<code class="docutils literal notranslate"><span class="pre">capacity</span></code>) は通常そのまま保たれる。それを強制的に削るため、
+<code class="docutils literal notranslate"><span class="pre">swap</span></code> をトリッキーな呼び出し方をして、
+vector/string から余分な容量を削除することができる。著者はこの技法を “shrink to fit” 方法と呼んでいる。</p>
+<div class="code c++ highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">string</span> <span class="n">s</span><span class="p">;</span>
+<span class="o">//</span> <span class="o">...</span>
+<span class="n">string</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">swap</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>あるいは</p>
-<div class="highlight-c++"><div class="highlight"><pre><span class="n">string</span><span class="p">().</span><span class="n">swap</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+<div class="code c++ highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">string</span><span class="p">()</span><span class="o">.</span><span class="n">swap</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
 </pre></div>
 </div>
 </li>
@@ -344,11 +318,11 @@ vector/string から余分な容量を削除することができる。
 </div>
 <div class="section" id="id21">
 <h3><a class="toc-backref" href="#id81">第 18 項</a><a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
-<p><tt class="docutils literal"><span class="pre">vector&lt;bool&gt;</span></tt> はいらない。状況に応じて次のいずれかで対応する。</p>
+<p><code class="docutils literal notranslate"><span class="pre">vector&lt;bool&gt;</span></code> はいらない。状況に応じて次のいずれかで対応する。</p>
 <blockquote>
 <div><ol class="arabic simple">
-<li><tt class="docutils literal"><span class="pre">deque&lt;bool&gt;</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">bitset</span></tt></li>
+<li><code class="docutils literal notranslate"><span class="pre">deque&lt;bool&gt;</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">bitset</span></code></li>
 </ol>
 </div></blockquote>
 </div>
@@ -360,34 +334,27 @@ vector/string から余分な容量を削除することができる。
 <h3><a class="toc-backref" href="#id83">第 19 項</a><a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>長いが重要なので引用する。
-&lt;<tt class="docutils literal"><span class="pre">find</span></tt> アルゴリズムと <tt class="docutils literal"><span class="pre">set</span></tt> の <tt class="docutils literal"><span class="pre">insert</span></tt> メンバ関数は、
-2 つの値が同じかどうかを調べる多くの関数を代表している。
-しかし、 <tt class="docutils literal"><span class="pre">find</span></tt> と <tt class="docutils literal"><span class="pre">insert</span></tt> が行う方法は異なっている。
-<tt class="docutils literal"><span class="pre">find</span></tt> の「同一」の定義は「等値」(equality) であり、
-<tt class="docutils literal"><span class="pre">operator==</span></tt> に基づいている。
-<tt class="docutils literal"><span class="pre">set::insert</span></tt> の「同一」の定義は「等価」(equivalence) であり、
-通常は <tt class="docutils literal"><span class="pre">operator&lt;</span></tt> に基づいている。
-2 つの定義は異なるため、一方の定義では 2 つのオブジェクトの値が同一とし、
-他方の定義では同一としないことがある。
-したがって、STL を効果的に利用するには、
-等値と等価の違いを理解しなければならない&gt; (p. 82)</li>
+&lt;<code class="docutils literal notranslate"><span class="pre">find</span></code> アルゴリズムと <code class="docutils literal notranslate"><span class="pre">set</span></code> の <code class="docutils literal notranslate"><span class="pre">insert</span></code> メンバ関数は、
+2 つの値が同じかどうかを調べる多くの関数を代表している。しかし、<code class="docutils literal notranslate"><span class="pre">find</span></code> と <code class="docutils literal notranslate"><span class="pre">insert</span></code> が行う方法は異なっている。
+<code class="docutils literal notranslate"><span class="pre">find</span></code> の「同一」の定義は「等値」(equality) であり、
+<code class="docutils literal notranslate"><span class="pre">operator==</span></code> に基づいている。
+<code class="docutils literal notranslate"><span class="pre">set::insert</span></code> の「同一」の定義は「等価」(equivalence) であり、通常は <code class="docutils literal notranslate"><span class="pre">operator&lt;</span></code> に基づいている。
+2 つの定義は異なるため、一方の定義では 2 つのオブジェクトの値が同一とし、他方の定義では同一としないことがある。したがって、STL を効果的に利用するには、等値と等価の違いを理解しなければならない&gt; (p. 82)</li>
 <li>ここは読み落としていた。
 &lt;すべての標準連想コンテナでは、
-<tt class="docutils literal"><span class="pre">key_comp</span></tt> メンバ関数によって、ソート述語を利用できる&gt; (p. 83)</li>
+<code class="docutils literal notranslate"><span class="pre">key_comp</span></code> メンバ関数によって、ソート述語を利用できる&gt; (p. 83)</li>
 </ul>
 </div>
 <div class="section" id="id24">
 <h3><a class="toc-backref" href="#id84">第 20 項</a><a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
-<p>ポインタを格納した連想コンテナは、デフォルトではアドレス順にソートされる。
-これが困る場合だけ、本項のアドバイスに従えばいいだろう。</p>
+<p>ポインタを格納した連想コンテナは、デフォルトではアドレス順にソートされる。これが困る場合だけ、本項のアドバイスに従えばいいだろう。</p>
 </div>
 <div class="section" id="id25">
 <h3><a class="toc-backref" href="#id85">第 21 項</a><a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">set</span></tt> の比較関数として <tt class="docutils literal"><span class="pre">less_equal</span></tt> を使うと、その <tt class="docutils literal"><span class="pre">set</span></tt> はあっさり壊れる。</li>
+<li><code class="docutils literal notranslate"><span class="pre">set</span></code> の比較関数として <code class="docutils literal notranslate"><span class="pre">less_equal</span></code> を使うと、その <code class="docutils literal notranslate"><span class="pre">set</span></code> はあっさり壊れる。</li>
 <li>&lt;読者による面白さの定義は著者とは違うかもしれない&gt; (p. 91)</li>
-<li>連想コンテナの比較関数の要件とは、その比較関数が strict weak ordering を定義すること。
-比較関数が同じ値を比較すると、false を返す必要があることを憶えておく。</li>
+<li>連想コンテナの比較関数の要件とは、その比較関数が strict weak ordering を定義すること。比較関数が同じ値を比較すると、false を返す必要があることを憶えておく。</li>
 </ul>
 </div>
 <div class="section" id="id26">
@@ -395,18 +362,17 @@ vector/string から余分な容量を削除することができる。
 <ul>
 <li><p class="first">map/multimap のキーは変更できない。const だから。</p>
 </li>
-<li><p class="first">set/multiset のキーは変更できる。
-しかしコンテナを破壊する可能性大ゆえ変更してはならない。</p>
+<li><p class="first">set/multiset のキーは変更できる。しかしコンテナを破壊する可能性大ゆえ変更してはならない。</p>
 <ul>
 <li><p class="first">ただし「キー以外の部分」については変更することに問題はない。</p>
-<div class="highlight-c++"><div class="highlight"><pre><span class="n">EmpIDSet</span><span class="o">::</span><span class="n">iterator</span> <span class="n">i</span> <span class="o">=</span> <span class="n">se</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">selectedID</span><span class="p">);</span>
-<span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">!=</span> <span class="n">se</span><span class="p">.</span><span class="n">end</span><span class="p">()){</span>
-    <span class="k">const_cast</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">).</span><span class="n">setTitle</span><span class="p">(</span><span class="s">&quot;Corpolate Deity&quot;</span><span class="p">);</span>
+<div class="code c++ highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">EmpIDSet</span><span class="p">::</span><span class="n">iterator</span> <span class="n">i</span> <span class="o">=</span> <span class="n">se</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">selectedID</span><span class="p">);</span>
+<span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">!=</span> <span class="n">se</span><span class="o">.</span><span class="n">end</span><span class="p">()){</span>
+    <span class="n">const_cast</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">setTitle</span><span class="p">(</span><span class="s2">&quot;Corpolate Deity&quot;</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>安全で移植性のある形で書きたければ、
-<tt class="docutils literal"><span class="pre">erase</span></tt> と <tt class="docutils literal"><span class="pre">insert</span></tt> を使う。</p>
+<code class="docutils literal notranslate"><span class="pre">erase</span></code> と <code class="docutils literal notranslate"><span class="pre">insert</span></code> を使う。</p>
 </li>
 </ul>
 </li>
@@ -416,8 +382,7 @@ vector/string から余分な容量を削除することができる。
 <h3><a class="toc-backref" href="#id87">第 23 項</a><a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h3>
 <p>ソート済み vector のパフォーマンスを知らしめる内容。この項は実務の上でも重要。</p>
 <ul>
-<li><p class="first">多くの場合、対数時間探索かかる標準連想コンテナよりは、
-定数時間探索が期待できるハッシュコンテナのほうがよい。</p>
+<li><p class="first">多くの場合、対数時間探索かかる標準連想コンテナよりは、定数時間探索が期待できるハッシュコンテナのほうがよい。</p>
 </li>
 <li><p class="first">&lt;直感に反して、標準連想コンテナのパフォーマンスは低速の vector に劣ることは珍しくない&gt;
 (p. 99)</p>
@@ -425,8 +390,7 @@ vector/string から余分な容量を削除することができる。
 <li><p class="first">二分探索木を二分探索するより、ソート済み vector を二分探索するほうがパフォーマンスが優れている理由を議論している。</p>
 <ol class="arabic simple">
 <li>サイズ。vector が優れていることは明白。</li>
-<li>参照の局所性。ノードベースのコンテナでは、コンテナ内の順序では近くにあるコンテナ要素同士が、
-物理メモリ的にも近くにあるとは限らない。</li>
+<li>参照の局所性。ノードベースのコンテナでは、コンテナ内の順序では近くにあるコンテナ要素同士が、物理メモリ的にも近くにあるとは限らない。</li>
 </ol>
 <p>総合的に考えて、ソート済み vector の二分探索に軍配を上げているだけ。</p>
 </li>
@@ -434,11 +398,11 @@ vector/string から余分な容量を削除することができる。
 </div>
 <div class="section" id="id28">
 <h3><a class="toc-backref" href="#id88">第 24 項</a><a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h3>
-<p><tt class="docutils literal"><span class="pre">map::operator[]</span></tt> vs <tt class="docutils literal"><span class="pre">map::insert</span></tt></p>
+<p><code class="docutils literal notranslate"><span class="pre">map::operator[]</span></code> vs <code class="docutils literal notranslate"><span class="pre">map::insert</span></code></p>
 <dl class="docutils">
-<dt><tt class="docutils literal"><span class="pre">insert</span></tt>:</dt>
+<dt><code class="docutils literal notranslate"><span class="pre">insert</span></code>:</dt>
 <dd>map に要素を追加するとき（名前どおりだ）。効率の観点からもよい。</dd>
-<dt><tt class="docutils literal"><span class="pre">operator[]</span></tt>:</dt>
+<dt><code class="docutils literal notranslate"><span class="pre">operator[]</span></code>:</dt>
 <dd>map に既に存在する要素を更新するとき。効率的かつ美的。</dd>
 </dl>
 </div>
@@ -447,7 +411,7 @@ vector/string から余分な容量を削除することができる。
 <p>再読して気付いたが、本書はハッシュを猛烈にプッシュしている気がする。</p>
 <ul class="simple">
 <li>標準 C++ ライブラリにはハッシュテーブルはない。</li>
-<li>STLport には <tt class="docutils literal"><span class="pre">hash_set</span></tt>, <tt class="docutils literal"><span class="pre">hash_map</span></tt> のようなものがある。</li>
+<li>STLport には <code class="docutils literal notranslate"><span class="pre">hash_set</span></code>, <code class="docutils literal notranslate"><span class="pre">hash_map</span></code> のようなものがある。</li>
 </ul>
 </div>
 </div>
@@ -458,32 +422,24 @@ vector/string から余分な容量を削除することができる。
 <ul class="simple">
 <li>const_iterator から iterator へ変換する方法がない。</li>
 <li>const_reverse_iterator から reverse_iterator へ変換する方法がない。</li>
-<li>&lt;const の正確さという観点からすれば（確かに価値ある観点であるのだが）、
-実際に欠陥があるかもしれないというだけで（解決方法はあるのだから）、
-const_iterator を使わないことは不当に思えるかもしれない。しかし、
-コンテナの一部のメンバ関数では iterator が選別されている状況を考え合わせると、
-実際上、const_iterator は iterator ほど役に立たないだけでなく、
-あえて使う理由がないという結論に達せざるを得ない&gt; (pp. 116-117)</li>
+<li>&lt;const の正確さという観点からすれば（確かに価値ある観点であるのだが）、実際に欠陥があるかもしれないというだけで（解決方法はあるのだから）、
+const_iterator を使わないことは不当に思えるかもしれない。しかし、コンテナの一部のメンバ関数では iterator が選別されている状況を考え合わせると、実際上、const_iterator は iterator ほど役に立たないだけでなく、あえて使う理由がないという結論に達せざるを得ない&gt; (pp. 116-117)</li>
 </ul>
 </div>
 <div class="section" id="id32">
 <h3><a class="toc-backref" href="#id92">第 27 項</a><a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h3>
 <p>const_iterator を iterator に変換する技法として、
-<tt class="docutils literal"><span class="pre">advance</span></tt> と <tt class="docutils literal"><span class="pre">distance</span></tt> を組み合わせて利用する方法を紹介している。
-しかし、どう考えてもこの方法は時間的コストがかかる。
-本項の結論もそう認めているので、
-この項は前項のガイドラインを補強するために書かれたのかな。</p>
+<code class="docutils literal notranslate"><span class="pre">advance</span></code> と <code class="docutils literal notranslate"><span class="pre">distance</span></code> を組み合わせて利用する方法を紹介している。しかし、どう考えてもこの方法は時間的コストがかかる。本項の結論もそう認めているので、この項は前項のガイドラインを補強するために書かれたのかな。</p>
 </div>
 <div class="section" id="id33">
 <h3><a class="toc-backref" href="#id93">第 28 項</a><a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h3>
-<p><tt class="docutils literal"><span class="pre">reverse_iterator::base</span></tt> について。</p>
+<p><code class="docutils literal notranslate"><span class="pre">reverse_iterator::base</span></code> について。</p>
 <ul>
-<li><p class="first"><tt class="docutils literal"><span class="pre">find</span></tt> 等のアルゴリズムに reverse_iterator を与えると、
-その戻り値の型もまた reverse_iterator になる。</p>
-<div class="highlight-c++"><div class="highlight"><pre><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
-<span class="c1">// ...</span>
-<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">reverse_iterator</span> <span class="n">ri</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="mi">3</span><span class="p">);</span>
-<span class="n">v</span><span class="p">.</span><span class="n">erase</span><span class="p">((</span><span class="o">++</span><span class="n">ri</span><span class="p">).</span><span class="n">base</span><span class="p">());</span>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">find</span></code> 等のアルゴリズムに reverse_iterator を与えると、その戻り値の型もまた reverse_iterator になる。</p>
+<div class="code c++ highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vector</span><span class="o">&lt;</span><span class="nb">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+<span class="o">//</span> <span class="o">...</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="nb">int</span><span class="o">&gt;</span><span class="p">::</span><span class="n">reverse_iterator</span> <span class="n">ri</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v</span><span class="o">.</span><span class="n">end</span><span class="p">(),</span> <span class="mi">3</span><span class="p">);</span>
+<span class="n">v</span><span class="o">.</span><span class="n">erase</span><span class="p">((</span><span class="o">++</span><span class="n">ri</span><span class="p">)</span><span class="o">.</span><span class="n">base</span><span class="p">());</span>
 </pre></div>
 </div>
 </li>
@@ -492,11 +448,9 @@ const_iterator を使わないことは不当に思えるかもしれない。�
 <div class="section" id="id34">
 <h3><a class="toc-backref" href="#id94">第 29 項</a><a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">istream_iterator</span></tt> は <tt class="docutils literal"><span class="pre">operator&gt;&gt;</span></tt> に依存する。
-これは書式付き入力を行うため、遅いのを承知の上で利用すること。</li>
+<li><code class="docutils literal notranslate"><span class="pre">istream_iterator</span></code> は <code class="docutils literal notranslate"><span class="pre">operator&gt;&gt;</span></code> に依存する。これは書式付き入力を行うため、遅いのを承知の上で利用すること。</li>
 <li>書式などどうでもよい場合、入力ストリームから次の文字を取得したいだけならば、
-<tt class="docutils literal"><span class="pre">istreambuf_iterator</span></tt> の利用を検討する。
-入力と同様に、出力ストリームの処理でも <tt class="docutils literal"><span class="pre">ostreambuf_iterator</span></tt> の方がよい場合がある。</li>
+<code class="docutils literal notranslate"><span class="pre">istreambuf_iterator</span></code> の利用を検討する。入力と同様に、出力ストリームの処理でも <code class="docutils literal notranslate"><span class="pre">ostreambuf_iterator</span></code> の方がよい場合がある。</li>
 </ul>
 </div>
 </div>
@@ -505,12 +459,11 @@ const_iterator を使わないことは不当に思えるかもしれない。�
 <div class="section" id="id36">
 <h3><a class="toc-backref" href="#id96">第 30 項</a><a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">transform</span></tt> 等、出力反復子を指定するアルゴリズムには、
-出力先範囲が適切に確保されている、または確保してくれる反復子を渡す。<ul>
-<li><tt class="docutils literal"><span class="pre">back_inserter</span></tt>, <tt class="docutils literal"><span class="pre">front_inserter</span></tt>, <tt class="docutils literal"><span class="pre">inserter</span></tt> ならば、出力先サイズを自動的に拡張してくれる。</li>
+<li><code class="docutils literal notranslate"><span class="pre">transform</span></code> 等、出力反復子を指定するアルゴリズムには、出力先範囲が適切に確保されている、または確保してくれる反復子を渡す。<ul>
+<li><code class="docutils literal notranslate"><span class="pre">back_inserter</span></code>, <code class="docutils literal notranslate"><span class="pre">front_inserter</span></code>, <code class="docutils literal notranslate"><span class="pre">inserter</span></code> ならば、出力先サイズを自動的に拡張してくれる。</li>
 <li>出力先のサイズがわかっている場合は、対象コンテナに対して
-<tt class="docutils literal"><span class="pre">reserve</span></tt> や <tt class="docutils literal"><span class="pre">resize</span></tt> を先に使うと効率がよい。
-<tt class="docutils literal"><span class="pre">inserter</span></tt> 系を用いる場合は <tt class="docutils literal"><span class="pre">resize</span></tt> ではなく <tt class="docutils literal"><span class="pre">reserve</span></tt> を使う。</li>
+<code class="docutils literal notranslate"><span class="pre">reserve</span></code> や <code class="docutils literal notranslate"><span class="pre">resize</span></code> を先に使うと効率がよい。
+<code class="docutils literal notranslate"><span class="pre">inserter</span></code> 系を用いる場合は <code class="docutils literal notranslate"><span class="pre">resize</span></code> ではなく <code class="docutils literal notranslate"><span class="pre">reserve</span></code> を使う。</li>
 </ul>
 </li>
 </ul>
@@ -520,54 +473,45 @@ const_iterator を使わないことは不当に思えるかもしれない。�
 <p>この本を読んで、4 番目に感動した項目はこれだった。</p>
 <ul class="simple">
 <li>まずはこの鉄則を頭に叩き込む。
-&lt;確かに <tt class="docutils literal"><span class="pre">sort</span></tt> はすばらしいアルゴリズムだが、不必要なところで使う理由はない。
-場合によっては、一部をソートするだけで済む&gt; (p. 130)</li>
-<li>ベスト N が欲しい場合は、 <tt class="docutils literal"><span class="pre">partial_sort</span></tt> で十分。</li>
-<li>ベスト N が「順序に関係なく」欲しい場合は、 <tt class="docutils literal"><span class="pre">nth_element</span></tt> で十分。</li>
-<li><tt class="docutils literal"><span class="pre">partial_sort</span></tt> も <tt class="docutils literal"><span class="pre">nth_element</span></tt> も stable ではない。特に問題はないだろう。</li>
-<li>全体を二種類に分類するような目的ならば、 <tt class="docutils literal"><span class="pre">partition</span></tt> が利用できる。</li>
+&lt;確かに <code class="docutils literal notranslate"><span class="pre">sort</span></code> はすばらしいアルゴリズムだが、不必要なところで使う理由はない。場合によっては、一部をソートするだけで済む&gt; (p. 130)</li>
+<li>ベスト N が欲しい場合は、<code class="docutils literal notranslate"><span class="pre">partial_sort</span></code> で十分。</li>
+<li>ベスト N が「順序に関係なく」欲しい場合は、<code class="docutils literal notranslate"><span class="pre">nth_element</span></code> で十分。</li>
+<li><code class="docutils literal notranslate"><span class="pre">partial_sort</span></code> も <code class="docutils literal notranslate"><span class="pre">nth_element</span></code> も stable ではない。特に問題はないだろう。</li>
+<li>全体を二種類に分類するような目的ならば、<code class="docutils literal notranslate"><span class="pre">partition</span></code> が利用できる。</li>
 <li>ソート系アルゴリズムは &lt;ランダムアクセス反復子を必要とする&gt; (p. 133)。<ul>
-<li>問題は list をソートしたい場合だ。
-状況によって、内容を vector に移植してから所望のソート・分類をすることになるかもしれない。</li>
-<li><tt class="docutils literal"><span class="pre">partition</span></tt> 系は <tt class="docutils literal"><span class="pre">list::iterator</span></tt> を受け付ける。</li>
+<li>問題は list をソートしたい場合だ。状況によって、内容を vector に移植してから所望のソート・分類をすることになるかもしれない。</li>
+<li><code class="docutils literal notranslate"><span class="pre">partition</span></code> 系は <code class="docutils literal notranslate"><span class="pre">list::iterator</span></code> を受け付ける。</li>
 </ul>
 </li>
-<li>&lt;ソートアルゴリズムを選ぶ際には、パフォーマンスを基準にするのではなく、
-目的に適しているかどうかに基づいて選択することをお勧めする。
-必要な処理しかしないアルゴリズムを選べば、必要な処理がはっきり表現されるだけでなく、
+<li>&lt;ソートアルゴリズムを選ぶ際には、パフォーマンスを基準にするのではなく、目的に適しているかどうかに基づいて選択することをお勧めする。必要な処理しかしないアルゴリズムを選べば、必要な処理がはっきり表現されるだけでなく、
 STL を使って最も効率的な方法で目的を達成できる&gt; (p. 135)</li>
 </ul>
 </div>
 <div class="section" id="id38">
 <h3><a class="toc-backref" href="#id98">第 32 項</a><a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h3>
 <ul>
-<li><p class="first"><tt class="docutils literal"><span class="pre">remove</span></tt> アルゴリズムの誤解を解くところから始めている。
-指定範囲の末尾付近にゴミが溜まるだけ。</p>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">remove</span></code> アルゴリズムの誤解を解くところから始めている。指定範囲の末尾付近にゴミが溜まるだけ。</p>
 </li>
-<li><p class="first">&lt;コンテナのメンバ関数だけがコンテナの要素を削除できる。
-そこに本項の要点がある。
-つまり、本当に削除する場合は、
-<tt class="docutils literal"><span class="pre">remove</span></tt> の後に <tt class="docutils literal"><span class="pre">erase</span></tt> を実行しなければならない&gt;
+<li><p class="first">&lt;コンテナのメンバ関数だけがコンテナの要素を削除できる。そこに本項の要点がある。つまり、本当に削除する場合は、
+<code class="docutils literal notranslate"><span class="pre">remove</span></code> の後に <code class="docutils literal notranslate"><span class="pre">erase</span></code> を実行しなければならない&gt;
 (pp. 138-139)</p>
-<div class="highlight-c++"><div class="highlight"><pre><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
-<span class="c1">// ...</span>
-<span class="n">v</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">remove</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="mi">99</span><span class="p">),</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+<div class="code c++ highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vector</span><span class="o">&lt;</span><span class="nb">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+<span class="o">//</span> <span class="o">...</span>
+<span class="n">v</span><span class="o">.</span><span class="n">erase</span><span class="p">(</span><span class="n">remove</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v</span><span class="o">.</span><span class="n">end</span><span class="p">(),</span> <span class="mi">99</span><span class="p">),</span> <span class="n">v</span><span class="o">.</span><span class="n">end</span><span class="p">());</span>
 </pre></div>
 </div>
-<p>&lt;範囲形式の <tt class="docutils literal"><span class="pre">erase</span></tt> の第 1 引数に <tt class="docutils literal"><span class="pre">remove</span></tt> の戻り値を渡すことが多く、
-一種の慣用句になっている&gt; (p. 139)</p>
+<p>&lt;範囲形式の <code class="docutils literal notranslate"><span class="pre">erase</span></code> の第 1 引数に <code class="docutils literal notranslate"><span class="pre">remove</span></code> の戻り値を渡すことが多く、一種の慣用句になっている&gt; (p. 139)</p>
 </li>
-<li><p class="first"><tt class="docutils literal"><span class="pre">unique</span></tt> も <tt class="docutils literal"><span class="pre">remove</span></tt> のように末尾付近にゴミを寄せるアルゴリズムだ。
-<tt class="docutils literal"><span class="pre">erase</span></tt> と組み合わせて利用する。</p>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">unique</span></code> も <code class="docutils literal notranslate"><span class="pre">remove</span></code> のように末尾付近にゴミを寄せるアルゴリズムだ。
+<code class="docutils literal notranslate"><span class="pre">erase</span></code> と組み合わせて利用する。</p>
 </li>
-<li><p class="first">list に関しては、アルゴリズムではなくメンバ関数の <tt class="docutils literal"><span class="pre">remove</span></tt>, <tt class="docutils literal"><span class="pre">unique</span></tt> により、
-本当に削除できる。</p>
+<li><p class="first">list に関しては、アルゴリズムではなくメンバ関数の <code class="docutils literal notranslate"><span class="pre">remove</span></code>, <code class="docutils literal notranslate"><span class="pre">unique</span></code> により、本当に削除できる。</p>
 </li>
 </ul>
 </div>
 <div class="section" id="id39">
 <h3><a class="toc-backref" href="#id99">第 33 項</a><a class="headerlink" href="#id39" title="Permalink to this headline">¶</a></h3>
-<p>生のポインタを格納したコンテナに対する <tt class="docutils literal"><span class="pre">remove</span></tt> 風アルゴリズムの適用は危険。</p>
+<p>生のポインタを格納したコンテナに対する <code class="docutils literal notranslate"><span class="pre">remove</span></code> 風アルゴリズムの適用は危険。</p>
 </div>
 <div class="section" id="id40">
 <h3><a class="toc-backref" href="#id100">第 34 項</a><a class="headerlink" href="#id40" title="Permalink to this headline">¶</a></h3>
@@ -575,25 +519,23 @@ STL を使って最も効率的な方法で目的を達成できる&gt; (p. 135)
 <li><p class="first">ソート済み範囲を入力要件とするアルゴリズムがあるので、注意すること。</p>
 <dl class="docutils">
 <dt>二分探索系:</dt>
-<dd><p class="first last"><tt class="docutils literal"><span class="pre">binary_search</span></tt>, <tt class="docutils literal"><span class="pre">lower_bound</span></tt>, <tt class="docutils literal"><span class="pre">upper_bound</span></tt>, <tt class="docutils literal"><span class="pre">equal_range</span></tt></p>
+<dd><p class="first last"><code class="docutils literal notranslate"><span class="pre">binary_search</span></code>, <code class="docutils literal notranslate"><span class="pre">lower_bound</span></code>, <code class="docutils literal notranslate"><span class="pre">upper_bound</span></code>, <code class="docutils literal notranslate"><span class="pre">equal_range</span></code></p>
 </dd>
 <dt>重複要素検索系:</dt>
-<dd><p class="first last"><tt class="docutils literal"><span class="pre">set_union</span></tt>, <tt class="docutils literal"><span class="pre">set_intersection</span></tt>, <tt class="docutils literal"><span class="pre">set_difference</span></tt>, <tt class="docutils literal"><span class="pre">set_symmetric_difference</span></tt>,
-<tt class="docutils literal"><span class="pre">merge</span></tt>, <tt class="docutils literal"><span class="pre">inplace_merge</span></tt>, <tt class="docutils literal"><span class="pre">includes</span></tt></p>
+<dd><p class="first last"><code class="docutils literal notranslate"><span class="pre">set_union</span></code>, <code class="docutils literal notranslate"><span class="pre">set_intersection</span></code>, <code class="docutils literal notranslate"><span class="pre">set_difference</span></code>, <code class="docutils literal notranslate"><span class="pre">set_symmetric_difference</span></code>,
+<code class="docutils literal notranslate"><span class="pre">merge</span></code>, <code class="docutils literal notranslate"><span class="pre">inplace_merge</span></code>, <code class="docutils literal notranslate"><span class="pre">includes</span></code></p>
 </dd>
 </dl>
 </li>
-<li><p class="first">&lt;Unix 開発者なら、STL の <tt class="docutils literal"><span class="pre">unique</span></tt> と
-Unix の <tt class="docutils literal"><span class="pre">uniq</span></tt> が驚くほど似ていることに気付くだろう。
-筆者が思うに、この類似は決して偶然の一致ではない&gt; (p. 145)</p>
+<li><p class="first">&lt;Unix 開発者なら、STL の <code class="docutils literal notranslate"><span class="pre">unique</span></code> と
+Unix の <code class="docutils literal notranslate"><span class="pre">uniq</span></code> が驚くほど似ていることに気付くだろう。筆者が思うに、この類似は決して偶然の一致ではない&gt; (p. 145)</p>
 </li>
-<li><p class="first">次のタイプのコードは、業務時に見落とす可能性が大なのでノートをとっておく。
-望ましくない理由と望ましいコードを、読み返したときに思い出せ。</p>
-<div class="highlight-c++"><div class="highlight"><pre><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
-<span class="c1">// ...</span>
-<span class="n">sort</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">greater</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">());</span>
-<span class="c1">// ...</span>
-<span class="kt">bool</span> <span class="n">a5exists</span> <span class="o">=</span> <span class="n">binary_search</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="mi">5</span><span class="p">);</span>
+<li><p class="first">次のタイプのコードは、業務時に見落とす可能性が大なのでノートをとっておく。望ましくない理由と望ましいコードを、読み返したときに思い出せ。</p>
+<div class="code c++ highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vector</span><span class="o">&lt;</span><span class="nb">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+<span class="o">//</span> <span class="o">...</span>
+<span class="n">sort</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v</span><span class="o">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">greater</span><span class="o">&lt;</span><span class="nb">int</span><span class="o">&gt;</span><span class="p">());</span>
+<span class="o">//</span> <span class="o">...</span>
+<span class="nb">bool</span> <span class="n">a5exists</span> <span class="o">=</span> <span class="n">binary_search</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v</span><span class="o">.</span><span class="n">end</span><span class="p">(),</span> <span class="mi">5</span><span class="p">);</span>
 </pre></div>
 </div>
 </li>
@@ -602,14 +544,12 @@ Unix の <tt class="docutils literal"><span class="pre">uniq</span></tt> が驚�
 <div class="section" id="id41">
 <h3><a class="toc-backref" href="#id101">第 35 項</a><a class="headerlink" href="#id41" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">mismatch</span></tt> アルゴリズムを利用する事前条件として、違う長さの範囲を与える場合は、
-短い範囲のほうを先に与えることになっている。</li>
-<li>次の事実により <tt class="docutils literal"><span class="pre">lexicographical_compare</span></tt> は <tt class="docutils literal"><span class="pre">strcmp</span></tt> の汎用版だと言える。<ol class="arabic">
-<li><tt class="docutils literal"><span class="pre">strcmp</span></tt> は文字配列にしか適用できないが、
-<tt class="docutils literal"><span class="pre">lexicographical_compare</span></tt> は任意の型の値の範囲に適用できる。</li>
-<li><tt class="docutils literal"><span class="pre">strcmp</span></tt> は比較手段が一定である。
-一方、
-<tt class="docutils literal"><span class="pre">lexicographical_compare</span></tt> は任意の述語を与えられる。</li>
+<li><code class="docutils literal notranslate"><span class="pre">mismatch</span></code> アルゴリズムを利用する事前条件として、違う長さの範囲を与える場合は、短い範囲のほうを先に与えることになっている。</li>
+<li>次の事実により <code class="docutils literal notranslate"><span class="pre">lexicographical_compare</span></code> は <code class="docutils literal notranslate"><span class="pre">strcmp</span></code> の汎用版だと言える。<ol class="arabic">
+<li><code class="docutils literal notranslate"><span class="pre">strcmp</span></code> は文字配列にしか適用できないが、
+<code class="docutils literal notranslate"><span class="pre">lexicographical_compare</span></code> は任意の型の値の範囲に適用できる。</li>
+<li><code class="docutils literal notranslate"><span class="pre">strcmp</span></code> は比較手段が一定である。一方、
+<code class="docutils literal notranslate"><span class="pre">lexicographical_compare</span></code> は任意の述語を与えられる。</li>
 </ol>
 </li>
 <li>&lt;速度が重要である場合、STL の標準アルゴリズムの代わりに標準以外の
@@ -623,10 +563,8 @@ C 関数を使っても問題ないだろう&gt; (p. 150)</li>
 <div class="section" id="id43">
 <h3><a class="toc-backref" href="#id103">第 37 項</a><a class="headerlink" href="#id43" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">&lt;numeric&gt;</span></tt> ヘッダに置かれているアルゴリズムにも注目してやろう。</li>
-<li><tt class="docutils literal"><span class="pre">for_each</span></tt> と <tt class="docutils literal"><span class="pre">accumulate</span></tt> に渡す関数パラメータ（述語）について、
-余分な作用が一方では認められていて、他方では認められていないことが、
-本書著者は気に食わないようだ。</li>
+<li><code class="docutils literal notranslate"><span class="pre">&lt;numeric&gt;</span></code> ヘッダに置かれているアルゴリズムにも注目してやろう。</li>
+<li><code class="docutils literal notranslate"><span class="pre">for_each</span></code> と <code class="docutils literal notranslate"><span class="pre">accumulate</span></code> に渡す関数パラメータ（述語）について、余分な作用が一方では認められていて、他方では認められていないことが、本書著者は気に食わないようだ。</li>
 </ul>
 </div>
 </div>
@@ -639,34 +577,27 @@ C 関数を使っても問題ないだろう&gt; (p. 150)</li>
 <h3><a class="toc-backref" href="#id105">第 38 項</a><a class="headerlink" href="#id45" title="Permalink to this headline">¶</a></h3>
 <p>ファンクタは値渡しが鉄則。</p>
 <ul class="simple">
-<li>&lt;第一に、関数オブジェクトは小さくする必要がある。さもないと、コピーの負担が大きくなりすぎる。
-第二に、関数オブジェクトは単相（非多相）でなければならない。
-つまり、仮想関数を使ってはいけない。基本クラス型のパラメータに派生クラスオブジェクトを値で渡すと、
-スライシングの問題が発生するためである。つまり、コピー中に派生部分が削除されてしまう&gt;
-(p. 161)</li>
+<li>&lt;第一に、関数オブジェクトは小さくする必要がある。さもないと、コピーの負担が大きくなりすぎる。第二に、関数オブジェクトは単相（非多相）でなければならない。つまり、仮想関数を使ってはいけない。基本クラス型のパラメータに派生クラスオブジェクトを値で渡すと、スライシングの問題が発生するためである。つまり、コピー中に派生部分が削除されてしまう&gt; (p. 161)</li>
 </ul>
 </div>
 <div class="section" id="id46">
 <h3><a class="toc-backref" href="#id106">第 39 項</a><a class="headerlink" href="#id46" title="Permalink to this headline">¶</a></h3>
-<p>述語の戻り値は、関数の実引数からだけで決めるようにというガイド。
-本項では、そのようなものを純粋関数と呼んでいる。</p>
+<p>述語の戻り値は、関数の実引数からだけで決めるようにというガイド。本項では、そのようなものを純粋関数と呼んでいる。</p>
 </div>
 <div class="section" id="id47">
 <h3><a class="toc-backref" href="#id107">第 40 項</a><a class="headerlink" href="#id47" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>ファンクタクラスを自分で書く場合、
-それを <tt class="docutils literal"><span class="pre">unary_function</span></tt> または <tt class="docutils literal"><span class="pre">binary_function</span></tt>
-からの派生型として定義しようという話。
-このように定義しておいて初めて標準関数アダプタ
-(<tt class="docutils literal"><span class="pre">not1</span></tt>, <tt class="docutils literal"><span class="pre">not2</span></tt>, <tt class="docutils literal"><span class="pre">bind1st</span></tt>, <tt class="docutils literal"><span class="pre">bind2nd</span></tt>) に咬ませることができる。</li>
-<li>STL では各ファンクタクラスには一つの <tt class="docutils literal"><span class="pre">operator()</span></tt> しかないと暗黙の内に仮定している。</li>
+<li>ファンクタクラスを自分で書く場合、それを <code class="docutils literal notranslate"><span class="pre">unary_function</span></code> または <code class="docutils literal notranslate"><span class="pre">binary_function</span></code>
+からの派生型として定義しようという話。このように定義しておいて初めて標準関数アダプタ
+(<code class="docutils literal notranslate"><span class="pre">not1</span></code>, <code class="docutils literal notranslate"><span class="pre">not2</span></code>, <code class="docutils literal notranslate"><span class="pre">bind1st</span></code>, <code class="docutils literal notranslate"><span class="pre">bind2nd</span></code>) に咬ませることができる。</li>
+<li>STL では各ファンクタクラスには一つの <code class="docutils literal notranslate"><span class="pre">operator()</span></code> しかないと暗黙の内に仮定している。</li>
 </ul>
 </div>
 <div class="section" id="id48">
 <h3><a class="toc-backref" href="#id108">第 41 項</a><a class="headerlink" href="#id48" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>&lt;STL コンポーネントにメンバ関数を渡すときは常に
-<tt class="docutils literal"><span class="pre">mem_fun</span></tt> と <tt class="docutils literal"><span class="pre">mem_fun_ref</span></tt> を使わなければならない&gt;
+<code class="docutils literal notranslate"><span class="pre">mem_fun</span></code> と <code class="docutils literal notranslate"><span class="pre">mem_fun_ref</span></code> を使わなければならない&gt;
 (p. 174)</li>
 </ul>
 </div>
@@ -674,9 +605,9 @@ C 関数を使っても問題ないだろう&gt; (p. 150)</li>
 <h3><a class="toc-backref" href="#id109">第 42 項</a><a class="headerlink" href="#id49" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>「最小意外性の原則」は守ること。
-<tt class="docutils literal"><span class="pre">less</span></tt> に <tt class="docutils literal"><span class="pre">operator&lt;</span></tt> を呼び出す以外の処理をさせぬこと。</li>
+<code class="docutils literal notranslate"><span class="pre">less</span></code> に <code class="docutils literal notranslate"><span class="pre">operator&lt;</span></code> を呼び出す以外の処理をさせぬこと。</li>
 <li>特定の状況における比較を行うには、
-<tt class="docutils literal"><span class="pre">less</span></tt> でないファンクタクラスを作成して、それを利用すること。</li>
+<code class="docutils literal notranslate"><span class="pre">less</span></code> でないファンクタクラスを作成して、それを利用すること。</li>
 </ul>
 </div>
 </div>
@@ -685,67 +616,59 @@ C 関数を使っても問題ないだろう&gt; (p. 150)</li>
 <div class="section" id="id50">
 <h3><a class="toc-backref" href="#id111">第 43 項</a><a class="headerlink" href="#id50" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>アルゴリズムのおかげで、プログラマーが独自にループを書く作業が減る。
-さらに、効率、正確さ、保守性も得られる。</li>
+<li>アルゴリズムのおかげで、プログラマーが独自にループを書く作業が減る。さらに、効率、正確さ、保守性も得られる。</li>
 <li>&lt;反復子はアルゴリズムに渡し、反復子の複雑な操作は「アルゴリズム」に任せよう&gt; (p. 184)</li>
-<li>自作ループは、それをパッと見てすぐに何をしているものなのかがわからない。
-一方、アルゴリズムの呼び出しは、関数名を見れば少なくとも処理の意図はわかる。</li>
-<li>場合によっては、アルゴリズムに渡すファンクタを定義するコードのほうが、
-自作ループを書くよりもコード量がかさむことがある。</li>
+<li>自作ループは、それをパッと見てすぐに何をしているものなのかがわからない。一方、アルゴリズムの呼び出しは、関数名を見れば少なくとも処理の意図はわかる。</li>
+<li>場合によっては、アルゴリズムに渡すファンクタを定義するコードのほうが、自作ループを書くよりもコード量がかさむことがある。</li>
 <li>&lt;for, while, do などの低水準の語を
-<tt class="docutils literal"><span class="pre">insert</span></tt>, <tt class="docutils literal"><span class="pre">find</span></tt>, <tt class="docutils literal"><span class="pre">for_each</span></tt> などの高水準の語に置き換える&gt; (p. 187)</li>
+<code class="docutils literal notranslate"><span class="pre">insert</span></code>, <code class="docutils literal notranslate"><span class="pre">find</span></code>, <code class="docutils literal notranslate"><span class="pre">for_each</span></code> などの高水準の語に置き換える&gt; (p. 187)</li>
 </ul>
 </div>
 <div class="section" id="id51">
 <h3><a class="toc-backref" href="#id112">第 44 項</a><a class="headerlink" href="#id51" title="Permalink to this headline">¶</a></h3>
-<p>同名のアルゴリズムとメンバ関数が存在する場合は、当然メンバ関数を優先する。
-特に連想コンテナの <tt class="docutils literal"><span class="pre">find</span></tt> 系の処理について説明している。</p>
+<p>同名のアルゴリズムとメンバ関数が存在する場合は、当然メンバ関数を優先する。特に連想コンテナの <code class="docutils literal notranslate"><span class="pre">find</span></code> 系の処理について説明している。</p>
 </div>
 <div class="section" id="id52">
 <h3><a class="toc-backref" href="#id113">第 45 項</a><a class="headerlink" href="#id52" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>あるコンテナについて、特定の値を持つかどうかを調べるには、
-<tt class="docutils literal"><span class="pre">find</span></tt> アルゴリズムを用いる。
-そして、戻り値とコンテナの <tt class="docutils literal"><span class="pre">end</span></tt> が違うかどうかをテストする。<ul>
-<li>ただし、ソート済み範囲では <tt class="docutils literal"><span class="pre">binary_search</span></tt> のほうが効率がよい
-（ただし、存在する位置はわからない）。</li>
+<code class="docutils literal notranslate"><span class="pre">find</span></code> アルゴリズムを用いる。そして、戻り値とコンテナの <code class="docutils literal notranslate"><span class="pre">end</span></code> が違うかどうかをテストする。<ul>
+<li>ただし、ソート済み範囲では <code class="docutils literal notranslate"><span class="pre">binary_search</span></code> のほうが効率がよい（ただし、存在する位置はわからない）。</li>
 <li>ソート済み範囲で、どの位置にまであるか調べたいときには
-<tt class="docutils literal"><span class="pre">equal_range</span></tt> を用いる（ただし等値ではなく等価に基づいている）。
-<tt class="docutils literal"><span class="pre">equal_range</span></tt> の戻り値ペアが違う位置を指していれば（一つ以上）存在する。</li>
+<code class="docutils literal notranslate"><span class="pre">equal_range</span></code> を用いる（ただし等値ではなく等価に基づいている）。
+<code class="docutils literal notranslate"><span class="pre">equal_range</span></code> の戻り値ペアが違う位置を指していれば（一つ以上）存在する。</li>
 </ul>
 </li>
-<li>ソート済み範囲で「ある値より小さくない最初の要素」を探索するには <tt class="docutils literal"><span class="pre">lower_bound</span></tt> を用いる。</li>
+<li>ソート済み範囲で「ある値より小さくない最初の要素」を探索するには <code class="docutils literal notranslate"><span class="pre">lower_bound</span></code> を用いる。</li>
 <li>連想コンテナの場合、以上のルールに基づいてメンバ関数版を利用する。</li>
 <li>set, map に関しては、特定の値を持つかどうかを調べるのに
-<tt class="docutils literal"><span class="pre">find</span></tt> ではなく <tt class="docutils literal"><span class="pre">count</span></tt> を使っても（効率が落ちないので）構わない。</li>
+<code class="docutils literal notranslate"><span class="pre">find</span></code> ではなく <code class="docutils literal notranslate"><span class="pre">count</span></code> を使っても（効率が落ちないので）構わない。</li>
 <li>&lt;multi コンテナでは、特定の値を持つ要素が複数存在する場合、
-<tt class="docutils literal"><span class="pre">find</span></tt> がコンテナの中で特定の値を持つ「最初の」要素を識別することは保証されない&gt;
+<code class="docutils literal notranslate"><span class="pre">find</span></code> がコンテナの中で特定の値を持つ「最初の」要素を識別することは保証されない&gt;
 (p. 197)</li>
 </ul>
 </div>
 <div class="section" id="id53">
 <h3><a class="toc-backref" href="#id114">第 46 項</a><a class="headerlink" href="#id53" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>&lt;高水準言語を使ったプログラミングに関する不満の一つは、
-抽象の度合いが高まるにつれ、生成されるコードの効率が低くなることである&gt;
+<li>&lt;高水準言語を使ったプログラミングに関する不満の一つは、抽象の度合いが高まるにつれ、生成されるコードの効率が低くなることである&gt;
 (p. 198)</li>
-<li>インライン展開可能性の関係で、アルゴリズムには関数（＝ポインタ）を渡すよりも、
-関数オブジェクトを渡したほうが、コンパイラが効率のよいコードを生成する。
+<li>インライン展開可能性の関係で、アルゴリズムには関数（＝ポインタ）を渡すよりも、関数オブジェクトを渡したほうが、コンパイラが効率のよいコードを生成する。
 &lt;関数ポインタパラメータはインライン化されない。そのため、経験豊富な多くの
-C プログラマにとって信じがたいことだが、ほとんどの場合、C++ の <tt class="docutils literal"><span class="pre">sort</span></tt> の方が
-C の <tt class="docutils literal"><span class="pre">qsort</span></tt> より高速になる&gt; (p. 200)</li>
+C プログラマにとって信じがたいことだが、ほとんどの場合、C++ の <code class="docutils literal notranslate"><span class="pre">sort</span></code> の方が
+C の <code class="docutils literal notranslate"><span class="pre">qsort</span></code> より高速になる&gt; (p. 200)</li>
 </ul>
 </div>
 <div class="section" id="id54">
 <h3><a class="toc-backref" href="#id115">第 47 項</a><a class="headerlink" href="#id54" title="Permalink to this headline">¶</a></h3>
 <ul>
 <li><p class="first">冒頭で次のコードを提示しておき、</p>
-<div class="highlight-c++"><div class="highlight"><pre><span class="n">v</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span>
-  <span class="n">remove_if</span><span class="p">(</span><span class="n">find_if</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">rbegin</span><span class="p">(),</span> <span class="n">v</span><span class="p">.</span><span class="n">rend</span><span class="p">(),</span>
-                    <span class="n">bind_2nd</span><span class="p">(</span><span class="n">greater_equal</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(),</span> <span class="n">y</span><span class="p">)).</span><span class="n">base</span><span class="p">(),</span>
-            <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
-            <span class="n">bind_2nd</span><span class="p">(</span><span class="n">less</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(),</span> <span class="n">x</span><span class="p">)),</span>
-  <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+<div class="code c++ highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">v</span><span class="o">.</span><span class="n">erase</span><span class="p">(</span>
+  <span class="n">remove_if</span><span class="p">(</span><span class="n">find_if</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">rbegin</span><span class="p">(),</span> <span class="n">v</span><span class="o">.</span><span class="n">rend</span><span class="p">(),</span>
+                    <span class="n">bind_2nd</span><span class="p">(</span><span class="n">greater_equal</span><span class="o">&lt;</span><span class="nb">int</span><span class="o">&gt;</span><span class="p">(),</span> <span class="n">y</span><span class="p">))</span><span class="o">.</span><span class="n">base</span><span class="p">(),</span>
+            <span class="n">v</span><span class="o">.</span><span class="n">end</span><span class="p">(),</span>
+            <span class="n">bind_2nd</span><span class="p">(</span><span class="n">less</span><span class="o">&lt;</span><span class="nb">int</span><span class="o">&gt;</span><span class="p">(),</span> <span class="n">x</span><span class="p">)),</span>
+  <span class="n">v</span><span class="o">.</span><span class="n">end</span><span class="p">());</span>
 </pre></div>
 </div>
 <p>これはやり過ぎだと断りつつ、
@@ -754,8 +677,7 @@ C の <tt class="docutils literal"><span class="pre">qsort</span></tt> より高
 </li>
 <li><p class="first">アルゴリズムを多用すると、どうしても先のコードのようにネスト・バインダ・アダプタが増える。</p>
 </li>
-<li><p class="first">&lt;理解できないソフトウェアは保守できない&gt; (p. 205) は、
-「理解できないものは所持できない」だ。</p>
+<li><p class="first">&lt;理解できないソフトウェアは保守できない&gt; (p. 205) は、「理解できないものは所持できない」だ。</p>
 </li>
 </ul>
 </div>
@@ -783,62 +705,54 @@ C の <tt class="docutils literal"><span class="pre">qsort</span></tt> より高
 <div class="section" id="id59">
 <h2><a class="toc-backref" href="#id120">ロケールと大文字小文字を区別しない文字列比較</a><a class="headerlink" href="#id59" title="Permalink to this headline">¶</a></h2>
 <ul>
-<li><p class="first">&lt;<tt class="docutils literal"><span class="pre">x</span></tt> と <tt class="docutils literal"><span class="pre">y</span></tt> が <tt class="docutils literal"><span class="pre">std::string</span></tt> 型であれば、式 <tt class="docutils literal"><span class="pre">x</span> <span class="pre">&lt;</span> <span class="pre">y</span></tt> は次の式と等価である。</p>
-<div class="highlight-c++"><div class="highlight"><pre><span class="n">std</span><span class="o">::</span><span class="n">lexicographical_compare</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">x</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">y</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">y</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+<li><p class="first">&lt;<code class="docutils literal notranslate"><span class="pre">x</span></code> と <code class="docutils literal notranslate"><span class="pre">y</span></code> が <code class="docutils literal notranslate"><span class="pre">std::string</span></code> 型であれば、式 <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&lt;</span> <span class="pre">y</span></code> は次の式と等価である。</p>
+<div class="code c++ highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="p">::</span><span class="n">lexicographical_compare</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">x</span><span class="o">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">y</span><span class="o">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">y</span><span class="o">.</span><span class="n">end</span><span class="p">());</span>
 </pre></div>
 </div>
-<p>この式で、 <tt class="docutils literal"><span class="pre">lexicographical_compare</span></tt> は
-<tt class="docutils literal"><span class="pre">operator&lt;</span></tt> を使って個々の文字を比較する&gt; (p. 227)</p>
+<p>この式で、<code class="docutils literal notranslate"><span class="pre">lexicographical_compare</span></code> は
+<code class="docutils literal notranslate"><span class="pre">operator&lt;</span></code> を使って個々の文字を比較する&gt; (p. 227)</p>
 </li>
-<li><p class="first">&lt;<tt class="docutils literal"><span class="pre">toupper</span></tt> は一つの引数を取る単純な関数のようだが、グローバル変数にも依存する&gt; (p. 229)</p>
+<li><p class="first">&lt;<code class="docutils literal notranslate"><span class="pre">toupper</span></code> は一つの引数を取る単純な関数のようだが、グローバル変数にも依存する&gt; (p. 229)</p>
 </li>
 <li><p class="first">&lt;C++ 標準ライブラリのロケールは、ライブラリの実装の中に深く埋め込まれたグローバルデータではなく、
-<tt class="docutils literal"><span class="pre">std::locale</span></tt> 型のオブジェクトである&gt; (p. 229)</p>
+<code class="docutils literal notranslate"><span class="pre">std::locale</span></code> 型のオブジェクトである&gt; (p. 229)</p>
 </li>
 <li><p class="first">&lt;ロケールの名前は標準化されていない&gt; (p. 230)</p>
 </li>
-<li><p class="first">&lt;C++ のロケールは「ファセット」に分割される。
-各ファセットは国際化の異なる面を処理する。
-関数 <tt class="docutils literal"><span class="pre">std::use_facet</span></tt> は、ロケールオブジェクトから特定のファセットを抽出する。
-ファセット <tt class="docutils literal"><span class="pre">ctype</span></tt> は、大文字小文字の変換を含め、文字の分類を処理する&gt; (p. 230)</p>
-<div class="highlight-c++"><div class="highlight"><pre><span class="c1">// L をロケールとして</span>
-<span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">ctype</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&amp;</span> <span class="n">ct</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">use_facet</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">ctype</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span> <span class="o">&gt;</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
-<span class="kt">bool</span> <span class="n">result</span> <span class="o">=</span> <span class="n">ct</span><span class="p">.</span><span class="n">toupper</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">ct</span><span class="p">.</span><span class="n">toupper</span><span class="p">(</span><span class="n">c2</span><span class="p">);</span>
+<li><p class="first">&lt;C++ のロケールは「ファセット」に分割される。各ファセットは国際化の異なる面を処理する。関数 <code class="docutils literal notranslate"><span class="pre">std::use_facet</span></code> は、ロケールオブジェクトから特定のファセットを抽出する。ファセット <code class="docutils literal notranslate"><span class="pre">ctype</span></code> は、大文字小文字の変換を含め、文字の分類を処理する&gt; (p. 230)</p>
+<div class="code c++ highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">L</span> <span class="n">をロケールとして</span>
+<span class="n">const</span> <span class="n">std</span><span class="p">::</span><span class="n">ctype</span><span class="o">&lt;</span><span class="n">char</span><span class="o">&gt;&amp;</span> <span class="n">ct</span> <span class="o">=</span> <span class="n">std</span><span class="p">::</span><span class="n">use_facet</span><span class="o">&lt;</span><span class="n">std</span><span class="p">::</span><span class="n">ctype</span><span class="o">&lt;</span><span class="n">char</span><span class="o">&gt;</span> <span class="o">&gt;</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
+<span class="nb">bool</span> <span class="n">result</span> <span class="o">=</span> <span class="n">ct</span><span class="o">.</span><span class="n">toupper</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">ct</span><span class="o">.</span><span class="n">toupper</span><span class="p">(</span><span class="n">c2</span><span class="p">);</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">&lt;<tt class="docutils literal"><span class="pre">use_facet</span></tt> を呼び出すには負担が大きいことがあるため、
-<tt class="docutils literal"><span class="pre">use_facet</span></tt> の呼び出し回数は少なくした方がよい&gt; (p. 230)</p>
+<li><p class="first">&lt;<code class="docutils literal notranslate"><span class="pre">use_facet</span></code> を呼び出すには負担が大きいことがあるため、
+<code class="docutils literal notranslate"><span class="pre">use_facet</span></code> の呼び出し回数は少なくした方がよい&gt; (p. 230)</p>
 </li>
 </ul>
 </div>
 <div class="section" id="microsoft-stl">
 <h2><a class="toc-backref" href="#id121">Microsoft の STL プラットフォームについて</a><a class="headerlink" href="#microsoft-stl" title="Permalink to this headline">¶</a></h2>
-<p>仕事で経験があるのでよく承知しているが、
-名前に .NET の付かない VC 環境では一部コンテナのメンバ関数がおかしい。
-この付録ではその回避策、代替案を紹介している。</p>
+<p>仕事で経験があるのでよく承知しているが、名前に .NET の付かない VC 環境では一部コンテナのメンバ関数がおかしい。この付録ではその回避策、代替案を紹介している。</p>
 <p>STL のメンバ関数テンプレート、特に型の違うコンテナから insert や assign する場合、</p>
-<div class="highlight-c++"><div class="highlight"><pre><span class="n">vector</span><span class="o">&lt;</span><span class="n">Widget</span><span class="o">&gt;</span> <span class="n">vw</span><span class="p">;</span>
-<span class="n">list</span><span class="o">&lt;</span><span class="n">Widget</span><span class="o">&gt;</span> <span class="n">lw</span><span class="p">;</span>
-<span class="n">set</span><span class="o">&lt;</span><span class="n">Widget</span><span class="o">&gt;</span> <span class="n">sw</span><span class="p">;</span>
+<div class="code c++ highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Widget</span><span class="o">&gt;</span> <span class="n">vw</span><span class="p">;</span>
+<span class="nb">list</span><span class="o">&lt;</span><span class="n">Widget</span><span class="o">&gt;</span> <span class="n">lw</span><span class="p">;</span>
+<span class="nb">set</span><span class="o">&lt;</span><span class="n">Widget</span><span class="o">&gt;</span> <span class="n">sw</span><span class="p">;</span>
 
-<span class="c1">// ...</span>
+<span class="o">//</span> <span class="o">...</span>
 
-<span class="n">vw</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">vw</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">lw</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">lw</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
-<span class="n">vw</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">vw</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">sw</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">sw</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+<span class="n">vw</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">vw</span><span class="o">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">lw</span><span class="o">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">lw</span><span class="o">.</span><span class="n">end</span><span class="p">());</span>
+<span class="n">vw</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">vw</span><span class="o">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">sw</span><span class="o">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">sw</span><span class="o">.</span><span class="n">end</span><span class="p">());</span>
 </pre></div>
 </div>
-<p>最後に書いた <tt class="docutils literal"><span class="pre">insert</span></tt> の行が MSVC6 以前ではコンパイルできない。
-その対応策として、</p>
+<p>最後に書いた <code class="docutils literal notranslate"><span class="pre">insert</span></code> の行が MSVC6 以前ではコンパイルできない。その対応策として、</p>
 <ol class="arabic simple">
-<li><tt class="docutils literal"><span class="pre">copy</span></tt> と <tt class="docutils literal"><span class="pre">back_inserter</span></tt>, <tt class="docutils literal"><span class="pre">inserter</span></tt> を組み合わせる（ただし効率が悪い）</li>
+<li><code class="docutils literal notranslate"><span class="pre">copy</span></code> と <code class="docutils literal notranslate"><span class="pre">back_inserter</span></code>, <code class="docutils literal notranslate"><span class="pre">inserter</span></code> を組み合わせる（ただし効率が悪い）</li>
 <li>STL を入れ替える（ただしコンパイラがメンバ関数テンプレートに耐えられる MSVC6 のみ可能）</li>
 </ol>
 <p>ことを挙げている。</p>
 <p>&lt;MSVC6 に付属する STL の実装以外は使用できない場合でも、
-Dinkumware Web サイトは利用する価値があるだろう。
-このサイトには、MSVC6 ライブラリ実装で知られているバグのリストが掲載されており、
-使用しているライブラリを変更して不具合を減らす方法が説明されている&gt; (p. 240)
+Dinkumware Web サイトは利用する価値があるだろう。このサイトには、MSVC6 ライブラリ実装で知られているバグのリストが掲載されており、使用しているライブラリを変更して不具合を減らす方法が説明されている&gt; (p. 240)
 変更云々は仕事ではできないが、バグリストは見る価値がありそうだ。</p>
 </div>
 </div>
@@ -848,28 +762,25 @@ Dinkumware Web サイトは利用する価値があるだろう。
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
-        <li><a href="index.html">読書ノート v1.4.0dev</a> &raquo;</li> 
+        <li class="right" style="margin-right: 10px">
+          <a href="sutter02.html" title="More Exceptional C++ 読書ノート"
+             >next</a></li>
+        <li class="right" >
+          <a href="alexandrescu01/note3.html" title="Modern C++ Design 読書ノート 3/3"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
       </ul>
     </div>
     <div id="footer">
       <div id="footer_logo">
         <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png" width="88" height="31" /></a>
       </div>
-      <div id="footer_share">
-        <a href="https://twitter.com/share" class="twitter-share-button" data-size="large">Tweet</a>
-        <script type="text/javascript">render_twitter_button(document, 'script', 'twitter-wjs')</script>
-      </div>
       <div id="footer_copyright">
         Since 1999<br />
-        Copyright &copy; 1999-2014, プレハブ小屋 All rights reserved.
-      </div>
-      <div id="footer_spacer">
-        <p>
-          Last updated at 2014/11/29 (Sat) 02:35:26.
-        </p>
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
       </div>
     </div>
   </body>

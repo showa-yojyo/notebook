@@ -1,0 +1,252 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>What’s New In Python 3.5 ノート &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="What’s New In Python 3.6 ノート" href="python-3.6.html" />
+    <link rel="prev" title="What’s New In Python 3.4 ノート" href="python-3.4.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="python-3.6.html" title="What’s New In Python 3.6 ノート"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="python-3.4.html" title="What’s New In Python 3.4 ノート"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="what-s-new-in-python-3-5">
+<h1><a class="toc-backref" href="#id8">What’s New In Python 3.5 ノート</a><a class="headerlink" href="#what-s-new-in-python-3-5" title="Permalink to this headline">¶</a></h1>
+<p>What’s New In Python 3.5 を読んで、個人的に関心のある項目に注釈を付けていく。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title first">ノート目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#what-s-new-in-python-3-5" id="id8">What’s New In Python 3.5 ノート</a><ul>
+<li><a class="reference internal" href="#id2" id="id9">新規機能</a></li>
+<li><a class="reference internal" href="#id3" id="id10">新規モジュール</a></li>
+<li><a class="reference internal" href="#id4" id="id11">変更モジュール</a></li>
+<li><a class="reference internal" href="#id5" id="id12">非推奨</a></li>
+<li><a class="reference internal" href="#id6" id="id13">削除</a></li>
+<li><a class="reference internal" href="#id7" id="id14">変更点</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id9">新規機能</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">コルーチン関数など。<code class="docutils literal notranslate"><span class="pre">async</span> <span class="pre">def</span></code>, <code class="docutils literal notranslate"><span class="pre">await</span></code>,
+<code class="docutils literal notranslate"><span class="pre">async</span> <span class="pre">with</span></code>, <code class="docutils literal notranslate"><span class="pre">async</span> <span class="pre">for</span></code> 構文が追加された。</p>
+</li>
+<li><p class="first">行列乗算演算子 <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> が追加。NumPy 利用者がうれしい。</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">np.array</span></code> の積には、同じ添字である要素同士の積をとるものと、行列同士の積の二つが考えられることに注意。演算子 <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> を後者のために新設したと述べている。</li>
+</ul>
+</li>
+<li><p class="first">関数呼び出しにおける unpacking が複数の引数で行えるようになった。この系として、次のようなこともできる：</p>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">159</span><span class="p">]:</span> <span class="o">*</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">159</span><span class="p">]:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id10">新規モジュール</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>興味をそそるものがないので省略する。</p>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id11">変更モジュール</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">argparse</span></code>: <code class="docutils literal notranslate"><span class="pre">ArgumentParser</span></code> に <code class="docutils literal notranslate"><span class="pre">allow_abbrev</span></code> オプションが追加。長い名前のオプションを省略指定することを認めるかどうか。</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">asyncio</span></code></p>
+<ul class="simple">
+<li>3.5 からは <code class="docutils literal notranslate"><span class="pre">&#64;asyncio.coroutine</span> <span class="pre">def</span></code> を <code class="docutils literal notranslate"><span class="pre">async</span> <span class="pre">def</span></code> と書ける。そこでは <code class="docutils literal notranslate"><span class="pre">yield</span> <span class="pre">from</span></code> を <code class="docutils literal notranslate"><span class="pre">await</span></code> としか書けない。<ul>
+<li><code class="docutils literal notranslate"><span class="pre">await</span> <span class="pre">X</span></code> の書式の <code class="docutils literal notranslate"><span class="pre">X</span></code> は丸括弧は要ると要らない場合がある。</li>
+</ul>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">JoinableQueue</span></code> というクラスがかつてあったが、これは <code class="docutils literal notranslate"><span class="pre">asyncio.Queue</span></code> に取って代わられた。</li>
+</ul>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">collections</span></code></p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">OrderedDict</span></code> のビューが <code class="docutils literal notranslate"><span class="pre">reserved()</span></code> に対応した。</li>
+<li><code class="docutils literal notranslate"><span class="pre">deque</span></code> にいくつかのメソッド、演算子が追加されたことにより、シーケンスとしての操作性が <code class="docutils literal notranslate"><span class="pre">list</span></code> 程度に向上した。</li>
+</ul>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">concurrent.futures</span></code>: <code class="docutils literal notranslate"><span class="pre">ThreadPoolExecutor</span></code> の <code class="docutils literal notranslate"><span class="pre">max_workers</span></code> 引数が明示的な指定を必要としなくなり、そのときは CPU の個数に基づいた値が設定される。</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">configparser</span></code>: <code class="docutils literal notranslate"><span class="pre">ConfigParser</span></code> に <code class="docutils literal notranslate"><span class="pre">converter</span></code> 引数が追加された。これは構成項目の文字列の解析をする関数の <code class="docutils literal notranslate"><span class="pre">dict</span></code> を指定するために利用する。</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">contextlib</span></code>: <code class="docutils literal notranslate"><span class="pre">redirect_stderr()</span></code> 追加。
+<code class="docutils literal notranslate"><span class="pre">redirect_stdout()</span></code> は既に提供済み。</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">csv</span></code>: <code class="docutils literal notranslate"><span class="pre">writerows()</span></code> が iterator 一般を入力として受け取れるようになった。</p>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">162</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">csv</span><span class="o">,</span> <span class="nn">sys</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">163</span><span class="p">]:</span> <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">169</span><span class="p">]:</span> <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">enum</span></code>: <code class="docutils literal notranslate"><span class="pre">Enum</span></code> が引数 <code class="docutils literal notranslate"><span class="pre">start</span></code> を追加。最初の列挙項目に対応する整数値を指定するのに用いる。</p>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">175</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">enum</span> <span class="k">import</span> <span class="n">Enum</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">176</span><span class="p">]:</span> <span class="n">Dragon</span> <span class="o">=</span> <span class="n">Enum</span><span class="p">(</span><span class="s1">&#39;Dragon&#39;</span><span class="p">,</span> <span class="s1">&#39;White Green Red&#39;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">10000</span><span class="p">);</span> <span class="n">Dragon</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">176</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">enum</span> <span class="s1">&#39;Dragon&#39;</span><span class="o">&gt;</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">177</span><span class="p">]:</span> <span class="n">Dragon</span><span class="o">.</span><span class="n">White</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">177</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">Dragon</span><span class="o">.</span><span class="n">White</span><span class="p">:</span> <span class="mi">10000</span><span class="o">&gt;</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">178</span><span class="p">]:</span> <span class="n">Dragon</span><span class="o">.</span><span class="n">Green</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">178</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">Dragon</span><span class="o">.</span><span class="n">Green</span><span class="p">:</span> <span class="mi">10001</span><span class="o">&gt;</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">179</span><span class="p">]:</span> <span class="n">Dragon</span><span class="o">.</span><span class="n">Red</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">179</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">Dragon</span><span class="o">.</span><span class="n">Red</span><span class="p">:</span> <span class="mi">10002</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">glob</span></code>: 関数 <code class="docutils literal notranslate"><span class="pre">glob</span></code> と <code class="docutils literal notranslate"><span class="pre">iglob</span></code> がサブディレクトリーの再帰的検索を実装した。パターン文字列中に <code class="docutils literal notranslate"><span class="pre">**</span></code> を指定することで実現する。例えば <code class="docutils literal notranslate"><span class="pre">bin</span></code> ディレクトリーおよびそのすべてのサブディレクトリーにある
+<code class="docutils literal notranslate"><span class="pre">*.py</span></code> ファイルを反復するには <code class="docutils literal notranslate"><span class="pre">glob('bin/**/*.py',</span> <span class="pre">recursive=True)</span></code> とするとよい。</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">heapq</span></code>: <code class="docutils literal notranslate"><span class="pre">merge()</span></code> 内の要素比較のための <code class="docutils literal notranslate"><span class="pre">key</span></code> 引数が追加。</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">json</span></code></p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">tool</span></code> CUI が入力 JSON オブジェクトのキーの順番を維持するようになった。</li>
+<li>デコーダーの送出する例外が <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> から <code class="docutils literal notranslate"><span class="pre">JSONDecodeError</span></code> に変更となった。</li>
+</ul>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">logging</span></code>: すべてのログ出力関数が <code class="docutils literal notranslate"><span class="pre">exc_info</span></code> 引数を追加した。例外ハンドル時に捕捉した例外オブジェクトを引数として入力するのが自然な使い方だ。</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">math</span></code></p>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">inf</span></code>, <code class="docutils literal notranslate"><span class="pre">nan</span></code> が追加。</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">isclose()</span></code> が追加。浮動小数点数同士を比較する関数。NumPy のそれの簡易版か。</p>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">211</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">isclose</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">212</span><span class="p">]:</span> <span class="mf">1.1</span> <span class="o">+</span> <span class="mf">2.2</span> <span class="o">==</span> <span class="mf">3.3</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">212</span><span class="p">]:</span> <span class="kc">False</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">213</span><span class="p">]:</span> <span class="n">isclose</span><span class="p">(</span><span class="mf">1.1</span> <span class="o">+</span> <span class="mf">2.2</span><span class="p">,</span> <span class="mf">3.3</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">213</span><span class="p">]:</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">gcd()</span></code> が追加。引数に 0 を渡したときの戻り値が 0 になることに注意したい。</p>
+</li>
+</ul>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">operator</span></code>: <code class="docutils literal notranslate"><span class="pre">matmul</span></code>, <code class="docutils literal notranslate"><span class="pre">imatmul</span></code> が追加。行列乗算演算子に対応する。</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">os</span></code></p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">scandir()</span></code> 関数が追加。ファイルタイプや属性情報も必要とする状況では
+<code class="docutils literal notranslate"><span class="pre">listdir()</span></code> 関数を使うよりも効率的。</li>
+<li><code class="docutils literal notranslate"><span class="pre">path.commonpath()</span></code> 関数が追加。指定した複数のファイルパスに関する最長共通部分ファイルパスを求める。</li>
+</ul>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">pathlib</span></code></p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">Path.samefile()</span></code> は二つのファイルパスが等価かどうかを返す。</li>
+<li><code class="docutils literal notranslate"><span class="pre">Path.mkdir()</span></code> に引数 <code class="docutils literal notranslate"><span class="pre">exists_ok</span></code> が追加。UNIX の <code class="docutils literal notranslate"><span class="pre">mkdir</span> <span class="pre">-p</span></code> に相当する。</li>
+<li><code class="docutils literal notranslate"><span class="pre">Path.expanduser()</span></code> が追加。<code class="docutils literal notranslate"><span class="pre">~</span></code> をユーザー名に置換する。</li>
+<li><code class="docutils literal notranslate"><span class="pre">Path.home()</span></code> が追加。静的メソッドだ。</li>
+</ul>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">re</span></code></p>
+<ul>
+<li><p class="first">固定長のグループに対する参照と条件付き参照が後読み宣言の中でも指定できるようになった。</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>re.compile(r&#39;(a|b).(?&lt;=\1)c&#39;)
+</pre></div>
+</div>
+<p>最後の一文字は <code class="docutils literal notranslate"><span class="pre">ac</span></code> か <code class="docutils literal notranslate"><span class="pre">bc</span></code> の形の <code class="docutils literal notranslate"><span class="pre">c</span></code> にしかマッチしないという意味だ。</p>
+</li>
+<li><p class="first">正規表現パターン中のキャプチャーグループ数の上限が撤廃された。</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">sub()</span></code>, <code class="docutils literal notranslate"><span class="pre">subs()</span></code> でマッチしないグループは例外を送出するのではなく、空文字列で置換されるようになった。</p>
+<ul class="simple">
+<li>Python 以外の正規表現エンジンは、このような場合は空文字列で置換するのが普通だ。なので、この機能変更の意図は理解できる。</li>
+</ul>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">error</span></code> オブジェクトの属性が増えた。正規表現のどこがおかしいのかを検討するのに役立つ。</p>
+</li>
+</ul>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">subprocess</span></code>: <code class="docutils literal notranslate"><span class="pre">run()</span></code> 追加。IPython の <code class="docutils literal notranslate"><span class="pre">%run</span></code> と同じような機能だ。</p>
+</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id12">非推奨</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">async</span></code>, <code class="docutils literal notranslate"><span class="pre">await</span></code> が予約語になる予定があるので、識別子として使わない。</li>
+<li><code class="docutils literal notranslate"><span class="pre">StopIteration</span></code> を generator 内で送出すること。
+Python 3.7 以降で <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> になる。</li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id13">削除</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>pyo ファイル廃止</li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id14">変更点</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">re.split()</span></code> に空文字列にマッチするパターンを渡すと警告。</li>
+<li><code class="docutils literal notranslate"><span class="pre">str.startswith()</span></code>, <code class="docutils literal notranslate"><span class="pre">str.endswith()</span></code> に変なモノを渡したときに
+<code class="docutils literal notranslate"><span class="pre">True</span></code> を返していたが、そうではなくなった。</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="python-3.6.html" title="What’s New In Python 3.6 ノート"
+             >next</a></li>
+        <li class="right" >
+          <a href="python-3.4.html" title="What’s New In Python 3.4 ノート"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

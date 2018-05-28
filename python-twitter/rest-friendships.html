@@ -1,0 +1,500 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>フォロー自身とフォローに付随する機能 &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="場所関連" href="rest-geo.html" />
+    <link rel="prev" title="フォロー関連" href="rest-friends.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="rest-geo.html" title="場所関連"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="rest-friends.html" title="フォロー関連"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Python Twitter Tools 利用ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id2">フォロー自身とフォローに付随する機能</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>本節では friendships 系 REST API について記す。私自身はフォロー機能を全く利用しないので、この括りの機能には基本的には縁がない。試すとしたら、任意のユーザー同士の関係性を知る機能ということになる。</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id2">フォロー自身とフォローに付随する機能</a><ul>
+<li><a class="reference internal" href="#post-friendships-create" id="id3">POST friendships/create</a></li>
+<li><a class="reference internal" href="#post-friendships-destroy" id="id4">POST friendships/destroy</a></li>
+<li><a class="reference internal" href="#get-friendships-incoming" id="id5">GET friendships/incoming</a></li>
+<li><a class="reference internal" href="#get-friendships-outgoing" id="id6">GET friendships/outgoing</a></li>
+<li><a class="reference internal" href="#get-friendships-lookup" id="id7">GET friendships/lookup</a></li>
+<li><a class="reference internal" href="#get-friendships-show" id="id8">GET friendships/show</a></li>
+<li><a class="reference internal" href="#get-friendships-no-retweets-ids" id="id9">GET friendships/no_retweets/ids</a></li>
+<li><a class="reference internal" href="#post-friendships-update" id="id10">POST friendships/update</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="post-friendships-create">
+<h2><a class="toc-backref" href="#id3">POST friendships/create</a><a class="headerlink" href="#post-friendships-create" title="Permalink to this headline">¶</a></h2>
+<p>POST friendships/create は他人をフォローする機能だ。オプションとして彼に関するイベント通知の有無を設定できる。</p>
+<p>次にサンプルコードを示す。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># Demonstration POST friendships/create</span>
+<span class="c1"># See https://dev.twitter.com/rest/reference/post/friendships/create</span>
+
+<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="k">import</span> <span class="n">dump</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
+
+<span class="c1"># [1]</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">friendships</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">screen_name</span><span class="o">=</span><span class="s1">&#39;showa_yojyo&#39;</span><span class="p">,</span>
+    <span class="n">follow</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># [2]</span>
+<span class="n">dump</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul>
+<li><p class="first">[1] フォローするユーザーの <code class="docutils literal notranslate"><span class="pre">user_id</span></code> または <code class="docutils literal notranslate"><span class="pre">screen_name</span></code> を指定する。どちらか一方でよい。</p>
+<p>また、オプションとして <code class="docutils literal notranslate"><span class="pre">follow=True</span></code> という解りにくいパラメーターがある。これは相手からのイベント通知を有効にするかどうかのフラグである。</p>
+</li>
+<li><p class="first">[2] 応答データを出力する。</p>
+</li>
+</ul>
+<p>次に実行例を示す。自分自身をフォローすることはできないようだ。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./friendships-create.py
+Traceback (most recent call last):
+  File &quot;D:\Python35\lib\site-packages\twitter\api.py&quot;, line 319, in _handle_response
+    handle = urllib_request.urlopen(req, **kwargs)
+  File &quot;D:\Python35\lib\urllib\request.py&quot;, line 162, in urlopen
+    return opener.open(url, data, timeout)
+  File &quot;D:\Python35\lib\urllib\request.py&quot;, line 471, in open
+    response = meth(req, response)
+  File &quot;D:\Python35\lib\urllib\request.py&quot;, line 581, in http_response
+    &#39;http&#39;, request, response, code, msg, hdrs)
+  File &quot;D:\Python35\lib\urllib\request.py&quot;, line 509, in error
+    return self._call_chain(*args)
+  File &quot;D:\Python35\lib\urllib\request.py&quot;, line 443, in _call_chain
+    result = func(*args)
+  File &quot;D:\Python35\lib\urllib\request.py&quot;, line 589, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 403: Forbidden
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File &quot;./friendships-create.py&quot;, line 14, in &lt;module&gt;
+    response = tw.friendships.create(screen_name=&#39;showa_yojyo&#39;)
+  File &quot;D:\Python35\lib\site-packages\twitter\api.py&quot;, line 312, in __call__
+    return self._handle_response(req, uri, arg_data, _timeout)
+  File &quot;D:\Python35\lib\site-packages\twitter\api.py&quot;, line 345, in _handle_response
+    raise TwitterHTTPError(e, uri, self.format, arg_data)
+twitter.api.TwitterHTTPError: Twitter sent status 403 for URL: 1.1/friendships/create.json using parameters: (oauth_consumer_key=...&amp;screen_name=showa_yojyo)
+details: {&#39;errors&#39;: [{&#39;code&#39;: 158, &#39;message&#39;: &quot;You can&#39;t follow yourself.&quot;}]}
+</pre></div>
+</div>
+</div>
+<div class="section" id="post-friendships-destroy">
+<h2><a class="toc-backref" href="#id4">POST friendships/destroy</a><a class="headerlink" href="#post-friendships-destroy" title="Permalink to this headline">¶</a></h2>
+<p>POST friendships/destroy は他人をフォローするのをやめる機能だ。</p>
+<p>次にサンプルコードを示す。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># Demonstration POST friendships/destroy</span>
+<span class="c1"># See https://dev.twitter.com/rest/reference/post/friendships/destroy</span>
+
+<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="k">import</span> <span class="n">dump</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
+
+<span class="c1"># [1]</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">friendships</span><span class="o">.</span><span class="n">destroy</span><span class="p">(</span><span class="n">screen_name</span><span class="o">=</span><span class="s1">&#39;showa_yojyo&#39;</span><span class="p">)</span>
+
+<span class="c1"># [2]</span>
+<span class="n">dump</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>[1] フォローを解除するユーザーの <code class="docutils literal notranslate"><span class="pre">user_id</span></code> または <code class="docutils literal notranslate"><span class="pre">screen_name</span></code> を指定する。どちらか一方でよい。</li>
+<li>[2] 応答データを出力する。</li>
+</ul>
+<p>次に実行例を示す。フォローに失敗したはずのユーザーでも相手のユーザーオブジェクトが得られる。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./friendships-destroy.py
+{
+    ...
+    &quot;following&quot;: false,
+    ...
+    &quot;screen_name&quot;: &quot;showa_yojyo&quot;,
+    ...
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-friendships-incoming">
+<h2><a class="toc-backref" href="#id5">GET friendships/incoming</a><a class="headerlink" href="#get-friendships-incoming" title="Permalink to this headline">¶</a></h2>
+<p>GET friendships/incoming は自分が保護ユーザー、つまりツイート非公開アカウントとして運用している場合に利用価値がある。これは自分に対してのフォローリクエストで未承認のものがどれだけあるかを知る機能だ。</p>
+<p>次にサンプルコードを示す。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># Demonstration GET friendships/incoming</span>
+<span class="c1"># See https://dev.twitter.com/rest/reference/get/friendships/incoming</span>
+
+<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
+
+<span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
+
+<span class="n">next_cursor</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="c1"># [1]</span>
+<span class="k">while</span> <span class="n">next_cursor</span><span class="p">:</span> <span class="c1"># [1]</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">friendships</span><span class="o">.</span><span class="n">incoming</span><span class="p">(</span><span class="n">cursor</span><span class="o">=</span><span class="n">next_cursor</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s1">&#39;ids&#39;</span><span class="p">])</span>
+    <span class="n">next_cursor</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;next_cursor&#39;</span><span class="p">]</span> <span class="c1"># [1]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>[1] <a class="reference internal" href="rest.html"><span class="doc">基本技法</span></a> で説明したカーソル処理。</li>
+</ul>
+<p>次に実行例を示す。空のデータが得られる。私が公開アカウントであることか、誰からも相手にされていないことかのいずれかが成り立っている。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./friendships-incoming.py
+[]
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-friendships-outgoing">
+<h2><a class="toc-backref" href="#id6">GET friendships/outgoing</a><a class="headerlink" href="#get-friendships-outgoing" title="Permalink to this headline">¶</a></h2>
+<p>GET friendships/outgoing は自分がフォローしたい非公開アカウントの ID を得る機能だ。言い換えると、フォローリクエストがお預けを食らっている相手がどれだけいるかを知る機能だ。</p>
+<p>次にサンプルコードを示す。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># Demonstration GET friendships/outgoing</span>
+<span class="c1"># See https://dev.twitter.com/rest/reference/get/friendships/outgoing</span>
+
+<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="k">import</span> <span class="n">dump</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
+
+<span class="n">next_cursor</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="c1"># [1]</span>
+<span class="k">while</span> <span class="n">next_cursor</span><span class="p">:</span> <span class="c1"># [1]</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">friendships</span><span class="o">.</span><span class="n">outgoing</span><span class="p">(</span><span class="n">cursor</span><span class="o">=</span><span class="n">next_cursor</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s1">&#39;ids&#39;</span><span class="p">])</span>
+    <span class="n">next_cursor</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;next_cursor&#39;</span><span class="p">]</span> <span class="c1"># [1]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>[1] <a class="reference internal" href="rest.html"><span class="doc">基本技法</span></a> で説明したカーソル処理。</li>
+</ul>
+<p>次に実行例を示す。どんな非公開アカウントをもフォローしようとしていないからこうなる。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./friendships-outgoing.py
+[]
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-friendships-lookup">
+<h2><a class="toc-backref" href="#id7">GET friendships/lookup</a><a class="headerlink" href="#get-friendships-lookup" title="Permalink to this headline">¶</a></h2>
+<p>GET friendships/lookup は自分と任意の他人との関係性を知る機能だ。関係性とは、フォロー関係、当方から先方へのブロック・ミュート状況といったものだ。一度のリクエストで複数のユーザーに対して情報を得ることができる。</p>
+<p>次にサンプルコードを示す。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># Demonstration GET friendships/lookup</span>
+<span class="c1"># See https://dev.twitter.com/rest/reference/get/friendships/lookup</span>
+
+<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="k">import</span> <span class="n">dump</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
+
+<span class="c1"># [1]</span>
+<span class="n">ids</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">577367985</span><span class="p">,</span> <span class="mi">1220723053</span><span class="p">,</span> <span class="mi">1288619659</span><span class="p">)))</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">friendships</span><span class="o">.</span><span class="n">lookup</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">ids</span><span class="p">)</span>
+
+<span class="c1"># [2]</span>
+<span class="n">dump</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>[1] 調査対象ユーザーをパラメーター <code class="docutils literal notranslate"><span class="pre">user_id</span></code> か <code class="docutils literal notranslate"><span class="pre">screen_name</span></code> の（どちらか一方でだろうか？）指定する。どちらも CSV 文字列とする。</li>
+<li>[2] 結果を出力する。</li>
+</ul>
+<p>次に実行例を示す。一部省略する。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./friendships-lookup.py
+[
+    {
+        &quot;connections&quot;: [
+            &quot;followed_by&quot;
+        ],
+        &quot;id&quot;: 577367985,
+        &quot;id_str&quot;: &quot;577367985&quot;,
+        &quot;name&quot;: &quot;...&quot;,
+        &quot;screen_name&quot;: &quot;...&quot;
+    },
+    {
+        &quot;connections&quot;: [
+            &quot;followed_by&quot;
+        ],
+        &quot;id&quot;: 1220723053,
+        &quot;id_str&quot;: &quot;1220723053&quot;,
+        &quot;name&quot;: &quot;...&quot;,
+        &quot;screen_name&quot;: &quot;...&quot;
+    },
+    {
+        &quot;connections&quot;: [
+            &quot;followed_by&quot;
+        ],
+        &quot;id&quot;: 1288619659,
+        &quot;id_str&quot;: &quot;1288619659&quot;,
+        &quot;name&quot;: &quot;...&quot;,
+        &quot;screen_name&quot;: &quot;...&quot;
+    }
+]
+</pre></div>
+</div>
+<p>注目したいのは connections の値だ。ここには <code class="docutils literal notranslate"><span class="pre">none</span></code>, <code class="docutils literal notranslate"><span class="pre">blocking</span></code>, <code class="docutils literal notranslate"><span class="pre">muting</span></code>, <code class="docutils literal notranslate"><span class="pre">following</span></code>,
+<code class="docutils literal notranslate"><span class="pre">following_requested</span></code>, <code class="docutils literal notranslate"><span class="pre">followed_by</span></code> がその条件を満たすもの全部が含まれる。</p>
+</div>
+<div class="section" id="get-friendships-show">
+<h2><a class="toc-backref" href="#id8">GET friendships/show</a><a class="headerlink" href="#get-friendships-show" title="Permalink to this headline">¶</a></h2>
+<p>GET friendships/show は任意の二人のユーザー間の関係を得る機能だ。</p>
+<p>サンプルコードを次に示す。選択するユーザー同士によってはかなり興味深い情報が得られることがあるが、ここではおとなしい結果が得られるようにした。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># Demonstration GET friendships/show</span>
+<span class="c1"># See https://dev.twitter.com/rest/reference/get/friendships/show</span>
+
+<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="k">import</span> <span class="n">dump</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
+
+<span class="c1"># [1]</span>
+<span class="n">users</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="nb">dict</span><span class="p">(</span><span class="n">source_screen_name</span><span class="o">=</span><span class="s1">&#39;asahi&#39;</span><span class="p">,</span> <span class="n">target_screen_name</span><span class="o">=</span><span class="s1">&#39;Sankei_news&#39;</span><span class="p">),</span>
+    <span class="nb">dict</span><span class="p">(</span><span class="n">source_screen_name</span><span class="o">=</span><span class="s1">&#39;Sankei_news&#39;</span><span class="p">,</span> <span class="n">target_screen_name</span><span class="o">=</span><span class="s1">&#39;asahi&#39;</span><span class="p">),)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">users</span><span class="p">:</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">friendships</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="o">**</span><span class="n">i</span><span class="p">)</span>
+
+    <span class="n">dump</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>[1] この二人の関係性を調べてみよう。
+Twitter ではユーザー同士の関係性には対称律は一般に成り立たないので、引数を左右入れ替えてもう一度リクエストする。</li>
+</ul>
+<p>次に実行例を示す。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./friendships-show.py
+{
+    &quot;relationship&quot;: {
+        &quot;source&quot;: {
+            &quot;all_replies&quot;: null,
+            &quot;blocked_by&quot;: null,
+            &quot;blocking&quot;: null,
+            &quot;can_dm&quot;: false,
+            &quot;followed_by&quot;: false,
+            &quot;following&quot;: false,
+            &quot;following_received&quot;: null,
+            &quot;following_requested&quot;: null,
+            &quot;id&quot;: 42816371,
+            &quot;id_str&quot;: &quot;42816371&quot;,
+            &quot;marked_spam&quot;: null,
+            &quot;muting&quot;: null,
+            &quot;notifications_enabled&quot;: null,
+            &quot;screen_name&quot;: &quot;asahi&quot;,
+            &quot;want_retweets&quot;: null
+        },
+        &quot;target&quot;: {
+            &quot;followed_by&quot;: false,
+            &quot;following&quot;: false,
+            &quot;following_received&quot;: null,
+            &quot;following_requested&quot;: null,
+            &quot;id&quot;: 562773398,
+            &quot;id_str&quot;: &quot;562773398&quot;,
+            &quot;screen_name&quot;: &quot;Sankei_news&quot;
+        }
+    }
+}
+{
+    &quot;relationship&quot;: {
+        &quot;source&quot;: {
+            &quot;all_replies&quot;: null,
+            &quot;blocked_by&quot;: null,
+            &quot;blocking&quot;: null,
+            &quot;can_dm&quot;: false,
+            &quot;followed_by&quot;: false,
+            &quot;following&quot;: false,
+            &quot;following_received&quot;: null,
+            &quot;following_requested&quot;: null,
+            &quot;id&quot;: 562773398,
+            &quot;id_str&quot;: &quot;562773398&quot;,
+            &quot;marked_spam&quot;: null,
+            &quot;muting&quot;: null,
+            &quot;notifications_enabled&quot;: null,
+            &quot;screen_name&quot;: &quot;Sankei_news&quot;,
+            &quot;want_retweets&quot;: null
+        },
+        &quot;target&quot;: {
+            &quot;followed_by&quot;: false,
+            &quot;following&quot;: false,
+            &quot;following_received&quot;: null,
+            &quot;following_requested&quot;: null,
+            &quot;id&quot;: 42816371,
+            &quot;id_str&quot;: &quot;42816371&quot;,
+            &quot;screen_name&quot;: &quot;asahi&quot;
+        }
+    }
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-friendships-no-retweets-ids">
+<h2><a class="toc-backref" href="#id9">GET friendships/no_retweets/ids</a><a class="headerlink" href="#get-friendships-no-retweets-ids" title="Permalink to this headline">¶</a></h2>
+<p>GET friendships/no_retweets/ids はリツイートを受信したくないユーザーを得る機能だ。
+Twitter ではユーザーごとにリツイートを受信するか否かを選択することが可能で、例えば POST friendships/update を用いて受信設定を更新する。</p>
+<p>次にサンプルコードを示す。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># Demonstration GET friendships/no_retweets/ids</span>
+<span class="c1"># See https://dev.twitter.com/rest/reference/get/friendships/no_retweets/ids</span>
+
+<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="k">import</span> <span class="n">dump</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
+
+<span class="c1"># [1]</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">friendships</span><span class="o">.</span><span class="n">no_retweets</span><span class="o">.</span><span class="n">ids</span><span class="p">()</span>
+
+<span class="n">dump</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>[1] これは引数を一切取らない。</li>
+</ul>
+<p>次に実行例を示す。当方誰でもウェルカムなので空のデータが返ってくる。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./friendships-no_retweets-ids.py
+[]
+</pre></div>
+</div>
+</div>
+<div class="section" id="post-friendships-update">
+<h2><a class="toc-backref" href="#id10">POST friendships/update</a><a class="headerlink" href="#post-friendships-update" title="Permalink to this headline">¶</a></h2>
+<p>POST friendships/update は指定ユーザーに対して、リツイート受信または彼に対する何らかのイベント通知の有無設定を更新する機能だ。</p>
+<p>次にサンプルコードを示す。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># Demonstration POST friendships/update</span>
+<span class="c1"># See https://dev.twitter.com/rest/reference/post/friendships/update</span>
+
+<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="k">import</span> <span class="n">dump</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
+
+<span class="c1"># [1]</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">friendships</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+    <span class="n">screen_name</span><span class="o">=</span><span class="s1">&#39;showa_yojyo&#39;</span><span class="p">,</span>
+    <span class="n">device</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">retweets</span><span class="o">=</span><span class="kc">True</span><span class="p">,)</span>
+
+<span class="n">dump</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>[1] 対象ユーザーをいつものようにパラメーター <code class="docutils literal notranslate"><span class="pre">user_id</span></code> または <code class="docutils literal notranslate"><span class="pre">screen_name</span></code> のどちらか一方で指定する。リツイート通知もプッシュ通知も有効にしたい。</li>
+</ul>
+<p>次に実行例を示す。自分で自分の通知をオンにする。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./friendships-update.py
+{
+    &quot;relationship&quot;: {
+        &quot;source&quot;: {
+            &quot;all_replies&quot;: false,
+            &quot;blocked_by&quot;: false,
+            &quot;blocking&quot;: false,
+            &quot;can_dm&quot;: false,
+            &quot;followed_by&quot;: false,
+            &quot;following&quot;: false,
+            &quot;following_received&quot;: null,
+            &quot;following_requested&quot;: false,
+            &quot;id&quot;: 461058152,
+            &quot;id_str&quot;: &quot;461058152&quot;,
+            &quot;marked_spam&quot;: false,
+            &quot;muting&quot;: false,
+            &quot;notifications_enabled&quot;: false,
+            &quot;screen_name&quot;: &quot;showa_yojyo&quot;,
+            &quot;want_retweets&quot;: false
+        },
+        &quot;target&quot;: {
+            &quot;followed_by&quot;: false,
+            &quot;following&quot;: false,
+            &quot;following_received&quot;: false,
+            &quot;following_requested&quot;: null,
+            &quot;id&quot;: 461058152,
+            &quot;id_str&quot;: &quot;461058152&quot;,
+            &quot;screen_name&quot;: &quot;showa_yojyo&quot;
+        }
+    }
+}
+</pre></div>
+</div>
+<p>機能しなかったようだ。</p>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="rest-geo.html" title="場所関連"
+             >next</a></li>
+        <li class="right" >
+          <a href="rest-friends.html" title="フォロー関連"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Python Twitter Tools 利用ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

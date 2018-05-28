@@ -1,0 +1,411 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>第 8 章 多様体上のベクトル場（後編） &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="アジャイルプラクティス 読書ノート" href="../subramaniam06.html" />
+    <link rel="prev" title="第 8 章 多様体上のベクトル場（前編）" href="chapter8a.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../subramaniam06.html" title="アジャイルプラクティス 読書ノート"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="chapter8a.html" title="第 8 章 多様体上のベクトル場（前編）"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">幾何学 I 多様体入門 読書ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id6">第 8 章 多様体上のベクトル場（後編）</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="id2">
+<p class="topic-title first">ノート目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id6">第 8 章 多様体上のベクトル場（後編）</a><ul>
+<li><a class="reference internal" href="#k" id="id7">8.4 k-枠場（展開）</a></li>
+<li><a class="reference internal" href="#id3" id="id8">8.5 勾配ベクトル場</a></li>
+<li><a class="reference internal" href="#id4" id="id9">8.6 ファイバー束（展開）</a></li>
+<li><a class="reference internal" href="#id5" id="id10">8.7 第 8 章の問題の回答</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="k">
+<span id="tsuboi05-8-4"></span><h2><a class="toc-backref" href="#id7">8.4 k-枠場（展開）</a><a class="headerlink" href="#k" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>k-枠場</dt>
+<dd><p class="first">多様体 <span class="math notranslate nohighlight">\(M\)</span> 上の一次独立なベクトル場 k 個の組を意味する。
+<span class="math notranslate nohighlight">\(0 \le k \le \dim M\)</span></p>
+<ul class="last simple">
+<li>例：二次元曲面 <span class="math notranslate nohighlight">\(\Sigma_g\ (g \le 2)\)</span> 上には 1-枠場と 2-枠場のどちらも存在しない。一方、トーラス <span class="math notranslate nohighlight">\(T^2\)</span> 上にはどちらも存在する。</li>
+<li>n-枠場を持つ n 次元多様体を <a class="reference external" href="http://mathworld.wolfram.com/Parallelizable.html">平行可能化多様体</a> と呼ぶ。</li>
+</ul>
+</dd>
+</dl>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/cd-topology-framebundle.png"><img alt="math.topology.framebundle" src="../_images/cd-topology-framebundle.png" style="width: 524.0px; height: 341.0px;" /></a>
+</div>
+<p>2-枠場のある多様体 <span class="math notranslate nohighlight">\(M\)</span> 上で <span class="math notranslate nohighlight">\([\xi_1, \xi_2] = 0\)</span> であれば
+<span class="math notranslate nohighlight">\(\RR^2\)</span> の <span class="math notranslate nohighlight">\(M\)</span> への作用 <span class="math notranslate nohighlight">\((\varphi_1^{t_1} \circ \varphi_2^{t_2})(x)\)</span> を定義することで
+<span class="math notranslate nohighlight">\(\RR^2\)</span> 作用の軌道の族で <span class="math notranslate nohighlight">\(M\)</span> を分割することができる。このとき、軌道は <span class="math notranslate nohighlight">\(M\)</span> の各点の近傍に対して二次元の共通部分を持つ。</p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(x \in M\)</span> を固定すると作用の接写像のランクが 2 である。</li>
+<li>共通部分は高々可算個である。</li>
+</ul>
+<p>これを 2 から k に拡張する。一般に k 枠場 <span class="math notranslate nohighlight">\((\xi_1, \dotsc, \xi_k)\)</span> が <span class="math notranslate nohighlight">\([\xi_i, \xi_j] = 0\)</span> であるならば、加法群 <span class="math notranslate nohighlight">\(\RR^k\)</span> の <span class="math notranslate nohighlight">\(M\)</span> への作用を次のように定義できて、
+<span class="math notranslate nohighlight">\(M\)</span> は k 次元の <span class="math notranslate nohighlight">\(\RR^k\)</span> 作用の軌道に分割される。</p>
+<div class="math notranslate nohighlight">
+\[\varphi_1^{t_1} \circ \dotsb \circ \varphi_k^{t_k} (x)\]</div>
+<p><span class="math notranslate nohighlight">\(M\)</span> の各点の近傍 <span class="math notranslate nohighlight">\(U\)</span> においてランク <span class="math notranslate nohighlight">\(n - k\)</span> の写像
+<span class="math notranslate nohighlight">\(\fn{F}{U}\RR^{n - k}\)</span> が存在して、軌道と近傍の共通部分が
+<span class="math notranslate nohighlight">\(F\)</span> で決まる近傍の k 次元部分多様体の和集合となる。</p>
+<ul class="simple" id="tsuboi05-8-4-1">
+<li>例 8.4.1: <span class="math notranslate nohighlight">\(\RR^3\)</span> 上のベクトル場<ul>
+<li><span class="math notranslate nohighlight">\(f \in C^\infty(\RR^2).\)</span></li>
+<li><span class="math notranslate nohighlight">\(\displaystyle \xi_1 = \frac{\partial}{\partial x_1} + \frac{\partial f}{\partial x_1}\frac{\partial}{\partial x_3},\)</span>
+<span class="math notranslate nohighlight">\(\displaystyle \xi_2 = \frac{\partial}{\partial x_2} + \frac{\partial f}{\partial x_2}\frac{\partial}{\partial x_3}.\)</span></li>
+<li><span class="math notranslate nohighlight">\([\xi_1, \xi_2] = 0.\)</span></li>
+<li><span class="math notranslate nohighlight">\(h = x_3 - f(x_1, f_2)\)</span> が一定である点からなる曲面が <span class="math notranslate nohighlight">\(\RR^2\)</span> 作用の軌道となる。</li>
+</ul>
+</li>
+</ul>
+<ul class="simple" id="tsuboi05-8-4-2">
+<li>例 8.4.2: ダメな例<ul>
+<li><span class="math notranslate nohighlight">\(\displaystyle \xi_1 = \frac{\partial}{\partial x_1} - x_2 \frac{\partial}{\partial x_3},\)</span>
+<span class="math notranslate nohighlight">\(\displaystyle \xi_2 = \frac{\partial}{\partial x_2}.\)</span></li>
+<li><span class="math notranslate nohighlight">\(\because [\xi_1, \xi_2] = \dfrac{\partial}{\partial x_3}.\)</span></li>
+</ul>
+</li>
+</ul>
+<dl class="docutils">
+<dt><a class="reference external" href="https://en.wikipedia.org/wiki/Distribution_(differential_geometry)">k 次元接平面場 or k 次元分布</a></dt>
+<dd>多様体 <span class="math notranslate nohighlight">\(M\)</span> 上の k 次元接平面場に対して、各点の近傍ではその
+k 次元接平面場を張る k 枠場に取り替えられる。</dd>
+</dl>
+<ul id="tsuboi05-8-4-3">
+<li><p class="first">定理 8.4.3:
+<span class="math notranslate nohighlight">\(\RR^n\)</span> の開集合 <span class="math notranslate nohighlight">\(U\)</span> 上の k-枠場が <span class="math notranslate nohighlight">\(U\)</span> の各点の近傍に対して
+<span class="math notranslate nohighlight">\([\xi_i, \xi_j]\)</span> が 0 となる k-枠場に取り替えられることは、
+<span class="math notranslate nohighlight">\([\xi_i, \xi_j]\)</span> が <span class="math notranslate nohighlight">\(\xi_1, \dotsc, \xi_k\)</span> の張る k-枠場に値を持つことと同値である。</p>
+<ul>
+<li><p class="first">証明がよくわからない。</p>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\((\xi_1, \dotsc, \xi_k)\)</span> と <span class="math notranslate nohighlight">\((\eta_1, \dotsc, \eta_k)\)</span> が同じ接平面場を与えるならば
+<span class="math notranslate nohighlight">\(\exists \fn{a_{ij}}{U}GL_k(\RR)\quad\text{s.t. } \eta_i = \sum_{j = 1}^k a_{ij}\xi_j\)</span>
+を示す。</p>
+<ul>
+<li><p class="first">一方の括弧積を計算することで、他方の括弧積と同時に接平面場に値を持つことがわかる：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+[\eta_l, \eta_m]
+&amp;= \left[\sum_{i = 1}^k a_{li}\xi_i, \sum_{k = 1}^k a_{mi}\xi_i\right]\\
+&amp;= \sum_{i, j} a_{li}\xi_j(a_{mj})\xi_j - \sum_{i,j} a_{mj}(\xi_j a_{li})\xi_i + \sum_{i,j}a_{li}a_{mj}[\xi_i, \xi_j].
+\end{align*}\end{split}\]</div>
+</li>
+</ul>
+</li>
+<li><p class="first">十分：適当に座標を取り替えて写像 <span class="math notranslate nohighlight">\(\fn{p}{\RR^n}\RR^k\)</span> を
+<span class="math notranslate nohighlight">\(p(\bm x) = (x_1, \dotsc, x_k)\)</span> で定義する。</p>
+<ul class="simple">
+<li>点の近傍上 <span class="math notranslate nohighlight">\(p_*\)</span> を接平面場に制限した接写像は何かとの同型を与える。</li>
+<li>その次の「
+<span class="math notranslate nohighlight">\(V\)</span> 上の k 枠場 <span class="math notranslate nohighlight">\((\eta_1, \dotsc, \eta_k)\)</span> を
+<span class="math notranslate nohighlight">\(p_* \eta_i = \dfrac{\partial}{\partial x_i}\)</span> となるようにとれる」がわかりにくい。</li>
+<li><span class="math notranslate nohighlight">\([\eta_l, \eta_m]\)</span> が値を持てば
+<span class="math notranslate nohighlight">\(p_*[\eta_l, \eta_m] = \left[\dfrac{\partial}{\partial x_i}, \dfrac{\partial}{\partial x_j}\right] = 0\)</span>
+より 0 が値である。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p class="first">フローの可換性の成立だけで <span class="math notranslate nohighlight">\(U\)</span> 内の「軌道」が <span class="math notranslate nohighlight">\(F\)</span> によって定まる
+<span class="math notranslate nohighlight">\(U\)</span> の k 次元部分多様体となるといえる。</p>
+<ul class="simple">
+<li>「軌道」と書いたが、
+<span class="math notranslate nohighlight">\(x\)</span> において k 次元接平面場は <span class="math notranslate nohighlight">\(T_x(F\inv(F(x)))\)</span> と一致する。</li>
+</ul>
+</li>
+</ul>
+<ul class="simple" id="tsuboi05-8-4-4">
+<li>定理 8.4.4: <a class="reference external" href="https://en.wikipedia.org/wiki/Frobenius_theorem_(differential_topology)">フロベニウス</a><ul>
+<li><span class="math notranslate nohighlight">\([\xi_i, \xi_j]\)</span> が k 次元接平面場に値を持つということを
+<a class="reference external" href="https://en.wikipedia.org/wiki/Integrability_conditions_for_differential_systems">（完全）積分可能条件</a> という。</li>
+<li><span class="math notranslate nohighlight">\(F_V\inv(F_V(x)),\ T_x(F_V\inv(F_V(x))) \subset T_xM\)</span> と
+<span class="math notranslate nohighlight">\(x\)</span> における k 次元接平面場が一致する。</li>
+<li>（極大）積分多様体
+or <a class="reference external" href="http://mathworld.wolfram.com/FoliationLeaf.html">葉</a></li>
+<li>共通部分できれいに貼り合わさる。</li>
+<li>「正則とは限らない」部分多様体とは？</li>
+<li><a class="reference external" href="http://mathworld.wolfram.com/Foliation.html">葉層</a> 構造（本書図 8.2 参照）</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id8">8.5 勾配ベクトル場</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>多様体上の微分可能関数 <span class="math notranslate nohighlight">\(f \in C^1(M)\)</span> とベクトル場 <span class="math notranslate nohighlight">\(X\)</span> とリーマン計量 <span class="math notranslate nohighlight">\(g\)</span> に対して、ベクトル場 <span class="math notranslate nohighlight">\(\grad f\)</span> を次で定義する：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+Xf &amp;= g(X, \grad f),\text{ or }\\
+\grad f &amp;= \sum_{i = 1}^n \sum_{j = 1}^n g^{ij} \frac{\partial f}{\partial x_j}\frac{\partial}{\partial x_i}.
+\end{align*}\end{split}\]</div>
+<ul>
+<li><p class="first"><span class="math notranslate nohighlight">\(f\)</span> の等位面が部分多様体であるとき、
+<span class="math notranslate nohighlight">\(f\inv(a)\)</span> と <span class="math notranslate nohighlight">\(\grad f\)</span> は直交する。なぜならば <span class="math notranslate nohighlight">\(f\inv(a)\)</span> の接ベクトル <span class="math notranslate nohighlight">\(v\)</span> を取ると
+<span class="math notranslate nohighlight">\(f_*v = 0\)</span> であって <span class="math notranslate nohighlight">\(g(v, \grad f) = 0\)</span> が成り立つ。</p>
+<div class="math notranslate nohighlight">
+\[f_*v = 0 \implies g(v, \grad f) = \sum \frac{\partial}{\partial x_i} v_i = 0\]</div>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(\grad f\)</span> が生成するフローを gradient flow と呼ぶ。</p>
+</li>
+</ul>
+<ul id="tsuboi05-8-5-1">
+<li><p class="first">例 8.5.1: 球面上の微分可能関数に対する勾配ベクトル場</p>
+<ul>
+<li><p class="first"><span class="math notranslate nohighlight">\(S^2\)</span> のパラメーター表示を
+<span class="math notranslate nohighlight">\((x, y, z) = (\cos\theta\cos\cos\varphi, \sin\theta\cos\varphi, \sin\varphi)\)</span> とおく。</p>
+</li>
+<li><p class="first">ベクトル場の基底を <span class="math notranslate nohighlight">\(\dfrac{\partial}{\partial \theta}, \dfrac{\partial}{\partial \varphi}\)</span> ととる。</p>
+</li>
+<li><p class="first">リーマン計量は <span class="math notranslate nohighlight">\(\displaystyle g = \begin{pmatrix}\cos^2\varphi &amp; 0\\0 &amp; 1\end{pmatrix}\)</span> と書ける。</p>
+</li>
+<li><p class="first">次のようにおいて <span class="math notranslate nohighlight">\(g(\grad f, X)\)</span> と <span class="math notranslate nohighlight">\(X(f)\)</span> をそれぞれ計算する：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+\grad f &amp;= a\frac{\partial}{\partial \theta} + b\frac{\partial}{\partial \varphi},\\
+X &amp;= u\frac{\partial}{\partial \theta} + v\frac{\partial}{\partial \varphi}.
+\end{align*}\end{split}\]</div>
+<p>計算の結果 <span class="math notranslate nohighlight">\(\grad f = \cos\varphi \dfrac{\partial}{\partial \varphi}\)</span> となる。直交座標系で書くと <span class="math notranslate nohighlight">\(-xz\dfrac{\partial}{\partial x} - yz\dfrac{\partial}{\partial y} + (1 - z^2)\dfrac{\partial}{\partial z}.\)</span></p>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="simple" id="tsuboi05-8-5-2">
+<li>例題 8.5.2<ol class="arabic">
+<li><span class="math notranslate nohighlight">\(f(x, y) = x^3 - x + y^2\)</span> のグラフを描け。<ul>
+<li>フローが等位線と直交するように描くのが鉄則。</li>
+<li><span class="math notranslate nohighlight">\(X = \dfrac{\partial f}{\partial x}\dfrac{\partial}{\partial x} + \dfrac{\partial f}{\partial y}\dfrac{\partial}{\partial y}\)</span> はユークリッド計量についての <span class="math notranslate nohighlight">\(f\)</span> の勾配ベクトル場である。</li>
+<li><span class="math notranslate nohighlight">\(Xf = \left(\dfrac{\partial f}{\partial x}\right)^2 + \left(\dfrac{\partial f}{\partial y}\right)^2 \le 0\)</span> より非減少である。</li>
+</ul>
+</li>
+<li><span class="math notranslate nohighlight">\(\displaystyle \diff{x}{t} = \frac{\partial}{\partial x},\ \diff{y}{t} = \frac{\partial}{\partial y}\)</span> の解曲線を求めろ。</li>
+</ol>
+</li>
+</ul>
+<ul id="tsuboi05-8-5-3">
+<li><p class="first">問題 8.5.3</p>
+<p><span class="math notranslate nohighlight">\(\grad f \ne 0\)</span> なる点で定義されるベクトル場
+<span class="math notranslate nohighlight">\(\displaystyle Y = \frac{\grad f}{g(\grad f, \grad f)}\)</span> およびその解曲線
+<span class="math notranslate nohighlight">\(c(t)\)</span> について。</p>
+<p>定義域では <span class="math notranslate nohighlight">\(f(c(t_0 + t)) - f(c(t_0)) = t.\)</span>
+<span class="math notranslate nohighlight">\(Yf = 1\)</span> より <span class="math notranslate nohighlight">\(\displaystyle \diff{(f \circ \varphi_t)(x)}{t} = (Yf)(\varphi_t(x)) = 1.\)</span>
+<span class="math notranslate nohighlight">\(\therefore\ f(\varphi_t(x)) - f(x) = t.\)</span></p>
+</li>
+<li><p class="first">モース関数について</p>
+<ul>
+<li><p class="first">臨界点近傍で <span class="math notranslate nohighlight">\(\displaystyle f = \sum_{i = 1}^\lambda x_i^2 + \sum_{i = \lambda + 1}^n x_i^2.\)</span></p>
+</li>
+<li><p class="first">1 の分割の技法を使ってリーマン計量 <span class="math notranslate nohighlight">\(g\)</span> を <span class="math notranslate nohighlight">\(g_{ij} = \delta_{ij}\)</span> となるように定める。このとき勾配ベクトルは次のようになる：</p>
+<div class="math notranslate nohighlight">
+\[\grad f = -2 \sum_{i = 1}^\lambda x_i \frac{\partial}{\partial x_i}  + 2 \sum_{i = \lambda + 1}^n x_i\frac{\partial}{\partial x_i}.\]</div>
+</li>
+<li><p class="first">解曲線は <span class="math notranslate nohighlight">\((\mathrm e^{-2t}x_1, \dotsc, \mathrm e^{-2t}x_{\lambda}, \mathrm e^{2t}x_{\lambda + 1}, \dotsc, \mathrm e^{2t}x_n).\)</span></p>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(f\inv(x^0 - \eps)\)</span> と <span class="math notranslate nohighlight">\(f\inv(x^0 + \eps)\)</span> の間には二枚の平面を除いて対応が付いている。</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul id="tsuboi05-8-5-4">
+<li><p class="first">例 8.5.4: トーラス <span class="math notranslate nohighlight">\(f(x, y) = a(2 + \cos y)\cos x + c \sin y\)</span></p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(\RR^3\)</span> 内のトーラス (p. 24) として考える。</li>
+<li><span class="math notranslate nohighlight">\(\displaystyle Df = \begin{pmatrix}-a(2 + \cos y)\sin x &amp; -a \sin y\cos x + a \cos y\end{pmatrix}.\)</span></li>
+<li><span class="math notranslate nohighlight">\(\displaystyle g = \begin{pmatrix}(2 + \cos y)^2 &amp; 0\\0 &amp; 1\end{pmatrix}.\)</span>
+(cf. <a class="reference internal" href="chapter7a.html#tsuboi05-7-1-4"><span class="std std-ref">例題 7.1.4</span></a>)</li>
+<li><span class="math notranslate nohighlight">\(\displaystyle g\inv = \begin{pmatrix}\dfrac{1}{(2 + \cos y)^2} &amp; 0\\0 &amp; 1\end{pmatrix}.\)</span></li>
+</ul>
+<p>定義に従って勾配ベクトル場を計算するのは容易い：</p>
+<div class="math notranslate nohighlight">
+\[\grad f = -\frac{a\sin x}{2 + \cos y}\frac{\partial}{\partial x} + (-a \sin y\cos x + c\cos y)\frac{\partial}{\partial y}.\]</div>
+</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id9">8.6 ファイバー束（展開）</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>ここでファイバー束およびそれに関係する簡単な概念のいくつかを図式化したものを次に示す。</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/cd-topology-bundles.png"><img alt="math.topology.bundles" src="../_images/cd-topology-bundles.png" style="width: 657.0px; height: 425.0px;" /></a>
+</div>
+<ul id="tsuboi05-8-6-1">
+<li><p class="first">例題 8.6.1: ファイブレーション定理</p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(M, N\)</span> をコンパクト連結多様体で <span class="math notranslate nohighlight">\(\dim M &gt; \dim N\)</span> であり、</li>
+<li><span class="math notranslate nohighlight">\(F \in C^\infty(M, N)\)</span> が</li>
+<li><span class="math notranslate nohighlight">\(\forall x \in M, \fn{F_*}{T_xM}T_{F(x)}N\)</span> が全射である</li>
+</ul>
+<p>とする。このとき <span class="math notranslate nohighlight">\(\forall y \in N\)</span> に次のような近傍 <span class="math notranslate nohighlight">\(V_y \owns y\)</span> と同相写像 <span class="math notranslate nohighlight">\(h\)</span> が存在する：</p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(\fn{h}{F\inv(V_y)}V_y \times F\inv(y),\)</span></li>
+<li><span class="math notranslate nohighlight">\(F = \operatorname{pr}_1 \circ h,\)</span></li>
+<li><span class="math notranslate nohighlight">\(\operatorname{pr_1}\)</span> は第一成分への射影。</li>
+</ul>
+<p>証明：</p>
+<ul>
+<li><p class="first">リーマン計量を <span class="math notranslate nohighlight">\(g\)</span> とする。</p>
+</li>
+<li><p class="first">接空間の部分集合 <span class="math notranslate nohighlight">\(\nu_x = \set{v \in T_x(M) \sth \forall w \in T_x(F\inv(F(x))), g(v, w) = 0}\)</span> を定義する。</p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(F_*|\nu_x\)</span> が同型写像になるという性質がある。</li>
+</ul>
+</li>
+<li><p class="first">ある一点 <span class="math notranslate nohighlight">\(y^0 \in N\)</span> の開被覆として <span class="math notranslate nohighlight">\((V, \psi = (y_1, \dotsc, y_n)),\ \psi(y^0) = (0, \dotsc, 0)\)</span> をとる。</p>
+</li>
+<li><p class="first">近傍 <span class="math notranslate nohighlight">\(W \owns y^0\)</span> を <span class="math notranslate nohighlight">\(\closure{W} \subset V\)</span> となるようにとる。</p>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(C^\infty\)</span> 級関数 <span class="math notranslate nohighlight">\(\fn{\mu}{N}\RR\)</span> を次のように定義する：</p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(\supp \mu = V,\)</span></li>
+<li><span class="math notranslate nohighlight">\(y \in \closure{W} \implies \mu(y) = 1.\)</span></li>
+</ul>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(N\)</span> 上の <span class="math notranslate nohighlight">\(C^\infty\)</span> 級ベクトル場 <span class="math notranslate nohighlight">\(\xi_i = \mu\dfrac{\partial}{\partial y_i}\)</span> を考える。</p>
+</li>
+<li><p class="first">また <span class="math notranslate nohighlight">\(\bm a \in \RR^n\)</span> として
+<span class="math notranslate nohighlight">\(\xi_{\bm a} = \sum_{i = 1}^n a_i\xi_i\)</span> およびそれが生成するフロー
+<span class="math notranslate nohighlight">\(\Psi_{\bm a}^t\)</span> を考える。</p>
+<p>これはある <span class="math notranslate nohighlight">\(\eps &gt; 0\)</span> について次のような性質がある：</p>
+<div class="math notranslate nohighlight">
+\[t\norm{\bm a} &lt; \eps \implies \Psi_{\bm a}^t(y^0) = \psi\inv(t\bm a).\]</div>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(F_*|\nu_x\)</span> は同型なので <span class="math notranslate nohighlight">\(\xi_i\)</span> に対して
+<span class="math notranslate nohighlight">\(M\)</span> 上のベクトル場 <span class="math notranslate nohighlight">\(\overset{\sim}{\xi_i}\)</span> を次が成り立つように一意的に取れる：</p>
+<div class="math notranslate nohighlight">
+\[F_* \overset{\sim}{\xi_i} = \xi_i,
+\
+\overset{\sim}{\xi_i}(x) \in \nu_x.\]</div>
+<ul class="simple">
+<li>この状況をファイバー束の接続という。</li>
+<li><span class="math notranslate nohighlight">\(\overset{\sim}{\xi_i}\)</span> を <span class="math notranslate nohighlight">\(\xi_i\)</span> の
+<a class="reference external" href="http://mathworld.wolfram.com/Lift.html">持ち上げ</a> という。</li>
+</ul>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(\displaystyle \overset{\sim}{\xi}_{\bm a} = \sum_{i = 1}^n a_i \overset{\sim}{\xi_i}\)</span> とおくと
+<span class="math notranslate nohighlight">\(F_* \overset{\sim}{\xi}_{\bm a} = \overset{\sim}{\xi}_{\bm a}.\)</span></p>
+<p>ゆえに <a class="reference internal" href="chapter6b.html#tsuboi05-6-5-5"><span class="std std-ref">例題 6.5.5</span></a> のベクトル場の射影の性質により、
+<span class="math notranslate nohighlight">\(\overset{\sim}{\xi}_{\bm a}\)</span> のフロー <span class="math notranslate nohighlight">\(\Phi_{\bm a}^t\)</span> について次が成り立つ：</p>
+<div class="math notranslate nohighlight">
+\[F \circ \Phi_{\bm a}^t = \Psi_{\bm a}^t \circ F.\]</div>
+</li>
+<li><p class="first">写像 <span class="math notranslate nohighlight">\(\fn{H}{\set{\bm a \in \RR^n \sth \norm{\bm a} &lt; \eps} \times F\inv(y^0)}M\)</span> を
+<span class="math notranslate nohighlight">\(H(\bm a, x) = \Phi_{\bm a}^1(x)\)</span> で定義する。</p>
+<ul class="simple">
+<li><a class="reference internal" href="chapter6b.html#tsuboi05-6-3-6"><span class="std std-ref">注意 6.3.6</span></a> より <span class="math notranslate nohighlight">\(H\)</span> は <span class="math notranslate nohighlight">\(C^\infty\)</span> 級である。</li>
+<li><span class="math notranslate nohighlight">\(F(H(\bm a, x)) = \Psi_{\bm a}^1(F(x)) = \Psi_{\bm a}^1(y^0) = \psi\inv(a).\)</span></li>
+<li><span class="math notranslate nohighlight">\(H\)</span> の逆写像は <span class="math notranslate nohighlight">\(x \longmapsto (\psi(F(x)), \Phi_{\psi(F(x))}(x))\)</span> で与えられる。</li>
+</ul>
+<p>よって写像 <span class="math notranslate nohighlight">\(H\)</span> は微分同相写像である。</p>
+</li>
+</ul>
+</li>
+</ul>
+<dl class="docutils">
+<dt><a class="reference external" href="http://mathworld.wolfram.com/FiberBundle.html">ファイバー束</a></dt>
+<dd><p class="first">位相空間 <span class="math notranslate nohighlight">\(E, B\)</span> と連続写像 <span class="math notranslate nohighlight">\(\fn{p}{E}B\)</span> について次が成り立つ位相空間 <span class="math notranslate nohighlight">\(F\)</span> が存在すれば、これを <a class="reference external" href="http://mathworld.wolfram.com/Fiber.html">ファイバー</a> といい、
+<span class="math notranslate nohighlight">\(p\)</span> をファイバー束という：</p>
+<div class="last math notranslate nohighlight">
+\[\forall b \in B, \exists U_b \owns b \quad \text{ s.t. }
+\exists \fn{h}{p\inv(U_b)}U_b \times F,\
+\operatorname{pr}_1 \circ h = p.\]</div>
+</dd>
+<dt>平坦な接続</dt>
+<dd><p class="first"><a class="reference internal" href="#tsuboi05-8-6-1"><span class="std std-ref">例題 8.6.1</span></a> における <span class="math notranslate nohighlight">\([\overset{\sim}{\xi}, \overset{\sim}{\eta}]\)</span> を考える。</p>
+<ul class="last simple">
+<li>持ち上げによってベクトル場 <span class="math notranslate nohighlight">\([\overset{\sim}{\xi}, \overset{\sim}{\eta}]\)</span> は
+<span class="math notranslate nohighlight">\(F_*[\overset{\sim}{\xi}, \overset{\sim}{\eta}] = [F_*\overset{\sim}{\xi}, F_*\overset{\sim}{\eta}] = [\xi, \eta].\)</span><ul>
+<li>最初と最後の等号はそれぞれ <a class="reference internal" href="chapter8a.html#tsuboi05-8-2-3"><span class="std std-ref">例題 8.2.3</span></a> と持ち上げによる。</li>
+</ul>
+</li>
+<li>特に座標近傍上で <span class="math notranslate nohighlight">\(\displaystyle \xi = \zeta_i = \frac{\partial}{\partial x_i}\)</span> をとれば、
+<span class="math notranslate nohighlight">\([\zeta_i, \zeta_j] = 0\)</span> なので
+<span class="math notranslate nohighlight">\([\overset{\sim}{\zeta_i}, \overset{\sim}{\zeta_j}]\)</span> はファイバーの方向のベクトル場である。</li>
+<li>さらに <span class="math notranslate nohighlight">\(\forall \zeta_i, \zeta_j,\ [\overset{\sim}{\zeta_i}, \overset{\sim}{\zeta_j}] = 0\)</span>
+のときには接続が平坦な接続であるという。<ul>
+<li>各 <span class="math notranslate nohighlight">\(\zeta_i\)</span> が生成するフローを <span class="math notranslate nohighlight">\(\varphi_i^{t_i}\)</span> とすると、各フローは局所的には可換である。</li>
+<li><span class="math notranslate nohighlight">\(x \in M\)</span> と 0 近傍の点 <span class="math notranslate nohighlight">\((t_1, \dotsc, t_n)\)</span> に対し、
+<span class="math notranslate nohighlight">\(\Phi(t_1, \dotsc, t_n)(x) = \varphi_1^{t_1} \circ \dotsb \circ \varphi_n^{t_n}(x)\)</span> とおく。<ol class="arabic">
+<li><span class="math notranslate nohighlight">\(\psi(F(\Phi(t_1, \dotsc, t_n)))(x) = \psi(F(x)) + (t_1, \dotsc, t_n),\)</span></li>
+<li><span class="math notranslate nohighlight">\(\Phi(s_1, \dotsc, s_n) \circ \Phi(t_1, \dotsc, t_n)(x) = \Phi(s_1 + t_1, \dotsc, s_n + t_n)(x).\)</span></li>
+</ol>
+</li>
+<li>微分同相写像 <span class="math notranslate nohighlight">\(x \longmapsto (F(x), \Phi(\psi(y) - \psi(F(x)))(x))\)</span> に関する
+<span class="math notranslate nohighlight">\(U_y \times \set{z}\)</span> の逆像は部分多様体のように貼り合わされる。</li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+<ul class="simple">
+<li>ファイバーがリー群であるようなファイバー束を考えることができる。<ul>
+<li><span class="math notranslate nohighlight">\(G\)</span> がファイバーを左または右から <span class="math notranslate nohighlight">\(M\)</span> に作用している。</li>
+<li>この作用について不変なファイバーに対して横断的な接平面場を考えると、持ち上げが <span class="math notranslate nohighlight">\(G\)</span> の作用で不変となるような接続がある。このとき <span class="math notranslate nohighlight">\([\overset{\sim}{\xi}, \overset{\sim}{\eta}]\)</span> も不変ベクトル場であり、
+<span class="math notranslate nohighlight">\(G\)</span> のリー代数 <span class="math notranslate nohighlight">\(\mathfrak g\)</span> の元である。</li>
+</ul>
+</li>
+<li>n 次元リーマン多様体の <span class="math notranslate nohighlight">\(\operatorname{Fr}M\)</span> はファイバーが <span class="math notranslate nohighlight">\(O(n)\)</span> であるような
+<span class="math notranslate nohighlight">\(M\)</span> 上のファイバー束となっている。</li>
+<li><a class="reference external" href="http://mathworld.wolfram.com/Levi-CivitaConnection.html">レビチビタ接続</a> とはこのファイバー束の接続である。</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id10">8.7 第 8 章の問題の回答</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>ノートは以上に記した。</p>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../subramaniam06.html" title="アジャイルプラクティス 読書ノート"
+             >next</a></li>
+        <li class="right" >
+          <a href="chapter8a.html" title="第 8 章 多様体上のベクトル場（前編）"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >幾何学 I 多様体入門 読書ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

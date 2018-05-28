@@ -1,0 +1,294 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>実用 Git 読書ノート &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="プログラミング C# 第 6 版 読書ノート" href="griffiths10.html" />
+    <link rel="prev" title="付録 多様体の三角形分割の構成（展開） 2/2" href="tsuboi08/appendixb.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="griffiths10.html" title="プログラミング C# 第 6 版 読書ノート"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="tsuboi08/appendixb.html" title="付録 多様体の三角形分割の構成（展開） 2/2"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="git">
+<h1>実用 Git 読書ノート<a class="headerlink" href="#git" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">著者:</th><td class="field-body">Jon Loeliger</td>
+</tr>
+<tr class="field-even field"><th class="field-name">訳者:</th><td class="field-body">吉藤 英明（監訳）、本間 雅洋、渡邉 健太郎、浜本 階生</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">出版社:</th><td class="field-body">オライリー・ジャパン</td>
+</tr>
+<tr class="field-even field"><th class="field-name">発行年:</th><td class="field-body">2010 年</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">ISBN:</th><td class="field-body">978-4-87311-440-8</td>
+</tr>
+</tbody>
+</table>
+<p>書名には「実用」とあるが、個人的には Git の理論解説書として読んだ。
+Git はその基礎概念をしっかり理解することが、要領良く習得することに直結する。例えばインデックス、ツリー、ブロブ等の重要概念を押さえていないとダメであることが本書を読んでわかった。私の場合では、なかなか覚えられない Git のコマンドがいくつかあったのだが、それがどの構成要素に作用するのかを理解していないから覚えられないということがようやくわかった。</p>
+<p>特に 9, 10, 11 章のマージ、コミット、リモートリポジトリの各内容を着実に理解できれば OK だろう。</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">以下、書き殴りメモ。いつか整理するはず。</p>
+</div>
+<ul>
+<li><p class="first">4.1.2 blob tree commit tag</p>
+</li>
+<li><p class="first">4.1.3 index ←→ merge object ←→ SHA1</p>
+</li>
+<li><p class="first">4.3</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">cat-file</span> <span class="pre">-p</span> <span class="pre">3b18e51...</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">rev-parse</span> <span class="pre">3b18e51...</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">ls-files</span> <span class="pre">-s</span></code></li>
+</ul>
+</li>
+<li><p class="first">4.3.6 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">show</span> <span class="pre">--pretty=fuller</span></code></p>
+</li>
+<li><p class="first">4.3.7 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">tag</span> <span class="pre">-m</span> <span class="pre">&quot;～&quot;</span> <span class="pre">V1.0</span> <span class="pre">3ede452</span></code></p>
+</li>
+<li><p class="first">あとで p. 38 fig 4.1 を確認。</p>
+</li>
+<li><p class="first">5 index commit stage</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span></code> は index の status</li>
+<li>status ::= (tracked|ignored|untracked)</li>
+</ul>
+</li>
+<li><p class="first">5.3 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">ls-files</span> <span class="pre">--stage</span></code></p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">rm</span> <span class="pre">--cached</span> <span class="pre">XXX</span></code> →アンステージ</p>
+</li>
+<li><p class="first">5.4.1 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-a</span></code></p>
+</li>
+<li><p class="first">5.6 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">log</span> <span class="pre">--follow</span> <span class="pre">XXX</span></code></p>
+</li>
+<li><p class="first">5.7 <code class="docutils literal notranslate"><span class="pre">mv</span></code> 系はツリーだけに影響する。</p>
+</li>
+<li><p class="first">5.8 gitignore は下位フォルダーの方が強い。</p>
+</li>
+<li><p class="first">5.9 index を tree と同じシンボルで図示している。</p>
+<ul class="simple">
+<li>master とか HEAD とかいきなり出てくる？</li>
+<li>※index を「仮想的な tree」とみなす。</li>
+</ul>
+</li>
+<li><p class="first">直接的な参照 SHA1 c.f. 間接的な参照 e.g. “HEAD”</p>
+</li>
+<li><p class="first">6.2.1 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">log</span> <span class="pre">-1</span> <span class="pre">--pretty=oneline</span> <span class="pre">XXX</span></code></p>
+</li>
+<li><p class="first">6.2.2 symref</p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span>refs/
+  heads/～
+  remotes/～  origin/master は本当は refs/remotes/origin/master
+  tags/～
+</pre></div>
+</div>
+</li>
+<li><p class="first">HEAD ::= current branch の最新のコミット</p>
+</li>
+<li><p class="first">XXX_HEAD というような名前のシンボルが他に 3 つある。</p>
+</li>
+<li><p class="first">6.2.3 <code class="docutils literal notranslate"><span class="pre">C^</span></code> とか <code class="docutils literal notranslate"><span class="pre">C~</span></code> とか。<code class="docutils literal notranslate"><span class="pre">^</span></code> は複数で <code class="docutils literal notranslate"><span class="pre">~</span></code> は世代か？</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">show-branch</span> <span class="pre">--more=35</span> <span class="pre">|</span> <span class="pre">tail</span> <span class="pre">-10</span></code></li>
+</ul>
+</li>
+<li><p class="first">6.3.1 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">log</span></code> は <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">log</span> <span class="pre">HEAD</span></code> （到達可能）</p>
+</li>
+<li><p class="first">6.3.3 <code class="docutils literal notranslate"><span class="pre">M~12..M~10</span></code> では 12 のは含まない。</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">A...B</span></code> で symmetric difference を意味する。</li>
+</ul>
+</li>
+<li><p class="first">6.4.1 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">bisect</span></code></p>
+</li>
+<li><p class="first">6.4.2 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">blame</span></code></p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">merge-base</span> <span class="pre">オリジナル</span> <span class="pre">新</span></code></p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">branch</span> <span class="pre">ブランチ</span> <span class="pre">[コミット]</span></code></p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">branch</span></code>, <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">show-branch</span></code>, <code class="docutils literal notranslate"><span class="pre">[-r</span> <span class="pre">-a]</span></code>, <code class="docutils literal notranslate"><span class="pre">*</span></code> 印がカレント。</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">ブランチ</span></code> でスイッチする。</p>
+</li>
+<li><p class="first">7.7.3 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">-m</span></code> でローカルの変更を新しい working directory に持ち込む（マージ）。</p>
+</li>
+<li><p class="first">7.7.4 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">-b</span> <span class="pre">新ブランチ</span></code></p>
+</li>
+<li><p class="first">7.7.5 detached HEAD</p>
+</li>
+<li><p class="first">7.7.8 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">branch</span> <span class="pre">-d</span> <span class="pre">XXX</span></code></p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">merge</span> <span class="pre">bug/pr-3</span></code> して <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">branch</span> <span class="pre">-d</span> <span class="pre">bug/pr-3</span></code> する。</li>
+</ul>
+</li>
+<li><p class="first">8.1</p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span>git diff                           ←作業コピーと index との比較
+git diff コミット                  ←p. 114 fig. 8-1
+git diff --cached コミット
+git diff コミット1 コミット2
+</pre></div>
+</div>
+</li>
+<li><p class="first">8.2 「インデックスと HEAD との比較」←→ステージ</p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span>git diff           ←作業コピーと index との比較
+git diff HEAD      ←作業コピーと HEAD との比較
+git diff --cached  ←index と HEAD との比較
+
+git diff HEAD^ HEAD
+</pre></div>
+</div>
+</li>
+<li><p class="first">8.4</p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">diff</span> <span class="o">--</span><span class="n">stat</span> <span class="n">master</span><span class="o">~</span><span class="mi">5</span> <span class="n">master</span> <span class="n">Documentation</span>
+<span class="n">git</span> <span class="n">diff</span> <span class="o">-</span><span class="n">S</span> <span class="s2">&quot;octopus&quot;</span> <span class="n">master</span><span class="o">~</span><span class="mi">50</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">9.1</p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="n">ブランチ</span>
+<span class="n">git</span> <span class="n">merge</span> <span class="n">別ブランチ</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">9.1.2</p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">alternate</span> <span class="n">master</span><span class="o">~</span>
+<span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">graph</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span> <span class="o">--</span><span class="n">abbrev</span><span class="o">-</span><span class="n">commit</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">9.1.3 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">merge</span> <span class="pre">なんとか</span></code> の直後に commit する→
+<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">diff</span></code> で見る→テキスト編集→
+<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">ファイル</span></code> →
+<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span></code></p>
+</li>
+<li><p class="first">9.2.1 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span></code> <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">ls-files</span> <span class="pre">-u</span></code></p>
+</li>
+<li><p class="first">9.2.2.1 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">diff</span> <span class="pre">MERGE_HEAD</span></code></p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">log</span> <span class="pre">--merge</span> <span class="pre">--left-right</span> <span class="pre">-p</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">diff</span> <span class="pre">:1:hello</span> <span class="pre">:3:hello</span></code></li>
+</ul>
+</li>
+<li><p class="first">9.2.5</p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span>git reset --hard HEAD        ←マージ中断
+git reset --hard ORIG_HEAD   ←マージを破棄
+</pre></div>
+</div>
+</li>
+<li><p class="first">9.3 マージ基点、3-way merge, criss cross (pp. 146-147)</p>
+</li>
+<li><p class="first">9.3.1 already up-to-date VS fast forward</p>
+<ul class="simple">
+<li>同じ祖先を持つ？</li>
+<li>追跡ブランチ上でよく起こる。</li>
+</ul>
+</li>
+<li><p class="first">9.3.2</p>
+<ul class="simple">
+<li>resolve</li>
+<li>recursive</li>
+<li>octopus</li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">merge</span> <span class="pre">-s</span> <span class="pre">resolve</span> <span class="pre">Bob</span></code></p>
+</li>
+<li><p class="first">9.4.2 squash commit</p>
+</li>
+<li><p class="first">10.2 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">reset</span></code> は作業コピーをいじるコマンド。soft, mixed, hard</p>
+</li>
+<li><p class="first">10.3 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">cherry-pick</span> <span class="pre">dev~2</span></code></p>
+</li>
+<li><p class="first">10.6 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">--amend</span></code></p>
+</li>
+<li><p class="first">10.7 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">rebase</span></code>: 基点の変更</p>
+</li>
+<li><p class="first">11.1.1 base</p>
+</li>
+<li><p class="first">11.1.2</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">元リポジトリー</span> <span class="pre">新クローン</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">git://～/～.git</span></code></li>
+<li>origin と呼ばれるリモート</li>
+</ul>
+</li>
+<li><p class="first">11.1.3</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">fetch</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code> →変更マージあり</li>
+<li><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">ls-remote</span></code></li>
+</ul>
+</li>
+<li><p class="first">11.3.1 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">--bare</span> <span class="pre">すでにリポジトリー</span> <span class="pre">新.git</span></code></p>
+</li>
+<li><p class="first">11.3.2</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">remote</span> <span class="pre">add</span> <span class="pre">origin</span> <span class="pre">/tmp/Depot/public_html</span></code> → <code class="docutils literal notranslate"><span class="pre">.git/config</span></code> が書き換わる。</li>
+<li><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">remote</span> <span class="pre">update</span></code> →「ローカルにおける origin の定義をリモートで更新する」</li>
+<li><code class="docutils literal notranslate"><span class="pre">master</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">origin/master</span></code> →追跡</li>
+</ul>
+</li>
+<li><p class="first">11.3.5 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">remote</span> <span class="pre">show</span> <span class="pre">origin</span></code></p>
+</li>
+<li><p class="first">11.3.6 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code> == <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">fetch</span></code> + <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">(merge|rebase)</span></code></p>
+</li>
+</ul>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="griffiths10.html" title="プログラミング C# 第 6 版 読書ノート"
+             >next</a></li>
+        <li class="right" >
+          <a href="tsuboi08/appendixb.html" title="付録 多様体の三角形分割の構成（展開） 2/2"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

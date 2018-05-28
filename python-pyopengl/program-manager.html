@@ -1,0 +1,164 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>シェーダープログラム管理クラス &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="ベクトル・行列・座標変換" href="transform.html" />
+    <link rel="prev" title="クラス ModernApp の実装" href="modernapp.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="transform.html" title="ベクトル・行列・座標変換"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="modernapp.html" title="クラス ModernApp の実装"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >PyOpenGL 利用ノート</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="coding.html" accesskey="U">コードを書く</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id4">シェーダープログラム管理クラス</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>GLSL プログラムオブジェクトとシェーダーオブジェクトの生成と破棄の管理方法はワンパターンなので、この機能をカプセル化した管理クラス <code class="docutils literal notranslate"><span class="pre">ProgramManager</span></code> を作成しておき、アプリケーションクラス <code class="docutils literal notranslate"><span class="pre">AppBase</span></code> にオブジェクトを保持させて用いるようにする。</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id4">シェーダープログラム管理クラス</a><ul>
+<li><a class="reference internal" href="#programmanager" id="id5">クラス <code class="docutils literal notranslate"><span class="pre">ProgramManager</span></code></a></li>
+<li><a class="reference internal" href="#id2" id="id6">メンバーデータの説明</a></li>
+<li><a class="reference internal" href="#id3" id="id7">メソッドの説明</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">私の環境でプログラムが適切なグラフィックドライバーを取得できない不具合が発生しており、関数 <code class="docutils literal notranslate"><span class="pre">glCreateShader</span></code> が None になるせいで本稿のクラスは動作しない。</p>
+</div>
+<div class="section" id="programmanager">
+<h2><a class="toc-backref" href="#id5">クラス <code class="docutils literal notranslate"><span class="pre">ProgramManager</span></code></a><a class="headerlink" href="#programmanager" title="Permalink to this headline">¶</a></h2>
+<p>次に挙げるようなコードを書いておく。部分的には PyOpenGL の某モジュールにも同様のコード片がある。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="sd">&quot;&quot;&quot;program_manager.py: Define class ProgramManager.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">OpenGL.GL</span> <span class="k">as</span> <span class="nn">GL</span>
+
+<span class="k">class</span> <span class="nc">ProgramManager</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;OpenGL shader program manager.</span>
+
+<span class="sd">    This class managers a program object and its shader objects.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize an instance of class ProgramManager.&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">program_id</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shader_sources</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shader_ids</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shader_sources</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Setup shaders.&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">shader_sources</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">shader_ids</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">shader_type</span><span class="p">,</span> <span class="n">source</span> <span class="ow">in</span> <span class="n">shader_sources</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">shader</span> <span class="o">=</span> <span class="n">GL</span><span class="o">.</span><span class="n">glCreateShader</span><span class="p">(</span><span class="n">shader_type</span><span class="p">)</span>
+            <span class="n">GL</span><span class="o">.</span><span class="n">glShaderSource</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span>
+            <span class="n">GL</span><span class="o">.</span><span class="n">glCompileShader</span><span class="p">(</span><span class="n">shader</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">GL</span><span class="o">.</span><span class="n">glGetShaderiv</span><span class="p">(</span><span class="n">shader</span><span class="p">,</span> <span class="n">GL</span><span class="o">.</span><span class="n">GL_COMPILE_STATUS</span><span class="p">)</span> <span class="o">!=</span> <span class="n">GL</span><span class="o">.</span><span class="n">GL_TRUE</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">GL</span><span class="o">.</span><span class="n">glGetShaderInfoLog</span><span class="p">(</span><span class="n">shader</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+            <span class="n">shader_ids</span><span class="p">[</span><span class="n">shader_type</span><span class="p">]</span> <span class="o">=</span> <span class="n">shader</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">shader_sources</span> <span class="o">=</span> <span class="n">shader_sources</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shader_ids</span> <span class="o">=</span> <span class="n">shader_ids</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">program_id</span> <span class="o">=</span> <span class="n">GL</span><span class="o">.</span><span class="n">glCreateProgram</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">shader</span> <span class="ow">in</span> <span class="n">shader_ids</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">GL</span><span class="o">.</span><span class="n">glAttachShader</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program_id</span><span class="p">,</span> <span class="n">shader</span><span class="p">)</span>
+
+        <span class="n">GL</span><span class="o">.</span><span class="n">glLinkProgram</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">GL</span><span class="o">.</span><span class="n">glGetProgramiv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program_id</span><span class="p">,</span> <span class="n">GL</span><span class="o">.</span><span class="n">GL_LINK_STATUS</span><span class="p">)</span> <span class="o">!=</span> <span class="n">GL</span><span class="o">.</span><span class="n">GL_TRUE</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">GL</span><span class="o">.</span><span class="n">glGetProgramInfoLog</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program_id</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+
+        <span class="n">GL</span><span class="o">.</span><span class="n">glUseProgram</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program_id</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Clean up shaders and program.&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">shader_sources</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">GL</span><span class="o">.</span><span class="n">glUseProgram</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">shader</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shader_ids</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">GL</span><span class="o">.</span><span class="n">glDetachShader</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program_id</span><span class="p">,</span> <span class="n">shader</span><span class="p">)</span>
+            <span class="n">GL</span><span class="o">.</span><span class="n">glDeleteShader</span><span class="p">(</span><span class="n">shader</span><span class="p">)</span>
+        <span class="n">GL</span><span class="o">.</span><span class="n">glDeleteProgram</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program_id</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id6">メンバーデータの説明</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">program_id</span></code></dt>
+<dd>関数 <code class="docutils literal notranslate"><span class="pre">glCreateProgram</span></code> の戻り値をここに保持する。アプリケーションは、GLSL 構成要素にアクセスするときにはこの値を参照することになる。</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">shader_sources</span></code></dt>
+<dd>これは辞書オブジェクトで、そのキーは関数 <code class="docutils literal notranslate"><span class="pre">glCreateShader</span></code> の引数であり、値はその戻り値と一緒に関数 <code class="docutils literal notranslate"><span class="pre">glShaderSource</span></code> に与える引数（プログラムコード）のペアを想定している。</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">shader_ids</span></code></dt>
+<dd>これも辞書オブジェクトで、そのキーは先程の辞書と同じものであり、値は先程の関数 <code class="docutils literal notranslate"><span class="pre">glCreateShader</span></code> の戻り値（シェーダープログラム識別子）である。</dd>
+</dl>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id7">メソッドの説明</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>アプリケーションはメソッド <code class="docutils literal notranslate"><span class="pre">setup</span></code> と <code class="docutils literal notranslate"><span class="pre">cleanup</span></code> をその初期化処理と後始末処理にて呼び出す。</p>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="transform.html" title="ベクトル・行列・座標変換"
+             >next</a></li>
+        <li class="right" >
+          <a href="modernapp.html" title="クラス ModernApp の実装"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >PyOpenGL 利用ノート</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="coding.html" >コードを書く</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

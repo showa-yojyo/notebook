@@ -1,0 +1,332 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>ベクトル・行列・座標変換 &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="回転とズーム" href="view-navigation.html" />
+    <link rel="prev" title="シェーダープログラム管理クラス" href="program-manager.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="view-navigation.html" title="回転とズーム"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="program-manager.html" title="シェーダープログラム管理クラス"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >PyOpenGL 利用ノート</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="coding.html" accesskey="U">コードを書く</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id9">ベクトル・行列・座標変換</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>本稿では、ベクトル・行列・座標の変換を PyOpenGL 利用プログラムでどのように実現するかについて記す。</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id9">ベクトル・行列・座標変換</a><ul>
+<li><a class="reference internal" href="#id2" id="id10">基本方針</a></li>
+<li><a class="reference internal" href="#opengl" id="id11">OpenGL インターフェイスとアクセスする行列データについて</a><ul>
+<li><a class="reference internal" href="#id3" id="id12">旧式インターフェイスに行列データを設定する</a></li>
+<li><a class="reference internal" href="#id4" id="id13">旧式インターフェイスから行列データを取得する</a></li>
+<li><a class="reference internal" href="#id5" id="id14">シェーダーオブジェクトに行列データを設定する</a></li>
+<li><a class="reference internal" href="#id6" id="id15">シェーダーオブジェクトから行列データを取得する</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7" id="id16">座標変換を実装する</a><ul>
+<li><a class="reference internal" href="#id8" id="id17">自作対象関数</a></li>
+<li><a class="reference internal" href="#glulookat" id="id18">関数 <code class="docutils literal notranslate"><span class="pre">gluLookAt</span></code> を真似る</a></li>
+<li><a class="reference internal" href="#gluperspective" id="id19">関数 <code class="docutils literal notranslate"><span class="pre">gluPerspective</span></code> を真似る</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id10">基本方針</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>プログラムが採用するコンテキストバージョンによらず、ベクトル・行列を取り扱うのに <code class="docutils literal notranslate"><span class="pre">np.array</span></code> を積極的に用いる。ただし、単なる <code class="docutils literal notranslate"><span class="pre">list</span></code> や <code class="docutils literal notranslate"><span class="pre">tuple</span></code> で済む場合は、もちろんそれで間に合わせる。<ul>
+<li>ベクトルは shape が (n,) なインスタンスで表現する。ここで n は 2 か 3 か 4 になる。</li>
+<li>行列は shape が (4, 4) なインスタンスで表現する。</li>
+</ul>
+</li>
+<li>プログラムは、行列の成分を「教科書の順序」で取り扱うものとする。つまり、普段は通常の <code class="docutils literal notranslate"><span class="pre">np.array</span></code> の形で保持しておく。そして、OpenGL のインターフェイスとアクセスする際に、内部配列のメモリレイアウトを NumPy 形式または
+OpenGL 形式 (column-major) に並び替えるものとする。</li>
+<li>3.0 以上のコンテキストバージョンでは、OpenGL の行列の機能が全滅しているので、必要に応じて対応する機能を自作する。</li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">np.array</span></code> の使いこなし方については、
+<a class="reference internal" href="../python-numpy/index.html"><span class="doc">NumPy 利用ノート</span></a> で述べる。</p>
+</div>
+<div class="section" id="opengl">
+<h2><a class="toc-backref" href="#id11">OpenGL インターフェイスとアクセスする行列データについて</a><a class="headerlink" href="#opengl" title="Permalink to this headline">¶</a></h2>
+<p>OpenGL は新旧共通で行列データを 16 要素の浮動小数点型数の配列として扱うことが圧倒的に多い。</p>
+<div class="section" id="id3">
+<h3><a class="toc-backref" href="#id12">旧式インターフェイスに行列データを設定する</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>主に PyOpenGL 関数 <code class="docutils literal notranslate"><span class="pre">glLoadMatrix</span></code> および <code class="docutils literal notranslate"><span class="pre">glMultMatrix</span></code> に関しての話となる。これらのインターフェイスに対して <code class="docutils literal notranslate"><span class="pre">np.array</span></code> を行列として引き渡す方法が 2 通り考えられる。</p>
+<p>ひとつは次の擬似コードのように <code class="docutils literal notranslate"><span class="pre">np.array.transpose</span></code> を用いて、内部配列を column-major に並び替えることによるものだ。</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="c1"># Set matrix elements...</span>
+
+<span class="n">glMatrixMode</span><span class="p">(</span><span class="n">GL_MODELVIEW</span><span class="p">)</span>
+<span class="n">glLoadMatrixf</span><span class="p">(</span><span class="n">matrix</span><span class="o">.</span><span class="n">transpose</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>もうひとつは、配列はそのままにして OpenGL の「転置バージョン」の行列関数、つまり <code class="docutils literal notranslate"><span class="pre">glLoadTransposeMatrix</span></code> および <code class="docutils literal notranslate"><span class="pre">glMultTransposeMatrix</span></code> を利用するものだ。</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="c1"># Set matrix elements...</span>
+
+<span class="n">glMatrixMode</span><span class="p">(</span><span class="n">GL_MODELVIEW</span><span class="p">)</span>
+<span class="n">glLoadTransposeMatrixf</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id13">旧式インターフェイスから行列データを取得する</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>OpenGL 側から行列データを受け取る方法について述べる。いつものようにデータ取得には関数 <code class="docutils literal notranslate"><span class="pre">glGetFloatv</span></code> か <code class="docutils literal notranslate"><span class="pre">glGetDoublev</span></code> を用いるのだが、
+PyOpenGL の場合はオリジナルとは異なり戻り値として配列を得ることに注意を要する。</p>
+<p>そして、配列自体のメモリレイアウトの問題も設定時と同様に存在する。ここでもメソッド <code class="docutils literal notranslate"><span class="pre">.transpose</span></code> を用いてかつシンボル <code class="docutils literal notranslate"><span class="pre">GL_*_MATRIX</span></code> を用いるか、またはメソッド <code class="docutils literal notranslate"><span class="pre">.transpose</span></code> を用いずにシンボル <code class="docutils literal notranslate"><span class="pre">GL_TRANSPOSE_*_MATRIX</span></code> を用いるかの選択肢がある。</p>
+</div>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id14">シェーダーオブジェクトに行列データを設定する</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>頂点シェーダーのコードをこのように書くとする。</p>
+<div class="code glsl highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#version 330 core</span>
+
+<span class="n">uniform</span> <span class="n">mat4</span> <span class="n">camera</span><span class="p">;</span>
+<span class="n">uniform</span> <span class="n">mat4</span> <span class="n">projection</span><span class="p">;</span>
+<span class="n">uniform</span> <span class="n">mat4</span> <span class="n">rotation</span><span class="p">;</span>
+
+<span class="o">...</span>
+</pre></div>
+</div>
+<ul>
+<li><p class="first">例えば <code class="docutils literal notranslate"><span class="pre">uniform</span> <span class="pre">mat4</span> <span class="pre">camera;</span></code> という表現が「4 次正方行列 <code class="docutils literal notranslate"><span class="pre">camera</span></code> を扱う」ということを宣言するものだ。このオブジェクトの内容を設定するには、「外側」から OpenGL の関数を用いる必要がある。</p>
+<blockquote>
+<div><div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">init_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1"># ...</span>
+
+    <span class="n">location</span> <span class="o">=</span> <span class="n">glGetUniformLocation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">program_manager</span><span class="o">.</span><span class="n">program_id</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&quot;camera&quot;</span><span class="p">),</span>
+    <span class="n">glUniformMatrix4fv</span><span class="p">(</span>
+        <span class="n">location</span><span class="p">,</span>
+        <span class="mi">1</span><span class="p">,</span> <span class="n">GL_TRUE</span><span class="p">,</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_matrix</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">関数 <code class="docutils literal notranslate"><span class="pre">glUniformMatrix4fv</span></code> の呼び出しが、行列データをシェーダープログラムに渡す処理である。</p>
+<ul class="simple">
+<li>関数 <code class="docutils literal notranslate"><span class="pre">glGetUniformLocation</span></code> にシェーダーにおける識別子を与えて、行列オブジェクトの「場所」を得る。アドレスのようなものだろう。</li>
+<li><code class="docutils literal notranslate"><span class="pre">GL_TRUE</span></code> は引数の行列を転置する、すなわち OpenGL 側に column-major 化してもらうことを意味する。</li>
+<li><code class="docutils literal notranslate"><span class="pre">self.camera_matrix</span></code> は別のところで設定済みの <code class="docutils literal notranslate"><span class="pre">np.array</span></code> オブジェクトという仮定である。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id15">シェーダーオブジェクトから行列データを取得する</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>先の例に対応する、行列データの取得コードは次のようなものになる。受け取った後に <code class="docutils literal notranslate"><span class="pre">.transpose</span></code> をしないと、数学の教科書通りの並びにならない。</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">camera_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">glGetUniformfv</span><span class="p">(</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">program_manager</span><span class="o">.</span><span class="n">program_id</span><span class="p">,</span>
+    <span class="n">location</span><span class="p">,</span>
+    <span class="n">camera_matrix</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">camera_matrix</span><span class="o">.</span><span class="n">transpose</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_matrix</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id16">座標変換を実装する</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>基本的には、変換を表現する行列を返す関数を実装し、
+Python コードではそのオブジェクトを GLSL に渡したり、その場で頂点座標を変換したりという利用を想定する。</p>
+<p>自作する変換処理は別モジュール <code class="docutils literal notranslate"><span class="pre">transform.py</span></code> で定義することにする。このモジュールが提供するいずれの自作関数も、返す行列 <code class="docutils literal notranslate"><span class="pre">m</span></code> が次の条件を満たすものとする。</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">m</span></code> は数学的には、同次座標系で表現された列ベクトルに左から作用する行列を表現する。</li>
+<li><code class="docutils literal notranslate"><span class="pre">m</span></code> は <code class="docutils literal notranslate"><span class="pre">np.array</span></code> オブジェクトである。</li>
+<li><code class="docutils literal notranslate"><span class="pre">m.shape</span> <span class="pre">==</span> <span class="pre">(4,</span> <span class="pre">4)</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">m.dtype</span> <span class="pre">==</span> <span class="pre">np.float64</span></code></li>
+</ul>
+<div class="section" id="id8">
+<h3><a class="toc-backref" href="#id17">自作対象関数</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>OpenGL 3.0 で deprecated にされた行列関連の関数と、自作するかどうかの対応表を記す。ここで言う「自作」がどういう作業を意味するのかは、関数によって異なってくる。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">関数</th>
+<th class="head">対応</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">glFrustum</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">gluPerspective</span></code> の対応をもって代える。</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">glLoadIdentity</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">glUniformMatrix4fv</span></code> に単位行列 <code class="docutils literal notranslate"><span class="pre">np.identity(4)</span></code> を渡す。</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">glLoadMatrix</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">glUniformMatrix4fv</span></code> に任意の (4, 4) 型 <code class="docutils literal notranslate"><span class="pre">np.array</span></code> を渡す。</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">glLoadTransposeMatrix</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">glUniformMatrix4fv</span></code> に転置フラグ引数があるので、対応しない。</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">glMatrixMode</span></code></td>
+<td>GLSL にこの概念がないので、対応しない。</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">glMultMatrix</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">np.array</span></code> および GLSL に同等機能があるため、対応しない。</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">glMultTransposeMatrix</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">glUniformMatrix4fv</span></code> に転置フラグ引数があるので、対応しない。</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">glOrtho</span></code></td>
+<td>平行投影は当分利用しないので、必要になるまで対応しない。</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">glPopMatrix</span></code></td>
+<td>スタックの概念が不要なので対応しない。</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">glPushMatrix</span></code></td>
+<td>スタックの概念が不要なので対応しない。</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">glRotate</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">glUniformMatrix4fv</span></code> と Quaternion を併用する。</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">glScale</span></code></td>
+<td>対応する。</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">glTranslate</span></code></td>
+<td>対応する。</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">gluLookAt</span></code></td>
+<td>是非対応する。</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">gluOrtho2D</span></code></td>
+<td>平行投影は当分利用しないので、必要になるまで対応しない。</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">gluPerspective</span></code></td>
+<td>是非対応する。</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">gluPickMatrix</span></code></td>
+<td>当分利用しないので、必要になるまで対応しない。</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">gluProject</span></code></td>
+<td>当分利用しないので、必要になるまで対応しない。</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">gluUnproject</span></code></td>
+<td>当分利用しないので、必要になるまで対応しない。</td>
+</tr>
+</tbody>
+</table>
+<p>そのモジュールでのインポート部一覧を示す。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="k">import</span> <span class="n">norm</span>
+
+</pre></div>
+</div>
+<p>いつものモジュール <code class="docutils literal notranslate"><span class="pre">numpy</span></code> だけではなく、サブモジュールである <code class="docutils literal notranslate"><span class="pre">numpy.linalg</span></code> の機能も用いる。</p>
+</div>
+<div class="section" id="glulookat">
+<h3><a class="toc-backref" href="#id18">関数 <code class="docutils literal notranslate"><span class="pre">gluLookAt</span></code> を真似る</a><a class="headerlink" href="#glulookat" title="Permalink to this headline">¶</a></h3>
+<p>OpenGL のリファレンスをそのまま実装すればよい。</p>
+<p>まず、与えられたカメラの位置、観測目標点、カメラの姿勢から正規直交基底を計算する。それから、座標系原点を観測者の位置に移すような変換を加味する。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span>    <span class="sd">&quot;&quot;&quot;Imitate gluLookAt&quot;&quot;&quot;</span>
+
+    <span class="n">eye_work</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">eye</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">center_work</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">up_work</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">up</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+
+    <span class="n">f</span> <span class="o">=</span> <span class="n">center_work</span> <span class="o">-</span> <span class="n">eye_work</span>
+    <span class="n">f</span> <span class="o">/=</span> <span class="n">norm</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">up_work</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">/=</span> <span class="n">norm</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+    <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+
+    <span class="n">mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">mat</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
+    <span class="n">mat</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span>
+    <span class="n">mat</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">f</span>
+
+    <span class="n">mat</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="o">-</span><span class="n">eye_work</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+    <span class="n">mat</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="o">-</span><span class="n">eye_work</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span>
+    <span class="n">mat</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="o">-</span><span class="n">eye_work</span><span class="p">,</span> <span class="o">-</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">mat</span>
+
+</pre></div>
+</div>
+</div>
+<div class="section" id="gluperspective">
+<h3><a class="toc-backref" href="#id19">関数 <code class="docutils literal notranslate"><span class="pre">gluPerspective</span></code> を真似る</a><a class="headerlink" href="#gluperspective" title="Permalink to this headline">¶</a></h3>
+<p>OpenGL のリファレンスをそのまま実装すればよい。</p>
+<p>コツは先述の基本方針に沿うべく -1 の成分が最下行にあるということだ。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span>    <span class="sd">&quot;&quot;&quot;Imitate gluPerspective&quot;&quot;&quot;</span>
+
+    <span class="n">f</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">fovy</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">360</span><span class="p">))</span>
+    <span class="n">delta</span> <span class="o">=</span> <span class="n">znear</span> <span class="o">-</span> <span class="n">zfar</span>
+
+    <span class="n">mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">mat</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span> <span class="o">/</span> <span class="n">aspect</span>
+    <span class="n">mat</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span>
+    <span class="n">mat</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">zfar</span> <span class="o">+</span> <span class="n">znear</span><span class="p">)</span> <span class="o">/</span> <span class="n">delta</span>
+    <span class="n">mat</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">zfar</span> <span class="o">*</span> <span class="n">znear</span><span class="p">)</span> <span class="o">/</span> <span class="n">delta</span>
+    <span class="n">mat</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">mat</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">return</span> <span class="n">mat</span>
+
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="view-navigation.html" title="回転とズーム"
+             >next</a></li>
+        <li class="right" >
+          <a href="program-manager.html" title="シェーダープログラム管理クラス"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >PyOpenGL 利用ノート</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="coding.html" >コードを書く</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,139 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>コードを書く &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="本章の構成" href="coding-intro.html" />
+    <link rel="prev" title="ドキュメント" href="doc.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="coding-intro.html" title="本章の構成"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="doc.html" title="ドキュメント"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">PyOpenGL 利用ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>コードを書く<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>C ではなく Python を利用して OpenGL プログラムを書く利点は、
+<a class="reference external" href="http://pyopengl.sourceforge.net/">PyOpenGL</a> の API を <a class="reference external" href="http://www.numpy.org/">NumPy</a> や <a class="reference external" href="http://python-pillow.github.io/">Pillow</a> といった、高品質なサードパーティ製パッケージの部品と簡単に組み合わせて利用できるという点に尽きる。</p>
+<p>欠点は何度も言うように実行が遅いことだ。悲しいくらい遅い。しかし、グラフィックの初学者には遅い方が学習の上ではむしろ好都合ということもあるだろう。なぜ遅いのか、何をすれば速くなるのかを考察することは、技術の向上には役に立つ。</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="coding-intro.html">本章の構成</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="coding-intro.html#pyopengl">PyOpenGL プログラム共通の注意事項およびコツ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coding-intro.html#id2">PyOpenGL プログラムのための土台となるクラスを実装する</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coding-intro.html#id3">関連クラス・関数群を実装する</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coding-intro.html#id4">サンプルプログラムの紹介と解説</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tips.html">PyOpenGL プログラムに頻出する技法・注意点</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#bytes">文字列が <code class="docutils literal notranslate"><span class="pre">bytes</span></code> 型になっている</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#glut">GLUT の引数コールバックに、自作クラスのメソッドを渡せる</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#id1">複数形の名前を持つ関数が単数の値を返す場合は注意</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#id2">配列を受け取る関数全般</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#numpy-np-array">NumPy の <code class="docutils literal notranslate"><span class="pre">np.array</span></code> を配列として扱う</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#sizeof"><code class="docutils literal notranslate"><span class="pre">sizeof</span></code> 問題</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#ctypes">ポインター系統の関数のためにモジュール <code class="docutils literal notranslate"><span class="pre">ctypes</span></code> の機能を併用する</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#id3">NumPy の <code class="docutils literal notranslate"><span class="pre">np.array</span></code> を行列として扱う</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#pil">PIL 経由でテクスチャーを生成する</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="appbase.html">クラス <code class="docutils literal notranslate"><span class="pre">AppBase</span></code> の実装</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="appbase.html#id1">クラス <code class="docutils literal notranslate"><span class="pre">AppBase</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="deprecatedapp.html">クラス <code class="docutils literal notranslate"><span class="pre">DeprecatedApp</span></code> の実装</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="deprecatedapp.html#id1">クラス <code class="docutils literal notranslate"><span class="pre">DeprecatedApp</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modernapp.html">クラス <code class="docutils literal notranslate"><span class="pre">ModernApp</span></code> の実装</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modernapp.html#id1">クラス <code class="docutils literal notranslate"><span class="pre">ModernApp</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="program-manager.html">シェーダープログラム管理クラス</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="program-manager.html#programmanager">クラス <code class="docutils literal notranslate"><span class="pre">ProgramManager</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="program-manager.html#id2">メンバーデータの説明</a></li>
+<li class="toctree-l2"><a class="reference internal" href="program-manager.html#id3">メソッドの説明</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="transform.html">ベクトル・行列・座標変換</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="transform.html#id2">基本方針</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transform.html#opengl">OpenGL インターフェイスとアクセスする行列データについて</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transform.html#id7">座標変換を実装する</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="view-navigation.html">回転とズーム</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="view-navigation.html#id2">方針</a></li>
+<li class="toctree-l2"><a class="reference internal" href="view-navigation.html#abstractviewnavigation">クラス <code class="docutils literal notranslate"><span class="pre">AbstractViewNavigation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="view-navigation.html#viewrotate">クラス <code class="docutils literal notranslate"><span class="pre">ViewRotate</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="view-navigation.html#viewzoom">クラス <code class="docutils literal notranslate"><span class="pre">ViewZoom</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="view-navigation.html#id4">補助関数群を定義する</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="imagefile.html">画像ファイルを扱う</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="imagefile.html#png">PNG ファイルからテクスチャーを生成する</a></li>
+<li class="toctree-l2"><a class="reference internal" href="imagefile.html#id2">日本語テキストを描画する</a></li>
+<li class="toctree-l2"><a class="reference internal" href="imagefile.html#pillow-glreadpixels">Pillow + <code class="docutils literal notranslate"><span class="pre">glReadPixels</span></code> によるスクリーンショット取得</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="shader.html">単純なシェーダープログラムの作成</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="shader.html#id2">サンプルプログラムを探す</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shader.html#id3">サンプルコード全体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shader.html#id4">ポイント解説</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shader.html#id9">実行する</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="coding-intro.html" title="本章の構成"
+             >next</a></li>
+        <li class="right" >
+          <a href="doc.html" title="ドキュメント"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >PyOpenGL 利用ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

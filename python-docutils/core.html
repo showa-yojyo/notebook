@@ -1,0 +1,254 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>モジュール docutils.core &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="その他の話題" href="misc.html" />
+    <link rel="prev" title="モジュール docutils.frontend" href="frontend.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="misc.html" title="その他の話題"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="frontend.html" title="モジュール docutils.frontend"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Docutils 解読ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="docutils-core">
+<h1><a class="toc-backref" href="#id6">モジュール <code class="docutils literal notranslate"><span class="pre">docutils.core</span></code></a><a class="headerlink" href="#docutils-core" title="Permalink to this headline">¶</a></h1>
+<p>モジュール <code class="docutils literal notranslate"><span class="pre">docutils.core</span></code> は名前に反してむしろエンドユーザー寄りの場所にある。これまで見てきた低階層のクラス群を統べるクラス <code class="docutils literal notranslate"><span class="pre">Publisher</span></code> と、それを用いてドキュメントを生成する関数群が定義されている。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title first">ノート目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#docutils-core" id="id6">モジュール <code class="docutils literal notranslate"><span class="pre">docutils.core</span></code></a><ul>
+<li><a class="reference internal" href="#publisher" id="id7">クラス <code class="docutils literal notranslate"><span class="pre">Publisher</span></code></a><ul>
+<li><a class="reference internal" href="#id2" id="id8">メンバー</a></li>
+<li><a class="reference internal" href="#id3" id="id9">メソッド</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id4" id="id10">関数</a></li>
+<li><a class="reference internal" href="#id5" id="id11">感想</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="publisher">
+<h2><a class="toc-backref" href="#id7">クラス <code class="docutils literal notranslate"><span class="pre">Publisher</span></code></a><a class="headerlink" href="#publisher" title="Permalink to this headline">¶</a></h2>
+<p>クラス <code class="docutils literal notranslate"><span class="pre">Publisher</span></code> は今まで見てきた入出力、読み込み、構文解析、変換、書き出し等の処理を一箇所に閉じ込めて、クライアントとの窓口にして機能するように設計されている。クライアントというのは、後述する関数 <code class="docutils literal notranslate"><span class="pre">publish_xxxx</span></code> 系がまさに相当する。</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/docutils-publisher-od.png"><img alt="(component diagram)" src="../_images/docutils-publisher-od.png" style="width: 430.0px; height: 299.0px;" /></a>
+</div>
+<div class="section" id="id2">
+<h3><a class="toc-backref" href="#id8">メンバー</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>主要なメンバーデータを調べてみよう。</p>
+</div>
+<div class="section" id="id3">
+<h3><a class="toc-backref" href="#id9">メソッド</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>エラー処理や単純なアクセッサーは省いて、主要なメソッドを調べてみよう。呼びだされそうな順序で挙げていく。</p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">__init__(self,</span> <span class="pre">...)</span></code></dt>
+<dd><p class="first"><code class="docutils literal notranslate"><span class="pre">Publisher</span></code> オブジェクトを生成する。</p>
+<ul class="last simple">
+<li>指定した引数がそのままメンバーデータにセットされる。</li>
+<li><code class="docutils literal notranslate"><span class="pre">reader</span></code>, <code class="docutils literal notranslate"><span class="pre">parser</span></code>, <code class="docutils literal notranslate"><span class="pre">writer</span></code> はそれぞれ文字列であってはならない。変数名が示すようなクラスのオブジェクトである必要がある。</li>
+<li><code class="docutils literal notranslate"><span class="pre">settings</span></code> は後で述べるメソッドでも指定する機会がある。生成時は無指定で構わないだろう。</li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">set_components(self,</span> <span class="pre">reader_name,</span> <span class="pre">parser_name,</span> <span class="pre">writer_name)</span></code></dt>
+<dd><p class="first"><code class="docutils literal notranslate"><span class="pre">Component</span></code> 系のメンバーデータを文字列によってセットする。</p>
+<ul class="last simple">
+<li><code class="docutils literal notranslate"><span class="pre">self.reader</span></code>, <code class="docutils literal notranslate"><span class="pre">self.parser</span></code>, <code class="docutils literal notranslate"><span class="pre">self.writer</span></code> が確実にセットされて、
+Reader と Writer のオブジェクト間の関連付けも担保される。下記ページも参照。<ul>
+<li><a class="reference internal" href="readers.html"><span class="doc">サブパッケージ docutils.readers</span></a></li>
+<li><a class="reference internal" href="parsers.html"><span class="doc">サブパッケージ docutils.parsers</span></a></li>
+<li><a class="reference internal" href="writers.html"><span class="doc">サブパッケージ docutils.writers</span></a></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">process_programmatic_settings(self,</span> <span class="pre">settings_spec,</span> <span class="pre">...)</span></code></dt>
+<dd><p class="first">これはよくわからない。</p>
+<ul class="last simple">
+<li><code class="docutils literal notranslate"><span class="pre">self.settings</span></code> が設定済みの場合は特に機能しない。</li>
+<li>これは <code class="docutils literal notranslate"><span class="pre">traceback</span></code> というオプションを ON になるため（だけ）の機能か。メインの処理でエラー発生時にデバッグダンプが出るようになる？</li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">get_settings(self,</span> <span class="pre">usage=None,</span> <span class="pre">...)</span></code></dt>
+<dd><p class="first"><code class="docutils literal notranslate"><span class="pre">OptionParser</span></code> オブジェクトを生成したあと、そのメソッド <code class="docutils literal notranslate"><span class="pre">get_default_values</span></code> を呼び出した戻り値を
+<code class="docutils literal notranslate"><span class="pre">self.settings</span></code> にセットする。</p>
+<ul class="last simple">
+<li>名前は get だが内容は set を兼ねているので注意。</li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">setup_option_parser(self,</span> <span class="pre">usage=None,</span> <span class="pre">...)</span></code></dt>
+<dd><p class="first"><code class="docutils literal notranslate"><span class="pre">OptionParser</span></code> オブジェクトを生成して返すメソッド。</p>
+<ul class="last simple">
+<li>クラス <code class="docutils literal notranslate"><span class="pre">OptionParser</span></code> については <a class="reference internal" href="frontend.html"><span class="doc">モジュール docutils.frontend</span></a> 参照。</li>
+<li>引数の指定状況によっては <code class="docutils literal notranslate"><span class="pre">SettingsSpec</span></code> オブジェクトを自力で生成する。抽象クラスかと思っていたが、オブジェクトとして用いる場合があるとは。</li>
+<li>このメソッドの事前条件の一つに <code class="docutils literal notranslate"><span class="pre">Component</span></code> 系のメンバーデータがセットアップ済みであるというものがある。
+<code class="docutils literal notranslate"><span class="pre">OptionParser</span></code> のコンストラクターがそれらを要求する。</li>
+<li>このメソッドは <code class="docutils literal notranslate"><span class="pre">get_settings</span></code> と <code class="docutils literal notranslate"><span class="pre">process_command_line</span></code> から呼び出される。</li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">publish(self,</span> <span class="pre">argv=None,</span> <span class="pre">...)</span></code></dt>
+<dd><p class="first">このメソッドが「実行」役を果たす。文書生成のパイプライン、次に示すステージからなる一連の手続きそのものの実装となる。</p>
+<ol class="arabic simple">
+<li>コマンドライン解析 <code class="docutils literal notranslate"><span class="pre">self.process_command_line</span></code></li>
+<li>入出力設定 <code class="docutils literal notranslate"><span class="pre">self.set_io</span></code></li>
+<li>読み込み処理 <code class="docutils literal notranslate"><span class="pre">self.reader.read</span></code></li>
+<li>構文木の変換 <code class="docutils literal notranslate"><span class="pre">self.apply_transforms</span></code></li>
+<li>書き出し処理 <code class="docutils literal notranslate"><span class="pre">self.writer.write</span></code></li>
+</ol>
+<div class="last figure align-center">
+<a class="reference internal image-reference" href="../_images/docutils-publisher-sd.png"><img alt="(component diagram)" src="../_images/docutils-publisher-sd.png" style="width: 628.0px; height: 580.0px;" /></a>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">process_command_line(self,</span> <span class="pre">argv=None,</span> <span class="pre">...)</span></code></dt>
+<dd><p class="first">コマンドライン引数を解析して、メンバーデータ <code class="docutils literal notranslate"><span class="pre">self.settings</span></code> をセットする。</p>
+<ul class="last simple">
+<li>引数 <code class="docutils literal notranslate"><span class="pre">argv</span></code> が <code class="docutils literal notranslate"><span class="pre">None</span></code> のとき、実際のコマンドライン引数を自動的に解析対象として適用する。</li>
+<li>引数 <code class="docutils literal notranslate"><span class="pre">argv</span></code> 以外のものはすべて次に説明するメソッドに渡される。</li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">set_io(self,</span> <span class="pre">source_path=None,</span> <span class="pre">destination_path=None)</span></code></dt>
+<dd><p class="first">メソッド <code class="docutils literal notranslate"><span class="pre">set_source</span></code> と <code class="docutils literal notranslate"><span class="pre">set_destination</span></code> を同時に呼び出す。後述のメモを参照。</p>
+<ul class="last simple">
+<li>それぞれの型は <code class="docutils literal notranslate"><span class="pre">docutils.io.Input</span></code> と <code class="docutils literal notranslate"><span class="pre">docutils.io.Output</span></code> の何らかのサブクラスだ。
+<a class="reference internal" href="io.html"><span class="doc">モジュール docutils.io</span></a> 参照。</li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">set_source(self,</span> <span class="pre">source=None,</span> <span class="pre">source_path=None)</span></code></dt>
+<dd><p class="first">メンバーデータ <code class="docutils literal notranslate"><span class="pre">self.source</span></code> を生成する。</p>
+<ul class="last simple">
+<li>代入とは異なる。クラス <code class="docutils literal notranslate"><span class="pre">self.source_class</span></code> のコンストラクターを適用する。このメソッドの引数はそのままこのコンストラクターに渡される。</li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">set_destination(self,</span> <span class="pre">destination=None,</span> <span class="pre">destination_path=None)</span></code></dt>
+<dd><p class="first">メンバーデータ <code class="docutils literal notranslate"><span class="pre">self.destination</span></code> を生成する。</p>
+<ul class="last simple">
+<li>代入とは異なる。クラス <code class="docutils literal notranslate"><span class="pre">self.destination_class</span></code> のコンストラクターを適用する。このメソッドの引数はそのままこのコンストラクターに渡される。</li>
+<li>後半の例外処理のコードに違和感がある。どうも try 節と except 節の内容が同一に見える。</li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">apply_transforms(self)</span></code></dt>
+<dd><p class="first"><code class="docutils literal notranslate"><span class="pre">self.document.transformer</span></code> のメソッドを連発するメソッド。</p>
+<ul class="last simple">
+<li>変換オブジェクトは <code class="docutils literal notranslate"><span class="pre">Publisher</span></code> の <code class="docutils literal notranslate"><span class="pre">TransformSpec</span></code> 系メンバーデータすべてから得る。</li>
+<li><code class="docutils literal notranslate"><span class="pre">Transformer</span></code> については <a class="reference internal" href="transforms.html"><span class="doc">サブパッケージ docutils.transforms</span></a> 参照。</li>
+</ul>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id10">関数</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>ここまで書いてきて何だが、実のところユーザーはクラス <code class="docutils literal notranslate"><span class="pre">Publisher</span></code> を直接用いる必要はない。代わりに関数 <code class="docutils literal notranslate"><span class="pre">publish_xxxx</span></code> 系を呼ぶことで、原稿から各種文書ファイルを生成できる。</p>
+<p>以下、各関数の仕様を述べる。ユーザーは用途に合ったものを一つ選んで単に呼び出すとよい。</p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">publish_cmdline</span></code></dt>
+<dd>コマンドラインを読んで、文書オブジェクトを出力する。</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">publish_file</span></code></dt>
+<dd><p class="first">入出力ファイルを指定して、文書オブジェクトを出力する。処理を <code class="docutils literal notranslate"><span class="pre">publish_programmatically</span></code> に委譲する。</p>
+<ul class="last simple">
+<li>その際、引数 <code class="docutils literal notranslate"><span class="pre">source_class</span></code> と <code class="docutils literal notranslate"><span class="pre">destination_class</span></code> を
+<code class="docutils literal notranslate"><span class="pre">docutils.io.FileInput</span></code> および <code class="docutils literal notranslate"><span class="pre">docutils.io.FileOutput</span></code> にそれぞれ固定する。</li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">publish_string</span></code></dt>
+<dd><p class="first">入力を reStructuredText 書式の文字列として、文書オブジェクトを出力する。</p>
+<ul class="last simple">
+<li>実際は関数 <code class="docutils literal notranslate"><span class="pre">publish_programmatically</span></code> が働く。その際、引数 <code class="docutils literal notranslate"><span class="pre">source_class</span></code> と <code class="docutils literal notranslate"><span class="pre">destination_class</span></code> を
+<code class="docutils literal notranslate"><span class="pre">docutils.io.StringInput</span></code> および <code class="docutils literal notranslate"><span class="pre">docutils.io.StringOutput</span></code> にそれぞれ固定する。</li>
+<li>さらに引数 <code class="docutils literal notranslate"><span class="pre">destination</span></code> は指定なし、すなわち標準出力となる。</li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">publish_parts</span></code></dt>
+<dd><p class="first">文書情報を辞書オブジェクトの形で返す。</p>
+<ul class="last simple">
+<li>実際は関数 <code class="docutils literal notranslate"><span class="pre">publish_programmatically</span></code> が働く。引数 <code class="docutils literal notranslate"><span class="pre">destination_class</span></code> を <code class="docutils literal notranslate"><span class="pre">docutils.io.StringOutput</span></code> に固定する。</li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">publish_doctree</span></code></dt>
+<dd>文書情報をいつもの構文木オブジェクトの形で返す。</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">publish_from_doctree</span></code></dt>
+<dd><p class="first">既存の構文木オブジェクトから文字列を出力する。</p>
+<ul class="last simple">
+<li>読み取りオブジェクトが空構文解析オブジェクトを利用する。</li>
+<li><code class="docutils literal notranslate"><span class="pre">Publisher</span></code> オブジェクトの <code class="docutils literal notranslate"><span class="pre">source</span></code> が <code class="docutils literal notranslate"><span class="pre">docutils.io.DocTreeInput</span></code> 型を固定。</li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">publish_cmdline_to_binary</span></code></dt>
+<dd>ほとんど <code class="docutils literal notranslate"><span class="pre">publish_cmdline</span></code> と同じだが、出力クラスが <code class="docutils literal notranslate"><span class="pre">docutils.io.BinaryFileOutput</span></code> に固定となる。</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">publish_programmatically</span></code></dt>
+<dd><p class="first">すべての <code class="docutils literal notranslate"><span class="pre">publish_xxxx</span></code> 系の基本形の関数。</p>
+<ul class="last simple">
+<li>デフォルト引数は一つもない。全て呼び出し元が明示的に値を渡す必要がある。ただし <code class="docutils literal notranslate"><span class="pre">None</span></code> を渡すことで、デフォルト値を内部的に決めさせることはある。</li>
+<li>エンドユーザーはこの関数を直接呼び出すべきではないと但し書きが付いている。</li>
+<li>この関数の docstring がたいへん丁寧なので、必要な仕様情報はここから得たい。</li>
+</ul>
+</dd>
+</dl>
+<p>各関数に共通するデフォルト値をまとめておく。</p>
+<ul class="simple">
+<li>引数 <code class="docutils literal notranslate"><span class="pre">argv</span></code> に指定がない場合は実際のコマンドライン引数 <code class="docutils literal notranslate"><span class="pre">sys.argv[1:]</span></code> が適用される。</li>
+<li>引数 <code class="docutils literal notranslate"><span class="pre">source</span></code> に指定がない場合は標準入力 <code class="docutils literal notranslate"><span class="pre">sys.stdin</span></code> が適用される。</li>
+<li>引数 <code class="docutils literal notranslate"><span class="pre">destination</span></code> に指定がない場合は標準出力 <code class="docutils literal notranslate"><span class="pre">sys.stdout</span></code> が適用される。</li>
+<li>読み取りクラスのデフォルトは <code class="docutils literal notranslate"><span class="pre">docutils.readers.standalone.Reader</span></code> になる。</li>
+<li>構文解析クラスのデフォルトは <code class="docutils literal notranslate"><span class="pre">docutils.parsers.rst.Parser</span></code> になる。</li>
+<li>書き出しクラスのデフォルトは <code class="docutils literal notranslate"><span class="pre">docutils.writers.pseudoxml.Writer</span></code> になる。</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id11">感想</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>Docutils の構成要素を一箇所で捌き切っている感じ。</p>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="misc.html" title="その他の話題"
+             >next</a></li>
+        <li class="right" >
+          <a href="frontend.html" title="モジュール docutils.frontend"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Docutils 解読ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

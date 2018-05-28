@@ -1,0 +1,272 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Python Twitter Tools 利用ノート &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="インストール" href="setup.html" />
+    <link rel="prev" title="Pygments 利用ノート" href="../python-pygments.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="setup.html" title="インストール"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="../python-pygments.html" title="Pygments 利用ノート"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="python-twitter-tools">
+<h1>Python Twitter Tools 利用ノート<a class="headerlink" href="#python-twitter-tools" title="Permalink to this headline">¶</a></h1>
+<p>Twitter をたしなむ Python プログラマーならば、
+Twitter API を Python で操ろうと考えるのは当然なことだ。ここでは Mike Verdone 氏開発による <a class="reference external" href="http://mike.verdone.ca/twitter/">Python Twitter Tools</a> (hereafter PTT)
+パッケージを利用した Twitter 操作を色々と見ていく。</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">インストール</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#id3">前準備</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rest.html">基本技法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rest.html#id3">概要</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest.html#id4">認証処理およびインターフェイス準備処理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest.html#id5">リクエスト結果オブジェクトの出力処理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest.html#id">特殊なパラメーター <code class="docutils literal notranslate"><span class="pre">id</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest.html#id6">ページング処理</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rest-account.html">アカウント設定関連</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rest-account.html#get-account-verify-credentials">GET account/verify_credentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-account.html#post-account-remove-profile-banner">POST account/remove_profile_banner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-account.html#get-account-settings">GET account/settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-account.html#post-account-settings">POST account/settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-account.html#post-account-update-delivery-device">POST account/update_delivery_device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-account.html#post-account-update-profile">POST account/update_profile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-account.html#post-account-update-profile-banner">POST account/update_profile_banner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-account.html#post-account-update-profile-image">POST account/update_profile_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-account.html#post-account-update-profile-background-image">POST account/update_profile_background_image</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rest-application.html">アプリケーション関連</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rest-application.html#get-application-rate-limit-status">GET application/rate_limit_status</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rest-blocks.html">ブロック関連</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rest-blocks.html#post-blocks-create">POST blocks/create</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-blocks.html#post-blocks-destroy">POST blocks/destroy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-blocks.html#get-blocks-ids">GET blocks/ids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-blocks.html#get-blocks-list">GET blocks/list</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rest-direct-messages.html">ダイレクトメッセージ関連</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rest-direct-messages.html#post-direct-messages-new">POST direct_messages/new</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-direct-messages.html#get-direct-messages-show">GET direct_messages/show</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-direct-messages.html#get-direct-messages">GET direct_messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-direct-messages.html#get-direct-messages-sent">GET direct_messages/sent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-direct-messages.html#post-direct-messages-destroy">POST direct_messages/destroy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rest-favorites.html">お気に入り関連</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rest-favorites.html#post-favorites-create">POST favorites/create</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-favorites.html#post-favorites-destroy">POST favorites/destroy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-favorites.html#get-favorites-list">GET favorites/list</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rest-followers.html">フォロワー関連</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rest-followers.html#get-followers-ids">GET followers/ids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-followers.html#get-followers-list">GET followers/list</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rest-friends.html">フォロー関連</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rest-friends.html#get-friends-ids">GET friends/ids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-friends.html#get-friends-list">GET friends/list</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rest-friendships.html">フォロー自身とフォローに付随する機能</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rest-friendships.html#post-friendships-create">POST friendships/create</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-friendships.html#post-friendships-destroy">POST friendships/destroy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-friendships.html#get-friendships-incoming">GET friendships/incoming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-friendships.html#get-friendships-outgoing">GET friendships/outgoing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-friendships.html#get-friendships-lookup">GET friendships/lookup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-friendships.html#get-friendships-show">GET friendships/show</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-friendships.html#get-friendships-no-retweets-ids">GET friendships/no_retweets/ids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-friendships.html#post-friendships-update">POST friendships/update</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rest-geo.html">場所関連</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rest-geo.html#get-geo-id-place-id">GET geo/id/:place_id</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-geo.html#post-geo-place">POST geo/place</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-geo.html#get-geo-reverse-geocode">GET geo/reverse_geocode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-geo.html#get-geo-search">GET geo/search</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rest-help.html">ヘルプ関連</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rest-help.html#get-help-configuration">GET help/configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-help.html#get-help-languages">GET help/languages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-help.html#get-help-privacy">GET help/privacy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-help.html#get-help-tos">GET help/tos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rest-lists.html">リスト関連</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rest-lists.html#post-lists-create">POST lists/create</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-lists.html#post-lists-destroy">POST lists/destroy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-lists.html#get-lists-list">GET lists/list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-lists.html#get-lists-statuses">GET lists/statuses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-lists.html#get-lists-show">GET lists/show</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-lists.html#post-lists-update">POST lists/update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-lists.html#post-lists-members-create">POST lists/members/create</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-lists.html#post-lists-members-create-all">POST lists/members/create_all</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-lists.html#post-lists-members-destroy">POST lists/members/destroy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-lists.html#post-lists-members-destroy-all">POST lists/members/destroy_all</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-lists.html#get-lists-members">GET lists/members</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-lists.html#get-lists-members-show">GET lists/members/show</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-lists.html#get-lists-memberships">GET lists/memberships</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-lists.html#post-lists-subscribers-create">POST lists/subscribers/create</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-lists.html#post-lists-subscribers-destroy">POST lists/subscribers/destroy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-lists.html#get-lists-subscribers">GET lists/subscribers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-lists.html#post-lists-subscribers-show">POST lists/subscribers/show</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-lists.html#get-lists-subscriptions">GET lists/subscriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-lists.html#get-lists-ownerships">GET lists/ownerships</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rest-media.html">画像等のアップロード関連</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rest-media.html#get-media-upload">GET media/upload</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rest-mutes.html">ミュート関連</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rest-mutes.html#post-mutes-users-create">POST mutes/users/create</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-mutes.html#post-mutes-users-destroy">POST mutes/users/destroy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-mutes.html#get-mutes-users-ids">GET mutes/users/ids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-mutes.html#get-mutes-users-list">GET mutes/users/list</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rest-saved-searches.html">検索履歴関連</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rest-saved-searches.html#get-saved-searches-list">GET saved_searches/list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-saved-searches.html#get-saved-searches-show-id">GET saved_searches/show:id</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-saved-searches.html#post-saved-searches-create">POST saved_searches/create</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-saved-searches.html#post-saved-searches-destroy-id">POST saved_searches/destroy/:id</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rest-search.html">検索関連</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rest-search.html#get-search-tweets">GET search/tweets</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rest-statuses.html">タイムラインおよびツイート関連</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rest-statuses.html#get-statuses-mentions-timeline">GET statuses/mentions_timeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-statuses.html#get-statuses-user-timeline">GET statuses/user_timeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-statuses.html#get-statuses-home-timeline">GET statuses/home_timeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-statuses.html#get-statuses-retweets-of-me">GET statuses/retweets_of_me</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-statuses.html#get-statuses-retweets-id">GET statuses/retweets/:id</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-statuses.html#get-statuses-show-id">GET statuses/show/:id</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-statuses.html#post-statuses-destroy-id">POST statuses/destroy/:id</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-statuses.html#post-statuses-update">POST statuses/update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-statuses.html#post-statuses-retweet-id">POST statuses/retweet/:id</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-statuses.html#post-statuses-unretweet-id">POST statuses/unretweet/:id</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-statuses.html#post-statuses-update-with-media">POST statuses/update_with_media</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-statuses.html#get-statuses-oembed">GET statuses/oembed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-statuses.html#get-statuses-retweeters-ids">GET statuses/retweeters/ids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-statuses.html#get-statuses-lookup">GET statuses/lookup</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rest-trends.html">トレンド関連</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rest-trends.html#get-trends-available">GET trends/available</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-trends.html#get-trends-closest">GET trends/closest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-trends.html#get-trends-place">GET trends/place</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rest-users.html">ユーザーアカウント関連</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rest-users.html#get-users-lookup">GET users/lookup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-users.html#get-users-show">GET users/show</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-users.html#get-users-search">GET users/search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-users.html#get-users-profile-banner">GET users/profile_banner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-users.html#get-users-suggestions">GET users/suggestions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-users.html#get-users-suggestions-slug">GET users/suggestions/:slug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-users.html#get-users-suggestions-slug-members">GET users/suggestions/:slug/members</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-users.html#post-users-report-spam">POST users/report_spam</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.html">付録スクリプト</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scripts.html#id3">概要</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scripts.html#twitter-follow">twitter-follow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scripts.html#twitter-log">twitter-log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scripts.html#twitter-archiver">twitter-archiver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scripts.html#twitter-stream-example">twitter-stream-example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scripts.html#twitterbot">twitterbot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scripts.html#twitter">twitter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scripts.html#id9">寸評</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>本稿執筆時の動作環境は次のとおり。</p>
+<ul class="last simple">
+<li>OS<ul>
+<li>Windows XP Home Edition SP3</li>
+<li>Windows 7 Home Premium x64 SP1</li>
+<li>Windows 10 Home x64</li>
+</ul>
+</li>
+<li>パッケージ<ul>
+<li><a class="reference external" href="http://www.python.org/">Python</a>: 2.6.6, 2.7.3, 3.4.1, 3.5.0, 3.6.5</li>
+<li><a class="reference external" href="http://mike.verdone.ca/twitter/">Python Twitter Tools</a>: 1.7.2, 1.8.0, 1.9.0, 1.14.3, 1.17.1, 1.18.0</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h2>関連リンク<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference external" href="http://mike.verdone.ca/twitter/">Python Twitter Tools</a></dt>
+<dd>著者ウェブページ。開発ページは別にある。</dd>
+<dt><a class="reference external" href="https://dev.twitter.com/overview/documentation">Documentation</a></dt>
+<dd>Twitter 本家ドキュメント。</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="setup.html" title="インストール"
+             >next</a></li>
+        <li class="right" >
+          <a href="../python-pygments.html" title="Pygments 利用ノート"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

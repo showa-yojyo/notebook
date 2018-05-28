@@ -1,0 +1,555 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>8 Values &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="9 Classification" href="classification.html" />
+    <link rel="prev" title="7 Common Structure" href="common-structure.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="classification.html" title="9 Classification"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="common-structure.html" title="7 Common Structure"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Unified Modeling Language 2.5 読書ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="values">
+<h1><a class="toc-backref" href="#id23">8 Values</a><a class="headerlink" href="#values" title="Permalink to this headline">¶</a></h1>
+<p>UML 2.5 pp. 69-96 に関するノート。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title first">ノート目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#values" id="id23">8 Values</a><ul>
+<li><a class="reference internal" href="#summary" id="id24">8.1 Summary</a></li>
+<li><a class="reference internal" href="#literals" id="id25">8.2 Literals</a></li>
+<li><a class="reference internal" href="#expressions" id="id26">8.3 Expressions</a></li>
+<li><a class="reference internal" href="#time" id="id27">8.4 Time</a></li>
+<li><a class="reference internal" href="#intervals" id="id28">8.5 Intervals</a></li>
+<li><a class="reference internal" href="#classifier-descriptions" id="id29">8.6 Classifier Descriptions</a></li>
+<li><a class="reference internal" href="#association-descriptions" id="id30">8.7 Association Descriptions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="summary">
+<h2><a class="toc-backref" href="#id24">8.1 Summary</a><a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>この章では値の仕様を述べる。一般には、ValueSpecification とは意味論的にゼロ個以上の値をもたらすとみなされるモデル要素である。</li>
+<li>次の各節で UML で利用可能な ValueSpecifications のさまざまな種類を述べる。</li>
+</ul>
+</div>
+<div class="section" id="literals">
+<h2><a class="toc-backref" href="#id25">8.2 Literals</a><a class="headerlink" href="#literals" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>8.2.1 Summary<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>LiteralSpecification とはリテラル値を指定する ValueSpecification である。
+UML 標準 PrimitiveTypes のそれぞれに対して LiteralSpecification の別々の種類のものがあり、それぞれ対応するテキストによるリテラル表記法に、「値が欠けている」ことを表現する「空」リテラルを共にする。</li>
+</ul>
+</div>
+<div class="section" id="abstract-syntax">
+<h3>8.2.2 Abstract Syntax<a class="headerlink" href="#abstract-syntax" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 8.1 Literals<ul>
+<li>ここには 6 種類の LiteralSpecification の具象要素が存在する。次節で意味を仕様化する。</li>
+<li>名前のある関連が一つもない。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="semantics">
+<h3>8.2.3 Semantics<a class="headerlink" href="#semantics" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>LiteralSpecifications は 6 種類存在する。<ol class="arabic">
+<li>LiteralNull は値の欠損を明示的に模すために用いられることを意図されている。<ul>
+<li>下限がゼロである多重度の MultiplicityElement においては、これは空集合に対応する。
+Element に対して値を何も指定しないことと同値である。</li>
+</ul>
+</li>
+<li>LiteralString は PrimitiveType String の定数値を指定する。<ul>
+<li>String は文字の列として指定されるものの、
+String 値は UML では組み込み型とみなされ、ゆえに内部構造は UML 意味論の部分として指定されない。</li>
+</ul>
+</li>
+<li>LiteralInteger は PrimitiveType Integer の定数値を指定する。</li>
+<li>LiteralBoolean は PrimitiveType Boolean の定数値を指定する。</li>
+<li>LiteralUnlimitedNatural は PrimitiveType UnlimitedNatural の定数値を指定する。</li>
+<li>LiteralReal は PrimitiveType Real の定数値を指定する。</li>
+</ol>
+</li>
+<li><a class="reference internal" href="primitive-types.html"><span class="doc">21 Primitive Types</span></a> も併せて参照したい。</li>
+</ul>
+</div>
+<div class="section" id="notation">
+<h3>8.2.4 Notation<a class="headerlink" href="#notation" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>LiteralSpecifications はテキスト的に表記される。<ul>
+<li>LiteralNull の記法は使用する状況に依るが、たいていは “null” のように記す。</li>
+<li>LiteralString は文字列を二重引用符で囲む。引用符自身はリテラル値に含まれない。</li>
+<li>LiteralInteger は十進数の列として示す。</li>
+<li>LiteralBoolean は true または false で示す。</li>
+<li>LiteralUnlimitedNatural で注意を要するのは、その値が unlimited な場合の記法と意味である。記法は単にアスタリスク一文字であり、意味は「値の上限に指定がない」と指定されていると解釈する。</li>
+<li>LiteralReal の記法は p. 70 の BNF 記法を見る限り、
+C/C++ 言語の double のそれに酷似している感じ。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="expressions">
+<h2><a class="toc-backref" href="#id26">8.3 Expressions</a><a class="headerlink" href="#expressions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>8.3.1 Summary<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Expressions とは、計算から生じる値を指定する ValueSpecifications である。</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h3>8.3.2 Abstract Syntax<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 8.2 Expressions<ul>
+<li>この図式からは 2 系統の Expression が存在することがわかる。
+Expression 系統と OpaqueExpression である。</li>
+</ul>
+</li>
+</ul>
+<dl class="docutils">
+<dt>A_operand_expression</dt>
+<dd><ul class="first last simple">
+<li>Expression から ValueSpecification への composite 関連（単方向）。</li>
+<li>関連端 <code class="docutils literal notranslate"><span class="pre">operand</span></code> には制約 <code class="docutils literal notranslate"><span class="pre">{ordered}</span></code> がある。当然だ。<ul>
+<li>もし <code class="docutils literal notranslate"><span class="pre">operands</span></code> がないならば、この Expression は端末ノードを表す。</li>
+<li>ある場合は、この Expression は <code class="docutils literal notranslate"><span class="pre">operands</span></code> に適用される記号により与えられる演算子を表す。</li>
+</ul>
+</li>
+<li>A_ownedElement_owner を subsets する。</li>
+</ul>
+</dd>
+<dt>A_subExpression_owningExpression</dt>
+<dd><ul class="first last simple">
+<li>StringExpression から StringExpression への composite 関連（双方向）。</li>
+<li>A_ownedElement_owner を subsets する。</li>
+<li>関連端 <code class="docutils literal notranslate"><span class="pre">subExpression</span></code> は <code class="docutils literal notranslate"><span class="pre">{ordered}</span></code> である。</li>
+</ul>
+</dd>
+<dt>A_behavior_opaqueExpression, A_result_opaqueExpression</dt>
+<dd><ul class="first last simple">
+<li>OpaqueExpression から Behavior への関連（単方向）。</li>
+<li>この関連は OpaqueExpression::<code class="docutils literal notranslate"><span class="pre">body</span></code> がない場合に意味がある。</li>
+<li>関連端 <code class="docutils literal notranslate"><span class="pre">result</span></code> は <code class="docutils literal notranslate"><span class="pre">{readOnly}</span></code> である。</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="id5">
+<h3>8.3.3 Semantics<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="expression">
+<h4>8.3.3.1 Expression<a class="headerlink" href="#expression" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Expression は木構造として指定される。<ul>
+<li>この木構造の各ノードは <code class="docutils literal notranslate"><span class="pre">symbol</span></code> と <code class="docutils literal notranslate"><span class="pre">operands</span></code> の任意の集合とで構成される。</li>
+<li>もし <code class="docutils literal notranslate"><span class="pre">operands</span></code> がなければ、Expression は終端ノードを表現する。あるならば、Expression は <code class="docutils literal notranslate"><span class="pre">operands</span></code> に適用する <code class="docutils literal notranslate"><span class="pre">symbol</span></code> により与えられる演算子を表現する。</li>
+</ul>
+</li>
+<li>Expression はまずは <code class="docutils literal notranslate"><span class="pre">operands</span></code> のそれぞれを評価し、次に Expression <code class="docutils literal notranslate"><span class="pre">symbol</span></code> により描写される演算を実施することで評価されて、その結果 <code class="docutils literal notranslate"><span class="pre">operand</span></code> 値を生じる。</li>
+</ul>
+</div>
+<div class="section" id="stringexpression">
+<h4>8.3.3.2 StringExpression<a class="headerlink" href="#stringexpression" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>StringExpression とは、部分文字列を連結することで得られる
+String 値を指定する Expression である。<ul>
+<li>部分文字列 (pl.) は
+LiteralString <code class="docutils literal notranslate"><span class="pre">operands</span></code> のリストとしてか、
+StringExpression <code class="docutils literal notranslate"><span class="pre">subExpressions</span></code> のリストとしてかの、どちらか一方で与えられる。両者を混ぜることは許されない。</li>
+</ul>
+</li>
+<li>StringExpression の意図は Templates での
+NamedElements の名前を指定することに利用するものである。<ul>
+<li>StringExpression 全体か、
+<code class="docutils literal notranslate"><span class="pre">subExpressions</span></code> の一つまたはそれを超えるどちらか一方が
+TemplateParameters の ParameterableElements として用いられてよく、
+NamedElement の名前がそのテンプレートの内側で引数化されることを許す。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="opaque-expression">
+<h4>8.3.3.3 Opaque Expression<a class="headerlink" href="#opaque-expression" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>OpaqueExpression は UML Behavior の言葉によるか、
+UML 以外の言語でのテキストの言明に基づいたものかのどちらかの値の集合の計算を指定する。</li>
+<li>OpaqueExpression には値を計算する手段の代替を表現するテキスト Strings の列からなる <code class="docutils literal notranslate"><span class="pre">body</span></code> があってよい。</li>
+<li>OpaqueExpression には戻り値以外の Parameters がないように制限された UML Behavior により定義されてもよい。</li>
+<li>もし OpaqueExpression にひとつを超える <code class="docutils literal notranslate"><span class="pre">body</span></code> 文字列があるか、ひとつまたはそれを超える <code class="docutils literal notranslate"><span class="pre">body</span></code> 文字列に加えて <code class="docutils literal notranslate"><span class="pre">behavior</span></code> をもあるならば、
+<code class="docutils literal notranslate"><span class="pre">bodies</span></code> や <code class="docutils literal notranslate"><span class="pre">behavior</span></code> のうちのどれもが
+OpaqueExpression を評価するのに用いられてもよい。
+UML の仕様としてはこの選択がどのようになされるかは決定しない。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>8.3.4 Notation<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h4>8.3.4.1 Expressions<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">operands</span></code> がない Expression は単にその <code class="docutils literal notranslate"><span class="pre">symbol</span></code> により表記する。<ul>
+<li>この場合引用符は用いない。</li>
+</ul>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">operands</span></code> がある Expression は
+<code class="docutils literal notranslate"><span class="pre">symbol</span></code> により表記してよく、続いてその <code class="docutils literal notranslate"><span class="pre">operands</span></code> を含む丸括弧を記し、カンマで区切る。</li>
+</ul>
+</div>
+<div class="section" id="opaqueexpression">
+<h4>8.3.4.2 OpaqueExpression<a class="headerlink" href="#opaqueexpression" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>OpaqueExpression がひとつまたはそれを超える <code class="docutils literal notranslate"><span class="pre">body</span></code> Strings を有するとき、これらはそれの含む要素の文脈で OpaqueExpression を表示するのに用いられる。</li>
+<li>OpaqueExpression に対して <code class="docutils literal notranslate"><span class="pre">languages</span></code> が指定されていれば、対応する各 <code class="docutils literal notranslate"><span class="pre">body</span></code> String の前に
+<code class="docutils literal notranslate"><span class="pre">language</span></code> の名前を中括弧に入れて表示してよい。</li>
+<li><code class="docutils literal notranslate"><span class="pre">language</span></code> にその言語名を定義する仕様があるならば、
+OpaqueExpression で使われるその言語名がその言語仕様で現れる通りに正確に綴られ大文字で書かれるべきである。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="examples">
+<h3>8.3.5 Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h4>8.3.5.1 Expressions<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>例えば <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&gt;</span> <span class="pre">0</span></code> みたいな表記は OpaqueExpression であるようだ。</li>
+</ul>
+</div>
+<div class="section" id="opaque-expressions">
+<h4>8.3.5.2 Opaque Expressions<a class="headerlink" href="#opaque-expressions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">{OCL}</span> <span class="pre">i</span> <span class="pre">&gt;</span> <span class="pre">j</span> <span class="pre">and</span> <span class="pre">self.size</span> <span class="pre">&gt;</span> <span class="pre">i</span></code> のようにするらしい。</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="time">
+<h2><a class="toc-backref" href="#id27">8.4 Time</a><a class="headerlink" href="#time" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id9">
+<h3>8.4.1 Summary<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>この節では、簡素な時間モデルに基づいた値を生じる
+TimeExpression と Duration を定義する。<ul>
+<li>この簡素なモデルは、時間と時間の測定にまつわる複雑な様相を安全に無視できる状況のための近似を意図している。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id10">
+<h3>8.4.2 Abstract Syntax<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 8.3 Time and Duration<ul>
+<li>一箇所を除いて左右対称なグラフとなっている。</li>
+</ul>
+</li>
+</ul>
+<dl class="docutils">
+<dt>A_expr_timeExpression, A_expr_duration</dt>
+<dd><ul class="first last simple">
+<li>それぞれ TimeExpression, Duration から ValueSpecification への composite な関連（単方向）。</li>
+<li>A_ownedElement_owner を subsets する。</li>
+<li>関連端 <code class="docutils literal notranslate"><span class="pre">expr</span></code> の多重度は <code class="docutils literal notranslate"><span class="pre">0..1</span></code> である。</li>
+<li>TimeExpression (Duration) に <code class="docutils literal notranslate"><span class="pre">expr</span></code> がある場合、
+TimeExpression (Duration) の結果をもたらすために評価される。<ul>
+<li><code class="docutils literal notranslate"><span class="pre">expr</span></code> は単一の値を評価する必要がある。</li>
+<li><code class="docutils literal notranslate"><span class="pre">expr</span></code> は関連端 observation を参照（次に説明する関連の関連端だが）してもよい。<ul>
+<li><code class="docutils literal notranslate"><span class="pre">observation</span></code> がない場合、
+<code class="docutils literal notranslate"><span class="pre">expr</span></code> はある定数時点（期間）に評価する。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>TimeExpression (Duration) に <code class="docutils literal notranslate"><span class="pre">expr</span></code> がない場合、単一の TimeObservation (DurationObservation) があり、かつその観測結果 <code class="docutils literal notranslate"><span class="pre">observation</span></code> がこの TimeExpression (Duration) の値でなければならない。</li>
+</ul>
+</dd>
+<dt>A_observation_timeExpression, A_observation_duration</dt>
+<dd><ul class="first last simple">
+<li>それぞれ TimeExpression, Duration から Observation への関連（単方向）。</li>
+<li>関連端 <code class="docutils literal notranslate"><span class="pre">observation</span></code> の多重度は <code class="docutils literal notranslate"><span class="pre">*</span></code> である。</li>
+<li>上記関連のノートを参照。</li>
+</ul>
+</dd>
+<dt>A_event_timeObservation, A_event_durationObservation</dt>
+<dd><ul class="first last simple">
+<li>それぞれ TimeObservation, DurationObservation から NamedElement への関連（単方向）。</li>
+<li>関連端 <code class="docutils literal notranslate"><span class="pre">event</span></code> の多重度は前者が 1 であり、後者は 1 または 2 である。かつ後者の <code class="docutils literal notranslate"><span class="pre">event</span></code> は <code class="docutils literal notranslate"><span class="pre">{ordered}</span></code> である。「入」「出」の順だろう。</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="id11">
+<h3>8.4.3 Semantics<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id12">
+<h4>8.4.3.1 Time<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>UML の構造に関するモデリング構成要素が特定の時点における実体の性質を模すのに用いられる。<ul>
+<li>事象 (event) とは、
+Property の値の変化や Activity の実行の開始など、モデル化されようとしている性質と挙動に関して興味のある何かが起こる (happen) 特定の時点に起こり (occur) 得る何かの仕様である。</li>
+</ul>
+</li>
+<li>この概念での時間 (time) とは、単に事象の発生を整理する座標である。</li>
+<li>期間 (duration) は二つの事象の発生の間の時間の期間 (period) であり、それらの事象の時間座標の差として計算される。<ul>
+<li>モデル Element に挙動の効果があれば、この効果はある期間上に起こり得る。この期間の開始事象は Element の入場 (entering) として知られ、終了事象は Element の退場として知られる。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="observations">
+<h4>8.4.3.2 Observations<a class="headerlink" href="#observations" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Observation はモデルのある他の部分に相対して起こることがある事象の観測を描写する。<ul>
+<li>何か NamedElement に関係して起こるイベントの観測を示す。</li>
+<li>興味のある事象は、参照 NamedElement にいつ入場されるのかと退場されるのかである。</li>
+</ul>
+</li>
+<li>Observations は二種類あり、TimeObservations と DurationObservations である。</li>
+<li>TimeObservation は特定の NamedElement への入場か退場のどちらかを観測する。<ul>
+<li><code class="docutils literal notranslate"><span class="pre">firstEvent</span></code> が true ならば入場事象を、そうでなければ退場事象を観測する。</li>
+</ul>
+</li>
+<li>DurationObservation は一つか二つどちらかの NamedElements に関する期間を観測する。<ul>
+<li>一つ：観測期間は対象要素の入場事象と退場事象の、この順による出来事の間。</li>
+<li>二つ：観測期間は一つ目の要素の入場事象か退場事象どちらか一方と、続いて起こる二つ目の要素の入場事象か退場事象の間。</li>
+<li>属性 <code class="docutils literal notranslate"><span class="pre">firstEvent</span></code> も一つまたは二つある。意味は TimeObservation のそれと同じ。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="timeexpression">
+<h4>8.4.3.3 TimeExpression<a class="headerlink" href="#timeexpression" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>TimeExpression とは、ある時間的瞬間の時間座標を評価する ValueSpecification であり、事によると与えられた <code class="docutils literal notranslate"><span class="pre">observations</span></code> の集合に関する。</li>
+<li>TimeExpression に <code class="docutils literal notranslate"><span class="pre">expr</span></code> があれば、これが TimeExpression の結果を生じるために評価される。</li>
+<li>TimeExpression に <code class="docutils literal notranslate"><span class="pre">expr</span></code> がなければ、それには単一の TimeObservation が必要であり、その <code class="docutils literal notranslate"><span class="pre">observation</span></code> の結果は <code class="docutils literal notranslate"><span class="pre">TimeExpression</span></code> の値である。</li>
+</ul>
+</div>
+<div class="section" id="duration">
+<h4>8.4.3.4 Duration<a class="headerlink" href="#duration" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Duration とは、何らかの期間を時間で評価する ValueSpecification であり、事によると与えられた <code class="docutils literal notranslate"><span class="pre">observations</span></code> の集合に関する。</li>
+<li>Duration に <code class="docutils literal notranslate"><span class="pre">expr</span></code> があれば、これが DurationExpression の結果を生じるために評価される。</li>
+<li>Duration に <code class="docutils literal notranslate"><span class="pre">expr</span></code> がなければ、それは単一の DurationObservation が必要であり、その <code class="docutils literal notranslate"><span class="pre">observation</span></code> の結果は <code class="docutils literal notranslate"><span class="pre">Duration</span></code> の値である。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id13">
+<h3>8.4.4 Notation<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id14">
+<h4>8.4.4.1 Observations<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Observation の記法は、それが参照する NamedElement に線分を結べばよい。名前をその線分の NamedElement の反対側の端点付近に示す。</li>
+</ul>
+</div>
+<div class="section" id="time-expressions-and-durations">
+<h4>8.4.4.2 Time Expressions and Durations<a class="headerlink" href="#time-expressions-and-durations" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>TimeExpression または Duration はその <code class="docutils literal notranslate"><span class="pre">expr</span></code> が一つあれば、そのテキスト表現により示す。なければ単一の関連 Observation で表現する。<ul>
+<li>Duration はある実装固有のテキスト的書式で与えられる相対時間の値である。</li>
+<li>Duration はしばしば非負整数である「時間目盛」の個数で表現する。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id15">
+<h3>8.4.5 Examples<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Time はよく数値座標を使って表現されるが、
+TimeExpression の <code class="docutils literal notranslate"><span class="pre">expr</span></code> が数値に評価されるべき場合には、モデルでの慣習により当然とされることが認められる単位である。</li>
+<li>Duration は相対時間の値であり、それとして、期間の間を経過した参照時計上の時間目盛の Integer 個数など、しばしば非負の数として表現される。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="intervals">
+<h2><a class="toc-backref" href="#id28">8.5 Intervals</a><a class="headerlink" href="#intervals" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id16">
+<h3>8.5.1 Summary<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Interval とは値一組で定義される区間、範囲であり、何か他の Element が与えられた範囲にある値であることを断言する
+Constraints での用途を主とする。</li>
+<li>Intervals は値の型のどれに対しても定義できるが、対応する TimeConstraints と DurationConstraints の一部としての時間と期間に対して特に便利である。</li>
+</ul>
+</div>
+<div class="section" id="id17">
+<h3>8.5.2 Abstract Syntax<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 8.4 Intervals<ul>
+<li>新規登場の抽象クラスはない。</li>
+<li>Interval 系と IntervalConstraint 系を仕様化しているのだとわかる。両者の継承階層構造が並行している。</li>
+</ul>
+</li>
+</ul>
+<dl class="docutils">
+<dt>A_min_interval, A_max_interval</dt>
+<dd><ul class="first simple">
+<li>Interval から ValueSpecification への関連（単方向）。</li>
+<li>関連端 <code class="docutils literal notranslate"><span class="pre">min</span></code> と <code class="docutils literal notranslate"><span class="pre">max</span></code> の多重度は 1 であり、意味的には <code class="docutils literal notranslate"><span class="pre">min</span></code> の評価値は <code class="docutils literal notranslate"><span class="pre">max</span></code> のそれを超えない。</li>
+<li>下記の関連はこれを redefines する。</li>
+</ul>
+<dl class="last docutils">
+<dt>A_min_timeInterval, A_max_timeInterval</dt>
+<dd><ul class="first last simple">
+<li>TimeInterval から TimeExpression への関連（単方向）。</li>
+</ul>
+</dd>
+<dt>A_min_durationInterval, A_max_durationInterval</dt>
+<dd><ul class="first last simple">
+<li>DurationInterval から Duration への関連（単方向）。</li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt>A_specification_intervalConstraint</dt>
+<dd><ul class="first simple">
+<li>IntervalConstraint から Interval への composite 関連（単方向）。</li>
+<li>A_specification_owningConstraint を redefines する。</li>
+<li>関連端 <code class="docutils literal notranslate"><span class="pre">specification</span></code> の多重度は 1 である。</li>
+<li>以下の関連はこれを redefines する。</li>
+</ul>
+<dl class="last docutils">
+<dt>A_specification_timeConstraint</dt>
+<dd><ul class="first last simple">
+<li>TimeConstraint から TimeInterval への composite 関連（単方向）。</li>
+</ul>
+</dd>
+<dt>A_specification_durationConstraint</dt>
+<dd><ul class="first last simple">
+<li>DurationConstraint から DurationInterval への composite 関連（単方向）。</li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</div>
+<div class="section" id="id18">
+<h3>8.5.3 Semantics<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id19">
+<h4>8.5.3.1 Intervals<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Interval は他のふたつの ValueSpecifications,
+<code class="docutils literal notranslate"><span class="pre">min</span></code> と <code class="docutils literal notranslate"><span class="pre">max</span></code> で指定される ValueSpecification である。</li>
+<li>時間の制約と一緒に利用する Interval の特殊化がふたつある。<ul>
+<li>TimeInterval は TimeExpressions により与えられるふたつの時間値の間の範囲を指定する。</li>
+<li>DurationInterval は Durations により与えられるふたつの期間値の間の範囲を指定する。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="intervalconstraint">
+<h4>8.5.3.2 IntervalConstraint<a class="headerlink" href="#intervalconstraint" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>IntervalConstraint はその詳細が Interval で与えられる
+Constraint を定義する。</li>
+<li>時間の制約を指定するのに利用する IntervalConstraint の特殊化がふたつある。<ul>
+<li>TimeConstraint は制約する Interval が TimeInterval である単一の <code class="docutils literal notranslate"><span class="pre">constrainedElement</span></code> に対する
+IntervalConstraint を定義する。</li>
+<li>DurationConstraint は制約する Interval が DurationInterval である
+<code class="docutils literal notranslate"><span class="pre">constrainedElements</span></code> のひとつまたはふたつのどちらか一方に対する
+IntervalConstraint を定義する。<ul>
+<li>もし 2 個の <code class="docutils literal notranslate"><span class="pre">constrainedElements</span></code> があれば、観測されようとしている期間の開始は、一番目の <code class="docutils literal notranslate"><span class="pre">constrainedElement</span></code> にある事象と二番目のそれにある事象の間にあることが許される。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id20">
+<h3>8.5.4 Notation<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id21">
+<h4>8.5.4.1 Intervals<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Interval の記法は <code class="docutils literal notranslate"><span class="pre">&lt;min-value&gt;</span> <span class="pre">'..'</span> <span class="pre">&lt;max-value&gt;</span></code> である。</li>
+<li>TimeInterval は
+ValueSpecification 要素のそれぞれが TimeExpression となる
+Interval の表記法を使って示される。</li>
+<li>DurationInterval は
+ValueSpecification 要素のそれぞれが Duration となる
+Interval の表記法を使って示される。</li>
+</ul>
+</div>
+<div class="section" id="interval-constraints">
+<h4>8.5.4.2 Interval Constraints<a class="headerlink" href="#interval-constraints" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>IntervalConstraint はその <code class="docutils literal notranslate"><span class="pre">constrainedElement</span></code> の注釈として示される。
+Constraints の一般的な記法を IntervalConstraint に対して用いてもよいが、上記のようにテキストで記された Interval の仕様を共にする。</li>
+<li>単一の <code class="docutils literal notranslate"><span class="pre">constrainedElement</span></code> の TimeConstraint は
+<code class="docutils literal notranslate"><span class="pre">constrainedElement</span></code> の図表的な表現と
+TimeConstraint の TimeInterval のテキスト表現の間にある小さい線分として示してよい。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id22">
+<h3>8.5.5 Examples<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 8.5 Example of DurationConstraints and TimeConstraints<ul>
+<li>何かのシーケンス図で、各 Constraint が設計図でよく見かける寸法のような図式で示されていることが理解できる。長さの代わりに <code class="docutils literal notranslate"><span class="pre">{t..t+3}</span></code> のように注釈されている。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="classifier-descriptions">
+<h2><a class="toc-backref" href="#id29">8.6 Classifier Descriptions</a><a class="headerlink" href="#classifier-descriptions" title="Permalink to this headline">¶</a></h2>
+<p>機械生成による節。</p>
+</div>
+<div class="section" id="association-descriptions">
+<h2><a class="toc-backref" href="#id30">8.7 Association Descriptions</a><a class="headerlink" href="#association-descriptions" title="Permalink to this headline">¶</a></h2>
+<p>機械生成による節。</p>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="classification.html" title="9 Classification"
+             >next</a></li>
+        <li class="right" >
+          <a href="common-structure.html" title="7 Common Structure"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Unified Modeling Language 2.5 読書ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

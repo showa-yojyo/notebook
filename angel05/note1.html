@@ -1,0 +1,926 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>OpenGL: A Primer Second Edition 読書ノート 1/4 &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="OpenGL: A Primer Second Edition 読書ノート 2/4" href="note2.html" />
+    <link rel="prev" title="OpenGL: A Primer Second Edition 読書ノート" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="note2.html" title="OpenGL: A Primer Second Edition 読書ノート 2/4"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="index.html" title="OpenGL: A Primer Second Edition 読書ノート"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">OpenGL: A Primer Second Edition 読書ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="opengl-a-primer-second-edition-1-4">
+<h1><a class="toc-backref" href="#id2">OpenGL: A Primer Second Edition 読書ノート 1/4</a><a class="headerlink" href="#opengl-a-primer-second-edition-1-4" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">著者:</th><td class="field-body">Edward Angel</td>
+</tr>
+<tr class="field-even field"><th class="field-name">出版社:</th><td class="field-body">Addison Wesley</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">発行年:</th><td class="field-body">2004 年</td>
+</tr>
+<tr class="field-even field"><th class="field-name">ISBN:</th><td class="field-body">978-0-321-23762-0</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="id1">
+<p class="topic-title first">ノート目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#opengl-a-primer-second-edition-1-4" id="id2">OpenGL: A Primer Second Edition 読書ノート 1/4</a><ul>
+<li><a class="reference internal" href="#preface" id="id3">Preface</a></li>
+<li><a class="reference internal" href="#introduction" id="id4">Introduction</a><ul>
+<li><a class="reference internal" href="#the-opengl-api" id="id5">The OpenGL API</a></li>
+<li><a class="reference internal" href="#three-views-of-opengl" id="id6">Three Views of OpenGL</a><ul>
+<li><a class="reference internal" href="#the-opengl-state-machine" id="id7">The OpenGL State Machine</a></li>
+<li><a class="reference internal" href="#the-opengl-pipeline" id="id8">The OpenGL Pipeline</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#what-s-in-opengl" id="id9">What’s in OpenGL</a></li>
+<li><a class="reference internal" href="#opengl-versions-and-extensions" id="id10">OpenGL Versions and Extensions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#two-dimensional-programming-in-opengl" id="id11">Two-Dimensional Programming in OpenGL</a><ul>
+<li><a class="reference internal" href="#a-simple-program" id="id12">A Simple Program</a></li>
+<li><a class="reference internal" href="#glut" id="id13">GLUT</a></li>
+<li><a class="reference internal" href="#event-loops-and-callback-functions" id="id14">Event Loops and Callback Functions</a></li>
+<li><a class="reference internal" href="#drawing-a-rectangle" id="id15">Drawing a Rectangle</a></li>
+<li><a class="reference internal" href="#changing-the-glut-defaults" id="id16">Changing the GLUT Defaults</a></li>
+<li><a class="reference internal" href="#color-in-opengl" id="id17">Color in OpenGL</a><ul>
+<li><a class="reference internal" href="#color-and-state" id="id18">Color and State</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#coorinate-system-differences-between-glut-and-opengl" id="id19">Coorinate System Differences Between GLUT and OpenGL</a></li>
+<li><a class="reference internal" href="#two-dimensional-viewing" id="id20">Two-Dimensional Viewing</a></li>
+<li><a class="reference internal" href="#the-viewport" id="id21">The Viewport</a></li>
+<li><a class="reference internal" href="#coordinate-systems-and-transformations" id="id22">Coordinate Systems and Transformations</a></li>
+<li><a class="reference internal" href="#primitives-and-attributes" id="id23">Primitives and Attributes</a><ul>
+<li><a class="reference internal" href="#points" id="id24">Points</a></li>
+<li><a class="reference internal" href="#lines" id="id25">Lines</a></li>
+<li><a class="reference internal" href="#enabling-opengl-features" id="id26">Enabling OpenGL Features</a></li>
+<li><a class="reference internal" href="#filled-primitives" id="id27">Filled Primitives</a></li>
+<li><a class="reference internal" href="#rectangles" id="id28">Rectangles</a></li>
+<li><a class="reference internal" href="#polygon-stipple" id="id29">Polygon Stipple</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#polygon-types" id="id30">Polygon Types</a></li>
+<li><a class="reference internal" href="#color-interpolation" id="id31">Color Interpolation</a><ul>
+<li><a class="reference internal" href="#tessellation-and-edge-flags" id="id32">Tessellation and Edge Flags</a></li>
+<li><a class="reference internal" href="#tessellation-and-subdivision" id="id33">Tessellation and Subdivision</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#text" id="id34">Text</a></li>
+<li><a class="reference internal" href="#querues-and-errors" id="id35">Querues and Errors</a></li>
+<li><a class="reference internal" href="#saving-the-state" id="id36">Saving the State</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#interaction-and-animation" id="id37">Interaction and Animation</a><ul>
+<li><a class="reference internal" href="#the-reshape-callback" id="id38">The Reshape Callback</a></li>
+<li><a class="reference internal" href="#the-idle-callback" id="id39">The Idle Callback</a></li>
+<li><a class="reference internal" href="#a-rotating-square" id="id40">A Rotating Square</a></li>
+<li><a class="reference internal" href="#double-buffering" id="id41">Double Buffering</a></li>
+<li><a class="reference internal" href="#using-the-keyboard" id="id42">Using the Keyboard</a><ul>
+<li><a class="reference internal" href="#special-keys" id="id43">Special Keys</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#using-the-mouse-callback" id="id44">Using the Mouse Callback</a></li>
+<li><a class="reference internal" href="#mouse-motion" id="id45">Mouse Motion</a></li>
+<li><a class="reference internal" href="#the-null-callback" id="id46">The NULL Callback</a></li>
+<li><a class="reference internal" href="#subwindows-and-multiple-windows" id="id47">Subwindows and Multiple Windows</a></li>
+<li><a class="reference internal" href="#display-lists" id="id48">Display Lists</a><ul>
+<li><a class="reference internal" href="#multiple-display-lists" id="id49">Multiple Display Lists</a></li>
+<li><a class="reference internal" href="#display-lists-and-text" id="id50">Display Lists and Text</a></li>
+<li><a class="reference internal" href="#display-lists-and-objects" id="id51">Display Lists and Objects</a></li>
+<li><a class="reference internal" href="#picking-and-selection-mode" id="id52">Picking and Selection Mode</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="preface">
+<h2><a class="toc-backref" href="#id3">Preface</a><a class="headerlink" href="#preface" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>赤本と青本<ul>
+<li>&lt;the OpenGL Progamning Guide, Fourth Edition (Addison-Wesley), the “red book”&gt;</li>
+<li>&lt;the OpenGL 1.4 Reference Manual, Fourth Edition (Addison-Wesley), the “blue book”&gt;</li>
+</ul>
+</li>
+<li>OpenGL ARB については後で説明あり。</li>
+<li>&lt;it is much easier to get started with OpenGL and use it to master the basic concepts.
+For those of us who work with scientific applications and in a cross platform environment,
+OpenGL is the API of choice&gt; (p. xvi)</li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id4">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>&lt;OpenGL is an interactive computer graphics system that allows programmers to write
+programs that access graphics hardware.  OpenGL has two important benefits for
+application programmers.  It is close enough to the hardware so that programs written
+with OpenGL run effectively, and OpenGL is easy to learn and use&gt; (p. 1)</p>
+<div class="section" id="the-opengl-api">
+<h3><a class="toc-backref" href="#id5">The OpenGL API</a><a class="headerlink" href="#the-opengl-api" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>&lt;OpenGL came from an interface called GL, short for Graphics Library, originally
+developed for Silicon Graphics Inc. (SGI) hardware&gt; (p. 1)</li>
+<li>OpenGL にはアプリを組むためにある 200 を越える関数がある。</li>
+<li>この本ではレンダリングを以下のように説明している。
+&lt;taking the specification of geometric objects and their properties and
+forming a picture of them with a virtual camera and lights&gt; (p. 2)</li>
+<li>GLUT について、T が Toolkit の頭文字であることを記憶する。</li>
+<li>&lt;Rather than write platform-dependent code, we shall use a simple toolkit,
+the OpenGL Utility Toolkit (GLUT)&gt; (p.1)</li>
+</ul>
+</div>
+<div class="section" id="three-views-of-opengl">
+<h3><a class="toc-backref" href="#id6">Three Views of OpenGL</a><a class="headerlink" href="#three-views-of-opengl" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="the-opengl-state-machine">
+<h4><a class="toc-backref" href="#id7">The OpenGL State Machine</a><a class="headerlink" href="#the-opengl-state-machine" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>OpenGL を State Machine として考えることができる。</li>
+</ul>
+</div>
+<div class="section" id="the-opengl-pipeline">
+<h4><a class="toc-backref" href="#id8">The OpenGL Pipeline</a><a class="headerlink" href="#the-opengl-pipeline" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>OpenGL はパイプラインモデルをベースにしている。入力を Vertices とし、出力を Pixels となるようなパイプラインだ。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="what-s-in-opengl">
+<h3><a class="toc-backref" href="#id9">What’s in OpenGL</a><a class="headerlink" href="#what-s-in-opengl" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">OpenGL 関数のカテゴライズ</p>
+<ol class="arabic simple">
+<li>Primitve functions - イメージを生み出す要素を定義する関数
+geometric と image の二通りがある。</li>
+<li>Attribute functions - プリミティヴの見てくれをコントロールする関数色、線の種類、材質、光源、テクスチャー等。</li>
+<li>Viewing functions - カメラの性質を定義する関数</li>
+<li>Windowing functions -
+こういう関数は GLUT に入っている。</li>
+<li>Control functions - OpenGL の色々な機能を有効にする関数</li>
+</ol>
+<p>このうち、2. から 5. までが state-changing な関数だ。</p>
+</li>
+</ul>
+</div>
+<div class="section" id="opengl-versions-and-extensions">
+<h3><a class="toc-backref" href="#id10">OpenGL Versions and Extensions</a><a class="headerlink" href="#opengl-versions-and-extensions" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>OpenGL は OpenGL Architectural Review Board (ARB) がコントロールする。</li>
+<li>ARB は Silicon Graphics, IBM, NVIDIA といったメーカーから来たメンバーを持つ。</li>
+<li>OpenGL extensions は後回しでいいや。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="two-dimensional-programming-in-opengl">
+<h2><a class="toc-backref" href="#id11">Two-Dimensional Programming in OpenGL</a><a class="headerlink" href="#two-dimensional-programming-in-opengl" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="a-simple-program">
+<h3><a class="toc-backref" href="#id12">A Simple Program</a><a class="headerlink" href="#a-simple-program" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>&lt;GLX for X Windows, wgl for Windows, and agl for the Macintosh&gt; (p. 11)</li>
+</ul>
+</div>
+<div class="section" id="glut">
+<h3><a class="toc-backref" href="#id13">GLUT</a><a class="headerlink" href="#glut" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 2.2 では GLUT 層が GLX or WGL or AGL 層を完全にラップしている。
+GLUT を利用することで、プラットフォーム間の垣根を越える。</li>
+<li>&lt;Depending on the platform, GLUT uses glX, wgl, or agl&gt; (p. 13)</li>
+</ul>
+</div>
+<div class="section" id="event-loops-and-callback-functions">
+<h3><a class="toc-backref" href="#id14">Event Loops and Callback Functions</a><a class="headerlink" href="#event-loops-and-callback-functions" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">glutInit</span></code> は他のいかなる GLUT と OpenGL 関数呼び出しの前に呼ぶこと。</li>
+<li><code class="docutils literal notranslate"><span class="pre">glutCreateWindow</span></code> によるウィンドウのサイズは 300 x 300 pixels</li>
+<li>イベントキューという用語を憶える。</li>
+<li>コールバック関数。どうしてもグローバル変数の世話にならざるを得ない。</li>
+<li><code class="docutils literal notranslate"><span class="pre">glutMainLoop</span></code> の呼び出し行以降の行は、実行されない。</li>
+</ul>
+</div>
+<div class="section" id="drawing-a-rectangle">
+<h3><a class="toc-backref" href="#id15">Drawing a Rectangle</a><a class="headerlink" href="#drawing-a-rectangle" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>&lt;The fundamental entity for specifying geometric objects is the vertex,
+a location in space.  Simple geometric objects such as lines and polygons
+can be specified through a collection of vertices&gt; (p. 15)</li>
+<li>&lt;OpenGL puts the rendered image in an area of memory called a <strong>color buffer</strong>
+that usually resides on the graphics card.  Color buffers are one of a
+number of types of buffers that make up the <strong>frame buffer</strong>&gt; (p. 16)</li>
+</ul>
+</div>
+<div class="section" id="changing-the-glut-defaults">
+<h3><a class="toc-backref" href="#id16">Changing the GLUT Defaults</a><a class="headerlink" href="#changing-the-glut-defaults" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">glutInitDisplayMode(mode)</span></code><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">mode:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">GLUT_(RGB|INDEX|SINGLE|DOUBLE)</span></code>, etc.</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">glutInitWindowSize(width,</span> <span class="pre">height)</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">glutInitWindowPosition(x,</span> <span class="pre">y)</span></code></li>
+</ul>
+</div>
+<div class="section" id="color-in-opengl">
+<h3><a class="toc-backref" href="#id17">Color in OpenGL</a><a class="headerlink" href="#color-in-opengl" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>&lt;In RGBA mode, we use a fourth color component, A or alpha, which is
+an opacity&gt; (p. 18)</li>
+<li>Opacity というのは日本語にないような。透明度の裏の概念というか。</li>
+</ul>
+<div class="section" id="color-and-state">
+<h4><a class="toc-backref" href="#id18">Color and State</a><a class="headerlink" href="#color-and-state" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">&lt;colors are not attached to objects but rather to the internal state
+of OpenGL&gt; (p. 20)</p>
+<p>OpenGL の世界では色もまた状態なのだ。</p>
+</li>
+<li><p class="first">&lt;OpenGL actually has only one internal form for the present color,
+which is in RGBA form, usually a floating point number for each color
+component&gt; (p. 20)</p>
+</li>
+<li><p class="first">どんな <code class="docutils literal notranslate"><span class="pre">glColor</span></code> 関数を利用しようが、内部的なデータの形式は一つしかない。
+<code class="docutils literal notranslate"><span class="pre">glColor3i</span></code> のほうが <code class="docutils literal notranslate"><span class="pre">glColor4fv</span></code> より軽いなどということはないようだ。</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="coorinate-system-differences-between-glut-and-opengl">
+<h3><a class="toc-backref" href="#id19">Coorinate System Differences Between GLUT and OpenGL</a><a class="headerlink" href="#coorinate-system-differences-between-glut-and-opengl" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>ウィンドウの Y 軸の正の方向について、OpenGL の座標系と GLUT の座標系では逆。</li>
+</ul>
+</div>
+<div class="section" id="two-dimensional-viewing">
+<h3><a class="toc-backref" href="#id20">Two-Dimensional Viewing</a><a class="headerlink" href="#two-dimensional-viewing" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">gluOrtho2D(left,</span> <span class="pre">right,</span> <span class="pre">bottom,</span> <span class="pre">top)</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">gluOrtho2D</span></code> によって定義する矩形をクリッピングウィンドウと呼ぶ。</li>
+</ul>
+</div>
+<div class="section" id="the-viewport">
+<h3><a class="toc-backref" href="#id21">The Viewport</a><a class="headerlink" href="#the-viewport" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">glViewport(x,</span> <span class="pre">y,</span> <span class="pre">width,</span> <span class="pre">height)</span></code></p>
+<p>ウィンドウのどの部分を canvas とするのかを指定する。通常はウィンドウ全域を <code class="docutils literal notranslate"><span class="pre">glViewport</span></code> に渡すが、二次元的にイメージを描く場合などは、本当にウィンドウの特定部分を指定することが多い。</p>
+</li>
+</ul>
+</div>
+<div class="section" id="coordinate-systems-and-transformations">
+<h3><a class="toc-backref" href="#id22">Coordinate Systems and Transformations</a><a class="headerlink" href="#coordinate-systems-and-transformations" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">&lt;The function <code class="docutils literal notranslate"><span class="pre">gluOrtho2D</span></code> is used to specify a projection matrix for two-
+dimensional applications&gt; (p. 23)</p>
+</li>
+<li><p class="first">まず間違いなく以下の手順で利用する。</p>
+<div class="code c highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">glMatrixMode</span><span class="p">(</span><span class="n">GL_PROJECTION</span><span class="p">);</span>
+<span class="n">glLoadIdentity</span><span class="p">();</span>
+<span class="n">gluOrtho2D</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">bottom</span><span class="p">,</span> <span class="n">top</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">&lt;In OpenGL, there are three basic types of geometric primitives:
+points, line segments, and polygons&gt; (p. 26)</p>
+<p>たった三種類しかないのだ。</p>
+</li>
+</ul>
+</div>
+<div class="section" id="primitives-and-attributes">
+<h3><a class="toc-backref" href="#id23">Primitives and Attributes</a><a class="headerlink" href="#primitives-and-attributes" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>&lt;in fact, OpenGL regards attributes as part of its state&gt; (p. 26)
+アトリビュートも他の何かと同様に「状態」ということ。</li>
+</ul>
+<div class="section" id="points">
+<h4><a class="toc-backref" href="#id24">Points</a><a class="headerlink" href="#points" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">glPointSize(size)</span></code><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">size:</th><td class="field-body">サイズはスクリーンピクセル単位</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">glPointSize</span></code> は <code class="docutils literal notranslate"><span class="pre">glBegin</span></code> と <code class="docutils literal notranslate"><span class="pre">glEnd</span></code> の間に入れない。</li>
+</ul>
+</div>
+<div class="section" id="lines">
+<h4><a class="toc-backref" href="#id25">Lines</a><a class="headerlink" href="#lines" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>線分は三種類のタイプしかない。<ul>
+<li><code class="docutils literal notranslate"><span class="pre">GL_LINES</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">GL_LINE_STRIP</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">GL_LINE_LOOP</span></code></li>
+</ul>
+</li>
+<li>線分の属性は<ol class="arabic">
+<li>色</li>
+<li>線幅</li>
+<li>パターン</li>
+</ol>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">glLineWidth(width)</span></code><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">width:</th><td class="field-body">幅はピクセル単位で与える。</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">glLineStipple(factor,</span> <span class="pre">pattern)</span></code><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">factor:</th><td class="field-body">パターンの繰り返し回数。1 から 256 の間の値。</td>
+</tr>
+<tr class="field-even field"><th class="field-name">pattern:</th><td class="field-body">line stipple のビットパターン (16 bit) の与え方をおさえておくこと。</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</div>
+<div class="section" id="enabling-opengl-features">
+<h4><a class="toc-backref" href="#id26">Enabling OpenGL Features</a><a class="headerlink" href="#enabling-opengl-features" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">OpenGL の機能の中には、明示的にそれを有効にしなければ利用できないものがある。</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">glEnable(feature)</span></code> で機能 feature を ON にする。</p>
+<div class="code c highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">glEnable</span><span class="p">(</span><span class="n">GL_LINE_STIPPLE</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">glDisable(feature)</span></code> で機能 feature を OFF にする。</p>
+</li>
+</ul>
+</div>
+<div class="section" id="filled-primitives">
+<h4><a class="toc-backref" href="#id27">Filled Primitives</a><a class="headerlink" href="#filled-primitives" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">ポリゴン。六種類のタイプがある。このノートには敢えて書かないが、説明の英文は丸暗記しておきたい。</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">GL_POLYGON</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">GL_TRIANGLES</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">GL_TRIANGLE_STRIP</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">GL_TRIANGLE_FAN</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">GL_QUADS</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">GL_QUAD_STRIP</span></code></li>
+</ul>
+</li>
+<li><p class="first">STRIP 系の図形描画は、関数呼び出しの回数が少なく済むという利点がある。</p>
+<p>&lt;many CAD applications generate triangles or quadrilaterals with shared
+edges.  Strip primitives allow us to define these primitives with far
+fewer OpenGL function calls than if we had to treat each as a separate
+polygon&gt; (p. 30)</p>
+</li>
+</ul>
+</div>
+<div class="section" id="rectangles">
+<h4><a class="toc-backref" href="#id28">Rectangles</a><a class="headerlink" href="#rectangles" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>長方形を描くのなら <code class="docutils literal notranslate"><span class="pre">glRect</span></code> で済む場合がある。
+<code class="docutils literal notranslate"><span class="pre">glVertex</span></code> を四回書かなくて済むし、おすすめ。</li>
+</ul>
+</div>
+<div class="section" id="polygon-stipple">
+<h4><a class="toc-backref" href="#id29">Polygon Stipple</a><a class="headerlink" href="#polygon-stipple" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>polygon stipple の模様は、プリミティブを回転しても回転しない。</li>
+<li><code class="docutils literal notranslate"><span class="pre">glEnable(GL_POLYGON_STIPPLE)</span></code> で有効にする。</li>
+<li><code class="docutils literal notranslate"><span class="pre">glPolygonStipple(mask)</span></code><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">mask:</th><td class="field-body">32 x 32 ビットのパターン。</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="polygon-types">
+<h3><a class="toc-backref" href="#id30">Polygon Types</a><a class="headerlink" href="#polygon-types" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">塗りつぶしポリゴンを描くときには、その形状に気をつける点がある。
+&lt;<strong>simple polygons</strong> – polygons whose edges do not cross – two different
+OpenGL implementations may render them differently&gt; (p. 31)</p>
+</li>
+<li><p class="first">&lt;Convex polygons are much easier to render&gt; (p. 32)</p>
+</li>
+<li><p class="first">面には表と裏がある。それらを描画し分ける手段がある。</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">glPolygonMode(face,</span> <span class="pre">mode)</span></code> - 面をどう描くか<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">face:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">GL_(FRONT|BACK|FRONT_AND_BACK)</span></code></td>
+</tr>
+<tr class="field-even field"><th class="field-name">mode:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">GL_(POINT|LINE|FILL)</span></code></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">glCullFace(mode)</span></code> - 描くか否か<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">mode:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">GL_(FRONT|BACK|FRONT_AND_BACK)</span></code></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">glFrontFace(mode)</span></code> - 面の表裏をどう定義するか<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">mode:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">GL_(CCW|CW)</span></code></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+<li><p class="first">&lt;By default, a front face is one in which the order of the vertices is
+counter-clockwise when we view the polygon.  A back face is one in which
+the vertices are specified in a clockwise order.  These definitions
+make sense for convex polygons&gt; (p. 32)</p>
+</li>
+<li><p class="first">&lt;In OpenGL, the edges of a polygon are part of the inside of the polygon&gt; (p. 33)</p>
+</li>
+<li><p class="first">塗りつぶしと線の描画を重ねあわすことについて、場合によってはポリゴンオフセットをかけないと美しくないかも。</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">glPolygonOffset(factor,</span> <span class="pre">units)</span></code></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">factor, units:</th><td class="field-body">謎のパラメータ。</td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">glPolygonOffset</span></code> 関数は次のようにして利用する。</p>
+<div class="code c highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">glPolygonOffset</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+<span class="n">glEnable</span><span class="p">(</span><span class="n">GL_POLYGON_OFFSET_LINE</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="color-interpolation">
+<h3><a class="toc-backref" href="#id31">Color Interpolation</a><a class="headerlink" href="#color-interpolation" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>&lt;The default is to use smooth shading where OpenGL will interpolate the colors
+at the vertices to obtain the color of intermediate pixels&gt; (p. 34)</li>
+<li>OpenGL がポリゴンに対して何らかの補間を行うときは、大抵は bilinear interpolation だ。</li>
+<li><code class="docutils literal notranslate"><span class="pre">glShadeModel(mode)</span></code><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">mode:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">GL_(SMOOTH|FLAT)</span></code></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<div class="section" id="tessellation-and-edge-flags">
+<h4><a class="toc-backref" href="#id32">Tessellation and Edge Flags</a><a class="headerlink" href="#tessellation-and-edge-flags" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">glEdgeFlag</span></code> と tessellation, subdivision の話が続く。</p>
+</div>
+<div class="section" id="tessellation-and-subdivision">
+<h4><a class="toc-backref" href="#id33">Tessellation and Subdivision</a><a class="headerlink" href="#tessellation-and-subdivision" title="Permalink to this headline">¶</a></h4>
+<p>subdivision は図形にねじれを加えるような画像効果を実現する手段として利用できるようだ。</p>
+</div>
+</div>
+<div class="section" id="text">
+<h3><a class="toc-backref" href="#id34">Text</a><a class="headerlink" href="#text" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>フォントには bitmap と stroke の二種類がある。</li>
+<li>bitmap は高速に描画できるが、スケーリング等の変換がかけられない。
+stroke はその逆の長所短所がある。</li>
+<li>フォントはシステム依存のものなので、GLUT がその辺をカバーしてくれている。</li>
+<li><code class="docutils literal notranslate"><span class="pre">glutBitmapCharacter(font,</span> <span class="pre">character)</span></code><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">font:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">GLUT_BITMAP_TIMES_ROMAN_10</span></code> のようなシンボルを指定する。</td>
+</tr>
+<tr class="field-even field"><th class="field-name">character:</th><td class="field-body">一文字を指定する。</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>Raster position は左下原点</li>
+<li>&lt;The current raster position is offset automatically so that the next
+character will not be rendered on top of the previous one&gt; (p. 44)</li>
+<li><code class="docutils literal notranslate"><span class="pre">glRasterPos(xyzw)</span></code> - ラスター位置を設定する。</li>
+<li><code class="docutils literal notranslate"><span class="pre">glutBitmapWidth(font,</span> <span class="pre">character)</span></code> - 文字幅をピクセル値で返す。</li>
+<li><code class="docutils literal notranslate"><span class="pre">glutStrokeCharacter(font,</span> <span class="pre">character)</span></code> - ストロークフォントにて文字を描画する。</li>
+<li><code class="docutils literal notranslate"><span class="pre">glutStrokeWidth(font,</span> <span class="pre">character)</span></code> - 文字幅をビット単位で返す。</li>
+<li>ストローク系のフォントサイズは単位がよくわからないので注意。
+StrokeWidth の 1 が世界座標系の長さ単位の 100 程度とのこと。</li>
+</ul>
+</div>
+<div class="section" id="querues-and-errors">
+<h3><a class="toc-backref" href="#id35">Querues and Errors</a><a class="headerlink" href="#querues-and-errors" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">glGet(Boolean|Integer|Float|Double|Pointer)</span></code> 系の話はノート省略。</li>
+<li><code class="docutils literal notranslate"><span class="pre">glGetError</span></code> と <code class="docutils literal notranslate"><span class="pre">gluErrorString</span></code> はデバッグのために憶えておく。これらを組み合わせてエラーを知る。</li>
+<li>GLUT の状態は <code class="docutils literal notranslate"><span class="pre">glutGet</span></code> で得る。</li>
+</ul>
+</div>
+<div class="section" id="saving-the-state">
+<h3><a class="toc-backref" href="#id36">Saving the State</a><a class="headerlink" href="#saving-the-state" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>OpenGL はステートマシーンなので、プログラムを書いていると、各種状態をちょっと前の時点のものに戻したいくなる状況になることがよくある。</li>
+<li>行列の（成分という意味での）状態に関しては、
+<code class="docutils literal notranslate"><span class="pre">glPushMatrix</span></code>, <code class="docutils literal notranslate"><span class="pre">glPopMatrix</span></code> が利用できる。各行列モードに対して、行列スタックが存在する。
+one pop for each one push ルールを肝に銘じること。</li>
+<li>各種属性に関しては <code class="docutils literal notranslate"><span class="pre">glPushAttrib</span></code>, <code class="docutils literal notranslate"><span class="pre">glPopAttrib</span></code> を利用できる。全属性状態を一気に push することも可能だが、通常は必要なものだけを push するのだろう。引数がビットマスクなので、適切な値を指示することに慣れる必要がある。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="interaction-and-animation">
+<h2><a class="toc-backref" href="#id37">Interaction and Animation</a><a class="headerlink" href="#interaction-and-animation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="the-reshape-callback">
+<h3><a class="toc-backref" href="#id38">The Reshape Callback</a><a class="headerlink" href="#the-reshape-callback" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>&lt;Within the loop, the program responds to discrete events
+involving the keyboard and the mouse through callback functions that
+the application programer writes&gt; (p. 49)</li>
+<li>&lt;This action generates a window event that is handled by the reshape
+callback&gt; (p. 49)</li>
+<li><code class="docutils literal notranslate"><span class="pre">glutReshapeFunc(f)</span></code><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">f:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">(*)(int</span> <span class="pre">width,</span> <span class="pre">int</span> <span class="pre">height)</span></code> 型の関数のアドレス。
+&lt;A display callback is invoked automatically after executing <code class="docutils literal notranslate"><span class="pre">f()</span></code>&gt; (p. 49)</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>&lt;The reshape callback is invoked when a window is first created&gt; (p. 49)</li>
+<li>Reshape callback でプログラマーが書くことは、ビューポートのリセットとクリッピングウィンドウのリセットの二点だ。</li>
+<li><code class="docutils literal notranslate"><span class="pre">gluOrtho2D</span></code> の <code class="docutils literal notranslate"><span class="pre">bottom</span></code>, <code class="docutils literal notranslate"><span class="pre">top</span></code> の値をウィンドウのサイズに依存するように決める。幅と高さの短い方を分母にしたアスペクト比。</li>
+</ul>
+</div>
+<div class="section" id="the-idle-callback">
+<h3><a class="toc-backref" href="#id39">The Idle Callback</a><a class="headerlink" href="#the-idle-callback" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>&lt;The idle callback identifies a function, which should be executed
+whenever there are no otther events to be handled, that is, whenever
+the event queue is empty&gt; (p. 51)</li>
+<li><code class="docutils literal notranslate"><span class="pre">glutIdleFunc(f)</span></code><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">f:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">(*)()</span></code> 型の関数のアドレスを渡す。</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>&lt;Use of <code class="docutils literal notranslate"><span class="pre">glutPostRedisplay()</span></code> ensures the window gets drawn at most once
+each time that GLUT goes through the event loop.  In general, it is a
+good idea to never call the display callback directly but rather to use
+the <code class="docutils literal notranslate"><span class="pre">glutPostRedisplay()</span></code> whenever the display needs to be redrawn&gt; (p. 52)</li>
+<li><code class="docutils literal notranslate"><span class="pre">glutPostRedisplay()</span></code> - 現在のコールバックがリターンした後にディスプレイコールバックが実行されるようにお願いする関数。</li>
+</ul>
+</div>
+<div class="section" id="a-rotating-square">
+<h3><a class="toc-backref" href="#id40">A Rotating Square</a><a class="headerlink" href="#a-rotating-square" title="Permalink to this headline">¶</a></h3>
+<p>ここでは三角関数を利用して円に内接する正方形を回転するアニメーションを実装している。</p>
+</div>
+<div class="section" id="double-buffering">
+<h3><a class="toc-backref" href="#id41">Double Buffering</a><a class="headerlink" href="#double-buffering" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">&lt;This refresh process is not controllable from the user program&gt; (p. 54)</p>
+</li>
+<li><p class="first">ダブルバッファは二つの color buffers を使うというのがミソ。それぞれ
+<strong>front buffer</strong> と <strong>back buffer</strong> と呼ぶ。</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">front buffer:</th><td class="field-body">ディスプレイハードウェアによってディスプレイされるバッファ</td>
+</tr>
+<tr class="field-even field"><th class="field-name">back buffer:</th><td class="field-body">アプリケーションが書き込む先のバッファ</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">glutSwapBuffers()</span></code> - front buffer と back buffer を入れ替える。</p>
+</li>
+<li><p class="first">書くのが最後になったが、ダブルバッファを有効にするには <code class="docutils literal notranslate"><span class="pre">glutInitDisplayMode</span></code> で指定する。</p>
+<div class="code c highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">glutInitDisplayMode</span><span class="p">(</span><span class="n">GLUT_DOUBLE</span> <span class="o">|</span> <span class="n">GLUT_XXXX</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="using-the-keyboard">
+<h3><a class="toc-backref" href="#id42">Using the Keyboard</a><a class="headerlink" href="#using-the-keyboard" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>&lt;GLUT ignores releasing of the key&gt; (p. 54)</li>
+<li><code class="docutils literal notranslate"><span class="pre">glutKeyboardFunc(f)</span></code><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">f:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">(*)(key,</span> <span class="pre">x,</span> <span class="pre">y)</span></code> 型関数アドレス。スクリーン座標が存在するのが面白い。</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>GLUT の関数でマウス位置を扱うものは、すべてウィンドウ左上が原点。</li>
+<li>Esc キーは 8 進数で 027 となる。16 進数では 0x1B となる。</li>
+</ul>
+<div class="section" id="special-keys">
+<h4><a class="toc-backref" href="#id43">Special Keys</a><a class="headerlink" href="#special-keys" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">glutSpecialFunc(f)</span></code> - F1 キーとか↑キーとかのプレスイベントをハンドルする。<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">f:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">glutKeyboardFunc</span></code> のと同じ。</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">glutGetModifiers()</span></code> - マウスやキーを押されたときに、以下のキーの状態を見る。<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">GLUT_ACTIVE_(SHIFT|CTRL|ALT)</span></code></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="using-the-mouse-callback">
+<h3><a class="toc-backref" href="#id44">Using the Mouse Callback</a><a class="headerlink" href="#using-the-mouse-callback" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">glutMouseCallback(f)</span></code><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">f:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">(*)(button,</span> <span class="pre">state,</span> <span class="pre">x,</span> <span class="pre">y)</span></code><table class="last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">button:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">GLUT_(LEFT|MIDDLE|RIGHT)_BUTTON</span></code></td>
+</tr>
+<tr class="field-even field"><th class="field-name">state:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">GLUT_(UP|DOWN)</span></code></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code> は GLUT の座標系での値なので、&lt;The most important is the necessity
+of inverting the <code class="docutils literal notranslate"><span class="pre">y</span></code> value returned by the mouse callback&gt; (p. 58)</li>
+<li>ディスプレイコールバックが必要のないプログラムを書く場合もあるが、
+&lt;As a practical matter, GLUT insists that every program have a display
+callback&gt; (p. 59) だそうだ。そういう場合は空の実装を与える。</li>
+<li>しかし普通はそんなことはしない。&lt;A more general strategy is to
+place drawing functions in the display callback and use the other
+callbacks for state changes&gt;(p. 59)
+その上で <code class="docutils literal notranslate"><span class="pre">glutPostRedisplay</span></code> をすればよい。</li>
+</ul>
+</div>
+<div class="section" id="mouse-motion">
+<h3><a class="toc-backref" href="#id45">Mouse Motion</a><a class="headerlink" href="#mouse-motion" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>マウスモーションには <code class="docutils literal notranslate"><span class="pre">glutMotionFunc</span></code> と <code class="docutils literal notranslate"><span class="pre">glutPassiveMotionFunc</span></code> の二種類のコールバックが利用できる。</li>
+<li>Passive とは、マウスボタンが押されていない状態でマウスが動いているイベントのことだ。</li>
+<li><code class="docutils literal notranslate"><span class="pre">glutMotionFunc(f)</span></code>, <code class="docutils literal notranslate"><span class="pre">glutPassiveMotionFunc(f)</span></code><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">f:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">(*)(x,</span> <span class="pre">y)</span></code> 型関数のアドレス</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">glutEntryFunc(f)</span></code>: マウスキャプチャーに使うのか？<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">f:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">(*)(state)</span></code> 型関数のアドレス<table class="last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">state:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">GLUT_(ENTERED|LEFT)</span></code></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</div>
+<div class="section" id="the-null-callback">
+<h3><a class="toc-backref" href="#id46">The NULL Callback</a><a class="headerlink" href="#the-null-callback" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">glutXXXFunc</span></code> にヌルを渡すと、コールバックを削除できる。</p>
+</div>
+<div class="section" id="subwindows-and-multiple-windows">
+<h3><a class="toc-backref" href="#id47">Subwindows and Multiple Windows</a><a class="headerlink" href="#subwindows-and-multiple-windows" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>コンテキストの概念は重要。</li>
+<li>&lt;Each window can have its own properties, referred to as its context&gt; (p. 64)</li>
+</ul>
+</div>
+<div class="section" id="display-lists">
+<h3><a class="toc-backref" href="#id48">Display Lists</a><a class="headerlink" href="#display-lists" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">ディスプレイリストをファイルに例えて説明している。
+&lt;Display lists can be thought of as a type of graphics file in which we can
+place OpenGL rendering and state update commands.  We open a display list,
+give it a name, place commands in it, and close it&gt; (p. 67)</p>
+</li>
+<li><p class="first">ディスプレイリストを定義するときは、各種状態の push/pop が重要だ。
+&lt;Note that we push and pop the current attributes, which include the present
+color.  We must do this action to prevent the state change due to setting
+a new color from affecting anything that we do subsequently.  Often we can
+prevent unforeseen side effects of state changes by starting a display
+list by pushing the matrices and the state at the beginning of the display
+last popping them at the end&gt; (p. 68)</p>
+<p>後続のディスプレイリストに余計な状態を残さぬように、リストを定義する。</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">glNewList(name,</span> <span class="pre">mode)</span></code>: ディスプレイリストの定義を開始する。</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">ディスプレイリストの名前。通常、次節で紹介されている <code class="docutils literal notranslate"><span class="pre">glGenLists</span></code> の戻り値を指定する。</td>
+</tr>
+<tr class="field-even field"><th class="field-name">mode:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">GL_COMPILE</span></code> か <code class="docutils literal notranslate"><span class="pre">GL_COMPILE_AND_EXECUTE</span></code></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">glEndList()</span></code>: ディスプレイリストの定義を終了する。</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">glCallList(name)</span></code>: ディスプレイリストを実行する。</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">glGet</span></code> 等の「状態を返すだけの関数」をディスプレイリスト定義中に呼ぶことはできない。</p>
+</li>
+<li><p class="first">ディスプレイリストを階層的に <code class="docutils literal notranslate"><span class="pre">glCallList</span></code> することができる。</p>
+</li>
+<li><p class="first">ディスプレイリストは、一度作成したら変更できない。</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">glDeleteLists(first,</span> <span class="pre">number)</span></code>: ディスプレイリストを削除する。</p>
+<p>名前が <code class="docutils literal notranslate"><span class="pre">first</span></code> のリストから、
+<code class="docutils literal notranslate"><span class="pre">number</span></code> 個目までのリストを削除する。</p>
+</li>
+</ul>
+<div class="section" id="multiple-display-lists">
+<h4><a class="toc-backref" href="#id49">Multiple Display Lists</a><a class="headerlink" href="#multiple-display-lists" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">glListBase(offset)</span></code> - <code class="docutils literal notranslate"><span class="pre">glCallList</span></code> の実引数にゲタをはかせる</li>
+<li><code class="docutils literal notranslate"><span class="pre">glCallLists(num,</span> <span class="pre">type,</span> <span class="pre">list)</span></code><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">num:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">list</span></code> の個数</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">list</span></code> の型</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">list:</th><td class="field-body">ディスプレイリストの名前（つまり整数値）の配列</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">glGenLists(n)</span></code> - ディスプレイリスト新規作成のための有効な名前を n 個生成する。</li>
+</ul>
+</div>
+<div class="section" id="display-lists-and-text">
+<h4><a class="toc-backref" href="#id50">Display Lists and Text</a><a class="headerlink" href="#display-lists-and-text" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>&lt;To generate a character string on the display,
+we do one function call per character&gt; (p. 69)</li>
+<li>全 ASCII 文字についてディスプレイリストをコンパイルするやり方を紹介している。ディスプレイリストの ID を文字コードと同じにして……という方法だ。日本語に応用できるとは思えない。</li>
+</ul>
+</div>
+<div class="section" id="display-lists-and-objects">
+<h4><a class="toc-backref" href="#id51">Display Lists and Objects</a><a class="headerlink" href="#display-lists-and-objects" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>&lt;display lists can give the user a way of building more object-oriented program
+than in immediate mode&gt; (p.70) とあり、人間の顔を描くと思われるディスプレイリストを定義するコードを記載している。
+<code class="docutils literal notranslate"><span class="pre">glNewList</span></code> と <code class="docutils literal notranslate"><span class="pre">glEndList</span></code> の間に、顔のパーツを定義するディスプレイリストを <code class="docutils literal notranslate"><span class="pre">glCallList</span></code> するという例だ。</li>
+</ul>
+</div>
+<div class="section" id="picking-and-selection-mode">
+<h4><a class="toc-backref" href="#id52">Picking and Selection Mode</a><a class="headerlink" href="#picking-and-selection-mode" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>本書ではピックの定義を以下のように与えている。
+&lt;<strong>Picking</strong> is the operation of locating an object on the screen&gt; (p.71)</li>
+<li>ピックのためには、描画要素にある種のタグ付けを行う必要がある。
+&lt;We could create some sort of tag system that would give labels to
+parts of our program&gt; (p. 71)</li>
+<li><strong>selection mode</strong> で描画を行うと、オブジェクトは color buffer にレンダーされない。</li>
+<li>ピック処理はコードを書くのが面倒。関係する関数が次に挙げるように、妙に多い。<ul>
+<li><code class="docutils literal notranslate"><span class="pre">glRenderMode(mode)</span></code> - render mode の選択<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">mode:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">GL_(RENDER|SELECTION|FEEDBACK)</span></code></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">glSelectBuffer(n,</span> <span class="pre">buffer)</span></code> - 選択データを置く配列を決める</li>
+<li><code class="docutils literal notranslate"><span class="pre">glInitNames()</span></code> - name stack の初期化</li>
+<li><code class="docutils literal notranslate"><span class="pre">glPushName(name)</span></code> - name stack に name を積む</li>
+<li><code class="docutils literal notranslate"><span class="pre">glPopName()</span></code> - name stack から name をひとつ捨てる</li>
+<li><code class="docutils literal notranslate"><span class="pre">glLoadName(name)</span></code> - name stack の一番上の要素を name で置き換える</li>
+</ul>
+</li>
+<li>&lt;<code class="docutils literal notranslate"><span class="pre">glRenderMode()</span></code> returns the number of hits that have been processed&gt; (p. 73)</li>
+<li>&lt;<code class="docutils literal notranslate"><span class="pre">gluPickMatrix()</span></code>, that should be applied before <code class="docutils literal notranslate"><span class="pre">gluOrtho2D()</span></code> when we
+are in selection mode&gt; (p. 73)</li>
+<li>&lt;If we had a hierarchical object in which multiple parts of the object could
+all be located near the cursor, we could use <code class="docutils literal notranslate"><span class="pre">glPushName()</span></code> so that we could
+have multiple names on the stack for a given hit.  For an object with multiple
+parts, all the parts that were close to the cursor would have their names
+placed in the same stack&gt; (p. 75)</li>
+<li>ヒットレコードのバイトレイアウトについて、細かく説明している。
+&lt;we find three types of information, all stored as integers.  First, there
+is the number of names on the name stack when there was a hit.  It is followed
+by two integers that give scaled minimum and maximum depths for the hit primitive.
+These three integers are followed by entries in the name stack&gt; (p. 75)</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="note2.html" title="OpenGL: A Primer Second Edition 読書ノート 2/4"
+             >next</a></li>
+        <li class="right" >
+          <a href="index.html" title="OpenGL: A Primer Second Edition 読書ノート"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >OpenGL: A Primer Second Edition 読書ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

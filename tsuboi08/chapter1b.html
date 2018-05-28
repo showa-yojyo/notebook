@@ -1,0 +1,536 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>第 1 章 ユークリッド空間上の微分形式 1/2 &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="第 2 章 多様体上の微分形式 (1/3)" href="chapter2a.html" />
+    <link rel="prev" title="第 1 章 ユークリッド空間上の微分形式 1/2" href="chapter1a.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter2a.html" title="第 2 章 多様体上の微分形式 (1/3)"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="chapter1a.html" title="第 1 章 ユークリッド空間上の微分形式 1/2"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">幾何学 III 微分形式 読書ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id8">第 1 章 ユークリッド空間上の微分形式 1/2</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="id2">
+<p class="topic-title first">ノート目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id8">第 1 章 ユークリッド空間上の微分形式 1/2</a><ul>
+<li><a class="reference internal" href="#id3" id="id9">1.6 一般の微分形式</a></li>
+<li><a class="reference internal" href="#id4" id="id10">1.7 ユークリッド空間の開集合上の微分形式の空間</a></li>
+<li><a class="reference internal" href="#id5" id="id11">1.8 微分形式の引き戻し</a></li>
+<li><a class="reference internal" href="#id6" id="id12">1.9 ポアンカレの補題の証明</a></li>
+<li><a class="reference internal" href="#id7" id="id13">1.10 第 1 章の問題の解答</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id9">1.6 一般の微分形式</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>冒頭の番号が付いていない図式にある「グラフ」がいい。</p>
+<ul class="simple">
+<li>一般の次元のユークリッド空間の開集合上に p 形式を定義したいので、
+<span class="math notranslate nohighlight">\(\dd{x_{i_1}} \wedge \dotsb \wedge \dd{x_{i_p}}\)</span> をすべて定義する。</li>
+</ul>
+<ul class="simple" id="tsuboi08-1-6-1">
+<li>定義 1.6.1: <a class="reference external" href="http://mathworld.wolfram.com/Differentialk-Form.html">p 形式</a><ul>
+<li>各 <span class="math notranslate nohighlight">\(f_{x_{i_1}} \dots f_{x_{i_p}}\)</span> を連続関数とする。</li>
+<li>この p を微分形式の次数という。</li>
+</ul>
+</li>
+</ul>
+<ul class="simple" id="tsuboi08-1-6-2">
+<li>定義 1.6.2: <a class="reference external" href="http://mathworld.wolfram.com/WedgeProduct.html">外積</a><ul>
+<li>同じ添字が一つでもあれば <span class="math notranslate nohighlight">\(\dd{x_{i_1}} \wedge \dotsb \wedge \dd{x_{i_p}} = 0.\)</span></li>
+<li>添字の集合が同じだが配列が異なる場合は、それらの置換の符号を外積の違いとする。これは数式で表現したほうがわかりにくいので、あえてこのように書き残しておく。<ul>
+<li>あとで出てくる <a class="reference internal" href="#tsuboi08-1-6-8"><span class="std std-ref">定義 1.6.8</span></a> のほうが見やすい。</li>
+</ul>
+</li>
+<li>結合則は普通に使える。</li>
+</ul>
+</li>
+</ul>
+<ul id="tsuboi08-1-6-3">
+<li><p class="first">例 1.6.3: 標準的 <a class="reference external" href="http://mathworld.wolfram.com/SymplecticForm.html">シンプレクティック形式</a></p>
+<ul>
+<li><p class="first">2 形式 <span class="math notranslate nohighlight">\(\displaystyle \omega = \sum_{i = 1}^n \dd{x_{2i - 1}} \wedge \dd{x_{2i}}\)</span>
+の n 個の外積は次の 2n 形式になる：</p>
+<div class="math notranslate nohighlight">
+\[\overbrace{\omega \wedge \dotsb \wedge \omega}^\text{n}
+= n\,! \dd{x_1} \wedge \dotsb \wedge \dd{x_{2n}}.\]</div>
+</li>
+</ul>
+</li>
+</ul>
+<ul id="tsuboi08-1-6-4">
+<li><p class="first">例題 1.6.4: 次数付き可換性</p>
+<div class="math notranslate nohighlight">
+\[\beta \wedge \alpha = (-1)^{\alpha\beta}\alpha \wedge \beta.\]</div>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(pq\)</span> 回の隣接ペアの swap で一方が他方に移るから。</li>
+<li>これをしっかり意識しないとたいていの計算を間違うことになる。</li>
+</ul>
+</li>
+</ul>
+<ul id="tsuboi08-1-6-5">
+<li><p class="first">定義 1.6.5: <a class="reference external" href="http://mathworld.wolfram.com/ExteriorDerivative.html">外微分</a></p>
+<div class="math notranslate nohighlight">
+\[\dd{\left(\sum_{i_1 &lt; \dotsb &lt; i_p} f_{i_1 \dots i_p}\, \dd{x_{i_1}} \wedge \dotsb \wedge \dd{x_{i_p}}\right)}
+= \sum_{i_1 &lt; \dotsb &lt; i_p} \dd{f_{i_1 \dots i_p}} \wedge \dd{x_{i_1}} \wedge \dotsb \wedge \dd{x_{i_p}}.\]</div>
+</li>
+</ul>
+<ul id="tsuboi08-1-6-6">
+<li><p class="first">例 1.6.6: 標準的接触形式</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+\alpha &amp;= \dd{x_{2n + 1}} + \sum_{i = 1}^n x_{2i - 1}\dd{x_{2i}},\\
+\dd{\alpha} &amp;= \sum_{i = 1}^n \dd{x_{2i - 1}} \wedge \dd{x_{2i}},\\
+\alpha \wedge \overbrace{\dd{\alpha} \wedge \dotsb \wedge \dd{\alpha}}^\text{n} &amp;=
+  n\,! \dd{x_1} \wedge \dotsb \wedge \dd{x_{2n + 1}}.
+\end{align*}\end{split}\]</div>
+</li>
+</ul>
+<ul id="tsuboi08-1-6-7">
+<li><p class="first">例題 1.6.7</p>
+<div class="math notranslate nohighlight">
+\[\dd(\alpha \wedge \beta) = \dd\alpha \wedge \beta + (-1)^p\alpha \wedge \beta.\]</div>
+<ul class="simple">
+<li>例によって符号が次数に依ることに注意。</li>
+<li>証明方法は具体的に微分形式を定義して計算すればよい。</li>
+</ul>
+</li>
+</ul>
+<ul id="tsuboi08-1-6-8">
+<li><p class="first">定義 1.6.8: 微分形式の積分</p>
+<ul>
+<li><p class="first">開集合 <span class="math notranslate nohighlight">\(U \subset \RR^n\)</span> 上の写像 <span class="math notranslate nohighlight">\(\fn{\kappa}{[a_1, b_1] \times \dotsb \times [a_p, b_p]}U\)</span>
+に沿う積分を次の式で定義する：</p>
+<div class="math notranslate nohighlight">
+\[\int_\kappa\!\sum_{i_1 &lt; \dotsb &lt; i_p}f_{i_1 \dots i_p}\,\dd{x_{i_1}} \wedge \dotsb \wedge \dd{x_{i_p}}
+= \int_{a_1}^{b_1}\dots\int_{a_p}^{b_p}\!\sum_{i_1 &lt; \dotsb &lt; i_p}f_{i_1 \dots i_p}(
+  \kappa(t_1, \dotsc, t_p))\det(D\kappa)\,\dd{t_1}\dots\dd{t_p}.\]</div>
+<p>ただし <span class="math notranslate nohighlight">\(D\kappa\)</span> と書いたのは <span class="math notranslate nohighlight">\(\kappa_{i_1}, \dotsc, \kappa_{i_p}\)</span> を
+<span class="math notranslate nohighlight">\(t_1, \dotsc, t_p\)</span> でヤコビアンにしたもの。スペースの都合でこう書いた。</p>
+</li>
+<li><p class="first">シグマ記号は別の添字の付け方も採用する。</p>
+</li>
+<li><p class="first">ここで各添字が相異なる場合は次の関係式が成り立つ：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\dd{x_{j_1}} \wedge \dotsb \wedge \dd{x_{j_p}} = \sgn
+\begin{pmatrix}j_1 &amp; \dots &amp; j_p\\i_1 &amp; \dots &amp; i_p\end{pmatrix}
+\dd{x_{i_1}} \wedge \dotsb \wedge \dd{x_{i_p}}.\end{split}\]</div>
+</li>
+<li><p class="first">実は次のように書け、以降でこれを利用する：</p>
+<div class="math notranslate nohighlight">
+\[\int_\kappa\!\alpha = \int_\id\!\kappa\alpha.\]</div>
+</li>
+</ul>
+</li>
+</ul>
+<ul id="tsuboi08-1-6-9">
+<li><p class="first">例題 1.6.9: 直方体版ストークスの定理</p>
+<ul>
+<li><p class="first">開集合 <span class="math notranslate nohighlight">\(U\)</span> に沿う積分が <span class="math notranslate nohighlight">\(p + 1\)</span> 次元直方体から <span class="math notranslate nohighlight">\(U\)</span> への写像 <span class="math notranslate nohighlight">\(\kappa\)</span> に沿う積分の和となる：</p>
+<div class="math notranslate nohighlight">
+\[\int_\kappa\,\dd{\alpha} = \sum_{q = 1}^{p + 1}(-1)^{q - 1}
+\left(
+\int_{\kappa(\dots b_q \dots)}\,\alpha - \int_{\kappa(\dots a_q \dots)}\,\alpha
+\right).\]</div>
+</li>
+</ul>
+<p>今のところ証明方法は腕力による。あとで別バージョンが紹介される。</p>
+<ol class="arabic simple">
+<li><span class="math notranslate nohighlight">\(\dd\alpha\)</span> を計算する。</li>
+<li>左辺から右辺への等式変形の理由：<ul>
+<li>最初の等号は <a class="reference internal" href="#tsuboi08-1-6-8"><span class="std std-ref">定義 1.6.8</span></a> による。</li>
+<li>次の等号は行列式を第 q 列で展開して書き直すことで得られる。</li>
+<li>その次の等号は <span class="math notranslate nohighlight">\(t_q\)</span> で積分するとこうなる。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id10">1.7 ユークリッド空間の開集合上の微分形式の空間</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>以下 <span class="math notranslate nohighlight">\(C^\infty\)</span> 級関数、微分形式のみを考える。</p>
+<ul class="simple">
+<li>約束として 0 形式とは関数とする。</li>
+<li>記号 <span class="math notranslate nohighlight">\(\Omega^p(U)\)</span> で <span class="math notranslate nohighlight">\(U\)</span> 上の p 形式全体を表す。<ul>
+<li><span class="math notranslate nohighlight">\(\Omega^p(U)\)</span> は（集合が空集合でなければ）無限次元ベクトル空間である。</li>
+<li><span class="math notranslate nohighlight">\(p &lt; 0 \text{ or } n &lt; p \implies \Omega^p(U) = \zeroset\)</span> とする。</li>
+<li>演算 <span class="math notranslate nohighlight">\(\fn{\dd{}}{\Omega^p(U)}\Omega^{p + 1}(U)\)</span> は線形写像である。</li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li><a class="reference external" href="http://mathworld.wolfram.com/CochainComplex.html">コチェイン複体</a> の定義。<ul>
+<li>この微分形式全体の空間の系列であって <span class="math notranslate nohighlight">\(\dd{} \circ \dd{} = 0\)</span> であるものを言う。</li>
+<li>開集合 <span class="math notranslate nohighlight">\(U \subset \RR^n\)</span> に対する <span class="math notranslate nohighlight">\(\Omega^p(U)\)</span> を外微分で系列にしたものがコチェイン複体である。この <span class="math notranslate nohighlight">\(U\)</span> を一般の <span class="math notranslate nohighlight">\(C^\infty\)</span> 級多様体に置き換えた系列はドラーム複体と呼ばれるということを後でやる。</li>
+</ul>
+</li>
+</ul>
+<ul id="tsuboi08-1-7-1">
+<li><p class="first">定理 1.7.1: <span class="math notranslate nohighlight">\(\fn{\dd \circ \dd}{\Omega^p(U)}\Omega^{p + 2}(U)\)</span> は 0 準同型である</p>
+<ul>
+<li><p class="first">基底に対しては <span class="math notranslate nohighlight">\(\dd{(\dd{x_{i_1}} \wedge \dotsb \wedge \dd{x_{i_p}})} = 0.\)</span></p>
+</li>
+<li><p class="first">一般には次のようになってやはりゼロだ：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+\dd{(\dd{(f_{i_1 \dots i_p}\, \dd{x_{i_1}} \wedge \dotsb \wedge \dd{x_{i_p}})})}
+&amp;= \dd{(\dd{f_{i_1 \dots i_p}}\, \dd{x_{i_1}} \wedge \dotsb \wedge \dd{x_{i_p}})}\\
+&amp;= \underbrace{\dd{(\dd{f_{i_1 \dots i_p}})}}_\text{0}\, \dd{x_{i_1}} \wedge \dotsb \wedge \dd{x_{i_p}} + \dd{f_{i_1 \dots i_p}} \wedge
+   \underbrace{\dd{(\dd{x_{i_1}} \wedge \dotsb \wedge \dd{x_{i_p}})}}_\text{0}\\
+&amp;= 0.
+\end{align*}\end{split}\]</div>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="simple" id="tsuboi08-1-7-2">
+<li>定理 1.7.2: <a class="reference external" href="http://mathworld.wolfram.com/PoincaresLemma.html">ポアンカレの補題</a><ul>
+<li>星型 <span class="math notranslate nohighlight">\(U\)</span> 上の p 形式 <span class="math notranslate nohighlight">\(\alpha\)</span> が <span class="math notranslate nohighlight">\(\dd{\alpha} = 0\)</span> ならば
+<span class="math notranslate nohighlight">\(\dd{\beta} = \alpha\)</span> なる p - 1 形式 <span class="math notranslate nohighlight">\(\beta\)</span> が存在する。</li>
+<li>cf. <a class="reference internal" href="chapter1a.html#tsuboi08-1-2-8"><span class="std std-ref">問題 1.2.8</span></a></li>
+<li>証明は後ほど行なう。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id11">1.8 微分形式の引き戻し</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>図 1.6 の状況をいつでも思い浮かべられるようにしておきたい。当分の間、次の記号を用いる：</p>
+<ul>
+<li><p class="first"><span class="math notranslate nohighlight">\(V \subset \RR^m,\ W \subset \RR^n\)</span> を開集合とする。</p>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(\fn{\varphi}{V}W\)</span> を <span class="math notranslate nohighlight">\(C^\infty\)</span> 級写像とする。</p>
+</li>
+<li><p class="first">座標表示を <span class="math notranslate nohighlight">\(\varphi(\bm x) = \bm y,\ y_i = \varphi_i(x_1, \dotsc, x_m)\)</span> とする。</p>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(\fn{f}{W}\RR\)</span> を <span class="math notranslate nohighlight">\(C^1\)</span> 級写像とする。</p>
+</li>
+<li><p class="first">定義 1.8.1: 1 形式の引き戻し</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+\varphi^*\left(\sum_{i = 1}^n f_i\,\dd{y_i}\right) &amp;=
+\sum_{i = 1}^n\sum_{j = 1}^m f_i \circ \varphi \frac{\partial \varphi_i}{\partial x_j}\,\dd{x_j}\\
+&amp;= \sum_{i = 1}^n(\varphi^* f_i)(\varphi^* \,\dd{y_i})\\
+&amp;= \sum_{i = 1}^n \varphi^* f_i\,\dd{\varphi_i}.
+\end{align*}\end{split}\]</div>
+<ul class="simple">
+<li>最後の等式は形式的なものだ。</li>
+<li>関数の引き戻しを <span class="math notranslate nohighlight">\(\varphi^* f = f \circ \varphi\)</span> で定義する。</li>
+</ul>
+</li>
+</ul>
+<ul class="simple" id="tsuboi08-1-8-2">
+<li>命題 1.8.2: <span class="math notranslate nohighlight">\(\dd{(\varphi^* f)} = \varphi^* \dd{f}\)</span></li>
+</ul>
+<ul>
+<li><p class="first">1 形式 <span class="math notranslate nohighlight">\(\alpha\)</span> に対して次が成り立つ：</p>
+<div class="math notranslate nohighlight">
+\[\int_\gamma\!\varphi^*\alpha = \int_{\varphi \circ \gamma}\!\alpha.\]</div>
+</li>
+</ul>
+<ul id="tsuboi08-1-8-3">
+<li><p class="first">定義 1.8.3: p 形式の引き戻し</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\alpha = \sum_{i_1 &lt; \dotsb &lt; i_p} f_{i_1 \dots i_p}\,\dd{y_{i_1}} \wedge \dotsb \wedge \dd{y_{i_p}}
+\implies\\
+\varphi^* \alpha = \sum_{i_1 &lt; \dotsb &lt; i_p} f_{i_1 \dots i_p} \circ \varphi\,\dd{\varphi_{i_1}} \wedge \dotsb \wedge \dd{\varphi_{i_p}}.\end{split}\]</div>
+<p>ここで各 <span class="math notranslate nohighlight">\(\dd{\varphi_{i_j}}\)</span> は全微分の意味にとること。</p>
+</li>
+</ul>
+<ul id="tsuboi08-1-8-4">
+<li><p class="first">例 1.8.4: いろいろ</p>
+<ul>
+<li><p class="first"><span class="math notranslate nohighlight">\(V \subset W\)</span> という状況における包含写像 <span class="math notranslate nohighlight">\(\fn{\iota}{V}W\)</span> と
+<span class="math notranslate nohighlight">\(\iota^* \alpha = \alpha|V\)</span> の関係（説明のみ）。</p>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(m &lt; n\)</span> とすれば <span class="math notranslate nohighlight">\(\fnm{\iota}{\RR^m}{\RR^n}{(x_1, \dotsc, x_m)}(x_1, \dotsc, x_m, 0, \dotsc, 0)\)</span> である。このとき <span class="math notranslate nohighlight">\(\alpha \in \Omega^p(\RR^n)\)</span> に対する次の値を <span class="math notranslate nohighlight">\(\alpha|\RR^n\)</span> と書くことがある：</p>
+<div class="math notranslate nohighlight">
+\[\iota^*\alpha = \sum_{i_1 &lt; \dotsb &lt; i_p \le m} f_{i_1 \dots i_p} \circ \iota\,\dd{x_{i_1}} \wedge \dotsb \wedge \dd{x_{i_p}}.\]</div>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(\fnm{\pi}{\RR^n}{\RR^m}{(x_1, \dotsc, x_m, \dotsc, x_n)}(x_1, \dotsc, x_m)\)</span> とする。このとき <span class="math notranslate nohighlight">\(\alpha \in \Omega^p(\RR^m)\)</span> に対して次の式が成り立つ：</p>
+<div class="math notranslate nohighlight">
+\[\pi^*\alpha = \sum_{i_1 &lt; \dotsb &lt; i_p \le m} f_{i_1 \dots i_p} \circ \pi\,\dd{x_{i_1}} \wedge \dotsb \wedge \dd{x_{i_p}}.\]</div>
+<p>添字が <span class="math notranslate nohighlight">\(m + 1\)</span> 以上の項はない。</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul id="tsuboi08-1-8-5">
+<li><p class="first">問題 1.8.5: 線形写像の引き戻し？</p>
+<ul>
+<li><p class="first">仮定</p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(\omega = \dd{x_1} \wedge \dotsb \wedge \dd{x_n}\)</span></li>
+<li>線形写像 <span class="math notranslate nohighlight">\(\fn{L}{\RR^n}\RR^n\)</span> の表現行列を <span class="math notranslate nohighlight">\(A = (a_{ij})\)</span> とする。</li>
+</ul>
+</li>
+<li><p class="first">結論</p>
+<ul>
+<li><p class="first"><span class="math notranslate nohighlight">\(L^*\omega = \det A.\)</span></p>
+</li>
+<li><p class="first">式変形の途中で出てくる <span class="math notranslate nohighlight">\(\dd{x_{j_1}} \wedge \dotsb \wedge \dd{x_{j_n}}\)</span> がゼロでない値となるには、この添字の配列が n 次の permutation である必要がある。</p>
+</li>
+<li><p class="first">与式は次のようになる：</p>
+<div class="math notranslate nohighlight">
+\[\sum_{\sigma \in \mathfrak S^n} \sgn \sigma(
+  a_{1\sigma(1)}\dots a_{n\sigma(n)})
+  \dd{x_1} \wedge \dotsb \wedge \dd{x_n}.\]</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="simple" id="tsuboi08-1-8-6">
+<li>問題 1.8.6: <span class="math notranslate nohighlight">\(\omega = \dd{x_1} \wedge \dd{x_2} + \dd{x_3} \wedge \dd{x_4}\)</span><ul>
+<li><span class="math notranslate nohighlight">\(\fnm{L}{\RR^2}{\RR^4}{(u_1, u_2)}\left(\sum_{j = 1, 2}a_{ij}u_j\right)_{i = 1, \dotsc, 4}\)</span></li>
+<li><span class="math notranslate nohighlight">\(L^*\omega = 0\)</span> の条件は何か。<ul>
+<li>これは素直に計算すればわかる。結局 <span class="math notranslate nohighlight">\(\dd{u_1} \wedge \dd{u_2}\)</span> の係数がゼロになる条件を求めることになる。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul id="tsuboi08-1-8-7">
+<li><p class="first">問題 1.8.7: 引き戻しと外微分の計算 <span class="math notranslate nohighlight">\(\alpha = \dd{z} + x\dd{y}\)</span></p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">自力でも計算したが、数式は SymPy で生成したい。</p>
+</div>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(\fnm{F}{\RR^3}{\RR^3}{(x, y, z)}\left(x, y, z - \frac{xy}{2}\right)\)</span>
+に対する <span class="math notranslate nohighlight">\(F^*\alpha\)</span> の値？</li>
+<li><span class="math notranslate nohighlight">\(F\)</span> のヤコビアンと <span class="math notranslate nohighlight">\(\alpha \wedge \dd{\alpha}\)</span> と
+<span class="math notranslate nohighlight">\(F^*\alpha \wedge \dd{F^*\alpha}\)</span> の値？</li>
+<li><span class="math notranslate nohighlight">\(\varphi_t(x, y, z) = (x\cos t - y \sin t, x \sin t + y \cos t, z)\)</span> に対する
+<span class="math notranslate nohighlight">\(\varphi_t^* F^* \alpha\)</span> の値？</li>
+<li><span class="math notranslate nohighlight">\(\fnm{G}{\RR^3}{\RR^3}{(x, y, z)}(x, y, z - xy)\)</span> および
+<span class="math notranslate nohighlight">\(\fnm{H}{\RR^3}{\RR^3}{(x, y, z)}(x, y \cos x - z \sin x, y \sin x + z \cos x)\)</span> に対して
+<span class="math notranslate nohighlight">\(H^* G^* \alpha\)</span> の値？</li>
+<li><span class="math notranslate nohighlight">\(\det D(G \circ H)\)</span> および <span class="math notranslate nohighlight">\(H^* G^* \alpha \wedge \dd{H^* G^* \alpha}\)</span> の値？<ul>
+<li>ヤコビアンの行列式は 1 となるが、途中 chain rule に注意。</li>
+<li>後半は三角関数の simplify に注意。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p class="first">微分形式の引き戻しの外積は外積の引き戻しである。</p>
+</li>
+</ul>
+<ul class="simple" id="tsuboi08-1-8-8">
+<li>例題 1.8.8: <span class="math notranslate nohighlight">\(\varphi^*(\alpha \wedge \beta) = \varphi^*\alpha \wedge \varphi^* \beta\)</span><ul>
+<li><span class="math notranslate nohighlight">\(\alpha = \sum_{i_1 &lt; \dotsb &lt; i_p} f_{i_1 \dots i_p}\,\dd{y_{i_1}} \wedge \dotsb \wedge \dd{y_{i_p}}\)</span> などと置いて直接計算により示せる。</li>
+<li><span class="math notranslate nohighlight">\(\varphi^*(f_{i_1 \dots i_p} g_{j_1 \dots j_q}) = (f \circ \varphi)(g \circ \varphi)\)</span> を利用する。</li>
+</ul>
+</li>
+</ul>
+<ul id="tsuboi08-1-8-9">
+<li><p class="first">例題 1.8.9: <span class="math notranslate nohighlight">\(\psi^* \varphi^*\alpha = (\varphi \circ \psi)^*\alpha\)</span></p>
+<ul>
+<li><p class="first"><span class="math notranslate nohighlight">\(\alpha\)</span> を上の例題のようにとり、与式の右辺を展開していく。</p>
+<div class="math notranslate nohighlight">
+\[(\varphi \circ \psi)^*\alpha = \sum_{j_1 &lt; \dotsb &lt; j_p} f_{j_1 \dots j_p} \circ \varphi \circ \psi\,
+  \dd{(\varphi_{j_1} \circ \psi)} \wedge \dotsb \wedge
+  \dd{(\varphi_{j_p} \circ \psi)}.\]</div>
+</li>
+<li><p class="first">次に <span class="math notranslate nohighlight">\(\displaystyle \varphi_{j_i} \circ \psi = \sum_{k = 1}^m \frac{\partial \varphi_{j_i}}{\partial x_k}\,\dd{\psi_k}\)</span> か。</p>
+</li>
+<li><p class="first">この次の式変形が思いつかない。
+<span class="math notranslate nohighlight">\(\dd{\psi_?}\)</span> を <span class="math notranslate nohighlight">\(\dd{x_?}\)</span> と書き換えたい。全体を <span class="math notranslate nohighlight">\(\psi^*(\quad)\)</span> で囲むような。</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul id="tsuboi08-1-8-10">
+<li><p class="first">定理 1.8.10: 積分の変形？</p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(C^\infty\)</span> 級写像 <span class="math notranslate nohighlight">\(\fn{\varphi}{V}W\)</span> および</li>
+<li><span class="math notranslate nohighlight">\(C^\infty\)</span> 級写像 <span class="math notranslate nohighlight">\(\fn{\kappa}{[a_1, b_1] \times \dotsb \times [a_p, b_p]}V\)</span> と</li>
+<li><span class="math notranslate nohighlight">\(W \subset \RR^n\)</span> 上の p 形式 <span class="math notranslate nohighlight">\(\alpha\)</span></li>
+</ul>
+<p>に対して次が成り立つ：</p>
+<div class="math notranslate nohighlight">
+\[\int_\kappa\!\varphi^*\alpha = \int_{\varphi \circ \kappa}\!\alpha.\]</div>
+<ul>
+<li><p class="first">証明中の式変形では p. 31 の文章中の等式（下に書く）と
+<a class="reference internal" href="#tsuboi08-1-8-9"><span class="std std-ref">例題 1.8.9</span></a> の結果を利用する。</p>
+<div class="math notranslate nohighlight">
+\[\int_\kappa\!\varphi^*\alpha = \int_{\id}\!\kappa^*\varphi^*\alpha.\]</div>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(\id\)</span> が出てくるのがミソか。</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul id="tsuboi08-1-8-11">
+<li><p class="first">定理 1.8.11: 外微分と引き戻しは可換 <span class="math notranslate nohighlight">\(\dd{\varphi^*\alpha} = \varphi^*\dd{\alpha}\)</span></p>
+<ul>
+<li><p class="first">外微分と引き戻しはどちらも直方体からの写像に沿う積分と整合するように定義されたものだった。</p>
+</li>
+<li><p class="first">証明はいつものように <span class="math notranslate nohighlight">\(\alpha\)</span> をおいて、順次展開する：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+\dd{(\varphi^*\alpha)}
+&amp;= \dd{\left(\varphi^* \sum_{i_1 &lt; \dotsb &lt; i_p} f_{i_1 \dots i_p}\,\dd{y_{i_1}} \wedge \dotsb \wedge \dd{y_{i_p}}\right)}\\
+&amp;= \dd{\left(\sum_{i_1 &lt; \dotsb &lt; i_p} f_{i_1 \dots i_p} \circ \varphi\,\dd{\varphi_{i_1}} \wedge \dotsb \wedge \dd{\varphi_{i_p}}\right)}\\
+&amp;= \sum_{i_1 &lt; \dotsb &lt; i_p} \dd{(f_{i_1 \dots i_p} \circ \varphi)} \wedge \dd{\varphi_{i_1}} \wedge \dotsb \wedge \dd{\varphi_{i_p}}\\
+&amp;= \varphi^*\left(\sum_{i_1 &lt; \dotsb &lt; i_p} \dd{f_{i_1 \dots i_p}} \wedge \dd{y_{i_1}} \wedge \dotsb \wedge \dd{y_{i_p}}\right)\\
+&amp;= \varphi^*\dd{\alpha}.
+\end{align*}\end{split}\]</div>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p class="first"><a class="reference internal" href="#tsuboi08-1-6-9"><span class="std std-ref">例題 1.6.9</span></a> の別解を紹介している。</p>
+<ul>
+<li><p class="first"><span class="math notranslate nohighlight">\(\alpha\)</span> が p 形式であれば <span class="math notranslate nohighlight">\(\kappa^*\alpha\)</span> もそうなので、トリッキーだと思うが次の式のようにおく：</p>
+<div class="math notranslate nohighlight">
+\[\kappa^*\alpha = \sum_{q = 1}^{p + 1} f_q\,\dd{t_1} \wedge \dotsb \wedge
+\dd{t_{q - 1}} \wedge \dd{t_{q + 1}}
+\wedge \dotsb \wedge \dd{t_{p + 1}}.\]</div>
+</li>
+<li><p class="first">次に <span class="math notranslate nohighlight">\(\kappa^*(\dd{\alpha})\)</span> を計算すると、次に示す微分形式の和である：</p>
+<div class="math notranslate nohighlight">
+\[\sum_{q = 1}^{p + 1} (-1)^{q - 1} \frac{\partial f_q}{\partial t_q}
+\dd{t_1} \wedge \dotsb \wedge \dd{t_{p + 1}}.\]</div>
+</li>
+<li><p class="first">あとは <span class="math notranslate nohighlight">\(\dd\alpha\)</span> を <span class="math notranslate nohighlight">\(\kappa\)</span> に沿って積分していくと
+<a class="reference internal" href="#tsuboi08-1-6-9"><span class="std std-ref">例題 1.6.9</span></a> の右辺が得られる。</p>
+<ul class="simple">
+<li>この過程で <a class="reference internal" href="#tsuboi08-1-8-11"><span class="std std-ref">定義 1.8.11</span></a>, 部分積分、
+<a class="reference internal" href="#tsuboi08-1-8-10"><span class="std std-ref">定理 1.8.10</span></a> を利用するようだ。途中で行列式が一切出て来ないのが特徴か？</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id12">1.9 ポアンカレの補題の証明</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<ul id="tsuboi08-1-9-1">
+<li><p class="first">命題 1.9.1 <span class="math notranslate nohighlight">\(\dd{I(\alpha)} + I(\dd{\alpha}) = \alpha - \pi^*(\iota_0^*\alpha)\)</span></p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(U \subset \RR^n\)</span> を開集合、</li>
+<li><span class="math notranslate nohighlight">\(\alpha\)</span> を直積 <span class="math notranslate nohighlight">\([0, 1] \times U\)</span> 上の p 形式、</li>
+<li><span class="math notranslate nohighlight">\(\fnm{\iota_0}{V}{[0, 1] \times U}{\bm x}(0, \bm x)\)</span></li>
+<li><span class="math notranslate nohighlight">\(\fnm{\pi}{[0, 1] \times U}{U}{(x_0, \bm x)}x_0\bm x\)</span></li>
+</ul>
+<p>このとき <span class="math notranslate nohighlight">\(I(\alpha)\)</span> を次のようにおくと表題の等式が成り立つ（ただし <span class="math notranslate nohighlight">\(\alpha\)</span> をいつもようにおいたものとする）：</p>
+<div class="math notranslate nohighlight">
+\[I(\alpha) = \sum_{0 &lt; i_2 &lt; \dotsb &lt; i_p}\left(
+\int_0^{x_0}\! f_{0 i_2 \dots i_p}\,\dd{x_0}
+\right)
+\dd{x_{i_2}} \wedge \dotsb \wedge \dd{x_{i_p}}.\]</div>
+<ul>
+<li><p class="first">これは <span class="math notranslate nohighlight">\([0, 1] \times U\)</span> 上の p - 1 形式である。</p>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(\dd{I(\alpha)} + I(\dd{\alpha}) = \alpha - \alpha_0\)</span> の形になる。ここで <span class="math notranslate nohighlight">\(\alpha_0\)</span> は次のようなものだ：</p>
+<div class="math notranslate nohighlight">
+\[\alpha_0 = \sum_{0 &lt; i_1 &lt; \dotsb &lt; i_p} f_{i_1\dots i_p}
+(0, x_1, \dotsc, x_n)\,
+\dd{x_{i_1}} \wedge \dotsb \wedge \dd{x_{i_p}}.\]</div>
+</li>
+<li><p class="first"><a class="reference internal" href="#tsuboi08-1-8-4"><span class="std std-ref">例 1.8.4</span></a> より <span class="math notranslate nohighlight">\(\alpha_0 = \pi^*(\iota_0^*\alpha).\)</span></p>
+</li>
+</ul>
+<p>証明手順は次のとおり：</p>
+<ol class="arabic">
+<li><p class="first"><span class="math notranslate nohighlight">\([0, 1] \times U\)</span> 上の p 形式 <span class="math notranslate nohighlight">\(\beta\)</span> を次のようにおく。意味はこの微分形式が <span class="math notranslate nohighlight">\(\varphi(x_0, \bm x) = x_0(\bm x - \bm y) + \bm y)\)</span> による
+<span class="math notranslate nohighlight">\(\alpha\)</span> の引き戻しとなることにある：</p>
+<div class="math notranslate nohighlight">
+\[\beta = \sum_{i_1 &lt; \dotsb &lt; i_p} f_{i_1 \dots i_p}(x_0(\bm x - \bm y) + \bm y)
+(x_0\,\dd{x_{i_1}} + (x_{i_1} - y_{i_1})\,\dd{x_0}) \wedge
+\dotsb
+(x_0\,\dd{x_{i_p}} + (x_{i_p} - y_{i_p})\,\dd{x_0}).\]</div>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(\varphi\)</span> は <span class="math notranslate nohighlight">\(x_0 = 0\)</span> において定数写像 <span class="math notranslate nohighlight">\(\bm y\)</span> であり、
+<span class="math notranslate nohighlight">\(x_0 = 1\)</span> において恒等写像 <span class="math notranslate nohighlight">\(\id_U\)</span> である。</p>
+<p>本書図 1.7 のちくわぶが直積 <span class="math notranslate nohighlight">\([0, 1] \times U\)</span> を表している。</p>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(\dd{\alpha} = 0 \implies \dd{\beta} = \dd{(\varphi^* \alpha)} = \varphi^*(\dd{\alpha}) = 0.\)</span></p>
+<p>この等式変形で <a class="reference internal" href="#tsuboi08-1-8-11"><span class="std std-ref">定理 1.8.11</span></a> (p. 31) を利用した。</p>
+</li>
+<li><p class="first">ゆえに <span class="math notranslate nohighlight">\(\dd{I(\beta)} = \beta - \beta_0\)</span> である。前ページ <a class="reference internal" href="#tsuboi08-1-9-1"><span class="std std-ref">命題 1.9.1</span></a> による。</p>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(p &gt; 0\)</span> としたのだから <span class="math notranslate nohighlight">\(\beta_0 = \pi^*(\iota_0^*\beta) = \pi^*0 = 0\)</span>
+により <span class="math notranslate nohighlight">\(\dd{I(\beta)} = \beta.\)</span></p>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(x_0 = 1\)</span> とすると写像 <span class="math notranslate nohighlight">\(\fn{\iota_1}{U}[0, 1] \times U\)</span> による引き戻しによって
+<span class="math notranslate nohighlight">\(\alpha = \iota_1^*\beta = \iota_1^* \dd{(I(\beta))} = \dd{(\iota_1^* I(\beta))}.\)</span></p>
+</li>
+</ol>
+</li>
+</ul>
+<ul id="tsuboi08-1-9-2">
+<li><p class="first">注意 1.9.2</p>
+<p>特に <span class="math notranslate nohighlight">\(a \in [0, 1]\)</span> に対して <span class="math notranslate nohighlight">\(I_a(\alpha)\)</span> を上に倣って定義し、
+<span class="math notranslate nohighlight">\(\iota_a(\bm x) = (a, \bm x)\)</span> と定義すると下の式が成り立つ：</p>
+<div class="math notranslate nohighlight">
+\[\dd I_a(\alpha) + I_a(\dd \alpha) = \alpha - \pi^*(\iota_a^*\alpha).\]</div>
+</li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id13">1.10 第 1 章の問題の解答</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>ノートは既に残した。</p>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter2a.html" title="第 2 章 多様体上の微分形式 (1/3)"
+             >next</a></li>
+        <li class="right" >
+          <a href="chapter1a.html" title="第 1 章 ユークリッド空間上の微分形式 1/2"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >幾何学 III 微分形式 読書ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

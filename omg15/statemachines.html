@@ -1,0 +1,1452 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>14 StateMachines &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="15 Activities" href="activities.html" />
+    <link rel="prev" title="13 Common Behavior" href="common-behavior.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="activities.html" title="15 Activities"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="common-behavior.html" title="13 Common Behavior"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Unified Modeling Language 2.5 読書ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="statemachines">
+<h1><a class="toc-backref" href="#id18">14 StateMachines</a><a class="headerlink" href="#statemachines" title="Permalink to this headline">¶</a></h1>
+<p>UML 2.5 pp. 303-370 に関するノート。</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">誤訳や変な解釈がいかにもありそうなので、発覚次第修正する。</p>
+</div>
+<div class="admonition-todo admonition" id="index-1">
+<p class="first admonition-title">Todo</p>
+<p>訳語検討。</p>
+<ul class="last simple">
+<li>configuration (n.) ここでは「配置」とする。</li>
+<li>enter (v.) 入場する。</li>
+<li>exit (v.) 退場する。</li>
+<li>orthogonal (adj.) 「直交の」だが、たいていの場合、幾何学的な意味あいでとは限らない。</li>
+<li>protocol (n.) 通信等の手順。「約束によって成り立っている規則」くらいの意味だろう。辞書には儀礼とか典礼ともあり、むしろここではこれらが相応しい？</li>
+<li>submachine (n.) 「部分機械」と機械的に訳すことにする。</li>
+<li>substate (n.) 「部分状態」。</li>
+<li>trigger (n.) 普通はカタカナで「トリガー」とするのが一般的だが、実験的に「引き金」や、踏み込んで「撃鉄」なども採用する。</li>
+</ul>
+</div>
+<div class="contents topic" id="id1">
+<p class="topic-title first">ノート目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#statemachines" id="id18">14 StateMachines</a><ul>
+<li><a class="reference internal" href="#summary" id="id19">14.1 Summary</a></li>
+<li><a class="reference internal" href="#behavior-statemachines" id="id20">14.2 Behavior StateMachines</a></li>
+<li><a class="reference internal" href="#statemachine-redefinition" id="id21">14.3 StateMachine Redefinition</a></li>
+<li><a class="reference internal" href="#protocolstatemachines" id="id22">14.4 ProtocolStateMachines</a></li>
+<li><a class="reference internal" href="#classifier-descriptions" id="id23">14.5 Classifier Descriptions</a></li>
+<li><a class="reference internal" href="#association-descriptions" id="id24">14.6 Association Descriptions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="summary">
+<h2><a class="toc-backref" href="#id19">14.1 Summary</a><a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>StateMachines パッケージは、有限状態機械の形式論を使って離散的イベント駆動の Behaviors をモデリングすることに対して用いることができる概念の集合を定義する。<ul>
+<li>システムの部分の Behavior を表現することに加えて、状態機械は有効な相互作用の連続、プロトコルと呼ばれるものを表現するために用いることもできる。</li>
+<li>これらの StateMachines の二種類はそれぞれ挙動状態機械 (behavior state machines) と規約状態機械 (protocol state machines) と呼ばれる。</li>
+</ul>
+</li>
+<li>UML で用いられる有限状態機械の特有の表現形式は、
+David Harel の statecharts 形式論のオブジェクト指向の変種に基づく。</li>
+</ul>
+</div>
+<div class="section" id="behavior-statemachines">
+<h2><a class="toc-backref" href="#id20">14.2 Behavior StateMachines</a><a class="headerlink" href="#behavior-statemachines" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>14.2.1 Summary<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Behavior StateMachines を次のどれを明確に記述することに用いることが可能だ。<ul>
+<li>能動的な Class の <code class="docutils literal notranslate"><span class="pre">classifierBehavior</span></code></li>
+<li>BehavioredClassifier の <code class="docutils literal notranslate"><span class="pre">classifierBehavior</span></code> でない <code class="docutils literal notranslate"><span class="pre">ownedBehavior</span></code></li>
+<li>対応する BehavioredClassifier のない Behavior</li>
+<li>BehaviorFeature (Operation or Reception) に対応するメソッド</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="abstract-syntax">
+<h3>14.2.2 Abstract Syntax<a class="headerlink" href="#abstract-syntax" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 14.1 Behavior StateMachines<ul>
+<li>まさに機械の名に相応しい図式である。あまりに関連が多いため、一部コネクターが交差してしまっている。</li>
+<li>新登場クラスが
+StateMachine, Region, Vertex, Transition,
+Pseudostate, ConnectionPointReference, State, FinalState
+と、とにかく多い。</li>
+</ul>
+</li>
+</ul>
+<dl class="docutils">
+<dt>A_region_stateMachine</dt>
+<dd><ul class="first last simple">
+<li>StateMachine から Region への composite 関連（双方向）。</li>
+<li>StateMachine が直接所有する Regions である。</li>
+<li>関連端 <code class="docutils literal notranslate"><span class="pre">region</span></code> の多重度は <code class="docutils literal notranslate"><span class="pre">1..*</span></code> である。必ずひとつは存在する。</li>
+</ul>
+</dd>
+<dt>A_connectionPoint_stateMachine</dt>
+<dd><ul class="first last simple">
+<li>StateMachine から ConnectionPointReference への composite 関連（双方向）。</li>
+<li>StateMachine が <code class="docutils literal notranslate"><span class="pre">submachine</span></code> State の一部として用いられているときに定義する。</li>
+</ul>
+</dd>
+<dt>A_submachineState_submachine</dt>
+<dd><ul class="first last simple">
+<li>StateMachine から State への関連（双方向）。</li>
+<li><code class="docutils literal notranslate"><span class="pre">submachine</span></code> State の際に StateMachine が参照する <code class="docutils literal notranslate"><span class="pre">submachine(s)</span></code> である。複数個を参照する条件は、concurrency が関係してくるらしい。</li>
+</ul>
+</dd>
+<dt>A_subvertex_container</dt>
+<dd><ul class="first last simple">
+<li>Region と Vertex の間の composite 関連（双方向）。</li>
+<li>Region が Vertices を所有する。</li>
+</ul>
+</dd>
+<dt>A_transition_container</dt>
+<dd><ul class="first last simple">
+<li>Region と Transition の間の composite 関連（双方向）。</li>
+<li>Region が Transitions を所有する。</li>
+<li>関連端 <code class="docutils literal notranslate"><span class="pre">container</span></code> の多重度が 1 なので、任意の Transition は必ずある Region に属する。</li>
+</ul>
+</dd>
+<dt>A_incoming_target, A_outgoing_source</dt>
+<dd><ul class="first last simple">
+<li>Vertex と Transition の間の関連（双方向）。</li>
+<li>ひとつの Transition には <code class="docutils literal notranslate"><span class="pre">source</span></code> と <code class="docutils literal notranslate"><span class="pre">target</span></code> という
+Vertex がひとつずつ対応する。</li>
+<li>関連端 <code class="docutils literal notranslate"><span class="pre">incoming</span></code> と <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> は readOnly である。</li>
+</ul>
+</dd>
+<dt>A_region_state</dt>
+<dd><ul class="first last simple">
+<li>State から Region への composite 関連（双方向）。</li>
+<li>State は StateMachine と同様に Regions を所有する能力がある。ただし関連端 <code class="docutils literal notranslate"><span class="pre">region</span></code> の多重度は <code class="docutils literal notranslate"><span class="pre">*</span></code> である。</li>
+</ul>
+</dd>
+<dt>A_stateInvariant_owningState</dt>
+<dd><ul class="first last simple">
+<li>State から Constraint への composite 関連（単方向）。</li>
+<li>この State が current であるときに常に成り立つ条件、不変条件である。</li>
+<li>関連端 <code class="docutils literal notranslate"><span class="pre">stateInvariant</span></code> の多重度は <code class="docutils literal notranslate"><span class="pre">0..1</span></code> なので、オプションである。</li>
+</ul>
+</dd>
+<dt>A_deferrableTrigger_state</dt>
+<dd><ul class="first last simple">
+<li>State から Trigger への composite 関連（双方向）。</li>
+<li>State は遅延可能トリガー（後続のある State configuration に到達するまでに処理されていればよいトリガー）を任意個所有する。</li>
+<li>スラッシュの後に書かれているアレ。</li>
+</ul>
+</dd>
+<dt>A_entry_state, A_doActivity_state, A_exit_state</dt>
+<dd><ul class="first last simple">
+<li>State から Behavior への参照。</li>
+<li>Behavior 側関連端の意味については先ほどのノート参照。</li>
+<li>Behavior 側のいずれの関連端の多重度も <code class="docutils literal notranslate"><span class="pre">0..1</span></code> なので、これらの挙動の定義はオプションである。</li>
+</ul>
+</dd>
+<dt>A_connection_state</dt>
+<dd><ul class="first last simple">
+<li>State から ConnectionPointReference への composite 関連（双方向）。</li>
+<li>この <code class="docutils literal notranslate"><span class="pre">submachine</span></code> State と一緒に用いる entry/exit 接続点 (pl.) を所有する。</li>
+<li>cf. A_entry_connectionPointReference, A_exit_connectionPointReference</li>
+</ul>
+</dd>
+<dt>A_connectionPoint_state</dt>
+<dd><ul class="first last simple">
+<li>State から Pseudostate への composite 関連（双方向）。</li>
+<li>自身が合成 State であるときに限り、その entryPoint と exitPoint を定義・所有する。</li>
+</ul>
+</dd>
+<dt>A_entry_connectionPointReference, A_exit_connectionPointReference</dt>
+<dd><ul class="first last simple">
+<li>ConnectionPointReference から Pseudostate への関連（単方向）。</li>
+<li>対応する entryPoint/exitPoint への関連を示す。</li>
+</ul>
+</dd>
+<dt>A_trigger_transition</dt>
+<dd><ul class="first last simple">
+<li>Transition から Trigger への composite 関連（単方向）。</li>
+<li>この Transition を誘発してよい Triggers である。</li>
+</ul>
+</dd>
+<dt>A_effect_transition</dt>
+<dd><ul class="first last simple">
+<li>Transition から Behavior への composite 関連（単方向）。</li>
+<li>関連端 <code class="docutils literal notranslate"><span class="pre">effect</span></code> はこの Transition が発火するときに実施される挙動。多重度が <code class="docutils literal notranslate"><span class="pre">0..1</span></code> なのでオプション。</li>
+</ul>
+</dd>
+<dt>A_guard_transition</dt>
+<dd><ul class="first last simple">
+<li>Transition から Constraint への composite 関連（単方向）。</li>
+<li>ガード条件を表す。この <code class="docutils literal notranslate"><span class="pre">guard</span></code> が true になれば
+Transition は使用可能になる。</li>
+<li>関連端 <code class="docutils literal notranslate"><span class="pre">guard</span></code> の多重度が <code class="docutils literal notranslate"><span class="pre">0..1</span></code> なのでオプション。</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="semantics">
+<h3>14.2.3 Semantics<a class="headerlink" href="#semantics" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="statemachine">
+<h4>14.2.3.1 StateMachine<a class="headerlink" href="#statemachine" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>挙動 StateMachine はひとつまたはそれを超える Regions を構成し、
+Region のそれぞれは
+Transitions を表す辺によって相互に接続されている
+Vertices の集合を（もしかすると階層的に）構成するグラフを含んでいる。</li>
+<li>StateMachine に BehavioredClassifier 脈絡の一種があれば、その Classifier はどの Signal と CallEvent の引き金が StateMachine にとって適用可能なのか、そしてどの Features が StateMachine が所有する Behaviors にとって適用可能なのかを定義する。</li>
+<li>StateMachine に BehavioredClassifier 脈絡がなければ、つまり Behavior が単独動作するものならば、それの Triggers は何か Classifier の Receptions や Operations のどれにも結び付いている必要がない。</li>
+<li>StateMachine が BehavioralFeature (Operation or Reception) の
+<code class="docutils literal notranslate"><span class="pre">method</span></code> を指定する場合には、
+StateMachine の Parameters はその BehavioralFeature の Parameters に一致するものとする。</li>
+<li>定義から、StateMachine の実行の発動はきっかけとなった効果に帰着する。それゆえ、そのような実行に結び付いた事象プールがある。</li>
+<li>それのイベント駆動型という性質のため、
+StateMachine の実行は in transit か in state のどちらかであり、両者を行ったり来たりする。</li>
+<li>StateMachine の実行は、それが安定状態配置で落ち着いたとき、それの活性状態配置に結び付いた <code class="docutils literal notranslate"><span class="pre">doActivity</span></code> Behaviors がある場合であっても、
+Behaviors を実行していることが許される。</li>
+</ul>
+</div>
+<div class="section" id="regions">
+<h4>14.2.3.2 Regions<a class="headerlink" href="#regions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Region は、それの直交する Regions と共に同時に実行することが許される挙動の断片を記す。<ul>
+<li>Regions が互いに直交するの意味は、次のどちらかを意味する。<ul>
+<li>同一の State が Regions を所有する。</li>
+<li>最上位において同一の StateMachine が Regions を所有する。</li>
+</ul>
+</li>
+<li>Region それぞれは Vertices と Transitions の集合を所有し、それは Region 内部の挙動の流れを決定付ける。</li>
+<li>Region にはそれ自身の FinalState はもちろん、自身の <strong>initial</strong> Pseudostate があってよい。</li>
+</ul>
+</li>
+<li>Region の既定の活性化は Region が暗黙的に入場されると、すなわち、それの成分の Vertices を終端とする流入 Transition を経由せずに入場されると発生する。</li>
+<li>既定の活性化とは、実行が Region の <strong>initial</strong> Pseudostate を起点とする Transition で開始することを意味する。</li>
+<li>逆に、
+Region が Region が含む Vertices のひとつを終端とする
+Transition により入場されると、明示的な活性化が発生する。</li>
+</ul>
+</div>
+<div class="section" id="vertices">
+<h4>14.2.3.3 Vertices<a class="headerlink" href="#vertices" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Vertex とは、
+StateMachine グラフにある異なる具象型ノード
+(States, Pseudostates, or ConnectionPointReferences)
+の色々なものに共通する特徴を捉える抽象的クラスである。<ul>
+<li>下で述べるある例外の場合には、
+Vertex はどんな個数の Transitions の <code class="docutils literal notranslate"><span class="pre">source</span></code> または <code class="docutils literal notranslate"><span class="pre">target</span></code>
+またはその両方であり得る。</li>
+</ul>
+</li>
+<li>Vertices の個々の種類の意味は下で述べる。</li>
+</ul>
+</div>
+<div class="section" id="states">
+<h4>14.2.3.4 States<a class="headerlink" href="#states" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>State はその間中に何らかの不変条件が成り立つ
+StateMachine Behavior の実行における情況をモデル化する。<ul>
+<li>たいていの場合、この状況は明示的に定義されず、暗黙的にされ、ふつうは State に結び付いた名前で定義される。</li>
+<li>例えば Figure 14.36 では、これは電話器の挙動のモデル化であるが、状態 Idle と Active は電話が使用中と未使用中である状況をそれぞれ表す。</li>
+</ul>
+</li>
+</ul>
+<div class="section" id="kinds-of-states">
+<h5>14.2.3.4.1 Kinds of States<a class="headerlink" href="#kinds-of-states" title="Permalink to this headline">¶</a></h5>
+<ul>
+<li><p class="first">State の次の 3 種類が区別される：</p>
+<dl class="docutils">
+<dt>単純 State (<code class="docutils literal notranslate"><span class="pre">isSimple</span></code> = true)</dt>
+<dd><p class="first last">単純 State には内部的な Vertices も Transitions もない。</p>
+</dd>
+<dt>合成 State (<code class="docutils literal notranslate"><span class="pre">isComposite</span></code> = true)</dt>
+<dd><p class="first last">合成 State は少なくともひとつの Region を含む。</p>
+</dd>
+<dt>部分機械 State (<code class="docutils literal notranslate"><span class="pre">isSubmachineState</span></code> = true)</dt>
+<dd><p class="first last">部分機械 State は StateMachine 丸ごとを参照し、これは概念的にはこの State の内部に「入れ子」になっていると考えられる。</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">合成 State の Region で取り囲まれた State はどれでもがその合成 State の部分状態であると呼ばれる。</p>
+<dl class="docutils">
+<dt>直接的部分状態</dt>
+<dd><p class="first last">他のどの State 内にもない部分状態をそう呼ぶ。</p>
+</dd>
+<dt>間接的部分状態</dt>
+<dd><p class="first last">直接的部分状態でない State をそう呼ぶ。</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="state-configurations">
+<h5>14.2.3.4.2 State configurations<a class="headerlink" href="#state-configurations" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li>一般には、StateMachine には Regions が複数あり得て、それぞれは自身の States を含み、それらの中には自身の Regions 等による複数合成物であるものもあってよい。<ul>
+<li>States の複雑な階層は State または StateMachine の状態配置と呼ばれる。</li>
+<li>実行している StateMachine オブジェクトは一度に厳密に一つの状態配置にならないが、このことはそれの活性状態配置と呼ばれる。</li>
+</ul>
+</li>
+<li>State が活性であるとは、それが活性状態配置の部分であるときを言う。</li>
+<li>状態配置が安定であるとは、<ul>
+<li>その状態配置からそれ以上遷移可能な Transitions がなく、</li>
+<li>その状態配置の <code class="docutils literal notranslate"><span class="pre">entry</span></code> Behaviors が（もしあれば）すべてが完了したときである。</li>
+</ul>
+</li>
+<li>StateMachine は生成して最初の Transition を完了した後に、いつでも何らかの状態配置になる。</li>
+<li>Event の発生の遅延、完了、または他の種類のいずれかがその StateMachine の事象プールで未決になっているときでさえ、配置は安定していると考えられる。</li>
+</ul>
+</div>
+<div class="section" id="state-entry-exit-and-doactivity-behaviors">
+<h5>14.2.3.4.3 State entry, exit, and doActivity Behaviors<a class="headerlink" href="#state-entry-exit-and-doactivity-behaviors" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li>State には付随する <code class="docutils literal notranslate"><span class="pre">entry</span></code> Behavior があってよい。この Behavior が定義されていれば、
+State が <strong>external</strong> Transition を通じて入場したときにはいつでも実行される。<ul>
+<li>さらに、State には付随する <code class="docutils literal notranslate"><span class="pre">exit</span></code> Behavior があってよい。これが定義されていると、State が退場するときにはいつでも実行される。</li>
+</ul>
+</li>
+<li>State には <code class="docutils literal notranslate"><span class="pre">doActivity</span></code> Behavior があってもよい。この Behavior は State に入場されると（ただし State <code class="docutils literal notranslate"><span class="pre">entry</span></code> Behavior が完了した後に）実行を開始し、
+State に付随してよい他の Behaviors のどれとも同時に、次に挙げるものまで実行する。<ul>
+<li>それが完了する（完了事象が生成される場合）か、</li>
+<li>State が退場されるとき。それは <code class="docutils literal notranslate"><span class="pre">doActivity</span></code> Behavior の実行が中断される場合である。</li>
+</ul>
+</li>
+<li>State の <code class="docutils literal notranslate"><span class="pre">doActivity</span></code> Behavior の実行はその State の <strong>internal</strong> Transition の発射の影響を受けない。</li>
+</ul>
+</div>
+<div class="section" id="state-history">
+<h5>14.2.3.4.4 State history<a class="headerlink" href="#state-history" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li>State 履歴の概念は David Harel によって原作の状態図表形式論で導入された。
+Region がそれが最後に退場したときの状態配置を追跡するということによる合成 States の Regions に付随する便利な概念であり、</li>
+<li>履歴 Pseudostates には二種類がある。<ul>
+<li>深い履歴 (<strong>deepHistory</strong>) は最近訪れた Region の完全な状態配置を表す。</li>
+<li>浅い履歴 (<strong>shallowHistory</strong>) は最近の状態配置の最上位の部分状態のみに対する復帰を表し、既定の入場規則を使って入場される。</li>
+</ul>
+</li>
+<li>State が以前に入場されていない（つまり先だっての履歴がない）ときか、それの FinalState に到達したときに、
+Transition が履歴 Pseudostate で停止すると、遷移を特定の部分状態に強制する選択肢、既定の履歴機構を使うこと、がある。</li>
+<li>State はその State で遅延してよい Event の型の集合を指定してよい。</li>
+<li>Event は合成 State または部分機械 States によって遅延されてよいが、合成 State が活性配置のままである限りは、それは遅延されたままという状況である。</li>
+</ul>
+</div>
+<div class="section" id="entering-a-state">
+<h5>14.2.3.4.5 Entering a State<a class="headerlink" href="#entering-a-state" title="Permalink to this headline">¶</a></h5>
+<ul>
+<li><p class="first">State に入場するという意味は、
+State の型と入場方式に依存して決まる。</p>
+<ul class="simple">
+<li>いずれの場合も、流入 Transition に付随した <code class="docutils literal notranslate"><span class="pre">effect</span></code> のどれもが完了した後に、
+State の <code class="docutils literal notranslate"><span class="pre">entry</span></code> Behavior が（定義されていれば）入場時に実行される。</li>
+<li>その上、
+<code class="docutils literal notranslate"><span class="pre">doActivity</span></code> Behavior が State に対して定義されていれば、この Behavior は先の <code class="docutils literal notranslate"><span class="pre">entry</span></code> の完了直後に実行を開始する。</li>
+</ul>
+</li>
+<li><p class="first">単一 Region からなる合成 States の場合には、次の選択肢がある。</p>
+<dl class="docutils">
+<dt>既定の入場</dt>
+<dd><p class="first last">合成 State が Transition の直接的 <code class="docutils literal notranslate"><span class="pre">target</span></code> であるときにこの状況になる。</p>
+</dd>
+<dt>明示的入場</dt>
+<dd><p class="first last">流入 Transition やその連続物が合成 State の直接的に含まれた部分状態で停止すれば、その部分状態は活性化して、その <code class="docutils literal notranslate"><span class="pre">entry</span></code> Behavior は含んでいる合成 State の
+<code class="docutils literal notranslate"><span class="pre">entry</span></code> Behavior の実行の後に実行される。</p>
+</dd>
+<dt>浅い履歴の入場</dt>
+<dd><p class="first last">流入 Transition が合成 State の Region の <strong>shallowHistory</strong> Pseudostate で停止すれば、活性部分状態はこの入場に先立つ最近活性だった部分状態となる。</p>
+</dd>
+<dt>深い履歴の入場</dt>
+<dd><p class="first last">この場合の規則は、
+<code class="docutils literal notranslate"><span class="pre">target</span></code> Pseudostate が <strong>deepHistory</strong> 型であることと、このものの下の活性状態配置のすべての階層に対して規則が再帰的に適用されることを除いて、浅い履歴の場合と同じである。</p>
+</dd>
+<dt>入口点入場</dt>
+<dd><p class="first last">Transition が <strong>entryPoint</strong> Pseudostate を通じて合成 State に入場すれば、その入口点を起点とし、その State に入り込む流出 Transition に付随する <code class="docutils literal notranslate"><span class="pre">effect</span></code> Behavior が（合成 State の <code class="docutils literal notranslate"><span class="pre">entry</span></code> Behavior が実行された後に）実行される？</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">合成 State が Regions を複数有する直交 State でもあると、その Regions のそれぞれもまた既定入場または明示的入場により入場される。</p>
+</li>
+<li><p class="first">どのように State に入場するかに関わらず、たとえその State の <code class="docutils literal notranslate"><span class="pre">entry</span></code> や <code class="docutils literal notranslate"><span class="pre">effect</span></code> が（定義されていれば）実行を開始する前であっても、
+StateMachine はその State に「なる」と考えられる。</p>
+</li>
+</ul>
+</div>
+<div class="section" id="exiting-a-state">
+<h5>14.2.3.4.6 Exiting a State<a class="headerlink" href="#exiting-a-state" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li>State を退場する際には、それが単純であるか合成であるかに関係なく、出口において必然的に起こる最終段階は、出口に付随する他の Behaviors すべてが完了後の、その State の <code class="docutils literal notranslate"><span class="pre">exit</span></code> Behavior の実行である。<ul>
+<li>State の退場時に <code class="docutils literal notranslate"><span class="pre">doActivity</span></code> がまだ実行中ならば、それは <code class="docutils literal notranslate"><span class="pre">exit</span></code> の実行開始前に中断される。</li>
+</ul>
+</li>
+<li>合成 State からの退場時は、活性状態配置の最も内側の State の <code class="docutils literal notranslate"><span class="pre">exit</span></code> が開始する。</li>
+<li>直交 State からの退場時は、その Region のそれぞれが退場される。その後に State の <code class="docutils literal notranslate"><span class="pre">exit</span></code> Behavior が実行される。</li>
+<li>どのように State を退場するかに関わらず、その State の <code class="docutils literal notranslate"><span class="pre">exit</span></code> Behavior が実行完了した後にしか
+StateMachine はその State を離脱したと考えられない。</li>
+<li>Transitions が State に直接入り込むのを認めず、その内部の Vertices のひとつで停止しないようにすることで、合成 State をカプセル化することが有用であるモデリング状況がある。</li>
+<li>入口点は流入 Transitions については停止点 (<code class="docutils literal notranslate"><span class="pre">sources</span></code>) を表す。合成 State の内部 Vertex のなにかで停止する Transitions については開始点 (<code class="docutils literal notranslate"><span class="pre">targets</span></code>) を表す。</li>
+<li>出口点は入口点の逆のものである。</li>
+</ul>
+</div>
+<div class="section" id="submachine-states-and-submachines">
+<h5>14.2.3.4.7 Submachine States and submachines<a class="headerlink" href="#submachine-states-and-submachines" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li>部分機械は単一の StateMachine 仕様を複数回再利用可能にする方法である。<ul>
+<li>プログラミング言語におけるマクロのように、相異なる Behavior の仕様である。
+<code class="docutils literal notranslate"><span class="pre">isSubmachineState</span></code> はこれを達成する属性である。</li>
+</ul>
+</li>
+<li>部分機械 State は該当する部分機械 StateMachine の仕様のマクロ的な付け加えを含意する。それはゆえに、意味としては合成 State と同値である。</li>
+<li>たとえ二個またはそれを超える部分機械 States が同じ部分機械を参照するときでも、部分機械 State のそれぞれは部分機械の区別されたオブジェクト化を表す。</li>
+<li>部分機械 StateMachine はその既定の (<strong>initial</strong>) Pseudostate を経てか、あるいはその入口点のどれかを経て入場されることができる。</li>
+<li>同様に、部分機械 StateMachine は次の結果として退場されることができる。<ul>
+<li>その FinalState に到達する</li>
+<li>部分機械 State を起点とする集団 Transition のきっかけ</li>
+<li>その出口点のどれかを経て</li>
+</ul>
+</li>
+<li>FinalState を経て退場するのと、集団 Transition によって退場するのは、普通の合成 States の場合は同じ意味である。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="connectionpointreference">
+<h4>14.2.3.5 ConnectionPointReference<a class="headerlink" href="#connectionpointreference" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>上で述べたように、
+ConnectionPointReference は部分機械 State で参照される StateMachine で定義された入口点・出口点の（部分機械 State の部分としての）用法を表す。</li>
+<li>ConnectionPointReferences は、部分機械 State により参照される部分機械 StateMachine からの出口点またはそれへの入口点を含意する
+Transitions の <code class="docutils literal notranslate"><span class="pre">sources</span></code> または <code class="docutils literal notranslate"><span class="pre">targets</span></code> である。</li>
+<li>Transition の対象としての入口点の ConnectionPointReference は、
+Transition の <code class="docutils literal notranslate"><span class="pre">target</span></code> が部分機械 State の部分機械で定義された
+<strong>entryPoint</strong> Pseudostate であることを含意する。</li>
+<li>Transition の出処としての出口点の ConnectionPointReference は、
+Transition の <code class="docutils literal notranslate"><span class="pre">source</span></code> が部分機械 State の部分機械で定義された出口点 Pseudostate であることを含意する。</li>
+</ul>
+</div>
+<div class="section" id="finalstate">
+<h4>14.2.3.6 FinalState<a class="headerlink" href="#finalstate" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>FinalState とは、取り囲んでいる Region が完了したことを知らせる特別な種類の State である。このように、FinalState へ遷移する Transition はその FinalState を含んでいる Region の挙動の完了を表す。</li>
+</ul>
+</div>
+<div class="section" id="pseudostate-and-pseudostatekind">
+<h4>14.2.3.7 Pseudostate and PseudostateKind<a class="headerlink" href="#pseudostate-and-pseudostatekind" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">Pseudostate とは StateMachine グラフ内にある一時滞在 Vertices の種々の型を取り囲む抽象的概念である。
+Pseudostates は通常、複数の Transitions をより複雑な複合遷移となるように連鎖させるのに用いる。</p>
+</li>
+<li><p class="first">Pseudostate の特別な意味は Pseudostate の型に依存し、それは型 PseudostateKind の <code class="docutils literal notranslate"><span class="pre">kind</span></code> 属性に定義される。次に種類と意味を記す。</p>
+<dl class="docutils">
+<dt>initial</dt>
+<dd><p class="first last">Region の開始点。</p>
+</dd>
+<dt>deepHistory</dt>
+<dd><p class="first last">所有 Region の直近の活性状態配置を表現する変数の一種。</p>
+</dd>
+<dt>shallowHistory</dt>
+<dd><p class="first last"><strong>deepHistory</strong> のようなものだが、その部分状態の部分状態ではないもの。</p>
+</dd>
+<dt>join</dt>
+<dd><p class="first last">ふたつ以上の Transitions の共通の <code class="docutils literal notranslate"><span class="pre">target</span></code> Vertex として役に立つ。</p>
+</dd>
+<dt>fork</dt>
+<dd><p class="first last">ふたつ以上の Transitions に分岐するのに適う。</p>
+</dd>
+<dt>junction</dt>
+<dd><p class="first last">複数の Transitions を接続して States 間の複合パスを作るのに用いる。</p>
+</dd>
+<dt>choice</dt>
+<dd><p class="first last"><strong>junction</strong> に似ているが、流出 Transitions すべての <code class="docutils literal notranslate"><span class="pre">guard</span></code> Constraints を動的に評価する点が異なる。</p>
+</dd>
+<dt>entryPoint</dt>
+<dd><p class="first last">StateMachine または合成 State に対する入口。</p>
+</dd>
+<dt>exitPoint</dt>
+<dd><p class="first last">StateMachine または合成 State に対する出口。</p>
+</dd>
+<dt>terminate</dt>
+<dd><p class="first last">ここに入場することは StateMachine の実行が直ちに停止することを暗示する。</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="transitions">
+<h4>14.2.3.8 Transitions<a class="headerlink" href="#transitions" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">Transition とは、単一の <code class="docutils literal notranslate"><span class="pre">source</span></code> Vertex を始点とし、単一の <code class="docutils literal notranslate"><span class="pre">target</span></code> Vertex を終点とする単方向リンクであり、
+StateMachine Behavior の有効な断片を指定するものである。</p>
+<ul class="simple">
+<li>ここで <code class="docutils literal notranslate"><span class="pre">source</span></code> と <code class="docutils literal notranslate"><span class="pre">target</span></code> は同じ Vertex であることが許される。</li>
+<li>Transition には関連する <code class="docutils literal notranslate"><span class="pre">effect</span></code> Behavior があってもよく、
+Transition が走査されるときに実行される。</li>
+</ul>
+</li>
+<li><p class="first">Transition 走査の期間は未定義であるが、さまざまな意味上の解釈を考慮して、ゼロと非ゼロ時間の両方を含んでいる。</p>
+</li>
+<li><p class="first">Transitions は、
+StateMachine 実行をある安定状態配置から別の配置へと持っていくより複雑な複合遷移の一部として実行される。</p>
+</li>
+<li><p class="first">実行の途中では、Transition オブジェクトは次のどれかであると言う。</p>
+<dl class="docutils">
+<dt>reached</dt>
+<dd><p class="first last">その StateMachine 実行の実行がその <code class="docutils literal notranslate"><span class="pre">source</span></code> Vertex に到達した（つまりその <code class="docutils literal notranslate"><span class="pre">source</span></code> State が活性状態配置にある）とき。</p>
+</dd>
+<dt>traversed</dt>
+<dd><p class="first last">それが（関連する <code class="docutils literal notranslate"><span class="pre">effect</span></code> Behavior のどれとも一緒に）目下実行されているとき。</p>
+</dd>
+<dt>completed</dt>
+<dd><p class="first last">それが <code class="docutils literal notranslate"><span class="pre">target</span></code> Vertex に到達した後。</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">Transition は Triggers の集合を所有してよく、それぞれはそれの出来事が発送されたときに
+Transition の走査のきっかけになれる Event を指定する。</p>
+</li>
+</ul>
+<div class="section" id="transition-kinds-relative-to-source">
+<h5>14.2.3.8.1 Transition kinds relative to source<a class="headerlink" href="#transition-kinds-relative-to-source" title="Permalink to this headline">¶</a></h5>
+<ul>
+<li><p class="first">Transition の意味はその <code class="docutils literal notranslate"><span class="pre">source</span></code> Vertex との関係に依存して決まる。三個の異なる可能性が定義されており、
+Transition の <code class="docutils literal notranslate"><span class="pre">kind</span></code> 属性の値に依存している。</p>
+<dl class="docutils">
+<dt>external</dt>
+<dd><p class="first last">Transition はその <code class="docutils literal notranslate"><span class="pre">source</span></code> から退場する、の意。</p>
+</dd>
+<dt>local</dt>
+<dd><p class="first last"><strong>external</strong> の反対であり、
+Transition はそれを含む State から退場しない、の意。</p>
+</dd>
+<dt>internal</dt>
+<dd><p class="first last">自己遷移をする <strong>local</strong> Transition の特別な場合であり、
+State が決して退場されないようになり、この Transition が実行されるときに出口 Behavior も入口 Behavior も実行されないことを意味する。</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="high-level-group-transitions">
+<h5>14.2.3.8.2 High-level (group) Transitions<a class="headerlink" href="#high-level-group-transitions" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">source</span></code> Vertex が合成 States である Transitions は、高水準または集団 Transitions と呼ばれる。</li>
+</ul>
+</div>
+<div class="section" id="completion-transitions-and-completion-events">
+<h5>14.2.3.8.3 Completion Transitions and completion events<a class="headerlink" href="#completion-transitions-and-completion-events" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li>特別な種類の Transition は完了 Transition であり、暗黙の Trigger がある。合成または部分機械 States の場合は、完了事象は次の条件で生成される：<ul>
+<li>内部の活動（例えば <code class="docutils literal notranslate"><span class="pre">entry</span></code> と <code class="docutils literal notranslate"><span class="pre">doActivity</span></code> Behaviors）のすべてが実行を完了して、</li>
+<li>State が合成 State であれば、その直交 Regions のすべてが FinalState に到達したか、</li>
+<li>State が部分機械 State であれば、その <code class="docutils literal notranslate"><span class="pre">submachine</span></code> StateMachine の実行が FinalState に到達した。</li>
+</ul>
+</li>
+<li>完了事象は発送優先権がある。つまり、それらは事象プールにある未決 Event の出来事のどれよりも早くに発送される。</li>
+<li>Transition に付随する <code class="docutils literal notranslate"><span class="pre">guard</span></code> Constraint があってよい。<ul>
+<li>false に評価される <code class="docutils literal notranslate"><span class="pre">guard</span></code> を有する Transitions は使用不能である。</li>
+<li>評価されるタイミングは、それを含む複合 Transition が利用可能になる前である。</li>
+<li>付随する <code class="docutils literal notranslate"><span class="pre">guard</span></code> がない Transition は、あたかもそれが常に true に評価される <code class="docutils literal notranslate"><span class="pre">guard</span></code> があるかのように取り扱われる。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="compound-transitions">
+<h5>14.2.3.8.4 Compound transitions<a class="headerlink" href="#compound-transitions" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li>先に述べたように、
+Event の出来事が利用可能な Transition のきっかけとなったり、または StateMachine の実行が生成したりすると、安定状態配置に至るまでは、これは接続されて入れ子になった Transitions と Vertices の集合の走査を新しく始まることがある。一般の場合に、この走査の追跡は複合遷移として知られていて、非循環有向グラフとして表すことができる。このグラフの根は次のうちのひとつであるはずである。<ul>
+<li>ひとつまたはそれを超える Triggers が定義された Transition</li>
+<li>完了 Transition</li>
+<li>ある共通の <strong>join</strong> Pseudostate に収束する相異なる直交 Regions を起点とする Transitions の集合</li>
+<li>最上位 Region の <strong>initial</strong> Pseudostate を起点とする Transition</li>
+</ul>
+</li>
+<li>複合遷移で実行の分岐が生じるのは、<ul>
+<li>Transtion を実行することが直行する Regions が複数あり、別々の分岐が Region それぞれに対して生成されている
+State への既定の入場を実施するときのいつでもか、</li>
+<li>または <strong>fork</strong> Pseudostate に遭遇したときである。</li>
+</ul>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">guards</span></code> のある流出 Transtions が複数ある
+<strong>choice</strong> または <strong>join</strong> 点に到着すると、
+Transtion の <code class="docutils literal notranslate"><span class="pre">guard</span></code> が true と評価するものが取られる。</li>
+</ul>
+</div>
+<div class="section" id="transition-ownership">
+<h5>14.2.3.8.5 Transition ownership<a class="headerlink" href="#transition-ownership" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li>Transition が含まれている Region は直接間接を問わず StateMachine が所有する必要があるのだが、
+Transition の所有者は明示的に制限されていない。<ul>
+<li>Transition の推奨される所有者は、その <code class="docutils literal notranslate"><span class="pre">source</span></code> と <code class="docutils literal notranslate"><span class="pre">vertex</span></code> の両方を含む Region の最も内側のものである。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="event-processing-for-statemachines">
+<h4>14.2.3.9 Event Processing for StateMachines<a class="headerlink" href="#event-processing-for-statemachines" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="the-run-to-completion-paradigm">
+<h5>14.2.3.9.1 The run-to-completion paradigm<a class="headerlink" href="#the-run-to-completion-paradigm" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li>StateMachine 実行による Event 出来事の処理手順は、
+<a class="reference internal" href="common-behavior.html"><span class="doc">13 Common Behavior</span></a> で定義した一般的な意味に従う。</li>
+<li>StateMachine は完了事象に対してだけではなく、
+<a class="reference internal" href="common-behavior.html"><span class="doc">13 Common Behavior</span></a> で記述した Event の種類のどれに対しても応答することができる。</li>
+<li>上で説明したように、完了事象には優先権があり、事象プールにある未決 Event 出来事のどれよりも早く送達されるものである。</li>
+<li>Event 出来事は StateMachine 実行によって一つずつ検知、送達、処理される。</li>
+<li>さまざな予定決定計算法を考慮に入れて、事象送達の順序は未定義のままにしてある。</li>
+<li>???</li>
+<li>Event 出来事が検知されて送達されると、ひとつまたはそれを超える Transitions が点火可能になることが許される。</li>
+<li>直交 Regions があるため、（異なる Regions にある）複数の Transitions を同じ Event 出来事がきっかけとして起こることができる。</li>
+<li>上で言ったように、
+Region にある複数の互いに排他的な Transitions が同じ Event 出来事によって点火可能になることが可能である。</li>
+<li>Transition の間じゅうずっと、行動 Behaviors がいくつか実行されてよい。</li>
+<li>Run-to-completion をさまざまな手段で実装してよい。</li>
+<li>Run-to-completion は、実行している StateMachine は割り込まれないことを含意するものと誤って解釈されることがよくあるが、これは当然、時間に繊細なシステムでは優先権逆転問題に誘導しようとする。</li>
+</ul>
+</div>
+<div class="section" id="enabled-transitions">
+<h5>14.2.3.9.2 Enabled Transitions<a class="headerlink" href="#enabled-transitions" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li>Transition は次の時に、かつその時に限って使用可能になる：<ul>
+<li>その <code class="docutils literal notranslate"><span class="pre">source</span></code> States のすべてが活性状態配置にある。</li>
+<li>Transition の <code class="docutils literal notranslate"><span class="pre">triggers</span></code> の少なくともひとつに送達された Event 出来事の Event 型により一致する Event がある。</li>
+<li>起点状態配置から目標状態配置または
+<code class="docutils literal notranslate"><span class="pre">guards</span></code> 条件すべてが true である動的な <strong>choice</strong> Pseudostate のどちらかに至る完全経路が少なくともひとつ存在する。</li>
+</ul>
+</li>
+<li>ひとつを超える Transition が同じ Event 出来事によって使用可能になることが認められているので、
+Transition の点火が使用可能になることは必要だが十分条件ではない。</li>
+</ul>
+</div>
+<div class="section" id="conflicting-transitions">
+<h5>14.2.3.9.3 Conflicting Transitions<a class="headerlink" href="#conflicting-transitions" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li>ひとつを超える Transition が StateMachine では使用可能になることができる。もしそれが起こるならば、そのような Transitions は互いに相容れなくてよい。</li>
+<li>ふたつの Transitions が衝突するとは、それら両方が同じ State を退場することを、より正確には、それらが退場する States の集合の共通部分が空ではないことである。</li>
+<li>State の <strong>internal</strong> Transition はその State からの退場の原因になる Transitions にしか衝突しない。</li>
+</ul>
+</div>
+<div class="section" id="firing-priorities">
+<h5>14.2.3.9.4 Firing priorities<a class="headerlink" href="#firing-priorities" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li>衝突する Transitions がある状況では、どの Transitions が点火するかという選択は、暗黙の優先権にいくらか基づく。</li>
+<li>Transition の優先権はその <code class="docutils literal notranslate"><span class="pre">source</span></code> State に基いて定義される。</li>
+<li>一般に、t1 を <code class="docutils literal notranslate"><span class="pre">source</span></code> State が s1 の Transition とし、
+t2 に <code class="docutils literal notranslate"><span class="pre">source</span></code> s2 があるものとするならば：<ul>
+<li>s1 が s2 の直接または間接的に入れ子になった部分状態ならば、
+t1 には t2 よりも高い優先権がある。</li>
+<li>s1 と s2 が同じ状態配置になければ、
+t1 と t2 の間に優先権の違いはない。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="transition-selection-algorithm">
+<h5>14.2.3.9.5 Transition selection algorithm<a class="headerlink" href="#transition-selection-algorithm" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li>点火することになる Transitions の集合は、次の諸条件を満たす現在の状態配置の Regions にある Transitions である：<ul>
+<li>集合にある Transitions すべてが使用可能である。</li>
+<li>集合には衝突 Transitions がない。</li>
+<li>集合にある Transition よりも高い優先権のある集合の外側に Transition があるということがない。</li>
+</ul>
+</li>
+<li>これは強欲な選択計算法により実装することができ、活性状態配置の直截な走査を伴う。</li>
+</ul>
+</div>
+<div class="section" id="transition-execution-sequence">
+<h5>14.2.3.9.6 Transition execution sequence<a class="headerlink" href="#transition-execution-sequence" title="Permalink to this headline">¶</a></h5>
+<ul>
+<li><p class="first"><strong>internal</strong> および <strong>local</strong> Transitions を除き、どの Transition も <code class="docutils literal notranslate"><span class="pre">source</span></code> State の退場および
+<code class="docutils literal notranslate"><span class="pre">target</span></code> State の入場をもたらす。これらふたつの States は、合成でもよいが、
+Transition の主始点と主終点としてそれぞれ指名される。</p>
+</li>
+<li><p class="first">主始点は <code class="docutils literal notranslate"><span class="pre">source</span></code> States を含む Region の直接部分状態であり、主終点は <code class="docutils literal notranslate"><span class="pre">target</span></code> States を含む Region の直接部分状態である。</p>
+</li>
+<li><p class="first">ある Region から同じ直接取り囲む合成 State にある別の Region への Transition は許されない。</p>
+</li>
+<li><p class="first">いったん Transition が使用可能となって点火するように選択されると、次の処置がこの順に実施される：</p>
+<ol class="arabic simple">
+<li>主始点 State から開始して、その主始点 State を含む States が先に述べた State 退場規則に則って退場される。</li>
+<li>主始点と主終点の両方を直接または間接的に含む最初の Region に到達するまで、
+State 退場の系列が続行する。</li>
+<li>主終点 State を含む States の配置に入場し、主終点 State を含む Region の最小共通先祖にある最も外側の State で開始する。</li>
+</ol>
+</li>
+<li><p class="first">この遷移実行法は Figure 14.2 の StateMachine 見本が図解する。</p>
+</li>
+<li><p class="first">Figure 14.2 Compound transition example</p>
+<ul>
+<li><p class="first">この場合、StateMachine が State S11 にある間、事象 sig が送達されて、次の行動の列が実行されるはずである：</p>
+<p>xS11; t1; xS1; t2; eT1; eT11; t3; eT111</p>
+</li>
+<li><p class="first">要点は入れ子になっている States と Transitions の遷移順序が外側からなのか内側からなのかが始点に近いか終点に近いかで決まるということのようだ。</p>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="notation">
+<h3>14.2.4 Notation<a class="headerlink" href="#notation" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="statemachine-diagrams">
+<h4>14.2.4.1 StateMachine Diagrams<a class="headerlink" href="#statemachine-diagrams" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>StateMachine 図は StateMachines を明確に定義する。</li>
+<li>StateMachine 図は StateMachine を表すグラフである。
+StateMachine グラフにある States およびさまざまな型の Vertices は適当な State および Pseudostate 記号で描画される。それに対して、Transitions は普通はそれらを接続する有向辺か、
+Transition の Behavior の動作を表す制御器号によって描画される。</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h4>14.2.4.2 StateMachine<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>クラス図で StateMachine 再定義を描くときは、
+Classifier に対する既定の矩形表記法を用いることができ、キーワード «statemachine» が StateMachine の名前の上または前にある。</li>
+<li>StateMachine とその <code class="docutils literal notranslate"><span class="pre">context</span></code> Classifier または BehavioralFeatures の間の関連には特別な図表的表現がない。</li>
+</ul>
+</div>
+<div class="section" id="region">
+<h4>14.2.4.3 Region<a class="headerlink" href="#region" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Regions を有する合成 State や StateMachine は、破線を引いて全体を Regions に分割するような描き方をする。</li>
+<li>Figure 14.3 Notation for a composite State with Regions<ul>
+<li>Regions がふたつある合成 State を示す。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h4>14.2.4.4 表題不明<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>一個だけ Region を有する合成 State や StateMachine は、グラフ Region で入れ子になった状態図を見せることで示される。</li>
+</ul>
+</div>
+<div class="section" id="state">
+<h4>14.2.4.5 State<a class="headerlink" href="#state" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">Figure 14.4 State notation</p>
+<ul class="simple">
+<li>State は名前が内部に示されている角の丸い矩形として示す。</li>
+</ul>
+</li>
+<li><p class="first">Figure 14.5 State with a name tab</p>
+<ul class="simple">
+<li>あるいは名前タブを取り付けてよい。</li>
+<li>名前タブは矩形であり、普通は State の上辺外側に安置されて、その State の名前を含む。これは普通は直交 Regions のある合成 State の名前を持つのに用いられるが、他の場合でも用いて構わない。</li>
+</ul>
+</li>
+<li><p class="first">Figure 14.6 State with compartments</p>
+<ul>
+<li><p class="first">State を水平線で区切って複数区画に分割してよい。</p>
+</li>
+<li><p class="first">区画の構成は次のようになる。</p>
+<dl class="docutils">
+<dt>名前区画</dt>
+<dd><p class="first last">この区画では State の名前（オプション）を文字列として保持する。部分機械 State の場合は、参照される StateMachine の名前を
+State の名前の後にコロンが続く文字列として示す。</p>
+</dd>
+<dt>内部 Behaviors 区画</dt>
+<dd><p class="first last">この区画では State に付随する内部 Behaviors のリストを保持する。書式説明省略。</p>
+</dd>
+<dt>内部 Transitions 区画</dt>
+<dd><p class="first last">この区画では <strong>internal</strong> Transitions のリストを含む。書式説明省略。</p>
+</dd>
+<dt>分解区画</dt>
+<dd><p class="first last">合成 State のみこの区画を使える。次の節参照。</p>
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+</ul>
+<p>代わりに、テキストの挙動式の代わりに、
+State または <strong>internal</strong> Transition に付随するさまざまな Behaviors を適切な図表上の表現を使って別々の図式に表すことができる。</p>
+<div class="section" id="composite-state">
+<h5>14.2.4.5.1 Composite State<a class="headerlink" href="#composite-state" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li>分解区画では Regions, States, Transition に関してその合成構造がわかる。</li>
+<li>合成 State の分解を非表示にすることが便利な場合がある。</li>
+<li>ここでの「非表示」とは純粋に図表上の便宜の事柄であって、アクセス制限に関しての意味はない。</li>
+<li>合成 State にはひとつまたはそれを超える <code class="docutils literal notranslate"><span class="pre">entry</span></code> 点と <code class="docutils literal notranslate"><span class="pre">exit</span></code> 点が、境界の外側にあるか、その境界の十分近いところ（内でも外でも可）にあってよい。</li>
+<li>Figure 14.7 Composite State with two States<ul>
+<li>Dialing は Start と Partial Dial のふたつの States を含む合成 State である。</li>
+</ul>
+</li>
+<li>Figure 14.8 Composite State with a hidden decomposition indicator icon<ul>
+<li>合成 State の分解を非表示にすることは便利である。</li>
+<li>非表示であることを、メガネのようなシンボルを State 内の右下に記すことで示す。</li>
+</ul>
+</li>
+<li>Figure 14.9 Composite State with Regions<ul>
+<li>状態 Studying は 3 個の Regions からなる。</li>
+</ul>
+</li>
+<li>Figure 14.10 Composite State with two Regions and entry, exit, and do Behaviors<ul>
+<li>entry: この状態 (LightOn) に入場する際に履行される Behavior (<code class="docutils literal notranslate"><span class="pre">entry</span></code>) である。</li>
+<li>do: この状態にある間中履行される Behavior (<code class="docutils literal notranslate"><span class="pre">doActivity</span></code>) である。</li>
+<li>exit: この状態から退場する際に履行される Behavior (<code class="docutils literal notranslate"><span class="pre">exit</span></code>) である。</li>
+<li>文書中に記述がないのでこれは憶測になるが、左の Region がメインの照明、右の Region がサブの照明を示している。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="submachine-state">
+<h5>14.2.4.5.2 Submachine State<a class="headerlink" href="#submachine-state" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li>部分機械 State は通常の State として描かれる。</li>
+<li>部分機械 State 記号はひとつまたはそれを超える <code class="docutils literal notranslate"><span class="pre">entry</span></code> 点への参照と、ひとつまたはそれを超える <code class="docutils literal notranslate"><span class="pre">exit</span></code> 点への参照とを含んでよい。</li>
+<li>部分機械 StateMachine が既定の <strong>initial</strong> Pseudostate を通って入場されるか、部分機械の完了の結果として退場されるならば、入場点と退場点の表記法を使う必要はない。</li>
+<li>同じ部分機械を発動する部分機械 States は、入場点と退場点が異なる Transitions の部分となっている同じ状態図に複数回現れてよい。</li>
+<li>Figure 14.11 Submachine State example<ul>
+<li>部分機械 State (FailureSumbachine) が参照される
+StateMachine 図のある断片である。</li>
+<li>Event “error1” がきっかけとなる Transition は FailureSumbachine の入場点 “sub1” にて停止するはずである。
+Transition “error3” は FailureSumbachine の既定の Transition を取る含みがある。</li>
+<li>部分機械の退場点 “subEnd” から始まる Transition は、
+StateMachine HandleFailure で実行されるものばかりでなく、
+Behavior “fixed1” を実行するはずである。</li>
+<li>State の名前で StateMachine に対する参照がないかもしれないということを除き、同じ表記法を合成 States に対して適用するだろう。</li>
+</ul>
+</li>
+<li>Figure 14.12 StateMachine with an exit point as part of the StateMachine graph<ul>
+<li>ふたつの退場点が定義された StateMachine の見本。</li>
+</ul>
+</li>
+<li>Figure 14.13 StateMachine with an exit point on the border<ul>
+<li>同じ StateMachine を StateMachine の枠上に入場点・退場点を記して示す。</li>
+</ul>
+</li>
+<li>Figure 14.14 Submachine Sate that uses an exit point<ul>
+<li>Figure 14.13 で示した StateMachine が部分機械 State で参照されており、
+State 記号上に退場点のある表現オプションを示す。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="state-list-notation">
+<h5>14.2.4.5.3 State list notation<a class="headerlink" href="#state-list-notation" title="Permalink to this headline">¶</a></h5>
+<ul>
+<li><p class="first">State リストは実際上時々起こるある状況に対して図表上の略記法を与える。</p>
+</li>
+<li><p class="first">これらは純粋に対応する抽象的構文表現がない表記法の形式である。</p>
+</li>
+<li><p class="first">異なる States から始まる同じ Trigger 値を有する
+<code class="docutils literal notranslate"><span class="pre">effect</span></code> のない複数の Transitions で、すべてが</p>
+<ul class="simple">
+<li>単一の流出 Transition のある共通 <strong>junction</strong> Vertex を終点とするか、</li>
+<li>同じ終点 State で停止するか</li>
+</ul>
+<p>であるものは、始まりの States の名前の列記でラベルが付いた、
+State のような図表要素から始まる単一の Transition のような辺で表してよい。</p>
+</li>
+<li><p class="first">Figure 14.15 State list notation option</p>
+<ul class="simple">
+<li>両者の可能性があることがわかる。</li>
+</ul>
+</li>
+<li><p class="first">Figure 14.16 Diagram equivalent to Figure 14.15 without using statelists</p>
+<ul class="simple">
+<li>状態リストを用いることなしの同値の図。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id5">
+<h4>14.2.4.6 FinalState<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>FinalState は小さい黒丸を囲む丸で示す。</li>
+<li>Figure 14.17 FinalState notation<ul>
+<li>FinalState の見本である。合成 State 内部の States の最も右のもの。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="pseudostate">
+<h4>14.2.4.7 Pseudostate<a class="headerlink" href="#pseudostate" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 14.18 initial Pseudostate<ul>
+<li><strong>initial</strong> Pseudostate は小さい黒丸を囲む丸で見せる。</li>
+</ul>
+</li>
+<li>Figure 14.19 shallowHistory Pseudostate<ul>
+<li><strong>shallowHistory</strong> Pseudostate は <code class="docutils literal notranslate"><span class="pre">H</span></code> を囲む小さい丸で見せる。</li>
+</ul>
+</li>
+<li>Figure 14.20 deepHistory Pseudostate<ul>
+<li><strong>deepHistory</strong> Pseudostate は <code class="docutils literal notranslate"><span class="pre">H*</span></code> を囲む小さい丸で見せる。</li>
+</ul>
+</li>
+<li>Figure 14.21 entryPoint Pseudostate<ul>
+<li>入場点 は StateMachine 図または合成状態の枠上に小さい丸で、関連する名前とともに見せる。</li>
+</ul>
+</li>
+<li>Figure 14.22 exitPoint Pseudostate<ul>
+<li>退場点は StateMachine 図または合成状態の枠上にバツの付いた小さい丸で、関連する名前とともに見せる。</li>
+</ul>
+</li>
+<li>Figure 14.23 entryPoint and exitPoints on a composite State<ul>
+<li>合成 States の入場点と退場点を描く場合の表記法を図解する。</li>
+</ul>
+</li>
+<li>Figure 14.24 junction Pseudostate with incoming and outgoing Transitions<ul>
+<li><strong>junction</strong> は黒丸で見せる。</li>
+</ul>
+</li>
+<li>Figure 14.25 choice Pseudostates<ul>
+<li><strong>choice</strong> Pseudostate はダイヤモンド形の記号で見せる。</li>
+</ul>
+</li>
+<li>Figure 14.26 terminate Pseudostate<ul>
+<li><strong>terminate</strong> Pseudostate はバツで見せる。</li>
+</ul>
+</li>
+<li>Figure 14.27 fork and join Pseudostates<ul>
+<li><strong>fork</strong> と <strong>join</strong> を表す表記法は太い棒である。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h4>14.2.4.8 ConnectionPointReference<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 14.28 Entry point ConnectionPointReference notation<ul>
+<li>入場点に対する接続点参照は <code class="docutils literal notranslate"><span class="pre">entry</span></code> Pseudostate と同じ表記法である。</li>
+</ul>
+</li>
+<li>Figure 14.29 Exit point ConnectionPointReference notation<ul>
+<li>退場点に対する接続点参照は <code class="docutils literal notranslate"><span class="pre">exit</span></code> Pseudostate と同じ表記法である。</li>
+</ul>
+</li>
+<li>Figure 14.30 Alternative entry point ConnectionPointReference notation<ul>
+<li>代わりに、入場点に対する接続点参照は「括弧付きの余白」記号を使って見せることもできる。</li>
+<li>テキスト <code class="docutils literal notranslate"><span class="pre">(via</span> <span class="pre">&lt;name&gt;)</span></code> を State へ至る Transition の矢印上に配置するというものである。</li>
+</ul>
+</li>
+<li>Figure 14.31 Alternative exit point ConnectionPointReference notation<ul>
+<li>退場点に対する接続点参照は「括弧付きの余白」記号を使って見せることもできる。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="transition">
+<h4>14.2.4.9 Transition<a class="headerlink" href="#transition" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Transition を表す既定のテキスト表記法は BNF 式
+<code class="docutils literal notranslate"><span class="pre">&lt;trigger&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;guard&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;behavior-expression&gt;</span></code> により定義される。<ul>
+<li><code class="docutils literal notranslate"><span class="pre">&lt;trigger&gt;</span></code> は Triggers を表す標準表記法である。</li>
+<li><code class="docutils literal notranslate"><span class="pre">&lt;guard&gt;</span></code> は <code class="docutils literal notranslate"><span class="pre">guard</span></code> を表す Boolean 式である。</li>
+<li><code class="docutils literal notranslate"><span class="pre">&lt;behavior-expression&gt;</span></code> はオプションで、何らかの言語で書かれた <code class="docutils literal notranslate"><span class="pre">effect</span></code> Behavior を指定する式である。</li>
+</ul>
+</li>
+<li>代替として、
+<code class="docutils literal notranslate"><span class="pre">effect</span></code> Behavior を Actions の配列に基づいた制御フローとして記述できるならば、
+Activities に対して使われる表記法と類似する、
+Transitions と複合遷移を表す図式的表現がある。</li>
+<li>この代替表記法は Activities を表すのに使われる表記法を思い起こさせる図表要素を含むものの、
+StateMachines に対してしか適用できない異なる形式であり、その要素は適当な StateMachine の概念に写像する。</li>
+<li>この表記法は有向グラフの形をしていて、制御フローを表す有向辺で相互接続された、ひとつまたはそれを超える図表記号からなる。</li>
+<li>Transition が <strong>initial</strong> Pseudostate から始まると、開始記号は初期記号であり、それは <strong>initial</strong> Pseudostate を表すのに使うものと同じである。つまり黒塗りの丸である。</li>
+<li>経路を停止する終了記号を除いて、次の記号のどれもが適切に連鎖して現れることができる。<ul>
+<li>行動記号</li>
+<li>選択点記号</li>
+<li>Signal 送信記号</li>
+<li>合併記号</li>
+</ul>
+</li>
+<li>これらの有向グラフにある停止記号はいつでも遷移の <code class="docutils literal notranslate"><span class="pre">target</span></code> State を表す State 似の記号か最終状態記号である。</li>
+</ul>
+<div class="section" id="action-symbols">
+<h5>14.2.4.9.1 Action symbols<a class="headerlink" href="#action-symbols" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li>行動記号それぞれはオプションのテキストの行動仕様のある矩形で表す。</li>
+</ul>
+</div>
+<div class="section" id="signal-receipt-symbol">
+<h5>14.2.4.9.2 Signal receipt symbol<a class="headerlink" href="#signal-receipt-symbol" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li>Signal 受信記号は独特な凹五角形で表現する。中には <code class="docutils literal notranslate"><span class="pre">&lt;trigger&gt;</span></code> や <code class="docutils literal notranslate"><span class="pre">&lt;guard&gt;</span></code> を用いたテキストが含まれる。</li>
+</ul>
+</div>
+<div class="section" id="signal-send-symbol">
+<h5>14.2.4.9.3 Signal send symbol<a class="headerlink" href="#signal-send-symbol" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li>これは信号を送信する特別な行動を表し、対応する Transition の <code class="docutils literal notranslate"><span class="pre">effect</span></code> Behavior を記述する
+Activity の部分である
+SendSignalAction へ直接写像する。<ul>
+<li>Signal 送信シンボルの記法は SendSignalAction の記法に対応する。
+<a class="reference internal" href="actions.html"><span class="doc">16 Actions</span></a> 参照。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="choice-point-symbol">
+<h5>14.2.4.9.4 Choice point symbol<a class="headerlink" href="#choice-point-symbol" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li>この記号は <strong>choice</strong> Pseudostate へ直接写像し、同じ記法を使う。</li>
+<li>どの Activity の部分でもない。</li>
+</ul>
+</div>
+<div class="section" id="merge-symbol">
+<h5>14.2.4.9.5 Merge symbol<a class="headerlink" href="#merge-symbol" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li>併合記号は複数の制御フロー辺を合流するのに使われて、
+<strong>junction</strong> Pseudostate へ直接写像し、同じ表記法を使う。どの Activity の部分でもない。</li>
+<li>Figure 14.32 Symbols for Signal reception, Sending, and Actions on a Transition<ul>
+<li>Idle からダイヤモンドの間<ul>
+<li><code class="docutils literal notranslate"><span class="pre">Req(id)</span></code> が Signal 受信シンボル。</li>
+<li>ダイヤモンドが選択点シンボル。</li>
+</ul>
+</li>
+<li>ダイヤモンドから黒丸の間（左右それぞれ）<ul>
+<li><code class="docutils literal notranslate"><span class="pre">Minor(id)</span></code> たちが Signal 送信シンボル。</li>
+<li><code class="docutils literal notranslate"><span class="pre">MinorReq</span> <span class="pre">:=</span> <span class="pre">id;</span></code> たちがアクションシンボル。</li>
+</ul>
+</li>
+<li>黒丸から Busy の間<ul>
+<li>黒丸はマージシンボル。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="deferred-triggers">
+<h5>14.2.4.9.6 Deferred triggers<a class="headerlink" href="#deferred-triggers" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li>遅延可能な引き金は State の内側にリストし、スラッシュ記号とラベル <code class="docutils literal notranslate"><span class="pre">defer</span></code> を付けることで示す。</li>
+<li>Figure 14.33 Deferred Trigger notation<ul>
+<li>Initializing と Primed のどちらの状態にも <code class="docutils literal notranslate"><span class="pre">request/defer</span></code> とある。イベント <code class="docutils literal notranslate"><span class="pre">request</span></code> は Operational に到達するとすぐに処理される。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="transitionkind">
+<h4>14.2.4.10 TransitionKind<a class="headerlink" href="#transitionkind" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>種類が <strong>internal</strong> の Transitions は図式中に明示的には見られない。</li>
+<li>種類が <strong>local</strong> の Transitions は含む合成 State の境界、それの入場点のうちのひとつ、または合成 State にある Vertex から始まることができる。</li>
+<li>種類が <strong>external</strong> の Transitions は
+<code class="docutils literal notranslate"><span class="pre">source</span></code> Vertex の内部に含まれる Vertex のいずれかか、外部にある Vertex のいずれかで終わることができる。</li>
+<li>Figure 14.34 Local Transitions<ul>
+<li>ここにある Transitions のすべてが <strong>local</strong> である。</li>
+</ul>
+</li>
+<li>Figure 14.35 External Transitions<ul>
+<li>ここにある Transitions のすべてが <strong>external</strong> である。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="examples">
+<h3>14.2.5 Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 14.36 StateMachine diagram representing a telephone<ul>
+<li>簡単な電話のための StateMachine の図式。</li>
+<li>Idle の右についている黒丸 (<strong>initial</strong> Pseudostate) と、大きい枠の左上外部にある白丸 (activeEntry) が入口候補。</li>
+<li>FinalState に加えて、マルバツ印の aborted が出口候補。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="statemachine-redefinition">
+<h2><a class="toc-backref" href="#id21">14.3 StateMachine Redefinition</a><a class="headerlink" href="#statemachine-redefinition" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h3>14.3.1 Summary<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>StateMachines は例えば一般化できる Classes のような Behavior の定義に用いる。
+Class の特殊化の一部として、それの Behavior の定義を特殊化することが必要とされてよい。これは再定義を用いる一般の Classifier の Behavior の拡張として、特殊化された Classifier の Behavior を定義することにより果たされる。</li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h3>14.3.2 Abstract Syntax<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 14.37 StateMachine redefinition<ul>
+<li>現れているクラスはすべて前節ですでに述べられている。</li>
+<li>ただし、Region, State, Transition の親クラスが
+RedefinableElement のみとなっていることが違う。以前見た Figure 14.1 では Namespace のみが親クラスとして示されていた。</li>
+</ul>
+</li>
+</ul>
+<dl class="docutils">
+<dt>A_extendedStateMachine_stateMachine, A_extendedRegion_region</dt>
+<dd><ul class="first last simple">
+<li>StateMachine/Region から StateMachine/Region への関連（単方向）。</li>
+<li>これがひとつの拡張であるような StateMachine/Region を参照。</li>
+</ul>
+</dd>
+<dt>A_redefinedState_state, A_redefinedTransition_transition</dt>
+<dd><ul class="first last simple">
+<li>State/Transition から State/Transition への関連（単方向）。</li>
+<li>これがその再定義であるような State/Transition を参照。</li>
+</ul>
+</dd>
+<dt>A_redefinitionContext_region, A_redefinitionContext_state, A_redefinitionContext_transition</dt>
+<dd><ul class="first last simple">
+<li>Region/State/Transition から Classifier への関連（単方向）。</li>
+<li>これが再定義されることが許容される <code class="docutils literal notranslate"><span class="pre">context</span></code> Classifier を参照。</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="id9">
+<h3>14.3.3 Semantics<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="statemachine-extension">
+<h4>14.3.3.1 StateMachine Extension<a class="headerlink" href="#statemachine-extension" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>StateMachine は一般化可能。特殊化 StateMachine は 一般 StateMachine の拡張であり、<ul>
+<li>新たな Regions, Vertices, Transitions を追加してよい。</li>
+<li>Regions と States を再定義してよい。例えば、単純 States は合成 States として再定義することができ、それに対して合成 States は States と Transitions を追加することで再定義することができる。</li>
+<li>Transitions を再定義してよい。</li>
+</ul>
+</li>
+<li>これは Classifier の特殊化の一部としてなされる。すなわち、一般 Classifier により所有される StateMachine <code class="docutils literal notranslate"><span class="pre">behaviors</span></code> と
+<code class="docutils literal notranslate"><span class="pre">classifierBehaviors</span></code> は一般 Classifier の BehavioralFeatures のメソッドを指定する
+StateMachines として特殊化することができる。</li>
+<li>特殊化 StateMachine には一般 StateMachine の要素がすべてあるはずであり、かつさらなる要素を含んでよい。<ul>
+<li>Regions を追加してよい。継承した Regions は拡張によって再定義してよい。つまり、
+States および Vertices を継承して、
+StateMachine の Regions の States と Transitions を再定義してよい。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="state-redefinition">
+<h4>14.3.3.1.1 State redefinition<a class="headerlink" href="#state-redefinition" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>単純 State を再定義（拡張）して、ひとつまたはそれを超える Regions による合成 State になるようにしてよい。合成 State は次のように再定義（拡張）できる。<ul>
+<li>新しい Regions を追加する。</li>
+<li>継承した Regions に Vertices と Transitions を追加する。</li>
+<li>もし一般 State に何もなければ、
+<code class="docutils literal notranslate"><span class="pre">entry</span></code>/<code class="docutils literal notranslate"><span class="pre">exit</span></code>/<code class="docutils literal notranslate"><span class="pre">doActivity</span></code> Behaviors を追加する。</li>
+<li>States と Transitions を再定義する。</li>
+</ul>
+</li>
+<li>State の再定義は StateMachine 全体に適用する。</li>
+<li>部分機械 State も再定義してよい。部分機械 StateMachine は他の部分機械 StateMachine で置き換えてよく、ただし、再定義された部分機械 StateMachine と同じ入場点・退場点があるという条件が付く。とは言え、追加で入場点・退場点があることは許される。</li>
+<li>一般 Classifiers が複数の場合は、拡張は、拡張 StateMachine が個別の新規 Region の他に、一般 Classifiers の StateMachines のそれぞれに対して直交 Regions を得ることを含意する。</li>
+</ul>
+</div>
+<div class="section" id="transition-redefinition">
+<h4>14.3.3.1.2 Transition redefinition<a class="headerlink" href="#transition-redefinition" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>拡張 StateMachine の Transition はその StateMachine 拡張で再定義してよい。
+Transitions はそれらの <code class="docutils literal notranslate"><span class="pre">effect</span></code> と <code class="docutils literal notranslate"><span class="pre">target</span></code> State を置き換えさせることができるが、その一方 <code class="docutils literal notranslate"><span class="pre">source</span></code> State と <code class="docutils literal notranslate"><span class="pre">trigger</span></code> はそのままである。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id10">
+<h3>14.3.4 Notation<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>一般 Classifier での StateMachine の拡張である StateMachine には、
+StateMachine の名前が関連するキーワード «extended» があるはずである。<ul>
+<li>同様に、継承 Region が拡張されたか、
+State が拡張されたことを示すのにキーワード «extended» を要素の名前に追加される。</li>
+<li>StateMachine 内の継承要素か Region か State は破線または軽い調子の線のどちらかで描かれる。</li>
+<li>State が終端状態 (<code class="docutils literal notranslate"><span class="pre">isLeaf</span></code> == true) ならば、
+State の名前に従う付加的なラベルを追加してよく、キーワード «final» が含まれる。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id11">
+<h3>14.3.5 Examples<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 14.38 A general StateMachine<ul>
+<li>ATM StateMachine にある States
+VerifyCard, OutOfService, VerifyTransaction が
+<strong>final</strong> として指定されているが、それらが ATM の特殊化において再定義できないことを意味する。<ul>
+<li>他の States はすべて再定義可能である。</li>
+</ul>
+</li>
+<li>図式内下方にある Transition もまた <strong>final</strong> と指定されている。それの <code class="docutils literal notranslate"><span class="pre">effect</span></code> Behavior も <code class="docutils literal notranslate"><span class="pre">target</span></code> State も再定義できないことを意味する。</li>
+</ul>
+</li>
+<li>Figure 14.39 An extended StateMachine<ul>
+<li>上述の図式で示された StateMachine を特殊化したもの。</li>
+<li>ATM StateMachine がある Class の特殊化である Class の StateMachine が
+State と Transition を追加することで合成 State を拡張することで定義されていて、利用者が希望額を記入できるようになっている。</li>
+<li>さらに継承 State から始まり新規導入 State に至る
+Transition が追加されている。<ul>
+<li>継承した状態は破線で描画されていることに注意。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Figure 14.40 Adding Transitions<ul>
+<li>特殊化 StateMachine に Transitions を追加する見本。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="protocolstatemachines">
+<h2><a class="toc-backref" href="#id22">14.4 ProtocolStateMachines</a><a class="headerlink" href="#protocolstatemachines" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id12">
+<h3>14.4.1 Summary<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>ProtocolStateMachines は慣習規約を表現するのに用いられる。
+ProtocolStateMachines は関連した BehavioredClassifier の Behaviors が従う必要がある
+Event の出来事の合法な順序を表現する。</li>
+<li>StateMachine の記法は
+Classifier の挙動の特徴の発動の順序を定義するのに便利な手段である。</li>
+<li>ProtocolStateMachines は Classifiers, Interfaces, Ports に関連することが可能。</li>
+</ul>
+</div>
+<div class="section" id="id13">
+<h3>14.4.2 Abstract Syntax<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 14.41 ProtocolStateMachines<ul>
+<li>新クラスは ProtocolStateMachine, ProtocolConformance, ProtocolTransition のみ。</li>
+<li>グラフが分離しているのが不思議。</li>
+</ul>
+</li>
+</ul>
+<dl class="docutils">
+<dt>A_conformance_specificMachine, A_generalMachine_protocolConformance</dt>
+<dd><ul class="first last simple">
+<li>前者は ProtocolStateMachine から ProtocolConformance への composite 関連（双方向）。</li>
+<li>後者は ProtocolConformance から ProtocolStateMachine への関連（単方向）。</li>
+<li>関連端 <code class="docutils literal notranslate"><span class="pre">specificMachine</span></code>, <code class="docutils literal notranslate"><span class="pre">generalMachine</span></code> が
+<code class="docutils literal notranslate"><span class="pre">source</span></code>, <code class="docutils literal notranslate"><span class="pre">target</span></code> をそれぞれ subsets する。</li>
+</ul>
+</dd>
+<dt>A_referred_protocolTransition</dt>
+<dd><ul class="first last simple">
+<li>ProtocolTransition から Operation への関連（単方向）。</li>
+<li>Figure 14.42 の <code class="docutils literal notranslate"><span class="pre">m1</span></code> が <code class="docutils literal notranslate"><span class="pre">preCondition</span></code> に相当する。</li>
+<li>関連端 <code class="docutils literal notranslate"><span class="pre">referred</span></code> は readOnly である。</li>
+</ul>
+</dd>
+<dt>A_preCondition_protocolTransition</dt>
+<dd><ul class="first last simple">
+<li>ProtocolTransition から Constraint への composite 関連（単方向）。</li>
+<li>Figure 14.42 の <code class="docutils literal notranslate"><span class="pre">C1</span></code> が <code class="docutils literal notranslate"><span class="pre">preCondition</span></code> に相当する。</li>
+</ul>
+</dd>
+<dt>A_postCondition_owningTransition</dt>
+<dd><ul class="first last simple">
+<li>ProtocolTransition から Constraint への composite 関連（単方向）。</li>
+<li>A_guard_transition の <code class="docutils literal notranslate"><span class="pre">guard</span></code> と <code class="docutils literal notranslate"><span class="pre">transition</span></code> をそれぞれ subsets, redefines する関連。</li>
+<li>Figure 14.42 の <code class="docutils literal notranslate"><span class="pre">C2</span></code> が <code class="docutils literal notranslate"><span class="pre">preCondition</span></code> に相当する。</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="id14">
+<h3>14.4.3 Semantics<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="protocolstatemachine">
+<h4>14.4.3.1 ProtocolStateMachine<a class="headerlink" href="#protocolstatemachine" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">ProtocolStateMachine は Classifier の背景でいつでも定義される。</p>
+</li>
+<li><p class="first">ProtocolStateMachines は
+Classifier の BehavioralFeatures が発動される順序を定義するのに次のものを指定することによって役に立つ：</p>
+<ul class="simple">
+<li>BehavioralFeatures が合法的に発動する挙動的背景（状態と事前条件）</li>
+<li>発動の合法的な順序</li>
+<li>発動の期待される成果（事後条件）</li>
+</ul>
+</li>
+<li><p class="first">ProtocolStateMachines は、その協力者たちに気づいてもらえるように、所有している Classifier の外観を提示する。</p>
+</li>
+<li><p class="first">ProtocolStateMachines は Classifier の挙動の “black box” な展望を与えるものなので、それらの States は内部の挙動的 StateMachines の States と必ずしも対応しなくてよい。</p>
+</li>
+<li><p class="first">ProtocolStateMachine の解釈は異なることがある。</p>
+<ol class="arabic">
+<li><p class="first">宣言的 ProtocolStateMachines</p>
+<p>これは BehavioralFeatures の発動に対する合法的な Transitions を指定する。</p>
+</li>
+<li><p class="first">実行可能 ProtocolStateMachines</p>
+<p>これはあるオブジェクトが受信かつ処理してよい Event 出来事のすべてを、これらがきっかけとなる Transitions と共に指定する。</p>
+</li>
+</ol>
+</li>
+<li><p class="first">両者の解釈に対する仕様は同じであり、唯一の違いは後者の解釈が規定する直接の動的な意味合いである。</p>
+</li>
+<li><p class="first">複合 Transitions や、部分機械 StateMachines や、合成 States や、同時直交 Regions などの挙動的 StateMachines で出くわすモデリングのより洗練された形式は、
+ProtocolStateMachines をモデル化するのにも利用できる。</p>
+<ul class="simple">
+<li>例えば同時 Regions はオブジェクトにいくつかの活性 States が同時にあるような規約を表現することを可能にする。</li>
+<li>部分機械 StateMachines と複合遷移を複雑な ProtocolStateMachines の「因数分解」に用いることができる。</li>
+</ul>
+</li>
+<li><p class="first">Classifier には ProtocolStateMachines がいくつかあってよい。</p>
+</li>
+<li><p class="first">ProtocolStateMachines の States はそれらの状況 Classifiers の利用者に晒される。</p>
+<ul class="simple">
+<li>Classifier のオブジェクトが BehavioralFeature の発動のどれをも処理していないと、このオブジェクトの利用者はいつでもそれの状態配置を知ることができる。</li>
+</ul>
+</li>
+<li><p class="first">ProtocolStateMachine の State には
+<code class="docutils literal notranslate"><span class="pre">entry</span></code>/<code class="docutils literal notranslate"><span class="pre">exit</span></code>/<code class="docutils literal notranslate"><span class="pre">doActivity</span></code> Behaviors を定義できない。</p>
+</li>
+</ul>
+</div>
+<div class="section" id="protocoltransition">
+<h4>14.4.3.2 ProtocolTransition<a class="headerlink" href="#protocoltransition" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ProtocolTransition はその背景にある Classifier の
+BehavioralFeature の発動について合法的な Transition を指定する。</li>
+<li>ProtocolTransitions には事前条件、撃鉄、事後条件がある。</li>
+<li>ProtocolTransition は次のことを指定する。<ul>
+<li>付随する（参照される）特徴が状況 Classifier のオブジェクトで発動されるのが可能である。</li>
+<li>Transition の完了にあたり、そのオブジェクトが事後条件が成り立つ <code class="docutils literal notranslate"><span class="pre">target</span></code> State にいるはずである。</li>
+</ul>
+</li>
+<li>ProtocolTransitions には付随する <code class="docutils literal notranslate"><span class="pre">effect</span></code> Behavior がない。
+BehavioralFeature の発動の結果として実行される
+ProtocolTransition の結果は言外である。つまり、発動された BehavioralFeature に対応するメソッドの実行である。</li>
+</ul>
+<div class="section" id="unexpected-trigger-reception">
+<h5>14.4.3.2.1 Unexpected trigger reception<a class="headerlink" href="#unexpected-trigger-reception" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li>現在の State に対する合法的な引き金に一致しない Event 出来事の受領の解釈、状態不変、または事前条件は定義されない。（例えば、それを無視、拒絶、または遅延できる、または例外を送出できる、あるいは適用はエラーで停止できる）</li>
+</ul>
+</div>
+<div class="section" id="unexpected-behavior">
+<h5>14.4.3.2.2 Unexpected Behavior<a class="headerlink" href="#unexpected-behavior" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li>予期しない Behavior の解釈、つまり
+Transition の予期しない結果（誤った FinalState, FinalState 不変性、事後条件）もまた定義されない。これを ProtocolStateMachine の実装の誤りとして解釈するべきである。</li>
+</ul>
+</div>
+<div class="section" id="equivalences-to-pre-and-post-conditions-of-operations">
+<h5>14.4.3.2.3 Equivalences to pre- and post-conditions of operations<a class="headerlink" href="#equivalences-to-pre-and-post-conditions-of-operations" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li>ProtocolTransition は付随する操作の事前条件と事後条件の言葉で意味上は解釈できる。</li>
+<li>Figure 14.42 An example of a ProtocolTransition (…)<ul>
+<li><code class="docutils literal notranslate"><span class="pre">[C1]m1/[c2]</span></code> の読み方を習得すること。状態 S1 において条件 C1 が成立しているときに操作 m1 が呼びだされ、状態 S2 に到達したときには条件 C2 が成立している。</li>
+</ul>
+</li>
+<li>Figure 14.43 Example of several ProtocolTransitions (…)<ul>
+<li>上記例題の複数版。単に操作 m1 が共通していることに注意すれば十分。</li>
+</ul>
+</li>
+<li>ProtocolStateMachine はその Transitions により参照される
+BehavioralFeature それぞれに対する合法的な ProtocolTransition すべてを指定する。</li>
+<li>BehavioralFeature が ProtocolTransition のどれからも参照されていなければ、
+ProtocolStateMachine の State のどれに対しても操作を呼び出すことができ、その操作は現在の State や事前条件、事後条件を変更しないはずである。</li>
+</ul>
+</div>
+<div class="section" id="using-other-types-of-events-in-protocolstatemachines">
+<h5>14.4.3.2.4 Using other types of Events in ProtocolStateMachines<a class="headerlink" href="#using-other-types-of-events-in-protocolstatemachines" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li>BehavioralFeatures の発動の他に、
+ProtocolStateMachines の挙動を表現するために他の Events を用いてもよい。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="protocolconformance">
+<h4>14.4.3.3 ProtocolConformance<a class="headerlink" href="#protocolconformance" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ProtocolStateMachines はより特殊な ProtocolStateMachines へ改良することができる。
+ProtocolConformance は、特殊 ProtocolStateMachine が一般 ProtocolStateMachine によって指定された規約に準拠する規約を指定することを宣言する。</li>
+<li>ProtocolStateMachine は Classifier が所有する。一般版 StateMachine 所有者である Classifiers と付随する特殊版 StateMachine とを、
+Generalization または Realization が一般には接続する。</li>
+<li>ProtocolConformance は一般版 ProtocolStateMachine に対する規則と制約のどれもが特殊版 ProtocolStateMachine に対して適用するという宣言を表す。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id15">
+<h3>14.4.4 Notation<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>この節は Examples も兼ねているようだ。</p>
+<div class="section" id="id16">
+<h4>14.4.4.1 ProtocolStateMachine<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ProtocolStateMachine を表す表記法は挙動の StateMachines についてのそれとたいへん似ている。
+StateMachine の名前の近くに置かれたキーワード «protocol» が
+ProtocolStateMachine 図を図表的に差別化する。</li>
+<li>Figure 14.44 ProtocolStateMachine example<ul>
+<li>戸外が無人になれば扉は閉められる。</li>
+</ul>
+</li>
+<li>Figure 14.45 Notation for a State with an invariant<ul>
+<li>ProtocolStateMachine の State に付随するテキストの不変式は、その State の名前の後ろまたは下に配置することで表され、角括弧で括られる。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id17">
+<h4>14.4.4.2 ProtocolTransition<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>通常の StateMachine 表記法が適用する。違いは ProtocolTransitions について <code class="docutils literal notranslate"><span class="pre">effect</span></code> Behaviors が指定されていないことと、事後条件が存在できることである。</li>
+<li>Figure 14.46 ProtocolTransition notation<ul>
+<li>スラッシュの後にガード条件と同じ記法で事後条件を記すことがある。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="classifier-descriptions">
+<h2><a class="toc-backref" href="#id23">14.5 Classifier Descriptions</a><a class="headerlink" href="#classifier-descriptions" title="Permalink to this headline">¶</a></h2>
+<p>機械生成による節。</p>
+</div>
+<div class="section" id="association-descriptions">
+<h2><a class="toc-backref" href="#id24">14.6 Association Descriptions</a><a class="headerlink" href="#association-descriptions" title="Permalink to this headline">¶</a></h2>
+<p>機械生成による節。</p>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="activities.html" title="15 Activities"
+             >next</a></li>
+        <li class="right" >
+          <a href="common-behavior.html" title="13 Common Behavior"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Unified Modeling Language 2.5 読書ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

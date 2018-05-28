@@ -1,0 +1,840 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>確率統計 &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="Another Python Graph Library (APGL) 利用ノート" href="../python-apgl.html" />
+    <link rel="prev" title="テンソル代数" href="tensor.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../python-apgl.html" title="Another Python Graph Library (APGL) 利用ノート"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="tensor.html" title="テンソル代数"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">SymPy 利用ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id15">確率統計</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>確率統計機能のモジュールである <code class="docutils literal notranslate"><span class="pre">sympy.stats</span></code> を調べてみよう。</p>
+<div class="contents topic" id="id2">
+<p class="topic-title first">ノート目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id15">確率統計</a><ul>
+<li><a class="reference internal" href="#id3" id="id16">確率変数</a><ul>
+<li><a class="reference internal" href="#id4" id="id17">確率変数生成関数</a></li>
+<li><a class="reference internal" href="#id5" id="id18">統計的関数</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id6" id="id19">クラス</a><ul>
+<li><a class="reference internal" href="#id7" id="id20">確率分布モデルクラス</a></li>
+<li><a class="reference internal" href="#id8" id="id21">定義域クラス</a></li>
+<li><a class="reference internal" href="#id9" id="id22">確率空間クラス</a></li>
+<li><a class="reference internal" href="#randomsymbol" id="id23">クラス RandomSymbol</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id10" id="id24">演習</a><ul>
+<li><a class="reference internal" href="#probability" id="id25">関数 <code class="code docutils literal notranslate"><span class="pre">probability</span></code> で確率を評価する</a></li>
+<li><a class="reference internal" href="#expectation" id="id26">関数 <code class="code docutils literal notranslate"><span class="pre">expectation</span></code> で期待値または平均値を評価する</a></li>
+<li><a class="reference internal" href="#id11" id="id27">確率密度関数を評価する</a></li>
+<li><a class="reference internal" href="#id12" id="id28">累積分布関数を評価する</a></li>
+<li><a class="reference internal" href="#id13" id="id29">標本点を抽出する</a></li>
+<li><a class="reference internal" href="#moment" id="id30">関数 <code class="code docutils literal notranslate"><span class="pre">moment</span></code> でモーメントを評価する</a></li>
+<li><a class="reference internal" href="#id14" id="id31">分散と標準偏差を評価する</a></li>
+<li><a class="reference internal" href="#covariance" id="id32">関数 <code class="code docutils literal notranslate"><span class="pre">covariance</span></code> で共分散を評価する</a></li>
+<li><a class="reference internal" href="#correlation" id="id33">関数 <code class="code docutils literal notranslate"><span class="pre">correlation</span></code> で相関を評価する</a></li>
+<li><a class="reference internal" href="#cmoment" id="id34">関数 <code class="code docutils literal notranslate"><span class="pre">cmoment</span></code> で中央モーメントを評価する</a></li>
+<li><a class="reference internal" href="#smoment" id="id35">関数 <code class="code docutils literal notranslate"><span class="pre">smoment</span></code> で標準化モーメントを評価する</a></li>
+<li><a class="reference internal" href="#skewness" id="id36">関数 <code class="code docutils literal notranslate"><span class="pre">skewness</span></code> で歪度を評価する</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>本文中のすべての IPython セッション中のサンプルコードで、以下のインポートおよび出力書式設定が済んでいるものとする。</p>
+<div class="code python3 last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sympy.stats</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">init_printing</span><span class="p">(</span><span class="n">pretty_print</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id16">確率変数</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p><code class="code docutils literal notranslate"><span class="pre">from</span> <span class="pre">sympy.stats</span> <span class="pre">import</span> <span class="pre">*</span></code> を実行すると、クラスというよりは関数がインポートされる。確率変数生成関数と統計的関数の 2 種類に分類して見ていくと効率が良さそうだ。ここに記すいくつかの関数については、演習のコーナーにて実際に動作を確かめる。</p>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id17">確率変数生成関数</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>まずは確率変数生成関数を表に示す。</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="60%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">関数</th>
+<th class="head">確率空間</th>
+<th class="head">説明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Bernoulli</td>
+<td>SingleFinitePSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Binomial</td>
+<td>SingleFinitePSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Coin</td>
+<td>SingleFinitePSpace</td>
+<td>コイントスをモデル化した確率変数。</td>
+</tr>
+<tr class="row-odd"><td>Die</td>
+<td>SingleFinitePSpace</td>
+<td>偏りのないサイコロをモデル化した確率変数。</td>
+</tr>
+<tr class="row-even"><td>DiscreteUniform</td>
+<td>SingleFinitePSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>FiniteRV</td>
+<td>SingleFinitePSpace</td>
+<td>有限確率変数を密度を表現する dict オブジェクトから生成する。</td>
+</tr>
+<tr class="row-even"><td>Hypergeometric</td>
+<td>SingleFinitePSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Rademacher</td>
+<td>SingleFinitePSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Arcsin</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Benini</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Beta</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>BetaPrime</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Cauchy</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Chi</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ChiNoncentral</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ChiSquared</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Dagum</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Erlang</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Exponential</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>FDistribution</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>FisherZ</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Frechet</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Gamma</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>GammaInverse</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Kumaraswamy</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Laplace</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Logistic</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>LogNormal</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Maxwell</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Nakagami</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Normal</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Pareto</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>QuadraticU</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>RaisedCosine</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Rayleigh</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>StudentT</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Triangular</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Uniform</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>UniformSum</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>VonMises</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Weibull</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>WignerSemicircle</td>
+<td>SingleContinuousPSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Geometric</td>
+<td>SingleDiscretePSpace</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Poisson</td>
+<td>SingleDiscretePSpace</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>確率空間クラスについては後述する。</p>
+</div>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id18">統計的関数</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>すべての確率変数生成関数の戻り値は RandomSymbol というクラスのオブジェクトである。ここでは <code class="code docutils literal notranslate"><span class="pre">X</span></code>, <code class="code docutils literal notranslate"><span class="pre">Y</span></code> などを RandomSymbol オブジェクトまたはそれから構成される式とする。このオブジェクトの利用法は、そのメソッドを呼び出すというよりは、次に示す各種確率統計的関数の引数として用いる。</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="27%" />
+<col width="55%" />
+<col width="18%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">関数</th>
+<th class="head">説明</th>
+<th class="head">別名</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">probability</span></code></td>
+<td><code class="code docutils literal notranslate"><span class="pre">X</span></code> に関するある条件が真となる確率を求める。</td>
+<td><code class="code docutils literal notranslate"><span class="pre">P</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">expectation</span></code></td>
+<td><code class="code docutils literal notranslate"><span class="pre">X</span></code> に関するある式の期待値を求める。</td>
+<td><code class="code docutils literal notranslate"><span class="pre">E</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">density</span></code></td>
+<td><code class="code docutils literal notranslate"><span class="pre">X</span></code> の確率密度を求める。</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">where</span></code></td>
+<td><code class="code docutils literal notranslate"><span class="pre">X</span></code> に関するある条件が真である domain を返す。</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">given</span></code></td>
+<td><code class="code docutils literal notranslate"><span class="pre">X</span></code> の条件付き確率空間を生成する。</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">pspace</span></code></td>
+<td><code class="code docutils literal notranslate"><span class="pre">X</span></code> の土台となる確率空間を返す。</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">cdf</span></code></td>
+<td><code class="code docutils literal notranslate"><span class="pre">X</span></code> の累積分布関数を求める。</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">sample</span></code></td>
+<td><code class="code docutils literal notranslate"><span class="pre">sample_iter</span></code> の非 iterator 版。</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">sample_iter</span></code></td>
+<td><code class="code docutils literal notranslate"><span class="pre">X</span></code> から標本値をランダムに列挙する。</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">sampling_density</span></code></td>
+<td><code class="code docutils literal notranslate"><span class="pre">sample</span></code> の密度版。</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">independent</span></code></td>
+<td><code class="code docutils literal notranslate"><span class="pre">dependent</span></code> の否定を返す。</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">dependent</span></code></td>
+<td><code class="code docutils literal notranslate"><span class="pre">X</span></code> と <code class="code docutils literal notranslate"><span class="pre">Y</span></code> が独立かどうかを返す。</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">moment</span></code></td>
+<td><code class="code docutils literal notranslate"><span class="pre">X</span></code> の <cite>n</cite> 次モーメントを求める。</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">variance</span></code></td>
+<td><code class="code docutils literal notranslate"><span class="pre">X</span></code> の分散を求める。</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">standard_deviation</span></code></td>
+<td><code class="code docutils literal notranslate"><span class="pre">X</span></code> の標準偏差を求める。</td>
+<td><code class="code docutils literal notranslate"><span class="pre">std</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">covariance</span></code></td>
+<td><code class="code docutils literal notranslate"><span class="pre">X</span></code> と <code class="code docutils literal notranslate"><span class="pre">Y</span></code> の確率変数の共分散を求める。</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">correlation</span></code></td>
+<td><code class="code docutils literal notranslate"><span class="pre">X</span></code> と <code class="code docutils literal notranslate"><span class="pre">Y</span></code> の確率変数の相関係数を求める。</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">cmoment</span></code></td>
+<td><code class="code docutils literal notranslate"><span class="pre">X</span></code> の <cite>n</cite> 次中心モーメントを求める。</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">smoment</span></code></td>
+<td><code class="code docutils literal notranslate"><span class="pre">X</span></code> の <cite>n</cite> 次標準化モーメントを求める。</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">skewness</span></code></td>
+<td><code class="code docutils literal notranslate"><span class="pre">X</span></code> の歪度を求める。</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id19">クラス</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>ユーザーがクラスを直にアクセスすることはどうやらまれなようだが、理解を深めるには、これらの表に出てこないクラス群を調べるのもよいだろう。</p>
+<div class="section" id="id7">
+<h3><a class="toc-backref" href="#id20">確率分布モデルクラス</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>確率分布モデルを表現するクラスのごく簡単なクラス図を次に記す。これらの確率分布クラスは、前述の各種同じ名前からなる確率変数生成関数によってオブジェクト化され、それから、分布に対応する確率空間クラスのオブジェクトを生成する。</p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ContinuousDistribution</span>
+    <span class="n">SingleContinuousDistribution</span>
+        <span class="n">ArcsinDistribution</span>
+        <span class="n">BeniniDistribution</span>
+        <span class="n">BetaDistribution</span>
+        <span class="n">BetaPrimeDistribution</span>
+        <span class="n">CauchyDistribution</span>
+        <span class="n">ChiDistribution</span>
+        <span class="n">ChiNoncentralDistribution</span>
+        <span class="n">ChiSquaredDistribution</span>
+        <span class="n">ContinuousDistributionHandmade</span>
+        <span class="n">DagumDistribution</span>
+        <span class="n">ExponentialDistribution</span>
+        <span class="n">FDistributionDistribution</span>
+        <span class="n">FisherZDistribution</span>
+        <span class="n">FrechetDistribution</span>
+        <span class="n">GammaDistribution</span>
+        <span class="n">GammaInverseDistribution</span>
+        <span class="n">KumaraswamyDistribution</span>
+        <span class="n">LaplaceDistribution</span>
+        <span class="n">LogisticDistribution</span>
+        <span class="n">LogNormalDistribution</span>
+        <span class="n">MaxwellDistribution</span>
+        <span class="n">NakagamiDistribution</span>
+        <span class="n">NormalDistribution</span>
+        <span class="n">ParetoDistribution</span>
+        <span class="n">QuadraticUDistribution</span>
+        <span class="n">RaisedCosineDistribution</span>
+        <span class="n">RayleighDistribution</span>
+        <span class="n">StudentTDistribution</span>
+        <span class="n">TriangularDistribution</span>
+        <span class="n">UniformDistribution</span>
+        <span class="n">UniformSumDistribution</span>
+        <span class="n">VonMisesDistribution</span>
+        <span class="n">WeibullDistribution</span>
+        <span class="n">WignerSemicircleDistribution</span>
+
+<span class="n">SingleDiscreteDistribution</span>
+    <span class="n">PoissonDistribution</span>
+    <span class="n">GeometricDistribution</span>
+
+<span class="n">SingleFiniteDistribution</span>
+    <span class="n">BernoulliDistribution</span>
+    <span class="n">BinomialDistribution</span>
+    <span class="n">DieDistribution</span>
+    <span class="n">DiscreteUniformDistribution</span>
+    <span class="n">FiniteDistributionHandmade</span>
+    <span class="n">HypergeometricDistribution</span>
+    <span class="n">RademacherDistribution</span>
+</pre></div>
+</div>
+<p>ここにあるほとんどすべてのクラスは、次のクラスを共通基底クラスとしている。</p>
+<dl class="docutils">
+<dt>Basic</dt>
+<dd>SymPy の主要クラスに共通する基底クラスであり、いまさら説明はしない。</dd>
+<dt>NamedArgsMixin</dt>
+<dd>当モジュールで定義された補助クラスであり、オブジェクトに対して演算子 <code class="code docutils literal notranslate"><span class="pre">[]</span></code> で属性値にアクセスすることができるようにするものだ。</dd>
+</dl>
+<p>大量にある分布モデルクラスは、それらの基底クラスによって次の 3 系統に分類できることがわかる。</p>
+<dl class="docutils">
+<dt>SingleContinuousDistribution</dt>
+<dd><p class="first">連続分布。</p>
+<ul class="last simple">
+<li>定義域は <code class="code docutils literal notranslate"><span class="pre">Interval(-oo,</span> <span class="pre">oo)</span></code> すなわち実数である。派生クラスでは事情が異なるかもしれない。</li>
+<li>オブジェクトに対する丸括弧呼び出しでメソッド <code class="code docutils literal notranslate"><span class="pre">pdf</span></code> を呼び出す。</li>
+<li>メソッドとして <code class="code docutils literal notranslate"><span class="pre">pdf</span></code>, <code class="code docutils literal notranslate"><span class="pre">cdf</span></code>, <code class="code docutils literal notranslate"><span class="pre">sample</span></code>, <code class="code docutils literal notranslate"><span class="pre">expectation</span></code> がある。</li>
+<li>デバッグ用途だと思うが静的メソッド <code class="code docutils literal notranslate"><span class="pre">check</span></code> がある。</li>
+</ul>
+</dd>
+<dt>SingleDiscreteDistribution</dt>
+<dd><p class="first">離散分布。</p>
+<ul class="last simple">
+<li>定義域は <code class="code docutils literal notranslate"><span class="pre">S.Integers</span></code> すなわち整数である。</li>
+<li>あとは SingleContinuousDistribution で記した各項目と同じ。</li>
+</ul>
+</dd>
+<dt>SingleFiniteDistribution</dt>
+<dd><p class="first">有限分布。これだけ毛色が異なる。</p>
+<ul class="last simple">
+<li>オブジェクトに対する丸括弧呼び出しでメソッド <code class="code docutils literal notranslate"><span class="pre">pdf</span></code> を呼び出す。</li>
+<li>メソッドとして <code class="code docutils literal notranslate"><span class="pre">pdf</span></code> がある。</li>
+<li>辞書オブジェクトのような振る舞いをするようだ。</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="id8">
+<h3><a class="toc-backref" href="#id21">定義域クラス</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>ここではある確率密度関数の定義域を domain と呼ぶものと解釈する。</p>
+<p>クラス RandomDomain を基底クラスとする継承関係を図に示したいが、複雑なダイヤモンド型継承を多用しているので、アスキーアートでは厳しいものがある。素朴な表でごまかす。</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="40%" />
+<col width="60%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">クラス</th>
+<th class="head">直接基底クラス</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>RandomDomain</td>
+<td>Basic</td>
+</tr>
+<tr class="row-odd"><td>SingleDomain</td>
+<td>RandomDomain</td>
+</tr>
+<tr class="row-even"><td>ProductDomain</td>
+<td>RandomDomain</td>
+</tr>
+<tr class="row-odd"><td>ContinuousDomain</td>
+<td>RandomDomain</td>
+</tr>
+<tr class="row-even"><td>ConditionalDomain</td>
+<td>RandomDomain</td>
+</tr>
+<tr class="row-odd"><td>FiniteDomain</td>
+<td>RandomDomain</td>
+</tr>
+<tr class="row-even"><td>SingleDiscreteDomain</td>
+<td>SingleDomain</td>
+</tr>
+<tr class="row-odd"><td>SingleContinuousDomain</td>
+<td>ContinuousDomain, SingleDomain</td>
+</tr>
+<tr class="row-even"><td>SingleFiniteDomain</td>
+<td>FiniteDomain</td>
+</tr>
+<tr class="row-odd"><td>ProductContinuousDomain</td>
+<td>ProductDomain, ContinuousDomain</td>
+</tr>
+<tr class="row-even"><td>ProductFiniteDomain</td>
+<td>ProductDomain, FiniteDomain</td>
+</tr>
+<tr class="row-odd"><td>ConditionalContinuousDomain</td>
+<td>ContinuousDomain, ConditionalDomain</td>
+</tr>
+<tr class="row-even"><td>ConditionalFiniteDomain</td>
+<td>ConditionalDomain, ProductFiniteDomain</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>クラス RandomDomain</dt>
+<dd><p class="first">ある確率密度関数の定義域を表現するクラスのための基底クラス。</p>
+<ul class="last simple">
+<li>プロパティー <code class="code docutils literal notranslate"><span class="pre">self.symbols</span></code></li>
+<li>プロパティー <code class="code docutils literal notranslate"><span class="pre">self.set</span></code></li>
+<li>演算子 <code class="code docutils literal notranslate"><span class="pre">in</span></code> をオブジェクトに対して適用できることになっている。</li>
+<li>メソッド <code class="code docutils literal notranslate"><span class="pre">integrate(expr)</span></code> を各派生クラスが実装する。この戻り値が何らかの確率密度関数を示すようになる。</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="id9">
+<h3><a class="toc-backref" href="#id22">確率空間クラス</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>クラス PSpace を基底クラスとする継承関係を図に示したいが、こちらも少々のダイヤモンド継承関係があるので表でごまかす。</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="40%" />
+<col width="60%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">クラス</th>
+<th class="head">直接基底クラス</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>PSpace</td>
+<td>Basic</td>
+</tr>
+<tr class="row-odd"><td>SinglePSpace</td>
+<td>PSpace</td>
+</tr>
+<tr class="row-even"><td>ProductPSpace</td>
+<td>PSpace</td>
+</tr>
+<tr class="row-odd"><td>ContinuousPSpace</td>
+<td>PSpace</td>
+</tr>
+<tr class="row-even"><td>FinitePSpace</td>
+<td>PSpace</td>
+</tr>
+<tr class="row-odd"><td>SingleDiscretePSpace</td>
+<td>PSpace</td>
+</tr>
+<tr class="row-even"><td>SingleContinuousPSpace</td>
+<td>SinglePSpace, ContinuousPSpace</td>
+</tr>
+<tr class="row-odd"><td>SingleFinitePSpace</td>
+<td>SinglePSpace, FinitePSpace</td>
+</tr>
+<tr class="row-even"><td>ProductContinuousPSpace</td>
+<td>ProductPSpace, ContinuousPSpace</td>
+</tr>
+<tr class="row-odd"><td>ProductFinitePSpace</td>
+<td>ProductPSpace, FinitePSpace</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>クラス PSpace</dt>
+<dd><p class="first">確率空間を表現するクラス。</p>
+<ul class="simple">
+<li>プロパティーとして <code class="code docutils literal notranslate"><span class="pre">domain</span></code>, <code class="code docutils literal notranslate"><span class="pre">density</span></code>, <code class="code docutils literal notranslate"><span class="pre">values</span></code>, <code class="code docutils literal notranslate"><span class="pre">symbols</span></code> がある。</li>
+<li>メソッドとして <code class="code docutils literal notranslate"><span class="pre">compute_density</span></code>, <code class="code docutils literal notranslate"><span class="pre">integrate</span></code>, <code class="code docutils literal notranslate"><span class="pre">probability</span></code>, <code class="code docutils literal notranslate"><span class="pre">sample</span></code>, <code class="code docutils literal notranslate"><span class="pre">where</span></code> がある。</li>
+</ul>
+<p class="last">ユーザーはこれらには直接触れずに、先述の統計的関数によって間接的に利用する。</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="randomsymbol">
+<h3><a class="toc-backref" href="#id23">クラス RandomSymbol</a><a class="headerlink" href="#randomsymbol" title="Permalink to this headline">¶</a></h3>
+<p>クラス RandomSymbol は確率空間クラスのメソッド <code class="code docutils literal notranslate"><span class="pre">values</span></code> 系の戻り値の型として利用されている。このオブジェクトを関数 <code class="code docutils literal notranslate"><span class="pre">P</span></code>, <code class="code docutils literal notranslate"><span class="pre">E</span></code> の引数として指定する。</p>
+<p>このオブジェクトはユーザーが直接生成するというよりは、前述の確率変数生成関数の戻り値として得られる。</p>
+</div>
+</div>
+<div class="section" id="id10">
+<h2><a class="toc-backref" href="#id24">演習</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>次の文書からいくつか例題を拝借した。</p>
+<ul class="simple">
+<li><a class="reference external" href="http://reference.wolfram.com/language/guide/ProbabilityAndStatistics.html">Probability and Statistics</a></li>
+<li><a class="reference external" href="http://reference.wolfram.com/language/guide/DescriptiveStatistics.html">Descriptive Statistics</a></li>
+</ul>
+<p>確率変数生成関数に <code class="code docutils literal notranslate"><span class="pre">name</span></code> を指定するのが存外面倒なので、以下、特に問題がなければ <code class="code docutils literal notranslate"><span class="pre">X</span></code> で通す。</p>
+<div class="section" id="probability">
+<h3><a class="toc-backref" href="#id25">関数 <code class="code docutils literal notranslate"><span class="pre">probability</span></code> で確率を評価する</a><a class="headerlink" href="#probability" title="Permalink to this headline">¶</a></h3>
+<p>短い別名 <code class="code docutils literal notranslate"><span class="pre">P</span></code> が付いているので、対話型コードでは主にこちらを採用する。</p>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">X</span> <span class="o">=</span> <span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">simplify</span><span class="p">(</span><span class="n">P</span><span class="p">(</span><span class="n">X</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">erf</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>[1] Normal の各引数はデフォルト引数として定義して欲しいという気がする。</li>
+</ul>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">X</span> <span class="o">=</span> <span class="n">Poisson</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">P</span><span class="p">(</span><span class="n">X</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">)</span>
+<span class="o">---------------------------------------------------------------------------</span>
+<span class="ne">NotImplementedError</span>                       <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">44</span><span class="o">-</span><span class="mi">251995</span><span class="n">f355a4</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="o">----&gt;</span> <span class="mi">1</span> <span class="n">P</span><span class="p">(</span><span class="n">X</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="n">D</span><span class="p">:</span>\<span class="n">home</span>\<span class="n">yojyo</span>\<span class="n">devel</span>\<span class="n">sympy</span>\<span class="n">sympy</span>\<span class="n">stats</span>\<span class="n">rv</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="n">probability</span><span class="p">(</span><span class="n">condition</span><span class="p">,</span> <span class="n">given_condition</span><span class="p">,</span> <span class="n">numsamples</span><span class="p">,</span> <span class="n">evaluate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="mi">619</span>
+    <span class="mi">620</span>     <span class="c1"># Otherwise pass work off to the ProbabilitySpace</span>
+<span class="o">--&gt;</span> <span class="mi">621</span>     <span class="n">result</span> <span class="o">=</span> <span class="n">pspace</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">condition</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="mi">622</span>     <span class="k">if</span> <span class="n">evaluate</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="s1">&#39;doit&#39;</span><span class="p">):</span>
+    <span class="mi">623</span>         <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">doit</span><span class="p">()</span>
+
+<span class="n">D</span><span class="p">:</span>\<span class="n">home</span>\<span class="n">yojyo</span>\<span class="n">devel</span>\<span class="n">sympy</span>\<span class="n">sympy</span>\<span class="n">stats</span>\<span class="n">rv</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="n">probability</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">condition</span><span class="p">)</span>
+    <span class="mi">161</span>
+    <span class="mi">162</span>     <span class="k">def</span> <span class="nf">probability</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">condition</span><span class="p">):</span>
+<span class="o">--&gt;</span> <span class="mi">163</span>         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+    <span class="mi">164</span>
+    <span class="mi">165</span>     <span class="k">def</span> <span class="nf">integrate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
+
+<span class="ne">NotImplementedError</span><span class="p">:</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>[1][2] どうも Poisson は動作しにくい傾向がある。</li>
+</ul>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">X</span> <span class="o">=</span> <span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">P</span><span class="p">((</span><span class="n">X</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="o">*</span><span class="n">X</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="o">-</span><span class="n">erf</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">21</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">5</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">erf</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">21</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">5</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+</pre></div>
+</div>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">X</span> <span class="o">=</span> <span class="n">Die</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">P</span><span class="p">(</span><span class="n">Or</span><span class="p">(</span><span class="n">X</span><span class="o">**</span><span class="mi">2</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="mi">2</span><span class="o">/</span><span class="mi">3</span>
+</pre></div>
+</div>
+<p>次の例は数値計算になってしまっているが、真の値は <span class="math notranslate nohighlight">\(\frac{1}{e}\)</span> だ。</p>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">X</span> <span class="o">=</span> <span class="n">Laplace</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">P</span><span class="p">(</span><span class="n">X</span><span class="o">**</span><span class="mi">2</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="n">X</span> <span class="o">&gt;</span> <span class="n">Rational</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="mf">0.367879441171442</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="expectation">
+<h3><a class="toc-backref" href="#id26">関数 <code class="code docutils literal notranslate"><span class="pre">expectation</span></code> で期待値または平均値を評価する</a><a class="headerlink" href="#expectation" title="Permalink to this headline">¶</a></h3>
+<p>正式な関数名は <code class="code docutils literal notranslate"><span class="pre">expectation</span></code> であるが、略名 <code class="code docutils literal notranslate"><span class="pre">E</span></code> が与えられている。
+SymPy では自然対数の底にもこの名前が付いているので注意。冒頭に述べたインポート文でこれが上書きされる。</p>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">X</span> <span class="o">=</span> <span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">E</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">X</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">X</span> <span class="o">=</span> <span class="n">Poisson</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">E</span><span class="p">(</span><span class="n">X</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">7</span><span class="o">*</span><span class="n">X</span> <span class="o">+</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">m</span><span class="o">*</span><span class="p">(</span><span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">7</span><span class="o">*</span><span class="n">m</span> <span class="o">+</span> <span class="mi">8</span>
+</pre></div>
+</div>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">X</span> <span class="o">=</span> <span class="n">DiscreteUniform</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;a, b, c, d&#39;</span><span class="p">))</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">E</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">a</span><span class="o">/</span><span class="mi">4</span> <span class="o">+</span> <span class="n">b</span><span class="o">/</span><span class="mi">4</span> <span class="o">+</span> <span class="n">c</span><span class="o">/</span><span class="mi">4</span> <span class="o">+</span> <span class="n">d</span><span class="o">/</span><span class="mi">4</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id11">
+<h3><a class="toc-backref" href="#id27">確率密度関数を評価する</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>確率密度関数は下のように <code class="code docutils literal notranslate"><span class="pre">pspace</span></code> オブジェクトを経由しないとアクセスできないのか。</p>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">X</span> <span class="o">=</span> <span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">X</span><span class="o">.</span><span class="n">pspace</span><span class="o">.</span><span class="n">pdf</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">X</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pi</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>余裕があればプロットする。</p>
+</div>
+<div class="section" id="id12">
+<h3><a class="toc-backref" href="#id28">累積分布関数を評価する</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>累積分布関数を得るにはフリー関数 <code class="code docutils literal notranslate"><span class="pre">cdf</span></code> を用いる。</p>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">cdf</span><span class="p">(</span><span class="n">Weibull</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">Lambda</span><span class="p">(</span><span class="n">_z</span><span class="p">,</span> <span class="n">Piecewise</span><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">_z</span><span class="o">**</span><span class="mi">5</span><span class="o">/</span><span class="mi">32</span><span class="p">),</span> <span class="n">_z</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">True</span><span class="p">)))</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">cdf</span><span class="p">(</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))(</span><span class="mf">0.2</span><span class="p">)</span><span class="o">.</span><span class="n">evalf</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="mf">0.579259709439103</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id13">
+<h3><a class="toc-backref" href="#id29">標本点を抽出する</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p>分布から標本点を抽出すると、毎回結果が異なる。</p>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">X</span> <span class="o">=</span> <span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">sample_iter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">numsamples</span><span class="o">=</span><span class="mi">10</span><span class="p">)]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.04146627871984</span><span class="p">,</span> <span class="mf">0.363794003745111</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.13748652670554</span><span class="p">,</span> <span class="mf">1.048567943992</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.479638133723148</span><span class="p">,</span> <span class="mf">1.29475387658596</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.15722394615277</span><span class="p">,</span> <span class="mf">1.57550171698866</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.545623114068184</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.52095054404692</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="moment">
+<h3><a class="toc-backref" href="#id30">関数 <code class="code docutils literal notranslate"><span class="pre">moment</span></code> でモーメントを評価する</a><a class="headerlink" href="#moment" title="Permalink to this headline">¶</a></h3>
+<p>ここでは 2 次のモーメントを計算する。</p>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">moment</span><span class="p">(</span><span class="n">DiscreteUniform</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x1:4&#39;</span><span class="p">)),</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">x1</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span> <span class="o">+</span> <span class="n">x2</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span> <span class="o">+</span> <span class="n">x3</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">simplify</span><span class="p">(</span><span class="n">moment</span><span class="p">(</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;mu&#39;</span><span class="p">),</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;sigma&#39;</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">mu</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sigma</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id14">
+<h3><a class="toc-backref" href="#id31">分散と標準偏差を評価する</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<p>関数 <code class="code docutils literal notranslate"><span class="pre">variance</span></code> は <code class="code docutils literal notranslate"><span class="pre">E(X</span> <span class="pre">-</span> <span class="pre">E(X)**2)</span></code> と同じ値を計算する。実装が <code class="code docutils literal notranslate"><span class="pre">cmoment</span></code> を利用していることによる。</p>
+<p>関数 <code class="code docutils literal notranslate"><span class="pre">standard_deviation</span></code> は単に <code class="code docutils literal notranslate"><span class="pre">variance</span></code> の正の平方根を返す。短い別名 <code class="code docutils literal notranslate"><span class="pre">std</span></code> が宣言されている。</p>
+<p>数値計算の例を示す。</p>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">X</span> <span class="o">=</span> <span class="n">DiscreteUniform</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.21</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">4.66</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">5.61</span><span class="p">,</span> <span class="mf">7.22</span><span class="p">])</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">variance</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="mf">4.42390612244898</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">std</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="mf">2.10330837550013</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="covariance">
+<h3><a class="toc-backref" href="#id32">関数 <code class="code docutils literal notranslate"><span class="pre">covariance</span></code> で共分散を評価する</a><a class="headerlink" href="#covariance" title="Permalink to this headline">¶</a></h3>
+<p>あまりやることがない。</p>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">DiscreteUniform</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;a b&#39;</span><span class="p">)),</span> <span class="n">DiscreteUniform</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x y&#39;</span><span class="p">))</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">covariance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">b</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">b</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="n">y</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span> <span class="o">+</span> <span class="p">(</span><span class="n">a</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="n">b</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span> <span class="o">+</span> <span class="p">(</span><span class="n">a</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="n">b</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="n">y</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="correlation">
+<h3><a class="toc-backref" href="#id33">関数 <code class="code docutils literal notranslate"><span class="pre">correlation</span></code> で相関を評価する</a><a class="headerlink" href="#correlation" title="Permalink to this headline">¶</a></h3>
+<p>これもあまりやることがない。</p>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">DiscreteUniform</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;a b&#39;</span><span class="p">)),</span> <span class="n">DiscreteUniform</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x y&#39;</span><span class="p">))</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">correlation</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="p">((</span><span class="o">-</span><span class="n">a</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">b</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">b</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="n">y</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span> <span class="o">+</span> <span class="p">(</span><span class="n">a</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="n">b</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span> <span class="o">+</span> <span class="p">(</span><span class="n">a</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="n">b</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="n">y</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">sqrt</span><span class="p">((</span><span class="o">-</span><span class="n">a</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">b</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">a</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="n">b</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">sqrt</span><span class="p">((</span><span class="o">-</span><span class="n">x</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="n">y</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="cmoment">
+<h3><a class="toc-backref" href="#id34">関数 <code class="code docutils literal notranslate"><span class="pre">cmoment</span></code> で中央モーメントを評価する</a><a class="headerlink" href="#cmoment" title="Permalink to this headline">¶</a></h3>
+<p>色々な確率分布の 2 次の中央モーメントを評価しよう。</p>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">cmoment</span><span class="p">(</span><span class="n">DiscreteUniform</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x1:4&#39;</span><span class="p">)),</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="p">(</span><span class="o">-</span><span class="n">x1</span><span class="o">/</span><span class="mi">3</span> <span class="o">-</span> <span class="n">x2</span><span class="o">/</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">x3</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="n">x1</span><span class="o">/</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">x2</span><span class="o">/</span><span class="mi">3</span> <span class="o">-</span> <span class="n">x3</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">x1</span><span class="o">/</span><span class="mi">3</span><span class="o">-</span> <span class="n">x2</span><span class="o">/</span><span class="mi">3</span> <span class="o">-</span> <span class="n">x3</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">simplify</span><span class="p">(</span><span class="n">cmoment</span><span class="p">(</span><span class="n">Gamma</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">alpha</span><span class="o">*</span><span class="n">beta</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">cmoment</span><span class="p">(</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;mu&#39;</span><span class="p">),</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;sigma&#39;</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">sigma</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="smoment">
+<h3><a class="toc-backref" href="#id35">関数 <code class="code docutils literal notranslate"><span class="pre">smoment</span></code> で標準化モーメントを評価する</a><a class="headerlink" href="#smoment" title="Permalink to this headline">¶</a></h3>
+<p>関数 <code class="code docutils literal notranslate"><span class="pre">smoment</span></code> は <cite>n</cite> 次の中央モーメントを標準偏差の <cite>n</cite> 乗で割った値を評価する。歪度や尖度を評価する関数の実装にはこれを利用する。</p>
+<p>この関数を直接利用する例は見当たらない。</p>
+</div>
+<div class="section" id="skewness">
+<h3><a class="toc-backref" href="#id36">関数 <code class="code docutils literal notranslate"><span class="pre">skewness</span></code> で歪度を評価する</a><a class="headerlink" href="#skewness" title="Permalink to this headline">¶</a></h3>
+<p>関数 <code class="code docutils literal notranslate"><span class="pre">skewness</span></code> は 3 次の <code class="code docutils literal notranslate"><span class="pre">smoment</span></code> を評価する。この指標は例えば戻り値の符号でグラフの裾野が広いほうがわかる。</p>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">skewness</span><span class="p">(</span><span class="n">DiscreteUniform</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;a b c&#39;</span><span class="p">)))</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="p">((</span><span class="o">-</span><span class="n">a</span><span class="o">/</span><span class="mi">3</span> <span class="o">-</span> <span class="n">b</span><span class="o">/</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">c</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="mi">3</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="o">/</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">b</span><span class="o">/</span><span class="mi">3</span> <span class="o">-</span> <span class="n">c</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="mi">3</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="o">/</span><span class="mi">3</span> <span class="o">-</span> <span class="n">b</span><span class="o">/</span><span class="mi">3</span><span class="o">-</span> <span class="n">c</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="p">((</span><span class="o">-</span><span class="n">a</span><span class="o">/</span><span class="mi">3</span> <span class="o">-</span> <span class="n">b</span><span class="o">/</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">c</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="o">/</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">b</span><span class="o">/</span><span class="mi">3</span> <span class="o">-</span> <span class="n">c</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="o">/</span><span class="mi">3</span> <span class="o">-</span> <span class="n">b</span><span class="o">/</span><span class="mi">3</span> <span class="o">-</span> <span class="n">c</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">skewness</span><span class="p">(</span><span class="n">ChiSquared</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="mi">2</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">/</span><span class="mi">5</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">skewness</span><span class="p">(</span><span class="n">Exponential</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;mu&#39;</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">)))</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="mi">2</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">skewness</span><span class="p">(</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../python-apgl.html" title="Another Python Graph Library (APGL) 利用ノート"
+             >next</a></li>
+        <li class="right" >
+          <a href="tensor.html" title="テンソル代数"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >SymPy 利用ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

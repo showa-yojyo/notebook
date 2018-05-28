@@ -1,0 +1,186 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Docutils 解読ノート &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="基礎モジュール群" href="modules.html" />
+    <link rel="prev" title="Pylint 利用ノート" href="../python-pylint.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="modules.html" title="基礎モジュール群"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="../python-pylint.html" title="Pylint 利用ノート"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="docutils">
+<h1>Docutils 解読ノート<a class="headerlink" href="#docutils" title="Permalink to this headline">¶</a></h1>
+<p>Python の <a class="reference external" href="http://docutils.sourceforge.net/">Docutils</a> のソースコードを読んで、使えそうな技法や知識を蓄えるためのノートとしたい。</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">基礎モジュール群</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">基礎クラス群</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="base.html#id3">クラス図</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#docutils-settingsspec">クラス <code class="docutils literal notranslate"><span class="pre">docutils.SettingsSpec</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#docutils-transformspec">クラス <code class="docutils literal notranslate"><span class="pre">docutils.TransformSpec</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#docutils-component">クラス <code class="docutils literal notranslate"><span class="pre">docutils.Component</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#id13">感想</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="statemachine.html">モジュール <code class="docutils literal notranslate"><span class="pre">docutils.statemachine</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="statemachine.html#id2">クラス図</a></li>
+<li class="toctree-l2"><a class="reference internal" href="statemachine.html#id3">コード読解</a></li>
+<li class="toctree-l2"><a class="reference internal" href="statemachine.html#id6">応用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="statemachine.html#id7">感想</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="languages.html">サブパッケージ <code class="docutils literal notranslate"><span class="pre">docutils.languages</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="languages.html#id2">利用側</a></li>
+<li class="toctree-l2"><a class="reference internal" href="languages.html#id3">実装簡易版</a></li>
+<li class="toctree-l2"><a class="reference internal" href="languages.html#id4">感想</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nodes.html">クラス <code class="docutils literal notranslate"><span class="pre">docutils.nodes.Node</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nodes.html#id2">クラス図</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nodes.html#node">クラス <code class="docutils literal notranslate"><span class="pre">Node</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="nodes.html#id5">サブクラス</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nodes.html#id6">感想</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="visitor.html">クラス <code class="docutils literal notranslate"><span class="pre">docutils.nodes.NodeVisitor</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="visitor.html#id2">クラス図</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visitor.html#node-walk">メソッド <code class="docutils literal notranslate"><span class="pre">Node.walk</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="visitor.html#node-walkabout">メソッド <code class="docutils literal notranslate"><span class="pre">Node.walkabout</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="visitor.html#nodevisitor-dispatch-visit">メソッド <code class="docutils literal notranslate"><span class="pre">NodeVisitor.dispatch_visit</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="visitor.html#nodevisitor-dispatch-departure">メソッド <code class="docutils literal notranslate"><span class="pre">NodeVisitor.dispatch_departure</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="visitor.html#genericnodevisitor">クラス <code class="docutils literal notranslate"><span class="pre">GenericNodeVisitor</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="visitor.html#sparsenodevisitor">クラス <code class="docutils literal notranslate"><span class="pre">SparseNodeVisitor</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="visitor.html#id3">サブクラスの例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visitor.html#id4">感想</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="parsers.html">サブパッケージ <code class="docutils literal notranslate"><span class="pre">docutils.parsers</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#id2">クラス図</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#parser">クラス <code class="docutils literal notranslate"><span class="pre">Parser</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#id5">サブクラス</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#id6">利用例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#id7">感想</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="transforms.html">サブパッケージ <code class="docutils literal notranslate"><span class="pre">docutils.transforms</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="transforms.html#id2">クラス図</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transforms.html#transform">クラス <code class="docutils literal notranslate"><span class="pre">Transform</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="transforms.html#transformer">クラス <code class="docutils literal notranslate"><span class="pre">Transformer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="transforms.html#id8">感想</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="io.html">モジュール <code class="docutils literal notranslate"><span class="pre">docutils.io</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="io.html#id2">クラス図</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io.html#input">クラス <code class="docutils literal notranslate"><span class="pre">Input</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="io.html#output">クラス <code class="docutils literal notranslate"><span class="pre">Output</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="io.html#id8">クライアント</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io.html#id9">感想</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="readers.html">サブパッケージ <code class="docutils literal notranslate"><span class="pre">docutils.readers</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="readers.html#id2">クラス図</a></li>
+<li class="toctree-l2"><a class="reference internal" href="readers.html#reader">クラス <code class="docutils literal notranslate"><span class="pre">Reader</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="readers.html#id5">サブクラス</a></li>
+<li class="toctree-l2"><a class="reference internal" href="readers.html#id6">オブジェクト生成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="readers.html#id7">クライアント</a></li>
+<li class="toctree-l2"><a class="reference internal" href="readers.html#id8">感想</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="writers.html">サブパッケージ <code class="docutils literal notranslate"><span class="pre">docutils.writers</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="writers.html#id2">クラス図</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writers.html#writer">クラス <code class="docutils literal notranslate"><span class="pre">Writer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="writers.html#id5">サブクラス</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writers.html#id6">オブジェクト生成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writers.html#id7">クライアント</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writers.html#id8">感想</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="frontend.html">モジュール <code class="docutils literal notranslate"><span class="pre">docutils.frontend</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="frontend.html#id2">クラス図</a></li>
+<li class="toctree-l2"><a class="reference internal" href="frontend.html#values">クラス <code class="docutils literal notranslate"><span class="pre">Values</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="frontend.html#option">クラス <code class="docutils literal notranslate"><span class="pre">Option</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="frontend.html#optionparser">クラス <code class="docutils literal notranslate"><span class="pre">OptionParser</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="frontend.html#configparser">クラス <code class="docutils literal notranslate"><span class="pre">ConfigParser</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="frontend.html#id3">関数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="frontend.html#id4">感想</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="core.html">モジュール <code class="docutils literal notranslate"><span class="pre">docutils.core</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="core.html#publisher">クラス <code class="docutils literal notranslate"><span class="pre">Publisher</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#id4">関数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#id5">感想</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">その他の話題</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#id3">インストール</a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#id4">各種スクリプト</a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#id5">各種オブジェクト生成関数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#python">Python コードの手筋など</a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#id8">参考文献</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>本稿執筆時の動作環境は次のとおり。</p>
+<ul class="last simple">
+<li>OS: Windows 10 Home x64</li>
+<li><a class="reference external" href="http://www.python.org/">Python</a>: 3.5.0</li>
+<li><a class="reference external" href="http://docutils.sourceforge.net/">Docutils</a>: 0.12</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="modules.html" title="基礎モジュール群"
+             >next</a></li>
+        <li class="right" >
+          <a href="../python-pylint.html" title="Pylint 利用ノート"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

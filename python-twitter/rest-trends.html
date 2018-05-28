@@ -1,0 +1,263 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>トレンド関連 &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="ユーザーアカウント関連" href="rest-users.html" />
+    <link rel="prev" title="タイムラインおよびツイート関連" href="rest-statuses.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="rest-users.html" title="ユーザーアカウント関連"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="rest-statuses.html" title="タイムラインおよびツイート関連"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Python Twitter Tools 利用ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id2">トレンド関連</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>Twitter REST API のトレンド関連 3 機能について記す。これらの機能は個人的には積極的に利用したことがこれまでなかったので、
+API を操作することで何か発見があれば儲けものだ。</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id2">トレンド関連</a><ul>
+<li><a class="reference internal" href="#get-trends-available" id="id3">GET trends/available</a></li>
+<li><a class="reference internal" href="#get-trends-closest" id="id4">GET trends/closest</a></li>
+<li><a class="reference internal" href="#get-trends-place" id="id5">GET trends/place</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="get-trends-available">
+<h2><a class="toc-backref" href="#id3">GET trends/available</a><a class="headerlink" href="#get-trends-available" title="Permalink to this headline">¶</a></h2>
+<p>GET trends/available は他の機能のパラメーターとして指定する WOEID という型の有効な値の一覧を取得するために用いる。この機能自身はまったく引数を取らないので、サンプルコードは至って質素なものになる。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># Demonstration GET trends/available</span>
+<span class="c1"># See https://dev.twitter.com/rest/reference/get/trends/available</span>
+
+<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="k">import</span> <span class="n">dump</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
+
+<span class="c1"># [1]</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">trends</span><span class="o">.</span><span class="n">available</span><span class="p">()</span>
+
+<span class="c1"># [2]</span>
+<span class="n">dump</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>次に実行例を示す。極めて長くなるので大部分をカットした。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./trends-available.py
+[
+    {
+        &quot;country&quot;: &quot;&quot;,
+        &quot;countryCode&quot;: null
+        &quot;name&quot;: &quot;Worldwide&quot;,
+        &quot;parentid&quot;: 0,
+        &quot;placeType&quot;: {
+            &quot;code&quot;: 19,
+            &quot;name&quot;: &quot;Supername&quot;
+        },
+        &quot;url&quot;: &quot;http://where.yahooapis.com/v1/place/1&quot;,
+        &quot;woeid&quot;: 1
+    },
+    {
+        &quot;country&quot;: &quot;Canada&quot;,
+        &quot;countryCode&quot;: &quot;CA&quot;,
+        &quot;name&quot;: &quot;Winnipeg&quot;,
+        &quot;parentid&quot;: 23424775,
+        &quot;placeType&quot;: {
+            &quot;code&quot;: 7,
+            &quot;name&quot;: &quot;Town&quot;
+        },
+        &quot;url&quot;: &quot;http://where.yahooapis.com/v1/place/2972&quot;,
+        &quot;woeid&quot;: 2972
+    },
+    ...
+    {
+
+        &quot;country&quot;: &quot;Japan&quot;,
+        &quot;countryCode&quot;: &quot;JP&quot;,
+        &quot;name&quot;: &quot;Okayama&quot;,
+        &quot;parentid&quot;: 23424856,
+        &quot;placeType&quot;: {
+            &quot;code&quot;: 7,
+            &quot;name&quot;: &quot;Town&quot;
+        },
+        &quot;url&quot;: &quot;http://where.yahooapis.com/v1/place/90036018&quot;,
+        &quot;woeid&quot;: 90036018
+    }
+]
+</pre></div>
+</div>
+<p>日本に興味があるのならば <code class="docutils literal notranslate"><span class="pre">dump</span></code> する直前に <code class="docutils literal notranslate"><span class="pre">country</span></code> が <code class="docutils literal notranslate"><span class="pre">Japan</span></code> な項目をフィルターしておくとよい。インターネットを検索すれば、既に誰かがまとめた表を見られるだろう。</p>
+</div>
+<div class="section" id="get-trends-closest">
+<h2><a class="toc-backref" href="#id4">GET trends/closest</a><a class="headerlink" href="#get-trends-closest" title="Permalink to this headline">¶</a></h2>
+<p>GET trends/closest は指定地点を対応できる WOEID を取得する機能なのだろう。緯度と経度を指定する必要がある。</p>
+<p>次にサンプルコードを示す。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># Demonstration GET trends/closest</span>
+<span class="c1"># See https://dev.twitter.com/rest/reference/get/trends/closest</span>
+
+<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="k">import</span> <span class="n">dump</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
+
+<span class="c1"># [1]</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">trends</span><span class="o">.</span><span class="n">closest</span><span class="p">(</span><span class="n">long</span><span class="o">=</span><span class="mf">139.773828</span><span class="p">,</span> <span class="n">lat</span><span class="o">=</span><span class="mf">35.696805</span><span class="p">)</span>
+
+<span class="c1"># [2]</span>
+<span class="n">dump</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>[1] 東京都千代田区某所の緯度・経度を指定して API にアクセスする。緯度と経度は <code class="docutils literal notranslate"><span class="pre">lat</span></code> と <code class="docutils literal notranslate"><span class="pre">long</span></code> のパラメーターでそれぞれ指定する。</li>
+<li>[2] 応答結果を出力する。</li>
+</ul>
+<p>次に実行例を示す。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./trends-closest.py
+[
+    {
+        &quot;country&quot;: &quot;Japan&quot;,
+        &quot;countryCode&quot;: &quot;JP&quot;,
+        &quot;name&quot;: &quot;Tokyo&quot;,
+        &quot;parentid&quot;: 23424856,
+        &quot;placeType&quot;: {
+            &quot;code&quot;: 7,
+            &quot;name&quot;: &quot;Town&quot;
+        },
+        &quot;url&quot;: &quot;http://where.yahooapis.com/v1/place/1118370&quot;,
+        &quot;woeid&quot;: 1118370
+    }
+]
+</pre></div>
+</div>
+<p>Twitter はトレンドを管理するときに東京という規模の括りを設けているようだ。千代田区だとか、それ以下には局所的にならなそうだ。</p>
+</div>
+<div class="section" id="get-trends-place">
+<h2><a class="toc-backref" href="#id5">GET trends/place</a><a class="headerlink" href="#get-trends-place" title="Permalink to this headline">¶</a></h2>
+<p>GET trends/place は指定する場所でトレンドとなっているものを得る機能だ。サンプルコードを示す。これは東京でのトレンドを Twitter から取得し、画面に出力する。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># Demonstration GET trends/place</span>
+<span class="c1"># See https://dev.twitter.com/rest/reference/get/trends/place</span>
+
+<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="k">import</span> <span class="n">dump</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
+
+<span class="c1"># [1]</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">trends</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="mi">23424856</span><span class="p">)</span>
+
+<span class="c1"># [2]</span>
+<span class="n">dump</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul>
+<li><p class="first">[1] PTT では公式のパラメーター名が <code class="docutils literal notranslate"><span class="pre">id</span></code> であるものをなぜか <code class="docutils literal notranslate"><span class="pre">_id</span></code> として指定する必要がある。ここでの実引数は上述の <code class="docutils literal notranslate"><span class="pre">Tokyo</span></code> における WOEID 値だ。</p>
+<p>本サンプルでは指定していないが、ハッシュタグを取得しないオプションも提供されている。その場合は <code class="docutils literal notranslate"><span class="pre">exclude='hashtags'</span></code> をキーワード引数とする。</p>
+</li>
+<li><p class="first">[2] 応答結果を出力する。</p>
+</li>
+</ul>
+<p>次に実行例を示す。かなり長いので一部のみ掲載する。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./trends-place.py
+[
+    {
+        &quot;as_of&quot;: &quot;2015-12-15THH:MM:SSZ&quot;,
+        &quot;created_at&quot;: &quot;2015-12-15THH:MM:SSZ&quot;,
+        &quot;locations&quot;: [
+            {
+                &quot;name&quot;: &quot;Japan&quot;,
+                &quot;woeid&quot;: 23424856
+            }
+        ],
+        &quot;trends&quot;: [
+            {
+                &quot;name&quot;: &quot;サイレーン&quot;,
+                &quot;promoted_content&quot;: null,
+                &quot;query&quot;: &quot;%E3%82%B5%E3%82%A4%E3%83%AC%E3%83%BC%E3%83%B3&quot;,
+                &quot;tweet_volume&quot;: 195007,
+                &quot;url&quot;: &quot;http://twitter.com/search?q=%E3%82%B5%E3%82%A4%E3%83%AC%E3%83%BC%E3%83%B3&quot;
+            },
+            {
+                &quot;name&quot;: &quot;コナミ退社&quot;,
+                &quot;promoted_content&quot;: null,
+                &quot;tweet_volume&quot;: null,
+                &quot;query&quot;: &quot;%E3%82%B3%E3%83%8A%E3%83%9F%E9%80%80%E7%A4%BE&quot;,
+                &quot;url&quot;: &quot;http://twitter.com/search?q=%E3%82%B3%E3%83%8A%E3%83%9F%E9%80%80%E7%A4%BE&quot;
+            },
+            {
+                &quot;name&quot;: &quot;俺の股間&quot;,
+                &quot;promoted_content&quot;: null,
+                &quot;query&quot;: &quot;%E4%BF%BA%E3%81%AE%E8%82%A1%E9%96%93&quot;,
+                &quot;tweet_volume&quot;: 11680,
+                &quot;url&quot;: &quot;http://twitter.com/search?q=%E4%BF%BA%E3%81%AE%E8%82%A1%E9%96%93&quot;
+            },
+            ...
+        ]
+    }
+]
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="rest-users.html" title="ユーザーアカウント関連"
+             >next</a></li>
+        <li class="right" >
+          <a href="rest-statuses.html" title="タイムラインおよびツイート関連"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Python Twitter Tools 利用ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

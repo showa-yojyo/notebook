@@ -1,0 +1,183 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>What’s New In Python 3.1 ノート &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="What’s New In Python 3.2 ノート" href="python-3.2.html" />
+    <link rel="prev" title="What’s New In Python 3.0 ノート" href="python-3.0.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="python-3.2.html" title="What’s New In Python 3.2 ノート"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="python-3.0.html" title="What’s New In Python 3.0 ノート"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="what-s-new-in-python-3-1">
+<h1><a class="toc-backref" href="#id6">What’s New In Python 3.1 ノート</a><a class="headerlink" href="#what-s-new-in-python-3-1" title="Permalink to this headline">¶</a></h1>
+<p>What’s New In Python 3.1 を読んで、個人的に関心のある項目に注釈を付けていく。
+3.1 は見るべき項目は多くはない。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title first">ノート目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#what-s-new-in-python-3-1" id="id6">What’s New In Python 3.1 ノート</a><ul>
+<li><a class="reference internal" href="#id2" id="id7">新規機能</a></li>
+<li><a class="reference internal" href="#id3" id="id8">その他</a></li>
+<li><a class="reference internal" href="#id4" id="id9">新規モジュール</a></li>
+<li><a class="reference internal" href="#id5" id="id10">変更モジュール</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id7">新規機能</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">str.format()</span></code> 系の書式化ルールに千区切り指定子が追加された。</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[[fill]align][sign][#][0][width][,][.precision][type]
+</pre></div>
+</div>
+<p>このカンマが追加要素だ。</p>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="nb">format</span><span class="p">(</span><span class="mi">1234567890</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="s1">&#39;1234567890&#39;</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="nb">format</span><span class="p">(</span><span class="mi">1234567890</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="s1">&#39;1,234,567,890&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">str.format()</span></code> 系の文字列の中括弧フィールドに自動的に番号が付与されるようになった。この機能を無意識に使っていた。</p>
+</li>
+</ul>
+<p>ところで <code class="docutils literal notranslate"><span class="pre">str.format()</span></code> 系の書式指定は詳細仕様をなかなか覚えられない。困ったときは IPython のセッションで <code class="docutils literal notranslate"><span class="pre">help('FORMATTING')</span></code> と入力すれば仕様が出力される。</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">int.bit_length()</span></code> を使えば、その整数値を二進数で表現するために必要なビット数がわかる。正の整数 <span class="math notranslate nohighlight">\(n\)</span> に対して値 <span class="math notranslate nohighlight">\(\lceil \log_2 n\rceil\)</span> が、おそらく効率的に得られる。</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id8">その他</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">A</span> <span class="pre">as</span> <span class="pre">B</span></code> 文で複数の <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">as</span> <span class="pre">B</span></code> をカンマ区切りで並べることができるようになった。これをやると一行が長くなり過ぎるので、個人的には敬遠したい。</li>
+<li><code class="docutils literal notranslate"><span class="pre">round()</span></code> が整数を入力とすると、出力も整数となるように改められた。</li>
+<li>浮動小数点数の最短表現を決めるアルゴリズムが変更されて、文字列としての表示がましになったらしい。</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id9">新規モジュール</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">importlib</span></code> 追加。動的にモジュールの要素をインポートしたい状況では、このモジュールの提供機能に頼ることになるだろう。</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id10">変更モジュール</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">collections</span></code></p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">Counter</span></code> が追加。ドラクエのふくろ方式のコレクション型。<ul>
+<li>牌譜解析に利用させてもらっている。</li>
+</ul>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">OrderedDict</span></code> という、要素の追加順を維持する <code class="docutils literal notranslate"><span class="pre">dict</span></code> が追加された。<ul>
+<li>個人的にはこの型のお世話にならないと思う。</li>
+</ul>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">namedtuple()</span></code> にキーワード引数 <code class="docutils literal notranslate"><span class="pre">rename</span></code> が追加された。これを <code class="docutils literal notranslate"><span class="pre">True</span></code> にすればフィールド名を安全に一意的にできる。</li>
+</ul>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">itertools</span></code> に新規関数や引数が追加。</p>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">combinations_with_replacement()</span></code>: 重複アリ置換部分列を生成する。</p>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">30</span><span class="p">]:</span> <span class="nb">list</span><span class="p">(</span><span class="n">combinations_with_replacement</span><span class="p">(</span><span class="s1">&#39;もくし&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">30</span><span class="p">]:</span>
+<span class="p">[(</span><span class="s1">&#39;も&#39;</span><span class="p">,</span> <span class="s1">&#39;も&#39;</span><span class="p">,</span> <span class="s1">&#39;も&#39;</span><span class="p">),</span>
+ <span class="p">(</span><span class="s1">&#39;も&#39;</span><span class="p">,</span> <span class="s1">&#39;も&#39;</span><span class="p">,</span> <span class="s1">&#39;く&#39;</span><span class="p">),</span>
+ <span class="p">(</span><span class="s1">&#39;も&#39;</span><span class="p">,</span> <span class="s1">&#39;も&#39;</span><span class="p">,</span> <span class="s1">&#39;し&#39;</span><span class="p">),</span>
+ <span class="p">(</span><span class="s1">&#39;も&#39;</span><span class="p">,</span> <span class="s1">&#39;く&#39;</span><span class="p">,</span> <span class="s1">&#39;く&#39;</span><span class="p">),</span>
+ <span class="p">(</span><span class="s1">&#39;も&#39;</span><span class="p">,</span> <span class="s1">&#39;く&#39;</span><span class="p">,</span> <span class="s1">&#39;し&#39;</span><span class="p">),</span>
+ <span class="p">(</span><span class="s1">&#39;も&#39;</span><span class="p">,</span> <span class="s1">&#39;し&#39;</span><span class="p">,</span> <span class="s1">&#39;し&#39;</span><span class="p">),</span>
+ <span class="p">(</span><span class="s1">&#39;く&#39;</span><span class="p">,</span> <span class="s1">&#39;く&#39;</span><span class="p">,</span> <span class="s1">&#39;く&#39;</span><span class="p">),</span>
+ <span class="p">(</span><span class="s1">&#39;く&#39;</span><span class="p">,</span> <span class="s1">&#39;く&#39;</span><span class="p">,</span> <span class="s1">&#39;し&#39;</span><span class="p">),</span>
+ <span class="p">(</span><span class="s1">&#39;く&#39;</span><span class="p">,</span> <span class="s1">&#39;し&#39;</span><span class="p">,</span> <span class="s1">&#39;し&#39;</span><span class="p">),</span>
+ <span class="p">(</span><span class="s1">&#39;し&#39;</span><span class="p">,</span> <span class="s1">&#39;し&#39;</span><span class="p">,</span> <span class="s1">&#39;し&#39;</span><span class="p">)]</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">compress()</span></code>: フィルターして枚挙する。</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">count()</span></code>: キーワード引数 <code class="docutils literal notranslate"><span class="pre">step</span></code> が追加された。そのおかげで <code class="docutils literal notranslate"><span class="pre">+=</span></code> できる型ならばなんでも枚挙できるようになった。</p>
+</li>
+</ul>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">re</span></code> の <code class="docutils literal notranslate"><span class="pre">sub()</span></code>, <code class="docutils literal notranslate"><span class="pre">subs()</span></code>, <code class="docutils literal notranslate"><span class="pre">split()</span></code> 関数が
+<code class="docutils literal notranslate"><span class="pre">compile()</span></code> 関数のものと同じ引数 <code class="docutils literal notranslate"><span class="pre">flags</span></code> をとれるようになった。</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">logging</span></code> によその言語のライブラリーにあるそれと同様の意味を持つクラス <code class="docutils literal notranslate"><span class="pre">NullHandler</span></code> が追加された。今までなかったのか。</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">unittest</span></code></p>
+<ul class="simple">
+<li>スキップ系のデコレーターが追加された。</li>
+<li>例外テスト系が <code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">A</span> <span class="pre">as</span> <span class="pre">B</span></code> 文に対応された。</li>
+<li><code class="docutils literal notranslate"><span class="pre">assert</span></code> 系メソッドが多数追加された。</li>
+</ul>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">io</span></code> に <code class="docutils literal notranslate"><span class="pre">seek()</span></code> 関数の引数に指定する定数 <code class="docutils literal notranslate"><span class="pre">SEEK_SET</span></code>, <code class="docutils literal notranslate"><span class="pre">SEEK_CUR</span></code>, <code class="docutils literal notranslate"><span class="pre">SEEK_END</span></code> が追加された。今までどうしていたのだ。</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">sys.version_info</span></code> が <code class="docutils literal notranslate"><span class="pre">namedtuple</span></code> になった。このオブジェクトをコンソールに出力しておくと、あとで見返すときに便利そうだ。</p>
+<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">42</span><span class="p">]:</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">42</span><span class="p">]:</span> <span class="s1">&#39;3.6.5 |Anaconda, Inc.| (default, Mar 29 2018, 13:32:41) [MSC v.1900 64 bit (AMD64)]&#39;</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">43</span><span class="p">]:</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">43</span><span class="p">]:</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">(</span><span class="n">major</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">minor</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">micro</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">releaselevel</span><span class="o">=</span><span class="s1">&#39;final&#39;</span><span class="p">,</span> <span class="n">serial</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="python-3.2.html" title="What’s New In Python 3.2 ノート"
+             >next</a></li>
+        <li class="right" >
+          <a href="python-3.0.html" title="What’s New In Python 3.0 ノート"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,335 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>第 4 章 接空間（前編） &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="第 4 章 接空間（後編）" href="chapter4b.html" />
+    <link rel="prev" title="第 3 章 多様体の定義（後編）" href="chapter3b.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter4b.html" title="第 4 章 接空間（後編）"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="chapter3b.html" title="第 3 章 多様体の定義（後編）"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">幾何学 I 多様体入門 読書ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id6">第 4 章 接空間（前編）</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p><span class="math notranslate nohighlight">\(\require{AMScd}\)</span></p>
+<p>本章の目的は次のとおり：</p>
+<ul class="simple">
+<li>接ベクトル、接空間を考察する。</li>
+<li>接写像を定義する。</li>
+<li>多様体間の写像についても逆写像・陰関数定理が応用可能であることを見る。</li>
+</ul>
+<div class="contents topic" id="id2">
+<p class="topic-title first">ノート目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id6">第 4 章 接空間（前編）</a><ul>
+<li><a class="reference internal" href="#id3" id="id7">4.1 曲線の接ベクトル</a></li>
+<li><a class="reference internal" href="#id4" id="id8">4.2 接ベクトル空間</a></li>
+<li><a class="reference internal" href="#id5" id="id9">4.3 接写像</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id7">4.1 曲線の接ベクトル</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference external" href="http://mathworld.wolfram.com/ManifoldTangentVector.html">接ベクトル</a></dt>
+<dd><p class="first">次のように同値類を構成するときに現れる曲線に関する微分のことを接ベクトルと呼ぶ。</p>
+<ol class="last arabic">
+<li><p class="first">多様体 <span class="math notranslate nohighlight">\(M\)</span> とその一点 <span class="math notranslate nohighlight">\(x_0 \in M\)</span> につき、次のような曲線族 <span class="math notranslate nohighlight">\(\mathcal{C}_{x_0}\)</span> を考える。</p>
+<div class="math notranslate nohighlight">
+\begin{align*}
+\mathcal{C}_{x_0} := \set{\fn{c_i}{(a_i,\ b_i)}M \sth c_i(t_i) = x_0}_{i \in I}
+\end{align*}</div></li>
+<li><p class="first">次にこの一点を含む座標近傍 <span class="math notranslate nohighlight">\((U, \varphi)\)</span> をとって、曲線族の曲線に次のような同値関係を入れる。</p>
+<div class="math notranslate nohighlight">
+\begin{align*}
+c_1 \sim c_2 \iff
+\exists t_1 \in I_{c_1},\ t_2 \in I_{c_2}: \diff{(\varphi \circ c_1)}{t}(t_1) = \diff{(\varphi \circ c_2)}{t}(t_2)
+\end{align*}</div></li>
+</ol>
+</dd>
+</dl>
+<ul>
+<li><p class="first"><span class="math notranslate nohighlight">\({\displaystyle \diff{(\varphi \circ c_1)}{t}(t_1)}\)</span> 等は <span class="math notranslate nohighlight">\(\RR^n\)</span> のベクトルであって点 <span class="math notranslate nohighlight">\(\varphi(x_0) \in \varphi(U)\)</span> から「生えている」ようなイメージか？</p>
+</li>
+<li><p class="first">別の近傍 <span class="math notranslate nohighlight">\((V, \psi)\)</span> をとって
+<span class="math notranslate nohighlight">\({\displaystyle \diff{(\psi \circ c_i)}{t}(t_i)}\)</span> を考えると「<span class="math notranslate nohighlight">\({\displaystyle \diff{(\varphi \circ c_i)}{t}(t_i)}\)</span> が同じであることと
+<span class="math notranslate nohighlight">\({\displaystyle \diff{(\psi \circ c_i)}{t}(t_i)}\)</span> が同じであること」となる。</p>
+<ul>
+<li><p class="first">それはなぜか。
+<span class="math notranslate nohighlight">\(\psi \circ c_i = (\psi \circ \varphi\inv) \circ (\varphi \circ c_i)\)</span> であるので、
+<a class="reference internal" href="chapter1.html#tsuboi05-1-2-8"><span class="std std-ref">chain rule</span></a> によって適当な近傍において次のようになるから。</p>
+<div class="math notranslate nohighlight">
+\begin{equation*}
+\begin{split}
+\diff{(\psi \circ c_i)}{t}(t_i)
+&amp; = D(\psi \circ \varphi\inv)_{\varphi(x_0)} \diff{(\varphi \circ c_i)}{t}(t_i) \quad \because \text{chain rule}\\
+&amp; = D(\psi \circ \varphi\inv)_{\varphi(x_0)} \diff{(\varphi \circ c_j)}{t}(t_j) \quad \because c_i \sim c_j \text{ for } (U, \varphi)\\
+&amp; = \diff{(\psi \circ c_j)}{t}(t_j) \quad \because \text{chain rule}
+\end{split}
+\end{equation*}</div></li>
+<li><p class="first">人のことは言えないが p. 74 の式変形は誤植か？</p>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id8">4.2 接ベクトル空間</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference external" href="http://mathworld.wolfram.com/TangentSpace.html">接空間 or 接ベクトル空間</a></dt>
+<dd><span class="math notranslate nohighlight">\(T_{x_0}M := \mathcal{C}_{x_0} / \sim\)</span> を接空間 or 接ベクトル空間と呼ぶ。</dd>
+</dl>
+<ul>
+<li><p class="first">接ベクトル空間は実ベクトル空間である。</p>
+</li>
+<li><p class="first">曲線族の曲線に <span class="math notranslate nohighlight">\(\RR^n\)</span> の接ベクトルを対応させる写像は全単射 <span class="math notranslate nohighlight">\(\fn{\varphi_{*}}{\mathcal{C}_{x_0}/\sim}\RR^n\)</span> を誘導する。</p>
+</li>
+<li><p class="first">単射であることは同値類の定義から従う。</p>
+</li>
+<li><p class="first">全射であることについて。これを示すのに面白い技法を使う。</p>
+<p>接ベクトル <span class="math notranslate nohighlight">\(\bm{v} \in \RR^n\)</span> に対し
+<span class="math notranslate nohighlight">\(c_\varphi ^\bm{v} (t) := \varphi \inv(t \bm{v} + \varphi (x_0))\)</span> というのを考える。ただし <span class="math notranslate nohighlight">\(t \in (-\eps_{\varphi}^\bm{v},\ \eps_{\varphi}^\bm{v})\)</span> の範囲で
+<span class="math notranslate nohighlight">\(t \bm{v} + \varphi (x_0) \in \varphi(U)\)</span> が成り立つように取る。こうすると次のようになるので全射であることが示せる（任意のベクトルについて曲線が作れるから）。</p>
+<div class="math notranslate nohighlight">
+\begin{equation*}
+\begin{split}
+\varphi_*(c_\varphi ^\bm{v})
+    &amp; = \diff{(\varphi \circ (\varphi \inv (t \bm{v} + \varphi (x_0))))}{t}(0) \\
+    &amp; = \diff{(t \bm{v} + \varphi (x_0))}{t}(0) \\
+    &amp; = \bm{v}
+\end{split}
+\end{equation*}</div><ul class="simple">
+<li>この技法はまた出て来る。</li>
+<li>ところで <span class="math notranslate nohighlight">\(\bm{v} = 0\)</span> のときも上の議論が通じるだろうか。曲線を定数関数とすればいいか。</li>
+</ul>
+</li>
+<li><p class="first">接ベクトル空間のベクトル空間としての構造は、点 <span class="math notranslate nohighlight">\(x_0\)</span> の別の座標近傍を用いて定義しても変わらない。
+<span class="math notranslate nohighlight">\(\bm{v_1}, \bm{v_2} \in \RR^n,\ a_1, a_2 \in \RR\)</span> とすると：</p>
+<div class="math notranslate nohighlight">
+\begin{equation*}
+\begin{split}
+\diff{(\psi \circ c_\varphi^{a_1 \bm{v_1} + a_2 \bm{v_2}})}{t}(0)
+&amp;= D(\psi \circ \varphi\inv)_{\varphi(x_0)} \diff{(t(a_1 \bm{v_1} + a_2 \bm{v_2}) + \varphi(x_0))}{t}(0)\\
+&amp;= D(\psi \circ \varphi\inv)_{\varphi(x_0)}(a_1 \bm{v_1} + a_2 \bm{v_2})\\
+&amp;= a_1 D(\psi \circ \varphi\inv)_{\varphi(x_0)} \bm{v_1} + a_2 D(\psi \circ \varphi\inv)_{\varphi(x_0)} \bm{v_2}\\
+&amp;= a_1 \diff{(\psi \circ c_\varphi^{\bm{v_1}})}{t}(0) + a_2 \diff{(\psi \circ c_\varphi^{\bm{v_2}})}{t}(0)
+\end{split}
+\end{equation*}</div></li>
+<li><p class="first">接ベクトル空間の基底は <span class="math notranslate nohighlight">\((c_{\varphi}^{\bm{e}_1}, \dotsc, c_{\varphi}^{\bm{e}_n})\)</span> である。</p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(\varphi\)</span> に依存して決まることに気をつける。</li>
+</ul>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\({ \displaystyle [c_{\varphi}^{\bm{e}_i}] := \frac{\partial}{\partial x_i}}\)</span> と記す。</p>
+<ul class="simple">
+<li>理由 1: 曲線は（偏）微分 or 方向微分を表しているとみなせるから。</li>
+<li>理由 2: 座標近傍を換えたときの基底変換が形式的にできるから。<ul>
+<li>接ベクトルは <span class="math notranslate nohighlight">\({ \displaystyle \sum \diff{(x_i \circ c)}{t}(t_0) \frac{\partial}{\partial x_i} = \sum \diff{(y_i \circ c)}{t}(t_0) \frac{\partial}{\partial y_i} }\)</span></li>
+<li>座標変換は <span class="math notranslate nohighlight">\(\psi \circ \varphi\inv = (y_1(x_1, \dotsc, x_n), \dotsc, y_n(x_1, \dotsc, x_n))\)</span></li>
+<li>ヤコビ行列は <span class="math notranslate nohighlight">\({ \displaystyle \left( \frac{\partial y_i}{\partial x_j} \right) }\)</span></li>
+<li>接ベクトルの変換は <span class="math notranslate nohighlight">\({ \displaystyle \frac{\partial}{\partial x_j}}\)</span> を
+<span class="math notranslate nohighlight">\({ \displaystyle \sum_{i = 1}^n \frac{\partial y_i}{\partial x_j} (\varphi(x_0)) \frac{\partial}{\partial y_i} }\)</span>
+で置き換える。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id9">4.3 接写像</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference external" href="http://mathworld.wolfram.com/TangentMap.html">接写像</a></dt>
+<dd><p class="first"><span class="math notranslate nohighlight">\(F \in C^\infty(M, N),\ x \in M,\ \fnm{c}{(a, b)}{M}{t_0}x\)</span> を仮定する。点 <span class="math notranslate nohighlight">\(F(x) \in N\)</span> を通る曲線 <span class="math notranslate nohighlight">\(\fnm{F \circ c}{(a, b)}{N}{t_0}F(x)\)</span> という具合になる。接ベクトルを接ベクトルに対応させられる。このことから線形写像 <span class="math notranslate nohighlight">\(\fn{F_*}{T_x}T_{f(x)}N\)</span> が定義できる。この写像 <span class="math notranslate nohighlight">\(F_*\)</span> を接写像という。</p>
+<p>色々な性質をまとめておく：</p>
+<ul class="last simple">
+<li><span class="math notranslate nohighlight">\(F_*\)</span> は線形写像である。
+&lt;多様体の間の写像の微分を接空間から接空間への線形写像として定義したもの&gt; だ。</li>
+<li>実体は <span class="math notranslate nohighlight">\(F_* = D(\psi \circ F \circ \varphi\inv)\)</span> である。ここで <span class="math notranslate nohighlight">\(\varphi, \psi\)</span> は局所座標である。</li>
+<li>記号は他にも <span class="math notranslate nohighlight">\(T_x F,\ D_x F,\ (dF)_x\)</span> などがある。</li>
+<li>接写像の記号の下付き米印は共変性 <span class="math notranslate nohighlight">\((f \circ g)_* = f_* \circ g_*\)</span> が成り立つことを示唆している。</li>
+<li><span class="math notranslate nohighlight">\(\rank F_* = \rank D(\psi \circ F \circ \varphi \inv)_{(\varphi(x_0))}.\)</span></li>
+<li><span class="math notranslate nohighlight">\(\rank F_* = \dim N\)</span> ならば <span class="math notranslate nohighlight">\(F_*\)</span> は
+<span class="math notranslate nohighlight">\(x_0\)</span> の近傍で微分同相である（逆写像定理による）。<ul>
+<li><span class="math notranslate nohighlight">\(F_*\)</span> のランクが <span class="math notranslate nohighlight">\(n = \dim M = \dim N\)</span> であったとしても
+<span class="math notranslate nohighlight">\(M\)</span> と <span class="math notranslate nohighlight">\(F(M)\)</span> が微分同相であるとは限らない。</li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+<ul id="tsuboi05-4-3-1">
+<li><p class="first">例題 4.3.1: ただし <span class="math notranslate nohighlight">\(M\)</span> のコンパクト集合 <span class="math notranslate nohighlight">\(K\)</span> 上で <span class="math notranslate nohighlight">\(F|K\)</span> が単射ならば、近傍 <span class="math notranslate nohighlight">\(V\)</span> から <span class="math notranslate nohighlight">\(F(V)\)</span> への微分同相となる。</p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(\fn{F|U_x}{U_x}V_{F(x)}\)</span> が微分同相となるような近傍
+<span class="math notranslate nohighlight">\(U_x \subset U_i\)</span> は存在する（∵逆写像定理）。</li>
+<li>この近傍 <span class="math notranslate nohighlight">\(U_x\)</span> はその閉包がコンパクトになるように取れる（らしい）。</li>
+<li><span class="math notranslate nohighlight">\(K\)</span> の開被覆 <span class="math notranslate nohighlight">\(\set{U_x}_{x \in K}\)</span> は有限開被覆 <span class="math notranslate nohighlight">\(\set{U_{x_k}}_{k = 0,\dots\,k_0}\)</span> を持つ（∵コンパクト）。</li>
+</ul>
+<p>ここから先の減少列に関する議論がわからない。次のような <span class="math notranslate nohighlight">\(\set{U_x^m}\)</span> があると言えるらしい。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{gather*}
+U_x \supset \closure{U_x^1} \supset U_x^1 \supset \closure{U_x^2} \supset U_x^2 \supset \dots,\\
+\bigcap_{m = 1}^\infty U_x^m = \set{ x }
+\end{gather*}\end{split}\]</div>
+<ul class="simple">
+<li>各 <span class="math notranslate nohighlight">\(\set{U_x^m}_{x \in K}\)</span> の有限部分？被覆
+<span class="math notranslate nohighlight">\(\set{U_{x_k}^m}_{k = 1, \dots, k_0^m}\)</span> が得られる（∵コンパクト）。</li>
+<li><span class="math notranslate nohighlight">\(W = \bigcup_k U_{x_k}^m\)</span> とおくと
+<span class="math notranslate nohighlight">\(W_1 \supset \closure{W_2} \supset W_2 \supset \dots,\ \bigcap\closure{Q_m} = K\)</span> とできる。</li>
+<li>するとある番号があって <span class="math notranslate nohighlight">\(\fn{F}{W_m}F(W_m)\)</span> が単射となる（背理法と完備性を利用する）。</li>
+</ul>
+</li>
+</ul>
+<ul id="tsuboi05-4-3-2">
+<li><p class="first">問題 4.3.2: 商空間 <span class="math notranslate nohighlight">\(\RR^2/\ZZ^2\)</span></p>
+<ol class="arabic">
+<li><p class="first">ハウスドルフであること</p>
+<ul class="simple">
+<li>次の性質を満たす連続関数をうまく見つける。理屈は前章で見たように「任意の二点を関数で分離したい」だ。
+<span class="math notranslate nohighlight">\(\alpha, \beta\ (\alpha \ne \beta) \implies f(\alpha) \ne f(\beta).\)</span></li>
+<li>解答例では <span class="math notranslate nohighlight">\(f^{[x_0, y_0]}(x, y) = \cos 2\pi(x - x_0) + \cos 2\pi(y - y_0)\)</span> を採用している。<ul>
+<li>この関数 <span class="math notranslate nohighlight">\(\fn{f}{\RR^2}\RR\)</span> は余弦関数の性質より <span class="math notranslate nohighlight">\([x_0, y_0]\)</span> の同値類のとり方によらず、また <span class="math notranslate nohighlight">\([x, y]\)</span> の同値類上で同じ値となるので、誘導される関数 <span class="math notranslate nohighlight">\(\fn{\underline f}{\RR^2/\ZZ^2}\RR\)</span> も確定する。</li>
+<li>よって <span class="math notranslate nohighlight">\([x_0, y_0] \ne [x, y]\)</span> ならば <span class="math notranslate nohighlight">\(\underline f(x, y) \ne 2\)</span> であり、
+<span class="math notranslate nohighlight">\([x_0, y_0] = [x, y]\)</span> ならば <span class="math notranslate nohighlight">\(\underline f(x, y) = 2\)</span> であるので、相異なる同値類を連続関数で分離できた。よってこの商空間はハウスドルフである。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p class="first">商空間が 2 次元の多様体であること</p>
+<div class="math notranslate nohighlight">
+\begin{CD}
+\RR^2 &#64;&gt;{p_x}&gt;&gt; \RR^2/\ZZ^2\\
+&#64;A{\subset}AA &#64;A{\subset}AA\\
+B_x &#64;&gt;{p_x|B_x}&gt;&gt; p_x(B_x)
+\end{CD}</div><p>前章の例題や問題で頻出した技法を適用する。上の図式で、</p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(B_x\)</span> は点 <span class="math notranslate nohighlight">\(x\)</span> を中心とする平面上の半径 1/4 の開円盤。</li>
+<li><span class="math notranslate nohighlight">\(p_x\)</span> は射影とする。</li>
+</ul>
+<p>商空間の点から平面の代表元を取る操作を <span class="math notranslate nohighlight">\(s_x\)</span> とし、座標近傍系を <span class="math notranslate nohighlight">\(\set{(p_x(B_x), s_x)}_{x \in \RR^2}\)</span> で定義する。</p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(s_x\)</span> は連続である。なぜならば開集合 <span class="math notranslate nohighlight">\(U \subset B_x\)</span> に対して
+<span class="math notranslate nohighlight">\(\displaystyle p\inv(s_x\inv(U)) = \bigcup_{m, n \in \ZZ} (U + (m, n))\)</span> が開集合であるから。</li>
+<li><span class="math notranslate nohighlight">\(s_x\)</span> は同相写像である。なぜならば <span class="math notranslate nohighlight">\(s_x \circ (p_x|B_x) = \id_{B_x},\ (p_x|B_x) \circ s_x = \id_{p(B_x)}\)</span> だから。</li>
+<li>座標変換は <span class="math notranslate nohighlight">\(C^\infty\)</span> 級である。なぜならば点 <span class="math notranslate nohighlight">\(z \in p_x(B_x) \cap p_y(B_y)\)</span> に対して次を満たす整数の組が何かあるから：
+<span class="math notranslate nohighlight">\(s_x(z) = s_y(z) + (m, n)\)</span></li>
+</ul>
+<p>以上とハウスドルフ性により商空間は多様体であると結論できる。</p>
+</li>
+<li><p class="first">行列 <span class="math notranslate nohighlight">\(A \in M_2(\ZZ)\)</span> の定める <span class="math notranslate nohighlight">\(\RR^2\)</span> 上の線形変換は
+<span class="math notranslate nohighlight">\(\RR^2/\ZZ^2\)</span> 上の微分可能な変換 <span class="math notranslate nohighlight">\(F_A\)</span> を定義する。</p>
+<ul>
+<li><p class="first">同値な点が同値な点に写ることはすぐに示せる：
+<span class="math notranslate nohighlight">\(A(\bm x + \bm n) = A\bm x + A\bm n \sim A\bm x.\)</span></p>
+<p>よって写像 <span class="math notranslate nohighlight">\(F_A\)</span> は well-defined である。</p>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(F_A\)</span> が <span class="math notranslate nohighlight">\(C^\infty\)</span> 級であるといえる。なぜなら、商空間の座標近傍系を前項と同様に定義すると、写像
+<span class="math notranslate nohighlight">\(s_{A(x)} \circ F_A \circ p_x\)</span> は点 <span class="math notranslate nohighlight">\(x\)</span> の近傍で元の線形変換 <span class="math notranslate nohighlight">\(A\)</span> と一致するので、</p>
+</li>
+</ul>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(\rank F_{A*} = \rank DF_A = \rank A\)</span></p>
+<p>場合分けをするとこうなる：</p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(\det A \ne 0\)</span> のときは <span class="math notranslate nohighlight">\(\rank F_{A*} = \rank A = 2,\)</span></li>
+<li><span class="math notranslate nohighlight">\(\det A = 0\)</span> で<ul>
+<li><span class="math notranslate nohighlight">\(A \ne O\)</span> のときは <span class="math notranslate nohighlight">\(\rank F_{A*} = \rank A = 1,\)</span></li>
+<li><span class="math notranslate nohighlight">\(A = O\)</span> のときは <span class="math notranslate nohighlight">\(\rank F_{A*} = \rank A = 0.\)</span></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<ul id="tsuboi05-4-3-3">
+<li><p class="first">問題 4.3.3: <a class="reference external" href="http://mathworld.wolfram.com/LieGroup.html">リー群</a></p>
+<ol class="arabic">
+<li><p class="first"><span class="math notranslate nohighlight">\(L_g: h \longmapsto gh\)</span> は <span class="math notranslate nohighlight">\(C^\infty\)</span> 級微分同相である。</p>
+<ul class="simple">
+<li>これは微分同相の定義を確認するだけで済む。
+<span class="math notranslate nohighlight">\(L_g \circ L_{g\inv} = L_{g\inv} \circ L_g = \id_G\)</span></li>
+</ul>
+</li>
+<li><p class="first">接写像 <span class="math notranslate nohighlight">\(T_{(g, h)}(G \times G) \longto T_{gh}G\)</span> のランク。</p>
+<ul>
+<li><p class="first">群の多様体次元と一致することを示すわけだが、ヒントから何をしていいかわからない。</p>
+</li>
+<li><p class="first">定数関数 <span class="math notranslate nohighlight">\(G \owns c_g: g \longmapsto a \in \RR\)</span> を取る。</p>
+</li>
+<li><p class="first">次のような演算の列を考える。</p>
+<div class="math notranslate nohighlight">
+\begin{CD}
+G &#64;&gt;{c_g,\ L_h}&gt;&gt; G \times G &#64;&gt;{(op)}&gt;&gt; G &#64;&gt;{L_{(gh)\inv}}&gt;&gt; G\\
+&#64;.     &#64;.         &#64;.     &#64;.\\
+T_1 G &#64;&gt;{c_g,\ L_h}_{\ *}&gt;&gt; T_{(g, h)}(G \times G) &#64;&gt;{(op)_*}&gt;&gt; T_{gh}G &#64;&gt;{L_{(gh)\inv}}_{\ *}&gt;&gt; T_1 G
+\end{CD}</div><p>左から右まででで恒等写像となり、接写像 <span class="math notranslate nohighlight">\(L_{(gh)\inv*}\)</span> が全単射で、中央の写像が全射であることから、ランクが <span class="math notranslate nohighlight">\(\dim G\)</span> と一致すると結論できる（らしい）。</p>
+</li>
+</ul>
+</li>
+<li><p class="first">逆元を取る演算は <span class="math notranslate nohighlight">\(C^\infty\)</span> 級である。</p>
+<ul class="simple">
+<li>陰関数定理、逆元写像の接写像 <span class="math notranslate nohighlight">\(T_(g, g\inv)(G \times G) \longto T_1 G\)</span> グラフ？</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter4b.html" title="第 4 章 接空間（後編）"
+             >next</a></li>
+        <li class="right" >
+          <a href="chapter3b.html" title="第 3 章 多様体の定義（後編）"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >幾何学 I 多様体入門 読書ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

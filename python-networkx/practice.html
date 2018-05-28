@@ -1,0 +1,145 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>NetworkX を利用する &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="連結成分" href="connected-components.html" />
+    <link rel="prev" title="セットアップ" href="setup.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="connected-components.html" title="連結成分"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="setup.html" title="セットアップ"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">NetworkX 利用ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="networkx">
+<h1><a class="toc-backref" href="#id3">NetworkX を利用する</a><a class="headerlink" href="#networkx" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#networkx" id="id3">NetworkX を利用する</a><ul>
+<li><a class="reference internal" href="#id1" id="id4">基本的なコードの書き方を習得する</a><ul>
+<li><a class="reference internal" href="#dijkstra" id="id5">Dijkstra 法による最短経路</a></li>
+<li><a class="reference internal" href="#id2" id="id6">グラフィックを描画する</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h2><a class="toc-backref" href="#id4">基本的なコードの書き方を習得する</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>以降、次のインポートを断りなしに用いる。</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+<p>小さいグラフを定義して、単純な計算をさせてみることで
+NetworkX でのプログラミングの感触を確かめてみよう。</p>
+<div class="section" id="dijkstra">
+<h3><a class="toc-backref" href="#id5">Dijkstra 法による最短経路</a><a class="headerlink" href="#dijkstra" title="Permalink to this headline">¶</a></h3>
+<p>別ページ→ <a class="reference internal" href="shortest-path.html#dijkstra"><span class="std std-ref">Dijkstra 法による最短経路探索関数</span></a></p>
+</div>
+<div class="section" id="id2">
+<h3><a class="toc-backref" href="#id6">グラフィックを描画する</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>先程のグラフを <a class="reference external" href="http://matplotlib.org/">Matplotlib</a> の表示機能を利用してウィンドウに出力する方法を示す。試行錯誤の結果、次のコードが最も見やすいイメージを描画してくれた。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="sd">&quot;&quot;&quot;neteworkx_draw.py: nx.draw_networkx demonstration&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Make a graph.</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+
+<span class="c1"># Define edges with weights.</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_weighted_edges_from</span><span class="p">(</span>
+    <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">19.0</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">22.0</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">21.0</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">),))</span>
+
+<span class="c1"># Position nodes using Fruchterman-Reingold force-directed algorithm.</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mf">5.</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Draw labels for nodes and edges.</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_labels</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span>
+
+<span class="c1"># Draw only weight attribute as edge label.</span>
+<span class="n">edge_labels</span> <span class="o">=</span> <span class="p">{(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span> <span class="n">w</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">)}</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edge_labels</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edge_labels</span><span class="o">=</span><span class="n">edge_labels</span><span class="p">)</span>
+
+<span class="c1"># Finish drawing.</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span>
+
+<span class="c1"># Display with Matplotlib.</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>スクリプトをコンソールから実行すると、次のイメージを含む Matplotlib ウィンドウが開いたことがある。</p>
+<p>なお、関数 <code class="docutils literal notranslate"><span class="pre">spring_layout</span></code> のキーワード引数として
+<code class="docutils literal notranslate"><span class="pre">random_state</span></code> を明示的に指定しないと、この関数は実行するたびにノードの位置をランダムに決定する。利用者は <code class="docutils literal notranslate"><span class="pre">random_state</span></code> の値を試行錯誤の結果、適切なものを発見する必要があるかもしれない。</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/networkx-draw.png"><img alt="NetworkX によるグラフの描画" src="../_images/networkx-draw.png" style="width: 640.0px; height: 478.0px;" /></a>
+</div>
+<p>描画については別項で詳しく論じる。→ <a class="reference internal" href="drawing.html"><span class="doc">グラフを描画する</span></a></p>
+</div>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="connected-components.html" title="連結成分"
+             >next</a></li>
+        <li class="right" >
+          <a href="setup.html" title="セットアップ"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >NetworkX 利用ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

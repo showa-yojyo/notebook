@@ -1,0 +1,472 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>コードを書く &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="SciPy 利用ノート" href="../python-scipy/index.html" />
+    <link rel="prev" title="doc/" href="doc.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../python-scipy/index.html" title="SciPy 利用ノート"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="doc.html" title="doc/"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">NumPy 利用ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id25">コードを書く</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<ol class="last arabic simple">
+<li>全面改訂予定。</li>
+<li>SciPy ノートと内容が重複するトピックがどうしても残る？</li>
+</ol>
+</div>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id25">コードを書く</a><ul>
+<li><a class="reference internal" href="#id2" id="id26">ヘルプ</a><ul>
+<li><a class="reference internal" href="#id3" id="id27">キーワードから機能を探す</a></li>
+<li><a class="reference internal" href="#numpy" id="id28">NumPy のバージョンを知る</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#array" id="id29">関数またはオブジェクト <code class="docutils literal notranslate"><span class="pre">array</span></code></a><ul>
+<li><a class="reference internal" href="#id4" id="id30"><code class="docutils literal notranslate"><span class="pre">array</span></code> オブジェクトを生成する</a></li>
+<li><a class="reference internal" href="#id5" id="id31">場合によっては <code class="docutils literal notranslate"><span class="pre">array</span></code> オブジェクトを生成したくない場合</a></li>
+<li><a class="reference internal" href="#id6" id="id32"><code class="docutils literal notranslate"><span class="pre">array</span></code> の要素の型を明示的に指定する</a></li>
+<li><a class="reference internal" href="#array-array" id="id33">既存の <code class="docutils literal notranslate"><span class="pre">array</span></code> の型をキャストした <code class="docutils literal notranslate"><span class="pre">array</span></code> を得る</a></li>
+<li><a class="reference internal" href="#array-shape" id="id34"><code class="docutils literal notranslate"><span class="pre">array</span></code> の shape を変える</a></li>
+<li><a class="reference internal" href="#id7" id="id35">同型 <code class="docutils literal notranslate"><span class="pre">array</span></code> オブジェクト同士に算術演算子を作用させる</a></li>
+<li><a class="reference internal" href="#id8" id="id36"><code class="docutils literal notranslate"><span class="pre">array</span></code> オブジェクトのスライシング</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id9" id="id37">線形代数関連</a><ul>
+<li><a class="reference internal" href="#id10" id="id38">スカラー積、ベクトル積</a></li>
+<li><a class="reference internal" href="#id11" id="id39">ベクトルの長さ</a></li>
+<li><a class="reference internal" href="#id12" id="id40">ベクトル正規化</a></li>
+<li><a class="reference internal" href="#allclose" id="id41">ベクトルの一致に関数 <code class="docutils literal notranslate"><span class="pre">allclose</span></code> を用いる</a></li>
+<li><a class="reference internal" href="#id13" id="id42">ベクトルのなす角</a></li>
+<li><a class="reference internal" href="#id14" id="id43">2 ベクトルの位置関係判定</a></li>
+<li><a class="reference internal" href="#identity-matrix-eye-identity" id="id44">一発で identity matrix を生成する関数 <code class="docutils literal notranslate"><span class="pre">eye</span></code>, <code class="docutils literal notranslate"><span class="pre">identity</span></code></a></li>
+<li><a class="reference internal" href="#diag" id="id45">対角行列を生成するには関数 <code class="docutils literal notranslate"><span class="pre">diag</span></code> を利用する</a></li>
+<li><a class="reference internal" href="#id15" id="id46">行列から対角成分を抽出するのも関数 <code class="docutils literal notranslate"><span class="pre">diag</span></code> を利用する</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id16" id="id47">統計関連</a><ul>
+<li><a class="reference internal" href="#id17" id="id48">総和</a></li>
+<li><a class="reference internal" href="#id18" id="id49">最小値、最大値</a></li>
+<li><a class="reference internal" href="#id19" id="id50">平均値</a></li>
+<li><a class="reference internal" href="#id20" id="id51">ヒストグラム</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id21" id="id52">乱数関連</a><ul>
+<li><a class="reference internal" href="#id22" id="id53">内容がランダムな整数 <code class="docutils literal notranslate"><span class="pre">array</span></code> を得る</a></li>
+<li><a class="reference internal" href="#float-array" id="id54">内容がランダムな float 型数 <code class="docutils literal notranslate"><span class="pre">array</span></code> を得る</a></li>
+<li><a class="reference internal" href="#id23" id="id55"><code class="docutils literal notranslate"><span class="pre">array</span></code> の内容をランダムにシャッフルする</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id26">ヘルプ</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>NumPy Reference の Numpy-specific help functions セクションを見ておくこと。これらのヘルプ関数を覚えておくと IDLE での作業時には重宝するだろう。</p>
+<div class="section" id="id3">
+<h3><a class="toc-backref" href="#id27">キーワードから機能を探す</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">lookfor</span></code> を利用すると、NumPy 内の docstring からそれらしい機能をリストアップしてくれる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">lookfor</span><span class="p">(</span><span class="s1">&#39;least square&#39;</span><span class="p">)</span>
+<span class="go">Search results for &#39;least square&#39;</span>
+<span class="go">---------------------------------</span>
+<span class="go">numpy.polyfit</span>
+<span class="go">    Least squares polynomial fit.</span>
+<span class="go">numpy.ma.polyfit</span>
+<span class="go">    Least squares polynomial fit.</span>
+<span class="go">numpy.linalg.lstsq</span>
+<span class="go">    Return the least-squares solution to a linear matrix equation.</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="numpy">
+<h3><a class="toc-backref" href="#id28">NumPy のバージョンを知る</a><a class="headerlink" href="#numpy" title="Permalink to this headline">¶</a></h3>
+<p><code class="file docutils literal notranslate"><span class="pre">version.py</span></code> の変数 <code class="docutils literal notranslate"><span class="pre">version</span></code> を参照する。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">version</span>
+<span class="go">&#39;1.11.1&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="array">
+<h2><a class="toc-backref" href="#id29">関数またはオブジェクト <code class="docutils literal notranslate"><span class="pre">array</span></code></a><a class="headerlink" href="#array" title="Permalink to this headline">¶</a></h2>
+<p>ヘルプの使い方を習得したら、まずは <code class="docutils literal notranslate"><span class="pre">array</span></code> 周辺から攻略する。なお、本テキストで <code class="docutils literal notranslate"><span class="pre">array</span></code> と言うときは、同名の関数を指すか、同名の関数が返す値の型を指すかの両方があることをことわっておく。</p>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id30"><code class="docutils literal notranslate"><span class="pre">array</span></code> オブジェクトを生成する</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>NumPy Reference の Array creation routines のセクションできれいにまとめてある。</p>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">array</span></code> オブジェクトの生成方法の基本は関数 <code class="docutils literal notranslate"><span class="pre">array</span></code> 呼び出しだ。関数 <code class="docutils literal notranslate"><span class="pre">array</span></code> はたいていの場合 <code class="docutils literal notranslate"><span class="pre">ndarray</span></code> 型のオブジェクトを返すようだ。</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Create a vector.</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">])</span>
+
+<span class="c1"># Create a matrix.</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span>
+              <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span>
+              <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]])</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">zeros_like</span></code>, <code class="docutils literal notranslate"><span class="pre">ones_like</span></code>, <code class="docutils literal notranslate"><span class="pre">empty_like</span></code> をワンセットで習得すること。既存の array_like オブジェクトから同じ shape の array を生み出す関数だ。</p>
+</li>
+<li><p class="first">よく利用するのは <code class="docutils literal notranslate"><span class="pre">ndarray</span></code> だが、コンストラクターを直接利用せずに、関数 <code class="docutils literal notranslate"><span class="pre">array</span></code>, <code class="docutils literal notranslate"><span class="pre">zeros</span></code>, <code class="docutils literal notranslate"><span class="pre">empty</span></code> 等からオブジェクトを作成すること。</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">copy</span></code> 関数で array_like オブジェクトのコピーオブジェクトを同一あるいは別の array オブジェクトとして作成することができる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="go">array([ 1.,  2.,  3.])</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">変わったところでは <code class="docutils literal notranslate"><span class="pre">arange</span></code> 関数で「連番」配列を生成できる。
+Python の <code class="docutils literal notranslate"><span class="pre">range</span></code> 関数の array 版といったところだ。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span>
+<span class="go">array([ 0.,  1.,  2.])</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id31">場合によっては <code class="docutils literal notranslate"><span class="pre">array</span></code> オブジェクトを生成したくない場合</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>もっと優れているのは関数 <code class="docutils literal notranslate"><span class="pre">array</span></code> のキーワード引数 <code class="docutils literal notranslate"><span class="pre">copy</span></code> を使い分けることだろう。例えば自作関数で array-like な引数をとる場合、「それが本当に <code class="docutils literal notranslate"><span class="pre">array</span></code> ならそのまま参照し、実は組み込み型のコンテナーオブジェクトならば
+<code class="docutils literal notranslate"><span class="pre">array</span></code> オブジェクトを新たに生成したい」ことがままある。そのような状況にはうってつけである。</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">orthonormalize</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">eye</span><span class="p">,</span> <span class="n">up</span><span class="p">):</span>
+    <span class="n">zdir</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">eye</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">zdir</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">zdir</span><span class="p">)</span>
+
+    <span class="n">ydir</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">up</span><span class="p">)</span>
+    <span class="n">ydir</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">ydir</span><span class="p">)</span>
+
+    <span class="n">xdir</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">ydir</span><span class="p">,</span> <span class="n">zdir</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">xdir</span><span class="p">,</span> <span class="n">ydir</span><span class="p">,</span> <span class="n">zdir</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id32"><code class="docutils literal notranslate"><span class="pre">array</span></code> の要素の型を明示的に指定する</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>キーワード引数 <code class="docutils literal notranslate"><span class="pre">dtype</span></code> を用いる。値の指定方法は色々あるが、次の方式を推奨する。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x_axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_axis</span><span class="p">[:]</span>
+<span class="go">array([ 1.,  0.,  0.])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="array-array">
+<h3><a class="toc-backref" href="#id33">既存の <code class="docutils literal notranslate"><span class="pre">array</span></code> の型をキャストした <code class="docutils literal notranslate"><span class="pre">array</span></code> を得る</a><a class="headerlink" href="#array-array" title="Permalink to this headline">¶</a></h3>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">.astype</span></code> を用いる。キーワード引数 <code class="docutils literal notranslate"><span class="pre">copy</span></code> も併用可能。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x_axis</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">)</span>
+<span class="go">array([1, 0, 0], dtype=int8)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="array-shape">
+<h3><a class="toc-backref" href="#id34"><code class="docutils literal notranslate"><span class="pre">array</span></code> の shape を変える</a><a class="headerlink" href="#array-shape" title="Permalink to this headline">¶</a></h3>
+<p>NumPy Reference の Array manipulation routines のセクションで表にまとめてある。</p>
+<ul>
+<li><p class="first">1-D array_like オブジェクトを多次元化するには <code class="docutils literal notranslate"><span class="pre">reshape</span></code> メソッドまたは同名の関数を利用する。
+<code class="docutils literal notranslate"><span class="pre">order</span></code> 引数でメモリレイアウトを指示できる。</p>
+</li>
+<li><p class="first">多次元 <code class="docutils literal notranslate"><span class="pre">array</span></code> を「一次元配列化」するには <code class="docutils literal notranslate"><span class="pre">flatten</span></code> メソッドまたは関数 <code class="docutils literal notranslate"><span class="pre">ravel</span></code> を利用する。</p>
+<p>確実にコピーオブジェクトが欲しい場合は <code class="docutils literal notranslate"><span class="pre">flatten</span></code> を利用するのがよい？</p>
+<p>引数が <code class="docutils literal notranslate"><span class="pre">order</span></code> を表すので、<a class="reference external" href="http://pyopengl.sourceforge.net/">PyOpenGL</a> の行列系関数に渡すときに調整できるかも。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">array([[ 0,  1,  2,  3],</span>
+<span class="go">       [ 4,  5,  6,  7],</span>
+<span class="go">       [ 8,  9, 10, 11],</span>
+<span class="go">       [12, 13, 14, 15]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+<span class="go">array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="s1">&#39;F&#39;</span><span class="p">)</span>
+<span class="go">array([ 0,  4,  8, 12,  1,  5,  9, 13,  2,  6, 10, 14,  3,  7, 11, 15])</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h3><a class="toc-backref" href="#id35">同型 <code class="docutils literal notranslate"><span class="pre">array</span></code> オブジェクト同士に算術演算子を作用させる</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code> 等の二項演算子を同型 <code class="docutils literal notranslate"><span class="pre">array</span></code> オブジェクト同士に作用させることができる。各演算の定義は、成分ごとの算術演算のようだ。また、同型でなくとも broadcasting rule が適用できる場合は二項演算が実現できる。特にスカラーを作用させる場合は常に可能と考えていい。</p>
+</div>
+<div class="section" id="id8">
+<h3><a class="toc-backref" href="#id36"><code class="docutils literal notranslate"><span class="pre">array</span></code> オブジェクトのスライシング</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>行列を表現する <code class="docutils literal notranslate"><span class="pre">array</span></code> オブジェクトから部分ベクトルを得るようなときには、
+Python の <code class="docutils literal notranslate"><span class="pre">list</span></code> 同様、スライシングの技法を利用する。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">array([[ 0,  1,  2,  3,  4,  5,  6,  7],</span>
+<span class="go">       [ 8,  9, 10, 11, 12, 13, 14, 15],</span>
+<span class="go">       [16, 17, 18, 19, 20, 21, 22, 23]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([ 0,  8, 16])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span>
+<span class="go">array([0, 1, 2, 3, 4, 5, 6, 7])</span>
+</pre></div>
+</div>
+<p>NumPy はより高性能なスライスをサポートしているが、深みにはまると危ないのでこの辺で。</p>
+</div>
+</div>
+<div class="section" id="id9">
+<h2><a class="toc-backref" href="#id37">線形代数関連</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id10">
+<h3><a class="toc-backref" href="#id38">スカラー積、ベクトル積</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>スカラー積、ベクトル積を求めたい場合、それぞれ関数 <code class="docutils literal notranslate"><span class="pre">dot</span></code>, <code class="docutils literal notranslate"><span class="pre">cross</span></code> を利用すること。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">array([ 0.,  0.,  1.])</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">dot</span></code> については引数の shape さえ適合すれば行列の乗算もサポートする。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mf">100.</span><span class="p">,</span> <span class="mf">200.</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">],</span>
+<span class="gp">... </span>              <span class="p">[</span><span class="mf">3.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">M</span><span class="p">)</span>
+<span class="go">array([  700.,  1000.])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="go">array([  500.,  1100.])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id11">
+<h3><a class="toc-backref" href="#id39">ベクトルの長さ</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>二項演算が幅広くサポートされているので、1-D <code class="docutils literal notranslate"><span class="pre">array</span></code> オブジェクトをベクトルとみなすのが楽だ。が、ベクトルならば「長さ」を計算する関数が欲しい。ここでは <code class="docutils literal notranslate"><span class="pre">dot</span></code> を利用する。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">math</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span> <span class="c1"># By the way, sqrt is also provided in np.</span>
+<span class="go">1.7320508075688772</span>
+</pre></div>
+</div>
+<p>あるいは linalg パッケージにある <code class="docutils literal notranslate"><span class="pre">norm</span></code> 関数も有用だ。デフォルト引数をそのまま利用すれば 2-norm を計算してくれる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># v is the same as above example.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vlen</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vlen</span>
+<span class="go">1.7320508075688772</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id12">
+<h3><a class="toc-backref" href="#id40">ベクトル正規化</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>正規化とは長さが 1 になるようにベクトルの成分を定数倍することとする。それには、ベクトルの長さを上述の方法で得てから、長さが非ゼロであることを確認後、
+<code class="docutils literal notranslate"><span class="pre">array</span></code> オブジェクトに対して <code class="docutils literal notranslate"><span class="pre">/=</span></code> する。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># v is the same as above example.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">/=</span> <span class="n">vlen</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span>
+<span class="go">array([ 0.57735027,  0.57735027,  0.57735027])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="allclose">
+<h3><a class="toc-backref" href="#id41">ベクトルの一致に関数 <code class="docutils literal notranslate"><span class="pre">allclose</span></code> を用いる</a><a class="headerlink" href="#allclose" title="Permalink to this headline">¶</a></h3>
+<p>同次元空間にある 2 ベクトル <code class="docutils literal notranslate"><span class="pre">v1</span></code>, <code class="docutils literal notranslate"><span class="pre">v2</span></code> が等しいか否かのテストをする。要するに、アプリケーション定義のトレランスを与えて、両者の差ベクトルの長さがそれ以内に収まっているかどうかを調べる。</p>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">allclose</span></code> をアプリケーション由来のトレランスを明示的に与えた上で適用するのがよかろう。デフォルトのトレランスではモデリング等で利用するには厳しすぎる。</p>
+</div>
+<div class="section" id="id13">
+<h3><a class="toc-backref" href="#id42">ベクトルのなす角</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p>これも自分でコードを書く。
+2 ベクトルのスカラー積 (<code class="docutils literal notranslate"><span class="pre">dot</span></code>) とそれぞれの長さからなす角の <code class="docutils literal notranslate"><span class="pre">cos</span></code> が求まる。</p>
+</div>
+<div class="section" id="id14">
+<h3><a class="toc-backref" href="#id43">2 ベクトルの位置関係判定</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<p>2 ベクトルが平行なのか、または直交するのかをテストしたい場合、
+<code class="docutils literal notranslate"><span class="pre">dot</span></code> と <code class="docutils literal notranslate"><span class="pre">cross</span></code> を組み合わせれば何とかなる。</p>
+</div>
+<div class="section" id="identity-matrix-eye-identity">
+<h3><a class="toc-backref" href="#id44">一発で identity matrix を生成する関数 <code class="docutils literal notranslate"><span class="pre">eye</span></code>, <code class="docutils literal notranslate"><span class="pre">identity</span></code></a><a class="headerlink" href="#identity-matrix-eye-identity" title="Permalink to this headline">¶</a></h3>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">eye</span></code> を利用する。ずばり <code class="docutils literal notranslate"><span class="pre">identity</span></code> という関数も存在するが、タイプし易いほうを選ぶ。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="go">array([[ 1.,  0.,  0.,  0.],</span>
+<span class="go">       [ 0.,  1.,  0.,  0.],</span>
+<span class="go">       [ 0.,  0.,  1.,  0.],</span>
+<span class="go">       [ 0.,  0.,  0.,  1.]])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="diag">
+<h3><a class="toc-backref" href="#id45">対角行列を生成するには関数 <code class="docutils literal notranslate"><span class="pre">diag</span></code> を利用する</a><a class="headerlink" href="#diag" title="Permalink to this headline">¶</a></h3>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">diag</span></code> を利用すると、手軽に対角行列を作成できる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span><span class="mf">2.</span><span class="p">,</span><span class="mf">3.</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span>
+<span class="go">array([[ 1.,  0.,  0.],</span>
+<span class="go">       [ 0.,  2.,  0.],</span>
+<span class="go">       [ 0.,  0.,  3.]])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id15">
+<h3><a class="toc-backref" href="#id46">行列から対角成分を抽出するのも関数 <code class="docutils literal notranslate"><span class="pre">diag</span></code> を利用する</a><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>やはり関数 <code class="docutils literal notranslate"><span class="pre">diag</span></code> を利用する。引数に二次元の <code class="docutils literal notranslate"><span class="pre">array</span></code> オブジェクトを渡すこと。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># A is the same as above example.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="go">array([1., 2., 3.])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id16">
+<h2><a class="toc-backref" href="#id47">統計関連</a><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<p>NumPy は標本を表現するデータ構造としても <code class="docutils literal notranslate"><span class="pre">array</span></code> を利用している。
+NumPy Reference の Statistics のセクションでまとめてある。</p>
+<ul class="simple">
+<li>統計関連の機能がまれにメソッドの形式で提供されていることがある？</li>
+<li>個人的な用途では 1-D <code class="docutils literal notranslate"><span class="pre">array</span></code> オブジェクトを主に対象とする（このノートでも）が、当然 n-D <code class="docutils literal notranslate"><span class="pre">array</span></code> オブジェクトについても各種統計関数を適用できる。サンプリングの対象は <code class="docutils literal notranslate"><span class="pre">array</span></code> オブジェクトの各要素でも、
+along on axis でも OK だ。</li>
+<li><a class="reference internal" href="../python-scipy/statistics.html"><span class="doc">確率と統計</span></a> も参照して欲しい。</li>
+</ul>
+<div class="section" id="id17">
+<h3><a class="toc-backref" href="#id48">総和</a><a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<p>Python 組み込み関数の <code class="docutils literal notranslate"><span class="pre">sum</span></code> を含む、色々な選択肢がある。ここは <code class="docutils literal notranslate"><span class="pre">np.sum</span></code> に統一したい。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">100.</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<span class="go">4950.0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id18">
+<h3><a class="toc-backref" href="#id49">最小値、最大値</a><a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">np.min</span></code>, <code class="docutils literal notranslate"><span class="pre">np.max</span></code> 関数がそれぞれ <code class="docutils literal notranslate"><span class="pre">array</span></code> オブジェクトの最小値、最大値を検索できる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># v is the same as above example.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">amin</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<span class="go">0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<span class="go">99.0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id19">
+<h3><a class="toc-backref" href="#id50">平均値</a><a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<p>細かいことを言えば平均値の定義によるが、
+<code class="docutils literal notranslate"><span class="pre">np.average</span></code> と <code class="docutils literal notranslate"><span class="pre">np.mean</span></code> が利用できる。個人的には、相加平均を使うという意味を表現したいので <code class="docutils literal notranslate"><span class="pre">mean</span></code> を用いる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># v is the same as above example.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<span class="go">49.5</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id20">
+<h3><a class="toc-backref" href="#id51">ヒストグラム</a><a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">np.histogram</span></code> で <code class="docutils literal notranslate"><span class="pre">array</span></code> からヒストグラムを作成することができる。ビンの与え方もその気になれば非等幅ビンを指定することもできる。</p>
+<ul class="simple">
+<li>ビンの個数はデフォルトで 10 らしい。サンプル数からそれらしいビン数を計算するのは自力でやれということか。</li>
+<li>各ビンは半開区間（左閉）なのだが、最後のビンのみ閉区間になることに注意が必要。</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">16.</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hist</span><span class="p">,</span> <span class="n">binedges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hist</span>
+<span class="go">array([2, 1, 2, 1, 2, 1, 2, 1, 2, 2])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">binedges</span>
+<span class="go">array([  0. ,   1.5,   3. ,   4.5,   6. ,   7.5,   9. ,  10.5,  12. ,</span>
+<span class="go">        13.5,  15. ])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id21">
+<h2><a class="toc-backref" href="#id52">乱数関連</a><a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>NumPy Reference の Random sampling (<code class="docutils literal notranslate"><span class="pre">numpy.random</span></code>) セクションに多数。</li>
+<li>乱数は奥が深い。追究し出すときりがない。目的を達成するのに十分見合いそうな関数を見つけたら、他の乱数関数を調べないこと。</li>
+<li>分布モノは一通り網羅しているようなので、業務上必要になったら文献を当たろう。</li>
+</ul>
+<div class="section" id="id22">
+<h3><a class="toc-backref" href="#id53">内容がランダムな整数 <code class="docutils literal notranslate"><span class="pre">array</span></code> を得る</a><a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">np.random.randint(low,</span> <span class="pre">high,</span> <span class="pre">size)</span></code> を利用する。引数リストが独特なので、すべての引数に明示的に実引数を渡した方がよいだろう。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="go">array([210, 332, 476, 488])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="go">array([149, 183, 182,  40])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="float-array">
+<h3><a class="toc-backref" href="#id54">内容がランダムな float 型数 <code class="docutils literal notranslate"><span class="pre">array</span></code> を得る</a><a class="headerlink" href="#float-array" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">np.random.random_sample(size)</span></code> を利用する。こいつは <cite>[0, 1)</cite> の値を <code class="docutils literal notranslate"><span class="pre">size</span></code> 回ランダムに抽出するだけなので、欲しい値の範囲には、自分で線形変換をかけて値を得る。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random_sample</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="go">array([ 0.54368538,  0.65534826,  0.42464352,  0.21621149,  0.55229361,</span>
+<span class="go">        0.15027351,  0.23596445,  0.04811345,  0.11326923,  0.36599603,</span>
+<span class="go">        0.32611298,  0.29099913,  0.6946677 ,  0.51569253,  0.25698767])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id23">
+<h3><a class="toc-backref" href="#id55"><code class="docutils literal notranslate"><span class="pre">array</span></code> の内容をランダムにシャッフルする</a><a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
+<p>C++ で言うところの
+<code class="docutils literal notranslate"><span class="pre">std::random_shuffle(first,</span> <span class="pre">last)</span></code> と同等のことをしたい（現代では非推奨だが）。それには <code class="docutils literal notranslate"><span class="pre">np.random.shuffle(x)</span></code> を利用すればよい。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">array([0, 1, 2, 3, 4])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">array([2, 4, 0, 1, 3])</span>
+</pre></div>
+</div>
+<p>どうも shape のある <code class="docutils literal notranslate"><span class="pre">array</span></code> には効き目が薄いようだ（確かめろ）。</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../python-scipy/index.html" title="SciPy 利用ノート"
+             >next</a></li>
+        <li class="right" >
+          <a href="doc.html" title="doc/"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >NumPy 利用ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

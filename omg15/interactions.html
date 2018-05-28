@@ -1,0 +1,1321 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>17 Interactions &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="18 UseCases" href="usecases.html" />
+    <link rel="prev" title="16 Actions" href="actions.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="usecases.html" title="18 UseCases"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="actions.html" title="16 Actions"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Unified Modeling Language 2.5 読書ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="interactions">
+<h1><a class="toc-backref" href="#id36">17 Interactions</a><a class="headerlink" href="#interactions" title="Permalink to this headline">¶</a></h1>
+<p>UML 2.5 pp. 563-636 に関するノート。</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">誤訳や変な解釈がいかにもありそうなので、発覚次第修正する。</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>訳語検討。</p>
+<ul class="last simple">
+<li>coregion (n.) codomain のようなものだろう。</li>
+<li>critical region (n.) 「危急区域」とする。誰もこんな訳語は使っていない。</li>
+<li>guard (n.) 「防御」にしておくが、しっくりこない。</li>
+<li>interleave (v.) 「交互に配置する」で我慢する。</li>
+<li>lifeline (n.) 某文書では「生存線」という用語を採用しているようなので拝借する。</li>
+<li>operand (n.) 「演算子 (operator) が作用する対象」を意味する英単語だ。しかし、本文を読むと operator が演算子であるように感じられない。意味がやや限定されている。「演算」よりは「作用」に寄っている感じがするので、「被演算子」よりは「作用対象」のほうが訳語としてましと思われる。そうすると operator も「作用素」にしたくなるところだが、少しは検討してから変えるかどうか決める。</li>
+<li>partial ordering (n.) 「半順序」とする。集合論の教科書で現れる用語と同じものだろう。</li>
+<li>region (n.) 「領域」「区域」など。</li>
+<li>trace (n.) 「跡」「足跡」「痕跡」「形跡」「線」「記録」など。</li>
+</ul>
+</div>
+<div class="contents topic" id="id1">
+<p class="topic-title first">ノート目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#interactions" id="id36">17 Interactions</a><ul>
+<li><a class="reference internal" href="#summary" id="id37">17.1 Summary</a></li>
+<li><a class="reference internal" href="#id2" id="id38">17.2 Interactions</a></li>
+<li><a class="reference internal" href="#lifelines" id="id39">17.3 Lifelines</a></li>
+<li><a class="reference internal" href="#messages" id="id40">17.4 Messages</a></li>
+<li><a class="reference internal" href="#occurrences" id="id41">17.5 Occurrences</a></li>
+<li><a class="reference internal" href="#fragments" id="id42">17.6 Fragments</a></li>
+<li><a class="reference internal" href="#interaction-uses" id="id43">17.7 Interaction Uses</a></li>
+<li><a class="reference internal" href="#sequence-diagrams" id="id44">17.8 Sequence Diagrams</a></li>
+<li><a class="reference internal" href="#communication-diagrams" id="id45">17.9 Communication Diagrams</a></li>
+<li><a class="reference internal" href="#interaction-overview-diagrams" id="id46">17.10 Interaction Overview Diagrams</a></li>
+<li><a class="reference internal" href="#timing-diagrams" id="id47">17.11 Timing Diagrams</a></li>
+<li><a class="reference internal" href="#classifier-descriptions" id="id48">17.12 Classifier Descriptions</a></li>
+<li><a class="reference internal" href="#association-descriptions" id="id49">17.13 Association Descriptions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="summary">
+<h2><a class="toc-backref" href="#id37">17.1 Summary</a><a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="overview">
+<h3>17.1.1 Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">Interactions はいくらかの異なる状況で利用される。</p>
+<ul class="simple">
+<li>相互作用の状況を共通の理解が必要な個人設計者や集団が理解するのを達成するために Interactions は用いられる。</li>
+<li>Interactions はより詳細な設計曲面の間も用いられる。</li>
+</ul>
+</li>
+<li><p class="first">本章では用語「形跡」を「出来事の列」(sequence of occurrences) の意で用いる。この意味は trace-semantics の範囲での普通の用途によく対応し、
+Interactions の意味を記述するのに望ましい方法である。</p>
+</li>
+<li><p class="first">Interaction 仕様は許可された形跡と却下された形跡に半順序 (partial ordering) 制約を課す。</p>
+<ul class="simple">
+<li>半順序とは、任意の与えられた system trace において、事象 (pl.) が起こることが可能（または不可能）な順序を制限するものである。</li>
+</ul>
+</li>
+<li><p class="first">Interaction パッケージは Interactions を表現するのに必要となる概念を記述するもので、それらの目的に依存する。</p>
+<ul class="simple">
+<li>相互作用はいくつかの型の図式、
+Sequence Diagrams, Interaction Overview Diagrams,
+Communication Diagrams に示すことができる。</li>
+<li>Timing Diagrams と Interaction Tables のようなオプションな図式型はおまけである。</li>
+</ul>
+</li>
+<li><p class="first">Interactions は様々な詳細さの度合いで、計算機システム設計の専門家、潜在的なエンドユーザー、未来のシステムの利害関係者らにより、理解されたり製造されたりし得るシステムを記述するための共通の仕組みである。</p>
+</li>
+<li><p class="first">典型的には Interactions は設計者または稼動システムにより提示されると、その場合はその Interactions は完全な物語を語ることはない。</p>
+</li>
+<li><p class="first">Interaction の最も明白な特徴 (aspects) は生存線 (lifelines) の間にあるメッセージである。メッセージの列が状況の理解に重要であると考えられる。</p>
+</li>
+<li><p class="first">我々は交互配置 (interleaving) という言葉を、次の意味を表すものとして用いる。</p>
+<p>ふたつまたはそれを超える形跡を異なる形跡から来た事象が結果の形跡にどのような順序で現れても構わないように併合することであり、その一方、同じ形跡内にある事象は元の順序関係のまま残る。</p>
+</li>
+</ul>
+</div>
+<div class="section" id="basic-trace-model">
+<h3>17.1.2 Basic trace model<a class="headerlink" href="#basic-trace-model" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference internal" href="common-behavior.html"><span class="doc">13 Common Behavior</span></a> では Behaviors の実行の一般的な意味を述べた。
+Interactions とは姿を現す挙動をモデル化する Behaviors の一種である。<ul>
+<li>この章ではひとつの形跡を <code class="docutils literal notranslate"><span class="pre">&lt;e1,</span> <span class="pre">e2,</span> <span class="pre">...,</span> <span class="pre">en&gt;</span></code> のように記すことにする。</li>
+</ul>
+</li>
+<li>ひとつの Interaction の意味は対 <code class="docutils literal notranslate"><span class="pre">[P,</span> <span class="pre">I]</span></code> の記法で表現される。ここで <code class="docutils literal notranslate"><span class="pre">P</span></code> は有効な形跡の集合であり、
+<code class="docutils literal notranslate"><span class="pre">I</span></code> は無効な形跡の集合である。<ul>
+<li><span class="math notranslate nohighlight">\(P \cup I\)</span> が形跡の全集合である必要はない。</li>
+<li>ふたつの Interactions が等価となるのは、両者の形跡集合の対が等しいときである。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="partial-ordering-constraints-on-valid-and-invalid-traces">
+<h3>17.1.3 Partial ordering constraints on valid and invalid traces<a class="headerlink" href="#partial-ordering-constraints-on-valid-and-invalid-traces" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>有効な形跡の集合は形跡にある出来事の発生の半順序によって制限されている。無効な形跡の集合も同様である。</li>
+<li>相互作用図において垂直線それぞれが工程の時系列を記述する。ここで時間はページの下へ向かって進む。</li>
+<li>ある相互作用における事例らは原則的に互いに独立して作用する。</li>
+<li>時間はオブジェクト軸それぞれの上端から下端へと経過するが、正確な時間尺度は仮定されない。</li>
+<li>別々のオブジェクトの事象はメッセージを通じて整列されるか、または一般化した整列の仕組みを通じて整列される。<ul>
+<li>メッセージはそれが消費されるよりも前にまず送信されなければならない。</li>
+<li>推移的かつ反対称的かつ非反射的な二項関係は半順序であると呼ばれる。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="interaction-diagram-variants">
+<h3>17.1.4 Interaction Diagram Variants<a class="headerlink" href="#interaction-diagram-variants" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">相互作用図には種々の変種がある。それぞれについて別個の節でその記法を定義していく。</p>
+<dl class="docutils">
+<dt>Sequence Diagrams</dt>
+<dd><p class="first last">これがもっとも普通の変種。
+Message が Lifelines 間を交わすのを焦点に当てる。</p>
+</dd>
+<dt>Communication Diagrams</dt>
+<dd><p class="first last">通信する Lifelines の間にある有向辺が引き渡された Messages とそれらの順序の記述で装飾される、建築学的景色を通じて相互作用を示す。</p>
+</dd>
+<dt>Interaction Overview Diagrams</dt>
+<dd><p class="first last">制御の流れの概観を促進する方法で相互作用を定義する。一部 Activity 図と類似した記法要素がある。これらの要素の記法と目的は両者で同じではあるが、詳細な意味はまったく異なるので、設計者は
+Overview 図を Activity 図であるかのように解釈するべきではない。</p>
+</dd>
+<dt>Timing Diagrams</dt>
+<dd><p class="first last">図の主な目的が時間について思考することであるときに相互作用を示すのに用いられる。
+UML 2.5 に準拠するツールは Timing Diagrams を実装する必要はない。</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">本章にある変種に加えて、Interaction Tables を用いるさらなるオプション記法がある。
+<a class="reference internal" href="tabular-notation.html"><span class="doc">Annex D: Tabular Notation for Sequence Diagrams</span></a> 参照。</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id38">17.2 Interactions</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>17.2.1 Summary<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>本節では 5 個程度のメタクラスの構文、意味、記法を仕様化する。</li>
+</ul>
+</div>
+<div class="section" id="abstract-syntax">
+<h3>17.2.2 Abstract Syntax<a class="headerlink" href="#abstract-syntax" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 17.1 Interactions<ul>
+<li>まず抽象クラス InteractionFragment が NamedElement から特殊化されている。そして InteractionFragment から残りの 4 メタクラスが特殊化されている。</li>
+<li>メタクラス Interaction は InteractionFragment であると同時に
+Behavior でもある。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="semantics">
+<h3>17.2.3 Semantics<a class="headerlink" href="#semantics" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h4>17.2.3.1 Interactions<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Interactions は取り囲む Classifier の挙動の構成単位である。
+Interactions は Classifier の ConnectableElements の間を行き交うメッセージを使った情報のやり取りに集中する。</li>
+<li>Interaction の意味は形跡の集合の対として与えられる。そのふたつの形跡の集合は有効な形跡と無効な形跡を表現する。<ul>
+<li>これらふたつの集合の和は必ずしも形跡全体を網羅する必要はない。</li>
+<li>含まれていない形跡はこの Interaction には全く記述されないので、我々はそれらが有効か無効かを知ることはできない。</li>
+</ul>
+</li>
+<li>ひとつの形跡は事象の出来事の連続列のひとつであり、そのそれぞれはモデルにある OccurrenceSpecification により記述される。</li>
+<li>無効な形跡の集合は Negative CombinedFragment または
+Assertion CombinedFragment の用途に関連する。<ul>
+<li>前者の場合、無効な形跡の集合は明示的に指定される。</li>
+<li>後者のものは有効な形跡の集合のみを明示的に指定することで無効な形跡の集合を暗に指定する。簡単のために、我々は他の構成要素のすべてに対して有効な形跡しか述べない。</li>
+</ul>
+</li>
+<li>Behavior として Interaction は一般化可能かつ再定義可能である。
+Interaction を特殊化することは、さらなる形跡をオリジナルのそれらに対して単に追加することである。この特殊化で定義される形跡は、和集合によって継承した Interaction のそれらと結合される。</li>
+<li>Interaction を所有している classifier を特殊化してもよいし、その特殊化で Interaction を再定義してもよい。
+Interaction の再定義とは、再定義する Interaction を再定義されるものに交換することを単に意味し、そしてこの交換は所有者の基底型にある InteractionUses に対しても影響する。この事は Behavior の他の種類の再定義と同様である。</li>
+<li>形式的な Gate は Interaction の内側の境界部に取り付けられ、その Interaction の InteractionUse を通して具象送信者と受信者を確立するリンク点を与えることができるようにする。</li>
+</ul>
+</div>
+<div class="section" id="interaction-fragments">
+<h4>17.2.3.2 Interaction Fragments<a class="headerlink" href="#interaction-fragments" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>InteractionFragment の意味とは、形跡の集合の一対である。</li>
+<li>InteractionFragment は取り囲む Interaction に直接含まれるか、
+CombinedFragment の InteractionOperand の内側に含まれるかのどちらかであることが許される。
+CombinedFragment はそれ自身が InteractionFragment なので、
+Interaction の内部に InteractionFragments の入れ子の深さが複数存在してもよい。</li>
+</ul>
+</div>
+<div class="section" id="occurrence-specifications">
+<h4>17.2.3.3 Occurrence Specifications<a class="headerlink" href="#occurrence-specifications" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>OccurrenceSpecification の意味とは、単にその単一の OccurrenceSpecification の形跡である。</li>
+<li>OccurrenceSpecification の理解とより深い意味は関連 Message とそれが伝える情報とに依存する。</li>
+</ul>
+</div>
+<div class="section" id="execution-specifications">
+<h4>17.2.3.4 Execution Specifications<a class="headerlink" href="#execution-specifications" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Interactions の形跡の意味とは、
+<code class="docutils literal notranslate"><span class="pre">&lt;start,</span> <span class="pre">finish&gt;</span></code> とみなした Execution がわかるだけである。それらの間に出来事があってもよい。<ul>
+<li>典型的に開始出来事と終了出来事は（ある Message の）受信 OccurrenceSpecification と（ある応答 Message の）送信 OccurrenceSpecification のような
+OccurrenceSpecifications を表現するはずである。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="state-invariants">
+<h4>17.2.3.5 State Invariants<a class="headerlink" href="#state-invariants" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Constraint は稼働中に評価されるものである。<ul>
+<li>Constraint は明示的にモデル化されないアクションすべてが実行し終わるように、次の OccurrenceSpecification の実行の直前に評価される。</li>
+<li>Constraint が true ならば、その形跡は有効な形跡である。反対に false ならば、その形跡は無効な形跡である。</li>
+<li>言い換えると、false な Constraint である StateInvariant のある形跡のすべては無効であると判断される。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="notation">
+<h3>17.2.4 Notation<a class="headerlink" href="#notation" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="interaction">
+<h4>17.2.4.1 Interaction<a class="headerlink" href="#interaction" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Sequence 図における Interaction を表す記法は実線矩形である。<ul>
+<li>矩形の左上隅に五角形を描き、そこに文字列 <code class="docutils literal notranslate"><span class="pre">sd</span></code> と Interaction 名と引数をこの順に記す。</li>
+</ul>
+</li>
+<li>五角形の記述子の内側の記法は Behaviors の名前を表すのに用いる記法一般に従う。</li>
+<li>Interaction 図は局所的な属性の定義を含むことが許される。その構文は一般にはクラス記号区画で示されるものと同じである。<ul>
+<li>これらの属性が現れることが許されるのは、図の枠の上部付近または図のどこかの註釈記号内部である。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="interactionfragment">
+<h4>17.2.4.2 InteractionFragment<a class="headerlink" href="#interactionfragment" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>InteractionFragment については一般的な記法がない。特定のサブクラスが独自の記法を定義する。</li>
+</ul>
+</div>
+<div class="section" id="occurrencespecification">
+<h4>17.2.4.3 OccurrenceSpecification<a class="headerlink" href="#occurrencespecification" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">OccurrenceSpecifications は単に</p>
+<ul class="simple">
+<li>Messages の両端もしくは</li>
+<li>ExecutionSpecification の開始・終了</li>
+</ul>
+<p>における構文的な点である。</p>
+</li>
+</ul>
+</div>
+<div class="section" id="executionspecification">
+<h4>17.2.4.4 ExecutionSpecification<a class="headerlink" href="#executionspecification" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ExecutionSpecifications は生存線上の細い（灰色か白色の）矩形として表現される。</li>
+<li>または ExecutionSpecification を幅広のラベル付き矩形により表現してもよく、ラベルはたいていは実行されたアクションを識別する。</li>
+<li>ある Signal の属性を読み取るというような不可分な活動 (pl.) を参照する
+ExecutionSpecification の代わりに、
+Action 全体がただひとつの OccurrenceSpecification に関連していることを強調する目的で、
+Action 記号は線の付いた受領 OccurrenceSpecification に関連してもよい。</li>
+<li>Figure 17.2 Overlapping ExecutionSpecifications<ul>
+<li>同一生存線上で重なり合う ExecutionSpecifications はやはり重なり合う矩形で表現される。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="stateinvariant">
+<h4>17.2.4.5 StateInvariant<a class="headerlink" href="#stateinvariant" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>起こり得る関連 Constraint は生存線上に中括弧に囲まれたテキストで示される。</li>
+<li>準拠ツールは StateInvariant を
+OccurrenceSpecification に関連した Note として示してもよい。</li>
+<li>状態記号は Lifeline により表現されるオブジェクトの状態を調べる制約の等価性を表現する。</li>
+<li>領域は状態 (pl.) の直交領域を表現する。識別子は状態を部分的に定義しさえすればよい。</li>
+</ul>
+</div>
+<div class="section" id="formal-gate">
+<h4>17.2.4.6 Formal Gate<a class="headerlink" href="#formal-gate" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>形式的な Gate は枠の内側にある単なる点であり、メッセージの端点である。それらには明示的な名前があってもよい。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="examples">
+<h3>17.2.5 Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 17.3 An example of an Interaction in the form of a Sequence Diagram<ul>
+<li>矢印がメッセージ。</li>
+<li>明らかにメッセージ CardOut と OK が非同期的に見える。</li>
+<li>最後のメッセージ Unlock の出口が形式的 Gate の例である。</li>
+</ul>
+</li>
+<li>Figure 17.4 OccurrenceSpecification<ul>
+<li>メッセージ msg の矢印の根本が OccurrenceSpecification の例である。</li>
+<li>先と同様に矢印の矢先が図枠に至っている点が形式的 Gate の例である。</li>
+</ul>
+</li>
+<li>Figure 17.5 Sequence Diagram with time and timing concepts<ul>
+<li>以前やった時間にまつわる記法が再録されているので復習したい。例えば CardOut は 0 から 13 時間単位の間じゅう継続するように強制されている。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="lifelines">
+<h2><a class="toc-backref" href="#id39">17.3 Lifelines</a><a class="headerlink" href="#lifelines" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h3>17.3.1 Summary<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>メタクラス Lifeline の構文法、意味、および表記法を仕様化する。</li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h3>17.3.2 Abstract Syntax<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 17.6 Lifelines<ul>
+<li>Lifeline は NamedElement の一種。</li>
+<li>継承関係よりも関連のほうが多い。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h3>17.3.3 Semantics<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h4>17.3.3.1 Lifelines<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>相互作用図において Lifeline はある工程のタイムラインを記述する。ここで時間はページの下に向かって進む。</li>
+<li>同一タイムライン上の事象はページの下に向かって線形に整列されているが、それらが平行に結合した断片の内部で起こる場合、すなわちそれらがある coregion 内部にある生存線に沿う場合は除外する。</li>
+<li>Lifeline に沿う OccurrenceSpecifications の順番はこれらの OccurrenceSpecifications が発生する順番を示している。</li>
+<li>Interaction にある Lifeline の意味とは、この Lifeline の OccurrenceSpecifications しか選択しない
+Interaction の意味のことである。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id9">
+<h3>17.3.4 Notation<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="lifeline">
+<h4>17.3.4.1 Lifeline<a class="headerlink" href="#lifeline" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Lifeline は「見出し」となる矩形と、参加者の生存線を表現する破線スタイルの垂直線とからなる記号で示される。</li>
+<li>(pp. 570-571) 矩形の内部に表示される、生存線を識別する情報の書式
+<code class="docutils literal notranslate"><span class="pre">&lt;lifelineident&gt;</span></code> は少々ごちゃごちゃしている。<ul>
+<li>この BNF の構文的には空文字列も認められるようだが、ダメである。</li>
+</ul>
+</li>
+<li>Lifeline の見出しの形状はこの生存線が表現する部品用の
+classifier に基づく。見出しは往々にしてその名前を含む白い矩形になる。</li>
+<li>名前が <code class="docutils literal notranslate"><span class="pre">self</span></code> ならば、Lifeline が表現するものは、自身を所有する Interaction を囲む classifier のオブジェクトを表現する。</li>
+<li>ExecutionSpecification を描写するには、
+Lifeline の線を覆う薄い灰色か白色の矩形を当てはめる。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id10">
+<h3>17.3.5 Examples<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Lifelines は先述した Figure 17.3 を参照。</li>
+<li>ExecutionSpecification の記法を参照するには後述する Figure 17.14 を参照。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="messages">
+<h2><a class="toc-backref" href="#id40">17.4 Messages</a><a class="headerlink" href="#messages" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id11">
+<h3>17.4.1 Summary<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>本節ではメタクラス Message およびその関連型の構文法、意味、表記法を指定する。全部合わせて 7 個の型を扱う。</li>
+</ul>
+</div>
+<div class="section" id="id12">
+<h3>17.4.2 Abstract Syntax<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 17.7 Messages<ul>
+<li>Message と MessageEnd は NamedElement の一種である。</li>
+<li>MessageEnd には特殊型が直接、間接合わせて 3 個ある。</li>
+<li>Message のある属性を実現するために列挙型
+MessageKind と MessageSort がある。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id13">
+<h3>17.4.3 Semantics<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id14">
+<h4>17.4.3.1 Messages<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">完全 Message の意味とは、単純に形跡 <code class="docutils literal notranslate"><span class="pre">&lt;sendEvent,</span> <span class="pre">receiveEvent&gt;</span></code> のことである。</p>
+</li>
+<li><p class="first">消失 Message とは、送信事象の発生がどこであるかが知られているが、受信事象の発生がない Message のことである。意味としては形跡 <code class="docutils literal notranslate"><span class="pre">&lt;sendEvent&gt;</span></code> である。</p>
+</li>
+<li><p class="first">発見 Message とは受信事象の発生がどこであるか知られているが、（既知の）送信事象の発生がない Message である。意味としては形跡 <code class="docutils literal notranslate"><span class="pre">&lt;receiveEvent&gt;</span></code> である。</p>
+</li>
+<li><p class="first">Message の <code class="docutils literal notranslate"><span class="pre">signature</span></code> は Operation または Signal の一方を参照する。
+Message の名前は参照される Operation または Signal の名前と同じであるものとする。</p>
+</li>
+<li><p class="first">Message <code class="docutils literal notranslate"><span class="pre">signature</span></code> が Operation であるならば、
+Message は次のうちのひとつを表す。</p>
+<ul class="simple">
+<li>もし <code class="docutils literal notranslate"><span class="pre">messageSort</span></code> が synchCall または asyncCall ならば、
+Message は Operation に対する同期的または非同期的な呼び出しおよび Operation の実行の開始を表す。</li>
+<li>もし <code class="docutils literal notranslate"><span class="pre">messageSort</span></code> が reply ならば、
+Message はその Operation に対する非同期的呼び出しの戻り値を表す。</li>
+</ul>
+</li>
+<li><p class="first">Message <code class="docutils literal notranslate"><span class="pre">signature</span></code> が Signal であるならば、
+messageSort は asyncSignal であるものとし、
+Message は Signal オブジェクトの非同期的な送信と受信を表す。</p>
+</li>
+<li><p class="first">Message の実引数は ValueSpecification である。</p>
+</li>
+<li><p class="first">Message が応答ならば、それの実引数それぞれは高々ひとつの作用対象がある Expression であるものとする。</p>
+</li>
+<li><p class="first">応答 Message の実引数 Expression の記号は実引数の代入対象 (assignment target) を表し、そこに実引数の戻り値が代入されることになるものとする。そういった代入対象の記号を表すための次の値らには標準の解釈がある。</p>
+<dl class="docutils">
+<dt>Unknown</dt>
+<dd><p class="first last">空文字列であり、未知の代入対象を表す。</p>
+</dd>
+<dt>Interaction Parameter</dt>
+<dd><p class="first last">包囲する Interaction の <code class="docutils literal notranslate"><span class="pre">ownedParameter</span></code> の修飾なしの名前であり、出力、入出力、戻り値 Parameter のいずれかであるものとする。</p>
+</dd>
+<dt>Attribute</dt>
+<dd><p class="first last">包囲する相互作用の背景となる Behavior の属性の名前または
+Message の受信 Lifeline の（おそらく修飾ありの）名前である。</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">他の値で代入対象記号として許されているものがあるが、それらの解釈は本仕様で定義されていない。</p>
+</li>
+</ul>
+</div>
+<div class="section" id="message-ends">
+<h4>17.4.3.2 Message Ends<a class="headerlink" href="#message-ends" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>MessageEnd のサブクラスはそれらが表す概念に相応しい特有の意味を定義する。</li>
+</ul>
+</div>
+<div class="section" id="message-occurrence-specifications">
+<h4>17.4.3.3 Message Occurrence Specifications<a class="headerlink" href="#message-occurrence-specifications" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>MessageOccurrenceSpecification はふたつの Lifelines の間にあるメッセージに関連する送信事象や受信事象を表す。</li>
+</ul>
+</div>
+<div class="section" id="destruction-occurrence-specifications">
+<h4>17.4.3.4 Destruction Occurrence Specifications<a class="headerlink" href="#destruction-occurrence-specifications" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>DestructionOccurrenceSpecification はそれを含む生存線により記述されるオブジェクトの破壊を表す。</li>
+</ul>
+</div>
+<div class="section" id="gates">
+<h4>17.4.3.5 Gates<a class="headerlink" href="#gates" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Gate とは、
+Message ごとに具体的な送信者と受信者を確立する
+Interaction や InteractionUse や CombinedFragment の境界上で用いられる MessageEnd である。</li>
+<li>Gate オブジェクトは、ふたつの Message オブジェクトを結びつける対になった仕方で存在するので、それ自身明示的には整列されない。
+Gates は次のどちらかのものの間に接続点を与える MessageEnds である。<ul>
+<li>InteractionUse の外側にある Message と
+Interaction の内側にある Message</li>
+<li>CombinedFragment の外側にある Message と、
+CombinedFragment 内の InteractionOperand の内側にある Message</li>
+</ul>
+</li>
+<li>MessageOccurrenceSpecifications は次の規則に則った半順序が入る。<ul>
+<li>MessageOccurrenceSpecification オブジェクトが所有される Lifeline 上で整列されており、</li>
+<li>MessageOccurrenceSpecification オブジェクトは
+Message オブジェクトを横断して整列されているか、一致した gates の一対を通じてリンクされた Message オブジェクトの一対を横断して整列されている。</li>
+</ul>
+</li>
+<li>Message オブジェクト自体は整列されない。</li>
+<li>Gates は 4 種類あり、それらの関連により区別される。<ol class="arabic">
+<li>formal Gate は Interaction に関連しており、
+Interaction の境界内側に取り付けられたリンク点を備え、
+Interaction の内側の Message を、ある actual Gate が別の Interaction の InteractionUse の外側に取り付けられた
+MessageEnd として有する Interaction の Message に（から）伝えるものである。</li>
+<li>actual Gate は InteractionUse に関連しており、
+InteractionUse の境界外側に取り付けられたリンク点を備え、
+InteractionUse の内側のメッセージを、
+InteractionUse に参照される Interaction の内側のメッセージに（から）伝えるものである。</li>
+<li>inner CombinedFragment Gate は CombinedFragment に関連しており、
+CombinedFragment の境界内側に取り付けられたリンク点を備え、
+CombinedFragment の内側にある MessageEnd の Message を、
+CombinedFragment の外側にある MessageEnd の
+Message に（から）伝えるものである。</li>
+<li>outer CombinedFragment Gate は CombinedFragment に関連しており、
+CombinedFragment の境界外側に取り付けられたリンク点を備え、
+CombinedFragment の外側にある MessageEnd の Message を、
+CombinedFragment の内側にある MessageEnd の
+Message に（から）伝えるものである。</li>
+</ol>
+</li>
+<li>Gates は明示的にも暗黙的にも名前を付けられる。後者の場合、メッセージの方向とメッセージの名前を連結することで識別子を構築する。例えば <code class="docutils literal notranslate"><span class="pre">out_CardOut</span></code> のようになる。</li>
+<li>Getes は名前によって、同名の actual Gate と一致した formal Gate に、そして同名の outer CombinedFragment Gate に一致した
+inner CombinedFragment Gate に一致される。</li>
+<li>一致した Gates に対する Messages は対応しなければならない。同じ方向を向いているばかりではなく、それらに同一の名前と <code class="docutils literal notranslate"><span class="pre">messageSort</span></code> と
+signature 特性値とがあれば Messages は対応する。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id15">
+<h3>17.4.4 Notation<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="message">
+<h4>17.4.4.1 Message<a class="headerlink" href="#message" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Message は送信者 MessageEnd から受信者 MessageEnd までの線分として示される。線分や矢先の形状は Message の性質を表す。<ul>
+<li><code class="docutils literal notranslate"><span class="pre">messageSort</span> <span class="pre">==</span> <span class="pre">asynchCall</span> <span class="pre">||</span> <span class="pre">asynchSignal</span></code> ⇒ 矢先を開く</li>
+<li><code class="docutils literal notranslate"><span class="pre">messageSort</span> <span class="pre">==</span> <span class="pre">synchCall</span></code> ⇒ 矢先を塗りつぶす</li>
+<li><code class="docutils literal notranslate"><span class="pre">messageSort</span> <span class="pre">==</span> <span class="pre">reply</span></code> ⇒ 破線</li>
+<li><code class="docutils literal notranslate"><span class="pre">messageSort</span> <span class="pre">==</span> <span class="pre">createMessage</span></code> ⇒ 破線＋開いた矢先</li>
+<li><code class="docutils literal notranslate"><span class="pre">messageSort</span> <span class="pre">==</span> <span class="pre">deleteMessage</span></code> ⇒ DestructionOccurrenceSpecification で終わる</li>
+<li>消失 Message ⇒ 終点を小黒丸とする</li>
+<li>発見 Message ⇒ 始点を小黒丸とする</li>
+<li>Communication 図における Messages は番号とかも添える。後述。</li>
+</ul>
+</li>
+<li>図中の Message ラベルの構文は BNF で定義されている (pp. 575-576)。</li>
+<li>もし応答 Message の同一性が明白ならば、ラベルを省いて図を簡単にすることが許される。</li>
+</ul>
+</div>
+<div class="section" id="destructionoccurrencespecification">
+<h4>17.4.4.2 DestructionOccurrenceSpecification<a class="headerlink" href="#destructionoccurrencespecification" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 17.8 DestructionOccurrenceSpecification symbol<ul>
+<li>DestructionOccurrenceSpecification は Lifeline の底部にバツ印を記すことで示す。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="gate">
+<h4>17.4.4.3 Gate<a class="headerlink" href="#gate" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Gates は枠上の単なる点であり、メッセージの端点である。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id16">
+<h3>17.4.5 Examples<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>先述の Figure 17.3 では非同期 Messages しか見なかった。こういう Messages は互いに追い抜いてもよい。</li>
+<li>後述の Figure 17.14 では応答に伴う同期メソッド呼び出しを見る。またオブジェクトを生成することを表現する Message も見る。</li>
+<li>後述の Figure 17.26 では Communication 図ではどのように
+Messages が記されるのかを見る。</li>
+<li>メッセージ識別のテキスト的構文の種々の適用のいくらかを
+Figure 17.14 で見られる。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="occurrences">
+<h2><a class="toc-backref" href="#id41">17.5 Occurrences</a><a class="headerlink" href="#occurrences" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id17">
+<h3>17.5.1 Summary<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>本節では次のメタクラスの構文法、意味、表記法を指定する。<ul>
+<li>ActionExecutionSpecification</li>
+<li>BehaviorExecutionSpecification</li>
+<li>ExecutionOccurrenceSpecification</li>
+<li>GeneralOrdering</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id18">
+<h3>17.5.2 Abstract Syntax<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 17.9 Occurrences<ul>
+<li>ExecutionSpecification の派生元が図では示されていないが、先述の InteractionFragment である。</li>
+<li>ActionExecutionSpecification と BehaviorExecutionSpecification は兄弟。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id19">
+<h3>17.5.3 Semantics<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="action-execution-specificiations">
+<h4>17.5.3.1 Action Execution Specificiations<a class="headerlink" href="#action-execution-specificiations" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ActionExecutionSpecification はアクションから生じるメッセージを相互作用が指定するのに用いられる。このアクションらは他の挙動によって所有されていてよい。</li>
+</ul>
+</div>
+<div class="section" id="behavior-execution-specifications">
+<h4>17.5.3.2 Behavior Execution Specifications<a class="headerlink" href="#behavior-execution-specifications" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>BehaviorExecutionSpecification は挙動から生じるメッセージを相互作用が指定するのに用いられる。</li>
+</ul>
+</div>
+<div class="section" id="execution-occurrence-specifications">
+<h4>17.5.3.3 Execution Occurrence Specifications<a class="headerlink" href="#execution-occurrence-specifications" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ExecutionOccurrenceSpecification はある生存線上において
+ExecutionSpecification の開始事象もしくは終了事象を表現する。</li>
+</ul>
+</div>
+<div class="section" id="general-orderings">
+<h4>17.5.3.4 General Orderings<a class="headerlink" href="#general-orderings" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>GeneralOrdering はあり得る列の集合を制限する。
+OccurrenceSpecifications の半順序は GeneralOrderings の集合により強制される。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id20">
+<h3>17.5.4 Notation<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="actionexecutionspecificiation">
+<h4>17.5.4.1 ActionExecutionSpecificiation<a class="headerlink" href="#actionexecutionspecificiation" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>17.2.4.4 参照。</li>
+</ul>
+</div>
+<div class="section" id="behaviorexecutionspecification">
+<h4>17.5.4.2 BehaviorExecutionSpecification<a class="headerlink" href="#behaviorexecutionspecification" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>17.2.4.4 参照。</li>
+</ul>
+</div>
+<div class="section" id="executionoccurrencespecification">
+<h4>17.5.4.3 ExecutionOccurrenceSpecification<a class="headerlink" href="#executionoccurrencespecification" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ExecutionOccurrenceSpecification は生存線上の ExecutionSpecification を表す垂直な箱の始点または終点によって表現される (Figure 17.2)。</li>
+</ul>
+</div>
+<div class="section" id="generalordering">
+<h4>17.5.4.4 GeneralOrdering<a class="headerlink" href="#generalordering" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>GeneralOrdering はふたつの OccurrenceSpecifications を接続する点線として示される。<ul>
+<li>矢印の方向を示す記号は線分の中ほどに描かれる。矢印の矢先には描かない。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id21">
+<h3>17.5.5 Examples<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 17.10 Example showing GeneralOrdering in a sequence diagram<ul>
+<li>図式中の斜めに走っている線分が GeneralOrdering の見本だと言っている。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="fragments">
+<h2><a class="toc-backref" href="#id42">17.6 Fragments</a><a class="headerlink" href="#fragments" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id22">
+<h3>17.6.1 Summary<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>本節では次のメタクラスの構文法、意味、表記法を指定する。<ul>
+<li>InteractionOperand</li>
+<li>InteractionConstraint</li>
+<li>CombinedFragment</li>
+<li>ConsiderIgnoreFragment</li>
+<li>Continuation</li>
+<li>InteractionOperatorKind: これは列挙体。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id23">
+<h3>17.6.2 Abstract Syntax<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 17.11 Fragments<ul>
+<li>InteractionConstraint と InteractionOperatorKind を除いて抽象クラス InteractionFragment の直接的または間接的特殊型である。<ul>
+<li>そのうち InteractionOperand は Namespace の一種でもある。</li>
+</ul>
+</li>
+<li>InteractionConstraint は Constraint の特殊型である。</li>
+<li>InteractionOperatorKind はやたら literals が多い。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id24">
+<h3>17.6.3 Semantics<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
+<div class="admonition-todo admonition" id="index-1">
+<p class="first admonition-title">Todo</p>
+<p class="last">クロスリファレンスのすべてに誤植があるような気がするので問い合わせる。
+17.6.3.x の x が欠けている。当ノートで勝手に訂正する。</p>
+</div>
+<div class="section" id="interaction-operands">
+<h4>17.6.3.1 Interaction Operands<a class="headerlink" href="#interaction-operands" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>InteractionOperand は CombinedFragment の内部にある領域である。意味の計算には true な防御の InteractionOperands しか含まれない。防御がない場合は、この事を true の防御を意味するものと解釈する。<ul>
+<li>後述の 17.6.3.3 参照。</li>
+</ul>
+</li>
+<li>InteractionOperand の意味は暗黙の <strong>seq</strong> 演算により結合された、その構成要素たる InteractionFragments により与えられる。<ul>
+<li>後述の 17.6.3.3 参照。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="interaction-constraints">
+<h4>17.6.3.2 Interaction Constraints<a class="headerlink" href="#interaction-constraints" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>InteractionConstraints は常に CombinedFragments と共に用いられる。<ul>
+<li>後述の 17.6.3.3 参照。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="combined-fragments">
+<h4>17.6.3.3 Combined Fragments<a class="headerlink" href="#combined-fragments" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>CombinedFragment の意味はその <code class="docutils literal notranslate"><span class="pre">interactionOperator</span></code> に、
+<code class="docutils literal notranslate"><span class="pre">interactionOperator</span></code> の種類それぞれに対して、下に説明するように依存する。</li>
+<li>CombinedFragment に関連する Gates は
+CombinedFragment とそれが取り囲んでいる物との間の構文上のインターフェイスを表現する。これはインターフェイスが他の InteractionFragments に向けられていることを意味する。</li>
+</ul>
+</div>
+<div class="section" id="consider-ignore-fragments">
+<h4>17.6.3.4 Consider Ignore Fragments<a class="headerlink" href="#consider-ignore-fragments" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ConsiderIgnoreFragment は Ignore または Consider の
+<code class="docutils literal notranslate"><span class="pre">interactionOperator</span></code> 値がある CombinedFragment である。<ul>
+<li>後述の 17.6.3.15 参照。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="continuations">
+<h4>17.6.3.5 Continuations<a class="headerlink" href="#continuations" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Continuations は Alternative CombinedFragments と（弱）順序と共にあるときしか意味をなさない。</li>
+<li>Alternative CombinedFragment の InteractionOperand が名前が X という Continuation で終わるならば、その Continuation X から始まっている InteractionFragments しか追加できない。</li>
+</ul>
+</div>
+<div class="section" id="interaction-operator-kind-values">
+<h4>17.6.3.6 Interaction Operator Kind Values<a class="headerlink" href="#interaction-operator-kind-values" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>CombinedFragment の意味を決定するのに <code class="docutils literal notranslate"><span class="pre">interactionOperator</span></code> の値は重要であり、
+<code class="docutils literal notranslate"><span class="pre">interactionOperator</span></code> 列挙値それぞれに対して下に指定されるとおりである。</li>
+</ul>
+</div>
+<div class="section" id="alternatives">
+<h4>17.6.3.7 Alternatives<a class="headerlink" href="#alternatives" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">interactionOperator</span></code> <strong>alt</strong> は CombinedFragment が挙動の選択肢のひとつを表現することを示す。</li>
+<li>選択肢ひとつを定義する形跡の集合は、作用対象の（防御された）形跡の和集合である。</li>
+<li><code class="docutils literal notranslate"><span class="pre">else</span></code> によって防御される作用対象は包囲している CombinedFragment にある他の防御すべての論理和の否定となる防御である。</li>
+<li>もしどの作用対象にも true に評価する防御がないならば、どの作用対象も実行されず、包囲している InteractionFragment の残りが実行される。</li>
+<li>もし内側の CombinedFragment Gate が
+<strong>alt</strong> CombinedFragment の InteractionOperand のどれかに用いられているならば、同名の Gate がその <strong>alt</strong> CombinedFragment の InteractionOperand それぞれによって用いられるものとする。</li>
+</ul>
+</div>
+<div class="section" id="option">
+<h4>17.6.3.8 Option<a class="headerlink" href="#option" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">interactionOperator</span></code> <strong>opt</strong> は CombinedFragment がその単独の作用対象が起こるのか、何も起こらないのか一方となるような挙動の選択肢ひとつを表現することを示す。</li>
+</ul>
+</div>
+<div class="section" id="break">
+<h4>17.6.3.9 Break<a class="headerlink" href="#break" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">interactionOperator</span></code> <strong>break</strong> は、作用対象が包囲している InteractionFragment の残りの代わりに行われるシナリオであるという意味で、
+CombinedFragment がシナリオの中断を表現することを示す。</li>
+<li><code class="docutils literal notranslate"><span class="pre">interactionOperator</span></code> <strong>break</strong>  のある CombinedFragment は包囲している InteractionFragment の Lifelines すべてを覆うべきである。</li>
+</ul>
+</div>
+<div class="section" id="parallel">
+<h4>17.6.3.10 Parallel<a class="headerlink" href="#parallel" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">interactionOperator</span></code> <strong>par</strong> は CombinedFragment が作用対象の挙動の間の平行な合流を表現することを示す。</li>
+<li>平行な合流は作用対象内部にある
+OccurrenceSpecifications の順序を乱すことなく作用対象の OccurrenceSpecifications が交互配置されてもよいような手段すべてを記述する形跡の集合を定義する。</li>
+</ul>
+</div>
+<div class="section" id="weak-sequencing">
+<h4>17.6.3.11 Weak Sequencing<a class="headerlink" href="#weak-sequencing" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">interactionOperator</span></code> <strong>seq</strong> は CombinedFragment が作用対象の挙動の間における弱配列を表現することを示す。</li>
+<li>弱配列はこれらの性質を有する形跡の集合により定義される：<ol class="arabic">
+<li>作用対象のそれぞれの内部にある
+OccurrenceSpecifications の順序は結果に維持される。</li>
+<li>異なる作用対象からの異なる生存線上の
+OccurrenceSpecifications はどのような順序になってもよい。</li>
+<li>異なる作用対象からの同一生存線上の
+OccurrenceSpecifications は、最初の作用対象の OccurrenceSpecification がその次の作用対象のそれの前に来るような順序になる。</li>
+</ol>
+</li>
+<li>作用対象が参加者の互いに素である集合にあるときに弱配列はひとつの平行な合流へ縮合する。</li>
+</ul>
+</div>
+<div class="section" id="strict-sequencing">
+<h4>17.6.3.12 Strict Sequencing<a class="headerlink" href="#strict-sequencing" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">interactionOperator</span></code> <strong>strict</strong> は CombinedFragment が作用対象の挙動の間における強配列を表現することを明示する。</li>
+</ul>
+</div>
+<div class="section" id="negative">
+<h4>17.6.3.13 Negative<a class="headerlink" href="#negative" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">interactionOperator</span></code> neg は無効であると定義される形跡を
+CombinedFragment が表現することを明示する。</li>
+<li><code class="docutils literal notranslate"><span class="pre">interactionOperator</span></code> neg を有する CombinedFragment を定義した形跡の集合はそのただひとつの作用対象により与えられた形跡の集合に等しく、有効な形跡というよりは無効な集合であるというだけに過ぎない。</li>
+</ul>
+</div>
+<div class="section" id="critical-region">
+<h4>17.6.3.14 Critical Region<a class="headerlink" href="#critical-region" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">interactionOperator</span></code> <strong>critical</strong> は CombinedFragment が危急区域を表現することを示す。<ul>
+<li>他の OccurrenceSpecifications によって領域の形跡が交互配置され得ないというのが危急区域の意味である。</li>
+</ul>
+</li>
+<li>包囲している構成要素らの形跡の集合は危急区域により制限される。</li>
+</ul>
+</div>
+<div class="section" id="ignore-consider">
+<h4>17.6.3.15 Ignore / Consider<a class="headerlink" href="#ignore-consider" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">interactionOperator</span></code> <strong>ignore</strong> は
+CombinedFragment 内部には示されていないメッセージの種類がいくつかあることを示す。</li>
+<li>反対に <code class="docutils literal notranslate"><span class="pre">interactionOperator</span></code> <strong>consider</strong> は
+CombinedFragment 内部ではどのメッセージを重んじるべきかを示す。</li>
+</ul>
+</div>
+<div class="section" id="assertion">
+<h4>17.6.3.16 Assertion<a class="headerlink" href="#assertion" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">interactionOperator</span></code> <strong>assert</strong> は
+CombinedFragment がある断定を表現することを示す。</li>
+</ul>
+</div>
+<div class="section" id="loop">
+<h4>17.6.3.17 Loop<a class="headerlink" href="#loop" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">interactionOperator</span></code> <strong>loop</strong> は
+CombinedFragment があるループを表現することを示す。ループ作用対象は繰り返しの回数である。</li>
+<li>防御には Boolean 式に加えてループの繰り返し回数の下限と上限を含めてよい。</li>
+<li>ループが指定のある独立した InteractionConstraint を含むと、ループで指定された反復の最小数に関係なく、その指定が実行中は true と評価するときにループが続行するだけである。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id25">
+<h3>17.6.4 Notation<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="interactionoperand">
+<h4>17.6.4.1 InteractionOperand<a class="headerlink" href="#interactionoperand" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>InteractionOperands は水平な破線で分離される。
+InteractionOperands は協力して枠にはまった CombinedFragment を構成する。</li>
+<li>Sequence 図の InteractionOperand の内側では
+InteractionFragments の順序は単に垂直方向の上から与えられる。</li>
+</ul>
+</div>
+<div class="section" id="interactionconstraint">
+<h4>17.6.4.2 InteractionConstraint<a class="headerlink" href="#interactionconstraint" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>InteractionConstraint は最初の事象発生が起こる生存線を覆う角括弧で示され、その事象の上に位置し、含んでいる Interaction または InteractionOperand の中にある。</li>
+<li>InteractionConstraint が省略されているときには true が仮定される。</li>
+</ul>
+</div>
+<div class="section" id="combinedfragment">
+<h4>17.6.4.3 CombinedFragment<a class="headerlink" href="#combinedfragment" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Sequence 図の CombinedFragment の表記は実線の矩形である。演算子はその矩形の左上隅の五角形中に示される。</li>
+<li>ひとつを超える演算子が五角形の記述子中に示されてもかまわない。これは入れ子になった CombinedFragment の速記法である。</li>
+<li>CombinedFragment の作用対象は CombinedFragment のグラフ領域をタイル貼りすることで示される。<ul>
+<li>水平の破線を用いて作用対象に対応する領域群に分割する。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="considerignorefragment">
+<h4>17.6.4.4 ConsiderIgnoreFragment<a class="headerlink" href="#considerignorefragment" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ConsiderIgnoreFragment の表記は、
+<strong>consider</strong> または <strong>ignore</strong> が演算子を示す
+CombinedFragments のすべてについて同じである。</li>
+<li><strong>ignore</strong> と <strong>consider</strong> はひとつの矩形の中に他の種の演算子と共に結びつくことが可能であることに注意。</li>
+</ul>
+</div>
+<div class="section" id="continuation">
+<h4>17.6.4.5 Continuation<a class="headerlink" href="#continuation" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Continuations は States と同じ記号で示されるが、ひとつを超える Lifeline を覆うことが許される。</li>
+<li>Continuations はまた Interaction Overview 図の動線上に現れてもよい。</li>
+<li>InteractionFragment で単独である Continuation は包囲する InteractionFragment の末端にあると考えられる。</li>
+</ul>
+</div>
+<div class="section" id="interactionoperatorkind">
+<h4>17.6.4.6 InteractionOperatorKind<a class="headerlink" href="#interactionoperatorkind" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>InteractionOperatorKind の値は CombinedFragment 枠の左上隅の小区画でテキストとして与えられる。後述する特別な表記法がある。</li>
+</ul>
+</div>
+<div class="section" id="strict-interactionoperator">
+<h4>17.6.4.7 Strict interactionOperator<a class="headerlink" href="#strict-interactionoperator" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>表記法上は、含まれる部品の垂直座標がある Lifeline 上だけでなく CombinedFragment の全範囲において重要であることを意味する。</li>
+</ul>
+</div>
+<div class="section" id="ignore-consider-interactionoperator">
+<h4>17.6.4.8 Ignore / Consider interactionOperator<a class="headerlink" href="#ignore-consider-interactionoperator" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>17.6.4.4 参照。</li>
+</ul>
+</div>
+<div class="section" id="loop-interactionoperator">
+<h4>17.6.4.9 Loop interactionOperator<a class="headerlink" href="#loop-interactionoperator" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>BNF 記法による仕様の引用符が釣り合っていない。</li>
+</ul>
+</div>
+<div class="section" id="parallel-interactionoperator">
+<h4>17.6.4.10 Parallel interactionOperator<a class="headerlink" href="#parallel-interactionoperator" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>準拠ツールは単一 Lifeline 内にある “coregion area” の速記法を用いてよい。</li>
+<li>この “coregion” とは、平行に結合された部品を表す速記法であり、ある Lifeline 上の事象発生（または他の入れ子になった部品）の順序が取るに足らない普通の状況で用いられる。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id26">
+<h3>17.6.5 Examples<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>InteractionOperand の見本については Figure 17.14 を参照。</li>
+<li>InteractionConstraints の見本については Figure 17.14, Figure 17.27 を参照。</li>
+<li>多彩な <code class="docutils literal notranslate"><span class="pre">interactionOperators</span></code> のある CombinedFragments の見本については
+Figure 17.12, Figure 17.13, Figure 17.14 を参照。</li>
+<li>Figure 17.12 Critical Region<ul>
+<li>米国における 911 呼び出しの処理が切れ目なく処理されなければならないことを示している。</li>
+<li>演算子 <strong>par</strong> と <strong>critical</strong> の見本。</li>
+</ul>
+</li>
+<li>Figure 17.13 Loop CombinedFragment<ul>
+<li>演算子 <strong>loop</strong> の見本。防御付きの方は入れ子になっている。</li>
+</ul>
+</li>
+<li>Figure 17.14 CombinedFragment<ul>
+<li>演算子 <strong>alt</strong> の見本。モデルに意味がないので理解しにくい。</li>
+</ul>
+</li>
+<li>Figure 17.15 Continuation<ul>
+<li>Sequence 図がふたつに分割されていて、左側の図中の <strong>ref</strong> 区画が右側の Sequence 図自体に対応している。</li>
+</ul>
+</li>
+<li>Figure 17.16 Continuation interpretation<ul>
+<li>前述の左右の Sequence 図を合体させるとこれと等価になる。</li>
+</ul>
+</li>
+<li>Figure 17.17 Ignore, consider, assert with StateInvariants<ul>
+<li>図の見出しに <code class="docutils literal notranslate"><span class="pre">sd</span> <span class="pre">M</span> <span class="pre">Ignore</span> <span class="pre">{t,</span> <span class="pre">r}</span></code> とあるので、メッセージタイプが <code class="docutils literal notranslate"><span class="pre">t</span></code> および <code class="docutils literal notranslate"><span class="pre">r</span></code> のものは無視されている。実システムではこれらのメッセージを処理するだろうが、この図では取り扱わないと言っているだけだ。</li>
+<li>Y にある <code class="docutils literal notranslate"><span class="pre">mystate</span></code> は StateInvariant の例。これ以降の事象が起こるのに先立って実行時に直接評価される。</li>
+<li>consider 部品に入れ子になっている assert 部品は、メッセージ <code class="docutils literal notranslate"><span class="pre">v</span></code> がいったんここで発生すると、メッセージ <code class="docutils literal notranslate"><span class="pre">q</span></code> が起こることを期待していることを意味する。</li>
+<li><code class="docutils literal notranslate"><span class="pre">{Y.p</span> <span class="pre">==</span> <span class="pre">15}</span></code> なる StateInvariant は
+Y の次の事象発生に先立って評価される。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="interaction-uses">
+<h2><a class="toc-backref" href="#id43">17.7 Interaction Uses</a><a class="headerlink" href="#interaction-uses" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id27">
+<h3>17.7.1 Summary<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>本節では次のメタクラスの構文法、意味、表記法を指定する。<ul>
+<li>InteractionUse</li>
+<li>PartDecomposition</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id28">
+<h3>17.7.2 Abstract Syntax<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 17.18 InteractionUses<ul>
+<li>InteractionUse は InteractionFragment の特殊型。
+ValueSpecification に二種類の composition 関連、
+Gate に composition 関連、
+Interaction に関連がある。</li>
+<li>PartDecomposition は InteractionUse の特殊型。
+Lifeline から参照される。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id29">
+<h3>17.7.3 Semantics<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id30">
+<h4>17.7.3.1 Interaction Uses<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>InteractionUse の意味とは、仮引数を置き換える実引数のようなものに束縛されている総称的な部分のすべてであるばかりでなく、入口が解決される被参照 Interaction の意味の形跡の集合でもある。</li>
+<li>実 Gate は InteractionUse の外側の境界に付属されてよい。その InteractionUse により被参照 Interaction にある具体的な送信者と受信者を確率するリンク点を与える。</li>
+</ul>
+</div>
+<div class="section" id="part-decompositions">
+<h4>17.7.3.2 Part Decompositions<a class="headerlink" href="#part-decompositions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Interaction の側にある Interaction 内部にある生存線の Decomposition は厳密に InteractionUse として解釈される。</li>
+<li>分解された Lifeline は InteractionUse として解釈されるので、
+PartDecomposition の意味は入口と引数が一致される分解により参照される Interaction の意味である。</li>
+<li>CombinedFragment が大域外 (extra-global) であるということが描写するのは、分解された Lifeline を覆う同じ演算子の CombinedFragment がその Interaction にあるということである。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id31">
+<h3>17.7.4 Notation<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="interactionuse">
+<h4>17.7.4.1 InteractionUse<a class="headerlink" href="#interactionuse" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>InteractionUse は演算子が <strong>ref</strong> と呼ばれる
+CombinedFragment 記号として示される。<ul>
+<li>名前の構文はここにある BNF の通りに記す。</li>
+</ul>
+</li>
+<li>実引数の構文は 17.4.4 で説明されている。</li>
+</ul>
+</div>
+<div class="section" id="partdecomposition">
+<h4>17.7.4.2 PartDecomposition<a class="headerlink" href="#partdecomposition" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>PartDecomposition は 17.3.4 節で見られるように
+Lifeline の見出しにある参照する節により示される。</li>
+<li>部品分解が分解された生存線の下にインラインで示されて、分解節が <code class="docutils literal notranslate"><span class="pre">strict</span></code> であれば、これはインライン分解内にある部分生存線すべての上にある構成要素が強配列で整列されることを意味する。</li>
+<li>大域外 CombinedFragment は矩形枠を分解 Interaction の境界の外側に行くようにする。</li>
+</ul>
+<div class="section" id="style-guidelines">
+<h5>17.7.4.2.1 Style Guidelines<a class="headerlink" href="#style-guidelines" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li>分解に伴う Interaction の名前はその名前、分解されている Part の型名と、分解を生じている Interaction の名前とを含めることに利がある。</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="id32">
+<h3>17.7.5 Examples<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 17.19 InteractionUse<ul>
+<li>左上隅に <strong>ref</strong> のタグの付いた矩形が InteractionUse の見本である。</li>
+<li>EstablishAccess のほうは実引数まで記してある。一方 OpenDoor のほうは、これは引数をとらないのか、そういうのは記されていない。</li>
+</ul>
+</li>
+<li>Figure 17.20 InteractionUse with value return<ul>
+<li>Lifeline <code class="docutils literal notranslate"><span class="pre">a_op_b</span></code> がこの Interaction の戻り値。</li>
+<li>Lifeline <code class="docutils literal notranslate"><span class="pre">w</span></code> がこの Interaction の入出力引数。</li>
+<li>InteractionUse は <code class="docutils literal notranslate"><span class="pre">a_util_b</span></code> という何かを参照している。<ul>
+<li>オブジェクト <code class="docutils literal notranslate"><span class="pre">:xx</span></code> の属性 <code class="docutils literal notranslate"><span class="pre">xc</span></code> に戻り値 9 を代入することを示す。</li>
+<li>入出力引数 <code class="docutils literal notranslate"><span class="pre">w</span></code> の出力としての値が 12 であることを示す。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Figure 17.21 PartDecomposition - the decomposed part<ul>
+<li>右の Lifeline の見出しの 2 行目に <code class="docutils literal notranslate"><span class="pre">ref</span> <span class="pre">AC_UserAccess</span></code> と記されている。この一本に見える Lifeline が実は次に示す sd と等価だ。</li>
+</ul>
+</li>
+<li>Figure 17.22 PartDecomposition - the decomposition<ul>
+<li>前述の <code class="docutils literal notranslate"><span class="pre">ACSystem</span></code> を分解がこの図である。この <code class="docutils literal notranslate"><span class="pre">AC_UserAccess</span></code> はクラス ACSystem が所有する Interaction である。</li>
+<li>ACSystem を覆う UserAccess の構成要素に一致する大域的な構成要素が <code class="docutils literal notranslate"><span class="pre">AC_UserAccess</span></code> にある。</li>
+<li>左上隅に <strong>opt</strong> とあるのが extra-global CombinedFragment の例である。この構成概念が UserAccess のある CombinedFragment に対応する。</li>
+<li><code class="docutils literal notranslate"><span class="pre">:AccessPoint</span></code> の下に付いている <code class="docutils literal notranslate"><span class="pre">p1</span></code> と <code class="docutils literal notranslate"><span class="pre">p2</span></code> は
+inner ConnectableElements である。</li>
+</ul>
+</li>
+<li>Figure 17.23 Sequence Diagrams where two Lifelines refer to (…)<ul>
+<li><code class="docutils literal notranslate"><span class="pre">sd</span> <span class="pre">N</span></code> 内の右向きの <code class="docutils literal notranslate"><span class="pre">m3</span></code> はそれぞれ別物らしい。</li>
+<li><code class="docutils literal notranslate"><span class="pre">sd</span> <span class="pre">N</span></code> 内の左向きのメッセージを受け取る順序は任意である。このことを示すのが、角括弧で挟まれた部分 (coregion) である。<ul>
+<li>この coregion 内で成立している条件が StateInvariant <code class="docutils literal notranslate"><span class="pre">{x</span> <span class="pre">==</span> <span class="pre">2}</span></code> である。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Figure 17.24 Describing Collaborations and their binding<ul>
+<li>図には示されていないが A と B はそれぞれ superA と superB の特殊型。ゆえに <code class="docutils literal notranslate"><span class="pre">E</span></code> のような <code class="docutils literal notranslate"><span class="pre">W</span></code> の CollaborationUse の binding が認められる。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="sequence-diagrams">
+<h2><a class="toc-backref" href="#id44">17.8 Sequence Diagrams</a><a class="headerlink" href="#sequence-diagrams" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Interaction Diagram のもっとも普通の種類は Sequence Diagram であり、これは数々の Lifelines の間を飛び交う Message に集中する。</li>
+<li>Sequence Diagram は Interaction を
+Lifelines 上にあるそれらに対応する OccurrenceSpecifications と一緒に、交わされる Messages の配列に集中することにより記述する。</li>
+<li>Sequence Diagrams により記述される Interactions は
+Interactions パッケージにあるメタクラスらの意味を理解することへの基礎を形作る。</li>
+</ul>
+<div class="section" id="sequence-diagram-notation">
+<h3>17.8.1 Sequence Diagram Notation<a class="headerlink" href="#sequence-diagram-notation" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="graphic-nodes">
+<h4>17.8.1.1 Graphic Nodes<a class="headerlink" href="#graphic-nodes" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Table 17.1 に Sequence Diagrams に含めることができる図表要素一覧が示されている。</li>
+</ul>
+</div>
+<div class="section" id="graphic-paths">
+<h4>17.8.1.2 Graphic Paths<a class="headerlink" href="#graphic-paths" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Table 17.2 に上述の要素間に描かれる各種経路の記号一覧が与えられている。</li>
+<li>Interactions は包囲している Classifier の挙動の構成単位の集合体。
+Interactions は
+Classifier の ConnectableElements 間を往来する Messages と一緒に情報の通行に焦点を合わせる。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="example-sequence-diagram">
+<h3>17.8.2 Example Sequence Diagram<a class="headerlink" href="#example-sequence-diagram" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 17.25 Overview of Metamodel elements of a Sequence Diagram<ul>
+<li>上の Interaction <code class="docutils literal notranslate"><span class="pre">N</span></code> は説明してもらわなくてももう理解できる。</li>
+<li>下のオブジェクト図で理解が漏れそうなのは OccurrenceSpecifications だろう。</li>
+<li>Interaction モデルとしては瑣末なオブジェクトはメタモデルから省いてあると断りがある。例えば Part s や Class B や Message が参照する連結器は示されていない。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="communication-diagrams">
+<h2><a class="toc-backref" href="#id45">17.9 Communication Diagrams</a><a class="headerlink" href="#communication-diagrams" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Communication Diagrams は内部構造の設計概念とこれがメッセージの往来にどう対応するのかが中心になる
+Lifelines 間の相互作用に関心を集中するものだ。</li>
+<li>Communication Diagrams は
+InteractionUses や CombinedFragments のような構造化の機構を用いない簡単な Sequence Diagrams に対応する。</li>
+</ul>
+<div class="section" id="communication-diagram-notation">
+<h3>17.9.1 Communication Diagram Notation<a class="headerlink" href="#communication-diagram-notation" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id33">
+<h4>17.9.1.1 Graphic Paths<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h4>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">見出しの文言は編集ミスと思われる。</p>
+</div>
+<ul class="simple">
+<li>Table 17.3 では Communication Diagrams の構成要素各種の記法がまとめられている。と言ってもノードが Frame と Lifeline のふたつしかない。</li>
+</ul>
+</div>
+<div class="section" id="id34">
+<h4>17.9.1.2 Graphic Paths<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Table 17.4 は項目がひとつしかない図表である。
+Message はラベル付き実線で記される。</li>
+</ul>
+</div>
+<div class="section" id="sequence-expression">
+<h4>17.9.1.3 Sequence expression<a class="headerlink" href="#sequence-expression" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Message のラベルを BNF 記法で与えている。</li>
+<li>輪番式は輪番項のドット区切りリストにコロンが続くものである。</li>
+<li>各項は全相互作用内部の手続きに関する入れ子の深さを表現する。例えば Message 3.1.4 は 3.1 内の 3.1.3 に続く。</li>
+<li>輪番項の <code class="docutils literal notranslate"><span class="pre">name</span></code> は制御の concurrent thread を表現する。例えば Message 3.1a と 3.1b は 3.1 内で concurrent である（どちらを先に実施してもよいし、平行に実施してもよい、の意）。</li>
+<li><code class="docutils literal notranslate"><span class="pre">recurrence</span></code> は条件付きか反復実行を表現する。
+UML としてはその書式を規定しない。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="example-communication-diagram">
+<h3>17.9.2 Example Communication Diagram<a class="headerlink" href="#example-communication-diagram" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 17.26 Communication diagram<ul>
+<li>メッセージ <code class="docutils literal notranslate"><span class="pre">m1</span></code> と <code class="docutils literal notranslate"><span class="pre">m3</span></code> が concurrently に送られている。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="interaction-overview-diagrams">
+<h2><a class="toc-backref" href="#id46">17.10 Interaction Overview Diagrams</a><a class="headerlink" href="#interaction-overview-diagrams" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Interaction Overview Diagrams は制御フローの概観を促進するように
+Activity Diagrams の変種を通じて Interactions を定義する。</li>
+<li>Interaction Overview Diagrams はノードが Interactions もしくは InteractionUsers である制御の流れの概観に関心を集中させる。</li>
+</ul>
+<div class="section" id="interaction-overview-diagram-notation">
+<h3>17.10.1 Interaction Overview Diagram Notation<a class="headerlink" href="#interaction-overview-diagram-notation" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id35">
+<h4>17.10.1.1 Graphic Nodes<a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Interaction Overview Diagrams は Interactions を表現する
+Activity Diagrams の特殊化である。<ul>
+<li>Activity Diagrams の ObjectNodes の代わりに、
+Interaction Overview Diagrams には（インラインの）
+Interactions か InteractionUses のどちらか一方しかない。</li>
+<li>Alternative CombinedFragments は DecisionNode と対応する MergeNode で表現される。</li>
+<li>Parallel CombinedFragments は ForkNode と対応する JoinNode で表現される。</li>
+<li>Loop CombinedFragments は簡単な輪 (pl.) で表現される。</li>
+<li>Interaction Overview Diagrams では分岐と接合は正しく入れ子になっているものとする。
+Activity Diagrams よりも制限が厳しい。</li>
+<li>Interaction Overview Diagrams は
+Interaction Diagrams の他の形式を包囲する枠と同じ種類の枠にはめられている。</li>
+</ul>
+</li>
+<li>Table 17.5 では Interaction Overview Diagrams のノード 3 種が表になっている。</li>
+<li>Interaction Overview Diagrams はノードが Interactions か InteractionUses
+のどちらかである Activity 図表記法を使う。
+Interaction Overview Diagrams は Interactions を
+Messages と Lifelines を消し去って記述するひとつの手段である。もっとも純粋な形式では、
+Activities はすべて InteractionUses であり、それから Messages も Lifelines も図式中に全く現れなくなる。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="examples-of-interaction-overview-diagrams">
+<h3>17.10.2 Examples of Interaction Overview Diagrams<a class="headerlink" href="#examples-of-interaction-overview-diagrams" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 17.27 Interaction Overview Diagram representing a High Level Interaction diagram<ul>
+<li>パッと見た限り、本文で言うように Activity 図のノード系要素が
+Interaction や InteractionUse に置き換わっている図式に見える。</li>
+<li>これは Figure 17.19 で示した挙動を別のやり方で記述したもので、時間的拘束をいくつか加えてある。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="timing-diagrams">
+<h2><a class="toc-backref" href="#id47">17.11 Timing Diagrams</a><a class="headerlink" href="#timing-diagrams" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Timing Diagrams は線形の時間軸に沿った Lifelines の内部と間を変化する条件に集中する。</li>
+<li>Timing Diagrams は個々の classifiers と classifiers の相互作用の両方の挙動を記述するもので、モデル化された Lifelines の条件において変化を引き起こす事象の発生の時間に注意を集める。</li>
+</ul>
+<div class="section" id="timing-diagram-notation">
+<h3>17.11.1 Timing Diagram Notation<a class="headerlink" href="#timing-diagram-notation" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="graphic-nodes-and-paths">
+<h4>17.11.1.1 Graphic Nodes and Paths<a class="headerlink" href="#graphic-nodes-and-paths" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Table 17.6 で Timing 図の記号すべてが表にまとまっている。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="examples-of-timing-diagrams">
+<h3>17.11.2 Examples of Timing Diagrams<a class="headerlink" href="#examples-of-timing-diagrams" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Timing 図では時間上の状態の変化や構造的な要素の他の状態がわかる。用いられる形式は少しはある。</li>
+<li>Interactions の主要な形式としての
+Sequence Diagrams は時間の観測と時間的制約を描いてもよい。</li>
+<li>Figure 17.28 A Lifeline for a discrete object<ul>
+<li>Figure 17.5 の <code class="docutils literal notranslate"><span class="pre">:User</span></code> を Timing Diagram で描いたもの。</li>
+<li><code class="docutils literal notranslate"><span class="pre">:User</span></code> は <code class="docutils literal notranslate"><span class="pre">Idle</span></code> と <code class="docutils literal notranslate"><span class="pre">WaitCard</span></code> と <code class="docutils literal notranslate"><span class="pre">WaitAccess</span></code> の状態を行ったり来たりするようで、その時間的推移がこの図から読み取れる。</li>
+</ul>
+</li>
+<li>Figure 17.29 Compact Lifeline with States<ul>
+<li>上述の図の &lt;more economical and compact&gt; 版。</li>
+</ul>
+</li>
+<li>Figure 17.30 Timing Diagram with more than one Lifeline and with Messages<ul>
+<li><code class="docutils literal notranslate"><span class="pre">:User</span></code> に加えて <code class="docutils literal notranslate"><span class="pre">:ACSystem</span></code> の Lifeline も記述している。</li>
+<li>これは図を読むときに定規が要る気がする。時間軸上の目盛りとグラフが遠い。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="classifier-descriptions">
+<h2><a class="toc-backref" href="#id48">17.12 Classifier Descriptions</a><a class="headerlink" href="#classifier-descriptions" title="Permalink to this headline">¶</a></h2>
+<p>機械生成による節。</p>
+</div>
+<div class="section" id="association-descriptions">
+<h2><a class="toc-backref" href="#id49">17.13 Association Descriptions</a><a class="headerlink" href="#association-descriptions" title="Permalink to this headline">¶</a></h2>
+<p>機械生成による節。</p>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="usecases.html" title="18 UseCases"
+             >next</a></li>
+        <li class="right" >
+          <a href="actions.html" title="16 Actions"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Unified Modeling Language 2.5 読書ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

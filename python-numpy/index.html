@@ -1,0 +1,220 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>NumPy 利用ノート &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="インストール" href="setup.html" />
+    <link rel="prev" title="Jupyter 利用ノート" href="../python-jupyter.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="setup.html" title="インストール"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="../python-jupyter.html" title="Jupyter 利用ノート"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="numpy">
+<h1>NumPy 利用ノート<a class="headerlink" href="#numpy" title="Permalink to this headline">¶</a></h1>
+<p>本稿は <a class="reference external" href="http://www.numpy.org/">NumPy</a> に関する個人的なノートである。記すことは Windows 環境上での（ミニマルな）環境構築法、各種ドキュメントの読書ノート、そして利用しそうな API に関するメモおよびコメントとする。場合によってはコード片を記載する。</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">インストール</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#id2">パッケージをインストールする</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="setup.html#id3">アップグレード</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#id4">ドキュメントをローカルディスクに保存する</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reading.html">ドキュメントを読む</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html">Tentative NumPy Tutorial ノート</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#the-basics">The Basics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tutorial.html#an-example">An example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial.html#array-creation">Array Creation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial.html#printing-arrays">Printing Arrays</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial.html#basic-operations">Basic Operations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial.html#universal-functions">Universal Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial.html#indexing-slicing-and-iterating">Indexing, Slicing and Iterating</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#shape-manipulation">Shape Manipulation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tutorial.html#changing-the-shape-of-an-array">Changing the shape of an array</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial.html#stacking-together-different-arrays">Stacking together different arrays</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial.html#splitting-one-array-into-several-smaller-ones">Splitting one array into several smaller ones</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#copies-and-views">Copies and Views</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tutorial.html#no-copy-at-all">No Copy at All</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial.html#view-or-shallow-copy">View or Shallow Copy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial.html#deep-copy">Deep Copy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial.html#functions-and-methods-overview">Functions and Methods Overview</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#less-basic">Less Basic</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tutorial.html#broadcasting-rules">Broadcasting rules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#fancy-indexing-and-index-tricks">Fancy indexing and index tricks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tutorial.html#indexing-with-arrays-of-indices">Indexing with Arrays of Indices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial.html#indexing-with-boolean-arrays">Indexing with Boolean Arrays</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial.html#the-ix-function">The ix_() function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial.html#indexing-with-strings">Indexing with strings</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#linear-algebra">Linear Algebra</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tutorial.html#simple-array-operations">Simple Array Operations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial.html#the-matrix-class">The Matrix Class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial.html#indexing-comparing-matrices-and-2d-arrays">Indexing: Comparing Matrices and 2D Arrays</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#tricks-and-tips">Tricks and Tips</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tutorial.html#automatic-reshaping">“Automatic” Reshaping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial.html#vector-stacking">Vector Stacking</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial.html#histograms">Histograms</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc.html">doc/</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc.html#id1">構成</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="doc.html#glossary-py">glossary.py</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="writing.html">コードを書く</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="writing.html#id2">ヘルプ</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="writing.html#id3">キーワードから機能を探す</a></li>
+<li class="toctree-l3"><a class="reference internal" href="writing.html#numpy">NumPy のバージョンを知る</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="writing.html#array">関数またはオブジェクト <code class="docutils literal notranslate"><span class="pre">array</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="writing.html#id4"><code class="docutils literal notranslate"><span class="pre">array</span></code> オブジェクトを生成する</a></li>
+<li class="toctree-l3"><a class="reference internal" href="writing.html#id5">場合によっては <code class="docutils literal notranslate"><span class="pre">array</span></code> オブジェクトを生成したくない場合</a></li>
+<li class="toctree-l3"><a class="reference internal" href="writing.html#id6"><code class="docutils literal notranslate"><span class="pre">array</span></code> の要素の型を明示的に指定する</a></li>
+<li class="toctree-l3"><a class="reference internal" href="writing.html#array-array">既存の <code class="docutils literal notranslate"><span class="pre">array</span></code> の型をキャストした <code class="docutils literal notranslate"><span class="pre">array</span></code> を得る</a></li>
+<li class="toctree-l3"><a class="reference internal" href="writing.html#array-shape"><code class="docutils literal notranslate"><span class="pre">array</span></code> の shape を変える</a></li>
+<li class="toctree-l3"><a class="reference internal" href="writing.html#id7">同型 <code class="docutils literal notranslate"><span class="pre">array</span></code> オブジェクト同士に算術演算子を作用させる</a></li>
+<li class="toctree-l3"><a class="reference internal" href="writing.html#id8"><code class="docutils literal notranslate"><span class="pre">array</span></code> オブジェクトのスライシング</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="writing.html#id9">線形代数関連</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="writing.html#id10">スカラー積、ベクトル積</a></li>
+<li class="toctree-l3"><a class="reference internal" href="writing.html#id11">ベクトルの長さ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="writing.html#id12">ベクトル正規化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="writing.html#allclose">ベクトルの一致に関数 <code class="docutils literal notranslate"><span class="pre">allclose</span></code> を用いる</a></li>
+<li class="toctree-l3"><a class="reference internal" href="writing.html#id13">ベクトルのなす角</a></li>
+<li class="toctree-l3"><a class="reference internal" href="writing.html#id14">2 ベクトルの位置関係判定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="writing.html#identity-matrix-eye-identity">一発で identity matrix を生成する関数 <code class="docutils literal notranslate"><span class="pre">eye</span></code>, <code class="docutils literal notranslate"><span class="pre">identity</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="writing.html#diag">対角行列を生成するには関数 <code class="docutils literal notranslate"><span class="pre">diag</span></code> を利用する</a></li>
+<li class="toctree-l3"><a class="reference internal" href="writing.html#id15">行列から対角成分を抽出するのも関数 <code class="docutils literal notranslate"><span class="pre">diag</span></code> を利用する</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="writing.html#id16">統計関連</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="writing.html#id17">総和</a></li>
+<li class="toctree-l3"><a class="reference internal" href="writing.html#id18">最小値、最大値</a></li>
+<li class="toctree-l3"><a class="reference internal" href="writing.html#id19">平均値</a></li>
+<li class="toctree-l3"><a class="reference internal" href="writing.html#id20">ヒストグラム</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="writing.html#id21">乱数関連</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="writing.html#id22">内容がランダムな整数 <code class="docutils literal notranslate"><span class="pre">array</span></code> を得る</a></li>
+<li class="toctree-l3"><a class="reference internal" href="writing.html#float-array">内容がランダムな float 型数 <code class="docutils literal notranslate"><span class="pre">array</span></code> を得る</a></li>
+<li class="toctree-l3"><a class="reference internal" href="writing.html#id23"><code class="docutils literal notranslate"><span class="pre">array</span></code> の内容をランダムにシャッフルする</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>OS<ul>
+<li>Windows XP Home Edition SP3</li>
+<li>Windows 7 Home Premium x64 SP1</li>
+<li>Windows 10 Home x64</li>
+</ul>
+</li>
+<li>本稿において、利用した各パッケージのバージョンは次のとおり。<ul>
+<li><a class="reference external" href="http://www.python.org/">Python</a>: 2.6.6, 2.7.3, 3.4.1, 3.5.0, 3.5.2</li>
+<li><a class="reference external" href="http://www.numpy.org/">NumPy</a>: 1.6.0, 1.6.2, 1.8.2, 1.9.2, 1.10.0, 1.11.1</li>
+<li><a class="reference external" href="http://readthedocs.org/docs/nose/">Nose</a>: 1.0.0, 1.1.2, 1.3.3, 1.3.7</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>以降の Python インタープリターセッション内にあるコード片では、次の <code class="docutils literal notranslate"><span class="pre">import</span></code> を済ませてあるものとする。</p>
+<div class="code python3 last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>関連リンク<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference external" href="http://www.numpy.org/">Numpy</a></dt>
+<dd>パッケージ配布元。</dd>
+</dl>
+</div>
+<div class="section" id="id2">
+<h2>関連ノート<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="../python-scipy/index.html"><span class="doc">SciPy 利用ノート</span></a></li>
+<li><a class="reference internal" href="../python-nose.html"><span class="doc">Nose 利用ノート</span></a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="setup.html" title="インストール"
+             >next</a></li>
+        <li class="right" >
+          <a href="../python-jupyter.html" title="Jupyter 利用ノート"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

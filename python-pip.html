@@ -1,74 +1,69 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>pip 利用ノート &mdash; 読書ノート v1.4.0dev</title>
-    
+    <title>pip 利用ノート &#8212; 読書ノート v1.4</title>
     <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.4.0dev',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/twitter-button.js"></script>
-    <link rel="top" title="読書ノート v1.4.0dev" href="index.html" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="next" title="Pylint 利用ノート" href="python-pylint.html" />
-    <link rel="prev" title="Python 入門［２＆３対応］読書ノート 3/3" href="hosoda10-note3.html" /> 
-  </head>
-  <body>
-    <div class="related">
+    <link rel="prev" title="What’s New In Python 3.6 ノート" href="python-3.6.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
-        <li><a href="index.html">読書ノート v1.4.0dev</a> &raquo;</li> 
+        <li class="right" style="margin-right: 10px">
+          <a href="python-pylint.html" title="Pylint 利用ノート"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="python-3.6.html" title="What’s New In Python 3.6 ノート"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="pip">
-<h1><a class="toc-backref" href="#id14">pip 利用ノート</a><a class="headerlink" href="#pip" title="Permalink to this headline">¶</a></h1>
-<p>本稿は &lt;A tool for installing and managing Python packages&gt;(<a class="reference external" href="https://pypi.python.org/pypi/pip">pip</a>) である pip に関する覚え書きである。
-すべての Python ユーザーはそうなのではないかと思うのだが、
-Python のバージョンアップのたびに、サードパーティー製のパッケージもインストールし直すという、かなり面倒な作業が発生してしまう。
-インストーラー実行で即セットアップ終了となるなのは、あくまでも Python 本体でしかない。
-NumPy や Sphinx 等は別途明示的なインストール作業が利用するパッケージの個数回必要となる。
-ハードコアな Python ユーザーはサードパーティー製パッケージを大量に持っているため、この作業の手間を軽減するのが重要になるのだ。
-それには pip というパッケージを利用するのがたいへん具合がよい。
-そこで、この覚え書きを残して、Python のアップグレードのときに見返そうというわけだ。</p>
+<h1><a class="toc-backref" href="#id19">pip 利用ノート</a><a class="headerlink" href="#pip" title="Permalink to this headline">¶</a></h1>
+<p>本稿は &lt;A tool for installing and managing Python packages&gt;(<a class="reference external" href="https://pip.pypa.io/">pip</a>) である pip に関する覚え書きである。すべての Python ユーザーはそうなのではないかと思うのだが、
+Python のバージョンアップのたびに、サードパーティー製のパッケージもインストールし直すという、かなり面倒な作業が発生してしまう。インストーラー実行で即セットアップ終了となるなのは、あくまでも Python 本体でしかない。
+NumPy や Sphinx 等は別途明示的なインストール作業が利用するパッケージの個数回必要となる。ハードコアな Python ユーザーはサードパーティー製パッケージを大量に持っているため、この作業の手間を軽減するのが重要になるのだ。それには pip というパッケージを利用するのがたいへん具合がよい。そこで、この覚え書きを残して、Python のアップグレードのときに見返そうというわけだ。</p>
 <p>この pip 自体の入手方法について、少々動きがあったので付記しておく。
-Python 3.4 以前は pip もまたサードパーティー製パッケージの一つであったのだが、
-うれしいことに 3.4 では Python 本体に同パッケージが同梱されている。
-<tt class="docutils literal"><span class="pre">Scripts</span></tt> フォルダー内に <tt class="docutils literal"><span class="pre">easy_install</span></tt> と <tt class="docutils literal"><span class="pre">pip</span></tt> があるので、
-後述するインストールの手順を飛ばして、いきなりその他のサードパーティー製パッケージのインストール作業に取り掛かることができる。</p>
+Python 3.4 以前は pip もまたサードパーティー製パッケージの一つであったのだが、うれしいことに 3.4 では Python 本体に同パッケージが同梱されている。
+<code class="docutils literal notranslate"><span class="pre">Scripts</span></code> フォルダー内に <code class="docutils literal notranslate"><span class="pre">easy_install</span></code> と <code class="docutils literal notranslate"><span class="pre">pip</span></code> があるので、後述するインストールの手順を飛ばして、いきなりその他のサードパーティー製パッケージのインストール作業に取り掛かることができる。</p>
 <div class="contents topic" id="id1">
 <p class="topic-title first">ノート目次</p>
 <ul class="simple">
-<li><a class="reference internal" href="#pip" id="id14">pip 利用ノート</a><ul>
-<li><a class="reference internal" href="#id2" id="id15">関連リンク</a></li>
-<li><a class="reference internal" href="#id3" id="id16">入手からインストールまで</a></li>
-<li><a class="reference internal" href="#id4" id="id17">初歩的な利用例</a><ul>
-<li><a class="reference internal" href="#id5" id="id18">ヘルプ・バージョン表示</a></li>
-<li><a class="reference internal" href="#id6" id="id19">アンインストール</a></li>
-<li><a class="reference internal" href="#id7" id="id20">インストール・アップグレード</a></li>
-<li><a class="reference internal" href="#id8" id="id21">インストール済みパッケージをリスト</a></li>
-<li><a class="reference internal" href="#id9" id="id22">ファイルからパッケージリストを読み込んで各種操作する</a></li>
-<li><a class="reference internal" href="#id10" id="id23">パッケージの検索</a></li>
+<li><a class="reference internal" href="#pip" id="id19">pip 利用ノート</a><ul>
+<li><a class="reference internal" href="#id2" id="id20">関連リンク</a></li>
+<li><a class="reference internal" href="#id3" id="id21">入手からインストールまで</a></li>
+<li><a class="reference internal" href="#id4" id="id22">初歩的な利用例</a><ul>
+<li><a class="reference internal" href="#id5" id="id23">ヘルプ・バージョン表示</a></li>
+<li><a class="reference internal" href="#id6" id="id24">アンインストール</a></li>
+<li><a class="reference internal" href="#id7" id="id25">インストール・アップグレード</a><ul>
+<li><a class="reference internal" href="#id8" id="id26">インターネットからパッケージをダウンロードする</a></li>
+<li><a class="reference internal" href="#id9" id="id27">ダウンロード済みパッケージをインストールする</a></li>
+<li><a class="reference internal" href="#id10" id="id28">編集可能パッケージをインストールする</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id11" id="id24">まれに使うことになるかもしれない使用例</a><ul>
-<li><a class="reference internal" href="#id12" id="id25">ミラーサイトを指定してインストール</a></li>
+<li><a class="reference internal" href="#id11" id="id29">インストール済みパッケージをリスト</a></li>
+<li><a class="reference internal" href="#id12" id="id30">更新対象パッケージを調べる</a></li>
+<li><a class="reference internal" href="#id13" id="id31">インストール済みパッケージの情報を表示する</a></li>
+<li><a class="reference internal" href="#id14" id="id32">ファイルからパッケージリストを読み込んで各種操作する</a></li>
+<li><a class="reference internal" href="#id15" id="id33">パッケージの検索</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id16" id="id34">まれに使うことになるかもしれない使用例</a><ul>
+<li><a class="reference internal" href="#id17" id="id35">ミラーサイトを指定してインストール</a></li>
 </ul>
 </li>
 </ul>
@@ -79,14 +74,15 @@ Python 3.4 以前は pip もまたサードパーティー製パッケージの�
 <p class="first admonition-title">Note</p>
 <ul class="last simple">
 <li>OS<ul>
-<li>Windows XP Home Edition SP 3</li>
-<li>Windows 7 Home Premium SP 1</li>
+<li>Windows XP Home Edition SP3</li>
+<li>Windows 7 Home Premium x64 SP1</li>
+<li>Windows 10 Home x64</li>
 </ul>
 </li>
 <li>本稿において、利用した各パッケージのバージョンは次のとおり。<ul>
-<li><a class="reference external" href="http://www.python.org/">Python</a>: 2.6.6, 2.7.3, 3.4.1</li>
-<li><a class="reference external" href="https://pypi.python.org/pypi/pip">pip</a>: 1.1, 1.5.6</li>
-<li><a class="reference external" href="http://peak.telecommunity.com/DevCenter/setuptools">setuptools</a>: 0.6c11</li>
+<li><a class="reference external" href="http://www.python.org/">Python</a>: 2.6.6, 2.7.3, 3.4.1, 3.5.0</li>
+<li><a class="reference external" href="https://pip.pypa.io/">pip</a>: 1.1, 1.5.6, 7.1.2, 8.1.1</li>
+<li><a class="reference external" href="https://bitbucket.org/pypa/setuptools">setuptools</a>: 0.6c11</li>
 <li><a class="reference external" href="http://pypi.python.org/pypi/distribute">distribute</a>: 未使用</li>
 <li>virtualenv: 未使用</li>
 </ul>
@@ -94,40 +90,38 @@ Python 3.4 以前は pip もまたサードパーティー製パッケージの�
 </ul>
 </div>
 <div class="section" id="id2">
-<h2><a class="toc-backref" href="#id15">関連リンク</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id20">関連リンク</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
-<dt><a class="reference external" href="https://pypi.python.org/pypi/pip">pip</a></dt>
+<dt><a class="reference external" href="https://pip.pypa.io/">pip</a></dt>
 <dd>公式サイト。インストール方法から基本的な利用方法、応用等が文書化されている。</dd>
 <dt><a class="reference external" href="http://peak.telecommunity.com/DevCenter/EasyInstall">easy_install</a></dt>
 <dd>easy_install の公式サイト。</dd>
 </dl>
 </div>
 <div class="section" id="id3">
-<h2><a class="toc-backref" href="#id16">入手からインストールまで</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<p>Python 3.4 以前の環境では、手動でインストールする必要がある。
-以下に記す手順でインストールする。</p>
+<h2><a class="toc-backref" href="#id21">入手からインストールまで</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>Python 3.4 以前の環境では、手動でインストールする必要がある。以下に記す手順でインストールする。</p>
 <ul>
 <li><p class="first">事実関係</p>
 <ul>
-<li><p class="first"><a class="reference external" href="http://pypi.python.org/pypi">PyPI</a> のトップページには <tt class="docutils literal"><span class="pre">easy_install</span></tt> の文字列は見当たらない。</p>
+<li><p class="first"><a class="reference external" href="http://pypi.python.org/pypi">PyPI</a> のトップページには <code class="docutils literal notranslate"><span class="pre">easy_install</span></code> の文字列は見当たらない。</p>
 </li>
-<li><p class="first"><a class="reference external" href="https://pypi.python.org/pypi/pip">pip</a> 公式には、virtualenv 内部での <tt class="docutils literal"><span class="pre">pip</span></tt> の利用を推奨している。</p>
+<li><p class="first"><a class="reference external" href="https://pip.pypa.io/">pip</a> 公式には、virtualenv 内部での <code class="docutils literal notranslate"><span class="pre">pip</span></code> の利用を推奨している。</p>
 </li>
-<li><p class="first">virtualenv 環境内は自動的に <tt class="docutils literal"><span class="pre">pip</span></tt> がインストール済み状態だ。</p>
+<li><p class="first">virtualenv 環境内は自動的に <code class="docutils literal notranslate"><span class="pre">pip</span></code> がインストール済み状態だ。</p>
 </li>
 <li><p class="first">そうではなく、「グローバルに」インストールする状況も当然ある。</p>
 <ul>
-<li><p class="first">そのような場合での <tt class="docutils literal"><span class="pre">pip</span></tt> のインストールの事前条件は、
-<a class="reference external" href="http://peak.telecommunity.com/DevCenter/setuptools">setuptools</a> または <a class="reference external" href="http://pypi.python.org/pypi/distribute">distribute</a> のどちらかがインストールされていること。</p>
+<li><p class="first">そのような場合での <code class="docutils literal notranslate"><span class="pre">pip</span></code> のインストールの事前条件は、
+<a class="reference external" href="https://bitbucket.org/pypa/setuptools">setuptools</a> または <a class="reference external" href="http://pypi.python.org/pypi/distribute">distribute</a> のどちらかがインストールされていること。</p>
 </li>
-<li><p class="first"><tt class="docutils literal"><span class="pre">easy_install</span></tt> が環境にあれば、
-下記コマンドプロンプト入力で <tt class="docutils literal"><span class="pre">pip</span></tt> のインストールは実現できる。</p>
-<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> easy_install pip
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">easy_install</span></code> が環境にあれば、下記コマンドプロンプト入力で <code class="docutils literal notranslate"><span class="pre">pip</span></code> のインストールは実現できる。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ easy_install pip
 </pre></div>
 </div>
 </li>
 <li><p class="first">ソースコードを入手、解凍してコマンドプロンプトから
-<tt class="docutils literal"><span class="pre">setup.py</span> <span class="pre">install</span></tt> でインストールするやり方もある。</p>
+<code class="docutils literal notranslate"><span class="pre">setup.py</span> <span class="pre">install</span></code> でインストールするやり方もある。</p>
 </li>
 </ul>
 </li>
@@ -135,97 +129,155 @@ Python 3.4 以前は pip もまたサードパーティー製パッケージの�
 </li>
 <li><p class="first">コメント</p>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">easy_install</span></tt> でインストールした。まったく問題はなかった。</li>
+<li><code class="docutils literal notranslate"><span class="pre">easy_install</span></code> でインストールした。まったく問題はなかった。</li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="id4">
-<h2><a class="toc-backref" href="#id17">初歩的な利用例</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
-<p><tt class="docutils literal"><span class="pre">easy_install</span></tt> から乗り換えたばかりなので、当面それほど凝った操作を必要とはしていない。
-次に挙げる操作だけ覚えておく。</p>
-<p><tt class="docutils literal"><span class="pre">pip</span></tt> は実行ファイル形式で <tt class="docutils literal"><span class="pre">$PYTHONHOME/Scripts</span></tt> フォルダーに格納されている。</p>
+<h2><a class="toc-backref" href="#id22">初歩的な利用例</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">easy_install</span></code> から乗り換えたばかりなので、当面それほど凝った操作を必要とはしていない。次に挙げる操作だけ覚えておく。</p>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span></code> は実行ファイル形式で <code class="docutils literal notranslate"><span class="pre">$PYTHONHOME/Scripts</span></code> フォルダーに格納されている。</p>
 <div class="section" id="id5">
-<h3><a class="toc-backref" href="#id18">ヘルプ・バージョン表示</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
-<p>言うまでもないが help は目を通したほうがよい。
-コマンドラインオプションはそれほど多くはない。</p>
-<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> pip <span class="nb">help</span> <span class="c"># ヘルプ表示</span>
-<span class="gp">$</span> pip --version <span class="c"># バージョン表示</span>
+<h3><a class="toc-backref" href="#id23">ヘルプ・バージョン表示</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>言うまでもないが help は目を通したほうがよい。コマンドラインオプションはそれほど多くはない。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip help # ヘルプ表示
+$ pip --version # バージョン表示
 </pre></div>
 </div>
 </div>
 <div class="section" id="id6">
-<h3><a class="toc-backref" href="#id19">アンインストール</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
-<p>以前に <tt class="docutils literal"><span class="pre">easy_install</span></tt> でインストールしてしまったパッケージも
-<tt class="docutils literal"><span class="pre">pip</span></tt> でアンインストールできる。</p>
-<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> pip uninstall simplejson
-<span class="go">Uninstalling simplejson:</span>
-<span class="go">  d:\python26\lib\site-packages\simplejson</span>
-<span class="go">  d:\python26\lib\site-packages\simplejson-2.4.0-py2.6.egg-info</span>
-<span class="go">Proceed (y/n)?</span>
+<h3><a class="toc-backref" href="#id24">アンインストール</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>以前に <code class="docutils literal notranslate"><span class="pre">easy_install</span></code> でインストールしてしまったパッケージも
+<code class="docutils literal notranslate"><span class="pre">pip</span></code> でアンインストールできる。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip uninstall simplejson
+Uninstalling simplejson:
+  d:\python26\lib\site-packages\simplejson
+  d:\python26\lib\site-packages\simplejson-2.4.0-py2.6.egg-info
+Proceed (y/n)?
 </pre></div>
 </div>
 </div>
 <div class="section" id="id7">
-<h3><a class="toc-backref" href="#id20">インストール・アップグレード</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
-<p>パッケージ名を指定して <tt class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span></tt> または <tt class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--upgrade</span></tt> を実行する。</p>
-<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> pip install --upgrade httplib2
-<span class="go">Downloading/unpacking httplib2 from http://pypi.python.org/packages/source/h/httplib2/httplib2-0.7.4.tar.gz#md5=略</span>
-<span class="go">  Downloading httplib2-0.7.4.tar.gz (106Kb): 106Kb downloaded</span>
-<span class="go">  Running setup.py egg_info for package httplib2</span>
-<span class="go">Installing collected packages: httplib2</span>
-<span class="go">  Found existing installation: httplib2 0.7.2</span>
-<span class="go">    Uninstalling httplib2:</span>
-<span class="go">      Successfully uninstalled httplib2</span>
-<span class="go">  Running setup.py install for httplib2</span>
-<span class="go">Successfully installed httplib2</span>
-<span class="go">Cleaning up...</span>
-</pre></div>
-</div>
-</div>
+<h3><a class="toc-backref" href="#id25">インストール・アップグレード</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>一番重要なインストールのやり方について記す。</p>
+<p>インストールしたいパッケージの形態によって、コマンドが異なる。いずれも重要な手順なので、すべて説明する。</p>
 <div class="section" id="id8">
-<h3><a class="toc-backref" href="#id21">インストール済みパッケージをリスト</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> pip freeze
-<span class="go">PIL==1.1.7</span>
-<span class="go">babel==0.9.6</span>
-<span class="go">coverage==3.5.1</span>
-<span class="go">docutils==0.8.1</span>
-<span class="go">以下略</span>
+<h4><a class="toc-backref" href="#id26">インターネットからパッケージをダウンロードする</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<p>パッケージ名を指定して <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> または <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--upgrade</span></code> を実行する。この方法でインストールやアップグレードができれば、手間が最小で済む。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install --upgrade httplib2
+Downloading/unpacking httplib2 from http://pypi.python.org/packages/source/h/httplib2/httplib2-0.7.4.tar.gz#md5=略
+  Downloading httplib2-0.7.4.tar.gz (106Kb): 106Kb downloaded
+  Running setup.py egg_info for package httplib2
+Installing collected packages: httplib2
+  Found existing installation: httplib2 0.7.2
+    Uninstalling httplib2:
+      Successfully uninstalled httplib2
+  Running setup.py install for httplib2
+Successfully installed httplib2
+Cleaning up...
 </pre></div>
 </div>
-<p>余談だが、Google で <tt class="docutils literal"><span class="pre">pip</span> <span class="pre">freeze</span></tt> を検索すると、
-他の Python プログラマーがどのようなパッケージを利用しているか垣間見える。</p>
 </div>
 <div class="section" id="id9">
-<h3><a class="toc-backref" href="#id22">ファイルからパッケージリストを読み込んで各種操作する</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
-<p><tt class="docutils literal"><span class="pre">pip</span> <span class="pre">freeze</span></tt> の出力をテキストファイルに出力しておき、次のようにすることができる。
-今の環境の <tt class="docutils literal"><span class="pre">site-packages</span></tt> を別の環境で再現するとき等に利用できるというわけだ。</p>
-<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> pip install --requirements<span class="o">=</span>FILE
+<h4><a class="toc-backref" href="#id27">ダウンロード済みパッケージをインストールする</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<p>一部の手の込んだパッケージは、Visual C++ によるコンパイル処理などが含まれていたり、最新の Python のビルドに対応したバイナリーが公式に存在しなかったりする。このため、一般的な環境ではビルドできないことが考えられる。</p>
+<p>そういう場合は親切な人がビルドした whl 形式のパッケージを別途ダウンロードして、
+pip の引数にそのファイル名を指定することでインストールやアップグレードが実現できる。</p>
+<p>以下、手順のイメージを擬似コードで表現する。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ (download) PyXYZ‑x.y.z‑cp35‑none‑win_amd64.whl
+$ pip install PyXYZ‑x.y.z‑cp35‑none‑win_amd64.whl
 </pre></div>
 </div>
 </div>
 <div class="section" id="id10">
-<h3><a class="toc-backref" href="#id23">パッケージの検索</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
-<p>例えば Amazon 関係のパッケージがあるのか知りたいとする。
-しかも <a class="reference external" href="http://pypi.python.org/pypi">PyPI</a> で検索するよりも、コンソールで見たいような状況であれば、
-<tt class="docutils literal"><span class="pre">pip</span> <span class="pre">search</span></tt> の出番だ。</p>
-<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> pip search amazon
-<span class="go">AWSpider                  - Amazon Web Services web crawler</span>
-<span class="go">boto                      - Amazon Web Services Library</span>
-<span class="go">bellatrix                 - Bellatrix is a comprehensive set of tools to</span>
-<span class="go">                            automate the management of Amazon EC2 services.</span>
-<span class="go">以下略</span>
+<h4><a class="toc-backref" href="#id28">編集可能パッケージをインストールする</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
+<p>オープンソースなプロジェクトによるパッケージについては、公開レポジトリーから作業コピーをローカルに作成し、そこをインストールする方法がある。</p>
+<p>以下、手順のイメージを擬似コードで表現する。どのディレクトリーで作業をするかは <code class="file docutils literal notranslate"><span class="pre">setup.py</span></code> が存在する階層でよいことが多い。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/XYZ/XYZ.git
+...
+$ cd XYZ/src/
+$ pip install -e .
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="id11">
-<h2><a class="toc-backref" href="#id24">まれに使うことになるかもしれない使用例</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<h3><a class="toc-backref" href="#id29">インストール済みパッケージをリスト</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip freeze
+PIL==1.1.7
+babel==0.9.6
+coverage==3.5.1
+docutils==0.8.1
+以下略
+</pre></div>
+</div>
+<p>余談だが、Google で <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">freeze</span></code> を検索すると、他の Python プログラマーがどのようなパッケージを利用しているか垣間見える。</p>
+</div>
 <div class="section" id="id12">
-<h3><a class="toc-backref" href="#id25">ミラーサイトを指定してインストール</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="http://pypi.python.org/pypi">PyPI</a> のウェブサイトがダウンしているときには <tt class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span></tt> 系操作は失敗する。
-サーバーが復旧するまで待てない場合、ミラーサイトを指定してインストールを試みることができる。</p>
-<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> pip install --use-mirrors --mirrors<span class="o">=</span>http://d.pypi.python.org/ sphinx
+<h3><a class="toc-backref" href="#id30">更新対象パッケージを調べる</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>最新のバージョンにアップグレードできるパッケージが何かあるか調べたい。こういう場合は <code class="docutils literal notranslate"><span class="pre">list</span></code> コマンドにオプション <code class="docutils literal notranslate"><span class="pre">--outdated</span></code> を指定する。</p>
+<p>次に示すように現在 Python 環境にある各パッケージのバージョン、最新バージョンの情報、および <code class="docutils literal notranslate"><span class="pre">[wheel]</span></code> や <code class="docutils literal notranslate"><span class="pre">[sdist]</span></code> などのインストール形態がリストされる。例えばパッケージ <code class="docutils literal notranslate"><span class="pre">alabaster</span></code> は現在はバージョン 0.7.6 が .whl によりインストールされていて、更新すると 0.7.7 にアップグレードできることを示している。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip list --outdated
+alabaster (0.7.6) - Latest: 0.7.7 [wheel]
+astroid (1.3.8) - Latest: 1.4.5 [wheel]
+Babel (2.1.1) - Latest: 2.2.0 [wheel]
+...
+virtualenv (13.1.2) - Latest: 15.0.1 [wheel]
+</pre></div>
+</div>
+<p>この出力を適宜整形してテキストファイルを保存して、
+<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-U</span> <span class="pre">-r</span></code> に指定して実際に更新作業を開始することを勧める。出力リストからある種のパッケージを手動で取り除いておかねばならない。例えば手作業でダウンロードしたい .whl からインストールしたいパッケージ、ローカルリポジトリーからインストールしたいものは別途アップグレードする必要がある。</p>
+</div>
+<div class="section" id="id13">
+<h3><a class="toc-backref" href="#id31">インストール済みパッケージの情報を表示する</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p>コマンド <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">show</span></code> を実行することで、インストール済みパッケージの情報を出力できる。これは当ノートの更新作業のときにしばしば実行する。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip show matplotlib
+---
+Metadata-Version: 2.0
+Name: matplotlib
+Version: 1.4.3
+Summary: Python plotting package
+Home-page: http://matplotlib.org
+Author: John D. Hunter, Michael Droettboom
+Author-email: mdroe@stsci.edu
+License: BSD
+Location: d:\python35\lib\site-packages
+Requires: python-dateutil, pytz, numpy, six, pyparsing
+</pre></div>
+</div>
+<p>コマンドライン引数にパッケージ名を複数指定すると、情報を上記の書式で連続して出力する。</p>
+</div>
+<div class="section" id="id14">
+<h3><a class="toc-backref" href="#id32">ファイルからパッケージリストを読み込んで各種操作する</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">freeze</span></code> の出力をテキストファイルに出力しておき、次のようにすることができる。今の環境の <code class="docutils literal notranslate"><span class="pre">site-packages</span></code> を別の環境で再現するとき等に利用できるというわけだ。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip freeze &gt; FILE
+...
+$ pip install -r=FILE
+$ pip install --upgrade -r=FILE
+</pre></div>
+</div>
+</div>
+<div class="section" id="id15">
+<h3><a class="toc-backref" href="#id33">パッケージの検索</a><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>例えば Amazon 関係のパッケージがあるのか知りたいとする。しかも <a class="reference external" href="http://pypi.python.org/pypi">PyPI</a> で検索するよりも、コンソールで見たいような状況であれば、
+<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">search</span></code> の出番だ。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip search amazon
+AWSpider                  - Amazon Web Services web crawler
+boto                      - Amazon Web Services Library
+bellatrix                 - Bellatrix is a comprehensive set of tools to
+                            automate the management of Amazon EC2 services.
+以下略
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id16">
+<h2><a class="toc-backref" href="#id34">まれに使うことになるかもしれない使用例</a><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id17">
+<h3><a class="toc-backref" href="#id35">ミラーサイトを指定してインストール</a><a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="http://pypi.python.org/pypi">PyPI</a> のウェブサイトがダウンしているときには <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> 系操作は失敗する。サーバーが復旧するまで待てない場合、ミラーサイトを指定してインストールを試みることができる。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install --use-mirrors --mirrors=http://d.pypi.python.org/ sphinx
 </pre></div>
 </div>
 <p>ミラーサイトのリストは次の通り。</p>
@@ -236,9 +288,7 @@ Python 3.4 以前は pip もまたサードパーティー製パッケージの�
 <li><a class="reference external" href="http://e.pypi.python.org/">http://e.pypi.python.org/</a></li>
 <li><a class="reference external" href="http://f.pypi.python.org/">http://f.pypi.python.org/</a></li>
 </ul>
-<p><a class="reference external" href="http://www.python.org/">Python</a> のどこかのページに書いてあるが、
-ご本尊ごとサーバーがダウンしていたら読めないので、ここに転載する。
-本当はこれらを設定ファイルに書いておくのが作法。</p>
+<p><a class="reference external" href="http://www.python.org/">Python</a> のどこかのページに書いてあるが、ご本尊ごとサーバーがダウンしていたら読めないので、ここに転載する。本当はこれらを設定ファイルに書いておくのが作法。</p>
 </div>
 </div>
 </div>
@@ -248,28 +298,25 @@ Python 3.4 以前は pip もまたサードパーティー製パッケージの�
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
-        <li><a href="index.html">読書ノート v1.4.0dev</a> &raquo;</li> 
+        <li class="right" style="margin-right: 10px">
+          <a href="python-pylint.html" title="Pylint 利用ノート"
+             >next</a></li>
+        <li class="right" >
+          <a href="python-3.6.html" title="What’s New In Python 3.6 ノート"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
       </ul>
     </div>
     <div id="footer">
       <div id="footer_logo">
         <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png" width="88" height="31" /></a>
       </div>
-      <div id="footer_share">
-        <a href="https://twitter.com/share" class="twitter-share-button" data-size="large">Tweet</a>
-        <script type="text/javascript">render_twitter_button(document, 'script', 'twitter-wjs')</script>
-      </div>
       <div id="footer_copyright">
         Since 1999<br />
-        Copyright &copy; 1999-2014, プレハブ小屋 All rights reserved.
-      </div>
-      <div id="footer_spacer">
-        <p>
-          Last updated at 2014/11/29 (Sat) 02:35:26.
-        </p>
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
       </div>
     </div>
   </body>

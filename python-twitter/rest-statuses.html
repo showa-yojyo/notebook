@@ -1,0 +1,678 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>タイムラインおよびツイート関連 &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="トレンド関連" href="rest-trends.html" />
+    <link rel="prev" title="検索関連" href="rest-search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="rest-trends.html" title="トレンド関連"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="rest-search.html" title="検索関連"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Python Twitter Tools 利用ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id4">タイムラインおよびツイート関連</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>本節では statuses 系 API について述べる。</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id4">タイムラインおよびツイート関連</a><ul>
+<li><a class="reference internal" href="#get-statuses-mentions-timeline" id="id5">GET statuses/mentions_timeline</a></li>
+<li><a class="reference internal" href="#get-statuses-user-timeline" id="id6">GET statuses/user_timeline</a></li>
+<li><a class="reference internal" href="#get-statuses-home-timeline" id="id7">GET statuses/home_timeline</a></li>
+<li><a class="reference internal" href="#get-statuses-retweets-of-me" id="id8">GET statuses/retweets_of_me</a></li>
+<li><a class="reference internal" href="#get-statuses-retweets-id" id="id9">GET statuses/retweets/:id</a></li>
+<li><a class="reference internal" href="#get-statuses-show-id" id="id10">GET statuses/show/:id</a></li>
+<li><a class="reference internal" href="#post-statuses-destroy-id" id="id11">POST statuses/destroy/:id</a></li>
+<li><a class="reference internal" href="#post-statuses-update" id="id12">POST statuses/update</a><ul>
+<li><a class="reference internal" href="#id2" id="id13">テキストだけをツイートする</a></li>
+<li><a class="reference internal" href="#id3" id="id14">画像をツイートする</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#post-statuses-retweet-id" id="id15">POST statuses/retweet/:id</a></li>
+<li><a class="reference internal" href="#post-statuses-unretweet-id" id="id16">POST statuses/unretweet/:id</a></li>
+<li><a class="reference internal" href="#post-statuses-update-with-media" id="id17">POST statuses/update_with_media</a></li>
+<li><a class="reference internal" href="#get-statuses-oembed" id="id18">GET statuses/oembed</a></li>
+<li><a class="reference internal" href="#get-statuses-retweeters-ids" id="id19">GET statuses/retweeters/ids</a></li>
+<li><a class="reference internal" href="#get-statuses-lookup" id="id20">GET statuses/lookup</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="get-statuses-mentions-timeline">
+<h2><a class="toc-backref" href="#id5">GET statuses/mentions_timeline</a><a class="headerlink" href="#get-statuses-mentions-timeline" title="Permalink to this headline">¶</a></h2>
+<p>GET statuses/mentions_timeline はいわゆるリプを取得する機能だ。次に利用例を挙げる。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># GET statuses/mentions_timeline</span>
+<span class="c1"># See https://dev.twitter.com/rest/reference/get/statuses/mentions_timeline</span>
+
+<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
+
+<span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
+
+<span class="c1"># [1]</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">statuses</span><span class="o">.</span><span class="n">mentions_timeline</span><span class="p">(</span>
+    <span class="n">count</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+    <span class="n">trim_user</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">contributor_details</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">include_entities</span><span class="o">=</span><span class="kc">False</span><span class="p">,)</span>
+
+<span class="c1"># [2]</span>
+<span class="k">for</span> <span class="n">stat</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{created_at}</span><span class="s1">|</span><span class="si">{text}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format_map</span><span class="p">(</span><span class="n">stat</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">n&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>[1] 認証ユーザーに関する mentions を最新のものから 50 件取得する。取得データをなるべく軽量化したいので、色々とオプションを設定している。</li>
+<li>[2] ここでは mention の日時とツイート本文を新しい順に標準出力に出力している。</li>
+</ul>
+<p>実行例を示す。自分で自分に話しかけているツイートが多いので後半をカットした。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./statuses-mentions_timeline.py
+Sun Feb 22 15:52:49 +0000 2015|@showa_yojyo 今さっき復旧したもよう。
+Sun Feb 22 15:44:10 +0000 2015|@showa_yojyo やっぱり固い。この私がレベル 300 いかないというのはおかしい。
+Sat Nov 29 15:57:40 +0000 2014|すいません。右クリックメニューが出ない。 RT @showa_yojyo: 今になって Python (command line) を ConEmu タブ化できるようにした。気付くのが遅い。
+Sun Oct 12 01:01:40 +0000 2014|@showa_yojyo しゅわっ
+Fri Jun 20 15:13:53 +0000 2014|@showa_yojyo 画面が死に掛けてるのはなぁお手上げですね、とりあえず分解するときはコンセントはもちろんバッテリーもぬいたほうが無難ですね、がんばってください
+Fri Jun 20 15:06:10 +0000 2014|@showa_yojyo たまにやりますが、割りに簡単ですわ、もっともそこそこのスペックならてきとうなフリーのOSでもぶち込んでつかいたいですけどねｗ大抵手元にくるのがぼろいやつなんでｗｗｗ
+Fri Jun 20 15:02:38 +0000 2014|@showa_yojyo はじめまして、ノーパソでしたら最悪分解して萌えないゴミでもまぁもんだいないですな、もしくはだれかに押し付けるというても参考までに
+Sat May 03 14:50:48 +0000 2014|@showa_yojyo Cygwin の git はバージョンが 1.7 くらいで、0.2 も違うからダメ。
+Fri Apr 25 17:54:29 +0000 2014|@showa_yojyo またボケた。単なる 79 待ちではないか。
+...
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-statuses-user-timeline">
+<h2><a class="toc-backref" href="#id6">GET statuses/user_timeline</a><a class="headerlink" href="#get-statuses-user-timeline" title="Permalink to this headline">¶</a></h2>
+<p>GET statuses/user_timeline は指定ユーザーによるツイートを得られる機能だ。</p>
+<p>次にユーザー名を指定してタイムラインを取得し、ツイート時刻と投稿内容をコンソールに出力する例を示す。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># Demonstration GET statuses/user_timeline</span>
+<span class="c1"># See https://dev.twitter.com/rest/reference/get/statuses/user_timeline</span>
+
+<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
+
+<span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
+
+<span class="c1"># [1]</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">statuses</span><span class="o">.</span><span class="n">user_timeline</span><span class="p">(</span>
+    <span class="n">screen_name</span><span class="o">=</span><span class="s1">&#39;showa_yojyo&#39;</span><span class="p">,</span>
+    <span class="n">count</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+    <span class="n">trim_user</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">contributor_details</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">include_entities</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">include_rts</span><span class="o">=</span><span class="kc">False</span><span class="p">,)</span>
+
+<span class="c1"># [2]</span>
+<span class="k">for</span> <span class="n">stat</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{created_at}</span><span class="s1">|@</span><span class="si">{user[screen_name]}</span><span class="s1">|</span><span class="si">{text}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format_map</span><span class="p">(</span><span class="n">stat</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">n&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>[1] ユーザー名の指定には <code class="docutils literal notranslate"><span class="pre">screen_name</span></code> か <code class="docutils literal notranslate"><span class="pre">user_id</span></code> のどちらか一方を用いる。</li>
+<li>[2] 新しい順にツイートを標準出力に出力する。</li>
+</ul>
+</div>
+<div class="section" id="get-statuses-home-timeline">
+<h2><a class="toc-backref" href="#id7">GET statuses/home_timeline</a><a class="headerlink" href="#get-statuses-home-timeline" title="Permalink to this headline">¶</a></h2>
+<p>自分のタイムラインを取得する例を示す。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># GET statuses/home_timeline</span>
+<span class="c1"># See https://dev.twitter.com/rest/reference/get/statuses/home_timeline</span>
+
+<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
+
+<span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
+
+<span class="c1"># [1]</span>
+<span class="n">statuses</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">statuses</span><span class="o">.</span><span class="n">home_timeline</span><span class="p">(</span>
+    <span class="n">count</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+    <span class="n">trim_user</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">include_entities</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">exclude_replies</span><span class="o">=</span><span class="kc">False</span><span class="p">,)</span>
+
+<span class="c1"># [2]</span>
+<span class="k">for</span> <span class="n">stat</span> <span class="ow">in</span> <span class="n">statuses</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{created_at}</span><span class="s1">|</span><span class="si">{text}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format_map</span><span class="p">(</span><span class="n">stat</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">n&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>[1] 認証ユーザー、自分のタイムラインを最新のものから 50 件取得する。主に自分のツイート、フォローしているユーザーのツイート、返信各種からなるものと思われる。</li>
+<li>[2] 新しい順にツイートを標準出力に出力する。</li>
+</ul>
+<p>実行例を示す。途中は長いので省略。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./statuses-home_timeline.py
+Fri Nov 27 16:58:39 +0000 2015|体が冷えまくり。
+Fri Nov 27 16:44:39 +0000 2015|[notebook] https://t.co/PUasyXX9lC showa_yojyo -(rest-saved-searches.rst) Complete saved_searches APIs.
+Fri Nov 27 16:44:39 +0000 2015|[notebook] https://t.co/Te1fC2FqxM showa_yojyo -(rest-lists.rst) Complete lists APIs.
+Fri Nov 27 16:44:20 +0000 2015|[bin] https://t.co/lpcHyV0WJT showa_yojyo - Implement friendships-(show|update) subcommands.
+Fri Nov 27 16:12:25 +0000 2015|今日の倍満。メンチンツモドライチ。 https://t.co/z7P4RLrN8w
+Fri Nov 27 15:55:20 +0000 2015|麻雀の練習しよう。
+...
+Fri Nov 20 15:30:35 +0000 2015|ステパップ
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-statuses-retweets-of-me">
+<h2><a class="toc-backref" href="#id8">GET statuses/retweets_of_me</a><a class="headerlink" href="#get-statuses-retweets-of-me" title="Permalink to this headline">¶</a></h2>
+<p>GET statuses/retweets_of_me は他の人がリツイートした自分のツイートを新しい順に得る機能だ。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># Demonstration GET statuses/retweets_of_me</span>
+<span class="c1"># See https://dev.twitter.com/rest/reference/get/statuses/retweets_of_me</span>
+
+<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
+
+<span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">statuses</span><span class="o">.</span><span class="n">retweets_of_me</span><span class="p">(</span>
+    <span class="n">trim_user</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">include_entities</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">include_user_entities</span><span class="o">=</span><span class="kc">False</span><span class="p">,)</span>
+
+<span class="k">for</span> <span class="n">tweet</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{retweet_count}</span><span class="s1">|</span><span class="si">{text}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format_map</span><span class="p">(</span><span class="n">tweet</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">n&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-statuses-retweets-id">
+<h2><a class="toc-backref" href="#id9">GET statuses/retweets/:id</a><a class="headerlink" href="#get-statuses-retweets-id" title="Permalink to this headline">¶</a></h2>
+<p>GET statuses/retweets/:id は指定ツイートの直近 100 リツイートまでを得る機能だ。ツイートを指定するにはツイートの ID があらかじめ必要となる。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># Demonstration GET statuses/retweets/:id</span>
+<span class="c1"># See https://dev.twitter.com/rest/reference/get/statuses/retweets/%3Aid</span>
+
+<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="k">import</span> <span class="n">dump</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
+
+<span class="c1"># [1]</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">statuses</span><span class="o">.</span><span class="n">retweets</span><span class="o">.</span><span class="n">_id</span><span class="p">(</span>
+    <span class="n">_id</span><span class="o">=</span><span class="mi">653256646810955776</span><span class="p">,</span>
+    <span class="n">trim_user</span><span class="o">=</span><span class="kc">True</span><span class="p">,)</span>
+
+<span class="n">dump</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>[1] パラメーター名が <code class="docutils literal notranslate"><span class="pre">id</span></code> のときは <code class="docutils literal notranslate"><span class="pre">_id</span></code> に書き換えるのが PTT ルール。</li>
+</ul>
+<p>誰もリツイートしていないツイートを調べると次のようになる。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./statuses-retweets-id.py
+[]
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-statuses-show-id">
+<h2><a class="toc-backref" href="#id10">GET statuses/show/:id</a><a class="headerlink" href="#get-statuses-show-id" title="Permalink to this headline">¶</a></h2>
+<p>GET statuses/show/:id は指定ツイートの詳細を得る機能だ。このように利用する。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># Demonstration GET statuses/show/:id</span>
+<span class="c1"># See https://dev.twitter.com/rest/reference/get/statuses/show/%3Aid</span>
+
+<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="k">import</span> <span class="n">pprint</span>
+
+<span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">statuses</span><span class="o">.</span><span class="n">show</span><span class="p">(</span>
+    <span class="n">_id</span><span class="o">=</span><span class="mi">653256646810955776</span><span class="p">,</span>
+    <span class="n">trim_user</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">include_my_reteet</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">include_entities</span><span class="o">=</span><span class="kc">False</span><span class="p">,)</span>
+
+<span class="n">pprint</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>[1] いつものようにパラメーター名が <code class="docutils literal notranslate"><span class="pre">id</span></code> のときは <code class="docutils literal notranslate"><span class="pre">_id</span></code> に書き換えるのが無難。</li>
+</ul>
+<p>実行結果を次に示す。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./statuses-show-id.py
+{&#39;contributors&#39;: None,
+ &#39;coordinates&#39;: None,
+ &#39;created_at&#39;: &#39;Sun Oct 11 17:11:36 +0000 2015&#39;,
+ &#39;favorite_count&#39;: 0,
+ &#39;favorited&#39;: False,
+ &#39;geo&#39;: None,
+ &#39;id&#39;: 653256646810955776,
+ &#39;id_str&#39;: &#39;653256646810955776&#39;,
+ &#39;in_reply_to_screen_name&#39;: None,
+ &#39;in_reply_to_status_id&#39;: None,
+ &#39;in_reply_to_status_id_str&#39;: None,
+ &#39;in_reply_to_user_id&#39;: None,
+ &#39;in_reply_to_user_id_str&#39;: None,
+ &#39;is_quote_status&#39;: False,
+ &#39;lang&#39;: &#39;ja&#39;,
+ &#39;place&#39;: None,
+ &#39;retweet_count&#39;: 0,
+ &#39;retweeted&#39;: False,
+ &#39;source&#39;: &#39;&lt;a href=&quot;https://github.com/showa_yojyo/iustus-iudex/&quot; &#39;
+           &#39;rel=&quot;nofollow&quot;&gt;Iustus Iudex&lt;/a&gt;&#39;,
+ &#39;text&#39;: &#39;ああ眠い。&#39;,
+ &#39;truncated&#39;: False,
+ &#39;user&#39;: {&#39;id&#39;: 461058152, &#39;id_str&#39;: &#39;461058152&#39;}}
+</pre></div>
+</div>
+</div>
+<div class="section" id="post-statuses-destroy-id">
+<h2><a class="toc-backref" href="#id11">POST statuses/destroy/:id</a><a class="headerlink" href="#post-statuses-destroy-id" title="Permalink to this headline">¶</a></h2>
+<p>POST statuses/destroy/:id は自分のツイートに限るが、指定ツイートを削除する機能だ。一度に一ツイートだけを削除するに過ぎないので、使い勝手は悪いと思われる。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># Demonstration POST statuses/destroy/:id</span>
+<span class="c1"># See https://dev.twitter.com/rest/reference/post/statuses/destroy/%3Aid</span>
+
+<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="k">import</span> <span class="n">dump</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
+
+<span class="c1"># [1]</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">statuses</span><span class="o">.</span><span class="n">destroy</span><span class="o">.</span><span class="n">_id</span><span class="p">(</span>
+    <span class="n">_id</span><span class="o">=</span><span class="mi">679306282629619712</span><span class="p">,</span>
+    <span class="n">trim_user</span><span class="o">=</span><span class="kc">True</span><span class="p">,)</span>
+
+<span class="n">dump</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>[1] いつものようにパラメーター名が <code class="docutils literal notranslate"><span class="pre">id</span></code> のときは <code class="docutils literal notranslate"><span class="pre">_id</span></code> に書き換えるのが無難。</li>
+</ul>
+<p>実行結果を次に示す。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./statuses-destroy-id.py
+{
+    &quot;contributors&quot;: null,
+    &quot;coordinates&quot;: null,
+    &quot;created_at&quot;: &quot;Tue Dec 22 14:23:33 +0000 2015&quot;,
+    &quot;entities&quot;: {
+        &quot;hashtags&quot;: [],
+        &quot;symbols&quot;: [],
+        &quot;urls&quot;: [],
+        &quot;user_mentions&quot;: []
+    },
+    &quot;favorite_count&quot;: 0,
+    &quot;favorited&quot;: false,
+    &quot;geo&quot;: null,
+    &quot;id&quot;: 679306282629619712,
+    &quot;id_str&quot;: &quot;679306282629619712&quot;,
+    &quot;in_reply_to_screen_name&quot;: null,
+    &quot;in_reply_to_status_id&quot;: null,
+    &quot;in_reply_to_status_id_str&quot;: null,
+    &quot;in_reply_to_user_id&quot;: null,
+    &quot;in_reply_to_user_id_str&quot;: null,
+    &quot;is_quote_status&quot;: false,
+    &quot;lang&quot;: &quot;en&quot;,
+    &quot;place&quot;: null,
+    &quot;retweet_count&quot;: 0,
+    &quot;retweeted&quot;: false,
+    &quot;source&quot;: &quot;&lt;a href=\&quot;http://www.geocities.jp/showa_yojyo/\&quot; rel=\&quot;nofollow\&quot;&gt;ホーリー・エンタープライズ&lt;/a&gt;&quot;,
+    &quot;text&quot;: &quot;Test&quot;,
+    &quot;truncated&quot;: false,
+    &quot;user&quot;: {
+        &quot;id&quot;: 461058152,
+        &quot;id_str&quot;: &quot;461058152&quot;
+    }
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="post-statuses-update">
+<h2><a class="toc-backref" href="#id12">POST statuses/update</a><a class="headerlink" href="#post-statuses-update" title="Permalink to this headline">¶</a></h2>
+<p>POST statuses/update はツイートを投稿する機能だ。</p>
+<div class="section" id="id2">
+<h3><a class="toc-backref" href="#id13">テキストだけをツイートする</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># Demonstration POST statuses/update</span>
+<span class="c1"># See https://dev.twitter.com/rest/reference/post/statuses/update</span>
+
+<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
+
+<span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
+
+<span class="c1"># [1]</span>
+<span class="n">mytext</span> <span class="o">=</span> <span class="s1">&#39;PTT を利用したツイートのデモ。明示的 URL エンコード処理なし&#39;</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">mytext</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">140</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;mytext exceeds 140 characters.&#39;</span><span class="p">)</span>
+
+<span class="c1"># [2]</span>
+<span class="n">tw</span><span class="o">.</span><span class="n">statuses</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="n">mytext</span><span class="p">)</span>
+
+</pre></div>
+</div>
+<ul class="simple">
+<li>[1] ツイート内容を文字列として定義してみる。</li>
+<li>[2] 関数 <code class="docutils literal notranslate"><span class="pre">statuses.update</span></code> をキーワード引数 <code class="docutils literal notranslate"><span class="pre">status</span></code> を指示して呼び出す。</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h3><a class="toc-backref" href="#id14">画像をツイートする</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>画像ファイルのアップロード方法については <a class="reference internal" href="rest-media.html"><span class="doc">画像等のアップロード関連</span></a> を参照。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># Demonstration POST statuses/update</span>
+<span class="c1"># See https://dev.twitter.com/rest/reference/post/statuses/update</span>
+
+<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
+
+<span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
+
+<span class="c1"># [1]</span>
+<span class="n">tweet</span> <span class="o">=</span> <span class="s1">&#39;Demonstrate POST statuses/upadte with media_ids.&#39;</span>
+<span class="n">mid</span> <span class="o">=</span> <span class="mi">675725940782071809</span>
+<span class="n">tw</span><span class="o">.</span><span class="n">statuses</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="n">tweet</span><span class="p">,</span> <span class="n">media_ids</span><span class="o">=</span><span class="n">mid</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul>
+<li><p class="first">[3] あらかじめ POST media/upload で得られた ID を用いて、関数 <code class="docutils literal notranslate"><span class="pre">statuses.update</span></code> をキーワード引数 <code class="docutils literal notranslate"><span class="pre">media_ids</span></code> に指示して呼び出す。</p>
+<p>なお、複数の画像を同一ツイートに含めるには <code class="docutils literal notranslate"><span class="pre">media_ids</span></code> に ID を <code class="docutils literal notranslate"><span class="pre">,</span></code> で連結した文字列を与える。</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="post-statuses-retweet-id">
+<h2><a class="toc-backref" href="#id15">POST statuses/retweet/:id</a><a class="headerlink" href="#post-statuses-retweet-id" title="Permalink to this headline">¶</a></h2>
+<p>POST statuses/retweet/:id は指定ツイートを自分のアカウントからリツイートする機能だ。ツイートを指定するにはツイートの ID があらかじめ必要となる。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># Demonstration POST statuses/retweet/:id</span>
+<span class="c1"># See https://dev.twitter.com/rest/reference/post/statuses/retweet/%3Aid</span>
+
+<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="k">import</span> <span class="n">dump</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
+
+<span class="c1"># [1]</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">statuses</span><span class="o">.</span><span class="n">retweet</span><span class="o">.</span><span class="n">_id</span><span class="p">(</span>
+    <span class="n">_id</span><span class="o">=</span><span class="mi">678987432331632643</span><span class="p">,</span>
+    <span class="n">trim_user</span><span class="o">=</span><span class="kc">True</span><span class="p">,)</span>
+
+<span class="n">dump</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>実行結果を次に示す。なぜか失敗した。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./statuses-retweet-id.py
+Traceback (most recent call last):
+  File &quot;D:\Python35\lib\site-packages\twitter\api.py&quot;, line 319, in _handle_response
+    handle = urllib_request.urlopen(req, **kwargs)
+  File &quot;D:\Python35\lib\urllib\request.py&quot;, line 162, in urlopen
+    return opener.open(url, data, timeout)
+  File &quot;D:\Python35\lib\urllib\request.py&quot;, line 471, in open
+    response = meth(req, response)
+  File &quot;D:\Python35\lib\urllib\request.py&quot;, line 581, in http_response
+    &#39;http&#39;, request, response, code, msg, hdrs)
+  File &quot;D:\Python35\lib\urllib\request.py&quot;, line 509, in error
+    return self._call_chain(*args)
+  File &quot;D:\Python35\lib\urllib\request.py&quot;, line 443, in _call_chain
+    result = func(*args)
+  File &quot;D:\Python35\lib\urllib\request.py&quot;, line 589, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 403: Forbidden
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File &quot;./statuses-retweet-id.py&quot;, line 16, in &lt;module&gt;
+    trim_user=True,)
+  File &quot;D:\Python35\lib\site-packages\twitter\api.py&quot;, line 312, in __call__
+    return self._handle_response(req, uri, arg_data, _timeout)
+  File &quot;D:\Python35\lib\site-packages\twitter\api.py&quot;, line 345, in _handle_response
+    raise TwitterHTTPError(e, uri, self.format, arg_data)
+twitter.api.TwitterHTTPError: Twitter sent status 403 for URL: 1.1/statuses/retweet/678987432331632643.json using parameters: (oauth_consumer_key=...)
+details: {&#39;errors&#39;: [{&#39;message&#39;: &#39;Retweet is not permissible for this status.&#39;,&#39;code&#39;: 328}]}
+</pre></div>
+</div>
+</div>
+<div class="section" id="post-statuses-unretweet-id">
+<h2><a class="toc-backref" href="#id16">POST statuses/unretweet/:id</a><a class="headerlink" href="#post-statuses-unretweet-id" title="Permalink to this headline">¶</a></h2>
+<p>POST statuses/unretweet/:id は指定の retweet を解除するような機能だ。先程と同様に ID で retweet を指定する。ちょっとした注意をしておくと、仕様には
+&lt;When passing a source status ID instead of the retweet status ID
+a HTTP 200 response will be returned with the same Tweet object but no action&gt;
+とあるので、元ツイートのそれを誤って指定しないようにする。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># Demonstration POST statuses/unretweet/:id</span>
+<span class="c1"># See https://dev.twitter.com/rest/reference/post/statuses/unretweet/%3Aid</span>
+
+<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="k">import</span> <span class="n">dump</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
+
+<span class="c1"># [1]</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">statuses</span><span class="o">.</span><span class="n">unretweet</span><span class="o">.</span><span class="n">_id</span><span class="p">(</span>
+    <span class="n">_id</span><span class="o">=</span><span class="mi">708317138675630082</span><span class="p">,</span>
+    <span class="n">trim_user</span><span class="o">=</span><span class="kc">True</span><span class="p">,)</span>
+
+<span class="n">dump</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>[1] 自分側の ID をキーワード引数 <code class="docutils literal notranslate"><span class="pre">_id</span></code> に指定する。</li>
+</ul>
+<p>実行結果を次に示す。某ボットアカウントの ID が 708316560780185601 のツイートを私がリツイートして、新たに ID が 708317138675630082 のツイートが生成されている。ここでは後者の ID を指定する。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./statuses-unretweet-id.py
+{
+    &quot;contributors&quot;: null,
+    &quot;coordinates&quot;: null,
+    &quot;created_at&quot;: &quot;Fri Mar 11 15:42:20 +0000 2016&quot;,
+    &quot;entities&quot;: {
+        &quot;hashtags&quot;: [],
+        &quot;symbols&quot;: [],
+        &quot;urls&quot;: [
+            {
+                &quot;display_url&quot;: &quot;twitter.com/eiken_1/status…&quot;,
+                &quot;expanded_url&quot;: &quot;https://twitter.com/eiken_1/status/708316560780185601&quot;,
+                &quot;indices&quot;: [
+                    30,
+                    53
+                ],
+                &quot;url&quot;: &quot;https://t.co/xOBVFOcEyA&quot;
+            }
+        ],
+        &quot;user_mentions&quot;: []
+    },
+    &quot;favorite_count&quot;: 0,
+    &quot;favorited&quot;: false,
+    &quot;geo&quot;: null,
+    &quot;id&quot;: 708317138675630082,
+    &quot;id_str&quot;: &quot;708317138675630082&quot;,
+    &quot;in_reply_to_screen_name&quot;: null,
+    &quot;in_reply_to_status_id&quot;: null,
+    &quot;in_reply_to_status_id_str&quot;: null,
+    &quot;in_reply_to_user_id&quot;: null,
+    &quot;in_reply_to_user_id_str&quot;: null,
+    &quot;is_quote_status&quot;: true,
+    &quot;lang&quot;: &quot;ja&quot;,
+    &quot;place&quot;: null,
+    &quot;possibly_sensitive&quot;: false,
+    &quot;quoted_status&quot;: {
+        &quot;contributors&quot;: null,
+        &quot;coordinates&quot;: null,
+        &quot;created_at&quot;: &quot;Fri Mar 11 15:40:02 +0000 2016&quot;,
+        &quot;entities&quot;: {
+            &quot;hashtags&quot;: [],
+            &quot;symbols&quot;: [],
+            &quot;urls&quot;: [
+                {
+                    &quot;display_url&quot;: &quot;eiken-01.blogspot.jp/search/label/%…&quot;,
+                    &quot;expanded_url&quot;: &quot;http://eiken-01.blogspot.jp/search/label/%E8%8B%B1%E6%A4%9C1%E7%B4%9A%E8%8B%B1%E5%8D%98%E8%AA%9E%20C?&amp;max-results=1&quot;,
+                    &quot;indices&quot;: [
+                        88,
+                        111
+                    ],
+                    &quot;url&quot;: &quot;https://t.co/oC6grVE4di&quot;
+                }
+            ],
+            &quot;user_mentions&quot;: []
+        },
+        &quot;favorite_count&quot;: 4,
+        &quot;favorited&quot;: false,
+        &quot;geo&quot;: null,
+        &quot;id&quot;: 708316560780185601,
+        &quot;id_str&quot;: &quot;708316560780185601&quot;,
+        &quot;in_reply_to_screen_name&quot;: null,
+        &quot;in_reply_to_status_id&quot;: null,
+        &quot;in_reply_to_status_id_str&quot;: null,
+        &quot;in_reply_to_user_id&quot;: null,
+        &quot;in_reply_to_user_id_str&quot;: null,
+        &quot;is_quote_status&quot;: false,
+        &quot;lang&quot;: &quot;ja&quot;,
+        &quot;place&quot;: null,
+        &quot;possibly_sensitive&quot;: false,
+        &quot;retweet_count&quot;: 0,
+        &quot;retweeted&quot;: false,
+        &quot;source&quot;: &quot;&lt;a href=\&quot;http://eiken-001.seesaa.net/\&quot; rel=\&quot;nofollow\&quot;&gt;英単語リスト＠英検１級英単語&lt;/a&gt;&quot;,
+        &quot;text&quot;: &quot;counterclockwise /kàuntəklɑ&#39;kwaiz/　〔形〕〔副〕（米）反時計回り［左回り］の［に］（⇔clockwise，英ではanticlockwise） https://t.co/oC6grVE4di&quot;,
+        &quot;truncated&quot;: false,
+        &quot;user&quot;: {
+            &quot;id&quot;: 125180877,
+            &quot;id_str&quot;: &quot;125180877&quot;
+        }
+    },
+    &quot;quoted_status_id&quot;: 708316560780185601,
+    &quot;quoted_status_id_str&quot;: &quot;708316560780185601&quot;,
+    &quot;retweet_count&quot;: 0,
+    &quot;retweeted&quot;: false,
+    &quot;source&quot;: &quot;&lt;a href=\&quot;http://twitter.com\&quot; rel=\&quot;nofollow\&quot;&gt;Twitter Web Client&lt;/a&gt;&quot;,
+    &quot;text&quot;: &quot;リツイートテスト。あとでリツイートを取り消すテストをする。 https://t.co/xOBVFOcEyA&quot;,
+    &quot;truncated&quot;: false,
+    &quot;user&quot;: {
+        &quot;id&quot;: 461058152,
+        &quot;id_str&quot;: &quot;461058152&quot;
+    }
+}
+</pre></div>
+</div>
+<p>ブラウザーで当該 retweet と元 tweet を見ると、どのように処理されているのかが理解できるだろう。以下にリンクを示す。</p>
+<ul class="simple">
+<li><a class="reference external" href="https://twitter.com/showa_yojyo/status/708317138675630082">https://twitter.com/showa_yojyo/status/708317138675630082</a></li>
+<li><a class="reference external" href="https://twitter.com/eiken_1/status/708316560780185601">https://twitter.com/eiken_1/status/708316560780185601</a></li>
+</ul>
+</div>
+<div class="section" id="post-statuses-update-with-media">
+<h2><a class="toc-backref" href="#id17">POST statuses/update_with_media</a><a class="headerlink" href="#post-statuses-update-with-media" title="Permalink to this headline">¶</a></h2>
+<p>ドキュメントによると
+&lt;This endpoint has been DEPRECATED.
+Please use POST statuses/update for uploading one or more media entities&gt;
+とのことなので、これは忘れ去ってしまったようがよい。</p>
+</div>
+<div class="section" id="get-statuses-oembed">
+<h2><a class="toc-backref" href="#id18">GET statuses/oembed</a><a class="headerlink" href="#get-statuses-oembed" title="Permalink to this headline">¶</a></h2>
+<p>GET statuses/oembed は特定のツイートを oEmbed 互換な書式で得る機能だ。これは HTML 文書の中に埋め込むコード片としてツイートを表現するためのものだろう。</p>
+<p>最低限のパラメーターでリクエストを送信しよう。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># Demonstration GET statuses/oembed</span>
+<span class="c1"># See https://dev.twitter.com/rest/reference/get/statuses/oembed</span>
+
+<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="k">import</span> <span class="n">pprint</span>
+
+<span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">statuses</span><span class="o">.</span><span class="n">oembed</span><span class="p">(</span>
+    <span class="n">url</span><span class="o">=</span><span class="s1">&#39;https://twitter.com/showa_yojyo/status/674636677982257152&#39;</span><span class="p">,)</span>
+
+<span class="n">pprint</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>キーワード引数 <code class="docutils literal notranslate"><span class="pre">url</span></code> で対象ツイートの URL を指定した。
+Twitter のドキュメントによると URL を指定する代わりに <code class="docutils literal notranslate"><span class="pre">id</span></code> としてツイート ID を指定することもできるとある。しかし、私が試したところではエラー 34 すなわち Sorry, that page does not exist メッセージが返ってきた。
+PTT のドキュメントによると Python 側のキーワード引数名を <code class="docutils literal notranslate"><span class="pre">_id</span></code> にする必要があるとのことだ。</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">response</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">statuses</span><span class="o">.</span><span class="n">oembed</span><span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="mi">674636677982257152</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>そういうわけで実行例を示す。
+JSON データの <code class="docutils literal notranslate"><span class="pre">html</span></code> の値が確かに HTML コード片になっている。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./statuses-oembed.py
+{&#39;author_name&#39;: &#39;プレハブ小屋&#39;,
+ &#39;author_url&#39;: &#39;https://twitter.com/showa_yojyo&#39;,
+ &#39;cache_age&#39;: &#39;3153600000&#39;,
+ &#39;height&#39;: None,
+ &#39;html&#39;: &#39;&lt;blockquote class=&quot;twitter-tweet&quot;&gt;&lt;p lang=&quot;ja&quot; &#39;
+         &#39;dir=&quot;ltr&quot;&gt;ボワ～&lt;/p&gt;&amp;mdash; プレハブ小屋 (@showa_yojyo) &lt;a &#39;
+         &#39;href=&quot;https://twitter.com/showa_yojyo/status/674636677982257152&quot;&gt;December &#39;
+         &#39;9, 2015&lt;/a&gt;&lt;/blockquote&gt;\n&#39;
+         &#39;&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; &#39;
+         &#39;charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&#39;,
+ &#39;provider_name&#39;: &#39;Twitter&#39;,
+ &#39;provider_url&#39;: &#39;https://twitter.com&#39;,
+ &#39;type&#39;: &#39;rich&#39;,
+ &#39;url&#39;: &#39;https://twitter.com/showa_yojyo/statuses/674636677982257152&#39;,
+ &#39;version&#39;: &#39;1.0&#39;,
+ &#39;width&#39;: 550}
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-statuses-retweeters-ids">
+<h2><a class="toc-backref" href="#id19">GET statuses/retweeters/ids</a><a class="headerlink" href="#get-statuses-retweeters-ids" title="Permalink to this headline">¶</a></h2>
+<p>GET statuses/retweeters/ids は指定ツイートの直近 100 リツイートまでに限定して、リツイートしたユーザーの ID を得る機能だ。サンプルコード省略。</p>
+</div>
+<div class="section" id="get-statuses-lookup">
+<h2><a class="toc-backref" href="#id20">GET statuses/lookup</a><a class="headerlink" href="#get-statuses-lookup" title="Permalink to this headline">¶</a></h2>
+<p>GET statuses/lookup はツイートの詳細を得る機能で、一度に 100 件まで処理できる。使いどころが難しい？</p>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="rest-trends.html" title="トレンド関連"
+             >next</a></li>
+        <li class="right" >
+          <a href="rest-search.html" title="検索関連"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Python Twitter Tools 利用ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

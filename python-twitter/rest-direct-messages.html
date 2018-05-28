@@ -1,0 +1,313 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>ダイレクトメッセージ関連 &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="お気に入り関連" href="rest-favorites.html" />
+    <link rel="prev" title="ブロック関連" href="rest-blocks.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="rest-favorites.html" title="お気に入り関連"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="rest-blocks.html" title="ブロック関連"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Python Twitter Tools 利用ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id2">ダイレクトメッセージ関連</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>ダイレクトメッセージを操作する各機能について記す。これもまた個人的にまったく活用しない機能の一つだ。</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id2">ダイレクトメッセージ関連</a><ul>
+<li><a class="reference internal" href="#post-direct-messages-new" id="id3">POST direct_messages/new</a></li>
+<li><a class="reference internal" href="#get-direct-messages-show" id="id4">GET direct_messages/show</a></li>
+<li><a class="reference internal" href="#get-direct-messages" id="id5">GET direct_messages</a></li>
+<li><a class="reference internal" href="#get-direct-messages-sent" id="id6">GET direct_messages/sent</a></li>
+<li><a class="reference internal" href="#post-direct-messages-destroy" id="id7">POST direct_messages/destroy</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="post-direct-messages-new">
+<h2><a class="toc-backref" href="#id3">POST direct_messages/new</a><a class="headerlink" href="#post-direct-messages-new" title="Permalink to this headline">¶</a></h2>
+<p>POST direct_messages/new はダイレクトメッセージを作成・送信する機能だ。パラメーターは送信先のユーザーとテキストしかない。</p>
+<p>次に利用例を示す。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># Demonstration POST direct_messages/new</span>
+<span class="c1"># See https://dev.twitter.com/rest/reference/post/direct_messages/new</span>
+
+<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="k">import</span> <span class="n">dump</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
+
+<span class="c1"># [1]</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">direct_messages</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+    <span class="n">screen_name</span><span class="o">=</span><span class="s1">&#39;showa_yojyo&#39;</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s1">&#39;いい感じでモジャってますね。&#39;</span><span class="p">)</span>
+
+<span class="c1"># [2]</span>
+<span class="n">dump</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>[1] 自分宛てにダイレクトメッセージを送信する。</li>
+<li>[2] 実行結果を出力する。</li>
+</ul>
+<p>次に実行例を示す。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./direct_messages-new.py
+{
+    &quot;created_at&quot;: &quot;Fri Dec 18 13:41:06 +0000 2015&quot;,
+    &quot;entities&quot;: {
+        &quot;hashtags&quot;: [],
+        &quot;symbols&quot;: [],
+        &quot;urls&quot;: [],
+        &quot;user_mentions&quot;: []
+    },
+    &quot;id&quot;: 677846047566114819,
+    &quot;id_str&quot;: &quot;677846047566114819&quot;,
+    &quot;recipient&quot;: {
+        &quot;contributors_enabled&quot;: false,
+        &quot;created_at&quot;: &quot;Wed Jan 11 12:01:03 +0000 2012&quot;,
+        &quot;default_profile&quot;: false,
+        &quot;default_profile_image&quot;: false,
+        &quot;description&quot;: &quot;実は電子の世界の人で現実には存在しない。&quot;,
+        &quot;entities&quot;: {
+            &quot;description&quot;: {
+                &quot;urls&quot;: []
+            },
+            &quot;url&quot;: {
+                &quot;urls&quot;: [
+                    {
+                        &quot;display_url&quot;: &quot;github.com/showa-yojyo&quot;,
+                        &quot;expanded_url&quot;: &quot;https://github.com/showa-yojyo&quot;,
+                        &quot;indices&quot;: [
+                            0,
+                            23
+                        ],
+                        &quot;url&quot;: &quot;https://t.co/YxrYqoZQ1r&quot;
+                    }
+                ]
+            }
+        },
+        &quot;favourites_count&quot;: 701,
+        &quot;follow_request_sent&quot;: false,
+        &quot;followers_count&quot;: 24,
+        &quot;following&quot;: false,
+        &quot;friends_count&quot;: 0,
+        &quot;geo_enabled&quot;: false,
+        &quot;has_extended_profile&quot;: false,
+        &quot;id&quot;: 461058152,
+        &quot;id_str&quot;: &quot;461058152&quot;,
+        &quot;is_translation_enabled&quot;: true,
+        &quot;is_translator&quot;: false,
+        &quot;lang&quot;: &quot;ja&quot;,
+        &quot;listed_count&quot;: 2,
+        &quot;location&quot;: &quot;東京都区内&quot;,
+        &quot;name&quot;: &quot;プレハブ小屋&quot;,
+        &quot;notifications&quot;: false,
+        &quot;profile_background_color&quot;: &quot;FFFFFF&quot;,
+        &quot;profile_background_image_url&quot;: &quot;http://pbs.twimg.com/profile_background_images/678214720462020608/70eusxt6.png&quot;,
+        &quot;profile_background_image_url_https&quot;: &quot;https://pbs.twimg.com/profile_background_images/678214720462020608/70eusxt6.png&quot;,
+        &quot;profile_background_tile&quot;: true,
+        &quot;profile_banner_url&quot;: &quot;https://pbs.twimg.com/profile_banners/461058152/1450531542&quot;,
+        &quot;profile_image_url&quot;: &quot;http://pbs.twimg.com/profile_images/678206878820642816/7o08Gvb9_normal.png&quot;,
+        &quot;profile_image_url_https&quot;: &quot;https://pbs.twimg.com/profile_images/678206878820642816/7o08Gvb9_normal.png&quot;,
+        &quot;profile_link_color&quot;: &quot;FF1493&quot;,
+        &quot;profile_sidebar_border_color&quot;: &quot;FFFFFF&quot;,
+        &quot;profile_sidebar_fill_color&quot;: &quot;DDEEF6&quot;,
+        &quot;profile_text_color&quot;: &quot;333333&quot;,
+        &quot;profile_use_background_image&quot;: true,
+        &quot;protected&quot;: false,
+        &quot;screen_name&quot;: &quot;showa_yojyo&quot;,
+        &quot;statuses_count&quot;: 7407,
+        &quot;time_zone&quot;: &quot;Tokyo&quot;,
+        &quot;url&quot;: &quot;https://t.co/YxrYqoZQ1r&quot;,
+        &quot;utc_offset&quot;: 32400,
+        &quot;verified&quot;: false
+    },
+    &quot;recipient_id&quot;: 461058152,
+    &quot;recipient_id_str&quot;: &quot;461058152&quot;,
+    &quot;recipient_screen_name&quot;: &quot;showa_yojyo&quot;,
+    &quot;sender&quot;: {
+        ...
+    },
+    &quot;sender_id&quot;: 461058152,
+    &quot;sender_id_str&quot;: &quot;461058152&quot;,
+    &quot;sender_screen_name&quot;: &quot;showa_yojyo&quot;,
+    &quot;text&quot;: &quot;いい感じでモジャってますね。&quot;
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-direct-messages-show">
+<h2><a class="toc-backref" href="#id4">GET direct_messages/show</a><a class="headerlink" href="#get-direct-messages-show" title="Permalink to this headline">¶</a></h2>
+<p>GET direct_messages/show は既存のダイレクトメッセージの情報を取得する機能だ。先述のように ID を指定してメッセージを取り扱う。</p>
+<p>次に利用例を示す。先ほどのメッセージの情報を得る。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># Demonstration GET direct_messages/show</span>
+<span class="c1"># See https://dev.twitter.com/rest/reference/get/direct_messages/show</span>
+
+<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="k">import</span> <span class="n">dump</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
+
+<span class="c1"># [1]</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">direct_messages</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="mi">677846047566114819</span><span class="p">)</span>
+
+<span class="c1"># [2]</span>
+<span class="n">dump</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>[1] PTT ルールにより、公式のパラメーター名が <code class="docutils literal notranslate"><span class="pre">id</span></code> の場合は
+<code class="docutils literal notranslate"><span class="pre">_id</span></code> と書き換えて指定する必要がある。</li>
+<li>[2] 実行結果を出力する。</li>
+</ul>
+<p>実行結果例は上述の POST direct_messages/new の例と同様なので省略する。</p>
+</div>
+<div class="section" id="get-direct-messages">
+<h2><a class="toc-backref" href="#id5">GET direct_messages</a><a class="headerlink" href="#get-direct-messages" title="Permalink to this headline">¶</a></h2>
+<p>GET direct_messages は自分へ送られたダイレクトメッセージを取得する機能だ。基本的にはツイート取得系のインターフェイスと同じパラメーターを受け付ける。ただし、取得可能なメッセージ数の上限が 200 件と決まっている（本当なのか）。</p>
+<p>次に利用例を示す。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># Demonstration GET direct_messages</span>
+<span class="c1"># See https://dev.twitter.com/rest/reference/get/direct_messages</span>
+
+<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="k">import</span> <span class="n">dump</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
+
+<span class="c1"># [1]</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">direct_messages</span><span class="p">(</span>
+    <span class="n">include_entities</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">skip_status</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># [2]</span>
+<span class="n">dump</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>[1] 通信データ量をなるべく小さくするようなパラメーターを与えてリクエストを送信する。</li>
+<li>[2] 実行結果を出力する。</li>
+</ul>
+<p>実行結果例は上述の GET direct_messages/sent の例と同様なので省略する。</p>
+</div>
+<div class="section" id="get-direct-messages-sent">
+<h2><a class="toc-backref" href="#id6">GET direct_messages/sent</a><a class="headerlink" href="#get-direct-messages-sent" title="Permalink to this headline">¶</a></h2>
+<p>GET direct_messages/sent は自分が送ったダイレクトメッセージを取得する機能だ。最大 800 件。</p>
+<p>次に利用例を示す。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># Demonstration GET direct_messages/sent</span>
+<span class="c1"># See https://dev.twitter.com/rest/reference/get/direct_messages/sent</span>
+
+<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="k">import</span> <span class="n">dump</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
+
+<span class="c1"># [1]</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">direct_messages</span><span class="o">.</span><span class="n">sent</span><span class="p">(</span><span class="n">include_entities</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># [2]</span>
+<span class="n">dump</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>[1] これがダイレクトメッセージのヘビーユーザーならば、オプション
+<code class="docutils literal notranslate"><span class="pre">since_id</span></code>, <code class="docutils literal notranslate"><span class="pre">max_id</span></code>,  <code class="docutils literal notranslate"><span class="pre">page</span></code> 等を駆使してページング処理をする。しかし私はダイレクトメッセージ箱が空なので、これでよい。</li>
+<li>[2] 実行結果を出力する。</li>
+</ul>
+</div>
+<div class="section" id="post-direct-messages-destroy">
+<h2><a class="toc-backref" href="#id7">POST direct_messages/destroy</a><a class="headerlink" href="#post-direct-messages-destroy" title="Permalink to this headline">¶</a></h2>
+<p>POST direct_messages/destroy はダイレクトメッセージを削除する機能だ。ダイレクトメッセージオブジェクトには一意な ID が与えられているので、この ID を指定してメッセージを取り扱う。</p>
+<p>次に利用例を示す。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># Demonstration POST direct_messages/destroy</span>
+<span class="c1"># See https://dev.twitter.com/rest/reference/post/direct_messages/destroy</span>
+
+<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="k">import</span> <span class="n">dump</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
+
+<span class="c1"># [1]</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">direct_messages</span><span class="o">.</span><span class="n">destroy</span><span class="p">(</span>
+    <span class="n">_id</span><span class="o">=</span><span class="mi">677846047566114819</span><span class="p">,</span>
+    <span class="n">include_entities</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># [2]</span>
+<span class="n">dump</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>[1] PTT ルールにより、公式のパラメーター名が <code class="docutils literal notranslate"><span class="pre">id</span></code> の場合は
+<code class="docutils literal notranslate"><span class="pre">_id</span></code> と書き換えて指定する必要がある。</li>
+<li>[2] 実行結果を出力する。</li>
+</ul>
+<p>実行結果例は上述の POST direct_messages/new の例と同様なので省略する。</p>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="rest-favorites.html" title="お気に入り関連"
+             >next</a></li>
+        <li class="right" >
+          <a href="rest-blocks.html" title="ブロック関連"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Python Twitter Tools 利用ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

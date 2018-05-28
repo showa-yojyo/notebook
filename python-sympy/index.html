@@ -1,0 +1,253 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>SymPy 利用ノート &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="インストール" href="setup.html" />
+    <link rel="prev" title="空間データ構造" href="../python-scipy/spatial.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="setup.html" title="インストール"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="../python-scipy/spatial.html" title="空間データ構造"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="sympy">
+<h1>SymPy 利用ノート<a class="headerlink" href="#sympy" title="Permalink to this headline">¶</a></h1>
+<p>本章は <a class="reference external" href="http://www.python.org/">Python</a> 製 CAS の <a class="reference external" href="http://www.sympy.org/">SymPy</a> に関する個人的な覚え書きを記す。</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">インストール</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#id3">下見する</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#id4">パッケージをインストールする</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#id5">バージョンを確認する</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#id6">単体テストを実施する</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#isympy"><strong class="program">isympy</strong> を実行する</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="doc.html">ドキュメントをビルドする</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="doc.html#id3">ビルド手順</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc.html#id4">前準備</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc.html#id5">ビルド完了</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">チュートリアルを読む</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#preliminaries">Preliminaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#gotchas">Gotchas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#basic-operations">Basic Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#printing">Printing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#simplification">Simplification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#calculus">Calculus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#solvers">Solvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#matrices">Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#advanced-expression-manipulation">Advanced Expression Manipulation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html">プロットを利用する</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html#id3">所感</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html#id4">早見表</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="logic.html">論理代数</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="logic.html#id3">ブール論理クラス図</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logic.html#id5">関数</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sets.html">集合</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sets.html#id3">主要クラス図</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sets.html#set">クラス Set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sets.html#id7">サブクラス</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sets.html#id9">その他のサブクラス</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sets.html#id10">演習</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="combinatorics.html">組合せ論と群論</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="combinatorics.html#id3">巡回置換と置換</a></li>
+<li class="toctree-l2"><a class="reference internal" href="combinatorics.html#id14">群オブジェクトジェネレーター</a></li>
+<li class="toctree-l2"><a class="reference internal" href="combinatorics.html#id15">置換群</a></li>
+<li class="toctree-l2"><a class="reference internal" href="combinatorics.html#id20">直積群</a></li>
+<li class="toctree-l2"><a class="reference internal" href="combinatorics.html#id21">名前付き群</a></li>
+<li class="toctree-l2"><a class="reference internal" href="combinatorics.html#id22">正多面体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="combinatorics.html#id25">テンソルの正規化</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="vector.html">ベクトル</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="vector.html#id3">基本編</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vector.html#id7">複数座標系</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vector.html#id11">スカラー場とベクトル場</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vector.html#id18">演習</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="matrices.html">行列</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="matrices.html#id3">クラス図</a></li>
+<li class="toctree-l2"><a class="reference internal" href="matrices.html#id6">色々な行列の生成方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="matrices.html#id7">基本的な操作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="matrices.html#id8">線形代数的操作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="matrices.html#matrixbase">クラス MatrixBase</a></li>
+<li class="toctree-l2"><a class="reference internal" href="matrices.html#numpy">NumPy インターフェイス</a></li>
+<li class="toctree-l2"><a class="reference internal" href="matrices.html#id23">演習</a></li>
+<li class="toctree-l2"><a class="reference internal" href="matrices.html#id25">関連ノート</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="polynomials.html">多項式</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="polynomials.html#id3">基本</a></li>
+<li class="toctree-l2"><a class="reference internal" href="polynomials.html#id9">モジュール別</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="number-theory.html">整数論</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="number-theory.html#id3">素数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="number-theory.html#id5">素因数分解と約数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="number-theory.html#id6">合同式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="number-theory.html#id7">二項係数と多項係数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="number-theory.html#id8">剰余</a></li>
+<li class="toctree-l2"><a class="reference internal" href="number-theory.html#id9">連分数</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="diophantine.html">ディオファントス方程式</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="diophantine.html#id3">基本事項</a></li>
+<li class="toctree-l2"><a class="reference internal" href="diophantine.html#diophantine">関数 <code class="code docutils literal notranslate"><span class="pre">diophantine</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="diophantine.html#classify-diop">関数 <code class="code docutils literal notranslate"><span class="pre">classify_diop</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="geometry.html">幾何</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#id3">主要クラス図</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#id4">クラス継承関係</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#id5">共通機能</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#id8">サブクラス</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#id9">デモ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="series.html">級数</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="series.html#id3">極限</a></li>
+<li class="toctree-l2"><a class="reference internal" href="series.html#id5">べき級数展開</a></li>
+<li class="toctree-l2"><a class="reference internal" href="series.html#id7">ビッグオー記法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="series.html#id9">留数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="series.html#id11">数列</a></li>
+<li class="toctree-l2"><a class="reference internal" href="series.html#fourier">Fourier 級数</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integrals.html">積分</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integrals.html#id3">基本事項</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrals.html#id4">線積分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrals.html#id5">関数変換</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrals.html#id6">数値積分</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ode.html">常微分方程式</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ode.html#id3">基本機能</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ode.html#id4">下回りの機能</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ode.html#id5">特化型ソルバー</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ode.html#id6">連立常微分方程式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ode.html#id7">演習</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pde.html">偏微分方程式</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pde.html#id3">基本機能</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pde.html#id4">特化型ソルバー</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pde.html#id5">演習</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="diffgeom.html">微分幾何</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="diffgeom.html#id3">多様体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="diffgeom.html#id4">多様体の場および微分演算各種</a></li>
+<li class="toctree-l2"><a class="reference internal" href="diffgeom.html#id5">定義済み多様体オブジェクト</a></li>
+<li class="toctree-l2"><a class="reference internal" href="diffgeom.html#id8">コード例（基本編）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="diffgeom.html#id13">積分曲線</a></li>
+<li class="toctree-l2"><a class="reference internal" href="diffgeom.html#id14">補助関数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="diffgeom.html#id17">計量テンソル</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="printing.html">出力</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="printing.html#pretty-print">Pretty Print</a></li>
+<li class="toctree-l2"><a class="reference internal" href="printing.html#latex">LaTeX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="printing.html#id4">画像出力</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tensor.html">テンソル代数</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tensor.html#id3">演習</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stats.html">確率統計</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stats.html#id3">確率変数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats.html#id6">クラス</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats.html#id10">演習</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>本稿執筆時の動作環境は次のとおり。</p>
+<ul class="last simple">
+<li>OS<ul>
+<li>Windows 7 Home Premium x64 SP1</li>
+<li>Windows 10 Home x64</li>
+</ul>
+</li>
+<li><a class="reference external" href="http://www.python.org/">Python</a>: 3.4.1, 3.5.0, 3.5.2, 3.6.5</li>
+<li><a class="reference external" href="http://www.sympy.org/">SymPy</a>: 0.7.7dev, 1.0.1.dev0</li>
+<li><a class="reference external" href="http://ipython.org/">IPython</a>: 3.0.0, 4.0.0, 5.0.0</li>
+<li><a class="reference external" href="http://sphinx-doc.org/">Sphinx</a>: 1.3.1, 1.4.5</li>
+<li><a class="reference external" href="http://www.numpy.org/">NumPy</a>: 1.9.2, 1.10.0, 1.11.1</li>
+<li><a class="reference external" href="http://matplotlib.org/">Matplotlib</a>: 1.4.3, 1.5.1</li>
+<li>QtConsole: 4.2.1</li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h2>関連リンク<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference external" href="http://www.sympy.org/">SymPy</a></dt>
+<dd>SymPy プロジェクトウェブサイト。造りがたいへん優秀。ドキュメント、パッケージのダウンロード、各種開発用ページ、オンラインインタープリター等、考えられるあらゆるリソースが揃っている。</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="setup.html" title="インストール"
+             >next</a></li>
+        <li class="right" >
+          <a href="../python-scipy/spatial.html" title="空間データ構造"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

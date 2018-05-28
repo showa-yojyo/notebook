@@ -1,0 +1,1584 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>16 Actions &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="17 Interactions" href="interactions.html" />
+    <link rel="prev" title="15 Activities" href="activities.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="interactions.html" title="17 Interactions"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="activities.html" title="15 Activities"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Unified Modeling Language 2.5 読書ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="actions">
+<h1><a class="toc-backref" href="#id70">16 Actions</a><a class="headerlink" href="#actions" title="Permalink to this headline">¶</a></h1>
+<p>UML 2.5 pp. 439-562 に関するノート。本章は記述の分量が多いので、ノート用ファイルを分割するのがよいかもしれない。</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">誤訳や変な解釈がいかにもありそうなので、発覚次第修正する。</p>
+</div>
+<div class="admonition-todo admonition" id="index-1">
+<p class="first admonition-title">Todo</p>
+<ul class="last simple">
+<li>open end (n.) 違うと思うが「開放端」にしておく。</li>
+<li>qualifier value (n.)
+何かを限定する値の意だとは思う。
+C++ だと <code class="docutils literal notranslate"><span class="pre">const</span></code> や <code class="docutils literal notranslate"><span class="pre">volatile</span></code> を qualifier と言うのだが、ここでは忘れてよい。</li>
+<li>reduce (v.) 数学とかプログラミングとかでよくある状況での用法での訳。ここでは「縮合する」と訳しておく。</li>
+<li>successor (n.) 「後者」としておく。ペアノの公理での successor と単語の使われ方が似ているから。</li>
+<li>tool (n.) なぜだか「道具」や「器具」ではしっくりと来ない。</li>
+<li>unmarshal (v.) のスペリングに注意。仕様書では最後の l をどんな場合でも重ねるが、辞書によると不定詞では l は一個しかない。</li>
+</ul>
+</div>
+<div class="contents topic" id="id1">
+<p class="topic-title first">ノート目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#actions" id="id70">16 Actions</a><ul>
+<li><a class="reference internal" href="#summary" id="id71">16.1 Summary</a></li>
+<li><a class="reference internal" href="#id2" id="id72">16.2 Actions</a></li>
+<li><a class="reference internal" href="#invocation-actions" id="id73">16.3 Invocation Actions</a></li>
+<li><a class="reference internal" href="#object-actions" id="id74">16.4 Object Actions</a></li>
+<li><a class="reference internal" href="#link-end-data" id="id75">16.5 Link End Data</a></li>
+<li><a class="reference internal" href="#link-actions" id="id76">16.6 Link Actions</a></li>
+<li><a class="reference internal" href="#link-object-actions" id="id77">16.7 Link Object Actions</a></li>
+<li><a class="reference internal" href="#structural-feature-actions" id="id78">16.8 Structural Feature Actions</a></li>
+<li><a class="reference internal" href="#variable-actions" id="id79">16.9 Variable Actions</a></li>
+<li><a class="reference internal" href="#accept-event-actions" id="id80">16.10 Accept Event Actions</a></li>
+<li><a class="reference internal" href="#structured-actions" id="id81">16.11 Structured Actions</a></li>
+<li><a class="reference internal" href="#expansion-regions" id="id82">16.12 Expansion Regions</a></li>
+<li><a class="reference internal" href="#other-actions" id="id83">16.13 Other Actions</a></li>
+<li><a class="reference internal" href="#classifier-descriptions" id="id84">16.14 Classifier Descriptions</a></li>
+<li><a class="reference internal" href="#association-descriptions" id="id85">16.15 Association Descriptions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="summary">
+<h2><a class="toc-backref" href="#id71">16.1 Summary</a><a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Action とは UML に挙動の指定の基本的な単位である。
+Action は入力の集合を取り、出力の集合を生じるが、その集合の一方または両方がからであってもよい。
+Action が実行するシステムの状態を変更する Actions もあってよい。</li>
+<li>Actions は Behaviors に、特に Activities と Interactions に含まれている。これらの Behaviors は Actions がいつ実行するのかと、それらにある入力が何であるかを決定する。</li>
+</ul>
+<div class="section" id="concrete-syntax">
+<h3>16.1.1.1 Concrete Syntax<a class="headerlink" href="#concrete-syntax" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">節番号のレベルがおかしいのは原書通り。</p>
+</div>
+<ul class="simple">
+<li>UML 仕様は Actions を表す図表的表記法の相対的に極小な集合を実現する。<ul>
+<li>準拠ツールはツール固有の標準の Action 抽象的構文へ写像する図表的またはテキスト的表現を備えてよい。そのような表現は具象的構文と呼ばれる。</li>
+</ul>
+</li>
+<li>具象的構文は高水準の構成要素を
+UML 抽象的構文で指定された Actions へ写像することが可能である。</li>
+<li>当仕様でのもっとも原始的な Actions は、具体的構文の写像の最大範囲を使用可能にするために定義されている。</li>
+</ul>
+</div>
+<div class="section" id="execution-engines">
+<h3>16.1.1.2 Execution Engines<a class="headerlink" href="#execution-engines" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">節番号のレベルがおかしいのは原書通り。</p>
+</div>
+<ul class="simple">
+<li>実行機関 (an execution engine) とは UML Actions を実行する道具のことである。
+Actions はさまざまなやり方の特徴があるさまざまな実行機関の構成要素を使用可能にするために定義される。</li>
+<li>モデル作者は、その実行を最適化するの価値があるかもしれない領域解決法の特別な知識が彼らにあるときに、実行機関に対してヒントを与えることが可能である。</li>
+<li>Actions の実行が実行時の挙動を強制する
+UML の構造的意味の様相に違反するときは、
+Actions の意味は未定義のままとする。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id72">16.2 Actions</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>16.2.1 Summary<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>本節では Actions および Pins の初歩的な抽象構文について定義する。
+Pins は Actions に対する入力と出力を指定するのに用いられる。
+OpaqueAction 以外は、Actions の諸々の具象型は後続の節で述べる。</li>
+</ul>
+</div>
+<div class="section" id="abstract-syntax">
+<h3>16.2.2 Abstract Syntax<a class="headerlink" href="#abstract-syntax" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 16.1 Actions<ul>
+<li>Action は抽象型で、ExecutableNode から派生している。<ul>
+<li>この図式では差し当たり OpaqueAction が Action のひとつの具象型であることを表している。</li>
+<li>InputPin と OutputPin とに別々に関連させる。</li>
+</ul>
+</li>
+<li>Pin という ObjectNode と MultiplicityElement からの派生要素がある。<ul>
+<li>Pin には InputPin と OutputPin のふたつがある。</li>
+<li>InputPin には ActionInputPin と ValuePin のふたつがある。
+ActionInputPin は Action を、
+ValuePin は ValueSpecification をそれぞれ関連させる。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="semantics">
+<h3>16.2.3 Semantics<a class="headerlink" href="#semantics" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h4>16.2.3.1 Actions<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Action とは Behavior に直接的または間接的に含まれる、実行可能機能の基本的な単位である。
+Action の実行はモデル化されたシステムにおけるある変換や過程を表す。システムは計算機システムであるか、さもなければ別のシステムである。<ul>
+<li>Action の実行は別の Behavior の発動をも引き起こしてよい。</li>
+</ul>
+</li>
+<li>Action を含んでいる Behavior に背景となる BehavioredClassifier があれば、その BehavioredClassifier はその Action に対する
+<code class="docutils literal notranslate"><span class="pre">context</span></code> Classifiers でもある。</li>
+<li>Action の InputPins と OutputPins が指定するように、
+Action は入力を受け付け、出力を生じる。
+Action の Pin それぞれが、その Action の固有の入力または出力についての型および多重度を指定する。</li>
+<li>Action が実行する時間と、各実行が受け付ける入力が何であるのかは、
+Action の種類と、
+InputPins の特徴と、それが使われる Behavior とによって決定される。いったん Action が実行することが決定されるとその実行に対する一般的な手順は次の通りである：<ol class="arabic">
+<li>Action の実行は、その Action の InputPins すべてにおける入力データを、
+InputPin それぞれについての多重度 <code class="docutils literal notranslate"><span class="pre">upper</span></code> 個まで (up to) 消費する。</li>
+<li>Action はそれが完了するまでは実行を続行する。実行の詳細な意味と完了の定義は実行される Action の種類に依存する。</li>
+<li>完了したら、Action の実行は OutputPins における出力データのどれでもを求めて、停止する。</li>
+</ol>
+</li>
+<li>Actions の意味の仕様上、
+Behaviors は同じ種類の Action を複数回再利用することが許されていて、
+Action の意味は用法のそれぞれに別個に適用する。</li>
+<li>Action が局所的に再入可能でない (<code class="docutils literal notranslate"><span class="pre">isLocallyReentrant</span></code> == false) ならば、ひとつを超える実行が任意の時点において含んでいる
+Behavior の単独の実行内には存在することは許されない。</li>
+<li>非再入可能 Behavior (<code class="docutils literal notranslate"><span class="pre">isReentrant</span></code> == true) に対する CallAction もまた、その活動に対する <code class="docutils literal notranslate"><span class="pre">isLocallyReentrant</span></code> 特性の値が何であれ、あたかも CallAction が局所的に非再入可能であるかのように振る舞うはずである。</li>
+<li>Action についての <code class="docutils literal notranslate"><span class="pre">localPrecondition</span></code> と <code class="docutils literal notranslate"><span class="pre">localPostcondition</span></code> は、
+Action の実行が開始するときと終了するときにそれぞれ成り立つべき Constraints である。
+<code class="docutils literal notranslate"><span class="pre">localPrecondition</span></code> または <code class="docutils literal notranslate"><span class="pre">localPostcondition</span></code> はモデル作者が定義する Constraint であるので、違反とは UML Action 実行の意味が未定義であることではない。</li>
+</ul>
+</div>
+<div class="section" id="opaque-actions">
+<h4>16.2.3.2 Opaque Actions<a class="headerlink" href="#opaque-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>OpaqueAction とは、その仕様が UML 外のテキスト的な具体的構文で与えられてよい Action である。何か他の種類の Action が選ばれる前に
+OpaqueAction を一時的な代用として使ってもよい。</li>
+<li>OpaqueAction には、その Action の挙動を指定する代用法を表すテキスト Strings の列で構成される
+<code class="docutils literal notranslate"><span class="pre">body</span></code> がある。
+<code class="docutils literal notranslate"><span class="pre">language</span></code> Strings の対応する列を、その <code class="docutils literal notranslate"><span class="pre">body</span></code> Strings のそれぞれが解釈されることになる言語を指定するのに使ってよい。言語を <code class="docutils literal notranslate"><span class="pre">body</span></code> Strings と順番に一致する。</li>
+<li>OpaqueAction にひとつを超える <code class="docutils literal notranslate"><span class="pre">body</span></code> があれば、
+<code class="docutils literal notranslate"><span class="pre">bodies</span></code> のどのものも OpaqueAction の挙動を決定するのに使われる可能性がある。その選択がどうなされるかについては UML は決定しない。</li>
+</ul>
+</div>
+<div class="section" id="pins">
+<h4>16.2.3.3 Pins<a class="headerlink" href="#pins" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Pin とは Action についての入力と出力を表現するものである。<ul>
+<li>InputPin が入力を表し、一方 OutputPin が出力を表す。</li>
+<li>Action に所有される入力と出力の集合のそれぞれは順序付いている。</li>
+<li>Action の InputPins と OutputPins は Action の種類により決定される。</li>
+</ul>
+</li>
+<li>Pin は ObjectNode の一種なので、指定された Type の値を含むオブジェクトトークンを保持する。<ul>
+<li>Action の InputPin のトークンに保持される値は
+Action の実行に対する入力データを与え、
+Action の実行から生じた出力データはオブジェクトトークンに包み込まれて、
+Action の OutputPins に置かれる。</li>
+</ul>
+</li>
+<li>Pin は属性 <code class="docutils literal notranslate"><span class="pre">ordering</span></code> を ObjectNode から、属性 <code class="docutils literal notranslate"><span class="pre">isOrdered</span></code> を MultiplicityElement から両方継承する。これらの属性の値は独立に定めてよい。<ul>
+<li>例えば <code class="docutils literal notranslate"><span class="pre">isOrdered</span></code> が true で <code class="docutils literal notranslate"><span class="pre">ordering</span></code> が FIFO であると、
+MultiplicityElement と同じ順序で Pin から値が取られるはずである。</li>
+</ul>
+</li>
+<li>InputPin とは Action が消費する入力値を保持する Pin である。</li>
+<li>OutputPin とは Action がもたらす出力値を保持する Pin である。</li>
+<li>ValuePins と ActionInputPins は InputPins であるが、
+Action が実行可能であるかどうかの決定では用いられない。</li>
+<li>ValuePin は ValueSpecification を評価することで値を与える。
+Action が他の手段によって使用可能であると、
+ValuePin の ValueSpecification が評価されて、その結果が実行を開始するときの Action に対する入力として求められる。</li>
+<li>ActionInputPin は別の Action を実行することで値を与える。
+Action が他の手段によって使用可能であると、
+Action が所有する ActionInputPins のどの <code class="docutils literal notranslate"><span class="pre">fromActions</span></code> もまた使用可能になる。</li>
+</ul>
+</div>
+<div class="section" id="actions-and-pins-in-activities">
+<h4>16.2.3.4 Actions and Pins in Activities<a class="headerlink" href="#actions-and-pins-in-activities" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Action が（ということは Pins も）が Activity に含まれるならば、いつトークンが Pins に出入りするのかと、いつその Action が実行するのかは、
+Actions はもちろんのこと Activities の意味によって決定する。</li>
+<li>Activity にある Action を実行することは、その InputPins すべてが、それらの最小の多重度が指定するとおりに、必要なトークンすべてを与えられることになることを必要とする。</li>
+<li>Activity にある Action が実行を完了すると、その OutputPins に配置された出力データについてのオブジェクトトークンは、
+Pins から出ている <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> ObjectFlows のどれに与えられてもよい。</li>
+<li>Action が局所的に再入可能ではない (<code class="docutils literal notranslate"><span class="pre">isLocallyReentrant</span></code> == false) ならば、いったん実行を開始すると、その Action および InputPins は実行が終了するまでは与えられるトークンをどれも受け付けない。</li>
+<li>制御 Pin (<code class="docutils literal notranslate"><span class="pre">isControl</span></code> == true) には制御の種類があるもの (<code class="docutils literal notranslate"><span class="pre">isControlType</span></code> == true) とする。そうすることで ControlFlows と一緒に使ってよくなる。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="notation">
+<h3>16.2.4 Notation<a class="headerlink" href="#notation" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>本節では Activities で使われる Actions を表す図表的表記法を指定する。この表記法は準拠ツールがテキスト上の具象的構文を代わりに使えるという点で選択自由である。</li>
+</ul>
+<div class="section" id="id5">
+<h4>16.2.4.1 Actions<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 16.2 Action<ul>
+<li>Actions は丸角矩形を用いて示す。</li>
+<li>Action の名前や他の説明が記号中に現れてよい。</li>
+<li>Actions の派生型に特化した記法は後続の節で述べる。</li>
+</ul>
+</li>
+<li>Figure 16.3 Local pre- and post-conditions<ul>
+<li>局所的な事前条件と事後条件はそれぞれキーワード «localPrecondition» と «localPostcondition» が付いた発動に取り付けられた註釈として示す。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h4>16.2.4.2 Pins<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 16.4 Pin notations<ul>
+<li>Pins は ObjectNodes なので、矩形として記す。矩形は所有されている Action 記号に取り付けられている小さい矩形として記される。</li>
+<li>Pin の名前をその付近に表示してもよい。単に型だけを見せることがよくある。両者を示すには <code class="docutils literal notranslate"><span class="pre">name:</span> <span class="pre">type</span></code> のようにラベルする。</li>
+<li>Action の Pins は、モデル内にそれが存在しているときでさえ、記法の省略が許されている。</li>
+</ul>
+</li>
+<li>Figure 16.5 Pin notations, with arrows<ul>
+<li>InputPins と OutputPins を区別する ActivityEdges が存在しないときには、任意で矢印を Pin 矩形の内部に配置しても構わない。</li>
+<li>InputPins には Action の方向を指し示す矢印があり、
+OutputPins には Action から離れる方向を指し示す矢印がある。</li>
+</ul>
+</li>
+<li>Figure 16.6 Standalone Pin notations<ul>
+<li>ある Action の OutputPin が ObjectFlow を介して別の Action の同名の InputPin に接続している状況では、この図のようなオプションの記法で示すことが許される。</li>
+<li>この形式は両者の型が同じでないならば避けるべきである。</li>
+</ul>
+</li>
+<li>制御 Pins はその Pin 記号付近に <code class="docutils literal notranslate"><span class="pre">{control}</span></code> とテキスト的注釈と共に示す。</li>
+<li>ValuePin はその脇に ValueSpecification が書かれている InputPin として記す。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="examples">
+<h3>16.2.5 Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h4>16.2.5.1 Actions<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 16.7 Examples of Actions<ul>
+<li>Send Payment の実施後に Accept Payment が実施される。</li>
+</ul>
+</li>
+<li>Figure 16.8 Example of action using a tool-specific concrete syntax<ul>
+<li>あるツールに固有の具体的構文で表現されたアクションらしい。ループ処理をひとつの Action で表してよいようだ。</li>
+</ul>
+</li>
+<li>Figure 16.9 Example of an action with local pre- and post-conditions<ul>
+<li>Dispense Drink という Action の事前条件と事後条件が詳細に記された例。飲み物が自販機から出る前後の状態が普通の英語で仕様化されている。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h4>16.2.5.2 Pins<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 16.10 Pin examples<ul>
+<li>目を引くのは <code class="docutils literal notranslate"><span class="pre">{stream}</span></code> や角括弧付きのラベル。</li>
+</ul>
+</li>
+<li>Figure 16.11 Specifying selection behavior on an ObjectFlow<ul>
+<li>Pin は ObjectNode なので <code class="docutils literal notranslate"><span class="pre">selection</span></code> の指定が可能。</li>
+</ul>
+</li>
+<li>Figure 16.12 Example abstract syntax model showing the use of ActionInputPins<ul>
+<li><code class="docutils literal notranslate"><span class="pre">self.foo-&gt;bar(self.baz)</span></code> なるテキストによる具体的構文の式を
+UML 抽象構文式で示したもの。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="invocation-actions">
+<h2><a class="toc-backref" href="#id73">16.3 Invocation Actions</a><a class="headerlink" href="#invocation-actions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id9">
+<h3>16.3.1 Summary<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>InvocationAction とは、直接的または間接的に Behavior の発動に帰する Action である。</li>
+<li>InvocationActions には、
+Operations または Behaviors を呼び出すもののと、以前オブジェクト化された Behaviors を開始するものとの
+CallActions がある。</li>
+<li>さらなる InvocationActions の種類には次を考慮したものがある。<ul>
+<li>信号とその他のオブジェクトの狙いを付けた送信</li>
+<li>利用可能な受信者に向けて信号を一斉送信する能力</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id10">
+<h3>16.3.2 Abstract Syntax<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 16.13 Invocation Actions<ul>
+<li>抽象型 InvocationAction から派生する型がいくつかある。概要に書いてあるとおりのクラス図。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id11">
+<h3>16.3.3 Semantics<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="call-actions">
+<h4>16.3.3.1 Call Actions<a class="headerlink" href="#call-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>CallAction とは、
+Behavior または Operation を呼び出す InvocationAction である。次の 3 種類が存在する：<ol class="arabic">
+<li>CallBehaviorAction とは、直接 Behavior を発動する CallAction であり、
+Behavior の発動を代わる代わる引き起こす BehavioralFeature を呼び出すことではない。</li>
+<li>CallOperationAction とは、
+Operation 呼び出し要求メッセージを対象オブジェクトに伝達する CallAction であり、伝達先では関連 Behavior の発動を引き起こしてよい。</li>
+<li>StartObjectBehaviorAction とは、直接オブジェクト化された Behavior か、あるオブジェクトの <code class="docutils literal notranslate"><span class="pre">classifierBehavior</span></code> のどちらか一方の実行を開始する CallAction である。</li>
+</ol>
+</li>
+<li>CallAction は直接的にか、またはある Operation 呼び出しのを通じてのどちらかで、同期的または非同期的に Behavior 発動に帰する。<ul>
+<li>呼び出しが同期的 (<code class="docutils literal notranslate"><span class="pre">isSynchronous</span></code> == true) ならば、発動された Behavior の実行が（正常にかどうかを問わず）完了するまでその Action の実行は完了しない。</li>
+<li>呼び出しが非同期的 (<code class="docutils literal notranslate"><span class="pre">isSynchronous</span></code> == false) ならば、その Action の実行はその Behavior が発動されるとすぐに完了する。</li>
+</ul>
+</li>
+<li>CallAction が発動する Behavior が再入可能でなければ、それのひとつを超える実行は与えられた時点のどこにおいても存在しないものとする。</li>
+<li>Behaviors と Operations には所有される Parameters の全順序リストがあり、その順序を用いてこれらの Parameters を CallAction の Pins に一致する。</li>
+<li>CallAction を実行すると、その <code class="docutils literal notranslate"><span class="pre">argument</span></code> Pins にある値を、対応する入力 Parameters で発動される Behavior または Operation に引き渡す。</li>
+<li>Parameters のどれもが streaming (<code class="docutils literal notranslate"><span class="pre">isStream</span></code> == true) ならば、その呼び出しは同期的であるものとする。
+<a class="reference internal" href="common-behavior.html"><span class="doc">13 Common Behavior</span></a> も参照。</li>
+<li>Actions についての実行規則に加えて、次の規則が streaming Parameters を伴う、
+Behavior や Operation を発動する CallAction に適用する。<ul>
+<li>通常の規則によって CallAction が実行が可能となるのに先立って、
+CallAction に対する InputPins のすべては
+Pin それぞれの多重度下限値以上の個数の値を与えられるものとする。</li>
+<li>CallAction が正常に実行を完了することが可能になる前に、ある streaming Parameter に対応している
+CallAction の <code class="docutils literal notranslate"><span class="pre">argument</span></code> Pin それぞれの多重度下限値以上の個数の値が受理されなければならない。</li>
+<li>発動された Behavior の実行が正常に完了する前に、少なくとも CallAction の <code class="docutils literal notranslate"><span class="pre">result</span></code> Pin それぞれの多重度下限に等しい個数の値がその実行が完了するまでの時間内に post されなければならない。</li>
+</ul>
+</li>
+<li>ParameterSets にグループ化されている Parameters を伴う
+Behavior や Operation を発動する CallAction には特別な規則も適用する。<ul>
+<li>Behavior や Operation に入力 ParameterSets があれば、
+CallAction が実行することが許されるときの 16.2.3 節の規則が、入力 ParameterSet それぞれにある Parameters に対応している
+InputPins の（重なり合うこともある）集合に個別に適用される。</li>
+<li>Behavior または Operation に出力 ParameterSets があり、かつ CallAction が正常完了するならば、その CallAction はある出力 ParameterSet に対応している
+OutPins 上にしかこれらの OutPins の多重度の下限値に見合う出力を生じないのとする。かつ、オブジェクトトークンがこれらの OutputPins から流出している ActivityEdges に与えられる。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="send-actions">
+<h4>16.3.3.2 Send Actions<a class="headerlink" href="#send-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>送信 Action とは、オブジェクトをひとつまたはそれを超える対象オブジェクトに非同期的に伝えるものである。送信 Action は常に非同期的なので、
+<code class="docutils literal notranslate"><span class="pre">argument</span></code> 入力はあってもよいのだが、
+<code class="docutils literal notranslate"><span class="pre">result</span></code> 出力はない。
+Action はオブジェクトが送信されるとそれが受信されたかどうかに関わらず、すぐに完了する。</li>
+<li>次の 3 種類の送信 Actions がある。<ol class="arabic">
+<li>SendSignalAction とは Signal オブジェクトを生成してそれを対象の InputPin で与えられるオブジェクトに伝える
+InvocationAction である。</li>
+<li>BroadcastSignalAction とは SendSignalAction 同様に、その <code class="docutils literal notranslate"><span class="pre">argument</span></code> InputPins から取った値を使って
+Signal オブジェクトを生成する InvocationAction である。ただし、
+Signal オブジェクトを単一の対象オブジェクトに送信する代わりに、生成オブジェクトをシステム内の利用可能な対象オブジェクトのすべてに潜在的に伝達する。</li>
+<li>SendObjectAction とは対象の InputPin で与えられるオブジェクトに向けてどんな種類のオブジェクトでも伝える InvocationAction である。</li>
+</ol>
+</li>
+<li>SendSignalActions と BroadcastSignalActions の場合、
+<code class="docutils literal notranslate"><span class="pre">argument</span></code> InputPins を順番に送信されている Signal の
+Properties に一致する。</li>
+<li>送信 Action の対象オブジェクトは局所にあっても遠隔地にあってもよい。</li>
+</ul>
+</div>
+<div class="section" id="invocation-actions-and-ports">
+<h4>16.3.3.3 Invocation Actions and Ports<a class="headerlink" href="#invocation-actions-and-ports" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>CallOperationAction, SendSignalAction, SendObjectAction には、
+Port があり、その Action の <code class="docutils literal notranslate"><span class="pre">onPort</span></code> 属性を使って
+Port を特定するオブジェクトを対象とすることによって、
+Port を通じて要求を送信する。</li>
+<li><code class="docutils literal notranslate"><span class="pre">onPort</span></code> が与えられるならば、
+Port は Action の <code class="docutils literal notranslate"><span class="pre">target</span></code> InputPin の <code class="docutils literal notranslate"><span class="pre">type</span></code> の
+<code class="docutils literal notranslate"><span class="pre">feature</span></code> に所有されるか、それを継承するものとする。</li>
+<li>Action があるオブジェクトの内側で実行するとは、その Action が内部で実行している Behavior の実行の背景にあるオブジェクトが、次のどちらか一方であるときに言われる。<ul>
+<li>与えられたオブジェクトと同じであるか、</li>
+<li>与えられたオブジェクトに（合成リンクによる推移的関係性の意味で）直接・間接的に所有される。</li>
+</ul>
+</li>
+<li>CallOperationAction の場合には、与えられた Port の <code class="docutils literal notranslate"><span class="pre">provided</span></code> または <code class="docutils literal notranslate"><span class="pre">required</span></code> Interface には呼び出される Operation が <code class="docutils literal notranslate"><span class="pre">feature</span></code> としてあるものとする。
+<code class="docutils literal notranslate"><span class="pre">object</span></code> InputPin にそれの <code class="docutils literal notranslate"><span class="pre">type</span></code> として
+Signal がある SendSignalAction または SendObjectAction の場合、与えられた Port の <code class="docutils literal notranslate"><span class="pre">provided</span></code> または <code class="docutils literal notranslate"><span class="pre">required</span></code> Interface には特定された Signal に対する Reception があってよいが、これは必要とはされない。どちらの場合でも、関連のある Operation または Reception は次の規則において、発動された BehavioralFeature と呼ばれる。<ul>
+<li>発動された BehavioralFeature がある <code class="docutils literal notranslate"><span class="pre">provided</span></code> Interface にはあって、どの <code class="docutils literal notranslate"><span class="pre">required</span></code> Interface にもないならば、
+InvocationAction が実行されると、その発動は与えられた Port を通り抜けて、対象の InputPin で与えられたオブジェクトで作られ、その受領は節 11.3.3 で述べられたように処理される。<ul>
+<li>このことは、InvocationAction が自身が所有する Ports のうちのひとつの <code class="docutils literal notranslate"><span class="pre">provided</span></code> Interface を通してメッセージを送り戻す可能性がある対象オブジェクトの内側で実行されることを可能にする。</li>
+</ul>
+</li>
+<li>発動された BehavioralFeature がある <code class="docutils literal notranslate"><span class="pre">required</span></code> Interface にはあって、どの <code class="docutils literal notranslate"><span class="pre">provided</span></code> Interface にもないならば、
+InvocationAction が対象の InputPin で与えられたオブジェクトの内部で実行されていると、節 11.3.3 で述べられたように、与えられた Port を通って、対象オブジェクトの外部へと転送される。</li>
+<li>発動された BehavioralFeature がある <code class="docutils literal notranslate"><span class="pre">required</span></code> と
+<code class="docutils literal notranslate"><span class="pre">required</span></code> Interface の両方にあるか、または発動された BehavioralFeature がないならば、
+InvocationAction が対象の InputPin で与えられたオブジェクトの内部で実行されていると、発動は与えられた Port を通って対象オブジェクトの外部で作られる。<ul>
+<li>この場合は、
+InvocationAction が対象オブジェクトの内側で実行すると、その対象オブジェクトへメッセージを送り戻すことはできない。そういうメッセージは <code class="docutils literal notranslate"><span class="pre">required</span></code> Interface を通じて出て行こうとするためである。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>対象オブジェクトとして「相互作用点」（つまり Port で生成したオブジェクト）オブジェクトを
+<code class="docutils literal notranslate"><span class="pre">onPort</span></code> を指定することなしに、
+CallOperationAction, SendSignalAction, SendObjectAction に対する対象オブジェクトとして用いることもできる。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id12">
+<h3>16.3.4 Notation<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">onPort</span></code> の値は特定の InvocationAction を意味する記号の名前文字列にある句 <code class="docutils literal notranslate"><span class="pre">via</span> <span class="pre">&lt;port&gt;</span></code> によって示す。</li>
+</ul>
+<div class="section" id="call-behavior-actions">
+<h4>16.3.4.1 Call Behavior Actions<a class="headerlink" href="#call-behavior-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 16.14 Calling a Behavior<ul>
+<li>CallBehaviorAction は
+Action 記号の内側に置かれた発動された Behavior の名前を有する
+Action として表記されるものとする。</li>
+<li>Action の名前が Behavior のそれと異なる場合は、代わりに Action 名がシンボルに現れるものとする。</li>
+<li>Behavior の <code class="docutils literal notranslate"><span class="pre">precondition</span></code> と <code class="docutils literal notranslate"><span class="pre">postcondition</span></code> を
+Figure 16.3 と同様にして示すことが可能であるが、キーワード «precondition» と «postcondition» を用いる。</li>
+</ul>
+</li>
+<li>Figure 16.15 Calling an Activity<ul>
+<li>Activity の呼び出しは Action 記号の内部に逆さのフォークみたいなものを置くことによって示す。</li>
+<li>右側の記法は前章で紹介済み。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="call-operation-actions">
+<h4>16.3.4.2 Call Operation Actions<a class="headerlink" href="#call-operation-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 16.16 Calling an Operation<ul>
+<li>CallOperationAction は発動された Operation の <code class="docutils literal notranslate"><span class="pre">name</span></code> が
+Action 記号の内側に置かれた Action として表記される。</li>
+<li>Action の <code class="docutils literal notranslate"><span class="pre">name</span></code> が空でなく、Operation の名前と異なるならば、
+Action の <code class="docutils literal notranslate"><span class="pre">name</span></code> が記号の代わりに現れるものとする。</li>
+<li>Operation の <code class="docutils literal notranslate"><span class="pre">precondition</span></code> と <code class="docutils literal notranslate"><span class="pre">postcondition</span></code> を
+Figure 16.3 と同様にして示すことが可能であるが、キーワード «precondition» と «postcondition» を用いる。</li>
+</ul>
+</li>
+<li>Figure 16.17 Calling an Operation, showing the owner name<ul>
+<li>Operation の <code class="docutils literal notranslate"><span class="pre">owner</span></code> の <code class="docutils literal notranslate"><span class="pre">name</span></code> を任意で
+Operation の <code class="docutils literal notranslate"><span class="pre">name</span></code> の下に見せてよい。
+<code class="docutils literal notranslate"><span class="pre">(OwnerClassName::)</span></code> または <code class="docutils literal notranslate"><span class="pre">(OwnerClassName::OperationName)</span></code>
+の形式の文字列とする。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="send-signal-and-send-object-actions">
+<h4>16.3.4.3 Send Signal and Send Object Actions<a class="headerlink" href="#send-signal-and-send-object-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 16.18 Sending a Signal<ul>
+<li>SendSignalAction は Signal の <code class="docutils literal notranslate"><span class="pre">name</span></code> がその内側に置かれた凸五角形として記される。<ul>
+<li>右側が凸。</li>
+</ul>
+</li>
+<li>SendObjectAction が常にある Signal を結果的に送信するようになるように用いられるならば、
+SendSignalAction の記法がその SendObjectAction を表すために利用できる。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="pin-annotations">
+<h4>16.3.4.4 Pin Annotations<a class="headerlink" href="#pin-annotations" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 16.19 Exception Pin annotations<ul>
+<li><code class="docutils literal notranslate"><span class="pre">isException</span></code> が true である Parameters に対応する Pins は、小さい三角形が例外ピンから出るエッジの始点を註釈するように示す。</li>
+<li>Pin の小矩形が省略されているときにも三角形は記す。</li>
+</ul>
+</li>
+<li>Figure 16.20 Effect Pin annotations<ul>
+<li>Pin に対応する Parameter に <code class="docutils literal notranslate"><span class="pre">effect</span></code> が指定されていると、これを <code class="docutils literal notranslate"><span class="pre">effect</span></code> を中括弧に括って、エッジと Pin との接点付近に記す。</li>
+</ul>
+</li>
+<li>Figure 16.21 Stream Pin annotations<ul>
+<li>Pin に対応する Parameter の <code class="docutils literal notranslate"><span class="pre">isStreaming</span></code> が true であるか
+false であるかを、
+Pin の近くに <code class="docutils literal notranslate"><span class="pre">{stream}</span></code> または <code class="docutils literal notranslate"><span class="pre">{nonstream}</span></code> でそれぞれ示す。</li>
+<li>これらが省略されている場合は <code class="docutils literal notranslate"><span class="pre">{nonstream}</span></code> であるものとする。</li>
+</ul>
+</li>
+<li>Figure 16.22 Stream Pin annotations, with filled arrows and rectangles<ul>
+<li>streaming Parameters を示すためにには、さらなる強調を付加してよい。<ul>
+<li>単体の Pin に接続している矢印の矢先を黒く塗りつぶしてよい。</li>
+<li>さもなければ Pins 自体を黒く塗りつぶしてよい。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="parameter-sets">
+<h4>16.3.4.5 Parameter Sets<a class="headerlink" href="#parameter-sets" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>InvocationAction の Pins に出入りしている複数の ObjectFlows は典型的には “and” 条件として扱われる。しかし、時々流れのグループのひとつは他のものに対して排他的であるようにできる。これは ParameterSets を使ってモデル化されて、ひとつまたはそれを超える Pins を取り囲む矩形として表記される。</li>
+<li>Figure 16.23 Alternative input/outputs using ParameterSet notation<ul>
+<li>ParameterSet が Pins をグループ化することを示すのに、複数 Pins の矩形らを囲む矩形で記す。</li>
+<li>入力に対する disjunctive normal form を表している。“and” の流れのグループひとつが “or” のグループ分けによって分離されている。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id13">
+<h3>16.3.5 Examples<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id14">
+<h4>16.3.5.1 Call Behavior Actions<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 16.24 Invoking an Activity<ul>
+<li>Fill Order という Activity を発動する CallBehaviorAction である。逆さフォークに注意。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="send-signal-actions">
+<h4>16.3.5.2 Send Signal Actions<a class="headerlink" href="#send-signal-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 16.25 Sending Signals<ul>
+<li>何か発注処理のワークフローの一部を示す図式。</li>
+<li>五角形の Action で Signal が送信されるが、されるということ以外の情報は図からは得られない？</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id15">
+<h4>16.3.5.3 Pin Annotations<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 16.26 Streaming Pin examples<ul>
+<li>Order Filling は周期的にオブジェクトを放出する連続的 Behavior であり、必ずしも完了するものではない。</li>
+</ul>
+</li>
+<li>Figure 16.27 Exception Pin examples<ul>
+<li>上のコースは例外送出ケース。</li>
+</ul>
+</li>
+<li>Figure 16.28 Pin example with effects<ul>
+<li>中括弧は effect を示す。</li>
+<li>Place Order が <code class="docutils literal notranslate"><span class="pre">Order</span></code> を <code class="docutils literal notranslate"><span class="pre">{create}</span></code> して、
+Fill Order が <code class="docutils literal notranslate"><span class="pre">Order</span></code> を <code class="docutils literal notranslate"><span class="pre">{read}</span></code> する。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id16">
+<h4>16.3.5.4 Parameter Sets<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 16.29 Alternative input/outputs using ParameterSets<ul>
+<li>Ship Item の InputPins が（それぞれが）グループ化されているので、どちらか一方でも受信すれば Action を開始する。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="object-actions">
+<h2><a class="toc-backref" href="#id74">16.4 Object Actions</a><a class="headerlink" href="#object-actions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id17">
+<h3>16.4.1 Summary<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>オブジェクト Actions は Classifiers のオブジェクトの生成、破壊、比較を取り扱う。また、与えられた Classifier のオブジェクトの読み取りや、オブジェクトの分類の確認、さらに分類の変更をする Actions をも含む。</li>
+</ul>
+</div>
+<div class="section" id="id18">
+<h3>16.4.2 Abstract Syntax<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 16.30 Object Actions<ul>
+<li>10 個近くの派生 Actions がある。</li>
+<li>注意深く見ると、InputPin と OutputPin のどちらかしかないものと、両方があるものがあることに気づく。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id19">
+<h3>16.4.3 Semantics<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="create-object-actions">
+<h4>16.4.3.1 Create Object Actions<a class="headerlink" href="#create-object-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>CreateObjectAction とは、与えられた Classifier の直系オブジェクトを生成し、その新しいオブジェクトを <code class="docutils literal notranslate"><span class="pre">result</span></code> OutputPin 上に配置する Action である。</li>
+<li>オブジェクト化される Classifier が Behavior ならば、その生成オブジェクトがその Behavior の実行である。ただしその実行は生成時にすぐに自動的に開始することはない。</li>
+</ul>
+</div>
+<div class="section" id="destroy-object-actions">
+<h4>16.4.3.2 Destroy Object Actions<a class="headerlink" href="#destroy-object-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>DestroyObjectAction とは、その対象の InputPin にあるオブジェクトを破壊する Action である。</li>
+<li><code class="docutils literal notranslate"><span class="pre">isDestroyLinks</span></code> が true ならば、そのオブジェクトが関与するリンクは（リンクオブジェクトは除いて）
+DestroyLinkAction の意味に従いそのオブジェクトと一緒に破壊される。</li>
+<li>既に破壊されたオブジェクトを破壊することは効果がない。</li>
+</ul>
+</div>
+<div class="section" id="test-identity-actions">
+<h4>16.4.3.3 Test Identity Actions<a class="headerlink" href="#test-identity-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>TestIdentityAction とは、その InputPins に与えられるふたつの値が全く同一のものであるかどうかを調べる Action である。</li>
+<li>オブジェクトがひとつまたはそれを超える Classes のオブジェクトであると単に分類されるならば、それが別の「同じオブジェクト」であるかどうかを調べることは、オブジェクトの同一性に基づいていて、その StructuralFeatures としての現在の値や、それが関与するリンクのどれからも独立している。</li>
+<li>オブジェクトがひとつまたはそれを超える DataTypes のオブジェクトであると単に分類されるならば、それが別の「同じオブジェクト」であるかどうかを調べることは、それが同じ値であるかどうかに依存する。</li>
+<li>Classes にも DataTypes にも分類されるオブジェクトや、その他の種類の Classifiers に分類されるオブジェクトに対する
+TestIdentityAction の結果は定義されないが、どの場合においても Action は結果として Boolean 値を生じる。</li>
+</ul>
+</div>
+<div class="section" id="read-self-actions">
+<h4>16.4.3.4 Read Self Actions<a class="headerlink" href="#read-self-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ReadSelfAction とは、その Action の実行の背景となるオブジェクトをその <code class="docutils literal notranslate"><span class="pre">result</span></code> OutputPin に配置する Action である。</li>
+<li>例えば、ReadSelfAction がある Operation のメソッドである
+Behavior に含まれるならば、それが返す背景オブジェクトはその Operation 発動の対象であった Operation の所有している
+Classifier のオブジェクトになる。</li>
+</ul>
+</div>
+<div class="section" id="value-specification-actions">
+<h4>16.4.3.5 Value Specification Actions<a class="headerlink" href="#value-specification-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ValueSpecificationAction とは、ある ValueSpecification を評価して、結果の値をその <code class="docutils literal notranslate"><span class="pre">result</span></code> OutputPin に配置する Action である。</li>
+</ul>
+</div>
+<div class="section" id="read-extent-actions">
+<h4>16.4.3.6 Read Extent Actions<a class="headerlink" href="#read-extent-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ReadExtentAction とは、ある Classifier の現在の範囲 (extent) にあるオブジェクトを取得して、それらをその <code class="docutils literal notranslate"><span class="pre">result</span></code> OutputPin に配置する Action である。<ul>
+<li>ある Classifier の範囲とは、その特殊型を含むある Classifier の、任意の一時点に存在している、すべてのオブジェクトの集合のことである。</li>
+</ul>
+</li>
+<li>どこにでも存在する Classifier のオブジェクトすべてを作り出すことは、
+ReadExtentAction の実装として一般的には実用的ではない。</li>
+</ul>
+</div>
+<div class="section" id="reclassify-object-actions">
+<h4>16.4.3.7 Reclassify Object Actions<a class="headerlink" href="#reclassify-object-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ReclassifyObjectAction とは、どの Classifiers がその <code class="docutils literal notranslate"><span class="pre">object</span></code> InputPin に与えられるオブジェクトを分類するのかを変更する Action である。</li>
+<li>その Action が完了する後で、入力オブジェクトは各 <code class="docutils literal notranslate"><span class="pre">newClassifier</span></code> とによって分類されて
+<code class="docutils literal notranslate"><span class="pre">oldClassifier</span></code> ではない。</li>
+<li>入力オブジェクトの同一性は維持され、挙動は何も実行されず、どの既定値の式も評価されない。</li>
+<li><code class="docutils literal notranslate"><span class="pre">isReplaceAll</span></code> が true ならば、ある <code class="docutils literal notranslate"><span class="pre">newClassifier</span></code> がもうその入力オブジェクトを分類する場合を除いて、そのオブジェクトを扱うために存在する Classifiers すべては
+<code class="docutils literal notranslate"><span class="pre">newClassifiers</span></code> が追加されるよりも前に取り除かれる。</li>
+<li>オブジェクトから Classifiers を全部取り除くことと、どのような新しいものをも追加しないことの効果は定義されていない。</li>
+</ul>
+</div>
+<div class="section" id="read-is-classified-object-actions">
+<h4>16.4.3.8 Read-Is-Classified-Object Actions<a class="headerlink" href="#read-is-classified-object-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ReadIsClassifiedObjectAction とはその <code class="docutils literal notranslate"><span class="pre">object</span></code> InputPin に与えられたオブジェクトが、何か与えられた Classifier によって分類されているかどうかを決定する
+Action である。</li>
+<li><code class="docutils literal notranslate"><span class="pre">isDirect</span></code> が true ならば、調べる内容はそのオブジェクトが指定 Classifier により直接的に分類されるかどうかであり、そのどんな特殊化によってではない。反対に <code class="docutils literal notranslate"><span class="pre">isDirect</span></code> が false ならば、特殊化をも認める。</li>
+</ul>
+</div>
+<div class="section" id="start-classifier-behavior-actions">
+<h4>16.4.3.9 Start Classifier Behavior Actions<a class="headerlink" href="#start-classifier-behavior-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>StartClassifierBehaviorAction とはその <code class="docutils literal notranslate"><span class="pre">object</span></code> InputPin に与えられたオブジェクトの <code class="docutils literal notranslate"><span class="pre">classifierBehavior</span></code> の実行を開始する Action である。</li>
+<li>これは旧版の UML との互換性のために与えられる型である。代わりに StartObjectBehaviorAction を用いることが一般には望ましい。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id20">
+<h3>16.4.4 Notation<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 16.31 ValueSpecificationAction notation<ul>
+<li>ValueSpecificationAction はその ValueSpecification でラベルされる Action として記す。</li>
+</ul>
+</li>
+<li>その他の種類のオブジェクトアクション固有の記法はない。</li>
+</ul>
+</div>
+<div class="section" id="id21">
+<h3>16.4.5 Examples<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 16.32 ValueSpecificationActions<ul>
+<li>現実味のない見本だが、定数 5 または 6 を出力する Activity である。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="link-end-data">
+<h2><a class="toc-backref" href="#id75">16.5 Link End Data</a><a class="headerlink" href="#link-end-data" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id22">
+<h3>16.5.1 Summary<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>リンクオブジェクトではないリンク、つまり AssociationClass のオブジェクトではない Association のオブジェクトは、
+Action に対して実行時の値を引き渡すことが不可能である。</li>
+<li>その代わり、リンクはその端の値により識別する。
+LinkEndData とはそういうリンクの（片側の）端の値の仕様であり、
+LinkActions で用いられるリンクの識別に用いられる。</li>
+</ul>
+</div>
+<div class="section" id="id23">
+<h3>16.5.2 Abstract Syntax<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 16.33 Link End Data<ul>
+<li>ここに登場する新要素は全て Element から直接派生しているのか。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id24">
+<h3>16.5.3 Semantics<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id25">
+<h4>16.5.3.1 Link End Data<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>LinkEndData とは、あるリンクの一端にある値に一致するのに用いられる入力を指定する Element である。</li>
+<li>LinkEndData 要素それぞれには三つの部分がある。<ol class="arabic">
+<li>一致されているリンクの <code class="docutils literal notranslate"><span class="pre">end</span></code> の特定</li>
+<li>リンクの与えられた <code class="docutils literal notranslate"><span class="pre">end</span></code> で期待される値を与える <code class="docutils literal notranslate"><span class="pre">value</span></code> InputPin</li>
+<li>リンクの与えられた <code class="docutils literal notranslate"><span class="pre">end</span></code> の <code class="docutils literal notranslate"><span class="pre">qualifiers</span></code> の期待される値を与える InputPins を特定する、選択自由な QualifierValues</li>
+</ol>
+</li>
+</ul>
+</div>
+<div class="section" id="link-end-creation-data">
+<h4>16.5.3.2 Link End Creation Data<a class="headerlink" href="#link-end-creation-data" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>LinkEndCreationData とは、LinkEndData の特殊型のひとつであり、
+CreateLinkAction によって作成されるリンクの一端を特定するのに用いる。正規の LinkEndData に含まれるものに加えて、
+LinkEndCreationData は次のものを含む：<ul>
+<li>オプション <code class="docutils literal notranslate"><span class="pre">isReplaceAll</span></code> は新しいリンクを直前にこの端における値に一致したリンク全部で置き換えるかどうかを指定する。</li>
+<li>与えられた <code class="docutils literal notranslate"><span class="pre">end</span></code> が順序付きならば、
+<code class="docutils literal notranslate"><span class="pre">type</span></code> が UnlimitedNatural であり多重度が 1 のある <code class="docutils literal notranslate"><span class="pre">insertAt</span></code> InputPin がこの <code class="docutils literal notranslate"><span class="pre">end</span></code> での順序付き値で新しいリンクの挿入点を与えるように指定されていなければならない。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="link-end-destruction-data">
+<h4>16.5.3.3 Link End Destruction Data<a class="headerlink" href="#link-end-destruction-data" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>LinkEndDestructionData とは、LinkEndData の特殊型のひとつであり、
+DestroyLinkAction によって破壊されるリンクの一端を特定するのに用いる。正規の LinkEndData に含まれるものに加えて、
+LinkEndDestructionData は次のものを含む：</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>オプション <code class="docutils literal notranslate"><span class="pre">isDestroyDuplicates</span></code> が true であれば、この <code class="docutils literal notranslate"><span class="pre">end</span></code> の値に一致するリンク全てが破壊されるものとすることを指定する。</li>
+<li>与えられた <code class="docutils literal notranslate"><span class="pre">end</span></code> が順序付きかつ非一意であり、
+<code class="docutils literal notranslate"><span class="pre">isDestroyDuplicates</span></code> が false であれば、
+<code class="docutils literal notranslate"><span class="pre">type</span></code> が UnlimitedNatural であり多重度が 1 のある <code class="docutils literal notranslate"><span class="pre">insertAt</span></code> InputPin が破壊されるリンクのこの <code class="docutils literal notranslate"><span class="pre">end</span></code> での位置を表す値を与えるように指定されていなければならない。</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="id26">
+<h3>16.5.4 Notation<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>LinkEndData 固有の記法はない。</li>
+</ul>
+</div>
+<div class="section" id="id27">
+<h3>16.5.5 Examples<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h3>
+<p>なし。</p>
+</div>
+</div>
+<div class="section" id="link-actions">
+<h2><a class="toc-backref" href="#id76">16.6 Link Actions</a><a class="headerlink" href="#link-actions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id28">
+<h3>16.6.1 Summary<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>LinkActions と ClearAssociationAction は
+Associations とそれらのオブジェクト（リンク）に作用する。これには AssociationClasses である Associations を含む。</li>
+</ul>
+</div>
+<div class="section" id="id29">
+<h3>16.6.2 Abstract Syntax<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 16.34 Link Actions<ul>
+<li>ClearAssociationAction が浮いている。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id30">
+<h3>16.6.3 Semantics<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id31">
+<h4>16.6.3.1 Link Actions<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>LinkAction とは、ある Association のリンクを読み取ったり、生成したり、破壊したりする Action である。
+Association は AssociationClass であってもよい。</li>
+</ul>
+</div>
+<div class="section" id="read-link-actions">
+<h4>16.6.3.2 Read Link Actions<a class="headerlink" href="#read-link-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ReadLinkAction とは、ある Association の一端の値を取得して、それらを <code class="docutils literal notranslate"><span class="pre">result</span></code> OutputPin に配置する LinkAction である。その読み取られている一端は、その ReadLinkAction に対する開放端 (open end) と呼ばれる。</li>
+<li>ある ReadLinkAction が実行すると、次のすべてに一致する
+Association の存在するリンクすべての部分集合を特定する。<ul>
+<li>その <code class="docutils literal notranslate"><span class="pre">endData</span></code> オブジェクトの値</li>
+<li>その開放端以外の端点すべてについての qualifier values</li>
+<li>その開放端における qualifier values</li>
+</ul>
+</li>
+<li>ReadLinkAction の <code class="docutils literal notranslate"><span class="pre">result</span></code> OutputPin はその開放端と型と順序が同じである必要がある。</li>
+</ul>
+</div>
+<div class="section" id="create-link-action">
+<h4>16.6.3.3 Create Link Action<a class="headerlink" href="#create-link-action" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>CreateLinkAction とは、リンクを作成するための LinkAction である。</li>
+<li>CreateLinkAction は LinkEndCreationData という
+LinkEndData の特殊型を用いる。</li>
+<li>順序付き端付き Associations が
+LinkEndCreationData の追加の <code class="docutils literal notranslate"><span class="pre">insertAt</span></code> InputPin により実行時に指定される挿入点と一緒に支援されているが、それは
+<code class="docutils literal notranslate"><span class="pre">isReplaceAll</span></code> が false であるときの順序付き Association 端にとっては必要とされ、順序なし端にとっては省略される。</li>
+<li>Association 端は上限多重度が 1 であるときでさえ順序付きであってよい。</li>
+<li>その <code class="docutils literal notranslate"><span class="pre">insertAt</span></code> Pin は <code class="docutils literal notranslate"><span class="pre">type</span></code> が UnlimitedNatural で多重度が 1 である。</li>
+<li>抽象型の Association を接続するためのリンクを作成することの意味は未定義である。</li>
+<li>他の関連端オブジェクトの初期化の後において、作成されているリンクが既に存在するわけではない限りは、
+<code class="docutils literal notranslate"><span class="pre">isReadOnly</span></code> が true である関連端を有するリンクを作成することの意味は未定義である。</li>
+</ul>
+</div>
+<div class="section" id="destroy-link-actions">
+<h4>16.6.3.4 Destroy Link Actions<a class="headerlink" href="#destroy-link-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>DestroyLinkAction とは、指定された LinkEndData に一致するリンクを破壊する Action である。</li>
+<li>破壊するオブジェクトはやはり LinkEndData を用いて同様に指定されているのだが、
+DestroyLinkAction はリンクオブジェクトを破壊することに用いても構わない。</li>
+<li>DestroyLinkAction は LinkEndDestructionData という LinkEndData の特殊型を用いる。</li>
+<li>順序付きかつ非一意な端を有する Associations は、
+LinkEndDestructionData の追加の <code class="docutils literal notranslate"><span class="pre">destroyAt</span></code> InputPin により実行時に指定される削除位置によって支援されていて、
+<code class="docutils literal notranslate"><span class="pre">isDestroyDuplicates</span></code> が false であるときの順序付き非一意的 Association 端にとっては必要とされ、他の端に対しては省略される。</li>
+<li>他の関連端オブジェクトの初期化の後において、その <code class="docutils literal notranslate"><span class="pre">endData</span></code> に一致するリンクがない限りは、
+<code class="docutils literal notranslate"><span class="pre">isReadOnly</span></code> が true である関連端を有するリンクを破壊することの意味は未定義である。</li>
+</ul>
+</div>
+<div class="section" id="clear-association-actions">
+<h4>16.6.3.5 Clear Association Actions<a class="headerlink" href="#clear-association-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ClearAssociationAction とは、ある特定のオブジェクトが関与する
+Association のリンク全てを破壊する Action であり、
+AssociationClass のリンクオブジェクトを含む。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id32">
+<h3>16.6.4 Notation<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>LinkActions や ClearAssociationActions に特化した記法は定義されない。</li>
+</ul>
+</div>
+<div class="section" id="id33">
+<h3>16.6.5 Examples<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h3>
+<p>なし。</p>
+</div>
+</div>
+<div class="section" id="link-object-actions">
+<h2><a class="toc-backref" href="#id77">16.7 Link Object Actions</a><a class="headerlink" href="#link-object-actions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id34">
+<h3>16.7.1 Summary<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>リンクオブジェクト Actions はリンクオブジェクトに作用する、
+AssociationClasses のオブジェクトである。
+LinkActions もまたリンクオブジェクトに作用するが、それらを違うように見分ける。</li>
+</ul>
+</div>
+<div class="section" id="id35">
+<h3>16.7.2 Abstract Syntax<a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 16.35 Link Object Actions<ul>
+<li>ReadLinkObjectEndAction と ReadLinkObjectEndQualifierAction は構造が同じ。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id36">
+<h3>16.7.3 Semantics<a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="read-link-object-end-actions">
+<h4>16.7.3.1 Read Link Object End Actions<a class="headerlink" href="#read-link-object-end-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ReadLinkObjectEndAction とは、あるリンクオブジェクトから端オブジェクトをひとつ取得する Action である。</li>
+<li>このことは開放端として指定された端を使ってリンクオブジェクトの Association のリンクを読み取ることと同じではない。</li>
+</ul>
+</div>
+<div class="section" id="read-link-object-end-qualifier-actions">
+<h4>16.7.3.2 Read Link Object End Qualifier Actions<a class="headerlink" href="#read-link-object-end-qualifier-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ReadLinkObjectEndQualifierAction とは、あるリンクオブジェクトから
+qualifier 端の値をひとつ取得する Action である。</li>
+</ul>
+</div>
+<div class="section" id="create-link-object-actions">
+<h4>16.7.3.3 Create Link Object Actions<a class="headerlink" href="#create-link-object-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>CreateLinkObjectAction とは、リンクオブジェクトをひとつ作成するための特殊化された CreateLinkAction である。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id37">
+<h3>16.7.4 Notation<a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>リンクオブジェクトに作用する Actions に特化した記法は定義されない。</li>
+</ul>
+</div>
+<div class="section" id="id38">
+<h3>16.7.5 Examples<a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h3>
+<p>なし。</p>
+</div>
+</div>
+<div class="section" id="structural-feature-actions">
+<h2><a class="toc-backref" href="#id78">16.8 Structural Feature Actions</a><a class="headerlink" href="#structural-feature-actions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id39">
+<h3>16.8.1 Summary<a class="headerlink" href="#id39" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>StructuralFeatureActions は StructuralFeatures の読み書きを支援する。</li>
+</ul>
+</div>
+<div class="section" id="id40">
+<h3>16.8.2 Abstract Syntax<a class="headerlink" href="#id40" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 16.36 Structural Feature Actions<ul>
+<li>StructuralFeatureAction から Read, Write, Clear を派生する。</li>
+<li>Write から Add と Remove を派生する。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id41">
+<h3>16.8.3 Semantics<a class="headerlink" href="#id41" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id42">
+<h4>16.8.3.1 Structural Feature Actions<a class="headerlink" href="#id42" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>StructuralFeatureAction とは、静的に指定された Classifier の StructuralFeature が与えられると、その <code class="docutils literal notranslate"><span class="pre">object</span></code> InputPin にあるオブジェクトに作用するものである。</li>
+<li>オブジェクトが関与する StructuralFeatures と AssociationClasses は動的分類ゆえ繰り返し変化してよいが、
+StructuralFeatureAction の <code class="docutils literal notranslate"><span class="pre">object</span></code> InputPin の型は単一の Classifier であり、その Action に引き渡されるオブジェクトが（直接か間接かを問わず）その Classifier により分類されているときに限って、その意味が定義される。</li>
+<li>ReadStructuralFeatureAction は StructuralFeature の値を読み取り、これらの値をその <code class="docutils literal notranslate"><span class="pre">result</span></code> OutputPin に置く。</li>
+</ul>
+</div>
+<div class="section" id="read-structural-feature-actions">
+<h4>16.8.3.2 Read Structural Feature Actions<a class="headerlink" href="#read-structural-feature-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ReadStructuralFeatureAction とは、
+StructuralFeature の値を取得して、それらをその <code class="docutils literal notranslate"><span class="pre">result</span></code> OutputPin に配置する
+StructuralFeatureAction である。</li>
+<li><code class="docutils literal notranslate"><span class="pre">result</span></code> OutputPin の型と順序はその StructuralFeature のそれらと同じである。</li>
+</ul>
+</div>
+<div class="section" id="add-structural-feature-value-actions">
+<h4>16.8.3.3 Add Structural Feature Value Actions<a class="headerlink" href="#add-structural-feature-value-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>AddStructuralFeatureValueAction とは、あるオブジェクトの StructuralFeature ひとつに値を追加するための
+StructuralFeatureAction である。</li>
+<li><code class="docutils literal notranslate"><span class="pre">isReplaceAll</span></code> が true ならば、
+StructuralFeature の既存の値は、その StructuralFeature がすでにその新しい値を含む場合を除外して、新しい値が追加される前に取り除かれる。</li>
+<li>順序付き StructuralFeature に値を追加するには、
+<code class="docutils literal notranslate"><span class="pre">insertAt</span></code> InputPin に与えられる新しい値を置くための挿入点が必要である。これは <code class="docutils literal notranslate"><span class="pre">isReplaceAll</span></code> が false のときには順序付き StructuralFeatures に対しては必要とされて、順序なしの StructuralFeatures については省略される。</li>
+<li>StructuralFeatures の値は上限多重度が 1 であるときでさえ順序付きであってよい。</li>
+<li><code class="docutils literal notranslate"><span class="pre">insertAt</span></code> InputPin があれば、それは型が UnlimitedNatural で多重度が 1 である。</li>
+<li>StructuralFeature の上側の多重度に違反する値を追加することと、
+<code class="docutils literal notranslate"><span class="pre">isReadOnly</span></code> が true である StructuralFeature に対してその値であろうオブジェクトの初期化後に新しい値を追加することの意味は未定義である。</li>
+</ul>
+</div>
+<div class="section" id="remove-structural-feature-value-actions">
+<h4>16.8.3.4 Remove Structural Feature Value Actions<a class="headerlink" href="#remove-structural-feature-value-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>RemoveStructuralFeatureValueAction とは、あるオブジェクトの StructuralFeature ひとつから値を取り除くのに用いられる
+StructuralFeatureAction である。</li>
+<li>後述の場合を除き、取り除かれる値は <code class="docutils literal notranslate"><span class="pre">value</span></code> InputPin が与えるものであり、これはその StructuralFeature と同じ型で多重度が 1 である。</li>
+<li><code class="docutils literal notranslate"><span class="pre">isRemoveDuplicates</span></code> が false であり、かつ StructuralFeature が順序付きで非一意ならば、
+<code class="docutils literal notranslate"><span class="pre">value</span></code> InputPin はなく、代わって取り除かれる値は <code class="docutils literal notranslate"><span class="pre">removeAt</span></code> InputPin の位置により与えられる。</li>
+<li>所有するオブジェクトの初期化後に、
+<code class="docutils literal notranslate"><span class="pre">readOnly</span></code> が true である StructuralFeature の既存の値を取り除くことの意味は未定義とする。</li>
+</ul>
+</div>
+<div class="section" id="clear-structural-feature-actions">
+<h4>16.8.3.5 Clear Structural Feature Actions<a class="headerlink" href="#clear-structural-feature-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ClearStructuralFeatureAction とは、たとえその StructuralFeature の多重度の下限がゼロより大きい場合でさえ、
+StructuralFeature の値全てを取り除く StructuralFeatureAction である。</li>
+<li>StructuralFeature を所有するオブジェクトの初期化後に、それに値がないのでない限りは、
+<code class="docutils literal notranslate"><span class="pre">readOnly</span></code> が true である StructuralFeature の意味は未定義とする。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id43">
+<h3>16.8.4 Notation<a class="headerlink" href="#id43" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>StructuralFeatureActions に特化した記法は定義されない。</li>
+</ul>
+</div>
+<div class="section" id="id44">
+<h3>16.8.5 Examples<a class="headerlink" href="#id44" title="Permalink to this headline">¶</a></h3>
+<p>なし。</p>
+</div>
+</div>
+<div class="section" id="variable-actions">
+<h2><a class="toc-backref" href="#id79">16.9 Variable Actions</a><a class="headerlink" href="#variable-actions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id45">
+<h3>16.9.1 Summary<a class="headerlink" href="#id45" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>VariableActions は Variables の読み書きを支援する。</li>
+</ul>
+</div>
+<div class="section" id="id46">
+<h3>16.9.2 Abstract Syntax<a class="headerlink" href="#id46" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 16.37 Variable Actions<ul>
+<li>派生のスタイルが先ほどのものと似ている。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id47">
+<h3>16.9.3 Semantics<a class="headerlink" href="#id47" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="variable-action">
+<h4>16.9.3.1 Variable Action<a class="headerlink" href="#variable-action" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>VariableActions は静的に指定された Variable に作用する。</li>
+</ul>
+</div>
+<div class="section" id="read-variable-actions">
+<h4>16.9.3.2 Read Variable Actions<a class="headerlink" href="#read-variable-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ReadVariableAction とは Variable の値を取得してそれらを <code class="docutils literal notranslate"><span class="pre">result</span></code> OutputPin に配置する VariableAction である。</li>
+<li><code class="docutils literal notranslate"><span class="pre">result</span></code> OutputPin の型と順序はその Variable のそれらと同じである。</li>
+</ul>
+</div>
+<div class="section" id="add-variable-value-action">
+<h4>16.9.3.3 Add Variable Value Action<a class="headerlink" href="#add-variable-value-action" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>AddVariableValueAction とは、値を Variable に追加するためのものである。</li>
+<li><code class="docutils literal notranslate"><span class="pre">isReplaceAll</span></code> が true ならば、
+Variable の既存の値は、その Variable がすでにその新しい値を含む場合を除外して、新しい値が追加される前に取り除かれる。</li>
+<li>順序付き Variable に値を追加することは、
+<code class="docutils literal notranslate"><span class="pre">insertAt</span></code> InputPin を使う新しい値のための挿入点を必要とするが、
+<code class="docutils literal notranslate"><span class="pre">isReplaceAll</span></code> が false のときの順序付き Variable に対しては必要とされ。順序なし Variable については省略される。</li>
+<li>Variable の上限多重度に違反する値を追加することについての意味は未定義とする。</li>
+</ul>
+</div>
+<div class="section" id="remove-variable-value-actions">
+<h4>16.9.3.4 Remove Variable Value Actions<a class="headerlink" href="#remove-variable-value-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>RemoveVariableValueAction とは、
+Variable から値を取り除く VariableAction である。</li>
+<li>取り除かれる値は <code class="docutils literal notranslate"><span class="pre">value</span></code> InputPin で与えられ、それは Variable と同じ型であり多重度は 1 である。</li>
+<li><code class="docutils literal notranslate"><span class="pre">isRemoveDuplicates</span></code> が false であり、なおかつその Variable が順序付きで非一意ならば、
+<code class="docutils literal notranslate"><span class="pre">value</span></code> InputPin はなく、取り除かれる値は <code class="docutils literal notranslate"><span class="pre">removeAt</span></code> InputPin の指す位置を与えることで指定されるが、これは <code class="docutils literal notranslate"><span class="pre">type</span></code> が UnlimitedNatural であり、多重度は 1 である。</li>
+</ul>
+</div>
+<div class="section" id="clear-variable-actions">
+<h4>16.9.3.5 Clear Variable Actions<a class="headerlink" href="#clear-variable-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ClearVariableAction とは、たとえその Variable の多重度の下限がゼロより大きい場合でさえ、
+Variable の値全てを取り除く VariableAction である。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id48">
+<h3>16.9.4 Notation<a class="headerlink" href="#id48" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 16.38 Presentation option for AddVariableValueAction<ul>
+<li>上下に分かれているが、上の方は抽象的構文とする。</li>
+</ul>
+</li>
+<li>AddVariableValueAction の <code class="docutils literal notranslate"><span class="pre">isReplaceAll</span></code> が true であると、このことはテキストの註釈 <code class="docutils literal notranslate"><span class="pre">{replaceAll}</span></code> が変数名の近くにあることでわかる。</li>
+</ul>
+</div>
+<div class="section" id="id49">
+<h3>16.9.5 Examples<a class="headerlink" href="#id49" title="Permalink to this headline">¶</a></h3>
+<p>なし。</p>
+</div>
+</div>
+<div class="section" id="accept-event-actions">
+<h2><a class="toc-backref" href="#id80">16.10 Accept Event Actions</a><a class="headerlink" href="#accept-event-actions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id50">
+<h3>16.10.1 Summary<a class="headerlink" href="#id50" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>AcceptEventAction はひとつまたはそれを超える Events の出来事を待機する。受理した Event の出来事が CallEvent を要求するものならば、
+ReplyAction をそれに返信するのに用いてよい。受理した Event の出来事がある SignalEvent を要求するものならば、受信した Signal オブジェクトは、<ul>
+<li>直ちにその属性の値へと unmarshal されるか、</li>
+<li>後になって UnmarshallAction を用いてそうされるかの一方であってよい。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id51">
+<h3>16.10.2 Abstract Syntax<a class="headerlink" href="#id51" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 16.39 Accept Event Actions<ul>
+<li>Action の派生クラスがまだまだ定義されていく。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id52">
+<h3>16.10.3 Semantics<a class="headerlink" href="#id52" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="accept-event-action">
+<h4>16.10.3.1 Accept Event Action<a class="headerlink" href="#accept-event-action" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>AcceptEventAction とは、ひとつまたはそれを超える Events についての
+Triggers を備えた Action である。</li>
+<li>AcceptEventAction についての一致する Event 出来事が事象プールから発送されるならば、その AcceptEventAction は続行するために使用可能になる。</li>
+<li>SignalEvent を引き起こす <code class="docutils literal notranslate"><span class="pre">trigger</span></code> のある AcceptEventAction は信号受理活動 (an accept signal action) と非公式に呼ばれる。</li>
+<li>TimeEvent を引き起こす <code class="docutils literal notranslate"><span class="pre">trigger</span></code> のある AcceptEventAction は待機時間活動 (a wait time action) と非公式に呼ばれる。</li>
+<li>AcceptEventAction の <code class="docutils literal notranslate"><span class="pre">triggers</span></code> がすべて
+ChangeEvents または CallEvents またはその両方についてのものならば、
+AcceptEventAction には <code class="docutils literal notranslate"><span class="pre">result</span></code> OutputPins はない。<ul>
+<li>ただし AcceptEventAction は AcceptCallAction ではないものとする。</li>
+</ul>
+</li>
+<li>AcceptEventAction の <code class="docutils literal notranslate"><span class="pre">triggers</span></code> のうちのひとつが AnyReceiveEvent であり、
+Event の出来事が同じ AcceptEventAction にある SignalEvent または
+CallEvent の <code class="docutils literal notranslate"><span class="pre">trigger</span></code> に一致されないメッセージに対するものならば、
+Event の出来事は AnyReceiveEvent を引き起こす <code class="docutils literal notranslate"><span class="pre">trigger</span></code> に一致する。</li>
+<li>AcceptEventAction が Activity で使われると、それがいつ利用可能になるのかを決める特別な規則がある。</li>
+</ul>
+</div>
+<div class="section" id="accept-call-actions">
+<h4>16.10.3.2 Accept Call Actions<a class="headerlink" href="#accept-call-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>AcceptCallAction とは、CallEvent の出来事を処理するために特殊化された
+AcceptEventAction である。</li>
+<li>AcceptCallAction は一致する CallEvent の出来事で普通の AcceptEventAction と同じ方法で起こされる。</li>
+<li>非同期呼び出しにより起こされた AcceptCallAction は、やはりその <code class="docutils literal notranslate"><span class="pre">returnInformation</span></code> OutputPin に値を生じるが、その値を受理する ReplyAction は非同期呼び出しにとっての戻り値が与えられると、何も起こらずに直ちに完了する。</li>
+<li>AcceptCallAction の CallEvent で参照される Operation には付随するメソッド Behavior があるべきではない。そうではなく、
+Operation に対する呼び出しはそのメソッドの実行の直接効果があるはずであり、その背景となるオブジェクトについての事象プールへ置かれることはないであろう。このように、
+Operation に対する呼び出しは AcceptCallAction に送達されることは決してない。</li>
+</ul>
+</div>
+<div class="section" id="reply-actions">
+<h4>16.10.3.3 Reply Actions<a class="headerlink" href="#reply-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ReplyAction とは直前の AcceptCallAction によって受理された呼び出しの処理を完了する Action である。</li>
+<li>ReplyAction が実行すると、最初の呼び出し要求メッセージに対する返答メッセージを発生し、その <code class="docutils literal notranslate"><span class="pre">replyValue</span></code> InputPins から得られる値を利用する。</li>
+<li>返答の情報は複製されたり、オブジェクトに格納されたり、引き渡したりしてもよいが、
+ReplyAction の中で一度しか利用されてはならない。</li>
+<li>ReplyAction が同期的呼び出しからの返却情報で決して実行されないならば、呼び出し側は決して返答を受信しないので、それゆえ実行を完了することがないはずである。このことは違法ではないが、普通は望ましくない。</li>
+</ul>
+</div>
+<div class="section" id="unmarshall-actions">
+<h4>16.10.3.4 Unmarshall Actions<a class="headerlink" href="#unmarshall-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>UnmarshallAction とは、オブジェクトの StructuralFeatures の値を取得して、それらを OutputPins に配置する Action である。</li>
+<li>Signal の所有された Properties には順序があるが、
+Generalization 関係のため、
+Classifier は他の Classifiers から Properties を継承してもよい。この場合、所有 Properties すべては継承された Properties のどれよりも先に来るように
+<code class="docutils literal notranslate"><span class="pre">unmarshallType</span></code> の Properties は順序付けられる。</li>
+<li>UnmarshallAction が実行すると、その InputPin からオブジェクトを取り、オブジェクトから <code class="docutils literal notranslate"><span class="pre">unmarshallType</span></code> の Properties の値を取得して、これらの値を対応する OutputPins に配置する。</li>
+<li>UnmarshallAction は、例えば、
+<code class="docutils literal notranslate"><span class="pre">isUnmarshall</span></code> が false である AcceptEventAction により生成された
+Signal オブジェクトの属性値を得るのに有用である。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id53">
+<h3>16.10.4 Notation<a class="headerlink" href="#id53" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 16.40 AcceptEventAction notations<ul>
+<li>AcceptEventAction は一般には凹五角形で記される。左側が凹。内側にその <code class="docutils literal notranslate"><span class="pre">name</span></code> を配してもよい。</li>
+<li>AcceptEventAction が単一の TimeEvent <code class="docutils literal notranslate"><span class="pre">trigger</span></code> を有するようなものは、砂時計みたいな記号で記す。名前を書くなら記号の下側である。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id54">
+<h3>16.10.5 Examples<a class="headerlink" href="#id54" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 16.41 Implicitly enabled AcceptEventAction<ul>
+<li>Cancel order request は何か Signal を受理するアクションである。</li>
+<li>Signal の受理が Cancel Order の発動をもたらす。</li>
+</ul>
+</li>
+<li>Figure 16.42 Explicitly enabled AcceptEventAction<ul>
+<li>Process Order が処理された後に、
+Request Payment Signal が送信される。
+Payment confirmed AcceptEventAction がそれを受信すると、
+Ship Order が行われる。</li>
+</ul>
+</li>
+<li>Figure 16.43 Repetitive time event<ul>
+<li>砂時計は待機時間活動の記号である。</li>
+<li>End of month occurred が砂時計の左側に書いてある。
+Report Meter Reading は毎月末に起こる。</li>
+</ul>
+</li>
+<li>Figure 16.44 UnmarshallAction<ul>
+<li>Unmarshall Order は Order から
+Name, Address, Product の属性の値を生じる。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="structured-actions">
+<h2><a class="toc-backref" href="#id81">16.11 Structured Actions</a><a class="headerlink" href="#structured-actions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id55">
+<h3>16.11.1 Summary<a class="headerlink" href="#id55" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>StructuredActivityNode とは、
+ActivityGroup でもある Action である。つまり、その実行時の挙動を定義する
+ActivityNodes と ActivityEdges を含む。</li>
+<li>StructuredActivityNodes の特殊型、名前を挙げると
+ConditionalNodes, LoopNodes, SequenceNodes らは、それらの中にある ExecutableNodes がどのように実行されるのかという、それぞれの型固有の制御の意味を定義する。</li>
+</ul>
+</div>
+<div class="section" id="id56">
+<h3>16.11.2 Abstract Syntax<a class="headerlink" href="#id56" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 16.45 Structured Actions<ul>
+<li>StructuredActivityNode は Namespace, Action, ActivityGroup から派生している。</li>
+<li>その派生型に ConditionalNode, LoopNode, SequenceNode がある。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id57">
+<h3>16.11.3 Semantics<a class="headerlink" href="#id57" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="structured-activity-nodes">
+<h4>16.11.3.1 Structured Activity Nodes<a class="headerlink" href="#structured-activity-nodes" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>StructuredActivityNode とは、
+ActivityGroup でもあり、その挙動がそれが含む ActivityNodes と ActivityEdges とで指定される
+Action である。</li>
+<li>StructuredActivityNode は Variables の定義を含んでもよい。</li>
+<li>この表題のすぐ下に続く議論は
+StructuredActivityNodes の特殊化のひとつのオブジェクトでない
+StructuredActivityNode の意味についてのものである。</li>
+<li>StructuredActivityNode は使用可能であり、
+Action に関する通常の規則に則った実行を始める。</li>
+<li>StructuredActivityNode の InputPins は、これに含まれている ActivityEdges へ至る <code class="docutils literal notranslate"><span class="pre">sources</span></code> であってよい。</li>
+<li>同様にして、StructuredActivityNode の OutputPins は、これに含まれている ActivityEdges の <code class="docutils literal notranslate"><span class="pre">targets</span></code> であってよい。</li>
+<li>StructuredActivityNode に含まれている ActivityEdge には必ずエッジの <code class="docutils literal notranslate"><span class="pre">source</span></code> と <code class="docutils literal notranslate"><span class="pre">target</span></code> の両者があり、それらは<ul>
+<li>StructuredActivityNode に（直接的にでも間接的にでも）含まれるか、</li>
+<li>StructuredActivityNode に所有される Pin であるものとする。</li>
+</ul>
+</li>
+<li>ActivityEdge の <code class="docutils literal notranslate"><span class="pre">source</span></code> が StructuredActivityNode の外部にあり、
+<code class="docutils literal notranslate"><span class="pre">target</span></code> がその内部にあるならば、そのエッジに与えられたものはどれでも、
+StructuredActivityNode が実行を始めるまでは保留されたままになる。</li>
+<li>ActivityEdge の <code class="docutils literal notranslate"><span class="pre">source</span></code> が StructuredActivityNode の内部にあり、
+<code class="docutils literal notranslate"><span class="pre">target</span></code> がその外部にあるならば、
+StructuredActivityNode が実行しているのではない限り、そのエッジには何も与えられることはない。</li>
+<li>StructuredActivityNode は Activity の実行の完了にまつわる同じ規則に従って実行を完了する。</li>
+<li>StructuredActivityNode がその実行を完了するときに、その内部へと進出している実行はすべて停止されて、それに含まれるトークンはすべて破壊されるが、
+StructuredActivityNode の OutputPins にある、つまり <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> エッジに向けて与えているものは例外とする。</li>
+</ul>
+</div>
+<div class="section" id="isolation">
+<h4>16.11.3.2 Isolation<a class="headerlink" href="#isolation" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Behaviors の内側にあったりまたがったりする Actions の実行の同時性のため、オブジェクトメモリへのアクセスと変更に一貫性を保証することは難しくなる可能性がある。</li>
+<li>もしフラグ <code class="docutils literal notranslate"><span class="pre">mustIsolate</span></code> が true ならば、ノード内部にある Action によるオブジェクトへのどのアクセスもノード外側にある Action によるオブジェクトへのアクセスと衝突してはならない。<ul>
+<li>独立性は不可分性の性質とは異なる。後者は Actions のグループが全て正常完了するか、全く効能がないかのどちらかを保証するものである。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="conditional-nodes">
+<h4>16.11.3.3 Conditional Nodes<a class="headerlink" href="#conditional-nodes" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ConditionalNode とは、実行する ExecutableNodes の別の集まりのいくつかからひとつを選択する StructuredActivityNode である。</li>
+<li>ConditionalNode が実行を始めるときには、その内部にある InitialNodes のどれもが直ちに利用可能となる。</li>
+<li>いったん ConditionalNode が実行中になると、
+<code class="docutils literal notranslate"><span class="pre">predecessorClauses</span></code> がない Clauses のどんな <code class="docutils literal notranslate"><span class="pre">test</span></code> 節も実行される。</li>
+<li><code class="docutils literal notranslate"><span class="pre">test</span></code> 節の実行が「同時である」と指定されるところでは、この事はモデルがそれらの実行の順序に何も課さないことを意味する。</li>
+<li>ConditionalNode について <code class="docutils literal notranslate"><span class="pre">isAssured</span></code> が true であると、これは少なくともひとつの <code class="docutils literal notranslate"><span class="pre">test</span></code> 節が true 値を返すはずであることを断言する。
+<code class="docutils literal notranslate"><span class="pre">isDeterminate</span></code> が true であると、これは高々ひとつの <code class="docutils literal notranslate"><span class="pre">test</span></code> 節が true 値を返すはずであることを断言する。</li>
+<li>これらの断言を自動的に確かめることは一般には不可能であり、それらを強いることは必要とされないが、実行機関に対して有用な情報を与えることが許される。</li>
+<li>いったん <code class="docutils literal notranslate"><span class="pre">test</span></code> 節の実行工程が終わると、実行可能な <code class="docutils literal notranslate"><span class="pre">body</span></code> 節が厳密にひとつあれば、その <code class="docutils literal notranslate"><span class="pre">body</span></code> 節は実行される。</li>
+<li>else Clause とは、
+ConditionalNode にある他の節全てに対する後者 (successor) であり、
+<code class="docutils literal notranslate"><span class="pre">test</span></code> 節が結果として常に true となる Clause である。</li>
+<li><code class="docutils literal notranslate"><span class="pre">body</span></code> 節が実行可能になるときにはいつでも、さらなる <code class="docutils literal notranslate"><span class="pre">test</span></code> 節実行のどの完了よりも前に実際に実行されてよい。</li>
+<li>ConditionalNode には <code class="docutils literal notranslate"><span class="pre">result</span></code> OutputPins の順序付き集合がある。</li>
+<li>OutputPins はどの <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> エッジにも応じられる。</li>
+<li>いったん ConditionalNode が実行を完了すると、内部で進行中の実行全てが停止されて、その内部にあるトークンすべては破壊される。</li>
+<li>ConditionalNode に InputPins があることは認められない。</li>
+</ul>
+</div>
+<div class="section" id="loop-nodes">
+<h4>16.11.3.4 Loop Nodes<a class="headerlink" href="#loop-nodes" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>LoopNode とは、反復的なループを表現する StructuredActivityNode である。
+LoopNode は <code class="docutils literal notranslate"><span class="pre">setupPart</span></code>, <code class="docutils literal notranslate"><span class="pre">test</span></code> および <code class="docutils literal notranslate"><span class="pre">bodyPart</span></code> から構成されていて、
+LoopNode に含まれる ExecutableNodes の部分集合を識別する。
+LoopNode にある ExecutableNode はいずれも
+<code class="docutils literal notranslate"><span class="pre">setupPart</span></code>, <code class="docutils literal notranslate"><span class="pre">test</span></code> または <code class="docutils literal notranslate"><span class="pre">bodyPart</span></code> に含まれていなければならない。</li>
+<li>LoopNode が実行を始めると、その内部にある InitialNodes はどれもが直ちに利用可能になる。</li>
+<li>まず LoopNode の <code class="docutils literal notranslate"><span class="pre">setupPart</span></code> が実行される。
+<code class="docutils literal notranslate"><span class="pre">setupPart</span></code> が実行を完了すると、ループの反復的な実行が始まる。</li>
+<li><code class="docutils literal notranslate"><span class="pre">test</span></code> 節には
+LoopNode により識別される Boolean 型の
+<code class="docutils literal notranslate"><span class="pre">decider</span></code> OutputPin を所有している Action がある。</li>
+<li><code class="docutils literal notranslate"><span class="pre">bodyPart</span></code> の実行それぞれの後に、ループの次の反復に備えて <code class="docutils literal notranslate"><span class="pre">test</span></code> 節が再び実行される。</li>
+<li>LoopNode は各反復の間に現れる途中の値を保持するのに用いられる
+<code class="docutils literal notranslate"><span class="pre">loopVariable</span></code> OutputPins の集合を定義してもよい。</li>
+<li>LoopNode が実行を始めると、ループの初回反復に先立って
+<code class="docutils literal notranslate"><span class="pre">loopVariableInput</span></code> InputPins にあるトークンは対応する <code class="docutils literal notranslate"><span class="pre">loopVariable</span></code> OutputPins に移される。</li>
+<li>LoopNode には、上で述べた以外の InputPins と OutputPins があってはならない。</li>
+</ul>
+</div>
+<div class="section" id="sequence-nodes">
+<h4>16.11.3.5 Sequence Nodes<a class="headerlink" href="#sequence-nodes" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>SequenceNode は完全な、それが含む ActivityNodes 全ての順序を定義するが、それらは全て ExecutableNodes でなければならない。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id58">
+<h3>16.11.4 Notation<a class="headerlink" href="#id58" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 16.46 Notation for StructuredActivityNode<ul>
+<li>StructuredActivityNode は、その <code class="docutils literal notranslate"><span class="pre">nodes</span></code> と <code class="docutils literal notranslate"><span class="pre">edges</span></code> を囲んでいる、上部にキーワード «structured» のある破線丸角矩形で記される。</li>
+</ul>
+</li>
+<li>ConditionalNode, LoopNode, SequenceNode には標準的な記法は定義されない。</li>
+</ul>
+</div>
+<div class="section" id="id59">
+<h3>16.11.5 Examples<a class="headerlink" href="#id59" title="Permalink to this headline">¶</a></h3>
+<p>なし。</p>
+</div>
+</div>
+<div class="section" id="expansion-regions">
+<h2><a class="toc-backref" href="#id82">16.12 Expansion Regions</a><a class="headerlink" href="#expansion-regions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id60">
+<h3>16.12.1 Summary<a class="headerlink" href="#id60" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>ExpansionRegion とは、入力コレクションの要素に対応している、それが含む要素を複数回実行する StructuredActivityNode である。</li>
+</ul>
+</div>
+<div class="section" id="id61">
+<h3>16.12.2 Abstract Syntax<a class="headerlink" href="#id61" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 16.47 Expansion Regions<ul>
+<li>ExpansionRegion と ExpansionNode だけ。</li>
+<li>ExpansionKind という enumeration がある。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id62">
+<h3>16.12.3 Semantics<a class="headerlink" href="#id62" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>ExpansionRegion とは、値のコレクションをを入力としてひとつまたはそれを超えて取り、それらの値それぞれに対して包含する ActivityNodes と ActivityEdges を実行する
+StructuredActivityNode である。</li>
+<li>ExpansionNode とは、
+ExpansionRegion の境界を超えていく流れを指示するのに用いられる
+ObjectNode である。</li>
+<li>実行機関は、それが支援する（集合、袋、等々）、個々のオブジェクトがそこから要素値から構築されてよい、かつ、そこからそれらの要素値が後で得られてよいような、多様な種類のコレクション型を定義してよい。</li>
+<li>ExpansionRegion に入力 ExpansionNodes が複数あれば、異なるコレクションにある要素の種類が変化することが許されているけれども、それぞれは同種のコレクション（集合、袋、等々）を処理するものとする。</li>
+<li>ExpansionRegion は Action についての通常の規則に則って実行を始める。</li>
+<li>ExpansionRegion に含まれる ActivityNodes と ActivityEdges のグループは入力コレクションの要素それぞれについて一度だけ実行される。これらは ExpansionRegion の拡大実行 (expansion executions) と呼べるであろう。</li>
+<li>一般の StructuredActivityNode の実行と同じ意味の下に、各 expansion execution はその他の実行とは独立して進行するが、次の特別な規則は除外される。<ul>
+<li>拡大実行それぞれの内部では、単一のトークンは入力 ExpansionNode がその <code class="docutils literal notranslate"><span class="pre">source</span></code> であり、その <code class="docutils literal notranslate"><span class="pre">target</span></code> が ExpansionRegion の内側にある
+ActivityEdge それぞれに与えられる。</li>
+<li>拡大実行それぞれは、その <code class="docutils literal notranslate"><span class="pre">source</span></code> がExpansionRegion の内側にあり、その出力 ExpansionNode がその <code class="docutils literal notranslate"><span class="pre">target</span></code> となる
+ActivityEdge に与えられるトークンに帰着してよい。</li>
+<li>ExpansionRegion の InputPins 上に配置されたトークンは拡大実行のそれぞれに複製されて、拡大実行のそれぞれには
+InputPins から流出する ActivityEdges にあるトークンの異なる複製が与えられるようにする。</li>
+<li>ExpansionRegions には、その内側から ExpansionRegion の外に交わる
+OutputPins と ActivityEdges があってよい。</li>
+</ul>
+</li>
+<li>ExpansionRegion が拡大実行のすべてを完了すると、出力コレクションはそれらのノードから流出する ActivityEdges のいずれの出力 ExpansionNodes に与えられる。</li>
+<li>ExpansionRegion の <code class="docutils literal notranslate"><span class="pre">mode</span></code> はその拡大実行の実行がどのように進行するかを制御する。<ul>
+<li>parallel: 拡大実行の実行は同時に進行する。これは実行期間が実行を平行に稼動させるか、さもなくば時間上部分的に重なることを可能にするが、これは必要ではない。しかし、実行が逐次的に稼動されるならば、それらが稼動される順番は定義されない。</li>
+<li>iterative: 拡大実行の実行は反復的な順序で起こるものとする。あるものが完了してから他のものが始まることが可能になる。</li>
+<li>stream: 厳密にひとつの拡大実行の実行があり、値はコレクションそれぞれからの流れにより、この実行に与えられる。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id63">
+<h3>16.12.4 Notation<a class="headerlink" href="#id63" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 16.48 Expansion Region<ul>
+<li>ExpansionRegion は破線丸角箱で記す。</li>
+<li>箱の左上に ExpansionKind の値に対応するキーワード «parallel», etc. を添える。</li>
+<li>入力と出力の ExpansionNodes は小さい短冊のような記号で記す。これらは箱の枠上に配置する。</li>
+<li>ExpansionRegion の内側と外側にある ActivityEdge 矢印は入力と出力のノードを見分けることができる。</li>
+</ul>
+</li>
+<li>Figure 16.49 Shorthand notation for expansion region containing single node<ul>
+<li>速記法として、リストボックス記法を Action 記号で直接配置してよい。</li>
+</ul>
+</li>
+<li>Figure 16.50 Full form of previous shorthand notation<ul>
+<li>上の見本を完全版で示すとこうなる。</li>
+</ul>
+</li>
+<li>Figure 16.51 Notation for expansion region with one behavior invocation<ul>
+<li>単一の CallBehaviorAction を含む ExpansionRegion に採用可能なさらなる速記例。</li>
+<li>キーワードを使う代わりに <code class="docutils literal notranslate"><span class="pre">*</span></code> を右上に記す。複数実行を含意している。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id64">
+<h3>16.12.5 Examples<a class="headerlink" href="#id64" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 16.52 Expansion region with two inputs and one output<ul>
+<li>ふたつの入力とひとつの出力があり、
+parallel に実行される ExpansionRegion の見本。</li>
+<li>両方のコレクションには同数の要素があることを期待している。</li>
+<li>内側は入力コレクションの各要素について一度実行される。</li>
+</ul>
+</li>
+<li>Figure 16.53 Expansion Region<ul>
+<li>ExpansionRegion を含む高速 Fourier 変換計算の断片の見本である。</li>
+<li>ExpansionRegion の外側で複素数の配列の演算がある。</li>
+<li>S, Slower, Supper, V は配列である。</li>
+<li>ExpansionRegions 中の式に見える
+cut および shuffle は配列に作用する演算である。</li>
+<li>領域の内側では、ふたつの算術演算が入力配列 3 個 (lower, upper, root) の要素に対してなされ、出力配列 2 個 (nxteven, nxtodd) を求める。</li>
+<li>配列内の異なる位置同士は相互作用しないので、
+ExpansionRegion はすべての位置で平行に実行することができる。</li>
+</ul>
+</li>
+<li>Figure 16.54 Examples of expansion region shorthand<ul>
+<li>航空券の予約とホテルの予約が独立かつ parallel である。</li>
+</ul>
+</li>
+<li>Figure 16.55 Shorthand notation for expansion region<ul>
+<li>Specify Trip Route が複数の Book Flight アクションに帰着することを示す。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="other-actions">
+<h2><a class="toc-backref" href="#id83">16.13 Other Actions</a><a class="headerlink" href="#other-actions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id65">
+<h3>16.13.1 Summary<a class="headerlink" href="#id65" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>本節では Actions のさらなる種類である
+ReduceAction と RaiseExceptionAction を扱う。
+ReduceAction とは、ある値のコレクションを単一の値にまで縮合するためにひとつの Behavior を繰り返し発動する Action であり、
+RaiseExceptionAction とは、例外を送出するための Action である。</li>
+</ul>
+</div>
+<div class="section" id="id66">
+<h3>16.13.2 Abstract Syntax<a class="headerlink" href="#id66" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 16.56 Other Actions<ul>
+<li>ReduceAction には InputPin と OutputPin の両方があるが、
+RaiseExceptionAction には InputPin だけがある。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id67">
+<h3>16.13.3 Semantics<a class="headerlink" href="#id67" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="reduce-actions">
+<h4>16.13.3.1 Reduce Actions<a class="headerlink" href="#reduce-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ReduceAction とは、コレクションの要素を結合することでコレクションを単一の値に縮合する Action である。</li>
+<li>実行機関は、それが支援する（集合、袋、等々）、個々のオブジェクトがそこから要素値から構築されてよい、かつ、そこからそれらの要素値が後で得られてよいような、多様な種類のコレクション型を定義してよい。<ul>
+<li>これは以前に書いた文をコピーアンドペーストしたものだ。</li>
+</ul>
+</li>
+<li>代わりに、実行機関は
+InputPin で一緒に置かれたトークンの一団に渡された値の集合として暗にコレクションを支援してもよい。</li>
+<li>ReduceAction は入力コレクションの中間生成コピーの
+<code class="docutils literal notranslate"><span class="pre">reducer</span></code> Behavior を繰り返し発動することで実行する。</li>
+<li>入力コレクションが順序なしであるか、または InputPin に対する <code class="docutils literal notranslate"><span class="pre">isOrdered</span></code> が false であれば、中間生成コレクションのどの要素が <code class="docutils literal notranslate"><span class="pre">reducer</span></code> の実引数として選択されたのかが不確定となる。</li>
+<li>もし <code class="docutils literal notranslate"><span class="pre">reducer</span></code> Behavior が可換律かつ結合律を満たす操作であれば、順序なしコレクションまたは <code class="docutils literal notranslate"><span class="pre">isOrdered</span></code> が false であると
+ReduceAction の結果に普通は影響しないはずであり、縮合計算がどう実行されてよいのかということにかなりの自由さを与える。</li>
+<li>その発動がお互いに影響するような副作用が <code class="docutils literal notranslate"><span class="pre">reducer</span></code> Behavior にあれば、
+<code class="docutils literal notranslate"><span class="pre">isOrdered</span></code> が false である ReduceAction の結果は予測不能であってよい。</li>
+</ul>
+</div>
+<div class="section" id="raise-exception-actions">
+<h4>16.13.3.2 Raise Exception Actions<a class="headerlink" href="#raise-exception-actions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>RaiseExceptionAction とは、例外を発生させる Action である。正常に終了するというよりは、常に例外を送出することで完了する。
+<code class="docutils literal notranslate"><span class="pre">exception</span></code> InputPin において与えられた値が例外として送出される。</li>
+<li>RaiseExceptionAction 自身に送出された例外に一致する ExceptionHandler があるならば、例外はそのハンドラーによって捕捉される。そうでなければ、例外はいちばん内側から外側に向かって拡がっていく。</li>
+<li>例外が StructuredActivityNode の外に伝わると（ノードにおける ExceptionHandler によって捕捉されている場合も含み）、その StructuredActivityNode は停止する。</li>
+<li>RaiseExceptionAction が実行された Behavior の中にある
+ExceptionHandler のどれによっても例外が捕捉されなければ、
+Behavior の実行は停止される。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id68">
+<h3>16.13.4 Notation<a class="headerlink" href="#id68" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>ReduceActions と RaiseExceptionActions に特化した記法は定義されない。</li>
+</ul>
+</div>
+<div class="section" id="id69">
+<h3>16.13.5 Examples<a class="headerlink" href="#id69" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>ReduceAction は数のリストをその数の和へ縮合するのに使える。そのような ReduceAction には数のコレクションに対する InputPin がひとつと、数に対する OutputPin がひとつと、
+<code class="docutils literal notranslate"><span class="pre">reducer</span></code> Behavior として加算関数とがある。<ul>
+<li>例えば、入力コレクションに整数の組 <span class="math notranslate nohighlight">\((2, 7, 5, 3)\)</span> があると仮定する。
+ReduceAction を加算関数でこのコレクションに適用する結果は 11 である。</li>
+<li><code class="docutils literal notranslate"><span class="pre">isOrdered</span></code> が既定の false の場合は、これはいくつかのやり方で、例えば、
+<span class="math notranslate nohighlight">\((((2+7) + 5) + 3), (2 + (7 + (5 + 3))), ((2 + 7) + (5 + 3))\)</span>
+で計算することが可能である。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="classifier-descriptions">
+<h2><a class="toc-backref" href="#id84">16.14 Classifier Descriptions</a><a class="headerlink" href="#classifier-descriptions" title="Permalink to this headline">¶</a></h2>
+<p>機械生成による節。</p>
+</div>
+<div class="section" id="association-descriptions">
+<h2><a class="toc-backref" href="#id85">16.15 Association Descriptions</a><a class="headerlink" href="#association-descriptions" title="Permalink to this headline">¶</a></h2>
+<p>機械生成による節。</p>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="interactions.html" title="17 Interactions"
+             >next</a></li>
+        <li class="right" >
+          <a href="activities.html" title="15 Activities"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Unified Modeling Language 2.5 読書ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,344 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>SciPy Tutorial &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="Cookbook" href="cookbook.html" />
+    <link rel="prev" title="Getting Started" href="beginner.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="cookbook.html" title="Cookbook"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="beginner.html" title="Getting Started"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >SciPy 利用ノート</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="practice.html" accesskey="U">ドキュメントを読む</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="scipy-tutorial">
+<h1><a class="toc-backref" href="#id1">SciPy Tutorial</a><a class="headerlink" href="#scipy-tutorial" title="Permalink to this headline">¶</a></h1>
+<p>このガイドブックのチュートリアル “SciPy Tutorial” こそが言わば公式チュートリアル。
+<a class="reference external" href="http://www.scipy.org/">SciPy</a> の機能を厳選して構成されたと思われるので、一通り読んでみたくなる。しかし、各章かなりの分量がある。テキストおよび画像がふんだんにあり、重い。自分の興味のあるトピックに絞ってまずは学習を進めたい。</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#scipy-tutorial" id="id1">SciPy Tutorial</a><ul>
+<li><a class="reference internal" href="#introduction" id="id2">Introduction</a></li>
+<li><a class="reference internal" href="#basic-functions-in-numpy-and-top-level-scipy" id="id3">Basic functions in Numpy (and top-level scipy)</a><ul>
+<li><a class="reference internal" href="#interaction-with-numpy" id="id4">Interaction with Numpy</a><ul>
+<li><a class="reference internal" href="#index-tricks" id="id5">Index Tricks</a></li>
+<li><a class="reference internal" href="#shape-manipulation" id="id6">Shape manipulation</a></li>
+<li><a class="reference internal" href="#polynomials" id="id7">Polynomials</a></li>
+<li><a class="reference internal" href="#vectorizing-functions-vectorize" id="id8">Vectorizing functions (vectorize)</a></li>
+<li><a class="reference internal" href="#type-handling" id="id9">Type handling</a></li>
+<li><a class="reference internal" href="#other-useful-functions" id="id10">Other useful functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#special-functions-scipy-special" id="id11">Special functions (scipy.special)</a></li>
+<li><a class="reference internal" href="#integration-scipy-integrate" id="id12">Integration (scipy.integrate)</a></li>
+<li><a class="reference internal" href="#optimization-scipy-optimize" id="id13">Optimization (scipy.optimize)</a></li>
+<li><a class="reference internal" href="#interpolation-scipy-interpolate" id="id14">Interpolation (scipy.interpolate)</a></li>
+<li><a class="reference internal" href="#fourier-transforms-scipy-fftpack" id="id15">Fourier Transforms (scipy.fftpack)</a></li>
+<li><a class="reference internal" href="#signal-processing-scipy-signal" id="id16">Signal Processing (scipy.signal)</a></li>
+<li><a class="reference internal" href="#linear-algebra-scipy-linalg" id="id17">Linear Algebra (scipy.linalg)</a><ul>
+<li><a class="reference internal" href="#sparse-eigenvalue-problems-with-arpack" id="id18">Sparse Eigenvalue Problems with ARPACK</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#compressed-sparse-graph-routines-scipy-sparse-csgraph" id="id19">Compressed Sparse Graph Routines (scipy.sparse.csgraph)</a></li>
+<li><a class="reference internal" href="#spatial-data-structures-and-algorithms-scipy-spatial" id="id20">Spatial data structures and algorithms (scipy.spatial)</a></li>
+<li><a class="reference internal" href="#statistics-scipy-stats" id="id21">Statistics (scipy.stats)</a></li>
+<li><a class="reference internal" href="#multi-dimensional-image-processing-scipy-ndimage" id="id22">Multi-dimensional image processing (scipy.ndimage)</a></li>
+<li><a class="reference internal" href="#file-io-scipy-io" id="id23">File IO (scipy.io)</a></li>
+<li><a class="reference internal" href="#weave-scipy-weave" id="id24">Weave (scipy.weave)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id2">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>見出しのとおり、SciPy の紹介および導入手順の記述となっている。</p>
+<ul class="simple">
+<li>SciPy は MATLAB, IDL, Octave, R-Lab, SciLab をライバルと位置づけている。</li>
+<li>例の <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span></code> 等のインポート規約をしているのはここ。</li>
+<li>サブパッケージの構成と要約の表がある。</li>
+<li><code class="docutils literal notranslate"><span class="pre">help</span></code>, <code class="docutils literal notranslate"><span class="pre">np.info</span></code>, <code class="docutils literal notranslate"><span class="pre">np.source</span></code> がヘルプ三種の神器。<ul>
+<li><code class="docutils literal notranslate"><span class="pre">info</span></code> はキーワード引数でテキストの書式を細かくコントロールできる。</li>
+<li><code class="docutils literal notranslate"><span class="pre">source</span></code> はちょっと珍しい機能なので、初めて使う <code class="docutils literal notranslate"><span class="pre">scipy</span></code> 配下の関数に対して、一度は試してみる価値あり。もし <code class="docutils literal notranslate"><span class="pre">Not</span> <span class="pre">available</span> <span class="pre">for</span> <span class="pre">this</span> <span class="pre">object.</span></code> というメッセージが出たら諦める。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="basic-functions-in-numpy-and-top-level-scipy">
+<h2><a class="toc-backref" href="#id3">Basic functions in Numpy (and top-level scipy)</a><a class="headerlink" href="#basic-functions-in-numpy-and-top-level-scipy" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="interaction-with-numpy">
+<h3><a class="toc-backref" href="#id4">Interaction with Numpy</a><a class="headerlink" href="#interaction-with-numpy" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>モジュール <code class="docutils literal notranslate"><span class="pre">scipy</span></code> のトップレベルは <code class="docutils literal notranslate"><span class="pre">numpy</span></code> の関数をすべて含む。なので <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">scipy.arange(5)</span></code> のようにも書けるが、そうはせずに <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">np.arange(5)</span></code> のように書くほうがよい。</li>
+</ul>
+<div class="section" id="index-tricks">
+<h4><a class="toc-backref" href="#id5">Index Tricks</a><a class="headerlink" href="#index-tricks" title="Permalink to this headline">¶</a></h4>
+<p>配列インスタンスを素早く作成するために、
+<code class="docutils literal notranslate"><span class="pre">np.r_</span></code>, <code class="docutils literal notranslate"><span class="pre">np.c_</span></code>, <code class="docutils literal notranslate"><span class="pre">np.mgrid</span></code>, <code class="docutils literal notranslate"><span class="pre">np.ogrid</span></code> の使い方を習得する。</p>
+<ul class="simple">
+<li>オブジェクト <code class="docutils literal notranslate"><span class="pre">np.r_</span></code> は各配列を横に連結するのに使える。関数 <code class="docutils literal notranslate"><span class="pre">np.concatanate</span></code> よりタイプしやすい。</li>
+<li>ステップ数を指示するのに、変な使い方で虚数 (<code class="docutils literal notranslate"><span class="pre">j</span></code>) を与えることになる。</li>
+<li>同様に <code class="docutils literal notranslate"><span class="pre">np.c_</span></code> は各配列を縦に（して横に）連結できる。</li>
+<li>N 次元配列を定義するのにオブジェクト <code class="docutils literal notranslate"><span class="pre">np.mgrid</span></code> を利用できる。拡張スライス記法が使える。</li>
+<li><code class="docutils literal notranslate"><span class="pre">np.ogrid</span></code> は使い途がわからない。ちょっと触っただけだが。</li>
+</ul>
+</div>
+<div class="section" id="shape-manipulation">
+<h4><a class="toc-backref" href="#id6">Shape manipulation</a><a class="headerlink" href="#shape-manipulation" title="Permalink to this headline">¶</a></h4>
+<p>多次元配列を縦にしたり、横にしたり、分割したり、……といった操作をするルーチンを指す。</p>
+</div>
+<div class="section" id="polynomials">
+<h4><a class="toc-backref" href="#id7">Polynomials</a><a class="headerlink" href="#polynomials" title="Permalink to this headline">¶</a></h4>
+<p>SciPy では多項式を取り扱う方法はふたつある。両方の形式は相互に交換可能である。</p>
+<ol class="arabic simple">
+<li>クラス <code class="docutils literal notranslate"><span class="pre">np.lib.polynomial.poly1d</span></code> で多項式オブジェクトを定義する。例えば：<ul>
+<li><code class="docutils literal notranslate"><span class="pre">p.integ</span></code> で原始関数取得。キーワード引数 <code class="docutils literal notranslate"><span class="pre">k</span></code> が定数項。</li>
+<li><code class="docutils literal notranslate"><span class="pre">p.derive</span></code> で導関数取得。</li>
+<li><code class="docutils literal notranslate"><span class="pre">p(arraylike)</span></code> で評価。</li>
+</ul>
+</li>
+<li>単に配列で多項式の係数を表現するもの。この場合は降べきの順に係数を格納する。</li>
+</ol>
+</div>
+<div class="section" id="vectorizing-functions-vectorize">
+<h4><a class="toc-backref" href="#id8">Vectorizing functions (vectorize)</a><a class="headerlink" href="#vectorizing-functions-vectorize" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>関数 <code class="docutils literal notranslate"><span class="pre">vectorize</span></code> を使うと、スカラー引数を取りスカラー値を戻す関数 <code class="docutils literal notranslate"><span class="pre">func</span></code> から、
+array-like 版 <code class="docutils literal notranslate"><span class="pre">func</span></code> を新たに定義することができる。</li>
+<li>こんなものを使わなくても、最初からベクトルを引数に取ってベクトル値を返す関数を定義すればよい？いや、何らかの最適化の結果であったり、組み込み関数などは
+<code class="docutils literal notranslate"><span class="pre">vectorize</span></code> しないとベクトル化できまい。</li>
+</ul>
+</div>
+<div class="section" id="type-handling">
+<h4><a class="toc-backref" href="#id9">Type handling</a><a class="headerlink" href="#type-handling" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">np.iscomplex</span></code>/<code class="docutils literal notranslate"><span class="pre">np.isreal</span></code> は配列ベースで、要素ごとの判定。</li>
+<li><code class="docutils literal notranslate"><span class="pre">np.iscomplexobj</span></code>/<code class="docutils literal notranslate"><span class="pre">np.isrealobj</span></code> はオブジェクトベースで、引数丸ごと全体の判定。</li>
+<li>実部・虚部の取得には関数形式の <code class="docutils literal notranslate"><span class="pre">np.real</span></code>/<code class="docutils literal notranslate"><span class="pre">np.imag</span></code> を利用するとよい。戻り値が配列型になる。<ul>
+<li>絶対値が極めて小さい場合は、関数 <code class="docutils literal notranslate"><span class="pre">np.real_if_close</span></code> も考慮する。</li>
+</ul>
+</li>
+<li>スカラー性の判定には関数 <code class="docutils literal notranslate"><span class="pre">np.isscalar</span></code> を。</li>
+<li>型キャストには <code class="docutils literal notranslate"><span class="pre">np.cast</span></code> オブジェクトを。</li>
+</ul>
+</div>
+<div class="section" id="other-useful-functions">
+<h4><a class="toc-backref" href="#id10">Other useful functions</a><a class="headerlink" href="#other-useful-functions" title="Permalink to this headline">¶</a></h4>
+<p>その他便利な機能を羅列している。</p>
+<ul class="simple">
+<li>角度モノを取り扱うときは <code class="docutils literal notranslate"><span class="pre">angle</span></code>, <code class="docutils literal notranslate"><span class="pre">unwrap</span></code> を当たってみる。</li>
+<li>等間隔に値を定義する場合は <code class="docutils literal notranslate"><span class="pre">linspace</span></code> が有用。対数版は <code class="docutils literal notranslate"><span class="pre">logspace</span></code> を。</li>
+<li>関数 <code class="docutils literal notranslate"><span class="pre">select</span></code> は「複数版 if 文」みたいなもの。</li>
+<li>モジュール <code class="docutils literal notranslate"><span class="pre">scipy.misc</span></code> には色々とある。<ul>
+<li>階乗の計算には <code class="docutils literal notranslate"><span class="pre">factorial</span></code> 系関数（浮動小数点型ならばガンマ関数）で得られる。</li>
+<li><cite>n</cite> 個から <cite>r</cite> 個を選ぶ組み合わせ、レイアウトの都合上高校数学風に書くと <span class="math notranslate nohighlight">\(_n \mathrm{C} _r\)</span> は <code class="docutils literal notranslate"><span class="pre">comb(n,</span> <span class="pre">r)</span></code> で求まる。</li>
+<li>かの Lena の画像イメージを返す関数 <code class="docutils literal notranslate"><span class="pre">lena</span></code> が存在する。</li>
+</ul>
+</li>
+<li>関数 <code class="docutils literal notranslate"><span class="pre">central_diff_weights</span></code> と <code class="docutils literal notranslate"><span class="pre">derivative</span></code> は関数の微分の近似に便利。</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="special-functions-scipy-special">
+<h2><a class="toc-backref" href="#id11">Special functions (scipy.special)</a><a class="headerlink" href="#special-functions-scipy-special" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>サブパッケージ <code class="docutils literal notranslate"><span class="pre">scipy.special</span></code> は数理物理学の特殊関数を提供する。</li>
+<li>他には低水準の統計関数もあるが、一般用途ではなくて <code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code> のためのもの。</li>
+<li>もし欲しい関数が当パッケージにない場合は、自分でそれを書いて当プロジェクトへ貢献することを考えて欲しいそうだ。<ul>
+<li>言語は Fortran でも C でも Python でも構わないそうだ。</li>
+</ul>
+</li>
+</ul>
+<p>あとは Bessel 関数群の紹介とプロットのサンプルを示している。</p>
+</div>
+<div class="section" id="integration-scipy-integrate">
+<h2><a class="toc-backref" href="#id12">Integration (scipy.integrate)</a><a class="headerlink" href="#integration-scipy-integrate" title="Permalink to this headline">¶</a></h2>
+<p>数値積分および常微分方程式にまつわる技法を提供するサブパッケージ。</p>
+<ul class="simple">
+<li>一変数関数の定積分は関数 <code class="docutils literal notranslate"><span class="pre">quad</span></code> を用いる。</li>
+<li>重積分には関数 <code class="docutils literal notranslate"><span class="pre">dblquad</span></code>, <code class="docutils literal notranslate"><span class="pre">tplquad</span></code>, <code class="docutils literal notranslate"><span class="pre">nquad</span></code> を用いる。</li>
+<li>Gauss 求積法なら <code class="docutils literal notranslate"><span class="pre">fixed_quad</span></code>, <code class="docutils literal notranslate"><span class="pre">quadrature</span></code> を用いる。</li>
+<li>Romberg 求積法なら <code class="docutils literal notranslate"><span class="pre">romberg</span></code>, <code class="docutils literal notranslate"><span class="pre">romb</span></code> を用いる。</li>
+<li>標本点がある場合は積分の方法がいくつかある。<ul>
+<li>等間隔かつ点の個数が 2 のなんとか乗プラス 1 ならば <code class="docutils literal notranslate"><span class="pre">romb</span></code> が使える。</li>
+<li>任意の間隔の場合は <code class="docutils literal notranslate"><span class="pre">trapz</span></code> と <code class="docutils literal notranslate"><span class="pre">simps</span></code> が使える。ただし、後者の
+Simpson 法については原理上、点の個数の偶奇性や、被積分関数が高次数の多項式の場合は求積値が正しく求められないことを断っている。</li>
+</ul>
+</li>
+<li>Python のモジュール <code class="docutils literal notranslate"><span class="pre">ctypes</span></code> を利用することで、計算時間を短縮できるかもしれない。上等な話題なので本ノートでは割愛。</li>
+<li>一階ベクトル常微分方程式を解くのには関数 <code class="docutils literal notranslate"><span class="pre">odeint</span></code> を用いる。<ul>
+<li>任意の階数の常微分方程式は、適宜変形して一階の形式に帰着させることで
+<code class="docutils literal notranslate"><span class="pre">odeint</span></code> を用いる。</li>
+<li>計算効率を上げるためのオプション（キーワード）引数がたくさんある。例えば微係数を求める関数を引数 <code class="docutils literal notranslate"><span class="pre">Dfun</span></code> に指示するなど。</li>
+</ul>
+</li>
+</ul>
+<p>関連ノートは複数にまたがって記す。</p>
+<ul class="simple">
+<li><a class="reference internal" href="integrate.html"><span class="doc">数値積分</span></a></li>
+<li><a class="reference internal" href="ode.html"><span class="doc">常微分方程式</span></a></li>
+</ul>
+</div>
+<div class="section" id="optimization-scipy-optimize">
+<h2><a class="toc-backref" href="#id13">Optimization (scipy.optimize)</a><a class="headerlink" href="#optimization-scipy-optimize" title="Permalink to this headline">¶</a></h2>
+<p>最適化アルゴリズムや一変数関数の根を求める計算機能等を提供するサブパッケージ。</p>
+<p>関連ノート：</p>
+<ul class="simple">
+<li><a class="reference internal" href="nonlinear-equations.html"><span class="doc">非線形方程式を解く</span></a></li>
+</ul>
+</div>
+<div class="section" id="interpolation-scipy-interpolate">
+<h2><a class="toc-backref" href="#id14">Interpolation (scipy.interpolate)</a><a class="headerlink" href="#interpolation-scipy-interpolate" title="Permalink to this headline">¶</a></h2>
+<p>補間機能に関する機能を提供するサブパッケージ。ノートは別項 <a class="reference internal" href="interpolate.html"><span class="doc">補間</span></a> で扱う。</p>
+<ul class="simple">
+<li>一次元データの補間はクラス <code class="docutils literal notranslate"><span class="pre">interp1d</span></code> を使う。</li>
+<li>関数 <code class="docutils literal notranslate"><span class="pre">griddata</span></code> は <cite>n</cite> 次元データの補間のインターフェイス。</li>
+<li>FITPACK (Fortran) によるスプライン補間機能。手続き型とオブジェクト指向型の両方のインターフェイスがある。<ul>
+<li>関数 <code class="docutils literal notranslate"><span class="pre">splrep</span></code>, <code class="docutils literal notranslate"><span class="pre">splprep</span></code>, <code class="docutils literal notranslate"><span class="pre">splev</span></code>, etc.: 一変数スプライン</li>
+<li>クラス <code class="docutils literal notranslate"><span class="pre">UnivariateSpline</span></code>: 一変数スプライン</li>
+<li>関数 <code class="docutils literal notranslate"><span class="pre">bisplrep</span></code>, <code class="docutils literal notranslate"><span class="pre">bisplev</span></code>: 二変数スプライン</li>
+<li>クラス <code class="docutils literal notranslate"><span class="pre">BivariateSpline</span></code>: 二変数スプライン</li>
+</ul>
+</li>
+<li>放射基底関数による散布データの補間機能。<ul>
+<li>クラス <code class="docutils literal notranslate"><span class="pre">Rbf</span></code></li>
+<li>クラス <code class="docutils literal notranslate"><span class="pre">UnivariateSpline</span></code></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="fourier-transforms-scipy-fftpack">
+<h2><a class="toc-backref" href="#id15">Fourier Transforms (scipy.fftpack)</a><a class="headerlink" href="#fourier-transforms-scipy-fftpack" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>高速フーリエ変換 (FFT)<ul>
+<li>関数 <code class="docutils literal notranslate"><span class="pre">fft</span></code>, <code class="docutils literal notranslate"><span class="pre">iftt</span></code>: 一次元データ用</li>
+<li>関数 <code class="docutils literal notranslate"><span class="pre">fft2</span></code>, <code class="docutils literal notranslate"><span class="pre">iftt2</span></code>: 二次元データ用</li>
+<li>関数 <code class="docutils literal notranslate"><span class="pre">fftn</span></code>, <code class="docutils literal notranslate"><span class="pre">ifttn</span></code>: <cite>n</cite> 次元データ用</li>
+<li>関数 <code class="docutils literal notranslate"><span class="pre">convolve</span></code>: ふたつの一次元配列の畳み込み。</li>
+</ul>
+</li>
+<li>離散コサイン変換は関数 <code class="docutils literal notranslate"><span class="pre">dct</span></code>, <code class="docutils literal notranslate"><span class="pre">idct</span></code> を用いる。</li>
+<li>離散サイン変換は関数 <code class="docutils literal notranslate"><span class="pre">dst</span></code>, <code class="docutils literal notranslate"><span class="pre">idst</span></code> を用いる。</li>
+</ul>
+</div>
+<div class="section" id="signal-processing-scipy-signal">
+<h2><a class="toc-backref" href="#id16">Signal Processing (scipy.signal)</a><a class="headerlink" href="#signal-processing-scipy-signal" title="Permalink to this headline">¶</a></h2>
+<p>画像処理か。私には難解。</p>
+</div>
+<div class="section" id="linear-algebra-scipy-linalg">
+<h2><a class="toc-backref" href="#id17">Linear Algebra (scipy.linalg)</a><a class="headerlink" href="#linear-algebra-scipy-linalg" title="Permalink to this headline">¶</a></h2>
+<p>線形代数に関する機能を提供するサブパッケージ。</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">sci.mat</span></code> を利用すると MATLAB 風表記で行列インスタンスを定義できる。</li>
+<li>行列 <code class="docutils literal notranslate"><span class="pre">A</span></code> に対して、もし存在すれば逆行列は
+<code class="docutils literal notranslate"><span class="pre">linalg.inv(A)</span></code> または <code class="docutils literal notranslate"><span class="pre">A.I</span></code> で得られる。</li>
+<li>線形方程式 <span class="math notranslate nohighlight">\(Ax = b\)</span> を <code class="docutils literal notranslate"><span class="pre">linalg.solve(A,</span> <span class="pre">b)</span></code> で解くことができる（解が存在すれば）。</li>
+<li><code class="docutils literal notranslate"><span class="pre">A</span></code> の行列式は <code class="docutils literal notranslate"><span class="pre">linalg.det</span></code> で求める。</li>
+<li>ノルムには関数 <code class="docutils literal notranslate"><span class="pre">linalg.norm</span></code> を用いる。ノルムの種類を引数で指示する。</li>
+<li>最小二乗法には <code class="docutils literal notranslate"><span class="pre">linalg.lstsq</span></code> を用いる。</li>
+<li>固有値・固有ベクトル、各種分解も可能。</li>
+<li>行列のテイラー展開による各種関数もサポート。</li>
+</ul>
+<p>関連ノートは複数にまたがって記す。</p>
+<ul class="simple">
+<li><a class="reference internal" href="linear-equations.html"><span class="doc">線形方程式を解く</span></a></li>
+<li><a class="reference internal" href="eigenvalues.html"><span class="doc">固有値と固有ベクトル</span></a></li>
+<li><a class="reference internal" href="least-squares.html"><span class="doc">最小二乗法</span></a></li>
+</ul>
+<div class="section" id="sparse-eigenvalue-problems-with-arpack">
+<h3><a class="toc-backref" href="#id18">Sparse Eigenvalue Problems with ARPACK</a><a class="headerlink" href="#sparse-eigenvalue-problems-with-arpack" title="Permalink to this headline">¶</a></h3>
+<p>サブパッケージ <code class="docutils literal notranslate"><span class="pre">scipy.sparse.linalg</span></code> の説明か。</p>
+<ul class="simple">
+<li>ARPACK というのは Fortran のパッケージ。巨大な疎行列の固有値・固有ベクトルを素速く求めるルーチンを備えている。</li>
+<li>高水準インターフェイスを擁する。<ul>
+<li><code class="docutils literal notranslate"><span class="pre">eigs</span></code>: 非対称正方行列向け。</li>
+<li><code class="docutils literal notranslate"><span class="pre">eigsh</span></code>: 実対称行列またはエルミート行列向け。</li>
+</ul>
+</li>
+<li>例題は「巨大な疎行列の最小と最大の固有値と対応する固有ベクトルを求める」ものなので、興味が出たら読む。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="compressed-sparse-graph-routines-scipy-sparse-csgraph">
+<h2><a class="toc-backref" href="#id19">Compressed Sparse Graph Routines (scipy.sparse.csgraph)</a><a class="headerlink" href="#compressed-sparse-graph-routines-scipy-sparse-csgraph" title="Permalink to this headline">¶</a></h2>
+<p>マジカルバナナみたいなゲームを例題に、Dijkstra 法や連結成分を応用して解を求める。何だこのテキストは。</p>
+</div>
+<div class="section" id="spatial-data-structures-and-algorithms-scipy-spatial">
+<h2><a class="toc-backref" href="#id20">Spatial data structures and algorithms (scipy.spatial)</a><a class="headerlink" href="#spatial-data-structures-and-algorithms-scipy-spatial" title="Permalink to this headline">¶</a></h2>
+<p>別ページ <a class="reference internal" href="spatial.html"><span class="doc">空間データ構造</span></a> を参照。</p>
+</div>
+<div class="section" id="statistics-scipy-stats">
+<h2><a class="toc-backref" href="#id21">Statistics (scipy.stats)</a><a class="headerlink" href="#statistics-scipy-stats" title="Permalink to this headline">¶</a></h2>
+<p>確率、統計の計算に関する機能を提供するサブパッケージ。ノートは別項 <a class="reference internal" href="statistics.html"><span class="doc">確率と統計</span></a> で扱う。</p>
+</div>
+<div class="section" id="multi-dimensional-image-processing-scipy-ndimage">
+<h2><a class="toc-backref" href="#id22">Multi-dimensional image processing (scipy.ndimage)</a><a class="headerlink" href="#multi-dimensional-image-processing-scipy-ndimage" title="Permalink to this headline">¶</a></h2>
+<p>ここも画像処理か。読むのがキツイ。</p>
+</div>
+<div class="section" id="file-io-scipy-io">
+<h2><a class="toc-backref" href="#id23">File IO (scipy.io)</a><a class="headerlink" href="#file-io-scipy-io" title="Permalink to this headline">¶</a></h2>
+<p>SciPy はある種のファイルフォーマットを操作できるということがわかる。
+MATLAB ファイルやら WAV ファイルやら。</p>
+</div>
+<div class="section" id="weave-scipy-weave">
+<h2><a class="toc-backref" href="#id24">Weave (scipy.weave)</a><a class="headerlink" href="#weave-scipy-weave" title="Permalink to this headline">¶</a></h2>
+<p>Python コードの内部に C/C++ のコードを含めるためのパッケージだそうだ。今は読む必要はない。</p>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="cookbook.html" title="Cookbook"
+             >next</a></li>
+        <li class="right" >
+          <a href="beginner.html" title="Getting Started"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >SciPy 利用ノート</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="practice.html" >ドキュメントを読む</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

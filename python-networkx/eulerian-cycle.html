@@ -1,0 +1,258 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>オイラー閉路 &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="連結度" href="connectivity.html" />
+    <link rel="prev" title="マッチング" href="matching.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="connectivity.html" title="連結度"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="matching.html" title="マッチング"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">NetworkX 利用ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id3">オイラー閉路</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>本稿では <a class="reference external" href="https://networkx.github.io/">NetworkX</a> の提供する、グラフのオイラー閉路を求める機能を応用する例を示す。</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id3">オイラー閉路</a><ul>
+<li><a class="reference internal" href="#id2" id="id4">ドラクエ 7 最適基本職習得キャリアパスを計算する</a><ul>
+<li><a class="reference internal" href="#nx-is-eulerian" id="id5">関数 <code class="code docutils literal notranslate"><span class="pre">nx.is_eulerian</span></code></a></li>
+<li><a class="reference internal" href="#nx-eulerian-circuit" id="id6">関数 <code class="code docutils literal notranslate"><span class="pre">nx.eulerian_circuit</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id4">ドラクエ 7 最適基本職習得キャリアパスを計算する</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>前置きが長くなるが、オリジナル版のドラクエ 7 の転職システムの一部である「職歴技」についておおまかに説明する。以下の説明は厳密に言えばゲームのルールと異なるが、あくまでこれからモデル化するグラフの説明のための表現なのでどうか勘弁して欲しい。</p>
+<p>ゲーム中のある時点で、主人公とその仲間たちは「せんし」や「まほうつかい」といった基本職に任意に就職することができる。さらに、ある職業と別の職業にそれぞれ一定期間連続して就職すると、特別な呪文・特技（以下、これらをスキルとまとめて呼ぶ）を修得するという仕様があった。この一定期間がかなり時間的に長いことと、特別スキルのない職業同士の順序で就職すると時間の無駄になるため、ゲームプレイヤーとしては可能な限り効率的に基本職のマスター順序を計画しておきたい。</p>
+<p>そこで本稿では、各基本職と意味のある転職をそれぞれノード、エッジに見立てた無向グラフを考える。仮にこのグラフが（準）オイラーグラフであれば、そのノード順に就職していくのが最適解であると結論できる。</p>
+<div class="section" id="nx-is-eulerian">
+<h3><a class="toc-backref" href="#id5">関数 <code class="code docutils literal notranslate"><span class="pre">nx.is_eulerian</span></code></a><a class="headerlink" href="#nx-is-eulerian" title="Permalink to this headline">¶</a></h3>
+<p>まずはグラフを生成し、ダメ元で関数 <code class="docutils literal notranslate"><span class="pre">nx.is_eulerian</span></code> を適用してみよう。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="sd">&quot;&quot;&quot;eulerian.py: demonstrate NetworkX is_eulerian and eulerian_circuit.</span>
+
+<span class="sd">Compute the most efficient career path in DRAGON QUEST 7 (2000).</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;The main function.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">      None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+    <span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">((</span>
+        <span class="p">(</span><span class="s1">&#39;せんし&#39;</span><span class="p">,</span> <span class="s1">&#39;とうぞく&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;ぬすっと斬り&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;せんし&#39;</span><span class="p">,</span> <span class="s1">&#39;おどりこ&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;つるぎのまい&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;せんし&#39;</span><span class="p">,</span> <span class="s1">&#39;ぎんゆうしじん&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;たたかいの歌&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;せんし&#39;</span><span class="p">,</span> <span class="s1">&#39;ふなのり&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;かもめ返し&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;せんし&#39;</span><span class="p">,</span> <span class="s1">&#39;ひつじかい&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;みねうち&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;せんし&#39;</span><span class="p">,</span> <span class="s1">&#39;わらわせし&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;へんてこ斬り&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;ぶとうか&#39;</span><span class="p">,</span> <span class="s1">&#39;まほうつかい&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;火の息&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;ぶとうか&#39;</span><span class="p">,</span> <span class="s1">&#39;とうぞく&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;きゅうしょ突き&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;ぶとうか&#39;</span><span class="p">,</span> <span class="s1">&#39;おどりこ&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;マッスルダンス&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;ぶとうか&#39;</span><span class="p">,</span> <span class="s1">&#39;ぎんゆうしじん&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;おたけび&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;ぶとうか&#39;</span><span class="p">,</span> <span class="s1">&#39;ふなのり&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;すいめんげり&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;ぶとうか&#39;</span><span class="p">,</span> <span class="s1">&#39;ひつじかい&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;マトンアタック&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;ぶとうか&#39;</span><span class="p">,</span> <span class="s1">&#39;わらわせし&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;しっぺ返し&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;まほうつかい&#39;</span><span class="p">,</span> <span class="s1">&#39;ぶとうか&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;火の息&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;まほうつかい&#39;</span><span class="p">,</span> <span class="s1">&#39;とうぞく&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;マホトラ&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;まほうつかい&#39;</span><span class="p">,</span> <span class="s1">&#39;おどりこ&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;マホキテ&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;まほうつかい&#39;</span><span class="p">,</span> <span class="s1">&#39;ぎんゆうしじん&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;のろいの歌&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;まほうつかい&#39;</span><span class="p">,</span> <span class="s1">&#39;ふなのり&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;いなずま&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;まほうつかい&#39;</span><span class="p">,</span> <span class="s1">&#39;ひつじかい&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;ラリホーマ&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;まほうつかい&#39;</span><span class="p">,</span> <span class="s1">&#39;わらわせし&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;メダパニ&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;そうりょ&#39;</span><span class="p">,</span> <span class="s1">&#39;おどりこ&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;死のおどり&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;そうりょ&#39;</span><span class="p">,</span> <span class="s1">&#39;ぎんゆうしじん&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;やすらぎの歌&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;そうりょ&#39;</span><span class="p">,</span> <span class="s1">&#39;ふなのり&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;ノアのはこぶね&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;そうりょ&#39;</span><span class="p">,</span> <span class="s1">&#39;ひつじかい&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;スクルト&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;とうぞく&#39;</span><span class="p">,</span> <span class="s1">&#39;せんし&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;ぬすっと斬り&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;とうぞく&#39;</span><span class="p">,</span> <span class="s1">&#39;ぶとうか&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;きゅうしょ突き&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;とうぞく&#39;</span><span class="p">,</span> <span class="s1">&#39;まほうつかい&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;マホトラ&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;とうぞく&#39;</span><span class="p">,</span> <span class="s1">&#39;おどりこ&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;マホトラおどり&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;とうぞく&#39;</span><span class="p">,</span> <span class="s1">&#39;わらわせし&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;しのび笑い&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;おどりこ&#39;</span><span class="p">,</span> <span class="s1">&#39;せんし&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;つるぎのまい&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;おどりこ&#39;</span><span class="p">,</span> <span class="s1">&#39;ぶとうか&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;マッスルダンス&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;おどりこ&#39;</span><span class="p">,</span> <span class="s1">&#39;まほうつかい&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;マホキテ&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;おどりこ&#39;</span><span class="p">,</span> <span class="s1">&#39;そうりょ&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;死のおどり&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;おどりこ&#39;</span><span class="p">,</span> <span class="s1">&#39;とうぞく&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;マホトラおどり&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;おどりこ&#39;</span><span class="p">,</span> <span class="s1">&#39;ふなのり&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;船上ダンス&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;おどりこ&#39;</span><span class="p">,</span> <span class="s1">&#39;ひつじかい&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;ひつじのダンス&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;おどりこ&#39;</span><span class="p">,</span> <span class="s1">&#39;わらわせし&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;ステテコダンス&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;ぎんゆうしじん&#39;</span><span class="p">,</span> <span class="s1">&#39;せんし&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;たたかいの歌&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;ぎんゆうしじん&#39;</span><span class="p">,</span> <span class="s1">&#39;ぶとうか&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;おたけび&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;ぎんゆうしじん&#39;</span><span class="p">,</span> <span class="s1">&#39;まほうつかい&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;のろいの歌&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;ぎんゆうしじん&#39;</span><span class="p">,</span> <span class="s1">&#39;そうりょ&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;やすらぎの歌&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;ぎんゆうしじん&#39;</span><span class="p">,</span> <span class="s1">&#39;ふなのり&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;さざなみの歌&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;ぎんゆうしじん&#39;</span><span class="p">,</span> <span class="s1">&#39;ひつじかい&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;ひつじかぞえ歌&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;ぎんゆうしじん&#39;</span><span class="p">,</span> <span class="s1">&#39;わらわせし&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;コミックソング&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;ふなのり&#39;</span><span class="p">,</span> <span class="s1">&#39;せんし&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;かもめ返し&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;ふなのり&#39;</span><span class="p">,</span> <span class="s1">&#39;ぶとうか&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;すいめんげり&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;ふなのり&#39;</span><span class="p">,</span> <span class="s1">&#39;まほうつかい&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;いなずま&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;ふなのり&#39;</span><span class="p">,</span> <span class="s1">&#39;そうりょ&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;ノアのはこぶね&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;ふなのり&#39;</span><span class="p">,</span> <span class="s1">&#39;おどりこ&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;船上ダンス&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;ふなのり&#39;</span><span class="p">,</span> <span class="s1">&#39;ぎんゆうしじん&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;さざなみの歌&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;ひつじかい&#39;</span><span class="p">,</span> <span class="s1">&#39;せんし&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;みねうち&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;ひつじかい&#39;</span><span class="p">,</span> <span class="s1">&#39;ぶとうか&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;マトンアタック&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;ひつじかい&#39;</span><span class="p">,</span> <span class="s1">&#39;まほうつかい&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;ラリホーマ&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;ひつじかい&#39;</span><span class="p">,</span> <span class="s1">&#39;そうりょ&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;スクルト&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;ひつじかい&#39;</span><span class="p">,</span> <span class="s1">&#39;おどりこ&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;ひつじのダンス&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;ひつじかい&#39;</span><span class="p">,</span> <span class="s1">&#39;ぎんゆうしじん&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;ひつじかぞえ歌&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;わらわせし&#39;</span><span class="p">,</span> <span class="s1">&#39;せんし&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;へんてこ斬り&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;わらわせし&#39;</span><span class="p">,</span> <span class="s1">&#39;ぶとうか&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;しっぺ返し&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;わらわせし&#39;</span><span class="p">,</span> <span class="s1">&#39;まほうつかい&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;メダパニ&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;わらわせし&#39;</span><span class="p">,</span> <span class="s1">&#39;とうぞく&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;しのび笑い&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;わらわせし&#39;</span><span class="p">,</span> <span class="s1">&#39;おどりこ&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;ステテコダンス&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;わらわせし&#39;</span><span class="p">,</span> <span class="s1">&#39;ぎんゆうしじん&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s1">&#39;コミックソング&#39;</span><span class="p">)),</span>
+        <span class="c1">#(&#39;けんじゃ&#39;, &#39;スーパースター&#39;, dict(skill=&#39;メガザルダンス&#39;)),</span>
+        <span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_eulerian</span><span class="p">(</span><span class="n">G</span><span class="p">):</span>
+        <span class="n">print_cycle</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">print_cycle</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Print an Eulerian cycle in G.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">      G: A Graph.</span>
+<span class="sd">      source: Starting node for circuit.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">      None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">skills</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">get_edge_attributes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="s1">&#39;skill&#39;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">nx</span><span class="o">.</span><span class="n">eulerian_circuit</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">source</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">skills</span><span class="p">:</span>
+                <span class="n">skill</span> <span class="o">=</span> <span class="n">skills</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">skill</span> <span class="o">=</span> <span class="n">skills</span><span class="p">[(</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{i}</span><span class="s1"> </span><span class="si">{skill}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">nx</span><span class="o">.</span><span class="n">NetworkXError</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>これをこのまま実行すると、オイラー閉路を標準出力に書き出さずに終了してしまう。これでグラフがオイラーグラフではないことがわかった。しかし希望はある。元々グラフに期待しているのは（準）オイラーグラフであることなので、オイラー閉路でないのは仕方がないのだ。そこで、このグラフを少々加工してオイラーグラフ化することを考える。ゲーム的に言えば、無駄な職歴を少しは重ねることを認める。</p>
+<p>具体的には、元のグラフの奇点を列挙して、それらの間に上手にエッジを追加または削除をして（準）オイラーグラフ化する。まず、各ノードの位数を <code class="code docutils literal notranslate"><span class="pre">G.degree()</span></code> で確かめる。次の出力は <code class="code docutils literal notranslate"><span class="pre">pprint.pprint(G.degree())</span></code> の結果である。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{&#39;おどりこ&#39;: 8,
+<span class="hll"> &#39;ぎんゆうしじん&#39;: 7,
+</span> &#39;せんし&#39;: 6,
+ &#39;そうりょ&#39;: 4,
+<span class="hll"> &#39;とうぞく&#39;: 5,
+</span> &#39;ひつじかい&#39;: 6,
+ &#39;ふなのり&#39;: 6,
+<span class="hll"> &#39;ぶとうか&#39;: 7,
+</span><span class="hll"> &#39;まほうつかい&#39;: 7,
+</span> &#39;わらわせし&#39;: 6}
+</pre></div>
+</div>
+<p>「ぎんゆうしじん」、「とうぞく」、「ぶとうか」、「まほうつかい」の 4 職業が奇点だ。先程のコードを見ると、上手い具合に「ぎんゆうしじん」「ぶとうか」の間および「とうぞく」「まほうつかい」の間にエッジがある。前者のエッジのスキルは「おたけび」であるが、これは職歴技としては価値ゼロであり（なぜなら「ぶとうか」単体でカバーできるから）、後者のエッジのスキル「マホトラ」は習得呪文としてはレアなので、早いうちにマスターしたい。</p>
+</div>
+<div class="section" id="nx-eulerian-circuit">
+<h3><a class="toc-backref" href="#id6">関数 <code class="code docutils literal notranslate"><span class="pre">nx.eulerian_circuit</span></code></a><a class="headerlink" href="#nx-eulerian-circuit" title="Permalink to this headline">¶</a></h3>
+<p>というわけで、先のコードの <code class="docutils literal notranslate"><span class="pre">print_cycle</span></code> 呼び出し以降に次の処理を入れることで、オイラー閉路が得られる。「マホトラ」エッジの端点である「まほうつかい」をオイラー閉路の始終点に指定しよう。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span>    <span class="n">G</span><span class="o">.</span><span class="n">remove_edge</span><span class="p">(</span><span class="s1">&#39;ぎんゆうしじん&#39;</span><span class="p">,</span> <span class="s1">&#39;ぶとうか&#39;</span><span class="p">)</span>
+    <span class="n">G</span><span class="o">.</span><span class="n">remove_edge</span><span class="p">(</span><span class="s1">&#39;まほうつかい&#39;</span><span class="p">,</span> <span class="s1">&#39;とうぞく&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>出力例を示す。なお、関数 <code class="code docutils literal notranslate"><span class="pre">nx.eulerian_circuit</span></code> の結果は実行するごとにランダムに変わるようなので、再度実行してもこれと同じ結果が得られない場合がある。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>(&#39;まほうつかい&#39;, &#39;わらわせし&#39;) メダパニ
+(&#39;わらわせし&#39;, &#39;ぶとうか&#39;) しっぺ返し
+(&#39;ぶとうか&#39;, &#39;ひつじかい&#39;) マトンアタック
+(&#39;ひつじかい&#39;, &#39;ぎんゆうしじん&#39;) ひつじかぞえ歌
+(&#39;ぎんゆうしじん&#39;, &#39;ふなのり&#39;) さざなみの歌
+(&#39;ふなのり&#39;, &#39;そうりょ&#39;) ノアのはこぶね
+(&#39;そうりょ&#39;, &#39;ひつじかい&#39;) スクルト
+(&#39;ひつじかい&#39;, &#39;せんし&#39;) みねうち
+(&#39;せんし&#39;, &#39;わらわせし&#39;) へんてこ斬り
+(&#39;わらわせし&#39;, &#39;ぎんゆうしじん&#39;) コミックソング
+(&#39;ぎんゆうしじん&#39;, &#39;そうりょ&#39;) やすらぎの歌
+(&#39;そうりょ&#39;, &#39;おどりこ&#39;) 死のおどり
+(&#39;おどりこ&#39;, &#39;わらわせし&#39;) ステテコダンス
+(&#39;わらわせし&#39;, &#39;とうぞく&#39;) しのび笑い
+(&#39;とうぞく&#39;, &#39;せんし&#39;) ぬすっと斬り
+(&#39;せんし&#39;, &#39;ふなのり&#39;) かもめ返し
+(&#39;ふなのり&#39;, &#39;ぶとうか&#39;) すいめんげり
+(&#39;ぶとうか&#39;, &#39;とうぞく&#39;) きゅうしょ突き
+(&#39;とうぞく&#39;, &#39;おどりこ&#39;) マホトラおどり
+(&#39;おどりこ&#39;, &#39;ふなのり&#39;) 船上ダンス
+(&#39;ふなのり&#39;, &#39;まほうつかい&#39;) いなずま
+(&#39;まほうつかい&#39;, &#39;ぶとうか&#39;) 火の息
+(&#39;ぶとうか&#39;, &#39;おどりこ&#39;) マッスルダンス
+(&#39;おどりこ&#39;, &#39;ひつじかい&#39;) ひつじのダンス
+(&#39;ひつじかい&#39;, &#39;まほうつかい&#39;) ラリホーマ
+(&#39;まほうつかい&#39;, &#39;ぎんゆうしじん&#39;) のろいの歌
+(&#39;ぎんゆうしじん&#39;, &#39;せんし&#39;) たたかいの歌
+(&#39;せんし&#39;, &#39;おどりこ&#39;) つるぎのまい
+(&#39;おどりこ&#39;, &#39;まほうつかい&#39;) マホキテ
+</pre></div>
+</div>
+<p>このオイラー閉路職歴の最初または最後に「とうぞく」を追加したものが、本問題における最適キャリアの条件を満たす（実際にはモンスター職コンプリートや基本職固有の戦闘回数ノルマの大小も加味してパスを調整したい）。もっとも、2014 年現在では、PS 版オリジナルよりは職歴技システムが完全に廃止されている 3DS 版のリメイクを遊ぶほうがよさそうだが。</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="connectivity.html" title="連結度"
+             >next</a></li>
+        <li class="right" >
+          <a href="matching.html" title="マッチング"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >NetworkX 利用ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

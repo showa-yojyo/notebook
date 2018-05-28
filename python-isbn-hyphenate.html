@@ -1,0 +1,143 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>isbn-hyphenate 利用ノート &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="PyOpenGL 利用ノート" href="python-pyopengl/index.html" />
+    <link rel="prev" title="付録スクリプト" href="python-twitter/scripts.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="python-pyopengl/index.html" title="PyOpenGL 利用ノート"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="python-twitter/scripts.html" title="付録スクリプト"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="isbn-hyphenate">
+<h1><a class="toc-backref" href="#id7">isbn-hyphenate 利用ノート</a><a class="headerlink" href="#isbn-hyphenate" title="Permalink to this headline">¶</a></h1>
+<p>本稿は Python パッケージ <a class="reference external" href="https://github.com/TorKlingberg/isbn_hyphenate">isbn-hyphenate</a> について記す。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title first">ノート目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#isbn-hyphenate" id="id7">isbn-hyphenate 利用ノート</a><ul>
+<li><a class="reference internal" href="#id2" id="id8">isbn-hyphenate とは何か</a></li>
+<li><a class="reference internal" href="#id3" id="id9">インストール</a><ul>
+<li><a class="reference internal" href="#id4" id="id10">単体テスト</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id5" id="id11">コード</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>OS<ul>
+<li>Windows 7 Home Premium x64 SP1</li>
+<li>Windows 10 Home x64</li>
+</ul>
+</li>
+<li>本稿において、利用した各パッケージのバージョンは次のとおり。<ul>
+<li><a class="reference external" href="http://www.python.org/">Python</a> 3.4.1, 3.5.0</li>
+<li><a class="reference external" href="https://github.com/TorKlingberg/isbn_hyphenate">isbn-hyphenate</a> 1.0.3</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id8">isbn-hyphenate とは何か</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/TorKlingberg/isbn_hyphenate">isbn-hyphenate</a> は ISBN の数字列に適切にハイフンを配置するための Python パッケージだ。</p>
+<p>私は読書ノートを記すときには、可能な限り対象書籍の ISBN を書き添えることにしている。そして数字だけからなるその文字列に、ハイフンを完璧に配置しておきたい。しかし、書籍に印刷されている ISBN とインターネットで検索して得られたそれとの表記が一致しない場合がある。少々調べると、ISBN のハイフンの付け方は機械的に定まるものではないらしい。細かいことはわからぬが、書籍に関係する国や版元などの要因によって、数字の区切り方が異なってくるようだ。少なくとも手動で行うのに不適な作業と判断した。</p>
+<p>そこで我らが Python でこの問題を解決できないかと調べたところ、このパッケージを発見した次第だ。以下、isbn-hyphenate についてインストール方法および利用方法を記す。</p>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id9">インストール</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>他のパッケージと同様、pip を用いるのが最短であろう。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install isbn-hyphenate
+</pre></div>
+</div>
+<p>または GitHub のレポジトリーを clone して、そこで <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code> してもよいだろう。</p>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id10">単体テスト</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>パッケージがインストールされたディレクトリーに <code class="docutils literal notranslate"><span class="pre">test</span></code> というサブディレクトリーがある。ここのスクリプト <code class="docutils literal notranslate"><span class="pre">isbn_hyphenate_test.py</span></code> がテストドライバーのようだ。インストールが成功したのかを確認するのには、これを単に実行し、その結果を評価すればよいだろう。</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd D:/Python34/Lib/site-packages/isbn_hyphenate/test
+$ python34 isbn_hyphenate_test.py
+.............
+----------------------------------------------------------------------
+Ran 13 tests in 0.006s
+
+OK
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id11">コード</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>パッケージ isbn-hyphenate は基本的にはただ一つの関数を提供する。ユーザーの負担がべらぼうに小さくて済むのでありがたい。利用手順は次のようになる。</p>
+<ol class="arabic simple">
+<li>何はなくとも <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">isbn_hyphenate</span> <span class="pre">import</span> <span class="pre">hyphenate</span></code> として、関数をインポートする。</li>
+<li>ISBN らしき文字列を関数 <code class="docutils literal notranslate"><span class="pre">hyphenate</span></code> に渡して戻り値を得る。</li>
+</ol>
+<p>これだけだ。二冊のある本について例を示す。ハイフンの入り方が異なることがわかる。</p>
+<div class="code pycon highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">isbn_hyphenate</span> <span class="k">import</span> <span class="n">hyphenate</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hyphenate</span><span class="p">(</span><span class="s1">&#39;978-4001140088&#39;</span><span class="p">)</span>
+<span class="go">&#39;978-4-00-114008-8&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hyphenate</span><span class="p">(</span><span class="s1">&#39;978-4-87311-364-7&#39;</span><span class="p">)</span>
+<span class="go">&#39;978-4-87311-364-7&#39;</span>
+</pre></div>
+</div>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">isbn_xml2py.py</span></code> をユーザーが起動することがあるのか。</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="python-pyopengl/index.html" title="PyOpenGL 利用ノート"
+             >next</a></li>
+        <li class="right" >
+          <a href="python-twitter/scripts.html" title="付録スクリプト"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

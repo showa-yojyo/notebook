@@ -1,0 +1,289 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>第 6 章 多様体上のフロー（前編） &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="第 6 章 多様体上のフロー（後編）" href="chapter6b.html" />
+    <link rel="prev" title="第 5 章 多様体上の関数（後編）" href="chapter5b.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter6b.html" title="第 6 章 多様体上のフロー（後編）"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="chapter5b.html" title="第 5 章 多様体上の関数（後編）"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">幾何学 I 多様体入門 読書ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id5">第 6 章 多様体上のフロー（前編）</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>値が十分近い二つの正則値同士の逆像もまた十分近い形をしているだろうか。</p>
+<div class="contents topic" id="id2">
+<p class="topic-title first">ノート目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id5">第 6 章 多様体上のフロー（前編）</a><ul>
+<li><a class="reference internal" href="#id3" id="id6">6.1 多様体の部分集合の比較、アイソトピー</a></li>
+<li><a class="reference internal" href="#id4" id="id7">6.2 フロー</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id6">6.1 多様体の部分集合の比較、アイソトピー</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>微分同相写像で互いに写り合う多様体同士を同じものと考える (p. 123)。</li>
+</ul>
+<dl class="docutils">
+<dt><a class="reference external" href="http://mathworld.wolfram.com/Isotopy.html">アイソトピー</a></dt>
+<dd><p class="first"><span class="math notranslate nohighlight">\(t \in [0, 1]\)</span> に対して連続的に変化する微分同相写像 <span class="math notranslate nohighlight">\(\fn{F_t}{M}M\)</span> で、
+<span class="math notranslate nohighlight">\(F_0 = \id_M\)</span> を満たすものをアイソトピーという。</p>
+<ul class="last simple">
+<li><span class="math notranslate nohighlight">\(\RR \times M\)</span> の <span class="math notranslate nohighlight">\([0, 1] \times M\)</span> への制限。</li>
+<li><span class="math notranslate nohighlight">\(A_0, A_1 \subset M\)</span> は多様体の部分集合であるとすると、
+<span class="math notranslate nohighlight">\(F_0(A_0) = A_0,\ F_1(A_0) = A_1.\)</span></li>
+<li>制限なしの <span class="math notranslate nohighlight">\(F\)</span> について<ol class="arabic">
+<li><span class="math notranslate nohighlight">\((t_0, x_0)\)</span> を固定すると <span class="math notranslate nohighlight">\(T_{F_{t_0}(x_0)}M\)</span> の接ベクトルが定まる。なぜなら <span class="math notranslate nohighlight">\(F_t(x_0)\)</span> が <span class="math notranslate nohighlight">\(F_{t_0}(x_0)\)</span> を通過するから。</li>
+<li><span class="math notranslate nohighlight">\(\forall y_0 \in M, x_0 = F_{t_0}\inv(y_0)\)</span> とすると <span class="math notranslate nohighlight">\(T_{y_0}M\)</span> の接ベクトルが定まる。なぜなら  <span class="math notranslate nohighlight">\(F_{t_0}\)</span> が微分同相だから。</li>
+</ol>
+</li>
+<li><span class="math notranslate nohighlight">\(X_t := \fn{\dfrac{\partial F_t}{\partial t} \circ F_t\inv}{M}T_{y_0}M\)</span> なる量を考える。<ul>
+<li><span class="math notranslate nohighlight">\(y_0 \in M\)</span> 周りの座標近傍を <span class="math notranslate nohighlight">\((U, \varphi)\)</span> とし、</li>
+<li><span class="math notranslate nohighlight">\(\varphi \circ (F_t \circ F_{t_0}\inv)\circ\varphi\inv(x_1, \dotsc, x_n)\)</span> を
+<span class="math notranslate nohighlight">\((f_1(t, t_0, x_1, \dotsc, x_n), \dotsc, f_n(t, t_0, x_1, \dotsc, x_n))\)</span> と書く。</li>
+<li><span class="math notranslate nohighlight">\(\displaystyle X_i = \sum_{i = 1}^n \diff{f_i}{t}(t, t_0, x_1, \dotsc, x_n) \frac{\partial}{\partial x_i}.\)</span></li>
+<li><span class="math notranslate nohighlight">\((t_0, \varphi(y_0))\)</span> の近傍で定義されている <span class="math notranslate nohighlight">\(\RR^n\)</span> に値を持つ <span class="math notranslate nohighlight">\(C^\infty\)</span> 級写像である。</li>
+<li><span class="math notranslate nohighlight">\((t_0, \varphi(y_0))\)</span> の近傍において <span class="math notranslate nohighlight">\(X(t, y) = X_t(y)\)</span> による写像
+<span class="math notranslate nohighlight">\(\fn{X}{\RR \times M}TM\)</span> は <span class="math notranslate nohighlight">\(C^\infty\)</span> 級写像である。</li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt><a class="reference external" href="http://mathworld.wolfram.com/VectorField.html">ベクトル場</a></dt>
+<dd><p class="first">各 <span class="math notranslate nohighlight">\(t\)</span> について <span class="math notranslate nohighlight">\(\fn{X_t}{M}TM\)</span> は
+<span class="math notranslate nohighlight">\(p \circ X_t = \id_M\)</span> となる <span class="math notranslate nohighlight">\(C^\infty\)</span> 級写像である。</p>
+<p>そこで、こういう性質を持つ <span class="math notranslate nohighlight">\(C^\infty\)</span> 級写像 <span class="math notranslate nohighlight">\(\fn{X}{M}TM\)</span> を
+<span class="math notranslate nohighlight">\(M\)</span> 上の <span class="math notranslate nohighlight">\(C^\infty\)</span> 級ベクトル場と言う。</p>
+<ul class="last simple">
+<li><span class="math notranslate nohighlight">\(\displaystyle \diff{F_t}{t} = X_t \circ F_t,\ F_{t_0} = \id_M\)</span></li>
+<li><span class="math notranslate nohighlight">\(F_{t_0} = \id_M\)</span> となる <span class="math notranslate nohighlight">\(F_t\)</span> により <span class="math notranslate nohighlight">\(F_{t_1}(A_0) = A_1\)</span> となることは、ベクトル場の定める常微分方程式の解により <span class="math notranslate nohighlight">\(A_0\)</span> を <span class="math notranslate nohighlight">\(A_1\)</span> に写すことと同じである。</li>
+<li><span class="math notranslate nohighlight">\(t = t_0\)</span> のとき <span class="math notranslate nohighlight">\(F_t \circ F_{t_0}\inv\)</span> を局所座標表示するとわかる。</li>
+</ul>
+</dd>
+</dl>
+<ul class="simple">
+<li>例 6.1.1: 線形常微分方程式を <span class="math notranslate nohighlight">\(\RR^n\)</span> 上の接ベクトルとして書く。<ul>
+<li>以下 <span class="math notranslate nohighlight">\(A(t) \in M_n(\RR)\)</span> を <span class="math notranslate nohighlight">\(t\)</span> について連続な行列、成分を <span class="math notranslate nohighlight">\(A(t) = (a_{ij}(t))\)</span> と表し、ベクトル <span class="math notranslate nohighlight">\(\bm{x} = (x_j)\)</span> と表す。</li>
+<li><span class="math notranslate nohighlight">\(\displaystyle \diff{}{t}\bm{x} = A(t)\bm{x}\)</span> について、これは接ベクトル場 <span class="math notranslate nohighlight">\(\displaystyle \sum_{i = 1}^n\left(\sum_{j = 1}^n a_{ij}(t)x_j\right)\frac{\partial}{\partial x_i}\)</span> である。</li>
+<li><span class="math notranslate nohighlight">\(A(t)\)</span> が <span class="math notranslate nohighlight">\(t\)</span> に非依存ならば
+<span class="math notranslate nohighlight">\(F_t \circ F_{t_0}\inv(\bm{x}) = e^{(t - t_0)A}\bm{x}\)</span> である。</li>
+</ul>
+</li>
+</ul>
+<ul id="tsuboi05-6-1-2">
+<li><p class="first">例題 6.1.2: 微分同相からアイソトピーを構成する？</p>
+<ul>
+<li><p class="first">仮定</p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(\fn{F}{\RR^n}\RR^n\)</span> は微分同相であり、</li>
+<li><span class="math notranslate nohighlight">\(DF_{(\bm{x})} - I_n\)</span> の成分の絶対値が <span class="math notranslate nohighlight">\(\displaystyle \eps\quad (&lt; \frac{1}{2n})\)</span> より小さいとする。</li>
+</ul>
+</li>
+<li><p class="first">結論（ただし本書の関数定義には誤植があると思われるので勝手に修正する）</p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(F_t(\bm{x}) = (1 - t) \bm{x} + t F(\bm{x})\)</span> は微分同相であり、</li>
+<li><span class="math notranslate nohighlight">\(F_0 = \id_{\RR^n},\ F_1 = F\)</span> である。</li>
+</ul>
+</li>
+<li><p class="first">証明</p>
+<ol class="arabic">
+<li><p class="first"><span class="math notranslate nohighlight">\(DF_{(\bm{x})}\)</span> は正則である。</p>
+<ul>
+<li><p class="first">単純計算により <span class="math notranslate nohighlight">\(DF_{(\bm x)} = (I_n + t(DF_{(\bm{x})} - I_n)).\)</span></p>
+</li>
+<li><p class="first">高校数学の <span class="math notranslate nohighlight">\(\displaystyle \frac{1}{1 + x}\)</span> の級数展開を参考に次の式が浮かぶ：</p>
+<div class="math notranslate nohighlight">
+\begin{gather*}
+(I_n + t(DF_{(\bm{x})} - I_n))\sum_{k = 0}^\infty (-t)^k (DF_{(\bm{x})} - I_n)^k = I_n
+\end{gather*}</div><p>問題は級数の収束性だが（行列式の評価には注意したい）、これは仮定の評価から絶対収束であることがわかる：</p>
+<div class="math notranslate nohighlight">
+\begin{split}
+\abs{(-t)^k (DF_{(\bm{x})} - I_n)^k}
+    &amp;&lt;&amp; \abs{t^k n^{k - 1} \eps^k}\\
+    &amp;&lt;&amp; n^{k - 1} \eps^k\\
+    &amp;&lt;&amp; \frac{1}{2^{k - 1}}\eps.
+\end{split}</div><p>以上で <span class="math notranslate nohighlight">\(DF_{(\bm x)}\)</span> の逆行列が存在して、それが上記の級数で与えられることがわかった。</p>
+</li>
+</ul>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(F_t\)</span> は単射である。</p>
+<p><span class="math notranslate nohighlight">\(H_t(\bm{x}) = \bm{x} - F_t(\bm{x})\)</span>, <span class="math notranslate nohighlight">\(\bm{y} \in \RR^n\)</span> とおくと次のように評価できる：</p>
+<div class="math notranslate nohighlight">
+\begin{split}
+\norm{H_t(\bm{x}) - H_t(\bm{y})} &amp; \le nt\eps \norm{\bm{x} - \bm{y}}\\
+&amp; \le \frac{1}{2}\norm{\bm{x} - \bm{y}}\\
+\therefore \norm{F_t(\bm{x}) - F_t(\bm{y})} &amp; \ge \frac{1}{2}\norm{\bm{x} - \bm{y}}
+\end{split}</div></li>
+<li><p class="first"><span class="math notranslate nohighlight">\(F_t\)</span> は全射である。</p>
+<p><span class="math notranslate nohighlight">\(\bm{x_1} = \bm{y},\ \bm{x}_{k + 1} = \bm{x}_k - (F_t(\bm{x}_k) - \bm{y}) = \bm{y} + H_t(\bm{x}_k)\)</span> とおく。次のように評価できる：</p>
+<div class="math notranslate nohighlight">
+\begin{split}
+\norm{\bm{x}_{k+1} - \bm{x}} &amp; \le&amp; \frac{1}{2^{k-1}}\norm{\bm{x}_2 - \bm{x}_1}\\
+&amp; =&amp; \frac{1}{2^{k-1}}\norm{\bm{y} - F_t(\bm{y})}\\
+&amp;\therefore&amp; \bm{x}_k \to \bm{y}\ \text{s.t. } \bm{y} = F_t(\bm{y}).
+\end{split}</div></li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id7">6.2 フロー</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>序盤から難しい。ベクトル場とフローの関係を図に示してみる。ベクトル場は接束の切断であると理解できる。</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/cd-topology-vectorfield.png"><img alt="math.topology.vectorfield" src="../_images/cd-topology-vectorfield.png" style="width: 694.0px; height: 325.0px;" /></a>
+</div>
+<dl class="docutils">
+<dt><a class="reference external" href="http://mathworld.wolfram.com/Flow.html">フロー</a></dt>
+<dd><p class="first">フローとは次の性質を満たすアイソトピーである：
+<span class="math notranslate nohighlight">\(F_s \circ F_t = F_{s + t}.\)</span></p>
+<ul class="last simple">
+<li>フローは加法群 <span class="math notranslate nohighlight">\(\RR\)</span> の多様体への群作用である。</li>
+<li>ベクトル場 <span class="math notranslate nohighlight">\(X_t\)</span> は、あるいは局所座標系で書かれた常微分方程式は <span class="math notranslate nohighlight">\(t\)</span> に依存しない。<ul>
+<li><span class="math notranslate nohighlight">\(F_t\)</span> がフローの場合は <span class="math notranslate nohighlight">\(\displaystyle X_{t_0}(y_0) = \frac{\partial F}{\partial t}(t_0, F_{t_0}\inv(y_0)) = \frac{\partial F}{\partial t}(0, y_0) = X_0(y_0)\)</span> とあるが、二番目の等号が成立する根拠がわからない。
+<span class="math notranslate nohighlight">\(F_t = F_{t - t_0} \circ F_{t_0}\)</span> であることがどう関わっているのか。</li>
+</ul>
+</li>
+<li>ベクトル場 <span class="math notranslate nohighlight">\(X = X_t\)</span> はフローを <span class="math notranslate nohighlight">\(F_t\)</span> を生成するベクトル場であるという。生成の主従を逆に見ることもある。</li>
+</ul>
+</dd>
+</dl>
+<ul id="tsuboi05-6-2-1">
+<li><p class="first">例 6.2.1: 軌道</p>
+<p><span class="math notranslate nohighlight">\(\RR^n\)</span> のベクトル <span class="math notranslate nohighlight">\(\bm x = (x_i)\)</span> と行列 <span class="math notranslate nohighlight">\(A = (a_{ij})\)</span> を考える。</p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(F_t(\bm x) = \mathrm{e}^{tA} \bm x\)</span> は <span class="math notranslate nohighlight">\(\RR^n\)</span> 上のベクトル場
+<span class="math notranslate nohighlight">\(\displaystyle \sum_{i = 1}^n \left( \sum_{j = 1}^n a_{ij} x_j \right)\frac{\partial}{\partial x_j}\)</span> が生成するフローである。<ul>
+<li><span class="math notranslate nohighlight">\(\displaystyle \diff{F_t}{t}\circ F_{-t} = A \mathrm e^{At\bm x} \mathrm e^{-At\bm x} = A\bm x = \sum\sum a_{ij}x_j.\)</span></li>
+</ul>
+</li>
+<li>フロー <span class="math notranslate nohighlight">\(\set{ F_t(\bm x) \sth t \in \RR}\)</span> を <span class="math notranslate nohighlight">\(\bm x\)</span> を通る軌道という。この軌道は <span class="math notranslate nohighlight">\(M\)</span> 上の同値関係を定義する。</li>
+<li>軌道は一点、円周、実数全体のいずれかでパラメーター付けられる。<ul>
+<li>円周ならば一次元部分多様体である。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="simple" id="tsuboi05-6-2-2">
+<li>例 6.2.2: 平面上の線形ベクトル場の生成するフローの軌道カタログ<ul>
+<li>式にすれば <span class="math notranslate nohighlight">\(\displaystyle \sum_{i, j = 1}^2 a_{ij} x_j \frac{\partial}{\partial x_j}\)</span> だが、本書の図によると三種類に分類できるようだ。</li>
+</ul>
+</li>
+</ul>
+<ul id="tsuboi05-6-2-3">
+<li><p class="first">問題 6.2.3: コンパクト多様体上のフローについて</p>
+<ol class="arabic">
+<li><p class="first"><span class="math notranslate nohighlight">\(\varphi_{t_1}(x_0) = \varphi_{t_2}(x_0)\)</span> ならば
+<span class="math notranslate nohighlight">\(\exists T \le 0,\ \exists n \in \ZZ \ \text{s.t. } t_2 - t_1 = nT.\)</span></p>
+<ul>
+<li><p class="first">まとめて考えるために <span class="math notranslate nohighlight">\(A = \set{t \in \RR \sth \varphi_t(x_0) (= \varphi_0(x_0)) = x_0} \subset \RR\)</span> とおく。
+<span class="math notranslate nohighlight">\(A\)</span> が群であることと、閉集合であることを示す：</p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(0 \in A\)</span></li>
+<li><span class="math notranslate nohighlight">\(a_1, a_2 \in A\)</span> について
+<span class="math notranslate nohighlight">\(\varphi_{a_1 + a_2}(x_0) = \varphi_{a_1} \circ \varphi_{a_2}(x_0) = \varphi_{a_1}(x_0) = x_0\)</span> だから
+<span class="math notranslate nohighlight">\(a_1 + a_2 \in A.\)</span></li>
+</ul>
+<p>よって <span class="math notranslate nohighlight">\(A\)</span> は <span class="math notranslate nohighlight">\(\RR\)</span> の部分群となっている。</p>
+</li>
+<li><p class="first">閉集合であることを示すために <span class="math notranslate nohighlight">\(A\)</span> の収束点列の極限が <span class="math notranslate nohighlight">\(A\)</span> にあることを示す。</p>
+<ul>
+<li><p class="first"><span class="math notranslate nohighlight">\(\varphi_t(x_0)\)</span> は <span class="math notranslate nohighlight">\(t\)</span> について連続であるので、点列 <span class="math notranslate nohighlight">\(\set{a_i}\)</span> が <span class="math notranslate nohighlight">\(\displaystyle \lim_{i \to \infty} a_i = a\)</span> とおくと、次のようになる：</p>
+<div class="math notranslate nohighlight">
+\[\varphi_a(x_0) = \lim_{i \to \infty}\varphi_{a_i}(x_0)
+  = \lim_{i \to \infty}x_0 = x_0.\]</div>
+</li>
+</ul>
+<p>したがって <span class="math notranslate nohighlight">\(A\)</span> は <span class="math notranslate nohighlight">\(\RR\)</span> の閉集合となっている。</p>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(A = \zeroset\)</span> と仮定すると <span class="math notranslate nohighlight">\(T = 0\)</span> が求める値となる。</p>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(A \ne \zeroset\)</span> と仮定すると <span class="math notranslate nohighlight">\(T = \inf\set{a \in A \sth a &gt; 0}\)</span> が求める値である。要するに <span class="math notranslate nohighlight">\(A\)</span> の中でゼロの次に小さい値である。</p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(T &gt; 0\)</span> のときは <span class="math notranslate nohighlight">\(A = \ZZ T\)</span><ul>
+<li><span class="math notranslate nohighlight">\(A \in \ZZ T, \exists n\ \text{s.t. } \abs{a - nT} &lt; T\)</span>
+しかし <span class="math notranslate nohighlight">\(a - nT \in A \implies a = nT.\)</span></li>
+</ul>
+</li>
+<li><span class="math notranslate nohighlight">\(T = 0\)</span> のときは <span class="math notranslate nohighlight">\(A = \RR\)</span><ul>
+<li>さっきと同じように <span class="math notranslate nohighlight">\(\set{a_i} \in A, a_i &gt; 0, \lim a_i = 0 \implies \bigcup\set{n a_i \sth n \in \ZZ} \subset \RR\)</span> は稠密であるが、<span class="math notranslate nohighlight">\(A\)</span> が閉集合であるために <span class="math notranslate nohighlight">\(A = \RR.\)</span>
+<span class="math notranslate nohighlight">\(\therefore t \in \RR,\ \varphi_t(x_0) = x_0.\)</span>
+これは仮定の「定数関数ではない」に反する。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>となる。</p>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(\exists y \in M,\ \text{s.t. } \forall U_y \owns y, \sup\set{t \in \RR \sth \varphi_t(x_0) \in U_y} = \infty.\)</span></p>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(\varphi_t(x_0) = x_0, t \ne 0\)</span> ならば <span class="math notranslate nohighlight">\(y = x_0\)</span> である。</li>
+<li>そうでなければ <span class="math notranslate nohighlight">\(\set{\varphi_t(x_0) \sth t \in \NN}\)</span> の集積点を <span class="math notranslate nohighlight">\(y\)</span> とする。</li>
+</ul>
+</li>
+</ol>
+<p>この問題が言いたいことは図を描いて理解するのがいい？</p>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter6b.html" title="第 6 章 多様体上のフロー（後編）"
+             >next</a></li>
+        <li class="right" >
+          <a href="chapter5b.html" title="第 5 章 多様体上の関数（後編）"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >幾何学 I 多様体入門 読書ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

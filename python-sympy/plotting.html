@@ -1,0 +1,340 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>プロットを利用する &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="論理代数" href="logic.html" />
+    <link rel="prev" title="チュートリアルを読む" href="tutorial.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="logic.html" title="論理代数"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="tutorial.html" title="チュートリアルを読む"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">SymPy 利用ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id10">プロットを利用する</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>ここでは <a class="reference external" href="http://www.sympy.org/">SymPy</a> プロット機能に関する覚え書きを記す。</p>
+<div class="contents topic" id="id2">
+<p class="topic-title first">ノート目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id10">プロットを利用する</a><ul>
+<li><a class="reference internal" href="#id3" id="id11">所感</a></li>
+<li><a class="reference internal" href="#id4" id="id12">早見表</a><ul>
+<li><a class="reference internal" href="#id5" id="id13">プロット関数早見表</a></li>
+<li><a class="reference internal" href="#id6" id="id14">プロット関数引数メモ</a><ul>
+<li><a class="reference internal" href="#id7" id="id15">プロット関数自身に関するパラメーター</a></li>
+<li><a class="reference internal" href="#id8" id="id16">プロットの見てくれを制御するパラメーター</a></li>
+<li><a class="reference internal" href="#id9" id="id17">プロットの種類で決まるパラメーター</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id11">所感</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>なぜ便利か。<a class="reference external" href="http://www.numpy.org/">NumPy</a>/<a class="reference external" href="http://www.scipy.org/">SciPy</a> で（数学的な）関数のプロットを作成しようものなら、自分で関数を評価して「折れ線化」して得られる点列データを <a class="reference external" href="http://matplotlib.org/">Matplotlib</a> のプロット関数に渡す。その折れ線の点列をプロット関数に渡す。ところが SymPy では数式そのものをプロット関数に渡せばよい。手間がひとつ省ける。</p>
+<ul>
+<li><p class="first">SymPy でも 2D または 3D のプロットを描ける。</p>
+</li>
+<li><p class="first">プロット描画を実現するために Matplotlib が裏で働いている。</p>
+<ul class="simple">
+<li>パッケージをインストールしていない場合は <code class="docutils literal notranslate"><span class="pre">TextBackend</span></code> という別の手がある。</li>
+</ul>
+</li>
+<li><p class="first">関数をインポートする形式は <code class="code docutils literal notranslate"><span class="pre">from</span> <span class="pre">sympy.plotting</span> <span class="pre">import</span> <span class="pre">plotxxx</span></code> となる。</p>
+</li>
+<li><p class="first">関数 <code class="code docutils literal notranslate"><span class="pre">plot_implicit</span></code> だけは不等式をも扱える。不等式に対応する等式を表現する曲線によって定義される平面上の領域を塗りつぶした図が得られる。</p>
+</li>
+<li><p class="first">3D プロットは描画が重く感じられる。Matplotlib でもこうだったか。</p>
+</li>
+<li><p class="first">Matplotlib をラップしているのはわかるが、
+SymPy は設定ファイル <code class="file docutils literal notranslate"><span class="pre">$HOME/.matplotlib/matplotlibrc</span></code> を参照しないのか？</p>
+</li>
+<li><p class="first">isympy でプロットウィンドウを複数出すと、たいていの場合セッションがおかしくなる。そして Tk のウィンドウが閉じられなくなる。</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">ここにコンソールの出力をコピーする。</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id12">早見表</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id13">プロット関数早見表</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>手軽にプロットを描くための関数の早見表を下に示す。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">関数</th>
+<th class="head">呼び出しの形</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">plot</span></code></td>
+<td><div class="first last line-block">
+<div class="line"><code class="code docutils literal notranslate"><span class="pre">plot(expr,</span> <span class="pre">range,</span> <span class="pre">**kwargs)</span></code></div>
+<div class="line"><code class="code docutils literal notranslate"><span class="pre">plot(expr1,</span> <span class="pre">expr2,</span> <span class="pre">...,</span> <span class="pre">range,</span> <span class="pre">**kwargs)</span></code></div>
+<div class="line"><code class="code docutils literal notranslate"><span class="pre">plot((expr1,</span> <span class="pre">range),</span> <span class="pre">(expr2,</span> <span class="pre">range),</span> <span class="pre">...,</span> <span class="pre">**kwargs)</span></code></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">plot_parametric</span></code></td>
+<td><div class="first last line-block">
+<div class="line"><code class="code docutils literal notranslate"><span class="pre">plot_parametric(expr_x,</span> <span class="pre">expr_y,</span> <span class="pre">range,</span> <span class="pre">**kwargs)</span></code></div>
+<div class="line"><code class="code docutils literal notranslate"><span class="pre">plot_parametric((expr1_x,</span> <span class="pre">expr1_y),</span> <span class="pre">(expr2_x,</span> <span class="pre">expr2_y),</span> <span class="pre">range,</span> <span class="pre">**kwargs)</span></code></div>
+<div class="line"><code class="code docutils literal notranslate"><span class="pre">plot_parametric((expr_x,</span> <span class="pre">expr_y,</span> <span class="pre">range),</span> <span class="pre">...,</span> <span class="pre">**kwargs)</span></code></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">plot_implicit</span></code></td>
+<td><div class="first last line-block">
+<div class="line"><code class="code docutils literal notranslate"><span class="pre">plot_implicit(expr)</span></code></div>
+<div class="line"><code class="code docutils literal notranslate"><span class="pre">plot_implicit(expr,</span> <span class="pre">(xsymbol,</span> <span class="pre">xmin,</span> <span class="pre">xmax),</span> <span class="pre">(ysymbol,</span> <span class="pre">ymin,</span> <span class="pre">ymax))</span></code></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">plot3d</span></code></td>
+<td><div class="first last line-block">
+<div class="line"><code class="code docutils literal notranslate"><span class="pre">plot3d(expr,</span> <span class="pre">range_x,</span> <span class="pre">range_y,</span> <span class="pre">**kwargs)</span></code></div>
+<div class="line"><code class="code docutils literal notranslate"><span class="pre">plot3d(expr1,</span> <span class="pre">expr2,</span> <span class="pre">range_x,</span> <span class="pre">range_y,</span> <span class="pre">**kwargs)</span></code></div>
+<div class="line"><code class="code docutils literal notranslate"><span class="pre">plot3d((expr1,</span> <span class="pre">range_x,</span> <span class="pre">range_y),</span> <span class="pre">(expr2,</span> <span class="pre">range_x,</span> <span class="pre">range_y),</span> <span class="pre">...,</span> <span class="pre">**kwargs)</span></code></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">plot3d_parametric_line</span></code></td>
+<td><div class="first last line-block">
+<div class="line"><code class="code docutils literal notranslate"><span class="pre">plot3d_parametric_line(expr_x,</span> <span class="pre">expr_y,</span> <span class="pre">expr_z,</span> <span class="pre">range,</span> <span class="pre">**kwargs)</span></code></div>
+<div class="line"><code class="code docutils literal notranslate"><span class="pre">plot3d_parametric_line((expr_x,</span> <span class="pre">expr_y,</span> <span class="pre">expr_z,</span> <span class="pre">range),</span> <span class="pre">...,</span> <span class="pre">**kwargs)</span></code></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">plot3d_parametric_surface</span></code></td>
+<td><div class="first last line-block">
+<div class="line"><code class="code docutils literal notranslate"><span class="pre">plot3d_parametric_surface(expr_x,</span> <span class="pre">expr_y,</span> <span class="pre">expr_z,</span> <span class="pre">range_u,</span> <span class="pre">range_v,</span> <span class="pre">**kwargs)</span></code></div>
+<div class="line"><code class="code docutils literal notranslate"><span class="pre">plot3d_parametric_surface((expr_x,</span> <span class="pre">expr_y,</span> <span class="pre">expr_z,</span> <span class="pre">range_u,</span> <span class="pre">range_v),</span> <span class="pre">...,</span> <span class="pre">**kwargs)</span></code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id14">プロット関数引数メモ</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>プロット関数の引数の与え方には一貫性があるので、まとめて理解することができる。</p>
+<ul class="simple">
+<li>引数 <code class="code docutils literal notranslate"><span class="pre">expr</span></code> は SymPy の式オブジェクトである。</li>
+<li>引数 <code class="code docutils literal notranslate"><span class="pre">range</span></code> はいずれも <code class="code docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">xmin,</span> <span class="pre">xmax)</span></code> の形式で与える。例えば <code class="code docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">0,</span> <span class="pre">10)</span></code> のようにする。</li>
+<li>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">**kwargs</span></code> は、次の 3 つに分類できる。<ol class="arabic">
+<li>プロット関数自身に関するパラメーター</li>
+<li>プロットの見てくれを制御するパラメーター</li>
+<li>プロットの種類で決まるパラメーター</li>
+</ol>
+</li>
+</ul>
+<div class="section" id="id7">
+<h4><a class="toc-backref" href="#id15">プロット関数自身に関するパラメーター</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<p>プロット関数自身に関するパラメーターは全プロット関数の <code class="code docutils literal notranslate"><span class="pre">**kwargs</span></code> が扱う。そのようなキーワード引数を次の表に示す。</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">キーワード引数</th>
+<th class="head">説明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">show</span></code></td>
+<td>プロットを表示するかどうかを指定する bool 値。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id8">
+<h4><a class="toc-backref" href="#id16">プロットの見てくれを制御するパラメーター</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<p>プロットの見てくれを制御するパラメーターは全プロット関数の <code class="code docutils literal notranslate"><span class="pre">**kwargs</span></code> が扱う。そのようなキーワード引数を次の表に示す。</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="13%" />
+<col width="87%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">キーワード引数</th>
+<th class="head">説明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">aspect_ratio</span></code></td>
+<td>プロットのアスペクト比を例えば <code class="code docutils literal notranslate"><span class="pre">(1.0,</span> <span class="pre">1.0)</span></code> のようにするか、または文字列 <code class="docutils literal notranslate"><span class="pre">auto</span></code> で指定する。</td>
+</tr>
+<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">autoscale</span></code></td>
+<td>Matplotlib の <code class="code docutils literal notranslate"><span class="pre">Axes.set_autoscale_on</span></code> に渡す bool 値。</td>
+</tr>
+<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">axis</span></code></td>
+<td>Matplotlib の <code class="code docutils literal notranslate"><span class="pre">Axes.set_axis_off</span></code> を呼ぶかどうかを指定する bool 値。</td>
+</tr>
+<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">axis_center</span></code></td>
+<td>プロットの中央の座標を例えば <code class="code docutils literal notranslate"><span class="pre">(0.0,</span> <span class="pre">0.0)</span></code> のように指定するか、文字列 <code class="docutils literal notranslate"><span class="pre">'center'</span></code> または <code class="docutils literal notranslate"><span class="pre">'auto'</span></code> で指定する。</td>
+</tr>
+<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">legend</span></code></td>
+<td>プロットの凡例を表示するかどうかを指定する bool 値。</td>
+</tr>
+<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">margin</span></code></td>
+<td>Matplotlib の <code class="code docutils literal notranslate"><span class="pre">Axes.set_xmargin</span></code> と <code class="code docutils literal notranslate"><span class="pre">Axes.set_ymargin</span></code> に共通に渡す値。</td>
+</tr>
+<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">title</span></code></td>
+<td>プロットの表題を文字列で指定する。</td>
+</tr>
+<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">xlabel</span></code></td>
+<td>x 軸のラベル文字列。</td>
+</tr>
+<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">xlim</span></code></td>
+<td>x 軸の制限範囲を例えば <code class="code docutils literal notranslate"><span class="pre">(0.0,</span> <span class="pre">10.0)</span></code> のようにして指定する。</td>
+</tr>
+<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">xscale</span></code></td>
+<td>x 軸のスケーリングをどうするか。文字列 <code class="docutils literal notranslate"><span class="pre">'linear'</span></code> または <code class="docutils literal notranslate"><span class="pre">'log'</span></code> で指定する。</td>
+</tr>
+<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">ylabel</span></code></td>
+<td><code class="code docutils literal notranslate"><span class="pre">xlabel</span></code> の y 軸版。</td>
+</tr>
+<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">ylim</span></code></td>
+<td><code class="code docutils literal notranslate"><span class="pre">xlim</span></code> の y 軸版。</td>
+</tr>
+<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">yscale</span></code></td>
+<td><code class="code docutils literal notranslate"><span class="pre">xscale</span></code> の y 軸版。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id9">
+<h4><a class="toc-backref" href="#id17">プロットの種類で決まるパラメーター</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<p>ここで言うプロットの種類で決まるパラメーターとは、それぞれのプロット関数が処理するサンプルデータの種類によって意味を持つものだ。見たらわかるので、例えば「キーワード引数 <code class="code docutils literal notranslate"><span class="pre">surface_color</span></code> は曲面プロット系の関数でのみ有効なパラメーターである」というようなことはいちいち断らずに、下の表でそれらをすべて混ぜて示す。</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="16%" />
+<col width="84%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">キーワード引数</th>
+<th class="head">説明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">adaptive</span></code></td>
+<td>もし False を指定するならば、別途 <code class="code docutils literal notranslate"><span class="pre">nb_of_points</span></code> を指定する必要がある。</td>
+</tr>
+<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">depth</span></code></td>
+<td>adaptive algorithm の深さを正の整数で指定する。</td>
+</tr>
+<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">label</span></code></td>
+<td>不明。Matplotlib の折れ線に付与するラベル？</td>
+</tr>
+<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">line_color</span></code></td>
+<td>プロットする線セグメントの色を指定する。要調査。</td>
+</tr>
+<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">nb_of_points</span></code></td>
+<td>サンプル点列の個数を整数で指定する。変域から一様にサンプリングされる。</td>
+</tr>
+<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">nb_of_points_x</span></code></td>
+<td><code class="code docutils literal notranslate"><span class="pre">nb_of_points</span></code> の曲面プロット系 x 軸版。</td>
+</tr>
+<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">nb_of_points_y</span></code></td>
+<td><code class="code docutils literal notranslate"><span class="pre">nb_of_points</span></code> の曲面プロット系 y 軸版。</td>
+</tr>
+<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">only_integers</span></code></td>
+<td>プロットのサンプリングを整数座標に限るかどうかを指定する bool 値。</td>
+</tr>
+<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">surface_color</span></code></td>
+<td>プロットする面パッチの色を指定する。要調査。</td>
+</tr>
+<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">steps</span></code></td>
+<td>要調査。</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition-todo admonition" id="index-1">
+<p class="first admonition-title">Todo</p>
+<p class="last">adaptive algorithm というものを調べる。</p>
+</div>
+<ul>
+<li><p class="first"><code class="code docutils literal notranslate"><span class="pre">line_color</span></code>, <code class="code docutils literal notranslate"><span class="pre">surface_color</span></code> の値の与え方は複数ある。両者の違いは次元だけだろうから、以下 <code class="code docutils literal notranslate"><span class="pre">line_color</span></code> の覚え書きを記す。</p>
+<ul>
+<li><p class="first">差し当たり <code class="code docutils literal notranslate"><span class="pre">line_color=(1.0,</span> <span class="pre">0.0,</span> <span class="pre">0.0)</span></code> のように与えると、線の色が赤くなることを確認した。</p>
+</li>
+<li><p class="first">または float 値を返す関数を渡すと動作することは確認した。しかし、浮動小数点型の数を返す関数からどのように線の色が決まるのかがわからない。
+SymPy の実装を見ても理解できないのでダメだ。</p>
+<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="n">pi</span><span class="p">,</span> <span class="n">pi</span><span class="p">),</span> <span class="n">adaptive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="n">sin</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>簡単なサインカーブのプロットで <code class="code docutils literal notranslate"><span class="pre">line_color</span></code> のはたらきを見ると、何らかの規則に基づいて線の色が決まっているらしいことは納得した。</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/sympy-plotting-line-color.png"><img alt="SymPy によるプロット" src="../_images/sympy-plotting-line-color.png" style="width: 407.5px; height: 307.5px;" /></a>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="logic.html" title="論理代数"
+             >next</a></li>
+        <li class="right" >
+          <a href="tutorial.html" title="チュートリアルを読む"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >SymPy 利用ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

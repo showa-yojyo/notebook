@@ -1,0 +1,1244 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>15 Activities &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="16 Actions" href="actions.html" />
+    <link rel="prev" title="14 StateMachines" href="statemachines.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="actions.html" title="16 Actions"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="statemachines.html" title="14 StateMachines"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Unified Modeling Language 2.5 読書ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="activities">
+<h1><a class="toc-backref" href="#id38">15 Activities</a><a class="headerlink" href="#activities" title="Permalink to this headline">¶</a></h1>
+<p>UML 2.5 pp. 371-438 に関するノート。</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">誤訳や変な解釈がいかにもありそうなので、発覚次第修正する。</p>
+</div>
+<div class="admonition-todo admonition" id="index-1">
+<p class="first admonition-title">Todo</p>
+<p>訳語検討。</p>
+<ul class="last simple">
+<li>activity (n.) 他にも良さそうなのはあるが、
+active (adj.) を「活性」とする都合もあり、「活動」にしておく。</li>
+<li>across the edge: 「エッジの端から端まで」の意。「横切る」などではない。</li>
+<li>concurrent (adj.) 本文中にあるように、必ずしも「同時に起こる」とは限らない。</li>
+<li>flow (n.) 「流れ」「流動」で済ませたい。</li>
+<li>offer (v.) 語源は「～の方へ運ぶ」を意味するラテン語らしいのだが、まさにこの文脈に相応しい。<ul>
+<li>本文を読み返したら 11.3.3.1 節の第 2 パラグラフに
+provides (offers) と書いてあったので、やはり provide と同じように訳すのが良いだろう。ということは、やはり訳しづらい単語であることには変わりないということだが。</li>
+</ul>
+</li>
+<li>token (n.) 「トークン」とする。代用硬貨とかではさすがに意味が通らないが、本質的な意味はまさにそれ。</li>
+<li>workflow (n.) 「仕事の流れ」としたが、おそらく不適当。</li>
+</ul>
+</div>
+<div class="contents topic" id="id1">
+<p class="topic-title first">ノート目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#activities" id="id38">15 Activities</a><ul>
+<li><a class="reference internal" href="#summary" id="id39">15.1 Summary</a></li>
+<li><a class="reference internal" href="#id2" id="id40">15.2 Activities</a></li>
+<li><a class="reference internal" href="#control-nodes" id="id41">15.3 Control Nodes</a></li>
+<li><a class="reference internal" href="#object-nodes" id="id42">15.4 Object Nodes</a></li>
+<li><a class="reference internal" href="#executable-nodes" id="id43">15.5 Executable Nodes</a></li>
+<li><a class="reference internal" href="#activity-groups" id="id44">15.6 Activity Groups</a></li>
+<li><a class="reference internal" href="#classifier-descriptions" id="id45">15.7 Classifier Descriptions</a></li>
+<li><a class="reference internal" href="#association-descriptions" id="id46">15.8 Association Descriptions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="summary">
+<h2><a class="toc-backref" href="#id39">15.1 Summary</a><a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Activity とは、エッジにより相互接続されるノードのグラフとして決定される
+Behavior の一種 (<a class="reference internal" href="common-behavior.html"><span class="doc">13 Common Behavior</span></a>) である。<ul>
+<li>そのノードの部分集合は、その Activity 全体の低水準の処理手順を具体化する実行可能ノードである。</li>
+<li>オブジェクトノードは実行可能ノードに対して入出力するデータを保持し、オブジェクトフローエッジを端から端まで移動する。</li>
+<li>制御ノードは制御フローエッジを経て、実行可能ノードの配列を決定する。</li>
+</ul>
+</li>
+<li>Activities は手続きの計算を記述することも許されて、他の Activities を発動する Activities の階層を形成するか、オブジェクト指向モデルでは、直接的に発動される Operations に束縛されたメソッドとして、それらを間接的に発動することも許される。<ul>
+<li>Activities を業務工程工学と仕事の流れに対して組織的モデリングに適用することが認められている。</li>
+</ul>
+</li>
+<li>この章の残りでは、どのようにして活動モデルが構造化され、さまざまな種類のオブジェクトと制御ノードが構造化されるのかを述べる。<ul>
+<li>UML では実行可能ノードの唯一の種類は Actions であり、
+<a class="reference internal" href="actions.html"><span class="doc">16 Actions</span></a> で完全に述べられる。</li>
+<li>Actions を表す具体的構文は Activities を表す具体的構文の部分集合であり、本章で指定される Actions を表す具体的構文もある。<ul>
+<li>Action 表記法は Activity 図でしか現れない。</li>
+</ul>
+</li>
+<li>この章では実行可能ノードを使うことで
+Actions から分離されたある独立性を実現するが、それでもなお <a class="reference internal" href="actions.html"><span class="doc">16 Actions</span></a> と一緒に読む必要がある。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id40">15.2 Activities</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>15.2.1 Summary<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Activity は下位ユニットの配列として指定される Behavior であり、制御およびデータフローモデルを使う。<ul>
+<li>実行の流れは ActivityEdges によって接続される ActivityNodes としてモデル化される。</li>
+<li>ExecutableNode は、算術計算、操作の呼び出し、オブジェクトの内容物の操縦のような、従属的挙動の実行であることがある。</li>
+<li>ActivityNodes は、同期、決定、同時制御のような、制御の流れに関する構成要素をも含む。</li>
+</ul>
+</li>
+<li>この節はノードとエッジのグラフとしての活動モデルの根本的な構造および流れの意味を述べる。それから後続の節では
+Activity が含んでよい ActivityNodes 各種を述べ、どのようにこれらのノードを Activity でグループ化してよいのかを述べる。</li>
+</ul>
+</div>
+<div class="section" id="abstract-syntax">
+<h3>15.2.2 Abstract Syntax<a class="headerlink" href="#abstract-syntax" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 15.1 Activities<ul>
+<li>Activity, Variable, ActivityNode, ActivityEdge, ObjectFlow, ControlFlow 周りを見ていく。</li>
+<li>Flow とは Edge の一種らしい。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="semantics">
+<h3>15.2.3 Semantics<a class="headerlink" href="#semantics" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h4>15.2.3.1 Activities<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Activity における ActivityNode ひとつの実行は、その Activity にある他の ActivityNodes の実行に影響を与えることができ、かつ影響されることができる。<ul>
+<li>ある ActivityNode の別の ActivityNode に対する効果は、それらの ActivityNodes の間にある ActivityEdges を渡るトークンの流れにより決定される。</li>
+</ul>
+</li>
+<li>トークンは Activity で明示的にモデル化されないが、
+Activity の実行を記述するために用いられる。<ul>
+<li>オブジェクトトークンは ObjectFlow エッジ上を流れる値の入れ物である。モノによっては ControlFlow 上を流れることができる。</li>
+<li>値のないオブジェクトトークンは空トークンと呼ばれる。</li>
+<li>制御トークンは ActivityNodes の実行に影響するが、データはどれも運ばず、
+ControlFlow 上しか流れない。</li>
+</ul>
+</li>
+<li>ActivityEdges は有向辺であり、トークンが <code class="docutils literal notranslate"><span class="pre">source</span></code> ActivityNode から
+<code class="docutils literal notranslate"><span class="pre">targets</span></code> ActivityNode へ流れる。</li>
+<li>ActivityNodes と ActivityEdges には名前をつけてもよいが、
+Activity の <code class="docutils literal notranslate"><span class="pre">nodes</span></code> と <code class="docutils literal notranslate"><span class="pre">edges</span></code> とがその Activity の内部で一意な名前である必要はない。<ul>
+<li>例えば、同じような <code class="docutils literal notranslate"><span class="pre">nodes</span></code> には同じ名前を与えることが許される。</li>
+</ul>
+</li>
+<li>Activities は Classes であり、次のような Properties を支援することが許される。<ul>
+<li>その工程がどの程度長く実行するか、それがどの程度高く付くのかということ</li>
+<li>実行の行為者、誰に完了を報告するのか、使用中の資源のような、オブジェクトに関するリンクを指定する Associations</li>
+<li>開始、停止、中断、等々のような、それらのオブジェクトの実行を管理するための Operations</li>
+<li>開始、一時停止、等々のような、実行の状態を決定する StateMachines</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="activity-nodes">
+<h4>15.2.3.2 Activity Nodes<a class="headerlink" href="#activity-nodes" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ActivityNodes は Activity により指定される挙動の個々の段階をモデル化するのに使われる。</li>
+<li>ActivityNode が実行を開始することができるようになるのは、指定された条件が <code class="docutils literal notranslate"><span class="pre">incoming</span></code> ActivityEdges においてそのノードに与えられたトークンを使って成り立つときである。それに対して、条件はノードの種類に依存する。</li>
+<li>複数個の ActivityNodes の相対的な実行順序についての制限は全てが ActivityEdge の関係によって明示的に強制される。ふたつの ActivityNodes が ActivityEdge によって順序付いていないと、それらは同時に実行することが許される。</li>
+<li>本文中に出てくる同時実行は、ノードが実行されなければならない順序で必要とされるものはないということを単に意味する。したがって、
+Activity の実行をノードを任意の順で逐次実行してもよいし、ノードを並行実行してもよい。</li>
+<li>ActivityNode は ActivityEdges 複数個の <code class="docutils literal notranslate"><span class="pre">source</span></code> でもよいので、同一トークンを <code class="docutils literal notranslate"><span class="pre">targets</span></code> 複数個に与えることが可能である。しかしながら、同一トークンは一度にひとつの <code class="docutils literal notranslate"><span class="pre">target</span></code> でしか受け取れない。<ul>
+<li>複数同時に与えても、受け取るのは高々ひとつのノードであるし、具体的にどのノードがトークンを得るのかを完全に決定するものはない。</li>
+</ul>
+</li>
+<li>ActivityNodes には以下の 3 種類がある。<ol class="arabic">
+<li>ControlNodes:
+ActivityEdges 上のトークンの流動を管理する交通スイッチのように振る舞う。</li>
+<li>ObjectNodes:
+<code class="docutils literal notranslate"><span class="pre">incoming</span></code> ObjectFlows から受け取ったオブジェクトトークンを保持して、その後それらを <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> ObjectFlows に対して与えてよい。</li>
+<li>ExecutableNodes:
+Activity の所望の挙動を実際に実施する。</li>
+</ol>
+</li>
+<li>ActivityNodes のこれら三種のそれぞれは後続の節でさらに述べる。</li>
+</ul>
+</div>
+<div class="section" id="activity-edges">
+<h4>15.2.3.3 Activity Edges<a class="headerlink" href="#activity-edges" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ActivityEdges はトークンが流動することができる、ふたつの ActivityNodes の間の有向接続であり、
+<code class="docutils literal notranslate"><span class="pre">source</span></code>  ActivityNode から <code class="docutils literal notranslate"><span class="pre">target</span></code> ActivityNode へと流れる。</li>
+<li>トークンは ActivityEdge の <code class="docutils literal notranslate"><span class="pre">source</span></code> ActivityNode によって、そのエッジに向けて与えられる。</li>
+<li>ActivityEdge には <code class="docutils literal notranslate"><span class="pre">guard</span></code> という、エッジに与えられるトークンそれぞれに対して評価される ValueSpecification があることが許される。<ul>
+<li>トークンがこのエッジに与えられたときに評価される。この評価値が true であることが、トークンを渡す条件になる。</li>
+</ul>
+</li>
+<li>任意の個数のトークンを ActivityEdge に渡すことが可能で、一度に複数グループでも、複数回に分割してでもよい。<ul>
+<li><code class="docutils literal notranslate"><span class="pre">weight</span></code> 特性は、同時にエッジを走査する必要のあるトークンの最小個数を命じる。</li>
+</ul>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">weight</span></code> に対する弱いけれども簡単な代替法は、単一のトークンが必要データを全て運ぶように、情報を大きなオブジェクトたちにグループ分けすることである。</li>
+<li>ActivityEdges には以下の 2 種類がある。<ul>
+<li>ControlFlow: 制御トークンしか引き渡さない ActivityEdge</li>
+<li>ObjectFlow: オブジェクトトークンがそれに沿って引き渡すことができる ActivityEdge</li>
+</ul>
+</li>
+<li>ControlFlows とは異なり、下に述べるように、
+ObjectFlows は多重送受信、
+ObjectNodes からトークンを選択、およびトークンの変換に対しての追加の支援をも備えている。</li>
+</ul>
+</div>
+<div class="section" id="object-flows">
+<h4>15.2.3.4 Object Flows<a class="headerlink" href="#object-flows" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>オブジェクトトークンは ObjectFlow 上を通過し、それらの値を介して Activity を通してデータを運ぶか、またはデータを運ばない（空トークン）。</li>
+<li>ObjectFlow には単一の入力 Parameter と単一の出力 Parameter がある
+<code class="docutils literal notranslate"><span class="pre">transformation</span></code> Behavior があってよい。<ul>
+<li><code class="docutils literal notranslate"><span class="pre">transformation</span></code> Behavior が指定されていると、その Behavior が ObjectFlow に与えられたオブジェクトトークンごとに発動されて、トークンの値がその Behavior に対して入力として引き渡された状態になる。</li>
+</ul>
+</li>
+<li>ObjectFlow には単一の入力 Parameter と単一の出力 Parameter がある
+<code class="docutils literal notranslate"><span class="pre">selection</span></code> Behavior があってよい。<ul>
+<li>入力 Parameter は unordered, nonunique かつ多重度が <code class="docutils literal notranslate"><span class="pre">0..*</span></code> であるものとする。</li>
+<li>出力 Parameter は多重度の上限が 1 であるものとする。</li>
+<li>オブジェクトトークンを入力として処理して、次のノードに出力を引き渡す。</li>
+</ul>
+</li>
+<li>ObjectFlow に <code class="docutils literal notranslate"><span class="pre">transformation</span></code> と <code class="docutils literal notranslate"><span class="pre">selection</span></code> の両方があるならば、新しいトークンが ObjectFlow に与えられるときには、まず <code class="docutils literal notranslate"><span class="pre">transformation</span></code> Behavior が発動されて、その結果の値が <code class="docutils literal notranslate"><span class="pre">selection</span></code> 挙動の発動に用いられる。</li>
+<li>トークンが <code class="docutils literal notranslate"><span class="pre">target</span></code> ノードに向けて与えられる間に
+<code class="docutils literal notranslate"><span class="pre">transformation</span></code> または <code class="docutils literal notranslate"><span class="pre">selection</span></code> Behavior が使われるので、そのトークンが <code class="docutils literal notranslate"><span class="pre">target</span></code> ノードに受け入れられる前に何度も同じトークンで走らされてよい。この事は、その Behavior に副作用があってはならないことを意味する。</li>
+<li>多重送信と多重受信は ActivityPartitions といっしょに使われて、発行購読能力により決定されるオブジェクトの責任がある Behaviors の間の流れをモデル化する。</li>
+</ul>
+</div>
+<div class="section" id="variables">
+<h4>15.2.3.5 Variables<a class="headerlink" href="#variables" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ObjectFlows は Activity でデータを移動することに対する主な方法をもたらす。
+Variables はデータを間接的に引き渡すことに関する代替法をもたらす。</li>
+<li><a class="reference internal" href="actions.html"><span class="doc">16 Actions</span></a> で述べるように、
+Activity の実行中は、
+Activity の Variables のそれぞれはひとつまたはそれを超える値を保持してよい。
+Variables に値を書き出して、続いて値をそれら Variables から読み取る Actions がある。</li>
+<li>Variable の使用は、値が Variable に書き出される点からその値が Variable から読み取られる点のすべてへの間接的データ流動経路を効率的に実現する。</li>
+<li>Variable は ConnectableElement の一種であり、それ自体が
+TypedElement である。
+Variable に保持される値はいずれも Variable の Typed と適合しなければならない。
+<a class="reference internal" href="structured-classifiers.html"><span class="doc">11 Structured Classifiers</span></a> および
+<a class="reference internal" href="common-structure.html"><span class="doc">7 Common Structure</span></a> 参照。</li>
+<li>Variable は MultiplicityElement でもある。
+<a class="reference internal" href="common-structure.html"><span class="doc">7 Common Structure</span></a> 参照。</li>
+<li>Variables は、オブジェクトフロー情報が容易にアクセス可能になることを要求しないそれら (=Variables?) の応用について、普通のプログラミング言語を活動モデルに翻訳することを簡素化するために導入された。</li>
+</ul>
+</div>
+<div class="section" id="activity-execution">
+<h4>15.2.3.6 Activity Execution<a class="headerlink" href="#activity-execution" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Behavior を継承したので、
+Activity には <code class="docutils literal notranslate"><span class="pre">precondition</span></code> と <code class="docutils literal notranslate"><span class="pre">postcondition</span></code> Constraints があってもよい。これらは Activity の全発動に全体的に適用する。</li>
+<li>Behavior であるので、Activity には Parameters があってもよい。このような Parameter それぞれに対し、
+Activity には 対応する ActivityParameterNode というノードがある。</li>
+<li>Activity が発動されると、その入力 Parameters に引き渡された値はどれもが、オブジェクトトークンに入れられ、
+Activity に対して対応する入力 ActivityParameterNodes に置かれる。これらの ActivityParameterNodes はそれからトークンを <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> ActivityEdges に与える。</li>
+<li>Activity が最初に発動されると、入力 ActivityParameterNodes 以外のノードは何一つどんなトークンも初めに保持しないはずである。</li>
+<li>Activity の続いて起こる発動それぞれで、
+<code class="docutils literal notranslate"><span class="pre">isSingleExecution</span></code> 特性は
+Activity の同じ実行が発動すべてに対してトークンを処理するのか、または Activity の別々の実行が発動それぞれに対して生成されるのかを示す。</li>
+<li>Activity の単一実行を発動のすべてに対して利用すると、モデル作者は ActivityNodes と ActivityEdges を移動するトークンの流れ複数の間の相互作用を考慮する必要がある。</li>
+<li>Activity の別々の実行を発動のそれぞれについて利用すると（これは既定である）、さまざまな発動から来たトークンらは相互に作用しない。</li>
+<li>もし Activity に streaming Parameters があるならば、単一実行の途中でさえあっても、さらなるトークンらがその Activity に（対応する ActivityParameterNodes を経て）流入出してもよい。</li>
+<li>streaming Parameters のない Activity の実行が完了するのは、実行しているノードがすでになくなり、実行可能なノードがないときか、
+ActivityFinalNode を用いることで明示的に停止されたときである。<ul>
+<li>streaming Parameters を有する Activity は、その入出力の累積数が規定値に達するまでは停止してはならない。</li>
+</ul>
+</li>
+<li>Activity の実行が完了すると、非 streaming 出力 Parameters に対応する ActivityParameterNodes はすべて、少なくとも対応 Parameter の多重度の下限で与えられたとおりの個数の、空でないオブジェクトトークンを保持するものとする。</li>
+<li>出力 Parameter は <code class="docutils literal notranslate"><span class="pre">isException</span></code> を true とすることで、例外 Parameter とみなしてもよい。</li>
+<li>その Activity にある流れ全てを中断する要望があるときに限り、例外 Parameters を Activities で使うものとする。</li>
+</ul>
+</div>
+<div class="section" id="activity-generalization">
+<h4>15.2.3.7 Activity Generalization<a class="headerlink" href="#activity-generalization" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Activity は Classifier であり、それ自体として、
+Generalization 関係に参加してよい。</li>
+<li>一般 Activity から ActivityNode を再定義する特殊 Activity にある ActivityNode は、その再定義された ActivityNode を始点または終点としていた継承 ActivityEdges のどれもを、その再定義された ActivityNode で置き換えるとみなされる。</li>
+<li>特殊 Activity を実行するときに使われるノードとエッジの有効な集合は、継承したノードとエッジ（再定義されたノードとエッジを含まない）と、その特殊 Activity で定義されたノードとエッジ（再定義するノードとエッジをどれをも含む）との和集合から構成されている。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="notation">
+<h3>15.2.4 Notation<a class="headerlink" href="#notation" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>本節では Activities を表す図表的表記法を指定する。この表記法は準拠ツールがテキスト上の具象的構文を代わりに使えるという点で選択自由である。</li>
+<li>Activity の記法は、それが含む ActivityNodes と ActivityEdges の記法の組み合わせたものに、境界と左上に表示された名前が加えたものである。<ul>
+<li>ActivityParameterNodes は Activity の境界上に表示する。</li>
+<li>Behavior から継承した事前条件と事後条件を、キーワード «precondition», «postcondition» と共にテキスト上の式としてそれぞれ示す。</li>
+<li><code class="docutils literal notranslate"><span class="pre">isSingleExecution</span></code> が true である Activities については、キーワード «singleExecution» を用いる。</li>
+</ul>
+</li>
+<li>Figure 15.2 Activity notation<ul>
+<li>図の丸角縁は <a class="reference internal" href="diagrams.html"><span class="doc">Annex A: Diagrams</span></a> で述べられた枠記法で置き換えてよい。</li>
+<li>丸角縁にせよ枠にせよ完全に省略してよい。その場合には ActivityParameterNodes は図式内のどの箇所に現れても構わない。</li>
+</ul>
+</li>
+<li>Figure 15.3 Activity class notation<ul>
+<li>Classes を表す表記法を Activity の特徴を図表化するのに利用することもある。</li>
+<li>キーワードは «activity» である。</li>
+</ul>
+</li>
+<li>Figure 15.4 ActivityNode notation<ul>
+<li>ActivityNodes 各種の記法のカタログ。次の節と <a class="reference internal" href="actions.html"><span class="doc">16 Actions</span></a> で詳しく議論する。</li>
+</ul>
+</li>
+<li>Figure 15.5 ActivityEdge notation<ul>
+<li>ActivityEdges 各種の記法のカタログ。</li>
+<li>矢先はすべて開いた形状を用いる。</li>
+<li>イラストにはないが <code class="docutils literal notranslate"><span class="pre">guards</span></code> を記すには角括弧を用いる。</li>
+</ul>
+</li>
+<li>ActivityEdge は連結器を使って記すことも許されており、連結器はエッジの名前が中に書かれた小さい丸である。<ul>
+<li>ラベルの付いたすべての接続器は、同一 Activity 図で同一ラベルのついた他のものの正確にひとつに対して対になっていなければならない。</li>
+</ul>
+</li>
+<li>Figure 15.6 ActivityEdge connector notation<ul>
+<li>この記法はまともに描くと矢印が長くなるときに採用すればよい。</li>
+</ul>
+</li>
+<li>Figure 15.7 ActivityEdge notation<ul>
+<li>エッジの重みは中括弧と ValueSpecification の記法を用いる。
+<a class="reference internal" href="values.html"><span class="doc">8 Values</span></a> 参照。</li>
+<li>InterruptibleActivityRegion の <code class="docutils literal notranslate"><span class="pre">interruptingEdge</span></code> は稲妻型の矢印とする。</li>
+</ul>
+</li>
+<li>Figure 15.8 ControlFlow notation<ul>
+<li>制御フローはふたつの行動を接続する矢印で示す。</li>
+</ul>
+</li>
+<li>Figure 15.9 ObjectFlow notations<ul>
+<li>オブジェクトフローも矢印として示す。</li>
+<li>Pins を用いる記法のほうがよい？</li>
+</ul>
+</li>
+<li>Figure 15.10 Specifying selection behavior on an ObjectFlow<ul>
+<li><code class="docutils literal notranslate"><span class="pre">selection</span></code> Behavior の記法にはキーワード «selection» が註釈記号に置かれ、適切な ObjectFlow 記号に取り付けられた状態で明記される。</li>
+<li><code class="docutils literal notranslate"><span class="pre">transformation</span></code> Behavior はキーワードは «transformation» を使って同様に明記される。</li>
+</ul>
+</li>
+<li>Figure 15.11 Eliding objects flowing on the edge<ul>
+<li>複雑な図式では乱雑さを緩和するために、Pins は省略してよい。省略されていることをわからせるために、小さい正方形を矢印の少し上あたりに表示する。</li>
+</ul>
+</li>
+<li>多重送信および多重受信は ObjectFlow を«multicast» または «multireceive» で註釈することでそれぞれ明記する。</li>
+</ul>
+</div>
+<div class="section" id="examples">
+<h3>15.2.5 Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 15.12 Activity node example (…)<ul>
+<li>次の種類の ActivityNodes の記法の見本となる。<ul>
+<li>ExecutableNodes: Receive Order, Fill Orde, etc.</li>
+<li>ObjectNodes: Invoice</li>
+<li>ControlNodes:<ul>
+<li>InitialNode: 先頭の黒丸</li>
+<li>DecisionNode: 始めの方のダイヤモンド</li>
+<li>ForkNode, JoinNode: Ship Order 前後の縦棒</li>
+<li>MergeNode: 終わりの方のダイヤモンド</li>
+<li>ActivityFinalNode: 末尾の目玉</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Figure 15.13 ActivityEdge examples<ul>
+<li>矢印は ControlFlow か ObjectFlow である。</li>
+<li>右上。ObjectNode の前後にある矢印は両方 ObjectFlow である。
+Invoice オブジェクトの移動を暗示する。</li>
+</ul>
+</li>
+<li>Figure 15.14 ObjectFlow example<ul>
+<li>両者の意味は同じ。オブジェクト Order の移動を暗示している。</li>
+</ul>
+</li>
+<li>Figure 15.15 Eliding objects flowing on the edge<ul>
+<li>省略版だとオブジェクトの個数に関わらず小さい正方形がひとつになる？</li>
+</ul>
+</li>
+<li>Figure 15.16 Specifying selection and transformation Behaviors on an ObjectFlow<ul>
+<li><code class="docutils literal notranslate"><span class="pre">selection</span></code> および <code class="docutils literal notranslate"><span class="pre">transformation</span></code> Behaviors の見本。註釈頼み。</li>
+</ul>
+</li>
+<li>Figure 15.17 Linking a class diagram to an object node<ul>
+<li>アクティビティ図内の ObjectNode Order と、
+Class Order を述べるクラス図とのリンクを表現している。</li>
+</ul>
+</li>
+<li>Figure 15.18 Specifying multicast and multireceive on the edge<ul>
+<li>キーワード «multicast» と «multireceive» の見本。</li>
+<li>スイムレーンは送信者と受信者を示す重要な機能である。</li>
+</ul>
+</li>
+<li>Figure 15.19 ActivityEdge connector example<ul>
+<li>図式中の fork と merge の間にまともに矢印を描くのは面倒なので、このようなワープのような記法の支援がある。</li>
+</ul>
+</li>
+<li>Figure 15.20 Equivalent model<ul>
+<li>ワープ記法不採用版。</li>
+</ul>
+</li>
+<li>Figure 15.21 ActivityEdge weight examples<ul>
+<li>左上。constant weight を要求する例。</li>
+<li>右上。変数版。</li>
+<li>下。Award Bid に遷移する条件？が weight だけから決定しない例。この凹五角形ノードの記法の意味はまだやっていない？</li>
+</ul>
+</li>
+<li>Figure 15.22 Example of an activity with input parameter<ul>
+<li>Requested Order とあるのが入力引数に対応する ActivityParameterNode である。</li>
+</ul>
+</li>
+<li>Figure 15.23 Part selection workflow example<ul>
+<li>Design Part におけるノード Provide Required Part が、下側では Activity として図解化されている。</li>
+</ul>
+</li>
+<li>Figure 15.24 Trouble ticket workflow example<ul>
+<li>よくあるチケット管理の Activity だろう。</li>
+</ul>
+</li>
+<li>Figure 15.25 Activity with attributes and operations<ul>
+<li>Activity のクラスの特徴を Class の記法で示す見本。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="control-nodes">
+<h2><a class="toc-backref" href="#id41">15.3 Control Nodes</a><a class="headerlink" href="#control-nodes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h3>15.3.1 Summary<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>ControlNode は ActivityNode の一種で、
+Activity 内の他のノード間を流れるトークンの流れを処理するのに用いる。本節では
+InitialNodes, FinalNodes, ForkNodes,
+JoinNodes, MergeNodes, DecisionNodes
+を含むさまざまな ControlNode の具象型を述べる。</li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h3>15.3.2 Abstract Syntax<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 15.26 Control Nodes<ul>
+<li>ControlNode は ActivityNode から派生した型で、
+ControlNode からもかなりの数のクラスが派生している。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h3>15.3.3 Semantics<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="initial-node">
+<h4>15.3.3.1 Initial Node<a class="headerlink" href="#initial-node" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>InitialNode とは、
+Activity を実行するための開始点として振る舞う ControlNode である。<ul>
+<li>Activity にひとつを超える InitialNode があっても構わない。
+Activity にひとつを超える InitialNode があれば、
+InitialNode のそれぞれに対して
+Activity の発動が複数の同時制御フローを開始する。</li>
+</ul>
+</li>
+<li>InitialNode にはいかなる <code class="docutils literal notranslate"><span class="pre">incoming</span></code> ActivityEdges があってはならないものとし、このことは、
+Activity が実行を開始すると Activity に所有される InitialNodes がいつでも使用可能であるはずであることと、
+Activity が実行を開始すると単一の制御トークンがそういった InitialNode のそれぞれに置かれるということを意味する。<ul>
+<li>InitialNode の <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> ActivityEdges はすべてが ControlFlows でなければならない。</li>
+</ul>
+</li>
+<li>InitialNodes は ControlNodes がトークンを保持することができず、それらの流れの処理しかできないという規則の例外である。</li>
+</ul>
+</div>
+<div class="section" id="final-nodes">
+<h4>15.3.3.2 Final Nodes<a class="headerlink" href="#final-nodes" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>FinalNode とは Activity のある流れがそこで停止するような ControlNode である。<ul>
+<li>FinalNode には <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> ActivityEdges がないものとする。</li>
+<li>FinalNode は <code class="docutils literal notranslate"><span class="pre">incoming</span></code> ActivityEdges により与えられたトークンすべてを受理する。</li>
+</ul>
+</li>
+<li>FinalNode には FlowFinalNode と ActivityFinalNode の 2 種類がある。<ol class="arabic">
+<li>FlowFinalNode とは、ひとつの流れを停止する FinalNode である。
+FlowFinalNode が受理したトークンは全て破壊される。</li>
+<li>ActivityFinalNode とは、Activity のすべての流れを停止するノードである。
+Activity に所有される ActivityFinalNode に到達するトークンは、その Activity の実行を停止する。<ul>
+<li>Activity の実行の停止は、出力 ActivityParameterNodes 以外の
+ObjectNodes のどれもが保持するトークンのすべてを破壊するものとし、かつ、Activity から同期的に呼び出した挙動のどの実行をも停止するものとする。</li>
+<li>いったん Activity の実行が停止すると、前節で述べたようにその Activity の発動は完了する。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>Activity の流れの全てを中止するのが望みでなければ、
+FlowFinalNode を使う。
+ActivityFinalNode は使わない。</li>
+</ul>
+</div>
+<div class="section" id="fork-nodes">
+<h4>15.3.3.3 Fork Nodes<a class="headerlink" href="#fork-nodes" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ForkNode とは、流れを同時に発生する複数の流れに分割する ControlNode である。<ul>
+<li>ForkNode には <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> ActivityEdges を複数あってよいけれども、
+<code class="docutils literal notranslate"><span class="pre">incoming</span></code> ActivityEdge は厳密にひとつあるものとする。</li>
+<li><code class="docutils literal notranslate"><span class="pre">incoming</span></code> エッジが ControlFlow ならば、
+<code class="docutils literal notranslate"><span class="pre">outgoing</span></code> エッジはすべて ControlFlows であるものとし、
+<code class="docutils literal notranslate"><span class="pre">incoming</span></code> エッジが ObjectFlow ならば、
+<code class="docutils literal notranslate"><span class="pre">outgoing</span></code> エッジはすべて ObjectFlows であるものとする。</li>
+</ul>
+</li>
+<li>ForkNode に与えられたトークンは、そのノードの <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> ActivityEdges のすべてに与えられる。それらのうちの少なくともひとつが受理されると、与えられたトークンは発生元から取り除かれ、受理者はトークンの複製を受け入れる。</li>
+<li><code class="docutils literal notranslate"><span class="pre">outgoing</span></code> ActivityEdges の目標ではなく、それらの <code class="docutils literal notranslate"><span class="pre">guard</span></code> の失敗が原因で供与を受理することに失敗するそれらはどれもが、それらのトークンの複製を受理しないものとする。</li>
+<li>ForkNode から生えている <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> ActivityEdges で
+<code class="docutils literal notranslate"><span class="pre">guards</span></code> が使われていると、防御されたエッジで引き渡されるトークンの到着に依存する下流 JoinNodes がないことをモデル作者が保証するべきである。それが回避できなければ、トークンが防御が失敗すると下流 JoinNode へ逸れてもよいように、
+ForkNode とその防御の付いたエッジとの間に
+DecisionNode を導入するべきである。</li>
+</ul>
+</div>
+<div class="section" id="join-nodes">
+<h4>15.3.3.4 Join Nodes<a class="headerlink" href="#join-nodes" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>JoinNode は複数の流れを同期するノードである。<ul>
+<li>JoinNode には厳密にひとつの <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> ActivityEdge があるものとするが、
+<code class="docutils literal notranslate"><span class="pre">incoming</span></code> ActivityEdges が複数あることは許される。</li>
+<li>JoinNode の <code class="docutils literal notranslate"><span class="pre">incoming</span></code> エッジのどれかが ObjectFlows であると、
+<code class="docutils literal notranslate"><span class="pre">outgoing</span></code> エッジは ObjectFlow であるものとする。そうでなければ <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> エッジは ControlFlow であるものとする。</li>
+</ul>
+</li>
+<li>JoinNode には <code class="docutils literal notranslate"><span class="pre">joinSpec</span></code> という合流がトークンを放つ条件を決定する
+ValueSpecification があることが許される。<ul>
+<li>JoinNode に <code class="docutils literal notranslate"><span class="pre">joinSpec</span></code> があれば、
+<code class="docutils literal notranslate"><span class="pre">incoming</span></code> ActivityEdge のどれからでも新しいトークンが JoinNode に与えられるときにはいつでもこの ValueSpecification が評価される。</li>
+</ul>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">joinSpec</span></code> ValueSpecification がテキストによる式で与えられると、
+<code class="docutils literal notranslate"><span class="pre">incoming</span></code> エッジの名前を次のものを示すために使ってよい：<ul>
+<li>ControlFlow からの供与の有無を示す Boolean 値</li>
+<li>ObjectFlow から与えられたオブジェクトトークンに付随する値</li>
+</ul>
+</li>
+<li>JoinNode に <code class="docutils literal notranslate"><span class="pre">joinSpec</span></code> がなければ、これは Boolean 演算子 “and” のある <code class="docutils literal notranslate"><span class="pre">joinSpec</span></code> 式に同値である。つまり、暗黙の既定の <code class="docutils literal notranslate"><span class="pre">joinSpec</span></code> 条件とは、少なくともひとつのトークンで <code class="docutils literal notranslate"><span class="pre">incoming</span></code> ActivityEdge のそれぞれで与えられていることである。</li>
+<li>JoinNode の暗黙または明示的な <code class="docutils literal notranslate"><span class="pre">joinSpec</span></code> が true と評価されると、次の規則に従ってトークンが JoinNode の <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> ActivityEdge で与えられる。<ol class="arabic">
+<li><code class="docutils literal notranslate"><span class="pre">incoming</span></code> エッジで与えられるトークンがすべて制御トークンならば、制御トークンのひとつが <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> エッジに与えられる。</li>
+<li><code class="docutils literal notranslate"><span class="pre">incoming</span></code> エッジで与えられるトークンで、制御トークンとオブジェクトトークンであるものがあれば、オブジェクトトークンのみが <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> エッジに与えられる。<ul>
+<li>JoinNode に対して <code class="docutils literal notranslate"><span class="pre">isCombinedDuplicate</span></code> が true ならば、オブジェクトトークンが <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> エッジに与えられる前に、それらの含む同じ素性のオブジェクトはひとつのトークンに結合される。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>この規則は、同じ <code class="docutils literal notranslate"><span class="pre">incoming</span></code> エッジから与えられる複数トークンの場合を含み、
+JoinNode に与えられるトークンすべてに適用する。</li>
+<li>どのトークンでも JoinNode の <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> ActivityEdge に与えられると、さらなるトークンが <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> エッジに与えられる前に、目標によって受理されるか、またはエッジ上を走査するのを拒絶される（例えば失敗した防御のため）ものとする。</li>
+</ul>
+</div>
+<div class="section" id="merge-nodes">
+<h4>15.3.3.5 Merge Nodes<a class="headerlink" href="#merge-nodes" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>MergeNode とは、複数の流れを同期なしでまとめる制御ノードである。<ul>
+<li>MergeNode には厳密にひとつの <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> ActivityEdge があるものとする。</li>
+<li>MergeNode の incoming と outgoing のエッジの型は一致しているものとする。</li>
+<li>MergeNode の <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> エッジが ControlFlow ならば、
+<code class="docutils literal notranslate"><span class="pre">incoming</span></code> エッジはすべて ControlFlows でなければならず、
+<code class="docutils literal notranslate"><span class="pre">outgoing</span></code> エッジが ObjectFlow ならば、
+<code class="docutils literal notranslate"><span class="pre">incoming</span></code> エッジはすべて ObjectFlows でなければならない。</li>
+</ul>
+</li>
+<li>MergeNode の <code class="docutils literal notranslate"><span class="pre">incoming</span></code> エッジで与えられたトークンはすべて、
+<code class="docutils literal notranslate"><span class="pre">outgoing</span></code> エッジに与えられる。流れまたはトークンの合流の同期はない。</li>
+</ul>
+</div>
+<div class="section" id="decision-nodes">
+<h4>15.3.3.6 Decision Nodes<a class="headerlink" href="#decision-nodes" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>DecisionNode とは、
+<code class="docutils literal notranslate"><span class="pre">outgoing</span></code> の流れを選択する ControlNode である。</li>
+<li>DecisionNode は第一 <code class="docutils literal notranslate"><span class="pre">incoming</span></code> エッジ上のトークンを受理し、それらを <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> エッジすべてに与える。</li>
+<li>DecisionNode の <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> エッジで防御を有するものがあれば、これらが <code class="docutils literal notranslate"><span class="pre">incoming</span></code> トークンそれぞれに対して評価される。</li>
+<li>DecisionNode に <code class="docutils literal notranslate"><span class="pre">decisionInputFlow</span></code> があれば、第一 <code class="docutils literal notranslate"><span class="pre">incoming</span></code> エッジからのトークンが
+<code class="docutils literal notranslate"><span class="pre">outgoing</span></code> エッジに与えられる前に、第一 <code class="docutils literal notranslate"><span class="pre">incoming</span></code> エッジと <code class="docutils literal notranslate"><span class="pre">decisionInputFlow</span></code> の両方に与えられる必要がある。</li>
+<li>DecisionNode に <code class="docutils literal notranslate"><span class="pre">decisionInput</span></code> があれば、これは戻り Parameter はあるがその他の出力 Parameters はない
+Behavior でなければならない。</li>
+<li>DecisionNode の第一 <code class="docutils literal notranslate"><span class="pre">incoming</span></code> エッジが ControlFlow であり、
+DecisionNode には <code class="docutils literal notranslate"><span class="pre">decisionInput</span></code> があるが <code class="docutils literal notranslate"><span class="pre">decisionInputFlow</span></code> はないならば、
+<code class="docutils literal notranslate"><span class="pre">decisionInput</span></code> には入力 Parameters がないものとする。</li>
+<li>DecisionNode の第一 <code class="docutils literal notranslate"><span class="pre">incoming</span></code> エッジが ObjectFlow であり、
+DecisionNode には <code class="docutils literal notranslate"><span class="pre">decisionInput</span></code> があるが <code class="docutils literal notranslate"><span class="pre">decisionInputFlow</span></code> はないならば、
+<code class="docutils literal notranslate"><span class="pre">decisionInput</span></code> には入力 Parameter があるものとし、
+Behavior がそのトークンに対して発動されたときには、第一 <code class="docutils literal notranslate"><span class="pre">incoming</span></code> エッジで与えられたオブジェクトトークンに含まれる値は、この Parameter を経て引き渡される。</li>
+<li>DecisionNode の第一 <code class="docutils literal notranslate"><span class="pre">incoming</span></code> エッジで与えられたトークンは、
+<code class="docutils literal notranslate"><span class="pre">guard</span></code> が false に評価される <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> エッジのいずれをも走査しないものとする。</li>
+<li>非決定的な挙動を回避するべく、モデル作者は <code class="docutils literal notranslate"><span class="pre">incoming</span></code> トークンそれぞれに対して、高々ひとつの <code class="docutils literal notranslate"><span class="pre">guard</span></code> が true であると評価されるように取り決めるものとする。</li>
+<li>DecisionNodes 限定で、定義済みの <code class="docutils literal notranslate"><span class="pre">guard</span></code> “else” を高々ひとつの <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> エッジについて用いて構わない。この防御が true と評価されるのは、
+DecisionNode から生えている他の <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> エッジのどれによってでもトークンを受理しないときに限る。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id8">
+<h3>15.3.4 Notation<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="initial-and-final-nodes">
+<h4>15.3.4.1 Initial and Final Nodes<a class="headerlink" href="#initial-and-final-nodes" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 15.27 InitialNode notation<ul>
+<li>InitialNodes は黒塗りの丸として記す。</li>
+<li>既視感のある黒丸シンボル。</li>
+</ul>
+</li>
+<li>Figure 15.28 FinalNode notation<ul>
+<li>ActivityFinalNodes は白丸に囲まれた黒丸として記す。</li>
+<li>FlowFinalNodes はバツが内側にある丸として記す。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="fork-and-join-nodes">
+<h4>15.3.4.2 Fork and Join Nodes<a class="headerlink" href="#fork-and-join-nodes" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 15.29 ForkNode and JoinNode notation<ul>
+<li>ForkNode と JoinNode の両者に対する表記法は、単に線分である。</li>
+<li>この線分に <code class="docutils literal notranslate"><span class="pre">outgoing</span></code>/<code class="docutils literal notranslate"><span class="pre">incoming</span></code> ActivityEdges のシンボルを必要に応じて接続する。</li>
+</ul>
+</li>
+<li>Figure 15.30 joinSpec notation<ul>
+<li>位置は線分の付近。</li>
+<li>中括弧に <code class="docutils literal notranslate"><span class="pre">joinSpec</span> <span class="pre">=</span> <span class="pre">...</span></code> を含める。</li>
+</ul>
+</li>
+<li>Figure 15.31 Combined JoinNode/ ForkNode notation<ul>
+<li>JoinNode と ForkNode が隣接？している状況では、両者を癒着できる。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="merge-nodes-and-decision-nodes">
+<h4>15.3.4.3 Merge Nodes and Decision Nodes<a class="headerlink" href="#merge-nodes-and-decision-nodes" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 15.32 MergeNode notation<ul>
+<li>MergeNodes と DecisionNodes の両者を表す表記法は、ダイヤモンド記号である。</li>
+<li>MergeNode にはふたつまたはそれを超える <code class="docutils literal notranslate"><span class="pre">incoming</span></code> ActivityEdges および単一の <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> ActivityEdge が必要である。それに対して、
+DecisionNode には、あり得る <code class="docutils literal notranslate"><span class="pre">decisionInputFlow</span></code> 以外では、単一の <code class="docutils literal notranslate"><span class="pre">incoming</span></code> ActivityEdge と複数の <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> ActivityEdges が必要である。</li>
+</ul>
+</li>
+<li>Figure 15.33 DecisionNode notation<ul>
+<li><code class="docutils literal notranslate"><span class="pre">decisionInput</span></code> はキーワード «decisionInput» と共に註釈の記法で示す。</li>
+<li><code class="docutils literal notranslate"><span class="pre">decisionInputFlow</span></code> はキーワード «decisionInputFlow» をその矢印のそばに添える。</li>
+</ul>
+</li>
+<li>Figure 15.34 Combined MergeNode/DecisionNode notation<ul>
+<li>MergeNode と DecisionNode は記号を共有することがある。</li>
+<li><code class="docutils literal notranslate"><span class="pre">incoming</span></code>/<code class="docutils literal notranslate"><span class="pre">outgoing</span></code> ActivityEdges 記号を複数示すことになる。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id9">
+<h3>15.3.5 Examples<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="initial-nodes">
+<h4>15.3.5.1 Initial Nodes<a class="headerlink" href="#initial-nodes" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 15.35 InitialNode example<ul>
+<li>Activity の実行の開始時点において、
+InitialNode は Receive Order ExecutableNode に制御を渡す。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id10">
+<h4>15.3.5.2 Fork and Join Nodes<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 15.36 ForkNode example<ul>
+<li>Fill Order が完了したときに、
+ForkNode は ShipOrder と SendInvoice の両方に制御を渡す。</li>
+</ul>
+</li>
+<li>Figure 15.37 JoinNode example<ul>
+<li>JoinNode は
+ShipOrder と SendInvoice の処理を同期するのに使われる。両方が完了したときに Close Order に制御を引き渡す。</li>
+</ul>
+</li>
+<li>Figure 15.38 joinSpec example<ul>
+<li>自動販売機の制御が Dispense Drink に引き渡されるには、この <code class="docutils literal notranslate"><span class="pre">joinSpec</span></code> にある条件が満たされる必要がある。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="merge-and-decision-nodes">
+<h4>15.3.5.3 Merge and Decision Nodes<a class="headerlink" href="#merge-and-decision-nodes" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 15.39 MergeNode example<ul>
+<li>Buy Item と Make Item のどちらか一方または両方共が実行されたのかもしれない。</li>
+<li>場合によっては Ship Item が二度実行される。</li>
+</ul>
+</li>
+<li>Figure 15.40 DecisionNode example<ul>
+<li>角括弧を用いることで分岐条件を柔軟に表現できる。</li>
+</ul>
+</li>
+<li>Figure 15.41 DecisionNode example with decisionInput<ul>
+<li><code class="docutils literal notranslate"><span class="pre">decisionInput</span></code> の註釈に分岐条件を書き下している。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id11">
+<h4>15.3.5.4 Final Nodes<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 15.42 ActivityFinalNode example<ul>
+<li>Close Order 完了時に FinalNode に至る。
+Activity は停止する。</li>
+</ul>
+</li>
+<li>Figure 15.43 ActivityFinalNode example<ul>
+<li>開始直後の ForkNode でふたつの concurrent flows が始まる。</li>
+<li>とにかくどちらの流れを経ても FinalNode に至る。</li>
+</ul>
+</li>
+<li>Figure 15.44 ActivityFinalNode example<ul>
+<li>FinalNode をひとつにまとめても図の意味は変わらない。</li>
+<li>Notify of Modification からは FinalNode に至らないことに注意（なぜか）。</li>
+</ul>
+</li>
+<li>Figure 15.45 FlowFinalNode example<ul>
+<li>これは Build Component が反復的に実行すると解釈する。</li>
+<li>それと同時？に Install Component が実行していることに注意。</li>
+</ul>
+</li>
+<li>Figure 15.46 FlowFinalNode and ActivityFinalNode example<ul>
+<li>ActivityFinalNode に至るとすると、左側のループはもはや実行中ではないはず？</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="various-control-nodes">
+<h4>15.3.5.5 Various Control Nodes<a class="headerlink" href="#various-control-nodes" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 15.47 ControlNode examples (…)<ul>
+<li>この Activity には既視感がある。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="object-nodes">
+<h2><a class="toc-backref" href="#id42">15.4 Object Nodes</a><a class="headerlink" href="#object-nodes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id12">
+<h3>15.4.1 Summary<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>ObjectNode とは ActivityNode の一種であり、
+Activity の実行中に値を含むオブジェクトトークンを保持するのに用いるものである。<ul>
+<li>本節ではその具象型 3 種 ActivityParameterNodes, CentralBufferNodes,
+DataStoreNodes ばかりでなく、
+ObjectNode 一般の話を述べる。</li>
+<li>ObjectNode の 4 番目の種類である Pins は、常に Actions に結び付けられ、
+<a class="reference internal" href="actions.html"><span class="doc">16 Actions</span></a> で述べられる。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id13">
+<h3>15.4.2 Abstract Syntax<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 15.48 Object Nodes<ul>
+<li>ObjectNode と関連する要素の役割を理解したい。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id14">
+<h3>15.4.3 Semantics<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id15">
+<h4>15.4.3.1 Object Nodes<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ObjectNode は Activity の実行途中にオブジェクトトークンを保持する。</li>
+<li>ObjectNode には同じ値である複数のオブジェクトトークンを含んでよい。そのようなトークンは通常は結合しない。</li>
+<li>ObjectNodes は TypedElements である。
+ObjectNode に <code class="docutils literal notranslate"><span class="pre">type</span></code> が指定されていると、
+ObjectNode が保持するオブジェクトトークンにはどれも
+ObjectNode の <code class="docutils literal notranslate"><span class="pre">type</span></code> に適合する値があるものとする。<ul>
+<li><code class="docutils literal notranslate"><span class="pre">type</span></code> が指定されていなければ、値はどのような <code class="docutils literal notranslate"><span class="pre">type</span></code> であってもよい。</li>
+<li>空トークンはオブジェクトノードすべての型を満足する。</li>
+</ul>
+</li>
+<li>ObjectNodes は States の <code class="docutils literal notranslate"><span class="pre">inState</span></code> 集合を指定することも許される。</li>
+<li>ObjectNode はその <code class="docutils literal notranslate"><span class="pre">upperBound</span></code> がある場合、それが指定する値を超える個数のトークンを含むことは許されない。</li>
+<li>ObjectNode の <code class="docutils literal notranslate"><span class="pre">ordering</span></code> は、ノードが保持するトークンを
+<code class="docutils literal notranslate"><span class="pre">outgoing</span></code> ActivityEdges に与える順序を指定する。この特性は次の値のひとつである：<ul>
+<li>unordered: 順序を定義しない。</li>
+<li>FIFO: ObjectNode が受理した順番で <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> エッジに与える。</li>
+<li>LIFO: ObjectNode が受理したのと逆の順番で <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> エッジに与える。</li>
+<li>ordered: <code class="docutils literal notranslate"><span class="pre">selection</span></code> Behavior を用いたモデル作者定義による順序とする。</li>
+</ul>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">ordering</span></code> == ordered であるとき、かつそのときに限って、
+ObjectNode には <code class="docutils literal notranslate"><span class="pre">selection</span></code> Behavior があるものとする。</li>
+<li>ObjectNode の <code class="docutils literal notranslate"><span class="pre">selection</span></code> はそのノードの <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> エッジにトークンがひとつ与えられることになるときにはいつでも実行される。</li>
+<li>ObjectNode の <code class="docutils literal notranslate"><span class="pre">selection</span></code> はその <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> ObjectFlows の
+<code class="docutils literal notranslate"><span class="pre">selection</span></code> Behavior のどれによっても上書きされる。</li>
+<li><code class="docutils literal notranslate"><span class="pre">ordering</span></code> のために互いを追い越すトークン (pl.) は、
+Activity の発動のそれぞれがその Activity の別々の実行によって処理される場合からは独立している。</li>
+<li>ObjectNode に対する <code class="docutils literal notranslate"><span class="pre">isControlType</span></code> が true であると、
+ControlFlows が ObjectNode に対する <code class="docutils literal notranslate"><span class="pre">incoming</span></code> および <code class="docutils literal notranslate"><span class="pre">outgoing</span></code>
+であってよく、オブジェクトトークンは ControlFlows に沿って
+ObjectNode に出入りすることが可能であり、それらのトークンは ObjectNode の下流に到達される
+ControlFlows に沿って流れることが可能である。</li>
+</ul>
+</div>
+<div class="section" id="activity-parameter-nodes">
+<h4>15.4.3.2 Activity Parameter Nodes<a class="headerlink" href="#activity-parameter-nodes" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Behavior の一種なので、Activity には Parameters があることが許される。
+Activity が発動されると、値を入力 Parameters (in/inout) で Activity の実行の中へ引き渡してよく、値を出力 Parameters (inout/out/return) で Activity の実行の外へ引き渡してよい。</li>
+<li>Activity では、
+Activity の入出力は ActivityParameterNodes を用いて処理される。
+ActivityParameterNode それぞれには、そのノードを所有する Activity の Parameter ひとつが結び付けられる。</li>
+<li>ActivityParameterNode はすべてが <code class="docutils literal notranslate"><span class="pre">incoming</span></code> ActivityEdges であるか、すべてが <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> ActivityEdges であるかのどちらかであるものとする。</li>
+<li>Activity には入力引数、出力引数、戻り値それぞれに対応する ActivityParameterNode がひとつ、入出力引数それぞれに対応する ActivityParameterNodes がふたつあるものとする。</li>
+<li>入力 ActivityParameterNode が非 streaming Parameter に結び付けられていれば、含む Activity が発動された時に、その Parameter を用いて引き渡された値はいずれもオブジェクトトークン (pl.) に包み込まれて、
+Activity 実行の開始点にある ActivityParameterNode に配置される。</li>
+<li>Activity の実行途中では、オブジェクトトークン (pl.) は
+Activity の出力 ActivityParameterNodes に流出してよい。</li>
+<li>入力 ActivityParameterNode 非 streaming Paramter に結び付けられていれば、新しい値がその Parameter に post されるときにはいつでも、その値がオブジェクトトークンに包み込まれて、
+ActivityParameterNode に配置されて、
+<code class="docutils literal notranslate"><span class="pre">outgoing</span></code> エッジすべてに与えられる。</li>
+</ul>
+</div>
+<div class="section" id="central-buffer-nodes">
+<h4>15.4.3.3 Central Buffer Nodes<a class="headerlink" href="#central-buffer-nodes" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>CentralBufferNode は <code class="docutils literal notranslate"><span class="pre">incoming</span></code> ObjectFlows と
+<code class="docutils literal notranslate"><span class="pre">outgoing</span></code> ObjectFlows の間の緩衝材として振る舞う。</li>
+</ul>
+</div>
+<div class="section" id="data-store-nodes">
+<h4>15.4.3.4 Data Store Nodes<a class="headerlink" href="#data-store-nodes" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>DataStoreNode とは、
+Activity が実行している間じゅうそのオブジェクトトークン (pl.) を永続的に保持する CentralBufferNode である。</li>
+<li>DataStoreNode が保持するオブジェクトトークンについての供与を下流のオブジェクトノードが受理すると、その与えられたトークンは（通常の CentralBufferNode の意味で）
+DataStoreNode から取り除かれる。</li>
+<li>DataStoreNode がオブジェクトトークンを受理すると、もしそのトークンがすでにそのノードによって保持されているトークンに含まれるオブジェクトと同一のオブジェクトを含んでいれば、重複オブジェクトトークンは DataStoreNode 上に配置しないものとする。正規の CentralBufferNode とは異なり、
+DataStoreNode は一意なオブジェクト群を含む。</li>
+<li><code class="docutils literal notranslate"><span class="pre">outgoing</span></code> ObjectFlows にある
+<code class="docutils literal notranslate"><span class="pre">selection</span></code> と <code class="docutils literal notranslate"><span class="pre">transformation</span></code> Behaviors は、まるで問い合わせが実施されたかのように
+DataStoreNode の外側に情報を出すのに利用することが可能である。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id16">
+<h3>15.4.4 Notation<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id17">
+<h4>15.4.4.1 Object Nodes<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 15.49 ObjectNode notations<ul>
+<li>ObjectNodes は矩形で示す。</li>
+<li>ノードを分類する名前を記号の内側に置き、ここで名前とは ObjectNode の <code class="docutils literal notranslate"><span class="pre">type</span></code> または“name:type” の書式でノードの <code class="docutils literal notranslate"><span class="pre">name</span></code> と <code class="docutils literal notranslate"><span class="pre">type</span></code> を示す。</li>
+<li>コレクションを表現する ObjectNode はそのようにラベルする。</li>
+<li>Signal 付きの ObjectNode は矩形ではなく、初心者マークみたいな多角形で示す。左が凹で右が凸。</li>
+</ul>
+</li>
+<li>ObjectNode に States の集合 <code class="docutils literal notranslate"><span class="pre">inState</span></code> があれば、この集合にある States の名前が中括弧付きカンマ区切りリストとして書かれて、
+ObjectNode の名前の下に置かれる。</li>
+<li>Figure 15.50 ObjectNode annotations<ul>
+<li>付随情報の表記法。</li>
+</ul>
+</li>
+<li>Figure 15.51 Specifying selection behavior on an ObjectNode<ul>
+<li>ObjectNode の <code class="docutils literal notranslate"><span class="pre">selection</span></code> Behavior はキーワード «selection» が付いた註釈記号で指定され、
+ObjectNode 記号に取り付けられる。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id18">
+<h4>15.4.4.2 Activity Parameter Nodes<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ActivityParameterNode は ObjectNode として記されるが、付随する Parameter の完全テキスト仕様が普通の名前・型ラベルの代わりに
+ActivityParameterNode をラベル付けするのに用いられることは除く。</li>
+<li>Figure 15.52 Notation for stream and exception parameters<ul>
+<li>streaming Parameter に関連する ActivityParameterNode の記法は、文字列 <code class="docutils literal notranslate"><span class="pre">{stream}</span></code> をノード記号の近くに記すものとする。</li>
+<li>例外 Parameter に関連する ActivityParameterNode の記法は、小さな三角をノード記号の近くに記すものとする。</li>
+</ul>
+</li>
+<li>Figure 15.53 Presentation option for flows between pins and parameter nodes<ul>
+<li>Activity の上側の表現と下側の表現は等価である。</li>
+<li>Parameters は Activity の境界でやり取りする。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="central-buffer-and-data-store-nodes">
+<h4>15.4.4.3 Central Buffer and Data Store Nodes<a class="headerlink" href="#central-buffer-and-data-store-nodes" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 15.54 Optional CentralBufferNode notation<ul>
+<li>CentralBufferNode 記号は ObjectNode の記法に、オプションでキーワード «centralBuffer» を含んでよい。</li>
+</ul>
+</li>
+<li>Figure 15.55 DataStoreNode notation<ul>
+<li>DataStoreNode はキーワード «datastore» が付いた
+ObjectNode として記す。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id19">
+<h3>15.4.5 Examples<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id20">
+<h4>15.4.5.1 Activity Parameter Nodes<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 15.56 Example of ActivityParameterNodes for regular and exception Parameters</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>ここで見るべきは境界上のノードのみ。</li>
+<li>Rejected Computer に三角が付いているので、このノードが例外である。</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Figure 15.57 Example of ActivityParameterNodes for streaming Parameters<ul>
+<li>入出力どちらの ActivityParameterNodes でも streaming たり得る。</li>
+<li>ちなみに streaming であることと例外であることは両立してはならない。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id21">
+<h4>15.4.5.2 Central Buffer and Data Store Nodes<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 15.58 CentralBufferNode example<ul>
+<li>予備部品と採用部品の区別法を示していないことに注意。</li>
+</ul>
+</li>
+<li>Figure 15.59 DataStoreNode example<ul>
+<li><code class="docutils literal notranslate"><span class="pre">selection</span></code> Behavior の説明が欲しい。</li>
+<li>Once a year というシンボルがあるが、これは Timer の類だろう。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="executable-nodes">
+<h2><a class="toc-backref" href="#id43">15.5 Executable Nodes</a><a class="headerlink" href="#executable-nodes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id22">
+<h3>15.5.1 Summary<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>ExecutableNode とは、
+Activity の所望の挙動全体のうちのひとつの段階として実行されてよい
+ActivityNode の一種である。</li>
+<li>ExecutableNodes の具象型はすべてが Actions であり、
+<a class="reference internal" href="actions.html"><span class="doc">16 Actions</span></a> で述べる。本節では Activity における ExecutableNodes の一般的な意味と、どの ExecutableNode についても ExceptionHandler を付属させる能力が有することを議論する。</li>
+</ul>
+</div>
+<div class="section" id="id23">
+<h3>15.5.2 Abstract Syntax<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 15.60 Executable Nodes<ul>
+<li>ExecutableNode はひとつの ObjectNode に関連する ExceptionHandlers を所有する。</li>
+<li>ExceptionHandler は Classifiers を例外の型として関連付ける。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id24">
+<h3>15.5.3 Semantics<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id25">
+<h4>15.5.3.1 Executable Nodes<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ExecutableNode とは、それを含む Activity の実質的な挙動の一段階を実施する ActivityNode である。</li>
+<li>ExecutableNode は <code class="docutils literal notranslate"><span class="pre">incoming</span></code> ControlFlows すべてがトークンを与えるまで実行しないものとする。つまり <code class="docutils literal notranslate"><span class="pre">incoming</span></code> ControlFlows 上には暗黙の合流が存在する。</li>
+<li>ExecutableNode が実行を開始する前に、
+<code class="docutils literal notranslate"><span class="pre">incoming</span></code> ControlFlows から与えられるトークンすべてを受理する。</li>
+<li>ExecutableNode が実行している間は、ある単独の制御がそれが実行であることを示しているとみなされる。</li>
+<li>ExecutableNode が実行を完了するときは、その実行を表現している制御トークンがその ExecutableNode から取り除かれ、制御トークン (pl.) がその ExecutableNode の
+<code class="docutils literal notranslate"><span class="pre">outgoing</span></code> ControlFlows すべてに与えられる。つまり、ExecutableNode から <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> ControlFlows への制御の流れの暗黙の分岐点が存在する。</li>
+</ul>
+</div>
+<div class="section" id="exceptions-and-exception-handlers">
+<h4>15.5.3.2 Exceptions and Exception Handlers<a class="headerlink" href="#exceptions-and-exception-handlers" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>例外とは、実行の完了様式が正常ではないことを確認するために用いられる値である。</li>
+<li>ExecutableNode には
+ExecutableNode の外側に広まることもある例外 (pl.) を対処するために使われる ExceptionHandlers がひとつまたはそれを超える個数あることが許される。その例外たちの <code class="docutils literal notranslate"><span class="pre">handlers</span></code> の <code class="docutils literal notranslate"><span class="pre">protectedNode</span></code> である。</li>
+<li>ExceptionHandler が例外を捕捉すると、その例外はその処理者に対する <code class="docutils literal notranslate"><span class="pre">execptionInput</span></code>  ObjectNode に設置されているオブジェクトトークンに包み込まれる。</li>
+<li>例外捕捉後、ExceptionHandler の <code class="docutils literal notranslate"><span class="pre">handlerBody</span></code> が実行を完了すると、あたかも <code class="docutils literal notranslate"><span class="pre">protectedNode</span></code> が正常に完了したかのごとき正確に同じ方法で、制御トークンが ExceptionHandler の <code class="docutils literal notranslate"><span class="pre">protectedNode</span></code> の
+<code class="docutils literal notranslate"><span class="pre">outgoing</span></code> ControlFlows に与えられる。</li>
+<li>ExceptionHandler の <code class="docutils literal notranslate"><span class="pre">handlerBody</span></code> には、
+<code class="docutils literal notranslate"><span class="pre">incoming</span></code> にせよ <code class="docutils literal notranslate"><span class="pre">outgoing</span></code> にせよ
+ActivityEdges はないものとする。</li>
+<li>ExceptionHandler の <code class="docutils literal notranslate"><span class="pre">handlerBody</span></code> には
+ExceptionHandler の <code class="docutils literal notranslate"><span class="pre">protectedNode</span></code> と同じ
+<code class="docutils literal notranslate"><span class="pre">owner</span></code> があるものとし、
+ExceptionHandler の <code class="docutils literal notranslate"><span class="pre">exceptionInput</span></code> を所有するものとする。</li>
+<li>もし ExecutableNode が例外を広めて、そのノードには <code class="docutils literal notranslate"><span class="pre">handlers</span></code> がないか、広まった例外に一致する <code class="docutils literal notranslate"><span class="pre">handler</span></code> がないならば、その例外はより外側へと広まり続ける。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id26">
+<h3>15.5.4 Notation<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id27">
+<h4>15.5.4.1 Executable Nodes<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 15.61 ExecutableNode notation<ul>
+<li>ExecutableNode は一般的には丸い角の矩形として描かれる。</li>
+<li>Actions のさまざまな種類に対するより特殊化した表記法は
+<a class="reference internal" href="actions.html"><span class="doc">16 Actions</span></a> で述べる。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="exception-handlers">
+<h4>15.5.4.2 Exception Handlers<a class="headerlink" href="#exception-handlers" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 15.62 ExceptionHandler notation<ul>
+<li>ExceptionHandler は稲妻記号で描かれる。<ul>
+<li>矢印の始点は <code class="docutils literal notranslate"><span class="pre">protectedNode</span></code> である。</li>
+<li><code class="docutils literal notranslate"><span class="pre">exceptionType</span></code> の名前を稲妻のそばに記す。</li>
+<li>矢印の終点 <code class="docutils literal notranslate"><span class="pre">exceptionInput</span></code> ノードは小さい正方形で示す。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Figure 15.63 Alternative ExceptionHandler notation<ul>
+<li>矢印自体を稲妻にする代わりに、ジグザグマークを普通の矢印に添えて ExceptionHandler としてもよい。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id28">
+<h3>15.5.5 Examples<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 15.64 ExceptionHandler example<ul>
+<li>まず逆行列を求め、それからベクトルを乗じることで別のベクトルを得る。</li>
+<li>行列が非正則ならば、逆行列演算は失敗するはずで
+SingularMatrix 例外が送出される。この例外は <code class="docutils literal notranslate"><span class="pre">exceptionType</span></code> SingularMatrix に対する
+ExceptionHandler により処理されるが、それは Substitute Vector1 Action を含む領域を実行する。</li>
+<li>逆行列演算またはベクトル乗算のどちらかの処理中に
+Overflow 例外が発生すると、
+Substitute Vector1 Action を含む領域が実行される。</li>
+<li>行列演算が例外なしで完了するか、
+ExceptionHandlers のうちのひとつがきっかけとなったかに関わらず、活動 Print Results は次に実行される。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="activity-groups">
+<h2><a class="toc-backref" href="#id44">15.6 Activity Groups</a><a class="headerlink" href="#activity-groups" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id29">
+<h3>15.6.1 Summary<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>ActivityGroup は ActivityNodes と ActivityEdges に対する集団化構成要素である。<ul>
+<li>ノードとエッジはひとつを超える集団に所属することが可能である。</li>
+<li>本節では ActivityGroup のふたつの具象型、
+ActivityPartitions と InterruptibleActivityRegions について述べる。</li>
+<li>StructuredActivityNode は ActivityGroup の第三種であるが、それらは Actions でもあるから
+<a class="reference internal" href="actions.html"><span class="doc">16 Actions</span></a> で議論する。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id30">
+<h3>15.6.2 Abstract Syntax<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Figure 15.65 ActivityGroups<ul>
+<li>ActivityGroup の特殊型として ActivityPartition と InterruptibleActivityRegion がある。</li>
+<li>ActivityGroup は <code class="docutils literal notranslate"><span class="pre">subgraph</span></code> を表現するためのものだろう。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id31">
+<h3>15.6.3 Semantics<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="activity-partitions">
+<h4>15.6.3.1 Activity Partitions<a class="headerlink" href="#activity-partitions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ActivityPartition とは、ある共通の性質を有する ActivityNodes を同一視するために用いる
+ActivityGroup の一種である。</li>
+<li>ActivityPartitions はモデルのトークンの流れには影響を及ぼさない。それらは仕切りの <code class="docutils literal notranslate"><span class="pre">containedNodes</span></code> と <code class="docutils literal notranslate"><span class="pre">containedEdges</span></code> の実行のため発動される Behaviors についてのビューを抑制したり、ビューを実現したりする。<ul>
+<li>Constraints は仕切りが表現する要素 (<code class="docutils literal notranslate"><span class="pre">represents</span></code>) の種類に従い、変化する。<ul>
+<li>Classifier: 仕切りで発動した Behaviors は
+<code class="docutils literal notranslate"><span class="pre">represents</span></code> の Classifier のオブジェクトである責任がある。</li>
+<li>InstanceSpecification: この仕切りで発動した Behaviors は
+<code class="docutils literal notranslate"><span class="pre">represents</span></code> の InstanceSpecification によりモデル化されるオブジェクトである責任がある。</li>
+<li>Property: この仕切りで発動した Behaviors は
+<code class="docutils literal notranslate"><span class="pre">represents</span></code> の Property により保持されるオブジェクト (s./pl.) である責任がある。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ActivityPartition は上に挙げた以外の他の種類の Elements を表現してもよいが、当仕様書はそれらの意味を定義しない。</li>
+<li>ActivityPartition には <code class="docutils literal notranslate"><span class="pre">subpartitions</span></code> があってもよい。
+ActivityPartition の <code class="docutils literal notranslate"><span class="pre">isDimension</span></code> が true であれば、それは <code class="docutils literal notranslate"><span class="pre">subpartitions</span></code> を収めるための寸法？である。</li>
+<li>ActivityPartition が Property を表現し、かつその <code class="docutils literal notranslate"><span class="pre">subpartitions</span></code> が InstanceSpecifications を表現するならば、
+InstanceSpecifications は Property が保持する値をモデル化するものとする。</li>
+<li>ActivityPartition が Classifier の <code class="docutils literal notranslate"><span class="pre">attribute</span></code> である Property を表現し、別の仕切りがそれを含むならば、その <code class="docutils literal notranslate"><span class="pre">superPartition</span></code> はその Classifier か、
+<code class="docutils literal notranslate"><span class="pre">type</span></code> がその Classifier となる Property を表現するものとする。</li>
+<li>非外部 ActivityPartition が Classifier を表現し、別の仕切りに含まれているならば、
+<code class="docutils literal notranslate"><span class="pre">superPartition</span></code> もまた Classifier を表現するものとし、
+<code class="docutils literal notranslate"><span class="pre">subpartition</span></code> の Classifier は次のどちらかでなければならない。<ul>
+<li><code class="docutils literal notranslate"><span class="pre">superPartition</span></code> が表現する Classifier の
+<code class="docutils literal notranslate"><span class="pre">nestedClassifier</span></code> または <code class="docutils literal notranslate"><span class="pre">ownedBehavior</span></code> であるか、</li>
+<li><code class="docutils literal notranslate"><span class="pre">superPartition</span></code> が表現する Classifier に付随した合成 Association の端点末尾に含まれる。</li>
+</ul>
+</li>
+<li>外部 ActivityPartition とは <code class="docutils literal notranslate"><span class="pre">isExternal</span></code> が true であるものである。これは仕切りの構造の規則に対する作為的な例外である。</li>
+<li>ActivityPartitions を実行のそれとしては不十分ではあるが、高水準のモデル作者による検討には十分な情報を与えるのに利用してよい。</li>
+</ul>
+</div>
+<div class="section" id="interruptible-activity-regions">
+<h4>15.6.3.2 Interruptible Activity Regions<a class="headerlink" href="#interruptible-activity-regions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>InterruptibleActivityRegion とは、
+Activity の一部分の停止を支援する ActivityGroup である。<ul>
+<li>InterruptibleActivityRegion は ActivityNodes しか含まない。</li>
+<li>また、InterruptibleActivityRegion はその <code class="docutils literal notranslate"><span class="pre">source</span></code> が領域内に、その <code class="docutils literal notranslate"><span class="pre">target</span></code> が領域外にあるある ActivityEdges を <code class="docutils literal notranslate"><span class="pre">interruptingEdge</span></code> として明らかにする。</li>
+</ul>
+</li>
+<li>領域にある AcceptEventActions で <code class="docutils literal notranslate"><span class="pre">incoming</span></code> エッジがないものは、トークンが AcceptEventAction に向かっていないときでさえ、その領域にトークンが入場するときにしか使用可能にはならない。<ul>
+<li>AcceptEventActions の完全な記述については <a class="reference internal" href="actions.html"><span class="doc">16 Actions</span></a> を参照。</li>
+</ul>
+</li>
+<li>もし何らかの場合に領域内の流れの全てを中止するのを望まないならば、
+InterruptibleActivityRegion は使わない。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id32">
+<h3>15.6.4 Notation<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id33">
+<h4>15.6.4.1 Activity Partitions<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ActivityPartition は、二本の、ふつうは水平か垂直のどちらかの平行な線と、箱の中の一端に仕切りに名前のラベルを付けて記す。</li>
+<li>Figure 15.66 ActivityPartition notations<ol class="loweralpha">
+<li>これらの線に挟まれて置かれる
+ActivityNodes と ActivityEdges のいずれもがその仕切りの中に含まれるとみなされる。この ActivityPartition の表記法は俗に言う swimlane として知られる。</li>
+<li><code class="docutils literal notranslate"><span class="pre">superPartition</span></code> のさらなる仕切りとして
+<code class="docutils literal notranslate"><span class="pre">subpartitions</span></code> を表現することで階層的な仕切りを表現することができる。</li>
+<li>swim cell のそれぞれは複数の仕切りの交差である。</li>
+</ol>
+</li>
+<li>罫線による ActivityPartitions の図式化は実践的ではないことがある。その場合には次に示す代替記法を検討する。</li>
+<li>Figure 15.67 ActivityPartition notations<ol class="loweralpha">
+<li>仕切りの名前を括弧付きで ActivityNode の名前の上に置く。</li>
+<li>外側の仕切りはキーワード «external» を付けてラベルする。</li>
+</ol>
+</li>
+</ul>
+</div>
+<div class="section" id="id34">
+<h4>15.6.4.2 Interruptible Activity Regions<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 15.68 InterruptableActivityRegion<ul>
+<li>InterruptableActivityRegion は破線丸角矩形で記す。</li>
+<li><code class="docutils literal notranslate"><span class="pre">interruptingEdge</span></code> を稲妻 ActivityEdge を使って記す。</li>
+</ul>
+</li>
+<li>Figure 15.69 InterruptableActivityRegion alternative notation<ul>
+<li>先述の通り <code class="docutils literal notranslate"><span class="pre">interruptingEdge</span></code> の矢印をストレートにしてジグザグマークを添えてもよい。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id35">
+<h3>15.6.5 Examples<a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id36">
+<h4>15.6.5.1 Activity Partitions<a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 15.70 ActivityPartitions using swimlane notation<ul>
+<li>いつもの例題に swimlanes を明記したもの。上段が Order Department の担当する Activity の部分を含む。中段が Account Department で、下段が Customer である。</li>
+<li>ところで仕切りをまたぐ ActivityEdges は、どの <code class="docutils literal notranslate"><span class="pre">subpartitions</span></code> にも含まれない。</li>
+</ul>
+</li>
+<li>Figure 15.71 ActivityPartitions using annotation<ul>
+<li>先の見本から swimlane を外したもの。</li>
+<li>丸括弧とキーワード «external» で所属する ActivityPartition がわかる。</li>
+</ul>
+</li>
+<li>Figure 15.72 ActivityPartitions using multidimensional swimlane notation<ul>
+<li>紙に描くものである以上、多次元と言っても高々 2 である。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id37">
+<h4>15.6.5.2 Interruptible Activity Regions<a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Figure 15.73 InterruptableActivityRegion example<ul>
+<li>InterruptableActivityRegion と凹五角形シンボルの組み合わせは使い易そうだ。</li>
+<li>受注、記入、出荷の間に注文取消しが起こると、その流れは停止されて Cancel Order ノードが実行される。</li>
+<li>これが Fill Order が終了した後に起こると、
+Fill Order の後の ForkNode のために、請求処理はもう初期化してしまったかもしれない。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="classifier-descriptions">
+<h2><a class="toc-backref" href="#id45">15.7 Classifier Descriptions</a><a class="headerlink" href="#classifier-descriptions" title="Permalink to this headline">¶</a></h2>
+<p>機械生成による節。</p>
+</div>
+<div class="section" id="association-descriptions">
+<h2><a class="toc-backref" href="#id46">15.8 Association Descriptions</a><a class="headerlink" href="#association-descriptions" title="Permalink to this headline">¶</a></h2>
+<p>機械生成による節。</p>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="actions.html" title="16 Actions"
+             >next</a></li>
+        <li class="right" >
+          <a href="statemachines.html" title="14 StateMachines"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Unified Modeling Language 2.5 読書ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,766 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>入門 bash 読書ノート 2/3 &#8212; 読書ノート v1.4</title>
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="next" title="入門 bash 読書ノート 3/3" href="note3.html" />
+    <link rel="prev" title="入門 bash 読書ノート 1/3" href="note1.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="note3.html" title="入門 bash 読書ノート 3/3"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="note1.html" title="入門 bash 読書ノート 1/3"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">入門 bash 読書ノート</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="bash-2-3">
+<h1><a class="toc-backref" href="#id33">入門 bash 読書ノート 2/3</a><a class="headerlink" href="#bash-2-3" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">著者:</th><td class="field-body">Cameron Newham, Bill Rosenblatt</td>
+</tr>
+<tr class="field-even field"><th class="field-name">訳者:</th><td class="field-body">株式会社クイープ</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">出版社:</th><td class="field-body">オライリー・ジャパン</td>
+</tr>
+<tr class="field-even field"><th class="field-name">発行年:</th><td class="field-body">2005 年</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">ISBN:</th><td class="field-body">978-4-87311-254-1</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="id1">
+<p class="topic-title first">ノートの目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#bash-2-3" id="id33">入門 bash 読書ノート 2/3</a><ul>
+<li><a class="reference internal" href="#id2" id="id34">4 章 基本的なシェルプログラミング</a><ul>
+<li><a class="reference internal" href="#id3" id="id35">4.1 シェルスクリプトと変数</a><ul>
+<li><a class="reference internal" href="#id4" id="id36">4.1.1 関数</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id5" id="id37">4.2 シェル変数</a><ul>
+<li><a class="reference internal" href="#id6" id="id38">4.2.1 位置パラメータ</a></li>
+<li><a class="reference internal" href="#id7" id="id39">4.2.2 関数のローカル変数</a></li>
+<li><a class="reference internal" href="#id8" id="id40">4.2.3 $&#64; と $* での引用</a></li>
+<li><a class="reference internal" href="#id9" id="id41">4.2.4 変数の構文について</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id10" id="id42">4.3 文字列演算子</a><ul>
+<li><a class="reference internal" href="#id11" id="id43">4.3.1 文字列演算子の構文</a></li>
+<li><a class="reference internal" href="#id12" id="id44">4.3.2 パターンとパターン照合</a></li>
+<li><a class="reference internal" href="#id13" id="id45">4.3.4 高度なパターン照合</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id14" id="id46">4.4 コマンド置換</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id15" id="id47">5 章 フロー制御</a><ul>
+<li><a class="reference internal" href="#if-else" id="id48">5.1 if/else</a><ul>
+<li><a class="reference internal" href="#id16" id="id49">5.1.1 終了ステータス</a></li>
+<li><a class="reference internal" href="#return" id="id50">5.1.2 return</a></li>
+<li><a class="reference internal" href="#id17" id="id51">5.1.3 終了ステータスの組み合わせ</a></li>
+<li><a class="reference internal" href="#id18" id="id52">5.1.4 条件の評価</a></li>
+<li><a class="reference internal" href="#id19" id="id53">5.1.5 整数の条件式</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#for" id="id54">5.2 for</a></li>
+<li><a class="reference internal" href="#case" id="id55">5.3 case</a></li>
+<li><a class="reference internal" href="#select" id="id56">5.4 select</a></li>
+<li><a class="reference internal" href="#while-until" id="id57">5.5 while と until</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id20" id="id58">6 章 コマンドラインオプションと型を持つ変数</a><ul>
+<li><a class="reference internal" href="#id21" id="id59">6.1 コマンドラインオプション</a><ul>
+<li><a class="reference internal" href="#shift" id="id60">6.1.1 shift</a></li>
+<li><a class="reference internal" href="#id22" id="id61">6.1.2 引数付きのオプション</a></li>
+<li><a class="reference internal" href="#getopts" id="id62">6.1.3 getopts</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id23" id="id63">6.2 型を持つ変数</a></li>
+<li><a class="reference internal" href="#id24" id="id64">6.3 整数型の変数と算術演算</a><ul>
+<li><a class="reference internal" href="#id25" id="id65">6.3.2 数値変数と代入</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id26" id="id66">6.4 配列</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id27" id="id67">7 章 入出力とコマンドラインの処理</a><ul>
+<li><a class="reference internal" href="#id28" id="id68">7.1 入出力リダイレクタ</a><ul>
+<li><a class="reference internal" href="#id29" id="id69">7.1.1 ヒアドキュメント</a></li>
+<li><a class="reference internal" href="#id30" id="id70">7.1.2 ファイルデスクリプタ</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id31" id="id71">7.2 文字列の入出力</a><ul>
+<li><a class="reference internal" href="#echo" id="id72">7.2.1 echo</a></li>
+<li><a class="reference internal" href="#printf" id="id73">7.2.2 printf</a></li>
+<li><a class="reference internal" href="#read" id="id74">7.2.3 read</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id32" id="id75">7.3 コマンドラインの処理</a><ul>
+<li><a class="reference internal" href="#command-builtin-enable" id="id76">7.3.2 command, builtin, enable</a></li>
+<li><a class="reference internal" href="#eval" id="id77">7.3.3 eval</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id34">4 章 基本的なシェルプログラミング</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3><a class="toc-backref" href="#id35">4.1 シェルスクリプトと変数</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>&lt;<strong>スクリプト</strong> とは、シェルコマンドが含まれたファイル、つまりシェルプログラムのことである。
+3 章で説明した <code class="docutils literal notranslate"><span class="pre">.bash_profile</span></code> や環境定義ファイルもシェルスクリプトである&gt; (p. 85)</li>
+<li>スクリプト名を入力すると、&lt;<strong>サブシェル</strong> と呼ばれるシェルの新しいコピーがサブプロセスとして実行される。サブシェルはスクリプトからコマンドを取り出し、それらを実行して終了した後、制御を親シェルに戻す&gt; (p. 86)
+という一連の処理が発生する。</li>
+</ul>
+<div class="section" id="id4">
+<h4><a class="toc-backref" href="#id36">4.1.1 関数</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">&lt;関数とはスクリプトの中のスクリプトのようなもの&gt; (p. 87)
+メモリにシェルコードが格納される。</p>
+</li>
+<li><p class="first">定義方法は次のどちらかとなる。機能差はない。</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">function</span> <span class="n">function</span><span class="o">-</span><span class="n">name</span>
+<span class="p">{</span>
+  <span class="n">shell</span><span class="o">-</span><span class="n">command</span>
+<span class="p">}</span>
+<span class="c1"># or</span>
+<span class="n">function</span><span class="o">-</span><span class="n">name</span> <span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">shell</span><span class="o">-</span><span class="n">command</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">declare</span> <span class="pre">-F</span></code> で、存在する関数の名前一覧を表示できる。</p>
+</li>
+<li><p class="first">組み込みコマンド <code class="docutils literal notranslate"><span class="pre">type</span></code> でコマンドの種類を確認できる。</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id37">4.2 シェル変数</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>&lt;言語の違いを特徴付ける方法として、変数の機能を比較することが重要なほどである&gt; (p. 90)</li>
+<li><code class="docutils literal notranslate"><span class="pre">bash</span></code> は &lt;文字列をことのほか重視する&gt; (p. 90)</li>
+</ul>
+<div class="section" id="id6">
+<h4><a class="toc-backref" href="#id38">4.2.1 位置パラメータ</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><strong>位置パラメータ</strong> は、スクリプトが呼び出されたときに、そのコマンドライン引数を保持する。</li>
+<li><code class="docutils literal notranslate"><span class="pre">$1</span></code>, <code class="docutils literal notranslate"><span class="pre">$2</span></code>, <code class="docutils literal notranslate"><span class="pre">$3</span></code>, … で参照できる。</li>
+<li><code class="docutils literal notranslate"><span class="pre">$0</span></code> はスクリプト自身の名前を含む。</li>
+<li><code class="docutils literal notranslate"><span class="pre">$*</span></code> は <code class="docutils literal notranslate"><span class="pre">$1</span></code> 以降すべての位置パラメータからなる文字列。<ul>
+<li><code class="docutils literal notranslate"><span class="pre">IFS</span></code> の 1 文字目で区切られた文字列</li>
+</ul>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">$&#64;</span></code> は <code class="docutils literal notranslate"><span class="pre">&quot;$1&quot;</span> <span class="pre">&quot;$2&quot;</span> <span class="pre">&quot;$3&quot;</span> <span class="pre">...</span> <span class="pre">&quot;$N&quot;</span></code> に等しい。二重引用符とスペース文字は固定。</li>
+<li><code class="docutils literal notranslate"><span class="pre">$#</span></code> は、位置パラメータの個数（を示す文字列）。</li>
+<li>関数も独自の位置パラメータを持つ。</li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">$*</span></code> と <code class="docutils literal notranslate"><span class="pre">$&#64;</span></code> はよくどっちがどっちだか忘れるので注意。</p>
+</div>
+<div class="section" id="id7">
+<h4><a class="toc-backref" href="#id39">4.2.2 関数のローカル変数</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>&lt;関数の定義に <code class="docutils literal notranslate"><span class="pre">local</span></code> 文が含まれている場合、その関数の変数は <strong>すべて</strong>
+関数のローカル変数になる&gt; (p. 93)</li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h4><a class="toc-backref" href="#id40">4.2.3 $&#64; と $* での引用</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">$*</span></code> は出力での活躍が多いらしい。位置パラメータのリストをカンマ区切りで表示したい場合は、
+<code class="docutils literal notranslate"><span class="pre">IFS=,</span> <span class="pre">echo</span> <span class="pre">&quot;$*&quot;</span></code> とする。</li>
+</ul>
+</div>
+<div class="section" id="id9">
+<h4><a class="toc-backref" href="#id41">4.2.4 変数の構文について</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>正式には <code class="docutils literal notranslate"><span class="pre">${変数名}</span></code> のように中括弧がある。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id10">
+<h3><a class="toc-backref" href="#id42">4.3 文字列演算子</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id11">
+<h4><a class="toc-backref" href="#id43">4.3.1 文字列演算子の構文</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">${variable:-word}</span></code></dt>
+<dd>変数が未定義のときにデフォルト値を <strong>返す</strong></dd>
+<dt><code class="docutils literal notranslate"><span class="pre">${variable:=word}</span></code></dt>
+<dd>変数が未定義のときにデフォルト値を <strong>設定する</strong></dd>
+<dt><code class="docutils literal notranslate"><span class="pre">${variable:+word}</span></code></dt>
+<dd>変数が定義されているかどうかを知る。定義されていても <code class="docutils literal notranslate"><span class="pre">word</span></code> を返すので <code class="docutils literal notranslate"><span class="pre">variable</span></code> 自身の値は得られない。</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">${variable:offset:length}</span></code></dt>
+<dd>部分文字列を返す（スライス）</dd>
+</dl>
+<ul>
+<li><p class="first">&lt;位置パラメータの値をわかりやすい名前の変数に代入すれば、変数名を改善することができる&gt; (p. 98)</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>filename=$1
+howmany=${2:-10}
+</pre></div>
+</div>
+</li>
+<li><p class="first">&lt;<code class="docutils literal notranslate"><span class="pre">echo</span></code> の <code class="docutils literal notranslate"><span class="pre">-e</span></code> オプションは、引数を表示した後に改行しないことを示す&gt; (p. 100)</p>
+</li>
+</ul>
+</div>
+<div class="section" id="id12">
+<h4><a class="toc-backref" href="#id44">4.3.2 パターンとパターン照合</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">${variable#pattern}</span></code> 等を照合演算子という。</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">#</span></code> は始めの部分を照合し、<code class="docutils literal notranslate"><span class="pre">%</span></code> は終わりの部分を照合する。</li>
+<li>一文字が最短一致で、二文字が最長一致。</li>
+</ul>
+</li>
+<li><p class="first">置換は <code class="docutils literal notranslate"><span class="pre">${variable/pattern/string}</span></code> か <code class="docutils literal notranslate"><span class="pre">${variable//pattern/string}</span></code> で行う。</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>outfile=${filename%.pcx}.jpg
+</pre></div>
+</div>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">$PATH</span></code> を読みやすくするには <code class="docutils literal notranslate"><span class="pre">echo</span> <span class="pre">-e</span> <span class="pre">${PATH//:/'\n'}</span></code> がおすすめ。</p>
+</li>
+</ul>
+</div>
+<div class="section" id="id13">
+<h4><a class="toc-backref" href="#id45">4.3.4 高度なパターン照合</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">&lt;<code class="docutils literal notranslate"><span class="pre">shopt</span></code> の <code class="docutils literal notranslate"><span class="pre">extglob</span></code> オプションをオンにした場合に使用できるパターン照合演算子がいくつかある&gt; (p. 104)</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="49%" />
+<col width="51%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">*(pattern-list)</span></code></td>
+<td>0 個以上検出</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">+(pattern-list)</span></code></td>
+<td>1 個以上検出</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">?(pattern-list)</span></code></td>
+<td>0 or 1 個検出</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">&#64;(pattern-list)</span></code></td>
+<td>1 個検出</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">!(pattern-list)</span></code></td>
+<td>一致しないものを検出</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ shopt -s extglob
+$ echo *.+(txt|html)
+&lt;ファイル名が .txt または .html で終わるものすべて&gt;
+$ echo !(*Makefile)
+&lt;ファイル名が Makefile なんとか以外すべて&gt;
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id14">
+<h3><a class="toc-backref" href="#id46">4.4 コマンド置換</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">$(&lt;コマンド&gt;)</span></code> とすると、&lt;コマンドの標準出力を変数の値として使用することができる&gt; (p. 105)</p>
+</li>
+<li><p class="first">昔はバッククォートで囲んでいたようだが、読みにくいうえに入れ子にできない。ドルカッコのほうを使うべし。</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>ls -l $(type -path -all command-name)
+</pre></div>
+</div>
+</li>
+<li><p class="first">&lt;関数の名前に他意はない&gt; (p. 108) とか小ネタで笑わせてくる。</p>
+</li>
+<li><p class="first">タスク 4-7 を読んでいて思うのだが、
+<code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span></code> の結果を加工する種のスクリプトは、どうしても可搬性に難のあるものにはなるまいか。</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id15">
+<h2><a class="toc-backref" href="#id47">5 章 フロー制御</a><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>この章では <code class="docutils literal notranslate"><span class="pre">if/else</span></code>, <code class="docutils literal notranslate"><span class="pre">for</span></code> などの導入をする。</li>
+<li>&lt;一から説明されることにうんざりしているプログラマの気持ちもわからないではない&gt; (p. 113)</li>
+</ul>
+<div class="section" id="if-else">
+<h3><a class="toc-backref" href="#id48">5.1 if/else</a><a class="headerlink" href="#if-else" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="o">&lt;</span><span class="n">条件</span><span class="o">&gt;</span>
+<span class="n">then</span>
+    <span class="o">&lt;</span><span class="n">文ブロック</span><span class="o">&gt;</span>
+<span class="k">elif</span> <span class="o">&lt;</span><span class="n">条件</span><span class="o">&gt;</span>
+    <span class="n">then</span> <span class="o">&lt;</span><span class="n">文ブロック</span><span class="o">&gt;</span> <span class="o">...</span>
+<span class="k">else</span>
+    <span class="o">&lt;</span><span class="n">文ブロック</span><span class="o">&gt;</span>
+<span class="n">fi</span>
+</pre></div>
+</div>
+<div class="section" id="id16">
+<h4><a class="toc-backref" href="#id49">5.1.1 終了ステータス</a><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>コマンドや関数は終了時に呼び出し元に整数コードを返す。これを <strong>終了ステータス</strong> という。</li>
+<li>&lt;<strong>通常は</strong> 0 が正常終了、それ以外 (1 から 255) が異常終了を示す&gt; (p. 115)</li>
+</ul>
+</div>
+<div class="section" id="return">
+<h4><a class="toc-backref" href="#id50">5.1.2 return</a><a class="headerlink" href="#return" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">N</span></code> 文が含まれている関数は、終了ステータス <code class="docutils literal notranslate"><span class="pre">N</span></code> で終了する。
+<code class="docutils literal notranslate"><span class="pre">N</span></code> を省略することもでき、その場合は最後のコマンドの終了ステータスが設定される。</li>
+</ul>
+</div>
+<div class="section" id="id17">
+<h4><a class="toc-backref" href="#id51">5.1.3 終了ステータスの組み合わせ</a><a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">bash</span></code> の <code class="docutils literal notranslate"><span class="pre">if</span></code> 文において、<code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code>, <code class="docutils literal notranslate"><span class="pre">||</span></code> は short-circuit rule が適用される。</li>
+</ul>
+</div>
+<div class="section" id="id18">
+<h4><a class="toc-backref" href="#id52">5.1.4 条件の評価</a><a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">[...]</span></code> と <code class="docutils literal notranslate"><span class="pre">[[...]]</span></code> の二つがある。ここでは一つ目の構文を使用する。</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">[...]</span></code> 構文を使用すれば、次のことができる。</p>
+<ul class="simple">
+<li>ファイルの属性をテストする</li>
+<li>二つのファイルの新しさを比較する</li>
+<li>文字列同士を比較する (<code class="docutils literal notranslate"><span class="pre">str1</span> <span class="pre">=</span> <span class="pre">str2</span></code>, <code class="docutils literal notranslate"><span class="pre">str1</span> <span class="pre">!=</span> <span class="pre">str2</span></code>, <code class="docutils literal notranslate"><span class="pre">str1</span> <span class="pre">&lt;</span> <span class="pre">str2</span></code>, etc.)</li>
+</ul>
+</li>
+<li><p class="first">文字列変数をテストする際は、二重引用符で囲むのが望ましい。</p>
+</li>
+<li><p class="first">&lt;コード全体が <code class="docutils literal notranslate"><span class="pre">if-then-else</span></code> で囲まれているほうがよいプログラミング作法であるという考え方もあるが、エラーを確認しながらいくつかに分岐するような長いスクリプトを書くのは混乱のもとである&gt; (pp. 121-122)</p>
+</li>
+<li><p class="first">ファイル属性演算子。よく使いそうなのをノートしておく。
+<code class="docutils literal notranslate"><span class="pre">-x</span></code> 演算子の意味だけ注意がいる。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="74%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>-a file</td>
+<td>file が存在する</td>
+</tr>
+<tr class="row-even"><td>-d file</td>
+<td>file が存在し、かつディレクトリである</td>
+</tr>
+<tr class="row-odd"><td>-e file</td>
+<td><code class="docutils literal notranslate"><span class="pre">-a</span></code> と同じ</td>
+</tr>
+<tr class="row-even"><td>-r file</td>
+<td>file を読み取れる</td>
+</tr>
+<tr class="row-odd"><td>-w file</td>
+<td>file を上書きできる</td>
+</tr>
+<tr class="row-even"><td>-x file</td>
+<td>file がファイルの場合、それが実行可能である。
+file がディレクトリの場合、その中を検索できる。</td>
+</tr>
+<tr class="row-odd"><td>file1 -nt file2</td>
+<td>file1 が file2 よりも新しい</td>
+</tr>
+<tr class="row-even"><td>file1 -ot file2</td>
+<td>file1 が file2 よりも古い</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</div>
+<div class="section" id="id19">
+<h4><a class="toc-backref" href="#id53">5.1.5 整数の条件式</a><a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>整数を比較する演算子が存在するが、整数値だけを扱う条件式の構文が別に存在するのでそちらを使うこと。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="for">
+<h3><a class="toc-backref" href="#id54">5.2 for</a><a class="headerlink" href="#for" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">&lt;<code class="docutils literal notranslate"><span class="pre">for</span></code> ループはコマンドラインの引数や一連のファイルを処理するのに最適である&gt; (p. 129)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>for name [in list]
+do
+    &lt;$name を使用する文ブロック&gt;
+done
+</pre></div>
+</div>
+</li>
+<li><p class="first">in <em>list</em> の部分を省略すると、デフォルトでは <code class="docutils literal notranslate"><span class="pre">$&#64;</span></code> となる。</p>
+</li>
+<li><p class="first">&lt;<code class="docutils literal notranslate"><span class="pre">for</span></code> ループの使用法としては、コマンドライン引数を 1 つずつ処理するほうが一般的である&gt; (p. 130)</p>
+</li>
+<li><p class="first">タスクで紹介している再帰処理で、ディレクトリ階層を下がるたびに出力文字列をタブでインデントしている。
+<code class="docutils literal notranslate"><span class="pre">tab=$tab$singletab</span></code> でタブ文字を伸ばしているのが面白い。階層を上がるときは <code class="docutils literal notranslate"><span class="pre">tab=${tab%&quot;$singletab&quot;}</span></code> としている。</p>
+</li>
+</ul>
+</div>
+<div class="section" id="case">
+<h3><a class="toc-backref" href="#id55">5.3 case</a><a class="headerlink" href="#case" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">Pascal の <code class="docutils literal notranslate"><span class="pre">case</span></code> 文に相当する。</p>
+</li>
+<li><p class="first">ワイルドカードを使ったパターンと文字列の照合が可能。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">case</span> <span class="o">&lt;</span><span class="n">式</span><span class="o">&gt;</span> <span class="ow">in</span>
+    <span class="o">&lt;</span><span class="n">パターン</span><span class="o">&gt;</span> <span class="p">)</span>
+        <span class="o">&lt;</span><span class="n">文ブロック</span><span class="o">&gt;</span> <span class="p">;;</span>
+    <span class="o">&lt;</span><span class="n">パターン</span><span class="o">&gt;</span> <span class="p">)</span>
+        <span class="o">&lt;</span><span class="n">文ブロック</span><span class="o">&gt;</span> <span class="p">;;</span>
+    <span class="o">...</span>
+<span class="n">esac</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">C 言語の <code class="docutils literal notranslate"><span class="pre">default</span></code> のような処理をするならば <code class="docutils literal notranslate"><span class="pre">*</span> <span class="pre">)</span></code> を使える。</p>
+</li>
+</ul>
+</div>
+<div class="section" id="select">
+<h3><a class="toc-backref" href="#id56">5.4 select</a><a class="headerlink" href="#select" title="Permalink to this headline">¶</a></h3>
+<p>使いそうにないので飛ばす。</p>
+</div>
+<div class="section" id="while-until">
+<h3><a class="toc-backref" href="#id57">5.5 while と until</a><a class="headerlink" href="#while-until" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">構文は共に以下の通りで、
+<code class="docutils literal notranslate"><span class="pre">while</span></code> と <code class="docutils literal notranslate"><span class="pre">until</span></code> は条件式を扱う方法の違いしかない。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">while</span> <span class="o">&lt;</span><span class="n">条件</span><span class="o">&gt;</span>
+<span class="n">do</span>
+    <span class="o">&lt;</span><span class="n">文ブロック</span><span class="o">&gt;</span>
+<span class="n">done</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">&lt;本書の見解では、<code class="docutils literal notranslate"><span class="pre">until</span></code> が必要になることはまれである&gt; (p. 143)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id20">
+<h2><a class="toc-backref" href="#id58">6 章 コマンドラインオプションと型を持つ変数</a><a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id21">
+<h3><a class="toc-backref" href="#id59">6.1 コマンドラインオプション</a><a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="shift">
+<h4><a class="toc-backref" href="#id60">6.1.1 shift</a><a class="headerlink" href="#shift" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">shift</span></code> コマンドで、位置パラメータを前にずらすことができる。<ul>
+<li><code class="docutils literal notranslate"><span class="pre">shift</span> <span class="pre">3</span></code> とすると、位置パラメータが 3 個ずれる。</li>
+</ul>
+</li>
+<li>&lt;通常の UNIX 構文では、オプションが引数の前にある&gt; (p. 147)</li>
+</ul>
+</div>
+<div class="section" id="id22">
+<h4><a class="toc-backref" href="#id61">6.1.2 引数付きのオプション</a><a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>&lt;多くのコマンドに <strong>独自に</strong> 引数をとるオプションがあることを思い出そう&gt; (p. 148)
+そういう場合は追加の <code class="docutils literal notranslate"><span class="pre">shift</span></code> が要る。</li>
+</ul>
+</div>
+<div class="section" id="getopts">
+<h4><a class="toc-backref" href="#id62">6.1.3 getopts</a><a class="headerlink" href="#getopts" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">shift</span></code> の利用だけでは &lt;<code class="docutils literal notranslate"><span class="pre">-a</span> <span class="pre">-b</span> <span class="pre">-c</span></code> ではなく <code class="docutils literal notranslate"><span class="pre">-abc</span></code> のように、ハイフンを 1 つで組み合わされた引数には対応できない。また、
+<code class="docutils literal notranslate"><span class="pre">-b</span> <span class="pre">arg</span></code> ではなく <code class="docutils literal notranslate"><span class="pre">-barg</span></code> のように、スペースを要れずに引数を指定することもできない&gt; (p. 149)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>while getopts &quot;:ab:c&quot; opt; do
+  case $opt in
+    -a ) &lt;オプション -a の処理&gt; ;;
+    -b ) &lt;オプション -b の処理&gt;
+         &lt;$OPTARG はオプション固有の引数&gt; ;;
+    -c ) &lt;オプション -c の処理&gt; ;;
+    -? ) echo &#39;usage: alice [-a] [-b barg] [-c] args...&#39;
+         exit 1
+    esac
+done
+
+shift $(($OPTIND - 1))
+
+&lt;通常の引数処理&gt;
+</pre></div>
+</div>
+</li>
+<li><p class="first">&lt;オプションが引数をとる場合、
+<code class="docutils literal notranslate"><span class="pre">getopts</span></code> はそれを <code class="docutils literal notranslate"><span class="pre">OPTARG</span></code> 変数に設定する&gt; (p. 150)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id23">
+<h3><a class="toc-backref" href="#id63">6.2 型を持つ変数</a><a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">変数には「読み取り専用」や「整数型」といった属性を設定することができる。それには、組み込みコマンド <code class="docutils literal notranslate"><span class="pre">declare</span></code> を使用する。</p>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-a</span></kbd></td>
+<td><p class="first last">配列</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-f</span></kbd></td>
+<td><p class="first last">関数名</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-i</span></kbd></td>
+<td><p class="first last">整数値</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-r</span></kbd></td>
+<td><p class="first last">読み取り専用</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-x</span></kbd></td>
+<td><p class="first last">変数をエクスポート</p>
+</td></tr>
+</tbody>
+</table>
+</li>
+<li><p class="first">&lt;関数において <code class="docutils literal notranslate"><span class="pre">declare</span></code> で宣言された変数は、関数のローカル変数となる&gt; (p. 155)</p>
+</li>
+</ul>
+</div>
+<div class="section" id="id24">
+<h3><a class="toc-backref" href="#id64">6.3 整数型の変数と算術演算</a><a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>&lt;<code class="docutils literal notranslate"><span class="pre">$((</span></code> と <code class="docutils literal notranslate"><span class="pre">)</span></code> で囲まれた文字列は、算術演算式として評価される&gt; (p. 155)</li>
+<li>表 6-2 によると、算術演算子は C 言語のそれとほぼ同じ。べき乗演算子があるのが面白い。
+<code class="docutils literal notranslate"><span class="pre">**</span></code> と書けばよいようだ。</li>
+<li>関係演算子と論理演算子もある。</li>
+<li>基数もサポート。例えば <code class="docutils literal notranslate"><span class="pre">$((2#1001))</span></code> は二進数の <code class="docutils literal notranslate"><span class="pre">1001</span></code> のことだ。</li>
+</ul>
+<div class="section" id="id25">
+<h4><a class="toc-backref" href="#id65">6.3.2 数値変数と代入</a><a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">&lt;<code class="docutils literal notranslate"><span class="pre">let</span></code> 文を使用すれば、算術演算子を評価した後、その結果を変数に代入することができる&gt; (p. 158)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">let</span> <span class="o">&lt;</span><span class="n">整数型の変数</span><span class="o">&gt;=&lt;</span><span class="n">式</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id26">
+<h3><a class="toc-backref" href="#id66">6.4 配列</a><a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">配列の定義方法はいくつかある。とりあえず次の方法だけ覚える。</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 方法 1</span>
+<span class="n">names</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="n">alice</span>
+<span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">hatter</span>
+<span class="n">names</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">duchess</span>
+
+<span class="c1"># 方法 2</span>
+<span class="n">names</span><span class="o">=</span><span class="p">([</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="n">alice</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">hatter</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">duchess</span><span class="p">)</span>
+
+<span class="c1"># 方法 3</span>
+<span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="n">hatter</span> <span class="n">duchess</span> <span class="n">alice</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">配列の要素を参照するには <code class="docutils literal notranslate"><span class="pre">${names[0]}</span></code> のようにする。</p>
+</li>
+<li><p class="first">位置パラメータのそれと同様に、
+<code class="docutils literal notranslate"><span class="pre">${names[&#64;]}</span></code>, <code class="docutils literal notranslate"><span class="pre">${names[*]}</span></code> が使用できる。</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">for</span></code> ループで配列の要素を順番に参照することができる。</li>
+<li>値が設定されている要素のインデックスを知るには、
+<code class="docutils literal notranslate"><span class="pre">${!names[&#64;]}</span></code> とする。</li>
+<li>配列の長さを <code class="docutils literal notranslate"><span class="pre">${#names[&#64;]}</span></code> とする。</li>
+</ul>
+</li>
+<li><p class="first">配列の特定の要素を削除するには <code class="docutils literal notranslate"><span class="pre">unset</span> <span class="pre">names[1]</span></code> のようにする。</p>
+</li>
+<li><p class="first">配列全体を削除するには <code class="docutils literal notranslate"><span class="pre">unset</span> <span class="pre">names</span></code> とする。</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">/etc/passwd</span></code> のユーザー名とユーザー ID から配列を作成する例。
+<code class="docutils literal notranslate"><span class="pre">cut</span></code> で切り出したコロン区切りの文字列を、文字列演算子を利用して split して、上述方法 1 のやり方で配列要素を順次追加している。</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id27">
+<h2><a class="toc-backref" href="#id67">7 章 入出力とコマンドラインの処理</a><a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id28">
+<h3><a class="toc-backref" href="#id68">7.1 入出力リダイレクタ</a><a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>表 7-1 にまとまっている。いつも <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> が付くリダイレクタの意味がわからなくなるのだが、
+<code class="docutils literal notranslate"><span class="pre">&amp;</span></code> はコピー、
+<code class="docutils literal notranslate"><span class="pre">&amp;-</span></code> は停止と憶えておけばよい？</li>
+<li>&lt;<code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">-o</span> <span class="pre">noclobber</span></code> と入力すると、
+<code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">file</span></code> によるファイルの上書きを阻止することができる&gt; (p. 173)</li>
+</ul>
+<div class="section" id="id29">
+<h4><a class="toc-backref" href="#id69">7.1.1 ヒアドキュメント</a><a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>&lt;ヒアドキュメントは、コマンドプロンプトから使用してもあまり意味がない&gt; (p. 173)</li>
+<li>&lt;<code class="docutils literal notranslate"><span class="pre">&lt;&lt;</span></code> リダイレクタは 2 種類に分かれる。まず、 <em>label</em> を単一引用符または二重引用符で囲むと、パラメータ置換とコマンド置換は実行されなくなる&gt; (p. 175)</li>
+<li>&lt;<code class="docutils literal notranslate"><span class="pre">&lt;&lt;-</span></code> リダイレクタを使用すると、ヒアドキュメントとラベル行からの先頭のタブを削除することができる（それ以外の空白は残る）&gt; (p. 175) ので、ヒアドキュメントのテキストを読みやすくするためにインデントできる。</li>
+</ul>
+</div>
+<div class="section" id="id30">
+<h4><a class="toc-backref" href="#id70">7.1.2 ファイルデスクリプタ</a><a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>エラーメッセージをファイルに出力するには <code class="docutils literal notranslate"><span class="pre">コマンド</span> <span class="pre">2&gt;</span> <span class="pre">file</span></code> とする。</li>
+<li>かつ、標準出力も同じように処理するには <code class="docutils literal notranslate"><span class="pre">コマンド</span> <span class="pre">&gt;</span> <span class="pre">file1</span> <span class="pre">2&gt;</span> <span class="pre">file</span></code> とする。</li>
+<li>標準出力と標準エラーの両方をファイルに出力するには <code class="docutils literal notranslate"><span class="pre">コマンド</span> <span class="pre">&gt;</span> <span class="pre">file</span> <span class="pre">2&gt;&amp;1</span></code> とする。<ul>
+<li>パイプに出力するには <code class="docutils literal notranslate"><span class="pre">コマンド</span> <span class="pre">2&gt;&amp;1</span> <span class="pre">|</span></code> とする。</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id31">
+<h3><a class="toc-backref" href="#id71">7.2 文字列の入出力</a><a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="echo">
+<h4><a class="toc-backref" href="#id72">7.2.1 echo</a><a class="headerlink" href="#echo" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">-e</span></code>, <code class="docutils literal notranslate"><span class="pre">-n</span></code> オプションを憶える。</li>
+<li><strong>エスケープシーケンス</strong> はあまり憶えなくても済む。使うときは <code class="docutils literal notranslate"><span class="pre">-e</span></code> と組み合わせることになると思う。</li>
+</ul>
+</div>
+<div class="section" id="printf">
+<h4><a class="toc-backref" href="#id73">7.2.2 printf</a><a class="headerlink" href="#printf" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ザッと見る限り、C 言語のそれと同じように使えるようだ。</li>
+</ul>
+</div>
+<div class="section" id="read">
+<h4><a class="toc-backref" href="#id74">7.2.3 read</a><a class="headerlink" href="#read" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">シェル変数に値を取り込むためのコマンド。
+<code class="docutils literal notranslate"><span class="pre">read</span> <span class="pre">var1</span> <span class="pre">var2</span> <span class="pre">...</span></code> のような構文をとる。</p>
+</li>
+<li><p class="first">&lt;ワードよりも変数の方が多い場合、余分なワードは最後の変数に代入される。変数を 1 つも指定しないと、入力行はまとめて <code class="docutils literal notranslate"><span class="pre">REPLY</span></code> 変数に代入される&gt; (p. 183)</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">read</span></code> は行単位の処理を指向している。が、そういうのはパイプラインが行う仕事だろうから
+&lt;行単位での処理を行いたいのであれば、シェルスクリプトを使用する理由はまったくない&gt; (p. 183)。</p>
+</li>
+<li><p class="first">関数は標準入出力デスクリプタを独自に持つ。関数呼び出しの右側にリダイレクタを書いたり、関数定義の終了直後にリダイレクタを書いたりできる。</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">findterm</span> <span class="p">()</span> <span class="p">{</span>
+   <span class="c1"># ...関数定義</span>
+<span class="p">}</span>
+
+<span class="n">findterm</span> <span class="o">&lt;</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">terms</span>
+</pre></div>
+</div>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">findterm</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="c1"># ...関数定義</span>
+<span class="p">}</span> <span class="o">&lt;</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">terms</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">ループや <code class="docutils literal notranslate"><span class="pre">if...fi</span></code>, <code class="docutils literal notranslate"><span class="pre">case...esac</span></code>, <code class="docutils literal notranslate"><span class="pre">select...done</span></code> 等の定義直後でも同様に可能。</p>
+</li>
+<li><p class="first">&lt;コマンドを <code class="docutils literal notranslate"><span class="pre">{</span></code> と <code class="docutils literal notranslate"><span class="pre">}</span></code> で囲むと、そのコードは名前のない関数のように機能する&gt; (p. 186)
+本書ではこれを <strong>コマンドブロック</strong> と呼んでいる。このブロックの終了直後も、リダイレクタを置ける。</p>
+</li>
+<li><p class="first">ユーザーへのプロンプトの出し方が参考になる。下のコード片だが、<code class="docutils literal notranslate"><span class="pre">echo</span> <span class="pre">-n</span></code> で改行を抑制していることと、
+<code class="docutils literal notranslate"><span class="pre">&gt;&amp;2</span></code> で標準出力を標準エラー出力に切り替えていることがポイント。</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="o">-</span><span class="n">n</span> <span class="s1">&#39;terminal? &#39;</span> <span class="o">&gt;&amp;</span><span class="mi">2</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id32">
+<h3><a class="toc-backref" href="#id75">7.3 コマンドラインの処理</a><a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>図 7-1 の「コマンドライン処理の流れ」の要点がよくわからない。</li>
+<li>小ネタだが、<code class="docutils literal notranslate"><span class="pre">~+</span></code> と <code class="docutils literal notranslate"><span class="pre">~-</span></code> はそれぞれカレントディレクトリと、直前のディレクトリに置換されるらしい。p. 192 の脚注より。</li>
+</ul>
+<div class="section" id="command-builtin-enable">
+<h4><a class="toc-backref" href="#id76">7.3.2 command, builtin, enable</a><a class="headerlink" href="#command-builtin-enable" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>&lt;コマンドは、関数、組み込みコマンド、スクリプト、実行可能ファイルの順に検索される。この順序は、<code class="docutils literal notranslate"><span class="pre">command</span></code>, <code class="docutils literal notranslate"><span class="pre">builtin</span></code>, <code class="docutils literal notranslate"><span class="pre">enable</span></code> の 3 つの組み込みコマンドを使って、変更することができる&gt; (p. 194)<ul>
+<li><code class="docutils literal notranslate"><span class="pre">command</span></code> は組み込みコマンドと検索パス上にあるコマンドだけに実行候補を絞る。</li>
+<li><code class="docutils literal notranslate"><span class="pre">builtin</span></code> は組み込みコマンドだけ。
+<code class="docutils literal notranslate"><span class="pre">builtin</span> <span class="pre">printf</span></code> のように使う。</li>
+<li><code class="docutils literal notranslate"><span class="pre">enable</span></code> は&lt;組み込みコマンドを有効または無効にする&gt; (p. 195)<ul>
+<li><code class="docutils literal notranslate"><span class="pre">enable</span> <span class="pre">-n</span> <span class="pre">enable</span></code> で <code class="docutils literal notranslate"><span class="pre">enable</span></code> 自身を無効にできる。元に戻せない？</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>&lt;<code class="docutils literal notranslate"><span class="pre">test</span></code> という名前はプログラムに向いていないようだ&gt; (p. 196) は至言。</li>
+</ul>
+</div>
+<div class="section" id="eval">
+<h4><a class="toc-backref" href="#id77">7.3.3 eval</a><a class="headerlink" href="#eval" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">&lt;スクリプトを実行しながらコマンド文字列をその場で生成し、シェルにそれらを実行させることができる&gt; (p. 197)</p>
+</li>
+<li><p class="first">&lt;変数名の先頭のドル記号をバックスラッシュエスケープしたのは、変数の値に <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> や <code class="docutils literal notranslate"><span class="pre">|</span></code> といった特殊記号が含まれていると、思わぬ結果を招くからだ。バックスラッシュには、
+<code class="docutils literal notranslate"><span class="pre">eval</span></code> コマンド自体が実行されるまでの変数の評価を先送りするという働きがある&gt; (p. 198)</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>eval sort -nr \$1 ${2:+&quot;| head -\$2&quot;}
+
+eval &quot;$@&quot; &gt; logfile 2&gt;&amp;1 &amp;
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="note3.html" title="入門 bash 読書ノート 3/3"
+             >next</a></li>
+        <li class="right" >
+          <a href="note1.html" title="入門 bash 読書ノート 1/3"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >入門 bash 読書ノート</a> &#187;</li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>
