@@ -2,71 +2,104 @@
 読書ノート
 ======================================================================
 
-.. contents:: Table of Contents
+概要
+======================================================================
+このリポジトリーは `読書ノート <https://showa-yojyo.github.io/notebook/>`_ の原稿群だ。
+Python 製パッケージ Sphinx でビルドするための rst ファイル群で構成している。
 
-What is it?
-===========
+読者（私）向け説明
+----------------------------------------------------------------------
+これは事故か何かが私の身に起こって、
+ゼロから環境を作らなければならなくなった事態を想定して書いている。
 
-このプロジェクトは、ウェブサイト `プレハブ小屋`_ 内の同名コーナーの原稿群だ。
-Python_ 製パッケージ Sphinx_ でビルドするための rst ファイル群で構成している。
+ノート作業だけならば rst ファイルをテキストエディターで編集し続けていけばよい。
+これを HTML ファイル群に仕立てて上記 URL に配備するには、少々の手間を要する。
+以下、環境のセットアップ手順と、アップロードする手順の両方を説明する。
 
-The Latest Version
-==================
+セットアップ
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+次の三つに分けて説明する。
 
-最新版のソースコードは常に次の場所から取得できる。
-Git クライアントがあれば、最新版の原稿群を入手することもできる。
+#. ツール準備
+#. ローカルコピー作成
+#. 初回ビルド
 
-https://github.com/showa-yojyo/note
+最初にツールを説明する。
+標準的な Windows 環境で必要なツール群をザッと挙げるとこういう感じだろうか。
 
-Documentation
-=============
-プレハブ小屋サイト管理人がコツコツとったノートに過ぎない。
+Cygwin_ あるいはそれ相当
+  とにかくコンソールだ。これらのツールを多用する。
 
-Installation
-============
+  * bash
+  * make
 
-.. code:: bash
+Python_
+  最新バージョンで稼動するようにしている。今なら 3.5.0 に相当する。
 
-   $ git clone git://github.com/showa-yojyo/note.git
+Sphinx_
+  Python が使えるようになったら ``pip install sphinx`` にて依存パッケージを込みで自動的にインストールできる。
+  現在利用中の Sphinx のバージョンは 1.3.1 だ。
 
-Requirements
-------------
+Git_
+  Cygwin 版でも Windows 版でも構わないハズだが、現在は後者を用いている。
 
-* Python_ 3.4.1
+次にローカルコピーの作成手順を説明する。
+一言で言えばコマンドラインから git を用いて GitHub のサーバーからファイルをダウンロードする。
+仮にゼロからビルド環境を構築するとなると、次のことをすれば最新の状態を再現できる。
 
-  * Sphinx_ 1.2.3
+.. code:: console
 
-Compiling
----------
+   $ cd $MY_DEV_DIR
+   $ git clone https://github.com/showa-yojyo/notebook.git
+   $ cd notebook
+   $ git checkout develop
 
-.. code:: bash
+最後にビルド手順を説明する。
+ノートのビルドは ``notebook`` ディレクトリー直下で次のようにする。
+初回のみ ``git clone`` が必要であることに注意して欲しい。
 
-   $ cd note
-   $ make html
+.. code:: console
 
-``build`` ディレクトリーに HTML ファイル群ができるはずだ。
-それが最終成果物となる。
+   $ git clone -b gh-pages --single-branch https://github.com/showa-yojyo/notebook.git gh-pages
+   $ make gh-pages
 
-Bug Reporting
-=============
-色々といい加減なことを書いているのは承知している。
-何か文句があれば、下記コンタクトのいずれかの手段で私に届く。
+アップロード
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ビルドしたファイル群を GitHub のサーバーにアップロードする方法を記す。
+アップロードには次のふたつの目的がある。それぞれ手順が異なる。
+
+#. ノート本体のリポジトリーの更新
+#. ビルド成果物の更新
+
+前者は ``notebook`` ディレクトリー直下で、
+後者は ``gh-pages`` ディレクトリー直下でそれぞれ ``git push`` する。
+
+* HTML ファイル群の push は普通に行う。
+* 日常ルールではソースコードの push は ``develop`` ブランチのみに限定している。
+
+非読者（一般の皆さん）向け説明
+----------------------------------------------------------------------
+当リポジトリー内の全リソースは私個人が私個人のために記したものなので、
+誤字脱字、事実・真実に反する記述、等々の報告をいただけると私が個人的に助かる。
+しかしながら訂正作業のリクエストには応じられるとは限らないので、了承願いたい。
+申し訳ない。
 
 Licensing
-=========
-
+======================================================================
 同梱の ``LICENSE`` ファイルを参照して欲しい。
 
-Contacts
-========
+開発陣
+======================================================================
+当リポジトリーの管理人とその連絡手段の一覧を以下に記す。
 
-* `プレハブ小屋`_
+`プレハブ小屋 <https://showa-yojyo.github.io/>`_
+  当読者ノート主筆。
 
-  * Web site: https://github.com/showa-yojyo/note (GitHub)
+  * Web site: https://github.com/showa-yojyo/notebook
   * E-mail: yojyo@hotmail.com
-  * Twitter: `@showa_yojyo`_
+  * Twitter: `@showa_yojyo <https://twitter.com/showa_yojyo>`_
 
-.. _`プレハブ小屋`: https://showa-yojyo.github.io/
-.. _`@showa_yojyo`: https://twitter.com/showa_yojyo
-.. _Python: http://www.python.org/
-.. _Sphinx: http://sphinx.pocoo.org/
+.. _Python: https://www.python.org/
+.. _Sphinx: https://sphinx-doc.org/
+.. _Git: https://git-for-windows.github.io/
+.. _Cygwin: https://www.cygwin.com/

@@ -8,8 +8,8 @@ Nose 利用ノート
    * 本稿を読む前に Python_ 本体の ``unittest`` を理解しておくべし。
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_ 2.6.6, 2.7.3, 3.4.1
-     * Nose_ 1.0.0, 1.1.2, 1.3.3
+     * Python_ 2.6.6, 2.7.3, 3.4.1, 3.5.0, 3.5.2
+     * Nose_ 1.0.0, 1.1.2, 1.3.3, 1.3.7
 
    * 当ノートでは ``--verbosity`` オプションを多用しているが、
      単にノートを見返すときのわかりやすさを優先するためだけによる。
@@ -22,8 +22,8 @@ Nose_
 
 目的
 ======================================================================
-
-Nose_ 自身は、その目的をドキュメントの冒頭に <nose is nicer testing for python> や <nose extends unittest to make testing easier> と謳っている。
+Nose_ 自身は、その目的をドキュメントの冒頭に <nose is nicer testing for python> や
+<nose extends unittest to make testing easier> と謳っている。
 さらに、プログラムの狙いを次の 4 点に絞っている。
 
   #. テストコードを書くのを簡単に。
@@ -37,43 +37,14 @@ Python 標準の ``unittest`` だけで単体テストをやろうとすると�
 
 インストール
 ======================================================================
-他の Python サードパーティー製パッケージ同様に、Nose_ のインストール方法もまた複数存在する。
-最近では pip 一択になってきたので、実は特に覚え書きを残すようなトピックでもないのかもしれない。
-
-どの手順でインストールをするにせよ、インストールが成功終了後は、Python 環境は次のように変化している。
+方法については :ref:`python-pkg-proc` で図示したので、そちらを参照して欲しい。
+インストールが成功終了後は、Python 環境は次のように変化している。
 
 * ``Lib/site-packages/nose`` フォルダーが存在する。
   当然その中には py モジュールが含まれている。
 
 * ``Scripts`` フォルダーに実行ファイル :file:`nosetests` が存在する。
   特に Windows の場合、これは exe ファイルである。
-
-方法 1 -- pip 経由でインストール
-----------------------------------------------------------------------
-インターネットが利用できる環境ではいつも通りコンソールウィンドウで
-
-.. code-block:: console
-
-   $ pip nose
-
-とタイプすればよい。
-
-方法 2 -- setuptools を利用してソースからインストール
-----------------------------------------------------------------------
-まずは学校・職場・漫画喫茶等に行き、インターネットにアクセス。
-
-自宅環境に `setuptools`_ をインストールしていなかったならば、先に入手すること。
-これも持ち帰る。
-
-目的の Nose_ のコード一式（おそらく ``nose-1.0.tar.gz`` のような名前）
-を公式サイトからダウンロードして、それを USB メモリか何かに入れて持ち帰る。
-
-解凍した後、次のようにする。
-
-.. code-block:: console
-
-   $ cd nose-1.0.0
-   $ python setup.py install
 
 利用方法
 ======================================================================
@@ -94,7 +65,7 @@ Nose をインストールすると、Python パッケージだけでなく、
   モジュール名を指定したり、さらにテスト名を指定したり、
   あるいはモジュールフルパスプラステスト名という指定の仕方がサポートされているようだ。
 
-  .. code-block:: console
+  .. code:: console
 
      $ nosetests test.module
      $ nosetests another.test:TestCase.test_method
@@ -103,7 +74,7 @@ Nose をインストールすると、Python パッケージだけでなく、
 
 * ディレクトリーごと指示するやり方もある。その場合、複数パス指定が許される。
 
-  .. code-block:: console
+  .. code:: console
 
      $ nosetests /path/to/tests /another/path/to/tests
 
@@ -118,12 +89,11 @@ Nose をインストールすると、Python パッケージだけでなく、
   * 設定ファイルの書き方で注意が要るのは、設定項目を
     ``[nosetests]`` セクションに書かねばならないことだ。
 
-    .. code-block:: ini
+    .. code:: ini
 
        [nosetests]
        verbosity=2
        with-doctest=true
-       ...
 
 * テスト結果の出力書式は、標準の ``unittest`` のそれと基本的には同一。
 
@@ -136,21 +106,29 @@ collect-only オプション -- テスト名だけを調べる
 * さらに ``--with-id`` を併用し、テストのインデックスリストも得られる。
 * ``--verbosity`` オプションを併用して、テスト名等を明示させるのがコツ。
 
-.. code-block:: console
+.. code:: console
 
    $ nosetests --collect-only --with-id --verbosity=2
-   #1 testeven.test_evens(0, 0) ... ok
-   testeven.test_evens(1, 3) ... ok
-   testeven.test_evens(2, 6) ... ok
-   ---- 省略 ----
-   #2 test_choice (testrandom.TestSequenceFunctions) ... ok
-   #3 test_sample (testrandom.TestSequenceFunctions) ... ok
-   #4 test_shuffle (testrandom.TestSequenceFunctions) ... ok
-   #5 test_default_size (testwidget.WidgetTestCase) ... ok
-   #6 test_resize (testwidget.WidgetTestCase) ... ok
-   
+   #1 A regular test case ... ok
+   #2 A very slow test case ... ok
+   #3 A test with attribute ... ok
+   #4 A test with attribute specific value ... ok
+   #5 testattr.test_tags ... ok
+   #6 testattr2.test_load_all_images ... ok
+   #7 testattr2.test_download_hardcore_images ... ok
+   #8 testeven.test_evens(0, 0) ... ok
+   #8 testeven.test_evens(1, 3) ... ok
+      testeven.test_evens(2, 6) ... ok
+      testeven.test_evens(3, 9) ... ok
+      testeven.test_evens(4, 12) ... ok
+   #9 test_choice (testrandom.TestSequenceFunctions) ... ok
+   #10 test_sample (testrandom.TestSequenceFunctions) ... ok
+   #11 test_shuffle (testrandom.TestSequenceFunctions) ... ok
+   #12 test_default_size (testwidget.WidgetTestCase) ... ok
+   #13 test_resize (testwidget.WidgetTestCase) ... ok
+
    ----------------------------------------------------------------------
-   Ran 10 tests in 0.070s
+   Ran 17 tests in 0.101s
 
    OK
 
@@ -163,13 +141,13 @@ attr オプション -- 属性を指定することで起動するテストを�
 そんなときには ``--attr``, ``--eval-attr``
 オプションの仕組みをうまくテストコードに組み込む。
 
-.. literalinclude:: ../sample/nose/testattr2.py
+.. literalinclude:: /_sample/nose/testattr2.py
    :language: python3
 
-.. code-block:: console
+.. code:: console
 
-   $ nosetests -a '!online' tests.py
-   $ nosetests -A "speed != slow" tests.py
+   $ nosetests -a '!online' testattr2.py
+   $ nosetests -A "speed != slow" testattr2.py
 
 * 上のコマンドラインの実行では ``test_download_hardcore_images`` は実行されない。
 * 下のコマンドラインの実行では ``test_load_all_images`` は実行されない。
@@ -182,22 +160,27 @@ Python の pdb デバッガが起動する。
 * 通常使いたいのは ``--pdb`` ではなく ``--pdb-faillures`` のほうだと思う。
 * pdb はコンソールベースのデバッガ。正直なところ不慣れなツールだが、この際慣れておく。
 
-.. code-block:: console
+.. code:: console
 
-   $ nosetests --pdb-failures
-   .> d:\home\yojyo\note\sample\nose\testeven.py(6)check_even()
-   -> assert n % 2 == 0 or nn % 2 == 0
+   $ nosetests --pdb-failures testeven.py
+   .> d:\home\yojyo\devel\all-note\notebook\source\_sample\nose\testeven.py(13)check_even()
+   -> assert val1 % 2 == 0 or val2 % 2 == 0
    (Pdb) l
-     1     def test_evens():
-     2         for i in range(0, 5):
-     3             yield check_even, i, i*3
-     4
-     5     def check_even(n, nn):
-     6  ->     assert n % 2 == 0 or nn % 2 == 0
+     8         for i in range(0, 5):
+     9             yield check_even, i, i * 3
+    10
+    11     def check_even(val1, val2):
+    12         """Determine if either of numbers is even."""
+    13  ->     assert val1 % 2 == 0 or val2 % 2 == 0
    [EOF]
-   (Pdb) p n, n % 2, nn % 2
+   (Pdb) p val1, val1 % 2, val2 % 2
    (1, 1, 1)
    (Pdb)
+
+エラーの発生とは関係なく、特定の箇所でステップ実行を有効にする方法もある。
+まずはステップ実行したいコードを含むモジュールで
+:code:`from nose.tools import set_trace` をする。
+それから対象コードの直前で :code:`set_trace()` すればよい。
 
 with-coverage オプション -- コードカバレッジ
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -211,38 +194,38 @@ with-coverage オプション -- コードカバレッジ
 この機能を利用するには、別途 coverage_ という別のパッケージが必要だ。
 インストールは難しくないので、Nose 環境の一部とみなして導入しておくとよさそうだ。
 
-.. code-block:: console
+.. code:: console
 
    $ nosetests --with-coverage -v testrandom.py
    test_choice (testrandom.TestSequenceFunctions) ... ok
    test_sample (testrandom.TestSequenceFunctions) ... ok
    test_shuffle (testrandom.TestSequenceFunctions) ... ok
-   
+
    Name         Stmts   Miss  Cover   Missing
    ------------------------------------------
    ... この行にファイルパスの情報が入るが省略 ...
    testrandom      21      3    86%   25, 30-31
    ----------------------------------------------------------------------
    Ran 3 tests in 0.010s
-   
+
    OK
 
 with-profile オプション -- プロファイリング
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .. note::
-   
+
    筆者環境では Nose 1.3.3 でこの機能が利用できなくなっている。
 
 ``--with-profile`` オプションで、
 テストに関係した全関数に対する呼び出しの回数や時間の統計を取れる。
 いつものテスト結果を出力した直後に、プロファイル結果を出力する。
 
-.. code-block:: console
+.. code:: console
 
             4101 function calls (4084 primitive calls) in 0.201 CPU seconds
-   
+
       Ordered by: cumulative time
-   
+
       ncalls  tottime  percall  cumtime  percall filename:lineno(function)
          7/1    0.000    0.000    0.201    0.201 d:\python26\lib\site-packages\nose\suite.py:175(__call__)
          7/1    0.002    0.000    0.201    0.201 d:\python26\lib\site-packages\nose\suite.py:196(run)
@@ -266,7 +249,7 @@ with-profile オプション -- プロファイリング
 
 * ``-m REGEX`` 系オプションで「テストとみなしたいファイル・ディレクトリー・関数・クラス名にマッチする」
   正規表現を指定できる。
-  
+
   デフォルトで ``(?:^|[\b_\.\-])[Tt]est`` になっていることを押させておけばよい。
 
 * ``-p`` または ``--plugins`` オプションで、有効なプラグインの一覧を表示。
@@ -373,17 +356,17 @@ Nose のバージョンが上がってから勉強しに行こう。
 
   * Jason Pellerin という人物が作者のようだ。
     2005 年からコピーライトが発生している。
-  
+
   * Nose という名前はどうして付いたのか。
     作者は discover の同義語を類語辞書で調べたようで、
     短くてマヌケな名前で、なおかつ spy の意味を含まぬものを採用したらしい。
-    
+
     nose は動詞だとクンカクンカするとかいう意味なのでは。
-  
+
   * Nose は `py.test`_ というテスティングフレームワークにインスパイヤされて作ったとある。
     以前の py.test はインストールが難しく、
     unittest ベースでなかったとのこと。
-  
+
   * Nose のライセンスは LGPL とかいうものらしい。
     バージョン 2 以降ならば、利用者が好きなライセンスを選択してよいとか。
 
@@ -393,7 +376,7 @@ Nose のバージョンが上がってから勉強しに行こう。
     例えば Jinja2_ の ``testsuite`` フォルダーの各ファイルからテストを
     全部抽出してリストを作成できたりする。
 
-    .. code-block:: console
+    .. code:: console
 
        $ cd site-packages/jinja2/
        $ python34 -c 'import jinja2; print(jinja2.__version__)'
@@ -406,11 +389,15 @@ Nose のバージョンが上がってから勉強しに行こう。
        #5 test_finalizer (jinja2.testsuite.api.ExtendedAPITestCase) ... ok
        ... 省略 ...
        #311 test_markup_leaks (jinja2.testsuite.utils.MarkupLeakTestCase) ... ok
-       
+
        ----------------------------------------------------------------------
        Ran 311 tests in 0.139s
-       
+
        OK
+
+    .. warning::
+
+       最近の Jinja2 のインストールには ``testsuite`` フォルダーがない。
 
   * Matplotlib_ の ``tests`` フォルダーはテストパッケージの構成になっている。
     :file:`nosetests` の実験場としては面白い。
@@ -418,34 +405,38 @@ Nose のバージョンが上がってから勉強しに行こう。
   * NumPy_ は Nose をうまく使いこなしているようだ。
     ``import numpy; help(numpy.test)`` してみよう。
     テストの単位をわかりやすく分類する努力を払っているのがわかる。
-    
+
     例えば線形代数サブパッケージだけテストしたいのならば、
     Python インタープリターから次のようにタイプしてみるだけでよい。
-    
-    .. code-block:: pycon
 
-       >>> import numpy
-       >>> numpy.linalg.test(verbose=2)
+    .. code:: pycon
+
+       >>> import numpy as np
+       >>> np.linalg.test(verbose=2)
        Running unit tests for numpy.linalg
-       NumPy version 1.8.2
-       NumPy is installed in D:\Python34\lib\site-packages\numpy
-       Python version 3.4.1 (v3.4.1:c0e311e010fc, May 18 2014, 10:45:13) [MSC v.1600 64 bit (AMD64)]
-       nose version 1.3.3
+       NumPy version 1.11.1
+       NumPy relaxed strides checking option: False
+       NumPy is installed in D:\Miniconda3\lib\site-packages\numpy
+       Python version 3.5.2 |Continuum Analytics, Inc.| (default, Jul  5 2016, 11:41:13) [MSC v.1900 64 bit (AMD64)]
+       nose version 1.3.7
        test_lapack (test_build.TestF77Mismatch) ... SKIP: Skipping test: test_lapack: Skipping fortran compiler mismatch on non Linux platform
        Check mode='full' FutureWarning. ... ok
        test_linalg.TestBoolPower.test_square ... ok
        test_linalg.TestCond2.test_sq_cases ... ok
+       test_linalg.TestCond2.test_stacked_arrays_explicitly ... ok
        test_linalg.TestCondInf.test ... ok
        test_linalg.TestCondSVD.test_sq_cases ... ok
-       ... 省略 ...
-       Ticket 627. ... ok
+       test_linalg.TestCondSVD.test_stacked_arrays_explicitly ... ok
+       test_linalg.TestDet.test_sq_cases ... ok
+       ... more results ...
+       test_svd_build (test_regression.TestRegression) ... ok
        test_svd_no_uv (test_regression.TestRegression) ... ok
-       
+
        ----------------------------------------------------------------------
-       Ran 118 tests in 42.034s
-       
+       Ran 134 tests in 17.999s
+
        OK (SKIP=2)
-       <nose.result.TextTestResult run=118 errors=0 failures=0>
+       <nose.result.TextTestResult run=134 errors=0 failures=0>
 
 * 未調査項目
 
@@ -453,12 +444,8 @@ Nose のバージョンが上がってから勉強しに行こう。
   * ログ設定周りを調べていない。
   * Windows 環境ゆえ、マルチプロセステストが試せないのは残念。
 
-.. _Python: http://www.python.org/
-.. _Nose: http://somethingaboutorange.com/mrl/projects/nose/
-.. _easy_install: http://peak.telecommunity.com/DevCenter/EasyInstall
-.. _setuptools: http://peak.telecommunity.com/DevCenter/setuptools
+.. include:: /_include/python-refs-core.txt
+.. include:: /_include/python-refs-sci.txt
 .. _coverage: http://nedbatchelder.com/code/coverage
 .. _py.test: http://codespeak.net/py/current/doc/test.html
 .. _Jinja2: http://jinja.pocoo.org/
-.. _Matplotlib: http://matplotlib.sourceforge.net/
-.. _NumPy: http://scipy.org/NumPy

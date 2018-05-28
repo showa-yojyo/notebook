@@ -8,8 +8,8 @@ Pygame 利用ノート
 
    * OS
 
-     * Windows XP Home Edition SP 3
-     * Windows 7 Home Premium SP 1
+     * Windows XP Home Edition SP3
+     * Windows 7 Home Premium x64 SP1
 
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
@@ -24,13 +24,14 @@ Pygame_
 
 関連ノート
 ======================================================================
-:doc:`python-numpy`
+:doc:`python-numpy/index`
   Pygame の一部機能が Numpy_ を利用している。
 
 インストール
 ======================================================================
 事実上 Windows 環境では msi 実行による手段に限られる。
-Pygame_ のサイトのダウンロードのページから最新の msi ファイルをダウンロードして、実行するだけでよい。
+Pygame_ のサイトのダウンロードのページから最新の msi ファイルをダウンロードして、
+実行するだけでよい。
 
 Python 3.x 系や 64 ビット環境の場合は公式サイトではなく、
 `Python Extension Packages for Windows - Christoph Gohlke`_ を利用させてもらう。
@@ -39,14 +40,14 @@ Python 3.x 系や 64 ビット環境の場合は公式サイトではなく、
 ----------------------------------------------------------------------
 コンソールから次のようにタイプすると、テストを実行することになっている。
 
-.. code-block:: console
+.. code:: console
 
    $ python34 -m pygame.tests
 
 別のウィンドウがパカパカ開いたり閉じたりするが、根気よく待つ。
 すると、いつもの単体テストの結果らしきテキストがコンソールウィンドウに出力される。
 
-.. code-block:: console
+.. code:: console
 
    skipping pygame.tests._movie_test (tag 'subprocess_ignore')
    skipping pygame.tests.cdrom_test (tag 'interactive')
@@ -58,7 +59,7 @@ Python 3.x 系や 64 ビット環境の場合は公式サイトではなく、
    ... ドットが出てくる ...
    ----------------------------------------------------------------------
    Ran 678 tests in 112.678s
-   
+
    FAILED (failures=2, errors=1)
    $
 
@@ -97,9 +98,12 @@ Python 3.x 系や 64 ビット環境の場合は公式サイトではなく、
       ``ball.png`` と ``bat.png`` を自分で用意する必要があるようだが、
       実際にコードを作ってみると、ゲーム博物館に展示されていそうな古い画面が出た。
 
-      .. image:: /_static/pygame-pong.png
+      .. figure:: /_images/pygame-pong.png
+         :align: center
          :alt: Basic Pong
-         :scale: 50%
+         :width: 326px
+         :height: 265px
+         :scale: 100%
 
     * 一部コードを修正しないと動作しなかったと思うが、
       実行時にすぐに気付くし、修正も容易だったと記憶しているのでここには記さない。
@@ -121,8 +125,6 @@ PyOpenGL との連携
 
    テキスト描画できると思ったらできないので、調査意欲が失せた。
 
-.. _Python: http://www.python.org/
+.. include:: /_include/python-refs-core.txt
+.. include:: /_include/python-refs-sci.txt
 .. _Pygame: http://www.pygame.org/
-.. _Numpy: http://scipy.org/NumPy/
-.. _PyOpenGL: http://pyopengl.sourceforge.net/
-.. _Python Extension Packages for Windows - Christoph Gohlke: http://www.lfd.uci.edu/~gohlke/pythonlibs/

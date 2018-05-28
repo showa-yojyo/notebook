@@ -4,10 +4,7 @@
 
 ソフトウェア開発本として Joel 本の次に買った記憶がある。
 
-:著者: Venkat Subramaniam and Andy Hunt
-:訳者: 角谷信太郎・木下史彦
-:出版社: オーム社
-:ISBN: 978-4-274-06694-8
+.. include:: /_include/book-details/subramaniam06.txt
 
 .. contents:: ノート目次
 

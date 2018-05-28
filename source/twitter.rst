@@ -1,14 +1,19 @@
 ======================================================================
-Twitter 利用ノート
+Twitter 利用ノート [obsolete]
 ======================================================================
 棲み家にインターネット回線が引っ張れた記念に Twitter_ について調査。
 
-.. admonition:: TODO
+.. warning::
 
-   調査で利用した Twitter API のバージョン（という概念がもしあれば）
-   ここに明記する。
+   本稿は Twitter API のバージョンが 1.0 のときに書いたものであり、
+   バージョン 1.1 の API が稼働している 2014 年現在、以降の記述は概ね通用しないものとなった。
+   したがって本稿は無価値になり果てたが、何かのためにここに残しておく。
 
 .. contents:: ノート目次
+
+関連ノート
+======================================================================
+* :doc:`python-twitter/index`: こちらのノートは必要に応じて更新を続ける予定。
 
 ユーザー登録
 ======================================================================
@@ -32,18 +37,15 @@ Twitter_ のページが重くて使えたものではない。
 
 * 他にも Twitter 専用アプリが存在するようなので、暇を見て調べよう。
 
+.. warning::
+
+   Echofon_ の Windows 版は提供終了済み。
+
 Getting Started ノート
 ======================================================================
-まずは `Getting Started`_ から見ていく。
 
 Twitter for Websites
 ----------------------------------------------------------------------
-個人的にはあまり興味のない機能。
-
-* <Easily embed Twitter functionality,
-  encourage your users to share content on Twitter,
-  and increase your audience reach with Twitter for Websites> (Documentation_) だそうだ。
-
 * HTML コード片を自分の管理するウェブサイト内の HTML ファイルに記述することで、
   自分の客に見て欲しい Twitter ページへのリンクを貼ることができるようだ。
   コード片は Twitter の提供するページ `Twitter ボタン`_ で生成することができる。
@@ -55,6 +57,11 @@ Twitter for Websites
 
 Search API
 ----------------------------------------------------------------------
+.. warning::
+
+   以下は API v1.0 で通用した方法であり、v1.1 ではダメだ。
+   特に ``http://search.twitter.com/search`` が関係する技法は無効。
+
 API を勉強する前に `search-home`_ をまずは試す。
 
 ここは興味があるので、基本事項にプラスアルファを乗せたいところだ。
@@ -113,12 +120,7 @@ API を勉強する前に `search-home`_ をまずは試す。
 
 RSS 用に URL を組み立てる例
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.. admonition:: TODO
-
-   クエリーに Search Operators を含む URL を例示したい。
-   特に URL encoded 文字列である必要があることを記しておきたい。
-
-.. code-block:: text
+.. code:: text
 
    マイナーゲームのファンの傾向を知る
    http://search.twitter.com/search.atom?q=%E3%82%A4%E3%83%AB%E3%83%99%E3%83%AD&show_user=true
@@ -139,7 +141,12 @@ RSS 用に URL を組み立てる例
 
 REST API
 ----------------------------------------------------------------------
-`REST API Resources`_ を眺めていると、なんとなく応用方法が見えてくるか。
+.. warning::
+
+   以下は API v1.0 で通用した方法であり、v1.1 ではダメだ。
+   特にブラウザー一丁でリクエストうんぬんという記述は完全に無駄。
+
+`REST APIs`_ を眺めていると、なんとなく応用方法が見えてくるか。
 
 * <If you're building application that leverages core Twitter objects,
   then this is the API for you> (Documentation_) だそうなので、
@@ -147,7 +154,6 @@ REST API
   しかし、ウェブブラウザー一丁でも動作確認をすることはできるのだ。
 
 * ``http://api.twitter.com/1/COMMAND.FORMAT?param=value&...`` の形がリクエスト基本形。
-
   例えば ``GET statuses/user_timeline`` の仕様をじっくり読むと、
   ある Twitter ユーザーの最近の 20 tweets を購読するのに利用できる、
   RSS リーダーのための URL の構成方法が理解できる。
@@ -175,12 +181,9 @@ Streaming API
 ----------------------------------------------------------------------
 TBW
 
-
-
 Widgets
 ======================================================================
-ブログ等でよく見かける
-Twitter_ のミニ表示領域みたいなものは、HTML コード片で実現する。
+ブログ等でよく見かける Twitter_ のミニ表示領域みたいなものは、HTML コード片で実現する。
 
 コード片は同社サイト内にある Widgets_ ページで生成することができる。
 Twitter API のストレートな応用例と言える。
@@ -195,13 +198,13 @@ Twitter API のストレートな応用例と言える。
 * ``script`` 要素のうち ``src`` 属性付きのほうは、
   ``head`` ブロックの内側に移したい。
 
-.. _Twitter: http://twitter.com/
-.. _Documentation: https://dev.twitter.com/docs
+.. _Twitter: https://twitter.com/
+.. _Documentation: https://dev.twitter.com/overview/documentation
 .. _Getting Started: https://dev.twitter.com/start
-.. _Twitter ボタン: https://twitter.com/about/resources/buttons?tw_p=twt#follow
+.. _Twitter ボタン: https://about.twitter.com/resources/buttons#tweet
 .. _search-home: http://twitter.com/#!/search-home
 .. _Using the Twitter Search API: https://dev.twitter.com/docs/using-search
 .. _GET search: https://dev.twitter.com/docs/api/1/get/search
-.. _REST API Resources: https://dev.twitter.com/docs/api
+.. _REST APIs: https://dev.twitter.com/rest/public
 .. _Widgets: http://twitter.com/about/resources/widgets
 .. _Echofon: http://www.echofon.com/

@@ -1,8 +1,7 @@
 ======================================================================
 Another Python Graph Library (APGL) 利用ノート
 ======================================================================
-
-本稿は :doc:`python-networkx` を書くよりも昔に書いたものだ。
+本稿は :doc:`python-networkx/index` を書くよりも昔に書いたものだ。
 
 .. contents:: ノート目次
 
@@ -10,15 +9,16 @@ Another Python Graph Library (APGL) 利用ノート
 
    * OS
 
-     * Windows XP Home Edition SP 3
-     * Windows 7 Home Premium SP 1
+     * Windows XP Home Edition SP3
+     * Windows 7 Home Premium x64 SP1
+     * Windows 10 Home x64
 
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_: 2.6.6, 2.7.3, 3.4.1
-     * APGL_: 0.6.10, 0.7.1
-     * NumPy_: 1.6.1, 1.6.2, 1.8.2
-     * SciPy_: 0.10.1, 1.3.1
+     * Python_: 2.6.6, 2.7.3, 3.4.1, 3.5.0
+     * APGL_: 0.6.10, 0.7.1, 0.8.1
+     * NumPy_: 1.6.1, 1.6.2, 1.8.2, 1.10.0
+     * SciPy_: 0.10.1, 1.3.1, 0.16.0
 
 関連リンク
 ======================================================================
@@ -27,17 +27,17 @@ Another Python Graph Library (APGL) 利用ノート
 
 関連ノート
 ======================================================================
-* :doc:`python-networkx`
-* :doc:`python-numpy`
-* :doc:`python-scipy`
+* :doc:`python-networkx/index`
+* :doc:`python-numpy/index`
+* :doc:`python-scipy/index`
 
 インストール
 ======================================================================
 自分の Python_ 環境 (Windows XP) に APGL_ をインストールする方法を記す。
 単体テストが走るところまで確認できたら、インストール成功とみなす。
 
-* NumPy_ と SciPy_ で実装されているパッケージなので、これらを先にインストールしてあることを前提とする。
-  関連ノート参照。
+* NumPy_ と SciPy_ で実装されているパッケージなので、
+  これらを先にインストールしてあることを前提とする。関連ノート参照。
 
 * APGL はその他に pysparse_ というパッケージを利用する。
   ほとんどのグラフを表現するためには疎行列が欠かせないのだが、
@@ -56,7 +56,7 @@ apgl
 ----------------------------------------------------------------------
 pip_ を利用してインストールする。
 
-.. code-block:: console
+.. code:: console
 
    $ pip install apgl
 
@@ -65,16 +65,16 @@ apgl のテストを起動するのがよいだろう。
 <The automatic testing routine requires Python 2.7 or later,
 or the unittest2 testing framework for Python 2.3-2.6> (p. 2)
 
-.. code-block:: pycon
+.. code:: pycon
 
    >> import apgl
    >> apgl.test()
-   Running tests from D:\Python34\lib\site-packages\apgl
-   ... ドットの列 ...
+   Running tests from D:\Python35\lib\site-packages\apgl
+   ... more dots ...
    ----------------------------------------------------------------------
-   Ran 438 tests in 20.504s
-   
-   FAILED (failures=14, errors=26, skipped=148)
+   Ran 438 tests in 40.034s
+
+   FAILED (failures=14, errors=29, skipped=148)
    >>>
 
 どのバージョンもスキップが多すぎて不安になる事態が改善されていない。
@@ -96,11 +96,13 @@ APGL_ のウェブページに "An Introduction to APGL" という PDF ファイ
 * グラフ
 
   .. csv-table::
-     :header: "グラフクラス","格納","コメント"
+     :delim: :
+     :header: クラス, データ, コメント
+     :widths: 8, 8, 82
 
-     ``DenseGraph``,``numpy.ndarray``,
-     ``SparseGraph``,``scipy.sparse``,efficient for the storage of large graphs without many edges
-     ``PySparseGraph``,``Pysparse``,written in C and hence may be faster
+     ``DenseGraph``:``numpy.ndarray``:
+     ``SparseGraph``:``scipy.sparse``:efficient for the storage of large graphs without many edges
+     ``PySparseGraph``:``Pysparse``:written in C and hence may be faster
 
 * グラフ頂点にはラベルが付けられる。
 
@@ -113,19 +115,19 @@ APGL_ のウェブページに "An Introduction to APGL" という PDF ファイ
 
 * ``SparseGraph`` はデフォルトで SciPy の ``csr_matrix`` で構築される。
   これは何かというと、rows に対するアクセスが速い行列だ。
-  
+
   * デフォルトの行列型を使いたくない場合は、
     グラフコンストラクターのキーワード引数 ``W`` に
     呼び出し側が用意した別の行列インスタンスを渡すことになる。
-    
+
     ``csr_matrix`` よりは ``lil_matrix`` がよいようだ？
 
 * 隣接頂点列を得るには、グラフメソッド ``neighbours`` を呼ぶ。
 
 * グラフの最短経路
 
-  * Floyd-Warshall アルゴリズムは行列の最短経路 P を計算する方法だ。
-    これは計算コストがグラフ頂点数 n について O(n**3) という、たいへん重いものだ。
+  * Floyd-Warshall アルゴリズムは行列の最短経路 `P` を計算する方法だ。
+    これは計算コストがグラフ頂点数 `n` について :math:`O(n^3)` という、たいへん重いものだ。
 
   * Dijkstra のアルゴリズムに基づいたグラフメソッド ``findAllDistances`` も利用可。
     グラフの最短経路と言われれば、まずこの手法の適用可能性を検討するのが自然だろう。
@@ -155,28 +157,35 @@ APGL_ のウェブページに "An Introduction to APGL" という PDF ファイ
 利用例
 ======================================================================
 
-findAllDistances
+メソッド ``findAllDistances``
 ----------------------------------------------------------------------
-
 グラフのインスタンスメソッド ``findAllDistances`` を使ってみる。
 前述のとおり、内部で Dijkstra アルゴリズムを適用している。
 
 これは各エッジの重みを、そのエッジの長さとみなした
 グラフを構成するすべての頂点ペア最短経路における総距離を一発で計算するものだ。
 
-.. image:: /_static/apgl-findall.png
+.. _apgl-findall:
+
+.. figure:: /_images/apgl-findall.png
+   :align: center
+   :alt: 最短経路計算対象グラフ
+   :width: 387px
+   :height: 251px
    :scale: 100%
+
+   最短経路計算対象グラフ
 
 イラストのグラフの最短経路を計算するコードは次のとおり。
 
-.. literalinclude:: ../sample/apgl/dijkstra.py
+.. literalinclude:: /_sample/apgl/dijkstra.py
    :language: python3
 
 実行結果はこういう感じになる。
 行列 ``dists`` の ij 成分が、頂点 i と頂点 j を結ぶ最短経路のエッジウェイトの総和になっている。
 無向グラフの経路は ``dists[i, j] == dists[j, i]`` となる。
 
-.. code-block:: text
+.. code:: text
 
    [[  0.  10.  14.  12.  29.  33.]
     [ 10.   0.   8.  15.  19.  30.]
@@ -189,12 +198,12 @@ findAllDistances
 一般的には接続の切れているような頂点ペアに関しては、
 計算不能を示す値が来るということを記しておく。
 
-PySparseGraph
+``PySparseGraph``
 ----------------------------------------------------------------------
 
 :file:`PySparseGraph` の冒頭のインポートがおかしいので、自分で修正する。
 
-.. code-block:: python3
+.. code:: python3
 
    #from pysparse.sparse.pysparseMatrix import PysparseMatrix
    from pysparse.pysparseMatrix import PysparseMatrix
@@ -207,11 +216,8 @@ PySparseGraph
 
 NetworkX_ ではこれらは明らか。
 
-.. _Python: http://www.python.org/
-.. _Python Extension Packages for Windows - Christoph Gohlke: http://www.lfd.uci.edu/~gohlke/pythonlibs/
-.. _pip: http://pypi.python.org/pypi/pip
+.. include:: /_include/python-refs-core.txt
+.. include:: /_include/python-refs-sci.txt
 .. _`Another Python Graph Library`: http://packages.python.org/apgl/
 .. _APGL: http://packages.python.org/apgl/
-.. _Numpy: http://scipy.org/NumPy/
-.. _SciPy: http://www.scipy.org/
 .. _NetworkX: https://networkx.github.io/

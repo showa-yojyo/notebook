@@ -1,7 +1,6 @@
 ======================================================================
 Pillow 利用ノート
 ======================================================================
-
 Python で画像処理といえば、長い間 PIL_ が活躍していた。
 だがここ最近は Pillow_ というフォークパッケージが主流になっているらしい。
 とある別の作図パッケージのアップグレードの際に、
@@ -9,19 +8,23 @@ Python で画像処理といえば、長い間 PIL_ が活躍していた。
 
 そこで、本稿では Pillow の導入方法と、既存の PIL 利用コードの移行手順について記す。
 なお、PyOpenGL や Pygame との連携で PIL を利用していた既存コードのそれについては、
-各ノートにて言及していく（現在執筆中）。
+各ノートにて言及していく。
 
 .. contents:: ノート目次
 
 .. note::
 
-   * OS: Windows 7 Home Premium SP 1
+   * OS
+
+     * Windows 7 Home Premium x64 SP1
+     * Windows 10 Home x64
+
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_: 3.4.1
-     * Pillow_: 2.5.1
+     * Python_: 3.4.1, 3.5.0, 3.5.2
+     * Pillow_: 2.5.1, 2.8.1, 3.0.0, 3.2.0
 
-関連リンクおよび参考サイト
+関連リンク
 ======================================================================
 Pillow_
   公式パッケージ・インストーラー配布元。
@@ -29,104 +32,190 @@ Pillow_
 `Python Extension Packages for Windows - Christoph Gohlke`_
   非公式インストーラー配布元。
 
+関連ノート
+======================================================================
+:doc:`/python-pyopengl/index`
+  Pillow はテクスチャーデータを生成するのに大いに有用だ。
+
 インストール
 ======================================================================
-筆者の場合は Windows 7 64 ビットなので、上記非公式インストーラーを利用する。
-本稿執筆時は :file:`Pillow-2.5.1.win-amd64-py3.4.exe` を利用した。
-
-それ以外の環境についてはいつもの ``pip install pillow`` で問題あるまい。
+:ref:`python-pkg-proc` の方針に従ってインストールする。
 
 ちなみに PIL が既に環境に居座っている場合は、Pillow をインストールする前に
 PIL をアンインストールする必要があるようだ。
 公式サイトの Installation ページに PIL と Pillow が共存できない旨が明記されている。
 
+アップグレード
+----------------------------------------------------------------------
+Anaconda_ または Miniconda_ で Python 環境を管理しているのであれば、
+コマンドラインで Pillow をアップグレードすることは容易い。
+単に :code:`conda update Pillow` と入力するだけでよい。
+
+それ以外の環境では pip_ を用いることになる。
+
+バージョン確認
+----------------------------------------------------------------------
+Anaconda_ または Miniconda_ で Python 環境を管理していて、
+コマンドラインで作業をしているならば、次のように :program:`conda` ツールを用いる。
+
+.. code:: console
+
+   $ conda list Pillow
+   # packages in environment at D:\Miniconda3:
+   #
+   pillow                    3.2.0                    py35_1
+
+Python インタラクティブシェル（長いので、以下単にインタープリターと書く）
+でインストール直後の Pillow のバージョンを確認するならば次のようにする。
+
+>>> import PIL
+>>> PIL.VERSION
+'1.1.7'
+>>> PIL.PILLOW_VERSION
+'3.0.0'
+
 ドキュメント
 ======================================================================
-まずは Pillow_ 公式サイトの Guides を見たが、どうも PIL コードがそのまま使える雰囲気だ。
-この後、昔のコードを引っ張りだして Pillow に与えて検証していこう。
+まずは Pillow_ 公式サイトの Guides を一読するとよい。
+それほどしっかりと読み込む必要はなく、使えそうな機能だけをつまみ読みでよい。
 
 画像処理基本
 ======================================================================
-:doc:`python-pil` で試したコードがそのまま再利用できるかどうかを検証した。
+ここでは基本モジュール ``Image`` のクラスと関数を利用した、
+初歩的な画像処理の実例をいくつか挙げる。
+
+以下の説明で、単にメソッドという用語が現れる場合は、クラス ``Image`` のメソッドの意である。
+また、次のイメージを各操作デモの原像として多用している。
+
+.. figure:: /_images/illvelo.png
+   :align: center
+   :alt: イルベロ
+   :width: 256px
+   :height: 252px
+   :scale: 50%
 
 画像ファイルフォーマット変換（単発）
 ----------------------------------------------------------------------
-GIF 画像ファイル :file:`image.gif` を PNG 形式に変換して、ファイル :file:`image.png` として保存するコードを再掲する。
+GIF 画像ファイル :file:`image.gif` を PNG 形式に変換して、
+ファイル :file:`image.png` として保存するコードを示す。
 
->>> import Image
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-ImportError: No module named 'Image'
 >>> from PIL import Image
 >>> im = Image.open("image.gif")
 >>> im.save("image.png")
 
-Pillow では ``from PIL import Image`` としてインポートする必要がある。他のモジュールも同様。
+* 関数 ``open`` に画像ファイルパスを渡すと、画像オブジェクトが生成する。
+* メソッド ``save`` で画像ファイルをファイルシステム上に作成する。
+
+  * 上のコードのようにファイルパスだけを指定する場合、
+    ファイルの画像フォーマットは拡張子に基づいて Pillow が決定する。
+
+  * 拡張子に頼らずに画像フォーマットを指定する場合は、
+    キーワード引数 ``format`` から文字列により指定できる。
 
 画像ファイルフォーマット変換（バッチ処理）
 ----------------------------------------------------------------------
 カレントディレクトリー内の GIF ファイルを PNG ファイルに変換、保存する処理のコードはこうなる。
 
-.. code-block:: python3
+.. literalinclude:: /_sample/pillow/batch.py
+   :language: python3
 
-   import os.path
-   import glob
-   from PIL import Image
+* ちなみに、自分でわざわざ上のようなコードを用意する必要はほぼないだろう。後述するように、
+  Python の Scripts ディレクトリーにインストールされている :file:`pilconvert.py` を使う手がある。
 
-   for infile in glob.glob("*.gif"):
-       file, ext = os.path.splitext(infile)
-       im = Image.open(infile)
-       im.save(file + ".png")
+* 公式サイトのドキュメントでは、同様の方式によるサムネイル画像ファイルを一括作成する例が紹介されている。
+  メソッド ``open`` と ``save`` の呼び出しの間にメソッド ``thumbnail`` 呼び出しをはさむとそうなる。
 
-なんと :file:`pilconvert.py` を使う手も封じられていない。
-Python の Scripts ディレクトリーに一連のスクリプト群がインストールされている。
+Pillow がサポートする画像フォーマットを知る
+----------------------------------------------------------------------
+Pillow のインストールディレクトリーで :code:`grep Image.register_ *.py` するとよい。
+
+画像データをバイト配列として扱う
+----------------------------------------------------------------------
+画像データをバイト配列として扱うには、メソッド ``tobytes`` を用いる。
+PyOpenGL のプログラムで画像ファイルからテクスチャーを生成する際に必須の方法だ。
+
+* 戻り値として ``bytes`` オブジェクトが得られる。
+
+* メモリレイアウトはキーワード引数 ``encoder_name`` で指定できるが、生のままでよい。
+  例えば透過 PNG ファイルから ``Image`` オブジェクトを生成したときは、
+  ``tobytes`` は RGBARGBA... のようなデータ構造になる。
+
+* 旧メソッド名は ``tostring`` だったが、現在 deprecated となっている。
+  昔のコードを再利用するときに置換しておこう。
 
 簡易ビューワー
 ----------------------------------------------------------------------
-PIL と同様にして、メソッド ``show`` を利用することができる。
+インタープリターで Pillow を試しているときに、
+クラス ``Image`` のオブジェクトをビューワーで確認したくなることがよくある。
+メソッド ``show`` はこういう場合に利用するのに相応しい。
 
+>>> im = Image.open(...)
 >>> ...
->>> im = Image.open("image.gif")
 >>> im.show()
 
 筆者の環境では Windows のフォトビューワーが起動して、画像の内容が表示された。
 
+* オブジェクトが既存のファイルから得られたものでない場合にも通用する。
+
+* ドキュメントによると、このメソッドは効率が悪いらしい。
+  場合によってはオブジェクトをファイルに保存しつつ、
+  再読み込み機能がある画像ビューワーを開いたままにして、
+  デバッグ作業するのもありか。
+
 ジャギー解消
 ----------------------------------------------------------------------
-TBW
+メソッド ``resize`` や ``thumbnail`` を利用するのならば、
+キーワード引数 ``resample`` の実引数をデフォルトの
+``Image.NEAREST`` 以外の値にすることを検討するとよい。
+
+* ``Image.ANTIALIAS`` はドキュメントからは消えているが、単に ``Image.LANCZOS`` の別名である。
 
 イメージモノクロ化
 ----------------------------------------------------------------------
-:doc:`python-pil` ではコードを載せるのを忘れていた。
-PIL 同様、メソッド ``convert`` を引数 ``"L"`` で呼び出す。
+.. figure:: /_images/pillow-illvelo-monochrome.png
+   :align: center
+   :alt: イルベロ
+   :width: 256px
+   :height: 252px
+   :scale: 50%
+
+メソッド ``convert`` を引数 ``"L"`` で呼び出す。
+各ピクセルの RGB 値を次の式でグレースケール化してモノクロ化するようだ。
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   L = \frac{299}{1000} R + \frac{587}{1000} G + \frac{114}{1000} B
+   \end{align*}
 
 >>> ...
 >>> im = Image.open("illvelo.png")
->>> im.convert("L").save("illvelo-monochrome.png")
-
-元画像と処理後の画像は次のようになる。
-
-.. image:: /_static/illvelo.png
-   :scale: 50%
-.. image:: /_static/illvelo-monochrome.png
-   :scale: 50%
+>>> im.convert("L")
 
 画像生成
 ----------------------------------------------------------------------
-PIL 同様、メソッド ``Image.new`` を利用することができる。
+ゼロから画像オブジェクトを生成するのに、関数 ``Image.new`` を利用することができる。
 
->>> # 1024 x 768 の RGB イメージを初期化する。
 >>> from PIL import Image
 >>> img = Image.new('RGB', (1024, 768))
 
-結果画像の掲載を割愛する。
+* 引数 ``mode`` でよく指定する値は ``'RGB'`` か ``'RGBA'`` のどちらかになる。
+* 引数 ``size`` は画素単位の画像サイズ。幅、高さの順に要素が並ぶ ``tuple`` オブジェクトで指定する。
+* キーワード引数 ``color`` でいわゆる背景色を指定できる。デフォルトは黒。
 
-色名指定
+色の表現
+======================================================================
+Pillow はコードでの色の表現手段を多数サポートしている。
+詳しくはモジュール ``ImageColor`` の内容を見るとよい。
+
+色名による色指定
 ----------------------------------------------------------------------
-PIL 同様、Pillow のメソッドで色を引数に取るものについては、
-``ImageColor`` モジュールで決められている色名で指定することもできる。
+Pillow のメソッドで色を引数に取るものについては、
+色成分を列挙した ``list`` や ``tuple`` だけでなく、
+モジュール ``ImageColor`` で決められている色名で指定することもできる。
+色名の型はプログラマーにやさしい形式、つまり文字列である。
 
->>> # RGB イメージを濃いピンクで初期化する。
 >>> from PIL import Image
 >>> img = Image.new('RGB', (1024, 768), 'deeppink')
 
@@ -134,289 +223,269 @@ PIL 同様、Pillow のメソッドで色を引数に取るものについては
 興味があれば列挙してみるとよい。
 
 >>> from PIL import ImageColor
->>> for i in sorted(ImageColor.colormap.items()): print(i)
+>>> for i in sorted(ImageColor.colormap.items()):
+>>>     print(i)
 ...
 ('aliceblue', '#f0f8ff')
 ('antiquewhite', '#faebd7')
 ('aqua', '#00ffff')
-... 略 ...
-('yellowgreen', '#9acd32')
->>>
 
-結果画像の掲載を割愛する。
+後半略。全部で 147 項目あるのでかなり長い。
 
-透過イメージ生成
+色名から RGB 値に変換する
 ----------------------------------------------------------------------
-PIL 同様。4 つ目の 0 がアルファー値であり、上限値の 0xFF に近いほど透過度が低くなる。
+関数 ``ImageColor.getrgb`` を利用するほうが早い。
+
+>>> from PIL.ImageColor import getrgb
+>>> getrgb('deeppink')
+(255, 20, 147)
+
+PyOpenGL プログラムなどで A 値も欲しい場合は関数 ``getcolor`` を用いるという手もある。
+このとき引数 ``mode`` の明示的な指定を必要とする。
+
+>>> from PIL.ImageColor import getcolor
+>>> getcolor('deeppink', 'RGBA')
+(255, 20, 147, 255)
+
+透過
+======================================================================
+
+透過画像生成
+----------------------------------------------------------------------
+関数 ``new`` で生成する画像オブジェクトを透過対応する方法は、
+引数 ``mode`` を ``'RGBA'`` にすることだ。
+
+さらに、引数 ``color`` を、例えば 4 成分の array-like オブジェクトを渡すとしよう。
+この場合 ``color[0:3]`` はそれぞれ今までどおり R, G, B 値を指定する。
+さらなる成分 ``color[3]`` はアルファー値といい、アルファベットの A で示す。
+この A 値は下限値の 0 が完全透明を意味し、上限値の 0xFF は完全不透明を意味する
+（ところで英語には opaque という単語があるが、日本語だと否定形で表現するしかなさそうだ）。
+その中間の値は、まあまあ透明という意味だ。
+実際はアルファブレンディングという手法で最終的な RGB 色を決定するための値である。
 
 >>> img = Image.new('RGBA', (1024, 768), (0, 0, 0, 0))
 
-結果画像の掲載を割愛する。
+このようにすると、真っ黒だが透明という画像オブジェクト ``img`` が生成する。
 
 アルファチャンネルを持つ PNG 画像を青地背景上に重ねたい
 ----------------------------------------------------------------------
-PIL のときのコードをほぼそのまま再利用できる。
+要するに、透過ピクセルを含む画像をブルーバックの画像の上に乗せると思って欲しい。
 
-.. code-block:: python3
+.. literalinclude:: /_sample/pillow/alphapaste.py
+   :language: python3
 
-   from PIL import Image
-   
-   # Photoshop で言うところのレイヤー 1 に置く画像。
-   img = Image.open('illvelo.png')
-   bands = img.split()
-
-   # R, G, B, A の A だけが要る。
-   alpha = bands[3]
-
-   # Photoshop で言うところの背景レイヤーになる画像。
-   bkgnd = Image.new('RGBA', img.size, 'blue')
-   
-   # これではダメ。
-   #bkgnd.paste(img, None)
-   # これが正解。
-   bkgnd.paste(img, None, mask=alpha)
+いちばん楽なのは関数 ``alpha_composite`` を用いることだ。
+自分でメソッド ``split`` を呼んでバンドオブジェクトを用意したり、
+マスクを指定して関数 ``paste`` を呼ばずに済む。
 
 元画像と処理後の画像はこうなる。
+ここで、元画像のキャラクターの輪郭の外側は完全透明色、内側領域は完全不透明色である。
 
-.. image:: /_static/illvelo.png
-   :scale: 50%
-.. image:: /_static/illvelo-blueback.png
+.. figure:: /_images/pillow-illvelo-blueback.png
+   :align: center
+   :alt: イルベロ
+   :width: 256px
+   :height: 252px
    :scale: 50%
 
 グラデーション
 ======================================================================
+Pillow は直接的にはグラデーションをサポートしていなそうなので、描きたいときは自作する。
+ここではグラデーションパターンの生成について、いくつかコツを記す。
 
 線形グラデーション（透過なし）
 ----------------------------------------------------------------------
-幅 1 x 256 ピクセルのイメージを作成し、ピクセルカラーをその位置に応じてセットしていく方針で絵を描く。
-まずは ``putpixel`` メソッドを利用してこれを行い、それから目的のサイズにイメージを拡縮する。
+.. figure:: /_images/pillow-gradient-opaque.png
+   :align: center
+   :alt: 線形グラデーション（透過なし）
+   :width: 320px
+   :height: 240px
+   :scale: 50%
 
-次に示すコードは、サイズが 320 x 240 で、
+幅 :math:`1 \times 256` ピクセルのイメージを作成し、
+ピクセルカラーをその位置に応じてセットしていく方針で絵を描く。
+まずは ``putpixel`` メソッドを利用してこれを行い、
+それから目的のサイズにイメージを拡縮する。
+
+次に示すコードは、サイズが :math:`320 \times 240` で、
 上部が赤で下部が青の線形グラデーションとなるイメージを作成する。
-線形補間の計算コード記述の手間を少々省くため、NumPy を利用した。
 
-.. code-block:: python3
+.. literalinclude:: /_sample/pillow/gradient1.py
+   :language: python3
 
-   from PIL import Image, ImageColor
-   import numpy as np
-   
-   COLOR_START = ImageColor.getrgb('antiquewhite')
-   COLOR_STOP = ImageColor.getrgb('deeppink')
-   IMAGE_WIDTH, IMAGE_HEIGHT = 320, 240
-   WORK_SIZE = 0x100
-   R, G, B = 0, 1, 2
-   
-   img = Image.new('RGB', (1, WORK_SIZE))
-   colors = np.dstack(
-       (np.linspace(COLOR_START[i], COLOR_STOP[i], num=SIZE) for i in (R, G, B)))[0]
-   
-   for i, color in enumerate(colors):
-       img.putpixel((0, i), tuple(color.astype(int).tolist()))
-   
-   img = img.resize((IMAGE_WIDTH, IMAGE_HEIGHT))
-   #img.save('gradient1.png')
-
-結果画像の掲載を割愛する。
+* 線形補間の計算コード記述の手間を少々省くため、NumPy_ の関数 ``linspace`` を利用した。
 
 線形グラデーション（単色にグレースケール透過）
 ----------------------------------------------------------------------
-``putalpha`` 利用版グラデーション。
+.. figure:: /_images/pillow-gradient-greyscale.png
+   :align: center
+   :alt: 線形グラデーション（単色にグレースケール透過）
+   :width: 320px
+   :height: 240px
+   :scale: 50%
 
-.. code-block:: python3
+メソッド ``putalpha`` 利用版グラデーション。
 
-   from PIL import Image
-
-   BASE_COLOR = 'red'
-   IMAGE_WIDTH, IMAGE_HEIGHT = 320, 240
-   WORK_SIZE = 0x100
-
-   img = Image.new('RGBA', (IMAGE_WIDTH, IMAGE_HEIGHT), BASE_COLOR)
-   gradient = Image.new('L', (1, WORK_SIZE))
-
-   for i in range(WORK_SIZE):
-       gradient.putpixel((0, WORK_SIZE - i), i)
-
-   img.putalpha(gradient.resize(img.size))
-   #img.save('gradient2.png')
+.. literalinclude:: /_sample/pillow/gradient2.py
+   :language: python3
 
 出力は上部が赤で、下部に至るにつれて透過していく線形グラデーションイメージとなる。
-結果画像の掲載を割愛する。
 
 線形グラデーション（さらなる応用）
 ----------------------------------------------------------------------
+.. figure:: /_images/pillow-illvelo-gradient.png
+   :align: center
+   :alt: イルベロ
+   :width: 256px
+   :height: 252px
+   :scale: 50%
+
 イメージ 3 枚重ね。
 
-.. code-block:: python3
+.. literalinclude:: /_sample/pillow/gradient3.py
+   :language: python3
 
-   from PIL import Image, ImageColor
-
-   WORK_SIZE = 0x100
-   
-   img = Image.open('illvelo.png')
-   assert img.mode == 'RGBA'
-   
-   gradient = Image.new('L', (1, WORK_SIZE))
-   for i in range(WORK_SIZE):
-       gradient.putpixel((0, i), i)
-   
-   alpha = gradient.resize(img.size, Image.ANTIALIAS)
-   
-   final = Image.new('RGBA', img.size, (0, 0, 0, 0))
-   final.paste(img, None, mask=alpha)
-   #final.save('illvelo-gradient.png')
-
-元画像と処理後の画像はこうなる。
-
-.. image:: /_static/illvelo.png
+放射状グラデーション
+----------------------------------------------------------------------
+.. figure:: /_images/pillow-gradient-radial.png
+   :align: center
+   :alt: 放射状グラデーション
+   :width: 256px
+   :height: 256px
    :scale: 50%
-.. image:: /_static/illvelo-gradient.png
-   :scale: 50%
+
+放射状のグラデーションを実現する例を示す。
+
+.. literalinclude:: /_sample/pillow/gradient4.py
+   :language: python3
+
+クラス ``ImageDraw.Draw`` のメソッド ``ellipse`` をバウムクーヘン方式に描画する。
+バウムクーヘンを外側から内側に向かって、少しずつ色を変えて塗れば、
+遠目からはグラデーションのように見えるだろう。
+
+* RGB 値の算出に ``np.linspace`` を用いるのは、前述の方法論による。
+* 楕円の形状指定方法は、そのバウンディングボックスを与えることによる。
+  そして、ボックスの形状指定方法は、その左上頂点座標と右下頂点座標を与えることによる。
 
 テキスト
 ======================================================================
+テキストを画像として動的に生成する方法を見ていこう。
+ここでインポートする Pillow のモジュールは ``Image`` のほかにも
+``ImageDraw`` と ``ImageFont`` がある。
 
 Hello, world
 ----------------------------------------------------------------------
+.. figure:: /_images/pillow-hello-world.png
+   :align: center
+   :alt: Hello, world
+   :width: 96px
+   :height: 24px
+   :scale: 100%
 
-.. code-block:: python3
+.. literalinclude:: /_sample/pillow/text1.py
+   :language: python3
 
-   from PIL import Image, ImageDraw
-   
-   IMAGE_WIDTH, IMAGE_HEIGHT = 320, 240
-   TEXT_COLOR = 'red'
-   
-   # デフォルト背景色のキャンヴァスを用意する。
-   img = Image.new('RGBA', (IMAGE_WIDTH, IMAGE_HEIGHT))
-   
-   # Draw 関数でオブジェクトを作成。
-   draw = ImageDraw.Draw(img)
-   
-   # 画面の左上隅にテキストを描画する。
-   draw.text((0, 0), 'Hello, world', fill=TEXT_COLOR)
-   #img.show()
+上のコードを動作させると、黒地に白い字で ``Hello, world`` と書かれた画像が生成する。
+これだけだとかなり不満がある。
 
-結果画像の掲載を割愛する。
-上のコードのとおりに動作させると、黒地に赤字の ``Hello, world`` が見える。
+* テキストのサイズ等の情報が事前に予測不可能。
+* フォントを指定したい。
 
 日本語テキスト
 ----------------------------------------------------------------------
+.. figure:: /_images/pillow-karous-paradise.png
+   :align: center
+   :alt: カラス出会い系メールの文面
+   :width: 423px
+   :height: 144px
+   :scale: 100%
+
 コツは 3 つある。
 
 * 関数 ``ImageFont.truetype`` で日本語対応のフォントオブジェクトを作成する。
 * その際に ``encoding`` 引数に適切なエンコーディングを指示する。
 * ``text`` メソッドの引数にそのフォントを与える。
 
-.. code-block:: python3
+.. literalinclude:: /_sample/pillow/text2.py
+   :language: python3
 
-   from PIL import Image
-   from PIL import ImageDraw
-   from PIL import ImageFont
-   
-   img = Image.new('RGB', (1024, 256), 'black')
-   dr = ImageDraw.Draw(img)
-   fnt = ImageFont.truetype('hgrme.ttc', 24, encoding='utf-8')
-   
-   text = '''どうしても会ってもらえませんか？
-   私はこんなにあなたに会いたいのに…。
-   お金には余裕があるので心配しないで
-   ください。
-   コード780の1102番で、
-   あなたを待っています。
-   '''
-   
-   width = 0
-   height = 0
-   for line in text.splitlines():
-       ext = dr.textsize(line, fnt)
-       dr.text((0, height), line, font=fnt, fill='white')
-       width = max(ext[0], width)
-       height += ext[1]
-   
-   # 余白をトリムする。
-   img = img.crop((0, 0, width, height))
-   img.show()
-   #img.save('karous-paradise.png')
-
-処理後の画像はこうなる。PIL のときと同一のように見える。
-出力イメージの大きさはテキストにフィットする最小の矩形になるはずだ。
-
-.. image:: /_static/karous-paradise.png
+トリム処理を加えることで、出力画像の大きさはテキストにフィットする最小の矩形になるはずだ。
 
 応用
 ======================================================================
+少し手間をかけて、画像を加工することを試そう。
 
 スクリーンショット
 ----------------------------------------------------------------------
-スクリーンショット取得機能が Windows のみ対応なのは PIL も Pillow も同じようだ。
-
-.. code-block:: python3
-
-   from PIL import Image, ImageGrab
-   
-   # スクリーンショットをキャプチャーして
-   img = ImageGrab.grab()
-   # テキトーに縮小、表示する。
-   img.thumbnail((256, 256), Image.ANTIALIAS)
-   img.show()
-
-処理後の画像の一例を掲載する。
-
-.. image:: /_static/grab.png
+.. figure:: /_images/pillow-grab.png
+   :align: center
+   :alt: スクリーンキャプチャー
+   :width: 256px
+   :height: 143px
    :scale: 100%
+
+モジュール ``ImageGrab`` を用いると、画面イメージキャプチャーが得られる。
+このスクリーンショット取得機能は Pillow の Windows 版にだけある。
+
+.. literalinclude:: /_sample/pillow/grabdemo.py
+   :language: python3
 
 上下左右ループ壁紙パターン生成
 ----------------------------------------------------------------------
-* 元画像を 2 x 2 分割して対角線上の区域を入れ替える。
-* そこへ元画像をブレンドなりオーバーレイなりして重ね合わせる。
-* 左右方向ループのための区域入れ替えの処理は、pil-handbook 参照。
-
-.. code-block:: python3
-
-   # Example: Rolling an image を改造
-   def roll_horz(image, delta):
-       xsize, ysize = image.size
-
-       delta = delta % xsize
-       if delta == 0: return image
-
-       part1 = image.crop((0, 0, delta, ysize))
-       part2 = image.crop((delta, 0, xsize, ysize))
-       image.paste(part2, (0, 0, xsize-delta, ysize))
-       image.paste(part1, (xsize-delta, 0, xsize, ysize))
-       return image
-
-元画像と処理後の画像はこうなる。
-
-.. image:: /_static/illvelo.png
-   :scale: 50%
-.. image:: /_static/illvelo-wallpaper.png
+.. figure:: /_images/pillow-illvelo-wallpaper.png
+   :align: center
+   :alt: イルベロ
+   :width: 256px
+   :height: 252px
    :scale: 50%
 
-モジュール ImageDraw2
-----------------------------------------------------------------------
-TBW
+気がついたら Pillow のドキュメントにこの技法が載っていたが、
+ここでは少々凝ったやり方で壁紙の繰り返し単位部分を生成する。
 
-モジュール ImageGL
-----------------------------------------------------------------------
-TBW
+#. 元画像を :math:`2 \times 2` 分割して対角線上の区域を入れ替える。
+#. そこへ元画像をブレンドなりオーバーレイなりして重ね合わせる。
 
-モジュール ImagePath
+スクリプトのリポジトリーを移転したので、次のリンク先を参照。
+`pattern.py <https://github.com/showa-yojyo/sketchbook/blob/develop/tools/pattern.py>`_
+
+モジュール ``ImagePath``
 ----------------------------------------------------------------------
-TBW
+これはユーザーが直接利用するのではなさそうなので使うのをやめた。
+
+モジュール ``ImagePath`` は、ドキュメントがないモジュール ``ImageDraw2`` の描画機能（点列のアフィン変換）のために、
+補助データ構造を提供するもののようだ。
 
 コマンドラインユーティリティー
 ======================================================================
-PIL と同じスクリプトファイル群が Pillow のインストール時も :file:`Scripts` フォルダーに格納される。
+Pillow をインストールすると、パッケージの他に一連のスクリプトファイル群が
+Python ディレクトリーの :file:`Scripts` フォルダーに格納される。
+これらのスクリプトは Pillow の機能を応用した、
+画像操作のためのささやかなコマンドラインユーティリティーだ。
+
+.. csv-table::
+   :header: スクリプト, 何をするのか
+   :delim: @
+   :widths: 8, 92
+
+   :file:`pilconvert.py`@画像ファイルの画像フォーマットや色モードを変換する。
+   :file:`pildriver.py`@画像ファイルの画像の操作をする。対話モードあり。
+   :file:`pilfile.py`@画像ファイルの鑑定をする。
+   :file:`pilfont.py`@フォントファイルを PIL のラスターフォントフォーマットに変換する。
+   :file:`pilprint.py`@画像ファイルを PostScript プリンターに出力する。うまく動かない？
 
 フォーマット変換
 ----------------------------------------------------------------------
 コマンドラインで :file:`pilconvert.py` を利用する。
+例えば ``sample.gif`` から PNG 形式のファイル ``sample.png`` を作成するには次のように入力する。
 
-.. code-block:: console
+.. code:: console
 
    $ pilconvert.py sample.gif sample.png
 
-.. code-block:: console
+カレントディレクトリーのすべての GIF ファイルから PNG ファイルに変換したいならばこうなる。
+ちなみにシェルは bash である。
+
+.. code:: console
 
    $ for name in *.gif ; do \
    >   pilconvert.py $name ${name%.*}.png ; \
@@ -427,7 +496,7 @@ PIL と同じスクリプトファイル群が Pillow のインストール時�
 コマンドラインで :file:`pildriver.py` を利用する。
 以前にも記したが、バッチモードとインタラクティブモードがある。
 
-.. code-block:: console
+.. code:: console
 
    $ pildriver.py
    PILDriver says hello.
@@ -439,7 +508,6 @@ PIL と同じスクリプトファイル群が Pillow のインストール時�
    []
    pildriver>
 
-.. _Python: http://www.python.org/
-.. _Python Extension Packages for Windows - Christoph Gohlke: http://www.lfd.uci.edu/~gohlke/pythonlibs/
-.. _PIL: http://www.pythonware.com/products/pil
-.. _Pillow: https://pillow.readthedocs.org/en/latest/
+.. include:: /_include/python-refs-core.txt
+.. include:: /_include/python-refs-sci.txt
+.. include:: /_include/python-refs-vision.txt

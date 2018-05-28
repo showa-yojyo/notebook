@@ -1,43 +1,17 @@
-{% extends "basic/layout.html" %}
-{% set script_files = ["_static/twitter-button.js"] %}
+{% extends "classic/layout.html" %}
+{% set script_files = [
+    "_static/mathjaxconf.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML",
+]%}
 
 {%- block footer %}
     <div id="footer">
       <div id="footer_logo">
-        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png" width="88" height="31" /></a>
-      </div>
-      <div id="footer_share">
-        <a href="https://twitter.com/share" class="twitter-share-button" data-size="large">Tweet</a>
-        <script type="text/javascript">render_twitter_button(document, 'script', 'twitter-wjs')</script>
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="{{ pathto('_static/logos.png', 1) }}" width="88" height="31" /></a>
       </div>
       <div id="footer_copyright">
         Since 1999<br />
         Copyright &copy; {{ copyright }}
       </div>
-      {%- if last_updated %}
-      <div id="footer_spacer">
-        <p>
-          {% trans last_updated=last_updated|e %}Last updated at {{ last_updated }}.{% endtrans %}
-        </p>
-      </div>
-      {%- endif %}
     </div>
 {%- endblock %}
-
-{%- macro relbar5() %}
-    <div class="related">
-      <h3>{{ _('Navigation') }}</h3>
-      <ul>
-        {%- block rootrellink %}
-        <li><a href="{{ pathto(master_doc) }}">{{ shorttitle|e }}</a>{{ reldelim1 }}</li>
-        {%- endblock %}
-        {%- for parent in parents %}
-          <li><a href="{{ parent.link|e }}" {% if loop.last %}{{ accesskey("U") }}{% endif %}>{{ parent.title }}</a>{{ reldelim1 }}</li>
-        {%- endfor %}
-        {%- block relbaritems %} {% endblock %}
-      </ul>
-    </div>
-{%- endmacro %}
-
-{%- block relbar1 %}{{ relbar5() }}{% endblock %}
-{%- block relbar2 %}{{ relbar5() }}{% endblock %}

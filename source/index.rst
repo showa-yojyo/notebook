@@ -7,50 +7,89 @@
 * 読書ノートで扱う書物は、身銭を切って入手したものに限定すること。
 * 技術ノートは極力主観的な記述を心がけること。
 * たまに変な主題についてノートを作ること。
-* 作業ファイルはレポジトリー (https://github.com/showa-yojyo/note) にアップロードすること。
+* 作業ファイルはレポジトリー (https://github.com/showa-yojyo/notebook) にアップロードすること。
+* 作業手順については `README <https://github.com/showa-yojyo/notebook/blob/develop/README.rst>`_ を参照すること。
 
 Contents:
 
 .. toctree::
    :maxdepth: 1
 
-   gamma95
-   hunt00
+   mathseminar72
+   gamma95/index
+   hunt00/index
    sutter00
-   alexandrescu01
+   alexandrescu01/index
    meyers01
    sutter02
-   joel04
+   joel04/index
    graham04
-   angel05
-   yamamoto05
-   newham05
+   angel05/index
+   yamamoto05/index
+   newham05/index
+   tsuboi05/index
    subramaniam06
-   hosoda10
+   asaoka06
+   tsuboi08/index
+   loeliger09
+   griffiths10
+   hosoda10/index
+   nishiyama12/index
+   omg15/index
+   stepanov15
+   saha16
+   slatkin16
+   guntheroth16
+   speinellis17
 
+.. toctree::
+   :maxdepth: 1
+
+   preliminary2014
+   preliminary2015
+   preliminary2016
+   preliminary2017
+   preliminary2018
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   python-3.*
    python-pip
    python-pylint
+   python-docutils/index
+   python-restview
    python-nose
-   python-numpy
-   python-scipy
+   python-ipython
+   python-jupyter
+   python-numpy/index
+   python-scipy/index
+   python-sympy/index
    python-apgl
    python-pil
    python-pillow
-   python-matplotlib
-   python-networkx
+   python-matplotlib/index
+   python-networkx/index
+   python-quaternion
    python-jinja2
    python-pygments
-   python-twitter-tools
-   python-pyopengl
+   python-twitter/index
+   python-isbn-hyphenate
+   python-pyopengl/index
    python-pyqt4
+   python-pyqt5
    python-pygame
    python-py2exe
    python-upgrade
+   python-miniconda
 
-   milestone09
+.. toctree::
+   :maxdepth: 1
+
+   milestone09/index
+   cygwin
+   git/index
    twitter
-   inkscape
-
-`プレハブ小屋入口へ戻る`_
-
-.. _プレハブ小屋入口へ戻る: https://showa-yojyo.github.io/
+   inkscape/index
+   mathjax

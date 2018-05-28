@@ -1,0 +1,78 @@
+digraph G {
+    graph [
+        fontname = "Bitstream Vera Sans"
+        fontsize = 9
+        ranksep = 0.2
+        splines = ortho
+    ]
+    node [
+        fontname = "Bitstream Vera Sans"
+        fontsize = 9
+        shape = "record"
+    ]
+    edge [
+        arrowtail = empty
+        dir = back
+        fontname = "Bitstream Vera Sans"
+        fontsize = 9
+    ]
+
+    TransformSpec [
+        label = "{TransformSpec
+        |
+        |+ get_transforms()\l}"
+
+        fillcolor = lightgrey
+        style = filled
+    ]
+    Output [
+        label = "{Output
+        |# encoding : str\l# destination : File\l# destination_path : str\l# default_destination_path : str\l
+        |+ write() : str\l# encode(str) : str\l}"
+    ]
+
+    NullOutput [
+        label = "{NullOutput
+        |# default_destination_path : str\l
+        |+ write() : str\l}"
+    ]
+    StringOutput [
+        label = "{StringOutput
+        |# default_destination_path : str\l
+        |+ write(str) : str\l}"
+    ]
+    FileOutput [
+        label = "{FileOutput
+        |# default_destination_path : str\l# mode : str\l
+        |- open()\l+ write(str) : str\l- close()\l}"
+    ]
+    BinaryFileOutput [
+        label = "{BinaryFileOutput
+        |# mode : str\l
+        |}"
+    ]
+
+    node [
+        shape = none
+        label = ""
+        height = 0
+        width = 0
+    ]
+    { rank = same; a, b, c }
+
+    // inheritance hierarchy
+    edge [
+        arrowtail = empty
+        dir = back
+    ]
+    TransformSpec -> Output
+    //Output -> NullOutput, StringOutput, FileOutput, DocTreeOutput
+    Output -> b
+    FileOutput -> BinaryFileOutput
+
+    edge [ dir = none; arrowtail = none; arrowhead = none]
+    a -> b -> c [ minlen = 10.0 ]
+    a -> NullOutput
+    b -> StringOutput
+    c -> FileOutput
+}

@@ -1,0 +1,89 @@
+digraph G {
+    graph [
+        fontname = "Bitstream Vera Sans"
+        fontsize = 9
+    ]
+    node [
+        fontname = "Bitstream Vera Sans"
+        fontsize = 9
+        shape = "record"
+    ]
+    edge [
+        arrowtail = "empty"
+        dir = back
+        fontname = "Bitstream Vera Sans"
+        fontsize = 9
+    ]
+
+    StateMachine [
+        label = "{StateMachine
+        |input_line : str\linput_offset : int\lline : str\lline_offset : int\linitial_state : str\lcurrent_state : str\l
+        |+ unlink()\l+ run(...)\l+ get_state(...)\l...\l+ attach_observer(...)\l+ detach_observer(...)\l- notify_observers()\l}"
+    ]
+    StateMachineWS [
+        label = "{StateMachineWS
+        |
+        |+ get_indented(...)\l+ get_known_indented(...)\l+ get_first_known_indented(...)\l}"
+    ]
+    SearchStateMachine [
+        label = "{SearchStateMachine
+        |
+        |}"
+    ]
+
+    State [
+        label = "{State
+        |# patterns\l# initial_transitions\l# nested_sm\l# nested_sm_kwargs\l
+        |+ runtime_init()\l+ unlink()\l# no_match(...)\l# bof(...)\l# eof(...)\l# nop(...)\l...}"
+    ]
+    StateWS [
+        label = "{StateWS
+        |indent_sm\lindent_sm_kwargs\lknown_indent_sm\lknown_indent_sm_kwargs\lws_patterns\lws_initial_transitions\l
+        |# blank(...)\l# indent(...)\l...}"
+    ]
+    RSTState [
+        label = "{RSTState
+        |# nested_sm\l
+        |+ runtime_init()\l# no_match(...)\l# bof(...)\l+ nested_parse(...)\l+ nested_list_parse(...)\l...}"
+    ]
+
+    _SearchOverride [
+        label = "{_SearchOverride
+        |
+        |# match(...)\l}"
+    ]
+
+    RSTStateMachine [
+        label = "{RSTStateMachine
+        |language\ldocument\lnode\l
+        |+ run(...)\l}"
+    ]
+    NestedStateMachine [
+        label = "{NestedStateMachine
+        |language\ldocument\lnode\l
+        |}"
+    ]
+    SearchStateMachineWS [
+        label = "{SearchStateMachineWS
+        |
+        |}"
+    ]
+
+    StateMachine -> StateMachineWS, SearchStateMachine
+    StateMachineWS -> RSTStateMachine, NestedStateMachine, SearchStateMachineWS
+
+    State -> StateWS -> RSTState
+
+    _SearchOverride -> SearchStateMachine, SearchStateMachineWS
+
+    ConcreteRSTState [ label="(ConcreteRSTState)" ]
+    RSTState -> ConcreteRSTState
+
+    edge [
+        arrowtail = "none"
+        dir = back
+    ]
+
+    { rank = same ; StateMachine -> State [ arrowtail = "diamond" ]}
+    { rank = same ; RSTState -> NestedStateMachine [ arrowtail = "diamond" ]}
+}

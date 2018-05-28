@@ -1,6 +1,12 @@
-/**
- * Sphinx stylesheet -- default theme
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
+ * default.css_t
+ * ~~~~~~~~~~~~~
+ *
+ * Sphinx stylesheet -- default theme.
+ *
+ * :copyright: Copyright 2007-2014 by the Sphinx team, see AUTHORS.
+ * :license: BSD, see LICENSE for details.
+ *
  */
 
 @import url("basic.css");
@@ -26,7 +32,7 @@ div.documentwrapper {
 }
 
 div.bodywrapper {
-    margin: 0 0 0 230px;
+    margin: 0 0 0 {{ theme_sidebarwidth|toint }}px;
 }
 
 div.body {
@@ -67,10 +73,11 @@ div.related a {
 div.sphinxsidebar {
     {%- if theme_stickysidebar|tobool %}
     top: 30px;
+    bottom: 0;
     margin: 0;
     position: fixed;
     overflow: auto;
-    height: 100%;
+    height: auto;
     {%- endif %}
     {%- if theme_rightsidebar|tobool %}
     float: right;
@@ -140,16 +147,63 @@ div.sphinxsidebar input {
     font-size: 1em;
 }
 
+{% if theme_collapsiblesidebar|tobool %}
+/* for collapsible sidebar */
+div#sidebarbutton {
+    background-color: {{ theme_sidebarbtncolor }};
+}
+{% endif %}
+
 /* -- body styles ----------------------------------------------------------- */
 
 a {
     color: {{ theme_linkcolor }};
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a:visited {
+    color: {{ theme_visitedlinkcolor }};
+    font-weight: bold;
     text-decoration: none;
 }
 
 a:hover {
     text-decoration: underline;
 }
+a:link:hover
+{
+    color: {{ theme_linkcolor }};
+    background-color: {{ theme_linkhoverbgcolor }};
+    font-weight: bold;
+    text-decoration: none;
+}
+a:visited:hover
+{
+    color: {{ theme_visitedlinkcolor }};
+    background-color: {{ theme_linkhoverbgcolor }};
+    font-weight: bold;
+    text-decoration: none;
+}
+
+{% if theme_externalrefs|tobool %}
+a.external {
+   text-decoration: none;
+   border-bottom: 1px dashed {{ theme_linkcolor }};
+}
+
+a.external:hover {
+   text-decoration: none;
+   border-bottom: none;
+}
+
+a.external:visited {
+    text-decoration: none;
+    border-bottom: 1px dashed {{ theme_visitedlinkcolor }};
+}
+{% endif %}
+
+/* -- body styles ----------------------------------------------------------- */
 
 div.body h1,
 div.body h2,
@@ -187,38 +241,35 @@ a.headerlink:hover {
 }
 
 div.body p, div.body dd, div.body li {
+    /* text-align: justify; */
     line-height: 1.4;
+}
+
+div.admonition {
+    border: 1px solid darkgrey;
 }
 
 div.admonition p.admonition-title + p {
     display: inline;
 }
 
-div.note {
-    background-color: ghostwhite;
-    border: 1px solid darkgrey;
+div.admonition p {
+    margin-bottom: 5px;
 }
 
-div.seealso {
-    background-color: ghostwhite;
-    border: 1px solid darkgrey;
+div.admonition pre {
+    margin-bottom: 5px;
+}
+
+div.admonition ul, div.admonition ol {
+    margin-bottom: 5px;
 }
 
 div.topic {
-    background-color: ghostwhite;
+    border: 1px solid darkgrey;
 }
-
-div.warning {
-    background-color: peachpuff;
-    border: 1px solid pink;
-}
-
-p.admonition-title {
-    display: inline;
-}
-
 p.admonition-title:after {
-    content: ":";
+    content: " ";
 }
 
 pre {
@@ -231,8 +282,16 @@ pre {
 }
 
 tt {
-    background-color: whitesmoke;
+    /* background-color: whitesmoke; */
     padding: 0 1px 0 1px;
     font-size: 0.95em;
     font-family: "courier new", monospace;
+}
+
+dt{
+    font-weight: bold;
+}
+
+em {
+    font-style: bold;
 }

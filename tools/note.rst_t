@@ -2,25 +2,14 @@
 {{ title }} 読書ノート{% if page != 0 %} {{ page }}/{{ totalpages }}{% endif %}
 ======================================================================
 
-{% if page > 1 -%}
-:doc:`{{ notename }}-note{{ page - 1 }}` からの続き。
-{%- endif -%}
+{% if page > 1 -%}:doc:`{{ prefix }}{{ num_format | format(page - 1) }}` からの続き。{%- endif %}
 
-:著者: {{ author }}
-:訳者: {{ interpreter }}
-:出版社: {{ publisher }}
-:ISBN: {{ isbn }}
+{% if totalpages == 1 -%}.. include:: /_include/book-details/{{ note_name }}.txt{%- endif -%}
 
 .. contents:: ノート目次
 
-Chapter1
-======================================================================
-Section 1.1
-----------------------------------------------------------------------
-Subsection 1.1.1
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 {% if page < totalpages -%}
 ----
 
-:doc:`{{ notename }}-note{{ page + 1 }}` へ。
+:doc:`{{ prefix }}{{ num_format | format(page + 1) }}` へ。
 {%- endif %}

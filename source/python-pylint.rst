@@ -8,8 +8,8 @@ Pylint は Python で書かれたコードを解析して、構文エラーの�
 コーディング規約違反（特に PEP8_ に対する）の有無、
 設計のまずそうなところを発見するためのコマンドラインツールである。
 
-同種のパッケージは他にも有名なものがあるが、
-Pylint は出力のうるささに定評があるようなので、当サイトはこれを採用している。
+同種のパッケージは他にも有名なものがあるが、Pylint は出力のうるささに定評があるようなので、
+当サイトはこれを採用している。
 
 .. contents:: ノート目次
 
@@ -17,12 +17,13 @@ Pylint は出力のうるささに定評があるようなので、当サイト�
 
    * OS
 
-     * Windows 7 Home Premium 64bit SP 1
+     * Windows 7 Home Premium x64 SP1
+     * Windows 10 Home x64
 
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_: 3.4.1
-     * Pylint_: 1.3.1
+     * Python_: 3.4.1, 3.5.0, 3.5.2
+     * Pylint_: 1.3.1, 1.4.4, 1.5.4
 
 関連リンク
 ======================================================================
@@ -31,31 +32,25 @@ Pylint_
 
 インストール
 ======================================================================
-Pylint をインストールする手順を記す。
-まずはいつものように pip を利用して、関連するモジュールおよびスクリプトをインスールする。
-
-.. code-block:: console
-
-   $ pip install pylint
+:ref:`python-pkg-proc` を参照してインストールする。
 
 ``$PYTHONDIR/Scripts`` フォルダーに、ファイル名が ``pylint`` で拡張子が異なるものが 3 つあるのが確認できる。
 内容は次のようなものだ：
 
 * :file:`pylint`: Python スクリプト。単に ``pylint.run_pylint()`` を実行するだけ。
-* :file:`pylint.bat`: Windows のバッチスクリプト。Python に上記スクリプトをコマンドライン引数として渡して実行するだけ。
+* :file:`pylint.bat`: Windows のバッチスクリプト。
+  Python に上記スクリプトをコマンドライン引数として渡して実行するだけ。
 * :file:`pylint.exe`: Windows の実行ファイル。
 
 私は Python を利用する際には原則的に Cygwin のコマンドライン (Bash) から呼び出すことにしている。
 環境変数 ``$PATH`` には既に ``$PYTHONDIR/Scripts`` を含ませてあるゆえ、
 私が Pylint をコマンドラインから呼び出すときの記法は次のようになる。
 
-.. code-block:: console
+.. code:: console
 
    $ pylint.bat args
    # or
    $ pylint.exe args
-
-以下、コマンドライン用例ではバッチファイルの呼び出しで Pylint の利用を表現する。
 
 :file:`.pylintrc` を作成する
 ----------------------------------------------------------------------
@@ -69,19 +64,25 @@ Pylint の設定ファイルについて記す。デフォルトでは Pylint �
 設定ファイルの有無は Pylint の機能に支障はないが、この警告文が毎度目につくと煩わしいので、
 まずはダミーの設定ファイルを作成しておく。
 
-.. code-block:: console
+.. code:: console
 
-   $ pylint.bat --generate-rcfile > ~/.pylintrc
+   $ pylint --generate-rcfile > ~/.pylintrc
 
-困ったことに下記のような DEPRECATED な設定項目が出力されるので、それらを削除しておく。
+次にこの設定ファイルのスケルトンに対して構文チェックをしておこう。
+単に ``pylint --version`` をすることで、
+:file:`.pylintrc` のチェックをさせることにもなる。
 
-.. code-block:: ini
+.. code:: console
 
-   # DEPRECATED
-   include-ids=no
+   $ pylint --version
+   Warning: option ignore-iface-methods is obsolete and it is slated for removal in Pylint 1.6.
+   Warning: option zope is obsolete and it is slated for removal in Pylint 1.6.
+   pylint-script.py 1.5.4,
+   astroid 1.4.4
+   Python 3.5.2 |Continuum Analytics, Inc.| (default, Jul  5 2016, 11:41:13) [MSC v.1900 64 bit (AMD64)]
 
-   # DEPRECATED
-   symbols=no
+上記のような Warning が出力されていれば、
+:file:`.pylintrc` をエディターで開いて、対応する項目を削除しておくとよい。
 
 Pylint の設定ファイルはプロジェクトごとにコーディングルールに沿って微調整したものを用意するのが普通だろう。
 自動テストの一環としてコード解析を行う工程が想像できる。
@@ -107,28 +108,30 @@ Pylint はオプションなしで実行すると、どんなに品の良いコ�
 常に ``-rn``, (or ``--reports=n``) を指示する習慣を身につけた。
 興味があるのは、コードのどの行がどのような「まずさ」を有するかということだけなのだ。
 
-.. code-block:: console
+.. code:: console
 
-   # 統計を出さない。つまり
-   # R: リファクタリング、C: 規約違反、W: 警告、E: エラー項目の出力のみをする。
+   # Suppress statistics, i.e. display only
+   # R: refactor, C: convention, W: warning, and E: error.
    $ pylint -rn mymodule.py
 
-   # エラー項目 (E) のみ表示する。
+   # Display only errors (E).
    $ pylint -E mymodule.py
 
-Pylint の出力はコード解析結果と統計結果のふたつの部分からなる。前述のとおり後者はカットする。
+Pylint の出力はコード解析結果と統計結果のふたつの部分からなる。
+前述のとおり後者はカットする。
 解析結果は与えたモジュール名に対して、問題のタイプ、行番号、メッセージのリストという構成だ。
 一回見ればだいたい理解できるはずなので、ここに出力例を掲載することは差し控える。
 
 パッケージ単位での構文チェック
 ----------------------------------------------------------------------
-コマンドラインでの呼び出し方法に変わりはない。モジュールを示すファイル名の代わりにパッケージ名を与えればよい。
+コマンドラインでの呼び出し方法に変わりはない。
+モジュールを示すファイル名の代わりにパッケージ名を与えればよい。
 公式ドキュメントによると、開発版の（＝確かめたい）パッケージと、
 環境変数 ``$PYTHONPATH`` にあるそれとを Pylint に混同させないように注意する必要があるそうだ。
 
-.. code-block:: console
+.. code:: console
 
-   # パッケージ名を指定する。どこかのディレクトリーの名前だ。
+   # Specify the package name.
    $ pylint -rn mypackage
 
 Python コード修正
@@ -165,7 +168,7 @@ Pylint の忠告に従いたいが、難しい場合もある。
 ``ABCMeta`` 等については Python のマニュアルを参照して欲しいが、こうすることで私のクラスには
 ``__subclasses__`` というメンバーが確かに存在する。
 
-.. code-block:: python3
+.. code:: python3
 
    from abc import ABCMeta
    from abc import abstractmethod
@@ -176,7 +179,7 @@ Pylint の忠告に従いたいが、難しい場合もある。
 
 しかたがないので、このクラスの宣言の直前に次のコメントを追加しておく。
 
-.. code-block:: python3
+.. code:: python3
 
    # pylint: disable=no-member
    class AbstractMapper(metaclass=ABCMeta):
@@ -190,6 +193,5 @@ Pylint の忠告に従いたいが、難しい場合もある。
 カンマ区切りで複数のエラー項目を指示することもできるし、
 抑止コメントを抑止する項目数だけ書いてもよい。
 
-.. _Python: http://www.python.org/
+.. include:: /_include/python-refs-core.txt
 .. _Pylint: http://www.pylint.org/
-.. _PEP8: http://legacy.python.org/dev/peps/pep-0008/

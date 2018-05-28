@@ -5,10 +5,7 @@ Exceptional C++ 読書ノート
 2003 年の 3 月に本書をブックストア談浜松町駅店で購入した記録がある。
 が、当時読書ノートを遺していなかったので、再読し、ノートをとる次第だ。
 
-:著者: Herb Sutter
-:訳者: 浜田真理
-:出版社: ピアソン・エデュケーション
-:ISBN: 4-89471-270-9
+.. include:: /_include/book-details/sutter00.txt
 
 .. contents:: ノート目次
 
@@ -42,7 +39,7 @@ Exceptional C++ 読書ノート
 まず最初に「大文字小文字を区別しない文字列クラス」を書くことを検討している。
 basic_string テンプレートの traits パラメータに相当する構造体を自作する手法による。
 
-.. code-block:: c++
+.. code:: c++
 
    struct ci_char_traits : public char_traits<char>
    {
@@ -52,7 +49,7 @@ basic_string テンプレートの traits パラメータに相当する構造�
      static const char* find(const char* s, int n, char c){ ... }
      ...
    };
- 
+
    typedef basic_string<char, ci_char_traits> ci_string;
 
 * <多くの場合、大文字小文字の区別を比較処理の機能としたほうがより便利である。
@@ -60,7 +57,7 @@ basic_string テンプレートの traits パラメータに相当する構造�
   (p. 7)
 * ``ci_string`` はそのままでは I/O ストリームに流せないことに注意。
   出力だけなら ``c_str()`` をストリームに流せばよい。
-* <標準ライブラリは、 ``traits`` オブジェクトを多様的に使わない> (p. 9)
+* <標準ライブラリは、``traits`` オブジェクトを多様的に使わない> (p. 9)
 
 最大限に再利用できる汎用コンテナ
 --------------------------------
@@ -73,7 +70,7 @@ basic_string テンプレートの traits パラメータに相当する構造�
 * テンプレートメンバ関数は、決してコピーコンストラクタ、代入演算子たり得ない。
 * 例外安全という用語が、本書で初めて登場する。
 
-  .. code-block:: c++
+  .. code:: c++
 
      template<typename O, size_t osize>
      fixed_vector<T, size>& operator=(const fixed_vector<O, osize>& other)
@@ -139,13 +136,13 @@ Cargill 氏の論文の ``Stack`` クラステンプレートを、例外安全�
   2. オブジェクトの状態を、絶対に例外を発生しないコードによって変更できていることだ。
 
 * ``void Push(const T& t)`` についても ``NewCopy`` で実装する。
-  
+
   1. ``NewCopy`` の呼び出し、
   2. ``operator delete[]`` の呼び出し、
   3. 組み込み型の代入、
   4. 主目的の ``v_[used_] = t``
   5. 要素数の更新を、
-  
+
   オブジェクトの状態に矛盾が生じない順序で処理している。
 
 * ``T Pop()`` を例外安全に実装するのは不可能。
@@ -183,7 +180,7 @@ nothrow 保証
 デストラクタ
   ``v_`` に対して ``std::destroy()`` と ``operator delete()`` を行う。
 ``Swap``
-  すべてのメンバーデータに対して、 ``other`` のそれと ``std::swap()`` するだけ。
+  すべてのメンバーデータに対して、``other`` のそれと ``std::swap()`` するだけ。
   これにより、nothrow 保証が提供できる。ここが ``Stack`` の例外安全を実現する。
 
 ``StackImpl`` を private 継承で利用する場合
@@ -197,7 +194,7 @@ nothrow 保証
   ``StackImpl::vused_`` の更新を行う。
 * 代入演算子。以下のコードが本書最大の功績の一つだろう。
 
-  .. code-block:: c++
+  .. code:: c++
 
      Stack& operator=(const Stack& other)
      {
@@ -322,7 +319,7 @@ nothrow 保証
 * Pimpl とは著者による造語だと思われる。
   クラスの private 部を曝さぬように、隠蔽ポインタメンバーデータを使用するものだ。
 
-  .. code-block:: c++
+  .. code:: c++
 
      // x.h ファイル
      class X
@@ -375,7 +372,7 @@ Koenig の自動照合
 
   例えば、以下のコードはコンパイルされる。
 
-  .. code-block:: c++
+  .. code:: c++
 
      namespace NS
      {
@@ -404,7 +401,7 @@ Koenig の自動照合
   * クラス ``X`` と同じヘッダ内で、フリー関数の引数に ``X`` が用いられるものも、
     ``X`` の構成要素である。例えば
 
-    .. code-block:: c++
+    .. code:: c++
 
        class X{ };
        ostream& operator<<(ostream&, const X&);  // これは構成要素
@@ -414,11 +411,11 @@ Koenig の自動照合
 
 * <Koenig の自動照合は、コンパイラに適切な動作をさせる> (p. 145)
 
-  .. code-block:: c++
+  .. code:: c++
 
      #include <iostream> // cout
      #include <string> // 文字列の operator<<() の宣言を含む
- 
+
      int main()
      {
          std::string hello = "Hello, world";
@@ -431,15 +428,15 @@ Koenig の自動照合
 
 * 名前空間に関数を追加することは、その名前空間の外側のコードを「破壊」する。
   次のコード片で ``A`` と ``B`` の作者・定義場所が違うときのケースを考える。
-  
-  .. code-block:: c++
+
+  .. code:: c++
 
      namespace A
      {
          class X{ };
          //void f(X); // コメントを解除するだけで B::g をコンパイル不可能にする。
      }
- 
+
      namespace B
      {
          void f(A::X);
@@ -455,7 +452,7 @@ Koenig の自動照合
 
 a. クラスの通常のインターフェイスのみ使うフリー関数とする方法
 
-   .. code-block:: c++
+   .. code:: c++
 
       class X{ };
 
@@ -467,7 +464,7 @@ a. クラスの通常のインターフェイスのみ使うフリー関数と�
 
 b. クラスのヘルパー関数 ``Print()`` を呼び出すフリー関数とする方法
 
-   .. code-block:: c++
+   .. code:: c++
 
       class X
       {
@@ -563,7 +560,7 @@ C++ で使用する主なメモリ領域
 * ポインタデータメンバを安全にラップすることにも使用できる。
   Pimpl イディオム実装時に頻出。
 
-  .. code-block:: c++
+  .. code:: c++
 
      // c.h
      class C
@@ -621,10 +618,10 @@ C++ で使用する主なメモリ領域
 1. オーバーロードの解決を阻害する。
 2. 間違ったコードのコンパイルを簡単に通してしまう。
 
-2. の例として、 ``string`` が ``const char*`` に暗黙の型変換が存在するとすれば、
+2. の例として、``string`` が ``const char*`` に暗黙の型変換が存在するとすれば、
 次のコードのコンパイルが通る。
 
-.. code-block:: c++
+.. code:: c++
 
    string s1, s2, s3;
    s1 = s2 - s3; // 右辺は const char* ポインタの差となり、左辺 s1 に代入しようとする
@@ -640,7 +637,7 @@ C++ で使用する主なメモリ領域
 
 変数の初期化──それとも？
 --------------------------
-.. code-block:: c++
+.. code:: c++
 
    T t;  // デフォルト初期化であり、T::T() で初期化される
    T t(); // T 型のオブジェクトを返す関数 t の宣言
@@ -656,7 +653,7 @@ const の正しい利用
   論理的に ``const`` 関数ならばそのように宣言する。
   変更を加えたいメンバ変数は、元から ``mutable`` 宣言しておけばよい。
 
-* <``mutable`` を正しく使うことは、 ``const`` を正しく使うことの重要な一部である> (p. 212)
+* <``mutable`` を正しく使うことは、``const`` を正しく使うことの重要な一部である> (p. 212)
 * <できれば、ライブラリベンダーの怠慢への不平と、
   代替製品を切望している次第を傍に詳しくコメントしておくと良い> (p. 212)
 
@@ -664,7 +661,7 @@ const の正しい利用
 --------
 * <``const`` または ``volatile`` 属性をキャストで取り除くのは、通常、まずいスタイル例である。
   ポインタまたは参照の ``const`` 属性を合法的に取り除きたい場合のほとんどは、
-  クラスのメンバ変数に関係しており、 ``mutable`` キーワードで処理される> (p. 217)
+  クラスのメンバ変数に関係しており、``mutable`` キーワードで処理される> (p. 217)
 * ``dynamic_cast`` はクロスキャストにも用いることができる。
 
 真偽値 (bool)

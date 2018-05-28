@@ -1,0 +1,59 @@
+digraph G {
+    graph [
+        fontname = "Bitstream Vera Sans"
+        fontsize = 9
+    ]
+    node [
+        fontname = "Bitstream Vera Sans"
+        fontsize = 9
+        shape = "record"
+    ]
+    edge [
+        arrowtail = empty
+        dir = back
+        fontname = "Bitstream Vera Sans"
+        fontsize = 9
+    ]
+
+    AbstractNode [
+        label = "{Node
+        |source : str\lline : int\l
+        |+ __bool__()\l+ copy()\l+ deepcopy()\l# setup_child(Node)\l+ walk(NodeVisitor)\l+ walkabout(NodeVisitor)\l+ traverse(...)\l+ next_node(...) : Node\l}"
+    ]
+
+    Text [
+        label = "{Text
+        |...
+        |+ astext() : str\l+ shortrepr(int) : str\l+ copy() : Text\l+ deepcopy() : Text\l...}"
+    ]
+    Element [
+        label = "{Element
+        |...
+        |+ astext() : str\l+ shortrepr() : str\l+ starttag(...) : str\l+ endtag() : str\l+ emptytag() : str\l+ copy() : Element\l+ deepcopy() : Element\l...}"
+    ]
+    document [
+        label = "{document
+        |...
+        |+ copy() : document\l...}"
+    ]
+    ConcreteElement1, ConcreteElement2 [ label = "{(ConcreteElement)||}" ]
+    Root [ label = "{Root||}" ]
+    Structural [ label = "{Structural||}" ]
+
+    // dir = back
+    AbstractNode -> Text, Element
+    Root, Structural, Element -> document
+    Element -> ConcreteElement1
+    Text -> ConcreteElement2
+
+    edge [
+        arrowtail = ediamond
+    ]
+    AbstractNode -> AbstractNode [ headlabel = "parent" ]
+    AbstractNode -> document [ headlabel = "document" ]
+
+    edge [
+        arrowtail = diamond
+    ]
+    Element -> Element [ headlabel = "children" ]
+}
