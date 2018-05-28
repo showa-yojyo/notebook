@@ -19,7 +19,7 @@ cd "$TARGET_DIR"
 
 COMMIT_MESSAGE="${1:+ ($1)}"
 git add -A
-git commit -m "Build 1.4.0dev$COMMIT_MESSAGE."
+git commit -m "Build 1.4$COMMIT_MESSAGE."
 
 NUM=5
 echo Most recent $NUM commits:
