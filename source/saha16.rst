@@ -25,14 +25,14 @@ Matplotlib_ と SymPy_ を使っていろいろやってみるという趣旨の
      ValueError                                Traceback (most recent call last)
      <ipython-input-155-a5ccacbc5a9b> in <module>()
      ----> 1 Fraction(input('Enter a fraction: '))
-     
+
      D:\Miniconda3\lib\fractions.py in __new__(cls, numerator, denominator, _normalize)
          136                 if m is None:
          137                     raise ValueError('Invalid literal for Fraction: %r' %
      --> 138                                      numerator)
          139                 numerator = int(m.group('num') or '0')
          140                 denom = m.group('denom')
-     
+
      ValueError: Invalid literal for Fraction: '1 / 273'
 
 * 複素数を扱う機能を提供するモジュールとして ``cmath`` がある。
@@ -91,14 +91,14 @@ Matplotlib_ と SymPy_ を使っていろいろやってみるという趣旨の
   .. code:: ipython
 
      In [236]: steps = (6534, 7000, 8900, 10786, 3467, 11045, 5095)
-     
+
      In [237]: labels = ('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat')
-     
+
      In [238]: positions = range(1, len(steps)+1)
-     
+
      In [239]: pylab.barh(positions, steps, align='center')
      Out[239]: <BarContainer object of 7 artists>
-     
+
      In [240]: pylab.yticks(positions, labels)
      Out[240]:
      ([<matplotlib.axis.YTick at 0x241d1860358>,
@@ -109,16 +109,16 @@ Matplotlib_ と SymPy_ を使っていろいろやってみるという趣旨の
        <matplotlib.axis.YTick at 0x241d1cc0390>,
        <matplotlib.axis.YTick at 0x241d1cc0860>],
       <a list of 7 Text yticklabel objects>)
-     
+
      In [241]: pylab.xlabel('Steps')
      Out[241]: Text(0.5,23.3022,'Steps')
-     
+
      In [242]: pylab.ylabel('Day')
      Out[242]: Text(33.5972,0.5,'Day')
-     
+
      In [243]: pylab.title('Number of steps walked')
      Out[243]: Text(0.5,1,'Number of steps walked')
-     
+
      In [244]: pylab.grid()
 
 * 章末問題最後の Fibonacci 数の隣接項の比のプロット、
@@ -234,10 +234,36 @@ Matplotlib_ と SymPy_ を使っていろいろやってみるという趣旨の
 
 * 脚注を見ると訳者は確かな数学的知識の持ち主であることが窺える。
 * クラス ``FiniteSet`` およびそのメソッドの紹介。
+* ``FiniteSet`` の直積をとるのが簡単。振り子の周期の例題はなるほどという感じだ。
 * 一様分布（自力）。
+* 事象同士の確率計算には集合同士の演算が対応する。
 * 乱数。Python 標準の関数ももちろん利用できる。
+
+  * 基本的だがさいころは ``random.randint(1, 6)`` だ。
+
 * 章末問題にベン図 (matplotlib_venn) がある。あとは大数の法則を検証したり、
   シャッフルしたり、モンテカルロ法みたいなことをする。
+
+  .. code:: ipython
+
+     In [96]: def estimate_pi(N):
+         ...:     darts = ((uniform(0, 1), uniform(0, 1)) for _ in range(N))
+         ...:     dists = (x**2 + y**2 for x, y in darts)
+         ...:     hits = len([None for d in dists if d < 1])
+         ...:     return 4 * hits / N
+         ...:
+
+     In [97]: estimate_pi(10000)
+     Out[97]: 3.1484
+
+     In [98]: estimate_pi(10000)
+     Out[98]: 3.1912
+
+     In [99]: estimate_pi(10000)
+     Out[99]: 3.1636
+
+     In [100]: estimate_pi(10000)
+     Out[100]: 3.1504
 
 6 章 幾何図形とフラクタルを描画する
 ======================================================================
