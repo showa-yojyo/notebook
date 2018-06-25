@@ -15,16 +15,130 @@ Matplotlib_ と SymPy_ を使っていろいろやってみるという趣旨の
 
 * 分数と複素数は Python 標準で扱える。虚数単位は ``j`` または ``J`` とする。
 * それらのオブジェクトを関数 ``input`` で生成することもできる。
+  ただし、文字列を実引数とするコンストラクターの処理が空白文字に不寛容だ：
+
+  .. code:: ipython
+
+     In [155]: Fraction(input('Enter a fraction: '))
+     Enter a fraction: 1 / 273
+     ---------------------------------------------------------------------------
+     ValueError                                Traceback (most recent call last)
+     <ipython-input-155-a5ccacbc5a9b> in <module>()
+     ----> 1 Fraction(input('Enter a fraction: '))
+     
+     D:\Miniconda3\lib\fractions.py in __new__(cls, numerator, denominator, _normalize)
+         136                 if m is None:
+         137                     raise ValueError('Invalid literal for Fraction: %r' %
+     --> 138                                      numerator)
+         139                 numerator = int(m.group('num') or '0')
+         140                 denom = m.group('denom')
+     
+     ValueError: Invalid literal for Fraction: '1 / 273'
+
+* 複素数を扱う機能を提供するモジュールとして ``cmath`` がある。
+
+  IPython でインポートして ``dir`` して、基本的な解析関数、
+  二数の比較用関数、座標系変換関数、定数などが提供されていることを確認した。
+  例えば偏角を得るには関数 ``cmath.phase`` を用いるようだ。
+
+  複素数のオブジェクトとしての属性は共役、実部、虚部くらいしかないようだ。
+
+* 二次方程式の判別式を得るための平方根の取り方は、本書では
+  ``math.sqrt`` ではなく ``** 0.5`` を採用している。
 
 2 章 データをグラフで可視化する
 ======================================================================
 早くもプロットを扱う。
 
 * クラス ``list`` および ``tuple`` の基本。
+
+  * 本書では両者の違いを要素を追加できるかどうかの一点に絞って述べている。
+  * 要素の反復を ``for`` ループで実行でき、要素そのものだけでなく添字も
+    得る場合には ``enumerate()`` 関数を用いることに触れている。
+
 * Matplotlib を使ってプロットする。キャンバスの制御方法。
+
+  * 本書のコードを試すときは IPython で pylab を有効にしておくと手っ取り早い。
+  * ``marker='o'`` と単に ``o`` を指定するときの違い。
+  * ``plot`` 関数は y 列データだけを指定することも、
+    x 列と y 列の両方を指定することもできる。
+  * 複数データセットを一度にプロットできる。こういう場合は ``legend()`` を活用する。
+  * ``months = range(1, 13)`` を引数に 3 回渡すのでプロット時に ValueError を生じる？
+  * プロットをインクリメンタルに装飾できることに早く気付きたかった。
+
+* インタラクティブシェルでは pylab を、ふつうのスクリプトでは pyplot を使うのが効率的だ。
 * ``pyplot`` の ``savefig`` で画像をファイルに保存できる。
+
 * パラメーター表示される曲線のプロット（例：万有引力、投射軌跡）。
+
+  * 浮動小数点数版 ``range`` がない問題は NumPy で片付けたい。
+    この場合は ``np.linspace(0, 0.72, 720)`` だ。
+
+  * サンプルコードを見て思うのだが、本書はリストの内包表現を紹介するべきだった。
+    こちらのほうがわかりやすいだろう：
+
+    .. code:: python3
+
+       x_data = [u * np.cos(theta) * t for t in intervals]
+       y_data = [u * np.sin(theta) * t - 0.5 * g * t**2 for t in intervals]
+       draw_trajectory(x_data, y_data)
+
+  * 投擲問題の複数版、タイトル変更コードが抜けている。
+
 * 章末問題で棒グラフ（ヒストグラムではない）を紹介。
+  これは pyplot ベースのコードなので、あえて IPython で pylab ベースで試す。
+
+  .. code:: ipython
+
+     In [236]: steps = (6534, 7000, 8900, 10786, 3467, 11045, 5095)
+     
+     In [237]: labels = ('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat')
+     
+     In [238]: positions = range(1, len(steps)+1)
+     
+     In [239]: pylab.barh(positions, steps, align='center')
+     Out[239]: <BarContainer object of 7 artists>
+     
+     In [240]: pylab.yticks(positions, labels)
+     Out[240]:
+     ([<matplotlib.axis.YTick at 0x241d1860358>,
+       <matplotlib.axis.YTick at 0x241d1b79c50>,
+       <matplotlib.axis.YTick at 0x241d088ea20>,
+       <matplotlib.axis.YTick at 0x241d189a898>,
+       <matplotlib.axis.YTick at 0x241d189ae80>,
+       <matplotlib.axis.YTick at 0x241d1cc0390>,
+       <matplotlib.axis.YTick at 0x241d1cc0860>],
+      <a list of 7 Text yticklabel objects>)
+     
+     In [241]: pylab.xlabel('Steps')
+     Out[241]: Text(0.5,23.3022,'Steps')
+     
+     In [242]: pylab.ylabel('Day')
+     Out[242]: Text(33.5972,0.5,'Day')
+     
+     In [243]: pylab.title('Number of steps walked')
+     Out[243]: Text(0.5,1,'Number of steps walked')
+     
+     In [244]: pylab.grid()
+
+* 章末問題最後の Fibonacci 数の隣接項の比のプロット、
+  下手にコードを書くとべらぼうに時間がかかって面白いとみた。
+
+  お手本コードを改造して、比も同時に返すようなジェネレーターを書くのが楽だ：
+
+  .. code:: ipython
+
+     In [272]: def fibo(n):
+          ...:     f1 = f2 = 1
+          ...:     yield f1, 0
+          ...:     if n == 1: return
+          ...:     yield f2, 1
+          ...:     if n == 2: return
+          ...:     for i in range(3, n + 1):
+          ...:         next = f1 + f2
+          ...:         yield next, next / f2
+          ...:         f1, f2 = f2, next
+          ...:
 
 .. note:: 関連ノート
 
