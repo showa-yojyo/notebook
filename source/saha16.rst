@@ -244,41 +244,105 @@ Matplotlib_ と SymPy_ を使っていろいろやってみるという趣旨の
 * 章末問題にベン図 (matplotlib_venn) がある。あとは大数の法則を検証したり、
   シャッフルしたり、モンテカルロ法みたいなことをする。
 
-  .. code:: ipython
+  * 大数の法則のコードは次のようなものだろう：
 
-     In [96]: def estimate_pi(N):
-         ...:     darts = ((uniform(0, 1), uniform(0, 1)) for _ in range(N))
-         ...:     dists = (x**2 + y**2 for x, y in darts)
-         ...:     hits = len([None for d in dists if d < 1])
-         ...:     return 4 * hits / N
-         ...:
+    .. code:: python
 
-     In [97]: estimate_pi(10000)
-     Out[97]: 3.1484
+       from statistics import mean
 
-     In [98]: estimate_pi(10000)
-     Out[98]: 3.1912
+       print('Expected value: 3.5')
+       for i in (100, 1000, 10000, 100000, 500000):
+           average = mean(randint(1, 6) for _ in range(i))
+           print(f'Trials: {i} Trial average {average}')
 
-     In [99]: estimate_pi(10000)
-     Out[99]: 3.1636
+  * カードのシャッフルは私なら次のようにしたい：
 
-     In [100]: estimate_pi(10000)
-     Out[100]: 3.1504
+    .. code:: python
+
+       from collections import namedtuple
+       from itertools import product
+       from random import shuffle
+
+       # もしくは enum.Enum
+       SUITS = ('spades', 'hearts', 'clubs', 'diamonds')
+       RANKS = 'A 2 3 4 5 6 7 8 9 10 J Q K'.split()
+
+       Card = namedtuple('Card', ('suit', 'rank'))
+       cards = [Card(s, r) for s, r in product(SUITS, RANKS)]
+       shuffle(cards)
+
+  * 円周率の推定はこう：
+
+    .. code:: ipython
+
+       In [96]: def estimate_pi(N):
+           ...:     darts = ((uniform(0, 1), uniform(0, 1)) for _ in range(N))
+           ...:     dists = (x**2 + y**2 for x, y in darts)
+           ...:     hits = len([None for d in dists if d < 1])
+           ...:     return 4 * hits / N
+           ...:
+
+       In [97]: estimate_pi(10000)
+       Out[97]: 3.1484
+
+       In [98]: estimate_pi(10000)
+       Out[98]: 3.1912
+
+       In [99]: estimate_pi(10000)
+       Out[99]: 3.1636
+
+       In [100]: estimate_pi(10000)
+       Out[100]: 3.1504
 
 6 章 幾何図形とフラクタルを描画する
 ======================================================================
 Matplotlib のより高度な API を利用する。
 
 * Patch と呼ばれる簡単な図形を描画する。
-* Animation もサポート。一時変数が未使用に見えるかもしれないが、
-  早過ぎるガベージコレクションを回避するために必要。
+* Animation もサポート。
+
+  * 一時変数が未使用に見えるかもしれないが、
+    早過ぎるガベージコレクションを回避するために必要。
+
+  * このスクリプトを IPython から ``%run`` するとアニメーションが効いていない。
+
+  * 投射軌跡のアニメーションは、入力によってはボールの絵の大きさが過剰になることがある。
+  * 投射軌跡のアニメーションはボールが縦長で違和感がある。
+    前のコードを参考にして、アスペクト比を揃えるのがいい。
+
 * `フラクタル <http://mathworld.wolfram.com/Fractal.html>`__、
   `ランダムウォーク <http://mathworld.wolfram.com/RandomWalk.html>`__、
   `シェルピンスキーギャスケット <http://mathworld.wolfram.com/SierpinskiCarpet.html>`__、
   `バーンズレイのシダ <http://mathworld.wolfram.com/BarnsleysFern.html>`__
   `エノン写像 <http://mathworld.wolfram.com/HenonMap.html>`__
+
+  * フラクタルの基本としてある種のランダムウォークを挙げている。
+  * ``random.choice`` で関数呼び出しを振り分けるのはおもしろかった。
+
+  * Barnsley シダの変換 3 は本文テキストとコードとで変換が違う。
+    実行した限りではコードのほうが正。
+
+  * シダの ``get_index`` 周辺は自作せずとも Python の ``random.choices`` がうまくやってくれる。
+    こんな非一様抽選は昔のドラクエがよく実装していた。
+
+  * シダを描くのもガスケットを描くのも同じロジックというのは衝撃的だ。
+    エノン写像は乱数性がなくなってさらに簡単に描ける。
+
 * `マンデルブロ集合 <http://mathworld.wolfram.com/MandelbrotSet.html>`__ のために
   ``imshow`` を用いる。
+
+  * ``initialize_image`` は内包表記をうまく使えば一行コードだ。
+  
+    .. code:: python
+
+       def initialize_image(x_p, y_p):
+           return [[0] * x_p for i in range(y_p)]
+
+  * ``abs(z1) < 2`` ではなく ``z1.real**2 + z1.imag**2 < 4`` のようにして、
+    少しでも計算時間短縮化を狙うといい。
+
+  * 実際に集合を描画したところ、思いのほか絵がボケていて悲しかった。
+    本文では点の数を増やすことで詳細になるとあるが、ドットが細かくなっただけのような気がした。
 
 7 章 初等解析問題を解く
 ======================================================================
