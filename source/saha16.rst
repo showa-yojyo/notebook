@@ -332,7 +332,7 @@ Matplotlib のより高度な API を利用する。
   ``imshow`` を用いる。
 
   * ``initialize_image`` は内包表記をうまく使えば一行コードだ。
-  
+
     .. code:: python
 
        def initialize_image(x_p, y_p):
@@ -353,9 +353,40 @@ Matplotlib のより高度な API を利用する。
 * 微分は SymPy クラス ``Derivative`` が使える。常微分も偏微分も同じインターフェイス。
 * 極値の計算には :math:`f'(x) = 0` や :math:`f''(x) = 0` を ``solve`` することが重要だ。
 * 勾配上昇法を自力で実装する。このアルゴリズムは初期値の選定がたいへん重要だ。
+
+  * 上昇法と下降法のコードは、点列を生成する部分の符号が入れ替わるだけの違いしかない。
+  * 改造版のコードは何らかの例外を送出するべきだと思う。
+
 * 積分は SymPy クラス ``Integral`` が使える。原始関数と定積分の両方を求めるのに利用できる。
 * 確率密度関数各種。いわゆるグラフの面積が確率の値を意味する。
+
+  * 正規分布を自作しているが、もちろん SymPy も備えている。
+
+    .. code:: ipython
+
+       In [62]: from sympy.stats import Normal, density
+
+       In [63]: X = Normal('X', 10, 1)
+
+       In [64]: (density(X).cdf(12) - density(X).cdf(11)).evalf()
+       Out[64]: 0.135905121983278
+
 * 章末問題に曲線の長さを求める主題のものがある。
+  図の放物線の与えられた範囲の長さは次のようにして得られた：
+
+  .. code:: ipython
+
+    In [91]: from sympy import integrate, diff, sqrt, symbols
+
+    In [92]: x = symbols('x')
+
+    In [93]: fx = 2 * x**2 + 3 * x + 1
+
+    In [94]: integrate(sqrt(1 + diff(fx, x)**2, (x, -5, 10))
+    Out[94]: asinh(17)/8 + asinh(43)/8 + 17*sqrt(290)/8 + 215*sqrt(74)/8
+
+    In [95]: _.evalf()
+    Out[95]: 268.372650946022
 
 付録 A ソフトウェアのインストール
 ======================================================================
