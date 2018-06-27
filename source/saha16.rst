@@ -244,6 +244,28 @@ Matplotlib_ と SymPy_ を使っていろいろやってみるという趣旨の
 * 章末問題にベン図 (matplotlib_venn) がある。あとは大数の法則を検証したり、
   シャッフルしたり、モンテカルロ法みたいなことをする。
 
+  * ベン図のチャレンジで利用する関数の名が ``venn2`` であるのは、
+    その引数である集合がちょうど二つあることを意味する。
+
+  * 問題が物足りないので ``venn3`` でチャレンジした：
+
+    .. code:: python3
+
+       from random import randint
+       data = ((i, randint(0, 1), randint(0, 1), randint(0, 1)) for i in range(500))
+       venn3(subsets=[set(i[0] for i in data if i[j]) for j in range(1, 4)],
+             set_labels=['Football', 'Baseball', 'Others'])
+       plt.show()
+
+    結果の一例を次に示す。乱数を使用するので実行するたびに出力は異なるはずだ：
+
+    .. figure:: /_images/saha16-venn3.png
+       :align: center
+       :alt: Venn diagram
+       :width: 349px
+       :height: 351px
+       :scale: 100%
+
   * 大数の法則のコードは次のようなものだろう：
 
     .. code:: python
@@ -395,6 +417,25 @@ Windows だけ読んだ。本書は Anaconda の使用を推奨している。
 
 * ただし明示的にアップグレードする方法があるので、それを紹介している。
 * 前述したベン図のパッケージは pip でインストール可能だ。訳者は失敗したらしいが。
+
+  .. code-block:: text
+
+     $ pip show matplotlib-venn
+     Name: matplotlib-venn
+     Version: 0.11.5
+     Summary: Functions for plotting area-proportional two- and three-way Venn diagrams inmatplotlib.
+     Home-page: https://github.com/konstantint/matplotlib-venn
+     Author: Konstantin Tretyakov
+     Author-email: kt@ut.ee
+     License: MIT
+     Location: d:\miniconda3\lib\site-packages
+     Requires: numpy, matplotlib, scipy
+     Required-by:
+
+付録 B Python について
+======================================================================
+* 内包表記は本文中で紹介するべきだった。
+* 例外処理の記述量は入門書としては最適と思われる。
 
 あとがき
 ======================================================================
