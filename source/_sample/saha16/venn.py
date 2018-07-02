@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""venn.py: 
+"""venn.py: Python からはじめる数学入門
 
 Usage:
   venn.py
@@ -9,7 +9,8 @@ import matplotlib.pyplot as plt
 from sympy import FiniteSet
 
 def main():
-    if True:
+    use_sympy = True
+    if use_sympy:
         s1 = FiniteSet(*range(1, 20, 2))
         s2 = FiniteSet(2, 3, 5, 7, 11, 13, 17, 19)
     else:
