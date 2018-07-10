@@ -2,7 +2,9 @@
 ハイパフォーマンス Python 読書ノート
 ======================================================================
 開発環境の揃わない旅の途中に読んだので、特別なツールの挙動を確認するなどの
-本質的な作業が残っているが、ノートをとっておく。
+本質的な作業が一部残っているが、ノートをとっておく。
+本書は Python 2 ベースでパフォーマンスを評価しているが、
+私は Python 3 で確認しながら読み進めた。
 
 :著者: Micha Gorelick, Ian Ozsvald
 :訳者: 相川愛三
@@ -102,7 +104,16 @@ Python というよりは計算機の基礎を理解するための章だ。
     * RunSnakeRun という補助ツールがある。ビジュアル。
 
   * Unix の :command:`time` コマンド（ただし組み込みでないほう）
+
+    * GNU :command:`time` というものだろう。
+      Cygwin でも存在すると思われるが、どのパッケージに含まれているのか不明。
+      それゆえ入手できずじまい。
+
   * ``line_profiler``
+
+    * これは入手が若干面倒そうだ。
+      ``error: Microsoft Visual C++ 14.0 is required.`` 
+
   * :command:`perf stat`
 
   メモリの測定については次に挙げるものが便利だ：
@@ -110,6 +121,10 @@ Python というよりは計算機の基礎を理解するための章だ。
   * ``heapy``
   * ``dowser``
   * ``memory_profiler``
+
+    * これは ``$ pip install memory_profiler`` で容易に利用可能になる。
+      コマンドラインツール :command:`mprof` および
+      IPython 用コマンド ``%memit`` を含む。
 
 * プロファイリングの深さをどのように選ぶのか？
 
@@ -185,6 +200,37 @@ Python というよりは計算機の基礎を理解するための章だ。
 
      In [1]: %timeit CODE
 
+----
+
+以下、GitHub リポジトリーにあるリソースの分析。
+この章に対応するディレクトリーにある :file:`chapter_recipe.txt` のコードを追体験するのがいい。
+他の章にもこういうのを作ればよかったのに。
+
+* 共通
+
+  * すべて Python 2 コードなので、手動で Python 3 化しないと私の環境では動かせない。
+  * ``if __name__ == __main__:`` を含むスクリプトは冒頭に ``#!/usr/bin/env python`` と入れてほしい。
+  * 私の環境では計算時間が 3 倍弱かかる。
+
+* :file:`cpu_profiling/`: GNU :command:`time` での測定が残。
+* :file:`decorator_time/`: 見るべきはデコレーター関数 ``timefn()`` だ。
+* :file:`dowser/`: TODO: dowser
+* :file:`guppy/`: TODO: guppy
+* :file:`line_profiler/`: TODO: :file:`kernprof.py` 入手。
+* :file:`memory_profiler/`: どうやらメモリ量の計測は時間がかかる傾向がある。
+
+  * コマンド :command:`mprof run` を使うときのコマンドラインは次のようにする：
+
+    .. code:: shell
+
+       $ python D:/Miniconda3/Scripts/mprof run julia1_memoryprofiler.py
+
+    * その後にコマンド :command:`mprof plot` でグラフを描く。
+
+* :file:`noop_profile_decorator/`: 本文の何もしない ``@profile`` デコレーターの記述を参照。
+* :file:`visualise_nonconvergence/`: このプロットはダメだ。
+  コードをいじって点列がほんとうに発散することを見るといい。
+
 3 章 リストとタプル
 ======================================================================
 本章は「小手先のテクニック」に属する。
@@ -229,6 +275,20 @@ Python というよりは計算機の基礎を理解するための章だ。
   * タプルはそうでないときに用いる。
     データが変化しない「素数の最初の n 個」だの「ある人物の誕生日および生誕地」だのを
     表現するのに向いている。
+
+----
+
+以下、GitHub リポジトリーにあるリソースの分析。
+
+* 本編とは関係ない感想だが :command:`2to3` は ``range(...)`` を ``list(range(...))`` に変換する。
+* :file:`binary_search.py`: 二分検索のアルゴリズム実装例。C++ の ``std::upper_bound()`` 風。
+* :file:`binary_vs_linear.py`: 線形検索アルゴリズム実装例とその時間測定コード。
+
+  * ソート済みのものをソートすることに注意したい。
+
+* :file:`bisect_example.py`: ``bisect.insort()`` および ``bisect.bisect_left()`` の使用例。
+* :file:`linear_search.py`: 線形検索アルゴリズム実装例とその時間測定コード。
+  明らかに二分検索より遅いことが体感でわかる。PC のファンもうるさくなる。
 
 4 章 辞書と集合
 ======================================================================
@@ -277,6 +337,61 @@ Python というよりは計算機の基礎を理解するための章だ。
   いずれにせよ、この :math:`S` の値を最大にする確率関数を導くハッシュ関数を
   **理想ハッシュ関数** という。
 
+----
+
+以下、GitHub リポジトリーにあるリソースの分析。
+
+* :file:`custom_vs_default_hash.py`:
+  自作 Point クラスにどのようにハッシュ関数を実装すべきかを示すスクリプト。
+  上のノート参照。
+
+* :file:`dict_probing.py`: ハッシュの基礎理論を説明するためのスクリプト。
+
+  * 関数 ``sample_probe`` 内の ``format`` が動かないかもしれない。
+    ForceHash オブジェクトを ``{: >10}`` に渡せないようだ？
+    この右揃え指定を外すと出力できる：
+
+    .. code-block:: text
+
+       First 10 samples for hash 0b00000111: [7, 3, 0, 1, 6, 7, 4, 5, 2, 3]
+       First 10 samples for hash 0b11100111: [7, 3, 7, 4, 5, 2, 3, 0, 1, 6]
+       First 10 samples for hash 0b01110111: [7, 3, 3, 0, 1, 6, 7, 4, 5, 2]
+       First 10 samples for hash 0b01110001: [1, 7, 7, 4, 5, 2, 3, 0, 1, 6]
+       First 10 samples for hash 0b01110000: [0, 1, 1, 6, 7, 4, 5, 2, 3, 0]
+
+* :file:`naive_hash_function.py`: 粗雑なハッシュ関数実装例。
+* :file:`namespace.py`: インポートされた関数の呼び出し効率について。
+
+  .. code:: ipython
+
+     In [45]: import namespace
+
+     In [47]: %timeit namespace.test1(123456)
+     975 ns ± 5.18 ns per loop (mean ± std. dev. of 7 runs, 1000000 loops each)
+
+     In [48]: %timeit namespace.test2(123456)
+     828 ns ± 3.38 ns per loop (mean ± std. dev. of 7 runs, 1000000 loops each)
+
+     In [49]: %timeit namespace.test3(123456)
+     856 ns ± 2.58 ns per loop (mean ± std. dev. of 7 runs, 1000000 loops each)
+
+* :file:`namespace_loop.py`: 上と同様。
+
+  .. code:: ipython
+
+     In [50]: import namespace_loop
+
+     In [51]: %timeit namespace_loop.tight_loop_slow(10000)
+     5.67 ms ± 38.7 μs per loop (mean ± std. dev. of 7 runs, 100 loops each)
+
+     In [52]: %timeit namespace_loop.tight_loop_fast(10000)
+     5.34 ms ± 35 μs per loop (mean ± std. dev. of 7 runs, 100 loops each)
+
+* :file:`timing_hash_function.py`: アルファベット二文字からなる全文字列の集合から
+  特定の文字列を検索する。ただしハッシュ関数を二通り定義し、それぞれの検索効率を計測する。
+
+* :file:`unique_lookup.py`: 電話番号検索のリスト対集合。本文の記述参照。
+
 5 章 イテレータとジェネレータ
 ======================================================================
 本章は「小手先のテクニック」に属する。
@@ -305,6 +420,8 @@ Python というよりは計算機の基礎を理解するための章だ。
 
   そうでないとき：ワンパス or オンライン処理
 
+----
+
 以下雑感。
 
 * オンライン平均アルゴリズムは知らなかった。
@@ -318,6 +435,54 @@ Python というよりは計算機の基礎を理解するための章だ。
 
   とにかくジェネレーターを駆使して遅延評価に持ち込めていればよい。
 
+----
+
+以下、GitHub リポジトリーにあるリソースの分析。
+
+* :file:`fibonacci.py`: ある値以下の Fibonacci 数を勘定する実装が 3 個ある。
+  これまでの知識をもって計測するといい。
+
+  .. code:: ipython
+
+     In [63]: %timeit fibonacci.fibonacci_naive()
+     8.64 μs ± 23 ns per loop (mean ± std. dev. of 7 runs, 100000 loops each)
+
+     In [64]: %timeit fibonacci.fibonacci_generator()
+     13.4 μs ± 48.4 ns per loop (mean ± std. dev. of 7 runs, 100000 loops each)
+
+     In [65]: %timeit fibonacci.fibonacci_succinct()
+     17.7 ms ± 44.4 μs per loop (mean ± std. dev. of 7 runs, 100 loops each)
+
+* :file:`iter_vs_list_comprehension.py`
+
+  * スクリプト名とは裏腹に、内包表記リストに対する比較対象はジェネレーターであるように見える。
+  * ``memory_profiler`` が利用可能になったので、イテレーターと内包表記の比較結果を記す。
+    数値出力周りのコードを一部改変した：
+
+    .. code:: shell
+
+       $ python iter_vs_list_comprehension.py
+       divisible_by_three_list with 10,000,000 entries took 2.903 seconds and used 126.980 MB
+       divisible_by_three_iterator with 10,000,000 entries took 2.994 seconds and used 0.000 MB
+
+    ただし、実際の実行時間は上記出力値よりもずっと長い。
+
+  * 特に、関数 ``timeit.timeit`` の使い方と ``memory_profiler.memory_usage`` の使い方を見ておくこと。
+
+* :file:`lazy_data_analysis.py`
+
+  * 本書とは無関係だが、バージョンがわからないが私のところの :command:`2to3` が
+    ``from itertools import (count, groupby, ifilter, imap, islice)`` を完全に見逃す。
+
+  * :file:`lazy_data_analysis.py` を実行すると浮動小数点数と ``None`` との比較が発生するらしく、
+    実行時に TypeError が送出する。コードを見たら関数 ``check_anomaly`` の仮引数名が
+    ``xxx_todo_changeme`` だった……。
+
+ *  関数 ``rolling_window_grouper`` で OSError が送出するという
+    バグがあって結局プログラムが異常終了するしかない。
+    これは ``datetime.datetime.fromtimestamp()`` に変な値を渡すときの
+    C の ``localtime()`` か ``gmtime()`` がエラー終了するという挙動によるらしい。
+
 6 章 行列とベクトルの計算
 ======================================================================
 この章ではある 2 次元拡散方程式の計算スクリプトを徐々に高速化していく。
@@ -329,7 +494,9 @@ Python というよりは計算機の基礎を理解するための章だ。
   * IPython で作業をしているならば ``%run -p [profile-options] duffusion.py`` でいい。
 
 * NumPy は必要。SciPy はあるといいなくらい。
-* 本編では line_profiler, perf, numexpr を利用しているが、私は試せなかった。
+* 本編では line_profiler, perf を利用しているが、私は試せなかった。
+
+  * `numexpr <https://github.com/pydata/numexpr>`__ は入手できた。
 
 本章冒頭の問いに答えてみよう。
 
@@ -366,6 +533,68 @@ Python というよりは計算機の基礎を理解するための章だ。
 
   Linux にある :command:`perf` というツールはプログラムを実行しながら CPU の様子を詳細に調べることができる。
   ``$ perf stat -e ... python diffusion.py`` のようなコマンドライン実行結果を分析する。
+
+----
+
+以下、GitHub リポジトリーにあるリソースの分析。
+この章のディレクトリーは本文同様盛りだくさんだ。
+
+* :file:`diffusion_1d/`:
+  純 Python 実装による ``diffusion_python`` をベースラインとして、
+  その改良版との計算コストの比較をする :file:`_benchmark.py` というスクリプトがある。
+  これを単に実行すればよい。
+
+  実行すると :file:`README.md` のようなテキストが出力される。
+  ただしこのディレクトリーにあるものはたぶんミス。
+  私の実行結果を次に示す：
+
+  .. code:: shell
+  
+     $ python _benchmark.py
+     Grid size:  (1024,)
+     Pure Python: 0.05s (1.020675e-03s per iteration)
+     python+memory: 0.05s (9.606266e-04s per iteration)[1.06x speedup]
+     numpy+memory: 0.01s (2.201748e-04s per iteration)[4.64x speedup]
+     numpy: 0.01s (2.201176e-04s per iteration)[4.64x speedup]
+     numpy+memory2: 0.00s (6.000996e-05s per iteration)[17.01x speedup]
+     numpy+memory2+numexpr: 0.01s (2.001524e-04s per iteration)[5.10x speedup]
+     numpy+memory+scipy: 0.01s (1.400852e-04s per iteration)[7.29x speedup]
+     
+     Grid size:  (2048,)
+     Pure Python: 0.05s (1.060696e-03s per iteration)
+     python+memory: 0.05s (1.000648e-03s per iteration)[1.06x speedup]
+     numpy+memory: 0.01s (2.201748e-04s per iteration)[4.82x speedup]
+     numpy: 0.01s (2.201176e-04s per iteration)[4.82x speedup]
+     numpy+memory2: 0.00s (4.000664e-05s per iteration)[26.51x speedup]
+     numpy+memory2+numexpr: 0.01s (2.001333e-04s per iteration)[5.30x speedup]
+     numpy+memory+scipy: 0.01s (1.200771e-04s per iteration)[8.83x speedup]
+     
+     Grid size:  (8192,)
+     Pure Python: 0.05s (9.806252e-04s per iteration)
+     python+memory: 0.05s (9.806204e-04s per iteration)[1.00x speedup]
+     numpy+memory: 0.01s (2.601624e-04s per iteration)[3.77x speedup]
+     numpy: 0.01s (2.401590e-04s per iteration)[4.08x speedup]
+     numpy+memory2: 0.00s (8.004189e-05s per iteration)[12.25x speedup]
+     numpy+memory2+numexpr: 0.01s (1.601553e-04s per iteration)[6.12x speedup]
+     numpy+memory+scipy: 0.02s (3.201962e-04s per iteration)[3.06x speedup]
+
+  * サードパーティー製の ``numexpr`` が必要だ。
+
+* :file:`diffusion_2d/`: 上記の 2 次元版。256 サイズだけ試す（重いから）：
+
+  .. code:: shell
+
+     $ python _benchmark.py
+     Grid size:  (256, 256)
+     Pure Python: 10.31s (2.062975e-01s per iteration)
+     python+memory: 10.33s (2.066978e-01s per iteration)[1.00x speedup]
+     numpy+memory: 0.13s (2.541723e-03s per iteration)[81.16x speedup]
+     numpy: 0.35s (6.944637e-03s per iteration)[29.71x speedup]
+     numpy+memory2: 0.10s (1.921268e-03s per iteration)[107.38x speedup]
+     numpy+memory2+numexpr: 0.11s (2.221475e-03s per iteration)[92.87x speedup]
+     numpy+memory+scipy: 0.17s (3.422313e-03s per iteration)[60.28x speedup]
+
+* :file:`norm/`: :file:`Makefile` があるので、これでメモリなり処理時間なりを計測する。
 
 7 章 C にコンパイルする
 ======================================================================
@@ -408,6 +637,12 @@ Python というよりは計算機の基礎を理解するための章だ。
   * C に対しては Python 標準の ``ctype`` モジュールや ``cffi`` モジュール
   * Fortran に対しては :command:`f2py` コマンド
 
+----
+
+以下、GitHub リポジトリーにあるリソースの分析。
+
+* 前章以上に豊富なコード群。しかしコンパイラーがないので何もできない。
+
 8 章 並行処理
 ======================================================================
 大事なテーマだと思うが、意外にページ数を割いていない。
@@ -435,6 +670,34 @@ Python というよりは計算機の基礎を理解するための章だ。
 * 並行処理はどのようにプログラムを高速化するのか？
 
   TBW
+
+----
+
+以下、GitHub リポジトリーにあるリソースの分析。
+
+* :file:`cralwer/`
+
+  *  ベンチマーク構成が素晴らしい。こういうコードを書けるようになりたいものだ。
+  * :file:`benchmark.sh` で :file:`server.py` をバックグラウンドで起動してからの
+    計測対象群を実行する手際の良さに注目したい。
+
+    * 最後に :file:`visualize.py` でこれまでの出力をプロットして PNG 形式で保存するというのもしゃれている。
+
+    * :file:`asyncio/crawler.py` を実行するときだけ、
+      環境変数 :envvar:`PYTHONPATH` を退避するのはなぜか。
+
+  * :file:`server.py` は HTTP サーバーを実装したもので、サードパーティー製である
+    Tornado を利用している。
+
+    * ``ujson`` なるモジュールをインポートしているが、これはたぶんここには存在しない。
+
+  * 各サブディレクトリーの :file:`crawler.py` の読み方がわからない場合は
+    :file:`asyncio/` にあるものを基準に解読できそうだ。
+
+* :file:`primes/`
+
+  * TODO: ``grequests``
+  * 手動で :file:`server.py` を起動しておく。
 
 9 章 ``multiprocessing`` モジュール
 ======================================================================
@@ -477,6 +740,8 @@ Python というよりは計算機の基礎を理解するための章だ。
 
   * 共有データを同期的に読み書きすることで整合性を保つ仕組みがロックだ。
 
+----
+
 以下雑感。
 
 * 私の PC はコア数 2 なので、本章の内容が十分に検証できない。
@@ -506,6 +771,34 @@ Python というよりは計算機の基礎を理解するための章だ。
     こんなことは知らないふりをしていいだろう。
 
 まともに本章に取り組むと一日潰れる。
+
+----
+
+以下、GitHub リポジトリーにあるリソースの分析。
+この章に対応するディレクトリーにある :file:`chapter_recipe.txt` のコードを追体験するのがいい。
+
+* :file:`locking/`
+
+  * :file:`ex1_lock.py` がやたら遅いわロックに失敗するわで、いいところがない。
+  * :file:`ex3_redis.py` だけ Redis が必要。
+
+* :file:`np_shared_example/`: NumPy 配列の共有化という、たいへん難しいテーマ。
+* :file:`pi_estimation/`: モンテカルロ法。
+
+ * :file:`pi_lists_parallel/`
+ * :file:`pi_monte_carlo_diagram/`: よくある円周率の見積もり。
+ * :file:`pi_processes_parallel/`
+
+* :file:`prime_generation/`
+
+  * :file:`plot_serial_vs_queue_times.py`: 意味不明。
+  * :file:`primes.py`: もっとも単純な素数列挙コード。
+  * :file:`primes_pool.py`: ``multiprocessing.Pool`` 使用。
+  * :file:`primes_queue.py`: ``multiprocessing.Queue`` 使用。
+  * :file:`primes_queue_jobs_feeder_thread.py`: Pool と Queue に加えて ``threading.Thread`` 使用。
+  * :file:`primes_queue_less_work.py`: :file:`primes_queue.py` の探索対象を半分にしたもの。
+
+* :file:`prime_validation/`
 
 10 章 クラスタとジョブキュー
 ======================================================================
@@ -551,6 +844,8 @@ Python というよりは計算機の基礎を理解するための章だ。
   * 使いこなすにはシステム管理と開発の技量が必要だ。
   * pub/sub/consumer パターンとでもいうべき設計思想。
 
+----
+
 以下雑感。
 
 * クラスタとは複数の計算機を使って一つの共通タスクを解くシステムだが、
@@ -560,6 +855,19 @@ Python というよりは計算機の基礎を理解するための章だ。
 * TODO: IPython Parallel (``ipcluster``) 入手。
 
   * 例 10-3 の ``IPython.parallel`` は IPython 4.0 でとっくに deprecated になっている。
+
+----
+
+以下、GitHub リポジトリーにあるリソースの分析。
+この章のコードも気合が入っている。
+
+* :file:`ipythonparallel/`
+* :file:`nsq/`
+* :file:`parallelpython/`
+* :file:`pi_hypotenuse/`
+* :file:`pi_trig/`
+* :file:`primes/`
+* :file:`queue/`
 
 11 章 RAM 使用量を削減する
 ======================================================================
@@ -588,9 +896,10 @@ Python というよりは計算機の基礎を理解するための章だ。
 * どのようにしたらたった 1 バイトで 1e77 (:math:`10^{77}`) まで（近似的に）数えられるか？
 * Bloom フィルタとは何で、必要になる理由は何か？
 
+----
+
 以下雑感。
 
-* TODO: 要 ``memory_profiler``
 * 本書と私の手許の IPython 上とでの ``array?`` の出力が異なる。
   こちらの ``array.array?`` に近い。
 * ``sys.getsizeof()`` の結果は想像より大きい。
@@ -620,6 +929,16 @@ Python というよりは計算機の基礎を理解するための章だ。
 
   * LogLog counter: 先頭に 0 が続くハッシュ値を記録して、
     それまでに勘定した要素数を推定する。
+
+----
+
+以下、GitHub リポジトリーにあるリソースの分析。
+この章のコードも気合が入っている。
+
+* :file:`compressing_text/`
+* :file:`getsizeof/`
+* :file:`morris_counter_example/`
+* :file:`probabilistic_datastructures/`
 
 12 章 現場に学ぶ
 ======================================================================
@@ -655,3 +974,4 @@ Python の性能を追求するのが目的の本書において異色の章だ�
 * https://github.com/mynameisfiber/high_performance_python
 * Makefile がいくつかあるので、ターゲットを確認しておく。
 * Python 2 対応コードなので、Python 3 化は利用者それぞれで実施する。
+  コマンドラインは ``$ 2to3 -w *.py`` ``$ 2to3 -w DIRNAME`` とかでよさそうだ。
