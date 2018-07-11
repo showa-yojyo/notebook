@@ -358,7 +358,7 @@ Python というよりは計算機の基礎を理解するための章だ。
 
 * :file:`dict_probing.py`: ハッシュの基礎理論を説明するためのスクリプト。
 
-  * 関数 ``sample_probe`` 内の ``format`` が動かないかもしれない。
+  * 関数 ``sample_probe()`` 内の ``format`` が動かないかもしれない。
     ForceHash オブジェクトを ``{: >10}`` に渡せないようだ？
     この右揃え指定を外すと出力できる：
 
@@ -478,7 +478,7 @@ Python というよりは計算機の基礎を理解するための章だ。
 
     ただし、実際の実行時間は上記出力値よりもずっと長い。
 
-  * 特に、関数 ``timeit.timeit`` の使い方と ``memory_profiler.memory_usage`` の使い方を見ておくこと。
+  * 特に、関数 ``timeit.timeit()`` の使い方と ``memory_profiler.memory_usage()`` の使い方を見ておくこと。
 
 * :file:`lazy_data_analysis.py`
 
@@ -486,10 +486,10 @@ Python というよりは計算機の基礎を理解するための章だ。
     ``from itertools import (count, groupby, ifilter, imap, islice)`` を完全に見逃す。
 
   * :file:`lazy_data_analysis.py` を実行すると浮動小数点数と ``None`` との比較が発生するらしく、
-    実行時に TypeError が送出する。コードを見たら関数 ``check_anomaly`` の仮引数名が
+    実行時に TypeError が送出する。コードを見たら関数 ``check_anomaly()`` の仮引数名が
     ``xxx_todo_changeme`` だった……。
 
- *  関数 ``rolling_window_grouper`` で OSError が送出するという
+ *  関数 ``rolling_window_grouper()`` で OSError が送出するという
     バグがあって結局プログラムが異常終了するしかない。
     これは ``datetime.datetime.fromtimestamp()`` に変な値を渡すときの
     C の ``localtime()`` か ``gmtime()`` がエラー終了するという挙動によるらしい。
@@ -755,7 +755,7 @@ Python というよりは計算機の基礎を理解するための章だ。
   * 配列データを複数プロセス間で共有する方法は？と同じ意味。
 
     1) メモリ領域を共有可能にするには ``multiprocessing.Array`` を使う。
-    2) 共有領域を関数 ``numpy.frombuffer`` に渡して ``numpy`` 配列を生成する。
+    2) 共有領域を関数 ``numpy.frombuffer()`` に渡して ``numpy`` 配列を生成する。
 
 * データの欠損を回避するためにロックする必要があるのはなぜか？
 
@@ -767,7 +767,7 @@ Python というよりは計算機の基礎を理解するための章だ。
 
 * 私の PC はコア数 2 なので、本章の内容が十分に検証できない。
 * 素数分布のコード、出力結果がソートされているわけではないことに注意。
-* 省略されている ``create_range.create`` 関数の実装は次のようなものと思われる：
+* 省略されている ``create_range.create()`` 関数の実装は次のようなものと思われる：
 
   .. code:: python3
 
@@ -1104,6 +1104,11 @@ Python の性能を追求するのが目的の本書において異色の章だ�
 付録 A サンプルプログラムについて
 ======================================================================
 * https://github.com/mynameisfiber/high_performance_python
-* Makefile がいくつかあるので、ターゲットを確認しておく。
+* :file:`Makefile` がいくつかあるので、ターゲットを確認しておく。
 * Python 2 対応コードなので、Python 3 化は利用者それぞれで実施する。
-  コマンドラインは ``$ 2to3 -w *.py`` ``$ 2to3 -w DIRNAME`` とかでよさそうだ。
+  コマンドラインは ``$ 2to3 -w .`` でよさそうだ。
+
+.. todo::
+
+   本書で扱うサードパーティーパッケージ一覧。インストーラーを書ければ
+   あとで人に教えるときに有用だろう。
