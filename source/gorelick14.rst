@@ -119,12 +119,15 @@ Python というよりは計算機の基礎を理解するための章だ。
   メモリの測定については次に挙げるものが便利だ：
 
   * ``heapy``
-  * ``dowser``
-  * ``memory_profiler``
+  * ``dowser``: これは ``$ pip install dowser`` で利用可能になる。
+    依存パッケージ CherryPy も同時にインストールされる。
+    ただし、Python 3 対応がなされていない。
+    本書を理解するために勝手に :command:`2to3` しておく。
 
-    * これは ``$ pip install memory_profiler`` で容易に利用可能になる。
-      コマンドラインツール :command:`mprof` および
-      IPython 用コマンド ``%memit`` を含む。
+  * ``memory_profiler``: 
+    これは ``$ pip install memory_profiler`` で容易に利用可能になる。
+    コマンドラインツール :command:`mprof` および
+    IPython 用コマンド ``%memit`` を含む。
 
 * プロファイリングの深さをどのように選ぶのか？
 
@@ -214,7 +217,14 @@ Python というよりは計算機の基礎を理解するための章だ。
 
 * :file:`cpu_profiling/`: GNU :command:`time` での測定が残。
 * :file:`decorator_time/`: 見るべきはデコレーター関数 ``timefn()`` だ。
-* :file:`dowser/`: TODO: dowser
+* :file:`dowser/`: ブラウザーでリアルタイムに観察する。
+
+  * 関数 ``launch_memory_usage_server()`` でそれ周りのコードは完結している。
+    これをジュリア集合の計算直前に呼び出して、CherryPy サーバーを走らせるとのこと。
+
+  * 自分で http://localhost:8080/ のページを表示する。
+    ``builtins.list`` の TRACE リンク先を見ればよい。
+
 * :file:`guppy/`: TODO: guppy
 * :file:`line_profiler/`: TODO: :file:`kernprof.py` 入手。
 * :file:`memory_profiler/`: どうやらメモリ量の計測は時間がかかる傾向がある。
