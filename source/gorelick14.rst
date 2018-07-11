@@ -1026,10 +1026,51 @@ Python というよりは計算機の基礎を理解するための章だ。
 以下、GitHub リポジトリーにあるリソースの分析。
 この章のコードも気合が入っている。
 
-* :file:`compressing_text/`
-* :file:`getsizeof/`
-* :file:`morris_counter_example/`
+* :file:`getsizeof/`: 本文中にある ``asizeof`` の説明を参照。
+
+* :file:`compressing_text/`: 大量テキストから単語を検索する。
+
+  <Wikipedia の部分ダンプから構築したテストセット> がないので再現は無理か。
+  あと著者は Unix 使いだと思っているが Windows-1252 エンコードを採用するのはなぜだ。
+
+  * :file:`text_example.py`: 関数 ``read_words()`` の実装。
+  * :file:`text_example_datrie.py`: ``datrie`` モジュールが必要。
+  * :file:`text_example_dawg.py`: ``dawg`` モジュールが必要。
+  * :file:`text_example_hattrie.py`: ``hat_trie`` モジュールが必要。
+  * :file:`text_example_list.py`: テキストをソートしないリストに記憶して検索する。
+  * :file:`text_example_list_bisect.py`: 上のソート済みリスト版。ベンチマークのベースライン。
+  * :file:`text_example_set.py`: テキストを集合に記憶して検索する。
+  * :file:`text_example_trie.py`: ``marisa_trie`` モジュールが必要。
+
+* :file:`morris_counter_example/`: Morris カウンター。
+
+  * :file:`morris_counter.py`: クラス MorrisCounter の実装。本文のそれより複雑。
+  * :file:`show_morris_counter.py`: クラス MorrisCounter のデモ。
+
 * :file:`probabilistic_datastructures/`
+
+  モジュール ``mmh3`` がハッシュのために必要だ。
+
+  * :file:`morriscounter.py`: 本文どおりのクラス MorrisCounter の実装。
+  * :file:`kminvalues.py`: クラス KMinValues の実装。
+
+  以下 Bloom フィルター系。
+
+  * :file:`bloomfilter.py`: クラス BloomFilter の実装。
+  * :file:`scalingbloomfilter.py`: クラス ScakingBloomFilter の実装。
+    上の BloomFilter と has-a 関係がある。
+
+  以下 LogLog カウンター系。
+
+  * :file:`ll.py`: クラス LL の実装。本文でいう簡単な LogLog カウンター。
+  * :file:`llregister.py`: クラス LogLogRegister の実装。
+  * :file:`superll.py`: クラス SuperLL の実装。
+  * :file:`hyperloglog.py`: クラス HyperLogLog の実装。
+
+  * :file:`_benchmark.py`: 上記各種カウンターのベンチマークスクリプト。
+
+    * 実行するには :file:`enwiki-latest-pages-articles.tokens` なるファイルが必要。
+    * あと ``countmemaybe`` というパッケージが必要。
 
 12 章 現場に学ぶ
 ======================================================================
