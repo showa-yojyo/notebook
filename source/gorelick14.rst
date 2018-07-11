@@ -118,7 +118,8 @@ Python というよりは計算機の基礎を理解するための章だ。
 
   メモリの測定については次に挙げるものが便利だ：
 
-  * ``heapy``
+  * ``heapy``: TODO
+
   * ``dowser``: これは ``$ pip install dowser`` で利用可能になる。
     依存パッケージ CherryPy も同時にインストールされる。
     ただし、Python 3 対応がなされていない。
@@ -687,7 +688,9 @@ Python というよりは計算機の基礎を理解するための章だ。
 
 * :file:`cralwer/`
 
-  *  ベンチマーク構成が素晴らしい。こういうコードを書けるようになりたいものだ。
+  * 実行時エラーは出るものの、ベンチマーク構成が素晴らしい。
+    こういうコードを書けるようになりたいものだ。
+
   * :file:`benchmark.sh` で :file:`server.py` をバックグラウンドで起動してからの
     計測対象群を実行する手際の良さに注目したい。
 
@@ -706,7 +709,10 @@ Python というよりは計算機の基礎を理解するための章だ。
 
 * :file:`primes/`
 
-  * TODO: ``grequests``
+  * ``grequests`` が必要。
+  * :file:`primes.py` を編集して ``__slot__`` の中身からメソッドを取り除く。
+    ``ValueError: 'save' in __slots__ conflicts with class variable`` を解決するため。
+
   * 手動で :file:`server.py` を起動しておく。
 
 9 章 ``multiprocessing`` モジュール
@@ -772,7 +778,6 @@ Python というよりは計算機の基礎を理解するための章だ。
   * ``mmap.write_byte(FLAG_CLEAR)`` が成立しない。
     ``TypeError: an integer is required (got type bytes)`` となる。
 
-* TODO: ``lockfile``
 * ロックの例題 ``ex2_nolock`` は成功率が案外高くて困る。
   ``python -m timeit`` で 10 回反復させて 9 回正しい結果が得られたことも。
 
