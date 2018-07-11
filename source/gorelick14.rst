@@ -665,7 +665,13 @@ Python というよりは計算機の基礎を理解するための章だ。
   例えば、I/O 待ち時間の間に他の処理（タスク）に活用する。
 
 * 並行処理と並列処理の違いは何か？
+
+  TBW
+
 * 並行処理ができるタスクは何で、できないタスクは何か？
+
+  TBW
+
 * 並行処理にまつわるパラダイムにはどのようなものがあるのか？
 
   * ``gevent``: Future 形式
@@ -712,7 +718,6 @@ Python というよりは計算機の基礎を理解するための章だ。
   * ``grequests`` が必要。
   * :file:`primes.py` を編集して ``__slot__`` の中身からメソッドを取り除く。
     ``ValueError: 'save' in __slots__ conflicts with class variable`` を解決するため。
-
   * 手動で :file:`server.py` を起動しておく。
 
 9 章 ``multiprocessing`` モジュール
@@ -798,11 +803,52 @@ Python というよりは計算機の基礎を理解するための章だ。
   * :file:`ex3_redis.py` だけ Redis が必要。
 
 * :file:`np_shared_example/`: NumPy 配列の共有化という、たいへん難しいテーマ。
+
+  * :file:`np_shared.py`: 共有配列を設定する。
+
+    * ``multiprocessing.Array`` と ``numpy.frombuffer()`` を組み合わせる。
+    * ``map.pool()`` で指定される 4 プロセス（ワーカー）それぞれがその配列にアクセスする。
+    * サブディレクトリーのものはマルチプロセスまたはスレッドのどちらかによる
+      配列アクセス（書き込み）。
+
 * :file:`pi_estimation/`: モンテカルロ法。
 
- * :file:`pi_lists_parallel/`
- * :file:`pi_monte_carlo_diagram/`: よくある円周率の見積もり。
- * :file:`pi_processes_parallel/`
+  * :file:`pi_lists_parallel/`
+
+    * :file:`pi_lists_parallel.py`: マルチプロセスまたはスレッドのどちらかによる
+      ``pool.map()`` によるモンテカルロ法円周率見積もり並列処理。
+
+    * :file:`profile_cpu_usage.py`: 上のスクリプトをいろいろなコマンドラインオプション値で
+      実行し、プロファイルを取る。
+
+      * らしいのだが、意味をなさないコードがある。修正方法も推測不能。
+
+        .. code:: python3
+
+           if args.processes:
+               xargs.append("--processes")
+               SLEEP_FOR = {8: 3, 4: 4, 2: 7, 1: 15}[args.nbr_processes]
+           else:
+               print("THREADED VERSION")
+               SLEEP_FOR = {4: 20}[args.nbr_processes]
+
+      * ``subprocess.Popen`` 使用。
+
+  * :file:`pi_monte_carlo_diagram/`: よくある円周率の見積もり。
+
+  * :file:`pi_processes_parallel/`
+
+    以下のコードでは Python 3 化するときに
+    ``nbr_samples_in_total`` と ``nbr_samples_per_worker`` を
+    ``int`` 型に手動で修正する必要がある。
+
+    * :file:`pi_numpy_parallel_worker.py`: 上記 :file:`pi_lists_parallel.py` の
+      NumPy 版。
+
+    * :file:`pi_numpy_serial.py`: 上のスクリプト内に定義されている
+      関数 ``estimate_nbr_points_in_quarter_circle()`` を一回実行する。
+
+    * :file:`pi_numpy_serial_blocks.py`: 逐次処理。
 
 * :file:`prime_generation/`
 
@@ -813,7 +859,37 @@ Python というよりは計算機の基礎を理解するための章だ。
   * :file:`primes_queue_jobs_feeder_thread.py`: Pool と Queue に加えて ``threading.Thread`` 使用。
   * :file:`primes_queue_less_work.py`: :file:`primes_queue.py` の探索対象を半分にしたもの。
 
-* :file:`prime_validation/`
+* :file:`prime_validation/`: プロセス間通信で素数判定
+
+  素数判定という重いプログラムを実行するわけだが、
+  実行途中で処理を殺すのがマルチプロセスゆえたいへん面倒なので注意したい。
+
+  次のスクリプト群は素数判定自身に関係するコード。
+  ロジックについては本文参照。
+
+  * :file:`create_range.py`: 素数判定計算並行化のために整数区間を等分割する関数。
+  * :file:`primes.py`: 関数 ``check_prime()`` を ``timeit.repeat()`` で計測する。
+  * :file:`primes_pool_per_number1.py`: 整数区間を等分割して素数判定に入る。
+  * :file:`primes_pool_per_number2.py`: 上の若い素数は判定をスキップする版。
+
+  以下はフラグ系。
+
+  * :file:`primes_pool_per_number_manager.py`: ``multiprocessing.Manager`` 使用。
+  * :file:`primes_pool_per_number_value.py`: Manager + Value を RawValue にした版。
+  * :file:`primes_pool_per_number_value_withinit.py`: 上のものに謎の初期化コードを入れた版。
+  * :file:`primes_pool_per_number_redis.py`: RawValue を Redis という
+    インメモリデータベースで置き換えた版。
+
+  以下は ``mmap`` 系。
+
+  * :file:`primes_pool_per_number_mmap.py`: ``mmap.mmap`` 使用。
+    ただし Python 3 化すると ``mem.write_byte()`` の呼び出しで例外送出。
+    以下の例でも同様。
+    ``FLAG_XXX`` を整数にするのが楽な修正方法。
+  * :file:`primes_pool_per_number_mmap2.py`: 上の微調整版。
+  * :file:`primes_pool_per_number_mmap3.py`: 上のループ二段階化版。
+  * :file:`primes_pool_per_number_mmap4.py`: 上のフラグを局所変数化した版。
+  * :file:`primes_understand_comms_frequency.py`: 先の mmap3 の通信状況をわかりやすくする版。
 
 10 章 クラスタとジョブキュー
 ======================================================================
