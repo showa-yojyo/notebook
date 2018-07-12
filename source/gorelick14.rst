@@ -1125,7 +1125,32 @@ Python の性能を追求するのが目的の本書において異色の章だ�
 * Python 2 対応コードなので、Python 3 化は利用者それぞれで実施する。
   コマンドラインは ``$ 2to3 -w .`` でよさそうだ。
 
-.. todo::
+* サンプルプログラムが利用しているサードパーティーパッケージのうち、
+  主要なものをまとめておく：
 
-   本書で扱うサードパーティーパッケージ一覧。インストーラーを書ければ
-   あとで人に教えるときに有用だろう。
+  ================ ======== ===========================================
+  パッケージ       入手方法 備考
+  ================ ======== ===========================================
+  runsnake         pip      wxPython が必要
+  line_profiler    pip      VC コンパイラーが必要
+  memory_profiler  pip
+  guppy            pip
+  dowser           pip
+  coverage         pip      本書のサンプルでは未使用
+  numexpr          pip      NumPy が必要
+  gevent           pip
+  grequests        pip
+  tornado          pip      なぜかすでに手許にあった
+  Twisted          pip
+  Redis            ?
+  lockfile         pip
+  pp               pip
+  ipclustrer       pip
+  NSQ              ?
+  dawg             github?
+  marisa_trie      github?
+  datrie           github?
+  hat_trie         github?
+  countmemaybe     github?
+  mmh3             ?
+  ================ ======== ===========================================
