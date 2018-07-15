@@ -562,7 +562,10 @@ Jupyter Notebook を起動する
 
   .. code:: text
 
-     D:\Miniconda3\Scripts\jupyter.exe notebook -new_console:d:D:\home\yojyo\jupyter
+     D:\Miniconda3\Scripts\jupyter.exe notebook
+     -new_console:d:%USERPROFILE%\jupyter-doc
+     -new_console:t:"Jupyter"
+     -new_console:C:D:\Miniconda3\envs\3.6\Menu\jupyter.ico
 
 * :code:`jupyter notebook` には当然ながらコマンドラインオプションがある。
   利用価値のありそうなものがあれば洗い出しておきたい。
