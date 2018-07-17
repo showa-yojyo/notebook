@@ -200,20 +200,34 @@ Python というよりは計算機の基礎を理解するための章だ。
 
      $ python -m cProfile -s cumulative SCRIPT
 
+  あるいは IPython で ``%run -p`` コマンドを実行する。
+  ``%prun`` でもいい。
+
+  .. code:: ipython
+
+     In [1]: %run -p -s cumulative SCRIPT
+
   統計情報をファイルに書き出して、標準モジュール ``pstats`` の機能で分析する。
 
   .. code:: shell
 
      $ python -m cProfile -s profile.stats SCRIPT
 
+  IPython ならばこうする。
+  ダンプファイルは IPython セッションで分析するのが便利なので、こちらのほうがいいか。
+
   .. code:: ipython
 
-     In [1]: from pstats import Stats
-     In [2]: p = Stats('profile.stats')
-     In [3]: p.sort_stats('cumulative')
-     In [4]: p.print_stats()
-     In [5]: p.print_callers()
-     In [6]: p.print_callees()
+     In [1]: %run -p -D profile.stats cpu_profiling/julia1_nopil.py
+
+     In [2]: from pstats import Stats
+     In [3]: p = Stats('profile.stats')
+     In [4]: p.sort_stats('cumulative')
+     In [5]: p.print_stats()
+     In [6]: p.print_callers()
+     In [7]: p.print_callees()
+
+  このノートには記さないが、統計情報出力が横長過ぎて驚く。
 
 * 簡単なコード片ならば IPython の ``%timeit`` コマンドが手軽に使える。
 
@@ -592,7 +606,7 @@ Python というよりは計算機の基礎を理解するための章だ。
   私の実行結果を次に示す：
 
   .. code:: shell
-  
+
      $ python _benchmark.py
      Grid size:  (1024,)
      Pure Python: 0.05s (1.020675e-03s per iteration)
@@ -602,7 +616,7 @@ Python というよりは計算機の基礎を理解するための章だ。
      numpy+memory2: 0.00s (6.000996e-05s per iteration)[17.01x speedup]
      numpy+memory2+numexpr: 0.01s (2.001524e-04s per iteration)[5.10x speedup]
      numpy+memory+scipy: 0.01s (1.400852e-04s per iteration)[7.29x speedup]
-     
+
      Grid size:  (2048,)
      Pure Python: 0.05s (1.060696e-03s per iteration)
      python+memory: 0.05s (1.000648e-03s per iteration)[1.06x speedup]
@@ -611,7 +625,7 @@ Python というよりは計算機の基礎を理解するための章だ。
      numpy+memory2: 0.00s (4.000664e-05s per iteration)[26.51x speedup]
      numpy+memory2+numexpr: 0.01s (2.001333e-04s per iteration)[5.30x speedup]
      numpy+memory+scipy: 0.01s (1.200771e-04s per iteration)[8.83x speedup]
-     
+
      Grid size:  (8192,)
      Pure Python: 0.05s (9.806252e-04s per iteration)
      python+memory: 0.05s (9.806204e-04s per iteration)[1.00x speedup]
