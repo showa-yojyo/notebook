@@ -1,17 +1,17 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>確率と統計 &#8212; 読書ノート v1.4</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>確率と統計 &#8212; 読書ノート v1.5dev</title>
     <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/mathjax-v3.js"></script>
+    
     <link rel="next" title="最小二乗法" href="least-squares.html" />
     <link rel="prev" title="常微分方程式" href="ode.html" /> 
   </head><body>
@@ -25,7 +25,8 @@
           <a href="ode.html" title="常微分方程式"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">SciPy 利用ノート</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">SciPy 利用ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">確率と統計</a></li> 
       </ul>
     </div>  
 
@@ -34,239 +35,309 @@
           <div class="body" role="main">
             
   <div class="section" id="id1">
-<h1><a class="toc-backref" href="#id16">確率と統計</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<p>本稿では <a class="reference external" href="http://www.scipy.org/">SciPy</a> の統計機能を見ていこう。個人的には統計にほとんど興味がないので、このページは特にやっつけ作業になる予定だ。</p>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">もっと書くことはないのか。</p>
-</div>
+<h1><a class="toc-backref" href="#id18">確率と統計</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>本稿では <a class="reference external" href="http://www.scipy.org/">SciPy</a> の確率と統計の機能を見ていこう。</p>
 <div class="contents topic" id="contents">
-<p class="topic-title first">Contents</p>
+<p class="topic-title">Contents</p>
 <ul class="simple">
-<li><a class="reference internal" href="#id1" id="id16">確率と統計</a><ul>
-<li><a class="reference internal" href="#id2" id="id17">基本統計量</a><ul>
-<li><a class="reference internal" href="#id3" id="id18">最大値</a></li>
-<li><a class="reference internal" href="#id4" id="id19">最小値</a></li>
-<li><a class="reference internal" href="#id5" id="id20">平均値</a></li>
-<li><a class="reference internal" href="#id6" id="id21">中央値</a></li>
-<li><a class="reference internal" href="#id7" id="id22">最頻値</a></li>
-<li><a class="reference internal" href="#id8" id="id23">百分位数</a></li>
-<li><a class="reference internal" href="#id9" id="id24">分散</a></li>
-<li><a class="reference internal" href="#id10" id="id25">標準偏差</a></li>
-<li><a class="reference internal" href="#id11" id="id26">範囲幅</a></li>
-<li><a class="reference internal" href="#id12" id="id27">歪度</a></li>
-<li><a class="reference internal" href="#id13" id="id28">尖度</a></li>
+<li><p><a class="reference internal" href="#id1" id="id18">確率と統計</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id19">基本統計量</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id3" id="id20">最大値</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id21">最小値</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id22">平均値</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id23">中央値</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id24">最頻値</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id25">百分位数</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id26">分散</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id27">標準偏差</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id28">範囲幅</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id29">歪度</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id30">尖度</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id14" id="id29">確率分布</a></li>
+<li><p><a class="reference internal" href="#id14" id="id31">確率分布</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id16" id="id32">例：サイコロ</a></p></li>
+<li><p><a class="reference internal" href="#id17" id="id33">例：標準正規分布</a></p></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="id2">
-<h2><a class="toc-backref" href="#id17">基本統計量</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id19">基本統計量</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>以下の説明では <code class="docutils literal notranslate"><span class="pre">x</span></code> を何らかの統計データを表現する
 shape が一次元の <code class="docutils literal notranslate"><span class="pre">np.array</span></code> 型インスタンスとする。また、各代表値・散布度を計算するのに十分の個数の要素を含むものとする。</p>
 <p>モジュール <code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code> の機能に頼らずとも
 <a class="reference external" href="http://www.numpy.org/">NumPy</a> の機能で計算可能な統計量が多いようだ。</p>
 <div class="section" id="id3">
-<h3><a class="toc-backref" href="#id18">最大値</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id20">最大値</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>統計データ <code class="docutils literal notranslate"><span class="pre">x</span></code> の最大値を得るには以下のいずれかを用いればよい。</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">x.max()</span></code> の戻り値。</li>
-<li><code class="docutils literal notranslate"><span class="pre">np.max(x)</span></code> の戻り値。</li>
-<li><code class="docutils literal notranslate"><span class="pre">n,</span> <span class="pre">(smin,</span> <span class="pre">smax),</span> <span class="pre">sm,</span> <span class="pre">sv,</span> <span class="pre">ss,</span> <span class="pre">sk</span> <span class="pre">=</span> <span class="pre">scipy.stats.describe(x)</span></code> として <code class="docutils literal notranslate"><span class="pre">smax</span></code> を採る。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x.max()</span></code> の戻り値。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">np.max(x)</span></code> の戻り値。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n,</span> <span class="pre">(smin,</span> <span class="pre">smax),</span> <span class="pre">sm,</span> <span class="pre">sv,</span> <span class="pre">ss,</span> <span class="pre">sk</span> <span class="pre">=</span> <span class="pre">scipy.stats.describe(x)</span></code> として <code class="docutils literal notranslate"><span class="pre">smax</span></code> を採る。</p></li>
 </ul>
 </div>
 <div class="section" id="id4">
-<h3><a class="toc-backref" href="#id19">最小値</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id21">最小値</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>統計データ <code class="docutils literal notranslate"><span class="pre">x</span></code> の最小値を得るには以下のいずれかを用いればよい。最大値と同様。</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">x.min()</span></code> の戻り値。</li>
-<li><code class="docutils literal notranslate"><span class="pre">np.min(x)</span></code> の戻り値。</li>
-<li><code class="docutils literal notranslate"><span class="pre">n,</span> <span class="pre">(smin,</span> <span class="pre">smax),</span> <span class="pre">sm,</span> <span class="pre">sv,</span> <span class="pre">ss,</span> <span class="pre">sk</span> <span class="pre">=</span> <span class="pre">scipy.stats.describe(x)</span></code> として <code class="docutils literal notranslate"><span class="pre">smin</span></code> を採る。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x.min()</span></code> の戻り値。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">np.min(x)</span></code> の戻り値。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n,</span> <span class="pre">(smin,</span> <span class="pre">smax),</span> <span class="pre">sm,</span> <span class="pre">sv,</span> <span class="pre">ss,</span> <span class="pre">sk</span> <span class="pre">=</span> <span class="pre">scipy.stats.describe(x)</span></code> として <code class="docutils literal notranslate"><span class="pre">smin</span></code> を採る。</p></li>
 </ul>
 </div>
 <div class="section" id="id5">
-<h3><a class="toc-backref" href="#id20">平均値</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id22">平均値</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>統計データ <code class="docutils literal notranslate"><span class="pre">x</span></code> の平均値を得るには以下のいずれかを用いればよい。</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">x.mean()</span></code> の戻り値。</li>
-<li><code class="docutils literal notranslate"><span class="pre">np.mean(x)</span></code> の戻り値。</li>
-<li><code class="docutils literal notranslate"><span class="pre">n,</span> <span class="pre">(smin,</span> <span class="pre">smax),</span> <span class="pre">sm,</span> <span class="pre">sv,</span> <span class="pre">ss,</span> <span class="pre">sk</span> <span class="pre">=</span> <span class="pre">scipy.stats.describe(x)</span></code> として <code class="docutils literal notranslate"><span class="pre">sm</span></code> を採る。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x.mean()</span></code> の戻り値。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">np.mean(x)</span></code> の戻り値。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n,</span> <span class="pre">(smin,</span> <span class="pre">smax),</span> <span class="pre">sm,</span> <span class="pre">sv,</span> <span class="pre">ss,</span> <span class="pre">sk</span> <span class="pre">=</span> <span class="pre">scipy.stats.describe(x)</span></code> として <code class="docutils literal notranslate"><span class="pre">sm</span></code> を採る。</p></li>
 </ul>
 </div>
 <div class="section" id="id6">
-<h3><a class="toc-backref" href="#id21">中央値</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id23">中央値</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>統計データ <code class="docutils literal notranslate"><span class="pre">x</span></code> の中央値を得るには <code class="docutils literal notranslate"><span class="pre">np.median(x)</span></code> の戻り値を用いる。</p>
 </div>
 <div class="section" id="id7">
-<h3><a class="toc-backref" href="#id22">最頻値</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id24">最頻値</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>統計データ <code class="docutils literal notranslate"><span class="pre">x</span></code> の最頻値を得るには以下のようにする。
 <code class="docutils literal notranslate"><span class="pre">vals</span></code> と <code class="docutils literal notranslate"><span class="pre">counts</span></code> が最頻値と出現回数をそれぞれ表す。</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">stats</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">vals</span><span class="p">,</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id8">
-<h3><a class="toc-backref" href="#id23">百分位数</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id25">百分位数</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>統計データ <code class="docutils literal notranslate"><span class="pre">x</span></code> の百分位数を得るには次のようにする。</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">np.percentile(x,</span> <span class="pre">q)</span></code> の戻り値。ただし <code class="docutils literal notranslate"><span class="pre">q</span></code> は 0 から 100 までの数。<ul>
-<li><code class="docutils literal notranslate"><span class="pre">q</span> <span class="pre">=</span> <span class="pre">0</span></code> ならば最小値が得られる。</li>
-<li><code class="docutils literal notranslate"><span class="pre">q</span> <span class="pre">=</span> <span class="pre">100</span></code> ならば最大値が得られる。</li>
-<li><code class="docutils literal notranslate"><span class="pre">q</span> <span class="pre">=</span> <span class="pre">50</span></code> ならば中央値が得られる。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">np.percentile(x,</span> <span class="pre">q)</span></code> の戻り値。ただし <code class="docutils literal notranslate"><span class="pre">q</span></code> は 0 から 100 までの数。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">q</span> <span class="pre">=</span> <span class="pre">0</span></code> ならば最小値が得られる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">q</span> <span class="pre">=</span> <span class="pre">100</span></code> ならば最大値が得られる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">q</span> <span class="pre">=</span> <span class="pre">50</span></code> ならば中央値が得られる。</p></li>
 </ul>
 </li>
 </ul>
 <p>SciPy にも同等の機能はあるのだが、NumPy が提供する上述の関数の仕様を推奨している。</p>
 </div>
 <div class="section" id="id9">
-<h3><a class="toc-backref" href="#id24">分散</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id26">分散</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>統計データ <code class="docutils literal notranslate"><span class="pre">x</span></code> の分散を得るには以下のいずれかを用いればよい。</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">x.var()</span></code> の戻り値。</li>
-<li><code class="docutils literal notranslate"><span class="pre">np.var(x)</span></code> の戻り値。</li>
-<li><code class="docutils literal notranslate"><span class="pre">n,</span> <span class="pre">(smin,</span> <span class="pre">smax),</span> <span class="pre">sm,</span> <span class="pre">sv,</span> <span class="pre">ss,</span> <span class="pre">sk</span> <span class="pre">=</span> <span class="pre">scipy.stats.describe(x)</span></code> として <code class="docutils literal notranslate"><span class="pre">sv</span></code> を採る。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x.var()</span></code> の戻り値。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">np.var(x)</span></code> の戻り値。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n,</span> <span class="pre">(smin,</span> <span class="pre">smax),</span> <span class="pre">sm,</span> <span class="pre">sv,</span> <span class="pre">ss,</span> <span class="pre">sk</span> <span class="pre">=</span> <span class="pre">scipy.stats.describe(x)</span></code> として <code class="docutils literal notranslate"><span class="pre">sv</span></code> を採る。</p></li>
 </ul>
 <p>分散といえば <code class="docutils literal notranslate"><span class="pre">N</span></code> で割るのか <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">-</span> <span class="pre">1</span></code> で割るのかという問題がつきまとうが、
 NumPy の <code class="docutils literal notranslate"><span class="pre">var</span></code> はキーワード引数 <code class="docutils literal notranslate"><span class="pre">ddof</span></code> を明示的に与えれば biased でも unbiased でも求まる。デフォルトでは <code class="docutils literal notranslate"><span class="pre">ddof=0</span></code> なので biased であり、例えば <code class="docutils literal notranslate"><span class="pre">x.var(ddof=1)</span></code> として呼び出せば unbiased な分散が得られる。一方 <code class="docutils literal notranslate"><span class="pre">scipy.stats.describe</span></code> のほうは unbiased な分散を返す。</p>
 </div>
 <div class="section" id="id10">
-<h3><a class="toc-backref" href="#id25">標準偏差</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id27">標準偏差</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <p>統計データ <code class="docutils literal notranslate"><span class="pre">x</span></code> の標準偏差を得るには以下のいずれかを用いればよい。分散と同様。
 NumPy のキーワード引数 <code class="docutils literal notranslate"><span class="pre">ddof</span></code> に関する事情も同様。</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">x.std()</span></code> の戻り値。</li>
-<li><code class="docutils literal notranslate"><span class="pre">np.std(x)</span></code> の戻り値。</li>
-<li><code class="docutils literal notranslate"><span class="pre">n,</span> <span class="pre">(smin,</span> <span class="pre">smax),</span> <span class="pre">sm,</span> <span class="pre">sv,</span> <span class="pre">ss,</span> <span class="pre">sk</span> <span class="pre">=</span> <span class="pre">scipy.stats.describe(x)</span></code> として分散 <code class="docutils literal notranslate"><span class="pre">sv</span></code> から平方根をとって標準偏差を計算する。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x.std()</span></code> の戻り値。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">np.std(x)</span></code> の戻り値。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n,</span> <span class="pre">(smin,</span> <span class="pre">smax),</span> <span class="pre">sm,</span> <span class="pre">sv,</span> <span class="pre">ss,</span> <span class="pre">sk</span> <span class="pre">=</span> <span class="pre">scipy.stats.describe(x)</span></code> として分散 <code class="docutils literal notranslate"><span class="pre">sv</span></code> から平方根をとって標準偏差を計算する。</p></li>
 </ul>
 </div>
 <div class="section" id="id11">
-<h3><a class="toc-backref" href="#id26">範囲幅</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id28">範囲幅</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <p>統計データ <code class="docutils literal notranslate"><span class="pre">x</span></code> の範囲幅を得るには以下のいずれかを用いればよい。</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">np.ptp(x)</span></code> の戻り値。</li>
-<li>以下の手順で得る。<ol class="arabic">
-<li>先述の手法で <code class="docutils literal notranslate"><span class="pre">x</span></code> の最大値と最小値を求める。</li>
-<li>両者の差を取り、この値が範囲幅となる。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">np.ptp(x)</span></code> の戻り値。</p></li>
+<li><p>以下の手順で得る。</p>
+<ol class="arabic simple">
+<li><p>先述の手法で <code class="docutils literal notranslate"><span class="pre">x</span></code> の最大値と最小値を求める。</p></li>
+<li><p>両者の差を取り、この値が範囲幅となる。</p></li>
 </ol>
 </li>
 </ul>
 </div>
 <div class="section" id="id12">
-<h3><a class="toc-backref" href="#id27">歪度</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id29">歪度</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <p>統計データ <code class="docutils literal notranslate"><span class="pre">x</span></code> の歪度を得るには以下の手順で得る。</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">scipy.stats.skew(x)</span></code> の戻り値。</li>
-<li><code class="docutils literal notranslate"><span class="pre">n,</span> <span class="pre">(smin,</span> <span class="pre">smax),</span> <span class="pre">sm,</span> <span class="pre">sv,</span> <span class="pre">ss,</span> <span class="pre">sk</span> <span class="pre">=</span> <span class="pre">scipy.stats.describe(x)</span></code> として <code class="docutils literal notranslate"><span class="pre">ss</span></code> を採る。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scipy.stats.skew(x)</span></code> の戻り値。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n,</span> <span class="pre">(smin,</span> <span class="pre">smax),</span> <span class="pre">sm,</span> <span class="pre">sv,</span> <span class="pre">ss,</span> <span class="pre">sk</span> <span class="pre">=</span> <span class="pre">scipy.stats.describe(x)</span></code> として <code class="docutils literal notranslate"><span class="pre">ss</span></code> を採る。</p></li>
 </ul>
 </div>
 <div class="section" id="id13">
-<h3><a class="toc-backref" href="#id28">尖度</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id30">尖度</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <p>統計データ <code class="docutils literal notranslate"><span class="pre">x</span></code> の尖度を得るには以下の手順で得る。歪度と同様。</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">scipy.stats.kurtosis(x)</span></code> の戻り値。</li>
-<li><code class="docutils literal notranslate"><span class="pre">n,</span> <span class="pre">(smin,</span> <span class="pre">smax),</span> <span class="pre">sm,</span> <span class="pre">sv,</span> <span class="pre">ss,</span> <span class="pre">sk</span> <span class="pre">=</span> <span class="pre">scipy.stats.describe(x)</span></code> として <code class="docutils literal notranslate"><span class="pre">sk</span></code> を採る。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scipy.stats.kurtosis(x)</span></code> の戻り値。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n,</span> <span class="pre">(smin,</span> <span class="pre">smax),</span> <span class="pre">sm,</span> <span class="pre">sv,</span> <span class="pre">ss,</span> <span class="pre">sk</span> <span class="pre">=</span> <span class="pre">scipy.stats.describe(x)</span></code> として <code class="docutils literal notranslate"><span class="pre">sk</span></code> を採る。</p></li>
 </ul>
 </div>
 </div>
 <div class="section" id="id14">
-<h2><a class="toc-backref" href="#id29">確率分布</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id31">確率分布</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
 <p>各種確率分布用の機能はモジュール <code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code> 配下に大量に用意されている。まずは <a class="reference external" href="http://docs.scipy.org/doc/scipy/reference/stats.html">リファレンス</a> から
 distribution とかで検索すると色々とわかる。</p>
-<p>代表的な離散型確率分布を気の向くままいくつか記す。</p>
-<table border="1" class="colwidths-given docutils">
+<p>代表的な確率分布を気の向くままいくつか記す。</p>
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="15%" />
-<col width="10%" />
-<col width="65%" />
+<col style="width: 29%" />
+<col style="width: 43%" />
+<col style="width: 29%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">分布型</th>
-<th class="head">名称</th>
-<th class="head">オブジェクト</th>
-<th class="head">Frozen RV オブジェクト作成例</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>分布型</p></th>
+<th class="head"><p>名称</p></th>
+<th class="head"><p>オブジェクト</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">rv_discrete</span></code></td>
-<td>一様分布</td>
-<td><code class="docutils literal notranslate"><span class="pre">scipy.stats.randint</span></code></td>
-<td>サイコロを振るのならば <code class="docutils literal notranslate"><span class="pre">rv</span> <span class="pre">=</span> <span class="pre">randint(1,</span> <span class="pre">7)</span></code> のようにする。</td>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rv_discrete</span></code></p></td>
+<td><p>一様分布</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scipy.stats.randint</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">rv_discrete</span></code></td>
-<td>Bernoulli 分布</td>
-<td><code class="docutils literal notranslate"><span class="pre">scipy.stats.bernoulli</span></code></td>
-<td>コイントスならば <code class="docutils literal notranslate"><span class="pre">rv</span> <span class="pre">=</span> <span class="pre">scipy.stats.bernoulli(0.5)</span></code> のようにする。</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rv_discrete</span></code></p></td>
+<td><p>Bernoulli 分布</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scipy.stats.bernoulli</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">rv_discrete</span></code></td>
-<td>二項分布</td>
-<td><code class="docutils literal notranslate"><span class="pre">scipy.stats.binom</span></code></td>
-<td>麻雀半荘を <code class="docutils literal notranslate"><span class="pre">N</span></code> 戦やってのトップ回数ならば <code class="docutils literal notranslate"><span class="pre">rv</span> <span class="pre">=</span> <span class="pre">binom(N,</span> <span class="pre">1/4)</span></code> のようにする。</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rv_discrete</span></code></p></td>
+<td><p>二項分布</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scipy.stats.binom</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">rv_discrete</span></code></td>
-<td>Poisson 分布</td>
-<td><code class="docutils literal notranslate"><span class="pre">scipy.stats.poisson</span></code></td>
-<td>例が思いつかないが <code class="docutils literal notranslate"><span class="pre">rv</span> <span class="pre">=</span> <span class="pre">scipy.stats.poisson(1/256)</span></code> のようにする。</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rv_discrete</span></code></p></td>
+<td><p>Poisson 分布</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scipy.stats.poisson</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">rv_continuous</span></code></td>
-<td>一様分布</td>
-<td><code class="docutils literal notranslate"><span class="pre">scipy.stats.uniform</span></code></td>
-<td>&#160;</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rv_continuous</span></code></p></td>
+<td><p>一様分布</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scipy.stats.uniform</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">rv_continuous</span></code></td>
-<td>指数分布</td>
-<td><code class="docutils literal notranslate"><span class="pre">scipy.stats.expon</span></code></td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rv_continuous</span></code></p></td>
+<td><p>指数分布</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scipy.stats.expon</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">rv_continuous</span></code></td>
-<td>正規分布</td>
-<td><code class="docutils literal notranslate"><span class="pre">scipy.stats.norm</span></code></td>
-<td>&#160;</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rv_continuous</span></code></p></td>
+<td><p>正規分布</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scipy.stats.norm</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">rv_continuous</span></code></td>
-<td>ガンマ分布</td>
-<td><code class="docutils literal notranslate"><span class="pre">scipy.stats.gamma</span></code></td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rv_continuous</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\chi^2\)</span> 分布</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scipy.stats.chi2</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">rv_continuous</span></code></td>
-<td>カイ二乗分布</td>
-<td><code class="docutils literal notranslate"><span class="pre">scipy.stats.chi2</span></code></td>
-<td>&#160;</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rv_continuous</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(F\)</span> 分布</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scipy.stats.f</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">rv_continuous</span></code></td>
-<td>t 分布</td>
-<td><code class="docutils literal notranslate"><span class="pre">scipy.stats.t</span></code></td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rv_continuous</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(t\)</span> 分布</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scipy.stats.t</span></code></p></td>
 </tr>
 </tbody>
 </table>
 <p>各種確率分布オブジェクトを利用する場合は次のような手順でコードを組むことになる。</p>
 <ol class="arabic simple">
-<li>分布の種類に対応する <strong>Frozen RV</strong> オブジェクトを生成する。以下の説明ではオブジェクトの変数名を <code class="docutils literal notranslate"><span class="pre">rv</span></code> とする。</li>
-<li>目的に応じて <code class="docutils literal notranslate"><span class="pre">rv</span></code> のメソッドを呼び出す。<ul>
-<li>平均値、分散、歪度、尖度の計算は
-<code class="docutils literal notranslate"><span class="pre">mean,</span> <span class="pre">var,</span> <span class="pre">skew,</span> <span class="pre">kurt</span> <span class="pre">=</span> <span class="pre">rv.stats(moments='mvsk')</span></code> でする。</li>
-<li>離散型分布の確率質量関数は <code class="docutils literal notranslate"><span class="pre">rv.pmf(...)</span></code> を利用する。</li>
-<li>連続型分布の確率密度関数は <code class="docutils literal notranslate"><span class="pre">rv.pdf(...)</span></code> を利用する。</li>
-<li>累積分布関数は <code class="docutils literal notranslate"><span class="pre">rv.cdf(...)</span></code> を利用する。</li>
-<li>乱数を生成するには <code class="docutils literal notranslate"><span class="pre">rv.rvs()</span></code> を利用する。</li>
+<li><p>分布の種類に対応するオブジェクトを生成する。以下の説明ではオブジェクトの変数名を <code class="docutils literal notranslate"><span class="pre">X</span></code> とする。</p></li>
+<li><p>目的に応じて <code class="docutils literal notranslate"><span class="pre">X</span></code> のメソッドを呼び出す。</p>
+<ul class="simple">
+<li><p>平均値、分散、歪度、尖度の計算は
+<code class="docutils literal notranslate"><span class="pre">mean,</span> <span class="pre">var,</span> <span class="pre">skew,</span> <span class="pre">kurt</span> <span class="pre">=</span> <span class="pre">X.stats(moments='mvsk')</span></code> でする。</p></li>
+<li><p>離散型分布の確率質量関数（以下、確率関数と略す）は <code class="docutils literal notranslate"><span class="pre">X.pmf(x)</span></code> を利用する。</p></li>
+<li><p>連続型分布の確率密度関数 （以下、密度関数と略す）は <code class="docutils literal notranslate"><span class="pre">X.pdf(x)</span></code> を利用する。これはあまり使わないだろう。</p></li>
+<li><p>累積分布関数（以下、分布関数と略す）は <code class="docutils literal notranslate"><span class="pre">X.cdf(x)</span></code> を利用する。面積が確率を表すというアレだ。</p></li>
+<li><p>逆に cdf の値から対応する確率変数の値を得るには <code class="docutils literal notranslate"><span class="pre">X.ppf(p)</span></code> を利用する。引数は 0 から 1 までの値とする。</p></li>
+<li><p>ある確率変数から正の無限大までの確率を得るには <code class="docutils literal notranslate"><span class="pre">X.sf(x)</span></code> を用いる。</p></li>
+<li><p>反対に、そのような確率の値から対応する確率変数の値を得るには <code class="docutils literal notranslate"><span class="pre">X.isf(p)</span></code> を用いる。</p></li>
+<li><p>確率分布の中央付近における確率の値から対応する区間を得るには <code class="docutils literal notranslate"><span class="pre">X.interval(p)</span></code> を用いる。両側検定のときに有用だ。</p></li>
+<li><p>乱数を生成するには <code class="docutils literal notranslate"><span class="pre">X.rvs()</span></code> を利用する。</p></li>
 </ul>
 </li>
 </ol>
-<p>モーメント量の計算ならば次のようにする。</p>
-<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">D</span>
-<span class="n">rv</span> <span class="o">=</span> <span class="n">D</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="n">mean</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">skew</span><span class="p">,</span> <span class="n">kurt</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">stats</span><span class="p">(</span><span class="n">moments</span><span class="o">=</span><span class="s1">&#39;mvsk&#39;</span><span class="p">)</span>
+<p>暗号のようなメソッド名が多いのだが、コンソールで実際に何度もタイプしていると体が覚えてくれる。</p>
+<div class="section" id="id16">
+<h3><a class="toc-backref" href="#id32">例：サイコロ</a><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<p>各面が等しい確率で出るサイコロを <code class="docutils literal notranslate"><span class="pre">scipy.stats.randint</span></code> で表現する。最初は Python 標準の <code class="docutils literal notranslate"><span class="pre">range()</span></code> のように引数を指定する。</p>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">stats()</span></code> はデフォルトならばこれは期待値（平均値）と分散を返す。バラバラにそれらを呼び出すよりも効率が良いのだろう。</p>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">pmf()</span></code> は確率関数だ。この例では <span class="math notranslate nohighlight">\(P(X = i)\)</span> を順次計算している。どの目も 1/6 の確率であることが確認できる。</p>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">cdf()</span></code> は分布関数だ。この例では意味はないが <span class="math notranslate nohighlight">\(P(X &lt;= i)\)</span> を順次計算している。</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">randint</span>
+
+<span class="gp">In [2]: </span><span class="n">X</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+
+<span class="gp">In [3]: </span><span class="n">X</span><span class="o">.</span><span class="n">stats</span><span class="p">()</span>
+<span class="gh">Out[3]: </span><span class="go">(array(3.5), array(2.9166666666666665))</span>
+
+<span class="gp">In [4]: </span><span class="n">X</span><span class="o">.</span><span class="n">expect</span><span class="p">(),</span> <span class="n">X</span><span class="o">.</span><span class="n">dev</span><span class="p">()</span>
+<span class="gh">Out[4]: </span><span class="go">(3.5, 2.9166666666666665)</span>
+
+<span class="gp">In [5]: </span><span class="p">[</span><span class="n">X</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">)]</span>
+<span class="gh">Out[5]:</span>
+<span class="go">[0.16666666666666666,</span>
+<span class="go"> 0.16666666666666666,</span>
+<span class="go"> 0.16666666666666666,</span>
+<span class="go"> 0.16666666666666666,</span>
+<span class="go"> 0.16666666666666666,</span>
+<span class="go"> 0.16666666666666666]</span>
+
+<span class="gp">In [6]: </span><span class="p">[</span><span class="n">X</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">)]</span>
+<span class="gh">Out[6]:</span>
+<span class="go">[0.16666666666666666,</span>
+<span class="go"> 0.33333333333333331,</span>
+<span class="go"> 0.5,</span>
+<span class="go"> 0.66666666666666663,</span>
+<span class="go"> 0.83333333333333337,</span>
+<span class="go"> 1.0]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id17">
+<h3><a class="toc-backref" href="#id33">例：標準正規分布</a><a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">scipy.stats.norm(0,</span> <span class="pre">1)</span></code> で正規分布 <span class="math notranslate nohighlight">\(N(0, 1)\)</span> を表す。なお <code class="docutils literal notranslate"><span class="pre">norm()</span></code> はデフォルトで正規分布を返すようなので、引数を明示的に指定しなくてよい。</p>
+<p>次の例では最初に標準正規分布に従う確率変数 <code class="docutils literal notranslate"><span class="pre">X</span></code> を定義する。次に <code class="docutils literal notranslate"><span class="pre">stats()</span></code> メソッドで期待値と分散を出力し、
+<span class="math notranslate nohighlight">\(E[X] = 1\)</span> および <span class="math notranslate nohighlight">\(V(X) = 1\)</span> であることを確認する。</p>
+<p><code class="docutils literal notranslate"><span class="pre">pdf()</span></code> メソッドで <span class="math notranslate nohighlight">\(x = -4, -3, ..., 3, 4\)</span> における密度関数の値（グラフの値ということになる）をそれぞれ出力する。少なくともこの範囲では密度関数が偶関数であることがわかる。</p>
+<p>最後に <code class="docutils literal notranslate"><span class="pre">cdf()</span></code> 関数で分布関数の値 <span class="math notranslate nohighlight">\(P(X \lt x)\)</span> を出力する。</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+
+<span class="gp">In [2]: </span><span class="n">X</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="gp">In [3]: </span><span class="n">X</span><span class="o">.</span><span class="n">stats</span><span class="p">(</span><span class="s1">&#39;mv&#39;</span><span class="p">)</span>
+<span class="gh">Out[3]: </span><span class="go">(array(0.0), array(1.0))</span>
+
+<span class="gp">In [4]: </span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">X</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)]</span>
+<span class="gh">Out[4]:</span>
+<span class="go">[&#39;0.0001&#39;,</span>
+<span class="go"> &#39;0.0044&#39;,</span>
+<span class="go"> &#39;0.0540&#39;,</span>
+<span class="go"> &#39;0.2420&#39;,</span>
+<span class="go"> &#39;0.3989&#39;,</span>
+<span class="go"> &#39;0.2420&#39;,</span>
+<span class="go"> &#39;0.0540&#39;,</span>
+<span class="go"> &#39;0.0044&#39;,</span>
+<span class="go"> &#39;0.0001&#39;]</span>
+
+<span class="gp">In [5]: </span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">X</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)]</span>
+<span class="gh">Out[5]:</span>
+<span class="go">[&#39;0.0000&#39;,</span>
+<span class="go"> &#39;0.0013&#39;,</span>
+<span class="go"> &#39;0.0228&#39;,</span>
+<span class="go"> &#39;0.1587&#39;,</span>
+<span class="go"> &#39;0.5000&#39;,</span>
+<span class="go"> &#39;0.8413&#39;,</span>
+<span class="go"> &#39;0.9772&#39;,</span>
+<span class="go"> &#39;0.9987&#39;,</span>
+<span class="go"> &#39;1.0000&#39;]</span>
 </pre></div>
 </div>
 </div>
 </div>
+</div>
 
 
+            <div class="clearer"></div>
           </div>
       </div>
       <div class="clearer"></div>
@@ -281,7 +352,8 @@ distribution とかで検索すると色々とわかる。</p>
           <a href="ode.html" title="常微分方程式"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >SciPy 利用ノート</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" >SciPy 利用ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">確率と統計</a></li> 
       </ul>
     </div>
     <div id="footer">
@@ -290,7 +362,7 @@ distribution とかで検索すると色々とわかる。</p>
       </div>
       <div id="footer_copyright">
         Since 1999<br />
-        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+        Copyright &copy; 1999-2020, プレハブ小屋 All rights reserved.
       </div>
     </div>
   </body>

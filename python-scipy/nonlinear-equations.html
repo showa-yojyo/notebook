@@ -1,17 +1,17 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>非線形方程式を解く &#8212; 読書ノート v1.4</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>非線形方程式を解く &#8212; 読書ノート v1.5dev</title>
     <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/mathjax-v3.js"></script>
+    
     <link rel="next" title="線形方程式を解く" href="linear-equations.html" />
     <link rel="prev" title="Cookbook" href="cookbook.html" /> 
   </head><body>
@@ -25,7 +25,8 @@
           <a href="cookbook.html" title="Cookbook"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">SciPy 利用ノート</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">SciPy 利用ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">非線形方程式を解く</a></li> 
       </ul>
     </div>  
 
@@ -41,11 +42,12 @@
 <p>単純な多項式については、専用の計算法がある。本稿で例示する。</p>
 <p>なお、線形連立方程式のそれについてはページを改めて述べる。</p>
 <div class="contents topic" id="contents">
-<p class="topic-title first">Contents</p>
+<p class="topic-title">Contents</p>
 <ul class="simple">
-<li><a class="reference internal" href="#id1" id="id4">非線形方程式を解く</a><ul>
-<li><a class="reference internal" href="#newton-raphson" id="id5">Newton-Raphson 法</a></li>
-<li><a class="reference internal" href="#id3" id="id6">多項式方程式</a></li>
+<li><p><a class="reference internal" href="#id1" id="id4">非線形方程式を解く</a></p>
+<ul>
+<li><p><a class="reference internal" href="#newton-raphson" id="id5">Newton-Raphson 法</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id6">多項式方程式</a></p></li>
 </ul>
 </li>
 </ul>
@@ -55,15 +57,15 @@
 <p>関数 <code class="docutils literal notranslate"><span class="pre">scipy.optimize.newton</span></code> は Newton-Raphson 法により、与えられた方程式の根の計算をする。この計算法については有名かつ基本的なものなので、忘れない自信があるのでここには記さない。</p>
 <p>コード的な手順は次のとおりとなる。</p>
 <ol class="arabic simple">
-<li>根を求めたい式を Python の関数の形式で定義する。本説明では <code class="docutils literal notranslate"><span class="pre">func</span></code> とする。</li>
-<li>ここが面倒なのだが、別途 <code class="docutils literal notranslate"><span class="pre">func</span></code> の解の近似値 <code class="docutils literal notranslate"><span class="pre">root_guess</span></code> を用意しておく。</li>
-<li>関数 <code class="docutils literal notranslate"><span class="pre">newton</span></code> に引数として上述のものを渡して呼び出す。</li>
+<li><p>根を求めたい式を Python の関数の形式で定義する。本説明では <code class="docutils literal notranslate"><span class="pre">func</span></code> とする。</p></li>
+<li><p>ここが面倒なのだが、別途 <code class="docutils literal notranslate"><span class="pre">func</span></code> の解の近似値 <code class="docutils literal notranslate"><span class="pre">root_guess</span></code> を用意しておく。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">newton</span></code> に引数として上述のものを渡して呼び出す。</p></li>
 </ol>
 <p>方程式 <span class="math notranslate nohighlight">\(x - 2 \sqrt{x - 1} = 0\)</span> を解くコード例を示す。暗算で求まる例で申し訳ない。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="sd">&quot;&quot;&quot;newton.py: Demonstrate equation solvers of SciPy.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="k">import</span> <span class="n">newton</span>
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">newton</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="c1"># pylint: disable=invalid-name</span>
@@ -89,14 +91,14 @@
 <p>SciPy というよりは <a class="reference external" href="http://www.numpy.org/">NumPy</a> だけで多項式の定義と根の計算が実現できるのだが本稿に記す。</p>
 <p>コード的な手順は次のとおりとなる。</p>
 <ul class="simple">
-<li>一変数多項式をクラス <code class="docutils literal notranslate"><span class="pre">numpy.polynomial.polynomial.Polynomial</span></code> で定義する。コンストラクターでは多項式の係数を昇べきの順で指示する。</li>
-<li>メンバーメソッド <code class="docutils literal notranslate"><span class="pre">roots</span></code> を呼び出し、すべての根を得る。</li>
+<li><p>一変数多項式をクラス <code class="docutils literal notranslate"><span class="pre">numpy.polynomial.polynomial.Polynomial</span></code> で定義する。コンストラクターでは多項式の係数を昇べきの順で指示する。</p></li>
+<li><p>メンバーメソッド <code class="docutils literal notranslate"><span class="pre">roots</span></code> を呼び出し、すべての根を得る。</p></li>
 </ul>
 <p>コード例を示す。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="sd">&quot;&quot;&quot;polynomial.py: Demonstrate equation solvers of SciPy.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">numpy.polynomial.polynomial</span> <span class="k">import</span> <span class="n">Polynomial</span>
+<span class="kn">from</span> <span class="nn">numpy.polynomial.polynomial</span> <span class="kn">import</span> <span class="n">Polynomial</span>
 
 <span class="c1"># pylint: disable=invalid-name</span>
 
@@ -114,14 +116,14 @@ roots:  [ -1.83880688e-16-1.j  -1.83880688e-16+1.j   2.00000000e+00+0.j]
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>本節で例示した方程式は <a class="reference external" href="http://www.sympy.org/">SymPy</a> を用いれば代数的処理で解を得られる。
 <a class="reference internal" href="../python-sympy/index.html"><span class="doc">SymPy 利用ノート</span></a> 参照。</p>
-<div class="code ipython last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">solve</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">solve</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+<span class="gh">Out[1]: </span><span class="go">[2]</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">solve</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">I</span><span class="p">,</span> <span class="n">I</span><span class="p">]</span>
+<span class="gp">In [2]: </span><span class="n">solve</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gh">Out[2]: </span><span class="go">[2, -I, I]</span>
 </pre></div>
 </div>
 </div>
@@ -129,6 +131,7 @@ roots:  [ -1.83880688e-16-1.j  -1.83880688e-16+1.j   2.00000000e+00+0.j]
 </div>
 
 
+            <div class="clearer"></div>
           </div>
       </div>
       <div class="clearer"></div>
@@ -143,7 +146,8 @@ roots:  [ -1.83880688e-16-1.j  -1.83880688e-16+1.j   2.00000000e+00+0.j]
           <a href="cookbook.html" title="Cookbook"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >SciPy 利用ノート</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" >SciPy 利用ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">非線形方程式を解く</a></li> 
       </ul>
     </div>
     <div id="footer">
@@ -152,7 +156,7 @@ roots:  [ -1.83880688e-16-1.j  -1.83880688e-16+1.j   2.00000000e+00+0.j]
       </div>
       <div id="footer_copyright">
         Since 1999<br />
-        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+        Copyright &copy; 1999-2020, プレハブ小屋 All rights reserved.
       </div>
     </div>
   </body>

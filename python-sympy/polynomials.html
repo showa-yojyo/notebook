@@ -1,17 +1,17 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>多項式 &#8212; 読書ノート v1.4</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>多項式 &#8212; 読書ノート v1.5dev</title>
     <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/mathjax-v3.js"></script>
+    
     <link rel="next" title="整数論" href="number-theory.html" />
     <link rel="prev" title="行列" href="matrices.html" /> 
   </head><body>
@@ -25,7 +25,8 @@
           <a href="matrices.html" title="行列"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">SymPy 利用ノート</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">SymPy 利用ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">多項式</a></li> 
       </ul>
     </div>  
 
@@ -34,33 +35,36 @@
           <div class="body" role="main">
             
   <div class="section" id="id1">
-<h1><a class="toc-backref" href="#id10">多項式</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id12">多項式</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>本稿ではモジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys</span></code> のサブモジュールに点在するクラスや関数を可能な限り見ていく。
 <a class="reference external" href="http://www.sympy.org/">SymPy</a> は多項式の取り扱いをかなり重要視しているようで、素人にとっては手に余るほどの豊富な機能を提供している。</p>
 <div class="contents topic" id="id2">
-<p class="topic-title first">ノート目次</p>
+<p class="topic-title">ノート目次</p>
 <ul class="simple">
-<li><a class="reference internal" href="#id1" id="id10">多項式</a><ul>
-<li><a class="reference internal" href="#id3" id="id11">基本</a><ul>
-<li><a class="reference internal" href="#id4" id="id12">除算</a></li>
-<li><a class="reference internal" href="#id5" id="id13">最大公約式と最小公倍式</a></li>
-<li><a class="reference internal" href="#id6" id="id14">無平方因子分解</a></li>
-<li><a class="reference internal" href="#id7" id="id15">因数分解</a></li>
-<li><a class="reference internal" href="#grobner" id="id16">Gröbner 基底</a></li>
-<li><a class="reference internal" href="#id8" id="id17">多項式の方程式、連立方程式を解く</a></li>
+<li><p><a class="reference internal" href="#id1" id="id12">多項式</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id3" id="id13">基本</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id4" id="id14">除算</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id15">最大公約式と最小公倍式</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id16">無平方因子分解</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id17">因数分解</a></p></li>
+<li><p><a class="reference internal" href="#grobner" id="id18">Gröbner 基底</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id19">多項式の方程式、連立方程式を解く</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id9" id="id18">モジュール別</a><ul>
-<li><a class="reference internal" href="#sympy-polys-polytools" id="id19">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.polytools</span></code></a></li>
-<li><a class="reference internal" href="#sympy-polys-polyfuncs" id="id20">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.polyfuncs</span></code></a></li>
-<li><a class="reference internal" href="#sympy-polys-numberfields" id="id21">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.numberfields</span></code></a></li>
-<li><a class="reference internal" href="#sympy-polys-monomials" id="id22">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.monomials</span></code></a></li>
-<li><a class="reference internal" href="#sympy-polys-polyroots" id="id23">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.polyroots</span></code></a></li>
-<li><a class="reference internal" href="#sympy-polys-specialpolys" id="id24">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.specialpolys</span></code></a></li>
-<li><a class="reference internal" href="#sympy-polys-orthopolys" id="id25">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.orthopolys</span></code></a></li>
-<li><a class="reference internal" href="#sympy-polys-rationaltools" id="id26">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.rationaltools</span></code></a></li>
-<li><a class="reference internal" href="#sympy-polys-partfrac" id="id27">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.partfrac</span></code></a></li>
-<li><a class="reference internal" href="#sympy-polys-dispersion" id="id28">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.dispersion</span></code></a></li>
+<li><p><a class="reference internal" href="#id9" id="id20">モジュール別</a></p>
+<ul>
+<li><p><a class="reference internal" href="#sympy-polys-polytools" id="id21">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.polytools</span></code></a></p></li>
+<li><p><a class="reference internal" href="#sympy-polys-polyfuncs" id="id22">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.polyfuncs</span></code></a></p></li>
+<li><p><a class="reference internal" href="#sympy-polys-numberfields" id="id23">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.numberfields</span></code></a></p></li>
+<li><p><a class="reference internal" href="#sympy-polys-monomials" id="id24">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.monomials</span></code></a></p></li>
+<li><p><a class="reference internal" href="#sympy-polys-polyroots" id="id25">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.polyroots</span></code></a></p></li>
+<li><p><a class="reference internal" href="#sympy-polys-specialpolys" id="id26">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.specialpolys</span></code></a></p></li>
+<li><p><a class="reference internal" href="#sympy-polys-orthopolys" id="id27">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.orthopolys</span></code></a></p></li>
+<li><p><a class="reference internal" href="#sympy-polys-rationaltools" id="id28">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.rationaltools</span></code></a></p></li>
+<li><p><a class="reference internal" href="#sympy-polys-partfrac" id="id29">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.partfrac</span></code></a></p></li>
+<li><p><a class="reference internal" href="#sympy-polys-dispersion" id="id30">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.dispersion</span></code></a></p></li>
 </ul>
 </li>
 </ul>
@@ -68,109 +72,104 @@
 </ul>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>本文中のすべての IPython セッション中のサンプルコードで、以下のインポートおよび出力書式設定が済んでいるものとする。</p>
-<div class="code python3 last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="o">*</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="n">init_printing</span><span class="p">(</span><span class="n">pretty_print</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id3">
-<h2><a class="toc-backref" href="#id11">基本</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">基本</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>ここで紹介する関数は <code class="code docutils literal notranslate"><span class="pre">from</span> <span class="pre">sympy</span> <span class="pre">import</span> <span class="pre">*</span></code> で利用できるが、モジュールとしては <code class="docutils literal notranslate"><span class="pre">sympy.polys</span></code> にある関数を見ていく。</p>
 <div class="section" id="id4">
-<h3><a class="toc-backref" href="#id12">除算</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id14">除算</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>多項式同士の除算を行うには関数 <code class="code docutils literal notranslate"><span class="pre">div</span></code> を用いる。</p>
-<dl class="docutils">
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">div(f,</span> <span class="pre">g,</span> <span class="pre">*gens,</span> <span class="pre">**kwargs)</span></code></dt>
-<dd><p class="first">多項式の Euclid 除法を計算する。商と余りを同時に計算する。</p>
-<ul class="last">
-<li><p class="first">戻り値は tuple オブジェクトで、先頭から順に商、余りだ。</p>
+<dl>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">div(f,</span> <span class="pre">g,</span> <span class="pre">*gens,</span> <span class="pre">**kwargs)</span></code></dt><dd><p>多項式の Euclid 除法を計算する。商と余りを同時に計算する。</p>
+<ul>
+<li><p>戻り値は tuple オブジェクトで、先頭から順に商、余りだ。</p>
 <ul class="simple">
-<li>キーワード引数 <code class="docutils literal notranslate"><span class="pre">polys=True</span></code> を指定すると、商、余りを表現する Poly オブジェクトそれぞれを要素とする
-tuple オブジェクトを得られる。</li>
+<li><p>キーワード引数 <code class="docutils literal notranslate"><span class="pre">polys=True</span></code> を指定すると、商、余りを表現する Poly オブジェクトそれぞれを要素とする
+tuple オブジェクトを得られる。</p></li>
 </ul>
 </li>
-<li><p class="first">キーワード引数 <code class="code docutils literal notranslate"><span class="pre">domain</span></code> で中間生成する Poly オブジェクトがどの整域上のものであるのかを指定する。引数として文字列 <code class="docutils literal notranslate"><span class="pre">'ZZ'</span></code> や <code class="docutils literal notranslate"><span class="pre">'QQ'</span></code> などを指定する。例を示す：</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">sympy.abc</span> <span class="k">import</span> <span class="n">x</span>
+<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">domain</span></code> で中間生成する Poly オブジェクトがどの整域上のものであるのかを指定する。引数として文字列 <code class="docutils literal notranslate"><span class="pre">'ZZ'</span></code> や <code class="docutils literal notranslate"><span class="pre">'QQ'</span></code> などを指定する。例を示す：</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">sympy.abc</span> <span class="kn">import</span> <span class="n">x</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">div</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">5</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">7</span><span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="s1">&#39;QQ&#39;</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">7</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">49</span><span class="o">*</span><span class="n">x</span><span class="o">/</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">9</span><span class="p">)</span>
+<span class="gp">In [2]: </span><span class="n">div</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">5</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">7</span><span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="s1">&#39;QQ&#39;</span><span class="p">)</span>
+<span class="gh">Out[2]: </span><span class="go">(x**2/2 + 7/4, 4*x**2 + 49*x/4 + 9)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">div</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">5</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">7</span><span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="s1">&#39;ZZ&#39;</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">5</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">9</span><span class="p">)</span>
+<span class="gp">In [3]: </span><span class="n">div</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">5</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">7</span><span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="s1">&#39;ZZ&#39;</span><span class="p">)</span>
+<span class="gh">Out[3]: </span><span class="go">(0, x**5 + 4*x**2 + 9)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">div</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">5</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">7</span><span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="s1">&#39;RR&#39;</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mf">1.75</span><span class="p">,</span> <span class="mf">4.0</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mf">12.25</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mf">9.0</span><span class="p">)</span>
+<span class="gp">In [4]: </span><span class="n">div</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">5</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">7</span><span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="s1">&#39;RR&#39;</span><span class="p">)</span>
+<span class="gh">Out[4]: </span><span class="go">(0.5*x**2 + 1.75, 4.0*x**2 + 12.25*x + 9.0)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">div</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">5</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">7</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">7</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">49</span><span class="o">*</span><span class="n">x</span><span class="o">/</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">9</span><span class="p">)</span>
+<span class="gp">In [5]: </span><span class="n">div</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">5</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">7</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
+<span class="gh">Out[5]: </span><span class="go">(x**2/2 + 7/4, 4*x**2 + 49*x/4 + 9)</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">多変数多項式にも対応している。どのシンボルが変数なのかを明示的に指示することもできる：</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">sympy.abc</span> <span class="k">import</span> <span class="n">y</span>
+<li><p>多変数多項式にも対応している。どのシンボルが変数なのかを明示的に指示することもできる：</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [6]: </span><span class="kn">from</span> <span class="nn">sympy.abc</span> <span class="kn">import</span> <span class="n">y</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">f</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">+</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="mi">6</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">y</span> <span class="o">-</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">6</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="mi">5</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="mi">24</span>
+<span class="gp">In [7]: </span><span class="n">f</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">+</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="mi">6</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">y</span> <span class="o">-</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">6</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="mi">5</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="mi">24</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="n">g</span> <span class="o">=</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">6</span><span class="o">+</span><span class="n">y</span> <span class="o">+</span> <span class="n">x</span>
+<span class="gp">In [8]: </span><span class="n">g</span> <span class="o">=</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">6</span><span class="o">+</span><span class="n">y</span> <span class="o">+</span> <span class="n">x</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="n">div</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">y</span> <span class="o">-</span> <span class="mi">6</span><span class="p">)</span>
+<span class="gp">In [9]: </span><span class="n">div</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span>
+<span class="gh">Out[9]: </span><span class="go">(x**3 - x*y + 5, -y**2 - 2*y - 6)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="n">div</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">y</span> <span class="o">-</span> <span class="mi">6</span><span class="p">)</span>
+<span class="gp">In [10]: </span><span class="n">div</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="gh">Out[10]: </span><span class="go">(x**3 - x*y + 5, -y**2 - 2*y - 6)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">11</span><span class="p">]:</span> <span class="n">div</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">11</span><span class="p">]:</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="mi">4</span><span class="p">,</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">In [11]: </span><span class="n">div</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gh">Out[11]: </span><span class="go">(x**3 - x*y + 4, x - y)</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first"><code class="code docutils literal notranslate"><span class="pre">f</span></code> と <code class="code docutils literal notranslate"><span class="pre">g</span></code> を両方定数にすると、例外 ComputationFailed を送出することで計算を失敗として処理する。</p>
-</li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">f</span></code> と <code class="code docutils literal notranslate"><span class="pre">g</span></code> を両方定数にすると、例外 ComputationFailed を送出することで計算を失敗として処理する。</p></li>
 </ul>
 </dd>
 </dl>
 </div>
 <div class="section" id="id5">
-<h3><a class="toc-backref" href="#id13">最大公約式と最小公倍式</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id15">最大公約式と最小公倍式</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>多項式同士の GCD および LCM を計算する関数を利用できる。</p>
-<dl class="docutils">
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">gcd(f,</span> <span class="pre">g,</span> <span class="pre">*gens,</span> <span class="pre">**kwargs)</span></code>, <code class="code docutils literal notranslate"><span class="pre">gcd_list(seq,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></dt>
-<dd><p class="first">最大公約式を計算する。</p>
-<ul class="last simple">
-<li>結果の多項式の最高次数係数がどうなるかは引数に依存する。例えば有理数係数同士の <code class="code docutils literal notranslate"><span class="pre">gcd</span></code> はモニックになる。</li>
-<li>多変数多項式にも対応している。変数はアルファベット順に並んでいる。</li>
+<dl class="simple">
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">gcd(f,</span> <span class="pre">g,</span> <span class="pre">*gens,</span> <span class="pre">**kwargs)</span></code>, <code class="code docutils literal notranslate"><span class="pre">gcd_list(seq,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></dt><dd><p>最大公約式を計算する。</p>
+<ul class="simple">
+<li><p>結果の多項式の最高次数係数がどうなるかは引数に依存する。例えば有理数係数同士の <code class="code docutils literal notranslate"><span class="pre">gcd</span></code> はモニックになる。</p></li>
+<li><p>多変数多項式にも対応している。変数はアルファベット順に並んでいる。</p></li>
 </ul>
 </dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">lcm(f,</span> <span class="pre">g,</span> <span class="pre">*gens,</span> <span class="pre">**kwargs)</span></code>, <code class="code docutils literal notranslate"><span class="pre">lcm_list(seq,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></dt>
-<dd><p class="first">最小公倍多項式を計算する。</p>
-<ul class="last simple">
-<li><code class="code docutils literal notranslate"><span class="pre">lcm(f,</span> <span class="pre">g)</span> <span class="pre">*</span> <span class="pre">gcd(f,</span> <span class="pre">g)</span> <span class="pre">==</span> <span class="pre">f</span> <span class="pre">*</span> <span class="pre">g</span></code> が満たされるように結果を決める。</li>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">lcm(f,</span> <span class="pre">g,</span> <span class="pre">*gens,</span> <span class="pre">**kwargs)</span></code>, <code class="code docutils literal notranslate"><span class="pre">lcm_list(seq,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></dt><dd><p>最小公倍多項式を計算する。</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">lcm(f,</span> <span class="pre">g)</span> <span class="pre">*</span> <span class="pre">gcd(f,</span> <span class="pre">g)</span> <span class="pre">==</span> <span class="pre">f</span> <span class="pre">*</span> <span class="pre">g</span></code> が満たされるように結果を決める。</p></li>
 </ul>
 </dd>
 </dl>
 <p>どちらも定数同士を評価できるが、別のモジュールに <code class="code docutils literal notranslate"><span class="pre">igcd</span></code>, <code class="code docutils literal notranslate"><span class="pre">ilcm</span></code> という関数がある。しかも複数個の評価ができる。多項式の場合は整数の場合とは異なり、ペアの評価か複数個の評価によって関数を使い分ける。例えば複数個の GCD を求める場合には関数 <code class="code docutils literal notranslate"><span class="pre">gcd</span></code> ではなく関数 <code class="code docutils literal notranslate"><span class="pre">gcd_list</span></code> を用いる。引数 <code class="code docutils literal notranslate"><span class="pre">seq</span></code> にリストなどを渡せばよい。</p>
-<dl class="docutils">
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">resultant(f,</span> <span class="pre">g,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></dt>
-<dd><p class="first">多項式同士の集結式を計算する。</p>
-<ul class="last simple">
-<li>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">includePRS=True</span></code> を指定すれば、主部分終結式係数のリストをも生成する。このとき、戻り値は集結式と主部分終結式係数のリストの tuple オブジェクトとなる。ちなみに後者のみを返す関数 <code class="code docutils literal notranslate"><span class="pre">subresultants</span></code> というものがある。</li>
+<dl class="simple">
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">resultant(f,</span> <span class="pre">g,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></dt><dd><p>多項式同士の集結式を計算する。</p>
+<ul class="simple">
+<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">includePRS=True</span></code> を指定すれば、主部分終結式係数のリストをも生成する。このとき、戻り値は集結式と主部分終結式係数のリストの tuple オブジェクトとなる。ちなみに後者のみを返す関数 <code class="code docutils literal notranslate"><span class="pre">subresultants</span></code> というものがある。</p></li>
 </ul>
 </dd>
 </dl>
 </div>
 <div class="section" id="id6">
-<h3><a class="toc-backref" href="#id14">無平方因子分解</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id16">無平方因子分解</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>ここでは square-free factorization を無平方因子分解と呼ぶことにする。</p>
-<dl class="docutils">
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">sqf(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code>, <code class="code docutils literal notranslate"><span class="pre">sqf_list(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></dt>
-<dd><p class="first">多項式を無平方因子分解する。</p>
-<ul class="last simple">
-<li>多変数多項式も対応する。</li>
-<li><code class="code docutils literal notranslate"><span class="pre">sqf</span></code> の戻り値は単に多項式である。一方 <code class="code docutils literal notranslate"><span class="pre">sqf_list</span></code> の戻り値は次の構造の tuple オブジェクトである。<ol class="arabic">
-<li>無平方因子分解の最高次数項の係数</li>
-<li>無平方因数とその指数からなるペアを並べた list オブジェクト</li>
+<dl class="simple">
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">sqf(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code>, <code class="code docutils literal notranslate"><span class="pre">sqf_list(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></dt><dd><p>多項式を無平方因子分解する。</p>
+<ul class="simple">
+<li><p>多変数多項式も対応する。</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">sqf</span></code> の戻り値は単に多項式である。一方 <code class="code docutils literal notranslate"><span class="pre">sqf_list</span></code> の戻り値は次の構造の tuple オブジェクトである。</p>
+<ol class="arabic simple">
+<li><p>無平方因子分解の最高次数項の係数</p></li>
+<li><p>無平方因数とその指数からなるペアを並べた list オブジェクト</p></li>
 </ol>
 </li>
 </ul>
@@ -179,24 +178,21 @@ tuple オブジェクトを得られる。</li>
 <p>他にも <code class="code docutils literal notranslate"><span class="pre">sqf_</span></code> な関数はある。</p>
 </div>
 <div class="section" id="id7">
-<h3><a class="toc-backref" href="#id15">因数分解</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
-<dl class="docutils">
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">factor(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code>, <code class="code docutils literal notranslate"><span class="pre">factor_list(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></dt>
-<dd><p class="first">多項式を（デフォルトでは有理数の範囲で）因数分解する。</p>
-<ul class="last">
-<li><p class="first">一変数多項式だけではなく、多変数多項式も因数分解する。</p>
-</li>
-<li><p class="first">定数を因数分解させると、引数そのものが戻り値として得られる。特に整数を因数分解したい場合は、別に関数 <code class="code docutils literal notranslate"><span class="pre">factorint</span></code> が用意されている。</p>
-</li>
-<li><p class="first">キーワード引数各種により因数分解の範囲を「拡大」できる。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">factor</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">gaussian</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">I</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">I</span><span class="p">)</span>
+<h3><a class="toc-backref" href="#id17">因数分解</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">factor(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code>, <code class="code docutils literal notranslate"><span class="pre">factor_list(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></dt><dd><p>多項式を（デフォルトでは有理数の範囲で）因数分解する。</p>
+<ul>
+<li><p>一変数多項式だけではなく、多変数多項式も因数分解する。</p></li>
+<li><p>定数を因数分解させると、引数そのものが戻り値として得られる。特に整数を因数分解したい場合は、別に関数 <code class="code docutils literal notranslate"><span class="pre">factorint</span></code> が用意されている。</p></li>
+<li><p>キーワード引数各種により因数分解の範囲を「拡大」できる。</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">factor</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">gaussian</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gh">Out[1]: </span><span class="go">(x - I)*(x + I)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">factor</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="n">I</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">I</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">I</span><span class="p">)</span>
+<span class="gp">In [2]: </span><span class="n">factor</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="n">I</span><span class="p">)</span>
+<span class="gh">Out[2]: </span><span class="go">(x - I)*(x + I)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">factor</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">10</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">modulus</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">+</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+<span class="gp">In [3]: </span><span class="n">factor</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">10</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">modulus</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gh">Out[3]: </span><span class="go">(x + 1)**2*(x**4 + x**3 + x**2 + x + 1)**2</span>
 </pre></div>
 </div>
 </li>
@@ -205,47 +201,44 @@ tuple オブジェクトを得られる。</li>
 </dl>
 </div>
 <div class="section" id="grobner">
-<h3><a class="toc-backref" href="#id16">Gröbner 基底</a><a class="headerlink" href="#grobner" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id18">Gröbner 基底</a><a class="headerlink" href="#grobner" title="Permalink to this headline">¶</a></h3>
 <p>多項式の方程式を解くのに用いられる概念である。</p>
-<dl class="docutils">
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">groebner(F,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></dt>
-<dd><p class="first">Gröbner 基底を計算する。</p>
+<dl>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">groebner(F,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></dt><dd><p>Gröbner 基底を計算する。</p>
 <p>最初の引数の <code class="code docutils literal notranslate"><span class="pre">F</span></code> が多項式のコレクションを指定して、次に多項式の変数を引数リストに並べて呼び出す。</p>
-<ul class="last simple">
-<li>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">order</span></code> で基底の項順序を指定することができる。デフォルトでは <code class="code docutils literal notranslate"><span class="pre">order='lex'</span></code> とのこと。</li>
+<ul class="simple">
+<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">order</span></code> で基底の項順序を指定することができる。デフォルトでは <code class="code docutils literal notranslate"><span class="pre">order='lex'</span></code> とのこと。</p></li>
 </ul>
 </dd>
 </dl>
 </div>
 <div class="section" id="id8">
-<h3><a class="toc-backref" href="#id17">多項式の方程式、連立方程式を解く</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id19">多項式の方程式、連立方程式を解く</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>以下では「多項式の方程式」という用語は polynomial equation(s) を指す。これらの関数を用いる際には、多項式変数シンボルを引数リストで明示的に指定する。</p>
-<dl class="docutils">
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">solve(f,</span> <span class="pre">*symbols,</span> <span class="pre">**flags)</span></code>, <code class="code docutils literal notranslate"><span class="pre">solve_poly_system(seq,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></dt>
-<dd><p class="first">汎用の方程式ソルバーが多項式方程式を解く際にも用いられる。</p>
-<ul class="last">
-<li><p class="first">ところでキーワード引数 <code class="code docutils literal notranslate"><span class="pre">domain='ZZ'</span></code> のようなものはサポートされていないのだろうか。次のようにシンボルを設定し直せば意図通りの動きはするようだが。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">solve</span><span class="p">([(</span><span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="mi">4</span><span class="p">)],</span> <span class="n">x</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="p">[(</span><span class="o">-</span><span class="mi">1</span><span class="p">,),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,),</span> <span class="p">(</span><span class="o">-</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">),),</span> <span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">),),</span> <span class="p">(</span><span class="o">-</span><span class="n">I</span><span class="p">,),</span> <span class="p">(</span><span class="n">I</span><span class="p">,),</span> <span class="p">(</span><span class="o">-</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">I</span><span class="p">,),</span> <span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">I</span><span class="p">,)]</span>
+<dl>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">solve(f,</span> <span class="pre">*symbols,</span> <span class="pre">**flags)</span></code>, <code class="code docutils literal notranslate"><span class="pre">solve_poly_system(seq,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></dt><dd><p>汎用の方程式ソルバーが多項式方程式を解く際にも用いられる。</p>
+<ul>
+<li><p>ところでキーワード引数 <code class="code docutils literal notranslate"><span class="pre">domain='ZZ'</span></code> のようなものはサポートされていないのだろうか。次のようにシンボルを設定し直せば意図通りの動きはするようだが。</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">solve</span><span class="p">([(</span><span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="mi">4</span><span class="p">)],</span> <span class="n">x</span><span class="p">)</span>
+<span class="gh">Out[1]: </span><span class="go">[(-1,), (1,), (-sqrt(2),), (sqrt(2),), (-I,), (I,), (-sqrt(2)*I,), (sqrt(2)*I,)]</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x y&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">In [2]: </span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x y&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">solve</span><span class="p">([(</span><span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="mi">4</span><span class="p">)],</span> <span class="n">x</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="p">[(</span><span class="o">-</span><span class="mi">1</span><span class="p">,),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,),</span> <span class="p">(</span><span class="o">-</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">),),</span> <span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">),)]</span>
+<span class="gp">In [3]: </span><span class="n">solve</span><span class="p">([(</span><span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="mi">4</span><span class="p">)],</span> <span class="n">x</span><span class="p">)</span>
+<span class="gh">Out[3]: </span><span class="go">[(-1,), (1,), (-sqrt(2),), (sqrt(2),)]</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x y&#39;</span><span class="p">,</span> <span class="n">rational</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">In [4]: </span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x y&#39;</span><span class="p">,</span> <span class="n">rational</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">solve</span><span class="p">([(</span><span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="mi">4</span><span class="p">)],</span> <span class="n">x</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="p">[(</span><span class="o">-</span><span class="mi">1</span><span class="p">,),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)]</span>
+<span class="gp">In [5]: </span><span class="n">solve</span><span class="p">([(</span><span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="mi">4</span><span class="p">)],</span> <span class="n">x</span><span class="p">)</span>
+<span class="gh">Out[5]: </span><span class="go">[(-1,), (1,)]</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">方程式が重根を持つ場合、戻り値を見ただけではすぐにはそれとわからないので注意。</p>
-</li>
-<li><p class="first">Mathematica のドキュメントを参考にした例が解けない。先述の動作環境では 1 分経っても呼び出しから返ってこない。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<li><p>方程式が重根を持つ場合、戻り値を見ただけではすぐにはそれとわからないので注意。</p></li>
+<li><p>Mathematica のドキュメントを参考にした例が解けない。先述の動作環境では 1 分経っても呼び出しから返ってこない。</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">x</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">solve</span><span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="mi">1000000</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">777777</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">12345</span> <span class="o">+</span> <span class="mi">9</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="mi">67</span> <span class="o">-</span> <span class="mi">10</span><span class="p">)</span>
+<span class="gp">In [2]: </span><span class="n">solve</span><span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="mi">1000000</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">777777</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">12345</span> <span class="o">+</span> <span class="mi">9</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="mi">67</span> <span class="o">-</span> <span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
@@ -255,122 +248,117 @@ tuple オブジェクトを得られる。</li>
 </div>
 </div>
 <div class="section" id="id9">
-<h2><a class="toc-backref" href="#id18">モジュール別</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id20">モジュール別</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="sympy-polys-polytools">
-<h3><a class="toc-backref" href="#id19">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.polytools</span></code></a><a class="headerlink" href="#sympy-polys-polytools" title="Permalink to this headline">¶</a></h3>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">調査中。関数名を見れば何とかなりそうだ。</p>
+<h3><a class="toc-backref" href="#id21">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.polytools</span></code></a><a class="headerlink" href="#sympy-polys-polytools" title="Permalink to this headline">¶</a></h3>
+<div class="admonition-todo admonition" id="id10">
+<p class="admonition-title">Todo</p>
+<p>調査中。関数名を見れば何とかなりそうだ。</p>
 </div>
 <ul class="simple">
-<li>関数 <code class="code docutils literal notranslate"><span class="pre">degree(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code>, <code class="code docutils literal notranslate"><span class="pre">degree_list(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></li>
-<li>関数 <code class="code docutils literal notranslate"><span class="pre">LC(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></li>
-<li>関数 <code class="code docutils literal notranslate"><span class="pre">LM(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></li>
-<li>関数 <code class="code docutils literal notranslate"><span class="pre">LT(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></li>
-<li>関数 <code class="code docutils literal notranslate"><span class="pre">rem(f,</span> <span class="pre">g,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></li>
-<li>関数 <code class="code docutils literal notranslate"><span class="pre">quo(f,</span> <span class="pre">g,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></li>
-<li>関数 <code class="code docutils literal notranslate"><span class="pre">discriminant(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></li>
-<li>関数 <code class="code docutils literal notranslate"><span class="pre">monic(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></li>
-<li>関数 <code class="code docutils literal notranslate"><span class="pre">compose(f,</span> <span class="pre">g,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></li>
-<li>関数 <code class="code docutils literal notranslate"><span class="pre">decompose(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></li>
-<li>関数 <code class="code docutils literal notranslate"><span class="pre">count_roots(f,</span> <span class="pre">inf=None,</span> <span class="pre">sup=None)</span></code></li>
-<li>関数 <code class="code docutils literal notranslate"><span class="pre">real_roots(f,</span> <span class="pre">multiple=True)</span></code></li>
-<li>関数 <code class="code docutils literal notranslate"><span class="pre">cancel(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></li>
+<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">degree(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code>, <code class="code docutils literal notranslate"><span class="pre">degree_list(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></p></li>
+<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">LC(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></p></li>
+<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">LM(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></p></li>
+<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">LT(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></p></li>
+<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">rem(f,</span> <span class="pre">g,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></p></li>
+<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">quo(f,</span> <span class="pre">g,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></p></li>
+<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">discriminant(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></p></li>
+<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">monic(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></p></li>
+<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">compose(f,</span> <span class="pre">g,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></p></li>
+<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">decompose(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></p></li>
+<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">count_roots(f,</span> <span class="pre">inf=None,</span> <span class="pre">sup=None)</span></code></p></li>
+<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">real_roots(f,</span> <span class="pre">multiple=True)</span></code></p></li>
+<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">cancel(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></p></li>
 </ul>
 </div>
 <div class="section" id="sympy-polys-polyfuncs">
-<h3><a class="toc-backref" href="#id20">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.polyfuncs</span></code></a><a class="headerlink" href="#sympy-polys-polyfuncs" title="Permalink to this headline">¶</a></h3>
-<dl class="docutils">
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">symmetrize(F,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></dt>
-<dd><p class="first">与えられた対称多項式をいくつかの基本対称式の和として書き換える。戻り値は対称式の tuple オブジェクトなので、受け取る側でこれを <code class="code docutils literal notranslate"><span class="pre">sum</span></code> すれば全体になる。</p>
-<ul class="last">
-<li><p class="first">引数が対称でない多項式でもエラーなしで呼び出せる。戻り値内の多項式に、元の多項式に含まれていた文字が残ってしまうだけ。</p>
-</li>
-<li><p class="first">キーワード引数 <code class="code docutils literal notranslate"><span class="pre">formal=True</span></code> を指定すること、基本対称式を名前で出してくれる。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">symmetrize</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">3</span><span class="p">,</span> <span class="n">formal</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="p">(</span><span class="n">s1</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">3</span><span class="o">*</span><span class="n">s1</span><span class="o">*</span><span class="n">s2</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">s3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">[(</span><span class="n">s1</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">+</span> <span class="n">z</span><span class="p">),</span> <span class="p">(</span><span class="n">s2</span><span class="p">,</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="n">x</span><span class="o">*</span><span class="n">z</span> <span class="o">+</span> <span class="n">y</span><span class="o">*</span><span class="n">z</span><span class="p">),</span> <span class="p">(</span><span class="n">s3</span><span class="p">,</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="n">z</span><span class="p">)])</span>
+<h3><a class="toc-backref" href="#id22">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.polyfuncs</span></code></a><a class="headerlink" href="#sympy-polys-polyfuncs" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">symmetrize(F,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></dt><dd><p>与えられた対称多項式をいくつかの基本対称式の和として書き換える。戻り値は対称式の tuple オブジェクトなので、受け取る側でこれを <code class="code docutils literal notranslate"><span class="pre">sum</span></code> すれば全体になる。</p>
+<ul>
+<li><p>引数が対称でない多項式でもエラーなしで呼び出せる。戻り値内の多項式に、元の多項式に含まれていた文字が残ってしまうだけ。</p></li>
+<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">formal=True</span></code> を指定すること、基本対称式を名前で出してくれる。</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">symmetrize</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">3</span><span class="p">,</span> <span class="n">formal</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gh">Out[1]: </span><span class="go">(s1**3 - 3*s1*s2 + 3*s3, 0, [(s1, x + y + z), (s2, x*y + x*z + y*z), (s3, x*y*z)])</span>
 </pre></div>
 </div>
 </li>
 </ul>
 </dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">interpolate(data,</span> <span class="pre">x)</span></code></dt>
-<dd><p class="first">引数の点列データを通過するような多項式を生成する。補間。データ <code class="code docutils literal notranslate"><span class="pre">data</span></code> の型は list か dict で通じる。次のものはどれも同じ多項式を生成する。</p>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">interpolate(data,</span> <span class="pre">x)</span></code></dt><dd><p>引数の点列データを通過するような多項式を生成する。補間。データ <code class="code docutils literal notranslate"><span class="pre">data</span></code> の型は list か dict で通じる。次のものはどれも同じ多項式を生成する。</p>
 <ul class="simple">
-<li><code class="code docutils literal notranslate"><span class="pre">[(1,</span> <span class="pre">1),</span> <span class="pre">(2,</span> <span class="pre">4),</span> <span class="pre">(3,</span> <span class="pre">9),</span> <span class="pre">(4,</span> <span class="pre">16)]</span></code></li>
-<li><code class="code docutils literal notranslate"><span class="pre">{1:1,</span> <span class="pre">2:4,</span> <span class="pre">3:9,</span> <span class="pre">4:16}</span></code></li>
-<li><code class="code docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">4,</span> <span class="pre">9,</span> <span class="pre">16]</span></code></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">[(1,</span> <span class="pre">1),</span> <span class="pre">(2,</span> <span class="pre">4),</span> <span class="pre">(3,</span> <span class="pre">9),</span> <span class="pre">(4,</span> <span class="pre">16)]</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">{1:1,</span> <span class="pre">2:4,</span> <span class="pre">3:9,</span> <span class="pre">4:16}</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">4,</span> <span class="pre">9,</span> <span class="pre">16]</span></code></p></li>
 </ul>
-<div class="code ipython last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x0:3&#39;</span><span class="p">)</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x0:3&#39;</span><span class="p">)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">P</span> <span class="o">=</span> <span class="n">interpolate</span><span class="p">([</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">],</span> <span class="n">x</span><span class="p">)</span>
+<span class="gp">In [2]: </span><span class="n">P</span> <span class="o">=</span> <span class="n">interpolate</span><span class="p">([</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">],</span> <span class="n">x</span><span class="p">)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">P</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">x0</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">x1</span> <span class="o">+</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">x2</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">5</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">x0</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">x1</span> <span class="o">-</span> <span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">x2</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">x0</span> <span class="o">-</span> <span class="mi">3</span><span class="o">*</span><span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span>
+<span class="gp">In [3]: </span><span class="n">P</span>
+<span class="gh">Out[3]: </span><span class="go">x**2*x0/2 - x**2*x1 + x**2*x2/2 - 5*x*x0/2 + 4*x*x1 - 3*x*x2/2 + 3*x0 - 3*x1 + x2</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="p">[</span><span class="n">P</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span><span class="n">t</span><span class="p">})</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)]</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="p">[</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">]</span>
+<span class="gp">In [4]: </span><span class="p">[</span><span class="n">P</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span><span class="n">t</span><span class="p">})</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)]</span>
+<span class="gh">Out[4]: </span><span class="go">[x0, x1, x2]</span>
 </pre></div>
 </div>
 </dd>
 </dl>
 </div>
 <div class="section" id="sympy-polys-numberfields">
-<h3><a class="toc-backref" href="#id21">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.numberfields</span></code></a><a class="headerlink" href="#sympy-polys-numberfields" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id23">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.numberfields</span></code></a><a class="headerlink" href="#sympy-polys-numberfields" title="Permalink to this headline">¶</a></h3>
 <p>代数的数、代数体、その辺り。多項式の話題から離れる可能性がある。</p>
-<dl class="docutils">
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">minimal_polynomial(ex,</span> <span class="pre">x=None,</span> <span class="pre">**args)</span></code>, <code class="code docutils literal notranslate"><span class="pre">minpoly</span></code></dt>
-<dd><p class="first">代数的数の最小多項式を求める。</p>
-<ul class="last simple">
-<li><code class="code docutils literal notranslate"><span class="pre">minpoly</span></code> は単なる別名。</li>
-<li>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">domain</span></code> で最小多項式をどの体上で求めるかを指定できる。</li>
+<dl class="simple">
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">minimal_polynomial(ex,</span> <span class="pre">x=None,</span> <span class="pre">**args)</span></code>, <code class="code docutils literal notranslate"><span class="pre">minpoly</span></code></dt><dd><p>代数的数の最小多項式を求める。</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">minpoly</span></code> は単なる別名。</p></li>
+<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">domain</span></code> で最小多項式をどの体上で求めるかを指定できる。</p></li>
 </ul>
 </dd>
 </dl>
 </div>
 <div class="section" id="sympy-polys-monomials">
-<h3><a class="toc-backref" href="#id22">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.monomials</span></code></a><a class="headerlink" href="#sympy-polys-monomials" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id24">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.monomials</span></code></a><a class="headerlink" href="#sympy-polys-monomials" title="Permalink to this headline">¶</a></h3>
 <p>単項式関連のモジュールだ。関数だけ見ていく。</p>
-<dl class="docutils">
-<dt>ジェネレーター <code class="code docutils literal notranslate"><span class="pre">itermonomials(variables,</span> <span class="pre">degree)</span></code></dt>
-<dd><p class="first">指定次数の単項式に含まれるすべての単項式を返す。</p>
-<ul class="last simple">
-<li>次数ゼロの項、すなわち <code class="docutils literal notranslate"><span class="pre">1</span></code> をも返す。</li>
-<li>返ってくる単項式の順序は不定。受け取り側で適宜ソートすればよい。<ul>
-<li>ソートのキーには別モジュールにある関数 <code class="code docutils literal notranslate"><span class="pre">monomial_key</span></code> という（ドキュメントがないようだ）ものを用いる。</li>
+<dl class="simple">
+<dt>ジェネレーター <code class="code docutils literal notranslate"><span class="pre">itermonomials(variables,</span> <span class="pre">degree)</span></code></dt><dd><p>指定次数の単項式に含まれるすべての単項式を返す。</p>
+<ul class="simple">
+<li><p>次数ゼロの項、すなわち <code class="docutils literal notranslate"><span class="pre">1</span></code> をも返す。</p></li>
+<li><p>返ってくる単項式の順序は不定。受け取り側で適宜ソートすればよい。</p>
+<ul>
+<li><p>ソートのキーには別モジュールにある関数 <code class="code docutils literal notranslate"><span class="pre">monomial_key</span></code> という（ドキュメントがないようだ）ものを用いる。</p></li>
 </ul>
 </li>
 </ul>
 </dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">monomial_count(V,</span> <span class="pre">N)</span></code></dt>
-<dd>相異なる <code class="code docutils literal notranslate"><span class="pre">V</span></code> 個の文字からなる <code class="code docutils literal notranslate"><span class="pre">N</span></code> 次多項式が含む単項式の個数を返す。</dd>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">monomial_count(V,</span> <span class="pre">N)</span></code></dt><dd><p>相異なる <code class="code docutils literal notranslate"><span class="pre">V</span></code> 個の文字からなる <code class="code docutils literal notranslate"><span class="pre">N</span></code> 次多項式が含む単項式の個数を返す。</p>
+</dd>
 </dl>
 </div>
 <div class="section" id="sympy-polys-polyroots">
-<h3><a class="toc-backref" href="#id23">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.polyroots</span></code></a><a class="headerlink" href="#sympy-polys-polyroots" title="Permalink to this headline">¶</a></h3>
-<dl class="docutils">
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">roots(f,</span> <span class="pre">*gens,</span> <span class="pre">**flags)</span></code></dt>
-<dd><p class="first">一変数多項式の根を計算する。</p>
+<h3><a class="toc-backref" href="#id25">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.polyroots</span></code></a><a class="headerlink" href="#sympy-polys-polyroots" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">roots(f,</span> <span class="pre">*gens,</span> <span class="pre">**flags)</span></code></dt><dd><p>一変数多項式の根を計算する。</p>
 <p>色々とキーワード引数があるが、利用する可能性のあるのはこれぐらいか。</p>
-<ul class="last">
-<li><p class="first"><code class="code docutils literal notranslate"><span class="pre">filter=R</span></code> などのようにして、根を求める範囲を限定できる。</p>
+<ul>
+<li><p><code class="code docutils literal notranslate"><span class="pre">filter=R</span></code> などのようにして、根を求める範囲を限定できる。</p>
 <ul class="simple">
-<li>デフォルトでは複素数の範囲になっている。すなわち <code class="code docutils literal notranslate"><span class="pre">filter=C</span></code> だ。</li>
-<li>別の関数では <code class="code docutils literal notranslate"><span class="pre">domain</span></code> と言っていた。</li>
+<li><p>デフォルトでは複素数の範囲になっている。すなわち <code class="code docutils literal notranslate"><span class="pre">filter=C</span></code> だ。</p></li>
+<li><p>別の関数では <code class="code docutils literal notranslate"><span class="pre">domain</span></code> と言っていた。</p></li>
 </ul>
 </li>
-<li><p class="first"><code class="code docutils literal notranslate"><span class="pre">multiple=True</span></code> とすると、重根を丁寧に出力するようだ。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">roots</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<li><p><code class="code docutils literal notranslate"><span class="pre">multiple=True</span></code> とすると、重根を丁寧に出力するようだ。</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">roots</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gh">Out[1]: </span><span class="go">[1, 1]</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">roots</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="gp">In [2]: </span><span class="n">roots</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gh">Out[2]: </span><span class="go">{1: 2}</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">根基で表現できる解だけを計算する。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">roots</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">5</span> <span class="o">-</span> <span class="mi">22</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">19</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="p">{}</span>
+<li><p>根基で表現できる解だけを計算する。</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">roots</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">5</span> <span class="o">-</span> <span class="mi">22</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">19</span><span class="p">)</span>
+<span class="gh">Out[1]: </span><span class="go">{}</span>
 </pre></div>
 </div>
 </li>
@@ -379,156 +367,145 @@ tuple オブジェクトを得られる。</li>
 </dl>
 </div>
 <div class="section" id="sympy-polys-specialpolys">
-<h3><a class="toc-backref" href="#id24">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.specialpolys</span></code></a><a class="headerlink" href="#sympy-polys-specialpolys" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id26">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.specialpolys</span></code></a><a class="headerlink" href="#sympy-polys-specialpolys" title="Permalink to this headline">¶</a></h3>
 <p>わかる範囲で。</p>
-<dl class="docutils">
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">interpolating_poly(n,</span> <span class="pre">x,</span> <span class="pre">X='x',</span> <span class="pre">Y='y')</span></code></dt>
-<dd><p class="first">Lagrange の補間多項式を生成する。</p>
-<ul class="last simple">
-<li>第 1 引数は補間点列の点数。</li>
-<li>第 2 引数は多項式の変数文字を指定する。</li>
-<li>通過点列はデフォルトで <code class="code docutils literal notranslate"><span class="pre">(x0,</span> <span class="pre">y0)</span></code>, <code class="code docutils literal notranslate"><span class="pre">(x1,</span> <span class="pre">y1)</span></code>, … となる。</li>
+<dl>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">interpolating_poly(n,</span> <span class="pre">x,</span> <span class="pre">X='x',</span> <span class="pre">Y='y')</span></code></dt><dd><p>Lagrange の補間多項式を生成する。</p>
+<ul class="simple">
+<li><p>第 1 引数は補間点列の点数。</p></li>
+<li><p>第 2 引数は多項式の変数文字を指定する。</p></li>
+<li><p>通過点列はデフォルトで <code class="code docutils literal notranslate"><span class="pre">(x0,</span> <span class="pre">y0)</span></code>, <code class="code docutils literal notranslate"><span class="pre">(x1,</span> <span class="pre">y1)</span></code>, … となる。</p></li>
 </ul>
 </dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">cyclotomic_poly(n,</span> <span class="pre">x=None,</span> <span class="pre">**args)</span></code></dt>
-<dd><p class="first">位数 <code class="code docutils literal notranslate"><span class="pre">n</span></code> の円分多項式を生成する。</p>
-<ul class="last simple">
-<li>デフォルトだと生成する多項式の変数文字が <code class="code docutils literal notranslate"><span class="pre">_x</span></code> とかいう汚いものになる？</li>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">cyclotomic_poly(n,</span> <span class="pre">x=None,</span> <span class="pre">**args)</span></code></dt><dd><p>位数 <code class="code docutils literal notranslate"><span class="pre">n</span></code> の円分多項式を生成する。</p>
+<ul class="simple">
+<li><p>デフォルトだと生成する多項式の変数文字が <code class="code docutils literal notranslate"><span class="pre">_x</span></code> とかいう汚いものになる？</p></li>
 </ul>
 </dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">symmetric_poly(n,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></dt>
-<dd><p class="first">与えた複数の文字における <code class="code docutils literal notranslate"><span class="pre">n</span></code> 番目の基本対称多項式を生成する。</p>
-<div class="code ipython last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">symmetric_poly</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x0:5&#39;</span><span class="p">))</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">x0</span><span class="o">*</span><span class="n">x1</span><span class="o">*</span><span class="n">x2</span><span class="o">*</span><span class="n">x3</span> <span class="o">+</span> <span class="n">x0</span><span class="o">*</span><span class="n">x1</span><span class="o">*</span><span class="n">x2</span><span class="o">*</span><span class="n">x4</span> <span class="o">+</span> <span class="n">x0</span><span class="o">*</span><span class="n">x1</span><span class="o">*</span><span class="n">x3</span><span class="o">*</span><span class="n">x4</span> <span class="o">+</span> <span class="n">x0</span><span class="o">*</span><span class="n">x2</span><span class="o">*</span><span class="n">x3</span><span class="o">*</span><span class="n">x4</span> <span class="o">+</span> <span class="n">x1</span><span class="o">*</span><span class="n">x2</span><span class="o">*</span><span class="n">x3</span><span class="o">*</span><span class="n">x4</span>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">symmetric_poly(n,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></dt><dd><p>与えた複数の文字における <code class="code docutils literal notranslate"><span class="pre">n</span></code> 番目の基本対称多項式を生成する。</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">symmetric_poly</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x0:5&#39;</span><span class="p">))</span>
+<span class="gh">Out[1]: </span><span class="go">x0*x1*x2*x3 + x0*x1*x2*x4 + x0*x1*x3*x4 + x0*x2*x3*x4 + x1*x2*x3*x4</span>
 </pre></div>
 </div>
 </dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">random_poly(x,</span> <span class="pre">n,</span> <span class="pre">inf,</span> <span class="pre">sup,</span> <span class="pre">domain=ZZ,</span> <span class="pre">polys=False)</span></code></dt>
-<dd><p class="first">各項の係数がランダムかつ指定範囲に収まるような多項式を生成する。</p>
-<div class="code ipython last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">random_poly</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">9</span>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">random_poly(x,</span> <span class="pre">n,</span> <span class="pre">inf,</span> <span class="pre">sup,</span> <span class="pre">domain=ZZ,</span> <span class="pre">polys=False)</span></code></dt><dd><p>各項の係数がランダムかつ指定範囲に収まるような多項式を生成する。</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">random_poly</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="gh">Out[1]: </span><span class="go">x**3 + 2*x**2 + 4*x + 9</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">random_poly</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="mi">7</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">9</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">9</span>
+<span class="gp">In [2]: </span><span class="n">random_poly</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="gh">Out[2]: </span><span class="go">7*x**3 + 9*x**2 - 4*x + 9</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">random_poly</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="o">-</span><span class="mi">10</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">5</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">7</span>
+<span class="gp">In [3]: </span><span class="n">random_poly</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="gh">Out[3]: </span><span class="go">-10*x**3 - 5*x + 7</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">random_poly</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="mi">5</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">8</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">8</span><span class="o">*</span><span class="n">x</span> <span class="o">-</span> <span class="mi">4</span>
+<span class="gp">In [4]: </span><span class="n">random_poly</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="gh">Out[4]: </span><span class="go">5*x**3 + 8*x**2 - 8*x - 4</span>
 </pre></div>
 </div>
 </dd>
 </dl>
 </div>
 <div class="section" id="sympy-polys-orthopolys">
-<h3><a class="toc-backref" href="#id25">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.orthopolys</span></code></a><a class="headerlink" href="#sympy-polys-orthopolys" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id27">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.orthopolys</span></code></a><a class="headerlink" href="#sympy-polys-orthopolys" title="Permalink to this headline">¶</a></h3>
 <p>このモジュールには多項式の直交系に関係する関数が置いてある。</p>
-<dl class="docutils">
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">chebyshevt_poly(n,</span> <span class="pre">x=None,</span> <span class="pre">**args)</span></code>, <code class="code docutils literal notranslate"><span class="pre">chebyshevu_poly(n,</span> <span class="pre">x=None,</span> <span class="pre">**args)</span></code></dt>
-<dd><p class="first">それぞれ第一種 Chebyshev 多項式、第二種 Chebyshev 多項式を求める。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">simplify</span><span class="p">(</span><span class="n">chebyshevt_poly</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">cos</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
+<dl>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">chebyshevt_poly(n,</span> <span class="pre">x=None,</span> <span class="pre">**args)</span></code>, <code class="code docutils literal notranslate"><span class="pre">chebyshevu_poly(n,</span> <span class="pre">x=None,</span> <span class="pre">**args)</span></code></dt><dd><p>それぞれ第一種 Chebyshev 多項式、第二種 Chebyshev 多項式を求める。</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">simplify</span><span class="p">(</span><span class="n">chebyshevt_poly</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+<span class="gh">Out[1]: </span><span class="go">cos(3*x)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">simplify</span><span class="p">(</span><span class="n">chebyshevu_poly</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="mi">4</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">In [2]: </span><span class="n">simplify</span><span class="p">(</span><span class="n">chebyshevu_poly</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+<span class="gh">Out[2]: </span><span class="go">4*cos(x)*cos(2*x)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="o">%</span><span class="n">paste</span>
-<span class="n">Tm</span> <span class="o">=</span> <span class="n">chebyshevt_poly</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="n">Tn</span> <span class="o">=</span> <span class="n">chebyshevt_poly</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="n">integrate</span><span class="p">(</span><span class="n">Tm</span> <span class="o">*</span> <span class="n">Tn</span> <span class="o">*</span> <span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="gp">In [3]: </span><span class="o">%</span><span class="k">paste</span>
+<span class="go">Tm = chebyshevt_poly(2, x)</span>
+<span class="go">Tn = chebyshevt_poly(3, x)</span>
+<span class="go">integrate(Tm * Tn * 1/sqrt(1 - x**2), (x, -1, 1))</span>
 
-<span class="c1">## -- End pasted text --</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="mi">0</span>
+<span class="go">## -- End pasted text --</span>
+<span class="gh">Out[3]: </span><span class="go">0</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="o">%</span><span class="n">paste</span>
-<span class="n">Um</span> <span class="o">=</span> <span class="n">chebyshevu_poly</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="n">Un</span> <span class="o">=</span> <span class="n">chebyshevu_poly</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="n">integrate</span><span class="p">(</span><span class="n">Um</span> <span class="o">*</span> <span class="n">Un</span> <span class="o">*</span> <span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="gp">In [4]: </span><span class="o">%</span><span class="k">paste</span>
+<span class="go">Um = chebyshevu_poly(2, x)</span>
+<span class="go">Un = chebyshevu_poly(3, x)</span>
+<span class="go">integrate(Um * Un * 1/sqrt(1 - x**2), (x, -1, 1))</span>
 
-<span class="c1">## -- End pasted text --</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="mi">0</span>
+<span class="go">## -- End pasted text --</span>
+<span class="gh">Out[4]: </span><span class="go">0</span>
 </pre></div>
 </div>
-<p class="last">この定積分の計算時間が若干長い。</p>
+<p>この定積分の計算時間が若干長い。</p>
 </dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">gegenbauer_poly(n,</span> <span class="pre">a,</span> <span class="pre">x=None,</span> <span class="pre">**args)</span></code></dt>
-<dd>Gegenbauer 多項式 a.k.a. 超球関数を求める。</dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">hermite_poly(n,</span> <span class="pre">x=None,</span> <span class="pre">**args)</span></code></dt>
-<dd><p class="first">Hermite の多項式を求める。</p>
-<ul class="last simple">
-<li>積分したら返ってこない。</li>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">gegenbauer_poly(n,</span> <span class="pre">a,</span> <span class="pre">x=None,</span> <span class="pre">**args)</span></code></dt><dd><p>Gegenbauer 多項式 a.k.a. 超球関数を求める。</p>
+</dd>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">hermite_poly(n,</span> <span class="pre">x=None,</span> <span class="pre">**args)</span></code></dt><dd><p>Hermite の多項式を求める。</p>
+<ul class="simple">
+<li><p>積分したら返ってこない。</p></li>
 </ul>
 </dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">jacobi_poly(n,</span> <span class="pre">a,</span> <span class="pre">b,</span> <span class="pre">x=None,</span> <span class="pre">**args)</span></code></dt>
-<dd><p class="first">Jacobi の多項式を求める。</p>
-<div class="code ipython last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">P</span> <span class="o">=</span> <span class="n">jacobi</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">jacobi_poly(n,</span> <span class="pre">a,</span> <span class="pre">b,</span> <span class="pre">x=None,</span> <span class="pre">**args)</span></code></dt><dd><p>Jacobi の多項式を求める。</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">P</span> <span class="o">=</span> <span class="n">jacobi</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">jacobi</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="gp">In [2]: </span><span class="n">Q</span> <span class="o">=</span> <span class="n">jacobi</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">integrate</span><span class="p">(</span><span class="n">P</span> <span class="o">*</span> <span class="n">Q</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">10</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">20</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="mi">0</span>
+<span class="gp">In [3]: </span><span class="n">integrate</span><span class="p">(</span><span class="n">P</span> <span class="o">*</span> <span class="n">Q</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">10</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">20</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="gh">Out[3]: </span><span class="go">0</span>
 </pre></div>
 </div>
 </dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">legendre_poly(n,</span> <span class="pre">x=None,</span> <span class="pre">**args)</span></code></dt>
-<dd><p class="first">Legendre の多項式を求める。</p>
-<div class="code ipython last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">P3</span> <span class="o">=</span> <span class="n">legendre_poly</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">legendre_poly(n,</span> <span class="pre">x=None,</span> <span class="pre">**args)</span></code></dt><dd><p>Legendre の多項式を求める。</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">P3</span> <span class="o">=</span> <span class="n">legendre_poly</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">P7</span> <span class="o">=</span> <span class="n">legendre_poly</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="gp">In [2]: </span><span class="n">P7</span> <span class="o">=</span> <span class="n">legendre_poly</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">integrate</span><span class="p">(</span><span class="n">P3</span> <span class="o">*</span> <span class="n">P7</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="mi">0</span>
+<span class="gp">In [3]: </span><span class="n">integrate</span><span class="p">(</span><span class="n">P3</span> <span class="o">*</span> <span class="n">P7</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="gh">Out[3]: </span><span class="go">0</span>
 </pre></div>
 </div>
 </dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">laguerre_poly(n,</span> <span class="pre">x=None,</span> <span class="pre">alpha=None,</span> <span class="pre">**args)</span></code></dt>
-<dd><p class="first">Laguerre の多項式を求める。スペリングが紛らわしいので、コンソールでテキスト補完のときは注意。</p>
-<ul class="last simple">
-<li>積分したら返ってこない。</li>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">laguerre_poly(n,</span> <span class="pre">x=None,</span> <span class="pre">alpha=None,</span> <span class="pre">**args)</span></code></dt><dd><p>Laguerre の多項式を求める。スペリングが紛らわしいので、コンソールでテキスト補完のときは注意。</p>
+<ul class="simple">
+<li><p>積分したら返ってこない。</p></li>
 </ul>
 </dd>
 </dl>
 </div>
 <div class="section" id="sympy-polys-rationaltools">
-<h3><a class="toc-backref" href="#id26">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.rationaltools</span></code></a><a class="headerlink" href="#sympy-polys-rationaltools" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id28">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.rationaltools</span></code></a><a class="headerlink" href="#sympy-polys-rationaltools" title="Permalink to this headline">¶</a></h3>
 <p>このモジュールの代表的な機能は次の関数だ。</p>
-<dl class="docutils">
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">together(expr,</span> <span class="pre">deep=False)</span></code></dt>
-<dd><p class="first">有理式 <code class="code docutils literal notranslate"><span class="pre">expr</span></code> の通分を実行する。正確に言うと、有理式の和の形になっているものを単一の有理式にする。</p>
-<ul class="last simple">
-<li>キーワード引数で <code class="code docutils literal notranslate"><span class="pre">deep=True</span></code> とすると、通分の適用を与式の「内側」まで有効にする。</li>
-<li>関数 <code class="code docutils literal notranslate"><span class="pre">apart</span></code> と逆の働きをする。</li>
+<dl class="simple">
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">together(expr,</span> <span class="pre">deep=False)</span></code></dt><dd><p>有理式 <code class="code docutils literal notranslate"><span class="pre">expr</span></code> の通分を実行する。正確に言うと、有理式の和の形になっているものを単一の有理式にする。</p>
+<ul class="simple">
+<li><p>キーワード引数で <code class="code docutils literal notranslate"><span class="pre">deep=True</span></code> とすると、通分の適用を与式の「内側」まで有効にする。</p></li>
+<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">apart</span></code> と逆の働きをする。</p></li>
 </ul>
 </dd>
 </dl>
 </div>
 <div class="section" id="sympy-polys-partfrac">
-<h3><a class="toc-backref" href="#id27">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.partfrac</span></code></a><a class="headerlink" href="#sympy-polys-partfrac" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id29">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.partfrac</span></code></a><a class="headerlink" href="#sympy-polys-partfrac" title="Permalink to this headline">¶</a></h3>
 <p>部分分数分解に関係する機能を含むモジュール。</p>
-<dl class="docutils">
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">apart(f,</span> <span class="pre">x=None,</span> <span class="pre">full=False,</span> <span class="pre">**options)</span></code>, <code class="code docutils literal notranslate"><span class="pre">apart_list(f,</span> <span class="pre">x=None,</span> <span class="pre">dummies=None,</span> <span class="pre">**options)</span></code></dt>
-<dd><p class="first">有理関数を部分分数分解する。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">together</span><span class="p">((</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">x</span> <span class="o">-</span> <span class="mi">4</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mi">4</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">x</span> <span class="o">-</span> <span class="mi">4</span><span class="p">))</span><span class="o">/</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+<dl>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">apart(f,</span> <span class="pre">x=None,</span> <span class="pre">full=False,</span> <span class="pre">**options)</span></code>, <code class="code docutils literal notranslate"><span class="pre">apart_list(f,</span> <span class="pre">x=None,</span> <span class="pre">dummies=None,</span> <span class="pre">**options)</span></code></dt><dd><p>有理関数を部分分数分解する。</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">together</span><span class="p">((</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">x</span> <span class="o">-</span> <span class="mi">4</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+<span class="gh">Out[1]: </span><span class="go">((x - 4)*(x**2 - 1) + (x - 1)*(x**2 + 3*x - 4))/((x - 1)*(x**2 - 1))</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">apart</span><span class="p">(</span><span class="n">_</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span><span class="o">/</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">3</span><span class="o">/</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">In [2]: </span><span class="n">apart</span><span class="p">(</span><span class="n">_</span><span class="p">)</span>
+<span class="gh">Out[2]: </span><span class="go">2 + 3/(x + 1) - 3/(x - 1)</span>
 </pre></div>
 </div>
-<ul class="last simple">
-<li>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">full=True</span></code> がわからない。</li>
+<ul class="simple">
+<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">full=True</span></code> がわからない。</p></li>
 </ul>
 </dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">assemble_partfrac_list(partial_list)</span></code></dt>
-<dd>上述の <code class="code docutils literal notranslate"><span class="pre">apart_list</span></code> の戻り値から有理関数の部分分数分解を復元する。</dd>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">assemble_partfrac_list(partial_list)</span></code></dt><dd><p>上述の <code class="code docutils literal notranslate"><span class="pre">apart_list</span></code> の戻り値から有理関数の部分分数分解を復元する。</p>
+</dd>
 </dl>
 </div>
 <div class="section" id="sympy-polys-dispersion">
-<h3><a class="toc-backref" href="#id28">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.dispersion</span></code></a><a class="headerlink" href="#sympy-polys-dispersion" title="Permalink to this headline">¶</a></h3>
-<div class="admonition-todo admonition" id="index-1">
-<p class="first admonition-title">Todo</p>
-<p class="last">調査中。</p>
+<h3><a class="toc-backref" href="#id30">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.dispersion</span></code></a><a class="headerlink" href="#sympy-polys-dispersion" title="Permalink to this headline">¶</a></h3>
+<div class="admonition-todo admonition" id="id11">
+<p class="admonition-title">Todo</p>
+<p>調査中。</p>
 </div>
 <hr class="docutils" />
 <p>モジュールにしろ関数にしろクラスにしろ、かなりの量がある。整理して理解するのは困難。</p>
@@ -537,6 +514,7 @@ tuple オブジェクトを得られる。</li>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
       </div>
       <div class="clearer"></div>
@@ -551,7 +529,8 @@ tuple オブジェクトを得られる。</li>
           <a href="matrices.html" title="行列"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >SymPy 利用ノート</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" >SymPy 利用ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">多項式</a></li> 
       </ul>
     </div>
     <div id="footer">
@@ -560,7 +539,7 @@ tuple オブジェクトを得られる。</li>
       </div>
       <div id="footer_copyright">
         Since 1999<br />
-        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+        Copyright &copy; 1999-2020, プレハブ小屋 All rights reserved.
       </div>
     </div>
   </body>

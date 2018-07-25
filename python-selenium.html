@@ -1,0 +1,470 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Selenium 利用ノート &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="Python Twitter Tools 利用ノート" href="python-twitter/index.html" />
+    <link rel="prev" title="BeautifulSoup4 利用ノート" href="python-bs4.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="python-twitter/index.html" title="Python Twitter Tools 利用ノート"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="python-bs4.html" title="BeautifulSoup4 利用ノート"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Selenium 利用ノート</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="selenium">
+<h1><a class="toc-backref" href="#id22">Selenium 利用ノート</a><a class="headerlink" href="#selenium" title="Permalink to this headline">¶</a></h1>
+<p>Python での <a class="reference external" href="https://github.com/SeleniumHQ/selenium/">Selenium</a> の利用について記す。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title">ノート目次</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#selenium" id="id22">Selenium 利用ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id23">目的</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id24">導入</a></p>
+<ul>
+<li><p><a class="reference internal" href="#python" id="id25">Python 用パッケージを導入する</a></p></li>
+<li><p><a class="reference internal" href="#ms-edge-webdriver" id="id26">MS Edge 用 WebDriver を導入する</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id4" id="id27">初回動作確認</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id28">コード例</a></p>
+<ul>
+<li><p><a class="reference internal" href="#html" id="id29">HTML ファイルをブラウザーで開く</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id30">ドライバー管理下のブラウザーを閉じる</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id31">特定の HTML 要素を発見する</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id32">HTML 要素の指定する属性の値を得る</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id33">HTML 要素の値を得る</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id34">キー操作</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id35">フォーム制御</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id36">待機</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id13" id="id37">明示的待機</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id38">暗黙的待機</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id15" id="id39">コード・テスト・デバッグのコツ</a></p></li>
+<li><p><a class="reference internal" href="#id16" id="id40">実例</a></p></li>
+<li><p><a class="reference internal" href="#id17" id="id41">参考資料</a></p></li>
+<li><p><a class="reference internal" href="#id19" id="id42">関連ノート</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id23">目的</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>私が <a class="reference external" href="https://github.com/SeleniumHQ/selenium/">Selenium</a> を利用する目的を記す。</p>
+<p><a class="reference external" href="https://github.com/SeleniumHQ/selenium/">Selenium</a> はウェブブラウザーの操作を自動化する基板となる一連のツールやライブラリー群だ。例えば Twitter や GitHub にログインするときの定番の UI 操作手順を自動化したり、インターネットと連動したゲームのプレイヤーデータを scraping したりするのに応用することが考えられる。事実、ひじょうに便利な Python スクリプトが作れる。</p>
+<p>ちなみに、Python には <a class="reference external" href="http://www.crummy.com/software/BeautifulSoup/bs4/">BeautifulSoup</a> という有力な scraping パッケージが存在する。これは静的な HTML の解析には向いているものの、JavaScript を駆使した動的な HTML には弱い。一方 Selenium は逆に動的な処理のための API が提供されているが、いちいちブラウザーのプロセスを介在する必要がある。したがって用途に応じてこれらのパッケージを選択するのが現実的な戦略だ。</p>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id24">導入</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>Python 3.7 以上が動作している Windows 10 環境に <a class="reference external" href="https://github.com/SeleniumHQ/selenium/">Selenium</a> をインストールする手順を記す。なお、ブラウザーは MS Edge を想定する。</p>
+<p><a class="reference external" href="https://github.com/SeleniumHQ/selenium/">Selenium</a> の構成要素は大別して二つある。プログラミングに関するものとウェブブラウザーに関するものだ。私はもっぱら Python しか書かないので言語を Python に絞って導入手順を記す。ウェブブラウザーについては、Chrome, Firefox, Safari, Internet Explorer, Microsoft Edge
+などのドライバーがあるので、自分の利用するブラウザーに対応するドライバーを一つ（あるいは複数）ダウンロードして適宜インストールする。</p>
+<div class="section" id="python">
+<h3><a class="toc-backref" href="#id25">Python 用パッケージを導入する</a><a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://github.com/SeleniumHQ/selenium/">Selenium</a> の Python パッケージをインストールする手順を記す。</p>
+<p>手順はひじょうに簡単で、他のサードパーティー製 Python パッケージと同様だ。すなわち：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ pip install selenium</span>
+</pre></div>
+</div>
+<p>アップグレードやアンインストールも標準の手順に従う。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ pip install -U selenium</span>
+<span class="go">bash$ pip uninstall selenium</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ms-edge-webdriver">
+<h3><a class="toc-backref" href="#id26">MS Edge 用 WebDriver を導入する</a><a class="headerlink" href="#ms-edge-webdriver" title="Permalink to this headline">¶</a></h3>
+<p>WebDriver のインストール手順を述べる。MS Edge の WebDriver のインストールは OS の機能を用いて行う。</p>
+<ul class="simple">
+<li><p>Windows の設定画面を開く。</p></li>
+<li><p><span class="guilabel">アプリと機能</span> に進み <span class="guilabel">オプション機能</span> を選択する。</p></li>
+<li><p><span class="guilabel">Microsoft WebDriver</span> を選択する。</p></li>
+</ul>
+<p>いったん上記の手順を実施すると、これ以上 Windows Update のタイミングで
+MS Edge のバージョンと WebDriver のそれが同調することが期待できる。</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id27">初回動作確認</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/SeleniumHQ/selenium/">Selenium</a> の一連の構成部品をインストールしたら、公式文書にある Getting Started
+のコードを真似たものを実行して様子を見るといい。ブラウザーが新規に開いて、指定の HTML ファイルが表示されるというようなもので十分だ。</p>
+<p>それが終わったら本ページの末端にある参考資料を一読することを勧める。</p>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id28">コード例</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>ここでは私が実際に使い物になる、パターン化されていると感じたコードを挙げていく。基本的なものから、私しか使わなそうな特別なものまで無差別に列挙する。</p>
+<p>これ以降にあげるコード片は次の文を事前に実行しているものと仮定する：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
+
+<span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Edge</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="section" id="html">
+<h3><a class="toc-backref" href="#id29">HTML ファイルをブラウザーで開く</a><a class="headerlink" href="#html" title="Permalink to this headline">¶</a></h3>
+<p>URL またはローカルファイルパスを指定してブラウザーを開く。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;http://www.python.org&#39;</span><span class="p">)</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;file://C:/Temp/tmp.html&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>AJAX をふんだんに用いているページを開くときは、呼び出し直後に完全にロードし切れていないと思ったほうがいい。そういう状況では後述の技法を併用する。</p>
+</div>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id30">ドライバー管理下のブラウザーを閉じる</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>ブラウザーごと終了するのであれば <code class="docutils literal notranslate"><span class="pre">quit()</span></code> を、タブを閉じるのであれば <code class="docutils literal notranslate"><span class="pre">close()</span></code> を呼ぶ。ただしタブが一つの場合は事実上ブラウザーが終了する。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">driver</span> <span class="o">=</span> <span class="o">...</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="o">...</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">driver</span><span class="o">.</span><span class="n">close</span><span class="p">()</span> <span class="ow">or</span> <span class="n">driver</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>私は Selenium を使うときしか MS Edge を使わないのでどちらでもいい。</p>
+</div>
+<div class="section" id="id7">
+<h3><a class="toc-backref" href="#id31">特定の HTML 要素を発見する</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>画面に表示されているページの HTML ソースが含む <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">input</span></code>, <code class="docutils literal notranslate"><span class="pre">img</span></code> などの各種要素にアクセスするためのコードは重要だ。ページ末端に挙げるマニュアルで各インターフェイスの特性を把握しておくこと。</p>
+<p>要点をまとめておく。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">driver.find_element_by_</span></code> 系メソッドは指定条件を満たす要素を表現するオブジェクト一つを返すか、見つからないときは例外を送出する。一方、
+<code class="docutils literal notranslate"><span class="pre">driver.find_elements_by_</span></code> 系メソッドは指定条件を満たす要素を表現するオブジェクトを
+0 個以上含む <cite>list</cite> オブジェクトの形で返す。</p></li>
+<li><p>要素の指定方法は次のものになる：</p>
+<ul class="simple">
+<li><p>要素のタグ名による</p></li>
+<li><p>要素の <code class="docutils literal notranslate"><span class="pre">id</span></code> 属性の値による</p></li>
+<li><p>要素の <code class="docutils literal notranslate"><span class="pre">name</span></code> 属性の値による</p></li>
+<li><p>要素の場所を指定する CSS セレクターによる</p></li>
+<li><p>要素の場所を指定する XPath による</p></li>
+</ul>
+<p>最初の三つについては HTML をツールなしで書ける者であれば説明不要だと思う。
+CSS セレクターによる要素の場所特定は <a class="reference external" href="http://www.crummy.com/software/BeautifulSoup/bs4/">BeautifulSoup</a> でもサポートしている。
+Selenium は XPath による指定も提供している。</p>
+<p>次に Selenium の非公式文書で紹介されているリンクを引用する。
+CSS セレクターと XPath に馴染みがないのであれば、リンク先で学習することだ：</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.w3schools.com/xml/xpath_intro.asp">W3Schools XPath Tutorial</a></p></li>
+<li><p><a class="reference external" href="http://www.w3.org/TR/xpath">W3C XPath Recommendation</a></p></li>
+<li><p><a class="reference external" href="http://www.zvon.org/comp/r/tut-XPath_1.html">XPath Tutorial</a></p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">images</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_elements_by_css_selector</span><span class="p">(</span><span class="s1">&#39;div#porno-album &gt; a &gt; img&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id8">
+<h3><a class="toc-backref" href="#id32">HTML 要素の指定する属性の値を得る</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>HTML 要素から属性の値を得るには <code class="docutils literal notranslate"><span class="pre">elem.get_attribute()</span></code> を用いる。例えば、次の要素 <code class="docutils literal notranslate"><span class="pre">elem</span></code> から <code class="docutils literal notranslate"><span class="pre">src</span></code> を得たいとする：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">img</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;porno-001&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;/path/to/porno-001.jpg&quot;</span> <span class="p">/&gt;</span>
+</pre></div>
+</div>
+<p>このときは次のようにする：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">jpeg_url</span> <span class="o">=</span> <span class="n">elem</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>もっと現実的な例を示す。今、画像が一列に並んでいるページを開いたものと仮定する。それらの画像の要素 <code class="docutils literal notranslate"><span class="pre">img</span></code> から属性 <code class="docutils literal notranslate"><span class="pre">src</span></code> の値、すなわち画像の URL を取得して
+<code class="docutils literal notranslate"><span class="pre">list</span></code> オブジェクト <code class="docutils literal notranslate"><span class="pre">image_paths</span></code> を作成するというものだ。</p>
+<p>このコード作成者は URL 一覧をテキストファイルに出力し、コンソールで別途 :program:<code class="docutils literal notranslate"><span class="pre">wget</span></code> を実行することでポルノ画像の一括ダウンロードを企んでいる。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">images</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_elements_by_css_selector</span><span class="p">(</span><span class="s1">&#39;div#porno-album &gt; a &gt; img&#39;</span><span class="p">)</span>
+<span class="n">image_paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">images</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h3><a class="toc-backref" href="#id33">HTML 要素の値を得る</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>HTML 要素の値を得るには <code class="docutils literal notranslate"><span class="pre">elem.text</span></code> を参照する。開始タグと終了タグに挟まれた部分のブラウザーに描画されているテキスト内容と同等の <code class="docutils literal notranslate"><span class="pre">str</span></code> オブジェクトが得られる。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_elements_by_tag_name</span><span class="p">(</span><span class="s1">&#39;h1&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id10">
+<h3><a class="toc-backref" href="#id34">キー操作</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>Selenium はキーボードのキー操作を再現するインターフェイスを提供している。それを利用するには次の <code class="docutils literal notranslate"><span class="pre">import</span></code> 文が必要だ：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">selenium.webdriver.common.keys</span> <span class="kn">import</span> <span class="n">Keys</span>
+</pre></div>
+</div>
+<p>現在の画面にキーイベントを送るには例えば次のようにする。もっと自然なコードがあるかもしれない。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">selenium.webdriver.common.action_chains</span> <span class="kn">import</span> <span class="n">ActionChains</span>
+
+<span class="o">...</span>
+
+<span class="n">actions</span> <span class="o">=</span> <span class="n">ActionChains</span><span class="p">(</span><span class="n">driver</span><span class="p">)</span>
+<span class="n">actions</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">Keys</span><span class="o">.</span><span class="n">HOME</span><span class="p">)</span>
+<span class="n">actions</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">Keys</span><span class="o">.</span><span class="n">END</span><span class="p">)</span>
+<span class="n">actions</span><span class="o">.</span><span class="n">perform</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>特定の HTML 要素に対してキーイベントを送るには例えば次のようにする：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">user_name</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_elements_by_css_selector</span><span class="p">(</span><span class="s1">&#39;input[id=&quot;user_name&quot;]&#39;</span><span class="p">)</span>
+<span class="n">user_name</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="s1">&#39;showa_yojyo&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id11">
+<h3><a class="toc-backref" href="#id35">フォーム制御</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>ボタン系 GUI のマウスクリックとフォーム送信のコード例を示す。ページの HTML のフォーム部分はこのようになっていると仮定する：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;post&quot;</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;...&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;agree&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;1&quot;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;agree&quot;</span><span class="p">&gt;</span>利用上の注意に同意する<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;sign-in&quot;</span><span class="p">&gt;</span>確認画面へ<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>ユーザーは通常この画面をブラウザーで開いてチェックボックス「利用上の注意に同意する」をクリックしてチェックを入れる。それからボタン「確認画面へ」をクリックするなどしてフォームを送信する。これを WebDriver で自動化するとこうなる：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">agree</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;agree&#39;</span><span class="p">)</span>
+<span class="n">agree</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">agree</span><span class="o">.</span><span class="n">is_selected</span><span class="p">()</span>
+
+<span class="n">sign_in</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;sign-in&#39;</span><span class="p">)</span>
+<span class="n">sign_in</span><span class="o">.</span><span class="n">click</span><span class="p">()</span> <span class="ow">or</span> <span class="n">sign_in</span><span class="o">.</span><span class="n">submit</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">.submit()</span></code> に関しては当該フォーム内のコントロールであれば何でもいい。
+<code class="docutils literal notranslate"><span class="pre">form</span></code> 本体でも構わない。</p>
+</div>
+<div class="section" id="id12">
+<h3><a class="toc-backref" href="#id36">待機</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>Selenium プログラミングで最初の壁となる待機処理について簡単に記す。</p>
+<p>基本的には <code class="docutils literal notranslate"><span class="pre">driver.get(URL)</span></code> の呼び出し直後には指定アドレスのページがロードされた直後だと考えるべきだ。しかし、先述のように AJAX バリバリのページにおいては、ブラウザーに画面が出たかたとはいえ、その内容のすべてがロードされているとは限らない。</p>
+<p>あるいはボタンをクリックすることにより別のページに移動するようなサイトにおいては、
+<code class="docutils literal notranslate"><span class="pre">button.click()</span></code> の呼び出し直後では、むしろ次のページは部分的にしかロードされていないと考えるべきだ。</p>
+<p>ページが不完全な状態で WebDriver の <code class="docutils literal notranslate"><span class="pre">find_element</span></code> 系メソッドを呼び出すと失敗することがある。それを回避する手段が待機だ。</p>
+<p>Selenium は「指定要素が指定状態になるまでプログラム実行を進行しない」機能を提供している。これを待機と呼ぶことにする。待機は明示的待機と暗黙的待機の二つに分類される。</p>
+<div class="section" id="id13">
+<h4><a class="toc-backref" href="#id37">明示的待機</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
+<p>明示的待機を説明する。例えば登録画面、プログレスバー表示画面、終了画面という遷移を考える。終了画面が出る前に <code class="docutils literal notranslate"><span class="pre">.close()</span></code> したくないはずなので、次のようにする：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">selenium.webdriver.common.by</span> <span class="kn">import</span> <span class="n">By</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.support</span> <span class="kn">import</span> <span class="n">expected_conditions</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.support.ui</span> <span class="kn">import</span> <span class="n">WebDriverWait</span>
+
+<span class="o">...</span>
+
+<span class="c1"># 登録画面終了</span>
+
+<span class="c1"># 進捗表示画面 - ここを正常に抜けないと登録手続きが破壊される</span>
+
+<span class="n">wait</span> <span class="o">=</span> <span class="n">WebDriverWait</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+<span class="n">wait</span><span class="o">.</span><span class="n">until</span><span class="p">(</span><span class="n">expected_conditions</span><span class="o">.</span><span class="n">title_contains</span><span class="p">(</span><span class="s1">&#39;受付終了&#39;</span><span class="p">))</span>
+
+<span class="c1"># 仮にここで driver.find_element_by_tag_name(&#39;title&#39;) を実行すれば</span>
+<span class="c1"># 例外は送出されないはずだ</span>
+
+<span class="c1"># ユーザーの目的は進捗表示画面が完全終了の時点で達せられた</span>
+<span class="c1"># ブラウザーを閉じる</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>これにより（実際の処理が 60 秒で収まれば）ユーザーの期待する手続きは
+Selenium が代わりに達成する。</p>
+<p>明示的待機の一般的な手順を記す。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">WebDriver</span></code> 型オブジェクトと待機秒を指定してクラス <code class="docutils literal notranslate"><span class="pre">WebDriverWait</span></code> のオブジェクトを作成する。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">until()</span></code> を呼び出す。引数に待機条件を指定する。</p></li>
+</ul>
+<p>待機条件はモジュール <code class="docutils literal notranslate"><span class="pre">selenium.webdriver.support.expected_conditions</span></code> のクラス各種のオブジェクトにより指示する。コードから読み取れる内容を以下にまとめる：</p>
+<table class="docutils align-default" id="id21" style="width: 50%">
+<caption><span class="caption-text">条件一覧</span><a class="headerlink" href="#id21" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>コンストラクター</p></th>
+<th class="head"><p>待機解除条件</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">title_is(title)</span></code></p></td>
+<td><p>HTML の <code class="docutils literal notranslate"><span class="pre">&lt;title&gt;</span></code> タグの値が指定値と一致する。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">title_contains(title)</span></code></p></td>
+<td><p>HTML の <code class="docutils literal notranslate"><span class="pre">&lt;title&gt;</span></code> タグの値が指定値を部分文字列とする。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">presence_of_element_located(locator)</span></code></p></td>
+<td><p>HTML の DOM に指定要素が存在する。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">url_contains(url)</span></code></p></td>
+<td><p>ページの URL が指定文字列を部分文字列とするものである。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">url_matchs(pattern)</span></code></p></td>
+<td><p>ページの URL が指定正規表現にマッチ (<code class="docutils literal notranslate"><span class="pre">re.search(pattern,</span> <span class="pre">url)</span></code>) する。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">url_to_be(url)</span></code></p></td>
+<td><p>ページの URL が指定文字列と等しくなる。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">url_changes(url)</span></code></p></td>
+<td><p>ページの URL が指定文字列と異なる。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">visibility_of_element_located(locator)</span></code></p></td>
+<td><p>HTML の DOM に指定要素が存在し、かつ見える。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">visibility_of(element)</span></code></p></td>
+<td><p>同上（引数の型が異なる）。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">presence_of_all_elements_located(locator)</span></code></p></td>
+<td><p>ページ内に少なくとも一つは要素が存在する。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">visibility_of_any_elements_located(locator)</span></code></p></td>
+<td><p>ページ内に少なくとも一つは指定要素が見える。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">visibility_of_all_elements_located(locator)</span></code></p></td>
+<td><p>指定要素すべてが DOM に存在してかつ見える。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">text_to_be_present_in_element(locator,</span> <span class="pre">text)</span></code></p></td>
+<td><p>指定要素の値 (<code class="docutils literal notranslate"><span class="pre">.text</span></code>) が指定文字列を含む。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">text_to_be_present_in_element_value(locator,</span> <span class="pre">text)</span></code></p></td>
+<td><p>指定要素の属性 <code class="docutils literal notranslate"><span class="pre">value</span></code> の値が指定文字列を含む。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">frame_to_be_available_and_switch_to_it(locator)</span></code></p></td>
+<td><p>指定フレームに切り替えられる。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">invisibility_of_element_located(locator)</span></code></p></td>
+<td><p>指定要素が DOM からいなくなるか見えなくなる。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">invisibility_of_element(element)</span></code></p></td>
+<td><p>同上（引数の型が異なる）。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">element_to_be_clickable(locator)</span></code></p></td>
+<td><p>指定要素が見えてかつクリック可能である。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">staleness_of(element)</span></code></p></td>
+<td><p>指定要素が DOM にもう付属していない。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">element_to_be_selected(locator)</span></code></p></td>
+<td><p>指定要素が選択状態である。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">element_located_to_be_selected(locator)</span></code></p></td>
+<td><p>指定要素が選択状態である。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">element_selection_state_to_be(element,</span> <span class="pre">is_selected)</span></code></p></td>
+<td><p>指定要素が選択状態または非選択状態である。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">element_located_selection_state_to_be(locator,</span> <span class="pre">is_selected)</span></code></p></td>
+<td><p>同上（引数の型が異なる）。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">number_of_windows_to_be(num_windows)</span></code></p></td>
+<td><p>ウィンドウ数が特定の値である。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">new_window_is_opened(current_handles)</span></code></p></td>
+<td><p>ウィンドウ数が変化している。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">alert_is_present()</span></code></p></td>
+<td><p>　警告が表示されている（警告ダイアログに切り替えられる）。</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>ここで <code class="docutils literal notranslate"><span class="pre">locator</span></code> とある引数は <code class="docutils literal notranslate"><span class="pre">driver.find_element(*locator)</span></code> の形で評価される型のオブジェクトとする。例えば <code class="docutils literal notranslate"><span class="pre">(BY.TAG_NAME,</span> <span class="pre">&quot;h1&quot;)</span></code> のようになる。一方 <code class="docutils literal notranslate"><span class="pre">element</span></code> とあるのは <code class="docutils literal notranslate"><span class="pre">find</span></code> 系メソッドによって特定済みの要素を表すオブジェクトとする。</p></li>
+</ul>
+</div>
+<div class="section" id="id14">
+<h4><a class="toc-backref" href="#id38">暗黙的待機</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
+<p>暗黙的待機を説明する。これは待機可能な構成要素すべてに関して待機時間上限の既定値を設定するものだ。指定後は上記のような <code class="docutils literal notranslate"><span class="pre">.until()</span></code> をしなくても <code class="docutils literal notranslate"><span class="pre">.until()</span></code> 相当のことをしてくれる。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">driver</span> <span class="o">=</span> <span class="n">Edge</span><span class="p">()</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">implicitly_wait</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id15">
+<h2><a class="toc-backref" href="#id39">コード・テスト・デバッグのコツ</a><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/SeleniumHQ/selenium/">Selenium</a> ベースのスクリプトでの動作確認作業でよく使う技法を挙げる。</p>
+<ul class="simple">
+<li><p>基本：<code class="docutils literal notranslate"><span class="pre">breakpoint()</span></code> でスクリプト全体の実行を停止する。このとき、ブラウザーの様子を確認しながらコンソールの pdb セッションで <code class="docutils literal notranslate"><span class="pre">WebDriver</span></code> オブジェクトを操作できる。</p></li>
+<li><p>WebDriver のオブジェクトが作成でき次第 <code class="docutils literal notranslate"><span class="pre">driver.implicitly_wait()</span></code> を呼び出す。</p></li>
+<li><p>ページ移動は極力 <code class="docutils literal notranslate"><span class="pre">driver.get(url)</span></code> を採用する。<code class="docutils literal notranslate"><span class="pre">&lt;a&gt;</span></code> タグを特定して <code class="docutils literal notranslate"><span class="pre">click()</span></code> は次のページのロードを待たないで制御が戻るようだ。</p></li>
+<li><p>ページごとに行う処理を書く関数を定義する。Python のデコレーターを活用して、ページ表示タイミングで共通処理を与えることができる。</p></li>
+</ul>
+</div>
+<div class="section" id="id16">
+<h2><a class="toc-backref" href="#id40">実例</a><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<p>私の GitHub repository の bin にいくつか使用例があるのでリンクする。</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/showa-yojyo/bin/blob/master/wifiota.py">wifiota.py</a>:
+大田区図書館の Free Wi-Fi 再接続を要求する際に実行するスクリプト。</p></li>
+<li><p><a class="reference external" href="https://github.com/showa-yojyo/bin/blob/master/mjnet.py">mjnet.py</a>:
+セガネットワーク対戦麻雀 MJ Arcade ユーザーサイト MJ.NET のゲームスコアを自動的に取得するスクリプト。</p></li>
+</ul>
+</div>
+<div class="section" id="id17">
+<h2><a class="toc-backref" href="#id41">参考資料</a><a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/SeleniumHQ/selenium/">Selenium</a> を用いた簡単なコードを書けるようになったら、次の二つの文書を順に読むとよい。</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://selenium-python.readthedocs.io/">Selenium with Python</a></p></li>
+<li><p><a class="reference external" href="https://www.seleniumqref.com/">Selenium クイックリファレンス</a></p></li>
+</ul>
+<p>悩んだときは Google で適当にキーワードを検索する。Stack Overflow でだいたい解決済みだ。</p>
+</div>
+<div class="section" id="id19">
+<h2><a class="toc-backref" href="#id42">関連ノート</a><a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h2>
+<p>この他のスクレイピングの技法をまとめたノートの一覧。</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="python-bs4.html"><span class="doc">BeautifulSoup4 利用ノート</span></a></p></li>
+<li><p><a class="reference internal" href="hxutils.html"><span class="doc">HTML-XML-utils 利用ノート</span></a></p></li>
+</ul>
+<p>以上</p>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="python-twitter/index.html" title="Python Twitter Tools 利用ノート"
+             >next</a></li>
+        <li class="right" >
+          <a href="python-bs4.html" title="BeautifulSoup4 利用ノート"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Selenium 利用ノート</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2020, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

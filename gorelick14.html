@@ -1,0 +1,1251 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ハイパフォーマンス Python 読書ノート &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="その数式、プログラムできますか？ 読書ノート" href="stepanov15.html" />
+    <link rel="prev" title="Annex E: XMI Serialization and Schema" href="omg15/serialization.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="stepanov15.html" title="その数式、プログラムできますか？ 読書ノート"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="omg15/serialization.html" title="Annex E: XMI Serialization and Schema"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ハイパフォーマンス Python 読書ノート</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="python">
+<h1><a class="toc-backref" href="#id13">ハイパフォーマンス Python 読書ノート</a><a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h1>
+<p>開発環境の揃わない旅の途中に読んだので、特別なツールの挙動を確認するなどの本質的な作業が一部残っているが、ノートをとっておく。本書は Python 2 ベースでパフォーマンスを評価しているが、私は Python 3 で確認しながら読み進めた。</p>
+<dl class="field-list simple">
+<dt class="field-odd">著者</dt>
+<dd class="field-odd"><p>Micha Gorelick, Ian Ozsvald</p>
+</dd>
+<dt class="field-even">訳者</dt>
+<dd class="field-even"><p>相川愛三</p>
+</dd>
+<dt class="field-odd">出版社</dt>
+<dd class="field-odd"><p>オライリー・ジャパン</p>
+</dd>
+<dt class="field-even">ISBN</dt>
+<dd class="field-even"><p>978-4-87311-740-9</p>
+</dd>
+<dt class="field-odd">関連 URL</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://www.oreilly.co.jp/books/9784873117409/">紹介ページ</a></p>
+</dd>
+</dl>
+<div class="contents topic" id="id1">
+<p class="topic-title">ノート目次</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#python" id="id13">ハイパフォーマンス Python 読書ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id14">訳者まえがき</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id15">まえがき</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id16">1 章 高性能な Python を理解する</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id17">2 章 ボトルネック発見のためのプロファイリング</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id18">3 章 リストとタプル</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id19">4 章 辞書と集合</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id20">5 章 イテレータとジェネレータ</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id21">6 章 行列とベクトルの計算</a></p></li>
+<li><p><a class="reference internal" href="#c" id="id22">7 章 C にコンパイルする</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id23">8 章 並行処理</a></p></li>
+<li><p><a class="reference internal" href="#multiprocessing" id="id24">9 章 <code class="docutils literal notranslate"><span class="pre">multiprocessing</span></code> モジュール</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id25">10 章 クラスタとジョブキュー</a></p></li>
+<li><p><a class="reference internal" href="#ram" id="id26">11 章 RAM 使用量を削減する</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id27">12 章 現場に学ぶ</a></p></li>
+<li><p><a class="reference internal" href="#a" id="id28">付録 A サンプルプログラムについて</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id14">訳者まえがき</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>本書は単なるテクニック本とは違う。</p></li>
+<li><p>本書で中心的に紹介している各技術はかなり成熟していて、今後も陳腐化することはないはずだ。この知識は長く使えると思う。</p></li>
+<li><p>原書のクセの強い英語についての具体的な愚痴。</p></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id15">まえがき</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>&lt;Python は、ラピッド開発、実環境へのデプロイ、スケーラブルなシステム作りに適しています&gt;</p></li>
+<li><p>本書は主に CPU バウンドの問題を扱う。データ転送、メモリバウンドの問題も触れる。</p></li>
+<li><p>本書は中級者～上級者 Python プログラマー向け。</p></li>
+<li><p>本書が提供するトピック一覧で目を引いたもの：</p>
+<ul class="simple">
+<li><p>コンパイラと JIT 計算</p></li>
+<li><p>並行処理</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">multiprocessing</span></code></p></li>
+<li><p>クラスタコンピューティング</p></li>
+<li><p>RAM の節約</p></li>
+</ul>
+</li>
+<li><p>Python 2.7 は 2020 年に引退する。</p></li>
+<li><p>本書のライセンスは CC BY-NC-ND 3.0 に基づく。</p>
+<p><strong>High Performance Python</strong> by Micha Gorelick and Ian Ozsvald (O’Reilly).
+Copyright 2014 Micha Gorelick and Ian Ozsvald, 978-1-449-36159-4.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id16">1 章 高性能な Python を理解する</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>Python というよりは計算機の基礎を理解するための章だ。</p>
+<p>各章の冒頭には、読者が読了後に理解したはずの事項を列挙してある。本ノートではそれらの問いに答えていこうと思う。</p>
+<ul>
+<li><p>コンピュータアーキテクチャの構成要素とは何か？</p>
+<ol class="arabic simple">
+<li><p>演算装置</p></li>
+<li><p>記憶装置</p></li>
+<li><p>両者の接続装置</p></li>
+</ol>
+</li>
+<li><p>一般に、構成要素にはどんなものがあるか？</p>
+<ol class="arabic simple">
+<li><p>CPU, GPU</p></li>
+<li><p>ハードディスク、SSD, RAM, L1/L2 キャッシュ（ただしキャッシュは CPU 内部にある）</p></li>
+<li><p>フロントサイドバス、バックサイドバス、外部バス</p></li>
+</ol>
+</li>
+<li><p>Python は下層のコンピュータアーキテクチャをどのように抽象化しているのか？</p>
+<p>配列のメモリ確保、配置、解放、データの CPU への転送順というような計算機の低水準要素を、プログラマーが意識せずに済むように抽象化している。</p>
+</li>
+<li><p>Python のコードを最適化するうえでの障壁は何か？</p>
+<ul class="simple">
+<li><p>ベクトル化をすぐに適用できない</p></li>
+<li><p>次の計算に用いるデータをキャッシュに格納しておくようにする手法が適用しにくい</p></li>
+<li><p>動的型付け言語であることからくる最適化機会の損失全般</p></li>
+<li><p>並列処理化のときの GIL: コア数にかかわらず一度に一つの命令しか実行しない</p></li>
+</ul>
+</li>
+<li><p>性能問題にはどんなものがあるか？</p>
+<ul class="simple">
+<li><p>計算量。単位時間あたりにどれだけ多くの計算を実行できるか。</p></li>
+<li><p>記憶量。どれだけ多くのデータをどれだけ記憶できるか。</p></li>
+<li><p>処理量。データをどれだけ速く入出力できるか。</p></li>
+<li><p>転送量。データをどれだけ速く転送できるか。</p></li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<p>ここからは GitHub リポジトリーにあるサンプルプログラムの分析ノート。章ごとにサブディレクトリーが設けられていて、著者が執筆時に試したはずのコード群やプロファイル結果が管理されている。</p>
+<p>当ノートでも可能な限りコードを実行していく。序盤から当たり前のようにサードパーティー製パッケージを必要とするものが出てくるが、この章はまだ素の環境で再現が可能だ。</p>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">check_prime.py</span></code>: このロジックで素数を判定できたらたいしたものだ。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">reducing_operations.py</span></code>: ループを早めに抜けることの重要性。</p>
+<ul>
+<li><p>ここでの <code class="docutils literal notranslate"><span class="pre">timeit</span></code> モジュールの応用法は本書を通じて用いられる。</p></li>
+<li><p>この手の判定は <code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">needle</span> <span class="pre">in</span> <span class="pre">haystack</span></code> と書くのが自然だ。ここに書いてある <code class="docutils literal notranslate"><span class="pre">search_fast()</span></code> よりも高速だ。</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id17">2 章 ボトルネック発見のためのプロファイリング</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>本章はしっかり理解したほうがいい。このジュリア集合のコードをきちんと書いて測定すること。コードは著者のリポジトリーにあるのだが、あえて写経してもそのタイプ時間以外には損はないと思われる。</p>
+<p>本章冒頭の問いに答えてみよう。</p>
+<ul>
+<li><p>コード上のスピードと RAM のボトルネックをどのように特定するのか？</p>
+<p>一言で言えば「プロファイリングをする」こと。</p>
+</li>
+<li><p>CPU とメモリの使用量をどのように測定するのか？</p>
+<p>いろいろなツールがある。実行時間の測定には次に挙げるものが：</p>
+<ul class="simple">
+<li><p>IPython の <code class="docutils literal notranslate"><span class="pre">%timeit</span></code> コマンド</p></li>
+<li><p>Python 標準の <code class="docutils literal notranslate"><span class="pre">time</span></code>, <code class="docutils literal notranslate"><span class="pre">timeit</span></code> モジュール</p></li>
+<li><p>Python 標準の <code class="docutils literal notranslate"><span class="pre">cProfile</span></code> モジュール</p>
+<ul>
+<li><p>RunSnakeRun という補助ツールがある。ビジュアル。</p></li>
+</ul>
+</li>
+<li><p>Unix の <strong class="command">time</strong> コマンド（ただし組み込みでないほう）</p>
+<ul>
+<li><p>GNU <strong class="command">time</strong> というものだろう。
+Cygwin でも存在すると思われるが、どのパッケージに含まれているのか不明。それゆえ入手できずじまい。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">line_profiler</span></code></p>
+<ul>
+<li><p>これは入手が若干面倒そうだ。
+<code class="docutils literal notranslate"><span class="pre">error:</span> <span class="pre">Microsoft</span> <span class="pre">Visual</span> <span class="pre">C++</span> <span class="pre">14.0</span> <span class="pre">is</span> <span class="pre">required.</span></code></p></li>
+</ul>
+</li>
+<li><p><strong class="command">perf stat</strong></p></li>
+</ul>
+<p>メモリの測定については次に挙げるものが便利だ：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">heapy</span></code>: TODO: <code class="docutils literal notranslate"><span class="pre">guppy</span></code> インストール</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dowser</span></code>: これは <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">dowser</span></code> で利用可能になる。依存パッケージ CherryPy も同時にインストールされる。ただし、Python 3 対応がなされていない。本書を理解するために勝手に <strong class="command">2to3</strong> しておく。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">memory_profiler</span></code>:
+これは <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">memory_profiler</span></code> で容易に利用可能になる。コマンドラインツール <strong class="command">mprof</strong> および
+IPython 用コマンド <code class="docutils literal notranslate"><span class="pre">%memit</span></code> を含む。</p></li>
+</ul>
+</li>
+<li><p>プロファイリングの深さをどのように選ぶのか？</p>
+<p>実行時間測定結果を分析して、コストの高い場所を特定する？</p>
+</li>
+<li><p>長時間実行するアプリケーションをどのようにプロファイリングするのか？</p>
+<p>アプリケーションの動作に依存してメモリの挙動が異なるのならば、インタラクティブに確認するのが望ましい。本書では <code class="docutils literal notranslate"><span class="pre">dowser</span></code> というサービスを稼働させて、ブラウザーから確認するような手法を紹介している。</p>
+</li>
+<li><p>CPython の内部では何が起こっているのか？</p>
+<p>CPython 仮想マシンの内部で実行される低水準バイトコードを確認したい。それには Python の <code class="docutils literal notranslate"><span class="pre">dis</span></code> モジュールの機能を利用する。
+<code class="docutils literal notranslate"><span class="pre">dis.dis(python_code)</span></code> とすると、アセンブリのようなテキストが出力される。</p>
+</li>
+<li><p>性能をチューニングしながら、どのようにコードの正しさを維持するのか？</p>
+<p>チューニング中も単体テストを活用する。また、テストがすべてのコードをカバーしていることを確認するために
+coverage.py を使う。</p>
+</li>
+</ul>
+<p>本章で指摘しているコード改善点をまとめておく。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">and</span> <span class="pre">q</span></code> のような条件判定では <code class="docutils literal notranslate"><span class="pre">p</span></code> が <code class="docutils literal notranslate"><span class="pre">q</span></code> よりも早く評価されるように選ぶ。</p>
+<p>述語を複数並べて論理積を判定する場合には、これらの述語を判定コストの小さい順に左から並べるのが定石。他の言語でも同様。</p>
+</li>
+<li><p>Python では <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">+=</span> <span class="pre">1</span></code> のようなコードさえ遅い。</p></li>
+</ul>
+<p>本章で紹介されている技法のうち、すぐにでも採り入れられるものをまとめておく。</p>
+<ul>
+<li><p>時間測定を自動化するデコレーター。このコードは手許に保存しても丸暗記してもよい。</p></li>
+<li><p>標準モジュール <code class="docutils literal notranslate"><span class="pre">timeit</span></code> をコマンドラインから実行する。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ python -m timeit -n <span class="m">5</span> -r <span class="m">5</span> -s <span class="s2">&quot;COMMANDS&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Unix の <strong class="command">time</strong> コマンド。組み込み版を呼ばぬよう注意すること。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ /usr/bin/time -p python SCRIPT
+$ /usr/bin/time --verbose -p python SCRIPT
+</pre></div>
+</div>
+</li>
+<li><p>標準モジュール <code class="docutils literal notranslate"><span class="pre">cProfile</span></code> をコマンドラインから実行する。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ python -m cProfile -s cumulative SCRIPT
+</pre></div>
+</div>
+<p>あるいは IPython で <code class="docutils literal notranslate"><span class="pre">%run</span> <span class="pre">-p</span></code> コマンドを実行する。
+<code class="docutils literal notranslate"><span class="pre">%prun</span></code> でもいい。</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="o">%</span><span class="k">run</span> -p -s cumulative SCRIPT
+</pre></div>
+</div>
+<p>統計情報をファイルに書き出して、標準モジュール <code class="docutils literal notranslate"><span class="pre">pstats</span></code> の機能で分析する。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ python -m cProfile -s profile.stats SCRIPT
+</pre></div>
+</div>
+<p>IPython ならばこうする。ダンプファイルは IPython セッションで分析するのが便利なので、こちらのほうがいいか。</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="o">%</span><span class="k">run</span> -p -D profile.stats cpu_profiling/julia1_nopil.py
+
+<span class="gp">In [2]: </span><span class="kn">from</span> <span class="nn">pstats</span> <span class="kn">import</span> <span class="n">Stats</span>
+<span class="gp">In [3]: </span><span class="n">p</span> <span class="o">=</span> <span class="n">Stats</span><span class="p">(</span><span class="s1">&#39;profile.stats&#39;</span><span class="p">)</span>
+<span class="gp">In [4]: </span><span class="n">p</span><span class="o">.</span><span class="n">sort_stats</span><span class="p">(</span><span class="s1">&#39;cumulative&#39;</span><span class="p">)</span>
+<span class="gp">In [5]: </span><span class="n">p</span><span class="o">.</span><span class="n">print_stats</span><span class="p">()</span>
+<span class="gp">In [6]: </span><span class="n">p</span><span class="o">.</span><span class="n">print_callers</span><span class="p">()</span>
+<span class="gp">In [7]: </span><span class="n">p</span><span class="o">.</span><span class="n">print_callees</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>このノートには記さないが、統計情報出力が横長過ぎて驚く。</p>
+</li>
+<li><p>簡単なコード片ならば IPython の <code class="docutils literal notranslate"><span class="pre">%timeit</span></code> コマンドが手軽に使える。</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="o">%</span><span class="k">timeit</span> CODE
+</pre></div>
+</div>
+</li>
+</ul>
+<hr class="docutils" />
+<p>以下、GitHub リポジトリーにあるリソースの分析。この章に対応するディレクトリーにある <code class="file docutils literal notranslate"><span class="pre">chapter_recipe.txt</span></code> のコードを追体験するのがいい。他の章にもこういうのを作ればよかったのに。</p>
+<ul>
+<li><p>共通</p>
+<ul class="simple">
+<li><p>すべて Python 2 コードなので、手動で Python 3 化しないと私の環境では動かせない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">__main__:</span></code> を含むスクリプトは冒頭に <code class="docutils literal notranslate"><span class="pre">#!/usr/bin/env</span> <span class="pre">python</span></code> と入れてほしい。</p></li>
+<li><p>私の環境では計算時間が 3 倍弱かかる。</p></li>
+</ul>
+</li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">cpu_profiling/</span></code>: GNU <strong class="command">time</strong> での測定が残。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">decorator_time/</span></code>: 見るべきはデコレーター関数 <code class="docutils literal notranslate"><span class="pre">timefn()</span></code> だ。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">dowser/</span></code>: ブラウザーでリアルタイムに観察する。</p>
+<ul class="simple">
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">launch_memory_usage_server()</span></code> でそれ周りのコードは完結している。これをジュリア集合の計算直前に呼び出して、CherryPy サーバーを走らせるとのこと。</p></li>
+<li><p>自分で <a class="reference external" href="http://localhost:8080/">http://localhost:8080/</a> のページを表示する。
+<code class="docutils literal notranslate"><span class="pre">builtins.list</span></code> の TRACE リンク先を見ればよい。</p></li>
+</ul>
+</li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">guppy/</span></code>: TODO: Install <code class="docutils literal notranslate"><span class="pre">guppy</span></code></p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">line_profiler/</span></code>: TODO: Install <code class="file docutils literal notranslate"><span class="pre">kernprof.py</span></code></p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">memory_profiler/</span></code>: どうやらメモリ量の計測は時間がかかる傾向がある。</p>
+<ul>
+<li><p>コマンド <strong class="command">mprof run</strong> を使うときのコマンドラインは次のようにする：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ python D:/Miniconda3/Scripts/mprof run julia1_memoryprofiler.py
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>その後にコマンド <strong class="command">mprof plot</strong> でグラフを描く。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">noop_profile_decorator/</span></code>: 本文の何もしない <code class="docutils literal notranslate"><span class="pre">&#64;profile</span></code> デコレーターの記述を参照。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">visualise_nonconvergence/</span></code>: このプロットはダメだ。コードをいじって点列がほんとうに発散することを見るといい。</p></li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id18">3 章 リストとタプル</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>本章は「小手先のテクニック」に属する。この本に手が伸びるプログラマーならば、ここに述べられていることはすでに理解しているはず。</p>
+<p>本章冒頭の問いに答えてみよう。</p>
+<ul>
+<li><p>リストとタプルの長所は？</p>
+<p>どちらもデータ構造としては配列であるので、その長所を有する。</p>
+<p>格納要素へのランダムアクセスが可能であること。つまり特定位置にある要素へ定数時間でアクセスできる。</p>
+</li>
+<li><p>リストとタプルの探索の計算オーダーは？</p>
+<p>どちらも線形時間だ。ただしソート済みならば二分探索による対数時間。</p>
+</li>
+<li><p>その計算オーダーの理由は？</p>
+<p>線形時間である理由は、格納要素が単純に配列されているからもっとも単純な探索アルゴリズムである線形探索しか使えないことによる。</p>
+</li>
+<li><p>リストとタプルの違いは？</p>
+<p>前者は動的であり、後者は静的であると表現できる。特に mutable という視点で見ると両者の違いが区別がつく。タプルはいったん生成するとその時点で内容が固定化されるので、メモリもそれ以上消費しない。</p>
+</li>
+<li><p>リストに追加するときの動作は？</p>
+<p>C++ 標準の <code class="docutils literal notranslate"><span class="pre">std::vector</span></code> のそれと同じ議論が成り立つ。メモリの再確保および格納要素（参照型だが）のコピーという高価な処理が発生する。本書の図 3-3 は頭に叩き込んでおく（細かいサイズは覚えなくていい）。</p>
+</li>
+<li><p>リストとタプルを使うのが適当なときは？</p>
+<ul class="simple">
+<li><p>リストは構成が変更されるときに用いる。「プログラミング言語」だの「ある人物の身体測定値各種」だの、内容が常に更新されていたり、値が追加される可能性が高いものを表現するのに向いている。</p></li>
+<li><p>タプルはそうでないときに用いる。データが変化しない「素数の最初の n 個」だの「ある人物の誕生日および生誕地」だのを表現するのに向いている。</p></li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<p>以下、GitHub リポジトリーにあるリソースの分析。</p>
+<ul class="simple">
+<li><p>本編とは関係ない感想だが <strong class="command">2to3</strong> は <code class="docutils literal notranslate"><span class="pre">range(...)</span></code> を <code class="docutils literal notranslate"><span class="pre">list(range(...))</span></code> に変換する。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">binary_search.py</span></code>: 二分検索のアルゴリズム実装例。C++ の <code class="docutils literal notranslate"><span class="pre">std::upper_bound()</span></code> 風。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">binary_vs_linear.py</span></code>: 線形検索アルゴリズム実装例とその時間測定コード。</p>
+<ul>
+<li><p>ソート済みのものをソートすることに注意したい。</p></li>
+</ul>
+</li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">bisect_example.py</span></code>: <code class="docutils literal notranslate"><span class="pre">bisect.insort()</span></code> および <code class="docutils literal notranslate"><span class="pre">bisect.bisect_left()</span></code> の使用例。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">linear_search.py</span></code>: 線形検索アルゴリズム実装例とその時間測定コード。明らかに二分検索より遅いことが体感でわかる。PC のファンもうるさくなる。</p></li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id19">4 章 辞書と集合</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>本章は「小手先のテクニック」に属する。</p>
+<p>本章冒頭の問いに答えてみよう。</p>
+<ul>
+<li><p>辞書と集合の長所は？</p>
+<ul class="simple">
+<li><p>探索のコストが定数時間</p></li>
+<li><p>挿入のコストが定数時間</p></li>
+</ul>
+</li>
+<li><p>辞書と集合の共通点は？</p>
+<p>参照可能で他と重複しない要素を格納するオブジェクトであること。参照に用いるオブジェクト（キー）の型がハッシュ可能なデータ型であること。</p>
+</li>
+<li><p>辞書を使うときのオーバーヘッドは？</p>
+<p>ハッシュ値の衝突時に発生する新しい格納位置を決定する計算。</p>
+</li>
+<li><p>辞書の性能を向上させる方法は？</p>
+<ul class="simple">
+<li><p>ハッシュの取りうる値の範囲を広げて、プローブ計算の発生を抑制する。</p></li>
+<li><p>ハッシュ関数のエントロピーを大きくする。</p></li>
+</ul>
+</li>
+<li><p>Python が名前空間を管理するためにどのように辞書を使っているか？</p>
+<ol class="arabic simple">
+<li><p>ローカル変数を <code class="docutils literal notranslate"><span class="pre">locals()</span></code> を検索する。</p></li>
+<li><p>そこになければ <code class="docutils literal notranslate"><span class="pre">globals()</span></code> を検索する。</p></li>
+<li><p>そこにもなければ <code class="docutils literal notranslate"><span class="pre">__builtin__.locals()</span></code> を検索する。</p></li>
+</ol>
+</li>
+</ul>
+<p>以下雑感など。</p>
+<ul>
+<li><p>ある型が <strong>ハッシュ可能</strong> であるとは、次のものを実装している型であるときをいう：</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">__hash__()</span></code> と</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__eq__()</span></code> または <code class="docutils literal notranslate"><span class="pre">__cmp__()</span></code> のいずれか一方（または両方）</p></li>
+</ol>
+<p>前者はキーのハッシュ値を得るのに、後者は二つのハッシュ値を比較するのに用いられる。</p>
+</li>
+<li><p>ところで Python の辞書と集合は C++ での <code class="docutils literal notranslate"><span class="pre">std::hash_map</span></code> と <code class="docutils literal notranslate"><span class="pre">std::hash_set</span></code> にそれぞれ相当するのだろうか。</p></li>
+<li><p>ハッシュから要素を削除するときの振る舞いは最初の説明だけからはわからない。本書の例でいうと、Rome を削除してから Barcelona を削除（というか検索）するときの詳細を説明できるようにしたい。</p>
+<ol class="arabic simple">
+<li><p>要素追加時に衝突があれば、そのことをバケットに記憶させておくか、</p></li>
+<li><p>要素削除時にキーを prove させ続けて、可能性のあるバケットを全部見るのか、</p></li>
+<li><p>それでもない方法なのか。</p></li>
+</ol>
+<p>答え：&lt;バケットが空であるが、ハッシュ値の衝突時に考慮すべき値が続いていることを示す特別な値&gt; を削除済みバケットに書き込むことで対処する。</p>
+</li>
+<li><p>ハッシュ表成長の 2/3 ルールを知らないと、与えられた要素数を収容する辞書のサイズが見積もれない。</p></li>
+<li><p>ハッシュ関数のエントロピーの式中の確率 <span class="math notranslate nohighlight">\(p(i)\)</span> の意味がわからない。ハッシュ値が <span class="math notranslate nohighlight">\(i\)</span> になる確率といっているが、ハッシュ値全体の集合がわからないと。</p>
+<p>いずれにせよ、この <span class="math notranslate nohighlight">\(S\)</span> の値を最大にする確率関数を導くハッシュ関数を
+<strong>理想ハッシュ関数</strong> という。</p>
+</li>
+</ul>
+<hr class="docutils" />
+<p>以下、GitHub リポジトリーにあるリソースの分析。</p>
+<ul>
+<li><p><code class="file docutils literal notranslate"><span class="pre">custom_vs_default_hash.py</span></code>:
+自作 Point クラスにどのようにハッシュ関数を実装すべきかを示すスクリプト。上のノート参照。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">dict_probing.py</span></code>: ハッシュの基礎理論を説明するためのスクリプト。</p>
+<ul>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">sample_probe()</span></code> 内の <code class="docutils literal notranslate"><span class="pre">format</span></code> が動かないかもしれない。
+ForceHash オブジェクトを <code class="docutils literal notranslate"><span class="pre">{:</span> <span class="pre">&gt;10}</span></code> に渡せないようだ？この右揃え指定を外すと出力できる：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>First 10 samples for hash 0b00000111: [7, 3, 0, 1, 6, 7, 4, 5, 2, 3]
+First 10 samples for hash 0b11100111: [7, 3, 7, 4, 5, 2, 3, 0, 1, 6]
+First 10 samples for hash 0b01110111: [7, 3, 3, 0, 1, 6, 7, 4, 5, 2]
+First 10 samples for hash 0b01110001: [1, 7, 7, 4, 5, 2, 3, 0, 1, 6]
+First 10 samples for hash 0b01110000: [0, 1, 1, 6, 7, 4, 5, 2, 3, 0]
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">naive_hash_function.py</span></code>: 粗雑なハッシュ関数実装例。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">namespace.py</span></code>: インポートされた関数の呼び出し効率について。</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [45]: </span><span class="kn">import</span> <span class="nn">namespace</span>
+
+<span class="gp">In [47]: </span><span class="o">%</span><span class="k">timeit</span> namespace.test1(123456)
+<span class="go">975 ns ± 5.18 ns per loop (mean ± std. dev. of 7 runs, 1000000 loops each)</span>
+
+<span class="gp">In [48]: </span><span class="o">%</span><span class="k">timeit</span> namespace.test2(123456)
+<span class="go">828 ns ± 3.38 ns per loop (mean ± std. dev. of 7 runs, 1000000 loops each)</span>
+
+<span class="gp">In [49]: </span><span class="o">%</span><span class="k">timeit</span> namespace.test3(123456)
+<span class="go">856 ns ± 2.58 ns per loop (mean ± std. dev. of 7 runs, 1000000 loops each)</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">namespace_loop.py</span></code>: 上と同様。</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [50]: </span><span class="kn">import</span> <span class="nn">namespace_loop</span>
+
+<span class="gp">In [51]: </span><span class="o">%</span><span class="k">timeit</span> namespace_loop.tight_loop_slow(10000)
+<span class="go">5.67 ms ± 38.7 μs per loop (mean ± std. dev. of 7 runs, 100 loops each)</span>
+
+<span class="gp">In [52]: </span><span class="o">%</span><span class="k">timeit</span> namespace_loop.tight_loop_fast(10000)
+<span class="go">5.34 ms ± 35 μs per loop (mean ± std. dev. of 7 runs, 100 loops each)</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">timing_hash_function.py</span></code>: アルファベット二文字からなる全文字列の集合から特定の文字列を検索する。ただしハッシュ関数を二通り定義し、それぞれの検索効率を計測する。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">unique_lookup.py</span></code>: 電話番号検索のリスト対集合。本文の記述参照。</p></li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id20">5 章 イテレータとジェネレータ</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>本章は「小手先のテクニック」に属する。</p>
+<p>本章冒頭の問いに答えてみよう。</p>
+<ul>
+<li><p>ジェネレータを使うと、どのようにメモリを節約できるか？</p>
+<p>ジェネレータを使わないとすると、リストや辞書型のオブジェクトが別に必要になる。そのときは、リスト自身の生成や要素を保持するのに必要となるメモリの確保が発生する。</p>
+</li>
+<li><p>ジェネレータを使うべき場面はどんなときか？</p>
+<ol class="arabic simple">
+<li><p>メモリに乗り切らないようなデータを反復するときなど。</p></li>
+<li><p>データ生成とデータ処理を切り分けるときなど（前者をジェネレータが担当する）。</p></li>
+</ol>
+</li>
+<li><p>複雑なジェネレータの処理を定義するために、どのように <code class="docutils literal notranslate"><span class="pre">itertools</span></code> を使うのか？</p>
+<p>与えられた問題を解決するのに役立つ関数を <code class="docutils literal notranslate"><span class="pre">itertools</span></code> から見つけて、場合によっては関数を複数組み合わせてジェネレータを定義する。</p>
+</li>
+<li><p>遅延評価が便利な場面と、そうでないときはいつか？</p>
+<p>遅延評価では、明示的に要求された計算のみが実行される傾向がある。つまり、不必要な計算が実行されないことが期待できる。</p>
+<p>そうでないとき：ワンパス or オンライン処理</p>
+</li>
+</ul>
+<hr class="docutils" />
+<p>以下雑感。</p>
+<ul>
+<li><p>オンライン平均アルゴリズムは知らなかった。ここでは標準偏差を求めて、データ中の最大値が値 <span class="math notranslate nohighlight">\(\mu + 3 \sigma\)</span> を超えるデータがあればその日のデータを異常とみなすという応用だ。</p></li>
+<li><p>Python 3 では使えないコードがあるので、読者は内包表記に直したい：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ifilter(None,</span> <span class="pre">X)</span></code> は <code class="docutils literal notranslate"><span class="pre">(x</span> <span class="pre">for</span> <span class="pre">x</span> <span class="pre">in</span> <span class="pre">X</span> <span class="pre">if</span> <span class="pre">x)</span></code> の意。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">imap(check_anomaly,</span> <span class="pre">data_day)</span></code> は <code class="docutils literal notranslate"><span class="pre">(check_anomaly(x)</span> <span class="pre">for</span> <span class="pre">x</span> <span class="pre">in</span> <span class="pre">data_day)</span></code> の意。</p></li>
+</ul>
+<p>とにかくジェネレーターを駆使して遅延評価に持ち込めていればよい。</p>
+</li>
+</ul>
+<hr class="docutils" />
+<p>以下、GitHub リポジトリーにあるリソースの分析。</p>
+<ul>
+<li><p><code class="file docutils literal notranslate"><span class="pre">fibonacci.py</span></code>: ある値以下の Fibonacci 数を勘定する実装が 3 個ある。これまでの知識をもって計測するといい。</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [63]: </span><span class="o">%</span><span class="k">timeit</span> fibonacci.fibonacci_naive()
+<span class="go">8.64 μs ± 23 ns per loop (mean ± std. dev. of 7 runs, 100000 loops each)</span>
+
+<span class="gp">In [64]: </span><span class="o">%</span><span class="k">timeit</span> fibonacci.fibonacci_generator()
+<span class="go">13.4 μs ± 48.4 ns per loop (mean ± std. dev. of 7 runs, 100000 loops each)</span>
+
+<span class="gp">In [65]: </span><span class="o">%</span><span class="k">timeit</span> fibonacci.fibonacci_succinct()
+<span class="go">17.7 ms ± 44.4 μs per loop (mean ± std. dev. of 7 runs, 100 loops each)</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">iter_vs_list_comprehension.py</span></code></p>
+<ul>
+<li><p>スクリプト名とは裏腹に、内包表記リストに対する比較対象はジェネレーターであるように見える。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">memory_profiler</span></code> が利用可能になったので、イテレーターと内包表記の比較結果を記す。数値出力周りのコードを一部改変した：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ python iter_vs_list_comprehension.py
+divisible_by_three_list with <span class="m">10</span>,000,000 entries took <span class="m">2</span>.903 seconds and used <span class="m">126</span>.980 MB
+divisible_by_three_iterator with <span class="m">10</span>,000,000 entries took <span class="m">2</span>.994 seconds and used <span class="m">0</span>.000 MB
+</pre></div>
+</div>
+<p>ただし、実際の実行時間は上記出力値よりもずっと長い。</p>
+</li>
+<li><p>特に、関数 <code class="docutils literal notranslate"><span class="pre">timeit.timeit()</span></code> の使い方と <code class="docutils literal notranslate"><span class="pre">memory_profiler.memory_usage()</span></code> の使い方を見ておくこと。</p></li>
+</ul>
+</li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">lazy_data_analysis.py</span></code></p>
+<ul class="simple">
+<li><p>本書とは無関係だが、バージョンがわからないが私のところの <strong class="command">2to3</strong> が
+<code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">itertools</span> <span class="pre">import</span> <span class="pre">(count,</span> <span class="pre">groupby,</span> <span class="pre">ifilter,</span> <span class="pre">imap,</span> <span class="pre">islice)</span></code> を完全に見逃す。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">lazy_data_analysis.py</span></code> を実行すると浮動小数点数と <code class="docutils literal notranslate"><span class="pre">None</span></code> との比較が発生するらしく、実行時に TypeError が送出する。コードを見たら関数 <code class="docutils literal notranslate"><span class="pre">check_anomaly()</span></code> の仮引数名が
+<code class="docutils literal notranslate"><span class="pre">xxx_todo_changeme</span></code> だった……。</p></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">rolling_window_grouper()</span></code> で OSError が送出するというバグがあって結局プログラムが異常終了するしかない。これは <code class="docutils literal notranslate"><span class="pre">datetime.datetime.fromtimestamp()</span></code> に変な値を渡すときの
+C の <code class="docutils literal notranslate"><span class="pre">localtime()</span></code> か <code class="docutils literal notranslate"><span class="pre">gmtime()</span></code> がエラー終了するという挙動によるらしい。</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id9">
+<h2><a class="toc-backref" href="#id21">6 章 行列とベクトルの計算</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>この章ではある 2 次元拡散方程式の計算スクリプトを徐々に高速化していく。実際にコードを編集してプロファイルを取って分析していくことで理解が進む。</p>
+<ul class="simple">
+<li><p>スクリプトとプロファイル結果を同時にバージョン管理して差分を分析するといい。プロファイルは Python 標準の <code class="docutils literal notranslate"><span class="pre">cProfile</span></code> で十分間に合う。</p>
+<ul>
+<li><p>IPython で作業をしているならば <code class="docutils literal notranslate"><span class="pre">%run</span> <span class="pre">-p</span> <span class="pre">[profile-options]</span> <span class="pre">duffusion.py</span></code> でいい。</p></li>
+</ul>
+</li>
+<li><p>NumPy は必要。SciPy はあるといいなくらい。</p></li>
+<li><p>本編では line_profiler, perf を利用しているが、私は試せなかった。</p>
+<ul>
+<li><p><a class="reference external" href="https://github.com/pydata/numexpr">numexpr</a> は入手できた。</p></li>
+</ul>
+</li>
+</ul>
+<p>本章冒頭の問いに答えてみよう。</p>
+<ul>
+<li><p>ベクトルの計算のボトルネックは何か？</p>
+<p>Python の事情としては次の二点が挙げられる。C/C++ の事情と比較すると説明しやすい：</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">list</span></code> が実データへのポインターを保持していること</p></li>
+<li><p>バイトコードが <code class="docutils literal notranslate"><span class="pre">for</span></code> ループのベクトル化に最適化されていないこと</p></li>
+</ol>
+</li>
+<li><p>CPU が計算を実行する効率を調べるツールは何か？</p>
+<p>本書著者は CPU バウンドの問題を見つけるのに最適なツールとして <code class="docutils literal notranslate"><span class="pre">line_profiler</span></code> を挙げている。
+<code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">kernprof.py</span> <span class="pre">-lv</span> <span class="pre">diffusion.py</span></code> のようなコマンドライン実行結果を分析する。</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">numpy</span></code> を用いると Python だけを使って書くよりも数値計算の効率がよい理由は何か？</p>
+<ol class="arabic simple">
+<li><p>NumPy は数値配列処理に特化して最適化されたオブジェクトを使っていること</p></li>
+<li><p>メモリ使用を局所化し、CPU のベクトル演算命令を使っていること</p></li>
+</ol>
+</li>
+<li><p>キャッシュミスとページフォールトとは何か？</p>
+<dl class="simple">
+<dt>キャッシュミス</dt><dd><p>キャッシュ上にデータがなく、RAM から取得する必要がある場合を指す？
+CPU バウンド処理にキャッシュミスが発生すると実行効率が悪化する原因になる。</p>
+</dd>
+<dt>ページフォールト</dt><dd><p>ページフォールトとは OS のメモリ確保機構の一部であり、あるメモリが初めて使われるときに、実行中のプログラムを一時停止し、適切なメモリを割り当てるようなもの。
+I/O 処理にダメージを与える。</p>
+</dd>
+</dl>
+</li>
+<li><p>コード上のメモリ確保を追跡する方法は？</p>
+<p>Linux にある <strong class="command">perf</strong> というツールはプログラムを実行しながら CPU の様子を詳細に調べることができる。
+<code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">perf</span> <span class="pre">stat</span> <span class="pre">-e</span> <span class="pre">...</span> <span class="pre">python</span> <span class="pre">diffusion.py</span></code> のようなコマンドライン実行結果を分析する。</p>
+</li>
+</ul>
+<hr class="docutils" />
+<p>以下、GitHub リポジトリーにあるリソースの分析。この章のディレクトリーは本文同様盛りだくさんだ。</p>
+<ul>
+<li><p><code class="file docutils literal notranslate"><span class="pre">diffusion_1d/</span></code>:
+純 Python 実装による <code class="docutils literal notranslate"><span class="pre">diffusion_python</span></code> をベースラインとして、その改良版との計算コストの比較をする <code class="file docutils literal notranslate"><span class="pre">_benchmark.py</span></code> というスクリプトがある。これを単に実行すればよい。</p>
+<p>実行すると <code class="file docutils literal notranslate"><span class="pre">README.md</span></code> のようなテキストが出力される。ただしこのディレクトリーにあるものはたぶんミス。私の実行結果を次に示す：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ python _benchmark.py
+Grid size:  <span class="o">(</span><span class="m">1024</span>,<span class="o">)</span>
+Pure Python: <span class="m">0</span>.05s <span class="o">(</span><span class="m">1</span>.020675e-03s per iteration<span class="o">)</span>
+python+memory: <span class="m">0</span>.05s <span class="o">(</span><span class="m">9</span>.606266e-04s per iteration<span class="o">)[</span><span class="m">1</span>.06x speedup<span class="o">]</span>
+numpy+memory: <span class="m">0</span>.01s <span class="o">(</span><span class="m">2</span>.201748e-04s per iteration<span class="o">)[</span><span class="m">4</span>.64x speedup<span class="o">]</span>
+numpy: <span class="m">0</span>.01s <span class="o">(</span><span class="m">2</span>.201176e-04s per iteration<span class="o">)[</span><span class="m">4</span>.64x speedup<span class="o">]</span>
+numpy+memory2: <span class="m">0</span>.00s <span class="o">(</span><span class="m">6</span>.000996e-05s per iteration<span class="o">)[</span><span class="m">17</span>.01x speedup<span class="o">]</span>
+numpy+memory2+numexpr: <span class="m">0</span>.01s <span class="o">(</span><span class="m">2</span>.001524e-04s per iteration<span class="o">)[</span><span class="m">5</span>.10x speedup<span class="o">]</span>
+numpy+memory+scipy: <span class="m">0</span>.01s <span class="o">(</span><span class="m">1</span>.400852e-04s per iteration<span class="o">)[</span><span class="m">7</span>.29x speedup<span class="o">]</span>
+
+Grid size:  <span class="o">(</span><span class="m">2048</span>,<span class="o">)</span>
+Pure Python: <span class="m">0</span>.05s <span class="o">(</span><span class="m">1</span>.060696e-03s per iteration<span class="o">)</span>
+python+memory: <span class="m">0</span>.05s <span class="o">(</span><span class="m">1</span>.000648e-03s per iteration<span class="o">)[</span><span class="m">1</span>.06x speedup<span class="o">]</span>
+numpy+memory: <span class="m">0</span>.01s <span class="o">(</span><span class="m">2</span>.201748e-04s per iteration<span class="o">)[</span><span class="m">4</span>.82x speedup<span class="o">]</span>
+numpy: <span class="m">0</span>.01s <span class="o">(</span><span class="m">2</span>.201176e-04s per iteration<span class="o">)[</span><span class="m">4</span>.82x speedup<span class="o">]</span>
+numpy+memory2: <span class="m">0</span>.00s <span class="o">(</span><span class="m">4</span>.000664e-05s per iteration<span class="o">)[</span><span class="m">26</span>.51x speedup<span class="o">]</span>
+numpy+memory2+numexpr: <span class="m">0</span>.01s <span class="o">(</span><span class="m">2</span>.001333e-04s per iteration<span class="o">)[</span><span class="m">5</span>.30x speedup<span class="o">]</span>
+numpy+memory+scipy: <span class="m">0</span>.01s <span class="o">(</span><span class="m">1</span>.200771e-04s per iteration<span class="o">)[</span><span class="m">8</span>.83x speedup<span class="o">]</span>
+
+Grid size:  <span class="o">(</span><span class="m">8192</span>,<span class="o">)</span>
+Pure Python: <span class="m">0</span>.05s <span class="o">(</span><span class="m">9</span>.806252e-04s per iteration<span class="o">)</span>
+python+memory: <span class="m">0</span>.05s <span class="o">(</span><span class="m">9</span>.806204e-04s per iteration<span class="o">)[</span><span class="m">1</span>.00x speedup<span class="o">]</span>
+numpy+memory: <span class="m">0</span>.01s <span class="o">(</span><span class="m">2</span>.601624e-04s per iteration<span class="o">)[</span><span class="m">3</span>.77x speedup<span class="o">]</span>
+numpy: <span class="m">0</span>.01s <span class="o">(</span><span class="m">2</span>.401590e-04s per iteration<span class="o">)[</span><span class="m">4</span>.08x speedup<span class="o">]</span>
+numpy+memory2: <span class="m">0</span>.00s <span class="o">(</span><span class="m">8</span>.004189e-05s per iteration<span class="o">)[</span><span class="m">12</span>.25x speedup<span class="o">]</span>
+numpy+memory2+numexpr: <span class="m">0</span>.01s <span class="o">(</span><span class="m">1</span>.601553e-04s per iteration<span class="o">)[</span><span class="m">6</span>.12x speedup<span class="o">]</span>
+numpy+memory+scipy: <span class="m">0</span>.02s <span class="o">(</span><span class="m">3</span>.201962e-04s per iteration<span class="o">)[</span><span class="m">3</span>.06x speedup<span class="o">]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>サードパーティー製の <code class="docutils literal notranslate"><span class="pre">numexpr</span></code> が必要だ。</p></li>
+</ul>
+</li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">diffusion_2d/</span></code>: 上記の 2 次元版。256 サイズだけ試す（重いから）：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ python _benchmark.py
+Grid size:  <span class="o">(</span><span class="m">256</span>, <span class="m">256</span><span class="o">)</span>
+Pure Python: <span class="m">10</span>.31s <span class="o">(</span><span class="m">2</span>.062975e-01s per iteration<span class="o">)</span>
+python+memory: <span class="m">10</span>.33s <span class="o">(</span><span class="m">2</span>.066978e-01s per iteration<span class="o">)[</span><span class="m">1</span>.00x speedup<span class="o">]</span>
+numpy+memory: <span class="m">0</span>.13s <span class="o">(</span><span class="m">2</span>.541723e-03s per iteration<span class="o">)[</span><span class="m">81</span>.16x speedup<span class="o">]</span>
+numpy: <span class="m">0</span>.35s <span class="o">(</span><span class="m">6</span>.944637e-03s per iteration<span class="o">)[</span><span class="m">29</span>.71x speedup<span class="o">]</span>
+numpy+memory2: <span class="m">0</span>.10s <span class="o">(</span><span class="m">1</span>.921268e-03s per iteration<span class="o">)[</span><span class="m">107</span>.38x speedup<span class="o">]</span>
+numpy+memory2+numexpr: <span class="m">0</span>.11s <span class="o">(</span><span class="m">2</span>.221475e-03s per iteration<span class="o">)[</span><span class="m">92</span>.87x speedup<span class="o">]</span>
+numpy+memory+scipy: <span class="m">0</span>.17s <span class="o">(</span><span class="m">3</span>.422313e-03s per iteration<span class="o">)[</span><span class="m">60</span>.28x speedup<span class="o">]</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">norm/</span></code>: <code class="file docutils literal notranslate"><span class="pre">Makefile</span></code> があるので、これでメモリなり処理時間なりを計測する。</p></li>
+</ul>
+</div>
+<div class="section" id="c">
+<h2><a class="toc-backref" href="#id22">7 章 C にコンパイルする</a><a class="headerlink" href="#c" title="Permalink to this headline">¶</a></h2>
+<p>本章は本書の目玉の一つと見られる。残念ながら手許にコンパイラーがないので何もできない。</p>
+<p>でも冒頭の問いには回答を用意したい。</p>
+<ul>
+<li><p>どうすれば Python のコードを低水準コードとして実行できるか？</p>
+<p>コンパイラーを用いて、Python コードを機械語に変換する。コンパイラーには Cython, Shed Skin, Numba, Pythan, PyPy などがある。</p>
+</li>
+<li><p>JIT コンパイラと AOT コンパイラの違いとは何か？</p>
+<ul>
+<li><p>JIT: Just In Time すなわち必要になったときにコンパイルする</p>
+<p>コード使用時に初めて必要部分がコンパイルされるので、未コンパイル時にスクリプトを実行するとまずコンパイルするので、実行がひじょうに遅くなる（これをコールドスタート問題という）。</p>
+</li>
+<li><p>AOT: Ahead Of Time すなわち事前にコンパイルすることで、静的なライブラリーを生成する。</p></li>
+</ul>
+</li>
+<li><p>コンパイルによって Python よりも高速化できる処理にはどんなものがあるか？</p>
+<p>数学的な処理で、同じ演算を大量に反復するような、あるいは反復処理時に多数の一時的なオブジェクトが生成されるような処理がコンパイルによる高速化の対象となりやすい。</p>
+</li>
+<li><p>データ型の注釈をつけると、なぜコンパイルされた Python コードが高速化できるのか？</p>
+<p>C コンパイラが最適化できるように。</p>
+</li>
+<li><p>C や Fortran を使って、どのようにモジュールを書くのか？</p>
+<p>それらの言語でコンパイルしたコードをアクセスできる外部関数インターフェイスを使う。</p>
+</li>
+<li><p>C や Fortran のライブラリを、どのように Python で使うのか？</p>
+<ul class="simple">
+<li><p>C に対しては Python 標準の <code class="docutils literal notranslate"><span class="pre">ctype</span></code> モジュールや <code class="docutils literal notranslate"><span class="pre">cffi</span></code> モジュール</p></li>
+<li><p>Fortran に対しては <strong class="command">f2py</strong> コマンド</p></li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<p>以下、GitHub リポジトリーにあるリソースの分析。</p>
+<ul class="simple">
+<li><p>前章以上に豊富なコード群。しかしコンパイラーがないので何もできない。</p></li>
+</ul>
+</div>
+<div class="section" id="id10">
+<h2><a class="toc-backref" href="#id23">8 章 並行処理</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>大事なテーマだと思うが、意外にページ数を割いていない。</p>
+<ul>
+<li><p>並行処理とは何で、どのように役立つか？</p>
+<p>イベントループを実行して、さまざまなイベントに応じてプログラムのさまざまな部分を実行するような処理。例えば、I/O 待ち時間の間に他の処理（タスク）に活用する。</p>
+</li>
+<li><p>並行処理と並列処理の違いは何か？</p>
+<p>TBW</p>
+</li>
+<li><p>並行処理ができるタスクは何で、できないタスクは何か？</p>
+<p>TBW</p>
+</li>
+<li><p>並行処理にまつわるパラダイムにはどのようなものがあるのか？</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">gevent</span></code>: Future 形式</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tornado</span></code>: コールバックと Future の両方</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">asyncio</span></code>: コールバックと Future の両方</p></li>
+</ul>
+<p>Future とコルーチンを同義語として読んだが……。</p>
+</li>
+<li><p>並行処理を活用するのはどんなときか？</p>
+<p>I/O バウンドの問題を含む処理。</p>
+</li>
+<li><p>並行処理はどのようにプログラムを高速化するのか？</p>
+<p>TBW</p>
+</li>
+</ul>
+<hr class="docutils" />
+<p>以下、GitHub リポジトリーにあるリソースの分析。</p>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">cralwer/</span></code></p>
+<ul>
+<li><p>実行時エラーは出るものの、ベンチマーク構成が素晴らしい。こういうコードを書けるようになりたいものだ。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">benchmark.sh</span></code> で <code class="file docutils literal notranslate"><span class="pre">server.py</span></code> をバックグラウンドで起動してからの計測対象群を実行する手際の良さに注目したい。</p>
+<ul>
+<li><p>最後に <code class="file docutils literal notranslate"><span class="pre">visualize.py</span></code> でこれまでの出力をプロットして PNG 形式で保存するというのもしゃれている。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">asyncio/crawler.py</span></code> を実行するときだけ、環境変数 <span class="target" id="index-0"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PYTHONPATH</span></code> を退避するのはなぜか。</p></li>
+</ul>
+</li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">server.py</span></code> は HTTP サーバーを実装したもので、サードパーティー製である
+Tornado を利用している。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ujson</span></code> なるモジュールをインポートしているが、これはたぶんここには存在しない。</p></li>
+</ul>
+</li>
+<li><p>各サブディレクトリーの <code class="file docutils literal notranslate"><span class="pre">crawler.py</span></code> の読み方がわからない場合は
+<code class="file docutils literal notranslate"><span class="pre">asyncio/</span></code> にあるものを基準に解読できそうだ。</p></li>
+</ul>
+</li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">primes/</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">grequests</span></code> が必要。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">primes.py</span></code> を編集して <code class="docutils literal notranslate"><span class="pre">__slot__</span></code> の中身からメソッドを取り除く。
+<code class="docutils literal notranslate"><span class="pre">ValueError:</span> <span class="pre">'save'</span> <span class="pre">in</span> <span class="pre">__slots__</span> <span class="pre">conflicts</span> <span class="pre">with</span> <span class="pre">class</span> <span class="pre">variable</span></code> を解決するため。</p></li>
+<li><p>手動で <code class="file docutils literal notranslate"><span class="pre">server.py</span></code> を起動しておく。</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="multiprocessing">
+<h2><a class="toc-backref" href="#id24">9 章 <code class="docutils literal notranslate"><span class="pre">multiprocessing</span></code> モジュール</a><a class="headerlink" href="#multiprocessing" title="Permalink to this headline">¶</a></h2>
+<p>本書では Linux を対象としているので、本章で Windows ユーザーがいくらか困る。特に Pool の選択肢が大幅に狭められていることに気づく。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">multiprocessing</span></code> モジュールは何を提供するのか？</p>
+<ul class="simple">
+<li><p>プロセスとスレッドを使った並列処理を実現できる。</p></li>
+<li><p>一台のマシンでマルチコアの並列処理をする。</p></li>
+<li><p>一般には CPU バウンドの問題を解く処理（群）を並列化するのに使う。</p></li>
+</ul>
+</li>
+<li><p>プロセスとスレッドの違いは何か？</p>
+<ul class="simple">
+<li><p>スレッドには GIL 競合によるオーバーヘッドの有無などが挙げられる。</p></li>
+<li><p>スレッドは I/O バウンドの処理には適するが、CPU バウンドの問題解決には不適切だ。</p></li>
+<li><p>違いは他にもあるだろう。</p></li>
+</ul>
+</li>
+<li><p>プロセスプールの適切な選択方法は？</p>
+<p>TBW</p>
+</li>
+<li><p>プロセスを実行するための非永続型キュー（待ち行列）の使い方は？</p>
+<ul class="simple">
+<li><p>負荷が変動するときや、時間が経つにつれて負荷が次々と発生する場合に使う。</p></li>
+<li><p>非永続型なので、電源喪失やディスク故障のような失敗に対応するのが必要な場合は使わない。</p></li>
+</ul>
+</li>
+<li><p>プロセス間通信の損失は何か？</p>
+<ul class="simple">
+<li><p>データのコピーを通信するということだから、RAM に負担がかかる。</p></li>
+</ul>
+</li>
+<li><p>複数の CPU を使って <code class="docutils literal notranslate"><span class="pre">numpy</span></code> のデータを処理する方法は？</p>
+<ul class="simple">
+<li><p>配列データを複数プロセス間で共有する方法は？と同じ意味。</p>
+<ol class="arabic simple">
+<li><p>メモリ領域を共有可能にするには <code class="docutils literal notranslate"><span class="pre">multiprocessing.Array</span></code> を使う。</p></li>
+<li><p>共有領域を関数 <code class="docutils literal notranslate"><span class="pre">numpy.frombuffer()</span></code> に渡して <code class="docutils literal notranslate"><span class="pre">numpy</span></code> 配列を生成する。</p></li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>データの欠損を回避するためにロックする必要があるのはなぜか？</p>
+<ul class="simple">
+<li><p>共有データを同期的に読み書きすることで整合性を保つ仕組みがロックだ。</p></li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<p>以下雑感。</p>
+<ul>
+<li><p>私の PC はコア数 2 なので、本章の内容が十分に検証できない。</p></li>
+<li><p>素数分布のコード、出力結果がソートされているわけではないことに注意。</p></li>
+<li><p>省略されている <code class="docutils literal notranslate"><span class="pre">create_range.create()</span></code> 関数の実装は次のようなものと思われる：</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">num_processes</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">end</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num_range</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>
+</pre></div>
+</div>
+</li>
+<li><p>Python 3.6.5 で試しているからか、次のような不具合があった：</p>
+<ul class="simple">
+<li><p>RawValue をフラグとして用いるコードが成功しない。
+<code class="docutils literal notranslate"><span class="pre">TypeError:</span> <span class="pre">this</span> <span class="pre">type</span> <span class="pre">has</span> <span class="pre">no</span> <span class="pre">size</span></code> となる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mmap.write_byte(FLAG_CLEAR)</span></code> が成立しない。
+<code class="docutils literal notranslate"><span class="pre">TypeError:</span> <span class="pre">an</span> <span class="pre">integer</span> <span class="pre">is</span> <span class="pre">required</span> <span class="pre">(got</span> <span class="pre">type</span> <span class="pre">bytes)</span></code> となる。</p></li>
+</ul>
+</li>
+<li><p>ロックの例題 <code class="docutils literal notranslate"><span class="pre">ex2_nolock</span></code> は成功率が案外高くて困る。
+<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">timeit</span></code> で 10 回反復させて 9 回正しい結果が得られたことも。</p>
+<ul class="simple">
+<li><p>コンテキストマネージャーを用いずに、つまり <code class="docutils literal notranslate"><span class="pre">acquire()</span></code> と <code class="docutils literal notranslate"><span class="pre">release()</span></code> を明示的に書くほうが若干速いらしいが、こんなことは知らないふりをしていいだろう。</p></li>
+</ul>
+</li>
+</ul>
+<p>まともに本章に取り組むと一日潰れる。</p>
+<hr class="docutils" />
+<p>以下、GitHub リポジトリーにあるリソースの分析。この章に対応するディレクトリーにある <code class="file docutils literal notranslate"><span class="pre">chapter_recipe.txt</span></code> のコードを追体験するのがいい。</p>
+<ul>
+<li><p><code class="file docutils literal notranslate"><span class="pre">locking/</span></code></p>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">ex1_lock.py</span></code> がやたら遅いわロックに失敗するわで、いいところがない。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">ex3_redis.py</span></code> だけ Redis が必要。</p></li>
+</ul>
+</li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">np_shared_example/</span></code>: NumPy 配列の共有化という、たいへん難しいテーマ。</p>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">np_shared.py</span></code>: 共有配列を設定する。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">multiprocessing.Array</span></code> と <code class="docutils literal notranslate"><span class="pre">numpy.frombuffer()</span></code> を組み合わせる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">map.pool()</span></code> で指定される 4 プロセス（ワーカー）それぞれがその配列にアクセスする。</p></li>
+<li><p>サブディレクトリーのものはマルチプロセスまたはスレッドのどちらかによる配列アクセス（書き込み）。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">pi_estimation/</span></code>: モンテカルロ法。</p>
+<ul>
+<li><p><code class="file docutils literal notranslate"><span class="pre">pi_lists_parallel/</span></code></p>
+<ul>
+<li><p><code class="file docutils literal notranslate"><span class="pre">pi_lists_parallel.py</span></code>: マルチプロセスまたはスレッドのどちらかによる
+<code class="docutils literal notranslate"><span class="pre">pool.map()</span></code> によるモンテカルロ法円周率見積もり並列処理。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">profile_cpu_usage.py</span></code>: 上のスクリプトをいろいろなコマンドラインオプション値で実行し、プロファイルを取る。</p>
+<ul>
+<li><p>らしいのだが、意味をなさないコードがある。修正方法も推測不能。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">processes</span><span class="p">:</span>
+    <span class="n">xargs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;--processes&quot;</span><span class="p">)</span>
+    <span class="n">SLEEP_FOR</span> <span class="o">=</span> <span class="p">{</span><span class="mi">8</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">15</span><span class="p">}[</span><span class="n">args</span><span class="o">.</span><span class="n">nbr_processes</span><span class="p">]</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;THREADED VERSION&quot;</span><span class="p">)</span>
+    <span class="n">SLEEP_FOR</span> <span class="o">=</span> <span class="p">{</span><span class="mi">4</span><span class="p">:</span> <span class="mi">20</span><span class="p">}[</span><span class="n">args</span><span class="o">.</span><span class="n">nbr_processes</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">subprocess.Popen</span></code> 使用。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">pi_monte_carlo_diagram/</span></code>: よくある円周率の見積もり。単位円に外接する正方形内に多数の点をランダムに取り、その点のうちで単位円に含まれるものとそうでないものの比を用れば、近似的に円周率を計算できる。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">pi_processes_parallel/</span></code></p>
+<p>以下のコードでは Python 3 化するときに
+<code class="docutils literal notranslate"><span class="pre">nbr_samples_in_total</span></code> と <code class="docutils literal notranslate"><span class="pre">nbr_samples_per_worker</span></code> を
+<code class="docutils literal notranslate"><span class="pre">int</span></code> 型に手動で修正する必要がある。</p>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">pi_numpy_parallel_worker.py</span></code>: 上記 <code class="file docutils literal notranslate"><span class="pre">pi_lists_parallel.py</span></code> の
+NumPy 版。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">pi_numpy_serial.py</span></code>: 上のスクリプト内に定義されている関数 <code class="docutils literal notranslate"><span class="pre">estimate_nbr_points_in_quarter_circle()</span></code> を一回実行する。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">pi_numpy_serial_blocks.py</span></code>: 逐次処理。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">prime_generation/</span></code></p>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">plot_serial_vs_queue_times.py</span></code>: 意味不明。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">primes.py</span></code>: もっとも単純な素数列挙コード。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">primes_pool.py</span></code>: <code class="docutils literal notranslate"><span class="pre">multiprocessing.Pool</span></code> 使用。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">primes_queue.py</span></code>: <code class="docutils literal notranslate"><span class="pre">multiprocessing.Queue</span></code> 使用。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">primes_queue_jobs_feeder_thread.py</span></code>: Pool と Queue に加えて <code class="docutils literal notranslate"><span class="pre">threading.Thread</span></code> 使用。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">primes_queue_less_work.py</span></code>: <code class="file docutils literal notranslate"><span class="pre">primes_queue.py</span></code> の探索対象を半分にしたもの。</p></li>
+</ul>
+</li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">prime_validation/</span></code>: プロセス間通信で素数判定</p>
+<p>素数判定という重いプログラムを実行するわけだが、実行途中で処理を殺すのがマルチプロセスゆえたいへん面倒なので注意したい。</p>
+<p>次のスクリプト群は素数判定自身に関係するコード。ロジックについては本文参照。</p>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">create_range.py</span></code>: 素数判定計算並行化のために整数区間を等分割する関数。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">primes.py</span></code>: 関数 <code class="docutils literal notranslate"><span class="pre">check_prime()</span></code> を <code class="docutils literal notranslate"><span class="pre">timeit.repeat()</span></code> で計測する。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">primes_pool_per_number1.py</span></code>: 整数区間を等分割して素数判定に入る。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">primes_pool_per_number2.py</span></code>: 上の若い素数は判定をスキップする版。</p></li>
+</ul>
+<p>以下はフラグ系。</p>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">primes_pool_per_number_manager.py</span></code>: <code class="docutils literal notranslate"><span class="pre">multiprocessing.Manager</span></code> 使用。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">primes_pool_per_number_value.py</span></code>: Manager + Value を RawValue にした版。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">primes_pool_per_number_value_withinit.py</span></code>: 上のものに謎の初期化コードを入れた版。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">primes_pool_per_number_redis.py</span></code>: RawValue を Redis というインメモリデータベースで置き換えた版。</p></li>
+</ul>
+<p>以下は <code class="docutils literal notranslate"><span class="pre">mmap</span></code> 系。</p>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">primes_pool_per_number_mmap.py</span></code>: <code class="docutils literal notranslate"><span class="pre">mmap.mmap</span></code> 使用。ただし Python 3 化すると <code class="docutils literal notranslate"><span class="pre">mem.write_byte()</span></code> の呼び出しで例外送出。以下の例でも同様。
+<code class="docutils literal notranslate"><span class="pre">FLAG_XXX</span></code> を整数にするのが楽な修正方法。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">primes_pool_per_number_mmap2.py</span></code>: 上の微調整版。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">primes_pool_per_number_mmap3.py</span></code>: 上のループ二段階化版。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">primes_pool_per_number_mmap4.py</span></code>: 上のフラグを局所変数化した版。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">primes_understand_comms_frequency.py</span></code>: 先の mmap3 の通信状況をわかりやすくする版。</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id11">
+<h2><a class="toc-backref" href="#id25">10 章 クラスタとジョブキュー</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>手許にマシンがノート PC 一丁しかないので、この章は残念だが通読しない。</p>
+<ul class="simple">
+<li><p>なぜクラスタが便利なのか？</p>
+<ul>
+<li><p>マシンを追加することで計算の要求条件を拡大できる。</p></li>
+<li><p>マシンを追加することで信頼性が上がる。</p></li>
+<li><p>動的にスケールするシステムを組むのに使える。さらにコストも調節できる。</p></li>
+<li><p>マシンが物理的に離れていてもかまわない。</p></li>
+<li><p>あるいはさまざまなソフトウェア環境の上でも動作できる（上級者向け）。</p></li>
+</ul>
+</li>
+<li><p>クラスタリングのコストは何か？</p>
+<ul>
+<li><p>システム管理それ自体がコスト。複数機の面倒をみるのはたいへん。システムの更新に必要な時間と費用がかさむ。</p></li>
+<li><p>クラスタリング特有のアルゴリズムや同期管理を設計するコスト。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">multiprocessing</span></code> による解法をクラスタに対応させるにはどうすればよいか？</p>
+<ul>
+<li><p>Parallel Python のインターフェイスが <code class="docutils literal notranslate"><span class="pre">multiprocessing</span></code> と非常に似ているので、例えば <code class="docutils literal notranslate"><span class="pre">multiprocessing</span></code> を用いたコードをクラスタ用に書き換えるのはわずかな時間の作業で済む。</p></li>
+</ul>
+</li>
+<li><p>IPython のクラスタ機能はどのように動作するか？</p>
+<ul>
+<li><p>マルチコアを持つ一台のマシンで容易に使える。</p></li>
+<li><p>IPython がローカル環境とリモート処理エンジンの両方のインターフェイスとなる。</p></li>
+<li><p>ZeroMQ などへの依存性がある。</p></li>
+<li><p>リモートのクラスタをローカルなそれと同様に簡単に使える。</p></li>
+<li><p>プロジェクトは次の構成要素からなる：</p>
+<ul>
+<li><p>エンジン：Python のインタプリター</p></li>
+<li><p>コントローラー：エンジンとのインターフェイスおよび処理の分散を担当する</p></li>
+<li><p>ダイレクトビュー：？</p></li>
+<li><p>負荷分散ビュー：？</p></li>
+<li><p>ハブ：エンジン、スケジューラー、クライアントを追跡する</p></li>
+<li><p>スケジューラー：非同期インターフェイス</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>NSQ を使うとどのように堅牢な実用システムを組めるか？</p>
+<ul>
+<li><p>NSQ は永続性がある。あるマシンが停止しても、ジョブは他のマシンで再開する。</p></li>
+<li><p>使いこなすにはシステム管理と開発の技量が必要だ。</p></li>
+<li><p>pub/sub/consumer パターンとでもいうべき設計思想。</p></li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<p>以下雑感。</p>
+<ul class="simple">
+<li><p>クラスタとは複数の計算機を使って一つの共通タスクを解くシステムだが、このシステムを単一のシステムとしてみなすのが本質的だ。</p></li>
+<li><p>TODO: Install Parallel Python (<code class="docutils literal notranslate"><span class="pre">pp</span></code>)</p></li>
+<li><p>TODO: Install IPython Parallel (<code class="docutils literal notranslate"><span class="pre">ipcluster</span></code>)</p>
+<ul>
+<li><p>例 10-3 の <code class="docutils literal notranslate"><span class="pre">IPython.parallel</span></code> は IPython 4.0 でとっくに deprecated になっている。</p></li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<p>以下、GitHub リポジトリーにあるリソースの分析。この章のコードも気合が入っている。</p>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">ipythonparallel/</span></code></p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">nsq/</span></code></p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">parallelpython/</span></code></p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">pi_hypotenuse/</span></code></p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">pi_trig/</span></code></p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">primes/</span></code></p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">queue/</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="ram">
+<h2><a class="toc-backref" href="#id26">11 章 RAM 使用量を削減する</a><a class="headerlink" href="#ram" title="Permalink to this headline">¶</a></h2>
+<p>データには質量がある。これは至言だ。</p>
+<ul class="simple">
+<li><p>なぜ RAM の使用量を減らすべきなのか？</p>
+<ul>
+<li><p>他のプログラムも RAM を使用するから。</p></li>
+</ul>
+</li>
+<li><p>大量の数を記憶するのに <code class="docutils literal notranslate"><span class="pre">numpy</span></code> と <code class="docutils literal notranslate"><span class="pre">array</span></code> が優れているのはなぜか？</p>
+<ul>
+<li><p>Python 組み込みのリストでは、異なる要素ごとにメモリのコストがかかる。一方、<code class="docutils literal notranslate"><span class="pre">numpy</span></code> と <code class="docutils literal notranslate"><span class="pre">array</span></code> は <code class="docutils literal notranslate"><span class="pre">int</span></code> のような基本データ型を効率よく記憶する。
+C 言語の配列のように連続した RAM 領域を確保する。</p></li>
+<li><p>Python は 基本データ型のオブジェクトを（使われなくなっても後の利用のために）キャッシュする。</p></li>
+<li><p>NumPy はさらに <code class="docutils literal notranslate"><span class="pre">complex</span></code> と <code class="docutils literal notranslate"><span class="pre">datetime</span></code> も効率よく扱える。</p></li>
+</ul>
+</li>
+<li><p>どのようにしたら大量のテキストを効率よく RAM 上に記憶できるのか？</p>
+<ul>
+<li><p>文字列を記憶するために、トライや DAWG といったデータ構造を採用すること。共通接頭辞検索という検索手法と相性がよい。</p></li>
+</ul>
+</li>
+<li><p>どのようにしたらたった 1 バイトで 1e77 (<span class="math notranslate nohighlight">\(10^{77}\)</span>) まで（近似的に）数えられるか？</p></li>
+<li><p>Bloom フィルタとは何で、必要になる理由は何か？</p></li>
+</ul>
+<hr class="docutils" />
+<p>以下雑感。</p>
+<ul class="simple">
+<li><p>本書と私の手許の IPython 上とでの <code class="docutils literal notranslate"><span class="pre">array?</span></code> の出力が異なる。こちらの <code class="docutils literal notranslate"><span class="pre">array.array?</span></code> に近い。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sys.getsizeof()</span></code> の結果は想像より大きい。しかも実際にはみてくれの値よりも多くのメモリを消費しているはずだ。例えばリストの <code class="docutils literal notranslate"><span class="pre">getsizeof()</span></code> はリストオブジェクトそのものが消費するバイト数しか返さない。含んでいる要素のバイト数は勘定に入らない。</p></li>
+<li><p>Python 3.3 以降では Unicode のメモリ効率が飛躍的に改善したことは知っておく。</p></li>
+<li><p>トライと DAWG の概念の違いは頭に叩き込んでおく。</p></li>
+<li><p>TODO: Install <code class="docutils literal notranslate"><span class="pre">dawg</span></code></p></li>
+<li><p>確率的データ構造の説明が頭に入らない。読者が URL の資料を見るのが前提の文章だ。</p>
+<ul>
+<li><p>どれも精度を犠牲にするがメモリの消費量を大幅に削減する特徴がある。</p></li>
+<li><p>どれも冪等性という性質がある。同じ入力値を繰り返し与えても状態は変わらない。</p></li>
+<li><p>指数と対数を利用するものが多いようだ。</p></li>
+<li><p>Morris counter: カウンターを <span class="math notranslate nohighlight">\(2^N\)</span> の形で表現するが、管理するのは <span class="math notranslate nohighlight">\(N\)</span> のみ。カウンターは <span class="math notranslate nohighlight">\(i\)</span> 回目の増分時に確率 <span class="math notranslate nohighlight">\(\dfrac{1}{2^i}\)</span> で実施する。</p></li>
+<li><p>K-最小値：K 個の最小かつ一意なハッシュ値を保持する。ハッシュ値間の距離を近似することで総数を推定する。</p></li>
+<li><p>Bloom filter: <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">in</span> <span class="pre">X</span></code> タイプの問い合わせを確率的に実現する。値を複数の整数値として表現する。そのために複数のハッシュ値を用いる。「同じハッシュ値の集合を持つ値は同じだろう」という期待による。</p></li>
+<li><p>LogLog counter: 先頭に 0 が続くハッシュ値を記録して、それまでに勘定した要素数を推定する。</p></li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<p>以下、GitHub リポジトリーにあるリソースの分析。この章のコードも気合が入っている。</p>
+<ul>
+<li><p><code class="file docutils literal notranslate"><span class="pre">getsizeof/</span></code>: 本文中にある <code class="docutils literal notranslate"><span class="pre">asizeof</span></code> の説明を参照。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">compressing_text/</span></code>: 大量テキストから単語を検索する。</p>
+<p>&lt;Wikipedia の部分ダンプから構築したテストセット&gt; がないので再現は無理か。あと著者は Unix 使いだと思っているが Windows-1252 エンコードを採用するのはなぜだ。</p>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">text_example.py</span></code>: 関数 <code class="docutils literal notranslate"><span class="pre">read_words()</span></code> の実装。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">text_example_datrie.py</span></code>: <code class="docutils literal notranslate"><span class="pre">datrie</span></code> モジュールが必要。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">text_example_dawg.py</span></code>: <code class="docutils literal notranslate"><span class="pre">dawg</span></code> モジュールが必要。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">text_example_hattrie.py</span></code>: <code class="docutils literal notranslate"><span class="pre">hat_trie</span></code> モジュールが必要。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">text_example_list.py</span></code>: テキストをソートしないリストに記憶して検索する。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">text_example_list_bisect.py</span></code>: 上のソート済みリスト版。ベンチマークのベースライン。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">text_example_set.py</span></code>: テキストを集合に記憶して検索する。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">text_example_trie.py</span></code>: <code class="docutils literal notranslate"><span class="pre">marisa_trie</span></code> モジュールが必要。</p></li>
+</ul>
+</li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">morris_counter_example/</span></code>: Morris カウンター。</p>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">morris_counter.py</span></code>: クラス MorrisCounter の実装。本文のそれより複雑。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">show_morris_counter.py</span></code>: クラス MorrisCounter のデモ。</p></li>
+</ul>
+</li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">probabilistic_datastructures/</span></code></p>
+<p>モジュール <code class="docutils literal notranslate"><span class="pre">mmh3</span></code> がハッシュのために必要だ。</p>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">morriscounter.py</span></code>: 本文どおりのクラス MorrisCounter の実装。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">kminvalues.py</span></code>: クラス KMinValues の実装。</p></li>
+</ul>
+<p>以下 Bloom フィルター系。</p>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">bloomfilter.py</span></code>: クラス BloomFilter の実装。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">scalingbloomfilter.py</span></code>: クラス ScakingBloomFilter の実装。上の BloomFilter と has-a 関係がある。</p></li>
+</ul>
+<p>以下 LogLog カウンター系。</p>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">ll.py</span></code>: クラス LL の実装。本文でいう簡単な LogLog カウンター。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">llregister.py</span></code>: クラス LogLogRegister の実装。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">superll.py</span></code>: クラス SuperLL の実装。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">hyperloglog.py</span></code>: クラス HyperLogLog の実装。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">_benchmark.py</span></code>: 上記各種カウンターのベンチマークスクリプト。</p>
+<ul>
+<li><p>実行するには <code class="file docutils literal notranslate"><span class="pre">enwiki-latest-pages-articles.tokens</span></code> なるファイルが必要。</p></li>
+<li><p>あと <code class="docutils literal notranslate"><span class="pre">countmemaybe</span></code> というパッケージが必要。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id12">
+<h2><a class="toc-backref" href="#id27">12 章 現場に学ぶ</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<p>Python の性能を追求するのが目的の本書において異色の章だが、いちおう読む。</p>
+<ul>
+<li><p>成功しているスタートアップ企業は、どのように大量のデータを扱い機械学習しているのか？</p>
+<p>TBW</p>
+</li>
+<li><p>どんな監視技術やデプロイ技術を使えばシステムを安定化できるのか？</p>
+<ul class="simple">
+<li><p>SaltStack: サーバーのプロビジョニング用</p></li>
+<li><p>Circus: 長時間実行プロセスの管理</p></li>
+<li><p>Redis: クラスタリング</p></li>
+<li><p>Fabric: タスク実行</p></li>
+<li><p>Vagrant: システム構築（デプロイ）</p></li>
+<li><p>etc.</p></li>
+</ul>
+</li>
+<li><p>成功している CTO は、技術や開発チームからどんな教訓を得ているのか？</p>
+<ul class="simple">
+<li><p>Python はプロトタイピング用の言語であるという以上に便利だ。</p></li>
+<li><p>スタートアップ初期は特に実践的になることが重要だ。</p></li>
+<li><p>常にプロトタイプを作ってはコードや性能を改善する。</p></li>
+</ul>
+</li>
+<li><p>PyPy はどのくらい広範に適用できるのか？</p>
+<ul class="simple">
+<li><p>小さなプロジェクトから中規模プロジェクトまでは実績あり。</p></li>
+<li><p>プロトコルの実装や圧縮アルゴリズムの実装に用いた実績あり。後者のスピードには驚いたそうだ。</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="a">
+<h2><a class="toc-backref" href="#id28">付録 A サンプルプログラムについて</a><a class="headerlink" href="#a" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p><a class="reference external" href="https://github.com/mynameisfiber/high_performance_python">https://github.com/mynameisfiber/high_performance_python</a></p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">Makefile</span></code> がいくつかあるので、ターゲットを確認しておく。</p></li>
+<li><p>Python 2 対応コードなので、Python 3 化は利用者それぞれで実施する。コマンドラインは <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">2to3</span> <span class="pre">-w</span> <span class="pre">.</span></code> でよさそうだ。</p></li>
+<li><p>サンプルプログラムが利用しているサードパーティーパッケージのうち、主要なものをまとめておく：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 12%" />
+<col style="width: 64%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>パッケージ</p></th>
+<th class="head"><p>入手方法</p></th>
+<th class="head"><p>備考</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>runsnake</p></td>
+<td><p>pip</p></td>
+<td><p>wxPython が必要</p></td>
+</tr>
+<tr class="row-odd"><td><p>line_profiler</p></td>
+<td><p>pip</p></td>
+<td><p>VC コンパイラーが必要</p></td>
+</tr>
+<tr class="row-even"><td><p>memory_profiler</p></td>
+<td><p>pip</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>guppy</p></td>
+<td><p>pip</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>dowser</p></td>
+<td><p>pip</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>coverage</p></td>
+<td><p>pip</p></td>
+<td><p>本書のサンプルでは未使用</p></td>
+</tr>
+<tr class="row-even"><td><p>numexpr</p></td>
+<td><p>pip</p></td>
+<td><p>NumPy が必要</p></td>
+</tr>
+<tr class="row-odd"><td><p>gevent</p></td>
+<td><p>pip</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>grequests</p></td>
+<td><p>pip</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>tornado</p></td>
+<td><p>pip</p></td>
+<td><p>なぜかすでに手許にあった</p></td>
+</tr>
+<tr class="row-even"><td><p>Twisted</p></td>
+<td><p>pip</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Redis</p></td>
+<td><p>?</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>lockfile</p></td>
+<td><p>pip</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pp</p></td>
+<td><p>pip</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>ipclustrer</p></td>
+<td><p>pip</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>NSQ</p></td>
+<td><p>?</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>dawg</p></td>
+<td><p>github?</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>marisa_trie</p></td>
+<td><p>github?</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>datrie</p></td>
+<td><p>github?</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>hat_trie</p></td>
+<td><p>github?</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>countmemaybe</p></td>
+<td><p>github?</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>mmh3</p></td>
+<td><p>?</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="stepanov15.html" title="その数式、プログラムできますか？ 読書ノート"
+             >next</a></li>
+        <li class="right" >
+          <a href="omg15/serialization.html" title="Annex E: XMI Serialization and Schema"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ハイパフォーマンス Python 読書ノート</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2020, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

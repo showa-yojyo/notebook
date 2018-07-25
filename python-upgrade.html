@@ -1,17 +1,17 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Python 移行ノート &#8212; 読書ノート v1.4</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Python 移行ノート &#8212; 読書ノート v1.5dev</title>
     <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/mathjaxconf.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/mathjax-v3.js"></script>
+    
     <link rel="next" title="Miniconda 利用ノート" href="python-miniconda.html" />
     <link rel="prev" title="Py2exe 利用ノート" href="python-py2exe.html" /> 
   </head><body>
@@ -24,7 +24,8 @@
         <li class="right" >
           <a href="python-py2exe.html" title="Py2exe 利用ノート"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Python 移行ノート</a></li> 
       </ul>
     </div>  
 
@@ -39,77 +40,88 @@
 <p>そして 2014 年夏、Windows 7 の 64 ビット機に Python 3.4 環境を構築する機会が訪れた。</p>
 <p>さらに 2015 年秋、Windows 10 に無料アップグレードしてしばらくしてから Python 3.5 へ移行した。</p>
 <div class="contents topic" id="id1">
-<p class="topic-title first">ノート目次</p>
+<p class="topic-title">ノート目次</p>
 <ul class="simple">
-<li><a class="reference internal" href="#python" id="id24">Python 移行ノート</a><ul>
-<li><a class="reference internal" href="#id2" id="id25">2.6 から 2.7 への移行計画</a><ul>
-<li><a class="reference internal" href="#python-2-6-site-packages" id="id26">Python 2.6 site-packages の状態を保存</a></li>
-<li><a class="reference internal" href="#python-2-7" id="id27">Python 2.7 本体をインストール</a></li>
-<li><a class="reference internal" href="#python-2-6" id="id28">Python 2.6 フォルダーから一部のファイルをコピーする</a></li>
-<li><a class="reference internal" href="#id3" id="id29">最初に手動で準備するもの</a></li>
-<li><a class="reference internal" href="#windows" id="id30">Windows インストーラーを利用するもの</a></li>
-<li><a class="reference internal" href="#pip-freeze" id="id31">旧環境での pip freeze の出力を利用するもの</a></li>
-<li><a class="reference internal" href="#id4" id="id32">特殊なもの</a></li>
-<li><a class="reference internal" href="#id5" id="id33">2.6 のクリーンナップ</a></li>
-<li><a class="reference internal" href="#id6" id="id34">ツールや環境変数の修正</a><ul>
-<li><a class="reference internal" href="#bashrc" id="id35">.bashrc</a></li>
-<li><a class="reference internal" href="#bash-profile" id="id36">.bash_profile</a></li>
-<li><a class="reference internal" href="#sendtocygwin-ini" id="id37">SendToCygwin.ini</a></li>
-<li><a class="reference internal" href="#path" id="id38">環境変数 PATH</a></li>
+<li><p><a class="reference internal" href="#python" id="id24">Python 移行ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id25">2.6 から 2.7 への移行計画</a></p>
+<ul>
+<li><p><a class="reference internal" href="#python-2-6-site-packages" id="id26">Python 2.6 site-packages の状態を保存</a></p></li>
+<li><p><a class="reference internal" href="#python-2-7" id="id27">Python 2.7 本体をインストール</a></p></li>
+<li><p><a class="reference internal" href="#python-2-6" id="id28">Python 2.6 フォルダーから一部のファイルをコピーする</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id29">最初に手動で準備するもの</a></p></li>
+<li><p><a class="reference internal" href="#windows" id="id30">Windows インストーラーを利用するもの</a></p></li>
+<li><p><a class="reference internal" href="#pip-freeze" id="id31">旧環境での pip freeze の出力を利用するもの</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id32">特殊なもの</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id33">2.6 のクリーンナップ</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id34">ツールや環境変数の修正</a></p>
+<ul>
+<li><p><a class="reference internal" href="#bashrc" id="id35">.bashrc</a></p></li>
+<li><p><a class="reference internal" href="#bash-profile" id="id36">.bash_profile</a></p></li>
+<li><p><a class="reference internal" href="#sendtocygwin-ini" id="id37">SendToCygwin.ini</a></p></li>
+<li><p><a class="reference internal" href="#path" id="id38">環境変数 PATH</a></p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id7" id="id39">2.7 から 3.4 への移行</a><ul>
-<li><a class="reference internal" href="#python-3-4" id="id40">Python 3.4 本体をインストールする</a></li>
-<li><a class="reference internal" href="#id8" id="id41">サードパーティー製パッケージのインストール</a><ul>
-<li><a class="reference internal" href="#id9" id="id42">Windows インストーラーを利用するもの</a></li>
-<li><a class="reference internal" href="#id10" id="id43">旧環境での pip freeze の出力を利用するもの</a></li>
+<li><p><a class="reference internal" href="#id7" id="id39">2.7 から 3.4 への移行</a></p>
+<ul>
+<li><p><a class="reference internal" href="#python-3-4" id="id40">Python 3.4 本体をインストールする</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id41">サードパーティー製パッケージのインストール</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id9" id="id42">Windows インストーラーを利用するもの</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id43">旧環境での pip freeze の出力を利用するもの</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id11" id="id44">2.7 のクリーンナップ</a></li>
-<li><a class="reference internal" href="#id12" id="id45">ツールや環境変数の修正</a><ul>
-<li><a class="reference internal" href="#id13" id="id46">環境変数</a></li>
-<li><a class="reference internal" href="#id14" id="id47">ドットファイル</a></li>
+<li><p><a class="reference internal" href="#id11" id="id44">2.7 のクリーンナップ</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id45">ツールや環境変数の修正</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id13" id="id46">環境変数</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id47">ドットファイル</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#to3-py" id="id48">2to3.py 関連</a></li>
+<li><p><a class="reference internal" href="#to3-py" id="id48">2to3.py 関連</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id15" id="id49">3.4 から 3.5 への移行</a><ul>
-<li><a class="reference internal" href="#python-3-5" id="id50">Python 3.5 本体をインストールする</a></li>
-<li><a class="reference internal" href="#visual-studio-2015-visual-c" id="id51">Visual Studio 2015 の Visual C++ ランタイムをインストールする</a></li>
-<li><a class="reference internal" href="#id16" id="id52">サードパーティー製パッケージをインストールする</a><ul>
-<li><a class="reference internal" href="#id17" id="id53">Windows インストーラーを利用するもの</a></li>
-<li><a class="reference internal" href="#id18" id="id54">旧環境での pip freeze の出力を利用するもの</a></li>
+<li><p><a class="reference internal" href="#id15" id="id49">3.4 から 3.5 への移行</a></p>
+<ul>
+<li><p><a class="reference internal" href="#python-3-5" id="id50">Python 3.5 本体をインストールする</a></p></li>
+<li><p><a class="reference internal" href="#visual-studio-2015-visual-c" id="id51">Visual Studio 2015 の Visual C++ ランタイムをインストールする</a></p></li>
+<li><p><a class="reference internal" href="#id16" id="id52">サードパーティー製パッケージをインストールする</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id17" id="id53">Windows インストーラーを利用するもの</a></p></li>
+<li><p><a class="reference internal" href="#id18" id="id54">旧環境での pip freeze の出力を利用するもの</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id19" id="id55">旧環境のクリーンナップ</a></li>
-<li><a class="reference internal" href="#id20" id="id56">ツールや環境変数の修正</a><ul>
-<li><a class="reference internal" href="#id21" id="id57">ドットファイル</a></li>
-<li><a class="reference internal" href="#conemu" id="id58">ConEmu</a></li>
+<li><p><a class="reference internal" href="#id19" id="id55">旧環境のクリーンナップ</a></p></li>
+<li><p><a class="reference internal" href="#id20" id="id56">ツールや環境変数の修正</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id21" id="id57">ドットファイル</a></p></li>
+<li><p><a class="reference internal" href="#conemu" id="id58">ConEmu</a></p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id22" id="id59">3.5 から 3.6 への移行</a></li>
+<li><p><a class="reference internal" href="#id22" id="id59">3.5 から 3.6 への移行</a></p></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<ul class="last simple">
-<li>OS<ul>
-<li>Windows XP Home Edition SP3</li>
-<li>Windows 7 Home Premium x64 SP1</li>
-<li>Windows 10 Home x64</li>
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>OS</p>
+<ul>
+<li><p>Windows XP Home Edition SP3</p></li>
+<li><p>Windows 7 Home Premium x64 SP1</p></li>
+<li><p>Windows 10 Home x64</p></li>
 </ul>
 </li>
-<li>Python upgrading<ul>
-<li>from 2.6.6 to 2.7.3</li>
-<li>from 2.7.3 to 3.4.1</li>
-<li>from 3.4.1 to 3.5.0</li>
+<li><p>Python upgrading</p>
+<ul>
+<li><p>from 2.6.6 to 2.7.3</p></li>
+<li><p>from 2.7.3 to 3.4.1</p></li>
+<li><p>from 3.4.1 to 3.5.0</p></li>
 </ul>
 </li>
 </ul>
@@ -122,8 +134,8 @@
 <p>私の環境では <a class="reference external" href="https://pip.pypa.io/">pip</a> がインストールされているハズなので、
 2.6 環境にインストールしたサードパーティー製パッケージを書き出しておく。</p>
 <p>ただし、バージョンは不要なので <code class="docutils literal notranslate"><span class="pre">cut</span></code> にて削っておく。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd D:/Python26/lib/site-packages
-$ pip freeze | cut -d= -f 1 &gt; mypkgs.txt
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> D:/Python26/lib/site-packages
+<span class="gp">$</span> pip freeze <span class="p">|</span> cut -d<span class="o">=</span> -f <span class="m">1</span> &gt; mypkgs.txt
 </pre></div>
 </div>
 <p>後ほど <code class="file docutils literal notranslate"><span class="pre">mypkgs.txt</span></code> をテキストエディターで編集する。</p>
@@ -131,26 +143,25 @@ $ pip freeze | cut -d= -f 1 &gt; mypkgs.txt
 <div class="section" id="python-2-7">
 <h3><a class="toc-backref" href="#id27">Python 2.7 本体をインストール</a><a class="headerlink" href="#python-2-7" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><a class="reference external" href="http://www.python.org/">Python</a> の公式サイトから <code class="file docutils literal notranslate"><span class="pre">python-2.7.3.msi</span></code> をダウンロードする。</li>
-<li>普通に Explorer 上から実行して、Python 2.6 のインストール場所の隣りにインストールする。</li>
+<li><p><a class="reference external" href="http://www.python.org/">Python</a> の公式サイトから <code class="file docutils literal notranslate"><span class="pre">python-2.7.3.msi</span></code> をダウンロードする。</p></li>
+<li><p>普通に Explorer 上から実行して、Python 2.6 のインストール場所の隣にインストールする。</p></li>
 </ul>
 </div>
 <div class="section" id="python-2-6">
 <h3><a class="toc-backref" href="#id28">Python 2.6 フォルダーから一部のファイルをコピーする</a><a class="headerlink" href="#python-2-6" title="Permalink to this headline">¶</a></h3>
 <p>正直、この作業が必要なのかどうかわかっていない。</p>
 <ul class="simple">
-<li><code class="file docutils literal notranslate"><span class="pre">sitecustomize.py</span></code> を 2.6 フォルダーの <code class="file docutils literal notranslate"><span class="pre">site-packages</span></code> フォルダーから
-2.7 フォルダーの対応する位置にコピーする。</li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">sitecustomize.py</span></code> を 2.6 フォルダーの <code class="file docutils literal notranslate"><span class="pre">site-packages</span></code> フォルダーから
+2.7 フォルダーの対応する位置にコピーする。</p></li>
 </ul>
 </div>
 <div class="section" id="id3">
 <h3><a class="toc-backref" href="#id29">最初に手動で準備するもの</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <ul>
-<li><p class="first"><a class="reference external" href="https://bitbucket.org/pypa/setuptools">setuptools</a>: インストーラーを利用する。
-<code class="file docutils literal notranslate"><span class="pre">setuptools-0.6c11.win32-py2.7.exe</span></code> のようなファイル名のものをダウンロードページから取得する。</p>
-</li>
-<li><p class="first"><a class="reference external" href="https://pip.pypa.io/">pip</a>: <code class="file docutils literal notranslate"><span class="pre">pip.1.1-tar.gz</span></code> を入手して、解凍後 <code class="file docutils literal notranslate"><span class="pre">setup.py</span></code> を利用する。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ python27 setup.py install
+<li><p><a class="reference external" href="https://bitbucket.org/pypa/setuptools">setuptools</a>: インストーラーを利用する。
+<code class="file docutils literal notranslate"><span class="pre">setuptools-0.6c11.win32-py2.7.exe</span></code> のようなファイル名のものをダウンロードページから取得する。</p></li>
+<li><p><a class="reference external" href="https://pip.pypa.io/">pip</a>: <code class="file docutils literal notranslate"><span class="pre">pip.1.1-tar.gz</span></code> を入手して、解凍後 <code class="file docutils literal notranslate"><span class="pre">setup.py</span></code> を利用する。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> python27 setup.py install
 </pre></div>
 </div>
 </li>
@@ -164,14 +175,14 @@ Y は Windows インストーラーでインストールするべきものであ
 <code class="docutils literal notranslate"><span class="pre">pip</span></code> で X をインストールする段になって、Y の扱いが怖いことになりそうだから、ここで述べる手順がある。</p>
 <p>私の場合のパッケージ群は次の通り。インストーラーの拡張子は exe だったり msi だったりするが、気にしないで構わないだろう。</p>
 <ul class="simple">
-<li><a class="reference external" href="http://www.pythonware.com/products/pil">PIL</a>: 公式サイトに 2.7 用のものがある。</li>
-<li><a class="reference external" href="http://www.numpy.org/">NumPy</a>: 2.7 OK</li>
-<li><a class="reference external" href="http://www.scipy.org/">SciPy</a>: 2.7 OK</li>
-<li><a class="reference external" href="http://matplotlib.org/">Matplotlib</a>: 2.7 OK</li>
-<li><a class="reference external" href="http://www.pygame.org/">Pygame</a>: 2.7 OK</li>
-<li><a class="reference external" href="http://www.py2exe.org/">Py2exe</a>: 2.7 OK</li>
-<li><a class="reference external" href="http://www.riverbankcomputing.com/software/pyqt/intro">PyQt4</a>: 2.7 OK</li>
-<li>pysparse: <a class="reference external" href="http://www.lfd.uci.edu/~gohlke/pythonlibs/">Python Extension Packages for Windows - Christoph Gohlke</a> を利用させてもらう。</li>
+<li><p><a class="reference external" href="http://www.pythonware.com/products/pil">PIL</a>: 公式サイトに 2.7 用のものがある。</p></li>
+<li><p><a class="reference external" href="http://www.numpy.org/">NumPy</a>: 2.7 OK</p></li>
+<li><p><a class="reference external" href="http://www.scipy.org/">SciPy</a>: 2.7 OK</p></li>
+<li><p><a class="reference external" href="http://matplotlib.org/">Matplotlib</a>: 2.7 OK</p></li>
+<li><p><a class="reference external" href="http://www.pygame.org/">Pygame</a>: 2.7 OK</p></li>
+<li><p><a class="reference external" href="http://www.py2exe.org/">Py2exe</a>: 2.7 OK</p></li>
+<li><p><a class="reference external" href="http://www.riverbankcomputing.com/software/pyqt/intro">PyQt4</a>: 2.7 OK</p></li>
+<li><p>pysparse: <a class="reference external" href="http://www.lfd.uci.edu/~gohlke/pythonlibs/">Python Extension Packages for Windows - Christoph Gohlke</a> を利用させてもらう。</p></li>
 </ul>
 </div>
 <div class="section" id="pip-freeze">
@@ -179,23 +190,24 @@ Y は Windows インストーラーでインストールするべきものであ
 <p>2.6 環境で <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">freeze</span></code> することで、利用中の <code class="docutils literal notranslate"><span class="pre">site-packages</span></code> パッケージが得られる。これを 2.7 環境の <code class="docutils literal notranslate"><span class="pre">pip</span></code> に食わせて様子見とする。</p>
 <p>先ほど得た <code class="file docutils literal notranslate"><span class="pre">mypkgs.txt</span></code> をテキストエディターで編集する。
 PIL, NumPy などのインストーラーモノの行を削除して、このテキストファイルを上書きする。編集後、おもむろに下記コマンドラインを実行する。かなり時間がかかることを覚悟することだ。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd D:/Python27/Scripts
-$ ./pip install -r mypkgs.txt
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> D:/Python27/Scripts
+<span class="gp">$</span> ./pip install -r mypkgs.txt
 </pre></div>
 </div>
 <ul class="simple">
-<li>何度か失敗するかもしれないが、成功したものを <code class="file docutils literal notranslate"><span class="pre">mypkgs.txt</span></code> から順次削除していき、再度 <code class="docutils literal notranslate"><span class="pre">pip</span></code> 呼び出しをすればよい。</li>
-<li>ログを取るのもよいだろう。</li>
+<li><p>何度か失敗するかもしれないが、成功したものを <code class="file docutils literal notranslate"><span class="pre">mypkgs.txt</span></code> から順次削除していき、再度 <code class="docutils literal notranslate"><span class="pre">pip</span></code> 呼び出しをすればよい。</p></li>
+<li><p>ログを取るのもよいだろう。</p></li>
 </ul>
 </div>
 <div class="section" id="id4">
 <h3><a class="toc-backref" href="#id32">特殊なもの</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>Subversion の Python binding を利用しているため、これをセットアップする。</p>
 <ul class="simple">
-<li><a class="reference external" href="http://sourceforge.net/projects/win32svn/files/1.7.6/">http://sourceforge.net/projects/win32svn/files/1.7.6/</a></li>
-<li>svn-win32-1.7.6-ap24_py27.zip をダウンロード。解凍してフォルダーを潜る。下記フォルダーを <code class="docutils literal notranslate"><span class="pre">site-packages</span></code> にコピー。<ul>
-<li>libsvn</li>
-<li>svn_python</li>
+<li><p><a class="reference external" href="http://sourceforge.net/projects/win32svn/files/1.7.6/">http://sourceforge.net/projects/win32svn/files/1.7.6/</a></p></li>
+<li><p>svn-win32-1.7.6-ap24_py27.zip をダウンロード。解凍してフォルダーを潜る。下記フォルダーを <code class="docutils literal notranslate"><span class="pre">site-packages</span></code> にコピー。</p>
+<ul>
+<li><p>libsvn</p></li>
+<li><p>svn_python</p></li>
 </ul>
 </li>
 </ul>
@@ -203,10 +215,10 @@ $ ./pip install -r mypkgs.txt
 <div class="section" id="id5">
 <h3><a class="toc-backref" href="#id33">2.6 のクリーンナップ</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Windows のコントロールパネル「プログラムの追加と削除」を利用して、
-Python 2.6 関連のパッケージを全部アンインストールする。</li>
-<li>念のため、残骸を確認するべし。自分で作った設定ファイルやらがある場合、適宜修正を加え 2.7 に引っ越す。</li>
-<li>Python 2.6.6 をアンインストールするのはパッケージを全部片付けてからの最後。</li>
+<li><p>Windows のコントロールパネル「プログラムの追加と削除」を利用して、
+Python 2.6 関連のパッケージを全部アンインストールする。</p></li>
+<li><p>念のため、残骸を確認するべし。自分で作った設定ファイルやらがある場合、適宜修正を加え 2.7 に引っ越す。</p></li>
+<li><p>Python 2.6.6 をアンインストールするのはパッケージを全部片付けてからの最後。</p></li>
 </ul>
 </div>
 <div class="section" id="id6">
@@ -216,9 +228,9 @@ Python 2.6 関連のパッケージを全部アンインストールする。</l
 <h4><a class="toc-backref" href="#id35">.bashrc</a><a class="headerlink" href="#bashrc" title="Permalink to this headline">¶</a></h4>
 <p>この設定をする理由は、私が Cygwin で <code class="docutils literal notranslate"><span class="pre">bash</span></code> をインタラクティブシェルとして利用しており、そこから Windows 用の Python を呼び出すことが多いことによる。</p>
 <p>エイリアス <code class="docutils literal notranslate"><span class="pre">python27</span></code> を追加。</p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">alias</span> <span class="n">a</span><span class="o">=</span><span class="s1">&#39;alias&#39;</span>
-<span class="n">a</span> <span class="n">python26</span><span class="o">=</span><span class="s1">&#39;D:/Python26/python.exe&#39;</span>
-<span class="n">a</span> <span class="n">python27</span><span class="o">=</span><span class="s1">&#39;D:/Python27/python.exe&#39;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">alias</span> <span class="nv">a</span><span class="o">=</span><span class="s1">&#39;alias&#39;</span>
+a <span class="nv">python26</span><span class="o">=</span><span class="s1">&#39;D:/Python26/python.exe&#39;</span>
+a <span class="nv">python27</span><span class="o">=</span><span class="s1">&#39;D:/Python27/python.exe&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -229,8 +241,8 @@ Python 2.6 関連のパッケージを全部アンインストールする。</l
 <div class="section" id="sendtocygwin-ini">
 <h4><a class="toc-backref" href="#id37">SendToCygwin.ini</a><a class="headerlink" href="#sendtocygwin-ini" title="Permalink to this headline">¶</a></h4>
 <p>「Cygwin に送る」というユーティリティがあり、私はこれを偏愛している。その設定ファイルを更新しておく。</p>
-<div class="code ini highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*.</span><span class="n">py</span> <span class="o">=</span><span class="n">python27</span> <span class="o">%</span><span class="n">F</span> <span class="o">||</span>
-<span class="o">*.</span><span class="n">pyw</span> <span class="o">=</span><span class="n">python27</span> <span class="o">%</span><span class="n">F</span> <span class="o">||</span>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="na">*.py</span> <span class="o">=</span><span class="s">python27 %F ||</span>
+<span class="na">*.pyw</span> <span class="o">=</span><span class="s">python27 %F ||</span>
 </pre></div>
 </div>
 </div>
@@ -247,8 +259,8 @@ Python 2.6 関連のパッケージを全部アンインストールする。</l
 <h3><a class="toc-backref" href="#id40">Python 3.4 本体をインストールする</a><a class="headerlink" href="#python-3-4" title="Permalink to this headline">¶</a></h3>
 <p>次の 2 ステップで十分だ。</p>
 <ul class="simple">
-<li><a class="reference external" href="http://www.python.org/">Python</a> の公式サイトから <code class="file docutils literal notranslate"><span class="pre">python-3.4.1.amd64.msi</span></code> をダウンロードする。</li>
-<li>インストーラーを実行する。インストールオプションで pip が含まれるようにすること。</li>
+<li><p><a class="reference external" href="http://www.python.org/">Python</a> の公式サイトから <code class="file docutils literal notranslate"><span class="pre">python-3.4.1.amd64.msi</span></code> をダウンロードする。</p></li>
+<li><p>インストーラーを実行する。インストールオプションで pip が含まれるようにすること。</p></li>
 </ul>
 </div>
 <div class="section" id="id8">
@@ -259,26 +271,26 @@ Python 2.6 関連のパッケージを全部アンインストールする。</l
 <p>筆者環境では、次のパッケージ群は
 <a class="reference external" href="http://www.lfd.uci.edu/~gohlke/pythonlibs/">Python Extension Packages for Windows - Christoph Gohlke</a> のビルドを利用した。わかりやすさのため、インストーラーのファイル名そのものをここに記す。</p>
 <ul class="simple">
-<li><code class="file docutils literal notranslate"><span class="pre">matplotlib-1.3.1.win-amd64-py3.4.exe</span></code></li>
-<li><code class="file docutils literal notranslate"><span class="pre">numpy-MKL-1.8.2.win-amd64-py3.4.exe</span></code></li>
-<li><code class="file docutils literal notranslate"><span class="pre">Pillow-2.5.1.win-amd64-py3.4.exe</span></code></li>
-<li><code class="file docutils literal notranslate"><span class="pre">pygame-1.9.2a0.win-amd64-py3.4.exe</span></code></li>
-<li><code class="file docutils literal notranslate"><span class="pre">PyOpenGL-3.1.0.win-amd64-py3.4.exe</span></code></li>
-<li><code class="file docutils literal notranslate"><span class="pre">PyOpenGL-accelerate-3.1.0.win-amd64-py3.4.exe</span></code></li>
-<li><code class="file docutils literal notranslate"><span class="pre">pyparsing-2.0.2.win-amd64-py3.4.exe</span></code></li>
-<li><code class="file docutils literal notranslate"><span class="pre">scipy-0.14.0.win-amd64-py3.4.exe</span></code></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">matplotlib-1.3.1.win-amd64-py3.4.exe</span></code></p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">numpy-MKL-1.8.2.win-amd64-py3.4.exe</span></code></p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">Pillow-2.5.1.win-amd64-py3.4.exe</span></code></p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">pygame-1.9.2a0.win-amd64-py3.4.exe</span></code></p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">PyOpenGL-3.1.0.win-amd64-py3.4.exe</span></code></p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">PyOpenGL-accelerate-3.1.0.win-amd64-py3.4.exe</span></code></p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">pyparsing-2.0.2.win-amd64-py3.4.exe</span></code></p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">scipy-0.14.0.win-amd64-py3.4.exe</span></code></p></li>
 </ul>
 <p>PyQt5 など、それ以外のパッケージについては、それぞれの公式サイト提供のビルドを利用した。</p>
 </div>
 <div class="section" id="id10">
 <h4><a class="toc-backref" href="#id43">旧環境での pip freeze の出力を利用するもの</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
 <ol class="arabic simple">
-<li>旧環境 (2.7) の <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">freeze</span></code> の出力結果をテキストファイルに保存 (<code class="file docutils literal notranslate"><span class="pre">mypkgs.txt</span></code>) する。</li>
-<li><code class="file docutils literal notranslate"><span class="pre">mypkgs.txt</span></code> を編集し、Windows インストーラーでインストールしたパッケージの行を削除する。</li>
-<li>前回移行時と同様の手順に従う。</li>
+<li><p>旧環境 (2.7) の <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">freeze</span></code> の出力結果をテキストファイルに保存 (<code class="file docutils literal notranslate"><span class="pre">mypkgs.txt</span></code>) する。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">mypkgs.txt</span></code> を編集し、Windows インストーラーでインストールしたパッケージの行を削除する。</p></li>
+<li><p>前回移行時と同様の手順に従う。</p></li>
 </ol>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd D:/Python34/Scripts
-$ ./pip install -r mypkgs.txt
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> D:/Python34/Scripts
+<span class="gp">$</span> ./pip install -r mypkgs.txt
 </pre></div>
 </div>
 </div>
@@ -294,22 +306,22 @@ $ ./pip install -r mypkgs.txt
 <h4><a class="toc-backref" href="#id46">環境変数</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
 <p>以前は <code class="file docutils literal notranslate"><span class="pre">sitecustomize.py</span></code> で行っていたエンコーディング関連の指定を環境変数設定で実現する。
 Windows のユーザー環境変数に次のものを指定しておくのが具合がよい。</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="40%" />
-<col width="60%" />
+<col style="width: 40%" />
+<col style="width: 60%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">環境変数</th>
-<th class="head">設定値</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>環境変数</p></th>
+<th class="head"><p>設定値</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>PYTHONIOENCODING</td>
-<td>UTF-8</td>
+<tbody>
+<tr class="row-even"><td><p>PYTHONIOENCODING</p></td>
+<td><p>UTF-8</p></td>
 </tr>
-<tr class="row-odd"><td>PYTHONPATH</td>
-<td>自作モジュールのパス</td>
+<tr class="row-odd"><td><p>PYTHONPATH</p></td>
+<td><p>自作モジュールのパス</p></td>
 </tr>
 </tbody>
 </table>
@@ -317,8 +329,8 @@ Windows のユーザー環境変数に次のものを指定しておくのが具
 <div class="section" id="id14">
 <h4><a class="toc-backref" href="#id47">ドットファイル</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li><code class="file docutils literal notranslate"><span class="pre">.bashrc</span></code> の Python 関連のコードを修正。</li>
-<li><code class="file docutils literal notranslate"><span class="pre">.bash_profile</span></code> の Python 関連のコードを修正。</li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">.bashrc</span></code> の Python 関連のコードを修正。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">.bash_profile</span></code> の Python 関連のコードを修正。</p></li>
 </ul>
 </div>
 </div>
@@ -334,11 +346,12 @@ Windows のユーザー環境変数に次のものを指定しておくのが具
 <h3><a class="toc-backref" href="#id50">Python 3.5 本体をインストールする</a><a class="headerlink" href="#python-3-5" title="Permalink to this headline">¶</a></h3>
 <p>次の手順を踏む。</p>
 <ol class="arabic simple">
-<li><a class="reference external" href="http://www.python.org/">Python</a> の公式サイトから <code class="file docutils literal notranslate"><span class="pre">python-3.5.0-amd64.exe</span></code> をダウンロードする。</li>
-<li>インストーラーを実行する。その際は次のような点に気を配りたい。<ul>
-<li>Customize installation を選択する。</li>
-<li>pip は当然必要だ。</li>
-<li>Install for all users をオンにして、インストールパスをそれらしい所に設定する。</li>
+<li><p><a class="reference external" href="http://www.python.org/">Python</a> の公式サイトから <code class="file docutils literal notranslate"><span class="pre">python-3.5.0-amd64.exe</span></code> をダウンロードする。</p></li>
+<li><p>インストーラーを実行する。その際は次のような点に気を配りたい。</p>
+<ul class="simple">
+<li><p>Customize installation を選択する。</p></li>
+<li><p>pip は当然必要だ。</p></li>
+<li><p>Install for all users をオンにして、インストールパスをそれらしい所に設定する。</p></li>
 </ul>
 </li>
 </ol>
@@ -348,9 +361,9 @@ Windows のユーザー環境変数に次のものを指定しておくのが具
 <p>Python 3.5 は VC++ 2015 でビルドされている。
 Python 自身は上述のインストーラーを実施したら即動作するとはいえ、一部のサードパーティー製パッケージがこれを動作環境にあることを必要とする。そのため、Visual Studio 2015 がない環境では別途ランタイムをインストールしておくのが事実上必要な作業になっている。</p>
 <ol class="arabic simple">
-<li>Google でよいので <code class="docutils literal notranslate"><span class="pre">visual</span> <span class="pre">studio</span> <span class="pre">2015</span> <span class="pre">runtime</span></code> などのキーワードで検索をする。</li>
-<li>Microsoft の提供するダウンロードページがヒットするはずなので、そこで 64 ビット版を入手する。</li>
-<li>インストーラーを実行する。オプションなし。</li>
+<li><p>Google でよいので <code class="docutils literal notranslate"><span class="pre">visual</span> <span class="pre">studio</span> <span class="pre">2015</span> <span class="pre">runtime</span></code> などのキーワードで検索をする。</p></li>
+<li><p>Microsoft の提供するダウンロードページがヒットするはずなので、そこで 64 ビット版を入手する。</p></li>
+<li><p>インストーラーを実行する。オプションなし。</p></li>
 </ol>
 <p>なお、Visual Studio 2015 をインストールする予定があれば Python のアップグレードよりもそれを優先するのがよい。</p>
 </div>
@@ -362,19 +375,19 @@ Python 自身は上述のインストーラーを実施したら即動作する�
 <p>言い換えれば諸事情により pip に頼れないパッケージ群のことだ。各パッケージの公式サイトおよび
 <a class="reference external" href="http://www.lfd.uci.edu/~gohlke/pythonlibs/">Python Extension Packages for Windows - Christoph Gohlke</a> が配布するインストーラーに頼る。</p>
 <ul class="simple">
-<li>拡張子が <code class="docutils literal notranslate"><span class="pre">exe</span></code> や <code class="docutils literal notranslate"><span class="pre">msi</span></code> のファイルは、よくあるインストーラー。インストールの順序は任意でよいハズ。</li>
-<li>拡張子が <code class="docutils literal notranslate"><span class="pre">whl</span></code> のファイルについては、これらをダウンロードしておき pip に処理させるもの。依存パッケージがあるならば、先にインストールを済ませる必要がある。</li>
+<li><p>拡張子が <code class="docutils literal notranslate"><span class="pre">exe</span></code> や <code class="docutils literal notranslate"><span class="pre">msi</span></code> のファイルは、よくあるインストーラー。インストールの順序は任意でよいハズ。</p></li>
+<li><p>拡張子が <code class="docutils literal notranslate"><span class="pre">whl</span></code> のファイルについては、これらをダウンロードしておき pip に処理させるもの。依存パッケージがあるならば、先にインストールを済ませる必要がある。</p></li>
 </ul>
 <p>コツとしては <a class="reference external" href="http://www.numpy.org/">NumPy</a> が一番最初にインストールを済ませるべきものであろう。</p>
 <ul class="simple">
-<li><code class="file docutils literal notranslate"><span class="pre">lxml-3.4.4-cp35-none-win_amd64.whl</span></code> (Christoph)</li>
-<li><code class="file docutils literal notranslate"><span class="pre">matplotlib-1.4.3-cp35-none-win_amd64.whl</span></code> (Christoph)</li>
-<li><code class="file docutils literal notranslate"><span class="pre">numpy‑1.10.0+mkl‑cp35‑none‑win_amd64.whl</span></code> (Christoph)</li>
-<li><code class="file docutils literal notranslate"><span class="pre">pygame-1.9.2a0-cp35-none-win_amd64.whl</span></code> (Christoph)</li>
-<li><code class="file docutils literal notranslate"><span class="pre">PyOpenGL-3.1.1a1-cp35-none-win_amd64.whl</span></code> (Christoph)</li>
-<li><code class="file docutils literal notranslate"><span class="pre">PyOpenGL_accelerate-3.1.1a1-cp35-none-win_amd64.whl</span></code> (Christoph)</li>
-<li><code class="file docutils literal notranslate"><span class="pre">reportlab-3.2.0-cp35-none-win_amd64.whl</span></code> (Christoph)</li>
-<li><code class="file docutils literal notranslate"><span class="pre">scipy-0.16.0-cp35-none-win_amd64.whl</span></code> (Christoph)</li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">lxml-3.4.4-cp35-none-win_amd64.whl</span></code> (Christoph)</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">matplotlib-1.4.3-cp35-none-win_amd64.whl</span></code> (Christoph)</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">numpy‑1.10.0+mkl‑cp35‑none‑win_amd64.whl</span></code> (Christoph)</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">pygame-1.9.2a0-cp35-none-win_amd64.whl</span></code> (Christoph)</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">PyOpenGL-3.1.1a1-cp35-none-win_amd64.whl</span></code> (Christoph)</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">PyOpenGL_accelerate-3.1.1a1-cp35-none-win_amd64.whl</span></code> (Christoph)</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">reportlab-3.2.0-cp35-none-win_amd64.whl</span></code> (Christoph)</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">scipy-0.16.0-cp35-none-win_amd64.whl</span></code> (Christoph)</p></li>
 </ul>
 </div>
 <div class="section" id="id18">
@@ -382,16 +395,16 @@ Python 自身は上述のインストーラーを実施したら即動作する�
 <p>インストーラーによる作業がすべて終わってようやく pip が使える。</p>
 <p>今回試したらインストーラーではなく pip で済むようになっていたパッケージは次のとおり。</p>
 <ul class="simple">
-<li>Pillow (<code class="file docutils literal notranslate"><span class="pre">Pillow-3.0.0-cp35-none-win_amd64.whl</span></code>)</li>
-<li>PyOpenGL (<code class="file docutils literal notranslate"><span class="pre">PyOpenGL-3.1.0.tar.gz</span></code>): ただしバージョンの関係で上述のインストーラーを採用する。</li>
+<li><p>Pillow (<code class="file docutils literal notranslate"><span class="pre">Pillow-3.0.0-cp35-none-win_amd64.whl</span></code>)</p></li>
+<li><p>PyOpenGL (<code class="file docutils literal notranslate"><span class="pre">PyOpenGL-3.1.0.tar.gz</span></code>): ただしバージョンの関係で上述のインストーラーを採用する。</p></li>
 </ul>
 </div>
 </div>
 <div class="section" id="id19">
 <h3><a class="toc-backref" href="#id55">旧環境のクリーンナップ</a><a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
-<li>Windows のコントロールパネル「プログラムと機能」から 3.4 のパッケージと Python 本体をアンインストールする。</li>
-<li><code class="file docutils literal notranslate"><span class="pre">D:Python34</span></code> フォルダーを削除する。中に入っている残骸がサードパーティー製パッケージの関連ファイルだけであることを確認できれば、そうする。</li>
+<li><p>Windows のコントロールパネル「プログラムと機能」から 3.4 のパッケージと Python 本体をアンインストールする。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">D:Python34</span></code> フォルダーを削除する。中に入っている残骸がサードパーティー製パッケージの関連ファイルだけであることを確認できれば、そうする。</p></li>
 </ol>
 </div>
 <div class="section" id="id20">
@@ -401,37 +414,37 @@ Python 自身は上述のインストーラーを実施したら即動作する�
 <h4><a class="toc-backref" href="#id57">ドットファイル</a><a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h4>
 <p>Cygwin bash で作業をするため、主にエイリアスとパスに関わる項目の設定を更新する。</p>
 <ul class="simple">
-<li><code class="file docutils literal notranslate"><span class="pre">.bashrc</span></code> の Python 関連のコードを修正。</li>
-<li><code class="file docutils literal notranslate"><span class="pre">.bash_profile</span></code> の Python 関連のコードを修正。</li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">.bashrc</span></code> の Python 関連のコードを修正。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">.bash_profile</span></code> の Python 関連のコードを修正。</p></li>
 </ul>
 </div>
 <div class="section" id="conemu">
 <h4><a class="toc-backref" href="#id58">ConEmu</a><a class="headerlink" href="#conemu" title="Permalink to this headline">¶</a></h4>
 <p>ConEmu の Settings… &gt; Startup &gt; Tasks の Predefined tasks を更新する。一例を示す。</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="12%" />
-<col width="88%" />
+<col style="width: 12%" />
+<col style="width: 88%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Task</th>
-<th class="head">Command</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Task</p></th>
+<th class="head"><p>Command</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>{Python}</td>
-<td><code class="docutils literal notranslate"><span class="pre">D:\Python35\python.exe</span> <span class="pre">-i</span></code></td>
+<tbody>
+<tr class="row-even"><td><p>{Python}</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">D:\Python35\python.exe</span> <span class="pre">-i</span></code></p></td>
 </tr>
-<tr class="row-odd"><td>{IPython}</td>
-<td><code class="docutils literal notranslate"><span class="pre">D:\Python35\Scripts\ipython3.exe</span></code></td>
+<tr class="row-odd"><td><p>{IPython}</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">D:\Python35\Scripts\ipython3.exe</span></code></p></td>
 </tr>
-<tr class="row-even"><td>{isympy}</td>
-<td><code class="docutils literal notranslate"><span class="pre">D:\Python35\python.exe</span> <span class="pre">&quot;D:\home\yojyo\devel\sympy\bin\isympy&quot;</span> <span class="pre">--</span> <span class="pre">--profile=sympy</span></code></td>
+<tr class="row-even"><td><p>{isympy}</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">D:\Python35\python.exe</span> <span class="pre">&quot;D:\home\yojyo\devel\sympy\bin\isympy&quot;</span> <span class="pre">--</span> <span class="pre">--profile=sympy</span></code></p></td>
 </tr>
 </tbody>
 </table>
 <ul class="simple">
-<li>IPython の各 profile は別途仕込んでおく。</li>
+<li><p>IPython の各 profile は別途仕込んでおく。</p></li>
 </ul>
 </div>
 </div>
@@ -443,6 +456,7 @@ Python 自身は上述のインストーラーを実施したら即動作する�
 </div>
 
 
+            <div class="clearer"></div>
           </div>
       </div>
       <div class="clearer"></div>
@@ -456,7 +470,8 @@ Python 自身は上述のインストーラーを実施したら即動作する�
         <li class="right" >
           <a href="python-py2exe.html" title="Py2exe 利用ノート"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Python 移行ノート</a></li> 
       </ul>
     </div>
     <div id="footer">
@@ -465,7 +480,7 @@ Python 自身は上述のインストーラーを実施したら即動作する�
       </div>
       <div id="footer_copyright">
         Since 1999<br />
-        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+        Copyright &copy; 1999-2020, プレハブ小屋 All rights reserved.
       </div>
     </div>
   </body>

@@ -1,17 +1,17 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Quaternion 利用ノート &#8212; 読書ノート v1.4</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quaternion 利用ノート &#8212; 読書ノート v1.5dev</title>
     <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/mathjaxconf.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/mathjax-v3.js"></script>
+    
     <link rel="next" title="Jinja2 利用ノート" href="python-jinja2.html" />
     <link rel="prev" title="グラフ用語と実装要素の対応早見表" href="python-networkx/glossary.html" /> 
   </head><body>
@@ -24,7 +24,8 @@
         <li class="right" >
           <a href="python-networkx/glossary.html" title="グラフ用語と実装要素の対応早見表"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Quaternion 利用ノート</a></li> 
       </ul>
     </div>  
 
@@ -36,25 +37,28 @@
 <h1><a class="toc-backref" href="#id16">Quaternion 利用ノート</a><a class="headerlink" href="#quaternion" title="Permalink to this headline">¶</a></h1>
 <p>本稿では <a class="reference external" href="http://www.python.org/">Python</a> パッケージ <a class="reference external" href="http://cxc.harvard.edu/mta/ASPECT/tool_doc/pydocs/Quaternion.html">Quaternion</a> について記す。このパッケージを利用する目的、導入方法、私が興味のある機能の利用方法について調べる。</p>
 <div class="contents topic" id="id1">
-<p class="topic-title first">ノート目次</p>
+<p class="topic-title">ノート目次</p>
 <ul class="simple">
-<li><a class="reference internal" href="#quaternion" id="id16">Quaternion 利用ノート</a><ul>
-<li><a class="reference internal" href="#id2" id="id17">関連リンク</a></li>
-<li><a class="reference internal" href="#id3" id="id18">関連ノート</a></li>
-<li><a class="reference internal" href="#id4" id="id19">目的</a></li>
-<li><a class="reference internal" href="#id5" id="id20">インストール</a></li>
-<li><a class="reference internal" href="#id6" id="id21">使いたい機能を確認する</a><ul>
-<li><a class="reference internal" href="#id7" id="id22">インポート</a></li>
-<li><a class="reference internal" href="#quat" id="id23">クラス <code class="docutils literal notranslate"><span class="pre">Quat</span></code> のコンストラクター</a></li>
-<li><a class="reference internal" href="#id8" id="id24">プロパティー</a></li>
-<li><a class="reference internal" href="#id9" id="id25">四元数代数の演算</a></li>
-<li><a class="reference internal" href="#id10" id="id26">逆元</a></li>
-<li><a class="reference internal" href="#id11" id="id27">共役</a></li>
+<li><p><a class="reference internal" href="#quaternion" id="id16">Quaternion 利用ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id17">関連リンク</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id18">関連ノート</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id19">目的</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id20">インストール</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id21">使いたい機能を確認する</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id7" id="id22">インポート</a></p></li>
+<li><p><a class="reference internal" href="#quat" id="id23">クラス <code class="docutils literal notranslate"><span class="pre">Quat</span></code> のコンストラクター</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id24">プロパティー</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id25">四元数代数の演算</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id26">逆元</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id27">共役</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id12" id="id28">演習</a><ul>
-<li><a class="reference internal" href="#id13" id="id29">回転用四元数生成関数を実装する</a></li>
-<li><a class="reference internal" href="#id14" id="id30">行列による回転変換を試す</a></li>
+<li><p><a class="reference internal" href="#id12" id="id28">演習</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id13" id="id29">回転用四元数生成関数を実装する</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id30">行列による回転変換を試す</a></p></li>
 </ul>
 </li>
 </ul>
@@ -62,35 +66,37 @@
 </ul>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<ul class="last simple">
-<li>OS<ul>
-<li>Windows 7 Home Premium x64 SP1</li>
-<li>Windows 10 Home x64</li>
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>OS</p>
+<ul>
+<li><p>Windows 7 Home Premium x64 SP1</p></li>
+<li><p>Windows 10 Home x64</p></li>
 </ul>
 </li>
-<li>本稿において、利用した各パッケージのバージョンは次のとおり。<ul>
-<li><a class="reference external" href="http://www.python.org/">Python</a>: 3.4.1, 3.5.0</li>
-<li><a class="reference external" href="http://cxc.harvard.edu/mta/ASPECT/tool_doc/pydocs/Quaternion.html">Quaternion</a>: 0.03.1</li>
-<li><a class="reference external" href="http://www.numpy.org/">NumPy</a>: 1.8.2, 1.10.0</li>
+<li><p>本稿において、利用した各パッケージのバージョンは次のとおり。</p>
+<ul>
+<li><p><a class="reference external" href="http://www.python.org/">Python</a>: 3.4.1, 3.5.0</p></li>
+<li><p><a class="reference external" href="http://cxc.harvard.edu/mta/ASPECT/tool_doc/pydocs/Quaternion.html">Quaternion</a>: 0.03.1</p></li>
+<li><p><a class="reference external" href="http://www.numpy.org/">NumPy</a>: 1.8.2, 1.10.0</p></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="id2">
 <h2><a class="toc-backref" href="#id17">関連リンク</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt><a class="reference external" href="http://cxc.harvard.edu/mta/ASPECT/tool_doc/pydocs/Quaternion.html">Quaternion</a></dt>
-<dd>パッケージ配布元。</dd>
-<dt><a class="reference external" href="http://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation">Quaternions and spatial rotation</a></dt>
-<dd>ここに書いてあるようなことを Python のプログラムでやりたいのだ。</dd>
+<dl class="simple">
+<dt><a class="reference external" href="http://cxc.harvard.edu/mta/ASPECT/tool_doc/pydocs/Quaternion.html">Quaternion</a></dt><dd><p>パッケージ配布元。</p>
+</dd>
+<dt><a class="reference external" href="http://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation">Quaternions and spatial rotation</a></dt><dd><p>ここに書いてあるようなことを Python のプログラムでやりたいのだ。</p>
+</dd>
 </dl>
 </div>
 <div class="section" id="id3">
 <h2><a class="toc-backref" href="#id18">関連ノート</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><a class="reference internal" href="python-numpy/index.html"><span class="doc">NumPy 利用ノート</span></a>: Quaternion は <a class="reference external" href="http://www.numpy.org/">NumPy</a> を利用して実装されている。</li>
-<li><a class="reference internal" href="python-pyopengl/index.html"><span class="doc">PyOpenGL 利用ノート</span></a>: 私が Quaternion を利用したいのは、空間内での回転を制御するのに便利なはずだからと思うから。</li>
+<li><p><a class="reference internal" href="python-numpy/index.html"><span class="doc">NumPy 利用ノート</span></a>: Quaternion は <a class="reference external" href="http://www.numpy.org/">NumPy</a> を利用して実装されている。</p></li>
+<li><p><a class="reference internal" href="python-pyopengl/index.html"><span class="doc">PyOpenGL 利用ノート</span></a>: 私が Quaternion を利用したいのは、空間内での回転を制御するのに便利なはずだからと思うから。</p></li>
 </ul>
 </div>
 <div class="section" id="id4">
@@ -98,38 +104,38 @@
 <p>Hamilton の四元数を扱える Python パッケージがあれば、とりあえず何かインストールしておきたい。その理由は、PyOpenGL で色々な 3D グラフィックスの描画をする際に、ほとんどすべてのプログラムでプリミティブの回転を取り扱う予定があるからだ。</p>
 <p>四元数を用いることで、3 次元の点を</p>
 <ol class="arabic simple">
-<li>指定の回転軸（3 次元の単位ベクトル）周りに</li>
-<li>指定角度（スカラー）だけ</li>
+<li><p>指定の回転軸（3 次元の単位ベクトル）周りに</p></li>
+<li><p>指定角度（スカラー）だけ</p></li>
 </ol>
 <p>回転させるという記述を手軽に表現できることを期待している。</p>
 </div>
 <div class="section" id="id5">
 <h2><a class="toc-backref" href="#id20">インストール</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>まず、私がこのパッケージを知った経緯について記す。単に pip の検索機能で知ったに過ぎない。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip search quaternion
-qmath                     - qmath provides a class for deal with quaternion algebra and 3D rotations.
-  Root evaluations and Moebius transformations are implemented.
-Quaternion                - Quaternion object manipulation
-quaternion-algebra        - Quaternion algebra for Python.
-quaternionarray           - Python package for fast quaternion arrays math
-mathutils                 - A general math utilities library providing Matrix, Vector, Quaternion, Euler and Color classes, written in C for speed.
-Pyternion                 - Pythonic Quaternion library including Euclidean geometry calculations
-euclid                    - 2D and 3D vector, matrix, quaternion and geometry module
-euclid3                   - 2D and 3D vector, matrix, quaternion and geometry module. updated to python 3.
-pypoints.py               - Classes to represent points, pointsets, anisotropic arrays, and quaternions
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> pip search quaternion
+<span class="go">qmath                     - qmath provides a class for deal with quaternion algebra and 3D rotations.</span>
+<span class="go">  Root evaluations and Moebius transformations are implemented.</span>
+<span class="go">Quaternion                - Quaternion object manipulation</span>
+<span class="go">quaternion-algebra        - Quaternion algebra for Python.</span>
+<span class="go">quaternionarray           - Python package for fast quaternion arrays math</span>
+<span class="go">mathutils                 - A general math utilities library providing Matrix, Vector, Quaternion, Euler and Color classes, written in C for speed.</span>
+<span class="go">Pyternion                 - Pythonic Quaternion library including Euclidean geometry calculations</span>
+<span class="go">euclid                    - 2D and 3D vector, matrix, quaternion and geometry module</span>
+<span class="go">euclid3                   - 2D and 3D vector, matrix, quaternion and geometry module. updated to python 3.</span>
+<span class="go">pypoints.py               - Classes to represent points, pointsets, anisotropic arrays, and quaternions</span>
 </pre></div>
 </div>
 <p>このように多数の候補が出力されるが、ここから私は一番名前が素直な Quaternion をインストールすることに決めた。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install Quaternion
-Downloading/unpacking Quaternion
-  Downloading Quaternion-0.03.1.tar.gz
-  Running setup.py (path:D:\Temp\pip_build_work\Quaternion\setup.py) egg_info for package Quaternion
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> pip install Quaternion
+<span class="go">Downloading/unpacking Quaternion</span>
+<span class="go">  Downloading Quaternion-0.03.1.tar.gz</span>
+<span class="go">  Running setup.py (path:D:\Temp\pip_build_work\Quaternion\setup.py) egg_info for package Quaternion</span>
 
-Installing collected packages: Quaternion
-  Running setup.py install for Quaternion
+<span class="go">Installing collected packages: Quaternion</span>
+<span class="go">  Running setup.py install for Quaternion</span>
 
-Successfully installed Quaternion
-Cleaning up...
+<span class="go">Successfully installed Quaternion</span>
+<span class="go">Cleaning up...</span>
 </pre></div>
 </div>
 <p>インストールの成功は、当モジュールを無事にインポートできるかどうかの確認を以って代える。</p>
@@ -141,7 +147,7 @@ Cleaning up...
 <div class="section" id="id7">
 <h3><a class="toc-backref" href="#id22">インポート</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>Quaternion を利用する最も普通の形態は、次のインポート文だけを書いて済ませることではないだろうか。</p>
-<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Quaternion</span> <span class="k">import</span> <span class="n">Quat</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Quaternion</span> <span class="kn">import</span> <span class="n">Quat</span>
 </pre></div>
 </div>
 <p>クラス <code class="docutils literal notranslate"><span class="pre">Quat</span></code> をインポートするだけで済ませ、あとはオブジェクトを自分で生成して、それについて各種演算をメソッド利用により実現すればよい。</p>
@@ -150,47 +156,50 @@ Cleaning up...
 <h3><a class="toc-backref" href="#id23">クラス <code class="docutils literal notranslate"><span class="pre">Quat</span></code> のコンストラクター</a><a class="headerlink" href="#quat" title="Permalink to this headline">¶</a></h3>
 <p>クラス <code class="docutils literal notranslate"><span class="pre">Quat</span></code> のコンストラクターは、次のような特徴がある。</p>
 <ul class="simple">
-<li>デフォルトコンストラクター的な利用はできない。つまり、引数なしで <code class="docutils literal notranslate"><span class="pre">Quat</span></code> オブジェクトを生成することはできない。</li>
-<li>コピーコンストラクター的な利用ができる。<ul>
-<li>これ以外にオブジェクトのコピーの手段がなさそうだ。メソッドによるコピーは提供されていない。</li>
+<li><p>デフォルトコンストラクター的な利用はできない。つまり、引数なしで <code class="docutils literal notranslate"><span class="pre">Quat</span></code> オブジェクトを生成することはできない。</p></li>
+<li><p>コピーコンストラクター的な利用ができる。</p>
+<ul>
+<li><p>これ以外にオブジェクトのコピーの手段がなさそうだ。メソッドによるコピーは提供されていない。</p></li>
 </ul>
 </li>
-<li>私が想定する通常のコンストラクター利用法は、次のふたつだ。<ul>
-<li>四元数成分の直接指定による生成<ul>
-<li><code class="docutils literal notranslate"><span class="pre">q</span> <span class="pre">=</span> <span class="pre">Quat([x,</span> <span class="pre">y,</span> <span class="pre">z,</span> <span class="pre">w])</span></code> の形式で生成する。ただし、最初の 3 成分がベクトル成分で、最後の成分がスカラー成分である。私は当初、教科書の式に引っ張られて順序を間違えた。</li>
-<li>従って、デフォルト回転状態を表現するには <code class="docutils literal notranslate"><span class="pre">Quat([0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">1])</span></code> とする。</li>
-<li>引数は、各成分の平方の和が 1 である必要がある。どうもこのクラスは単位四元数だけをサポートしているようだ。</li>
-<li>生成後、プロパティー <code class="docutils literal notranslate"><span class="pre">.q</span></code> で成分を確認すると、符号が逆転していることがままある。これは、内部的には四元数のスカラー成分を正で表現する規約があるらしいためだ。</li>
+<li><p>私が想定する通常のコンストラクター利用法は、次のふたつだ。</p>
+<ul>
+<li><p>四元数成分の直接指定による生成</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">q</span> <span class="pre">=</span> <span class="pre">Quat([x,</span> <span class="pre">y,</span> <span class="pre">z,</span> <span class="pre">w])</span></code> の形式で生成する。ただし、最初の 3 成分がベクトル成分で、最後の成分がスカラー成分である。私は当初、教科書の式に引っ張られて順序を間違えた。</p></li>
+<li><p>従って、デフォルト回転状態を表現するには <code class="docutils literal notranslate"><span class="pre">Quat([0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">1])</span></code> とする。</p></li>
+<li><p>引数は、各成分の平方の和が 1 である必要がある。どうもこのクラスは単位四元数だけをサポートしているようだ。</p></li>
+<li><p>生成後、プロパティー <code class="docutils literal notranslate"><span class="pre">.q</span></code> で成分を確認すると、符号が逆転していることがままある。これは、内部的には四元数のスカラー成分を正で表現する規約があるらしいためだ。</p></li>
 </ul>
 </li>
-<li>（回転）変換行列からの生成<ul>
-<li><code class="docutils literal notranslate"><span class="pre">q</span> <span class="pre">=</span> <span class="pre">Quat(m)</span></code> の形式で生成する。ここで <code class="docutils literal notranslate"><span class="pre">m</span></code> は <code class="docutils literal notranslate"><span class="pre">m.shape</span> <span class="pre">==</span> <span class="pre">(3,</span> <span class="pre">3)</span></code> を満たす <code class="docutils literal notranslate"><span class="pre">np.array</span></code> オブジェクトである。</li>
-<li>従って、無変換状態を表現するには単位行列を与える。例えば <code class="docutils literal notranslate"><span class="pre">Quat(np.identity(3))</span></code> とする。</li>
-<li>おそらく無条件で <code class="docutils literal notranslate"><span class="pre">q.transform</span> <span class="pre">==</span> <span class="pre">m</span></code> となる。</li>
+<li><p>（回転）変換行列からの生成</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">q</span> <span class="pre">=</span> <span class="pre">Quat(m)</span></code> の形式で生成する。ここで <code class="docutils literal notranslate"><span class="pre">m</span></code> は <code class="docutils literal notranslate"><span class="pre">m.shape</span> <span class="pre">==</span> <span class="pre">(3,</span> <span class="pre">3)</span></code> を満たす <code class="docutils literal notranslate"><span class="pre">np.array</span></code> オブジェクトである。</p></li>
+<li><p>従って、無変換状態を表現するには単位行列を与える。例えば <code class="docutils literal notranslate"><span class="pre">Quat(np.identity(3))</span></code> とする。</p></li>
+<li><p>おそらく無条件で <code class="docutils literal notranslate"><span class="pre">q.transform</span> <span class="pre">==</span> <span class="pre">m</span></code> となる。</p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li>他にも赤道座標系の表現を用いて <code class="docutils literal notranslate"><span class="pre">Quat</span></code> コンストラクターのパラメーターにする生成のやり方もある。本稿では取り扱わない。</li>
+<li><p>他にも赤道座標系の表現を用いて <code class="docutils literal notranslate"><span class="pre">Quat</span></code> コンストラクターのパラメーターにする生成のやり方もある。本稿では取り扱わない。</p></li>
 </ul>
 </div>
 <div class="section" id="id8">
 <h3><a class="toc-backref" href="#id24">プロパティー</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>私がクラス <code class="docutils literal notranslate"><span class="pre">Quat</span></code> のプロパティーでよく利用するのは <code class="docutils literal notranslate"><span class="pre">.q</span></code> と <code class="docutils literal notranslate"><span class="pre">.transform</span></code> だけなので、それらだけを記す。</p>
 <ul>
-<li><p class="first">プロパティー <code class="docutils literal notranslate"><span class="pre">.q</span></code> で、四元数の成分を <code class="docutils literal notranslate"><span class="pre">np.array</span></code> の形でアクセスできる。</p>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">.q</span></code> で、四元数の成分を <code class="docutils literal notranslate"><span class="pre">np.array</span></code> の形でアクセスできる。</p>
 <ul class="simple">
-<li>最初の 3 成分がベクトル成分で、最後の成分がスカラー成分である。</li>
-<li>先述したが、内部的にはスカラー成分が正で表現されていることがわかる。</li>
+<li><p>最初の 3 成分がベクトル成分で、最後の成分がスカラー成分である。</p></li>
+<li><p>先述したが、内部的にはスカラー成分が正で表現されていることがわかる。</p></li>
 </ul>
 </li>
-<li><p class="first">プロパティー <code class="docutils literal notranslate"><span class="pre">.transform</span></code> で、この四元数の表現する回転変換を
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">.transform</span></code> で、この四元数の表現する回転変換を
 <code class="docutils literal notranslate"><span class="pre">np.array</span></code> の形でアクセスできる。</p>
 <ul>
-<li><p class="first">3 次正方行列の shape である。</p>
-</li>
-<li><p class="first">PyOpenGL のインターフェイスに渡す際には、これを 4 次正方行列に直す必要がある。</p>
-<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">quat</span> <span class="o">=</span> <span class="n">Quat</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<li><p>3 次正方行列の shape である。</p></li>
+<li><p>PyOpenGL のインターフェイスに渡す際には、これを 4 次正方行列に直す必要がある。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">quat</span> <span class="o">=</span> <span class="n">Quat</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 <span class="n">rotation_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 <span class="n">rotation_matrix</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">transform</span>
 <span class="n">glUniformMatrix4fv</span><span class="p">(</span><span class="n">location_of_matrix</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">GL_TRUE</span><span class="p">,</span> <span class="n">rotation_matrix</span><span class="p">)</span>
@@ -205,21 +214,19 @@ Cleaning up...
 <h3><a class="toc-backref" href="#id25">四元数代数の演算</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>四元数の乗法は可換ではないことに注意するとよい。</p>
 <ul>
-<li><p class="first">加法、減法はサポートされていない。</p>
+<li><p>加法、減法はサポートされていない。</p>
 <p>数学的には四元数には加減乗除が定義可能なのだが、利用目的が目的であることと、単位四元数だけを取り扱う方針があるらしいことから、作者は実装しないことを決めたのだろう。</p>
 </li>
-<li><p class="first">演算子 <code class="docutils literal notranslate"><span class="pre">*</span></code> による乗法が <code class="docutils literal notranslate"><span class="pre">__mul__</span></code> によりサポートされている。</p>
-</li>
-<li><p class="first">演算子 <code class="docutils literal notranslate"><span class="pre">/</span></code> による除法が <code class="docutils literal notranslate"><span class="pre">__div__</span></code> によりサポートされている。ただし <code class="docutils literal notranslate"><span class="pre">lhs</span> <span class="pre">/</span> <span class="pre">rhs</span></code> の意味は <code class="docutils literal notranslate"><span class="pre">lhs</span> <span class="pre">*</span> <span class="pre">rhs.inv()</span></code> である。いわば「右からの除法」ということだ。</p>
-</li>
+<li><p>演算子 <code class="docutils literal notranslate"><span class="pre">*</span></code> による乗法が <code class="docutils literal notranslate"><span class="pre">__mul__</span></code> によりサポートされている。</p></li>
+<li><p>演算子 <code class="docutils literal notranslate"><span class="pre">/</span></code> による除法が <code class="docutils literal notranslate"><span class="pre">__div__</span></code> によりサポートされている。ただし <code class="docutils literal notranslate"><span class="pre">lhs</span> <span class="pre">/</span> <span class="pre">rhs</span></code> の意味は <code class="docutils literal notranslate"><span class="pre">lhs</span> <span class="pre">*</span> <span class="pre">rhs.inv()</span></code> である。いわば「右からの除法」ということだ。</p></li>
 </ul>
 <p>グラフィックスのプログラムでの応用としては、ひとつの <code class="docutils literal notranslate"><span class="pre">Quat</span></code> オブジェクトにひとつの「ある軸周りの、ある角度だけの回転操作」の意味を持たせることを考える。複数の <code class="docutils literal notranslate"><span class="pre">Quat</span></code> オブジェクトの積は、複数の連続回転操作の意味を持たせることができるはずだ。回転の順番に注意を要するのと同様に、四元数同士の積の順番にも注意を要する。</p>
 </div>
 <div class="section" id="id10">
 <h3><a class="toc-backref" href="#id26">逆元</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>メソッド <code class="docutils literal notranslate"><span class="pre">.inv()</span></code> を用いる。ソースコードを見ると一瞬面食らうが、ノルムが 1 の四元数だけをサポートすることになっているからこれでよい。</li>
-<li>採り上げておいてなんだが、これはおそらく利用しないで済む。</li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">.inv()</span></code> を用いる。ソースコードを見ると一瞬面食らうが、ノルムが 1 の四元数だけをサポートすることになっているからこれでよい。</p></li>
+<li><p>採り上げておいてなんだが、これはおそらく利用しないで済む。</p></li>
 </ul>
 </div>
 <div class="section" id="id11">
@@ -232,13 +239,13 @@ Cleaning up...
 <p>ここでひとつ四元数を用いた回転変換を計算する例を試そう。
 <a class="reference external" href="http://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation">Quaternions and spatial rotation</a> の Example の回転をコード化してみよう。ただし、ここでは conjugation ではなく回転行列を用いる。つまり：</p>
 <ol class="arabic simple">
-<li>与えられた角度 <code class="docutils literal notranslate"><span class="pre">alpha</span></code> と回転軸 <code class="docutils literal notranslate"><span class="pre">axis</span></code> に対して、四元数オブジェクト <code class="docutils literal notranslate"><span class="pre">q</span></code> を返す関数を作成する。</li>
-<li>プロパティー <code class="docutils literal notranslate"><span class="pre">q.transform</span></code> を用いて、いろいろな 3 次元ベクトルの回転を試す。</li>
+<li><p>与えられた角度 <code class="docutils literal notranslate"><span class="pre">alpha</span></code> と回転軸 <code class="docutils literal notranslate"><span class="pre">axis</span></code> に対して、四元数オブジェクト <code class="docutils literal notranslate"><span class="pre">q</span></code> を返す関数を作成する。</p></li>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">q.transform</span></code> を用いて、いろいろな 3 次元ベクトルの回転を試す。</p></li>
 </ol>
 <div class="section" id="id13">
 <h3><a class="toc-backref" href="#id29">回転用四元数生成関数を実装する</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <p>次のようなテキスト片をテキストエディターに書きつける。</p>
-<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_quat</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_quat</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>
     <span class="n">alpha_half</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">/</span> <span class="mi">2</span>
     <span class="n">cosa</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">alpha_half</span><span class="p">)</span>
     <span class="n">sina</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">alpha_half</span><span class="p">)</span>
@@ -247,23 +254,23 @@ Cleaning up...
 </pre></div>
 </div>
 <p>IPython のセッションでコードを試すつもりでいるので、各種 import 文を省略している。それから関数全体をおもむろにクリップボードにコピーし、IPython のセッションで <code class="docutils literal notranslate"><span class="pre">%paste</span></code> する。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="o">%</span><span class="n">paste</span>
-<span class="k">def</span> <span class="nf">make_quat</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">make_quat</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>
-    <span class="n">alpha_half</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">/</span> <span class="mi">2</span>
-    <span class="n">cosa</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">alpha_half</span><span class="p">)</span>
-    <span class="n">sina</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">alpha_half</span><span class="p">)</span>
-    <span class="n">v</span> <span class="o">=</span> <span class="n">sina</span> <span class="o">*</span> <span class="p">(</span><span class="n">axis</span> <span class="o">/</span> <span class="n">norm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">)))</span>
-    <span class="k">return</span> <span class="n">Quat</span><span class="p">([</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">cosa</span><span class="p">])</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="o">%</span><span class="k">paste</span>
+<span class="go">def make_quat(alpha, axis):</span>
+<span class="go">    def make_quat(alpha, axis):</span>
+<span class="go">    alpha_half = alpha / 2</span>
+<span class="go">    cosa = np.cos(alpha_half)</span>
+<span class="go">    sina = np.sin(alpha_half)</span>
+<span class="go">    v = sina * (axis / norm(np.array(axis, copy=False)))</span>
+<span class="go">    return Quat([v[0], v[1], v[2], cosa])</span>
 
-<span class="c1">## -- End pasted text --</span>
+<span class="go">## -- End pasted text --</span>
 </pre></div>
 </div>
 <p>それでは Wikipedia の The conjugation operation の状況を再現してみよう。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">q1</span> <span class="o">=</span> <span class="n">make_quat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [2]: </span><span class="n">q1</span> <span class="o">=</span> <span class="n">make_quat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">q1</span><span class="o">.</span><span class="n">q</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">array</span><span class="p">([</span> <span class="mf">0.5</span><span class="p">,</span>  <span class="mf">0.5</span><span class="p">,</span>  <span class="mf">0.5</span><span class="p">,</span>  <span class="mf">0.5</span><span class="p">])</span>
+<span class="gp">In [3]: </span><span class="n">q1</span><span class="o">.</span><span class="n">q</span>
+<span class="gh">Out[3]: </span><span class="go">array([ 0.5,  0.5,  0.5,  0.5])</span>
 </pre></div>
 </div>
 <p>所望の四元数が得られたようだ。</p>
@@ -271,18 +278,18 @@ Cleaning up...
 <div class="section" id="id14">
 <h3><a class="toc-backref" href="#id30">行列による回転変換を試す</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <p>まずはプロパティー <code class="docutils literal notranslate"><span class="pre">q.transform</span></code> を用いた 3 次元ベクトルの回転を確認したい。これがうまくいけば、当初の計画通りに PyOpenGL のプログラムに応用できる。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">t</span> <span class="o">=</span> <span class="n">q1</span><span class="o">.</span><span class="n">transform</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="n">t</span> <span class="o">=</span> <span class="n">q1</span><span class="o">.</span><span class="n">transform</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">t</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span>
-<span class="n">array</span><span class="p">([[</span>  <span class="mf">0.00000000e+00</span><span class="p">,</span>  <span class="o">-</span><span class="mf">1.11022302e-16</span><span class="p">,</span>   <span class="mf">1.00000000e+00</span><span class="p">],</span>
-       <span class="p">[</span>  <span class="mf">1.00000000e+00</span><span class="p">,</span>   <span class="mf">0.00000000e+00</span><span class="p">,</span>  <span class="o">-</span><span class="mf">1.11022302e-16</span><span class="p">],</span>
-       <span class="p">[</span> <span class="o">-</span><span class="mf">1.11022302e-16</span><span class="p">,</span>   <span class="mf">1.00000000e+00</span><span class="p">,</span>   <span class="mf">0.00000000e+00</span><span class="p">]])</span>
+<span class="gp">In [5]: </span><span class="n">t</span>
+<span class="gh">Out[5]:</span>
+<span class="go">array([[  0.00000000e+00,  -1.11022302e-16,   1.00000000e+00],</span>
+<span class="go">       [  1.00000000e+00,   0.00000000e+00,  -1.11022302e-16],</span>
+<span class="go">       [ -1.11022302e-16,   1.00000000e+00,   0.00000000e+00]])</span>
 </pre></div>
 </div>
 <p>適当に 3D ベクトルを与えて、成分が軸 <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">1,</span> <span class="pre">1]</span></code> 周りに 120 度回転するかテストしよう。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">dot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">array</span><span class="p">([</span> <span class="mf">3.</span><span class="p">,</span>  <span class="mf">1.</span><span class="p">,</span>  <span class="mf">2.</span><span class="p">])</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [6]: </span><span class="n">dot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="gh">Out[6]: </span><span class="go">array([ 3.,  1.,  2.])</span>
 </pre></div>
 </div>
 <p>問題なさそうだ。</p>
@@ -291,6 +298,7 @@ Cleaning up...
 </div>
 
 
+            <div class="clearer"></div>
           </div>
       </div>
       <div class="clearer"></div>
@@ -304,7 +312,8 @@ Cleaning up...
         <li class="right" >
           <a href="python-networkx/glossary.html" title="グラフ用語と実装要素の対応早見表"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Quaternion 利用ノート</a></li> 
       </ul>
     </div>
     <div id="footer">
@@ -313,7 +322,7 @@ Cleaning up...
       </div>
       <div id="footer_copyright">
         Since 1999<br />
-        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+        Copyright &copy; 1999-2020, プレハブ小屋 All rights reserved.
       </div>
     </div>
   </body>

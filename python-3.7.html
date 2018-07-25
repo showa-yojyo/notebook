@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>What’s New In Python 3.7 ノート &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="What’s New In Python 3.8 ノート" href="python-3.8.html" />
+    <link rel="prev" title="What’s New In Python 3.6 ノート" href="python-3.6.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="python-3.8.html" title="What’s New In Python 3.8 ノート"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="python-3.6.html" title="What’s New In Python 3.6 ノート"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">What’s New In Python 3.7 ノート</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="what-s-new-in-python-3-7">
+<h1><a class="toc-backref" href="#id2">What’s New In Python 3.7 ノート</a><a class="headerlink" href="#what-s-new-in-python-3-7" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://docs.python.org/3/whatsnew/3.7.html">What’s New In Python 3.7</a> をたどりながら調査。興味のあるものだけ拾い読みしよう。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title">ノート目次</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#what-s-new-in-python-3-7" id="id2">What’s New In Python 3.7 ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#new-features" id="id3">New Features</a></p></li>
+<li><p><a class="reference internal" href="#new-modules" id="id4">New Modules</a></p></li>
+<li><p><a class="reference internal" href="#improved-modules" id="id5">Improved Modules</a></p>
+<ul>
+<li><p><a class="reference internal" href="#asyncio" id="id6"><code class="docutils literal notranslate"><span class="pre">asyncio</span></code></a></p></li>
+<li><p><a class="reference internal" href="#collections" id="id7"><code class="docutils literal notranslate"><span class="pre">collections</span></code></a></p></li>
+<li><p><a class="reference internal" href="#datetime" id="id8"><code class="docutils literal notranslate"><span class="pre">datetime</span></code></a></p></li>
+<li><p><a class="reference internal" href="#functools" id="id9"><code class="docutils literal notranslate"><span class="pre">functools</span></code></a></p></li>
+<li><p><a class="reference internal" href="#itertools" id="id10"><code class="docutils literal notranslate"><span class="pre">itertools</span></code></a></p></li>
+<li><p><a class="reference internal" href="#subprocess" id="id11"><code class="docutils literal notranslate"><span class="pre">subprocess</span></code></a></p></li>
+<li><p><a class="reference internal" href="#time" id="id12"><code class="docutils literal notranslate"><span class="pre">time</span></code></a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="new-features">
+<h2><a class="toc-backref" href="#id3">New Features</a><a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>組み込み関数 <code class="docutils literal notranslate"><span class="pre">breakpoint()</span></code> 新設</p>
+<ul class="simple">
+<li><p>環境変数 <code class="docutils literal notranslate"><span class="pre">PYTHONBREAKPOINT</span></code> の使い方を押さえれば言うことなし。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">logging.basicConfig(level=logging.DEBUG)</span></code> も必要。</p></li>
+<li><p>これはふつうに便利なので覚えておこう。</p></li>
+</ul>
+</li>
+<li><p>モジュールに対して <code class="docutils literal notranslate"><span class="pre">__getattr()__</span></code> および <code class="docutils literal notranslate"><span class="pre">__dir__</span></code> が定義できる。</p>
+<ul class="simple">
+<li><p>どちらも仕様者読書が想像する通りの振る舞いをする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__getattr()__</span></code> は有用な利用例として二つ。<code class="docutils literal notranslate"><span class="pre">DeprecatedWarning</span></code> を送出する。遅延ロードを仕込む。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__dir__</span></code> を直接指定できることで、やはり deprecated な機能をリストの末尾に配置するなどの使用例を見込む。</p></li>
+<li><p>これらは私は使わないだろう。</p></li>
+</ul>
+</li>
+<li><p>ナノ秒単位の分解能を持つ新しい時間関数が加わる。</p>
+<ul>
+<li><p>モジュール <code class="docutils literal notranslate"><span class="pre">time</span></code> に <code class="docutils literal notranslate"><span class="pre">_ns()</span></code> シリーズが追加された。</p></li>
+<li><p>&lt;The time.time_ns() resolution is 3 times better than the time.time() resolution on Linux and Windows&gt; だそうだ。</p></li>
+<li><p>サンプルコードで面白い呼び出しを見つけたので控えておく：</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">min_dt</span> <span class="o">=</span> <span class="p">[</span><span class="nb">abs</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time_ns</span><span class="p">()</span> <span class="o">-</span> <span class="n">time</span><span class="o">.</span><span class="n">time_ns</span><span class="p">())</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">LOOPS</span><span class="p">)]</span>
+<span class="n">min_dt</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="nb">bool</span><span class="p">,</span> <span class="n">min_dt</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;min time_ns() delta: </span><span class="si">%s</span><span class="s2"> ns&quot;</span> <span class="o">%</span> <span class="n">min_dt</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>ここで <code class="docutils literal notranslate"><span class="pre">min(min_dt)</span></code> だけでダメなのかどうか考えてみよう。</p>
+</div></blockquote>
+</li>
+<li><p>これらは私は使わないだろう。ミリ秒で事足りるケースしか手許にない。</p></li>
+</ul>
+</li>
+<li><p>関数の仮引数、実引数ともに 255 個を超えられる。</p></li>
+</ul>
+</div>
+<div class="section" id="new-modules">
+<h2><a class="toc-backref" href="#id4">New Modules</a><a class="headerlink" href="#new-modules" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>モジュール <code class="docutils literal notranslate"><span class="pre">contextvars</span></code> 新設</p>
+<ul>
+<li><p>TLS みたいなものとある。とりあえず私は見ない。</p></li>
+<li><p>モジュール <code class="docutils literal notranslate"><span class="pre">decimal</span></code> の関数 <code class="docutils literal notranslate"><span class="pre">getcontext()</span></code> が active context を返すのに本機能が使われている。</p></li>
+</ul>
+</li>
+<li><p>デコレーター <code class="docutils literal notranslate"><span class="pre">&#64;dataclass()</span></code> 新設</p>
+<ul>
+<li><p>C/C++ でいうところの構造体を定義するときに有用。</p></li>
+<li><p>デフォルトでは次の特殊メソッドを自動的に定義する:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">__init__()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__repr()__</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__eq()__</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__ne()__</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__lt()__</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__le()__</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__gt()__</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__ge()__</span></code></p></li>
+</ul>
+</li>
+<li><p>実は <code class="docutils literal notranslate"><span class="pre">dataclass()</span></code> にはオプショナル引数がある。使うかもしれないので心に留めておく。</p></li>
+<li><p>これに伴い標準ライブラリーの <code class="docutils literal notranslate"><span class="pre">namedtuple()</span></code> 系が機能強化。</p></li>
+<li><p>その他細かい機能がたくさんある。仕様書を後で見る。というか、使いこなせるか。</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="improved-modules">
+<h2><a class="toc-backref" href="#id5">Improved Modules</a><a class="headerlink" href="#improved-modules" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="asyncio">
+<h3><a class="toc-backref" href="#id6"><code class="docutils literal notranslate"><span class="pre">asyncio</span></code></a><a class="headerlink" href="#asyncio" title="Permalink to this headline">¶</a></h3>
+<p>ここは見るべきことが多い。</p>
+<ul>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">run()</span></code> の新設。これによりコード量が若干少なく済む。</p>
+<ul>
+<li><p>例えば次のように書ける：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># old</span>
+<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+<span class="n">loop</span><span class="o">.</span><span class="n">run_until_completed</span><span class="p">(</span><span class="n">future</span><span class="p">)</span>
+
+<span class="c1"># new</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">future</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>ループクラスの <code class="docutils literal notranslate"><span class="pre">call_()</span></code> 系メソッドが新モジュール <code class="docutils literal notranslate"><span class="pre">contextvars</span></code> の支援を受けられるようになる。すなわち、オプショナル引数でコンテキストオブジェクトを指定できる。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">create_task()</span></code> の新設。コード量が若干少なく済む。</p></li>
+</ul>
+</div>
+<div class="section" id="collections">
+<h3><a class="toc-backref" href="#id7"><code class="docutils literal notranslate"><span class="pre">collections</span></code></a><a class="headerlink" href="#collections" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">namedtuple()</span></code> で属性に対するデフォルト値が指定できる。
+docstring の記述をコード化するとこうなる：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Point</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Point&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">],</span> <span class="n">defaults</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+
+<span class="n">pt</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">pt</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">pt</span><span class="o">.</span><span class="n">z</span> <span class="o">==</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="datetime">
+<h3><a class="toc-backref" href="#id8"><code class="docutils literal notranslate"><span class="pre">datetime</span></code></a><a class="headerlink" href="#datetime" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">datetime.fromisoformat()</span></code> の新設。メソッド <code class="docutils literal notranslate"><span class="pre">datetime.isoformat()</span></code> の逆。</p></li>
+</ul>
+</div>
+<div class="section" id="functools">
+<h3><a class="toc-backref" href="#id9"><code class="docutils literal notranslate"><span class="pre">functools</span></code></a><a class="headerlink" href="#functools" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">singledispatch()</span></code> が typed annotations を用いる関数も受け容れるように改良された。</p>
+<ul>
+<li><p>この関数を使ったことがないので今調べたら、Visitor パターンを実装するのがすごく楽になるものだ。</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="itertools">
+<h3><a class="toc-backref" href="#id10"><code class="docutils literal notranslate"><span class="pre">itertools</span></code></a><a class="headerlink" href="#itertools" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">islice()</span></code> の引数 <code class="docutils literal notranslate"><span class="pre">start</span></code>, <code class="docutils literal notranslate"><span class="pre">stop</span></code>, <code class="docutils literal notranslate"><span class="pre">slice</span></code> が <code class="docutils literal notranslate"><span class="pre">int</span></code> だけでなくて整数的オブジェクト、例えば NumPy の型 <code class="docutils literal notranslate"><span class="pre">int32</span></code> に対しても機能するように改良された。</p></li>
+</ul>
+</div>
+<div class="section" id="subprocess">
+<h3><a class="toc-backref" href="#id11"><code class="docutils literal notranslate"><span class="pre">subprocess</span></code></a><a class="headerlink" href="#subprocess" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">run()</span></code> にキーワード引数 <code class="docutils literal notranslate"><span class="pre">capture_output</span></code> が新設されて、この値を <code class="docutils literal notranslate"><span class="pre">True</span></code> にセットすると、標準出力と標準エラーが捕捉される。</p>
+<ul>
+<li><p>明示的にパイプを渡さないで出力を得る方法ができたことになる。</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="time">
+<h3><a class="toc-backref" href="#id12"><code class="docutils literal notranslate"><span class="pre">time</span></code></a><a class="headerlink" href="#time" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>先述のように、ナノ秒 API が新設された。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">thread_time()</span></code> および <code class="docutils literal notranslate"><span class="pre">time.thread_time_ns()</span></code> が新設された。</p></li>
+</ul>
+<p>こんなところか。</p>
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="python-3.8.html" title="What’s New In Python 3.8 ノート"
+             >next</a></li>
+        <li class="right" >
+          <a href="python-3.6.html" title="What’s New In Python 3.6 ノート"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">What’s New In Python 3.7 ノート</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2020, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,17 +1,17 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Miniconda 利用ノート &#8212; 読書ノート v1.4</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Miniconda 利用ノート &#8212; 読書ノート v1.5dev</title>
     <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/mathjaxconf.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/mathjax-v3.js"></script>
+    
     <link rel="next" title="ラジルギノア プレイノート" href="milestone09/index.html" />
     <link rel="prev" title="Python 移行ノート" href="python-upgrade.html" /> 
   </head><body>
@@ -24,7 +24,8 @@
         <li class="right" >
           <a href="python-upgrade.html" title="Python 移行ノート"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Miniconda 利用ノート</a></li> 
       </ul>
     </div>  
 
@@ -36,16 +37,22 @@
 <h1><a class="toc-backref" href="#id10">Miniconda 利用ノート</a><a class="headerlink" href="#miniconda" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="http://conda.pydata.org/miniconda.html">Miniconda</a> の利用に関する事実関係の覚え書きと、その利用について思うところを記す。</p>
 <div class="contents topic" id="id1">
-<p class="topic-title first">ノート目次</p>
+<p class="topic-title">ノート目次</p>
 <ul class="simple">
-<li><a class="reference internal" href="#miniconda" id="id10">Miniconda 利用ノート</a><ul>
-<li><a class="reference internal" href="#id2" id="id11">概要</a></li>
-<li><a class="reference internal" href="#id3" id="id12">環境構築手順</a></li>
-<li><a class="reference internal" href="#id4" id="id13">ノート</a></li>
-<li><a class="reference internal" href="#id5" id="id14">3.5 から 3.6 への移行手順ノート</a><ul>
-<li><a class="reference internal" href="#id6" id="id15">バックアップ</a></li>
-<li><a class="reference internal" href="#root" id="id16">新 <code class="docutils literal notranslate"><span class="pre">root</span></code> 環境を構築</a></li>
-<li><a class="reference internal" href="#id7" id="id17">補足</a></li>
+<li><p><a class="reference internal" href="#miniconda" id="id10">Miniconda 利用ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id11">概要</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id12">環境構築手順</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id13">ノート</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id14">3.5 から 3.6 への移行手順ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id6" id="id15">バックアップ</a></p></li>
+<li><p><a class="reference internal" href="#root" id="id16">新 <code class="docutils literal notranslate"><span class="pre">root</span></code> 環境を構築</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id17">補足</a></p>
+<ul>
+<li><p><a class="reference internal" href="#v4-7-5" id="id18">V4.7.5</a></p></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -53,23 +60,23 @@
 </ul>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>本稿執筆時の動作環境は次のとおり。</p>
 <ul class="simple">
-<li>OS: Windows 10 Home (64 bit)</li>
-<li>Cygwin: 2.5.2-1, 2.7.0 (64 bit)</li>
-<li>bash: 4.3.42(4)-release, 4.4.12(3)-release (x86_64-unknown-cygwin)</li>
-<li><a class="reference external" href="http://conda.pydata.org/miniconda.html">Miniconda</a>: 4.0.5, 4.1.11, 4.3.14</li>
+<li><p>OS: Windows 10 Home (64 bit)</p></li>
+<li><p>Cygwin: 2.5.2-1, 2.7.0 (64 bit)</p></li>
+<li><p>bash: 4.3.42(4)-release, 4.4.12(3)-release (x86_64-unknown-cygwin)</p></li>
+<li><p><a class="reference external" href="http://conda.pydata.org/miniconda.html">Miniconda</a>: 4.0.5, 4.1.11, 4.3.14, 4.7.5</p></li>
 </ul>
-<p class="last">Python 本体および Python 製パッケージのバージョンについては、必要に応じて本文で明記していく。</p>
+<p>Python 本体および Python 製パッケージのバージョンについては、必要に応じて本文で明記していく。</p>
 </div>
 <div class="section" id="id2">
 <h2><a class="toc-backref" href="#id11">概要</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>まずは Conda が何であるかを説明する。
 Conda とは、オープンソースパッケージの管理システムであり、それらに対する環境管理システムである。すなわち、</p>
 <ul class="simple">
-<li>パッケージの複数のバージョンおよびそれらの間の依存関係をインストールしたり、</li>
-<li>それら（環境と呼ぶ）を容易に切り替えたり</li>
+<li><p>パッケージの複数のバージョンおよびそれらの間の依存関係をインストールしたり、</p></li>
+<li><p>それら（環境と呼ぶ）を容易に切り替えたり</p></li>
 </ul>
 <p>する機能がある。
 Conda は Python プログラムについて製作されたものだったということだが、現在ではどのようなソフトウェアでもパッケージにしたり配布したりすることが可能であるそうだ。</p>
@@ -86,13 +93,13 @@ Conda の機能の一つである <code class="code docutils literal notranslate
 <h2><a class="toc-backref" href="#id12">環境構築手順</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>次の手順でよい。</p>
 <ol class="arabic simple">
-<li>インストーラーをダウンロードする</li>
-<li>インストーラーを実行する</li>
-<li>30-minute test drive を実施する</li>
-<li>パッケージをインストールする</li>
-<li>個別のパッケージについて動作確認をする</li>
-<li>構成ファイルを編集する</li>
-<li>バックアップ or アップグレード用ファイルを作成する</li>
+<li><p>インストーラーをダウンロードする</p></li>
+<li><p>インストーラーを実行する</p></li>
+<li><p>30-minute test drive を実施する</p></li>
+<li><p>パッケージをインストールする</p></li>
+<li><p>個別のパッケージについて動作確認をする</p></li>
+<li><p>構成ファイルを編集する</p></li>
+<li><p>バックアップ or アップグレード用ファイルを作成する</p></li>
 </ol>
 <p><a class="reference external" href="http://conda.pydata.org/miniconda.html">Miniconda</a> のダウンロードページにある Python 3.5 の 64-bit (exe installer) をクリックして
 <code class="file docutils literal notranslate"><span class="pre">Miniconda3-latest-Windows-x86_64.exe</span></code> というファイル名のインストーラーを入手できる。</p>
@@ -100,16 +107,16 @@ Conda の機能の一つである <code class="code docutils literal notranslate
 <p>そして公式ドキュメントの <a class="reference external" href="http://conda.pydata.org/miniconda.html">30-minute test drive</a> を実施するのがよい。各種基本コマンドを習得するはずだ。この過程で Python 本体と <strong class="program">conda</strong> 自身のアップグレードも場合によっては生じる。</p>
 <p>さて、メインの作業である個々のパッケージのインストールおよびアップグレードだが、状況に応じて手動による作業の内容が変わってくることが考えられる。ここでは対象パッケージについて次の条件を仮定しておく。</p>
 <ul class="simple">
-<li>Python プログラミングの個人研究用という名目の環境を構築したい。暗に旧バージョンのパッケージの動作確認等は興味の対象外と言いたい。</li>
-<li><strong class="program">conda</strong> でも <strong class="program">pip</strong> でも取得することになるパッケージのバージョンが同じであれば、
-<strong class="program">conda</strong> のほうを優先する。さもなくば、より新しいバージョンを取得する手法のほうを優先する。たいていの場合それは <strong class="program">pip</strong> のほうだ。</li>
-<li>ローカルディスク上にある自作のパッケージは <strong class="program">pip</strong> で管理する。この場合は常に <code class="docutils literal notranslate"><span class="pre">--edit</span></code> コマンドラインフラグを指定する。</li>
+<li><p>Python プログラミングの個人研究用という名目の環境を構築したい。暗に旧バージョンのパッケージの動作確認等は興味の対象外と言いたい。</p></li>
+<li><p><strong class="program">conda</strong> でも <strong class="program">pip</strong> でも取得することになるパッケージのバージョンが同じであれば、
+<strong class="program">conda</strong> のほうを優先する。さもなくば、より新しいバージョンを取得する手法のほうを優先する。たいていの場合それは <strong class="program">pip</strong> のほうだ。</p></li>
+<li><p>ローカルディスク上にある自作のパッケージは <strong class="program">pip</strong> で管理する。この場合は常に <code class="docutils literal notranslate"><span class="pre">--edit</span></code> コマンドラインフラグを指定する。</p></li>
 </ul>
 <p>パッケージ P を <code class="code docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span></code> によってインストールする場合、
 P が正常に動作するかどうかを確認する作業をする。作業方法は P に依存して変化するわけだが、それについては読書ノート内の各パートを参照する。インストールするパッケージ群に依存関係が存在することがよくあるが、その場合の動作確認の順番は、依存ツリーの根から葉の方向に進める。また、この作業に先立って従来環境における <code class="file docutils literal notranslate"><span class="pre">site-packages</span></code> の状況を従来環境にあるほうのコマンド <code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">freeze</span></code> 等を活用して把握しておくことだ。必要なパッケージを</p>
 <ol class="arabic simple">
-<li><code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> によって得られたものと、</li>
-<li>非公式版アーカイブからのインストールで得られたもの</li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> によって得られたものと、</p></li>
+<li><p>非公式版アーカイブからのインストールで得られたもの</p></li>
 </ol>
 <p>とに分類しておき、整理結果を後の <code class="code docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span></code> と <code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> の使い分けの基準とする。</p>
 <p>Conda の各種設定はホームディレクトリーに所定の書式で記述された構成ファイル <code class="file docutils literal notranslate"><span class="pre">.condarc</span></code> を作成することでも可能である。毎度特定のコマンドラインオプションを指定するようなことがあれば、このテキストファイルにそのようなオプションを記述しておけば、コマンドラインの入力作業の省力化になる。</p>
@@ -119,98 +126,90 @@ P が正常に動作するかどうかを確認する作業をする。作業方
 <div class="section" id="id4">
 <h2><a class="toc-backref" href="#id13">ノート</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <ul>
-<li><p class="first">Anaconda ではなく Miniconda を選択した理由は、必要十分なパッケージを利用可能にしたいからという、個人的な嗜好による。</p>
-</li>
-<li><p class="first">Python の利用者が Conda が何であるかを理解するには、
+<li><p>Anaconda ではなく Miniconda を選択した理由は、必要十分なパッケージを利用可能にしたいからという、個人的な嗜好による。</p></li>
+<li><p>Python の利用者が Conda が何であるかを理解するには、
 <a class="reference external" href="http://conda.pydata.org/docs/_downloads/conda-pip-virtualenv-translator.html">conda vs. pip vs. virtualenv</a>
 の表を見るのが手っ取り早い。</p>
 <ul class="simple">
-<li>要するに <strong class="program">pip</strong> + <strong class="program">virtualenv</strong> である。</li>
+<li><p>要するに <strong class="program">pip</strong> + <strong class="program">virtualenv</strong> である。</p></li>
 </ul>
 </li>
-<li><p class="first">Miniconda のインストーラーは正規版の Python のそれとは異なるのか、
+<li><p>Miniconda のインストーラーは正規版の Python のそれとは異なるのか、
 Windows のスタートメニューを変更しないのだろうか。
-HTML Help ファイルの Python 3.5.x Documentation へのショートカットアイコンがスタートメニューにあるプログラムリストに欲しい。</p>
-</li>
-<li><p class="first">私はパッケージ環境切り替え機能を利用することはほぼないはずだ。
-Python のサードパーティー製パッケージおよび Python 自身を効率的に更新する道具として Miniconda を利用していくだろう。</p>
-</li>
-<li><p class="first">チュートリアルの 30-minute test drive は無難な作業ばかりなので、これは問題になり得ないはずだった。ところが、私が Cygwin の bash でコマンドライン操作のすべてを行うのだが、それに関係して一点だけ問題があった。
+HTML Help ファイルの Python 3.5.x Documentation へのショートカットアイコンがスタートメニューにあるプログラムリストに欲しい。</p></li>
+<li><p>私はパッケージ環境切り替え機能を利用することはほぼないはずだ。
+Python のサードパーティー製パッケージおよび Python 自身を効率的に更新する道具として Miniconda を利用していくだろう。</p></li>
+<li><p>チュートリアルの 30-minute test drive は無難な作業ばかりなので、これは問題になり得ないはずだった。ところが、私が Cygwin の bash でコマンドライン操作のすべてを行うのだが、それに関係して一点だけ問題があった。
 <code class="file docutils literal notranslate"><span class="pre">activate</span></code> スクリプトによる環境を切り替える処理が失敗していることになかなか気付かなかったことだ。</p>
 <p>例えば <code class="file docutils literal notranslate"><span class="pre">activate</span></code> スクリプトの処理の本質は「環境変数 <code class="docutils literal notranslate"><span class="pre">PATH</span></code> に対して、対応する Python 関係のパスを先頭のほうに追加する」ことだ。
 <code class="file docutils literal notranslate"><span class="pre">deactivate</span></code> スクリプトはこれと反対のことを行う。今、スクリプトと書いたが、実際には bash の組み込み関数 <code class="docutils literal notranslate"><span class="pre">source</span></code> で実施するものだ。</p>
 <p>このスクリプトは
 <code class="file docutils literal notranslate"><span class="pre">/d/Miniconda3/envs/myenv</span></code> のようなパスを環境変数 <code class="docutils literal notranslate"><span class="pre">PATH</span></code> の先頭付近に「追加」する。ところが私の Cygwin 環境では未だに <code class="docutils literal notranslate"><span class="pre">/cygdrive</span></code> prefix が生きていたので、全然意味を成さない。
 Cygwin の <code class="file docutils literal notranslate"><span class="pre">/etc/fstab</span></code> あるいは <code class="file docutils literal notranslate"><span class="pre">/etc/fstab.d/$USER</span></code> の内容を次のように編集する必要が生じていた。</p>
-<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># For a description of the file format, see the Users Guide</span>
-<span class="c1"># http://cygwin.com/cygwin-ug-net/using.html#mount-table</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># For a description of the file format, see the Users Guide
+# http://cygwin.com/cygwin-ug-net/using.html#mount-table
 
-<span class="c1"># This is default anyway:</span>
-<span class="c1">#none /cygdrive cygdrive binary,posix=0,user,noacl 0 0</span>
+# This is default anyway:
+#none /cygdrive cygdrive binary,posix=0,user,noacl 0 0
 
-<span class="c1"># Remove /cygdrive/ prefix:</span>
-<span class="n">none</span> <span class="o">/</span> <span class="n">cygdrive</span>          <span class="n">binary</span><span class="p">,</span><span class="n">posix</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">user</span><span class="p">,</span><span class="n">noacl</span> <span class="mi">0</span> <span class="mi">0</span>
+# Remove /cygdrive/ prefix:
+none / cygdrive          binary,posix=0,user,noacl 0 0
 </pre></div>
 </div>
 <p>この編集作業は本件がなかったとしても、厄介な cygdrive 問題の解決はもっと昔に実施してしかるべきだった。反省。</p>
 </li>
-<li><p class="first">非 Miniconda ベースの Python 環境で築いてきた <code class="file docutils literal notranslate"><span class="pre">site-packages</span></code> 下を
+<li><p>非 Miniconda ベースの Python 環境で築いてきた <code class="file docutils literal notranslate"><span class="pre">site-packages</span></code> 下を
 Miniconda において再現するとなると、正規環境のそれにおける作業時間よりも長くなるのかもしれない。
 <a class="reference external" href="http://matplotlib.org/">Matplotlib</a> のインストールを実施したところ、何やら依存パッケージのインストールが絡んできて、そのコストが某サイトの非公式 Wheel を用いたインストールよりも明らかに高く付いた。</p>
 <ul class="simple">
-<li>なお、完全移行達成までは元の正規 Python 環境を解体せぬことだ。環境変数 <code class="docutils literal notranslate"><span class="pre">PATH</span></code> の単純な書き換えでいつでも新旧 Python 間の切り替えが可能だ。動作の比較も容易い。元の環境を放棄する必要性は一般にはない。私にとっては本物は一つでいいので捨てる。</li>
-<li>元の Python 環境での <code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">freeze</span></code> の出力結果を控えておくこと。
-<a class="reference internal" href="python-pip.html"><span class="doc">pip 利用ノート</span></a> 参照。</li>
+<li><p>なお、完全移行達成までは元の正規 Python 環境を解体せぬことだ。環境変数 <code class="docutils literal notranslate"><span class="pre">PATH</span></code> の単純な書き換えでいつでも新旧 Python 間の切り替えが可能だ。動作の比較も容易い。元の環境を放棄する必要性は一般にはない。私にとっては本物は一つでいいので捨てる。</p></li>
+<li><p>元の Python 環境での <code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">freeze</span></code> の出力結果を控えておくこと。
+<a class="reference internal" href="python-pip.html"><span class="doc">pip 利用ノート</span></a> 参照。</p></li>
 </ul>
 </li>
-<li><p class="first"><strong class="program">conda</strong> のコマンドライン操作の設計がドキュメントに頼る必要がないほど質素であるため、当ノートでは「呪文表」を作成しない。いつでも <code class="code docutils literal notranslate"><span class="pre">conda</span> <span class="pre">--help</span></code> なり
-<code class="code docutils literal notranslate"><span class="pre">conda</span> <span class="pre">command</span> <span class="pre">--help</span></code> の出力メッセージで事足りる。</p>
-</li>
-<li><p class="first">Conda の <code class="docutils literal notranslate"><span class="pre">install</span></code> コマンドによる <a class="reference external" href="http://matplotlib.org/">Matplotlib</a> を用いて、バックエンドを既定の <code class="docutils literal notranslate"><span class="pre">TkAgg</span></code> にしたときのウィンドウの表示時に
+<li><p><strong class="program">conda</strong> のコマンドライン操作の設計がドキュメントに頼る必要がないほど質素であるため、当ノートでは「呪文表」を作成しない。いつでも <code class="code docutils literal notranslate"><span class="pre">conda</span> <span class="pre">--help</span></code> なり
+<code class="code docutils literal notranslate"><span class="pre">conda</span> <span class="pre">command</span> <span class="pre">--help</span></code> の出力メッセージで事足りる。</p></li>
+<li><p>Conda の <code class="docutils literal notranslate"><span class="pre">install</span></code> コマンドによる <a class="reference external" href="http://matplotlib.org/">Matplotlib</a> を用いて、バックエンドを既定の <code class="docutils literal notranslate"><span class="pre">TkAgg</span></code> にしたときのウィンドウの表示時に
 Segmentation fault が発生する不具合が私の環境で現在発生している。この不具合のために、元の Python 環境を削除するのを躊躇している。</p>
 <ul class="simple">
-<li>応急処置としてはバックエンドを <code class="docutils literal notranslate"><span class="pre">Qt4Agg</span></code> にセットすることだ。これにより <code class="code docutils literal notranslate"><span class="pre">plt.show()</span></code> などの呼び出しで落ちることはなくなる。設定方法については <a class="reference internal" href="python-matplotlib/basic.html"><span class="doc">基本テク</span></a> および
-<a class="reference internal" href="python-matplotlib/config.html"><span class="doc">環境設定</span></a> を参照。</li>
-<li>仮に <code class="code docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">matplotlib</span></code> ではなく、いつもの非公式バイナリーを <code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> したらおそらく動作すると思われる。そのためには先に別途非公式版をダウンロードしておく必要があるのだが、何のために Miniconda を導入したのかわからなくなる。</li>
+<li><p>応急処置としてはバックエンドを <code class="docutils literal notranslate"><span class="pre">Qt4Agg</span></code> にセットすることだ。これにより <code class="code docutils literal notranslate"><span class="pre">plt.show()</span></code> などの呼び出しで落ちることはなくなる。設定方法については <a class="reference internal" href="python-matplotlib/basic.html"><span class="doc">基本テク</span></a> および
+<a class="reference internal" href="python-matplotlib/config.html"><span class="doc">環境設定</span></a> を参照。</p></li>
+<li><p>仮に <code class="code docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">matplotlib</span></code> ではなく、いつもの非公式バイナリーを <code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> したらおそらく動作すると思われる。そのためには先に別途非公式版をダウンロードしておく必要があるのだが、何のために Miniconda を導入したのかわからなくなる。</p></li>
 </ul>
 </li>
-<li><p class="first"><strong class="program">conda</strong> の設定ファイル <code class="file docutils literal notranslate"><span class="pre">.condarc</span></code> は今のところ用意しないで済みそうだ。各コマンドのオプション引数についての既定値が優秀であるところが大きい。</p>
-</li>
-<li><p class="first">パッケージ P について、
+<li><p><strong class="program">conda</strong> の設定ファイル <code class="file docutils literal notranslate"><span class="pre">.condarc</span></code> は今のところ用意しないで済みそうだ。各コマンドのオプション引数についての既定値が優秀であるところが大きい。</p></li>
+<li><p>パッケージ P について、
 <code class="code docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">P</span></code> してから <code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">P</span></code> することが可能であることがある。可能な場合には、これらが同一環境下に共存する。</p>
 <ul>
-<li><p class="first">環境にある全パッケージを単にアップグレードするには、次のコマンドでよい。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda update --all
+<li><p>環境にある全パッケージを単にアップグレードするには、次のコマンドでよい。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> conda update --all --yes
 </pre></div>
 </div>
 </li>
-<li><p class="first">困ったことに <strong class="program">pip</strong> によってインストールしたパッケージのバージョンが
-<strong class="program">conda</strong> のものより新しい傾向がある。例えば上記コマンドの実行直後に <code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">list</span> <span class="pre">-o</span></code> すると、なおパッケージ名が列記されることがある。このようなパッケージは <strong class="program">conda</strong> での管理とは別に「手動で」管理するハメになる。インストールもアップグレードもなるべく <strong class="program">conda</strong> で統一したいのだが。</p>
-</li>
-<li><p class="first">一括アップグレードを実現する場合、このことが重要である。つまり、次のような手順を採用することになるだろう。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda update --all
-$ pip install --upgrade --requirement reqpip.txt
+<li><p>困ったことに <strong class="program">pip</strong> によってインストールしたパッケージのバージョンが
+<strong class="program">conda</strong> のものより新しい傾向がある。例えば上記コマンドの実行直後に <code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">list</span> <span class="pre">-o</span></code> すると、なおパッケージ名が列記されることがある。このようなパッケージは <strong class="program">conda</strong> での管理とは別に「手動で」管理するハメになる。インストールもアップグレードもなるべく <strong class="program">conda</strong> で統一したいのだが。</p></li>
+<li><p>一括アップグレードを実現する場合、このことが重要である。つまり、次のような手順を採用することになるだろう。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> conda update --all --yes
+<span class="gp">$</span> pip install --upgrade --requirement reqpip.txt
 </pre></div>
 </div>
 <p>ここで、パッケージ一覧ファイル <code class="file docutils literal notranslate"><span class="pre">reqpip.txt</span></code> はあらかじめ用意する必要があるものである。</p>
 </li>
-<li><p class="first">パッケージ間の依存関係とインストール時に用いたツールの違いが問題になることはあるだろうか。</p>
-</li>
+<li><p>パッケージ間の依存関係とインストール時に用いたツールの違いが問題になることはあるだろうか。</p></li>
 </ul>
 </li>
-<li><p class="first">初回のパッケージ調達が一段落したら、上記の自動化に備えて
+<li><p>初回のパッケージ調達が一段落したら、上記の自動化に備えて
 <code class="file docutils literal notranslate"><span class="pre">reqconda.txt</span></code> と <code class="file docutils literal notranslate"><span class="pre">reqpip.txt</span></code> を作成しておくとよい。アップグレード目的のため、バージョン文字列はカットしたい。こうだろうか。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda list --export --no-pip | cut -d= -f1 &gt; reqconda.txt
-$ conda list | grep &#39;&lt;pip&gt;&#39; | cut -f1 -d&#39; &#39; &gt; reqpip.txt
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> conda list --export --no-pip <span class="p">|</span> cut -d<span class="o">=</span> -f1 &gt; reqconda.txt
+<span class="gp">$</span> conda list <span class="p">|</span> grep <span class="s1">&#39;&lt;pip&gt;&#39;</span> <span class="p">|</span> cut -f1 -d<span class="s1">&#39; &#39;</span> &gt; reqpip.txt
 </pre></div>
 </div>
 </li>
-<li><p class="first">Conda を利用することの（私にとっての）利点は、どのパッケージでもインストールとアップグレードの方法が統一化できるということだ。当ノートではいろいろな Python パッケージについての考察があるが、それらのどれにも書くハメになっていた、インストールおよびアップグレードの云々をする必要がなくなったのも大きい。</p>
-</li>
-<li><p class="first">一般のサードパーティー製 Python パッケージのインストール手順は次の図のようにすることにした。ここではローカルにあるソースコードを <code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span></code> でインストールする状況は考慮していない。</p>
-<div class="figure" id="id9">
+<li><p>Conda を利用することの（私にとっての）利点は、どのパッケージでもインストールとアップグレードの方法が統一化できるということだ。当ノートではいろいろな Python パッケージについての考察があるが、それらのどれにも書くハメになっていた、インストールおよびアップグレードの云々をする必要がなくなったのも大きい。</p></li>
+<li><p>一般のサードパーティー製 Python パッケージのインストール手順は次の図のようにすることにした。ここではローカルにあるソースコードを <code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span></code> でインストールする状況は考慮していない。</p>
+<div class="figure align-default" id="id9">
 <span id="python-pkg-proc"></span><a class="reference internal image-reference" href="_images/python-pkg-proc.png"><img alt="_images/python-pkg-proc.png" src="_images/python-pkg-proc.png" style="width: 657.0px; height: 407.0px;" /></a>
-<p class="caption"><span class="caption-text">一般のサードパーティー製 Python パッケージのインストール手順</span></p>
+<p class="caption"><span class="caption-text">一般のサードパーティー製 Python パッケージのインストール手順</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </div>
 </li>
 </ul>
@@ -219,135 +218,135 @@ $ conda list | grep &#39;&lt;pip&gt;&#39; | cut -f1 -d&#39; &#39; &gt; reqpip.tx
 <h2><a class="toc-backref" href="#id14">3.5 から 3.6 への移行手順ノート</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>この節では <code class="docutils literal notranslate"><span class="pre">root</span></code> として Python 3.5 系の環境を構築してあるところに、そのバックアップ環境を残しながらも Python 3.6 系の環境を構築するときの手順の一例を記す。基本方針を列挙すると次のようになる：</p>
 <ul class="simple">
-<li>旧 <code class="docutils literal notranslate"><span class="pre">root</span></code> 環境を <code class="docutils literal notranslate"><span class="pre">3.5</span></code> という名前の環境にバックアップする。</li>
-<li>旧 <code class="docutils literal notranslate"><span class="pre">root</span></code> 環境にあるサードパーティー製パッケージを可能な限り新 <code class="docutils literal notranslate"><span class="pre">root</span></code> 環境にも導入する。</li>
-<li>新 <code class="docutils literal notranslate"><span class="pre">root</span></code> 環境は Python 3.6 で動作するものとする。</li>
+<li><p>旧 <code class="docutils literal notranslate"><span class="pre">root</span></code> 環境を <code class="docutils literal notranslate"><span class="pre">3.5</span></code> という名前の環境にバックアップする。</p></li>
+<li><p>旧 <code class="docutils literal notranslate"><span class="pre">root</span></code> 環境にあるサードパーティー製パッケージを可能な限り新 <code class="docutils literal notranslate"><span class="pre">root</span></code> 環境にも導入する。</p></li>
+<li><p>新 <code class="docutils literal notranslate"><span class="pre">root</span></code> 環境は Python 3.6 で動作するものとする。</p></li>
 </ul>
 <div class="section" id="id6">
 <h3><a class="toc-backref" href="#id15">バックアップ</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>現在の <code class="docutils literal notranslate"><span class="pre">root</span></code> 環境とそっくり同じものを <code class="docutils literal notranslate"><span class="pre">3.5</span></code> として作成し、管理されているパッケージ群を専用コマンドでテキストファイルに出力する。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda create -n 3.5
-$ conda env export -n 3.5 &gt; 3.5.yml
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> conda create -n <span class="m">3</span>.5
+<span class="gp">$</span> conda env <span class="nb">export</span> -n <span class="m">3</span>.5 &gt; <span class="m">3</span>.5.yml
 </pre></div>
 </div>
 </div>
 <div class="section" id="root">
 <h3><a class="toc-backref" href="#id16">新 <code class="docutils literal notranslate"><span class="pre">root</span></code> 環境を構築</a><a class="headerlink" href="#root" title="Permalink to this headline">¶</a></h3>
 <p>まずは <code class="docutils literal notranslate"><span class="pre">root</span></code> 環境の Python を 3.6 にアップグレードする。これには <code class="docutils literal notranslate"><span class="pre">update</span></code> コマンドではなく <code class="docutils literal notranslate"><span class="pre">install</span></code> を用いる必要がある：</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda install python=3.6
-Fetching package metadata ...........
-Solving package specifications: .
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> conda install <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.6
+<span class="go">Fetching package metadata ...........</span>
+<span class="go">Solving package specifications: .</span>
 
 
-UnsatisfiableError: The following specifications were found to be in conflict:
-  - nbpresent -&gt; _nb_ext_conf -&gt; nb_anacondacloud -&gt; python 2.7*
-  - python 3.6*
-Use &quot;conda info &lt;package&gt;&quot; to see the dependencies for each package.
+<span class="go">UnsatisfiableError: The following specifications were found to be in conflict:</span>
+<span class="go">  - nbpresent -&gt; _nb_ext_conf -&gt; nb_anacondacloud -&gt; python 2.7*</span>
+<span class="go">  - python 3.6*</span>
+<span class="go">Use &quot;conda info &lt;package&gt;&quot; to see the dependencies for each package.</span>
 </pre></div>
 </div>
 <p>すると上記のようなエラーが発生した。これは人によっては異なるだろう。いったん指摘されたパッケージを取り除いて、後で再インストールを試みるという作戦でいきたい：</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda uninstall nbpresent
-Fetching package metadata ...........
-Solving package specifications: .
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> conda uninstall nbpresent
+<span class="go">Fetching package metadata ...........</span>
+<span class="go">Solving package specifications: .</span>
 
-Package plan for package removal in environment D:\Miniconda3:
+<span class="go">Package plan for package removal in environment D:\Miniconda3:</span>
 
-The following packages will be REMOVED:
+<span class="go">The following packages will be REMOVED:</span>
 
-    _nb_ext_conf:     0.3.0-py35_0
-    nb_anacondacloud: 1.2.0-py35_0
-    nb_conda:         2.0.0-py35_0
-    nb_conda_kernels: 2.0.0-py35_0
-    nbpresent:        3.0.2-py35_0
+<span class="go">    _nb_ext_conf:     0.3.0-py35_0</span>
+<span class="go">    nb_anacondacloud: 1.2.0-py35_0</span>
+<span class="go">    nb_conda:         2.0.0-py35_0</span>
+<span class="go">    nb_conda_kernels: 2.0.0-py35_0</span>
+<span class="go">    nbpresent:        3.0.2-py35_0</span>
 
-Proceed ([y]/n)?
+<span class="go">Proceed ([y]/n)?</span>
 </pre></div>
 </div>
 <p>再度 <code class="docutils literal notranslate"><span class="pre">install</span></code> コマンドを試す：</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda install python=3.6
-Fetching package metadata ...........
-Solving package specifications: .
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> conda install <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.6
+<span class="go">Fetching package metadata ...........</span>
+<span class="go">Solving package specifications: .</span>
 
-Package plan for installation in environment D:\Miniconda3\:
+<span class="go">Package plan for installation in environment D:\Miniconda3\:</span>
 
-The following packages will be UPDATED:
+<span class="go">The following packages will be UPDATED:</span>
 
-    anaconda-client:     1.6.2-py35_0        --&gt; 1.6.2-py36_0
-    astroid:             1.4.9-py35_0        --&gt; 1.4.9-py36_0
-    bleach:              1.5.0-py35_0        --&gt; 1.5.0-py36_0
-    cffi:                1.9.1-py35_0        --&gt; 1.9.1-py36_0
-    clyent:              1.2.2-py35_0        --&gt; 1.2.2-py36_0
-    colorama:            0.3.7-py35_0        --&gt; 0.3.7-py36_0
-    cryptography:        1.7.1-py35_0        --&gt; 1.7.1-py36_0
-    cycler:              0.10.0-py35_0       --&gt; 0.10.0-py36_0
-    decorator:           4.0.11-py35_0       --&gt; 4.0.11-py36_0
-    entrypoints:         0.2.2-py35_1        --&gt; 0.2.2-py36_1
-    html5lib:            0.999-py35_0        --&gt; 0.999-py36_0
-    idna:                2.2-py35_0          --&gt; 2.2-py36_0
-    ipykernel:           4.5.2-py35_0        --&gt; 4.5.2-py36_0
-    ipython:             5.3.0-py35_0        --&gt; 5.3.0-py36_0
-    ipython_genutils:    0.1.0-py35_0        --&gt; 0.1.0-py36_0
-    ipywidgets:          6.0.0-py35_0        --&gt; 6.0.0-py36_0
-    isort:               4.2.5-py35_0        --&gt; 4.2.5-py36_0
-    jinja2:              2.9.5-py35_0        --&gt; 2.9.5-py36_0
-    jsonschema:          2.5.1-py35_0        --&gt; 2.5.1-py36_0
-    jupyter:             1.0.0-py35_3        --&gt; 1.0.0-py36_3
-    jupyter_client:      5.0.0-py35_0        --&gt; 5.0.0-py36_0
-    jupyter_console:     5.1.0-py35_0        --&gt; 5.1.0-py36_0
-    jupyter_core:        4.3.0-py35_0        --&gt; 4.3.0-py36_0
-    lazy-object-proxy:   1.2.2-py35_0        --&gt; 1.2.2-py36_0
-    markupsafe:          0.23-py35_2         --&gt; 0.23-py36_2
-    matplotlib:          2.0.0-np112py35_0   --&gt; 2.0.0-np112py36_0
-    menuinst:            1.4.4-py35_0        --&gt; 1.4.4-py36_0
-    mistune:             0.7.4-py35_0        --&gt; 0.7.4-py36_0
-    nbconvert:           5.1.1-py35_0        --&gt; 5.1.1-py36_0
-    nbformat:            4.3.0-py35_0        --&gt; 4.3.0-py36_0
-    networkx:            1.11-py35_0         --&gt; 1.11-py36_0
-    nose:                1.3.7-py35_1        --&gt; 1.3.7-py36_1
-    notebook:            4.4.1-py35_0        --&gt; 4.4.1-py36_0
-    numpy:               1.12.0-py35_0       --&gt; 1.12.0-py36_0
-    olefile:             0.44-py35_0         --&gt; 0.44-py36_0
-    pandocfilters:       1.4.1-py35_0        --&gt; 1.4.1-py36_0
-    path.py:             10.1-py35_0         --&gt; 10.1-py36_0
-    pickleshare:         0.7.4-py35_0        --&gt; 0.7.4-py36_0
-    pillow:              4.0.0-py35_1        --&gt; 4.0.0-py36_1
-    pip:                 9.0.1-py35_1        --&gt; 9.0.1-py36_1
-    prompt_toolkit:      1.0.13-py35_0       --&gt; 1.0.13-py36_0
-    pyasn1:              0.2.3-py35_0        --&gt; 0.2.3-py36_0
-    pycosat:             0.6.1-py35_1        --&gt; 0.6.1-py36_1
-    pycparser:           2.17-py35_0         --&gt; 2.17-py36_0
-    pycrypto:            2.6.1-py35_5        --&gt; 2.6.1-py36_5
-    pygments:            2.2.0-py35_0        --&gt; 2.2.0-py36_0
-    pylint:              1.6.4-py35_1        --&gt; 1.6.4-py36_1
-    pyopengl:            3.1.1a1-np112py35_0 --&gt; 3.1.1a1-np112py36_0
-    pyopengl-accelerate: 3.1.1a1-np112py35_0 --&gt; 3.1.1a1-np112py36_0
-    pyopenssl:           16.2.0-py35_0       --&gt; 16.2.0-py36_0
-    pyparsing:           2.1.4-py35_0        --&gt; 2.1.4-py36_0
-    pyqt:                5.6.0-py35_2        --&gt; 5.6.0-py36_2
-    python:              3.5.3-0             --&gt; 3.6.0-0
-    python-dateutil:     2.6.0-py35_0        --&gt; 2.6.0-py36_0
-    pytz:                2016.10-py35_0      --&gt; 2016.10-py36_0
-    pywin32:             220-py35_2          --&gt; 220-py36_2
-    pyyaml:              3.12-py35_0         --&gt; 3.12-py36_0
-    pyzmq:               16.0.2-py35_0       --&gt; 16.0.2-py36_0
-    qtconsole:           4.2.1-py35_2        --&gt; 4.2.1-py36_2
-    requests:            2.13.0-py35_0       --&gt; 2.13.0-py36_0
-    ruamel_yaml:         0.11.14-py35_1      --&gt; 0.11.14-py36_1
-    scipy:               0.19.0-np112py35_0  --&gt; 0.19.0-np112py36_0
-    setuptools:          27.2.0-py35_1       --&gt; 27.2.0-py36_1
-    simplegeneric:       0.8.1-py35_1        --&gt; 0.8.1-py36_1
-    sip:                 4.18-py35_0         --&gt; 4.18-py36_0
-    six:                 1.10.0-py35_0       --&gt; 1.10.0-py36_0
-    testpath:            0.3-py35_0          --&gt; 0.3-py36_0
-    tornado:             4.4.2-py35_0        --&gt; 4.4.2-py36_0
-    traitlets:           4.3.2-py35_0        --&gt; 4.3.2-py36_0
-    wcwidth:             0.1.7-py35_0        --&gt; 0.1.7-py36_0
-    wheel:               0.29.0-py35_0       --&gt; 0.29.0-py36_0
-    widgetsnbextension:  2.0.0-py35_0        --&gt; 2.0.0-py36_0
-    win_unicode_console: 0.5-py35_0          --&gt; 0.5-py36_0
-    wrapt:               1.10.8-py35_0       --&gt; 1.10.8-py36_0
+<span class="go">    anaconda-client:     1.6.2-py35_0        --&gt; 1.6.2-py36_0</span>
+<span class="go">    astroid:             1.4.9-py35_0        --&gt; 1.4.9-py36_0</span>
+<span class="go">    bleach:              1.5.0-py35_0        --&gt; 1.5.0-py36_0</span>
+<span class="go">    cffi:                1.9.1-py35_0        --&gt; 1.9.1-py36_0</span>
+<span class="go">    clyent:              1.2.2-py35_0        --&gt; 1.2.2-py36_0</span>
+<span class="go">    colorama:            0.3.7-py35_0        --&gt; 0.3.7-py36_0</span>
+<span class="go">    cryptography:        1.7.1-py35_0        --&gt; 1.7.1-py36_0</span>
+<span class="go">    cycler:              0.10.0-py35_0       --&gt; 0.10.0-py36_0</span>
+<span class="go">    decorator:           4.0.11-py35_0       --&gt; 4.0.11-py36_0</span>
+<span class="go">    entrypoints:         0.2.2-py35_1        --&gt; 0.2.2-py36_1</span>
+<span class="go">    html5lib:            0.999-py35_0        --&gt; 0.999-py36_0</span>
+<span class="go">    idna:                2.2-py35_0          --&gt; 2.2-py36_0</span>
+<span class="go">    ipykernel:           4.5.2-py35_0        --&gt; 4.5.2-py36_0</span>
+<span class="go">    ipython:             5.3.0-py35_0        --&gt; 5.3.0-py36_0</span>
+<span class="go">    ipython_genutils:    0.1.0-py35_0        --&gt; 0.1.0-py36_0</span>
+<span class="go">    ipywidgets:          6.0.0-py35_0        --&gt; 6.0.0-py36_0</span>
+<span class="go">    isort:               4.2.5-py35_0        --&gt; 4.2.5-py36_0</span>
+<span class="go">    jinja2:              2.9.5-py35_0        --&gt; 2.9.5-py36_0</span>
+<span class="go">    jsonschema:          2.5.1-py35_0        --&gt; 2.5.1-py36_0</span>
+<span class="go">    jupyter:             1.0.0-py35_3        --&gt; 1.0.0-py36_3</span>
+<span class="go">    jupyter_client:      5.0.0-py35_0        --&gt; 5.0.0-py36_0</span>
+<span class="go">    jupyter_console:     5.1.0-py35_0        --&gt; 5.1.0-py36_0</span>
+<span class="go">    jupyter_core:        4.3.0-py35_0        --&gt; 4.3.0-py36_0</span>
+<span class="go">    lazy-object-proxy:   1.2.2-py35_0        --&gt; 1.2.2-py36_0</span>
+<span class="go">    markupsafe:          0.23-py35_2         --&gt; 0.23-py36_2</span>
+<span class="go">    matplotlib:          2.0.0-np112py35_0   --&gt; 2.0.0-np112py36_0</span>
+<span class="go">    menuinst:            1.4.4-py35_0        --&gt; 1.4.4-py36_0</span>
+<span class="go">    mistune:             0.7.4-py35_0        --&gt; 0.7.4-py36_0</span>
+<span class="go">    nbconvert:           5.1.1-py35_0        --&gt; 5.1.1-py36_0</span>
+<span class="go">    nbformat:            4.3.0-py35_0        --&gt; 4.3.0-py36_0</span>
+<span class="go">    networkx:            1.11-py35_0         --&gt; 1.11-py36_0</span>
+<span class="go">    nose:                1.3.7-py35_1        --&gt; 1.3.7-py36_1</span>
+<span class="go">    notebook:            4.4.1-py35_0        --&gt; 4.4.1-py36_0</span>
+<span class="go">    numpy:               1.12.0-py35_0       --&gt; 1.12.0-py36_0</span>
+<span class="go">    olefile:             0.44-py35_0         --&gt; 0.44-py36_0</span>
+<span class="go">    pandocfilters:       1.4.1-py35_0        --&gt; 1.4.1-py36_0</span>
+<span class="go">    path.py:             10.1-py35_0         --&gt; 10.1-py36_0</span>
+<span class="go">    pickleshare:         0.7.4-py35_0        --&gt; 0.7.4-py36_0</span>
+<span class="go">    pillow:              4.0.0-py35_1        --&gt; 4.0.0-py36_1</span>
+<span class="go">    pip:                 9.0.1-py35_1        --&gt; 9.0.1-py36_1</span>
+<span class="go">    prompt_toolkit:      1.0.13-py35_0       --&gt; 1.0.13-py36_0</span>
+<span class="go">    pyasn1:              0.2.3-py35_0        --&gt; 0.2.3-py36_0</span>
+<span class="go">    pycosat:             0.6.1-py35_1        --&gt; 0.6.1-py36_1</span>
+<span class="go">    pycparser:           2.17-py35_0         --&gt; 2.17-py36_0</span>
+<span class="go">    pycrypto:            2.6.1-py35_5        --&gt; 2.6.1-py36_5</span>
+<span class="go">    pygments:            2.2.0-py35_0        --&gt; 2.2.0-py36_0</span>
+<span class="go">    pylint:              1.6.4-py35_1        --&gt; 1.6.4-py36_1</span>
+<span class="go">    pyopengl:            3.1.1a1-np112py35_0 --&gt; 3.1.1a1-np112py36_0</span>
+<span class="go">    pyopengl-accelerate: 3.1.1a1-np112py35_0 --&gt; 3.1.1a1-np112py36_0</span>
+<span class="go">    pyopenssl:           16.2.0-py35_0       --&gt; 16.2.0-py36_0</span>
+<span class="go">    pyparsing:           2.1.4-py35_0        --&gt; 2.1.4-py36_0</span>
+<span class="go">    pyqt:                5.6.0-py35_2        --&gt; 5.6.0-py36_2</span>
+<span class="go">    python:              3.5.3-0             --&gt; 3.6.0-0</span>
+<span class="go">    python-dateutil:     2.6.0-py35_0        --&gt; 2.6.0-py36_0</span>
+<span class="go">    pytz:                2016.10-py35_0      --&gt; 2016.10-py36_0</span>
+<span class="go">    pywin32:             220-py35_2          --&gt; 220-py36_2</span>
+<span class="go">    pyyaml:              3.12-py35_0         --&gt; 3.12-py36_0</span>
+<span class="go">    pyzmq:               16.0.2-py35_0       --&gt; 16.0.2-py36_0</span>
+<span class="go">    qtconsole:           4.2.1-py35_2        --&gt; 4.2.1-py36_2</span>
+<span class="go">    requests:            2.13.0-py35_0       --&gt; 2.13.0-py36_0</span>
+<span class="go">    ruamel_yaml:         0.11.14-py35_1      --&gt; 0.11.14-py36_1</span>
+<span class="go">    scipy:               0.19.0-np112py35_0  --&gt; 0.19.0-np112py36_0</span>
+<span class="go">    setuptools:          27.2.0-py35_1       --&gt; 27.2.0-py36_1</span>
+<span class="go">    simplegeneric:       0.8.1-py35_1        --&gt; 0.8.1-py36_1</span>
+<span class="go">    sip:                 4.18-py35_0         --&gt; 4.18-py36_0</span>
+<span class="go">    six:                 1.10.0-py35_0       --&gt; 1.10.0-py36_0</span>
+<span class="go">    testpath:            0.3-py35_0          --&gt; 0.3-py36_0</span>
+<span class="go">    tornado:             4.4.2-py35_0        --&gt; 4.4.2-py36_0</span>
+<span class="go">    traitlets:           4.3.2-py35_0        --&gt; 4.3.2-py36_0</span>
+<span class="go">    wcwidth:             0.1.7-py35_0        --&gt; 0.1.7-py36_0</span>
+<span class="go">    wheel:               0.29.0-py35_0       --&gt; 0.29.0-py36_0</span>
+<span class="go">    widgetsnbextension:  2.0.0-py35_0        --&gt; 2.0.0-py36_0</span>
+<span class="go">    win_unicode_console: 0.5-py35_0          --&gt; 0.5-py36_0</span>
+<span class="go">    wrapt:               1.10.8-py35_0       --&gt; 1.10.8-py36_0</span>
 
-Proceed ([y]/n)?
+<span class="go">Proceed ([y]/n)?</span>
 </pre></div>
 </div>
 <p>この画面まで行けば問題はない。ここからは <strong class="program">conda</strong> が自動でパッケージを大量にダウンロード、インストールしてくれる。まだ <code class="docutils literal notranslate"><span class="pre">UnsatisfiableError</span></code> が生じるようならば、再度対象パッケージの <code class="docutils literal notranslate"><span class="pre">remove</span></code> を都度実行する。なお <strong class="program">conda</strong> 以外の方法で導入したパッケージは別途インストールすること。</p>
@@ -358,11 +357,35 @@ Proceed ([y]/n)?
 <code class="code docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span></code> の予告リストのパッケージバージョンが 3.6 に一致するか指差し確認したい。</p>
 <p>せっかく作った 3.6 環境に 3.5 のパッケージをインストールすると、それ以外のパッケージも 3.5 のものにダウングレードしてしまうようだ。そのことについては <strong class="program">conda</strong> は警告しない。</p>
 <p>欲しいパッケージの 3.6 版がない場合は、それ以上の作業は見送るのがよい。</p>
+<div class="section" id="v4-7-5">
+<h4><a class="toc-backref" href="#id18">V4.7.5</a><a class="headerlink" href="#v4-7-5" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p>これまで <code class="docutils literal notranslate"><span class="pre">root</span></code> と書いたものは <code class="docutils literal notranslate"><span class="pre">base</span></code> と呼ばれるように変更されたらしい。</p></li>
+<li><p>どうやら <code class="code docutils literal notranslate"><span class="pre">conda</span> <span class="pre">update</span></code> 系のコマンド実行に OS の管理者権限が必要となったらしい。通常権限のコンソールで更新系のコマンドを実行すると、最後に例外が発生して正しくファイルが配置されない。これは Windows のスタートメニュー <span class="guilabel">Anaconda Prompt</span> を右クリックして「管理者として実行」してから更新コマンドを実行することで免れる。以下に一例を示す：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> conda --version
+<span class="go">conda 4.7.5</span>
+<span class="gp">$</span> conda update --all --yes
+<span class="go">Collecting package metadata (current_repodata.json): done</span>
+<span class="go">Solving environment: done</span>
+<span class="go">...</span>
+<span class="go">Downloading and Extracting Packages</span>
+<span class="go">...</span>
+<span class="go">Preparing transaction: done</span>
+<span class="go">Verifying transaction: failed</span>
+
+<span class="go">EnvironmentNotWritableError: The current user does not have write permissions to the target environment.</span>
+<span class="go">  environment location: D:\Miniconda3</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
       </div>
       <div class="clearer"></div>
@@ -376,7 +399,8 @@ Proceed ([y]/n)?
         <li class="right" >
           <a href="python-upgrade.html" title="Python 移行ノート"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Miniconda 利用ノート</a></li> 
       </ul>
     </div>
     <div id="footer">
@@ -385,7 +409,7 @@ Proceed ([y]/n)?
       </div>
       <div id="footer_copyright">
         Since 1999<br />
-        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+        Copyright &copy; 1999-2020, プレハブ小屋 All rights reserved.
       </div>
     </div>
   </body>

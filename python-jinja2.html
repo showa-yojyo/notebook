@@ -1,17 +1,17 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Jinja2 利用ノート &#8212; 読書ノート v1.4</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jinja2 利用ノート &#8212; 読書ノート v1.5dev</title>
     <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/mathjaxconf.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/mathjax-v3.js"></script>
+    
     <link rel="next" title="Pygments 利用ノート" href="python-pygments.html" />
     <link rel="prev" title="Quaternion 利用ノート" href="python-quaternion.html" /> 
   </head><body>
@@ -24,7 +24,8 @@
         <li class="right" >
           <a href="python-quaternion.html" title="Quaternion 利用ノート"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Jinja2 利用ノート</a></li> 
       </ul>
     </div>  
 
@@ -33,92 +34,98 @@
           <div class="body" role="main">
             
   <div class="section" id="jinja2">
-<h1><a class="toc-backref" href="#id23">Jinja2 利用ノート</a><a class="headerlink" href="#jinja2" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id24">Jinja2 利用ノート</a><a class="headerlink" href="#jinja2" title="Permalink to this headline">¶</a></h1>
 <div class="contents topic" id="id1">
-<p class="topic-title first">ノート目次</p>
+<p class="topic-title">ノート目次</p>
 <ul class="simple">
-<li><a class="reference internal" href="#jinja2" id="id23">Jinja2 利用ノート</a><ul>
-<li><a class="reference internal" href="#id2" id="id24">関連リンク</a></li>
-<li><a class="reference internal" href="#id3" id="id25">Jinja2 とは何なのか</a></li>
-<li><a class="reference internal" href="#id4" id="id26">インストール方法</a></li>
-<li><a class="reference internal" href="#python" id="id27">Python コードを書く</a><ul>
-<li><a class="reference internal" href="#hello-world" id="id28">Hello world</a></li>
-<li><a class="reference internal" href="#environment" id="id29">クラス Environment</a></li>
-<li><a class="reference internal" href="#template" id="id30">クラス Template</a></li>
-<li><a class="reference internal" href="#loader" id="id31">各種 Loader</a></li>
+<li><p><a class="reference internal" href="#jinja2" id="id24">Jinja2 利用ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id25">関連リンク</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id26">Jinja2 とは何なのか</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id27">インストール方法</a></p></li>
+<li><p><a class="reference internal" href="#python" id="id28">Python コードを書く</a></p>
+<ul>
+<li><p><a class="reference internal" href="#hello-world" id="id29">Hello world</a></p></li>
+<li><p><a class="reference internal" href="#environment" id="id30">クラス Environment</a></p></li>
+<li><p><a class="reference internal" href="#template" id="id31">クラス Template</a></p></li>
+<li><p><a class="reference internal" href="#loader" id="id32">各種 Loader</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id5" id="id32">テンプレートの記法</a><ul>
-<li><a class="reference internal" href="#id6" id="id33">初歩的なテンプレートの例</a></li>
-<li><a class="reference internal" href="#id7" id="id34">テンプレートに変数を埋め込む方法</a></li>
-<li><a class="reference internal" href="#id8" id="id35">フィルター</a></li>
-<li><a class="reference internal" href="#id9" id="id36">条件分岐</a></li>
-<li><a class="reference internal" href="#id10" id="id37">コメント</a></li>
-<li><a class="reference internal" href="#id11" id="id38">空白文字を制御する方法</a></li>
-<li><a class="reference internal" href="#id12" id="id39">特別な文字をエスケープする方法</a></li>
-<li><a class="reference internal" href="#id13" id="id40">テンプレートを継承する方法</a></li>
-<li><a class="reference internal" href="#id14" id="id41">各種制御構造</a></li>
-<li><a class="reference internal" href="#id15" id="id42">変数のセット</a></li>
-<li><a class="reference internal" href="#include" id="id43"><code class="docutils literal notranslate"><span class="pre">include</span></code> 文</a></li>
-<li><a class="reference internal" href="#import" id="id44"><code class="docutils literal notranslate"><span class="pre">import</span></code> 文</a></li>
+<li><p><a class="reference internal" href="#id5" id="id33">テンプレートの記法</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id6" id="id34">初歩的なテンプレートの例</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id35">テンプレートに変数を埋め込む方法</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id36">フィルター</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id37">条件分岐</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id38">コメント</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id39">空白文字を制御する方法</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id40">特別な文字をエスケープする方法</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id41">テンプレートを継承する方法</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id42">各種制御構造</a></p></li>
+<li><p><a class="reference internal" href="#id15" id="id43">変数のセット</a></p></li>
+<li><p><a class="reference internal" href="#include" id="id44"><code class="docutils literal notranslate"><span class="pre">include</span></code> 文</a></p></li>
+<li><p><a class="reference internal" href="#import" id="id45"><code class="docutils literal notranslate"><span class="pre">import</span></code> 文</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id16" id="id45">応用例を考える</a><ul>
-<li><a class="reference internal" href="#id17" id="id46">簡易日記テキストファイル</a></li>
+<li><p><a class="reference internal" href="#id16" id="id46">応用例を考える</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id17" id="id47">簡易日記テキストファイル</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#todo" id="id47">TODO</a></li>
+<li><p><a class="reference internal" href="#todo" id="id48">TODO</a></p></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>本稿執筆時の動作環境は次のとおり。</p>
-<ul class="last simple">
-<li>OS<ul>
-<li>Windows XP Home Edition SP3</li>
-<li>Windows 7 Home Premium x64 SP1</li>
-<li>Windows 10 Home x64</li>
+<ul class="simple">
+<li><p>OS</p>
+<ul>
+<li><p>Windows XP Home Edition SP3</p></li>
+<li><p>Windows 7 Home Premium x64 SP1</p></li>
+<li><p>Windows 10 Home x64</p></li>
 </ul>
 </li>
-<li>Python およびパッケージ<ul>
-<li><a class="reference external" href="http://www.python.org/">Python</a>: 2.6.6, 2.7.3, 3.4.1, 3.5.0, 3.5.2</li>
-<li><a class="reference external" href="http://jinja.pocoo.org/">Jinja2</a>: 2.5.5, 2.6, 2.8</li>
+<li><p>Python およびパッケージ</p>
+<ul>
+<li><p><a class="reference external" href="http://www.python.org/">Python</a>: 2.6.6, 2.7.3, 3.4.1, 3.5.0, 3.5.2</p></li>
+<li><p><a class="reference external" href="http://jinja.pocoo.org/">Jinja2</a>: 2.5.5, 2.6, 2.8</p></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="id2">
-<h2><a class="toc-backref" href="#id24">関連リンク</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt><a class="reference external" href="http://jinja.pocoo.org/">Jinja2</a></dt>
-<dd>公式サイト。</dd>
+<h2><a class="toc-backref" href="#id25">関連リンク</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<dl class="simple">
+<dt><a class="reference external" href="http://jinja.pocoo.org/">Jinja2</a></dt><dd><p>公式サイト。</p>
+</dd>
 </dl>
 </div>
 <div class="section" id="id3">
-<h2><a class="toc-backref" href="#id25">Jinja2 とは何なのか</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id26">Jinja2 とは何なのか</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Jinja2 Documentation によると &lt;general purpose templating language&gt; とのこと。
-Python で動くライブラリーであると同時に、テンプレートを何かする言語でもある。</li>
-<li>Jinja という名前は日本語の神社から来ているらしい。その理由は：
+<li><p>Jinja2 Documentation によると &lt;general purpose templating language&gt; とのこと。
+Python で動くライブラリーであると同時に、テンプレートを何かする言語でもある。</p></li>
+<li><p>Jinja という名前は日本語の神社から来ているらしい。その理由は：
 &lt;it’s the name of a Japanese temple and temple and template share
-a similar pronunciation&gt; (Jinja2 Documentation, “Why is it called Jinja?”)</li>
+a similar pronunciation&gt; (Jinja2 Documentation, “Why is it called Jinja?”)</p></li>
 </ul>
 </div>
 <div class="section" id="id4">
-<h2><a class="toc-backref" href="#id26">インストール方法</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id27">インストール方法</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><a class="reference internal" href="python-miniconda.html#python-pkg-proc"><span class="std std-ref">一般のサードパーティー製 Python パッケージのインストール手順</span></a> の工程どおりにインストールすればよい。</li>
-<li>オフラインで読めるようにドキュメントも確保しておく。ありがたいことに、日本語訳も存在する（アドレス忘れた）。</li>
+<li><p><a class="reference internal" href="python-miniconda.html#python-pkg-proc"><span class="std std-ref">一般のサードパーティー製 Python パッケージのインストール手順</span></a> の工程どおりにインストールすればよい。</p></li>
+<li><p>オフラインで読めるようにドキュメントも確保しておく。ありがたいことに、日本語訳も存在する（アドレス忘れた）。</p></li>
 </ul>
 </div>
 <div class="section" id="python">
-<h2><a class="toc-backref" href="#id27">Python コードを書く</a><a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id28">Python コードを書く</a><a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="hello-world">
-<h3><a class="toc-backref" href="#id28">Hello world</a><a class="headerlink" href="#hello-world" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id29">Hello world</a><a class="headerlink" href="#hello-world" title="Permalink to this headline">¶</a></h3>
 <p>Jinja2 Documentation から引用：</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jinja2</span> <span class="k">import</span> <span class="n">Template</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jinja2</span> <span class="kn">import</span> <span class="n">Template</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">template</span> <span class="o">=</span> <span class="n">Template</span><span class="p">(</span><span class="s1">&#39;Hello {{ name }}!&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;John Doe&#39;</span><span class="p">)</span>
 <span class="go">&#39;Hello John Doe!&#39;</span>
@@ -127,42 +134,38 @@ a similar pronunciation&gt; (Jinja2 Documentation, “Why is it called Jinja?”
 <p><code class="code docutils literal notranslate"><span class="pre">jinja2.Template.render</span></code> の引数は dict オブジェクトかキーワード引数。これをテンプレートのコンテキストという。</p>
 </div>
 <div class="section" id="environment">
-<h3><a class="toc-backref" href="#id29">クラス Environment</a><a class="headerlink" href="#environment" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id30">クラス Environment</a><a class="headerlink" href="#environment" title="Permalink to this headline">¶</a></h3>
 <p>コンフィグレーションクラスと思えばよい。</p>
-<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jinja2</span> <span class="k">import</span> <span class="n">Environment</span><span class="p">,</span> <span class="n">PackageLoader</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jinja2</span> <span class="kn">import</span> <span class="n">Environment</span><span class="p">,</span> <span class="n">PackageLoader</span>
 <span class="n">env</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">(</span><span class="n">loader</span><span class="o">=</span><span class="n">PackageLoader</span><span class="p">(</span><span class="s1">&#39;yourapplication&#39;</span><span class="p">,</span> <span class="s1">&#39;templates&#39;</span><span class="p">))</span>
 <span class="n">template</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">get_template</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="s1">&#39;5&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 <ul>
-<li><p class="first">コンストラクタの引数はすべてキーワード引数。個人的によく使うキーワード引数をメモしておくと後で役に立つ。</p>
-<dl class="docutils">
-<dt><code class="code docutils literal notranslate"><span class="pre">autoescape</span></code></dt>
-<dd><p class="first last">XML コード用のエスケープをやってくれる。</p>
+<li><p>コンストラクタの引数はすべてキーワード引数。個人的によく使うキーワード引数をメモしておくと後で役に立つ。</p>
+<dl>
+<dt><code class="code docutils literal notranslate"><span class="pre">autoescape</span></code></dt><dd><p>XML コード用のエスケープをやってくれる。</p>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">newline_sequence</span></code></dt>
-<dd><p class="first last">デフォルト値が <code class="docutils literal notranslate"><span class="pre">'\n'</span></code> なので Windows 環境では注意する。</p>
+<dt><code class="code docutils literal notranslate"><span class="pre">newline_sequence</span></code></dt><dd><p>デフォルト値が <code class="docutils literal notranslate"><span class="pre">'\n'</span></code> なので Windows 環境では注意する。</p>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">loader</span></code></dt>
-<dd><p class="first">ローダーを指定。テンプレートをどこかからオブジェクトへロードする。</p>
-<p class="last">なおローダーを指定しないで利用することも可能。その場合は <code class="code docutils literal notranslate"><span class="pre">get_template</span></code> ではなく <code class="code docutils literal notranslate"><span class="pre">from_string</span></code> を利用してテンプレートオブジェクトを得ることになる。</p>
+<dt><code class="code docutils literal notranslate"><span class="pre">loader</span></code></dt><dd><p>ローダーを指定。テンプレートをどこかからオブジェクトへロードする。</p>
+<p>なおローダーを指定しないで利用することも可能。その場合は <code class="code docutils literal notranslate"><span class="pre">get_template</span></code> ではなく <code class="code docutils literal notranslate"><span class="pre">from_string</span></code> を利用してテンプレートオブジェクトを得ることになる。</p>
 </dd>
 </dl>
 </li>
-<li><p class="first"><code class="code docutils literal notranslate"><span class="pre">get_loader</span></code> メソッドの最初の引数としてテンプレート名を指示する。その意味は Environment オブジェクトに結びついているローダーの型によって変わる。</p>
-</li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">get_loader</span></code> メソッドの最初の引数としてテンプレート名を指示する。その意味は Environment オブジェクトに結びついているローダーの型によって変わる。</p></li>
 </ul>
 </div>
 <div class="section" id="template">
-<h3><a class="toc-backref" href="#id30">クラス Template</a><a class="headerlink" href="#template" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id31">クラス Template</a><a class="headerlink" href="#template" title="Permalink to this headline">¶</a></h3>
 <ul>
-<li><p class="first">先の Hello world の例のように、直接コンストラクターからオブジェクトを生成することもできるが、
+<li><p>先の Hello world の例のように、直接コンストラクターからオブジェクトを生成することもできるが、
 Template オブジェクトは通常 Environment オブジェクトの
 <code class="code docutils literal notranslate"><span class="pre">get_template</span></code> メソッドから得る。</p>
 <p>ただし、ローダーを指定せずに Environment を生成した場合は、
 <code class="code docutils literal notranslate"><span class="pre">from_string</span></code> メソッドで Template オブジェクトを得ることになる。</p>
-<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MY_TEMPLATE</span> <span class="o">=</span> <span class="s1">&#39;Hello {{ name }}!&#39;</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">MY_TEMPLATE</span> <span class="o">=</span> <span class="s1">&#39;Hello {{ name }}!&#39;</span>
 
 <span class="n">env</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">()</span>
 <span class="c1"># ...</span>
@@ -171,65 +174,65 @@ Template オブジェクトは通常 Environment オブジェクトの
 </pre></div>
 </div>
 </li>
-<li><p class="first"><code class="code docutils literal notranslate"><span class="pre">render</span></code> メソッドはテンプレートテキストとキーワード引数を加工して、ユニコード文字列を一気に返す。</p>
-</li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">render</span></code> メソッドはテンプレートテキストとキーワード引数を加工して、ユニコード文字列を一気に返す。</p></li>
 </ul>
 </div>
 <div class="section" id="loader">
-<h3><a class="toc-backref" href="#id31">各種 Loader</a><a class="headerlink" href="#loader" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id32">各種 Loader</a><a class="headerlink" href="#loader" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>ローダーは Environment オブジェクトが持っている。</li>
-<li>&lt;Loaders are responsible for loading templates from a resource
-such as the file system&gt; (Jinja2 Documentation) だそうなので、リソースが何であるかによって利用するべきローダーが決まるのだろう。</li>
+<li><p>ローダーは Environment オブジェクトが持っている。</p></li>
+<li><p>&lt;Loaders are responsible for loading templates from a resource
+such as the file system&gt; (Jinja2 Documentation) だそうなので、リソースが何であるかによって利用するべきローダーが決まるのだろう。</p></li>
 </ul>
-<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BaseLoader</span>
-    <span class="n">FileSystemLoader</span>
-    <span class="n">PackageLoader</span>
-    <span class="n">DictLoader</span>
-    <span class="n">FunctionLoader</span>
-    <span class="p">(</span><span class="ow">and</span> <span class="n">more</span><span class="p">)</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>BaseLoader
+    FileSystemLoader
+    PackageLoader
+    DictLoader
+    FunctionLoader
+    (and more)
 </pre></div>
 </div>
 <ul class="simple">
-<li>テンプレファイルを基にテキストファイルを量産するという使い方を検討するならば、
-FileSystemLoader を選ぶのが筋。習得の対象をこれ一本に絞ろう。<ul>
-<li>コンストラクターの引数はテンプレファイル置き場フォルダー（必須）とエンコーディング（オプショナル）。</li>
+<li><p>テンプレファイルを基にテキストファイルを量産するという使い方を検討するならば、
+FileSystemLoader を選ぶのが筋。習得の対象をこれ一本に絞ろう。</p>
+<ul>
+<li><p>コンストラクターの引数はテンプレファイル置き場フォルダー（必須）とエンコーディング（オプショナル）。</p></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <div class="section" id="id5">
-<h2><a class="toc-backref" href="#id32">テンプレートの記法</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id33">テンプレートの記法</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>テンプレートテキストは定型文と可変部分からなるものだから、可変部分を集中して研究しよう。</p>
 <p>以下、デフォルト設定の Environment オブジェクトを利用すると仮定してメモをとる。</p>
 <div class="section" id="id6">
-<h3><a class="toc-backref" href="#id33">初歩的なテンプレートの例</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id34">初歩的なテンプレートの例</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>Jinja2 Documentation からそのまま引用してきたテンプレート例を示す。</p>
-<div class="code jinja highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01//EN&quot;&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-    &lt;title&gt;My Webpage&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;ul id=&quot;navigation&quot;&gt;
-    {% for item in navigation %}
-        &lt;li&gt;&lt;a href=&quot;{{ item.href }}&quot;&gt;{{ item.caption }}&lt;/a&gt;&lt;/li&gt;
-    {% endfor %}
-    &lt;/ul&gt;
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="x">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01//EN&quot;&gt;</span>
+<span class="x">&lt;html lang=&quot;en&quot;&gt;</span>
+<span class="x">&lt;head&gt;</span>
+<span class="x">    &lt;title&gt;My Webpage&lt;/title&gt;</span>
+<span class="x">&lt;/head&gt;</span>
+<span class="x">&lt;body&gt;</span>
+<span class="x">    &lt;ul id=&quot;navigation&quot;&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">item</span> <span class="k">in</span> <span class="nv">navigation</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        &lt;li&gt;&lt;a href=&quot;</span><span class="cp">{{</span> <span class="nv">item.href</span> <span class="cp">}}</span><span class="x">&quot;&gt;</span><span class="cp">{{</span> <span class="nv">item.caption</span> <span class="cp">}}</span><span class="x">&lt;/a&gt;&lt;/li&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;/ul&gt;</span>
 
-    &lt;h1&gt;My Webpage&lt;/h1&gt;
-    {{ a_variable }}
-&lt;/body&gt;
-&lt;/html&gt;
+<span class="x">    &lt;h1&gt;My Webpage&lt;/h1&gt;</span>
+<span class="x">    </span><span class="cp">{{</span> <span class="nv">a_variable</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">&lt;/body&gt;</span>
+<span class="x">&lt;/html&gt;</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><dl class="first docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">...</span> <span class="pre">%}</span></code> や <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">...</span> <span class="pre">}}</span></code> が可変部分。</dt>
-<dd>それ以外の部分はすべて定型文。<ul class="last">
-<li><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">...</span> <span class="pre">%}</span></code> は変数宣言・代入やループ処理といったものを実行をさせる。</li>
-<li><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">...</span> <span class="pre">}}</span></code> は結果の表示をさせる。</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">...</span> <span class="pre">%}</span></code> や <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">...</span> <span class="pre">}}</span></code> が可変部分。</dt><dd><p>それ以外の部分はすべて定型文。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">...</span> <span class="pre">%}</span></code> は変数宣言・代入やループ処理といったものを実行をさせる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">...</span> <span class="pre">}}</span></code> は結果の表示をさせる。</p></li>
 </ul>
 </dd>
 </dl>
@@ -237,79 +240,73 @@ FileSystemLoader を選ぶのが筋。習得の対象をこれ一本に絞ろう
 </ul>
 </div>
 <div class="section" id="id7">
-<h3><a class="toc-backref" href="#id34">テンプレートに変数を埋め込む方法</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id35">テンプレートに変数を埋め込む方法</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">foo</span> <span class="pre">}}</span></code> と書くと、Python コードからテンプレートの <code class="code docutils literal notranslate"><span class="pre">render</span></code> 関数のキーワード引数 <code class="docutils literal notranslate"><span class="pre">foo</span></code> に何らかのオブジェクトを渡した場合に、そのオブジェクトに対する <code class="code docutils literal notranslate"><span class="pre">print</span></code> 結果がそこにテキスト化される。</p>
 <ul class="simple">
-<li>渡さなかった場合どうなるのか、あとで試すこと。</li>
+<li><p>渡さなかった場合どうなるのか、あとで試すこと。</p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">foo.bar</span> <span class="pre">}}</span></code> と書くと、うまくいけば実引数オブジェクトの <code class="docutils literal notranslate"><span class="pre">bar</span></code>
 属性オブジェクトに対する <code class="code docutils literal notranslate"><span class="pre">print</span></code> 結果がそこにテキスト化される。</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">bar</span></code> 属性のないオブジェクトを渡した場合どうなるのか、確認すること。</li>
-<li>変数名は Python 2.x 系の流儀に従い正規表現
-<code class="docutils literal notranslate"><span class="pre">[a-zA-Z_][a-zA-Z0-9_]*</span></code> にマッチする文字列でなければならない。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bar</span></code> 属性のないオブジェクトを渡した場合どうなるのか、確認すること。</p></li>
+<li><p>変数名は Python 2.x 系の流儀に従い正規表現
+<code class="docutils literal notranslate"><span class="pre">[a-zA-Z_][a-zA-Z0-9_]*</span></code> にマッチする文字列でなければならない。</p></li>
 </ul>
 </div>
 <div class="section" id="id8">
-<h3><a class="toc-backref" href="#id35">フィルター</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id36">フィルター</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">...</span> <span class="pre">}}</span></code> の出力結果をある程度加工する能力がある。これをフィルターと呼んでいるようだ。</p>
 <ul>
-<li><p class="first">「引数を取るフィルター」というものがあり、関数呼び出しのような記法で指示する。</p>
-</li>
-<li><p class="first">フィルターは組み込みのものと、自作のものが使えるようだ。</p>
+<li><p>「引数を取るフィルター」というものがあり、関数呼び出しのような記法で指示する。</p></li>
+<li><p>フィルターは組み込みのものと、自作のものが使えるようだ。</p>
 <ul>
-<li><p class="first">自作の場合、Python コードでフィルター関数をまず書く。次に Environment オブジェクトの <code class="code docutils literal notranslate"><span class="pre">filters</span></code> リストに関数を追加する。</p>
+<li><p>自作の場合、Python コードでフィルター関数をまず書く。次に Environment オブジェクトの <code class="code docutils literal notranslate"><span class="pre">filters</span></code> リストに関数を追加する。</p>
 <p>Jinja2 Documentation に <code class="code docutils literal notranslate"><span class="pre">datetime</span></code>
 オブジェクトを書式を与えてテキスト化するサンプルが紹介されている。</p>
 </li>
-<li><p class="first">フィルターの名前（識別子）は正規表現
-<code class="docutils literal notranslate"><span class="pre">[a-zA-Z_][a-zA-Z0-9_]*(\.[a-zA-Z_][a-zA-Z0-9_]*)*</span></code> にマッチすることになる。ドットが現れるのは、関数の存在するパッケージによるものだろう。</p>
-</li>
+<li><p>フィルターの名前（識別子）は正規表現
+<code class="docutils literal notranslate"><span class="pre">[a-zA-Z_][a-zA-Z0-9_]*(\.[a-zA-Z_][a-zA-Z0-9_]*)*</span></code> にマッチすることになる。ドットが現れるのは、関数の存在するパッケージによるものだろう。</p></li>
 </ul>
 </li>
-<li><p class="first">全体の記法は変数名の右側にパイプ記号とフィルター呼び出しを追記していく。
-UNIX のシェルコマンドラインみたいなイメージだろう。例えば <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">list|join(',</span> <span class="pre">')</span> <span class="pre">}}</span></code> と書くと、CSV テキストが展開される。</p>
-</li>
-<li><p class="first">ただし、組み込みのフィルター一覧を見ると個人的には用はない。</p>
-</li>
+<li><p>全体の記法は変数名の右側にパイプ記号とフィルター呼び出しを追記していく。
+UNIX のシェルコマンドラインみたいなイメージだろう。例えば <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">list|join(',</span> <span class="pre">')</span> <span class="pre">}}</span></code> と書くと、CSV テキストが展開される。</p></li>
+<li><p>ただし、組み込みのフィルター一覧を見ると個人的には用はない。</p></li>
 </ul>
 </div>
 <div class="section" id="id9">
-<h3><a class="toc-backref" href="#id36">条件分岐</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id37">条件分岐</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>ある条件の成り立つときには違うものを書きたいときに利用する機能。</p>
-<div class="code jinja highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="n">loop</span><span class="o">.</span><span class="n">index</span> <span class="ow">is</span> <span class="n">even</span> <span class="o">%</span><span class="p">}</span>
-<span class="o">&lt;</span><span class="n">td</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;black_cell&quot;</span><span class="o">&gt;</span>
-<span class="p">{</span><span class="o">%</span> <span class="k">else</span> <span class="o">%</span><span class="p">}</span>
-<span class="o">&lt;</span><span class="n">td</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;white_cell&quot;</span><span class="o">&gt;</span>
-<span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">if</span> <span class="nb">loop</span><span class="nv">.index</span> <span class="k">is</span> <span class="nf">even</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">&lt;td class=&quot;black_cell&quot;&gt;</span>
+<span class="cp">{%</span> <span class="k">else</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">&lt;td class=&quot;white_cell&quot;&gt;</span>
+<span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
 </pre></div>
 </div>
 <ul>
-<li><p class="first"><code class="docutils literal notranslate"><span class="pre">if</span></code> の次に書く表現をテストと呼ぶ。テストには組み込み型のものと自作のものが使える。</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">if</span></code> の次に書く表現をテストと呼ぶ。テストには組み込み型のものと自作のものが使える。</p>
 <ul>
-<li><p class="first">自作の場合、Python コードでテスト関数をまず書く。次に Environment オブジェクトの <code class="code docutils literal notranslate"><span class="pre">tests</span></code> リストに関数を追加する。</p>
+<li><p>自作の場合、Python コードでテスト関数をまず書く。次に Environment オブジェクトの <code class="code docutils literal notranslate"><span class="pre">tests</span></code> リストに関数を追加する。</p>
 <p>Jinja2 Documentation に整数オブジェクトを与えて、それが素数か否かのテストを自作する例が紹介されている。</p>
 </li>
-<li><p class="first">テスト名（識別子）はフィルターと同様に正規表現
-<code class="docutils literal notranslate"><span class="pre">[a-zA-Z_][a-zA-Z0-9_]*(\.[a-zA-Z_][a-zA-Z0-9_]*)*</span></code> にマッチすることになる。</p>
-</li>
+<li><p>テスト名（識別子）はフィルターと同様に正規表現
+<code class="docutils literal notranslate"><span class="pre">[a-zA-Z_][a-zA-Z0-9_]*(\.[a-zA-Z_][a-zA-Z0-9_]*)*</span></code> にマッチすることになる。</p></li>
 </ul>
 </li>
-<li><p class="first">使えそうな組み込み型テスト：
-<code class="docutils literal notranslate"><span class="pre">defined/undefined</span></code>, <code class="docutils literal notranslate"><span class="pre">even</span></code>/<code class="docutils literal notranslate"><span class="pre">odd</span></code>/<code class="docutils literal notranslate"><span class="pre">divisibleby</span></code> くらいか。</p>
-</li>
+<li><p>使えそうな組み込み型テスト：
+<code class="docutils literal notranslate"><span class="pre">defined/undefined</span></code>, <code class="docutils literal notranslate"><span class="pre">even</span></code>/<code class="docutils literal notranslate"><span class="pre">odd</span></code>/<code class="docutils literal notranslate"><span class="pre">divisibleby</span></code> くらいか。</p></li>
 </ul>
 </div>
 <div class="section" id="id10">
-<h3><a class="toc-backref" href="#id37">コメント</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id38">コメント</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">{#</span> <span class="pre">...</span> <span class="pre">#}</span></code> 部分がコメントとなる。複数行にまたがっても可。</p>
 </div>
 <div class="section" id="id11">
-<h3><a class="toc-backref" href="#id38">空白文字を制御する方法</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id39">空白文字を制御する方法</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <p>テンプレートタグにマイナス記号をくっつけると、前後の空白文字がカットできる。</p>
-<div class="code jinja highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">seq</span> <span class="o">-%</span><span class="p">}</span>
-    <span class="p">{{</span> <span class="n">item</span> <span class="p">}}</span>
-<span class="p">{</span><span class="o">%-</span> <span class="n">endfor</span> <span class="o">%</span><span class="p">}</span>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">item</span> <span class="k">in</span> <span class="nv">seq</span> -<span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{{</span> <span class="nv">item</span> <span class="cp">}}</span><span class="x"></span>
+<span class="cp">{%</span>- <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
 </pre></div>
 </div>
 <p>もしマイナス記号を省いた場合、スペース 4 つと改行文字 2 個が各
@@ -317,58 +314,58 @@ UNIX のシェルコマンドラインみたいなイメージだろう。例え
 <code class="docutils literal notranslate"><span class="pre">item</span></code> が来て改行、といった方が正確か。</p>
 </div>
 <div class="section" id="id12">
-<h3><a class="toc-backref" href="#id39">特別な文字をエスケープする方法</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id40">特別な文字をエスケープする方法</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">raw</span> <span class="pre">}}</span> <span class="pre">...</span> <span class="pre">{{</span> <span class="pre">endraw</span> <span class="pre">}}</span></code> を利用するのがいい。</p>
 </div>
 <div class="section" id="id13">
-<h3><a class="toc-backref" href="#id40">テンプレートを継承する方法</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id41">テンプレートを継承する方法</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <p>ポイントを簡単におさえたメモを残しておく。用語は自分流のものに書き換える。</p>
 <ul class="simple">
-<li>自分用のスクリプトでテンプレート継承を利用することはまれ。</li>
-<li>親テンプレート・子テンプレート<ul>
-<li>親では、子でいわばオーバーライドさせたいテキスト部分を
-<code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">block</span> <span class="pre">ブロック名</span> <span class="pre">%}</span></code> と <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">endblock</span> <span class="pre">%}</span></code> で囲む。<ul>
-<li>しばしばブロックが別のブロックを含むことがある。</li>
-<li>しばしばブロックが空になることがある。</li>
+<li><p>自分用のスクリプトでテンプレート継承を利用することはまれ。</p></li>
+<li><p>親テンプレート・子テンプレート</p>
+<ul>
+<li><p>親では、子でいわばオーバーライドさせたいテキスト部分を
+<code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">block</span> <span class="pre">ブロック名</span> <span class="pre">%}</span></code> と <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">endblock</span> <span class="pre">%}</span></code> で囲む。</p>
+<ul>
+<li><p>しばしばブロックが別のブロックを含むことがある。</p></li>
+<li><p>しばしばブロックが空になることがある。</p></li>
 </ul>
 </li>
-<li>子はテンプレートの書き方がぜんぜん違う。<ul>
-<li><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">extends</span> <span class="pre">テンプレファイルパス</span> <span class="pre">%}</span></code> で親を指示する。</li>
-<li>以降はブロックのオーバーライドの羅列となる。</li>
-<li><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">super()</span> <span class="pre">}}</span></code> で親ブロックの内容を展開することができる。</li>
-<li><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">self.ブロック名()</span> <span class="pre">}}</span></code> で同じ内容を展開することができる。わかりにくい。</li>
+<li><p>子はテンプレートの書き方がぜんぜん違う。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">extends</span> <span class="pre">テンプレファイルパス</span> <span class="pre">%}</span></code> で親を指示する。</p></li>
+<li><p>以降はブロックのオーバーライドの羅列となる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">super()</span> <span class="pre">}}</span></code> で親ブロックの内容を展開することができる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">self.ブロック名()</span> <span class="pre">}}</span></code> で同じ内容を展開することができる。わかりにくい。</p></li>
 </ul>
 </li>
-<li>子テンプレート全体が評価されてから <code class="docutils literal notranslate"><span class="pre">extends</span></code> が評価される。親子両方に同名マクロがある場合は要注意。マクロ定義が親のそれで上書きされるだろう。</li>
+<li><p>子テンプレート全体が評価されてから <code class="docutils literal notranslate"><span class="pre">extends</span></code> が評価される。親子両方に同名マクロがある場合は要注意。マクロ定義が親のそれで上書きされるだろう。</p></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="id14">
-<h3><a class="toc-backref" href="#id41">各種制御構造</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id42">各種制御構造</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="for">
 <h4><code class="docutils literal notranslate"><span class="pre">for</span></code> ブロック<a class="headerlink" href="#for" title="Permalink to this headline">¶</a></h4>
 <p>定型文を反復処理で生成するのに <code class="docutils literal notranslate"><span class="pre">for</span></code> 構文は欠かせない。</p>
 <ul>
-<li><p class="first"><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">for</span> <span class="pre">...</span> <span class="pre">%}</span></code> … <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">endfor</span> <span class="pre">%}</span></code> の内部では、
-<code class="docutils literal notranslate"><span class="pre">loop.index0</span></code>, <code class="docutils literal notranslate"><span class="pre">loop.length</span></code>, <code class="docutils literal notranslate"><span class="pre">loop.cycle()</span></code>, etc. といった、ループに関連する特別な変数が利用できる。</p>
-</li>
-<li><p class="first">Python の <code class="code docutils literal notranslate"><span class="pre">for</span></code> ループのような <code class="docutils literal notranslate"><span class="pre">else</span></code> 処理が記述できる。</p>
-</li>
-<li><p class="first">次のコード例のように、再帰ループを記述することができる。</p>
-<div class="code jinja highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ul</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;sitemap&quot;</span><span class="o">&gt;</span>
-<span class="p">{</span><span class="o">%-</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sitemap</span> <span class="n">recursive</span> <span class="o">%</span><span class="p">}</span>
-    <span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;{{ item.href|e }}&quot;</span><span class="o">&gt;</span><span class="p">{{</span> <span class="n">item</span><span class="o">.</span><span class="n">title</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
-    <span class="p">{</span><span class="o">%-</span> <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">children</span> <span class="o">-%</span><span class="p">}</span>
-        <span class="o">&lt;</span><span class="n">ul</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;submenu&quot;</span><span class="o">&gt;</span><span class="p">{{</span> <span class="n">loop</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">children</span><span class="p">)</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">ul</span><span class="o">&gt;</span>
-    <span class="p">{</span><span class="o">%-</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
-<span class="p">{</span><span class="o">%-</span> <span class="n">endfor</span> <span class="o">%</span><span class="p">}</span>
-<span class="o">&lt;/</span><span class="n">ul</span><span class="o">&gt;</span>
+<li><p><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">for</span> <span class="pre">...</span> <span class="pre">%}</span></code> … <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">endfor</span> <span class="pre">%}</span></code> の内部では、
+<code class="docutils literal notranslate"><span class="pre">loop.index0</span></code>, <code class="docutils literal notranslate"><span class="pre">loop.length</span></code>, <code class="docutils literal notranslate"><span class="pre">loop.cycle()</span></code>, etc. といった、ループに関連する特別な変数が利用できる。</p></li>
+<li><p>Python の <code class="code docutils literal notranslate"><span class="pre">for</span></code> ループのような <code class="docutils literal notranslate"><span class="pre">else</span></code> 処理が記述できる。</p></li>
+<li><p>次のコード例のように、再帰ループを記述することができる。</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="x">&lt;ul class=&quot;sitemap&quot;&gt;</span>
+<span class="cp">{%</span>- <span class="k">for</span> <span class="nv">item</span> <span class="k">in</span> <span class="nv">sitemap</span> <span class="k">recursive</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;li&gt;&lt;a href=&quot;</span><span class="cp">{{</span> <span class="nv">item.href</span><span class="o">|</span><span class="nf">e</span> <span class="cp">}}</span><span class="x">&quot;&gt;</span><span class="cp">{{</span> <span class="nv">item.title</span> <span class="cp">}}</span><span class="x">&lt;/a&gt;</span>
+<span class="x">    </span><span class="cp">{%</span>- <span class="k">if</span> <span class="nv">item.children</span> -<span class="cp">%}</span><span class="x"></span>
+<span class="x">        &lt;ul class=&quot;submenu&quot;&gt;</span><span class="cp">{{</span> <span class="nb">loop</span><span class="o">(</span><span class="nv">item.children</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&lt;/ul&gt;</span>
+<span class="x">    </span><span class="cp">{%</span>- <span class="k">endif</span> <span class="cp">%}</span><span class="x">&lt;/li&gt;</span>
+<span class="cp">{%</span>- <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">&lt;/ul&gt;</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first"><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">break</span> <span class="pre">%}</span></code> や <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">continue</span> <span class="pre">%}</span></code> もサポート。</p>
-</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">break</span> <span class="pre">%}</span></code> や <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">continue</span> <span class="pre">%}</span></code> もサポート。</p></li>
 </ul>
 </div>
 <div class="section" id="if">
@@ -376,11 +373,10 @@ UNIX のシェルコマンドラインみたいなイメージだろう。例え
 <p>条件次第で出力するテキストを変えたい場合は当然起りうる。
 <code class="docutils literal notranslate"><span class="pre">if</span></code> の出番はそんなときだろう。</p>
 <ul>
-<li><p class="first">基本的には Python の <code class="code docutils literal notranslate"><span class="pre">if</span></code> と同じような感じで書ける。
-<code class="docutils literal notranslate"><span class="pre">else</span></code> や <code class="docutils literal notranslate"><span class="pre">elif</span></code> もある。最後に <code class="docutils literal notranslate"><span class="pre">endif</span></code> で締め括る必要がある。</p>
-</li>
-<li><p class="first">通常の <code class="docutils literal notranslate"><span class="pre">if</span></code> 構文の他に、inline if expression という使い方がある。</p>
-<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">do</span> <span class="n">something</span><span class="o">&gt;</span> <span class="k">if</span> <span class="o">&lt;</span><span class="n">something</span> <span class="ow">is</span> <span class="n">true</span><span class="o">&gt;</span> <span class="k">else</span> <span class="o">&lt;</span><span class="n">do</span> <span class="n">something</span> <span class="k">else</span><span class="o">&gt;</span>
+<li><p>基本的には Python の <code class="code docutils literal notranslate"><span class="pre">if</span></code> と同じような感じで書ける。
+<code class="docutils literal notranslate"><span class="pre">else</span></code> や <code class="docutils literal notranslate"><span class="pre">elif</span></code> もある。最後に <code class="docutils literal notranslate"><span class="pre">endif</span></code> で締め括る必要がある。</p></li>
+<li><p>通常の <code class="docutils literal notranslate"><span class="pre">if</span></code> 構文の他に、inline if expression という使い方がある。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;do something&gt; if &lt;something is true&gt; else &lt;do something else&gt;
 </pre></div>
 </div>
 </li>
@@ -390,22 +386,23 @@ UNIX のシェルコマンドラインみたいなイメージだろう。例え
 <h4><code class="docutils literal notranslate"><span class="pre">macro</span></code> ブロック<a class="headerlink" href="#macro" title="Permalink to this headline">¶</a></h4>
 <p>テンプレート中にマクロを定義できる。
 Jinja2 で言うマクロというのは、プログラミング言語的関数みたいなもの。</p>
-<div class="code jinja highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">macro</span> <span class="nb">input</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span> <span class="o">-%</span><span class="p">}</span>
-    <span class="o">&lt;</span><span class="nb">input</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;{{ type }}&quot;</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;{{ name }}&quot;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;{{ value|e }}&quot;</span> <span class="n">size</span><span class="o">=</span><span class="s2">&quot;{{ size }}&quot;</span><span class="o">&gt;</span>
-<span class="p">{</span><span class="o">%-</span> <span class="n">endmacro</span> <span class="o">%</span><span class="p">}</span>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">macro</span> <span class="nv">input</span><span class="o">(</span><span class="nv">name</span><span class="o">,</span> <span class="nv">value</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="o">,</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;text&#39;</span><span class="o">,</span> <span class="nv">size</span><span class="o">=</span><span class="m">20</span><span class="o">)</span> -<span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;input type=&quot;</span><span class="cp">{{</span> <span class="nv">type</span> <span class="cp">}}</span><span class="x">&quot; name=&quot;</span><span class="cp">{{</span> <span class="nv">name</span> <span class="cp">}}</span><span class="x">&quot; value=&quot;</span><span class="cp">{{</span> <span class="nv">value</span><span class="o">|</span><span class="nf">e</span> <span class="cp">}}</span><span class="x">&quot; size=&quot;</span><span class="cp">{{</span> <span class="nv">size</span> <span class="cp">}}</span><span class="x">&quot;&gt;</span>
+<span class="cp">{%</span>- <span class="k">endmacro</span> <span class="cp">%}</span><span class="x"></span>
 
-<span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">{{</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">)</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-<span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">{{</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;password&#39;</span><span class="p">)</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+<span class="x">&lt;p&gt;</span><span class="cp">{{</span> <span class="nv">input</span><span class="o">(</span><span class="s1">&#39;username&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&lt;/p&gt;</span>
+<span class="x">&lt;p&gt;</span><span class="cp">{{</span> <span class="nv">input</span><span class="o">(</span><span class="s1">&#39;password&#39;</span><span class="o">,</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;password&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&lt;/p&gt;</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li>マクロブロックは <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">macro</span> <span class="pre">マクロ名(引数リスト)</span> <span class="pre">%}</span></code> … <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">endmacro</span> <span class="pre">%}</span></code>
-で定義する。</li>
-<li>マクロ呼び出しは <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">マクロ名(実引数リスト)</span> <span class="pre">}}</span></code> の形になる。</li>
-<li>色々と特殊な変数がある。<ul>
-<li><code class="code docutils literal notranslate"><span class="pre">varargs</span></code> - list オブジェクト。位置パラメータが格納される。</li>
-<li><code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> - dict オブジェクト。キーワード引数が格納される。</li>
-<li>etc.</li>
+<li><p>マクロブロックは <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">macro</span> <span class="pre">マクロ名(引数リスト)</span> <span class="pre">%}</span></code> … <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">endmacro</span> <span class="pre">%}</span></code>
+で定義する。</p></li>
+<li><p>マクロ呼び出しは <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">マクロ名(実引数リスト)</span> <span class="pre">}}</span></code> の形になる。</p></li>
+<li><p>色々と特殊な変数がある。</p>
+<ul>
+<li><p><code class="code docutils literal notranslate"><span class="pre">varargs</span></code> - list オブジェクト。位置パラメータが格納される。</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> - dict オブジェクト。キーワード引数が格納される。</p></li>
+<li><p>etc.</p></li>
 </ul>
 </li>
 </ul>
@@ -414,36 +411,36 @@ Jinja2 で言うマクロというのは、プログラミング言語的関数�
 <h4><code class="docutils literal notranslate"><span class="pre">call</span></code> ブロック<a class="headerlink" href="#call" title="Permalink to this headline">¶</a></h4>
 <p>マクロ展開中に、マクロ呼び出し元の何かを展開する機能。
 Jinja2 Documentation からそのまま引用した例だが：</p>
-<div class="code jinja highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">macro</span> <span class="n">render_dialog</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">class</span><span class="o">=</span><span class="s1">&#39;dialog&#39;</span><span class="p">)</span> <span class="o">-%</span><span class="p">}</span>
-<span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;{{ class }}&quot;</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="n">h2</span><span class="o">&gt;</span><span class="p">{{</span> <span class="n">title</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">h2</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;contents&quot;</span><span class="o">&gt;</span>
-        <span class="p">{{</span> <span class="n">caller</span><span class="p">()</span> <span class="p">}}</span>
-    <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
-<span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
-<span class="p">{</span><span class="o">%-</span> <span class="n">endmacro</span> <span class="o">%</span><span class="p">}</span>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">macro</span> <span class="nv">render_dialog</span><span class="o">(</span><span class="nv">title</span><span class="o">,</span> <span class="nv">class</span><span class="o">=</span><span class="s1">&#39;dialog&#39;</span><span class="o">)</span> -<span class="cp">%}</span><span class="x"></span>
+<span class="x">&lt;div class=&quot;</span><span class="cp">{{</span> <span class="nv">class</span> <span class="cp">}}</span><span class="x">&quot;&gt;</span>
+<span class="x">    &lt;h2&gt;</span><span class="cp">{{</span> <span class="nv">title</span> <span class="cp">}}</span><span class="x">&lt;/h2&gt;</span>
+<span class="x">    &lt;div class=&quot;contents&quot;&gt;</span>
+<span class="x">        </span><span class="cp">{{</span> <span class="nv">caller</span><span class="o">()</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">    &lt;/div&gt;</span>
+<span class="x">&lt;/div&gt;</span>
+<span class="cp">{%</span>- <span class="k">endmacro</span> <span class="cp">%}</span><span class="x"></span>
 
-<span class="p">{</span><span class="o">%</span> <span class="n">call</span> <span class="n">render_dialog</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">)</span> <span class="o">%</span><span class="p">}</span>
-    <span class="n">This</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">simple</span> <span class="n">dialog</span> <span class="n">rendered</span> <span class="n">by</span> <span class="n">using</span> <span class="n">a</span> <span class="n">macro</span> <span class="ow">and</span>
-    <span class="n">a</span> <span class="n">call</span> <span class="n">block</span><span class="o">.</span>
-<span class="p">{</span><span class="o">%</span> <span class="n">endcall</span> <span class="o">%</span><span class="p">}</span>
+<span class="cp">{%</span> <span class="k">call</span> <span class="nv">render_dialog</span><span class="o">(</span><span class="s1">&#39;Hello World&#39;</span><span class="o">)</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    This is a simple dialog rendered by using a macro and</span>
+<span class="x">    a call block.</span>
+<span class="cp">{%</span> <span class="k">endcall</span> <span class="cp">%}</span><span class="x"></span>
 </pre></div>
 </div>
 <p>上のテンプレートの <code class="docutils literal notranslate"><span class="pre">call</span></code> ブロックが展開されると次のテキストになるようだ。</p>
-<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;dialog&quot;</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="n">h2</span><span class="o">&gt;</span><span class="n">Hello</span> <span class="n">World</span><span class="o">&lt;/</span><span class="n">h2</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;contents&quot;</span><span class="o">&gt;</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;div class=&quot;dialog&quot;&gt;
+    &lt;h2&gt;Hello World&lt;/h2&gt;
+    &lt;div class=&quot;contents&quot;&gt;
 
-    <span class="n">This</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">simple</span> <span class="n">dialog</span> <span class="n">rendered</span> <span class="n">by</span> <span class="n">using</span> <span class="n">a</span> <span class="n">macro</span> <span class="ow">and</span>
-    <span class="n">a</span> <span class="n">call</span> <span class="n">block</span><span class="o">.</span>
+    This is a simple dialog rendered by using a macro and
+    a call block.
 
-    <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
-<span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+    &lt;/div&gt;
+&lt;/div&gt;
 </pre></div>
 </div>
 <ol class="arabic simple">
-<li>マクロ <code class="docutils literal notranslate"><span class="pre">render_dialog</span></code> が展開されて、</li>
-<li>マクロブロック内の <code class="docutils literal notranslate"><span class="pre">caller</span></code> ブロックに呼び出し元ブロックがそのまま展開される。</li>
+<li><p>マクロ <code class="docutils literal notranslate"><span class="pre">render_dialog</span></code> が展開されて、</p></li>
+<li><p>マクロブロック内の <code class="docutils literal notranslate"><span class="pre">caller</span></code> ブロックに呼び出し元ブロックがそのまま展開される。</p></li>
 </ol>
 <p><code class="docutils literal notranslate"><span class="pre">call</span></code> は引数を取ることもできるが、複雑になるのでノートを控える。</p>
 </div>
@@ -454,79 +451,79 @@ Jinja2 Documentation からそのまま引用した例だが：</p>
 </div>
 </div>
 <div class="section" id="id15">
-<h3><a class="toc-backref" href="#id42">変数のセット</a><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id43">変数のセット</a><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
 <p>Python コードよろしく、変数を定義することができる。</p>
-<div class="code jinja highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="nb">set</span> <span class="n">変数名</span> <span class="o">=</span> <span class="n">式</span> <span class="o">%</span><span class="p">}</span>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">set</span> <span class="p">変数名</span> <span class="o">=</span> <span class="p">式</span> <span class="cp">%}</span><span class="x"></span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="include">
-<h3><a class="toc-backref" href="#id43"><code class="docutils literal notranslate"><span class="pre">include</span></code> 文</a><a class="headerlink" href="#include" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id44"><code class="docutils literal notranslate"><span class="pre">include</span></code> 文</a><a class="headerlink" href="#include" title="Permalink to this headline">¶</a></h3>
 <p>テンプレートファイルが別のテンプレートファイルをインクルードする機能。</p>
-<div class="code jinja highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">include</span> <span class="n">テンプレファイルパス</span> <span class="o">%</span><span class="p">}</span>
-<span class="p">{</span><span class="o">%</span> <span class="n">include</span> <span class="n">テンプレファイルパス</span> <span class="n">ignore</span> <span class="n">missing</span> <span class="o">%</span><span class="p">}</span>
-<span class="p">{</span><span class="o">%</span> <span class="n">include</span> <span class="n">テンプレファイルパス</span> <span class="n">ignore</span> <span class="n">missing</span> <span class="k">with</span> <span class="n">context</span> <span class="o">%</span><span class="p">}</span>
-<span class="p">{</span><span class="o">%</span> <span class="n">include</span> <span class="n">テンプレファイルパス</span> <span class="n">ignore</span> <span class="n">missing</span> <span class="n">without</span> <span class="n">context</span> <span class="o">%</span><span class="p">}</span>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">include</span> <span class="p">テンプレファイルパス</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">include</span> <span class="p">テンプレファイルパス</span> <span class="k">ignore missing</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">include</span> <span class="p">テンプレファイルパス</span> <span class="k">ignore missing</span> <span class="k">with context</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">include</span> <span class="p">テンプレファイルパス</span> <span class="k">ignore missing</span> <span class="k">without context</span> <span class="cp">%}</span><span class="x"></span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">ignore</span> <span class="pre">missing</span></code> は「ファイルが存在しない場合はインクルードを無視する」の意。</li>
-<li><code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">context</span></code> 等は「インクルード時点での変数やマクロの定義状態をどう取り扱うか」を決めるものだろう。よく調べていない。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ignore</span> <span class="pre">missing</span></code> は「ファイルが存在しない場合はインクルードを無視する」の意。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">context</span></code> 等は「インクルード時点での変数やマクロの定義状態をどう取り扱うか」を決めるものだろう。よく調べていない。</p></li>
 </ul>
 </div>
 <div class="section" id="import">
-<h3><a class="toc-backref" href="#id44"><code class="docutils literal notranslate"><span class="pre">import</span></code> 文</a><a class="headerlink" href="#import" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id45"><code class="docutils literal notranslate"><span class="pre">import</span></code> 文</a><a class="headerlink" href="#import" title="Permalink to this headline">¶</a></h3>
 <p>使わなそうなのでパス。</p>
 </div>
 </div>
 <div class="section" id="id16">
-<h2><a class="toc-backref" href="#id45">応用例を考える</a><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id46">応用例を考える</a><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
 <p>Jinja2 を利用して何かテキストデータを作成してみよう。</p>
 <div class="section" id="id17">
-<h3><a class="toc-backref" href="#id46">簡易日記テキストファイル</a><a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id47">簡易日記テキストファイル</a><a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
 <p>事始めということで、簡単な日記ファイル作成スクリプトを作ってみよう。</p>
 <div class="section" id="id18">
 <h4>テンプレ<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h4>
 <p>次の内容のテキストファイルを <code class="file docutils literal notranslate"><span class="pre">diary.txt_t</span></code> として保存する。</p>
-<div class="code jinja highlight-default notranslate"><div class="highlight"><pre><span></span>{#- 簡単な日記テンプレ -#}
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="c">{#- 簡単な日記テンプレ -#}</span><span class="x"></span>
 
-{#- 曜日名の配列
-    0 が月曜日に相当するように宣言すること。
--#}
-{%- set dows = (&quot;Mon&quot;, &quot;Tue&quot;, &quot;Wed&quot;, &quot;Thu&quot;, &quot;Fri&quot;, &quot;Sat&quot;, &quot;Sun&quot;) -%}
+<span class="c">{#- 曜日名の配列</span>
+<span class="c">    0 が月曜日に相当するように宣言すること。</span>
+<span class="c">-#}</span><span class="x"></span>
+<span class="cp">{%</span>- <span class="k">set</span> <span class="nv">dows</span> <span class="o">=</span> <span class="o">(</span><span class="s2">&quot;Mon&quot;</span><span class="o">,</span> <span class="s2">&quot;Tue&quot;</span><span class="o">,</span> <span class="s2">&quot;Wed&quot;</span><span class="o">,</span> <span class="s2">&quot;Thu&quot;</span><span class="o">,</span> <span class="s2">&quot;Fri&quot;</span><span class="o">,</span> <span class="s2">&quot;Sat&quot;</span><span class="o">,</span> <span class="s2">&quot;Sun&quot;</span><span class="o">)</span> -<span class="cp">%}</span><span class="x"></span>
 
-{#- 日付タイトル部のテキスト生成 -#}
-{%- macro day_title(year, month, day2) -%}
-{{ &#39;%d/%02d/%02d (%s)&#39;|format(year, month, day2[0], dows[day2[1]]) }}
-{%- endmacro -%}
+<span class="c">{#- 日付タイトル部のテキスト生成 -#}</span><span class="x"></span>
+<span class="cp">{%</span>- <span class="k">macro</span> <span class="nv">day_title</span><span class="o">(</span><span class="nv">year</span><span class="o">,</span> <span class="nv">month</span><span class="o">,</span> <span class="nv">day2</span><span class="o">)</span> -<span class="cp">%}</span><span class="x"></span>
+<span class="cp">{{</span> <span class="s1">&#39;%d/%02d/%02d (%s)&#39;</span><span class="o">|</span><span class="nf">format</span><span class="o">(</span><span class="nv">year</span><span class="o">,</span> <span class="nv">month</span><span class="o">,</span> <span class="nv">day2</span><span class="o">[</span><span class="m">0</span><span class="o">],</span> <span class="nv">dows</span><span class="o">[</span><span class="nv">day2</span><span class="o">[</span><span class="m">1</span><span class="o">]])</span> <span class="cp">}}</span><span class="x"></span>
+<span class="cp">{%</span>- <span class="k">endmacro</span> -<span class="cp">%}</span><span class="x"></span>
 
-{#- 以下テンプレート本体 -#}
+<span class="c">{#- 以下テンプレート本体 -#}</span><span class="x"></span>
 
-==================================================
-{{ year }} 年 {{ month }} 月の日記
-==================================================
-{% for d in days %}
-{%- if d[0] %}
---------------------------------------------------
-{{ day_title(year, month, d) }}
---------------------------------------------------
-（この日の日記をここに書く）
-{% endif -%}
-{%- endfor -%}
+<span class="x">==================================================</span>
+<span class="cp">{{</span> <span class="nv">year</span> <span class="cp">}}</span><span class="x"> 年 </span><span class="cp">{{</span> <span class="nv">month</span> <span class="cp">}}</span><span class="x"> 月の日記</span>
+<span class="x">==================================================</span>
+<span class="cp">{%</span> <span class="k">for</span> <span class="nv">d</span> <span class="k">in</span> <span class="nv">days</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span>- <span class="k">if</span> <span class="nv">d</span><span class="o">[</span><span class="m">0</span><span class="o">]</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">--------------------------------------------------</span>
+<span class="cp">{{</span> <span class="nv">day_title</span><span class="o">(</span><span class="nv">year</span><span class="o">,</span> <span class="nv">month</span><span class="o">,</span> <span class="nv">d</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">--------------------------------------------------</span>
+<span class="x">（この日の日記をここに書く）</span>
+<span class="cp">{%</span> <span class="k">endif</span> -<span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span>- <span class="k">endfor</span> -<span class="cp">%}</span><span class="x"></span>
 </pre></div>
 </div>
 <ul class="simple">
-<li>メンテのことを考えてコメントをふんだんに盛り込むこと。さらに、コメントブロックにはハイフン付きを利用して、空白文字がテンプレ本文に影響を与えないようにするのがコツ。</li>
-<li>ここには書かなかったが、テンプレで参照する引数の説明も添えるのがよいだろう。</li>
-<li>テンプレファイルの文字エンコーディングは覚えておくこと。
-Python コードを書くときにローダーオブジェクトに <code class="code docutils literal notranslate"><span class="pre">encoding</span></code> を指示してやらねばならない。</li>
+<li><p>メンテのことを考えてコメントをふんだんに盛り込むこと。さらに、コメントブロックにはハイフン付きを利用して、空白文字がテンプレ本文に影響を与えないようにするのがコツ。</p></li>
+<li><p>ここには書かなかったが、テンプレで参照する引数の説明も添えるのがよいだろう。</p></li>
+<li><p>テンプレファイルの文字エンコーディングは覚えておくこと。
+Python コードを書くときにローダーオブジェクトに <code class="code docutils literal notranslate"><span class="pre">encoding</span></code> を指示してやらねばならない。</p></li>
 </ul>
 </div>
 <div class="section" id="id19">
 <h4>Python コード<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h4>
 <p>次の内容のコードを <code class="file docutils literal notranslate"><span class="pre">diary.txt_t</span></code> のあるディレクトリーに保存し、その場で実行すると <code class="file docutils literal notranslate"><span class="pre">diary-2011-04.txt</span></code> のような、手動で日記を書くためのテキストファイルができる。</p>
-<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jinja2</span> <span class="k">import</span> <span class="n">Environment</span><span class="p">,</span> <span class="n">FileSystemLoader</span>
-<span class="kn">from</span> <span class="nn">calendar</span> <span class="k">import</span> <span class="n">Calendar</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jinja2</span> <span class="kn">import</span> <span class="n">Environment</span><span class="p">,</span> <span class="n">FileSystemLoader</span>
+<span class="kn">from</span> <span class="nn">calendar</span> <span class="kn">import</span> <span class="n">Calendar</span>
 <span class="kn">import</span> <span class="nn">datetime</span>
 
 <span class="c1"># the path to the template(s)</span>
@@ -551,7 +548,7 @@ Python コードを書くときにローダーオブジェクトに <code class=
 </div>
 <div class="section" id="id20">
 <h4>実行結果<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h4>
-<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span>==================================================
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>==================================================
 2011 年 4 月の日記
 ==================================================
 
@@ -573,27 +570,27 @@ Python コードを書くときにローダーオブジェクトに <code class=
 </div>
 </div>
 <div class="section" id="todo">
-<h2><a class="toc-backref" href="#id47">TODO</a><a class="headerlink" href="#todo" title="Permalink to this headline">¶</a></h2>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<ul class="last">
-<li><p class="first"><a class="reference external" href="http://git-scm.org/">Git</a> を利用した開発版 <a class="reference external" href="http://jinja.pocoo.org/">Jinja2</a> の作業コピー取得をやってみる。</p>
+<h2><a class="toc-backref" href="#id48">TODO</a><a class="headerlink" href="#todo" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-todo admonition" id="id21">
+<p class="admonition-title">Todo</p>
+<ul>
+<li><p><a class="reference external" href="http://git-scm.org/">Git</a> を利用した開発版 <a class="reference external" href="http://jinja.pocoo.org/">Jinja2</a> の作業コピー取得をやってみる。</p>
 <p>これは難しくないからやってもやらなくてもよい。おそらく次のようなことをするだけで十分。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip uninstall jinja2
-$ git clone https://github.com/mitsuhiko/jinja2.git
-$ cd jinja2
-$ pip install -e .
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> pip uninstall jinja2
+<span class="gp">$</span> git clone https://github.com/mitsuhiko/jinja2.git
+<span class="gp">$</span> <span class="nb">cd</span> jinja2
+<span class="gp">$</span> pip install -e .
 </pre></div>
 </div>
 </li>
-<li><p class="first">Extension 全般。</p>
-</li>
+<li><p>Extension 全般。</p></li>
 </ul>
 </div>
 </div>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
       </div>
       <div class="clearer"></div>
@@ -607,7 +604,8 @@ $ pip install -e .
         <li class="right" >
           <a href="python-quaternion.html" title="Quaternion 利用ノート"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Jinja2 利用ノート</a></li> 
       </ul>
     </div>
     <div id="footer">
@@ -616,7 +614,7 @@ $ pip install -e .
       </div>
       <div id="footer_copyright">
         Since 1999<br />
-        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+        Copyright &copy; 1999-2020, プレハブ小屋 All rights reserved.
       </div>
     </div>
   </body>

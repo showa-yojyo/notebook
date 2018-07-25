@@ -1,17 +1,17 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>11 Structured Classifiers &#8212; 読書ノート v1.4</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>11 Structured Classifiers &#8212; 読書ノート v1.5dev</title>
     <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/mathjax-v3.js"></script>
+    
     <link rel="next" title="12 Packages" href="packages.html" />
     <link rel="prev" title="10 Simple Classifiers" href="simple-classifiers.html" /> 
   </head><body>
@@ -25,7 +25,8 @@
           <a href="simple-classifiers.html" title="10 Simple Classifiers"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Unified Modeling Language 2.5 読書ノート</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Unified Modeling Language 2.5 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">11 Structured Classifiers</a></li> 
       </ul>
     </div>  
 
@@ -34,134 +35,127 @@
           <div class="body" role="main">
             
   <div class="section" id="structured-classifiers">
-<h1><a class="toc-backref" href="#id33">11 Structured Classifiers</a><a class="headerlink" href="#structured-classifiers" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id34">11 Structured Classifiers</a><a class="headerlink" href="#structured-classifiers" title="Permalink to this headline">¶</a></h1>
 <p>UML 2.5 pp. 181-238 に関するノート。</p>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">最低でもあと一回は編集する。</p>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>最低でもあと一回は編集する。</p>
 </div>
-<div class="contents topic" id="id1">
-<p class="topic-title first">ノート目次</p>
+<div class="contents topic" id="id2">
+<p class="topic-title">ノート目次</p>
 <ul class="simple">
-<li><a class="reference internal" href="#structured-classifiers" id="id33">11 Structured Classifiers</a><ul>
-<li><a class="reference internal" href="#summary" id="id34">11.1 Summary</a></li>
-<li><a class="reference internal" href="#id2" id="id35">11.2 Structured Classifiers</a></li>
-<li><a class="reference internal" href="#encapsulated-classifiers" id="id36">11.3 Encapsulated Classifiers</a></li>
-<li><a class="reference internal" href="#classes" id="id37">11.4 Classes</a></li>
-<li><a class="reference internal" href="#associations" id="id38">11.5 Associations</a></li>
-<li><a class="reference internal" href="#components" id="id39">11.6 Components</a></li>
-<li><a class="reference internal" href="#collaborations" id="id40">11.7 Collaborations</a></li>
-<li><a class="reference internal" href="#classifier-descriptions" id="id41">11.8 Classifier Descriptions</a></li>
-<li><a class="reference internal" href="#association-descriptions" id="id42">11.9 Association Descriptions</a></li>
+<li><p><a class="reference internal" href="#structured-classifiers" id="id34">11 Structured Classifiers</a></p>
+<ul>
+<li><p><a class="reference internal" href="#summary" id="id35">11.1 Summary</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id36">11.2 Structured Classifiers</a></p></li>
+<li><p><a class="reference internal" href="#encapsulated-classifiers" id="id37">11.3 Encapsulated Classifiers</a></p></li>
+<li><p><a class="reference internal" href="#classes" id="id38">11.4 Classes</a></p></li>
+<li><p><a class="reference internal" href="#associations" id="id39">11.5 Associations</a></p></li>
+<li><p><a class="reference internal" href="#components" id="id40">11.6 Components</a></p></li>
+<li><p><a class="reference internal" href="#collaborations" id="id41">11.7 Collaborations</a></p></li>
+<li><p><a class="reference internal" href="#classifier-descriptions" id="id42">11.8 Classifier Descriptions</a></p></li>
+<li><p><a class="reference internal" href="#association-descriptions" id="id43">11.9 Association Descriptions</a></p></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="summary">
-<h2><a class="toc-backref" href="#id34">11.1 Summary</a><a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id35">11.1 Summary</a><a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>StructuredClassifier とは、リンクされた <code class="docutils literal notranslate"><span class="pre">roles</span></code> のネットワークを形成する内部構造とひとつまたはそれを超える Ports から構成される外部構造があることが許される Classifier である。</li>
-<li>EncapsulatedClassifiers の Ports は遠くにいる協力者らの局地的な代理人として振る舞い、
-EncapsulatedClassifiers がそれらに直接に結合されることなく、それらを識別することをできるようにする。</li>
-<li>Classes, Components, Associations および Collaborations はこれらの能力を使う具象的メタクラスである。</li>
+<li><p>StructuredClassifier とは、リンクされた <code class="docutils literal notranslate"><span class="pre">roles</span></code> のネットワークを形成する内部構造とひとつまたはそれを超える Ports から構成される外部構造があることが許される Classifier である。</p></li>
+<li><p>EncapsulatedClassifiers の Ports は遠くにいる協力者らの局地的な代理人として振る舞い、
+EncapsulatedClassifiers がそれらに直接に結合されることなく、それらを識別することをできるようにする。</p></li>
+<li><p>Classes, Components, Associations および Collaborations はこれらの能力を使う具象的メタクラスである。</p></li>
 </ul>
 </div>
-<div class="section" id="id2">
-<h2><a class="toc-backref" href="#id35">11.2 Structured Classifiers</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id3">
-<h3>11.2.1 Summary<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<h2><a class="toc-backref" href="#id36">11.2 Structured Classifiers</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h3>11.2.1 Summary<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>StructuredClassifiers は、それぞれが StructuredClassifier によりモデル化された挙動全部で <code class="docutils literal notranslate"><span class="pre">role</span></code> を演じるような接続要素の、内部構造を含むことが許されている。</li>
-<li>この節を 11.5 節といっしょに読むことが役に立つ。</li>
+<li><p>StructuredClassifiers は、それぞれが StructuredClassifier によりモデル化された挙動全部で <code class="docutils literal notranslate"><span class="pre">role</span></code> を演じるような接続要素の、内部構造を含むことが許されている。</p></li>
+<li><p>この節を 11.5 節といっしょに読むことが役に立つ。</p></li>
 </ul>
 </div>
 <div class="section" id="abstract-syntax">
 <h3>11.2.2 Abstract Syntax<a class="headerlink" href="#abstract-syntax" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Figure 11.1 Structured Classifiers<ul>
-<li>StructuredClassifier, ConnectableElementTemplateParameter,
-ConnectableElement, Connector, ConnectorEnd</li>
-<li>«enumeration» ConnectorKind</li>
+<li><p>Figure 11.1 Structured Classifiers</p>
+<ul>
+<li><p>StructuredClassifier, ConnectableElementTemplateParameter,
+ConnectableElement, Connector, ConnectorEnd</p></li>
+<li><p>«enumeration» ConnectorKind</p></li>
 </ul>
 </li>
 </ul>
-<dl class="docutils">
-<dt>A_role_structuredClassifier</dt>
-<dd><ul class="first last simple">
-<li>StructuredClassifier から ConnectableElement への関連（単方向）。</li>
-<li>先述したようにこの関連こそが StructuredClassifier の主な意味である。</li>
-<li>A_member_memberNamespace を subsets する。</li>
-<li>両端ともに <code class="docutils literal notranslate"><span class="pre">{readOnly,</span> <span class="pre">union}</span></code> 制約がある。</li>
+<dl class="simple">
+<dt>A_role_structuredClassifier</dt><dd><ul class="simple">
+<li><p>StructuredClassifier から ConnectableElement への関連（単方向）。</p></li>
+<li><p>先述したようにこの関連こそが StructuredClassifier の主な意味である。</p></li>
+<li><p>A_member_memberNamespace を subsets する。</p></li>
+<li><p>両端ともに <code class="docutils literal notranslate"><span class="pre">{readOnly,</span> <span class="pre">union}</span></code> 制約がある。</p></li>
 </ul>
 </dd>
-<dt>A_ownedAttribute_structuredClassifier</dt>
-<dd><ul class="first last simple">
-<li>StructuredClassifier から Property への composite 関連（単方向）。</li>
-<li>A_attribute_classifier, A_ownedMember_namespace,
-A_role_structuredClassifier を subsets する。</li>
-<li>関連端 ownedAttributes に制約 <code class="docutils literal notranslate"><span class="pre">{ordered}</span></code> を付ける。</li>
-<li>関連端 structuredClassifier を <code class="docutils literal notranslate"><span class="pre">{redefines}</span></code> する。</li>
+<dt>A_ownedAttribute_structuredClassifier</dt><dd><ul class="simple">
+<li><p>StructuredClassifier から Property への composite 関連（単方向）。</p></li>
+<li><p>A_attribute_classifier, A_ownedMember_namespace,
+A_role_structuredClassifier を subsets する。</p></li>
+<li><p>関連端 ownedAttributes に制約 <code class="docutils literal notranslate"><span class="pre">{ordered}</span></code> を付ける。</p></li>
+<li><p>関連端 structuredClassifier を <code class="docutils literal notranslate"><span class="pre">{redefines}</span></code> する。</p></li>
 </ul>
 </dd>
-<dt>A_part_structuredClassifier</dt>
-<dd><ul class="first last simple">
-<li>StructuredClassifier から Property への単方向関連。</li>
-<li>上記 <code class="docutils literal notranslate"><span class="pre">ownedAttributes</span></code> で <code class="docutils literal notranslate"><span class="pre">isComposite</span> <span class="pre">==</span> <span class="pre">true</span></code> なものを
-<code class="docutils literal notranslate"><span class="pre">parts</span></code> とする。<ul>
-<li>よって <code class="docutils literal notranslate"><span class="pre">parts</span></code> は <code class="docutils literal notranslate"><span class="pre">roles</span></code> の部分集合を構成する。</li>
+<dt>A_part_structuredClassifier</dt><dd><ul class="simple">
+<li><p>StructuredClassifier から Property への単方向関連。</p></li>
+<li><p>上記 <code class="docutils literal notranslate"><span class="pre">ownedAttributes</span></code> で <code class="docutils literal notranslate"><span class="pre">isComposite</span> <span class="pre">==</span> <span class="pre">true</span></code> なものを
+<code class="docutils literal notranslate"><span class="pre">parts</span></code> とする。</p>
+<ul>
+<li><p>よって <code class="docutils literal notranslate"><span class="pre">parts</span></code> は <code class="docutils literal notranslate"><span class="pre">roles</span></code> の部分集合を構成する。</p></li>
 </ul>
 </li>
-<li>関連端 <code class="docutils literal notranslate"><span class="pre">part</span></code> は <code class="docutils literal notranslate"><span class="pre">{readOnly}</span></code> である。</li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">part</span></code> は <code class="docutils literal notranslate"><span class="pre">{readOnly}</span></code> である。</p></li>
 </ul>
 </dd>
-<dt>A_ownedConnector_structuredClassifier</dt>
-<dd><ul class="first last simple">
-<li>StructuredClassifier から Connector への composite 関連（単方向）。</li>
-<li>Connectors を所有するのは StructuredClassifier である。</li>
-<li>A_feature_featuringClassifier,
+<dt>A_ownedConnector_structuredClassifier</dt><dd><ul class="simple">
+<li><p>StructuredClassifier から Connector への composite 関連（単方向）。</p></li>
+<li><p>Connectors を所有するのは StructuredClassifier である。</p></li>
+<li><p>A_feature_featuringClassifier,
 A_redefinitionContext_redefinableElement,
-A_ownedMember_namespace を subsets する。</li>
+A_ownedMember_namespace を subsets する。</p></li>
 </ul>
 </dd>
-<dt>A_templateParameter_parameteredElement</dt>
-<dd><ul class="first last simple">
-<li>ConnectableElementTemplateParameter と ConnectableElement の関連（双方向）。</li>
-<li>同名関連を redefines する。</li>
+<dt>A_templateParameter_parameteredElement</dt><dd><ul class="simple">
+<li><p>ConnectableElementTemplateParameter と ConnectableElement の関連（双方向）。</p></li>
+<li><p>同名関連を redefines する。</p></li>
 </ul>
 </dd>
-<dt>A_end_role</dt>
-<dd><ul class="first last simple">
-<li>ConnectableElement と ConnectorEnd の関連（双方向）。</li>
-<li>Connector の端点を一つ取れば、対応する <code class="docutils literal notranslate"><span class="pre">role</span></code> が一意に対応する。</li>
-<li>関連端 <code class="docutils literal notranslate"><span class="pre">end</span></code> は <code class="docutils literal notranslate"><span class="pre">{readOnly}</span></code> である。</li>
+<dt>A_end_role</dt><dd><ul class="simple">
+<li><p>ConnectableElement と ConnectorEnd の関連（双方向）。</p></li>
+<li><p>Connector の端点を一つ取れば、対応する <code class="docutils literal notranslate"><span class="pre">role</span></code> が一意に対応する。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">end</span></code> は <code class="docutils literal notranslate"><span class="pre">{readOnly}</span></code> である。</p></li>
 </ul>
 </dd>
-<dt>A_definingEnd_connectorEnd</dt>
-<dd>不明。説明文の意味を理解できない。</dd>
-<dt>A_end_connector</dt>
-<dd><ul class="first last simple">
-<li>Connector から ConnectorEnd への composite 関連（単方向）。</li>
-<li>先述した定義により関連端 <code class="docutils literal notranslate"><span class="pre">end</span></code> の多重度は <code class="docutils literal notranslate"><span class="pre">2..*</span></code> である。</li>
-<li>関連端 <code class="docutils literal notranslate"><span class="pre">end</span></code> は <code class="docutils literal notranslate"><span class="pre">{ordered}</span></code> である。</li>
-<li>A_ownedElement_owner を subsets する。</li>
+<dt>A_definingEnd_connectorEnd</dt><dd><p>不明。説明文の意味を理解できない。</p>
+</dd>
+<dt>A_end_connector</dt><dd><ul class="simple">
+<li><p>Connector から ConnectorEnd への composite 関連（単方向）。</p></li>
+<li><p>先述した定義により関連端 <code class="docutils literal notranslate"><span class="pre">end</span></code> の多重度は <code class="docutils literal notranslate"><span class="pre">2..*</span></code> である。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">end</span></code> は <code class="docutils literal notranslate"><span class="pre">{ordered}</span></code> である。</p></li>
+<li><p>A_ownedElement_owner を subsets する。</p></li>
 </ul>
 </dd>
-<dt>A_contract_connector</dt>
-<dd><ul class="first last simple">
-<li>Connector から Behavior への関連（単方向）。</li>
-<li>その Connector を横断する有効な相互作用のパターンを指定することが許されている。</li>
+<dt>A_contract_connector</dt><dd><ul class="simple">
+<li><p>Connector から Behavior への関連（単方向）。</p></li>
+<li><p>その Connector を横断する有効な相互作用のパターンを指定することが許されている。</p></li>
 </ul>
 </dd>
-<dt>A_type_connector</dt>
-<dd><ul class="first last simple">
-<li>Connector から Association への関連（単方向）。</li>
-<li>Connector が指定するリンクがどの Association の型のオブジェクトであるかを指定することが許されている。</li>
+<dt>A_type_connector</dt><dd><ul class="simple">
+<li><p>Connector から Association への関連（単方向）。</p></li>
+<li><p>Connector が指定するリンクがどの Association の型のオブジェクトであるかを指定することが許されている。</p></li>
 </ul>
 </dd>
-<dt>A_redefinedConnector_connector</dt>
-<dd><ul class="first last simple">
-<li>Connector から Connector への関連。</li>
-<li>Connector が含む Classifier が何かの特殊化であるときに、再定義することが許されている。このとき、Association (<code class="docutils literal notranslate"><span class="pre">type</span></code>) や ConnectorEnds (<code class="docutils literal notranslate"><span class="pre">ends</span></code>) の型もそれぞれの特殊化にすることが許されている。さらに ConnectorEnds の Property は置き換えてもよい。</li>
+<dt>A_redefinedConnector_connector</dt><dd><ul class="simple">
+<li><p>Connector から Connector への関連。</p></li>
+<li><p>Connector が含む Classifier が何かの特殊化であるときに、再定義することが許されている。このとき、Association (<code class="docutils literal notranslate"><span class="pre">type</span></code>) や ConnectorEnds (<code class="docutils literal notranslate"><span class="pre">ends</span></code>) の型もそれぞれの特殊化にすることが許されている。さらに ConnectorEnds の Property は置き換えてもよい。</p></li>
 </ul>
 </dd>
 </dl>
@@ -171,1110 +165,1172 @@ A_ownedMember_namespace を subsets する。</li>
 <div class="section" id="connectable-elements">
 <h4>11.2.3.1 Connectable Elements<a class="headerlink" href="#connectable-elements" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li>ConnectableElement は抽象的クラスである。
-ConnectableElement それぞれは StructuredClassifier の内部構造の内部にある参加者を表現する。これらの参加者は <code class="docutils literal notranslate"><span class="pre">roles</span></code> と呼ばれる。</li>
-<li>ConnectableElement の詳細な意味はその具象型が与える。一般的に、ConnectableElement それぞれが有効 required Interfaces の集合と有効 provided Interfaces の集合を展示する。これらの集合は Connectors を用いた ConnectableElements の接続可能性を決定するのに用いられる。</li>
-<li>委譲 Ports を除いた ConnectableElements に対して、有効 required Interfaces は required Interfaces であり、有効 provided Interfaces は provided Interfaces であり、次のように導かれる：<ul>
-<li>provided Interface は ConnectableElement とその上位型の <code class="docutils literal notranslate"><span class="pre">type</span></code> により実現される Interfaces の集合 (pl.) の和集合を形成する。すなわち、それが Interface による型ならば、ちょうど <code class="docutils literal notranslate"><span class="pre">type</span></code> を含む集合である。</li>
-<li>required Interface は ConnectableElement とその上位型の <code class="docutils literal notranslate"><span class="pre">type</span></code> により使われる Interfaces の集合 (pl.) の和集合を形成する。</li>
+<li><p>ConnectableElement は抽象的クラスである。
+ConnectableElement それぞれは StructuredClassifier の内部構造の内部にある参加者を表現する。これらの参加者は <code class="docutils literal notranslate"><span class="pre">roles</span></code> と呼ばれる。</p></li>
+<li><p>ConnectableElement の詳細な意味はその具象型が与える。一般的に、ConnectableElement それぞれが有効 required Interfaces の集合と有効 provided Interfaces の集合を展示する。これらの集合は Connectors を用いた ConnectableElements の接続可能性を決定するのに用いられる。</p></li>
+<li><p>委譲 Ports を除いた ConnectableElements に対して、有効 required Interfaces は required Interfaces であり、有効 provided Interfaces は provided Interfaces であり、次のように導かれる：</p>
+<ul>
+<li><p>provided Interface は ConnectableElement とその上位型の <code class="docutils literal notranslate"><span class="pre">type</span></code> により実現される Interfaces の集合 (pl.) の和集合を形成する。すなわち、それが Interface による型ならば、ちょうど <code class="docutils literal notranslate"><span class="pre">type</span></code> を含む集合である。</p></li>
+<li><p>required Interface は ConnectableElement とその上位型の <code class="docutils literal notranslate"><span class="pre">type</span></code> により使われる Interfaces の集合 (pl.) の和集合を形成する。</p></li>
 </ul>
 </li>
-<li>ConnectableElement はテンプレートに対する仮引数としての
-ConnectableElementTemplateParameter を介して露出されてよい。</li>
+<li><p>ConnectableElement はテンプレートに対する仮引数としての
+ConnectableElementTemplateParameter を介して露出されてよい。</p></li>
 </ul>
 </div>
 <div class="section" id="parts-and-roles">
 <h4>11.2.3.2 Parts and Roles<a class="headerlink" href="#parts-and-roles" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li>StructuredClassifier の Properties は
-<a class="reference internal" href="classification.html"><span class="doc">9 Classification</span></a> で指定された意味に従う。</li>
-<li>Property は ConnectableElement の一種である。
+<li><p>StructuredClassifier の Properties は
+<a class="reference internal" href="classification.html"><span class="doc">9 Classification</span></a> で指定された意味に従う。</p></li>
+<li><p>Property は ConnectableElement の一種である。
 StructuredClassifier の <code class="docutils literal notranslate"><span class="pre">ownedAttributes</span></code> のすべては <code class="docutils literal notranslate"><span class="pre">roles</span></code> であり、
-Connectors を使って接続することが可能である。</li>
-<li><code class="docutils literal notranslate"><span class="pre">isComposite</span></code> が true の StructuredClassifier の <code class="docutils literal notranslate"><span class="pre">ownedAttributes</span></code> はそれの <code class="docutils literal notranslate"><span class="pre">parts</span></code> であるという。それゆえ <code class="docutils literal notranslate"><span class="pre">parts</span></code> は <code class="docutils literal notranslate"><span class="pre">roles</span></code> の部分集合を構成する。</li>
+Connectors を使って接続することが可能である。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">isComposite</span></code> が true の StructuredClassifier の <code class="docutils literal notranslate"><span class="pre">ownedAttributes</span></code> はそれの <code class="docutils literal notranslate"><span class="pre">parts</span></code> であるという。それゆえ <code class="docutils literal notranslate"><span class="pre">parts</span></code> は <code class="docutils literal notranslate"><span class="pre">roles</span></code> の部分集合を構成する。</p></li>
 </ul>
 </div>
 <div class="section" id="connectors">
 <h4>11.2.3.3 Connectors<a class="headerlink" href="#connectors" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li>Connector は StructuredClassifier 内部の所有または継承された <code class="docutils literal notranslate"><span class="pre">roles</span></code> を演じるふたつまたはそれを超えるオブジェクト間のリンクを指定する。<ul>
-<li>リンクのそれぞれはポインターと同じくらい簡単な何かや、ネットワーク接続と同じくらい複雑な何かにより実現されることが許され、オブジェクトが通信可能であることを表してよい。</li>
+<li><p>Connector は StructuredClassifier 内部の所有または継承された <code class="docutils literal notranslate"><span class="pre">roles</span></code> を演じるふたつまたはそれを超えるオブジェクト間のリンクを指定する。</p>
+<ul>
+<li><p>リンクのそれぞれはポインターと同じくらい簡単な何かや、ネットワーク接続と同じくらい複雑な何かにより実現されることが許され、オブジェクトが通信可能であることを表してよい。</p></li>
 </ul>
 </li>
-<li>Associations が関連された Classifiers の適切な型のどのオブジェクト間のリンクを指定するのに対して、
-Connectors は接続された <code class="docutils literal notranslate"><span class="pre">roles</span></code> しか演じないオブジェクト間のリンクを指定する。</li>
-<li>Connector それぞれはふたつまたはそれを超える ConnectableElements に取り付けてよく、それぞれは含んでいる StructuredClassifier のオブジェクト化に貢献するオブジェクトの集合を表現している。</li>
-<li>ConnectorEnd とは Connector の端点で、
-Connector を ConnectableElement へ取り付けるものである。</li>
-<li>Connectors に対応するリンクは含んでいる StructuredClassifier のオブジェクトの生成に続いて生成してよい。含んでいる StructuredClassifier オブジェクトが破壊されるとそのようなリンクはすべて破壊される。</li>
-<li>Connector は Association によって型が付けられてよく、
-Connector が指定するリンクが Association 型のオブジェクトの場合である。</li>
-<li>Connector の一端における ConnectableElement それぞれの有効 required Interfaces それぞれの機能それぞれは、他方の端における ConnectableElements の有効 provided Interfaces の機能の中に互換機能が少なくともひとつあるはずである。</li>
-<li>単一の ConnectableElement に取り付けられた複数の連結器があると、その意味は、
-ConnectableElement を複数の連結器を介して接続された ConnectableElements のすべてに接続する単一の n 項 Connector と同じになる。</li>
-<li>Connectors には種類があり、その値は assembly か delegation である。</li>
-<li>ConnectorKind は次のリテラル値の列挙体である：<ul>
-<li>assembly: Connector は assembly Connector である。</li>
-<li>delegation: Connector は delegation Connector である。</li>
+<li><p>Associations が関連された Classifiers の適切な型のどのオブジェクト間のリンクを指定するのに対して、
+Connectors は接続された <code class="docutils literal notranslate"><span class="pre">roles</span></code> しか演じないオブジェクト間のリンクを指定する。</p></li>
+<li><p>Connector それぞれはふたつまたはそれを超える ConnectableElements に取り付けてよく、それぞれは含んでいる StructuredClassifier のオブジェクト化に貢献するオブジェクトの集合を表現している。</p></li>
+<li><p>ConnectorEnd とは Connector の端点で、
+Connector を ConnectableElement へ取り付けるものである。</p></li>
+<li><p>Connectors に対応するリンクは含んでいる StructuredClassifier のオブジェクトの生成に続いて生成してよい。含んでいる StructuredClassifier オブジェクトが破壊されるとそのようなリンクはすべて破壊される。</p></li>
+<li><p>Connector は Association によって型が付けられてよく、
+Connector が指定するリンクが Association 型のオブジェクトの場合である。</p></li>
+<li><p>Connector の一端における ConnectableElement それぞれの有効 required Interfaces それぞれの機能それぞれは、他方の端における ConnectableElements の有効 provided Interfaces の機能の中に互換機能が少なくともひとつあるはずである。</p></li>
+<li><p>単一の ConnectableElement に取り付けられた複数の連結器があると、その意味は、
+ConnectableElement を複数の連結器を介して接続された ConnectableElements のすべてに接続する単一の n 項 Connector と同じになる。</p></li>
+<li><p>Connectors には種類があり、その値は assembly か delegation である。</p></li>
+<li><p>ConnectorKind は次のリテラル値の列挙体である：</p>
+<ul>
+<li><p>assembly: Connector は assembly Connector である。</p></li>
+<li><p>delegation: Connector は delegation Connector である。</p></li>
 </ul>
 </li>
-<li>Behaviors は Connectors に <code class="docutils literal notranslate"><span class="pre">contracts</span></code> として結び付けてよく、
-Connector の両端で有効な相互作用パターンを指定する。</li>
+<li><p>Behaviors は Connectors に <code class="docutils literal notranslate"><span class="pre">contracts</span></code> として結び付けてよく、
+Connector の両端で有効な相互作用パターンを指定する。</p></li>
 </ul>
 </div>
 <div class="section" id="multiplicities-and-topologies">
 <h4>11.2.3.4 Multiplicities and topologies<a class="headerlink" href="#multiplicities-and-topologies" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li>ConnectableElements 上の多重度は含む StructuredClassifier のオブジェクト内部で生成が許されるオブジェクトの個数を強制し、それは MultiplicityElement の意味に従う。</li>
-<li>二項 Connector に対しては、
+<li><p>ConnectableElements 上の多重度は含む StructuredClassifier のオブジェクト内部で生成が許されるオブジェクトの個数を強制し、それは MultiplicityElement の意味に従う。</p></li>
+<li><p>二項 Connector に対しては、
 ConnectorEnd の多重度は他方の関連端での ConnectableElement のオブジェクトそれぞれにリンクしてよいオブジェクトの個数を示す。
-n 項 Connector に対しては、一方の関連端の多重度は他方の関連端それぞれに対する特定のオブジェクトを含む集合を参照してよいリンクの個数を強制する。</li>
-<li>StructuredClassifier のオブジェクトの <code class="docutils literal notranslate"><span class="pre">role</span></code> からオブジェクトを取り除くと、
-<code class="docutils literal notranslate"><span class="pre">role</span></code> と他のものの間の Connectors によって存在するリンクは破壊される。</li>
-<li>ConnectorEnds の多重度と、それらが相互接続する ConnectableElements のそれらとをマッチングすることにより生じる位相は、モデルから推論することはいつでも可能とは限らない。</li>
+n 項 Connector に対しては、一方の関連端の多重度は他方の関連端それぞれに対する特定のオブジェクトを含む集合を参照してよいリンクの個数を強制する。</p></li>
+<li><p>StructuredClassifier のオブジェクトの <code class="docutils literal notranslate"><span class="pre">role</span></code> からオブジェクトを取り除くと、
+<code class="docutils literal notranslate"><span class="pre">role</span></code> と他のものの間の Connectors によって存在するリンクは破壊される。</p></li>
+<li><p>ConnectorEnds の多重度と、それらが相互接続する ConnectableElements のそれらとをマッチングすることにより生じる位相は、モデルから推論することはいつでも可能とは限らない。</p></li>
 </ul>
 </div>
 </div>
 <div class="section" id="notation">
 <h3>11.2.4 Notation<a class="headerlink" href="#notation" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>StructuredClassifier の内部構造は名前が “internal structure” である分離区画に示す。この区画は必須である。</li>
-<li><code class="docutils literal notranslate"><span class="pre">part</span></code> は内部構造区画の内側で
-<code class="docutils literal notranslate"><span class="pre">part</span></code> を表す実線輪郭の箱記号の図式的な入れ子で示してよい。合成ではない <code class="docutils literal notranslate"><span class="pre">role</span></code> oは破線輪郭の箱記号の図式的な入れ子で示してよい。<ul>
-<li>厳密には合成だけが <code class="docutils literal notranslate"><span class="pre">parts</span></code> であるにもかかわらず、いずれの場合にも箱を part box と呼んでよい。</li>
+<li><p>StructuredClassifier の内部構造は名前が “internal structure” である分離区画に示す。この区画は必須である。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">part</span></code> は内部構造区画の内側で
+<code class="docutils literal notranslate"><span class="pre">part</span></code> を表す実線輪郭の箱記号の図式的な入れ子で示してよい。合成ではない <code class="docutils literal notranslate"><span class="pre">role</span></code> oは破線輪郭の箱記号の図式的な入れ子で示してよい。</p>
+<ul>
+<li><p>厳密には合成だけが <code class="docutils literal notranslate"><span class="pre">parts</span></code> であるにもかかわらず、いずれの場合にも箱を part box と呼んでよい。</p></li>
 </ul>
 </li>
-<li>Property に対する多重度は、記法を用いて part box の右上隅に描かれた多重度マークとして示してもよい。</li>
-<li><code class="docutils literal notranslate"><span class="pre">role</span></code> が EncapsulatedClassifier 型のときは、
+<li><p>Property に対する多重度は、記法を用いて part box の右上隅に描かれた多重度マークとして示してもよい。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">role</span></code> が EncapsulatedClassifier 型のときは、
 <code class="docutils literal notranslate"><span class="pre">type</span></code> の Ports はいずれも
-<code class="docutils literal notranslate"><span class="pre">role</span></code> を表す part box の境界に重なり合う小さな四角記号として示してもよい。</li>
-<li><code class="docutils literal notranslate"><span class="pre">role</span></code> が Class でない classifier の型であれば、
-part box 記号の名前区画は名前の上に適宜 «component» のようなキーワードを含む。</li>
-<li>Connector は Association に対するそれと同様の表記法を使って描く。</li>
-<li>ConnectorEnd では Association の端での修飾と同じ表記法を使って修飾を見せてよい。</li>
-<li>ConnectorEnd が内部構造の <code class="docutils literal notranslate"><span class="pre">part</span></code> または <code class="docutils literal notranslate"><span class="pre">role</span></code> 上の
+<code class="docutils literal notranslate"><span class="pre">role</span></code> を表す part box の境界に重なり合う小さな四角記号として示してもよい。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">role</span></code> が Class でない classifier の型であれば、
+part box 記号の名前区画は名前の上に適宜 «component» のようなキーワードを含む。</p></li>
+<li><p>Connector は Association に対するそれと同様の表記法を使って描く。</p></li>
+<li><p>ConnectorEnd では Association の端での修飾と同じ表記法を使って修飾を見せてよい。</p></li>
+<li><p>ConnectorEnd が内部構造の <code class="docutils literal notranslate"><span class="pre">part</span></code> または <code class="docutils literal notranslate"><span class="pre">role</span></code> 上の
 Port に取り付けられており、多重度が示されていなければ、
 ConnectorEnd の多重度は Port の多重度と
-<code class="docutils literal notranslate"><span class="pre">role</span></code> の多重度の積に等しい。</li>
-<li>下の三つの表記法の仕様はオプションである。準拠ツールは実装する必要はない。<ul>
-<li><code class="docutils literal notranslate"><span class="pre">parts</span></code> に単純な Ports があるならば、
-ball and socket 記法を Ports 間の assembly Connectors を表すのに用いてもよい。</li>
-<li>単純 Ports を接続するときには
+<code class="docutils literal notranslate"><span class="pre">role</span></code> の多重度の積に等しい。</p></li>
+<li><p>下の三つの表記法の仕様はオプションである。準拠ツールは実装する必要はない。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">parts</span></code> に単純な Ports があるならば、
+ball and socket 記法を Ports 間の assembly Connectors を表すのに用いてもよい。</p></li>
+<li><p>単純 Ports を接続するときには
 assembly または delegation に対しての普通の Connector 表記法を
-Port 記号自身へではなく ball and socket 記号へ接続されるように（？）示してよい（原文で動詞がふたつあるような？）。</li>
-<li>ふたつを超える単純 Ports を接続する n 項 Connector があり、ふたつまたはそれを超える Ports が同じまたは互換な Interfaces を与えるか要求するときには、
+Port 記号自身へではなく ball and socket 記号へ接続されるように（？）示してよい（原文で動詞がふたつあるような？）。</p></li>
+<li><p>ふたつを超える単純 Ports を接続する n 項 Connector があり、ふたつまたはそれを超える Ports が同じまたは互換な Interfaces を与えるか要求するときには、
 Interface を表す単一の記号が示されることが可能であり、
-Components から伸びる線がその記号へ引かれることが可能であるが、これは channeled ball and socket 表記法である。</li>
+Components から伸びる線がその記号へ引かれることが可能であるが、これは channeled ball and socket 表記法である。</p></li>
 </ul>
 </li>
-<li>内部構造区画は CollaborationUses を表す記号を含んでもよいが、それは 11.7.4 で記される表記法に従う。</li>
+<li><p>内部構造区画は CollaborationUses を表す記号を含んでもよいが、それは 11.7.4 で記される表記法に従う。</p></li>
 </ul>
 </div>
 <div class="section" id="examples">
 <h3>11.2.5 Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Figure 11.2 Parts and roles<ul>
-<li>part boxes の見本である。</li>
-<li>左の実線枠のほうは composition によるオブジェクト。
-Wheel オブジェクト 4 つを所有するオブジェクトを示す。<ul>
-<li>多重度 4 を箱の右上に記す。</li>
+<li><p>Figure 11.2 Parts and roles</p>
+<ul>
+<li><p>part boxes の見本である。</p></li>
+<li><p>左の実線枠のほうは composition によるオブジェクト。
+Wheel オブジェクト 4 つを所有するオブジェクトを示す。</p>
+<ul>
+<li><p>多重度 4 を箱の右上に記す。</p></li>
 </ul>
 </li>
-<li>右の破線枠のほうは composite でないオブジェクト。
-Engine オブジェクト 1 or 2 個を参照するオブジェクトを示す。<ul>
-<li>多重度 1..2 を角括弧で示す。</li>
+<li><p>右の破線枠のほうは composite でないオブジェクト。
+Engine オブジェクト 1 or 2 個を参照するオブジェクトを示す。</p>
+<ul>
+<li><p>多重度 1..2 を角括弧で示す。</p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li>Figure 11.3 Parts and roles with Ports<ul>
-<li>Ports あり EncapsulatedClassifiers 型属性の part boxes の見本である。</li>
-<li>Wheel 側からはボールが、Engine 側からはソケットが生えている。どちらも箱の枠線に重なる小さい四角がある。</li>
+<li><p>Figure 11.3 Parts and roles with Ports</p>
+<ul>
+<li><p>Ports あり EncapsulatedClassifiers 型属性の part boxes の見本である。</p></li>
+<li><p>Wheel 側からはボールが、Engine 側からはソケットが生えている。どちらも箱の枠線に重なる小さい四角がある。</p></li>
 </ul>
 </li>
-<li>Figure 11.4 Alternative notations for connecting parts and roles with Ports<ul>
-<li>Ports シンボル同士を接合する線が、内部構造の Ports の接続を示すのに唯一要求されている記法である。</li>
-<li>ボールとソケットがそれぞれ Ports の provided, required Interfaces を指し示す。これらの出現は選択自由である。</li>
+<li><p>Figure 11.4 Alternative notations for connecting parts and roles with Ports</p>
+<ul>
+<li><p>Ports シンボル同士を接合する線が、内部構造の Ports の接続を示すのに唯一要求されている記法である。</p></li>
+<li><p>ボールとソケットがそれぞれ Ports の provided, required Interfaces を指し示す。これらの出現は選択自由である。</p></li>
 </ul>
 </li>
-<li>Figure 11.5 Associations compared with Connectors<ul>
-<li><code class="docutils literal notranslate"><span class="pre">(ii)</span></code> rear と e がクラス Car の内部構造に所属している。</li>
-<li>クラス Car という状況ではこれが成り立つと言っているだけで、
-Wheel と Engine が一般にはこの関連は成り立たない。</li>
-<li><code class="docutils literal notranslate"><span class="pre">(i)</span></code> の表現では、Engine の任意の個数のオブジェクトが Wheel の任意の個数のオブジェクトにリンクできる。</li>
+<li><p>Figure 11.5 Associations compared with Connectors</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">(ii)</span></code> rear と e がクラス Car の内部構造に所属している。</p></li>
+<li><p>クラス Car という状況ではこれが成り立つと言っているだけで、
+Wheel と Engine が一般にはこの関連は成り立たない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(i)</span></code> の表現では、Engine の任意の個数のオブジェクトが Wheel の任意の個数のオブジェクトにリンクできる。</p></li>
 </ul>
 </li>
-<li>Figure 11.6 “Star” Connector pattern<ul>
-<li>関連端の多重度が付随する <code class="docutils literal notranslate"><span class="pre">roles</span></code> の多重度とがマッチしている場合 (i)、何か n 部グラフのようなリンク構造に解釈 (ii) する。</li>
+<li><p>Figure 11.6 “Star” Connector pattern</p>
+<ul>
+<li><p>関連端の多重度が付随する <code class="docutils literal notranslate"><span class="pre">roles</span></code> の多重度とがマッチしている場合 (i)、何か n 部グラフのようなリンク構造に解釈 (ii) する。</p></li>
 </ul>
 </li>
-<li>Figure 11.7 “Array” Connector pattern<ul>
-<li>(i) では関連端の多重度が 1 なので、リンクの意味は (ii) に示すようにパラレルに解釈する。</li>
+<li><p>Figure 11.7 “Array” Connector pattern</p>
+<ul>
+<li><p>(i) では関連端の多重度が 1 なので、リンクの意味は (ii) に示すようにパラレルに解釈する。</p></li>
 </ul>
 </li>
-<li>Figure 11.8 An assembly Connector …<ul>
-<li>単純 Ports のついた Component 型 <code class="docutils literal notranslate"><span class="pre">parts</span></code> の記法例。</li>
-<li>選択自由の ball and socket 記法を採用している。この記法は互換性のある Ports 間の組み立て Connector を表現する。</li>
+<li><p>Figure 11.8 An assembly Connector …</p>
+<ul>
+<li><p>単純 Ports のついた Component 型 <code class="docutils literal notranslate"><span class="pre">parts</span></code> の記法例。</p></li>
+<li><p>選択自由の ball and socket 記法を採用している。この記法は互換性のある Ports 間の組み立て Connector を表現する。</p></li>
 </ul>
 </li>
-<li>Figure 11.9 An n-ary Connector …<ul>
-<li>ある 4 項 Connector のための channeled ball and socket 記法の見本。</li>
-<li>ボールのほうが provided Interfaces; Client is-a Person とのこと。</li>
-<li>ソケットのほうが required Interfaces</li>
+<li><p>Figure 11.9 An n-ary Connector …</p>
+<ul>
+<li><p>ある 4 項 Connector のための channeled ball and socket 記法の見本。</p></li>
+<li><p>ボールのほうが provided Interfaces; Client is-a Person とのこと。</p></li>
+<li><p>ソケットのほうが required Interfaces</p></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <div class="section" id="encapsulated-classifiers">
-<h2><a class="toc-backref" href="#id36">11.3 Encapsulated Classifiers</a><a class="headerlink" href="#encapsulated-classifiers" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id4">
-<h3>11.3.1 Summary<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h2><a class="toc-backref" href="#id37">11.3 Encapsulated Classifiers</a><a class="headerlink" href="#encapsulated-classifiers" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h3>11.3.1 Summary<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>EncapsulatedClassifier は Ports が所有できるように
+<li><p>EncapsulatedClassifier は Ports が所有できるように
 StructuredClassifier を拡張するもので、
-EncapsulatedClassifier を環境から分離する仕組みである。</li>
+EncapsulatedClassifier を環境から分離する仕組みである。</p></li>
 </ul>
 </div>
-<div class="section" id="id5">
-<h3>11.3.2 Abstract Syntax<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3>11.3.2 Abstract Syntax<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Figure 11.10 Encapsulated Classifiers<ul>
-<li>EncapsulatedClassifier と Port の関連を中心とした図式。</li>
+<li><p>Figure 11.10 Encapsulated Classifiers</p>
+<ul>
+<li><p>EncapsulatedClassifier と Port の関連を中心とした図式。</p></li>
 </ul>
 </li>
 </ul>
-<dl class="docutils">
-<dt>A_ownedPort_encapsulatedClassifier</dt>
-<dd><ul class="first last simple">
-<li>EncapsulatedClassifier から Port への composite 関連（単方向）。</li>
-<li>EncapsulatedClassifier は複数の Ports を定義する能力があり、相異なる通信をそれが起こる Port に基いて区別することが可能になる。</li>
-<li>A_ownedAttribute_structuredClassifier を subsets する。</li>
-<li>関連端 <code class="docutils literal notranslate"><span class="pre">ownedPort</span></code> は <code class="docutils literal notranslate"><span class="pre">{readOnly}</span></code> である。</li>
+<dl class="simple">
+<dt>A_ownedPort_encapsulatedClassifier</dt><dd><ul class="simple">
+<li><p>EncapsulatedClassifier から Port への composite 関連（単方向）。</p></li>
+<li><p>EncapsulatedClassifier は複数の Ports を定義する能力があり、相異なる通信をそれが起こる Port に基いて区別することが可能になる。</p></li>
+<li><p>A_ownedAttribute_structuredClassifier を subsets する。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">ownedPort</span></code> は <code class="docutils literal notranslate"><span class="pre">{readOnly}</span></code> である。</p></li>
 </ul>
 </dd>
-<dt>A_required_port</dt>
-<dd><ul class="first last simple">
-<li>Port から Interface への関連（単方向）。</li>
-<li>関連端 required は <code class="docutils literal notranslate"><span class="pre">port</span></code> を通じて
+<dt>A_required_port</dt><dd><ul class="simple">
+<li><p>Port から Interface への関連（単方向）。</p></li>
+<li><p>関連端 required は <code class="docutils literal notranslate"><span class="pre">port</span></code> を通じて
 EncapsulatedClassifier から環境への依頼を特徴づける
 Interfaces である。
 EncapsulatedClassifier オブジェクトは
-required Interfaces が所収する Features が、環境下の一つ以上のオブジェクトが提示することを期待している。</li>
-<li>関連端 <code class="docutils literal notranslate"><span class="pre">required</span></code> は <code class="docutils literal notranslate"><span class="pre">{readOnly}</span></code> である。</li>
+required Interfaces が所収する Features が、環境下の一つ以上のオブジェクトが提示することを期待している。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">required</span></code> は <code class="docutils literal notranslate"><span class="pre">{readOnly}</span></code> である。</p></li>
 </ul>
 </dd>
-<dt>A_provided_port</dt>
-<dd><ul class="first last simple">
-<li>Port から Interface への関連（単方向）。</li>
-<li>関連端 provided は <code class="docutils literal notranslate"><span class="pre">port</span></code> を通じて
+<dt>A_provided_port</dt><dd><ul class="simple">
+<li><p>Port から Interface への関連（単方向）。</p></li>
+<li><p>関連端 provided は <code class="docutils literal notranslate"><span class="pre">port</span></code> を通じて
 EncapsulatedClassifier への、環境が作る依頼を特徴づける
 Interfaces である。所有者である EncapsulatedClassifier は
-provided Interfaces が所有する Features を提示する必要がある。</li>
-<li>関連端 <code class="docutils literal notranslate"><span class="pre">provided</span></code> は <code class="docutils literal notranslate"><span class="pre">{readOnly}</span></code> である。</li>
+provided Interfaces が所有する Features を提示する必要がある。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">provided</span></code> は <code class="docutils literal notranslate"><span class="pre">{readOnly}</span></code> である。</p></li>
 </ul>
 </dd>
-<dt>A_protocol_port</dt>
-<dd><ul class="first last simple">
-<li>Port から ProtocolStateMachine への関連（単方向）。</li>
-<li>Port で発生する Operation と Reception の発動の有効な順序を述べるのに
-ProtocolStateMachine を一つ参照してもよい。</li>
+<dt>A_protocol_port</dt><dd><ul class="simple">
+<li><p>Port から ProtocolStateMachine への関連（単方向）。</p></li>
+<li><p>Port で発生する Operation と Reception の発動の有効な順序を述べるのに
+ProtocolStateMachine を一つ参照してもよい。</p></li>
 </ul>
 </dd>
-<dt>A_redefinedPort_port</dt>
-<dd><ul class="first last simple">
-<li>Port から Port への関連（単方向）。</li>
-<li>EncapsulatedClassifier が特殊化されているときに Port は再定義してもよい。再定義先の Port では Interfaces を追加したり置換したりしてよい。</li>
-<li>A_redefinedProperty_property を subsets する。</li>
+<dt>A_redefinedPort_port</dt><dd><ul class="simple">
+<li><p>Port から Port への関連（単方向）。</p></li>
+<li><p>EncapsulatedClassifier が特殊化されているときに Port は再定義してもよい。再定義先の Port では Interfaces を追加したり置換したりしてよい。</p></li>
+<li><p>A_redefinedProperty_property を subsets する。</p></li>
 </ul>
 </dd>
-<dt>A_partWithPort_connectorEnd</dt>
-<dd><ul class="first last simple">
-<li>ConnectorEnd から Property への関連（単方向）。</li>
-<li>Port-on-Property の場合に ConnectorEnd が参照する実際の接続先 Property を表す。</li>
+<dt>A_partWithPort_connectorEnd</dt><dd><ul class="simple">
+<li><p>ConnectorEnd から Property への関連（単方向）。</p></li>
+<li><p>Port-on-Property の場合に ConnectorEnd が参照する実際の接続先 Property を表す。</p></li>
 </ul>
 </dd>
 </dl>
 </div>
-<div class="section" id="id6">
-<h3>11.3.3 Semantics<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h3>11.3.3 Semantics<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="ports">
 <h4>11.3.3.1 Ports<a class="headerlink" href="#ports" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li>Ports はそれを EncapsulatedClassifier がそれの環境と連絡を取るために相互作用点を表現する。<ul>
-<li>EncapsulatedClassifier の内部をそれの環境から疎結合することにより、
+<li><p>Ports はそれを EncapsulatedClassifier がそれの環境と連絡を取るために相互作用点を表現する。</p>
+<ul>
+<li><p>EncapsulatedClassifier の内部をそれの環境から疎結合することにより、
 Ports は EncapsulatedClassifier が環境に依存することなく定義できるようにし、
 Ports により課せられる制約に適合する環境のどれにおいても
-EncapsulatedClassifier が再利用可能になる。</li>
+EncapsulatedClassifier が再利用可能になる。</p></li>
 </ul>
 </li>
-<li>Port とは、次のどちらかの別個の相互作用点を指定する
-EncapsulatedClassifier の Property である。<ul>
-<li>EncapsulatedClassifier とそれの環境との間</li>
-<li>EncapsulatedClassifier の Behavior とそれの内部の <code class="docutils literal notranslate"><span class="pre">roles</span></code></li>
+<li><p>Port とは、次のどちらかの別個の相互作用点を指定する
+EncapsulatedClassifier の Property である。</p>
+<ul>
+<li><p>EncapsulatedClassifier とそれの環境との間</p></li>
+<li><p>EncapsulatedClassifier の Behavior とそれの内部の <code class="docutils literal notranslate"><span class="pre">roles</span></code></p></li>
 </ul>
 </li>
-<li>特性 <code class="docutils literal notranslate"><span class="pre">isService</span></code> が true であると、この Port が EncapsulatedClassifier の公表された機能を与えるのに用いられることを指し示す。</li>
-<li>成句「Port on Port」、より一般には「Port on Property」は、
+<li><p>特性 <code class="docutils literal notranslate"><span class="pre">isService</span></code> が true であると、この Port が EncapsulatedClassifier の公表された機能を与えるのに用いられることを指し示す。</p></li>
+<li><p>成句「Port on Port」、より一般には「Port on Property」は、
 StructuredClassifier で <code class="docutils literal notranslate"><span class="pre">role</span></code> を演じる Property に
-Ports がある EncapsulatedClassifier により型付けられるという状況を知らせる。</li>
-<li>Port に結び付いた Interfaces はそれを超えて起こり得る相互作用の本質を指定する。</li>
-<li>Property の一種なので、Port には <code class="docutils literal notranslate"><span class="pre">type</span></code> がある。
+Ports がある EncapsulatedClassifier により型付けられるという状況を知らせる。</p></li>
+<li><p>Port に結び付いた Interfaces はそれを超えて起こり得る相互作用の本質を指定する。</p></li>
+<li><p>Property の一種なので、Port には <code class="docutils literal notranslate"><span class="pre">type</span></code> がある。
 Port の <code class="docutils literal notranslate"><span class="pre">provided</span></code> および <code class="docutils literal notranslate"><span class="pre">required</span></code> Interfaces は
-<code class="docutils literal notranslate"><span class="pre">isConjugated</span></code> の値により仲介されたそれの <code class="docutils literal notranslate"><span class="pre">type</span></code> に関係する。<ul>
-<li><code class="docutils literal notranslate"><span class="pre">isConjugated</span></code> が true だと、
+<code class="docutils literal notranslate"><span class="pre">isConjugated</span></code> の値により仲介されたそれの <code class="docutils literal notranslate"><span class="pre">type</span></code> に関係する。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">isConjugated</span></code> が true だと、
 <code class="docutils literal notranslate"><span class="pre">provided</span></code> は Port の <code class="docutils literal notranslate"><span class="pre">type</span></code> およびそれの上位型により用いられる Interfaces の集合 (pl.) の和集合として得られる。それに対して、
 <code class="docutils literal notranslate"><span class="pre">required</span></code> は Port の <code class="docutils literal notranslate"><span class="pre">type</span></code> およびそれの上位型により実現される Interfaces の集合 (pl.) の和集合として得られる。すなわち、
 Port がある Interface によって型付けられると、
-Port の <code class="docutils literal notranslate"><span class="pre">type</span></code> から直接得られる。</li>
-<li><code class="docutils literal notranslate"><span class="pre">isConjugated</span></code> が false だと、上記の定義があべこべになる。</li>
+Port の <code class="docutils literal notranslate"><span class="pre">type</span></code> から直接得られる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">isConjugated</span></code> が false だと、上記の定義があべこべになる。</p></li>
 </ul>
 </li>
-<li>Interfaces は
-Port をまたぐ相互作用の正確な順序を必ずしも制定しない。</li>
-<li>EncapsulatedClassifier のオブジェクトが生成すると、それの Port それぞれに対応するオブジェクトが生成されて、それの <code class="docutils literal notranslate"><span class="pre">type</span></code> と多重度どおりに、
-Port それぞれが指定する Slots に収容される。これらのオブジェクトは相互作用点 (interaction points) と呼ばれ、一意な参照を与える。</li>
-<li>次において、「Port に到着する要求」とは「この Port に対応するこのオブジェクトの相互作用点に到着する要求の出来事」を意味するものとする。</li>
-<li>特性 <code class="docutils literal notranslate"><span class="pre">isBehavior</span></code> を true とすることにより、この Port に到着するどんな要求も、含まれているオブジェクトのどれに転送されるのでもなく、所有する EncapsulatedClassifier のオブジェクトの
-Behavior により処理されることを指定する能力を Port が有する。このような Port は挙動 Port と呼ばれる。</li>
-<li>委譲 Connector とは、
-Port と所有する EncapsulatedClassifier で <code class="docutils literal notranslate"><span class="pre">role</span></code> をリンクする Connector である。<ul>
-<li>要求の転送を表現する。</li>
+<li><p>Interfaces は
+Port をまたぐ相互作用の正確な順序を必ずしも制定しない。</p></li>
+<li><p>EncapsulatedClassifier のオブジェクトが生成すると、それの Port それぞれに対応するオブジェクトが生成されて、それの <code class="docutils literal notranslate"><span class="pre">type</span></code> と多重度どおりに、
+Port それぞれが指定する Slots に収容される。これらのオブジェクトは相互作用点 (interaction points) と呼ばれ、一意な参照を与える。</p></li>
+<li><p>次において、「Port に到着する要求」とは「この Port に対応するこのオブジェクトの相互作用点に到着する要求の出来事」を意味するものとする。</p></li>
+<li><p>特性 <code class="docutils literal notranslate"><span class="pre">isBehavior</span></code> を true とすることにより、この Port に到着するどんな要求も、含まれているオブジェクトのどれに転送されるのでもなく、所有する EncapsulatedClassifier のオブジェクトの
+Behavior により処理されることを指定する能力を Port が有する。このような Port は挙動 Port と呼ばれる。</p></li>
+<li><p>委譲 Connector とは、
+Port と所有する EncapsulatedClassifier で <code class="docutils literal notranslate"><span class="pre">role</span></code> をリンクする Connector である。</p>
+<ul>
+<li><p>要求の転送を表現する。</p></li>
 </ul>
 </li>
-<li>委譲 Connectors は挙動の階層的な分解をモデル化するのに用いられ、
-EncapsulatedClassifier により与えられるサービスは、究極的にはその内部に複数階層の深さに入れ子になったもので実現されることが許される。</li>
-<li>ConnectableElement であるので、
+<li><p>委譲 Connectors は挙動の階層的な分解をモデル化するのに用いられ、
+EncapsulatedClassifier により与えられるサービスは、究極的にはその内部に複数階層の深さに入れ子になったもので実現されることが許される。</p></li>
+<li><p>ConnectableElement であるので、
 Port の有効 provided Interfaces はそれの provided Interfaces であり、有効 required Interfaces はそれの required Interfaces である。しかし、委譲 Port
-つまり委譲 Connector の一端にあって、かつ <code class="docutils literal notranslate"><span class="pre">role</span></code> 上にはなく、なおかつ挙動 Port ではない Port に対しては、有効 provided Interfaces はそれの required Interfaces であり、有効 required Interfaces はそれの provided Interfaces となる。</li>
-<li>Connectors のいくつかが Port の一方の側に取り付けられてるならば、
+つまり委譲 Connector の一端にあって、かつ <code class="docutils literal notranslate"><span class="pre">role</span></code> 上にはなく、なおかつ挙動 Port ではない Port に対しては、有効 provided Interfaces はそれの required Interfaces であり、有効 required Interfaces はそれの provided Interfaces となる。</p></li>
+<li><p>Connectors のいくつかが Port の一方の側に取り付けられてるならば、
 Port の反対側のある Connector から得られるリンク上の
-Port に到着する要求はいずれもこれらの Connectors に対応するリンクで転送されるはずである。<ul>
-<li>これらの要求がすべてのリンクを使って転送されるものなのか、またはそれらのリンクのうちのひとつしか使われないものなのかは定義されていない。</li>
+Port に到着する要求はいずれもこれらの Connectors に対応するリンクで転送されるはずである。</p>
+<ul>
+<li><p>これらの要求がすべてのリンクを使って転送されるものなのか、またはそれらのリンクのうちのひとつしか使われないものなのかは定義されていない。</p></li>
 </ul>
 </li>
 </ul>
 </div>
-</div>
-<div class="section" id="id7">
-<h3>11.3.4 Notation<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>EncapsulatedClassifier の Port は小さい正方形で示す。<ul>
-<li>Port の名前を正方形の近くに置く。</li>
-<li>Port 記号は EncapsulatedClassifier を示す矩形記号の境界と重ね合わせてもよいし、矩形記号の内側に示してもよい。</li>
-<li>内部構造区画にある <code class="docutils literal notranslate"><span class="pre">parts</span></code> や <code class="docutils literal notranslate"><span class="pre">roles</span></code> のように、
-Port が EncapsulatedClassifier の区画に視覚上含まれる要素に接続しているときは、
-Port 記号はその区画の境界の内部に置かれるか、重なり合うはずである。</li>
-</ul>
-</li>
-<li>Port の <code class="docutils literal notranslate"><span class="pre">type</span></code> を名前に続けて示してもよく、コロンで区切られる。<ul>
-<li>Port に対する <code class="docutils literal notranslate"><span class="pre">isConjugated</span></code> が true のとき、
-Port の <code class="docutils literal notranslate"><span class="pre">type</span></code> はチルダを前に付加して示す。</li>
-</ul>
-</li>
-<li>behavior Port は線分を通じて、含んでいる EncapsulatedClassifier を表す記号の内側に描かれる小さい状態記号へ接続されている Port により示す。小さい状態記号は含んでいる EncapsulatedClassifier の
-Behavior を示す。</li>
-<li>Port の名前は隠してよい。</li>
-<li>複数の Interfaces が Port に結びついていると、これらの Interfaces は一つの Interface のロリポップで列記してよく、それらはカンマで区切られる。</li>
-<li>required Interface の単純 Port から
-provided Interface の単純 Port をつなぐ Dependency では、ソケットからロリポップへと結ぶ依存矢印を見せるかどうかは表記法上任意である。</li>
-</ul>
 </div>
 <div class="section" id="id8">
-<h3>11.3.5 Examples<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<h3>11.3.4 Notation<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Figure 11.11 Port notation<ul>
-<li>Ports に対する表記法を説明する図である。</li>
-<li>図の上側の意味は学習済み。</li>
-<li>図の下側<ul>
-<li>p は Engine 上の Port である（∵小さい四角の位置）</li>
-<li>p の型は PowerTrain である（∵p のラベル）</li>
-<li>p の provided Interface は IPowerTrain である（∵ロリポップのラベル）</li>
-<li>p の required Interface は IFeedback である（∵ソケットのラベル）</li>
-<li>p の多重度は 1 である（∵明示されていない）</li>
-<li>p の isConjugated は false である（∵p の名前に <code class="docutils literal notranslate"><span class="pre">~</span></code> がない）</li>
-<li>e は練習問題とする。</li>
+<li><p>EncapsulatedClassifier の Port は小さい正方形で示す。</p>
+<ul>
+<li><p>Port の名前を正方形の近くに置く。</p></li>
+<li><p>Port 記号は EncapsulatedClassifier を示す矩形記号の境界と重ね合わせてもよいし、矩形記号の内側に示してもよい。</p></li>
+<li><p>内部構造区画にある <code class="docutils literal notranslate"><span class="pre">parts</span></code> や <code class="docutils literal notranslate"><span class="pre">roles</span></code> のように、
+Port が EncapsulatedClassifier の区画に視覚上含まれる要素に接続しているときは、
+Port 記号はその区画の境界の内部に置かれるか、重なり合うはずである。</p></li>
+</ul>
+</li>
+<li><p>Port の <code class="docutils literal notranslate"><span class="pre">type</span></code> を名前に続けて示してもよく、コロンで区切られる。</p>
+<ul>
+<li><p>Port に対する <code class="docutils literal notranslate"><span class="pre">isConjugated</span></code> が true のとき、
+Port の <code class="docutils literal notranslate"><span class="pre">type</span></code> はチルダを前に付加して示す。</p></li>
+</ul>
+</li>
+<li><p>behavior Port は線分を通じて、含んでいる EncapsulatedClassifier を表す記号の内側に描かれる小さい状態記号へ接続されている Port により示す。小さい状態記号は含んでいる EncapsulatedClassifier の
+Behavior を示す。</p></li>
+<li><p>Port の名前は隠してよい。</p></li>
+<li><p>複数の Interfaces が Port に結びついていると、これらの Interfaces は一つの Interface のロリポップで列記してよく、それらはカンマで区切られる。</p></li>
+<li><p>required Interface の単純 Port から
+provided Interface の単純 Port をつなぐ Dependency では、ソケットからロリポップへと結ぶ依存矢印を見せるかどうかは表記法上任意である。</p></li>
+</ul>
+</div>
+<div class="section" id="id9">
+<h3>11.3.5 Examples<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Figure 11.11 Port notation</p>
+<ul>
+<li><p>Ports に対する表記法を説明する図である。</p></li>
+<li><p>図の上側の意味は学習済み。</p></li>
+<li><p>図の下側</p>
+<ul>
+<li><p>p は Engine 上の Port である（∵小さい四角の位置）</p></li>
+<li><p>p の型は PowerTrain である（∵p のラベル）</p></li>
+<li><p>p の provided Interface は IPowerTrain である（∵ロリポップのラベル）</p></li>
+<li><p>p の required Interface は IFeedback である（∵ソケットのラベル）</p></li>
+<li><p>p の多重度は 1 である（∵明示されていない）</p></li>
+<li><p>p の isConjugated は false である（∵p の名前に <code class="docutils literal notranslate"><span class="pre">~</span></code> がない）</p></li>
+<li><p>e は練習問題とする。</p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li>Figure 11.12 Behavior Port notation<ul>
-<li>挙動 Port の p を説明する。</li>
-<li>p のラベルの位置と、小さい四角にくっついたオマケのシンボルに注意。</li>
+<li><p>Figure 11.12 Behavior Port notation</p>
+<ul>
+<li><p>挙動 Port の p を説明する。</p></li>
+<li><p>p のラベルの位置と、小さい四角にくっついたオマケのシンボルに注意。</p></li>
 </ul>
 </li>
-<li>Figure 11.13 Port notation showing multiple provided Interfaces<ul>
-<li>ふたつの provided Interfaces, OrderEntry と Tracking がある
-Class OrderProcess にくっついている Port OnlineServices を示す。</li>
-<li>ロリポップに provided Interfaces の名前をふたつまとめて示す。</li>
+<li><p>Figure 11.13 Port notation showing multiple provided Interfaces</p>
+<ul>
+<li><p>ふたつの provided Interfaces, OrderEntry と Tracking がある
+Class OrderProcess にくっついている Port OnlineServices を示す。</p></li>
+<li><p>ロリポップに provided Interfaces の名前をふたつまとめて示す。</p></li>
 </ul>
 </li>
-<li>Figure 11.14 Port examples<ul>
-<li>provided Interface である IPowerTrain により型付けられた Port p がある Class Engine を示す図。</li>
-<li>右側の Car と Boat の内部構造それぞれの
-Port の付き方の違いを説明できるようにしておくこと。</li>
-<li>単純 Ports なので、Boat 内部の連結器の描写は
-Figure 11.4 で示された表記法選択肢のどれを使って示してもよかった。</li>
+<li><p>Figure 11.14 Port examples</p>
+<ul>
+<li><p>provided Interface である IPowerTrain により型付けられた Port p がある Class Engine を示す図。</p></li>
+<li><p>右側の Car と Boat の内部構造それぞれの
+Port の付き方の違いを説明できるようにしておくこと。</p></li>
+<li><p>単純 Ports なので、Boat 内部の連結器の描写は
+Figure 11.4 で示された表記法選択肢のどれを使って示してもよかった。</p></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <div class="section" id="classes">
-<h2><a class="toc-backref" href="#id37">11.4 Classes</a><a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id9">
-<h3>11.4.1 Summary<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<h2><a class="toc-backref" href="#id38">11.4 Classes</a><a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id10">
+<h3>11.4.1 Summary<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Class は EncapsulatedClassifier と BehavioredClassifier の具象的実現である。
+<li><p>Class は EncapsulatedClassifier と BehavioredClassifier の具象的実現である。
 Class の目的はオブジェクトの分類を指定することと、それらのオブジェクトの構造と挙動を特徴づける
-Features を指定することである。</li>
+Features を指定することである。</p></li>
 </ul>
 </div>
-<div class="section" id="id10">
-<h3>11.4.2 Abstract Syntax<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id11">
+<h3>11.4.2 Abstract Syntax<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Figure 11.15 Classes<ul>
-<li>Class は自らを再定義する関連と、何かを所有するといういくつかの関連が加わる程度。</li>
+<li><p>Figure 11.15 Classes</p>
+<ul>
+<li><p>Class は自らを再定義する関連と、何かを所有するといういくつかの関連が加わる程度。</p></li>
 </ul>
 </li>
 </ul>
-<dl class="docutils">
-<dt>A_superClass_class</dt>
-<dd><ul class="first last simple">
-<li>Class から Class への関連（単方向）。</li>
-<li>Class は継承することができる。</li>
-<li>A_general_classifier を <code class="docutils literal notranslate"><span class="pre">class</span></code> 側で subsets し、
-<code class="docutils literal notranslate"><span class="pre">superClass</span></code> 側で redefines する。</li>
+<dl class="simple">
+<dt>A_superClass_class</dt><dd><ul class="simple">
+<li><p>Class から Class への関連（単方向）。</p></li>
+<li><p>Class は継承することができる。</p></li>
+<li><p>A_general_classifier を <code class="docutils literal notranslate"><span class="pre">class</span></code> 側で subsets し、
+<code class="docutils literal notranslate"><span class="pre">superClass</span></code> 側で redefines する。</p></li>
 </ul>
 </dd>
-<dt>A_nestedClassifier_nestingClass</dt>
-<dd><ul class="first last simple">
-<li>Class から Classifier への composite 関連（単方向）。</li>
-<li>Class のスコープ内にいくつか Classifiers を入れ子で含めることがあり、
-Class はそれらに対する名前空間として振る舞う。</li>
-<li>A_ownedMember_namespace, A_redefinitionContext_redefinableElement
-を subsets する。</li>
-<li>関連端 <code class="docutils literal notranslate"><span class="pre">nestedClassifier</span></code> は <code class="docutils literal notranslate"><span class="pre">{ordered}</span></code> である。</li>
+<dt>A_nestedClassifier_nestingClass</dt><dd><ul class="simple">
+<li><p>Class から Classifier への composite 関連（単方向）。</p></li>
+<li><p>Class のスコープ内にいくつか Classifiers を入れ子で含めることがあり、
+Class はそれらに対する名前空間として振る舞う。</p></li>
+<li><p>A_ownedMember_namespace, A_redefinitionContext_redefinableElement
+を subsets する。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">nestedClassifier</span></code> は <code class="docutils literal notranslate"><span class="pre">{ordered}</span></code> である。</p></li>
 </ul>
 </dd>
-<dt>A_ownedAttribute_class</dt>
-<dd><ul class="first last simple">
-<li>Class から Property への composite 関連（双方向）。</li>
-<li>Class の Features の内 Properties なものである。</li>
-<li>Class の Attributes は、その Class が所有する Properties である。これらの属性のうちいくつかは二項 Attributes の関連端を表現する。</li>
-<li>A_attribute_classifier, A_ownedMember_namespace,
+<dt>A_ownedAttribute_class</dt><dd><ul class="simple">
+<li><p>Class から Property への composite 関連（双方向）。</p></li>
+<li><p>Class の Features の内 Properties なものである。</p></li>
+<li><p>Class の Attributes は、その Class が所有する Properties である。これらの属性のうちいくつかは二項 Attributes の関連端を表現する。</p></li>
+<li><p>A_attribute_classifier, A_ownedMember_namespace,
 A_ownedAttribute_structuredClassifier
-を subsets する。ownedAttributes は redefines する。</li>
-<li>関連端 <code class="docutils literal notranslate"><span class="pre">ownedAttributes</span></code> は <code class="docutils literal notranslate"><span class="pre">{ordered}</span></code> である。</li>
+を subsets する。ownedAttributes は redefines する。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">ownedAttributes</span></code> は <code class="docutils literal notranslate"><span class="pre">{ordered}</span></code> である。</p></li>
 </ul>
 </dd>
-<dt>A_ownedOperation_class</dt>
-<dd><ul class="first last simple">
-<li>Class から Operation への composite 関連（双方向）。</li>
-<li>Class の Features の内 Operations なものである。</li>
-<li>Class の Operations は（何らかのパラメーターを伴って）オブジェクトの上で発動される。</li>
-<li>A_feature_featuringClassifier, A_ownedMember_namespace,
+<dt>A_ownedOperation_class</dt><dd><ul class="simple">
+<li><p>Class から Operation への composite 関連（双方向）。</p></li>
+<li><p>Class の Features の内 Operations なものである。</p></li>
+<li><p>Class の Operations は（何らかのパラメーターを伴って）オブジェクトの上で発動される。</p></li>
+<li><p>A_feature_featuringClassifier, A_ownedMember_namespace,
 A_redefinitionContext_redefinableElement
-を subsets する。</li>
-<li>関連端 ownedOperation は <code class="docutils literal notranslate"><span class="pre">{ordered}</span></code> である。</li>
+を subsets する。</p></li>
+<li><p>関連端 ownedOperation は <code class="docutils literal notranslate"><span class="pre">{ordered}</span></code> である。</p></li>
 </ul>
 </dd>
-<dt>A_ownedReception_class</dt>
-<dd><ul class="first last simple">
-<li>Class から Reception への composite 関連（単方向）。</li>
-<li>A_feature_featuringClassifier, A_ownedMember_namespace を subsets する。</li>
+<dt>A_ownedReception_class</dt><dd><ul class="simple">
+<li><p>Class から Reception への composite 関連（単方向）。</p></li>
+<li><p>A_feature_featuringClassifier, A_ownedMember_namespace を subsets する。</p></li>
 </ul>
 </dd>
-<dt>A_extension_metaclass</dt>
-<dd><ul class="first last simple">
-<li>Class から Extension への関連（双方向）。</li>
-<li>両端ともに <code class="docutils literal notranslate"><span class="pre">{readOnly}</span></code> である。</li>
+<dt>A_extension_metaclass</dt><dd><ul class="simple">
+<li><p>Class から Extension への関連（双方向）。</p></li>
+<li><p>両端ともに <code class="docutils literal notranslate"><span class="pre">{readOnly}</span></code> である。</p></li>
 </ul>
 </dd>
 </dl>
 </div>
-<div class="section" id="id11">
-<h3>11.4.3 Semantics<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="id12">
-<h4>11.4.3.1 Classes<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
+<h3>11.4.3 Semantics<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id13">
+<h4>11.4.3.1 Classes<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li>Class とは、それの Features が Properties, Operations, Receptions, Ports, Connectors
-である EncapsulatedClassifier の一種である。<ul>
-<li>Class の属性とは、
-Class により所有される Properties である。これらの <code class="docutils literal notranslate"><span class="pre">attributes</span></code> のいくつかは二項 Associations の端点を表現することが許される。</li>
+<li><p>Class とは、それの Features が Properties, Operations, Receptions, Ports, Connectors
+である EncapsulatedClassifier の一種である。</p>
+<ul>
+<li><p>Class の属性とは、
+Class により所有される Properties である。これらの <code class="docutils literal notranslate"><span class="pre">attributes</span></code> のいくつかは二項 Associations の端点を表現することが許される。</p></li>
 </ul>
 </li>
-<li>Class のオブジェクトは
-Class のメンバーである <code class="docutils literal notranslate"><span class="pre">attribute</span></code> それぞれに対して、例えばそれの <code class="docutils literal notranslate"><span class="pre">type</span></code> と多重度のような <code class="docutils literal notranslate"><span class="pre">attribute</span></code> の特徴に従って、値を含む必要がある。</li>
-<li>Class でオブジェクトが生成されると、既定値が指定された Class の <code class="docutils literal notranslate"><span class="pre">attribute</span></code> ごとに対して、
-<code class="docutils literal notranslate"><span class="pre">attribute</span></code> の初期値がその生成にとって明示的に指定されていなければ、既定の ValueSpecification が評価されて、オブジェクトに対する <code class="docutils literal notranslate"><span class="pre">attribute</span></code> の初期値を設定する。</li>
-<li>Operation の引数に対する値の特定の集合があれば、
+<li><p>Class のオブジェクトは
+Class のメンバーである <code class="docutils literal notranslate"><span class="pre">attribute</span></code> それぞれに対して、例えばそれの <code class="docutils literal notranslate"><span class="pre">type</span></code> と多重度のような <code class="docutils literal notranslate"><span class="pre">attribute</span></code> の特徴に従って、値を含む必要がある。</p></li>
+<li><p>Class でオブジェクトが生成されると、既定値が指定された Class の <code class="docutils literal notranslate"><span class="pre">attribute</span></code> ごとに対して、
+<code class="docutils literal notranslate"><span class="pre">attribute</span></code> の初期値がその生成にとって明示的に指定されていなければ、既定の ValueSpecification が評価されて、オブジェクトに対する <code class="docutils literal notranslate"><span class="pre">attribute</span></code> の初期値を設定する。</p></li>
+<li><p>Operation の引数に対する値の特定の集合があれば、
 <a class="reference internal" href="classification.html"><span class="doc">9 Classification</span></a> で指定された意味に従い、
-Class の Operations はオブジェクトで発動することが可能でる。</li>
-<li>Class は別のクラスの非公開 Features や、また、自分の祖先ではない別のクラスの保護 Features にはアクセスすることができない。</li>
-<li>Class はスコープ内部で定義されたさまざまな種類の Classifiers
+Class の Operations はオブジェクトで発動することが可能でる。</p></li>
+<li><p>Class は別のクラスの非公開 Features や、また、自分の祖先ではない別のクラスの保護 Features にはアクセスすることができない。</p></li>
+<li><p>Class はスコープ内部で定義されたさまざまな種類の Classifiers
 に対する名前空間として振る舞う。入れ子の Classifiers は含む Class の名前空間のメンバーである。
-Classifier の入れ子は情報隠蔽の理由のために用いられる。</li>
-<li>Class は <code class="docutils literal notranslate"><span class="pre">isActive</span></code> を true とすることにより
+Classifier の入れ子は情報隠蔽の理由のために用いられる。</p></li>
+<li><p>Class は <code class="docutils literal notranslate"><span class="pre">isActive</span></code> を true とすることにより
 active であるとされるように指示してよい。
-<code class="docutils literal notranslate"><span class="pre">isActive</span></code> が false だとその Class は passive である。</li>
-<li>オブジェクトが active であるとは、その生成の直接のなりゆきとして、その <code class="docutils literal notranslate"><span class="pre">classifierBehavior</span></code> を実行することを開始し、完全 Behaviored が実行されるか、オブジェクトがある外的オブジェクトにより停止されるかのどちらかまでは中断しないオブジェクトである。</li>
-<li>Class の Receptions はどの Signals がこの Class のオブジェクトを処理するかを指定する。</li>
-<li>InstanceSpecification を用いて
-Class に対して生成される初期値を指定してもよい。</li>
-<li>Class のオブジェクトが削除されるときには、その Class の <code class="docutils literal notranslate"><span class="pre">parts</span></code> オブジェクトと Ports に対応するオブジェクトのすべてが再帰的に削除される。</li>
-<li>Class は Profiles とメタモデルの定義でメタクラスとして振る舞ってよい。
-<a class="reference internal" href="packages.html"><span class="doc">12 Packages</span></a> で見ていく。</li>
+<code class="docutils literal notranslate"><span class="pre">isActive</span></code> が false だとその Class は passive である。</p></li>
+<li><p>オブジェクトが active であるとは、その生成の直接のなりゆきとして、その <code class="docutils literal notranslate"><span class="pre">classifierBehavior</span></code> を実行することを開始し、完全 Behaviored が実行されるか、オブジェクトがある外的オブジェクトにより停止されるかのどちらかまでは中断しないオブジェクトである。</p></li>
+<li><p>Class の Receptions はどの Signals がこの Class のオブジェクトを処理するかを指定する。</p></li>
+<li><p>InstanceSpecification を用いて
+Class に対して生成される初期値を指定してもよい。</p></li>
+<li><p>Class のオブジェクトが削除されるときには、その Class の <code class="docutils literal notranslate"><span class="pre">parts</span></code> オブジェクトと Ports に対応するオブジェクトのすべてが再帰的に削除される。</p></li>
+<li><p>Class は Profiles とメタモデルの定義でメタクラスとして振る舞ってよい。
+<a class="reference internal" href="packages.html"><span class="doc">12 Packages</span></a> で見ていく。</p></li>
 </ul>
 </div>
 </div>
-<div class="section" id="id13">
-<h3>11.4.4 Notation<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id14">
+<h3>11.4.4 Notation<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Class の記法は Classifier のそれを用いる。最も広く用いられる Classifier であるため、
-Class を指定するようなキーワードは不要である。</li>
-<li>4 つの存在必須な区画 attributes, operations,
-receptions, internal structure がある。</li>
-<li>Class の operations 区画は
+<li><p>Class の記法は Classifier のそれを用いる。最も広く用いられる Classifier であるため、
+Class を指定するようなキーワードは不要である。</p></li>
+<li><p>4 つの存在必須な区画 attributes, operations,
+receptions, internal structure がある。</p></li>
+<li><p>Class の operations 区画は
 <a class="reference internal" href="packages.html"><span class="doc">12 Packages</span></a> で指定された表記法を使うその <code class="docutils literal notranslate"><span class="pre">ownedOperations</span></code> を表す表記法を含む。
 receptions 区画は
 <a class="reference internal" href="simple-classifiers.html"><span class="doc">10 Simple Classifiers</span></a> で指定された表記法を使う
-<code class="docutils literal notranslate"><span class="pre">ownedReceptions</span></code> を含む。</li>
-<li>使用依存は InstanceSpecification をクラスに対するコンストラクターに関係させてよく、コンストラクター Operation により返される単一の値を記述する。<ul>
-<li>Operation が <code class="docutils literal notranslate"><span class="pre">client</span></code> であり、生成オブジェクトが <code class="docutils literal notranslate"><span class="pre">supplier</span></code> である。</li>
-<li>ステレオタイプ «Create» を Class のコンストラクターにマークする。</li>
+<code class="docutils literal notranslate"><span class="pre">ownedReceptions</span></code> を含む。</p></li>
+<li><p>使用依存は InstanceSpecification をクラスに対するコンストラクターに関係させてよく、コンストラクター Operation により返される単一の値を記述する。</p>
+<ul>
+<li><p>Operation が <code class="docutils literal notranslate"><span class="pre">client</span></code> であり、生成オブジェクトが <code class="docutils literal notranslate"><span class="pre">supplier</span></code> である。</p></li>
+<li><p>ステレオタイプ «Create» を Class のコンストラクターにマークする。</p></li>
 </ul>
 </li>
-<li><code class="docutils literal notranslate"><span class="pre">isActive</span></code> が true な Class を箱の枠の垂直辺のどちらとも二重にすることで示してよい。</li>
-<li>メタクラスを表現する Class はオプションのステレオタイプ «Metaclass» をその名前の上または前に付すことで拡張してよい。
-<a class="reference internal" href="standard-profile.html"><span class="doc">22 Standard Profile</span></a> を参照。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">isActive</span></code> が true な Class を箱の枠の垂直辺のどちらとも二重にすることで示してよい。</p></li>
+<li><p>メタクラスを表現する Class はオプションのステレオタイプ «Metaclass» をその名前の上または前に付すことで拡張してよい。
+<a class="reference internal" href="standard-profile.html"><span class="doc">22 Standard Profile</span></a> を参照。</p></li>
 </ul>
 </div>
-<div class="section" id="id14">
-<h3>11.4.5 Examples<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id15">
+<h3>11.4.5 Examples<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Figure 11.16 Class notation variants<ul>
-<li>同じ Class Window を 3 通りの記法で示した。右へ行くほど詳細になる。</li>
-<li>可視性が指定されていない Operations があるが、実際に指定されている可視性を答えられるようにしておくこと。</li>
+<li><p>Figure 11.16 Class notation variants</p>
+<ul>
+<li><p>同じ Class Window を 3 通りの記法で示した。右へ行くほど詳細になる。</p></li>
+<li><p>可視性が指定されていない Operations があるが、実際に指定されている可視性を答えられるようにしておくこと。</p></li>
 </ul>
 </li>
-<li>Figure 11.17 Class notation: attributes and Operations grouped according to visibility<ul>
-<li>可視性で属性と操作をグループ化できる。どこか C++ のコードを思わせるような記法。</li>
+<li><p>Figure 11.17 Class notation: attributes and Operations grouped according to visibility</p>
+<ul>
+<li><p>可視性で属性と操作をグループ化できる。どこか C++ のコードを思わせるような記法。</p></li>
 </ul>
 </li>
-<li>Figure 11.18 Active Class<ul>
-<li>枠の一部を二重線で描く。</li>
+<li><p>Figure 11.18 Active Class</p>
+<ul>
+<li><p>枠の一部を二重線で描く。</p></li>
 </ul>
 </li>
-<li>Figure 11.19 Connectors and Parts<ul>
-<li>Car オブジェクトが生成するときは常に
-4 つの Wheel オブジェクトが composition で生成する。</li>
-<li>併せて、前後それぞれの車輪間のリンクも生成する。</li>
+<li><p>Figure 11.19 Connectors and Parts</p>
+<ul>
+<li><p>Car オブジェクトが生成するときは常に
+4 つの Wheel オブジェクトが composition で生成する。</p></li>
+<li><p>併せて、前後それぞれの車輪間のリンクも生成する。</p></li>
 </ul>
 </li>
-<li>Figure 11.20 Connectors and Parts in a structure diagram using multiplicities<ul>
-<li>上のものと等価な Car オブジェクトである。</li>
-<li>多重度を記入することでシンボルの記入の手間と紙幅を節約する。</li>
+<li><p>Figure 11.20 Connectors and Parts in a structure diagram using multiplicities</p>
+<ul>
+<li><p>上のものと等価な Car オブジェクトである。</p></li>
+<li><p>多重度を記入することでシンボルの記入の手間と紙幅を節約する。</p></li>
 </ul>
 </li>
-<li>Figure 11.21 An Instance of the Car Class<ul>
-<li>いちばん気になる部分のラベルが欠けている？</li>
+<li><p>Figure 11.21 An Instance of the Car Class</p>
+<ul>
+<li><p>いちばん気になる部分のラベルが欠けている？</p></li>
 </ul>
 </li>
-<li>Figure 11.22 InstanceSpecification indicating a constructor<ul>
-<li>コンストラクターの操作の文頭に標準ステレオタイプ «Create» を付す。</li>
-<li>戻り値の表現だろう、破線矢印で操作名とオブジェクトシンボルとを結ぶ。</li>
+<li><p>Figure 11.22 InstanceSpecification indicating a constructor</p>
+<ul>
+<li><p>コンストラクターの操作の文頭に標準ステレオタイプ «Create» を付す。</p></li>
+<li><p>戻り値の表現だろう、破線矢印で操作名とオブジェクトシンボルとを結ぶ。</p></li>
 </ul>
 </li>
-<li>Figure 11.23 A constructor for the Car Class<ul>
-<li>実践的なコンストラクターの仕様記法の見本。</li>
+<li><p>Figure 11.23 A constructor for the Car Class</p>
+<ul>
+<li><p>実践的なコンストラクターの仕様記法の見本。</p></li>
 </ul>
 </li>
-<li>Figure 11.24 Showing that the extended Class is a metaclass<ul>
-<li>拡張された Class Interface が実はメタクラスであるということが明白になった。</li>
-<li>とあるが、わかりやすさは微妙。</li>
+<li><p>Figure 11.24 Showing that the extended Class is a metaclass</p>
+<ul>
+<li><p>拡張された Class Interface が実はメタクラスであるということが明白になった。</p></li>
+<li><p>とあるが、わかりやすさは微妙。</p></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <div class="section" id="associations">
-<h2><a class="toc-backref" href="#id38">11.5 Associations</a><a class="headerlink" href="#associations" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id15">
-<h3>11.5.1 Summary<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<h2><a class="toc-backref" href="#id39">11.5 Associations</a><a class="headerlink" href="#associations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id16">
+<h3>11.5.1 Summary<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Association は型のあるオブジェクト間のリンクを表現する
-<a class="reference external" href="https://en.wiktionary.org/wiki/tuple">tuple</a> の集合を分類する。</li>
-<li>AssociationClass は Association と Class の両方である。</li>
+<li><p>Association は型のあるオブジェクト間のリンクを表現する
+<a class="reference external" href="https://en.wiktionary.org/wiki/tuple">tuple</a> の集合を分類する。</p></li>
+<li><p>AssociationClass は Association と Class の両方である。</p></li>
 </ul>
 </div>
-<div class="section" id="id16">
-<h3>11.5.2 Abstract Syntax<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id17">
+<h3>11.5.2 Abstract Syntax<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Figure 11.25 Associations<ul>
-<li>新クラスは Association と AssociationClass のふたつある。</li>
-<li>この図式に現れる関連は、これまで見た関連のすべての中で最も重要であると思われる。</li>
+<li><p>Figure 11.25 Associations</p>
+<ul>
+<li><p>新クラスは Association と AssociationClass のふたつある。</p></li>
+<li><p>この図式に現れる関連は、これまで見た関連のすべての中で最も重要であると思われる。</p></li>
 </ul>
 </li>
 </ul>
-<dl class="docutils">
-<dt>A_endType_association</dt>
-<dd><ul class="first last simple">
-<li>Association から Type への関連（単方向）。</li>
-<li>関連端の型を表現する関連。複数の関連端が同じ型であってもよいので、多重度は <code class="docutils literal notranslate"><span class="pre">1..*</span></code> になる。</li>
-<li>A_relatedElement_relationship を subsets する。</li>
-<li>関連端 <code class="docutils literal notranslate"><span class="pre">endType</span></code> は <code class="docutils literal notranslate"><span class="pre">{readOnly}</span></code> である。</li>
+<dl class="simple">
+<dt>A_endType_association</dt><dd><ul class="simple">
+<li><p>Association から Type への関連（単方向）。</p></li>
+<li><p>関連端の型を表現する関連。複数の関連端が同じ型であってもよいので、多重度は <code class="docutils literal notranslate"><span class="pre">1..*</span></code> になる。</p></li>
+<li><p>A_relatedElement_relationship を subsets する。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">endType</span></code> は <code class="docutils literal notranslate"><span class="pre">{readOnly}</span></code> である。</p></li>
 </ul>
 </dd>
-<dt>A_memberEnd_association</dt>
-<dd><ul class="first last simple">
-<li>Association から Property への関連（双方向）。</li>
-<li>Association には Properties が表現する関連端 memberEnds を <code class="docutils literal notranslate"><span class="pre">2..*</span></code> 個ある。各関連端は Association リンク中のその関連端に接続されたオブジェクト群の関与を表現する。</li>
-<li>A_member_memberNamespace を subsets する。</li>
-<li>関連端 memberEnd は <code class="docutils literal notranslate"><span class="pre">{ordered}</span></code> である。</li>
+<dt>A_memberEnd_association</dt><dd><ul class="simple">
+<li><p>Association から Property への関連（双方向）。</p></li>
+<li><p>Association には Properties が表現する関連端 memberEnds を <code class="docutils literal notranslate"><span class="pre">2..*</span></code> 個ある。各関連端は Association リンク中のその関連端に接続されたオブジェクト群の関与を表現する。</p></li>
+<li><p>A_member_memberNamespace を subsets する。</p></li>
+<li><p>関連端 memberEnd は <code class="docutils literal notranslate"><span class="pre">{ordered}</span></code> である。</p></li>
 </ul>
 </dd>
-<dt>A_ownedEnd_owningAssociation</dt>
-<dd><ul class="first last simple">
-<li>Association から Property への composite 関連（双方向）。</li>
-<li>関連端 <code class="docutils literal notranslate"><span class="pre">ownedEnd</span></code> は、その Association 自身が所有するような関連端のことである。</li>
-<li>A_feature_featuringClassifier,
+<dt>A_ownedEnd_owningAssociation</dt><dd><ul class="simple">
+<li><p>Association から Property への composite 関連（双方向）。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">ownedEnd</span></code> は、その Association 自身が所有するような関連端のことである。</p></li>
+<li><p>A_feature_featuringClassifier,
 A_redefinitionContext_redefinableElement,
 A_ownedMember_namespace,
 A_memberEnd_association
-を subsets する。</li>
-<li>関連端 ownedEnd は <code class="docutils literal notranslate"><span class="pre">{ordered}</span></code> である。</li>
+を subsets する。</p></li>
+<li><p>関連端 ownedEnd は <code class="docutils literal notranslate"><span class="pre">{ordered}</span></code> である。</p></li>
 </ul>
 </dd>
-<dt>A_navigableOwnedEnd_association</dt>
-<dd><ul class="first last simple">
-<li>Association から Property への関連（単方向）。</li>
-<li>上述の A_ownedEnd_owningAssociation を subsets する。</li>
+<dt>A_navigableOwnedEnd_association</dt><dd><ul class="simple">
+<li><p>Association から Property への関連（単方向）。</p></li>
+<li><p>上述の A_ownedEnd_owningAssociation を subsets する。</p></li>
 </ul>
 </dd>
-<dt>A_qualifier_associationEnd</dt>
-<dd><ul class="first last simple">
-<li>Property から Property への composite 関連（双方向）。</li>
-<li>A_ownedEnd_owner を subsets する。</li>
-<li>関連端 <code class="docutils literal notranslate"><span class="pre">qualifier</span></code> は <code class="docutils literal notranslate"><span class="pre">{ordered}</span></code> である。</li>
+<dt>A_qualifier_associationEnd</dt><dd><ul class="simple">
+<li><p>Property から Property への composite 関連（双方向）。</p></li>
+<li><p>A_ownedEnd_owner を subsets する。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">qualifier</span></code> は <code class="docutils literal notranslate"><span class="pre">{ordered}</span></code> である。</p></li>
 </ul>
 </dd>
 </dl>
 </div>
-<div class="section" id="id17">
-<h3>11.5.3 Semantics<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="id18">
-<h4>11.5.3.1 Associations<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h4>
+<h3>11.5.3 Semantics<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id19">
+<h4>11.5.3.1 Associations<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li>Association は型付けられたオブジェクト間にあり得る意味論的関係を指定する。
-Properties で表される <code class="docutils literal notranslate"><span class="pre">memberEnds</span></code> が少なくともふたつあり、それぞれには端の型がある。</li>
-<li>Association はその型が関連した型に対して適合したり実装したりするオブジェクト間のリンクが存在することが可能であることを宣言する。リンクは Association の <code class="docutils literal notranslate"><span class="pre">memberEnd</span></code> それぞれについての値の組であり、値それぞれは端における型に適合したり、型を実装したりするオブジェクトである。</li>
-<li>リンクの全てが Association によって分類される必要はない。</li>
-<li>Association のひとつまたはそれを超える端で <code class="docutils literal notranslate"><span class="pre">isUnique</span></code> が false だと、リンクのいくつかを同じオブジェクトの集合に関連させることができる。そういう場合には、リンクは端の値とは別にさらなる識別子を含む。</li>
-<li>Association のひとつまたはそれを超える端が順序付けられていると、リンクはその端の値に加えて順序情報を含む。</li>
-<li>N 個の <code class="docutils literal notranslate"><span class="pre">memberEnds</span></code> がある Association に対して、任意の N - 1 個の端を選ぶ。その他の端を制定する Property を oep と呼ぶことにして、選んだ N - 1 個の端における Classifiers が oep にとっての
-context となるようにする。</li>
-<li>Association の端の部分集合を作ることは
-Property のために指定された意味がある。</li>
-<li>特殊化とは、部分集合を作ることに対して、作為的な意味の領域にある関係であり、つまり、メンバーシップによってではなく、集まりにあるメンバーシップが定義されることによって規範を特徴付けることである。</li>
-<li>n 項 Associations では端の多重度の下限は典型的にゼロである。
-n 項 Association の端に対する多重度の下限が 1 であることは、リンク一個がその他の端に対する値のあり得る組み合わせごとに存在するはずであることを含意する。</li>
-<li>二項 Association は合成集約（全体・部分関係）を表現してよい。<ul>
-<li>合成は Association の <code class="docutils literal notranslate"><span class="pre">part</span></code> 端の <code class="docutils literal notranslate"><span class="pre">isComposite</span></code> 属性を
-true とすることで表現する。</li>
-<li>その関連が二項であり、もう一方の端が shared にも composition にも特徴づけられていないならば、
-Association の端 Property が shared または composition としてしか特徴づけられてはならない。</li>
+<li><p>Association は型付けられたオブジェクト間にあり得る意味論的関係を指定する。
+Properties で表される <code class="docutils literal notranslate"><span class="pre">memberEnds</span></code> が少なくともふたつあり、それぞれには端の型がある。</p></li>
+<li><p>Association はその型が関連した型に対して適合したり実装したりするオブジェクト間のリンクが存在することが可能であることを宣言する。リンクは Association の <code class="docutils literal notranslate"><span class="pre">memberEnd</span></code> それぞれについての値の組であり、値それぞれは端における型に適合したり、型を実装したりするオブジェクトである。</p></li>
+<li><p>リンクの全てが Association によって分類される必要はない。</p></li>
+<li><p>Association のひとつまたはそれを超える端で <code class="docutils literal notranslate"><span class="pre">isUnique</span></code> が false だと、リンクのいくつかを同じオブジェクトの集合に関連させることができる。そういう場合には、リンクは端の値とは別にさらなる識別子を含む。</p></li>
+<li><p>Association のひとつまたはそれを超える端が順序付けられていると、リンクはその端の値に加えて順序情報を含む。</p></li>
+<li><p>N 個の <code class="docutils literal notranslate"><span class="pre">memberEnds</span></code> がある Association に対して、任意の N - 1 個の端を選ぶ。その他の端を制定する Property を oep と呼ぶことにして、選んだ N - 1 個の端における Classifiers が oep にとっての
+context となるようにする。</p></li>
+<li><p>Association の端の部分集合を作ることは
+Property のために指定された意味がある。</p></li>
+<li><p>特殊化とは、部分集合を作ることに対して、作為的な意味の領域にある関係であり、つまり、メンバーシップによってではなく、集まりにあるメンバーシップが定義されることによって規範を特徴付けることである。</p></li>
+<li><p>n 項 Associations では端の多重度の下限は典型的にゼロである。
+n 項 Association の端に対する多重度の下限が 1 であることは、リンク一個がその他の端に対する値のあり得る組み合わせごとに存在するはずであることを含意する。</p></li>
+<li><p>二項 Association は合成集約（全体・部分関係）を表現してよい。</p>
+<ul>
+<li><p>合成は Association の <code class="docutils literal notranslate"><span class="pre">part</span></code> 端の <code class="docutils literal notranslate"><span class="pre">isComposite</span></code> 属性を
+true とすることで表現する。</p></li>
+<li><p>その関連が二項であり、もう一方の端が shared にも composition にも特徴づけられていないならば、
+Association の端 Property が shared または composition としてしか特徴づけられてはならない。</p></li>
 </ul>
 </li>
-<li>端 Class により所有される Association か、
+<li><p>端 Class により所有される Association か、
 Association の <code class="docutils literal notranslate"><span class="pre">navigableOwnedEnd</span></code> である Association の端 Property は
 Association が反対側の端 (pl.) から航行可能であることを示す。そうでなければ、
-Association は反対側の端 (pl.) から航行可能でない。<ul>
-<li>航行可能性が意味するのは、実行時にリンクに関与するオブジェクト、Association のオブジェクト、は、
-Association の他方の端にあるオブジェクトから効率的にアクセスできることである。</li>
-<li>端が航行可能でないと、反対側の端からのアクセスが可能であってもなくても構わない。そしてもし可能ならば、効率的ではないかもしれない。</li>
+Association は反対側の端 (pl.) から航行可能でない。</p>
+<ul>
+<li><p>航行可能性が意味するのは、実行時にリンクに関与するオブジェクト、Association のオブジェクト、は、
+Association の他方の端にあるオブジェクトから効率的にアクセスできることである。</p></li>
+<li><p>端が航行可能でないと、反対側の端からのアクセスが可能であってもなくても構わない。そしてもし可能ならば、効率的ではないかもしれない。</p></li>
 </ul>
 </li>
-<li>限定された Associaiton 端には端におけるオブジェクトに結び付いたオブジェクト、被限定オブジェクト、たちを分割する``qualifiers`` がある。<ul>
-<li>各分割は <code class="docutils literal notranslate"><span class="pre">qualifier</span></code> 値で指名されるが、これは各 <code class="docutils literal notranslate"><span class="pre">qualifier</span></code> に対するある値を含む組である。</li>
+<li><p>限定された Associaiton 端には端におけるオブジェクトに結び付いたオブジェクト、被限定オブジェクト、たちを分割する``qualifiers`` がある。</p>
+<ul>
+<li><p>各分割は <code class="docutils literal notranslate"><span class="pre">qualifier</span></code> 値で指名されるが、これは各 <code class="docutils literal notranslate"><span class="pre">qualifier</span></code> に対するある値を含む組である。</p></li>
 </ul>
 </li>
-<li>関連の有無はモデルの他の情報より求められてよい。
-Associaiton の派生とその端の派生との間の論理的な関係はモデル固有である。</li>
+<li><p>関連の有無はモデルの他の情報より求められてよい。
+Associaiton の派生とその端の派生との間の論理的な関係はモデル固有である。</p></li>
 </ul>
 </div>
 <div class="section" id="association-classes">
 <h4>11.5.3.2 Association Classes<a class="headerlink" href="#association-classes" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li>AssociationClass とは、それ自身の Features の集合がある Association の宣言である。</li>
-<li>AssociationClass には Association と Class の両方であるゆえ、
+<li><p>AssociationClass とは、それ自身の Features の集合がある Association の宣言である。</p></li>
+<li><p>AssociationClass には Association と Class の両方であるゆえ、
 Features を持つ能力だとか、
-<code class="docutils literal notranslate"><span class="pre">name</span></code> があることだとか、共通する特性の集合がある。これらの特性は同じ構造から複数回継承されて、重複されない。</li>
-<li>AssociationClass は合成 Properties Class::<code class="docutils literal notranslate"><span class="pre">ownedAttribute</span></code> と
-Association::<code class="docutils literal notranslate"><span class="pre">ownedEnd</span></code> を継承する。</li>
-<li>AssociationClass のオブジェクトは
+<code class="docutils literal notranslate"><span class="pre">name</span></code> があることだとか、共通する特性の集合がある。これらの特性は同じ構造から複数回継承されて、重複されない。</p></li>
+<li><p>AssociationClass は合成 Properties Class::<code class="docutils literal notranslate"><span class="pre">ownedAttribute</span></code> と
+Association::<code class="docutils literal notranslate"><span class="pre">ownedEnd</span></code> を継承する。</p></li>
+<li><p>AssociationClass のオブジェクトは
 Association の一種としての AssociationClass のオブジェクト化を表すリンクと、
-Class の一種としての AssociationClass のオブジェクト化を表すオブジェクトの両方の特徴を備える。</li>
-<li>AssociationClass の端すべてが <code class="docutils literal notranslate"><span class="pre">isUnique</span></code> が true であるとしても、オブジェクトのいくつかに端 Classes のオブジェクトの同じ集合を結びつけさせることができる。</li>
-<li>AssociationClass は Association または Class の一般化になり得ない。</li>
+Class の一種としての AssociationClass のオブジェクト化を表すオブジェクトの両方の特徴を備える。</p></li>
+<li><p>AssociationClass の端すべてが <code class="docutils literal notranslate"><span class="pre">isUnique</span></code> が true であるとしても、オブジェクトのいくつかに端 Classes のオブジェクトの同じ集合を結びつけさせることができる。</p></li>
+<li><p>AssociationClass は Association または Class の一般化になり得ない。</p></li>
 </ul>
 </div>
-</div>
-<div class="section" id="id19">
-<h3>11.5.4 Notation<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>どんな Association もダイヤモンドが端の型である Classifier に接続している
-Association <code class="docutils literal notranslate"><span class="pre">memberEnd</span></code> それぞれに一本の実線の付いた一個のダイヤモンドとして描いてよい。二個を超える端のある Association はこの方法でしか描くことができない。</li>
-<li>二項 Association は通常二つの Classifiers を接続する実線として描かれる。両者が同じ Classifier の場合は、関連端が重ならないようにして描く。</li>
-<li>実線は折れ線で構わない。意味も変わらない。</li>
-<li>Association 記号には次のように修飾をしてもよい：<ul>
-<li>Association の名前を名前文字列として Association 記号の付近に、ただし端の名前と間違えるほど十分近くではないところに、示すことができる。</li>
-<li>Association の名前の前に、または名前が示されていなければ名前の代わりに現れるスラッシュは、
-Association を導出されるものとして特徴付ける。</li>
-<li>特性文字列は Association 記号の付近に、ただし端の特性文字列を間違えぬよう十分離して配置することが許される。</li>
-</ul>
-</li>
-<li>実線として描画される二項 Association で、
-Association の名前の隣にあるかまたは代わりとなる、ある端の方向の直線に沿って指し示す黒三角は、その端が Association の端順序で末尾に来るものとすることを示す。</li>
-<li>Associations 間の Generalizations は、
-Association 記号間にある一般化矢印を使って示される。</li>
-<li>Association 端は
-Association を描く直線と接続された Classifier を描くアイコン（しばしば箱）との間の接続である。名前文字列を直線の端の近くに置いて
-Association 端の名前を示すのもよい。名前は選択自由で非表示にできる。</li>
-<li>直線の端の近くに置ける他の記法各種は次のとおり：<ul>
-<li>多重度</li>
-<li>中括弧で括られた &lt;prop-modifier&gt;</li>
-<li>&lt;visibility&gt; 記号</li>
-</ul>
-</li>
-<li>Association の端にある開いた矢先は、その端が航行可能であることを示す。
-Association の端にある小さなバツジルシは、その端が航行可能でないことを示す。</li>
-<li>Association 端が導出されていれば、これを名前がなければその代わりに、名前があればその前にスラッシュを付けることで示してよい。</li>
-<li>二項 Association は一方の端の <code class="docutils literal notranslate"><span class="pre">aggregation</span></code> が
-AggregationKind::shared または AggregationKind::composite であってよい。<ul>
-<li>shared ならば反対側の関連端を中身のないダイヤモンドで修飾する。</li>
-<li>composite ならば同様に中身の詰まったダイヤモンドで修飾する。</li>
-</ul>
-</li>
-<li>関連 Classifier による Association 端の所有権は小さい黒塗りの円で図式的に示してよいが、簡潔さのためにドットと呼ぶことにする。<ul>
-<li>ドットは Classifier と関連矢印の間に描く。集約記号や航行可能記号と組み合わせて描かれてよい。</li>
-<li>ドットが示すのは、ドットの触れた Classifier 型の Property をそのモデルが含むということである。この Property はもう一方の関連端点にある Classifier が所有する。</li>
-</ul>
-</li>
-<li>端の所有権の表記法は強制ではない。すなわち、準拠ツールがそれを支援しないことがあり得る。</li>
-<li>Figure 11.26 のような場合、ドットが付いている endA は Classifier B が所有すると解釈するが、ドットの付いていない endB は曖昧さなしに
-BinaryAssociationAB が所有すると解釈する。</li>
-<li>航行可能の表記法は過去において非公式の習慣に従ってよく使われたが、航行可能な端は他方の端の Classifier により所有されると仮定されたゆえに、航行不可能な端は Association により所有されると仮定されたのであった。この慣習は今では嫌われている。</li>
-<li>AssociationClass は破線の Association 経路に取り付けられた
-Class 記号として示す。</li>
-<li>論理的には AssociationClass と Association は同じ意味の実体であるが、それらは図式的には見分けられる。</li>
-<li>二本の関連線が交差するときには、準拠ツールは電気回路図のように交点を半円にして示すオプションを提供してよい。</li>
-<li>関連端の航行可能性を知らせる矢印とバツのいくつかを非表示にするのが便利であることが実用上ではよくある。その非表示のオプションが 3 つある。</li>
-<li>ふたつまたはそれを超える集約が同じ集まりを指すならば、準拠ツールは純粋に表現上のオプションとして、集約端を黒塗りまたは白抜きの集約ダイヤモンド記号で修飾された単一の欠片に併合することによる木として示してよい。</li>
-<li><code class="docutils literal notranslate"><span class="pre">qualifier</span></code> は最終経路欠片とそれに接続する Classifier の記号の間にある関連パスの端に取り付けられた小さな矩形として示す。<ul>
-<li>Classifier の一部というより、Association の線の一部として示す。</li>
-</ul>
-</li>
-<li>対象端に取り付けられた多重度は限定されたオブジェクトと限定する値を対にすることで選択された対象オブジェクトの集合の取り得る濃度を記す。</li>
-<li>限定子属性は qualifier box の内部に描く。</li>
-<li>いささか珍しいのではあるが、限定子が単一の関連の端ごとにあることが認められる。</li>
-<li>限定子を非表示にしてはならない。</li>
-</ul>
 </div>
 <div class="section" id="id20">
-<h3>11.5.5 Examples<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<h3>11.5.4 Notation<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>どんな Association もダイヤモンドが端の型である Classifier に接続している
+Association <code class="docutils literal notranslate"><span class="pre">memberEnd</span></code> それぞれに一本の実線の付いた一個のダイヤモンドとして描いてよい。二個を超える端のある Association はこの方法でしか描くことができない。</p></li>
+<li><p>二項 Association は通常二つの Classifiers を接続する実線として描かれる。両者が同じ Classifier の場合は、関連端が重ならないようにして描く。</p></li>
+<li><p>実線は折れ線で構わない。意味も変わらない。</p></li>
+<li><p>Association 記号には次のように修飾をしてもよい：</p>
+<ul>
+<li><p>Association の名前を名前文字列として Association 記号の付近に、ただし端の名前と間違えるほど十分近くではないところに、示すことができる。</p></li>
+<li><p>Association の名前の前に、または名前が示されていなければ名前の代わりに現れるスラッシュは、
+Association を導出されるものとして特徴付ける。</p></li>
+<li><p>特性文字列は Association 記号の付近に、ただし端の特性文字列を間違えぬよう十分離して配置することが許される。</p></li>
+</ul>
+</li>
+<li><p>実線として描画される二項 Association で、
+Association の名前の隣にあるかまたは代わりとなる、ある端の方向の直線に沿って指し示す黒三角は、その端が Association の端順序で末尾に来るものとすることを示す。</p></li>
+<li><p>Associations 間の Generalizations は、
+Association 記号間にある一般化矢印を使って示される。</p></li>
+<li><p>Association 端は
+Association を描く直線と接続された Classifier を描くアイコン（しばしば箱）との間の接続である。名前文字列を直線の端の近くに置いて
+Association 端の名前を示すのもよい。名前は選択自由で非表示にできる。</p></li>
+<li><p>直線の端の近くに置ける他の記法各種は次のとおり：</p>
+<ul>
+<li><p>多重度</p></li>
+<li><p>中括弧で括られた &lt;prop-modifier&gt;</p></li>
+<li><p>&lt;visibility&gt; 記号</p></li>
+</ul>
+</li>
+<li><p>Association の端にある開いた矢先は、その端が航行可能であることを示す。
+Association の端にある小さなバツジルシは、その端が航行可能でないことを示す。</p></li>
+<li><p>Association 端が導出されていれば、これを名前がなければその代わりに、名前があればその前にスラッシュを付けることで示してよい。</p></li>
+<li><p>二項 Association は一方の端の <code class="docutils literal notranslate"><span class="pre">aggregation</span></code> が
+AggregationKind::shared または AggregationKind::composite であってよい。</p>
+<ul>
+<li><p>shared ならば反対側の関連端を中身のないダイヤモンドで修飾する。</p></li>
+<li><p>composite ならば同様に中身の詰まったダイヤモンドで修飾する。</p></li>
+</ul>
+</li>
+<li><p>関連 Classifier による Association 端の所有権は小さい黒塗りの円で図式的に示してよいが、簡潔さのためにドットと呼ぶことにする。</p>
+<ul>
+<li><p>ドットは Classifier と関連矢印の間に描く。集約記号や航行可能記号と組み合わせて描かれてよい。</p></li>
+<li><p>ドットが示すのは、ドットの触れた Classifier 型の Property をそのモデルが含むということである。この Property はもう一方の関連端点にある Classifier が所有する。</p></li>
+</ul>
+</li>
+<li><p>端の所有権の表記法は強制ではない。すなわち、準拠ツールがそれを支援しないことがあり得る。</p></li>
+<li><p>Figure 11.26 のような場合、ドットが付いている endA は Classifier B が所有すると解釈するが、ドットの付いていない endB は曖昧さなしに
+BinaryAssociationAB が所有すると解釈する。</p></li>
+<li><p>航行可能の表記法は過去において非公式の習慣に従ってよく使われたが、航行可能な端は他方の端の Classifier により所有されると仮定されたゆえに、航行不可能な端は Association により所有されると仮定されたのであった。この慣習は今では嫌われている。</p></li>
+<li><p>AssociationClass は破線の Association 経路に取り付けられた
+Class 記号として示す。</p></li>
+<li><p>論理的には AssociationClass と Association は同じ意味の実体であるが、それらは図式的には見分けられる。</p></li>
+<li><p>二本の関連線が交差するときには、準拠ツールは電気回路図のように交点を半円にして示すオプションを提供してよい。</p></li>
+<li><p>関連端の航行可能性を知らせる矢印とバツのいくつかを非表示にするのが便利であることが実用上ではよくある。その非表示のオプションが 3 つある。</p></li>
+<li><p>ふたつまたはそれを超える集約が同じ集まりを指すならば、準拠ツールは純粋に表現上のオプションとして、集約端を黒塗りまたは白抜きの集約ダイヤモンド記号で修飾された単一の欠片に併合することによる木として示してよい。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">qualifier</span></code> は最終経路欠片とそれに接続する Classifier の記号の間にある関連パスの端に取り付けられた小さな矩形として示す。</p>
+<ul>
+<li><p>Classifier の一部というより、Association の線の一部として示す。</p></li>
+</ul>
+</li>
+<li><p>対象端に取り付けられた多重度は限定されたオブジェクトと限定する値を対にすることで選択された対象オブジェクトの集合の取り得る濃度を記す。</p></li>
+<li><p>限定子属性は qualifier box の内部に描く。</p></li>
+<li><p>いささか珍しいのではあるが、限定子が単一の関連の端ごとにあることが認められる。</p></li>
+<li><p>限定子を非表示にしてはならない。</p></li>
+</ul>
+</div>
+<div class="section" id="id21">
+<h3>11.5.5 Examples<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
 <p>主題が重要なので、見本が豊富にある。</p>
 <ul class="simple">
-<li>Figure 11.27 Binary and ternary Associations<ul>
-<li>黒塗り三角は Player PlayedInYear Year という読み順を示す。</li>
-<li>関連端にある goalie はゴールキーパーの意。</li>
+<li><p>Figure 11.27 Binary and ternary Associations</p>
+<ul>
+<li><p>黒塗り三角は Player PlayedInYear Year という読み順を示す。</p></li>
+<li><p>関連端にある goalie はゴールキーパーの意。</p></li>
 </ul>
 </li>
-<li>Figure 11.28 Association ends with various adornments<ul>
-<li>さまざまな修飾の付いた Association 端の例。</li>
-<li><code class="docutils literal notranslate"><span class="pre">{subsets</span> <span class="pre">x}</span></code> の意味をはっきり例示している。この場合は「クラス C のオブジェクトにとっては、集合 d は集合 b の部分集合である」の意味だ。</li>
+<li><p>Figure 11.28 Association ends with various adornments</p>
+<ul>
+<li><p>さまざまな修飾の付いた Association 端の例。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{subsets</span> <span class="pre">x}</span></code> の意味をはっきり例示している。この場合は「クラス C のオブジェクトにとっては、集合 d は集合 b の部分集合である」の意味だ。</p></li>
 </ul>
 </li>
-<li>Figure 11.29 Examples of navigable association-owned ends<ul>
-<li>関連端の名前の違いを除けば EF がおそらく AB と同値である。</li>
-<li>関連端の名前の違いを除けば GH と IJ が同値であることに注意。本仕様書では主に IJ のスタイルを採用しているようだ。</li>
+<li><p>Figure 11.29 Examples of navigable association-owned ends</p>
+<ul>
+<li><p>関連端の名前の違いを除けば EF がおそらく AB と同値である。</p></li>
+<li><p>関連端の名前の違いを除けば GH と IJ が同値であることに注意。本仕様書では主に IJ のスタイルを採用しているようだ。</p></li>
 </ul>
 </li>
-<li>Figure 11.30 Examples of class-owned ends<ul>
-<li>ドット付きならば Class による所有、そうでなければ Association による所有。</li>
-<li>EF の E 側にバツジルシを描いてもよい。</li>
-<li>関連端の名前の違いを除けば GH は AB と同値である。</li>
+<li><p>Figure 11.30 Examples of class-owned ends</p>
+<ul>
+<li><p>ドット付きならば Class による所有、そうでなければ Association による所有。</p></li>
+<li><p>EF の E 側にバツジルシを描いてもよい。</p></li>
+<li><p>関連端の名前の違いを除けば GH は AB と同値である。</p></li>
 </ul>
 </li>
-<li>Figure 11.31 Example of attribute notation for navigable end owned by an end Class<ul>
-<li>Class により所有された Association 端は属性でもあるので、属性表記法が Class により所有された Association 端を表すのに用いることが可能である。冗長につき普通は非表示となるものなのだが、この表記法を関連表記法と共に用いて、属性が Association 端でもあることをはっきりとさせてよい。</li>
+<li><p>Figure 11.31 Example of attribute notation for navigable end owned by an end Class</p>
+<ul>
+<li><p>Class により所有された Association 端は属性でもあるので、属性表記法が Class により所有された Association 端を表すのに用いることが可能である。冗長につき普通は非表示となるものなのだが、この表記法を関連表記法と共に用いて、属性が Association 端でもあることをはっきりとさせてよい。</p></li>
 </ul>
 </li>
-<li>Figure 11.32 Derived supersets (union)<ul>
-<li>以前理解できなかった derived union の説明。</li>
-<li>結論を言うと b は d から求められる。「b はその部分集合となるような属性の全ての strict union を取ると求められる」である。</li>
+<li><p>Figure 11.32 Derived supersets (union)</p>
+<ul>
+<li><p>以前理解できなかった derived union の説明。</p></li>
+<li><p>結論を言うと b は d から求められる。「b はその部分集合となるような属性の全ての strict union を取ると求められる」である。</p></li>
 </ul>
 </li>
-<li>Figure 11.33 Composite aggregation is depicted as a black diamond<ul>
-<li>何度も見てきた composite 集約を示す黒ダイヤの見本。</li>
+<li><p>Figure 11.33 Composite aggregation is depicted as a black diamond</p>
+<ul>
+<li><p>何度も見てきた composite 集約を示す黒ダイヤの見本。</p></li>
 </ul>
 </li>
-<li>Figure 11.34 Composite aggregation sharing a source segment<ul>
-<li>上の関連と同じ。</li>
+<li><p>Figure 11.34 Composite aggregation sharing a source segment</p>
+<ul>
+<li><p>上の関連と同じ。</p></li>
 </ul>
 </li>
-<li>Figure 11.35 Example AssociationClass Job, …<ul>
-<li>AssociationClass を Association の線に対して破線を結ぶことで示す。</li>
-<li>Job が二度現れているが、同一のモデル要素である。</li>
+<li><p>Figure 11.35 Example AssociationClass Job, …</p>
+<ul>
+<li><p>AssociationClass を Association の線に対して破線を結ぶことで示す。</p></li>
+<li><p>Job が二度現れているが、同一のモデル要素である。</p></li>
 </ul>
 </li>
-<li>Figure 11.36 Example AssociationClass using diamond symbol<ul>
-<li>上と同じ。</li>
+<li><p>Figure 11.36 Example AssociationClass using diamond symbol</p>
+<ul>
+<li><p>上と同じ。</p></li>
 </ul>
 </li>
-<li>Figure 11.37 Qualified associations<ul>
-<li>qualified Association の例。思ったよりも箱が大きい。</li>
-<li>左は Person を Bank::accountNo で識別することを示す。</li>
-<li>右は Square を Chessboard::rank および Chessboard::file で識別することを示す。</li>
+<li><p>Figure 11.37 Qualified associations</p>
+<ul>
+<li><p>qualified Association の例。思ったよりも箱が大きい。</p></li>
+<li><p>左は Person を Bank::accountNo で識別することを示す。</p></li>
+<li><p>右は Square を Chessboard::rank および Chessboard::file で識別することを示す。</p></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <div class="section" id="components">
-<h2><a class="toc-backref" href="#id39">11.6 Components</a><a class="headerlink" href="#components" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id21">
-<h3>11.6.1 Summary<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<h2><a class="toc-backref" href="#id40">11.6 Components</a><a class="headerlink" href="#components" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id22">
+<h3>11.6.1 Summary<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>本節では任意の大きさと複雑さであるソフトウェアシステムを定義するのに用ることができる構成概念の集合を仕様化する。</li>
-<li>Component を基礎とする開発の重要な様相は先に構築した Components の再利用である。<ul>
-<li>Component にはひとつまたはそれを超える
+<li><p>本節では任意の大きさと複雑さであるソフトウェアシステムを定義するのに用ることができる構成概念の集合を仕様化する。</p></li>
+<li><p>Component を基礎とする開発の重要な様相は先に構築した Components の再利用である。</p>
+<ul>
+<li><p>Component にはひとつまたはそれを超える
 <code class="docutils literal notranslate"><span class="pre">provided</span></code> and/or <code class="docutils literal notranslate"><span class="pre">required</span></code> Interfaces があるが、
-Component の内部は、それの Interfaces により与えられたもの以外は、隠蔽されてアクセスできない。</li>
-<li>要求されている Interfaces に関しては
+Component の内部は、それの Interfaces により与えられたもの以外は、隠蔽されてアクセスできない。</p></li>
+<li><p>要求されている Interfaces に関しては
 Component は他の要素に依存してよいかもしれないが、
 Component はカプセル化され、その Dependencies は
-Component は可能な限り独立して扱われることができるように設計されている。</li>
+Component は可能な限り独立して扱われることができるように設計されている。</p></li>
 </ul>
 </li>
-<li>自律と再利用の様相は配備時における Components にまで及ぶ。</li>
-<li>Components パッケージは論理的な Components と物理的な Components の両方の仕様を、それらとそれらが配備かつ実行されるノードを実装する成果物と一緒に支援する。</li>
+<li><p>自律と再利用の様相は配備時における Components にまで及ぶ。</p></li>
+<li><p>Components パッケージは論理的な Components と物理的な Components の両方の仕様を、それらとそれらが配備かつ実行されるノードを実装する成果物と一緒に支援する。</p></li>
 </ul>
 </div>
-<div class="section" id="id22">
-<h3>11.6.2 Abstract Syntax<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id23">
+<h3>11.6.2 Abstract Syntax<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Figure 11.38 Components<ul>
-<li>Component と ComponentRealization が新登場する。</li>
+<li><p>Figure 11.38 Components</p>
+<ul>
+<li><p>Component と ComponentRealization が新登場する。</p></li>
 </ul>
 </li>
 </ul>
-<dl class="docutils">
-<dt>A_required_component, A_provided_component</dt>
-<dd><ul class="first last simple">
-<li>Component から Interface への関連（単方向）。</li>
-<li>Component がそのサービスの契約をクライアントに指定するのは
-<code class="docutils literal notranslate"><span class="pre">provided</span></code> Interfaces による。</li>
-<li>Component が他の Components やシステムのサービスに必要とする契約は
-<code class="docutils literal notranslate"><span class="pre">required</span></code> Interfaces による。</li>
+<dl class="simple">
+<dt>A_required_component, A_provided_component</dt><dd><ul class="simple">
+<li><p>Component から Interface への関連（単方向）。</p></li>
+<li><p>Component がそのサービスの契約をクライアントに指定するのは
+<code class="docutils literal notranslate"><span class="pre">provided</span></code> Interfaces による。</p></li>
+<li><p>Component が他の Components やシステムのサービスに必要とする契約は
+<code class="docutils literal notranslate"><span class="pre">required</span></code> Interfaces による。</p></li>
 </ul>
 </dd>
-<dt>A_packagedElement_component</dt>
-<dd><ul class="first last simple">
-<li>Component から PackageableElement への composite 関連（単方向）。</li>
-<li>A_ownedMember_namespace を subsets する。</li>
+<dt>A_packagedElement_component</dt><dd><ul class="simple">
+<li><p>Component から PackageableElement への composite 関連（単方向）。</p></li>
+<li><p>A_ownedMember_namespace を subsets する。</p></li>
 </ul>
 </dd>
-<dt>A_realization_abstraction</dt>
-<dd><ul class="first last simple">
-<li>Component から ComponentRealization への composite 関連（双方向）。</li>
-<li>A_ownedElement_owner を subsets する。</li>
-<li>A_supplier_supplierDependency を subsets する。</li>
+<dt>A_realization_abstraction</dt><dd><ul class="simple">
+<li><p>Component から ComponentRealization への composite 関連（双方向）。</p></li>
+<li><p>A_ownedElement_owner を subsets する。</p></li>
+<li><p>A_supplier_supplierDependency を subsets する。</p></li>
 </ul>
 </dd>
-<dt>A_realizingClassifier_componentRealization</dt>
-<dd><ul class="first last simple">
-<li>ComponentRealization から Classifier への関連（単方向）。</li>
-<li>関連端 <code class="docutils literal notranslate"><span class="pre">realizingClassifier</span></code> の多重度は <code class="docutils literal notranslate"><span class="pre">1..*</span></code> である。</li>
-<li>A_clientDependency_client を subsets する（向き注意）。</li>
+<dt>A_realizingClassifier_componentRealization</dt><dd><ul class="simple">
+<li><p>ComponentRealization から Classifier への関連（単方向）。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">realizingClassifier</span></code> の多重度は <code class="docutils literal notranslate"><span class="pre">1..*</span></code> である。</p></li>
+<li><p>A_clientDependency_client を subsets する（向き注意）。</p></li>
 </ul>
 </dd>
 </dl>
 </div>
-<div class="section" id="id23">
-<h3>11.6.3 Semantics<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="id24">
-<h4>11.6.3.1 Components<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h4>
-<ul class="simple">
-<li>Component はそれの中身をカプセル化するシステムのモジュール式部品を表現するものであり、それの現れるものがその環境の内部で取り替えることができるようなものである。</li>
-<li>Component はいくらかの Classifiers の状態と挙動をカプセル化する自給自足な構成単位である。<ul>
-<li>Component はそれのクライアントに与えるのと、システムにある他の Components やサービスを必要とするものとの、サービスの正式な契約をそれの <code class="docutils literal notranslate"><span class="pre">provided</span></code> および <code class="docutils literal notranslate"><span class="pre">required</span></code> Interfaces に関して指定する。</li>
-</ul>
-</li>
-<li>Component は、それの Interfaces の互換性に基づいて等価な機能がある Component により、設計時または稼働時に置換可能な構成単位である。</li>
-<li>Component は開発のライフサイクルで終始モデル化されて、配置時と稼働時に向けて逐次洗練される。<ul>
-<li>Component は一つまたはそれを超える Artifacts によって具現化されてよく、そして次に、その Artifact が実行環境に配備されてよい。
-DeploymentSpecification でその Component の実行を引数にする値を定義してよい。
-<a class="reference internal" href="deployments.html"><span class="doc">19 Deployments</span></a> 参照。</li>
-</ul>
-</li>
-<li>Component の <code class="docutils literal notranslate"><span class="pre">required</span></code> および <code class="docutils literal notranslate"><span class="pre">provided</span></code> Interfaces は
-Operations や Receptions のような BehavioralFeatures だけではなく、
-<code class="docutils literal notranslate"><span class="pre">attributes</span></code> や Association 端のような StructuralFeatures の仕様も考慮に入れる。<ul>
-<li>Component は <code class="docutils literal notranslate"><span class="pre">provided</span></code> Interface を直接実装してもよいし、その実現 Classifiers がそうしてもよいし、それらが継承されてもよい。</li>
-<li><code class="docutils literal notranslate"><span class="pre">required</span></code> および <code class="docutils literal notranslate"><span class="pre">provided</span></code> Interfaces は
-Ports で任意で組織化されてよい。</li>
-</ul>
-</li>
-<li>Component にはそれの公的に視認できる Properties と Operations によって
-external view すなわち black-box view がある。</li>
-<li>システムまたはその他の状況での Components 間の配線 (wiring) は互換性のある単純 Ports 間または、
-Usages と Component 図の Components にあるソケットとロリポップにより表される匹敵する InterfaceRealizations との間にある
-Dependencies を用いて構造的に定義することが可能である。</li>
-<li>Component にはその非公開な Properties と実現 Classifiers によって
-internal view すなわち white-box view がある。</li>
-<li>Component にある assembly Connector にとっての実行時の意味とは、
-Connector のオブジェクトに沿って巡回する要求（シグナルと操作発動）である。</li>
-<li>Component に適用する UML 標準ステレオタイプがいくつかある。例えば巨大な規模の Components をモデル化する «Subsystem» や、異なった仕様と実現化の定義で Components をモデル化するには«Specification» と «Realization» 等がある。ここで、仕様ひとつに複数の実現化があることが許される。
-<a class="reference internal" href="standard-profile.html"><span class="doc">22 Standard Profile</span></a> 参照。</li>
-<li>Component はいくらかの Classifiers によって実現（または実装）されてよい。その場合、Component はこれらの Classifiers に対する
-ComponentRealizations の集合を所有する。</li>
-<li>Component はその定義に必要とされるか、関係するモデル要素全部に対しては
-Package のように振る舞うが、それは所有されているか明示的にインポートされているかのどちらかであるはずである。</li>
-<li><code class="docutils literal notranslate"><span class="pre">isIndirectlyInstantiated</span></code> 特性は
-Component に対して適用するオブジェクト化の種類を示す。<ul>
-<li>false であると、Component は addressable オブジェクトとしてオブジェクト化される。</li>
-<li>true であると、Component は設計時には定義されるが、稼働時（または実行時）には Component により指定されるオブジェクトは存在しない。すなわち、
-Component は間接的にオブジェクト化されて、それの実現する Classifiers または <code class="docutils literal notranslate"><span class="pre">parts</span></code> のオブジェクト化の終わりまで。</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
+<h3>11.6.3 Semantics<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="id25">
-<h3>11.6.4 Notation<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h3>
+<h4>11.6.3.1 Components<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li>Component はキーワード «component» を付した Classifier 矩形として示す。<ul>
-<li>任意で Component アイコン（二つの小四角形が突き出た四角形）を右上隅に展示することが可能。この場合はキーワードが非表示でもよい。</li>
+<li><p>Component はそれの中身をカプセル化するシステムのモジュール式部品を表現するものであり、それの現れるものがその環境の内部で取り替えることができるようなものである。</p></li>
+<li><p>Component はいくらかの Classifiers の状態と挙動をカプセル化する自給自足な構成単位である。</p>
+<ul>
+<li><p>Component はそれのクライアントに与えるのと、システムにある他の Components やサービスを必要とするものとの、サービスの正式な契約をそれの <code class="docutils literal notranslate"><span class="pre">provided</span></code> および <code class="docutils literal notranslate"><span class="pre">required</span></code> Interfaces に関して指定する。</p></li>
 </ul>
 </li>
-<li>属性、操作、内部構造区画はすべて通常の意味でのものである。</li>
-<li>Component の <code class="docutils literal notranslate"><span class="pre">provided</span></code> および <code class="docutils literal notranslate"><span class="pre">required</span></code> Interfaces はボール（ロリポップ）・ソケット記法で示してよい。ここでは、ロリポップとソケットは Component の矩形の外に突き出る。</li>
-<li>Component の <code class="docutils literal notranslate"><span class="pre">provided</span></code> および <code class="docutils literal notranslate"><span class="pre">required</span></code> Interfaces のフルネームを表示するために、
-Interfaces は通常の伸張可能な Classifier 矩形として表示することも可能である。このオプションを使うときには、適切な依存矢印により Interface 矩形を Component 矩形に対して接続する。<ul>
-<li><a class="reference internal" href="common-structure.html"><span class="doc">7 Common Structure</span></a> や <a class="reference internal" href="simple-classifiers.html"><span class="doc">10 Simple Classifiers</span></a> を参照。</li>
+<li><p>Component は、それの Interfaces の互換性に基づいて等価な機能がある Component により、設計時または稼働時に置換可能な構成単位である。</p></li>
+<li><p>Component は開発のライフサイクルで終始モデル化されて、配置時と稼働時に向けて逐次洗練される。</p>
+<ul>
+<li><p>Component は一つまたはそれを超える Artifacts によって具現化されてよく、そして次に、その Artifact が実行環境に配備されてよい。
+DeploymentSpecification でその Component の実行を引数にする値を定義してよい。
+<a class="reference internal" href="deployments.html"><span class="doc">19 Deployments</span></a> 参照。</p></li>
 </ul>
 </li>
-<li>準拠ツールは任意で “provided interfaces” と “required interfaces” という名前の、
-<code class="docutils literal notranslate"><span class="pre">provided</span></code> および <code class="docutils literal notranslate"><span class="pre">required</span></code> Interfaces を名前で列記する区画を支援してもよい。</li>
-<li>さらなる任意の区画 “realizations” および “artifacts” を実現する Classifiers および具現化する Artifacts を列記するのに用いてよい。</li>
-<li>ComponentRealization は Realization 依存と同じ方法で記される。すなわち矢先が白抜き三角である一般的な破線矢印である。</li>
-<li>Component の <code class="docutils literal notranslate"><span class="pre">packagedElements</span></code> は、
-<a class="reference internal" href="classification.html"><span class="doc">9 Classification</span></a> で取り扱った
-<code class="docutils literal notranslate"><span class="pre">ownedMembers</span></code> のオプション区画についての仕様に従って、オプション区画 “packaged elements” に表示してよい。</li>
+<li><p>Component の <code class="docutils literal notranslate"><span class="pre">required</span></code> および <code class="docutils literal notranslate"><span class="pre">provided</span></code> Interfaces は
+Operations や Receptions のような BehavioralFeatures だけではなく、
+<code class="docutils literal notranslate"><span class="pre">attributes</span></code> や Association 端のような StructuralFeatures の仕様も考慮に入れる。</p>
+<ul>
+<li><p>Component は <code class="docutils literal notranslate"><span class="pre">provided</span></code> Interface を直接実装してもよいし、その実現 Classifiers がそうしてもよいし、それらが継承されてもよい。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">required</span></code> および <code class="docutils literal notranslate"><span class="pre">provided</span></code> Interfaces は
+Ports で任意で組織化されてよい。</p></li>
 </ul>
+</li>
+<li><p>Component にはそれの公的に視認できる Properties と Operations によって
+external view すなわち black-box view がある。</p></li>
+<li><p>システムまたはその他の状況での Components 間の配線 (wiring) は互換性のある単純 Ports 間または、
+Usages と Component 図の Components にあるソケットとロリポップにより表される匹敵する InterfaceRealizations との間にある
+Dependencies を用いて構造的に定義することが可能である。</p></li>
+<li><p>Component にはその非公開な Properties と実現 Classifiers によって
+internal view すなわち white-box view がある。</p></li>
+<li><p>Component にある assembly Connector にとっての実行時の意味とは、
+Connector のオブジェクトに沿って巡回する要求（シグナルと操作発動）である。</p></li>
+<li><p>Component に適用する UML 標準ステレオタイプがいくつかある。例えば巨大な規模の Components をモデル化する «Subsystem» や、異なった仕様と実現化の定義で Components をモデル化するには«Specification» と «Realization» 等がある。ここで、仕様ひとつに複数の実現化があることが許される。
+<a class="reference internal" href="standard-profile.html"><span class="doc">22 Standard Profile</span></a> 参照。</p></li>
+<li><p>Component はいくらかの Classifiers によって実現（または実装）されてよい。その場合、Component はこれらの Classifiers に対する
+ComponentRealizations の集合を所有する。</p></li>
+<li><p>Component はその定義に必要とされるか、関係するモデル要素全部に対しては
+Package のように振る舞うが、それは所有されているか明示的にインポートされているかのどちらかであるはずである。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">isIndirectlyInstantiated</span></code> 特性は
+Component に対して適用するオブジェクト化の種類を示す。</p>
+<ul>
+<li><p>false であると、Component は addressable オブジェクトとしてオブジェクト化される。</p></li>
+<li><p>true であると、Component は設計時には定義されるが、稼働時（または実行時）には Component により指定されるオブジェクトは存在しない。すなわち、
+Component は間接的にオブジェクト化されて、それの実現する Classifiers または <code class="docutils literal notranslate"><span class="pre">parts</span></code> のオブジェクト化の終わりまで。</p></li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 <div class="section" id="id26">
-<h3>11.6.5 Examples<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h3>
+<h3>11.6.4 Notation<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Figure 11.39 Example of an overview diagram (…)<ul>
-<li>Order は Account と Product に依存しているが、依存の種類は特記されていない。</li>
+<li><p>Component はキーワード «component» を付した Classifier 矩形として示す。</p>
+<ul>
+<li><p>任意で Component アイコン（二つの小四角形が突き出た四角形）を右上隅に展示することが可能。この場合はキーワードが非表示でもよい。</p></li>
 </ul>
 </li>
-<li>Figure 11.40 A Component with two provided and three required Interfaces<ul>
-<li>このようなロリポップとソケットが見えるだけの Component の図式を
-external view と呼ぶようだ。</li>
+<li><p>属性、操作、内部構造区画はすべて通常の意味でのものである。</p></li>
+<li><p>Component の <code class="docutils literal notranslate"><span class="pre">provided</span></code> および <code class="docutils literal notranslate"><span class="pre">required</span></code> Interfaces はボール（ロリポップ）・ソケット記法で示してよい。ここでは、ロリポップとソケットは Component の矩形の外に突き出る。</p></li>
+<li><p>Component の <code class="docutils literal notranslate"><span class="pre">provided</span></code> および <code class="docutils literal notranslate"><span class="pre">required</span></code> Interfaces のフルネームを表示するために、
+Interfaces は通常の伸張可能な Classifier 矩形として表示することも可能である。このオプションを使うときには、適切な依存矢印により Interface 矩形を Component 矩形に対して接続する。</p>
+<ul>
+<li><p><a class="reference internal" href="common-structure.html"><span class="doc">7 Common Structure</span></a> や <a class="reference internal" href="simple-classifiers.html"><span class="doc">10 Simple Classifiers</span></a> を参照。</p></li>
 </ul>
 </li>
-<li>Figure 11.41 Black box notation showing a listing of provided and required interfaces<ul>
-<li>上記と同じモデルを表現している。</li>
-<li>選択自由の区画 “provided interfaces” と “required interfaces” を用いている。</li>
+<li><p>準拠ツールは任意で “provided interfaces” と “required interfaces” という名前の、
+<code class="docutils literal notranslate"><span class="pre">provided</span></code> および <code class="docutils literal notranslate"><span class="pre">required</span></code> Interfaces を名前で列記する区画を支援してもよい。</p></li>
+<li><p>さらなる任意の区画 “realizations” および “artifacts” を実現する Classifiers および具現化する Artifacts を列記するのに用いてよい。</p></li>
+<li><p>ComponentRealization は Realization 依存と同じ方法で記される。すなわち矢先が白抜き三角である一般的な破線矢印である。</p></li>
+<li><p>Component の <code class="docutils literal notranslate"><span class="pre">packagedElements</span></code> は、
+<a class="reference internal" href="classification.html"><span class="doc">9 Classification</span></a> で取り扱った
+<code class="docutils literal notranslate"><span class="pre">ownedMembers</span></code> のオプション区画についての仕様に従って、オプション区画 “packaged elements” に表示してよい。</p></li>
+</ul>
+</div>
+<div class="section" id="id27">
+<h3>11.6.5 Examples<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Figure 11.39 Example of an overview diagram (…)</p>
+<ul>
+<li><p>Order は Account と Product に依存しているが、依存の種類は特記されていない。</p></li>
 </ul>
 </li>
-<li>Figure 11.42 Optional “white-box” representation of a Component<ul>
-<li>おそらく上記のモデルの “white box” view を示している。</li>
-<li>さらに選択自由の区画 “realizations” と “artifacts” を用いている。前者にリストされているのは実現 Classifiers である。後者はこの Component の成果物の一覧になる。</li>
+<li><p>Figure 11.40 A Component with two provided and three required Interfaces</p>
+<ul>
+<li><p>このようなロリポップとソケットが見えるだけの Component の図式を
+external view と呼ぶようだ。</p></li>
 </ul>
 </li>
-<li>Figure 11.43 Explicit representation of provided and required Interfaces (…)<ul>
-<li>Dependency 記法を用いて <code class="docutils literal notranslate"><span class="pre">provided</span></code> と <code class="docutils literal notranslate"><span class="pre">required</span></code> Interfaces を明示的に表現している。</li>
-<li>矢印の描き分け方に注意。</li>
+<li><p>Figure 11.41 Black box notation showing a listing of provided and required interfaces</p>
+<ul>
+<li><p>上記と同じモデルを表現している。</p></li>
+<li><p>選択自由の区画 “provided interfaces” と “required interfaces” を用いている。</p></li>
 </ul>
 </li>
-<li>Figure 11.44 A representation of the realization of a complex Component<ul>
-<li>この図式全体が ComponentRealizations を示している。</li>
-<li>下側の Classifiers の集合が Component Customer を実現している。</li>
+<li><p>Figure 11.42 Optional “white-box” representation of a Component</p>
+<ul>
+<li><p>おそらく上記のモデルの “white box” view を示している。</p></li>
+<li><p>さらに選択自由の区画 “realizations” と “artifacts” を用いている。前者にリストされているのは実現 Classifiers である。後者はこの Component の成果物の一覧になる。</p></li>
 </ul>
 </li>
-<li>Figure 11.45 An alternative nested representation of a complex Component<ul>
-<li>選択自由の区画 “packaged elements” の記法例。</li>
-<li>OrderHeader と LineItem は区画 “realizations” でリストされるものと同じ。</li>
+<li><p>Figure 11.43 Explicit representation of provided and required Interfaces (…)</p>
+<ul>
+<li><p>Dependency 記法を用いて <code class="docutils literal notranslate"><span class="pre">provided</span></code> と <code class="docutils literal notranslate"><span class="pre">required</span></code> Interfaces を明示的に表現している。</p></li>
+<li><p>矢印の描き分け方に注意。</p></li>
 </ul>
 </li>
-<li>Figure 11.46 Example model of a Component, its provided and required Interfaces, (…)<ul>
-<li>Components 間の配線。込み入った図式。</li>
-<li>/OrderableItem は Product の上位型が実装する Interface であることを示す。</li>
-<li>Component は AccountPayable が OrderHeader に依存していることを要求している。</li>
+<li><p>Figure 11.44 A representation of the realization of a complex Component</p>
+<ul>
+<li><p>この図式全体が ComponentRealizations を示している。</p></li>
+<li><p>下側の Classifiers の集合が Component Customer を実現している。</p></li>
 </ul>
 </li>
-<li>Figure 11.47 Internal structure of a Component<ul>
-<li>Component の内部構造の white-box view の見本。</li>
-<li>区画 “internal structure” に他の Components がいる。</li>
-<li>単純 Ports に ball and socket 記法が連結している。</li>
+<li><p>Figure 11.45 An alternative nested representation of a complex Component</p>
+<ul>
+<li><p>選択自由の区画 “packaged elements” の記法例。</p></li>
+<li><p>OrderHeader と LineItem は区画 “realizations” でリストされるものと同じ。</p></li>
 </ul>
 </li>
-<li>Figure 11.48 Delegation Connectors connect externally provided Interfaces to the parts (…)<ul>
-<li>この例では区画 “internal structure” にある <code class="docutils literal notranslate"><span class="pre">parts</span></code> は、区画 “packaged elements” にある Classes を型とする。</li>
+<li><p>Figure 11.46 Example model of a Component, its provided and required Interfaces, (…)</p>
+<ul>
+<li><p>Components 間の配線。込み入った図式。</p></li>
+<li><p>/OrderableItem は Product の上位型が実装する Interface であることを示す。</p></li>
+<li><p>Component は AccountPayable が OrderHeader に依存していることを要求している。</p></li>
+</ul>
+</li>
+<li><p>Figure 11.47 Internal structure of a Component</p>
+<ul>
+<li><p>Component の内部構造の white-box view の見本。</p></li>
+<li><p>区画 “internal structure” に他の Components がいる。</p></li>
+<li><p>単純 Ports に ball and socket 記法が連結している。</p></li>
+</ul>
+</li>
+<li><p>Figure 11.48 Delegation Connectors connect externally provided Interfaces to the parts (…)</p>
+<ul>
+<li><p>この例では区画 “internal structure” にある <code class="docutils literal notranslate"><span class="pre">parts</span></code> は、区画 “packaged elements” にある Classes を型とする。</p></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <div class="section" id="collaborations">
-<h2><a class="toc-backref" href="#id40">11.7 Collaborations</a><a class="headerlink" href="#collaborations" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id27">
-<h3>11.7.1 Summary<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h3>
+<h2><a class="toc-backref" href="#id41">11.7 Collaborations</a><a class="headerlink" href="#collaborations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id28">
+<h3>11.7.1 Summary<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Collaborations の第一の目的とは、通信要素のシステムがどのように特定の課題または課題の集合を併せて達成するかを説明と無関係である詳細と結び付く必要性なしに説明することである。</li>
-<li>CollaborationUse はそれの <code class="docutils literal notranslate"><span class="pre">collaborationRoles</span></code> を演じる特定の要素を巻き込む特定の状況への、
-Collaboration によって記述されるパターンの応用を表現する。</li>
+<li><p>Collaborations の第一の目的とは、通信要素のシステムがどのように特定の課題または課題の集合を併せて達成するかを説明と無関係である詳細と結び付く必要性なしに説明することである。</p></li>
+<li><p>CollaborationUse はそれの <code class="docutils literal notranslate"><span class="pre">collaborationRoles</span></code> を演じる特定の要素を巻き込む特定の状況への、
+Collaboration によって記述されるパターンの応用を表現する。</p></li>
 </ul>
 </div>
-<div class="section" id="id28">
-<h3>11.7.2 Abstract Syntax<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id29">
+<h3>11.7.2 Abstract Syntax<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Figure 11.49 Collaborations<ul>
-<li>Collaboration と CollaborationUse を見ていく。</li>
+<li><p>Figure 11.49 Collaborations</p>
+<ul>
+<li><p>Collaboration と CollaborationUse を見ていく。</p></li>
 </ul>
 </li>
 </ul>
-<dl class="docutils">
-<dt>A_collaborationRole_collaboration</dt>
-<dd><ul class="first last simple">
-<li>Collaboration から ConnectableElement への関連（単方向）。</li>
-<li>A_role_structuredClassifier を subsets する。</li>
+<dl class="simple">
+<dt>A_collaborationRole_collaboration</dt><dd><ul class="simple">
+<li><p>Collaboration から ConnectableElement への関連（単方向）。</p></li>
+<li><p>A_role_structuredClassifier を subsets する。</p></li>
 </ul>
 </dd>
-<dt>A_type_collaborationUse</dt>
-<dd><ul class="first last simple">
-<li>CollaborationUse から Collaboration への関連（単方向）</li>
-<li>関連端 <code class="docutils literal notranslate"><span class="pre">type</span></code> はこの CollaborationUse で使われている Collaboration である。</li>
-<li>関連端 <code class="docutils literal notranslate"><span class="pre">type</span></code> の多重度は 1 である。</li>
+<dt>A_type_collaborationUse</dt><dd><ul class="simple">
+<li><p>CollaborationUse から Collaboration への関連（単方向）</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">type</span></code> はこの CollaborationUse で使われている Collaboration である。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">type</span></code> の多重度は 1 である。</p></li>
 </ul>
 </dd>
-<dt>A_roleBinding_collaborationUse</dt>
-<dd><ul class="first last simple">
-<li>CollaborationUse から Dependency への composite 関連（単方向）。</li>
-<li>A_ownedElement_owner を subsets する。</li>
+<dt>A_roleBinding_collaborationUse</dt><dd><ul class="simple">
+<li><p>CollaborationUse から Dependency への composite 関連（単方向）。</p></li>
+<li><p>A_ownedElement_owner を subsets する。</p></li>
 </ul>
 </dd>
-<dt>A_collaborationUse_classifier</dt>
-<dd><ul class="first last simple">
-<li>Classifier から CollaborationUse への composite 関連（単方向）。</li>
-<li>A_ownedElement_owner を subsets する。</li>
+<dt>A_collaborationUse_classifier</dt><dd><ul class="simple">
+<li><p>Classifier から CollaborationUse への composite 関連（単方向）。</p></li>
+<li><p>A_ownedElement_owner を subsets する。</p></li>
 </ul>
 </dd>
-<dt>A_representation_classifier</dt>
-<dd><ul class="first last simple">
-<li>Classifier から CollaborationUse への関連（単方向）。</li>
-<li>A_collaborationUse_classifier を subsets する。</li>
+<dt>A_representation_classifier</dt><dd><ul class="simple">
+<li><p>Classifier から CollaborationUse への関連（単方向）。</p></li>
+<li><p>A_collaborationUse_classifier を subsets する。</p></li>
 </ul>
 </dd>
 </dl>
 </div>
-<div class="section" id="id29">
-<h3>11.7.3 Semantics<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="id30">
-<h4>11.7.3.1 Collaborations<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h4>
+<h3>11.7.3 Semantics<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id31">
+<h4>11.7.3.1 Collaborations<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li>Collaboration は協調しているオブジェクト群が、ある共同の課題や課題の集合を、どのように果たすのかを説明するのに用いてよい。</li>
-<li>Collaboration は与えられた課題をこなすのに必要とされる共同の参加者の集合を定義する。</li>
-<li>Features 全部も、参加オブジェクトの内容全部も、これらのオブジェクトの間にあるリンク全部もいずれも特定の Collaboration に常には必要とされない。それゆえ Collaboration は Interfaces で型付けられた
-<code class="docutils literal notranslate"><span class="pre">collaborationRoles</span></code> によって定義されることがよくある。</li>
-<li>Collaborations は他の Collaborations から特殊化されてよい。</li>
-<li>Collaboration は直接オブジェクト化可能なものではない。</li>
+<li><p>Collaboration は協調しているオブジェクト群が、ある共同の課題や課題の集合を、どのように果たすのかを説明するのに用いてよい。</p></li>
+<li><p>Collaboration は与えられた課題をこなすのに必要とされる共同の参加者の集合を定義する。</p></li>
+<li><p>Features 全部も、参加オブジェクトの内容全部も、これらのオブジェクトの間にあるリンク全部もいずれも特定の Collaboration に常には必要とされない。それゆえ Collaboration は Interfaces で型付けられた
+<code class="docutils literal notranslate"><span class="pre">collaborationRoles</span></code> によって定義されることがよくある。</p></li>
+<li><p>Collaborations は他の Collaborations から特殊化されてよい。</p></li>
+<li><p>Collaboration は直接オブジェクト化可能なものではない。</p></li>
 </ul>
 </div>
 <div class="section" id="collaborationuses">
 <h4>11.7.3.2 CollaborationUses<a class="headerlink" href="#collaborationuses" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li>CollaborationUse は要素の集合間の関係の説明になる
-Collaboration の特定の利用法を表現する。</li>
-<li><code class="docutils literal notranslate"><span class="pre">roleBinding</span></code> は CollaborationUse が所有する Dependencies を使って実装される。</li>
-<li>CollaborationUse を型とする Collaboration にある Connectors は対応する Connectors が
-context Classifier に束縛された要素の間にある必要があり、これらの対応する Connectors は Collaboration Connectors と同じか、より一般の型とする必要がある。</li>
-<li>Classifier が所有する CollaborationUses のうちのひとつを総括して Classifier の Behavior を代表するものとして選び出してよい。これを Classifier の <code class="docutils literal notranslate"><span class="pre">representation</span></code> と呼ぶ。</li>
-<li>Collaboration に取り付けられた Behavior のどれもが
-<code class="docutils literal notranslate"><span class="pre">collaborationRoles</span></code> の集合および与えられた CollaborationUses で束縛された Connectors に適用する。例えば、Collaboration の <code class="docutils literal notranslate"><span class="pre">parts</span></code> の間の相互作用は単一の CollaborationUse に束縛された Classifier <code class="docutils literal notranslate"><span class="pre">parts</span></code> に適用する。</li>
-<li>同じ ConnectableElement が Collaboration と代表された要素の両方で使われると <code class="docutils literal notranslate"><span class="pre">roleBinding</span></code> はひとつも要らない。</li>
-<li><code class="docutils literal notranslate"><span class="pre">roleBindings</span></code> の顧客要素と仕入先要素が互換ならば、それ以上のことは指定されない。</li>
+<li><p>CollaborationUse は要素の集合間の関係の説明になる
+Collaboration の特定の利用法を表現する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">roleBinding</span></code> は CollaborationUse が所有する Dependencies を使って実装される。</p></li>
+<li><p>CollaborationUse を型とする Collaboration にある Connectors は対応する Connectors が
+context Classifier に束縛された要素の間にある必要があり、これらの対応する Connectors は Collaboration Connectors と同じか、より一般の型とする必要がある。</p></li>
+<li><p>Classifier が所有する CollaborationUses のうちのひとつを総括して Classifier の Behavior を代表するものとして選び出してよい。これを Classifier の <code class="docutils literal notranslate"><span class="pre">representation</span></code> と呼ぶ。</p></li>
+<li><p>Collaboration に取り付けられた Behavior のどれもが
+<code class="docutils literal notranslate"><span class="pre">collaborationRoles</span></code> の集合および与えられた CollaborationUses で束縛された Connectors に適用する。例えば、Collaboration の <code class="docutils literal notranslate"><span class="pre">parts</span></code> の間の相互作用は単一の CollaborationUse に束縛された Classifier <code class="docutils literal notranslate"><span class="pre">parts</span></code> に適用する。</p></li>
+<li><p>同じ ConnectableElement が Collaboration と代表された要素の両方で使われると <code class="docutils literal notranslate"><span class="pre">roleBinding</span></code> はひとつも要らない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">roleBindings</span></code> の顧客要素と仕入先要素が互換ならば、それ以上のことは指定されない。</p></li>
 </ul>
 </div>
-</div>
-<div class="section" id="id31">
-<h3>11.7.4 Notation<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>Collaboration はその名前を含む破線の楕円形で示す。<ul>
-<li><code class="docutils literal notranslate"><span class="pre">collaborationRoles</span></code> と Connectors で構成された
-Collaboration の内部構造を破線楕円内の区画に示してよい。この区画は Classifier の内部構造区画と同じ記法仕様に準じる。</li>
-</ul>
-</li>
-<li>代わりに composite structure 図が使える。あるいは通常の Classifier 矩形をキーワード «collaboration» を付けて使える。</li>
-<li>Properties でない <code class="docutils literal notranslate"><span class="pre">collaborationRoles</span></code> を有する
-Collaboration を表す記法は定義されていない。</li>
-<li>Properties を表す代替表記法を使う場合は、楕円形の Collaboration の形から
-Collaboration の Properties の型である Classifiers の記号である矩形へ直線を引いてよい。</li>
-<li>CollaborationUse は背景となる Classifier の内部構造区画内部にその出来事の名前を含む破線楕円、コロン、それに Collaboration <code class="docutils literal notranslate"><span class="pre">type</span></code> で示す。<ul>
-<li><code class="docutils literal notranslate"><span class="pre">roleBinding</span></code> ごとに対して、楕円からその <code class="docutils literal notranslate"><span class="pre">client</span></code> 要素へ破線がある。対して、破線は <code class="docutils literal notranslate"><span class="pre">client</span></code> 端上 <code class="docutils literal notranslate"><span class="pre">supplier</span></code> 要素の名前でラベルされている。</li>
-</ul>
-</li>
-<li>CollaborationUse を表す選択自由な記法は、破線矢印がキーワード «occurrence» の付いた、使う Classifier から使われる Collaboration へ向くようにする。<ul>
-<li>これと共に <code class="docutils literal notranslate"><span class="pre">roleBindings</span></code> は普通の Dependency 矢印として示される。</li>
-</ul>
-</li>
-</ul>
 </div>
 <div class="section" id="id32">
-<h3>11.7.5 Examples<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h3>
+<h3>11.7.4 Notation<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Figure 11.50 The internal structure of the Observer Collaboration<ul>
-<li>破線楕円全体が Collaboration Observer である。</li>
-<li>区画内にある矩形がこの <code class="docutils literal notranslate"><span class="pre">collaborationRoles</span></code> であり、オブジェクトの名前が示してある。</li>
-<li>オブジェクト間の実線が Connector を示す。</li>
+<li><p>Collaboration はその名前を含む破線の楕円形で示す。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">collaborationRoles</span></code> と Connectors で構成された
+Collaboration の内部構造を破線楕円内の区画に示してよい。この区画は Classifier の内部構造区画と同じ記法仕様に準じる。</p></li>
 </ul>
 </li>
-<li>Figure 11.51 Alternative notation for the parts of the Observer Collaboration.<ul>
-<li>先のものとは異なる記法を適用している。詳細な仕様が認められる。</li>
+<li><p>代わりに composite structure 図が使える。あるいは通常の Classifier 矩形をキーワード «collaboration» を付けて使える。</p></li>
+<li><p>Properties でない <code class="docutils literal notranslate"><span class="pre">collaborationRoles</span></code> を有する
+Collaboration を表す記法は定義されていない。</p></li>
+<li><p>Properties を表す代替表記法を使う場合は、楕円形の Collaboration の形から
+Collaboration の Properties の型である Classifiers の記号である矩形へ直線を引いてよい。</p></li>
+<li><p>CollaborationUse は背景となる Classifier の内部構造区画内部にその出来事の名前を含む破線楕円、コロン、それに Collaboration <code class="docutils literal notranslate"><span class="pre">type</span></code> で示す。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">roleBinding</span></code> ごとに対して、楕円からその <code class="docutils literal notranslate"><span class="pre">client</span></code> 要素へ破線がある。対して、破線は <code class="docutils literal notranslate"><span class="pre">client</span></code> 端上 <code class="docutils literal notranslate"><span class="pre">supplier</span></code> 要素の名前でラベルされている。</p></li>
 </ul>
 </li>
-<li>Figure 11.52 The Sale Collaboration<ul>
-<li>Sale は <code class="docutils literal notranslate"><span class="pre">collaborationRoles</span></code> buyer と seller の間の Collaboration である。</li>
+<li><p>CollaborationUse を表す選択自由な記法は、破線矢印がキーワード «occurrence» の付いた、使う Classifier から使われる Collaboration へ向くようにする。</p>
+<ul>
+<li><p>これと共に <code class="docutils literal notranslate"><span class="pre">roleBindings</span></code> は普通の Dependency 矢印として示される。</p></li>
 </ul>
 </li>
-<li>Figure 11.53 The BrokeredSale Collaboration<ul>
-<li>BrokeredSale は 3 つの <code class="docutils literal notranslate"><span class="pre">collaborationRoles</span></code> (producer, broker, consumer) の間の Collaboration である。</li>
-<li>同時に 2 種類の CollaborationUses (wholesale, retail) を含むことを示している。
-broker だけは両方の CollaborationUses が <code class="docutils literal notranslate"><span class="pre">client</span></code> 要素として共有する。</li>
+</ul>
+</div>
+<div class="section" id="id33">
+<h3>11.7.5 Examples<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Figure 11.50 The internal structure of the Observer Collaboration</p>
+<ul>
+<li><p>破線楕円全体が Collaboration Observer である。</p></li>
+<li><p>区画内にある矩形がこの <code class="docutils literal notranslate"><span class="pre">collaborationRoles</span></code> であり、オブジェクトの名前が示してある。</p></li>
+<li><p>オブジェクト間の実線が Connector を示す。</p></li>
 </ul>
 </li>
-<li>Figure 11.54 A subset of the BrokeredSale Collaboration using «occurrence» and Dependency arrows<ul>
-<li>わかりにくくなった。</li>
+<li><p>Figure 11.51 Alternative notation for the parts of the Observer Collaboration.</p>
+<ul>
+<li><p>先のものとは異なる記法を適用している。詳細な仕様が認められる。</p></li>
+</ul>
+</li>
+<li><p>Figure 11.52 The Sale Collaboration</p>
+<ul>
+<li><p>Sale は <code class="docutils literal notranslate"><span class="pre">collaborationRoles</span></code> buyer と seller の間の Collaboration である。</p></li>
+</ul>
+</li>
+<li><p>Figure 11.53 The BrokeredSale Collaboration</p>
+<ul>
+<li><p>BrokeredSale は 3 つの <code class="docutils literal notranslate"><span class="pre">collaborationRoles</span></code> (producer, broker, consumer) の間の Collaboration である。</p></li>
+<li><p>同時に 2 種類の CollaborationUses (wholesale, retail) を含むことを示している。
+broker だけは両方の CollaborationUses が <code class="docutils literal notranslate"><span class="pre">client</span></code> 要素として共有する。</p></li>
+</ul>
+</li>
+<li><p>Figure 11.54 A subset of the BrokeredSale Collaboration using «occurrence» and Dependency arrows</p>
+<ul>
+<li><p>わかりにくくなった。</p></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <div class="section" id="classifier-descriptions">
-<h2><a class="toc-backref" href="#id41">11.8 Classifier Descriptions</a><a class="headerlink" href="#classifier-descriptions" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id42">11.8 Classifier Descriptions</a><a class="headerlink" href="#classifier-descriptions" title="Permalink to this headline">¶</a></h2>
 <p>機械生成による節。</p>
 </div>
 <div class="section" id="association-descriptions">
-<h2><a class="toc-backref" href="#id42">11.9 Association Descriptions</a><a class="headerlink" href="#association-descriptions" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id43">11.9 Association Descriptions</a><a class="headerlink" href="#association-descriptions" title="Permalink to this headline">¶</a></h2>
 <p>機械生成による節。</p>
 </div>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
       </div>
       <div class="clearer"></div>
@@ -1289,7 +1345,8 @@ broker だけは両方の CollaborationUses が <code class="docutils literal no
           <a href="simple-classifiers.html" title="10 Simple Classifiers"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >Unified Modeling Language 2.5 読書ノート</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" >Unified Modeling Language 2.5 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">11 Structured Classifiers</a></li> 
       </ul>
     </div>
     <div id="footer">
@@ -1298,7 +1355,7 @@ broker だけは両方の CollaborationUses が <code class="docutils literal no
       </div>
       <div id="footer_copyright">
         Since 1999<br />
-        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+        Copyright &copy; 1999-2020, プレハブ小屋 All rights reserved.
       </div>
     </div>
   </body>

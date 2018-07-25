@@ -1,17 +1,17 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>積分 &#8212; 読書ノート v1.4</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>積分 &#8212; 読書ノート v1.5dev</title>
     <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/mathjax-v3.js"></script>
+    
     <link rel="next" title="常微分方程式" href="ode.html" />
     <link rel="prev" title="級数" href="series.html" /> 
   </head><body>
@@ -25,7 +25,8 @@
           <a href="series.html" title="級数"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">SymPy 利用ノート</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">SymPy 利用ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">積分</a></li> 
       </ul>
     </div>  
 
@@ -40,29 +41,32 @@
 <p>計算機を利用する限り、積分といえば普通は数値計算を想定するものだ。
 SymPy においても、得意とする代数的な設計・実装による積分法のほかに、数値積分法もサポートしている。本節の最後にこれらを見ていくことにする。</p>
 <div class="contents topic" id="id2">
-<p class="topic-title first">ノート目次</p>
+<p class="topic-title">ノート目次</p>
 <ul class="simple">
-<li><a class="reference internal" href="#id1" id="id7">積分</a><ul>
-<li><a class="reference internal" href="#id3" id="id8">基本事項</a><ul>
-<li><a class="reference internal" href="#integrate" id="id9">関数 <code class="code docutils literal notranslate"><span class="pre">integrate</span></code></a></li>
-<li><a class="reference internal" href="#integral" id="id10">クラス Integral</a></li>
+<li><p><a class="reference internal" href="#id1" id="id7">積分</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id3" id="id8">基本事項</a></p>
+<ul>
+<li><p><a class="reference internal" href="#integrate" id="id9">関数 <code class="code docutils literal notranslate"><span class="pre">integrate</span></code></a></p></li>
+<li><p><a class="reference internal" href="#integral" id="id10">クラス Integral</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id4" id="id11">線積分</a></li>
-<li><a class="reference internal" href="#id5" id="id12">関数変換</a><ul>
-<li><a class="reference internal" href="#laplace" id="id13">Laplace 変換</a></li>
-<li><a class="reference internal" href="#fourier" id="id14">Fourier 変換</a></li>
+<li><p><a class="reference internal" href="#id4" id="id11">線積分</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id12">関数変換</a></p>
+<ul>
+<li><p><a class="reference internal" href="#laplace" id="id13">Laplace 変換</a></p></li>
+<li><p><a class="reference internal" href="#fourier" id="id14">Fourier 変換</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id6" id="id15">数値積分</a></li>
+<li><p><a class="reference internal" href="#id6" id="id15">数値積分</a></p></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>本文中のすべての IPython セッション中のサンプルコードで、以下のインポートおよび出力書式設定が済んでいるものとする。</p>
-<div class="code python3 last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">init_printing</span><span class="p">(</span><span class="n">pretty_print</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">init_printing</span><span class="p">(</span><span class="n">pretty_print</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -73,38 +77,40 @@ SymPy においても、得意とする代数的な設計・実装による積�
 <h3><a class="toc-backref" href="#id9">関数 <code class="code docutils literal notranslate"><span class="pre">integrate</span></code></a><a class="headerlink" href="#integrate" title="Permalink to this headline">¶</a></h3>
 <p>積分を計算するには、関数 <code class="code docutils literal notranslate"><span class="pre">integrate(f,</span> <span class="pre">var,</span> <span class="pre">...)</span></code> をもっとも採用することになる。</p>
 <ul class="simple">
-<li><code class="code docutils literal notranslate"><span class="pre">integrate(f,</span> <span class="pre">x)</span></code> の形式で用いれば、被積分関数 <code class="code docutils literal notranslate"><span class="pre">f</span></code> の変数 <code class="code docutils literal notranslate"><span class="pre">x</span></code> に関する不定積分（原始関数が一つ）が得られる。</li>
-<li><code class="code docutils literal notranslate"><span class="pre">integrate(f,</span> <span class="pre">(x,</span> <span class="pre">a,</span> <span class="pre">b))</span></code> の形式で用いれば、被積分関数 <code class="code docutils literal notranslate"><span class="pre">f</span></code> の指定区間における定積分が得られる。</li>
-<li>引数に積分変数あるいは積分区間を列挙することにより、多変数関数の重積分を計算できる。<ul>
-<li>積分変数も区間もどちらも指定しない場合は、被積分関数 <code class="code docutils literal notranslate"><span class="pre">f</span></code> の適当な変数に関する原始関数を返すようだ。</li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">integrate(f,</span> <span class="pre">x)</span></code> の形式で用いれば、被積分関数 <code class="code docutils literal notranslate"><span class="pre">f</span></code> の変数 <code class="code docutils literal notranslate"><span class="pre">x</span></code> に関する不定積分（原始関数が一つ）が得られる。</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">integrate(f,</span> <span class="pre">(x,</span> <span class="pre">a,</span> <span class="pre">b))</span></code> の形式で用いれば、被積分関数 <code class="code docutils literal notranslate"><span class="pre">f</span></code> の指定区間における定積分が得られる。</p></li>
+<li><p>引数に積分変数あるいは積分区間を列挙することにより、多変数関数の重積分を計算できる。</p>
+<ul>
+<li><p>積分変数も区間もどちらも指定しない場合は、被積分関数 <code class="code docutils literal notranslate"><span class="pre">f</span></code> の適当な変数に関する原始関数を返すようだ。</p></li>
 </ul>
 </li>
-<li>ユーザーは数学公式集に掲載されている基本的な積分公式を本関数が承知していると期待してよい。</li>
+<li><p>ユーザーは数学公式集に掲載されている基本的な積分公式を本関数が承知していると期待してよい。</p></li>
 </ul>
 <p>比較的わかりやすい例を示す。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">integrate</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">x</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">log</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span> <span class="o">-</span> <span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">6</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="n">atan</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="n">x</span><span class="o">/</span><span class="mi">3</span> <span class="o">-</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">integrate</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">x</span><span class="p">)</span>
+<span class="gh">Out[1]: </span><span class="go">log(x + 1)/3 - log(x**2 - x + 1)/6 + sqrt(3)*atan(2*sqrt(3)*x/3 - sqrt(3)/3)/3</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">integrate</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="mi">9</span>
+<span class="gp">In [2]: </span><span class="n">integrate</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="gh">Out[2]: </span><span class="go">log(2)/3 + sqrt(3)*pi/9</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">integrate</span><span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">oo</span><span class="p">))</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="o">-</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span><span class="o">*</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="n">EulerGamma</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span>
+<span class="gp">In [3]: </span><span class="n">integrate</span><span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">oo</span><span class="p">))</span>
+<span class="gh">Out[3]: </span><span class="go">-sqrt(pi)*log(2)/2 - EulerGamma*sqrt(pi)/4</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">integrate</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">Piecewise</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">Eq</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="n">Ci</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">EulerGamma</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span>
+<span class="gp">In [4]: </span><span class="n">integrate</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+<span class="gh">Out[4]: </span><span class="go">Piecewise((0, Eq(x, 0)), (2*log(x) - log(x**2)/2 - Ci(x) + EulerGamma, True))</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">integrate</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="o">-</span><span class="n">Ci</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">EulerGamma</span><span class="o">/</span><span class="mi">2</span>
+<span class="gp">In [5]: </span><span class="n">integrate</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="gh">Out[5]: </span><span class="go">-Ci(1)/2 + EulerGamma/2</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li>[1] 不定積分を求める。ちなみに検算には <code class="code docutils literal notranslate"><span class="pre">diff</span></code> や <code class="code docutils literal notranslate"><span class="pre">subs</span></code> を駆使することになる。</li>
-<li>[2] 同じ関数のある定積分を求める。</li>
-<li>[3] 定義域が無限区間になるようなある関数の定積分を求める。区間の端点にシンボル <code class="code docutils literal notranslate"><span class="pre">oo</span></code> を用いるのがコツだ。</li>
-<li>[4][5] 重積分を求める。<ul>
-<li>積分区間を表す引数の順序を丁寧に指定する必要があることがわかる。</li>
-<li><code class="code docutils literal notranslate"><span class="pre">Ci</span></code> は余弦積分。</li>
+<li><p>[1] 不定積分を求める。ちなみに検算には <code class="code docutils literal notranslate"><span class="pre">diff</span></code> や <code class="code docutils literal notranslate"><span class="pre">subs</span></code> を駆使することになる。</p></li>
+<li><p>[2] 同じ関数のある定積分を求める。</p></li>
+<li><p>[3] 定義域が無限区間になるようなある関数の定積分を求める。区間の端点にシンボル <code class="code docutils literal notranslate"><span class="pre">oo</span></code> を用いるのがコツだ。</p></li>
+<li><p>[4][5] 重積分を求める。</p>
+<ul>
+<li><p>積分区間を表す引数の順序を丁寧に指定する必要があることがわかる。</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">Ci</span></code> は余弦積分。</p></li>
 </ul>
 </li>
 </ul>
@@ -112,31 +118,29 @@ SymPy においても、得意とする代数的な設計・実装による積�
 <div class="section" id="integral">
 <h3><a class="toc-backref" href="#id10">クラス Integral</a><a class="headerlink" href="#integral" title="Permalink to this headline">¶</a></h3>
 <p>積分計算をオブジェクトにカプセル化するためのクラスに違いない。前述の関数 <code class="code docutils literal notranslate"><span class="pre">integrate</span></code> が本クラスの機能をラップしているはずだ。</p>
-<dl class="docutils">
-<dt>メソッド <code class="code docutils literal notranslate"><span class="pre">doit(**hints)</span></code></dt>
-<dd>実際に積分を計算する。</dd>
-<dt>メソッド <code class="code docutils literal notranslate"><span class="pre">as_sum(n,</span> <span class="pre">method='midpoint')</span></code></dt>
-<dd><p class="first">キーワード引数 <code class="code docutils literal notranslate"><span class="pre">method</span></code> の取りうる値が次のものなので、これは積分領域を矩形または台形の <cite>n</cite> 本の短冊の寄せ集めに近似して、その面積を計算するメソッドだろう。</p>
-<ul class="last simple">
-<li><code class="code docutils literal notranslate"><span class="pre">left</span></code></li>
-<li><code class="code docutils literal notranslate"><span class="pre">right</span></code></li>
-<li><code class="code docutils literal notranslate"><span class="pre">midpoint</span></code></li>
-<li><code class="code docutils literal notranslate"><span class="pre">trapezoid</span></code></li>
+<dl>
+<dt>メソッド <code class="code docutils literal notranslate"><span class="pre">doit(**hints)</span></code></dt><dd><p>実際に積分を計算する。</p>
+</dd>
+<dt>メソッド <code class="code docutils literal notranslate"><span class="pre">as_sum(n,</span> <span class="pre">method='midpoint')</span></code></dt><dd><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">method</span></code> の取りうる値が次のものなので、これは積分領域を矩形または台形の <cite>n</cite> 本の短冊の寄せ集めに近似して、その面積を計算するメソッドだろう。</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">left</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">right</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">midpoint</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">trapezoid</span></code></p></li>
 </ul>
 </dd>
-<dt>メソッド <code class="code docutils literal notranslate"><span class="pre">transform(x,</span> <span class="pre">u)</span></code></dt>
-<dd><p class="first">置換積分を行う。第一引数を <code class="code docutils literal notranslate"><span class="pre">x</span></code> と書いたが、実際は元の積分変数で表現された数式に相当する。これを第二引数のシンボル <code class="code docutils literal notranslate"><span class="pre">u</span></code> に置換する。</p>
+<dt>メソッド <code class="code docutils literal notranslate"><span class="pre">transform(x,</span> <span class="pre">u)</span></code></dt><dd><p>置換積分を行う。第一引数を <code class="code docutils literal notranslate"><span class="pre">x</span></code> と書いたが、実際は元の積分変数で表現された数式に相当する。これを第二引数のシンボル <code class="code docutils literal notranslate"><span class="pre">u</span></code> に置換する。</p>
 <p>高校数学のテキストから拝借したある積分を評価してみるとこうなる。</p>
-<div class="code ipython last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">J</span> <span class="o">=</span> <span class="n">Integral</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="p">))</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">J</span> <span class="o">=</span> <span class="n">Integral</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="p">))</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">J</span><span class="o">.</span><span class="n">doit</span><span class="p">()</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">Piecewise</span><span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">5</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">15</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">15</span><span class="p">,</span> <span class="n">Abs</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">I</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">5</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">I</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">15</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="n">I</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">15</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span>
+<span class="gp">In [2]: </span><span class="n">J</span><span class="o">.</span><span class="n">doit</span><span class="p">()</span>
+<span class="gh">Out[2]: </span><span class="go">Piecewise((2*sqrt(x + 1)*(x + 2)**2/5 - 2*sqrt(x + 1)*(x + 2)/15 - 4*sqrt(x + 1)/15, Abs(x + 2) &gt; 1), (2*I*sqrt(-x - 1)*(x + 2)**2/5 - 2*I*sqrt(-x - 1)*(x + 2)/15 - 4*I*sqrt(-x - 1)/15, True))</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">J</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">t</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">Integral</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">t</span><span class="o">*</span><span class="p">(</span><span class="n">t</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="n">t</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span> <span class="n">t</span><span class="p">)</span>
+<span class="gp">In [3]: </span><span class="n">J</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">t</span><span class="p">)</span>
+<span class="gh">Out[3]: </span><span class="go">Integral(2*t*(t**2 + 1)*sqrt(t**2), t)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">_</span><span class="o">.</span><span class="n">doit</span><span class="p">()</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">t</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">5</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">5</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">t</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span>
+<span class="gp">In [4]: </span><span class="n">_</span><span class="o">.</span><span class="n">doit</span><span class="p">()</span>
+<span class="gh">Out[4]: </span><span class="go">2*(t**2)**(5/2)/5 + 2*(t**2)**(3/2)/3</span>
 </pre></div>
 </div>
 </dd>
@@ -146,17 +150,16 @@ SymPy においても、得意とする代数的な設計・実装による積�
 <div class="section" id="id4">
 <h2><a class="toc-backref" href="#id11">線積分</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>線積分を求めるには、先述のものとは異なる関数を用いる。</p>
-<dl class="docutils">
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">line_integrate(field,</span> <span class="pre">Curve,</span> <span class="pre">variables)</span></code></dt>
-<dd><p class="first">線積分を求める。</p>
+<dl>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">line_integrate(field,</span> <span class="pre">Curve,</span> <span class="pre">variables)</span></code></dt><dd><p>線積分を求める。</p>
 <ul class="simple">
-<li>引数 <code class="code docutils literal notranslate"><span class="pre">field</span></code> が被積分関数である。ベクトル場ということだろう。</li>
-<li>引数 <code class="code docutils literal notranslate"><span class="pre">Curve</span></code> で積分区間となる曲線オブジェクトを指定する。これは平面曲線でなければならないようだ。このクラスについては <a class="reference internal" href="geometry.html"><span class="doc">幾何</span></a> で見た。</li>
+<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">field</span></code> が被積分関数である。ベクトル場ということだろう。</p></li>
+<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">Curve</span></code> で積分区間となる曲線オブジェクトを指定する。これは平面曲線でなければならないようだ。このクラスについては <a class="reference internal" href="geometry.html"><span class="doc">幾何</span></a> で見た。</p></li>
 </ul>
-<div class="code ipython last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">C</span> <span class="o">=</span> <span class="n">Curve</span><span class="p">([</span><span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">)],</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span><span class="p">))</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">C</span> <span class="o">=</span> <span class="n">Curve</span><span class="p">([</span><span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">)],</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span><span class="p">))</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">line_integrate</span><span class="p">((</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="n">y</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">pi</span><span class="o">/</span><span class="mi">2</span>
+<span class="gp">In [2]: </span><span class="n">line_integrate</span><span class="p">((</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="n">y</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
+<span class="gh">Out[3]: </span><span class="go">pi/2</span>
 </pre></div>
 </div>
 </dd>
@@ -168,143 +171,137 @@ SymPy においても、得意とする代数的な設計・実装による積�
 <div class="section" id="laplace">
 <h3><a class="toc-backref" href="#id13">Laplace 変換</a><a class="headerlink" href="#laplace" title="Permalink to this headline">¶</a></h3>
 <p>Laplace 変換およびその逆変換を計算する機能は、関数として提供されている。</p>
-<dl class="docutils">
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">laplace_transform(f,</span> <span class="pre">t,</span> <span class="pre">s,</span> <span class="pre">**hints)</span></code></dt>
-<dd><p class="first">関数 <code class="code docutils literal notranslate"><span class="pre">f(t)</span></code> の Laplace 変換を計算して、結果を返す。</p>
+<dl>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">laplace_transform(f,</span> <span class="pre">t,</span> <span class="pre">s,</span> <span class="pre">**hints)</span></code></dt><dd><p>関数 <code class="code docutils literal notranslate"><span class="pre">f(t)</span></code> の Laplace 変換を計算して、結果を返す。</p>
 <ul class="simple">
-<li>引数 <code class="code docutils literal notranslate"><span class="pre">f</span></code> と <code class="code docutils literal notranslate"><span class="pre">t</span></code> は変換したい関数とその変数シンボルをそれぞれ指定する。</li>
-<li>引数 <code class="code docutils literal notranslate"><span class="pre">s</span></code> で得られる変換関数の変数シンボルを指定する。</li>
-<li>戻り値は <code class="code docutils literal notranslate"><span class="pre">(F,</span> <span class="pre">a,</span> <span class="pre">cond)</span></code> の形の tuple オブジェクト。<ul>
-<li><code class="code docutils literal notranslate"><span class="pre">F</span></code> は変換関数そのもの。</li>
-<li><code class="code docutils literal notranslate"><span class="pre">a</span></code> はこの変換の収束域の境界値。「変数 <code class="code docutils literal notranslate"><span class="pre">s</span></code> の実部が値 <code class="code docutils literal notranslate"><span class="pre">a</span></code> を超えていれば、積分が収束する」と読み換えてかまわない。</li>
-<li><code class="code docutils literal notranslate"><span class="pre">cond</span></code> はさらなる収束条件。形式不明。</li>
+<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">f</span></code> と <code class="code docutils literal notranslate"><span class="pre">t</span></code> は変換したい関数とその変数シンボルをそれぞれ指定する。</p></li>
+<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">s</span></code> で得られる変換関数の変数シンボルを指定する。</p></li>
+<li><p>戻り値は <code class="code docutils literal notranslate"><span class="pre">(F,</span> <span class="pre">a,</span> <span class="pre">cond)</span></code> の形の tuple オブジェクト。</p>
+<ul>
+<li><p><code class="code docutils literal notranslate"><span class="pre">F</span></code> は変換関数そのもの。</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">a</span></code> はこの変換の収束域の境界値。「変数 <code class="code docutils literal notranslate"><span class="pre">s</span></code> の実部が値 <code class="code docutils literal notranslate"><span class="pre">a</span></code> を超えていれば、積分が収束する」と読み換えてかまわない。</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">cond</span></code> はさらなる収束条件。形式不明。</p></li>
 </ul>
 </li>
-<li>さらに <code class="code docutils literal notranslate"><span class="pre">noconds=True</span></code> を加えれば、戻り値は <code class="code docutils literal notranslate"><span class="pre">F</span></code> のみになる。</li>
+<li><p>さらに <code class="code docutils literal notranslate"><span class="pre">noconds=True</span></code> を加えれば、戻り値は <code class="code docutils literal notranslate"><span class="pre">F</span></code> のみになる。</p></li>
 </ul>
 <p>いくつか実行例を示す。変換したい関数はよそのドキュメントから拝借した。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">t</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;t s&#39;</span><span class="p">)</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">t</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;t s&#39;</span><span class="p">)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">laplace_transform</span><span class="p">(</span><span class="n">t</span><span class="o">**</span><span class="mi">4</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">t</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
-<span class="p">(</span><span class="mi">24</span><span class="o">*</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">s</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="mi">10</span><span class="o">*</span><span class="n">s</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">s</span><span class="o">**</span><span class="mi">10</span> <span class="o">+</span> <span class="mi">5</span><span class="o">*</span><span class="n">s</span><span class="o">**</span><span class="mi">8</span> <span class="o">+</span> <span class="mi">10</span><span class="o">*</span><span class="n">s</span><span class="o">**</span><span class="mi">6</span> <span class="o">+</span> <span class="mi">10</span><span class="o">*</span><span class="n">s</span><span class="o">**</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">5</span><span class="o">*</span><span class="n">s</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>
- <span class="mi">0</span><span class="p">,</span>
- <span class="kc">True</span><span class="p">)</span>
+<span class="gp">In [2]: </span><span class="n">laplace_transform</span><span class="p">(</span><span class="n">t</span><span class="o">**</span><span class="mi">4</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">t</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+<span class="gh">Out[2]:</span>
+<span class="go">(24*(5*s**4 - 10*s**2 + 1)/(s**10 + 5*s**8 + 10*s**6 + 10*s**4 + 5*s**2 + 1),</span>
+<span class="go"> 0,</span>
+<span class="go"> True)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">factor</span><span class="p">(</span><span class="n">_</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="mi">24</span><span class="o">*</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">s</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="mi">10</span><span class="o">*</span><span class="n">s</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">s</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">5</span>
+<span class="gp">In [3]: </span><span class="n">factor</span><span class="p">(</span><span class="n">_</span><span class="p">)</span>
+<span class="gh">Out[3]: </span><span class="go">24*(5*s**4 - 10*s**2 + 1)/(s**2 + 1)**5</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">laplace_transform</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">t</span><span class="p">),</span> <span class="n">t</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="gp">In [4]: </span><span class="n">laplace_transform</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">t</span><span class="p">),</span> <span class="n">t</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+<span class="gh">Out[4]: </span><span class="go">(1/(s + 1), 0, True)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">laplace_transform</span><span class="p">(</span><span class="n">t</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">t</span><span class="p">),</span> <span class="n">t</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">*</span><span class="n">expint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span><span class="o">/</span><span class="n">s</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="gp">In [5]: </span><span class="n">laplace_transform</span><span class="p">(</span><span class="n">t</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">t</span><span class="p">),</span> <span class="n">t</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+<span class="gh">Out[5]: </span><span class="go">(exp(s)*expint(2, s)/s, 0, True)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">laplace_transform</span><span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="p">((</span><span class="n">log</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">EulerGamma</span><span class="o">*</span><span class="n">log</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">+</span> <span class="n">EulerGamma</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">pi</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">6</span><span class="p">)</span><span class="o">/</span><span class="n">s</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="gp">In [6]: </span><span class="n">laplace_transform</span><span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+<span class="gh">Out[6]: </span><span class="go">((log(s)**2 + 2*EulerGamma*log(s) + EulerGamma**2 + pi**2/6)/s, 0, True)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">laplace_transform</span><span class="p">(</span><span class="n">Heaviside</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">t</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="p">((</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">s</span><span class="p">)</span><span class="o">/</span><span class="n">s</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="gp">In [7]: </span><span class="n">laplace_transform</span><span class="p">(</span><span class="n">Heaviside</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">t</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+<span class="gh">Out[7]: </span><span class="go">((s + 1)*exp(-s)/s**2, 0, True)</span>
 </pre></div>
 </div>
-<ul class="last simple">
-<li>[1] Laplace 変換で標準的に用いられる変数名 <code class="code docutils literal notranslate"><span class="pre">t</span></code> 等を有効にする。</li>
-<li>[2][3][4] 小手試し。以降、収束条件が全部同じの例ばかりになってしまうので、呼び出し時に <code class="code docutils literal notranslate"><span class="pre">noconds=True</span></code> を与えたほうがよかった。</li>
-<li>[5] <code class="code docutils literal notranslate"><span class="pre">expint</span></code> を含む関数が得られる。</li>
-<li>[6] EulerGamma を含む関数が得られる。</li>
-<li>[7] Heaviside 関数を Laplace 変換する。</li>
+<ul class="simple">
+<li><p>[1] Laplace 変換で標準的に用いられる変数名 <code class="code docutils literal notranslate"><span class="pre">t</span></code> 等を有効にする。</p></li>
+<li><p>[2][3][4] 小手試し。以降、収束条件が全部同じの例ばかりになってしまうので、呼び出し時に <code class="code docutils literal notranslate"><span class="pre">noconds=True</span></code> を与えたほうがよかった。</p></li>
+<li><p>[5] <code class="code docutils literal notranslate"><span class="pre">expint</span></code> を含む関数が得られる。</p></li>
+<li><p>[6] EulerGamma を含む関数が得られる。</p></li>
+<li><p>[7] Heaviside 関数を Laplace 変換する。</p></li>
 </ul>
 </dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">inverse_laplace_transform(F,</span> <span class="pre">s,</span> <span class="pre">t,</span> <span class="pre">plane=None,</span> <span class="pre">**hints)</span></code></dt>
-<dd><p class="first">関数 <code class="code docutils literal notranslate"><span class="pre">F(s)</span></code> の逆 Laplace 変換を計算して、結果を返す。</p>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">inverse_laplace_transform(F,</span> <span class="pre">s,</span> <span class="pre">t,</span> <span class="pre">plane=None,</span> <span class="pre">**hints)</span></code></dt><dd><p>関数 <code class="code docutils literal notranslate"><span class="pre">F(s)</span></code> の逆 Laplace 変換を計算して、結果を返す。</p>
 <ul class="simple">
-<li>引数 <code class="code docutils literal notranslate"><span class="pre">F</span></code>, <code class="code docutils literal notranslate"><span class="pre">s</span></code>, <code class="code docutils literal notranslate"><span class="pre">t</span></code> の意味は前述の関数に準ずる。</li>
-<li>引数 <code class="code docutils literal notranslate"><span class="pre">plane</span></code> を利用する場合は、呼び出し側で変換関数 <code class="code docutils literal notranslate"><span class="pre">F</span></code> が極を持たないような半平面を知っているときにそうする。</li>
+<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">F</span></code>, <code class="code docutils literal notranslate"><span class="pre">s</span></code>, <code class="code docutils literal notranslate"><span class="pre">t</span></code> の意味は前述の関数に準ずる。</p></li>
+<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">plane</span></code> を利用する場合は、呼び出し側で変換関数 <code class="code docutils literal notranslate"><span class="pre">F</span></code> が極を持たないような半平面を知っているときにそうする。</p></li>
 </ul>
 <p>いくつか実行例を示す。逆変換の対象となる関数はよそのドキュメントから拝借した。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="n">inverse_laplace_transform</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">s</span><span class="p">),</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">t</span><span class="p">)</span><span class="o">*</span><span class="n">Heaviside</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [8]: </span><span class="n">inverse_laplace_transform</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">s</span><span class="p">),</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="gh">Out[8]: </span><span class="go">exp(-t)*Heaviside(t)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="n">inverse_laplace_transform</span><span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">log</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">12</span><span class="o">*</span><span class="n">EulerGamma</span><span class="o">*</span><span class="n">log</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="n">pi</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">6</span><span class="o">*</span><span class="n">EulerGamma</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">Heaviside</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="mi">6</span>
+<span class="gp">In [9]: </span><span class="n">inverse_laplace_transform</span><span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="gh">Out[9]: </span><span class="go">(6*log(t)**2 + 12*EulerGamma*log(t) - pi**2 + 6*EulerGamma**2)*Heaviside(t)/6</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="n">inverse_laplace_transform</span><span class="p">(</span><span class="n">s</span><span class="o">/</span><span class="p">(</span><span class="n">s</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">*</span><span class="n">Heaviside</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="gp">In [10]: </span><span class="n">inverse_laplace_transform</span><span class="p">(</span><span class="n">s</span><span class="o">/</span><span class="p">(</span><span class="n">s</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="gh">Out[10]: </span><span class="go">cos(t)*Heaviside(t)</span>
 </pre></div>
 </div>
-<p class="last">いちいち Heaviside 関数が現れるのが特徴だ。</p>
+<p>いちいち Heaviside 関数が現れるのが特徴だ。</p>
 </dd>
 </dl>
 </div>
 <div class="section" id="fourier">
 <h3><a class="toc-backref" href="#id14">Fourier 変換</a><a class="headerlink" href="#fourier" title="Permalink to this headline">¶</a></h3>
 <p>こちらも関数として提供されている。ユニタリー周波に関する変換方式を採用している。</p>
-<dl class="docutils">
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">fourier_transform(f,</span> <span class="pre">x,</span> <span class="pre">k,</span> <span class="pre">**hints)</span></code></dt>
-<dd><p class="first">関数 <code class="code docutils literal notranslate"><span class="pre">f(x)</span></code> の Fourier 変換を計算して、結果を返す。</p>
+<dl>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">fourier_transform(f,</span> <span class="pre">x,</span> <span class="pre">k,</span> <span class="pre">**hints)</span></code></dt><dd><p>関数 <code class="code docutils literal notranslate"><span class="pre">f(x)</span></code> の Fourier 変換を計算して、結果を返す。</p>
 <ul>
-<li><p class="first">引数 <code class="code docutils literal notranslate"><span class="pre">f</span></code> は変換したい実変数関数。</p>
-</li>
-<li><p class="first">引数 <code class="code docutils literal notranslate"><span class="pre">x</span></code> は関数 <code class="code docutils literal notranslate"><span class="pre">f</span></code> の変数シンボル。</p>
-</li>
-<li><p class="first">引数 <code class="code docutils literal notranslate"><span class="pre">k</span></code> は周波数。角周波数ではない（そうだったら <code class="code docutils literal notranslate"><span class="pre">omega</span></code> みたいなパラメーター名になっただろう）。</p>
-</li>
-<li><p class="first">戻り値は計算状況によって異なる。</p>
+<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">f</span></code> は変換したい実変数関数。</p></li>
+<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">x</span></code> は関数 <code class="code docutils literal notranslate"><span class="pre">f</span></code> の変数シンボル。</p></li>
+<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">k</span></code> は周波数。角周波数ではない（そうだったら <code class="code docutils literal notranslate"><span class="pre">omega</span></code> みたいなパラメーター名になっただろう）。</p></li>
+<li><p>戻り値は計算状況によって異なる。</p>
 <ul class="simple">
-<li>評価が成功すれば、いつものように関数を表現する数式 <code class="code docutils literal notranslate"><span class="pre">F(k)</span></code> が得られる。</li>
-<li>微妙な場合、クラス FourierTransform のオブジェクトが返る。これは変換が未評価であることを意味する。</li>
+<li><p>評価が成功すれば、いつものように関数を表現する数式 <code class="code docutils literal notranslate"><span class="pre">F(k)</span></code> が得られる。</p></li>
+<li><p>微妙な場合、クラス FourierTransform のオブジェクトが返る。これは変換が未評価であることを意味する。</p></li>
 </ul>
 </li>
-<li><p class="first">さらに <code class="code docutils literal notranslate"><span class="pre">noconds=False</span></code> を加えれば、戻り値は <code class="code docutils literal notranslate"><span class="pre">F</span></code> とブール値からなる tuple オブジェクトに変わる。</p>
+<li><p>さらに <code class="code docutils literal notranslate"><span class="pre">noconds=False</span></code> を加えれば、戻り値は <code class="code docutils literal notranslate"><span class="pre">F</span></code> とブール値からなる tuple オブジェクトに変わる。</p>
 <p>ブール値の意味が文書化されていないので、後で調べたい。</p>
 </li>
 </ul>
 <p>実行例を示す。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">fourier_transform</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">0</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">fourier_transform</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+<span class="gh">Out[1]: </span><span class="go">0</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">fourier_transform</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="mi">0</span>
+<span class="gp">In [2]: </span><span class="n">fourier_transform</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+<span class="gh">Out[2]: </span><span class="go">0</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">fourier_transform</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">*</span><span class="n">Heaviside</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">t</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">I</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">k</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">In [3]: </span><span class="n">fourier_transform</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">*</span><span class="n">Heaviside</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">t</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+<span class="gh">Out[3]: </span><span class="go">1/(2*I*pi*k + 3)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">fourier_transform</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span> <span class="n">x</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">pi</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">k</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">In [4]: </span><span class="n">fourier_transform</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span> <span class="n">x</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+<span class="gh">Out[4]: </span><span class="go">sqrt(pi)*exp(-pi**2*k**2)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">fourier_transform</span><span class="p">(</span><span class="n">DiracDelta</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">t</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="mi">1</span>
+<span class="gp">In [5]: </span><span class="n">fourier_transform</span><span class="p">(</span><span class="n">DiracDelta</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">t</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+<span class="gh">Out[5]: </span><span class="go">1</span>
 </pre></div>
 </div>
-<ul class="last simple">
-<li>[1][2] 入力が異なるのに変換結果が同じになるのは解せない。おそらく DiracDelta を結果に含むはずの変換が正しく求まらない。</li>
-<li>[3]-[5] こちらはよさそうだ。</li>
+<ul class="simple">
+<li><p>[1][2] 入力が異なるのに変換結果が同じになるのは解せない。おそらく DiracDelta を結果に含むはずの変換が正しく求まらない。</p></li>
+<li><p>[3]-[5] こちらはよさそうだ。</p></li>
 </ul>
 </dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">inverse_fourier_transform(F,</span> <span class="pre">k,</span> <span class="pre">x,</span> <span class="pre">**hints)</span></code></dt>
-<dd><p class="first">関数 <code class="code docutils literal notranslate"><span class="pre">F(k)</span></code> の逆 Fourier 変換を計算して、結果を返す。各引数の意味は前述の関数に準ずる。</p>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">inverse_fourier_transform(F,</span> <span class="pre">k,</span> <span class="pre">x,</span> <span class="pre">**hints)</span></code></dt><dd><p>関数 <code class="code docutils literal notranslate"><span class="pre">F(k)</span></code> の逆 Fourier 変換を計算して、結果を返す。各引数の意味は前述の関数に準ずる。</p>
 <p>実行例を示す。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">inverse_fourier_transform</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="mi">0</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [6]: </span><span class="n">inverse_fourier_transform</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="gh">Out[6]: </span><span class="go">0</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">inverse_fourier_transform</span><span class="p">(</span><span class="n">DiracDelta</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="n">k</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="mi">1</span>
+<span class="gp">In [7]: </span><span class="n">inverse_fourier_transform</span><span class="p">(</span><span class="n">DiracDelta</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="n">k</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="gh">Out[7]: </span><span class="go">1</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="n">inverse_fourier_transform</span><span class="p">(</span><span class="n">DiracDelta</span><span class="p">(</span><span class="n">k</span> <span class="o">-</span> <span class="n">a</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">)),</span> <span class="n">k</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="n">exp</span><span class="p">(</span><span class="n">I</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">In [8]: </span><span class="n">inverse_fourier_transform</span><span class="p">(</span><span class="n">DiracDelta</span><span class="p">(</span><span class="n">k</span> <span class="o">-</span> <span class="n">a</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">)),</span> <span class="n">k</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="gh">Out[8]: </span><span class="go">exp(I*a*x)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="n">inverse_fourier_transform</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="n">InverseFourierTransform</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="gp">In [9]: </span><span class="n">inverse_fourier_transform</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="gh">Out[9]: </span><span class="go">InverseFourierTransform(1/k, k, x)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="n">inverse_fourier_transform</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">k</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span> <span class="n">k</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">pi</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">In [10]: </span><span class="n">inverse_fourier_transform</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">k</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span> <span class="n">k</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="gh">Out[10]: </span><span class="go">sqrt(pi)*exp(-pi**2*x**2)</span>
 </pre></div>
 </div>
-<ul class="last simple">
-<li>[6] 逆変換で DiracDelta が欲しい例。</li>
-<li>[7][8] DiracDelta の逆変換は正しく求まる。</li>
-<li>[9] このように評価し切れない場合は遅延評価版オブジェクトが返る。</li>
-<li>[10] おそらく正しい。</li>
+<ul class="simple">
+<li><p>[6] 逆変換で DiracDelta が欲しい例。</p></li>
+<li><p>[7][8] DiracDelta の逆変換は正しく求まる。</p></li>
+<li><p>[9] このように評価し切れない場合は遅延評価版オブジェクトが返る。</p></li>
+<li><p>[10] おそらく正しい。</p></li>
 </ul>
 </dd>
 </dl>
@@ -314,72 +311,72 @@ SymPy においても、得意とする代数的な設計・実装による積�
 <h2><a class="toc-backref" href="#id15">数値積分</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p>その名もモジュール <code class="docutils literal notranslate"><span class="pre">sympy.integrals.quadrature</span></code> に、数値積分系の関数が定義されている。すべてが Gauss 求積法の派生アルゴリズムということになる。まず各関数に共通する引数と戻り値の性質を説明する。</p>
 <ul class="simple">
-<li>引数 <code class="code docutils literal notranslate"><span class="pre">n</span></code> は各求積法の order である。</li>
-<li>引数 <code class="code docutils literal notranslate"><span class="pre">n_digits</span></code> は求積の精度、有効桁数を指定する。</li>
-<li>戻り値は長さ 2 の tuple オブジェクトであり、どちらの要素も長さ <code class="code docutils literal notranslate"><span class="pre">n</span></code> の list オブジェクトだ。その中身も共通して小数点以下が <code class="code docutils literal notranslate"><span class="pre">n_digits</span></code> 桁の float 値だ。<ul>
-<li>ガウス点。各短冊の位置のようなものを想像するとよい。</li>
-<li>重み。各短冊の太さのようなもの。</li>
+<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">n</span></code> は各求積法の order である。</p></li>
+<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">n_digits</span></code> は求積の精度、有効桁数を指定する。</p></li>
+<li><p>戻り値は長さ 2 の tuple オブジェクトであり、どちらの要素も長さ <code class="code docutils literal notranslate"><span class="pre">n</span></code> の list オブジェクトだ。その中身も共通して小数点以下が <code class="code docutils literal notranslate"><span class="pre">n_digits</span></code> 桁の float 値だ。</p>
+<ul>
+<li><p>ガウス点。各短冊の位置のようなものを想像するとよい。</p></li>
+<li><p>重み。各短冊の太さのようなもの。</p></li>
 </ul>
 </li>
 </ul>
 <p>次に各関数について固有の事情を記す。</p>
-<dl class="docutils">
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">gauss_legendre(n,</span> <span class="pre">n_digits)</span></code></dt>
-<dd>Gauss-Legendre 求積法を評価する。単に Gauss 求積といえばこれを指す。</dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">gauss_laguerre(n,</span> <span class="pre">n_digits)</span></code></dt>
-<dd>Gauss-Laguerre 求積法を評価する。</dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">gauss_gen_laguerre(n,</span> <span class="pre">alpha,</span> <span class="pre">n_digits)</span></code></dt>
-<dd><p class="first">Gauss-Laguerre 求積法の一般化版を評価する。</p>
-<ul class="last simple">
-<li>引数 <code class="code docutils literal notranslate"><span class="pre">alpha</span></code> は一般化されていないほうの求積法の重み関数に対して乗じる <code class="code docutils literal notranslate"><span class="pre">x</span> <span class="pre">**</span> <span class="pre">alpha</span></code> の指数を指定する。</li>
+<dl class="simple">
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">gauss_legendre(n,</span> <span class="pre">n_digits)</span></code></dt><dd><p>Gauss-Legendre 求積法を評価する。単に Gauss 求積といえばこれを指す。</p>
+</dd>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">gauss_laguerre(n,</span> <span class="pre">n_digits)</span></code></dt><dd><p>Gauss-Laguerre 求積法を評価する。</p>
+</dd>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">gauss_gen_laguerre(n,</span> <span class="pre">alpha,</span> <span class="pre">n_digits)</span></code></dt><dd><p>Gauss-Laguerre 求積法の一般化版を評価する。</p>
+<ul class="simple">
+<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">alpha</span></code> は一般化されていないほうの求積法の重み関数に対して乗じる <code class="code docutils literal notranslate"><span class="pre">x</span> <span class="pre">**</span> <span class="pre">alpha</span></code> の指数を指定する。</p></li>
 </ul>
 </dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">gauss_hermite(n,</span> <span class="pre">n_digits)</span></code></dt>
-<dd>Gauss-Hermite 求積法を評価する。</dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">gauss_chebyshev_t(n,</span> <span class="pre">n_digits)</span></code></dt>
-<dd>Gauss-Chebyshev 求積法を、第一種多項式について評価する。</dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">gauss_chebyshev_u(n,</span> <span class="pre">n_digits)</span></code></dt>
-<dd>Gauss-Chebyshev 求積法を、第二種多項式について評価する。</dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">gauss_jacobi(n,</span> <span class="pre">alpha,</span> <span class="pre">beta,</span> <span class="pre">n_digits)</span></code></dt>
-<dd><p class="first">Gauss-Jacobi 求積法を評価する。</p>
-<ul class="last simple">
-<li>引数 <code class="code docutils literal notranslate"><span class="pre">alpha</span></code> は Jacobi 多項式第 1 項 <code class="code docutils literal notranslate"><span class="pre">(1</span> <span class="pre">-</span> <span class="pre">x)</span></code> の指数。</li>
-<li>引数 <code class="code docutils literal notranslate"><span class="pre">beta</span></code> は Jacobi 多項式第 2 項 <code class="code docutils literal notranslate"><span class="pre">(1</span> <span class="pre">+</span> <span class="pre">x)</span></code> の指数。</li>
-<li>これらの指数は -1 より大きい必要がある。</li>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">gauss_hermite(n,</span> <span class="pre">n_digits)</span></code></dt><dd><p>Gauss-Hermite 求積法を評価する。</p>
+</dd>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">gauss_chebyshev_t(n,</span> <span class="pre">n_digits)</span></code></dt><dd><p>Gauss-Chebyshev 求積法を、第一種多項式について評価する。</p>
+</dd>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">gauss_chebyshev_u(n,</span> <span class="pre">n_digits)</span></code></dt><dd><p>Gauss-Chebyshev 求積法を、第二種多項式について評価する。</p>
+</dd>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">gauss_jacobi(n,</span> <span class="pre">alpha,</span> <span class="pre">beta,</span> <span class="pre">n_digits)</span></code></dt><dd><p>Gauss-Jacobi 求積法を評価する。</p>
+<ul class="simple">
+<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">alpha</span></code> は Jacobi 多項式第 1 項 <code class="code docutils literal notranslate"><span class="pre">(1</span> <span class="pre">-</span> <span class="pre">x)</span></code> の指数。</p></li>
+<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">beta</span></code> は Jacobi 多項式第 2 項 <code class="code docutils literal notranslate"><span class="pre">(1</span> <span class="pre">+</span> <span class="pre">x)</span></code> の指数。</p></li>
+<li><p>これらの指数は -1 より大きい必要がある。</p></li>
 </ul>
 </dd>
 </dl>
 <p>最後に、関数 <code class="code docutils literal notranslate"><span class="pre">gauss_legendre</span></code> だけデモを示す。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">integrate</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span><span class="o">*</span><span class="n">erf</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">integrate</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="gh">Out[1]: </span><span class="go">sqrt(2)*sqrt(pi)*erf(sqrt(2)/2)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">_</span><span class="o">.</span><span class="n">evalf</span><span class="p">()</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="mf">1.71124878378430</span>
+<span class="gp">In [2]: </span><span class="n">_</span><span class="o">.</span><span class="n">evalf</span><span class="p">()</span>
+<span class="gh">Out[2]: </span><span class="go">1.71124878378430</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">sympy.integrals.quadrature</span> <span class="k">import</span> <span class="n">gauss_legendre</span>
+<span class="gp">In [3]: </span><span class="kn">from</span> <span class="nn">sympy.integrals.quadrature</span> <span class="kn">import</span> <span class="n">gauss_legendre</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">nodes</span><span class="p">,</span> <span class="n">weights</span> <span class="o">=</span> <span class="n">gauss_legendre</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="gp">In [4]: </span><span class="n">nodes</span><span class="p">,</span> <span class="n">weights</span> <span class="o">=</span> <span class="n">gauss_legendre</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">nodes</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.90617985</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.53846931</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.53846931</span><span class="p">,</span> <span class="mf">0.90617985</span><span class="p">]</span>
+<span class="gp">In [5]: </span><span class="n">nodes</span>
+<span class="gh">Out[5]: </span><span class="go">[-0.90617985, -0.53846931, 0, 0.53846931, 0.90617985]</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">weights</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="p">[</span><span class="mf">0.23692689</span><span class="p">,</span> <span class="mf">0.47862867</span><span class="p">,</span> <span class="mf">0.56888889</span><span class="p">,</span> <span class="mf">0.47862867</span><span class="p">,</span> <span class="mf">0.23692689</span><span class="p">]</span>
+<span class="gp">In [6]: </span><span class="n">weights</span>
+<span class="gh">Out[6]: </span><span class="go">[0.23692689, 0.47862867, 0.56888889, 0.47862867, 0.23692689]</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="nb">sum</span><span class="p">((</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">node</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">weight</span> <span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">weight</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">weights</span><span class="p">)))</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="mf">1.7112494</span>
+<span class="gp">In [7]: </span><span class="nb">sum</span><span class="p">((</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">node</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">weight</span> <span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">weight</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">weights</span><span class="p">)))</span>
+<span class="gh">Out[7]: </span><span class="go">1.7112494</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li>[1][2] まずは汎用の <code class="code docutils literal notranslate"><span class="pre">integrate</span></code> による定積分を計算し、近似値を見ておく。これをガウス求積による数値計算で得るのがこのデモの目的だ。</li>
-<li>[4] オーダー 5 でガウス点と重みを計算する。</li>
-<li>[5][6] それぞれ有効精度が 8 桁であることがわかる。</li>
-<li>[7] これらと Python の組み込み関数を用いて、簡単な算術計算で定積分の数値計算を実現できた。</li>
+<li><p>[1][2] まずは汎用の <code class="code docutils literal notranslate"><span class="pre">integrate</span></code> による定積分を計算し、近似値を見ておく。これをガウス求積による数値計算で得るのがこのデモの目的だ。</p></li>
+<li><p>[4] オーダー 5 でガウス点と重みを計算する。</p></li>
+<li><p>[5][6] それぞれ有効精度が 8 桁であることがわかる。</p></li>
+<li><p>[7] これらと Python の組み込み関数を用いて、簡単な算術計算で定積分の数値計算を実現できた。</p></li>
 </ul>
 </div>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
       </div>
       <div class="clearer"></div>
@@ -394,7 +391,8 @@ SymPy においても、得意とする代数的な設計・実装による積�
           <a href="series.html" title="級数"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >SymPy 利用ノート</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" >SymPy 利用ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">積分</a></li> 
       </ul>
     </div>
     <div id="footer">
@@ -403,7 +401,7 @@ SymPy においても、得意とする代数的な設計・実装による積�
       </div>
       <div id="footer_copyright">
         Since 1999<br />
-        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+        Copyright &copy; 1999-2020, プレハブ小屋 All rights reserved.
       </div>
     </div>
   </body>

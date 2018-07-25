@@ -1,17 +1,17 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>基本テク &#8212; 読書ノート v1.4</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>基本テク &#8212; 読書ノート v1.5dev</title>
     <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/mathjax-v3.js"></script>
+    
     <link rel="next" title="応用テク" href="advanced.html" />
     <link rel="prev" title="インストール" href="setup.html" /> 
   </head><body>
@@ -25,7 +25,8 @@
           <a href="setup.html" title="インストール"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Matplotlib 利用ノート</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Matplotlib 利用ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">基本テク</a></li> 
       </ul>
     </div>  
 
@@ -37,31 +38,36 @@
 <h1><a class="toc-backref" href="#id12">基本テク</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>本稿では <a class="reference external" href="http://matplotlib.org/">Matplotlib</a> インストール直後にでも実現可能な基本的な操作について記す。基本の手順は、<a class="reference external" href="http://www.numpy.org/">NumPy</a>/<a class="reference external" href="http://www.scipy.org/">SciPy</a> の機能でデータを生成し、その 2D プロットを Matplotlib を用いて描画することだ。</p>
 <div class="contents topic" id="contents">
-<p class="topic-title first">Contents</p>
+<p class="topic-title">Contents</p>
 <ul class="simple">
-<li><a class="reference internal" href="#id1" id="id12">基本テク</a><ul>
-<li><a class="reference internal" href="#id2" id="id13">基本的な関数・メソッドを押さえる</a></li>
-<li><a class="reference internal" href="#figure-axes" id="id14">Figure と Axes の概念を理解する</a></li>
-<li><a class="reference internal" href="#id3" id="id15">テキストを使う</a><ul>
-<li><a class="reference internal" href="#id4" id="id16">テキストプロパティ</a></li>
-<li><a class="reference internal" href="#id5" id="id17">日本語のテキストを描画する</a></li>
+<li><p><a class="reference internal" href="#id1" id="id12">基本テク</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id13">基本的な関数・メソッドを押さえる</a></p></li>
+<li><p><a class="reference internal" href="#figure-axes" id="id14">Figure と Axes の概念を理解する</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id15">テキストを使う</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id4" id="id16">テキストプロパティ</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id17">日本語のテキストを描画する</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#artists" id="id18">Artists 関連</a><ul>
-<li><a class="reference internal" href="#figure-matplotlib-figure-figure" id="id19">Figure (<code class="code docutils literal notranslate"><span class="pre">matplotlib.figure.Figure</span></code>)</a></li>
-<li><a class="reference internal" href="#axes-matplotlib-axes-axes" id="id20">Axes (<code class="code docutils literal notranslate"><span class="pre">matplotlib.axes.Axes</span></code>)</a></li>
-<li><a class="reference internal" href="#axis-matplotlib-axis-axis" id="id21">Axis (<code class="code docutils literal notranslate"><span class="pre">matplotlib.axis.Axis</span></code>)</a></li>
+<li><p><a class="reference internal" href="#artists" id="id18">Artists 関連</a></p>
+<ul>
+<li><p><a class="reference internal" href="#figure-matplotlib-figure-figure" id="id19">Figure (<code class="code docutils literal notranslate"><span class="pre">matplotlib.figure.Figure</span></code>)</a></p></li>
+<li><p><a class="reference internal" href="#axes-matplotlib-axes-axes" id="id20">Axes (<code class="code docutils literal notranslate"><span class="pre">matplotlib.axes.Axes</span></code>)</a></p></li>
+<li><p><a class="reference internal" href="#axis-matplotlib-axis-axis" id="id21">Axis (<code class="code docutils literal notranslate"><span class="pre">matplotlib.axis.Axis</span></code>)</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id6" id="id22">バックエンド</a><ul>
-<li><a class="reference internal" href="#id7" id="id23">ユーザーインターフェイスバックエンド</a></li>
-<li><a class="reference internal" href="#id8" id="id24">ハードコピーバックエンド</a></li>
+<li><p><a class="reference internal" href="#id6" id="id22">バックエンド</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id7" id="id23">ユーザーインターフェイスバックエンド</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id24">ハードコピーバックエンド</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id9" id="id25">ヒストグラムを描く</a></li>
-<li><a class="reference internal" href="#id10" id="id26">曲線を描く</a><ul>
-<li><a class="reference internal" href="#id11" id="id27">多項式</a></li>
-<li><a class="reference internal" href="#bezier" id="id28">Bézier 曲線</a></li>
+<li><p><a class="reference internal" href="#id9" id="id25">ヒストグラムを描く</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id26">曲線を描く</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id11" id="id27">多項式</a></p></li>
+<li><p><a class="reference internal" href="#bezier" id="id28">Bézier 曲線</a></p></li>
 </ul>
 </li>
 </ul>
@@ -69,13 +75,13 @@
 </ul>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>特に断らない限り、以降のテキストおよびコード片においては、各種 <code class="code docutils literal notranslate"><span class="pre">import</span></code> を次のようにしたものと仮定している。</p>
-<div class="code python3 last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
 <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pylab</span><span class="p">,</span> <span class="n">mlab</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pylab</span><span class="p">,</span> <span class="n">mlab</span>
 </pre></div>
 </div>
 </div>
@@ -83,37 +89,37 @@
 <h2><a class="toc-backref" href="#id13">基本的な関数・メソッドを押さえる</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>下の表を見てからヘルプを当たる。</p>
 <p>後で見るように、モジュール <code class="code docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code> の関数の機能は、ある種の「アクティブな」オブジェクトのメソッド呼び出しをするだけに過ぎない。</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">関数</th>
-<th class="head">機能</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>関数</p></th>
+<th class="head"><p>機能</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">plt.plot(...)</span></code></td>
-<td>グラフを描く</td>
+<tbody>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">plt.plot(...)</span></code></p></td>
+<td><p>グラフを描く</p></td>
 </tr>
-<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">plt.hist(...)</span></code></td>
-<td>ヒストグラムを描く</td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">plt.hist(...)</span></code></p></td>
+<td><p>ヒストグラムを描く</p></td>
 </tr>
-<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">plt.show(...)</span></code></td>
-<td>イメージを一気に表示</td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">plt.show(...)</span></code></p></td>
+<td><p>イメージを一気に表示</p></td>
 </tr>
-<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">plt.savefig(...)</span></code></td>
-<td>イメージをファイルに保存</td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">plt.savefig(...)</span></code></p></td>
+<td><p>イメージをファイルに保存</p></td>
 </tr>
-<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">plt.setp(...)</span></code></td>
-<td>プロット線の属性等、描画パラメーターの取得・指定</td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">plt.setp(...)</span></code></p></td>
+<td><p>プロット線の属性等、描画パラメーターの取得・指定</p></td>
 </tr>
-<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">plt.axis(...)</span></code></td>
-<td>ビューポート範囲指定</td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">plt.axis(...)</span></code></p></td>
+<td><p>ビューポート範囲指定</p></td>
 </tr>
-<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">plt.grid(...)</span></code></td>
-<td>グリッド描画をするかしないか指定</td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">plt.grid(...)</span></code></p></td>
+<td><p>グリッド描画をするかしないか指定</p></td>
 </tr>
 </tbody>
 </table>
@@ -123,33 +129,32 @@ Matplotlib の概要がサインカーブのプロットを表示する簡素な
 <div class="section" id="figure-axes">
 <h2><a class="toc-backref" href="#id14">Figure と Axes の概念を理解する</a><a class="headerlink" href="#figure-axes" title="Permalink to this headline">¶</a></h2>
 <p>Matplotlib には current figure と current axes という概念がある。これを利用して、複数個のグラフをワンシーンに定義できるようだ。</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">関数</th>
-<th class="head">機能</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>関数</p></th>
+<th class="head"><p>機能</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">plt.figure(...)</span></code></td>
-<td>指定の figure をカレントにする</td>
+<tbody>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">plt.figure(...)</span></code></p></td>
+<td><p>指定の figure をカレントにする</p></td>
 </tr>
-<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">plt.subplot(...)</span></code></td>
-<td>指定の axes をカレントにする</td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">plt.subplot(...)</span></code></p></td>
+<td><p>指定の axes をカレントにする</p></td>
 </tr>
 </tbody>
 </table>
-<dl class="docutils">
-<dt>Figure</dt>
-<dd>大抵の本にはいくつかの図がしばしばキャプション付きで載っている。
-Figure という語は、それに対応するクラスだと解釈したい。図の一つ一つが Figure のオブジェクトになると思えば、個人的にはコードが理解できる。</dd>
-<dt>Axes</dt>
-<dd><p class="first">普通は一つの図にグラフ一つを載せるわけだが、同じようなグラフを並べたものを一つの図としたい場合もある。
+<dl>
+<dt>Figure</dt><dd><p>大抵の本にはいくつかの図がしばしばキャプション付きで載っている。
+Figure という語は、それに対応するクラスだと解釈したい。図の一つ一つが Figure のオブジェクトになると思えば、個人的にはコードが理解できる。</p>
+</dd>
+<dt>Axes</dt><dd><p>普通は一つの図にグラフ一つを載せるわけだが、同じようなグラフを並べたものを一つの図としたい場合もある。
 Axes という語が意味するのが、そのグラフだと解釈すればよいか。</p>
-<p class="last">余談だが MS Word のグラフ API にも Axes というコンセプトがあったと記憶している。</p>
+<p>余談だが MS Word のグラフ API にも Axes というコンセプトがあったと記憶している。</p>
 </dd>
 </dl>
 <p>次の図にふたつの Axes を持たせたひとつの Figure を示す。</p>
@@ -157,14 +162,13 @@ Axes という語が意味するのが、そのグラフだと解釈すればよ
 <a class="reference internal image-reference" href="../_images/mpl-axes.png"><img alt="Axes デモ" src="../_images/mpl-axes.png" style="width: 407.5px; height: 307.5px;" /></a>
 </div>
 <ul>
-<li><p class="first"><code class="code docutils literal notranslate"><span class="pre">plt.figure(n)</span></code> で current figure を指定する。</p>
-</li>
-<li><p class="first"><code class="code docutils literal notranslate"><span class="pre">plt.subplot(n0n1n2)</span></code> で current axes を指定する。
+<li><p><code class="code docutils literal notranslate"><span class="pre">plt.figure(n)</span></code> で current figure を指定する。</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">plt.subplot(n0n1n2)</span></code> で current axes を指定する。
 <cite>n0</cite>, <cite>n1</cite>, <cite>n2</cite> がそれぞれ縦方向の区画数、横方向の区画数、「どの区画か」を意味する。</p>
 <p><cite>n2</cite> は 1 以上 <cite>n1 * n2</cite> 以下の値でなければならない。</p>
 </li>
-<li><p class="first"><code class="code docutils literal notranslate"><span class="pre">plt</span></code> のプロットコマンドはすべて current axes に作用する。</p>
-<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<li><p><code class="code docutils literal notranslate"><span class="pre">plt</span></code> のプロットコマンドはすべて current axes に作用する。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="c1"># Make figure-1 active and get it.</span>
@@ -186,12 +190,12 @@ Axes という語が意味するのが、そのグラフだと解釈すればよ
 </pre></div>
 </div>
 </li>
-<li><p class="first">Matplotlib は figure/axes を扱うスタイルを二つ提供している。</p>
+<li><p>Matplotlib は figure/axes を扱うスタイルを二つ提供している。</p>
 <ul>
-<li><p class="first">古典的なステートマシン様式</p>
+<li><p>古典的なステートマシン様式</p>
 <p>ユーザーコードがカレントな figure/axes が何であるかを常に意識して、プロットコマンドを呼び出す。コマンドはカレントな figure/axes に対して適用されることになる。</p>
 </li>
-<li><p class="first">状態とオブジェクトとを関連付けて取り扱うオブジェクト指向プログラミング様式</p>
+<li><p>状態とオブジェクトとを関連付けて取り扱うオブジェクト指向プログラミング様式</p>
 <p>figure/axes がオブジェクトになっていて、メソッドでプロットコマンドを呼び出す。コマンドは対象となるオブジェクトの管理する figure/axes に対して適用されることになる。</p>
 </li>
 </ul>
@@ -201,79 +205,78 @@ Axes という語が意味するのが、そのグラフだと解釈すればよ
 <div class="section" id="id3">
 <h2><a class="toc-backref" href="#id15">テキストを使う</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>当ノートの目的のひとつに、「数式を含むテキストを表示する」ことがある。そのためには、事前に単純ななテキスト描画の方法を学習する必要があるだろう。モジュール <code class="code docutils literal notranslate"><span class="pre">plt</span></code> からテキストに強く関連していそうな機能を表にしてみよう。</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">関数</th>
-<th class="head">機能</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>関数</p></th>
+<th class="head"><p>機能</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">plt.text(...)</span></code></td>
-<td>ビューポート内にテキストを描く</td>
+<tbody>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">plt.text(...)</span></code></p></td>
+<td><p>ビューポート内にテキストを描く</p></td>
 </tr>
-<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">plt.xlabel(...)</span></code></td>
-<td>X 軸用キャプション</td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">plt.xlabel(...)</span></code></p></td>
+<td><p>X 軸用キャプション</p></td>
 </tr>
-<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">plt.ylabel(...)</span></code></td>
-<td>Y 軸用キャプション</td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">plt.ylabel(...)</span></code></p></td>
+<td><p>Y 軸用キャプション</p></td>
 </tr>
-<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">plt.title(...)</span></code></td>
-<td>グラフ全体のキャプション</td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">plt.title(...)</span></code></p></td>
+<td><p>グラフ全体のキャプション</p></td>
 </tr>
 </tbody>
 </table>
 <ul class="simple">
-<li><code class="code docutils literal notranslate"><span class="pre">plt.text()</span></code> は指定位置にテキストを描画するコマンドと考える。</li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">plt.text()</span></code> は指定位置にテキストを描画するコマンドと考える。</p></li>
 </ul>
 <div class="section" id="id4">
 <h3><a class="toc-backref" href="#id16">テキストプロパティ</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>個人的によく使うテキストプロパティを表にまとめておく。各種テキストコマンド関数・メソッドのキーワード引数として指定するのが一つのやり方。</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">キーワード</th>
-<th class="head">意味</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>キーワード</p></th>
+<th class="head"><p>意味</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">color</span></code></td>
-<td>テキストの色。</td>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">color</span></code></p></td>
+<td><p>テキストの色。</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">family</span></code></td>
-<td>テキストのフォント名。フォント名を直接指定するか <code class="docutils literal notranslate"><span class="pre">&quot;sans-serif&quot;</span></code> 等の予約名を指定する。</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">family</span></code></p></td>
+<td><p>テキストのフォント名。フォント名を直接指定するか <code class="docutils literal notranslate"><span class="pre">&quot;sans-serif&quot;</span></code> 等の予約名を指定する。</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">rotation</span></code></td>
-<td>テキストの流し込む角度。度単位で直接指定する。</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rotation</span></code></p></td>
+<td><p>テキストの流し込む角度。度単位で直接指定する。</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">size</span></code></td>
-<td>フォントサイズをポイントで指定するか <code class="docutils literal notranslate"><span class="pre">&quot;x-large&quot;</span></code> 等の予約名を指定する。</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">size</span></code></p></td>
+<td><p>フォントサイズをポイントで指定するか <code class="docutils literal notranslate"><span class="pre">&quot;x-large&quot;</span></code> 等の予約名を指定する。</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">stretch</span></code></td>
-<td>0 から 1000 までの値を指定するか <code class="docutils literal notranslate"><span class="pre">&quot;condensed&quot;</span></code> 等の予約名を指定する。</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">stretch</span></code></p></td>
+<td><p>0 から 1000 までの値を指定するか <code class="docutils literal notranslate"><span class="pre">&quot;condensed&quot;</span></code> 等の予約名を指定する。</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">style</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">&quot;normal&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;italic&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;oblique&quot;</span></code> から選択。</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">style</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;normal&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;italic&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;oblique&quot;</span></code> から選択。</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">weight</span></code></td>
-<td>0 から 1000 までの値を指定するか <code class="docutils literal notranslate"><span class="pre">&quot;bold&quot;</span></code> 等の予約名を指定する。</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">weight</span></code></p></td>
+<td><p>0 から 1000 までの値を指定するか <code class="docutils literal notranslate"><span class="pre">&quot;bold&quot;</span></code> 等の予約名を指定する。</p></td>
 </tr>
 </tbody>
 </table>
 <ul>
-<li><p class="first">テキストの基準位置は <code class="docutils literal notranslate"><span class="pre">horizontalalignment</span></code>, <code class="docutils literal notranslate"><span class="pre">verticalalignment</span></code> キーワード引数で指示できる。例えば <cite>x</cite>, <cite>y</cite> 引数をテキストの右下位置としたい場合には次のようにする。</p>
-<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;aaaa&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+<li><p>テキストの基準位置は <code class="docutils literal notranslate"><span class="pre">horizontalalignment</span></code>, <code class="docutils literal notranslate"><span class="pre">verticalalignment</span></code> キーワード引数で指示できる。例えば <cite>x</cite>, <cite>y</cite> 引数をテキストの右下位置としたい場合には次のようにする。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;aaaa&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">複数行テキストの左揃え・中央揃え・右寄せを指定する場合は <code class="docutils literal notranslate"><span class="pre">multialignment</span></code> キーワードを使用する。</p>
-</li>
+<li><p>複数行テキストの左揃え・中央揃え・右寄せを指定する場合は <code class="docutils literal notranslate"><span class="pre">multialignment</span></code> キーワードを使用する。</p></li>
 </ul>
 </div>
 <div class="section" id="id5">
@@ -283,7 +286,7 @@ Axes という語が意味するのが、そのグラフだと解釈すればよ
 <span class="sd">&quot;&quot;&quot;japanese_text.py: Demonstrate how to draw Japanese text.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">matplotlib.font_manager</span> <span class="k">import</span> <span class="n">FontProperties</span>
+<span class="kn">from</span> <span class="nn">matplotlib.font_manager</span> <span class="kn">import</span> <span class="n">FontProperties</span>
 
 <span class="n">FONT_PROP</span> <span class="o">=</span> <span class="n">FontProperties</span><span class="p">(</span><span class="n">fname</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;C:\WINDOWS\Fonts\HGRME.TTC&#39;</span><span class="p">)</span>
 
@@ -301,22 +304,21 @@ Axes という語が意味するのが、そのグラフだと解釈すればよ
 <div class="section" id="artists">
 <h2><a class="toc-backref" href="#id18">Artists 関連</a><a class="headerlink" href="#artists" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>primitives: Line2D, Rectangle, Text, AxesImage, etc.</li>
-<li>containers: Axis, Axes, Figure, etc.</li>
+<li><p>primitives: Line2D, Rectangle, Text, AxesImage, etc.</p></li>
+<li><p>containers: Axis, Axes, Figure, etc.</p></li>
 </ul>
 <p>コンテナーを攻略していく。</p>
 <ul class="simple">
-<li>Axes はプロッティングエリア。</li>
-<li>Subplot は Axes の特別なもの。コード的にもサブクラスで表現されている。</li>
-<li>Patch というクラス名は MATLAB から受け継いだ。</li>
-<li>プロパティー一覧は <code class="code docutils literal notranslate"><span class="pre">matplotlib.artist.getp</span></code> 関数で確認できる。</li>
+<li><p>Axes はプロッティングエリア。</p></li>
+<li><p>Subplot は Axes の特別なもの。コード的にもサブクラスで表現されている。</p></li>
+<li><p>Patch というクラス名は MATLAB から受け継いだ。</p></li>
+<li><p>プロパティー一覧は <code class="code docutils literal notranslate"><span class="pre">matplotlib.artist.getp</span></code> 関数で確認できる。</p></li>
 </ul>
 <div class="section" id="figure-matplotlib-figure-figure">
 <h3><a class="toc-backref" href="#id19">Figure (<code class="code docutils literal notranslate"><span class="pre">matplotlib.figure.Figure</span></code>)</a><a class="headerlink" href="#figure-matplotlib-figure-figure" title="Permalink to this headline">¶</a></h3>
 <ul>
-<li><p class="first">Figure オブジェクトが “current axes” を管理している。</p>
-</li>
-<li><p class="first">Figure は（グラフのものではない）自身の座標系を持っていて、矩形の左下と右上がそれぞれ <cite>(0, 0)</cite>, <cite>(1, 1)</cite> となっている。</p>
+<li><p>Figure オブジェクトが “current axes” を管理している。</p></li>
+<li><p>Figure は（グラフのものではない）自身の座標系を持っていて、矩形の左下と右上がそれぞれ <cite>(0, 0)</cite>, <cite>(1, 1)</cite> となっている。</p>
 <p>変な例だが、画像全体に対角線を一本引くにはこうする。キーワード引数 <code class="docutils literal notranslate"><span class="pre">transform</span></code> の値がいかにもな感じがするだろう。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="sd">&quot;&quot;&quot;diagonal.py: Demonstrate how to draw a diagonal line which joins</span>
@@ -347,48 +349,48 @@ Axes という語が意味するのが、そのグラフだと解釈すればよ
 <div class="section" id="axes-matplotlib-axes-axes">
 <h3><a class="toc-backref" href="#id20">Axes (<code class="code docutils literal notranslate"><span class="pre">matplotlib.axes.Axes</span></code>)</a><a class="headerlink" href="#axes-matplotlib-axes-axes" title="Permalink to this headline">¶</a></h3>
 <p>Axes オブジェクトが図形・テキスト・目盛・グリッド・ラベル各オブジェクトを管理する。まずコンテナーメンバーのうち、馴染みのあるものだけ表にまとめておく。</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">メンバー名</th>
-<th class="head">内容物</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>メンバー名</p></th>
+<th class="head"><p>内容物</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">lines</span></code></td>
-<td><code class="code docutils literal notranslate"><span class="pre">plot</span></code> 等で作成した Line2D オブジェクト。</td>
+<tbody>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">lines</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">plot</span></code> 等で作成した Line2D オブジェクト。</p></td>
 </tr>
-<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">patches</span></code></td>
-<td>各種 Patch オブジェクト。Ellipse, Polygon, etc.</td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">patches</span></code></p></td>
+<td><p>各種 Patch オブジェクト。Ellipse, Polygon, etc.</p></td>
 </tr>
-<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">texts</span></code></td>
-<td><code class="code docutils literal notranslate"><span class="pre">text</span></code> や <code class="code docutils literal notranslate"><span class="pre">annotate</span></code> で作成した各種テキスト。</td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">texts</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">text</span></code> や <code class="code docutils literal notranslate"><span class="pre">annotate</span></code> で作成した各種テキスト。</p></td>
 </tr>
 </tbody>
 </table>
 <p>非コンテナーメンバーも少しだけ押さえておく。</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">メンバー名</th>
-<th class="head">オブジェクト</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>メンバー名</p></th>
+<th class="head"><p>オブジェクト</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">patch</span></code></td>
-<td>Axes の背景用 Rectangle オブジェクト。</td>
+<tbody>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">patch</span></code></p></td>
+<td><p>Axes の背景用 Rectangle オブジェクト。</p></td>
 </tr>
-<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">xaxis</span></code></td>
-<td>XAxis オブジェクト。</td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">xaxis</span></code></p></td>
+<td><p>XAxis オブジェクト。</p></td>
 </tr>
-<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">yaxis</span></code></td>
-<td>YAxis オブジェクト。</td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">yaxis</span></code></p></td>
+<td><p>YAxis オブジェクト。</p></td>
 </tr>
 </tbody>
 </table>
@@ -398,26 +400,26 @@ Axes という語が意味するのが、そのグラフだと解釈すればよ
 <p>グラフの目盛、グリッド、目盛に付けるラベル等を管理する。
 Axes オブジェクトの <code class="docutils literal notranslate"><span class="pre">xaxis</span></code> および <code class="docutils literal notranslate"><span class="pre">yaxis</span></code> メンバーでアクセスできる。</p>
 <p>使用頻度の高いものだけ表にしておく。</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">メソッド</th>
-<th class="head">機能</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>メソッド</p></th>
+<th class="head"><p>機能</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="code docutils literal notranslate"><span class="pre">get_major_ticks</span></code></td>
-<td>目盛 (<code class="code docutils literal notranslate"><span class="pre">matplotlib.ticker.Ticker</span></code>) オブジェクトを返す。</td>
+<tbody>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">get_major_ticks</span></code></p></td>
+<td><p>目盛 (<code class="code docutils literal notranslate"><span class="pre">matplotlib.ticker.Ticker</span></code>) オブジェクトを返す。</p></td>
 </tr>
-<tr class="row-odd"><td><code class="code docutils literal notranslate"><span class="pre">grid</span></code></td>
-<td>グリッド線を描画するしないを指示。</td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">grid</span></code></p></td>
+<td><p>グリッド線を描画するしないを指示。</p></td>
 </tr>
 </tbody>
 </table>
-<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
 
 <span class="c1"># Modify the tickers for Y axis.</span>
@@ -438,7 +440,7 @@ Axes オブジェクトの <code class="docutils literal notranslate"><span clas
 <div class="section" id="id7">
 <h3><a class="toc-backref" href="#id23">ユーザーインターフェイスバックエンド</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>例えば PyQt5 の UI でグラフをウィンドウに表示する場合、次のようにするとそうなる。</p>
-<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
 <span class="n">mpl</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;Qt5Agg&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -455,7 +457,7 @@ Axes オブジェクトの <code class="docutils literal notranslate"><span clas
 <h3><a class="toc-backref" href="#id24">ハードコピーバックエンド</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>ハードコピーバックエンドのカスタマイズはこのノートの目的の一つ。
 <code class="docutils literal notranslate"><span class="pre">backend</span></code> の値を <code class="docutils literal notranslate"><span class="pre">PS</span></code>, <code class="docutils literal notranslate"><span class="pre">PDF</span></code>, <code class="docutils literal notranslate"><span class="pre">PNG</span></code>, <code class="docutils literal notranslate"><span class="pre">SVG</span></code> のどれかにしておくと、その名前の形式のファイルを作成することができる。コードで実現するには、次のような手順にしておけばよい。</p>
-<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
 <span class="n">mpl</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;PDF&#39;</span><span class="p">)</span>  <span class="c1"># We want the image as PDF file.</span>
 
 <span class="c1"># ... Here come plotting commands.</span>
@@ -473,7 +475,7 @@ Axes オブジェクトの <code class="docutils literal notranslate"><span clas
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="k">import</span> <span class="n">randn</span>
+<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">randn</span>
 
 <span class="n">cur_axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
 <span class="n">_</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">rects</span> <span class="o">=</span> <span class="n">cur_axes</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">randn</span><span class="p">(</span><span class="mi">1000</span><span class="p">),</span> <span class="mi">50</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">)</span>
@@ -503,10 +505,10 @@ Axes オブジェクトの <code class="docutils literal notranslate"><span clas
 <h3><a class="toc-backref" href="#id27">多項式</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <p>実数 <span class="math notranslate nohighlight">\(x\)</span> の多項式 <span class="math notranslate nohighlight">\(f(x)\)</span> について <span class="math notranslate nohighlight">\(y = f(x)\)</span> のグラフを描きたい。次の容量で曲線を定義する。</p>
 <ol class="arabic simple">
-<li>プロットする <cite>x</cite> のサンプル点を関数 <code class="code docutils literal notranslate"><span class="pre">numpy.arange</span></code> で適宜準備する。やり方を忘れていたら <a class="reference internal" href="../python-numpy/index.html"><span class="doc">NumPy 利用ノート</span></a> を参照。</li>
-<li>多項式 <cite>f</cite> を関数 <code class="code docutils literal notranslate"><span class="pre">numpy.poly1d</span></code> の戻り値で表現する。</li>
-<li>評価する変数を関数 <code class="code docutils literal notranslate"><span class="pre">np.linspace</span></code> で用意する。</li>
-<li>プロットする値を <code class="code docutils literal notranslate"><span class="pre">np.array</span></code> オブジェクトに対する broadcasting を利用して一気に得る。</li>
+<li><p>プロットする <cite>x</cite> のサンプル点を関数 <code class="code docutils literal notranslate"><span class="pre">numpy.arange</span></code> で適宜準備する。やり方を忘れていたら <a class="reference internal" href="../python-numpy/index.html"><span class="doc">NumPy 利用ノート</span></a> を参照。</p></li>
+<li><p>多項式 <cite>f</cite> を関数 <code class="code docutils literal notranslate"><span class="pre">numpy.poly1d</span></code> の戻り値で表現する。</p></li>
+<li><p>評価する変数を関数 <code class="code docutils literal notranslate"><span class="pre">np.linspace</span></code> で用意する。</p></li>
+<li><p>プロットする値を <code class="code docutils literal notranslate"><span class="pre">np.array</span></code> オブジェクトに対する broadcasting を利用して一気に得る。</p></li>
 </ol>
 <p>なお、サンプルコードではさらに曲線に対して接線を引いた。
 <cite>f</cite> の一次導関数を <code class="code docutils literal notranslate"><span class="pre">f.deriv()</span></code> で得られることを利用する。</p>
@@ -514,7 +516,7 @@ Axes オブジェクトの <code class="docutils literal notranslate"><span clas
 <span class="sd">&quot;&quot;&quot;polynomial.py: Demonstrate how to draw a polynomial curve.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="p">(</span><span class="n">linspace</span><span class="p">,</span> <span class="n">poly1d</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="p">(</span><span class="n">linspace</span><span class="p">,</span> <span class="n">poly1d</span><span class="p">)</span>
 
 <span class="n">cur_fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">cur_axes</span> <span class="o">=</span> <span class="n">cur_fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
@@ -545,19 +547,19 @@ Axes オブジェクトの <code class="docutils literal notranslate"><span clas
 <p>本当は B-Spline 曲線を描画したいのだが、調べてみると Matplotlib では Bézier 曲線が限界のようだ。</p>
 <p>手順はこういう感じのようだ：</p>
 <ol class="arabic simple">
-<li>クラス <code class="code docutils literal notranslate"><span class="pre">matplotlib.path.Path</span></code> のオブジェクトを作成する。この引数として、Bézier 曲線の制御点リストと「打点命令」のリストを渡す。</li>
-<li>そのパスオブジェクトを引数として、クラス
-<code class="code docutils literal notranslate"><span class="pre">matplotlib.patches.PathPatch</span></code> のオブジェクトを作成する。</li>
-<li>そのパッチオブジェクトを対象の <code class="code docutils literal notranslate"><span class="pre">axes</span></code> オブジェクトに <code class="code docutils literal notranslate"><span class="pre">add_patch</span></code> する。</li>
+<li><p>クラス <code class="code docutils literal notranslate"><span class="pre">matplotlib.path.Path</span></code> のオブジェクトを作成する。この引数として、Bézier 曲線の制御点リストと「打点命令」のリストを渡す。</p></li>
+<li><p>そのパスオブジェクトを引数として、クラス
+<code class="code docutils literal notranslate"><span class="pre">matplotlib.patches.PathPatch</span></code> のオブジェクトを作成する。</p></li>
+<li><p>そのパッチオブジェクトを対象の <code class="code docutils literal notranslate"><span class="pre">axes</span></code> オブジェクトに <code class="code docutils literal notranslate"><span class="pre">add_patch</span></code> する。</p></li>
 </ol>
 <p>Matplotlib は制御点列を与えて Bézier 曲線を定義する流儀のようだ。</p>
 <p>まずは簡単な例を。最小の手間で 2 次の Bézier 曲線（単なる放物線）を定義することを考える。
 <code class="docutils literal notranslate"><span class="pre">CURVE3</span></code> というタイプの曲線は、制御点を 3 つ与えることで 2 次の Bézier 曲線を表現できる。
 <code class="docutils literal notranslate"><span class="pre">CURVE3</span></code> ベースの Bézier 曲線の特徴は次の通り。</p>
 <ul class="simple">
-<li>最初と最後の制御点は、放物線の始点と終点にそれぞれ一致する。</li>
-<li>中間の制御点は、放物線の両端点それぞれの接線の交点と一致する。</li>
-<li>よって、出来上がりの曲線形状が把握できる。</li>
+<li><p>最初と最後の制御点は、放物線の始点と終点にそれぞれ一致する。</p></li>
+<li><p>中間の制御点は、放物線の両端点それぞれの接線の交点と一致する。</p></li>
+<li><p>よって、出来上がりの曲線形状が把握できる。</p></li>
 </ul>
 <p>Path オブジェクト構築は次のようになる。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
@@ -565,7 +567,7 @@ Axes オブジェクトの <code class="docutils literal notranslate"><span clas
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">matplotlib.path</span> <span class="k">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">matplotlib.path</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">patches</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
@@ -589,10 +591,10 @@ Axes オブジェクトの <code class="docutils literal notranslate"><span clas
 </div>
 <p>もうひとつ例を。ドロー系アプリでもよく見かける 3 次の Bézier 曲線を定義する。</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">CURVE4</span></code> 命令で制御点を指示する。</li>
-<li>最初と最後の制御点は、曲線の始点と終点にそれぞれ一致する。</li>
-<li>最初の制御点とその次の制御点を結ぶ直線が、曲線の始点での接線に一致する。また、最後の制御点とその前の制御点を結ぶ直線が、曲線の終点での接線に一致する。</li>
-<li>曲線全体は、制御点列からなる多角形の内部に位置する。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CURVE4</span></code> 命令で制御点を指示する。</p></li>
+<li><p>最初と最後の制御点は、曲線の始点と終点にそれぞれ一致する。</p></li>
+<li><p>最初の制御点とその次の制御点を結ぶ直線が、曲線の始点での接線に一致する。また、最後の制御点とその前の制御点を結ぶ直線が、曲線の終点での接線に一致する。</p></li>
+<li><p>曲線全体は、制御点列からなる多角形の内部に位置する。</p></li>
 </ul>
 <p>Path オブジェクト構築は次のようになる。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">codes2</span> <span class="o">=</span> <span class="p">[</span><span class="n">Path</span><span class="o">.</span><span class="n">MOVETO</span><span class="p">,</span> <span class="n">Path</span><span class="o">.</span><span class="n">CURVE4</span><span class="p">,</span> <span class="n">Path</span><span class="o">.</span><span class="n">CURVE4</span><span class="p">,</span> <span class="n">Path</span><span class="o">.</span><span class="n">CURVE4</span><span class="p">,]</span>
@@ -617,6 +619,7 @@ Axes オブジェクトの <code class="docutils literal notranslate"><span clas
 </div>
 
 
+            <div class="clearer"></div>
           </div>
       </div>
       <div class="clearer"></div>
@@ -631,7 +634,8 @@ Axes オブジェクトの <code class="docutils literal notranslate"><span clas
           <a href="setup.html" title="インストール"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >Matplotlib 利用ノート</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" >Matplotlib 利用ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">基本テク</a></li> 
       </ul>
     </div>
     <div id="footer">
@@ -640,7 +644,7 @@ Axes オブジェクトの <code class="docutils literal notranslate"><span clas
       </div>
       <div id="footer_copyright">
         Since 1999<br />
-        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+        Copyright &copy; 1999-2020, プレハブ小屋 All rights reserved.
       </div>
     </div>
   </body>

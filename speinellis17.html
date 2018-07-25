@@ -1,17 +1,17 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Effective Debugging 読書ノート &#8212; 読書ノート v1.4</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Effective Debugging 読書ノート &#8212; 読書ノート v1.5dev</title>
     <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/mathjaxconf.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/mathjax-v3.js"></script>
+    
     <link rel="next" title="ノート準備中書籍群 2014 年編" href="preliminary2014.html" />
     <link rel="prev" title="Optimized C++ 下読みノート" href="guntheroth16.html" /> 
   </head><body>
@@ -24,7 +24,8 @@
         <li class="right" >
           <a href="guntheroth16.html" title="Optimized C++ 下読みノート"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Effective Debugging 読書ノート</a></li> 
       </ul>
     </div>  
 
@@ -34,123 +35,134 @@
             
   <div class="section" id="effective-debugging">
 <h1><a class="toc-backref" href="#id82">Effective Debugging 読書ノート</a><a class="headerlink" href="#effective-debugging" title="Permalink to this headline">¶</a></h1>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">著者:</th><td class="field-body">Diomidis Spinellis</td>
-</tr>
-<tr class="field-even field"><th class="field-name">訳者:</th><td class="field-body">黒川 利明</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">出版社:</th><td class="field-body">オライリー・ジャパン</td>
-</tr>
-<tr class="field-even field"><th class="field-name">ISBN:</th><td class="field-body">978-4-87311-799-7</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">関連 URL:</th><td class="field-body"><a class="reference external" href="https://www.oreilly.co.jp/books/9784873117997/">O’Reilly Japan - Effective Debugging</a></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">著者</dt>
+<dd class="field-odd"><p>Diomidis Spinellis</p>
+</dd>
+<dt class="field-even">訳者</dt>
+<dd class="field-even"><p>黒川 利明</p>
+</dd>
+<dt class="field-odd">出版社</dt>
+<dd class="field-odd"><p>オライリー・ジャパン</p>
+</dd>
+<dt class="field-even">ISBN</dt>
+<dd class="field-even"><p>978-4-87311-799-7</p>
+</dd>
+<dt class="field-odd">関連 URL</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://www.oreilly.co.jp/books/9784873117997/">O’Reilly Japan - Effective Debugging</a></p>
+</dd>
+</dl>
 <div class="contents topic" id="id1">
-<p class="topic-title first">ノート目次</p>
+<p class="topic-title">ノート目次</p>
 <ul class="simple">
-<li><a class="reference internal" href="#effective-debugging" id="id82">Effective Debugging 読書ノート</a><ul>
-<li><a class="reference internal" href="#id2" id="id83">まえがき</a><ul>
-<li><a class="reference internal" href="#id3" id="id84">本書の内容</a></li>
-<li><a class="reference internal" href="#id4" id="id85">本書の利用法</a></li>
-<li><a class="reference internal" href="#id5" id="id86">仕事の流儀</a></li>
-<li><a class="reference internal" href="#id6" id="id87">用語についての注意</a></li>
-<li><a class="reference internal" href="#id7" id="id88">本書の表記法</a></li>
+<li><p><a class="reference internal" href="#effective-debugging" id="id82">Effective Debugging 読書ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id83">まえがき</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id3" id="id84">本書の内容</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id85">本書の利用法</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id86">仕事の流儀</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id87">用語についての注意</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id88">本書の表記法</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id8" id="id89">1 章 高水準戦略</a><ul>
-<li><a class="reference internal" href="#id9" id="id90">項目 1: あらゆる問題を課題管理システムで扱う</a></li>
-<li><a class="reference internal" href="#id10" id="id91">項目 2: 問題に対する洞察を得るにはウェブで焦点を絞って検索する</a></li>
-<li><a class="reference internal" href="#id11" id="id92">項目 3: 前条件と後条件が満たされていることを確認する</a></li>
-<li><a class="reference internal" href="#id12" id="id93">項目 4: 問題からバグをドリルアップするかプログラムの先頭からバグへドリルダウンする</a></li>
-<li><a class="reference internal" href="#id13" id="id94">項目 5: 既知の正常なシステムと問題を起こしているシステムとの違いを検出する</a></li>
-<li><a class="reference internal" href="#id14" id="id95">項目 6: ソフトウェアのデバッグ機能を使う</a></li>
-<li><a class="reference internal" href="#id15" id="id96">項目 7: ビルドと実行環境を多様化する</a></li>
-<li><a class="reference internal" href="#id16" id="id97">項目 8: 作業の焦点を最も重要な問題に絞る</a></li>
+<li><p><a class="reference internal" href="#id8" id="id89">1 章 高水準戦略</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id9" id="id90">項目 1: あらゆる問題を課題管理システムで扱う</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id91">項目 2: 問題に対する洞察を得るにはウェブで焦点を絞って検索する</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id92">項目 3: 前条件と後条件が満たされていることを確認する</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id93">項目 4: 問題からバグをドリルアップするかプログラムの先頭からバグへドリルダウンする</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id94">項目 5: 既知の正常なシステムと問題を起こしているシステムとの違いを検出する</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id95">項目 6: ソフトウェアのデバッグ機能を使う</a></p></li>
+<li><p><a class="reference internal" href="#id15" id="id96">項目 7: ビルドと実行環境を多様化する</a></p></li>
+<li><p><a class="reference internal" href="#id16" id="id97">項目 8: 作業の焦点を最も重要な問題に絞る</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id17" id="id98">2 章 汎用の手法と実践</a><ul>
-<li><a class="reference internal" href="#id18" id="id99">項目 9: デバッグを成功させるために心の準備をする</a></li>
-<li><a class="reference internal" href="#id19" id="id100">項目 10: 問題の効率的な再現を可能にする</a></li>
-<li><a class="reference internal" href="#id20" id="id101">項目 11: 変更から結果までのターンアラウンド時間を最小化する</a></li>
-<li><a class="reference internal" href="#id21" id="id102">項目 12: 複雑なテストシナリオを自動化する</a></li>
-<li><a class="reference internal" href="#id22" id="id103">項目 13: デバッグデータを包括的に概観する</a></li>
-<li><a class="reference internal" href="#id23" id="id104">項目 14: ソフトウェアのアップデートを考える</a></li>
-<li><a class="reference internal" href="#id24" id="id105">項目 15: サードパーティソースコードを調べて洞察を得る</a></li>
-<li><a class="reference internal" href="#id25" id="id106">項目 16: 特別な監視およびテスト装置を使う</a></li>
-<li><a class="reference internal" href="#id26" id="id107">項目 17: 失敗による結果をさらに際立たせる</a></li>
-<li><a class="reference internal" href="#id27" id="id108">項目 18: 手に負えないシステムのデバッグを自分のデスクで行えるようにする</a></li>
-<li><a class="reference internal" href="#id28" id="id109">項目 19: デバッグタスクを自動化する</a></li>
-<li><a class="reference internal" href="#id29" id="id110">項目 20: デバッグの前後で大掃除をする</a></li>
-<li><a class="reference internal" href="#id30" id="id111">項目 21: 問題を起こすクラスのすべてのインスタンスを修正する</a></li>
+<li><p><a class="reference internal" href="#id17" id="id98">2 章 汎用の手法と実践</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id18" id="id99">項目 9: デバッグを成功させるために心の準備をする</a></p></li>
+<li><p><a class="reference internal" href="#id19" id="id100">項目 10: 問題の効率的な再現を可能にする</a></p></li>
+<li><p><a class="reference internal" href="#id20" id="id101">項目 11: 変更から結果までのターンアラウンド時間を最小化する</a></p></li>
+<li><p><a class="reference internal" href="#id21" id="id102">項目 12: 複雑なテストシナリオを自動化する</a></p></li>
+<li><p><a class="reference internal" href="#id22" id="id103">項目 13: デバッグデータを包括的に概観する</a></p></li>
+<li><p><a class="reference internal" href="#id23" id="id104">項目 14: ソフトウェアのアップデートを考える</a></p></li>
+<li><p><a class="reference internal" href="#id24" id="id105">項目 15: サードパーティソースコードを調べて洞察を得る</a></p></li>
+<li><p><a class="reference internal" href="#id25" id="id106">項目 16: 特別な監視およびテスト装置を使う</a></p></li>
+<li><p><a class="reference internal" href="#id26" id="id107">項目 17: 失敗による結果をさらに際立たせる</a></p></li>
+<li><p><a class="reference internal" href="#id27" id="id108">項目 18: 手に負えないシステムのデバッグを自分のデスクで行えるようにする</a></p></li>
+<li><p><a class="reference internal" href="#id28" id="id109">項目 19: デバッグタスクを自動化する</a></p></li>
+<li><p><a class="reference internal" href="#id29" id="id110">項目 20: デバッグの前後で大掃除をする</a></p></li>
+<li><p><a class="reference internal" href="#id30" id="id111">項目 21: 問題を起こすクラスのすべてのインスタンスを修正する</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id31" id="id112">3 章 汎用ツールと技法</a><ul>
-<li><a class="reference internal" href="#unix" id="id113">項目 22: デバッグデータを Unix コマンドラインツールで分析する</a></li>
-<li><a class="reference internal" href="#id32" id="id114">項目 23: コマンドラインツールのオプションとイディオムを活用する</a></li>
-<li><a class="reference internal" href="#id33" id="id115">項目 24: デバッグデータをエディタで調べる</a></li>
-<li><a class="reference internal" href="#id34" id="id116">項目 25: 作業環境を最適化する</a></li>
-<li><a class="reference internal" href="#id35" id="id117">項目 26: バグの原因と経緯とをバージョン管理システムで探す</a></li>
-<li><a class="reference internal" href="#id36" id="id118">項目 27: 独立なプロセスからなるシステムの監視ツールを使う</a></li>
+<li><p><a class="reference internal" href="#id31" id="id112">3 章 汎用ツールと技法</a></p>
+<ul>
+<li><p><a class="reference internal" href="#unix" id="id113">項目 22: デバッグデータを Unix コマンドラインツールで分析する</a></p></li>
+<li><p><a class="reference internal" href="#id32" id="id114">項目 23: コマンドラインツールのオプションとイディオムを活用する</a></p></li>
+<li><p><a class="reference internal" href="#id33" id="id115">項目 24: デバッグデータをエディタで調べる</a></p></li>
+<li><p><a class="reference internal" href="#id34" id="id116">項目 25: 作業環境を最適化する</a></p></li>
+<li><p><a class="reference internal" href="#id35" id="id117">項目 26: バグの原因と経緯とをバージョン管理システムで探す</a></p></li>
+<li><p><a class="reference internal" href="#id36" id="id118">項目 27: 独立なプロセスからなるシステムの監視ツールを使う</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id37" id="id119">4 章 デバッガ技法</a><ul>
-<li><a class="reference internal" href="#id38" id="id120">項目 28: シンボリックデバッグ用にコンパイルしたコードを使う</a></li>
-<li><a class="reference internal" href="#id39" id="id121">項目 29: コードをステップ実行する</a></li>
-<li><a class="reference internal" href="#id40" id="id122">項目 30: コードとデータのブレークポイントを活用する</a></li>
-<li><a class="reference internal" href="#id41" id="id123">項目 31: 逆デバッグ機能をよく知っておく</a></li>
-<li><a class="reference internal" href="#id42" id="id124">項目 32: ルーチン間の呼び出しに沿って探索する</a></li>
-<li><a class="reference internal" href="#id43" id="id125">項目 33: 変数と式の値を調べてエラーを見つける</a></li>
-<li><a class="reference internal" href="#id44" id="id126">項目 34: 実行プロセスにどのようにデバッガをアタッチするかを知っておく</a></li>
-<li><a class="reference internal" href="#id45" id="id127">項目 35: コアダンプの扱い方を知っておく</a></li>
-<li><a class="reference internal" href="#id46" id="id128">項目 36: デバッグツールを整備する</a></li>
-<li><a class="reference internal" href="#id47" id="id129">項目 37: アセンブラコードとハードのメモリ内容を確認する方法を知っておく</a></li>
+<li><p><a class="reference internal" href="#id37" id="id119">4 章 デバッガ技法</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id38" id="id120">項目 28: シンボリックデバッグ用にコンパイルしたコードを使う</a></p></li>
+<li><p><a class="reference internal" href="#id39" id="id121">項目 29: コードをステップ実行する</a></p></li>
+<li><p><a class="reference internal" href="#id40" id="id122">項目 30: コードとデータのブレークポイントを活用する</a></p></li>
+<li><p><a class="reference internal" href="#id41" id="id123">項目 31: 逆デバッグ機能をよく知っておく</a></p></li>
+<li><p><a class="reference internal" href="#id42" id="id124">項目 32: ルーチン間の呼び出しに沿って探索する</a></p></li>
+<li><p><a class="reference internal" href="#id43" id="id125">項目 33: 変数と式の値を調べてエラーを見つける</a></p></li>
+<li><p><a class="reference internal" href="#id44" id="id126">項目 34: 実行プロセスにどのようにデバッガをアタッチするかを知っておく</a></p></li>
+<li><p><a class="reference internal" href="#id45" id="id127">項目 35: コアダンプの扱い方を知っておく</a></p></li>
+<li><p><a class="reference internal" href="#id46" id="id128">項目 36: デバッグツールを整備する</a></p></li>
+<li><p><a class="reference internal" href="#id47" id="id129">項目 37: アセンブラコードとハードのメモリ内容を確認する方法を知っておく</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id48" id="id130">5 章 プログラミング技法</a><ul>
-<li><a class="reference internal" href="#id49" id="id131">項目 38: 怪しいコードをレビューして手動で実行する</a></li>
-<li><a class="reference internal" href="#id50" id="id132">項目 39: コードとその内容を同僚に説明する</a></li>
-<li><a class="reference internal" href="#id51" id="id133">項目 40: デバッグ機能を追加する</a></li>
-<li><a class="reference internal" href="#id52" id="id134">項目 41: ロギング文を追加する</a></li>
-<li><a class="reference internal" href="#id53" id="id135">項目 42: ユニットテストを使う</a></li>
-<li><a class="reference internal" href="#id54" id="id136">項目 43: アサーションを使う</a></li>
-<li><a class="reference internal" href="#id55" id="id137">項目 44: デバッグしたプログラムに変動を与えて推理を検証する</a></li>
-<li><a class="reference internal" href="#id56" id="id138">項目 45: 稼働例と問題コードとの相違を最小化する</a></li>
-<li><a class="reference internal" href="#id57" id="id139">項目 46: 怪しいコードを単純にする</a></li>
-<li><a class="reference internal" href="#id58" id="id140">項目 47: 怪しいコードを他の言語で書き直す</a></li>
-<li><a class="reference internal" href="#id59" id="id141">項目 48: 怪しいコードの可読性と構造を改善する</a></li>
-<li><a class="reference internal" href="#id60" id="id142">項目 49: バグの症状を取り除くのではなく、原因を取り除く</a></li>
+<li><p><a class="reference internal" href="#id48" id="id130">5 章 プログラミング技法</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id49" id="id131">項目 38: 怪しいコードをレビューして手動で実行する</a></p></li>
+<li><p><a class="reference internal" href="#id50" id="id132">項目 39: コードとその内容を同僚に説明する</a></p></li>
+<li><p><a class="reference internal" href="#id51" id="id133">項目 40: デバッグ機能を追加する</a></p></li>
+<li><p><a class="reference internal" href="#id52" id="id134">項目 41: ロギング文を追加する</a></p></li>
+<li><p><a class="reference internal" href="#id53" id="id135">項目 42: ユニットテストを使う</a></p></li>
+<li><p><a class="reference internal" href="#id54" id="id136">項目 43: アサーションを使う</a></p></li>
+<li><p><a class="reference internal" href="#id55" id="id137">項目 44: デバッグしたプログラムに変動を与えて推理を検証する</a></p></li>
+<li><p><a class="reference internal" href="#id56" id="id138">項目 45: 稼働例と問題コードとの相違を最小化する</a></p></li>
+<li><p><a class="reference internal" href="#id57" id="id139">項目 46: 怪しいコードを単純にする</a></p></li>
+<li><p><a class="reference internal" href="#id58" id="id140">項目 47: 怪しいコードを他の言語で書き直す</a></p></li>
+<li><p><a class="reference internal" href="#id59" id="id141">項目 48: 怪しいコードの可読性と構造を改善する</a></p></li>
+<li><p><a class="reference internal" href="#id60" id="id142">項目 49: バグの症状を取り除くのではなく、原因を取り除く</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id61" id="id143">6 章 コンパイル時の技法</a><ul>
-<li><a class="reference internal" href="#id62" id="id144">項目 50: 生成コードを調べる</a></li>
-<li><a class="reference internal" href="#id63" id="id145">項目 51: 静的プログラム解析ツールを使う</a></li>
-<li><a class="reference internal" href="#id64" id="id146">項目 52: ビルドと実行を決定的に構成する</a></li>
-<li><a class="reference internal" href="#id65" id="id147">項目 53: デバッグライブラリを使用してチェックするよう構成する</a></li>
+<li><p><a class="reference internal" href="#id61" id="id143">6 章 コンパイル時の技法</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id62" id="id144">項目 50: 生成コードを調べる</a></p></li>
+<li><p><a class="reference internal" href="#id63" id="id145">項目 51: 静的プログラム解析ツールを使う</a></p></li>
+<li><p><a class="reference internal" href="#id64" id="id146">項目 52: ビルドと実行を決定的に構成する</a></p></li>
+<li><p><a class="reference internal" href="#id65" id="id147">項目 53: デバッグライブラリを使用してチェックするよう構成する</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id66" id="id148">7 章 実行時の技法</a><ul>
-<li><a class="reference internal" href="#id67" id="id149">項目 54: テストケースを作って問題を発見する</a></li>
-<li><a class="reference internal" href="#id68" id="id150">項目 55: 迅速に失敗させる</a></li>
-<li><a class="reference internal" href="#id69" id="id151">項目 56: アプリケーションのログファイルを調べる</a></li>
-<li><a class="reference internal" href="#id70" id="id152">項目 57: システムとプロセスの演算操作のプロファイルをとる</a></li>
-<li><a class="reference internal" href="#id71" id="id153">項目 58: コード実行をトレースする</a></li>
-<li><a class="reference internal" href="#id72" id="id154">項目 59: 動的なプログラム解析ツールを使う</a></li>
+<li><p><a class="reference internal" href="#id66" id="id148">7 章 実行時の技法</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id67" id="id149">項目 54: テストケースを作って問題を発見する</a></p></li>
+<li><p><a class="reference internal" href="#id68" id="id150">項目 55: 迅速に失敗させる</a></p></li>
+<li><p><a class="reference internal" href="#id69" id="id151">項目 56: アプリケーションのログファイルを調べる</a></p></li>
+<li><p><a class="reference internal" href="#id70" id="id152">項目 57: システムとプロセスの演算操作のプロファイルをとる</a></p></li>
+<li><p><a class="reference internal" href="#id71" id="id153">項目 58: コード実行をトレースする</a></p></li>
+<li><p><a class="reference internal" href="#id72" id="id154">項目 59: 動的なプログラム解析ツールを使う</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id73" id="id155">8 章 マルチスレッドコードのデバッグ</a><ul>
-<li><a class="reference internal" href="#id74" id="id156">項目 60: デッドロックを事後検討デバッグで分析する</a></li>
-<li><a class="reference internal" href="#id75" id="id157">項目 61: キャプチャして複製する</a></li>
-<li><a class="reference internal" href="#id76" id="id158">項目 62: 専用ツールでデッドロックと競合条件を見つける</a></li>
-<li><a class="reference internal" href="#id77" id="id159">項目 63: 非決定性を切り分けて取り除く</a></li>
-<li><a class="reference internal" href="#id78" id="id160">項目 64: 競合制約状態を調べてスケーラビリティ問題を検討する</a></li>
-<li><a class="reference internal" href="#id79" id="id161">項目 65: 性能カウンタを使ってフォールスシェアリングを探す</a></li>
-<li><a class="reference internal" href="#id80" id="id162">項目 66: 高水準な抽象化を用いてコードを書き直すことを検討する</a></li>
-<li><a class="reference internal" href="#id81" id="id163">訳者あとがき</a></li>
+<li><p><a class="reference internal" href="#id73" id="id155">8 章 マルチスレッドコードのデバッグ</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id74" id="id156">項目 60: デッドロックを事後検討デバッグで分析する</a></p></li>
+<li><p><a class="reference internal" href="#id75" id="id157">項目 61: キャプチャして複製する</a></p></li>
+<li><p><a class="reference internal" href="#id76" id="id158">項目 62: 専用ツールでデッドロックと競合条件を見つける</a></p></li>
+<li><p><a class="reference internal" href="#id77" id="id159">項目 63: 非決定性を切り分けて取り除く</a></p></li>
+<li><p><a class="reference internal" href="#id78" id="id160">項目 64: 競合制約状態を調べてスケーラビリティ問題を検討する</a></p></li>
+<li><p><a class="reference internal" href="#id79" id="id161">項目 65: 性能カウンタを使ってフォールスシェアリングを探す</a></p></li>
+<li><p><a class="reference internal" href="#id80" id="id162">項目 66: 高水準な抽象化を用いてコードを書き直すことを検討する</a></p></li>
+<li><p><a class="reference internal" href="#id81" id="id163">訳者あとがき</a></p></li>
 </ul>
 </li>
 </ul>
@@ -160,54 +172,58 @@
 <div class="section" id="id2">
 <h2><a class="toc-backref" href="#id83">まえがき</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>本書は経験を積んだ開発者向けに書かれている。</li>
-<li>本書で紹介するデバッグ技法は、あえて詳細にまでこだわって記述した。</li>
+<li><p>本書は経験を積んだ開発者向けに書かれている。</p></li>
+<li><p>本書で紹介するデバッグ技法は、あえて詳細にまでこだわって記述した。</p></li>
 </ul>
 <div class="section" id="id3">
 <h3><a class="toc-backref" href="#id84">本書の内容</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>本書で扱うテーマは、一般的なものからより特殊なものに並んでいる。</li>
+<li><p>本書で扱うテーマは、一般的なものからより特殊なものに並んでいる。</p></li>
 </ul>
 </div>
 <div class="section" id="id4">
 <h3><a class="toc-backref" href="#id85">本書の利用法</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
-<li>戦略と手法</li>
-<li>スキルとツール<ul>
-<li>&lt;慣れ親しんだツールを使い続ける安楽さを放棄して、より高度なツールを習得する学習に挑戦する&gt;</li>
+<li><p>戦略と手法</p></li>
+<li><p>スキルとツール</p>
+<ul class="simple">
+<li><p>&lt;慣れ親しんだツールを使い続ける安楽さを放棄して、より高度なツールを習得する学習に挑戦する&gt;</p></li>
 </ul>
 </li>
-<li>技法のアイデア</li>
+<li><p>技法のアイデア</p></li>
 </ol>
 </div>
 <div class="section" id="id5">
 <h3><a class="toc-backref" href="#id86">仕事の流儀</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
-<li>ソフトウェア設計で行うすべての事項<ul>
-<li>最高水準のメカニズム</li>
-<li>デバッグモード</li>
-<li>ログのメカニズム</li>
-<li>コマンドラインツールによるスクリプトで分析する</li>
-<li>エラーを見せる</li>
-<li>コアダンプを取得する方法を用意する</li>
-<li>非決定性のあるものを最小化する</li>
+<li><p>ソフトウェア設計で行うすべての事項</p>
+<ul class="simple">
+<li><p>最高水準のメカニズム</p></li>
+<li><p>デバッグモード</p></li>
+<li><p>ログのメカニズム</p></li>
+<li><p>コマンドラインツールによるスクリプトで分析する</p></li>
+<li><p>エラーを見せる</p></li>
+<li><p>コアダンプを取得する方法を用意する</p></li>
+<li><p>非決定性のあるものを最小化する</p></li>
 </ul>
 </li>
-<li>ソフトウェア構築の手順<ul>
-<li>同僚</li>
-<li>単体テスト</li>
-<li>assertion</li>
-<li>コードの品質</li>
-<li>非決定性のあるもの排除</li>
+<li><p>ソフトウェア構築の手順</p>
+<ul class="simple">
+<li><p>同僚</p></li>
+<li><p>単体テスト</p></li>
+<li><p>assertion</p></li>
+<li><p>コードの品質</p></li>
+<li><p>非決定性のあるもの排除</p></li>
 </ul>
 </li>
-<li>開発と運用の管理で行うこと<ul>
-<li>課題管理システム</li>
-<li>問題をトリアージ（この本はどういうわけか医療用語がしばしば現れる）</li>
-<li>バージョン管理システム</li>
-<li>ツールや環境の多様性を担保する</li>
-<li>ライブラリーのソースや高度なツールを買う</li>
-<li>etc.</li>
+<li><p>開発と運用の管理で行うこと</p>
+<ul class="simple">
+<li><p>課題管理システム</p></li>
+<li><p>問題をトリアージ（この本はどういうわけか医療用語がしばしば現れる）</p></li>
+<li><p>バージョン管理システム</p></li>
+<li><p>ツールや環境の多様性を担保する</p></li>
+<li><p>ライブラリーのソースや高度なツールを買う</p></li>
+<li><p>etc.</p></li>
 </ul>
 </li>
 </ol>
@@ -215,21 +231,22 @@
 <div class="section" id="id6">
 <h3><a class="toc-backref" href="#id87">用語についての注意</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>ISO/IEC/IEEE 24765:2010 という規格で用語が定義されているので、それに準拠すると言っている。<ul>
-<li>「故障」「欠陥」は fault, defect, bug の意味にとる。</li>
-<li>「障害」は failure の意味にとる。</li>
-<li>&lt;故障や欠陥という用語が障害を表すのに使われることが、IOS 標準でも認められているが、混乱を招くことがある&gt;</li>
+<li><p>ISO/IEC/IEEE 24765:2010 という規格で用語が定義されているので、それに準拠すると言っている。</p>
+<ul>
+<li><p>「故障」「欠陥」は fault, defect, bug の意味にとる。</p></li>
+<li><p>「障害」は failure の意味にとる。</p></li>
+<li><p>&lt;故障や欠陥という用語が障害を表すのに使われることが、IOS 標準でも認められているが、混乱を招くことがある&gt;</p></li>
 </ul>
 </li>
-<li>Unix を Unix の原則や API に従うシステムすべてに使う。</li>
-<li>ルーチンをメンバー関数、メソッド、関数、手続き、サブルーチンの総称として使う。</li>
+<li><p>Unix を Unix の原則や API に従うシステムすべてに使う。</p></li>
+<li><p>ルーチンをメンバー関数、メソッド、関数、手続き、サブルーチンの総称として使う。</p></li>
 </ul>
 </div>
 <div class="section" id="id7">
 <h3><a class="toc-backref" href="#id88">本書の表記法</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>&lt;コマンドラインツールのインターフェースは何十年も変わらないのに、
-GUI ではバージョンごとに異なる&gt;</li>
+<li><p>&lt;コマンドラインツールのインターフェースは何十年も変わらないのに、
+GUI ではバージョンごとに異なる&gt;</p></li>
 </ul>
 </div>
 </div>
@@ -238,46 +255,48 @@ GUI ではバージョンごとに異なる&gt;</li>
 <div class="section" id="id9">
 <h3><a class="toc-backref" href="#id90">項目 1: あらゆる問題を課題管理システムで扱う</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>&lt;課題管理システムに登録されていない問題を扱うことは断固拒否すること&gt; か。これは肝に銘じておきたい。</li>
-<li>問題の関係者（取引先の名前とか）を明らかにするのは優先度を決めるのに有用だ。</li>
-<li>進捗のドキュメントを残すことも重要だ。</li>
+<li><p>&lt;課題管理システムに登録されていない問題を扱うことは断固拒否すること&gt; か。これは肝に銘じておきたい。</p></li>
+<li><p>問題の関係者（取引先の名前とか）を明らかにするのは優先度を決めるのに有用だ。</p></li>
+<li><p>進捗のドキュメントを残すことも重要だ。</p></li>
 </ul>
-<dl class="docutils">
-<dt>知らなかった単語：</dt>
-<dd><a class="reference external" href="https://ja.atlassian.com/software/jira">JIRA</a>, SaaS, オンプレミス</dd>
+<dl class="simple">
+<dt>知らなかった単語：</dt><dd><p><a class="reference external" href="https://ja.atlassian.com/software/jira">JIRA</a>, SaaS, オンプレミス</p>
+</dd>
 </dl>
 </div>
 <div class="section" id="id10">
 <h3><a class="toc-backref" href="#id91">項目 2: 問題に対する洞察を得るにはウェブで焦点を絞って検索する</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>コード専用の検索エンジンを使ってみるのも吉。</li>
-<li>質問の出し方</li>
+<li><p>コード専用の検索エンジンを使ってみるのも吉。</p></li>
+<li><p>質問の出し方</p></li>
 </ul>
-<dl class="docutils">
-<dt>知らなかった単語：</dt>
-<dd>SSCCE, <a class="reference external" href="https://www.sourcelair.com/">SourceLair</a>, <a class="reference external" href="https://jsfiddle.net/">JSFiddle</a></dd>
+<dl class="simple">
+<dt>知らなかった単語：</dt><dd><p>SSCCE, <a class="reference external" href="https://www.sourcelair.com/">SourceLair</a>, <a class="reference external" href="https://jsfiddle.net/">JSFiddle</a></p>
+</dd>
 </dl>
 </div>
 <div class="section" id="id11">
 <h3><a class="toc-backref" href="#id92">項目 3: 前条件と後条件が満たされていることを確認する</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>ルーチンだけでなく、高水準の操作や設定に対しても同じ手法を使える。</li>
+<li><p>ルーチンだけでなく、高水準の操作や設定に対しても同じ手法を使える。</p></li>
 </ul>
 </div>
 <div class="section" id="id12">
 <h3><a class="toc-backref" href="#id93">項目 4: 問題からバグをドリルアップするかプログラムの先頭からバグへドリルダウンする</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>ドリルアップ<ol class="arabic">
-<li>デバッガーやコアダンプが使える場合は簡単。</li>
-<li>フリーズの場合はうまく↑に帰着させる。</li>
-<li>エラーメッセージが出る場合は <strong class="command">grep</strong> する。</li>
+<li><p>ドリルアップ</p>
+<ol class="arabic simple">
+<li><p>デバッガーやコアダンプが使える場合は簡単。</p></li>
+<li><p>フリーズの場合はうまく↑に帰着させる。</p></li>
+<li><p>エラーメッセージが出る場合は <strong class="command">grep</strong> する。</p></li>
 </ol>
 </li>
-<li>ドリルダウンはプロファイルや脆弱性診断<ul>
-<li>メモリ食い過ぎ</li>
-<li>時間かかり過ぎ</li>
-<li>セキュリティー</li>
-<li>信頼性</li>
+<li><p>ドリルダウンはプロファイルや脆弱性診断</p>
+<ul>
+<li><p>メモリ食い過ぎ</p></li>
+<li><p>時間かかり過ぎ</p></li>
+<li><p>セキュリティー</p></li>
+<li><p>信頼性</p></li>
 </ul>
 </li>
 </ul>
@@ -285,19 +304,21 @@ GUI ではバージョンごとに異なる&gt;</li>
 <div class="section" id="id13">
 <h3><a class="toc-backref" href="#id94">項目 5: 既知の正常なシステムと問題を起こしているシステムとの違いを検出する</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>トレースツールについて<ul>
-<li>汎用：DTrace, <a class="reference external" href="http://sourceware.org/systemtap/">SystemTap</a></li>
-<li>システムコール：<strong class="command">strace</strong>, <strong class="command">truss</strong>, <a class="reference external" href="https://technet.microsoft.com/ja-jp/sysinternals/processmonitor.aspx">Procmon</a></li>
-<li>DLL トレース： <strong class="command">ltrace</strong>, <a class="reference external" href="https://technet.microsoft.com/ja-jp/sysinternals/processmonitor.aspx">Procmon</a></li>
-<li>ネットワークトレース： <strong class="command">tcpdump</strong>, <a class="reference external" href="https://www.wireshark.org/">Wireshark</a></li>
-<li>その他 SQL データベース呼び出しをトレースするもの等</li>
+<li><p>トレースツールについて</p>
+<ul>
+<li><p>汎用：DTrace, <a class="reference external" href="http://sourceware.org/systemtap/">SystemTap</a></p></li>
+<li><p>システムコール：<strong class="command">strace</strong>, <strong class="command">truss</strong>, <a class="reference external" href="https://technet.microsoft.com/ja-jp/sysinternals/processmonitor.aspx">Procmon</a></p></li>
+<li><p>DLL トレース： <strong class="command">ltrace</strong>, <a class="reference external" href="https://technet.microsoft.com/ja-jp/sysinternals/processmonitor.aspx">Procmon</a></p></li>
+<li><p>ネットワークトレース： <strong class="command">tcpdump</strong>, <a class="reference external" href="https://www.wireshark.org/">Wireshark</a></p></li>
+<li><p>その他 SQL データベース呼び出しをトレースするもの等</p></li>
 </ul>
 </li>
-<li>環境変数、OS, etc. 多過ぎるシステムの振る舞いに影響する要素。</li>
-<li>バージョン間二分探索 (<strong class="command">git bisect</strong>)</li>
-<li>ログファイルの <strong class="command">diff</strong> では先に本質的でない行をフィルターしておくのがコツだ。例えば <strong class="command">grep -v</strong> などでノイズを除去する。場合によっては <strong class="command">sort</strong> してからの <strong class="command">comm</strong> の投入まである。<ul>
-<li>本書のコマンドライン例では <strong class="command">awk</strong> と <strong class="command">sort</strong> の結果二つのストリームを
-<strong class="command">comm -23</strong> しているものを紹介している。</li>
+<li><p>環境変数、OS, etc. 多過ぎるシステムの振る舞いに影響する要素。</p></li>
+<li><p>バージョン間二分探索 (<strong class="command">git bisect</strong>)</p></li>
+<li><p>ログファイルの <strong class="command">diff</strong> では先に本質的でない行をフィルターしておくのがコツだ。例えば <strong class="command">grep -v</strong> などでノイズを除去する。場合によっては <strong class="command">sort</strong> してからの <strong class="command">comm</strong> の投入まである。</p>
+<ul>
+<li><p>本書のコマンドライン例では <strong class="command">awk</strong> と <strong class="command">sort</strong> の結果二つのストリームを
+<strong class="command">comm -23</strong> しているものを紹介している。</p></li>
 </ul>
 </li>
 </ul>
@@ -305,37 +326,38 @@ GUI ではバージョンごとに異なる&gt;</li>
 <div class="section" id="id14">
 <h3><a class="toc-backref" href="#id95">項目 6: ソフトウェアのデバッグ機能を使う</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>シェルの <code class="docutils literal notranslate"><span class="pre">-x</span></code> オプション。</li>
-<li>各種コマンドラインツールの <code class="docutils literal notranslate"><span class="pre">--verbose</span></code> オプション。</li>
-<li>SQL の <code class="docutils literal notranslate"><span class="pre">explain</span></code> 文。</li>
+<li><p>シェルの <code class="docutils literal notranslate"><span class="pre">-x</span></code> オプション。</p></li>
+<li><p>各種コマンドラインツールの <code class="docutils literal notranslate"><span class="pre">--verbose</span></code> オプション。</p></li>
+<li><p>SQL の <code class="docutils literal notranslate"><span class="pre">explain</span></code> 文。</p></li>
 </ul>
-<dl class="docutils">
-<dt>知らなかった単語：</dt>
-<dd><a class="reference external" href="http://www.postfix.org/">Postfix</a></dd>
+<dl class="simple">
+<dt>知らなかった単語：</dt><dd><p><a class="reference external" href="http://www.postfix.org/">Postfix</a></p>
+</dd>
 </dl>
 </div>
 <div class="section" id="id15">
 <h3><a class="toc-backref" href="#id96">項目 7: ビルドと実行環境を多様化する</a><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>実行環境を変えてみることで、意外なバグが見つかるかもしれない。
-C/C++ のようにハードウェアと強く結びつく言語で書かれたソフトウェアでは特に期待できる。</li>
-<li>他の実行環境でデバッグする三つの方式<ol class="arabic">
-<li>仮想マシンソフト</li>
-<li>小型の安価な計算機 e.g. <a class="reference external" href="https://www.raspberrypi.org/">Raspberry Pi</a>;
-Windows や OS X ユーザーには有益。</li>
-<li>クラウドベースのホストを借りる</li>
+<li><p>実行環境を変えてみることで、意外なバグが見つかるかもしれない。
+C/C++ のようにハードウェアと強く結びつく言語で書かれたソフトウェアでは特に期待できる。</p></li>
+<li><p>他の実行環境でデバッグする三つの方式</p>
+<ol class="arabic simple">
+<li><p>仮想マシンソフト</p></li>
+<li><p>小型の安価な計算機 e.g. <a class="reference external" href="https://www.raspberrypi.org/">Raspberry Pi</a>;
+Windows や OS X ユーザーには有益。</p></li>
+<li><p>クラウドベースのホストを借りる</p></li>
 </ol>
 </li>
-<li>他のコンパイラーによるセカンドオピニオンが役に立つ。</li>
-<li>アルゴリズム自体のデバッグとして、他言語（普通は高水準なもの）でコードを書き起こすという手法もある。</li>
+<li><p>他のコンパイラーによるセカンドオピニオンが役に立つ。</p></li>
+<li><p>アルゴリズム自体のデバッグとして、他言語（普通は高水準なもの）でコードを書き起こすという手法もある。</p></li>
 </ul>
 </div>
 <div class="section" id="id16">
 <h3><a class="toc-backref" href="#id97">項目 8: 作業の焦点を最も重要な問題に絞る</a><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>デバッグの効率を上げるため、バグの優先度をつける。</li>
-<li>優先度が低いものは思い切って無視する。</li>
-<li>レガシーサポート、後方互換性、見てくれ、使用頻度の低い機能は優先しない。</li>
+<li><p>デバッグの効率を上げるため、バグの優先度をつける。</p></li>
+<li><p>優先度が低いものは思い切って無視する。</p></li>
+<li><p>レガシーサポート、後方互換性、見てくれ、使用頻度の低い機能は優先しない。</p></li>
 </ul>
 </div>
 </div>
@@ -344,21 +366,20 @@ Windows や OS X ユーザーには有益。</li>
 <div class="section" id="id18">
 <h3><a class="toc-backref" href="#id99">項目 9: デバッグを成功させるために心の準備をする</a><a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>&lt;問題が再現可能な場合は、間違いなく解決できる&gt;</li>
-<li>&lt;寝ている間も取り組む&gt;</li>
-<li>&lt;継続的に環境、ツール、知識に投資しなければならない&gt;</li>
+<li><p>&lt;問題が再現可能な場合は、間違いなく解決できる&gt;</p></li>
+<li><p>&lt;寝ている間も取り組む&gt;</p></li>
+<li><p>&lt;継続的に環境、ツール、知識に投資しなければならない&gt;</p></li>
 </ul>
 </div>
 <div class="section" id="id19">
 <h3><a class="toc-backref" href="#id100">項目 10: 問題の効率的な再現を可能にする</a><a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>問題再現の最短手順のことを SSCCE と呼ぶようだ。</li>
-<li>再現可能な実行環境。</li>
+<li><p>問題再現の最短手順のことを SSCCE と呼ぶようだ。</p></li>
+<li><p>再現可能な実行環境。</p></li>
 </ul>
-<dl class="docutils">
-<dt>知らなかった単語：</dt>
-<dd><p class="first"><a class="reference external" href="https://www.docker.com/">Docker</a>, <a class="reference external" href="https://www.ansible.com/">Ansible</a>, <a class="reference external" href="https://cfengine.com/">CFEngine</a>, <a class="reference external" href="https://www.chef.io/chef/">Chef</a>, <a class="reference external" href="https://puppet.com/">Puppet</a>, <a class="reference external" href="https://saltstack.com/community/">Salt</a></p>
-<p class="last">システム構成管理ツール</p>
+<dl>
+<dt>知らなかった単語：</dt><dd><p><a class="reference external" href="https://www.docker.com/">Docker</a>, <a class="reference external" href="https://www.ansible.com/">Ansible</a>, <a class="reference external" href="https://cfengine.com/">CFEngine</a>, <a class="reference external" href="https://www.chef.io/chef/">Chef</a>, <a class="reference external" href="https://puppet.com/">Puppet</a>, <a class="reference external" href="https://saltstack.com/community/">Salt</a></p>
+<p>システム構成管理ツール</p>
 </dd>
 </dl>
 </div>
@@ -369,69 +390,70 @@ Windows や OS X ユーザーには有益。</li>
 <div class="section" id="id21">
 <h3><a class="toc-backref" href="#id102">項目 12: 複雑なテストシナリオを自動化する</a><a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Lua という言語で C 言語の三角関数のテストコードを書いているのだが、利点が何なのかわかりにくい。テストコードの生産性が C より高いとか？</li>
+<li><p>Lua という言語で C 言語の三角関数のテストコードを書いているのだが、利点が何なのかわかりにくい。テストコードの生産性が C より高いとか？</p></li>
 </ul>
 </div>
 <div class="section" id="id22">
 <h3><a class="toc-backref" href="#id103">項目 13: デバッグデータを包括的に概観する</a><a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>データ全てを目の前に適切に並べると良い。関連性、パターンが見つかりやすくなる。</li>
-<li>老眼鏡をかけてでもフォントを小さくしてモニターに映る情報量を増やす。</li>
-<li>モニターで見るものと紙で見るものを動と静で区別する。</li>
+<li><p>データ全てを目の前に適切に並べると良い。関連性、パターンが見つかりやすくなる。</p></li>
+<li><p>老眼鏡をかけてでもフォントを小さくしてモニターに映る情報量を増やす。</p></li>
+<li><p>モニターで見るものと紙で見るものを動と静で区別する。</p></li>
 </ul>
 </div>
 <div class="section" id="id23">
 <h3><a class="toc-backref" href="#id104">項目 14: ソフトウェアのアップデートを考える</a><a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>大抵の場合、サードパーティー製コードのせいだと思ったバグは、自分の問題によるものだ。</li>
+<li><p>大抵の場合、サードパーティー製コードのせいだと思ったバグは、自分の問題によるものだ。</p></li>
 </ul>
 </div>
 <div class="section" id="id24">
 <h3><a class="toc-backref" href="#id105">項目 15: サードパーティソースコードを調べて洞察を得る</a><a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>どのように動作するのかをよく理解するための工程。</li>
-<li>IDE や <strong class="command">ctags</strong> のコードナビゲーション機能を上手く活用して目当てのコードを探しやすくする。</li>
-<li>ライブラリーがオープンソースであれば問答無用。商用であっても保険だと思ってコードを買う。</li>
+<li><p>どのように動作するのかをよく理解するための工程。</p></li>
+<li><p>IDE や <strong class="command">ctags</strong> のコードナビゲーション機能を上手く活用して目当てのコードを探しやすくする。</p></li>
+<li><p>ライブラリーがオープンソースであれば問答無用。商用であっても保険だと思ってコードを買う。</p></li>
 </ul>
 </div>
 <div class="section" id="id25">
 <h3><a class="toc-backref" href="#id106">項目 16: 特別な監視およびテスト装置を使う</a><a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>前半はスペシャル過ぎて私の参考にならない。</li>
-<li>I/O やネットワークとかハード間のやりとり。</li>
+<li><p>前半はスペシャル過ぎて私の参考にならない。</p></li>
+<li><p>I/O やネットワークとかハード間のやりとり。</p></li>
 </ul>
-<dl class="docutils">
-<dt>知らなかった単語：</dt>
-<dd><a class="reference external" href="https://www.wireshark.org/">Wireshark</a>, <strong class="command">tcpdump -w</strong></dd>
+<dl class="simple">
+<dt>知らなかった単語：</dt><dd><p><a class="reference external" href="https://www.wireshark.org/">Wireshark</a>, <strong class="command">tcpdump -w</strong></p>
+</dd>
 </dl>
 </div>
 <div class="section" id="id26">
 <h3><a class="toc-backref" href="#id107">項目 17: 失敗による結果をさらに際立たせる</a><a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>ロボトミー（この本は医療用語がよく出るな）して、望みのように実行パスを強制する。例えば <code class="docutils literal notranslate"><span class="pre">if</span></code> 文の条件などは容易に改造できる。</li>
-<li>定数を極端な値に書き換えて、正常時との振る舞いの差を際立たせる。本書では CAD の例や RPG のキャラクターの属性値を挙げている。</li>
+<li><p>ロボトミー（この本は医療用語がよく出るな）して、望みのように実行パスを強制する。例えば <code class="docutils literal notranslate"><span class="pre">if</span></code> 文の条件などは容易に改造できる。</p></li>
+<li><p>定数を極端な値に書き換えて、正常時との振る舞いの差を際立たせる。本書では CAD の例や RPG のキャラクターの属性値を挙げている。</p></li>
 </ul>
-<dl class="docutils">
-<dt>知らなかった単語：</dt>
-<dd>ファジング (fuzzing?)</dd>
+<dl class="simple">
+<dt>知らなかった単語：</dt><dd><p>ファジング (fuzzing?)</p>
+</dd>
 </dl>
 </div>
 <div class="section" id="id27">
 <h3><a class="toc-backref" href="#id108">項目 18: 手に負えないシステムのデバッグを自分のデスクで行えるようにする</a><a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>リモートアクセスの話題。</li>
-<li>本書では KVM over IP と標語的に表現している。</li>
+<li><p>リモートアクセスの話題。</p></li>
+<li><p>本書では KVM over IP と標語的に表現している。</p></li>
 </ul>
-<dl class="docutils">
-<dt>知らなかった単語：</dt>
-<dd><a class="reference external" href="https://www.teamviewer.com/ja/">TeamViewer</a>, <strong class="command">strace</strong>, <strong class="command">truss</strong>, シム</dd>
+<dl class="simple">
+<dt>知らなかった単語：</dt><dd><p><a class="reference external" href="https://www.teamviewer.com/ja/">TeamViewer</a>, <strong class="command">strace</strong>, <strong class="command">truss</strong>, シム</p>
+</dd>
 </dl>
 </div>
 <div class="section" id="id28">
 <h3><a class="toc-backref" href="#id109">項目 19: デバッグタスクを自動化する</a><a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><strong class="command">which</strong> コマンドの実行が遅いのを調べる例は興味深い。自分でもやってみたい。<ul>
-<li>Cygwin でちょっと試したら、シェル組み込みの <strong class="command">time</strong> しかなくてダメだった。インストーラーで明示的にパッケージを取得する必要がある。</li>
+<li><p><strong class="command">which</strong> コマンドの実行が遅いのを調べる例は興味深い。自分でもやってみたい。</p>
+<ul>
+<li><p>Cygwin でちょっと試したら、シェル組み込みの <strong class="command">time</strong> しかなくてダメだった。インストーラーで明示的にパッケージを取得する必要がある。</p></li>
 </ul>
 </li>
 </ul>
@@ -439,15 +461,15 @@ Windows や OS X ユーザーには有益。</li>
 <div class="section" id="id29">
 <h3><a class="toc-backref" href="#id110">項目 20: デバッグの前後で大掃除をする</a><a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>コードクリーニングにはリスクがないこともない。</li>
-<li>作業の過程で得られた assertion, ログ出力文、デバッグコマンドは何らかの形で残す。</li>
+<li><p>コードクリーニングにはリスクがないこともない。</p></li>
+<li><p>作業の過程で得られた assertion, ログ出力文、デバッグコマンドは何らかの形で残す。</p></li>
 </ul>
 </div>
 <div class="section" id="id30">
 <h3><a class="toc-backref" href="#id111">項目 21: 問題を起こすクラスのすべてのインスタンスを修正する</a><a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>同じ欠陥を同時に潰すのが肝要。なおかつ、二度と起こらないように処置する。</li>
-<li>この過程でも <strong class="command">grep</strong> や <strong class="command">sort -u</strong> が役に立つ。</li>
+<li><p>同じ欠陥を同時に潰すのが肝要。なおかつ、二度と起こらないように処置する。</p></li>
+<li><p>この過程でも <strong class="command">grep</strong> や <strong class="command">sort -u</strong> が役に立つ。</p></li>
 </ul>
 </div>
 </div>
@@ -457,23 +479,24 @@ Windows や OS X ユーザーには有益。</li>
 <div class="section" id="unix">
 <h3><a class="toc-backref" href="#id113">項目 22: デバッグデータを Unix コマンドラインツールで分析する</a><a class="headerlink" href="#unix" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>IDE だけでは問題を検討する能力が十分でないことがある。</li>
-<li>Unix ツールボックスのプログラムを短いパイプラインに組み合わせ、コマンドラインプロンプトから実行する方法が（スクリプトの使用より）効果を発揮する。</li>
-<li>Windows では Cygwin がいちばんだ。</li>
-<li>テキストでないデータはテキストに変換してから処理する。</li>
+<li><p>IDE だけでは問題を検討する能力が十分でないことがある。</p></li>
+<li><p>Unix ツールボックスのプログラムを短いパイプラインに組み合わせ、コマンドラインプロンプトから実行する方法が（スクリプトの使用より）効果を発揮する。</p></li>
+<li><p>Windows では Cygwin がいちばんだ。</p></li>
+<li><p>テキストでないデータはテキストに変換してから処理する。</p></li>
 </ul>
-<dl class="docutils">
-<dt>知らなかった単語：</dt>
-<dd><strong class="command">nm</strong>, <strong class="command">dumpbin</strong>, <strong class="command">javap</strong></dd>
+<dl class="simple">
+<dt>知らなかった単語：</dt><dd><p><strong class="command">nm</strong>, <strong class="command">dumpbin</strong>, <strong class="command">javap</strong></p>
+</dd>
 </dl>
 </div>
 <div class="section" id="id32">
 <h3><a class="toc-backref" href="#id114">項目 23: コマンドラインツールのオプションとイディオムを活用する</a><a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><strong class="command">grep</strong> のコツについて。特にオプション <code class="docutils literal notranslate"><span class="pre">-l</span></code>, <code class="docutils literal notranslate"><span class="pre">-r</span></code>, <code class="docutils literal notranslate"><span class="pre">-v</span></code>, <code class="docutils literal notranslate"><span class="pre">--color</span></code> など。</li>
-<li>リダイレクト <strong class="command">command 2&gt;&amp;1 | more</strong> のようにすると標準出力と標準エラーを同時に流せる。</li>
-<li>長い時間がかかるコマンドの実行に <strong class="command">printf 'a'</strong> を添えて音を鳴らす。<ul>
-<li>今試したら無音だった……。</li>
+<li><p><strong class="command">grep</strong> のコツについて。特にオプション <code class="docutils literal notranslate"><span class="pre">-l</span></code>, <code class="docutils literal notranslate"><span class="pre">-r</span></code>, <code class="docutils literal notranslate"><span class="pre">-v</span></code>, <code class="docutils literal notranslate"><span class="pre">--color</span></code> など。</p></li>
+<li><p>リダイレクト <strong class="command">command 2&gt;&amp;1 | more</strong> のようにすると標準出力と標準エラーを同時に流せる。</p></li>
+<li><p>長い時間がかかるコマンドの実行に <strong class="command">printf 'a'</strong> を添えて音を鳴らす。</p>
+<ul>
+<li><p>今試したら無音だった……。</p></li>
 </ul>
 </li>
 </ul>
@@ -481,23 +504,23 @@ Windows や OS X ユーザーには有益。</li>
 <div class="section" id="id33">
 <h3><a class="toc-backref" href="#id115">項目 24: デバッグデータをエディタで調べる</a><a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>本物のエディターを使うこと。</li>
-<li>テキスト同士の差分を比較する前に、本質的でない違いを「処理」しておくと効率的だ。</li>
+<li><p>本物のエディターを使うこと。</p></li>
+<li><p>テキスト同士の差分を比較する前に、本質的でない違いを「処理」しておくと効率的だ。</p></li>
 </ul>
 </div>
 <div class="section" id="id34">
 <h3><a class="toc-backref" href="#id116">項目 25: 作業環境を最適化する</a><a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>CPU やメモリは強力にしておくのが鉄則。</li>
-<li>キーバインド、エイリアス、スクリプト、ショートカット、環境変数等々の個人的設定も入念に整える。</li>
-<li>テキスト入力についての自動補完は重要。</li>
+<li><p>CPU やメモリは強力にしておくのが鉄則。</p></li>
+<li><p>キーバインド、エイリアス、スクリプト、ショートカット、環境変数等々の個人的設定も入念に整える。</p></li>
+<li><p>テキスト入力についての自動補完は重要。</p></li>
 </ul>
 <p>この項目に関しては本書をいちいち参照したほうがよさそうだ。</p>
 <ul class="simple">
-<li>&lt;ツールに費やした投資が何倍にもなって返ってくる&gt; (p. 61)</li>
-<li><strong class="command">ssh</strong> 関連のアドバイスを理解する知識がない。まずい。</li>
-<li>GUI とプロンプトを行ったり来たりする「コスト」を最小化しておく。</li>
-<li>いわゆるドットファイルのリポジトリーを構築しておき、あらゆるホスト（仕事場）で同じ設定を利用できるようにしておく。</li>
+<li><p>&lt;ツールに費やした投資が何倍にもなって返ってくる&gt; (p. 61)</p></li>
+<li><p><strong class="command">ssh</strong> 関連のアドバイスを理解する知識がない。まずい。</p></li>
+<li><p>GUI とプロンプトを行ったり来たりする「コスト」を最小化しておく。</p></li>
+<li><p>いわゆるドットファイルのリポジトリーを構築しておき、あらゆるホスト（仕事場）で同じ設定を利用できるようにしておく。</p></li>
 </ul>
 </div>
 <div class="section" id="id35">
@@ -506,9 +529,9 @@ Windows や OS X ユーザーには有益。</li>
 </div>
 <div class="section" id="id36">
 <h3><a class="toc-backref" href="#id118">項目 27: 独立なプロセスからなるシステムの監視ツールを使う</a><a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h3>
-<dl class="docutils">
-<dt>知らなかった単語：</dt>
-<dd><a class="reference external" href="https://www.nagios.org/">Nagios</a></dd>
+<dl class="simple">
+<dt>知らなかった単語：</dt><dd><p><a class="reference external" href="https://www.nagios.org/">Nagios</a></p>
+</dd>
 </dl>
 </div>
 </div>
@@ -517,46 +540,47 @@ Windows や OS X ユーザーには有益。</li>
 <div class="section" id="id38">
 <h3><a class="toc-backref" href="#id120">項目 28: シンボリックデバッグ用にコンパイルしたコードを使う</a><a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>コンパイラーやリンカーのオプションで、各ソースファイルに関連する命令、メモリアドレス、行番号、等々をオブジェクトコードに埋め込めるものがある。</li>
-<li>いわゆるデバッグビルドの話題。最適化オプションは「なし」とする。</li>
+<li><p>コンパイラーやリンカーのオプションで、各ソースファイルに関連する命令、メモリアドレス、行番号、等々をオブジェクトコードに埋め込めるものがある。</p></li>
+<li><p>いわゆるデバッグビルドの話題。最適化オプションは「なし」とする。</p></li>
 </ul>
 </div>
 <div class="section" id="id39">
 <h3><a class="toc-backref" href="#id121">項目 29: コードをステップ実行する</a><a class="headerlink" href="#id39" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>ステップ実行中は step over やブレイクポイントを使いこなしたい。</li>
+<li><p>ステップ実行中は step over やブレイクポイントを使いこなしたい。</p></li>
 </ul>
 </div>
 <div class="section" id="id40">
 <h3><a class="toc-backref" href="#id122">項目 30: コードとデータのブレークポイントを活用する</a><a class="headerlink" href="#id40" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>行、ルーチンに対してブレイクポイントを設定できる。場合によっては <code class="docutils literal notranslate"><span class="pre">exit</span></code> や <code class="docutils literal notranslate"><span class="pre">abort</span></code> にも設定することがある。</li>
-<li>データに対するブレイクポイントも存在する。これはウォッチポイントなどと呼ぶものだ。</li>
+<li><p>行、ルーチンに対してブレイクポイントを設定できる。場合によっては <code class="docutils literal notranslate"><span class="pre">exit</span></code> や <code class="docutils literal notranslate"><span class="pre">abort</span></code> にも設定することがある。</p></li>
+<li><p>データに対するブレイクポイントも存在する。これはウォッチポイントなどと呼ぶものだ。</p></li>
 </ul>
 </div>
 <div class="section" id="id41">
 <h3><a class="toc-backref" href="#id123">項目 31: 逆デバッグ機能をよく知っておく</a><a class="headerlink" href="#id41" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Visual Studio でいうところの Intelli Trace の機能を逆デバッグ機能と呼ぶ。</li>
-<li><strong class="command">gdb</strong> では <code class="docutils literal notranslate"><span class="pre">reverse-</span></code> で始まるコマンド群が相当する。</li>
+<li><p>Visual Studio でいうところの Intelli Trace の機能を逆デバッグ機能と呼ぶ。</p></li>
+<li><p><strong class="command">gdb</strong> では <code class="docutils literal notranslate"><span class="pre">reverse-</span></code> で始まるコマンド群が相当する。</p></li>
 </ul>
 </div>
 <div class="section" id="id42">
 <h3><a class="toc-backref" href="#id124">項目 32: ルーチン間の呼び出しに沿って探索する</a><a class="headerlink" href="#id42" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>スタックフレームの話題。</li>
-<li><strong class="command">gdb</strong> では <code class="docutils literal notranslate"><span class="pre">frame</span> <span class="pre">n</span></code>, <code class="docutils literal notranslate"><span class="pre">up</span></code>, <code class="docutils literal notranslate"><span class="pre">down</span></code> のコマンドがある。</li>
+<li><p>スタックフレームの話題。</p></li>
+<li><p><strong class="command">gdb</strong> では <code class="docutils literal notranslate"><span class="pre">frame</span> <span class="pre">n</span></code>, <code class="docutils literal notranslate"><span class="pre">up</span></code>, <code class="docutils literal notranslate"><span class="pre">down</span></code> のコマンドがある。</p></li>
 </ul>
 </div>
 <div class="section" id="id43">
 <h3><a class="toc-backref" href="#id125">項目 33: 変数と式の値を調べてエラーを見つける</a><a class="headerlink" href="#id43" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>特にローカル変数に対して値を調べる。</li>
-<li>任意の式の値も表示できる。Visual Studio ならば Quick Watch であり、
-<strong class="command">gdb</strong> ならば <code class="docutils literal notranslate"><span class="pre">expression</span></code> がその機能だ。</li>
-<li>リアルタイムで監視するならばウォッチが有用だ。</li>
-<li>特別なデータ構造のオブジェクトについては専用のデバッガー拡張、ツールを用いる。<ul>
-<li><a class="reference external" href="http://pythontutor.com/">Python Tutor</a> の図がすごい。</li>
+<li><p>特にローカル変数に対して値を調べる。</p></li>
+<li><p>任意の式の値も表示できる。Visual Studio ならば Quick Watch であり、
+<strong class="command">gdb</strong> ならば <code class="docutils literal notranslate"><span class="pre">expression</span></code> がその機能だ。</p></li>
+<li><p>リアルタイムで監視するならばウォッチが有用だ。</p></li>
+<li><p>特別なデータ構造のオブジェクトについては専用のデバッガー拡張、ツールを用いる。</p>
+<ul>
+<li><p><a class="reference external" href="http://pythontutor.com/">Python Tutor</a> の図がすごい。</p></li>
 </ul>
 </li>
 </ul>
@@ -568,31 +592,31 @@ Windows や OS X ユーザーには有益。</li>
 <div class="section" id="id45">
 <h3><a class="toc-backref" href="#id127">項目 35: コアダンプの扱い方を知っておく</a><a class="headerlink" href="#id45" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Windows の場合は注意を要する。専用の API を呼ばないとプロセスはダンプを生成しない。</li>
-<li>マネージド環境の言語ではコアダンプ的なものは期待できない。</li>
-<li>コアダンプのデバッグには p. 90 にあるように事前に組織的な準備が必要。ユーザーからデータを送信することが必要なので、開発側に相当な覚悟がいる。</li>
+<li><p>Windows の場合は注意を要する。専用の API を呼ばないとプロセスはダンプを生成しない。</p></li>
+<li><p>マネージド環境の言語ではコアダンプ的なものは期待できない。</p></li>
+<li><p>コアダンプのデバッグには p. 90 にあるように事前に組織的な準備が必要。ユーザーからデータを送信することが必要なので、開発側に相当な覚悟がいる。</p></li>
 </ul>
 </div>
 <div class="section" id="id46">
 <h3><a class="toc-backref" href="#id128">項目 36: デバッグツールを整備する</a><a class="headerlink" href="#id46" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>&lt;デバッグは GUI を使うほうが常に生産性が上がる&gt; (p. 91)</li>
-<li>IDE を使用しているならばまずは OK だ。色々考えないといけないのは <strong class="command">gdb</strong> のようなタイプのデバッグツールメインのときだ。</li>
+<li><p>&lt;デバッグは GUI を使うほうが常に生産性が上がる&gt; (p. 91)</p></li>
+<li><p>IDE を使用しているならばまずは OK だ。色々考えないといけないのは <strong class="command">gdb</strong> のようなタイプのデバッグツールメインのときだ。</p></li>
 </ul>
-<dl class="docutils">
-<dt>知らなかった単語：</dt>
-<dd>DDD, <strong class="command">bashdb</strong>, <strong class="command">remake</strong>, <strong class="command">pydb</strong></dd>
+<dl class="simple">
+<dt>知らなかった単語：</dt><dd><p>DDD, <strong class="command">bashdb</strong>, <strong class="command">remake</strong>, <strong class="command">pydb</strong></p>
+</dd>
 </dl>
 <ul class="simple">
-<li><code class="file docutils literal notranslate"><span class="pre">.gdbinit</span></code> の内容いろいろ。</li>
-<li><strong class="command">gdb</strong> スクリプトなるものもある。</li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">.gdbinit</span></code> の内容いろいろ。</p></li>
+<li><p><strong class="command">gdb</strong> スクリプトなるものもある。</p></li>
 </ul>
 </div>
 <div class="section" id="id47">
 <h3><a class="toc-backref" href="#id129">項目 37: アセンブラコードとハードのメモリ内容を確認する方法を知っておく</a><a class="headerlink" href="#id47" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>計算機の内部表現をよく知っていると、機械語レベルのデータをデバッグできる。</li>
-<li>昔のゲーム機のエミュレーターも教えてあげたい。</li>
+<li><p>計算機の内部表現をよく知っていると、機械語レベルのデータをデバッグできる。</p></li>
+<li><p>昔のゲーム機のエミュレーターも教えてあげたい。</p></li>
 </ul>
 </div>
 </div>
@@ -601,45 +625,47 @@ Windows や OS X ユーザーには有益。</li>
 <div class="section" id="id49">
 <h3><a class="toc-backref" href="#id131">項目 38: 怪しいコードをレビューして手動で実行する</a><a class="headerlink" href="#id49" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>アナログ手法でコード（アルゴリズム）をデバッグする。<ul>
-<li>敢えて電卓を使う。</li>
-<li>データ構造を紙やホワイトボードにペンで描く。キャンバスは大きいほど良い。</li>
+<li><p>アナログ手法でコード（アルゴリズム）をデバッグする。</p>
+<ul>
+<li><p>敢えて電卓を使う。</p></li>
+<li><p>データ構造を紙やホワイトボードにペンで描く。キャンバスは大きいほど良い。</p></li>
 </ul>
 </li>
-<li>物理的なオブジェクトもムリヤリ使うとなお良い。</li>
+<li><p>物理的なオブジェクトもムリヤリ使うとなお良い。</p></li>
 </ul>
 </div>
 <div class="section" id="id50">
 <h3><a class="toc-backref" href="#id132">項目 39: コードとその内容を同僚に説明する</a><a class="headerlink" href="#id50" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>コードを説明すると、脳の異なる部分が働いて問題の原因が明らかになりやすい。というか、レビューしてもらうと有益な指摘が返ってくることが普通に期待できる。</li>
-<li>マルチパーティーアルゴリズムとは何だ？</li>
+<li><p>コードを説明すると、脳の異なる部分が働いて問題の原因が明らかになりやすい。というか、レビューしてもらうと有益な指摘が返ってくることが普通に期待できる。</p></li>
+<li><p>マルチパーティーアルゴリズムとは何だ？</p></li>
 </ul>
 </div>
 <div class="section" id="id51">
 <h3><a class="toc-backref" href="#id133">項目 40: デバッグ機能を追加する</a><a class="headerlink" href="#id51" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>ログ出力、情報表示、専用コマンドなどを有効化するモード。</li>
-<li>マインクラフトのデバッグワールドの例は面白い。</li>
-<li>組み込みの事情はよくわからないので飛ばす。</li>
+<li><p>ログ出力、情報表示、専用コマンドなどを有効化するモード。</p></li>
+<li><p>マインクラフトのデバッグワールドの例は面白い。</p></li>
+<li><p>組み込みの事情はよくわからないので飛ばす。</p></li>
 </ul>
 </div>
 <div class="section" id="id52">
 <h3><a class="toc-backref" href="#id134">項目 41: ロギング文を追加する</a><a class="headerlink" href="#id52" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>ログ出力とデバッガーは相補的に利用できる。</li>
-<li>ログテキストに適切な書式を与えておくことで、後々のフィルターやクエリーが効率よくなる。</li>
-<li>ログ出力には自作ではなく専用フレームワークを利用する。</li>
-<li>組み込みの事情はよくわからないので飛ばす。</li>
-<li>なお、非テキストベースのソフトウェアでは「ログ」に工夫が要る。メッセージボックスを出すような。</li>
+<li><p>ログ出力とデバッガーは相補的に利用できる。</p></li>
+<li><p>ログテキストに適切な書式を与えておくことで、後々のフィルターやクエリーが効率よくなる。</p></li>
+<li><p>ログ出力には自作ではなく専用フレームワークを利用する。</p></li>
+<li><p>組み込みの事情はよくわからないので飛ばす。</p></li>
+<li><p>なお、非テキストベースのソフトウェアでは「ログ」に工夫が要る。メッセージボックスを出すような。</p></li>
 </ul>
 </div>
 <div class="section" id="id53">
 <h3><a class="toc-backref" href="#id135">項目 42: ユニットテストを使う</a><a class="headerlink" href="#id53" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>単体テストのフレームワークを利用する。次のような利点が考えられる：<ul>
-<li>テストを反復的に実施しやすくなる。</li>
-<li>リファクタリングを気兼ねなしに？実施しやすくなる。</li>
+<li><p>単体テストのフレームワークを利用する。次のような利点が考えられる：</p>
+<ul>
+<li><p>テストを反復的に実施しやすくなる。</p></li>
+<li><p>リファクタリングを気兼ねなしに？実施しやすくなる。</p></li>
 </ul>
 </li>
 </ul>
@@ -647,33 +673,33 @@ Windows や OS X ユーザーには有益。</li>
 <div class="section" id="id54">
 <h3><a class="toc-backref" href="#id136">項目 43: アサーションを使う</a><a class="headerlink" href="#id54" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>隙あらば <code class="docutils literal notranslate"><span class="pre">assert</span></code> 文をコードに埋め込む。事前条件、不変条件、事後条件を明白にできる。</li>
-<li>コンパイルオプションを設定して <code class="docutils literal notranslate"><span class="pre">assert</span></code> 文をデバッグビルドでのみ有効化する。</li>
+<li><p>隙あらば <code class="docutils literal notranslate"><span class="pre">assert</span></code> 文をコードに埋め込む。事前条件、不変条件、事後条件を明白にできる。</p></li>
+<li><p>コンパイルオプションを設定して <code class="docutils literal notranslate"><span class="pre">assert</span></code> 文をデバッグビルドでのみ有効化する。</p></li>
 </ul>
 </div>
 <div class="section" id="id55">
 <h3><a class="toc-backref" href="#id137">項目 44: デバッグしたプログラムに変動を与えて推理を検証する</a><a class="headerlink" href="#id55" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>これは学習目的か？</li>
+<li><p>これは学習目的か？</p></li>
 </ul>
 </div>
 <div class="section" id="id56">
 <h3><a class="toc-backref" href="#id138">項目 45: 稼働例と問題コードとの相違を最小化する</a><a class="headerlink" href="#id56" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>一方を他方に「変形」させていく途中で問題を生じさせる何かを発見できるはずだ。</li>
+<li><p>一方を他方に「変形」させていく途中で問題を生じさせる何かを発見できるはずだ。</p></li>
 </ul>
 </div>
 <div class="section" id="id57">
 <h3><a class="toc-backref" href="#id139">項目 46: 怪しいコードを単純にする</a><a class="headerlink" href="#id57" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>分割統治の話か。</li>
+<li><p>分割統治の話か。</p></li>
 </ul>
 </div>
 <div class="section" id="id58">
 <h3><a class="toc-backref" href="#id140">項目 47: 怪しいコードを他の言語で書き直す</a><a class="headerlink" href="#id58" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>問題コードをより表現力に富む言語で書き直す。</li>
-<li>元の問題を解決するには、書き直したものにすっかり置き換えるか、項目 45 の技法を両者に対して適用するか。</li>
+<li><p>問題コードをより表現力に富む言語で書き直す。</p></li>
+<li><p>元の問題を解決するには、書き直したものにすっかり置き換えるか、項目 45 の技法を両者に対して適用するか。</p></li>
 </ul>
 </div>
 <div class="section" id="id59">
@@ -683,8 +709,8 @@ Windows や OS X ユーザーには有益。</li>
 <div class="section" id="id60">
 <h3><a class="toc-backref" href="#id142">項目 49: バグの症状を取り除くのではなく、原因を取り除く</a><a class="headerlink" href="#id60" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>問題を一般化して考えてから解決する。</li>
-<li>背後にある原因の方を重視するのが本質的な解決法であって、対処療法的修正は意味がない。</li>
+<li><p>問題を一般化して考えてから解決する。</p></li>
+<li><p>背後にある原因の方を重視するのが本質的な解決法であって、対処療法的修正は意味がない。</p></li>
 </ul>
 </div>
 </div>
@@ -693,68 +719,67 @@ Windows や OS X ユーザーには有益。</li>
 <div class="section" id="id62">
 <h3><a class="toc-backref" href="#id144">項目 50: 生成コードを調べる</a><a class="headerlink" href="#id62" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>プリプロセッサーを経た直後の C/C++ のコードを得るには、
+<li><p>プリプロセッサーを経た直後の C/C++ のコードを得るには、
 <strong class="command">gcc</strong> ならば <code class="docutils literal notranslate"><span class="pre">-E</span></code> を、
-<strong class="command">cl</strong> ならば <code class="docutils literal notranslate"><span class="pre">/E</span></code> オプションを指定する。</li>
-<li>マクロ展開を確認するのに役に立つ。</li>
-<li>アセンブリコードを得るには
+<strong class="command">cl</strong> ならば <code class="docutils literal notranslate"><span class="pre">/E</span></code> オプションを指定する。</p></li>
+<li><p>マクロ展開を確認するのに役に立つ。</p></li>
+<li><p>アセンブリコードを得るには
 <strong class="command">gcc</strong> ならば <code class="docutils literal notranslate"><span class="pre">-S</span></code> を、
 <strong class="command">cl</strong> ならば <code class="docutils literal notranslate"><span class="pre">/Fa</span></code> オプションを指定する。
-Java ならば <strong class="command">javap -c</strong> とする。</li>
-<li>ここで挙げられている Java の文字列接続の例で、ソースコードにはない StringBuilder がアセンブリコードに出現するという話が面白い。</li>
+Java ならば <strong class="command">javap -c</strong> とする。</p></li>
+<li><p>ここで挙げられている Java の文字列接続の例で、ソースコードにはない StringBuilder がアセンブリコードに出現するという話が面白い。</p></li>
 </ul>
 </div>
 <div class="section" id="id63">
 <h3><a class="toc-backref" href="#id145">項目 51: 静的プログラム解析ツールを使う</a><a class="headerlink" href="#id63" title="Permalink to this headline">¶</a></h3>
 <ul>
-<li><p class="first">静的プログラム解析ツールとは、ソースコードを診断するツールという解釈でよいか？</p>
+<li><p>静的プログラム解析ツールとは、ソースコードを診断するツールという解釈でよいか？</p>
 <ul class="simple">
-<li>コンパイラーも静的プログラム解析ツールの一種であると解釈したい。</li>
+<li><p>コンパイラーも静的プログラム解析ツールの一種であると解釈したい。</p></li>
 </ul>
 </li>
-<li><p class="first"><a class="reference external" href="https://www.grammatech.com/products/codesonar">GrammaTech CodeSonar</a>, <a class="reference external" href="https://www.synopsys.com/software-integrity.html">Coverity Code Advisor</a>, <a class="reference external" href="http://findbugs.sourceforge.net/">FindBugs</a>,
+<li><p><a class="reference external" href="https://www.grammatech.com/products/codesonar">GrammaTech CodeSonar</a>, <a class="reference external" href="https://www.synopsys.com/software-integrity.html">Coverity Code Advisor</a>, <a class="reference external" href="http://findbugs.sourceforge.net/">FindBugs</a>,
 <a class="reference external" href="https://www.mathworks.com/products/polyspace-bug-finder.html">Polyspace Bug Finder</a> などの解析ツールがある。</p>
 <ul class="simple">
-<li>他に知りたければ <code class="docutils literal notranslate"><span class="pre">static</span> <span class="pre">code</span> <span class="pre">analyzer</span></code> で検索すればいい。</li>
+<li><p>他に知りたければ <code class="docutils literal notranslate"><span class="pre">static</span> <span class="pre">code</span> <span class="pre">analyzer</span></code> で検索すればいい。</p></li>
 </ul>
 <p>また、言語によっては lint で終わる名前の解析ツールがある。</p>
 <ul class="simple">
-<li><strong class="command">xmllint</strong>, <strong class="command">pylint</strong>, etc.</li>
+<li><p><strong class="command">xmllint</strong>, <strong class="command">pylint</strong>, etc.</p></li>
 </ul>
 </li>
-<li><p class="first">警告レベルを最高にするときは、コンパイラーで最適化オプションを最大レベルにしてからにする。警告をエラー扱いにするのはその後とする。</p>
+<li><p>警告レベルを最高にするときは、コンパイラーで最適化オプションを最大レベルにしてからにする。警告をエラー扱いにするのはその後とする。</p>
 <ul class="simple">
-<li><strong class="command">gcc -Wall</strong> や <strong class="command">cl WX</strong> のように指定する。</li>
+<li><p><strong class="command">gcc -Wall</strong> や <strong class="command">cl WX</strong> のように指定する。</p></li>
 </ul>
 </li>
-<li><p class="first">複数のツールを併用するといい。</p>
-</li>
-<li><p class="first">解析ツールによる診断工程をビルドサイクルに組み込む。</p>
-</li>
+<li><p>複数のツールを併用するといい。</p></li>
+<li><p>解析ツールによる診断工程をビルドサイクルに組み込む。</p></li>
 </ul>
 </div>
 <div class="section" id="id64">
 <h3><a class="toc-backref" href="#id146">項目 52: ビルドと実行を決定的に構成する</a><a class="headerlink" href="#id64" title="Permalink to this headline">¶</a></h3>
 <p>翻訳本によるあるように、本書でも英語の deterministic を「決定的」とい表現している。辞書で調べると、計算機科学の文脈では次の意味にとるのが妥当らしい：</p>
 <blockquote>
-<div>Having each state depend only on the immediately previous state, as
+<div><p>Having each state depend only on the immediately previous state, as
 opposed to having some states depend on backtracking where there may be
 multiple possible next actions and no way to choose between them except
-by trying each one and backtracking upon failure.</div></blockquote>
+by trying each one and backtracking upon failure.</p>
+</div></blockquote>
 <ul class="simple">
-<li>ある実行で生じた問題が、別の実行では生じない。こういう現象は起こってほしくない。</li>
-<li>ASLR: これはわからない。</li>
-<li>同じコードをビルドする度にバイナリーレベルで異なるものが生成されるのはできれば避けたい。しかし、これは意外に簡単ではない。</li>
+<li><p>ある実行で生じた問題が、別の実行では生じない。こういう現象は起こってほしくない。</p></li>
+<li><p>ASLR: これはわからない。</p></li>
+<li><p>同じコードをビルドする度にバイナリーレベルで異なるものが生成されるのはできれば避けたい。しかし、これは意外に簡単ではない。</p></li>
 </ul>
 </div>
 <div class="section" id="id65">
 <h3><a class="toc-backref" href="#id147">項目 53: デバッグライブラリを使用してチェックするよう構成する</a><a class="headerlink" href="#id65" title="Permalink to this headline">¶</a></h3>
 <p>特に C/C++ の話となる。</p>
 <ul class="simple">
-<li>C++ の STL を利用したコードをデバッグビルドするときの例を説明している。
-GNU の実装では <code class="docutils literal notranslate"><span class="pre">_GLIBCXX_DEBUG</span></code> をプリプロセッサーに定義しておくことで、有害なコードに対しての警告メッセージが有効になる。</li>
-<li>メモリー確保および解放コードについてもサポートがあるものが多い。
-<strong class="command">mtrace</strong> のようなツールもある。</li>
+<li><p>C++ の STL を利用したコードをデバッグビルドするときの例を説明している。
+GNU の実装では <code class="docutils literal notranslate"><span class="pre">_GLIBCXX_DEBUG</span></code> をプリプロセッサーに定義しておくことで、有害なコードに対しての警告メッセージが有効になる。</p></li>
+<li><p>メモリー確保および解放コードについてもサポートがあるものが多い。
+<strong class="command">mtrace</strong> のようなツールもある。</p></li>
 </ul>
 </div>
 </div>
@@ -764,15 +789,16 @@ GNU の実装では <code class="docutils literal notranslate"><span class="pre"
 <div class="section" id="id67">
 <h3><a class="toc-backref" href="#id149">項目 54: テストケースを作って問題を発見する</a><a class="headerlink" href="#id67" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Defect-Driving Testing</li>
-<li>テストケース、手順、材料はパッケージということか。これらは最小化すること。</li>
-<li>結果がわかったらテストケースに対応するテストを追加する。</li>
-<li>カバレッジツールいろいろ。<ul>
-<li><strong class="command">gcov</strong> (C/C++),</li>
-<li><a class="reference external" href="https://wiki.openjdk.java.net/display/CodeTools/jcov">JCov</a>, <a class="reference external" href="http://www.eclemma.org/jacoco/">JaCoCo</a>, <a class="reference external" href="https://bitbucket.org/atlassian/clover">Clover</a> (Java),</li>
-<li>NCover, <a class="reference external" href="https://github.com/OpenCover/opencover">OpenCover</a> (.NET)</li>
-<li>coverage (Python)</li>
-<li><a class="reference external" href="http://blanketjs.org/">blanket.js</a> (JavaScript)</li>
+<li><p>Defect-Driving Testing</p></li>
+<li><p>テストケース、手順、材料はパッケージということか。これらは最小化すること。</p></li>
+<li><p>結果がわかったらテストケースに対応するテストを追加する。</p></li>
+<li><p>カバレッジツールいろいろ。</p>
+<ul>
+<li><p><strong class="command">gcov</strong> (C/C++),</p></li>
+<li><p><a class="reference external" href="https://wiki.openjdk.java.net/display/CodeTools/jcov">JCov</a>, <a class="reference external" href="http://www.eclemma.org/jacoco/">JaCoCo</a>, <a class="reference external" href="https://bitbucket.org/atlassian/clover">Clover</a> (Java),</p></li>
+<li><p>NCover, <a class="reference external" href="https://github.com/OpenCover/opencover">OpenCover</a> (.NET)</p></li>
+<li><p>coverage (Python)</p></li>
+<li><p><a class="reference external" href="http://blanketjs.org/">blanket.js</a> (JavaScript)</p></li>
 </ul>
 </li>
 </ul>
@@ -780,53 +806,58 @@ GNU の実装では <code class="docutils literal notranslate"><span class="pre"
 <div class="section" id="id68">
 <h3><a class="toc-backref" href="#id150">項目 55: 迅速に失敗させる</a><a class="headerlink" href="#id68" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>最速で問題を起こすようにソフトウェアを構成する。</li>
-<li><code class="docutils literal notranslate"><span class="pre">assert</span></code> 文やシェルの <code class="docutils literal notranslate"><span class="pre">-e</span></code> オプションのことを含む。</li>
+<li><p>最速で問題を起こすようにソフトウェアを構成する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">assert</span></code> 文やシェルの <code class="docutils literal notranslate"><span class="pre">-e</span></code> オプションのことを含む。</p></li>
 </ul>
 </div>
 <div class="section" id="id69">
 <h3><a class="toc-backref" href="#id151">項目 56: アプリケーションのログファイルを調べる</a><a class="headerlink" href="#id69" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>障害を検討するのならば、まずはログファイルを調べる。</li>
-<li>ログファイルの在り処がわからない場合を説明している。<ul>
-<li>Unix では <code class="file docutils literal notranslate"><span class="pre">/var/logs</span></code> を検索する。</li>
-<li>Windows では Event Viewer を検索する。</li>
+<li><p>障害を検討するのならば、まずはログファイルを調べる。</p></li>
+<li><p>ログファイルの在り処がわからない場合を説明している。</p>
+<ul>
+<li><p>Unix では <code class="file docutils literal notranslate"><span class="pre">/var/logs</span></code> を検索する。</p></li>
+<li><p>Windows では Event Viewer を検索する。</p></li>
 </ul>
 </li>
-<li>ソフトウェアはログの出力量を制御できるはずなので、適宜設定し直す。</li>
-<li><strong class="command">syslogd</strong> の話がわからない。</li>
-<li>Java の Apache log4j の紹介。</li>
-<li>ログレコードの分析方法など。</li>
-<li>ELK, <a class="reference external" href="https://www.elastic.co/jp/products/logstash">Logstash</a>, <a class="reference external" href="https://www.loggly.com/">loggy</a>, Splunk, <strong class="command">wevtutil</strong></li>
-<li>障害が起こった時刻の前後のエントリーを調べるか、失敗したコマンド名のような、関係する文字列をログから検索する。その後にログを遡る。</li>
-<li>基本的にはテキスト処理になる。</li>
+<li><p>ソフトウェアはログの出力量を制御できるはずなので、適宜設定し直す。</p></li>
+<li><p><strong class="command">syslogd</strong> の話がわからない。</p></li>
+<li><p>Java の Apache log4j の紹介。</p></li>
+<li><p>ログレコードの分析方法など。</p></li>
+<li><p>ELK, <a class="reference external" href="https://www.elastic.co/jp/products/logstash">Logstash</a>, <a class="reference external" href="https://www.loggly.com/">loggy</a>, Splunk, <strong class="command">wevtutil</strong></p></li>
+<li><p>障害が起こった時刻の前後のエントリーを調べるか、失敗したコマンド名のような、関係する文字列をログから検索する。その後にログを遡る。</p></li>
+<li><p>基本的にはテキスト処理になる。</p></li>
 </ul>
 </div>
 <div class="section" id="id70">
 <h3><a class="toc-backref" href="#id152">項目 57: システムとプロセスの演算操作のプロファイルをとる</a><a class="headerlink" href="#id70" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>性能のデバッグ。</li>
-<li>Unix ならば <strong class="command">top</strong> で、Windows ならば Task Manager でプロファイルを見る。</li>
-<li>マルチコアマシンでは CPU 利用率のパーセントの解釈に注意。例えば 12% で安心だと思ったら 8 コアマシンなので実質 100% に近いということもある。</li>
-<li>飽和度の概念が難しい。</li>
-<li>CPU, I/O, メモリ別に対策が異なる。<ul>
-<li>CPU は前述のとおり。</li>
-<li>メモリは working set memory size でソートをすることでわかる。</li>
-<li>I/O は以下のツールを用いる：<ul>
-<li>Unix: <strong class="command">iostat</strong>, <strong class="command">netstat</strong>, <strong class="command">nfsstat</strong>, <strong class="command">vmstat</strong></li>
-<li>Windows: <strong class="command">perfmon</strong></li>
+<li><p>性能のデバッグ。</p></li>
+<li><p>Unix ならば <strong class="command">top</strong> で、Windows ならば Task Manager でプロファイルを見る。</p></li>
+<li><p>マルチコアマシンでは CPU 利用率のパーセントの解釈に注意。例えば 12% で安心だと思ったら 8 コアマシンなので実質 100% に近いということもある。</p></li>
+<li><p>飽和度の概念が難しい。</p></li>
+<li><p>CPU, I/O, メモリ別に対策が異なる。</p>
+<ul>
+<li><p>CPU は前述のとおり。</p></li>
+<li><p>メモリは working set memory size でソートをすることでわかる。</p></li>
+<li><p>I/O は以下のツールを用いる：</p>
+<ul>
+<li><p>Unix: <strong class="command">iostat</strong>, <strong class="command">netstat</strong>, <strong class="command">nfsstat</strong>, <strong class="command">vmstat</strong></p></li>
+<li><p>Windows: <strong class="command">perfmon</strong></p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li>プロファイル対策は p. 159 に詳細に述べられている。<ul>
-<li><strong class="command">gprof</strong>, <strong class="command">gcov</strong>, <a class="reference external" href="https://visualvm.github.io/">VisualVM</a>, <a class="reference external" href="https://www.ej-technologies.com/products/jprofiler/overview.html">JProfiler</a>, Java Mission Control,
-<a class="reference external" href="https://clrprofiler.codeplex.com/">CLR</a> (.NET)</li>
+<li><p>プロファイル対策は p. 159 に詳細に述べられている。</p>
+<ul>
+<li><p><strong class="command">gprof</strong>, <strong class="command">gcov</strong>, <a class="reference external" href="https://visualvm.github.io/">VisualVM</a>, <a class="reference external" href="https://www.ej-technologies.com/products/jprofiler/overview.html">JProfiler</a>, Java Mission Control,
+<a class="reference external" href="https://clrprofiler.codeplex.com/">CLR</a> (.NET)</p></li>
 </ul>
 </li>
-<li>メモリモニターは色々ある：<ul>
-<li><a class="reference external" href="http://valgrind.org/">Valgrind</a>, <a class="reference external" href="https://visualvm.github.io/">VisualVM</a>, <a class="reference external" href="https://www.eclipse.org/aspectj/">AspectJ</a>, Spring AOP, <strong class="command">perf</strong>, <strong class="command">oprofile</strong>,
-<strong class="command">perfmon2</strong></li>
+<li><p>メモリモニターは色々ある：</p>
+<ul>
+<li><p><a class="reference external" href="http://valgrind.org/">Valgrind</a>, <a class="reference external" href="https://visualvm.github.io/">VisualVM</a>, <a class="reference external" href="https://www.eclipse.org/aspectj/">AspectJ</a>, Spring AOP, <strong class="command">perf</strong>, <strong class="command">oprofile</strong>,
+<strong class="command">perfmon2</strong></p></li>
 </ul>
 </li>
 </ul>
@@ -834,31 +865,33 @@ GNU の実装では <code class="docutils literal notranslate"><span class="pre"
 <div class="section" id="id71">
 <h3><a class="toc-backref" href="#id153">項目 58: コード実行をトレースする</a><a class="headerlink" href="#id71" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>サードパーティーライブラリーや OS のコンポーネントへの呼び出しを調べたい。</li>
-<li>呼び出しトレースツールには次のようなものがある：<ul>
-<li><strong class="command">ltrace</strong>, <strong class="command">strace</strong>, <strong class="command">ktrace</strong>, <strong class="command">truss</strong>,
-<a class="reference external" href="https://www.ej-technologies.com/products/jprofiler/overview.html">JProfiler</a>, Process Monitor</li>
+<li><p>サードパーティーライブラリーや OS のコンポーネントへの呼び出しを調べたい。</p></li>
+<li><p>呼び出しトレースツールには次のようなものがある：</p>
+<ul>
+<li><p><strong class="command">ltrace</strong>, <strong class="command">strace</strong>, <strong class="command">ktrace</strong>, <strong class="command">truss</strong>,
+<a class="reference external" href="https://www.ej-technologies.com/products/jprofiler/overview.html">JProfiler</a>, Process Monitor</p></li>
 </ul>
 </li>
-<li>トレーサーの出力を Unix ツールで処理して、デバッグ能力を向上させる。
-<code class="docutils literal notranslate"><span class="pre">strace</span> <span class="pre">-fo</span> <span class="pre">&gt;(</span> <span class="pre">...</span> <span class="pre">)</span> <span class="pre">prog</span></code> のようにする。</li>
-<li>インタープリター形式言語のほとんどがトレースオプションを提供している。<ul>
-<li>Python で言えば <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">trae</span> <span class="pre">--trace</span> <span class="pre">...</span></code> が該当する。</li>
+<li><p>トレーサーの出力を Unix ツールで処理して、デバッグ能力を向上させる。
+<code class="docutils literal notranslate"><span class="pre">strace</span> <span class="pre">-fo</span> <span class="pre">&gt;(</span> <span class="pre">...</span> <span class="pre">)</span> <span class="pre">prog</span></code> のようにする。</p></li>
+<li><p>インタープリター形式言語のほとんどがトレースオプションを提供している。</p>
+<ul>
+<li><p>Python で言えば <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">trae</span> <span class="pre">--trace</span> <span class="pre">...</span></code> が該当する。</p></li>
 </ul>
 </li>
-<li>DTrace, <a class="reference external" href="http://sourceware.org/systemtap/">SystemTap</a>, <a class="reference external" href="http://lttng.org/">LTTng</a></li>
-<li><strong class="command">dtrace</strong> コマンドの紹介をしている。</li>
-<li>JVM には <a class="reference external" href="http://byteman.jboss.org/">Byteman</a> を使う。</li>
-<li>Windows ならば Windows ADK が含む WPT が含む WPR と WPA を使う。</li>
+<li><p>DTrace, <a class="reference external" href="http://sourceware.org/systemtap/">SystemTap</a>, <a class="reference external" href="http://lttng.org/">LTTng</a></p></li>
+<li><p><strong class="command">dtrace</strong> コマンドの紹介をしている。</p></li>
+<li><p>JVM には <a class="reference external" href="http://byteman.jboss.org/">Byteman</a> を使う。</p></li>
+<li><p>Windows ならば Windows ADK が含む WPT が含む WPR と WPA を使う。</p></li>
 </ul>
 </div>
 <div class="section" id="id72">
 <h3><a class="toc-backref" href="#id154">項目 59: 動的なプログラム解析ツールを使う</a><a class="headerlink" href="#id72" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>実行が劇的に遅いので、デバッグ中の問題を示すためだけの特別なテストに対して使うのが最良。</li>
-<li>この手のツールは未初期化変数の使用、リーク、不当なメモリアクセスの検出機能を備えている。</li>
-<li><a class="reference external" href="http://valgrind.org/">Valgrind</a> が広く使われている。</li>
-<li>JavaScript ならば <a class="reference external" href="http://people.eecs.berkeley.edu/~gongliang13/jalangi_ff/">Jalangi</a> が使える。</li>
+<li><p>実行が劇的に遅いので、デバッグ中の問題を示すためだけの特別なテストに対して使うのが最良。</p></li>
+<li><p>この手のツールは未初期化変数の使用、リーク、不当なメモリアクセスの検出機能を備えている。</p></li>
+<li><p><a class="reference external" href="http://valgrind.org/">Valgrind</a> が広く使われている。</p></li>
+<li><p>JavaScript ならば <a class="reference external" href="http://people.eecs.berkeley.edu/~gongliang13/jalangi_ff/">Jalangi</a> が使える。</p></li>
 </ul>
 </div>
 </div>
@@ -868,122 +901,118 @@ GNU の実装では <code class="docutils literal notranslate"><span class="pre"
 <div class="section" id="id74">
 <h3><a class="toc-backref" href="#id156">項目 60: デッドロックを事後検討デバッグで分析する</a><a class="headerlink" href="#id74" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>二人が同じ何かを譲り合って先に進まない状態がデッドロックだ。</li>
-<li>&lt;デッドロックは実は並行性のバグの中で一番分析しやすい種類&gt; (p. 170) のものらしい。</li>
-<li>対象のプログラムをフリーズするまで実行を繰り返し呼び出すためのシェルコードが印象的だ。その手があるかという感じだ。</li>
-<li>実際の手順例：<ol class="arabic">
-<li>まずはプロセスを <strong class="command">kill</strong> してコアダンプを生成する。</li>
-<li>コアダンプに対して <strong class="command">gdb</strong> を実行する。このときコマンドライン引数には実行プログラムとコアダンプの両方を指定する。</li>
-<li>デバッグセッションで <code class="docutils literal notranslate"><span class="pre">info</span> <span class="pre">threads</span></code> コマンドを実行し、スレッドを一覧する。</li>
-<li>そのうちひとつのスレッドのスタックフレームを <code class="docutils literal notranslate"><span class="pre">backtrace</span></code> することでロック箇所が判明する。</li>
-<li>もう一方のスレッドについても同様の手順を適用する。</li>
+<li><p>二人が同じ何かを譲り合って先に進まない状態がデッドロックだ。</p></li>
+<li><p>&lt;デッドロックは実は並行性のバグの中で一番分析しやすい種類&gt; (p. 170) のものらしい。</p></li>
+<li><p>対象のプログラムをフリーズするまで実行を繰り返し呼び出すためのシェルコードが印象的だ。その手があるかという感じだ。</p></li>
+<li><p>実際の手順例：</p>
+<ol class="arabic simple">
+<li><p>まずはプロセスを <strong class="command">kill</strong> してコアダンプを生成する。</p></li>
+<li><p>コアダンプに対して <strong class="command">gdb</strong> を実行する。このときコマンドライン引数には実行プログラムとコアダンプの両方を指定する。</p></li>
+<li><p>デバッグセッションで <code class="docutils literal notranslate"><span class="pre">info</span> <span class="pre">threads</span></code> コマンドを実行し、スレッドを一覧する。</p></li>
+<li><p>そのうちひとつのスレッドのスタックフレームを <code class="docutils literal notranslate"><span class="pre">backtrace</span></code> することでロック箇所が判明する。</p></li>
+<li><p>もう一方のスレッドについても同様の手順を適用する。</p></li>
 </ol>
 </li>
-<li>デッドロック対策は設計に含めておくこと。</li>
-<li>Java ならば <strong class="command">jstack</strong> コマンドを利用する。</li>
+<li><p>デッドロック対策は設計に含めておくこと。</p></li>
+<li><p>Java ならば <strong class="command">jstack</strong> コマンドを利用する。</p></li>
 </ul>
 </div>
 <div class="section" id="id75">
 <h3><a class="toc-backref" href="#id157">項目 61: キャプチャして複製する</a><a class="headerlink" href="#id75" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>非決定的バグをデバッグする話題。競合状態が起こることがあるコードを題材としている。</li>
+<li><p>非決定的バグをデバッグする話題。競合状態が起こることがあるコードを題材としている。</p></li>
 </ul>
 <ol class="arabic simple">
-<li><code class="docutils literal notranslate"><span class="pre">gdb_record</span> <span class="pre">prog</span></code> を実行する。<ul>
-<li>適宜 <code class="docutils literal notranslate"><span class="pre">break</span></code> ポイントを設定する。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gdb_record</span> <span class="pre">prog</span></code> を実行する。</p>
+<ul class="simple">
+<li><p>適宜 <code class="docutils literal notranslate"><span class="pre">break</span></code> ポイントを設定する。</p></li>
 </ul>
 </li>
-<li>デバッグセッションで <code class="docutils literal notranslate"><span class="pre">pin</span> <span class="pre">record</span> <span class="pre">on</span></code> コマンドを実行する。</li>
-<li><code class="docutils literal notranslate"><span class="pre">replay</span> <span class="pre">pinball/log_0</span></code> を実行する。</li>
-<li><code class="docutils literal notranslate"><span class="pre">gdb_replay</span> <span class="pre">pinball/log_0</span> <span class="pre">prog</span></code> を実行する。<ul>
-<li>デバッグセッションで <code class="docutils literal notranslate"><span class="pre">pin</span> <span class="pre">trace</span></code> を実行する。
-<code class="docutils literal notranslate"><span class="pre">XXX</span> <span class="pre">at</span> <span class="pre">LINENUM</span></code></li>
+<li><p>デバッグセッションで <code class="docutils literal notranslate"><span class="pre">pin</span> <span class="pre">record</span> <span class="pre">on</span></code> コマンドを実行する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">replay</span> <span class="pre">pinball/log_0</span></code> を実行する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gdb_replay</span> <span class="pre">pinball/log_0</span> <span class="pre">prog</span></code> を実行する。</p>
+<ul class="simple">
+<li><p>デバッグセッションで <code class="docutils literal notranslate"><span class="pre">pin</span> <span class="pre">trace</span></code> を実行する。
+<code class="docutils literal notranslate"><span class="pre">XXX</span> <span class="pre">at</span> <span class="pre">LINENUM</span></code></p></li>
 </ul>
 </li>
-<li><code class="docutils literal notranslate"><span class="pre">pin</span> <span class="pre">break</span> <span class="pre">16</span> <span class="pre">if</span> <span class="pre">tmp</span> <span class="pre">==</span> <span class="pre">value</span></code> のように、条件付きブレイクポイントを設定する。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pin</span> <span class="pre">break</span> <span class="pre">16</span> <span class="pre">if</span> <span class="pre">tmp</span> <span class="pre">==</span> <span class="pre">value</span></code> のように、条件付きブレイクポイントを設定する。</p></li>
 </ol>
 </div>
 <div class="section" id="id76">
 <h3><a class="toc-backref" href="#id158">項目 62: 専用ツールでデッドロックと競合条件を見つける</a><a class="headerlink" href="#id76" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><a class="reference external" href="http://findbugs.sourceforge.net/">FindBugs</a> (Java)</li>
-<li>OpenMP, POSIX Threads のコードの問題の特定。Intel Inspector</li>
-<li><code class="docutils literal notranslate"><span class="pre">valgrind</span> <span class="pre">--tool=helgrind</span> <span class="pre">prog</span></code> で潜在的デッドロックを検出する。</li>
+<li><p><a class="reference external" href="http://findbugs.sourceforge.net/">FindBugs</a> (Java)</p></li>
+<li><p>OpenMP, POSIX Threads のコードの問題の特定。Intel Inspector</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">valgrind</span> <span class="pre">--tool=helgrind</span> <span class="pre">prog</span></code> で潜在的デッドロックを検出する。</p></li>
 </ul>
 </div>
 <div class="section" id="id77">
 <h3><a class="toc-backref" href="#id159">項目 63: 非決定性を切り分けて取り除く</a><a class="headerlink" href="#id77" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>隔離方式：決定性のものと非決定性のものとの直和になるようにプログラムを設計する。</li>
-<li>削除方式：置き換え。あくまでもデバッグとテストの用途とし、本番のコードとはしない。</li>
+<li><p>隔離方式：決定性のものと非決定性のものとの直和になるようにプログラムを設計する。</p></li>
+<li><p>削除方式：置き換え。あくまでもデバッグとテストの用途とし、本番のコードとはしない。</p></li>
 </ul>
 </div>
 <div class="section" id="id78">
 <h3><a class="toc-backref" href="#id160">項目 64: 競合制約状態を調べてスケーラビリティ問題を検討する</a><a class="headerlink" href="#id78" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>英語の contention のこの文脈での意味がよくわからない。</li>
-<li>Java Flight Recorder, <a class="reference external" href="https://software.intel.com/en-us/intel-vtune-amplifier-xe">VTune Amplifier</a></li>
+<li><p>英語の contention のこの文脈での意味がよくわからない。</p></li>
+<li><p>Java Flight Recorder, <a class="reference external" href="https://software.intel.com/en-us/intel-vtune-amplifier-xe">VTune Amplifier</a></p></li>
 </ul>
 </div>
 <div class="section" id="id79">
 <h3><a class="toc-backref" href="#id161">項目 65: 性能カウンタを使ってフォールスシェアリングを探す</a><a class="headerlink" href="#id79" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>False Sharing とは何かを説明できるようにすること。</li>
-<li>CPU の性能カウンター<ul>
-<li>Visual Studio: Concurrency Visualizer</li>
-<li>Intel: VTune Performance Analyzer</li>
-<li>Linux: <strong class="command">perf</strong></li>
+<li><p>False Sharing とは何かを説明できるようにすること。</p></li>
+<li><p>CPU の性能カウンター</p>
+<ul>
+<li><p>Visual Studio: Concurrency Visualizer</p></li>
+<li><p>Intel: VTune Performance Analyzer</p></li>
+<li><p>Linux: <strong class="command">perf</strong></p></li>
 </ul>
 </li>
 </ul>
 <ol class="arabic simple">
-<li><code class="docutils literal notranslate"><span class="pre">perf</span> <span class="pre">stat</span> <span class="pre">--event=LCC-loads</span> <span class="pre">prog1</span></code> と <code class="docutils literal notranslate"><span class="pre">perf</span> <span class="pre">stat</span> <span class="pre">--event=LCC-loads</span> <span class="pre">prog2</span></code> をそれぞれ実行する。</li>
-<li><code class="docutils literal notranslate"><span class="pre">perf</span> <span class="pre">record</span> <span class="pre">--event=LCC-loads</span> <span class="pre">prog2</span></code> を実行することで関連イベントを記録する。</li>
-<li><code class="docutils literal notranslate"><span class="pre">perf</span> <span class="pre">annotate</span></code> により、キャッシュミスを引き起こした部分を特定する。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">perf</span> <span class="pre">stat</span> <span class="pre">--event=LCC-loads</span> <span class="pre">prog1</span></code> と <code class="docutils literal notranslate"><span class="pre">perf</span> <span class="pre">stat</span> <span class="pre">--event=LCC-loads</span> <span class="pre">prog2</span></code> をそれぞれ実行する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">perf</span> <span class="pre">record</span> <span class="pre">--event=LCC-loads</span> <span class="pre">prog2</span></code> を実行することで関連イベントを記録する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">perf</span> <span class="pre">annotate</span></code> により、キャッシュミスを引き起こした部分を特定する。</p></li>
 </ol>
 <ul class="simple">
-<li>LLC-load は「最終レベルキャッシュミス」を測定することを意味する。</li>
+<li><p>LLC-load は「最終レベルキャッシュミス」を測定することを意味する。</p></li>
 </ul>
 </div>
 <div class="section" id="id80">
 <h3><a class="toc-backref" href="#id162">項目 66: 高水準な抽象化を用いてコードを書き直すことを検討する</a><a class="headerlink" href="#id80" title="Permalink to this headline">¶</a></h3>
 <ul>
-<li><p class="first">並列性に関するバグを回避するコードを書く（転嫁と言っている）。</p>
+<li><p>並列性に関するバグを回避するコードを書く（転嫁と言っている）。</p>
 <ul>
-<li><p class="first">信頼できる既成ミドルウェアを使用する。
-SQL なりリクエスト処理なりを提供しているはずなので、それを利用する。</p>
-</li>
-<li><p class="first">独立プロセスに処理を分離する。パイプが要る。</p>
-</li>
-<li><p class="first">GNU <strong class="command">parallel</strong> で複数コアに作業を分割する。コマンドライン例を引用する：</p>
-<div class="code shell highlight-default notranslate"><div class="highlight"><pre><span></span>$ ls *.jpg | parallel &#39;djpeg -scale 1/16 {} | cjpeg &gt; thumb/{}&#39;
+<li><p>信頼できる既成ミドルウェアを使用する。
+SQL なりリクエスト処理なりを提供しているはずなので、それを利用する。</p></li>
+<li><p>独立プロセスに処理を分離する。パイプが要る。</p></li>
+<li><p>GNU <strong class="command">parallel</strong> で複数コアに作業を分割する。コマンドライン例を引用する：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ ls *.jpg <span class="p">|</span> parallel <span class="s1">&#39;djpeg -scale 1/16 {} | cjpeg &gt; thumb/{}&#39;</span>
 </pre></div>
 </div>
 </li>
 </ul>
 </li>
-<li><p class="first">Java には Collections.parallelStream がある。</p>
-</li>
-<li><p class="first">C++ の Qt ライブラリーには QtConcurrent がある。</p>
-</li>
-<li><p class="first"><a class="reference external" href="http://hadoop.apache.org/">Apache Hadoop</a> 分散処理。</p>
-</li>
-<li><p class="first">MapReduce 技法</p>
-</li>
-<li><p class="first"><a class="reference external" href="http://www.netlib.org/blas/">BLAS</a> が使えるときはそうする。</p>
-</li>
-<li><p class="first">マルチコアを意識したプログラミング言語を採用する。</p>
+<li><p>Java には Collections.parallelStream がある。</p></li>
+<li><p>C++ の Qt ライブラリーには QtConcurrent がある。</p></li>
+<li><p><a class="reference external" href="http://hadoop.apache.org/">Apache Hadoop</a> 分散処理。</p></li>
+<li><p>MapReduce 技法</p></li>
+<li><p><a class="reference external" href="http://www.netlib.org/blas/">BLAS</a> が使えるときはそうする。</p></li>
+<li><p>マルチコアを意識したプログラミング言語を採用する。</p>
 <ul class="simple">
-<li>Clojure, Scale, F#, Haskell, R, Erlang.</li>
+<li><p>Clojure, Scale, F#, Haskell, R, Erlang.</p></li>
 </ul>
 </li>
-<li><p class="first">反応型イベント駆動フレームワーク (Vert.x)</p>
-</li>
-<li><p class="first">高水準基本命令。Java の例だが、多言語にも類似の要素があるだろう：</p>
+<li><p>反応型イベント駆動フレームワーク (Vert.x)</p></li>
+<li><p>高水準基本命令。Java の例だが、多言語にも類似の要素があるだろう：</p>
 <ul class="simple">
-<li>並行コレクション、イテレーター。</li>
-<li>Executor/ExecutorService, CompletableFuture, parallel stream,
-future tasks, lambda, etc.</li>
+<li><p>並行コレクション、イテレーター。</p></li>
+<li><p>Executor/ExecutorService, CompletableFuture, parallel stream,
+future tasks, lambda, etc.</p></li>
 </ul>
 </li>
 </ul>
@@ -991,15 +1020,16 @@ future tasks, lambda, etc.</li>
 <div class="section" id="id81">
 <h3><a class="toc-backref" href="#id163">訳者あとがき</a><a class="headerlink" href="#id81" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>システム管理者（企画、運用担当含む）管理者にも本書を勧める。</li>
-<li>デバッグは重要であるが、文献が少ない。</li>
-<li><a class="reference external" href="https://github.com/jlevy/the-art-of-command-line">The Art of Command Line</a> は気になるので是非チェックしたい。</li>
+<li><p>システム管理者（企画、運用担当含む）管理者にも本書を勧める。</p></li>
+<li><p>デバッグは重要であるが、文献が少ない。</p></li>
+<li><p><a class="reference external" href="https://github.com/jlevy/the-art-of-command-line">The Art of Command Line</a> は気になるので是非チェックしたい。</p></li>
 </ul>
 </div>
 </div>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
       </div>
       <div class="clearer"></div>
@@ -1013,7 +1043,8 @@ future tasks, lambda, etc.</li>
         <li class="right" >
           <a href="guntheroth16.html" title="Optimized C++ 下読みノート"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Effective Debugging 読書ノート</a></li> 
       </ul>
     </div>
     <div id="footer">
@@ -1022,7 +1053,7 @@ future tasks, lambda, etc.</li>
       </div>
       <div id="footer_copyright">
         Since 1999<br />
-        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+        Copyright &copy; 1999-2020, プレハブ小屋 All rights reserved.
       </div>
     </div>
   </body>

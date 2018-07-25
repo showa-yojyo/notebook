@@ -1,17 +1,17 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Jupyter 利用ノート &#8212; 読書ノート v1.4</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jupyter 利用ノート &#8212; 読書ノート v1.5dev</title>
     <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/mathjaxconf.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/mathjax-v3.js"></script>
+    
     <link rel="next" title="NumPy 利用ノート" href="python-numpy/index.html" />
     <link rel="prev" title="IPython 利用ノート" href="python-ipython.html" /> 
   </head><body>
@@ -24,7 +24,8 @@
         <li class="right" >
           <a href="python-ipython.html" title="IPython 利用ノート"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Jupyter 利用ノート</a></li> 
       </ul>
     </div>  
 
@@ -33,553 +34,554 @@
           <div class="body" role="main">
             
   <div class="section" id="jupyter">
-<h1><a class="toc-backref" href="#id20">Jupyter 利用ノート</a><a class="headerlink" href="#jupyter" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id21">Jupyter 利用ノート</a><a class="headerlink" href="#jupyter" title="Permalink to this headline">¶</a></h1>
 <p>本稿は Python 製 Web アプリケーション <a class="reference external" href="http://jupyter.org/">Jupyter</a> についての私的なノートだ。</p>
 <div class="contents topic" id="id1">
-<p class="topic-title first">ノート目次</p>
+<p class="topic-title">ノート目次</p>
 <ul class="simple">
-<li><a class="reference internal" href="#jupyter" id="id20">Jupyter 利用ノート</a><ul>
-<li><a class="reference internal" href="#id2" id="id21">関連リンクおよび参考サイト</a></li>
-<li><a class="reference internal" href="#id3" id="id22">Jupyter の概要を把握する</a><ul>
-<li><a class="reference internal" href="#terminal-ipython" id="id23">Terminal IPython</a></li>
-<li><a class="reference internal" href="#the-ipython-kernel" id="id24">The IPython Kernel</a></li>
-<li><a class="reference internal" href="#notebooks" id="id25">Notebooks</a></li>
-<li><a class="reference internal" href="#exporting-notebooks-to-other-formats" id="id26">Exporting notebooks to other formats</a></li>
-<li><a class="reference internal" href="#ipython-parallel" id="id27">IPython.parallel</a></li>
+<li><p><a class="reference internal" href="#jupyter" id="id21">Jupyter 利用ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id22">関連リンクおよび参考サイト</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id23">Jupyter の概要を把握する</a></p>
+<ul>
+<li><p><a class="reference internal" href="#terminal-ipython" id="id24">Terminal IPython</a></p></li>
+<li><p><a class="reference internal" href="#the-ipython-kernel" id="id25">The IPython Kernel</a></p></li>
+<li><p><a class="reference internal" href="#notebooks" id="id26">Notebooks</a></p></li>
+<li><p><a class="reference internal" href="#exporting-notebooks-to-other-formats" id="id27">Exporting notebooks to other formats</a></p></li>
+<li><p><a class="reference internal" href="#ipython-parallel" id="id28">IPython.parallel</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id4" id="id28">Jupyter をインストールする</a></li>
-<li><a class="reference internal" href="#id5" id="id29">設定を理解する</a><ul>
-<li><a class="reference internal" href="#id6" id="id30">設定ファイルの仕組みを理解する</a></li>
-<li><a class="reference internal" href="#id7" id="id31">関連ディレクトリーを理解する</a></li>
-<li><a class="reference internal" href="#id8" id="id32">環境変数を理解する</a></li>
+<li><p><a class="reference internal" href="#id4" id="id29">Jupyter をインストールする</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id30">設定を理解する</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id6" id="id31">設定ファイルの仕組みを理解する</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id32">関連ディレクトリーを理解する</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id33">環境変数を理解する</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id9" id="id33">サブコマンドを確認する</a></li>
-<li><a class="reference internal" href="#jupyter-console" id="id34">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">console</span></code></a></li>
-<li><a class="reference internal" href="#jupyter-kernelspec" id="id35">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">kernelspec</span></code></a></li>
-<li><a class="reference internal" href="#jupyter-migrate" id="id36">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">migrate</span></code></a></li>
-<li><a class="reference internal" href="#jupyter-nbconvert" id="id37">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">nbconvert</span></code></a><ul>
-<li><a class="reference internal" href="#id10" id="id38">設定ファイルを編集する</a></li>
+<li><p><a class="reference internal" href="#id9" id="id34">サブコマンドを確認する</a></p></li>
+<li><p><a class="reference internal" href="#jupyter-console" id="id35">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">console</span></code></a></p></li>
+<li><p><a class="reference internal" href="#jupyter-kernelspec" id="id36">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">kernelspec</span></code></a></p></li>
+<li><p><a class="reference internal" href="#jupyter-migrate" id="id37">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">migrate</span></code></a></p></li>
+<li><p><a class="reference internal" href="#jupyter-nbconvert" id="id38">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">nbconvert</span></code></a></p>
+<ul>
+<li><p><a class="reference internal" href="#id10" id="id39">設定ファイルを編集する</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#jupyter-nbextension" id="id39">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">nbextension</span></code></a></li>
-<li><a class="reference internal" href="#jupyter-notebook" id="id40">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">notebook</span></code></a><ul>
-<li><a class="reference internal" href="#id11" id="id41">Jupyter Notebook を起動する</a></li>
-<li><a class="reference internal" href="#id12" id="id42">ダッシュボードを理解する</a></li>
-<li><a class="reference internal" href="#id13" id="id43">文書の編集について</a></li>
-<li><a class="reference internal" href="#id14" id="id44">文書の編集を終了する</a></li>
-<li><a class="reference internal" href="#id15" id="id45">文書をダウンロードする</a></li>
-<li><a class="reference internal" href="#id16" id="id46">Jupyter Notebook を終了する</a></li>
+<li><p><a class="reference internal" href="#jupyter-nbextension" id="id40">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">nbextension</span></code></a></p></li>
+<li><p><a class="reference internal" href="#jupyter-notebook" id="id41">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">notebook</span></code></a></p>
+<ul>
+<li><p><a class="reference internal" href="#id11" id="id42">Jupyter Notebook を起動する</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id43">ダッシュボードを理解する</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id44">文書の編集について</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id45">文書の編集を終了する</a></p></li>
+<li><p><a class="reference internal" href="#id15" id="id46">文書をダウンロードする</a></p></li>
+<li><p><a class="reference internal" href="#id16" id="id47">Jupyter Notebook を終了する</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#jupyter-qtconsole" id="id47">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">qtconsole</span></code></a></li>
-<li><a class="reference internal" href="#jupyter-serverextension" id="id48">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">serverextension</span></code></a></li>
-<li><a class="reference internal" href="#jupyter-trust" id="id49">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">trust</span></code></a></li>
-<li><a class="reference internal" href="#id17" id="id50">ノート</a></li>
+<li><p><a class="reference internal" href="#jupyter-qtconsole" id="id48">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">qtconsole</span></code></a></p></li>
+<li><p><a class="reference internal" href="#jupyter-serverextension" id="id49">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">serverextension</span></code></a></p></li>
+<li><p><a class="reference internal" href="#jupyter-trust" id="id50">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">trust</span></code></a></p></li>
+<li><p><a class="reference internal" href="#id18" id="id51">ノート</a></p></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>本稿執筆時の動作環境は次のとおり。</p>
-<ul class="last simple">
-<li>OS: Windows 10 Home (64 bit)</li>
-<li><a class="reference external" href="http://www.python.org/">Python</a>: 3.5.2 (64 bit)</li>
-<li><a class="reference external" href="http://jupyter.org/">Jupyter</a>: 1.0.0<ul>
-<li>jupyter_client: 4.3.0</li>
-<li>jupyter_console: 5.0.0</li>
-<li>jupyter_core: 4.1.1</li>
+<ul class="simple">
+<li><p>OS: Windows 10 Home (64 bit)</p></li>
+<li><p><a class="reference external" href="http://www.python.org/">Python</a>: 3.5.2 (64 bit)</p></li>
+<li><p><a class="reference external" href="http://jupyter.org/">Jupyter</a>: 1.0.0</p>
+<ul>
+<li><p>jupyter_client: 4.3.0</p></li>
+<li><p>jupyter_console: 5.0.0</p></li>
+<li><p>jupyter_core: 4.1.1</p></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="id2">
-<h2><a class="toc-backref" href="#id21">関連リンクおよび参考サイト</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt><a class="reference external" href="http://jupyter.org/">Project Jupyter</a></dt>
-<dd>Jupyter 開発サイトのホームページ。</dd>
-<dt><a class="reference external" href="https://jupyter-console.readthedocs.io/en/latest/">Jupyter console</a></dt>
-<dd>Jupyter Console 開発サイトのホームページ。中身は開発者向けであり、利用者に対する気の利いた文書のようなものはない。</dd>
-<dt><a class="reference external" href="https://jupyter-notebook.readthedocs.io/en/latest/">The Jupyter notebook</a></dt>
-<dd>Jupyter Notebook 開発サイトのホームページ。</dd>
-<dt><a class="reference external" href="https://jupyter.org/qtconsole/stable/">A Qt Console for Jupyter</a></dt>
-<dd>Jupyter QtConsole 開発サイトのホームページ。</dd>
-<dt><a class="reference external" href="https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages">IPython kernels for other languages</a></dt>
-<dd>カーネル一覧。どうやら一般的にカーネルごとにインストール方法が異なるらしい。</dd>
-<dt><a class="reference external" href="http://pandoc.org/">Pandoc</a></dt>
-<dd>Notebook ファイルを LaTeX やさらには PDF 形式に変換するのにこれが必要になる。</dd>
+<h2><a class="toc-backref" href="#id22">関連リンクおよび参考サイト</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<dl class="simple">
+<dt><a class="reference external" href="http://jupyter.org/">Project Jupyter</a></dt><dd><p>Jupyter 開発サイトのホームページ。</p>
+</dd>
+<dt><a class="reference external" href="https://jupyter-console.readthedocs.io/en/latest/">Jupyter console</a></dt><dd><p>Jupyter Console 開発サイトのホームページ。中身は開発者向けであり、利用者に対する気の利いた文書のようなものはない。</p>
+</dd>
+<dt><a class="reference external" href="https://jupyter-notebook.readthedocs.io/en/latest/">The Jupyter notebook</a></dt><dd><p>Jupyter Notebook 開発サイトのホームページ。</p>
+</dd>
+<dt><a class="reference external" href="https://jupyter.org/qtconsole/stable/">A Qt Console for Jupyter</a></dt><dd><p>Jupyter QtConsole 開発サイトのホームページ。</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages">IPython kernels for other languages</a></dt><dd><p>カーネル一覧。どうやら一般的にカーネルごとにインストール方法が異なるらしい。</p>
+</dd>
+<dt><a class="reference external" href="http://pandoc.org/">Pandoc</a></dt><dd><p>Notebook ファイルを LaTeX やさらには PDF 形式に変換するのにこれが必要になる。</p>
+</dd>
 </dl>
 </div>
 <div class="section" id="id3">
-<h2><a class="toc-backref" href="#id22">Jupyter の概要を把握する</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id23">Jupyter の概要を把握する</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>IPython と Jupyter Notebook がどのように作用し合うかをまとめた、次の文書を読むと良い：</p>
 <ul class="simple">
-<li><a class="reference external" href="http://jupyter.readthedocs.io/en/latest/architecture/how_jupyter_ipython_work.html">How IPython and Jupyter Notebook work</a></li>
+<li><p><a class="reference external" href="http://jupyter.readthedocs.io/en/latest/architecture/how_jupyter_ipython_work.html">How IPython and Jupyter Notebook work</a></p></li>
 </ul>
 <div class="section" id="terminal-ipython">
-<h3><a class="toc-backref" href="#id23">Terminal IPython</a><a class="headerlink" href="#terminal-ipython" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id24">Terminal IPython</a><a class="headerlink" href="#terminal-ipython" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>承知しているが IPython とは REPL モデルの端末である。</li>
+<li><p>承知しているが IPython とは REPL モデルの端末である。</p></li>
 </ul>
 </div>
 <div class="section" id="the-ipython-kernel">
-<h3><a class="toc-backref" href="#id24">The IPython Kernel</a><a class="headerlink" href="#the-ipython-kernel" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id25">The IPython Kernel</a><a class="headerlink" href="#the-ipython-kernel" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>IPython Kernel は分離したプロセスであって、ユーザーコードを走らせたり補完を計算するようなことについての責任がある。</li>
-<li>Notebook や Qt コンソールのようなフロントエンドは
+<li><p>IPython Kernel は分離したプロセスであって、ユーザーコードを走らせたり補完を計算するようなことについての責任がある。</p></li>
+<li><p>Notebook や Qt コンソールのようなフロントエンドは
 ZeroMQ ソケッツを使って送信される JSON メッセージを用いて
-IPython Kernel とやりとりをする。</li>
-<li>最初の図式。
+IPython Kernel とやりとりをする。</p></li>
+<li><p>最初の図式。
 Terminal IPython と IPython Kernel との共通部分が実行部ということか。
 Terminal IPython には JSON も ZeroMQ も関係がなく、
-IPython Kernel には標準入出力のどちらも関係しない。</li>
-<li>新しい言語を支援するには、その言語でのカーネルを開発することで可能になるのだが、この事をより実践的にするために開発陣は IPython を洗練している。</li>
-<li>二番目の図式は別の言語のカーネルを実装するふたつの方法を表現している？ラッパー式とネイティブ式があることは理解できる。対象言語の実行と通信とを両方とも実装する方式は後者に相当する。</li>
-<li>octave_kernel や bash_kernel はラッパー式で、
-IJulia や IHaskell はネイティブ式だ。</li>
+IPython Kernel には標準入出力のどちらも関係しない。</p></li>
+<li><p>新しい言語を支援するには、その言語でのカーネルを開発することで可能になるのだが、この事をより実践的にするために開発陣は IPython を洗練している。</p></li>
+<li><p>二番目の図式は別の言語のカーネルを実装するふたつの方法を表現している？ラッパー式とネイティブ式があることは理解できる。対象言語の実行と通信とを両方とも実装する方式は後者に相当する。</p></li>
+<li><p>octave_kernel や bash_kernel はラッパー式で、
+IJulia や IHaskell はネイティブ式だ。</p></li>
 </ul>
 </div>
 <div class="section" id="notebooks">
-<h3><a class="toc-backref" href="#id25">Notebooks</a><a class="headerlink" href="#notebooks" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id26">Notebooks</a><a class="headerlink" href="#notebooks" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Notebook も IPython Kernel のフロントエンドの一つであるが、ある特別なことをする。</li>
-<li>ユーザーコードを走らせることに加えて、
-Notebook 専用の書式の編集可能な文書にコード、出力、Markdown テキストを保存する。</li>
-<li>ユーザーが保存するときに、ブラウザーからサーバーに文書データが送信されて、ディスクに拡張子 <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> の JSON ファイルとして保存する。</li>
-<li>カーネルではなくサーバーが Notebook データの保存や読み込みを行う。そのため、編集したいノートの言語カーネルをユーザーが持っていなくても編集は可能である。</li>
+<li><p>Notebook も IPython Kernel のフロントエンドの一つであるが、ある特別なことをする。</p></li>
+<li><p>ユーザーコードを走らせることに加えて、
+Notebook 専用の書式の編集可能な文書にコード、出力、Markdown テキストを保存する。</p></li>
+<li><p>ユーザーが保存するときに、ブラウザーからサーバーに文書データが送信されて、ディスクに拡張子 <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> の JSON ファイルとして保存する。</p></li>
+<li><p>カーネルではなくサーバーが Notebook データの保存や読み込みを行う。そのため、編集したいノートの言語カーネルをユーザーが持っていなくても編集は可能である。</p></li>
 </ul>
 </div>
 <div class="section" id="exporting-notebooks-to-other-formats">
-<h3><a class="toc-backref" href="#id26">Exporting notebooks to other formats</a><a class="headerlink" href="#exporting-notebooks-to-other-formats" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id27">Exporting notebooks to other formats</a><a class="headerlink" href="#exporting-notebooks-to-other-formats" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Nbconvert についての概要。後述する <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">nbconvert</span></code> の覚え書きで見ていく。</li>
-<li>ウェブ上の <code class="docutils literal notranslate"><span class="pre">ipynb</span></code> ファイルの URL を指定すると
+<li><p>Nbconvert についての概要。後述する <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">nbconvert</span></code> の覚え書きで見ていく。</p></li>
+<li><p>ウェブ上の <code class="docutils literal notranslate"><span class="pre">ipynb</span></code> ファイルの URL を指定すると
 HTML に変換してそのままブラウザーで閲覧できる
-<a class="reference external" href="http://nbviewer.jupyter.org/">nbviewer</a> というサービスがある。</li>
+<a class="reference external" href="http://nbviewer.jupyter.org/">nbviewer</a> というサービスがある。</p></li>
 </ul>
 </div>
 <div class="section" id="ipython-parallel">
-<h3><a class="toc-backref" href="#id27">IPython.parallel</a><a class="headerlink" href="#ipython-parallel" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id28">IPython.parallel</a><a class="headerlink" href="#ipython-parallel" title="Permalink to this headline">¶</a></h3>
 <p>IPython は IPython.parallel という名の平行計算フレームワークを含む。多数の個々のエンジンを制御することができる、上に述べた IPython Kernel の拡張版である。</p>
 </div>
 </div>
 <div class="section" id="id4">
-<h2><a class="toc-backref" href="#id28">Jupyter をインストールする</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id29">Jupyter をインストールする</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference internal" href="python-miniconda.html#python-pkg-proc"><span class="std std-ref">一般のサードパーティー製 Python パッケージのインストール手順</span></a> を参照してインストールすること。図で示されているところの <strong class="program">conda</strong> を利用するルートになる。</p>
 <p>参考までに私の Miniconda 環境で Python 本体しか使えない更地の仮想環境を作成し、そこに Jupyter をインストールしようとすると、どのような他の必要パッケージが一緒にインストールされるのかを調べた。下に端末での入出力を掲載するが、かなりの数のパッケージを必要とすることがわかる。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda install jupyter
-Fetching package metadata .........
-Solving package specifications: ..........
-Using Anaconda API: https://api.anaconda.org
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> conda install jupyter
+<span class="go">Fetching package metadata .........</span>
+<span class="go">Solving package specifications: ..........</span>
+<span class="go">Using Anaconda API: https://api.anaconda.org</span>
 
-Package plan for installation in environment D:\Miniconda3\envs\jupyter-demo:
+<span class="go">Package plan for installation in environment D:\Miniconda3\envs\jupyter-demo:</span>
 
-The following NEW packages will be INSTALLED:
+<span class="go">The following NEW packages will be INSTALLED:</span>
 
-    _nb_ext_conf:        0.3.0-py35_0
-    anaconda-client:     1.5.1-py35_0
-    clyent:              1.2.2-py35_0
-    colorama:            0.3.7-py35_0
-    decorator:           4.0.10-py35_0
-    entrypoints:         0.2.2-py35_0
-    ipykernel:           4.4.1-py35_0
-    ipython:             5.1.0-py35_0
-    ipython_genutils:    0.1.0-py35_0
-    ipywidgets:          5.2.2-py35_0
-    jinja2:              2.8-py35_1
-    jpeg:                8d-vc14_0       [vc14]
-    jsonschema:          2.5.1-py35_0
-    jupyter:             1.0.0-py35_3
-    jupyter_client:      4.3.0-py35_0
-    jupyter_console:     5.0.0-py35_0
-    jupyter_core:        4.1.1-py35_0
-    libpng:              1.6.22-vc14_0   [vc14]
-    libtiff:             4.0.6-vc14_2    [vc14]
-    markupsafe:          0.23-py35_2
-    mistune:             0.7.2-py35_0
-    nb_anacondacloud:    1.2.0-py35_0
-    nb_conda:            2.0.0-py35_0
-    nb_conda_kernels:    2.0.0-py35_0
-    nbconvert:           4.2.0-py35_0
-    nbformat:            4.1.0-py35_0
-    nbpresent:           3.0.2-py35_0
-    notebook:            4.2.2-py35_0
-    openssl:             1.0.2h-vc14_0   [vc14]
-    path.py:             8.2.1-py35_0
-    pickleshare:         0.7.3-py35_0
-    prompt_toolkit:      1.0.3-py35_0
-    pygments:            2.1.3-py35_0
-    pyqt:                4.11.4-py35_7
-    python-dateutil:     2.5.3-py35_0
-    pytz:                2016.6.1-py35_0
-    pyyaml:              3.11-py35_4
-    pyzmq:               15.4.0-py35_0
-    qt:                  4.8.7-vc14_9    [vc14]
-    qtconsole:           4.2.1-py35_0
-    requests:            2.11.1-py35_0
-    simplegeneric:       0.8.1-py35_1
-    sip:                 4.18-py35_0
-    six:                 1.10.0-py35_0
-    tornado:             4.4.1-py35_0
-    traitlets:           4.2.2-py35_0
-    wcwidth:             0.1.7-py35_0
-    widgetsnbextension:  1.2.6-py35_0
-    win_unicode_console: 0.5-py35_0
-    zlib:                1.2.8-vc14_3    [vc14]
+<span class="go">    _nb_ext_conf:        0.3.0-py35_0</span>
+<span class="go">    anaconda-client:     1.5.1-py35_0</span>
+<span class="go">    clyent:              1.2.2-py35_0</span>
+<span class="go">    colorama:            0.3.7-py35_0</span>
+<span class="go">    decorator:           4.0.10-py35_0</span>
+<span class="go">    entrypoints:         0.2.2-py35_0</span>
+<span class="go">    ipykernel:           4.4.1-py35_0</span>
+<span class="go">    ipython:             5.1.0-py35_0</span>
+<span class="go">    ipython_genutils:    0.1.0-py35_0</span>
+<span class="go">    ipywidgets:          5.2.2-py35_0</span>
+<span class="go">    jinja2:              2.8-py35_1</span>
+<span class="go">    jpeg:                8d-vc14_0       [vc14]</span>
+<span class="go">    jsonschema:          2.5.1-py35_0</span>
+<span class="go">    jupyter:             1.0.0-py35_3</span>
+<span class="go">    jupyter_client:      4.3.0-py35_0</span>
+<span class="go">    jupyter_console:     5.0.0-py35_0</span>
+<span class="go">    jupyter_core:        4.1.1-py35_0</span>
+<span class="go">    libpng:              1.6.22-vc14_0   [vc14]</span>
+<span class="go">    libtiff:             4.0.6-vc14_2    [vc14]</span>
+<span class="go">    markupsafe:          0.23-py35_2</span>
+<span class="go">    mistune:             0.7.2-py35_0</span>
+<span class="go">    nb_anacondacloud:    1.2.0-py35_0</span>
+<span class="go">    nb_conda:            2.0.0-py35_0</span>
+<span class="go">    nb_conda_kernels:    2.0.0-py35_0</span>
+<span class="go">    nbconvert:           4.2.0-py35_0</span>
+<span class="go">    nbformat:            4.1.0-py35_0</span>
+<span class="go">    nbpresent:           3.0.2-py35_0</span>
+<span class="go">    notebook:            4.2.2-py35_0</span>
+<span class="go">    openssl:             1.0.2h-vc14_0   [vc14]</span>
+<span class="go">    path.py:             8.2.1-py35_0</span>
+<span class="go">    pickleshare:         0.7.3-py35_0</span>
+<span class="go">    prompt_toolkit:      1.0.3-py35_0</span>
+<span class="go">    pygments:            2.1.3-py35_0</span>
+<span class="go">    pyqt:                4.11.4-py35_7</span>
+<span class="go">    python-dateutil:     2.5.3-py35_0</span>
+<span class="go">    pytz:                2016.6.1-py35_0</span>
+<span class="go">    pyyaml:              3.11-py35_4</span>
+<span class="go">    pyzmq:               15.4.0-py35_0</span>
+<span class="go">    qt:                  4.8.7-vc14_9    [vc14]</span>
+<span class="go">    qtconsole:           4.2.1-py35_0</span>
+<span class="go">    requests:            2.11.1-py35_0</span>
+<span class="go">    simplegeneric:       0.8.1-py35_1</span>
+<span class="go">    sip:                 4.18-py35_0</span>
+<span class="go">    six:                 1.10.0-py35_0</span>
+<span class="go">    tornado:             4.4.1-py35_0</span>
+<span class="go">    traitlets:           4.2.2-py35_0</span>
+<span class="go">    wcwidth:             0.1.7-py35_0</span>
+<span class="go">    widgetsnbextension:  1.2.6-py35_0</span>
+<span class="go">    win_unicode_console: 0.5-py35_0</span>
+<span class="go">    zlib:                1.2.8-vc14_3    [vc14]</span>
 
-Proceed ([y]/n)?
+<span class="go">Proceed ([y]/n)?</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li>実際の作業環境ではこれらの被依存パッケージのうちのいくつかはすでに導入が済んでいる。ダウンロードとインストールに要する時間は上記のリストから想像するよりは短くなる。</li>
-<li>同じことを確認するためのコマンドライン入力は
-<code class="code docutils literal notranslate"><span class="pre">conda</span> <span class="pre">create</span> <span class="pre">--dry-run</span> <span class="pre">-n</span> <span class="pre">jupyter-demo</span> <span class="pre">jupyter</span></code> でもよい。</li>
+<li><p>実際の作業環境ではこれらの被依存パッケージのうちのいくつかはすでに導入が済んでいる。ダウンロードとインストールに要する時間は上記のリストから想像するよりは短くなる。</p></li>
+<li><p>同じことを確認するためのコマンドライン入力は
+<code class="code docutils literal notranslate"><span class="pre">conda</span> <span class="pre">create</span> <span class="pre">--dry-run</span> <span class="pre">-n</span> <span class="pre">jupyter-demo</span> <span class="pre">jupyter</span></code> でもよい。</p></li>
 </ul>
 </div>
 <div class="section" id="id5">
-<h2><a class="toc-backref" href="#id29">設定を理解する</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id30">設定を理解する</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id6">
-<h3><a class="toc-backref" href="#id30">設定ファイルの仕組みを理解する</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id31">設定ファイルの仕組みを理解する</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>コマンドラインツールとして実装されている Jupyter の各サブコマンドにはそれぞれ専用の設定ファイルが対応する。設定ファイル自身は optional なので、利用者が不要と判断すればわざわざ作成することはない。</p>
 <p>例えば後述するサブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">nbconvert</span></code> はそれ専用の設定ファイルを扱っており、その既定のパスは
 <code class="file docutils literal notranslate"><span class="pre">$HOME/.jupyter/jupyter_nbconvert_config.py</span></code> である。このファイルのスケルトンを得るには、次のようにする（一部加工済）。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ jupyter nbconvert --generate-config
-Writing default config to: $HOME\.jupyter\jupyter_nbconvert_config.py
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> jupyter nbconvert --generate-config
+<span class="go">Writing default config to: $HOME\.jupyter\jupyter_nbconvert_config.py</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li>他のサブコマンドも同様にオプション <code class="docutils literal notranslate"><span class="pre">--generate-config</span></code> を指定することでそのサブコマンド専用設定ファイルのスケルトンを既定のディレクトリーに生成することができるものがある。</li>
-<li>設定ファイルで指定できる項目はいずれもコマンドライン引数の形でも指定できる。同じ項目について、設定ファイルとコマンドラインとで衝突するような値をそれぞれで指定すると、コマンドラインでの指定が常に優先されるはずだ。</li>
+<li><p>他のサブコマンドも同様にオプション <code class="docutils literal notranslate"><span class="pre">--generate-config</span></code> を指定することでそのサブコマンド専用設定ファイルのスケルトンを既定のディレクトリーに生成することができるものがある。</p></li>
+<li><p>設定ファイルで指定できる項目はいずれもコマンドライン引数の形でも指定できる。同じ項目について、設定ファイルとコマンドラインとで衝突するような値をそれぞれで指定すると、コマンドラインでの指定が常に優先されるはずだ。</p></li>
 </ul>
 </div>
 <div class="section" id="id7">
-<h3><a class="toc-backref" href="#id31">関連ディレクトリーを理解する</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id32">関連ディレクトリーを理解する</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>端末から <strong class="program">jupyter</strong> を次のように実行すると Jupyter が参照するディレクトリーをすべて確認できる（一部加工済）：</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ jupyter --paths
-config:
-    $HOME\.jupyter
-    D:\Miniconda3\etc\jupyter
-    C:\ProgramData\jupyter
-data:
-    C:\Users\$USER\AppData\Roaming\jupyter
-    D:\Miniconda3\share\jupyter
-    C:\ProgramData\jupyter
-runtime:
-    C:\Users\$USER\AppData\Roaming\jupyter\runtime
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> jupyter --paths
+<span class="go">config:</span>
+<span class="gp">    $</span>HOME<span class="se">\.</span>jupyter
+<span class="go">    D:\Miniconda3\etc\jupyter</span>
+<span class="go">    C:\ProgramData\jupyter</span>
+<span class="go">data:</span>
+<span class="go">    C:\Users\$USER\AppData\Roaming\jupyter</span>
+<span class="go">    D:\Miniconda3\share\jupyter</span>
+<span class="go">    C:\ProgramData\jupyter</span>
+<span class="go">runtime:</span>
+<span class="go">    C:\Users\$USER\AppData\Roaming\jupyter\runtime</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong class="program">jupyter</strong> は上の三種の区分別にディレクトリーを表示するためのコマンドラインオプションも提供している。</li>
-<li><code class="docutils literal notranslate"><span class="pre">config:</span></code> で列挙されたものは Jupyter のサブコマンドの設定ファイル置き場だ。設定ファイルについては、それを扱う個々のサブコマンドのところで述べる。</li>
+<li><p><strong class="program">jupyter</strong> は上の三種の区分別にディレクトリーを表示するためのコマンドラインオプションも提供している。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">config:</span></code> で列挙されたものは Jupyter のサブコマンドの設定ファイル置き場だ。設定ファイルについては、それを扱う個々のサブコマンドのところで述べる。</p></li>
 </ul>
 </div>
 <div class="section" id="id8">
-<h3><a class="toc-backref" href="#id32">環境変数を理解する</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id33">環境変数を理解する</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>Jupyter は先述の関係ディレクトリーの区分に対応する環境変数を規定している。</p>
 <ul class="simple">
-<li><span class="target" id="index-0"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">JUPYTER_CONFIG_DIR</span></code></li>
-<li><span class="target" id="index-1"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">JUPYTER_PATH</span></code></li>
-<li><span class="target" id="index-2"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">JUPYTER_RUNTIME_DIR</span></code></li>
+<li><p><span class="target" id="index-0"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">JUPYTER_CONFIG_DIR</span></code></p></li>
+<li><p><span class="target" id="index-1"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">JUPYTER_PATH</span></code></p></li>
+<li><p><span class="target" id="index-2"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">JUPYTER_RUNTIME_DIR</span></code></p></li>
 </ul>
 <p>環境変数のどれかに何らかのディレクトリーパスを指定すると、それが対応する区分のものの地点を表すものとして取り扱われる。</p>
 </div>
 </div>
 <div class="section" id="id9">
-<h2><a class="toc-backref" href="#id33">サブコマンドを確認する</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id34">サブコマンドを確認する</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <p><strong class="program">jupyter</strong> のサブコマンドを知るには、この実行ファイルがあるディレクトリーでファイル <code class="file docutils literal notranslate"><span class="pre">jupyter-*.exe</span></code> を表示すればよい。ハイフン以降拡張子以前の文字列がサブコマンド名と合致する。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd /d/Miniconda3/Scripts
-$ ls jupyter*.exe
-jupyter.exe*             jupyter-nbextension.exe*
-jupyter-console.exe*     jupyter-notebook.exe*
-jupyter-kernelspec.exe*  jupyter-qtconsole.exe*
-jupyter-migrate.exe*     jupyter-serverextension.exe*
-jupyter-nbconvert.exe*   jupyter-trust.exe*
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> /d/Miniconda3/Scripts
+<span class="gp">$</span> ls jupyter*.exe
+<span class="go">jupyter.exe*             jupyter-nbextension.exe*</span>
+<span class="go">jupyter-console.exe*     jupyter-notebook.exe*</span>
+<span class="go">jupyter-kernelspec.exe*  jupyter-qtconsole.exe*</span>
+<span class="go">jupyter-migrate.exe*     jupyter-serverextension.exe*</span>
+<span class="go">jupyter-nbconvert.exe*   jupyter-trust.exe*</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">subcommand</span> <span class="pre">args</span></code> を実行すると、実際には
-<code class="code docutils literal notranslate"><span class="pre">jupyter-subcommand</span> <span class="pre">args</span></code> を実行することと同じであると考えられる。</li>
-<li>どのサブコマンドもオプション <code class="docutils literal notranslate"><span class="pre">--help</span></code> と <code class="docutils literal notranslate"><span class="pre">--help-all</span></code> を提供している。</li>
-<li>サブコマンドにはさらにサブコマンドが存在することがある。一例を挙げると <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">nbextenion</span> <span class="pre">list</span></code> だ。</li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">subcommand</span> <span class="pre">args</span></code> を実行すると、実際には
+<code class="code docutils literal notranslate"><span class="pre">jupyter-subcommand</span> <span class="pre">args</span></code> を実行することと同じであると考えられる。</p></li>
+<li><p>どのサブコマンドもオプション <code class="docutils literal notranslate"><span class="pre">--help</span></code> と <code class="docutils literal notranslate"><span class="pre">--help-all</span></code> を提供している。</p></li>
+<li><p>サブコマンドにはさらにサブコマンドが存在することがある。一例を挙げると <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">nbextenion</span> <span class="pre">list</span></code> だ。</p></li>
 </ul>
 </div>
 <div class="section" id="jupyter-console">
-<h2><a class="toc-backref" href="#id34">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">console</span></code></a><a class="headerlink" href="#jupyter-console" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id35">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">console</span></code></a><a class="headerlink" href="#jupyter-console" title="Permalink to this headline">¶</a></h2>
 <p>このサブコマンドはコンソールアプリケーションのセッションを現在の端末ウィンドウに開始する。</p>
-<dl class="docutils">
-<dt><code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">console</span></code></dt>
-<dd><p class="first">このコマンドを実行すると、その場で IPython のセッションが開始する。
+<dl>
+<dt><code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">console</span></code></dt><dd><p>このコマンドを実行すると、その場で IPython のセッションが開始する。
 <a class="reference internal" href="python-ipython.html"><span class="doc">IPython 利用ノート</span></a> で習得した物事が全て通用する。</p>
-<p class="last">単に <strong class="program">ipython</strong> を起動するのとは異なり、このサブコマンドでは
+<p>単に <strong class="program">ipython</strong> を起動するのとは異なり、このサブコマンドでは
 Python のプロセスが 2 個起動する。後述するサブコマンドにもこのような挙動のものがある。なぜこのようになるかを説明できるようにしておくこと。</p>
 </dd>
 </dl>
 <ul class="simple">
-<li>コマンドラインオプション <code class="docutils literal notranslate"><span class="pre">--existing</span></code> はこのことと関係する？</li>
+<li><p>コマンドラインオプション <code class="docutils literal notranslate"><span class="pre">--existing</span></code> はこのことと関係する？</p></li>
 </ul>
-<dl class="docutils">
-<dt><code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">console</span> <span class="pre">--kernel</span> <span class="pre">kernel_name</span></code></dt>
-<dd>開始するための既定のカーネルを指定する。このオプションがないと <code class="docutils literal notranslate"><span class="pre">python</span></code> が指定されたものとして振る舞う。</dd>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">console</span> <span class="pre">--kernel</span> <span class="pre">kernel_name</span></code></dt><dd><p>開始するための既定のカーネルを指定する。このオプションがないと <code class="docutils literal notranslate"><span class="pre">python</span></code> が指定されたものとして振る舞う。</p>
+</dd>
 </dl>
 <ul class="simple">
-<li>そういうわけで、Python 以外にも何かカーネルをインストールしないと面白くない。</li>
-<li>オプション <code class="docutils literal notranslate"><span class="pre">--generate-config</span></code> を与えると、このサブコマンド専用の設定ファイル <code class="file docutils literal notranslate"><span class="pre">jupyter_console_config.py</span></code> のスケルトンを前述のディレクトリーに生成する。</li>
+<li><p>そういうわけで、Python 以外にも何かカーネルをインストールしないと面白くない。</p></li>
+<li><p>オプション <code class="docutils literal notranslate"><span class="pre">--generate-config</span></code> を与えると、このサブコマンド専用の設定ファイル <code class="file docutils literal notranslate"><span class="pre">jupyter_console_config.py</span></code> のスケルトンを前述のディレクトリーに生成する。</p></li>
 </ul>
 <p><a class="reference external" href="https://github.com/takluyver/bash_kernel">bash_kernel</a> をインストールして（次の節参照）コンソールを起動してみたところ、謎の例外が発生した。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ jupyter console --kernel=bash
-Traceback (most recent call last):
-  File &quot;D:\Miniconda3\lib\runpy.py&quot;, line 184, in _run_module_as_main
-    &quot;__main__&quot;, mod_spec)
-  File &quot;D:\Miniconda3\lib\runpy.py&quot;, line 85, in _run_code
-    exec(code, run_globals)
-  File &quot;D:\Miniconda3\lib\site-packages\bash_kernel\__main__.py&quot;, line 3, in &lt;module&gt;
-    IPKernelApp.launch_instance(kernel_class=BashKernel)
-  File &quot;D:\Miniconda3\lib\site-packages\traitlets\config\application.py&quot;, line 595, in launch_instance
-    app.initialize(argv)
-  File &quot;&lt;decorator-gen-121&gt;&quot;, line 2, in initialize
-  File &quot;D:\Miniconda3\lib\site-packages\traitlets\config\application.py&quot;, line 74, in catch_config_error
-    return method(app, *args, **kwargs)
-  File &quot;D:\Miniconda3\lib\site-packages\ipykernel\kernelapp.py&quot;, line 454, in initialize
-    self.init_kernel()
-  File &quot;D:\Miniconda3\lib\site-packages\ipykernel\kernelapp.py&quot;, line 365, in init_kernel
-    user_ns=self.user_ns,
-  File &quot;D:\Miniconda3\lib\site-packages\traitlets\config\configurable.py&quot;, line 412, in instance
-    inst = cls(*args, **kwargs)
-  File &quot;D:\Miniconda3\lib\site-packages\bash_kernel\kernel.py&quot;, line 46, in __init__
-    self._start_bash()
-  File &quot;D:\Miniconda3\lib\site-packages\bash_kernel\kernel.py&quot;, line 55, in _start_bash
-    self.bashwrapper = replwrap.bash()
-  File &quot;D:\Miniconda3\lib\site-packages\pexpect\replwrap.py&quot;, line 110, in bash
-    child = pexpect.spawn(command, [&#39;--rcfile&#39;, bashrc], echo=False,
-AttributeError: module &#39;pexpect&#39; has no attribute &#39;spawn&#39;
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> jupyter console --kernel<span class="o">=</span>bash
+<span class="go">Traceback (most recent call last):</span>
+<span class="go">  File &quot;D:\Miniconda3\lib\runpy.py&quot;, line 184, in _run_module_as_main</span>
+<span class="go">    &quot;__main__&quot;, mod_spec)</span>
+<span class="go">  File &quot;D:\Miniconda3\lib\runpy.py&quot;, line 85, in _run_code</span>
+<span class="go">    exec(code, run_globals)</span>
+<span class="go">  File &quot;D:\Miniconda3\lib\site-packages\bash_kernel\__main__.py&quot;, line 3, in &lt;module&gt;</span>
+<span class="go">    IPKernelApp.launch_instance(kernel_class=BashKernel)</span>
+<span class="go">  File &quot;D:\Miniconda3\lib\site-packages\traitlets\config\application.py&quot;, line 595, in launch_instance</span>
+<span class="go">    app.initialize(argv)</span>
+<span class="go">  File &quot;&lt;decorator-gen-121&gt;&quot;, line 2, in initialize</span>
+<span class="go">  File &quot;D:\Miniconda3\lib\site-packages\traitlets\config\application.py&quot;, line 74, in catch_config_error</span>
+<span class="go">    return method(app, *args, **kwargs)</span>
+<span class="go">  File &quot;D:\Miniconda3\lib\site-packages\ipykernel\kernelapp.py&quot;, line 454, in initialize</span>
+<span class="go">    self.init_kernel()</span>
+<span class="go">  File &quot;D:\Miniconda3\lib\site-packages\ipykernel\kernelapp.py&quot;, line 365, in init_kernel</span>
+<span class="go">    user_ns=self.user_ns,</span>
+<span class="go">  File &quot;D:\Miniconda3\lib\site-packages\traitlets\config\configurable.py&quot;, line 412, in instance</span>
+<span class="go">    inst = cls(*args, **kwargs)</span>
+<span class="go">  File &quot;D:\Miniconda3\lib\site-packages\bash_kernel\kernel.py&quot;, line 46, in __init__</span>
+<span class="go">    self._start_bash()</span>
+<span class="go">  File &quot;D:\Miniconda3\lib\site-packages\bash_kernel\kernel.py&quot;, line 55, in _start_bash</span>
+<span class="go">    self.bashwrapper = replwrap.bash()</span>
+<span class="go">  File &quot;D:\Miniconda3\lib\site-packages\pexpect\replwrap.py&quot;, line 110, in bash</span>
+<span class="go">    child = pexpect.spawn(command, [&#39;--rcfile&#39;, bashrc], echo=False,</span>
+<span class="go">AttributeError: module &#39;pexpect&#39; has no attribute &#39;spawn&#39;</span>
 </pre></div>
 </div>
 <p>他所製のモジュールで困ったことになっているようだ。</p>
 </div>
 <div class="section" id="jupyter-kernelspec">
-<h2><a class="toc-backref" href="#id35">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">kernelspec</span></code></a><a class="headerlink" href="#jupyter-kernelspec" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id36">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">kernelspec</span></code></a><a class="headerlink" href="#jupyter-kernelspec" title="Permalink to this headline">¶</a></h2>
 <p>このサブコマンドは Jupyter のカーネルの詳細を管理するためのものだ。
 Jupyter インストール直後にサブコマンド <code class="docutils literal notranslate"><span class="pre">list</span></code> を実行するとこのような結果を出力する。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ jupyter kernelspec list
-Available kernels:
-  python3    D:\Miniconda3\lib\site-packages\ipykernel\resources
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> jupyter kernelspec list
+<span class="go">Available kernels:</span>
+<span class="go">  python3    D:\Miniconda3\lib\site-packages\ipykernel\resources</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li>上記ディレクトリーの中身は Python ロゴが描かれたサイズの異なる PNG ファイル 2 個だ。</li>
+<li><p>上記ディレクトリーの中身は Python ロゴが描かれたサイズの異なる PNG ファイル 2 個だ。</p></li>
 </ul>
 <p>なお、
 <a class="reference external" href="https://github.com/takluyver/bash_kernel">bash_kernel</a> を Python 環境にインストールし、それから Jupyter 環境にインストールし、最後に本サブコマンドを実行すると次のようになる（一部加工済）：</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install bash_kernel
-Collecting bash_kernel
-  Downloading bash_kernel-0.4.1-py2.py3-none-any.whl
-Collecting pexpect&gt;=3.3 (from bash_kernel)
-  Downloading pexpect-4.2.1-py2.py3-none-any.whl (55kB)
-    100% |笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎| 61kB 140kB/s
-Collecting ptyprocess&gt;=0.5 (from pexpect&gt;=3.3-&gt;bash_kernel)
-  Downloading ptyprocess-0.5.1-py2.py3-none-any.whl
-Installing collected packages: ptyprocess, pexpect, bash-kernel
-Successfully installed bash-kernel-0.4.1 pexpect-4.2.1 ptyprocess-0.5.1
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> pip install bash_kernel
+<span class="go">Collecting bash_kernel</span>
+<span class="go">  Downloading bash_kernel-0.4.1-py2.py3-none-any.whl</span>
+<span class="go">Collecting pexpect&gt;=3.3 (from bash_kernel)</span>
+<span class="go">  Downloading pexpect-4.2.1-py2.py3-none-any.whl (55kB)</span>
+<span class="go">    100% |笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎| 61kB 140kB/s</span>
+<span class="go">Collecting ptyprocess&gt;=0.5 (from pexpect&gt;=3.3-&gt;bash_kernel)</span>
+<span class="go">  Downloading ptyprocess-0.5.1-py2.py3-none-any.whl</span>
+<span class="go">Installing collected packages: ptyprocess, pexpect, bash-kernel</span>
+<span class="go">Successfully installed bash-kernel-0.4.1 pexpect-4.2.1 ptyprocess-0.5.1</span>
 
-$ python -m bash_kernel.install
-Installing IPython kernel spec
+<span class="gp">$</span> python -m bash_kernel.install
+<span class="go">Installing IPython kernel spec</span>
 
-$ jupyter kernelspec list
-Available kernels:
-  python3    D:\Miniconda3\lib\site-packages\ipykernel\resources
-  bash       $APPDATA\Roaming\jupyter\kernels\bash
+<span class="gp">$</span> jupyter kernelspec list
+<span class="go">Available kernels:</span>
+<span class="go">  python3    D:\Miniconda3\lib\site-packages\ipykernel\resources</span>
+<span class="go">  bash       $APPDATA\Roaming\jupyter\kernels\bash</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="jupyter-migrate">
-<h2><a class="toc-backref" href="#id36">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">migrate</span></code></a><a class="headerlink" href="#jupyter-migrate" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id37">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">migrate</span></code></a><a class="headerlink" href="#jupyter-migrate" title="Permalink to this headline">¶</a></h2>
 <p>私はこれを利用する必要はないらしい。事実、IPython から Jupyter に移行したい資源は何もなかったはずだ。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ jupyter migrate
-[JupyterMigrate] Found nothing to migrate.
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> jupyter migrate
+<span class="go">[JupyterMigrate] Found nothing to migrate.</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="jupyter-nbconvert">
-<h2><a class="toc-backref" href="#id37">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">nbconvert</span></code></a><a class="headerlink" href="#jupyter-nbconvert" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id38">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">nbconvert</span></code></a><a class="headerlink" href="#jupyter-nbconvert" title="Permalink to this headline">¶</a></h2>
 <p>このサブコマンドを ipynb ファイルから
 HTML, LaTeX, PDF, Markdown, reStructuredText といった、指定する形式のファイルを生成変換するツールとして利用する。</p>
 <p>実際にいくつかの用例を試したので、感想を記す。</p>
-<dl class="docutils">
-<dt><code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">nbconvert</span> <span class="pre">helloworld.ipynb</span></code></dt>
-<dd>ファイル <code class="file docutils literal notranslate"><span class="pre">helloworld.ipynb</span></code> から <code class="file docutils literal notranslate"><span class="pre">helloworld.html</span></code> を生成する。</dd>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">nbconvert</span> <span class="pre">helloworld.ipynb</span></code></dt><dd><p>ファイル <code class="file docutils literal notranslate"><span class="pre">helloworld.ipynb</span></code> から <code class="file docutils literal notranslate"><span class="pre">helloworld.html</span></code> を生成する。</p>
+</dd>
 </dl>
 <ul class="simple">
-<li>これは Jupyter Notebook 稼働中にブラウザーで目にするものと同じだが、これをブラウザー上で編集することはできない。</li>
-<li>ちなみにこのコマンドラインで生成する HTML ファイルはサイズが思いのほか大きくなる。見栄えがショボくても気にならないようなときにはオプション <code class="code docutils literal notranslate"><span class="pre">--template</span> <span class="pre">basic</span></code> を与えることで単純な HTML ファイルを生成させたい。</li>
+<li><p>これは Jupyter Notebook 稼働中にブラウザーで目にするものと同じだが、これをブラウザー上で編集することはできない。</p></li>
+<li><p>ちなみにこのコマンドラインで生成する HTML ファイルはサイズが思いのほか大きくなる。見栄えがショボくても気にならないようなときにはオプション <code class="code docutils literal notranslate"><span class="pre">--template</span> <span class="pre">basic</span></code> を与えることで単純な HTML ファイルを生成させたい。</p></li>
 </ul>
-<dl class="docutils">
-<dt><code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">nbconvert</span> <span class="pre">--to</span> <span class="pre">latex</span> <span class="pre">helloworld.ipynb</span></code></dt>
-<dd><p class="first">このサブコマンドが動作する事前条件の一つに <a class="reference external" href="http://pandoc.org/">Pandoc</a> が利用可能であることがある。正常に動作すれば、次のようにファイル拡張子が <code class="docutils literal notranslate"><span class="pre">.tex</span></code> のものが生成される：</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ jupyter nbconvert --to=latex helloworld.ipynb
-[NbConvertApp] Converting notebook helloworld.ipynb to latex
-[NbConvertApp] Writing 18947 bytes to helloworld.tex
+<dl>
+<dt><code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">nbconvert</span> <span class="pre">--to</span> <span class="pre">latex</span> <span class="pre">helloworld.ipynb</span></code></dt><dd><p>このサブコマンドが動作する事前条件の一つに <a class="reference external" href="http://pandoc.org/">Pandoc</a> が利用可能であることがある。正常に動作すれば、次のようにファイル拡張子が <code class="docutils literal notranslate"><span class="pre">.tex</span></code> のものが生成される：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> jupyter nbconvert --to<span class="o">=</span>latex helloworld.ipynb
+<span class="go">[NbConvertApp] Converting notebook helloworld.ipynb to latex</span>
+<span class="go">[NbConvertApp] Writing 18947 bytes to helloworld.tex</span>
 </pre></div>
 </div>
 <p>Pandoc が利用可能でなければ次のように失敗する：</p>
-<div class="code console last highlight-default notranslate"><div class="highlight"><pre><span></span>$ jupyter nbconvert --to=latex helloworld.ipynb
-[NbConvertApp] Converting notebook helloworld.ipynb to latex
-[NbConvertApp] ERROR | Error while converting &#39;helloworld.ipynb&#39;
-Traceback (most recent call last):
-  File &quot;D:\Miniconda3\lib\site-packages\nbconvert\nbconvertapp.py&quot;, line 357, in export_single_notebook
-    output, resources = self.exporter.from_filename(notebook_filename, resources=resources)
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> jupyter nbconvert --to<span class="o">=</span>latex helloworld.ipynb
+<span class="go">[NbConvertApp] Converting notebook helloworld.ipynb to latex</span>
+<span class="go">[NbConvertApp] ERROR | Error while converting &#39;helloworld.ipynb&#39;</span>
+<span class="go">Traceback (most recent call last):</span>
+<span class="go">  File &quot;D:\Miniconda3\lib\site-packages\nbconvert\nbconvertapp.py&quot;, line 357, in export_single_notebook</span>
+<span class="go">    output, resources = self.exporter.from_filename(notebook_filename, resources=resources)</span>
 
-  --- 略 ---
+<span class="go">  --- 略 ---</span>
 
-  File &quot;D:\Miniconda3\lib\site-packages\nbconvert\utils\pandoc.py&quot;, line 76, in get_pandoc_version
-    raise PandocMissing()
-nbconvert.utils.pandoc.PandocMissing: Pandoc wasn&#39;t found.
-Please check that pandoc is installed:
-http://pandoc.org/installing.html
+<span class="go">  File &quot;D:\Miniconda3\lib\site-packages\nbconvert\utils\pandoc.py&quot;, line 76, in get_pandoc_version</span>
+<span class="go">    raise PandocMissing()</span>
+<span class="go">nbconvert.utils.pandoc.PandocMissing: Pandoc wasn&#39;t found.</span>
+<span class="go">Please check that pandoc is installed:</span>
+<span class="go">http://pandoc.org/installing.html</span>
 </pre></div>
 </div>
 </dd>
 </dl>
 <ul class="simple">
-<li>オプション <code class="docutils literal notranslate"><span class="pre">--to</span></code> を明示的に指示しないと <code class="docutils literal notranslate"><span class="pre">html</span></code> と指定されたものとして振る舞う。</li>
-<li>オプション <code class="docutils literal notranslate"><span class="pre">--to</span></code> の受け付ける引数には <code class="docutils literal notranslate"><span class="pre">html</span></code> の他に
-<code class="docutils literal notranslate"><span class="pre">latex</span></code>, <code class="docutils literal notranslate"><span class="pre">pdf</span></code>, <code class="docutils literal notranslate"><span class="pre">markdown</span></code>, <code class="docutils literal notranslate"><span class="pre">rst</span></code> といった、試しがいのある書式が含まれているようだ。</li>
-<li>オプション <code class="docutils literal notranslate"><span class="pre">--stdout</span></code> を与えると、指示した変換内容を標準出力に書き出す。</li>
-<li>オプション <code class="docutils literal notranslate"><span class="pre">--generate-config</span></code> を与えると、このサブコマンド専用の設定ファイル <code class="file docutils literal notranslate"><span class="pre">jupyter_nbconvert_console.py</span></code> のスケルトンを前述のディレクトリーに生成する。</li>
+<li><p>オプション <code class="docutils literal notranslate"><span class="pre">--to</span></code> を明示的に指示しないと <code class="docutils literal notranslate"><span class="pre">html</span></code> と指定されたものとして振る舞う。</p></li>
+<li><p>オプション <code class="docutils literal notranslate"><span class="pre">--to</span></code> の受け付ける引数には <code class="docutils literal notranslate"><span class="pre">html</span></code> の他に
+<code class="docutils literal notranslate"><span class="pre">latex</span></code>, <code class="docutils literal notranslate"><span class="pre">pdf</span></code>, <code class="docutils literal notranslate"><span class="pre">markdown</span></code>, <code class="docutils literal notranslate"><span class="pre">rst</span></code> といった、試しがいのある書式が含まれているようだ。</p></li>
+<li><p>オプション <code class="docutils literal notranslate"><span class="pre">--stdout</span></code> を与えると、指示した変換内容を標準出力に書き出す。</p></li>
+<li><p>オプション <code class="docutils literal notranslate"><span class="pre">--generate-config</span></code> を与えると、このサブコマンド専用の設定ファイル <code class="file docutils literal notranslate"><span class="pre">jupyter_nbconvert_console.py</span></code> のスケルトンを前述のディレクトリーに生成する。</p></li>
 </ul>
 <p>端末からのコマンドライン入力だけでなく、例えば IPython のセッションから本サブコマンドの機能をモジュールの形で参照、利用することも可能だ。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span>In [1]: import nbconvert
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">nbconvert</span>
 
-In [2]: nbconvert.export_latex?
-Signature: nbconvert.export_latex(nb, **kw)
-Docstring:
-Export a notebook object to latex format
+<span class="gp">In [2]: </span>nbconvert.export_latex<span class="o">?</span>
+<span class="go">Signature: nbconvert.export_latex(nb, **kw)</span>
+<span class="go">Docstring:</span>
+<span class="go">Export a notebook object to latex format</span>
 
-nb : :class:`~nbformat.NotebookNode`
-    The notebook to export.
-config : config (optional, keyword arg)
-    User configuration instance.
-resources : dict (optional, keyword arg)
-    Resources used in the conversion process.
+<span class="go">nb : :class:`~nbformat.NotebookNode`</span>
+<span class="go">    The notebook to export.</span>
+<span class="go">config : config (optional, keyword arg)</span>
+<span class="go">    User configuration instance.</span>
+<span class="go">resources : dict (optional, keyword arg)</span>
+<span class="go">    Resources used in the conversion process.</span>
 
-Returns
--------
-tuple
-    output : str
-        Jinja 2 output.  This is the resulting converted notebook.
-    resources : dictionary
-        Dictionary of resources used prior to and during the conversion
-        process.
-    exporter_instance : Exporter
-        Instance of the Exporter class used to export the document.  Useful
-        to caller because it provides a &#39;file_extension&#39; property which
-        specifies what extension the output should be saved as.
-File:      d:\miniconda3\lib\site-packages\nbconvert\exporters\export.py
-Type:      function
+<span class="go">Returns</span>
+<span class="gt">-------</span>
+<span class="nb">tuple</span>
+    <span class="n">output</span> <span class="p">:</span> <span class="nb">str</span>
+        <span class="n">Jinja</span> <span class="mi">2</span> <span class="n">output</span><span class="o">.</span>  <span class="n">This</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">resulting</span> <span class="n">converted</span> <span class="n">notebook</span><span class="o">.</span>
+    <span class="n">resources</span> <span class="p">:</span> <span class="n">dictionary</span>
+        <span class="n">Dictionary</span> <span class="n">of</span> <span class="n">resources</span> <span class="n">used</span> <span class="n">prior</span> <span class="n">to</span> <span class="ow">and</span> <span class="n">during</span> <span class="n">the</span> <span class="n">conversion</span>
+        <span class="n">process</span><span class="o">.</span>
+    <span class="n">exporter_instance</span> <span class="p">:</span> <span class="n">Exporter</span>
+        <span class="n">Instance</span> <span class="n">of</span> <span class="n">the</span> <span class="n">Exporter</span> <span class="k">class</span> <span class="nc">used</span> <span class="n">to</span> <span class="n">export</span> <span class="n">the</span> <span class="n">document</span><span class="o">.</span>  <span class="n">Useful</span>
+        <span class="n">to</span> <span class="n">caller</span> <span class="n">because</span> <span class="n">it</span> <span class="n">provides</span> <span class="n">a</span> <span class="s1">&#39;file_extension&#39;</span> <span class="nb">property</span> <span class="n">which</span>
+        <span class="n">specifies</span> <span class="n">what</span> <span class="n">extension</span> <span class="n">the</span> <span class="n">output</span> <span class="n">should</span> <span class="n">be</span> <span class="n">saved</span> <span class="k">as</span><span class="o">.</span>
+<span class="ne">File</span>:      d:\miniconda3\lib\site-packages\nbconvert\exporters\export.py
+<span class="ne">Type</span>:      function
 </pre></div>
 </div>
 <div class="section" id="id10">
-<h3><a class="toc-backref" href="#id38">設定ファイルを編集する</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id39">設定ファイルを編集する</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <p>Notebook 文書から PDF ファイルに書式変換する際のコマンドラインオプションに相当する設定を <code class="file docutils literal notranslate"><span class="pre">$HOME/.jupyter/jupyter_nbconvert_config.py</span></code> に指定する。それ以外に Dashboard のダウンロードメニューの挙動を制御する術がない。</p>
 <p>Google を利用する等して色々と調査した結果、日本語文書を扱うには <strong class="program">ptex2pdf</strong> を用いるのが一般的なようなので、それをコマンドラインで実行する際の定番オプションをここに適用する。</p>
-<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Shell command used to compile latex.</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Shell command used to compile latex.</span>
 <span class="n">c</span><span class="o">.</span><span class="n">PDFExporter</span><span class="o">.</span><span class="n">latex_command</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ptex2pdf&#39;</span><span class="p">,</span> <span class="s1">&#39;-l&#39;</span><span class="p">,</span> <span class="s1">&#39;-ot&#39;</span><span class="p">,</span> <span class="s1">&#39;-kanji=utf8&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{filename}</span><span class="s1">&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="jupyter-nbextension">
-<h2><a class="toc-backref" href="#id39">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">nbextension</span></code></a><a class="headerlink" href="#jupyter-nbextension" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id40">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">nbextension</span></code></a><a class="headerlink" href="#jupyter-nbextension" title="Permalink to this headline">¶</a></h2>
 <p>このサブコマンドは Notebook の拡張を管理するためのものだ。
 Jupyter インストール直後にサブコマンド <code class="docutils literal notranslate"><span class="pre">list</span></code> を実行するとこのような結果を出力する。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ jupyter nbextension list
-Known nbextensions:
-  config dir: D:\Miniconda3\etc\jupyter\nbconfig
-    notebook section
-      nb_conda/main enabled
-      - Validating: ok
-      nbpresent/js/nbpresent.min enabled
-      - Validating: ok
-      jupyter-js-widgets/extension enabled
-      - Validating: ok
-      nb_anacondacloud/main enabled
-      - Validating: ok
-    tree section
-      nb_conda/tree enabled
-      - Validating: ok
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> jupyter nbextension list
+<span class="go">Known nbextensions:</span>
+<span class="go">  config dir: D:\Miniconda3\etc\jupyter\nbconfig</span>
+<span class="go">    notebook section</span>
+<span class="go">      nb_conda/main enabled</span>
+<span class="go">      - Validating: ok</span>
+<span class="go">      nbpresent/js/nbpresent.min enabled</span>
+<span class="go">      - Validating: ok</span>
+<span class="go">      jupyter-js-widgets/extension enabled</span>
+<span class="go">      - Validating: ok</span>
+<span class="go">      nb_anacondacloud/main enabled</span>
+<span class="go">      - Validating: ok</span>
+<span class="go">    tree section</span>
+<span class="go">      nb_conda/tree enabled</span>
+<span class="go">      - Validating: ok</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="jupyter-notebook">
-<h2><a class="toc-backref" href="#id40">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">notebook</span></code></a><a class="headerlink" href="#jupyter-notebook" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id41">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">notebook</span></code></a><a class="headerlink" href="#jupyter-notebook" title="Permalink to this headline">¶</a></h2>
 <p>このサブコマンドは Jupyter Notebook を管理するものだ。通常実行することで Tornado ベースの HTTP サーバーを起動し、
 Notebook クライアントが利用可能になる。</p>
-<dl class="docutils">
-<dt><code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">notebook</span></code></dt>
-<dd>Jupyter Notepad を起動する。同時にダッシュボードページをブラウザーで開く。次節で詳しく述べる。</dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">notebook</span> <span class="pre">--no-browser</span></code></dt>
-<dd>Jupyter Notepad を起動するが、ブラウザーでダッシュボードページを開かない。つまり、開きたい ipynb ファイルがあれば利用者がそれに対応するアドレスに、好きな手段によりアクセスする。</dd>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">notebook</span></code></dt><dd><p>Jupyter Notepad を起動する。同時にダッシュボードページをブラウザーで開く。次節で詳しく述べる。</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">notebook</span> <span class="pre">--no-browser</span></code></dt><dd><p>Jupyter Notepad を起動するが、ブラウザーでダッシュボードページを開かない。つまり、開きたい ipynb ファイルがあれば利用者がそれに対応するアドレスに、好きな手段によりアクセスする。</p>
+</dd>
 </dl>
 <ul class="simple">
-<li>オプション <code class="docutils literal notranslate"><span class="pre">--generate-config</span></code> を与えると、このサブコマンド専用の設定ファイル <code class="file docutils literal notranslate"><span class="pre">jupyter_notebook_console.py</span></code> のスケルトンを前述のディレクトリーに生成する。</li>
+<li><p>オプション <code class="docutils literal notranslate"><span class="pre">--generate-config</span></code> を与えると、このサブコマンド専用の設定ファイル <code class="file docutils literal notranslate"><span class="pre">jupyter_notebook_console.py</span></code> のスケルトンを前述のディレクトリーに生成する。</p></li>
 </ul>
 <div class="section" id="id11">
-<h3><a class="toc-backref" href="#id41">Jupyter Notebook を起動する</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id42">Jupyter Notebook を起動する</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <p>端末ウィンドウで作業する。適当な作業ディレクトリーに移動してから
 <strong class="program">jupyter</strong> を実行する。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ jupyter notebook
-[W HH:MM:SS.352 NotebookApp] Unrecognized JSON config file version, assuming version 1
-[I HH:MM:SS.571 NotebookApp] [nb_conda_kernels] enabled, 2 kernels found
-[I HH:MM:SS.905 NotebookApp] [nb_conda] enabled
-[I HH:MM:SS.573 NotebookApp] ✓ nbpresent HTML export ENABLED
-[W HH:MM:SS.575 NotebookApp] ✗ nbpresent PDF export DISABLED: No module named &#39;nbbrowserpdf&#39;
-[I HH:MM:SS.960 NotebookApp] [nb_anacondacloud] enabled
-[I HH:MM:SS.592 NotebookApp] Serving notebooks from local directory: D:\home\yojyo
-[I HH:MM:SS.592 NotebookApp] 0 active kernels
-[I HH:MM:SS.592 NotebookApp] The Jupyter Notebook is running at: http://localhost:8888/
-[I HH:MM:SS.607 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> jupyter notebook
+<span class="go">[W HH:MM:SS.352 NotebookApp] Unrecognized JSON config file version, assuming version 1</span>
+<span class="go">[I HH:MM:SS.571 NotebookApp] [nb_conda_kernels] enabled, 2 kernels found</span>
+<span class="go">[I HH:MM:SS.905 NotebookApp] [nb_conda] enabled</span>
+<span class="go">[I HH:MM:SS.573 NotebookApp] ✓ nbpresent HTML export ENABLED</span>
+<span class="go">[W HH:MM:SS.575 NotebookApp] ✗ nbpresent PDF export DISABLED: No module named &#39;nbbrowserpdf&#39;</span>
+<span class="go">[I HH:MM:SS.960 NotebookApp] [nb_anacondacloud] enabled</span>
+<span class="go">[I HH:MM:SS.592 NotebookApp] Serving notebooks from local directory: D:\home\yojyo</span>
+<span class="go">[I HH:MM:SS.592 NotebookApp] 0 active kernels</span>
+<span class="go">[I HH:MM:SS.592 NotebookApp] The Jupyter Notebook is running at: http://localhost:8888/</span>
+<span class="go">[I HH:MM:SS.607 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).</span>
 </pre></div>
 </div>
 <ul>
-<li><p class="first">このログ表示直後に、ウェブブラウザーがアクティブになり、そこに Jupyter Notebook のメイン画面（ダッシュボードと呼ばれている）を表示し、さらにそこにはこのサービスを起動したディレクトリーにあるファイルとサブディレクトリーの一覧を表示するはずだ。</p>
-</li>
-<li><p class="first">これはサービスプロセスなので、専用のコンソールウィンドウで実行するのがよいだろう。
+<li><p>このログ表示直後に、ウェブブラウザーがアクティブになり、そこに Jupyter Notebook のメイン画面（ダッシュボードと呼ばれている）を表示し、さらにそこにはこのサービスを起動したディレクトリーにあるファイルとサブディレクトリーの一覧を表示するはずだ。</p></li>
+<li><p>これはサービスプロセスなので、専用のコンソールウィンドウで実行するのがよいだろう。
 ConEmu の Tasks にコマンドラインを定義しておくか。下にコマンドラインの一例を記す。好みで ConEmu に対するアイコンやタブ名を指定するのもよい。</p>
-<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">D</span><span class="p">:</span>\<span class="n">Miniconda3</span>\<span class="n">Scripts</span>\<span class="n">jupyter</span><span class="o">.</span><span class="n">exe</span> <span class="n">notebook</span> <span class="o">-</span><span class="n">new_console</span><span class="p">:</span><span class="n">d</span><span class="p">:</span><span class="n">D</span><span class="p">:</span>\<span class="n">home</span>\<span class="n">yojyo</span>\<span class="n">jupyter</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>D:\Miniconda3\Scripts\jupyter.exe notebook
+-new_console:d:%USERPROFILE%\jupyter-doc
+-new_console:t:&quot;Jupyter&quot;
+-new_console:C:D:\Miniconda3\envs\3.6\Menu\jupyter.ico
 </pre></div>
 </div>
 </li>
-<li><p class="first"><code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">notebook</span></code> には当然ながらコマンドラインオプションがある。利用価値のありそうなものがあれば洗い出しておきたい。</p>
-</li>
-<li><p class="first">起動時ログの警告の類を解決しておきたい。PDF うんぬんは気になる。</p>
-</li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">notebook</span></code> には当然ながらコマンドラインオプションがある。利用価値のありそうなものがあれば洗い出しておきたい。</p></li>
+<li><p>起動時ログの警告の類を解決しておきたい。PDF うんぬんは気になる。</p></li>
 </ul>
 </div>
 <div class="section" id="id12">
-<h3><a class="toc-backref" href="#id42">ダッシュボードを理解する</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id43">ダッシュボードを理解する</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <p>ファイラーの UI になっているように見えて、事実そのとおりに振る舞う。とは言え、最初のうちはここでは基本的に次の行動しかしないはずだ：</p>
 <ul class="simple">
-<li>ファイルを作成する</li>
-<li>ファイルを編集する</li>
-<li>ファイルを削除する</li>
-<li>ディレクトリーを移動する</li>
+<li><p>ファイルを作成する</p></li>
+<li><p>ファイルを編集する</p></li>
+<li><p>ファイルを削除する</p></li>
+<li><p>ディレクトリーを移動する</p></li>
 </ul>
 <p>いずれも直接的な方法で実現できるので、ここで特筆することはない。</p>
 </div>
 <div class="section" id="id13">
-<h3><a class="toc-backref" href="#id43">文書の編集について</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id44">文書の編集について</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <p>ダッシュボードから Notebook アイコンのファイルを作成または編集をするように操作すると、ブラウザーでその文書が開かれて編集可能となる。少々操作方法にクセのようなものがあるので、初心者は次のことをするとよい：</p>
 <ul>
-<li><p class="first">可能ならば出来合いの <code class="docutils literal notranslate"><span class="pre">ipynb</span></code> 文書を開きたい。それを基にして UI の操作方法や文書の修正方法を習得するのが効率が良い。</p>
-</li>
-<li><p class="first">何はともあれ、メニューから次の項目を選択して内容を確認したい：</p>
-<dl class="docutils">
-<dt><span class="menuselection">Help ‣ User Interface Tour</span></dt>
-<dd><p class="first last">画面上に小さなダイアログボックスが表示され、ちょっとした UI に関する註釈が記されている。矢印キーの右で次にジャンプする。吹き出しの示す位置もジャンプする。これを一巡すれば、ごく基本的な UI の意味は習得できることになる。</p>
+<li><p>可能ならば出来合いの <code class="docutils literal notranslate"><span class="pre">ipynb</span></code> 文書を開きたい。それを基にして UI の操作方法や文書の修正方法を習得するのが効率が良い。</p></li>
+<li><p>何はともあれ、メニューから次の項目を選択して内容を確認したい：</p>
+<dl class="simple">
+<dt><span class="menuselection">Help ‣ User Interface Tour</span></dt><dd><p>画面上に小さなダイアログボックスが表示され、ちょっとした UI に関する註釈が記されている。矢印キーの右で次にジャンプする。吹き出しの示す位置もジャンプする。これを一巡すれば、ごく基本的な UI の意味は習得できることになる。</p>
 </dd>
-<dt><span class="menuselection">Help ‣ Keyboard Shortcuts</span></dt>
-<dd><p class="first last">ショートカットキーの一覧をポップアップ表示する。これを見ると、このエディターには Edit モードと Command モードの概念があることが理解できる。ここにあるコマンドを眺めることと、エディターが REPL モデルで設計されていることを総合することで、
+<dt><span class="menuselection">Help ‣ Keyboard Shortcuts</span></dt><dd><p>ショートカットキーの一覧をポップアップ表示する。これを見ると、このエディターには Edit モードと Command モードの概念があることが理解できる。ここにあるコマンドを眺めることと、エディターが REPL モデルで設計されていることを総合することで、
 Jupyter Notebook エディターの仕組みも見えてくるだろう。</p>
 </dd>
 </dl>
@@ -587,148 +589,137 @@ Jupyter Notebook エディターの仕組みも見えてくるだろう。</p>
 </ul>
 <p>テキスト部分の書式は Markdown で行い、各種コード処理の書式は IPython の流儀で行えばよい。これらを行うノート内の単位領域をセルと呼ぶ。セルの種類を切り替えるには、例えばツールバーのドロップダウンリストを使えば可能だ。</p>
 <ul class="simple">
-<li>セルの左端が水色だったり黄緑色だったりするが、これはモードによって変わる。</li>
-<li>セルの評価方法だが、まずは <kbd class="kbd docutils literal notranslate">Shift - Enter</kbd>: を押せば十分だろう。評価コマンドには色々な変種がある。</li>
-<li>セルの挿入、移動、削除は重要なので早く習得することだ。編集を繰り返すうちに Python セルのプロンプト番号が文書の時系列順から乱れてくるということが起こりがちだ。これをソートするには <span class="guilabel">Cell</span> や <span class="guilabel">Kernel</span> のサブメニューアイテムを上手く指示する他ない。出力内容をクリアしてから、再度全セルを評価するような処理ならば何でもよい。場合によってはカーネルの再起動まである。</li>
+<li><p>セルの左端が水色だったり黄緑色だったりするが、これはモードによって変わる。</p></li>
+<li><p>セルの評価方法だが、まずは <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Shift</kbd> <kbd class="kbd docutils literal notranslate"></kbd>-<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">Enter</kbd></kbd>: を押せば十分だろう。評価コマンドには色々な変種がある。</p></li>
+<li><p>セルの挿入、移動、削除は重要なので早く習得することだ。編集を繰り返すうちに Python セルのプロンプト番号が文書の時系列順から乱れてくるということが起こりがちだ。これをソートするには <span class="guilabel">Cell</span> や <span class="guilabel">Kernel</span> のサブメニューアイテムを上手く指示する他ない。出力内容をクリアしてから、再度全セルを評価するような処理ならば何でもよい。場合によってはカーネルの再起動まである。</p></li>
 </ul>
 </div>
 <div class="section" id="id14">
-<h3><a class="toc-backref" href="#id44">文書の編集を終了する</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id45">文書の編集を終了する</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <p>単にブラウザー（のタブ）を閉じればよいというわけではない。次のどちらかの方法で編集を終える：</p>
 <ul class="simple">
-<li>文書のメニューで <span class="menuselection">File ‣ Close and Halt</span> を選択する</li>
-<li>ダッシュボードの <span class="guilabel">Running</span> タブにある
-<span class="guilabel">Notebooks</span> の下から対象文書の <span class="guilabel">Shutdown</span> ボタンを押す</li>
+<li><p>文書のメニューで <span class="menuselection">File ‣ Close and Halt</span> を選択する</p></li>
+<li><p>ダッシュボードの <span class="guilabel">Running</span> タブにある
+<span class="guilabel">Notebooks</span> の下から対象文書の <span class="guilabel">Shutdown</span> ボタンを押す</p></li>
 </ul>
 <p>なお、必要に応じて文書の保存を行っておくことを忘れてはならない。</p>
 </div>
 <div class="section" id="id15">
-<h3><a class="toc-backref" href="#id45">文書をダウンロードする</a><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id46">文書をダウンロードする</a><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
 <p>メニュー項目 <span class="menuselection">File ‣ Download as</span> のいずれかを選択すると、現在編集中の文書を指定の書式にエクスポートをしてダウンロードする。サブメニューに現れる各書式の意味を記す。</p>
-<dl class="docutils">
-<dt><span class="guilabel">Notebook (.ipynb)</span></dt>
-<dd>原稿ファイルそのものをダウンロードする。</dd>
-<dt><span class="guilabel">Python (.py)</span></dt>
-<dd>Python コードとして変換したものをダウンロードする。ファイル内容のうち、
-IPython のプロンプト部分は Python のコードとしてそのまま表現され、それ以外のテキストはコメントアウトされた <code class="docutils literal notranslate"><span class="pre">.py</span></code> ファイルとしてエクスポートされる。</dd>
-<dt><span class="guilabel">HTML (.html)</span></dt>
-<dd><p class="first">今ブラウザーで見えている HTML ファイルそのものをダウンロードする。
+<dl class="simple">
+<dt><span class="guilabel">Notebook (.ipynb)</span></dt><dd><p>原稿ファイルそのものをダウンロードする。</p>
+</dd>
+<dt><span class="guilabel">Python (.py)</span></dt><dd><p>Python コードとして変換したものをダウンロードする。ファイル内容のうち、
+IPython のプロンプト部分は Python のコードとしてそのまま表現され、それ以外のテキストはコメントアウトされた <code class="docutils literal notranslate"><span class="pre">.py</span></code> ファイルとしてエクスポートされる。</p>
+</dd>
+<dt><span class="guilabel">HTML (.html)</span></dt><dd><p>今ブラウザーで見えている HTML ファイルそのものをダウンロードする。
 CSS や JavaScript などの外付けのファイルのようなものはなく、そういった類のテキストはすべて <code class="docutils literal notranslate"><span class="pre">.html</span></code> ファイルに埋め込まれている。</p>
-<ul class="last simple">
-<li>ブラウザーの提供する「名前を付けて保存…」機能により得られる HTML ファイルと同等のものを得ることになる。</li>
+<ul class="simple">
+<li><p>ブラウザーの提供する「名前を付けて保存…」機能により得られる HTML ファイルと同等のものを得ることになる。</p></li>
 </ul>
 </dd>
-<dt><span class="guilabel">Markdown (.md)</span></dt>
-<dd><p class="first">Markdown 形式にエクスポートされたファイルをダウンロードする。ファイル内容のうち、
+<dt><span class="guilabel">Markdown (.md)</span></dt><dd><p>Markdown 形式にエクスポートされたファイルをダウンロードする。ファイル内容のうち、
 Markdown 部分はそのままに、それ以外のテキストは適切なコードブロックに収まるようにエクスポートされる。</p>
-<ul class="last simple">
-<li>この形式のファイルを GitHub のリポジトリーに格納することで、他の人には読み取り専用として扱わせるのに便利と思うかもしれないが、実際には GitHub も <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> ビューワーを提供しているのでそれには及ばない。</li>
+<ul class="simple">
+<li><p>この形式のファイルを GitHub のリポジトリーに格納することで、他の人には読み取り専用として扱わせるのに便利と思うかもしれないが、実際には GitHub も <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> ビューワーを提供しているのでそれには及ばない。</p></li>
 </ul>
 </dd>
-<dt><span class="guilabel">reST (.rst)</span></dt>
-<dd><p class="first">reStructuredText 形式にエクスポートされたファイルをダウンロードする。エクスポートの方針は <code class="docutils literal notranslate"><span class="pre">.md</span></code> のときとたいへん似ている。</p>
-<ul class="last simple">
-<li>これは本稿のように Sphinx で管理する文書のページの基にすることができそうだ。</li>
+<dt><span class="guilabel">reST (.rst)</span></dt><dd><p>reStructuredText 形式にエクスポートされたファイルをダウンロードする。エクスポートの方針は <code class="docutils literal notranslate"><span class="pre">.md</span></code> のときとたいへん似ている。</p>
+<ul class="simple">
+<li><p>これは本稿のように Sphinx で管理する文書のページの基にすることができそうだ。</p></li>
 </ul>
 </dd>
-<dt><span class="guilabel">PDF via LaTeX (.pdf)</span></dt>
-<dd><p class="first">いったん <code class="docutils literal notranslate"><span class="pre">.tex</span></code> ファイルに変換してから <code class="docutils literal notranslate"><span class="pre">.pdf</span></code> ファイルに変換したものをダウンロードする。</p>
-<ul class="last simple">
-<li>文書内容が前述の <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">nbconvert</span> <span class="pre">--to</span> <span class="pre">pdf</span></code> でも成功するものである必要がある。さもなくば HTTP 500 エラーのレポート画面を目にすることになる。例えば日本語で書かれた文書を既定のテンプレートで出力しようとしていたり、インターネット上の URL により参照される画像を含んでいたりするものはまず失敗するだろう。</li>
-<li>某チュートリアルの <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> ファイルでテストしたところ、目次ツリー付きの素晴らしい PDF ファイルが生成された。</li>
+<dt><span class="guilabel">PDF via LaTeX (.pdf)</span></dt><dd><p>いったん <code class="docutils literal notranslate"><span class="pre">.tex</span></code> ファイルに変換してから <code class="docutils literal notranslate"><span class="pre">.pdf</span></code> ファイルに変換したものをダウンロードする。</p>
+<ul class="simple">
+<li><p>文書内容が前述の <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">nbconvert</span> <span class="pre">--to</span> <span class="pre">pdf</span></code> でも成功するものである必要がある。さもなくば HTTP 500 エラーのレポート画面を目にすることになる。例えば日本語で書かれた文書を既定のテンプレートで出力しようとしていたり、インターネット上の URL により参照される画像を含んでいたりするものはまず失敗するだろう。</p></li>
+<li><p>某チュートリアルの <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> ファイルでテストしたところ、目次ツリー付きの素晴らしい PDF ファイルが生成された。</p></li>
 </ul>
 </dd>
-<dt><span class="guilabel">Presentation (.html)</span></dt>
-<dd>要調査。</dd>
+<dt><span class="guilabel">Presentation (.html)</span></dt><dd><p>要調査。</p>
+</dd>
 </dl>
 </div>
 <div class="section" id="id16">
-<h3><a class="toc-backref" href="#id46">Jupyter Notebook を終了する</a><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
-<p>サービスを起動した端末ウィンドウで <kbd class="kbd docutils literal notranslate">Ctrl + C</kbd> を押すと、サービスが停止する。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>[I HH:MM:SS.570 NotebookApp] Shutting down kernels
-[I HH:MM:SS.298 NotebookApp] Kernel shutdown: f887fdc0-f81c-410c-a941-6820a4b2a5c7
-$
+<h3><a class="toc-backref" href="#id47">Jupyter Notebook を終了する</a><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<p>サービスを起動した端末ウィンドウで <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">C</kbd></kbd> を押すと、サービスが停止する。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">[I HH:MM:SS.570 NotebookApp] Shutting down kernels</span>
+<span class="go">[I HH:MM:SS.298 NotebookApp] Kernel shutdown: f887fdc0-f81c-410c-a941-6820a4b2a5c7</span>
+<span class="gp">$</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="jupyter-qtconsole">
-<h2><a class="toc-backref" href="#id47">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">qtconsole</span></code></a><a class="headerlink" href="#jupyter-qtconsole" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id48">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">qtconsole</span></code></a><a class="headerlink" href="#jupyter-qtconsole" title="Permalink to this headline">¶</a></h2>
 <p>このサブコマンドは Jupyter QtConsole アプリケーション、すなわち Qt ベースのコンソール風アプリケーションを起動する。
 Qt ウィンドウで実現された IPython セッションと表現すれば適当だろうか。下の図は Jupyter QtConsole を起動し、たまたま手許にある
 Matplotlib のデモコードを一つ実行したときの画面だ。</p>
-<div class="figure align-center" id="id19">
+<div class="figure align-center" id="id20">
 <a class="reference internal image-reference" href="_images/jupyter-qtconsole.png"><img alt="Jupyter QtConsole" src="_images/jupyter-qtconsole.png" style="width: 301.0px; height: 260.0px;" /></a>
-<p class="caption"><span class="caption-text">Jupyter QtConsole</span></p>
+<p class="caption"><span class="caption-text">Jupyter QtConsole</span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
 </div>
-<dl class="docutils">
-<dt><code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">qtconsole</span></code></dt>
-<dd>Jupyter QtConsole を起動する。</dd>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">qtconsole</span></code></dt><dd><p>Jupyter QtConsole を起動する。</p>
+</dd>
 </dl>
 <ul class="simple">
-<li>何か既視感があると思ったが、これは <a class="reference internal" href="python-ipython.html"><span class="doc">IPython 利用ノート</span></a> で調査した
-<code class="code docutils literal notranslate"><span class="pre">ipython</span> <span class="pre">qtconsole</span></code> の挙動と酷似している。確認のために久しぶりに <code class="code docutils literal notranslate"><span class="pre">ipython</span> <span class="pre">qtconsole</span></code> してみたら、ウィンドウタイトルが <span class="guilabel">Jupyter QtConsole</span> となっていた。つまり、両者は同一のアプリケーションなのだろう。</li>
-<li>オプション <code class="docutils literal notranslate"><span class="pre">--generate-config</span></code> を与えると、このサブコマンド専用の設定ファイル <code class="file docutils literal notranslate"><span class="pre">jupyter_qtconsole_config.py</span></code> のスケルトンを前述のディレクトリーに生成する。</li>
+<li><p>何か既視感があると思ったが、これは <a class="reference internal" href="python-ipython.html"><span class="doc">IPython 利用ノート</span></a> で調査した
+<code class="code docutils literal notranslate"><span class="pre">ipython</span> <span class="pre">qtconsole</span></code> の挙動と酷似している。確認のために久しぶりに <code class="code docutils literal notranslate"><span class="pre">ipython</span> <span class="pre">qtconsole</span></code> してみたら、ウィンドウタイトルが <span class="guilabel">Jupyter QtConsole</span> となっていた。つまり、両者は同一のアプリケーションなのだろう。</p></li>
+<li><p>オプション <code class="docutils literal notranslate"><span class="pre">--generate-config</span></code> を与えると、このサブコマンド専用の設定ファイル <code class="file docutils literal notranslate"><span class="pre">jupyter_qtconsole_config.py</span></code> のスケルトンを前述のディレクトリーに生成する。</p></li>
 </ul>
 </div>
 <div class="section" id="jupyter-serverextension">
-<h2><a class="toc-backref" href="#id48">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">serverextension</span></code></a><a class="headerlink" href="#jupyter-serverextension" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id49">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">serverextension</span></code></a><a class="headerlink" href="#jupyter-serverextension" title="Permalink to this headline">¶</a></h2>
 <p>Jupyter インストール直後にサブコマンド <code class="docutils literal notranslate"><span class="pre">list</span></code> を実行するとこのような結果を出力する。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ jupyter serverextension list
-config dir: D:\Miniconda3\etc\jupyter
-    nb_anacondacloud enabled
-    - Validating...
-      nb_anacondacloud  ok
-    nb_conda enabled
-    - Validating...
-      nb_conda  ok
-    nbpresent enabled
-    - Validating...
-      nbpresent  ok
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> jupyter serverextension list
+<span class="go">config dir: D:\Miniconda3\etc\jupyter</span>
+<span class="go">    nb_anacondacloud enabled</span>
+<span class="go">    - Validating...</span>
+<span class="go">      nb_anacondacloud  ok</span>
+<span class="go">    nb_conda enabled</span>
+<span class="go">    - Validating...</span>
+<span class="go">      nb_conda  ok</span>
+<span class="go">    nbpresent enabled</span>
+<span class="go">    - Validating...</span>
+<span class="go">      nbpresent  ok</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li>この情報は Jupyter Notebook のダッシュボードでも形を変えて確認できそうだ。</li>
+<li><p>この情報は Jupyter Notebook のダッシュボードでも形を変えて確認できそうだ。</p></li>
 </ul>
 </div>
 <div class="section" id="jupyter-trust">
-<h2><a class="toc-backref" href="#id49">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">trust</span></code></a><a class="headerlink" href="#jupyter-trust" title="Permalink to this headline">¶</a></h2>
-<div class="admonition-todo admonition" id="index-3">
-<p class="first admonition-title">Todo</p>
-<p class="last">調査する。</p>
+<h2><a class="toc-backref" href="#id50">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">trust</span></code></a><a class="headerlink" href="#jupyter-trust" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-todo admonition" id="id17">
+<p class="admonition-title">Todo</p>
+<p>調査する。</p>
 </div>
 </div>
-<div class="section" id="id17">
-<h2><a class="toc-backref" href="#id50">ノート</a><a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id18">
+<h2><a class="toc-backref" href="#id51">ノート</a><a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
 <p>Jupyter の一連の機能を利用して気付いた点や思い付き等を記す。</p>
 <ul>
-<li><p class="first">YouTube で検索すると Jupyter の基礎的な利用法をコーチするビデオが多数見つかるだろう。</p>
-</li>
-<li><p class="first">GitHub を検索すると実践的な <code class="docutils literal notranslate"><span class="pre">ipynb</span></code> ファイルが多数見つかるだろう。それを含むリポジトリーを clone して、ローカルで編集や書式変換の研究材料にするのもよい。</p>
-</li>
-<li><p class="first">GitHub も <code class="docutils literal notranslate"><span class="pre">ipynb</span></code> ビューワーを提供しているが、たまに不発する。</p>
-</li>
-<li><p class="first">Jupyter Notebook のサービス実行用と ipynb ファイルの実行用の両方がそれぞれ
-Python のプロセスを管理する。プアな環境だと Python プロセスによるメモリ食いが気になる。</p>
-</li>
-<li><p class="first"><strong class="program">jupyter</strong> の利用可能な「サブコマンド」の集合が文書化されていない？</p>
-</li>
-<li><p class="first">Pandoc は Windows ではすぐにインストールできる。
-Graphviz や Git と同じようにして環境変数 <span class="target" id="index-4"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PATH</span></code> を参照させることでサブコマンドから <strong class="program">pandoc</strong> にアクセス可能にしておく。</p>
-</li>
-<li><p class="first">問題になりそうなのは <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">nbconvert</span></code> で直接 PDF ファイルを生成する場合だ。「原稿」に日本語文字を使うことが多いはずなので、既定の後処理では中間生成物の <code class="docutils literal notranslate"><span class="pre">tex</span></code> ファイルから PDF に変換するのに失敗する。単に処理がエラーコードを返す等して失敗する場合と、
+<li><p>YouTube で検索すると Jupyter の基礎的な利用法をコーチするビデオが多数見つかるだろう。</p></li>
+<li><p>GitHub を検索すると実践的な <code class="docutils literal notranslate"><span class="pre">ipynb</span></code> ファイルが多数見つかるだろう。それを含むリポジトリーを clone して、ローカルで編集や書式変換の研究材料にするのもよい。</p></li>
+<li><p>GitHub も <code class="docutils literal notranslate"><span class="pre">ipynb</span></code> ビューワーを提供しているが、たまに不発する。</p></li>
+<li><p>Jupyter Notebook のサービス実行用と ipynb ファイルの実行用の両方がそれぞれ
+Python のプロセスを管理する。プアな環境だと Python プロセスによるメモリ食いが気になる。</p></li>
+<li><p><strong class="program">jupyter</strong> の利用可能な「サブコマンド」の集合が文書化されていない？</p></li>
+<li><p>Pandoc は Windows ではすぐにインストールできる。
+Graphviz や Git と同じようにして環境変数 <span class="target" id="index-3"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PATH</span></code> を参照させることでサブコマンドから <strong class="program">pandoc</strong> にアクセス可能にしておく。</p></li>
+<li><p>問題になりそうなのは <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">nbconvert</span></code> で直接 PDF ファイルを生成する場合だ。「原稿」に日本語文字を使うことが多いはずなので、既定の後処理では中間生成物の <code class="docutils literal notranslate"><span class="pre">tex</span></code> ファイルから PDF に変換するのに失敗する。単に処理がエラーコードを返す等して失敗する場合と、
 PDF ファイルは生成したものの、日本語文字がまったく印字できていない等して失敗する場合が考えられる。</p>
 <ul class="simple">
-<li>日本語が出ない件は <strong class="program">ptex2pdf</strong> を指定することで解決する。
-Google で調べたところによると <strong class="program">xelatex</strong> を使う国の人もいるようだ。</li>
-<li>日本語に対応するべく LaTeX のテンプレートを自作し、そこで指定する文書クラスに <code class="docutils literal notranslate"><span class="pre">pandoc</span></code> と指定する作戦まであるようだ。</li>
+<li><p>日本語が出ない件は <strong class="program">ptex2pdf</strong> を指定することで解決する。
+Google で調べたところによると <strong class="program">xelatex</strong> を使う国の人もいるようだ。</p></li>
+<li><p>日本語に対応するべく LaTeX のテンプレートを自作し、そこで指定する文書クラスに <code class="docutils literal notranslate"><span class="pre">pandoc</span></code> と指定する作戦まであるようだ。</p></li>
 </ul>
 </li>
-<li><p class="first">余談に近いが <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">nbconvert</span> <span class="pre">--to</span> <span class="pre">pdf</span></code> を実行するときには環境変数 <span class="target" id="index-5"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PATH</span></code> の内容に注意。
+<li><p>余談に近いが <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">nbconvert</span> <span class="pre">--to</span> <span class="pre">pdf</span></code> を実行するときには環境変数 <span class="target" id="index-4"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PATH</span></code> の内容に注意。
 Windows のコンソールでは PDF が生成されるのに、
-Cygwin のコンソールでは <strong class="program">ptex2pdf</strong> が失敗するので調べたら、私が <strong class="program">bash</strong> で作業するときに <code class="file docutils literal notranslate"><span class="pre">$SYSTEMROOT/System32</span></code> を削っていたのがどうやら原因らしい。</p>
-</li>
-<li><p class="first">GitHub の Gist に <code class="docutils literal notranslate"><span class="pre">ipynb</span></code> ファイルを作成すると、一応 Jupyter Notebook 風のレンダリングをしてくれる。ただ、LaTeX コードのレンダリングがローカルでの見栄えに比べて少々異なる。</p>
+Cygwin のコンソールでは <strong class="program">ptex2pdf</strong> が失敗するので調べたら、私が <strong class="program">bash</strong> で作業するときに <code class="file docutils literal notranslate"><span class="pre">$SYSTEMROOT/System32</span></code> を削っていたのがどうやら原因らしい。</p></li>
+<li><p>GitHub の Gist に <code class="docutils literal notranslate"><span class="pre">ipynb</span></code> ファイルを作成すると、一応 Jupyter Notebook 風のレンダリングをしてくれる。ただ、LaTeX コードのレンダリングがローカルでの見栄えに比べて少々異なる。</p>
 <p>なお、Jupyter 公式による <a class="reference external" href="http://nbviewer.jupyter.org/">Jupyter Notebook Viewer</a>
 というサービスもある。こちらの見栄えは期待通りだ。</p>
 </li>
@@ -737,6 +728,7 @@ Cygwin のコンソールでは <strong class="program">ptex2pdf</strong> が失
 </div>
 
 
+            <div class="clearer"></div>
           </div>
       </div>
       <div class="clearer"></div>
@@ -750,7 +742,8 @@ Cygwin のコンソールでは <strong class="program">ptex2pdf</strong> が失
         <li class="right" >
           <a href="python-ipython.html" title="IPython 利用ノート"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Jupyter 利用ノート</a></li> 
       </ul>
     </div>
     <div id="footer">
@@ -759,7 +752,7 @@ Cygwin のコンソールでは <strong class="program">ptex2pdf</strong> が失
       </div>
       <div id="footer_copyright">
         Since 1999<br />
-        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+        Copyright &copy; 1999-2020, プレハブ小屋 All rights reserved.
       </div>
     </div>
   </body>
