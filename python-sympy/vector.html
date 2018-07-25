@@ -1,17 +1,17 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>ベクトル &#8212; 読書ノート v1.4</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ベクトル &#8212; 読書ノート v1.5dev</title>
     <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/mathjax-v3.js"></script>
+    
     <link rel="next" title="行列" href="matrices.html" />
     <link rel="prev" title="組合せ論と群論" href="combinatorics.html" /> 
   </head><body>
@@ -25,7 +25,8 @@
           <a href="combinatorics.html" title="組合せ論と群論"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">SymPy 利用ノート</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">SymPy 利用ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ベクトル</a></li> 
       </ul>
     </div>  
 
@@ -37,42 +38,46 @@
 <h1><a class="toc-backref" href="#id20">ベクトル</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>モジュール <code class="docutils literal notranslate"><span class="pre">sympy.vector</span></code> に関するメモを記す。ベクトル解析寄りの機能が目立つという印象を受ける。もっと言うと 3 次元空間用の座標系だけを利用の対象と想定している節がある。</p>
 <div class="contents topic" id="id2">
-<p class="topic-title first">ノート目次</p>
+<p class="topic-title">ノート目次</p>
 <ul class="simple">
-<li><a class="reference internal" href="#id1" id="id20">ベクトル</a><ul>
-<li><a class="reference internal" href="#id3" id="id21">基本編</a><ul>
-<li><a class="reference internal" href="#id4" id="id22">座標系およびベクトル</a></li>
-<li><a class="reference internal" href="#sympy" id="id23">ベクトルに対する SymPy 演算</a></li>
-<li><a class="reference internal" href="#id5" id="id24">点</a></li>
-<li><a class="reference internal" href="#id6" id="id25">二項テンソル</a></li>
+<li><p><a class="reference internal" href="#id1" id="id20">ベクトル</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id3" id="id21">基本編</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id4" id="id22">座標系およびベクトル</a></p></li>
+<li><p><a class="reference internal" href="#sympy" id="id23">ベクトルに対する SymPy 演算</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id24">点</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id25">二項テンソル</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id7" id="id26">複数座標系</a><ul>
-<li><a class="reference internal" href="#id8" id="id27">並進のみによる指定</a></li>
-<li><a class="reference internal" href="#id9" id="id28">回転のみによる指定</a></li>
-<li><a class="reference internal" href="#id10" id="id29">並進と回転による指定</a></li>
-<li><a class="reference internal" href="#express" id="id30">関数 <code class="code docutils literal notranslate"><span class="pre">express</span></code></a></li>
+<li><p><a class="reference internal" href="#id7" id="id26">複数座標系</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id8" id="id27">並進のみによる指定</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id28">回転のみによる指定</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id29">並進と回転による指定</a></p></li>
+<li><p><a class="reference internal" href="#express" id="id30">関数 <code class="code docutils literal notranslate"><span class="pre">express</span></code></a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id11" id="id31">スカラー場とベクトル場</a><ul>
-<li><a class="reference internal" href="#id12" id="id32">ナブラ</a></li>
-<li><a class="reference internal" href="#id13" id="id33">回転</a></li>
-<li><a class="reference internal" href="#id14" id="id34">発散</a></li>
-<li><a class="reference internal" href="#id15" id="id35">勾配</a></li>
-<li><a class="reference internal" href="#id16" id="id36">方向微分</a></li>
-<li><a class="reference internal" href="#id17" id="id37">ポテンシャル</a></li>
+<li><p><a class="reference internal" href="#id11" id="id31">スカラー場とベクトル場</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id12" id="id32">ナブラ</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id33">回転</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id34">発散</a></p></li>
+<li><p><a class="reference internal" href="#id15" id="id35">勾配</a></p></li>
+<li><p><a class="reference internal" href="#id16" id="id36">方向微分</a></p></li>
+<li><p><a class="reference internal" href="#id17" id="id37">ポテンシャル</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id18" id="id38">演習</a></li>
+<li><p><a class="reference internal" href="#id18" id="id38">演習</a></p></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>紙幅の都合上、出力を一部手で改行した。</p>
 <p>本文中のすべての IPython セッション中のサンプルコードで、以下の出力書式設定が済んでいるものとする。</p>
-<div class="code python3 last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">init_printing</span><span class="p">(</span><span class="n">pretty_print</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">init_printing</span><span class="p">(</span><span class="n">pretty_print</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -81,64 +86,67 @@
 <div class="section" id="id4">
 <h3><a class="toc-backref" href="#id22">座標系およびベクトル</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>座標系としては現在は 3 次元直交座標系を表現するクラス CoordSysCartesian だけがある。</li>
-<li>オブジェクトの生成はコンストラクターでの直接生成でよい。その際には簡単な名前をつける。</li>
+<li><p>座標系としては現在は 3 次元直交座標系を表現するクラス CoordSysCartesian だけがある。</p></li>
+<li><p>オブジェクトの生成はコンストラクターでの直接生成でよい。その際には簡単な名前をつける。</p></li>
 </ul>
 <p>以下 <code class="code docutils literal notranslate"><span class="pre">N</span></code> をクラス CoordSysCartesian のオブジェクトとする。</p>
 <ul class="simple">
-<li>座標系の基底ベクトルに次の方法でアクセスできる。<ul>
-<li>プロパティー <code class="code docutils literal notranslate"><span class="pre">N.i</span></code>, <code class="code docutils literal notranslate"><span class="pre">N.j</span></code>, <code class="code docutils literal notranslate"><span class="pre">N.k</span></code></li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">N.base_vectors</span></code></li>
+<li><p>座標系の基底ベクトルに次の方法でアクセスできる。</p>
+<ul>
+<li><p>プロパティー <code class="code docutils literal notranslate"><span class="pre">N.i</span></code>, <code class="code docutils literal notranslate"><span class="pre">N.j</span></code>, <code class="code docutils literal notranslate"><span class="pre">N.k</span></code></p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">N.base_vectors</span></code></p></li>
 </ul>
 </li>
-<li>一応記すが、各基底ベクトルは対応する座標軸に沿う長さ 1 のものである。正規直交基底。</li>
-<li>基底ベクトルはクラス BaseVector のオブジェクトである。これの「線形結合」を表現しようとすると、SymPy 的には
-BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。</li>
-<li>名前が紛らわしいので要注意だが、これらのベクトル関連クラスの基底クラスが Vector である。</li>
-<li>零ベクトルは <code class="code docutils literal notranslate"><span class="pre">Vector.zero</span></code> オブジェクトで表現されている。</li>
+<li><p>一応記すが、各基底ベクトルは対応する座標軸に沿う長さ 1 のものである。正規直交基底。</p></li>
+<li><p>基底ベクトルはクラス BaseVector のオブジェクトである。これの「線形結合」を表現しようとすると、SymPy 的には
+BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。</p></li>
+<li><p>名前が紛らわしいので要注意だが、これらのベクトル関連クラスの基底クラスが Vector である。</p></li>
+<li><p>零ベクトルは <code class="code docutils literal notranslate"><span class="pre">Vector.zero</span></code> オブジェクトで表現されている。</p></li>
 </ul>
 <p>以下 <code class="code docutils literal notranslate"><span class="pre">u</span></code> および <code class="code docutils literal notranslate"><span class="pre">v</span></code> をベクトルオブジェクトとする。</p>
 <ul class="simple">
-<li>ベクトルのドット積 <span class="math notranslate nohighlight">\(\mathbf{u} \cdot \mathbf{v}\)</span> は次のどちらかで表現する。<ul>
-<li><code class="code docutils literal notranslate"><span class="pre">u.dot(v)</span></code></li>
-<li><code class="code docutils literal notranslate"><span class="pre">u</span> <span class="pre">&amp;</span> <span class="pre">v</span></code></li>
+<li><p>ベクトルのドット積 <span class="math notranslate nohighlight">\(\mathbf{u} \cdot \mathbf{v}\)</span> は次のどちらかで表現する。</p>
+<ul>
+<li><p><code class="code docutils literal notranslate"><span class="pre">u.dot(v)</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">u</span> <span class="pre">&amp;</span> <span class="pre">v</span></code></p></li>
 </ul>
 </li>
-<li>ベクトルのクロス積 <span class="math notranslate nohighlight">\(\mathbf{u} \times \mathbf{v}\)</span> は次のどちらかで表現する。<ul>
-<li><code class="code docutils literal notranslate"><span class="pre">u.cross(v)</span></code></li>
-<li><code class="code docutils literal notranslate"><span class="pre">u</span> <span class="pre">^</span> <span class="pre">v</span></code></li>
+<li><p>ベクトルのクロス積 <span class="math notranslate nohighlight">\(\mathbf{u} \times \mathbf{v}\)</span> は次のどちらかで表現する。</p>
+<ul>
+<li><p><code class="code docutils literal notranslate"><span class="pre">u.cross(v)</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">u</span> <span class="pre">^</span> <span class="pre">v</span></code></p></li>
 </ul>
 </li>
 </ul>
 <p>オブジェクト指向プログラミング言語のコードでベクトルをクラスとして表現することはしばしばある。演算子オーバーロードをサポートする言語では、このふたつの積を計算する処理を演算子として実装することが多い。その時は常にプログラマーは演算子の優先順位に注意することになる。</p>
 <ul class="simple">
-<li>ベクトルの長さはメソッド <code class="code docutils literal notranslate"><span class="pre">magnitude()</span></code> を用いる。</li>
-<li>ベクトルの長さを単位化するメソッドは <code class="code docutils literal notranslate"><span class="pre">normalize()</span></code> である。新しいベクトルを返し、自分自身は変わらない。</li>
-<li>ベクトルの成分はプロパティー <code class="code docutils literal notranslate"><span class="pre">components</span></code> で確認できる。ただし型が dict で使い勝手に疑問点がある。キーが BaseVector オブジェクトで、値が係数すなわち成分である。こういう設計になっている理由は、「関連のない別々の座標系からとってきたベクトルの和」のようなオブジェクトが許されることから来るものと思う。</li>
+<li><p>ベクトルの長さはメソッド <code class="code docutils literal notranslate"><span class="pre">magnitude()</span></code> を用いる。</p></li>
+<li><p>ベクトルの長さを単位化するメソッドは <code class="code docutils literal notranslate"><span class="pre">normalize()</span></code> である。新しいベクトルを返し、自分自身は変わらない。</p></li>
+<li><p>ベクトルの成分はプロパティー <code class="code docutils literal notranslate"><span class="pre">components</span></code> で確認できる。ただし型が dict で使い勝手に疑問点がある。キーが BaseVector オブジェクトで、値が係数すなわち成分である。こういう設計になっている理由は、「関連のない別々の座標系からとってきたベクトルの和」のようなオブジェクトが許されることから来るものと思う。</p></li>
 </ul>
 </div>
 <div class="section" id="sympy">
 <h3><a class="toc-backref" href="#id23">ベクトルに対する SymPy 演算</a><a class="headerlink" href="#sympy" title="Permalink to this headline">¶</a></h3>
 <p>Vector オブジェクトに対して、次の関数およびクラスによる SymPy 演算を適用することができる。ベクトルの各要素ごと、つまり各基底ベクトルの係数に演算がそれぞれ作用する。</p>
 <ul class="simple">
-<li><code class="code docutils literal notranslate"><span class="pre">simplify</span></code></li>
-<li><code class="code docutils literal notranslate"><span class="pre">trigsimp</span></code></li>
-<li><code class="code docutils literal notranslate"><span class="pre">factor</span></code></li>
-<li><code class="code docutils literal notranslate"><span class="pre">diff</span></code>, Derivative</li>
-<li><code class="code docutils literal notranslate"><span class="pre">integrate</span></code>, Integral</li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">simplify</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">trigsimp</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">factor</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">diff</span></code>, Derivative</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">integrate</span></code>, Integral</p></li>
 </ul>
 </div>
 <div class="section" id="id5">
 <h3><a class="toc-backref" href="#id24">点</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>ある座標系に点を生成することができるのだが、少し特徴的な方法による。</p>
 <ul class="simple">
-<li>プロパティー <code class="code docutils literal notranslate"><span class="pre">origin</span></code> が座標系原点を表現する。すなわち <code class="code docutils literal notranslate"><span class="pre">N.origin</span></code> は座標系 <code class="code docutils literal notranslate"><span class="pre">N</span></code> の原点を意味する。このオブジェクトの型がクラス Point である。</li>
-<li>新しく点を生成するには、この原点なり既存の点なりのメソッド <code class="code docutils literal notranslate"><span class="pre">locate_new</span></code> を用いる。引数にはその点から生成したい点への変位をベクトルで指定する。</li>
+<li><p>プロパティー <code class="code docutils literal notranslate"><span class="pre">origin</span></code> が座標系原点を表現する。すなわち <code class="code docutils literal notranslate"><span class="pre">N.origin</span></code> は座標系 <code class="code docutils literal notranslate"><span class="pre">N</span></code> の原点を意味する。このオブジェクトの型がクラス Point である。</p></li>
+<li><p>新しく点を生成するには、この原点なり既存の点なりのメソッド <code class="code docutils literal notranslate"><span class="pre">locate_new</span></code> を用いる。引数にはその点から生成したい点への変位をベクトルで指定する。</p></li>
 </ul>
 <p>以下 <code class="code docutils literal notranslate"><span class="pre">P</span></code>, <code class="code docutils literal notranslate"><span class="pre">Q</span></code> をクラス Point のオブジェクトとする。</p>
 <ul class="simple">
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">position_wrt</span></code> を用いて位置ベクトルを得られる。点 <code class="code docutils literal notranslate"><span class="pre">P</span></code> の <code class="code docutils literal notranslate"><span class="pre">Q</span></code> に対する位置ベクトルは <code class="code docutils literal notranslate"><span class="pre">P.position_wrt(Q)</span></code> である。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">express_coordinates</span></code> により、点の座標を得られる。引数は座標系を指定する。</li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">position_wrt</span></code> を用いて位置ベクトルを得られる。点 <code class="code docutils literal notranslate"><span class="pre">P</span></code> の <code class="code docutils literal notranslate"><span class="pre">Q</span></code> に対する位置ベクトルは <code class="code docutils literal notranslate"><span class="pre">P.position_wrt(Q)</span></code> である。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">express_coordinates</span></code> により、点の座標を得られる。引数は座標系を指定する。</p></li>
 </ul>
 <p>設計は常識的なのだが、実際使うときにはクセがあるように感じられる。点を生成するのも、その位置を確認するのも、基本的な操作のはずなのだが、その割には手間がかかる。</p>
 </div>
@@ -146,33 +154,31 @@ BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。</l
 <h3><a class="toc-backref" href="#id25">二項テンソル</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>ベクトル同士の二項テンソルをオブジェクトとして表現するクラス Dyadic がある。</p>
 <ul>
-<li><p class="first">オブジェクトをコンストラクターで直接生成することはまれであり、通常は Vector のメソッド <code class="code docutils literal notranslate"><span class="pre">outer</span></code> もしくは演算子 <code class="code docutils literal notranslate"><span class="pre">|</span></code> により生成する。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">sympy.vector</span> <span class="k">import</span> <span class="o">*</span>
+<li><p>オブジェクトをコンストラクターで直接生成することはまれであり、通常は Vector のメソッド <code class="code docutils literal notranslate"><span class="pre">outer</span></code> もしくは演算子 <code class="code docutils literal notranslate"><span class="pre">|</span></code> により生成する。</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">sympy.vector</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">N</span> <span class="o">=</span> <span class="n">CoordSysCartesian</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
+<span class="gp">In [2]: </span><span class="n">N</span> <span class="o">=</span> <span class="n">CoordSysCartesian</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">a</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">((</span><span class="n">i</span> <span class="o">*</span> <span class="n">j</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;a0:3&#39;</span><span class="p">),</span> <span class="n">N</span><span class="o">.</span><span class="n">base_vectors</span><span class="p">())),</span> <span class="n">Vector</span><span class="o">.</span><span class="n">zero</span><span class="p">)</span>
+<span class="gp">In [3]: </span><span class="n">a</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">((</span><span class="n">i</span> <span class="o">*</span> <span class="n">j</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;a0:3&#39;</span><span class="p">),</span> <span class="n">N</span><span class="o">.</span><span class="n">base_vectors</span><span class="p">())),</span> <span class="n">Vector</span><span class="o">.</span><span class="n">zero</span><span class="p">)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">b</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">((</span><span class="n">i</span> <span class="o">*</span> <span class="n">j</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;b0:3&#39;</span><span class="p">),</span> <span class="n">N</span><span class="o">.</span><span class="n">base_vectors</span><span class="p">())),</span> <span class="n">Vector</span><span class="o">.</span><span class="n">zero</span><span class="p">)</span>
+<span class="gp">In [4]: </span><span class="n">b</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">((</span><span class="n">i</span> <span class="o">*</span> <span class="n">j</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;b0:3&#39;</span><span class="p">),</span> <span class="n">N</span><span class="o">.</span><span class="n">base_vectors</span><span class="p">())),</span> <span class="n">Vector</span><span class="o">.</span><span class="n">zero</span><span class="p">)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">a</span> <span class="o">|</span> <span class="n">b</span> <span class="c1"># i.e. a.outer(b)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">a0</span><span class="o">*</span><span class="n">b0</span><span class="o">*</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">i</span><span class="o">|</span><span class="n">N</span><span class="o">.</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="n">a0</span><span class="o">*</span><span class="n">b1</span><span class="o">*</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">i</span><span class="o">|</span><span class="n">N</span><span class="o">.</span><span class="n">j</span><span class="p">)</span> <span class="o">+</span> <span class="n">a0</span><span class="o">*</span><span class="n">b2</span><span class="o">*</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">i</span><span class="o">|</span><span class="n">N</span><span class="o">.</span><span class="n">k</span><span class="p">)</span>
-      <span class="o">+</span> <span class="n">a1</span><span class="o">*</span><span class="n">b0</span><span class="o">*</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">j</span><span class="o">|</span><span class="n">N</span><span class="o">.</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="n">a1</span><span class="o">*</span><span class="n">b1</span><span class="o">*</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">j</span><span class="o">|</span><span class="n">N</span><span class="o">.</span><span class="n">j</span><span class="p">)</span> <span class="o">+</span> <span class="n">a1</span><span class="o">*</span><span class="n">b2</span><span class="o">*</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">j</span><span class="o">|</span><span class="n">N</span><span class="o">.</span><span class="n">k</span><span class="p">)</span>
-      <span class="o">+</span> <span class="n">a2</span><span class="o">*</span><span class="n">b0</span><span class="o">*</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">k</span><span class="o">|</span><span class="n">N</span><span class="o">.</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="n">a2</span><span class="o">*</span><span class="n">b1</span><span class="o">*</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">k</span><span class="o">|</span><span class="n">N</span><span class="o">.</span><span class="n">j</span><span class="p">)</span> <span class="o">+</span> <span class="n">a2</span><span class="o">*</span><span class="n">b2</span><span class="o">*</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">k</span><span class="o">|</span><span class="n">N</span><span class="o">.</span><span class="n">k</span><span class="p">)</span>
+<span class="gp">In [5]: </span><span class="n">a</span> <span class="o">|</span> <span class="n">b</span> <span class="c1"># i.e. a.outer(b)</span>
+<span class="gh">Out[5]: </span><span class="go">a0*b0*(N.i|N.i) + a0*b1*(N.i|N.j) + a0*b2*(N.i|N.k)</span>
+<span class="go">      + a1*b0*(N.j|N.i) + a1*b1*(N.j|N.j) + a1*b2*(N.j|N.k)</span>
+<span class="go">      + a2*b0*(N.k|N.i) + a2*b1*(N.k|N.j) + a2*b2*(N.k|N.k)</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Dyadic の関連クラスは Vector のそれと酷似している。すなわち BaseDyadic, DyadicAdd, DyadicMul, etc. である。</p>
-</li>
-<li><p class="first">零元はオブジェクト <code class="code docutils literal notranslate"><span class="pre">Dyaric.zero</span></code> で表現している。</p>
-</li>
-<li><p class="first">ベクトルのスカラー積、クロス積とも混ぜて利用可能。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">c</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">((</span><span class="n">i</span> <span class="o">*</span> <span class="n">j</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;c0:3&#39;</span><span class="p">),</span> <span class="n">N</span><span class="o">.</span><span class="n">base_vectors</span><span class="p">())),</span> <span class="n">Vector</span><span class="o">.</span><span class="n">zero</span><span class="p">)</span>
+<li><p>Dyadic の関連クラスは Vector のそれと酷似している。すなわち BaseDyadic, DyadicAdd, DyadicMul, etc. である。</p></li>
+<li><p>零元はオブジェクト <code class="code docutils literal notranslate"><span class="pre">Dyaric.zero</span></code> で表現している。</p></li>
+<li><p>ベクトルのスカラー積、クロス積とも混ぜて利用可能。</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [6]: </span><span class="n">c</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">((</span><span class="n">i</span> <span class="o">*</span> <span class="n">j</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;c0:3&#39;</span><span class="p">),</span> <span class="n">N</span><span class="o">.</span><span class="n">base_vectors</span><span class="p">())),</span> <span class="n">Vector</span><span class="o">.</span><span class="n">zero</span><span class="p">)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">a</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="p">(</span><span class="n">a0</span><span class="o">*</span><span class="n">b0</span><span class="o">*</span><span class="n">c0</span> <span class="o">+</span> <span class="n">a1</span><span class="o">*</span><span class="n">b1</span><span class="o">*</span><span class="n">c0</span> <span class="o">+</span> <span class="n">a2</span><span class="o">*</span><span class="n">b2</span><span class="o">*</span><span class="n">c0</span><span class="p">)</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">i</span>
-      <span class="o">+</span> <span class="p">(</span><span class="n">a0</span><span class="o">*</span><span class="n">b0</span><span class="o">*</span><span class="n">c1</span> <span class="o">+</span> <span class="n">a1</span><span class="o">*</span><span class="n">b1</span><span class="o">*</span><span class="n">c1</span> <span class="o">+</span> <span class="n">a2</span><span class="o">*</span><span class="n">b2</span><span class="o">*</span><span class="n">c1</span><span class="p">)</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">j</span>
-      <span class="o">+</span> <span class="p">(</span><span class="n">a0</span><span class="o">*</span><span class="n">b0</span><span class="o">*</span><span class="n">c2</span> <span class="o">+</span> <span class="n">a1</span><span class="o">*</span><span class="n">b1</span><span class="o">*</span><span class="n">c2</span> <span class="o">+</span> <span class="n">a2</span><span class="o">*</span><span class="n">b2</span><span class="o">*</span><span class="n">c2</span><span class="p">)</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">k</span>
+<span class="gp">In [7]: </span><span class="n">a</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
+<span class="gh">Out[7]: </span><span class="go">(a0*b0*c0 + a1*b1*c0 + a2*b2*c0)*N.i</span>
+<span class="go">      + (a0*b0*c1 + a1*b1*c1 + a2*b2*c1)*N.j</span>
+<span class="go">      + (a0*b0*c2 + a1*b1*c2 + a2*b2*c2)*N.k</span>
 </pre></div>
 </div>
 </li>
@@ -184,20 +190,20 @@ BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。</l
 <p>既存の座標系オブジェクト <code class="code docutils literal notranslate"><span class="pre">N</span></code> から、新たに別の座標系オブジェクト <code class="code docutils literal notranslate"><span class="pre">M</span></code> を生成することができる。モデリングソフト等でお馴染みの方法論でもある。</p>
 <div class="section" id="id8">
 <h3><a class="toc-backref" href="#id27">並進のみによる指定</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
-<dl class="docutils">
-<dt>メソッド <code class="code docutils literal notranslate"><span class="pre">locate_new(name,</span> <span class="pre">position,</span> <span class="pre">vector_names=None,</span> <span class="pre">variable_names=None)</span></code></dt>
-<dd><p class="first">新しく CoordSysCartesian オブジェクトを生成できる。</p>
-<ul class="last simple">
-<li>引数 <code class="code docutils literal notranslate"><span class="pre">name</span></code> は座標系の名前を指定する。主にデバッグ作業用？</li>
-<li>引数 <code class="code docutils literal notranslate"><span class="pre">position</span></code> にはその点から生成したい点への変位をベクトルで指定する。</li>
-<li>残りのキーワード引数は <code class="code docutils literal notranslate"><span class="pre">base_vectors</span></code> と <code class="code docutils literal notranslate"><span class="pre">base_scalars</span></code> の名前のためのもの。</li>
+<dl class="simple">
+<dt>メソッド <code class="code docutils literal notranslate"><span class="pre">locate_new(name,</span> <span class="pre">position,</span> <span class="pre">vector_names=None,</span> <span class="pre">variable_names=None)</span></code></dt><dd><p>新しく CoordSysCartesian オブジェクトを生成できる。</p>
+<ul class="simple">
+<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">name</span></code> は座標系の名前を指定する。主にデバッグ作業用？</p></li>
+<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">position</span></code> にはその点から生成したい点への変位をベクトルで指定する。</p></li>
+<li><p>残りのキーワード引数は <code class="code docutils literal notranslate"><span class="pre">base_vectors</span></code> と <code class="code docutils literal notranslate"><span class="pre">base_scalars</span></code> の名前のためのもの。</p></li>
 </ul>
 </dd>
 </dl>
 <ul class="simple">
-<li><code class="code docutils literal notranslate"><span class="pre">N</span></code> に対する <code class="code docutils literal notranslate"><span class="pre">M</span></code> の変位を得るには、次のどちらかを行う。<ul>
-<li><code class="code docutils literal notranslate"><span class="pre">M.position_wrt(N)</span></code></li>
-<li><code class="code docutils literal notranslate"><span class="pre">M.origin.express_coordinates(N)</span></code></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">N</span></code> に対する <code class="code docutils literal notranslate"><span class="pre">M</span></code> の変位を得るには、次のどちらかを行う。</p>
+<ul>
+<li><p><code class="code docutils literal notranslate"><span class="pre">M.position_wrt(N)</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">M.origin.express_coordinates(N)</span></code></p></li>
 </ul>
 </li>
 </ul>
@@ -205,29 +211,26 @@ BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。</l
 <div class="section" id="id9">
 <h3><a class="toc-backref" href="#id28">回転のみによる指定</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>次は新たな座標系に回転（だけ）を施す。</p>
-<dl class="docutils">
-<dt>メソッド <code class="code docutils literal notranslate"><span class="pre">orient_new_axis(name,</span> <span class="pre">angle,</span> <span class="pre">axis,</span> <span class="pre">location=None,</span> <span class="pre">vector_names=None,</span> <span class="pre">variable_names=None)</span></code></dt>
-<dd><p class="first">座標系 <code class="code docutils literal notranslate"><span class="pre">M</span></code> に対してベクトル <code class="code docutils literal notranslate"><span class="pre">axis</span></code> 周りに角度 <code class="code docutils literal notranslate"><span class="pre">angle</span></code> だけ回転して得られる座標系 <code class="code docutils literal notranslate"><span class="pre">N</span></code> を生成する。</p>
-<ul class="last simple">
-<li><code class="code docutils literal notranslate"><span class="pre">axis</span></code> に関しては細かい条件が不明。零ベクトルだとアウトなことは想像できる。</li>
-<li><code class="code docutils literal notranslate"><span class="pre">location</span></code> にベクトルを指定すると、回転プラス並進となるが、後述。</li>
+<dl class="simple">
+<dt>メソッド <code class="code docutils literal notranslate"><span class="pre">orient_new_axis(name,</span> <span class="pre">angle,</span> <span class="pre">axis,</span> <span class="pre">location=None,</span> <span class="pre">vector_names=None,</span> <span class="pre">variable_names=None)</span></code></dt><dd><p>座標系 <code class="code docutils literal notranslate"><span class="pre">M</span></code> に対してベクトル <code class="code docutils literal notranslate"><span class="pre">axis</span></code> 周りに角度 <code class="code docutils literal notranslate"><span class="pre">angle</span></code> だけ回転して得られる座標系 <code class="code docutils literal notranslate"><span class="pre">N</span></code> を生成する。</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">axis</span></code> に関しては細かい条件が不明。零ベクトルだとアウトなことは想像できる。</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">location</span></code> にベクトルを指定すると、回転プラス並進となるが、後述。</p></li>
 </ul>
 </dd>
 </dl>
 <p>その他にも次のようなメソッドにより、新しい座標系を生成できる。</p>
-<dl class="docutils">
-<dt>メソッド <code class="code docutils literal notranslate"><span class="pre">orient_new_body(name,</span> <span class="pre">angle1,</span> <span class="pre">angle2,</span> <span class="pre">angle3,</span> <span class="pre">rotation_order,</span> <span class="pre">...)</span></code></dt>
-<dd><p class="first">座標系を 3 回の座標軸周りの回転により生成する。</p>
-<ul class="last simple">
-<li>引数 <code class="code docutils literal notranslate"><span class="pre">angle1</span></code>, <code class="code docutils literal notranslate"><span class="pre">angle2</span></code>, <code class="code docutils literal notranslate"><span class="pre">angle3</span></code> が各座標軸に関する回転角を表す。</li>
-<li>引数 <code class="code docutils literal notranslate"><span class="pre">rotation_order</span></code> が回転を施す座標軸の順序を示す文字列。例えば x, z, y 軸の順に回転する場合は <code class="docutils literal notranslate"><span class="pre">'132'</span></code> または <code class="docutils literal notranslate"><span class="pre">'XZY'</span></code> を指定する。</li>
-<li>回転軸が新座標系のそれを基準とすることに注意。最初の回転は新旧一致しているが、次の回転は前の回転の影響を受けている。</li>
+<dl>
+<dt>メソッド <code class="code docutils literal notranslate"><span class="pre">orient_new_body(name,</span> <span class="pre">angle1,</span> <span class="pre">angle2,</span> <span class="pre">angle3,</span> <span class="pre">rotation_order,</span> <span class="pre">...)</span></code></dt><dd><p>座標系を 3 回の座標軸周りの回転により生成する。</p>
+<ul class="simple">
+<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">angle1</span></code>, <code class="code docutils literal notranslate"><span class="pre">angle2</span></code>, <code class="code docutils literal notranslate"><span class="pre">angle3</span></code> が各座標軸に関する回転角を表す。</p></li>
+<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">rotation_order</span></code> が回転を施す座標軸の順序を示す文字列。例えば x, z, y 軸の順に回転する場合は <code class="docutils literal notranslate"><span class="pre">'132'</span></code> または <code class="docutils literal notranslate"><span class="pre">'XZY'</span></code> を指定する。</p></li>
+<li><p>回転軸が新座標系のそれを基準とすることに注意。最初の回転は新旧一致しているが、次の回転は前の回転の影響を受けている。</p></li>
 </ul>
 </dd>
-<dt>メソッド <code class="code docutils literal notranslate"><span class="pre">orient_new_space(name,</span> <span class="pre">angle1,</span> <span class="pre">angle2,</span> <span class="pre">angle3,</span> <span class="pre">rotation_order,</span> <span class="pre">...)</span></code></dt>
-<dd>上のものと似ているが、回転の基準が 3 回転とも <code class="code docutils literal notranslate"><span class="pre">M</span></code> の座標軸に沿う。</dd>
-<dt>メソッド <code class="code docutils literal notranslate"><span class="pre">orient_new_quaternion(name,</span> <span class="pre">q0,</span> <span class="pre">q1,</span> <span class="pre">q2,</span> <span class="pre">q3,</span> <span class="pre">...)</span></code></dt>
-<dd><p class="first">Hamilton の四元数による回転を与えて新たな座標系を生成する。</p>
+<dt>メソッド <code class="code docutils literal notranslate"><span class="pre">orient_new_space(name,</span> <span class="pre">angle1,</span> <span class="pre">angle2,</span> <span class="pre">angle3,</span> <span class="pre">rotation_order,</span> <span class="pre">...)</span></code></dt><dd><p>上のものと似ているが、回転の基準が 3 回転とも <code class="code docutils literal notranslate"><span class="pre">M</span></code> の座標軸に沿う。</p>
+</dd>
+<dt>メソッド <code class="code docutils literal notranslate"><span class="pre">orient_new_quaternion(name,</span> <span class="pre">q0,</span> <span class="pre">q1,</span> <span class="pre">q2,</span> <span class="pre">q3,</span> <span class="pre">...)</span></code></dt><dd><p>Hamilton の四元数による回転を与えて新たな座標系を生成する。</p>
 <p>単位ベクトル <span class="math notranslate nohighlight">\((n_x, n_y, n_z)\)</span> の周りに角度 <span class="math notranslate nohighlight">\(\theta\)</span> だけの回転を表す四元数は</p>
 <div class="math notranslate nohighlight">
 \begin{align*}
@@ -235,21 +238,20 @@ BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。</l
       n_x\!\sin \frac{\theta}{2},\
       n_y\!\sin \frac{\theta}{2},\
       n_z\!\sin \frac{\theta}{2}\right)
-\end{align*}</div><p class="last">となる。この各成分を <code class="code docutils literal notranslate"><span class="pre">q0</span></code> から <code class="code docutils literal notranslate"><span class="pre">q3</span></code> までこの順序で指定する。</p>
+\end{align*}</div><p>となる。この各成分を <code class="code docutils literal notranslate"><span class="pre">q0</span></code> から <code class="code docutils literal notranslate"><span class="pre">q3</span></code> までこの順序で指定する。</p>
 </dd>
 </dl>
 <p>より一般的には、メソッド <code class="code docutils literal notranslate"><span class="pre">orient_new</span></code> および以下のクラスのオブジェクトを用いる。</p>
 <ul class="simple">
-<li>AxisOrienter</li>
-<li>BodyOrienter</li>
-<li>SpaceOrienter</li>
-<li>QuaternionOrienter</li>
+<li><p>AxisOrienter</p></li>
+<li><p>BodyOrienter</p></li>
+<li><p>SpaceOrienter</p></li>
+<li><p>QuaternionOrienter</p></li>
 </ul>
 <p>生成手順は <code class="code docutils literal notranslate"><span class="pre">M</span> <span class="pre">=</span> <span class="pre">N.orient_new(name,</span> <span class="pre">(orienter1,</span> <span class="pre">orienter2,</span> <span class="pre">...))</span></code> である。</p>
 <ul>
-<li><p class="first">以上の 4 つの座標変換について、新旧座標系の原点は一致している。</p>
-</li>
-<li><p class="first"><code class="code docutils literal notranslate"><span class="pre">N.rotation_matrix(M)</span></code> にて、回転変換を表現する 3 次正則行列を得られる。すべての上記 4 つの座標変換について、行列式の絶対値が 1 になると思われる。</p>
+<li><p>以上の 4 つの座標変換について、新旧座標系の原点は一致している。</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">N.rotation_matrix(M)</span></code> にて、回転変換を表現する 3 次正則行列を得られる。すべての上記 4 つの座標変換について、行列式の絶対値が 1 になると思われる。</p>
 <p>ここでは控えめに絶対値と言ったが、座標系の向きがどの変換でも右手系（オリジナルの向き）を保つならば真に 1 になる。現在確認中。</p>
 </li>
 </ul>
@@ -258,21 +260,23 @@ BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。</l
 <h3><a class="toc-backref" href="#id29">並進と回転による指定</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <p>最後に並進と回転を組み合わせる方法を記す。</p>
 <ul class="simple">
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">orient_new</span></code> およびその仲間たちには、キーワード引数 <code class="code docutils literal notranslate"><span class="pre">locate</span></code> が指定できる。これを用いて変位量をベクトルで与えれば、新しい座標系は、原点の周りに指定の回転を施された後、指定の変位だけ移動したものになる。</li>
-<li>関数 <code class="code docutils literal notranslate"><span class="pre">express</span></code> を用いて、一方の座標系の座標を他方の座標系のそれで表現できる。呼び出し形式は <code class="code docutils literal notranslate"><span class="pre">express(point,</span> <span class="pre">coord_sys)</span></code> である。</li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">orient_new</span></code> およびその仲間たちには、キーワード引数 <code class="code docutils literal notranslate"><span class="pre">locate</span></code> が指定できる。これを用いて変位量をベクトルで与えれば、新しい座標系は、原点の周りに指定の回転を施された後、指定の変位だけ移動したものになる。</p></li>
+<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">express</span></code> を用いて、一方の座標系の座標を他方の座標系のそれで表現できる。呼び出し形式は <code class="code docutils literal notranslate"><span class="pre">express(point,</span> <span class="pre">coord_sys)</span></code> である。</p></li>
 </ul>
 </div>
 <div class="section" id="express">
 <h3><a class="toc-backref" href="#id30">関数 <code class="code docutils literal notranslate"><span class="pre">express</span></code></a><a class="headerlink" href="#express" title="Permalink to this headline">¶</a></h3>
 <p>関数 <code class="code docutils literal notranslate"><span class="pre">express</span></code> が指定の座標系の表現に書き直せるのは点やベクトルだけではない。</p>
 <ul class="simple">
-<li>ベクトルを含む SymPy 式</li>
-<li>Dyaric オブジェクト<ul>
-<li>座標系オブジェクトを 2 個引数として渡せる。特に、引数の二項テンソルがふたつの座標系にまたがるようなものに対して有効。</li>
+<li><p>ベクトルを含む SymPy 式</p></li>
+<li><p>Dyaric オブジェクト</p>
+<ul>
+<li><p>座標系オブジェクトを 2 個引数として渡せる。特に、引数の二項テンソルがふたつの座標系にまたがるようなものに対して有効。</p></li>
 </ul>
 </li>
-<li>BaseScalar オブジェクト<ul>
-<li>ポイントはキーワード引数 <code class="code docutils literal notranslate"><span class="pre">variables=True</span></code> を指定すること。例えば座標系 <code class="code docutils literal notranslate"><span class="pre">N</span></code> で定義したスカラー場を <code class="code docutils literal notranslate"><span class="pre">M</span></code> での表現に書き直せる。</li>
+<li><p>BaseScalar オブジェクト</p>
+<ul>
+<li><p>ポイントはキーワード引数 <code class="code docutils literal notranslate"><span class="pre">variables=True</span></code> を指定すること。例えば座標系 <code class="code docutils literal notranslate"><span class="pre">N</span></code> で定義したスカラー場を <code class="code docutils literal notranslate"><span class="pre">M</span></code> での表現に書き直せる。</p></li>
 </ul>
 </li>
 </ul>
@@ -282,24 +286,24 @@ BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。</l
 <h2><a class="toc-backref" href="#id31">スカラー場とベクトル場</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
 <p>内容が若干 <a class="reference internal" href="diffgeom.html"><span class="doc">微分幾何</span></a> で見る外積周りの話題と重複する。</p>
 <ul class="simple">
-<li>座標系 <code class="code docutils literal notranslate"><span class="pre">R</span></code> でのスカラー場やベクトル場を構成するには、クラス BaseScalar のオブジェクトである
-<code class="code docutils literal notranslate"><span class="pre">R.x</span></code>, <code class="code docutils literal notranslate"><span class="pre">R.y</span></code>, <code class="code docutils literal notranslate"><span class="pre">R.z</span></code> を用いる。</li>
+<li><p>座標系 <code class="code docutils literal notranslate"><span class="pre">R</span></code> でのスカラー場やベクトル場を構成するには、クラス BaseScalar のオブジェクトである
+<code class="code docutils literal notranslate"><span class="pre">R.x</span></code>, <code class="code docutils literal notranslate"><span class="pre">R.y</span></code>, <code class="code docutils literal notranslate"><span class="pre">R.z</span></code> を用いる。</p></li>
 </ul>
 <div class="section" id="id12">
 <h3><a class="toc-backref" href="#id32">ナブラ</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <p>クラス CoordSysCartesian のプロパティー <code class="code docutils literal notranslate"><span class="pre">delop</span></code> がナブラ <span class="math notranslate nohighlight">\(\nabla\)</span> を表現する。英語圏の人はこれをデルと呼ぶことが多い。そしてみんなが知っているが、小文字の <code class="code docutils literal notranslate"><span class="pre">del</span></code> は Python の予約語である。</p>
 <p>例を示す。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">sympy.vector</span> <span class="k">import</span> <span class="o">*</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">sympy.vector</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">N</span> <span class="o">=</span> <span class="n">CoordSysCartesian</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
+<span class="gp">In [2]: </span><span class="n">N</span> <span class="o">=</span> <span class="n">CoordSysCartesian</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">f</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">)(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">);</span> <span class="n">f</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">f</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+<span class="gp">In [3]: </span><span class="n">f</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">)(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">);</span> <span class="n">f</span>
+<span class="gh">Out[3]: </span><span class="go">f(N.x, N.y, N.z)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">N</span><span class="o">.</span><span class="n">delop</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">))</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">i</span>
-      <span class="o">+</span> <span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">))</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">j</span>
-      <span class="o">+</span> <span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">))</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">k</span>
+<span class="gp">In [4]: </span><span class="n">N</span><span class="o">.</span><span class="n">delop</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="gh">Out[4]: </span><span class="go">(Derivative(f(N.x, N.y, N.z), N.x))*N.i</span>
+<span class="go">      + (Derivative(f(N.x, N.y, N.z), N.y))*N.j</span>
+<span class="go">      + (Derivative(f(N.x, N.y, N.z), N.z))*N.k</span>
 </pre></div>
 </div>
 </div>
@@ -307,25 +311,25 @@ BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。</l
 <h3><a class="toc-backref" href="#id33">回転</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <p>3 次元空間のベクトルの回転 <span class="math notranslate nohighlight">\(\nabla \times \mathbf{F}\)</span> を計算する方法がふたつある。</p>
 <ul class="simple">
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">delop.cross</span></code> を用いる。</li>
-<li>関数 <code class="code docutils literal notranslate"><span class="pre">curl</span></code> を用いる。</li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">delop.cross</span></code> を用いる。</p></li>
+<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">curl</span></code> を用いる。</p></li>
 </ul>
 <p>例を示す。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">sympy.vector</span> <span class="k">import</span> <span class="o">*</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">sympy.vector</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">N</span> <span class="o">=</span> <span class="n">CoordSysCartesian</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
+<span class="gp">In [2]: </span><span class="n">N</span> <span class="o">=</span> <span class="n">CoordSysCartesian</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">fx</span><span class="p">,</span> <span class="n">fy</span><span class="p">,</span> <span class="n">fz</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;fx fy fz&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">Function</span><span class="p">)]</span>
+<span class="gp">In [3]: </span><span class="n">fx</span><span class="p">,</span> <span class="n">fy</span><span class="p">,</span> <span class="n">fz</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;fx fy fz&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">Function</span><span class="p">)]</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">curl</span><span class="p">(</span><span class="n">fx</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">i</span> <span class="o">+</span> <span class="n">fy</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">j</span> <span class="o">+</span> <span class="n">fz</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">k</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="p">(</span><span class="o">-</span><span class="n">Subs</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">fy</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="p">(</span><span class="n">_xi_2</span><span class="p">,),</span> <span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">,))</span> <span class="o">+</span> <span class="n">Subs</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">fz</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">_xi_2</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="p">(</span><span class="n">_xi_2</span><span class="p">,),</span> <span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,)))</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">i</span>
-      <span class="o">+</span> <span class="p">(</span><span class="n">Subs</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">fx</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="p">(</span><span class="n">_xi_2</span><span class="p">,),</span> <span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">,))</span> <span class="o">-</span> <span class="n">Subs</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">fz</span><span class="p">(</span><span class="n">_xi_2</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="p">(</span><span class="n">_xi_2</span><span class="p">,),</span> <span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,)))</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">j</span>
-      <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="n">Subs</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">fx</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">_xi_2</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="p">(</span><span class="n">_xi_2</span><span class="p">,),</span> <span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,))</span> <span class="o">+</span> <span class="n">Subs</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">fy</span><span class="p">(</span><span class="n">_xi_2</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="p">(</span><span class="n">_xi_2</span><span class="p">,),</span> <span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,)))</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">k</span>
+<span class="gp">In [4]: </span><span class="n">curl</span><span class="p">(</span><span class="n">fx</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">i</span> <span class="o">+</span> <span class="n">fy</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">j</span> <span class="o">+</span> <span class="n">fz</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">k</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+<span class="gh">Out[4]: </span><span class="go">(-Subs(Derivative(fy(N.x, N.y, _xi_2), _xi_2), (_xi_2,), (N.z,)) + Subs(Derivative(fz(N.x, _xi_2, N.z), _xi_2), (_xi_2,), (N.y,)))*N.i</span>
+<span class="go">      + (Subs(Derivative(fx(N.x, N.y, _xi_2), _xi_2), (_xi_2,), (N.z,)) - Subs(Derivative(fz(_xi_2, N.y, N.z), _xi_2), (_xi_2,), (N.x,)))*N.j</span>
+<span class="go">      + (-Subs(Derivative(fx(N.x, _xi_2, N.z), _xi_2), (_xi_2,), (N.y,)) + Subs(Derivative(fy(_xi_2, N.y, N.z), _xi_2), (_xi_2,), (N.x,)))*N.k</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">N</span><span class="o">.</span><span class="n">delop</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">fx</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">i</span> <span class="o">+</span> <span class="n">fy</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">j</span> <span class="o">+</span> <span class="n">fz</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">k</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="p">(</span><span class="o">-</span><span class="n">Derivative</span><span class="p">(</span><span class="n">fy</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">)</span> <span class="o">+</span> <span class="n">Derivative</span><span class="p">(</span><span class="n">fz</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">))</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">i</span>
-      <span class="o">+</span> <span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">fx</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">)</span> <span class="o">-</span> <span class="n">Derivative</span><span class="p">(</span><span class="n">fz</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">))</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">j</span>
-      <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="n">Derivative</span><span class="p">(</span><span class="n">fx</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">Derivative</span><span class="p">(</span><span class="n">fy</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">))</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">k</span>
+<span class="gp">In [5]: </span><span class="n">N</span><span class="o">.</span><span class="n">delop</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">fx</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">i</span> <span class="o">+</span> <span class="n">fy</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">j</span> <span class="o">+</span> <span class="n">fz</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">k</span><span class="p">)</span>
+<span class="gh">Out[5]: </span><span class="go">(-Derivative(fy(N.x, N.y, N.z), N.z) + Derivative(fz(N.x, N.y, N.z), N.y))*N.i</span>
+<span class="go">      + (Derivative(fx(N.x, N.y, N.z), N.z) - Derivative(fz(N.x, N.y, N.z), N.x))*N.j</span>
+<span class="go">      + (-Derivative(fx(N.x, N.y, N.z), N.y) + Derivative(fy(N.x, N.y, N.z), N.x))*N.k</span>
 </pre></div>
 </div>
 </div>
@@ -333,23 +337,23 @@ BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。</l
 <h3><a class="toc-backref" href="#id34">発散</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <p>3 次元空間のベクトルの発散 <span class="math notranslate nohighlight">\(\nabla \cdot \mathbf{F}\)</span> を計算する方法がふたつある。</p>
 <ul class="simple">
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">delop.dot</span></code> を用いる。</li>
-<li>関数 <code class="code docutils literal notranslate"><span class="pre">divergence</span></code> を用いる。</li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">delop.dot</span></code> を用いる。</p></li>
+<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">divergence</span></code> を用いる。</p></li>
 </ul>
 <p>例を示す。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">sympy.vector</span> <span class="k">import</span> <span class="o">*</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">sympy.vector</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="c1"># Create N, fx, fy, and fz...</span>
+<span class="gp">In [2]: </span><span class="c1"># Create N, fx, fy, and fz...</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">divergence</span><span class="p">(</span><span class="n">fx</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">i</span> <span class="o">+</span> <span class="n">fy</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">j</span> <span class="o">+</span> <span class="n">fz</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">k</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">Subs</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">fx</span><span class="p">(</span><span class="n">_xi_2</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="p">(</span><span class="n">_xi_2</span><span class="p">,),</span> <span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,))</span>
-      <span class="o">+</span> <span class="n">Subs</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">fy</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">_xi_2</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="p">(</span><span class="n">_xi_2</span><span class="p">,),</span> <span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,))</span>
-      <span class="o">+</span> <span class="n">Subs</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">fz</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="p">(</span><span class="n">_xi_2</span><span class="p">,),</span> <span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">,))</span>
+<span class="gp">In [3]: </span><span class="n">divergence</span><span class="p">(</span><span class="n">fx</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">i</span> <span class="o">+</span> <span class="n">fy</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">j</span> <span class="o">+</span> <span class="n">fz</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">k</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+<span class="gh">Out[3]: </span><span class="go">Subs(Derivative(fx(_xi_2, N.y, N.z), _xi_2), (_xi_2,), (N.x,))</span>
+<span class="go">      + Subs(Derivative(fy(N.x, _xi_2, N.z), _xi_2), (_xi_2,), (N.y,))</span>
+<span class="go">      + Subs(Derivative(fz(N.x, N.y, _xi_2), _xi_2), (_xi_2,), (N.z,))</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">N</span><span class="o">.</span><span class="n">delop</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">fx</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">i</span> <span class="o">+</span> <span class="n">fy</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">j</span> <span class="o">+</span> <span class="n">fz</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">k</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">Derivative</span><span class="p">(</span><span class="n">fx</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
-      <span class="o">+</span> <span class="n">Derivative</span><span class="p">(</span><span class="n">fy</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
-      <span class="o">+</span> <span class="n">Derivative</span><span class="p">(</span><span class="n">fz</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+<span class="gp">In [4]: </span><span class="n">N</span><span class="o">.</span><span class="n">delop</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">fx</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">i</span> <span class="o">+</span> <span class="n">fy</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">j</span> <span class="o">+</span> <span class="n">fz</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">k</span><span class="p">)</span>
+<span class="gh">Out[4]: </span><span class="go">Derivative(fx(N.x, N.y, N.z), N.x)</span>
+<span class="go">      + Derivative(fy(N.x, N.y, N.z), N.y)</span>
+<span class="go">      + Derivative(fz(N.x, N.y, N.z), N.z)</span>
 </pre></div>
 </div>
 </div>
@@ -357,23 +361,23 @@ BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。</l
 <h3><a class="toc-backref" href="#id35">勾配</a><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
 <p>3 次元空間上の実数値関数の勾配 <span class="math notranslate nohighlight">\(\nabla f\)</span> を計算する方法がふたつある。</p>
 <ul class="simple">
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">delop.gradient</span></code> を用いる。</li>
-<li>関数 <code class="code docutils literal notranslate"><span class="pre">gradient</span></code> を用いる。</li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">delop.gradient</span></code> を用いる。</p></li>
+<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">gradient</span></code> を用いる。</p></li>
 </ul>
 <p>例を示す。または関数メソッド <code class="code docutils literal notranslate"><span class="pre">gradient</span></code> を呼ぶことで、スカラー関数から勾配ベクトル場オブジェクトが生成できている。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">sympy.vector</span> <span class="k">import</span> <span class="o">*</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">sympy.vector</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="c1"># Create N, and f(x, y, z).</span>
+<span class="gp">In [2]: </span><span class="c1"># Create N, and f(x, y, z).</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">gradient</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="p">(</span><span class="n">Subs</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">_xi_2</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="p">(</span><span class="n">_xi_2</span><span class="p">,),</span> <span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,)))</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">i</span>
-      <span class="o">+</span> <span class="p">(</span><span class="n">Subs</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">_xi_2</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="p">(</span><span class="n">_xi_2</span><span class="p">,),</span> <span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,)))</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">j</span>
-      <span class="o">+</span> <span class="p">(</span><span class="n">Subs</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="p">(</span><span class="n">_xi_2</span><span class="p">,),</span> <span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">,)))</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">k</span>
+<span class="gp">In [3]: </span><span class="n">gradient</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+<span class="gh">Out[3]: </span><span class="go">(Subs(Derivative(f(_xi_2, N.y, N.z), _xi_2), (_xi_2,), (N.x,)))*N.i</span>
+<span class="go">      + (Subs(Derivative(f(N.x, _xi_2, N.z), _xi_2), (_xi_2,), (N.y,)))*N.j</span>
+<span class="go">      + (Subs(Derivative(f(N.x, N.y, _xi_2), _xi_2), (_xi_2,), (N.z,)))*N.k</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">N</span><span class="o">.</span><span class="n">delop</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">))</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">i</span>
-      <span class="o">+</span> <span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">))</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">j</span>
-      <span class="o">+</span> <span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">))</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">k</span>
+<span class="gp">In [4]: </span><span class="n">N</span><span class="o">.</span><span class="n">delop</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="gh">Out[4]: </span><span class="go">(Derivative(f(N.x, N.y, N.z), N.x))*N.i</span>
+<span class="go">      + (Derivative(f(N.x, N.y, N.z), N.y))*N.j</span>
+<span class="go">      + (Derivative(f(N.x, N.y, N.z), N.z))*N.k</span>
 </pre></div>
 </div>
 </div>
@@ -381,56 +385,52 @@ BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。</l
 <h3><a class="toc-backref" href="#id36">方向微分</a><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
 <p>方向微分は <code class="code docutils literal notranslate"><span class="pre">(v.dot(coord_sys.delop))(field)</span></code> のようにする。ここで、</p>
 <ul class="simple">
-<li><code class="code docutils literal notranslate"><span class="pre">coord_sys</span></code> はクラス CoordSysCartesian オブジェクト、</li>
-<li><code class="code docutils literal notranslate"><span class="pre">v</span></code> は <code class="code docutils literal notranslate"><span class="pre">coord_sys</span></code> 上のクラス Vector オブジェクト、</li>
-<li><code class="code docutils literal notranslate"><span class="pre">field</span></code> は <code class="code docutils literal notranslate"><span class="pre">coord_sys.base_scalars()</span></code> で表現されているスカラー場なりベクトル場である。</li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">coord_sys</span></code> はクラス CoordSysCartesian オブジェクト、</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">v</span></code> は <code class="code docutils literal notranslate"><span class="pre">coord_sys</span></code> 上のクラス Vector オブジェクト、</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">field</span></code> は <code class="code docutils literal notranslate"><span class="pre">coord_sys.base_scalars()</span></code> で表現されているスカラー場なりベクトル場である。</p></li>
 </ul>
 <p>例を示す。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="c1"># Create N, a, b, f(x, y, z), fx, fy, and fz.</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="c1"># Create N, a, b, f(x, y, z), fx, fy, and fz.</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">delop</span><span class="p">))(</span><span class="n">f</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">a0</span><span class="o">*</span><span class="n">Subs</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">_xi_2</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="p">(</span><span class="n">_xi_2</span><span class="p">,),</span> <span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,))</span>
-      <span class="o">+</span> <span class="n">a1</span><span class="o">*</span><span class="n">Subs</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">_xi_2</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="p">(</span><span class="n">_xi_2</span><span class="p">,),</span> <span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,))</span>
-      <span class="o">+</span> <span class="n">a2</span><span class="o">*</span><span class="n">Subs</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="p">(</span><span class="n">_xi_2</span><span class="p">,),</span> <span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">,))</span>
+<span class="gp">In [2]: </span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">delop</span><span class="p">))(</span><span class="n">f</span><span class="p">)</span>
+<span class="gh">Out[2]: </span><span class="go">a0*Subs(Derivative(f(_xi_2, N.y, N.z), _xi_2), (_xi_2,), (N.x,))</span>
+<span class="go">      + a1*Subs(Derivative(f(N.x, _xi_2, N.z), _xi_2), (_xi_2,), (N.y,))</span>
+<span class="go">      + a2*Subs(Derivative(f(N.x, N.y, _xi_2), _xi_2), (_xi_2,), (N.z,))</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">delop</span><span class="p">))(</span><span class="n">fx</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">i</span> <span class="o">+</span> <span class="n">fy</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">j</span> <span class="o">+</span> <span class="n">fz</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">k</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="p">(</span><span class="n">b0</span><span class="o">*</span><span class="n">Subs</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">fx</span><span class="p">(</span><span class="n">_xi_2</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="p">(</span><span class="n">_xi_2</span><span class="p">,),</span> <span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,))</span>
-       <span class="o">+</span> <span class="n">b1</span><span class="o">*</span><span class="n">Subs</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">fx</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">_xi_2</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="p">(</span><span class="n">_xi_2</span><span class="p">,),</span> <span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,))</span>
-       <span class="o">+</span> <span class="n">b2</span><span class="o">*</span><span class="n">Subs</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">fx</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="p">(</span><span class="n">_xi_2</span><span class="p">,),</span> <span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">,)))</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">i</span>
-      <span class="o">+</span> <span class="p">(</span><span class="n">b0</span><span class="o">*</span><span class="n">Subs</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">fy</span><span class="p">(</span><span class="n">_xi_2</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span><span class="n">_xi_2</span><span class="p">),</span> <span class="p">(</span><span class="n">_xi_2</span><span class="p">,),</span> <span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,))</span>
-       <span class="o">+</span> <span class="n">b1</span><span class="o">*</span><span class="n">Subs</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">fy</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">_xi_2</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="p">(</span><span class="n">_xi_2</span><span class="p">,),</span> <span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,))</span>
-       <span class="o">+</span> <span class="n">b2</span><span class="o">*</span><span class="n">Subs</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">fy</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="p">(</span><span class="n">_xi_2</span><span class="p">,),</span> <span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">,)))</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">j</span>
-      <span class="o">+</span> <span class="p">(</span><span class="n">b0</span><span class="o">*</span><span class="n">Subs</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">fz</span><span class="p">(</span><span class="n">_xi_2</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="p">(</span><span class="n">_xi_2</span><span class="p">,),</span> <span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,))</span>
-       <span class="o">+</span> <span class="n">b1</span><span class="o">*</span><span class="n">Subs</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">fz</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">_xi_2</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">),</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="p">(</span><span class="n">_xi_2</span><span class="p">,),</span> <span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,))</span>
-       <span class="o">+</span> <span class="n">b2</span><span class="o">*</span><span class="n">Subs</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">fz</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="n">_xi_2</span><span class="p">),</span> <span class="p">(</span><span class="n">_xi_2</span><span class="p">,),</span> <span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="p">,)))</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">k</span>
+<span class="gp">In [3]: </span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">delop</span><span class="p">))(</span><span class="n">fx</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">i</span> <span class="o">+</span> <span class="n">fy</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">j</span> <span class="o">+</span> <span class="n">fz</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">k</span><span class="p">)</span>
+<span class="gh">Out[3]: </span><span class="go">(b0*Subs(Derivative(fx(_xi_2, N.y, N.z), _xi_2), (_xi_2,), (N.x,))</span>
+<span class="go">       + b1*Subs(Derivative(fx(N.x, _xi_2, N.z), _xi_2), (_xi_2,), (N.y,))</span>
+<span class="go">       + b2*Subs(Derivative(fx(N.x, N.y, _xi_2), _xi_2), (_xi_2,), (N.z,)))*N.i</span>
+<span class="go">      + (b0*Subs(Derivative(fy(_xi_2, N.y, N.z),_xi_2), (_xi_2,), (N.x,))</span>
+<span class="go">       + b1*Subs(Derivative(fy(N.x, _xi_2, N.z), _xi_2), (_xi_2,), (N.y,))</span>
+<span class="go">       + b2*Subs(Derivative(fy(N.x, N.y, _xi_2), _xi_2), (_xi_2,), (N.z,)))*N.j</span>
+<span class="go">      + (b0*Subs(Derivative(fz(_xi_2, N.y, N.z), _xi_2), (_xi_2,), (N.x,))</span>
+<span class="go">       + b1*Subs(Derivative(fz(N.x, _xi_2, N.z), _xi_2), (_xi_2,), (N.y,))</span>
+<span class="go">       + b2*Subs(Derivative(fz(N.x, N.y, _xi_2), _xi_2), (_xi_2,), (N.z,)))*N.k</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id17">
 <h3><a class="toc-backref" href="#id37">ポテンシャル</a><a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
-<dl class="docutils">
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">is_conservative(field)</span></code></dt>
-<dd><p class="first">ベクトル場が保存場であるかどうかをテストする。</p>
-<ul class="last simple">
-<li>実装は <code class="code docutils literal notranslate"><span class="pre">curl(field,</span> <span class="pre">coord_sys)</span> <span class="pre">==</span> <span class="pre">Vector.zero</span></code> を丁寧に調べている。</li>
+<dl class="simple">
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">is_conservative(field)</span></code></dt><dd><p>ベクトル場が保存場であるかどうかをテストする。</p>
+<ul class="simple">
+<li><p>実装は <code class="code docutils literal notranslate"><span class="pre">curl(field,</span> <span class="pre">coord_sys)</span> <span class="pre">==</span> <span class="pre">Vector.zero</span></code> を丁寧に調べている。</p></li>
 </ul>
 </dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">is_solenoidal(field)</span></code></dt>
-<dd><p class="first">ベクトル場がソレノイド場であるかどうかをテストする。</p>
-<ul class="last simple">
-<li>実装は <code class="code docutils literal notranslate"><span class="pre">divergence(field,</span> <span class="pre">coord_sys)</span> <span class="pre">==</span> <span class="pre">0</span></code> を丁寧に調べている。</li>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">is_solenoidal(field)</span></code></dt><dd><p>ベクトル場がソレノイド場であるかどうかをテストする。</p>
+<ul class="simple">
+<li><p>実装は <code class="code docutils literal notranslate"><span class="pre">divergence(field,</span> <span class="pre">coord_sys)</span> <span class="pre">==</span> <span class="pre">0</span></code> を丁寧に調べている。</p></li>
 </ul>
 </dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">scalar_potential(field,</span> <span class="pre">coord_sys)</span></code></dt>
-<dd><p class="first">保存場に関するスカラーポテンシャルを（積分定数を除いて）求める。</p>
-<ul class="last simple">
-<li>実装では実際に各座標軸の区間ごとに積分を一度ずつ都合 3 回計算している。</li>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">scalar_potential(field,</span> <span class="pre">coord_sys)</span></code></dt><dd><p>保存場に関するスカラーポテンシャルを（積分定数を除いて）求める。</p>
+<ul class="simple">
+<li><p>実装では実際に各座標軸の区間ごとに積分を一度ずつ都合 3 回計算している。</p></li>
 </ul>
 </dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">scalar_potential_difference(field,</span> <span class="pre">coord_sys,</span> <span class="pre">point1,</span> <span class="pre">point2)</span></code></dt>
-<dd><p class="first">保存場に関する指定 2 点間のポテンシャルの差を計算する。引数は保存ベクトル場でも、そのスカラーポテンシャルでもよい。</p>
-<ul class="last simple">
-<li><code class="code docutils literal notranslate"><span class="pre">point2</span></code> でのポテンシャルと <code class="code docutils literal notranslate"><span class="pre">point1</span></code> でのそれとの差。</li>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">scalar_potential_difference(field,</span> <span class="pre">coord_sys,</span> <span class="pre">point1,</span> <span class="pre">point2)</span></code></dt><dd><p>保存場に関する指定 2 点間のポテンシャルの差を計算する。引数は保存ベクトル場でも、そのスカラーポテンシャルでもよい。</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">point2</span></code> でのポテンシャルと <code class="code docutils literal notranslate"><span class="pre">point1</span></code> でのそれとの差。</p></li>
 </ul>
 </dd>
 </dl>
@@ -441,39 +441,40 @@ BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。</l
 <p>3 次元空間上のベクトル場
 <span class="math notranslate nohighlight">\(\mathbf{F} = 2 x y^3 z^4 \mathbf{i} + 3 x^2 y^2 z^4 \mathbf{j} + 4 x^2 y^3 z^3 \mathbf{k}\)</span>
 が保存場であることを確認し、そのスカラーポテンシャルを先述の関数で求める。また、このベクトル場の始点と終点をそれぞれ <span class="math notranslate nohighlight">\(P_0(0, 0, 0)\)</span> と <span class="math notranslate nohighlight">\(P_1(10, 10, 10)\)</span> とする、何らかの経路上の線積分を関数 <code class="code docutils literal notranslate"><span class="pre">scalar_potential_difference</span></code> を利用して求める手続きの例を示す。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">sympy.vector</span> <span class="k">import</span> <span class="o">*</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">sympy.vector</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">N</span> <span class="o">=</span> <span class="n">CoordSysCartesian</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
+<span class="gp">In [2]: </span><span class="n">N</span> <span class="o">=</span> <span class="n">CoordSysCartesian</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">F</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="o">**</span><span class="mi">3</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span> <span class="o">**</span><span class="mi">4</span><span class="p">)</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">i</span>\
-   <span class="o">....</span><span class="p">:</span> <span class="o">+</span> <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="o">**</span><span class="mi">4</span><span class="p">)</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">j</span>\
-   <span class="o">....</span><span class="p">:</span> <span class="o">+</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="o">**</span><span class="mi">3</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="o">**</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">k</span>
+<span class="gp">In [3]: </span><span class="n">F</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="o">**</span><span class="mi">3</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span> <span class="o">**</span><span class="mi">4</span><span class="p">)</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">i</span>\
+<span class="gp">   ....: </span><span class="o">+</span> <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="o">**</span><span class="mi">4</span><span class="p">)</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">j</span>\
+<span class="gp">   ....: </span><span class="o">+</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="o">**</span><span class="mi">3</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="o">**</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">k</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">is_conservative</span><span class="p">(</span><span class="n">F</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="kc">True</span>
+<span class="gp">In [4]: </span><span class="n">is_conservative</span><span class="p">(</span><span class="n">F</span><span class="p">)</span>
+<span class="gh">Out[4]: </span><span class="go">True</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">f</span> <span class="o">=</span> <span class="n">scalar_potential</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="n">N</span><span class="p">);</span> <span class="n">f</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">N</span><span class="o">.</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">y</span><span class="o">**</span><span class="mi">3</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">z</span><span class="o">**</span><span class="mi">4</span>
+<span class="gp">In [5]: </span><span class="n">f</span> <span class="o">=</span> <span class="n">scalar_potential</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="n">N</span><span class="p">);</span> <span class="n">f</span>
+<span class="gh">Out[5]: </span><span class="go">N.x**2*N.y**3*N.z**4</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">p0</span> <span class="o">=</span> <span class="n">N</span><span class="o">.</span><span class="n">origin</span>
+<span class="gp">In [6]: </span><span class="n">p0</span> <span class="o">=</span> <span class="n">N</span><span class="o">.</span><span class="n">origin</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">p1</span> <span class="o">=</span> <span class="n">N</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">locate_new</span><span class="p">(</span><span class="s1">&#39;p1&#39;</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">i</span> <span class="o">+</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">j</span> <span class="o">+</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">k</span><span class="p">)</span>
+<span class="gp">In [7]: </span><span class="n">p1</span> <span class="o">=</span> <span class="n">N</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">locate_new</span><span class="p">(</span><span class="s1">&#39;p1&#39;</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">i</span> <span class="o">+</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">j</span> <span class="o">+</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">N</span><span class="o">.</span><span class="n">k</span><span class="p">)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="n">scalar_potential_difference</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="mi">1000000000</span>
+<span class="gp">In [8]: </span><span class="n">scalar_potential_difference</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">)</span>
+<span class="gh">Out[8]: </span><span class="go">1000000000</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li>[1] 面倒なので全てをインポートする。</li>
-<li>[3] この保存ベクトル場は <a class="reference external" href="http://tutorial.math.lamar.edu/Classes/CalcIII/ConservativeVectorField.aspx">Paul’s Online Math Notes</a> から拝借した。</li>
-<li>[5] 求めたスカラーポテンシャルには定数項が表現されていないので注意。</li>
-<li>[7] どう考えても点の座標の指定が面倒だ。</li>
-<li>[8] ここでは上品に求めたばかりのスカラーポテンシャルを引数として指定したが、先述のように <code class="code docutils literal notranslate"><span class="pre">F</span></code> を直接渡してよい。その場合は上における [5] が不要になる。</li>
+<li><p>[1] 面倒なので全てをインポートする。</p></li>
+<li><p>[3] この保存ベクトル場は <a class="reference external" href="http://tutorial.math.lamar.edu/Classes/CalcIII/ConservativeVectorField.aspx">Paul’s Online Math Notes</a> から拝借した。</p></li>
+<li><p>[5] 求めたスカラーポテンシャルには定数項が表現されていないので注意。</p></li>
+<li><p>[7] どう考えても点の座標の指定が面倒だ。</p></li>
+<li><p>[8] ここでは上品に求めたばかりのスカラーポテンシャルを引数として指定したが、先述のように <code class="code docutils literal notranslate"><span class="pre">F</span></code> を直接渡してよい。その場合は上における [5] が不要になる。</p></li>
 </ul>
 </div>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
       </div>
       <div class="clearer"></div>
@@ -488,7 +489,8 @@ BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。</l
           <a href="combinatorics.html" title="組合せ論と群論"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >SymPy 利用ノート</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" >SymPy 利用ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ベクトル</a></li> 
       </ul>
     </div>
     <div id="footer">
@@ -497,7 +499,7 @@ BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。</l
       </div>
       <div id="footer_copyright">
         Since 1999<br />
-        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+        Copyright &copy; 1999-2020, プレハブ小屋 All rights reserved.
       </div>
     </div>
   </body>

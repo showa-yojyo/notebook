@@ -1,0 +1,1025 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ORACLE MASTER Bronze 11g SQL 基礎 I 必修教本 読書ノート &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="Python 入門［２＆３対応］読書ノート" href="hosoda10/index.html" />
+    <link rel="prev" title="プログラミング C# 第 6 版 読書ノート" href="griffiths10.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="hosoda10/index.html" title="Python 入門［２＆３対応］読書ノート"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="griffiths10.html" title="プログラミング C# 第 6 版 読書ノート"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ORACLE MASTER Bronze 11g SQL 基礎 I 必修教本 読書ノート</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="oracle-master-bronze-11g-sql-i">
+<h1><a class="toc-backref" href="#id25">ORACLE MASTER Bronze 11g SQL 基礎 I 必修教本 読書ノート</a><a class="headerlink" href="#oracle-master-bronze-11g-sql-i" title="Permalink to this headline">¶</a></h1>
+<p>近所の図書館のリサイクルワゴンに本書が突っ込まれていたので回収した。内容はきわめて初歩的なのだが、データベースを仕事でほとんど使わなかったのでノートをとることにする。</p>
+<dl class="field-list simple">
+<dt class="field-odd">著者</dt>
+<dd class="field-odd"><p>小野寺智子</p>
+</dd>
+<dt class="field-even">出版社</dt>
+<dd class="field-even"><p>株式会社アスキー・メディアワークス</p>
+</dd>
+<dt class="field-odd">ISBN</dt>
+<dd class="field-odd"><p>978-4-04-868132-2</p>
+</dd>
+</dl>
+<div class="contents topic" id="id1">
+<p class="topic-title">ノート目次</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#oracle-master-bronze-11g-sql-i" id="id25">ORACLE MASTER Bronze 11g SQL 基礎 I 必修教本 読書ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#sql" id="id26">序章 データベースと SQL</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id27">第 1 章 基本的なデータ検索</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id28">第 2 章 データ検索における制限とソート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id4" id="id29">ソート</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id5" id="id30">第 3 章 単一行関数</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id31">第 4 章 変換関数と条件式の使用方法</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id32">第 5 章 グループ関数</a></p>
+<ul>
+<li><p><a class="reference internal" href="#group-by" id="id33"><code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> に対する集計</a></p></li>
+<li><p><a class="reference internal" href="#having" id="id34"><code class="docutils literal notranslate"><span class="pre">HAVING</span></code> 句の用途</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id8" id="id35">第 6 章 表の結合</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id9" id="id36">外部結合</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id37">表の直積</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id11" id="id38">第 7 章 副問い合わせ</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id39">第 8 章 集合演算子</a></p></li>
+<li><p><a class="reference internal" href="#dml" id="id40">第 9 章 DML 文（データ操作言語）</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id13" id="id41">レコードの追加・更新・削除</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id42">トランザクション</a></p></li>
+<li><p><a class="reference internal" href="#id15" id="id43">読み取り一貫性</a></p></li>
+<li><p><a class="reference internal" href="#id16" id="id44">ロック</a></p></li>
+<li><p><a class="reference internal" href="#truncate" id="id45"><code class="docutils literal notranslate"><span class="pre">TRUNCATE</span></code> 文</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#ddl" id="id46">第 10 章 DDL 文（データ定義文）</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id17" id="id47">表の作成・変更・削除</a></p></li>
+<li><p><a class="reference internal" href="#id18" id="id48">制約</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id19" id="id49">第 11 章 その他のオブジェクト</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id20" id="id50">ビュー</a></p></li>
+<li><p><a class="reference internal" href="#id21" id="id51">順序</a></p></li>
+<li><p><a class="reference internal" href="#id22" id="id52">索引</a></p></li>
+<li><p><a class="reference internal" href="#id23" id="id53">シノニム</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id24" id="id54">付録 SQL 構文一覧</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="sql">
+<h2><a class="toc-backref" href="#id26">序章 データベースと SQL</a><a class="headerlink" href="#sql" title="Permalink to this headline">¶</a></h2>
+<p>このへんは今はどうでもいい。後で効いてくるものだから。</p>
+<ul class="simple">
+<li><p>DBMS</p></li>
+<li><p>データベースモデル</p>
+<ul>
+<li><p>階層型</p></li>
+<li><p>ネットワーク型</p></li>
+<li><p>リレーショナル型</p>
+<ul>
+<li><p>表計算ソフトのスプレッドシートのような二次元の表を使用して情報を格納する。</p></li>
+<li><p>複数の表の間に何らかの関係を定義する。表の間というより、表に含まれているレコード（本書ではエンティティと呼んでいるが）とレコードの間に関係がある。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>RDBMS</p>
+<ul>
+<li><p>Oracle Database は RDBMS の一つ。</p></li>
+</ul>
+</li>
+<li><p>SQL</p>
+<ul>
+<li><p>RDB 操作のためのプログラミング言語。</p></li>
+<li><p>Oracle Database 版 SQL は標準仕様とは少々異なる。</p></li>
+<li><p>SQL 文は次の 4 つに分類される（ことが多い）：</p>
+<ul>
+<li><p>データ操作言語 DML 文</p></li>
+<li><p>データ定義言語 DDL 文</p></li>
+<li><p>データ制御言語 DCL 文</p></li>
+<li><p>トランザクション制御文</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>1970 年に IBM の E. F. Codd 博士が RDB を考案したとある。当初は理論だけで実装はまだなかった。</p></li>
+<li><p>階層型やネットワーク型のデータベースは現在ほとんど存在しない。</p></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id27">第 1 章 基本的なデータ検索</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>本章では <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> 文を学習する。ここは理解に問題はない。例だけを書いてあとで補足する。</p>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">first_name</span> <span class="k">FROM</span> <span class="n">employees</span><span class="p">;</span>
+
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">first_name</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span>
+       <span class="n">phone_number</span><span class="p">,</span> <span class="n">hire_date</span><span class="p">,</span> <span class="n">job_id</span><span class="p">,</span> <span class="n">salary</span><span class="p">,</span>
+       <span class="n">commission_pct</span><span class="p">,</span> <span class="n">manager_id</span><span class="p">,</span> <span class="n">department_id</span> <span class="k">FROM</span> <span class="n">employees</span><span class="p">;</span>
+
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">from</span> <span class="n">employees</span><span class="p">;</span>
+
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">salary</span> <span class="o">+</span> <span class="mf">500</span> <span class="k">FROM</span> <span class="n">employees</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="mf">12</span> <span class="o">*</span> <span class="n">salary</span> <span class="o">+</span> <span class="mf">500</span> <span class="k">FROM</span> <span class="n">employees</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="mf">12</span> <span class="o">*</span> <span class="p">(</span><span class="n">salary</span> <span class="o">+</span> <span class="mf">500</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">employees</span><span class="p">;</span>
+
+<span class="k">SELECT</span> <span class="n">last_name</span> <span class="mf">500</span> <span class="o">+</span> <span class="n">salary</span> <span class="o">*</span> <span class="mf">12</span> <span class="n">yearsal</span> <span class="k">FROM</span> <span class="n">employees</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">last_name</span> <span class="mf">500</span> <span class="o">+</span> <span class="n">salary</span> <span class="o">*</span> <span class="mf">12</span> <span class="k">AS</span> <span class="n">yearsal</span> <span class="k">FROM</span> <span class="n">employees</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">last_name</span> <span class="mf">500</span> <span class="o">+</span> <span class="n">salary</span> <span class="o">*</span> <span class="mf">12</span> <span class="s s-Name">&quot;yearsal&quot;</span> <span class="k">FROM</span> <span class="n">employees</span><span class="p">;</span>
+
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">first_name</span> <span class="o">||</span> <span class="n">last_name</span> <span class="k">FROM</span> <span class="n">employees</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="s1">&#39;name is &#39;</span> <span class="o">||</span> <span class="n">last_name</span> <span class="k">FROM</span> <span class="n">employees</span><span class="p">;</span>
+
+<span class="k">SELECT</span> <span class="n">q</span><span class="s1">&#39;[It&#39;</span><span class="n">s</span> <span class="p">]</span><span class="s1">&#39; || last_name FROM employees;</span>
+
+<span class="s1">SELECT DISTINCT department_id FROM employees;</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>コードハイライトが Pygments の <code class="docutils literal notranslate"><span class="pre">sql</span></code> でうまくいかない。暫定的に
+<code class="docutils literal notranslate"><span class="pre">plpgsql</span></code> にしておく。欲を言えば Oracle もサポートして欲しい。</p>
+</div>
+<ul class="simple">
+<li><p>キーワード、表名、列名、関数名、等々、大文字と小文字はまったく区別されない。</p></li>
+<li><p>文末には <code class="docutils literal notranslate"><span class="pre">;</span></code> を付けるほうが無難。特に SQL*Plus 環境では実行に要る。</p></li>
+<li><p>型によっては列に対して算術演算 <code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">*</span></code>, <code class="docutils literal notranslate"><span class="pre">/</span></code> を適用できる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NULL</span></code></p>
+<ul>
+<li><p>未確定の状態を表す特別な値である。</p></li>
+<li><p>数 0 や空白文字とは異なる。</p>
+<ul>
+<li><p>列の型が文字列ならば空文字列とは同じ概念なのかもしれない。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NULL</span></code> に対してどのような算術演算を施しても結果は <code class="docutils literal notranslate"><span class="pre">NULL</span></code> となる。重要。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SELECT</span></code> 文の列見出しは通常大文字で表示される。小文字がよければ <code class="docutils literal notranslate"><span class="pre">&quot;</span></code> で囲む。</p></li>
+<li><p>演算子 <code class="docutils literal notranslate"><span class="pre">||</span></code> は文字列の連結を行う。こちらは <code class="docutils literal notranslate"><span class="pre">NULL</span></code> を空文字列として処理する。</p></li>
+<li><p>演算子 <code class="docutils literal notranslate"><span class="pre">q</span></code> は C++11 の <code class="docutils literal notranslate"><span class="pre">R</span></code> 文字列に似ている。</p></li>
+<li><p>選択結果から重複データを除外して表示するのに <code class="docutils literal notranslate"><span class="pre">DISTINCT</span></code> を用いる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DESCRIBE</span></code> コマンドは表の定義を出力するものだが、Oracle Database 独自のものだ。</p></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id28">第 2 章 データ検索における制限とソート</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>言い忘れたが SQL 文の出力はここには書かない。</p>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- それぞれ数値、文字列、日付を検索条件にする</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">department_id</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">WHERE</span> <span class="n">department_id</span> <span class="o">=</span> <span class="mf">50</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">department_id</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">WHERE</span> <span class="n">last_name</span> <span class="o">=</span> <span class="s1">&#39;Grant&#39;</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">hire_date</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">WHERE</span> <span class="n">hire_date</span> <span class="o">=</span> <span class="s1">&#39;00-JAN-13&#39;</span><span class="p">;</span>
+
+<span class="c1">-- 比較演算子</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">department_id</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">WHERE</span> <span class="n">department_id</span> <span class="o">&gt;</span> <span class="mf">50</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">department_id</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">WHERE</span> <span class="n">department_id</span> <span class="o">&gt;=</span> <span class="mf">50</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">department_id</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">WHERE</span> <span class="n">department_id</span> <span class="o">&lt;</span> <span class="mf">50</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">department_id</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">WHERE</span> <span class="n">department_id</span> <span class="o">&lt;=</span> <span class="mf">50</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">department_id</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">WHERE</span> <span class="n">department_id</span> <span class="o">&lt;&gt;</span> <span class="mf">50</span><span class="p">;</span>
+
+<span class="c1">-- BETWEEN x AND y の例</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">department_id</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">WHERE</span> <span class="n">department_id</span> <span class="k">BETWEEN</span> <span class="mf">50</span> <span class="k">AND</span> <span class="mf">90</span><span class="p">;</span>
+
+<span class="c1">-- IN 演算子の例</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">department_id</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">WHERE</span> <span class="n">department_id</span> <span class="k">IN</span> <span class="p">(</span><span class="mf">40</span><span class="p">,</span> <span class="mf">60</span><span class="p">,</span> <span class="mf">80</span><span class="p">);</span>
+
+<span class="c1">-- ワイルドカードの例</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">WHERE</span> <span class="n">last_name</span> <span class="k">LIKE</span> <span class="s1">&#39;A%&#39;</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">jpb_id</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">WHERE</span> <span class="n">job_id</span> <span class="k">LIKE</span> <span class="s1">&#39;SA\_%&#39;</span> <span class="k">ESCAPE</span> <span class="s1">&#39;\&#39;</span><span class="p">;</span>
+
+<span class="c1">-- NULL をテストする例</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">manager_id</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">WHERE</span> <span class="n">manager_id</span> <span class="k">IS</span> <span class="k">NULL</span><span class="p">;</span>
+
+<span class="c1">-- AND, OR, NOT の例</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">salary</span><span class="p">,</span> <span class="n">department_id</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">WHERE</span> <span class="n">salary</span> <span class="o">&gt;=</span> <span class="mf">2500</span>
+        <span class="k">AND</span> <span class="n">department_id</span> <span class="o">=</span> <span class="mf">50</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">salary</span><span class="p">,</span> <span class="n">department_id</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">WHERE</span> <span class="n">salary</span> <span class="o">&gt;=</span> <span class="mf">2500</span>
+        <span class="k">OR</span> <span class="n">department_id</span> <span class="o">=</span> <span class="mf">50</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">salary</span><span class="p">,</span> <span class="n">department_id</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">WHERE</span> <span class="n">department_id</span> <span class="k">NOT</span> <span class="k">IN</span> <span class="p">(</span><span class="mf">50</span><span class="p">,</span> <span class="mf">80</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">WHERE</span></code> 句を付すことで検索条件を定義する。両辺が等しいかどうかは比較演算子の一つ <code class="docutils literal notranslate"><span class="pre">=</span></code> を用いる。</p></li>
+<li><p>条件式に関しては大文字と小文字は区別される。</p></li>
+<li><p>日付の指定は書式がどうなっているのかを把握する必要があるのでミスが多いのでは？</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>デフォルトの日付書式は <cite>DD-MON-RR</cite></p></li>
+<li><p>日付については後述</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>二項比較演算子は常識的なものが使える。not equal は <cite>&lt;&gt;</cite>, <cite>!=</cite> の他に <cite>^=</cite> というものがある。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BETWEEN</span> <span class="pre">...</span> <span class="pre">AND</span> <span class="pre">...</span></code> と <code class="docutils literal notranslate"><span class="pre">IN</span> <span class="pre">(...)</span></code> という構文もある。</p></li>
+<li><p>文字列条件の指定にはワイルドカードが存在する。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">%</span></code>: 任意の文字 0 文字以上</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_</span></code>: 任意の 1 文字</p></li>
+</ul>
+</li>
+<li><p>ワイルドカードをリテラルに指定したい場合には他のプログラミング言語のようにエスケープをするわけだが、キーワード <code class="docutils literal notranslate"><span class="pre">ESCAPE</span></code> を用いてエスケープ文字を明示する必要がある。</p></li>
+<li><p>列が <code class="docutils literal notranslate"><span class="pre">NULL</span></code> かどうかは <code class="docutils literal notranslate"><span class="pre">IS</span> <span class="pre">NULL</span></code>, <code class="docutils literal notranslate"><span class="pre">IS</span> <span class="pre">NOT</span> <span class="pre">NULL</span></code> を用いる。</p></li>
+<li><p>論理演算子 <code class="docutils literal notranslate"><span class="pre">AND</span></code>, <code class="docutils literal notranslate"><span class="pre">OR</span></code>, <code class="docutils literal notranslate"><span class="pre">NOT</span></code> を条件式に使える。</p></li>
+<li><p>演算子の優先順位は次のように憶える:</p>
+<ul class="simple">
+<li><p>比較演算子のほうが論理演算子より高い</p></li>
+<li><p>論理演算子では not, and, or の順に高い</p></li>
+</ul>
+</li>
+<li><p>演算の優先度を調節するときは、他のプログラミング言語のように丸括弧を用いる。</p></li>
+</ul>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id29">ソート</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">department_id</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">department_id</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">department_id</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">department_id</span> <span class="k">DESC</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">department_id</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">department_id</span><span class="p">,</span> <span class="n">last_name</span> <span class="k">DESC</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">salary</span> <span class="o">+</span> <span class="n">commission_pct</span> <span class="n">annsal</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">annsal</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">department_id</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">department_id</span> <span class="k">NULLS</span> <span class="k">FIRST</span><span class="p">;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ORDER</span> <span class="pre">BY</span></code> 句はレコードをソートして出力する。<code class="docutils literal notranslate"><span class="pre">ORDER</span> <span class="pre">BY</span></code> 句のオプションとして次のものがある：</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ASC</span></code>: 行を昇順にソートする。デフォルト。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DESC</span></code>: 行を降順にソートする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NULLS</span> <span class="pre">FIRST</span></code> : <code class="docutils literal notranslate"><span class="pre">NULL</span></code> が存在する場合には先頭に出力する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NULLS</span> <span class="pre">LAST</span></code>: <code class="docutils literal notranslate"><span class="pre">NULL</span></code> が存在する場合には末尾に出力する。</p></li>
+</ul>
+</li>
+<li><p>順序の定義は数、文字列、日付それぞれで自然に考える。</p></li>
+</ul>
+<p>あとはプレースホルダー機能のようなものが SQL*Plus にあることが紹介されている。</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id30">第 3 章 単一行関数</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>Oracle Database で使用する SQL 関数のほとんどが本製品固有のものだ。したがって SQL Server なと他社製品では使用できない。</p>
+<p>つぶしが効かないとわかっているので、ここに時間を割かない。</p>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">LOWER</span><span class="p">(</span><span class="n">last_name</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">employees</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">last_name</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">WHERE</span> <span class="n">LOWER</span><span class="p">(</span><span class="n">last_name</span><span class="p">)</span> <span class="o">=</span> <span class="s1">&#39;abel&#39;</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">CONCAT</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">dual</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">SUBSTR</span><span class="p">(</span><span class="s1">&#39;ORACLE&#39;</span><span class="p">,</span> <span class="mf">4</span><span class="p">,</span> <span class="mf">3</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">dual</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">LENGTH</span><span class="p">(</span><span class="s1">&#39;ORACLE&#39;</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">dual</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">LPAD</span><span class="p">(</span><span class="s1">&#39;ORACLE&#39;</span><span class="p">,</span> <span class="mf">10</span><span class="p">,</span> <span class="s1">&#39;#&#39;</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">dual</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">RPAD</span><span class="p">(</span><span class="s1">&#39;ORACLE&#39;</span><span class="p">,</span> <span class="mf">10</span><span class="p">,</span> <span class="s1">&#39;#&#39;</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">dual</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="k">REPLACE</span><span class="p">(</span><span class="s1">&#39;ORACLE&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span> <span class="s1">&#39;MI&#39;</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">dual</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="k">REPLACE</span><span class="p">(</span><span class="s1">&#39;ORACLE&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">dual</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">ROUND</span><span class="p">(</span><span class="mf">98.765</span><span class="p">,</span> <span class="mf">1</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">dual</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">ROUND</span><span class="p">(</span><span class="mf">98.765</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">dual</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">ROUND</span><span class="p">(</span><span class="mf">98.765</span><span class="p">,</span> <span class="o">-</span><span class="mf">1</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">dual</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">TRUNC</span><span class="p">(</span><span class="mf">98.765</span><span class="p">,</span> <span class="mf">1</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">dual</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">TRUNC</span><span class="p">(</span><span class="mf">98.765</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">dual</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">TRUNC</span><span class="p">(</span><span class="mf">98.765</span><span class="p">,</span> <span class="o">-</span><span class="mf">1</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">dual</span><span class="p">;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dual</span></code> はダミー表。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">LENGTH</span></code> については <code class="docutils literal notranslate"><span class="pre">LENGTHB</span></code> も併せて取得すること。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">TRIM</span></code> は癖が強すぎるのであえて憶えない。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">ROUND</span></code>, <code class="docutils literal notranslate"><span class="pre">TRUNC</span></code> は第二引数に注意。小数点の左、つまり桁が大きくなるほうに行くのが負。</p></li>
+</ul>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">SYSDATE</span> <span class="k">FROM</span> <span class="n">dual</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">MONTHS_BETWEEN</span><span class="p">(</span><span class="s1">&#39;15-AUG-09&#39;</span><span class="p">,</span> <span class="s1">&#39;15-MAY-09&#39;</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">dual</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">MONTHS_BETWEEN</span><span class="p">(</span><span class="s1">&#39;15-MAY-09&#39;</span><span class="p">,</span> <span class="s1">&#39;15-AUG-09&#39;</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">dual</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">ADD_MONTHS</span><span class="p">(</span><span class="s1">&#39;15-AUG-09&#39;</span><span class="p">,</span> <span class="mf">5</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">dual</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">ADD_MONTHS</span><span class="p">(</span><span class="s1">&#39;15-AUG-09&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mf">3</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">dual</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">NEXT_DAY</span><span class="p">(</span><span class="s1">&#39;15-AUG-09&#39;</span><span class="p">,</span> <span class="s1">&#39;FRI&#39;</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">dual</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">NEXT_DAY</span><span class="p">(</span><span class="s1">&#39;15-AUG-09&#39;</span><span class="p">,</span> <span class="mf">6</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">dual</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">LAST_DAY</span><span class="p">(</span><span class="s1">&#39;15-AUG-09&#39;</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">dual</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">ROUND</span><span class="p">(</span><span class="n">SYSDATE</span><span class="p">,</span> <span class="s1">&#39;MONTH&#39;</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">dual</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">TRUNC</span><span class="p">(</span><span class="n">SYSDATE</span><span class="p">,</span> <span class="s1">&#39;MONTH&#39;</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">dual</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>日付操作が豊富。</p>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id31">第 4 章 変換関数と条件式の使用方法</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>データの型変換は代入演算と比較演算で発生しうる。</p>
+<p>型変換には暗黙的なものと明示的なものに分類できる。暗黙的なものは文字列型系 (VARCHAR2, CHAR) を数値型系 (NUMBER, DATE) に、またはその反対に数値型系から文字列型系に変換したりする。</p>
+<p>明示的な変換は関数を呼び出すことで行う。</p>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">TO_CHAR</span><span class="p">(</span><span class="n">SYSDATE</span><span class="p">,</span> <span class="s1">&#39;yyyy-mm-dd hh24:mi:ss&#39;</span><span class="p">)</span> <span class="n">today</span> <span class="k">FROM</span> <span class="n">dual</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">TO_CHAR</span><span class="p">(</span><span class="mf">123456</span><span class="p">,</span> <span class="s1">&#39;999,999&#39;</span><span class="p">)</span> <span class="n">counts</span> <span class="k">FROM</span> <span class="n">dual</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">TO_DATE</span></code> と <code class="docutils literal notranslate"><span class="pre">TO_NUMBER</span></code> の例文がない。</p>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">last_name</span> <span class="n">NVL</span><span class="p">(</span><span class="n">commission_pct</span><span class="p">,</span> <span class="mf">0</span><span class="p">)</span> <span class="n">comm_pct</span> <span class="k">FROM</span> <span class="n">employees</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">last_name</span> <span class="n">NVL2</span><span class="p">(</span><span class="n">commission_pct</span><span class="p">,</span> <span class="s1">&#39;Sales&#39;</span><span class="p">,</span> <span class="s1">&#39;No Sales&#39;</span><span class="p">)</span> <span class="n">comm_pct</span> <span class="k">FROM</span> <span class="n">employees</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">first_name</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="k">NULLIF</span><span class="p">(</span><span class="n">first_name</span><span class="p">,</span> <span class="n">last_name</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">employees</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">last_name</span><span class="p">,</span> <span class="k">COALESCE</span><span class="p">(</span><span class="n">commission_pct</span><span class="p">,</span> <span class="n">salary</span><span class="p">,</span> <span class="mf">0</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">employees</span><span class="p">;</span>
+
+<span class="k">SELECT</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">job_id</span><span class="p">,</span> <span class="n">salary</span><span class="p">,</span>
+<span class="k">CASE</span>
+    <span class="k">WHEN</span> <span class="n">salary</span> <span class="k">BETWEEN</span> <span class="mf">2500</span> <span class="k">AND</span> <span class="mf">5000</span> <span class="k">THEN</span> <span class="s1">&#39;Grade C&#39;</span>
+    <span class="k">WHEN</span> <span class="n">salary</span> <span class="k">BETWEEN</span> <span class="mf">5001</span> <span class="k">AND</span> <span class="mf">10000</span> <span class="k">THEN</span> <span class="s1">&#39;Grade B&#39;</span>
+    <span class="mf">...</span>
+    <span class="k">ELSE</span> <span class="s1">&#39;No grade&#39;</span>
+<span class="k">END</span> <span class="s s-Name">&quot;Sal_Grade&quot;</span>
+<span class="k">FROM</span> <span class="n">employees</span><span class="p">;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">NULLIF</span></code> は二引数が等しければ NULL を返すという妙なものに見えるが、これを用いて条件分岐をすることができる。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">COALESCE</span></code> は最初の非 NULL 要素を返す。Oracle 固有。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">CASE</span></code> の劣化版として <code class="docutils literal notranslate"><span class="pre">DECODE</span></code> という Oracle 固有のものがある。</p></li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id32">第 5 章 グループ関数</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>グループ関数は表内のレコードを何らかの基準でグループ化したのち、何らかの集計を行う関数だ。したがって、入力が複数で出力が一つだ。</p>
+<p>集計関数は値が <code class="docutils literal notranslate"><span class="pre">NULL</span></code> であるものを無視する。ただし <code class="docutils literal notranslate"><span class="pre">COUNT(*)</span></code> は <code class="docutils literal notranslate"><span class="pre">NULL</span></code> を含むものも拾い上げる。そもそも <code class="docutils literal notranslate"><span class="pre">COUNT(*)</span></code> は使うべきではない。</p>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">AVG</span><span class="p">(</span><span class="n">salary</span><span class="p">),</span> <span class="n">SUM</span><span class="p">(</span><span class="n">salary</span><span class="p">),</span> <span class="n">MIN</span><span class="p">(</span><span class="n">salary</span><span class="p">),</span> <span class="n">MAX</span><span class="p">(</span><span class="n">salary</span><span class="p">),</span> <span class="n">COUNT</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span>
+    <span class="k">FROM</span> <span class="n">employees</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">MAX</span><span class="p">(</span><span class="n">first_name</span><span class="p">),</span> <span class="n">MIN</span><span class="p">(</span><span class="n">first_name</span><span class="p">),</span> <span class="n">COUNT</span><span class="p">(</span><span class="n">first_name</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">employees</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="section" id="group-by">
+<h3><a class="toc-backref" href="#id33"><code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> に対する集計</a><a class="headerlink" href="#group-by" title="Permalink to this headline">¶</a></h3>
+<p>次にグループを定義してから集計する方法を記す。<code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> 句で列名を指定することでそうなる。</p>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">department_id</span><span class="p">,</span> <span class="n">AVG</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">department_id</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">job_id</span><span class="p">,</span> <span class="n">AVG</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">job_id</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">job_id</span><span class="p">,</span> <span class="n">COUNT</span><span class="p">(</span><span class="n">job_id</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">job_id</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">department_id</span><span class="p">,</span> <span class="n">job_id</span><span class="p">,</span> <span class="n">COUNT</span><span class="p">(</span><span class="n">job_id</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">department_id</span><span class="p">,</span> <span class="n">job_id</span><span class="p">;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> 句には <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> 句に列挙した（集計以外の）列名をすべて列挙する必要がある。気が利かない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> 句には列の別名を指定できない。気が利かない。</p></li>
+</ul>
+</div>
+<div class="section" id="having">
+<h3><a class="toc-backref" href="#id34"><code class="docutils literal notranslate"><span class="pre">HAVING</span></code> 句の用途</a><a class="headerlink" href="#having" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">department_id</span><span class="p">,</span> <span class="n">AVG</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">department_id</span>
+    <span class="k">HAVING</span> <span class="n">AVG</span><span class="p">(</span><span class="n">salary</span><span class="p">);</span>
+<span class="k">SELECT</span> <span class="n">department_id</span><span class="p">,</span> <span class="n">job_id</span><span class="p">,</span> <span class="n">AVG</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">WHERE</span> <span class="n">job_id</span> <span class="k">LIKE</span> <span class="s1">&#39;SA\_%&#39;</span> <span class="k">ESCAPE</span> <span class="s1">&#39;\&#39;</span>
+    <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">department_id</span><span class="p">,</span> <span class="n">job_id</span>
+    <span class="k">HAVING</span> <span class="n">AVG</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mf">3500</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">department_id</span><span class="p">,</span> <span class="n">AVG</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">department_id</span>
+    <span class="k">HAVING</span> <span class="n">COUNT</span><span class="p">(</span><span class="mf">1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">10</span><span class="p">;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">HAVING</span></code> 句はグループ関数を問い合わせ条件に指定する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HAVING</span></code> 句にも列の別名を指定できない。これはわかる。</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id35">第 6 章 表の結合</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>表の定義を示さないと SQL 文の読解ができないのだが、そうしない。</p>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- 同じデータ型および同じ列名の列同士で表を結合する</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">department_name</span>
+    <span class="k">FROM</span> <span class="n">employees</span>
+        <span class="k">NATURAL</span> <span class="k">JOIN</span> <span class="n">departments</span><span class="p">;</span>
+
+<span class="c1">-- 結合する列を限定する</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">department_name</span>
+    <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">JOIN</span> <span class="n">departments</span>
+        <span class="k">USING</span> <span class="n">department_id</span><span class="p">;</span>
+
+<span class="c1">-- ``ON`` 句では列名が異なっていてもよい</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">department_name</span>
+    <span class="k">FROM</span> <span class="n">employees</span> <span class="n">emp</span>
+    <span class="k">JOIN</span> <span class="n">departments</span> <span class="n">dept</span>
+        <span class="k">ON</span> <span class="n">emp</span><span class="mf">.</span><span class="n">department_id</span> <span class="o">=</span> <span class="n">dept</span><span class="mf">.</span><span class="n">department_id</span><span class="p">;</span>
+
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">department_name</span><span class="p">,</span> <span class="n">city</span>
+    <span class="k">FROM</span> <span class="n">employees</span> <span class="n">emp</span>
+    <span class="k">JOIN</span> <span class="n">departments</span> <span class="n">dept</span>
+        <span class="k">ON</span> <span class="n">emp</span><span class="mf">.</span><span class="n">department_id</span> <span class="o">=</span> <span class="n">dept</span><span class="mf">.</span><span class="n">department_id</span>
+    <span class="k">JOIN</span> <span class="n">locations</span> <span class="n">loc</span>
+        <span class="k">ON</span> <span class="n">dept</span><span class="mf">.</span><span class="n">location_id</span> <span class="o">=</span> <span class="n">loc</span><span class="mf">.</span><span class="n">location_id</span><span class="p">;</span>
+
+<span class="k">SELECT</span> <span class="n">e</span><span class="mf">.</span><span class="n">employee_id</span> <span class="n">emp_id</span><span class="p">,</span> <span class="n">e</span><span class="mf">.</span><span class="n">last_name</span> <span class="n">emp_name</span><span class="p">,</span>
+       <span class="n">m</span><span class="mf">.</span><span class="n">employee_id</span> <span class="n">mgr_id</span><span class="p">,</span> <span class="n">m</span><span class="mf">.</span><span class="n">last_name</span> <span class="n">mgr_name</span>
+    <span class="k">FROM</span> <span class="n">employees</span> <span class="n">e</span>
+    <span class="k">JOIN</span> <span class="n">employees</span> <span class="n">m</span>
+        <span class="k">ON</span> <span class="n">e</span><span class="mf">.</span><span class="n">manager_id</span> <span class="o">=</span> <span class="n">m</span><span class="mf">.</span><span class="n">manager_id</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">NATURAL</span> <span class="pre">JOIN</span></code> は同じデータ型および同じ列名の列同士で表を結合する。本書の例では、この二つの表では列 <code class="docutils literal notranslate"><span class="pre">manager_id</span></code> と列 <code class="docutils literal notranslate"><span class="pre">department_id</span></code> が共通している。</p>
+<p><code class="docutils literal notranslate"><span class="pre">USING</span></code> 句の文は同じようなことをしているが、結合する列を一つに限定する。</p>
+<p><code class="docutils literal notranslate"><span class="pre">INNER</span> <span class="pre">JOIN</span></code> の <code class="docutils literal notranslate"><span class="pre">ON</span></code> 句では列名が異なっていてもよい。</p>
+<p>自己結合の場合には表に別名を二つつけて、列がどちらのものなのか表名を明示する必要がある。</p>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">e</span><span class="mf">.</span><span class="n">employee_id</span><span class="p">,</span> <span class="n">e</span><span class="mf">.</span><span class="n">last_name</span><span class="p">,</span> <span class="n">e</span><span class="mf">.</span><span class="n">salary</span><span class="p">,</span> <span class="n">j</span><span class="mf">.</span><span class="n">grade_level</span>
+    <span class="k">FROM</span> <span class="n">employees</span> <span class="n">e</span>
+    <span class="k">JOIN</span> <span class="n">job_grades</span> <span class="n">j</span>
+        <span class="k">ON</span> <span class="n">e</span><span class="mf">.</span><span class="n">salary</span> <span class="k">BETWEEN</span> <span class="n">j</span><span class="mf">.</span><span class="n">lowest_sal</span> <span class="k">AND</span> <span class="n">j</span><span class="mf">.</span><span class="n">highest_sal</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">=</span></code> に基づかない結合は非等価結合と呼ばれる。</p>
+<div class="section" id="id9">
+<h3><a class="toc-backref" href="#id36">外部結合</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>結合後、条件を満たさないレコードを出力する場合には外部結合を行う。外部結合はどちらのレコードを出力するのかで三通りに分類される。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">JOIN</span></code> 句の右側に置いた表のレコードを残すのならば <code class="docutils literal notranslate"><span class="pre">RIGHT</span> <span class="pre">OUTER</span> <span class="pre">JOIN</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">JOIN</span></code> 句の左側に置いた表のレコードを残すのならば <code class="docutils literal notranslate"><span class="pre">LEFT</span> <span class="pre">OUTER</span> <span class="pre">JOIN</span></code></p></li>
+<li><p>両側とも残すならば <code class="docutils literal notranslate"><span class="pre">FULL</span> <span class="pre">OUTER</span> <span class="pre">JOIN</span></code> とする。</p></li>
+<li><p>いずれの場合にも結合条件から漏れたレコードは当該列が <code class="docutils literal notranslate"><span class="pre">NULL</span></code> として出力される。</p></li>
+<li><p>このときの <code class="docutils literal notranslate"><span class="pre">RIGHT</span></code>, <code class="docutils literal notranslate"><span class="pre">LEFT</span></code>, <code class="docutils literal notranslate"><span class="pre">FULL</span></code> は省略可。</p></li>
+</ul>
+</div>
+<div class="section" id="id10">
+<h3><a class="toc-backref" href="#id37">表の直積</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">department_name</span>
+    <span class="k">FROM</span> <span class="n">employees</span> <span class="k">CROSS</span> <span class="k">JOIN</span> <span class="n">departments</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">CROSS</span> <span class="pre">JOIN</span></code> 句は表の直積を出力する。</p>
+</div>
+</div>
+<div class="section" id="id11">
+<h2><a class="toc-backref" href="#id38">第 7 章 副問い合わせ</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>副問い合わせは <code class="docutils literal notranslate"><span class="pre">WHERE</span></code>, <code class="docutils literal notranslate"><span class="pre">HAVING</span></code>, <code class="docutils literal notranslate"><span class="pre">FROM</span></code>, <code class="docutils literal notranslate"><span class="pre">SET</span></code> 句などに含まれる
+<code class="docutils literal notranslate"><span class="pre">SELECT</span></code> 文のことをいう。</p>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">last_name</span> <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">WHERE</span> <span class="n">salary</span> <span class="o">&gt;</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">AVG</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">employees</span><span class="p">);</span>
+
+<span class="k">SELECT</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">job_id</span>
+    <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">WHERE</span> <span class="n">job_id</span> <span class="k">IN</span> <span class="p">(</span>
+        <span class="k">SELECT</span> <span class="n">job_id</span> <span class="k">FROM</span> <span class="n">employees</span> <span class="k">WHERE</span> <span class="n">last_name</span> <span class="o">=</span> <span class="s1">&#39;King&#39;</span><span class="p">);</span>
+
+<span class="k">SELECT</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">job_id</span><span class="p">,</span> <span class="n">salary</span><span class="p">,</span> <span class="n">department_id</span>
+    <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">WHERE</span> <span class="n">salary</span> <span class="o">&lt;</span> <span class="k">ANY</span><span class="p">(</span>
+        <span class="k">SELECT</span> <span class="n">salary</span> <span class="k">FROM</span> <span class="n">employees</span> <span class="k">WHERE</span> <span class="n">department_id</span> <span class="o">=</span> <span class="mf">60</span><span class="p">)</span>
+        <span class="k">AND</span> <span class="n">department_id</span> <span class="o">&lt;&gt;</span> <span class="mf">60</span>
+    <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">department_id</span><span class="p">;</span>
+
+<span class="k">SELECT</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">job_id</span><span class="p">,</span> <span class="n">salary</span><span class="p">,</span> <span class="n">department_id</span>
+    <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">WHERE</span> <span class="n">salary</span> <span class="o">&lt;</span> <span class="k">ALL</span><span class="p">(</span>
+        <span class="k">SELECT</span> <span class="n">salary</span> <span class="k">FROM</span> <span class="n">employees</span> <span class="k">WHERE</span> <span class="n">department_id</span> <span class="o">=</span> <span class="mf">60</span><span class="p">)</span>
+        <span class="k">AND</span> <span class="n">department_id</span> <span class="o">&lt;&gt;</span> <span class="mf">60</span>
+    <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">department_id</span><span class="p">;</span>
+
+<span class="k">SELECT</span> <span class="n">department_id</span><span class="p">,</span> <span class="n">MIN</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span>
+    <span class="k">FROM</span> <span class="n">employees</span>
+    <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">department_id</span>
+    <span class="k">HAVING</span> <span class="n">MIN</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span> <span class="o">&gt;</span> <span class="p">(</span>
+        <span class="k">SELECT</span> <span class="n">MIN</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">employees</span> <span class="k">WHERE</span> <span class="n">department_id</span> <span class="o">=</span> <span class="mf">50</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>不等号と <code class="docutils literal notranslate"><span class="pre">ANY</span></code> または <code class="docutils literal notranslate"><span class="pre">ALL</span></code> を使った例は妙な感じがする。
+<code class="docutils literal notranslate"><span class="pre">MIN</span></code>, <code class="docutils literal notranslate"><span class="pre">MAX</span></code> と比較したらどうだろう。</p>
+<p>副問い合わせでは特に <code class="docutils literal notranslate"><span class="pre">NULL</span></code> の取り扱いに注意を要する。そういう問い合わせ結果が含まれているときには <code class="docutils literal notranslate"><span class="pre">IN</span></code>, <code class="docutils literal notranslate"><span class="pre">ANY</span></code>, <code class="docutils literal notranslate"><span class="pre">ALL</span></code> を利用すると妙なことになる。</p>
+</div>
+<div class="section" id="id12">
+<h2><a class="toc-backref" href="#id39">第 8 章 集合演算子</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">UNION</span></code>, <code class="docutils literal notranslate"><span class="pre">UNION</span> <span class="pre">ALL</span></code>, <code class="docutils literal notranslate"><span class="pre">INTERSECT</span></code>, <code class="docutils literal notranslate"><span class="pre">MINUS</span></code> を集合演算子という。</p></li>
+<li><p>集合演算子を使う問い合わせを複合問い合わせという。</p></li>
+<li><p>集合演算子は同じレコードセット型同士にしか作用しない。</p></li>
+<li><p>集合演算では文字型を除いて暗黙の型変換は一切行われない。</p>
+<ul>
+<li><p>したがって <code class="docutils literal notranslate"><span class="pre">NULL</span></code> を扱うときには変換関数で明示的に型変換を指定する必要がある。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">UNION</span></code> と <code class="docutils literal notranslate"><span class="pre">UNION</span> <span class="pre">ALL</span></code> の違いは C++ でいうと <code class="docutils literal notranslate"><span class="pre">std::set</span></code> と <code class="docutils literal notranslate"><span class="pre">std::multiset</span></code> の違いに相当するだろう。</p></li>
+</ul>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span> <span class="k">FROM</span> <span class="n">employees</span>
+<span class="k">UNION</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span> <span class="k">FROM</span> <span class="n">managers</span><span class="p">;</span>
+
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span> <span class="k">FROM</span> <span class="n">employees</span>
+<span class="k">UNION</span> <span class="k">ALL</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span> <span class="k">FROM</span> <span class="n">managers</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">employee_id</span><span class="p">;</span>
+
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span> <span class="k">FROM</span> <span class="n">employees</span>
+<span class="k">INTERSECT</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span> <span class="k">FROM</span> <span class="n">managers</span><span class="p">;</span>
+
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span> <span class="k">FROM</span> <span class="n">employees</span>
+<span class="n">MINUS</span>
+<span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span> <span class="k">FROM</span> <span class="n">managers</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dml">
+<h2><a class="toc-backref" href="#id40">第 9 章 DML 文（データ操作言語）</a><a class="headerlink" href="#dml" title="Permalink to this headline">¶</a></h2>
+<p>最初に <code class="docutils literal notranslate"><span class="pre">INSERT</span></code>, <code class="docutils literal notranslate"><span class="pre">UPDATE</span></code>, <code class="docutils literal notranslate"><span class="pre">DELETE</span></code> 文を習う。その次にトランザクションを習う。</p>
+<div class="section" id="id13">
+<h3><a class="toc-backref" href="#id41">レコードの追加・更新・削除</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">countries</span> <span class="p">(</span><span class="n">country_id</span><span class="p">,</span> <span class="n">country_name</span><span class="p">,</span> <span class="n">region_id</span><span class="p">)</span>
+    <span class="k">VALUES</span> <span class="p">(</span><span class="s1">&#39;KR&#39;</span><span class="p">,</span> <span class="s1">&#39;Korea&#39;</span><span class="p">,</span> <span class="mf">3</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">countries</span>
+    <span class="k">VALUES</span> <span class="p">(</span><span class="s1">&#39;KR&#39;</span><span class="p">,</span> <span class="s1">&#39;Korea&#39;</span><span class="p">,</span> <span class="mf">3</span><span class="p">);</span>
+
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">countries</span> <span class="p">(</span><span class="n">country_id</span><span class="p">,</span> <span class="n">region_id</span><span class="p">)</span>
+    <span class="k">VALUES</span> <span class="p">(</span><span class="s1">&#39;MO&#39;</span><span class="p">,</span> <span class="mf">3</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">countries</span>
+    <span class="k">VALUES</span> <span class="p">(</span><span class="s1">&#39;MO&#39;</span><span class="p">,</span> <span class="k">NULL</span><span class="p">,</span> <span class="mf">3</span><span class="p">);</span>
+
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">it_employees</span>
+    <span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">first_name</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">job_id</span>
+        <span class="k">FROM</span> <span class="n">employees</span>
+        <span class="k">WHERE</span> <span class="n">job_id</span> <span class="k">LIKE</span> <span class="s1">&#39;IT%&#39;</span><span class="p">;</span>
+
+<span class="k">UPDATE</span> <span class="n">employees</span>
+    <span class="k">SET</span> <span class="n">department_id</span> <span class="o">=</span> <span class="mf">120</span><span class="p">;</span>
+    <span class="k">WHERE</span> <span class="n">department_id</span> <span class="o">=</span> <span class="mf">60</span><span class="p">;</span>
+
+<span class="k">UPDATE</span> <span class="n">it_employees</span>
+    <span class="k">SET</span> <span class="n">last_name</span> <span class="o">=</span> <span class="s1">&#39;Scott&#39;</span><span class="p">;</span>
+
+<span class="k">UPDATE</span> <span class="n">it_employees</span>
+    <span class="k">SET</span> <span class="n">job_id</span> <span class="o">=</span> <span class="k">NULL</span>
+    <span class="k">WHERE</span> <span class="n">employee_id</span> <span class="o">=</span> <span class="mf">103</span><span class="p">;</span>
+
+<span class="k">UPDATE</span> <span class="n">employees</span>
+    <span class="k">SET</span> <span class="n">department_id</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="k">SELECT</span> <span class="n">department_id</span> <span class="k">FROM</span> <span class="n">employees</span> <span class="k">WHERE</span> <span class="n">employee_id</span> <span class="o">=</span> <span class="mf">107</span><span class="p">),</span>
+        <span class="n">salary</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="k">SELECT</span> <span class="n">MAX</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">employees</span> <span class="k">WHERE</span> <span class="n">job_id</span> <span class="o">=</span> <span class="s1">&#39;IT_PROG&#39;</span><span class="p">)</span>
+    <span class="k">WHERE</span> <span class="n">last_name</span> <span class="o">=</span> <span class="s1">&#39;Scott&#39;</span><span class="p">;</span>
+
+<span class="k">DELETE</span> <span class="k">FROM</span> <span class="n">it_employees</span><span class="p">;</span>
+
+<span class="k">DELETE</span> <span class="n">employees</span>
+    <span class="k">WHERE</span> <span class="n">department_id</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="k">SELECT</span> <span class="n">department_id</span>
+            <span class="k">FROM</span> <span class="n">employees</span> <span class="k">WHERE</span> <span class="n">employee_id</span> <span class="o">=</span> <span class="mf">107</span><span class="p">)</span>
+        <span class="k">AND</span> <span class="n">salary</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="k">SELECT</span> <span class="n">MAX</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span>
+            <span class="k">FROM</span> <span class="n">employees</span> <span class="k">WHERE</span> <span class="n">job_id</span> <span class="o">=</span> <span class="s1">&#39;IT_PROG&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">NULL</span></code> を明示的に挿入・更新することができる</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">INSERT</span></code> 文によるデータのコピー方法を習得すること</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">UPDATE</span></code> および <code class="docutils literal notranslate"><span class="pre">DELETE</span></code> 文は条件を指定しないと全レコードが処理対象となる。</p></li>
+</ul>
+</div>
+<div class="section" id="id14">
+<h3><a class="toc-backref" href="#id42">トランザクション</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<p>トランザクションとは連続する DML 文を一体化したものとしてみなすものだ。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">COMMIT</span></code> 文はこれまでのトランザクションを終了することを確定する。データベースの状態が変更される。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ROLLBACK</span></code> 文はこれまでのトランザクションを取り消す。データベースの状態はトランザクション開始直前まで戻る。</p></li>
+<li><p>Oracle にはセーブポイントという機能があるが、標準規格ではないので学習しないことにする。</p></li>
+</ul>
+<p>トランザクションも明示的なものと暗黙的なものがある。上記の <code class="docutils literal notranslate"><span class="pre">COMMIT</span></code>, <code class="docutils literal notranslate"><span class="pre">ROLLBACK</span></code> によるものは明示的だ。暗黙的なものは：</p>
+<ul class="simple">
+<li><p>DDL 文を実行したときに確定</p></li>
+<li><p>SQL*Plus などのツールを正常に <code class="docutils literal notranslate"><span class="pre">EXIT</span></code> したときに確定</p></li>
+<li><p>トランザクション実行中に障害が発生したときにキャンセル</p></li>
+<li><p>SQL*Plus などのツールを異常終了したときにキャンセル</p></li>
+</ul>
+</div>
+<div class="section" id="id15">
+<h3><a class="toc-backref" href="#id43">読み取り一貫性</a><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>読み取り一貫性とは、あるユーザーがデータを更新中でも、他のユーザーがデータを問い合わせられる性質だ。あるユーザーのトランザクション開始時の状態を他のユーザーが問い合わせることになる。</p>
+</div>
+<div class="section" id="id16">
+<h3><a class="toc-backref" href="#id44">ロック</a><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<p>ロックとは、同一データの同時更新を防止することだ。ふつうは行単位での暗黙的なロックが有効に機能する。</p>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span> <span class="k">FROM</span> <span class="n">employees</span> <span class="k">FOR</span> <span class="k">UPDATE</span><span class="p">;</span>
+
+<span class="k">UPDATE</span> <span class="n">employees</span> <span class="k">SET</span> <span class="n">employee_id</span> <span class="o">=</span> <span class="mf">1000</span> <span class="k">WHERE</span> <span class="n">employee_id</span> <span class="o">=</span> <span class="mf">197</span><span class="p">;</span>
+
+<span class="mf">...</span>
+
+<span class="k">COMMIT</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>上のように順次実行すると、別のユーザーは <code class="docutils literal notranslate"><span class="pre">employees</span></code> テーブルを更新するときに待たされる。</p>
+<p><code class="docutils literal notranslate"><span class="pre">FOR</span> <span class="pre">UPDATE</span></code> にはオプションとして <code class="docutils literal notranslate"><span class="pre">WAIT</span></code> または <code class="docutils literal notranslate"><span class="pre">NOWAIT</span></code> を指定してもよい。他ユーザーの更新をブロックするか即時エラーを戻すかという選択だ。</p>
+</div>
+<div class="section" id="truncate">
+<h3><a class="toc-backref" href="#id45"><code class="docutils literal notranslate"><span class="pre">TRUNCATE</span></code> 文</a><a class="headerlink" href="#truncate" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="k">TRUNCATE</span> <span class="k">TABLE</span> <span class="n">it_employees</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">TRUNCATE</span></code> 文は表の全レコードを削除する。表の定義自体は生きている。全削除専用コマンドなので高速に処理される。ロールバック不可。</p>
+</div>
+</div>
+<div class="section" id="ddl">
+<h2><a class="toc-backref" href="#id46">第 10 章 DDL 文（データ定義文）</a><a class="headerlink" href="#ddl" title="Permalink to this headline">¶</a></h2>
+<p>RDB は表だけで構成されているわけではなく、次のような構成要素がある（他にもある）：</p>
+<ul class="simple">
+<li><p>ビュー</p></li>
+<li><p>順序</p></li>
+<li><p>索引</p></li>
+<li><p>シノニム</p></li>
+</ul>
+<p>スキーマとは、データベースの構成要素それぞれのオーナーが誰であるのかという概念だ。
+Oracle Database はデータベース構成要素を <code class="docutils literal notranslate"><span class="pre">schema_name.object_name</span></code> のような形式で管理している。本文ではそういう言い回しをしていないが、ユーザー名を名前空間として扱うようだ。</p>
+<p>データ型について説明がある。<code class="docutils literal notranslate"><span class="pre">CHAR</span></code> と <code class="docutils literal notranslate"><span class="pre">VARCHAR2</span></code> の違いは固定長かそうでないか。</p>
+<div class="section" id="id17">
+<h3><a class="toc-backref" href="#id47">表の作成・変更・削除</a><a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">emp</span><span class="p">(</span>
+    <span class="n">emp_no</span> <span class="n">NUMBER</span><span class="p">,</span>
+    <span class="n">emp_name</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mf">25</span><span class="p">),</span>
+    <span class="n">email</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mf">30</span><span class="p">),</span>
+    <span class="n">dept_no</span> <span class="n">NUMBER</span><span class="p">);</span>
+
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">copy_emp</span><span class="p">(</span><span class="n">emp_no</span><span class="p">,</span> <span class="n">emp_name</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">dept_no</span><span class="p">)</span>
+    <span class="k">AS</span> <span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">department_id</span>
+        <span class="k">FROM</span> <span class="n">employees</span><span class="p">;</span>
+
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">emp_def</span><span class="p">(</span>
+    <span class="n">emp_no</span> <span class="n">NUMBER</span><span class="p">,</span>
+    <span class="n">emp_name</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mf">25</span><span class="p">),</span>
+    <span class="n">hire_date</span> <span class="nb">DATE</span> <span class="k">DEFAULT</span> <span class="n">SYSDATE</span><span class="p">,</span>
+    <span class="n">dept_no</span> <span class="n">NUMBER</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CREATE</span> <span class="pre">TABLE</span></code> 文を実行するにはその権限が付与されている必要がある。</p></li>
+<li><p>副問い合わせを用いて表を作成するときは、表の定義とあわせてテータのコピーもなされる。特に、値と制約をコピーする。</p></li>
+<li><p>列の既定値をキーワード <code class="docutils literal notranslate"><span class="pre">DEFAULT</span></code> に続けて指定してもよい。これは <code class="docutils literal notranslate"><span class="pre">INSERT</span></code> 処理で対応する列に値が指定されないときに意味がある。</p></li>
+</ul>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">departments</span> <span class="k">READ</span> <span class="k">ONLY</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ALTER</span> <span class="pre">TABLE</span></code> 文で表の何かを変更することができる。</p>
+<ul class="simple">
+<li><p>列を追加することができる。</p></li>
+<li><p>既存の列の属性を変更することができる。ただし、データのある列のデータ型変更やサイズ変更には一部制限がある。</p></li>
+<li><p>既存の列を削除することができる。</p></li>
+<li><p>表の状態を読み取り専用にすることができる。</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">DROP</span> <span class="pre">TABLE</span></code> 文で表全体を削除することができる。表そのものが存在しなくなる。</p>
+</div>
+<div class="section" id="id18">
+<h3><a class="toc-backref" href="#id48">制約</a><a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<p>最後に制約について見ていく。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">NOT</span> <span class="pre">NULL</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">UNIQUE</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PRIMARY</span> <span class="pre">KEY</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FOREIGN</span> <span class="pre">KEY</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CHECK</span></code></p></li>
+</ul>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">employees</span><span class="p">(</span>
+    <span class="n">employee_id</span> <span class="n">NUMBER</span><span class="p">,</span>
+    <span class="n">last_name</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mf">25</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span> <span class="c1">-- 名なしで NOT NULL 制約を付与</span>
+    <span class="n">commission_pct</span> <span class="n">NUMBER</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span> <span class="mf">2</span><span class="p">),</span>
+    <span class="n">manager_id</span> <span class="n">NUMBER</span><span class="p">,</span>
+    <span class="n">job_id</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mf">10</span><span class="p">)</span> <span class="k">CONSTRAINT</span> <span class="n">emp_job_nn</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span> <span class="c1">-- NOT NULL 制約を付与</span>
+    <span class="n">department_id</span> <span class="n">NUMBER</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">NOT</span> <span class="pre">NULL</span></code> 制約を設定すると、その列に <code class="docutils literal notranslate"><span class="pre">NULL</span></code> を格納することが許されない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NOT</span> <span class="pre">NULL</span></code> 制約を設定するのは列とする。</p></li>
+</ul>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">employees</span><span class="p">(</span>
+    <span class="n">employee_id</span> <span class="n">NUMBER</span><span class="p">,</span>
+    <span class="n">last_name</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mf">25</span><span class="p">),</span>
+    <span class="n">email</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mf">30</span><span class="p">)</span> <span class="k">CONSTRAINT</span> <span class="n">emp_ema_uk</span> <span class="k">UNIQUE</span><span class="p">,</span> <span class="c1">-- 列定義で設定</span>
+    <span class="n">commission_pct</span> <span class="n">NUMBER</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span> <span class="mf">2</span><span class="p">),</span>
+    <span class="n">manager_id</span> <span class="n">NUMBER</span><span class="p">,</span>
+    <span class="n">job_id</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mf">10</span><span class="p">),</span>
+    <span class="n">department_id</span> <span class="n">NUMBER</span><span class="p">);</span>
+
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">employees</span><span class="p">(</span>
+    <span class="n">employee_id</span> <span class="n">NUMBER</span><span class="p">,</span>
+    <span class="n">last_name</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mf">25</span><span class="p">),</span>
+    <span class="n">email</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mf">30</span><span class="p">),</span>
+    <span class="n">commission_pct</span> <span class="n">NUMBER</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span> <span class="mf">2</span><span class="p">),</span>
+    <span class="n">manager_id</span> <span class="n">NUMBER</span><span class="p">,</span>
+    <span class="n">job_id</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mf">10</span><span class="p">),</span>
+    <span class="n">department_id</span> <span class="n">NUMBER</span><span class="p">,</span>
+    <span class="k">CONSTRAINT</span> <span class="n">emp_ema_uk</span> <span class="k">UNIQUE</span><span class="p">(</span><span class="n">email</span><span class="p">));</span> <span class="c1">-- 表定義で設定</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">UNIQUE</span></code> 制約を設定すると、その列に重複値を格納することが許されない。ただし <code class="docutils literal notranslate"><span class="pre">NULL</span></code> は許される。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">UNIQUE</span></code> 制約は上のように列に書く方法と表に書く方法がある。どちらも同じことになる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">UNIQUE</span></code> 制約のある列には自動的に索引がつけられる。</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">PRIMARY</span> <span class="pre">KEY</span></code> 制約は <code class="docutils literal notranslate"><span class="pre">UNIQUE</span></code> 制約であって <code class="docutils literal notranslate"><span class="pre">NULL</span></code> の値を許さないものとみなせる。</p>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">employees</span><span class="p">(</span>
+    <span class="n">employee_id</span> <span class="n">NUMBER</span><span class="p">,</span>
+    <span class="n">last_name</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mf">25</span><span class="p">),</span>
+    <span class="n">email</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mf">30</span><span class="p">),</span>
+    <span class="n">commission_pct</span> <span class="n">NUMBER</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span> <span class="mf">2</span><span class="p">),</span>
+    <span class="n">manager_id</span> <span class="n">NUMBER</span><span class="p">,</span>
+    <span class="n">job_id</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mf">10</span><span class="p">),</span>
+    <span class="n">department_id</span> <span class="n">NUMBER</span> <span class="k">REFERENCES</span> <span class="n">departments</span><span class="p">(</span><span class="n">department_id</span><span class="p">));</span>
+
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">employees</span><span class="p">(</span>
+    <span class="n">employee_id</span> <span class="n">NUMBER</span><span class="p">,</span>
+    <span class="n">last_name</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mf">25</span><span class="p">),</span>
+    <span class="n">email</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mf">30</span><span class="p">),</span>
+    <span class="n">commission_pct</span> <span class="n">NUMBER</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span> <span class="mf">2</span><span class="p">),</span>
+    <span class="n">manager_id</span> <span class="n">NUMBER</span><span class="p">,</span>
+    <span class="n">job_id</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mf">10</span><span class="p">),</span>
+    <span class="n">department_id</span> <span class="n">NUMBER</span><span class="p">,</span>
+    <span class="k">CONSTRAINT</span> <span class="n">emp_fk</span> <span class="k">FOREIGN</span> <span class="k">KEY</span> <span class="n">department_id</span>
+        <span class="k">REFERENCES</span> <span class="n">departments</span><span class="p">(</span><span class="n">department_id</span><span class="p">));</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">FOREIGN</span> <span class="pre">KEY</span></code> 制約は表の参照関係を定義する制約だ。これを付与することで関連表の関連レコードに対する追加・変更・削除に一定の制限がつく。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FOREIGN</span> <span class="pre">KEY</span></code> 制約は上のように列に書く方法と表に書く方法がある。どちらも同じことになる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FOREIGN</span> <span class="pre">KEY</span></code> 制約のオプションには次のものがある：</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ON</span> <span class="pre">DELETE</span> <span class="pre">CASCADE</span></code>: 参照されているデータを削除するときに、参照するデータも削除される。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ON</span> <span class="pre">DELETE</span> <span class="pre">SET</span> <span class="pre">NULL</span></code>: 参照されているデータを削除するときに、参照するデータの値を <code class="docutils literal notranslate"><span class="pre">NULL</span></code> にする。</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">employees</span><span class="p">(</span>
+    <span class="n">employee_id</span> <span class="n">NUMBER</span><span class="p">,</span>
+    <span class="n">last_name</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mf">25</span><span class="p">),</span>
+    <span class="n">email</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mf">30</span><span class="p">),</span>
+    <span class="n">salary</span> <span class="n">NUMBER</span> <span class="k">CONSTRAINT</span> <span class="n">emp_sal_ck</span> <span class="k">CHECK</span> <span class="p">(</span><span class="n">salary</span> <span class="o">&gt;</span> <span class="mf">0</span><span class="p">),</span> <span class="c1">--</span>
+    <span class="n">commission_pct</span> <span class="n">NUMBER</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span> <span class="mf">2</span><span class="p">),</span>
+    <span class="n">manager_id</span> <span class="n">NUMBER</span><span class="p">,</span>
+    <span class="n">job_id</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mf">10</span><span class="p">),</span>
+    <span class="n">department_id</span> <span class="n">NUMBER</span><span class="p">);</span>
+
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">employees</span><span class="p">(</span>
+    <span class="n">employee_id</span> <span class="n">NUMBER</span><span class="p">,</span>
+    <span class="n">last_name</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mf">25</span><span class="p">),</span>
+    <span class="n">email</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mf">30</span><span class="p">),</span>
+    <span class="n">salary</span> <span class="n">NUMBER</span><span class="p">,</span>
+    <span class="n">commission_pct</span> <span class="n">NUMBER</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span> <span class="mf">2</span><span class="p">),</span>
+    <span class="n">manager_id</span> <span class="n">NUMBER</span><span class="p">,</span>
+    <span class="n">job_id</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mf">10</span><span class="p">),</span>
+    <span class="n">department_id</span> <span class="n">NUMBER</span><span class="p">,</span>
+    <span class="k">CONSTRAINT</span> <span class="n">emp_sal_ck</span> <span class="k">CHECK</span> <span class="p">(</span><span class="n">salary</span> <span class="o">&gt;</span> <span class="mf">0</span><span class="p">));</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CHECK</span></code> 制約は列の値に条件を定義する。この条件を満たさない値を格納することは許されない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CHECK</span></code> 制約は上のように列に書く方法と表に書く方法がある。どちらも同じことになる。</p></li>
+</ul>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">on_master</span> <span class="n">MODIFY</span> <span class="n">id</span> <span class="n">NUMBER</span><span class="p">(</span><span class="mf">6</span><span class="p">)</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">;</span>
+<span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">on_master</span> <span class="k">ADD</span> <span class="k">CONSTRAINT</span> <span class="n">on_m_pk</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>既存の表に制約を定義することもできる。</p>
+</div>
+</div>
+<div class="section" id="id19">
+<h2><a class="toc-backref" href="#id49">第 11 章 その他のオブジェクト</a><a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h2>
+<p>最終章はビュー、順序、索引、シノニムについて学習する。</p>
+<div class="section" id="id20">
+<h3><a class="toc-backref" href="#id50">ビュー</a><a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<p>ビューとは既存の表の問い合わせ結果を表のように扱えるようにしたものと考えられる。ビューをうまく利用すれば、ある種の処理を簡略化することができる。</p>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- いちばん普通のビューの作成方法</span>
+<span class="k">CREATE</span> <span class="k">VIEW</span> <span class="n">emp_v</span>
+    <span class="k">AS</span> <span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">hire_date</span><span class="p">,</span> <span class="n">department_id</span>
+        <span class="k">FROM</span> <span class="n">employees</span> <span class="k">WHERE</span> <span class="n">job_id</span> <span class="o">=</span> <span class="s1">&#39;IT_PROG&#39;</span><span class="p">;</span>
+
+<span class="c1">-- ビューを変更する。</span>
+<span class="c1">-- この例は列名を変更する。</span>
+<span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">VIEW</span> <span class="n">emp_v</span><span class="p">(</span>
+    <span class="n">emp_no</span><span class="p">,</span> <span class="k">name</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">h_date</span><span class="p">,</span> <span class="n">dept_no</span><span class="p">)</span>
+    <span class="k">AS</span> <span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">hire_date</span><span class="p">,</span> <span class="n">department_id</span>
+        <span class="k">FROM</span> <span class="n">employees</span> <span class="k">WHERE</span> <span class="n">job_id</span> <span class="o">=</span> <span class="s1">&#39;IT_PROG&#39;</span><span class="p">;</span>
+
+<span class="c1">-- 複数テーブルからビューを定義する</span>
+<span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">VIEW</span> <span class="n">dept_v</span><span class="p">(</span>
+    <span class="n">dept_name</span><span class="p">,</span> <span class="n">maxsal</span><span class="p">)</span>
+    <span class="k">AS</span> <span class="k">SELECT</span> <span class="n">d</span><span class="mf">.</span><span class="n">department_name</span><span class="p">,</span> <span class="n">MAX</span><span class="p">(</span><span class="n">e</span><span class="mf">.</span><span class="n">salary</span><span class="p">)</span>
+        <span class="k">FROM</span> <span class="n">employees</span> <span class="n">e</span> <span class="k">JOIN</span> <span class="n">department</span> <span class="n">d</span>
+        <span class="k">ON</span> <span class="n">e</span><span class="mf">.</span><span class="n">department_id</span> <span class="o">=</span> <span class="n">d</span><span class="mf">.</span><span class="n">department_id</span>
+        <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">d</span><span class="mf">.</span><span class="n">department_name</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>ビューを通して DML 文を実行することができる場合がある。このとき、元テーブルが変更されることに注意する。本文にあるように相当な制限がある。例えば <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> を用いたビューに対しては DML 文を何もできない。</p>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">VIEW</span> <span class="n">empdept30_v</span>
+    <span class="k">AS</span> <span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">department_id</span>
+        <span class="k">FROM</span> <span class="n">employees</span> <span class="n">e</span>
+        <span class="k">WHERE</span> <span class="n">department_id</span> <span class="o">=</span> <span class="mf">30</span>
+    <span class="k">WITH</span> <span class="k">CHECK</span> <span class="k">OPTION</span> <span class="k">CONSTRAINT</span> <span class="n">empdept30_v_ck</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">WITH</span> <span class="pre">CHECK</span> <span class="pre">OPTION</span></code> 句でビューを定義すると、<code class="docutils literal notranslate"><span class="pre">WHERE</span></code> 句の条件を満たさないような DML 文による処理を許さない。</p>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- WITH READ ONLY 句を使うことでビューを読み取り専用にする</span>
+<span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">VIEW</span> <span class="n">emp50_v</span>
+    <span class="k">AS</span> <span class="k">SELECT</span> <span class="n">employee_id</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">department_id</span>
+        <span class="k">FROM</span> <span class="n">employees</span>
+        <span class="k">WHERE</span> <span class="n">department_id</span> <span class="o">=</span> <span class="mf">50</span>
+    <span class="k">WITH</span> <span class="k">READ</span> <span class="k">ONLY</span><span class="p">;</span>
+
+<span class="k">DROP</span> <span class="k">VIEW</span> <span class="n">emp_v</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">DROP</span> <span class="pre">VIEW</span></code> 文でビューを削除する。元テーブルは保たれる。</p>
+</div>
+<div class="section" id="id21">
+<h3><a class="toc-backref" href="#id51">順序</a><a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<p>順序とは、一意的な番号を自動的に生成するデータベースオブジェクトだ。一般的には主キーの値を作成するのに用いる。</p>
+<p>順序オブジェクトには <code class="docutils literal notranslate"><span class="pre">nextval</span></code> および <code class="docutils literal notranslate"><span class="pre">currval</span></code> という名前の「列」が存在する。</p>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">SEQUENCE</span> <span class="n">emp_cp_seq</span>
+    <span class="k">INCREMENT</span> <span class="k">BY</span> <span class="mf">1</span> <span class="c1">-- 増分間隔を明示的に指示する（おそらくデフォルト値）</span>
+    <span class="k">MAXVALUE</span> <span class="mf">100</span> <span class="c1">-- 発番される最大値</span>
+    <span class="k">CYCLE</span> <span class="c1">-- 発番を最大値まで尽くすと、また初期値から発番する</span>
+    <span class="k">CACHE</span> <span class="mf">10</span><span class="p">;</span> <span class="c1">-- メモリーに保持する番号の個数</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">CREATE</span> <span class="pre">SEQUENCE</span></code> 文は順序オブジェクトを作成する。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">INCREMENT</span> <span class="pre">BY</span></code> は整数値をとる。</p></li>
+<li><p>この例では用いていないが <code class="docutils literal notranslate"><span class="pre">START</span> <span class="pre">WITH</span></code> オプションで発番の初期値を指定可能。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MAXVALUE</span></code> を指定する場合は、その値が <code class="docutils literal notranslate"><span class="pre">START</span> <span class="pre">WITH</span></code> のそれより大きい必要がある。
+<code class="docutils literal notranslate"><span class="pre">MINVALUE</span></code> オプションでは、順序オブジェクトが発番する番号の最小値を指定できる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CYCLE</span></code> オプションを指定するときは <code class="docutils literal notranslate"><span class="pre">MAXVALUE</span></code> の明示的な指定が必要。
+<code class="docutils literal notranslate"><span class="pre">NOCYCLE</span></code> オプションを指定すると、発番は最大値に達すると終了する。</p></li>
+</ul>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- 最大値が 200 に達すると発番を最初から戻すオプションをやめてみる。</span>
+<span class="c1">-- これは上の定義に矛盾するので失敗する。</span>
+<span class="k">ALTER</span> <span class="k">SEQUENCE</span> <span class="n">emp_cp_seq</span>
+    <span class="k">MAXVALUE</span> <span class="mf">200</span>
+    <span class="n">NOCYCLE</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ALTER</span> <span class="pre">SEQUENCE</span></code> 文は既存の順序オブジェクトの属性を変更する。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">START</span> <span class="pre">WITH</span></code> の値を変更することはできない。</p></li>
+<li><p>発番に矛盾を生じるような変更は許されない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ALTER</span> <span class="pre">SEQUENCE</span></code> 文では変更したい性質だけを命令すればよい。</p></li>
+</ul>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="k">DROP</span> <span class="k">SEQUENCE</span> <span class="n">emp_cp_seq</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">DROP</span> <span class="pre">SEQUENCE</span></code> 文は順序オブジェクトを削除する。オプションはない。</p>
+</div>
+<div class="section" id="id22">
+<h3><a class="toc-backref" href="#id52">索引</a><a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+<p>索引オブジェクトとは、表のデータの位置情報を保持するものだ。これがあると、その表に対する問い合わせが高速化されると一般には期待される。</p>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- 表 emp_copy の列 employee_id に対して索引を作成する</span>
+<span class="k">CREATE</span> <span class="k">INDEX</span> <span class="n">empid_cp_idx</span> <span class="k">ON</span> <span class="n">emp_copy</span> <span class="p">(</span><span class="n">employee_id</span><span class="p">);</span>
+
+<span class="c1">-- 索引 empid_cp_idx を削除する</span>
+<span class="k">DROP</span> <span class="k">INDEX</span> <span class="n">empid_cp_idx</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>索引を作成すると効果的な場合は次の通り：</p>
+<ul class="simple">
+<li><p>列にさまざまな種類の値が含まれる</p></li>
+<li><p>列に多数の <code class="docutils literal notranslate"><span class="pre">NULL</span></code> がある</p></li>
+<li><p>列が <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> 句の条件に頻繁に用いられる</p></li>
+<li><p>表が巨大であり、問い合わせがそのうちの 4% 程度しか返さないことがわかっている</p></li>
+</ul>
+<p>効果的でない場合は、上の否定に加えて：</p>
+<ul class="simple">
+<li><p>表が頻繁に更新される</p></li>
+<li><p>列が式の一部として参照される</p></li>
+</ul>
+</div>
+<div class="section" id="id23">
+<h3><a class="toc-backref" href="#id53">シノニム</a><a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
+<p>シノニムすなわち別名だ。これまでのデータベースオブジェクトには別名を付けることができる。プログラミングでは別名をつけることは基本的な考え方だ。</p>
+<p>シノニムには public と private の二種類が存在する。それらの意味はオブジェクト指向プログラミング用語のそれとほぼ同じ。</p>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- ユーザー scott が所有する employees 表に対して emp という別名をつける</span>
+<span class="k">CREATE</span> <span class="n">SYNONYM</span> <span class="n">emp</span> <span class="k">FOR</span> <span class="n">scott</span><span class="mf">.</span><span class="n">employees</span><span class="p">;</span>
+
+<span class="c1">-- その別名を unalias する</span>
+<span class="k">DROP</span> <span class="n">SYNONYM</span> <span class="n">emp</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>手許に SQL 環境がないから試していないが、同じオブジェクトに対して複数の別名を付けることができると思う。</p>
+</div>
+</div>
+<div class="section" id="id24">
+<h2><a class="toc-backref" href="#id54">付録 SQL 構文一覧</a><a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h2>
+<p>本書で扱われなかった構文だけ列挙しておく。</p>
+<div class="highlight-plpgsql notranslate"><div class="highlight"><pre><span></span><span class="k">ALTER</span> <span class="k">FUNCTION</span>
+<span class="k">ALTER</span> <span class="k">INDEX</span>
+<span class="k">ALTER</span> <span class="n">PACKAGE</span>
+<span class="k">ALTER</span> <span class="k">PROCEDURE</span>
+<span class="k">ALTER</span> <span class="n">PROFILE</span>
+<span class="k">ALTER</span> <span class="k">ROLE</span>
+<span class="k">ALTER</span> <span class="k">SESSION</span>
+<span class="k">ALTER</span> <span class="k">SYSTEM</span>
+<span class="k">ALTER</span> <span class="k">TABLESPACE</span>
+<span class="k">ALTER</span> <span class="k">TRIGGER</span>
+<span class="k">ALTER</span> <span class="k">USER</span>
+<span class="n">AUDIT</span>
+<span class="k">COMMENT</span>
+<span class="k">CREATE</span> <span class="k">DATABASE</span>
+<span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="n">DIRECTORY</span>
+<span class="k">CREATE</span> <span class="k">FUNCTION</span>
+<span class="k">CREATE</span> <span class="n">PFILE</span>
+<span class="k">CREATE</span> <span class="k">PROCEDURE</span>
+<span class="k">CREATE</span> <span class="n">PROFILE</span>
+<span class="k">CREATE</span> <span class="k">ROLE</span>
+<span class="k">CREATE</span> <span class="n">SPFILE</span>
+<span class="k">CREATE</span> <span class="k">TABLESPACE</span>
+<span class="k">CREATE</span> <span class="k">TRIGGER</span>
+<span class="k">CREATE</span> <span class="k">USER</span>
+<span class="k">DROP</span> <span class="n">DIRECTORY</span>
+<span class="k">DROP</span> <span class="k">PROCEDURE</span>
+<span class="k">DROP</span> <span class="n">PROFILE</span>
+<span class="k">DROP</span> <span class="k">ROLE</span>
+<span class="k">DROP</span> <span class="k">TABLESPACE</span>
+<span class="k">DROP</span> <span class="k">TRIGGER</span>
+<span class="k">DROP</span> <span class="k">USER</span>
+<span class="n">FLASHBACK</span> <span class="k">DATABASE</span>
+<span class="n">FLASHBACK</span> <span class="k">TABLE</span>
+<span class="k">LOCK</span> <span class="k">TABLE</span>
+<span class="n">NOAUDIT</span>
+<span class="n">PURGE</span>
+<span class="k">RENAME</span>
+<span class="k">SET</span> <span class="k">CONSTRAINTS</span>
+<span class="k">SET</span> <span class="k">ROLE</span>
+
+<span class="k">GRANT</span>
+<span class="k">REVOKE</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="hosoda10/index.html" title="Python 入門［２＆３対応］読書ノート"
+             >next</a></li>
+        <li class="right" >
+          <a href="griffiths10.html" title="プログラミング C# 第 6 版 読書ノート"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ORACLE MASTER Bronze 11g SQL 基礎 I 必修教本 読書ノート</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2020, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

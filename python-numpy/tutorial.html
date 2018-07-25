@@ -1,17 +1,17 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Tentative NumPy Tutorial ノート &#8212; 読書ノート v1.4</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tentative NumPy Tutorial ノート &#8212; 読書ノート v1.5dev</title>
     <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/mathjax-v3.js"></script>
+    
     <link rel="next" title="doc/" href="doc.html" />
     <link rel="prev" title="ドキュメントを読む" href="reading.html" /> 
   </head><body>
@@ -26,7 +26,8 @@
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="index.html" >NumPy 利用ノート</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="reading.html" accesskey="U">ドキュメントを読む</a> &#187;</li> 
+          <li class="nav-item nav-item-2"><a href="reading.html" accesskey="U">ドキュメントを読む</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Tentative NumPy Tutorial ノート</a></li> 
       </ul>
     </div>  
 
@@ -38,56 +39,64 @@
 <h1><a class="toc-backref" href="#id1">Tentative NumPy Tutorial ノート</a><a class="headerlink" href="#tentative-numpy-tutorial" title="Permalink to this headline">¶</a></h1>
 <p>本稿は（現在アドレス不明の）Tentative NumPy Tutorial を読んだノートだ。かつて一度は目を通したハズだが、今ザッとリンク先を読んでみたら記憶から抜けている事項が妙に多いので、テキストの形でノートを残すことにした。</p>
 <div class="contents topic" id="contents">
-<p class="topic-title first">Contents</p>
+<p class="topic-title">Contents</p>
 <ul class="simple">
-<li><a class="reference internal" href="#tentative-numpy-tutorial" id="id1">Tentative NumPy Tutorial ノート</a><ul>
-<li><a class="reference internal" href="#prerequisites" id="id2">Prerequisites</a></li>
-<li><a class="reference internal" href="#the-basics" id="id3">The Basics</a><ul>
-<li><a class="reference internal" href="#an-example" id="id4">An example</a></li>
-<li><a class="reference internal" href="#array-creation" id="id5">Array Creation</a></li>
-<li><a class="reference internal" href="#printing-arrays" id="id6">Printing Arrays</a></li>
-<li><a class="reference internal" href="#basic-operations" id="id7">Basic Operations</a></li>
-<li><a class="reference internal" href="#universal-functions" id="id8">Universal Functions</a></li>
-<li><a class="reference internal" href="#indexing-slicing-and-iterating" id="id9">Indexing, Slicing and Iterating</a></li>
+<li><p><a class="reference internal" href="#tentative-numpy-tutorial" id="id1">Tentative NumPy Tutorial ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#prerequisites" id="id2">Prerequisites</a></p></li>
+<li><p><a class="reference internal" href="#the-basics" id="id3">The Basics</a></p>
+<ul>
+<li><p><a class="reference internal" href="#an-example" id="id4">An example</a></p></li>
+<li><p><a class="reference internal" href="#array-creation" id="id5">Array Creation</a></p></li>
+<li><p><a class="reference internal" href="#printing-arrays" id="id6">Printing Arrays</a></p></li>
+<li><p><a class="reference internal" href="#basic-operations" id="id7">Basic Operations</a></p></li>
+<li><p><a class="reference internal" href="#universal-functions" id="id8">Universal Functions</a></p></li>
+<li><p><a class="reference internal" href="#indexing-slicing-and-iterating" id="id9">Indexing, Slicing and Iterating</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#shape-manipulation" id="id10">Shape Manipulation</a><ul>
-<li><a class="reference internal" href="#changing-the-shape-of-an-array" id="id11">Changing the shape of an array</a></li>
-<li><a class="reference internal" href="#stacking-together-different-arrays" id="id12">Stacking together different arrays</a></li>
-<li><a class="reference internal" href="#splitting-one-array-into-several-smaller-ones" id="id13">Splitting one array into several smaller ones</a></li>
+<li><p><a class="reference internal" href="#shape-manipulation" id="id10">Shape Manipulation</a></p>
+<ul>
+<li><p><a class="reference internal" href="#changing-the-shape-of-an-array" id="id11">Changing the shape of an array</a></p></li>
+<li><p><a class="reference internal" href="#stacking-together-different-arrays" id="id12">Stacking together different arrays</a></p></li>
+<li><p><a class="reference internal" href="#splitting-one-array-into-several-smaller-ones" id="id13">Splitting one array into several smaller ones</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#copies-and-views" id="id14">Copies and Views</a><ul>
-<li><a class="reference internal" href="#no-copy-at-all" id="id15">No Copy at All</a></li>
-<li><a class="reference internal" href="#view-or-shallow-copy" id="id16">View or Shallow Copy</a></li>
-<li><a class="reference internal" href="#deep-copy" id="id17">Deep Copy</a></li>
-<li><a class="reference internal" href="#functions-and-methods-overview" id="id18">Functions and Methods Overview</a></li>
+<li><p><a class="reference internal" href="#copies-and-views" id="id14">Copies and Views</a></p>
+<ul>
+<li><p><a class="reference internal" href="#no-copy-at-all" id="id15">No Copy at All</a></p></li>
+<li><p><a class="reference internal" href="#view-or-shallow-copy" id="id16">View or Shallow Copy</a></p></li>
+<li><p><a class="reference internal" href="#deep-copy" id="id17">Deep Copy</a></p></li>
+<li><p><a class="reference internal" href="#functions-and-methods-overview" id="id18">Functions and Methods Overview</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#less-basic" id="id19">Less Basic</a><ul>
-<li><a class="reference internal" href="#broadcasting-rules" id="id20">Broadcasting rules</a></li>
+<li><p><a class="reference internal" href="#less-basic" id="id19">Less Basic</a></p>
+<ul>
+<li><p><a class="reference internal" href="#broadcasting-rules" id="id20">Broadcasting rules</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#fancy-indexing-and-index-tricks" id="id21">Fancy indexing and index tricks</a><ul>
-<li><a class="reference internal" href="#indexing-with-arrays-of-indices" id="id22">Indexing with Arrays of Indices</a></li>
-<li><a class="reference internal" href="#indexing-with-boolean-arrays" id="id23">Indexing with Boolean Arrays</a></li>
-<li><a class="reference internal" href="#the-ix-function" id="id24">The ix_() function</a></li>
-<li><a class="reference internal" href="#indexing-with-strings" id="id25">Indexing with strings</a></li>
+<li><p><a class="reference internal" href="#fancy-indexing-and-index-tricks" id="id21">Fancy indexing and index tricks</a></p>
+<ul>
+<li><p><a class="reference internal" href="#indexing-with-arrays-of-indices" id="id22">Indexing with Arrays of Indices</a></p></li>
+<li><p><a class="reference internal" href="#indexing-with-boolean-arrays" id="id23">Indexing with Boolean Arrays</a></p></li>
+<li><p><a class="reference internal" href="#the-ix-function" id="id24">The ix_() function</a></p></li>
+<li><p><a class="reference internal" href="#indexing-with-strings" id="id25">Indexing with strings</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#linear-algebra" id="id26">Linear Algebra</a><ul>
-<li><a class="reference internal" href="#simple-array-operations" id="id27">Simple Array Operations</a></li>
-<li><a class="reference internal" href="#the-matrix-class" id="id28">The Matrix Class</a></li>
-<li><a class="reference internal" href="#indexing-comparing-matrices-and-2d-arrays" id="id29">Indexing: Comparing Matrices and 2D Arrays</a></li>
+<li><p><a class="reference internal" href="#linear-algebra" id="id26">Linear Algebra</a></p>
+<ul>
+<li><p><a class="reference internal" href="#simple-array-operations" id="id27">Simple Array Operations</a></p></li>
+<li><p><a class="reference internal" href="#the-matrix-class" id="id28">The Matrix Class</a></p></li>
+<li><p><a class="reference internal" href="#indexing-comparing-matrices-and-2d-arrays" id="id29">Indexing: Comparing Matrices and 2D Arrays</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#tricks-and-tips" id="id30">Tricks and Tips</a><ul>
-<li><a class="reference internal" href="#automatic-reshaping" id="id31">“Automatic” Reshaping</a></li>
-<li><a class="reference internal" href="#vector-stacking" id="id32">Vector Stacking</a></li>
-<li><a class="reference internal" href="#histograms" id="id33">Histograms</a></li>
+<li><p><a class="reference internal" href="#tricks-and-tips" id="id30">Tricks and Tips</a></p>
+<ul>
+<li><p><a class="reference internal" href="#automatic-reshaping" id="id31">“Automatic” Reshaping</a></p></li>
+<li><p><a class="reference internal" href="#vector-stacking" id="id32">Vector Stacking</a></p></li>
+<li><p><a class="reference internal" href="#histograms" id="id33">Histograms</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#references" id="id34">References</a></li>
+<li><p><a class="reference internal" href="#references" id="id34">References</a></p></li>
 </ul>
 </li>
 </ul>
@@ -96,11 +105,12 @@
 <h2><a class="toc-backref" href="#id2">Prerequisites</a><a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
 <p>これは問題ない。</p>
 <ul class="simple">
-<li><a class="reference external" href="http://www.numpy.org/">NumPy</a> を利用するためには、当然 <a class="reference external" href="http://www.python.org/">Python</a> のことを少々は知っている必要がある。最低でも Python と NumPy を開発環境で利用可能なようにしておく必要がある。</li>
-<li>さらに次のものがあれば便利とある。私は後ろふたつは確保している。<ul>
-<li><a class="reference external" href="http://ipython.org/">IPython</a>: <a class="reference internal" href="../python-ipython.html"><span class="doc">IPython 利用ノート</span></a> 参照。</li>
-<li><a class="reference external" href="http://matplotlib.org/">Matplotlib</a>: <a class="reference internal" href="../python-matplotlib/index.html"><span class="doc">Matplotlib 利用ノート</span></a> 参照。</li>
-<li><a class="reference external" href="http://www.scipy.org/">SciPy</a>: <a class="reference internal" href="../python-scipy/index.html"><span class="doc">SciPy 利用ノート</span></a> 参照。</li>
+<li><p><a class="reference external" href="http://www.numpy.org/">NumPy</a> を利用するためには、当然 <a class="reference external" href="http://www.python.org/">Python</a> のことを少々は知っている必要がある。最低でも Python と NumPy を開発環境で利用可能なようにしておく必要がある。</p></li>
+<li><p>さらに次のものがあれば便利とある。私は後ろふたつは確保している。</p>
+<ul>
+<li><p><a class="reference external" href="http://ipython.org/">IPython</a>: <a class="reference internal" href="../python-ipython.html"><span class="doc">IPython 利用ノート</span></a> 参照。</p></li>
+<li><p><a class="reference external" href="http://matplotlib.org/">Matplotlib</a>: <a class="reference internal" href="../python-matplotlib/index.html"><span class="doc">Matplotlib 利用ノート</span></a> 参照。</p></li>
+<li><p><a class="reference external" href="http://www.scipy.org/">SciPy</a>: <a class="reference internal" href="../python-scipy/index.html"><span class="doc">SciPy 利用ノート</span></a> 参照。</p></li>
 </ul>
 </li>
 </ul>
@@ -109,17 +119,19 @@
 <h2><a class="toc-backref" href="#id3">The Basics</a><a class="headerlink" href="#the-basics" title="Permalink to this headline">¶</a></h2>
 <p>NumPy の基本は何と言ってもクラス <code class="docutils literal notranslate"><span class="pre">ndarray</span></code> である。便宜上ここでは配列と呼ぶが、任意次元のテーブルと思ったほうがよい。以下 <code class="docutils literal notranslate"><span class="pre">a</span></code> をこのクラスのオブジェクトとする。</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">array</span></code> という別名が付いている。</li>
-<li>そのテーブルの寸法 (dimensions) を <strong>axes</strong> と呼ぶ。<ul>
-<li>対応するプロパティーは <code class="docutils literal notranslate"><span class="pre">a.shape</span></code> である。<ul>
-<li>型は tuple であり、どの要素も正の整数である。</li>
-<li>例えば 3 次元空間の横ベクトルならば <code class="docutils literal notranslate"><span class="pre">(3,)</span></code> となる。縦ベクトルならばなんと <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">1)</span></code> になる。</li>
-<li>テーブルの外側から内側に向かって axis の個数が列挙されている。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">array</span></code> という別名が付いている。</p></li>
+<li><p>そのテーブルの寸法 (dimensions) を <strong>axes</strong> と呼ぶ。</p>
+<ul>
+<li><p>対応するプロパティーは <code class="docutils literal notranslate"><span class="pre">a.shape</span></code> である。</p>
+<ul>
+<li><p>型は tuple であり、どの要素も正の整数である。</p></li>
+<li><p>例えば 3 次元空間の横ベクトルならば <code class="docutils literal notranslate"><span class="pre">(3,)</span></code> となる。縦ベクトルならばなんと <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">1)</span></code> になる。</p></li>
+<li><p>テーブルの外側から内側に向かって axis の個数が列挙されている。</p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li>axes の個数を <strong>rank</strong> と呼ぶ。対応するプロパティーは <code class="docutils literal notranslate"><span class="pre">a.ndim</span></code> であり、値は <code class="docutils literal notranslate"><span class="pre">len(a.shape)</span></code> と等しい。</li>
+<li><p>axes の個数を <strong>rank</strong> と呼ぶ。対応するプロパティーは <code class="docutils literal notranslate"><span class="pre">a.ndim</span></code> であり、値は <code class="docutils literal notranslate"><span class="pre">len(a.shape)</span></code> と等しい。</p></li>
 </ul>
 <div class="section" id="an-example">
 <h3><a class="toc-backref" href="#id4">An example</a><a class="headerlink" href="#an-example" title="Permalink to this headline">¶</a></h3>
@@ -129,21 +141,25 @@
 <h3><a class="toc-backref" href="#id5">Array Creation</a><a class="headerlink" href="#array-creation" title="Permalink to this headline">¶</a></h3>
 <p>配列オブジェクトを生成する方法はいくつもある。</p>
 <ul class="simple">
-<li>クラス <code class="docutils literal notranslate"><span class="pre">array</span></code> のコンストラクターに Python の list または tuple のオブジェクトを渡して生成する。<ul>
-<li>配列の <code class="docutils literal notranslate"><span class="pre">dtype</span></code> は各要素から推論 (deduce) されて決まる。またはキーワード引数 <code class="docutils literal notranslate"><span class="pre">dtype</span></code> で明示的に指定できる。</li>
-<li>生成する配列の rank に応じて、list または tuple を入れ子にして指定する。</li>
+<li><p>クラス <code class="docutils literal notranslate"><span class="pre">array</span></code> のコンストラクターに Python の list または tuple のオブジェクトを渡して生成する。</p>
+<ul>
+<li><p>配列の <code class="docutils literal notranslate"><span class="pre">dtype</span></code> は各要素から推論 (deduce) されて決まる。またはキーワード引数 <code class="docutils literal notranslate"><span class="pre">dtype</span></code> で明示的に指定できる。</p></li>
+<li><p>生成する配列の rank に応じて、list または tuple を入れ子にして指定する。</p></li>
 </ul>
 </li>
-<li>要素が具体的に決まっていないが、配列の dimensions だけから生成する方法としては、関数
-<code class="docutils literal notranslate"><span class="pre">ones</span></code>, <code class="docutils literal notranslate"><span class="pre">zeros</span></code>, <code class="docutils literal notranslate"><span class="pre">empty</span></code> あるいはその系統の関数を用いる。<ul>
-<li>引数に <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">4)</span></code> のように指定する。</li>
-<li>要素の型を明示的にキーワード引数 <code class="docutils literal notranslate"><span class="pre">dtype</span></code> で指定することができる。指定しない場合は <code class="docutils literal notranslate"><span class="pre">float64</span></code> になる。</li>
+<li><p>要素が具体的に決まっていないが、配列の dimensions だけから生成する方法としては、関数
+<code class="docutils literal notranslate"><span class="pre">ones</span></code>, <code class="docutils literal notranslate"><span class="pre">zeros</span></code>, <code class="docutils literal notranslate"><span class="pre">empty</span></code> あるいはその系統の関数を用いる。</p>
+<ul>
+<li><p>引数に <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">4)</span></code> のように指定する。</p></li>
+<li><p>要素の型を明示的にキーワード引数 <code class="docutils literal notranslate"><span class="pre">dtype</span></code> で指定することができる。指定しない場合は <code class="docutils literal notranslate"><span class="pre">float64</span></code> になる。</p></li>
 </ul>
 </li>
-<li>関数 <code class="docutils literal notranslate"><span class="pre">arange</span></code> を用いれば、Python の関数 <code class="docutils literal notranslate"><span class="pre">range</span></code> よろしく、いわゆる start-stop-step 方式で生成する配列要素を指定できる。<ul>
-<li>ただし、浮動小数点型に対しては色々と危ない。代わりに関数 <code class="docutils literal notranslate"><span class="pre">linspace</span></code> を使うのだ。<ul>
-<li>こちらは start-stop-length 方式になる。</li>
-<li>デフォルトでは生成配列の最後の要素が stop 自身になる。</li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">arange</span></code> を用いれば、Python の関数 <code class="docutils literal notranslate"><span class="pre">range</span></code> よろしく、いわゆる start-stop-step 方式で生成する配列要素を指定できる。</p>
+<ul>
+<li><p>ただし、浮動小数点型に対しては色々と危ない。代わりに関数 <code class="docutils literal notranslate"><span class="pre">linspace</span></code> を使うのだ。</p>
+<ul>
+<li><p>こちらは start-stop-length 方式になる。</p></li>
+<li><p>デフォルトでは生成配列の最後の要素が stop 自身になる。</p></li>
 </ul>
 </li>
 </ul>
@@ -153,33 +169,37 @@
 <div class="section" id="printing-arrays">
 <h3><a class="toc-backref" href="#id6">Printing Arrays</a><a class="headerlink" href="#printing-arrays" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>高 rank の配列要素の出力結果の書式について述べている。基本ルールはこういう感じ：<ul>
-<li>最後の axis の要素（最も内側）は左から右に配列される。</li>
-<li>最後から 2 番目の axis は上から下に配列される。</li>
-<li>残りは上から下に配列されるが、各 axis 間は一行空く。</li>
+<li><p>高 rank の配列要素の出力結果の書式について述べている。基本ルールはこういう感じ：</p>
+<ul>
+<li><p>最後の axis の要素（最も内側）は左から右に配列される。</p></li>
+<li><p>最後から 2 番目の axis は上から下に配列される。</p></li>
+<li><p>残りは上から下に配列されるが、各 axis 間は一行空く。</p></li>
 </ul>
 </li>
-<li>あまりに巨大な配列は適宜出力を省略するようになっている。</li>
-<li>関数 <code class="docutils literal notranslate"><span class="pre">set_printoptions</span></code> でその辺りを調整できる。</li>
+<li><p>あまりに巨大な配列は適宜出力を省略するようになっている。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">set_printoptions</span></code> でその辺りを調整できる。</p></li>
 </ul>
 </div>
 <div class="section" id="basic-operations">
 <h3><a class="toc-backref" href="#id7">Basic Operations</a><a class="headerlink" href="#basic-operations" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>配列同士の算術二項演算子による演算は element-wise になされる。<ul>
-<li>特に operator* もそのルールが採用される。ベクトルの内積・外積、行列の積はそれぞれ専用の関数を用いること。</li>
+<li><p>配列同士の算術二項演算子による演算は element-wise になされる。</p>
+<ul>
+<li><p>特に operator* もそのルールが採用される。ベクトルの内積・外積、行列の積はそれぞれ専用の関数を用いること。</p></li>
 </ul>
 </li>
-<li>配列にスカラーを作用させると、各要素にスカラーを作用させた配列が生成する。<ul>
-<li><code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&lt;</span> <span class="pre">35</span></code> の例が面白かった。ブール型の配列ができる。</li>
+<li><p>配列にスカラーを作用させると、各要素にスカラーを作用させた配列が生成する。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&lt;</span> <span class="pre">35</span></code> の例が面白かった。ブール型の配列ができる。</p></li>
 </ul>
 </li>
-<li>異なる要素型のオブジェクト同士の算術演算について、<ul>
-<li><code class="docutils literal notranslate"><span class="pre">operator(lhs,</span> <span class="pre">rhs)</span></code> タイプは、精度の高い要素のほうの要素型の配列が生成する。</li>
-<li><code class="docutils literal notranslate"><span class="pre">.operator(other)</span></code> タイプは、左辺値ほうの要素型の配列が生成する。</li>
+<li><p>異なる要素型のオブジェクト同士の算術演算について、</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">operator(lhs,</span> <span class="pre">rhs)</span></code> タイプは、精度の高い要素のほうの要素型の配列が生成する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.operator(other)</span></code> タイプは、左辺値ほうの要素型の配列が生成する。</p></li>
 </ul>
 </li>
-<li><code class="docutils literal notranslate"><span class="pre">.sum()</span></code>, <code class="docutils literal notranslate"><span class="pre">.min()</span></code> 等のメソッドはデフォルトでは全要素を対象として演算を行うが、キーワード引数 <code class="docutils literal notranslate"><span class="pre">axis</span></code> を明示的に指定することで、配列の axis に沿って演算を行わせることができる。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.sum()</span></code>, <code class="docutils literal notranslate"><span class="pre">.min()</span></code> 等のメソッドはデフォルトでは全要素を対象として演算を行うが、キーワード引数 <code class="docutils literal notranslate"><span class="pre">axis</span></code> を明示的に指定することで、配列の axis に沿って演算を行わせることができる。</p></li>
 </ul>
 </div>
 <div class="section" id="universal-functions">
@@ -190,26 +210,30 @@
 <div class="section" id="indexing-slicing-and-iterating">
 <h3><a class="toc-backref" href="#id9">Indexing, Slicing and Iterating</a><a class="headerlink" href="#indexing-slicing-and-iterating" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>一次元配列<ul>
-<li>添字で要素にアクセス可能。左辺値としても使える。</li>
-<li>スライス操作ができる。構文は <code class="docutils literal notranslate"><span class="pre">a[start:stop:step]</span></code> で stop は開区間エンド。<ul>
-<li><code class="docutils literal notranslate"><span class="pre">a[start:stop:]</span></code> も可。</li>
-<li><code class="docutils literal notranslate"><span class="pre">a[:stop:step]</span></code> も可。</li>
-<li><code class="docutils literal notranslate"><span class="pre">a[::-1]</span></code> も可。</li>
+<li><p>一次元配列</p>
+<ul>
+<li><p>添字で要素にアクセス可能。左辺値としても使える。</p></li>
+<li><p>スライス操作ができる。構文は <code class="docutils literal notranslate"><span class="pre">a[start:stop:step]</span></code> で stop は開区間エンド。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">a[start:stop:]</span></code> も可。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">a[:stop:step]</span></code> も可。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">a[::-1]</span></code> も可。</p></li>
 </ul>
 </li>
-<li><code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">i</span> <span class="pre">in</span> <span class="pre">a:</span></code> の構文で要素を順番にアクセスできる。右辺値。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">i</span> <span class="pre">in</span> <span class="pre">a:</span></code> の構文で要素を順番にアクセスできる。右辺値。</p></li>
 </ul>
 </li>
-<li>多次元配列<ul>
-<li>カンマで区切ることで axis ごとに添字を指定することで要素にアクセスできる。<ul>
-<li><code class="docutils literal notranslate"><span class="pre">a[axis0,</span> <span class="pre">axis1]</span></code> は一番外側 axis0 番目の、その次の内側 axis1 番目の要素にアクセスする。</li>
+<li><p>多次元配列</p>
+<ul>
+<li><p>カンマで区切ることで axis ごとに添字を指定することで要素にアクセスできる。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">a[axis0,</span> <span class="pre">axis1]</span></code> は一番外側 axis0 番目の、その次の内側 axis1 番目の要素にアクセスする。</p></li>
 </ul>
 </li>
-<li>カンマ記法とスライス記法を組み合わせられる。例えば <code class="docutils literal notranslate"><span class="pre">a[0:5,</span> <span class="pre">1]</span></code> ならば一番外側
-axis の 0, 1, 2, 3, 4 番目の短冊を取って、一番内側 axis の左から 1 番目の要素を取って来られる。</li>
-<li>さらに dots 記法というのもある。これは一つの axis を丸ごと指定するようなスライスの省略らしい。例えば rank 3 の配列に対して <code class="docutils literal notranslate"><span class="pre">a[1,</span> <span class="pre">...]</span></code> は <code class="docutils literal notranslate"><span class="pre">a[1,</span> <span class="pre">:,</span> <span class="pre">:]</span></code> (or <code class="docutils literal notranslate"><span class="pre">a[1]</span></code>) と同値。</li>
-<li><code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">i</span> <span class="pre">in</span> <span class="pre">a:</span></code> でループすると、一番外側から一個内側の axis を順番にアクセスすることになる。一方 <code class="docutils literal notranslate"><span class="pre">fot</span> <span class="pre">i</span> <span class="pre">in</span> <span class="pre">a.flat</span></code> としてループすると、一番内側の要素を一個一個順番にアクセスすることになる。</li>
+<li><p>カンマ記法とスライス記法を組み合わせられる。例えば <code class="docutils literal notranslate"><span class="pre">a[0:5,</span> <span class="pre">1]</span></code> ならば一番外側
+axis の 0, 1, 2, 3, 4 番目の短冊を取って、一番内側 axis の左から 1 番目の要素を取って来られる。</p></li>
+<li><p>さらに dots 記法というのもある。これは一つの axis を丸ごと指定するようなスライスの省略らしい。例えば rank 3 の配列に対して <code class="docutils literal notranslate"><span class="pre">a[1,</span> <span class="pre">...]</span></code> は <code class="docutils literal notranslate"><span class="pre">a[1,</span> <span class="pre">:,</span> <span class="pre">:]</span></code> (or <code class="docutils literal notranslate"><span class="pre">a[1]</span></code>) と同値。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">i</span> <span class="pre">in</span> <span class="pre">a:</span></code> でループすると、一番外側から一個内側の axis を順番にアクセスすることになる。一方 <code class="docutils literal notranslate"><span class="pre">fot</span> <span class="pre">i</span> <span class="pre">in</span> <span class="pre">a.flat</span></code> としてループすると、一番内側の要素を一個一個順番にアクセスすることになる。</p></li>
 </ul>
 </li>
 </ul>
@@ -220,33 +244,29 @@ axis の 0, 1, 2, 3, 4 番目の短冊を取って、一番内側 axis の左か
 <div class="section" id="changing-the-shape-of-an-array">
 <h3><a class="toc-backref" href="#id11">Changing the shape of an array</a><a class="headerlink" href="#changing-the-shape-of-an-array" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>配列のメモリレイアウトは基本は C 言語スタイル。</li>
-<li>メソッド <code class="docutils literal notranslate"><span class="pre">ravel</span></code>, <code class="docutils literal notranslate"><span class="pre">reshape</span></code> 等にはキーワード引数で
-FORTRAN スタイルのメモリレイアウトで新しい配列を返すように指示することができる。</li>
-<li>メソッド <code class="docutils literal notranslate"><span class="pre">reshape</span></code> は自身は変更せずに新しいオブジェクトを返す。一方、メソッド <code class="docutils literal notranslate"><span class="pre">resize</span></code> は自身を変更する。</li>
-<li>変形メソッドに一部の dimension を <code class="docutils literal notranslate"><span class="pre">-1</span></code> と指定することで、残りの引数から自動的に計算させることが可能。</li>
+<li><p>配列のメモリレイアウトは基本は C 言語スタイル。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">ravel</span></code>, <code class="docutils literal notranslate"><span class="pre">reshape</span></code> 等にはキーワード引数で
+FORTRAN スタイルのメモリレイアウトで新しい配列を返すように指示することができる。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">reshape</span></code> は自身は変更せずに新しいオブジェクトを返す。一方、メソッド <code class="docutils literal notranslate"><span class="pre">resize</span></code> は自身を変更する。</p></li>
+<li><p>変形メソッドに一部の dimension を <code class="docutils literal notranslate"><span class="pre">-1</span></code> と指定することで、残りの引数から自動的に計算させることが可能。</p></li>
 </ul>
 </div>
 <div class="section" id="stacking-together-different-arrays">
 <h3><a class="toc-backref" href="#id12">Stacking together different arrays</a><a class="headerlink" href="#stacking-together-different-arrays" title="Permalink to this headline">¶</a></h3>
 <ul>
-<li><p class="first">異なる配列オブジェクトを異なる axis でくっつけられる。関数 <code class="docutils literal notranslate"><span class="pre">vstack</span></code> や <code class="docutils literal notranslate"><span class="pre">hstack</span></code> を用いる。</p>
-</li>
-<li><p class="first"><code class="docutils literal notranslate"><span class="pre">a[:,</span> <span class="pre">newaxis]</span></code> という構文？ がアレ？ 横のものを縦にする？</p>
+<li><p>異なる配列オブジェクトを異なる axis でくっつけられる。関数 <code class="docutils literal notranslate"><span class="pre">vstack</span></code> や <code class="docutils literal notranslate"><span class="pre">hstack</span></code> を用いる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">a[:,</span> <span class="pre">newaxis]</span></code> という構文？ がアレ？ 横のものを縦にする？</p>
 <p>→ <code class="docutils literal notranslate"><span class="pre">newaxis</span></code> を指定した添字位置に対応する axis が追加された新しい配列が生成する。</p>
 </li>
-<li><p class="first">関数 <code class="docutils literal notranslate"><span class="pre">column_stack</span></code> や <code class="docutils literal notranslate"><span class="pre">row_stack</span></code> は縦横を入れ替えて並べた配列を生成する。</p>
-</li>
-<li><p class="first">配列全体ではなく、スライスを並べることもできる。</p>
-</li>
-<li><p class="first">関数 <code class="docutils literal notranslate"><span class="pre">vstack</span></code> や <code class="docutils literal notranslate"><span class="pre">hstack</span></code> の強化版として <code class="docutils literal notranslate"><span class="pre">r_[]</span></code>, <code class="docutils literal notranslate"><span class="pre">c_[]</span></code> という便利なものもある。</p>
-</li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">column_stack</span></code> や <code class="docutils literal notranslate"><span class="pre">row_stack</span></code> は縦横を入れ替えて並べた配列を生成する。</p></li>
+<li><p>配列全体ではなく、スライスを並べることもできる。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">vstack</span></code> や <code class="docutils literal notranslate"><span class="pre">hstack</span></code> の強化版として <code class="docutils literal notranslate"><span class="pre">r_[]</span></code>, <code class="docutils literal notranslate"><span class="pre">c_[]</span></code> という便利なものもある。</p></li>
 </ul>
 </div>
 <div class="section" id="splitting-one-array-into-several-smaller-ones">
 <h3><a class="toc-backref" href="#id13">Splitting one array into several smaller ones</a><a class="headerlink" href="#splitting-one-array-into-several-smaller-ones" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>関数 <code class="docutils literal notranslate"><span class="pre">hsplit</span></code> や <code class="docutils literal notranslate"><span class="pre">vsplit</span></code> で、配列を分割できる。分割数または分割位置を指定する。</li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">hsplit</span></code> や <code class="docutils literal notranslate"><span class="pre">vsplit</span></code> で、配列を分割できる。分割数または分割位置を指定する。</p></li>
 </ul>
 </div>
 </div>
@@ -256,20 +276,21 @@ FORTRAN スタイルのメモリレイアウトで新しい配列を返すよう
 <div class="section" id="no-copy-at-all">
 <h3><a class="toc-backref" href="#id15">No Copy at All</a><a class="headerlink" href="#no-copy-at-all" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>単純な代入操作、要素操作ならばコピーは発生しない。</li>
-<li>関数呼び出しの引数はコピーによる受け渡しではない。</li>
+<li><p>単純な代入操作、要素操作ならばコピーは発生しない。</p></li>
+<li><p>関数呼び出しの引数はコピーによる受け渡しではない。</p></li>
 </ul>
 </div>
 <div class="section" id="view-or-shallow-copy">
 <h3><a class="toc-backref" href="#id16">View or Shallow Copy</a><a class="headerlink" href="#view-or-shallow-copy" title="Permalink to this headline">¶</a></h3>
 <p>ビュー、すなわち浅いコピーについて。</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">a.view()</span></code> で内部データを共有する新しい配列オブジェクトを生成できる。<ul>
-<li>例えばビューの shape だけを変形させておきつつ、元の shape を触らない、というようなことが可能。</li>
-<li>どこかビューの要素を変更すると、対応する元配列の要素も同じ値に変更される。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">a.view()</span></code> で内部データを共有する新しい配列オブジェクトを生成できる。</p>
+<ul>
+<li><p>例えばビューの shape だけを変形させておきつつ、元の shape を触らない、というようなことが可能。</p></li>
+<li><p>どこかビューの要素を変更すると、対応する元配列の要素も同じ値に変更される。</p></li>
 </ul>
 </li>
-<li>スライスもビューである。</li>
+<li><p>スライスもビューである。</p></li>
 </ul>
 </div>
 <div class="section" id="deep-copy">
@@ -288,9 +309,9 @@ FORTRAN スタイルのメモリレイアウトで新しい配列を返すよう
 <h3><a class="toc-backref" href="#id20">Broadcasting rules</a><a class="headerlink" href="#broadcasting-rules" title="Permalink to this headline">¶</a></h3>
 <p>異なる dimensions を持つ配列を universal function に与える時になされる演算の規則性を規定するもの。</p>
 <ol class="arabic">
-<li><p class="first">ランクの小さい方の配列の shape に対して、先頭（左）から 1 を追加していき、ランクの大きい方の配列のランクとまずは一致させる。</p>
+<li><p>ランクの小さい方の配列の shape に対して、先頭（左）から 1 を追加していき、ランクの大きい方の配列のランクとまずは一致させる。</p>
 <p>例を示す：</p>
-<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span>a.shape: (2, 3, 4, 5)
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>a.shape: (2, 3, 4, 5)
 b.shape: (6, 7)
 c.shape: (3, 1, 5)
 
@@ -300,13 +321,13 @@ c.shape: (3, 1, 5)
 </pre></div>
 </div>
 </li>
-<li><p class="first">対応する各 axis に対して、次の条件のいずれか一方が成り立つとき、broadcasting は成功する。</p>
+<li><p>対応する各 axis に対して、次の条件のいずれか一方が成り立つとき、broadcasting は成功する。</p>
 <ul class="simple">
-<li>両者の値が一致する。</li>
-<li>どちらの値が 1 である。このとき、小さい方の配列を引き伸ばして、大きい方の配列の dimensions に合わせることになる。欠けていた要素の値は、元の一個しかなかったその値で埋める。</li>
+<li><p>両者の値が一致する。</p></li>
+<li><p>どちらの値が 1 である。このとき、小さい方の配列を引き伸ばして、大きい方の配列の dimensions に合わせることになる。欠けていた要素の値は、元の一個しかなかったその値で埋める。</p></li>
 </ul>
 <p>先ほどの配列で考えてみる：</p>
-<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span>(a + b).shape   ValueError: operands could not be broadcast together with shapes (2,3,4,5) (6,7)
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>(a + b).shape   ValueError: operands could not be broadcast together with shapes (2,3,4,5) (6,7)
                 (4, 5) != (6, 7) ゆえ。
 
 (a + c).shape   the same as a.shape
@@ -338,7 +359,7 @@ NumPy 配列と考えること）があり、これらから要素をひとつ�
 <div class="section" id="indexing-with-strings">
 <h3><a class="toc-backref" href="#id25">Indexing with strings</a><a class="headerlink" href="#indexing-with-strings" title="Permalink to this headline">¶</a></h3>
 <p>配列の要素に名前でアクセスする方法がある。</p>
-<div class="code python3 highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">img</span> <span class="o">=</span> <span class="n">array</span><span class="p">([[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)],</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">img</span> <span class="o">=</span> <span class="n">array</span><span class="p">([[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)],</span>
              <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)]],</span>
             <span class="p">[(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">float32</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;g&#39;</span><span class="p">,</span><span class="n">float32</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">float32</span><span class="p">)])</span>
 
@@ -357,10 +378,11 @@ NumPy 配列と考えること）があり、これらから要素をひとつ�
 <div class="section" id="the-matrix-class">
 <h3><a class="toc-backref" href="#id28">The Matrix Class</a><a class="headerlink" href="#the-matrix-class" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>クラス <code class="docutils literal notranslate"><span class="pre">matrix</span></code> というものがある。<ul>
-<li>コンストラクターに文字列を渡すようだ。</li>
-<li>プロパティー <code class="docutils literal notranslate"><span class="pre">.T</span></code> で転置行列を得る。</li>
-<li>プロパティー <code class="docutils literal notranslate"><span class="pre">.I</span></code> で逆行列を得る。</li>
+<li><p>クラス <code class="docutils literal notranslate"><span class="pre">matrix</span></code> というものがある。</p>
+<ul>
+<li><p>コンストラクターに文字列を渡すようだ。</p></li>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">.T</span></code> で転置行列を得る。</p></li>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">.I</span></code> で逆行列を得る。</p></li>
 </ul>
 </li>
 </ul>
@@ -369,8 +391,8 @@ NumPy 配列と考えること）があり、これらから要素をひとつ�
 <h3><a class="toc-backref" href="#id29">Indexing: Comparing Matrices and 2D Arrays</a><a class="headerlink" href="#indexing-comparing-matrices-and-2d-arrays" title="Permalink to this headline">¶</a></h3>
 <p>配列クラスと行列クラスでの添字の違いを説明する。</p>
 <ul class="simple">
-<li>同型の 2 次元配列と行列に対して、それぞれにスライス <code class="docutils literal notranslate"><span class="pre">[:,</span> <span class="pre">1]</span></code> を得ようとすると、両者の結果の dimensions が異なる。配列の方はランク 1 の配列を生成し、一方行列の方はランク 2 の行列を生成する。</li>
-<li>行列クラスには <code class="docutils literal notranslate"><span class="pre">.A</span></code> というプロパティーがあり、これが行列成分の配列表現である。適宜利用するとよい。</li>
+<li><p>同型の 2 次元配列と行列に対して、それぞれにスライス <code class="docutils literal notranslate"><span class="pre">[:,</span> <span class="pre">1]</span></code> を得ようとすると、両者の結果の dimensions が異なる。配列の方はランク 1 の配列を生成し、一方行列の方はランク 2 の行列を生成する。</p></li>
+<li><p>行列クラスには <code class="docutils literal notranslate"><span class="pre">.A</span></code> というプロパティーがあり、これが行列成分の配列表現である。適宜利用するとよい。</p></li>
 </ul>
 </div>
 </div>
@@ -388,8 +410,8 @@ NumPy 配列と考えること）があり、これらから要素をひとつ�
 <div class="section" id="histograms">
 <h3><a class="toc-backref" href="#id33">Histograms</a><a class="headerlink" href="#histograms" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>関数 <code class="docutils literal notranslate"><span class="pre">np.histogram</span></code> は配列からヒストグラムのビン（各個数と各点）を返す。</li>
-<li>一方、関数 <code class="docutils literal notranslate"><span class="pre">pylab.hist</span></code> はそれ相当の処理に加えてプロットまでを行う。</li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">np.histogram</span></code> は配列からヒストグラムのビン（各個数と各点）を返す。</p></li>
+<li><p>一方、関数 <code class="docutils literal notranslate"><span class="pre">pylab.hist</span></code> はそれ相当の処理に加えてプロットまでを行う。</p></li>
 </ul>
 </div>
 </div>
@@ -400,6 +422,7 @@ NumPy 配列と考えること）があり、これらから要素をひとつ�
 </div>
 
 
+            <div class="clearer"></div>
           </div>
       </div>
       <div class="clearer"></div>
@@ -415,7 +438,8 @@ NumPy 配列と考えること）があり、これらから要素をひとつ�
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="index.html" >NumPy 利用ノート</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="reading.html" >ドキュメントを読む</a> &#187;</li> 
+          <li class="nav-item nav-item-2"><a href="reading.html" >ドキュメントを読む</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Tentative NumPy Tutorial ノート</a></li> 
       </ul>
     </div>
     <div id="footer">
@@ -424,7 +448,7 @@ NumPy 配列と考えること）があり、これらから要素をひとつ�
       </div>
       <div id="footer_copyright">
         Since 1999<br />
-        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+        Copyright &copy; 1999-2020, プレハブ小屋 All rights reserved.
       </div>
     </div>
   </body>

@@ -1,17 +1,17 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>集合 &#8212; 読書ノート v1.4</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>集合 &#8212; 読書ノート v1.5dev</title>
     <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/mathjax-v3.js"></script>
+    
     <link rel="next" title="組合せ論と群論" href="combinatorics.html" />
     <link rel="prev" title="論理代数" href="logic.html" /> 
   </head><body>
@@ -25,7 +25,8 @@
           <a href="logic.html" title="論理代数"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">SymPy 利用ノート</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">SymPy 利用ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">集合</a></li> 
       </ul>
     </div>  
 
@@ -38,78 +39,82 @@
 <p><a class="reference external" href="http://www.sympy.org/">SymPy</a> が提供するクラス Set およびその諸サブクラスについて記す。
 Python も組み込みでクラス set を提供しているが、記号演算と集合演算に特化させる目的で SymPy としてもこれらを持っているのだろう。</p>
 <div class="contents topic" id="id2">
-<p class="topic-title first">ノート目次</p>
+<p class="topic-title">ノート目次</p>
 <ul class="simple">
-<li><a class="reference internal" href="#id1" id="id11">集合</a><ul>
-<li><a class="reference internal" href="#id3" id="id12">主要クラス図</a></li>
-<li><a class="reference internal" href="#set" id="id13">クラス Set</a><ul>
-<li><a class="reference internal" href="#id4" id="id14">プロパティー</a></li>
-<li><a class="reference internal" href="#id5" id="id15">演算子による集合演算</a></li>
-<li><a class="reference internal" href="#id6" id="id16">メソッド</a></li>
+<li><p><a class="reference internal" href="#id1" id="id11">集合</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id3" id="id12">主要クラス図</a></p></li>
+<li><p><a class="reference internal" href="#set" id="id13">クラス Set</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id4" id="id14">プロパティー</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id15">演算子による集合演算</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id16">メソッド</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id7" id="id17">サブクラス</a><ul>
-<li><a class="reference internal" href="#emptyset" id="id18">クラス EmptySet</a></li>
-<li><a class="reference internal" href="#universalset" id="id19">クラス UniversalSet</a></li>
-<li><a class="reference internal" href="#id8" id="id20">集合演算クラス</a></li>
-<li><a class="reference internal" href="#productset" id="id21">クラス ProductSet</a></li>
-<li><a class="reference internal" href="#interval" id="id22">クラス Interval</a></li>
-<li><a class="reference internal" href="#finiteset" id="id23">クラス FiniteSet</a></li>
+<li><p><a class="reference internal" href="#id7" id="id17">サブクラス</a></p>
+<ul>
+<li><p><a class="reference internal" href="#emptyset" id="id18">クラス EmptySet</a></p></li>
+<li><p><a class="reference internal" href="#universalset" id="id19">クラス UniversalSet</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id20">集合演算クラス</a></p></li>
+<li><p><a class="reference internal" href="#productset" id="id21">クラス ProductSet</a></p></li>
+<li><p><a class="reference internal" href="#interval" id="id22">クラス Interval</a></p></li>
+<li><p><a class="reference internal" href="#finiteset" id="id23">クラス FiniteSet</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id9" id="id24">その他のサブクラス</a><ul>
-<li><a class="reference internal" href="#naturals-naturals0-integers" id="id25">クラス Naturals, Naturals0, Integers</a></li>
-<li><a class="reference internal" href="#reals" id="id26">クラス Reals</a></li>
-<li><a class="reference internal" href="#complexregion-complexes" id="id27">クラス ComplexRegion, Complexes</a></li>
-<li><a class="reference internal" href="#imageset" id="id28">クラス ImageSet</a></li>
-<li><a class="reference internal" href="#range" id="id29">クラス Range</a></li>
+<li><p><a class="reference internal" href="#id9" id="id24">その他のサブクラス</a></p>
+<ul>
+<li><p><a class="reference internal" href="#naturals-naturals0-integers" id="id25">クラス Naturals, Naturals0, Integers</a></p></li>
+<li><p><a class="reference internal" href="#reals" id="id26">クラス Reals</a></p></li>
+<li><p><a class="reference internal" href="#complexregion-complexes" id="id27">クラス ComplexRegion, Complexes</a></p></li>
+<li><p><a class="reference internal" href="#imageset" id="id28">クラス ImageSet</a></p></li>
+<li><p><a class="reference internal" href="#range" id="id29">クラス Range</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id10" id="id30">演習</a></li>
+<li><p><a class="reference internal" href="#id10" id="id30">演習</a></p></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>本文中のすべての IPython セッション中のサンプルコードで、以下のインポートおよび出力書式設定が済んでいるものとする。</p>
-<div class="code python3 last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">init_printing</span><span class="p">(</span><span class="n">pretty_print</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">init_printing</span><span class="p">(</span><span class="n">pretty_print</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id3">
 <h2><a class="toc-backref" href="#id12">主要クラス図</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>サブパッケージ <code class="docutils literal notranslate"><span class="pre">sympy.sets</span></code> が提供する集合を表現するクラスたち。インデントが派生関係を意味する。一行空けは特に意味はない。</p>
-<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Set</span>
-    <span class="n">EmptySet</span>
-    <span class="n">UniversalSet</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Set
+    EmptySet
+    UniversalSet
 
-    <span class="n">Union</span>
-    <span class="n">Intersection</span>
-    <span class="n">Complement</span>
-    <span class="n">SymmetricDifference</span>
+    Union
+    Intersection
+    Complement
+    SymmetricDifference
 
-    <span class="n">ProductSet</span>
+    ProductSet
 
-    <span class="n">Interval</span>
-        <span class="n">Reals</span>
-    <span class="n">FiniteSet</span>
+    Interval
+        Reals
+    FiniteSet
 
-    <span class="n">Naturals</span>
-        <span class="n">Naturals0</span>
-    <span class="n">Integers</span>
+    Naturals
+        Naturals0
+    Integers
 
-    <span class="n">ComplexRegion</span>
-        <span class="n">Complexes</span>
+    ComplexRegion
+        Complexes
 
-    <span class="n">ImageSet</span>
-    <span class="n">Range</span>
+    ImageSet
+    Range
 </pre></div>
 </div>
 <ul class="simple">
-<li>クラス Set のスーパークラスはクラス Basic である。</li>
-<li>クラス Set のサブクラスには、もう一つ別のクラスをスーパークラスに持つことがある。</li>
-<li>一部のサブクラスは <code class="code docutils literal notranslate"><span class="pre">from</span> <span class="pre">sympy.sets.fancysets</span> <span class="pre">import</span> <span class="pre">...</span></code> しないと利用可能にならない。</li>
+<li><p>クラス Set のスーパークラスはクラス Basic である。</p></li>
+<li><p>クラス Set のサブクラスには、もう一つ別のクラスをスーパークラスに持つことがある。</p></li>
+<li><p>一部のサブクラスは <code class="code docutils literal notranslate"><span class="pre">from</span> <span class="pre">sympy.sets.fancysets</span> <span class="pre">import</span> <span class="pre">...</span></code> しないと利用可能にならない。</p></li>
 </ul>
 <p>集合に関する機能（属性、操作）は、期待しているものがクラス Set のインターフェイスとして提供されている。</p>
 </div>
@@ -120,25 +125,24 @@ Python も組み込みでクラス set を提供しているが、記号演算�
 <h3><a class="toc-backref" href="#id14">プロパティー</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>クラス単位のものとオブジェクト単位のものがある。後者に興味があるので、ここでまとめておく。</p>
 <p>基本的には各プロパティーの意味はその名前から推測できるとおり。</p>
-<dl class="docutils">
-<dt><code class="code docutils literal notranslate"><span class="pre">inf</span></code>, <code class="code docutils literal notranslate"><span class="pre">sup</span></code></dt>
-<dd>それぞれ集合の下限と上限を返す。</dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">measure</span></code></dt>
-<dd>集合のルベーグ測度を返す。</dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">boundary</span></code></dt>
-<dd>集合の境界を返す。</dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">is_open</span></code>, <code class="code docutils literal notranslate"><span class="pre">is_closed</span></code></dt>
-<dd><p class="first">それぞれ集合が開集合であるか、閉集合であるかを返す。</p>
-<ul class="last simple">
-<li>集合 E が開集合 ⇔ E と E の境界の共通部分が空集合。</li>
-<li>集合 E が閉集合 ⇔ E の境界が E に含まれる。</li>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">inf</span></code>, <code class="code docutils literal notranslate"><span class="pre">sup</span></code></dt><dd><p>それぞれ集合の下限と上限を返す。</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">measure</span></code></dt><dd><p>集合のルベーグ測度を返す。</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">boundary</span></code></dt><dd><p>集合の境界を返す。</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">is_open</span></code>, <code class="code docutils literal notranslate"><span class="pre">is_closed</span></code></dt><dd><p>それぞれ集合が開集合であるか、閉集合であるかを返す。</p>
+<ul class="simple">
+<li><p>集合 E が開集合 ⇔ E と E の境界の共通部分が空集合。</p></li>
+<li><p>集合 E が閉集合 ⇔ E の境界が E に含まれる。</p></li>
 </ul>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">closure</span></code></dt>
-<dd>集合の閉包を返す。すなわち E と E の境界の和集合を返す。</dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">interior</span></code></dt>
-<dd>集合の内部（内点すべての集合）を返す。
-E の境界の補集合として表現する。</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">closure</span></code></dt><dd><p>集合の閉包を返す。すなわち E と E の境界の和集合を返す。</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">interior</span></code></dt><dd><p>集合の内部（内点すべての集合）を返す。
+E の境界の補集合として表現する。</p>
+</dd>
 </dl>
 <p>位相空間論的プロパティーの核となるものは <code class="code docutils literal notranslate"><span class="pre">boundary</span></code> である。</p>
 </div>
@@ -146,40 +150,39 @@ E の境界の補集合として表現する。</dd>
 <h3><a class="toc-backref" href="#id15">演算子による集合演算</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>集合オブジェクト同士の各種演算を演算子で表現できる。ここで <code class="code docutils literal notranslate"><span class="pre">E</span></code> と <code class="code docutils literal notranslate"><span class="pre">T</span></code> をオブジェクトとする。</p>
 <ul class="simple">
-<li><code class="code docutils literal notranslate"><span class="pre">E</span> <span class="pre">+</span> <span class="pre">T</span></code>, <code class="code docutils literal notranslate"><span class="pre">E</span> <span class="pre">|</span> <span class="pre">T</span></code> は和集合。</li>
-<li><code class="code docutils literal notranslate"><span class="pre">E</span> <span class="pre">&amp;</span> <span class="pre">T</span></code> は共通集合。</li>
-<li><code class="code docutils literal notranslate"><span class="pre">E</span> <span class="pre">*</span> <span class="pre">T</span></code> は直積集合。</li>
-<li><code class="code docutils literal notranslate"><span class="pre">E</span> <span class="pre">**</span> <span class="pre">n</span></code> は <code class="code docutils literal notranslate"><span class="pre">E</span> <span class="pre">*</span> <span class="pre">E</span> <span class="pre">*</span> <span class="pre">...</span> <span class="pre">*</span> <span class="pre">E</span></code> の形をとる直積集合。</li>
-<li><code class="code docutils literal notranslate"><span class="pre">E</span> <span class="pre">-</span> <span class="pre">T</span></code> は <code class="code docutils literal notranslate"><span class="pre">E</span></code> に対する <code class="code docutils literal notranslate"><span class="pre">T</span></code> の補集合。</li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">E</span> <span class="pre">+</span> <span class="pre">T</span></code>, <code class="code docutils literal notranslate"><span class="pre">E</span> <span class="pre">|</span> <span class="pre">T</span></code> は和集合。</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">E</span> <span class="pre">&amp;</span> <span class="pre">T</span></code> は共通集合。</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">E</span> <span class="pre">*</span> <span class="pre">T</span></code> は直積集合。</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">E</span> <span class="pre">**</span> <span class="pre">n</span></code> は <code class="code docutils literal notranslate"><span class="pre">E</span> <span class="pre">*</span> <span class="pre">E</span> <span class="pre">*</span> <span class="pre">...</span> <span class="pre">*</span> <span class="pre">E</span></code> の形をとる直積集合。</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">E</span> <span class="pre">-</span> <span class="pre">T</span></code> は <code class="code docutils literal notranslate"><span class="pre">E</span></code> に対する <code class="code docutils literal notranslate"><span class="pre">T</span></code> の補集合。</p></li>
 </ul>
 </div>
 <div class="section" id="id6">
 <h3><a class="toc-backref" href="#id16">メソッド</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>ここで <code class="code docutils literal notranslate"><span class="pre">E</span></code> と <code class="code docutils literal notranslate"><span class="pre">T</span></code> をそれぞれ自身およびメソッド引数となる集合オブジェクトとする。</p>
-<dl class="docutils">
-<dt><code class="code docutils literal notranslate"><span class="pre">union</span></code></dt>
-<dd><code class="code docutils literal notranslate"><span class="pre">Union(E,</span> <span class="pre">T)</span></code> を返す。</dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">intersect</span></code>, <code class="code docutils literal notranslate"><span class="pre">intersection</span></code></dt>
-<dd><code class="code docutils literal notranslate"><span class="pre">Intersection(E,</span> <span class="pre">T)</span></code> を返す。</dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">complement</span></code></dt>
-<dd><code class="code docutils literal notranslate"><span class="pre">Complement(T,</span> <span class="pre">E)</span></code> を返す。これは引数が全体を示す方のオブジェクトなので間違えぬようにする。</dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">symmetric_difference</span></code></dt>
-<dd><code class="code docutils literal notranslate"><span class="pre">SymmetricDifference(E,</span> <span class="pre">T)</span></code> を返す。</dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">powerset</span></code></dt>
-<dd><code class="code docutils literal notranslate"><span class="pre">E</span></code> のべき集合オブジェクトを返す。</dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">isdisjoint</span></code>, <code class="code docutils literal notranslate"><span class="pre">is_disjoint</span></code></dt>
-<dd><code class="code docutils literal notranslate"><span class="pre">E</span></code> と <code class="code docutils literal notranslate"><span class="pre">T</span></code> の共通集合が空であるかを返す。</dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">issubset</span></code>, <code class="code docutils literal notranslate"><span class="pre">is_subset</span></code></dt>
-<dd><code class="code docutils literal notranslate"><span class="pre">E</span></code> が <code class="code docutils literal notranslate"><span class="pre">T</span></code> の部分集合であるかを返す。</dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">issuperset</span></code>, <code class="code docutils literal notranslate"><span class="pre">is_superset</span></code></dt>
-<dd><code class="code docutils literal notranslate"><span class="pre">issubset</span></code> を逆方向に試す。</dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">is_proper_subset</span></code></dt>
-<dd><code class="code docutils literal notranslate"><span class="pre">E</span></code> が <code class="code docutils literal notranslate"><span class="pre">T</span></code> の部分集合であり、かつ <code class="code docutils literal notranslate"><span class="pre">E</span> <span class="pre">!=</span> <span class="pre">T</span></code> であるかを返す。</dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">is_proper_superset</span></code></dt>
-<dd><code class="code docutils literal notranslate"><span class="pre">is_proper_subset</span></code> を逆方向に試す。</dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">contains</span></code></dt>
-<dd><p class="first">これは引数が集合ではなく、何かの値 <code class="code docutils literal notranslate"><span class="pre">x</span></code> である。つまり <code class="code docutils literal notranslate"><span class="pre">x</span></code> が <code class="code docutils literal notranslate"><span class="pre">E</span></code> の元であるかを返す。</p>
-<p class="last"><code class="code docutils literal notranslate"><span class="pre">x</span> <span class="pre">in</span> <span class="pre">E</span></code> とも書ける。</p>
+<dl>
+<dt><code class="code docutils literal notranslate"><span class="pre">union</span></code></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">Union(E,</span> <span class="pre">T)</span></code> を返す。</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">intersect</span></code>, <code class="code docutils literal notranslate"><span class="pre">intersection</span></code></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">Intersection(E,</span> <span class="pre">T)</span></code> を返す。</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">complement</span></code></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">Complement(T,</span> <span class="pre">E)</span></code> を返す。これは引数が全体を示す方のオブジェクトなので間違えぬようにする。</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">symmetric_difference</span></code></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">SymmetricDifference(E,</span> <span class="pre">T)</span></code> を返す。</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">powerset</span></code></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">E</span></code> のべき集合オブジェクトを返す。</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">isdisjoint</span></code>, <code class="code docutils literal notranslate"><span class="pre">is_disjoint</span></code></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">E</span></code> と <code class="code docutils literal notranslate"><span class="pre">T</span></code> の共通集合が空であるかを返す。</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">issubset</span></code>, <code class="code docutils literal notranslate"><span class="pre">is_subset</span></code></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">E</span></code> が <code class="code docutils literal notranslate"><span class="pre">T</span></code> の部分集合であるかを返す。</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">issuperset</span></code>, <code class="code docutils literal notranslate"><span class="pre">is_superset</span></code></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">issubset</span></code> を逆方向に試す。</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">is_proper_subset</span></code></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">E</span></code> が <code class="code docutils literal notranslate"><span class="pre">T</span></code> の部分集合であり、かつ <code class="code docutils literal notranslate"><span class="pre">E</span> <span class="pre">!=</span> <span class="pre">T</span></code> であるかを返す。</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">is_proper_superset</span></code></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">is_proper_subset</span></code> を逆方向に試す。</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">contains</span></code></dt><dd><p>これは引数が集合ではなく、何かの値 <code class="code docutils literal notranslate"><span class="pre">x</span></code> である。つまり <code class="code docutils literal notranslate"><span class="pre">x</span></code> が <code class="code docutils literal notranslate"><span class="pre">E</span></code> の元であるかを返す。</p>
+<p><code class="code docutils literal notranslate"><span class="pre">x</span> <span class="pre">in</span> <span class="pre">E</span></code> とも書ける。</p>
 </dd>
 </dl>
 </div>
@@ -191,74 +194,79 @@ E の境界の補集合として表現する。</dd>
 <h3><a class="toc-backref" href="#id18">クラス EmptySet</a><a class="headerlink" href="#emptyset" title="Permalink to this headline">¶</a></h3>
 <p>クラス EmptySet は空集合を表現する。空集合を表現するためにクラスを定義することで、色々とメリットがあるようだ。</p>
 <ul class="simple">
-<li>コンストラクターでオブジェクトを生成することも、シングルトン管理オブジェクトから <code class="code docutils literal notranslate"><span class="pre">S.EmptySet</span></code> として参照することもできる。クラス EmptySet がシングルトンゆえ、両者は同一のオブジェクトだ。</li>
-<li>関数 <code class="code docutils literal notranslate"><span class="pre">len</span></code> を EmptySet オブジェクトに適用すると常に <code class="docutils literal notranslate"><span class="pre">0</span></code> を返す。</li>
-<li>ルベーグ測度が常に <code class="docutils literal notranslate"><span class="pre">0</span></code> である。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">contains</span></code> は常に SymPy の <code class="code docutils literal notranslate"><span class="pre">S.false</span></code> を返す。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">intersection</span></code> は常に空集合オブジェクトを返す。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">union</span></code>, <code class="code docutils literal notranslate"><span class="pre">complement</span></code>, <code class="code docutils literal notranslate"><span class="pre">symmetric_difference</span></code> は常に引数の集合オブジェクト自身を返す。</li>
+<li><p>コンストラクターでオブジェクトを生成することも、シングルトン管理オブジェクトから <code class="code docutils literal notranslate"><span class="pre">S.EmptySet</span></code> として参照することもできる。クラス EmptySet がシングルトンゆえ、両者は同一のオブジェクトだ。</p></li>
+<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">len</span></code> を EmptySet オブジェクトに適用すると常に <code class="docutils literal notranslate"><span class="pre">0</span></code> を返す。</p></li>
+<li><p>ルベーグ測度が常に <code class="docutils literal notranslate"><span class="pre">0</span></code> である。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">contains</span></code> は常に SymPy の <code class="code docutils literal notranslate"><span class="pre">S.false</span></code> を返す。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">intersection</span></code> は常に空集合オブジェクトを返す。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">union</span></code>, <code class="code docutils literal notranslate"><span class="pre">complement</span></code>, <code class="code docutils literal notranslate"><span class="pre">symmetric_difference</span></code> は常に引数の集合オブジェクト自身を返す。</p></li>
 </ul>
 </div>
 <div class="section" id="universalset">
 <h3><a class="toc-backref" href="#id19">クラス UniversalSet</a><a class="headerlink" href="#universalset" title="Permalink to this headline">¶</a></h3>
 <p>クラス UniversalSet は全体集合を表現する。クラス UniversalSet の着想は EmptySet と同じだろう。</p>
 <ul class="simple">
-<li>クラス EmptySet 同様、シングルトンである。シングルトン管理オブジェクトから <code class="code docutils literal notranslate"><span class="pre">S.UniversalSet</span></code> として参照できる。</li>
-<li>関数 <code class="code docutils literal notranslate"><span class="pre">len</span></code> は利用不可。</li>
-<li>ルベーグ測度が常に <code class="code docutils literal notranslate"><span class="pre">S.Inifinity</span></code> である。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">boundary</span></code> は常に <code class="code docutils literal notranslate"><span class="pre">S.EmptySet</span></code> を返す。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">contains</span></code> は常に SymPy の <code class="code docutils literal notranslate"><span class="pre">S.true</span></code> を返す。</li>
-<li>その他の集合演算系メソッドはそれぞれ、与えられた引数に対する想像通りの値を返す。</li>
+<li><p>クラス EmptySet 同様、シングルトンである。シングルトン管理オブジェクトから <code class="code docutils literal notranslate"><span class="pre">S.UniversalSet</span></code> として参照できる。</p></li>
+<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">len</span></code> は利用不可。</p></li>
+<li><p>ルベーグ測度が常に <code class="code docutils literal notranslate"><span class="pre">S.Inifinity</span></code> である。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">boundary</span></code> は常に <code class="code docutils literal notranslate"><span class="pre">S.EmptySet</span></code> を返す。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">contains</span></code> は常に SymPy の <code class="code docutils literal notranslate"><span class="pre">S.true</span></code> を返す。</p></li>
+<li><p>その他の集合演算系メソッドはそれぞれ、与えられた引数に対する想像通りの値を返す。</p></li>
 </ul>
 </div>
 <div class="section" id="id8">
 <h3><a class="toc-backref" href="#id20">集合演算クラス</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>集合演算の結果を表現する一連のクラスを、C++ の標準ライブラリー関数との連想で覚えておく。</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="50%" />
-<col width="50%" />
+<col style="width: 50%" />
+<col style="width: 50%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">サブクラス</th>
-<th class="head">C++ &lt;algorithm&gt;</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>サブクラス</p></th>
+<th class="head"><p>C++ &lt;algorithm&gt;</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>Union</td>
-<td><code class="code docutils literal notranslate"><span class="pre">std::set_union</span></code></td>
+<tbody>
+<tr class="row-even"><td><p>Union</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">std::set_union</span></code></p></td>
 </tr>
-<tr class="row-odd"><td>Complement</td>
-<td><code class="code docutils literal notranslate"><span class="pre">std::set_difference</span></code></td>
+<tr class="row-odd"><td><p>Complement</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">std::set_difference</span></code></p></td>
 </tr>
-<tr class="row-even"><td>Intersection</td>
-<td><code class="code docutils literal notranslate"><span class="pre">std::set_intersection</span></code></td>
+<tr class="row-even"><td><p>Intersection</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">std::set_intersection</span></code></p></td>
 </tr>
-<tr class="row-odd"><td>SymmetricDifference</td>
-<td><code class="code docutils literal notranslate"><span class="pre">std::set_symmetric_difference</span></code></td>
+<tr class="row-odd"><td><p>SymmetricDifference</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">std::set_symmetric_difference</span></code></p></td>
 </tr>
 </tbody>
 </table>
 <ul class="simple">
-<li>コンストラクターについて<ul>
-<li>引数にとる集合オブジェクトの個数は、次のとおり。<ul>
-<li>Union と Intersection は任意の個数。</li>
-<li>Complement と SymmetricDifference はちょうど 2 個だけ。</li>
+<li><p>コンストラクターについて</p>
+<ul>
+<li><p>引数にとる集合オブジェクトの個数は、次のとおり。</p>
+<ul>
+<li><p>Union と Intersection は任意の個数。</p></li>
+<li><p>Complement と SymmetricDifference はちょうど 2 個だけ。</p></li>
 </ul>
 </li>
-<li>サポートするキーワード引数は <code class="code docutils literal notranslate"><span class="pre">evaluate</span></code> だけとなる。<ul>
-<li>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">evaluate</span></code> は Python のブーリアン値をとる。これが True のときには要素を簡略化する。つまり静的メソッド <code class="code docutils literal notranslate"><span class="pre">reduce</span></code> が呼ばれる。</li>
+<li><p>サポートするキーワード引数は <code class="code docutils literal notranslate"><span class="pre">evaluate</span></code> だけとなる。</p>
+<ul>
+<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">evaluate</span></code> は Python のブーリアン値をとる。これが True のときには要素を簡略化する。つまり静的メソッド <code class="code docutils literal notranslate"><span class="pre">reduce</span></code> が呼ばれる。</p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li>静的メソッド <code class="code docutils literal notranslate"><span class="pre">reduce</span></code><ul>
-<li>Union と Intersection のそれの実装を見ると何をしているのか理解できる。</li>
-<li>実装に Python の組み込み型 set を利用している。</li>
+<li><p>静的メソッド <code class="code docutils literal notranslate"><span class="pre">reduce</span></code></p>
+<ul>
+<li><p>Union と Intersection のそれの実装を見ると何をしているのか理解できる。</p></li>
+<li><p>実装に Python の組み込み型 set を利用している。</p></li>
 </ul>
 </li>
-<li>イテレーターについて<ul>
-<li>Range の Union に対するイテレーターが動かない？</li>
+<li><p>イテレーターについて</p>
+<ul>
+<li><p>Range の Union に対するイテレーターが動かない？</p></li>
 </ul>
 </li>
 </ul>
@@ -267,12 +275,13 @@ E の境界の補集合として表現する。</dd>
 <h3><a class="toc-backref" href="#id21">クラス ProductSet</a><a class="headerlink" href="#productset" title="Permalink to this headline">¶</a></h3>
 <p>クラス ProductSet は集合の直積（デカルト積）を表現する。</p>
 <ul class="simple">
-<li>コンストラクターで各集合を指示して直積集合オブジェクトを生成する。</li>
-<li>集合演算は ProductSet オブジェクト同士でなければならない。</li>
-<li>プロパティー <code class="code docutils literal notranslate"><span class="pre">sets</span></code> にて、直積の各集合にアクセスできる。</li>
-<li>オブジェクトが iterable である場合とそうでない場合がある。<ul>
-<li>プロパティー <code class="code docutils literal notranslate"><span class="pre">is_iterable</span></code> で判定できる。</li>
-<li>アクセス順は Python 標準の関数 <code class="code docutils literal notranslate"><span class="pre">product</span></code> を各集合に適用したものと同じらしい。</li>
+<li><p>コンストラクターで各集合を指示して直積集合オブジェクトを生成する。</p></li>
+<li><p>集合演算は ProductSet オブジェクト同士でなければならない。</p></li>
+<li><p>プロパティー <code class="code docutils literal notranslate"><span class="pre">sets</span></code> にて、直積の各集合にアクセスできる。</p></li>
+<li><p>オブジェクトが iterable である場合とそうでない場合がある。</p>
+<ul>
+<li><p>プロパティー <code class="code docutils literal notranslate"><span class="pre">is_iterable</span></code> で判定できる。</p></li>
+<li><p>アクセス順は Python 標準の関数 <code class="code docutils literal notranslate"><span class="pre">product</span></code> を各集合に適用したものと同じらしい。</p></li>
 </ul>
 </li>
 </ul>
@@ -281,26 +290,27 @@ E の境界の補集合として表現する。</dd>
 <h3><a class="toc-backref" href="#id22">クラス Interval</a><a class="headerlink" href="#interval" title="Permalink to this headline">¶</a></h3>
 <p>クラス Interval は実数区間を表現する。開区間、閉区間、半開区間もサポート。</p>
 <ul class="simple">
-<li>コンストラクター<ul>
-<li>呼び出し形式は <code class="code docutils literal notranslate"><span class="pre">Interval(start,</span> <span class="pre">end,</span> <span class="pre">left_open=False,</span> <span class="pre">right_open=False)</span></code> である。キーワード引数の意味は、その名前が示す通り。</li>
-<li><code class="code docutils literal notranslate"><span class="pre">start</span> <span class="pre">&lt;</span> <span class="pre">end</span></code> となるように引数を指示しないと、空集合オブジェクトになってしまう。</li>
-<li><code class="code docutils literal notranslate"><span class="pre">start</span> <span class="pre">==</span> <span class="pre">end</span></code> となるように指示すると、一点からなる FiniteSet オブジェクトが生成してしまう。</li>
-<li>端点として <code class="code docutils literal notranslate"><span class="pre">S.Infinity</span></code> 等も指定できる。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">Lopen</span></code>, <code class="code docutils literal notranslate"><span class="pre">Ropen</span></code> 等により、指定端点を開区間にしたオブジェクトを複製できる。</li>
+<li><p>コンストラクター</p>
+<ul>
+<li><p>呼び出し形式は <code class="code docutils literal notranslate"><span class="pre">Interval(start,</span> <span class="pre">end,</span> <span class="pre">left_open=False,</span> <span class="pre">right_open=False)</span></code> である。キーワード引数の意味は、その名前が示す通り。</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">start</span> <span class="pre">&lt;</span> <span class="pre">end</span></code> となるように引数を指示しないと、空集合オブジェクトになってしまう。</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">start</span> <span class="pre">==</span> <span class="pre">end</span></code> となるように指示すると、一点からなる FiniteSet オブジェクトが生成してしまう。</p></li>
+<li><p>端点として <code class="code docutils literal notranslate"><span class="pre">S.Infinity</span></code> 等も指定できる。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">Lopen</span></code>, <code class="code docutils literal notranslate"><span class="pre">Ropen</span></code> 等により、指定端点を開区間にしたオブジェクトを複製できる。</p></li>
 </ul>
 </li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">evalf</span></code> が利用可能。</li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">evalf</span></code> が利用可能。</p></li>
 </ul>
 </div>
 <div class="section" id="finiteset">
 <h3><a class="toc-backref" href="#id23">クラス FiniteSet</a><a class="headerlink" href="#finiteset" title="Permalink to this headline">¶</a></h3>
 <p>クラス FiniteSet は有限集合、すなわち元が有限個の集合を表現する。</p>
 <ul class="simple">
-<li>コンストラクターには元を列挙しておけばよい。</li>
-<li>オブジェクトは iterable である。集合の元は内部的にはソートされた状態なので、その順序に従って値が yield される。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">boundary</span></code> は自分自身を返す。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">measure</span></code> は <code class="docutils literal notranslate"><span class="pre">0</span></code> を返す。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">evalf</span></code> が利用可能。</li>
+<li><p>コンストラクターには元を列挙しておけばよい。</p></li>
+<li><p>オブジェクトは iterable である。集合の元は内部的にはソートされた状態なので、その順序に従って値が yield される。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">boundary</span></code> は自分自身を返す。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">measure</span></code> は <code class="docutils literal notranslate"><span class="pre">0</span></code> を返す。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">evalf</span></code> が利用可能。</p></li>
 </ul>
 </div>
 </div>
@@ -319,8 +329,8 @@ E の境界の補集合として表現する。</dd>
 <h3><a class="toc-backref" href="#id27">クラス ComplexRegion, Complexes</a><a class="headerlink" href="#complexregion-complexes" title="Permalink to this headline">¶</a></h3>
 <p>クラス ComplexRegion は複素平面の領域を表現するクラス。</p>
 <ul class="simple">
-<li>例えば Interval の直積で生成すると、複素平面上の矩形領域を表現できる。</li>
-<li>極座標のような与え方もできる。そのときはキーワード引数 <code class="code docutils literal notranslate"><span class="pre">polar=True</span></code> を用いる。</li>
+<li><p>例えば Interval の直積で生成すると、複素平面上の矩形領域を表現できる。</p></li>
+<li><p>極座標のような与え方もできる。そのときはキーワード引数 <code class="code docutils literal notranslate"><span class="pre">polar=True</span></code> を用いる。</p></li>
 </ul>
 <p>一方、クラス Complexes は複素平面全体を表現するクラス。ユーザーはいつでもシングルトンオブジェクト <code class="code docutils literal notranslate"><span class="pre">S.Complexes</span></code> にアクセスできる。</p>
 </div>
@@ -328,9 +338,9 @@ E の境界の補集合として表現する。</dd>
 <h3><a class="toc-backref" href="#id28">クラス ImageSet</a><a class="headerlink" href="#imageset" title="Permalink to this headline">¶</a></h3>
 <p>ある集合とある写像に対する像を表現するクラス。オブジェクトの生成は <code class="code docutils literal notranslate"><span class="pre">ImageSet(f,</span> <span class="pre">E)</span></code> のようにすればよい。</p>
 <ul class="simple">
-<li>あるいは関数 <code class="code docutils literal notranslate"><span class="pre">imageset</span></code> を用いて <code class="code docutils literal notranslate"><span class="pre">imageset(x,</span> <span class="pre">expr,</span> <span class="pre">E)</span></code> のようにする。</li>
-<li>または <code class="code docutils literal notranslate"><span class="pre">imageset(lambda</span> <span class="pre">x:</span> <span class="pre">f(x),</span> <span class="pre">E)</span></code> のような。</li>
-<li>他にもある。</li>
+<li><p>あるいは関数 <code class="code docutils literal notranslate"><span class="pre">imageset</span></code> を用いて <code class="code docutils literal notranslate"><span class="pre">imageset(x,</span> <span class="pre">expr,</span> <span class="pre">E)</span></code> のようにする。</p></li>
+<li><p>または <code class="code docutils literal notranslate"><span class="pre">imageset(lambda</span> <span class="pre">x:</span> <span class="pre">f(x),</span> <span class="pre">E)</span></code> のような。</p></li>
+<li><p>他にもある。</p></li>
 </ul>
 </div>
 <div class="section" id="range">
@@ -342,38 +352,35 @@ E の境界の補集合として表現する。</dd>
 <h2><a class="toc-backref" href="#id30">演習</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <p>単体テストのコードを読んでおく。</p>
 <ul>
-<li><p class="first">条件を満たせば記号オブジェクトを Interval の端点に指定することができる。</p>
+<li><p>条件を満たせば記号オブジェクトを Interval の端点に指定することができる。</p>
 <ul class="simple">
-<li>あとでメソッド <code class="code docutils literal notranslate"><span class="pre">subs</span></code> を利用して値を代入することもできる。</li>
+<li><p>あとでメソッド <code class="code docutils literal notranslate"><span class="pre">subs</span></code> を利用して値を代入することもできる。</p></li>
 </ul>
 </li>
-<li><p class="first">単一の集合オブジェクトだけを引数として Union, ProductSet 等の オブジェクトを生成できる。ただし、結果は元の集合と同じものになる。</p>
-</li>
-<li><p class="first">FiniteSet の元は数に限らない。</p>
-</li>
-<li><p class="first"><code class="code docutils literal notranslate"><span class="pre">R2</span> <span class="pre">=</span> <span class="pre">S.Reals</span> <span class="pre">*</span> <span class="pre">S.Reals</span></code> または <code class="code docutils literal notranslate"><span class="pre">R2</span> <span class="pre">=</span> <span class="pre">S.Reals</span> <span class="pre">**</span> <span class="pre">2</span></code> とすれば <span class="math notranslate nohighlight">\(\RR^2\)</span> を表現できる。</p>
+<li><p>単一の集合オブジェクトだけを引数として Union, ProductSet 等の オブジェクトを生成できる。ただし、結果は元の集合と同じものになる。</p></li>
+<li><p>FiniteSet の元は数に限らない。</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">R2</span> <span class="pre">=</span> <span class="pre">S.Reals</span> <span class="pre">*</span> <span class="pre">S.Reals</span></code> または <code class="code docutils literal notranslate"><span class="pre">R2</span> <span class="pre">=</span> <span class="pre">S.Reals</span> <span class="pre">**</span> <span class="pre">2</span></code> とすれば <span class="math notranslate nohighlight">\(\RR^2\)</span> を表現できる。</p>
 <ul class="simple">
-<li><code class="code docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">0)</span> <span class="pre">in</span> <span class="pre">R2</span></code> のようなコードが書ける。</li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">0)</span> <span class="pre">in</span> <span class="pre">R2</span></code> のようなコードが書ける。</p></li>
 </ul>
 </li>
-<li><p class="first"><code class="code docutils literal notranslate"><span class="pre">Interval(0,</span> <span class="pre">1,</span> <span class="pre">True,</span> <span class="pre">True)</span> <span class="pre">**</span> <span class="pre">2</span></code> に対するメソッド <code class="code docutils literal notranslate"><span class="pre">boundary</span></code> の戻り値がおもしろい。</p>
-</li>
-<li><p class="first">座標平面上の原点を中心とする円の定義法の例。テストコード改。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">r</span><span class="p">,</span> <span class="n">th</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;r theta&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<li><p><code class="code docutils literal notranslate"><span class="pre">Interval(0,</span> <span class="pre">1,</span> <span class="pre">True,</span> <span class="pre">True)</span> <span class="pre">**</span> <span class="pre">2</span></code> に対するメソッド <code class="code docutils literal notranslate"><span class="pre">boundary</span></code> の戻り値がおもしろい。</p></li>
+<li><p>座標平面上の原点を中心とする円の定義法の例。テストコード改。</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">r</span><span class="p">,</span> <span class="n">th</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;r theta&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">L</span> <span class="o">=</span> <span class="n">Lambda</span><span class="p">((</span><span class="n">r</span><span class="p">,</span> <span class="n">th</span><span class="p">),</span> <span class="p">(</span><span class="n">r</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">th</span><span class="p">),</span> <span class="n">r</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">th</span><span class="p">)))</span>
+<span class="gp">In [2]: </span><span class="n">L</span> <span class="o">=</span> <span class="n">Lambda</span><span class="p">((</span><span class="n">r</span><span class="p">,</span> <span class="n">th</span><span class="p">),</span> <span class="p">(</span><span class="n">r</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">th</span><span class="p">),</span> <span class="n">r</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">th</span><span class="p">)))</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">D</span> <span class="o">=</span> <span class="n">ImageSet</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">));</span> <span class="n">D</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">ImageSet</span><span class="p">(</span><span class="n">Lambda</span><span class="p">((</span><span class="n">r</span><span class="p">,</span> <span class="n">theta</span><span class="p">),</span> <span class="p">(</span><span class="n">r</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">r</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">))),</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="n">x</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">))</span>
+<span class="gp">In [3]: </span><span class="n">D</span> <span class="o">=</span> <span class="n">ImageSet</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">));</span> <span class="n">D</span>
+<span class="gh">Out[3]: </span><span class="go">ImageSet(Lambda((r, theta), (r*cos(theta), r*sin(theta))), [0, 1] x [0, 2*pi))</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">D</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">Reals</span> <span class="o">*</span> <span class="n">S</span><span class="o">.</span><span class="n">Reals</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="kc">False</span>
+<span class="gp">In [4]: </span><span class="n">D</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">Reals</span> <span class="o">*</span> <span class="n">S</span><span class="o">.</span><span class="n">Reals</span><span class="p">)</span>
+<span class="gh">Out[4]: </span><span class="go">False</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li>[2] 写像 <span class="math notranslate nohighlight">\(\fnm{\RR^2}{\RR^2}{(r, \theta)}(r \cos \theta, r \sin \theta)\)</span> を定義する。</li>
-<li>[3] <span class="math notranslate nohighlight">\([0, 1] \times [0, 2 \pi)\)</span> の f による像を計算する。それらしいオブジェクトが得られる。</li>
-<li>[4] これはおかしい。<span class="math notranslate nohighlight">\(D \subset \RR^2\)</span> のつもりなのだが。</li>
+<li><p>[2] 写像 <span class="math notranslate nohighlight">\(\fnm{\RR^2}{\RR^2}{(r, \theta)}(r \cos \theta, r \sin \theta)\)</span> を定義する。</p></li>
+<li><p>[3] <span class="math notranslate nohighlight">\([0, 1] \times [0, 2 \pi)\)</span> の f による像を計算する。それらしいオブジェクトが得られる。</p></li>
+<li><p>[4] これはおかしい。<span class="math notranslate nohighlight">\(D \subset \RR^2\)</span> のつもりなのだが。</p></li>
 </ul>
 </li>
 </ul>
@@ -381,6 +388,7 @@ E の境界の補集合として表現する。</dd>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
       </div>
       <div class="clearer"></div>
@@ -395,7 +403,8 @@ E の境界の補集合として表現する。</dd>
           <a href="logic.html" title="論理代数"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >SymPy 利用ノート</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" >SymPy 利用ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">集合</a></li> 
       </ul>
     </div>
     <div id="footer">
@@ -404,7 +413,7 @@ E の境界の補集合として表現する。</dd>
       </div>
       <div id="footer_copyright">
         Since 1999<br />
-        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+        Copyright &copy; 1999-2020, プレハブ小屋 All rights reserved.
       </div>
     </div>
   </body>

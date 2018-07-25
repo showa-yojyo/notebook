@@ -1,19 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Py2exe 利用ノート &#8212; 読書ノート v1.4</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Py2exe 利用ノート &#8212; 読書ノート v1.5dev</title>
     <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/mathjaxconf.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/mathjax-v3.js"></script>
+    
     <link rel="next" title="Python 移行ノート" href="python-upgrade.html" />
-    <link rel="prev" title="Pygame 利用ノート" href="python-pygame.html" /> 
+    <link rel="prev" title="Python pytube 利用ノート" href="python-pytube.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -22,9 +22,10 @@
           <a href="python-upgrade.html" title="Python 移行ノート"
              accesskey="N">next</a></li>
         <li class="right" >
-          <a href="python-pygame.html" title="Pygame 利用ノート"
+          <a href="python-pytube.html" title="Python pytube 利用ノート"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Py2exe 利用ノート</a></li> 
       </ul>
     </div>  
 
@@ -37,29 +38,34 @@
 <p>Py2exe に関しては筆者が興味を失っている状態なので、本稿の更新は当分しない予定でいる。現在、バージョン 0.9.2 のインストーラー（全 Python バージョン対応）が PyPI に置いてある。
 64 ビット用のビルドもあるので、その気になれば下記記事を修正する。</p>
 <div class="contents topic" id="id1">
-<p class="topic-title first">ノート目次</p>
+<p class="topic-title">ノート目次</p>
 <ul class="simple">
-<li><a class="reference internal" href="#py2exe" id="id8">Py2exe 利用ノート</a><ul>
-<li><a class="reference internal" href="#id2" id="id9">関連リンクおよび参考サイト</a></li>
-<li><a class="reference internal" href="#id3" id="id10">インストール</a></li>
-<li><a class="reference internal" href="#exe" id="id11">EXE ファイルの作成練習</a><ul>
-<li><a class="reference internal" href="#hello-world" id="id12">Hello world</a><ul>
-<li><a class="reference internal" href="#hello-py" id="id13">hello.py</a></li>
-<li><a class="reference internal" href="#setup-py" id="id14">setup.py</a></li>
-<li><a class="reference internal" href="#id4" id="id15">ビルド</a></li>
+<li><p><a class="reference internal" href="#py2exe" id="id8">Py2exe 利用ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id9">関連リンクおよび参考サイト</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id10">インストール</a></p></li>
+<li><p><a class="reference internal" href="#exe" id="id11">EXE ファイルの作成練習</a></p>
+<ul>
+<li><p><a class="reference internal" href="#hello-world" id="id12">Hello world</a></p>
+<ul>
+<li><p><a class="reference internal" href="#hello-py" id="id13">hello.py</a></p></li>
+<li><p><a class="reference internal" href="#setup-py" id="id14">setup.py</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id15">ビルド</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#python-2-6-vc" id="id16">Python 2.6 以降に係わる VC ランタイム問題</a><ul>
-<li><a class="reference internal" href="#id5" id="id17">仮の措置</a></li>
+<li><p><a class="reference internal" href="#python-2-6-vc" id="id16">Python 2.6 以降に係わる VC ランタイム問題</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id5" id="id17">仮の措置</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id6" id="id18">サードパーティ製パッケージを利用した自作プログラムを配布する場合</a><ul>
-<li><a class="reference internal" href="#pil" id="id19">PIL</a></li>
-<li><a class="reference internal" href="#numpy-scipy" id="id20">Numpy, Scipy</a></li>
-<li><a class="reference internal" href="#matplotlib" id="id21">Matplotlib</a></li>
-<li><a class="reference internal" href="#pyopengl" id="id22">PyOpenGL</a></li>
-<li><a class="reference internal" href="#pyqt4" id="id23">PyQt4</a></li>
-<li><a class="reference internal" href="#pygame" id="id24">Pygame</a></li>
+<li><p><a class="reference internal" href="#id6" id="id18">サードパーティ製パッケージを利用した自作プログラムを配布する場合</a></p>
+<ul>
+<li><p><a class="reference internal" href="#pil" id="id19">PIL</a></p></li>
+<li><p><a class="reference internal" href="#numpy-scipy" id="id20">Numpy, Scipy</a></p></li>
+<li><p><a class="reference internal" href="#matplotlib" id="id21">Matplotlib</a></p></li>
+<li><p><a class="reference internal" href="#pyopengl" id="id22">PyOpenGL</a></p></li>
+<li><p><a class="reference internal" href="#pyqt4" id="id23">PyQt4</a></p></li>
+<li><p><a class="reference internal" href="#pygame" id="id24">Pygame</a></p></li>
 </ul>
 </li>
 </ul>
@@ -69,21 +75,22 @@
 </ul>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<ul class="last simple">
-<li>OS: Windows XP Home Edition SP3</li>
-<li>本稿において、利用した各パッケージのバージョンは次のとおり。<ul>
-<li><a class="reference external" href="http://www.python.org/">Python</a>: 2.6.6, 2.7.3</li>
-<li><a class="reference external" href="http://www.py2exe.org/">Py2exe</a>: 0.6.9</li>
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>OS: Windows XP Home Edition SP3</p></li>
+<li><p>本稿において、利用した各パッケージのバージョンは次のとおり。</p>
+<ul>
+<li><p><a class="reference external" href="http://www.python.org/">Python</a>: 2.6.6, 2.7.3</p></li>
+<li><p><a class="reference external" href="http://www.py2exe.org/">Py2exe</a>: 0.6.9</p></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="id2">
 <h2><a class="toc-backref" href="#id9">関連リンクおよび参考サイト</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt><a class="reference external" href="http://www.py2exe.org/">Py2exe</a></dt>
-<dd>Py2exe ウェブサイト。リリースニュース、ダウンロード、ドキュメントへの各リンクを提供している。</dd>
+<dl class="simple">
+<dt><a class="reference external" href="http://www.py2exe.org/">Py2exe</a></dt><dd><p>Py2exe ウェブサイト。リリースニュース、ダウンロード、ドキュメントへの各リンクを提供している。</p>
+</dd>
 </dl>
 </div>
 <div class="section" id="id3">
@@ -100,7 +107,7 @@ easy_install/pip を利用してのインストールではない。
 <div class="section" id="hello-py">
 <h4><a class="toc-backref" href="#id13">hello.py</a><a class="headerlink" href="#hello-py" title="Permalink to this headline">¶</a></h4>
 <p>文字列を標準出力に出力するだけのコード。</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># hello.py</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># hello.py</span>
 
 <span class="nb">print</span> <span class="s1">&#39;Hello world&#39;</span>
 </pre></div>
@@ -109,9 +116,9 @@ easy_install/pip を利用してのインストールではない。
 <div class="section" id="setup-py">
 <h4><a class="toc-backref" href="#id14">setup.py</a><a class="headerlink" href="#setup-py" title="Permalink to this headline">¶</a></h4>
 <p><code class="file docutils literal notranslate"><span class="pre">hello.py</span></code> と同じフォルダーに <code class="file docutils literal notranslate"><span class="pre">setup.py</span></code> を作成する。</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># setup.py</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># setup.py</span>
 
-<span class="kn">from</span> <span class="nn">distutils.core</span> <span class="k">import</span> <span class="n">setup</span>
+<span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
 <span class="kn">import</span> <span class="nn">py2exe</span>
 
 <span class="n">setup</span><span class="p">(</span><span class="n">console</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;hello.py&#39;</span><span class="p">])</span>
@@ -122,17 +129,17 @@ easy_install/pip を利用してのインストールではない。
 <h4><a class="toc-backref" href="#id15">ビルド</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
 <p>コンソールウィンドウを開き、下記のようにすることで EXE ファイルができる。</p>
 <ul class="simple">
-<li>本ノートでは Cygwin (bash) 使用。
-<code class="docutils literal notranslate"><span class="pre">python26</span></code> とあるのは Windows 用 <code class="docutils literal notranslate"><span class="pre">python.exe</span></code> のフルパスの alias だ。</li>
-<li>配布は <code class="file docutils literal notranslate"><span class="pre">dist</span></code> フォルダー全部となる。</li>
+<li><p>本ノートでは Cygwin (bash) 使用。
+<code class="docutils literal notranslate"><span class="pre">python26</span></code> とあるのは Windows 用 <code class="docutils literal notranslate"><span class="pre">python.exe</span></code> のフルパスの alias だ。</p></li>
+<li><p>配布は <code class="file docutils literal notranslate"><span class="pre">dist</span></code> フォルダー全部となる。</p></li>
 </ul>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ python26 setup.py py2exe
-... 長い出力
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> python26 setup.py py2exe
+<span class="go">... 長い出力</span>
 
-$ cd dist
-$ ./hello.exe
-Hello world
-$
+<span class="gp">$</span> <span class="nb">cd</span> dist
+<span class="gp">$</span> ./hello.exe
+<span class="go">Hello world</span>
+<span class="gp">$</span>
 </pre></div>
 </div>
 </div>
@@ -143,31 +150,33 @@ $
 <code class="file docutils literal notranslate"><span class="pre">dist</span></code> フォルダー全部でも足りないものがある。
 MSVC9 系ランタイム DLL が必要になる。対象の PC にランタイムがない場合を考慮して、関連 DLL をも配布するケースを考える。</p>
 <ul class="simple">
-<li>MSVC 2008 がインストールされていれば話は早いハズ。
-<a class="reference external" href="http://www.py2exe.org/">Py2exe</a> の Tutorial 内セクション 5.2. “Python 2.6, 2.7, 3.0, 3.1” を一読すれば、必要なファイルや作業が理解できる。</li>
-<li>相手がランタイムを独自にインストールするならば、このセクションの対応は省略できる。</li>
-<li>MSVC 2008 がインストールされていない場合、<ul>
-<li>マニフェストファイルの準備 or 自作が必要。</li>
-<li>DLL は厳密には 9.0.21022.8 というバージョン。システムフォルダー <code class="file docutils literal notranslate"><span class="pre">C:\WINDOWS\WinSxS</span></code> をチェックする。</li>
+<li><p>MSVC 2008 がインストールされていれば話は早いハズ。
+<a class="reference external" href="http://www.py2exe.org/">Py2exe</a> の Tutorial 内セクション 5.2. “Python 2.6, 2.7, 3.0, 3.1” を一読すれば、必要なファイルや作業が理解できる。</p></li>
+<li><p>相手がランタイムを独自にインストールするならば、このセクションの対応は省略できる。</p></li>
+<li><p>MSVC 2008 がインストールされていない場合、</p>
+<ul>
+<li><p>マニフェストファイルの準備 or 自作が必要。</p></li>
+<li><p>DLL は厳密には 9.0.21022.8 というバージョン。システムフォルダー <code class="file docutils literal notranslate"><span class="pre">C:\WINDOWS\WinSxS</span></code> をチェックする。</p></li>
 </ul>
 </li>
 </ul>
 <div class="section" id="id5">
 <h4><a class="toc-backref" href="#id17">仮の措置</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
 <ol class="arabic simple">
-<li><code class="file docutils literal notranslate"><span class="pre">setup.py</span></code> のあるフォルダーに以下のファイル群をコピー。<ul>
-<li><code class="file docutils literal notranslate"><span class="pre">C:\WINDOWS\WinSxS\Manifests\x86_Microsoft.VC90.CRT_1fc8b3b9a1e18e3b_9.0.21022.8_x-ww_d08d0375.manifest</span></code></li>
-<li><code class="file docutils literal notranslate"><span class="pre">C:\WINDOWS\WinSxS\x86_Microsoft.VC90.CRT_1fc8b3b9a1e18e3b_9.0.21022.8_x-ww_d08d0375\msvc*90.dll</span></code></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">setup.py</span></code> のあるフォルダーに以下のファイル群をコピー。</p>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">C:\WINDOWS\WinSxS\Manifests\x86_Microsoft.VC90.CRT_1fc8b3b9a1e18e3b_9.0.21022.8_x-ww_d08d0375.manifest</span></code></p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">C:\WINDOWS\WinSxS\x86_Microsoft.VC90.CRT_1fc8b3b9a1e18e3b_9.0.21022.8_x-ww_d08d0375\msvc*90.dll</span></code></p></li>
 </ul>
 </li>
-<li>コピー後のマニフェストファイルをリネームし、
-<code class="file docutils literal notranslate"><span class="pre">Microsoft.VC90.CRT.manifest</span></code> とする。</li>
-<li><code class="file docutils literal notranslate"><span class="pre">setup.py</span></code> の内容を修正する。例を示す。</li>
+<li><p>コピー後のマニフェストファイルをリネームし、
+<code class="file docutils literal notranslate"><span class="pre">Microsoft.VC90.CRT.manifest</span></code> とする。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">setup.py</span></code> の内容を修正する。例を示す。</p></li>
 </ol>
 <blockquote>
-<div><div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">distutils.core</span> <span class="k">import</span> <span class="n">setup</span>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
 <span class="kn">import</span> <span class="nn">py2exe</span>
-<span class="kn">from</span> <span class="nn">glob</span> <span class="k">import</span> <span class="n">glob</span>
+<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
 
 <span class="n">data_files</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;Microsoft.VC90.CRT&quot;</span><span class="p">,</span>
                <span class="p">[</span><span class="s2">&quot;Microsoft.VC90.CRT.manifest&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">glob</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;msvc*90.dll&#39;</span><span class="p">))]</span>
@@ -185,7 +194,7 @@ MSVC9 系ランタイム DLL が必要になる。対象の PC にランタイ�
 <h4><a class="toc-backref" href="#id19">PIL</a><a class="headerlink" href="#pil" title="Permalink to this headline">¶</a></h4>
 <p>結論から言うと、何か特殊な処理を <code class="file docutils literal notranslate"><span class="pre">setup.py</span></code> に追加する必要はない。</p>
 <p>次のコードを考える。コマンドライン引数を画像ファイルとみなし、ビューワーで開くだけのものだ。エラー処理は実装していない。</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">Image</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">argv</span><span class="p">):</span>
@@ -205,8 +214,8 @@ MSVC9 系ランタイム DLL が必要になる。対象の PC にランタイ�
 <h4><a class="toc-backref" href="#id20">Numpy, Scipy</a><a class="headerlink" href="#numpy-scipy" title="Permalink to this headline">¶</a></h4>
 <p>Py2exe が予想以上に色々な pyd ファイルを同梱してくれるので、正直困る。</p>
 <p>ターゲットとなるコードは次のようなものだ。</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy.spatial</span> <span class="k">import</span> <span class="n">KDTree</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.spatial</span> <span class="kn">import</span> <span class="n">KDTree</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="c1"># 3D points: (0, 0, 0), (0, 0, 10), (0, 0, 20), ...</span>
@@ -231,50 +240,50 @@ MSVC9 系ランタイム DLL が必要になる。対象の PC にランタイ�
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">setup.py</span> <span class="pre">py2exe</span></code> すると <code class="file docutils literal notranslate"><span class="pre">dist</span></code> フォルダーの中身がマッシブになる。
 Tcl/Tk 関連のランタイムは本当に必要なのだろうか。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ls -l dist
-合計 24M
--rwxr-xr-x 1 work ????   72K 8月  24  2010 _ctypes.pyd*
--rwxr-xr-x 1 work ????  280K 8月  24  2010 _hashlib.pyd*
--rwxr-xr-x 1 work ????   23K 8月  24  2010 _multiprocessing.pyd*
--rwxr-xr-x 1 work ????   40K 8月  24  2010 _socket.pyd*
--rwxr-xr-x 1 work ????  704K 8月  24  2010 _ssl.pyd*
--rwxr-xr-x 1 work ????   30K 8月  24  2010 _tkinter.pyd*
--rwxr-xr-x 1 work ????   71K 8月  24  2010 bz2.pyd*
--rw-r--r-- 1 work ????  8.0M 4月  21 22:28 library.zip
--rwxr-xr-x 1 work ????   19K 4月  21 22:28 main.exe*
--rwxr-xr-x 1 work ????  125K 7月  21  2011 numpy.core._sort.pyd*
--rwxr-xr-x 1 work ????  1.1M 7月  21  2011 numpy.core.multiarray.pyd*
--rwxr-xr-x 1 work ????  174K 7月  21  2011 numpy.core.scalarmath.pyd*
--rwxr-xr-x 1 work ????  380K 7月  21  2011 numpy.core.umath.pyd*
--rwxr-xr-x 1 work ????   48K 7月  21  2011 numpy.fft.fftpack_lite.pyd*
--rwxr-xr-x 1 work ????   39K 7月  21  2011 numpy.lib._compiled_base.pyd*
--rwxr-xr-x 1 work ???? 1013K 7月  21  2011 numpy.linalg.lapack_lite.pyd*
--rwxr-xr-x 1 work ????  494K 7月  21  2011 numpy.random.mtrand.pyd*
--rwxr-xr-x 1 work ????  150K 8月  24  2010 pyexpat.pyd*
--rwxr-xr-x 1 work ????  2.1M 8月  24  2010 python26.dll*
--rwxr-xr-x 1 work ????  1.6M 2月  27 09:48 scipy.sparse.sparsetools._bsr.pyd*
--rwxr-xr-x 1 work ????  666K 2月  27 09:47 scipy.sparse.sparsetools._coo.pyd*
--rwxr-xr-x 1 work ????  1.2M 2月  27 09:47 scipy.sparse.sparsetools._csc.pyd*
--rwxr-xr-x 1 work ????  528K 2月  27 09:48 scipy.sparse.sparsetools._csgraph.pyd*
--rwxr-xr-x 1 work ????  1.5M 2月  27 09:46 scipy.sparse.sparsetools._csr.pyd*
--rwxr-xr-x 1 work ????  562K 2月  27 09:48 scipy.sparse.sparsetools._dia.pyd*
--rwxr-xr-x 1 work ????   46K 2月  27 09:48 scipy.spatial._distance_wrap.pyd*
--rwxr-xr-x 1 work ????  113K 2月  27 09:48 scipy.spatial.ckdtree.pyd*
--rwxr-xr-x 1 work ????  576K 2月  27 09:48 scipy.spatial.qhull.pyd*
--rwxr-xr-x 1 work ????   12K 8月  24  2010 select.pyd*
--rwxr-xr-x 1 work ????   16K 3月   5 23:19 sgmlop.pyd*
-drwxr-xr-x 1 work ????     0 4月  21 22:28 tcl/
--rwxr-xr-x 1 work ????  847K 11月  6  2008 tcl85.dll*
--rwxr-xr-x 1 work ????  1.3M 11月  6  2008 tk85.dll*
--rwxr-xr-x 1 work ????  572K 8月  24  2010 unicodedata.pyd*
--rwxr-xr-x 1 work ????   49K 8月  24  2010 w9xpopen.exe*
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> ls -l dist
+<span class="go">合計 24M</span>
+<span class="go">-rwxr-xr-x 1 work ????   72K 8月  24  2010 _ctypes.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  280K 8月  24  2010 _hashlib.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????   23K 8月  24  2010 _multiprocessing.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????   40K 8月  24  2010 _socket.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  704K 8月  24  2010 _ssl.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????   30K 8月  24  2010 _tkinter.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????   71K 8月  24  2010 bz2.pyd*</span>
+<span class="go">-rw-r--r-- 1 work ????  8.0M 4月  21 22:28 library.zip</span>
+<span class="go">-rwxr-xr-x 1 work ????   19K 4月  21 22:28 main.exe*</span>
+<span class="go">-rwxr-xr-x 1 work ????  125K 7月  21  2011 numpy.core._sort.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  1.1M 7月  21  2011 numpy.core.multiarray.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  174K 7月  21  2011 numpy.core.scalarmath.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  380K 7月  21  2011 numpy.core.umath.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????   48K 7月  21  2011 numpy.fft.fftpack_lite.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????   39K 7月  21  2011 numpy.lib._compiled_base.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ???? 1013K 7月  21  2011 numpy.linalg.lapack_lite.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  494K 7月  21  2011 numpy.random.mtrand.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  150K 8月  24  2010 pyexpat.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  2.1M 8月  24  2010 python26.dll*</span>
+<span class="go">-rwxr-xr-x 1 work ????  1.6M 2月  27 09:48 scipy.sparse.sparsetools._bsr.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  666K 2月  27 09:47 scipy.sparse.sparsetools._coo.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  1.2M 2月  27 09:47 scipy.sparse.sparsetools._csc.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  528K 2月  27 09:48 scipy.sparse.sparsetools._csgraph.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  1.5M 2月  27 09:46 scipy.sparse.sparsetools._csr.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  562K 2月  27 09:48 scipy.sparse.sparsetools._dia.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????   46K 2月  27 09:48 scipy.spatial._distance_wrap.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  113K 2月  27 09:48 scipy.spatial.ckdtree.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  576K 2月  27 09:48 scipy.spatial.qhull.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????   12K 8月  24  2010 select.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????   16K 3月   5 23:19 sgmlop.pyd*</span>
+<span class="go">drwxr-xr-x 1 work ????     0 4月  21 22:28 tcl/</span>
+<span class="go">-rwxr-xr-x 1 work ????  847K 11月  6  2008 tcl85.dll*</span>
+<span class="go">-rwxr-xr-x 1 work ????  1.3M 11月  6  2008 tk85.dll*</span>
+<span class="go">-rwxr-xr-x 1 work ????  572K 8月  24  2010 unicodedata.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????   49K 8月  24  2010 w9xpopen.exe*</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="matplotlib">
 <h4><a class="toc-backref" href="#id21">Matplotlib</a><a class="headerlink" href="#matplotlib" title="Permalink to this headline">¶</a></h4>
 <p>わざとらしく NumPy, SciPy 関連を利用しない Matplotlib プログラムを考える。</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
@@ -299,69 +308,69 @@ drwxr-xr-x 1 work ????     0 4月  21 22:28 tcl/
 </pre></div>
 </div>
 <p>面白いことに、MSVC90 ランタイムに関連するエラーメッセージが出る。</p>
-<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">***</span> <span class="n">finding</span> <span class="n">dlls</span> <span class="n">needed</span> <span class="o">***</span>
-<span class="n">error</span><span class="p">:</span> <span class="n">MSVCP90</span><span class="o">.</span><span class="n">dll</span><span class="p">:</span> <span class="n">No</span> <span class="n">such</span> <span class="n">file</span> <span class="ow">or</span> <span class="n">directory</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>*** finding dlls needed ***
+error: MSVCP90.dll: No such file or directory
 </pre></div>
 </div>
 <p>ここで、先述の仮の措置を適用した setup.py に書き換えると、ビルドが通る。そして <code class="file docutils literal notranslate"><span class="pre">dist</span></code> の内容がとんでもないことにある。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ls -l dist
-合計 38M
--rwxr-xr-x 1 work ????   72K 8月  24  2010 _ctypes.pyd*
--rwxr-xr-x 1 work ????  280K 8月  24  2010 _hashlib.pyd*
--rwxr-xr-x 1 work ????   23K 8月  24  2010 _multiprocessing.pyd*
--rwxr-xr-x 1 work ????   40K 8月  24  2010 _socket.pyd*
--rwxr-xr-x 1 work ????  704K 8月  24  2010 _ssl.pyd*
--rwxr-xr-x 1 work ????   30K 8月  24  2010 _tkinter.pyd*
--rwxr-xr-x 1 work ????   71K 8月  24  2010 bz2.pyd*
--rw-r--r-- 1 work ????   11M 4月  21 22:52 library.zip
--rwxr-xr-x 1 work ????   20K 4月  21 22:52 main.exe*
--rwxr-xr-x 1 work ????   19K 10月  6  2011 matplotlib._cntr.pyd*
--rwxr-xr-x 1 work ????   47K 10月  6  2011 matplotlib._delaunay.pyd*
--rwxr-xr-x 1 work ????  144K 10月  6  2011 matplotlib._image.pyd*
--rwxr-xr-x 1 work ????  133K 10月  6  2011 matplotlib._path.pyd*
--rwxr-xr-x 1 work ????  193K 10月  6  2011 matplotlib._png.pyd*
--rwxr-xr-x 1 work ????  121K 10月  6  2011 matplotlib._tri.pyd*
--rwxr-xr-x 1 work ????  211K 10月  6  2011 matplotlib.backends._backend_agg.pyd*
--rwxr-xr-x 1 work ????  487K 10月  6  2011 matplotlib.ft2font.pyd*
--rwxr-xr-x 1 work ????   12K 10月  6  2011 matplotlib.nxutils.pyd*
--rwxr-xr-x 1 work ????   44K 10月  6  2011 matplotlib.ttconv.pyd*
-drwxr-xr-x 1 work ????     0 4月  21 22:52 Microsoft.VC90.CRT/
--rwxr-xr-x 1 work ????  125K 7月  21  2011 numpy.core._sort.pyd*
--rwxr-xr-x 1 work ????  1.1M 7月  21  2011 numpy.core.multiarray.pyd*
--rwxr-xr-x 1 work ????  174K 7月  21  2011 numpy.core.scalarmath.pyd*
--rwxr-xr-x 1 work ????  380K 7月  21  2011 numpy.core.umath.pyd*
--rwxr-xr-x 1 work ????   48K 7月  21  2011 numpy.fft.fftpack_lite.pyd*
--rwxr-xr-x 1 work ????   39K 7月  21  2011 numpy.lib._compiled_base.pyd*
--rwxr-xr-x 1 work ???? 1013K 7月  21  2011 numpy.linalg.lapack_lite.pyd*
--rwxr-xr-x 1 work ????  494K 7月  21  2011 numpy.random.mtrand.pyd*
--rwxr-xr-x 1 work ????  766K 1月  27 08:57 PIL._imaging.pyd*
--rwxr-xr-x 1 work ????  150K 8月  24  2010 pyexpat.pyd*
--rwxr-xr-x 1 work ????  5.5M 5月   2  2011 PyQt4.QtGui.pyd*
--rwxr-xr-x 1 work ????  2.1M 8月  24  2010 python26.dll*
--rwxr-xr-x 1 work ????  2.2M 3月  21  2011 QtCore4.dll*
--rwxr-xr-x 1 work ????  7.6M 3月  21  2011 QtGui4.dll*
--rwxr-xr-x 1 work ????   12K 8月  24  2010 select.pyd*
--rwxr-xr-x 1 work ????   16K 3月   5 23:19 sgmlop.pyd*
-drwxr-xr-x 1 work ????     0 4月  21 22:42 tcl/
--rwxr-xr-x 1 work ????  847K 11月  6  2008 tcl85.dll*
--rwxr-xr-x 1 work ????  1.3M 11月  6  2008 tk85.dll*
--rwxr-xr-x 1 work ????  572K 8月  24  2010 unicodedata.pyd*
--rwxr-xr-x 1 work ????   49K 8月  24  2010 w9xpopen.exe*
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> ls -l dist
+<span class="go">合計 38M</span>
+<span class="go">-rwxr-xr-x 1 work ????   72K 8月  24  2010 _ctypes.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  280K 8月  24  2010 _hashlib.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????   23K 8月  24  2010 _multiprocessing.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????   40K 8月  24  2010 _socket.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  704K 8月  24  2010 _ssl.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????   30K 8月  24  2010 _tkinter.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????   71K 8月  24  2010 bz2.pyd*</span>
+<span class="go">-rw-r--r-- 1 work ????   11M 4月  21 22:52 library.zip</span>
+<span class="go">-rwxr-xr-x 1 work ????   20K 4月  21 22:52 main.exe*</span>
+<span class="go">-rwxr-xr-x 1 work ????   19K 10月  6  2011 matplotlib._cntr.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????   47K 10月  6  2011 matplotlib._delaunay.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  144K 10月  6  2011 matplotlib._image.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  133K 10月  6  2011 matplotlib._path.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  193K 10月  6  2011 matplotlib._png.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  121K 10月  6  2011 matplotlib._tri.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  211K 10月  6  2011 matplotlib.backends._backend_agg.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  487K 10月  6  2011 matplotlib.ft2font.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????   12K 10月  6  2011 matplotlib.nxutils.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????   44K 10月  6  2011 matplotlib.ttconv.pyd*</span>
+<span class="go">drwxr-xr-x 1 work ????     0 4月  21 22:52 Microsoft.VC90.CRT/</span>
+<span class="go">-rwxr-xr-x 1 work ????  125K 7月  21  2011 numpy.core._sort.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  1.1M 7月  21  2011 numpy.core.multiarray.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  174K 7月  21  2011 numpy.core.scalarmath.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  380K 7月  21  2011 numpy.core.umath.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????   48K 7月  21  2011 numpy.fft.fftpack_lite.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????   39K 7月  21  2011 numpy.lib._compiled_base.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ???? 1013K 7月  21  2011 numpy.linalg.lapack_lite.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  494K 7月  21  2011 numpy.random.mtrand.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  766K 1月  27 08:57 PIL._imaging.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  150K 8月  24  2010 pyexpat.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  5.5M 5月   2  2011 PyQt4.QtGui.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  2.1M 8月  24  2010 python26.dll*</span>
+<span class="go">-rwxr-xr-x 1 work ????  2.2M 3月  21  2011 QtCore4.dll*</span>
+<span class="go">-rwxr-xr-x 1 work ????  7.6M 3月  21  2011 QtGui4.dll*</span>
+<span class="go">-rwxr-xr-x 1 work ????   12K 8月  24  2010 select.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????   16K 3月   5 23:19 sgmlop.pyd*</span>
+<span class="go">drwxr-xr-x 1 work ????     0 4月  21 22:42 tcl/</span>
+<span class="go">-rwxr-xr-x 1 work ????  847K 11月  6  2008 tcl85.dll*</span>
+<span class="go">-rwxr-xr-x 1 work ????  1.3M 11月  6  2008 tk85.dll*</span>
+<span class="go">-rwxr-xr-x 1 work ????  572K 8月  24  2010 unicodedata.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????   49K 8月  24  2010 w9xpopen.exe*</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li>頼みもしないのに PyQt4 関連のランタイムが含まれてしまう。</li>
-<li>インポートした覚えのない NumPy 関連ランタイムが含まれてしまう。</li>
-<li>どさくさ紛れに PIL もいる。</li>
+<li><p>頼みもしないのに PyQt4 関連のランタイムが含まれてしまう。</p></li>
+<li><p>インポートした覚えのない NumPy 関連ランタイムが含まれてしまう。</p></li>
+<li><p>どさくさ紛れに PIL もいる。</p></li>
 </ul>
 </div>
 <div class="section" id="pyopengl">
 <h4><a class="toc-backref" href="#id22">PyOpenGL</a><a class="headerlink" href="#pyopengl" title="Permalink to this headline">¶</a></h4>
 <p>GLUT ベースの簡単なプログラムに対して、Py2exe ビルドを試す。</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">OpenGL.GL</span> <span class="k">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">OpenGL.GLU</span> <span class="k">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">OpenGL.GLUT</span> <span class="k">import</span> <span class="o">*</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">OpenGL.GL</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">OpenGL.GLU</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">OpenGL.GLUT</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="n">window_title</span> <span class="o">=</span> <span class="sa">u</span><span class="s2">&quot;OpenGL Study&quot;</span>
 <span class="n">window_sx</span><span class="p">,</span> <span class="n">window_sy</span> <span class="o">=</span> <span class="mi">320</span><span class="p">,</span> <span class="mi">240</span>
@@ -389,31 +398,31 @@ drwxr-xr-x 1 work ????     0 4月  21 22:42 tcl/
 </pre></div>
 </div>
 <p>Hello world のときと同じ設定でビルドすると、次の不審なメッセージが現れる。</p>
-<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="n">following</span> <span class="n">modules</span> <span class="n">appear</span> <span class="n">to</span> <span class="n">be</span> <span class="n">missing</span>
-<span class="p">[</span><span class="s1">&#39;OpenGL.GL.GL_EXTENSIONS&#39;</span><span class="p">,</span> <span class="s1">&#39;OpenGL.GL.GL_NUM_EXTENSIONS&#39;</span><span class="p">,</span> <span class="s1">&#39;OpenGL.GL.GL_VERSION</span>
-<span class="s1">&#39;, &#39;</span><span class="n">OpenGL</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">CurrentContextIsValid</span><span class="s1">&#39;, &#39;</span><span class="n">OpenGL</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">GL</span><span class="s1">&#39;, &#39;</span><span class="n">OpenGL</span><span class="o">.</span><span class="n">platfo</span>
-<span class="n">rm</span><span class="o">.</span><span class="n">GLU</span><span class="s1">&#39;, &#39;</span><span class="n">OpenGL</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">GLUT</span><span class="s1">&#39;, &#39;</span><span class="n">OpenGL</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">GLUT_GUARD_CALLBACKS</span><span class="s1">&#39;, &#39;</span><span class="n">OpenGL</span>
-<span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">PLATFORM</span><span class="s1">&#39;, &#39;</span><span class="n">OpenGL</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">createBaseFunction</span><span class="s1">&#39;, &#39;</span><span class="n">OpenGL_accelerate</span><span class="s1">&#39;,</span>
-<span class="s1">&#39;OpenGL_accelerate.arraydatatype&#39;</span><span class="p">,</span> <span class="s1">&#39;OpenGL_accelerate.errorchecker&#39;</span><span class="p">,</span> <span class="s1">&#39;OpenGL_acc</span>
-<span class="n">elerate</span><span class="o">.</span><span class="n">latebind</span><span class="s1">&#39;, &#39;</span><span class="n">OpenGL_accelerate</span><span class="o">.</span><span class="n">wrapper</span><span class="s1">&#39;]</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>The following modules appear to be missing
+[&#39;OpenGL.GL.GL_EXTENSIONS&#39;, &#39;OpenGL.GL.GL_NUM_EXTENSIONS&#39;, &#39;OpenGL.GL.GL_VERSION
+&#39;, &#39;OpenGL.platform.CurrentContextIsValid&#39;, &#39;OpenGL.platform.GL&#39;, &#39;OpenGL.platfo
+rm.GLU&#39;, &#39;OpenGL.platform.GLUT&#39;, &#39;OpenGL.platform.GLUT_GUARD_CALLBACKS&#39;, &#39;OpenGL
+.platform.PLATFORM&#39;, &#39;OpenGL.platform.createBaseFunction&#39;, &#39;OpenGL_accelerate&#39;,
+&#39;OpenGL_accelerate.arraydatatype&#39;, &#39;OpenGL_accelerate.errorchecker&#39;, &#39;OpenGL_acc
+elerate.latebind&#39;, &#39;OpenGL_accelerate.wrapper&#39;]
 </pre></div>
 </div>
 <p>EXE はビルドできているので、試しに実行するとエラーメッセージが現れる。</p>
-<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
-  <span class="n">File</span> <span class="s2">&quot;main.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">3</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-  <span class="n">File</span> <span class="s2">&quot;OpenGL\GL\__init__.pyc&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">3</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-  <span class="n">File</span> <span class="s2">&quot;OpenGL\GL\VERSION\GL_1_1.pyc&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">10</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-  <span class="n">File</span> <span class="s2">&quot;OpenGL\platform\__init__.pyc&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">35</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-  <span class="n">File</span> <span class="s2">&quot;OpenGL\platform\__init__.pyc&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">26</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_load</span>
-  <span class="n">File</span> <span class="s2">&quot;OpenGL\plugins.pyc&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">14</span><span class="p">,</span> <span class="ow">in</span> <span class="n">load</span>
-  <span class="n">File</span> <span class="s2">&quot;OpenGL\plugins.pyc&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">28</span><span class="p">,</span> <span class="ow">in</span> <span class="n">importByName</span>
-<span class="ne">ImportError</span><span class="p">:</span> <span class="n">No</span> <span class="n">module</span> <span class="n">named</span> <span class="n">win32</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Traceback (most recent call last):
+  File &quot;main.py&quot;, line 3, in &lt;module&gt;
+  File &quot;OpenGL\GL\__init__.pyc&quot;, line 3, in &lt;module&gt;
+  File &quot;OpenGL\GL\VERSION\GL_1_1.pyc&quot;, line 10, in &lt;module&gt;
+  File &quot;OpenGL\platform\__init__.pyc&quot;, line 35, in &lt;module&gt;
+  File &quot;OpenGL\platform\__init__.pyc&quot;, line 26, in _load
+  File &quot;OpenGL\plugins.pyc&quot;, line 14, in load
+  File &quot;OpenGL\plugins.pyc&quot;, line 28, in importByName
+ImportError: No module named win32
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">win32</span></code> というのは <code class="docutils literal notranslate"><span class="pre">OpenGL.platform.win32</span></code> モジュールのことと思われる。試しに <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">OpenGL.platform.win32</span></code> の一行を <code class="file docutils literal notranslate"><span class="pre">main.py</span></code> に加えると、オリジナルのスクリプト、py2exe ビルドおよび成果物の EXE の実行のすべてがうまくいく。</p>
 <p>うまくいくが、そうすると Windows 環境でないところで意味のないコードになる。やはりここは <code class="docutils literal notranslate"><span class="pre">setup</span></code> 側で対応したい。
 <code class="file docutils literal notranslate"><span class="pre">main.py</span></code> を元に戻して、こういうふうにするのはどうだろうか。</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">setup</span><span class="p">(</span><span class="n">console</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;main.py&#39;</span><span class="p">],</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">setup</span><span class="p">(</span><span class="n">console</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;main.py&#39;</span><span class="p">],</span>
       <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;py2exe&quot;</span><span class="p">:{</span><span class="s2">&quot;includes&quot;</span><span class="p">:[</span><span class="s2">&quot;OpenGL.platform.win32&quot;</span><span class="p">]}})</span>
 </pre></div>
 </div>
@@ -421,12 +430,12 @@ drwxr-xr-x 1 work ????     0 4月  21 22:42 tcl/
 <div class="section" id="pyqt4">
 <h4><a class="toc-backref" href="#id23">PyQt4</a><a class="headerlink" href="#pyqt4" title="Permalink to this headline">¶</a></h4>
 <p>拡張子が <code class="docutils literal notranslate"><span class="pre">pyw</span></code> のケースに挑戦してみる。</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">PyQt4</span> <span class="k">import</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtCore</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">PyQt4</span> <span class="kn">import</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtCore</span>
 
 <span class="k">class</span> <span class="nc">Example</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QWidget</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Example</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">initUI</span><span class="p">()</span>
 
@@ -457,41 +466,41 @@ drwxr-xr-x 1 work ????     0 4月  21 22:42 tcl/
 </pre></div>
 </div>
 <p>詳細は省くが <code class="file docutils literal notranslate"><span class="pre">setup.py</span></code> の <code class="docutils literal notranslate"><span class="pre">setup</span></code> 部分は次のようになる。</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">setup</span><span class="p">(</span><span class="n">windows</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;main.pyw&#39;</span><span class="p">],</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">setup</span><span class="p">(</span><span class="n">windows</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;main.pyw&#39;</span><span class="p">],</span>
       <span class="n">data_files</span><span class="o">=</span><span class="n">data_files</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>ビルドして実行する。いきなりエラーメッセージが現れ、ログファイルを見るように言われる。</p>
-<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
-  <span class="n">File</span> <span class="s2">&quot;main.pyw&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">6</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-  <span class="n">File</span> <span class="s2">&quot;PyQt4\QtGui.pyc&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">12</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-  <span class="n">File</span> <span class="s2">&quot;PyQt4\QtGui.pyc&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">10</span><span class="p">,</span> <span class="ow">in</span> <span class="n">__load</span>
-<span class="ne">ImportError</span><span class="p">:</span> <span class="n">No</span> <span class="n">module</span> <span class="n">named</span> <span class="n">sip</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Traceback (most recent call last):
+  File &quot;main.pyw&quot;, line 6, in &lt;module&gt;
+  File &quot;PyQt4\QtGui.pyc&quot;, line 12, in &lt;module&gt;
+  File &quot;PyQt4\QtGui.pyc&quot;, line 10, in __load
+ImportError: No module named sip
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">sip</span></code> なるモジュールがないという。これは Py2exe Wiki に解法が書かれていて、例えば次のように書き換えるのがよい。
 <code class="docutils literal notranslate"><span class="pre">options</span></code> キーワード引数をいじるのだ。</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">setup</span><span class="p">(</span><span class="n">windows</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;main.pyw&#39;</span><span class="p">],</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">setup</span><span class="p">(</span><span class="n">windows</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;main.pyw&#39;</span><span class="p">],</span>
       <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;py2exe&quot;</span><span class="p">:{</span><span class="s2">&quot;includes&quot;</span><span class="p">:[</span><span class="s2">&quot;sip&quot;</span><span class="p">]}},</span>
       <span class="n">data_files</span><span class="o">=</span><span class="n">data_files</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>ビルド後の <code class="file docutils literal notranslate"><span class="pre">dist</span></code> フォルダーはこうなる：</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ls -l dist
-合計 21M
--rwxr-xr-x 1 work ????  71K 8月  24  2010 bz2.pyd*
--rw-r--r-- 1 work ???? 1.4M 4月  22 22:05 library.zip
--rwxr-xr-x 1 work ????  20K 4月  22 22:05 main.exe*
-drwxr-xr-x 1 work ????    0 4月  22 21:32 Microsoft.VC90.CRT/
--rwxr-xr-x 1 work ???? 1.6M 5月   2  2011 PyQt4.QtCore.pyd*
--rwxr-xr-x 1 work ???? 5.5M 5月   2  2011 PyQt4.QtGui.pyd*
--rwxr-xr-x 1 work ???? 2.1M 8月  24  2010 python26.dll*
--rwxr-xr-x 1 work ???? 2.2M 3月  21  2011 QtCore4.dll*
--rwxr-xr-x 1 work ???? 7.6M 3月  21  2011 QtGui4.dll*
--rwxr-xr-x 1 work ????  12K 8月  24  2010 select.pyd*
--rwxr-xr-x 1 work ????  65K 5月   2  2011 sip.pyd*
--rwxr-xr-x 1 work ???? 572K 8月  24  2010 unicodedata.pyd*
--rwxr-xr-x 1 work ????  49K 8月  24  2010 w9xpopen.exe*
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> ls -l dist
+<span class="go">合計 21M</span>
+<span class="go">-rwxr-xr-x 1 work ????  71K 8月  24  2010 bz2.pyd*</span>
+<span class="go">-rw-r--r-- 1 work ???? 1.4M 4月  22 22:05 library.zip</span>
+<span class="go">-rwxr-xr-x 1 work ????  20K 4月  22 22:05 main.exe*</span>
+<span class="go">drwxr-xr-x 1 work ????    0 4月  22 21:32 Microsoft.VC90.CRT/</span>
+<span class="go">-rwxr-xr-x 1 work ???? 1.6M 5月   2  2011 PyQt4.QtCore.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ???? 5.5M 5月   2  2011 PyQt4.QtGui.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ???? 2.1M 8月  24  2010 python26.dll*</span>
+<span class="go">-rwxr-xr-x 1 work ???? 2.2M 3月  21  2011 QtCore4.dll*</span>
+<span class="go">-rwxr-xr-x 1 work ???? 7.6M 3月  21  2011 QtGui4.dll*</span>
+<span class="go">-rwxr-xr-x 1 work ????  12K 8月  24  2010 select.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  65K 5月   2  2011 sip.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ???? 572K 8月  24  2010 unicodedata.pyd*</span>
+<span class="go">-rwxr-xr-x 1 work ????  49K 8月  24  2010 w9xpopen.exe*</span>
 </pre></div>
 </div>
 </div>
@@ -505,6 +514,7 @@ drwxr-xr-x 1 work ????    0 4月  22 21:32 Microsoft.VC90.CRT/
 </div>
 
 
+            <div class="clearer"></div>
           </div>
       </div>
       <div class="clearer"></div>
@@ -516,9 +526,10 @@ drwxr-xr-x 1 work ????    0 4月  22 21:32 Microsoft.VC90.CRT/
           <a href="python-upgrade.html" title="Python 移行ノート"
              >next</a></li>
         <li class="right" >
-          <a href="python-pygame.html" title="Pygame 利用ノート"
+          <a href="python-pytube.html" title="Python pytube 利用ノート"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Py2exe 利用ノート</a></li> 
       </ul>
     </div>
     <div id="footer">
@@ -527,7 +538,7 @@ drwxr-xr-x 1 work ????    0 4月  22 21:32 Microsoft.VC90.CRT/
       </div>
       <div id="footer_copyright">
         Since 1999<br />
-        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+        Copyright &copy; 1999-2020, プレハブ小屋 All rights reserved.
       </div>
     </div>
   </body>

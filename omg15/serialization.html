@@ -1,31 +1,32 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Annex E: XMI Serialization and Schema &#8212; 読書ノート v1.4</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Annex E: XMI Serialization and Schema &#8212; 読書ノート v1.5dev</title>
     <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="next" title="その数式、プログラムできますか？ 読書ノート" href="../stepanov15.html" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="ハイパフォーマンス Python 読書ノート" href="../gorelick14.html" />
     <link rel="prev" title="Annex D: Tabular Notation for Sequence Diagrams" href="tabular-notation.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../stepanov15.html" title="その数式、プログラムできますか？ 読書ノート"
+          <a href="../gorelick14.html" title="ハイパフォーマンス Python 読書ノート"
              accesskey="N">next</a></li>
         <li class="right" >
           <a href="tabular-notation.html" title="Annex D: Tabular Notation for Sequence Diagrams"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Unified Modeling Language 2.5 読書ノート</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Unified Modeling Language 2.5 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Annex E: XMI Serialization and Schema</a></li> 
       </ul>
     </div>  
 
@@ -37,14 +38,15 @@
 <h1><a class="toc-backref" href="#id2">Annex E: XMI Serialization and Schema</a><a class="headerlink" href="#annex-e-xmi-serialization-and-schema" title="Permalink to this headline">¶</a></h1>
 <p>UML 2.5 pp. 751-752 に関するノート。これは別に読まなくてもよかったのではないか。</p>
 <div class="contents topic" id="id1">
-<p class="topic-title first">ノート目次</p>
+<p class="topic-title">ノート目次</p>
 <ul class="simple">
-<li><a class="reference internal" href="#annex-e-xmi-serialization-and-schema" id="id2">Annex E: XMI Serialization and Schema</a><ul>
-<li><a class="reference internal" href="#e-1-summary" id="id3">E.1 Summary</a></li>
-<li><a class="reference internal" href="#e-2-xmi-serialization-of-the-uml-2-metamodel" id="id4">E.2 XMI Serialization of the UML 2 metamodel</a></li>
-<li><a class="reference internal" href="#e-3-xmi-serialization-of-the-primitivetypes-model-library" id="id5">E.3 XMI Serialization of the PrimitiveTypes model library</a></li>
-<li><a class="reference internal" href="#e-4-xmi-serialization-of-the-standardprofile" id="id6">E.4 XMI Serialization of the StandardProfile</a></li>
-<li><a class="reference internal" href="#e-5-xmi-serialization-of-the-umldi" id="id7">E.5 XMI Serialization of the UMLDI</a></li>
+<li><p><a class="reference internal" href="#annex-e-xmi-serialization-and-schema" id="id2">Annex E: XMI Serialization and Schema</a></p>
+<ul>
+<li><p><a class="reference internal" href="#e-1-summary" id="id3">E.1 Summary</a></p></li>
+<li><p><a class="reference internal" href="#e-2-xmi-serialization-of-the-uml-2-metamodel" id="id4">E.2 XMI Serialization of the UML 2 metamodel</a></p></li>
+<li><p><a class="reference internal" href="#e-3-xmi-serialization-of-the-primitivetypes-model-library" id="id5">E.3 XMI Serialization of the PrimitiveTypes model library</a></p></li>
+<li><p><a class="reference internal" href="#e-4-xmi-serialization-of-the-standardprofile" id="id6">E.4 XMI Serialization of the StandardProfile</a></p></li>
+<li><p><a class="reference internal" href="#e-5-xmi-serialization-of-the-umldi" id="id7">E.5 XMI Serialization of the UMLDI</a></p></li>
 </ul>
 </li>
 </ul>
@@ -52,44 +54,47 @@
 <div class="section" id="e-1-summary">
 <h2><a class="toc-backref" href="#id3">E.1 Summary</a><a class="headerlink" href="#e-1-summary" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>UML 2 モデルは
+<li><p>UML 2 モデルは
 MOF 2 XMI Mapping Specification により仕様化された規則に従う
-XMI 2 でシリアライズする。</li>
-<li>OMG にとって共通の方針である、
-MOF 2 および UML 2 の規範的表現法は XMI ファイルである。</li>
+XMI 2 でシリアライズする。</p></li>
+<li><p>OMG にとって共通の方針である、
+MOF 2 および UML 2 の規範的表現法は XMI ファイルである。</p></li>
 </ul>
 </div>
 <div class="section" id="e-2-xmi-serialization-of-the-uml-2-metamodel">
 <h2><a class="toc-backref" href="#id4">E.2 XMI Serialization of the UML 2 metamodel</a><a class="headerlink" href="#e-2-xmi-serialization-of-the-uml-2-metamodel" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>XMI はタグの使用法に作り出されたスキーマと XMI を使って作り出された文書とを調整することを許可する。</li>
-<li>他に明示的にセットされているタグはないのだが、
-MOF 2 XMI Mappings Specification で文書化されているようにそれらがデフォルト値を仮定することを意味する。</li>
-<li>UML 2.5 のメタモデル要素のための <code class="docutils literal notranslate"><span class="pre">xmi:ids</span></code> は、
+<li><p>XMI はタグの使用法に作り出されたスキーマと XMI を使って作り出された文書とを調整することを許可する。</p></li>
+<li><p>他に明示的にセットされているタグはないのだが、
+MOF 2 XMI Mappings Specification で文書化されているようにそれらがデフォルト値を仮定することを意味する。</p></li>
+<li><p>UML 2.5 のメタモデル要素のための <code class="docutils literal notranslate"><span class="pre">xmi:ids</span></code> は、
 UML 2.4.1 と UML 2.5 の間で変更された名前の関連と特性に対応する <code class="docutils literal notranslate"><span class="pre">ids</span></code> は除いて、
-UML 2.4.1 の等価な要素のためのものと同じである。</li>
-<li>2.4.1 からメタモデルになされた変更点：<ul>
-<li>上述のパッケージ体系</li>
-<li>StandardProfile2 と StandardProfil3 を単体の StandardProfile へ合体</li>
-<li>デフォルト値を表現するために多重度の下限値（をゼロとする）緩和</li>
-<li>関連に所有される特性と対応する関連のいくつかの名前変更</li>
-<li>NamedElement::<code class="docutils literal notranslate"><span class="pre">clientDependency</span></code> を派生物とする</li>
-<li>LoopNodes を <code class="docutils literal notranslate"><span class="pre">loopVariables</span></code> の所有者と同一視する。結果として UML 2.5 と UML 2.4.1 モデルファイルは次のものを措いてバージョン番号を置き換えることで交換可能となる。<ul>
-<li>LoopNodes の <code class="docutils literal notranslate"><span class="pre">loopVariables</span></code></li>
-<li>Dependencies の <code class="docutils literal notranslate"><span class="pre">clients</span></code> である NamedElements で、
-UML 2.4.1 では <code class="docutils literal notranslate"><span class="pre">clientDependency</span></code> を含もうとした。</li>
-<li>StandardProfile への参照</li>
+UML 2.4.1 の等価な要素のためのものと同じである。</p></li>
+<li><p>2.4.1 からメタモデルになされた変更点：</p>
+<ul>
+<li><p>上述のパッケージ体系</p></li>
+<li><p>StandardProfile2 と StandardProfil3 を単体の StandardProfile へ合体</p></li>
+<li><p>デフォルト値を表現するために多重度の下限値（をゼロとする）緩和</p></li>
+<li><p>関連に所有される特性と対応する関連のいくつかの名前変更</p></li>
+<li><p>NamedElement::<code class="docutils literal notranslate"><span class="pre">clientDependency</span></code> を派生物とする</p></li>
+<li><p>LoopNodes を <code class="docutils literal notranslate"><span class="pre">loopVariables</span></code> の所有者と同一視する。結果として UML 2.5 と UML 2.4.1 モデルファイルは次のものを措いてバージョン番号を置き換えることで交換可能となる。</p>
+<ul>
+<li><p>LoopNodes の <code class="docutils literal notranslate"><span class="pre">loopVariables</span></code></p></li>
+<li><p>Dependencies の <code class="docutils literal notranslate"><span class="pre">clients</span></code> である NamedElements で、
+UML 2.4.1 では <code class="docutils literal notranslate"><span class="pre">clientDependency</span></code> を含もうとした。</p></li>
+<li><p>StandardProfile への参照</p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li>LoopNodes は別として、バージョン番号を 20110701 へ戻すように編集し、なおかつ Dependencies の <code class="docutils literal notranslate"><span class="pre">clients</span></code> である NamedElements のすべてが
+<li><p>LoopNodes は別として、バージョン番号を 20110701 へ戻すように編集し、なおかつ Dependencies の <code class="docutils literal notranslate"><span class="pre">clients</span></code> である NamedElements のすべてが
 <code class="docutils literal notranslate"><span class="pre">clientDependency</span></code> 属性を挿入させるならば、
-UML 2.4.1 ツールは UML 2.5 モデルを表現する XMI を読み込む能力があるだろう。</li>
-<li>UML 2.5 準拠ツールは UML 2.5 または UML 2.4.1 モデルのどちらとも読み込むことも保存することもできるものとする。<ul>
-<li>UML 2.5 はたくさんの OCL 制約を成文化したので、
+UML 2.4.1 ツールは UML 2.5 モデルを表現する XMI を読み込む能力があるだろう。</p></li>
+<li><p>UML 2.5 準拠ツールは UML 2.5 または UML 2.4.1 モデルのどちらとも読み込むことも保存することもできるものとする。</p>
+<ul>
+<li><p>UML 2.5 はたくさんの OCL 制約を成文化したので、
 UML 2.4.1 ツールで有効であるモデルが
-UML 2.5 で有効でなくともよいという場合があってよい。</li>
+UML 2.5 で有効でなくともよいという場合があってよい。</p></li>
 </ul>
 </li>
 </ul>
@@ -97,25 +102,27 @@ UML 2.5 で有効でなくともよいという場合があってよい。</li>
 <div class="section" id="e-3-xmi-serialization-of-the-primitivetypes-model-library">
 <h2><a class="toc-backref" href="#id5">E.3 XMI Serialization of the PrimitiveTypes model library</a><a class="headerlink" href="#e-3-xmi-serialization-of-the-primitivetypes-model-library" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>次に記すものはそのライブラリーを直接的または間接的にインポートするモデルの
-XMI 交換に利用される PrimitiveTypes モデルライブラリーに現れるタグのセッティングである。<ul>
-<li>タグ <code class="docutils literal notranslate"><span class="pre">org.omg.xmi.nsPrefix</span></code> を <code class="docutils literal notranslate"><span class="pre">primitives</span></code> にセット</li>
-<li>PrimitiveTypes::Boolean にはタグ <code class="docutils literal notranslate"><span class="pre">org.omg.xmi.schemaType</span></code> を <code class="docutils literal notranslate"><span class="pre">http://www.w3.org/2001/XMLSchema#boolean</span></code> にセット</li>
-<li>PrimitiveTypes::Integer にはタグ <code class="docutils literal notranslate"><span class="pre">org.omg.xmi.schemaType</span></code> を <code class="docutils literal notranslate"><span class="pre">http://www.w3.org/2001/XMLSchema#integer</span></code> にセット</li>
-<li>PrimitiveTypes::Real にはタグ <code class="docutils literal notranslate"><span class="pre">org.omg.xmi.schemaType</span></code> を <code class="docutils literal notranslate"><span class="pre">http://www.w3.org/2001/XMLSchema#double</span></code> にセット</li>
-<li>PrimitiveTypes::String にはタグ <code class="docutils literal notranslate"><span class="pre">org.omg.xmi.schemaType</span></code> を <code class="docutils literal notranslate"><span class="pre">http://www.w3.org/2001/XMLSchema#string</span></code> にセット</li>
-<li>PrimitiveTypes::UnlimitedNatural にはタグ <code class="docutils literal notranslate"><span class="pre">org.omg.xmi.schemaType</span></code> を <code class="docutils literal notranslate"><span class="pre">http://www.w3.org/2001/XMLSchema#string</span></code> にセット</li>
+<li><p>次に記すものはそのライブラリーを直接的または間接的にインポートするモデルの
+XMI 交換に利用される PrimitiveTypes モデルライブラリーに現れるタグのセッティングである。</p>
+<ul>
+<li><p>タグ <code class="docutils literal notranslate"><span class="pre">org.omg.xmi.nsPrefix</span></code> を <code class="docutils literal notranslate"><span class="pre">primitives</span></code> にセット</p></li>
+<li><p>PrimitiveTypes::Boolean にはタグ <code class="docutils literal notranslate"><span class="pre">org.omg.xmi.schemaType</span></code> を <code class="docutils literal notranslate"><span class="pre">http://www.w3.org/2001/XMLSchema#boolean</span></code> にセット</p></li>
+<li><p>PrimitiveTypes::Integer にはタグ <code class="docutils literal notranslate"><span class="pre">org.omg.xmi.schemaType</span></code> を <code class="docutils literal notranslate"><span class="pre">http://www.w3.org/2001/XMLSchema#integer</span></code> にセット</p></li>
+<li><p>PrimitiveTypes::Real にはタグ <code class="docutils literal notranslate"><span class="pre">org.omg.xmi.schemaType</span></code> を <code class="docutils literal notranslate"><span class="pre">http://www.w3.org/2001/XMLSchema#double</span></code> にセット</p></li>
+<li><p>PrimitiveTypes::String にはタグ <code class="docutils literal notranslate"><span class="pre">org.omg.xmi.schemaType</span></code> を <code class="docutils literal notranslate"><span class="pre">http://www.w3.org/2001/XMLSchema#string</span></code> にセット</p></li>
+<li><p>PrimitiveTypes::UnlimitedNatural にはタグ <code class="docutils literal notranslate"><span class="pre">org.omg.xmi.schemaType</span></code> を <code class="docutils literal notranslate"><span class="pre">http://www.w3.org/2001/XMLSchema#string</span></code> にセット</p></li>
 </ul>
 </li>
-<li>UnlimitedNatural の制限なし値、表記は <code class="docutils literal notranslate"><span class="pre">*</span></code> であるが、これは <code class="docutils literal notranslate"><span class="pre">*</span></code> としてシリアライズされるものとし、それに対して UnlimitedNatural の数値はすべて、整数としての数の文字列表現としてシリアライズされるものとする。</li>
+<li><p>UnlimitedNatural の制限なし値、表記は <code class="docutils literal notranslate"><span class="pre">*</span></code> であるが、これは <code class="docutils literal notranslate"><span class="pre">*</span></code> としてシリアライズされるものとし、それに対して UnlimitedNatural の数値はすべて、整数としての数の文字列表現としてシリアライズされるものとする。</p></li>
 </ul>
 </div>
 <div class="section" id="e-4-xmi-serialization-of-the-standardprofile">
 <h2><a class="toc-backref" href="#id6">E.4 XMI Serialization of the StandardProfile</a><a class="headerlink" href="#e-4-xmi-serialization-of-the-standardprofile" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>次に記すものはそのプロファイルを直接的にまたは間接的にインポートするモデルの
-XMI 交換のための StandardProfile プロファイルに現れるタグのセッティングである。<ul>
-<li>タグ <code class="docutils literal notranslate"><span class="pre">org.omg.xmi.nsPrefix</span></code> を <code class="docutils literal notranslate"><span class="pre">StandardProfile</span></code> にセット</li>
+<li><p>次に記すものはそのプロファイルを直接的にまたは間接的にインポートするモデルの
+XMI 交換のための StandardProfile プロファイルに現れるタグのセッティングである。</p>
+<ul>
+<li><p>タグ <code class="docutils literal notranslate"><span class="pre">org.omg.xmi.nsPrefix</span></code> を <code class="docutils literal notranslate"><span class="pre">StandardProfile</span></code> にセット</p></li>
 </ul>
 </li>
 </ul>
@@ -123,8 +130,9 @@ XMI 交換のための StandardProfile プロファイルに現れるタグの�
 <div class="section" id="e-5-xmi-serialization-of-the-umldi">
 <h2><a class="toc-backref" href="#id7">E.5 XMI Serialization of the UMLDI</a><a class="headerlink" href="#e-5-xmi-serialization-of-the-umldi" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>次に記すものはモデル図式の XMI 交換のための UMLDI メタモデル拡張に現れるタグのセッティングである。<ul>
-<li>タグ <code class="docutils literal notranslate"><span class="pre">org.omg.xmi.nsPrefix</span></code> を <code class="docutils literal notranslate"><span class="pre">umldi</span></code> にセット</li>
+<li><p>次に記すものはモデル図式の XMI 交換のための UMLDI メタモデル拡張に現れるタグのセッティングである。</p>
+<ul>
+<li><p>タグ <code class="docutils literal notranslate"><span class="pre">org.omg.xmi.nsPrefix</span></code> を <code class="docutils literal notranslate"><span class="pre">umldi</span></code> にセット</p></li>
 </ul>
 </li>
 </ul>
@@ -132,6 +140,7 @@ XMI 交換のための StandardProfile プロファイルに現れるタグの�
 </div>
 
 
+            <div class="clearer"></div>
           </div>
       </div>
       <div class="clearer"></div>
@@ -140,13 +149,14 @@ XMI 交換のための StandardProfile プロファイルに現れるタグの�
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../stepanov15.html" title="その数式、プログラムできますか？ 読書ノート"
+          <a href="../gorelick14.html" title="ハイパフォーマンス Python 読書ノート"
              >next</a></li>
         <li class="right" >
           <a href="tabular-notation.html" title="Annex D: Tabular Notation for Sequence Diagrams"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >Unified Modeling Language 2.5 読書ノート</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" >Unified Modeling Language 2.5 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Annex E: XMI Serialization and Schema</a></li> 
       </ul>
     </div>
     <div id="footer">
@@ -155,7 +165,7 @@ XMI 交換のための StandardProfile プロファイルに現れるタグの�
       </div>
       <div id="footer_copyright">
         Since 1999<br />
-        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+        Copyright &copy; 1999-2020, プレハブ小屋 All rights reserved.
       </div>
     </div>
   </body>

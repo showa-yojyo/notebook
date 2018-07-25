@@ -1,9 +1,8 @@
-// Usage: see <http://docs.mathjax.org/en/latest/configuration.html>.
-
+// Usage: see Configuring and Loading MathJax — MathJax 3.0 documentation
+// https://docs.mathjax.org/en/latest/web/configuration.html
 window.MathJax = {
-    TeX:
-    {
-        Macros: {
+    tex: {
+        macros: {
             NN: "{\\mathbb N}",
             ZZ: "{\\mathbb Z}",
             QQ: "{\\mathbb Q}",
@@ -11,7 +10,7 @@ window.MathJax = {
             CC: "{\\mathbb C}",
             HH: "{\\mathbb H}",
 
-            bm: ["\\boldsymbol #1",1],
+            bm: ["\\boldsymbol{#1}", 1],
             dd: ["\\mathrm d^{#1}", 1, ""],
             diff: ["\\frac{\\dd {#1}}{\\dd {#2}}", 2],
             diag: "\\operatorname{diag}",
@@ -51,6 +50,7 @@ window.MathJax = {
             fn: ["#1 \\colon #2 \\longto", 2],
             fnm: ["\\fn{#1}{#2} #3, \\quad #4 \\longmapsto", 4],
 
+            coloneqq: "{\\mathrel{\\vcenter{:}}=}",
             grad: "{\\operatorname{grad}}",
             div: "{\\operatorname{div}}",
             rot: "{\\operatorname{rot}}",
@@ -64,5 +64,15 @@ window.MathJax = {
             supp: "{\\operatorname{supp}}",
             trace: "{\\operatorname{trace}}"
         }
+    },
+    svg: {
+        fontCache: 'global'
     }
 };
+
+(function () {
+    var script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js';
+    script.async = true;
+    document.head.appendChild(script);
+})();

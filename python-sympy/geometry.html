@@ -1,17 +1,17 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>幾何 &#8212; 読書ノート v1.4</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>幾何 &#8212; 読書ノート v1.5dev</title>
     <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/mathjax-v3.js"></script>
+    
     <link rel="next" title="級数" href="series.html" />
     <link rel="prev" title="ディオファントス方程式" href="diophantine.html" /> 
   </head><body>
@@ -25,7 +25,8 @@
           <a href="diophantine.html" title="ディオファントス方程式"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">SymPy 利用ノート</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">SymPy 利用ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">幾何</a></li> 
       </ul>
     </div>  
 
@@ -34,25 +35,28 @@
           <div class="body" role="main">
             
   <div class="section" id="id1">
-<h1><a class="toc-backref" href="#id13">幾何</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id14">幾何</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="http://www.sympy.org/">SymPy</a> のサブパッケージ <code class="docutils literal notranslate"><span class="pre">sympy.geometry</span></code> に関わる覚え書きを記す。</p>
 <div class="contents topic" id="id2">
-<p class="topic-title first">ノート目次</p>
+<p class="topic-title">ノート目次</p>
 <ul class="simple">
-<li><a class="reference internal" href="#id1" id="id13">幾何</a><ul>
-<li><a class="reference internal" href="#id3" id="id14">主要クラス図</a></li>
-<li><a class="reference internal" href="#id4" id="id15">クラス継承関係</a></li>
-<li><a class="reference internal" href="#id5" id="id16">共通機能</a><ul>
-<li><a class="reference internal" href="#geometryentity" id="id17">クラス GeometryEntity のオブジェクトを引数に取る関数</a></li>
-<li><a class="reference internal" href="#id6" id="id18">クラス GeometryEntity の静的・クラスメソッド</a></li>
-<li><a class="reference internal" href="#id7" id="id19">クラス GeometryEntity のメソッド</a></li>
+<li><p><a class="reference internal" href="#id1" id="id14">幾何</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id3" id="id15">主要クラス図</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id16">クラス継承関係</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id17">共通機能</a></p>
+<ul>
+<li><p><a class="reference internal" href="#geometryentity" id="id18">クラス GeometryEntity のオブジェクトを引数に取る関数</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id19">クラス GeometryEntity の静的・クラスメソッド</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id20">クラス GeometryEntity のメソッド</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id8" id="id20">サブクラス</a></li>
-<li><a class="reference internal" href="#id9" id="id21">デモ</a><ul>
-<li><a class="reference internal" href="#id10" id="id22">メネラウスの定理</a></li>
-<li><a class="reference internal" href="#id11" id="id23">チェバの定理</a></li>
-<li><a class="reference internal" href="#id12" id="id24">方べきの定理</a></li>
+<li><p><a class="reference internal" href="#id8" id="id21">サブクラス</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id22">デモ</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id10" id="id23">メネラウスの定理</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id24">チェバの定理</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id25">方べきの定理</a></p></li>
 </ul>
 </li>
 </ul>
@@ -60,339 +64,353 @@
 </ul>
 </div>
 <div class="section" id="id3">
-<h2><a class="toc-backref" href="#id14">主要クラス図</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id15">主要クラス図</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>サブパッケージ <code class="docutils literal notranslate"><span class="pre">sympy.geometry</span></code> が提供する主要クラスの継承関係のみを図示するとこういう感じになる。</p>
-<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GeometryEntity</span>
-    <span class="n">Point</span>
-    <span class="n">Point3D</span>
-    <span class="n">LinearEntity</span>
-        <span class="n">Segment</span>
-        <span class="n">Ray</span>
-        <span class="n">Line</span>
-    <span class="n">LinearEntity3D</span>
-        <span class="n">Line3D</span>
-        <span class="n">Ray3D</span>
-        <span class="n">Segment3D</span>
-    <span class="n">Plane</span>
-    <span class="n">Polygon</span>
-        <span class="n">Triangle</span>
-        <span class="n">RegularPolygon</span>
-    <span class="n">Ellipse</span>
-        <span class="n">Circle</span>
-    <span class="n">Curve</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GeometryEntity
+    Point
+    Point3D
+    LinearEntity
+        Segment
+        Ray
+        Line
+    LinearEntity3D
+        Line3D
+        Ray3D
+        Segment3D
+    Plane
+    Polygon
+        Triangle
+        RegularPolygon
+    Ellipse
+        Circle
+    Curve
 </pre></div>
 </div>
 <ul class="simple">
-<li>クラス GeometryEntity のスーパークラスはクラス Basic である。</li>
+<li><p>クラス GeometryEntity のスーパークラスはクラス Basic である。</p></li>
 </ul>
 </div>
 <div class="section" id="id4">
-<h2><a class="toc-backref" href="#id15">クラス継承関係</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id16">クラス継承関係</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>基本的に 2 次元幾何。同じ幾何要素で次元が異なるものはクラスも別々に定義がある。例えば Point と Point3D が存在する。<ul>
-<li>ここにあるあらゆるメソッド、関数は 2D と 3D を混ぜて利用することを想定していない。</li>
+<li><p>基本的に 2 次元幾何。同じ幾何要素で次元が異なるものはクラスも別々に定義がある。例えば Point と Point3D が存在する。</p>
+<ul>
+<li><p>ここにあるあらゆるメソッド、関数は 2D と 3D を混ぜて利用することを想定していない。</p></li>
 </ul>
 </li>
-<li>RegularPolygon is-a Polygon だったり Circle is-a Ellipse だったりする。オブジェクト指向プログラミングの本からするとこういう設計はするなと言われそうだが、
-SymPy は記号数学のライブラリーなのでむしろアリということだろう。</li>
+<li><p>RegularPolygon is-a Polygon だったり Circle is-a Ellipse だったりする。オブジェクト指向プログラミングの本からするとこういう設計はするなと言われそうだが、
+SymPy は記号数学のライブラリーなのでむしろアリということだろう。</p></li>
 </ul>
 </div>
 <div class="section" id="id5">
-<h2><a class="toc-backref" href="#id16">共通機能</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id17">共通機能</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>ここでは便宜上、次のものを共通機能と呼んで理解を深める。</p>
 <ol class="arabic simple">
-<li>クラス GeometryEntity のオブジェクトを引数に取る関数</li>
-<li>クラス GeometryEntity の静的・クラスメソッド</li>
-<li>クラス GeometryEntity のメソッド</li>
+<li><p>クラス GeometryEntity のオブジェクトを引数に取る関数</p></li>
+<li><p>クラス GeometryEntity の静的・クラスメソッド</p></li>
+<li><p>クラス GeometryEntity のメソッド</p></li>
 </ol>
 <div class="section" id="geometryentity">
-<h3><a class="toc-backref" href="#id17">クラス GeometryEntity のオブジェクトを引数に取る関数</a><a class="headerlink" href="#geometryentity" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id18">クラス GeometryEntity のオブジェクトを引数に取る関数</a><a class="headerlink" href="#geometryentity" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>関数 <code class="code docutils literal notranslate"><span class="pre">intersection</span></code><ul>
-<li>引数は複数個の GeometryEntity オブジェクト。</li>
-<li>戻り値は list で、その要素は Point や Segment になるのだろう。</li>
+<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">intersection</span></code></p>
+<ul>
+<li><p>引数は複数個の GeometryEntity オブジェクト。</p></li>
+<li><p>戻り値は list で、その要素は Point や Segment になるのだろう。</p></li>
 </ul>
 </li>
-<li>関数 <code class="code docutils literal notranslate"><span class="pre">convex_hull</span></code><ul>
-<li>複数個の Point, Segment, Polygon オブジェクトを引数に取る。</li>
-<li>戻り値は基本的には凸包を表現する Polygon オブジェクトだが、場合によっては Segment かもしれない。</li>
+<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">convex_hull</span></code></p>
+<ul>
+<li><p>複数個の Point, Segment, Polygon オブジェクトを引数に取る。</p></li>
+<li><p>戻り値は基本的には凸包を表現する Polygon オブジェクトだが、場合によっては Segment かもしれない。</p></li>
 </ul>
 </li>
-<li>関数 <code class="code docutils literal notranslate"><span class="pre">are_coplanar</span></code><ul>
-<li>引数は複数個の GeometryEntity オブジェクト。</li>
-<li>引数のすべての 3D オブジェクト全部がある平面上に乗っているかどうかをテストする。</li>
-<li>そのような平面が Plane オブジェクトとして返るわけではないようだ？</li>
-<li>2D のオブジェクトは一応 3D 化してから計算してくれる。計算するまでもないだろう。</li>
+<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">are_coplanar</span></code></p>
+<ul>
+<li><p>引数は複数個の GeometryEntity オブジェクト。</p></li>
+<li><p>引数のすべての 3D オブジェクト全部がある平面上に乗っているかどうかをテストする。</p></li>
+<li><p>そのような平面が Plane オブジェクトとして返るわけではないようだ？</p></li>
+<li><p>2D のオブジェクトは一応 3D 化してから計算してくれる。計算するまでもないだろう。</p></li>
 </ul>
 </li>
-<li>関数 <code class="code docutils literal notranslate"><span class="pre">are_similar</span></code><ul>
-<li>ふたつの GeometryEntity オブジェクトが相似かどうかをテストする。</li>
-<li>単に <code class="code docutils literal notranslate"><span class="pre">entity1.is_similar(entity2)</span></code> よりも気が利いた処理をするに過ぎない。</li>
+<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">are_similar</span></code></p>
+<ul>
+<li><p>ふたつの GeometryEntity オブジェクトが相似かどうかをテストする。</p></li>
+<li><p>単に <code class="code docutils literal notranslate"><span class="pre">entity1.is_similar(entity2)</span></code> よりも気が利いた処理をするに過ぎない。</p></li>
 </ul>
 </li>
-<li>関数 <code class="code docutils literal notranslate"><span class="pre">centroid</span></code><ul>
-<li>引数は複数個の GeometryEntity オブジェクト。</li>
-<li>おそらく同型でなければならない。</li>
-<li>戻り値は Point オブジェクトで、オブジェクト全部が決定する重心の座標を表現する。</li>
+<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">centroid</span></code></p>
+<ul>
+<li><p>引数は複数個の GeometryEntity オブジェクト。</p></li>
+<li><p>おそらく同型でなければならない。</p></li>
+<li><p>戻り値は Point オブジェクトで、オブジェクト全部が決定する重心の座標を表現する。</p></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="id6">
-<h3><a class="toc-backref" href="#id18">クラス GeometryEntity の静的・クラスメソッド</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id19">クラス GeometryEntity の静的・クラスメソッド</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>クラス GeometryEntity の静的・クラスメソッドは存在しない。</p>
 </div>
 <div class="section" id="id7">
-<h3><a class="toc-backref" href="#id19">クラス GeometryEntity のメソッド</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id20">クラス GeometryEntity のメソッド</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">intersection</span></code> は先述の同名関数を参照。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">is_similar</span></code> は先述の関数 <code class="code docutils literal notranslate"><span class="pre">are_similar</span></code> を参照。</li>
-<li>変形系メソッド <code class="code docutils literal notranslate"><span class="pre">rotate</span></code>, <code class="code docutils literal notranslate"><span class="pre">scale</span></code>, <code class="code docutils literal notranslate"><span class="pre">translate</span></code>, <code class="code docutils literal notranslate"><span class="pre">reflect</span></code> が提供されている。<ul>
-<li><code class="code docutils literal notranslate"><span class="pre">rotate</span></code>, <code class="code docutils literal notranslate"><span class="pre">scale</span></code> は変形の原点を指定できる。</li>
-<li><code class="code docutils literal notranslate"><span class="pre">reflect</span></code> には LinearEntity オブジェクトを渡すようだ。</li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">intersection</span></code> は先述の同名関数を参照。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">is_similar</span></code> は先述の関数 <code class="code docutils literal notranslate"><span class="pre">are_similar</span></code> を参照。</p></li>
+<li><p>変形系メソッド <code class="code docutils literal notranslate"><span class="pre">rotate</span></code>, <code class="code docutils literal notranslate"><span class="pre">scale</span></code>, <code class="code docutils literal notranslate"><span class="pre">translate</span></code>, <code class="code docutils literal notranslate"><span class="pre">reflect</span></code> が提供されている。</p>
+<ul>
+<li><p><code class="code docutils literal notranslate"><span class="pre">rotate</span></code>, <code class="code docutils literal notranslate"><span class="pre">scale</span></code> は変形の原点を指定できる。</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">reflect</span></code> には LinearEntity オブジェクトを渡すようだ。</p></li>
 </ul>
 </li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">encloses</span></code><ul>
-<li>自身のオブジェクトの内側に与えられたオブジェクト全体を含むかどうかをテストする。</li>
-<li>実装にはサブクラスのメソッド <code class="code docutils literal notranslate"><span class="pre">encloses_point</span></code> を利用している。</li>
-<li>造りが美しくない。</li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">encloses</span></code></p>
+<ul>
+<li><p>自身のオブジェクトの内側に与えられたオブジェクト全体を含むかどうかをテストする。</p></li>
+<li><p>実装にはサブクラスのメソッド <code class="code docutils literal notranslate"><span class="pre">encloses_point</span></code> を利用している。</p></li>
+<li><p>造りが美しくない。</p></li>
 </ul>
 </li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">equals</span></code> が提供されており、オーバーライドがなければ <code class="code docutils literal notranslate"><span class="pre">e1</span> <span class="pre">==</span> <span class="pre">e2</span></code> と同値。</li>
-<li>演算子がいくつか定義されているが、これらの存在はひとまず忘れておく。</li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">equals</span></code> が提供されており、オーバーライドがなければ <code class="code docutils literal notranslate"><span class="pre">e1</span> <span class="pre">==</span> <span class="pre">e2</span></code> と同値。</p></li>
+<li><p>演算子がいくつか定義されているが、これらの存在はひとまず忘れておく。</p></li>
 </ul>
 </div>
 </div>
 <div class="section" id="id8">
-<h2><a class="toc-backref" href="#id20">サブクラス</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id21">サブクラス</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <p>以下、クラス GeometryEntity の各サブクラスについての感想やら何やらを記す。</p>
 <ul>
-<li><p class="first">クラス Point</p>
+<li><p>クラス Point</p>
 <ul class="simple">
-<li>座標成分は具体的な数値でもよいし、シンボルでもよい。ただし、いくつかの判定モノの関数は具体的な Point で計算しないと意味がなくなる。</li>
-<li>プロパティー <code class="code docutils literal notranslate"><span class="pre">length</span></code> は必ずゼロを返す。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">is_collinear</span></code> と <code class="code docutils literal notranslate"><span class="pre">is_concyclic</span></code> はクラスメソッドである。</li>
+<li><p>座標成分は具体的な数値でもよいし、シンボルでもよい。ただし、いくつかの判定モノの関数は具体的な Point で計算しないと意味がなくなる。</p></li>
+<li><p>プロパティー <code class="code docutils literal notranslate"><span class="pre">length</span></code> は必ずゼロを返す。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">is_collinear</span></code> と <code class="code docutils literal notranslate"><span class="pre">is_concyclic</span></code> はクラスメソッドである。</p></li>
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li>類似したライブラリーを色々知っているが <code class="code docutils literal notranslate"><span class="pre">is_concyclic</span></code> 的なものは初めてお目にかかる。</li>
+<li><p>類似したライブラリーを色々知っているが <code class="code docutils literal notranslate"><span class="pre">is_concyclic</span></code> 的なものは初めてお目にかかる。</p></li>
 </ul>
 </div></blockquote>
 <ul class="simple">
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">evalf</span></code> は各座標を浮動小数点数で表現し直した Point を返す。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">dot</span></code> でドット積を計算する。</li>
-<li>演算子で加算、減算、スカラー倍、etc. が実現できる。単項マイナスと絶対値もサポート。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">transform</span></code> は行列を右から掛けるようだ。vM 方式。</li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">evalf</span></code> は各座標を浮動小数点数で表現し直した Point を返す。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">dot</span></code> でドット積を計算する。</p></li>
+<li><p>演算子で加算、減算、スカラー倍、etc. が実現できる。単項マイナスと絶対値もサポート。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">transform</span></code> は行列を右から掛けるようだ。vM 方式。</p></li>
 </ul>
 </li>
-<li><p class="first">クラス Point3D</p>
+<li><p>クラス Point3D</p>
 <ul class="simple">
-<li>クラス Point にあるものは、だいたいその 3 次元版メンバーが存在する。</li>
-<li>クラス Point にはない次のメソッドに注意。<ul>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">direction_ratio</span></code>, <code class="code docutils literal notranslate"><span class="pre">direction_cosine</span></code></li>
-<li>クラスメソッド <code class="code docutils literal notranslate"><span class="pre">are_collinear</span></code>, <code class="code docutils literal notranslate"><span class="pre">are_coplanar</span></code></li>
-</ul>
-</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">is_collinear</span></code> と <code class="code docutils literal notranslate"><span class="pre">is_concyclic</span></code> は存在しない。</li>
-</ul>
-</li>
-<li><p class="first">クラス LinearEntity</p>
-<ul class="simple">
-<li>2 次元空間内のまっすぐな線のためのスーパークラス。</li>
-<li>この手のクラスによくあるプロパティー、メソッドがやはりある。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">parallel_line</span></code>, <code class="code docutils literal notranslate"><span class="pre">perpendicular_line</span></code> は Line オブジェクトを生成する。<ul>
-<li>一方、メソッド <code class="code docutils literal notranslate"><span class="pre">perpendicular_segment</span></code> は Segment オブジェクトを生成する。</li>
-</ul>
-</li>
-<li>クラスメソッド <code class="code docutils literal notranslate"><span class="pre">are_concurrent</span></code> 的なものは初めてお目にかかる。すべての引数が「一点で交差する」かどうかをテストする。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">intersection</span></code> の対象は Point か LinearEntity に限定している？</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">arbitrary_point</span></code> で線上の任意の一点を返す。<ul>
-<li>デフォルトでは線のパラメーターシンボルを <code class="code docutils literal notranslate"><span class="pre">t</span></code> とする。</li>
-</ul>
-</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">random_point</span></code> で線上の勝手な一点を返す。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">is_similar</span></code> は線の傾きを比較する。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">contains</span></code> は形状を集合と見たときの包含関係のテストと思ってよい。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">distance</span></code> はここにはなく、各サブクラスにある。</li>
-</ul>
-</li>
-<li><p class="first">クラス Segment</p>
-<ul class="simple">
-<li>有限の線分を表現する。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">plot_interval</span></code> は <code class="code docutils literal notranslate"><span class="pre">list(t,</span> <span class="pre">0,</span> <span class="pre">1)</span></code> を返す。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">perpendicular_bisector</span></code> の仕様が CAD の感覚だとやや不親切な気がする。指定点が bisector に乗らない場合は、直線ではなくて中点から投影点までの線分を生成するのかと思った。</li>
-</ul>
-</li>
-<li><p class="first">クラス Ray</p>
-<ul class="simple">
-<li>半直線を表現する。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">plot_interval</span></code> は <code class="code docutils literal notranslate"><span class="pre">list(t,</span> <span class="pre">0,</span> <span class="pre">10)</span></code> を返す。</li>
-<li>プロパティー <code class="code docutils literal notranslate"><span class="pre">xdirection</span></code>, <code class="code docutils literal notranslate"><span class="pre">ydirection</span></code> により、形状がどの座標軸に沿って無限なのかがわかる。</li>
-</ul>
-</li>
-<li><p class="first">クラス Line</p>
-<ul class="simple">
-<li>直線を表現する。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">plot_interval</span></code> は <code class="code docutils literal notranslate"><span class="pre">list(t,</span> <span class="pre">-5,</span> <span class="pre">5)</span></code> を返す。</li>
-<li>こいつだけメソッド <code class="code docutils literal notranslate"><span class="pre">equation</span></code> を持っていて、直線の式 <code class="code docutils literal notranslate"><span class="pre">simplify(a*x</span> <span class="pre">+</span> <span class="pre">b*y</span> <span class="pre">+</span> <span class="pre">c)</span></code> を生成する。</li>
-</ul>
-</li>
-<li><p class="first">クラス LinearEntity3D およびそのサブクラス群が LinearEntity 系と同じ階層構造で存在する。</p>
-</li>
-<li><p class="first">クラス Plane</p>
-<ul class="simple">
-<li>平面を表現する。平面に期待するメンバーが存在する。</li>
-<li>平行、垂直のテストは LinearEntity3D または Plane に対するものだ。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">distance</span></code> の対象は Point3D, LinearEntity3D または Plane のいずれか。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">arbitrary_point</span></code>, <code class="code docutils literal notranslate"><span class="pre">random_point</span></code> がある。</li>
-<li>クラスメソッド <code class="code docutils literal notranslate"><span class="pre">are_concurrent</span></code> は複数の平面が共通の直線で交わるかどうかをテストする珍しいものだ。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">is_coplanar</span></code> で平面に乗るかどうかをテスト。</li>
-</ul>
-</li>
-<li><p class="first">クラス Polygon</p>
-<ul class="simple">
-<li>xy 平面上の多角形を表現する。</li>
-<li>コンストラクターが気を利かせて、別のクラスのオブジェクトを生成することがある。極端な例を挙げると、一直線上に並ぶ任意の点列を Polygon のコンストラクターに与えると、得られるオブジェクトの型はなんと Segment である。</li>
-<li>プロパティー <code class="code docutils literal notranslate"><span class="pre">area</span></code> で面積を計算する。符号付きの可能性がある。</li>
-<li>プロパティー <code class="code docutils literal notranslate"><span class="pre">angles</span></code> で内角の list を返す。</li>
-<li>プロパティー <code class="code docutils literal notranslate"><span class="pre">perimeter</span></code> は周長を返す。</li>
-<li>プロパティー <code class="code docutils literal notranslate"><span class="pre">centroid</span></code> で重心に位置する Point オブジェクトを生成する。</li>
-<li>プロパティー <code class="code docutils literal notranslate"><span class="pre">sides</span></code> で各辺を Segment で表現するオブジェクトの list を返す。<ul>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">intersection</span></code> の計算はこれに基づく。</li>
-</ul>
-</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">is_convex</span></code> でこの多角形が凸かどうかをテストする。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">arbitrary_point</span></code> について<ul>
-<li><code class="code docutils literal notranslate"><span class="pre">t=0</span></code> で始点</li>
-<li><code class="code docutils literal notranslate"><span class="pre">t=1</span></code> で終点</li>
-</ul>
-</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">plot_interval</span></code> は <code class="code docutils literal notranslate"><span class="pre">list(t,</span> <span class="pre">0,</span> <span class="pre">1)</span></code> を返す。</li>
-</ul>
-</li>
-<li><p class="first">クラス Triangle</p>
+<li><p>クラス Point にあるものは、だいたいその 3 次元版メンバーが存在する。</p></li>
+<li><p>クラス Point にはない次のメソッドに注意。</p>
 <ul>
-<li><p class="first">三角形は多角形の中でも別格の存在ということで、専用クラスとして存在するようだ。</p>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">direction_ratio</span></code>, <code class="code docutils literal notranslate"><span class="pre">direction_cosine</span></code></p></li>
+<li><p>クラスメソッド <code class="code docutils literal notranslate"><span class="pre">are_collinear</span></code>, <code class="code docutils literal notranslate"><span class="pre">are_coplanar</span></code></p></li>
+</ul>
 </li>
-<li><p class="first">コンストラクターは色々な引数指定をサポートしている。使いやすいものを覚えておくこと。</p>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">is_collinear</span></code> と <code class="code docutils literal notranslate"><span class="pre">is_concyclic</span></code> は存在しない。</p></li>
+</ul>
+</li>
+<li><p>クラス LinearEntity</p>
 <ul class="simple">
-<li>単に 3 頂点を Point オブジェクトで指定する。</li>
-<li>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">sss</span></code> 等と辺の長さ・角度を列挙を組み合わせて指定する。<ul>
-<li>オブジェクトの座標があらかじめ想像しづらい。</li>
+<li><p>2 次元空間内のまっすぐな線のためのスーパークラス。</p></li>
+<li><p>この手のクラスによくあるプロパティー、メソッドがやはりある。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">parallel_line</span></code>, <code class="code docutils literal notranslate"><span class="pre">perpendicular_line</span></code> は Line オブジェクトを生成する。</p>
+<ul>
+<li><p>一方、メソッド <code class="code docutils literal notranslate"><span class="pre">perpendicular_segment</span></code> は Segment オブジェクトを生成する。</p></li>
+</ul>
+</li>
+<li><p>クラスメソッド <code class="code docutils literal notranslate"><span class="pre">are_concurrent</span></code> 的なものは初めてお目にかかる。すべての引数が「一点で交差する」かどうかをテストする。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">intersection</span></code> の対象は Point か LinearEntity に限定している？</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">arbitrary_point</span></code> で線上の任意の一点を返す。</p>
+<ul>
+<li><p>デフォルトでは線のパラメーターシンボルを <code class="code docutils literal notranslate"><span class="pre">t</span></code> とする。</p></li>
+</ul>
+</li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">random_point</span></code> で線上の勝手な一点を返す。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">is_similar</span></code> は線の傾きを比較する。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">contains</span></code> は形状を集合と見たときの包含関係のテストと思ってよい。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">distance</span></code> はここにはなく、各サブクラスにある。</p></li>
+</ul>
+</li>
+<li><p>クラス Segment</p>
+<ul class="simple">
+<li><p>有限の線分を表現する。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">plot_interval</span></code> は <code class="code docutils literal notranslate"><span class="pre">list(t,</span> <span class="pre">0,</span> <span class="pre">1)</span></code> を返す。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">perpendicular_bisector</span></code> の仕様が CAD の感覚だとやや不親切な気がする。指定点が bisector に乗らない場合は、直線ではなくて中点から投影点までの線分を生成するのかと思った。</p></li>
+</ul>
+</li>
+<li><p>クラス Ray</p>
+<ul class="simple">
+<li><p>半直線を表現する。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">plot_interval</span></code> は <code class="code docutils literal notranslate"><span class="pre">list(t,</span> <span class="pre">0,</span> <span class="pre">10)</span></code> を返す。</p></li>
+<li><p>プロパティー <code class="code docutils literal notranslate"><span class="pre">xdirection</span></code>, <code class="code docutils literal notranslate"><span class="pre">ydirection</span></code> により、形状がどの座標軸に沿って無限なのかがわかる。</p></li>
+</ul>
+</li>
+<li><p>クラス Line</p>
+<ul class="simple">
+<li><p>直線を表現する。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">plot_interval</span></code> は <code class="code docutils literal notranslate"><span class="pre">list(t,</span> <span class="pre">-5,</span> <span class="pre">5)</span></code> を返す。</p></li>
+<li><p>こいつだけメソッド <code class="code docutils literal notranslate"><span class="pre">equation</span></code> を持っていて、直線の式 <code class="code docutils literal notranslate"><span class="pre">simplify(a*x</span> <span class="pre">+</span> <span class="pre">b*y</span> <span class="pre">+</span> <span class="pre">c)</span></code> を生成する。</p></li>
+</ul>
+</li>
+<li><p>クラス LinearEntity3D およびそのサブクラス群が LinearEntity 系と同じ階層構造で存在する。</p></li>
+<li><p>クラス Plane</p>
+<ul class="simple">
+<li><p>平面を表現する。平面に期待するメンバーが存在する。</p></li>
+<li><p>平行、垂直のテストは LinearEntity3D または Plane に対するものだ。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">distance</span></code> の対象は Point3D, LinearEntity3D または Plane のいずれか。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">arbitrary_point</span></code>, <code class="code docutils literal notranslate"><span class="pre">random_point</span></code> がある。</p></li>
+<li><p>クラスメソッド <code class="code docutils literal notranslate"><span class="pre">are_concurrent</span></code> は複数の平面が共通の直線で交わるかどうかをテストする珍しいものだ。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">is_coplanar</span></code> で平面に乗るかどうかをテスト。</p></li>
+</ul>
+</li>
+<li><p>クラス Polygon</p>
+<ul class="simple">
+<li><p>xy 平面上の多角形を表現する。</p></li>
+<li><p>コンストラクターが気を利かせて、別のクラスのオブジェクトを生成することがある。極端な例を挙げると、一直線上に並ぶ任意の点列を Polygon のコンストラクターに与えると、得られるオブジェクトの型はなんと Segment である。</p></li>
+<li><p>プロパティー <code class="code docutils literal notranslate"><span class="pre">area</span></code> で面積を計算する。符号付きの可能性がある。</p></li>
+<li><p>プロパティー <code class="code docutils literal notranslate"><span class="pre">angles</span></code> で内角の list を返す。</p></li>
+<li><p>プロパティー <code class="code docutils literal notranslate"><span class="pre">perimeter</span></code> は周長を返す。</p></li>
+<li><p>プロパティー <code class="code docutils literal notranslate"><span class="pre">centroid</span></code> で重心に位置する Point オブジェクトを生成する。</p></li>
+<li><p>プロパティー <code class="code docutils literal notranslate"><span class="pre">sides</span></code> で各辺を Segment で表現するオブジェクトの list を返す。</p>
+<ul>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">intersection</span></code> の計算はこれに基づく。</p></li>
+</ul>
+</li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">is_convex</span></code> でこの多角形が凸かどうかをテストする。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">arbitrary_point</span></code> について</p>
+<ul>
+<li><p><code class="code docutils literal notranslate"><span class="pre">t=0</span></code> で始点</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">t=1</span></code> で終点</p></li>
+</ul>
+</li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">plot_interval</span></code> は <code class="code docutils literal notranslate"><span class="pre">list(t,</span> <span class="pre">0,</span> <span class="pre">1)</span></code> を返す。</p></li>
+</ul>
+</li>
+<li><p>クラス Triangle</p>
+<ul>
+<li><p>三角形は多角形の中でも別格の存在ということで、専用クラスとして存在するようだ。</p></li>
+<li><p>コンストラクターは色々な引数指定をサポートしている。使いやすいものを覚えておくこと。</p>
+<ul class="simple">
+<li><p>単に 3 頂点を Point オブジェクトで指定する。</p></li>
+<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">sss</span></code> 等と辺の長さ・角度を列挙を組み合わせて指定する。</p>
+<ul>
+<li><p>オブジェクトの座標があらかじめ想像しづらい。</p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p class="first">メソッド <code class="code docutils literal notranslate"><span class="pre">is_similar</span></code> の実装は、三辺の比をテストするだけ。辺の順序の組み合わせはすべて考慮する。</p>
-</li>
-<li><p class="first">メソッド <code class="code docutils literal notranslate"><span class="pre">is_equilateral</span></code> で正三角形テスト。</p>
-</li>
-<li><p class="first">メソッド <code class="code docutils literal notranslate"><span class="pre">is_isosceles</span></code> で二等辺三角形テスト。</p>
-</li>
-<li><p class="first">メソッド <code class="code docutils literal notranslate"><span class="pre">is_right</span></code> で直角三角形テスト。</p>
-</li>
-<li><p class="first">五心</p>
-<table border="1" class="colwidths-given docutils">
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">is_similar</span></code> の実装は、三辺の比をテストするだけ。辺の順序の組み合わせはすべて考慮する。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">is_equilateral</span></code> で正三角形テスト。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">is_isosceles</span></code> で二等辺三角形テスト。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">is_right</span></code> で直角三角形テスト。</p></li>
+<li><p>五心</p>
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="17%" />
-<col width="17%" />
-<col width="17%" />
-<col width="50%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 50%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">名前</th>
-<th class="head">Point</th>
-<th class="head">Circle</th>
-<th class="head">何の交点か</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>名前</p></th>
+<th class="head"><p>Point</p></th>
+<th class="head"><p>Circle</p></th>
+<th class="head"><p>何の交点か</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>外心 (O)</td>
-<td><code class="code docutils literal notranslate"><span class="pre">circumcenter</span></code></td>
-<td><code class="code docutils literal notranslate"><span class="pre">circumcircle</span></code></td>
-<td><code class="code docutils literal notranslate"><span class="pre">sides().perpendicular_bisector()</span></code></td>
+<tbody>
+<tr class="row-even"><td><p>外心 (O)</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">circumcenter</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">circumcircle</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">sides().perpendicular_bisector()</span></code></p></td>
 </tr>
-<tr class="row-odd"><td>垂心 (H)</td>
-<td><code class="code docutils literal notranslate"><span class="pre">orthocenter</span></code></td>
-<td>なし</td>
-<td><code class="code docutils literal notranslate"><span class="pre">altitudes</span></code></td>
+<tr class="row-odd"><td><p>垂心 (H)</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">orthocenter</span></code></p></td>
+<td><p>なし</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">altitudes</span></code></p></td>
 </tr>
-<tr class="row-even"><td>内心 (I)</td>
-<td><code class="code docutils literal notranslate"><span class="pre">incenter</span></code></td>
-<td><code class="code docutils literal notranslate"><span class="pre">incircle</span></code></td>
-<td><code class="code docutils literal notranslate"><span class="pre">bisectors</span></code></td>
+<tr class="row-even"><td><p>内心 (I)</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">incenter</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">incircle</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">bisectors</span></code></p></td>
 </tr>
-<tr class="row-odd"><td>傍心 (J)</td>
-<td>なし</td>
-<td>なし</td>
-<td>なし</td>
+<tr class="row-odd"><td><p>傍心 (J)</p></td>
+<td><p>なし</p></td>
+<td><p>なし</p></td>
+<td><p>なし</p></td>
 </tr>
-<tr class="row-even"><td>重心 (G)</td>
-<td><code class="code docutils literal notranslate"><span class="pre">centroid</span></code></td>
-<td>なし</td>
-<td><code class="code docutils literal notranslate"><span class="pre">medians</span></code></td>
+<tr class="row-even"><td><p>重心 (G)</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">centroid</span></code></p></td>
+<td><p>なし</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">medians</span></code></p></td>
 </tr>
 </tbody>
 </table>
 </li>
 </ul>
 </li>
-<li><p class="first">クラス RegularPolygon</p>
+<li><p>クラス RegularPolygon</p>
 <ul class="simple">
-<li>正多角形を表現するクラス。</li>
-<li>頂点の位置を直接指定してオブジェクトを生成するというよりは、半径と頂点数を指定する。</li>
-<li>プロパティー <code class="code docutils literal notranslate"><span class="pre">length</span></code> の実装を見ると非効率的な印象を受けるが、記号数学演算的にはこれしかない。<ul>
-<li>これは <code class="code docutils literal notranslate"><span class="pre">perimeter</span></code> を利用しない。</li>
+<li><p>正多角形を表現するクラス。</p></li>
+<li><p>頂点の位置を直接指定してオブジェクトを生成するというよりは、半径と頂点数を指定する。</p></li>
+<li><p>プロパティー <code class="code docutils literal notranslate"><span class="pre">length</span></code> の実装を見ると非効率的な印象を受けるが、記号数学演算的にはこれしかない。</p>
+<ul>
+<li><p>これは <code class="code docutils literal notranslate"><span class="pre">perimeter</span></code> を利用しない。</p></li>
 </ul>
 </li>
-<li>プロパティー <code class="code docutils literal notranslate"><span class="pre">apothem</span></code> および <code class="code docutils literal notranslate"><span class="pre">inradius</span></code> で内接円の半径を得る。</li>
-<li>プロパティー <code class="code docutils literal notranslate"><span class="pre">interior_angle</span></code> と <code class="code docutils literal notranslate"><span class="pre">exterior_angle</span></code> で多角形の内角、外角をそれぞれ得る。</li>
-<li>プロパティー <code class="code docutils literal notranslate"><span class="pre">incircle</span></code> と <code class="code docutils literal notranslate"><span class="pre">circumcircle</span></code> で内接円、外接円を Circle オブジェクトとしてそれぞれ得る。</li>
-<li>コンストラクターおよびメソッド <code class="code docutils literal notranslate"><span class="pre">spin</span></code> で多角形の中心点を軸に回転をかけられる。</li>
+<li><p>プロパティー <code class="code docutils literal notranslate"><span class="pre">apothem</span></code> および <code class="code docutils literal notranslate"><span class="pre">inradius</span></code> で内接円の半径を得る。</p></li>
+<li><p>プロパティー <code class="code docutils literal notranslate"><span class="pre">interior_angle</span></code> と <code class="code docutils literal notranslate"><span class="pre">exterior_angle</span></code> で多角形の内角、外角をそれぞれ得る。</p></li>
+<li><p>プロパティー <code class="code docutils literal notranslate"><span class="pre">incircle</span></code> と <code class="code docutils literal notranslate"><span class="pre">circumcircle</span></code> で内接円、外接円を Circle オブジェクトとしてそれぞれ得る。</p></li>
+<li><p>コンストラクターおよびメソッド <code class="code docutils literal notranslate"><span class="pre">spin</span></code> で多角形の中心点を軸に回転をかけられる。</p></li>
 </ul>
 </li>
-<li><p class="first">クラス Ellipse</p>
+<li><p>クラス Ellipse</p>
 <ul class="simple">
-<li>コンストラクターが色々ある。<ul>
-<li>長軸・短軸ではなく <code class="code docutils literal notranslate"><span class="pre">hradius</span></code>, <code class="code docutils literal notranslate"><span class="pre">vradius</span></code> のような扱いをする。</li>
+<li><p>コンストラクターが色々ある。</p>
+<ul>
+<li><p>長軸・短軸ではなく <code class="code docutils literal notranslate"><span class="pre">hradius</span></code>, <code class="code docutils literal notranslate"><span class="pre">vradius</span></code> のような扱いをする。</p></li>
 </ul>
 </li>
-<li>プロパティー <code class="code docutils literal notranslate"><span class="pre">minor</span></code>, <code class="code docutils literal notranslate"><span class="pre">major</span></code> で長軸、短軸の半分の長さを得る。</li>
-<li>プロパティー <code class="code docutils literal notranslate"><span class="pre">circumference</span></code> で楕円の周長が得られる。定積分オブジェクトかもしれない。</li>
-<li>プロパティー <code class="code docutils literal notranslate"><span class="pre">periapsis</span></code>, <code class="code docutils literal notranslate"><span class="pre">apoapsis</span></code> で楕円の焦点から近点、焦点から遠点の距離がそれぞれ得られる。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">tangent_lines</span></code> である点から楕円上に接線を求める。<ul>
-<li>たいていの場合、戻り値は Line オブジェクト 2 個の list となる。</li>
+<li><p>プロパティー <code class="code docutils literal notranslate"><span class="pre">minor</span></code>, <code class="code docutils literal notranslate"><span class="pre">major</span></code> で長軸、短軸の半分の長さを得る。</p></li>
+<li><p>プロパティー <code class="code docutils literal notranslate"><span class="pre">circumference</span></code> で楕円の周長が得られる。定積分オブジェクトかもしれない。</p></li>
+<li><p>プロパティー <code class="code docutils literal notranslate"><span class="pre">periapsis</span></code>, <code class="code docutils literal notranslate"><span class="pre">apoapsis</span></code> で楕円の焦点から近点、焦点から遠点の距離がそれぞれ得られる。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">tangent_lines</span></code> である点から楕円上に接線を求める。</p>
+<ul>
+<li><p>たいていの場合、戻り値は Line オブジェクト 2 個の list となる。</p></li>
 </ul>
 </li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">is_tangent</span></code> は Ellipse にも対応している。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">normal_lines</span></code> はある点から楕円に垂直に交差する Line を求める。<ul>
-<li>要素数は 1, 2, 4 のいずれか。</li>
-<li>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">prec</span></code> の存在に注意。</li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">is_tangent</span></code> は Ellipse にも対応している。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">normal_lines</span></code> はある点から楕円に垂直に交差する Line を求める。</p>
+<ul>
+<li><p>要素数は 1, 2, 4 のいずれか。</p></li>
+<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">prec</span></code> の存在に注意。</p></li>
 </ul>
 </li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">plot_interval</span></code> は <code class="code docutils literal notranslate"><span class="pre">list(t,</span> <span class="pre">-S.Pi,</span> <span class="pre">S.Pi)</span></code> を返す。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">equation</span></code> で楕円の方程式（の左辺）を得る。</li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">evolute</span></code> で楕円の縮閉線の方程式（の左辺）を得る。</li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">plot_interval</span></code> は <code class="code docutils literal notranslate"><span class="pre">list(t,</span> <span class="pre">-S.Pi,</span> <span class="pre">S.Pi)</span></code> を返す。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">equation</span></code> で楕円の方程式（の左辺）を得る。</p></li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">evolute</span></code> で楕円の縮閉線の方程式（の左辺）を得る。</p></li>
 </ul>
 </li>
-<li><p class="first">クラス Circle</p>
+<li><p>クラス Circle</p>
 <ul class="simple">
-<li>コンストラクターは次のどちらかの引数リストを受け付ける。<ul>
-<li>通過点を表現する Point オブジェクト 3 つ。</li>
-<li>中心を表現する Point と半径。</li>
+<li><p>コンストラクターは次のどちらかの引数リストを受け付ける。</p>
+<ul>
+<li><p>通過点を表現する Point オブジェクト 3 つ。</p></li>
+<li><p>中心を表現する Point と半径。</p></li>
 </ul>
 </li>
-<li>メソッド <code class="code docutils literal notranslate"><span class="pre">scale</span></code> で Ellipse オブジェクトが生成することがある。</li>
+<li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">scale</span></code> で Ellipse オブジェクトが生成することがある。</p></li>
 </ul>
 </li>
-<li><p class="first">クラス Curve</p>
+<li><p>クラス Curve</p>
 <ul class="simple">
-<li>平面的なパラメトリック曲線を表現するクラス。</li>
-<li>コンストラクターの例： <code class="code docutils literal notranslate"><span class="pre">Curve((sin(t),</span> <span class="pre">cos(t)),</span> <span class="pre">(t,</span> <span class="pre">0,</span> <span class="pre">2))</span></code></li>
-<li>プロパティー<ul>
-<li><code class="code docutils literal notranslate"><span class="pre">limits</span></code> は曲線のパラメーター定義域を表現する tuple である。</li>
-<li><code class="code docutils literal notranslate"><span class="pre">parameter</span></code> は曲線のパラメーターのためのシンボルである。</li>
-<li><code class="code docutils literal notranslate"><span class="pre">functions</span></code> は各座標成分の関数の tuple である。</li>
+<li><p>平面的なパラメトリック曲線を表現するクラス。</p></li>
+<li><p>コンストラクターの例： <code class="code docutils literal notranslate"><span class="pre">Curve((sin(t),</span> <span class="pre">cos(t)),</span> <span class="pre">(t,</span> <span class="pre">0,</span> <span class="pre">2))</span></code></p></li>
+<li><p>プロパティー</p>
+<ul>
+<li><p><code class="code docutils literal notranslate"><span class="pre">limits</span></code> は曲線のパラメーター定義域を表現する tuple である。</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">parameter</span></code> は曲線のパラメーターのためのシンボルである。</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">functions</span></code> は各座標成分の関数の tuple である。</p></li>
 </ul>
 </li>
 </ul>
@@ -400,13 +418,13 @@ SymPy は記号数学のライブラリーなのでむしろアリというこ�
 </ul>
 </div>
 <div class="section" id="id9">
-<h2><a class="toc-backref" href="#id21">デモ</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id22">デモ</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id10">
-<h3><a class="toc-backref" href="#id22">メネラウスの定理</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id23">メネラウスの定理</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="sd">&quot;&quot;&quot;meneraus.py: Demonstrate Menelaus&#39; theorem with SymPy.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">Line</span><span class="p">,</span> <span class="n">symbols</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">Line</span><span class="p">,</span> <span class="n">symbols</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">demonstrate_menelaus</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Demonstrate Menelaus&#39; theorem.&quot;&quot;&quot;</span>
@@ -444,27 +462,26 @@ SymPy は記号数学のライブラリーなのでむしろアリというこ�
 </pre></div>
 </div>
 <ul>
-<li><p class="first">本当は数値的でないほうの座標で検証したかったが、私の環境では <code class="code docutils literal notranslate"><span class="pre">simplify(numer/denom)</span></code> が返って来なかった。</p>
-</li>
-<li><p class="first">具体的な座標を与えた方の検証はうまくいく。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./menelaous.py
-P= Point(-346.683333333333, -346.683333333333)
-Q= Point(170.682926829268, 170.682926829268)
-R= Point(-241.237623762376, -241.237623762376)
-numer= 41999675.9784931
-denom= 41999675.9784931
-1.00000000000000
+<li><p>本当は数値的でないほうの座標で検証したかったが、私の環境では <code class="code docutils literal notranslate"><span class="pre">simplify(numer/denom)</span></code> が返って来なかった。</p></li>
+<li><p>具体的な座標を与えた方の検証はうまくいく。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> ./menelaous.py
+<span class="go">P= Point(-346.683333333333, -346.683333333333)</span>
+<span class="go">Q= Point(170.682926829268, 170.682926829268)</span>
+<span class="go">R= Point(-241.237623762376, -241.237623762376)</span>
+<span class="go">numer= 41999675.9784931</span>
+<span class="go">denom= 41999675.9784931</span>
+<span class="go">1.00000000000000</span>
 </pre></div>
 </div>
 </li>
 </ul>
 </div>
 <div class="section" id="id11">
-<h3><a class="toc-backref" href="#id23">チェバの定理</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id24">チェバの定理</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="sd">&quot;&quot;&quot;ceva.py: Demonstrate Ceva&#39;s theorem with SymPy.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">Line</span><span class="p">,</span> <span class="n">symbols</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">Line</span><span class="p">,</span> <span class="n">symbols</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">demonstrate_ceva</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Demonstrate Ceva&#39;s theorem.&quot;&quot;&quot;</span>
@@ -502,28 +519,27 @@ denom= 41999675.9784931
 </pre></div>
 </div>
 <ul>
-<li><p class="first">本当は数値的でないほうの座標で検証したかったが、私の環境では <code class="code docutils literal notranslate"><span class="pre">simplify(numer/denom)</span></code> が返って来なかった。</p>
-</li>
-<li><p class="first">具体的な座標を与えた方の検証はうまくいく。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./ceva.py
-P= Point(13.9279086822051, 228.152408889456)
-Q= Point(280.783950617284, 43.1975308641975)
-R= Point(104.14656234152, 529.558791567051)
-numer= 20374326.3842940
-denom= 20374326.3842940
-1.00000000000000
+<li><p>本当は数値的でないほうの座標で検証したかったが、私の環境では <code class="code docutils literal notranslate"><span class="pre">simplify(numer/denom)</span></code> が返って来なかった。</p></li>
+<li><p>具体的な座標を与えた方の検証はうまくいく。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> ./ceva.py
+<span class="go">P= Point(13.9279086822051, 228.152408889456)</span>
+<span class="go">Q= Point(280.783950617284, 43.1975308641975)</span>
+<span class="go">R= Point(104.14656234152, 529.558791567051)</span>
+<span class="go">numer= 20374326.3842940</span>
+<span class="go">denom= 20374326.3842940</span>
+<span class="go">1.00000000000000</span>
 </pre></div>
 </div>
 </li>
 </ul>
 </div>
 <div class="section" id="id12">
-<h3><a class="toc-backref" href="#id24">方べきの定理</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id25">方べきの定理</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <p>具体的な座標を与えないとどうも上手くいかないようなので、数値計算に切り替えて様子見だ。さらに難易度？を落とし、方べきの定理を再現してみたい。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="sd">&quot;&quot;&quot;circle_power.py: Demonstrate power-of-a-point theorem with SymPy.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">Line</span><span class="p">,</span> <span class="n">Circle</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">Line</span><span class="p">,</span> <span class="n">Circle</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">demonstrate_circle_power</span><span class="p">(</span><span class="n">circle</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Demonstrate power-of-a-point theorem.&quot;&quot;&quot;</span>
@@ -546,21 +562,21 @@ denom= 20374326.3842940
 </pre></div>
 </div>
 <p>円を単位円に固定する代わり、円周上の 4 点をランダムにとり、それらを結ぶ 2 弦の交点に対する方べきの定理を検証しよう。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./circle_power.py
-PA * PB = 0.245325501000245
-PC * PD = 0.245325501000245
-$ ./circle_power.py
-PA * PB = 0.0519999915840500
-PC * PD = 0.0519999915840500
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> ./circle_power.py
+<span class="go">PA * PB = 0.245325501000245</span>
+<span class="go">PC * PD = 0.245325501000245</span>
+<span class="gp">$</span> ./circle_power.py
+<span class="go">PA * PB = 0.0519999915840500</span>
+<span class="go">PC * PD = 0.0519999915840500</span>
 </pre></div>
 </div>
 <hr class="docutils" />
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<ul class="last simple">
-<li>プロットは実現したい。</li>
-<li>上の例で <code class="code docutils literal notranslate"><span class="pre">distance</span></code> を多用しているが、値一致テストの目的なら <code class="code docutils literal notranslate"><span class="pre">dot</span></code> を用いるのが常識的か。</li>
-<li>もっとサンプルを作りたい。</li>
+<div class="admonition-todo admonition" id="id13">
+<p class="admonition-title">Todo</p>
+<ul class="simple">
+<li><p>プロットは実現したい。</p></li>
+<li><p>上の例で <code class="code docutils literal notranslate"><span class="pre">distance</span></code> を多用しているが、値一致テストの目的なら <code class="code docutils literal notranslate"><span class="pre">dot</span></code> を用いるのが常識的か。</p></li>
+<li><p>もっとサンプルを作りたい。</p></li>
 </ul>
 </div>
 </div>
@@ -568,6 +584,7 @@ PC * PD = 0.0519999915840500
 </div>
 
 
+            <div class="clearer"></div>
           </div>
       </div>
       <div class="clearer"></div>
@@ -582,7 +599,8 @@ PC * PD = 0.0519999915840500
           <a href="diophantine.html" title="ディオファントス方程式"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >SymPy 利用ノート</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" >SymPy 利用ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">幾何</a></li> 
       </ul>
     </div>
     <div id="footer">
@@ -591,7 +609,7 @@ PC * PD = 0.0519999915840500
       </div>
       <div id="footer_copyright">
         Since 1999<br />
-        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+        Copyright &copy; 1999-2020, プレハブ小屋 All rights reserved.
       </div>
     </div>
   </body>

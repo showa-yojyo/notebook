@@ -1,17 +1,17 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>出力 &#8212; 読書ノート v1.4</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>出力 &#8212; 読書ノート v1.5dev</title>
     <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/mathjax-v3.js"></script>
+    
     <link rel="next" title="テンソル代数" href="tensor.html" />
     <link rel="prev" title="微分幾何" href="diffgeom.html" /> 
   </head><body>
@@ -25,7 +25,8 @@
           <a href="diffgeom.html" title="微分幾何"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">SymPy 利用ノート</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">SymPy 利用ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">出力</a></li> 
       </ul>
     </div>  
 
@@ -37,22 +38,25 @@
 <h1><a class="toc-backref" href="#id6">出力</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>SymPy オブジェクトを表現するいろいろな方法について記す。</p>
 <div class="contents topic" id="id2">
-<p class="topic-title first">ノート目次</p>
+<p class="topic-title">ノート目次</p>
 <ul class="simple">
-<li><a class="reference internal" href="#id1" id="id6">出力</a><ul>
-<li><a class="reference internal" href="#pretty-print" id="id7">Pretty Print</a></li>
-<li><a class="reference internal" href="#latex" id="id8">LaTeX</a><ul>
-<li><a class="reference internal" href="#latexprinter" id="id9">LatexPrinter をカスタマイズする</a></li>
-<li><a class="reference internal" href="#id3" id="id10">実装例</a></li>
+<li><p><a class="reference internal" href="#id1" id="id6">出力</a></p>
+<ul>
+<li><p><a class="reference internal" href="#pretty-print" id="id7">Pretty Print</a></p></li>
+<li><p><a class="reference internal" href="#latex" id="id8">LaTeX</a></p>
+<ul>
+<li><p><a class="reference internal" href="#latexprinter" id="id9">LatexPrinter をカスタマイズする</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id10">実装例</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id4" id="id11">画像出力</a><ul>
-<li><a class="reference internal" href="#png" id="id12">PNG 出力</a></li>
-<li><a class="reference internal" href="#dvi" id="id13">DVI 出力</a></li>
-<li><a class="reference internal" href="#pdf" id="id14">PDF 出力</a></li>
-<li><a class="reference internal" href="#svg" id="id15">SVG 出力</a></li>
-<li><a class="reference internal" href="#tex" id="id16">TeX ファイルを保存する</a></li>
-<li><a class="reference internal" href="#id5" id="id17">入力</a></li>
+<li><p><a class="reference internal" href="#id4" id="id11">画像出力</a></p>
+<ul>
+<li><p><a class="reference internal" href="#png" id="id12">PNG 出力</a></p></li>
+<li><p><a class="reference internal" href="#dvi" id="id13">DVI 出力</a></p></li>
+<li><p><a class="reference internal" href="#pdf" id="id14">PDF 出力</a></p></li>
+<li><p><a class="reference internal" href="#svg" id="id15">SVG 出力</a></p></li>
+<li><p><a class="reference internal" href="#tex" id="id16">TeX ファイルを保存する</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id17">入力</a></p></li>
 </ul>
 </li>
 </ul>
@@ -60,10 +64,10 @@
 </ul>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>本文中のすべての IPython セッション中のサンプルコードで、以下のインポートおよび出力書式設定が済んでいるものとする。</p>
-<div class="code python3 last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span>
-<span class="kn">from</span> <span class="nn">sympy.printing</span> <span class="k">import</span> <span class="o">*</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span>
+<span class="kn">from</span> <span class="nn">sympy.printing</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
 </div>
 </div>
@@ -71,60 +75,60 @@
 <h2><a class="toc-backref" href="#id7">Pretty Print</a><a class="headerlink" href="#pretty-print" title="Permalink to this headline">¶</a></h2>
 <p>大げさに言えば、オブジェクトをアスキーアートとして出力する一連の仕組みだ。先に要点を挙げる：</p>
 <ul class="simple">
-<li>個人的に SymPy のこれは肌に合わないので、常に無効にしておきたい。
+<li><p>個人的に SymPy のこれは肌に合わないので、常に無効にしておきたい。
 IPython コンソールのセッションでオブジェクトの出力がアスキーアート化されているようならば、
-<code class="code docutils literal notranslate"><span class="pre">init_printing(pretty_print=False)</span></code> を実行することで、即時に無効化できる。</li>
-<li>明示的にアスキーアートを出力するには関数 <code class="code docutils literal notranslate"><span class="pre">pretty_print</span></code> を呼び出す。</li>
-<li>関数 <code class="code docutils literal notranslate"><span class="pre">pretty_print</span></code> には別名 <code class="code docutils literal notranslate"><span class="pre">pprint</span></code> が定義されているので、コンソール上の作業時には別名のほうを主にタイプするはずだ。</li>
-<li>この機能に頼るぐらいならば、IPython ではなく Jupyter で作業するだろう。そちらは最初から LaTeX 出力がオンになっているはずだ。</li>
+<code class="code docutils literal notranslate"><span class="pre">init_printing(pretty_print=False)</span></code> を実行することで、即時に無効化できる。</p></li>
+<li><p>明示的にアスキーアートを出力するには関数 <code class="code docutils literal notranslate"><span class="pre">pretty_print</span></code> を呼び出す。</p></li>
+<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">pretty_print</span></code> には別名 <code class="code docutils literal notranslate"><span class="pre">pprint</span></code> が定義されているので、コンソール上の作業時には別名のほうを主にタイプするはずだ。</p></li>
+<li><p>この機能に頼るぐらいならば、IPython ではなく Jupyter で作業するだろう。そちらは最初から LaTeX 出力がオンになっているはずだ。</p></li>
 </ul>
 </div>
 <div class="section" id="latex">
 <h2><a class="toc-backref" href="#id8">LaTeX</a><a class="headerlink" href="#latex" title="Permalink to this headline">¶</a></h2>
 <p>オブジェクトを TeX コードとして出力するときの要点を挙げると次のようなものになるだろう：</p>
 <ul class="simple">
-<li>関数 <code class="code docutils literal notranslate"><span class="pre">latex</span></code> または <code class="code docutils literal notranslate"><span class="pre">print_latex</span></code> を呼び出すとオブジェクトを表現する TeX コードを得ることができる。</li>
-<li>関数 <code class="code docutils literal notranslate"><span class="pre">latex</span></code> または <code class="code docutils literal notranslate"><span class="pre">print_latex</span></code> の挙動を調整するための
-<code class="docutils literal notranslate"><span class="pre">fold_func_brackets</span></code>, <code class="docutils literal notranslate"><span class="pre">mat_str</span></code>, <code class="docutils literal notranslate"><span class="pre">mat_delim</span></code> などのキーワード引数があるので、これを上手に使う。</li>
-<li>ただし過信はできない。出力結果を何かの文書に流用するのであれば、最終的にはテキストエディターで細部を手動編集することになる。</li>
+<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">latex</span></code> または <code class="code docutils literal notranslate"><span class="pre">print_latex</span></code> を呼び出すとオブジェクトを表現する TeX コードを得ることができる。</p></li>
+<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">latex</span></code> または <code class="code docutils literal notranslate"><span class="pre">print_latex</span></code> の挙動を調整するための
+<code class="docutils literal notranslate"><span class="pre">fold_func_brackets</span></code>, <code class="docutils literal notranslate"><span class="pre">mat_str</span></code>, <code class="docutils literal notranslate"><span class="pre">mat_delim</span></code> などのキーワード引数があるので、これを上手に使う。</p></li>
+<li><p>ただし過信はできない。出力結果を何かの文書に流用するのであれば、最終的にはテキストエディターで細部を手動編集することになる。</p></li>
 </ul>
 <p>オブジェクトを TeX 形式の文字列に変換するには関数 <code class="code docutils literal notranslate"><span class="pre">latex</span></code> を用いる。ただし、それを標準出力等に出力するには関数 <code class="code docutils literal notranslate"><span class="pre">print_latex</span></code> を使うのがタイプ量の点でわずかに楽だ。</p>
 <p>両者の引数リストは同一だ。そのキーワード引数の中で有用なものをいくつか記す。</p>
 <ul>
-<li><p class="first"><code class="docutils literal notranslate"><span class="pre">fold_func_brackets=True</span></code> を指定すると、数学関数呼び出しのカッコを可能な限り省略する。例えば三角関数を多く含む式に対して適用すると効果がわかりやすい：</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span>
+<li><p><code class="docutils literal notranslate"><span class="pre">fold_func_brackets=True</span></code> を指定すると、数学関数呼び出しのカッコを可能な限り省略する。例えば三角関数を多く含む式に対して適用すると効果がわかりやすい：</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">sympy.abc</span> <span class="k">import</span> <span class="n">x</span>
+<span class="gp">In [2]: </span><span class="kn">from</span> <span class="nn">sympy.abc</span> <span class="kn">import</span> <span class="n">x</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">f</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+<span class="gp">In [3]: </span><span class="n">f</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">print_latex</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-\<span class="n">sin</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}{</span>\<span class="n">left</span> <span class="p">(</span><span class="n">x</span> \<span class="n">right</span> <span class="p">)}</span> <span class="o">+</span> \<span class="n">cos</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}{</span>\<span class="n">left</span> <span class="p">(</span><span class="n">x</span> \<span class="n">right</span> <span class="p">)}</span>
+<span class="gp">In [4]: </span><span class="n">print_latex</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="go">\sin^{2}{\left (x \right )} + \cos^{2}{\left (x \right )}</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">print_latex</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">fold_func_brackets</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-\<span class="n">sin</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="p">{</span><span class="n">x</span><span class="p">}</span> <span class="o">+</span> \<span class="n">cos</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="p">{</span><span class="n">x</span><span class="p">}</span>
+<span class="gp">In [4]: </span><span class="n">print_latex</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">fold_func_brackets</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">\sin^{2} {x} + \cos^{2} {x}</span>
 </pre></div>
 </div>
 <p>個人的にはまだ中括弧を削れるとは思うのだが、実用には堪える。</p>
 </li>
-<li><p class="first"><code class="docutils literal notranslate"><span class="pre">mat_str</span></code> は行列の環境名を指定するキーワード引数だ。例えば <code class="docutils literal notranslate"><span class="pre">mat_str=pmatrix</span></code> を指定すると、式に含まれる行列に対応する TeX コードが
+<li><p><code class="docutils literal notranslate"><span class="pre">mat_str</span></code> は行列の環境名を指定するキーワード引数だ。例えば <code class="docutils literal notranslate"><span class="pre">mat_str=pmatrix</span></code> を指定すると、式に含まれる行列に対応する TeX コードが
 <code class="docutils literal notranslate"><span class="pre">\begin{pmatrix}</span></code> と <code class="docutils literal notranslate"><span class="pre">\end{pmatrix}</span></code> で囲まれるようになる。ただしその場合には行列のカッコを SymPy が別途補うので、さらに <code class="docutils literal notranslate"><span class="pre">mat_delim</span></code> キーワード引数を空文字列等に指定することでそれを無効化する。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="n">Matrix</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Matrix</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]]);</span> <span class="n">A</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
-<span class="n">Matrix</span><span class="p">([</span>
-<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
-<span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+<span class="gp">In [2]: </span><span class="n">A</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]]);</span> <span class="n">A</span>
+<span class="gh">Out[2]:</span>
+<span class="go">Matrix([</span>
+<span class="go">[1, 2],</span>
+<span class="go">[3, 4]])</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">print_latex</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-\<span class="n">left</span><span class="p">[</span>\<span class="n">begin</span><span class="p">{</span><span class="n">matrix</span><span class="p">}</span><span class="mi">1</span> <span class="o">&amp;</span> <span class="mi">2</span>\\<span class="mi">3</span> <span class="o">&amp;</span> <span class="mi">4</span>\<span class="n">end</span><span class="p">{</span><span class="n">matrix</span><span class="p">}</span>\<span class="n">right</span><span class="p">]</span>
+<span class="gp">In [3]: </span><span class="n">print_latex</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="go">\left[\begin{matrix}1 &amp; 2\\3 &amp; 4\end{matrix}\right]</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">print_latex</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">mat_str</span><span class="o">=</span><span class="s1">&#39;pmatrix&#39;</span><span class="p">)</span>
-\<span class="n">left</span><span class="p">[</span>\<span class="n">begin</span><span class="p">{</span><span class="n">pmatrix</span><span class="p">}</span><span class="mi">1</span> <span class="o">&amp;</span> <span class="mi">2</span>\\<span class="mi">3</span> <span class="o">&amp;</span> <span class="mi">4</span>\<span class="n">end</span><span class="p">{</span><span class="n">pmatrix</span><span class="p">}</span>\<span class="n">right</span><span class="p">]</span>
+<span class="gp">In [4]: </span><span class="n">print_latex</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">mat_str</span><span class="o">=</span><span class="s1">&#39;pmatrix&#39;</span><span class="p">)</span>
+<span class="go">\left[\begin{pmatrix}1 &amp; 2\\3 &amp; 4\end{pmatrix}\right]</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">print_latex</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">mat_str</span><span class="o">=</span><span class="s1">&#39;pmatrix&#39;</span><span class="p">,</span> <span class="n">mat_delim</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-\<span class="n">begin</span><span class="p">{</span><span class="n">pmatrix</span><span class="p">}</span><span class="mi">1</span> <span class="o">&amp;</span> <span class="mi">2</span>\\<span class="mi">3</span> <span class="o">&amp;</span> <span class="mi">4</span>\<span class="n">end</span><span class="p">{</span><span class="n">pmatrix</span><span class="p">}</span>
+<span class="gp">In [5]: </span><span class="n">print_latex</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">mat_str</span><span class="o">=</span><span class="s1">&#39;pmatrix&#39;</span><span class="p">,</span> <span class="n">mat_delim</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="go">\begin{pmatrix}1 &amp; 2\\3 &amp; 4\end{pmatrix}</span>
 </pre></div>
 </div>
 <p>[4] と [5] の MathJax によるレンダリングを次に示す（画像上の右クリックメニュー <span class="menuselection">Show Math As ‣ Tex Commands</span>
@@ -140,38 +144,38 @@ IPython コンソールのセッションでオブジェクトの出力がアス
 <h3><a class="toc-backref" href="#id9">LatexPrinter をカスタマイズする</a><a class="headerlink" href="#latexprinter" title="Permalink to this headline">¶</a></h3>
 <p>ここでは 関数 <code class="code docutils literal notranslate"><span class="pre">latex</span></code> による SymPy オブジェクトの一部の出力文字列を変更する方法を記す。例を挙げる。外微分周りの表示で以下の二点を目的としたカスタマイズ手順を説明する。</p>
 <ul class="simple">
-<li>座標成分が太字になるのを回避したい。</li>
-<li>外微分演算子を自作のマクロに置き換えたい。</li>
+<li><p>座標成分が太字になるのを回避したい。</p></li>
+<li><p>外微分演算子を自作のマクロに置き換えたい。</p></li>
 </ul>
 <p>ここでは正攻法とはとても言えない方法を採っている。いずれ改良案を考えたい。</p>
 <ol class="arabic">
-<li><p class="first">必要なクラスをインポートする。</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sympy.printing</span> <span class="k">import</span> <span class="p">(</span><span class="n">latex</span><span class="p">,</span> <span class="n">print_latex</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">sympy.printing.latex</span> <span class="k">import</span> <span class="n">LatexPrinter</span>
+<li><p>必要なクラスをインポートする。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sympy.printing</span> <span class="kn">import</span> <span class="p">(</span><span class="n">latex</span><span class="p">,</span> <span class="n">print_latex</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sympy.printing.latex</span> <span class="kn">import</span> <span class="n">LatexPrinter</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">対応する SymPy オブジェクトの型に従い、カスタムメソッドを実装する。</p>
+<li><p>対応する SymPy オブジェクトの型に従い、カスタムメソッドを実装する。</p>
 <p>今回の例だと対象となるのは BaseScalerField と Differential だ。このときは名前が <code class="docutils literal notranslate"><span class="pre">_print_BaseScalarField</span></code> および <code class="docutils literal notranslate"><span class="pre">_print_Differential</span></code>
 というメソッドを適当なスコープで実装する。</p>
 <p>コード例を以下に示す：</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_print_BaseScalarField</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">):</span>
     <span class="n">string</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">_coord_sys</span><span class="o">.</span><span class="n">_names</span><span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">_index</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">f</span><span class="s1">&#39;{self._print(Symbol(string))}&#39;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_print</span><span class="p">(</span><span class="n">Symbol</span><span class="p">(</span><span class="n">string</span><span class="p">))</span><span class="si">}</span><span class="s1">&#39;</span>
 
 <span class="k">def</span> <span class="nf">_print_Differential</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">diff</span><span class="p">):</span>
     <span class="n">field</span> <span class="o">=</span> <span class="n">diff</span><span class="o">.</span><span class="n">_form_field</span>
     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="s1">&#39;_coord_sys&#39;</span><span class="p">):</span>
         <span class="n">string</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">_coord_sys</span><span class="o">.</span><span class="n">_names</span><span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">_index</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">rf</span><span class="s1">&#39;\dd {self._print(Symbol(string))}&#39;</span>
+        <span class="k">return</span> <span class="sa">rf</span><span class="s1">&#39;\dd </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_print</span><span class="p">(</span><span class="n">Symbol</span><span class="p">(</span><span class="n">string</span><span class="p">))</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">rf</span><span class="s1">&#39;\dd({self._print(field)})&#39;</span>
+        <span class="k">return</span> <span class="sa">rf</span><span class="s1">&#39;\dd(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_print</span><span class="p">(</span><span class="n">field</span><span class="p">)</span><span class="si">}</span><span class="s1">)&#39;</span>
 </pre></div>
 </div>
 <p>実装の必要に応じてインポート文を追加する（この場合は Symbol を含める）。実装例は LatexPrinter のソースコードを手本にすればよい。</p>
 <p>一般にクラス CLASSNAME の LaTeX 出力を書き換える場合にはメソッド <code class="docutils literal notranslate"><span class="pre">_print_CLASSNAME</span></code> を実装する。</p>
 </li>
-<li><p class="first">LatexPrinter 本来のメソッドをカスタムメソッドで置き換える。</p>
+<li><p>LatexPrinter 本来のメソッドをカスタムメソッドで置き換える。</p>
 <p>Python 組み込み関数 <code class="code docutils literal notranslate"><span class="pre">setattr</span></code> を活用する：</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">(</span><span class="n">_print_BaseScalarField</span><span class="p">,</span> <span class="n">_print_Differential</span><span class="p">):</span>
     <span class="nb">setattr</span><span class="p">(</span><span class="n">LatexPrinter</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
@@ -187,23 +191,23 @@ LatexPrinter に関してはそのようなものは提供されていない。<
 <div class="section" id="id3">
 <h3><a class="toc-backref" href="#id10">実装例</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>これまでに説明してきた方法を一つにまとめたスクリプトおよびその実行結果を以下に示す。</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="p">(</span><span class="n">symbols</span><span class="p">,</span> <span class="n">Symbol</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">sympy.printing</span> <span class="k">import</span> <span class="p">(</span><span class="n">latex</span><span class="p">,</span> <span class="n">print_latex</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">sympy.printing.latex</span> <span class="k">import</span> <span class="n">LatexPrinter</span>
-<span class="kn">from</span> <span class="nn">sympy.diffgeom</span> <span class="k">import</span> <span class="n">Differential</span>
-<span class="kn">from</span> <span class="nn">sympy.diffgeom.rn</span> <span class="k">import</span> <span class="n">R3_r</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="p">(</span><span class="n">symbols</span><span class="p">,</span> <span class="n">Symbol</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sympy.printing</span> <span class="kn">import</span> <span class="p">(</span><span class="n">latex</span><span class="p">,</span> <span class="n">print_latex</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sympy.printing.latex</span> <span class="kn">import</span> <span class="n">LatexPrinter</span>
+<span class="kn">from</span> <span class="nn">sympy.diffgeom</span> <span class="kn">import</span> <span class="n">Differential</span>
+<span class="kn">from</span> <span class="nn">sympy.diffgeom.rn</span> <span class="kn">import</span> <span class="n">R3_r</span>
 
 <span class="k">def</span> <span class="nf">_print_BaseScalarField</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">):</span>
     <span class="n">string</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">_coord_sys</span><span class="o">.</span><span class="n">_names</span><span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">_index</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">f</span><span class="s1">&#39;{self._print(Symbol(string))}&#39;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_print</span><span class="p">(</span><span class="n">Symbol</span><span class="p">(</span><span class="n">string</span><span class="p">))</span><span class="si">}</span><span class="s1">&#39;</span>
 
 <span class="k">def</span> <span class="nf">_print_Differential</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">diff</span><span class="p">):</span>
     <span class="n">field</span> <span class="o">=</span> <span class="n">diff</span><span class="o">.</span><span class="n">_form_field</span>
     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="s1">&#39;_coord_sys&#39;</span><span class="p">):</span>
         <span class="n">string</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">_coord_sys</span><span class="o">.</span><span class="n">_names</span><span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">_index</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">rf</span><span class="s1">&#39;\dd {self._print(Symbol(string))}&#39;</span>
+        <span class="k">return</span> <span class="sa">rf</span><span class="s1">&#39;\dd </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_print</span><span class="p">(</span><span class="n">Symbol</span><span class="p">(</span><span class="n">string</span><span class="p">))</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">rf</span><span class="s1">&#39;\dd({self._print(field)})&#39;</span>
+        <span class="k">return</span> <span class="sa">rf</span><span class="s1">&#39;\dd(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_print</span><span class="p">(</span><span class="n">field</span><span class="p">)</span><span class="si">}</span><span class="s1">)&#39;</span>
 
 <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">(</span><span class="n">_print_BaseScalarField</span><span class="p">,</span> <span class="n">_print_Differential</span><span class="p">):</span>
     <span class="nb">setattr</span><span class="p">(</span><span class="n">LatexPrinter</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
@@ -258,20 +262,19 @@ LatexPrinter に関してはそのようなものは提供されていない。<
 <p>キーワード引数 <code class="docutils literal notranslate"><span class="pre">output=png</span></code> を指定するか、あるいはこのキーワード引数を省略すると、
 SymPy オブジェクトに相当する数式が描画された PNG 画像を生成して適当なビューワープログラムでそれを表示する。</p>
 <ul>
-<li><p class="first">Pyglet パッケージが動作環境にない場合には、呼び出し側が明示的にキーワード引数 <code class="docutils literal notranslate"><span class="pre">viewer</span></code> を追加で指定する必要がある。</p>
+<li><p>Pyglet パッケージが動作環境にない場合には、呼び出し側が明示的にキーワード引数 <code class="docutils literal notranslate"><span class="pre">viewer</span></code> を追加で指定する必要がある。</p>
 <p>例えば Windows 上での実行において「ペイント」を起動させるには次のようにする：</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">preview</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sin</span><span class="o">**</span><span class="mi">2</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">viewer</span><span class="o">=</span><span class="s1">&#39;mspaint&#39;</span><span class="p">)</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">preview</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sin</span><span class="o">**</span><span class="mi">2</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">viewer</span><span class="o">=</span><span class="s1">&#39;mspaint&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>このようにすると、対応する数式が描かれている PNG ファイルを開いた状態の「ペイント」ウィンドウがデスクトップに現れる。</p>
 </li>
-<li><p class="first">数式が描画された PNG 画像をファイルに保存することもできる。キーワード引数 <code class="docutils literal notranslate"><span class="pre">viewer='file'</span></code> に加えて、キーワード引数 <code class="docutils literal notranslate"><span class="pre">filename</span></code> を指定し、保存先のファイルパスを指定する必要がある：</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">preview</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;preview.png&#39;</span><span class="p">)</span>
+<li><p>数式が描画された PNG 画像をファイルに保存することもできる。キーワード引数 <code class="docutils literal notranslate"><span class="pre">viewer='file'</span></code> に加えて、キーワード引数 <code class="docutils literal notranslate"><span class="pre">filename</span></code> を指定し、保存先のファイルパスを指定する必要がある：</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [2]: </span><span class="n">preview</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;preview.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">また、画像をメモリに保存する機能もある。これには BytesIO オブジェクトをあらかじめ生成しておき、キーワード引数 <code class="docutils literal notranslate"><span class="pre">viewer='BytesIO'</span></code> に加えてキーワード引数 <code class="docutils literal notranslate"><span class="pre">outputbuffer</span></code> を指定し、そのオブジェクトをその引数に設定する必要がある。利用予定がないので詳細を割愛する。</p>
-</li>
+<li><p>また、画像をメモリに保存する機能もある。これには BytesIO オブジェクトをあらかじめ生成しておき、キーワード引数 <code class="docutils literal notranslate"><span class="pre">viewer='BytesIO'</span></code> に加えてキーワード引数 <code class="docutils literal notranslate"><span class="pre">outputbuffer</span></code> を指定し、そのオブジェクトをその引数に設定する必要がある。利用予定がないので詳細を割愛する。</p></li>
 </ul>
 </div>
 <div class="section" id="dvi">
@@ -279,9 +282,9 @@ SymPy オブジェクトに相当する数式が描画された PNG 画像を生
 <p>関数 <code class="code docutils literal notranslate"><span class="pre">preview</span></code> にキーワード引数 <code class="docutils literal notranslate"><span class="pre">output='dvi'</span></code> を指定することで、出力データの形式が DVI となる。
 PNG のときと同様に、閲覧プログラムを実行させたり、データをファイルに保存させたりできる。</p>
 <p>ちなみにここでの LaTeX 環境は <a class="reference external" href="https://www.tug.org/texlive/">TeX Live</a> であり、環境変数 <span class="target" id="index-0"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PATH</span></code> には <strong class="command">dviout</strong> 等の実行形式格納フォルダーのパスが含まれている。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">preview</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;dvi&#39;</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="s1">&#39;dviout&#39;</span><span class="p">)</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">preview</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;dvi&#39;</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="s1">&#39;dviout&#39;</span><span class="p">)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">preview</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;dvi&#39;</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;preview.dvi&#39;</span><span class="p">)</span>
+<span class="gp">In [2]: </span><span class="n">preview</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;dvi&#39;</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;preview.dvi&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -290,11 +293,11 @@ PNG のときと同様に、閲覧プログラムを実行させたり、デー�
 <p>関数 <code class="code docutils literal notranslate"><span class="pre">preview</span></code> にキーワード引数 <code class="docutils literal notranslate"><span class="pre">output='pdf'</span></code> を指定することで、出力データの形式が PDF となる。</p>
 <p>キーワード引数 <code class="docutils literal notranslate"><span class="pre">output='pdf'</span></code> を指定すると、次のコマンドラインを実行することと同等の処理が入る。
 TeX Live では <strong class="command">dvipdf</strong> が存在しないためにこれが通じず、実行時エラーを引き起こす。</p>
-<div class="code shell highlight-default notranslate"><div class="highlight"><pre><span></span>$ dvipdf texput.dvi texput.pdf
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ dvipdf texput.dvi texput.pdf
 </pre></div>
 </div>
 <p>SymPy のコードを修正して、次のようなコマンドライン実行に差し替えられれば動作するだろう：</p>
-<div class="code shell highlight-default notranslate"><div class="highlight"><pre><span></span>$ dvipdfmx texput.dvi
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ dvipdfmx texput.dvi
 </pre></div>
 </div>
 </div>
@@ -302,35 +305,35 @@ TeX Live では <strong class="command">dvipdf</strong> が存在しないため
 <h3><a class="toc-backref" href="#id15">SVG 出力</a><a class="headerlink" href="#svg" title="Permalink to this headline">¶</a></h3>
 <p>関数 <code class="code docutils literal notranslate"><span class="pre">preview</span></code> にキーワード引数 <code class="docutils literal notranslate"><span class="pre">output='svg'</span></code> を指定することで、出力データの形式が SVG となる。</p>
 <ul class="simple">
-<li>実行環境に <strong class="command">dvisvgm</strong> が存在すること必要だ。TeX Live ユーザーならば問題ないだろう。</li>
-<li>即表示する場合はキーワード引数 <code class="docutils literal notranslate"><span class="pre">viewer</span></code> に SVG ファイルを描画できるプログラムを指定するわけだが、普通は Web ブラウザーで十分だ。Inkscape だと起動に時間がかかる。</li>
+<li><p>実行環境に <strong class="command">dvisvgm</strong> が存在すること必要だ。TeX Live ユーザーならば問題ないだろう。</p></li>
+<li><p>即表示する場合はキーワード引数 <code class="docutils literal notranslate"><span class="pre">viewer</span></code> に SVG ファイルを描画できるプログラムを指定するわけだが、普通は Web ブラウザーで十分だ。Inkscape だと起動に時間がかかる。</p></li>
 </ul>
 </div>
 <div class="section" id="tex">
 <h3><a class="toc-backref" href="#id16">TeX ファイルを保存する</a><a class="headerlink" href="#tex" title="Permalink to this headline">¶</a></h3>
 <p>関数 <code class="code docutils literal notranslate"><span class="pre">preview</span></code> に対してキーワード引数 <code class="docutils literal notranslate"><span class="pre">outputTexFile</span></code> に保存先パスを指定すると、処理中に中間生成する TeX ファイルを捨てずにとっておくことができる。
 SymPy の生成する TeX コードをテキストエディターで清書するにはこの手段を採用する。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">preview</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">outputTexFile</span><span class="o">=</span><span class="s1">&#39;preview.tex&#39;</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">preview</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">outputTexFile</span><span class="o">=</span><span class="s1">&#39;preview.tex&#39;</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>ついでに preamble についても説明する。既定の内容は次のようなものだ：</p>
-<div class="code latex highlight-default notranslate"><div class="highlight"><pre><span></span>\<span class="n">documentclass</span><span class="p">[</span><span class="mi">12</span><span class="n">pt</span><span class="p">]{</span><span class="n">article</span><span class="p">}</span>
-\<span class="n">pagestyle</span><span class="p">{</span><span class="n">empty</span><span class="p">}</span>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\documentclass</span><span class="na">[12pt]</span><span class="nb">{</span>article<span class="nb">}</span>
+<span class="k">\pagestyle</span><span class="nb">{</span>empty<span class="nb">}</span>
 
-\<span class="n">usepackage</span><span class="p">{</span><span class="n">amsmath</span><span class="p">}</span>
-\<span class="n">usepackage</span><span class="p">{</span><span class="n">amsfonts</span><span class="p">}</span>
-\<span class="n">usepackage</span><span class="p">{</span><span class="n">euler</span><span class="p">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>amsmath<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>amsfonts<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>euler<span class="nb">}</span>
 
-\<span class="n">begin</span><span class="p">{</span><span class="n">document</span><span class="p">}</span>
+<span class="k">\begin</span><span class="nb">{</span>document<span class="nb">}</span>
 </pre></div>
 </div>
 <p>これをキーワード引数 <code class="docutils literal notranslate"><span class="pre">preamble</span></code> を指定することで変更できる。次に説明する TeX 数式直接指定の際に、必要パッケージを指示するためにはこれが使える。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">preamble</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;&#39;&#39;\documentclass[10pt]</span><span class="si">{article}</span><span class="s1"></span>
-<span class="s1">   ...: \usepackage{amsmath,amsfonts}</span>
-<span class="s1">   ...: \begin</span><span class="si">{document}</span><span class="s1"></span>
-<span class="s1">   ...: &#39;&#39;&#39;</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [2]: </span><span class="n">preamble</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;&#39;&#39;\documentclass[10pt]</span><span class="si">{article}</span><span class="s1"></span>
+<span class="gp">   ...: </span><span class="s1">\usepackage{amsmath,amsfonts}</span>
+<span class="gp">   ...: </span><span class="s1">\begin</span><span class="si">{document}</span><span class="s1"></span>
+<span class="gp">   ...: </span><span class="s1">&#39;&#39;&#39;</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">preview</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">outputTexFile</span><span class="o">=</span><span class="s1">&#39;preview.tex&#39;</span><span class="p">,</span> <span class="n">preamble</span><span class="o">=</span><span class="n">preamble</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<span class="gp">In [3]: </span><span class="n">preview</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">outputTexFile</span><span class="o">=</span><span class="s1">&#39;preview.tex&#39;</span><span class="p">,</span> <span class="n">preamble</span><span class="o">=</span><span class="n">preamble</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -338,7 +341,7 @@ SymPy の生成する TeX コードをテキストエディターで清書する
 <h3><a class="toc-backref" href="#id17">入力</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>実は関数 <code class="code docutils literal notranslate"><span class="pre">preview</span></code> の引数としては SymPy オブジェクトだけではなく、
 TeX 数式を表す文字列も受け付ける。</p>
-<div class="code ipython highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">preview</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\cos^2 x + \sin^2 x$&#39;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="s1">&#39;mspaint&#39;</span><span class="p">)</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">preview</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\cos^2 x + \sin^2 x$&#39;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="s1">&#39;mspaint&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>今ならば MathJax があるので、この機能はそれほど便利なわけではない。</p>
@@ -347,6 +350,7 @@ TeX 数式を表す文字列も受け付ける。</p>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
       </div>
       <div class="clearer"></div>
@@ -361,7 +365,8 @@ TeX 数式を表す文字列も受け付ける。</p>
           <a href="diffgeom.html" title="微分幾何"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >SymPy 利用ノート</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" >SymPy 利用ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">出力</a></li> 
       </ul>
     </div>
     <div id="footer">
@@ -370,7 +375,7 @@ TeX 数式を表す文字列も受け付ける。</p>
       </div>
       <div id="footer_copyright">
         Since 1999<br />
-        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+        Copyright &copy; 1999-2020, プレハブ小屋 All rights reserved.
       </div>
     </div>
   </body>

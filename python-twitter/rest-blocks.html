@@ -1,17 +1,17 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>ブロック関連 &#8212; 読書ノート v1.4</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ブロック関連 &#8212; 読書ノート v1.5dev</title>
     <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/mathjax-v3.js"></script>
+    
     <link rel="next" title="ダイレクトメッセージ関連" href="rest-direct-messages.html" />
     <link rel="prev" title="アプリケーション関連" href="rest-application.html" /> 
   </head><body>
@@ -25,7 +25,8 @@
           <a href="rest-application.html" title="アプリケーション関連"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Python Twitter Tools 利用ノート</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Python Twitter Tools 利用ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ブロック関連</a></li> 
       </ul>
     </div>  
 
@@ -37,13 +38,14 @@
 <h1><a class="toc-backref" href="#id2">ブロック関連</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>個人的には一切利用するつもりのない Twitter のブロック機能だが、ノートの凝集度を上げるために記す。</p>
 <div class="contents topic" id="contents">
-<p class="topic-title first">Contents</p>
+<p class="topic-title">Contents</p>
 <ul class="simple">
-<li><a class="reference internal" href="#id1" id="id2">ブロック関連</a><ul>
-<li><a class="reference internal" href="#post-blocks-create" id="id3">POST blocks/create</a></li>
-<li><a class="reference internal" href="#post-blocks-destroy" id="id4">POST blocks/destroy</a></li>
-<li><a class="reference internal" href="#get-blocks-ids" id="id5">GET blocks/ids</a></li>
-<li><a class="reference internal" href="#get-blocks-list" id="id6">GET blocks/list</a></li>
+<li><p><a class="reference internal" href="#id1" id="id2">ブロック関連</a></p>
+<ul>
+<li><p><a class="reference internal" href="#post-blocks-create" id="id3">POST blocks/create</a></p></li>
+<li><p><a class="reference internal" href="#post-blocks-destroy" id="id4">POST blocks/destroy</a></p></li>
+<li><p><a class="reference internal" href="#get-blocks-ids" id="id5">GET blocks/ids</a></p></li>
+<li><p><a class="reference internal" href="#get-blocks-list" id="id6">GET blocks/list</a></p></li>
 </ul>
 </li>
 </ul>
@@ -57,8 +59,8 @@
 <span class="c1"># Demonstration POST blocks/create</span>
 <span class="c1"># See https://dev.twitter.com/rest/reference/post/blocks/create</span>
 
-<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
-<span class="kn">from</span> <span class="nn">json</span> <span class="k">import</span> <span class="n">dump</span>
+<span class="kn">from</span> <span class="nn">secret</span> <span class="kn">import</span> <span class="n">twitter_instance</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">dump</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
@@ -71,42 +73,41 @@
 </pre></div>
 </div>
 <ul>
-<li><p class="first">[1] Twitter ユーザーを指定する。他の機能と同様に <code class="docutils literal notranslate"><span class="pre">user_id</span></code> または <code class="docutils literal notranslate"><span class="pre">screen_name</span></code> のどちらか一方の形式で指定する。</p>
+<li><p>[1] Twitter ユーザーを指定する。他の機能と同様に <code class="docutils literal notranslate"><span class="pre">user_id</span></code> または <code class="docutils literal notranslate"><span class="pre">screen_name</span></code> のどちらか一方の形式で指定する。</p>
 <p>この他にもオプションとして <code class="docutils literal notranslate"><span class="pre">include_entities</span></code> と <code class="docutils literal notranslate"><span class="pre">skip_status</span></code> というフラグがあるが、これからブロックをしようというユーザーの情報などどうでもよいので、意識して利用はしないだろう。</p>
 </li>
-<li><p class="first">[2] とりあえずブロックしたユーザーの情報を画面に出力する。</p>
-</li>
+<li><p>[2] とりあえずブロックしたユーザーの情報を画面に出力する。</p></li>
 </ul>
 <p>次に実行例を示す。私が私をブロックしようとするとこうなる。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./blocks-create.py
-Traceback (most recent call last):
-  File &quot;D:\Python35\lib\site-packages\twitter\api.py&quot;, line 319, in _handle_response
-    handle = urllib_request.urlopen(req, **kwargs)
-  File &quot;D:\Python35\lib\urllib\request.py&quot;, line 162, in urlopen
-    return opener.open(url, data, timeout)
-  File &quot;D:\Python35\lib\urllib\request.py&quot;, line 471, in open
-    response = meth(req, response)
-  File &quot;D:\Python35\lib\urllib\request.py&quot;, line 581, in http_response
-    &#39;http&#39;, request, response, code, msg, hdrs)
-  File &quot;D:\Python35\lib\urllib\request.py&quot;, line 509, in error
-    return self._call_chain(*args)
-  File &quot;D:\Python35\lib\urllib\request.py&quot;, line 443, in _call_chain
-    result = func(*args)
-  File &quot;D:\Python35\lib\urllib\request.py&quot;, line 589, in http_error_default
-    raise HTTPError(req.full_url, code, msg, hdrs, fp)
-urllib.error.HTTPError: HTTP Error 403: Forbidden
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> ./blocks-create.py
+<span class="go">Traceback (most recent call last):</span>
+<span class="go">  File &quot;D:\Python35\lib\site-packages\twitter\api.py&quot;, line 319, in _handle_response</span>
+<span class="go">    handle = urllib_request.urlopen(req, **kwargs)</span>
+<span class="go">  File &quot;D:\Python35\lib\urllib\request.py&quot;, line 162, in urlopen</span>
+<span class="go">    return opener.open(url, data, timeout)</span>
+<span class="go">  File &quot;D:\Python35\lib\urllib\request.py&quot;, line 471, in open</span>
+<span class="go">    response = meth(req, response)</span>
+<span class="go">  File &quot;D:\Python35\lib\urllib\request.py&quot;, line 581, in http_response</span>
+<span class="go">    &#39;http&#39;, request, response, code, msg, hdrs)</span>
+<span class="go">  File &quot;D:\Python35\lib\urllib\request.py&quot;, line 509, in error</span>
+<span class="go">    return self._call_chain(*args)</span>
+<span class="go">  File &quot;D:\Python35\lib\urllib\request.py&quot;, line 443, in _call_chain</span>
+<span class="go">    result = func(*args)</span>
+<span class="go">  File &quot;D:\Python35\lib\urllib\request.py&quot;, line 589, in http_error_default</span>
+<span class="go">    raise HTTPError(req.full_url, code, msg, hdrs, fp)</span>
+<span class="go">urllib.error.HTTPError: HTTP Error 403: Forbidden</span>
 
-During handling of the above exception, another exception occurred:
+<span class="go">During handling of the above exception, another exception occurred:</span>
 
-Traceback (most recent call last):
-  File &quot;./blocks-create.py&quot;, line 14, in &lt;module&gt;
-    response = tw.blocks.create(screen_name=&#39;showa_yojyo&#39;)
-  File &quot;D:\Python35\lib\site-packages\twitter\api.py&quot;, line 312, in __call__
-    return self._handle_response(req, uri, arg_data, _timeout)
-  File &quot;D:\Python35\lib\site-packages\twitter\api.py&quot;, line 345, in _handle_response
-    raise TwitterHTTPError(e, uri, self.format, arg_data)
-twitter.api.TwitterHTTPError: Twitter sent status 403 for URL: 1.1/blocks/create.json using parameters: (oauth_consumer_key=...)
-details: {&#39;errors&#39;: [{&#39;message&#39;: &quot;Sorry, you can&#39;t block yourself.&quot;, &#39;code&#39;: 147}]}
+<span class="go">Traceback (most recent call last):</span>
+<span class="go">  File &quot;./blocks-create.py&quot;, line 14, in &lt;module&gt;</span>
+<span class="go">    response = tw.blocks.create(screen_name=&#39;showa_yojyo&#39;)</span>
+<span class="go">  File &quot;D:\Python35\lib\site-packages\twitter\api.py&quot;, line 312, in __call__</span>
+<span class="go">    return self._handle_response(req, uri, arg_data, _timeout)</span>
+<span class="go">  File &quot;D:\Python35\lib\site-packages\twitter\api.py&quot;, line 345, in _handle_response</span>
+<span class="go">    raise TwitterHTTPError(e, uri, self.format, arg_data)</span>
+<span class="go">twitter.api.TwitterHTTPError: Twitter sent status 403 for URL: 1.1/blocks/create.json using parameters: (oauth_consumer_key=...)</span>
+<span class="go">details: {&#39;errors&#39;: [{&#39;message&#39;: &quot;Sorry, you can&#39;t block yourself.&quot;, &#39;code&#39;: 147}]}</span>
 </pre></div>
 </div>
 </div>
@@ -119,8 +120,8 @@ details: {&#39;errors&#39;: [{&#39;message&#39;: &quot;Sorry, you can&#39;t bloc
 <span class="c1"># Demonstration POST blocks/destroy</span>
 <span class="c1"># See https://dev.twitter.com/rest/reference/post/blocks/destroy</span>
 
-<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
-<span class="kn">from</span> <span class="nn">json</span> <span class="k">import</span> <span class="n">dump</span>
+<span class="kn">from</span> <span class="nn">secret</span> <span class="kn">import</span> <span class="n">twitter_instance</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">dump</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
@@ -133,17 +134,17 @@ details: {&#39;errors&#39;: [{&#39;message&#39;: &quot;Sorry, you can&#39;t bloc
 </pre></div>
 </div>
 <ul class="simple">
-<li>[1] 認められるパラメーターは上述の POST blocks/create と同じだ。</li>
-<li>[2] ブロック解除対象のユーザーの情報を画面に出力する。</li>
+<li><p>[1] 認められるパラメーターは上述の POST blocks/create と同じだ。</p></li>
+<li><p>[2] ブロック解除対象のユーザーの情報を画面に出力する。</p></li>
 </ul>
 <p>次に実行例を示す。ブロックしていないはずの自分を解除するとこうなる。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./blocks-destroy.py
-{
-    &quot;contributors_enabled&quot;: false,
-    ...
-    &quot;screen_name&quot;: &quot;showa_yojyo&quot;,
-    ...
-}
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> ./blocks-destroy.py
+<span class="go">{</span>
+<span class="go">    &quot;contributors_enabled&quot;: false,</span>
+<span class="go">    ...</span>
+<span class="go">    &quot;screen_name&quot;: &quot;showa_yojyo&quot;,</span>
+<span class="go">    ...</span>
+<span class="go">}</span>
 </pre></div>
 </div>
 <p>便宜上こういう動作にしてあるのだと思うが、自分のユーザーオブジェクトが得られる。</p>
@@ -157,8 +158,8 @@ details: {&#39;errors&#39;: [{&#39;message&#39;: &quot;Sorry, you can&#39;t bloc
 <span class="c1"># Demonstration GET blocks/ids</span>
 <span class="c1"># See https://dev.twitter.com/rest/reference/get/blocks/ids</span>
 
-<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
-<span class="kn">from</span> <span class="nn">json</span> <span class="k">import</span> <span class="n">dump</span>
+<span class="kn">from</span> <span class="nn">secret</span> <span class="kn">import</span> <span class="n">twitter_instance</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">dump</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
@@ -171,18 +172,18 @@ details: {&#39;errors&#39;: [{&#39;message&#39;: &quot;Sorry, you can&#39;t bloc
 </pre></div>
 </div>
 <ul class="simple">
-<li>[1] 私は誰もブロックしていないので、カーソル処理は行わない。ゆえにパラメーターは何も与えない。</li>
-<li>[2] 得られたデータを画面に出力する。</li>
+<li><p>[1] 私は誰もブロックしていないので、カーソル処理は行わない。ゆえにパラメーターは何も与えない。</p></li>
+<li><p>[2] 得られたデータを画面に出力する。</p></li>
 </ul>
 <p>次に実行例を示す。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./blocks-ids.py
-{
-    &quot;ids&quot;: [],
-    &quot;next_cursor&quot;: 0,
-    &quot;next_cursor_str&quot;: &quot;0&quot;,
-    &quot;previous_cursor&quot;: 0,
-    &quot;previous_cursor_str&quot;: &quot;0&quot;
-}
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> ./blocks-ids.py
+<span class="go">{</span>
+<span class="go">    &quot;ids&quot;: [],</span>
+<span class="go">    &quot;next_cursor&quot;: 0,</span>
+<span class="go">    &quot;next_cursor_str&quot;: &quot;0&quot;,</span>
+<span class="go">    &quot;previous_cursor&quot;: 0,</span>
+<span class="go">    &quot;previous_cursor_str&quot;: &quot;0&quot;</span>
+<span class="go">}</span>
 </pre></div>
 </div>
 <p>空のデータが戻ってきた。</p>
@@ -196,8 +197,8 @@ details: {&#39;errors&#39;: [{&#39;message&#39;: &quot;Sorry, you can&#39;t bloc
 <span class="c1"># Demonstration GET blocks/list</span>
 <span class="c1"># See https://dev.twitter.com/rest/reference/get/blocks/list</span>
 
-<span class="kn">from</span> <span class="nn">secret</span> <span class="k">import</span> <span class="n">twitter_instance</span>
-<span class="kn">from</span> <span class="nn">json</span> <span class="k">import</span> <span class="n">dump</span>
+<span class="kn">from</span> <span class="nn">secret</span> <span class="kn">import</span> <span class="n">twitter_instance</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">dump</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="n">tw</span> <span class="o">=</span> <span class="n">twitter_instance</span><span class="p">()</span>
@@ -210,21 +211,20 @@ details: {&#39;errors&#39;: [{&#39;message&#39;: &quot;Sorry, you can&#39;t bloc
 </pre></div>
 </div>
 <ul>
-<li><p class="first">[1] 私は誰もブロックしていないので、カーソル処理は行わない。ゆえにパラメーターは何も与えない。</p>
+<li><p>[1] 私は誰もブロックしていないので、カーソル処理は行わない。ゆえにパラメーターは何も与えない。</p>
 <p>なお、GET blocks/list はユーザオブジェクトを取得するものなので、オプション <code class="docutils literal notranslate"><span class="pre">include_entities</span></code> や <code class="docutils literal notranslate"><span class="pre">skip_status</span></code> を指定することも可能だ。</p>
 </li>
-<li><p class="first">[2] 得られたデータを画面に出力する。</p>
-</li>
+<li><p>[2] 得られたデータを画面に出力する。</p></li>
 </ul>
 <p>次に実行例を示す。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./blocks-list.py
-{
-    &quot;ids&quot;: [],
-    &quot;next_cursor&quot;: 0,
-    &quot;next_cursor_str&quot;: &quot;0&quot;,
-    &quot;previous_cursor&quot;: 0,
-    &quot;previous_cursor_str&quot;: &quot;0&quot;
-}
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> ./blocks-list.py
+<span class="go">{</span>
+<span class="go">    &quot;ids&quot;: [],</span>
+<span class="go">    &quot;next_cursor&quot;: 0,</span>
+<span class="go">    &quot;next_cursor_str&quot;: &quot;0&quot;,</span>
+<span class="go">    &quot;previous_cursor&quot;: 0,</span>
+<span class="go">    &quot;previous_cursor_str&quot;: &quot;0&quot;</span>
+<span class="go">}</span>
 </pre></div>
 </div>
 <p>空のデータが戻ってきた。</p>
@@ -232,6 +232,7 @@ details: {&#39;errors&#39;: [{&#39;message&#39;: &quot;Sorry, you can&#39;t bloc
 </div>
 
 
+            <div class="clearer"></div>
           </div>
       </div>
       <div class="clearer"></div>
@@ -246,7 +247,8 @@ details: {&#39;errors&#39;: [{&#39;message&#39;: &quot;Sorry, you can&#39;t bloc
           <a href="rest-application.html" title="アプリケーション関連"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >Python Twitter Tools 利用ノート</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" >Python Twitter Tools 利用ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ブロック関連</a></li> 
       </ul>
     </div>
     <div id="footer">
@@ -255,7 +257,7 @@ details: {&#39;errors&#39;: [{&#39;message&#39;: &quot;Sorry, you can&#39;t bloc
       </div>
       <div id="footer_copyright">
         Since 1999<br />
-        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+        Copyright &copy; 1999-2020, プレハブ小屋 All rights reserved.
       </div>
     </div>
   </body>

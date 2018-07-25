@@ -1,26 +1,31 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>MathJaX 利用ノート &#8212; 読書ノート v1.4</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MathJax 利用ノート &#8212; 読書ノート v1.5dev</title>
     <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/mathjaxconf.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="HTML-XML-utils 利用ノート" href="hxutils.html" />
     <link rel="prev" title="ヘルプノート" href="inkscape/manual.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
+          <a href="hxutils.html" title="HTML-XML-utils 利用ノート"
+             accesskey="N">next</a></li>
+        <li class="right" >
           <a href="inkscape/manual.html" title="ヘルプノート"
-             accesskey="P">previous</a></li>
-        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">MathJax 利用ノート</a></li> 
       </ul>
     </div>  
 
@@ -29,45 +34,48 @@
           <div class="body" role="main">
             
   <div class="section" id="mathjax">
-<h1><a class="toc-backref" href="#id13">MathJaX 利用ノート</a><a class="headerlink" href="#mathjax" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id13">MathJax 利用ノート</a><a class="headerlink" href="#mathjax" title="Permalink to this headline">¶</a></h1>
 <p>本稿は <a class="reference external" href="http://docs.mathjax.org/en/latest/index.html">MathJax</a> の利用について得た知見を記す。まず何の準備もなしに MathJax を利用する手順を述べる。さらに自分で編集する HTML ファイルから MathJax の機能を、生の HTML ファイルと Sphinx が生成する HTML ファイルそれぞれから利用する手順を、マクロを定義する方法を、それも保守が容易な方法を含めて説明する。</p>
 <div class="contents topic" id="id1">
-<p class="topic-title first">ノート目次</p>
+<p class="topic-title">ノート目次</p>
 <ul class="simple">
-<li><a class="reference internal" href="#mathjax" id="id13">MathJaX 利用ノート</a><ul>
-<li><a class="reference internal" href="#id2" id="id14">関連リンクおよび参考サイト</a></li>
-<li><a class="reference internal" href="#id3" id="id15">MathJax を試す</a></li>
-<li><a class="reference internal" href="#html" id="id16">直接 HTML を作成する場合の方法</a><ul>
-<li><a class="reference internal" href="#id4" id="id17">スクリプトタグをヘッダーに仕込む</a></li>
-<li><a class="reference internal" href="#id5" id="id18">処理対象マークアップを指示する</a></li>
-<li><a class="reference internal" href="#id6" id="id19">数式を本文中に挿入する</a></li>
+<li><p><a class="reference internal" href="#mathjax" id="id13">MathJax 利用ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id14">関連リンクおよび参考サイト</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id15">MathJax を試す</a></p></li>
+<li><p><a class="reference internal" href="#html" id="id16">直接 HTML を作成する場合の方法</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id4" id="id17">スクリプトタグをヘッダーに仕込む</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id18">処理対象マークアップを指示する</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id19">数式を本文中に挿入する</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#sphinx" id="id20">Sphinx で生成する場合の方法</a><ul>
-<li><a class="reference internal" href="#id7" id="id21">Sphinx の構成ファイルを編集する</a></li>
-<li><a class="reference internal" href="#id8" id="id22">MathJax の構成ファイルを作成する</a></li>
-<li><a class="reference internal" href="#id9" id="id23">HTML テンプレートを編集する</a></li>
+<li><p><a class="reference internal" href="#sphinx" id="id20">Sphinx で生成する場合の方法</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id7" id="id21">Sphinx の構成ファイルを編集する</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id22">MathJax の構成ファイルを作成する</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id23">HTML テンプレートを編集する</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id10" id="id24">マクロを定義する</a></li>
+<li><p><a class="reference internal" href="#id10" id="id24">マクロを定義する</a></p></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>本稿執筆時の動作環境は次のとおり。</p>
-<ul class="last simple">
-<li><a class="reference external" href="http://www.sphinx-doc.org/">Sphinx</a>: 1.6.4</li>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.sphinx-doc.org/">Sphinx</a>: 1.6.4</p></li>
 </ul>
 </div>
 <div class="section" id="id2">
 <h2><a class="toc-backref" href="#id14">関連リンクおよび参考サイト</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt><a class="reference external" href="http://docs.mathjax.org/en/latest/index.html">MathJax</a></dt>
-<dd>MathJax の開発陣による文書一揃い。まず Basic Usage を一通り読み、それから気になる論題をつまみ食いするとよい。</dd>
-<dt><a class="reference external" href="https://en.wikibooks.org/wiki/LaTeX">LaTeX</a></dt>
-<dd>LaTeX を一通り習うための教科書として参照する。</dd>
+<dl class="simple">
+<dt><a class="reference external" href="http://docs.mathjax.org/en/latest/index.html">MathJax</a></dt><dd><p>MathJax の開発陣による文書一揃い。まず Basic Usage を一通り読み、それから気になる論題をつまみ食いするとよい。</p>
+</dd>
+<dt><a class="reference external" href="https://en.wikibooks.org/wiki/LaTeX">LaTeX</a></dt><dd><p>LaTeX を一通り習うための教科書として参照する。</p>
+</dd>
 </dl>
 </div>
 <div class="section" id="id3">
@@ -78,7 +86,7 @@
 <p>このページは LaTeX 環境がないところで急に単発の数式画像が欲しくなったときに、必要な TeX コードを打ち込んで容易にそれを得るという用途にも向いているだろう。</p>
 <p>このプレビュー生成テストページを含む、現行バージョンにおける機能テスト用 HTML ファイル群がリポジトリーの以下のディレクトリーに豊富にある：</p>
 <ul class="simple">
-<li><a class="reference external" href="https://github.com/mathjax/MathJax/tree/master/test">https://github.com/mathjax/MathJax/tree/master/test</a></li>
+<li><p><a class="reference external" href="https://github.com/mathjax/MathJax/tree/master/test">https://github.com/mathjax/MathJax/tree/master/test</a></p></li>
 </ul>
 </div>
 <div class="section" id="html">
@@ -86,43 +94,43 @@
 <p>本稿の本題である自作の HTML ファイルで数式画像混じりの文書を作成するための、最低限の方法について記す。まず、上記プレビューページの HTML コードの本質部分を抽出して編集対象の HTML に組み込む。</p>
 <p>MathJax を自作 HTML ファイルから機能させるための手順を列挙するとこのようになる：</p>
 <ul class="simple">
-<li>HTML 文書の <code class="docutils literal notranslate"><span class="pre">head</span></code> 部で <code class="docutils literal notranslate"><span class="pre">script</span></code> タグをおそらく二箇所仕込む。</li>
-<li>HTML 文書の <code class="docutils literal notranslate"><span class="pre">body</span></code> 部に所望の TeX コードを埋め込む。</li>
+<li><p>HTML 文書の <code class="docutils literal notranslate"><span class="pre">head</span></code> 部で <code class="docutils literal notranslate"><span class="pre">script</span></code> タグをおそらく二箇所仕込む。</p></li>
+<li><p>HTML 文書の <code class="docutils literal notranslate"><span class="pre">body</span></code> 部に所望の TeX コードを埋め込む。</p></li>
 </ul>
 <div class="section" id="id4">
 <h3><a class="toc-backref" href="#id17">スクリプトタグをヘッダーに仕込む</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>正式な方法は MathJax の文書にあるが、本稿では最も単純な指定方式を採用する。差し当たり、HTML の <code class="docutils literal notranslate"><span class="pre">head</span></code> 部に次のような <code class="docutils literal notranslate"><span class="pre">script</span></code> タグを仕込めば準備は整う。</p>
-<div class="code html highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">script</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span> <span class="k">async</span>
-    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML&quot;</span><span class="o">&gt;</span>
-<span class="o">&lt;/</span><span class="n">script</span><span class="o">&gt;</span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">async</span>
+    <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 </div>
 <p>いくつかポイントがあるようだ：</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">MathJax.js</span></code> の在り処は上記のもの以外にも存在する。文書では <code class="docutils literal notranslate"><span class="pre">cdnjs.com</span></code> を推奨している。</li>
-<li><code class="docutils literal notranslate"><span class="pre">MathJax.js</span></code> の <code class="docutils literal notranslate"><span class="pre">config</span></code> 引数は利用したい機能によって指定が決まる。上記のものは <code class="docutils literal notranslate"><span class="pre">TeX-MML-AM_CHTML</span></code> という、最も普通の構成を指定している。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MathJax.js</span></code> の在り処は上記のもの以外にも存在する。文書では <code class="docutils literal notranslate"><span class="pre">cdnjs.com</span></code> を推奨している。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MathJax.js</span></code> の <code class="docutils literal notranslate"><span class="pre">config</span></code> 引数は利用したい機能によって指定が決まる。上記のものは <code class="docutils literal notranslate"><span class="pre">TeX-MML-AM_CHTML</span></code> という、最も普通の構成を指定している。</p></li>
 </ul>
 </div>
 <div class="section" id="id5">
 <h3><a class="toc-backref" href="#id18">処理対象マークアップを指示する</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>MathJax のロード指定と併せて、本文中のどの数式を MathJax に処理させるかを指定することができる。</p>
 <p>次のような構成指定を実行するコードからなる <code class="docutils literal notranslate"><span class="pre">script</span></code> タグを、先ほど述べた <code class="docutils literal notranslate"><span class="pre">MathJax.js</span></code> をロードする <code class="docutils literal notranslate"><span class="pre">script</span></code> タグの直前に配置する。</p>
-<div class="code html highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">script</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;text/x-mathjax-config&quot;</span><span class="o">&gt;</span>
-  <span class="n">MathJax</span><span class="o">.</span><span class="n">Hub</span><span class="o">.</span><span class="n">Config</span><span class="p">({</span>
-    <span class="n">tex2jax</span><span class="p">:</span> <span class="p">{</span>
-      <span class="n">inlineMath</span><span class="p">:</span> <span class="p">[[</span><span class="s1">&#39;$&#39;</span><span class="p">,</span><span class="s1">&#39;$&#39;</span><span class="p">]],</span>
-      <span class="n">displayMath</span><span class="p">:</span> <span class="p">[[</span><span class="s1">&#39;$$&#39;</span><span class="p">,</span><span class="s1">&#39;$$&#39;</span><span class="p">]],</span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/x-mathjax-config&quot;</span><span class="p">&gt;</span>
+  <span class="nx">MathJax</span><span class="p">.</span><span class="nx">Hub</span><span class="p">.</span><span class="nx">Config</span><span class="p">({</span>
+    <span class="nx">tex2jax</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">inlineMath</span><span class="o">:</span> <span class="p">[[</span><span class="s1">&#39;$&#39;</span><span class="p">,</span><span class="s1">&#39;$&#39;</span><span class="p">]],</span>
+      <span class="nx">displayMath</span><span class="o">:</span> <span class="p">[[</span><span class="s1">&#39;$$&#39;</span><span class="p">,</span><span class="s1">&#39;$$&#39;</span><span class="p">]],</span>
     <span class="p">}</span>
   <span class="p">});</span>
-<span class="o">&lt;/</span><span class="n">script</span><span class="o">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 </div>
 <p>こうすることで、次の効果が得られる：</p>
 <ul class="simple">
-<li>本文中、すなわち HTML 文書の <code class="docutils literal notranslate"><span class="pre">body</span></code> 要素中にあるドルマークで囲まれたテキストが
-TeX コードとして認識され、MathJax によりレンダリング処理が施されて画面上に出力される。</li>
-<li>ドルマーク一個のペア、および二個のペアで囲まれたテキストは、
-HTML の観点からはインライン要素およびブロック要素としてそれぞれ処理される。</li>
+<li><p>本文中、すなわち HTML 文書の <code class="docutils literal notranslate"><span class="pre">body</span></code> 要素中にあるドルマークで囲まれたテキストが
+TeX コードとして認識され、MathJax によりレンダリング処理が施されて画面上に出力される。</p></li>
+<li><p>ドルマーク一個のペア、および二個のペアで囲まれたテキストは、
+HTML の観点からはインライン要素およびブロック要素としてそれぞれ処理される。</p></li>
 </ul>
 <p>この方法は単純でわかりやすいのだが、数式を書く HTML ファイルを複数作成するのであれば別の手段を採用するのが妥当だ。設定・構成コードは可能な限り専用の外部ファイルに記述して、関連する複数の HTML ファイルから参照されるようにしたい。このような方法については後ほど Sphinx の節で述べる。</p>
 </div>
@@ -136,16 +144,16 @@ HTML の観点からはインライン要素およびブロック要素として
 <p>以上を踏まえて、Sphinx で MathJax の機能を利用可能にする手順を述べる。</p>
 <p>既存の Sphinx プロジェクトが MathJax 機能を無視して構築されている場合の手順としては次のようになる：</p>
 <ul class="simple">
-<li>Sphinx の構成ファイルを編集する</li>
-<li>MathJax の構成ファイルを作成する</li>
-<li>HTML テンプレートを編集する</li>
+<li><p>Sphinx の構成ファイルを編集する</p></li>
+<li><p>MathJax の構成ファイルを作成する</p></li>
+<li><p>HTML テンプレートを編集する</p></li>
 </ul>
 <p>ゼロから Sphinx プロジェクトを開始する場合には <code class="docutils literal notranslate"><span class="pre">sphinx-quickstart</span></code> の対話的処理で
 MathJax の拡張機能を有効とするように指示すればよい。</p>
-<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Please</span> <span class="n">indicate</span> <span class="k">if</span> <span class="n">you</span> <span class="n">want</span> <span class="n">to</span> <span class="n">use</span> <span class="n">one</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">Sphinx</span> <span class="n">extensions</span><span class="p">:</span>
-<span class="o">...</span>
-<span class="o">&gt;</span> <span class="n">mathjax</span><span class="p">:</span> <span class="n">include</span> <span class="n">math</span><span class="p">,</span> <span class="n">rendered</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">browser</span> <span class="n">by</span> <span class="n">MathJax</span> <span class="p">(</span><span class="n">y</span><span class="o">/</span><span class="n">n</span><span class="p">)</span> <span class="p">[</span><span class="n">n</span><span class="p">]:</span> <span class="n">y</span>
-<span class="o">...</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Please indicate if you want to use one of the following Sphinx extensions:
+...
+&gt; mathjax: include math, rendered in the browser by MathJax (y/n) [n]: y
+...
 </pre></div>
 </div>
 <p>以下、各項目を説明する。</p>
@@ -154,9 +162,10 @@ MathJax の拡張機能を有効とするように指示すればよい。</p>
 <p>既存の Sphinx プロジェクトが MathJax 機能を無視して構築されている場合、この手順を必要とする。</p>
 <p>Sphinx プロジェクト用の構成ファイル <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code> をテキストエディターで編集する。次のように変更する：</p>
 <ul class="simple">
-<li>リスト <code class="docutils literal notranslate"><span class="pre">extensions</span></code> に <code class="docutils literal notranslate"><span class="pre">'sphinx.ext.mathjax'</span></code> を追加する<ul>
-<li>ゼロから Sphinx プロジェクトを開始する場合には <code class="docutils literal notranslate"><span class="pre">sphinx-quickstart</span></code> の対話的処理で
-MathJax の拡張機能を有効とするように指示してあれば、リストにこの値があるはずだ。</li>
+<li><p>リスト <code class="docutils literal notranslate"><span class="pre">extensions</span></code> に <code class="docutils literal notranslate"><span class="pre">'sphinx.ext.mathjax'</span></code> を追加する</p>
+<ul>
+<li><p>ゼロから Sphinx プロジェクトを開始する場合には <code class="docutils literal notranslate"><span class="pre">sphinx-quickstart</span></code> の対話的処理で
+MathJax の拡張機能を有効とするように指示してあれば、リストにこの値があるはずだ。</p></li>
 </ul>
 </li>
 </ul>
@@ -166,12 +175,12 @@ MathJax の拡張機能を有効とするように指示してあれば、リス
 <p>とりあえず最低の動作確認しかしたくないのであれば、ここは飛ばして構わない。</p>
 <p>後ほど MathJax の機能を調整することを見込んで、
 Sphinx プロジェクトディレクトリー <code class="file docutils literal notranslate"><span class="pre">_static</span></code> に次の内容のテキストファイルを作成する。</p>
-<div class="code javascript highlight-default notranslate"><div class="highlight"><pre><span></span>window.MathJax = {
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">window</span><span class="p">.</span><span class="nx">MathJax</span> <span class="o">=</span> <span class="p">{</span>
 
-    // ... 先ほどの MathJax.Hub.Config 呼び出しの実引数と同じ内容を書く。
-    // ただし tex2jax オブジェクトの inlineMath と displayMath を普通は外す。
+    <span class="c1">// ... 先ほどの MathJax.Hub.Config 呼び出しの実引数と同じ内容を書く。</span>
+    <span class="c1">// ただし tex2jax オブジェクトの inlineMath と displayMath を普通は外す。</span>
 
-};
+<span class="p">};</span>
 </pre></div>
 </div>
 <p>以下、このファイル名を <code class="file docutils literal notranslate"><span class="pre">mathjaxconf.js</span></code> としたものとして説明をする。</p>
@@ -180,61 +189,62 @@ Sphinx プロジェクトディレクトリー <code class="file docutils litera
 <h3><a class="toc-backref" href="#id23">HTML テンプレートを編集する</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>とりあえず最低の動作確認しかしたくないのであれば、ここは飛ばして構わない。</p>
 <ul>
-<li><p class="first">Sphinx プロジェクト用の HTML テンプレート <code class="file docutils literal notranslate"><span class="pre">layout.html</span></code> について、</p>
+<li><p>Sphinx プロジェクト用の HTML テンプレート <code class="file docutils literal notranslate"><span class="pre">layout.html</span></code> について、</p>
 <ul>
-<li><p class="first">このテンプレートファイルが Sphinx プロジェクトディレクトリーにない場合、
+<li><p>このテンプレートファイルが Sphinx プロジェクトディレクトリーにない場合、
 Sphinx プロジェクトのテンプレートディレクトリ―（既定では <code class="docutils literal notranslate"><span class="pre">_template</span></code> という名前である）に空の内容の <code class="file docutils literal notranslate"><span class="pre">layout.html</span></code> を作成し、以下の内容で保存すればよい。</p>
-<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">extends</span> <span class="s2">&quot;!layout.html&quot;</span> <span class="o">%</span><span class="p">}</span>
-<span class="p">{</span><span class="o">%</span> <span class="nb">set</span> <span class="n">script_files</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;_static/mathjaxconf.js&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">script_files</span> <span class="o">%</span><span class="p">}</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{% extends &quot;!layout.html&quot; %}
+{% set script_files = [&quot;_static/mathjaxconf.js&quot;] + script_files %}
 </pre></div>
 </div>
 </li>
-<li><p class="first">自前で Sphinx のテーマをカスタマイズしているのであれば、そちらの <code class="file docutils literal notranslate"><span class="pre">layout.html</span></code> で <code class="docutils literal notranslate"><span class="pre">script_files</span></code> の値を適宜設定する。例えばその他のスクリプトがある場合などは、上述のリスト内リストが <code class="docutils literal notranslate"><span class="pre">&quot;_static/mathjaxconf.js&quot;</span></code> 以外にもパス文字列があるはずだ。</p>
-</li>
+<li><p>自前で Sphinx のテーマをカスタマイズしているのであれば、そちらの <code class="file docutils literal notranslate"><span class="pre">layout.html</span></code> で <code class="docutils literal notranslate"><span class="pre">script_files</span></code> の値を適宜設定する。例えばその他のスクリプトがある場合などは、上述のリスト内リストが <code class="docutils literal notranslate"><span class="pre">&quot;_static/mathjaxconf.js&quot;</span></code> 以外にもパス文字列があるはずだ。</p></li>
 </ul>
 </li>
-<li><p class="first">書式は <a class="reference external" href="http://jinja.pocoo.org/">Jinja2</a> に従う。</p>
-</li>
+<li><p>書式は <a class="reference external" href="http://jinja.pocoo.org/">Jinja2</a> に従う。</p></li>
 </ul>
 </div>
 </div>
 <div class="section" id="id10">
 <h2><a class="toc-backref" href="#id24">マクロを定義する</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <p>公式文書にあるように、TeX マクロを定義することができる。やり方は <code class="docutils literal notranslate"><span class="pre">MathJax.Hub.Config</span></code> 呼び出しの実引数または <code class="docutils literal notranslate"><span class="pre">window.MathJax</span></code> に設定する連想配列に次のようなオブジェクトを挿入する：</p>
-<div class="code javascript highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TeX</span><span class="p">:</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">TeX</span><span class="o">:</span>
 <span class="p">{</span>
-    <span class="n">Macros</span><span class="p">:</span> <span class="p">{</span>
-        <span class="n">NN</span><span class="p">:</span> <span class="s2">&quot;{</span><span class="se">\\</span><span class="s2">mathbb N}&quot;</span><span class="p">,</span>
-        <span class="n">ZZ</span><span class="p">:</span> <span class="s2">&quot;{</span><span class="se">\\</span><span class="s2">mathbb Z}&quot;</span><span class="p">,</span>
-        <span class="n">QQ</span><span class="p">:</span> <span class="s2">&quot;{</span><span class="se">\\</span><span class="s2">mathbb Q}&quot;</span><span class="p">,</span>
-        <span class="n">RR</span><span class="p">:</span> <span class="s2">&quot;{</span><span class="se">\\</span><span class="s2">mathbb R}&quot;</span><span class="p">,</span>
-        <span class="n">CC</span><span class="p">:</span> <span class="s2">&quot;{</span><span class="se">\\</span><span class="s2">mathbb C}&quot;</span><span class="p">,</span>
-        <span class="n">dd</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">mathrm d^{#1}&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">],</span>
-        <span class="n">diff</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">frac{</span><span class="se">\\</span><span class="s2">dd {#1}}{</span><span class="se">\\</span><span class="s2">dd {#2}}&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
-        <span class="o">//</span> <span class="o">...</span>
+    <span class="nx">Macros</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">NN</span><span class="o">:</span> <span class="s2">&quot;{\\mathbb N}&quot;</span><span class="p">,</span>
+        <span class="nx">ZZ</span><span class="o">:</span> <span class="s2">&quot;{\\mathbb Z}&quot;</span><span class="p">,</span>
+        <span class="nx">QQ</span><span class="o">:</span> <span class="s2">&quot;{\\mathbb Q}&quot;</span><span class="p">,</span>
+        <span class="nx">RR</span><span class="o">:</span> <span class="s2">&quot;{\\mathbb R}&quot;</span><span class="p">,</span>
+        <span class="nx">CC</span><span class="o">:</span> <span class="s2">&quot;{\\mathbb C}&quot;</span><span class="p">,</span>
+        <span class="nx">dd</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;\\mathrm d^{#1}&quot;</span><span class="p">,</span> <span class="mf">1</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">],</span>
+        <span class="nx">diff</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;\\frac{\\dd {#1}}{\\dd {#2}}&quot;</span><span class="p">,</span> <span class="mf">2</span><span class="p">],</span>
+        <span class="c1">// ...</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">TeX</span></code> と先述の <code class="docutils literal notranslate"><span class="pre">tex2jax</span></code> が並列されることになるだろう。</li>
-<li>連想配列 <code class="docutils literal notranslate"><span class="pre">Macros</span></code> のキーと値はそれぞれコマンド名とマクロ定義を意味する。<ul>
-<li>引数がないマクロについては、値の型は文字列でよい。</li>
-<li>引数を指定するマクロについては、値をリストで指定する。リストの内容は順にマクロ定義を表す文字列、引数の個数、もしあればデフォルト引数……だ。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TeX</span></code> と先述の <code class="docutils literal notranslate"><span class="pre">tex2jax</span></code> が並列されることになるだろう。</p></li>
+<li><p>連想配列 <code class="docutils literal notranslate"><span class="pre">Macros</span></code> のキーと値はそれぞれコマンド名とマクロ定義を意味する。</p>
+<ul>
+<li><p>引数がないマクロについては、値の型は文字列でよい。</p></li>
+<li><p>引数を指定するマクロについては、値をリストで指定する。リストの内容は順にマクロ定義を表す文字列、引数の個数、もしあればデフォルト引数……だ。</p></li>
 </ul>
 </li>
-<li>バックスラッシュはエスケープする必要がある。</li>
-<li>マクロ定義は LaTeX ディレクトリーの <code class="file docutils literal notranslate"><span class="pre">/texmf-dist/tex/latex/akktex/*.sty</span></code> が大いに参考になる。いくつかコツがある。<ul>
-<li>まず <cite>sty</cite> コードのバックスラッシュをバックスラッシュでエスケープする必要がある。</li>
-<li><cite>newcommand</cite> を定義するブロックを囲むための中括弧は削除する。</li>
+<li><p>バックスラッシュはエスケープする必要がある。</p></li>
+<li><p>マクロ定義は LaTeX ディレクトリーの <code class="file docutils literal notranslate"><span class="pre">/texmf-dist/tex/latex/akktex/*.sty</span></code> が大いに参考になる。いくつかコツがある。</p>
+<ul>
+<li><p>まず <cite>sty</cite> コードのバックスラッシュをバックスラッシュでエスケープする必要がある。</p></li>
+<li><p><cite>newcommand</cite> を定義するブロックを囲むための中括弧は削除する。</p></li>
 </ul>
 </li>
-<li>もし開発環境に LaTeX がインストールされていなければ、インターネットから検索しても十分間に合う。</li>
+<li><p>もし開発環境に LaTeX がインストールされていなければ、インターネットから検索しても十分間に合う。</p></li>
 </ul>
 </div>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
       </div>
       <div class="clearer"></div>
@@ -243,9 +253,13 @@ Sphinx プロジェクトのテンプレートディレクトリ―（既定で�
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
+          <a href="hxutils.html" title="HTML-XML-utils 利用ノート"
+             >next</a></li>
+        <li class="right" >
           <a href="inkscape/manual.html" title="ヘルプノート"
-             >previous</a></li>
-        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li> 
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">MathJax 利用ノート</a></li> 
       </ul>
     </div>
     <div id="footer">
@@ -254,7 +268,7 @@ Sphinx プロジェクトのテンプレートディレクトリ―（既定で�
       </div>
       <div id="footer_copyright">
         Since 1999<br />
-        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+        Copyright &copy; 1999-2020, プレハブ小屋 All rights reserved.
       </div>
     </div>
   </body>

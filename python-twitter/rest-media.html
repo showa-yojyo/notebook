@@ -1,17 +1,17 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>画像等のアップロード関連 &#8212; 読書ノート v1.4</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>画像等のアップロード関連 &#8212; 読書ノート v1.5dev</title>
     <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/mathjax-v3.js"></script>
+    
     <link rel="next" title="ミュート関連" href="rest-mutes.html" />
     <link rel="prev" title="リスト関連" href="rest-lists.html" /> 
   </head><body>
@@ -25,7 +25,8 @@
           <a href="rest-lists.html" title="リスト関連"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Python Twitter Tools 利用ノート</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Python Twitter Tools 利用ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">画像等のアップロード関連</a></li> 
       </ul>
     </div>  
 
@@ -34,18 +35,20 @@
           <div class="body" role="main">
             
   <div class="section" id="id1">
-<h1><a class="toc-backref" href="#id4">画像等のアップロード関連</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id5">画像等のアップロード関連</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>本節では media 系 API について述べる。と言っても実は POST media/upload 一つしかない。</p>
 <p>画像付きツイートをするには、実は POST statuses/upload 単独ではなく、前もってファイルを某所にアップロードしておき、そこで得られる ID をツイートに添える必要がある。本説で記す API はそのアップロードを行うものである。</p>
 <p>サンプルコードは次のものを参照して欲しい。</p>
 <p><a class="reference external" href="https://github.com/showa-yojyo/bin/blob/master/twmedia.py">bin/twmedia.py</a></p>
 <div class="contents topic" id="contents">
-<p class="topic-title first">Contents</p>
+<p class="topic-title">Contents</p>
 <ul class="simple">
-<li><a class="reference internal" href="#id1" id="id4">画像等のアップロード関連</a><ul>
-<li><a class="reference internal" href="#get-media-upload" id="id5">GET media/upload</a><ul>
-<li><a class="reference internal" href="#id2" id="id6">サイズの小さいファイルをアップロードする</a></li>
-<li><a class="reference internal" href="#id3" id="id7">サイズの大きいファイルをアップロードする</a></li>
+<li><p><a class="reference internal" href="#id1" id="id5">画像等のアップロード関連</a></p>
+<ul>
+<li><p><a class="reference internal" href="#get-media-upload" id="id6">GET media/upload</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id7">サイズの小さいファイルをアップロードする</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id8">サイズの大きいファイルをアップロードする</a></p></li>
 </ul>
 </li>
 </ul>
@@ -53,57 +56,60 @@
 </ul>
 </div>
 <div class="section" id="get-media-upload">
-<h2><a class="toc-backref" href="#id5">GET media/upload</a><a class="headerlink" href="#get-media-upload" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id6">GET media/upload</a><a class="headerlink" href="#get-media-upload" title="Permalink to this headline">¶</a></h2>
 <p>GET media/upload を用いることである程度の画像ファイル等をアップロードできる。以下に注意点をザッとまとめておく。</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">Twitter</span></code> オブジェクトの生成時にキーワード引数 <code class="docutils literal notranslate"><span class="pre">domain</span></code> を指定する必要がある。値は <code class="docutils literal notranslate"><span class="pre">upload.twitter.com</span></code> である。</li>
-<li>許される画像フォーマットは次のいずれかである。<ul>
-<li>PNG</li>
-<li>JPEG</li>
-<li>BMP</li>
-<li>WEBP</li>
-<li>GIF</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Twitter</span></code> オブジェクトの生成時にキーワード引数 <code class="docutils literal notranslate"><span class="pre">domain</span></code> を指定する必要がある。値は <code class="docutils literal notranslate"><span class="pre">upload.twitter.com</span></code> である。</p></li>
+<li><p>許される画像フォーマットは次のいずれかである。</p>
+<ul>
+<li><p>PNG</p></li>
+<li><p>JPEG</p></li>
+<li><p>BMP</p></li>
+<li><p>WEBP</p></li>
+<li><p>GIF</p></li>
 </ul>
 </li>
-<li>許されるファイルサイズは次のとおりである。<ul>
-<li>画像は 5MB まで</li>
-<li>ビデオは 15MB まで</li>
+<li><p>許されるファイルサイズは次のとおりである。</p>
+<ul>
+<li><p>画像は 5MB まで</p></li>
+<li><p>ビデオは 15MB まで</p></li>
 </ul>
 </li>
-<li>画像等のデータを生のバイナリーとしてファイルから読み取り、
-POST media/upload のパラメーター <code class="docutils literal notranslate"><span class="pre">media</span></code> にそのまま渡す。</li>
+<li><p>画像等のデータを生のバイナリーとしてファイルから読み取り、
+POST media/upload のパラメーター <code class="docutils literal notranslate"><span class="pre">media</span></code> にそのまま渡す。</p></li>
 </ul>
 <div class="section" id="id2">
-<h3><a class="toc-backref" href="#id6">サイズの小さいファイルをアップロードする</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id7">サイズの小さいファイルをアップロードする</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>比較的サイズの小さい PNG 画像ファイルを上述のスクリプトでアップロードすると、次のようになる。</p>
-<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./twmedia.py ../illvelo.png
-file size = 0 MB
-{
-    &quot;expires_after_secs&quot;: 86400,
-    &quot;image&quot;: {
-        &quot;image_type&quot;: &quot;image/png&quot;,
-        &quot;h&quot;: 505,
-        &quot;w&quot;: 512
-    },
-    &quot;media_id&quot;: 675725940782071809,
-    &quot;media_id_string&quot;: &quot;675725940782071809&quot;,
-    &quot;size&quot;: 47078
-}
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> ./twmedia.py ../illvelo.png
+<span class="go">file size = 0 MB</span>
+<span class="go">{</span>
+<span class="go">    &quot;expires_after_secs&quot;: 86400,</span>
+<span class="go">    &quot;image&quot;: {</span>
+<span class="go">        &quot;image_type&quot;: &quot;image/png&quot;,</span>
+<span class="go">        &quot;h&quot;: 505,</span>
+<span class="go">        &quot;w&quot;: 512</span>
+<span class="go">    },</span>
+<span class="go">    &quot;media_id&quot;: 675725940782071809,</span>
+<span class="go">    &quot;media_id_string&quot;: &quot;675725940782071809&quot;,</span>
+<span class="go">    &quot;size&quot;: 47078</span>
+<span class="go">}</span>
 </pre></div>
 </div>
 <p>重要なのは <code class="docutils literal notranslate"><span class="pre">media_id</span></code> の値だ。これを POST statuses/update のパラメーター <code class="docutils literal notranslate"><span class="pre">media_ids</span></code> に指定してツイートすると、ツイートにこの画像が表示される。ツイートの投稿方法については <a class="reference internal" href="rest-statuses.html"><span class="doc">タイムラインおよびツイート関連</span></a> を参照。</p>
 </div>
 <div class="section" id="id3">
-<h3><a class="toc-backref" href="#id7">サイズの大きいファイルをアップロードする</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">その時が来たら執筆する。</p>
+<h3><a class="toc-backref" href="#id8">サイズの大きいファイルをアップロードする</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="admonition-todo admonition" id="id4">
+<p class="admonition-title">Todo</p>
+<p>その時が来たら執筆する。</p>
 </div>
 </div>
 </div>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
       </div>
       <div class="clearer"></div>
@@ -118,7 +124,8 @@ file size = 0 MB
           <a href="rest-lists.html" title="リスト関連"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >Python Twitter Tools 利用ノート</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" >Python Twitter Tools 利用ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">画像等のアップロード関連</a></li> 
       </ul>
     </div>
     <div id="footer">
@@ -127,7 +134,7 @@ file size = 0 MB
       </div>
       <div id="footer_copyright">
         Since 1999<br />
-        Copyright &copy; 1999-2018, プレハブ小屋 All rights reserved.
+        Copyright &copy; 1999-2020, プレハブ小屋 All rights reserved.
       </div>
     </div>
   </body>
