@@ -27,10 +27,12 @@ TEMPLATE = '''\
 :出版社: {{ book["publisher"] }}
 :発行年: {{ book["pubyear"] }} 年
 :ISBN: {{ book["isbn"] }}
-{%- if "url" in book %}
+{%- if not "url" in book %}
+:関連 URL: なし
+{% elif book["url"].startswith("http") %}
 :関連 URL: `あり <{{ book["url"] }}>`__
 {% else %}
-:関連 URL: なし
+:関連 URL: 不明または調査中
 {% endif %}
 .. todo::
 
