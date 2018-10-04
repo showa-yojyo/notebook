@@ -1,7 +1,7 @@
 ======================================================================
 整数論
 ======================================================================
-SymPy_ の整数論モジュールについて記す。
+SymPy_ の整数論モジュール ``sympy.ntheory`` について記す。
 
 .. contents:: ノート目次
 
@@ -49,14 +49,20 @@ SymPy_ の整数論モジュールについて記す。
 これらの関数の内部では上述のオブジェクト :code:`sieve` を参照しているのではないだろうか。
 
 関数 :code:`prime(i)`
-  任意 :code:`i` 番目の素数を得られる。
+  :code:`i` 番目の素数を得られる。
+  ただし :code:`prime(1) == 2` だ。
+
+ジェネレーター :code:`primerange(a, b)`
+  Python 組み込み関数 :code:`range` の素数版だ。区間 ``[a, b)`` に含まれる素数を小さい順に生成する。
+
+  このジェネレーターは整数の性質をいろいろと試すのに有用だ。
 
 関数 :code:`primepi(n)`
   指定した数よりも小さい素数の個数を返す。
   引数が素数の場合はそれも含んで計上する。
 
   * 10 億を試したら MemoryError で失敗。
-  * 関数 :code:`integrate` の被積分関数として扱えない？
+  * 関数 :code:`integrate` の被積分関数として扱えない。
 
 関数 :code:`nextprime(n, i=1)`, :code:`prevprime(n, i=1)`
   指定した数から大きい、または小さい :code:`i` 番目の素数を返す。
@@ -64,8 +70,8 @@ SymPy_ の整数論モジュールについて記す。
   * キーワード引数 :code:`i` に負の値を指定すると、直感に反する値が返る。
   * :code:`prevprime` のほうは例外 ValueError を送出することがある。
 
-関数 :code:`primorial`
-  どう使おう。
+関数 :code:`primorial(n, nth=True)`
+  最初の ``n`` 個の素数の積を返す。
   引数の意味をキーワード引数 :code:`nth` で変えられることに注意。
 
 次の素数に関連する関数はモジュール ``primetest`` に存在する。
@@ -134,7 +140,7 @@ SymPy_ の整数論モジュールについて記す。
 
 関数 :code:`crt(m, v, symmetric=False, check=True)`
   中国剰余定理に基づく問題を解くのに利用できる。
-  例を示す。
+  同定理の名前の由来となった問題を解いてみる：
 
   .. code:: ipython
 
@@ -196,10 +202,8 @@ SymPy_ の整数論モジュールについて記す。
 ただしインポートは :code:`from sympy.ntheory import ...` で可能。
 
 関数 :code:`n_order(a, n)`
-  乗積順序を求める。
+  :code:`n` を法とする :code:`a` の位数、すなわち
   :code:`a ** k % n == 1` を満たす最小の整数 :code:`k` を返す。
-  これを <the order of `a` modulo `n`> と英語では言うらしい。
-  日本語なら「`a` の法 `n` の位数」か。
 
   .. code:: ipython
 
@@ -212,26 +216,98 @@ SymPy_ の整数論モジュールについて記す。
 関数 :code:`is_primitive_root(a, p)`
   :code:`a` が :code:`p` の原始根であるかをテストする。
 
-  意味としては :code:`a` と :code:`p` が互いに素であり、
-  かつ :code:`p` が :code:`a ** totient(p) % p == 1` を満たす最小の :code:`p` であるかどうかをテストする。
-  言い換えると :code:`a` の位数が :code:`p - 1` であるかどうかをテストする。
+  ただし :math:`\gcd(a, p) = 1` は呼び出し側が保証する必要がある。
 
 関数 :code:`primitive_root(p)`
-  存在するときに限り :code:`p` の最小の原始根を返す。
-  つまり :code:`p` と互いに素で、かつ :code:`p` を法とする整数の乗法群の生成元を求める。
+  存在するときに限り :code:`p` の最小の原始根を一つ返す。
+  つまり巡回群 :math:`(\ZZ/p\ZZ)^\cross` の生成元を求める。
+
+  :math:`27 = 3^3` の原始根を一つ求める：
 
   .. code:: ipython
 
      In [1]: primitive_root(27)
      Out[1]: 2
 
-     In [2]: any([(2**i) % 27 for i in range(30)])
+     In [2]: pow(2, n_order(2, 27), 27)
+     Out[2]: 1
+
+  * 原始根があるかどうかを判定する関数を本関数から括り出すといい。
+
+次に平方剰余に関係するものをまとめておく。
+
+関数 :code:`is_quad_residue(a, p)`
+  整数 :code:`a` が :code:`p` を法とする平方剰余であるか、
+  つまり、合同式 :math:`x^2 \equiv a \pmod{p}` に解があるかどうかを判定する。
+
+  * 引数 :code:`p` が一般的な素数の場合には Euler の基準を利用していることがわかる。
+  * 引数 :code:`p` が一般的な偶数の場合には Jacobi 記号の値を計算する。
+
+関数 :code:`quadratic_residues(p)`
+  :code:`p` を法とする平方剰余の集合をソート済みリストとして返す。
+  つまり、合同式 :math:`x^2 \equiv a \pmod{p}` が解を持つような :math:`a` を
+  ゼロを含めてすべて返す。
+
+  * IPython 上で ``%is_quad_residue??`` と入力して実装を見るといい。それで全て理解できる。
+
+関数 :code:`sqrt_mod(a, p, all_roots=False)`
+  合同式 :math:`x^2 \equiv a \pmod{p}` を解く。
+
+  解が存在しない場合は ``None`` を返す：
+
+  .. code:: ipython
+
+     In [1]: from sympy.ntheory import sqrt_mod
+
+     In [2]: sqrt_mod(-1, 5987)
+
+     In [3]:
+
+関数 :code:`legendre_symbol(a, p)`
+  整数 :code:`a` と奇素数 :code:`p` に対する Legendre 記号の値を返す。すなわち
+  :code:`a` が :code:`p` を法とする平方剰余ならば 1 を返し、平方非剰余ならば -1 を返す。
+  ただし 0 に合同ならば 0 を返す。
+
+  平方剰余の相互法則第 1 法則および 第 2 法則を実験してみよう：
+
+  .. code:: ipython
+
+     In [1]: from sympy.ntheory import legendre_symbol, primerange
+
+     In [2]: all(legendre_symbol(-1, p) == 1 for p in primerange(3, 100) if p % 4 == 1)
      Out[2]: True
 
-     In [3]: n_order(primitive_root(27), 27) == totient(27)
+     In [3]: all(legendre_symbol(-1, p) == -1 for p in primerange(3, 100) if p % 4 == 3)
      Out[3]: True
 
-他にも色々あるので、アレがないかコレがないかというときはドキュメントを当たるべし。
+     In [4]: all(legendre_symbol(2, p) == 1  for p in primerange(3, 100) if p % 8 in (1, 7))
+     Out[4]: True
+
+     In [5]: all(legendre_symbol(2, p) == -1 for p in primerange(3, 100) if p % 8 in (3, 5))
+     Out[5]: True
+
+関数 :code:`jacobi_symbol(m, n)`
+  整数 :code:`a` と正の奇数 :code:`n` に対する Jacobi 記号の値を返す。
+
+  * Jacobi 記号は Legendre 記号の上位互換のようなものだが、コードを見ると、
+    記号の簡略化アルゴリズムを実装していることがうかがえて面白い。
+
+離散対数に関する関数もある。
+
+関数 :code:`discrete_log(n, a, b, order=None, prime_order=None`
+  離散対数、つまり :math:`b^x \equiv a \pmod{n}` を満たす数を返す。
+
+  .. code:: ipython
+
+     In [1]: from sympy.ntheory import discrete_log
+
+     In [2]: b, p = 2, 13
+
+     In [3]: [discrete_log(p, i, b) for i in range(1, p)]
+     Out[3]: [0, 1, 4, 2, 9, 5, 11, 3, 8, 10, 7, 6]
+
+     In [4]: [pow(b, i, p) for i in _]
+     Out[4]: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
 連分数
 ======================================================================
