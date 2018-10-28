@@ -338,6 +338,28 @@ SymPy_ の整数論モジュール ``sympy.ntheory`` について記す。
   * :code:`cf` は連分数の各項（分母）を list オブジェクト等に収容したもの。
   * :code:`cf` の各項の分子が 1 であるという条件は特に課せられていない。
 
+  :math:`\sqrt{2} + \sqrt{3}` を 30 項ほど連分数展開し、近似分数を求めるには次のようにする：
+
+  .. code:: ipython
+
+     In [1]: from itertools import islice
+
+     In [2]: L = list(islice(continued_fraction_iterator(sqrt(2) + sqrt(3)), 30))
+
+     In [3]: list(ntheory.continued_fraction_convergents(L[:8]))
+     Out[3]: [3, 19/6, 22/7, 129/41, 925/294, 1054/335, 1979/629, 8970/2851]
+
+     In [4]: [i.evalf() for i in _]
+     Out[4]:
+     [3.00000000000000,
+      3.16666666666667,
+      3.14285714285714,
+      3.14634146341463,
+      3.14625850340136,
+      3.14626865671642,
+      3.14626391096979,
+      3.14626446860751]
+
 関数 :code:`continued_fraction_periodic(p, q, d=0)`
   整数係数二次方程式の根となる無理数の循環連分数展開を返す。
   単に :code:`(p + sqrt(d)) / q` の連分数を返すと覚えておいて支障はない。
@@ -355,6 +377,23 @@ SymPy_ の整数論モジュール ``sympy.ntheory`` について記す。
 
      In [2]: continued_fraction_reduce([a, b, c])
      Out[2]: (a + c*(a*b + 1))/(b*c + 1)
+
+  :math:`\pi^2` を 6 項で近似する：
+
+  .. code:: ipython
+
+     In [1]: from sympy import pi, ntheory
+
+     In [2]: from itertools import islice
+
+     In [3]: L = list(islice(ntheory.continued_fraction_iterator(pi**2), 6))
+
+     In [4]: ntheory.continued_fraction_reduce(L[:6])
+     Out[4]: 10748/1089
+
+     In [5]: (pi**2 - _).evalf()
+     Out[5]: -7.41243056440853e-7
+
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
