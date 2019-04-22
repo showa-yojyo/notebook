@@ -576,7 +576,7 @@ Berkowitz のアルゴリズムを検証する
 
 .. code:: ipython
 
-   In [1]:M = Matrix(3, 3, symbols('a:3:3')); M
+   In [1]: M = Matrix(3, 3, symbols('a:3:3')); M
    Out[1]:
    Matrix([[a00, a01, a02],
            [a10, a11, a12],
@@ -666,10 +666,10 @@ LU 分解再挑戦
 
 行列の Jordan 分解
 ----------------------------------------------------------------------
-任意の正方行列 :math:`A` には次の条件を満たす正方行列 :math:`S` と :math:`N` がある：
+任意の正方行列 :math:`A` には次の条件を満たす正方行列 :math:`S` と :math:`N` が（一意的に）存在する：
 
 * :math:`A = S + N`
-* :math:`SN = NS`
+* :math:`NS = SN`
 * :math:`S` は対角化可能行列である。
 * :math:`N` は冪零行列である。
 
@@ -685,35 +685,31 @@ LU 分解再挑戦
 
    In [2]: P, J = A.jordan_form()
 
-   In [3]: S = P * Matrix.diag(*J.diagonal()) * P.inv()
-
-   In [4]: N = A - S
-
-   In [5]: S.is_diagonalizable(), N.is_nilpotent()
-   Out[5]: (True, True)
-
-   In [6]: N*S == S*N
-   Out[6]: True
-
-   In [7]: S
-   Out[7]:
+   In [3]: S = P * Matrix.diag(*J.diagonal()) * P.inv(); S
+   Out[3]:
    Matrix([
    [2, 0, 0],
    [4, 1, 2],
    [0, 0, 2]])
 
-   In [8]: N
-   Out[8]:
+   In [4]: N = A - S; N
+   Out[4]:
    Matrix([
    [-1, 0, -1],
    [-2, 0, -2],
    [ 1, 0,  1]])
 
+   In [5]: S.is_diagonalizable(), N.is_nilpotent()
+   Out[5]: (True, True)
+
+   In [6]: N * S == S * N
+   Out[6]: True
+
 * [1] :math:`\displaystyle A = \begin{pmatrix}1 & 0 & -1\\2 & 1 & 0\\1 & 0 & 3\end{pmatrix}` を Jordan 分解しよう。
 * [2] メソッド呼び出しだけで変換行列と Jordan 行列が同時に得られる。
 * [3] :math:`J` の対角成分だけを抽出した行列を変換行列 :math:`P, P\inv` で挟んで :math:`S` を得る。
 * [4] 冪零行列 :math:`N` を得る。
-* [5][6] :math:`S` と :math:`N` に関数する条件を確認する。
+* [5][6] :math:`S` と :math:`N` に関する条件を確認する。
 
 関連ノート
 ======================================================================
