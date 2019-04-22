@@ -447,7 +447,7 @@ IPython コンソールウィンドウでの各種機能をひと通り試して
     コマンドラインでいうところの ``python -m module`` の
     Python コード限定版という感じだ。
 
-* :code:`%prun`, :code:`%%prun`` はプロファイラー付きでコードを実行する。
+* :code:`%prun`, :code:`%%prun` はプロファイラー付きでコードを実行する。
   コマンドラインで ``python -m cProfile [options] file`` を実行するのに近い。
 
 * 複数行に亘る関数の定義のコーディングは IPython ウィンドウ内で行うよりも、
