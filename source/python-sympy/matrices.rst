@@ -664,6 +664,57 @@ LU 分解再挑戦
 * [2][3] 期待しているようなきれいな三角行列が得られている。
 * [4] 行の入れ替えはない。
 
+行列の Jordan 分解
+----------------------------------------------------------------------
+任意の正方行列 :math:`A` には次の条件を満たす正方行列 :math:`S` と :math:`N` がある：
+
+* :math:`A = S + N`
+* :math:`SN = NS`
+* :math:`S` は対角化可能行列である。
+* :math:`N` は冪零行列である。
+
+:math:`A` の Jordan 標準形を :math:`J = P\inv A P` とおくと、Jordan 行列が対角行列と冪零行列の和であることから、
+:math:`A = PJP\inv` は対角化可能行列と冪零行列の和になっていることがわかる。
+そこで Jordan 分解を次のように求めることができる。
+
+.. code:: ipython
+
+   In [1]: A = Matrix([[1, 0, -1],
+                       [2, 1, 0],
+                       [1, 0, 3]])
+
+   In [2]: P, J = A.jordan_form()
+
+   In [3]: S = P * Matrix.diag(*J.diagonal()) * P.inv()
+
+   In [4]: N = A - S
+
+   In [5]: S.is_diagonalizable(), N.is_nilpotent()
+   Out[5]: (True, True)
+
+   In [6]: N*S == S*N
+   Out[6]: True
+
+   In [7]: S
+   Out[7]:
+   Matrix([
+   [2, 0, 0],
+   [4, 1, 2],
+   [0, 0, 2]])
+
+   In [8]: N
+   Out[8]:
+   Matrix([
+   [-1, 0, -1],
+   [-2, 0, -2],
+   [ 1, 0,  1]])
+
+* [1] :math:`\displaystyle A = \begin{pmatrix}1 & 0 & -1\\2 & 1 & 0\\1 & 0 & 3\end{pmatrix}` を Jordan 分解しよう。
+* [2] メソッド呼び出しだけで変換行列と Jordan 行列が同時に得られる。
+* [3] :math:`J` の対角成分だけを抽出した行列を変換行列 :math:`P, P\inv` で挟んで :math:`S` を得る。
+* [4] 冪零行列 :math:`N` を得る。
+* [5][6] :math:`S` と :math:`N` に関数する条件を確認する。
+
 関連ノート
 ======================================================================
 :doc:`/python-numpy/tutorial`
