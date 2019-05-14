@@ -249,8 +249,8 @@
 
     :math:`X \cap (U \times \RR^N) = \set{(\bm x_1, g(\bm x_1)), (\bm v_1, Dg_{(\bm x_1)}\bm v_1)) \sth (\bm u_1, \bm v_1) \in W \times \RR^p}.`
 
-  * :math:`TM` は :math:`M` のパラメーター表示による被覆 :math:`\set{\Phi_i(W_i)}` について
+  * :math:`TM` は :math:`M` のパラメーター表示による被覆 :math:`\set{\varPhi_i(W_i)}` について
     商空間 :math:`\bigcup W_i \times \RR^p` として定義されている。
 
-  * 写像 :math:`(\bm u, \bm v) \longmapsto (\Phi_i(\bm u), {D\Phi_i}_{(\bm u)}(\bm v))` は連続であり、
+  * 写像 :math:`(\bm u, \bm v) \longmapsto (\varPhi_i(\bm u), {D\varPhi_i}_{(\bm u)}(\bm v))` は連続であり、
     :math:`TM` の定義から逆写像もまた連続、:math:`C^\infty` 級である。

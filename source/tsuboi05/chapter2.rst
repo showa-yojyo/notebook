@@ -44,7 +44,7 @@
 
       .. math::
 
-         \set{\bm x_0 + t D\Phi_{(t^0)} \sth t \in \RR}
+         \set{\bm x_0 + t D\varPhi_{(t^0)} \sth t \in \RR}
          = \set{\bm x_0 + \bm v \sth DF_{(\bm x_0)}\bm v = 0, \bm v \in \RR^n}.
 
   * 陰関数とグラフ表示は「ある近傍」だが、パラメーター表示だけ「任意の近傍」。
@@ -80,7 +80,7 @@
 
     .. math::
 
-       \set{\bm x_0 + D\Phi_{(t^0)} \bm v \sth \bm v \in \RR^{n - 1}}
+       \set{\bm x_0 + D\varPhi_{(t^0)} \bm v \sth \bm v \in \RR^{n - 1}}
        = \set{\bm x_0 + \bm v \sth DF_{(\bm x_0)}\bm v = 0, \bm v \in \RR^n}.
 
 2.2 ユークリッド空間内の多様体
@@ -121,11 +121,11 @@
     .. math::
   
        \begin{align*}
-       &\forall \bm x_0 \in M, \forall U \owns \bm x_0,\ \exists V \subset U, \exists \Phi \in C^\infty(W, V)\\
+       &\forall \bm x_0 \in M, \forall U \owns \bm x_0,\ \exists V \subset U, \exists \varPhi \in C^\infty(W, V)\\
        \text{ s.t. }\\
-       &\forall \bm u \in W, \rank D\Phi_{(\bm u)} = p,\\
-       &M \cap V = \set{\Phi(\bm u) \sth \bm u \in W},\\
-       &\Phi \text{ is injection.}
+       &\forall \bm u \in W, \rank D\varPhi_{(\bm u)} = p,\\
+       &M \cap V = \set{\varPhi(\bm u) \sth \bm u \in W},\\
+       &\varPhi \text{ is injection.}
        \end{align*}
 
   * グラフ表示可能ならば陰関数表示可能：
@@ -134,7 +134,7 @@
 
   * グラフ表示可能ならばパラメーター表示可能：
   
-    :math:`\Phi(x_{i_1}, \dotsc, x_{i_p}) = (x_{i_1}, \dotsc, x_{i_p}, G(x_{i_1}, \dotsc, x_{i_p})).`
+    :math:`\varPhi(x_{i_1}, \dotsc, x_{i_p}) = (x_{i_1}, \dotsc, x_{i_p}, G(x_{i_1}, \dotsc, x_{i_p})).`
 
   * 陰関数表示可能ならばグラフ表示可能：
 
@@ -143,22 +143,22 @@
   * パラメーター表示可能ならばグラフ表示可能：
 
     * 逆写像定理による。
-    * :math:`D\Phi` はランクが :math:`p` である :math:`n \times p` 行列であるが、
+    * :math:`D\varPhi` はランクが :math:`p` である :math:`n \times p` 行列であるが、
       適宜列を並び替えて :math:`p \times p` 行列 :math:`\displaystyle \left(\frac{\partial \varphi_j}{\partial x_i}\right)` が
       正則であるとする。
-    * :math:`\Phi_1(\bm u) = (\varphi_1(\bm u), \dotsc, \varphi_p(\bm u))` とおくと、
+    * :math:`\varPhi_1(\bm u) = (\varphi_1(\bm u), \dotsc, \varphi_p(\bm u))` とおくと、
       開球 :math:`W_1 \subset \RR^p` と写像 :math:`H \in C^\infty(W_1, W)` が存在して次のようになる：
 
-        :math:`H \circ \Phi_1 = \id_{H(W_1)},\ \Phi_1 \circ H = \id_{W_1}.`
+        :math:`H \circ \varPhi_1 = \id_{H(W_1)},\ \varPhi_1 \circ H = \id_{W_1}.`
 
-    * :math:`\Phi(H(\bm x_1)) = (\Phi_1(H(x_1, \dotsc, x_p)), \Phi_2(H(x_1, \dotsc, x_p))) = (x_1, \dotsc, x_p, (\Phi_2 \circ H)(x_1, \dotsc, x_p))`
+    * :math:`\varPhi(H(\bm x_1)) = (\varPhi_1(H(x_1, \dotsc, x_p)), \varPhi_2(H(x_1, \dotsc, x_p))) = (x_1, \dotsc, x_p, (\varPhi_2 \circ H)(x_1, \dotsc, x_p))`
       という :math:`(W_1 \times \RR^q) \times V` 上のグラフ表示が得られる。
 
 * `接空間 <http://mathworld.wolfram.com/TangentSpace.html>`__ とは、
   ある点を通過する多様体上の曲線の接線の集まりだ。
 
   * パラメーター表示ならば
-    :math:`\set{\bm{x^0} + DF_{\Phi(u^0)}\bm{v} \sth \bm{v} \in \RR^p}`
+    :math:`\set{\bm{x^0} + DF_{\varPhi(u^0)}\bm{v} \sth \bm{v} \in \RR^p}`
   * 陰関数表示ならば
     :math:`\set{\bm{x^0} + \bm{v} \sth DF_{(x^0)} \bm{v} = 0}`
 
@@ -167,23 +167,23 @@
 * 問題 2.2.2: 即答できないとダメ。
   線形代数の復習をしないといけない。
 
-  * なぜ :math:`\text{im} D\Phi_{(u^0)} \subset \ker DF_{(x^0)}` なのか？
+  * なぜ :math:`\text{im} D\varPhi_{(u^0)} \subset \ker DF_{(x^0)}` なのか？
 
     .. math::
   
-       F(\Phi(\bm u)) = F(\bm x_0) \implies DF_{(\Phi_{(\bm u_0)})} D\Phi_{(\bm u_0)} = 0
+       F(\varPhi(\bm u)) = F(\bm x_0) \implies DF_{(\varPhi_{(\bm u_0)})} D\varPhi_{(\bm u_0)} = 0
 
   * なぜ :math:`\ker DF_{(x^0)}` は p 次元なのか？
 
     .. math::
 
-       \rank D\Phi = p,\ DF_{(\Phi_{(\bm u_0)})} = DF_{(\bm x_0)}.
+       \rank D\varPhi = p,\ DF_{(\varPhi_{(\bm u_0)})} = DF_{(\bm x_0)}.
 
-  * そしてなぜ :math:`\text{im} D\Phi_{(u^0)} = \ker DF_{\Phi(x^0)}` と結論できるのか？
+  * そしてなぜ :math:`\text{im} D\varPhi_{(u^0)} = \ker DF_{\varPhi(x^0)}` と結論できるのか？
 
     .. math::
 
-       n - q = p = \dim D\Phi.
+       n - q = p = \dim D\varPhi.
 
 2.3 逆写像定理、陰関数定理の意味
 ======================================================================
@@ -221,27 +221,27 @@
 
   ここまでが用語を定義するための舞台設定。
 
-  * 超曲面 :math:`S` の局所的パラメーター表示 :math:`\fn{\Phi}{W}\RR^n`
+  * 超曲面 :math:`S` の局所的パラメーター表示 :math:`\fn{\varPhi}{W}\RR^n`
     と上記 :math:`A` と近傍内の点 :math:`u^0 \in W` とを取る。
 
-    * :math:`A D\Phi_{(u^0)}` が正則である場合、上記直線族は :math:`\bm{x^0} = \Phi(u^0)` の近傍で
+    * :math:`A D\varPhi_{(u^0)}` が正則である場合、上記直線族は :math:`\bm{x^0} = \varPhi(u^0)` の近傍で
       超曲面 :math:`S` に突き刺さる。この状況を「直線族が超曲面と横断的である」という。
 
-    * 正則でない場合は :math:`\operatorname{im}D\Phi_{(u^0)}` のことを
+    * 正則でない場合は :math:`\operatorname{im}D\varPhi_{(u^0)}` のことを
       超曲面の点 :math:`\bm{x^0}` における接超平面 or 接空間と呼ぶ。
 
   * 一般の部分多様体の場合。
     上記の超曲面を p 次元部分多様体 :math:`M` に置き換えて読み替える。
-    :math:`\rank(A D\Phi_{(u^0)})` の値が
+    :math:`\rank(A D\varPhi_{(u^0)})` の値が
 
     * p ならば
-      :math:`\operatorname{im} A\Phi` は :math:`\RR^{n - 1}` の多様体（の条件を一部満たす）。
+      :math:`\operatorname{im} A\varPhi` は :math:`\RR^{n - 1}` の多様体（の条件を一部満たす）。
 
     * p - 1 以下ならば
-      :math:`\operatorname{im} D\Phi_{(u^0)}` を点 :math:`x^0 \in M` における接空間と呼ぶ。
+      :math:`\operatorname{im} D\varPhi_{(u^0)}` を点 :math:`x^0 \in M` における接空間と呼ぶ。
       直線 :math:`A \inv(A(\bm{x^0}))` が :math:`\bm{x^0}` において接する。
 
-    あるいは、:math:`\rank(L D\Phi_{(u^0)})` の値が
+    あるいは、:math:`\rank(L D\varPhi_{(u^0)})` の値が
 
     * 1 ならば p - 1 次元多様体。
     * 0 ならば :math:`L\inv(L(\bm{x^0}))` を点 :math:`\bm{x^0} \in M` における接空間と呼ぶ。

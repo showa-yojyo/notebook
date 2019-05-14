@@ -48,10 +48,10 @@
            :nowrap:
 
            \begin{align*}
-           \Gamma[F(t, \bm x)] := \bm x + \int_{t_0}^t X(s, F(s, \bm x))\,\dd{s} \in C^0(I_{\eps_0}, U).
+           \varGamma[F(t, \bm x)] := \bm x + \int_{t_0}^t X(s, F(s, \bm x))\,\dd{s} \in C^0(I_{\eps_0}, U).
            \end{align*}
 
-        このとき :math:`F \in \mathcal C \implies \Gamma[F] \in C(I_{\eps_0} \times K, \RR^n).`
+        このとき :math:`F \in \mathcal C \implies \varGamma[F] \in C(I_{\eps_0} \times K, \RR^n).`
 
       * :math:`C^0(I_{\eps_0} \times K, \RR^n)` 上に次の距離を入れてリプシッツ性を利用する。
 
@@ -62,9 +62,9 @@
     以下、上限記号の範囲指定を略記するが、
     だいたい :math:`I_{\eps_0} \times K` とかだ。
 
-    * :math:`F_1, F_2 \in \mathcal C, \sup \norm{\Gamma[F_1] - \Gamma[F_2]} \le \eps_0 L \sup \norm{F_1 - F_2}` となる。
+    * :math:`F_1, F_2 \in \mathcal C, \sup \norm{\varGamma[F_1] - \varGamma[F_2]} \le \eps_0 L \sup \norm{F_1 - F_2}` となる。
 
-    * :math:`F_0(t, \bm x) = \bm x,\ F_1 = \Gamma[F_0]` とすると :math:`\sup \norm{F_1 - F_0} \le \eps_0 M.`
+    * :math:`F_0(t, \bm x) = \bm x,\ F_1 = \varGamma[F_0]` とすると :math:`\sup \norm{F_1 - F_0} \le \eps_0 M.`
       ここで :math:`\eps_0 = \min\Set{\dfrac{1}{2L}, \dfrac{\eps}{4M}}` とすればよいことわがかる。
 
     * :math:`\eps_0 \le \dfrac{1}{2L}` と
@@ -73,13 +73,13 @@
     * 微分可能性：
 
       * :math:`\norm{F_1 - F_0} \le \dfrac{\eps}{4}` より :math:`F_1 \in \mathcal C.`
-      * :math:`F_{k + 1} = \Gamma[F_k] (F_k \in \mathcal C)` とすると次のように評価できる：
+      * :math:`F_{k + 1} = \varGamma[F_k] (F_k \in \mathcal C)` とすると次のように評価できる：
 
         .. math::
 
            \begin{align*}
            \norm{F_{k + 1} - F_k}
-           &= \norm{\Gamma[F_k] - \Gamma[F_{k - 1}]}\\
+           &= \norm{\varGamma[F_k] - \varGamma[F_{k - 1}]}\\
            &\le \frac{1}{2} \norm{F_k - F_{k - 1}}\\
            &\le \frac{1}{2^k} \norm{F_1 - F_0}\\
            &\le \frac{\eps}{2^{k + 2}}\\
@@ -92,7 +92,7 @@
         ゆえに :math:`\set{F_k}` は一様収束する。
 
       * 極限を :math:`F_\infty \in C^0(I_{\eps_0} \times K, \RR^n)` とすると
-        :math:`F_\infty = \Gamma[F_infty].`
+        :math:`F_\infty = \varGamma[F_infty].`
 
         .. math::
 
@@ -100,7 +100,7 @@
 
     * 解の一意性：
 
-      * :math:`F_p = \Gamma[F_p],\ F_q = \Gamma[F_q]` であるとすると、
+      * :math:`F_p = \varGamma[F_p],\ F_q = \varGamma[F_q]` であるとすると、
         :math:`\norm{F_p - F_q} \le \dfrac{1}{2}\norm{F_p - F_q}`
         ゆえに :math:`F_p = F_q.`
       * リプシッツ連続が関係する命題でいつもやっている証明方法だ。
@@ -324,8 +324,8 @@
 .. _tsuboi05.6.4.5:
 
 * 問題 6.4.5: 次の条件を満たす :math:`\displaystyle \mu\frac{\partial}{\partial x_1}` が生成するフロー
-  :math:`\Phi_t` の :math:`\displaystyle \lim_{t \to \infty}\Phi_t(\bm x)` と
-  :math:`\displaystyle \lim_{t \to -\infty}\Phi_t(\bm x)` の値
+  :math:`\varPhi_t` の :math:`\displaystyle \lim_{t \to \infty}\varPhi_t(\bm x)` と
+  :math:`\displaystyle \lim_{t \to -\infty}\varPhi_t(\bm x)` の値
 
   * :math:`\fn{\mu}{\RR^n}\RR` は :math:`C^\infty` 級で、
   * :math:`\supp \mu = \set{\bm x \in \RR^n \sth \norm{\bm x} \le 1},`
@@ -338,7 +338,7 @@
   #. 単位超球面内部の場合
 
      * 内部ではベクトル場が非ゼロであるので、どちらの極限も球面上の点となる。
-     * :math:`\Phi_t(\bm x) = (\varphi_t(\bm x), x_2, \dotsc, x_n)` と書けるが、
+     * :math:`\varPhi_t(\bm x) = (\varphi_t(\bm x), x_2, \dotsc, x_n)` と書けるが、
 
        * :math:`t < 0 \implies \varphi_t(\bm x) < x_1,`
        * :math:`t > 0 \implies \varphi_t(\bm x) > x_1`
@@ -347,7 +347,7 @@
 
        .. math::
 
-          \lim_{t \to \pm\infty}\Phi_t(\bm x) = (
+          \lim_{t \to \pm\infty}\varPhi_t(\bm x) = (
             \pm\sqrt{1 - x_2^2 - \dotsb - x_n^2},
             x_2, \dotsc, x_n).
 

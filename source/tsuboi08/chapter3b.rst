@@ -8,7 +8,7 @@
 ======================================================================
 目標は次のとおり：
 
-* :math:`\Omega^*(M)` の p 次元コホモロジー群と単体複体のコホモロジー群は一致する。
+* :math:`\varOmega^*(M)` の p 次元コホモロジー群と単体複体のコホモロジー群は一致する。
 * 単体複体のコホモロジー群とホモロジー群は同次元の双対空間である。
 
 これらが言えれば :math:`\H^p(M) \cong \RR^d` のときに
@@ -288,9 +288,9 @@
 ----------------------------------------------------------------------
 .. _tsuboi08.3.3.6:
 
-* 定義 3.3.6: :math:`\Omega^k(K),\ \H^*(K)`
+* 定義 3.3.6: :math:`\varOmega^k(K),\ \H^*(K)`
 
-  * :math:`\omega \in \Omega^k(K)` を次の二点で定義する：
+  * :math:`\omega \in \varOmega^k(K)` を次の二点で定義する：
 
     * :math:`K` のすべての単体から、その上の k 形式への対応である：
       :math:`\sigma \longmapsto \omega_\sigma`
@@ -298,7 +298,7 @@
     * m 単体 :math:`\sigma` とその面である m - 1 単体 :math:`\tau` に対して
       :math:`\omega_\sigma|\tau = \omega_\tau` となる。
 
-  * 外微分 :math:`\fn{\dd{}}{\Omega^k(K)}\Omega^{k+1}(K)` について
+  * 外微分 :math:`\fn{\dd{}}{\varOmega^k(K)}\varOmega^{k+1}(K)` について
 
     * :math:`\dd{} \circ \dd{} = 0`
     * :math:`\H^*(K) = \ker{\dd{}}/\im{\dd{}}`
@@ -307,7 +307,7 @@
 
 ..
 
-* 2.10 節の理論を :math:`K` のドラーム複体 :math:`\Omega^*(K)` に適用することができる。
+* 2.10 節の理論を :math:`K` のドラーム複体 :math:`\varOmega^*(K)` に適用することができる。
   その結果 :math:`\H^*(K) \cong H^*(K)` と結論できる。
 
 ..
@@ -317,7 +317,7 @@
 
 3.3.3 単体的ドラームの定理
 ----------------------------------------------------------------------
-* 単体上の積分が :math:`K` の :math:`\Omega^*(K)` と :math:`C^*(K)` の関係を与える。
+* 単体上の積分が :math:`K` の :math:`\varOmega^*(K)` と :math:`C^*(K)` の関係を与える。
 * :math:`\Delta^k` から :math:`\sigma = \langle e_{i_0} \dots e_{i_k}\rangle` への写像をやはり同じ記号で記す：
 
   .. math::
@@ -328,7 +328,7 @@
      + (x_{k - 1} - x_k)e_{i_{k - 1}}
      + x_k e_{i_k}.
 
-* 写像 :math:`\fnm{I}{\Omega^*(K)}{C^*(K)}{(\omega, \sigma)}\int_\sigma\!\omega \in \RR` は
+* 写像 :math:`\fnm{I}{\varOmega^*(K)}{C^*(K)}{(\omega, \sigma)}\int_\sigma\!\omega \in \RR` は
   :math:`K` の k コチェインを与える。
 
   * :math:`I` は :ref:`定理 3.2.1 <tsuboi08.3.2.1>` により、
@@ -340,12 +340,12 @@
 
   :math:`I` は :math:`\H^*(K)` と :math:`H^*(K)` の間の同型写像を誘導する。
 
-  1. コチェイン写像 :math:`\fn{s}{C^*(K)}\Omega^*(K)` で
+  1. コチェイン写像 :math:`\fn{s}{C^*(K)}\varOmega^*(K)` で
      :math:`I \circ s = \id_{C^*(K)}` を満たすものを考える。
 
      次の事実を利用する：
 
-     * :math:`\fn{I}{\Omega^*(K)}C^*(K)` は値 :math:`\displaystyle \int_\sigma\!\omega` を対応させる写像であり、
+     * :math:`\fn{I}{\varOmega^*(K)}C^*(K)` は値 :math:`\displaystyle \int_\sigma\!\omega` を対応させる写像であり、
        :math:`I \circ \dd{} = \delta \circ I` である。
 
      * :math:`I` は準同型写像 :math:`\fn{I_*}{\H^*(?)}H^*(K)` を誘導する。
@@ -354,7 +354,7 @@
      * :math:`s` は準同型写像 :math:`\fn{s_*}{H^*(K)}\H^*(?)` を誘導し、
        :math:`I_* \circ s_* = \id_{H^*(K)}` を満たす。
 
-     :math:`c \in C^0(K)` に対し :math:`\Omega^0(K)` の何が対応するのか、
+     :math:`c \in C^0(K)` に対し :math:`\varOmega^0(K)` の何が対応するのか、
      どのような :math:`\abs{K}` 上の関数であればよいのかを考える。
      それは頂点 :math:`e_i` で値 :math:`c(i)` をとる関数を線形に拡張するのがよい：
 
@@ -435,14 +435,14 @@
 
   * :math:`\H^*(M) \cong H^*(K).`
   * :math:`\H^*(K) \cong H^*(K),` 3.3.2 節参照。
-  * :math:`\fn{\varphi^*}{\Omega^*(M)}\Omega^*(K)` の存在。
+  * :math:`\fn{\varphi^*}{\varOmega^*(M)}\varOmega^*(K)` の存在。
 
-* :math:`\Omega^*(K)` と :math:`C^*(K)` のコホモロジー群の同型も単体に沿う積分から誘導される。
+* :math:`\varOmega^*(K)` と :math:`C^*(K)` のコホモロジー群の同型も単体に沿う積分から誘導される。
 * :math:`H_p(K)` の生成元 :math:`[c_1], \dotsc, [c_k]` に対し、
   :math:`\displaystyle \int_{c_i}\!\alpha = 0` となる :math:`\alpha \in Z^p(M)` は
   :math:`\alpha \in B^p(M)` を満たす。
 
-* 三角形分割のとり方に依らないので :math:`\Omega^*` と :math:`C^*` が等しい？
+* 三角形分割のとり方に依らないので :math:`\varOmega^*` と :math:`C^*` が等しい？
 * オイラー標数は多様体に対して定まる量になっている。
 
 3.4 向きを持つ多様体上の積分
@@ -475,7 +475,7 @@
 
 ..
 
-:math:`\alpha \in \Omega^n(M)` ということは :math:`\alpha = f(\bm x)\,\dd x_1 \wedge \dotsb \wedge \dd x_n`
+:math:`\alpha \in \varOmega^n(M)` ということは :math:`\alpha = f(\bm x)\,\dd x_1 \wedge \dotsb \wedge \dd x_n`
 となる多様体上の関数 :math:`f` が局所的に存在するということだ。
 この局所座標近傍を :math:`(U, \varphi)` とし、コンパクト集合 :math:`K \subset U` をとる。
 このときコンパクト集合 :math:`\varphi(K)` を有限個の disjoint な直方体で被覆できる。
@@ -569,7 +569,7 @@
 * 定理 3.4.8: ドラーム・コホモロジー群の性質
 
   * コンパクト・向き付けを持つ・連結 n 次元多様体 :math:`M` について :math:`\H^n(M) \cong \RR.`
-  * 写像 :math:`\displaystyle \Omega^n(M) \owns \alpha \longmapsto \int_M\!\alpha \in \RR` は
+  * 写像 :math:`\displaystyle \varOmega^n(M) \owns \alpha \longmapsto \int_M\!\alpha \in \RR` は
     同型写像 :math:`\H^n(M) \longto \RR` を誘導する。
 
   これがまともな準同型であることをまず示す。
@@ -626,7 +626,7 @@
     * :math:`\varphi \circ \varphi = \id_{\widehat M},`
     * :math:`\widehat M/\varphi \cong M.`
 
-  ここで :math:`\alpha \in \Omega^n(M)` をとり、
+  ここで :math:`\alpha \in \varOmega^n(M)` をとり、
   射影を :math:`\fn{\pi}{\widehat M}M` とおく。
 
   * :math:`\pi = \pi \circ \varphi` ゆえ :math:`\varphi^*\pi^*\alpha = \pi^*\alpha.`
@@ -651,11 +651,11 @@
        \int_{\widehat M}\!\pi^*\alpha = 0.
 
   * ここで :ref:`定理 3.4.8 <tsuboi08.3.4.8>` により、
-    :math:`\pi^*\alpha = \dd \beta \in \Omega^n(M)`
+    :math:`\pi^*\alpha = \dd \beta \in \varOmega^n(M)`
     （外微分をオメガの元と見るのが新鮮）
 
-  * :math:`\displaystyle \beta_1 = \frac{1}{2}(\beta + \varphi^*\beta) \in \Omega^{n - 1}(\widehat M)` に対して、
-    :math:`\varphi^*\beta_1 = \beta_1` より :math:`\beta_1 = \pi^*\beta_2 \in \Omega^{n - 1}(\widehat M).`
+  * :math:`\displaystyle \beta_1 = \frac{1}{2}(\beta + \varphi^*\beta) \in \varOmega^{n - 1}(\widehat M)` に対して、
+    :math:`\varphi^*\beta_1 = \beta_1` より :math:`\beta_1 = \pi^*\beta_2 \in \varOmega^{n - 1}(\widehat M).`
 
   .. math::
 

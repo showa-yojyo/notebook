@@ -24,7 +24,7 @@
   であるといえる。
 
   * :math:`\fn{F}{M}N` から
-    :math:`\fn{F^*}{\Omega^*(N)}\Omega^*(M)` への対応をいう。
+    :math:`\fn{F^*}{\varOmega^*(N)}\varOmega^*(M)` への対応をいう。
 
   * :math:`(F_2 \circ F_1)^* = F_1^* \circ F_2^*` という性質がある。
 
@@ -32,7 +32,7 @@
   （ベクトル空間、線型写像）への `共変関手 <http://mathworld.wolfram.com/CovariantFunctor.html>`__
   である。
 
-  * :math:`\fn{F^*}{\Omega^*(N)}\Omega^*(M)` から
+  * :math:`\fn{F^*}{\varOmega^*(N)}\varOmega^*(M)` から
     :math:`\fn{F^*}{\H^p(N)}{\H^p(M)}` への対応をいう。
 
 * この二つの結合（反変関手となる）のことが
@@ -73,9 +73,9 @@
 
      \require{AMScd}
      \begin{CD}
-     0 @>>> \Omega^p(M)
-       @>{(j_1^*,\ j_2^*)}>> \Omega^p(M_1) \oplus \Omega^p(M_2)
-       @>{i_1^* - i_2^*}>> \Omega^p(M_{12})
+     0 @>>> \varOmega^p(M)
+       @>{(j_1^*,\ j_2^*)}>> \varOmega^p(M_1) \oplus \varOmega^p(M_2)
+       @>{i_1^* - i_2^*}>> \varOmega^p(M_{12})
        @>>> 0
      \end{CD}
 
@@ -89,7 +89,7 @@
 
   #. :math:`\im(j_1^*, j_2^*) = \ker(i_1^* - i_2^*)` を示す：
 
-     :math:`\alpha \in \Omega^p(M)` をとる。このとき次のようになる：
+     :math:`\alpha \in \varOmega^p(M)` をとる。このとき次のようになる：
 
      .. math::
 
@@ -121,13 +121,13 @@
        * :math:`M \setminus M_2` の近傍上 :math:`\lambda_2 = 0` である。
          なぜならば :math:`\supp \lambda_2 \subset M_2` がコンパクト部分集合として成り立つから。
 
-     * すべての :math:`\alpha \in \Omega^p(M_{12})` に対して
+     * すべての :math:`\alpha \in \varOmega^p(M_{12})` に対して
        :math:`\lambda_2\alpha` を :math:`M \setminus M_2` 上ゼロと定義することで
        :math:`M_{12} \cup (M \setminus M_2) = M_1` 上の p 形式であるように拡張できる。
 
-       ゆえに :math:`\lambda_2\alpha \in \Omega^p(M_1).`
+       ゆえに :math:`\lambda_2\alpha \in \varOmega^p(M_1).`
 
-     * 同様にして :math:`-\lambda_1\alpha \in \Omega^p(M_2).`
+     * 同様にして :math:`-\lambda_1\alpha \in \varOmega^p(M_2).`
 
      .. math::
 
@@ -147,27 +147,27 @@
 
      \begin{CD}
        @. @A{\dd}AA @A{\dd}AA @A{\dd}AA\\
-     0 @>>> \Omega^{p + 1}(M)
-       @>{(j_1^*,\ j_2^*)}>> \Omega^{p + 1}(M_1) \oplus \Omega^{p + 1}(M_2)
-       @>{i_1^* - i_2^*}>> \Omega^{p + 1}(M_{12})
+     0 @>>> \varOmega^{p + 1}(M)
+       @>{(j_1^*,\ j_2^*)}>> \varOmega^{p + 1}(M_1) \oplus \varOmega^{p + 1}(M_2)
+       @>{i_1^* - i_2^*}>> \varOmega^{p + 1}(M_{12})
        @>>> 0\\
        @. @A{\dd}AA @A{\dd}AA @A{\dd}AA\\
-     0 @>>> \Omega^p(M)
-       @>{(j_1^*,\ j_2^*)}>> \Omega^p(M_1) \oplus \Omega^p(M_2)
-       @>{i_1^* - i_2^*}>> \Omega^p(M_{12})
+     0 @>>> \varOmega^p(M)
+       @>{(j_1^*,\ j_2^*)}>> \varOmega^p(M_1) \oplus \varOmega^p(M_2)
+       @>{i_1^* - i_2^*}>> \varOmega^p(M_{12})
        @>>> 0\\
        @. @A{\dd}AA @A{\dd}AA @A{\dd}AA\\
-     0 @>>> \Omega^{p - 1}(M)
-       @>{(j_1^*,\ j_2^*)}>> \Omega^{p - 1}(M_1) \oplus \Omega^{p - 1}(M_2)
-       @>{i_1^* - i_2^*}>> \Omega^{p - 1}(M_{12})
+     0 @>>> \varOmega^{p - 1}(M)
+       @>{(j_1^*,\ j_2^*)}>> \varOmega^{p - 1}(M_1) \oplus \varOmega^{p - 1}(M_2)
+       @>{i_1^* - i_2^*}>> \varOmega^{p - 1}(M_{12})
        @>>> 0\\
        @. @A{\dd}AA @A{\dd}AA @A{\dd}AA
      \end{CD}
 
-* :math:`\alpha \in \Omega^p(M_{12}), \alpha_1 \in \Omega^p(M_1), \alpha_2 \in \Omega^p(M_2)`,
+* :math:`\alpha \in \varOmega^p(M_{12}), \alpha_1 \in \varOmega^p(M_1), \alpha_2 \in \varOmega^p(M_2)`,
   :math:`i_1^*a_1 - i_2^*a_2 = \alpha.`
-* :math:`\dd \alpha_1 \in \Omega^{p + 1}(M_1), \dd \alpha_2 \in \Omega^{p + 1}(M_2)`
-  これらは :math:`M_{12}` 上一致し、どちらもある :math:`\beta \in \Omega^{p + 1}(M_{12})`
+* :math:`\dd \alpha_1 \in \varOmega^{p + 1}(M_1), \dd \alpha_2 \in \varOmega^{p + 1}(M_2)`
+  これらは :math:`M_{12}` 上一致し、どちらもある :math:`\beta \in \varOmega^{p + 1}(M_{12})`
   を定める。
 
 .. _tsuboi08.2.6.2:
@@ -180,9 +180,9 @@
      * :math:`\alpha = i_1^*\alpha - i_2^*\alpha = i_1^*\alpha' - i_2^*\alpha'` とおく。
        すなわち :math:`i_1^*(\alpha - \alpha') - i_2^*(\alpha_2 = \alpha_2') = 0` である。
      * :ref:`命題 2.6.1 <tsuboi08.2.6.1>` により、
-       :math:`\exists \gamma \in \Omega^p(M)\quad\text{s.t.}\quad (j_1^*, j_2^*)\gamma = (\alpha_1 - \alpha_1', \alpha_2 - \alpha_2').`
-     * このとき閉形式 :math:`\beta' \in \Omega^{p + 1}(M)` が、
-       :math:`\dd \alpha_1' \in \Omega^{p + 1}(M_1), \dd \alpha_2' \in \Omega^{p + 1}(M_2)` が
+       :math:`\exists \gamma \in \varOmega^p(M)\quad\text{s.t.}\quad (j_1^*, j_2^*)\gamma = (\alpha_1 - \alpha_1', \alpha_2 - \alpha_2').`
+     * このとき閉形式 :math:`\beta' \in \varOmega^{p + 1}(M)` が、
+       :math:`\dd \alpha_1' \in \varOmega^{p + 1}(M_1), \dd \alpha_2' \in \varOmega^{p + 1}(M_2)` が
        :math:`M_{12}` 上で一致することで定まる。
      * したがって :math:`\beta' - \beta = \dd \gamma` となる。
      * ゆえに :math:`[\beta] = [\beta'] \in \H^{p + 1}(M).`
@@ -190,7 +190,7 @@
   #. :math:`\alpha \in B^p(M) \implies \beta \in B^{p + 1}(M).`
 
      * :math:`\alpha = \dd \eta` とする。
-     * :math:`\exists \eta_1 \in \Omega^{p - 1}(M_1), \exists \eta_2 \in \Omega^{p - 1}(M_2) \quad\text{s.t.}\quad i_1^*\eta_1 - i_2^*\eta_2 = \eta.`
+     * :math:`\exists \eta_1 \in \varOmega^{p - 1}(M_1), \exists \eta_2 \in \varOmega^{p - 1}(M_2) \quad\text{s.t.}\quad i_1^*\eta_1 - i_2^*\eta_2 = \eta.`
      * :math:`\alpha_1 = \dd \eta_1, \alpha_2 = \dd \eta_2` ととれる。
      * :math:`\dd \alpha_1 = 0, \dd \alpha_2 = 0.`
      * ゆえに :math:`\beta = 0` ととれる。
@@ -350,7 +350,7 @@
 
        \alpha = -a\dd \nu_1 + b\dd v_2
        = \left(-a\diff{\nu_1}{t} + b\diff{\nu_2}{t}\right)\dd t
-       \in \Omega^1(S^1).
+       \in \varOmega^1(S^1).
 
   * したがって :math:`\Delta^*(a, b) = [\alpha]` である。
 
@@ -472,7 +472,7 @@
           \frac{4 \dd u_1 \wedge \dd u_2}{(1 + u_1^2 + u_2^2)^2}.
 
   #. 次の微分形式に対して :math:`\alpha \in Z^1(\RR^3\minuszero)` を示せ。
-     :math:`(\pi_S\inv)^*(\alpha|S^2\setminus\set{p_N, p_S}) \in \Omega^1(\RR^2\minuszero)` を展開しろ。
+     :math:`(\pi_S\inv)^*(\alpha|S^2\setminus\set{p_N, p_S}) \in \varOmega^1(\RR^2\minuszero)` を展開しろ。
 
      .. math::
 
@@ -510,7 +510,7 @@
         &= 2\pi.
         \end{align*}
 
-  #. :math:`\alpha_1 = \dfrac{1 - x_3}{2}\alpha \in \Omega^1(S^2\setminus\set{p_S}).`
+  #. :math:`\alpha_1 = \dfrac{1 - x_3}{2}\alpha \in \varOmega^1(S^2\setminus\set{p_S}).`
 
      * これも SymPy で直接計算する：
 

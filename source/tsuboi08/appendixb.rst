@@ -203,13 +203,13 @@
 
     .. math::
 
-       \langle\phi_t(\sigma^{N - n})\phi_t(\sigma^{N - n + 1})\dots\phi_t(\sigma^{N})\rangle.
+       \langle\varphi_t(\sigma^{N - n})\varphi_t(\sigma^{N - n + 1})\dots\varphi_t(\sigma^{N})\rangle.
 
-    を n 単体とする。ここで :math:`\phi_t` は次の式で定義するものとする：
+    を n 単体とする。ここで :math:`\varphi_t` は次の式で定義するものとする：
 
     .. math::
 
-       \phi_t(\sigma^{N - n + k}) = (1 - t)\psi(\sigma^{N - n + k}) + t\varphi(\sigma^{N - n + k})
+       \varphi_t(\sigma^{N - n + k}) = (1 - t)\psi(\sigma^{N - n + k}) + t\varphi(\sigma^{N - n + k})
        \quad(0 \le k \le n).
 
     * :ref:`4.6 <tsuboi08.appendix.4.6>` が根拠。
@@ -224,15 +224,15 @@
 
     * :ref:`4.6 <tsuboi08.appendix.4.6>` で :math:`t_i \ge \dfrac{2^2c}{k_N} \ge \dfrac{2c}{k_N}.`
 
-    :math:`K_t` の頂点 :math:`\phi(\sigma^{N - n + k})` の重心座標について
+    :math:`K_t` の頂点 :math:`\varphi(\sigma^{N - n + k})` の重心座標について
     :math:`t_i \ge \dfrac{2c}{k_N}.`
 
     * 内分点であるから。
 
 .. _tsuboi08.appendix.6.4:
 
-  * 6.4 :math:`K_t` の n 単体 :math:`\tau^n = \langle\phi_t(\sigma^{N - n})\phi_t(\sigma^{N - n + 1})\dots\phi_t(\sigma^{N})\rangle`
-    について、affine 空間 :math:`P(\langle\phi_t(\sigma^{N - n})\phi_t(\sigma^{N - n + 1})\dots\phi_t(\sigma^{N})\rangle)` と
+  * 6.4 :math:`K_t` の n 単体 :math:`\tau^n = \langle\varphi_t(\sigma^{N - n})\varphi_t(\sigma^{N - n + 1})\dots\varphi_t(\sigma^{N})\rangle`
+    について、affine 空間 :math:`P(\langle\varphi_t(\sigma^{N - n})\varphi_t(\sigma^{N - n + 1})\dots\varphi_t(\sigma^{N})\rangle)` と
     :math:`\psi(\sigma^{N - n + k + 1})` の距離は
     :math:`\dfrac{H\delta_0}{\sqrt{N}}\dfrac{2c}{k_N} \ge \dfrac{\delta_0}{\sqrt{N}}\dfrac{c}{k_N}`
     以上である。
@@ -271,7 +271,7 @@
     * :math:`\sigma_t` が :math:`\pi_{T_pM}` と十分な角度をもって横断的であることを
       示せば十分。
 
-    * :math:`\bm v_{(i, t)} = \phi_t(\sigma^{N - n + i}) - \phi_t(\sigma^{N - n})` とする。
+    * :math:`\bm v_{(i, t)} = \varphi_t(\sigma^{N - n + i}) - \varphi_t(\sigma^{N - n})` とする。
     * :math:`\displaystyle \bm u = \sum_{i = 1}^n a_i \bm v_{(i, t)}` を
       :math:`\sigma_t` 上の単位ベクトルであるとする。
 

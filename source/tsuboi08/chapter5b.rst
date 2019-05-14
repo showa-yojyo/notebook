@@ -63,7 +63,7 @@
 
   * \(1) :math:`M_1, M_2` を向き付けられた :math:`m_1, m_2` 次元コンパクト多様体とする。
 
-    * :math:`\alpha_i \in \Omega^{m_i}(M_i)\quad(i = 1, 2)` を
+    * :math:`\alpha_i \in \varOmega^{m_i}(M_i)\quad(i = 1, 2)` を
       :math:`\displaystyle \int_{M_i}\!\alpha_i = 1` を満たす微分形式とする。
     * 直積多様体から各多様体への射影を :math:`\fn{\pi_i}{M_1 \times M_2}M_i\quad(i = 1, 2)` とする。
 
@@ -180,7 +180,7 @@
        \int_M\!\bar\alpha \wedge \bar\beta = \int_{PD(\bar\beta)}\!\bar\alpha.
 
   * :ref:`定理 3.3.7 <tsuboi08.3.3.7>` の証明を利用する。
-    以下、標準 k 形式を :math:`\omega_{i_0 \dots i_k} \in \Omega^k(K)` で表す。
+    以下、標準 k 形式を :math:`\omega_{i_0 \dots i_k} \in \varOmega^k(K)` で表す。
 
   * また、:math:`\bar\alpha, \bar\beta` の展開式を次のように表す：
 
@@ -203,8 +203,8 @@
   * :math:`I = \set{i_0, \dotsc, i_p},\ J = \set{j_0, \dotsc, j_q},\ L = \set{l_0, \dotsc, l_n}`
     をいずれも相異なる昇順の添字の集合とする。
   * :math:`I \subset L` かつ :math:`J \subset L` であるとする。
-  * :math:`\omega_I \colon= \omega_{i_0 \dots i_p} \in \Omega^p(\sigma_L)`,
-    :math:`\omega_J \colon= \omega_{j_0 \dots j_q} \in \Omega^q(\sigma_L)` とする。
+  * :math:`\omega_I \colon= \omega_{i_0 \dots i_p} \in \varOmega^p(\sigma_L)`,
+    :math:`\omega_J \colon= \omega_{j_0 \dots j_q} \in \varOmega^q(\sigma_L)` とする。
 
   このとき次のことが成り立つ：
 

@@ -269,13 +269,13 @@ k-枠場
   * :math:`N` 上の :math:`C^\infty` 級ベクトル場 :math:`\xi_i = \mu\dfrac{\partial}{\partial y_i}` を考える。
   * また :math:`\bm a \in \RR^n` として
     :math:`\xi_{\bm a} = \sum_{i = 1}^n a_i\xi_i` およびそれが生成するフロー
-    :math:`\Psi_{\bm a}^t` を考える。
+    :math:`\varPsi_{\bm a}^t` を考える。
 
     これはある :math:`\eps > 0` について次のような性質がある：
 
     .. math::
 
-       t\norm{\bm a} < \eps \implies \Psi_{\bm a}^t(y^0) = \psi\inv(t\bm a).
+       t\norm{\bm a} < \eps \implies \varPsi_{\bm a}^t(y^0) = \psi\inv(t\bm a).
 
   * :math:`F_*|\nu_x` は同型なので :math:`\xi_i` に対して
     :math:`M` 上のベクトル場 :math:`\overset{\sim}{\xi_i}` を次が成り立つように一意的に取れる：
@@ -294,18 +294,18 @@ k-枠場
     :math:`F_* \overset{\sim}{\xi}_{\bm a} = \overset{\sim}{\xi}_{\bm a}.`
 
     ゆえに :ref:`例題 6.5.5 <tsuboi05.6.5.5>` のベクトル場の射影の性質により、
-    :math:`\overset{\sim}{\xi}_{\bm a}` のフロー :math:`\Phi_{\bm a}^t` について次が成り立つ：
+    :math:`\overset{\sim}{\xi}_{\bm a}` のフロー :math:`\varPhi_{\bm a}^t` について次が成り立つ：
 
     .. math::
 
-       F \circ \Phi_{\bm a}^t = \Psi_{\bm a}^t \circ F.
+       F \circ \varPhi_{\bm a}^t = \varPsi_{\bm a}^t \circ F.
 
   * 写像 :math:`\fn{H}{\set{\bm a \in \RR^n \sth \norm{\bm a} < \eps} \times F\inv(y^0)}M` を
-    :math:`H(\bm a, x) = \Phi_{\bm a}^1(x)` で定義する。
+    :math:`H(\bm a, x) = \varPhi_{\bm a}^1(x)` で定義する。
 
     * :ref:`注意 6.3.6 <tsuboi05.6.3.6>` より :math:`H` は :math:`C^\infty` 級である。
-    * :math:`F(H(\bm a, x)) = \Psi_{\bm a}^1(F(x)) = \Psi_{\bm a}^1(y^0) = \psi\inv(a).`
-    * :math:`H` の逆写像は :math:`x \longmapsto (\psi(F(x)), \Phi_{\psi(F(x))}(x))` で与えられる。
+    * :math:`F(H(\bm a, x)) = \varPsi_{\bm a}^1(F(x)) = \varPsi_{\bm a}^1(y^0) = \psi\inv(a).`
+    * :math:`H` の逆写像は :math:`x \longmapsto (\psi(F(x)), \varPhi_{\psi(F(x))}(x))` で与えられる。
 
     よって写像 :math:`H` は微分同相写像である。
 
@@ -338,12 +338,12 @@ k-枠場
 
     * 各 :math:`\zeta_i` が生成するフローを :math:`\varphi_i^{t_i}` とすると、各フローは局所的には可換である。
     * :math:`x \in M` と 0 近傍の点 :math:`(t_1, \dotsc, t_n)` に対し、
-      :math:`\Phi(t_1, \dotsc, t_n)(x) = \varphi_1^{t_1} \circ \dotsb \circ \varphi_n^{t_n}(x)` とおく。
+      :math:`\varPhi(t_1, \dotsc, t_n)(x) = \varphi_1^{t_1} \circ \dotsb \circ \varphi_n^{t_n}(x)` とおく。
 
-      #. :math:`\psi(F(\Phi(t_1, \dotsc, t_n)))(x) = \psi(F(x)) + (t_1, \dotsc, t_n),`
-      #. :math:`\Phi(s_1, \dotsc, s_n) \circ \Phi(t_1, \dotsc, t_n)(x) = \Phi(s_1 + t_1, \dotsc, s_n + t_n)(x).`
+      #. :math:`\psi(F(\varPhi(t_1, \dotsc, t_n)))(x) = \psi(F(x)) + (t_1, \dotsc, t_n),`
+      #. :math:`\varPhi(s_1, \dotsc, s_n) \circ \varPhi(t_1, \dotsc, t_n)(x) = \varPhi(s_1 + t_1, \dotsc, s_n + t_n)(x).`
 
-    * 微分同相写像 :math:`x \longmapsto (F(x), \Phi(\psi(y) - \psi(F(x)))(x))` に関する
+    * 微分同相写像 :math:`x \longmapsto (F(x), \varPhi(\psi(y) - \psi(F(x)))(x))` に関する
       :math:`U_y \times \set{z}` の逆像は部分多様体のように貼り合わされる。
 
 * ファイバーがリー群であるようなファイバー束を考えることができる。

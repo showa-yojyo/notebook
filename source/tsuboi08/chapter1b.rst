@@ -147,24 +147,24 @@
 以下 :math:`C^\infty` 級関数、微分形式のみを考える。
 
 * 約束として 0 形式とは関数とする。
-* 記号 :math:`\Omega^p(U)` で :math:`U` 上の p 形式全体を表す。
+* 記号 :math:`\varOmega^p(U)` で :math:`U` 上の p 形式全体を表す。
 
-  * :math:`\Omega^p(U)` は（集合が空集合でなければ）無限次元ベクトル空間である。
-  * :math:`p < 0 \text{ or } n < p \implies \Omega^p(U) = \zeroset` とする。
-  * 演算 :math:`\fn{\dd{}}{\Omega^p(U)}\Omega^{p + 1}(U)` は線形写像である。
+  * :math:`\varOmega^p(U)` は（集合が空集合でなければ）無限次元ベクトル空間である。
+  * :math:`p < 0 \text{ or } n < p \implies \varOmega^p(U) = \zeroset` とする。
+  * 演算 :math:`\fn{\dd{}}{\varOmega^p(U)}\varOmega^{p + 1}(U)` は線形写像である。
 
 ..
 
 * `コチェイン複体 <http://mathworld.wolfram.com/CochainComplex.html>`__ の定義。
 
   * この微分形式全体の空間の系列であって :math:`\dd{} \circ \dd{} = 0` であるものを言う。
-  * 開集合 :math:`U \subset \RR^n` に対する :math:`\Omega^p(U)` を外微分で系列にしたものが
+  * 開集合 :math:`U \subset \RR^n` に対する :math:`\varOmega^p(U)` を外微分で系列にしたものが
     コチェイン複体である。この :math:`U` を一般の :math:`C^\infty` 級多様体に
     置き換えた系列はドラーム複体と呼ばれるということを後でやる。
 
 .. _tsuboi08.1.7.1:
 
-* 定理 1.7.1: :math:`\fn{\dd \circ \dd}{\Omega^p(U)}\Omega^{p + 2}(U)` は 0 準同型である
+* 定理 1.7.1: :math:`\fn{\dd \circ \dd}{\varOmega^p(U)}\varOmega^{p + 2}(U)` は 0 準同型である
 
   * 基底に対しては :math:`\dd{(\dd{x_{i_1}} \wedge \dotsb \wedge \dd{x_{i_p}})} = 0.`
   * 一般には次のようになってやはりゼロだ：
@@ -245,14 +245,14 @@
     :math:`\iota^* \alpha = \alpha|V` の関係（説明のみ）。
 
   * :math:`m < n` とすれば :math:`\fnm{\iota}{\RR^m}{\RR^n}{(x_1, \dotsc, x_m)}(x_1, \dotsc, x_m, 0, \dotsc, 0)` である。
-    このとき :math:`\alpha \in \Omega^p(\RR^n)` に対する次の値を :math:`\alpha|\RR^n` と書くことがある：
+    このとき :math:`\alpha \in \varOmega^p(\RR^n)` に対する次の値を :math:`\alpha|\RR^n` と書くことがある：
 
     .. math::
 
        \iota^*\alpha = \sum_{i_1 < \dotsb < i_p \le m} f_{i_1 \dots i_p} \circ \iota\,\dd{x_{i_1}} \wedge \dotsb \wedge \dd{x_{i_p}}.
 
   * :math:`\fnm{\pi}{\RR^n}{\RR^m}{(x_1, \dotsc, x_m, \dotsc, x_n)}(x_1, \dotsc, x_m)` とする。
-    このとき :math:`\alpha \in \Omega^p(\RR^m)` に対して次の式が成り立つ：
+    このとき :math:`\alpha \in \varOmega^p(\RR^m)` に対して次の式が成り立つ：
 
     .. math::
 

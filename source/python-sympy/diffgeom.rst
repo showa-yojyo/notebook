@@ -403,8 +403,8 @@ SymPy の FAQ にあるように、こういう複雑な等式のテストには
 .. todo::
 
    :math:`f, g \in C^\infty(M)`, :math:`X, Y \in \mathfrak X(M)`,
-   :math:`\omega \in \Omega^1(M)`,
-   :math:`\xi \in \Gamma(T(a, b)),\ \eta \in \Gamma(T(a', b'))` に対して、
+   :math:`\omega \in \varOmega^1(M)`,
+   :math:`\xi \in \varGamma(T(a, b)),\ \eta \in \varGamma(T(a', b'))` に対して、
    例えば次に挙げるリー微分の性質が成り立っているかどうかを試したい：
 
    .. math::
@@ -507,7 +507,7 @@ SymPy の FAQ にあるように、こういう複雑な等式のテストには
 
    \begin{align*}
    \varphi_{sr}: (x, y, z) & \longmapsto (\sqrt{x^2 + y^2 + z^2}, \cos\inv \frac{z}{\sqrt{x^2 + y^2 + z^2}}, \tan\inv \frac{y}{x})\\
-   \varphi_{rs}: (r, \theta, \phi) & \longmapsto (r \sin \theta \cos \phi, r \sin \theta \sin \phi, r \cos \theta)
+   \varphi_{rs}: (r, \theta, \varphi) & \longmapsto (r \sin \theta \cos \varphi, r \sin \theta \sin \varphi, r \cos \theta)
    \end{align*}
 
 円柱座標系と球座標系間の座標変換は次のように与えられている。
@@ -516,7 +516,7 @@ SymPy の FAQ にあるように、こういう複雑な等式のテストには
 
    \begin{align*}
    \varphi_{sc}: (\rho, \psi, z) & \longmapsto (\sqrt{\rho^2 + z^2}, \cos\inv \frac{z}{\sqrt{\rho^2 + z^2}}, \psi)\\
-   \varphi_{cs}: (r, \theta, \phi) & \longmapsto (r \sin \theta, \phi, r \cos \theta)
+   \varphi_{cs}: (r, \theta, \varphi) & \longmapsto (r \sin \theta, \varphi, r \cos \theta)
    \end{align*}
 
 コード例（基本編）
@@ -648,7 +648,7 @@ SymPy の FAQ にあるように、こういう複雑な等式のテストには
 
 .. math::
 
-   \fnm{f}{\RR^2}{\RR}{(r, \theta, \phi)}-\frac{k}{r^2}.
+   \fnm{f}{\RR^2}{\RR}{(r, \theta, \varphi)}-\frac{k}{r^2}.
 
 を :code:`f` として定義し、各座標成分について適用させて方向微分を見よう。
 
@@ -667,7 +667,7 @@ SymPy の FAQ にあるように、こういう複雑な等式のテストには
    In [5]: R3_c.e_rho(f), R3_c.e_psi(f), R3_c.e_z(f)
    Out[5]: (2*k*rho/(sqrt(rho**2 + z**2)*r**3), 0, 2*k*z/(sqrt(rho**2 + z**2)*r**3))
 
-* [2] 球座標系でスカラー場 :math:`f(r, \theta, \phi) = -\dfrac{k}{r^2}` を定義する。
+* [2] 球座標系でスカラー場 :math:`f(r, \theta, \varphi) = -\dfrac{k}{r^2}` を定義する。
 
 * [3] まず球座標系 :code:`R3_s` の BaseVectorField オブジェクト
   :code:`e_r`, :code:`e_theta`, :code:`e_psi` の丸括弧演算を全成分で評価する。
@@ -685,7 +685,7 @@ SymPy の FAQ にあるように、こういう複雑な等式のテストには
      \frac{\partial f}{\partial x} =
      \frac{\partial f}{\partial r}\frac{\partial r}{\partial x} +
      \frac{\partial f}{\partial \theta}\frac{\partial \theta}{\partial x} +
-     \frac{\partial f}{\partial \phi}\frac{\partial \phi}{\partial x}
+     \frac{\partial f}{\partial \varphi}\frac{\partial \varphi}{\partial x}
      \end{align*}
 
 微分形式と外微分
@@ -945,7 +945,7 @@ Christoffel 記号
 
 関数 :code:`metric_to_Christoffel_1st(expr)`
   計量テンソル :code:`expr` から第一種 Christoffel 記号
-  :math:`\Gamma_{c a b}` を求める。
+  :math:`\varGamma_{c a b}` を求める。
 
   * 引数 :code:`expr` は、これから基本計量テンソルを得られる、
     何らかの TensorProduct オブジェクトの式でなければならない。
@@ -956,7 +956,7 @@ Christoffel 記号
 
 関数 :code:`metric_to_Christoffel_2nd(expr)`
   計量テンソル :code:`expr` から第二種 Christoffel 記号
-  :math:`\Gamma_{ij}^k` を求める。
+  :math:`\varGamma_{ij}^k` を求める。
 
   * 引数と戻り値の型の意味は上述の関数と同じ。
   * この関数の実装に :code:`twoform_to_matrix` と、
@@ -978,10 +978,10 @@ Riemman-Christoffel 曲率テンソル
 
        \begin{align*}
        R^\rho{}_{\sigma \mu \nu} = 
-       \Gamma_{\sigma \nu, \mu}^\rho
-       - \Gamma_{\sigma \mu, \nu}^\rho
-       + \Gamma_{\sigma \nu}^l \Gamma_{l \mu}^\rho
-       - \Gamma_{\sigma \mu}^l \Gamma_{l \nu}^\rho
+       \varGamma_{\sigma \nu, \mu}^\rho
+       - \varGamma_{\sigma \mu, \nu}^\rho
+       + \varGamma_{\sigma \nu}^l \varGamma_{l \mu}^\rho
+       - \varGamma_{\sigma \mu}^l \varGamma_{l \nu}^\rho
        \end{align*}
 
    * 実装では当然ながら関数 :code:`metric_to_Christoffel_2nd` を用いている。

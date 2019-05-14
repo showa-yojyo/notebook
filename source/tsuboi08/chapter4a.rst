@@ -64,7 +64,7 @@
        + \sum_{i = 1}^n\sum_{j = 1}^n f_i \dfrac{\partial \xi_i}{\partial x_j}\,\dd x_j.
 
     上の式を :math:`L_\xi \alpha` と書いて、
-    これをベクトル場 :math:`\xi` による :math:`\alpha \in \Omega^1(M)` のリー微分という。
+    これをベクトル場 :math:`\xi` による :math:`\alpha \in \varOmega^1(M)` のリー微分という。
 
   * 以上の手続きを p 形式について考えると、同様の式で定まる p 形式が得られる。
     リー微分は p 形式から p 形式への写像である。
@@ -92,7 +92,7 @@
 
 * 問題 4.1.3: ライプニッツ則の確認
 
-  * :math:`\alpha \in \Omega^p(M),\ \beta \in \Omega^q(M)`
+  * :math:`\alpha \in \varOmega^p(M),\ \beta \in \varOmega^q(M)`
   * :math:`\xi \in \mathfrak X(M)`
 
   のときに次の等式が成り立つ：
@@ -111,7 +111,7 @@
 
 * 問題 4.1.4: リー微分と外微分の演算順序交換
 
-  * :math:`\alpha \in \Omega^p(M)`
+  * :math:`\alpha \in \varOmega^p(M)`
   * :math:`\xi \in \mathfrak X(M)`
 
   のときに次の等式が成り立つ：
@@ -132,7 +132,7 @@
 
 * 定義 4.1.5: `内部積 <http://mathworld.wolfram.com/InteriorProduct.html>`__
 
-  1. :math:`\alpha \in \Omega^1(M)` のベクトル場 :math:`\xi` による
+  1. :math:`\alpha \in \varOmega^1(M)` のベクトル場 :math:`\xi` による
      リー微分 :math:`L_\xi(\alpha)` の書き換えを考えたい。
   2. :math:`M` 上の関数として :math:`\alpha(\xi) = \sum f_i\xi_i` のようなものが考えられる。
   3. ここで :math:`\dd(\alpha(\xi))` を計算してみると、和の一部が 1. の和の一部と一致する。
@@ -157,23 +157,23 @@
      \end{cases}
      \end{align*}
 
-  一般のベクトル場 :math:`\xi` による :math:`\alpha \in \Omega^p(M)` の内部積
-  :math:`\fn{i_\xi}{\Omega^p(M)}\Omega^{p - 1}(M)` を次のように定義する：
+  一般のベクトル場 :math:`\xi` による :math:`\alpha \in \varOmega^p(M)` の内部積
+  :math:`\fn{i_\xi}{\varOmega^p(M)}\varOmega^{p - 1}(M)` を次のように定義する：
 
   .. math::
 
      i_\xi\alpha = \sum_{i_1 < \dotsb < i_p}\sum_{j = 1}^p (-1)^{j - 1}
        f_{i_1 \dots i_p}\xi_{ij}
        \,\dd x_{i_1} \wedge \overset{(\text{pop }\dd i_j)}{\dotsb} \wedge \dd x_{i_p}
-       \in \Omega^{p - 1}(M).
+       \in \varOmega^{p - 1}(M).
 
-  特に :math:`\alpha \in \Omega^1(M)` の内部積はドット積に一致する：
+  特に :math:`\alpha \in \varOmega^1(M)` の内部積はドット積に一致する：
 
   .. math::
 
      i_\xi\alpha = \alpha(\xi).
 
-  関数 :math:`f \in \Omega^0(M)` の内部積はゼロとする：
+  関数 :math:`f \in \varOmega^0(M)` の内部積はゼロとする：
 
   .. math::
 
@@ -190,7 +190,7 @@
 
 * 問題 4.1.7: 内部積の定義は座標近傍のとり方に依存しない
 
-  * \(1) :math:`\alpha \in \Omega^p(M),\ \beta \in \Omega^q(M)` に対して次の式が成り立つ：
+  * \(1) :math:`\alpha \in \varOmega^p(M),\ \beta \in \varOmega^q(M)` に対して次の式が成り立つ：
 
     .. math::
 
@@ -200,7 +200,7 @@
     * 直接計算で示す。
 
   * \(2) :math:`\fn{F}{U}V` をユークリッド空間の開集合間の微分同相写像、
-    :math:`\alpha \in \Omega^1(V)`, :math:`\xi \in \mathfrak{X}(V)` のとき次が成り立つ：
+    :math:`\alpha \in \varOmega^1(V)`, :math:`\xi \in \mathfrak{X}(V)` のとき次が成り立つ：
 
     .. math::
 
@@ -234,13 +234,13 @@
           &= F^*(i_\xi\alpha).
           \end{align*}
 
-  * \(3) (2) の :math:`\alpha` を :math:`\Omega^p(V)` としても与式が成り立つ。
+  * \(3) (2) の :math:`\alpha` を :math:`\varOmega^p(V)` としても与式が成り立つ。
 
     1. :math:`p = 0` のときも確かめる必要があることに注意。
        両辺ゼロで成り立つ。
 
     2. トリッキーな帰納法を用いる。与式が
-       :math:`\alpha \in \Omega^p(V),\ \beta \in \Omega^q(V)` に対して成り立つと仮定する。
+       :math:`\alpha \in \varOmega^p(V),\ \beta \in \varOmega^q(V)` に対して成り立つと仮定する。
        このとき、外積に対しても成り立つことを示せれば話が早い：
 
        .. math::
@@ -262,7 +262,7 @@
 
 * 命題 4.1.8: カルタンの公式
 
-  :math:`\alpha \in \Omega^p(M),\ \xi \in \mathfrak{X}(M)` に対して次の等式が成り立つ：
+  :math:`\alpha \in \varOmega^p(M),\ \xi \in \mathfrak{X}(M)` に対して次の等式が成り立つ：
 
   .. math::
 
@@ -271,7 +271,7 @@
   :ref:`問題 4.1.7 <tsuboi08.4.1.7>` と同じように証明する：
 
   1. :math:`p = 0, 1` に対しては前節の議論によって示されている。
-  2. 一般の :math:`p` に対して示すために、与式が :math:`\alpha \in \Omega^p(M),\ \beta \in \Omega^q(M)`
+  2. 一般の :math:`p` に対して示すために、与式が :math:`\alpha \in \varOmega^p(M),\ \beta \in \varOmega^q(M)`
      のときに成り立つと仮定し、外積に対して同等の等式：
 
      .. math::
@@ -296,7 +296,7 @@
 
 * 問題 4.1.9: リー微分と括弧積に関する等式 1 形式版
 
-  * :math:`\alpha \in \Omega^1(M)`
+  * :math:`\alpha \in \varOmega^1(M)`
   * :math:`\xi, \eta \in \mathfrak{X}(M)`
 
   ならば、次が成り立つ：
@@ -338,13 +338,13 @@
 
 * 問題 4.1.10: リー微分と括弧積に関する等式 p 形式版
 
-  :ref:`問題 4.1.9 <tsuboi08.4.1.9>` において :math:`\alpha \in \Omega^p(M)` と
+  :ref:`問題 4.1.9 <tsuboi08.4.1.9>` において :math:`\alpha \in \varOmega^p(M)` と
   仮定を一般の次数に緩めても同じ等式が成り立つ。
 
   こちらの等式もカルタンの公式である。
 
   1. :math:`p = 0` のとき成り立つことを示す。
-     つまり関数 :math:`f \in \Omega^0(M)` で確認する：
+     つまり関数 :math:`f \in \varOmega^0(M)` で確認する：
 
      .. math::
 
@@ -356,7 +356,7 @@
         \end{align*}
 
   2. :math:`p = 1` のときは既に :ref:`問題 4.1.9 <tsuboi08.4.1.9>` において証明済みである。
-  3. 与式が :math:`\alpha \in \Omega^p(M),\ \beta \in \Omega^q(M)`
+  3. 与式が :math:`\alpha \in \varOmega^p(M),\ \beta \in \varOmega^q(M)`
      のときに成り立つと仮定し、
      :ref:`問題 4.1.7 <tsuboi08.4.1.7>` での証明技法を用いる。
      つまり、次の等式が成り立つことを示す：
@@ -370,7 +370,7 @@
 
 * 問題 4.1.11: 内部積とリー微分と括弧積
 
-  * :math:`\alpha \in \Omega^p(M)`
+  * :math:`\alpha \in \varOmega^p(M)`
   * :math:`\xi, \eta \in \mathfrak{X}(M)`
 
   ならば、次が成り立つ：
@@ -393,7 +393,7 @@
 
 * 問題 4.1.12: カルタンの公式の応用？
 
-  * \(1) :math:`\omega = \dd x_1 \wedge \dd x_2 \wedge \dd x_3 \in \Omega^3(\RR^3)` とする。
+  * \(1) :math:`\omega = \dd x_1 \wedge \dd x_2 \wedge \dd x_3 \in \varOmega^3(\RR^3)` とする。
     :math:`\displaystyle \xi = \sum_{i, j = 1}^3 a_{ij}x_j \dfrac{\partial}{\partial x_i}` による
     リー微分 :math:`L_\xi\omega` がゼロとなる条件とは何か。
 
@@ -414,7 +414,7 @@
 
     よって求める条件は :math:`\sum a_{ii} = 0` となる。
 
-  * \(2) :math:`\alpha = x_1\,\dd x_2 \wedge \dd x_3 - x_2\,\dd x_1 \wedge \dd x_3 + x_3\,\dd x_1 \wedge \dd x_2 \in \Omega^2(\RR^3)`
+  * \(2) :math:`\alpha = x_1\,\dd x_2 \wedge \dd x_3 - x_2\,\dd x_1 \wedge \dd x_3 + x_3\,\dd x_1 \wedge \dd x_2 \in \varOmega^2(\RR^3)`
     についてはどうか。
 
     直接計算による方法と :math:`\dd \alpha = 3 \omega` を利用する方法がある。
@@ -464,10 +464,10 @@
    =========  ======================================================================
    演算       写像
    =========  ======================================================================
-   外積       :math:`\fn{\wedge}{\Omega^p(M) \times \Omega^q(M)}\Omega^{p + q}(M)`
-   外微分     :math:`\fn{\dd}{\Omega^p(M)}\Omega^{p + 1}(M)`
-   リー微分   :math:`\fn{L_\xi}{\Omega^p(M)}\Omega^p(M)`
-   内部積     :math:`\fn{i_\xi}{\Omega^p(M)}\Omega^{p - 1}(M)`
+   外積       :math:`\fn{\wedge}{\varOmega^p(M) \times \varOmega^q(M)}\varOmega^{p + q}(M)`
+   外微分     :math:`\fn{\dd}{\varOmega^p(M)}\varOmega^{p + 1}(M)`
+   リー微分   :math:`\fn{L_\xi}{\varOmega^p(M)}\varOmega^p(M)`
+   内部積     :math:`\fn{i_\xi}{\varOmega^p(M)}\varOmega^{p - 1}(M)`
    =========  ======================================================================
 
 4.1.4 微分形式のベクトル場における値
@@ -498,7 +498,7 @@
 
 * 問題 4.1.15: 外積の微分形式のベクトル場における値
 
-  :math:`\alpha \in \Omega^p(M),\ \beta \in \Omega^q(M)` のとき、
+  :math:`\alpha \in \varOmega^p(M),\ \beta \in \varOmega^q(M)` のとき、
   外積のベクトル場における値は次のとおり：
 
   .. math::
@@ -535,7 +535,7 @@
 
 * 問題 4.1.16: 外微分とリー微分の性質（あるいは定義）
 
-  * \(1) :math:`\alpha \in \Omega^1(M)` に対して次の等式が成り立つ：
+  * \(1) :math:`\alpha \in \varOmega^1(M)` に対して次の等式が成り立つ：
 
     .. math::
 
@@ -547,7 +547,7 @@
 
     2. :ref:`定義 4.1.13 <tsuboi08.4.1.13>` を用いて書き換えれば示される。
 
-  * \(2) :math:`\alpha \in \Omega^p(M)` に対して次の等式が成り立つ：
+  * \(2) :math:`\alpha \in \varOmega^p(M)` に対して次の等式が成り立つ：
 
     .. math::
 
@@ -559,7 +559,7 @@
     これは難しい。
     :ref:`問題 4.1.11 <tsuboi08.4.1.11>` の拡張版と（ふつうの）帰納法による。
 
-  * \(3) :math:`\alpha \in \Omega^p(M)` に対して次の等式が成り立つ：
+  * \(3) :math:`\alpha \in \varOmega^p(M)` に対して次の等式が成り立つ：
 
     .. math::
 

@@ -29,7 +29,7 @@
 * 定理 3.5.1: ストークスの定理
 
   * :math:`M` を境界あり・コンパクト・向き付けられている多様体とする。
-  * :math:`\alpha \in \Omega^{n - 1}(M)`
+  * :math:`\alpha \in \varOmega^{n - 1}(M)`
   * :math:`\partial M` には :math:`M` の境界としての向き付けを与えられているとする。
 
   次の等式が成り立つ：
@@ -220,12 +220,12 @@
 
   商空間のために記号を定義すると、どちらがどちらかわかりにくいのでやめておけばよかった。
 
-  * \(1) :math:`0 \ne (a_1, a_2, a_3) \in \RR^3` のときに次の微分形式 :math:`\widetilde \alpha \in \Omega^1(A)`
-    について :math:`\widetilde \alpha = \pi^* \alpha` を満たす :math:`\alpha \in \Omega^1(X)` が存在する：
+  * \(1) :math:`0 \ne (a_1, a_2, a_3) \in \RR^3` のときに次の微分形式 :math:`\widetilde \alpha \in \varOmega^1(A)`
+    について :math:`\widetilde \alpha = \pi^* \alpha` を満たす :math:`\alpha \in \varOmega^1(X)` が存在する：
 
     .. math::
 
-       \dfrac{a_1 x_1 \dd x_1 + a_2 x_2 \dd x_2 + a_3 x_3 \dd x_3}{x_1^2 + x_2^2 + x_3^2} \in \Omega^1(A).
+       \dfrac{a_1 x_1 \dd x_1 + a_2 x_2 \dd x_2 + a_3 x_3 \dd x_3}{x_1^2 + x_2^2 + x_3^2} \in \varOmega^1(A).
 
     * 写像 :math:`\fnm{F^n}{A}{A}{\bm y}r^n\bm y` で :math:`\widetilde \alpha` を引き戻すと
       :math:`{F^n}^*\widetilde\alpha = \widetilde \alpha` が成り立つことを示す。
@@ -293,7 +293,7 @@
 
   ..
 
-  * \(1) :math:`\widetilde \beta \in \Omega^2(A)` を次のように定義する：
+  * \(1) :math:`\widetilde \beta \in \varOmega^2(A)` を次のように定義する：
 
     .. math::
 
@@ -304,7 +304,7 @@
               {x_1^2 + x_2^2 + x_3^2}
 
     このとき :math:`\widetilde \beta = \pi^* \beta` を満たす
-    :math:`\beta \in \Omega^2(X)` が存在する。
+    :math:`\beta \in \varOmega^2(X)` が存在する。
 
     * :ref:`前問 <tsuboi08.3.5.4>` 参照。
 
@@ -342,7 +342,7 @@
   * :math:`\fn{F}{M_1}M_2` を写像とする。
 
   このときある整数 :math:`m \in \ZZ` が存在して、
-  任意の :math:`\alpha \in \Omega^n(M_2)` に対して次の等式が成り立つ：
+  任意の :math:`\alpha \in \varOmega^n(M_2)` に対して次の等式が成り立つ：
 
   .. math::
 
@@ -381,14 +381,14 @@
 
      である。
 
-  8. :math:`\alpha \in \Omega^n(M_2)` で
+  8. :math:`\alpha \in \varOmega^n(M_2)` で
 
      * :math:`\displaystyle \int_{M_2}\!\alpha > 0` かつ
      * :math:`\supp{F^*\alpha} = W`
 
      なるものをとる。
 
-  9. :math:`F^*\alpha \in \Omega^n(M_1)` は :math:`\supp{\alpha} = W` を満たす。
+  9. :math:`F^*\alpha \in \varOmega^n(M_1)` は :math:`\supp{\alpha} = W` を満たす。
 
   10. 次の等式が 7. により成り立つ：
 
@@ -531,7 +531,7 @@
     * :ref:`定理 2.4.18 <tsuboi08.2.4.18>` と (2) の結果からわかる
       :math:`f` と :math:`f_0` のホモトピック関係による。
 
-  * \(4) :math:`\displaystyle \alpha \in \Omega^2(\CC P^1) \longmapsto \int\!\alpha` は
+  * \(4) :math:`\displaystyle \alpha \in \varOmega^2(\CC P^1) \longmapsto \int\!\alpha` は
     写像 :math:`\fn{I}{\H^2(\CC P^1)}\RR` を導く。
     :math:`f_0^*` は何か。
 
@@ -546,7 +546,7 @@
       :math:`D(\varphi_1 \circ f \circ \varphi_1\inv) = \abs{nz^{n - 1}}^2 \ne 0.`
 
     このあとの証明は :ref:`定理 3.6.1 <tsuboi08.3.6.1>` の証明を含む。
-    :math:`\alpha \in \Omega^n(\CC P^1)` とある :math:`[1 : 1]` の近傍
+    :math:`\alpha \in \varOmega^n(\CC P^1)` とある :math:`[1 : 1]` の近傍
     :math:`W` に対して：
 
     .. math::
@@ -752,7 +752,7 @@
 
           V_+ \cap \bm n\left(M \setminus \bigcap_{i = 1}^k \closure{U_i}\right) = \varnothing.
 
-    3. :math:`\alpha \in \Omega^2(S^2)` を :math:`\supp\alpha = V_+` となるようにとる。
+    3. :math:`\alpha \in \varOmega^2(S^2)` を :math:`\supp\alpha = V_+` となるようにとる。
 
     4. 上述 (2) より
 

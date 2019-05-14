@@ -80,12 +80,12 @@
 
 * 例題 7.1.4: トーラスに投影した曲線の長さ
 
-  * :math:`\Phi(x_1, x_2) = ((2 + \cos x_2)\cos x_1,\ (2 + \cos x_2)\sin x_1,\ \sin x_2)` はトーラスだ。
+  * :math:`\varPhi(x_1, x_2) = ((2 + \cos x_2)\cos x_1,\ (2 + \cos x_2)\sin x_1,\ \sin x_2)` はトーラスだ。
   * :math:`c(t) = (\xi(t), \eta(t)) \subset \RR^2` に関する
-    :math:`\fn{\Phi \circ c}{[0, 1]}M` の長さを求めるのが本題だ。
+    :math:`\fn{\varPhi \circ c}{[0, 1]}M` の長さを求めるのが本題だ。
 
   * 本題である長さの計算というより計算途中で
-    :math:`{}^t\!(D\Phi) D\Phi` という量が出てくることのほうが気になる。
+    :math:`{}^t\!(D\varPhi) D\varPhi` という量が出てくることのほうが気になる。
     これは次のようにして得られる：
 
     .. math::
@@ -93,10 +93,10 @@
 
        \begin{gather*}
        \begin{split}
-       \Norm{\diff{(\Phi \circ c)(t)}{t}}
-       &= \Norm{(D\Phi)_{c(t)} \diff{c(t)}{t}}\\
-       &= \left({}^t\!\left((D\Phi)_{c(t)} \diff{c(t)}{t}\right) \cdot \left((D\Phi)_{c(t)} \diff{c(t)}{t}\right)\right)^\frac{1}{2}\\
-       &= \left({}^t\!\left(\diff{c}{t}\right) {}^t\!D\Phi \cdot D\Phi \diff{c}{t}\right)^\frac{1}{2}
+       \Norm{\diff{(\varPhi \circ c)(t)}{t}}
+       &= \Norm{(D\varPhi)_{c(t)} \diff{c(t)}{t}}\\
+       &= \left({}^t\!\left((D\varPhi)_{c(t)} \diff{c(t)}{t}\right) \cdot \left((D\varPhi)_{c(t)} \diff{c(t)}{t}\right)\right)^\frac{1}{2}\\
+       &= \left({}^t\!\left(\diff{c}{t}\right) {}^t\!D\varPhi \cdot D\varPhi \diff{c}{t}\right)^\frac{1}{2}
        \end{split}
        \end{gather*}
 
@@ -304,25 +304,25 @@
        \end{align*}
 
 `クリストッフェルの記号 <http://mathworld.wolfram.com/ChristoffelSymbol.html>`__
-  クリストッフェルの記号とは、上記微分方程式を次の形式で書いたときの :math:`\Gamma_{ij}^l` 部分のことを言う：
+  クリストッフェルの記号とは、上記微分方程式を次の形式で書いたときの :math:`\varGamma_{ij}^l` 部分のことを言う：
 
   .. math::
      :nowrap:
 
      \begin{align*}
-     \mdiff{c_l}{2}{t} + \sum_{i, j}\Gamma_{ij}^l\diff{c_j}{t} \diff{c_i}{t} = 0.
+     \mdiff{c_l}{2}{t} + \sum_{i, j}\varGamma_{ij}^l\diff{c_j}{t} \diff{c_i}{t} = 0.
      \end{align*}
 
-  :math:`\displaystyle \Gamma_{ij}^l = -\frac{1}{2}\sum_k g^{kl} \left( \frac{\partial g_{ij}}{\partial x_k} -\frac{\partial g_{jk}}{\partial x_i} -\frac{\partial g_{ik}}{\partial x_j}\right)`
-  とすれば :math:`\Gamma_{ij}^l = \Gamma_{ji}^l` となる。
+  :math:`\displaystyle \varGamma_{ij}^l = -\frac{1}{2}\sum_k g^{kl} \left( \frac{\partial g_{ij}}{\partial x_k} -\frac{\partial g_{jk}}{\partial x_i} -\frac{\partial g_{ik}}{\partial x_j}\right)`
+  とすれば :math:`\varGamma_{ij}^l = \varGamma_{ji}^l` となる。
 
 * :math:`\displaystyle v_l = \diff{c_l}{t}` とおいて、常微分方程式の階数を一つ落とす。
   :math:`v(t) \in T_{c(t)}M` に対しての常微分方程式
-  :math:`\displaystyle \diff{v_l}{t} + \sum_{i,j}\Gamma_{ij}^l \diff{c_i}{t}v_j = 0` という見方もできる。
+  :math:`\displaystyle \diff{v_l}{t} + \sum_{i,j}\varGamma_{ij}^l \diff{c_i}{t}v_j = 0` という見方もできる。
 
   * :math:`v(t)` は一意的に定まる。
   * `ユークリッド計量 <http://mathworld.wolfram.com/EuclideanMetric.html>`__
-    :math:`g_{ij} = \delta_{ij}` に対しては :math:`\Gamma_{ij}^l = 0,\ v(t) = const.` であり、
+    :math:`g_{ij} = \delta_{ij}` に対しては :math:`\varGamma_{ij}^l = 0,\ v(t) = const.` であり、
     :math:`v^0 \in T_{c(0)}\RR^n` を :math:`v^0 \in T_{c(t)}\RR^n` に平行移動したものになる。
 
 .. _tsuboi05.7.3.1:
@@ -365,12 +365,12 @@
 
   * 先の一階常微分方程式の解を用いて :math:`T_{c(0)}M` の一つの基底を :math:`c(t)` に沿って動かすことで
     :math:`T_{c(t)}M` に基底を定めることができる。
-    このことを :math:`\Gamma_{ij}^l` により接続が与えられているという。
+    このことを :math:`\varGamma_{ij}^l` により接続が与えられているという。
 
-    * 特に :math:`\Gamma_{ij}^l` がリーマン計量から定まる接続を
+    * 特に :math:`\varGamma_{ij}^l` がリーマン計量から定まる接続を
       `レビチビタ接続 <http://mathworld.wolfram.com/Levi-CivitaConnection.html>`__
       という（正規直交系を正規直交系に平行移動）。
-      先程見たように :math:`\Gamma_{ij}^l = \Gamma_{ji}^l` が成り立つ。
+      先程見たように :math:`\varGamma_{ij}^l = \varGamma_{ji}^l` が成り立つ。
 
 .. _tsuboi05.7.3.2:
 
@@ -420,15 +420,15 @@
 * 問題 7.4.1: 球面上の二点の「距離」を定義する曲線は大円に含まれる
 
   * :math:`S^2` のパラメーター表示を例えば
-    :math:`\Phi(\theta, \psi) = (\cos\psi\cos\theta, \cos\psi\sin\theta, \sin\psi)`
+    :math:`\varPhi(\theta, \psi) = (\cos\psi\cos\theta, \cos\psi\sin\theta, \sin\psi)`
     とする。
 
     * この表示では :math:`\psi` 一定が赤道に平行な面の大円となっている。
 
   * 一点を北極に固定して証明してよい。
-    点 :math:`(0, 0, 1)` と点 :math:`\Phi(\theta_0, \psi_0)` を結ぶ曲線を調べることにする。
+    点 :math:`(0, 0, 1)` と点 :math:`\varPhi(\theta_0, \psi_0)` を結ぶ曲線を調べることにする。
 
-  * :math:`D\Phi` を求め、:math:`{}^t\!(D\Phi)(D\Phi) = \cos^2\psi \theta'^2 + \psi'^2` を得る。
+  * :math:`D\varPhi` を求め、:math:`{}^t\!(D\varPhi)(D\varPhi) = \cos^2\psi \theta'^2 + \psi'^2` を得る。
   * 本問では長さを不等式で評価すれば十分だ：
 
     .. math::
@@ -470,12 +470,12 @@
 
 * 例 7.4.2: :ref:`例題 7.1.4 <tsuboi05.7.1.4>` のトーラス上のリーマン計量についての測地線の方程式
 
-  * 以前書いた :math:`{}^t\!(D\Phi)D\Phi` はリーマン計量を意味していた。
+  * 以前書いた :math:`{}^t\!(D\varPhi)D\varPhi` はリーマン計量を意味していた。
   * 式変形がわかりにくいので、結局自分で計算することになる。
-    ここでは :math:`\Gamma_{ij}^1,\ \Gamma_{ij}^2` をそれぞれ一行にまとめて記している。
+    ここでは :math:`\varGamma_{ij}^1,\ \varGamma_{ij}^2` をそれぞれ一行にまとめて記している。
     左辺はスカラーに見えるが、実は行列の :math:`(i, j)` 成分がこの式であるような行列であると読者側が了解しないといけない。
 
-  * 各 :math:`\Gamma_{ij}^l\ (l = 1, 2)` を計算する。
+  * 各 :math:`\varGamma_{ij}^l\ (l = 1, 2)` を計算する。
     :math:`g` が対角行列なので逆行列が計算しやすくて助かる。
 
   * 最終的に二階常微分方程式が得られるが、
@@ -525,19 +525,19 @@
 
 .. _tsuboi05.7.4.4:
 
-* 問題 7.4.4: コンパクト連結リーマン多様体の微分同相 :math:`\fn{\Phi}{M}M` が
-  :math:`C^1` 位相で恒等写像と十分近いのであれば、次のようなアイソトピー :math:`\Phi_t` が存在する：
-  :math:`\Phi_0 = id_M,\ \Phi_1 = \Phi.`
+* 問題 7.4.4: コンパクト連結リーマン多様体の微分同相 :math:`\fn{\varPhi}{M}M` が
+  :math:`C^1` 位相で恒等写像と十分近いのであれば、次のようなアイソトピー :math:`\varPhi_t` が存在する：
+  :math:`\varPhi_0 = id_M,\ \varPhi_1 = \varPhi.`
 
   * :ref:`問題 7.4.3 <tsuboi05.7.4.3>` の結論を再利用したい。
     :math:`\id_M` のグラフが :math:`\Delta` であるので、部分集合
-    :math:`\set{(x, \Phi(x)) \sth x \in M} \subset M \times M` は前問のように構成される
+    :math:`\set{(x, \varPhi(x)) \sth x \in M} \subset M \times M` は前問のように構成される
     :math:`F` が微分同相写像となるような :math:`\Delta` の近傍に含まれる。
 
-  * :math:`\xi = F\inv(x, \Phi(x))` は :math:`M` 上のベクトル場である。
+  * :math:`\xi = F\inv(x, \varPhi(x))` は :math:`M` 上のベクトル場である。
   * :math:`F` の局所的微分同相性のため、
     「:math:`F` が :math:`\id_M` に :math:`C^1` 位相で近いこと」と
     「:math:`\fn{\xi}{M}TM` が 0 に :math:`C^1` 位相で近いこと」は同値である。
 
-  以上より :math:`\fn{\Phi_t}{M}M` を
-  :math:`(x, \Phi_t(x)) = F(t\xi(x))` と定義すればよい。
+  以上より :math:`\fn{\varPhi_t}{M}M` を
+  :math:`(x, \varPhi_t(x)) = F(t\xi(x))` と定義すればよい。

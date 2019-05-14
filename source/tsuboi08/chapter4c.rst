@@ -11,7 +11,7 @@
 ----------------------------------------------------------------------
 * `接平面場 or 接分布 <https://en.wikipedia.org/wiki/Distribution_(differential_geometry)>`__ を余接空間と接空間の関係で定義する。
 
-  1. :math:`\alpha \in \Omega^1(M)` と :math:`x \in M` に対して
+  1. :math:`\alpha \in \varOmega^1(M)` と :math:`x \in M` に対して
      :math:`\ker\alpha = \set{v \in T_xM \sth \alpha(v) = 0}` は
      接空間 :math:`T_xM` の :math:`\dim M - 1` 次元部分多様体である。
 
@@ -21,7 +21,7 @@
   一般には各点 :math:`x \in M` に接空間 :math:`T_xM` の
   :math:`r\ (r \le \dim M)` 次元部分空間を対応させる写像を接平面場 or 接分布と呼ぶ。
 
-* 関数 :math:`f \in \Omega^0(M)` が点 :math:`x_0 \in M` において
+* 関数 :math:`f \in \varOmega^0(M)` が点 :math:`x_0 \in M` において
   :math:`\dd f \ne 0` であるとする。
 
   * このとき部分集合 :math:`\set{x \in M \sth f(x) = f(x_0)} \subset M` は
@@ -30,11 +30,11 @@
   * この近傍は :math:`\dim M - 1` 次元の等位面で埋め尽くされていて、
   * :math:`\ker\dd f` は各点で等位面の接空間と一致する。
 
-* 1 形式 :math:`g \dd f \in \Omega^1(M)` が点 :math:`x_0 \in M` で
+* 1 形式 :math:`g \dd f \in \varOmega^1(M)` が点 :math:`x_0 \in M` で
   :math:`g(x) \ne 0` であるとする。
   このとき、状況は上記と同様になる。
 
-* 1 形式 :math:`\alpha = g\dd f \in \Omega^1(M)` が点 :math:`x_0 \in M` の近傍で
+* 1 形式 :math:`\alpha = g\dd f \in \varOmega^1(M)` が点 :math:`x_0 \in M` の近傍で
   :math:`\alpha \ne 0` であるとするならば、
   :math:`\alpha \wedge \dd \alpha = 0` が成り立つ。
 
@@ -44,7 +44,7 @@
 
 * 定理 4.3.1: 上の逆が成立する
 
-  * :math:`\alpha \in \Omega^1(M)` が点 :math:`x_0 \in M` の近傍で
+  * :math:`\alpha \in \varOmega^1(M)` が点 :math:`x_0 \in M` の近傍で
     :math:`\alpha \ne 0` であり、
   * :math:`\alpha \wedge \dd \alpha = 0`
 
@@ -54,7 +54,7 @@
   1. 証明をするための多様体上の点と座標近傍、微分形式、枠場を設定する：
 
      * :math:`x_0 \in (U, \varphi = (x_1, \dotsc, x_n))`
-     * :math:`\displaystyle \alpha = \sum_{i = 1}^n f_i\,\dd x_i \in \Omega^1(M)`,
+     * :math:`\displaystyle \alpha = \sum_{i = 1}^n f_i\,\dd x_i \in \varOmega^1(M)`,
        ただし :math:`f_n = 1`
      * :math:`\xi_i = \dfrac{\partial}{\partial x_i} - f_i{\partial}{\partial x_n}\quad(i = 1, \dotsc, n - 1)`
 
@@ -124,15 +124,15 @@
 * :math:`\alpha = g\,\dd f` が点 :math:`x_0 \in M` の近傍でゼロでなければ、
   :math:`\dd\alpha = \dd f \wedge \dd f = \dfrac{1}{g} \wedge \alpha` と書ける。
   よって、:math:`\alpha \wedge \dd\alpha = 0` ならば、
-  :math:`\beta \in \Omega^1(M)` が存在して :math:`\dd\alpha = \beta \wedge \alpha` が
+  :math:`\beta \in \varOmega^1(M)` が存在して :math:`\dd\alpha = \beta \wedge \alpha` が
   成り立つと言い変えてもよい。
 
 .. _tsuboi08.4.3.2:
 
 * 命題 4.3.2: 1 形式と p 形式の外積に対する :math:`p - 1` 形式の存在
 
-  * :math:`\alpha \in \Omega^1(M),\ \alpha \ne 0`
-  * :math:`\beta \in \Omega^p(M)`
+  * :math:`\alpha \in \varOmega^1(M),\ \alpha \ne 0`
+  * :math:`\beta \in \varOmega^p(M)`
   * :math:`\alpha \wedge \beta = 0`
 
   ならば、:math:`\exists \gamma\quad\text{s.t. }\beta = \gamma \wedge \alpha.`
@@ -159,7 +159,7 @@
   5. :math:`M` の開被覆 :math:`U_i` を 2. のようにとり、
      これに従属する 1 の分割 :math:`\lambda_i` をとる。
 
-  6. :math:`\exists \gamma_i \in \Omega^{p - 1}(U_i)\quad\text{s.t. }\beta = \alpha \wedge \gamma_i.`
+  6. :math:`\exists \gamma_i \in \varOmega^{p - 1}(U_i)\quad\text{s.t. }\beta = \alpha \wedge \gamma_i.`
   7. :math:`\gamma = \sum\lambda_i\gamma_i` に対して：
 
      .. math::
@@ -210,7 +210,7 @@
      &= \sum_k\left(\sum_j (A\inv)_{jk}\,\dd a_{ij}\right) \wedge \alpha_k
      \end{align*}
 
-  つまり :math:`\beta_{ik} \in \Omega^1(U)` が存在して
+  つまり :math:`\beta_{ik} \in \varOmega^1(U)` が存在して
   :math:`\dd \alpha_i = \sum \beta_{ik} \wedge \alpha_k` と書けることを意味する。
   これを完全積分可能条件という。
 
@@ -226,7 +226,7 @@
   :math:`\displaystyle \alpha'_i = \sum_{j = 1}^q a'_{ij}\alpha_j` となるような
   :math:`\fn{A' = (a'_{ij})}{U}GL_q(\RR)` が存在することを使って
   :math:`\displaystyle \dd \alpha'_i = \sum_{i = 1}^q \beta'_{ik} \wedge \alpha'_k`
-  なる :math:`\beta'_{ik} \in \Omega^1(U)` があることだ。
+  なる :math:`\beta'_{ik} \in \varOmega^1(U)` があることだ。
 
 .. _tsuboi08.4.3.4:
 
@@ -234,7 +234,7 @@
 
   多様体 :math:`M^{p + q}` の各点において近傍 :math:`U \subset M` が存在して、
 
-  * :math:`\alpha_1, \dotsc, \alpha_q \in \Omega^1(U)` が一次独立で、
+  * :math:`\alpha_1, \dotsc, \alpha_q \in \varOmega^1(U)` が一次独立で、
   * :math:`\ker\alpha_1 \cap \dotsb \cap \ker\alpha_q` で p 次元接平面場が表される
 
   とする。この接平面場が点の近傍 :math:`V \subset` からユークリッド空間への
@@ -243,7 +243,7 @@
 
   .. math::
 
-     \exists \beta_{ik} \in \Omega^1(V)\quad\text{s.t. }
+     \exists \beta_{ik} \in \varOmega^1(V)\quad\text{s.t. }
      \dd\alpha_i = \sum_{k = 1}^q \beta_{ik}\wedge\alpha_k.
 
   :math:`\Longleftarrow` 側の証明が残っている。
@@ -322,9 +322,9 @@
 
 .. _tsuboi08.4.3.7:
 
-* 問題 4.3.7: :math:`M` 上の余次元 1 の接平面場が :math:`\alpha \in \Omega^1(M)` で与えられるとする
+* 問題 4.3.7: :math:`M` 上の余次元 1 の接平面場が :math:`\alpha \in \varOmega^1(M)` で与えられるとする
 
-  1. 完全積分可能条件より :math:`\beta \in \Omega^1(M)` に対して :math:`\dd\alpha = \beta \wedge \alpha` となるものが存在する。
+  1. 完全積分可能条件より :math:`\beta \in \varOmega^1(M)` に対して :math:`\dd\alpha = \beta \wedge \alpha` となるものが存在する。
   2. :math:`\beta \wedge \dd \beta \in Z^3(M)`
   3. \2. のドラーム・コホモロジー群は :math:`\beta` のとり方に依存しない。
 
@@ -340,7 +340,7 @@
      \end{align*}
 
   :ref:`命題 4.3.2 <tsuboi08.4.3.2>` より :math:`\dd\beta = \gamma \wedge \alpha` を
-  みたす :math:`\gamma \in \Omega^1(M)` があるので：
+  みたす :math:`\gamma \in \varOmega^1(M)` があるので：
 
   .. math::
 
@@ -354,7 +354,7 @@
   :math:`\dd\alpha = \beta \wedge \alpha = \beta' \wedge \alpha` なる :math:`\beta'` をとる。
   このとき :math:`(\beta' - \beta) \wedge \alpha = 0` だから
   :ref:`命題 4.3.2 <tsuboi08.4.3.2>` より :math:`\beta' - \beta = h\alpha` を満たす
-  :math:`h \in \Omega^0(M)` が存在する。
+  :math:`h \in \varOmega^0(M)` が存在する。
 
   :math:`\beta' \wedge \dd\beta' = \beta \wedge \dd\beta - \dd(\beta \wedge (h \wedge \alpha))`
   なので、確かに :math:`\beta'` のとり方に依存しない。
@@ -362,7 +362,7 @@
   :math:`\alpha'` を :math:`\alpha` が定まる余次元 1 接平面場と同じものを定めるものとする。
   このとき :ref:`命題 4.3.2 <tsuboi08.4.3.2>` の前座部分より、
   局所的に :math:`\alpha' = g\alpha\quad(g \ne 0)`
-  を満たす関数 :math:`g \in \Omega^0(M)` が存在する。
+  を満たす関数 :math:`g \in \varOmega^0(M)` が存在する。
 
   .. math::
 
@@ -392,7 +392,7 @@
 
 4.3.2 微分形式の核
 ----------------------------------------------------------------------
-前節の :math:`\ker\alpha` の定義を一般の :math:`\alpha \in \Omega^p(M)` に拡張する：
+前節の :math:`\ker\alpha` の定義を一般の :math:`\alpha \in \varOmega^p(M)` に拡張する：
 
 .. math::
 
@@ -409,7 +409,7 @@
 
 * 例 4.3.9:
 
-  * \(1) :math:`0 \ne \Omega \in \Omega^n(M^n)` に対しては :math:`\ker\alpha = 0.`
+  * \(1) :math:`0 \ne \varOmega \in \varOmega^n(M^n)` に対しては :math:`\ker\alpha = 0.`
   * \(2) ユークリッド空間の例。
 
     * :math:`T_0\RR^4` で :math:`\ker(\dd x_1 \wedge \dd x_2 + \dd x_3 \wedge \dd x_4) = 0.`
@@ -417,31 +417,31 @@
 
 .. _tsuboi08.4.3.10:
 
-* 問題 4.3.10: :math:`\alpha \in \Omega^p(M), \beta \in \Omega^q(M) \implies \ker(\alpha \wedge \beta) \supset \ker\alpha \cap \ker\beta`
+* 問題 4.3.10: :math:`\alpha \in \varOmega^p(M), \beta \in \varOmega^q(M) \implies \ker(\alpha \wedge \beta) \supset \ker\alpha \cap \ker\beta`
 
   * 証明には :math:`i_v\alpha = i_v\beta = 0` から出発して :math:`i_v(\alpha \wedge \beta) = 0` を示す。
     次数付き可換性を用いて式変形する。
 
 4.3.3 体積形式とダイバージェンス
 ----------------------------------------------------------------------
-* 冒頭の微分形式 :math:`\Omega` のようなものを体積形式という。
-  つまり、向き付けられた n 次元多様体 :math:`M` における :math:`\Omega \in \Omega^n(M)` が
+* 冒頭の微分形式 :math:`\varOmega` のようなものを体積形式という。
+  つまり、向き付けられた n 次元多様体 :math:`M` における :math:`\varOmega \in \varOmega^n(M)` が
   正の局所座標系 :math:`(x_1, \dotsc, x_n)` において各点 :math:`x \in M` において
 
   .. math::
 
-     \Omega = a\!\dd x_1 \wedge \dotsb \wedge \dd x_n
+     \varOmega = a\!\dd x_1 \wedge \dotsb \wedge \dd x_n
 
   と表すと :math:`a > 0` であるようなものだ。
 
-* ベクトル場 :math:`\xi` の体積形式 :math:`\Omega \in \Omega^n(M)` に対する発散、
+* ベクトル場 :math:`\xi` の体積形式 :math:`\varOmega \in \varOmega^n(M)` に対する発散、
   :math:`\div\xi` とは次の式を満たす関数である：
 
   .. math::
 
-     L_\xi\Omega = (\div\xi)\Omega.
+     L_\xi\varOmega = (\div\xi)\varOmega.
 
-  * :math:`\Omega \in \Omega^n(M)` は各点で :math:`\ne 0` とする（多様体が向き付け可能であることと同値）。
+  * :math:`\varOmega \in \varOmega^n(M)` は各点で :math:`\ne 0` とする（多様体が向き付け可能であることと同値）。
   * :math:`\displaystyle \xi = \sum_i^n\xi\dfrac{\partial}{\partial x_i}` の
     :math:`\dd x_1 \wedge \dotsb \wedge \dd x_n` に対する発散は次のようになる：
 
@@ -457,17 +457,17 @@
 
   .. math::
 
-     \int_M\!\div\xi\Omega = \int_{\partial M}\!i_\xi\Omega.
+     \int_M\!\div\xi\varOmega = \int_{\partial M}\!i_\xi\varOmega.
 
   なぜこれが成り立つのか：
 
   .. math::
 
      \begin{align*}
-     \int_M\!\div\xi\Omega
-     &= \int_M\!L_\xi\Omega\\
-     &= \int_M\!\dd(i_\xi\Omega)\\
-     &= \int_{\partial M}\!i_\xi\Omega.
+     \int_M\!\div\xi\varOmega
+     &= \int_M\!L_\xi\varOmega\\
+     &= \int_M\!\dd(i_\xi\varOmega)\\
+     &= \int_{\partial M}\!i_\xi\varOmega.
      \end{align*}
 
   * 最初の等号は発散の定義による。
@@ -482,17 +482,17 @@
 * 注意 4.3.11: モーザーのアイソトピー
 
   コンパクトで向き付け可能な多様体 :math:`M` と、その上の
-  微分形式 :math:`\Omega_1 \ne 0, \Omega_2 \ne 0` に対して、
+  微分形式 :math:`\varOmega_1 \ne 0, \varOmega_2 \ne 0` に対して、
 
   .. math::
 
-     \int_M\!\Omega_0 = \int_M\!\Omega_1
+     \int_M\!\varOmega_0 = \int_M\!\varOmega_1
 
   が成り立つのであれば、次の条件を満たすアイソトピー :math:`\fn{F_t}{M}M` が存在する：
 
   .. math::
 
-     F_0 = \id_M,\ F_1^*\Omega_0 = \Omega_1.
+     F_0 = \id_M,\ F_1^*\varOmega_0 = \varOmega_1.
 
 4.3.4 シンプレクティク形式とハミルトン・ベクトル場
 ----------------------------------------------------------------------
@@ -681,7 +681,7 @@
        ここで像の点 :math:`(x_1, \dotsc, x_n, y_1, \dotsc, y_n)` の後半部分は
        前半部分が表す点に対する接空間の双対ベクトルか。
 
-  2. ここで :math:`\theta = \sum_{i = 1}^n y_i\,\dd x_i \in \Omega^1(T^*M)` とおく。
+  2. ここで :math:`\theta = \sum_{i = 1}^n y_i\,\dd x_i \in \varOmega^1(T^*M)` とおく。
 
      * これは座標近傍の取り方に依存しない。
 
@@ -855,10 +855,10 @@
 ----------------------------------------------------------------------
 * 奇数次元多様体 :math:`M^{2m + 1}` 上の
 
-  * 値がゼロにならない :math:`\alpha \in \Omega^1(M^{2m + 1})` は
+  * 値がゼロにならない :math:`\alpha \in \varOmega^1(M^{2m + 1})` は
     :math:`2m` 次元の核を持つ。
 
-  * :math:`\dd\alpha \in \Omega^2(M^{2m + 1})` は
+  * :math:`\dd\alpha \in \varOmega^2(M^{2m + 1})` は
     次元が 1 以上の核を持つ。
     :ref:`定理 4.3.12 <tsuboi08.4.3.12>` 参照。
 
@@ -866,7 +866,7 @@
 
 * 問題 4.3.18: 奇数次元空間で :math:`\ker(\dd\alpha)` :math:`\ker\alpha` が横断的に交わる状況
 
-  :math:`\alpha \in \Omega^1(\RR^{2m + 1})` が :math:`\ker(\dd\alpha) \cap \ker\alpha = 0`
+  :math:`\alpha \in \varOmega^1(\RR^{2m + 1})` が :math:`\ker(\dd\alpha) \cap \ker\alpha = 0`
   を満たすならば、原点における接空間の基底 :math:`e_0, e_1, \dotsc, e_{2m}` で次を満たす
   ものが存在する：
 
@@ -875,7 +875,7 @@
      \alpha(0) = e_0,\quad
      \dd\alpha(0) = e_1 \wedge e_2 + \dotsb + e_{2m - 1} \wedge e_{2m}.
 
-  また、:math:`\alpha \in \Omega^1(\RR^{2m + 1})` が
+  また、:math:`\alpha \in \varOmega^1(\RR^{2m + 1})` が
   :math:`\alpha \wedge (\dd\alpha)^m \ne 0` であれば、
   :math:`\alpha(0)` は上の形になる。
 
@@ -957,7 +957,7 @@
 
 * 定義 4.3.20: 接触形式
 
-  :math:`\alpha \in \Omega^1(M)` が接触形式であるとは、
+  :math:`\alpha \in \varOmega^1(M)` が接触形式であるとは、
   :math:`\alpha \wedge (\dd\alpha)^m \ne 0` であって、
   値がゼロとならないものをいう。
 
@@ -966,7 +966,7 @@
 * 定義 4.3.21: `接触構造・接触多様体 <https://en.wikipedia.org/wiki/Contact_geometry#Contact_forms_and_structures>`__
 
   * 接触構造とは、多様体 :math:`M` 上の余次元 1 の平面場 :math:`E` であって、
-    各点の周りで :math:`E = \ker\alpha` が成り立つ :math:`\alpha \in \Omega^1(M)` が
+    各点の周りで :math:`E = \ker\alpha` が成り立つ :math:`\alpha \in \varOmega^1(M)` が
     接触形式であるものをいう。
 
   * 多様体が接触多様体であるとは、それが接触構造を有することを意味する。
@@ -1082,7 +1082,7 @@
 
            R_\theta(\bm z) = \mathrm{e}^{\sqrt{-1}\theta}\bm z.
 
-  * \(3) 微分 1 形式 :math:`\alpha \in \Omega^1(\RR^{2n + 1})` を次で定義する：
+  * \(3) 微分 1 形式 :math:`\alpha \in \varOmega^1(\RR^{2n + 1})` を次で定義する：
 
     .. math::
 
@@ -1158,10 +1158,10 @@
   * \(5) :math:`\CC P^n = S^{2n + 1}/U(1)` 上に定まる閉 2 形式 :math:`\omega_{\CC P^n}\in Z^2(\CC P^n)`
     について次が成り立つ：
 
-    * :math:`\omega_{\CC P^n}^n \in \Omega^{2n}(\CC P^n)`
+    * :math:`\omega_{\CC P^n}^n \in \varOmega^{2n}(\CC P^n)`
     * :math:`\omega_{\CC P^n}^n(\cdot) \ne 0`
 
-    1. :math:`\beta = \dd\alpha|S^{2n + 1} = \omega|S^{2n + 1} \in \Omega^2(S^{2n + 1})` とおく。
+    1. :math:`\beta = \dd\alpha|S^{2n + 1} = \omega|S^{2n + 1} \in \varOmega^2(S^{2n + 1})` とおく。
     2. \(4) より :math:`i_{X_f}\,\dd\beta = L_{X_f},\dd\beta = 0.`
     3. :ref:`問題 4.2.6 <tsuboi08.4.2.6>` より :math:`\omega_{\CC P^n} = \beta \in Z^2(\CC P^n).`
     4. 射影を :math:`p` とすると、
@@ -1182,7 +1182,7 @@
 * 定理 4.3.24: `ダルブーの定理 <https://en.wikipedia.org/wiki/Darboux%27s_theorem>`__
 
   * :math:`M^{2m + 1}` を接触多様体、
-  * :math:`\alpha \in \Omega^1(M^{2m + 1})` を局所的な接触形式
+  * :math:`\alpha \in \varOmega^1(M^{2m + 1})` を局所的な接触形式
 
   とする。このとき :math:`x^0 \in M^{2m + 1}` の座標近傍
   :math:`(U, \varphi=(x_0, \dotsc, x_{2m}))` で :math:`\alpha` を次のように表せるものが存在する：
@@ -1198,7 +1198,7 @@
 
      * :math:`W = M^{2m + 1} \times \RR_+` とする。:math:`2m + 2` 次元多様体である。
      * :math:`\fn{p}{W}M` を射影とする。
-     * :math:`\beta = tp^*\alpha \in \Omega^1(W),\ t \in \RR_+` とする。
+     * :math:`\beta = tp^*\alpha \in \varOmega^1(W),\ t \in \RR_+` とする。
        :math:`t` を座標と考える。
 
   2. :math:`\dd\beta` が :math:`W` 上のシンプレクティク形式である (:math:`\ker\dd\beta = 0`) ことを示す。

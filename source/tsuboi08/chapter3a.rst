@@ -10,7 +10,7 @@
 
      \dd \alpha = 0 \quad\text{and } \H^p(M) \owns [\alpha] = 0
      \iff
-     \exists \beta \in \Omega^{p - 1}(M) \quad\text{s.t. } \dd \beta = \alpha.
+     \exists \beta \in \varOmega^{p - 1}(M) \quad\text{s.t. } \dd \beta = \alpha.
 
 * :math:`\H^p(M)` が自明でないときには、今のところは自力で判定するしかない。
   マイヤー・ビエトリス完全系列やチェック・ドラーム完全系列を調べることになる。
@@ -98,7 +98,7 @@
     :math:`\displaystyle \int_{\gamma_j}\!\dd x_i = \delta_{ji}` が成り立つ。
     右辺はクロネッカーの記号。
 
-  * 閉形式 :math:`\alpha \in \Omega^1(T^n)` に対して、
+  * 閉形式 :math:`\alpha \in \varOmega^1(T^n)` に対して、
     各曲線に沿う積分がゼロであるならば、:math:`\alpha = \dd f` を満たす
     トーラス上の関数 :math:`f` が存在する。
 
@@ -147,9 +147,9 @@
 まずは直方体。p 形式を p 次元直方体上で積分する。
 
 * :math:`\fn{\kappa}{[a_1, b_1] \times \dotsb \times [a_p, b_p]}M`
-* :math:`\alpha \in \Omega^p(M)`
+* :math:`\alpha \in \varOmega^p(M)`
 
-このとき :math:`\kappa^*\alpha \in \Omega^p([a_1, b_1] \times \dotsb \times [a_p, b_p]).`
+このとき :math:`\kappa^*\alpha \in \varOmega^p([a_1, b_1] \times \dotsb \times [a_p, b_p]).`
 :math:`\kappa^*\alpha = f(t_1, \dotsc, t_p)\,\dd t_1 \wedge \dotsb \wedge \dd t_p` となる
 関数 :math:`f` が存在するので、直方体上の p 形式の積分を次で定義する：
 
@@ -235,7 +235,7 @@
 * 定理 3.2.1: ストークスの定理単体バージョン
 
   :math:`\sigma` を特異 p 単体、
-  :math:`\alpha \in \Omega^{p - 1}(M)` とすると：
+  :math:`\alpha \in \varOmega^{p - 1}(M)` とすると：
 
   .. math::
 
@@ -345,7 +345,7 @@
 
   .. math::
 
-     S_p^\infty(M) \times \Omega^p(M) \longto \RR,
+     S_p^\infty(M) \times \varOmega^p(M) \longto \RR,
      \quad
      (c, \alpha) \longmapsto
      \int_c\!\alpha = \sum a_i \int_{\sigma_i}\!\alpha

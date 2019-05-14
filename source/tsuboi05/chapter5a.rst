@@ -292,15 +292,15 @@
   * 座標近傍 :math:`(U_i, \varphi_i)` の局所座標 :math:`\varphi_i = (x_1^{(i)}, \dotsc, x_n^{(i)})` に対して
     関数 :math:`\nu_i \varphi_i := (\nu_i x_1^{(i)}, \dotsc, \nu_i x_n^{(i)})` を取ると、これは :math:`C^\infty` 級となる。
 
-  * ここで :math:`\Phi = (\mu_1, \nu_1 \varphi_1, \dotsc, \mu_k, \nu_k \varphi_k)` とおくと、
+  * ここで :math:`\varPhi = (\mu_1, \nu_1 \varphi_1, \dotsc, \mu_k, \nu_k \varphi_k)` とおくと、
     これが多様体から :math:`\RR^{k(n + 1)}` への埋め込みとなる：
 
     * :ref:`定理 4.4.2 <tsuboi05.4.4.2>` の上にある説明により
-      :math:`\fn{\Phi_*}{T_xM}\RR^{k(n + 1)}` のランクが
-      :math:`n` で :math:`\Phi` が単射であるから。
+      :math:`\fn{\varPhi_*}{T_xM}\RR^{k(n + 1)}` のランクが
+      :math:`n` で :math:`\varPhi` が単射であるから。
 
       * ランクが :math:`n` であることは :math:`(\nu_i \varphi_i | V_i) \circ \varphi_i\inv = \id_{\varphi_i(V_i)}` から示せる。
-      * 単射であることは :math:`\Phi(x) = \Phi(y) \implies x = y` を示すのに
+      * 単射であることは :math:`\varPhi(x) = \varPhi(y) \implies x = y` を示すのに
         :math:`\mu_i` の成分と :math:`\nu_i` の成分の単射性を別々に示す。
         関数の非ゼロ性と局所座標の同相性が使えるので容易に示せる。
 

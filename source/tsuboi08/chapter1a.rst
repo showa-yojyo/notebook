@@ -270,7 +270,7 @@
 
     .. math::
 
-       \forall \alpha \in Z^1(U),\ \exists f \in \Omega^0(U)\text{ s.t. }\dd f = \alpha.
+       \forall \alpha \in Z^1(U),\ \exists f \in \varOmega^0(U)\text{ s.t. }\dd f = \alpha.
 
 .. _tsuboi08.1.3.6:
 
@@ -325,7 +325,7 @@
 * 問題 1.4.1: 1 形式の外微分に対する、長方形から開集合 :math:`U` への微分可能写像に沿う積分は
   線積分の和として表される。
 
-  * :math:`\alpha = \left(\sum_{i = 1}^n f_i\,\dd x_i\right) \in \Omega^1(\RR^n)`
+  * :math:`\alpha = \left(\sum_{i = 1}^n f_i\,\dd x_i\right) \in \varOmega^1(\RR^n)`
   * :math:`\fn{[a_1, b_1] \times [a_2, b_2]}U` を :math:`C^\infty` 級である写像
 
   とする。このとき次の等式が成り立つ：

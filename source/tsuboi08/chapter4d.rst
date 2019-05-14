@@ -152,7 +152,7 @@
         = \sqrt{\det G}\,\dd x_1 \wedge \dotsb \wedge \dd x_n.
 
   この右辺が向き付けられたリーマン多様体 :math:`(M, g)` の体積形式である。
-  以下で :math:`\Omega_{(M, g)}` とあるのは、これである。
+  以下で :math:`\varOmega_{(M, g)}` とあるのは、これである。
 
 .. _tsuboi08.4.4.2:
 
@@ -160,8 +160,8 @@
 
   向き付けられたコンパクトリーマン多様体の体積形式に関するベクトル場の発散に関する公式だ。
 
-  * :math:`\Omega_{(M, g)}` をリーマン多様体の体積形式とし、
-  * :math:`\xi` を :math:`L_\xi\Omega_{(M, g)} = \div(\xi) \Omega_{(M, g)}`
+  * :math:`\varOmega_{(M, g)}` をリーマン多様体の体積形式とし、
+  * :math:`\xi` を :math:`L_\xi\varOmega_{(M, g)} = \div(\xi) \varOmega_{(M, g)}`
     を満たすベクトル場であるとし、
   * :math:`n` は単位ベクトル場であり、多様体の境界 :math:`\partial M` において
     それに直交かつ外向きであるとする。
@@ -170,8 +170,8 @@
 
   .. math::
 
-     \int_M\!\div(\xi)\Omega_{(M, g)}
-     = \int_{\partial M}\!g(n, \xi)\Omega_{(\partial M, g|\partial M)}.
+     \int_M\!\div(\xi)\varOmega_{(M, g)}
+     = \int_{\partial M}\!g(n, \xi)\varOmega_{(\partial M, g|\partial M)}.
 
   この積分は、境界がない多様体についてはゼロであると解釈する。
 
@@ -181,10 +181,10 @@
      .. math::
 
         \begin{align*}
-        \int_M\!\div(\xi)\Omega_{(M, g)}
-        &= \int_M\!L_\xi\Omega_{(M, g)}\\
-        &= \int_M\!\dd i_\xi\Omega_{(M, g)}\\
-        &= \int_{\partial M}\!i_\xi \Omega_{(M, g)}.
+        \int_M\!\div(\xi)\varOmega_{(M, g)}
+        &= \int_M\!L_\xi\varOmega_{(M, g)}\\
+        &= \int_M\!\dd i_\xi\varOmega_{(M, g)}\\
+        &= \int_{\partial M}\!i_\xi \varOmega_{(M, g)}.
         \end{align*}
 
      * 最後の等式はストークスの定理による。
@@ -194,7 +194,7 @@
 
      .. math::
 
-        i_n\Omega_{(M, g)}|\partial M = \Omega_{(\partial M, g|\partial M)}.
+        i_n\varOmega_{(M, g)}|\partial M = \varOmega_{(\partial M, g|\partial M)}.
 
   3. 正規直交基底 :math:`\set{e_i}\ (i = 1, \dotsc, n)` をとる。
      ただし、境界に沿って局所的に :math:`n = e_1` となるようなものとする。
@@ -203,9 +203,9 @@
      .. math::
 
         \begin{align*}
-        i_\xi\Omega_{(M, g)}|\partial M
+        i_\xi\varOmega_{(M, g)}|\partial M
         &= a_1 e_2^* \wedge \dotsb \wedge e_n^*\\
-        &= g(n, \xi)\Omega_{(\partial M, g|\partial M)}.
+        &= g(n, \xi)\varOmega_{(\partial M, g|\partial M)}.
         \end{align*}
 
      これを 1. の右辺に適用すればガウス・グリーンの公式を得る。
@@ -334,14 +334,14 @@
 * 微分形式同士の内積を定義する。
 
   * 多様体 :math:`M` は向き付けられたコンパクト閉多様体であり、
-  * :math:`\alpha, \beta \in \Omega^k(M)` であり、
+  * :math:`\alpha, \beta \in \varOmega^k(M)` であり、
   * :math:`(\alpha, \beta)_x` を :math:`\extp^k T_x^*M` の内積である
 
   とすると、次で定義される：
 
   .. math::
 
-     (\alpha, \beta) = \int_M\!(\alpha, \beta)_x\Omega_{(M, g)}.
+     (\alpha, \beta) = \int_M\!(\alpha, \beta)_x\varOmega_{(M, g)}.
 
 ..
 
@@ -399,24 +399,24 @@
 
 * ホッジのスター作用素の性質いろいろ
 
-  * :math:`*1 = \Omega_{(M, g)}.`
+  * :math:`*1 = \varOmega_{(M, g)}.`
   * :math:`*` は内積を保つ線形同型写像である。
   * :math:`* \circ * = (-1)^{k(n - k)}.`
-  * :math:`*` は写像 :math:`\fn{*}{\Omega^k(M)}\Omega^{n - k}(M)` を引き起こす。
-    :math:`\Omega^k(M)` の内積を次のように書ける：
+  * :math:`*` は写像 :math:`\fn{*}{\varOmega^k(M)}\varOmega^{n - k}(M)` を引き起こす。
+    :math:`\varOmega^k(M)` の内積を次のように書ける：
 
     .. math::
 
        \begin{align*}
        (\alpha, \beta)
-       &= \int_M\!(\alpha, \beta)_x \Omega_{(M, g)}\\
+       &= \int_M\!(\alpha, \beta)_x \varOmega_{(M, g)}\\
        &= \int_M\!\alpha \wedge *\beta\\
        &= \int_M\!*\alpha \wedge \beta.
        \end{align*}
 
-    * :math:`\alpha \in \Omega^{k - 1}(M),\ \beta \in \Omega^k(M)` とする。
+    * :math:`\alpha \in \varOmega^{k - 1}(M),\ \beta \in \varOmega^k(M)` とする。
 
-      * 写像 :math:`\fn{\delta}{\Omega^k(M)}\Omega^{k - 1}(M)` を次のように定義する：
+      * 写像 :math:`\fn{\delta}{\varOmega^k(M)}\varOmega^{k - 1}(M)` を次のように定義する：
 
         .. math::
 
@@ -442,15 +442,15 @@
 
 * :math:`\delta` の性質いろいろ
 
-  * :math:`\delta \circ \delta = 0` であることから :math:`(\Omega^*(M), \delta)` は複体である。
+  * :math:`\delta \circ \delta = 0` であることから :math:`(\varOmega^*(M), \delta)` は複体である。
   * :math:`(\dd\alpha, \beta) = (\alpha, \delta\beta)` などが成り立つことから、
     部分空間の直交性 :math:`\ker\dd \perp \im\delta,\ \im\delta \perp \ker\delta` がある。
 
     * 直交するとは、内積がゼロとなることである。
 
-  * :math:`\Omega^k(M)` には互いに直交する部分空間 :math:`\ker\dd \cap \ker\delta,\ \im\dd,\ \im\delta`
+  * :math:`\varOmega^k(M)` には互いに直交する部分空間 :math:`\ker\dd \cap \ker\delta,\ \im\dd,\ \im\delta`
     が存在する。
-  * :math:`\boldsymbol{H}^k = \set{\alpha \in \Omega^k(M) \sth (\dd\delta + \delta\dd)\alpha = 0}` とおくと、
+  * :math:`\boldsymbol{H}^k = \set{\alpha \in \varOmega^k(M) \sth (\dd\delta + \delta\dd)\alpha = 0}` とおくと、
     :math:`\boldsymbol{H}^k = \ker\dd{} \cap \ker\delta` が成り立つ。
 
     * :math:`\alpha \in \boldsymbol{H}^k` ならば :math:`0 = (\dd\delta + \delta\dd)\alpha = (\delta\alpha, \delta\alpha) + (\dd\alpha, \dd\alpha)`
@@ -474,7 +474,7 @@
 
 * 定理 4.4.6: ホッジ・ドラーム・小平の定理
 
-  :math:`\Omega^k(M) = \boldsymbol{H}^k \oplus \im\dd{} \oplus \im\delta` は
+  :math:`\varOmega^k(M) = \boldsymbol{H}^k \oplus \im\dd{} \oplus \im\delta` は
   直交する部分空間への直和分解である。
 
   * 証明は参考文献にあるようだ。

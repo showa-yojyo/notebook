@@ -370,7 +370,7 @@
     :math:`f_{i_1\dots i_p}\,\dd x_{i_1} \wedge \dotsb \wedge \dd x_{i_p}` に対応させるものを
     この多様体上の :math:`C^\infty` 級微分 p 形式という。
 
-  * 記号 :math:`\Omega^p(M)` で p 形式の空間を表す。
+  * 記号 :math:`\varOmega^p(M)` で p 形式の空間を表す。
     多様体が 1 次元以上であればこれは無限次元のベクトル空間である。
 
   * cf. :ref:`定義 2.1.7 <tsuboi08.2.1.7>`
@@ -419,7 +419,7 @@
 
 .. _tsuboi08.2.3.6:
 
-* 命題 2.3.6: 引き戻し :math:`\fn{F^*}{\Omega^p(N)}\Omega^p(M)`
+* 命題 2.3.6: 引き戻し :math:`\fn{F^*}{\varOmega^p(N)}\varOmega^p(M)`
 
   * :ref:`定義 1.8.3 <tsuboi08.1.8.4>` と同じ命題？
 
@@ -428,8 +428,8 @@
 * 命題 2.3.7: 反変性 :math:`(F \circ G)^* = G^* \circ F^*`
 
   * :math:`C^\infty` 級写像 :math:`\fn{F}{M}N` および :math:`\fn{G}{L}M` に対して
-    定まる引き戻し :math:`\fn{F^*}{\Omega^p(N)}\Omega^p(M)` および
-    :math:`\fn{G^*}{\Omega^p(M)}\Omega^p(L)` について表題の等式が成り立つ。
+    定まる引き戻し :math:`\fn{F^*}{\varOmega^p(N)}\varOmega^p(M)` および
+    :math:`\fn{G^*}{\varOmega^p(M)}\varOmega^p(L)` について表題の等式が成り立つ。
 
   * cf. :ref:`例題 1.8.9 <tsuboi08.1.8.9>`
 
@@ -443,12 +443,12 @@
 
     .. math::
 
-       \alpha \in \Omega^p(U) \longmapsto \iota^*\alpha \in \Omega^p(M^m).
+       \alpha \in \varOmega^p(U) \longmapsto \iota^*\alpha \in \varOmega^p(M^m).
 
     * 実は任意の微分形式についてある近傍のある微分形式の制限となっている。
       これは :ref:`第 1 巻問題 5.2.5 <tsuboi05.5.2.5>` を利用して示せるらしい。
 
-  * :math:`\alpha \in \Omega^p(T^n)` の引き戻し :math:`\pi^*\alpha \in \Omega^p(\RR^n)` は
+  * :math:`\alpha \in \varOmega^p(T^n)` の引き戻し :math:`\pi^*\alpha \in \varOmega^p(\RR^n)` は
     :math:`\alpha` を :math:`\RR^n` 上で表示する p 形式である。
 
     * 「:math:`\ZZ^n` 周期的」という修飾があるが……。
@@ -470,7 +470,7 @@
 
   演算にはユークリッド空間バージョン :ref:`定義 1.6.2 <tsuboi08.1.6.2>` の規則を適用する。
 
-* 同時に外積 :math:`\fn{\wedge}{\Omega^p(M) \times \Omega^q(M)}\Omega^{p + q}(M)` が導かれる。
+* 同時に外積 :math:`\fn{\wedge}{\varOmega^p(M) \times \varOmega^q(M)}\varOmega^{p + q}(M)` が導かれる。
 
   * :ref:`定義 2.1.7 <tsuboi08.2.1.7>` と :ref:`例題 1.8.8 <tsuboi08.1.8.8>` を参照。
 
@@ -497,7 +497,7 @@
 
 .. _tsuboi08.2.4.2:
 
-* 定理 2.4.2: :math:`\fn{\dd \circ \dd}{\Omega^p(M)}\Omega^{p + 2}(M)` は 0 準同型である
+* 定理 2.4.2: :math:`\fn{\dd \circ \dd}{\varOmega^p(M)}\varOmega^{p + 2}(M)` は 0 準同型である
 
   下の図式は準同型の系列である：
 
@@ -505,7 +505,7 @@
 
      \require{AMScd}
      \begin{CD}
-     0 @>{\dd}>> \Omega^0(M) @>{\dd}>> \Omega^1(M) @>{\dd}>> \cdots @>{\dd}>> \Omega^n(M) @>{\dd}>> 0
+     0 @>{\dd}>> \varOmega^0(M) @>{\dd}>> \varOmega^1(M) @>{\dd}>> \cdots @>{\dd}>> \varOmega^n(M) @>{\dd}>> 0
      \end{CD}
 
   * 準同型＝ベクトル空間の線形写像と思って読んでいる。
@@ -519,7 +519,7 @@
     多様体の微分形式の `コチェイン複体 <http://mathworld.wolfram.com/CochainComplex.html>`__ 
     を多様体 :math:`M` のドラーム複体と呼ぶ。
 
-  * 記号は :math:`\Omega^*(M)` とする。
+  * 記号は :math:`\varOmega^*(M)` とする。
   * 複体というのは性質 :math:`\dd \circ \dd = 0` のことだ。
   * :math:`\im(\dd) \subset \ker(\dd)` の「差」をはかるのに
     コホモロジー群という群を使う。
@@ -532,8 +532,8 @@
 
      \begin{align*}
      \H^p(M) &=
-     \ker(\fn{\dd}{\Omega^p(M)}\Omega^{p + 1}(M))/
-     \im(\fn{\dd}{\Omega^{p - 1}(M)}\Omega^p(M))\\
+     \ker(\fn{\dd}{\varOmega^p(M)}\varOmega^{p + 1}(M))/
+     \im(\fn{\dd}{\varOmega^{p - 1}(M)}\varOmega^p(M))\\
      &= Z^p(M)/B^p(M).
      \end{align*}
 
@@ -541,14 +541,14 @@
 
     線形写像の :math:`\im` と :math:`\ker` の性質によると
     :math:`B^p(M)` と :math:`Z^p(M)` はどちらも
-    :math:`\Omega^p(M)` の部分ベクトル空間である。
+    :math:`\varOmega^p(M)` の部分ベクトル空間である。
     ここで :math:`B^p(M)` は :math:`Z^p(M)` の部分空間でもあるので、この商空間が成立する。
 
-  * :math:`Z^p(M) = \ker(\fn{\dd}{\Omega^p(M)}\Omega^{p + 1}(M))` の元を
+  * :math:`Z^p(M) = \ker(\fn{\dd}{\varOmega^p(M)}\varOmega^{p + 1}(M))` の元を
     `閉 p 形式 <http://mathworld.wolfram.com/ClosedForm.html>`__ という。
-  * :math:`B^p(M) = \im(\fn{\dd}{\Omega^{p - 1}(M)}\Omega^p(M))` の元を
+  * :math:`B^p(M) = \im(\fn{\dd}{\varOmega^{p - 1}(M)}\varOmega^p(M))` の元を
     `完全 p 形式 <http://mathworld.wolfram.com/ExactForm.html>`__ という。
-  * :math:`[\alpha] \in \H^p(M)` を :math:`\alpha \in \Omega^p(M)` の
+  * :math:`[\alpha] \in \H^p(M)` を :math:`\alpha \in \varOmega^p(M)` の
     `コホモロジー <http://mathworld.wolfram.com/Cohomology.html>`__ 類という。
   * :math:`\H^*(M) = \bigoplus_{p = 0}^n \H^p(M)` と書く。
 
@@ -582,7 +582,7 @@
 
 * 例 2.4.6: :math:`S^1 = \RR/\ZZ,\ \H^1(S^1) \cong \RR`
 
-  * :math:`\Omega^1(S^1) = Z^1(S^1).`
+  * :math:`\varOmega^1(S^1) = Z^1(S^1).`
   * :math:`f(t)\,\dd t \in B^1(S^1) \iff \displaystyle \int_0^1\! f(t)\,\dd t = 0.`
     整数周期性による。
   * 次の対応が同型である：
@@ -608,7 +608,7 @@
 
      * :ref:`例 2.3.5 <tsuboi08.2.3.5>` によると
        :math:`T^2` 上の微分形式は :math:`\RR^2` 上の周期関数を係数とする
-       微分形式で表される。そこで :math:`\alpha = g_1\,\dd x_1 + g_2\,\dd x_2 \in \Omega^1(T^2)`
+       微分形式で表される。そこで :math:`\alpha = g_1\,\dd x_1 + g_2\,\dd x_2 \in \varOmega^1(T^2)`
        として、各関数をフーリエ級数の形式で表示する：
 
        .. math::
@@ -672,7 +672,7 @@
 
   3. :math:`\H^2(T^2)` を求める。
 
-     :math:`\beta = h\,\dd x_1 \wedge \dd x_2 \in \Omega^2(T^2)` などとおいて、
+     :math:`\beta = h\,\dd x_1 \wedge \dd x_2 \in \varOmega^2(T^2)` などとおいて、
      同様の検討を行なう。ここで :math:`\beta = \dd\alpha` かつ
 
      .. math::
@@ -702,8 +702,8 @@
 
         \alpha = \frac{a_{11}x_1 + a_{12}x_2}{x_1^2 + x_2^2}\,\dd x_1
                 +\frac{a_{21}x_1 + a_{22}x_2}{x_1^2 + x_2^2}\,\dd x_2
-        \in \Omega^1(A),\\
-        \exists \beta \in \Omega^1(X)\quad\text{s.t. }
+        \in \varOmega^1(A),\\
+        \exists \beta \in \varOmega^1(X)\quad\text{s.t. }
         \alpha = \pi^* \beta.
 
      * 解答を読んでも理屈がわからない。
@@ -753,7 +753,7 @@
 * 命題 2.4.10: コチェイン写像
 
   :math:`C^\infty` 写像 :math:`\fn{F}{M}N` に対する引き戻し
-  :math:`\fn{F^*}{\Omega^p(N)}\Omega^p(M)` はコチェイン写像である：
+  :math:`\fn{F^*}{\varOmega^p(N)}\varOmega^p(M)` はコチェイン写像である：
 
   .. math::
 
@@ -770,7 +770,7 @@
     :math:`F^* \alpha \in Z^p(M).`
 
   * :math:`\alpha \in B^p(N)` に対して :math:`\alpha = \dd \beta` なる
-    :math:`\beta \in \Omega^{p - 1}(N)` が存在する。一方、
+    :math:`\beta \in \varOmega^{p - 1}(N)` が存在する。一方、
     :math:`F^* \alpha = F^*\,\dd \beta = \dd F^*\beta` より
     :math:`F^* \alpha \in B^p(M).`
 
@@ -778,8 +778,8 @@
 
   .. math::
 
-     \fn{F^*}{\ker(\fn{\dd}{\Omega^p(N)}\Omega^{p + 1}(N))}
-     \im(\fn{\dd}{\Omega^{p - 1}(N)}\Omega^p(N))
+     \fn{F^*}{\ker(\fn{\dd}{\varOmega^p(N)}\varOmega^{p + 1}(N))}
+     \im(\fn{\dd}{\varOmega^{p - 1}(N)}\varOmega^p(N))
 
   * ベクトル空間としても外積代数としても準同型である。
 
@@ -791,7 +791,7 @@
 
 * 命題 2.4.13: ドラーム・コホモロジーにおける外積
 
-  * 外積 :math:`\fn{\wedge}{\Omega^p(M) \times \Omega^q(M)}\Omega^{p + q}(M)` は
+  * 外積 :math:`\fn{\wedge}{\varOmega^p(M) \times \varOmega^q(M)}\varOmega^{p + q}(M)` は
     :math:`\H^p(M) \times \H^q(M)` 上に外積
     :math:`\fn{\wedge}{\H^p(M) \times \H^q(M)}\H^{p + q}(M)` を定義する。
 
@@ -807,7 +807,7 @@
 
 * 命題 2.4.15: :ref:`注意 1.9.2 <tsuboi08.1.9.2>` 多様体バージョン
 
-  :math:`\fn{I_a^{(U)}}{\Omega^p([0, 1] \times M)}\Omega^{p - 1}([0, 1] \times M)` に対して
+  :math:`\fn{I_a^{(U)}}{\varOmega^p([0, 1] \times M)}\varOmega^{p - 1}([0, 1] \times M)` に対して
   次が成り立つ：
 
   .. math::
@@ -820,7 +820,7 @@
     :ref:`注意 1.9.2 <tsuboi08.1.9.2>` により上の式を満たす。
 
   * 座標近傍 :math:`(U, \varphi)`, :math:`(V, \psi)` および
-    :math:`\alpha \in \Omega^p([0, 1] \times M)` の
+    :math:`\alpha \in \varOmega^p([0, 1] \times M)` の
 
     * :math:`[0, 1] \times \varphi(U)` における表示 :math:`\alpha^{(U)}` の :math:`\dd x_0` を含む成分
 

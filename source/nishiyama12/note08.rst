@@ -16,7 +16,7 @@
   * 群 :math:`G` が空間 :math:`X` への推移的作用であるとは、
     :math:`\forall x, y \in X, \exists g \in G \quad\text{s.t. } gx = y` であることを言う。
   * :math:`X` 自身が一つの :math:`G` 軌道である。
-  * :math:`\Omega_{G}(X)` と :math:`X/G` は一点からなる。
+  * :math:`\varOmega_{G}(X)` と :math:`X/G` は一点からなる。
 
 * 定義 8.2: `固定部分群 <http://mathworld.wolfram.com/IsotropyGroup.html>`__
 
@@ -129,7 +129,7 @@
   :math:`G \times_{H} W` を :math:`(G \times W) / H` で定義し、
   それを同伴するファイバー束と呼ぶ。
 
-  * 集合としては軌道空間と同じ。:math:`G \times_{H} W = \Omega_{H}(G \times W)`
+  * 集合としては軌道空間と同じ。:math:`G \times_{H} W = \varOmega_{H}(G \times W)`
   * 右辺の直積には同値関係 :math:`(g, w) \sim (gh\inv, hw)` が入る。
     :math:`G \times_{H} W = \set{[g, w] \sth (g, w) \in G \times W} = G \times W / \sim`
 
@@ -174,7 +174,7 @@
 
   * テーマ別に :math:`G` を変える。
 
-軌道空間 :math:`\Omega_G(X)` を求めるには :math:`G(\diag(\pm 1, \pm 1, \pm 1), w)` 形の軌道を求めれば十分。
+軌道空間 :math:`\varOmega_G(X)` を求めるには :math:`G(\diag(\pm 1, \pm 1, \pm 1), w)` 形の軌道を求めれば十分。
 
 * 符号数 :math:`(p, q)` の :math:`Sym_3(\RR)` の部分を :math:`Sym_3^{(p, q)}(\RR)` で表す。
 
@@ -201,11 +201,11 @@
       :math:`S_r` をファイバーとする同伴ファイバー束を表す。
 
   * :math:`\dim G(\diag(1, 1, 1), r\bm e_1) = \dim G/K + \dim S_r = 6 + 2 = 8`
-  * 証明は写像 :math:`\Psi([g, w]) = (g{}^t\!g, gw)` について次を示す：
+  * 証明は写像 :math:`\varPsi([g, w]) = (g{}^t\!g, gw)` について次を示す：
 
-    #. :math:`\Psi` が well-defind であること
-    #. :math:`\Psi` が全単射であること
-    #. :math:`\Psi` が微分同相であること（接空間のチェック）
+    #. :math:`\varPsi` が well-defind であること
+    #. :math:`\varPsi` が全単射であること
+    #. :math:`\varPsi` が微分同相であること（接空間のチェック）
 
 8.3.2 不定値直交群の場合
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

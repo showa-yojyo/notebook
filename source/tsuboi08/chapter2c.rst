@@ -57,7 +57,7 @@
 
     * :math:`k = 0` のときの証明
 
-      * :math:`\Omega^*(S^0 \times N) \cong \Omega^*(N) \oplus \Omega^*(N)`: この理由は？
+      * :math:`\varOmega^*(S^0 \times N) \cong \varOmega^*(N) \oplus \varOmega^*(N)`: この理由は？
       * :math:`\H^0(S^0) \otimes \H^p(N) \cong \H^p(N) \oplus \H^p(N)`: 前ページ定義より。
 
       以上より OK となる。
@@ -360,13 +360,13 @@
    \begin{CD}
    @. @. @.\\
    @. @AA{\dd}A @AA{\dd}A @AA{\dd}A @AA{\dd}A\\
-   0 @>{r}>> \Omega^3(M) @>{\delta}>> \bigoplus_i \Omega^3(U_i) @>{\delta}>> \bigoplus_{i_0 < i_1} \Omega^3(U_{i_0 i_1}) @>{\delta}>> \bigoplus_{i_0 < i_1 < i_2} \Omega^3(U_{i_0 i_1 i_2}) @>{\delta}>>\\
+   0 @>{r}>> \varOmega^3(M) @>{\delta}>> \bigoplus_i \varOmega^3(U_i) @>{\delta}>> \bigoplus_{i_0 < i_1} \varOmega^3(U_{i_0 i_1}) @>{\delta}>> \bigoplus_{i_0 < i_1 < i_2} \varOmega^3(U_{i_0 i_1 i_2}) @>{\delta}>>\\
    @. @AA{\dd}A @AA{\dd}A @AA{\dd}A @AA{\dd}A\\
-   0 @>{r}>> \Omega^2(M) @>{\delta}>> \bigoplus_i \Omega^2(U_i) @>{\delta}>> \bigoplus_{i_0 < i_1} \Omega^2(U_{i_0 i_1}) @>{\delta}>> \bigoplus_{i_0 < i_1 < i_2} \Omega^2(U_{i_0 i_1 i_2}) @>{\delta}>>\\
+   0 @>{r}>> \varOmega^2(M) @>{\delta}>> \bigoplus_i \varOmega^2(U_i) @>{\delta}>> \bigoplus_{i_0 < i_1} \varOmega^2(U_{i_0 i_1}) @>{\delta}>> \bigoplus_{i_0 < i_1 < i_2} \varOmega^2(U_{i_0 i_1 i_2}) @>{\delta}>>\\
    @. @AA{\dd}A @AA{\dd}A @AA{\dd}A @AA{\dd}A\\
-   0 @>{r}>> \Omega^1(M) @>{\delta}>> \bigoplus_i \Omega^1(U_i) @>{\delta}>> \bigoplus_{i_0 < i_1} \Omega^1(U_{i_0 i_1}) @>{\delta}>> \bigoplus_{i_0 < i_1 < i_2} \Omega^1(U_{i_0 i_1 i_2}) @>{\delta}>>\\
+   0 @>{r}>> \varOmega^1(M) @>{\delta}>> \bigoplus_i \varOmega^1(U_i) @>{\delta}>> \bigoplus_{i_0 < i_1} \varOmega^1(U_{i_0 i_1}) @>{\delta}>> \bigoplus_{i_0 < i_1 < i_2} \varOmega^1(U_{i_0 i_1 i_2}) @>{\delta}>>\\
    @. @AA{\dd}A @AA{\dd}A @AA{\dd}A @AA{\dd}A\\
-   0 @>{r}>> \Omega^0(M) @>{\delta}>> \bigoplus_i \Omega^0(U_i) @>{\delta}>> \bigoplus_{i_0 < i_1} \Omega^0(U_{i_0 i_1}) @>{\delta}>> \bigoplus_{i_0 < i_1 < i_2} \Omega^0(U_{i_0 i_1 i_2}) @>{\delta}>>\\
+   0 @>{r}>> \varOmega^0(M) @>{\delta}>> \bigoplus_i \varOmega^0(U_i) @>{\delta}>> \bigoplus_{i_0 < i_1} \varOmega^0(U_{i_0 i_1}) @>{\delta}>> \bigoplus_{i_0 < i_1 < i_2} \varOmega^0(U_{i_0 i_1 i_2}) @>{\delta}>>\\
    @. @. @AA{\iota}A @AA{\iota}A @AA{\iota}A\\
    @. @. \bigoplus_i \RR(U_i) @>{\delta}>> \bigoplus_{i_0 < i_1} \RR(U_{i_0 i_1}) @>{\delta}>> \bigoplus_{i_0 < i_1 < i_2} \RR(U_{i_0 i_1 i_2}) @>{\delta}>>\\
    @. @. @AAA @AAA @AAA\\
@@ -380,9 +380,9 @@
     * 当然 :math:`\dd` は外微分を意味する。
     * 一番下の列 :math:`\displaystyle \bigoplus_{i_0 < \dotsb < i_k}\RR(U_{i_0 \dots i_k})` は
       :math:`\set{U_{i_0 \dots i_k}}_{i_0 < \dotsb < i_k}` を基底とするベクトル空間として見る。
-    * 写像 :math:`\fn{\iota}{\RR(U_{i_0 \dots i_k})}\Omega^0(U_{i_0 \dots i_k})` は定数関数の埋め込みである。
+    * 写像 :math:`\fn{\iota}{\RR(U_{i_0 \dots i_k})}\varOmega^0(U_{i_0 \dots i_k})` は定数関数の埋め込みである。
 
-      * :math:`\Omega^0` の行は各開集合上における関数全体であることに注意したい。
+      * :math:`\varOmega^0` の行は各開集合上における関数全体であることに注意したい。
         定数関数はその部分と捉えられる。
 
     以上のような条件と :ref:`定理 1.7.2 <tsuboi08.1.7.2>` により、これは完全系列である。
@@ -390,9 +390,9 @@
 
   * 横向きの系列
 
-    * 写像 :math:`\fn{r_i}{\Omega^p(M)}\Omega^p{U_i}` を制限とすることで :math:`r = \bigoplus r_i.`
+    * 写像 :math:`\fn{r_i}{\varOmega^p(M)}\varOmega^p{U_i}` を制限とすることで :math:`r = \bigoplus r_i.`
     * 添字 :math:`i_0 < \dotsb < i_k` とこの中の :math:`i_s` について
-      写像 :math:`\Omega^p(U_{i_0 \dots i_{s-1} i_{s+1} \dots i_k}) \longto \Omega^p(U_{i_0 \dots i_k})` は制限
+      写像 :math:`\varOmega^p(U_{i_0 \dots i_{s-1} i_{s+1} \dots i_k}) \longto \varOmega^p(U_{i_0 \dots i_k})` は制限
       :math:`r_{i_0 \dots i_k}^{i_0 \dots i_{s-1} i_{s+1} \dots i_k}` の :math:`(-1)^s` 倍である。
     * :math:`\displaystyle \delta = \bigoplus \sum (-1)^s r_{i_0 \dots i_k}^{i_0 \dots i_{s-1} i_{s+1} \dots i_k}`
       と定義する。
@@ -401,10 +401,10 @@
 
 .. _tsuboi08.2.10.1:
 
-* 補題 2.10.1: :math:`0 \longto \Omega^p(M) \longto \cdots` の行は完全系列
+* 補題 2.10.1: :math:`0 \longto \varOmega^p(M) \longto \cdots` の行は完全系列
 
-  * 関数 :math:`\displaystyle f^{(k)} \in \bigoplus_{i_0 < \dotsb < i_k} \Omega^p(U_{i_0 \dots i_k}) \cong \Omega^p\left(\bigsqcup_{i_0 < \dotsb < i_k} U_{i_0 \dots i_k} \right)`
-    の :math:`\Omega^p(U_{i_0 \dots i_k})` の成分を :math:`f^{(k)}|U_{i_0 \dots i_k}` または
+  * 関数 :math:`\displaystyle f^{(k)} \in \bigoplus_{i_0 < \dotsb < i_k} \varOmega^p(U_{i_0 \dots i_k}) \cong \varOmega^p\left(\bigsqcup_{i_0 < \dotsb < i_k} U_{i_0 \dots i_k} \right)`
+    の :math:`\varOmega^p(U_{i_0 \dots i_k})` の成分を :math:`f^{(k)}|U_{i_0 \dots i_k}` または
     :math:`f^{(k)}_{i_0 \dots i_k}` の使いやすい方で表すことにする。
 
   * :math:`\delta` の定義により：
@@ -417,12 +417,12 @@
   * :math:`(\delta(\delta(f^{(k)}))|U_{i_0 \dots i_{k + 2}} = \cdots = 0.`
     つまり :math:`\delta \circ \delta = 0.`
 
-  * :math:`\displaystyle f^{(k + 1)} \in \bigoplus_{i_0 < \dotsb < i_{k + 1}} \Omega^p(U_{i_0 \dots i_{k + 1}}) \cong \Omega^p\left(\bigsqcup_{i_0 < \dotsb < i_k} U_{i_0 \dots i_k} \right)`
+  * :math:`\displaystyle f^{(k + 1)} \in \bigoplus_{i_0 < \dotsb < i_{k + 1}} \varOmega^p(U_{i_0 \dots i_{k + 1}}) \cong \varOmega^p\left(\bigsqcup_{i_0 < \dotsb < i_k} U_{i_0 \dots i_k} \right)`
     に対して
 
     .. math::
 
-       Sf^{(k + 1)} \in \bigoplus_{i_0 < \dotsb < i_k} \Omega^p(U_{i_0 \dots i_k}) \cong \Omega^p\left(\bigsqcup_{i_0 < \dotsb < i_k} U_{i_0 \dots i_k} \right)
+       Sf^{(k + 1)} \in \bigoplus_{i_0 < \dotsb < i_k} \varOmega^p(U_{i_0 \dots i_k}) \cong \varOmega^p\left(\bigsqcup_{i_0 < \dotsb < i_k} U_{i_0 \dots i_k} \right)
 
     を次の式で定義する：
 
@@ -440,7 +440,7 @@
        (-1)^j f^{(k + 1)}_{i_0 \dots i_{j - 1} m i_j \dots i_k} & \quad \text{otherwise}
        \end{cases}
 
-    とし、:math:`\lambda_m f_{m i_0 \dots i_k} \in \Omega^p(U_{i_0 \dots i_k})` とみなす。
+    とし、:math:`\lambda_m f_{m i_0 \dots i_k} \in \varOmega^p(U_{i_0 \dots i_k})` とみなす。
 
   * :math:`\delta(Sf^{(k)}) + S(\delta f^{(k)}) = f^{(k)}` を示して、
     :math:`\delta f^{(k)} = 0 \implies f^{(k)} = \delta(Sf^{(k)})` となり、
@@ -478,9 +478,9 @@
      本書にイラストが添えられているが、併せて p. 77 の図式も参照すること。
 
      * :math:`\forall \alpha \in Z^p(M), \dd{r\alpha} = r\dd\alpha = 0.`
-       したがって :math:`\exists \alpha^{(0, p - 1)} \in \bigoplus_i \Omega^{p - 1}(U_i) \text{ s.t. } r\alpha = \dd\alpha^{(0, p - 1)}.`
+       したがって :math:`\exists \alpha^{(0, p - 1)} \in \bigoplus_i \varOmega^{p - 1}(U_i) \text{ s.t. } r\alpha = \dd\alpha^{(0, p - 1)}.`
 
-       * :math:`r` は制限写像 :math:`\fn{r_i}{\Omega^p(M)}\Omega^p(U_i)` の直和である。
+       * :math:`r` は制限写像 :math:`\fn{r_i}{\varOmega^p(M)}\varOmega^p(U_i)` の直和である。
        * そもそも縦列は :ref:`定理 1.7.2 <tsuboi08.1.7.2>` により完全系列である。
 
      * :math:`\dd{\delta\alpha^{(0, p - 1)}} = \delta\dd\alpha^{(0, p - 1)} = \delta r\alpha = 0.`
@@ -489,14 +489,14 @@
 
        .. math::
 
-          \alpha^{(j - 1, p - j)} \in \bigoplus_{i_0 < \dotsb < i_{j - 1}}\Omega^{p - j}(U_{i_0\dots i_{j - 1}}),
+          \alpha^{(j - 1, p - j)} \in \bigoplus_{i_0 < \dotsb < i_{j - 1}}\varOmega^{p - j}(U_{i_0\dots i_{j - 1}}),
           \dd{\delta \alpha^{(j - 1, p - j)}} = 0
 
        を仮定すれば、
 
        .. math::
 
-          \exists \alpha^{(j, p - j - 1)} \in \bigoplus_{i_0 < \dotsb < i_j}\Omega^{p - j - 1}(U_{i_0\dots i_j})
+          \exists \alpha^{(j, p - j - 1)} \in \bigoplus_{i_0 < \dotsb < i_j}\varOmega^{p - j - 1}(U_{i_0\dots i_j})
           \text{ s.t. }
           \delta \alpha^{(j - 1, p - j)} = \dd{\alpha^{(j, p - j - 1)}}.
 
@@ -506,7 +506,7 @@
 
        .. math::
 
-          \exists \alpha^{(p - 1, 0)} \in \bigoplus_{i_0 < \dotsb < i_{p - 1}}\Omega^0(U_{i_0\dots i_{p - 1}}),
+          \exists \alpha^{(p - 1, 0)} \in \bigoplus_{i_0 < \dotsb < i_{p - 1}}\varOmega^0(U_{i_0\dots i_{p - 1}}),
           \exists \alpha^{(p, -1)} \in \bigoplus_{i_0 < \dotsb < i_p} \RR(U_{i_0 \dots i_p})
           \text{ s.t. }
           \delta\alpha^{(p - 1, 0)} = \iota\alpha^{(p - 1, 0)}.
@@ -525,22 +525,22 @@
        :math:`\iota` が単射であることから :math:`\delta\alpha^{(p - 1, 0)} = 0.`
 
      よって
-     :math:`\alpha \in \Omega^p(M)` に対して、対応する
+     :math:`\alpha \in \varOmega^p(M)` に対して、対応する
      :math:`\alpha^{(p, -1)} \in \bigoplus_{i_0 < \dotsb i_p} \RR(U_{i_0 \dots i_p})` が何か存在する。
 
    2. この対応がコホモロジー群の準同型を導き、well-defined であることを示す。
       これにより準同型 :math:`\H^p(M) \longto \check H^p(M, \set{U_i})` が定まる。
 
-      今度は完全形式 :math:`\alpha \in \Omega^p(M)` から出発して最下段へ向かう。
+      今度は完全形式 :math:`\alpha \in \varOmega^p(M)` から出発して最下段へ向かう。
 
-      * :math:`\forall \alpha \in B^p(M), \exists \beta \in \Omega^{p - 1}(M) \text{ s.t. } \alpha = \dd\beta.`
+      * :math:`\forall \alpha \in B^p(M), \exists \beta \in \varOmega^{p - 1}(M) \text{ s.t. } \alpha = \dd\beta.`
       * この :math:`\alpha` に対して 1. の :math:`\alpha^{(0, p - 1)}` を考える。
 
         :math:`\dd{\alpha^{(0, p - 1)}} = r\alpha = r\dd\beta = \dd r\beta` ゆえ、
 
         .. math::
 
-           \exists \beta^{(0, p - 2)} \in \bigoplus_{i} \Omega^{p - 2}(U_i)
+           \exists \beta^{(0, p - 2)} \in \bigoplus_{i} \varOmega^{p - 2}(U_i)
            \text{ s.t. }
            \dd\beta^{(0, p - 2)} = \alpha^{(0, p - 1)} - r\beta.
 
@@ -556,7 +556,7 @@
 
         .. math::
 
-           \beta^{(j - 1, p - j - 1)} \in \bigoplus_{i_0 < \dotsb i_{j - 1}}\Omega^{p - j - 1}(U_{i_0\dots i_{j - 1}})
+           \beta^{(j - 1, p - j - 1)} \in \bigoplus_{i_0 < \dotsb i_{j - 1}}\varOmega^{p - j - 1}(U_{i_0\dots i_{j - 1}})
 
         に対して次を仮定する：
 
@@ -570,7 +570,7 @@
 
         .. math::
 
-           \exists \beta^{(j, p - j - 2)} \in \bigoplus_{i_0 < \dotsb i_{j - 2}}\Omega^{p - j - 2}(U_{i_0\dots i_{j - 2}})
+           \exists \beta^{(j, p - j - 2)} \in \bigoplus_{i_0 < \dotsb i_{j - 2}}\varOmega^{p - j - 2}(U_{i_0\dots i_{j - 2}})
            \text { s.t. }
            \dd\beta^{(j, p - j - 2)} = \alpha^{(j, p - j - 1)} - \delta\beta^{(j - 1, p - j - 1)}.
 
@@ -589,7 +589,7 @@
 
         .. math::
 
-           \beta^{(p - 2, 0)} \in \bigoplus_{i_0 < \dotsb i_{p - 2}}\Omega^0(U_{i_0\dots i_{p - 2}}).
+           \beta^{(p - 2, 0)} \in \bigoplus_{i_0 < \dotsb i_{p - 2}}\varOmega^0(U_{i_0\dots i_{p - 2}}).
 
         これに対して次を仮定する：
 
@@ -642,7 +642,7 @@
 
   以上より、チェック・ドラームの定理が適用できることがわかる。
 
-  * :math:`\Omega^*(S^2)` については :ref:`命題 2.7.3 <tsuboi08.2.7.3>` で見たように次が成り立つ：
+  * :math:`\varOmega^*(S^2)` については :ref:`命題 2.7.3 <tsuboi08.2.7.3>` で見たように次が成り立つ：
 
     .. math::
 

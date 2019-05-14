@@ -42,7 +42,7 @@
 
 * 問題 4.2.1: 左不変形式と左不変ベクトル場の内部積
 
-  * :math:`\alpha \in \Omega^p(G)` を左不変形式とする。
+  * :math:`\alpha \in \varOmega^p(G)` を左不変形式とする。
   * :math:`\xi \in \mathfrak{g}` とする。
 
   このとき、内部積 :math:`i_\xi\alpha` は左不変形式である：
@@ -271,7 +271,7 @@
      * 本書のように局所座標系表示を議論しなければならない。
 
   3. 射影を :math:`\fn{\pi_G}{G \times M}G` とする。
-  4. :math:`\alpha \in \Omega^p(M)` に対して、その平均 :math:`m(\alpha)` を
+  4. :math:`\alpha \in \varOmega^p(M)` に対して、その平均 :math:`m(\alpha)` を
      次で定義する：
 
      .. math::
@@ -490,11 +490,11 @@
 * 問題 4.2.6: :math:`U(1)` の自由作用
 
   * ベクトル場 :math:`X` が :math:`M` 上の :math:`U(1)` の自由作用を生成していて、
-  * :math:`\beta \in \Omega^k(M)` が :math:`i_X\beta = L_X\beta = 0` を満たして
+  * :math:`\beta \in \varOmega^k(M)` が :math:`i_X\beta = L_X\beta = 0` を満たして
 
   いるとする。このとき次が成り立つ：
 
-  * :math:`\exists \underline\beta \in \Omega^k(M/U(1)) \quad\text{s.t. } p^*\underline\beta = \beta.`
+  * :math:`\exists \underline\beta \in \varOmega^k(M/U(1)) \quad\text{s.t. } p^*\underline\beta = \beta.`
   * :math:`\beta \in Z^k(M) \implies \underline\beta \in Z^k(M/U(1)).`
 
   沈み込みの活用がわからない。:math:`\ker p^*` が :math:`X` のスカラー倍とは？

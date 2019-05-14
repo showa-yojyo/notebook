@@ -30,12 +30,12 @@
 * 軌道空間の定義を確認。
 
   * 軌道空間とは空間上の軌道全部を意味する。すなわち集合族 :math:`\set{Gx \sth x \in X}` だ。
-  * 記号は :math:`\Omega_G(X)` とする。
+  * 記号は :math:`\varOmega_G(X)` とする。
 
 * 補題 7.2: 軌道空間の基本的な性質。
 
   #. :math:`Gx = Gy` または :math:`Gx \cap Gy = \varnothing` しか成り立たない。
-  #. 軌道分解。:math:`{ \displaystyle X = \bigsqcup_{Gx \in \Omega_G(X)} Gx}`
+  #. 軌道分解。:math:`{ \displaystyle X = \bigsqcup_{Gx \in \varOmega_G(X)} Gx}`
 
 * 代表元。軌道の任意の元をその軌道の代表元と言う。
 
@@ -66,7 +66,7 @@
        S_r = \set{x \in \RR^3 \sth \norm{x} = 1}.
        \end{align*}
 
-* 例 7.4: :math:`\Omega_{\ZZ}(\RR),\ \Omega_{\ZZ^2}(\RR^2)`
+* 例 7.4: :math:`\varOmega_{\ZZ}(\RR),\ \varOmega_{\ZZ^2}(\RR^2)`
 
   * 各加法群 :math:`\ZZ` の各実空間への作用について、軌道と軌道空間を例示している。
     いずれも単位区間または単位矩形の境界が少々欠ける。
@@ -95,13 +95,13 @@
 
 .. _nishiyama12.7.8:
 
-* 定理 7.8: :math:`Fun(X)^G \longto Fun(\Omega_G(X))`
+* 定理 7.8: :math:`Fun(X)^G \longto Fun(\varOmega_G(X))`
 
   * 前半の主張：自然な写像 :math:`\nu` が well-defined であることを簡単に確認する。
   * 後半の主張：写像 :math:`\nu` が線形同型か。
 
     * 線形性は問題ない。
-    * 全単射性は、これを示すのにある写像 :math:`\fn{\mu}{Fun(\Omega_G(X))} Fun(X)^G` を
+    * 全単射性は、これを示すのにある写像 :math:`\fn{\mu}{Fun(\varOmega_G(X))} Fun(X)^G` を
       写像 :math:`\nu` の逆写像になるように何か定義して、
       合成を両方向について考えると恒等写像になることを示せばよいだろうか。
 
@@ -127,7 +127,7 @@
 
 7.3 商空間
 ----------------------------------------------------------------------
-軌道空間 :math:`\Omega_G(X)` のことを :math:`X` の :math:`G` による商空間と呼ぶ（軌道一つ一つを点とみなす）。
+軌道空間 :math:`\varOmega_G(X)` のことを :math:`X` の :math:`G` による商空間と呼ぶ（軌道一つ一つを点とみなす）。
 
 7.3.1 位相空間
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -144,7 +144,7 @@
 * 演習 7.25: :ref:`例 7.9 <nishiyama12.7.9>`, :ref:`7.11 <nishiyama12.7.11>`
   の群が連続群ならば作用は連続だ。
 
-射影 :math:`\fn{\pi}{X}\Omega_G(X)` を導入する。
+射影 :math:`\fn{\pi}{X}\varOmega_G(X)` を導入する。
 もちろん :math:`\pi(x) = Gx` で定義する。
 
 * 定義 7.26: 軌道空間における開集合。
