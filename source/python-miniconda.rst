@@ -13,7 +13,7 @@ Miniconda_ の利用に関する事実関係の覚え書きと、
    * OS: Windows 10 Home (64 bit)
    * Cygwin: 2.5.2-1, 2.7.0 (64 bit)
    * bash: 4.3.42(4)-release, 4.4.12(3)-release (x86_64-unknown-cygwin)
-   * Miniconda_: 4.0.5, 4.1.11, 4.3.14
+   * Miniconda_: 4.0.5, 4.1.11, 4.3.14, 4.7.5
 
    Python 本体および Python 製パッケージのバージョンについては、
    必要に応じて本文で明記していく。
@@ -221,7 +221,7 @@ Conda の各種設定はホームディレクトリーに所定の書式で記�
 
     .. code:: console
 
-       $ conda update --all
+       $ conda update --all --yes
 
   * 困ったことに :program:`pip` によってインストールしたパッケージのバージョンが
     :program:`conda` のものより新しい傾向がある。
@@ -235,7 +235,7 @@ Conda の各種設定はホームディレクトリーに所定の書式で記�
 
     .. code:: console
 
-       $ conda update --all
+       $ conda update --all --yes
        $ pip install --upgrade --requirement reqpip.txt
 
     ここで、パッケージ一覧ファイル :file:`reqpip.txt` は
@@ -436,6 +436,30 @@ Conda の各種設定はホームディレクトリーに所定の書式で記�
 そのことについては :program:`conda` は警告しない。
 
 欲しいパッケージの 3.6 版がない場合は、それ以上の作業は見送るのがよい。
+
+V4.7.5
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* これまで ``root`` と書いたものは ``base`` と呼ばれるように変更されたらしい。
+* どうやら :code:`conda update` 系のコマンド実行に OS の管理者権限が必要となったらしい。
+  通常権限のコンソールで更新系のコマンドを実行すると、最後に例外が発生して正しくファイルが配置されない。
+  これは Windows のスタートメニュー :guilabel:`Anaconda Prompt` を右クリックして「管理者として実行」してから更新コマンドを実行することで免れる。
+  以下に一例を示す：
+
+  .. code:: console
+
+     $ conda --version
+     conda 4.7.5
+     $ conda update --all --yes
+     Collecting package metadata (current_repodata.json): done
+     Solving environment: done
+     ...
+     Downloading and Extracting Packages
+     ...
+     Preparing transaction: done
+     Verifying transaction: failed
+
+     EnvironmentNotWritableError: The current user does not have write permissions to the target environment.
+       environment location: D:\Miniconda3
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
