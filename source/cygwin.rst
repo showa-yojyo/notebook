@@ -128,6 +128,7 @@ Select Pakages
 パッケージ群を次に示す。クリーンインストールの際に参照したい：
 
 * binutils: 実行形式解析用の :command:`objdump`, :command:`strings`, :command:`strip` がある。
+* curl: 連番のファイルをダウンロードするときに重宝する。
 * cygutils-extra: クリップボードを標準入出力とパイプする :command:`getclip`, :command:`putclip` がある。
   これがないとテキスト処理が満足にできないだろう。
 * docbook-xml45: DocBook XML パッケージ。ドラクエ命のドキュメントをビルドするのに必要だ。
