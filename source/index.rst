@@ -75,6 +75,7 @@ Contents:
    python-quaternion
    python-jinja2
    python-pygments
+   python-bs4
    python-twitter/index
    python-isbn-hyphenate
    python-pyopengl/index
