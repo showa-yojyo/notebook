@@ -13,9 +13,12 @@
    本文中のすべての IPython セッション中のサンプルコードで、
    以下のインポートおよび出力書式設定が済んでいるものとする。
 
-   .. code:: python3
+   .. code:: pycon
 
-      init_printing(pretty_print=False)
+      >>> from sympy import *
+      >>> init_printing(pretty_print=False)
+      >>> x = symbols('x')
+      >>> f = Function('f')
 
 基本機能
 ======================================================================
@@ -117,19 +120,19 @@ SymPy で常微分方程式を解くには、関数 :code:`dsolve` を用いる�
 ここからはモジュール ``sympy.solvers.ode`` からの明示的なインポートを必要とする機能を記す。
 
 関数 :code:`infinitesimals(eq, ...)`
-  一階常微分方程式 :math:`y' = f(x, y)` に対して、
+  一階常微分方程式 :math:`y^\prime = f(x, y)` に対して、
   次の条件をみたすような点変換 :math:`\xi(x, y)` と :math:`\eta(x, y)` を返す：
 
   これらの点変換が次のリー群について、
-  元の :math:`f` を用いて変換先の各変数に関する微分方程式 :math:`(y^*)'=f(x^*, y^*)` が成り立つ。
+  元の :math:`f` を用いて変換先の各変数に関する微分方程式 :math:`(y^*)^\prime=f(x^*, y^*)` が成り立つ。
 
   .. math::
      :nowrap:
 
-     \begin{align*}
-     x^* &=& X(x, y;\eps) = x + \eps \xi(x, y),\\
-     y^* &=& Y(x, y;\eps) = y + \eps \eta(x, y)
-     \end{align*}
+     \begin{aligned}
+     x^* &= X(x, y;\eps) = x + \eps \xi(x, y),\\
+     y^* &= Y(x, y;\eps) = y + \eps \eta(x, y)
+     \end{aligned}
 
   * 戻り値は dict の list の型をとる。
     内側の dict は、キーが点変換関数オブジェクトで、
@@ -274,41 +277,48 @@ SymPy のドキュメントが関数名と微分方程式の数式 (LaTeX) を�
 ----------------------------------------------------------------------
 連立しないほうのパターン。
 
+使い方
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+例えば微分方程式 :math:`y^\prime = y` を解くには次のようにするのがいちばん早い：
+
+.. code:: pycon
+
+   >>> y = f(x)
+   >>> dsolve(y.diff(x) - y, y)
+   Eq(f(x), C1*exp(x))
+
 求積法だけで解が求まる常微分方程式
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 次のデモは単に :code:`integrate` するだけで解が得られる常微分方程式を与えるものだ。
 SymPy のソルバーは一階線形常微分方程式の特別に単純な場合として処理する。
 
-.. code:: ipython
+.. code:: pycon
 
-   In [1]: eq = f(x).diff(x) - x**2 * sin(x) + sqrt(1 + x**2)
-
-   In [2]: dsolve(eq, hint='all_Integral')
-   Out[2]:
-   {'1st_exact_Integral': Eq(Integral(1, (_y, f(x))) + Integral(-x**2*sin(x) + sqrt(x**2 + 1), x), C1),
-    '1st_linear_Integral': Eq(f(x), (C1 + Integral((x**2*sin(x) - sqrt(x**2 + 1))*exp(Integral(0, x)), x))*exp(-Integral(0, x))),
-    'Bernoulli_Integral': Eq(f(x), (C1 - Integral((-x**2*sin(x) + sqrt(x**2 + 1))*exp(Integral(0, x)), x))*exp(-Integral(0, x))),
-    'best': Eq(f(x), (C1 + Integral((x**2*sin(x) - sqrt(x**2 + 1))*exp(Integral(0,x)), x))*exp(-Integral(0, x))),
-    'best_hint': '1st_linear_Integral',
-    'default': 'separable',
-    'nth_linear_constant_coeff_variation_of_parameters_Integral': Eq(f(x), C1 - Integral(-x**2*sin(x) + sqrt(x**2 + 1), x)),
-    'order': 1,
-    'separable_Integral': Eq(Integral(1, (_y, f(x))), C1 + Integral(x**2*sin(x) - sqrt(x**2 + 1), x))}
-
-   In [3]: _['best'].doit()
-   Out[3]: Eq(f(x), C1 - x**2*cos(x) - x*sqrt(x**2 + 1)/2 + 2*x*sin(x) + 2*cos(x)- asinh(x)/2)
+   >>> eq = f(x).diff(x) - x**2 * sin(x) + sqrt(1 + x**2)
+   >>> dsolve(eq, hint='all_Integral')
+   {'nth_linear_constant_coeff_variation_of_parameters_Integral': Eq(f(x), C1 - Integral(-x**2*sin(x) + sqrt(x**2 + 1), x)),
+    'Bernoulli_Integral': Eq(f(x), C1 - Integral(-x**2*sin(x) + sqrt(x**2 + 1), x)),
+    '1st_linear_Integral': Eq(f(x), C1 + Integral(x**2*sin(x) - sqrt(x**2 + 1), x)),
+    'nth_algebraic_Integral': Eq(f(x), C1 + Integral(x**2*sin(x) - sqrt(x**2 + 1), x)),
+    '1st_exact_Integral': Eq(Subs(Integral(1, _y) + Integral(-x**2*sin(x) + sqrt(x**2 + 1), x), _y, f(x)), C1),
+    'separable_Integral': Eq(Integral(1, (_y, f(x))), C1 + Integral(x**2*sin(x) - sqrt(x**2 + 1), x)),
+    'nth_linear_euler_eq_nonhomogeneous_variation_of_parameters_Integral': Eq(f(x), C1 - Integral(-x**2*sin(x) + sqrt(x**2 + 1), x)),
+    'best': Eq(f(x), C1 - Integral(-x**2*sin(x) + sqrt(x**2 + 1), x)),
+    'best_hint': 'Bernoulli_Integral',
+    'default': 'nth_algebraic',
+    'order': 1}
+   >>> _['best'].doit()
+   Eq(f(x), C1 - x**2*cos(x) - x*sqrt(x**2 + 1)/2 + 2*x*sin(x) + 2*cos(x) - asinh(x)/2)
 
 変数分離形常微分方程式
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-次のデモは、変数分離形のつもりで常微分方程式を解いたところ、
-むしろ Bernoulli 型のほうが解きやすい？と言われたものだ。
+変数分離系は微分方程式入門の最初の方に乗っている基本形だ。
 
-.. code:: ipython
+.. code:: pycon
 
-   In [1]: eq = f(x).diff(x) - (x ** 2 * f(x) ** 2)/sqrt(3 - x**2)
-
-   In [2]: classify_ode(eq)
-   Out[2]:
+   >>> eq = y.diff(x) - (x**2 * y**2)/sqrt(3 - x**2)
+   >>> classify_ode(eq)
    ('separable',
     '1st_exact',
     'Bernoulli',
@@ -317,82 +327,82 @@ SymPy のソルバーは一階線形常微分方程式の特別に単純な場�
     'separable_Integral',
     '1st_exact_Integral',
     'Bernoulli_Integral')
-
-   In [3]: dsolve(eq, hint='all_Integral')
-   Out[3]:
-   {'1st_exact_Integral': Eq(Integral(_y**(-2), (_y, f(x))) + Integral(-x**2/sqrt(-x**2 + 3), x), C1),
-    'Bernoulli_Integral': Eq(f(x), exp(-Integral(0, x))/(C1 + Integral(-x**2*exp(-Integral(0, x))/sqrt(-x**2 + 3), x))),
-    'best': Eq(f(x), exp(-Integral(0, x))/(C1 + Integral(-x**2*exp(-Integral(0, x))/sqrt(-x**2 + 3), x))),
-    'best_hint': 'Bernoulli_Integral',
+   >>> dsolve(eq, hint='all')
+   {'Bernoulli_Integral': Eq(f(x), 1/(C1 + Integral(-x**2/sqrt(3 - x**2), x))),
+    '1st_exact': Eq(f(x), 2/(C1 + x*sqrt(3 - x**2) - 3*asin(sqrt(3)*x/3))),
+    '1st_power_series': Eq(f(x), C1 + sqrt(3)*C1**2*x**3/9 + sqrt(3)*C1**2*x**5/90 + O(x**6)),
+    'lie_group': Eq(f(x), 2/(C1 + x*sqrt(3 - x**2) - 3*asin(sqrt(3)*x/3))),
+    'Bernoulli': Eq(f(x), 1/(C1 + x*sqrt(3 - x**2)/2 - 3*asin(sqrt(3)*x/3)/2)),
+    '1st_exact_Integral': Eq(Subs(Integral(_y**(-2), _y) + Integral(-x**2/sqrt(3 - x**2), x), _y, f(x)), C1),
+    'separable': Eq(f(x), 2/(C1 + x*sqrt(3 - x**2) - 3*asin(sqrt(3)*x/3))),
+    'separable_Integral': Eq(Integral(_y**(-2), (_y, f(x))), C1 + Integral(x**2/sqrt(3 - x**2), x)),
+    'best': Eq(f(x), 2/(C1 + x*sqrt(3 - x**2) - 3*asin(sqrt(3)*x/3))),
+    'best_hint': 'separable',
     'default': 'separable',
-    'order': 1,
-    'separable_Integral': Eq(Integral(_y**(-2), (_y, f(x))), C1 + Integral(x**2/sqrt(-x**2 + 3), x))}
+    'order': 1}
+   >>> _['best'].doit()
+   Eq(f(x), 2/(C1 + x*sqrt(3 - x**2) - 3*asin(sqrt(3)*x/3)))
 
-   In [4]: _['best'].doit()
-   Out[4]: Eq(f(x), 1/(C1 + x*sqrt(-x**2 + 3)/2 - 3*asin(sqrt(3)*x/3)/2))
+.. code:: pycon
 
-変数分離形としてだけ扱われる常微分方程式を解く。
-
-.. code:: ipython
-
-   In [5]: eq = f(x).diff(x) - (x**2 * exp(f(x)))/sqrt(3 - x**2)
-
-   In [5]: dsolve(eq, hint='all_Integral')
-   Out[5]:
-   {'best': Eq(Integral(exp(-_y), (_y, f(x))), C1 + Integral(x**2/sqrt(-x**2 + 3),x)),
-    'best_hint': 'separable_Integral',
+   >>> eq = y.diff(x) - (x**2 * exp(y))/sqrt(3 - x**2)
+   >>> dsolve(eq, hint='all')
+   {'separable': Eq(f(x), log(1/(C1 + x*sqrt(3 - x**2) - 3*asin(sqrt(3)*x/3))) + log(2)),
+    '1st_power_series': Eq(f(x), sqrt(3)*x**3*exp(C1)/9 + sqrt(3)*x**5*exp(C1)/90 + C1 + O(x**6)),
+    'separable_Integral': Eq(Integral(exp(-_y), (_y, f(x))), C1 + Integral(x**2/sqrt(3 - x**2), x)),
+    'lie_group': Eq(f(x), log(2/(C1 + x*sqrt(3 - x**2) - 3*asin(sqrt(3)*x/3)))),
+    'best': Eq(f(x), log(1/(C1 + x*sqrt(3 - x**2) - 3*asin(sqrt(3)*x/3))) + log(2)),
+    'best_hint': 'separable',
     'default': 'separable',
-    'order': 1,
-    'separable_Integral': Eq(Integral(exp(-_y), (_y, f(x))), C1 + Integral(x**2/sqrt(-x**2 + 3), x))}
-
-   In [6]: _['best'].doit()
-   Out[6]: Eq(-exp(-f(x)), C1 - x*sqrt(-x**2 + 3)/2 + 3*asin(sqrt(3)*x/3)/2)
+    'order': 1}
+   >>> _['best'].doit()
+   Eq(f(x), log(1/(C1 + x*sqrt(3 - x**2) - 3*asin(sqrt(3)*x/3))) + log(2))
 
 一階同次常微分方程式
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-次のデモは同次常微分方程式を解くものだ。
+変数変換 :math:`z = y/x` で変数分離形常微分方程式になるものを一つ示す。
 
-.. code:: ipython
+.. code:: pycon
 
-   In [1]: eq = f(x).diff(x) + (x**2 - 3 * f(x)**2)/(x * f(x))
-
-   In [2]: dsolve(eq, hint='all_Integral')
-   Out[2]:
-   {'1st_homogeneous_coeff_subs_dep_div_indep_Integral': Eq(log(x), C1 + Integral(-1/(_u1 + (-3*_u1**2 + 1)/_u1), (_u1, f(x)/x))),
-    '1st_homogeneous_coeff_subs_indep_div_dep_Integral': Eq(f(x), C1*exp(Integral(3/(_u2*(_u2**2 - 2)), (_u2, x/f(x))) + Integral(-_u2/(_u2**2 - 2), (_u2, x/f(x))))),
-    'Bernoulli_Integral': Eq(f(x), sqrt((C1 - 2*Integral(x*exp(2*Integral(-3/x, x)), x))*exp(-2*Integral(-3/x, x)))),
-    'best': Eq(f(x), C1*exp(Integral(3/(_u2*(_u2**2 - 2)), (_u2, x/f(x))) + Integral(-_u2/(_u2**2 - 2), (_u2, x/f(x))))),
-    'best_hint': '1st_homogeneous_coeff_subs_indep_div_dep_Integral',
+   >>> eq = y.diff(x) + (x**2 - 3*y**2)/(x*y)
+   >>> dsolve(eq, y, hint='all')
+   Eq(f(x), x*sqrt(C1*x**4 + 2)/2)],
+    'best': Eq(f(x), sqrt(x**6*(C1 + 1/(2*x**4)))),
+    'best_hint': 'Bernoulli',
     'default': 'Bernoulli',
     'order': 1}
-
-   In [3]: _['best'].doit()
-   Out[3]: Eq(f(x), C1*(x**2/f(x)**2 - 2)**(1/4)/(x/f(x))**(3/2))
+   >>> _['best'].doit()
+   Eq(f(x), sqrt(x**6*(C1 + 1/(2*x**4))))
 
 一階線形常微分方程式
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-一階線形方程式の例だ。
-どのような常微分方程式のタイプとして扱っても厳しい積分が現れる。
+一階線形方程式の例だ。非同次項があるものを試す。
+``exp`` と ``Integral`` が目につくのがいかにもそれらしい。
 
-.. code:: ipython
+.. code:: pycon
 
-   In [1]: eq = f(x).diff(x) + x * f(x) - exp(3*x)
-
-   In [2]: dsolve(eq, hint='all_Integral')
-   Out[2]:
-   {'1st_exact_Integral': Eq(Integral((x*f(x) - exp(3*x))*exp(x**2/2), x) + Integral(exp(x**2/2) - Integral(x*exp(x**2/2), x), (_y, f(x))), C1),
-    '1st_linear_Integral': Eq(f(x), (C1 + Integral(exp(3*x)*exp(Integral(x, x)), x))*exp(-Integral(x, x))),
+   >>> eq = y.diff(x) + x*y - exp(3*x)
+   >>> dsolve(eq, y, hint='all')
+   {'almost_linear': Eq(f(x), (C1 + Integral(exp(3*x)*exp(x**2/2), x))*exp(-x**2/2)),
     'Bernoulli_Integral': Eq(f(x), (C1 - Integral(-exp(3*x)*exp(Integral(x, x)), x))*exp(-Integral(x, x))),
+    '1st_linear_Integral': Eq(f(x), (C1 + Integral(exp(3*x)*exp(Integral(x, x)), x))*exp(-Integral(x, x))),
+    '1st_exact': Eq(Integral((x*f(x) - exp(3*x))*exp(x**2/2), x), C1),
+    '1st_power_series': Eq(f(x), x + x**2*(3 - C1)/2 + 7*x**3/6 + x**4*(C1 + 6)/8 + 53*x**5/120 + C1 + O(x**6)),
+    '1st_linear': Eq(f(x), (C1 + Integral(exp(3*x)*exp(x**2/2), x))*exp(-x**2/2)),
+    'lie_group': Eq(f(x), (C1 + Integral(exp(3*x)*sqrt(exp(x**2)), x))/sqrt(exp(x**2))),
+    'Bernoulli': Eq(f(x), (C1 + Integral(exp(3*x)*exp(x**2/2), x))*exp(-x**2/2)),
+    '1st_exact_Integral': Eq(Subs(Integral((_y*x - exp(3*x))*exp(x**2/2), x) + Integral(exp(x**2/2) - Integral(x*exp(x**2/2), x), _y), _y, f(x)), C1),
     'almost_linear_Integral': Eq(f(x), (C1 + Integral(exp(3*x)*exp(Integral(x, x)), x))*exp(-Integral(x, x))),
-    'best': Eq(f(x), (C1 + Integral(exp(3*x)*exp(Integral(x, x)), x))*exp(-Integral(x, x))),
-    'best_hint': '1st_linear_Integral',
+    'best': Eq(f(x), x + x**2*(3 - C1)/2 + 7*x**3/6 + x**4*(C1 + 6)/8 + 53*x**5/120 + C1 + O(x**6)),
+    'best_hint': '1st_power_series',
     'default': '1st_exact',
     'order': 1}
+   >>> _['best'].doit()
+   Eq(f(x), x + x**2*(3 - C1)/2 + 7*x**3/6 + x**4*(C1 + 6)/8 + 53*x**5/120 + C1 + O(x**6))
 
 Bernoulli 常微分方程式
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Bernoulli 常微分方程式を解く。
-二番目のものは積分に時間が掛かるのだろうか、ついに返って来なかったので諦めた。
 
 .. code:: ipython
 
@@ -424,23 +434,22 @@ Bernoulli 常微分方程式を解く。
 
 Riccati 常微分方程式
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-ある Riccati 常微分方程式を試したところ、
-ベストは :code:`separable_reduced` だと判定された。
-それにしては解の有理式の形がやや不自然なようだ。
 
-.. code:: ipython
+Riccati 型 :math:`y^\prime = P(x)y + Q(x)y + R(x)y^2,\;P(x) \ne 0,\;R(x) \ne 0` を試す。
 
-   In [1]: eq = f(x).diff(x) + (2/x**2) - 3 * f(x)**2
+.. code:: pycon
 
-   In [2]: dsolve(eq, hint='all')
-   Out[2]:
-   {'Riccati_special_minus2': Eq(f(x), -(-5*I*tan(C1 + 5*I*log(x)/2) + 1)/(6*x)),  'best': Eq(f(x), (-C1*x**4 - 2/(3*x))/(C1*x**5 - 1)),
-    'best_hint': 'separable_reduced',
-    'default': 'Riccati_special_minus2',
-    'lie_group': Eq(f(x), -(x**5*exp(5*C1) + 2/3)/(x*(x**5*exp(5*C1) - 1))),
-    'order': 1,
+   >>> dsolve(y.diff(x) - 3 * y**2 + 2/x**2, y, hint='all')
+   {'separable_reduced_Integral': Eq(Integral(1/(_y*(3*_y + 1 - 2/_y)), (_y, x*f(x))), C1 + Integral(1/x, x)),
+    'lie_group': Eq(f(x), -(2*C1/3 + x**5)/(x*(-C1 + x**5))),
+    'Riccati_special_minus2': Eq(f(x), -(-5*I*tan(C1 + 5*I*log(x)/2) + 1)/(6*x)),
     'separable_reduced': Eq(f(x), (-C1*x**4 - 2/(3*x))/(C1*x**5 - 1)),
-    'separable_reduced_Integral': Eq(Integral(1/(_y*(3*_y + 1 - 2/_y)), (_y, x*f(x))), C1 + Integral(1/x, x))}
+    'best': Eq(f(x), -(2*C1/3 + x**5)/(x*(-C1 + x**5))),
+    'best_hint': 'lie_group',
+    'default': 'Riccati_special_minus2',
+    'order': 1}
+
+デフォルトとして認識されていることがわかる。
 
 .. In [30]: dsolve(f(x).diff(x) - (5*x**2 - 2*f(x)**2 + 11)/(sin(f(x)) + 4*x*f(x) + 3), f(x))
 .. In [271]: classify_ode(eq)
@@ -468,6 +477,8 @@ Riccati 常微分方程式
 
 定数係数二階線形常微分方程式
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+この型のものは同次形ならば ``dsolve()`` に頼らなくでもなんとかなる。
+
 特性方程式の解のパターン別に試す。
 ソルバーが適切なタイプ判定をしていることがわかる。
 
@@ -505,7 +516,7 @@ Riccati 常微分方程式
 
 Euler 常微分方程式
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Euler 常微分方程式のデモを示す。同次。
+Euler 常微分方程式のデモを示す。
 
 .. code:: ipython
 
@@ -584,43 +595,43 @@ SymPy は Airy 関数も Bessel 関数も持っているのに、
 
 .. # Hermite
 .. In [287]: eq = f(x).diff(x, 2) - 2 * x * f(x).diff(x) + 2 * n * f(x)
-.. 
+..
 .. In [288]: classify_ode(eq)
 .. Out[288]: ('2nd_power_series_ordinary',)
-.. 
+..
 .. In [289]: dsolve(eq)
 .. Out[289]: Eq(f(x), C2*(n**2*x**4/6 - n*x**4/3 - n*x**2 + 1) + C1*x*(-n*x**2/3 +x**2/3 + 1) + O(x**6))
 
 .. In [291]: a, b, c = symbols('a b c')
-.. 
+..
 .. In [292]: eq = (x**2 - x)*f(x).diff(x, 2) + ((a + b + 1)*x - c)*f(x).diff(x) + b * a* f(x)
-.. 
+..
 .. In [293]: classify_ode(eq)
 .. Out[293]: ()
 
 .. In [294]: 64 * x**2 *(x - 1)**2 * f(x).diff(x, 2) + 32 * x *(x - 1)*(3*x - 1)*f(x).diff(x) + (5*x - 21)*f(x)
 .. Out[294]: 64*x**2*(x - 1)**2*Derivative(f(x), x, x) + 32*x*(x - 1)*(3*x - 1)*Derivative(f(x), x) + (5*x - 21)*f(x)
-.. 
+..
 .. In [295]: eq = _
-.. 
+..
 .. In [296]: classify_ode(eq)
 .. Out[296]: ()
 
 .. In [297]: eq = x * f(x).diff(x, 2) + (10 * x**3 - 1)*f(x).diff(x, 1) + 5*x**2 *(5*x**3 + 1)*f(x)
-.. 
+..
 .. In [298]: classify_ode(eq)
 .. Out[298]: ()
 
 .. In [299]: eq = 4*x * f(x).diff(x, 2) + (7*x + 12) * f(x).diff(x) + 21 * f(x)
-.. 
+..
 .. In [300]: classify_ode(eq)
 .. Out[300]: ('2nd_power_series_regular',)
-.. 
+..
 .. In [301]: dsolve(eq)
 .. Out[301]: Eq(f(x), C1*(-16807*x**5/122880 + 2401*x**4/6144 - 343*x**3/384 + 49*x**2/32 - 7*x/4 + 1) + O(x**6))
 
 .. In [302]: eq = f(x).diff(x, 2) - x**2 * f(x).diff(x) - f(x) - 1
-.. 
+..
 .. In [303]: classify_ode(eq)
 .. Out[303]: ()
 
@@ -630,19 +641,19 @@ SymPy は Airy 関数も Bessel 関数も持っているのに、
 .. Out[125]: ()
 
 .. In [304]: eq = f(x).diff(x, 2)*sin(x)*cos(x)**2 - f(x).diff(x)*(3*sin(x)**2 + 1)*cos(x) - f(x)*sin(x)**3
-.. 
+..
 .. In [305]: classify_ode(eq)
 .. Out[305]: ()
-.. 
+..
 .. In [308]: eq = f(x).diff(x, 2) + (k**2 + 2*sech(x)**2)*f(x)
-.. 
+..
 .. In [309]: classify_ode(eq)
 .. Out[309]: ()
-.. 
+..
 .. In [311]: d, l = symbols('d l')
-.. 
+..
 .. In [312]: eq = f(x).diff(x, 2) + (-d + d*(1 - exp(-b*x))**2)*f(x) - l * f(x)
-.. 
+..
 .. In [313]: classify_ode(eq)
 .. Out[313]: ()
 
@@ -699,16 +710,6 @@ Liouville 型は解ける。それ以外が解けない。
    In [6]: classify_ode(eq)
    Out[6]: ()
 
-   In [7]: eq = f(x).diff(x, 2) - 3 * f(x) * f(x).diff(x) - (3*f(x)**2 + 4*f(x) + 1)
-
-   In [8]: classify_ode(eq)
-   Out[8]: ()
-
-   In [9]: eq = 7 * f(x)*f(x).diff(x, 2) - 11 * f(x).diff(x)
-
-   In [10]: classify_ode(eq)
-   Out[10]: ()
-
    In [11]: eq = f(x).diff(x, 2) + f(x) * f(x).diff(x)**2 - x**2 * f(x).diff(x)
 
    In [12]: classify_ode(eq)
@@ -764,22 +765,22 @@ SymPy のソルバーは 2 階以上は全部高階扱い。
     'order': 4}
 
 .. In [151]: eq = (3*x + 5)**4 * f(x).diff(x, 4) - 2*(3*x + 5)**3 * f(x).diff(x, 3) - (3*x + 5)**2 * f(x).diff(x, 2) + 5 * (3*x + 5) * f(x).diff(x) + f(x)
-.. 
+..
 .. In [152]: classify_ode(eq)
 .. Out[152]: ()
 
 .. 高階 exact
 .. In [153]: eq = f(x).diff(x, 3) -f(x).diff(x, 2) + 5 * x * f(x).diff(x) + 5 * f(x)
-.. 
+..
 .. In [154]: classify_ode(eq)
 .. Out[154]: ()
 
 .. In [155]: eq = f(x).diff(x, 3) - 4*(x + 2)*f(x).diff(x) - 2*f(x)
-.. 
+..
 .. In [156]: classify_ode(eq)
 .. Out[156]: ()
 .. In [157]: eq = x**3 * f(x).diff(x, 3) + 3 * x**2 * f(x).diff(x, 2) + (4*x**3 - 11*x)*f(x).diff(x) + 4*x**2*f(x)
-.. 
+..
 .. In [158]: classify_ode(eq)
 .. Out[158]: ()
 
