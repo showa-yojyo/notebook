@@ -82,6 +82,7 @@ Contents:
    python-pyqt4
    python-pyqt5
    python-pygame
+   python-pytube
    python-py2exe
    python-upgrade
    python-miniconda
