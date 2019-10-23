@@ -86,7 +86,7 @@
 
 * 例題 3.4.9: `レンズ空間 <http://mathworld.wolfram.com/LensSpace.html>`__
 
-  :math:`S^3 := \set{(z_1, z_2) \in \CC^2 \sth \abs{z_1} ^2 + \abs{z_2} ^2 = 1}`
+  :math:`S^3 \coloneqq \set{(z_1, z_2) \in \CC^2 \sth \abs{z_1} ^2 + \abs{z_2} ^2 = 1}`
 
   * 有限変換群 :math:`F` の元は互いに素な自然数の組 :math:`p, q` を用いて構成できる。
     LaTeX を書くと字が潰れるので省略。

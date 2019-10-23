@@ -42,13 +42,13 @@
 
     * アイディア
 
-      * :math:`I_{\eps_0} := (t_0 - \eps_0, t_0 + \eps_0),\quad \mathcal C = C^0(I_{\eps_0}, U).`
+      * :math:`I_{\eps_0} \coloneqq (t_0 - \eps_0, t_0 + \eps_0),\quad \mathcal C = C^0(I_{\eps_0}, U).`
 
         .. math::
            :nowrap:
 
            \begin{align*}
-           \varGamma[F(t, \bm x)] := \bm x + \int_{t_0}^t X(s, F(s, \bm x))\,\dd{s} \in C^0(I_{\eps_0}, U).
+           \varGamma[F(t, \bm x)] \coloneqq \bm x + \int_{t_0}^t X(s, F(s, \bm x))\,\dd{s} \in C^0(I_{\eps_0}, U).
            \end{align*}
 
         このとき :math:`F \in \mathcal C \implies \varGamma[F] \in C(I_{\eps_0} \times K, \RR^n).`

@@ -290,7 +290,7 @@
   * 閉集合 :math:`\closure{W_i}` に関して :ref:`定理 5.1.2 <tsuboi05.5.1.2>` の条件を満たす
     :math:`C^\infty` 級関数 :math:`\mu_i` を取る。
   * 座標近傍 :math:`(U_i, \varphi_i)` の局所座標 :math:`\varphi_i = (x_1^{(i)}, \dotsc, x_n^{(i)})` に対して
-    関数 :math:`\nu_i \varphi_i := (\nu_i x_1^{(i)}, \dotsc, \nu_i x_n^{(i)})` を取ると、これは :math:`C^\infty` 級となる。
+    関数 :math:`\nu_i \varphi_i \coloneqq (\nu_i x_1^{(i)}, \dotsc, \nu_i x_n^{(i)})` を取ると、これは :math:`C^\infty` 級となる。
 
   * ここで :math:`\varPhi = (\mu_1, \nu_1 \varphi_1, \dotsc, \mu_k, \nu_k \varphi_k)` とおくと、
     これが多様体から :math:`\RR^{k(n + 1)}` への埋め込みとなる：

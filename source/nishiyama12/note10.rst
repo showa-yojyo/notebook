@@ -49,7 +49,7 @@
   上で述べた最大階数行列全てからなる空間。
 
 :math:`\mathit{Sym}_{n + 1}^{\circ}(\CC)`
-  :math:`:= \set{S \in \mathit{Sym}_{n + 1}(\CC) \sth \det S \ne 0}`
+  :math:`\coloneqq \set{S \in \mathit{Sym}_{n + 1}(\CC) \sth \det S \ne 0}`
 
 * :math:`m \le n` とする。
 
@@ -57,7 +57,7 @@
   * :math:`\mathit{Sym}_{n + 1}^{\circ}(\CC) \times \mathit{M}_{n + 1, m}^{\circ}(\CC) / (\mathit{GL}_{n + 1}(\CC) \times T^m)`
     が非退化 2 次曲面と :math:`\mathbb{P}^{n}(\CC)` の m 点配置を表す。
 
-    * :math:`T^m := (\CC^\times)^m` を n 次元トーラス群と呼ぶ。
+    * :math:`T^m \coloneqq (\CC^\times)^m` を n 次元トーラス群と呼ぶ。
 
 * 定理 10.7 不変式環の生成元に関する定理。どうなっているか。
 * 定理 10.8 :math:`m = 2` のときの :math:`\mathit{GL}_{n + 1}(\CC) \times T^m` の
@@ -69,7 +69,7 @@
 部分空間
   ベクトル空間 :math:`V = \CC^n` から線形独立なベクトルを d 個取ってきて
   それらの張る部分空間を :math:`W = \langle v_1, \cdots, v_d \rangle` とする。
-  このとき :math:`\mathbb{P}(W) := \set{[w] \sth w \in W} \subset \mathbb{P}(V)` は
+  このとき :math:`\mathbb{P}(W) \coloneqq \set{[w] \sth w \in W} \subset \mathbb{P}(V)` は
   n - 1 次元部分空間であるという。
 
   * ベクトル 2 個だけからなるものならば :math:`\mathbb{P}(W)` は射影直線。
@@ -92,12 +92,12 @@
   .. math::
 
      \begin{align*}
-     P_{(d, n - d)} :=
+     P_{(d, n - d)} \coloneqq
      \Set{
      \begin{pmatrix} A & B\\ 0 & D \end{pmatrix}
      \Sth
-     A \in \mathit{GL}_d(\CC),\ 
-     D \in \mathit{GL}_{n - d}(\CC),\ 
+     A \in \mathit{GL}_d(\CC),\
+     D \in \mathit{GL}_{n - d}(\CC),\
      B \in \mathit{M}_{d, n - d}(\CC)
      }.
      \end{align*}
@@ -108,7 +108,7 @@
 * 定理 10.11
 
   * :math:`V = \CC^n` として :math:`U_n(\CC)` は :math:`Gr_d(V)` に推移的に作用する。
-  * :math:`W_{std} := \langle \bm e_1, \cdots, \bm e_d \rangle` における
+  * :math:`W_{std} \coloneqq \langle \bm e_1, \cdots, \bm e_d \rangle` における
     固定部分群は :math:`U_d(\CC^n) \times U_{n - d}(\CC^n)` に同型だ。
 
   * よって :math:`Gr_d(V) \cong U_n(\CC^n)/(U_d(\CC^n) \times U_{n - d}(\CC^n))`

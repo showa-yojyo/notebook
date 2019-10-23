@@ -26,7 +26,7 @@
     #. :math:`\forall y_0 \in M, x_0 = F_{t_0}\inv(y_0)` とすると :math:`T_{y_0}M` の接ベクトルが定まる。
        なぜなら  :math:`F_{t_0}` が微分同相だから。
 
-  * :math:`X_t := \fn{\dfrac{\partial F_t}{\partial t} \circ F_t\inv}{M}T_{y_0}M` なる量を考える。
+  * :math:`X_t \coloneqq \fn{\dfrac{\partial F_t}{\partial t} \circ F_t\inv}{M}T_{y_0}M` なる量を考える。
 
     * :math:`y_0 \in M` 周りの座標近傍を :math:`(U, \varphi)` とし、
     * :math:`\varphi \circ (F_t \circ F_{t_0}\inv)\circ\varphi\inv(x_1, \dotsc, x_n)` を
@@ -130,7 +130,7 @@
           \begin{split}
           \norm{\bm{x}_{k+1} - \bm{x}} & \le& \frac{1}{2^{k-1}}\norm{\bm{x}_2 - \bm{x}_1}\\
           & =& \frac{1}{2^{k-1}}\norm{\bm{y} - F_t(\bm{y})}\\
-          &\therefore& \bm{x}_k \to \bm{y}\ \text{s.t. } \bm{y} = F_t(\bm{y}). 
+          &\therefore& \bm{x}_k \to \bm{y}\ \text{s.t. } \bm{y} = F_t(\bm{y}).
           \end{split}
 
 6.2 フロー

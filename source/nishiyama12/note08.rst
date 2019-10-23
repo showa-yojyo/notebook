@@ -178,8 +178,8 @@
 
 * 符号数 :math:`(p, q)` の :math:`Sym_3(\RR)` の部分を :math:`Sym_3^{(p, q)}(\RR)` で表す。
 
-  * :math:`Sym_3^+(\RR) := Sym_3^{(3, 0)}(\RR)` の元を正定値対称行列、
-  * :math:`Sym_3^-(\RR) := Sym_3^{(0, 3)}(\RR)` の元を
+  * :math:`Sym_3^+(\RR) \coloneqq Sym_3^{(3, 0)}(\RR)` の元を正定値対称行列、
+  * :math:`Sym_3^-(\RR) \coloneqq Sym_3^{(0, 3)}(\RR)` の元を
     `負定値対称行列 <http://mathworld.wolfram.com/NegativeDefiniteMatrix.html>`__ と呼ぶ。
 
 :math:`\displaystyle Sym_3^\circ (\RR) = \bigsqcup_{p + q = 3} Sym_3^{(p,\ q)}(\RR)` である。
@@ -215,7 +215,7 @@
 * :math:`H = O_{2, 1}(\RR)` によって :math:`w \in \RR^3 \minuszero` を動かすことによって
   表 (8.7) を得る。
 
-* 定理 8.17: :math:`Hyp_k := \set{[x : y : z] \sth x^2 + y^2 - z^2 = k}` とおくと次が成り立つ。
+* 定理 8.17: :math:`Hyp_k \coloneqq \set{[x : y : z] \sth x^2 + y^2 - z^2 = k}` とおくと次が成り立つ。
 
   .. math::
 
@@ -331,7 +331,7 @@
 
      \begin{gather*}
      \wp'(z)^2 = 4 \wp(z)^3 - g_2 \wp(z) - g_3,\quad
-         g_2 = 60\!\sum_{\omega \in L \minuszero} \omega^{-4},\ 
+         g_2 = 60\!\sum_{\omega \in L \minuszero} \omega^{-4},\
          g_3 = 140\!\sum_{\omega \in L \minuszero} \omega^{-6}.
      \end{gather*}
 

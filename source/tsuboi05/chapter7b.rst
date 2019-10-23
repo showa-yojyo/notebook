@@ -55,7 +55,7 @@
 
          .. math::
 
-            \left.\diff{E_x(tw)}{t}\right|_{t = 1} \in T_zM,\ 
+            \left.\diff{E_x(tw)}{t}\right|_{t = 1} \in T_zM,\
             \left.\diff{E_y(tv)}{t}\right|_{t = 1} \in T_zM.
 
        * ゆえに :math:`E_x(\dfrac{m + \eps}{m}) = y.`
@@ -88,7 +88,7 @@
        :nowrap:
 
        \begin{align*}
-       F_t((\bm v_1, \bm v_2, \bm v_3)) 
+       F_t((\bm v_1, \bm v_2, \bm v_3))
        &=
        \begin{pmatrix}
        \bm v_1 \cos t + \bm v_2 \sin t & - \bm v_1 \sin t + \bm v_2 \cos t & \bm v3
@@ -151,7 +151,7 @@
   :math:`\fn{F}{M}N` が存在する：
   :math:`F^* g_N = g_M.`
 
-  * ここで :math:`(F^* g_N)(v_1, v_2) := g_N(F_* v_1, F_* v_2)` とする。
+  * ここで :math:`(F^* g_N)(v_1, v_2) \coloneqq g_N(F_* v_1, F_* v_2)` とする。
   * これは :math:`M` 上のリーマン計量となる。
 
 * :math:`(M, g)` から自身への等長写像の全体 :math:`\operatorname{Isom}(M)` は群となる。
@@ -409,11 +409,11 @@
      \begin{gather*}
      \diff{v_i}{t} = -\frac
        {\displaystyle \frac{\partial h}{\partial x_i}}
-       {\displaystyle 1 
-         + \left(\frac{\partial h}{\partial x_1}\right)^2 
+       {\displaystyle 1
+         + \left(\frac{\partial h}{\partial x_1}\right)^2
          + \left(\frac{\partial h}{\partial x_2}\right)^2}
      \left(
-       \frac{\partial^2 h }{\partial x_1^2}v_1^2 
+       \frac{\partial^2 h }{\partial x_1^2}v_1^2
          + 2 \frac{\partial^2 h}{\partial x_1 \partial x_2}v_1 v_2
          + \frac{\partial^2 h}{\partial x_2^2} v_2^2
        \right)

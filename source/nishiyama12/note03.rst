@@ -24,7 +24,7 @@
 
 * 例 3.2: 対称群の置換表現
 
-  * ある置換 :math:`\sigma` に対して行列 :math:`T_\sigma := (\delta_{i \sigma(j)})_{1 \le i,\ j \le n}` を定める
+  * ある置換 :math:`\sigma` に対して行列 :math:`T_\sigma \coloneqq (\delta_{i \sigma(j)})_{1 \le i,\ j \le n}` を定める
     写像は対称群の行列表現となる。
     これを置換表現といい、作用素を置換行列という。
 

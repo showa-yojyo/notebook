@@ -1345,7 +1345,7 @@ A_redefinitionContext_region, A_redefinitionContext_state, A_redefinitionContext
 
 * ProtocolStateMachines は Classifiers, Interfaces, Ports に関連することが可能。
 
-14.4.2 Abstract Syntax 
+14.4.2 Abstract Syntax
 ----------------------------------------------------------------------
 * Figure 14.41 ProtocolStateMachines
 
@@ -1355,7 +1355,7 @@ A_redefinitionContext_region, A_redefinitionContext_state, A_redefinitionContext
 A_conformance_specificMachine, A_generalMachine_protocolConformance
   * 前者は ProtocolStateMachine から ProtocolConformance への composite 関連（双方向）。
   * 後者は ProtocolConformance から ProtocolStateMachine への関連（単方向）。
-  * 関連端 ``specificMachine``, ``generalMachine`` が 
+  * 関連端 ``specificMachine``, ``generalMachine`` が
     ``source``, ``target`` をそれぞれ subsets する。
 
 A_referred_protocolTransition

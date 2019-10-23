@@ -74,8 +74,8 @@
 
 そこで :math:`N = \ker \varphi` とおくと、:math:`\tau N` の形の集合の間に演算が定義できる。
 
-* 演習 2.22: :math:`[\tau] := \tau N` と書く。これは群をなす。
-* 定義 2.23: 商群 :math:`G/N := \set{[\tau] \sth \tau \in G}`
+* 演習 2.22: :math:`[\tau] \coloneqq \tau N` と書く。これは群をなす。
+* 定義 2.23: 商群 :math:`G/N \coloneqq \set{[\tau] \sth \tau \in G}`
 * 定理 2.24: 準同型定理。
 
 :math:`\forall \sigma \in G_2 = \operatorname{im}\varphi,\ \exists \tau \in G_1:\ \tau \ker \varphi = \varphi\inv \ker \varphi` ということ。

@@ -42,7 +42,7 @@
 
   * :math:`U \subset \RR^n` を弧状連結開集合とする。
   * 関数 :math:`\fn{f}{U}{\RR}` および写像 :math:`\fn{\gamma}{[a, b]}U` を微分可能とする。
-    さらに次の対応があるとする： 
+    さらに次の対応があるとする：
 
     * :math:`\gamma(a) = \bm y, \gamma(b) = \bm z,`
     * :math:`\bm y, \bm z \in U.`
@@ -136,7 +136,7 @@
   .. math::
 
      \forall \bm x \in U, \exists \bm y \in U, \quad\text{s.t }
-     l_{\bm x} := \set{(1 -t)\bm y + t\bm x \sth 0 \le t \le 1} \subset U.
+     l_{\bm x} \coloneqq \set{(1 -t)\bm y + t\bm x \sth 0 \le t \le 1} \subset U.
 
 .. _tsuboi08.1.2.8:
 

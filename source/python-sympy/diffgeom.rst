@@ -100,7 +100,7 @@
   余接空間の基底を返す。
   微分幾何の教科書で言う :math:`\dd x_1, \dotsc, \dd x_n` に相当する。
 
-  * 単数形の場合、オブジェクトの型は後述のクラス Differential 
+  * 単数形の場合、オブジェクトの型は後述のクラス Differential
 
 座標変換メソッドは次のようなものがある。
 
@@ -206,7 +206,7 @@
 ふたつのベクトル場の交換子、括弧積を表現する。
 
 * :code:`Commutator(X, Y)` は
-  :math:`[X, Y]f := X(Yf) - Y(Xf)` で定義されるベクトル場を意味する。
+  :math:`[X, Y]f \coloneqq X(Yf) - Y(Xf)` で定義されるベクトル場を意味する。
   ここで :code:`f` は多様体上で定義される関数を意味する。
 
   * 丸括弧で :code:`f` を評価する前に、交換子オブジェクトがゼロでないことを確認する必要がある。
@@ -977,7 +977,7 @@ Riemman-Christoffel 曲率テンソル
        :nowrap:
 
        \begin{align*}
-       R^\rho{}_{\sigma \mu \nu} = 
+       R^\rho{}_{\sigma \mu \nu} =
        \varGamma_{\sigma \nu, \mu}^\rho
        - \varGamma_{\sigma \mu, \nu}^\rho
        + \varGamma_{\sigma \nu}^l \varGamma_{l \mu}^\rho

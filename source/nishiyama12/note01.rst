@@ -102,7 +102,7 @@
 1.5.2 行列群
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 `一般線形群 <http://mathworld.wolfram.com/GeneralLinearGroup.html>`__
-  :math:`GL_n(K) := \set{g \in M_n(K) \sth \det g \ne 0}`
+  :math:`GL_n(K) \coloneqq \set{g \in M_n(K) \sth \det g \ne 0}`
 
   * 部分群 :math:`SL_n(K),\ O_n(\RR),\ U_n(\CC),\ Sp_{2n}(K)`
   * ド・シッター群 :math:`SO(?)`
@@ -116,7 +116,7 @@
 
 1.5.4 一次分数変換
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-複素平面の上半分 :math:`\mathfrak{H} := \set{z \in \CC \sth \Im z > 0}` は多様体である。
+複素平面の上半分 :math:`\mathfrak{H} \coloneqq \set{z \in \CC \sth \Im z > 0}` は多様体である。
 
 一次分数変換
   関数 :math:`{ \displaystyle f_g(z) = \frac{az + b}{cz + d}\ (\ z \in \mathfrak{H},\ g \in SL_2(\RR))}` のこと。
@@ -128,7 +128,7 @@
 * :math:`g \in SL_2(\RR)` に対して :math:`-g` もまた同じ変換を指定するので、
   これらを同一視してしまう。
 
-  :math:`PSL_2(\RR) := SL_2(\RR) / \sim`;
+  :math:`PSL_2(\RR) \coloneqq SL_2(\RR) / \sim`;
 
 ----
 

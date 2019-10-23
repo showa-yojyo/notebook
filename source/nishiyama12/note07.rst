@@ -62,7 +62,7 @@
     .. math::
 
        \begin{align*}
-       \RR^3 = \bigsqcup_{r > 0} S_r \sqcup \zeroset,\ 
+       \RR^3 = \bigsqcup_{r > 0} S_r \sqcup \zeroset,\
        S_r = \set{x \in \RR^3 \sth \norm{x} = 1}.
        \end{align*}
 
@@ -109,7 +109,7 @@
 
 * 例 7.9: 共役類。
 
-  * 有限群の共役による作用に関する軌道 :math:`C_G(x) := \set{gxg\inv \sth g \in G}` のことを共役類という。
+  * 有限群の共役による作用に関する軌道 :math:`C_G(x) \coloneqq \set{gxg\inv \sth g \in G}` のことを共役類という。
 
 * 例 7.10: 左移動、`左剰余類 <http://mathworld.wolfram.com/LeftCoset.html>`__、左剰余類分解。
 

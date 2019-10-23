@@ -23,7 +23,7 @@
         :nowrap:
 
         \begin{align*}
-        \mathcal{C}_{x_0} := \set{\fn{c_i}{(a_i,\ b_i)}M \sth c_i(t_i) = x_0}_{i \in I}
+        \mathcal{C}_{x_0} \coloneqq \set{\fn{c_i}{(a_i,\ b_i)}M \sth c_i(t_i) = x_0}_{i \in I}
         \end{align*}
 
   #. 次にこの一点を含む座標近傍 :math:`(U, \varphi)` をとって、
@@ -33,7 +33,7 @@
         :nowrap:
 
         \begin{align*}
-        c_1 \sim c_2 \iff 
+        c_1 \sim c_2 \iff
         \exists t_1 \in I_{c_1},\ t_2 \in I_{c_2}: \diff{(\varphi \circ c_1)}{t}(t_1) = \diff{(\varphi \circ c_2)}{t}(t_2)
         \end{align*}
 
@@ -66,7 +66,7 @@
 4.2 接ベクトル空間
 ======================================================================
 `接空間 or 接ベクトル空間 <http://mathworld.wolfram.com/TangentSpace.html>`__
-  :math:`T_{x_0}M := \mathcal{C}_{x_0} / \sim` を接空間 or 接ベクトル空間と呼ぶ。
+  :math:`T_{x_0}M \coloneqq \mathcal{C}_{x_0} / \sim` を接空間 or 接ベクトル空間と呼ぶ。
 
 * 接ベクトル空間は実ベクトル空間である。
 * 曲線族の曲線に :math:`\RR^n` の接ベクトルを対応させる写像は
@@ -75,7 +75,7 @@
 * 全射であることについて。これを示すのに面白い技法を使う。
 
   接ベクトル :math:`\bm{v} \in \RR^n` に対し
-  :math:`c_\varphi ^\bm{v} (t) := \varphi \inv(t \bm{v} + \varphi (x_0))` というのを考える。
+  :math:`c_\varphi ^\bm{v} (t) \coloneqq \varphi \inv(t \bm{v} + \varphi (x_0))` というのを考える。
   ただし :math:`t \in (-\eps_{\varphi}^\bm{v},\ \eps_{\varphi}^\bm{v})` の範囲で
   :math:`t \bm{v} + \varphi (x_0) \in \varphi(U)` が成り立つように取る。
   こうすると次のようになるので全射であることが示せる（任意のベクトルについて曲線が作れるから）。
@@ -116,7 +116,7 @@
 
   * :math:`\varphi` に依存して決まることに気をつける。
 
-* :math:`{ \displaystyle [c_{\varphi}^{\bm{e}_i}] := \frac{\partial}{\partial x_i}}` と記す。
+* :math:`{ \displaystyle [c_{\varphi}^{\bm{e}_i}] \coloneqq \frac{\partial}{\partial x_i}}` と記す。
 
   * 理由 1: 曲線は（偏）微分 or 方向微分を表しているとみなせるから。
   * 理由 2: 座標近傍を換えたときの基底変換が形式的にできるから。

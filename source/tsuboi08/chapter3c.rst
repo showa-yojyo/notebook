@@ -14,7 +14,7 @@
 
 * 境界
 
-  * 境界 :math:`\partial M := \bigcup \varphi\inv(\zeroset \times \RR^{n - 1}) \subset M` は
+  * 境界 :math:`\partial M \coloneqq \bigcup \varphi\inv(\zeroset \times \RR^{n - 1}) \subset M` は
     :math:`n - 1` 次元部分多様体である。
 
   * 境界を持つ多様体の座標近傍系 :math:`\set{(U_i, \varphi_i)}` が向き付けられているとき、
@@ -47,7 +47,7 @@
 
   とする。
 
-  * 各 :math:`U_i` に台を持つ :math:`\alpha_i := \lambda_i \alpha` に対して
+  * 各 :math:`U_i` に台を持つ :math:`\alpha_i \coloneqq \lambda_i \alpha` に対して
     :math:`\displaystyle \int_M\!\dd \alpha_i = \int_{\partial M}\!\alpha_i` を示せばよい。
 
   * :math:`\supp{{\varphi\inv}^*\alpha_i} \subset [a_1, b_1] \times \dotsb \times [a_n, b_n] \subset \varphi_i(U_i)`

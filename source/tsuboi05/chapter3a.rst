@@ -51,7 +51,7 @@
      Q = \Set{(X_1, \dotsc, X_n) \in \RR^n \Sth \sum_{i = 1}^n \lambda_i X_i^2 = b\quad(\ne 0)}
 
   * 座標近傍系を定義することで、曲面が多様体であることを示す。
-  * :math:`U_i^+ := Q \cap \set{X_i > 0}, \varphi_i^+(X_1, \dotsc, X_n) = (X_1, \dotsc, \widehat{(i)}, \dotsc, X_n)` などと置く
+  * :math:`U_i^+ \coloneqq Q \cap \set{X_i > 0}, \varphi_i^+(X_1, \dotsc, X_n) = (X_1, \dotsc, \widehat{(i)}, \dotsc, X_n)` などと置く
     （ハットの部分は除去を意味する）。
 
   * 開集合 :math:`U_i^\pm` をすべて合併させると曲面全体を覆う。
@@ -205,7 +205,7 @@
     * :math:`\fn{p_Y}{Z}Y` （射影）
 
   * 合成写像 :math:`p_Y \circ f_\pm` を考える。
-    :math:`Y_\pm := (p_Y \circ f_\pm)(\RR)` とおくと、
+    :math:`Y_\pm \coloneqq (p_Y \circ f_\pm)(\RR)` とおくと、
     :math:`\underline{p}` との絡みで :math:`Y_\pm` と実数全体が同相であることを示せる。
     商空間の任意の点について、それを含む開近傍が
     :math:`Y_+` か :math:`Y_-` にあると結論できる。
@@ -310,7 +310,7 @@
 
   * 座標近傍系を次のように構成する。
 
-    * 同値類 :math:`[x]` に対して開区間 :math:`I_x := (x - 1/4, x + 1/4) \subset \RR` を定義する。
+    * 同値類 :math:`[x]` に対して開区間 :math:`I_x \coloneqq (x - 1/4, x + 1/4) \subset \RR` を定義する。
     * 同値類からその代表元を :math:`I_x` の中にあるように取る（？）写像を :math:`s_x` を定義する。
 
       * :math:`s_x` は連続となる。なぜなら開集合 :math:`U \subset I_x` に対して

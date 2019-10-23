@@ -73,7 +73,7 @@
   自己同型写像 :math:`\pi_g: [v] \longmapsto [gv]` は :math:`\mathbb{P}(V)` の射影変換であるという。
 
 射影一般線形群
-  :math:`\mathit{PGL}_{n + 1}(\CC) := \mathit{GL}_{n + 1}(\CC)/\CC^\times` は
+  :math:`\mathit{PGL}_{n + 1}(\CC) \coloneqq \mathit{GL}_{n + 1}(\CC)/\CC^\times` は
   :math:`\mathbb{P}^n` 上の射影変換のなす群となる。
 
 アフィン変換群
