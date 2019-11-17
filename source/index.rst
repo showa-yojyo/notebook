@@ -76,6 +76,7 @@ Contents:
    python-jinja2
    python-pygments
    python-bs4
+   python-selenium
    python-twitter/index
    python-isbn-hyphenate
    python-pyopengl/index
