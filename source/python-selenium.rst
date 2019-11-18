@@ -29,8 +29,9 @@ Python 3.7 以上が動作している Windows 10 環境に Selenium_ をイン�
 
 Selenium_ の構成要素は大別して二つある。プログラミングに関するものとウェブブラウザーに関するものだ。
 私はもっぱら Python しか書かないので言語を Python に絞って導入手順を記す。
-ウェブブラウザーについては、Chrome, Firefox, Safari, Internet Explorer, Microsoft Edge などの
-ドライバーがあるので、自分の利用するブラウザーに対応するドライバーを一つ（あるいは複数）ダウンロードして適宜インストールする。
+ウェブブラウザーについては、Chrome, Firefox, Safari, Internet Explorer, Microsoft Edge
+などのドライバーがあるので、自分の利用するブラウザーに対応するドライバーを一つ
+（あるいは複数）ダウンロードして適宜インストールする。
 
 Python 用パッケージを導入する
 ----------------------------------------------------------------------
@@ -187,6 +188,11 @@ HTML 要素の値を得る
 HTML 要素の値を得るには ``elem.text`` を参照する。開始タグと終了タグに挟まれた部分の
 ブラウザーに描画されているテキスト内容と同等の ``str`` オブジェクトが得られる。
 
+.. code:: python
+
+   element = driver.find_elements_by_tag_name('h1')
+   print(element.text)
+
 キー操作
 ----------------------------------------------------------------------
 
@@ -218,7 +224,7 @@ Selenium はキーボードのキー操作を再現するインターフェイ�
    user_name = driver.find_elements_by_css_selector('input[id="user_name"]')
    user_name.send_keys('showa_yojyo')
 
-フォーム操作
+フォーム制御
 ----------------------------------------------------------------------
 
 ボタン系 GUI のマウスクリックとフォーム送信のコード例を示す。
@@ -299,6 +305,50 @@ Selenium は「指定要素が指定状態になるまでプログラム実行�
 これにより（実際の処理が 60 秒で収まれば）ユーザーの期待する手続きは
 Selenium が代わりに達成する。
 
+明示的待機の一般的な手順を記す。
+
++ ``WebDriver`` 型オブジェクトと待機秒を指定してクラス ``WebDriverWait`` のオブジェクトを作成する。
++ メソッド ``until()`` を呼び出す。引数に待機条件を指定する。
+
+待機条件はモジュール ``selenium.webdriver.support.expected_conditions`` のクラス各種のオブジェクトにより指示する。
+コードから読み取れる内容を以下にまとめる：
+
+.. csv-table:: 条件一覧
+   :header: コンストラクター, 待機解除条件
+   :width: 50%
+   :delim: @
+
+   ``title_is(title)``@ HTML の ``<title>`` タグの値が指定値と一致する。
+   ``title_contains(title)``@ HTML の ``<title>`` タグの値が指定値を部分文字列とする。
+   ``presence_of_element_located(locator)``@ HTML の DOM に指定要素が存在する。
+   ``url_contains(url)``@ ページの URL が指定文字列を部分文字列とするものである。
+   ``url_matchs(pattern)``@ ページの URL が指定正規表現にマッチ (``re.search(pattern, url)``) する。
+   ``url_to_be(url)``@ ページの URL が指定文字列と等しくなる。
+   ``url_changes(url)``@ ページの URL が指定文字列と異なる。
+   ``visibility_of_element_located(locator)``@ HTML の DOM に指定要素が存在し、かつ見える。
+   ``visibility_of(element)``@ 同上（引数の型が異なる）。
+   ``presence_of_all_elements_located(locator)``@ ページ内に少なくとも一つは要素が存在する。
+   ``visibility_of_any_elements_located(locator)``@ ページ内に少なくとも一つは指定要素が見える。
+   ``visibility_of_all_elements_located(locator)``@ 指定要素すべてが DOM に存在してかつ見える。
+   ``text_to_be_present_in_element(locator, text)``@ 指定要素の値 (``.text``) が指定文字列を含む。
+   ``text_to_be_present_in_element_value(locator, text)``@ 指定要素の属性 ``value`` の値が指定文字列を含む。
+   ``frame_to_be_available_and_switch_to_it(locator)``@ 指定フレームに切り替えられる。
+   ``invisibility_of_element_located(locator)``@ 指定要素が DOM からいなくなるか見えなくなる。
+   ``invisibility_of_element(element)``@ 同上（引数の型が異なる）。
+   ``element_to_be_clickable(locator)``@ 指定要素が見えてかつクリック可能である。
+   ``staleness_of(element)``@ 指定要素が DOM にもう付属していない。
+   ``element_to_be_selected(locator)``@ 指定要素が選択状態である。
+   ``element_located_to_be_selected(locator)``@ 指定要素が選択状態である。
+   ``element_selection_state_to_be(element, is_selected)``@ 指定要素が選択状態または非選択状態である。
+   ``element_located_selection_state_to_be(locator, is_selected)``@ 同上（引数の型が異なる）。
+   ``number_of_windows_to_be(num_windows)``@ ウィンドウ数が特定の値である。
+   ``new_window_is_opened(current_handles)``@ ウィンドウ数が変化している。
+   ``alert_is_present()``@　警告が表示されている（警告ダイアログに切り替えられる）。
+
+* ここで ``locator`` とある引数は ``driver.find_element(*locator)`` の形で評価される型のオブジェクトとする。
+  例えば ``(BY.TAG_NAME, "h1")`` のようになる。
+  一方 ``element`` とあるのは ``find`` 系メソッドによって特定済みの要素を表すオブジェクトとする。
+
 暗黙的待機
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -310,18 +360,28 @@ Selenium が代わりに達成する。
    driver = Edge()
    driver.implicitly_wait(60)
 
-テスト・デバッグ例
+コード・テスト・デバッグのコツ
 ======================================================================
 
-TBW: 職人的な技法がありそうだ。
+Selenium_ ベースのスクリプトでの動作確認作業でよく使う技法を挙げる。
+
+* 基本：``breakpoint()`` でスクリプト全体の実行を停止する。このとき、ブラウザーの様子を確認しながら
+  コンソールの pdb セッションで ``WebDriver`` オブジェクトを操作できる。
+* WebDriver のオブジェクトが作成でき次第 ``driver.implicitly_wait()`` を呼び出す。
+* ページ移動は極力 ``driver.get(url)`` を採用する。``<a>`` タグを特定して ``click()`` は
+  次のページのロードを待たないで制御が戻るようだ。
+* ページごとに行う処理を書く関数を定義する。Python のデコレーターを活用して、
+  ページ表示タイミングで共通処理を与えることができる。
 
 実例
 ======================================================================
 
-TODO: 私の GitHub repository の bin にいくつか使用例があるので紹介する。
+私の GitHub repository の bin にいくつか使用例があるのでリンクする。
 
-* ``wifiota.py``: 大田区図書館の Free Wi-Fi 再接続を要求する際に実行するスクリプト。
-* ``mjnet.py``: セガ MJ Arcade ユーザーサイト MJ.NET のゲームスコアを自動的に取得するスクリプト。
+* `wifiota.py <https://github.com/showa-yojyo/bin/blob/master/wifiota.py>`__:
+  大田区図書館の Free Wi-Fi 再接続を要求する際に実行するスクリプト。
+* `mjnet.py <https://github.com/showa-yojyo/bin/blob/master/mjnet.py>`__:
+  セガネットワーク対戦麻雀 MJ Arcade ユーザーサイト MJ.NET のゲームスコアを自動的に取得するスクリプト。
 
 参考資料
 ======================================================================
