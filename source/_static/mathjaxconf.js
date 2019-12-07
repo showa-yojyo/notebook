@@ -51,6 +51,7 @@ window.MathJax = {
             fn: ["#1 \\colon #2 \\longto", 2],
             fnm: ["\\fn{#1}{#2} #3, \\quad #4 \\longmapsto", 4],
 
+            coloneqq: "{\\mathrel{\\vcenter{:}}=}",
             grad: "{\\operatorname{grad}}",
             div: "{\\operatorname{div}}",
             rot: "{\\operatorname{rot}}",
