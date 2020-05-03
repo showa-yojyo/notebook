@@ -112,12 +112,10 @@
     .. math::
        :nowrap:
 
-       \begin{align*}
-       \begin{array}{rll}
-                            & g(x_1^0, \dotsc, x_k^0)  &= (x_{k + 1}^0, \dotsc, x_n^0)\\
-       F(x_1, \dotsc, x_k,\ & g(x_1^0, \dotsc, x_k^0)) &= F(x^0)
-       \end{array}
-       \end{align*}
+       \begin{aligned}
+                           g(x_1^0, \dotsc, x_k^0) &= (x_{k + 1}^0, \dotsc, x_n^0)\\
+       F(x_1, \dotsc, x_k, g(x_1^0, \dotsc, x_k^0)) &= F(x^0)
+       \end{aligned}
 
 .. _tsuboi05.1.2.4:
 
@@ -144,14 +142,14 @@
   * 開集合 :math:`U \subset \RR^n` で定義された
   * 関数 :math:`G \in C^1(U, \RR^m)` が、
   * :math:`G(\bm x) = (g_1(x_1, \dotsc, x_n), \dotsc, g_m(x_1, \dotsc, x_n))` とおくと
-  * 凸な閉集合 :math:`A \subset U` において :math:`\displaystyle \abs{\frac{\partial g_i}{\partial x_j}} \le K`
+  * 凸な閉集合 :math:`A \subset U` において :math:`\displaystyle \Abs{\frac{\partial g_i}{\partial x_j}} \le K`
     なる定数 :math:`K > 0` があるとする。
 
   このとき次が成り立つ：
 
   .. math::
 
-     \forall \bm x, \bm x + \bm v \in A,\ 
+     \forall \bm x, \bm x + \bm v \in A,\
      \norm{G(\bm x + \bm v) - G(\bm x)} \le \sqrt{mn}K\norm{\bm v}.
 
   * 証明方針
@@ -211,8 +209,8 @@
 
     .. math::
 
-       f(g(x + \Delta x)) - f(g(x)) = 
-         f'(g(x))g'(x) + \eps_g(x, \Delta x)f'(g(x))\Delta x 
+       f(g(x + \Delta x)) - f(g(x)) =
+         f'(g(x))g'(x) + \eps_g(x, \Delta x)f'(g(x))\Delta x
           + \eps_f(g(x), g(x + \Delta x) - g(x))(g(x + \Delta x) - g(x)).
 
     :math:`\Delta x \to 0` のときに :math:`\eps_g(\dots)\Delta x \to 0,\ \eps_f(\dots)(g(x + \Delta x) - g(x)) \to 0.`
@@ -264,7 +262,7 @@
 
     .. math::
 
-       \norm{\bm x} < \delta \implies \abs{\frac{\partial h_i}{\partial x_j}} \le \eps.
+       \norm{\bm x} < \delta \implies \Abs{\frac{\partial h_i}{\partial x_j}} \le \eps.
 
   * :ref:`例題 1.2.7 <tsuboi05.1.2.7>` のリプシッツ評価式を利用して
     :math:`\norm{H(\bm x + \bm v) - H(\bm x)} \le \eps n \norm{\bm v}.`

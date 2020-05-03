@@ -285,4 +285,4 @@
 
   #. 逆元を取る演算は :math:`C^\infty` 級である。
 
-     * 陰関数定理、逆元写像の接写像 :math:`T_(g, g\inv)(G \times G) \longto T_1 G` グラフ？
+     * 陰関数定理、逆元写像の接写像 :math:`T_{(g, g\inv)}(G \times G) \longto T_1 G` グラフ？
