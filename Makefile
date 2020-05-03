@@ -188,3 +188,6 @@ pseudoxml:
 
 gh-pages: html
 	@bash gh-pages.sh "$(COMMIT_MESSAGE)"
+
+livehtml:
+	sphinx-autobuild -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
