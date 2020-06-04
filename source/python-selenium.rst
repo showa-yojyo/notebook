@@ -393,5 +393,15 @@ Selenium_ を用いた簡単なコードを書けるようになったら、次�
 
 悩んだときは Google で適当にキーワードを検索する。Stack Overflow でだいたい解決済みだ。
 
+関連ノート
+======================================================================
+
+この他のスクレイピングの技法をまとめたノートの一覧。
+
+* :doc:`/python-bs4`
+* :doc:`/hxutils`
+
+以上
+
 .. _BeautifulSoup: http://www.crummy.com/software/BeautifulSoup/bs4/
 .. _Selenium: https://github.com/SeleniumHQ/selenium/
