@@ -2,8 +2,6 @@
 確率と統計
 ======================================================================
 本稿では SciPy_ の確率と統計の機能を見ていこう。
-個人的には統計にほとんど興味がないので、
-このページは特にやっつけ作業になる予定だ。
 
 .. contents::
 
@@ -120,17 +118,20 @@ distribution とかで検索すると色々とわかる。
 代表的な確率分布を気の向くままいくつか記す。
 
 .. csv-table::
-   :delim: :
+   :delim: |
    :header: 分布型, 名称, オブジェクト
    :widths: 10, 15, 10
 
-   ``rv_discrete``:一様分布:``scipy.stats.randint``
-   ``rv_discrete``:Bernoulli 分布:``scipy.stats.bernoulli``
-   ``rv_discrete``:二項分布:``scipy.stats.binom``
-   ``rv_discrete``:Poisson 分布:``scipy.stats.poisson``
-   ``rv_continuous``:一様分布:``scipy.stats.uniform``
-   ``rv_continuous``:指数分布:``scipy.stats.expon``
-   ``rv_continuous``:正規分布:``scipy.stats.norm``
+   ``rv_discrete``|一様分布|``scipy.stats.randint``
+   ``rv_discrete``|Bernoulli 分布|``scipy.stats.bernoulli``
+   ``rv_discrete``|二項分布|``scipy.stats.binom``
+   ``rv_discrete``|Poisson 分布|``scipy.stats.poisson``
+   ``rv_continuous``|一様分布|``scipy.stats.uniform``
+   ``rv_continuous``|指数分布|``scipy.stats.expon``
+   ``rv_continuous``|正規分布|``scipy.stats.norm``
+   ``rv_continuous``| :math:`\chi^2` 分布|``scipy.stats.chi2``
+   ``rv_continuous``| :math:`F` 分布|``scipy.stats.f``
+   ``rv_continuous``| :math:`t` 分布|``scipy.stats.t``
 
 各種確率分布オブジェクトを利用する場合は次のような手順でコードを組むことになる。
 
@@ -140,10 +141,16 @@ distribution とかで検索すると色々とわかる。
 
    * 平均値、分散、歪度、尖度の計算は
      ``mean, var, skew, kurt = X.stats(moments='mvsk')`` でする。
-   * 離散型分布の確率質量関数（以下、確率関数と略す）は ``X.pmf()`` を利用する。
-   * 連続型分布の確率密度関数 （以下、密度関数と略す）は ``X.pdf()`` を利用する。
-   * 累積分布関数（以下、分布関数と略す）は ``X.cdf()`` を利用する。
+   * 離散型分布の確率質量関数（以下、確率関数と略す）は ``X.pmf(x)`` を利用する。
+   * 連続型分布の確率密度関数 （以下、密度関数と略す）は ``X.pdf(x)`` を利用する。これはあまり使わないだろう。
+   * 累積分布関数（以下、分布関数と略す）は ``X.cdf(x)`` を利用する。面積が確率を表すというアレだ。
+   * 逆に cdf の値から対応する確率変数の値を得るには ``X.ppf(p)`` を利用する。引数は 0 から 1 までの値とする。
+   * ある確率変数から正の無限大までの確率を得るには ``X.sf(x)`` を用いる。
+   * 反対に、そのような確率の値から対応する確率変数の値を得るには ``X.isf(p)`` を用いる。
+   * 確率分布の中央付近における確率の値から対応する区間を得るには ``X.interval(p)`` を用いる。両側検定のときに有用だ。
    * 乱数を生成するには ``X.rvs()`` を利用する。
+
+暗号のようなメソッド名が多いのだが、コンソールで実際に何度もタイプしていると体が覚えてくれる。
 
 例：サイコロ
 ----------------------------------------------------------------------
@@ -203,8 +210,7 @@ distribution とかで検索すると色々とわかる。
 密度関数の値（グラフの値ということになる）をそれぞれ出力する。
 少なくともこの範囲では密度関数が偶関数であることがわかる。
 
-最後に ``cdf()`` 関数で分布関数の値 :math:`P(X < x)` を出力する。
-なお、``cdf()`` の値から 0.5 を引くと、教科書に載っている正規分布表の値になる。
+最後に ``cdf()`` 関数で分布関数の値 :math:`P(X \lt x)` を出力する。
 
 .. code:: ipython
 
