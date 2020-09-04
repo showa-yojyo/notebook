@@ -241,8 +241,8 @@ MATLAB ファイルやら WAV ファイルやら。
 
 Weave (scipy.weave)
 ======================================================================
-Python コードの内部に C/C++ のコードを含めるためのパッケージだそうだ。
-今は読む必要はない。
+Python コードの内部に C/C++ のコードを含めるためのサブモジュールだったが、
+Python 3.x 以降では廃止された。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
