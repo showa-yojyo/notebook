@@ -20,7 +20,7 @@ cd "$TARGET_DIR"
 SPHINX_VERSION="$(sphinx-build --version | cut -d" " -f2 | tr -d "\r")"
 COMMIT_MESSAGE="${1:+ ($1)}"
 git add -A
-git commit -m "Build 1.5dev (Sphinx: v${SPHINX_VERSION}) $COMMIT_MESSAGE."
+git commit -m "Build 1.5dev (Sphinx: v${SPHINX_VERSION}) $COMMIT_MESSAGE"
 
 NUM=5
 echo Most recent $NUM commits:
