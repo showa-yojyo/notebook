@@ -1,29 +1,47 @@
 #!/bin/bash
+# gh-pages.sh - This script is invoked from the Makefile's gh-pages rule.
 
-REPOSITORY_URL=https://github.com/showa-yojyo/notebook.git
-SOURCE_DIR=./build/html/
 TARGET_DIR=./gh-pages
-RSYNC_INCLUDE_FROM=./rsync-include.txt
-RSYNC_EXCLUDE_FROM=./rsync-exclude.txt
 
-if [ ! -d "$TARGET_DIR" ]; then
-    git clone -b gh-pages --single-branch $REPOSITORY_URL "$TARGET_DIR"
-fi
+function main
+{
+    function _ensure_local_repository
+    {
+        local remote_repository=https://github.com/showa-yojyo/notebook.git
 
-rsync -av --delete \
-  --include-from "$RSYNC_INCLUDE_FROM" \
-  --exclude-from "$RSYNC_EXCLUDE_FROM" \
-  "$SOURCE_DIR" "$TARGET_DIR"
+        if [ ! -d "$TARGET_DIR" ]; then
+            git clone -b gh-pages --single-branch $remote_repository "$TARGET_DIR"
+        fi
+    }
 
-cd "$TARGET_DIR"
+    function _execute_rsync
+    {
+        local source_dir=./build/html/
+        local rsync_include_from=./rsync-include.txt
+        local rsync_exclude_from=./rsync-exclude.txt
 
-SPHINX_VERSION="$(sphinx-build --version | cut -d" " -f2 | tr -d "\r")"
-COMMIT_MESSAGE="${1:+ ($1)}"
-git add -A
-git commit -m "Build 1.5dev (Sphinx: v${SPHINX_VERSION}) $COMMIT_MESSAGE"
+        rsync -av --delete \
+          --include-from "$rsync_include_from" \
+          --exclude-from "$rsync_exclude_from" \
+          "$source_dir" "$TARGET_DIR"
+    }
 
-NUM=5
-echo Most recent $NUM commits:
-git --no-pager log --pretty=tformat:'%C(auto)%h %ad%d %s %C(bold blue)[%cn]%C(reset)' --decorate --date=iso HEAD~$NUM..
+    function _commit_worktree
+    {
+        # tr -d drops trailing CR and/or LF
+        local sphinx_version="$(sphinx-build --version | cut -d" " -f2 | tr -d [:space:])"
+        local log_format="%C(auto)%h %ad%d %s %C(bold blue)[%cn]%C(reset)"
 
-cd -
+        git -C "$TARGET_DIR" add -A
+        git -C "$TARGET_DIR" commit \
+          -m "Build 1.5dev (Sphinx: v${sphinx_version})"
+        git -C "$TARGET_DIR" --no-pager log --pretty=tformat:"$log_format" \
+          --decorate --date=iso HEAD~..
+    }
+
+    _ensure_local_repository
+    _execute_rsync
+    _commit_worktree
+}
+
+main

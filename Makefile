@@ -187,7 +187,7 @@ pseudoxml:
 	@echo "Build finished. The pseudo-XML files are in $(BUILDDIR)/pseudoxml."
 
 gh-pages: html
-	@bash gh-pages.sh "$(COMMIT_MESSAGE)"
+	@bash gh-pages.sh
 
 livehtml:
 	sphinx-autobuild -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
