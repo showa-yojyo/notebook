@@ -372,7 +372,7 @@
 
   .. math::
 
-     \require{AMScd}
+     \require{amscd}
      \begin{CD}
      0 @>{\dd}>> \RR[1]
        @>{\dd}>> \RR[e_1^*] \oplus \RR[e_2^*] \oplus \RR[e_3^*]

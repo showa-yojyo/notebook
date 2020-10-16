@@ -45,7 +45,7 @@
 * 定理 2.9.1: `キネットの公式 <https://en.wikipedia.org/wiki/K%C3%BCnneth_theorem>`__
 
   * コンパクト多様体 :math:`M, N` について :math:`\H^*(M \times N) \cong \H^*(M) \otimes \H^*(N).`
-  * :math:`\alpha \in \Z^p(M),\ \beta \in \Z^q(N)` に対して
+  * :math:`\alpha \in Z^p(M),\ \beta \in Z^q(N)` に対して
     :math:`[\alpha] \otimes [\beta] \in \H^p(M) \otimes \H^q(N)` は
     :math:`[\pi_M^*\alpha \wedge \pi_N^*\beta]` に対応する。
 
@@ -85,7 +85,7 @@
 
         .. math::
 
-           \require{AMScd}
+           \require{amscd}
            \begin{CD}
            @. @. @.\\
            @VVV @VVV\\

@@ -116,7 +116,7 @@
 
   .. math::
 
-     \require{AMScd}
+     \require{amscd}
      \begin{CD}
      0 @<{\partial}<< C_0(K) @<{\partial}<< C_1(K) @<{\partial}<< C_2(K) @<{\partial}<< \cdots
      \end{CD}

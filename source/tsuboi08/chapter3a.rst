@@ -356,7 +356,7 @@
 
     .. math::
 
-       \require{AMScd}
+       \require{amscd}
        \begin{CD}
        0 @<{\partial}<< S_0^\infty(M) @<{\partial}<< S_1^\infty(M) @<{\partial}<< \cdots
        \end{CD}

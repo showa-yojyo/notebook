@@ -10,7 +10,7 @@ window.MathJax = {
             CC: "{\\mathbb C}",
             HH: "{\\mathbb H}",
 
-            bm: ["\\boldsymbol #1", 1],
+            bm: ["\\boldsymbol{#1}", 1],
             dd: ["\\mathrm d^{#1}", 1, ""],
             diff: ["\\frac{\\dd {#1}}{\\dd {#2}}", 2],
             diag: "\\operatorname{diag}",

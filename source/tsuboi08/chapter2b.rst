@@ -71,7 +71,7 @@
 
   .. math::
 
-     \require{AMScd}
+     \require{amscd}
      \begin{CD}
      0 @>>> \varOmega^p(M)
        @>{(j_1^*,\ j_2^*)}>> \varOmega^p(M_1) \oplus \varOmega^p(M_2)

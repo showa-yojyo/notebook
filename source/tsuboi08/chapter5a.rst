@@ -489,7 +489,7 @@ k 単体の向きは、それに接する k 個の一次独立なベクトル、
 
    .. math::
 
-      \require{AMScd}
+      \require{amscd}
       \begin{CD}
       @>{\partial}>> C_{n - k + 1}(K^*) @>{\partial}>> C_{n - k}(K^*) @>{\partial}>> C_{n - k - 1}(K^*) @>{\partial}>>\\
       @. @VVV @VVV @VVV\\

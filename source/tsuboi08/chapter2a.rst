@@ -503,7 +503,7 @@
 
   .. math::
 
-     \require{AMScd}
+     \require{amscd}
      \begin{CD}
      0 @>{\dd}>> \varOmega^0(M) @>{\dd}>> \varOmega^1(M) @>{\dd}>> \cdots @>{\dd}>> \varOmega^n(M) @>{\dd}>> 0
      \end{CD}
