@@ -57,6 +57,7 @@ Contents:
    :glob:
    :maxdepth: 1
 
+   cpp11/index
    python-3.*
    python-pip
    python-pylint
