@@ -55,9 +55,11 @@ ORACLE MASTER Bronze 11g SQL 基礎 I 必修教本 読書ノート
 .. code:: plpgsql
 
    SELECT employee_id, first_name FROM employees;
+
    SELECT employee_id, first_name, last_name, email,
           phone_number, hire_date, job_id, salary,
           commission_pct, manager_id, department_id FROM employees;
+
    SELECT * from employees;
 
    SELECT employee_id, last_name, salary + 500 FROM employees;
@@ -110,6 +112,7 @@ ORACLE MASTER Bronze 11g SQL 基礎 I 必修教本 読書ノート
 
 .. code:: plpgsql
 
+   -- それぞれ数値、文字列、日付を検索条件にする
    SELECT employee_id, last_name, department_id FROM employees
        WHERE department_id = 50;
    SELECT employee_id, last_name, department_id FROM employees
@@ -117,6 +120,7 @@ ORACLE MASTER Bronze 11g SQL 基礎 I 必修教本 読書ノート
    SELECT employee_id, last_name, hire_date FROM employees
        WHERE hire_date = '00-JAN-13';
 
+   -- 比較演算子
    SELECT employee_id, last_name, department_id FROM employees
        WHERE department_id > 50;
    SELECT employee_id, last_name, department_id FROM employees
@@ -128,20 +132,25 @@ ORACLE MASTER Bronze 11g SQL 基礎 I 必修教本 読書ノート
    SELECT employee_id, last_name, department_id FROM employees
        WHERE department_id <> 50;
 
+   -- BETWEEN x AND y の例
    SELECT employee_id, last_name, department_id FROM employees
        WHERE department_id BETWEEN 50 AND 90;
 
+   -- IN 演算子の例
    SELECT employee_id, last_name, department_id FROM employees
        WHERE department_id IN (40, 60, 80);
 
+   -- ワイルドカードの例
    SELECT employee_id, last_name FROM employees
        WHERE last_name LIKE 'A%';
    SELECT employee_id, last_name, jpb_id FROM employees
        WHERE job_id LIKE 'SA\_%' ESCAPE '\';
 
+   -- NULL をテストする例
    SELECT employee_id, last_name, manager_id FROM employees
        WHERE manager_id IS NULL;
 
+   -- AND, OR, NOT の例
    SELECT employee_id, last_name, salary, department_id FROM employees
        WHERE salary >= 2500
            AND department_id = 50;
@@ -176,6 +185,9 @@ ORACLE MASTER Bronze 11g SQL 基礎 I 必修教本 読書ノート
   * 論理演算子では not, and, or の順に高い
 
 * 演算の優先度を調節するときは、他のプログラミング言語のように丸括弧を用いる。
+
+ソート
+----------------------------------------------------------------------
 
 .. code:: plpgsql
 
@@ -302,6 +314,9 @@ Oracle Database で使用する SQL 関数のほとんどが本製品固有の�
        FROM employees;
    SELECT MAX(first_name), MIN(first_name), COUNT(first_name) FROM employees;
 
+``GROUP BY`` に対する集計
+----------------------------------------------------------------------
+
 次にグループを定義してから集計する方法を記す。``GROUP BY`` 句で列名を指定することでそうなる。
 
 .. code:: plpgsql
@@ -315,6 +330,14 @@ Oracle Database で使用する SQL 関数のほとんどが本製品固有の�
    SELECT department_id, job_id, COUNT(job_id) FROM employees
        GROUP BY department_id, job_id;
 
+* ``GROUP BY`` 句には ``SELECT`` 句に列挙した（集計以外の）列名をすべて列挙する必要がある。気が利かない。
+* ``GROUP BY`` 句には列の別名を指定できない。気が利かない。
+
+``HAVING`` 句の用途
+----------------------------------------------------------------------
+
+.. code:: plpgsql
+
    SELECT department_id, AVG(salary) FROM employees
        GROUP BY department_id
        HAVING AVG(salary);
@@ -326,8 +349,6 @@ Oracle Database で使用する SQL 関数のほとんどが本製品固有の�
        GROUP BY department_id
        HAVING COUNT(1) > 10;
 
-* ``GROUP BY`` 句には ``SELECT`` 句に列挙した（集計以外の）列名をすべて列挙する必要がある。気が利かない。
-* ``GROUP BY`` 句には列の別名を指定できない。気が利かない。
 * ``HAVING`` 句はグループ関数を問い合わせ条件に指定する。
 * ``HAVING`` 句にも列の別名を指定できない。これはわかる。
 
@@ -338,15 +359,18 @@ Oracle Database で使用する SQL 関数のほとんどが本製品固有の�
 
 .. code:: plpgsql
 
+   -- 同じデータ型および同じ列名の列同士で表を結合する
    SELECT employee_id, last_name, department_name
        FROM employees
            NATURAL JOIN departments;
 
+   -- 結合する列を限定する
    SELECT employee_id, last_name, department_name
        FROM employees
        JOIN departments
            USING department_id;
 
+   -- ``ON`` 句では列名が異なっていてもよい
    SELECT employee_id, last_name, department_name
        FROM employees emp
        JOIN departments dept
@@ -383,6 +407,9 @@ Oracle Database で使用する SQL 関数のほとんどが本製品固有の�
 
 ``=`` に基づかない結合は非等価結合と呼ばれる。
 
+外部結合
+----------------------------------------------------------------------
+
 .. code::plpgsql
 
    -- d が残る
@@ -409,6 +436,9 @@ Oracle Database で使用する SQL 関数のほとんどが本製品固有の�
 * 両側とも残すならば ``FULL OUTER JOIN`` とする。
 * いずれの場合にも結合条件から漏れたレコードは当該列が ``NULL`` として出力される。
 * このときの ``RIGHT``, ``LEFT``, ``FULL`` は省略可。
+
+表の直積
+----------------------------------------------------------------------
 
 .. code:: plpgsql
 
@@ -510,6 +540,9 @@ Oracle Database で使用する SQL 関数のほとんどが本製品固有の�
 
 最初に ``INSERT``, ``UPDATE``, ``DELETE`` 文を習う。その次にトランザクションを習う。
 
+レコードの追加・更新・削除
+----------------------------------------------------------------------
+
 .. code:: plpgsql
 
    INSERT INTO countries (country_id, country_name, region_id)
@@ -559,6 +592,9 @@ Oracle Database で使用する SQL 関数のほとんどが本製品固有の�
 * ``INSERT`` 文によるデータのコピー方法を習得すること
 * ``UPDATE`` および ``DELETE`` 文は条件を指定しないと全レコードが処理対象となる。
 
+トランザクション
+----------------------------------------------------------------------
+
 トランザクションとは連続する DML 文を一体化したものとしてみなすものだ。
 
 * ``COMMIT`` 文はこれまでのトランザクションを終了することを確定する。データベースの状態が変更される。
@@ -573,8 +609,14 @@ Oracle Database で使用する SQL 関数のほとんどが本製品固有の�
 * トランザクション実行中に障害が発生したときにキャンセル
 * SQL*Plus などのツールを異常終了したときにキャンセル
 
+読み取り一貫性
+----------------------------------------------------------------------
+
 読み取り一貫性とは、あるユーザーがデータを更新中でも、他のユーザーがデータを問い合わせられる性質だ。
 あるユーザーのトランザクション開始時の状態を他のユーザーが問い合わせることになる。
+
+ロック
+----------------------------------------------------------------------
 
 ロックとは、同一データの同時更新を防止することだ。ふつうは行単位での暗黙的なロックが有効に機能する。
 
@@ -592,6 +634,9 @@ Oracle Database で使用する SQL 関数のほとんどが本製品固有の�
 
 ``FOR UPDATE`` にはオプションとして ``WAIT`` または ``NOWAIT`` を指定してもよい。
 他ユーザーの更新をブロックするか即時エラーを戻すかという選択だ。
+
+``TRUNCATE`` 文
+----------------------------------------------------------------------
 
 .. code:: plpgsql
 
@@ -615,6 +660,9 @@ Oracle Database はデータベース構成要素を ``schema_name.object_name``
 本文ではそういう言い回しをしていないが、ユーザー名を名前空間として扱うようだ。
 
 データ型について説明がある。``CHAR`` と ``VARCHAR2`` の違いは固定長かそうでないか。
+
+表の作成・変更・削除
+----------------------------------------------------------------------
 
 .. code:: plpgsql
 
@@ -653,6 +701,9 @@ Oracle Database はデータベース構成要素を ``schema_name.object_name``
 * 表の状態を読み取り専用にすることができる。
 
 ``DROP TABLE`` 文で表全体を削除することができる。表そのものが存在しなくなる。
+
+制約
+----------------------------------------------------------------------
 
 最後に制約について見ていく。
 
