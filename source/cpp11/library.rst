@@ -148,7 +148,194 @@ What's New In C++11 標準ライブラリー
 アルゴリズム
 ======================================================================
 
-TBW
+C++ といえばアルゴリズムというくらい私はこれを重視している。
+以下、ヘッダーファイルは断らない限り ``<algorithm>`` をインクルードするものとする。
+
+関数テンプレート ``std::all_of()``, ``std::any_of()``
+----------------------------------------------------------------------
+
+Python の組み込み関数 ``all()`` および ``any()`` の C++ 版だ。
+指定範囲が空のときの戻り値も Python と同様の考え方（というより数学）に基づき、それぞれ ``true``, ``false`` を返す。
+
+.. code:: c++
+
+   template <class InputIterator, class Predicate>
+   bool all_of(InputIterator first,
+               InputIterator last,
+               Predicate pred);
+
+   template <class InputIterator, class Predicate>
+   bool any_of(InputIterator first,
+               InputIterator last,
+               Predicate pred);
+
+関数テンプレート ``std::find_if_not()``
+----------------------------------------------------------------------
+
+指定された述語が偽であるような最初の要素を指すイテレーターを戻すアルゴリズムだ。
+おそらく ``std::find()`` とラムダ式と否定を組み合わせるのが面倒だから提供されているのだろう。
+
+.. code:: c++
+
+   template <class InputIterator, class Predicate>
+   InputIterator find_if_not(InputIterator first,
+                             InputIterator last,
+                             Predicate pred);
+
+関数テンプレート ``std::copy_n()``
+----------------------------------------------------------------------
+
+イテレーターの指す要素から初めて、指定個数だけ要素をコピーするアルゴリズムだ。
+
+.. code:: c++
+
+   template <class InputIterator, class Size, class OutputIterator>
+   OutputIterator copy_n(InputIterator first,
+                         Size n,
+                         OutputIterator result);
+
+従来は ``std::copy(first, first + n, result)`` としていた。
+
+関数テンプレート ``std::copy_if()``
+----------------------------------------------------------------------
+
+範囲 ``[first, last)`` にある要素から、述語 ``pred`` が真であるような要素だけを
+イテレーター ``result`` 以降に戻すアルゴリズムだ。
+
+.. code:: c++
+
+   template <class InputIterator, class OutputIterator, class Predicate>
+   OutputIterator copy_if(InputIterator first,
+                          InputIterator last,
+                          OutputIterator result,
+                          Predicate pred);
+
+古の C++ の書籍でその不存在を不思議がられていたアルゴリズムがついに実装された。
+
+関数テンプレート ``std::move()``, ``std::move_backward()``
+----------------------------------------------------------------------
+
+これらは ``std::copy()``, ``std::copy_backward()`` の move 版アルゴリズムだ。
+だいたい次のようなものだと覚えておいて良い。実際の実装はもっと凝っているだろう：
+
+.. code:: c++
+
+   template <class InputIterator, class OutputIterator>
+   OutputIterator move(
+       InputIterator first,
+       InputIterator last,
+       OutputIterator result)
+   {
+        while(first != last){
+            *result++ = move(*first++); // この move は単体版
+        }
+        return result;
+   }
+
+   template<class BidirectionalIterator1, class BidirectionalIterator2>
+   BidirectionalIterator2 move_backward(
+       BidirectionalIterator1 first,
+       BidirectionalIterator1 last,
+       BidirectionalIterator2 result)
+   {
+       while(first != last){
+           *--result = move(*--last); // この move は単体版
+       }
+       return result;
+   }
+
+最後に、copy 系と move 系のアルゴリズムでは C++03 と同じく、
+入力と出力の範囲が重なり合わないように注意する必要があることを記しておく。
+
+関数テンプレート ``std::shuffle()``
+----------------------------------------------------------------------
+
+範囲 ``[first, last)`` をランダムにシャッフルするアルゴリズムだ。
+Python の ``random.shuffle()`` と同じ役割を期待する。
+
+関数テンプレート ``std::is_sorted()``
+----------------------------------------------------------------------
+
+範囲 ``[first, last)`` がソート済みであるかどうかをテストするアルゴリズムだ。
+
+.. code:: c++
+
+   template <class ForwardIterator>
+   bool is_sorted(ForwardIterator first,
+                  ForwardIterator last);
+
+   template <class ForwardIterator, class Compare>
+   bool is_sorted(ForwardIterator first,
+                  ForwardIterator last,
+                  Compare comp);
+
+補助関数に ``std::is_sorted_until()`` というものがあり、これの戻り値と
+``last`` が等しいかどうかで、指定範囲全体がソート済みであるかどうかを決定するようだ。
+
+関数テンプレート ``std::min()``, ``std::max()`` に初期化リスト版追加
+----------------------------------------------------------------------
+
+``std::min()`` も ``std::max()`` も追加内容は同じなので ``min`` だけ記す。
+
+C++03 までは引数をちょうど二つとる関数しかなかったが、C++11 では
+``std::initializer_list<T>`` 型オブジェクトを受け取るものが追加された。
+これにより、``std::min()`` は有限集合を引数に取るとみなすことができるようになった。
+
+.. code:: c++
+
+   template <class T>
+   T min(initializer_list<T> t);
+
+   template <class T, class Compare>
+   T min(initializer_list<T> t, Compare comp);
+
+* 呼び出し事前条件は通常版の ``std::min()`` に準じるものとする。
+* ``initializer_list`` 版では引数が 0 個である可能性があるが、それは呼び出し側で避ける。
+
+関数テンプレート ``std::minmax()``, ``std::minmax_element()``
+----------------------------------------------------------------------
+
+そうなると、一度の呼び出しで最小値と最大値を同時に得ることもできる。
+そこでこれらのアルゴリズムも C++11 で提供されるようになった。
+
+.. code:: c++
+
+   template <class T>
+   pair<const T&, const T&> minmax(const T& a, const T& b);
+
+   template <class T, class Compare>
+   pair<const T&, const T&> minmax(const T& a, const T& b, Compare comp);
+
+   template <class T>
+   pair<T, T> minmax(initializer_list<T> t);
+
+   template <class T, class Compare>
+   pair<T, T> minmax(initializer_list<T> t, Compare comp);
+
+* 呼び出し事前条件は ``std::min()``, ``std::max()`` に準じるものとする。
+* 戻り値の ``.first`` と ``.second`` がそれぞれ最小値と最大値。
+
+関数テンプレート ``std::iota()``
+----------------------------------------------------------------------
+
+アルゴリズムというのとは違うが、この枠で紹介されているのでここで習う。
+
+関数テンプレート ``std::iota()`` はヘッダーファイル ``<numeric>`` が提供するもので、
+開始値を指定して、そこから連続した値の数列を生成するために用いられる。
+シェルで言うなら ``seq`` のような、Python で言うなら ``range()`` のような働きをする。
+
+.. code:: c++
+
+   template <class ForwardIterator, class T>
+   void iota(ForwardIterator first, ForwardIterator last, T value);
+   {
+       for(; first != last; ++first){
+           *first = value;
+           ++value;
+       }
+   }
+
+増分が ``T& T::operator++()`` の定義で一意的に決まるので、柔軟性がない。
 
 メモリー管理
 ======================================================================
