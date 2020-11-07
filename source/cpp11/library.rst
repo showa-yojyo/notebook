@@ -7,6 +7,8 @@ What's New In C++11 標準ライブラリー
 それを利用して、読みながら急所を記していくことにする。
 興味のないもの、知らなくて良いものは積極的に無視する。
 
+以下、断っても断らなくても名前空間 ``std`` にライブラリー要素があるものとする。
+
 .. contents::
 
 コンテナー
@@ -327,10 +329,10 @@ C++03 までは引数をちょうど二つとる関数しかなかったが、C+
 .. code:: c++
 
    template <class ForwardIterator, class T>
-   void iota(ForwardIterator first, ForwardIterator last, T value);
+   void iota(ForwardIterator first, ForwardIterator last, Tue);
    {
        for(; first != last; ++first){
-           *first = value;
+           *first =ue;
            ++value;
        }
    }
@@ -340,17 +342,160 @@ C++03 までは引数をちょうど二つとる関数しかなかったが、C+
 メモリー管理
 ======================================================================
 
+C++11 では強力なスマートポインターが追加された。Boost 出身の機能と思われる。
+
+テンプレート ``std::allocator_traits``
+----------------------------------------------------------------------
+
 TBW
+
+クラステンプレート ``std::shared_ptr`` および ``std::unique_ptr``
+----------------------------------------------------------------------
+
+これらは C++11 の目玉の一つと考える。どちらもヘッダーファイル ``<memory>`` にある。
+
+* ``std::shared_ptr`` は一つのポインターの所有権を複数のオブジェクトで共有することができる
+
+  * 内部的には参照カウンター方式で参照数を管理している。これはスレッドセーフとする。
+  * フリー関数 ``std::make_shared()`` でオブジェクトを作成するとよい。
+    なぜならコンストラクターの呼び出しを書くのが面倒だから。
+
+* ``std::unique_ptr`` はポインターの所有権を唯一保持するオブジェクトを意味する。
+
+  * ``std::auto_ptr`` を完全に置き換えるテンプレートだ。
+  * コピー代入操作はサポートされない。ムーブ代入はサポートされるが、所有権が代入先に移ることを意味する。
+  * 配列もサポート。
+  * フリー関数 ``std::make_unique()`` でオブジェクトを作成するとよい。
+
+クラステンプレート ``std::auto_ptr`` を非推奨とする
+----------------------------------------------------------------------
+
+この存在が C++11 の新概念と新機能のいくつかの誕生に貢献していると考えたい。
+非推奨になっても私は ``std::auto_ptr`` のことを忘れない。
+
+関数テンプレート ``std::addressof()``
+----------------------------------------------------------------------
+
+演算子 ``operator&()`` がオーバーロードされている型のオブジェクトに対しても、
+そのアドレスを取得することが可能であるように、関数 ``std::addressof()`` が追加された。
+
+.. code:: c++
+
+   template <class T>
+   T* addressof(T& r) noexcept;
+
+ヘッダーファイル ``<memory>`` にある。
 
 入出力
 ======================================================================
 
-TBW
+ヘッダーファイル ``<istream>`` および ``<ostream>`` に次の関数テンプレート ``operator>>()`` および
+``operator<<()`` が追加。一時オブジェクトとしてのストリームというのが想像しづらいのだが。
+
+.. code:: c++
+
+   // <istream>
+   template<class CharT, class Traits, class T>
+   basic_istream<CharT, Traits>& operator>>(basic_istream<CharT, Traits>&& is, T& x);
+
+   // <ostream>
+   template<class CharT, class Traits, class T>
+   basic_ostream<CharT, Traits>& operator<<(basic_ostream<CharT, Traits>&& os, const T& x);
 
 文字列処理
 ======================================================================
 
-TBW
+新しい文字列型と一方が文字列型であるような型変換関数が追加された。
+
+クラス ``std::u16string`` および ``std::u32string``
+----------------------------------------------------------------------
+
+あるクラステンプレートの別名なのだが、表題の文字列型が新たに追加された。
+言語仕様のところで見てきた ``char16_t`` と ``char32_t`` をそれぞれ文字型とする文字列型だ。
+両方ともヘッダーファイル ``<string>`` にある。
+
+.. code:: c++
+
+   using u16string = basic_string<char16_t>;
+   using u32string = basic_string<char32_t>;
+
+本質的には ``std::basic_string`` であるので、使い方は ``std::string`` と同じだと考える。
+
+クラステンプレート ``std::wstring_convert``
+----------------------------------------------------------------------
+
+ヘッダーファイル ``<locale>`` にあるクラステンプレート ``std::wstring_convert`` は
+マルチバイト文字とワイド文字列の相互変換を行う機能を提供する。
+
+大雑把に説明すると、変換したい二つの文字列型をテンプレート引数として指定して、メンバー関数
+``.from_bytes()`` や ``.to_bytes()`` などを利用することを想定しているようだ。
+
+関数 ``std::to_string()`` および ``std::to_wstring()``
+----------------------------------------------------------------------
+
+ヘッダーファイル ``<string>`` に以下の関数が追加された。
+これらのオーバーロードは ``sprintf()`` または ``swprintf()`` によって数値を文字列に変換する。
+
+.. code:: c++
+
+   string to_string(int);
+   string to_string(unsigned int);
+   string to_string(long);
+   string to_string(unsigned long);
+   string to_string(long long);
+   string to_string(unsigned long long);
+   string to_string(float);
+   string to_string(double);
+   string to_string(long double);
+   wstring to_wstring(int);
+   wstring to_wstring(unsigned int);
+   wstring to_wstring(long);
+   wstring to_wstring(unsigned long);
+   wstring to_wstring(long long);
+   wstring to_wstring(unsigned long long);
+   wstring to_wstring(float);
+   wstring to_wstring(double);
+   wstring to_wstring(long double);
+
+関数 ``std::stoi()``, ``std::stof()`` など
+----------------------------------------------------------------------
+
+ヘッダーファイル ``<string>`` に以下の関数が追加された。いずれも文字列を数値に変換する。
+
+.. code:: c++
+
+   double stod(const std::string& str, std::size_t* idx = nullptr);
+   double stod(const std::wstring& str, std::size_t* idx = nullptr);
+   float stof(const std::string& str, std::size_t* idx = nullptr);
+   float stof(const std::wstring& str, std::size_t* idx = nullptr);
+   int stoi(const std::string& str, std::size_t* idx = nullptr, int base = 10);
+   int stoi(const std::wstring& str, std::size_t* idx = nullptr, int base = 10);
+   long stol(const std::string& str, std::size_t* idx = nullptr, long base = 10);
+   long stol(const std::wstring& str, std::size_t* idx = nullptr, long base = 10);
+   long double stold(const std::string& str, std::size_t* idx = nullptr);
+   long double stold(const std::wstring& str, std::size_t* idx = nullptr);
+   long long stoll(const std::string& str,
+                   std::size_t* idx = nullptr,
+                   long long base = 10);
+   long long stoll(const std::wstring& str,
+                   std::size_t* idx = nullptr,
+                   long long base = 10);
+   unsigned long stoul(const std::string& str,
+                       std::size_t* idx = nullptr,
+                       unsigned long base = 10);
+   unsigned long stoul(const std::wstring& str,
+                       std::size_t* idx = nullptr,
+                       unsigned long base = 10);
+   unsigned long long stoull(const std::string& str,
+                             std::size_t* idx = nullptr,
+                             unsigned long long base = 10);
+   unsigned long long stoull(const std::wstring& str,
+                             std::size_t* idx = nullptr,
+                             unsigned long long base = 10);
+
+* 数値への変換が行われなかった場合に ``std::invalid_argument`` を送出する。
+* 数値が変換範囲外であるときなどの場合に ``std::out_of_range`` を送出する。
+* これらはグローバルロケールの影響を受けて異なる結果を出力する。
 
 関数オブジェクト
 ======================================================================
