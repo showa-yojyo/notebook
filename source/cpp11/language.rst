@@ -21,38 +21,56 @@ What's New In C++11 言語仕様
 
 .. code:: c++
 
+   auto x = 5; // OK: x has type int
+   const auto* v = &x, u = 6; // OK: v has type const int*, u has type const int
+   static auto y = 0.0; // OK: y has type double
+
    std::string line;
    // ...
    boost::tokenizer<escaped_list_separator<char>> tok(line);
-   // tokenizer<escaped_list_separator<char>>::iterator first = tok.begin(), last = tok.end();
-   auto first = tok.begin(), last = tok.end();
-
-   for(; first != last; ++first){
+   for(auto first = tok.begin(), last = tok.end(); first != last; ++first){
        // ...
    }
 
 * 従来の自動変数（スタックに積む変数）を意味するためのキーワードという意味は廃止された。
 * ``const``/``volatile``, ``*``, ``&``, ``&&`` と共に用いることも可能だ。
 * テンプレート型引数や関数引数の型として用いることは許されない。
+* この他にも、C++11 から仕様化された trailing-return-type を含む関数宣言でも
+  引数や戻り値など、有効な宣言である限り、この手の ``auto`` を用いることが許される。
 
 式の型を取得 ``decltype``
 ----------------------------------------------------------------------
 
-* ``decltype`` は型を指定する必要のある場所で用いる。オペランドは式とする。
-  演算結果がその式の返す値の型となる。コンパイル時に評価される。
+``decltype`` は型を指定する必要のある場所で用いる。オペランドは式とする。
+演算結果がその式の返す値の型となる。コンパイル時に評価される。
+
+宣言 ``decltype(e)`` によって定義される型は次のように決まる：
+
+* ``e`` が括弧なし *id-expression* または括弧なしクラスメンバーアクセスのときは
+  ``decltype(e)`` は ``e`` で与えられている実体の型とする。そのような実体が存在しないか、
+  オーバーロード関数の集合を与えるときには、このコードは ill-formed であるとする。
+* もしくは ``e`` が xvalue ならば ``decltype(e)`` は ``T&&`` とする。ここで ``T`` は ``e`` の型とする。
+* もしくは ``e`` が lvalue ならば ``decltype(e)`` は ``T&`` とする。
+* それ以外の場合には ``decltype(e)`` は ``e`` の型そのものとする。
+
 * ``decltype`` は変数宣言の用途にはあまり向かない。式自体を二度書く必要がある。
+* ``decltype`` のオペランドは値には評価されない。例えば ``decltype(2 + 3)``
+  とあっても、コンパイラーはこの和を使わない。型だけを見る。
+
+以下、標準の例コードからの引用だ。
 
 .. code:: c++
 
-   int i = 0;
-   decltype(i) j = 0; // int j = 0;
-   decltype(i)* p = &i; // int* p = &i;
-   decltype((i)) k = i; // int& k = i;
+   const int&& foo();
+   int i;
+   struct A { double x; };
+   const A* a = new A();
+   decltype(foo()) x1 = i; // type is const int&&
+   decltype(i) x2; // type is int
+   decltype(a->x) x3; // type is double
+   decltype((a->x)) x4 = x3; // type is const double&
 
-* ``decltype`` のオペランドは値には評価されない。例えば ``decltype(2 + 3)``
-  とあっても、コンパイラーはこの和を使わない。型だけを見る。
-* 丸括弧の使い方が独特なので注意する。上のコード片における ``k`` の定義など。
-* cpprefjp_ のコード例はわりと高度だ。
+テンプレートが絡むと話は複雑になるのだが、今はこれで十分だろう。
 
 範囲 ``for`` 文
 ----------------------------------------------------------------------
@@ -75,7 +93,15 @@ cpprefjp_ のコードを引用する：
 ----------------------------------------------------------------------
 
 生の配列や POD 構造体のように、オブジェクトを ``{ ... };`` の構文で初期化できる機能だ。
-これを実装するには、パラメーターリストに ``std::initializer_list`` を取るコンストラクターを定義する。
+
+.. code:: c++
+
+   std::complex<double> z{1, 2};
+   std::map<std::string, int> anim = {
+       {"bear", 4}, {"cassowary", 2}, {"tiger", 7}};
+
+パラメーターリストにクラステンプレート ``std::initializer_list`` の引数を取る
+コンストラクターが提供されているクラスに対してそのような初期化が許される。
 
 .. code:: c++
 
@@ -87,7 +113,6 @@ cpprefjp_ のコードを引用する：
        MyClass(std::initializer_list<T>);
        ...
    };
-
 
 * ``explicit`` コンストラクターの例はどうも好かない。
 * コンストラクターの他に、``operator new`` 呼び出し、 ``return`` 文などでも用いることができる。
