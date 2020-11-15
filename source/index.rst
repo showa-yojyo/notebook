@@ -58,6 +58,11 @@ Contents:
    :maxdepth: 1
 
    cpp*/index
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
    python-3.*
    python-pip
    python-pylint
