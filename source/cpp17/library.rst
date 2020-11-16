@@ -160,60 +160,59 @@ What's New In C++17 標準ライブラリー
 廃止
 ======================================================================
 
-.. - C++11から非推奨だった古いスマートポインタである`auto_ptr`を削除。代わりに[`shared_ptr`](/reference/memory/shared_ptr.md)か[`unique_ptr`](/reference/memory/unique_ptr.md)を使用すること
-.. - C++14から非推奨だった配列をランダムに入れ替える[`random_shuffle()`](/reference/algorithm/random_shuffle.md)関数を削除。代わりに[`shuffle()`](/reference/algorithm/shuffle.md)を使用すること
-.. - C++11から非推奨だった`throw`キーワードによる古い例外仕様に関連する、以下のライブラリ機能を削除する
-..   - [`unexpected()`](/reference/exception/unexpected.md)
-..   - [`set_unexpected()`](/reference/exception/set_unexpected.md)
-..   - [`get_unexpected()`](/reference/exception/get_unexpected.md)
-..   - [`unexpected_handler`](/reference/exception/set_unexpected.md)
-..   - `noexcept`による例外仕様では、例外を送出しないはずの関数から例外が送出された場合、[`terminate()`](/reference/exception/terminate.md)関数によって即座にプログラムが異常終了するため、想定されていない例外が送出された場合のハンドリングは機能しない
-.. - C++11から非推奨だった古い[`<functional>`](/reference/functional.md)の機能を削除
-..   - 引数を束縛する`bind1st()`関数、`bind2nd()`関数、`binder1st`クラス、`binder2nd`クラスを削除。代わりに[`bind()`](/reference/functional/bind.md)関数や[ラムダ式](/lang/cpp11/lambda_expressions.md)を使用すること
-..   - 関数ポインタから関数オブジェクトに変換するための`ptr_fun()`関数、`pointer_to_unary_function`クラス、`pointer_to_binary_function`クラスを削除。`first_argument_type`や`second_argument_type`といった型が必要なくなったため、これらの機能は必要なくなった
-..   - メンバ関数から関数オブジェクトへの変換をするための`mem_fun()`関数、`mem_fun_ref()`関数、`mem_fun_t`クラス、`mem_fun1_t`クラス、`mem_fun_ref_t`クラス、`mem_fun1_ref_t`クラス、`const_mem_fun_t`クラス、`const_mem_fun1_t`クラス、`const_mem_fun_ref_t`クラス、`const_mem_fun1_ref_t`クラスを削除。代わりに[`mem_fn()`](/reference/functional/mem_fn.md)、[`bind()`](/reference/functional/bind.md)関数や[ラムダ式](/lang/cpp11/lambda_expressions.md)を使用すること
-.. - [`function`](/reference/functional/function.md)クラスのアロケータサポートを削除。コンパイラが実装していなかったり、不完全な実装だったりしていた
-.. - C++98から非推奨だったiostreamのエイリアスを削除
-..   - `ios_base::io_state`の代わりに[`ios_base::iostate`](/reference/ios/ios_base/type-iostate.md)を使用すること
-..   - `ios_base::open_mode`の代わりに[`ios_base::openmode`](/reference/ios/ios_base/type-openmode.md)を使用すること
-..   - `ios_base::seek_dir`の代わりに[`ios_base::seekdir`](/reference/ios/ios_base/type-seekdir.md)を使用すること
-..   - `ios_base::streamoff`の代わりに、`char_traits<CharT>::off_type`もしくは`basic_ios<CharT>::off_type`を使用すること ([`<iosfwd>`](/reference/iosfwd.md.nolink)で定義されている`std::streamoff`は残る)
-..   - `ios_base::streampos`の代わりに、`char_traits<CharT>::pos_type`もしくは`basic_ios<CharT>::pos_type`を使用すること ([`<iosfwd>`](/reference/iosfwd.md.nolink)で定義されている`std::streampos`は残る)
-..   - `basic_streambuf::stossc()`メンバ関数を削除。`sbumpc()`の単なる別名
-..   - `ios_base`クラスの別名型が削除されることにともない、それらの型をパラメータにとるオーバーロードを削除
-..   - `ios_base`クラスの別名型が削除されることにともない、それらの型をパラメータにとる関数が削除
+C++11 や C++14 で deprecated と宣告されたライブラリー要素が C++17 で削られる。 とする：
+
+* クラステンプレート ``std::auto_ptr`` 削除。``std::unique_ptr`` などに移行すること。
+* 関数テンプレート ``std::random_shuffle()`` 削除。``std::shuffle()`` に移行すること。
+* 旧例外仕様に関連する次の要素：
+
+  * 関数 ``std::unexpected()``, ``std::set_unexpected()``, ``std::get_unexpected()``
+  * 型 ``std::unexpected_handler``
+
+* ヘッダーファイル ``<functional>`` における以下の要素
+
+  * 関数 ``std::bind1st()``, ``std::bind2nd()``
+  * クラステンプレート ``std::binder1st``, ``std::binder2nd``
+  * 関数 ``std::ptr_fun()``, クラス ``std::pointer_to_unary_function``,
+    ``std::pointer_to_binary_function``
+  * 関数 ``std::mem_fun()``, ``std::mem_fun_ref()``,
+    クラステンプレート ``std::mem_fun_t``, ``std::mem_fun1_t``, ``std::mem_fun_ref_t``, ``std::mem_fun1_ref_t``,
+    ``std::const_mem_fun_t``, ``std::const_mem_fun1_t``, ``std::const_mem_fun_ref_t``, ``std::const_mem_fun1_ref_t``
+
+  * テンプレートクラス ``std::function`` における ``uses_allocator`` 周り。
+
+* ヘッダーファイル ``<iostream>`` の各種別名定義
 
 非推奨化
 ======================================================================
 
-.. - [`std::iterator`](/reference/iterator/iterator.md)クラスを非推奨化。このクラスを使用しても、イテレータ定義は簡単にならなかった
-.. - C++11で[`allocator_traits`](/reference/memory/allocator_traits.md)クラスが導入されたことで不要になった、[`allocator`](/reference/memory/allocator.md)の以下のメンバを非推奨化：
-..   - `size_type`型
-..   - `difference_type`型
-..   - `pointer`型
-..   - `const_pointer`型
-..   - `reference`型
-..   - `const_reference`型
-..   - `rebind`型
-..   - [`address()`](/reference/memory/allocator/address.md)メンバ関数
-..   - [`allocate()`](/reference/memory/allocator/allocate.md)メンバ関数の`hint`パラメータ
-..   - [`max_size()`](/reference/memory/allocator/max_size.md)メンバ関数
-..   - [`construct()`](/reference/memory/allocator/construct.md)メンバ関数
-..   - [`destroy()`](/reference/memory/allocator/destroy.md)メンバ関数
-.. - C++11で[`allocator_traits`](/reference/memory/allocator_traits.md)クラスが導入されたことで不要になった、要素型を再束縛するための`allocator<void>`特殊化を非推奨化
-.. - `constexpr`の機能拡張によって扱える型が増えている。将来的にほとんどの型が`constexpr`で扱えるようになるため、`constexpr`で扱える型の分類である[`is_literal_type`](/reference/type_traits/is_literal_type.md)型特性を非推奨化
-.. - 一時的なメモリ確保のための[`std::get_temporary_buffer()`](/reference/memory/get_temporary_buffer.md)関数と[`std::return_temporary_buffer()`](/reference/memory/return_temporary_buffer.md)関数を非推奨化。これらは関数内での一時的なメモリ確保のために、最適化されたメモリ確保の仕組みを提供することを期待して定義されたが、実際にはどの実装も特別視せず、それゆえに便利に使われてはこなかった。将来的にスタックからのメモリ確保をする機能を作る予定だが、これらの関数は例外安全性やRAIIが考慮されていないため、これらの関数の実装・仕様のみを入れ替えるような改訂はできない
-.. - [`raw_storage_iterator`](/reference/memory/raw_storage_iterator.md)クラスを非推奨化。アロケータとの連携ができず、限られた用途にしか使用できなかった
-.. - [`not_fn()`](/reference/functional/not_fn.md)の追加にともない、古くなった以下の機能を非推奨化：
-..   - [`not1()`](/reference/functional/negators.md)関数
-..   - [`not2()`](/reference/functional/negators.md)関数
-..   - [`unary_negate`](/reference/functional/negators.md)クラス
-..   - [`binary_nagate`](/reference/functional/negators.md)クラス
-..   - 標準関数オブジェクトの`result_type`、`argument_type`、`first_argument_type`、`second_argument_type`型
-.. - デバッグ用途にしか使用しない、[`shared_ptr`](/reference/memory/shared_ptr.md)`::`[`unique()`](/reference/memory/shared_ptr/unique.md)を非推奨化
-.. - [`result_of`](/reference/type_traits/result_of.md)を非推奨化。代わりに[`invoke_result`](/reference/type_traits/invoke_result.md)を使用すること
-.. - [`<codecvt>`](/reference/codecvt.md)と関連する機能を非推奨化。適切なエラーハンドリングの方法がなかったため、セキュリティ上攻撃の可能性があった
-.. - [`memory_order_consume`](/reference/atomic/memory_order.md)を一時的に非推奨化。「その定義が現実に即していない」「acquire/releaseより弱いから使いにくい」といった理由から、より良い定義に変更するまでの間、非推奨とする
-.. - [`uncaught_exceptions()`](/reference/exception/uncaught_exceptions.md)の追加にともない、古くなった[`uncaught_exception()`](/reference/exception/uncaught_exception.md)を非推奨化
+C++03 までに提供された機能で deprecated とされるものをここでは列挙する。
+最近の機能については今のところ習得が不十分なのでここに書くまでもない。
+
+* ヘッダーファイル ``<iterator>`` のクラステンプレート ``std::iterator`` を deprecated とする。
+* ヘッダーファイル ``<memory>`` のうち次の要素を deprecated とする。
+
+  * クラステンプレート ``std::allocator`` の次のメンバーを deprecated とする：
+
+    * 型 ``size_type``, ``difference_type``, ``pointer``, ``const_pointer``, ``reference``, ``const_reference``
+    * 型 ``rebind``
+    * メンバー関数 ``address()``, ``max_size()``, ``construct()``, ``destroy()``
+    * メンバー関数 ``allocate()`` の引数 ``hint``
+
+  * 特殊化 ``std::allocator<void>``
+
+  * 関数テンプレート ``std::get_temporary_buffer()``, ``std::return_temporary_buffer()``
+  * クラステンプレート ``std::raw_storage_iterator``
+
+* ヘッダーファイル ``<functional>`` のうち次の要素を deprecated とする。
+
+  * 関数テンプレート ``std::not1()``, ``std::not2()``
+  * クラステンプレート ``std::unary_negate``, ``std::binary_nagate``
+  * 関数オブジェクト各種の型 ``result_type``, ``argument_type``,
+    ``first_argument_type``, ``second_argument_type``
+
+* ヘッダーファイル ``<codecvt>`` を deprecated とする。
+* ヘッダーファイル ``<exception>`` の関数 ``std::uncaught_exception()`` を deprecated とする。
+  代わりに複数形のほうを用いること。
 
 .. include:: /_include/cpp-refs.txt
