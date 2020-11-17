@@ -10,22 +10,20 @@ What's New In C++17 標準ライブラリー
 
 .. contents::
 
-新ライブラリ
+新ライブラリー
 ======================================================================
 
-.. - [`<filesystem>`](/reference/filesystem.md)ヘッダを新設し、ファイルシステムライブラリを追加。ファイル、ディレクトリなどを扱う
-.. - [`<algorithm>`](/reference/algorithm.md)や[`<numeric>`](/reference/numeric.md)のアルゴリズムに、並列実行のオプションを追加
-.. - [`<optional>`](/reference/optional.md)ヘッダを新設し、統一的な有効値と無効値の表現をもつ[`optional`](/reference/optional/optional.md)クラスを追加
-.. - [`<variant>`](/reference/variant.md)ヘッダを新設し、型安全な共用体[`variant`](/reference/variant/variant.md)クラスを追加
-.. - [`<any>`](/reference/any.md)ヘッダを新設し、なんでも代入できる[`any`](/reference/any/any.md)クラスを追加
-.. - 標準ライブラリの参照をC11に更新
-..   - [`<cfloat>`](/reference/cfloat.md)に、非正規化数の有無を判定するマクロ、10進数の桁数を表すマクロ、正の最小数を表すマクロを追加
-..   - [`<cstdlib>`](/reference/cstdlib.md)に、[`aligned_alloc()`](/reference/cstdlib/aligned_alloc.md)関数を追加
-..   - [`<ctime>`](/reference/ctime.md)に、[`TIME_UTC`](/reference/ctime/time_utc.md)マクロ, [`timespec`](/reference/ctime/timespec.md)構造体, [`timespec_get()`](/reference/ctime/timespec_get.md)関数を追加
-..   - [`<cstdio>`](/reference/cstdio.md)に、[`vfscanf()`](/reference/cstdio/vfscanf.md.nolink)関数を追加
-..   - `<ccomplex>`, `<cstdalign>`, `<cstdbool>`, `<ctgmath>`を非推奨化
+* ヘッダーファイル追加
 
-コンテナ
+  * ヘッダーファイル ``<filesystem>`` 追加。そういえば今までなかった。
+  * ヘッダーファイル ``<algorithm>`` や ``<numeric>`` の関数に並列実行機能オプション追加。
+  * ヘッダーファイル ``<optional>`` 追加。Boost 出身と思われる。
+  * ヘッダーファイル ``<variant>`` 追加。Boost 出身と思われる。
+  * ヘッダーファイル ``<any>`` 追加。Boost 出身と思われる。
+
+* 標準ライブラリーの参照を C11 に更新。これは C++ というより C なので割愛。
+
+コンテナー
 ======================================================================
 
 .. - コンテナのコピー・ムーブ、`swap`操作に`noexcept`を追加
@@ -77,50 +75,80 @@ What's New In C++17 標準ライブラリー
 .. - [`atomic`](/reference/atomic/atomic.md)クラスに、指定された要素型に対するアトミック操作がロックフリー(非ミューテックス)に振る舞うかを判定するために`is_always_lock_free`定数を追加
 .. - false sharingとtrue sharingを制御するための機能として、[`hardware_destructive_interference_size`](/reference/new/hardware_destructive_interference_size.md)定数と、[`hardware_constructive_interference_size`](/reference/new/hardware_constructive_interference_size.md)定数を追加
 
-スマートポインタ
+スマートポインター
 ======================================================================
 
-.. - [`shared_ptr`](/reference/memory/shared_ptr.md)を配列に対応
-.. - [`shared_ptr`](/reference/memory/shared_ptr.md)クラスに、指定された要素型の[`weak_ptr`](/reference/memory/weak_ptr.md)型を表す`weak_type`メンバ型を追加
-.. - [`shared_ptr`](/reference/memory/shared_ptr.md)`::`[`use_count()`](/reference/memory/shared_ptr/use_count.md)の仕様を明確化
-.. - [`shared_from_this`](/reference/memory/enable_shared_from_this/shared_from_this.md)の指す先が書き換わらないことを規定
-.. - 配列版[`unique_ptr`](/reference/memory/unique_ptr.md)の型変換として、以下のコードが不適格だった：
-..
-..     ```cpp
-..     std::unique_ptr<Foo const * const []> ptr1(new Foo*[10]);
-..     Foo const * ptr = ptr1[9];
-..     ```
-..
-..   - このようなコードが適格になるよう、変換コンストラクタと変換代入演算子を追加
-..
-.. - [`unique_ptr`](/reference/memory/unique_ptr.md)のテンプレート代入演算子に、不足していたSFINAEルールを追加
-.. - [`owner_less`](/reference/memory/owner_less.md)で、任意の要素型を持つ[`shared_ptr`](/reference/memory/shared_ptr.md)同士を比較できるようにする
+* クラステンプレート ``std::shared_ptr``
+
+  * 配列に対応
+  * メンバー型 ``weak_type`` 追加。指定された要素型の ``weak_ptr`` に等しい。
+  * メンバー関数 ``use_count()`` 文書化。
+
+* クラステンプレート ``std::enable_shared_from_this`` の使用法が規定された。
+
+  * TODO: ``std::enable_shared_from_this`` 自体は利用法が限定的なので、ほんとうに使えるか確認すること。
+
+* クラステンプレート ``std::unique_ptr``
+
+  * 配列版の型変換が不当に不適格とされていた不具合を解消するべく、
+    変換コンストラクターと変換代入演算子が追加。
+  * テンプレート代入演算子が修正。
+
+* その他
 
 数学
 ======================================================================
 
-.. - [`<cmath>`](/reference/cmath.md)に[数学の特殊関数](/reference/cmath.md#mathematical-special-functions)を追加
-.. - [`hypot()`](/reference/cmath/hypot.md)関数の3引数版を追加
-.. - 最大公約数と最小公倍数の関数として、[`gcd()`](/reference/numeric/gcd.md)と[`lcm()`](/reference/numeric/lcm.md)を追加
+* ヘッダーファイル ``<cmath>`` に物理学で利用されそうな関数が追加。一部を列挙すると：
+
+  * ベータ関数 ``std::beta(x, y)``
+
+    * ちなみにガンマ関数は ``std::tgamma(x)`` という。
+
+  * Hermite 多項式 ``std::hermite(n, x)``
+  * Legendre 多項式 ``std::legendre(l, x)``
+
+  C でも使われるので「オーバーロード」は関数名が異なる。
+
+* ヘッダーファイル ``<cmath>`` の関数 ``std::hypot(x, y)`` のオーバーロード
+  ``std::hypot(x, y, z)`` 追加。
+
+  * C でも使われるので多変数版はないのだろう。
+
+* ヘッダーファイル ``<numeric>`` に関数 ``std::gcd()`` と ``std::lcm()`` が追加。
+
+  .. code:: c++
+
+     template <class M, class N>
+     constexpr common_type_t<M, N> gcd(M m, N n);
+
+     template <class M, class N>
+     constexpr common_type_t<M, N> lcm(M m, N n);
+
+  見るからに引数 ``m`` と ``n`` に要件があるが、常識的に使えば問題ないはずなので深く立ち入らない。
 
 タプル
 ======================================================================
 
-.. - タプルを展開して関数呼び出しする[`apply()`](/reference/tuple/apply.md)関数を追加
-.. - タプルを任意の型のオブジェクトに変換する[`make_from_tuple()`](/reference/tuple/make_from_tuple.md)関数を追加
-.. - 初期化子リストから[`pair`](/reference/utility/pair.md)と[`tuple`](/reference/tuple/tuple.md)を構築しやすくするための改善として、以下のコードが適格になるようコンストラクタの仕様を調整：
-..
-..     ```cpp
-..     std::tuple<int, int> pixel_coordinates()
-..     {
-..       return {10, -15};  // コンパイルエラー
-..     }
-..
-..     struct NonCopyable { NonCopyable(int); NonCopyable(const NonCopyable&) = delete; };
-..
-..     std::pair<NonCopyable, double> pmd{42, 3.14}; // C++14ではコンパイルエラー
-..                                                   // C++17ではOK
-..     ```
+* 関数テンプレート ``std::apply()`` 追加。
+
+  .. code:: c++
+
+     template<class F, class Tuple>
+     constexpr decltype(auto) apply(F&& f, Tuple&& t);
+
+  意味は ``f(t.get<0>(), t.get<1>(), ...)`` だろう。
+
+* 関数テンプレート ``std::make_from_tuple()`` 追加。Boost
+
+  .. code:: c++
+
+     template <class T, class Tuple>
+     constexpr T make_from_tuple(Tuple&& t);
+
+  型 ``T`` のオブジェクトを ``T`` のコンストラクターなどにより生成することになるだろう。
+
+* ``std::pair`` および ``std::tuple`` を初期化子リストから生成しやすくなった。
 
 型特性
 ======================================================================
@@ -145,17 +173,25 @@ What's New In C++17 標準ライブラリー
 ======================================================================
 
 .. - ランダムサンプリングアルゴリズムとして、[`sample()`](/reference/algorithm/sample.md)を追加
-.. - 乱数用語を変更。乱数生成器の要件に 「URNG (Uniform Random Number Generator, 一様乱数生成器)」という用語を使用していたが、一般的なURNGの用語とは異なり、C++の乱数生成器は一度の呼び出しで、(32ビットを超えるような) より多くのビットを単一の符号なし整数にパックして返すという動作が許可されている。動作の誤解を避けるために、「URBG (Uniform Random Bit Generator)」という用語に変更する
+.. - 乱数用語を変更。乱数生成器の要件に 「URNG (Uniform Random Number Generator, 一様乱数生成器)」という用語を使用していたが、
+..   一般的なURNGの用語とは異なり、C++の乱数生成器は一度の呼び出しで、(32ビットを超えるような)
+..   より多くのビットを単一の符号なし整数にパックして返すという動作が許可されている。
+..   動作の誤解を避けるために、「URBG (Uniform Random Bit Generator)」という用語に変更する
 
 エラーハンドリング
 ======================================================================
 
-.. - 現在発生している例外の数を取得する[`uncaught_exceptions()`](/reference/exception/uncaught_exceptions.md)関数を追加
+ヘッダーファイル ``<exception>`` に関数 ``std::uncaught_exceptions()`` 追加。
 
-取り決め
+* この関数は現在発生している例外の数を返す。
+* 複数形であることに注意。単数形の関数は C++17 にて廃止。
+
+予約済み名前空間
 ======================================================================
 
-.. - `std` + 数字の名前空間を予約。C++の今後のバージョンアップで標準ライブラリに大きな変更を加えるときのために、「`std` + 数字」 (正規表現では`std\d*`) の名前空間が予約される
+次の名前の名前空間が標準ライブラリーのために予約される。
+
+* ``std`` + 数字
 
 廃止
 ======================================================================
@@ -183,7 +219,7 @@ C++11 や C++14 で deprecated と宣告されたライブラリー要素が C++
 
 * ヘッダーファイル ``<iostream>`` の各種別名定義
 
-非推奨化
+非推奨
 ======================================================================
 
 C++03 までに提供された機能で deprecated とされるものをここでは列挙する。
