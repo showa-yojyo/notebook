@@ -120,9 +120,57 @@ Python で言うところの ``:=`` のような役割を果たすのだろう�
 名前空間
 ======================================================================
 
-.. | [入れ子名前空間の定義](cpp17/nested_namespace.md)               | `namespace A::B {}`のように、入れ子の名前空間を簡単に定義できるようにする |
-.. | [名前空間と列挙子への属性付加を許可](cpp17/attributes_for_namespaces_and_enumerators.md) | 名前空間の定義と、列挙型の各要素の定義に、属性を付けられるようにする |
-.. | [`using`宣言のパック展開](cpp17/pack_expansions_in_using.md) | パラメータパックの型を基底クラスとして指定した場合に、using宣言に基底クラスのパラメータパックを指定できるようにする |
+* ダブルコロンを連結した名前を書くことでスコープを入れ子にすることなく部分名前空間を定義することが許される。
+
+  .. code:: c++
+
+     namespace aaa::bbb::cc
+     {
+         // ...
+     }
+
+* 名前空間に対して属性を与えることが許される。
+
+  .. code:: c++
+
+     namespace [[deprecated]] aaa
+     {
+         // ...
+     }
+
+* ``using`` ディレクティブでパック展開が許される。
+
+  一つ目は次のように ``using`` 宣言の行にカンマ区切りで識別子を並べる使い方。
+
+  .. code:: c++
+
+     using std::cout, std::endl;
+
+  もう一つは次 cpprefjp_ より引用した例のように基底クラスのメンバーをまとめてパック展開する使い方が許される。
+
+  .. code:: c++
+
+     #include <iostream>
+
+     struct ForLong {
+         void operator()(long v) {
+             std::cout << "ForLong:" << v << std::endl;
+         }
+     };
+
+     struct ForString {
+         void operator()(const std::string& v) {
+             std::cout << "ForString:" << v << std::endl;
+         }
+     };
+
+     template <typename... T>
+     struct ForAll : T... {
+         using T::operator()...;
+         void operator()(int v) {
+             std::cout << "ForAll:" << v << std::endl;
+         }
+     };
 
 例外
 ======================================================================
@@ -141,12 +189,39 @@ Python で言うところの ``:=`` のような役割を果たすのだろう�
 属性
 ======================================================================
 
-.. | [`[[fallthrough]]`属性](cpp17/fallthrough.md)                 | フォールスルー時の警告を抑制する |
-.. | [`[[maybe_unused]]`属性](cpp17/maybe_unused.md)               | 使用しない可能性のある変数に対する警告を抑制する |
-.. | [`[[nodiscard]]`属性](cpp17/nodiscard.md)                     | 戻り値を捨ててはならないことを指定する |
-.. | [名前空間と列挙子への属性付加を許可](cpp17/attributes_for_namespaces_and_enumerators.md) | 名前空間の定義と、列挙型の各要素の定義に、属性を付けられるようにする |
-.. | [属性の名前空間指定に繰り返しをなくす](cpp17/using_attribute_namespaces.md) | `[[using CC: opt(1), debug]]`のように属性の名前空間宣言をまとめて行う |
-.. | [不明な属性を無視する](cpp17/non_standard_attributes.md)                 | 実装が知らない名前空間の属性は無視する |
+* 属性 ``[[fallthrough]]`` が追加。先述のとおり。
+* 属性 ``[[maybe_unused]]`` が追加。コンパイラーの未使用変数の警告を抑止する。
+
+  .. code:: c++
+
+     [[maybe_unused]] int x = 0;
+     [[maybe_unused]] void f();
+
+     template <class T>
+     [[maybe_unused]] inline void g();
+
+* 属性 ``[[nodiscard]]`` が追加。関数の戻り値を呼び出し側が無視してはならないことを指示する。
+  ユーザー定義型に与える方法と関数宣言に与える方法がある。
+
+  .. code:: c++
+
+     struct [[nodiscard]] error_info {};
+
+     error_info f() { return error_info{}; }
+
+     [[nodiscard]] int g() { return 0; }
+
+* 名前空間に属性を与えることが許される。先述のとおり。
+* 列挙型の列挙子に属性を与えることが許される。その場合には列挙子とカンマの間に属性を記す。
+* 属性内の名前空間の指定をいちどにできる構文が追加。
+  属性の先頭部分に ``using`` 名前空間 ``:`` の順に記述し、その後に続けて属性の名前を記述する。
+
+  .. code:: c++
+
+    // [[CC::opt(1), CC::debug]] void f(){} と同じ
+    [[using CC: opt(1), debug]] void f(){}
+
+* 標準が定義していない属性であり、コンパイラーにとっても不明な属性はコンパイラーは単に無視するものとする。
 
 プリプロセッサ
 ======================================================================
@@ -172,9 +247,20 @@ Python で言うところの ``:=`` のような役割を果たすのだろう�
 小さな変更
 ======================================================================
 
-.. | [更新された定義済みマクロ](cpp17/predefined_macros.md) | 標準規格で定義されたマクロの更新 |
-.. | [機能テストマクロ](cpp17/feature_test_macros.md)       | C++17 の機能がサポートされているかどうかをテストするためのマクロ |
-.. | [`noexcept`付きのラムダ式から変換する関数ポインタに`noexcept`を付加する](cpp17/lambda_to_noexcept_function_pointer.md) | キャプチャを持たない非ジェネリックラムダに`noexcept`を付加した場合、変換した関数ポインタに`noexcept`を付加する |
-.. | [UTF-8文字リテラル](cpp17/utf8_character_literals.md) | UTF-8の指定が文字列リテラルに対してしかできなかったが、文字リテラルにもUTF-8指定をできるようにする |
+* 定義済みマクロ
+
+  * マクロ ``__cplusplus`` の値が ``201703L`` に更新。
+  * マクロ ```__STDCPP_DEFAULT_NEW_ALIGNMENT__`` が追加。使わないので忘れていい。
+
+* 機能テストマクロ。C++17 の機能がサポートされているかを判定するのに用いる。量が多いので割愛。
+* 次の条件を満たす例外仕様のあるラムダ式から関数ポインターに変換する際に、変換後のものに同等の例外仕様を与えるものとする。
+
+  * ラムダ式はキャプチャーを持たない。
+  * ラムダ式は汎用ラムダ式ではない。
+
+* UTF-8 文字リテラル（文字列ではなく文字）が許される。
+
+  * ``u8'A'`` のような書き方をすればいい。
+  * ただしコードポイントの範囲に制限がある。``char`` の表現できるサイズに収まらなければならない。
 
 .. include:: /_include/cpp-refs.txt
