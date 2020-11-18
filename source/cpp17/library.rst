@@ -26,19 +26,50 @@ What's New In C++17 標準ライブラリー
 コンテナー
 ======================================================================
 
-.. - コンテナのコピー・ムーブ、`swap`操作に`noexcept`を追加
-.. - コンテナの要素情報にアクセスする非メンバ関数として、[`<iterator>`](/reference/iterator.md)に [`size()`](/reference/iterator/size.md), [`empty()`](/reference/iterator/empty.md), [`data()`](/reference/iterator/data.md)関数を追加
-.. - コンテナに不完全型の最小サポートを追加。[`vector`](/reference/vector.md), [`list`](/reference/list/list.md), [`forward_list`](/reference/forward_list/forward_list.md)の要素型に、不完全型の指定を許可。ただし、これらのコンテナのなんらかのメンバ関数を呼び出す前には、要素型が完全型になっていること
-.. - 多相アロケータとメモリプール。[`<memory_resource>`](/reference/memory_resource.md)が新設され、アロケートする型を規定しないアロケータと、それを利用したメモリプールの仕組みが導入される
-.. - 標準イテレータ全般と[`array`](/reference/array/array.md)の変更操作に`constexpr`を追加
-.. - `emplace_front()`と`emplace_back()`メンバ関数で、追加された要素を返すようにする
-.. - 連想コンテナの接合機能を追加。ほかのコンテナに要素を移すために抽出する`extract()`メンバ関数、抽出された要素をほかのコンテナに移すための`insert()`メンバ関数のオーバーロード、2つの連想コンテナをまるごと接合する`merge()`メンバ関数を追加
-.. - `map`と`unordered_map`に、挿入失敗時の動作を規定した新たなメンバ関数として、`try_emplace()`と`insert_or_assign()`を追加
-.. - イテレータの分類に「隣接イテレータ (contiguous iterator)」を追加。要素間のメモリが隣接していることを表す。以下のコンテナのイテレータは、隣接イテレータであることが規定される：
-..   - [`basic_string`](/reference/string/basic_string.md)
-..   - [`array`](/reference/array/array.md)
-..   - `bool`以外を要素型とする[`vector`](/reference/vector.md)
-..   - [`valarray`](/reference/valarray/valarray.md) (の非メンバ関数である[`std::begin()`](/reference/valarray/valarray/begin_free.md)、[`std::end()`](/reference/valarray/valarray/end_free.md)で返されるイテレータは隣接イテレータ)
+* コンテナーのコピー、ムーブ、および ``swap()`` に例外仕様 ``noexcept`` が追加。
+
+  .. code:: c++
+
+     vector::vector(vector&& x) noexcept;
+
+     // xxxx 部分は複雑なので仕様書を確認すること
+     vector& vector::operator=(vector&& x) noexcept(xxxx);
+     void vector::swap(vector& x) noexcept(xxxx);
+     // etc.
+
+* ヘッダーファイル ``<iterator>`` に次のフリー関数が追加：
+
+  * ``std::size()``
+  * ``std::empty()``
+  * ``std::data()``
+
+* コンテナーに「不完全型の最小サポート」が追加。メンバー関数を呼び出すまでに要素型が完全型になっていれば OK になった。
+* ヘッダーファイル ``<memory_resource>`` が追加。よくわからない。
+* 標準イテレーター全般およびクラステンプレート ``std::array`` の変更操作が ``constexpr`` 化。
+* コンテナーのメンバー関数 ``.emplace_front()``, ``.emplace_back()`` が生成した値を返すようになった。
+
+  * この仕様変更はどうだろう。それなら自分でコンストラクターを呼び出して ``.push_front()``,
+    ``.push_back()`` でいいのでは？
+
+* 連想コンテナーに次のメンバー関数が追加：
+
+  * ``.extract()``: 要素を他のコンテナーに移すためのノードと呼ばれるオブジェクトを返す。
+  * ``.insert(node_type&&)``: よそから引き出したノードをこのコンテナーに挿し込む。
+  * ``.merge()``: 重複しないキーの要素をこのコンテナーに取り込む。
+
+* クラステンプレート ``std::map``, ``std::unordered_map`` それぞれに次のメンバー関数が追加：
+
+  * ``.try_emplace()``: 指定キーが不在の場合に限り emplace する（そうでなければ何もしない）。
+  * ``.insert_or_assign()``: Python の ``dict`` における ``m[key] = value`` のように振る舞う。
+
+* イテレーターの分類 *contiguous iterator* が追加。
+  組み込み配列のように、要素同士がメモリー上で隣接しているようなコンテナーに対するイテレーターであることを意味する。
+  次のコンテナーのイテレーターは contiguous iterator であるとする：
+
+  * クラステンプレート ``std::basic_string``
+  * クラステンプレート ``std::array``
+  * クラステンプレート ``std::vector`` - ただし特殊化 ``std::vector<bool>`` を除く。
+  * クラステンプレート ``std::valarray`` - フリー関数 ``std::begin()``, ``std::end()`` によりイテレーターが得られることに注意。
 
 アルゴリズム
 ======================================================================
