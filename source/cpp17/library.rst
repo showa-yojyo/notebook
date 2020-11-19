@@ -74,19 +74,145 @@ What's New In C++17 標準ライブラリー
 アルゴリズム
 ======================================================================
 
-.. - ランダムサンプリングアルゴリズムとして、[`sample()`](/reference/algorithm/sample.md)を追加
-.. - 並列アルゴリズムの追加にともない、[`<algorithm>`](/reference/algorithm.md)に[`for_each_n()`](/reference/algorithm/for_each_n.md)を追加
-.. - 並列アルゴリズムの追加にともない、[`<numeric>`](/reference/numeric.md)に以下を追加：
-..   - [`accumulate()`](/reference/numeric/accumulate.md)の計算順序を規定しないバージョンである、[`reduce()`](/reference/numeric/reduce.md)を追加
-..   - 部分和を求める関数[`partial_sum()`](/reference/numeric/partial_sum.md)を、i番目の部分和を求める際にi番目の要素を含める・含めないで分割し、[`inclusive_scan()`](/reference/numeric/inclusive_scan.md)と[`exclusive_scan()`](/reference/numeric/exclusive_scan.md)を追加
-..   - 値を変換しながら畳み込む[`transform_reduce()`](/reference/numeric/transform_reduce.md)を追加
-..   - 値を変換しながら部分和を求める関数として、[`transform_inclusive_scan()`](/reference/numeric/transform_inclusive_scan.md)と[`transform_exclusive_scan()`](/reference/numeric/transform_exclusive_scan.md)を追加
-.. - 値を範囲内に収める[`clamp()`](/reference/algorithm/clamp.md)関数を追加
-.. - `bool`を返す関数オブジェクトの結果を反転させる[`not_fn()`](/reference/functional/not_fn.md)関数を追加
-.. - [*INVOKE*](/reference/concepts/Invoke.md)要件に従った関数呼び出しをする[`invoke()`](/reference/functional/invoke.md)関数を追加
-.. - [`reference_wrapper`](/reference/functional/reference_wrapper.md)がTriviallyCopyableであることを保証
-.. - オブジェクトを`const`にする[`as_const()`](/reference/utility/as_const.md)関数を追加
-.. - 未初期化メモリのアルゴリズムと、デストラクタ呼び出しの関数として、以下の関数を追加： [`destroy_at()`](/reference/memory/destroy_at.md), [`destroy()`](/reference/memory/destroy.md), [`destroy_n()`](/reference/memory/destroy_n.md), [`uninitialized_move()`](/reference/memory/uninitialized_move.md), [`uninitialized_move_n()`](/reference/memory/uninitialized_move_n.md), [`uninitialized_value_construct()`](/reference/memory/uninitialized_value_construct.md), [`uninitialized_value_construct_n()`](/reference/memory/uninitialized_value_construct_n.md), [`uninitialized_default_construct()`](/reference/memory/uninitialized_default_construct.md), [`uninitialized_default_construct_n()`](/reference/memory/uninitialized_default_construct_n.md)
+ヘッダーファイル ``<algorithm>``
+----------------------------------------------------------------------
+
+* 関数テンプレート ``std::sample()`` が追加。後述。
+* 関数テンプレート ``std::for_each_n()`` が追加。
+
+  .. code:: c++
+
+     template <class InputIterator, class Size, class Function>
+     InputIterator for_each_n(
+         InputIterator first,
+         Size n,
+         Function f);
+
+  * 範囲 ``[first, first + n)`` を指すイテレーター ``i`` に対して ``f(*i)`` を呼び出す。
+  * なお、関数 ``f()`` では ``*i`` を変更することが許される。
+  * 関数 ``f()`` の戻り値は使われない。
+  * 戻り値はイテレーター ``first + n`` とする。
+  * さらに並列バージョンがある。割愛。
+
+* 関数テンプレート ``std::clamp()`` が追加。
+
+  .. code:: c++
+
+     template <class T>
+     constexpr const T& clamp(const T& v, const T& low, const T& high);
+
+     template <class T, class Compare>
+     constexpr const T& clamp(const T& v, const T& low, const T& high, Compare comp);
+
+  * 意味は OpenGL のそれと同じ。第一引数 ``v`` が clamp される。
+
+ヘッダーファイル ``<numeric>``
+----------------------------------------------------------------------
+
+* 関数テンプレート ``std::reduce()`` が追加。
+
+  .. code:: c++
+
+     template <class InputIterator>
+     typename iterator_traits<InputIterator>::value_type
+     reduce(InputIterator first, InputIterator last);
+
+     template <class InputIterator, class T>
+     T reduce(InputIterator first, InputIterator last, T init);
+
+     template <class InputIterator, class T, class BinaryOperation>
+     T reduce(InputIterator first, InputIterator last, T init,
+              BinaryOperation binary_op);
+
+  * 機能は他のプログラミング言語に見られるものと同じ。
+  * 演算を引数に取らないものは ``operator+()`` による集計を行う。
+  * さらに並列バージョンがある。割愛。
+
+* 関数テンプレート ``std::inclusive_scan()`` が追加。部分和を順次計算する。
+
+  * ``init + *first``, ``init + *first + *(first + 1)``, ``init + *first + *(first + 1) + *(first + 2)``, ... を返す。
+
+* 関数テンプレート ``std::exclusive_scan()`` が追加。こちらも部分和を順次計算する。
+
+  * ``init``, ``init + *first``, ``init + *first + *(first + 1)``, ... を返す。
+
+* 関数テンプレート ``std::transform_reduce()`` が追加。
+
+  * 意味は上述の ``std::reduce()`` をしながら ``std::transform()`` するというようなものだ。
+  * ``std::transform()`` のように、入力範囲が一つのものと二つのものがある。
+
+* 関数テンプレート ``std::transform_inclusive_scan()`` が追加。詳細割愛。
+* 関数テンプレート ``std::transform_exclusive_scan()`` が追加。詳細割愛。
+
+ヘッダーファイル ``<functional>``
+----------------------------------------------------------------------
+
+* ``std::not_fn()`` 追加。指定された述語の意味を否定するような述語を返す。
+* ``std::invoke()`` 追加。これは意味がわからない。
+
+ヘッダーファイル ``<memory>``
+----------------------------------------------------------------------
+
+* 関数テンプレート ``std::destroy_at()`` が追加。
+
+  * 与えられたポインターに対してデストラクターを明示的に呼び出す。
+  * 通常は placement new により生成されたオブジェクトに対して適用する。
+
+* 関数テンプレート ``std::destroy()`` が追加。
+  上記 ``std::destroy_at()`` の始点と終点による範囲バージョン。
+* 関数テンプレート ``std::destroy_n()`` が追加。
+  これも上記 ``std::destroy_at()`` の始点と長さによる範囲バージョン。
+
+* 関数テンプレート ``std::uninitialized_move()`` が追加。
+
+  * 未初期化記憶域である入力範囲を placement new により初期化して出力範囲に ``std::move()`` する。
+  * 入力範囲の指定は始点と終点による。
+
+* 関数テンプレート ``std::uninitialized_move_n()`` が追加。
+
+  * 上述の ``std::uninitialized_move()`` の入力範囲の指定が始点と長さによるもの。
+
+* 関数テンプレート ``std::uninitialized_value_construct()`` が追加。
+
+  * 未初期化記憶域である入力範囲を placement new により初期化して出力範囲に出力する。
+    その際、ゼロ初期化をともなう。
+  * 上記の入力範囲の指定は始点と終点による。
+
+* 関数テンプレート ``std::uninitialized_value_construct_n()`` が追加。
+
+  * 上述の ``std::uninitialized_value_construct()`` の入力範囲の指定が始点と長さによるもの。
+
+* 関数テンプレート ``std::uninitialized_default_construct()`` が追加。
+
+  * ``std::uninitialized_value_construct()`` の「ゼロで初期化しない」バージョン。
+    次のような構造体のオブジェクトを大量に扱う際には初期化しないほうがいいだろう：
+
+    .. code::
+
+       struct Point3D
+       {
+           double x;
+           double y;
+           double z;
+       };
+
+* 関数テンプレート ``std::uninitialized_default_construct_n()`` が追加。
+
+  * ``std::uninitialized_value_construct_n()`` の「ゼロで初期化しない」バージョン。
+
+ヘッダーファイル ``<utility>``
+----------------------------------------------------------------------
+
+関数テンプレート ``std::as_const()`` が追加。
+左辺値参照を ``const`` 左辺値参照に変換する。ユースケース不明。
+
+.. code:: c++
+
+   template <class T>
+   constexpr add_const_t<T>& as_const(T& t) noexcept;
+
+   template <class T>
+   void as_const(const T&&) = delete;
 
 文字列
 ======================================================================
@@ -196,18 +322,41 @@ What's New In C++17 標準ライブラリー
 時間演算
 ======================================================================
 
-.. - [`duration`](/reference/chrono/duration.md)の丸め演算として、切り下げをする[`floor()`](/reference/chrono/duration/floor.md)、切り上げをする[`ceil()`](/reference/chrono/duration/ceil.md)、最近接遇数への丸めをする[`round()`](/reference/chrono/duration/round.md)、絶対値を求める[`abs()`](/reference/chrono/duration/abs.md)を追加
-.. - [`time_point`](/reference/chrono/time_point.md)の丸め演算として、切り下げをする[`floor()`](/reference/chrono/time_point/floor.md)、切り上げをする[`ceil()`](/reference/chrono/time_point/ceil.md)、最近接遇数への丸めをする[`round()`](/reference/chrono/time_point/round.md)を追加
-.. - [`duration`](/reference/chrono/duration.md)クラスと[`time_point`](/reference/chrono/time_point.md)クラスの変更操作を`constexpr`に対応
+* クラステンプレート ``std::chrono:duration`` に対する次の操作が追加：
+
+  * 関数テンプレート ``std::chrono::floor()`` 追加
+  * 関数テンプレート ``std::chrono::ceil()`` 追加
+  * 関数テンプレート ``std::chrono::round()`` 追加
+  * 関数テンプレート ``std::chrono::abs()`` 追加
+
+* クラステンプレート ``std::chrono:time_point`` に対する次の操作が追加：
+
+  * 関数テンプレート ``std::chrono::floor()`` 追加
+  * 関数テンプレート ``std::chrono::ceil()`` 追加
+  * 関数テンプレート ``std::chrono::round()`` 追加
+
+* 上記二つのクラステンプレートの変更操作を ``constexpr`` に対応。
+  ``std::chrono::duration`` のほうを次に示す：
+
+  .. code:: c++
+
+     std::chrono::duration& operator++();
+     std::chrono::duration& operator--();
+     std::chrono::duration& operator+=(const std::chrono::duration&);
+     std::chrono::duration& operator-=(const std::chrono::duration&);
+     std::chrono::duration& operator*=(const std::chrono::duration::rep&);
+     std::chrono::duration& operator/=(const std::chrono::duration::rep&);
+     std::chrono::duration& operator%=(const std::chrono::duration::rep&);
+     std::chrono::duration& operator%=(const std::chrono::duration&);
 
 乱数
 ======================================================================
 
-.. - ランダムサンプリングアルゴリズムとして、[`sample()`](/reference/algorithm/sample.md)を追加
-.. - 乱数用語を変更。乱数生成器の要件に 「URNG (Uniform Random Number Generator, 一様乱数生成器)」という用語を使用していたが、
-..   一般的なURNGの用語とは異なり、C++の乱数生成器は一度の呼び出しで、(32ビットを超えるような)
-..   より多くのビットを単一の符号なし整数にパックして返すという動作が許可されている。
-..   動作の誤解を避けるために、「URBG (Uniform Random Bit Generator)」という用語に変更する
+ヘッダーファイル ``<algorithm>`` に関数テンプレート ``sample()`` 追加。
+
+* イテレーターが指定する範囲から指定個数の要素をランダムに抽出する。
+* 出力もイテレーターで指定する。
+* いつものように乱数エンジンを仕込むコードを書くのが面倒そうだ。
 
 エラーハンドリング
 ======================================================================
