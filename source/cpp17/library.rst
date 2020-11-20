@@ -217,20 +217,65 @@ What's New In C++17 標準ライブラリー
 文字列
 ======================================================================
 
-.. - [`<string_view>`](/reference/string_view.md)ヘッダを新設し、所有権を持たない文字列クラスである[`basic_string_view`](/reference/string_view/basic_string_view.md)を追加
-.. - [`basic_string::data()`](/reference/string/basic_string/data.md)メンバ関数の非`const`版を追加
-.. - 文字列検索アルゴリズムとして、「ボイヤー・ムーア法 (Boyer-Moore)」の[`std::boyer_moore_searcher`](/reference/functional/boyer_moore_searcher.md)関数オブジェクトと「ボイヤー・ムーア・ホースプール法 (Boyer-Moore-Horspool)」の[`std::boyer_moore_horspool_searcher`](/reference/functional/boyer_moore_horspool_searcher.md)関数オブジェクトを追加。[`std::search()`](/reference/algorithm/search.md)関数のポリシーとして、検索アルゴリズムを指定する
-.. - ロケール依存なし、フォーマット解析なしの高速な文字列・数値変換関数として、[`to_chars()`](/reference/charconv/to_chars.md)と[`from_chars()`](/reference/charconv/from_chars.md)を追加
-.. - [`char_traits`](/reference/string/char_traits.md)クラスを`constexpr`に対応
-.. - バイトデータを表す[`byte`](/reference/cstddef/byte.md)型を追加
+* ヘッダーファイル ``<string_view>`` が追加。クラステンプレート ``std::basic_string_view`` を提供。
+
+  * クラステンプレート ``std::basic_string_view`` は生文字列の所有権を持つのではなく、
+    既存の文字列を参照して、何らかの情報を与えるというものだ。
+    これを参照先の文字列の先頭と、文字列の長さしか管理していないクラスと考えていい。
+  * ``.remove_prefix()`` や ``.remove_suffix()`` などというメンバー関数もある。
+  * ``std::string_view_literals::operator"" sv()`` でオブジェクトを生成することもできる。
+
+* クラステンプレート ``std::basic_string`` のメンバー関数 ``.data()`` に非 ``const`` 版が追加。
+  生文字列を直接変更するのに用いるのだろうか。
+
+* ヘッダーファイル ``<functional>`` に次の二つの関数オブジェクトが追加。
+  部分文字列を検索するためのものだ。
+  これらはそれぞれ単体でも検索できるし、アルゴリズム ``std::search()`` の引数として与えることもできる。
+
+  * クラステンプレート ``std::boyer_moore_searcher``
+  * クラステンプレート ``std::boyer_moore_horspool_searcher``
+
+* ヘッダーファイル ``<charconv>`` に次の関数が追加。
+  〈ロケール依存なし、フォーマット解析なし〉で文字列と数値とを変換する。
+
+  * 関数 ``std::to_chars()``
+  * 関数 ``std::from_chars()``
+
+* クラステンプレート ``std::char_traits`` の静的メンバー関数の一部に対する ``constexpr`` 対応が追加。
+
+  * メンバー関数 ``.compare()``
+  * メンバー関数 ``.find()``
+  * メンバー関数 ``.length()``
+
+* ヘッダーファイル ``<cstddef>`` の型 ``std::byte`` が追加。
+  次のコードがこの型の定義そのものを正確に表すはずだ：
+
+  .. code::
+
+     enum class byte : unsigned char {};
+
+  * フリー関数の形式で各種ビット演算機能および整数への変換機能が提供される。
 
 並行処理
 ======================================================================
 
-.. - タイムアウト機能がないReaders-writer lockのミューテックスとして、[`shared_mutex`](/reference/shared_mutex/shared_mutex.md)クラスを追加
-.. - スコープ付きロックの可変引数版として、[`scoped_lock`](/reference/mutex/scoped_lock.md)クラスを追加
-.. - [`atomic`](/reference/atomic/atomic.md)クラスに、指定された要素型に対するアトミック操作がロックフリー(非ミューテックス)に振る舞うかを判定するために`is_always_lock_free`定数を追加
-.. - false sharingとtrue sharingを制御するための機能として、[`hardware_destructive_interference_size`](/reference/new/hardware_destructive_interference_size.md)定数と、[`hardware_constructive_interference_size`](/reference/new/hardware_constructive_interference_size.md)定数を追加
+* ヘッダーファイル ``<shared_mutex>`` およびクラス ``std::shared_mutex`` 追加。
+
+  * クラス ``std::shared_mutex`` は readers-writer lock の mutex を表し、タイムアウトすることがない。
+  * このクラスを直接使うよりも、ふつうは RAII 用のクラステンプレート ``std::lock_guard()`` もしくは ``std::shared_lock()`` を用いる。
+    書くか読むかで使う関数を使い分ける。
+
+* ヘッダーファイル ``<mutex>`` にクラステンプレート ``std::scoped_lock`` 追加。
+
+  * 複数の mutex を管理するための RAII 用クラス。ロックとアンロックの順序に整合性を持たせるために使う。
+
+* クラステンプレート ``std::atomic`` に定数 ``is_always_lock_free`` が追加。
+  テンプレート型に対するアトミック操作が常にロックフリーで動作するかどうかを表す ``bool`` 値だ。
+
+* ヘッダーファイル ``<new>`` に次のインライン定数が追加。並行処理に関する知識がないと理解できない概念。
+
+  * ``std::hardware_constructive_interference_size``
+  * ``std::hardware_destructive_interference_size``
 
 スマートポインター
 ======================================================================
@@ -256,7 +301,7 @@ What's New In C++17 標準ライブラリー
 数学
 ======================================================================
 
-* ヘッダーファイル ``<cmath>`` に物理学で利用されそうな関数が追加。一部を列挙すると：
+* ヘッダーファイル ``<cmath>`` に物理学で利用されそうな関数が追加。一部を挙げると：
 
   * ベータ関数 ``std::beta(x, y)``
 
@@ -270,7 +315,7 @@ What's New In C++17 標準ライブラリー
 * ヘッダーファイル ``<cmath>`` の関数 ``std::hypot(x, y)`` のオーバーロード
   ``std::hypot(x, y, z)`` 追加。
 
-  * C でも使われるので多変数版はないのだろう。
+  * C でも使われるので可変数引数版はないのだろう。
 
 * ヘッダーファイル ``<numeric>`` に関数 ``std::gcd()`` と ``std::lcm()`` が追加。
 
@@ -310,14 +355,70 @@ What's New In C++17 標準ライブラリー
 型特性
 ======================================================================
 
-.. - 値を返す型特性クラスの`constexpr`変数テンプレート版を追加。変数テンプレート版は、末尾に`_v`が付く。`v`は`value` (値) を意味する
-.. - 型特性クラスを定義しやすくするために、[`void_t`](/reference/type_traits/void_t.md)を追加
-.. - `bool`定数を表す[`bool_constant`](/reference/type_traits/bool_constant.md)を追加
-.. - コンパイル時条件の論理演算のために、論理積である[`conjunction`](/reference/type_traits/conjunction.md)、論理和である[`disjunction`](/reference/type_traits/disjunction.md)、否定である[`negation`](/reference/type_traits/negation.md)を追加
-.. - `swap`可能かを判定する型特性クラスとして、[`is_swappable_with`](/reference/type_traits/is_swappable_with.md)、[`is_swappable`](/reference/type_traits/is_swappable.md)、[`is_nothrow_swappable_with`](/reference/type_traits/is_nothrow_swappable_with.md)、[`is_nothrow_swappable`](/reference/type_traits/is_nothrow_swappable.md)を追加
-.. - 関数が呼び出し可能かを判定する型特性として、[`is_invocable`](/reference/type_traits/is_invocable.md)、[`is_invocable_r`](/reference/type_traits/is_invocable_r.md)、[`is_nothrow_invocable`](/reference/type_traits/is_nothrow_invocable.md)、[`is_nothrow_invocable_r`](/reference/type_traits/is_nothrow_invocable_r.md)を追加
-.. - 自動的にハッシュ値が求められる型かを判定するために[`has_unique_object_representations`](/reference/type_traits/has_unique_object_representations.md)型特性を追加
-.. - [`invoke()`](/reference/functional/invoke.md)の追加にともない、関数の戻り値型を取得する型特性[`invoke_result`](/reference/type_traits/invoke_result.md)を追加。これまでの[`result_of`](/reference/type_traits/result_of.md)と違って関数型のテンプレート引数を使用しないため、それによって起こっていた厄介な問題を回避する
+ヘッダーファイル ``<type_traits>`` に次の機能が追加。
+
+* 値を返す type traits クラステンプレートそれぞれに対応する変数テンプレート版が追加。
+  例えばクラステンプレート ``std::is_integral`` に対応する変数テンプレートは
+  ``std::is_integral_v`` といい、次のように宣言される：
+
+  .. code:: c++
+
+     template <class T>
+     inline constexpr bool is_integral_v = is_integral<T>::value;
+
+* クラステンプレート ``std::void_t`` 追加。次のような仕組みであり、
+  SFINAE と組み合わせるというライブラリー設計の手筋があるようだ。
+
+  .. code:: c++
+
+     template <class...>
+     using void_t = void;
+
+* クラステンプレート ``std::bool_constant`` 追加。
+
+  .. code:: c++
+
+     template <bool B>
+     using bool_constant = integral_constant<bool, B>;
+
+* 論理演算用のクラステンプレートおよびその変数テンプレート版追加。
+
+  * クラステンプレート ``std::conjunction``
+  * クラステンプレート ``std::disjunction``
+  * クラステンプレート ``std::negation``
+
+* スワップ操作の可能性を決定する次の機能が追加。それぞれ対応する変数テンプレート版もあわせて追加。
+
+  * クラステンプレート ``std::is_swappable`` 追加。
+    型の値が ``std::swap()`` により交換可能か。
+  * クラステンプレート ``std::is_swappable_with`` 追加。
+    二つの型の値が ``std::is_swappable`` であるかどうか。
+  * クラステンプレート ``std::is_nothrow_swappable`` 追加。
+    ``std::is_swappable`` かつスワップ操作が例外を送出しない保証があるかどうか。
+  * クラステンプレート ``is_nothrow_swappable_with`` 追加。
+    ``std::is_nothrow_swappable`` かつスワップ操作が例外を送出しない保証があるかどうか。
+
+* 呼び出し可能性を決定する次の機能が追加。それぞれ対応する変数テンプレート版もあわせて追加。
+
+  * クラステンプレート ``std::is_invocable`` 追加。
+    ある与えられた型が、別の与えられた型の引数で関数呼び出し可能であるか。
+  * クラステンプレート ``std::is_invocable_r`` 追加。
+    ``std::is_invocable`` かつまた別の与えられた型の戻り値とするかどうか。
+  * クラステンプレート ``std::is_nothrow_invocable``
+    ``std::is_invocable`` かつ呼び出しが例外を送出しない保証があるかどうか。
+  * クラステンプレート ``std::is_nothrow_invocable_r``
+    ``std::is_invocable_r`` かつ呼び出しが例外を送出しない保証があるかどうか。
+
+* クラステンプレート ``std::has_unique_object_representations`` およびその変数テンプレート版追加。
+
+  cpprefjp_ によると〈簡易にハッシュを求めることを将来サポートする前準備として、
+  ある型のバイト列をそのままその型のハッシュとして利用できるかを判定するために追加された〉
+  そうだ。この記述は実態をよく説明していると思う。
+
+* クラステンプレート ``std::invoke_result`` 追加。
+  ``std::invovable`` のような使い方で関数の戻り値型を取得する。cf. ``std::result_of``.
+
+上で私が「クラステンプレート」と書いたところを cpprefjp_ では「メタ関数」と書いていることに注意。
 
 時間演算
 ======================================================================
