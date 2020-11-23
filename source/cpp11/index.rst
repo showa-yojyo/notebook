@@ -20,5 +20,6 @@ C++11 から学び直そうではないか。
 ======================================================================
 
 * cpprefjp_: C++ 日本語リファレンス
+* Stefanus Du Toit, *Working Draft, Standard for Programming Language C++ N3337*, 2012.
 
 .. include:: /_include/cpp-refs.txt
