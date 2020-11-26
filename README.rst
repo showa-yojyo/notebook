@@ -5,7 +5,7 @@
 概要
 ======================================================================
 このリポジトリーは `読書ノート <https://showa-yojyo.github.io/notebook/>`_ の原稿群だ。
-Python 製パッケージ Sphinx でビルドするための rst ファイル群で構成している。
+Python 製パッケージ Sphinx_ でビルドするための rst ファイル群で構成している。
 
 読者（私）向け説明
 ----------------------------------------------------------------------
@@ -27,32 +27,37 @@ Python 製パッケージ Sphinx でビルドするための rst ファイル群
 最初にツールを説明する。
 標準的な Windows 環境で必要なツール群をザッと挙げるとこういう感じだろうか。
 
-Cygwin_ あるいはそれ相当
+Linux や Cygwin_ あるいはそれ相当
   とにかくコンソールだ。これらのツールを多用する。
 
   * bash
   * make
 
 Python_
-  最新バージョンで稼動するようにしている。今なら 3.5.0 に相当する。
+  最新バージョンで稼動するようにしている。もちろん 3.x を利用する。
 
 Sphinx_
-  Python が使えるようになったら ``pip install sphinx`` にて依存パッケージを込みで自動的にインストールできる。
-  現在利用中の Sphinx のバージョンは 1.3.1 だ。
+  Python が使えるようになったら ``pip install sphinx`` などで依存パッケージを込みで自動的にインストールできる。
+  現在利用中の Sphinx のバージョンは 3.2.1 だ。
+  これは ``sphinx-build --version`` で確認できる。
+
+IPython_
+  シンタックスハイライティングのためだけに必要。
+  ``pip install ipython`` などでインストールする。
 
 Git_
-  Cygwin 版でも Windows 版でも構わないハズだが、現在は後者を用いている。
+  Cygwin 版でも Windows 版でも Linux 版でも構わない。
 
 次にローカルコピーの作成手順を説明する。
-一言で言えばコマンドラインから git を用いて GitHub のサーバーからファイルをダウンロードする。
+一言で言えばコマンドラインから ``git`` を用いて GitHub のサーバーからファイルをダウンロードする。
 仮にゼロからビルド環境を構築するとなると、次のことをすれば最新の状態を再現できる。
 
 .. code:: console
 
-   $ cd $MY_DEV_DIR
-   $ git clone https://github.com/showa-yojyo/notebook.git
-   $ cd notebook
-   $ git checkout develop
+   bash$ cd $MY_DEV_DIR
+   bash$ git clone https://github.com/showa-yojyo/notebook.git
+   bash$ cd notebook
+   bash$ git checkout develop
 
 最後にビルド手順を説明する。
 ノートのビルドは ``notebook`` ディレクトリー直下で次のようにする。
@@ -60,8 +65,8 @@ Git_
 
 .. code:: console
 
-   $ git clone -b gh-pages --single-branch https://github.com/showa-yojyo/notebook.git gh-pages
-   $ make gh-pages
+   bash$ git clone -b gh-pages --single-branch https://github.com/showa-yojyo/notebook.git gh-pages
+   bash$ make gh-pages
 
 アップロード
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -92,8 +97,7 @@ Licensing
 ======================================================================
 当リポジトリーの管理人とその連絡手段の一覧を以下に記す。
 
-`プレハブ小屋 <https://showa-yojyo.github.io/>`_
-  当読者ノート主筆。
+`プレハブ小屋 <https://showa-yojyo.github.io/>`_: 当読者ノート主筆。
 
   * Web site: https://github.com/showa-yojyo/notebook
   * E-mail: yojyo@hotmail.com
@@ -101,5 +105,6 @@ Licensing
 
 .. _Python: https://www.python.org/
 .. _Sphinx: https://sphinx-doc.org/
+.. _IPython: https://ipython.org/
 .. _Git: https://git-for-windows.github.io/
 .. _Cygwin: https://www.cygwin.com/
