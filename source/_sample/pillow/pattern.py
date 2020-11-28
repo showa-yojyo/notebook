@@ -33,7 +33,7 @@ def paste_with_alpha(target, source, left_upper, opacity):
     target.paste(source, left_upper, mask=mask)
 
 def quarter_bbox(img):
-    """Quater the bounding box of an image."""
+    """Quarter the bounding box of an image."""
 
     (left, upper, right, bottom) = img.getbbox()
     xmid = (left + right - 1) // 2
