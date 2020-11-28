@@ -1,7 +1,8 @@
 #!/bin/bash
 # gh-pages.sh - This script is invoked from the Makefile's gh-pages rule.
 
-TARGET_DIR=./gh-pages
+SCRIPT_DIR=$(dirname "$BASH_SOURCE")
+TARGET_DIR="$SCRIPT_DIR/gh-pages"
 
 function main
 {
@@ -16,9 +17,9 @@ function main
 
     function _execute_rsync
     {
-        local source_dir=./build/html/
-        local rsync_include_from=./rsync-include.txt
-        local rsync_exclude_from=./rsync-exclude.txt
+        local source_dir="$SCRIPT_DIR/build/html/"
+        local rsync_include_from="$SCRIPT_DIR/rsync-include.txt"
+        local rsync_exclude_from="$SCRIPT_DIR/rsync-exclude.txt"
 
         rsync -av --delete \
           --include-from "$rsync_include_from" \
