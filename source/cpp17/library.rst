@@ -33,6 +33,7 @@ What's New In C++17 標準ライブラリー
      vector::vector(vector&& x) noexcept;
 
      // xxxx 部分は複雑なので仕様書を確認すること
+     // もちろん bool 値に評価される
      vector& vector::operator=(vector&& x) noexcept(xxxx);
      void vector::swap(vector& x) noexcept(xxxx);
      // etc.
@@ -45,7 +46,7 @@ What's New In C++17 標準ライブラリー
 
 * コンテナーに「不完全型の最小サポート」が追加。メンバー関数を呼び出すまでに要素型が完全型になっていれば OK になった。
 * ヘッダーファイル ``<memory_resource>`` が追加。よくわからない。
-* 標準イテレーター全般およびクラステンプレート ``std::array`` の変更操作が ``constexpr`` 化。
+* 標準反復子全般およびクラステンプレート ``std::array`` の変更操作が ``constexpr`` 化。
 * コンテナーのメンバー関数 ``.emplace_front()``, ``.emplace_back()`` が生成した値を返すようになった。
 
   * この仕様変更はどうだろう。それなら自分でコンストラクターを呼び出して ``.push_front()``,
@@ -62,14 +63,15 @@ What's New In C++17 標準ライブラリー
   * ``.try_emplace()``: 指定キーが不在の場合に限り emplace する（そうでなければ何もしない）。
   * ``.insert_or_assign()``: Python の ``dict`` における ``m[key] = value`` のように振る舞う。
 
-* イテレーターの分類 *contiguous iterator* が追加。
-  組み込み配列のように、要素同士がメモリー上で隣接しているようなコンテナーに対するイテレーターであることを意味する。
-  次のコンテナーのイテレーターは contiguous iterator であるとする：
+* 反復子の分類 *contiguous iterator* が追加。
+  組み込み配列のように、要素同士がメモリー上で隣接しているようなコンテナーに対する反復子であることを意味する。
+  次のコンテナーの反復子は contiguous iterator であるとする：
 
   * クラステンプレート ``std::basic_string``
   * クラステンプレート ``std::array``
   * クラステンプレート ``std::vector`` - ただし特殊化 ``std::vector<bool>`` を除く。
-  * クラステンプレート ``std::valarray`` - フリー関数 ``std::begin()``, ``std::end()`` によりイテレーターが得られることに注意。
+  * クラステンプレート ``std::valarray`` - フリー関数 ``std::begin()``,
+    ``std::end()`` により反復子が得られることに注意。
 
 アルゴリズム
 ======================================================================
@@ -88,10 +90,10 @@ What's New In C++17 標準ライブラリー
          Size n,
          Function f);
 
-  * 範囲 ``[first, first + n)`` を指すイテレーター ``i`` に対して ``f(*i)`` を呼び出す。
+  * 範囲 ``[first, first + n)`` を指す反復子 ``i`` に対して ``f(*i)`` を呼び出す。
   * なお、関数 ``f()`` では ``*i`` を変更することが許される。
   * 関数 ``f()`` の戻り値は使われない。
-  * 戻り値はイテレーター ``first + n`` とする。
+  * 戻り値は反復子 ``first + n`` とする。
   * さらに並列バージョンがある。割愛。
 
 * 関数テンプレート ``std::clamp()`` が追加。
@@ -130,7 +132,9 @@ What's New In C++17 標準ライブラリー
 
 * 関数テンプレート ``std::inclusive_scan()`` が追加。部分和を順次計算する。
 
-  * ``init + *first``, ``init + *first + *(first + 1)``, ``init + *first + *(first + 1) + *(first + 2)``, ... を返す。
+  * ``init + *first``,
+    ``init + *first + *(first + 1)``,
+    ``init + *first + *(first + 1) + *(first + 2)``, ... を返す。
 
 * 関数テンプレート ``std::exclusive_scan()`` が追加。こちらも部分和を順次計算する。
 
@@ -165,7 +169,8 @@ What's New In C++17 標準ライブラリー
 
 * 関数テンプレート ``std::uninitialized_move()`` が追加。
 
-  * 未初期化記憶域である入力範囲を placement new により初期化して出力範囲に ``std::move()`` する。
+  * 未初期化記憶域である入力範囲を placement new により初期化して出力範囲に
+    ``std::move()`` する。
   * 入力範囲の指定は始点と終点による。
 
 * 関数テンプレート ``std::uninitialized_move_n()`` が追加。
@@ -217,7 +222,8 @@ What's New In C++17 標準ライブラリー
 文字列
 ======================================================================
 
-* ヘッダーファイル ``<string_view>`` が追加。クラステンプレート ``std::basic_string_view`` を提供。
+* ヘッダーファイル ``<string_view>`` が追加。クラステンプレート
+  ``std::basic_string_view`` を提供。
 
   * クラステンプレート ``std::basic_string_view`` は生文字列の所有権を持つのではなく、
     既存の文字列を参照して、何らかの情報を与えるというものだ。
@@ -262,7 +268,8 @@ What's New In C++17 標準ライブラリー
 * ヘッダーファイル ``<shared_mutex>`` およびクラス ``std::shared_mutex`` 追加。
 
   * クラス ``std::shared_mutex`` は readers-writer lock の mutex を表し、タイムアウトすることがない。
-  * このクラスを直接使うよりも、ふつうは RAII 用のクラステンプレート ``std::lock_guard()`` もしくは ``std::shared_lock()`` を用いる。
+  * このクラスを直接使うよりも、ふつうは RAII 用のクラステンプレート
+    ``std::lock_guard()`` もしくは ``std::shared_lock()`` を用いる。
     書くか読むかで使う関数を使い分ける。
 
 * ヘッダーファイル ``<mutex>`` にクラステンプレート ``std::scoped_lock`` 追加。
@@ -455,8 +462,8 @@ What's New In C++17 標準ライブラリー
 
 ヘッダーファイル ``<algorithm>`` に関数テンプレート ``sample()`` 追加。
 
-* イテレーターが指定する範囲から指定個数の要素をランダムに抽出する。
-* 出力もイテレーターで指定する。
+* 反復子が指定する範囲から指定個数の要素を無作為抽出する。
+* 出力も反復子で指定する。
 * いつものように乱数エンジンを仕込むコードを書くのが面倒そうだ。
 
 エラーハンドリング
@@ -477,7 +484,7 @@ What's New In C++17 標準ライブラリー
 廃止
 ======================================================================
 
-C++11 や C++14 で deprecated と宣告されたライブラリー要素が C++17 で削られる。 とする：
+C++11 や C++14 で廃止予定機能と宣告されたライブラリー要素が C++17 で削られる。 とする：
 
 * クラステンプレート ``std::auto_ptr`` 削除。``std::unique_ptr`` などに移行すること。
 * 関数テンプレート ``std::random_shuffle()`` 削除。``std::shuffle()`` に移行すること。
@@ -493,8 +500,10 @@ C++11 や C++14 で deprecated と宣告されたライブラリー要素が C++
   * 関数 ``std::ptr_fun()``, クラス ``std::pointer_to_unary_function``,
     ``std::pointer_to_binary_function``
   * 関数 ``std::mem_fun()``, ``std::mem_fun_ref()``,
-    クラステンプレート ``std::mem_fun_t``, ``std::mem_fun1_t``, ``std::mem_fun_ref_t``, ``std::mem_fun1_ref_t``,
-    ``std::const_mem_fun_t``, ``std::const_mem_fun1_t``, ``std::const_mem_fun_ref_t``, ``std::const_mem_fun1_ref_t``
+    クラステンプレート ``std::mem_fun_t``, ``std::mem_fun1_t``,
+    ``std::mem_fun_ref_t``, ``std::mem_fun1_ref_t``,
+    ``std::const_mem_fun_t``, ``std::const_mem_fun1_t``,
+    ``std::const_mem_fun_ref_t``, ``std::const_mem_fun1_ref_t``
 
   * テンプレートクラス ``std::function`` における ``uses_allocator`` 周り。
 
@@ -503,15 +512,16 @@ C++11 や C++14 で deprecated と宣告されたライブラリー要素が C++
 非推奨
 ======================================================================
 
-C++03 までに提供された機能で deprecated とされるものをここでは列挙する。
+C++03 までに提供された機能で廃止予定機能とされるものをここでは列挙する。
 最近の機能については今のところ習得が不十分なのでここに書くまでもない。
 
-* ヘッダーファイル ``<iterator>`` のクラステンプレート ``std::iterator`` を deprecated とする。
-* ヘッダーファイル ``<memory>`` のうち次の要素を deprecated とする。
+* ヘッダーファイル ``<iterator>`` のクラステンプレート ``std::iterator`` を廃止予定機能とする。
+* ヘッダーファイル ``<memory>`` のうち次の要素を廃止予定機能とする。
 
-  * クラステンプレート ``std::allocator`` の次のメンバーを deprecated とする：
+  * クラステンプレート ``std::allocator`` の次のメンバーを廃止予定機能とする：
 
-    * 型 ``size_type``, ``difference_type``, ``pointer``, ``const_pointer``, ``reference``, ``const_reference``
+    * 型 ``size_type``, ``difference_type``, ``pointer``, ``const_pointer``,
+      ``reference``, ``const_reference``
     * 型 ``rebind``
     * メンバー関数 ``address()``, ``max_size()``, ``construct()``, ``destroy()``
     * メンバー関数 ``allocate()`` の引数 ``hint``
@@ -521,15 +531,15 @@ C++03 までに提供された機能で deprecated とされるものをここ�
   * 関数テンプレート ``std::get_temporary_buffer()``, ``std::return_temporary_buffer()``
   * クラステンプレート ``std::raw_storage_iterator``
 
-* ヘッダーファイル ``<functional>`` のうち次の要素を deprecated とする。
+* ヘッダーファイル ``<functional>`` のうち次の要素を廃止予定機能とする。
 
   * 関数テンプレート ``std::not1()``, ``std::not2()``
   * クラステンプレート ``std::unary_negate``, ``std::binary_nagate``
   * 関数オブジェクト各種の型 ``result_type``, ``argument_type``,
     ``first_argument_type``, ``second_argument_type``
 
-* ヘッダーファイル ``<codecvt>`` を deprecated とする。
-* ヘッダーファイル ``<exception>`` の関数 ``std::uncaught_exception()`` を deprecated とする。
+* ヘッダーファイル ``<codecvt>`` を廃止予定機能とする。
+* ヘッダーファイル ``<exception>`` の関数 ``std::uncaught_exception()`` を廃止予定機能とする。
   代わりに複数形のほうを用いること。
 
 .. include:: /_include/cpp-refs.txt
