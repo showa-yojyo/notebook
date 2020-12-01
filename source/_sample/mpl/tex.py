@@ -5,13 +5,13 @@ You can obtain the original script file from:
 From http://matplotlib.org/mpl_examples/statistics/histogram_demo_features.py
 """
 from numpy.random import randn
-import matplotlib.mlab as mlab
+from scipy.stats import norm
 import matplotlib.pyplot as plt
 
 # pylint: disable=invalid-name
 
 NPDF_TEX = r'''
-$\frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(x - \mu)^{2}}{2 \sigma ^{2}}}$
+$\frac{1}{\sqrt{2 \pi}\sigma} \exp\left(-\frac{(x - \mu)^{2}}{2 \sigma ^{2}}\right)$
 '''
 
 # example data
@@ -25,7 +25,7 @@ n, bins, patches = plt.hist(
     x, NUM_BINS, density=True, facecolor='deeppink', label='random')
 
 # add a 'best fit' line
-y = mlab.normpdf(bins, MU, SIGMA)
+y = norm.pdf(bins, MU, SIGMA)
 plt.plot(bins, y, 'r--', label=NPDF_TEX)
 plt.xlabel('Smarts')
 plt.ylabel('Probability')

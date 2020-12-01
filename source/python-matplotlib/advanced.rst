@@ -45,8 +45,8 @@ IPython_ を起動していれば、下記コードをクリップボードに�
 .. figure:: /_images/scipy-spline-3d.png
    :align: center
    :alt: 空間曲線のプロット
-   :width: 815px
-   :height: 615px
+   :width: 640px
+   :height: 480px
    :scale: 50%
 
    空間曲線のプロット
