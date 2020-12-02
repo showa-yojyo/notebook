@@ -153,7 +153,8 @@ PyOpenGL のプログラムで画像ファイルからテクスチャーを生�
 >>> ...
 >>> im.show()
 
-筆者の環境では Windows のフォトビューワーが起動して、画像の内容が表示された。
+Windows 版ビルドでは Windows のフォトビューワーが起動して、画像の内容が表示された。
+おそらくファイル拡張子に関連付けられたプログラムが起動されるものと思われる。
 
 * オブジェクトが既存のファイルから得られたものでない場合にも通用する。
 
@@ -161,6 +162,22 @@ PyOpenGL のプログラムで画像ファイルからテクスチャーを生�
   場合によってはオブジェクトをファイルに保存しつつ、
   再読み込み機能がある画像ビューワーを開いたままにして、
   デバッグ作業するのもありか。
+
+.. note::
+
+   Linux では ``im.show()`` は ImageMagick の :program:`display` を介して画像を表示する。
+   特に WSL では `VcXsrv X Server`_ などの Windows 用サービスプログラムが
+   Windows 側で稼働していることを必要とする。
+   ``im.show()`` の呼び出しでエラーメッセージが出るようなら、次を確認する：
+
+   * (Windows) VcXsrv などのサービスはインストールされているか
+   * (Windows) VcXsrv などに対するファイアーウォールを無効にしたか。
+   * (WSL) ImageMagick はインストールされているか
+   * (WSL) 環境変数 ``DISPLAY`` を正しくセットしたか
+
+   .. code:: bash
+
+      export DISPLAY=$(grep -oP "(?<=nameserver ).+" /etc/resolv.conf):0.0
 
 ジャギー解消
 ----------------------------------------------------------------------
@@ -511,3 +528,4 @@ Python ディレクトリーの :file:`Scripts` フォルダーに格納され�
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
 .. include:: /_include/python-refs-vision.txt
+.. _`VcXsrv X Server`: http://vcxsrv.sourceforge.net/
