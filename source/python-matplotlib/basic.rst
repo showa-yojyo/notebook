@@ -104,7 +104,7 @@ Axes
      # Split the active figure into 2x1
      # and make axes-2 active.
      plt.subplot(212)
-     
+
      # ...
      # All plotting commands here are applied to axes-2.
 
@@ -181,6 +181,20 @@ Axes
    :width: 815px
    :height: 615px
    :scale: 50%
+
+ただしフォントパスをハードコードするような手法は可搬性がない。上記の技法を本番で用いぬことだ。
+日本語の文字を恒常的に描画させるには、ユーザー設定ファイルでフォントを指定するのが自然だ。
+
+* Cygwin ならファイル ``$HOME/.matplotlib/matplotlib`` を、
+* Linux ならファイル ``$HOME/.cache/matplotlib/matplotlib`
+
+を開いて次の項目に日本語に対応したフォントを指定することだ：
+
+* ``font.family``
+* ``font.sans-serif``: 先頭に加える。
+
+なお、設定ファイルのパスは環境設定のノートで述べるような仕組みで決定されるものだ。
+それは関数 :code:`mpl.matplotlib_fname` に対する :code:`help` で確認できる。
 
 Artists 関連
 ======================================================================
