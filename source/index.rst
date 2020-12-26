@@ -43,6 +43,7 @@ Contents:
    slatkin16
    guntheroth16
    speinellis17
+   bancila18
 
 .. toctree::
    :maxdepth: 1
