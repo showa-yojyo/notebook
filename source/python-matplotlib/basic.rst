@@ -186,7 +186,7 @@ Axes
 日本語の文字を恒常的に描画させるには、ユーザー設定ファイルでフォントを指定するのが自然だ。
 
 * Cygwin ならファイル ``$HOME/.matplotlib/matplotlib`` を、
-* Linux ならファイル ``$HOME/.cache/matplotlib/matplotlib`
+* Linux ならファイル ``$HOME/.cache/matplotlib/matplotlib``
 
 を開いて次の項目に日本語に対応したフォントを指定することだ：
 
