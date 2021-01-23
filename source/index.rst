@@ -90,6 +90,7 @@ Contents:
    python-pyopengl/index
    python-pyqt4
    python-pyqt5
+   python-pandas/index
    python-pygame
    python-pytube
    python-py2exe
