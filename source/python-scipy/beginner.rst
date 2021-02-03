@@ -40,10 +40,6 @@ How to work with SciPy
 * NumPy_ も SciPy_ もプロット機能を提供しない。
   プロットパッケージとしては Matplotlib_ が最も普通に利用されている。
 
-.. todo::
-
-   * Pandas_ とやらを試す。
-
 Learning to work with SciPy
 ======================================================================
 * Python の全般に関するの学習は、公式サイトの Python チュートリアルが素晴らしい。
