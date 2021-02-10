@@ -32,13 +32,5 @@ Pandas 利用ノート
 Pandas_
   開発サイト。
 
-関連ノート
-======================================================================
-
-Pandas の基礎的依存パッケージおよびオプショナルな依存パッケージに関するノートがいくつかある。
-
-* :doc:`/python-numpy/index`
-* :doc:`/python-matplotlib/index`
-
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
