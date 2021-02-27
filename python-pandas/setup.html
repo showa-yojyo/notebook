@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>環境構築 &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="学習方法" href="learning.html" />
+    <link rel="prev" title="Pandas 利用ノート" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="learning.html" title="学習方法"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="index.html" title="Pandas 利用ノート"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Pandas 利用ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">環境構築</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id8">環境構築</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://pandas.pydata.org/">Pandas</a> の環境構築について記す。当ノート著者は Windows PC でプログラミング作業をしており、
+<a class="reference external" href="https://www.python.org/">Python</a> は Windows Subsystem for Linux (Ubuntu) 環境に <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a> をインストールすることでそのサードパーティー製ライブラリーを管理している。</p>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#id1" id="id8">環境構築</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id9">ドキュメント準備</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id10">インストール</a></p>
+<ul>
+<li><p><a class="reference internal" href="#pandas" id="id11">Pandas 本体をインストールする</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id12">お好みでその他のライブラリーをインストールする</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id5" id="id13">テスト</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id14">関連ノート</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id9">ドキュメント準備</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>オフライン環境で <a class="reference external" href="https://pandas.pydata.org/">Pandas</a> のドキュメントを読めるようにしておく。公式サイトから Download documentation と書いてあるところの隣のリンクから
+HTML ファイル版のをダウンロードして、ブラウザーにトップページのブックマークを追加しておく。</p>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id10">インストール</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="pandas">
+<h3><a class="toc-backref" href="#id11">Pandas 本体をインストールする</a><a class="headerlink" href="#pandas" title="Permalink to this headline">¶</a></h3>
+<p>上述の理由から、Miniconda の適当な仮想環境を <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span></code> した状態で次の一行を実行することで終わる。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ conda install pandas</span>
+</pre></div>
+</div>
+<p>依存ライブラリーも同時にインストールされるので、これだけで <a class="reference external" href="https://pandas.pydata.org/">Pandas</a> のチュートリアルの大部分を実行可能な環境ができる。</p>
+</div>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id12">お好みでその他のライブラリーをインストールする</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://pandas.pydata.org/">Pandas</a> を利用する目的にもよるが、以下に挙げるサードパーティー製ライブラリーも併せてインストールしておくと良いとされている：</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.pytest.org/en/latest/">pytest</a>, <a class="reference external" href="https://hypothesis.readthedocs.io/">Hypothesis</a>: 後述する単体テストを実行するため。</p></li>
+<li><p><a class="reference external" href="https://www.crummy.com/software/BeautifulSoup">BeautifulSoup4</a>, <a class="reference external" href="https://lxml.de/">lxml</a>: HTML ファイルを読み込んで DataFrame を生成するため。</p></li>
+<li><p><a class="reference external" href="https://openpyxl.readthedocs.io/">openpyxl</a>, XLsxWriter, xlrd, xlwt: MS Excel ファイルとの I/O 機能を利用するため。</p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/">Matplotlib</a>: DataFrame オブジェクトをプロットするため。</p></li>
+<li><p><a class="reference external" href="https://github.com/pydata/numexpr">numexpr</a>, <a class="reference external" href="https://github.com/pydata/bottleneck">bottleneck</a>: ある種の計算速度を向上させるため。この二つについては公式ドキュメントが recommended dependencies であると述べている。</p></li>
+</ul>
+<p>いずれのライブラリーについても、インストール手段はコンソールからの
+<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span></code> コマンドまたは <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> コマンドを実行することによる。</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id13">テスト</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://ipython.org/">IPython</a> のセッションを起動して、次のように単体テストを実行する。</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="gp">In [2]: </span><span class="n">pd</span><span class="o">.</span><span class="n">test</span><span class="p">()</span>
+<span class="go">running: pytest --skip-slow --skip-network --skip-db /home/$USER/miniconda3/envs/python-3.9/lib/python3.9/site-packages/pandas</span>
+<span class="go">================================================= test session starts ==================================================</span>
+<span class="go">platform linux -- Python 3.9.1, pytest-6.2.2, py-1.10.0, pluggy-0.12.0</span>
+<span class="go">rootdir: /home/$USER</span>
+<span class="go">plugins: hypothesis-6.1.0</span>
+<span class="go">collected 152308 items / 14 skipped / 152294 selected</span>
+
+<span class="go">miniconda3/envs/python-3.9/lib/python3.9/site-packages/pandas/tests/test_aggregation.py ........                 [  0%]</span>
+<span class="go">miniconda3/envs/python-3.9/lib/python3.9/site-packages/pandas/tests/test_algos.py .............................. [  0%]</span>
+<span class="go">（略）</span>
+<span class="go">========== 22 failed, 134718 passed, 16562 skipped, 1010 xfailed, 3 warnings, 10 errors in 2525.42s (0:42:05) ==========</span>
+<span class="go">An exception has occurred, use %tb to see the full traceback.</span>
+
+<span class="go">SystemExit: ExitCode.TESTS_FAILED</span>
+
+<span class="go">/home/$USER/miniconda3/envs/python-3.9/lib/python3.9/site-packages/IPython/core/interactiveshell.py:3426: UserWarning: To exit: use &#39;exit&#39;, &#39;quit&#39;, or Ctrl-D.</span>
+<span class="go">  warn(&quot;To exit: use &#39;exit&#39;, &#39;quit&#39;, or Ctrl-D.&quot;, stacklevel=1)</span>
+
+<span class="gp">In [3]:</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id14">関連ノート</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>Python のサードパーティー製ライブラリーのインストール手段全般についてのノートがすでにある。</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../python-upgrade.html"><span class="doc">Python 移行ノート</span></a></p></li>
+<li><p><a class="reference internal" href="../python-miniconda.html"><span class="doc">Miniconda 利用ノート</span></a></p></li>
+<li><p><a class="reference internal" href="../python-pip.html"><span class="doc">pip 利用ノート</span></a></p></li>
+</ul>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="learning.html" title="学習方法"
+             >next</a></li>
+        <li class="right" >
+          <a href="index.html" title="Pandas 利用ノート"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Pandas 利用ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">環境構築</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

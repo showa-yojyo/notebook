@@ -1,0 +1,495 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>What’s New In C++17 言語仕様 &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="What’s New In C++17 標準ライブラリー" href="library.html" />
+    <link rel="prev" title="What’s New In C++17 ノート" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="library.html" title="What’s New In C++17 標準ライブラリー"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="index.html" title="What’s New In C++17 ノート"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">What’s New In C++17 ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">What’s New In C++17 言語仕様</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="what-s-new-in-c-17">
+<h1><a class="toc-backref" href="#id18">What’s New In C++17 言語仕様</a><a class="headerlink" href="#what-s-new-in-c-17" title="Permalink to this headline">¶</a></h1>
+<p>このノートでは C++17 で注目すべき言語仕様を学習する。すでに <a class="reference external" href="https://cpprefjp.github.io/site">cpprefjp</a> がそのへんをきれいに整理している。それを利用して、読みながら急所を記していくことにする。</p>
+<p>タイピングの都合で訳語は <a class="reference external" href="https://cpprefjp.github.io/site">cpprefjp</a> のものと一部変更して記す。</p>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#what-s-new-in-c-17" id="id18">What’s New In C++17 言語仕様</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id1" id="id19">変数・データ構造関係</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id20">16 進浮動小数点数リテラルのサポート</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id21">インライン変数</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id22">構造化束縛</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id23">厳密な式の評価順</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id24">その他</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id7" id="id25">制御構文</a></p>
+<ul>
+<li><p><a class="reference internal" href="#if-switch" id="id26"><cite>if</cite> 文と <cite>switch</cite> 文の括弧の中で変数の初期化が許される</a></p></li>
+<li><p><a class="reference internal" href="#fallthrough" id="id27">属性 <code class="docutils literal notranslate"><span class="pre">[[fallthrough]]</span></code></a></p></li>
+<li><p><a class="reference internal" href="#if-constexpr" id="id28"><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">constexpr</span></code> 文</a></p></li>
+<li><p><a class="reference internal" href="#for" id="id29">範囲 <code class="docutils literal notranslate"><span class="pre">for</span></code> ループにおける仕様変更</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id8" id="id30">ラムダ式</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id31">テンプレート</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id32">定数式</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id33">名前空間</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id34">例外</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id35">属性</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id36">プリプロセッサ</a></p></li>
+<li><p><a class="reference internal" href="#id15" id="id37">削除</a></p></li>
+<li><p><a class="reference internal" href="#id16" id="id38">小さな変更</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h2><a class="toc-backref" href="#id19">変数・データ構造関係</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3><a class="toc-backref" href="#id20">16 進浮動小数点数リテラルのサポート</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>16 進浮動小数点数リテラルのサポート。これにより値を正確に表現できる。IEEE754 的なアレだ。</p>
+<ul class="simple">
+<li><p>書式は prefix 仮数部 指数部 suffix という構成だ。ここで</p>
+<ul>
+<li><p>prefix は <code class="docutils literal notranslate"><span class="pre">0x</span></code> または <code class="docutils literal notranslate"><span class="pre">0X</span></code> のいずれか必須</p></li>
+<li><p>仮数部は整数部と小数部を <code class="docutils literal notranslate"><span class="pre">.</span></code> でつなげて書く。ただし文字は 16 進数文字が使える。</p></li>
+<li><p>指数部（掛ける 2 の何乗であるかを示す部位）は prefix 符号 整数という構成</p>
+<ul>
+<li><p>prefix は <code class="docutils literal notranslate"><span class="pre">p</span></code> または <code class="docutils literal notranslate"><span class="pre">P</span></code></p></li>
+<li><p>符号は <code class="docutils literal notranslate"><span class="pre">+</span></code> または <code class="docutils literal notranslate"><span class="pre">-</span></code></p></li>
+<li><p>整数は十進数で記す</p></li>
+</ul>
+</li>
+<li><p>suffix は次のとおり</p>
+<ul>
+<li><p>指定がなければ <code class="docutils literal notranslate"><span class="pre">double</span></code> 型</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">f</span></code> または <code class="docutils literal notranslate"><span class="pre">F</span></code> ならば <code class="docutils literal notranslate"><span class="pre">float</span></code> 型</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">l</span></code> または <code class="docutils literal notranslate"><span class="pre">L</span></code> ならば <code class="docutils literal notranslate"><span class="pre">long</span> <span class="pre">double</span></code> 型</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h3><a class="toc-backref" href="#id21">インライン変数</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>インライン関数の変数版が追加された。これにともない <code class="docutils literal notranslate"><span class="pre">inline</span></code> の意味も若干変化するようだ。さらに <code class="docutils literal notranslate"><span class="pre">constexpr</span></code> との絡みもある。</p>
+<p>以下、すべての式はあるヘッダーファイルでなされるものとする。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">inline</span> <span class="pre">type</span> <span class="pre">name</span> <span class="pre">=</span> <span class="pre">value;</span></code> と宣言かつ定義することが許される。この場合、これを <code class="docutils literal notranslate"><span class="pre">#include</span></code> する翻訳単位すべてにおいて <code class="docutils literal notranslate"><span class="pre">name</span></code> で参照される実体は同一となる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">static</span> <span class="pre">inline</span> <span class="pre">type</span> <span class="pre">name</span> <span class="pre">=</span> <span class="pre">value;</span></code> と宣言かつ定義することが許される。この場合には翻訳単位ごとに実体は別物になる。</p></li>
+<li><p>静的メンバー変数であって <code class="docutils literal notranslate"><span class="pre">constexpr</span></code> が付くものは暗黙的に <code class="docutils literal notranslate"><span class="pre">inline</span></code> となる。</p></li>
+<li><p>注意として <code class="docutils literal notranslate"><span class="pre">constexpr</span></code> が付く関数は暗黙的に <code class="docutils literal notranslate"><span class="pre">inline</span></code> 関数だが、
+<code class="docutils literal notranslate"><span class="pre">constexpr</span></code> 変数に関してはそのようなことはない。</p></li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id22">構造化束縛</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>Python における次のようなコードと同等の代入構文が追加。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">values</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,)</span>
+<span class="n">first</span><span class="p">,</span> <span class="n">second</span><span class="p">,</span> <span class="n">third</span> <span class="o">=</span> <span class="n">values</span>
+</pre></div>
+</div>
+<p>C++17 ではこのように書く：</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span> <span class="p">[</span><span class="n">first</span><span class="p">,</span> <span class="n">second</span><span class="p">,</span> <span class="n">third</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">auto</span></code> の部分には <code class="docutils literal notranslate"><span class="pre">const</span></code>/<code class="docutils literal notranslate"><span class="pre">volatile</span></code>, <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> を付けてもよい。</p></li>
+<li><p>この記法を適用できるのは右辺が組み込み配列、構造体（の非静的メンバー変数）、
+<code class="docutils literal notranslate"><span class="pre">std::pair</span></code>, <code class="docutils literal notranslate"><span class="pre">std::tuple</span></code>, etc.</p></li>
+<li><p>要素の順序はユーザー定義型ならばメンバー変数の宣言順序と、配列ならば位置の順序とそれぞれ等しい。</p></li>
+<li><p>この機能の弱点</p>
+<ul>
+<li><p>未使用変数を指定する手段がない。その結果、不要なコピーが生じるかもしれない。</p></li>
+<li><p>入れ子の一括束縛はサポートされていない。</p></li>
+</ul>
+</li>
+<li><p>その他にも細かい規則がある。使うときに確認。</p></li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id23">厳密な式の評価順</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">operator.()</span></code>, <code class="docutils literal notranslate"><span class="pre">operator-&gt;()</span></code>, <code class="docutils literal notranslate"><span class="pre">operator.*()</span></code>, <code class="docutils literal notranslate"><span class="pre">operator-&gt;*()</span></code> の引数の評価順が引数、オブジェクトの順になる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">operator()()</span></code>, 関数、コンストラクターの引数の評価順が引数リストの左から右に順番に評価される。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">operator[]()</span></code>. <code class="docutils literal notranslate"><span class="pre">operator&gt;&gt;()</span></code>, <code class="docutils literal notranslate"><span class="pre">operator&lt;&lt;()</span></code> も左から右とする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">operator=()</span></code> は右から左とする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">operator+=()</span></code> などの代入を伴う二項演算子は右から左とする。</p></li>
+<li><p>メンバー関数の形で提供される <code class="docutils literal notranslate"><span class="pre">operator?()</span></code> は、それが準じる組み込み演算子の評価順に合わせるものとする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">new()</span></code> 系はメモリー確保を先に行い、それから初期化子の評価を行うものとする。</p></li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id24">その他</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p><em>braced-init-list</em> による**直接**初期化における型推論。<code class="docutils literal notranslate"><span class="pre">auto</span></code> 変数の型を決定する規則が細かくなった。</p>
+<ul class="simple">
+<li><p><em>braced-init-list</em> が単一要素からなるときには、その要素の型を推論するものとする。</p></li>
+<li><p><em>braced-init-list</em> が同一の型を持たない要素複数からなるときは、コンパイルエラーとなる。例えば <code class="docutils literal notranslate"><span class="pre">int</span></code> と <code class="docutils literal notranslate"><span class="pre">double</span></code> のような（昇格可能な）ケースでも不適合とする。</p></li>
+</ul>
+</li>
+<li><p>属性 <code class="docutils literal notranslate"><span class="pre">[[maybe_unused]]</span></code>, <code class="docutils literal notranslate"><span class="pre">[[nodiscard]]</span></code> が追加。後述。</p></li>
+<li><p>値のコピー省略を保証</p>
+<ul class="simple">
+<li><p>〈右辺値を変数の初期化のために使用する場合、コピーもムーブも省略する〉保証のことだが、
+C++ という言語の性質を考えると、生半可な理解でここに何かを書くことを避けたい。</p></li>
+<li><p>今まで別の新機能を試すのに書いたコードにおいて、この手のコンストラクターが呼び出されなかったことがあった。それがこの C++17 新機能によるものだとすれば、理解を誤っていることになる。これは怖い。</p></li>
+</ul>
+</li>
+<li><p>参照メンバーや <code class="docutils literal notranslate"><span class="pre">const</span></code> メンバーをもつクラスに対する placement new の適用。</p>
+<ul class="simple">
+<li><p>これについては背景がわからない。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">enum</span> <span class="pre">class</span></code> 変数の初期化のときに整数を用いることが許される。ただし次の条件をすべて満たすときに限る：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">enum</span> <span class="pre">class</span></code> に基底型が指定されている</p></li>
+<li><p>初期化リストが単一の要素からなる</p></li>
+<li><p>直接初期化である</p></li>
+<li><p>精度を失わない変換である</p></li>
+</ul>
+<p><a class="reference external" href="https://cpprefjp.github.io/site">cpprefjp</a> のデモコードでは列挙子のない <code class="docutils literal notranslate"><span class="pre">byte</span></code> という scoped enum を定義している。このコードは上の条件をすべて説明してくれている。</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">new()</span></code> のオーバーロード <code class="docutils literal notranslate"><span class="pre">void*</span> <span class="pre">operator</span> <span class="pre">new(std::size_t,</span> <span class="pre">std::align_val_t)</span></code> が追加。これにより <code class="docutils literal notranslate"><span class="pre">alinas()</span></code> を用いた自前の型を定義しなくても、記憶領域を動的に割り当てる際に直接 alignment を指定することができるかもしれない。</p></li>
+<li><p>集成体初期化の拡張において、その基底クラスに対しても初期化可能になる。</p>
+<ul class="simple">
+<li><p>基底クラスに対する <em>braced-init-list</em> を派生クラスに対するそれの中に入れ子にして書けばいいようだ。最初に現れる <em>braced-init-list</em> が（最初の）基底クラスに対する <em>braced-init-list</em> と解釈されるのだろう。</p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id25">制御構文</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="if-switch">
+<h3><a class="toc-backref" href="#id26"><cite>if</cite> 文と <cite>switch</cite> 文の括弧の中で変数の初期化が許される</a><a class="headerlink" href="#if-switch" title="Permalink to this headline">¶</a></h3>
+<p>Python で言うところの <code class="docutils literal notranslate"><span class="pre">:=</span></code> のような役割を果たすのだろうか？セミコロンを使うことになるので、書く手間は Python と同じ程度？</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">n</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">){</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="c1">// 初期化コードは optional</span>
+<span class="k">switch</span><span class="p">(;</span> <span class="kt">size_t</span> <span class="n">n</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">()){</span>
+<span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="fallthrough">
+<h3><a class="toc-backref" href="#id27">属性 <code class="docutils literal notranslate"><span class="pre">[[fallthrough]]</span></code></a><a class="headerlink" href="#fallthrough" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">switch</span></code> 文で <code class="docutils literal notranslate"><span class="pre">case</span></code> ラベルの処理が何かあり、その処理を <code class="docutils literal notranslate"><span class="pre">break</span></code> せずに次の <code class="docutils literal notranslate"><span class="pre">case</span></code> ラベルの処理を敢えてさせたいとする。このときまともなコンパイラーは警告を出す。それを抑止するために、コンパイラーが <code class="docutils literal notranslate"><span class="pre">break</span></code> を期待している行に
+<code class="docutils literal notranslate"><span class="pre">[[fallthrough]]</span></code> と書くことが許される。</p>
+<p>これは使わないから覚えなくていい。</p>
+</div>
+<div class="section" id="if-constexpr">
+<h3><a class="toc-backref" href="#id28"><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">constexpr</span></code> 文</a><a class="headerlink" href="#if-constexpr" title="Permalink to this headline">¶</a></h3>
+<p>コンパイル時に <code class="docutils literal notranslate"><span class="pre">if</span></code> 文を評価させる構文だ。構文は <code class="docutils literal notranslate"><span class="pre">if</span></code> と括弧の間にキーワード <code class="docutils literal notranslate"><span class="pre">constexpr</span></code> を挟むだけの単純なものだ。使い方はふつうの <code class="docutils literal notranslate"><span class="pre">constexpr</span></code> と同程度に難しい。</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="n">condition</span><span class="p">){</span>
+    <span class="n">statement</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="for">
+<h3><a class="toc-backref" href="#id29">範囲 <code class="docutils literal notranslate"><span class="pre">for</span></code> ループにおける仕様変更</a><a class="headerlink" href="#for" title="Permalink to this headline">¶</a></h3>
+<p>対象となる範囲の <code class="docutils literal notranslate"><span class="pre">begin()</span></code> と <code class="docutils literal notranslate"><span class="pre">end()</span></code> の型が異なっていても OK となる。</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">//auto first = range.begin(), last = range.end();</span>
+<span class="k">auto</span> <span class="n">first</span> <span class="o">=</span> <span class="n">range</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+<span class="k">auto</span> <span class="n">last</span> <span class="o">=</span> <span class="n">range</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
+<span class="k">for</span><span class="p">(;</span> <span class="n">first</span> <span class="o">!=</span> <span class="n">last</span><span class="p">;</span> <span class="o">++</span><span class="n">first</span><span class="p">){</span>
+    <span class="n">statement</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id30">ラムダ式</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>ラムダ式において、捕獲リストに <code class="docutils literal notranslate"><span class="pre">*this</span></code> を指定すると copy capture することになる。</p>
+<ul>
+<li><p>オブジェクトをコピーした上で <code class="docutils literal notranslate"><span class="pre">const</span></code> になる。非 <code class="docutils literal notranslate"><span class="pre">const</span></code> メンバー関数を呼び出せない。それを避けるにはラムダ式を <code class="docutils literal notranslate"><span class="pre">mutable</span></code> にする。
+<a class="reference external" href="https://cpprefjp.github.io/site">cpprefjp</a> の例ではメンバー関数 <code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">F::onFinish(int)</span></code> が非 <code class="docutils literal notranslate"><span class="pre">const</span></code> であることに注意。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">constexpr</span></code> ラムダ式。もしラムダ式が定数式であるような場合にコンパイル時に評価させる。</p>
+<ul>
+<li><p>ラムダ式関連の機能の学習は後回しにして一気にやる。</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id9">
+<h2><a class="toc-backref" href="#id31">テンプレート</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>畳み込みをサポート。〈可変引数テンプレートのパラメータパックに対して二項演算を累積的に行う〉機能。</p>
+<ul>
+<li><p><a class="reference external" href="https://cpprefjp.github.io/site">cpprefjp</a> のデモコードにおける <code class="docutils literal notranslate"><span class="pre">sum()</span></code>, <code class="docutils literal notranslate"><span class="pre">sum0()</span></code>, <code class="docutils literal notranslate"><span class="pre">all()</span></code>, <code class="docutils literal notranslate"><span class="pre">print_all()</span></code> のコードをよく見ておくこと。</p></li>
+<li><p>畳み込みを分類すると次のようになるようだ：</p>
+<ul class="simple">
+<li><p>単項演算子を用いるか二項演算子を用いるか</p></li>
+<li><p>左畳み込みか右畳み込みか（演算子のオペランドの評価順によって使い分けるのだろう）。</p></li>
+</ul>
+</li>
+<li><p>畳み込み式は丸括弧で囲まれることで表すものとする。シンプルだ。</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">auto</span> <span class="n">fold</span><span class="p">(</span><span class="n">T</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">args</span> <span class="n">op</span> <span class="p">...);</span> <span class="c1">// i.e. arg1 op ... op argN</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>キーワード <code class="docutils literal notranslate"><span class="pre">typename</span></code> をテンプレートテンプレート引数に書くことが許される。今まで書けなかったのか。</p></li>
+<li><p>クラステンプレートのテンプレート引数推論</p>
+<ul class="simple">
+<li><p>オブジェクト生成時にコンストラクターへの実引数からクラステンプレートのテンプレート引数を推論する機能だ。例えば <code class="docutils literal notranslate"><span class="pre">std::vector&lt;int&gt;</span> <span class="pre">v</span> <span class="pre">{1,</span> <span class="pre">2,</span> <span class="pre">3}</span></code> のつもりで <code class="docutils literal notranslate"><span class="pre">std::vector</span> <span class="pre">{1,</span> <span class="pre">2,</span> <span class="pre">3}</span></code> と書ける。</p></li>
+<li><p>この機能に伴い、推論補助という機能が追加。ここはあとでやる。</p></li>
+<li><p>この機能に伴い、デフォルトテンプレート引数のみを持つクラステンプレートは、生成時に <code class="docutils literal notranslate"><span class="pre">&lt;...&gt;</span></code> 部分を省略できるようになった。</p></li>
+<li><p>標準ライブラリーでの適用例を習得しておくこと。</p></li>
+</ul>
+</li>
+<li><p>非型テンプレート引数の型に <code class="docutils literal notranslate"><span class="pre">auto</span></code> が許される。実際に推論された型を欲しいときには
+<code class="docutils literal notranslate"><span class="pre">decltype()</span></code> を利用する。</p></li>
+<li><p>非型テンプレート引数リストの定数式評価が許される。</p>
+<ul class="simple">
+<li><p>具体的にはポインターが該当する。ポインター（や配列や関数）のうち、定数式評価が可能なものならば非型テンプレート引数として与えてよい。</p></li>
+<li><p>これも消化し切れていない。のちほど。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">using</span></code> 宣言のパック展開。</p>
+<p>基底クラスのメンバーをまとめてパック展開する使い方が許される。
+<a class="reference external" href="https://cpprefjp.github.io/site">cpprefjp</a> より引用：</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+
+<span class="k">struct</span> <span class="nc">ForLong</span> <span class="p">{</span>
+    <span class="kt">void</span> <span class="nf">operator</span><span class="p">()(</span><span class="kt">long</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;ForLong:&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">v</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">struct</span> <span class="nc">ForString</span> <span class="p">{</span>
+    <span class="kt">void</span> <span class="nf">operator</span><span class="p">()(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;ForString:&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">v</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="nc">ForAll</span> <span class="o">:</span> <span class="n">T</span><span class="p">...</span> <span class="p">{</span>
+    <span class="k">using</span> <span class="n">T</span><span class="o">::</span><span class="k">operator</span><span class="p">()...;</span>
+    <span class="kt">void</span> <span class="nf">operator</span><span class="p">()(</span><span class="kt">int</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;ForAll:&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">v</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</li>
+<li><p>変数テンプレートの「デフォルトテンプレート」が許される。
+<a class="reference external" href="https://cpprefjp.github.io/site">cpprefjp</a> の例を一部改変：</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;cassert&gt;</span><span class="cp"></span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span><span class="o">=</span><span class="kt">int</span><span class="o">&gt;</span>
+<span class="n">T</span> <span class="n">x</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">auto</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">&lt;&gt;</span><span class="p">;</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="id10">
+<h2><a class="toc-backref" href="#id32">定数式</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">static_assert()</span></code> の第二引数の省略が許される。元ネタの <code class="docutils literal notranslate"><span class="pre">assert()</span></code> に引数が一つしかないのだから考えられる。</p></li>
+<li><p>先述したように <code class="docutils literal notranslate"><span class="pre">constexpr</span></code> ラムダ式が使えるようになる。</p></li>
+<li><p>先述したように <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">constexpr</span></code> 文が使えるようになる。</p></li>
+</ul>
+</div>
+<div class="section" id="id11">
+<h2><a class="toc-backref" href="#id33">名前空間</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>ダブルコロンを連結した名前を書くことでスコープを入れ子にすることなく部分名前空間を定義することが許される。</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span> <span class="n">aaa</span><span class="o">::</span><span class="n">bbb</span><span class="o">::</span><span class="n">cc</span>
+<span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>名前空間に対して属性を与えることが許される。</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span> <span class="p">[[</span><span class="n">deprecated</span><span class="p">]]</span> <span class="n">aaa</span>
+<span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">using</span></code> ディレクティブでパック展開が許される。</p>
+<p>次のように <code class="docutils literal notranslate"><span class="pre">using</span></code> 宣言の行にカンマ区切りで識別子を並べることができる。</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="id12">
+<h2><a class="toc-backref" href="#id34">例外</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>関数の型に例外仕様が含まれるようになった。</p>
+<ul>
+<li><p>ここで言う例外仕様とは <code class="docutils literal notranslate"><span class="pre">noexcept()</span></code> によるものしか差さない。旧式の <code class="docutils literal notranslate"><span class="pre">throw()</span></code> はもう忘れろ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">noexcept(false)</span></code> な関数ポインターを <code class="docutils literal notranslate"><span class="pre">noexcept(true)</span></code> な関数ポインターにキャストすることは許されない。端的に言うと、<code class="docutils literal notranslate"><span class="pre">noexcept</span></code> の違いしかない関数を多重定義することは許されない。</p></li>
+<li><p>ラムダ式の型においてもこの仕様が適用される。</p></li>
+<li><p>この仕様変更により、C++14 まで適法だったコードが違法になることもある。</p></li>
+</ul>
+</li>
+<li><p>旧式の例外仕様削除。つまり <code class="docutils literal notranslate"><span class="pre">throw(xxx)</span></code> と書けなくなる。代わりに <code class="docutils literal notranslate"><span class="pre">noexcept(bool)</span></code> を利用することができる。例外を送出するか否かが本質的なのだ。</p></li>
+</ul>
+</div>
+<div class="section" id="id13">
+<h2><a class="toc-backref" href="#id35">属性</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>属性 <code class="docutils literal notranslate"><span class="pre">[[fallthrough]]</span></code> が追加。先述のとおり。</p></li>
+<li><p>属性 <code class="docutils literal notranslate"><span class="pre">[[maybe_unused]]</span></code> が追加。コンパイラーの未使用変数の警告を抑止する。</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">[[</span><span class="n">maybe_unused</span><span class="p">]]</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">[[</span><span class="n">maybe_unused</span><span class="p">]]</span> <span class="kt">void</span> <span class="n">f</span><span class="p">();</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="p">[[</span><span class="n">maybe_unused</span><span class="p">]]</span> <span class="kr">inline</span> <span class="kt">void</span> <span class="n">g</span><span class="p">();</span>
+</pre></div>
+</div>
+</li>
+<li><p>属性 <code class="docutils literal notranslate"><span class="pre">[[nodiscard]]</span></code> が追加。関数の戻り値を呼び出し側が無視してはならないことを指示する。ユーザー定義型に与える方法と関数宣言に与える方法がある。</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="p">[[</span><span class="n">nodiscard</span><span class="p">]]</span> <span class="n">error_info</span> <span class="p">{};</span>
+
+<span class="n">error_info</span> <span class="nf">f</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">error_info</span><span class="p">{};</span> <span class="p">}</span>
+
+<span class="p">[[</span><span class="n">nodiscard</span><span class="p">]]</span> <span class="kt">int</span> <span class="n">g</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>名前空間に属性を与えることが許される。先述のとおり。</p></li>
+<li><p>列挙型の列挙子に属性を与えることが許される。その場合には列挙子とカンマの間に属性を記す。</p></li>
+<li><p>属性内の名前空間の指定をいちどにできる構文が追加。属性の先頭部分に <code class="docutils literal notranslate"><span class="pre">using</span></code> 名前空間 <code class="docutils literal notranslate"><span class="pre">:</span></code> の順に記述し、その後に続けて属性の名前を記述する。</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// [[CC::opt(1), CC::debug]] void f(){} と同じ</span>
+<span class="p">[[</span><span class="k">using</span> <span class="nl">CC</span><span class="p">:</span> <span class="n">opt</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">debug</span><span class="p">]]</span> <span class="kt">void</span> <span class="n">f</span><span class="p">(){}</span>
+</pre></div>
+</div>
+</li>
+<li><p>標準が定義していない属性であり、コンパイラーにとっても不明な属性はコンパイラーは単に無視するものとする。</p></li>
+</ul>
+</div>
+<div class="section" id="id14">
+<h2><a class="toc-backref" href="#id36">プリプロセッサ</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">__has_include</span></code> という関数型マクロが追加される。これはインクルードするファイルが存在するかを確認するのに用いられる。従来は、欲しいヘッダーファイルに定義されている定数が定義されているか、のようなテストでその存在を確認していた。今回追加のこのマクロにより、コンパイラー（プリプロセッサー）がヘッダーファイル自体の存在をテストすることができるようになる。</p>
+<p>使わなそうだから習得しなくていいだろう。</p>
+</div>
+<div class="section" id="id15">
+<h2><a class="toc-backref" href="#id37">削除</a><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>トライグラフ削除。これは使わなかったはずなので気にしなくていい。</p></li>
+<li><p>キーワード <code class="docutils literal notranslate"><span class="pre">register</span></code> の削除。これが修飾する変数は文字通りレジスターに格納されるという振る舞いだったはずだが、マニアックなライブラリー実装者くらいしか使うことはなかったのでは？</p></li>
+<li><p>演算子 <code class="docutils literal notranslate"><span class="pre">bool::operator++</span></code> 前置後置どちらも削除。こんなオーバーロードがあったとは知らなかった。</p>
+<ul>
+<li><p><a class="reference external" href="https://cpprefjp.github.io/site">cpprefjp</a> に書いてあるテキストが面白い。</p></li>
+</ul>
+</li>
+<li><p>先述したように旧式の例外仕様は廃止。</p></li>
+</ul>
+</div>
+<div class="section" id="id16">
+<h2><a class="toc-backref" href="#id38">小さな変更</a><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>定義済みマクロ</p>
+<ul>
+<li><p>マクロ <code class="docutils literal notranslate"><span class="pre">__cplusplus</span></code> の値が <code class="docutils literal notranslate"><span class="pre">201703L</span></code> に更新。</p></li>
+<li><p>マクロ <code class="docutils literal notranslate"><span class="pre">`__STDCPP_DEFAULT_NEW_ALIGNMENT__</span></code> が追加。使わないので忘れていい。</p></li>
+</ul>
+</li>
+<li><p>機能テストマクロ。C++17 の機能がサポートされているかを判定するのに用いる。量が多いので割愛。</p></li>
+<li><p>次の条件を満たす例外仕様のあるラムダ式から関数ポインターに変換する際に、変換後のものに同等の例外仕様を与えるものとする。</p>
+<ul>
+<li><p>ラムダ式はキャプチャーを持たない。</p></li>
+<li><p>ラムダ式は汎用ラムダ式ではない。</p></li>
+</ul>
+</li>
+<li><p>UTF-8 文字リテラル（文字列ではなく文字）が許される。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">u8'A'</span></code> のような書き方をすればいい。</p></li>
+<li><p>ただしコードポイントの範囲に制限がある。<code class="docutils literal notranslate"><span class="pre">char</span></code> の表現できるサイズに収まらなければならない。</p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="library.html" title="What’s New In C++17 標準ライブラリー"
+             >next</a></li>
+        <li class="right" >
+          <a href="index.html" title="What’s New In C++17 ノート"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >What’s New In C++17 ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">What’s New In C++17 言語仕様</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

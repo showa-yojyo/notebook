@@ -6,8 +6,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>応用テク &#8212; 読書ノート v1.5dev</title>
-    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
     
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/mathjax-v3.js"></script>
@@ -36,7 +36,7 @@
             
   <div class="section" id="id1">
 <h1><a class="toc-backref" href="#id4">応用テク</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<p>本稿では LaTeX 表記の実現や 3D プロット等、比較的高度な <a class="reference external" href="http://matplotlib.org/">Matplotlib</a> の機能を利用する。</p>
+<p>本稿では LaTeX 表記の実現や 3D プロット等、比較的高度な <a class="reference external" href="https://matplotlib.org/">Matplotlib</a> の機能を利用する。</p>
 <div class="contents topic" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
@@ -54,7 +54,7 @@
 <p>Matplotlib のすべてのテキスト API は LaTeX の数式を受け付けてくれる。文字列内の <code class="docutils literal notranslate"><span class="pre">$</span></code> で囲まれた部分が LaTeX 表現と認識されるようだ。何も工夫しないでいると文字列がバックスラッシュの嵐になるので、
 Python のコードで raw string 形式で数式を含む文字列を定義するのが吉だろう。</p>
 <p>次のスクリプトは Matplotlib のサンプルコードを一部改変したものである。
-<a class="reference external" href="http://ipython.org/">IPython</a> を起動していれば、下記コードをクリップボードにコピーして、コンソールで <code class="code docutils literal notranslate"><span class="pre">%paste</span></code> すれば結果が見られる。</p>
+<a class="reference external" href="https://ipython.org/">IPython</a> を起動していれば、下記コードをクリップボードにコピーして、コンソールで <code class="code docutils literal notranslate"><span class="pre">%paste</span></code> すれば結果が見られる。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="sd">&quot;&quot;&quot;tex.py: Demonstrate how to use TeX notation in Matplotlib.</span>
 
@@ -62,13 +62,13 @@ Python のコードで raw string 形式で数式を含む文字列を定義す�
 <span class="sd">From http://matplotlib.org/mpl_examples/statistics/histogram_demo_features.py</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">randn</span>
-<span class="kn">import</span> <span class="nn">matplotlib.mlab</span> <span class="k">as</span> <span class="nn">mlab</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="c1"># pylint: disable=invalid-name</span>
 
 <span class="n">NPDF_TEX</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;&#39;&#39;</span>
-<span class="s1">$\frac</span><span class="si">{1}</span><span class="s1">{\sigma \sqrt{2 \pi}} e^{-\frac{(x - \mu)^</span><span class="si">{2}</span><span class="s1">}{2 \sigma ^</span><span class="si">{2}</span><span class="s1">}}$</span>
+<span class="s1">$\frac</span><span class="si">{1}</span><span class="s1">{\sqrt{2 \pi}\sigma} \exp\left(-\frac{(x - \mu)^</span><span class="si">{2}</span><span class="s1">}{2 \sigma ^</span><span class="si">{2}</span><span class="s1">}\right)$</span>
 <span class="s1">&#39;&#39;&#39;</span>
 
 <span class="c1"># example data</span>
@@ -82,7 +82,7 @@ Python のコードで raw string 形式で数式を含む文字列を定義す�
     <span class="n">x</span><span class="p">,</span> <span class="n">NUM_BINS</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;deeppink&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">)</span>
 
 <span class="c1"># add a &#39;best fit&#39; line</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">normpdf</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">MU</span><span class="p">,</span> <span class="n">SIGMA</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">MU</span><span class="p">,</span> <span class="n">SIGMA</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">NPDF_TEX</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Smarts&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Probability&#39;</span><span class="p">)</span>
@@ -107,7 +107,7 @@ Python のコードで raw string 形式で数式を含む文字列を定義す�
 <h2><a class="toc-backref" href="#id6">3 次元プロット</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>曲面を描画することもあるのでプロットという表現が微妙なのだが、とにかく空間的に 3 次元のデータを図にすることができる。</p>
 <div class="figure align-center" id="id3">
-<span id="scipy-spline-3d"></span><a class="reference internal image-reference" href="../_images/scipy-spline-3d.png"><img alt="空間曲線のプロット" src="../_images/scipy-spline-3d.png" style="width: 407.5px; height: 307.5px;" /></a>
+<span id="scipy-spline-3d"></span><a class="reference internal image-reference" href="../_images/scipy-spline-3d.png"><img alt="空間曲線のプロット" src="../_images/scipy-spline-3d.png" style="width: 320.0px; height: 240.0px;" /></a>
 <p class="caption"><span class="caption-text">空間曲線のプロット</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </div>
 <p>パッケージ <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> と同じ階層に <code class="docutils literal notranslate"><span class="pre">mpl_toolkits</span></code> という別のパッケージがある。ここにある機能を利用すると、3 次元プロットをウィンドウに描画することができる。これはマウス操作によるビューのズームおよび回転を実現している優れものである。</p>
@@ -178,7 +178,7 @@ Pylint に警告されても必要。</p></li>
 <li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">cur_axes.scatter</span></code> と <code class="code docutils literal notranslate"><span class="pre">cur_axes.plot</span></code> を用いて次の形状をプロットする。</p>
 <ol class="arabic simple">
 <li><p>入力データである通過点 (black)</p></li>
-<li><p><a class="reference external" href="http://www.scipy.org/">SciPy</a> で計算した、出力データである 3 次元スプライン曲線の制御点列 (pink)</p></li>
+<li><p><a class="reference external" href="https://www.scipy.org/">SciPy</a> で計算した、出力データである 3 次元スプライン曲線の制御点列 (pink)</p></li>
 <li><p>出力データである 3 次元スプライン曲線 (deeppink)</p></li>
 </ol>
 </li>
@@ -214,7 +214,7 @@ Pylint に警告されても必要。</p></li>
       </div>
       <div id="footer_copyright">
         Since 1999<br />
-        Copyright &copy; 1999-2020, プレハブ小屋 All rights reserved.
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
       </div>
     </div>
   </body>

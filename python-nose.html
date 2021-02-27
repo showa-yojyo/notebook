@@ -6,8 +6,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nose 利用ノート &#8212; 読書ノート v1.5dev</title>
-    <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
     
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/mathjax-v3.js"></script>
@@ -73,11 +73,11 @@
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
-<li><p>本稿を読む前に <a class="reference external" href="http://www.python.org/">Python</a> 本体の <code class="docutils literal notranslate"><span class="pre">unittest</span></code> を理解しておくべし。</p></li>
+<li><p>本稿を読む前に <a class="reference external" href="https://www.python.org/">Python</a> 本体の <code class="docutils literal notranslate"><span class="pre">unittest</span></code> を理解しておくべし。</p></li>
 <li><p>本稿において、利用した各パッケージのバージョンは次のとおり。</p>
 <ul>
-<li><p><a class="reference external" href="http://www.python.org/">Python</a> 2.6.6, 2.7.3, 3.4.1, 3.5.0, 3.5.2</p></li>
-<li><p><a class="reference external" href="http://readthedocs.org/docs/nose/">Nose</a> 1.0.0, 1.1.2, 1.3.3, 1.3.7</p></li>
+<li><p><a class="reference external" href="https://www.python.org/">Python</a> 2.6.6, 2.7.3, 3.4.1, 3.5.0, 3.5.2</p></li>
+<li><p><a class="reference external" href="https://nose.readthedocs.io/en/latest/">Nose</a> 1.0.0, 1.1.2, 1.3.3, 1.3.7</p></li>
 </ul>
 </li>
 <li><p>当ノートでは <code class="docutils literal notranslate"><span class="pre">--verbosity</span></code> オプションを多用しているが、単にノートを見返すときのわかりやすさを優先するためだけによる。実用時には省略することのほうが普通。</p></li>
@@ -86,13 +86,13 @@
 <div class="section" id="id2">
 <h2><a class="toc-backref" href="#id14">関連リンク</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <dl class="simple">
-<dt><a class="reference external" href="http://readthedocs.org/docs/nose/">Nose</a></dt><dd><p>パッケージ配布元。</p>
+<dt><a class="reference external" href="https://nose.readthedocs.io/en/latest/">Nose</a></dt><dd><p>パッケージ配布元。</p>
 </dd>
 </dl>
 </div>
 <div class="section" id="id3">
 <h2><a class="toc-backref" href="#id15">目的</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="http://readthedocs.org/docs/nose/">Nose</a> 自身は、その目的をドキュメントの冒頭に &lt;nose is nicer testing for python&gt; や
+<p><a class="reference external" href="https://nose.readthedocs.io/en/latest/">Nose</a> 自身は、その目的をドキュメントの冒頭に &lt;nose is nicer testing for python&gt; や
 &lt;nose extends unittest to make testing easier&gt; と謳っている。さらに、プログラムの狙いを次の 4 点に絞っている。</p>
 <blockquote>
 <div><ol class="arabic simple">
@@ -102,7 +102,7 @@
 <li><p>やりたいことをやることを簡単に。</p></li>
 </ol>
 </div></blockquote>
-<p>そして私が <a class="reference external" href="http://readthedocs.org/docs/nose/">Nose</a> を利用する目的は何かというと、主に「走らせるのを簡単に」ではないかと思う。
+<p>そして私が <a class="reference external" href="https://nose.readthedocs.io/en/latest/">Nose</a> を利用する目的は何かというと、主に「走らせるのを簡単に」ではないかと思う。
 Python 標準の <code class="docutils literal notranslate"><span class="pre">unittest</span></code> だけで単体テストをやろうとすると、TestSuite を集めて TestRunner に渡すコードを書く、という、これまでよくやってきた作業パターンが億劫に感じられるはずだ。</p>
 </div>
 <div class="section" id="id4">
@@ -124,15 +124,15 @@ Python 標準の <code class="docutils literal notranslate"><span class="pre">un
 <li><p>これは py ファイルからテストを自動的に発見し、実行することができる便利なツールだ。</p></li>
 <li><p>引数なしで起動すると、おそらくカレントディレクトリーにあるすべての py ファイルから、すべてのテストを発見し、片っ端から実行するというはたらきをするのではないだろうか。</p></li>
 <li><p>普通は <code class="file docutils literal notranslate"><span class="pre">nosetests</span></code> にコマンドライン引数を指定して利用する。次のコマンドライン例は Nose のドキュメントから引用したものだ。モジュール名を指定したり、さらにテスト名を指定したり、あるいはモジュールフルパスプラステスト名という指定の仕方がサポートされているようだ。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> nosetests test.module
-<span class="gp">$</span> nosetests another.test:TestCase.test_method
-<span class="gp">$</span> nosetests a.test:TestCase
-<span class="gp">$</span> nosetests /path/to/test/file.py:test_function
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nosetests test.module
+<span class="gp">$ </span>nosetests another.test:TestCase.test_method
+<span class="gp">$ </span>nosetests a.test:TestCase
+<span class="gp">$ </span>nosetests /path/to/test/file.py:test_function
 </pre></div>
 </div>
 </li>
 <li><p>ディレクトリーごと指示するやり方もある。その場合、複数パス指定が許される。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> nosetests /path/to/tests /another/path/to/tests
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nosetests /path/to/tests /another/path/to/tests
 </pre></div>
 </div>
 <p>なので、実は <code class="docutils literal notranslate"><span class="pre">-w</span></code>, <code class="docutils literal notranslate"><span class="pre">--where</span></code> オプションは無用の長物。</p>
@@ -163,7 +163,7 @@ Python 標準の <code class="docutils literal notranslate"><span class="pre">un
 <li><p>さらに <code class="docutils literal notranslate"><span class="pre">--with-id</span></code> を併用し、テストのインデックスリストも得られる。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--verbosity</span></code> オプションを併用して、テスト名等を明示させるのがコツ。</p></li>
 </ul>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> nosetests --collect-only --with-id --verbosity<span class="o">=</span><span class="m">2</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nosetests --collect-only --with-id --verbosity<span class="o">=</span><span class="m">2</span>
 <span class="gp">#</span><span class="m">1</span> A regular <span class="nb">test</span> <span class="k">case</span> ... ok
 <span class="gp">#</span><span class="m">2</span> A very slow <span class="nb">test</span> <span class="k">case</span> ... ok
 <span class="gp">#</span><span class="m">3</span> A <span class="nb">test</span> with attribute ... ok
@@ -213,8 +213,8 @@ Python 標準の <code class="docutils literal notranslate"><span class="pre">un
 <span class="c1"># Other test cases...</span>
 </pre></div>
 </div>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> nosetests -a <span class="s1">&#39;!online&#39;</span> testattr2.py
-<span class="gp">$</span> nosetests -A <span class="s2">&quot;speed != slow&quot;</span> testattr2.py
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nosetests -a <span class="s1">&#39;!online&#39;</span> testattr2.py
+<span class="gp">$ </span>nosetests -A <span class="s2">&quot;speed != slow&quot;</span> testattr2.py
 </pre></div>
 </div>
 <ul class="simple">
@@ -230,7 +230,7 @@ Python の pdb デバッガが起動する。</p>
 <li><p>通常使いたいのは <code class="docutils literal notranslate"><span class="pre">--pdb</span></code> ではなく <code class="docutils literal notranslate"><span class="pre">--pdb-faillures</span></code> のほうだと思う。</p></li>
 <li><p>pdb はコンソールベースのデバッガ。正直なところ不慣れなツールだが、この際慣れておく。</p></li>
 </ul>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> nosetests --pdb-failures testeven.py
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nosetests --pdb-failures testeven.py
 <span class="go">.&gt; d:\home\yojyo\devel\all-note\notebook\source\_sample\nose\testeven.py(13)check_even()</span>
 <span class="go">-&gt; assert val1 % 2 == 0 or val2 % 2 == 0</span>
 <span class="gp gp-VirtualEnv">(Pdb)</span> <span class="go">l</span>
@@ -254,7 +254,7 @@ Python の pdb デバッガが起動する。</p>
 <p><code class="docutils literal notranslate"><span class="pre">--with-coverage</span></code> オプションで、テスト結果と共にコードカバレッジを測定できる。いつものテスト結果を出力した直後に、カバレッジを出力する。</p>
 <p>チューニングの材料になるわけで、いずれ大掛かりなライブラリーを開発するつもりならば、この機能は覚えていて損はない。</p>
 <p>この機能を利用するには、別途 <a class="reference external" href="http://nedbatchelder.com/code/coverage">coverage</a> という別のパッケージが必要だ。インストールは難しくないので、Nose 環境の一部とみなして導入しておくとよさそうだ。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> nosetests --with-coverage -v testrandom.py
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nosetests --with-coverage -v testrandom.py
 <span class="go">test_choice (testrandom.TestSequenceFunctions) ... ok</span>
 <span class="go">test_sample (testrandom.TestSequenceFunctions) ... ok</span>
 <span class="go">test_shuffle (testrandom.TestSequenceFunctions) ... ok</span>
@@ -427,10 +427,10 @@ unittest ベースでなかったとのこと。</p></li>
 <li><p>nosetests の変な使い方。</p>
 <ul>
 <li><p>他人様の作ったパッケージのテスト構成を探るのに最適なツールかもしれない。例えば <a class="reference external" href="http://jinja.pocoo.org/">Jinja2</a> の <code class="docutils literal notranslate"><span class="pre">testsuite</span></code> フォルダーの各ファイルからテストを全部抽出してリストを作成できたりする。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> site-packages/jinja2/
-<span class="gp">$</span> python34 -c <span class="s1">&#39;import jinja2; print(jinja2.__version__)&#39;</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span> site-packages/jinja2/
+<span class="gp">$ </span>python34 -c <span class="s1">&#39;import jinja2; print(jinja2.__version__)&#39;</span>
 <span class="go">2.7.3</span>
-<span class="gp">$</span> nosetests --collect-only --with-id -v testsuite/*.py
+<span class="gp">$ </span>nosetests --collect-only --with-id -v testsuite/*.py
 <span class="gp">#</span><span class="m">1</span> Failure: TypeError <span class="o">(</span>find_all_tests<span class="o">()</span> missing <span class="m">1</span> required positional argument: <span class="s1">&#39;suite&#39;</span><span class="o">)</span> ... ok
 <span class="gp">#</span><span class="m">2</span> test_autoescape_autoselect <span class="o">(</span>jinja2.testsuite.api.ExtendedAPITestCase<span class="o">)</span> ... ok
 <span class="gp">#</span><span class="m">3</span> test_cycler <span class="o">(</span>jinja2.testsuite.api.ExtendedAPITestCase<span class="o">)</span> ... ok
@@ -450,9 +450,9 @@ unittest ベースでなかったとのこと。</p></li>
 <p>最近の Jinja2 のインストールには <code class="docutils literal notranslate"><span class="pre">testsuite</span></code> フォルダーがない。</p>
 </div>
 </li>
-<li><p><a class="reference external" href="http://matplotlib.org/">Matplotlib</a> の <code class="docutils literal notranslate"><span class="pre">tests</span></code> フォルダーはテストパッケージの構成になっている。
+<li><p><a class="reference external" href="https://matplotlib.org/">Matplotlib</a> の <code class="docutils literal notranslate"><span class="pre">tests</span></code> フォルダーはテストパッケージの構成になっている。
 <code class="file docutils literal notranslate"><span class="pre">nosetests</span></code> の実験場としては面白い。</p></li>
-<li><p><a class="reference external" href="http://www.numpy.org/">NumPy</a> は Nose をうまく使いこなしているようだ。
+<li><p><a class="reference external" href="https://www.numpy.org/">NumPy</a> は Nose をうまく使いこなしているようだ。
 <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy;</span> <span class="pre">help(numpy.test)</span></code> してみよう。テストの単位をわかりやすく分類する努力を払っているのがわかる。</p>
 <p>例えば線形代数サブパッケージだけテストしたいのならば、
 Python インタープリターから次のようにタイプしてみるだけでよい。</p>
@@ -523,7 +523,7 @@ Python インタープリターから次のようにタイプしてみるだけ�
       </div>
       <div id="footer_copyright">
         Since 1999<br />
-        Copyright &copy; 1999-2020, プレハブ小屋 All rights reserved.
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
       </div>
     </div>
   </body>

@@ -1,0 +1,521 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>学習方法 &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="Pygame 利用ノート" href="../python-pygame.html" />
+    <link rel="prev" title="環境構築" href="setup.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../python-pygame.html" title="Pygame 利用ノート"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="setup.html" title="環境構築"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Pandas 利用ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">学習方法</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id5">学習方法</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://pandas.pydata.org/">Pandas</a> の初期段階での学習方法について思いつくままに記す。なお、コンソールは基本的には <a class="reference external" href="https://ipython.org/">IPython</a> を利用する前提だ。プロットなどでは Jupyter Notebook を利用するのが自然かも知れない。</p>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#id1" id="id5">学習方法</a></p>
+<ul>
+<li><p><a class="reference internal" href="#ipython" id="id6">IPython のプロファイルを仕込む</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id7">基本ドキュメントを精読する</a></p>
+<ul>
+<li><p><a class="reference internal" href="#getting-started-tutorials" id="id8">Getting started tutorials ノート</a></p></li>
+<li><p><a class="reference internal" href="#minutes-to-pandas" id="id9">10 minutes to pandas</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id3" id="id10">関連ノート</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="ipython">
+<h2><a class="toc-backref" href="#id6">IPython のプロファイルを仕込む</a><a class="headerlink" href="#ipython" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://pandas.pydata.org/">Pandas</a> を学習するときには次のコードを毎回コンソールに打ち込むことになる：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<p>この手間を省略するために、IPython のプロファイル機能を活用する。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ PANDAS_PROFILE_NAME=pandas</span>
+<span class="go">bash$ ipython profile create $PANDAS_PROFILE_NAME</span>
+<span class="go">bash$ cd $(ipython locate profile $PANDAS_PROFILE_NAME)/startup</span>
+<span class="go">bash$ cat common_import.py &lt;&lt;EOF</span>
+<span class="go">import pandas as pd</span>
+<span class="go">import numpy as np</span>
+<span class="go">EOF</span>
+</pre></div>
+</div>
+<p>他にも、ダミー DataFrame オブジェクトを生成するコードを置くのもよいだろう。</p>
+<p>そして IPython セッションを開始するときには次のようにするのだ：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ ipython --profile $PANDAS_PROFILE_NAME</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id7">基本ドキュメントを精読する</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>初学者は <a class="reference external" href="https://pandas.pydata.org/">Pandas</a> 公式文書の次の二点にまず目を通すことになる。ここに書かれているコードを可能な限り IPython などで試すことで <a class="reference external" href="https://pandas.pydata.org/">Pandas</a> の本質的な機能を体得することになる。</p>
+<ul class="simple">
+<li><p>Getting Started の Getting started tutorials</p></li>
+<li><p>User Guide の 10 minutes to pandas</p></li>
+</ul>
+<div class="section" id="getting-started-tutorials">
+<h3><a class="toc-backref" href="#id8">Getting started tutorials ノート</a><a class="headerlink" href="#getting-started-tutorials" title="Permalink to this headline">¶</a></h3>
+<p>このチュートリアルを実施する際にデモ CSV ファイルが必要だ。普通に読んでいればいずれのファイルもダウンロードできるので問題ないが、オフラインで作業するときにはあらかじめダウンロードしておく。</p>
+<p>CSV ファイルから <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> オブジェクトを生成するコードを上述のスクリプトに含めておくといい。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">titanic</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;path/to/titanic.csv&quot;</span><span class="p">)</span>
+<span class="n">air_quality_short</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;path/to/air_quality_no2.csv&quot;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">air_quality_long</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;/path/to/air_quality_no2_long.csv&quot;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>要点が各章の終わりにまとめられているので、内容を習得したか確認する。</p>
+<ul>
+<li><p>基礎的概念</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pandas.pydata.org/">Pandas</a> のパッケージ要素を利用するには <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">pandas</span> <span class="pre">as</span> <span class="pre">pd</span></code> とする（別名定義はタイプ量節約のため）。</p></li>
+<li><p>クラス <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> は二次元の表を表す。これが当ライブラリーの主役のようなものだ。</p>
+<ul>
+<li><p>このオブジェクトの生成方法はいろいろある。ここでは <code class="docutils literal notranslate"><span class="pre">dict</span></code> オブジェクトから直接生成している。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> の列のそれぞれは <code class="docutils literal notranslate"><span class="pre">Series</span></code> というものだ。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> オブジェクトに対して角括弧 <code class="docutils literal notranslate"><span class="pre">[]</span></code> を作用させると <code class="docutils literal notranslate"><span class="pre">Series</span></code> オブジェクトとして列を参照する。</p></li>
+</ul>
+</li>
+<li><p>Pandas プログラミングでは <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> または <code class="docutils literal notranslate"><span class="pre">Series</span></code> に対してメソッドを呼び出すことで何かをする。</p>
+<ul>
+<li><p>ここでの例は <code class="docutils literal notranslate"><span class="pre">.max()</span></code> と <code class="docutils literal notranslate"><span class="pre">.describe()</span></code> にとどめてある。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>I/O について</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">read_</span></code> から始まる名前の関数がファイルからの入力機能だ（アンダースコアのあとにファイルフォーマットを表す名前が付く）。</p>
+<ul>
+<li><p>GitHub のリポジトリーから <code class="docutils literal notranslate"><span class="pre">titanic.csv</span></code> をダウンロードして関数 <code class="docutils literal notranslate"><span class="pre">read_csv()</span></code> を必ず試すこと。</p></li>
+<li><p>ロード系関数を呼び出した後は、生成された <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> オブジェクトの内容を必ず確認すること。</p></li>
+</ul>
+</li>
+<li><p>反対に <code class="docutils literal notranslate"><span class="pre">.to_</span></code> から始まる名前のメソッドがファイル出力機能だ。</p>
+<ul>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">.to_excel()</span></code> を必ず試すこと。それから関数 <code class="docutils literal notranslate"><span class="pre">read_excel()</span></code> が動くことを確認すること。これらは MS Excel 形式のファイルを処理するサードパーティー製ライブラリーが何かしらインストール済みでないと動作しないだろう。</p></li>
+</ul>
+</li>
+<li><p>オブジェクトをチェックするのにメソッド <code class="docutils literal notranslate"><span class="pre">.head()</span></code>, <code class="docutils literal notranslate"><span class="pre">.tail()</span></code>, <code class="docutils literal notranslate"><span class="pre">.info()</span></code> とプロパティー <code class="docutils literal notranslate"><span class="pre">.dtypes</span></code> が手軽に使える。</p>
+<ul>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">.dtypes</span></code> を参照すると各列の型を確認できる。
+<code class="docutils literal notranslate"><span class="pre">object</span></code> とあるのは実際は文字列型だと思っていいようだ。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">.info()</span></code> がメモリー使用状況も出力していることに注意。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> の部分集合へのアクセス</p>
+<ul class="simple">
+<li><p>角括弧を用いるのが基本的だ。</p>
+<ul>
+<li><p>与えられた <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> の任意の列を抽出する方法を習得すること。列の個数にも注意。興味深いことに、角括弧に与えるキーとして <code class="docutils literal notranslate"><span class="pre">list</span></code> は許されるが <code class="docutils literal notranslate"><span class="pre">tuple</span></code> は許されない。</p></li>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">.shape</span></code> で <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> や <code class="docutils literal notranslate"><span class="pre">Series</span></code> の寸法が得られる。</p></li>
+</ul>
+</li>
+<li><p>そのような角括弧の内側には、単一の行または列ラベル、行または列ラベルのリスト、ラベルのスライス、条件付き式、またはコロンが入る。</p>
+<ul>
+<li><p>例えばタイタニックデータに対して「35 歳を超える乗客の一覧」を抽出できるようにする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Series.isin()</span></code> について頭の片隅に入れておく。</p></li>
+</ul>
+</li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">.loc[]</span></code> では行名または列名を用いる。</p>
+<ul>
+<li><p>「35 歳以上の乗客の名前の一覧」を得るのに単なる角括弧では不十分である理由を理解する。</p></li>
+</ul>
+</li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">.iloc[]</span></code> では表における添字を用いる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.loc[]</span></code> にせよ <code class="docutils literal notranslate"><span class="pre">.iloc[]</span></code> にせよ、値を代入するのにも用いられる。</p></li>
+</ul>
+</li>
+<li><p>プロットするには</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Series</span></code> と <code class="docutils literal notranslate"><span class="pre">DataFrames</span></code> の両方にプロパティー <code class="docutils literal notranslate"><span class="pre">.plot</span></code> が提供されていて、そこからプロット用メソッド各種を呼び出すことができるようになっている。</p>
+<ul>
+<li><p>WSL 環境で学習していて <a class="reference external" href="https://matplotlib.org/">Matplotlib</a> をインポートすると
+Could not connect to any X display のようなエラーメッセージが出る場合には、いったんセッションを閉じる。それから
+VcXsrv などの XLaunch を起動しておき、再びコンソールを開く。それから <a class="reference external" href="https://ipython.org/">IPython</a> を実行し直す。</p>
+<p>IPython でやるのをいったん止めて VS Code の Jupyter Notebook Extension を利用するのも楽だ。
+<code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> ファイルを作成するように VS Code を開くといい。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ code pandas-plot.ipynb</span>
+</pre></div>
+</div>
+<p>こちらでプロファイルが使えたら環境を乗り換えるのもいいか。</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.plot()</span></code> でもプロットできる。</p></li>
+<li><p>上述の環境で画面が出ないときには明示的に <code class="docutils literal notranslate"><span class="pre">plt.show()</span></code> を呼び出す。</p></li>
+<li><p>メンバーデータ <code class="docutils literal notranslate"><span class="pre">.plot</span></code> に対して <code class="docutils literal notranslate"><span class="pre">dir()</span></code> を呼び出すとプロットメソッド一覧を得ることを憶えておくといい。アンダースコアから始まらないものが該当する。</p>
+<ul class="simple">
+<li><p>area</p></li>
+<li><p>bar</p></li>
+<li><p>barh</p></li>
+<li><p>box</p></li>
+<li><p>density</p></li>
+<li><p>hexbin</p></li>
+<li><p>hist</p></li>
+<li><p>kde</p></li>
+<li><p>line</p></li>
+<li><p>pie</p></li>
+<li><p>scatter</p></li>
+</ul>
+<p><a class="reference external" href="https://ipython.org/">IPython</a> 環境ではタブ補完を利用するのも手軽でよい。</p>
+</li>
+</ul>
+</li>
+<li><p>基本的には、各列は異なる要素としてプロットされる。</p>
+<ul class="simple">
+<li><p>特定の列だけプロットすることもできる。メソッド <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> が <code class="docutils literal notranslate"><span class="pre">Series</span></code> にもあることに注意する。</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://pandas.pydata.org/">Pandas</a> が生成するあらゆるプロットは <a class="reference external" href="https://matplotlib.org/">Matplotlib</a> オブジェクトだ。生成したいプロットをカスタマイズするのに <a class="reference external" href="https://matplotlib.org/">Matplotlib</a> プログラミングの技法を活用できる。</p></li>
+</ul>
+</li>
+<li><p>既存の列から新しい列を作成するには</p>
+<ul class="simple">
+<li><p>代入による。左辺は <code class="docutils literal notranslate"><span class="pre">df[new_column_name]</span> <span class="pre">=</span> <span class="pre">...</span></code> のような形であり、右辺は何らかの出力だろう。</p>
+<ul>
+<li><p>このデモコードのような処理をいくつも実行すると、欠損値の振る舞いを肌感覚で理解できる。</p></li>
+</ul>
+</li>
+<li><p>操作は要素ごとになされる。行をループする必要はない。</p></li>
+<li><p>行名または列名を変えるには <code class="docutils literal notranslate"><span class="pre">rename()</span></code> を使う。</p>
+<ul>
+<li><p>キーワード引数 <code class="docutils literal notranslate"><span class="pre">columns</span></code> の値は <code class="docutils literal notranslate"><span class="pre">dict</span></code> か関数ということか。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>統計概要を計算するには</p>
+<ul class="simple">
+<li><p>集約系の統計は列全体または行全体について計算ができる。</p>
+<ul>
+<li><p>基本的には欠損値は除外して計算される。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.mean()</span></code> や <code class="docutils literal notranslate"><span class="pre">.median()</span></code> などの出来合いの統計メソッドで事足りるならそうする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.describe()</span></code> をもっと細かく指定するならば <code class="docutils literal notranslate"><span class="pre">.agg()</span></code> を検討する。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> は「分割・適用・結合」パターンの原動力だ。</p>
+<ul>
+<li><p>必要ならデータセットの部分集合を選択し、列名などで <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> する。そのあとに統計メソッドを適用すると、指定した列の要素別にグループ分けされて、そのグループごとに集計される。</p></li>
+<li><p>Pandas は「適用・結合」を一括して処理する。</p></li>
+<li><p>複数列による <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> の方法を習得すること。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.value_counts()</span></code> は各列に対して、存在する値それぞれがいくつ含まれるかを勘定するのに具合が良い。</p>
+<ul>
+<li><p>SQL で言う <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">column_name,</span> <span class="pre">COUNT(1)</span> <span class="pre">FROM</span> <span class="pre">table_name</span> <span class="pre">GROUPBY</span> <span class="pre">column_name</span></code> に相当する。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>表の配置を変えるには</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.sort_values()</span></code> は列を整列する。一つでも複数でも整列できる。</p>
+<ul>
+<li><p>基準となる列を指定するにはキーワード引数 <code class="docutils literal notranslate"><span class="pre">by</span></code> に列名または列名のリストを与える。</p></li>
+<li><p>昇順・降順を指定するにはキーワード引数 <code class="docutils literal notranslate"><span class="pre">ascending</span></code> に真偽値を与える。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.sort_index()</span></code> も実装されている。</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>冷静に考えるとここの <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> の挙動がよくわからない。</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.pivot()</span></code> は純粋にデータを再構築する一方、<code class="docutils literal notranslate"><span class="pre">.pivot_table()</span></code> は集約を行う。</p>
+<ul>
+<li><p>反対に、こちらの <code class="docutils literal notranslate"><span class="pre">.pivot()</span></code> はわかりやすい。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.pivot()</span></code> の結果を即 <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> できる。この例では変動が激しすぎて何も観察できないとは思うが。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.pivot_table()</span></code> のキーワード引数 <code class="docutils literal notranslate"><span class="pre">aggfunc</span></code> に注意。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.pivot_table()</span></code> のキーワード引数 <code class="docutils literal notranslate"><span class="pre">margins</span></code> に <code class="docutils literal notranslate"><span class="pre">True</span></code> を与えると <code class="docutils literal notranslate"><span class="pre">All</span></code> という要約列が生じる。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.pivot()</span></code> の逆は <code class="docutils literal notranslate"><span class="pre">.melt()</span></code> だ。「縦長を横長にする操作の逆は、横長を縦長にする」と覚える。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">.reset_index()</span></code> で序数によるインデックス列が新たに生成される。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.melt()</span></code> によって列名がインデックス側に移動したように見える。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.melt()</span></code> にキーワード引数各種を指定することで詳細にカスタマイズできる。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>複数の表からデータを結合するには</p>
+<ul class="simple">
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">concat()</span></code> を使うと複数の表を、列ごとにでも行ごとにでも結合することができる。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">axis=0</span></code> を指定すると表を縦に結合する。
+Pandas では使えるところでは <code class="docutils literal notranslate"><span class="pre">axis=0</span></code> と <code class="docutils literal notranslate"><span class="pre">axis=1</span></code> を指定するのでこの例で習得する。</p></li>
+<li><p>複数の表をこのように結合すると、一般的には元のデータの行を特定できなくなる。それを解決するのにキーワード引数 <code class="docutils literal notranslate"><span class="pre">keys</span></code> を指定する。この例ではよくわからないが、階層のあるインデックス列が追加的に生じる。</p></li>
+</ul>
+</li>
+<li><p>表に対するデータベースにおける merging/joining 操作には関数 <code class="docutils literal notranslate"><span class="pre">merge()</span></code> を使う。</p>
+<ul>
+<li><p>最初の <code class="docutils literal notranslate"><span class="pre">merge()</span></code> は SQL で言う LEFT INNER JOIN に相当する。キーワード引数 <code class="docutils literal notranslate"><span class="pre">how</span></code> と <code class="docutils literal notranslate"><span class="pre">on</span></code> に注意。列名が異なる場合には <code class="docutils literal notranslate"><span class="pre">left_on</span></code> と <code class="docutils literal notranslate"><span class="pre">right_on</span></code> を <code class="docutils literal notranslate"><span class="pre">on</span></code> の代わりに用いる。</p></li>
+<li><p>Pandas は当然 INNER JOIN も OUTER JOIN も提供している。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>時系列データを操作するには</p>
+<ul class="simple">
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">to_datetime()</span></code> を使えば、まともな日付文字列を日付時間オブジェクトに変換することができる。</p>
+<ul>
+<li><p>最初のデモでは変換の前後で <code class="docutils literal notranslate"><span class="pre">.dtypes</span></code> をチェックするといい。</p></li>
+<li><p>以前のデモで見たように、ファイルから読み込むときにキーワード引数 <code class="docutils literal notranslate"><span class="pre">parse_dates</span></code> で変換したい列を（リストで）指定するのがいい。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Timestamp</span></code> オブジェクトはいろいろと有用であるので、可能な限り変換しておきたい。</p></li>
+</ul>
+</li>
+<li><p>Pandas の日付時間オブジェクトには時間計算、論理演算、日付に関連するプロパティー <code class="docutils literal notranslate"><span class="pre">.dt</span></code> が備わっている。</p>
+<ul>
+<li><p>月を抽出するデモでは、<code class="docutils literal notranslate"><span class="pre">.dt.month</span></code> から得られる列の要素型が <code class="docutils literal notranslate"><span class="pre">int</span></code> であることに注意。</p></li>
+<li><p>各曜日の各所における二酸化窒素の例での <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> は難しい。</p></li>
+<li><p>プロットの例では、ラベルを設定する処理を <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> の前に持ってくる必要があった。そうしないと <code class="docutils literal notranslate"><span class="pre">plt.show()</span></code> を明示的に呼び出すと帰ってこない。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code> オブジェクトにはこれらの日付関係のプロパティーがあり、使いやすいスライス操作をサポートする。</p>
+<ul>
+<li><p>特に <code class="docutils literal notranslate"><span class="pre">.index</span></code> から <code class="docutils literal notranslate"><span class="pre">.year</span></code> や <code class="docutils literal notranslate"><span class="pre">.weekday</span></code> などにアクセスできる。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.resample()</span></code> は時系列の頻度を変える強力なメソッドだ。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> に似ている。<code class="docutils literal notranslate"><span class="pre">&quot;M&quot;</span></code> や <code class="docutils literal notranslate"><span class="pre">&quot;5H&quot;</span></code> などの対象の頻度を定義する文字列を使ってグループ化する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.resample()</span></code> の結果に対して <code class="docutils literal notranslate"><span class="pre">.mean()</span></code> や <code class="docutils literal notranslate"><span class="pre">.max()</span></code> などの集計メソッドを呼び出す。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.freq</span></code> にその頻度が保持される。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>文字列を操作するには</p>
+<ul class="simple">
+<li><p>文字列メソッドは <code class="docutils literal notranslate"><span class="pre">.str</span></code> から利用可能だ。</p>
+<ul>
+<li><p>例えば列を一つ選択して、それに対して <code class="docutils literal notranslate"><span class="pre">.str.lower()</span></code> を呼び出す。するとその列名が小文字になった <code class="docutils literal notranslate"><span class="pre">Series</span></code> オブジェクトが得られる。</p></li>
+<li><p>同様にして <code class="docutils literal notranslate"><span class="pre">.str.split()</span></code> などを実行すると文字列からなるリストを要素とする
+<code class="docutils literal notranslate"><span class="pre">Series</span></code> が生成する。</p></li>
+<li><p>演算子 <code class="docutils literal notranslate"><span class="pre">in</span></code> の代わりに <code class="docutils literal notranslate"><span class="pre">.str.contains()</span></code> を呼び出す。</p></li>
+<li><p>演算子 <code class="docutils literal notranslate"><span class="pre">len</span></code> の代わりに <code class="docutils literal notranslate"><span class="pre">.str.len()</span></code> を呼び出す。</p></li>
+</ul>
+</li>
+<li><p>文字列メソッドは要素ごとに機能し、条件付きインデックスに対して用いられる。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">.replace()</span></code> は与えられた <code class="docutils literal notranslate"><span class="pre">dict</span></code> オブジェクトに従って値を変換する使い勝手のよいメソッドだ。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">.str.replace()</span></code> も別に存在するので注意する。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="minutes-to-pandas">
+<h3><a class="toc-backref" href="#id9">10 minutes to pandas</a><a class="headerlink" href="#minutes-to-pandas" title="Permalink to this headline">¶</a></h3>
+<p>とても 10 分で履修できるような分量に収まっていない <a class="reference external" href="https://pandas.pydata.org/">Pandas</a> の紹介記事だ。上述のチュートリアルと併せて読んでもいいし、チュートリアルだけ読んで次に進んでもいい。</p>
+<ul class="simple">
+<li><p>Object creation</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Series</span></code> オブジェクトの直接生成。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> オブジェクトの直接生成。</p>
+<ul>
+<li><p><a class="reference external" href="https://www.numpy.org/">NumPy</a> の配列オブジェクトとキーワード引数 <code class="docutils literal notranslate"><span class="pre">index</span></code>, <code class="docutils literal notranslate"><span class="pre">columns</span></code> を与える方法。</p></li>
+<li><p>辞書オブジェクトを与える方法。キーが列名で値が <code class="docutils literal notranslate"><span class="pre">Series</span></code> を生成するデータ。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Viewing data</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">.head()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.tail()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.index</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.columns</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.to_numpy()</span></code> はインデックスや列名を含まない部分を返す。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.describe()</span></code> は統計概要を表示する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.T</span></code> で行と列を入れ替えた表を得る。NumPy と同じ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.sort_index()</span></code> で行または列をソートする。ここでキーワード引数 <code class="docutils literal notranslate"><span class="pre">axis</span></code> を指定する。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">axis=0</span></code> ならば行を入れ替えるようなソート。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">axis=1</span></code> ならば列を入れ替えるようなソート。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.sort_values()</span></code> では基準となる行または列を指定してソートする。キーワード引数 <code class="docutils literal notranslate"><span class="pre">by</span></code> により基準を指定する。</p></li>
+</ul>
+</li>
+<li><p>Selection</p>
+<ul>
+<li><p>冒頭で本番用コードでは、最適化されたアクセスメソッド
+<code class="docutils literal notranslate"><span class="pre">.at</span></code>, <code class="docutils literal notranslate"><span class="pre">.iat</span></code>, <code class="docutils literal notranslate"><span class="pre">.loc</span></code>, <code class="docutils literal notranslate"><span class="pre">.iloc</span></code> を推奨するとあることに注意。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> オブジェクトに対して角括弧と列名を指定すると <code class="docutils literal notranslate"><span class="pre">Series</span></code> を参照できる。</p></li>
+<li><p>この角括弧でスライス記法を用いると、対応する行を参照できる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.loc[]</span></code> にインデックスを指定するとその行を参照できる。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">.loc[indexes,</span> <span class="pre">columns]</span></code> のような指定方法もできる。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.at[index,</span> <span class="pre">column]</span></code> を用いれば効率的にデータ中の一要素を参照できる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.iloc[i]</span></code>, <code class="docutils literal notranslate"><span class="pre">.iloc[i,</span> <span class="pre">j]</span></code>, <code class="docutils literal notranslate"><span class="pre">.iloc[i1:i2,</span> <span class="pre">j1:j2]</span></code>, などによりゼロ起点の添字で参照する。スライス記法も可。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.iat[i]</span></code> を用いれば効率的にデータ中の一要素を参照できる。</p></li>
+<li><p>Boolean indexing</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Series</span></code> や <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> とスカラー値を比較演算子で評価した式を角括弧の中に入れる。各要素ごとに評価の結果が真である部分だけが抽出される。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.isin()</span></code> などのその目的用のメソッドがある。</p></li>
+</ul>
+</li>
+<li><p>存在しない列名を角括弧に入れて左辺値とし、値を代入することができる。こうすると新しい列が生じる。</p></li>
+<li><p>列名だけではなく、上述の角括弧記法すべてが利用可。Boolean index による指定でもよい。</p></li>
+</ul>
+</li>
+<li><p>Missing data</p>
+<ul>
+<li><p><a class="reference external" href="https://pandas.pydata.org/">Pandas</a> は基本的には <code class="docutils literal notranslate"><span class="pre">np.nan</span></code> を欠損値の表現に採用している。欠損値をオペランドにとる演算は <code class="docutils literal notranslate"><span class="pre">np.nan</span></code> と評価されるのが基本的だ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.reindex()</span></code> の機能がこれではよくわからない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.dropna()</span></code> で欠損値を含む行を削除する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.fillna()</span></code> で欠損値を指定の値で置き換える。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">isna()</span></code> で <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> からマスクを作成することができる。</p></li>
+</ul>
+</li>
+<li><p>Operations</p>
+<ul>
+<li><p>さっきも言ったように、データ操作において欠損値は除外される。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.mean()</span></code> などの記述統計メソッドの簡単な呼び出し方を習得する。</p></li>
+<li><p>寸法の異なるデータ同士の操作には明示的な alignment を必要とすることを理解する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.apply()</span></code> を使えるようになる（操作を関数の形式で渡すといい）。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.value_counts()</span></code> で度数分布を得られることを理解する。</p></li>
+<li><p>文字列に関する操作を属性 <code class="docutils literal notranslate"><span class="pre">.str</span></code> を経由して行うことができる。</p></li>
+</ul>
+</li>
+<li><p>Merge</p>
+<ul>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">concat()</span></code> でどのように表を連結できるのかを理解する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> は列を追加するのは比較的高速だが、行を追加するのはコピー操作を必要とするため高く付く。</p></li>
+<li><p>前述のように <code class="docutils literal notranslate"><span class="pre">.merge()</span></code> で SQL 風の JOIN 操作を実現できる。</p></li>
+</ul>
+</li>
+<li><p>Grouping</p>
+<ul>
+<li><p>グループ化の神髄は「分割・適用・結合」だ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> して得られるオブジェクトに対してはだいたい集計メソッドを呼び出すことになると憶えておく。</p></li>
+</ul>
+</li>
+<li><p>Reshaping</p>
+<ul>
+<li><p>TODO: ここを読む前に本文のリンク先二箇所を読んでおくこと。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">.stack()</span></code> は <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> の列側の階層を「圧縮」する。このデモでは列だった A と B がインデックスのいちばん右に移っている。</p></li>
+<li><p>この逆演算が <code class="docutils literal notranslate"><span class="pre">.unstack()</span></code> だ。デフォルトではいちばん右の（最下層ということ）インデックスを列側に移す。引数は左（最上層）からの序数を指定する。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">pivot_table()</span></code> は <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> からピボットテーブルを作成することができる。</p></li>
+</ul>
+</li>
+<li><p>Time series</p>
+<ul>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">date_range()</span></code> を習得する。</p></li>
+<li><p>時系列を表す <code class="docutils literal notranslate"><span class="pre">Series</span></code> に対する <code class="docutils literal notranslate"><span class="pre">.resample()</span></code> 操作を習得する。特に引数の指定方法。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.tz_localize()</span></code> はタイムゾーンが特定されていない時系列に対してそれを局所化する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.tz_convert()</span></code> はタイムゾーンが指定されている時系列を別のそれの時系列に変換する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.to_period()</span></code> は <code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code> オブジェクトを <code class="docutils literal notranslate"><span class="pre">PeriodIndex</span></code> オブジェクトに変換する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.to_timestamp()</span></code> は <code class="docutils literal notranslate"><span class="pre">Timestamp</span></code> からなる <code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code> オブジェクトに、周期の開始点でキャストする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.asfreq()</span></code> は時系列を指定の周期に変換する。</p></li>
+</ul>
+</li>
+<li><p>Categoricals</p>
+<ul>
+<li><p>まず categorical の概念を理解する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.astype(&quot;category&quot;)</span></code> という操作により単純な型から categorical に変換できる。</p></li>
+<li><p>列 <code class="docutils literal notranslate"><span class="pre">Series</span></code> に対して <code class="docutils literal notranslate"><span class="pre">.cat.categories</span></code> に取り得る値の集合を設定することができる。このような列をソートすると、値の順序関係はその設定時のリストの格納順序に従う。</p></li>
+<li><p>このような列を <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> すると、含まれていない要素についても常に表示する。</p></li>
+</ul>
+</li>
+<li><p>Plotting</p>
+<ul>
+<li><p><a class="reference external" href="https://matplotlib.org/">Matplotlib</a> が裏で動いていることは学習した。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.plot()</span></code> でデフォルトのプロットを描画する。これはすべての列をプロットする。</p></li>
+</ul>
+</li>
+<li><p>Getting data in/out</p>
+<ul>
+<li><p>CSV ファイルの読み書きに対応していることは学んだ。</p></li>
+<li><p>HDF5 Store という何かの読み書きもサポートしている。</p></li>
+<li><p>MS Excel ファイルの読み書きも可能。別途サードパーティー製ライブラリーが必要であることを忘れるな。</p></li>
+</ul>
+</li>
+<li><p>Gotchas</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> や <code class="docutils literal notranslate"><span class="pre">Series</span></code> を真偽値として扱うようなことは避ける。</p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id10">関連ノート</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>Pandas の基礎的依存パッケージおよびオプショナルな依存パッケージに関するノートがいくつかある。</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../python-numpy/index.html"><span class="doc">NumPy 利用ノート</span></a></p></li>
+<li><p><a class="reference internal" href="../python-matplotlib/index.html"><span class="doc">Matplotlib 利用ノート</span></a>: プロットを調整するのに <a class="reference external" href="https://matplotlib.org/">Matplotlib</a> の知識がそのまま使える。</p></li>
+</ul>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../python-pygame.html" title="Pygame 利用ノート"
+             >next</a></li>
+        <li class="right" >
+          <a href="setup.html" title="環境構築"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Pandas 利用ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">学習方法</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

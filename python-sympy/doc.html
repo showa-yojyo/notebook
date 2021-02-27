@@ -6,8 +6,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ドキュメントをビルドする &#8212; 読書ノート v1.5dev</title>
-    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
     
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/mathjax-v3.js"></script>
@@ -36,7 +36,7 @@
             
   <div class="section" id="id1">
 <h1><a class="toc-backref" href="#id8">ドキュメントをビルドする</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<p>せっかく <a class="reference external" href="http://www.sympy.org/">SymPy</a> のソースコードを入手したのだから、ドキュメントを自分の環境で生成してみよう。本稿は SymPy の利用ノートというよりは、軽い気分転換のための作業記録のようなものだ。</p>
+<p>せっかく <a class="reference external" href="https://www.sympy.org/">SymPy</a> のソースコードを入手したのだから、ドキュメントを自分の環境で生成してみよう。本稿は SymPy の利用ノートというよりは、軽い気分転換のための作業記録のようなものだ。</p>
 <div class="contents topic" id="id2">
 <p class="topic-title">ノート目次</p>
 <ul class="simple">
@@ -56,8 +56,8 @@
 </div>
 <div class="section" id="id3">
 <h2><a class="toc-backref" href="#id9">ビルド手順</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<p>SymPy のドキュメントは <a class="reference external" href="http://sphinx-doc.org/">Sphinx</a> を用いて生成する。いつもブラウザーで見ているファイル群を生成する手順はこのようなものだろう。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> make -C ~/devel/sympy/doc html
+<p>SymPy のドキュメントは <a class="reference external" href="https://sphinx-doc.org/">Sphinx</a> を用いて生成する。いつもブラウザーで見ているファイル群を生成する手順はこのようなものだろう。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>make -C ~/devel/sympy/doc html
 </pre></div>
 </div>
 </div>
@@ -82,9 +82,9 @@ Sphinx の既定の処理群を行う前に <code class="code docutils literal n
 <p>私は Cygwin で Sphinx のビルド処理をするので、これらを含むパッケージをインストーラー (<code class="file docutils literal notranslate"><span class="pre">setup-x86_64.exe</span></code>) でダウンロードかつインストールした。
 ImageMagick くらい昔インストールしただろうと思っていたが、古い PC の話だったようだ。</p>
 <p>Cygwin のインストーラーでパッケージ構成を更新したら、これらの各ユーティリティーのパスを確認して、問題がないようにしておく。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> which rsvg-convert
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>which rsvg-convert
 <span class="go">/bin/rsvg-convert</span>
-<span class="gp">$</span> which convert
+<span class="gp">$ </span>which convert
 <span class="go">/bin/convert</span>
 </pre></div>
 </div>
@@ -104,7 +104,7 @@ ImageMagick くらい昔インストールしただろうと思っていたが�
 <p>この修正作業は現在不要と思われる。</p>
 </div>
 <p>ロゴファイル群の生成が成功しても、ドキュメント本体のファイル生成で失敗した。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> make html
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>make html
 <span class="go">...略...</span>
 <span class="go">Logo generated.</span>
 <span class="go">mkdir -p src/.static</span>
@@ -129,11 +129,11 @@ ImageMagick くらい昔インストールしただろうと思っていたが�
 </pre></div>
 </div>
 <p>これは Sphinx の不具合ではない。単に拡張モジュールの構文が古いことから起こるエラーのようなので、私の Python 環境に適合するようにコードをアップグレードする必要がある。ここは <code class="file docutils literal notranslate"><span class="pre">2to3.py</span></code> の出番だ。レポジトリーがあるので、遠慮なく <code class="docutils literal notranslate"><span class="pre">-nw</span></code> オプションで元ファイルを上書きしてしまう。なんならローカルで適宜 branch を作成してここでの修正を commit するのもありだ。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> cp D:/Python34/Tools/Scripts/2to3.py ext
-<span class="gp">$</span> <span class="nb">pushd</span> ext
-<span class="gp">$</span> ./2to3.py -nw *.py
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cp D:/Python34/Tools/Scripts/2to3.py ext
+<span class="gp">$ </span><span class="nb">pushd</span> ext
+<span class="gp">$ </span>./2to3.py -nw *.py
 <span class="go">...</span>
-<span class="gp">$</span> <span class="nb">popd</span>
+<span class="gp">$ </span><span class="nb">popd</span>
 </pre></div>
 </div>
 <p>私の場合は以上の修正作業のみで <code class="code docutils literal notranslate"><span class="pre">make</span> <span class="pre">html</span></code> が通った。</p>
@@ -181,7 +181,7 @@ ImageMagick くらい昔インストールしただろうと思っていたが�
       </div>
       <div id="footer_copyright">
         Since 1999<br />
-        Copyright &copy; 1999-2020, プレハブ小屋 All rights reserved.
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
       </div>
     </div>
   </body>
