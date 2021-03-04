@@ -58,6 +58,12 @@ Contents:
    :glob:
    :maxdepth: 1
 
+   bash-v*
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
    cpp*/index
 
 .. toctree::
