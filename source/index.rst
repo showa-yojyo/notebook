@@ -112,4 +112,5 @@ Contents:
    twitter
    inkscape/index
    mathjax
+   css-selector
    hxutils
