@@ -91,6 +91,7 @@ Contents:
    python-pygments
    python-bs4
    python-selenium
+   python-scrapy
    python-twitter/index
    python-isbn-hyphenate
    python-pyopengl/index
