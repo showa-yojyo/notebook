@@ -911,6 +911,30 @@ Python モジュールのパス書式に従う文字列を指定すると、
 
 この水準に達したら記す。
 
+単体のスクリプトとして実装する
+----------------------------------------------------------------------
+
+文書化されていないが、関数 ``scrapy.cmdline.execute()`` というのがある。
+ここからコマンド ``scrapy runspider`` を実行するなどの方法が考えられる：
+
+.. code:: python
+
+   #!/usr/bin/env python
+
+   import getpass
+   import sys
+   import scrapy
+   import scrapy.cmdline
+   # other import statements...
+
+   class MySpider(scrapy.Spider):
+       # definition of spider...
+
+   if __name__ == '__main__':
+       user_id = input('Enter your ID: ')
+       password = getpass.getpass('Enter password: ')
+       cmdline.execute(f"scrapy runspider {sys.argv[0]} -a uid={user_id} -a password={password}".split())
+
 関連リンク
 ======================================================================
 
