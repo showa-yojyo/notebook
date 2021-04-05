@@ -222,6 +222,6 @@ NavigableString とは Python 組み込みの ``str`` に対して機能強化�
 この他のスクレイピングの技法をまとめたノートの一覧。
 
 * :doc:`/python-selenium`
+* :doc:`/python-scrapy`
 * :doc:`/hxutils`
-
-以上
+* :doc:`/css-selector`

@@ -162,9 +162,8 @@ Makefile からビルドをするために ``make`` や ``gcc`` が使える状�
 
 この他のスクレイピングの技法をまとめたノートの一覧。
 
+* :doc:`/css-selector`
 * :doc:`/python-bs4`
 * :doc:`/python-selenium`
-
-以上
 
 .. _`HTML-XML-utils`: https://www.w3.org/Tools/HTML-XML-utils/

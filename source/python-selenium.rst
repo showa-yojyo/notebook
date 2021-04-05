@@ -400,8 +400,9 @@ Selenium_ を用いた簡単なコードを書けるようになったら、次�
 
 * :doc:`/python-bs4`
 * :doc:`/hxutils`
-
-以上
+* :doc:`/css-selector`
+* :doc:`/xpath`
+* :doc:`/python-scrapy`
 
 .. _BeautifulSoup: http://www.crummy.com/software/BeautifulSoup/bs4/
 .. _Selenium: https://github.com/SeleniumHQ/selenium/
