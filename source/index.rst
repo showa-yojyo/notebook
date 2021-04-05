@@ -114,4 +114,5 @@ Contents:
    inkscape/index
    mathjax
    css-selector
+   xpath
    hxutils
