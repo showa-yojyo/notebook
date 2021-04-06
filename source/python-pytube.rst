@@ -1,5 +1,5 @@
 ======================================================================
-Python pytube 利用ノート
+Pytube 利用ノート
 ======================================================================
 
 本稿では Python のサードパーティ製パッケージである pytube_ について述べる。
@@ -22,6 +22,7 @@ Python pytube 利用ノート
 
 目的
 ======================================================================
+
 目的は YouTube の任意のビデオファイルを MP3 に変換してローカルディスクに保存することだ。
 
 実際には MP4 ファイルさえダウンロードすれば十分だ。
@@ -30,6 +31,7 @@ MP4 ファイルを MP3 に変換することは FFmpeg_ などの既存のツ�
 
 導入手順
 ======================================================================
+
 pip_ でのインストールになる。アップグレード手順もこれに準じる。
 
 .. code:: console
@@ -46,6 +48,7 @@ pip_ でのインストールになる。アップグレード手順もこれに
 
 テスト手順
 ======================================================================
+
 私はまだ試していないのだが、GitHub にあるリポジトリーをローカルに clone すれば単体テスト用の
 ``tests`` ディレクトリーにアクセスできる。そこで ``nosetests`` するものと思われる。
 
@@ -88,12 +91,16 @@ pytube_ の README に記述されている内容をよく読むこと。
 
 オプション
 ----------------------------------------------------------------------
+
 TBW
 
 YouTube 側仕様変更に伴う回避策
 ======================================================================
 
-過去の私のツイートを参照： https://twitter.com/showa_yojyo/status/1160392041118879745
+現在は pytube_ の開発状況が活発なので、仕様変更が発生しても直ちに対応することが大いに期待できる。
+したがって、次に記すような回避策をライブラリー利用者が個別に講じることもなくなってきた。
+
+* `私の過去ツイートより <https://twitter.com/showa_yojyo/status/1160392041118879745>`__
 
 FFmpeg を併用して MP3 に変換する
 ======================================================================
@@ -104,20 +111,28 @@ FFmpeg を併用して MP3 に変換する
 
 .. code:: bash
 
-   function convert_mp3()
+   convert_mp3 ()
    {
-       if [[ ! -x "$(command -v ffmpeg)" ]]; then
-           echo 'Error: ffmpeg is not installed.' >&2
+       if ! command -v ffmpeg &> /dev/null; then
+           echo 'Error: ffmpeg is not available.' 1>&2
            return
        fi
 
-       for i in "$@" ; do
-           local source_mp4="$i"
-           local dest_mp3="${source_mp4%.mp4}.mp3"
-           ffmpeg -loglevel fatal -i "${source_mp4}" "${dest_mp3}"
-           if [[ $? != 0 ]] ; then
-               echo 'Error: '${dest_mp3} 'is not generated' >&2
+       local ffmpeg_global_options="-loglevel error -y"
+       local ffmpeg_input_options=""
+       local ffmpeg_output_options="-qscale:a 0 -map a"
+
+       for i in "$@";
+       do
+           local input_url="$i"
+           local output_url="${input_url%.mp4}.mp3"
+           echo "Processing ${input_url}..." 1>&2
+           ffmpeg -hide_banner $ffmpeg_global_options $ffmpeg_input_options -i "$input_url" $ffmpeg_output_options "$output_url"
+           if [[ $? != 0 ]]; then
+               echo "Error: $output_url is not generated" 1>&2
+               continue
            fi
+           rm -i -f "$input_url"
        done
    }
 
