@@ -38,6 +38,7 @@ Contents:
    nishiyama12/index
    omg15/index
    gorelick14
+   stroustrup14
    stepanov15
    saha16
    slatkin16
