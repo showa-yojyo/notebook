@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>What’s New In Bash 3 ノート &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="What’s New In Bash 4 ノート" href="bash-v4.html" />
+    <link rel="prev" title="What’s New In Bash 2 ノート" href="bash-v2.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="bash-v4.html" title="What’s New In Bash 4 ノート"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="bash-v2.html" title="What’s New In Bash 2 ノート"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">What’s New In Bash 3 ノート</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="what-s-new-in-bash-3">
+<h1><a class="toc-backref" href="#id4">What’s New In Bash 3 ノート</a><a class="headerlink" href="#what-s-new-in-bash-3" title="Permalink to this headline">¶</a></h1>
+<p>Bash バージョン 3.x で追加された新機能のメモ。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title">ノート目次</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#what-s-new-in-bash-3" id="id4">What’s New In Bash 3 ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id5">概要</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id6">参考資料</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id5">概要</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>パイプのデバッグ用機能を除いてすべて重要。</p>
+<ul class="simple">
+<li><p>一般化された中括弧展開演算子。<code class="docutils literal notranslate"><span class="pre">echo</span></code> で試すのがもっとも簡単だと思われる。</p>
+<ul>
+<li><p>例：<code class="docutils literal notranslate"><span class="pre">{1..10}</span></code>, <code class="docutils literal notranslate"><span class="pre">{10..1}</span></code>
+などで数列を展開する。空白文字区切り（以下同様）。</p></li>
+<li><p>例：<code class="docutils literal notranslate"><span class="pre">{a..z}</span></code>, <code class="docutils literal notranslate"><span class="pre">{z..a}</span></code>, <code class="docutils literal notranslate"><span class="pre">{e..m}</span></code>, etc.
+で文字列を展開する。</p></li>
+<li><p>例：<code class="docutils literal notranslate"><span class="pre">&quot;Number</span> <span class="pre">#&quot;{1..4}</span></code>, etc. で分配法則が働いて展開する。</p></li>
+<li><p>例：<code class="docutils literal notranslate"><span class="pre">{1..3}{x..z}&quot;</span> <span class="pre">+&quot;</span></code>
+で直積を展開する。だからこの例では末端に要らない <code class="docutils literal notranslate"><span class="pre">+</span></code> が残る。</p></li>
+<li><p>例：<code class="docutils literal notranslate"><span class="pre">{{a..c},{1..3}}</span></code> とすると、まず
+<code class="docutils literal notranslate"><span class="pre">{a..c}</span></code> を展開してその次に <code class="docutils literal notranslate"><span class="pre">{1..3}</span></code> を展開する。中央にある
+<code class="docutils literal notranslate"><span class="pre">,</span></code> に注意すること。</p></li>
+</ul>
+</li>
+<li><p>配列の添字を展開する演算子 <code class="docutils literal notranslate"><span class="pre">${!array[&#64;]}</span></code></p>
+<ul>
+<li><p>何に利用できるか考えてみよう。</p></li>
+</ul>
+</li>
+<li><p>正規表現マッチング演算子 <code class="docutils literal notranslate"><span class="pre">=~</span></code></p>
+<ul>
+<li><p>二重角括弧の内部で用いる。</p></li>
+<li><p>例：<code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">[[</span> <span class="pre">&quot;This</span> <span class="pre">is</span> <span class="pre">a</span> <span class="pre">fine</span> <span class="pre">mess.&quot;</span> <span class="pre">=~</span> <span class="pre">T.........fin*es*</span> <span class="pre">]];</span></code></p></li>
+<li><p>こういう状況における正規表現に対して引用符で囲むのは望ましくないとある。正規表現を展開するのに失敗するかもしれないそうだ。</p></li>
+</ul>
+</li>
+<li><p>オプション <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">-o</span> <span class="pre">pipefail</span></code></p>
+<ul>
+<li><p>これは使わないと思われるので割愛。</p></li>
+</ul>
+</li>
+<li><p>演算子 <code class="docutils literal notranslate"><span class="pre">+=</span></code> が使いやすくなった。代入演算子 <code class="docutils literal notranslate"><span class="pre">=</span></code> しか使えなかった状況で <code class="docutils literal notranslate"><span class="pre">+=</span></code> も使えるようになる。</p>
+<ul>
+<li><p>とりわけ <code class="docutils literal notranslate"><span class="pre">PATH</span></code> の追加に使える。</p></li>
+</ul>
+</li>
+<li><p>その他バグ修正。割愛。</p></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id6">参考資料</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://tldp.org/LDP/abs/html/">Advanced Bash-Scripting Guide</a></p></li>
+</ul>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="bash-v4.html" title="What’s New In Bash 4 ノート"
+             >next</a></li>
+        <li class="right" >
+          <a href="bash-v2.html" title="What’s New In Bash 2 ノート"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">What’s New In Bash 3 ノート</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

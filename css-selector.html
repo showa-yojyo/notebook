@@ -1,0 +1,498 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS セレクター学習ノート &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="XPath 学習ノート" href="xpath.html" />
+    <link rel="prev" title="MathJax 利用ノート" href="mathjax.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="xpath.html" title="XPath 学習ノート"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="mathjax.html" title="MathJax 利用ノート"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CSS セレクター学習ノート</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="css">
+<h1><a class="toc-backref" href="#id9">CSS セレクター学習ノート</a><a class="headerlink" href="#css" title="Permalink to this headline">¶</a></h1>
+<p>このノートは CSS のセレクター仕様について簡単に記す。スクレイピングに関する技術で
+XPath に並んで重要なものだ。ここに書いてあることを習得することで、スクレイピング以外にも CSS コードをエレガントに記述することもできるようになる。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title">ノート目次</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#css" id="id9">CSS セレクター学習ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id10">練習方法</a></p></li>
+<li><p><a class="reference internal" href="#level-1" id="id11">Level 1</a></p></li>
+<li><p><a class="reference internal" href="#level-2" id="id12">Level 2</a></p></li>
+<li><p><a class="reference internal" href="#level-3" id="id13">Level 3</a></p></li>
+<li><p><a class="reference internal" href="#level-4" id="id14">Level 4</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id15">指定度</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id16">関連ノート</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id10">練習方法</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>ブラウザーの開発ツールのコンソールを利用するか、Scrapy のシェルを利用する。</p>
+<p><a class="reference internal" href="xpath.html"><span class="doc">XPath 学習ノート</span></a> の XPath 練習方法の節に記したものと同じ方法が使える。違いは次の通り：</p>
+<ul class="simple">
+<li><p>ブラウザーの開発用コンソールでは関数 <code class="docutils literal notranslate"><span class="pre">$x()</span></code> の代わりに関数 <code class="docutils literal notranslate"><span class="pre">$()</span></code> や <code class="docutils literal notranslate"><span class="pre">$$()</span></code> を用いる。</p></li>
+<li><p>Scrapy シェルではメソッド <code class="docutils literal notranslate"><span class="pre">.xpath()</span></code> の代わりにメソッド <code class="docutils literal notranslate"><span class="pre">.css()</span></code> を用いる。</p></li>
+</ul>
+<p>いずれも引数は CSS セレクターを表す文字列とすればよい。</p>
+<p>他にも BeautifulSoup を使う方法や、HTML-XML-utils のコマンド <code class="docutils literal notranslate"><span class="pre">hxselect</span></code> を利用する方法がある。</p>
+</div>
+<div class="section" id="level-1">
+<h2><a class="toc-backref" href="#id11">Level 1</a><a class="headerlink" href="#level-1" title="Permalink to this headline">¶</a></h2>
+<p>セレクター仕様にはレベルという概念があるようで、数字が小さいものほど基本的な仕様となっている。</p>
+<p>ただし、ここで <code class="docutils literal notranslate"><span class="pre">E</span></code>, <code class="docutils literal notranslate"><span class="pre">F</span></code> は任意の HTML 要素名を表すものとする。例えば <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">div</span></code>, <code class="docutils literal notranslate"><span class="pre">img</span></code>, <code class="docutils literal notranslate"><span class="pre">h1</span></code> などだ。また、<code class="docutils literal notranslate"><span class="pre">link</span></code>, <code class="docutils literal notranslate"><span class="pre">visited</span></code>, <code class="docutils literal notranslate"><span class="pre">active</span></code> はすべてリテラルとする。</p>
+<table class="colwidths-given docutils align-default" id="id5">
+<caption><span class="caption-text">Level 1</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>セレクター例</p></th>
+<th class="head"><p>選択要素</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">E</span></code></p></td>
+<td><p>文書中の <code class="docutils literal notranslate"><span class="pre">&lt;E&gt;&lt;/E&gt;</span></code> すべてを指定する。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">E.warning</span></code></p></td>
+<td><p>文書中の <code class="docutils literal notranslate"><span class="pre">&lt;E</span> <span class="pre">class=&quot;warning&quot;&gt;&lt;/E&gt;</span></code> すべてを指定する。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">E#myid</span></code></p></td>
+<td><p>文書中の <code class="docutils literal notranslate"><span class="pre">&lt;E</span> <span class="pre">id=&quot;myid&quot;&gt;&lt;/E&gt;</span></code> を指定する。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">E:link</span></code></p></td>
+<td><p>要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> がハイパーリンクであって、リンク先が未訪問であるようなものを指定する。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">E:visited</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">E:link</span></code> の訪問済み版。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">E:active</span></code></p></td>
+<td><p>要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> であって active であるものを指定する。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">E</span> <span class="pre">F</span></code></p></td>
+<td><p>要素 <code class="docutils literal notranslate"><span class="pre">F</span></code> であって要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> の子孫であるもの。</p></td>
+</tr>
+</tbody>
+</table>
+<p>ここまではふつうの CSS を書くときにも頻繁に指定するものなので馴染みがある。むしろスクレイピングではこのような interactive 関連パターンは使わないはずだ。</p>
+<p><code class="docutils literal notranslate"><span class="pre">E:active</span></code> については、何をもって要素が active であるのかを決めるのかは要素によって異なる。</p>
+<p>仕様書によれば <code class="docutils literal notranslate"><span class="pre">F</span></code> が <code class="docutils literal notranslate"><span class="pre">E</span></code> の子である必要はなく、例えば孫でもひ孫でも可とある。空白文字で区切るのは子孫指定と憶えたい。</p>
+</div>
+<div class="section" id="level-2">
+<h2><a class="toc-backref" href="#id12">Level 2</a><a class="headerlink" href="#level-2" title="Permalink to this headline">¶</a></h2>
+<p>レベル 2 から要素の属性に対する条件を指定できるようになる。</p>
+<table class="colwidths-given docutils align-default" id="id6">
+<caption><span class="caption-text">Level 2</span><a class="headerlink" href="#id6" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>セレクター例</p></th>
+<th class="head"><p>選択要素</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">*</span></code></p></td>
+<td><p>すべての要素を表す。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">E[attr]</span></code></p></td>
+<td><p>要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> であって、属性 <code class="docutils literal notranslate"><span class="pre">attr</span></code> を有するものを指定する。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">E[attr=&quot;value&quot;]</span></code></p></td>
+<td><p>要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> であって、属性 <code class="docutils literal notranslate"><span class="pre">attr</span></code> の値が <code class="docutils literal notranslate"><span class="pre">value</span></code> に厳密に等しいものを指定する。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">E[attr~=&quot;value&quot;]</span></code></p></td>
+<td><p>要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> であってその属性 <code class="docutils literal notranslate"><span class="pre">attr</span></code> の値が空白文字区切りの文字列パターンであるとする。<code class="docutils literal notranslate"><span class="pre">value</span></code> がそのいずれかの「単語」に厳密に等しいものを指定する。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">E[attr|=&quot;value&quot;]</span></code></p></td>
+<td><p>要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> であってその属性 <code class="docutils literal notranslate"><span class="pre">attr</span></code> の値が厳密に <code class="docutils literal notranslate"><span class="pre">value</span></code> に等しいか、あるいは <code class="docutils literal notranslate"><span class="pre">value</span></code> の直後に <code class="docutils literal notranslate"><span class="pre">-</span></code> が続き、任意の文字列が続くというパターンであるものを指定する。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">E:hover</span></code></p></td>
+<td><p>省略。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">E:focus</span></code></p></td>
+<td><p>省略。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">E:first-child</span></code></p></td>
+<td><p>要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> であって、別の方法で指定された何らかの要素の最初の子要素であるものを指定する。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">E</span> <span class="pre">&gt;</span> <span class="pre">F</span></code></p></td>
+<td><p>要素 <code class="docutils literal notranslate"><span class="pre">F</span></code> であって要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> の子であるものを指定する。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">E</span> <span class="pre">+</span> <span class="pre">F</span></code></p></td>
+<td><p>要素 <code class="docutils literal notranslate"><span class="pre">F</span></code> であって、要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> と同じ要素を親として持ち、かつ <code class="docutils literal notranslate"><span class="pre">E</span></code> のすぐ次に来るような <code class="docutils literal notranslate"><span class="pre">F</span></code> を指定する。</p></td>
+</tr>
+</tbody>
+</table>
+<p>セレクター <code class="docutils literal notranslate"><span class="pre">*</span></code> は単体で用いるのではなく、他のパターンと組み合わせて用いる。ただし <code class="docutils literal notranslate"><span class="pre">*.warning</span></code> や <code class="docutils literal notranslate"><span class="pre">*#myid</span></code> はレベル 1 仕様を用いてそれぞれ単に <code class="docutils literal notranslate"><span class="pre">.warning</span></code> や <code class="docutils literal notranslate"><span class="pre">#myid</span></code> と書ける。</p>
+<p>セレクター <code class="docutils literal notranslate"><span class="pre">E[attr]</span></code> の例を一つ挙げる。<code class="docutils literal notranslate"><span class="pre">h1[title]</span></code> は
+<code class="docutils literal notranslate"><span class="pre">title</span></code> を属性に持つ <code class="docutils literal notranslate"><span class="pre">h1</span></code> 要素すべてを指定する。</p>
+<p>セレクター <code class="docutils literal notranslate"><span class="pre">E[attr=&quot;value&quot;]</span></code> はよく用いるだろう。</p>
+<ul class="simple">
+<li><p>例：<code class="docutils literal notranslate"><span class="pre">span[class=&quot;example&quot;]</span></code></p></li>
+<li><p>例：<code class="docutils literal notranslate"><span class="pre">span[hello=&quot;Cleveland&quot;][goodbye=&quot;Columbus&quot;]</span></code></p></li>
+<li><p>アルファベットの大文字小文字オプションもあるが割愛。</p></li>
+</ul>
+<p>セレクター <code class="docutils literal notranslate"><span class="pre">a[rel~=&quot;copyright&quot;]</span></code> は要素 <code class="docutils literal notranslate"><span class="pre">a</span></code> であって、属性 <code class="docutils literal notranslate"><span class="pre">rel</span></code> の値が例えば
+<code class="docutils literal notranslate"><span class="pre">&quot;copyright</span> <span class="pre">copyleft</span> <span class="pre">copyeditor&quot;</span></code> であるならば、それらすべてがマッチする。</p>
+<p>セレクター <code class="docutils literal notranslate"><span class="pre">a[hreflang|=&quot;en&quot;]</span></code> がマッチするのは次のような要素だ：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;a</span> <span class="pre">hreflang=&quot;en&quot;&gt;&lt;/a&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;a</span> <span class="pre">hreflang=&quot;en-US&quot;&gt;&lt;/a&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;a</span> <span class="pre">hreflang=&quot;en-scouse&quot;&gt;&lt;/a&gt;</span></code></p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">E:hover</span></code> および <code class="docutils literal notranslate"><span class="pre">E:focus</span></code> はスクレイピング向けではないので、本ノートでは説明しない。</p>
+<p>木構造に関わるセレクターは上下方向と横方向があることを意識するとよい。</p>
+<p>セレクター <code class="docutils literal notranslate"><span class="pre">E:first-child</span></code> は後述する <code class="docutils literal notranslate"><span class="pre">:nth-child(1)</span></code> と同値だ。例として <code class="docutils literal notranslate"><span class="pre">div</span> <span class="pre">&gt;</span> <span class="pre">p:first-child</span></code> を挙げる。これは要素 <code class="docutils literal notranslate"><span class="pre">div</span></code> 内に最初にある要素が <code class="docutils literal notranslate"><span class="pre">p</span></code> であるならば、それを指定する：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>The last P before the note.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span> <span class="c">&lt;!-- マッチしない --&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;note&quot;</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>The first P inside the note.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span> <span class="c">&lt;!-- マッチする --&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>The last P before the note.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span> <span class="c">&lt;!-- マッチしない --&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;note&quot;</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Note<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>The first P inside the note.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span> <span class="c">&lt;!-- マッチしない --&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>セレクター <code class="docutils literal notranslate"><span class="pre">E</span> <span class="pre">&gt;</span> <span class="pre">F</span></code> は要素 <code class="docutils literal notranslate"><span class="pre">F</span></code> であって要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> の子であるものを指定する。</p>
+<ul class="simple">
+<li><p>例：<code class="docutils literal notranslate"><span class="pre">body</span> <span class="pre">&gt;</span> <span class="pre">p</span></code>: 要素 <code class="docutils literal notranslate"><span class="pre">body</span></code> の子であるような要素 <code class="docutils literal notranslate"><span class="pre">p</span></code> すべてを指定する。</p></li>
+<li><p>例：<code class="docutils literal notranslate"><span class="pre">div</span> <span class="pre">ol&gt;li</span> <span class="pre">p</span></code>: 要素 <code class="docutils literal notranslate"><span class="pre">li</span></code> の子孫にあたる要素 <code class="docutils literal notranslate"><span class="pre">p</span></code> すべてを指定する。ただしそのような <code class="docutils literal notranslate"><span class="pre">li</span></code> はいずれも要素 <code class="docutils literal notranslate"><span class="pre">ol</span></code> の子であるものとし、さらにそのような <code class="docutils literal notranslate"><span class="pre">ol</span></code> は要素 <code class="docutils literal notranslate"><span class="pre">div</span></code> の子孫であるものとする。</p></li>
+</ul>
+</div>
+<div class="section" id="level-3">
+<h2><a class="toc-backref" href="#id13">Level 3</a><a class="headerlink" href="#level-3" title="Permalink to this headline">¶</a></h2>
+<p>Level 3 で一気にセレクターのバリエーションが増える。</p>
+<table class="colwidths-given docutils align-default" id="id7">
+<caption><span class="caption-text">Level 3</span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>セレクター例</p></th>
+<th class="head"><p>選択要素</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">E:not(sel)</span></code></p></td>
+<td><p>要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> であって、セレクター <code class="docutils literal notranslate"><span class="pre">sel</span></code> にマッチしないもの。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">E[attr^=&quot;val&quot;]</span></code></p></td>
+<td><p>要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> であって、その属性 <code class="docutils literal notranslate"><span class="pre">attr</span></code> の値が <code class="docutils literal notranslate"><span class="pre">val</span></code> で始まるようなものを指定する。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">E[attr$=&quot;val&quot;]</span></code></p></td>
+<td><p>要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> であって、その属性 <code class="docutils literal notranslate"><span class="pre">attr</span></code> の値が <code class="docutils literal notranslate"><span class="pre">val</span></code> で終わるようなものを指定する。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">E[attr*=&quot;val&quot;]</span></code></p></td>
+<td><p>要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> であって、その属性 <code class="docutils literal notranslate"><span class="pre">attr</span></code> の値が部分文字列として <code class="docutils literal notranslate"><span class="pre">val</span></code> を含むようなものを指定する。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">E:target</span></code></p></td>
+<td><p>要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> であって、現在の文書のターゲットであるようなものを指定する。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">E:enabled</span></code></p></td>
+<td><p>ユーザーインターフェイス要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> であって有効状態であるもの。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">E:disabled</span></code></p></td>
+<td><p>上記の無効状態版。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">E:checked</span></code></p></td>
+<td><p>チェックボックスまたはラジオボタン <code class="docutils literal notranslate"><span class="pre">E</span></code> であって、選択状態であるもの。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">E:root</span></code></p></td>
+<td><p>ふつうは <code class="docutils literal notranslate"><span class="pre">&lt;html&gt;...&lt;/html&gt;</span></code> を指定する。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">E:empty</span></code></p></td>
+<td><p>要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> であって子要素を有しないもの。ただし空白文字はあるかもしれない。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">E:nth-child(i)</span></code></p></td>
+<td><p>要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> であって、その親要素の先頭から <code class="docutils literal notranslate"><span class="pre">i</span></code> 番目の子要素であるものを指定する。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">E:nth-last-child(i)</span></code></p></td>
+<td><p>要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> であって、末尾から先頭に向かって数えて <code class="docutils literal notranslate"><span class="pre">i</span></code> 番目の子要素であるものを指定する。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">E:last-child</span></code></p></td>
+<td><p>要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> であって、その親要素の最後の子要素であるものを指定する。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">E:only-child</span></code></p></td>
+<td><p>要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> であって、一人っ子であるものを指定する。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">E:nth-of-type(i)</span></code></p></td>
+<td><p>要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> であって <code class="docutils literal notranslate"><span class="pre">i</span></code> 番目に現れるものを指定する。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">E:nth-last-of-type(i)</span></code></p></td>
+<td><p>要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> であって末尾から先頭に向かって <code class="docutils literal notranslate"><span class="pre">i</span></code> 番目に現れるものを指定する。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">E:first-of-type</span></code></p></td>
+<td><p>要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> であって最初のものを指定する。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">E:last-of-type</span></code></p></td>
+<td><p>要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> であって最後のものを指定する。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">E:only-of-type</span></code></p></td>
+<td><p>唯一の要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> を指定する。</p></td>
+</tr>
+</tbody>
+</table>
+<p>まず否定を覚えておこう。ここで <code class="docutils literal notranslate"><span class="pre">sel</span></code> は有効なセレクターを表すものとする。</p>
+<ul class="simple">
+<li><p>例：<code class="docutils literal notranslate"><span class="pre">button:not([DISABLED])</span></code>: 要素 <code class="docutils literal notranslate"><span class="pre">button</span></code> のうち有効状態のものすべてを指定する。</p></li>
+<li><p>例：<code class="docutils literal notranslate"><span class="pre">*:not(FOO)</span></code>: <code class="docutils literal notranslate"><span class="pre">FOO</span></code> を除くすべての要素を指定する。</p></li>
+<li><p>例：<code class="docutils literal notranslate"><span class="pre">html|*:not(:link):not(:visited)</span></code>: これは宿題とする。</p></li>
+</ul>
+<p>次はレベル 2 で習った属性セレクターの仲間だ。これらはスクレイピングで活躍しそうだ。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">E[attr^=&quot;val&quot;]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">E[att$=&quot;val&quot;]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">E[att*=&quot;val&quot;]</span></code></p></li>
+</ul>
+<p>以上のいずれにおいても、<code class="docutils literal notranslate"><span class="pre">val</span></code> が空である場合にはセレクターは何も表していないものとする。</p>
+<ul class="simple">
+<li><p>例：<code class="docutils literal notranslate"><span class="pre">object[type^=&quot;image/&quot;]</span></code></p></li>
+<li><p>例：<code class="docutils literal notranslate"><span class="pre">a[href$=&quot;.html&quot;]</span></code></p></li>
+<li><p>例：<code class="docutils literal notranslate"><span class="pre">p[title*=&quot;hello&quot;]</span></code></p></li>
+</ul>
+<p>擬似クラスを含むセレクター仕様がいくつか存在する。
+<code class="docutils literal notranslate"><span class="pre">E:target</span></code> についてはよくわからない。</p>
+<p>全体と空。
+<code class="docutils literal notranslate"><span class="pre">E:root</span></code> は <code class="docutils literal notranslate"><span class="pre">&lt;html&gt;...&lt;/html&gt;</span></code> を指定するのがふつうなので、スクレイピングではたぶん使わない。</p>
+<p><code class="docutils literal notranslate"><span class="pre">E:empty</span></code> は要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> であって子要素を有しないものすべてを指す。例えば <code class="docutils literal notranslate"><span class="pre">p:empty</span></code> は <code class="docutils literal notranslate"><span class="pre">&lt;p&gt;&lt;/p&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;p&gt;</span> <span class="pre">&lt;/p&gt;</span></code>, のようなものをすべて指定する。スクレイピングでうまい使い方がありそうな気がする。</p>
+<p>レベル 3 の目玉と思われる、子要素を序数で指定するセレクターでは序数の指定方式にクセがある。</p>
+<ul class="simple">
+<li><p>インデックスは 1 始まり。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">even</span></code>, <code class="docutils literal notranslate"><span class="pre">odd</span></code> を指定することが許される。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">An+B</span></code> 記法というものがある。詳しくは仕様書を見たほうがいいが、これのせいでインデックスが 0 始まりでない。</p></li>
+</ul>
+<p>スクレイピングでは表要素の何番目の列を取得するという用途が頻繁にあるので、習得必須かもしれない。</p>
+<p><code class="docutils literal notranslate"><span class="pre">E:last-child</span></code> は要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> であって、その親要素の最後の子要素であるものを指定する。例えば <code class="docutils literal notranslate"><span class="pre">ol</span> <span class="pre">&gt;</span> <span class="pre">li.last-child</span></code> とすると <code class="docutils literal notranslate"><span class="pre">&lt;ol&gt;</span></code> 要素すべてに対する最後の <code class="docutils literal notranslate"><span class="pre">&lt;li&gt;</span></code> 要素をすべて指す。</p>
+<p>親要素を意識しない序数によるセレクターもある。例をまとめて挙げる：</p>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="nt">img</span><span class="p">:</span><span class="nd">nth-of-type</span><span class="o">(</span><span class="nt">2n</span><span class="o">+</span><span class="nt">1</span><span class="o">)</span><span class="p">{</span> <span class="k">float</span><span class="p">:</span> <span class="kc">right</span><span class="p">;</span> <span class="p">}</span>
+<span class="nt">img</span><span class="p">:</span><span class="nd">nth-of-type</span><span class="o">(</span><span class="nt">2n</span><span class="o">)</span><span class="p">{</span> <span class="k">float</span><span class="p">:</span> <span class="kc">left</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="nt">body</span> <span class="o">&gt;</span> <span class="nt">h2</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">:</span><span class="nd">first-of-type</span><span class="o">)</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">:</span><span class="nd">last-of-type</span><span class="o">)</span><span class="p">{</span> <span class="c">/* ... */</span> <span class="p">}</span>
+
+<span class="nt">dl</span> <span class="nt">dt</span><span class="p">:</span><span class="nd">first-of-type</span> <span class="p">{</span> <span class="c">/* ... */</span> <span class="p">}</span>
+
+<span class="c">/* 各行に対して最後のセルを指定する */</span>
+<span class="nt">tr</span> <span class="o">&gt;</span> <span class="nt">td</span><span class="p">:</span><span class="nd">last-of-type</span> <span class="p">{</span> <span class="c">/* ... */</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">E:only-of-type</span></code> は唯一の要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> を指定する。複数存在する <code class="docutils literal notranslate"><span class="pre">E</span></code> なら指定しないということなのでうまく利用できる状況があるかもしれない。</p>
+</div>
+<div class="section" id="level-4">
+<h2><a class="toc-backref" href="#id14">Level 4</a><a class="headerlink" href="#level-4" title="Permalink to this headline">¶</a></h2>
+<p>レベル 4 で頭の片隅にあるといつか使うかもしれないものを。ただし、これを実装している処理系は現在私の手許にないかもしれない。少なくとも Chrome ベースの某ブラウザーではダメ。</p>
+<table class="colwidths-given docutils align-default" id="id8">
+<caption><span class="caption-text">Level 4</span><a class="headerlink" href="#id8" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>セレクター例</p></th>
+<th class="head"><p>選択要素</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">E:not(s1,</span> <span class="pre">s2,</span> <span class="pre">...,</span> <span class="pre">sn)</span></code></p></td>
+<td><p>引数が複数あっても構わなくなった。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">E:is(s1,</span> <span class="pre">s2,</span> <span class="pre">...,</span> <span class="pre">sn)</span></code></p></td>
+<td><p>要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> であって、セレクター <code class="docutils literal notranslate"><span class="pre">s1</span></code>, <code class="docutils literal notranslate"><span class="pre">s2</span></code>, …, <code class="docutils literal notranslate"><span class="pre">sn</span></code> に and/or でマッチする。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">E:where(s1,</span> <span class="pre">s2,</span> <span class="pre">...,</span> <span class="pre">sn)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">E:is()</span></code> の「指定度」無視版。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">E:has(rs1,</span> <span class="pre">rs2,</span> <span class="pre">...,</span> <span class="pre">rsn)</span></code></p></td>
+<td><p>要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> であって、相対セレクター <code class="docutils literal notranslate"><span class="pre">rs1</span></code>, <code class="docutils literal notranslate"><span class="pre">rs2</span></code>, …, <code class="docutils literal notranslate"><span class="pre">rsn</span></code> のうちいずれかがスコープ要素として存在するならば、それにマッチする。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:any-link</span></code></p></td>
+<td><p>要素であって、ハイパーリンクを表すようなものにマッチ。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">F</span> <span class="pre">||</span> <span class="pre">E</span></code></p></td>
+<td><p>要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> であって、要素 <code class="docutils literal notranslate"><span class="pre">F</span></code> が表す列に属する表にあるセルを表すようなもの。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">E:nth-col(n)</span></code></p></td>
+<td><p>要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> であって、表における <code class="docutils literal notranslate"><span class="pre">n</span></code> 番目の列に属するセルを表すもの。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">E:nth-last-col(n)</span></code></p></td>
+<td><p>要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> であって、表における末尾から逆方向に数えて <code class="docutils literal notranslate"><span class="pre">n</span></code> 番目の列に属するセルを表すもの。</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">E:is()</span></code> の例を挙げる。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">*|*:is(:hover,</span> <span class="pre">:focus)</span></code>: マウスが乗っているか、フォーカスが合っているような要素ならなんでもマッチ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*|*:is(*:hover,</span> <span class="pre">*:focus)</span></code>: デフォルトの名前空間限定で、マウスが乗っているか、フォーカスが合っているような要素ならなんでもマッチ。</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">E:where()</span></code> は説明が少々難しい。まず、次のコード片は期待通り働かない：</p>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="nt">a</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">:</span><span class="nd">hover</span><span class="o">)</span> <span class="p">{</span>
+  <span class="k">text-decoration</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+<span class="p">}</span>
+
+ <span class="nt">nav</span> <span class="nt">a</span> <span class="p">{</span>
+   <span class="k">text-decoration</span><span class="p">:</span> <span class="kc">underline</span><span class="p">;</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+<p>こういうときに <code class="docutils literal notranslate"><span class="pre">:where()</span></code> を用いる。次なら期待通り働く。</p>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="nt">a</span><span class="p">:</span><span class="nd">where</span><span class="o">(</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">:</span><span class="nd">hover</span><span class="o">))</span> <span class="p">{</span>
+  <span class="k">text-decoration</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">nav</span> <span class="nt">a</span> <span class="p">{</span>
+  <span class="c">/* Works now! */</span>
+  <span class="k">text-decoration</span><span class="p">:</span> <span class="kc">underline</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>指定度の理解をする必要がある。これについては後述する。</p>
+<p><code class="docutils literal notranslate"><span class="pre">E:has(rs1,</span> <span class="pre">rs2,</span> <span class="pre">...,</span> <span class="pre">rsn)</span></code> は例を見たほうがわかりやすい。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">a:has(&gt;</span> <span class="pre">img)</span></code>: 要素 <code class="docutils literal notranslate"><span class="pre">&lt;a&gt;</span></code> であって、子に要素 <code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</span></code> を含むようなものにマッチ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dt:has(+</span> <span class="pre">dt)</span></code>: 要素 <code class="docutils literal notranslate"><span class="pre">&lt;dt&gt;</span></code> であって、直後に別の <code class="docutils literal notranslate"><span class="pre">&lt;dt&gt;</span></code> が続くようなものにマッチ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">section:not(:has(h1,</span> <span class="pre">h2,</span> <span class="pre">h3,</span> <span class="pre">h4,</span> <span class="pre">h5,</span> <span class="pre">h6))</span></code>: 要素 <code class="docutils literal notranslate"><span class="pre">&lt;section&gt;</span></code> であって、いかなる
+<code class="docutils literal notranslate"><span class="pre">&lt;h[1-6]&gt;</span></code> を含まないようなものにマッチ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">section:has(:not(h1,</span> <span class="pre">h2,</span> <span class="pre">h3,</span> <span class="pre">h4,</span> <span class="pre">h5,</span> <span class="pre">h6))</span></code>: 要素 <code class="docutils literal notranslate"><span class="pre">&lt;section&gt;</span></code> であって、
+<code class="docutils literal notranslate"><span class="pre">&lt;h[1-6]&gt;</span></code> のどれでもない要素を含むようなものにマッチ。</p></li>
+</ul>
+<p>セレクター <code class="docutils literal notranslate"><span class="pre">:any-link</span></code> URL を抽出するスクレイピングで使えるかもしれない。平たく言えば属性 <code class="docutils literal notranslate"><span class="pre">href</span></code> のある要素にマッチする。さらに論理的には <code class="docutils literal notranslate"><span class="pre">:is(:link,</span> <span class="pre">:visited)</span></code> と同値。</p>
+<p>レベル 4 にしてやっと表関連専門のセレクターが仕様に含まれる。次の例は C, E, G を灰色にする。HTML では C, E は 3 列目にあり、G は 2 列目と 3 列目にまたがっている。
+G の文字は何も指定がなければ 2 列目に描画されると思う。</p>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="nt">col</span><span class="p">.</span><span class="nc">selected</span> <span class="o">||</span> <span class="nt">td</span> <span class="p">{</span>
+  <span class="k">background</span><span class="p">:</span> <span class="kc">gray</span><span class="p">;</span>
+  <span class="k">color</span><span class="p">:</span> <span class="kc">white</span><span class="p">;</span>
+  <span class="k">font-weight</span><span class="p">:</span> <span class="kc">bold</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">table</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">col</span> <span class="na">span</span><span class="o">=</span><span class="s">&quot;2&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">col</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;selected&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;&lt;</span><span class="nt">td</span><span class="p">&gt;</span>A <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>B <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>C
+  <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;&lt;</span><span class="nt">td</span> <span class="na">colspan</span><span class="o">=</span><span class="s">&quot;2&quot;</span><span class="p">&gt;</span>D <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>E
+  <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;&lt;</span><span class="nt">td</span><span class="p">&gt;</span>F <span class="p">&lt;</span><span class="nt">td</span> <span class="na">colspan</span><span class="o">=</span><span class="s">&quot;2&quot;</span><span class="p">&gt;</span>G
+<span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">E:nth-col(n)</span></code> にせよ <code class="docutils literal notranslate"><span class="pre">E:nth-last-col(n)</span></code> にせよ <code class="docutils literal notranslate"><span class="pre">An+B</span></code> 記法における位置の決定方法に注意。</p>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id15">指定度</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>ある要素に対するセレクターの <strong>指定度</strong> とは、次の数からなる三組である：</p>
+<ul class="simple">
+<li><p>そのセレクターにある ID セレクターの個数</p></li>
+<li><p>そのセレクターにあるクラスセレクター、属性セレクター、擬似クラスの個数</p></li>
+<li><p>そのセレクターにある型セレクターと疑似要素の個数</p></li>
+</ul>
+<p>例：</p>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="o">*</span>               <span class="c">/* (0, 0, 0). universal selector は無視するものとする */</span>
+<span class="nt">LI</span>              <span class="c">/* (0, 0, 1). HTML タグ名は型セレクターの一つ */</span>
+<span class="nt">UL</span> <span class="nt">LI</span>           <span class="c">/* (0, 0, 2). UL の子孫であるような LI */</span>
+<span class="nt">UL</span> <span class="nt">OL</span><span class="o">+</span><span class="nt">LI</span>        <span class="c">/* (0, 0, 3). UL の子孫であるような LI であって、直前に OL が先行するもの */</span>
+
+<span class="nt">H1</span> <span class="o">+</span> <span class="o">*[</span><span class="nt">REL</span><span class="o">=</span><span class="nt">up</span><span class="o">]</span>  <span class="c">/* (0, 1, 1). 第 2 成分と第 3 成分はそれぞれ REL, H1 による */</span>
+<span class="nt">UL</span> <span class="nt">OL</span> <span class="nt">LI</span><span class="p">.</span><span class="nc">red</span>    <span class="c">/* (0, 1, 3). */</span>
+<span class="nt">LI</span><span class="p">.</span><span class="nc">red</span><span class="p">.</span><span class="nc">level</span>    <span class="c">/* (0, 2, 1). LI 要素であって red クラスでも level クラスでもあるようなもの */</span>
+
+<span class="p">#</span><span class="nn">x34y</span>           <span class="c">/* (1, 0, 0). id の値が x34y であるような要素すべて */</span>
+</pre></div>
+</div>
+<p>セレクターがセレクターリストであれば、その指定度はリストにあるセレクターそれぞれに対して計算される。リストに対する与えられたマッチング過程に対して、最終的な指定度はマッチするリスト内にある、もっとも具体的なセレクターの指定度である。</p>
+<p>ただし擬似クラスのいくつかは別のセレクターに評価コンテキストを提供するので、指定度の計算法が特別なものになる。</p>
+<ul class="simple">
+<li><p>擬似クラス <code class="docutils literal notranslate"><span class="pre">:is()</span></code>, <code class="docutils literal notranslate"><span class="pre">:not()</span></code>, <code class="docutils literal notranslate"><span class="pre">:has()</span></code> の指定度は、セレクターリスト引数にある最も具体的な複セレクターの指定度に置き換わる。</p></li>
+<li><p>類比的に、セレクター <code class="docutils literal notranslate"><span class="pre">:nth-child()</span></code> や <code class="docutils literal notranslate"><span class="pre">:nth-last-child()</span></code> の指定度は次の指定度の和になる：</p>
+<ul>
+<li><p>擬似クラスそれ自身の指定度（一つの擬似クラスセレクターとして勘定）</p></li>
+<li><p>（存在すれば）セレクターリスト引数にある最も具体的な複セレクターの指定度</p></li>
+</ul>
+</li>
+<li><p>擬似クラス <code class="docutils literal notranslate"><span class="pre">:where()</span></code> の指定度はゼロに置き換わる。</p></li>
+</ul>
+<p>例：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">:is(em,</span> <span class="pre">#foo)</span></code> の指定度は次のいずれかにマッチしたときに (1, 0, 0) となる：<code class="docutils literal notranslate"><span class="pre">&lt;em&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;p</span> <span class="pre">id=foo&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;em</span> <span class="pre">id=foo&gt;</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.qux:where(em,</span> <span class="pre">#foo#bar#baz)</span></code> の指定度は (0, 1, 0) となる。というのも <code class="docutils literal notranslate"><span class="pre">:where()</span></code> の外部にある <code class="docutils literal notranslate"><span class="pre">.qux</span></code> しかセレクターの指定度に寄与しないからだ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">:nth-child(even</span> <span class="pre">of</span> <span class="pre">li,</span> <span class="pre">.item)</span></code> の指定度は (0, 2, 0) となる。</p>
+<ul>
+<li><p>自身の指定度</p></li>
+<li><p>次のいずれかにマッチしたときの擬似クラスの指定度：<code class="docutils literal notranslate"><span class="pre">&lt;li&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;ul</span> <span class="pre">class=item&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;li</span> <span class="pre">class=item</span> <span class="pre">id=foo&gt;</span></code>.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">:not(em,</span> <span class="pre">strong#foo)</span></code> の指定度は任意の要素にマッチしたときに (1, 0, 1) となる。この値は <code class="docutils literal notranslate"><span class="pre">strong#foo</span></code> の指定度と等しい。</p></li>
+</ul>
+<p>指定度の順序関係は辞書式順序で定義される。左の成分同士から比較する。大きい方がより具体的である。</p>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id16">関連ノート</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="xpath.html"><span class="doc">XPath 学習ノート</span></a></p></li>
+<li><p><a class="reference internal" href="hxutils.html"><span class="doc">HTML-XML-utils 利用ノート</span></a></p></li>
+<li><p><a class="reference internal" href="python-bs4.html"><span class="doc">BeautifulSoup4 利用ノート</span></a></p></li>
+</ul>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="xpath.html" title="XPath 学習ノート"
+             >next</a></li>
+        <li class="right" >
+          <a href="mathjax.html" title="MathJax 利用ノート"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CSS セレクター学習ノート</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

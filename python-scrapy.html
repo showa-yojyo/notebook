@@ -1,0 +1,1564 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scrapy 利用ノート &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="Python Twitter Tools 利用ノート" href="python-twitter/index.html" />
+    <link rel="prev" title="Selenium 利用ノート" href="python-selenium.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="python-twitter/index.html" title="Python Twitter Tools 利用ノート"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="python-selenium.html" title="Selenium 利用ノート"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Scrapy 利用ノート</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="scrapy">
+<h1><a class="toc-backref" href="#id64">Scrapy 利用ノート</a><a class="headerlink" href="#scrapy" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://scrapy.org/">Scrapy</a> の利用に関するいろいろなことを記す。公式ドキュメントの注釈という形式にしたかったが、分量が多いのでやめて、前半部分を見ていくだけにする。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title">ノート目次</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#scrapy" id="id64">Scrapy 利用ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id65">インストール</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id66">チュートリアル</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id4" id="id67">概要</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id68">プロジェクトを作成する</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id69">スパイダーを実装する</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id70">データを収集する</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id71">データをエクスポートする</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id72">リンクをたどる</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id73">引数を扱う</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id11" id="id74">基本</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id12" id="id75">コマンドラインツール</a></p>
+<ul>
+<li><p><a class="reference internal" href="#scrapy-cfg" id="id76">構成ファイル <code class="docutils literal notranslate"><span class="pre">scrapy.cfg</span></code> と環境変数</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id77">ツールコマンド一覧</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id14" id="id78">スパイダー</a></p>
+<ul>
+<li><p><a class="reference internal" href="#spider" id="id79">クラス <code class="docutils literal notranslate"><span class="pre">Spider</span></code></a></p></li>
+<li><p><a class="reference internal" href="#id15" id="id80">スパイダーに引数を渡す</a></p></li>
+<li><p><a class="reference internal" href="#id17" id="id81">一般的なスパイダー</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id18" id="id82">セレクター</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id19" id="id83">セレクターの使い方</a></p></li>
+<li><p><a class="reference internal" href="#xpath" id="id84">XPath の使い方</a></p></li>
+<li><p><a class="reference internal" href="#id20" id="id85">組み込みセレクター</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id21" id="id86">アイテム</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id22" id="id87">Scrapy がサポートするアイテムの種類</a></p></li>
+<li><p><a class="reference internal" href="#id23" id="id88">アイテムオブジェクトを使う</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id24" id="id89">アイテムローダー</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id25" id="id90">アイテムローダーを使ってアイテムを収容する</a></p></li>
+<li><p><a class="reference internal" href="#dataclass" id="id91"><code class="docutils literal notranslate"><span class="pre">dataclass</span></code> アイテムを使う場合</a></p></li>
+<li><p><a class="reference internal" href="#id26" id="id92">入力処理器と出力処理器</a></p></li>
+<li><p><a class="reference internal" href="#id27" id="id93">アイテムローダーを実装する</a></p></li>
+<li><p><a class="reference internal" href="#id28" id="id94">入出力処理器を定義する</a></p></li>
+<li><p><a class="reference internal" href="#itemloader" id="id95"><code class="docutils literal notranslate"><span class="pre">ItemLoader</span></code></a></p></li>
+<li><p><a class="reference internal" href="#id30" id="id96">入れ子ローダー</a></p></li>
+<li><p><a class="reference internal" href="#id31" id="id97">アイテムローダーを再利用したり拡張したりする</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id32" id="id98">Scrapy シェル</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id33" id="id99">シェルを構成する</a></p></li>
+<li><p><a class="reference internal" href="#id34" id="id100">シェルを走らせる</a></p></li>
+<li><p><a class="reference internal" href="#id35" id="id101">シェルを使う</a></p></li>
+<li><p><a class="reference internal" href="#id36" id="id102">セッションの例</a></p></li>
+<li><p><a class="reference internal" href="#id37" id="id103">応答を検査するのにスパイダー内からシェルを起動する</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id38" id="id104">アイテムパイプライン</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id39" id="id105">独自のパイプラインを書く</a></p></li>
+<li><p><a class="reference internal" href="#id40" id="id106">アイテムパイプラインの例</a></p>
+<ul>
+<li><p><a class="reference internal" href="#process-item" id="id107">メソッド <code class="docutils literal notranslate"><span class="pre">process_item()</span></code> の基本形</a></p></li>
+<li><p><a class="reference internal" href="#json" id="id108">単一の JSON ファイルへ出力する</a></p></li>
+<li><p><a class="reference internal" href="#id41" id="id109">データベースへ格納する</a></p></li>
+<li><p><a class="reference internal" href="#id42" id="id110">アイテムのスクリーンショットをとる</a></p></li>
+<li><p><a class="reference internal" href="#id44" id="id111">重複を除去するフィルター</a></p></li>
+<li><p><a class="reference internal" href="#id46" id="id112">自作アイテムパイプラインを有効にする</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#feed-exports" id="id113">Feed exports</a></p></li>
+<li><p><a class="reference internal" href="#id47" id="id114">要求と応答</a></p>
+<ul>
+<li><p><a class="reference internal" href="#request" id="id115">クラス <code class="docutils literal notranslate"><span class="pre">Request</span></code></a></p></li>
+<li><p><a class="reference internal" href="#id49" id="id116">メタ</a></p></li>
+<li><p><a class="reference internal" href="#id50" id="id117">応答のダウンロードを中止する</a></p></li>
+<li><p><a class="reference internal" href="#id52" id="id118"><code class="docutils literal notranslate"><span class="pre">Request</span></code> のサブクラス</a></p></li>
+<li><p><a class="reference internal" href="#response" id="id119">クラス <code class="docutils literal notranslate"><span class="pre">Response</span></code></a></p></li>
+<li><p><a class="reference internal" href="#id53" id="id120"><code class="docutils literal notranslate"><span class="pre">Response</span></code> の派生クラス</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id54" id="id121">リンク抽出器</a></p></li>
+<li><p><a class="reference internal" href="#id55" id="id122">設定</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id56" id="id123">設定モジュールを指定する</a></p></li>
+<li><p><a class="reference internal" href="#id57" id="id124">設定を仕込む</a></p></li>
+<li><p><a class="reference internal" href="#id58" id="id125">設定にアクセスする方法</a></p></li>
+<li><p><a class="reference internal" href="#id59" id="id126">組み込み設定項目</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id60" id="id127">応用</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id61" id="id128">単体のスクリプトとして実装する</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id62" id="id129">関連リンク</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>本稿執筆時の動作環境は次のとおり。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ scrapy version -v</span>
+<span class="go">Scrapy       : 2.4.1</span>
+<span class="go">lxml         : 4.6.2.0</span>
+<span class="go">libxml2      : 2.9.10</span>
+<span class="go">cssselect    : 1.1.0</span>
+<span class="go">parsel       : 1.6.0</span>
+<span class="go">w3lib        : 1.22.0</span>
+<span class="go">Twisted      : 20.3.0</span>
+<span class="go">Python       : 3.9.2 (default, Mar  3 2021, 20:02:32) - [GCC 7.3.0]</span>
+<span class="go">pyOpenSSL    : 20.0.1 (OpenSSL 1.1.1j  16 Feb 2021)</span>
+<span class="go">cryptography : 3.4.6</span>
+<span class="go">Platform     : Linux-4.19.128-microsoft-standard-x86_64-with-glibc2.31</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id65">インストール</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>私の Python 環境は WSL2 上に Miniconda を用いた仮想環境だ。したがってインストール手段はほぼ自明なものになる。</p>
+<p><a class="reference external" href="https://scrapy.org/">Scrapy</a> は Python のサードパーティー製パッケージであるので、コンソールからの次のコマンド実行のどちらかでインストールしたと記憶している。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">-c</span> <span class="pre">conda-forge</span> <span class="pre">scrapy</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">scrapy</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id66">チュートリアル</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>チュートリアルとしては、公式ドキュメントのチュートリアル Scrapy Tutorial を一通り実施するのが自然だ。
+<a class="reference external" href="https://scrapy.org/">Scrapy</a> はフレームワーク指向のパッケージなので、それを利用者に理解させることを優先した指導内容だ。むしろシェルを先にいじるのがスクレイピングの本質に近いところから始めることになっていいと思うのだが、どうだろう。</p>
+<p>Scrapy Tutorial を読み、それを実施したときの私の感想を羅列して示す。</p>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id67">概要</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>このチュートリアルを簡単に説明すると、quotes.toscrape.com という有名な名言集のウェブサイトを scrape するというものだ。
+<a class="reference external" href="https://scrapy.org/">Scrapy</a> の標準的フレームワークに従うプロジェクトを作成し、コードを書き、テストし、データを集めるという構造のチュートリアルだ。したがって、読了後は利用者は次のことを習得していることになる：</p>
+<ul class="simple">
+<li><p>プロジェクトの作成方法</p></li>
+<li><p>スパイダーの実装方法</p></li>
+<li><p>ウェブサイトを crawl してデータを収集する方法</p></li>
+<li><p>コンソールでかき集めたデータをエクスポートする方法</p></li>
+<li><p>リンクを再帰的にたどるようにスパイダーを変更する方法</p></li>
+<li><p>スパイダーに引数を扱わせる方法</p></li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id68">プロジェクトを作成する</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>Scrapy ではスパイダーというクラスを実装することでスクレイピングの一連の処理を表現するのだが、その枠組に乗せるためにプロジェクトと呼ばれる定型的なファイルディレクトリー構造を作成する。このためには次のコマンドを適当なディレクトリーからコンソールで実行する。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ scrapy startproject PROJECT_NAME [PROJECT_DIR]</span>
+<span class="go">bash$ cd PROJECT_DIR</span>
+</pre></div>
+</div>
+<p>チュートリアルでは <code class="docutils literal notranslate"><span class="pre">PROJECT_NAME</span></code> を <code class="docutils literal notranslate"><span class="pre">tutorial</span></code> と入力する。
+<code class="docutils literal notranslate"><span class="pre">PROJECT_DIR</span></code> は省略するとプロジェクト名がディレクトリー名として採用される。</p>
+<p>コマンドが成功すると、ドキュメントにあるようなディレクトリー構造が生じる。作業ディレクトリーをそこへ <code class="docutils literal notranslate"><span class="pre">cd</span></code> する。</p>
+</div>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id69">スパイダーを実装する</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>チュートリアルではファイル <code class="docutils literal notranslate"><span class="pre">tutorial/spiders/quotes_spider.py</span></code> を新しく編集するが、次のように Scrapy のコマンドを利用したものを編集する習慣をつけるとよい：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ scrapy genspider quotes quotes.toscrape.com</span>
+<span class="go">bash$ mv quotes.py spiders</span>
+</pre></div>
+</div>
+<p>コードとドキュメントを読んで次のクラス構成要素を習得すること：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: スパイダーの名前はコマンドラインツールやログを扱うときに重要だ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">start_requests()</span></code>: このチュートリアルのように自分で実装する場合には
+<code class="docutils literal notranslate"><span class="pre">Request</span></code> オブジェクトを return するか yield するということを憶えておくこと。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">parse()</span></code>: 本来ならばデータを収集して処理するメソッドになる。</p></li>
+</ul>
+<p>このようにして作成したスパイダーを実行するのに、Scrapy のコマンドラインツールを起動する：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ scrapy crawl quotes</span>
+</pre></div>
+</div>
+<p>実行直後から Scrapy のフレームワークからのログが出力され続けるようならばひとまずよしとする。
+Scrapy のスケジューラーが <code class="docutils literal notranslate"><span class="pre">Request</span></code> オブジェクトを適宜インターネットに飛ばして、得られた応答をもとに
+<code class="docutils literal notranslate"><span class="pre">Response</span></code> オブジェクトを生成して指定されたコールバック関数、この場合には <code class="docutils literal notranslate"><span class="pre">parse()</span></code> をその引数として呼び出すというような仕組みだ。</p>
+<p>もう一度書くと、スパイダークラスをテンプレートから生成すると <code class="docutils literal notranslate"><span class="pre">start_requests()</span></code> を書かずに済む。代わりに、フレームワークがクラス属性 <code class="docutils literal notranslate"><span class="pre">start_urls</span></code> の URL を順次リクエストするので、こちらのリストの中身を指定することになる。</p>
+<p>ログインリクエストなど、特別な <code class="docutils literal notranslate"><span class="pre">Request</span></code> を要するときに <code class="docutils literal notranslate"><span class="pre">start_requests()</span></code> を書くと憶えておく。</p>
+</div>
+<div class="section" id="id7">
+<h3><a class="toc-backref" href="#id70">データを収集する</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>Scrapy Tutorial ではこのタイミングでシェルの説明が始まるが、別に分けるほうがいいと思う。応答オブジェクトからメソッド呼び出しで DOM ノードを再帰的に参照できるという話をしたいだけだろう。</p>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">parse()</span></code> に与えられた <code class="docutils literal notranslate"><span class="pre">Response</span></code> オブジェクトは、要求したページの DOM オブジェクトを含んでいると思って構わない。このオブジェクトのメンバーデータ <code class="docutils literal notranslate"><span class="pre">selector</span></code> から次の問い合わせメソッドを好きに呼び出すことで欲しいデータを収集する：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.css()</span></code>: CSS セレクター式を指定してマッチするノードを選択する</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.xpath()</span></code>: XPath 式を指定してマッチするノードを選択する</p></li>
+</ul>
+<p>どちらの方式でも戻り値のオブジェクトは <code class="docutils literal notranslate"><span class="pre">list</span></code> の特別なサブクラスだ。特に <code class="docutils literal notranslate"><span class="pre">.get()</span></code> や <code class="docutils literal notranslate"><span class="pre">.getall()</span></code> で文字列や文字列のリストが得られることを理解すること。</p>
+<p>本チュートリアルでは <code class="docutils literal notranslate"><span class="pre">parse()</span></code> でページ内にあるデータから <code class="docutils literal notranslate"><span class="pre">dict</span></code> オブジェクトをいくつか構築して
+<code class="docutils literal notranslate"><span class="pre">yield</span></code> していることが確認できる。生成するオブジェクトの型については後で詳述がある。</p>
+<p>ログを見ると、そのようにして生成した辞書オブジェクトがダンプされていることが確認できる。</p>
+</div>
+<div class="section" id="id8">
+<h3><a class="toc-backref" href="#id71">データをエクスポートする</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>コマンドラインからスパイダーを実行するときに、ふつうは出力先を指定する。ファイルに出力する場合、Scrapy はその拡張子で出力フォーマットを決定する。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ scrapy crawl quotes -O quotes.json</span>
+<span class="go">bash$ scrapy crawl quotes -o quotes.jl</span>
+<span class="go">bash$ scrapy crawl quotes -o quotes.csv</span>
+<span class="go">bash$ scrapy crawl quotes -o quotes.xml</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>オプション <code class="docutils literal notranslate"><span class="pre">-o</span></code> と <code class="docutils literal notranslate"><span class="pre">-O</span></code> の違いはヘルプを参照。</p></li>
+<li><p>JSON の巨大なファイルを処理したいのならば <a class="reference external" href="https://stedolan.github.io/jq">JQ</a> などのツールを導入するといいらしい。</p></li>
+</ul>
+<p>大規模なクローラーを実装するのであればアイテムパイプラインの導入を検討することとある。</p>
+</div>
+<div class="section" id="id9">
+<h3><a class="toc-backref" href="#id72">リンクをたどる</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>検索サイトやブログのように、ある程度の分量のページを crawl する方法について説明がある。しかし、あとで <code class="docutils literal notranslate"><span class="pre">Crawler</span></code> を習得するのでここに書いてあることを習得する必要は実はない。</p>
+<ul class="simple">
+<li><p>スパイダーのメソッドから対象となるリンクを収集する。</p>
+<ul>
+<li><p>例えば <code class="docutils literal notranslate"><span class="pre">response.css(...)</span></code> などの選択メソッドで <code class="docutils literal notranslate"><span class="pre">a</span></code> 要素にマッチさせる。戻り値の <code class="docutils literal notranslate"><span class="pre">href</span></code> 値から <code class="docutils literal notranslate"><span class="pre">yield</span> <span class="pre">response.follow(url,</span> <span class="pre">callback=self.parse)</span></code> などのようにする。</p></li>
+<li><p>URL が複数ある場合には一括して <code class="docutils literal notranslate"><span class="pre">yield</span> <span class="pre">from</span> <span class="pre">response.follow_all(urls,</span> <span class="pre">callback=self.parse)</span></code> とできる。</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id10">
+<h3><a class="toc-backref" href="#id73">引数を扱う</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>コマンドラインから <code class="docutils literal notranslate"><span class="pre">-a</span></code> オプションで引数をスパイダーに引き渡すことができる：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ scrapy crawl quotes -a KEY1=VALUE1 -a KEY2=VALUE2 -a ...</span>
+</pre></div>
+</div>
+<p>スパイダー内部から参照するには方法が複数あるようだが、<code class="docutils literal notranslate"><span class="pre">self.KEY1</span></code> などのようにするやり方もある。</p>
+<ul class="simple">
+<li><p>安全のため <code class="docutils literal notranslate"><span class="pre">getattr(self,</span> <span class="pre">KEY1)</span></code> でチェックしてからアクセスするようにすること。</p></li>
+<li><p>このような引数はスーパークラスの <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> が終了してから有効となる。</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id11">
+<h2><a class="toc-backref" href="#id74">基本</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>ここからはドキュメントの BASIC CONCEPTS 内の節のうち、有用なものを拾って読んでいく。</p>
+<div class="section" id="id12">
+<h3><a class="toc-backref" href="#id75">コマンドラインツール</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="scrapy-cfg">
+<h4><a class="toc-backref" href="#id76">構成ファイル <code class="docutils literal notranslate"><span class="pre">scrapy.cfg</span></code> と環境変数</a><a class="headerlink" href="#scrapy-cfg" title="Permalink to this headline">¶</a></h4>
+<p>コマンドラインツール <code class="docutils literal notranslate"><span class="pre">scrapy</span></code> は構成ファイル <code class="docutils literal notranslate"><span class="pre">scrapy.cfg</span></code> が下記のパスにあるときにロードしに行く。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/etc/scrapy.cfg</span></code> や <code class="docutils literal notranslate"><span class="pre">c:\scrapy\scrapy.cfg</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">~/.config/scrapy.cfg</span></code> と <code class="docutils literal notranslate"><span class="pre">~/.scrapy.cfg</span></code></p></li>
+<li><p>プロジェクトディレクトリのルートにある <code class="docutils literal notranslate"><span class="pre">scrapy.cfg</span></code></p></li>
+</ul>
+<p>構成ファイルの書式はいわゆる INI ファイルのそれと同じようなものだ。</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[settings]</span>
+<span class="na">default</span> <span class="o">=</span> <span class="s">myproject.settings</span>
+</pre></div>
+</div>
+<p>さらに、以下の環境変数を考慮する：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SCRAPY_SETTINGS_MODULE</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SCRAPY_PROJECT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SCRAPY_PYTHON_SHELL</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="id13">
+<h4><a class="toc-backref" href="#id77">ツールコマンド一覧</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
+<p>コンソールから <code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">COMMAND</span> <span class="pre">options</span> <span class="pre">args</span></code> のようにして起動するコマンドの一覧。プロジェクトが必要なものとそうでないものとに分類できる（ここには記さない）。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>command</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bench</p></td>
+<td><p>Run quick benchmark test</p></td>
+<td><p>今は詳しく知らなくてよい</p></td>
+</tr>
+<tr class="row-odd"><td><p>check</p></td>
+<td><p>Check spider contracts commands</p></td>
+<td><p>自分の書いたスパイダーを調べる</p></td>
+</tr>
+<tr class="row-even"><td><p>crawl</p></td>
+<td><p>Run a spider</p></td>
+<td><p>スパイダーをふつうに実行</p></td>
+</tr>
+<tr class="row-odd"><td><p>edit</p></td>
+<td><p>Edit spider</p></td>
+<td><p>テキストエディターでモジュールを開く</p></td>
+</tr>
+<tr class="row-even"><td><p>fetch</p></td>
+<td><p>Fetch a URL using the Scrapy downloader</p></td>
+<td><p>ふつうは応答の本体を見るがヘッダーを見ることもできる</p></td>
+</tr>
+<tr class="row-odd"><td><p>genspider</p></td>
+<td><p>Generate new spider using pre-defined templates</p></td>
+<td><p>テンプレートからモジュールを生成</p></td>
+</tr>
+<tr class="row-even"><td><p>list</p></td>
+<td><p>List available spiders</p></td>
+<td><p>ここにスパイダークラスの <code class="docutils literal notranslate"><span class="pre">name</span></code> が現れる</p></td>
+</tr>
+<tr class="row-odd"><td><p>parse</p></td>
+<td><p>Parse URL (using its spider) and print the results</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">parse()</span></code> 相当を指示できる</p></td>
+</tr>
+<tr class="row-even"><td><p>runspider</p></td>
+<td><p>Run a self-contained spider (without creating a project)</p></td>
+<td><p>スパイダークラスを定義したモジュールだけで実行できる</p></td>
+</tr>
+<tr class="row-odd"><td><p>settings</p></td>
+<td><p>Get settings values</p></td>
+<td><p>構成ファイルで設定されている内容を確認する</p></td>
+</tr>
+<tr class="row-even"><td><p>shell</p></td>
+<td><p>Interactive scraping console</p></td>
+<td><p>IPython があればそれが走る</p></td>
+</tr>
+<tr class="row-odd"><td><p>startproject</p></td>
+<td><p>Create new project</p></td>
+<td><p>フレームワークに乗るディレクトリー構造を生成する</p></td>
+</tr>
+<tr class="row-even"><td><p>version</p></td>
+<td><p>Print Scrapy version</p></td>
+<td><p>付随するライブラリーのバージョンも出力できる</p></td>
+</tr>
+<tr class="row-odd"><td><p>view</p></td>
+<td><p>Open URL in browser, as seen by Scrapy</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">crawl</span> <span class="pre">SPIDER</span></code> がふつうの使い方だ。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">SPIDER</span></code> はプロジェクトにあるスパイダークラスの <code class="docutils literal notranslate"><span class="pre">name</span></code>
+を指定する。これは <code class="docutils literal notranslate"><span class="pre">list</span></code> で確認することもできる。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">edit</span> <span class="pre">SPIDER</span></code> は対応するファイルを既定のエディターで開くだけ。自分でエディターをコンソールから入力するのと手間はほとんど変わらないだろう。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">fetch</span> <span class="pre">--nolog</span> <span class="pre">--headers</span> <span class="pre">URL</span></code> でヘッダーだけを得られる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">genspider</span> <span class="pre">SPIDER_NAME</span> <span class="pre">ALLOWED_DOMAIN</span></code>
+の形式で実行するとスパイダークラスのための Python ファイルを生成する。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">--list</span></code>, <code class="docutils literal notranslate"><span class="pre">-l</span></code> でスパイダーのテンプレの名前を一覧する。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">basic</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">crawl</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">csvfeed</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">xmlfeed</span></code></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--dump=TEMPLATE</span></code>, <code class="docutils literal notranslate"><span class="pre">-d</span> <span class="pre">TEMPLATE</span></code> でテンプレの定義を標準出力に表示できる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--template=TEMPLATE</span></code>, <code class="docutils literal notranslate"><span class="pre">-t</span> <span class="pre">TEMPLATE</span></code> でスパイダークラスのテンプレを指定する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--edit</span></code>, <code class="docutils literal notranslate"><span class="pre">-e</span></code> でファイル生成後にそれをエディターを開く。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">parse</span> <span class="pre">[options]</span> <span class="pre">&lt;url&gt;</span></code>
+はプロジェクトにあるスパイダーを使って文字列に関する分析をする。オプションを指定して特別なことをするのに利用する。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">-a</span> <span class="pre">NAME=VALUE</span></code> でスパイダーに引数を渡す。これは複数あってよい。コードではスパイダークラスのメソッドで <code class="docutils literal notranslate"><span class="pre">self.NAME</span></code> の形式で
+<code class="docutils literal notranslate"><span class="pre">VALUE</span></code> を参照する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--output=FILE</span></code>, <code class="docutils literal notranslate"><span class="pre">-o</span> <span class="pre">FILE</span></code>:
+スクレイプしたデータを出力するファイルを指定する。</p>
+<ul>
+<li><p>これらは append モードで動く。</p></li>
+<li><p>標準出力は <code class="docutils literal notranslate"><span class="pre">FILE</span></code> として <code class="docutils literal notranslate"><span class="pre">-</span></code> を指定する。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--overwrite-output=FILE</span></code>, <code class="docutils literal notranslate"><span class="pre">-O</span> <span class="pre">FILE</span></code>: 上記オプションの write 版。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--output-format=FORMAT</span></code>, <code class="docutils literal notranslate"><span class="pre">-t</span> <span class="pre">FORMAT</span></code>: 出力書式を指定する。</p>
+<ul>
+<li><p>ただし出力先が標準出力の場合には妙な例外が送出されてダメ。</p></li>
+<li><p>有効な FORMAT は後述。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--spider=SPIDER</span></code>: スパイダー <code class="docutils literal notranslate"><span class="pre">SPIDER</span></code>
+を用いるようにする（クラスの定義から自動検出されるものではなく）。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--callback</span> <span class="pre">CALLBACK</span></code>, <code class="docutils literal notranslate"><span class="pre">-c</span> <span class="pre">CALLBACK</span></code>: 応答を解釈するコールバックメソッドを指定する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--nolinks</span></code> で抽出したリンクを出力しないようにする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--noitems</span></code> で抽出したものを出力しないようにする。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">runspider</span> <span class="pre">myspider.py</span></code> とすると、プロジェクトを作る必要がないスパイダーを実行できる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">shell</span> <span class="pre">[URL|FILE]</span></code> が基本形。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">shell</span> <span class="pre">-c</span> <span class="pre">CODE</span></code> でコードを実行。例えば：
+<code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">shell</span> <span class="pre">--nolog</span> <span class="pre">http://www.example.com/</span> <span class="pre">-c</span> <span class="pre">'(response.status,</span> <span class="pre">response.url)'</span></code></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">startproject</span> <span class="pre">&lt;project_name&gt;</span> <span class="pre">[project_dir]</span></code> を実行すると
+<a class="reference external" href="https://scrapy.org/">Scrapy</a> が扱えるディレクトリー構造を生成する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">view</span> <span class="pre">&lt;url&gt;</span></code> でブラウザーが開くことになっている。</p>
+<ul>
+<li><p><a class="reference external" href="https://github.com/scrapy/scrapy/issues/4589">WSL の Python だと動かない</a>。</p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id14">
+<h3><a class="toc-backref" href="#id78">スパイダー</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<p>Scrapy ではスパイダーをクラスで表す。特定のウェブサイトを這い回っていろいろなページから欲しいデータをかき集める方法を指定するものだ。</p>
+<p>スパイダーには反復手順とでもいうようなものがあり、だいたい次のようになる：</p>
+<ol class="arabic">
+<li><p>最初の URL を這いずり回るべく、リクエストを生成することから始める。そのリクエストからダウンロードされた応答を処理する関数を指定する。</p>
+<ul class="simple">
+<li><p>これはメソッド <code class="docutils literal notranslate"><span class="pre">start_requests()</span></code> の呼び出しでなされる。</p></li>
+<li><p>URL を <code class="docutils literal notranslate"><span class="pre">start_urls</span></code> に指定する。形式はテンプレコードを参照。</p></li>
+</ul>
+</li>
+<li><p>コールバック関数では応答すなわちウェブページを分析して、文字列分析したアイテムオブジェクトを返したり、
+<code class="docutils literal notranslate"><span class="pre">Request</span></code> オブジェクトを返したり、そういうオブジェクトの iterable
+を返したりする。 ここで返した <code class="docutils literal notranslate"><span class="pre">Request</span></code>
+オブジェクトがまた（それらが指定する）コールバックに応答が到着する。</p>
+<p>コールバック関数ではふつうは <code class="docutils literal notranslate"><span class="pre">Selector</span></code> を利用してページの内容を分析する。それから加工したデータをアイテムとして <code class="docutils literal notranslate"><span class="pre">yield</span></code> する。</p>
+</li>
+<li><p>最後に、スパイダーから返されるアイテムを、ふつうはデータベースに保存したり、ファイルに出力したりする。</p></li>
+</ol>
+<p>私が <a class="reference external" href="https://scrapy.org/">Scrapy</a> を使い始めた当初のハードルは上記の 1. と 2. だ。リクエストと文字列処理の連携が非同期的だというのがわかっていなくて、MJ.NET
+のページ遷移で失敗しまくっていた。</p>
+<div class="section" id="spider">
+<h4><a class="toc-backref" href="#id79">クラス <code class="docutils literal notranslate"><span class="pre">Spider</span></code></a><a class="headerlink" href="#spider" title="Permalink to this headline">¶</a></h4>
+<p>クラス <code class="docutils literal notranslate"><span class="pre">Spider</span></code> がいちばん単純なスパイダーだ。 上述した <code class="docutils literal notranslate"><span class="pre">start_urls</span></code> と
+<code class="docutils literal notranslate"><span class="pre">start_requests()</span></code> の連携する既定の実装しか与えない。</p>
+<p>主要なプロパティーを表にする：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p>スパイダーの名前</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">genspider</span></code> で決まる</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">allowed_domains</span></code></p></td>
+<td><p>這いずり回ることを認めるドメイン</p></td>
+<td><p>リストで指定</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">start_urls</span></code></p></td>
+<td><p>這いずり回る URL の始点</p></td>
+<td><p>リストで指定</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">logger</span></code></p></td>
+<td><p>Python 標準のログ機能</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">self.logger.info(...)</span></code> のように使う</p></td>
+</tr>
+</tbody>
+</table>
+<p>主要なメソッドを表にする：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">start_requests()</span></code></p></td>
+<td><p>スパイダーが這い回るための <code class="docutils literal notranslate"><span class="pre">Request</span></code> の iterable を返す</p></td>
+<td><p>ジェネレーターとして書くのが無難</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">parse(response)</span></code></p></td>
+<td><p>応答を処理する既定のコールバック</p></td>
+<td><p>応答を処理してデータか URL を返す</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">start_urls</span></code> を明示的に設定してある場合、<code class="docutils literal notranslate"><span class="pre">start_requests()</span></code>
+を実装せずに済ませることができる。 反対に、<code class="docutils literal notranslate"><span class="pre">start_requests()</span></code>
+を実装して <code class="docutils literal notranslate"><span class="pre">start_urls</span></code> を無視するということもできる。</p></li>
+</ul>
+</div>
+<div class="section" id="id15">
+<h4><a class="toc-backref" href="#id80">スパイダーに引数を渡す</a><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h4>
+<p>コンソールからコマンド <code class="docutils literal notranslate"><span class="pre">crawl</span></code> や <code class="docutils literal notranslate"><span class="pre">runspider</span></code>
+を実行するときにオプション <code class="docutils literal notranslate"><span class="pre">-a</span> <span class="pre">KEY=VALUE</span></code> でスパイダーに引数を渡せる。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ scrapy crawl MYSPIDER -a KEY1=VALUE1 -a KEY2=VALUE2 ...</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>スパイダークラスで <code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">__init__(self,</span> <span class="pre">KEY=None,</span> <span class="pre">*args,</span> <span class="pre">**kwargs)</span></code>
+のように書くか、</p></li>
+<li><p>メソッド内で <code class="docutils literal notranslate"><span class="pre">self.KEY</span></code> の形式で参照する。ただしコマンドラインで指定されていない場合には例外が送出する。</p></li>
+</ul>
+<div class="admonition-todo admonition" id="id16">
+<p class="admonition-title">Todo</p>
+<p>次のオプションは別途処理される？</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">http_user</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">http_pass</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">user_agent</span></code></p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id17">
+<h4><a class="toc-backref" href="#id81">一般的なスパイダー</a><a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CrawlSpider</span></code>:
+これがふつうのウェブサイドをクロールするのに用いられるスパイダー。</p>
+<ul>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">rules</span></code> に基づいてクロールするページが決まる。これは <code class="docutils literal notranslate"><span class="pre">Rule</span></code> オブジェクトのリスト。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">parse_start_url()</span></code>
+をオーバーライドすることがあるかもしれない。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XMLFeedSpider</span></code>:
+その名の示すとおりのものをクロールする。クロールというのか？</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">itertag</span></code> を指定。その上でメソッド <code class="docutils literal notranslate"><span class="pre">parse_note()</span></code>
+をオーバーライドする。</p></li>
+<li><p>引数 <code class="docutils literal notranslate"><span class="pre">response</span></code> の次の引数が XML のノードを表す。これは <code class="docutils literal notranslate"><span class="pre">Item</span></code>
+オブジェクトを生成して返す。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CSVFeedSpider</span></code>: 上記スパイダーの CSV 版。<code class="docutils literal notranslate"><span class="pre">delimiter</span></code>,
+<code class="docutils literal notranslate"><span class="pre">quotechar</span></code>, <code class="docutils literal notranslate"><span class="pre">headers</span></code> などを指定。</p>
+<ul>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">parse_row()</span></code> をオーバーライドする。引数 <code class="docutils literal notranslate"><span class="pre">row</span></code>
+は辞書オブジェクト。</p></li>
+</ul>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">SitemapSpider</span></code>: sitemap.xml や robots.txt</dt><dd><p>をクロールするためのスパイダー。</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>重要なのはクラス <code class="docutils literal notranslate"><span class="pre">CrawlSpider</span></code> だ。</p>
+<p>スパイダークラス <code class="docutils literal notranslate"><span class="pre">CrawlSpider</span></code> の仕組みを理解するのにクラス
+<code class="docutils literal notranslate"><span class="pre">Rule</span></code> を理解する。これはコンストラクターの引数リストから察せられるように、ページ内の
+URL と処理規則とを結合する役を果たす。一部を示す。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>parameter</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">link_extractor</span></code></p></td>
+<td><p>クロール対象である URL を抽出する <code class="docutils literal notranslate"><span class="pre">LinkExtractor</span></code> オブジェクト</p></td>
+<td><p>後述</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">callback</span></code></p></td>
+<td><p>抽出されたリンクを処理する callable</p></td>
+<td><p>そのような callable は <code class="docutils literal notranslate"><span class="pre">Response</span></code> オブジェクトを引数に取る</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cb_kwargs</span></code></p></td>
+<td><p>上記 callable のキーワード引数となる <code class="docutils literal notranslate"><span class="pre">dict</span></code> オブジェクト</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">follow</span></code></p></td>
+<td><p>抽出されたリンク先にジャンプするか否かを表す <code class="docutils literal notranslate"><span class="pre">bool</span></code> 値</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">process_links</span></code></p></td>
+<td><p>抽出されたリンクのリストをフィルターするための callable</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">process_request</span></code></p></td>
+<td><p>抽出された <code class="docutils literal notranslate"><span class="pre">Request</span></code> オブジェクトを処理する callable</p></td>
+<td><p>これもフィルターのように実装する</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="id18">
+<h3><a class="toc-backref" href="#id82">セレクター</a><a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id19">
+<h4><a class="toc-backref" href="#id83">セレクターの使い方</a><a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">Response</span></code> オブジェクトの <code class="docutils literal notranslate"><span class="pre">.selector</span></code> を経由してメソッド <code class="docutils literal notranslate"><span class="pre">.css()</span></code>
+や <code class="docutils literal notranslate"><span class="pre">.xpath()</span></code> で CSS セレクターや XPath を指定することでノードを得るというのが基本形となる。これらを選択メソッドと呼ぶことにする。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Response</span></code> オブジェクトに対して同名の選択メソッドを呼び出すこともできる。これらは本来のメソッドへの単なるショートカットだ。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Selector</span></code> オブジェクトを直接生成することもできる。セレクターの練習のときにそうするかもしれない。</p>
+<ul class="simple">
+<li><p>コンストラクターの引数は HTML テキストを表す <code class="docutils literal notranslate"><span class="pre">str</span></code> オブジェクトか
+<code class="docutils literal notranslate"><span class="pre">HtmlResponse</span></code> オブジェクトとなる。</p></li>
+</ul>
+<p>選択メソッドの戻り値は <code class="docutils literal notranslate"><span class="pre">SelectorList</span></code> オブジェクトだ。これに対する次の操作をしっかりと習得すること：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.get()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.getall()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.attrib</span></code></p></li>
+</ul>
+<p>CSS セレクターには <a class="reference external" href="https://scrapy.org/">Scrapy</a> による次の拡張仕様が付与されている。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">::text</span></code> はテキストノードを選択する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">::attr(name)</span></code> は属性ノードを選択する。</p></li>
+</ul>
+<p>選択メソッドの戻り値はセレクターのリストであるので、その要素に対しても選択メソッドを呼び出せることに注意すること。</p>
+<p>要素ノードの属性を選択する手段が複数あることに注意すること。</p>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">.re()</span></code> を利用することで <code class="docutils literal notranslate"><span class="pre">Selector</span></code> オブジェクトに対して正規表現でフィルターすることができる。選択メソッドで抽出し切れないときにこれを併用するのだろう。</p>
+</div>
+<div class="section" id="xpath">
+<h4><a class="toc-backref" href="#id84">XPath の使い方</a><a class="headerlink" href="#xpath" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="https://scrapy.org/">Scrapy</a> に限らず有用なので XPath の基本は別途学習しておくこと。
+<a class="reference external" href="https://scrapy.org/">Scrapy</a> をいじるついでに習得してもいい。注意点：</p>
+<ul class="simple">
+<li><p>絶対パスと相対パスの区別に気をつける（ファイルパスのそれ以上に）。</p></li>
+<li><p>場合によっては <code class="docutils literal notranslate"><span class="pre">.css()</span></code> を併用することになる。CSS
+クラスが複数ある要素ノードが絡むなど。</p></li>
+<li><p>これは <a class="reference external" href="https://scrapy.org/">Scrapy</a> とは関係なく成り立つのだが、<code class="docutils literal notranslate"><span class="pre">//node[1]</span></code>
+と <code class="docutils literal notranslate"><span class="pre">(//node)[1]</span></code> は異なる。</p></li>
+<li><p>XPath 関数 <code class="docutils literal notranslate"><span class="pre">text()</span></code> を用いると選択メソッドに対する <code class="docutils literal notranslate"><span class="pre">.getall()</span></code>
+の戻り値が <code class="docutils literal notranslate"><span class="pre">str</span></code> のリストになる。</p></li>
+<li><p>XPath 関数 <code class="docutils literal notranslate"><span class="pre">string()</span></code> を入れ子要素に対して使うと文字列解析が楽になる場合がある。</p></li>
+<li><p>XPath 関数 <code class="docutils literal notranslate"><span class="pre">contains()</span></code> も使いやすい。</p></li>
+</ul>
+<p>XPath 式で変数を埋め込むことができる。次のコード片はドキュメントより引用した：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">response</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//div[@id=$val]/a/text()&#39;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="s1">&#39;images&#39;</span><span class="p">)</span>
+<span class="n">response</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//div[count(a)=$cnt]/@id&#39;</span><span class="p">,</span> <span class="n">cnt</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>RSS など、構文解析する対象によっては名前空間外しを必要とする。アクティブなセレクターに対して <code class="docutils literal notranslate"><span class="pre">.remove_namespaces()</span></code> を呼び出してから
+<code class="docutils literal notranslate"><span class="pre">.xpath()</span></code> を呼ばないとまともに値を返さない。</p>
+<p>その他発展的なトピックは省略。まずは基本を習得するのだ。</p>
+</div>
+<div class="section" id="id20">
+<h4><a class="toc-backref" href="#id85">組み込みセレクター</a><a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Selector</span></code>: 応答の内容の特定の部分を選択するための機能</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">.attrib</span></code> はノードの属性を表す <code class="docutils literal notranslate"><span class="pre">dict</span></code> オブジェクト。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.xpath()</span></code>, <code class="docutils literal notranslate"><span class="pre">.css()</span></code> は <code class="docutils literal notranslate"><span class="pre">SelectorList</span></code> を返す。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.get()</span></code> はノードを <code class="docutils literal notranslate"><span class="pre">str</span></code> で返す。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.getall()</span></code> はノードを <code class="docutils literal notranslate"><span class="pre">str</span></code> で表したものからなるリストを返す。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.re()</span></code> は正規表現を適用して <code class="docutils literal notranslate"><span class="pre">str</span></code> のリストを返す。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.remove_namespaces()</span></code> はあまり使いたくないが存在は憶えておくこと。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SelectorList</span></code>: 組み込み <code class="docutils literal notranslate"><span class="pre">list</span></code> のサブクラスに <code class="docutils literal notranslate"><span class="pre">Selector</span></code>
+で見てきたメソッドのほとんどを加えたもの</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id21">
+<h3><a class="toc-backref" href="#id86">アイテム</a><a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<p>ウェブページにあるデータを構造化することがいちおうスクレイピングの目的だ。
+<a class="reference external" href="https://scrapy.org/">Scrapy</a> はクロール機能だけでなく、そのようなデータを取り扱うための機能も備えている。</p>
+<ul class="simple">
+<li><p>スパイダーは抽出データとして key-value の対を定義する Python
+オブジェクトを返して構わない。</p></li>
+<li><p><a class="reference external" href="https://scrapy.org/">Scrapy</a> はアイテムの種類を複数サポートする。処理コードを書くならどんなタイプのアイテムを使っても構わない。</p></li>
+</ul>
+<div class="section" id="id22">
+<h4><a class="toc-backref" href="#id87">Scrapy がサポートするアイテムの種類</a><a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>Python 組み込みの <code class="docutils literal notranslate"><span class="pre">dict</span></code></p></li>
+<li><p><a class="reference external" href="https://scrapy.org/">Scrapy</a> が提供するクラス <code class="docutils literal notranslate"><span class="pre">Item</span></code></p></li>
+<li><p>デコレーター <code class="docutils literal notranslate"><span class="pre">dataclass</span></code> に修飾されるクラス</p></li>
+<li><p>デコレーター <code class="docutils literal notranslate"><span class="pre">attr.s</span></code> に修飾されるクラス</p>
+<ul>
+<li><p>サードパーティー製ライブラリー</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id23">
+<h4><a class="toc-backref" href="#id88">アイテムオブジェクトを使う</a><a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>クラス <code class="docutils literal notranslate"><span class="pre">Item</span></code> のサブクラスの定義方法を理解する</p></li>
+<li><p>クラス <code class="docutils literal notranslate"><span class="pre">Field</span></code> の性質を理解する</p></li>
+<li><p>アイテムオブジェクトの生成方法を習得する</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">namedtuple</span></code> に似ている</p></li>
+</ul>
+</li>
+<li><p>アイテムオブジェクトのフィールドを参照する方法を習得する</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">item.get(field_name)</span></code> または <code class="docutils literal notranslate"><span class="pre">item[field_name]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">in</span> <span class="pre">item</span></code> と <code class="docutils literal notranslate"><span class="pre">in</span> <span class="pre">item.fields</span></code> の違いを理解する</p></li>
+</ul>
+</li>
+<li><p>アイテムオブジェクトのフィールドに値を代入する方法を習得する</p>
+<ul>
+<li><p>ここが <code class="docutils literal notranslate"><span class="pre">dict</span></code> との大きな違い</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Item</span></code> のサブクラスをさらに派生させることもできる</p></li>
+</ul>
+<p>アイテムについてはこのへんでいいと思う。</p>
+</div>
+</div>
+<div class="section" id="id24">
+<h3><a class="toc-backref" href="#id89">アイテムローダー</a><a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
+<p>アイテムローダーにはスクレイプしたアイテムを収容していくことに対する便利な仕組みが備わっている。アイテムが直接的に増やせるものであっても、スクレイプの工程からそれらを増やすためのもっと便利な
+API がアイテムローダーには備わっている。</p>
+<p>アイテムはスクレイプしたデータの入れ物であり、アイテムローダーは入れ物の中身を増やす仕組みと考えていい。</p>
+<div class="section" id="id25">
+<h4><a class="toc-backref" href="#id90">アイテムローダーを使ってアイテムを収容する</a><a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h4>
+<p>アイテムローダーの基本的な利用法を記す。まず <code class="docutils literal notranslate"><span class="pre">ItemLoader</span></code> のオブジェクトを生成する。このときに何かアイテムを与える場合と与えない場合がある。後者の場合にはコンストラクター内部で属性
+<code class="docutils literal notranslate"><span class="pre">ItemLoader.default_item_class</span></code> が指定するアイテムクラスを使う。</p>
+<p>アイテムローダーを生成したら、アイテムを構成する値を集めて突っ込む。ふつうはセレクターによる。同じアイテムフィールドに対して一つ以上の値を追加できる。というのも、アイテムローダーは後で適切な加工関数を使って、その値の集まりを
+join する方法を知ることになる。</p>
+<p>スパイダークラスでのよくあるアイテムローダーの利用例コードを見ていく。これは Scrapy のドキュメントから引用したものだ：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scrapy</span>
+<span class="kn">from</span> <span class="nn">scrapy.loader</span> <span class="kn">import</span> <span class="n">ItemLoader</span>
+<span class="kn">from</span> <span class="nn">myproject.items</span> <span class="kn">import</span> <span class="n">Product</span>
+
+<span class="k">class</span> <span class="nc">MySpider</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Spider</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="n">ItemLoader</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="n">Product</span><span class="p">(),</span> <span class="n">response</span><span class="o">=</span><span class="n">response</span><span class="p">)</span>
+        <span class="n">l</span><span class="o">.</span><span class="n">add_xpath</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;//div[@class=&quot;product_name&quot;]&#39;</span><span class="p">)</span>
+        <span class="n">l</span><span class="o">.</span><span class="n">add_xpath</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;//div[@class=&quot;product_title&quot;]&#39;</span><span class="p">)</span>
+        <span class="n">l</span><span class="o">.</span><span class="n">add_xpath</span><span class="p">(</span><span class="s1">&#39;price&#39;</span><span class="p">,</span> <span class="s1">&#39;//p[@id=&quot;price&quot;]&#39;</span><span class="p">)</span>
+        <span class="n">l</span><span class="o">.</span><span class="n">add_css</span><span class="p">(</span><span class="s1">&#39;stock&#39;</span><span class="p">,</span> <span class="s1">&#39;p#stock&#39;</span><span class="p">)</span>
+        <span class="n">l</span><span class="o">.</span><span class="n">add_value</span><span class="p">(</span><span class="s1">&#39;last_updated&#39;</span><span class="p">,</span> <span class="s1">&#39;today&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">l</span><span class="o">.</span><span class="n">load_item</span><span class="p">()</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>クラス <code class="docutils literal notranslate"><span class="pre">Product</span></code> は自作クラスである。ドキュメントを参照（このデモコードからフィールド定義を想像できると思う）。</p></li>
+<li><p>クラス <code class="docutils literal notranslate"><span class="pre">ItemLoader</span></code> のオブジェクトを生成。</p>
+<ul>
+<li><p>ここではアイテムのテンプレを明示的に与えている。</p></li>
+<li><p>キーワード引数 <code class="docutils literal notranslate"><span class="pre">response</span></code> や <code class="docutils literal notranslate"><span class="pre">selector</span></code> を指定して、スクレイプ対象を与える。</p></li>
+</ul>
+</li>
+<li><p>ローダーのメソッド <code class="docutils literal notranslate"><span class="pre">.add_xpath()</span></code> や <code class="docutils literal notranslate"><span class="pre">.add_css()</span></code> により、スクレイプアイテムのフィールドの抽出仕様をローダーに収容していく。先述のように、単一のフィールドに対してロード方法が複数あっても構わない。</p></li>
+<li><p>ローダーのメソッド <code class="docutils literal notranslate"><span class="pre">.add_value()</span></code> ではスクレイプ対象から値を取らせず、フィールドに好きな値を直接指定する。</p></li>
+<li><p>ローダーのメソッド <code class="docutils literal notranslate"><span class="pre">.load_item()</span></code> でクラス <code class="docutils literal notranslate"><span class="pre">Product</span></code> のオブジェクトを生成することが容易に想像できる。</p></li>
+</ul>
+</div>
+<div class="section" id="dataclass">
+<h4><a class="toc-backref" href="#id91"><code class="docutils literal notranslate"><span class="pre">dataclass</span></code> アイテムを使う場合</a><a class="headerlink" href="#dataclass" title="Permalink to this headline">¶</a></h4>
+<p>サードパーティー製パッケージ <code class="docutils literal notranslate"><span class="pre">dataclasses</span></code> の <code class="docutils literal notranslate"><span class="pre">&#64;dataclass</span></code>
+を利用してアイテムクラスを定義している場合には、フィールドを定義する際に関数
+<code class="docutils literal notranslate"><span class="pre">field()</span></code> をデフォルト引数を指定する手間を要する（ドキュメントを参照）。</p>
+</div>
+<div class="section" id="id26">
+<h4><a class="toc-backref" href="#id92">入力処理器と出力処理器</a><a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h4>
+<p>アイテムローダーには、アイテムフィールドそれぞれに対して入力処理器と出力処理器がそれぞれ一つずつある。先程のデモコードで解説する。</p>
+<ul class="simple">
+<li><p>最初の <code class="docutils literal notranslate"><span class="pre">add_xpath()</span></code> がデータを抽出し、フィールド <code class="docutils literal notranslate"><span class="pre">name</span></code> の入力処理器にそれを渡す。この入力処理結果は収集されてローダー内部のどこかにいったん保持される。アイテムに対しては結果をまだ割り当てない。</p></li>
+<li><p>次の <code class="docutils literal notranslate"><span class="pre">add_xpath()</span></code> がデータを抽出し、同じ入力処理器にそれを渡す。この入力処理結果は、ローダー内部のどこかに保持されている収集リストに追加する。</p></li>
+<li><p>このような処理がフィールドごと <code class="docutils literal notranslate"><span class="pre">load_item()</span></code> 呼び出しまでに行われる。</p></li>
+<li><p>最終的収集データは <code class="docutils literal notranslate"><span class="pre">name</span></code> などのフィールドごとに、対応する出力処理器に渡される。この出力処理結果は、アイテム内の <code class="docutils literal notranslate"><span class="pre">name</span></code> などのフィールドそれぞれに代入される値だ。</p></li>
+</ul>
+<p>プロセッサーは単に callable オブジェクトであるということを憶えておくといい。型さえ合えばどんな関数でも入力処理器や出力処理器として使えるのだ。</p>
+</div>
+<div class="section" id="id27">
+<h4><a class="toc-backref" href="#id93">アイテムローダーを実装する</a><a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h4>
+<p>アイテムローダーを定義するにはクラス <code class="docutils literal notranslate"><span class="pre">ItemLoader</span></code> のサブクラスという形式で定義する。ドキュメントに一例がある。</p>
+<ul class="simple">
+<li><p>サードパーティー製パッケージのサブモジュール
+<code class="docutils literal notranslate"><span class="pre">itemloaders.processors</span></code> が提供する <code class="docutils literal notranslate"><span class="pre">TakeFirst</span></code>, <code class="docutils literal notranslate"><span class="pre">MapCompose</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Join</span></code> といった構成要素（おそらくクラス）を利用する。</p></li>
+<li><p>ローダーには <code class="docutils literal notranslate"><span class="pre">_in</span></code>, <code class="docutils literal notranslate"><span class="pre">_out</span></code> で終わる名前のフィールド対を定義する。アンダースコアの前の部分はアイテムフィールドの名前とする。</p></li>
+<li><p>オプショナルに、既定の入力・出力処理器を与えることもできる。それぞれ
+<code class="docutils literal notranslate"><span class="pre">default_input_processor</span></code>, <code class="docutils literal notranslate"><span class="pre">default_out_processor</span></code> とする。</p></li>
+</ul>
+</div>
+<div class="section" id="id28">
+<h4><a class="toc-backref" href="#id94">入出力処理器を定義する</a><a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h4>
+<p>入力処理器または出力処理器を宣言するのはローダークラスでもできるし、入力処理器を宣言するのはそのやり方で行うのが普通だ。しかし、アイテムフィールドのメタデータでプロセッサーを指定することもできる。ドキュメントのサンプルコードを一部抜粋するとこうだ：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Product</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Item</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span>
+        <span class="n">input_processor</span><span class="o">=</span><span class="n">MapCompose</span><span class="p">(</span><span class="n">remove_tags</span><span class="p">),</span>
+        <span class="n">output_processor</span><span class="o">=</span><span class="n">Join</span><span class="p">())</span>
+    <span class="n">price</span> <span class="o">=</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span>
+        <span class="n">input_processor</span><span class="o">=</span><span class="n">MapCompose</span><span class="p">(</span><span class="n">remove_tags</span><span class="p">,</span> <span class="n">filter_price</span><span class="p">),</span>
+        <span class="n">output_processor</span><span class="o">=</span><span class="n">TakeFirst</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>プロセッサーの優先度は次の通り：</p>
+<ol class="arabic simple">
+<li><p>ローダーフィールド固有の属性、つまり <code class="docutils literal notranslate"><span class="pre">xxxx_in</span></code>, <code class="docutils literal notranslate"><span class="pre">xxxx_out</span></code> のようなフィールド</p></li>
+<li><p>フィールドメタデータ、つまりキー <code class="docutils literal notranslate"><span class="pre">input_processor</span></code> と <code class="docutils literal notranslate"><span class="pre">output_processor</span></code> に対応する値</p></li>
+<li><p>ローダーの既定値、つまり <code class="docutils literal notranslate"><span class="pre">.default_input_processor()</span></code> と <code class="docutils literal notranslate"><span class="pre">.default_output_processor()</span></code></p></li>
+</ol>
+<p>アイテムローダーの入力処理器と出力処理器のすべて間で共有されるような辞書をアイテムローダーコンテキストという。ローダーコンテキストはローダーを宣言、生成、使用する際に処理関数に渡すことができる。ローダーコンテキストは入力処理器と出力処理器の挙動を変化するのに用いるものだ。</p>
+<p>例えば、関数 <code class="docutils literal notranslate"><span class="pre">parse_length()</span></code> という処理関数があって、それはテキスト値を受け取って、そこから長さを抽出する関数だとする。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parse_length</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">loader_context</span><span class="p">):</span>
+    <span class="n">unit</span> <span class="o">=</span> <span class="n">loader_context</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;unit&#39;</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">)</span>
+    <span class="c1"># ... length parsing code goes here ...</span>
+    <span class="k">return</span> <span class="n">parsed_length</span>
+</pre></div>
+</div>
+<p>引数 <code class="docutils literal notranslate"><span class="pre">loader_context</span></code> を受け取るということで、当処理関数はローダーコンテキストを受け取ることができることをローダーに明示的に教えている。</p>
+<p>ローダーコンテキストの値を変える方法はいくつかある。</p>
+<ol class="arabic simple">
+<li><p>ローダーコンテキスト <code class="docutils literal notranslate"><span class="pre">.context</span></code> を直接アクセスする。</p></li>
+<li><p>ローダーコンテキスト生成のときに、つまりクラスの <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> に対してキーワード引数を与える。こうすることで <code class="docutils literal notranslate"><span class="pre">.context</span></code> にそのキーワードをキー、実引数を値とするエントリーが含まれる。</p></li>
+<li><p>ローダー定義における入力・出力処理器の生成時にキーワード引数を与える。
+<code class="docutils literal notranslate"><span class="pre">MapCompose</span></code> はそれをするものの一つだ。</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1.</span>
+<span class="n">loader</span> <span class="o">=</span> <span class="n">ItemLoader</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+<span class="n">loader</span><span class="o">.</span><span class="n">context</span><span class="p">[</span><span class="s1">&#39;unit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;cm&#39;</span>
+
+<span class="c1"># 2.</span>
+<span class="n">loader</span> <span class="o">=</span> <span class="n">ItemLoader</span><span class="p">(</span><span class="n">product</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;cm&#39;</span><span class="p">)</span>
+
+<span class="c1"># 3.</span>
+<span class="k">class</span> <span class="nc">ProductLoader</span><span class="p">(</span><span class="n">ItemLoader</span><span class="p">):</span>
+    <span class="n">length_out</span> <span class="o">=</span> <span class="n">MapCompose</span><span class="p">(</span><span class="n">parse_length</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;cm&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="itemloader">
+<h4><a class="toc-backref" href="#id95"><code class="docutils literal notranslate"><span class="pre">ItemLoader</span></code></a><a class="headerlink" href="#itemloader" title="Permalink to this headline">¶</a></h4>
+<div class="admonition-todo admonition" id="id29">
+<p class="admonition-title">Todo</p>
+<p>クラス <code class="docutils literal notranslate"><span class="pre">ItemLoader</span></code> のインターフェイスを簡単に述べる。（今 Markdown で書くと Pandoc で reST にコンバートするときにムチャクチャなテーブルが生成されるから後回し）</p>
+</div>
+</div>
+<div class="section" id="id30">
+<h4><a class="toc-backref" href="#id96">入れ子ローダー</a><a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h4>
+<p>部分文字列や部分集合がそれぞれ文字列、集合であるように、HTML や XML の「部分」にも同じ性質がある。文書の部分から値を文字列解析するときに、部分ローダーを定義することが便利であることがある。</p>
+<p>次のような HTML を文字列解析することを考える：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">footer</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;social&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://facebook.com/whatever&quot;</span><span class="p">&gt;</span>Like Us<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;social&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://twitter.com/whatever&quot;</span><span class="p">&gt;</span>Follow Us<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;email&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;mailto:whatever@example.com&quot;</span><span class="p">&gt;</span>Email Us<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">footer</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>入れ子なしローダーと入れ子ありローダーのコードを記す。実際には
+<code class="docutils literal notranslate"><span class="pre">item=Item()</span></code> の式の右辺のオブジェクトは、フィールド <code class="docutils literal notranslate"><span class="pre">social</span></code> と <code class="docutils literal notranslate"><span class="pre">email</span></code> があるアイテムでなければならない。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. load stuff not in the footer</span>
+<span class="n">loader</span> <span class="o">=</span> <span class="n">ItemLoader</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="n">Item</span><span class="p">())</span>
+<span class="n">loader</span><span class="o">.</span><span class="n">add_xpath</span><span class="p">(</span><span class="s1">&#39;social&#39;</span><span class="p">,</span> <span class="s1">&#39;//footer/a[@class = &quot;social&quot;]/@href&#39;</span><span class="p">)</span>
+<span class="n">loader</span><span class="o">.</span><span class="n">add_xpath</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">,</span> <span class="s1">&#39;//footer/a[@class = &quot;email&quot;]/@href&#39;</span><span class="p">)</span>
+<span class="n">loader</span><span class="o">.</span><span class="n">load_item</span><span class="p">()</span>
+
+<span class="c1"># 2. load stuff not in the footer</span>
+<span class="n">loader</span> <span class="o">=</span> <span class="n">ItemLoader</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="n">Item</span><span class="p">())</span>
+<span class="n">footer_loader</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">nested_xpath</span><span class="p">(</span><span class="s1">&#39;//footer&#39;</span><span class="p">)</span>
+<span class="n">footer_loader</span><span class="o">.</span><span class="n">add_xpath</span><span class="p">(</span><span class="s1">&#39;social&#39;</span><span class="p">,</span> <span class="s1">&#39;a[@class = &quot;social&quot;]/@href&#39;</span><span class="p">)</span>
+<span class="n">footer_loader</span><span class="o">.</span><span class="n">add_xpath</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">,</span> <span class="s1">&#39;a[@class = &quot;email&quot;]/@href&#39;</span><span class="p">)</span>
+<span class="c1"># no need to call footer_loader.load_item()</span>
+<span class="n">loader</span><span class="o">.</span><span class="n">load_item</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>後半のコードでは <code class="docutils literal notranslate"><span class="pre">footer_loader</span></code> のカレントノードが文書中のすべての
+<code class="docutils literal notranslate"><span class="pre">&lt;footer&gt;</span></code> であると考えられることに注意。</p>
+<p>入れ子ローダーはコードを単純にすることもあるが、
+flat is better then nested の精神を忘れてはならない。</p>
+</div>
+<div class="section" id="id31">
+<h4><a class="toc-backref" href="#id97">アイテムローダーを再利用したり拡張したりする</a><a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h4>
+<p>この節にはローダーの設計意図と応用方針が述べられている。今は精読する必要がない。</p>
+</div>
+</div>
+<div class="section" id="id32">
+<h3><a class="toc-backref" href="#id98">Scrapy シェル</a><a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h3>
+<p>Scrapy シェルは UNIX や Python の IDLE のそれと同様に対話的シェルだ。スパイダーを走らせることなくスクレイピングコードを素早く試すことができる。このシェルはデータを抽出するコードをテストするのに使うことを目的としているが、ふつうの
+Python シェルとしても利用できる。 XPath 式や CSS セレクター式を対話的にテストするのに使うといい。</p>
+<div class="section" id="id33">
+<h4><a class="toc-backref" href="#id99">シェルを構成する</a><a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h4>
+<p>私の環境ではコマンド <code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">shell</span></code> で IPython が起動する。この振る舞いは構成ファイル <code class="docutils literal notranslate"><span class="pre">scrapy.cfg</span></code> や環境変数
+<code class="docutils literal notranslate"><span class="pre">SCRAPY_PYTHON_SHELL</span></code> を設定することで変えられる。 とはいっても私は
+IPython ユーザーであるので、以下、IPython
+がインストールされていることを前提として記す。</p>
+</div>
+<div class="section" id="id34">
+<h4><a class="toc-backref" href="#id100">シェルを走らせる</a><a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h4>
+<p>コマンド <code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">shell</span></code> の引数に URL やローカルファイルパスを与えるのがふつうだ。ただし、カレントディレクトリーにあるファイルを指定するときには <code class="docutils literal notranslate"><span class="pre">./</span></code>
+を明示しないと文字列は URL を表すものとして Scrapy に解釈されて失敗する。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ scrapy shell https://www.example.com/</span>
+<span class="go">bash$ scrapy shell ./path/to/file.html</span>
+<span class="go">bash$ scrapy shell ../other/path/to/file.html</span>
+<span class="go">bash$ scrapy shell /absolute/path/to/file.html</span>
+<span class="go">bash$ scrapy shell file:///absolute/path/to/file.html</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id35">
+<h4><a class="toc-backref" href="#id101">シェルを使う</a><a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h4>
+<p>常に利用可能な関数一覧：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>function</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">shelp()</span></code></p></td>
+<td><p>Scrapy 固有のシェル関数・変数を出力する</p></td>
+<td><p>その他のオブジェクトも一覧に現れるようだ</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fetch(url[,</span> <span class="pre">redirect=True])</span></code></p></td>
+<td><p>新しい応答を取得して関連オブジェクトすべてを更新する</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fetch(request)</span></code></p></td>
+<td><p>上記とだいたい同じ</p></td>
+<td><p>こちらのほうが簡単</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">view(response)</span></code></p></td>
+<td><p>応答をブラウザーで表示する</p></td>
+<td><p>自動的に削除されない一時ファイルを生成する</p></td>
+</tr>
+</tbody>
+</table>
+<p>常に利用可能なオブジェクト一覧：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>object</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">crawler</span></code></p></td>
+<td><p>現在の <code class="docutils literal notranslate"><span class="pre">Crawler</span></code> オブジェクト</p></td>
+<td><p>未習</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spider</span></code></p></td>
+<td><p>与えた URL を処理することができる <code class="docutils literal notranslate"><span class="pre">Spider</span></code> オブジェクト</p></td>
+<td><p>場合によっては <code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">request</span></code></p></td>
+<td><p>最後に取得したページの <code class="docutils literal notranslate"><span class="pre">Request</span></code> オブジェクト</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">fetch()</span></code> により更新</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">response</span></code></p></td>
+<td><p>最後に取得したページを含む <code class="docutils literal notranslate"><span class="pre">Response</span></code> オブジェクト</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">settings</span></code></p></td>
+<td><p>現在の Scrapy 設定</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dict</span></code> オブジェクト</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id36">
+<h4><a class="toc-backref" href="#id102">セッションの例</a><a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h4>
+<p>ドキュメントにある例を再現するなり、好きなページでアレンジして試すなりすること。</p>
+</div>
+<div class="section" id="id37">
+<h4><a class="toc-backref" href="#id103">応答を検査するのにスパイダー内からシェルを起動する</a><a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h4>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">scrapy.shell.inspect_response(response,</span> <span class="pre">spider)</span></code> を <code class="docutils literal notranslate"><span class="pre">parse()</span></code>
+内から呼び出すなどする。 この機能を <code class="docutils literal notranslate"><span class="pre">breakpoint()</span></code> 感覚で利用する。</p>
+<p>ただしこのセッションでは <code class="docutils literal notranslate"><span class="pre">fetch()</span></code> を利用してはならない。スパイダーが壊れる。</p>
+</div>
+</div>
+<div class="section" id="id38">
+<h3><a class="toc-backref" href="#id104">アイテムパイプライン</a><a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h3>
+<p>スパイダーがアイテムを一つスクレイプすると、逐次的に実行される構成要素を通じてそれを加工するためのオブジェクトがある。それをパイプラインと呼ぶ。そのような構成要素のそれぞれは Python のクラスであって、簡単なメソッド一つを少なくとも実装するものだ。</p>
+<p>パイプラインはアイテムを一つ受け取り、それに対して一つのアクションを取り、さらにパイプライン処理を後続のパイプラインに継続するか打ち切るかを決定する。</p>
+<p>アイテムパイプラインの用途は次のようなものが普通だ：</p>
+<ul class="simple">
+<li><p>データの浄書</p></li>
+<li><p>データを検証（例えばアイテムが特定のフィールドを含むか、など）</p></li>
+<li><p>データの重複チェック（場合によっては一つだけに限定する）</p></li>
+<li><p>データをデータベースなどに格納</p></li>
+</ul>
+<div class="section" id="id39">
+<h4><a class="toc-backref" href="#id105">独自のパイプラインを書く</a><a class="headerlink" href="#id39" title="Permalink to this headline">¶</a></h4>
+<p>この節ではアイテムパイプラインを定義する方法を述べている。</p>
+<p>先述したようにアイテムパイプラインはクラスであるので、サブクラスの形式で定義する。そのクラスでは少なくとも次のメソッドを実装する必要がある：</p>
+<ul>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">process_item(self,</span> <span class="pre">item,</span> <span class="pre">spider)</span></code>:</dt><dd><p>このメソッドが各アイテムパイプライン構成要素に対して呼び出される。このメソッドは</p>
+</dd>
+</dl>
+<ul class="simple">
+<li><p>アイテムオブジェクトを返すか、</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Deffered</span></code> オブジェクトを返すか、</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DropItem</span></code> 例外を送出するか（この場合はパイプライン処理はここで終わる）のいずれかでなければならない。</p></li>
+</ul>
+</li>
+</ul>
+<p>加えて、次に挙げるメソッドを実装しても構わない：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">open_spider(self,</span> <span class="pre">spider)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">close_spider(self,</span> <span class="pre">spider)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">from_crawler(cls,</span> <span class="pre">crawler)</span></code>: <code class="docutils literal notranslate"><span class="pre">Crawler</span></code> はこのクラスメソッドを呼び出してパイプラインオブジェクトを生成する。ドキュメントによると、パイプラインは Scrapy の中核構成要素すべてにアクセスするのに <code class="docutils literal notranslate"><span class="pre">Crawler</span></code> を経由すると読める。</p></li>
+</ul>
+</div>
+<div class="section" id="id40">
+<h4><a class="toc-backref" href="#id106">アイテムパイプラインの例</a><a class="headerlink" href="#id40" title="Permalink to this headline">¶</a></h4>
+<p>サンプルコードの要所だけ説明する。</p>
+<div class="section" id="process-item">
+<h5><a class="toc-backref" href="#id107">メソッド <code class="docutils literal notranslate"><span class="pre">process_item()</span></code> の基本形</a><a class="headerlink" href="#process-item" title="Permalink to this headline">¶</a></h5>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">process_item()</span></code> では引数の <code class="docutils literal notranslate"><span class="pre">item</span></code> の属性を直接「編集」したい。しかし、アイテムが「良くない」場合には <code class="docutils literal notranslate"><span class="pre">DropItem</span></code> を送出してこのアイテムをないものとする。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">process_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+    <span class="n">adapter</span> <span class="o">=</span> <span class="n">ItemAdapter</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">adapter</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;price&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">adapter</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;price_excludes_vat&#39;</span><span class="p">):</span>
+            <span class="n">adapter</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adapter</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">vat_factor</span>
+        <span class="k">return</span> <span class="n">item</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">DropItem</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Missing price in </span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="json">
+<h5><a class="toc-backref" href="#id108">単一の JSON ファイルへ出力する</a><a class="headerlink" href="#json" title="Permalink to this headline">¶</a></h5>
+<p>この例ではスクレイプしたアイテムすべてを単一の jl ファイルに格納するというものだ。</p>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">open_spider()</span></code> と <code class="docutils literal notranslate"><span class="pre">close_spider()</span></code> では出力ファイルを決め打ちして開いたり閉じたりする。したがって、プログラマーはパイプラインとスパイダーの対応関係を理解しておかないとまずい。</p>
+<p>ちなみに、このクラスを書かなくてもコマンドラインオプション <code class="docutils literal notranslate"><span class="pre">-o</span> <span class="pre">items.jl</span></code> でこれと同じことを実現できる。</p>
+</div>
+<div class="section" id="id41">
+<h5><a class="toc-backref" href="#id109">データベースへ格納する</a><a class="headerlink" href="#id41" title="Permalink to this headline">¶</a></h5>
+<p>MongoDB なるものをよく知らないのだが、サンプルコードを見ると普通に SQL
+データベースのようなインターフェイスを有するデータストレージだろう。</p>
+<p>このコードの急所は <code class="docutils literal notranslate"><span class="pre">from_crawler()</span></code> の書き方と、<code class="docutils literal notranslate"><span class="pre">open_spider()</span></code>, <code class="docutils literal notranslate"><span class="pre">close_spider()</span></code>
+でデータベースへの接続を管理するところだ。この例は前述のものと比べると意味がある。</p>
+</div>
+<div class="section" id="id42">
+<h5><a class="toc-backref" href="#id110">アイテムのスクリーンショットをとる</a><a class="headerlink" href="#id42" title="Permalink to this headline">¶</a></h5>
+<div class="admonition-todo admonition" id="id43">
+<p class="admonition-title">Todo</p>
+<p>明らかに、明らかに有用なトピックではあるのだが、準備が要るので後回しとする。</p>
+</div>
+</div>
+<div class="section" id="id44">
+<h5><a class="toc-backref" href="#id111">重複を除去するフィルター</a><a class="headerlink" href="#id44" title="Permalink to this headline">¶</a></h5>
+<div class="admonition-todo admonition" id="id45">
+<p class="admonition-title">Todo</p>
+<p><code class="docutils literal notranslate"><span class="pre">ItemAdapter</span></code> を習得してからでないと、断言できないことが含まれている。例自身は易しい。</p>
+</div>
+</div>
+<div class="section" id="id46">
+<h5><a class="toc-backref" href="#id112">自作アイテムパイプラインを有効にする</a><a class="headerlink" href="#id46" title="Permalink to this headline">¶</a></h5>
+<p>自作アイテムパイプラインを有効にするには設定 <code class="docutils literal notranslate"><span class="pre">ITEM_PIPELINES</span></code> に当該クラスを追加する必要がある。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ITEM_PIPELINES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;myproject.pipelines.PricePipeline&#39;</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
+    <span class="s1">&#39;myproject.pipelines.JsonWriterPipeline&#39;</span><span class="p">:</span> <span class="mi">800</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>ここで、辞書の各エントリーの値はパイプラインの優先度を表している。アイテムは値の小さいものから大きいものを持つクラスへと流れていく。優先度の値は
+0 から 1000 までとする。</p>
+</div>
+</div>
+</div>
+<div class="section" id="feed-exports">
+<h3><a class="toc-backref" href="#id113">Feed exports</a><a class="headerlink" href="#feed-exports" title="Permalink to this headline">¶</a></h3>
+<p>サードパーティー製ライブラリーの導入など、特別なことをしなくてもエクスポートできるデータ形式：</p>
+<ul class="simple">
+<li><p>JSON</p></li>
+<li><p>JSON line</p></li>
+<li><p>CSV</p></li>
+<li><p>XML</p></li>
+</ul>
+<p>コマンドラインで <code class="docutils literal notranslate"><span class="pre">-o</span> <span class="pre">output.json</span></code> だの <code class="docutils literal notranslate"><span class="pre">-o</span> <span class="pre">output.jl</span></code>
+だのと出力先をファイルで指定するとき、Scrapy はこの拡張子からデータ形式を決定する。</p>
+<p>Scrapy がサポートする出力先はファイルだけではない。設定次第では FTP や
+Google Cloud Storage なども使える。</p>
+<p>エクスポートに使われる項目は次の通り。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>key</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">FEEDS</span></code></p></td>
+<td><p>設定全般を包含する <code class="docutils literal notranslate"><span class="pre">dict</span></code> オブジェクト</p></td>
+<td><p>指定必須</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">FEED_EXPORT_ENCODING</span></code></p></td>
+<td><p>エンコーディング</p></td>
+<td><p>既定では UTF-8</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">FEED_STORE_EMPTY</span></code></p></td>
+<td><p>空のアイテムをエクスポートするかどうか</p></td>
+<td><p>既定では <code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">FEED_EXPORT_FIELDS</span></code></p></td>
+<td><p>エクスポートしたいフィールドの <code class="docutils literal notranslate"><span class="pre">list</span></code> オブジェクト</p></td>
+<td><p>指定なしの場合は存在するフィールドすべて</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">FEED_EXPORT_INDENT</span></code></p></td>
+<td><p>一階層あたりにのインデント量は空白文字いくつぶんか</p></td>
+<td><p>JSON や XML で意味がある</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">FEED_STORAGES</span></code></p></td>
+<td><p>追加的な格納先を指定する <code class="docutils literal notranslate"><span class="pre">dict</span></code> オブジェクト</p></td>
+<td><p>説明略</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">FEED_STORAGE_FTP_ACTIVE</span></code></p></td>
+<td><p>（説明略）</p></td>
+<td><p>FTP など使わない</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">FEED_STORAGE_S3_ACL</span></code></p></td>
+<td><p>（説明略）</p></td>
+<td><p>S3 は知らない</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">FEED_EXPORTERS</span></code></p></td>
+<td><p>追加的なエクスポート器を指定する <code class="docutils literal notranslate"><span class="pre">dict</span></code> オブジェクト</p></td>
+<td><p>使い途があるのか</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">FEED_EXPORT_BATCH_ITEM_COUNT</span></code></p></td>
+<td><p>出力先が複数ファイルにわたるときの、チャンクあたりのアイテム数</p></td>
+<td><p>値を指定するときに初めてそのように動作する</p></td>
+</tr>
+</tbody>
+</table>
+<p>このトピックもあまり興味がないので深く立ち入らないで次に行く。</p>
+</div>
+<div class="section" id="id47">
+<h3><a class="toc-backref" href="#id114">要求と応答</a><a class="headerlink" href="#id47" title="Permalink to this headline">¶</a></h3>
+<p>クラス <code class="docutils literal notranslate"><span class="pre">Request</span></code> と <code class="docutils literal notranslate"><span class="pre">Response</span></code> を見ていく。このフレームワークでは重要な要素だ。後者に対するメソッド呼び出しのほうが圧倒的に多い。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Request</span></code> のオブジェクトはスパイダー内部で <code class="docutils literal notranslate"><span class="pre">yield</span></code> されて Scrapy
+のフレームワークがそれを実行する。そして <code class="docutils literal notranslate"><span class="pre">Response</span></code>
+オブジェクトをそのスパイダーに返すというような仕組みだ。</p>
+<p>これらのサブクラスの特性を理解しておくことが重要だろう。</p>
+<div class="section" id="request">
+<h4><a class="toc-backref" href="#id115">クラス <code class="docutils literal notranslate"><span class="pre">Request</span></code></a><a class="headerlink" href="#request" title="Permalink to this headline">¶</a></h4>
+<p>コンストラクターの使い方を先に習得する。スパイダーの適当なメソッドから次のような感じで生成する：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Request</span><span class="p">(</span><span class="n">sample_url</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parse_sample</span><span class="p">)</span>
+<span class="n">Request</span><span class="p">(</span><span class="n">sample_url</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parse_sample</span><span class="p">,</span> <span class="n">cb_kwargs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">main_url</span><span class="o">=</span><span class="n">response</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>このようなオブジェクトを <code class="docutils literal notranslate"><span class="pre">return</span></code> または <code class="docutils literal notranslate"><span class="pre">yield</span></code> すると、新たに
+<code class="docutils literal notranslate"><span class="pre">Response</span></code> オブジェクトを伴って指定したコールバックが呼び出される。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parse_sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">main_url</span><span class="p">):</span>
+    <span class="c1"># ...</span>
+</pre></div>
+</div>
+<p>クラス <code class="docutils literal notranslate"><span class="pre">Request</span></code> の主要フィールド一覧：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">url</span></code></p></td>
+<td><p>この要求のエスケープ済み URL を表す文字列</p></td>
+<td><p>read-only</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">method</span></code></p></td>
+<td><p>HTTP メソッドを表す文字列</p></td>
+<td><p>大文字</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">headers</span></code></p></td>
+<td><p>HTTP ヘッダーを保持する辞書</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">body</span></code></p></td>
+<td><p>HTTP ボデーそのもの <code class="docutils literal notranslate"><span class="pre">bytes</span></code> オブジェクト</p></td>
+<td><p>read-only</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition-todo admonition" id="id48">
+<p class="admonition-title">Todo</p>
+<p>エラー処理</p>
+<p>エラー処理 (<code class="docutils literal notranslate"><span class="pre">errback</span></code>) については、自作するよりもフレームワークの既定の動作で当分は間に合う。ログ出力で十分わかりやすい。</p>
+</div>
+</div>
+<div class="section" id="id49">
+<h4><a class="toc-backref" href="#id116">メタ</a><a class="headerlink" href="#id49" title="Permalink to this headline">¶</a></h4>
+<p>属性 <code class="docutils literal notranslate"><span class="pre">Request.meta</span></code> は辞書オブジェクトであってどんなデータでも入れておけるが、
+Scrapy が特別扱いするキーもある。例えばキー <code class="docutils literal notranslate"><span class="pre">download_timeout</span></code> の値はダウンローダーがタイムアウトまで待機する時間を秒単位で指定されているものとして参照される。（この項目は設定の <code class="docutils literal notranslate"><span class="pre">DOWNLOAD_TIMEOUT</span></code> の影響も受ける）。</p>
+</div>
+<div class="section" id="id50">
+<h4><a class="toc-backref" href="#id117">応答のダウンロードを中止する</a><a class="headerlink" href="#id50" title="Permalink to this headline">¶</a></h4>
+<p>スパイダークラスで次のようにすると、与えられた応答のダウンロードを中止することができる。つまり <code class="docutils literal notranslate"><span class="pre">bytes_received</span></code> シグナルのハンドラーを次のように書いて、そこで例外 <code class="docutils literal notranslate"><span class="pre">StopDownload</span></code>
+を送出する。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">on_bytes_received</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">StopDownload</span><span class="p">(</span><span class="n">fail</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition-todo admonition" id="id51">
+<p class="admonition-title">Todo</p>
+<p><code class="docutils literal notranslate"><span class="pre">fail=False</span></code> の指定により、応答に元々の固有の <code class="docutils literal notranslate"><span class="pre">errback</span></code>
+が呼び出されるのではなく、コールバックが呼び出されるようになる？</p>
+</div>
+</div>
+<div class="section" id="id52">
+<h4><a class="toc-backref" href="#id118"><code class="docutils literal notranslate"><span class="pre">Request</span></code> のサブクラス</a><a class="headerlink" href="#id52" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><dl>
+<dt><code class="docutils literal notranslate"><span class="pre">FormRequest</span></code>: 何かを POST するフォームの対応する <code class="docutils literal notranslate"><span class="pre">Request</span></code></dt><dd><p>と考えてよい。例えば、よくあるログインページを通過するにはこれを利用することができる。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">uid</span> <span class="o">:=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;uid&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s1">&#39;missing -a uid=your-user-name&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">password</span> <span class="o">:=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s1">&#39;missing -a password=your-password&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">FormRequest</span><span class="o">.</span><span class="n">from_response</span><span class="p">(</span>
+        <span class="n">response</span><span class="p">,</span>
+        <span class="n">formdata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;uid&#39;</span><span class="p">:</span> <span class="n">uid</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">:</span> <span class="n">password</span><span class="p">},</span>
+        <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_after_login</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt><code class="docutils literal notranslate"><span class="pre">JsonRequest</span></code>: JSON</dt><dd><p>リクエストを処理できるクラス。コンストラクターの <code class="docutils literal notranslate"><span class="pre">data</span></code> に JSON
+シリアライズ可能なオブジェクトを渡せるということだ。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">payload</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">name1</span><span class="o">=</span><span class="n">value1</span><span class="p">,</span> <span class="n">name2</span><span class="o">=</span><span class="n">value2</span><span class="p">)</span>
+<span class="k">yield</span> <span class="n">JsonRequest</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="response">
+<h4><a class="toc-backref" href="#id119">クラス <code class="docutils literal notranslate"><span class="pre">Response</span></code></a><a class="headerlink" href="#response" title="Permalink to this headline">¶</a></h4>
+<p>クラス <code class="docutils literal notranslate"><span class="pre">Response</span></code> はオブジェクトを直接生成するのではなく、フレームワークから受け取るのが基本的だ。</p>
+<p>主要フィールド：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">url</span></code></p></td>
+<td><p>応答の URL を表す文字列</p></td>
+<td><p>read-only</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">status</span></code></p></td>
+<td><p>HTTP コードを表す数</p></td>
+<td><p>200 とか 404 とか</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">headers</span></code></p></td>
+<td><p>HTTP ヘッダーを表す辞書風オブジェクト</p></td>
+<td><p>これに対して <code class="docutils literal notranslate"><span class="pre">.get()</span></code> や <code class="docutils literal notranslate"><span class="pre">.getlist()</span></code> などを呼び出すこともある</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">body</span></code></p></td>
+<td><p>応答ボデーを <cite>bytes</cite> で保持する</p></td>
+<td><p>read-only</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">request</span></code></p></td>
+<td><p><cite>self</cite> を生み出した <cite>Request</cite> オブジェクト</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">self.request.url</span></code> と <code class="docutils literal notranslate"><span class="pre">self.url</span></code> は一般には異なる</p></td>
+</tr>
+</tbody>
+</table>
+<p>主要メソッド：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">follow(url,</span> <span class="pre">...)</span></code></p></td>
+<td><p>URL への <code class="docutils literal notranslate"><span class="pre">Request</span></code> オブジェクトを返す</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">follow_all(urls,</span> <span class="pre">...)</span></code></p></td>
+<td><p>複数 URL それぞれへの <code class="docutils literal notranslate"><span class="pre">Request</span></code> オブジェクトを iterable にして返す</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Request</span></code> への引数はすべて共通</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id53">
+<h4><a class="toc-backref" href="#id120"><code class="docutils literal notranslate"><span class="pre">Response</span></code> の派生クラス</a><a class="headerlink" href="#id53" title="Permalink to this headline">¶</a></h4>
+<p>Scrapy による派生クラスを記す。
+<code class="docutils literal notranslate"><span class="pre">Response</span></code> については派生クラスを利用者が書くこともできる。</p>
+<p><code class="docutils literal notranslate"><span class="pre">TextResponse</span></code>: クラス <code class="docutils literal notranslate"><span class="pre">Response</span></code> にエンコーディングの考え方を導入したものと考えてよい。したがって次の主要フィールドが有用だ：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p>応答本体を <code class="docutils literal notranslate"><span class="pre">str</span></code> で表したもの</p></td>
+<td><p>すなわち <code class="docutils literal notranslate"><span class="pre">self.body.decode(self.encoding)</span></code> に等しい</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">encoding</span></code></p></td>
+<td><p>応答のエンコーディングを表す文字列</p></td>
+<td><p>Scrapy が適宜解決、決定する</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">selector</span></code></p></td>
+<td><p>応答本文を対象とする <code class="docutils literal notranslate"><span class="pre">Selector</span></code> オブジェクト</p></td>
+<td><p>これにより <code class="docutils literal notranslate"><span class="pre">self.text</span></code> を解析する</p></td>
+</tr>
+</tbody>
+</table>
+<p>主要メソッドは本質的には追加されていない。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.css()</span></code> や <code class="docutils literal notranslate"><span class="pre">.xpath()</span></code> は <code class="docutils literal notranslate"><span class="pre">.selector</span></code> の同名メソッドへのショートカットに過ぎない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.json()</span></code> なるメソッドが提供されているらしいが、詳細不明。</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">TextResponse</span></code> にはさらにサブクラスがある。<code class="docutils literal notranslate"><span class="pre">HtmlResponse</span></code> と <code class="docutils literal notranslate"><span class="pre">XmlResponse</span></code> だ。しかし、これらに固有の性質、機能を利用者が用いることはほぼない。</p>
+</div>
+</div>
+<div class="section" id="id54">
+<h3><a class="toc-backref" href="#id121">リンク抽出器</a><a class="headerlink" href="#id54" title="Permalink to this headline">¶</a></h3>
+<p>クラス <code class="docutils literal notranslate"><span class="pre">LinkExtractor</span></code> 周辺に関するあれこれを記す。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">scrapy.linkextractors.lxmlhtml.LxmlLinkExtractor</span></code>
+が真のクラス名だが、
+<code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">scrapy.linkextractors</span> <span class="pre">import</span> <span class="pre">LinkExtractor</span></code> で使える。</p></li>
+<li><p>チュートリアルでは crawler クラスの <code class="docutils literal notranslate"><span class="pre">rules</span></code> に組み込んでいるが、
+<code class="docutils literal notranslate"><span class="pre">Reponse</span></code> オブジェクトさえ手許にあればこれ単体で利用できる。</p></li>
+<li><p>コンストラクターとメソッド <code class="docutils literal notranslate"><span class="pre">.extract_links()</span></code>
+だけ理解すれば十分だ。</p></li>
+<li><p>コンストラクター</p>
+<ul>
+<li><p>引数のすべてがキーワード引数。デフォルトでもまともに機能する。その場合はページ中にある <code class="docutils literal notranslate"><span class="pre">&lt;a&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;area&gt;</span></code>
+の集合を抽出するように振る舞うようだ。 引数 <code class="docutils literal notranslate"><span class="pre">allow</span></code>, <code class="docutils literal notranslate"><span class="pre">deny</span></code>
+を必要に応じて指定すれば事足りそうだ。</p></li>
+<li><p>引数 <code class="docutils literal notranslate"><span class="pre">restrict_xpaths</span></code>, <code class="docutils literal notranslate"><span class="pre">restrict_css</span></code>
+を利用すれば、あるノード範囲にあるリンクを選択できるだろう。</p></li>
+<li><p>引数 <code class="docutils literal notranslate"><span class="pre">restrict_text</span></code> はリンクテキストを制限する。私の場合は
+<code class="docutils literal notranslate"><span class="pre">&quot;東風戦&quot;</span></code> と指定するのだろう。</p></li>
+<li><p>引数 <code class="docutils literal notranslate"><span class="pre">tags</span></code> を使うと <code class="docutils literal notranslate"><span class="pre">a</span></code>
+以外にもリンクを拾える。すぐに思いつくのは <code class="docutils literal notranslate"><span class="pre">img</span></code>
+だ。しかしこれには <code class="docutils literal notranslate"><span class="pre">href</span></code> はない。</p></li>
+<li><p>そこで引数 <code class="docutils literal notranslate"><span class="pre">attrs</span></code> を指定すればいい。<code class="docutils literal notranslate"><span class="pre">attrs=('src',)</span></code>
+とすればいいだろう。</p></li>
+</ul>
+</li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">.extract_links()</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Response</span></code> オブジェクトを受け取り、<code class="docutils literal notranslate"><span class="pre">scrapy.link.Link</span></code>
+オブジェクトのリストを返す。 ここで、クラス <code class="docutils literal notranslate"><span class="pre">Link</span></code>
+はドキュメント中のリンクを表す要素を表現するものだ。ドキュメントがないので IPython などでインターフェイスを調べる。</p></li>
+</ul>
+</li>
+<li><p>クラス <code class="docutils literal notranslate"><span class="pre">Link</span></code></p>
+<ul>
+<li><p>基本的には構造体のようなものと思っていい。憶えておけばいいのは次のものだけ：</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">.url</span></code>: もちろんリンクの URL を表す文字列だ。コメントでは絶対
+URL だと言っている。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.text</span></code>:
+リンク要素の開始終了タグに囲まれているリンクテキスト文字列。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.fragment</span></code>: URL の <code class="docutils literal notranslate"><span class="pre">&amp;#x23;</span></code> から後の文字列を保持する。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id55">
+<h3><a class="toc-backref" href="#id122">設定</a><a class="headerlink" href="#id55" title="Permalink to this headline">¶</a></h3>
+<p>Scrapy の動作をカスタマイズするための設定方法について記す。</p>
+<div class="section" id="id56">
+<h4><a class="toc-backref" href="#id123">設定モジュールを指定する</a><a class="headerlink" href="#id56" title="Permalink to this headline">¶</a></h4>
+<p>環境変数 <code class="docutils literal notranslate"><span class="pre">SCRAPY_SETTINGS_MODULE</span></code> に <code class="docutils literal notranslate"><span class="pre">myproject.settings</span></code> のような
+Python モジュールのパス書式に従う文字列を指定すると、どの設定を使うのかを Scrapy
+に教えることができる。そして、この指定モジュールは Python
+標準の検索パスに存在する必要がある。</p>
+</div>
+<div class="section" id="id57">
+<h4><a class="toc-backref" href="#id124">設定を仕込む</a><a class="headerlink" href="#id57" title="Permalink to this headline">¶</a></h4>
+<p>色々な仕組みを使って設定を仕込むことができる。それぞれ異なる手続きをとる。優先度の高い順に次のようになる：</p>
+<ol class="arabic simple">
+<li><p>コマンドラインオプション</p></li>
+<li><p>スパイダー別の設定</p></li>
+<li><p>プロジェクト設定モジュール</p></li>
+<li><p>コマンド別の既定の設定</p></li>
+<li><p>既定のグローバル設定</p></li>
+</ol>
+<p>コマンドラインオプションが最も優先度が高い。その他の手段による設定内容を上書きする。これには <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">KEY=VALUE</span></code>, <code class="docutils literal notranslate"><span class="pre">--set</span> <span class="pre">KEY=VALUE</span></code> の書式により指定する。</p>
+<p>スパイダー別の設定とは、次のように自作スパイダークラスのフィールドに
+<code class="docutils literal notranslate"><span class="pre">custom_settings</span></code> を辞書で与えることで指定するものをいう。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MySpider</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Spider</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;myspider&#39;</span>
+
+    <span class="n">custom_settings</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">KEY</span><span class="p">:</span> <span class="n">VALUE</span><span class="p">,</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>プロジェクト設定モジュールとは、Scrapy プロジェクト内にあるモジュール
+<code class="docutils literal notranslate"><span class="pre">settings.py</span></code> を指す。 なければそれを作成して編集することができる。</p>
+<p>前述の Scrapy ツールコマンドそれぞれには固有の既定の設定があり、グローバル設定を上書きする。そのカスタムコマンドの設定をコマンドクラスの属性 <code class="docutils literal notranslate"><span class="pre">default_settings</span></code>
+に指定する。</p>
+<p>グローバル既定設定はモジュール <code class="docutils literal notranslate"><span class="pre">scrapy.settings.default_settings</span></code> にある。</p>
+</div>
+<div class="section" id="id58">
+<h4><a class="toc-backref" href="#id125">設定にアクセスする方法</a><a class="headerlink" href="#id58" title="Permalink to this headline">¶</a></h4>
+<p>スパイダークラス内からは <code class="docutils literal notranslate"><span class="pre">self.settings</span></code> を通じて設定を利用することができる。これは <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> が終了してから有効になることに注意すること。</p>
+</div>
+<div class="section" id="id59">
+<h4><a class="toc-backref" href="#id126">組み込み設定項目</a><a class="headerlink" href="#id59" title="Permalink to this headline">¶</a></h4>
+<p>面白そうな項目をいくつかピックアップしておく。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">DOWNLOAD_DELAY</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DOWNLOAD_MAXSIZE</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LOG_ENABLED</span></code>, <code class="docutils literal notranslate"><span class="pre">LOG_LEVEL</span></code> などログ関連</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RANDOMIZE_DOWNLOAD_DELAY</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">USER_AGENT</span></code> の既定値は Scrapy であることが明白な文字列だ。</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="id60">
+<h2><a class="toc-backref" href="#id127">応用</a><a class="headerlink" href="#id60" title="Permalink to this headline">¶</a></h2>
+<p>実践例を記したい。</p>
+<div class="section" id="id61">
+<h3><a class="toc-backref" href="#id128">単体のスクリプトとして実装する</a><a class="headerlink" href="#id61" title="Permalink to this headline">¶</a></h3>
+<p>文書化されていないが、関数 <code class="docutils literal notranslate"><span class="pre">scrapy.cmdline.execute()</span></code> というのがある。ここからコマンド <code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">runspider</span></code> を実行するなどの方法が考えられる：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="kn">import</span> <span class="nn">getpass</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">scrapy</span>
+<span class="kn">import</span> <span class="nn">scrapy.cmdline</span>
+<span class="c1"># other import statements...</span>
+
+<span class="k">class</span> <span class="nc">MySpider</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Spider</span><span class="p">):</span>
+    <span class="c1"># definition of spider...</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">user_id</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Enter your ID: &#39;</span><span class="p">)</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="n">getpass</span><span class="o">.</span><span class="n">getpass</span><span class="p">(</span><span class="s1">&#39;Enter password: &#39;</span><span class="p">)</span>
+    <span class="n">cmdline</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;scrapy runspider </span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> -a uid=</span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s2"> -a password=</span><span class="si">{</span><span class="n">password</span><span class="si">}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id62">
+<h2><a class="toc-backref" href="#id129">関連リンク</a><a class="headerlink" href="#id62" title="Permalink to this headline">¶</a></h2>
+<dl class="simple">
+<dt><a class="reference external" href="https://scrapy.org/">Scrapy</a></dt><dd><p>公式サイト。</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="python-twitter/index.html" title="Python Twitter Tools 利用ノート"
+             >next</a></li>
+        <li class="right" >
+          <a href="python-selenium.html" title="Selenium 利用ノート"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Scrapy 利用ノート</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

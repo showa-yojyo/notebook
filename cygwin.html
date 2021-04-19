@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cygwin 利用ノート &#8212; 読書ノート v1.5dev</title>
+    <title>Cygwin 利用ノート [obsolete] &#8212; 読書ノート v1.5dev</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
     
@@ -25,7 +25,7 @@
           <a href="milestone09/walkthrough.html" title="Walk Through"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Cygwin 利用ノート</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Cygwin 利用ノート [obsolete]</a></li> 
       </ul>
     </div>  
 
@@ -33,9 +33,10 @@
       <div class="documentwrapper">
           <div class="body" role="main">
             
-  <div class="section" id="cygwin">
-<h1><a class="toc-backref" href="#id8">Cygwin 利用ノート</a><a class="headerlink" href="#cygwin" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="cygwin-obsolete">
+<h1><a class="toc-backref" href="#id7">Cygwin 利用ノート [obsolete]</a><a class="headerlink" href="#cygwin-obsolete" title="Permalink to this headline">¶</a></h1>
 <p>本稿は自分専用の <a class="reference external" href="http://www.cygwin.com/">Cygwin</a> 手引書だ。記憶喪失になったときのために。</p>
+<p>本稿を記した当時は Windows で UNIX のコマンドラインツールを使えると便利だから Cygwin を利用していた。現在は Windows Subsystem for Linux, 通称 WSL が Microsoft から提供されているのでそれを利用するのがそういう需要のある人々の間で主流であるようなので、私も乗り換えた。同じ理由でいずれノートにまとめたい。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
@@ -46,36 +47,36 @@
 <div class="contents topic" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#cygwin" id="id8">Cygwin 利用ノート</a></p>
+<li><p><a class="reference internal" href="#cygwin-obsolete" id="id7">Cygwin 利用ノート [obsolete]</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id1" id="id9">なぜ Cygwin なのか</a></p></li>
-<li><p><a class="reference internal" href="#id2" id="id10">事前条件</a></p></li>
-<li><p><a class="reference internal" href="#id3" id="id11">インストールとアップグレード</a></p>
+<li><p><a class="reference internal" href="#cygwin" id="id8">なぜ Cygwin なのか</a></p></li>
+<li><p><a class="reference internal" href="#id1" id="id9">事前条件</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id10">インストールとアップグレード</a></p>
 <ul>
-<li><p><a class="reference internal" href="#choose-installation-type" id="id12">Choose Installation Type</a></p></li>
-<li><p><a class="reference internal" href="#choose-installation-directory" id="id13">Choose Installation Directory</a></p></li>
-<li><p><a class="reference internal" href="#select-local-package-directory" id="id14">Select Local Package Directory</a></p></li>
-<li><p><a class="reference internal" href="#select-connection-type" id="id15">Select Connection Type</a></p></li>
-<li><p><a class="reference internal" href="#choose-download-site-s" id="id16">Choose Download Site(s)</a></p></li>
-<li><p><a class="reference internal" href="#select-pakages" id="id17">Select Pakages</a></p></li>
+<li><p><a class="reference internal" href="#choose-installation-type" id="id11">Choose Installation Type</a></p></li>
+<li><p><a class="reference internal" href="#choose-installation-directory" id="id12">Choose Installation Directory</a></p></li>
+<li><p><a class="reference internal" href="#select-local-package-directory" id="id13">Select Local Package Directory</a></p></li>
+<li><p><a class="reference internal" href="#select-connection-type" id="id14">Select Connection Type</a></p></li>
+<li><p><a class="reference internal" href="#choose-download-site-s" id="id15">Choose Download Site(s)</a></p></li>
+<li><p><a class="reference internal" href="#select-pakages" id="id16">Select Pakages</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id4" id="id18">環境構成</a></p>
+<li><p><a class="reference internal" href="#id3" id="id17">環境構成</a></p>
 <ul>
-<li><p><a class="reference internal" href="#home" id="id19">環境変数 <code class="xref std std-envvar docutils literal notranslate"><span class="pre">HOME</span></code></a></p></li>
-<li><p><a class="reference internal" href="#path" id="id20">環境変数 <code class="xref std std-envvar docutils literal notranslate"><span class="pre">PATH</span></code></a></p></li>
-<li><p><a class="reference internal" href="#etc-fstab" id="id21">ファイル <code class="docutils literal notranslate"><span class="pre">/etc/fstab</span></code></a></p></li>
+<li><p><a class="reference internal" href="#home" id="id18">環境変数 <code class="xref std std-envvar docutils literal notranslate"><span class="pre">HOME</span></code></a></p></li>
+<li><p><a class="reference internal" href="#path" id="id19">環境変数 <code class="xref std std-envvar docutils literal notranslate"><span class="pre">PATH</span></code></a></p></li>
+<li><p><a class="reference internal" href="#etc-fstab" id="id20">ファイル <code class="docutils literal notranslate"><span class="pre">/etc/fstab</span></code></a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id5" id="id22">インストールのテスト</a></p></li>
-<li><p><a class="reference internal" href="#id6" id="id23">トラブル対応</a></p></li>
-<li><p><a class="reference internal" href="#id7" id="id24">関連ノート</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id21">インストールのテスト</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id22">トラブル対応</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id23">関連ノート</a></p></li>
 </ul>
 </li>
 </ul>
 </div>
-<div class="section" id="id1">
-<h2><a class="toc-backref" href="#id9">なぜ Cygwin なのか</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="cygwin">
+<h2><a class="toc-backref" href="#id8">なぜ Cygwin なのか</a><a class="headerlink" href="#cygwin" title="Permalink to this headline">¶</a></h2>
 <p>Windows で UNIX のコマンドラインツールが使えると便利だから。</p>
 <ul class="simple">
 <li><p>各種単純作業自動化、</p></li>
@@ -88,22 +89,22 @@
 MinGW や MSYS といったものが存在し、さらには Git の Windows 版パッケージもコマンドラインツールを同梱している。
 Cygwin の代わりにそちらを使っても構わないだろう。とにかく UNIX のコマンドラインツールが利用可能な状態を維持することが大事なのだ。</p>
 </div>
-<div class="section" id="id2">
-<h2><a class="toc-backref" href="#id10">事前条件</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h2><a class="toc-backref" href="#id9">事前条件</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>インターネットに接続されているノート PC で作業を行なうものとする。</p></li>
 <li><p>Windows のユーザーアカウントに管理者権限が付与されているものとする。</p></li>
 <li><p>Cygwin のインストーラーは最新のものであるとする。</p></li>
 </ul>
 </div>
-<div class="section" id="id3">
-<h2><a class="toc-backref" href="#id11">インストールとアップグレード</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id10">インストールとアップグレード</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>Cygwin 自体を新規にインストールする手順と、構成パッケージ各種を更新する手順の両方を説明する。どちらも前述のインストーラーを利用する。</p>
 <p>特に選択肢のないダイアログボックスについては <span class="guilabel">Next</span> ボタンを押して先に進めばいい。</p>
 <p>アップグレード時に「新しいバージョンがある」という文言が現れたら、
 Cygwin のサイトにアクセスして <code class="docutils literal notranslate"><span class="pre">setup-x86_64.exe</span></code> をダウンロードしてそれを用いる。</p>
 <div class="section" id="choose-installation-type">
-<h3><a class="toc-backref" href="#id12">Choose Installation Type</a><a class="headerlink" href="#choose-installation-type" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id11">Choose Installation Type</a><a class="headerlink" href="#choose-installation-type" title="Permalink to this headline">¶</a></h3>
 <p>選択肢が三つあるが、いちばん上の</p>
 <blockquote>
 <div><p><span class="guilabel">Install from Internet (downloaded files will be kept for future re-use)</span></p>
@@ -112,7 +113,7 @@ Cygwin のサイトにアクセスして <code class="docutils literal notransla
 <p>昔はパッケージのダウンロードとインストールを二段階に分けて作業をしていたが、最初のラベルの文言にあるように直接インストール時にもダウンロードしたファイルが保存されることがわかったので、その必要はなくなった。</p>
 </div>
 <div class="section" id="choose-installation-directory">
-<h3><a class="toc-backref" href="#id13">Choose Installation Directory</a><a class="headerlink" href="#choose-installation-directory" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id12">Choose Installation Directory</a><a class="headerlink" href="#choose-installation-directory" title="Permalink to this headline">¶</a></h3>
 <p>ここでの項目は初回インストール時にのみ明示的に指定する。二回目以降のインストーラー操作時には、これらの項目に設定済みの値が入力済みになっている。</p>
 <dl class="simple">
 <dt>Root Directory</dt><dd><p>ドライブ直下に配置したいので、例えば <code class="docutils literal notranslate"><span class="pre">D:\cygwin64</span></code> のように指定する。</p>
@@ -123,7 +124,7 @@ Cygwin のサイトにアクセスして <code class="docutils literal notransla
 </dl>
 </div>
 <div class="section" id="select-local-package-directory">
-<h3><a class="toc-backref" href="#id14">Select Local Package Directory</a><a class="headerlink" href="#select-local-package-directory" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id13">Select Local Package Directory</a><a class="headerlink" href="#select-local-package-directory" title="Permalink to this headline">¶</a></h3>
 <p>このダイアログボックスでは、インストーラーがインターネットからダウンロードしたファイルを保存しておくためのフォルダーを指定する。</p>
 <dl>
 <dt>Local Package Directory</dt><dd><p>これはインストーラー <code class="docutils literal notranslate"><span class="pre">setup-x86_64.exe</span></code> を保存してあるフォルダーに一致させておきたい。私の場合はこういう感じのパスだ：</p>
@@ -135,7 +136,7 @@ Cygwin のサイトにアクセスして <code class="docutils literal notransla
 <p>この後の処理では、サーバー名にちなんだフォルダーをここに作成し、そのサーバーから得た多数のファイルをここに保存しておくことになる。</p>
 </div>
 <div class="section" id="select-connection-type">
-<h3><a class="toc-backref" href="#id15">Select Connection Type</a><a class="headerlink" href="#select-connection-type" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id14">Select Connection Type</a><a class="headerlink" href="#select-connection-type" title="Permalink to this headline">¶</a></h3>
 <p>インストーラーがインターネットにどのように接続するのかを指定するらしい。私が不案内で詳細を語れない。</p>
 <dl class="simple">
 <dt>Select Your Internet Connection</dt><dd><p>選択肢が三つあるが <span class="guilabel">Direct Connection</span> をチェックする。</p>
@@ -143,7 +144,7 @@ Cygwin のサイトにアクセスして <code class="docutils literal notransla
 </dl>
 </div>
 <div class="section" id="choose-download-site-s">
-<h3><a class="toc-backref" href="#id16">Choose Download Site(s)</a><a class="headerlink" href="#choose-download-site-s" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id15">Choose Download Site(s)</a><a class="headerlink" href="#choose-download-site-s" title="Permalink to this headline">¶</a></h3>
 <p>ファイルをどのサーバーからダウンロードさせるのかを指定する。</p>
 <dl>
 <dt>Choose A Download Site</dt><dd><p>リストから選択するしかない。作業場所に最も近いサーバーがわかれば、それを指定するのが自然だ。例えば</p>
@@ -155,7 +156,7 @@ Cygwin のサイトにアクセスして <code class="docutils literal notransla
 </dl>
 </div>
 <div class="section" id="select-pakages">
-<h3><a class="toc-backref" href="#id17">Select Pakages</a><a class="headerlink" href="#select-pakages" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id16">Select Pakages</a><a class="headerlink" href="#select-pakages" title="Permalink to this headline">¶</a></h3>
 <p>このダイアログボックスでは欲しいパッケージをまとめて選択する。</p>
 <p>初回インストール時にはデフォルト設定のまま <span class="guilabel">Next</span> ボタンを押す。</p>
 <p>二回目以降は</p>
@@ -205,46 +206,46 @@ DropBox や GitHub のストレージ管理下の PNG ファイルにはこれ�
 <p>コマンドラインツールに対しては、実行ファイルのあるフォルダーのフルパスを環境変数 <span class="target" id="index-0"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PATH</span></code> の適当な位置に追加しておく。</p>
 </div>
 </div>
-<div class="section" id="id4">
-<h2><a class="toc-backref" href="#id18">環境構成</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id17">環境構成</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>基本的にはインストール直後に一度だけ行えばよい作業を記す。</p>
 <div class="section" id="home">
-<h3><a class="toc-backref" href="#id19">環境変数 <span class="target" id="index-1"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">HOME</span></code></a><a class="headerlink" href="#home" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id18">環境変数 <span class="target" id="index-1"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">HOME</span></code></a><a class="headerlink" href="#home" title="Permalink to this headline">¶</a></h3>
 <p>Windows のユーザー環境変数として <span class="target" id="index-2"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">HOME</span></code> を定義する。値は自分が実質的にホームとして使っているフォルダーのフルパスとする。もっと言うとファイル <code class="docutils literal notranslate"><span class="pre">.bash_profile</span></code> へのシンボリックリンクが置いてあるフォルダーがよい。そんなリンクを作った覚えがない場合は、そのものが置いてあるフィルダーでよい。</p>
 </div>
 <div class="section" id="path">
-<h3><a class="toc-backref" href="#id20">環境変数 <span class="target" id="index-3"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PATH</span></code></a><a class="headerlink" href="#path" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id19">環境変数 <span class="target" id="index-3"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PATH</span></code></a><a class="headerlink" href="#path" title="Permalink to this headline">¶</a></h3>
 <p>Windows のそれをそのまま使うのではなく <code class="docutils literal notranslate"><span class="pre">.bash_profile</span></code> で完全に上書きするのがよい。</p>
 </div>
 <div class="section" id="etc-fstab">
-<h3><a class="toc-backref" href="#id21">ファイル <code class="docutils literal notranslate"><span class="pre">/etc/fstab</span></code></a><a class="headerlink" href="#etc-fstab" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id20">ファイル <code class="docutils literal notranslate"><span class="pre">/etc/fstab</span></code></a><a class="headerlink" href="#etc-fstab" title="Permalink to this headline">¶</a></h3>
 <p>いわゆる cygdrive 対応をする。つまりファイル <code class="docutils literal notranslate"><span class="pre">/etc/fstab</span></code> の内容を次に示すようにするか、あるいはファイル <code class="docutils literal notranslate"><span class="pre">/etc/fstab.d/$USER</span></code> を作成して次の内容にする：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>none / cygdrive binary,posix=0,noacl,user 0 0
 </pre></div>
 </div>
 <p>これを設定することで、ドライブ直下に <strong class="command">cd</strong> する際には例えば</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> /cygdrive/d
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ cd /cygdrive/d</span>
 </pre></div>
 </div>
 <p>ではなく</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> /d
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ cd /d</span>
 </pre></div>
 </div>
 <p>のようにできる。詳細は別途調査して欲しい。</p>
 </div>
 </div>
-<div class="section" id="id5">
-<h2><a class="toc-backref" href="#id22">インストールのテスト</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id21">インストールのテスト</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>自分の使うツールが全て正常にインストールされているのかをテストするためのスクリプトを作成するといいだろう。各ツールごとにバージョン表記をして正常終了することを確認したり、
 <strong class="command">cygcheck</strong> の出力結果を解析したりすることが考えられる。</p>
 </div>
-<div class="section" id="id6">
-<h2><a class="toc-backref" href="#id23">トラブル対応</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id22">トラブル対応</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>パッケージのアップグレードが部分的に失敗して、依存 DLL が行方不明になることで特定の実行形式が異常終了する現象が発生することがごくまれにある。その際の対応手順を記す。</p>
 <p>以前、パッケージを更新した直後に make を実行したら次のようなエラーが発生した：</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ make
-$ D:/cygwin64/bin/make.exe: error <span class="k">while</span> loading shared libraries: ?:
-cannot open shared object file: No such file or directory
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ make</span>
+<span class="go">bash$ D:/cygwin64/bin/make.exe: error while loading shared libraries: ?:</span>
+<span class="go">cannot open shared object file: No such file or directory</span>
 </pre></div>
 </div>
 <p>こういう場合、まずインストールの状態が異常になっているパッケージを特定することから始める。
@@ -255,8 +256,8 @@ cannot open shared object file: No such file or directory
 <a class="reference internal image-reference" href="_images/cygwin-trouble.png"><img alt="How to detect bad DLL" src="_images/cygwin-trouble.png" style="width: 559.0px; height: 693.0px;" /></a>
 </div>
 </div>
-<div class="section" id="id7">
-<h2><a class="toc-backref" href="#id24">関連ノート</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id23">関連ノート</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="newham05/index.html"><span class="doc">入門 bash 読書ノート</span></a>: ドットファイルの内容を検討するのに読み返したい。</p></li>
 </ul>
@@ -279,7 +280,7 @@ cannot open shared object file: No such file or directory
           <a href="milestone09/walkthrough.html" title="Walk Through"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Cygwin 利用ノート</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Cygwin 利用ノート [obsolete]</a></li> 
       </ul>
     </div>
     <div id="footer">
