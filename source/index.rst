@@ -110,6 +110,7 @@ Contents:
 
    milestone09/index
    cygwin
+   chrome
    git/index
    twitter
    inkscape/index
