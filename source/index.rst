@@ -45,6 +45,7 @@ Contents:
    guntheroth16
    speinellis17
    bancila18
+   haverbeke18/index
 
 .. toctree::
    :maxdepth: 1
