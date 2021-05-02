@@ -5,6 +5,8 @@ Eloquent JavaScript 読書ノート
 `Eloquent JavaScript <https://eloquentjavascript.net/>`__ の読書ノート。
 
 .. toctree::
-    :maxdepth: 2
+   :glob:
+   :maxdepth: 1
 
-    intro.rst
+   intro
+   chapter*
