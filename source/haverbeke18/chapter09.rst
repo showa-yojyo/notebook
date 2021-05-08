@@ -5,7 +5,7 @@ Regular Expressions
 JavaScript における正規表現について述べた章だ。
 正規表現については JavaScript とは別に集中的に学ぶほうが学習効率が良いだろう。
 
-.. contents:: ノート目次
+.. contents::
 
 Creating a regular expression
 ======================================================================
