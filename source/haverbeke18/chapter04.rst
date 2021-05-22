@@ -238,4 +238,232 @@ Summary
 Exercises
 ======================================================================
 
-.. todo:: 問題をやるのは後回し。
+The sum of a range
+----------------------------------------------------------------------
+
+**問題**：
+
+* ``start`` と ``end`` の二つの引数を取り、その区間のすべての数を含む配列を返す
+  関数 ``range`` を書け。区間終点は ``end`` と一致するものとする。
+* 次に、数の配列を受け取り、これらの数の合計を返す関数 ``sum`` を書け。
+* 関数 ``range`` に ``step`` を実装しろ。
+  ``step`` が指定されない場合は、以前の動作に対応して、要素は 1 ずつ増える。
+
+  * ``range(1, 10, 2)`` は ``[1, 3, 5, 7, 9]`` を返す。
+  * 負の値でも動作するようにして ``range(5, 2, -1)`` は ``[5, 4, 3, 2]`` を返す。
+
+**解答**：単純な ``range`` をまず書く：
+
+.. code:: javascript
+
+   function range(start, end) {
+       console.assert(Number.isSafeInteger(start));
+       console.assert(Number.isSafeInteger(end));
+       console.assert(start <= end);
+
+       let a = [start];
+       for (let i = start; i < end; ++i) {
+           a.push(i);
+       }
+       return a;
+   }
+
+関数 ``sum`` は色々書き方がありそうだが：
+
+.. code:: javascript
+
+   function sum(a){
+       return a.reduce((total, current) => total + current, 0);
+   }
+
+   console.assert(sum(range(1, 10)) == 55);
+
+関数 ``range`` のステップバージョン：
+
+.. code:: javascript
+
+   function range(start, end, step = 1) {
+       console.assert(Number.isSafeInteger(start));
+       console.assert(Number.isSafeInteger(end));
+       console.assert(Number.isSafeInteger(step));
+       console.assert(step != 0);
+
+       let a = [start];
+       if(start < end && step > 0){
+           for (let i = start + step; i < end; i += step) {
+               a.push(b);
+           }
+       }
+       else if(start > end && step < 0){
+           for (let i = start + step; i > end; i += step) {
+               a.push(b);
+           }
+       }
+       return a;
+   }
+
+Reversing an array
+----------------------------------------------------------------------
+
+**問題**：次の関数を配列の ``reverse`` を用いずに書け：
+
+* 関数 ``reverseArray``
+* 関数 ``reverseArrayInPlace``
+
+前章の副作用や純粋関数についての注意点を思い返して、より多くの場面で役に立つと考えられるのはどちらか。
+また、実行速度はどちらが速いか。
+
+**解答**：
+
+.. code:: javascript
+
+   function reverseArray(a){
+       let newArray = new Array(a.length);
+       for(let i = 0, j = a.length - 1; i < a.length; ++i, --j){
+           newArray[j] = a[i];
+       }
+       return newArray;
+   }
+
+あるいは ``a`` をコピーして ``reverseArrayInPlace`` を呼び出す実装も考えられる。
+
+.. code:: javascript
+
+   function reverseArrayInPlace(a){
+       const mid = a.length / 2;
+       for(let i = 0, j = a.length - 1; i < mid; ++i, --j){
+           [a[i], a[j]] = [a[j], a[i]];
+       }
+   }
+
+* 使いやすいのは古いオブジェクトを壊さない ``reverseArray`` のほうだろう。
+* 実行速度はメモリーの確保が生じない in-place のほうが優れている。
+
+A list
+----------------------------------------------------------------------
+
+JavaScript では単方向リストを次のように表現することが考えられる：
+
+.. code:: javascript
+
+   let list = {
+       value: 1,
+       rest: {
+           value: 2,
+           rest: {
+               value: 3,
+               rest: null
+           }
+       }
+   };
+
+リストの良いところは、その構造の一部を共有できることだ。
+例えば、2つの新しい値 ``{value: 0, rest: list}`` と ``{value: -1, rest: list}``
+を作成したとすると、これらはどちらも独立したリストだが、最後の三つの要素を構成する構造を共有している。
+また、元のリストも有効なままだ。
+
+**問題**：
+
+* 配列 ``[1, 2, 3]`` を入力として与えると、上記のような
+  データ構造のオブジェクトを返す関数 ``arrayToList`` を書け。
+* また、リストから配列を生成する関数 ``listToArray`` も書け。
+  そして、ヘルパー関数 ``prepend`` を追加しろ。
+  この関数は要素とリストを受け取って、要素を入力リストの先頭に追加する **新しい** リストを作成するものとする。
+* 関数 ``nth`` を書け。リストとインデックスを受け取り、リスト内の指定された位置の要素を返すものだ。
+  そのような要素がない場合は ``undefined`` を返せ。
+* 関数 ``nth`` を再帰で実装していなければ、再帰版も書け。
+
+**解答**：あまりエレガントではないコードだが：
+
+.. code:: javascript
+
+   function arrayToList(a){
+       let list = {"value": null, "rest": null};
+       if(a.length == 0){
+           return list;
+       }
+
+       let cur = list;
+       let i = 0;
+       for(; i < a.length - 1; ++i){
+           cur.value = a[i];
+           cur.rest = {"value": null, "rest": null};
+           cur = cur.rest;
+       }
+       cur.value = a[i];
+       cur.rest = null;
+       return list;
+   }
+
+   function listToArray(list){
+       let a = [list.value];
+       let cur = list.rest;
+       while(cur.rest != null){
+           a.push(cur.value);
+           cur = cur.rest;
+       }
+       a.push(cur.value);
+       return a;
+   }
+
+後半は新しいリストを作成することに注意する：
+
+.. code:: javascript
+
+   function prepend(element, list){
+       let arr = listToArray(list);
+       arr.unshift(element);
+       return arrayToList(arr);
+   }
+
+   function nth(list, index){
+       console.assert(Number.isSafeInteger(index) && index >= 0);
+       let cur = list;
+       for(index-- && cur != null; cur = cur.rest);
+       return cur ? cur.value : undefined;
+   }
+
+   function nth_recursive(list, index){
+       console.assert(Number.isSafeInteger(index) && index >= 0);
+       if(index == 0){
+           return list.value;
+       }
+       return nth_recursive(list.rest, index - 1);
+   }
+
+Deep comparison
+----------------------------------------------------------------------
+
+**問題**：二つ値を受け取り、それらが同じ値または同じプロパティを持つオブジェクトである場合にのみ真を返す関数 ``deepEqual`` を書け。
+プロパティーの値は、``deepEqual`` の再帰で比較したときに等しい。
+
+* ヒント：値を演算子 ``===`` を使って直接比較するか、
+  または値のプロパティーすべてを比較するかを調べるには、演算子 ``typeof`` を使う。
+  ただし ``typeof null`` も ``"object"`` を生成することに注意すること。
+* ヒント：関数 ``Object.keys`` は、オブジェクトのプロパティーを調べて比較したいときに便利だ。
+
+**解答**：問題文から求めるものが再帰関数であることが明らかだ。
+
+.. code:: javascript
+
+   function deepEqual(lhs, rhs){
+       if (lhs && rhs && typeof lhs == 'object' && typeof rhs == 'object') {
+           const keys = Object.keys(lhs);
+           if (keys.length != Object.keys(rhs).length){
+               return false;
+           }
+
+           for(const key of keys){
+               if(!deepEqual(lhs[key], rhs[key])){
+                   return false;
+               }
+           }
+           return true;
+       }
+
+       return a === b;
+   }
+
+というか、インターネットに解がある：
+`eloquent - Deep Compare JavaScript function - Stack Overflow <https://stackoverflow.com/questions/48728515/deep-compare-javascript-function>`__
+
