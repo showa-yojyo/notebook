@@ -174,4 +174,65 @@ Summary
 Exercises
 ======================================================================
 
-.. todo:: 問題をやるのは後回し。
+Minimum
+----------------------------------------------------------------------
+
+**問題**：標準関数 ``Math.min`` のようなものを作れ：
+引数を二つ取り、それらの最小値を返す関数 ``min`` を書け。
+
+**解答**：C++ 標準の ``std::max`` をパクる。
+
+.. code:: javascript
+
+   function max(a, b){
+       console.assert(!isNaN(a));
+       console.assert(!isNaN(b));
+       return (a < b) ? b : a;
+   }
+
+   console.assert(max(100, 5) == 100);
+   console.assert(max(5, 100) == 100);
+   console.assert(max(5, 5) == 5);
+
+* この仕様の関数は ``Math.min`` のそれとは全然違うことに注意。
+
+Recursion
+----------------------------------------------------------------------
+
+**問題**：ここでは、正の整数が偶数か奇数かを次で定義する：
+
+* :math:`0` は偶数であるとする。
+* :math:`1` は奇数であるとする。
+* その他の数 :math:`n` については、その偶数性は :math:`n - 2` と同じとする
+
+この記述に対応する再帰関数 ``isEven`` を定義しろ。
+この関数は正の整数である引数を一つ取り、真偽値を返すものとする。
+
+**解答**：教科書の演習問題の解答としてはこの程度の品質でいいと思われる：
+
+.. code:: javascript
+
+   function isEven(n){
+       console.assert(Number.isSafeInteger(n) && n >= 0);
+       return n == 0 ? true : (n == 1 ? false : isEven(n - 2));
+   }
+
+   console.assert(isEven(50));
+   console.assert(!isEven(75));
+   console.assert(!isEven(1));
+
+Bean counting
+----------------------------------------------------------------------
+
+**問題**：文字列を唯一の引数として受け取り、その文字列に含まれる大文字の
+``B`` の個数を返す関数 ``countBs`` を書け。
+その後、関数 ``countBs`` を次のように書き換えて関数 ``countChar`` を定義しろ。
+この関数は、数える文字を第二引数として取ることを除いては、``countBs`` と同様に動作するものとする。
+
+**解答**：題意を無視して後半からやる：
+
+.. code:: javascript
+
+  function countChar(s, char = "B"){
+      return Array.from(s).filter(c => c == char).length;
+  }
