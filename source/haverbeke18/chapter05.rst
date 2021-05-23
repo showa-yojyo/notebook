@@ -164,4 +164,107 @@ Summary
 Exercises
 ======================================================================
 
-.. todo:: 問題をやるのは後回し。
+Flattening
+----------------------------------------------------------------------
+
+**問題** メソッド ``reduce`` とメソッド ``concat`` を組み合わせて
+配列の配列を、元の配列の要素をすべて含む単一の配列にしろ。
+
+
+**解答** 原文から、二次元配列を一次元配列に平坦にする処理として実装する：
+
+.. code:: javascript
+
+   function flatten(array){
+       return array.reduce((total, i) => total.concat(i), []);
+   }
+
+   flatten([[1, 2, 3], [4, 5, 6], [7, 8, 9]]); // → [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+Your own loop
+----------------------------------------------------------------------
+
+**問題** 引数として値、テスト関数、更新関数、本体関数をする
+``for`` 文のようなものを与える高階関数 ``loop`` を書け。
+
+* 反復のたびに、まず現在のループの値に対してテスト関数を実行し、それが偽を返したら停止する。
+* その後、現在の値を与えて本体関数を呼び出す。
+* 最後に、更新関数を呼び出して新しい値を生成し、最初から始める。
+* 関数を定義する際に、実際のループ処理を行うために通常のループを使用することができる。
+
+**解答** つまらないものができた：
+
+.. code:: javascript
+
+   function loop(){
+       function inner(value, test, update, body){
+           for(; test(value); value = update(value)){
+               body(value);
+           }
+           return value;
+       }
+       return inner;
+   }
+
+Everything
+----------------------------------------------------------------------
+
+**問題** メソッド ``some`` の類比で、配列にはメソッド ``every`` がある。
+このメソッドは、与えられた述語が配列の要素全てに対して真を返すときにに真を返す。
+メソッド ``some`` と ``every`` はそれぞれ配列に作用する演算子 ``||`` および ``&&`` のようなものだ。
+
+配列と述語を引数にとる関数として ``every`` を実装しろ。二バージョン書け：
+
+* ループを使う
+* メソッド ``some`` を使う
+
+**解答** 前半は単純に：
+
+.. code:: javascript
+
+   function every(array, pred){
+       for(const i of array){
+           if(!pred(i)){
+               return false;
+           }
+       }
+       return true;
+   }
+
+後半は De Morgan の法則を応用する：
+
+.. code:: javascript
+
+   function every(array, pred){
+       return !array.some(i => !pred(i));
+   }
+
+Dominant writing direction
+----------------------------------------------------------------------
+
+**問題** テキストの文字列の中で dominant writing direction を計算する関数を書け。
+
+* dominant writing direction とは、スクリプトが関連付けられている文字の大部分を占める方向だ。
+* 各スクリプトオブジェクトにはプロパティー ``direction`` があり、
+  値 ``"ltr"``, ``"rtl"``, ``"ttb"`` のいずれかをとる。
+* ヒント：この章で定義した関数 ``characterScript`` と ``countBy`` が使えるはずだ。
+
+**解答** 本文中の関数 ``textScripts`` を改変する：
+
+.. code:: javascript
+
+   function textScripts(text) {
+       let scripts = countBy(text, char => {
+           let script = characterScript(char.codePointAt(0));
+           return script ? script.direction : "none";
+       }).filter(({name}) => name != "none");
+
+       if(scripts.length == 0){
+           return undefined;
+       }
+
+       return scripts.reduce(
+           (dominant, i) => dominant = dominant.count < i.count ? i : dominant);
+   }
+
+* ``Math.max`` の述語バージョンが存在しない？
