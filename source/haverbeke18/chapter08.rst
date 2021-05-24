@@ -238,4 +238,112 @@ Summary
 Exercises
 ======================================================================
 
-.. todo:: 問題をやるのは後回し。
+Retry
+----------------------------------------------------------------------
+
+**問題** 20% の確率で二つの数の積を返し、80% の確率で
+``MultiplicatorUnitFailure`` 型の例外を発生させる関数 ``primitiveMultiply`` があるとする。
+この不便な関数をラップして、呼び出しが成功するまで試行を続け、その後結果を返す関数を書け。
+処理したい例外しか例外処理しないこと。
+
+**解答** せっかくなので関数 ``primitiveMultiply`` をも実装する：
+
+.. code:: javascript
+
+   class MultiplicatorUnitFailure extends Error{}
+
+   function primitiveMultiply(lhs, rhs){
+       if(Math.random() < 0.8){
+           throw new MultiplicatorUnitFailure;
+       }
+
+       return lhs * rhs;
+   }
+
+   function multiply(lhs, rhs){
+       for(;;){
+           try{
+               return primitiveMultiply(lhs, rhs);
+           }
+           catch(e){
+               if(e instanceof MultiplicatorUnitFailure){
+                   console.log("Try again");
+               }
+               else{
+                   throw e;
+               }
+           }
+       }
+   }
+
+The locked box
+----------------------------------------------------------------------
+
+**問題** 次のようなかなりわざとらしいオブジェクトを考える：
+
+.. code:: javascript
+
+   const box = {
+       locked: true,
+       unlock() { this.locked = false; },
+       lock() { this.locked = true; },
+       _content: [],
+       get content() {
+           if (this.locked) throw new Error("Locked!");
+           return this._content;
+       }
+   };
+
+鍵のかかった箱だ。箱の中には配列が入っているが、それを手に入れるには箱の鍵を開けなければならない。
+プライベートなプロパティー ``_content`` に直接アクセスすることは禁じられている。
+
+関数 ``withBoxUnlocked`` を書け。この関数は、関数を引数にとり、
+箱の鍵を開け、その関数を実行し、引数の関数が正常に戻ったか例外が発生したかにかかわらず、
+ボックスが再びロックされたことを確認してから戻る。
+
+さらに、箱がすでに解錠されているときに ``withBoxUnlocked`` を呼び出すと、
+箱の鍵はまだ開けられているままになることを確認しておくと得点が高い。
+
+**解答** 題意だと思われるコードを書く：
+
+.. code:: javascript
+
+   function withBoxUnlocked(f){
+       let alreadyLocked = box.locked();
+       if(alreadyLocked){
+           box.unlock();
+       }
+
+       try{
+           f(box.content());
+       }
+       catch(e){
+           console.log('Handle e...');
+       }
+       finally{
+           if(alreadyLocked){
+               box.lock();
+           }
+       }
+   }
+
+テストコード：
+
+.. code:: javascript
+
+   function f(content){ console.log(content); }
+   function g(content){ throw new Error; }
+
+   box.lock();
+   withBoxUnlocked(f);
+   console.assert(box.locked);
+   box.unlock();
+   withBoxUnlocked(f);
+   console.assert(box.!locked);
+
+   box.lock();
+   withBoxUnlocked(g);
+   console.assert(box.locked);
+   box.unlock();
+   withBoxUnlocked(g);
+   console.assert(box.!locked);
