@@ -107,8 +107,8 @@ Simulation
 
 * ``VillageState`` オブジェクトを受け取り、近くにある場所の名前を返す関数として配達ロボットを捉える。
 * 物事を記憶し、計画を立てて実行できるロボットを設計したいので、
-  ロボットにメモリーを渡し、新しいメモリーを返すようにする。
-  そのため、ロボットが返すのは、移動したい方向と、次に移動したときに返されるメモリーの値を含むオブジェクトだ。
+  ロボットに記憶を渡し、新しい記憶を返すようにする。
+  そのため、ロボットが返すのは、移動したい方向と、次に移動したときに返される記憶の値を含むオブジェクトだ。
 
 .. code:: javascript
 
@@ -240,8 +240,7 @@ Pathfinding
       その場所への長い経路か、その場所と同じ経路を見つけたことになる。
       これ以上探索する必要はない。
 
-これを視覚的に想像すると、スタート地点から既知のルートが網の目のように這い出て、四方八方に均等に広がっていく様子がわかります。
-（ただし、自分自身に絡みつくことはありません）。
+これを視覚的に想像すると、スタート地点から既知のルートが網の目のように這い出て、四方八方に均等に広がっていく様子がわかる。
 
 * このコードには作業配列に要素がなくなったときの処理は含まれていない。
   これはグラフが単連結であることを仮定できることによる（任意のノード間に経路が存在することが保証されている）。
@@ -253,7 +252,7 @@ Pathfinding
    function goalOrientedRobot({place, parcels}, route) {
        if (route.length == 0) {
            let parcel = parcels[0];
-           if (parcel.place != place) {.
+           if (parcel.place != place) {
                route = findRoute(roadGraph, place, parcel.place);
            } else {
                route = findRoute(roadGraph, place, parcel.address);
@@ -275,4 +274,139 @@ Pathfinding
 Exercises
 ======================================================================
 
-.. todo:: 問題をやるのは後回し。
+本章で現れたプログラム要素をまとめておく。
+
+.. csv-table::
+   :delim: |
+   :header: 変数・関数, コメント
+
+   ``roads`` | エッジリスト。これはもう要らない。
+   ``buildGraph`` | エッジリストからグラフを構築する。これももう要らない。
+   ``roadGraph`` | 隣接グラフ。これを使い回す。
+   ``VillageState`` | 配達地点と小包の状態を保持するクラス。移動メソッドアリ。
+   ``runRobot`` | ロボットドライバー関数。
+   ``randomPick`` | Python の ``random.choice`` と同じ。
+   ``randomRobot`` | ロボット関数。現在状態のランダムな隣接地点を返す。
+   ``mailRoute`` | 経路が一筆書きである頂点リスト。
+   ``routeRobot`` | ロボット関数。変数 ``mailRoute`` に基づく。
+   ``findRoute`` | グラフの始点と終点を与えて経路を探索するアルゴリズム。
+   ``goalOrientedRobot`` | ロボット関数。アルゴリズム ``findRoute`` に基づく。
+
+Measuring a robot
+----------------------------------------------------------------------
+
+**問題** 関数 ``compareRobots`` を書け。二つのロボットを引数として取る（ロボットにはそれぞれ初期記憶がある）。
+100 タスクを生成し、それぞれのロボットにそのタスクを解かせろ。
+完了したら、各ロボットがタスクごとに要した平均ステップ数を出力しろ。
+公平を期すために、両方のロボットに同じ 100 タスクを与えること。
+
+**解答** まず関数 ``runRobot`` をターン数を返すように修正する必要がある。
+
+.. code:: javascript
+
+   function runRobot(state, robot, memory) {
+       for (let turn = 0; ; turn++) {
+           if (state.parcels.length == 0) {
+               //console.log(`Done in ${turn} turns`);
+               return turn;
+           }
+           let action = robot(state, memory);
+           state = state.move(action.direction);
+           memory = action.memory;
+           //console.log(`Moved to ${action.direction}`);
+       }
+   }
+
+その上で次のようなベンチマークを書くことが考えられる：
+
+.. code:: javascript
+
+   function mean(array){
+       console.assert(array.length != 0);
+       return array.reduce((total, current) => total + current, 0) / array.length;
+   }
+
+   function compareRobots(robot1, robot2, numTask = 100){
+       let counts1 = new Array(numTask), counts2 = new Array(numTask);
+       for(let i = 0; i < numTask; ++i){
+           const s = VillageState.random();
+           counts1[i] = runRobot(s, robot1, mailRoute);
+           counts2[i] = runRobot(s, robot2, mailRoute);
+       }
+       console.log(`robot1: ${mean(counts1)}`);
+       console.log(`robot2: ${mean(counts2)}`);
+   }
+
+Robot efficiency
+----------------------------------------------------------------------
+
+**問題** ``goalOrientedRobot`` よりも早く配送タスクを完了するロボットを書けるか。
+
+前の問題を解いたのであれば、ロボットが改善されたかどうかを確認するために関数
+``compareRobots`` を使える。
+
+**解答** ``findRoute`` の高速版を書ければ解けたも同然。
+Dijkstra のアルゴリズムの重みなし版のようなものを書けばいい。
+
+.. todo:: 気が向いたら書く。
+
+Persistent group
+----------------------------------------------------------------------
+
+**問題** 第 6 章のクラス ``Group`` に似た、値の集合を格納する新しいクラス ``PGroup`` を書け。
+
+* 同様にメソッド ``add``, ``delete``, ``has`` がある。
+
+  * ただし、メソッド ``add`` は、与えられたメンバーが追加された新しい
+    ``PGroup`` インスタンスを返し、古いものは変更しないものとする。
+  * 同様に、メソッド ``delete`` は与えられたメンバーのない新しいインスタンスを生成するものとする。
+
+* このクラスは、あらゆる型の値に対して動作するものとする。
+* 大量の値を扱う際に効率的である必要はない。
+* コンストラクターは、クラスのインターフェイスの一部であってはならない（内部的には使いたい）。
+* コンストラクターの代わりに、空のインスタンスである ``PGroup.empty`` があり、
+  それを開始値として使用することができる。
+
+**解答** コンストラクターを private にする手段が不明。
+
+.. code:: javascript
+
+   class PGroup{
+       // for private use
+       constructor(content){
+           this._content = content;
+       }
+
+       add(element){
+           if(!this.has(element)){
+               let newContent = this._content.slice();
+               newContent.push(element);
+               return new PGroup(newContent);
+           }
+       }
+
+       delete(element){
+           let newGroup = new PGroup(this._content.slice());
+           const where = newGroup._content.indexOf(element);
+           if(where != -1){
+               newGroup._content.splice(where, 1);
+           }
+           return newGroup;
+       }
+
+       has(element){
+           return this._content.indexOf(element) != -1;
+       }
+   }
+
+   PGroup.empty = Object.freeze(new PGroup(new Array));
+
+こうするとオブジェクトを次のように生成できるようだが……。
+
+.. code:: javascript
+
+   g1 = PGroup.empty.add(0).add(1).add(2);
+   g2 = PGroup.empty.add('x').add('y').add('z');
+
+新しいインスタンスを返すという仕様の下ではメソッド ``add`` も ``delete`` も
+可変個引数にする設計もありだろう。
