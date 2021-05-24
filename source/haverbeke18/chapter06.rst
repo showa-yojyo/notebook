@@ -239,9 +239,9 @@ Map
 
    let ages = new Map();
    ages.set("Boris", 39);
-   ages.set("Liang", 22);;
+   ages.set("Liang", 22);
    ages.set("Júlia", 62);
-   console.log(`Júlia is ${ages.get("Júlia")}`);
+   console.log(`Júlia is ${ages.get("Júlia")}`); // Júlia is 62
    console.log("Is Jack's age known?", ages.has("Jack")); // false
    console.log(ages.has("toString")); // false
 
@@ -418,4 +418,168 @@ Summary
 Exercises
 ======================================================================
 
-.. todo:: 問題をやるのは後回し。
+A vector type
+----------------------------------------------------------------------
+
+**問題** 二次元空間のベクトルを表現するクラス ``Vec`` を書け。
+これは数 ``x``, ``y`` を引数として取り、同じ名前のプロパティーに保存されるものとする。
+
+次に ``Vec`` のプロトタイプにメソッド ``plus`` および ``minus`` を与えろ。
+これらは別のベクトルを引数とし、メソッド名の示唆する新しいベクトルを返す。
+
+取得プロパティー ``length`` をプロトタイプに加えろ。
+ベクトルの大きさを計算してそれを返すものだ。
+
+**解答** そういえば JavaScript には演算子のオーバーロード機能はないのだろうか。
+
+.. code:: javascript
+
+   class Vec{
+       constructor(x, y){
+           this.x = x;
+           this.y = y;
+       }
+
+       get length() {
+           return Math.sqrt(this.x ** 2 + this.y ** 2);
+       }
+   };
+
+   Vec.prototype.plus = function(other){
+       return new Vec(this.x + other.x, this.y + other.y);
+   }
+
+   Vec.prototype.minus = function(other){
+       return new Vec(this.x - other.x, this.y - other.y);
+   }
+
+Groups
+----------------------------------------------------------------------
+
+**問題** 次の仕様に従うクラス ``Group`` を書け。
+
+* このクラスには標準 JavaScript にあるクラス ``Set`` のようにメソッド
+  ``add``, ``delete``, ``has`` がある。
+
+  * コンストラクターは空の ``Group`` を作成する。
+  * メソッド ``add`` は引数がまだメンバーでない場合に限り、それを ``Group`` に追加する。
+  * メソッド ``delete`` は引数がメンバーである場合にそれを ``Group`` から削除する。
+  * メソッド ``has`` は引数が ``Group`` のメンバーであるかどうかを示す真偽値を返す。
+
+* 二つの値が同じかどうかを判断するには演算子 ``===`` または ``indexOf`` などの同等の何かを使え。
+
+  * ノート：メソッド ``Array.prototype.indexOf`` が暗に使う比較演算は演算子 ``===`` に基づく。
+
+* このクラスには iterable を引数として取り、それを反復して生成されたすべての値を含む
+  ``Group`` を作成する静的メソッド ``from`` を実装しろ。
+
+**解答** 基本型 ``Array`` を使って実装して構わないと解釈する。
+本物の集合クラスを書くのは無理がある。
+
+.. code:: javascript
+
+   class Group{
+       constructor(){
+           this.content = [];
+       }
+
+       add(element){
+           if(!this.has(element)){
+               this.content.push(element);
+           }
+       }
+
+       delete(element){
+           const where = this.content.indexOf(element);
+           if(where != -1){
+               this.content.splice(where, 1);
+           }
+       }
+
+       has(element){
+           return this.content.indexOf(element) != -1;
+       }
+
+       static from(iterable){
+           let group = new Group;
+           for(let i of iterable){
+               group.add(i);
+           }
+           return group;
+       }
+   }
+
+Iterable groups
+----------------------------------------------------------------------
+
+**問題** 前の演習で定義したクラス ``Group`` を iterable にしろ。
+
+``Group`` のメンバーを表すのに配列を使用した場合、
+配列に対してメソッド ``Symbol.iterator`` を呼び出して作成した反復子を返すだけではいけない
+（それでうまくいったとしても、この演習の目的に反する）。
+
+なお、反復処理中に ``Group`` が変更されたとき、反復子の動作がおかしくなるのは構わないとする。
+
+**解答** 学習中に飛ばした箇所なので、今泥縄でやってみる。
+
+まず ``Group.prototype`` を次のように拡張する：
+
+.. code:: javascript
+
+   Group.prototype[Symbol.iterator] = function(){
+       return new GroupIterator(this);
+   };
+
+まだ ``GroupIterator`` を書いていないので、書く：
+
+.. code:: javascript
+
+   class GroupIterator{
+       constructor(group){
+           this.i = 0;
+           this.group = group;
+       }
+
+       next(){
+           const content = this.group.content;
+           if(this.i == content.length){
+               return {done: true};
+           }
+
+           let value = {
+               i: this.i,
+               value: content[this.i]
+           };
+           ++this.i;
+           return {value, done: false};
+       }
+   }
+
+Borrowing a method
+----------------------------------------------------------------------
+
+**問題** この章の前半で、オブジェクトの ``hasOwnProperty`` は、
+プロトタイプのプロパティーを無視したい場合に、
+演算子 ``in`` の代わりに、より堅牢な手段として使用できることを述べた。
+
+しかし、マップに ``"hasOwnProperty"`` という単語を含める必要がある場合はどうだろうか。
+オブジェクト自身のプロパティがメソッドの値を隠してしまうため、そのメソッドを呼び出すことができなくなる。
+
+``hasOwnProperty`` という名前のプロパティーを持っているオブジェクトに対して、
+隠された ``hasOwnProperty`` を参照する方法はあるか。
+
+**解答** ある。
+``Object.prototype`` と ``call`` を理解していることが急所の問題だ。
+
+.. code:: javascript
+
+   let myobj = {
+       myproperty: "my value",
+       hasOwnProperty: i => false,
+   };
+
+   console.assert(!myobj.hasOwnProperty('myproperty'));
+   console.assert(Object.prototype.hasOwnProperty.call(myobj, 'myproperty'));
+   console.assert(Object.prototype.hasOwnProperty.call(myobj, 'hasOwnProperty'));
+
+参考： `Object.prototype.hasOwnProperty() - JavaScript | MDN <https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty>`__
