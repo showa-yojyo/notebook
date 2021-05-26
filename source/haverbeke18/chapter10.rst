@@ -270,8 +270,7 @@ A modular robot
 また、どのモジュールがどのモジュールに依存しているだろうか。
 そのインターフェイスはどのようになっているだろうか。
 
-NPM_ であらかじめ書かれたものはどのようなものがあるでしょうか？
-NPM_ のパッケージを使うのと、自分で書くのと、どちらが好みか。
+NPM_ であらかじめ書かれたものはどのようなものがあるか。
 
 **解答** まず依存関係をまとめる。Graphviz などで図式化するといい：
 
@@ -300,6 +299,24 @@ NPM_ のパッケージを使うのと、自分で書くのと、どちらが好
   * ``roadGraph``
   * ``findRoute``
 
+次のようにモジュール群を編成できる：
+
+.. csv-table::
+   :delim: |
+   :header: モジュール, 内容, ～に依存する
+
+   ``mailRoute.js`` | ``mailRoute`` | なし
+   ``graph.js`` | ``buildGraph`` | なし
+   ``randomPick.js`` | ``randomPick`` | なし
+   ``roadGraph.js`` | ``roadGraph``, ``roads`` | ``graph.js``
+   ``randomRobot.js`` | ``randomRobot`` | ``roadGraph.js``, ``randomPick.js``
+   ``routeRobot.js`` | ``routeRobot`` | ``mailRoute.js``
+   ``goalOrientedRobot.js`` | ``goalOrientedRobot``, ``findRoute`` | ``roadGraph``
+   ``runRobot.js`` | ``runRobot`` | なし
+   ``village.js`` | ``VillageState`` | ``roadGraph.js``, ``randomPick.js``
+
+NPM_ は調べていないが、ありそうなのはランダムピック機能か。
+
 Roads module
 ----------------------------------------------------------------------
 
@@ -309,11 +326,9 @@ Roads module
 このモジュールは、グラフを構築するために使用される関数 ``buildGraph`` をエクスポートするモジュール
 ``./graph`` に依存するものとする。この関数は、二要素（道路の始点と終点）の配列を引数に取る。
 
-**解答** 定数 ``roads`` をこの CommonJS で定義してよいと仮定すると次のようになる：
+**解答** 前問のようにモジュール群を編成するとして：
 
 .. code:: javascript
-
-   // roadGraph.js (?)
 
    const {buildGraph} = require("./graph");
 
@@ -328,6 +343,8 @@ Roads module
   ];
 
    exports.roadGraph = buildGraph(roads);
+
+なお、関数 ``require`` は Node.js のものを想定している。
 
 Circular dependencies
 ----------------------------------------------------------------------
@@ -346,6 +363,7 @@ CommonJS のモジュールでは、限られた形での周期的な依存関�
 どのように循環を処理しているか。
 循環内のモジュールがデフォルトの ``exports`` オブジェクトを置き換えた場合、何が問題になるか。
 
-**解答**
+**解答** ``require.cache`` があるおかげで、二度目以降のロードを無視する。
+C/C++ でいうところのインクルードガード（この技術は古いが）のような働きをする。
 
 .. _NPM: https://npmjs.org
