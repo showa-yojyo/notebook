@@ -75,11 +75,21 @@ Callbacks
        });
    });
 
+  * モジュール ``crow-tech`` はサポートページ <https://eloquentjavascript.net/code/#11> にある。
+    リンク先の URL をダウンロードしてローカルディスクに保存した上で
+    Node.js から上記コードを実行するときには、インポート行を次のように変える必要がある：
+
+    .. code:: javascript
+
+       const {bigOak} = require("./crow-tech");
+
+    以下同様。
+
 * このようなプログラミングでは非同期アクションを行うたびに別の関数に入ってしまい、
   インデントの深さが増す。複数のアクションを同時に実行するなど、
   もっと複雑なことをする場合には少々厄介になる。
 
-カラスの計算機は、リクエストとレスポンスのペアで通信するように作られている。
+カラスの計算機は、リクエストと応答のペアで通信するように作られている。
 
 * これが意味するのは、ある巣が別の巣にメッセージを送り、
   それからすぐにメッセージが送り返され、受信を確認し、
@@ -107,6 +117,7 @@ Callbacks
 .. code:: javascript
 
    import {defineRequestType} from "./crow-tech";
+   //const {defineRequestType} = require("./crow-tech");
 
    defineRequestType("note", (nest, content, source, done) => {
        console.log(`${nest.name} received note: ${content}`);
@@ -138,6 +149,11 @@ Callbacks
 Promises
 ======================================================================
 
+.. note::
+
+   これも併せて読むといい：
+   `Promiseを使う - JavaScript | MDN <https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide/Using_promises>`__
+
 * 抽象概念を扱うには、その概念を値で表すことができれば作業が容易になる。
   非同期アクションの場合、未来のある時点で関数が呼ばれるように仕込む代わりに、
   その未来のイベントを表すオブジェクトを返すこともできる。
@@ -145,11 +161,6 @@ Promises
 
   * ``Promise`` とは非同期アクションであって、ある時点で完了し、値を生成する可能性のあるものだ。
   * ``Promise`` は、その値が利用可能になったときに、興味のある人に通知することができる。
-
-The easiest way to create a promise is by calling Promise.resolve. This
-function ensures that the value you give it is wrapped in a promise. If it’s
-already a promise, it is simply returned—otherwise, you get a new promise
-that immediately finishes with your value as its result.
 
 * ``Promise`` を作成する最も簡単な方法は ``Promise.resolve`` を呼び出すことだ。
   この関数は、指定された値が ``Promise`` でラップされているかどうかを確認します。
@@ -326,6 +337,8 @@ Networks are hard
        });
    }
 
+   * この ``request`` は後ほどしばしば参照されるたいせつな機能だ。
+
 * ``Promise`` は一度しか解決（または却下）できないので、これでうまくいく。
   最初に ``resolve`` または ``reject`` が呼ばれたときに ``Promise`` の結果が決定され、
   他のリクエストが終了した後に戻ってきたリクエストによるそれ以降の呼び出しは無視される。
@@ -403,6 +416,8 @@ Collections of promises
 * 合体 ``Promise`` に対するハンドラーでは、メソッド ``filter`` を使って、
   対応する値が ``false`` である要素を近所の巣の配列から取り除く。
 
+試しに ``availableNeighbors(bigOak).then(neighbors => console.log(neighbors))`` などとしてみるとよい。
+
 Network flooding
 ======================================================================
 
@@ -413,6 +428,7 @@ Network flooding
 .. code:: javascript
 
    import {everywhere} from "./crow-tech";
+   //const {everywhere} = require("./crow-tech");
 
    everywhere(nest => {
        nest.state.gossip = [];
@@ -818,4 +834,41 @@ Summary
 Exercises
 ======================================================================
 
-.. todo:: 問題をやるのは後回し。
+Tracking the scalpel
+----------------------------------------------------------------------
+
+**問題** 村のカラスたちは古い手術ナイフを所有していて、網戸や梱包材を切り裂くなど、特別な仕事に使うことがある。
+手術ナイフをすぐに見つけられるように、手術ナイフを別の巣に移すたびに、
+手術ナイフが引っ越す前の巣と引っ越す先の巣の両方のストレージに
+"scalpel" という名前で、新しい場所を値として追加している。
+
+つまりナイフを見つけるということは、ストレージのエントリーのパンくずのような跡を、
+それが巣自体を指し示している巣を見つけるまでたどるということだ。
+
+これを実行する非同期関数 ``locateScalpel`` を書け。
+先に定義した ``anyStorage`` 関数を使えば、任意の巣のストレージにアクセスすることができる。
+手術ナイフは十分な時間が経過しているので、どの巣のデータストレージにも "scalpel" のエントリーがあるとして構わない。
+
+次に、同じ関数を ``async`` や ``await`` を使わずにもう一度書け。
+どちらのバージョンでも、リクエストの失敗が返された ``Promise`` の却下として適切に表示されるか。
+それはどのようなものになるか。
+
+**解答** TBW
+
+Building ``Promise.all``
+----------------------------------------------------------------------
+
+**問題** ``Promise.all`` は ``Promise`` の配列が与えられると、配列内のすべての
+``Promise`` が終了するのを待つ ``Promise`` を返す。
+
+* 成功すると結果値の配列が得られる。
+* 配列の中の ``Promise`` が失敗すると ``all`` が返す ``Promise`` も失敗し、
+  失敗した ``Promise`` の理由を得られる。
+
+このようなことをする関数 ``Promise_all`` を実装しろ。
+
+プロミスが成功または失敗した後は、再び成功または失敗することはできず、
+それを解決する関数への呼び出しは無視されることを覚えておくことだ。
+これにより、プロミスの失敗を処理する方法を単純化できる。
+
+**解答** TBW
