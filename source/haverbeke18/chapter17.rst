@@ -257,7 +257,7 @@ Text
    cx.fillStyle = "fuchsia";
    cx.fillText("I can draw text, too!", 10, 50);
 
-* プロパティ ``font`` に対してテキストのサイズ、スタイル、フォントを指定します。
+* プロパティ ``font`` に対してテキストのサイズ、スタイル、フォントを指定する。
 
   * ``italic`` や ``bold`` を文字列の先頭に追加してもいい。
 
