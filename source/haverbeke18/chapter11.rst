@@ -66,7 +66,8 @@ Callbacks
 
 .. code:: javascript
 
-   import {bigOak} from "./crow-tech";
+   //import {bigOak} from "./crow-tech";
+   const {bigOak} = require("./crow-tech");
 
    bigOak.readStorage("food caches", caches => {
        let firstCache = caches[0];
@@ -75,15 +76,12 @@ Callbacks
        });
    });
 
-  * モジュール ``crow-tech`` はサポートページ <https://eloquentjavascript.net/code/#11> にある。
-    リンク先の URL をダウンロードしてローカルディスクに保存した上で
-    Node.js から上記コードを実行するときには、インポート行を次のように変える必要がある：
+* モジュール ``crow-tech`` はサポートページ <https://eloquentjavascript.net/code/#11> にある。
+  リンク先の URL をダウンロードしてローカルディスクに保存した上で
+  Node.js から上記コードを実行するときには、インポート行をコメントアウトして、
+  CommonJS 風のインポート処理に書き換える必要がある。
 
-    .. code:: javascript
-
-       const {bigOak} = require("./crow-tech");
-
-    以下同様。
+  以下同様。
 
 * このようなプログラミングでは非同期アクションを行うたびに別の関数に入ってしまい、
   インデントの深さが増す。複数のアクションを同時に実行するなど、
@@ -116,8 +114,8 @@ Callbacks
 
 .. code:: javascript
 
-   import {defineRequestType} from "./crow-tech";
-   //const {defineRequestType} = require("./crow-tech");
+   //import {defineRequestType} from "./crow-tech";
+   const {defineRequestType} = require("./crow-tech");
 
    defineRequestType("note", (nest, content, source, done) => {
        console.log(`${nest.name} received note: ${content}`);
@@ -125,10 +123,11 @@ Callbacks
    });
 
 * 関数 ``defineRequestType`` は新しいリクエストタイプを定義する。
-  上記のコードは ``"note "`` リクエストのサポートを追加している。
-  これは、単にノートを指定された巣に送信するものだ。
-  この実装では ``console.log`` を呼び出し、リクエストが届いたことを
-  確認できるようにしている。
+
+  * 前述のコードは ``"note "`` リクエストのサポートを追加している。
+    これは、単にノートを指定された巣に送信するものだ。
+    この実装では ``console.log`` を呼び出し、リクエストが届いたことを
+    確認できるようにしている。
 * 巣にはプロパティー ``name`` があり、それらの名前を保持する。
 * 最後の引数 ``done`` はリクエスト処理が終わったときに呼び出すコールバック関数だ。
 
@@ -138,6 +137,8 @@ Callbacks
     完了時にコールバックが呼び出されるようになっている。
     そのため、応答が利用可能になったときに合図を送るために、
     何らかの非同期機構が（この場合には別のコールバック関数が）必要になる。
+
+ノート：この段階でもう一度先ほどの ``bigOak.send(...)`` を実行してみるとよい。
 
 * 非同期性は伝染する。
 
@@ -199,6 +200,8 @@ Promises
     ``Promise`` の解決に使用できる関数を渡す。
     例えば ``resolve`` メソッドの代わりにこの方法を動作させて、
     ``Promise`` を作成したコードだけがそれを解決するようにできる。
+
+----
 
 関数 ``readStorage`` に対する ``Promise`` ベースのインターフェイスは次のように定義する：
 
@@ -313,6 +316,7 @@ Networks are hard
 コールバックに渡される最初の引数を失敗の理由とし、2 番目の引数を実際の結果とする。
 
 これらは、ラッパーによって ``Promise`` の解決と却下に変換できる。
+この ``request`` は後ほどしばしば参照されるたいせつな機能だ。
 
 .. code:: javascript
 
@@ -337,8 +341,6 @@ Networks are hard
        });
    }
 
-   * この ``request`` は後ほどしばしば参照されるたいせつな機能だ。
-
 * ``Promise`` は一度しか解決（または却下）できないので、これでうまくいく。
   最初に ``resolve`` または ``reject`` が呼ばれたときに ``Promise`` の結果が決定され、
   他のリクエストが終了した後に戻ってきたリクエストによるそれ以降の呼び出しは無視される。
@@ -351,6 +353,8 @@ Networks are hard
 1/4 秒ごとに再試行し、3/4 秒経っても応答がない場合にあきらめるというのは、いかにも恣意的だ。
 リクエストが通っていても、ハンドラーが少し時間をかけているだけでリクエストが複数回送信されることもある。
 この問題があることを念頭にハンドラーを書く。
+
+----
 
 コールバックから我々自身を完全に切り離すために、先に ``defineRequestType`` のラッパーを定義しておく。
 このラッパーでは、ハンドラー関数が ``Promise`` や普通の値を返すことができ、
@@ -387,7 +391,7 @@ Collections of promises
 
 どの巣の計算機も、送信可能な距離にある他の巣の配列を、そのプロパティー ``neighbors`` に保持している。
 
-どの巣が現在到達可能かを調べるに、それぞれの巣に ping リクエスト（単に応答を求めるリクエスト）を送信し、
+どの巣が現在到達可能かを調べるに、それぞれの巣に ``ping`` リクエスト（単に応答を求めるリクエスト）を送信し、
 どの巣から応答があるかを見る関数を書くことができる。
 
 同時に実行されている ``Promise`` のコレクションを扱うときには、
@@ -452,6 +456,9 @@ Network flooding
   巣はすでに見たことのある噂の配列を保持する。
   この配列を定義するために、すべての巣でコードを実行する関数 ``everywhere`` を使って、
   巣の ``state`` オブジェクトにプロパティーを追加する。
+
+  * 例えば ``bigOak.state.gossip`` が定義されて空の配列が値となる。他の巣も同様。
+
 * 巣が重複した噂メッセージを受信した場合、それを無視する。
   しかし、新しいメッセージを受け取ると、送信者以外のすべての隣人に興奮して伝える。
 * これにより、新しい噂話がネットワークに広がっていく。
@@ -508,12 +515,13 @@ Message routing
 
 * オブジェクトや配列に対して ``==`` はそのまま適用しても意味がないので、
   粗いようだが``JSON.stringify`` を使用している。
+* ノードはすぐに接続のブロードキャストを開始し、完全に到達できない巣がない限り、
+  すべての巣に最新のネットワークグラフの ``Map`` をすばやく与えるはずだ。
 
-ノードはすぐに接続のブロードキャストを開始し、完全に到達できない巣がない限り、
-すべての巣に最新のネットワークグラフの ``Map`` をすばやく与えるはずだ。
+----
 
-* グラフでできることは、以前見たように、グラフの中の経路を見つけることだ。
-  メッセージの宛先に向かう経路があれば、メッセージを送るべき方向がわかる。
+グラフでできることは、以前見たように、グラフの中の経路を見つけることだ。
+メッセージの宛先に向かう経路があれば、メッセージを送るべき方向がわかる。
 
 以下の関数 ``findRoute`` は、第 7 章の ``findRoute`` とよく似ていて、
 ネットワーク上の任意のノードに到達する道を検索する。
@@ -539,7 +547,7 @@ Message routing
 これで遠くの巣にもメッセージを送信できる関数を作ることができる。
 
 * メッセージが直接の隣人に宛てられたものであれば、通常通り送信する。
-* そうでない場合は、メッセージをオブジェクトにパックして ``"route"`` というリクエストタイプを使って、
+* そうでない場合は、メッセージをオブジェクトにパックして ``route`` リクエストを使って、
   目標に近い隣人に送り、その隣人は同じ動作を繰り返す。
 
 .. code:: javascript
@@ -549,7 +557,7 @@ Message routing
            return request(nest, target, type, content);
        } else {
            let via = findRoute(nest.name, target,
-           nest.state.connections);
+               nest.state.connections);
            if (!via) throw new Error(`No route to ${target}`);
            return request(nest, via, "route",
                           {target, type, content});
@@ -559,6 +567,8 @@ Message routing
    requestType("route", (nest, {target, type, content}) => {
        return routeRequest(nest, target, type, content);
    });
+
+----
 
 原始的な通信システムの上に何層もの機能を構築して、便利に使えるようにした。
 これは、実際の計算機ネットワークがどのように機能するかの単純なモデルだ。
@@ -613,9 +623,14 @@ Async functions
 * ``Promise`` を使っても、これはかなり厄介なコードだ。
   複数の非同期アクションが明らかでないやり方で連結されている。
   また、巣をループのをモデル化するのに再帰関数 ``next`` が必要だ。
+
+  * ``findInRemoteStorage`` の ``then()`` 呼び出しの実引数が特に厄介。
+
 * このコードが実際に行っていることは完全に直線的で、
   常に前のアクションが完了するのを待ってから次のアクションを開始する。
   同期型のプログラミングモデルであれば、もっと単純に表現できる。
+
+----
 
 JavaScript では非同期の計算を記述するために、擬似的同期コードを書くことができる。
 **非同期関数** とは、暗黙のうちに ``Promise`` を返し、
@@ -647,7 +662,7 @@ JavaScript では非同期の計算を記述するために、擬似的同期コ
 * 非同期関数はキーワード ``function`` の前に ``async`` が付く。
 * また、メソッドも名前の前に ``async`` と書くことで非同期にすることができる。
 * このような関数やメソッドが呼び出されると ``Promise`` が返される。
-  本体が何かを返すとすぐに、その ``Promise`` は解決される。
+  本体が何かを返すとすぐにその ``Promise`` は解決される。
   例外が発生した場合は却下される。
 * 非同期関数の内部では、式の前に ``await`` という単語を置くことで、
   ``Promise`` の解決を待機してから、元の関数の実行を継続することができる。
@@ -765,7 +780,7 @@ Asynchronous bugs
 次のコードは、ある年のすべての巣にあるの数を列挙しようとしている。
 
 カラスには毎年村中で孵化するヒナの数を数えるという趣味がある。
-巣ではこの数をストレージバルブに保存する。
+巣ではこの数をストレージ球根に保存する。
 次のコードは、ある年のすべての巣の数を列挙するものだ：
 
 .. code:: javascript
@@ -808,11 +823,30 @@ Asynchronous bugs
 
    async function chicks(nest, year) {
        let lines = network(nest).map(async name => {
-       return name + ": " +
-       await anyStorage(nest, name, `chicks in ${year}`);
-       });
+           return name + ": " +
+               await anyStorage(nest, name, `chicks in ${year}`);
+           });
        return (await Promise.all(lines)).join("\n");
    }
+
+ノート：適当な巣 ``nest`` に対して例えば ``chicks(nest, 2009)`` を呼び出すと次のようなデータが得られる：
+
+.. code:: text
+
+  Big Oak: 1
+  Gilles' Garden: 4
+  Butcher Shop: 5
+  Hawthorn: 3
+  Great Pine: 5
+  Chateau: 1
+  Fabienne's Garden: 5
+  Sportsgrounds: 3
+  Jacques' Farm: 5
+  Tall Poplar: 3
+  Woods: 0
+  Church Tower: 4
+  Big Maple: 3
+  Cow Pasture: 1
 
 * このような間違いは ``await`` を使っているときに特に起こりやすく、
   自分のコードのどこに隙間があるのかを意識する必要がある。
@@ -848,13 +882,50 @@ Tracking the scalpel
 
 これを実行する非同期関数 ``locateScalpel`` を書け。
 先に定義した ``anyStorage`` 関数を使えば、任意の巣のストレージにアクセスすることができる。
-手術ナイフは十分な時間が経過しているので、どの巣のデータストレージにも "scalpel" のエントリーがあるとして構わない。
+十分な時間が経過しているので、どの巣のストレージにも "scalpel" のエントリーがあるとして構わない。
 
 次に、同じ関数を ``async`` や ``await`` を使わずにもう一度書け。
 どちらのバージョンでも、リクエストの失敗が返された ``Promise`` の却下として適切に表示されるか。
 それはどのようなものになるか。
 
-**解答** TBW
+**解答** 目標は ``nest.scalpel == nest.name`` なる ``nest`` を見つけることだ。
+問いの前半は次のコードで見つかる：
+
+.. code:: javascript
+
+   async function locateScalpel(nest) {
+       for(let target of network(nest)){
+           let location = await anyStorage(nest, target, "scalpel");
+           if(location == target){
+               return location;
+           }
+       }
+       throw new Error("Not found");
+   }
+
+   locateScalpel(bigOak)
+       .then(loc => console.log(`Found in ${loc}`))
+       .catch(() => console.log("Not found")); // → Found in Butcher Shop
+
+同じ関数を非同期キーワードを用いずに書くと：
+
+.. code:: javascript
+
+   function locateScalpelSync(nest){
+       for(let target of network(nest)){
+           let location;
+           anyStorage(nest, target, "scalpel")
+               .then(value => {
+                   location = value;
+               });
+           if(location == target){
+               return location;
+           }
+       }
+       throw new Error("Not found");
+   };
+
+これは先ほどのようには動作しない。関数を呼び出すとループが終わって例外が ``throw`` される。
 
 Building ``Promise.all``
 ----------------------------------------------------------------------
@@ -866,10 +937,34 @@ Building ``Promise.all``
 * 配列の中の ``Promise`` が失敗すると ``all`` が返す ``Promise`` も失敗し、
   失敗した ``Promise`` の理由を得られる。
 
-このようなことをする関数 ``Promise_all`` を実装しろ。
+このようなことをする普通の関数 ``Promise_all`` を実装しろ。
 
 プロミスが成功または失敗した後は、再び成功または失敗することはできず、
 それを解決する関数への呼び出しは無視されることを覚えておくことだ。
 これにより、プロミスの失敗を処理する方法を単純化できる。
 
-**解答** TBW
+**解答** これは二時間くらい考えて諦めた。
+``Promise`` の配列に対するループを ``Promise`` のコンストラクターに与えるのが急所のようだ。
+
+.. code:: javascript
+
+   function Promise_all(promises) {
+       let results = [];
+       return new Promise((resolve, reject) => {
+           promises.forEach(p => {
+               p.then(value => {
+                   results.push(value);
+                   if (results.length == promises.length) {
+                       resolve(results);
+                   }
+               }).catch(error => reject(error));
+           });
+       });
+   }
+
+なお、上記のコードは本物とは異なり、引数の配列に ``Promise`` でないオブジェクトが含まれる場合の挙動が異なる。
+
+参考：
+
+* `Promise.all() - JavaScript | MDN <https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Promise/all>`__
+* `Implementing Promise.all in javascript | by Murali Krishna | Medium <https://medium.com/@muralikv/implementing-promise-all-in-javascript-732076497946>`__
