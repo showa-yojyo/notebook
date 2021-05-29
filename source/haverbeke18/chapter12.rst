@@ -111,10 +111,18 @@ Parsing
    }
 
 * 関数 ``skipSpace`` はプログラム文字列の余分な空白文字を捨てるのに使われる。
+
+  * ノート：空白文字しか含まない文字列を与えると、そのときに限り空文字列を返す。
+  * ノート：基本的には Python でいう ``str.lstrip`` だ。
+
 * 空白文字を処理してから、関数 ``parseExpression`` は正規表現を用いて
   Egg がサポートする三種の要素（文字列、数字、単語）を判定する。
   判定できたら対応するデータ構造を構築する。
-* ``SyntaxError`` は標準的な例外型だ。
+
+  * ノート：正規表現から、数は十進数表記の正の整数に限るようだ。
+  * ノート：単語の正規表現に ``#`` を除外していることは後で意味が出てくる。
+
+* ``SyntaxError`` は JavaScript 標準例外型だ。
 
 プログラム文字列からマッチした部分を切り取り、その部分を式のオブジェクトと一緒に関数 ``parseApply`` に引き渡す。
 式がアプリケーションであるかどうかをチェックし、そうならば括弧でくくられた引数を解析する。
@@ -148,6 +156,9 @@ Parsing
   そうでなければ、開き括弧を飛ばして、このアプリケーション式の構文木オブジェクトを作成する。
   その後、関数 ``parseExpression`` を再帰的に呼び出して、閉じ括弧が見つかるまで各引数を解析する。
   この再帰は ``parseApply`` と ``parseExpression`` が相互に呼び出すことで間接的に行われる。
+
+  * ノート：二つの関数が互いに依存しあっていることに注意する。
+
 * アプリケーション式は例えば ``multiplier(2)(1)`` などのように、それ自体が apply されることがあるため、
   ``parseApply`` はアプリケーションを解析した後に、再度自分自身を呼び出して、
   別の括弧のペアが続くかどうかをチェックする必要がある。
@@ -468,4 +479,163 @@ Cheating
 Exercises
 ======================================================================
 
-.. todo:: 問題をやるのは後回し。
+Arrays
+----------------------------------------------------------------------
+
+**問題** 次の三つの関数をトップスコープに追加して Egg の配列機能を追加しろ：
+
+* 引数の値を含む配列を構築する ``array(...values)``、
+* 配列の長さを取得する ``length(array)``
+* 配列から n 番目の要素を取得する ``element(array, n)``
+
+**解答** これは単純に書いてよいだろう：
+
+.. code:: javascript
+
+  topScope.array = (...args) => [...args];
+  topScope.length = arr => arr.length;
+  topScope.element = (arr, n) => arr[n];
+
+Closure
+----------------------------------------------------------------------
+
+**問題** ``fun`` を定義したやり方は、Egg の関数に周囲のスコープを参照することを許す。
+つまり、関数の本体に対して、それが定義された時点で見えているローカルな値を使用するのを許す。
+JavaScript の関数がそうであるのと同様だ。
+
+次のプログラムはそのことを説明する。
+関数 ``f`` は自分の引数を ``f`` に対する実引数に追加する関数を返す。
+つまり、変数 ``a`` を使えるようにするには、``f`` 内部のローカルスコープにアクセスする必要がある。
+
+.. code:: text
+
+   run(`
+       do(define(f, fun(a, fun(b, +(a, b)))),
+       print(f(4)(5)))
+   `);
+   // → 9
+
+形式 ``fun`` の定義に戻って、どのような仕組みでこれが動作するのかを動作するのかを述べろ。
+
+**解答** このコードを JavaScript に翻訳すると：
+
+.. code:: javascript
+
+  function f(a){
+      function b(){
+          return a + b;
+      };
+      return b;
+  }
+
+``specialForms.fun`` の定義において、関数の本体とスコープを決定するコードは次のものだ：
+
+.. code:: javascript
+
+   let localScope = Object.create(scope);
+   //console.log(Object.getPrototypeOf(localScope));
+   for (let i = 0; i < arguments.length; i++) {
+       localScope[params[i]] = arguments[i];
+       //console.log(`localScope[${params[i]}] = ${arguments[i]}`);
+   }
+   return evaluate(body, localScope);
+
+まず ``f`` の定義が起こる。その ``localScope`` に新たに ``a`` が入る。
+
+次に ``b`` の定義が起こる。このとき ``localScope`` のプロトタイプの部分である
+``scope`` に ``a`` が含まれていることに注意する。それに対して ``b`` が入る。
+
+したがって、関数 ``b`` は ``f`` のローカルスコープにある
+``a`` を参照することができる。
+
+Comments
+----------------------------------------------------------------------
+
+**問題** 記号 ``#`` を見つけたら、その行の残りの部分をコメントとして扱い、
+JavaScript の ``//`` と同じようにそれを無視したい。
+
+この機能をサポートするために、解析器に大きな変更を加える必要はない。
+``skipSpace`` がコメントを空白文字のように飛ばすように変更するだけで、
+``skipSpace`` が呼び出されるすべてのポイントでコメントも飛ばされるようになる。
+この変更を加えろ。
+
+**解答** 素直に考えると次のようになる：
+
+.. code:: javascript
+
+   function skipSpace(string) {
+       const first = string.search(/\S/);
+       if (first == -1) return "";
+       return string.slice(first).replace(/#.*/g, "");
+   }
+
+ただし、文字列リテラル中に ``#`` を含むようなプログラムに対しては構文エラーを生じる。
+
+Fixing scope
+----------------------------------------------------------------------
+
+現在、変数に値を割り当てる唯一の方法は ``define`` しかない。
+この構文は、新しい変数を定義する方法としても、既存の変数に新しい値を与える方法としても機能する。
+この曖昧さは問題になる。非ローカル変数に新しい値を与えようとすると、
+代わりに同じ名前のローカル変数を定義してしまうことになる。
+
+**問題** ``define`` と同じように、変数に新しい値を与える ``specialForm`` を追加しろ：
+内側のスコープにまだ存在していなければ、外側のスコープの変数を更新する。
+変数が全く定義されていない場合は、``ReferenceError`` を送出しろ。
+
+* スコープを単純なオブジェクトで表現する手法は、これまでは便利だったが、ここからは少々邪魔になる。
+  ここではオブジェクトのプロトタイプを返す ``Object.getPrototypeOf`` 関数を使うといいだろう。
+* また、スコープは ``Object.prototype`` から派生していないので、
+  スコープに対して ``hasOwnProperty`` を呼び出すには、次のような不器用な式を使わなければならないことにも留意しろ：
+
+.. code:: javascript
+
+   Object.prototype.hasOwnProperty.call(scope, name);
+
+**解答** これは時間がかかった。キーワードを ``put`` にすると次のようなコードになる：
+
+.. code:: javascript
+
+   specialForms.put = (args, scope) => {
+       if (args.length != 2 || args[0].type != "word") {
+           throw new SyntaxError("Incorrect use of put");
+       }
+       const name = args[0].name;
+       const value = evaluate(args[1], scope);
+       if(Object.prototype.hasOwnProperty.call(scope, name)){
+           scope[name] = value;
+           return value;
+       }
+       if(name in scope){
+           Object.getPrototypeOf(scope)[name] = value;
+           return value;
+       }
+
+       throw new ReferenceError(`Incorrect use of put; ${name} is undefined`);
+   };
+
+急所は問題文から推察されるように、プロトタイプの理解ができているかどうかだ。
+次のようなコードを修正して色々なパターンを試す：
+
+.. code:: text
+
+   run(`
+       do(
+           define(x, 3),
+           print(x),
+           define(
+               f, fun(
+                   do(
+                       #define(x, 0),
+                       put(x, 222),
+                       #put(y, 222),
+                       print("put"),
+                       print(x)
+                   )
+               )
+           ),
+           f(),
+           print("final"),
+           print(x)
+       )`
+   );
