@@ -403,4 +403,167 @@ Summary
 Exercises
 ======================================================================
 
-.. todo:: 問題をやるのは後回し。
+Build a table
+----------------------------------------------------------------------
+
+HTML のテーブルは、以下のようなタグ構造をしている：
+
+.. code:: html
+
+   <table>
+     <tr>
+       <th>name</th>
+       <th>height</th>
+       <th>place</th>
+     </tr>
+     <tr>
+       <td>Kilimanjaro</td>
+       <td>5895</td>
+       <td>Tanzania</td>
+     </tr>
+   </table>
+
+各行に対して ``<table>`` タグは ``<tr>`` タグを一つ含んでいる。
+これらの ``<tr>`` タグの中には見出しセル ``<th>`` や通常のセル ``<td>`` などのセル要素を置くことができる。
+
+**問題** 名前、高さ、場所のプロパティーがあるオブジェクトの配列である山のデータセットが与えられた場合、
+そのオブジェクトを列挙する表の DOM 構造を生成しろ。
+キーごとに一列、オブジェクトごとに一行、それに加えて
+また、最上部に ``<th>`` 要素を持つヘッダー行を設け、列名を列挙すること。
+
+* これを、データ中の最初のオブジェクトのプロパティー名を取ることで、
+  列が自動的にオブジェクトから得られるように書け。
+* できあがったテーブルを属性 ``id`` が ``mountains`` である要素に追加して、
+  文書内で表示されるようにしろ。
+* これができたら、数値を含むセルを右揃えにするために
+  プロパティー ``style.textAlign`` を ``right`` に設定しろ。
+
+**解答** いちばん単純なコードをまず書く：
+
+.. code:: javascript
+
+   function buildTable(mountains){
+       let table = document.createElement('table');
+       // header row
+       let tr = table.appendChild(document.createElement('tr'))
+       for(let text of ["name", "height", "place"]){
+           let th = tr.appendChild(document.createElement('th'));
+           th.appendChild(document.createTextNode(text));
+       }
+
+       // regular rows
+       for(let mountain of mountains){
+           let tr = table.appendChild(document.createElement('tr'))
+           const {name, height, place} = mountain;
+           for(let i of [name, height, place]){
+               let td = tr.appendChild(document.createElement('td'));
+               td.appendChild(document.createTextNode(i));
+           }
+       }
+
+       return table;
+   }
+
+テーブルヘッダー行を自動生成するには：
+
+.. code:: javascript
+
+   if(montains.length == 0){
+       return table;
+   }
+
+   let tr = table.appendChild(document.createElement('tr'))
+   const columns = Object.keys(mountains[0]);
+   for(const colName of columns){
+       let th = tr.appendChild(document.createElement('th'));
+       th.appendChild(document.createTextNode(colName));
+   }
+
+できあがったテーブルを属性 ``id`` が ``mountains`` である要素に追加するコードは次のようになる：
+
+.. code:: javascript
+
+   const mountains = [
+       {name: "Killmanjaro", height: 5895, place: Tanzania},
+       // ...
+   ];
+
+   document.getElementById("mountains").appendChild(buildTable(mountains));
+
+右揃えはテーブル作成後ならば：
+
+.. code:: javascript
+
+   document.querySelectorAll('#mountains > table > tr > td:nth-child(2)');
+   nodes.forEach(node => node.style.textAlign = "right");
+
+Elements by tag name
+----------------------------------------------------------------------
+
+メソッド ``document.getElementsByTagName`` は、指定されたタグ名を持つすべての子要素を返す。
+**問題** ノードとタグ名を引数にとり、与えられたタグ名を持つすべての子孫要素ノードを含む配列を返す関数として、
+これの独自版を実装しろ。
+
+ある要素のタグ名を調べるには、その要素のプロパティー ``nodeName`` を使え。
+ただし、これはタグ名をすべて大文字で返す。
+これを補うには文字列メソッド ``toLowerCase`` または ``toUpperCase`` を使え。
+
+**解答** これで良いと思われる：
+
+.. code:: javascript
+
+   function getAncestors(node, tagName){
+       return Array.from(node.querySelectorAll(tagName));
+   }
+
+The cat's hat
+----------------------------------------------------------------------
+
+**問題** 先ほどの猫のアニメーションを拡張して、猫と帽子の両方が楕円の反対側を周回するようにしろ。
+
+* あるいは、帽子が猫の周りを回るようにしろ。
+* あるいは、アニメーションを他の面白い方法に変えろ。
+
+複数のオブジェクトの配置を容易にするには、絶対配置に切り替えるのがよいだろう。
+つまり、``top`` と ``left`` は文書の左上を基準にしてカウントされる。
+負の座標を使用すると表示されているページの外側に画像が移動してしまうのを避けるのに、
+位置の値に固定のピクセル数を追加することができる。
+
+**解答** こういうのは得意。
+
+.. code:: html
+
+   <p style="text-align: center">
+     <img id="cat" src="img/cat.png" style="position: absolute">
+     <img id="hat" src="img/hat.png" style="position: absolute">
+   </p>
+
+   <script>
+     const a = 400, b = 200;
+     const centerX = a, centerY = b;
+     const marginX = 20, marginY = 20;
+
+     let cat = document.querySelector("img#cat");
+     let hat = document.querySelector("img#hat");
+     let angle = Math.PI / 2;
+
+     const x = theta => marginX + centerX + (a * Math.cos(theta)) + "px";
+     const y = theta => marginY + centerY + (b * Math.sin(theta)) + "px";
+
+     function animate(time, lastTime) {
+       if (lastTime != null) {
+         angle += (time - lastTime) * 0.001;
+       }
+       cat.style.left = x(angle);
+       cat.style.top = y(angle);
+
+       hat.style.left = x(angle + Math.PI);
+       hat.style.top = y(angle + Math.PI);
+
+       requestAnimationFrame(newTime => animate(newTime, time));
+     }
+     requestAnimationFrame(animate);
+   </script>
+
+帽子を猫中心に回すには、帽子用の楕円のため定数を追加したり、
+属性設定関数の引数を拡張したりするといいだろう。
