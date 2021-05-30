@@ -589,4 +589,168 @@ Summary
 Exercises
 ======================================================================
 
-.. todo:: 問題をやるのは後回し。
+Balloon
+----------------------------------------------------------------------
+
+**問題** 吹き出しを表示するページを書け（絵文字🎈を使用）。
+上矢印を押すと 10% 膨らみ、下矢印を押すと 10% 縮むようにしろ。
+
+* 親要素の ``font-size`` (``style.fontSize``) で、テキストのサイズを制御できる。
+  値には単位を含めることを忘れるな。
+* 矢印キーのキー名は ``ArrowUp`` と ``ArrowDown`` だ。
+  ページをスクロールすることなく、風船だけを変更するようにしろ。
+
+これがうまくいったら、風船をある大きさ以上に膨らませると、爆発する機能を追加しろ。
+この場合、爆発するということは、風船が絵文字💥に置き換えられ、
+イベントハンドラーは削除される（これ以上爆発を膨らませたり縮めたりできないように)。
+
+**解答** 前半と後半をまとめて：
+
+.. code:: html
+
+   <span id="baloon" style="font-size: 100px;">🎈</span>
+   <script>
+       function resizeBaloon(event){
+           let baloon = document.querySelector("span#baloon");
+           let fontSize = baloon.style.fontSize;
+           const size = fontSize.replace(/\D+/, '');
+           const unit = fontSize.replace(/\d+/, '');
+           if(event.key == "ArrowUp"){
+               updateBaloon(baloon, Math.floor(size * 1.1), unit);
+               event.preventDefault();
+           }
+           else if(event.key == "ArrowDown"){
+               updateBaloon(baloon, Math.floor(size * 0.9), unit);
+               event.preventDefault();
+           }
+       }
+       function updateBaloon(baloon, size, unit){
+           baloon.style.fontSize = size + unit;
+           console.log(baloon.style.fontSize);
+           if(size > 150){
+               console.log("explode");
+               let newSpan = document.createElement("span");
+               newSpan.setAttribute("id", "newSpan");
+               newSpan.setAttribute("style", `font-size: ${baloon.style.fontSize}`);
+               newSpan.appendChild(document.createTextNode("💥"));
+               baloon.parentNode.replaceChild(newSpan, baloon);
+               window.removeEventListener("keyup", resizeBaloon);
+           }
+       }
+
+       window.addEventListener("keyup", resizeBaloon);
+   </script>
+
+* ``replaceChild`` の利用例が本書中にまだないので、そこに手間取った。
+* 爆発後のノードのスタイルを爆発前のそれの複製にしたいが方法が不明。
+
+Mouse trail
+----------------------------------------------------------------------
+
+JavaScript の黎明期はアニメーションを多用した派手なページが全盛の時代だった。
+それが流行していた頃、この言語を使って実に刺激的な方法が考案された。
+そのようなものの一つにマウス軌跡がある。
+ページ上でマウスポインターを動かすと、それを追う一連の要素だ。
+
+**問題** マウス軌跡を実装しろ。サイズと背景色が固定された絶対配置の ``<div>`` 要素を使え。
+例として Mouse clicks セクションのコードを参照しろ。
+このような要素をたくさん作り、マウスが動いたときに、マウスポインターの軌跡の中にそれらを表示しろ。
+
+これに対しては様々な方法論が考えられる。
+最初に行う簡単な方策は、一定数の軌跡要素を保持し、イベント ``mousemove`` が発生するたびに
+次の要素をマウスの現在位置に移動させるというサイクルを行うというものだ。
+
+**解答** 軌跡の尻尾の色を減衰させるなどして派手にすることもできるが単純にする：
+
+.. code:: html
+
+   <style>
+   .dot {
+       height: 8px; width: 8px;
+       border-radius: 4px;
+       background: deeppink;
+       position: absolute;
+   }
+   </style>
+   <script>
+       const numDots = 20;
+
+       window.addEventListener("mousemove", event => {
+           let dots = document.querySelectorAll("div.dot");
+           let dot = document.createElement("div");
+           dot.className = "dot";
+           dot.style.left = event.x + "px";
+           dot.style.top = event.y + "px";
+           if(dots?.length >= numDots){
+               document.body.removeChild(dots[0]);
+           }
+           document.body.appendChild(dot);
+       });
+   </script>
+
+Tabs
+----------------------------------------------------------------------
+
+タブ付きパネルは、ユーザーインターフェースで広く使われている。
+タブパネルでは、要素の上に突き出た複数のタブから選択することで、
+インターフェースパネルを選択することができる。
+
+**問題** 単純なタブ型インターフェースを実装しろ：
+DOM ノードを入力とし、そのノードの子要素を表示するタブ付きインターフェイスを出力する関数 ``asTabs`` を書け。
+
+* ノードの先頭に、子要素ごとに、子要素の属性 ``data-tabname`` から取得したテキストを含む
+  ``<button>`` 要素のリストを挿入する。
+* 元の子要素のうち一つを除いてすべてを（スタイルで ``display: none`` として）隠す。
+* 現在表示されているノードは、ボタンをクリックして選択できる。
+
+これがうまくいったら、現在選択されているタブのボタンのスタイルを変えて、
+どのタブが選択されているか明らかになるように拡張しろ。
+
+**解答** 前半だけ解く。汎用性を求めていないので殴り書きのまま提出する。
+
+.. code:: javascript
+
+   function asTabs(node){
+       let newNode = document.createElement("div");
+       for(let child of node.children){
+           child.style.display = "none";
+           const tabName = child.getAttribute("data-tabname")
+           let button = document.createElement("button");
+           button.setAttribute("tab", tabName);
+           button.appendChild(document.createTextNode(tabName));
+           button.addEventListener("click", event => {
+               const tabName = event.target.getAttribute("tab");
+               for(let pane of document.querySelectorAll("[data-tabname]")){
+                   if(pane.getAttribute("data-tabname") == tabName){
+                       pane.style.display = '';
+                   }
+                   else{
+                       pane.style.display = 'none';
+                   }
+               }
+           });
+           newNode.appendChild(button);
+       }
+       return newNode;
+   }
+
+* ``event.target`` でイベント発生源を参照できることを忘れていた。
+* CSS セレクターはやはり便利だ。
+
+HTML 側ではこういう感じになる：
+
+.. code:: html
+
+   <ul id="tab_target">
+     <li data-tabname="Tab0">Pane A</li>
+     <li data-tabname="Tab1">Pane B</li>
+     <li data-tabname="Tab2">Pane C</li>
+     <li data-tabname="Tab3">Pane D</li>
+   </ul>
+   <script>
+   let ui = asTabs(document.getElementById("tab_target"));
+   document.body.insertBefore(ui, null);
+   </script>
+
+問題の後半は ``updateAllButtons(event.target)`` のような呼び出しで適当にスタイルを変更するコードを書けばいい。
+省略。
