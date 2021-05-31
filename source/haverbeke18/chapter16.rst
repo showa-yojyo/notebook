@@ -85,7 +85,8 @@ Levels
 Reading a level
 ======================================================================
 
-ステージをオブジェクトとして表現するべくクラス ``Level`` を定義する。本書 pp. 273-274 参照。
+ステージをオブジェクトとして表現するべくクラス ``Level`` を定義する。
+本書 pp. 273-274 参照。
 
 * コンストラクターの引数は、前節で仕様を定めた文字列とする。
 
@@ -108,21 +109,21 @@ Reading a level
   * ``rows = plan.trim().split("\n").map(l => [...l])`` で同じ長さの文字列の配列が得られることに注意。
     最終的に ``this.rows`` には文字の配列の配列がセットされる。
   * ``this.width``, ``this.height`` はこの面の寸法のようなものだ。
-  * 動く要素を背景格子から分離する必要がある。それを ``this.startActors`` に格納したい。
+  * 出演者を背景格子から分離する必要がある。それを ``this.startActors`` に格納したい。
 
     * 配列メソッド ``map`` の第二引数には、配列のインデックスが渡される。
     * この要素は ``"empty"``, ``"wall"``, ``"lava"`` などが格納されることになる。
 
   * オブジェクト ``levelChars`` が唐突に用いられている。
-    これは背景要素と活動要素をクラスに写像するためのものだ。
+    これは背景要素と出演者要素をクラスに写像するためのものだ。
 
-    * ``type`` が活動クラスのときには、その静的メソッド ``create`` を呼び出してオブジェクトを生成する。
+    * ``type`` が出演者クラスのときには、その静的メソッド ``create`` を呼び出してオブジェクトを生成する。
     * ``"."`` に対しては ``"empty"`` を返す。
 
-  * 活動要素の位置を ``Vec`` オブジェクトで格納する。第 6 章の演習で見たような
+  * 出演者要素の位置を ``Vec`` オブジェクトで格納する。第 6 章の演習で見たような
     プロパティー ``x``, ``y`` を有するオブジェクトだ。
 
-ゲームが進行すると、活動要素は別の場所に移動したり、あるいは（コインが回収されるとそうなるように）完全に消滅したりする。
+ゲームが進行すると、出演者要素は別の場所に移動したり、あるいは（コインが回収されるとそうなるように）完全に消滅したりする。
 実行中のゲームの状態を追跡するため、クラス ``State`` を定義する。
 
 * コードは本書 pp. 274-275 にある。
@@ -153,7 +154,7 @@ Actors
 
 ----
 
-ここから出演者種別に応じたクラスを定義していく。メソッド ``update`` には後回し。
+ここから出演者種別に応じたクラスを定義していく。メソッド ``update`` は後回し。
 
 ----
 
@@ -696,4 +697,140 @@ Running the game
 Exercises
 ======================================================================
 
-.. todo:: 問題をやるのは後回し。
+Game over
+----------------------------------------------------------------------
+
+この手のゲームにはプレイヤーは限られたライフでスタートし、死ぬたびにライフが一つ減るという伝統がある。
+ライフがなくなると、ゲームは最初から再開となる。
+
+**問題** ``runGame`` を調整してライフを実装しろ。
+プレイヤーには三つのライフから開始させろ。
+ステージが開始するたびに現在のライフ数を ``console.log`` を使って出力しろ。
+
+**解答** 残機がゼロになると最初のステージからやり直しという意味で実装する：
+
+.. code:: javascript
+
+   const lifeMax = 3;
+
+   async function runGame(plans, Display) {
+     let lives = lifeMax;
+     for (let level = 0; level < plans.length;) {
+         console.log(`1P START. LIFE: ${lives}`);
+         const status = await runLevel(new Level(plans[level]), Display);
+         if (status == "won") {
+             level++;
+         }
+         else if (status == "lost") {
+             lives--;
+             console.log("1P FAILED.");
+             if (lives == 0) {
+                 console.log("1P GAME OVER. RESTART.");
+                 level = 0;
+                 lives = lifeMax;
+             }
+         }
+     }
+     console.log("You've won!");
+ }
+
+Pausing the game
+----------------------------------------------------------------------
+
+**問題** :kbd:`Esc` キーを押すことでゲームを一時停止したり、解除したりできるようにしろ。
+これは関数 ``runLevel`` を別のキーボードイベントハンドラーを使用するように変更し、
+:kbd:`Esc` キーが押されるたびにアニメーションを中断または再開することで実現できる。
+
+``runAnimation`` インターフェースは一見するとこのような機能に適していないように見えるが、
+``runLevel`` の呼び出し方を変更すればいける。
+
+この機能が動作したら、他にも試せることがある。
+これまでのキーボードイベントハンドラーの登録方法には少々問題がある。
+オブジェクト ``arrowKeys`` は現在グローバル変数であり、
+そのイベントハンドラーはゲームが実行されていなくても維持されている。
+これはシステムから漏れているとも言える。
+``trackKeys`` を拡張してハンドラーの登録を解除する方法を用意し、
+``runLevel`` を変更して、開始時にハンドラーを登録し、終了時に再び登録を解除するようにしろ。
+
+**解答** まず :kbd:`Esc` のハンドラーとフラグをいったんグローバルスコープに定義する：
+
+.. code:: javascript
+
+   let paused = false;
+
+   window.addEventListener("keyup", event => {
+       if(event.key != "Escape"){
+           return;
+       }
+       paused = !paused;
+       event.preventDefault();
+   });
+
+関数 ``runAnimation`` の呼び出しにおいて、実引数のコールバックの最初を次のように変える：
+
+.. code:: javascript
+
+   state = state.update(time, arrowKeys);
+   if (paused) {
+       return false;
+   }
+
+関数 ``runAnimationFrame`` では二箇所を修正する。コールバックが ``false`` を返すときに
+ポーズがかかったのならば ``requestAnimationFrame`` に対するコールバックを専用のものに差し替える：
+
+.. code:: javascript
+
+   if (frameFunc(timeStep) === false){
+       if (paused) {
+           lastTime = time;
+           requestAnimationFrame(suspend);
+       }
+       return;
+   }
+
+ポーズ専用コールバックの中身は次のようなものだ：
+
+.. code:: javascript
+
+   function suspend() {
+       requestAnimationFrame(paused ? suspend : frame);
+   }
+
+
+後半はまず ``trackKeys`` の終了間際をこうする：
+
+.. code:: javascript
+
+   const untrack = () => {
+       window.removeEventListener("keydown", track);
+       window.removeEventListener("keyup", track);
+   };
+
+   return [down, untrack];
+
+それから ``arrowKeys`` の初期化を ``runLevel`` の序盤に移転する：
+
+.. code:: javascript
+
+   const [arrowKeys, untrack] = trackKeys(["ArrowLeft", "ArrowRight", "ArrowUp"]);
+
+最後に ``Promise`` のコールバックの最後の ``else`` ブロックに
+``untrack();`` の呼び出しを追加すればいいだろう。
+
+A monster
+----------------------------------------------------------------------
+
+この手のゲームではジャンプして倒すことができる敵がいるという伝統がある。
+
+**問題** そのような出演者タイプをゲームに追加しろ。
+
+これをモンスターと呼ぶ。モンスターは水平方向にしか動かない。
+プレイヤーの方向に移動したり、水平方向の溶岩のように跳ね返ったり、
+好きな動きのパターンをさせることができる。このクラスは落下の処理をする必要はないが、
+モンスターが壁を通らないようにする必要がある。
+
+モンスターがプレイヤーに触れるときの効果は、プレイヤーがモンスターの上に飛び乗っているかどうかによる。
+プレイヤーの下半身がモンスターの上半身の近くにあるかどうかをチェックすることでおおよその効果を得られる。
+乗っていればモンスターは消え、そうでなければプレイヤーのミスとする。
+
+**解答** TBW
