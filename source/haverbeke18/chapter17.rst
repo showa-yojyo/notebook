@@ -35,6 +35,8 @@ SVG
      let circle = document.querySelector("circle");
      circle.setAttribute("fill", "cyan");
 
+ノート：Google Chrome などの開発ツールを使えば上記のコード片を簡単に試せる。
+
 The canvas element
 ======================================================================
 
@@ -578,4 +580,289 @@ Summary
 Exercises
 ======================================================================
 
-.. todo:: 問題をやるのは後回し。
+Shapes
+----------------------------------------------------------------------
+
+**問題** 次の図形をキャンバスに描画するプログラムを書け：
+
+#. 台形
+#. 赤いダイヤ（長方形を 45 度回転させたもの）
+#. ジグザグの線
+#. 100 本の線分で構成された螺旋状の線
+#. 黄色い星（本書 p.317 参照）
+
+形ごとに関数を作ることをお勧めする。
+位置、そして指定必須ではないものとして、サイズや点の個数などのプロパティーを引数として渡せ。
+そうではないほうの方法は、数字をハードコードすることで、コード全体を不必要に難しくしがちだ。
+コードを読むのも修正するのも無駄に難しくなる。
+
+**解答** 関数を書くときは引数をどうするかが重要だ。座標変換で済むものは省く方針で行く。
+
+.. code:: javascript
+
+  function drawTrapezoid(cx, a, b, s){
+      cx.beginPath();
+      cx.moveTo(0, 0);
+      cx.lineTo(a, 0);
+      cx.lineTo(a - s, b);
+      cx.lineTo(s, b);
+      cx.closePath();
+      cx.stroke();
+  }
+
+赤いダイヤは外接する円の半径を引数としたい。
+中心は呼び出し元が座標変換を施すことで設定される：
+
+.. code:: javascript
+
+   function drawDiamond(cx, radius){
+       cx.fillStyle = "red";
+       cx.beginPath();
+       cx.moveTo(radius, 0);
+       cx.lineTo(0, radius);
+       cx.lineTo(-radius, 0);
+       cx.lineTo(0, -radius);
+       cx.closePath();
+       cx.fill();
+   }
+
+ジグザグは外接する矩形の寸法と間隔を与える。間隔がゼロのときは例外を送出したいが略。
+それ以外の幾何的性質は呼び出し元で座標変換を与えることで設定する：
+
+.. code:: javascript
+
+   function drawZigzag(cx, size, pitch){
+       const count = size / pitch;
+       pitch /= 2;
+       cx.beginPath();
+       cx.moveTo(0, 0);
+       for(let i = 0, j = 0; i < count; i++){
+           cx.lineTo(size, j += pitch);
+           cx.lineTo(0, j += pitch);
+       }
+       cx.stroke();
+   }
+
+螺旋などのパラメトリック曲線を描くにはそれを近似する折れ線を描くことになる
+（以下、三角関数の呼び出しを最適化することはしない）：
+
+.. code:: javascript
+
+   function drawSpiral(cx, size, winding = 5){
+       const numLine = 100;
+       const maxAngle = Math.PI * 2 * winding;
+       const dtheta = maxAngle / numLine;
+       cx.beginPath();
+       cx.moveTo(0, 0);
+       for(let i = 1; i < numLine; ++i){
+           const t = dtheta * i;
+           const r = size * i / numLine;
+           cx.lineTo(r * Math.cos(t), r * Math.sin(t));
+       }
+       cx.lineTo(size * Math.cos(maxAngle), size * Math.sin(maxAngle));
+       cx.stroke();
+   }
+
+黄色い星の問題が実はいちばん易しい：
+
+.. code:: javascript
+
+   function drawStar(cx, r = 1, num = 8){
+       cx.fillStyle = "yellow";
+       cx.beginPath();
+       cx.moveTo(0, 0);
+       for(let i = 0; i < num; ++i){
+           const t = i * Math.PI * 2 / num;
+           cx.quadraticCurveTo(0, 0, r * Math.cos(t), r * Math.sin(t));
+       }
+       cx.quadraticCurveTo(0, 0, r, 0);
+       cx.fill();
+   }
+
+The pie chart
+----------------------------------------------------------------------
+
+**問題** この章では、円グラフを描くプログラムの例を紹介した。
+これを修正して、各カテゴリーの名前を、そのカテゴリーを表すスライスの横に表示しろ。
+他のデータセットにも適用できるように、このテキストを自動的に配置するための見栄えの良い方法を見つけろ。
+カテゴリーはラベルのための十分なスペースを確保できる大きさであると仮定してかまわない。
+
+**解答** テキストの配置を見栄え良くするという課題が上手くいかなくて、ここだけヒントを参考にした：
+
+まず ``for`` ループの外側でフォントの静的な性質を設定する：
+
+.. code:: javascript
+
+   cx.font = "16px Georgia";
+   cx.textBaseline = "middle";
+
+この ``textBaseline`` の設定は相当手練なフォント使いでないと発想できない。
+
+ループを次のように修正する：
+
+.. code:: javascript
+
+   const centerX = 200, centerY = 150;
+   const radius = 100;
+   const total = results.reduce((sum, { count }) => sum + count, 0);
+   // Start at the top
+   let currentAngle = -0.5 * Math.PI;
+   for (const result of results) {
+       const sliceAngle = (result.count / total) * 2 * Math.PI;
+       cx.beginPath();
+       // center=100,100, radius=100
+       // from current angle, clockwise by slice's angle
+       cx.arc(centerX, centerY, radius, currentAngle, currentAngle + sliceAngle);
+       const middleAngle = currentAngle + sliceAngle / 2;
+       currentAngle += sliceAngle;
+       cx.lineTo(centerX, centerY);
+       cx.fillStyle = result.color;
+       cx.fill();
+
+       const labelX = radius * Math.cos(middleAngle);
+       const labelY = radius * Math.sin(middleAngle);
+       cx.fillStyle = "black";
+       cx.textAlign = labelX < 0 ? "right" : "left";
+       cx.fillText(result.name, centerX + labelX, centerY + labelY);
+   }
+
+* キャンバスの寸法は題意に従い HTML 側で十分大きくしておくといい。
+* ``middleAngle`` を計算して ``fillText`` に入力するラベル位置を決定することは容易に思いつく。
+* 急所は ``textAlign`` を円グラフの左右で指定を分けるという点だ。
+
+A bouncing ball
+----------------------------------------------------------------------
+
+**問題** 第 14 章と第 16 章で紹介した ``requestAnimationFrame`` の技法を使って、
+跳ね返るボールが入った箱を描け。ボールは一定の速さで動き、箱の側面に当たると跳ね返る。
+
+* 箱は ``strokeRect`` で容易に描ける。箱の寸法が縦と横で異なるようなら、
+  それらを保持する変数を定義しろ。
+* 丸い玉を作るには、パスを始めて ``arc(x, y, radius, 0, 7)`` を呼び出せ。
+  それからパスを塗りつぶせ。
+* 玉の位置と速度を模すには第 16 章のクラス ``Vec`` を使える。
+  初速を与えて、各フレーム（コマ）でその速度と経過時間を乗じろ。
+* 玉が垂直に立つ壁に十分過ぎるほど接近するときに速度の ``x`` 成分を反転しろ。
+  水平の壁に衝突するときには同様にして  ``y`` 成分を反転しろ。
+* 新しい位置と速度を見出したら、シーン全体を ``clearRect`` で消去し、再描画しろ。
+
+**解答** まず以前手に入れた ``Vec`` のコードを利用可能にしておく。
+下準備部分のコードは次のようになる：
+
+.. code:: javascript
+
+   const canvas = document.querySelector("canvas");
+   const cx = canvas.getContext("2d");
+   const ball = {
+     color: "red",
+     radius: 10,
+     pos: new Vec(canvas.width / 2, canvas.height / 2),
+     speed: new Vec(3.0, 0.0),
+   };
+
+次にアニメーションのコードの骨格を書く：
+
+.. code:: javascript
+
+   function animate(time, lastTime) {
+     if (lastTime != null) {
+       const delta = time - lastTime;
+       ball.speed.y += delta * 0.01;
+     }
+
+     // motion of the ball...
+
+     cx.clearRect(0, 0, canvas.width, canvas.height);
+     cx.strokeStyle = "black";
+     cx.strokeRect(0, 0, canvas.width, canvas.height);
+     cx.beginPath();
+     cx.arc(ball.pos.x, ball.pos.y, ball.radius, 0, 6.29);
+     cx.closePath();
+     cx.fillStyle = ball.color;
+     cx.fill();
+     requestAnimationFrame(newTime => animate(newTime, time));
+  }
+  requestAnimationFrame(animate);
+
+* まずキャンバス全域を消去する。それから矩形を描く。次に玉を描く。
+* 以前のゲームでやったように垂直軸方向に加速度を与える。
+
+コメントを入れた箇所に玉の運動を定義する。前章の ``Player.prototype.update`` が参考になる：
+
+.. code:: javascript
+
+   const newx = ball.pos.x + ball.speed.x;
+   if (ball.pos.x < ball.radius) {
+     ball.pos.x = ball.radius;
+     ball.speed.x = -ball.speed.x;
+   }
+   else if (ball.pos.x > canvas.width - ball.radius) {
+     ball.pos.x = canvas.width - ball.radius;
+     ball.speed.x = -ball.speed.x;
+   }
+   else {
+     ball.pos.x = newx;
+   }
+
+   const newy = ball.pos.y + ball.speed.y;
+   if (ball.pos.y < ball.radius) {
+     ball.pos.y = ball.radius;
+     ball.speed.y = -ball.speed.y;
+   }
+   else if (ball.pos.y > canvas.height - ball.radius) {
+     ball.pos.y = canvas.height - ball.radius;
+     ball.speed.y = -ball.speed.y;
+   }
+   else {
+     ball.pos.y = newy;
+   }
+
+コードが汚い。
+
+Precomputed mirroring
+----------------------------------------------------------------------
+
+座標変換の残念な点は、ビットマップの描画が遅くなることだ。
+各ピクセルの位置とサイズを変換しなければならないので、
+将来的にはブラウザーが変換をより賢くする可能性もあるが、
+現在は、ビットマップの描画にかかる時間が大幅に増加する。
+
+我々のゲームのようなものでは、変換された単一のスプライトを描くだけなのでこのことは問題ではないが、
+何百ものキャラクターや、爆発で回転する何千もの粒子を描く必要があるとしたらどうだろう。
+
+**問題** 追加の画像ファイルを読み込まずに、また、フレームごとに変換された ``drawImage`` を呼び出さずに、
+キャラクターを反転させて描く方法を考えろ。
+
+**解答** 課せられた制約は
+
+* 画像ファイルは一枚しか使えないことと、
+* 反転画像を生成するのは一度限りであること
+
+の二つだ。
+
+あまり興味がないので巻末のヒントを読む。こういう感じで鏡像を仕込んでおくようだ：
+
+.. code:: javascript
+
+   const cvSource = document.createElement("canvas");
+   cvSource.setAttribute("id", "image-source");
+   const cvFlipped = document.createElement("flipped");
+   cvFlipped.setAttribute("id", "image-flipped");
+
+   const img = document.createElement("img");
+   img.src = "source.png";
+   img.addEventListener("load", () => {
+       cxSource.drawImage(img, 0, 0);
+       flipHorizontally(cxSource, img.width / 2);
+       cxFlipped.drawImage(cvSource, 0, 0);
+   });
+
+あるいはイベントハンドラーを二つに分割しても行けるだろう。
+
+以後、任意のキャンバス上で鏡像を描画することができる：
+
+.. code:: javascript
+
+   function drawFlippedImage(dest, x, y){
+       dest.drawImage(document.querySelector("image-flipped"), x, y);
+   }
