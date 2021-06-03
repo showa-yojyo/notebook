@@ -803,4 +803,239 @@ HTTP の仕組みについて議論した。
 Exercises
 ======================================================================
 
-.. todo:: 問題をやるのは後回し。
+Content negotiation
+----------------------------------------------------------------------
+
+HTTP ができることの一つに content negotiation というものがある。
+Accept リクエストヘッダーは、クライアントが取得したい文書の種類をサーバーに伝えるために使われる。
+多くのサーバーはこのヘッダーを無視しますが、サーバーがリソースを符号化する方法を知っている場合は
+このヘッダーを見て、クライアントが望むものを送ることができる。
+
+URL <https://eloquentjavascript.net/author> はクライアントの要求に応じて、
+プレーンテキスト、HTML, JSON のいずれかで応答するように設定されています。
+これらのフォーマットは、標準化されたメディアタイプである
+text/plain, text/html, application/json で識別されます。
+
+**問題** このリソースのフォーマット三種すべてを取得するリクエストを送れ。
+``fetch`` に渡すオプションのプロパティー ``headers`` を使用して、
+Accept という名前のヘッダーを所望のメディアタイプに設定しろ。
+
+最後に、application/rainbows+unicorns というメディアタイプを要求し、
+どのようなステータスコードを生成するかを確かめてみろ。
+
+**解答** 応答を出力しろとは問題にはないが、コンソールに出力する。
+
+.. code:: javascript
+
+   ['text/plain', 'text/html', 'application/json'].forEach(i => {
+       fetch('https://eloquentjavascript.net/author', {headers: {Accept: i}})
+           .then(r => r.text())
+           .then(console.log)
+   });
+
+サポートされていないメディアライプを要求すると 406 エラーが返ってくる。
+
+A JavaScript workbench
+----------------------------------------------------------------------
+
+**問題** JavaScript のコード片を入力して実行することができるインターフェースを作れ。
+
+* ``<textarea>`` フィールドの横にボタンを置き、それを押すと、
+  テキストを関数でラップするのに第 10 章で見た ``Function`` コンストラクターを使い、それを呼び出す。
+* 関数の戻り値やエラーが発生した場合は文字列に変換し、
+  テキストフィールドの下に表示しろ。
+
+**解答** 次のような HTML を書くものと思われる。ただし、JavaScript のコード片が
+``return`` 文で終わらないと出力がまともに出てこない。
+
+.. code:: html
+
+   <form>
+       <textarea name="workbench" rows="20" cols="80" placeholder="Type pieces of JavaScript code..."></textarea>
+       <button type="submit">Run</button>
+   </form>
+   <p>Output: <span id="output"></span></p>
+   <script>
+       document.querySelector("form").addEventListener("submit", event => {
+           const output = document.querySelector("span#output");
+           const textarea = document.querySelector("textarea");
+           try {
+               output.textContent = Function("", textarea.value)();
+           }
+           catch (e) {
+               output.textContent = e;
+           }
+           event.preventDefault();
+       });
+   </script>
+
+* ``<textarea>`` タグを書くときには必ず空文字列を値にする。
+* ``<textarea>`` タグの寸法は ``width`` や ``height`` ではなく ``rows`` と ``cols`` で指定する。
+* 答案では ``<span>`` タグのテキストノードの内容をプロパティー ``textContent`` を使って代入しているが、他にも色々と方法がある。
+
+Conway's Game of Life
+----------------------------------------------------------------------
+
+Conway の Game of Life とは、グリッド上に人工的な「生命」を作り出し、
+各セルが生きているかどうかを判断する単純なシミュレーションだ。
+
+世代（ターン）ごとに、以下のルールが適用される：
+
+* 隣接セルが 2 個であるか、または隣接セルが 3 個を超えるような生存者は死滅する。
+* 隣接セルが 2 個または 3 個であるような生存者は、次の世代まで生き続ける。
+* ちょうど 3 個の生きている隣接セルがある死亡セルは次に生き返る。
+
+隣接セルとは、周囲八方向にあるセルと定義する。
+
+これらのルールは、一度に一つのマスではなく、グリッド全体に適用される。
+つまり、隣接セルの数は世代開始時の状況に基づいており、その世代の間に隣接セルのセルに起きた変化は
+あるセルの新しい状態に影響を与えてはならない。
+
+**問題** このゲームを適切なデータ構造を使って実装しろ。
+
+* ``Math.random`` を使って、最初はランダムなパターンでグリッドを埋める。
+* それをチェックボックス欄のグリッドとして表示し、その横に次の世代に進むためのボタンを配置しろ。
+* ユーザーがチェックボックスをいじると、その変化が次の世代の計算に反映されるようにしろ。
+
+**解答** たいへん面倒くさい。
+
+まず、第 6 章で出てきたクラス ``Matrix`` を利用可能な状態にしておく。
+
+.. code:: html
+
+   <script src='./matrix.js'></script>
+
+HTML の本体に次のようなコードを入れておく：
+
+.. code:: html
+
+   <div id="cells"></div>
+   <button onclick="updateCells()">Next</button>
+   <script>
+     let curCells = createCells();
+     createUI(document.querySelector("div#cells"), curCells);
+   </script>
+
+あとは未完成の部品を補う作業になる。関数 ``createCells`` は
+成分が真偽値の行列を返す。行数と列数は 8 くらいでいい：
+
+.. code:: javascript
+
+   function createCells(width = 8, height = 8) {
+       return new Matrix(width, height, (i, j) => {
+           return Math.random() < 0.5;
+       });
+   }
+
+関数 ``createUI`` は第一引数の HTML ノードにチェックボックスの行列を追加するものだ。
+それらの初期状態はセル行列に基づいて決定する：
+
+.. code:: javascript
+
+   function createUI(parentNode, cells) {
+       const width = cells.width, height = cells.height;
+       document.body.appendChild(parentNode);
+
+       for (let y = 0; y < height; y++) {
+           for (let x = 0; x < width; x++) {
+               let chbox = document.createElement("input");
+               chbox.setAttribute("type", "checkbox");
+               chbox.setAttribute("x", x);
+               chbox.setAttribute("y", y);
+               chbox.checked = cells.get(x, y);
+               parentNode.appendChild(chbox);
+           }
+           parentNode.appendChild(document.createElement("br"));
+       }
+   }
+
+* チェックボックスに行列の添字を属性として与えておき、あとで参照できるようにすると楽だ。
+* チェックボックスを列数分だけ置いたら HTML 上で改行するだけの単純なものにした。
+
+後半のイベントハンドラー系統の関数を組み立てていく。まずはボタンのリスナーだ：
+
+.. code:: javascript
+
+   function updateCells() {
+       curCells = computeNextGeneration(curCells);
+       updateUI(curCells);
+   }
+
+   function updateUI(cells) {
+       document.querySelectorAll("input[type=checkbox]")
+           .forEach(chbox => {
+               const x = Number(chbox.getAttribute("x"));
+               const y = Number(chbox.getAttribute("y"));
+               chbox.checked = cells.get(x, y);
+           });
+   }
+
+* 関数 ``updateCells`` の ``curCells`` はローカル変数ではなくグローバルスコープにあるものだ。
+* ``querySelectorAll`` の使い方に慣れることが必須だ。手でループを書くと失敗することがひじょうに多いので、
+  メソッド ``forEach`` でこのように処理を書いてしまうのがいい。
+* HTML ノードの属性から添字を得るときには ``Number`` 型に明示的に変換する必要がある。
+
+ライフゲームの急所である関数を実装する：
+
+.. code:: javascript
+
+   function computeNextGeneration(cells) {
+       const width = cells.width, height = cells.height;
+       const nextGenCells = new Matrix(width, height);
+       for (let y = 0; y < height; y++) {
+           for (let x = 0; x < width; x++) {
+               nextGenCells.set(x, y, computeNextState(cells, x, y));
+           }
+       }
+       return nextGenCells;
+   }
+
+   function computeNextState(cells, x, y) {
+       const isLive = cells.get(x, y);
+       const numLiveCells = countLiveNeighbors(cells, x, y);
+
+       // * Any live cell with fewer than two or more than three live neighbors dies.
+       // * Any live cell with two or three live neighbors lives on to the next generation.
+       // * Any dead cell with exactly three live neighbors becomes a live cell.
+       if (isLive) {
+           return numLiveCells in [2, 3];
+       }
+       else if (numLiveCells == 3) {
+           return true;
+       }
+       return isLive;
+   }
+
+隣接セルの生存状態を確認する関数 ``countLiveNeighbors`` は低水準なコードになる：
+
+.. code:: javascript
+
+   function countLiveNeighbors(cells, x, y) {
+       const width = cells.width, height = cells.height;
+       let numLiveCells = 0;
+
+       // right
+       if (x + 1 != width && cells.get(x + 1, y)) ++numLiveCells;
+
+       // upper right
+       if (x + 1 != width && y != 0 && cells.get(x + 1, y - 1)) ++numLiveCells;
+       // up
+       if (y != 0 && cells.get(x, y - 1)) ++numLiveCells;
+       // upper left
+       if (x != 0 && y != 0 && cells.get(x - 1, y - 1)) ++numLiveCells;
+
+       // left
+       if (x != 0 && cells.get(x - 1, y)) ++numLiveCells;
+
+       // bottom left
+       if (x != 0 && y + 1 != height && cells.get(x - 1, y + 1)) ++numLiveCells;
+       // bottom
+       if (y + 1 != height && cells.get(x, y + 1)) ++numLiveCells;
+       // bottom right
+       if (x + 1 != width && y + 1 != height && cells.get(x + 1, y + 1)) ++numLiveCells;
+
+       return numLiveCells;
+   }
+
+* 丁寧にやるならば、指定方向の隣接セルを得るミニ関数を定義するべきだろう。
+* 隣接の定義を拡張して、ドラクエの世界地図方式にすると面白いかもしれない。
