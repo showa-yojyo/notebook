@@ -327,7 +327,7 @@ The application
        }
    }
 
-* ``PictureCanvas`` に与えられたポインタハンドラーは、
+* ``PictureCanvas`` に与えられたポインターハンドラーは、
   現在選択されているツールを適切な引数で呼び出し、
   もしそれが移動ハンドラーを返すならば、状態も受け取るように適応させる。
 * すべてのコントロールは、アプリケーションの状態が変化したときに更新できるように構築され、
@@ -735,4 +735,192 @@ Why is this so hard?
 Exercises
 ======================================================================
 
-.. todo:: 問題をやるのは後回し。
+Keyboard bindings
+----------------------------------------------------------------------
+
+**問題** アプリケーションにキーボードショートカットを追加しろ。
+
+* ツール名の最初の文字でそのツールを選択し、
+* :kbd:`Ctrl` + :kbd:`Z` でアンドゥを起動しろ。
+
+これを ``PixelEditor`` を変更することで行え。
+値がゼロのプロパティー ``tabIndex`` を折り返しの ``<div>`` に設定し、キーボードフォーカスを受けられるようにしろ。
+なお、属性 ``tabindex`` に対応するプロパティーは ``tabIndex`` と大文字の I が使われているが
+関数 ``elt`` はプロパティー名を期待することに注意しろ。
+
+キーイベントハンドラーを上記 ``<div>`` に直接登録しろ。
+つまり、キーボードで操作する前に、アプリケーションをクリックしたり、タッチしたりする必要がある。
+キーボードイベントには ``ctrlKey`` と ``metaKey`` のプロパティーがあり、
+これらのキーが押されているかどうかを確認することができることを忘れるな。
+
+**解答** ツール選択は ``PixelEditor.constructor`` のコードで ``this.dom`` を定義するところを
+次のように変更する：
+
+.. code:: javascript
+
+   this.dom = elt("div", {
+       tabIndex: 0,
+       onkeydown: (event) => {
+           const toolNames = Object.keys(tools);
+           const toolName = toolNames.find(name => name[0] == event.key);
+           if(toolName){
+               const selectNode = this.controls[0].select;
+               selectNode.value = toolName;
+               selectNode.onchange();
+               event.preventDefault();
+               return;
+           }
+       }
+   }, // ...
+
+* ドロップダウンリストの項目を直接変更してハンドラー ``onchange`` を直接呼び出すという下品なコードだ。
+
+後半のアンドゥ発動は、この ``onkeydown`` にさらにコードを追加するわけだが、凝ったことをするとハマりがちだ。
+とりあえずこう書いておき：
+
+.. code:: javascript
+
+   for(const dom of this.controls.map(i => c.dom)){
+       if(dom.onkeydown){
+           dom.onkeydown(event);
+       }
+   }
+
+クラス ``UndoButton`` の ``this.dom`` に ``onkeydown`` を追加しておく：
+
+.. code:: javascript
+
+   onkeydown: (event) => {
+       if(event.key == "z" && event.ctrlKey){
+           this.dom.click();
+           event.preventDefault();
+       }
+   },
+
+* 困ったことに ``event.preventDefault()`` したか否かをテストする手段がわからない。
+  もしこれ以上の処理を禁止するのであれば即 ``return`` する。
+
+Efficient drawing
+----------------------------------------------------------------------
+
+描画の際、アプリケーションが行う作業の大半は ``drawPicture`` で起こる。
+新しい状態を作成して DOM の残りの部分を更新するのはそれほど高くつかないが、
+キャンバス上のすべてのピクセルを再描画するのはかなりの労力を要する。
+
+**問題** 実際に変化したピクセルしか再描画しないように、メソッド ``PictureCanvas.syncState`` を高速化する方法を考えろ。
+``drawPicture`` は保存ボタンでも使用されているので、変更する場合は、
+以前の使用方法が壊れないようにするか、別の名前で新しいバージョンを作成することだ。
+
+また、要素 ``<canvas>`` の ``width`` や ``height`` のプロパティーを設定して寸法を変更すると、
+それを消去して完全に透明になることにも注意しろ。
+
+**解答** ``PictureCanvas.syncState`` が ``drawPicture`` を呼び出すときに
+新旧のピクセルバッファーが一瞬同時に存在するので、これを比較して差分だけを描画しろというのが題意だ。
+したがって、まず呼び出し側を次のように変更する：
+
+.. code:: javascript
+
+    syncState(picture) {
+        if (this.picture == picture) return;
+        drawPicture(picture, this.picture, this.dom, scale);
+        this.picture = picture;
+    }
+
+描画関数を差分のみ彩色するように書き換える：
+
+.. code:: javascript
+
+   function drawPicture(newPicture, oldPicture, canvas, scale) {
+       // Also note that changing the size of a <canvas> element,
+       // by setting its width or height properties, clears it, making it
+       // entirely transparent again.
+       if (!oldPicture) {
+           canvas.width = newPicture.width * scale;
+           canvas.height = newPicture.height * scale;
+       }
+
+       let cx = canvas.getContext("2d");
+       for (let y = 0; y < newPicture.height; y++) {
+           for (let x = 0; x < newPicture.width; x++) {
+               if (oldPicture &&
+                   oldPicture.pixel(x, y) == newPicture.pixel(x, y)) {
+                   continue;
+               }
+               cx.fillStyle = newPicture.pixel(x, y);
+               cx.fillRect(x * scale, y * scale, scale, scale);
+           }
+       }
+   }
+
+最後に ``SaveButton`` のハンドラーを調整する：
+
+.. code:: javascript
+
+   save() {
+       let canvas = elt("canvas");
+       drawPicture(this.picture, null, canvas, 1);
+       // ...
+   }
+
+Circles
+----------------------------------------------------------------------
+
+**問題** ドラッグすると円が描かれるツール ``circle`` を定義しろ。
+円の中心は、ドラッグやタッチを開始した位置にあり、その半径はドラッグした距離に応じて決まる。
+
+**解答** マウスやタッチによる操作が矩形ツールと似ているので、コードもそれに倣う。
+
+.. code:: javascript
+
+   function circle(start, state, dispatch) {
+       function drawCircle(pos) {
+           const radiusSquared = (start.x - pos.x)**2 + (start.y - pos.y)**2;
+           const radius = Math.sqrt(radiusSquared);
+           const xStart = Math.floor(Math.max(0, start.x - radius));
+           const xEnd = Math.floor(Math.min(state.picture.width, start.x + radius));
+           const yStart = Math.floor(Math.min(0, start.y - radius));
+           const yEnd = Math.floor(Math.max(state.picture.height, start.y + radius));
+           const drawn = [];
+           for (let y = yStart; y <= yEnd; y++) {
+               const yDeltaSquared = (start.y - y)**2;
+               for (let x = xStart; x <= xEnd; x++) {
+                   const xDeltaSquared = (start.x - x)**2;
+                   if(xDeltaSquared + yDeltaSquared <= radiusSquared){
+                       drawn.push({ x, y, color: state.color });
+                   }
+               }
+           }
+           dispatch({ picture: state.picture.draw(drawn) });
+       }
+       drawCircle(start);
+       return drawCircle;
+   }
+
+* ピクセルをループする際にカウンターと境界値の両方が整数になるように注意すること。
+* 上の数値計算には高速化の余地があるはずだが（関数 ``Math.sqrt`` の使用を避けたい）、
+  この演習はそういう趣旨ではないのでやらない。
+
+このツールをエディターに組み込むには、例えば次のように変更する：
+
+.. code:: javascript
+
+   const baseTools = { draw, fill, rectangle, circle, pick };
+
+Proper lines
+----------------------------------------------------------------------
+
+ほとんどのブラウザーでは、描画ツールを選択して画像上をすばやくドラッグしても閉じた線が得られない。
+これは、``mousemove`` や ``touchmove`` のイベントが、すべてのピクセルに到達するほど速く発射しなかったことによる。
+
+**問題** ``draw`` ツールを改良して、完全な線を描けるようにしろ。
+上記イベントハンドラー関数に前回の位置を記憶させ、それを現在の位置に連結する必要がある。
+ピクセルは任意の距離だけ離して存在し得るので、補間する線を引く関数を書かねばならない。
+
+二つのピクセル間の線とは、始点から終点まで可能な限り直線で結ばれたピクセルの連鎖だ。
+斜めに隣接するピクセルも連結されたものとして扱う（本書の図を参照。左側のほうが望ましい）。
+
+任意の二点間に直線を引くコードがあれば、それを用いたドラッグの開始点と終了点の間に直線を引くラインツールも定義しておくのもいいだろう。
+
+**解答** この課題は前のものよりも高度だ。時間がよりかかる。
+
+.. todo:: 早く次に行きたいので後回しにする。
