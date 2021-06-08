@@ -223,7 +223,7 @@ NPM_ には多くの優れた中継器パッケージがあるが、ここでは
 
 このモジュール はクラス ``Router`` をエクスポートしている。
 
-* メソッド ``add`` で新しいハンドラーを登録しする。
+* メソッド ``add`` で新しいハンドラーを登録する。
 * メソッド ``resolve`` でリクエストを解決する。
 
   * ハンドラーが見つかった場合は応答を返し、そうでない場合は ``null`` を返す。
@@ -266,16 +266,16 @@ Serving files
            this.version = 0;
            this.waiting = [];
 
-       let fileServer = ecstatic({root: "./public"});
-       this.server = createServer((request, response) => {
-           let resolved = router.resolve(this, request);
-           if (resolved) {
-               resolved.catch(error => {
-                   if (error.status != null) return error;
-                   return {body: String(error), status: 500};
-               }).then(({body,
-                         status = 200,
-                         headers = defaultHeaders}) => {
+           let fileServer = ecstatic({root: "./public"});
+           this.server = createServer((request, response) => {
+               let resolved = router.resolve(this, request);
+               if (resolved) {
+                   resolved.catch(error => {
+                       if (error.status != null) return error;
+                       return {body: String(error), status: 500};
+                   }).then(({body,
+                       status = 200,
+                       headers = defaultHeaders}) => {
                        response.writeHead(status, headers);
                        response.end(body);
                    });
@@ -763,7 +763,160 @@ The application
 Exercises
 ======================================================================
 
-.. todo:: 問題をやるのは後回し。
+Disk persistence
+----------------------------------------------------------------------
+
+技能共有サーバーは、データをメモリー上に保持している。
+クラッシュしたり、何らかの理由で再起動したりすると、すべての会話やコメントが失われる。
+
+**問題** 会話データをディスクに保存し、再起動時に自動的にデータを再読み込みするように拡張しろ。
+効率を気にすることなく、動作する最も単純なことをしろ。
+
+**解答** 会話データを JSON にシリアライズしてダンプやロードしたい。
+
+永続データを更新するタイミングは ``updated`` とする。
+
+.. code:: javascript
+
+    const data_path = './talks.json';
+
+    SkillShareServer.prototype.updated = function () {
+        // ...
+        writeFile(data_path, JSON.stringify(this.talks), 'utf8', (err) => {
+            if (err) throw err;
+        });
+    };
+
+``SkillShareServer`` のコンストラクターにちょうど ``talks`` 引数がある。
+この設計をそのまま活用する。
+
+.. code:: javascript
+
+   const { readFile } = require("fs");
+
+   let talks = Object.create(null);
+   try{
+       readFile(data_path, 'utf8', (err, data) => {
+           if (err) throw err;
+           Object.assign(talks, JSON.parse(data));
+       });
+   }
+   catch(e){
+       console.log("Failed to load", data_path);
+       throw e;
+   }
+
+   new SkillShareServer(talks).start(8000);
+
+* 例外処理は実のところ書く必要がない。拡張するときに初めて役に立つ。
+* ``Object.assign`` の使用理由については巻末のヒントを参照。
+
+Comment field resets
+----------------------------------------------------------------------
+
+会話の全面的な再描画は、通常、DOM ノードとその同一の代替物との違いを見分けることができないので、かなりうまくいく。
+しかし、例外もある。一方のブラウザーのウィンドウでトークのコメント欄に何かを入力し始め、
+他方のウィンドウでその会話にコメントを追加すると、最初のウィンドウのフィールドが再描画され、
+中身とフォーカスの両方が消える。
+複数の人が同時にコメントを付けているような熱い議論の場では、これは迷惑だ。
+
+**問題** これを解決する方法を考えろ。
+
+**解答** ``SkillShareServer.syncState`` の処理中で ``this.talks`` と
+``state.talks`` の差分を検出して適切な UI 更新を行う。
+
+``this.talks`` が未定義のときはコンストラクターから呼び出されているので、
+従来どおりの全更新をする：
+
+.. code:: javascript
+
+   if (this.talks === undefined) {
+       this.talkDOM.textContent = "";
+       for (let talk of state.talks) {
+           this.talkDOM.appendChild(
+               renderTalk(talk, this.dispatch));
+       }
+       this.talks = state.talks;
+       return;
+   }
+
+次は long polling のいちばん頻繁に発生する場合で、何の変更もないときの処理をする：
+
+.. code:: javascript
+
+   if(this.talks == state.talks){
+       return;
+   }
+
+本題は会話の配列に変化が生じているときの処理だ。
+会話が増えているときには、その会話だけを DOM および ``this.talks`` に追加する：
+
+.. code:: javascript
+
+   const numTalksOld = this.talks.length;
+   const numTalksNew = state.talks.length;
+   if (numTalksNew > numTalksOld) {
+       const talk = state.talks[state.talks.length - 1];
+       this.talkDOM.appendChild(
+           renderTalk(talk, this.dispatch));
+       this.talks.push(talk);
+       return;
+   }
+
+* 会話は一度に一つしか追加されないと仮定する。
+* 追加された会話データは配列の末尾にあるため、このような簡単なコードでよい。
+  また、画面でも追加位置は末尾とする。
+
+会話の削除は少しややこしい。会話の比較を ``title`` に基づいて行うのでこういう感じになる：
+
+.. code:: javascript
+
+   if (numTalksNew < numTalksOld) {
+       const setOld = new Set(this.talks.map(i => i.title));
+       const setNew = new Set(state.talks.map(i => i.title));
+       setNew.forEach(i => setOld.delete(i));
+       const targetTitle = Array.from(setOld)[0];
+       for(const t of this.talkDOM.querySelectorAll("section")){
+           if(t.textContent.startsWith(targetTitle)){
+               this.talkDOM.removeChild(t);
+               break;
+           }
+       }
+       this.talks = this.talks.filter(i => i.title != targetTitle);
+       return;
+   }
+
+* 会話は一度に一つしか削除されないと仮定する。
+* 私（読者）のコードでは集合に基づいて差分会話を発見するので、
+  それに対応する DOM 要素がどこにあるのかが添字ではわからない。
+  したがって ``querySelectorAll`` してから題名 ``title`` を比較することになった。
+
+  * ``==`` ではなく ``startsWith`` を用いているのは、ノード ``<h2>`` の造りが悪いから。
+    題名文字列以外の要素を含んでいるため、先頭が一致していれば十分と判断する。
+  * 同じ題名の会話は存在し得ないが、題名の冒頭が同じ会話の組は存在し得る。このときはまともに動かない。
+
+* 最後の ``filter`` は C++ の ``remove_if`` に相当する書き方がわからないからこう書いた。
+
+会話内容が更新されるとき、すなわちコメントが増えるときの処理を次のようにする：
+
+.. code:: javascript
+
+   for(let i = 0; i < numTalksNew; ++i){
+       const commentsOld = this.talks[i].comments;
+       const commentsNew = state.talks[i].comments;
+       if(commentsOld.length < commentsNew.length){
+           const commentLast = commentsNew[commentsNew.length - 1];
+           const t = this.talkDOM.querySelectorAll("section")[i];
+           const f = t.querySelector("form");
+           t.insertBefore(renderComment(commentLast), f);
+           commentsOld.push(commentLast);
+           return;
+       }
+   }
+
+* コメントは一度に一つしか追加されないと仮定する。
+* コメントの DOM の追加位置に注意。
+  所属する会話を表す ``<section>`` 内の ``<form>`` の直前が正しい。
 
 .. _Node: https://nodejs.org
 .. _NPM: https://npmjs.org
