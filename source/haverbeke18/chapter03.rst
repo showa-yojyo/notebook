@@ -2,6 +2,8 @@
 Functions
 ======================================================================
 
+`Eloquent JavaScript <https://eloquentjavascript.net/>`__ Chapter 3 の読書ノート。
+
 他のプログラミングと同様に JavaScript でも関数概念は基本的だ。
 大規模なプログラムを構造化し、反復を減らし、部分プログラムに分割して全体を管理することができる。
 
@@ -236,3 +238,5 @@ Bean counting
   function countChar(s, char = "B"){
       return Array.from(s).filter(c => c == char).length;
   }
+
+以上

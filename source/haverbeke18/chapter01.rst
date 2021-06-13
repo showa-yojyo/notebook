@@ -2,6 +2,7 @@
 Values, Types, and Operators
 ======================================================================
 
+`Eloquent JavaScript <https://eloquentjavascript.net/>`__ Chapter 1 の読書ノート。
 他の高級言語と JavaScript の違いに注目すればいいだろう。
 
 .. contents::
@@ -144,3 +145,5 @@ Summary
 * ``Infinity``, ``-Infinity``, ``Nan`` を理解する。
 * ``null``, ``undefined`` を理解する。
 * 比較演算子 ``===``, ``!==`` を使うようにする。
+
+以上

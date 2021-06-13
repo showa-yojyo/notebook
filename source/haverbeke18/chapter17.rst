@@ -2,6 +2,8 @@
 Drawing on Canvas
 ======================================================================
 
+`Eloquent JavaScript <https://eloquentjavascript.net/>`__ Chapter 17 の読書ノート。
+
 ブラウザーでグラフィックスを扱う方法はいくつかある。
 一つは SVG であり、もう一つはキャンバスだ。
 前者はベクトルデータ、後者はラスターデータという際立った違いがある。
@@ -754,10 +756,10 @@ A bouncing ball
    const canvas = document.querySelector("canvas");
    const cx = canvas.getContext("2d");
    const ball = {
-     color: "red",
-     radius: 10,
-     pos: new Vec(canvas.width / 2, canvas.height / 2),
-     speed: new Vec(3.0, 0.0),
+       color: "red",
+       radius: 10,
+       pos: new Vec(canvas.width / 2, canvas.height / 2),
+       speed: new Vec(3.0, 0.0),
    };
 
 次にアニメーションのコードの骨格を書く：
@@ -765,22 +767,22 @@ A bouncing ball
 .. code:: javascript
 
    function animate(time, lastTime) {
-     if (lastTime != null) {
-       const delta = time - lastTime;
-       ball.speed.y += delta * 0.01;
-     }
+       if (lastTime != null) {
+         const delta = time - lastTime;
+         ball.speed.y += delta * 0.01;
+       }
 
-     // motion of the ball...
+       // motion of the ball...
 
-     cx.clearRect(0, 0, canvas.width, canvas.height);
-     cx.strokeStyle = "black";
-     cx.strokeRect(0, 0, canvas.width, canvas.height);
-     cx.beginPath();
-     cx.arc(ball.pos.x, ball.pos.y, ball.radius, 0, 6.29);
-     cx.closePath();
-     cx.fillStyle = ball.color;
-     cx.fill();
-     requestAnimationFrame(newTime => animate(newTime, time));
+       cx.clearRect(0, 0, canvas.width, canvas.height);
+       cx.strokeStyle = "black";
+       cx.strokeRect(0, 0, canvas.width, canvas.height);
+       cx.beginPath();
+       cx.arc(ball.pos.x, ball.pos.y, ball.radius, 0, 6.29);
+       cx.closePath();
+       cx.fillStyle = ball.color;
+       cx.fill();
+       requestAnimationFrame(newTime => animate(newTime, time));
   }
   requestAnimationFrame(animate);
 
@@ -793,28 +795,28 @@ A bouncing ball
 
    const newx = ball.pos.x + ball.speed.x;
    if (ball.pos.x < ball.radius) {
-     ball.pos.x = ball.radius;
-     ball.speed.x = -ball.speed.x;
+       ball.pos.x = ball.radius;
+       ball.speed.x = -ball.speed.x;
    }
    else if (ball.pos.x > canvas.width - ball.radius) {
-     ball.pos.x = canvas.width - ball.radius;
-     ball.speed.x = -ball.speed.x;
+       ball.pos.x = canvas.width - ball.radius;
+       ball.speed.x = -ball.speed.x;
    }
    else {
-     ball.pos.x = newx;
+       ball.pos.x = newx;
    }
 
    const newy = ball.pos.y + ball.speed.y;
    if (ball.pos.y < ball.radius) {
-     ball.pos.y = ball.radius;
-     ball.speed.y = -ball.speed.y;
+       ball.pos.y = ball.radius;
+       ball.speed.y = -ball.speed.y;
    }
    else if (ball.pos.y > canvas.height - ball.radius) {
-     ball.pos.y = canvas.height - ball.radius;
-     ball.speed.y = -ball.speed.y;
+       ball.pos.y = canvas.height - ball.radius;
+       ball.speed.y = -ball.speed.y;
    }
    else {
-     ball.pos.y = newy;
+       ball.pos.y = newy;
    }
 
 コードが汚い。
@@ -866,3 +868,5 @@ Precomputed mirroring
    function drawFlippedImage(dest, x, y){
        dest.drawImage(document.querySelector("image-flipped"), x, y);
    }
+
+以上

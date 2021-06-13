@@ -2,6 +2,8 @@
 Project: A Platform Game
 ======================================================================
 
+`Eloquent JavaScript <https://eloquentjavascript.net/>`__ Chapter 16 の読書ノート。
+
 この章では JavaScript と HTML とで 2D アクションゲームを実装する。
 
 .. contents:: ノート目次
@@ -834,3 +836,9 @@ A monster
 乗っていればモンスターは消え、そうでなければプレイヤーのミスとする。
 
 **解答** TBW
+
+.. todo::
+
+   時間ができたらやる。
+
+以上

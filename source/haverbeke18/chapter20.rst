@@ -2,6 +2,8 @@
 Node.js
 ======================================================================
 
+`Eloquent JavaScript <https://eloquentjavascript.net/>`__ Chapter 20 の読書ノート。
+
 これまでは JavaScript を単一の環境、すなわちブラウザーで使ってきた。
 本章と次章では JavaScript の技術をブラウザーの外部で活用できるプログラム、
 `Node.js <https://nodejs.org>`__ を簡単に導入する。これを使えば、
@@ -757,7 +759,7 @@ Node スクリプトを書け。このスクリプトは、
    process.argv.slice(3).forEach(path => grep(path));
 
    async function grep(path){
-       let stats = await stat(path);
+       const stats = await stat(path);
        if(stats.isDirectory()){
            for(const i of await readdir(path)){
                await grep(path + sep + i);
@@ -834,6 +836,8 @@ A public space on the web
 **解答** 作業が大体想像できる。
 
 .. todo:: 時間を見つけてやる。
+
+以上
 
 .. _Node: https://nodejs.org
 .. _NPM: https://npmjs.org

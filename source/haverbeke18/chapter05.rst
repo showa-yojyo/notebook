@@ -2,6 +2,8 @@
 Higher-Order Functions
 ======================================================================
 
+`Eloquent JavaScript <https://eloquentjavascript.net/>`__ Chapter 5 の読書ノート。
+
 前章までの記述から JavaScript にも高階関数の概念が存在することは想像できる。
 本章でそれを議論している。
 
@@ -210,7 +212,7 @@ Everything
 ----------------------------------------------------------------------
 
 **問題** メソッド ``some`` の類比で、配列にはメソッド ``every`` がある。
-このメソッドは、与えられた述語が配列の要素全てに対して真を返すときにに真を返す。
+このメソッドは、与えられた述語が配列の要素全てに対して真を返すときに真を返す。
 メソッド ``some`` と ``every`` はそれぞれ配列に作用する演算子 ``||`` および ``&&`` のようなものだ。
 
 配列と述語を引数にとる関数として ``every`` を実装しろ。二バージョン書け：
@@ -254,8 +256,8 @@ Dominant writing direction
 .. code:: javascript
 
    function textScripts(text) {
-       let scripts = countBy(text, char => {
-           let script = characterScript(char.codePointAt(0));
+       const scripts = countBy(text, char => {
+           const script = characterScript(char.codePointAt(0));
            return script ? script.direction : "none";
        }).filter(({name}) => name != "none");
 
@@ -268,3 +270,5 @@ Dominant writing direction
    }
 
 * ``Math.max`` の述語バージョンが存在しない？
+
+以上

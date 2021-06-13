@@ -2,6 +2,8 @@
 HTTP and Forms
 ======================================================================
 
+`Eloquent JavaScript <https://eloquentjavascript.net/>`__ Chapter 18 の読書ノート。
+
 HTTP についてさらに詳しく説明し、ブラウザーの JavaScript がどうアクセスするのかを説明する。
 
 .. contents:: ノート目次
@@ -938,7 +940,7 @@ HTML の本体に次のようなコードを入れておく：
 
        for (let y = 0; y < height; y++) {
            for (let x = 0; x < width; x++) {
-               let chbox = document.createElement("input");
+               const chbox = document.createElement("input");
                chbox.setAttribute("type", "checkbox");
                chbox.setAttribute("x", x);
                chbox.setAttribute("y", y);
@@ -1039,3 +1041,5 @@ HTML の本体に次のようなコードを入れておく：
 
 * 丁寧にやるならば、指定方向の隣接セルを得るミニ関数を定義するべきだろう。
 * 隣接の定義を拡張して、ドラクエの世界地図方式にすると面白いかもしれない。
+
+以上

@@ -2,6 +2,8 @@
 The Secret Life of Objects
 ======================================================================
 
+`Eloquent JavaScript <https://eloquentjavascript.net/>`__ Chapter 6 の読書ノート。
+
 本章では JavaScript 流オブジェクト指向プログラミングの様式を見ていく。
 C++ や Python との考え方の違いに注目するといいかもしれない。
 私がモダンな Java を知っていたらとよかったのだが。
@@ -501,8 +503,8 @@ Groups
        }
 
        static from(iterable){
-           let group = new Group;
-           for(let i of iterable){
+           const group = new Group;
+           for(const i of iterable){
                group.add(i);
            }
            return group;
@@ -546,7 +548,7 @@ Iterable groups
                return {done: true};
            }
 
-           let value = {
+           const value = {
                i: this.i,
                value: content[this.i]
            };
@@ -573,7 +575,7 @@ Borrowing a method
 
 .. code:: javascript
 
-   let myobj = {
+   const myobj = {
        myproperty: "my value",
        hasOwnProperty: i => false,
    };
@@ -583,3 +585,5 @@ Borrowing a method
    console.assert(Object.prototype.hasOwnProperty.call(myobj, 'hasOwnProperty'));
 
 参考： `Object.prototype.hasOwnProperty() - JavaScript | MDN <https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty>`__
+
+以上

@@ -2,6 +2,8 @@
 Project: A Programming Language
 ======================================================================
 
+`Eloquent JavaScript <https://eloquentjavascript.net/>`__ Chapter 12 の読書ノート。
+
 本章では JavaScript でプログラミング言語を自作する。
 
 .. contents:: ノート目次
@@ -639,3 +641,5 @@ Fixing scope
            print(x)
        )`
    );
+
+以上

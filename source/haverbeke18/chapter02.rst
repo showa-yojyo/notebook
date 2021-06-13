@@ -2,6 +2,8 @@
 Program Structure
 ======================================================================
 
+`Eloquent JavaScript <https://eloquentjavascript.net/>`__ Chapter 2 の読書ノート。
+
 これまでに見てきた言語要素は自然言語ならば名詞や文の断片に相当する。
 それらを超えて、意味のある文を表現できるところまで、JavaScript 言語への理解を拡張する。
 そのようなことを述べている。
@@ -316,7 +318,7 @@ Chessboard
 
 .. code:: javascript
 
-   /* const */ size = 8;
+   const size = 8;
    for(let i = 0; i < size; ++i){
        if(i % 2 == 0){
            console.log(' '.padEnd(size, '# '));

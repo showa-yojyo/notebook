@@ -2,6 +2,8 @@
 Asynchronous Programming
 ======================================================================
 
+`Eloquent JavaScript <https://eloquentjavascript.net/>`__ Chapter 11 の読書ノート。
+
 この章はひじょうに重要かつかなり難解な内容であるので、しばらくの間見返すことが多くなるだろう。
 
 .. contents:: ノート目次
@@ -874,8 +876,8 @@ Tracking the scalpel
 
 **問題** 村のカラスたちは古い手術ナイフを所有していて、網戸や梱包材を切り裂くなど、特別な仕事に使うことがある。
 手術ナイフをすぐに見つけられるように、手術ナイフを別の巣に移すたびに、
-手術ナイフが引っ越す前の巣と引っ越す先の巣の両方のストレージに
-"scalpel" という名前で、新しい場所を値として追加している。
+手術ナイフが引っ越す前の巣と引っ越す先の巣の両方のストレージに "scalpel" という名前で、
+新しい場所を値として追加している。
 
 つまりナイフを見つけるということは、ストレージのエントリーのパンくずのような跡を、
 それが巣自体を指し示している巣を見つけるまでたどるということだ。
@@ -894,34 +896,40 @@ Tracking the scalpel
 .. code:: javascript
 
    async function locateScalpel(nest) {
-       for(let target of network(nest)){
-           let location = await anyStorage(nest, target, "scalpel");
-           if(location == target){
-               return location;
+       try{
+           for(const target of network(nest)){
+               const location = await anyStorage(nest, target, "scalpel");
+               if(location == target){
+                   return location;
+               }
            }
        }
-       throw new Error("Not found");
+       catch(e){
+           // 問題の仮定として、この場合はあり得ないとする。
+           console.log("Not found");
+       }
    }
 
-   locateScalpel(bigOak)
-       .then(loc => console.log(`Found in ${loc}`))
-       .catch(() => console.log("Not found")); // → Found in Butcher Shop
+   const loc = await locateScalpel(bigOak);
+   console.log(`Found in ${loc}`)) // → Found in Butcher Shop
 
 同じ関数を非同期キーワードを用いずに書くと：
 
 .. code:: javascript
 
    function locateScalpelSync(nest){
-       for(let target of network(nest)){
+       for(const target of network(nest)){
            let location;
            anyStorage(nest, target, "scalpel")
                .then(value => {
                    location = value;
-               });
+               })
+               .catch(() => {}); // この場合はあり得ない
            if(location == target){
                return location;
            }
        }
+       // この場合はあり得ない
        throw new Error("Not found");
    };
 
@@ -968,3 +976,5 @@ Building ``Promise.all``
 
 * `Promise.all() - JavaScript | MDN <https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Promise/all>`__
 * `Implementing Promise.all in javascript | by Murali Krishna | Medium <https://medium.com/@muralikv/implementing-promise-all-in-javascript-732076497946>`__
+
+以上

@@ -2,6 +2,8 @@
 Project: A Pixel Art Editor
 ======================================================================
 
+`Eloquent JavaScript <https://eloquentjavascript.net/>`__ Chapter 19 の読書ノート。
+
 この章では MS Paint のようなアプリケーションをブラウザーの上に実装する。
 
 .. contents:: ノート目次
@@ -839,7 +841,7 @@ Efficient drawing
            canvas.height = newPicture.height * scale;
        }
 
-       let cx = canvas.getContext("2d");
+       const cx = canvas.getContext("2d");
        for (let y = 0; y < newPicture.height; y++) {
            for (let x = 0; x < newPicture.width; x++) {
                if (oldPicture &&
@@ -857,7 +859,7 @@ Efficient drawing
 .. code:: javascript
 
    save() {
-       let canvas = elt("canvas");
+       const canvas = elt("canvas");
        drawPicture(this.picture, null, canvas, 1);
        // ...
    }
@@ -924,3 +926,5 @@ Proper lines
 **解答** この課題は前のものよりも高度だ。時間がよりかかる。
 
 .. todo:: 早く次に行きたいので後回しにする。
+
+以上

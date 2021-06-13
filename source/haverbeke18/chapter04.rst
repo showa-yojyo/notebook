@@ -2,6 +2,8 @@
 Data Structures: Objects and Arrays
 ======================================================================
 
+`Eloquent JavaScript <https://eloquentjavascript.net/>`__ Chapter 4 の読書ノート。
+
 本書のウェブページ <https://eloquentjavascript.net/code> では特定の章の内容に沿ったコードを実行することができる。
 別の環境で演習問題に取り組む場合は、本章の完全なコードをリンク先からダウンロードすることになる。
 
@@ -313,7 +315,7 @@ Reversing an array
 前章の副作用や純粋関数についての注意点を思い返して、より多くの場面で役に立つと考えられるのはどちらか。
 また、実行速度はどちらが速いか。
 
-**解答**：
+**解答**：関数 ``reverseArray`` を先に実装する。
 
 .. code:: javascript
 
@@ -467,3 +469,4 @@ Deep comparison
 というか、インターネットに解がある：
 `eloquent - Deep Compare JavaScript function - Stack Overflow <https://stackoverflow.com/questions/48728515/deep-compare-javascript-function>`__
 
+以上

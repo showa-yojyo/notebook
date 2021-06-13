@@ -2,6 +2,8 @@
 Handling Events
 ======================================================================
 
+`Eloquent JavaScript <https://eloquentjavascript.net/>`__ Chapter 15 の読書ノート。
+
 マウスやキーボードの操作など、ユーザーが直接入力することで動作するものがある。
 そのようなものをリアルタイムで処理する方法を学習する。
 
@@ -611,8 +613,8 @@ Balloon
    <span id="baloon" style="font-size: 100px;">🎈</span>
    <script>
        function resizeBaloon(event){
-           let baloon = document.querySelector("span#baloon");
-           let fontSize = baloon.style.fontSize;
+           const baloon = document.querySelector("span#baloon");
+           const fontSize = baloon.style.fontSize;
            const size = fontSize.replace(/\D+/, '');
            const unit = fontSize.replace(/\d+/, '');
            if(event.key == "ArrowUp"){
@@ -629,7 +631,7 @@ Balloon
            console.log(baloon.style.fontSize);
            if(size > 150){
                console.log("explode");
-               let newSpan = document.createElement("span");
+               const newSpan = document.createElement("span");
                newSpan.setAttribute("id", "newSpan");
                newSpan.setAttribute("style", `font-size: ${baloon.style.fontSize}`);
                newSpan.appendChild(document.createTextNode("💥"));
@@ -676,8 +678,8 @@ JavaScript の黎明期はアニメーションを多用した派手なページ
        const numDots = 20;
 
        window.addEventListener("mousemove", event => {
-           let dots = document.querySelectorAll("div.dot");
-           let dot = document.createElement("div");
+           const dots = document.querySelectorAll("div.dot");
+           const dot = document.createElement("div");
            dot.className = "dot";
            dot.style.left = event.x + "px";
            dot.style.top = event.y + "px";
@@ -711,11 +713,11 @@ DOM ノードを入力とし、そのノードの子要素を表示するタブ�
 .. code:: javascript
 
    function asTabs(node){
-       let newNode = document.createElement("div");
-       for(let child of node.children){
+       const newNode = document.createElement("div");
+       for(const child of node.children){
            child.style.display = "none";
            const tabName = child.getAttribute("data-tabname")
-           let button = document.createElement("button");
+           const button = document.createElement("button");
            button.setAttribute("tab", tabName);
            button.appendChild(document.createTextNode(tabName));
            button.addEventListener("click", event => {
@@ -748,9 +750,11 @@ HTML 側ではこういう感じになる：
      <li data-tabname="Tab3">Pane D</li>
    </ul>
    <script>
-   let ui = asTabs(document.getElementById("tab_target"));
+   const ui = asTabs(document.getElementById("tab_target"));
    document.body.insertBefore(ui, null);
    </script>
 
 問題の後半は ``updateAllButtons(event.target)`` のような呼び出しで適当にスタイルを変更するコードを書けばいい。
 省略。
+
+以上

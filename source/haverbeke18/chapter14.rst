@@ -2,6 +2,8 @@
 The Document Object Model
 ======================================================================
 
+`Eloquent JavaScript <https://eloquentjavascript.net/>`__ Chapter 14 の読書ノート。
+
 Web ページをブラウザーで開くと、第 12 章の解析器がプログラムを解析するのと同じように、
 ブラウザーはページの HTML テキストを解析する。文書構造のモデルを構築し、
 このモデルを使って画面にページを描画する。本章ではこのモデルを学ぶ。
@@ -443,20 +445,20 @@ HTML のテーブルは、以下のようなタグ構造をしている：
 .. code:: javascript
 
    function buildTable(mountains){
-       let table = document.createElement('table');
+       const table = document.createElement('table');
        // header row
-       let tr = table.appendChild(document.createElement('tr'))
-       for(let text of ["name", "height", "place"]){
-           let th = tr.appendChild(document.createElement('th'));
+       const tr = table.appendChild(document.createElement('tr'))
+       for(const text of ["name", "height", "place"]){
+           const th = tr.appendChild(document.createElement('th'));
            th.appendChild(document.createTextNode(text));
        }
 
        // regular rows
-       for(let mountain of mountains){
-           let tr = table.appendChild(document.createElement('tr'))
+       for(const mountain of mountains){
+           const tr = table.appendChild(document.createElement('tr'))
            const {name, height, place} = mountain;
            for(let i of [name, height, place]){
-               let td = tr.appendChild(document.createElement('td'));
+               const td = tr.appendChild(document.createElement('td'));
                td.appendChild(document.createTextNode(i));
            }
        }
@@ -472,10 +474,10 @@ HTML のテーブルは、以下のようなタグ構造をしている：
        return table;
    }
 
-   let tr = table.appendChild(document.createElement('tr'))
+   const tr = table.appendChild(document.createElement('tr'))
    const columns = Object.keys(mountains[0]);
    for(const colName of columns){
-       let th = tr.appendChild(document.createElement('th'));
+       const th = tr.appendChild(document.createElement('th'));
        th.appendChild(document.createTextNode(colName));
    }
 
@@ -501,6 +503,7 @@ Elements by tag name
 ----------------------------------------------------------------------
 
 メソッド ``document.getElementsByTagName`` は、指定されたタグ名を持つすべての子要素を返す。
+
 **問題** ノードとタグ名を引数にとり、与えられたタグ名を持つすべての子孫要素ノードを含む配列を返す関数として、
 これの独自版を実装しろ。
 
@@ -543,8 +546,8 @@ The cat's hat
      const centerX = a, centerY = b;
      const marginX = 20, marginY = 20;
 
-     let cat = document.querySelector("img#cat");
-     let hat = document.querySelector("img#hat");
+     const cat = document.querySelector("img#cat");
+     const hat = document.querySelector("img#hat");
      let angle = Math.PI / 2;
 
      const x = theta => marginX + centerX + (a * Math.cos(theta)) + "px";
@@ -567,3 +570,5 @@ The cat's hat
 
 帽子を猫中心に回すには、帽子用の楕円のため定数を追加したり、
 属性設定関数の引数を拡張したりするといいだろう。
+
+以上

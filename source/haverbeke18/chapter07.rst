@@ -2,6 +2,8 @@
 Project: A Robot
 ======================================================================
 
+`Eloquent JavaScript <https://eloquentjavascript.net/>`__ Chapter 7 の読書ノート。
+
 グラフを構築して最短経路を探索するような問題を JavaScript で解く。
 Dijkstra のアルゴリズムの一つ前のようなものだろうか。
 
@@ -310,7 +312,7 @@ Measuring a robot
                //console.log(`Done in ${turn} turns`);
                return turn;
            }
-           let action = robot(state, memory);
+           const action = robot(state, memory);
            state = state.move(action.direction);
            memory = action.memory;
            //console.log(`Moved to ${action.direction}`);
@@ -379,14 +381,14 @@ Persistent group
 
        add(element){
            if(!this.has(element)){
-               let newContent = this._content.slice();
+               const newContent = this._content.slice();
                newContent.push(element);
                return new PGroup(newContent);
            }
        }
 
        delete(element){
-           let newGroup = new PGroup(this._content.slice());
+           const newGroup = new PGroup(this._content.slice());
            const where = newGroup._content.indexOf(element);
            if(where != -1){
                newGroup._content.splice(where, 1);
@@ -410,3 +412,5 @@ Persistent group
 
 新しいインスタンスを返すという仕様の下ではメソッド ``add`` も ``delete`` も
 可変個引数にする設計もありだろう。
+
+以上

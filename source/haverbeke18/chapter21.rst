@@ -2,6 +2,8 @@
 Project: Skill-Sharing Website
 ======================================================================
 
+`Eloquent JavaScript <https://eloquentjavascript.net/>`__ Chapter 21 の読書ノート。
+
 * この最終章では、スキル共有会で行われる講演を管理するためのウェブサイトを作ることを目標とする。
 * 完全なコードは <https://eloquentjavascript.net/code/skillsharing.zip> からダウンロードできる。
 
@@ -917,6 +919,8 @@ Comment field resets
 * コメントは一度に一つしか追加されないと仮定する。
 * コメントの DOM の追加位置に注意。
   所属する会話を表す ``<section>`` 内の ``<form>`` の直前が正しい。
+
+以上
 
 .. _Node: https://nodejs.org
 .. _NPM: https://npmjs.org

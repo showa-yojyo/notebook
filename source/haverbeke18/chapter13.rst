@@ -2,6 +2,8 @@
 JavaScript and the Browser
 ======================================================================
 
+`Eloquent JavaScript <https://eloquentjavascript.net/>`__ Chapter 13 の読書ノート。
+
 .. contents:: ノート目次
 
 Networks and the Internet
@@ -124,3 +126,5 @@ Compatibility and the browser wars
 
 * 昔はブラウザーごとに JavaScript がバラバラだった。互換性の暗黒時代と呼ばれている。
 * 主要ブラウザーの最新バージョンは動作が非常に統一されており、バグも比較的少ない。
+
+以上

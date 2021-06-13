@@ -2,6 +2,8 @@
 Bugs and Errors
 ======================================================================
 
+`Eloquent JavaScript <https://eloquentjavascript.net/>`__ Chapter 8 の読書ノート。
+
 バグは思考の混乱によるものと、思考をコードに変換する際のミスによるものとに分類できる。
 一般的に、前者は後者に比べて診断や修正が難しいとされている。
 
@@ -309,7 +311,7 @@ The locked box
 .. code:: javascript
 
    function withBoxUnlocked(f){
-       let alreadyLocked = box.locked();
+       const alreadyLocked = box.locked();
        if(alreadyLocked){
            box.unlock();
        }
@@ -347,3 +349,5 @@ The locked box
    box.unlock();
    withBoxUnlocked(g);
    console.assert(box.!locked);
+
+以上
