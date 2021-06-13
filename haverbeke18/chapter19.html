@@ -1,0 +1,838 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Project: A Pixel Art Editor &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
+    
+    <script src="../_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="Node.js" href="chapter20.html" />
+    <link rel="prev" title="HTTP and Forms" href="chapter18.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter20.html" title="Node.js"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="chapter18.html" title="HTTP and Forms"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Eloquent JavaScript 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Project: A Pixel Art Editor</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="project-a-pixel-art-editor">
+<h1><a class="toc-backref" href="#id3">Project: A Pixel Art Editor</a><a class="headerlink" href="#project-a-pixel-art-editor" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://eloquentjavascript.net/">Eloquent JavaScript</a> Chapter 19 の読書ノート。</p>
+<p>この章では MS Paint のようなアプリケーションをブラウザーの上に実装する。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title">ノート目次</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#project-a-pixel-art-editor" id="id3">Project: A Pixel Art Editor</a></p>
+<ul>
+<li><p><a class="reference internal" href="#components" id="id4">Components</a></p></li>
+<li><p><a class="reference internal" href="#the-state" id="id5">The state</a></p></li>
+<li><p><a class="reference internal" href="#dom-building" id="id6">DOM building</a></p></li>
+<li><p><a class="reference internal" href="#the-canvas" id="id7">The canvas</a></p></li>
+<li><p><a class="reference internal" href="#the-application" id="id8">The application</a></p></li>
+<li><p><a class="reference internal" href="#drawing-tools" id="id9">Drawing tools</a></p></li>
+<li><p><a class="reference internal" href="#saving-and-loading" id="id10">Saving and loading</a></p></li>
+<li><p><a class="reference internal" href="#undo-history" id="id11">Undo history</a></p></li>
+<li><p><a class="reference internal" href="#let-s-draw" id="id12">Let’s draw</a></p></li>
+<li><p><a class="reference internal" href="#why-is-this-so-hard" id="id13">Why is this so hard?</a></p></li>
+<li><p><a class="reference internal" href="#exercises" id="id14">Exercises</a></p>
+<ul>
+<li><p><a class="reference internal" href="#keyboard-bindings" id="id15">Keyboard bindings</a></p></li>
+<li><p><a class="reference internal" href="#efficient-drawing" id="id16">Efficient drawing</a></p></li>
+<li><p><a class="reference internal" href="#circles" id="id17">Circles</a></p></li>
+<li><p><a class="reference internal" href="#proper-lines" id="id18">Proper lines</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="components">
+<h2><a class="toc-backref" href="#id4">Components</a><a class="headerlink" href="#components" title="Permalink to this headline">¶</a></h2>
+<p>このアプリケーションのインターフェースは、</p>
+<ul class="simple">
+<li><p>上部に大きな <code class="docutils literal notranslate"><span class="pre">&lt;canvas&gt;</span></code> 要素があり、その下にいくつかのフォームフィールドがある。</p></li>
+<li><p>ユーザーは <code class="docutils literal notranslate"><span class="pre">&lt;select&gt;</span></code> フィールドからツールを選択し、キャンバス上をクリック、タッチ、またはドラッグして絵を描く。</p></li>
+<li><p>ツールには、</p>
+<ul>
+<li><p>単一のピクセルや矩形を描くもの、</p></li>
+<li><p>領域を塗りつぶすもの、</p></li>
+<li><p>絵から色を選ぶものなどがある。</p></li>
+</ul>
+</li>
+</ul>
+<p>インターフェイスをコンポーネントの集合体として構成する。</p>
+<ul class="simple">
+<li><p>コンポーネントとは、DOM の一部に対して責任があるオブジェクトであり、その中に他のコンポーネントを含むこともある。</p></li>
+</ul>
+<p>アプリケーションの状態は次の要素で構成する。ここでは状態が一つの値に収まるようにし、インターフェイスコンポーネントはいつでも現在の状態に基づいて表示されるようにする：</p>
+<ul class="simple">
+<li><p>現在の画像</p></li>
+<li><p>選択されているツール</p></li>
+<li><p>選択されている色</p></li>
+</ul>
+<p>状態がまず存在して、それに基づいてインターフェイスが描画される。インターフェイスコンポーネントはユーザーの動作に反応して状態を更新することもあるが、そのときにコンポーネントはこの新しい状態に同期する機会を得る。</p>
+<p>各コンポーネントは新しい状態になると、子コンポーネントにも更新を通知するようにする。</p>
+<ul class="simple">
+<li><p>状態の更新をオブジェクトとして表現する。これをアクションと呼ぶ。コンポーネントはこのようなアクションを生成し、それらをディスパッチして、中央の状態管理関数に与える。この関数は次の状態を計算し、その後、インターフェイスコンポーネントは自身を新しい状態に更新する。</p></li>
+</ul>
+<p>ユーザーインターフェースを実行することと、いくつかの構造をそれに当てはめるという厄介なタスクがある。それらは状態更新サイクルに支えられる。</p>
+<p>状態は DOM がどのように見えるかを決定するので、DOM イベントが状態を変えるには、その状態にアクションをディスパッチするしかない。</p>
+<p>このアプローチには多くの変種があり、それぞれに長所と短所があるが、中心となる考えは同じだ。状態の変化は well-defined な単一の通路を経由するべきだ。</p>
+<p>コンポーネントはあるインターフェイスに適合したクラスとする。</p>
+<ul class="simple">
+<li><p>コンストラクターには、ある状態（アプリケーション全体のそれかもしれないし、小さな値かもしれない）が与えられ、それはプロパティー <code class="docutils literal notranslate"><span class="pre">dom</span></code> を構築するのに使う。</p></li>
+<li><p>コンストラクターの大部分は時間経過によらない別の値も受け取る。例えばアクソンをディスパッチするための関数などだ。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">syncState</span></code> があり、新しい状態の値に同期するために呼び出される。このメソッドは引数を一つ取り、それはコンストラクターの第一引数と同じ型の状態とする。</p></li>
+</ul>
+</section>
+<section id="the-state">
+<h2><a class="toc-backref" href="#id5">The state</a><a class="headerlink" href="#the-state" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>アプリケーションの状態は次のものをプロパティーに持つオブジェクトとする：</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">picture</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tool</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">color</span></code></p></li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<p><code class="docutils literal notranslate"><span class="pre">picture</span></code> はそれ自体オブジェクトであり、次のプロパティーを持つ：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">width</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">height</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pixel</span></code>: 第 6 章の行列クラスと同様に、ピクセルが上から下に向かって一行ずつ一つの配列に格納される。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nx">Picture</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">width</span><span class="p">,</span> <span class="nx">height</span><span class="p">,</span> <span class="nx">pixels</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">width</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nx">height</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">pixels</span> <span class="o">=</span> <span class="nx">pixels</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">static</span> <span class="nx">empty</span><span class="p">(</span><span class="nx">width</span><span class="p">,</span> <span class="nx">height</span><span class="p">,</span> <span class="nx">color</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">pixels</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">width</span> <span class="o">*</span> <span class="nx">height</span><span class="p">).</span><span class="nx">fill</span><span class="p">(</span><span class="nx">color</span><span class="p">);</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">Picture</span><span class="p">(</span><span class="nx">width</span><span class="p">,</span> <span class="nx">height</span><span class="p">,</span> <span class="nx">pixels</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">pixel</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">pixels</span><span class="p">[</span><span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">width</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="nx">draw</span><span class="p">(</span><span class="nx">pixels</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">copy</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">pixels</span><span class="p">.</span><span class="nx">slice</span><span class="p">();</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="p">{</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">color</span><span class="p">}</span> <span class="k">of</span> <span class="nx">pixels</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">copy</span><span class="p">[</span><span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">width</span><span class="p">]</span> <span class="o">=</span> <span class="nx">color</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">Picture</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span> <span class="nx">copy</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">draw</span></code> は更新されたピクセルの配列を受け取り、それらのピクセルを上書きした新しい <code class="docutils literal notranslate"><span class="pre">Picture</span></code> オブジェクトを生成する。</p>
+<ul class="simple">
+<li><p>引数なしの <code class="docutils literal notranslate"><span class="pre">slice</span></code> を用いてピクセル配列全体をコピーする。</p></li>
+</ul>
+</li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">empty</span></code> でこれまで見られなかった配列の機能を二つ利用している。</p>
+<ul class="simple">
+<li><p>配列のコンストラクターに数を指定して呼び出すと、その長さの空の配列を生成する。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">fill</span></code> は指定した値で配列を埋める。</p></li>
+</ul>
+<p>これらを使って、すべてのピクセルが同じ色の配列を生成する。</p>
+</li>
+</ul>
+<hr class="docutils" />
+<p><code class="docutils literal notranslate"><span class="pre">color</span></code> は記号 <code class="docutils literal notranslate"><span class="pre">#</span></code> と六桁の 16 進数（赤緑青それぞれ二桁ずつ）からなる伝統的な CSS 色コードを値とする。</p>
+<ul class="simple">
+<li><p>これは HTML の色入力欄が使用する記法であり、<code class="docutils literal notranslate"><span class="pre">&lt;canvas&gt;</span></code> の描画コンテキストのプロパティー <code class="docutils literal notranslate"><span class="pre">fillStyle</span></code> でも使用できるため、このプログラムにおいて実用的な方法だ。</p></li>
+</ul>
+<hr class="docutils" />
+<p>インターフェイスがアクションを、以前の状態のプロパティーを上書きするオブジェクトとしてディスパッチできるようにする。ユーザーが <code class="docutils literal notranslate"><span class="pre">color</span></code> フィールドを変更すると、
+<code class="docutils literal notranslate"><span class="pre">{color:</span> <span class="pre">field.value}</span></code> のようなオブジェクトがディスパッチされ、そこからこの更新関数が新しい状態を計算することできる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">updateState</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">({},</span> <span class="nx">state</span><span class="p">,</span> <span class="nx">action</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Object.assign</span></code> を使用して、まず空のオブジェクトに <code class="docutils literal notranslate"><span class="pre">state</span></code> のプロパティーを追加し、
+<code class="docutils literal notranslate"><span class="pre">action</span></code> のプロパティーのいくつかで上書きするという、このやや面倒なパターンは、
+immutable なオブジェクトを使う JavaScript コードでは普通に見られるものだ。</p>
+<ul>
+<li><p>他のオブジェクトのすべてのプロパティーをオブジェクト式に含めるための、より便利な表記法としては、演算子 <code class="docutils literal notranslate"><span class="pre">...</span></code> が使われる（これは本書執筆時点で標準化最終段階にある）。これを使えば先ほどのコードを <code class="docutils literal notranslate"><span class="pre">{...state,</span> <span class="pre">...action}</span></code> と書くことができる。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="dom-building">
+<h2><a class="toc-backref" href="#id6">DOM building</a><a class="headerlink" href="#dom-building" title="Permalink to this headline">¶</a></h2>
+<p>インターフェイスコンポーネントが行う主なことの一つは、DOM 構造の作成だ。そのために冗長な DOM メソッド群を直接使用したくないので、ここでは関数
+<code class="docutils literal notranslate"><span class="pre">elt</span></code> を少し拡張したバージョンを使用する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">elt</span><span class="p">(</span><span class="nx">type</span><span class="p">,</span> <span class="nx">props</span><span class="p">,</span> <span class="p">...</span><span class="nx">children</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">dom</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="nx">type</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">(</span><span class="nx">dom</span><span class="p">,</span> <span class="nx">props</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">child</span> <span class="k">of</span> <span class="nx">children</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">child</span> <span class="o">!=</span> <span class="s2">&quot;string&quot;</span><span class="p">)</span> <span class="nx">dom</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">child</span><span class="p">);</span>
+        <span class="k">else</span> <span class="nx">dom</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="nx">child</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">dom</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>以前のものとの主な違いは、属性ではなくプロパティーを DOM ノードに割り当てる点だ。これが意味するのは、任意の属性を設定することはできないが、値が文字列ではないプロパティー（例えば <code class="docutils literal notranslate"><span class="pre">onclick</span></code> のような）を設定することはできるということだ。</p>
+<p>これにより、次のようにしてイベントハンドラーを登録することができる：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;button&quot;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">onclick</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">)</span>
+    <span class="p">},</span> <span class="s2">&quot;The button&quot;</span><span class="p">));</span>
+  <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="the-canvas">
+<h2><a class="toc-backref" href="#id7">The canvas</a><a class="headerlink" href="#the-canvas" title="Permalink to this headline">¶</a></h2>
+<p>絵をカラーボックスのグリッドとして表示するインターフェースの部分だ。このコンポーネントは、絵の表示と、その絵に関するポインターイベントをアプリケーションの他の部分に伝えることを担当する。</p>
+<ul class="simple">
+<li><p>そのため、アプリケーション全体の状態ではなく、現在の絵だけを知っているコンポーネントとして定義することができる。アプリケーション全体の動作を知らないので、アクションを直接ディスパッチすることはできない。そうではなく、ポインターイベントに反応するときには、このコンポーネントを作成したコードが与えたコールバックを呼び出して、アプリケーション固有の部分を処理する。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">scale</span> <span class="o">=</span> <span class="mf">10</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nx">PictureCanvas</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">picture</span><span class="p">,</span> <span class="nx">pointerDown</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">dom</span> <span class="o">=</span> <span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;canvas&quot;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nx">onmousedown</span><span class="o">:</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">mouse</span><span class="p">(</span><span class="nx">event</span><span class="p">,</span> <span class="nx">pointerDown</span><span class="p">),</span>
+            <span class="nx">ontouchstart</span><span class="o">:</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">touch</span><span class="p">(</span><span class="nx">event</span><span class="p">,</span> <span class="nx">pointerDown</span><span class="p">)</span>
+        <span class="p">});</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">syncState</span><span class="p">(</span><span class="nx">picture</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">syncState</span><span class="p">(</span><span class="nx">picture</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">picture</span> <span class="o">==</span> <span class="nx">picture</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">picture</span> <span class="o">=</span> <span class="nx">picture</span><span class="p">;</span>
+        <span class="nx">drawPicture</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">picture</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">,</span> <span class="nx">scale</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>各ピクセルを定数 <code class="docutils literal notranslate"><span class="pre">scale</span></code> で決められた 10 ドッド四方の正方形として描画する。</p></li>
+<li><p>不要な作業を避けるべく、コンポーネントは現在の絵を追跡し、メソッド <code class="docutils literal notranslate"><span class="pre">syncState</span></code> は新しい絵が与えられたときにしか再描画を行わない。</p></li>
+</ul>
+<hr class="docutils" />
+<p>実際の描画関数は、<code class="docutils literal notranslate"><span class="pre">scale</span></code> と <code class="docutils literal notranslate"><span class="pre">picture</span></code> の寸法に基づいて <code class="docutils literal notranslate"><span class="pre">canvas</span></code> のそれを設定し、各ピクセルに一つ一つ、一連の正方形で埋めていく。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">drawPicture</span><span class="p">(</span><span class="nx">picture</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">,</span> <span class="nx">scale</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">picture</span><span class="p">.</span><span class="nx">width</span> <span class="o">*</span> <span class="nx">scale</span><span class="p">;</span>
+    <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nx">picture</span><span class="p">.</span><span class="nx">height</span> <span class="o">*</span> <span class="nx">scale</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">cx</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">y</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">y</span> <span class="o">&lt;</span> <span class="nx">picture</span><span class="p">.</span><span class="nx">height</span><span class="p">;</span> <span class="nx">y</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">x</span> <span class="o">&lt;</span> <span class="nx">picture</span><span class="p">.</span><span class="nx">width</span><span class="p">;</span> <span class="nx">x</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">cx</span><span class="p">.</span><span class="nx">fillStyle</span> <span class="o">=</span> <span class="nx">picture</span><span class="p">.</span><span class="nx">pixel</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
+            <span class="nx">cx</span><span class="p">.</span><span class="nx">fillRect</span><span class="p">(</span><span class="nx">x</span> <span class="o">*</span> <span class="nx">scale</span><span class="p">,</span> <span class="nx">y</span> <span class="o">*</span> <span class="nx">scale</span><span class="p">,</span> <span class="nx">scale</span><span class="p">,</span> <span class="nx">scale</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>絵のあるキャンバス上にマウスがあるときに左ボタンが押されると、このコンポーネントは <code class="docutils literal notranslate"><span class="pre">pointerDown</span></code> コールバックを呼び出し、クリックされたピクセルの位置を絵座標系で与える。これで絵に対するマウス操作が実装される。</p>
+<ul class="simple">
+<li><p>このコールバックは、別のコールバック関数を返すことができ、ボタンを押している間にポインターが別のピクセルに移動したときに通知される。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">PictureCanvas</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">mouse</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">downEvent</span><span class="p">,</span> <span class="nx">onDown</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">downEvent</span><span class="p">.</span><span class="nx">button</span> <span class="o">!=</span> <span class="mf">0</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+
+    <span class="kd">let</span> <span class="nx">pos</span> <span class="o">=</span> <span class="nx">pointerPosition</span><span class="p">(</span><span class="nx">downEvent</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">onMove</span> <span class="o">=</span> <span class="nx">onDown</span><span class="p">(</span><span class="nx">pos</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">onMove</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+
+    <span class="kd">let</span> <span class="nx">move</span> <span class="o">=</span> <span class="nx">moveEvent</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">moveEvent</span><span class="p">.</span><span class="nx">buttons</span> <span class="o">==</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s2">&quot;mousemove&quot;</span><span class="p">,</span> <span class="nx">move</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="kd">let</span> <span class="nx">newPos</span> <span class="o">=</span> <span class="nx">pointerPosition</span><span class="p">(</span><span class="nx">moveEvent</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">newPos</span><span class="p">.</span><span class="nx">x</span> <span class="o">==</span> <span class="nx">pos</span><span class="p">.</span><span class="nx">x</span> <span class="o">&amp;&amp;</span> <span class="nx">newPos</span><span class="p">.</span><span class="nx">y</span> <span class="o">==</span> <span class="nx">pos</span><span class="p">.</span><span class="nx">y</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+            <span class="nx">pos</span> <span class="o">=</span> <span class="nx">newPos</span><span class="p">;</span>
+            <span class="nx">onMove</span><span class="p">(</span><span class="nx">newPos</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mousemove&quot;</span><span class="p">,</span> <span class="nx">move</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">pointerPosition</span><span class="p">(</span><span class="nx">pos</span><span class="p">,</span> <span class="nx">domNode</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">rect</span> <span class="o">=</span> <span class="nx">domNode</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">();</span>
+    <span class="k">return</span> <span class="p">{</span><span class="nx">x</span><span class="o">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nx">pos</span><span class="p">.</span><span class="nx">clientX</span> <span class="o">-</span> <span class="nx">rect</span><span class="p">.</span><span class="nx">left</span><span class="p">)</span> <span class="o">/</span> <span class="nx">scale</span><span class="p">),</span>
+            <span class="nx">y</span><span class="o">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nx">pos</span><span class="p">.</span><span class="nx">clientY</span> <span class="o">-</span> <span class="nx">rect</span><span class="p">.</span><span class="nx">top</span><span class="p">)</span> <span class="o">/</span> <span class="nx">scale</span><span class="p">)};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>ピクセルのサイズがわかっていて、メソッド <code class="docutils literal notranslate"><span class="pre">getBoundingClientRect</span></code> を使って画面上のキャンバスの位置がわかることから、マウスイベント座標
+<code class="docutils literal notranslate"><span class="pre">clientX</span></code>, <code class="docutils literal notranslate"><span class="pre">clientY</span></code> から絵座標に移動することができる。</p>
+<ul>
+<li><p>特定のピクセルを参照するように、関数 <code class="docutils literal notranslate"><span class="pre">Math.floor</span></code> を使って除算結果を整数にする。</p></li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<p>タッチイベントの場合も同様 (pp. 348-349) だが、異なるイベントを使用することと、パンを防ぐためにイベント <code class="docutils literal notranslate"><span class="pre">touchstart</span></code> で <code class="docutils literal notranslate"><span class="pre">preventDefault</span></code> を間違いなく呼び出すことが必要だ。</p>
+<p>タッチイベントの場合、<code class="docutils literal notranslate"><span class="pre">clientX</span></code>, <code class="docutils literal notranslate"><span class="pre">clientY</span></code> をはイベントオブジェクトでは直接利用できない。プロパティー <code class="docutils literal notranslate"><span class="pre">touches</span></code> の最初のタッチオブジェクトの座標を利用する。</p>
+</section>
+<section id="the-application">
+<h2><a class="toc-backref" href="#id8">The application</a><a class="headerlink" href="#the-application" title="Permalink to this headline">¶</a></h2>
+<p>アプリケーションを一つ一つ建てられるように、絵キャンバスの殻とツールとコントロールの動的な集合としてメインコンポーネントを実装する。</p>
+<p>コントロールとは絵の下に現れるインターフェイス要素だ。コンポーネントのコンストラクターからなる配列として備え付けられる。</p>
+<p>ツールはピクセルを描いたり領域を塗りつぶしたりする。</p>
+<ul class="simple">
+<li><p>アプリケーションは利用可能なツールの集合を <code class="docutils literal notranslate"><span class="pre">&lt;select&gt;</span></code> フィールドとして表示する。</p></li>
+<li><p>選択中のツールは、ユーザーがポインター機器を使って絵を操作するときに起こることを決定する。</p></li>
+<li><p>利用可なツールの集合はドロップダウンメニューに表示される名前を、それが示す関数を対応付けるオブジェクトとして与える。</p></li>
+<li><p>このような関数は絵の位置、現在のアプリケーションの状態、ディスパッチ関数を引数として受け取る。また、ポインターが別のピクセルに移動すると、新しい位置と現在の状態を指定して呼び出される移動ハンドラー関数を返すこともある。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nx">PixelEditor</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">config</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="p">{</span><span class="nx">tools</span><span class="p">,</span> <span class="nx">controls</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">}</span> <span class="o">=</span> <span class="nx">config</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="nx">state</span><span class="p">;</span>
+
+        <span class="k">this</span><span class="p">.</span><span class="nx">canvas</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PictureCanvas</span><span class="p">(</span><span class="nx">state</span><span class="p">.</span><span class="nx">picture</span><span class="p">,</span> <span class="nx">pos</span> <span class="p">=&gt;</span> <span class="p">{</span>
+            <span class="kd">let</span> <span class="nx">tool</span> <span class="o">=</span> <span class="nx">tools</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">tool</span><span class="p">];</span>
+            <span class="kd">let</span> <span class="nx">onMove</span> <span class="o">=</span> <span class="nx">tool</span><span class="p">(</span><span class="nx">pos</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">onMove</span><span class="p">)</span> <span class="k">return</span> <span class="nx">pos</span> <span class="p">=&gt;</span> <span class="nx">onMove</span><span class="p">(</span><span class="nx">pos</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">);</span>
+        <span class="p">});</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">controls</span> <span class="o">=</span> <span class="nx">controls</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span>
+            <span class="nx">Control</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="nx">Control</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">config</span><span class="p">));</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">dom</span> <span class="o">=</span> <span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="k">this</span><span class="p">.</span><span class="nx">canvas</span><span class="p">.</span><span class="nx">dom</span><span class="p">,</span> <span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;br&quot;</span><span class="p">),</span>
+                       <span class="p">...</span><span class="k">this</span><span class="p">.</span><span class="nx">controls</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span>
+                       <span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">a</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="nx">c</span><span class="p">.</span><span class="nx">dom</span><span class="p">),</span> <span class="p">[]));</span>
+    <span class="p">}</span>
+
+    <span class="nx">syncState</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="nx">state</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">canvas</span><span class="p">.</span><span class="nx">syncState</span><span class="p">(</span><span class="nx">state</span><span class="p">.</span><span class="nx">picture</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">ctrl</span> <span class="k">of</span> <span class="k">this</span><span class="p">.</span><span class="nx">controls</span><span class="p">)</span> <span class="nx">ctrl</span><span class="p">.</span><span class="nx">syncState</span><span class="p">(</span><span class="nx">state</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">PictureCanvas</span></code> に与えられたポインターハンドラーは、現在選択されているツールを適切な引数で呼び出し、もしそれが移動ハンドラーを返すならば、状態も受け取るように適応させる。</p></li>
+<li><p>すべてのコントロールは、アプリケーションの状態が変化したときに更新できるように構築され、
+<code class="docutils literal notranslate"><span class="pre">this.controls</span></code> に収められる。</p>
+<ul>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">reduce</span></code> の呼び出しでコントロールの DOM 要素の間に隙間を作る。こうすると窮屈なみてくれにならない。</p></li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<p>ツール選択メニューは各ツールを選択肢とする <code class="docutils literal notranslate"><span class="pre">&lt;select&gt;</span></code> 要素を生成し、ユーザーが異なるツールを選択すると、アプリケーションの状態を更新するイベント <code class="docutils literal notranslate"><span class="pre">change</span></code> に対するイベントハンドラーを仕込む。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nx">ToolSelect</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="p">{</span><span class="nx">tools</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">})</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">select</span> <span class="o">=</span> <span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;select&quot;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nx">onchange</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">dispatch</span><span class="p">({</span><span class="nx">tool</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">select</span><span class="p">.</span><span class="nx">value</span><span class="p">})</span>
+        <span class="p">},</span> <span class="p">...</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">tools</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nx">name</span> <span class="p">=&gt;</span> <span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;option&quot;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nx">selected</span><span class="o">:</span> <span class="nx">name</span> <span class="o">==</span> <span class="nx">state</span><span class="p">.</span><span class="nx">tool</span>
+        <span class="p">},</span> <span class="nx">name</span><span class="p">)));</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">dom</span> <span class="o">=</span> <span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="s2">&quot;🖌 Tool: &quot;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">select</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">syncState</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">select</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">state</span><span class="p">.</span><span class="nx">tool</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>ラベルテキストとフィールドを <code class="docutils literal notranslate"><span class="pre">&lt;label&gt;</span></code> 要素で包み込むことで、ラベルがそのフィールドに属していることをブラウザーに知らせ、ラベルがクリックされるなどするとフィールドがフォーカスされるようにする。</p></li>
+</ul>
+<hr class="docutils" />
+<p>色を変更するためのコントロールを追加する。</p>
+<p>HTML の <code class="docutils literal notranslate"><span class="pre">&lt;input&gt;</span></code> 要素の属性 <code class="docutils literal notranslate"><span class="pre">type</span></code> に <code class="docutils literal notranslate"><span class="pre">color</span></code> を指定すると、色を選択するための専用のフォーム記入欄ができる。</p>
+<ul class="simple">
+<li><p>この記入欄の値は常に <code class="docutils literal notranslate"><span class="pre">#RRGGBB</span></code> 形式の CSS 色コードだ。</p></li>
+<li><p>ユーザーがこの記入欄をいじると、ブラウザーは色選択インターフェイスを表示する。</p></li>
+</ul>
+<p>当コントロールはそのような記入欄を作成し、アプリケーションの <code class="docutils literal notranslate"><span class="pre">state</span></code> のプロパティー <code class="docutils literal notranslate"><span class="pre">color</span></code> と同期するように結びつける。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nx">ColorSelect</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="p">{</span><span class="nx">dispatch</span><span class="p">})</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">input</span> <span class="o">=</span> <span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;input&quot;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;color&quot;</span><span class="p">,</span>
+            <span class="nx">value</span><span class="o">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">color</span><span class="p">,</span>
+            <span class="nx">onchange</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">dispatch</span><span class="p">({</span><span class="nx">color</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">input</span><span class="p">.</span><span class="nx">value</span><span class="p">})</span>
+        <span class="p">});</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">dom</span> <span class="o">=</span> <span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="s2">&quot;🎨 Color: &quot;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">input</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">syncState</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">input</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">state</span><span class="p">.</span><span class="nx">color</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="drawing-tools">
+<h2><a class="toc-backref" href="#id9">Drawing tools</a><a class="headerlink" href="#drawing-tools" title="Permalink to this headline">¶</a></h2>
+<p>何かを描く前に、キャンバス上のマウスやタッチのイベントの機能を制御するツールが必要だ。</p>
+<p>最も基本的なツールは描画ツールで、クリックやタップしたピクセルを現在選択している色に変える。このツールは指定ピクセルが現在選択中の色に変更されるように絵を更新するアクションをディスパッチする。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">draw</span><span class="p">(</span><span class="nx">pos</span><span class="p">,</span> <span class="nx">state</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">function</span> <span class="nx">drawPixel</span><span class="p">({</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">},</span> <span class="nx">state</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">drawn</span> <span class="o">=</span> <span class="p">{</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">color</span><span class="o">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">color</span><span class="p">};</span>
+        <span class="nx">dispatch</span><span class="p">({</span><span class="nx">picture</span><span class="o">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">picture</span><span class="p">.</span><span class="nx">draw</span><span class="p">([</span><span class="nx">drawn</span><span class="p">])});</span>
+    <span class="p">}</span>
+    <span class="nx">drawPixel</span><span class="p">(</span><span class="nx">pos</span><span class="p">,</span> <span class="nx">state</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">drawPixel</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>この関数はすぐに関数 <code class="docutils literal notranslate"><span class="pre">drawPixel</span></code> を呼び出すが、なおかつ、ユーザーが絵の上でドラッグやスワイプをしたときに、新たに触られたピクセルに対して再度 <code class="docutils literal notranslate"><span class="pre">drawPixel</span></code> が呼び出されるようにこれを返しもする。</p>
+<hr class="docutils" />
+<p>矩形ツールはドラッグを開始した点とドラッグした点の間に矩形を描く。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">rectangle</span><span class="p">(</span><span class="nx">start</span><span class="p">,</span> <span class="nx">state</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">function</span> <span class="nx">drawRectangle</span><span class="p">(</span><span class="nx">pos</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">xStart</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="nx">start</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="nx">pos</span><span class="p">.</span><span class="nx">x</span><span class="p">);</span>
+        <span class="kd">let</span> <span class="nx">yStart</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="nx">start</span><span class="p">.</span><span class="nx">y</span><span class="p">,</span> <span class="nx">pos</span><span class="p">.</span><span class="nx">y</span><span class="p">);</span>
+        <span class="kd">let</span> <span class="nx">xEnd</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nx">start</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="nx">pos</span><span class="p">.</span><span class="nx">x</span><span class="p">);</span>
+        <span class="kd">let</span> <span class="nx">yEnd</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nx">start</span><span class="p">.</span><span class="nx">y</span><span class="p">,</span> <span class="nx">pos</span><span class="p">.</span><span class="nx">y</span><span class="p">);</span>
+        <span class="kd">let</span> <span class="nx">drawn</span> <span class="o">=</span> <span class="p">[];</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">y</span> <span class="o">=</span> <span class="nx">yStart</span><span class="p">;</span> <span class="nx">y</span> <span class="o">&lt;=</span> <span class="nx">yEnd</span><span class="p">;</span> <span class="nx">y</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">xStart</span><span class="p">;</span> <span class="nx">x</span> <span class="o">&lt;=</span> <span class="nx">xEnd</span><span class="p">;</span> <span class="nx">x</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">drawn</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">color</span><span class="o">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">color</span><span class="p">});</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="nx">dispatch</span><span class="p">({</span><span class="nx">picture</span><span class="o">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">picture</span><span class="p">.</span><span class="nx">draw</span><span class="p">(</span><span class="nx">drawn</span><span class="p">)});</span>
+    <span class="p">}</span>
+    <span class="nx">drawRectangle</span><span class="p">(</span><span class="nx">start</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">drawRectangle</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>この実装で重要なのは、ドラッグしたときに、矩形が元の状態から絵の上に再描画されることだ。そうすることで、中間的な矩形が最終的な絵に残ることなく、矩形を作成しつつ大きくしたり小さくしたりすることができる。</p>
+<ul class="simple">
+<li><p>絵を immutable オブジェクトにしたことが活きている。</p></li>
+</ul>
+<hr class="docutils" />
+<p>塗りつぶしツールはポインターの下のピクセルと、それに隣接する同じ色のピクセルすべてを塗りつぶすツールだ。</p>
+<ul class="simple">
+<li><p>隣接とは、水平方向または垂直方向に直接隣接していることを意味する。</p></li>
+<li><p>塗りつぶしのアルゴリズムは第 7 章の経路探索に少し似ている。グラフから経路を探すのではなく、格子から連結しているピクセルを探す。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">around</span> <span class="o">=</span> <span class="p">[{</span><span class="nx">dx</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span> <span class="nx">dy</span><span class="o">:</span> <span class="mf">0</span><span class="p">},</span> <span class="p">{</span><span class="nx">dx</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span> <span class="nx">dy</span><span class="o">:</span> <span class="mf">0</span><span class="p">},</span>
+                <span class="p">{</span><span class="nx">dx</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">dy</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">},</span> <span class="p">{</span><span class="nx">dx</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">dy</span><span class="o">:</span> <span class="mf">1</span><span class="p">}];</span>
+
+<span class="kd">function</span> <span class="nx">fill</span><span class="p">({</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">},</span> <span class="nx">state</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">targetColor</span> <span class="o">=</span> <span class="nx">state</span><span class="p">.</span><span class="nx">picture</span><span class="p">.</span><span class="nx">pixel</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">drawn</span> <span class="o">=</span> <span class="p">[{</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">color</span><span class="o">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">color</span><span class="p">}];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">done</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">done</span> <span class="o">&lt;</span> <span class="nx">drawn</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">done</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="p">{</span><span class="nx">dx</span><span class="p">,</span> <span class="nx">dy</span><span class="p">}</span> <span class="k">of</span> <span class="nx">around</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">drawn</span><span class="p">[</span><span class="nx">done</span><span class="p">].</span><span class="nx">x</span> <span class="o">+</span> <span class="nx">dx</span><span class="p">,</span> <span class="nx">y</span> <span class="o">=</span> <span class="nx">drawn</span><span class="p">[</span><span class="nx">done</span><span class="p">].</span><span class="nx">y</span> <span class="o">+</span> <span class="nx">dy</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">&gt;=</span> <span class="mf">0</span> <span class="o">&amp;&amp;</span> <span class="nx">x</span> <span class="o">&lt;</span> <span class="nx">state</span><span class="p">.</span><span class="nx">picture</span><span class="p">.</span><span class="nx">width</span> <span class="o">&amp;&amp;</span>
+                <span class="nx">y</span> <span class="o">&gt;=</span> <span class="mf">0</span> <span class="o">&amp;&amp;</span> <span class="nx">y</span> <span class="o">&lt;</span> <span class="nx">state</span><span class="p">.</span><span class="nx">picture</span><span class="p">.</span><span class="nx">height</span> <span class="o">&amp;&amp;</span>
+                <span class="nx">state</span><span class="p">.</span><span class="nx">picture</span><span class="p">.</span><span class="nx">pixel</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="o">==</span> <span class="nx">targetColor</span> <span class="o">&amp;&amp;</span>
+                <span class="o">!</span><span class="nx">drawn</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="nx">p</span> <span class="p">=&gt;</span> <span class="nx">p</span><span class="p">.</span><span class="nx">x</span> <span class="o">==</span> <span class="nx">x</span> <span class="o">&amp;&amp;</span> <span class="nx">p</span><span class="p">.</span><span class="nx">y</span> <span class="o">==</span> <span class="nx">y</span><span class="p">))</span> <span class="p">{</span>
+                <span class="nx">drawn</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">color</span><span class="o">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">color</span><span class="p">});</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nx">dispatch</span><span class="p">({</span><span class="nx">picture</span><span class="o">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">picture</span><span class="p">.</span><span class="nx">draw</span><span class="p">(</span><span class="nx">drawn</span><span class="p">)});</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>描画されたピクセルの配列とこの関数の作業用リストを兼用している。</p></li>
+<li><p>各ピクセルに到達するたびに、隣接ピクセルの色と塗りつぶし済みかどうかを確認しなければならない。</p></li>
+<li><p>新しいピクセルを追加すると、ループカウンターは描画された配列の長さよりも遅れる。先行するピクセルはまだ探索する必要がある。カウンターが長さに追いつくときは、未探索のピクセルが残っていないということなので、この関数を終了する。</p></li>
+</ul>
+<hr class="docutils" />
+<p>色摘出ツールは絵の中の色を指定して、それを現在の描画色として使う。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">pick</span><span class="p">(</span><span class="nx">pos</span><span class="p">,</span> <span class="nx">state</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">dispatch</span><span class="p">({</span><span class="nx">color</span><span class="o">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">picture</span><span class="p">.</span><span class="nx">pixel</span><span class="p">(</span><span class="nx">pos</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="nx">pos</span><span class="p">.</span><span class="nx">y</span><span class="p">)});</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="saving-and-loading">
+<h2><a class="toc-backref" href="#id10">Saving and loading</a><a class="headerlink" href="#saving-and-loading" title="Permalink to this headline">¶</a></h2>
+<p>現在の絵を画像ファイルとしてダウンロードするためのボタンを追加する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nx">SaveButton</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">picture</span> <span class="o">=</span> <span class="nx">state</span><span class="p">.</span><span class="nx">picture</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">dom</span> <span class="o">=</span> <span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;button&quot;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nx">onclick</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">save</span><span class="p">()</span>
+        <span class="p">},</span> <span class="s2">&quot;💾 Save&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nx">save</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;canvas&quot;</span><span class="p">);</span>
+        <span class="nx">drawPicture</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">picture</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
+        <span class="kd">let</span> <span class="nx">link</span> <span class="o">=</span> <span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nx">href</span><span class="o">:</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">toDataURL</span><span class="p">(),</span>
+            <span class="nx">download</span><span class="o">:</span> <span class="s2">&quot;pixelart.png&quot;</span>
+        <span class="p">});</span>
+        <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">link</span><span class="p">);</span>
+        <span class="nx">link</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span>
+        <span class="nx">link</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="nx">syncState</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">picture</span> <span class="o">=</span> <span class="nx">state</span><span class="p">.</span><span class="nx">picture</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>このコンポーネントは、保存時にアクセスできるように現在の絵を追跡している。画像ファイルを作成するために <code class="docutils literal notranslate"><span class="pre">&lt;canvas&gt;</span></code> 要素を使用し、その上に画像を実寸大で描画する。</p>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;canvas&gt;</span></code> 要素のメソッド <code class="docutils literal notranslate"><span class="pre">toDataURL</span></code> 呼び出しは <code class="docutils literal notranslate"><span class="pre">data://</span></code> で始まる URL を返す。
+<code class="docutils literal notranslate"><span class="pre">http://</span></code> や <code class="docutils literal notranslate"><span class="pre">https://</span></code> の URL とは異なり、<code class="docutils literal notranslate"><span class="pre">data://</span></code> URL はリソース全体を文字列中に含む。したがって、ひじょうに長くなるものの、ブラウザー上で任意の画像へのリンクを作成することができる。</p>
+<p>ブラウザーに画像を実際にダウンロードさせるには、この URL を指し示す <code class="docutils literal notranslate"><span class="pre">link</span></code> 要素を作成し、属性 <code class="docutils literal notranslate"><span class="pre">download</span></code> を付ける。このリンクをクリックすると、ブラウザーはファイル保存ダイアログボックスを表示する。そのリンクを文書に追加し、クリックをシミュレートして、削除する。</p>
+<hr class="docutils" />
+<p>既存の画像ファイルをアプリケーションに読み込めるようにする。そのために再びボタンコンポーネントを定義する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nx">LoadButton</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">_</span><span class="p">,</span> <span class="p">{</span><span class="nx">dispatch</span><span class="p">})</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">dom</span> <span class="o">=</span> <span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;button&quot;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nx">onclick</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">startLoad</span><span class="p">(</span><span class="nx">dispatch</span><span class="p">)</span>
+            <span class="p">},</span> <span class="s2">&quot;📁 Load&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nx">syncState</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">startLoad</span><span class="p">(</span><span class="nx">dispatch</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">input</span> <span class="o">=</span> <span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;input&quot;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
+        <span class="nx">onchange</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">finishLoad</span><span class="p">(</span><span class="nx">input</span><span class="p">.</span><span class="nx">files</span><span class="p">[</span><span class="mf">0</span><span class="p">],</span> <span class="nx">dispatch</span><span class="p">)</span>
+    <span class="p">});</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">input</span><span class="p">);</span>
+    <span class="nx">input</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span>
+    <span class="nx">input</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>ユーザーのコンピュータにあるファイルにアクセスするには、ユーザーがファイル入力フィールドでファイルを選択する必要がある。しかし、ロードボタンをファイル入力フィールドのように見せたくないので、ボタンがクリックされたときにファイル入力を作成し、このファイル入力自体がクリックされたふりをする。</p></li>
+</ul>
+<hr class="docutils" />
+<p>ユーザーがファイルを選択すると、<code class="docutils literal notranslate"><span class="pre">FileReader</span></code> を使ってその内容にアクセスすることができ、これも <code class="docutils literal notranslate"><span class="pre">data://</span></code> 形式の URL として使える。この URL を使って <code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</span></code> 要素を作ることができるが、画像のピクセルに直接アクセスすることができないため、そこから <code class="docutils literal notranslate"><span class="pre">Picture</span></code> オブジェクトを作ることはできない。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">finishLoad</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">file</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FileReader</span><span class="p">();</span>
+    <span class="nx">reader</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;load&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">image</span> <span class="o">=</span> <span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;img&quot;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">onload</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">dispatch</span><span class="p">({</span>
+            <span class="nx">picture</span><span class="o">:</span> <span class="nx">pictureFromImage</span><span class="p">(</span><span class="nx">image</span><span class="p">)</span>
+        <span class="p">}),</span>
+        <span class="nx">src</span><span class="o">:</span> <span class="nx">reader</span><span class="p">.</span><span class="nx">result</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+    <span class="nx">reader</span><span class="p">.</span><span class="nx">readAsDataURL</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>ピクセルにアクセスするには、まず <code class="docutils literal notranslate"><span class="pre">&lt;canvas&gt;</span></code> 要素に画像を描画する。キャンバスコンテキストにはメソッド <code class="docutils literal notranslate"><span class="pre">getImageData</span></code> があるので、スクリプトからそのピクセルを読み取れる。つまり、画像をキャンバスに描画したら、それにアクセスして <code class="docutils literal notranslate"><span class="pre">Picture</span></code> オブジェクトを構築できる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">pictureFromImage</span><span class="p">(</span><span class="nx">image</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">width</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="mf">100</span><span class="p">,</span> <span class="nx">image</span><span class="p">.</span><span class="nx">width</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">height</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="mf">100</span><span class="p">,</span> <span class="nx">image</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;canvas&quot;</span><span class="p">,</span> <span class="p">{</span><span class="nx">width</span><span class="p">,</span> <span class="nx">height</span><span class="p">});</span>
+    <span class="kd">let</span> <span class="nx">cx</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">drawImage</span><span class="p">(</span><span class="nx">image</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">0</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">pixels</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="kd">let</span> <span class="p">{</span><span class="nx">data</span><span class="p">}</span> <span class="o">=</span> <span class="nx">cx</span><span class="p">.</span><span class="nx">getImageData</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">width</span><span class="p">,</span> <span class="nx">height</span><span class="p">);</span>
+
+    <span class="kd">function</span> <span class="nx">hex</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">n</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="mf">16</span><span class="p">).</span><span class="nx">padStart</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">data</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mf">4</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="p">[</span><span class="nx">r</span><span class="p">,</span> <span class="nx">g</span><span class="p">,</span> <span class="nx">b</span><span class="p">]</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">i</span> <span class="o">+</span> <span class="mf">3</span><span class="p">);</span>
+        <span class="nx">pixels</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&quot;#&quot;</span> <span class="o">+</span> <span class="nx">hex</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="o">+</span> <span class="nx">hex</span><span class="p">(</span><span class="nx">g</span><span class="p">)</span> <span class="o">+</span> <span class="nx">hex</span><span class="p">(</span><span class="nx">b</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">Picture</span><span class="p">(</span><span class="nx">width</span><span class="p">,</span> <span class="nx">height</span><span class="p">,</span> <span class="nx">pixels</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>画像の寸法を 100x100 ピクセルに制限する。これ以上大きくすると、画面上で巨大に見えてしまい、インターフェースが遅くなるかもしれない。</p>
+<p>コンテキストのメソッド <code class="docutils literal notranslate"><span class="pre">getImageData</span></code> が返すオブジェクトのプロパティー <code class="docutils literal notranslate"><span class="pre">data</span></code> は色成分の配列だ。引数で指定された矩形内の各ピクセルには、ピクセルの RGBA 成分が 0 から 255 までの数で格納されている。</p>
+<ul class="simple">
+<li><p>本アプリケーションではアルファ値は使わない。</p></li>
+<li><p>ヘルパー関数 <code class="docutils literal notranslate"><span class="pre">hex</span></code> は数を 16 進数表記にするのに定義されている。
+JavaScript ではこういうのを自前で書かないといけないようだ。</p></li>
+</ul>
+</section>
+<section id="undo-history">
+<h2><a class="toc-backref" href="#id11">Undo history</a><a class="headerlink" href="#undo-history" title="Permalink to this headline">¶</a></h2>
+<p>変更を元に戻せるようにするには、絵の以前のバージョンを保存しておく必要がある。アプリケーションの状態に追加的なフィールドを必要とする。</p>
+<p>絵の以前のバージョンを保存するのに配列 <code class="docutils literal notranslate"><span class="pre">done</span></code> を追加することにする。このプロパティーを維持するのには配列に絵を追加する、より複雑な状態更新関数が要る。</p>
+<p>変更のすべてではなく、一定の時間的間隔をおいた変更しか保存したくない。そうするには、最後に絵を履歴に保存した時刻を追跡するプロパティー <code class="docutils literal notranslate"><span class="pre">doneAt</span></code> が要る。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">historyUpdateState</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">undo</span> <span class="o">==</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">state</span><span class="p">.</span><span class="nx">done</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mf">0</span><span class="p">)</span> <span class="k">return</span> <span class="nx">state</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">({},</span> <span class="nx">state</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nx">picture</span><span class="o">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">done</span><span class="p">[</span><span class="mf">0</span><span class="p">],</span>
+            <span class="nx">done</span><span class="o">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">done</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">1</span><span class="p">),</span>
+            <span class="nx">doneAt</span><span class="o">:</span> <span class="mf">0</span>
+        <span class="p">});</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">picture</span> <span class="o">&amp;&amp;</span> <span class="nx">state</span><span class="p">.</span><span class="nx">doneAt</span> <span class="o">&lt;</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">-</span> <span class="mf">1000</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">({},</span> <span class="nx">state</span><span class="p">,</span> <span class="nx">action</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nx">done</span><span class="o">:</span> <span class="p">[</span><span class="nx">state</span><span class="p">.</span><span class="nx">picture</span><span class="p">,</span> <span class="p">...</span><span class="nx">state</span><span class="p">.</span><span class="nx">done</span><span class="p">],</span>
+            <span class="nx">doneAt</span><span class="o">:</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span>
+        <span class="p">});</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">({},</span> <span class="nx">state</span><span class="p">,</span> <span class="nx">action</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>アクションが元に戻すアクションの場合、この関数は履歴から最新の絵を取り出しそれを現在の絵にする。プロパティー <code class="docutils literal notranslate"><span class="pre">doneAt</span></code> の値をゼロにすることで、次の変更時には絵が履歴に保存されることを保証し、必要に応じて履歴を別の時刻に戻すことができる。</p>
+<p>また、アクションが新しい絵を含み、かつ最後に何かを保存したのが一秒以上前ならば、プロパティー <code class="docutils literal notranslate"><span class="pre">done</span></code> と <code class="docutils literal notranslate"><span class="pre">doneAt</span></code> を更新して直前の絵を保存する。</p>
+<hr class="docutils" />
+<p>元に戻すボタンコンポーネントは多くをしない。クリックされると元に戻すアクションをディスパッチし、元に戻すものがないときは自身をグレーアウトする。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nx">UndoButton</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="p">{</span><span class="nx">dispatch</span><span class="p">})</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">dom</span> <span class="o">=</span> <span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;button&quot;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nx">onclick</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">dispatch</span><span class="p">({</span><span class="nx">undo</span><span class="o">:</span> <span class="kc">true</span><span class="p">}),</span>
+            <span class="nx">disabled</span><span class="o">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">done</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mf">0</span>
+        <span class="p">},</span> <span class="s2">&quot;⮪ Undo&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">syncState</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">disabled</span> <span class="o">=</span> <span class="nx">state</span><span class="p">.</span><span class="nx">done</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mf">0</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="let-s-draw">
+<h2><a class="toc-backref" href="#id12">Let’s draw</a><a class="headerlink" href="#let-s-draw" title="Permalink to this headline">¶</a></h2>
+<p>アプリケーションを仕掛けるには、状態、ツールの集合、コントロールの集合、ディスパッチ関数を生成する必要がある。これらを <code class="docutils literal notranslate"><span class="pre">PixelEditor</span></code> コンストラクターに渡して主要コンポーネントを作成できる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">startState</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">tool</span><span class="o">:</span> <span class="s2">&quot;draw&quot;</span><span class="p">,</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;#000000&quot;</span><span class="p">,</span>
+    <span class="nx">picture</span><span class="o">:</span> <span class="nx">Picture</span><span class="p">.</span><span class="nx">empty</span><span class="p">(</span><span class="mf">60</span><span class="p">,</span> <span class="mf">30</span><span class="p">,</span> <span class="s2">&quot;#f0f0f0&quot;</span><span class="p">),</span>
+    <span class="nx">done</span><span class="o">:</span> <span class="p">[],</span>
+    <span class="nx">doneAt</span><span class="o">:</span> <span class="mf">0</span>
+<span class="p">};</span>
+<span class="kd">const</span> <span class="nx">baseTools</span> <span class="o">=</span> <span class="p">{</span><span class="nx">draw</span><span class="p">,</span> <span class="nx">fill</span><span class="p">,</span> <span class="nx">rectangle</span><span class="p">,</span> <span class="nx">pick</span><span class="p">};</span>
+<span class="kd">const</span> <span class="nx">baseControls</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nx">ToolSelect</span><span class="p">,</span> <span class="nx">ColorSelect</span><span class="p">,</span> <span class="nx">SaveButton</span><span class="p">,</span> <span class="nx">LoadButton</span><span class="p">,</span> <span class="nx">UndoButton</span>
+<span class="p">];</span>
+
+<span class="kd">function</span> <span class="nx">startPixelEditor</span><span class="p">({</span><span class="nx">state</span> <span class="o">=</span> <span class="nx">startState</span><span class="p">,</span>
+                           <span class="nx">tools</span> <span class="o">=</span> <span class="nx">baseTools</span><span class="p">,</span>
+                           <span class="nx">controls</span> <span class="o">=</span> <span class="nx">baseControls</span><span class="p">})</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PixelEditor</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">tools</span><span class="p">,</span>
+        <span class="nx">controls</span><span class="p">,</span>
+        <span class="nx">dispatch</span><span class="p">(</span><span class="nx">action</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">state</span> <span class="o">=</span> <span class="nx">historyUpdateState</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">action</span><span class="p">);</span>
+            <span class="nx">app</span><span class="p">.</span><span class="nx">syncState</span><span class="p">(</span><span class="nx">state</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+    <span class="k">return</span> <span class="nx">app</span><span class="p">.</span><span class="nx">dom</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>オブジェクトや配列を分割代入するとき、変数名の後ろに <code class="docutils literal notranslate"><span class="pre">=</span></code> を付けると変数名に既定値を与えることができる。これは、プロパティーがない場合や <code class="docutils literal notranslate"><span class="pre">undefined</span></code> を保持する場合に用いられる。</p>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">startPixelEditor</span></code> はいくつかのオプションのプロパティーを持つオブジェクトを引数に取る。例えばプロパティー <code class="docutils literal notranslate"><span class="pre">tools</span></code> を与えない場合、その値は <code class="docutils literal notranslate"><span class="pre">baseTools</span></code> になる。</p>
+<p>次のようにして実際のエディターを画面に表示する：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">).</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">startPixelEditor</span><span class="p">({}));</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="why-is-this-so-hard">
+<h2><a class="toc-backref" href="#id13">Why is this so hard?</a><a class="headerlink" href="#why-is-this-so-hard" title="Permalink to this headline">¶</a></h2>
+<p>この節は著者の主張がよくわからないので省略。</p>
+</section>
+<section id="exercises">
+<h2><a class="toc-backref" href="#id14">Exercises</a><a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<section id="keyboard-bindings">
+<h3><a class="toc-backref" href="#id15">Keyboard bindings</a><a class="headerlink" href="#keyboard-bindings" title="Permalink to this headline">¶</a></h3>
+<p><strong>問題</strong> アプリケーションにキーボードショートカットを追加しろ。</p>
+<ul class="simple">
+<li><p>ツール名の最初の文字でそのツールを選択し、</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Z</kbd> でアンドゥを起動しろ。</p></li>
+</ul>
+<p>これを <code class="docutils literal notranslate"><span class="pre">PixelEditor</span></code> を変更することで行え。値がゼロのプロパティー <code class="docutils literal notranslate"><span class="pre">tabIndex</span></code> を折り返しの <code class="docutils literal notranslate"><span class="pre">&lt;div&gt;</span></code> に設定し、キーボードフォーカスを受けられるようにしろ。なお、属性 <code class="docutils literal notranslate"><span class="pre">tabindex</span></code> に対応するプロパティーは <code class="docutils literal notranslate"><span class="pre">tabIndex</span></code> と大文字の I が使われているが関数 <code class="docutils literal notranslate"><span class="pre">elt</span></code> はプロパティー名を期待することに注意しろ。</p>
+<p>キーイベントハンドラーを上記 <code class="docutils literal notranslate"><span class="pre">&lt;div&gt;</span></code> に直接登録しろ。つまり、キーボードで操作する前に、アプリケーションをクリックしたり、タッチしたりする必要がある。キーボードイベントには <code class="docutils literal notranslate"><span class="pre">ctrlKey</span></code> と <code class="docutils literal notranslate"><span class="pre">metaKey</span></code> のプロパティーがあり、これらのキーが押されているかどうかを確認することができることを忘れるな。</p>
+<p><strong>解答</strong> ツール選択は <code class="docutils literal notranslate"><span class="pre">PixelEditor.constructor</span></code> のコードで <code class="docutils literal notranslate"><span class="pre">this.dom</span></code> を定義するところを次のように変更する：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">this</span><span class="p">.</span><span class="nx">dom</span> <span class="o">=</span> <span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">tabIndex</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+    <span class="nx">onkeydown</span><span class="o">:</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">toolNames</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">tools</span><span class="p">);</span>
+        <span class="kd">const</span> <span class="nx">toolName</span> <span class="o">=</span> <span class="nx">toolNames</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">name</span> <span class="p">=&gt;</span> <span class="nx">name</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span> <span class="o">==</span> <span class="nx">event</span><span class="p">.</span><span class="nx">key</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">toolName</span><span class="p">){</span>
+            <span class="kd">const</span> <span class="nx">selectNode</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">controls</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">select</span><span class="p">;</span>
+            <span class="nx">selectNode</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">toolName</span><span class="p">;</span>
+            <span class="nx">selectNode</span><span class="p">.</span><span class="nx">onchange</span><span class="p">();</span>
+            <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">},</span> <span class="c1">// ...</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>ドロップダウンリストの項目を直接変更してハンドラー <code class="docutils literal notranslate"><span class="pre">onchange</span></code> を直接呼び出すという下品なコードだ。</p></li>
+</ul>
+<p>後半のアンドゥ発動は、この <code class="docutils literal notranslate"><span class="pre">onkeydown</span></code> にさらにコードを追加するわけだが、凝ったことをするとハマりがちだ。とりあえずこう書いておき：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="p">(</span><span class="kd">const</span> <span class="nx">dom</span> <span class="k">of</span> <span class="k">this</span><span class="p">.</span><span class="nx">controls</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">i</span> <span class="p">=&gt;</span> <span class="nx">c</span><span class="p">.</span><span class="nx">dom</span><span class="p">)){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">dom</span><span class="p">.</span><span class="nx">onkeydown</span><span class="p">){</span>
+        <span class="nx">dom</span><span class="p">.</span><span class="nx">onkeydown</span><span class="p">(</span><span class="nx">event</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>クラス <code class="docutils literal notranslate"><span class="pre">UndoButton</span></code> の <code class="docutils literal notranslate"><span class="pre">this.dom</span></code> に <code class="docutils literal notranslate"><span class="pre">onkeydown</span></code> を追加しておく：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">onkeydown</span><span class="o">:</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">key</span> <span class="o">==</span> <span class="s2">&quot;z&quot;</span> <span class="o">&amp;&amp;</span> <span class="nx">event</span><span class="p">.</span><span class="nx">ctrlKey</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span>
+        <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">},</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>困ったことに <code class="docutils literal notranslate"><span class="pre">event.preventDefault()</span></code> したか否かをテストする手段がわからない。もしこれ以上の処理を禁止するのであれば即 <code class="docutils literal notranslate"><span class="pre">return</span></code> する。</p></li>
+</ul>
+</section>
+<section id="efficient-drawing">
+<h3><a class="toc-backref" href="#id16">Efficient drawing</a><a class="headerlink" href="#efficient-drawing" title="Permalink to this headline">¶</a></h3>
+<p>描画の際、アプリケーションが行う作業の大半は <code class="docutils literal notranslate"><span class="pre">drawPicture</span></code> で起こる。新しい状態を作成して DOM の残りの部分を更新するのはそれほど高くつかないが、キャンバス上のすべてのピクセルを再描画するのはかなりの労力を要する。</p>
+<p><strong>問題</strong> 実際に変化したピクセルしか再描画しないように、メソッド <code class="docutils literal notranslate"><span class="pre">PictureCanvas.syncState</span></code> を高速化する方法を考えろ。
+<code class="docutils literal notranslate"><span class="pre">drawPicture</span></code> は保存ボタンでも使用されているので、変更する場合は、以前の使用方法が壊れないようにするか、別の名前で新しいバージョンを作成することだ。</p>
+<p>また、要素 <code class="docutils literal notranslate"><span class="pre">&lt;canvas&gt;</span></code> の <code class="docutils literal notranslate"><span class="pre">width</span></code> や <code class="docutils literal notranslate"><span class="pre">height</span></code> のプロパティーを設定して寸法を変更すると、それを消去して完全に透明になることにも注意しろ。</p>
+<p><strong>解答</strong> <code class="docutils literal notranslate"><span class="pre">PictureCanvas.syncState</span></code> が <code class="docutils literal notranslate"><span class="pre">drawPicture</span></code> を呼び出すときに新旧のピクセルバッファーが一瞬同時に存在するので、これを比較して差分だけを描画しろというのが題意だ。したがって、まず呼び出し側を次のように変更する：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">syncState</span><span class="p">(</span><span class="nx">picture</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">picture</span> <span class="o">==</span> <span class="nx">picture</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+    <span class="nx">drawPicture</span><span class="p">(</span><span class="nx">picture</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">picture</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">,</span> <span class="nx">scale</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">picture</span> <span class="o">=</span> <span class="nx">picture</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>描画関数を差分のみ彩色するように書き換える：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">drawPicture</span><span class="p">(</span><span class="nx">newPicture</span><span class="p">,</span> <span class="nx">oldPicture</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">,</span> <span class="nx">scale</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Also note that changing the size of a &lt;canvas&gt; element,</span>
+    <span class="c1">// by setting its width or height properties, clears it, making it</span>
+    <span class="c1">// entirely transparent again.</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">oldPicture</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">newPicture</span><span class="p">.</span><span class="nx">width</span> <span class="o">*</span> <span class="nx">scale</span><span class="p">;</span>
+        <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nx">newPicture</span><span class="p">.</span><span class="nx">height</span> <span class="o">*</span> <span class="nx">scale</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kd">const</span> <span class="nx">cx</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">y</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">y</span> <span class="o">&lt;</span> <span class="nx">newPicture</span><span class="p">.</span><span class="nx">height</span><span class="p">;</span> <span class="nx">y</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">x</span> <span class="o">&lt;</span> <span class="nx">newPicture</span><span class="p">.</span><span class="nx">width</span><span class="p">;</span> <span class="nx">x</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">oldPicture</span> <span class="o">&amp;&amp;</span>
+                <span class="nx">oldPicture</span><span class="p">.</span><span class="nx">pixel</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="o">==</span> <span class="nx">newPicture</span><span class="p">.</span><span class="nx">pixel</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">))</span> <span class="p">{</span>
+                <span class="k">continue</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="nx">cx</span><span class="p">.</span><span class="nx">fillStyle</span> <span class="o">=</span> <span class="nx">newPicture</span><span class="p">.</span><span class="nx">pixel</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
+            <span class="nx">cx</span><span class="p">.</span><span class="nx">fillRect</span><span class="p">(</span><span class="nx">x</span> <span class="o">*</span> <span class="nx">scale</span><span class="p">,</span> <span class="nx">y</span> <span class="o">*</span> <span class="nx">scale</span><span class="p">,</span> <span class="nx">scale</span><span class="p">,</span> <span class="nx">scale</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>最後に <code class="docutils literal notranslate"><span class="pre">SaveButton</span></code> のハンドラーを調整する：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">save</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;canvas&quot;</span><span class="p">);</span>
+    <span class="nx">drawPicture</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">picture</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="circles">
+<h3><a class="toc-backref" href="#id17">Circles</a><a class="headerlink" href="#circles" title="Permalink to this headline">¶</a></h3>
+<p><strong>問題</strong> ドラッグすると円が描かれるツール <code class="docutils literal notranslate"><span class="pre">circle</span></code> を定義しろ。円の中心は、ドラッグやタッチを開始した位置にあり、その半径はドラッグした距離に応じて決まる。</p>
+<p><strong>解答</strong> マウスやタッチによる操作が矩形ツールと似ているので、コードもそれに倣う。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">circle</span><span class="p">(</span><span class="nx">start</span><span class="p">,</span> <span class="nx">state</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">function</span> <span class="nx">drawCircle</span><span class="p">(</span><span class="nx">pos</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">radiusSquared</span> <span class="o">=</span> <span class="p">(</span><span class="nx">start</span><span class="p">.</span><span class="nx">x</span> <span class="o">-</span> <span class="nx">pos</span><span class="p">.</span><span class="nx">x</span><span class="p">)</span><span class="o">**</span><span class="mf">2</span> <span class="o">+</span> <span class="p">(</span><span class="nx">start</span><span class="p">.</span><span class="nx">y</span> <span class="o">-</span> <span class="nx">pos</span><span class="p">.</span><span class="nx">y</span><span class="p">)</span><span class="o">**</span><span class="mf">2</span><span class="p">;</span>
+        <span class="kd">const</span> <span class="nx">radius</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">(</span><span class="nx">radiusSquared</span><span class="p">);</span>
+        <span class="kd">const</span> <span class="nx">xStart</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="nx">start</span><span class="p">.</span><span class="nx">x</span> <span class="o">-</span> <span class="nx">radius</span><span class="p">));</span>
+        <span class="kd">const</span> <span class="nx">xEnd</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="nx">state</span><span class="p">.</span><span class="nx">picture</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">start</span><span class="p">.</span><span class="nx">x</span> <span class="o">+</span> <span class="nx">radius</span><span class="p">));</span>
+        <span class="kd">const</span> <span class="nx">yStart</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="nx">start</span><span class="p">.</span><span class="nx">y</span> <span class="o">-</span> <span class="nx">radius</span><span class="p">));</span>
+        <span class="kd">const</span> <span class="nx">yEnd</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nx">state</span><span class="p">.</span><span class="nx">picture</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span> <span class="nx">start</span><span class="p">.</span><span class="nx">y</span> <span class="o">+</span> <span class="nx">radius</span><span class="p">));</span>
+        <span class="kd">const</span> <span class="nx">drawn</span> <span class="o">=</span> <span class="p">[];</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">y</span> <span class="o">=</span> <span class="nx">yStart</span><span class="p">;</span> <span class="nx">y</span> <span class="o">&lt;=</span> <span class="nx">yEnd</span><span class="p">;</span> <span class="nx">y</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">const</span> <span class="nx">yDeltaSquared</span> <span class="o">=</span> <span class="p">(</span><span class="nx">start</span><span class="p">.</span><span class="nx">y</span> <span class="o">-</span> <span class="nx">y</span><span class="p">)</span><span class="o">**</span><span class="mf">2</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">xStart</span><span class="p">;</span> <span class="nx">x</span> <span class="o">&lt;=</span> <span class="nx">xEnd</span><span class="p">;</span> <span class="nx">x</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">const</span> <span class="nx">xDeltaSquared</span> <span class="o">=</span> <span class="p">(</span><span class="nx">start</span><span class="p">.</span><span class="nx">x</span> <span class="o">-</span> <span class="nx">x</span><span class="p">)</span><span class="o">**</span><span class="mf">2</span><span class="p">;</span>
+                <span class="k">if</span><span class="p">(</span><span class="nx">xDeltaSquared</span> <span class="o">+</span> <span class="nx">yDeltaSquared</span> <span class="o">&lt;=</span> <span class="nx">radiusSquared</span><span class="p">){</span>
+                    <span class="nx">drawn</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">color</span><span class="o">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">color</span> <span class="p">});</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="nx">dispatch</span><span class="p">({</span> <span class="nx">picture</span><span class="o">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">picture</span><span class="p">.</span><span class="nx">draw</span><span class="p">(</span><span class="nx">drawn</span><span class="p">)</span> <span class="p">});</span>
+    <span class="p">}</span>
+    <span class="nx">drawCircle</span><span class="p">(</span><span class="nx">start</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">drawCircle</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>ピクセルをループする際にカウンターと境界値の両方が整数になるように注意すること。</p></li>
+<li><p>上の数値計算には高速化の余地があるはずだが（関数 <code class="docutils literal notranslate"><span class="pre">Math.sqrt</span></code> の使用を避けたい）、この演習はそういう趣旨ではないのでやらない。</p></li>
+</ul>
+<p>このツールをエディターに組み込むには、例えば次のように変更する：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">baseTools</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">draw</span><span class="p">,</span> <span class="nx">fill</span><span class="p">,</span> <span class="nx">rectangle</span><span class="p">,</span> <span class="nx">circle</span><span class="p">,</span> <span class="nx">pick</span> <span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="proper-lines">
+<h3><a class="toc-backref" href="#id18">Proper lines</a><a class="headerlink" href="#proper-lines" title="Permalink to this headline">¶</a></h3>
+<p>ほとんどのブラウザーでは、描画ツールを選択して画像上をすばやくドラッグしても閉じた線が得られない。これは、<code class="docutils literal notranslate"><span class="pre">mousemove</span></code> や <code class="docutils literal notranslate"><span class="pre">touchmove</span></code> のイベントが、すべてのピクセルに到達するほど速く発射しなかったことによる。</p>
+<p><strong>問題</strong> <code class="docutils literal notranslate"><span class="pre">draw</span></code> ツールを改良して、完全な線を描けるようにしろ。上記イベントハンドラー関数に前回の位置を記憶させ、それを現在の位置に連結する必要がある。ピクセルは任意の距離だけ離して存在し得るので、補間する線を引く関数を書かねばならない。</p>
+<p>二つのピクセル間の線とは、始点から終点まで可能な限り直線で結ばれたピクセルの連鎖だ。斜めに隣接するピクセルも連結されたものとして扱う（本書の図を参照。左側のほうが望ましい）。</p>
+<p>任意の二点間に直線を引くコードがあれば、それを用いたドラッグの開始点と終了点の間に直線を引くラインツールも定義しておくのもいいだろう。</p>
+<p><strong>解答</strong> この課題は前のものよりも高度だ。時間がよりかかる。</p>
+<div class="admonition-todo admonition" id="id2">
+<p class="admonition-title">Todo</p>
+<p>早く次に行きたいので後回しにする。</p>
+</div>
+<p>以上</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter20.html" title="Node.js"
+             >next</a></li>
+        <li class="right" >
+          <a href="chapter18.html" title="HTTP and Forms"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Eloquent JavaScript 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Project: A Pixel Art Editor</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

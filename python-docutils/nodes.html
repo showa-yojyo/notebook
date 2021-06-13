@@ -4,12 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>クラス docutils.nodes.Node &#8212; 読書ノート v1.5dev</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
     
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/mathjax-v3.js"></script>
     
     <link rel="next" title="クラス docutils.nodes.NodeVisitor" href="visitor.html" />
@@ -34,7 +34,7 @@
       <div class="documentwrapper">
           <div class="body" role="main">
             
-  <div class="section" id="docutils-nodes-node">
+  <section id="docutils-nodes-node">
 <h1><a class="toc-backref" href="#id7">クラス <code class="docutils literal notranslate"><span class="pre">docutils.nodes.Node</span></code></a><a class="headerlink" href="#docutils-nodes-node" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://docutils.sourceforge.io/">Docutils</a> では reStructuredText 形式のデータを処理するために、中間形式として木構造のオブジェクト群を組み立てる。この木のオブジェクトの型を定義する一連のクラスは <code class="docutils literal notranslate"><span class="pre">Node</span></code> というスーパークラスを継承の始点とする。これらのスーパークラスとサブクラスは全てモジュール <code class="docutils literal notranslate"><span class="pre">docutils.nodes</span></code> で定義されている。本節ではデータ構造を中心に、ノード群の設計を解読していく。ただし、各具象ノードの構造までは深く立ち入らないで、別の節で検討したい。例えばノードオブジェクトの処理方法については、次節 <a class="reference internal" href="visitor.html"><span class="doc">クラス docutils.nodes.NodeVisitor</span></a> で解読していく。</p>
 <div class="contents topic" id="id1">
@@ -78,23 +78,23 @@
 </li>
 </ul>
 </div>
-<div class="section" id="id2">
+<section id="id2">
 <h2><a class="toc-backref" href="#id8">クラス図</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>まずは抽象クラス <code class="docutils literal notranslate"><span class="pre">Node</span></code> を継承グラフの始点とする簡単なクラス図を示す。ただし、本来は具象クラスが 98 個もあるにもかかわらず、一枚の図に全てを掲載することは紙幅の都合上避ける。また、理解し易さを優先するべく、説明の目的とは外れた関係、属性の記載を省略している。</p>
-<div class="figure align-center">
+<figure class="align-center">
 <a class="reference internal image-reference" href="../_images/docutils-nodes.png"><img alt="(class diagram)" src="../_images/docutils-nodes.png" style="width: 664.0px; height: 540.0px;" /></a>
-</div>
+</figure>
 <ul class="simple">
 <li><p>クラス名が普通なもの (CamelCase) は抽象クラスまたは補助クラス。</p></li>
 <li><p>クラス名が小文字ベースなもの (snake_case) は対応する名前の XML 要素的なものにマッチする。</p></li>
 <li><p>ノードの位置は抽象クラスにより表現される？</p></li>
 <li><p>全ての具象ノードクラスの名前はリストオブジェクト <code class="docutils literal notranslate"><span class="pre">doutils.nodes.node_class_names</span></code> で確認可能。クラス <code class="docutils literal notranslate"><span class="pre">NodeVisitor</span></code> の宣言直前に書いてある。</p></li>
 </ul>
-</div>
-<div class="section" id="node">
+</section>
+<section id="node">
 <h2><a class="toc-backref" href="#id9">クラス <code class="docutils literal notranslate"><span class="pre">Node</span></code></a><a class="headerlink" href="#node" title="Permalink to this headline">¶</a></h2>
 <p>クラス <code class="docutils literal notranslate"><span class="pre">Node</span></code> はドキュメントツリーの全ノードクラスの抽象クラスだ。</p>
-<div class="section" id="id3">
+<section id="id3">
 <h3><a class="toc-backref" href="#id10">メンバーデータ</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>これらはクラススコープで宣言されているが、実際はむしろオブジェクトデータとして参照されるもよう。</p>
 <dl class="simple">
@@ -107,8 +107,8 @@
 <dt><code class="docutils literal notranslate"><span class="pre">Node.line</span></code></dt><dd><p>このノードに対応する文字列の開始位置が <code class="docutils literal notranslate"><span class="pre">source</span></code> の何行目にあるかを示す正の整数。</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="id4">
+</section>
+<section id="id4">
 <h3><a class="toc-backref" href="#id11">メンバーメソッド</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <dl class="simple">
 <dt><code class="docutils literal notranslate"><span class="pre">__bool__(self)</span></code></dt><dd><p>ノードオブジェクトを if 文に置いた時に真を返すようにしたいので、これがある。メソッド <code class="docutils literal notranslate"><span class="pre">traverse</span></code> を見ればわかる。</p>
@@ -132,9 +132,9 @@
 </ul>
 </dd>
 </dl>
-</div>
-</div>
-<div class="section" id="id5">
+</section>
+</section>
+<section id="id5">
 <h2><a class="toc-backref" href="#id12">サブクラス</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p>差し当たり <code class="docutils literal notranslate"><span class="pre">Text</span></code>, <code class="docutils literal notranslate"><span class="pre">Element</span></code>, <code class="docutils literal notranslate"><span class="pre">document</span></code> が Docutils の設計を読み解くのに特に重要なサブクラスだろう。</p>
@@ -154,7 +154,7 @@
 </li>
 <li><p>クラス <code class="docutils literal notranslate"><span class="pre">Element</span></code> の継承グラフの最下層クラス群は名前が snake_case になっている。固有のコードが存在しないクラスの多重継承を多用している。</p></li>
 </ul>
-<div class="section" id="admonition">
+<section id="admonition">
 <h3><a class="toc-backref" href="#id13">クラス <code class="docutils literal notranslate"><span class="pre">Admonition</span></code></a><a class="headerlink" href="#admonition" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>直接のスーパークラスは <code class="docutils literal notranslate"><span class="pre">Body</span></code> ひとつ。</p></li>
@@ -168,8 +168,8 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="backlinkable">
+</section>
+<section id="backlinkable">
 <h3><a class="toc-backref" href="#id14">クラス <code class="docutils literal notranslate"><span class="pre">BackLinkable</span></code></a><a class="headerlink" href="#backlinkable" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>このクラスにはスーパークラスがない。</p></li>
@@ -183,8 +183,8 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="bibliographic">
+</section>
+<section id="bibliographic">
 <h3><a class="toc-backref" href="#id15">クラス <code class="docutils literal notranslate"><span class="pre">Bibliographic</span></code></a><a class="headerlink" href="#bibliographic" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>このクラスにはスーパークラスがない。</p></li>
@@ -199,8 +199,8 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="body">
+</section>
+<section id="body">
 <h3><a class="toc-backref" href="#id16">クラス <code class="docutils literal notranslate"><span class="pre">Body</span></code></a><a class="headerlink" href="#body" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>このクラスにはスーパークラスがない。</p></li>
@@ -213,8 +213,8 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="decorative">
+</section>
+<section id="decorative">
 <h3><a class="toc-backref" href="#id17">クラス <code class="docutils literal notranslate"><span class="pre">Decorative</span></code></a><a class="headerlink" href="#decorative" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>直接のスーパークラスは <code class="docutils literal notranslate"><span class="pre">PreBibliographic</span></code> ただ一つだ。</p></li>
@@ -227,8 +227,8 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="fixedtextelement">
+</section>
+<section id="fixedtextelement">
 <h3><a class="toc-backref" href="#id18">クラス <code class="docutils literal notranslate"><span class="pre">FixedTextElement</span></code></a><a class="headerlink" href="#fixedtextelement" title="Permalink to this headline">¶</a></h3>
 <p>クラス <code class="docutils literal notranslate"><span class="pre">FixedTextElement</span></code> は書式化済みのテキストを直接含む要素ということだ。</p>
 <ul class="simple">
@@ -243,8 +243,8 @@
 </li>
 <li><p>メンバーとしては <code class="docutils literal notranslate"><span class="pre">__init__</span></code> がオーバーライド定義されていて、常に <code class="docutils literal notranslate"><span class="pre">xml:space</span></code> 属性値が <code class="docutils literal notranslate"><span class="pre">preserve</span></code> に設定済みになる。</p></li>
 </ul>
-</div>
-<div class="section" id="general">
+</section>
+<section id="general">
 <h3><a class="toc-backref" href="#id19">クラス <code class="docutils literal notranslate"><span class="pre">General</span></code></a><a class="headerlink" href="#general" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>スーパークラスは <code class="docutils literal notranslate"><span class="pre">Body</span></code> ただ一つ。</p></li>
@@ -258,8 +258,8 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="inline">
+</section>
+<section id="inline">
 <h3><a class="toc-backref" href="#id20">クラス <code class="docutils literal notranslate"><span class="pre">Inline</span></code></a><a class="headerlink" href="#inline" title="Permalink to this headline">¶</a></h3>
 <p>文書中のインライン要素をマークアップするためのクラス群の共通スーパークラス。</p>
 <ul class="simple">
@@ -272,8 +272,8 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="invisible">
+</section>
+<section id="invisible">
 <h3><a class="toc-backref" href="#id21">クラス <code class="docutils literal notranslate"><span class="pre">Invisible</span></code></a><a class="headerlink" href="#invisible" title="Permalink to this headline">¶</a></h3>
 <p>出力には現れることのない内部要素のためのスーパークラス。</p>
 <ul class="simple">
@@ -287,8 +287,8 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="labeled">
+</section>
+<section id="labeled">
 <h3><a class="toc-backref" href="#id22">クラス <code class="docutils literal notranslate"><span class="pre">Labeled</span></code></a><a class="headerlink" href="#labeled" title="Permalink to this headline">¶</a></h3>
 <p>これは最初の要素として <code class="docutils literal notranslate"><span class="pre">label</span></code> を含む要素を表すスーパークラスだ。</p>
 <ul class="simple">
@@ -299,8 +299,8 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="part">
+</section>
+<section id="part">
 <h3><a class="toc-backref" href="#id23">クラス <code class="docutils literal notranslate"><span class="pre">Part</span></code></a><a class="headerlink" href="#part" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>スーパークラスも固有のコードもない空のクラス。</p></li>
@@ -319,8 +319,8 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="prebibliographic">
+</section>
+<section id="prebibliographic">
 <h3><a class="toc-backref" href="#id24">クラス <code class="docutils literal notranslate"><span class="pre">PreBibliographic</span></code></a><a class="headerlink" href="#prebibliographic" title="Permalink to this headline">¶</a></h3>
 <p>これは <code class="docutils literal notranslate"><span class="pre">Bibliographic</span></code> ノードよりも前の位置に出現する文書要素のためのスーパークラスだ。</p>
 <ul class="simple">
@@ -333,8 +333,8 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="referential">
+</section>
+<section id="referential">
 <h3><a class="toc-backref" href="#id25">クラス <code class="docutils literal notranslate"><span class="pre">Referential</span></code></a><a class="headerlink" href="#referential" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>スーパークラスは <code class="docutils literal notranslate"><span class="pre">Resolvable</span></code> ただ一つ。</p></li>
@@ -348,16 +348,16 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="resolvable">
+</section>
+<section id="resolvable">
 <h3><a class="toc-backref" href="#id26">クラス <code class="docutils literal notranslate"><span class="pre">Resolvable</span></code></a><a class="headerlink" href="#resolvable" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>スーパークラスはない。</p></li>
 <li><p>コードとしてはクラス属性 <code class="docutils literal notranslate"><span class="pre">resolved</span> <span class="pre">=</span> <span class="pre">0</span></code> が定義されているのみ。</p></li>
 <li><p>サブクラスは <code class="docutils literal notranslate"><span class="pre">Referential</span></code> と <code class="docutils literal notranslate"><span class="pre">Targetable</span></code> の二つがある。いずれのサブクラスも <code class="docutils literal notranslate"><span class="pre">Resolvable</span></code> 以外のスーパークラスからは派生していない。</p></li>
 </ul>
-</div>
-<div class="section" id="root">
+</section>
+<section id="root">
 <h3><a class="toc-backref" href="#id27">クラス <code class="docutils literal notranslate"><span class="pre">Root</span></code></a><a class="headerlink" href="#root" title="Permalink to this headline">¶</a></h3>
 <p>これは構文木の根要素のためだけに存在するクラスと言える。</p>
 <ul class="simple">
@@ -368,8 +368,8 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="sequential">
+</section>
+<section id="sequential">
 <h3><a class="toc-backref" href="#id28">クラス <code class="docutils literal notranslate"><span class="pre">Sequential</span></code></a><a class="headerlink" href="#sequential" title="Permalink to this headline">¶</a></h3>
 <p>これは配列のような要素を表すためのスーパークラスとして存在する。</p>
 <ul class="simple">
@@ -384,8 +384,8 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="special">
+</section>
+<section id="special">
 <h3><a class="toc-backref" href="#id29">クラス <code class="docutils literal notranslate"><span class="pre">Special</span></code></a><a class="headerlink" href="#special" title="Permalink to this headline">¶</a></h3>
 <p>何か特別な要素のためのスーパークラスということだろう。</p>
 <ul class="simple">
@@ -394,8 +394,8 @@
 <li><p>サブクラスは <code class="docutils literal notranslate"><span class="pre">comment</span></code>, <code class="docutils literal notranslate"><span class="pre">substitution_definition</span></code>, <code class="docutils literal notranslate"><span class="pre">target</span></code>,
 <code class="docutils literal notranslate"><span class="pre">system_message</span></code>, <code class="docutils literal notranslate"><span class="pre">pending</span></code>, <code class="docutils literal notranslate"><span class="pre">raw</span></code> だ。</p></li>
 </ul>
-</div>
-<div class="section" id="structural">
+</section>
+<section id="structural">
 <h3><a class="toc-backref" href="#id30">クラス <code class="docutils literal notranslate"><span class="pre">Structural</span></code></a><a class="headerlink" href="#structural" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>スーパークラスも固有のコードもない。</p></li>
@@ -407,8 +407,8 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="targetable">
+</section>
+<section id="targetable">
 <h3><a class="toc-backref" href="#id31">クラス <code class="docutils literal notranslate"><span class="pre">Targetable</span></code></a><a class="headerlink" href="#targetable" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>直接のスーパークラスは <code class="docutils literal notranslate"><span class="pre">Resolvable</span></code> ただ一つ。</p></li>
@@ -420,8 +420,8 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="titular">
+</section>
+<section id="titular">
 <h3><a class="toc-backref" href="#id32">クラス <code class="docutils literal notranslate"><span class="pre">Titular</span></code></a><a class="headerlink" href="#titular" title="Permalink to this headline">¶</a></h3>
 <p>これは見出しに関係する要素のためのスーパークラスだ。</p>
 <ul class="simple">
@@ -433,9 +433,9 @@
 </ul>
 </li>
 </ul>
-</div>
-</div>
-<div class="section" id="id6">
+</section>
+</section>
+<section id="id6">
 <h2><a class="toc-backref" href="#id33">感想</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>文字列 <code class="docutils literal notranslate"><span class="pre">line</span></code> を grep するのがたいへん難しい。</p></li>
@@ -444,8 +444,8 @@
 <li><p>オブジェクト生成は構文解析時になされるので、ノートが本節で完結しない。</p></li>
 <li><p>実はクラス <code class="docutils literal notranslate"><span class="pre">Element</span></code> 以下の継承グラフを DOT で描いてみたのだが、何の省略の工夫もせずにグラフを定義したところ、幅 6000 ピクセル超の画像になってしまった。ブラウザーの画面幅に収まらない図表は使い物にならないので、ボツにした。</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>

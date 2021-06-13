@@ -1,0 +1,846 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Project: A Platform Game &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
+    
+    <script src="../_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="Drawing on Canvas" href="chapter17.html" />
+    <link rel="prev" title="Handling Events" href="chapter15.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter17.html" title="Drawing on Canvas"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="chapter15.html" title="Handling Events"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Eloquent JavaScript 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Project: A Platform Game</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="project-a-platform-game">
+<h1><a class="toc-backref" href="#id3">Project: A Platform Game</a><a class="headerlink" href="#project-a-platform-game" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://eloquentjavascript.net/">Eloquent JavaScript</a> Chapter 16 の読書ノート。</p>
+<p>この章では JavaScript と HTML とで 2D アクションゲームを実装する。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title">ノート目次</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#project-a-platform-game" id="id3">Project: A Platform Game</a></p>
+<ul>
+<li><p><a class="reference internal" href="#the-game" id="id4">The game</a></p></li>
+<li><p><a class="reference internal" href="#the-technology" id="id5">The technology</a></p></li>
+<li><p><a class="reference internal" href="#levels" id="id6">Levels</a></p></li>
+<li><p><a class="reference internal" href="#reading-a-level" id="id7">Reading a level</a></p></li>
+<li><p><a class="reference internal" href="#actors" id="id8">Actors</a></p></li>
+<li><p><a class="reference internal" href="#encapsulation-as-a-burden" id="id9">Encapsulation as a burden</a></p></li>
+<li><p><a class="reference internal" href="#drawing" id="id10">Drawing</a></p></li>
+<li><p><a class="reference internal" href="#motion-and-collision" id="id11">Motion and collision</a></p></li>
+<li><p><a class="reference internal" href="#actor-updates" id="id12">Actor updates</a></p></li>
+<li><p><a class="reference internal" href="#tracking-keys" id="id13">Tracking keys</a></p></li>
+<li><p><a class="reference internal" href="#running-the-game" id="id14">Running the game</a></p></li>
+<li><p><a class="reference internal" href="#exercises" id="id15">Exercises</a></p>
+<ul>
+<li><p><a class="reference internal" href="#game-over" id="id16">Game over</a></p></li>
+<li><p><a class="reference internal" href="#pausing-the-game" id="id17">Pausing the game</a></p></li>
+<li><p><a class="reference internal" href="#a-monster" id="id18">A monster</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="the-game">
+<h2><a class="toc-backref" href="#id4">The game</a><a class="headerlink" href="#the-game" title="Permalink to this headline">¶</a></h2>
+<p>Thomas Palef 作 <a class="reference external" href="https://www.lessmilk.com/games/10">Dark Blue</a> をベースにゲームを作る。面白さと最小限主義の両方を兼ね備えていることとと、あまり多くのコードを使わずに作ることができることから選ばれた。</p>
+<ul class="simple">
+<li><p>このゲームの外観は本書 p. 271 の図式のようなものだ。ファミコン的で抽象的だが、これが良い。</p>
+<ul>
+<li><p>暗い四角はプレイヤーを表す。</p>
+<ul>
+<li><p>プレイヤーの目標は溶岩を避けつつコインを集めることとする。</p></li>
+<li><p>すべてのコインを回収すれば一面クリアとする。</p></li>
+<li><p>プレイヤーは左右の矢印キーでその方向に歩行することができる。</p></li>
+<li><p>上矢印でジャンプする。</p></li>
+</ul>
+</li>
+<li><p>黄色い四角はコインを表す。</p></li>
+<li><p>赤いものは溶岩を表す。</p></li>
+</ul>
+</li>
+<li><p>ゲームは格子状に配置された固定背景と、そこに重ねられた何か動く要素から構成される。</p></li>
+<li><p>格子内には空、固形物、溶岩のいずれかを配置する。これらは格子にフィットする。</p></li>
+<li><p>動く要素とは、プレイヤー、コイン、溶岩の一部とし、これらは格子に拘束されず、滑らかに動作して構わない。</p></li>
+</ul>
+</section>
+<section id="the-technology">
+<h2><a class="toc-backref" href="#id5">The technology</a><a class="headerlink" href="#the-technology" title="Permalink to this headline">¶</a></h2>
+<p>ゲームを描画するのにブラウザー DOM を使い、ユーザー入力を読み取るのにキーイベントを処理することにする。</p>
+<ul class="simple">
+<li><p>画面やキーボードに関係するコードは、ゲーム全体を作るのに必要な作業のうちのわずかだ。ゲーム要素のすべてが色のついた四角なので描画は簡単だ。
+DOM 要素を作成し、適宜スタイルを指定するだけだ。</p></li>
+<li><p>背景は固定グリッドなので、一つの表要素として表現することができる。自由に動ける要素は <code class="docutils literal notranslate"><span class="pre">position:</span> <span class="pre">absolute</span></code> なスタイルを与えて背景に重ねる。</p></li>
+</ul>
+</section>
+<section id="levels">
+<h2><a class="toc-backref" href="#id6">Levels</a><a class="headerlink" href="#levels" title="Permalink to this headline">¶</a></h2>
+<p>ステージを設計するのに人間が読み書きできる方法が欲しい。すべてが格子上から動き始めてもかまわないので、各文字がゲーム要素を表すような大きな文字列を使う。小さなステージでは次のようなものになる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">simpleLevelPlan</span> <span class="o">=</span> <span class="sb">`</span>
+<span class="sb">......................</span>
+<span class="sb">..#................#..</span>
+<span class="sb">..#..............=.#..</span>
+<span class="sb">..#.........o.o....#..</span>
+<span class="sb">..#.@......#####...#..</span>
+<span class="sb">..#####............#..</span>
+<span class="sb">......#++++++++++++#..</span>
+<span class="sb">......##############..</span>
+<span class="sb">......................`</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>記号の意味を次のようにする：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>記号</p></th>
+<th class="head"><p>要素</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.</span></code></p></td>
+<td><p>空</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">#</span></code></p></td>
+<td><p>壁とか床</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">+</span></code></p></td>
+<td><p>溶岩</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&#64;</span></code></p></td>
+<td><p>プレイヤーの開始位置</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">o</span></code></p></td>
+<td><p>コイン</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">=</span></code></p></td>
+<td><p>水平方向に往復する溶岩の塊</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">|</span></code></p></td>
+<td><p>垂直方向に移動する溶岩の塊</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">v</span></code></p></td>
+<td><p>垂直下向きに落ちる溶岩の滴下</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>溶岩の滴下は下方にしか移動せず、床に衝突すると最初の位置まで跳ねて戻る。</p></li>
+</ul>
+<p>ゲーム全体をプレイヤーがクリアしなければならない複数の面で構成する。</p>
+<ul class="simple">
+<li><p>すべてのコインを回収すると一面クリアとなる。</p></li>
+<li><p>プレイヤーが溶岩に接触すると、現在の面をその初期状態に復元し、プレイヤーをスタート地点に戻して再挑戦となる。</p></li>
+</ul>
+</section>
+<section id="reading-a-level">
+<h2><a class="toc-backref" href="#id7">Reading a level</a><a class="headerlink" href="#reading-a-level" title="Permalink to this headline">¶</a></h2>
+<p>ステージをオブジェクトとして表現するべくクラス <code class="docutils literal notranslate"><span class="pre">Level</span></code> を定義する。本書 pp. 273-274 参照。</p>
+<ul>
+<li><p>コンストラクターの引数は、前節で仕様を定めた文字列とする。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">constructor</span><span class="p">(</span><span class="nx">plan</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">rows</span> <span class="o">=</span> <span class="nx">plan</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;\n&quot;</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nx">l</span> <span class="p">=&gt;</span> <span class="p">[...</span><span class="nx">l</span><span class="p">]);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nx">rows</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">rows</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">length</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">startActors</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">rows</span> <span class="o">=</span> <span class="nx">rows</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">row</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">row</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">ch</span><span class="p">,</span> <span class="nx">x</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+            <span class="kd">let</span> <span class="nx">type</span> <span class="o">=</span> <span class="nx">levelChars</span><span class="p">[</span><span class="nx">ch</span><span class="p">];</span>
+            <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;string&quot;</span><span class="p">)</span> <span class="k">return</span> <span class="nx">type</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">startActors</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">type</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="k">new</span> <span class="nx">Vec</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">),</span> <span class="nx">ch</span><span class="p">));</span>
+        <span class="k">return</span> <span class="s2">&quot;empty&quot;</span><span class="p">;</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">rows</span> <span class="pre">=</span> <span class="pre">plan.trim().split(&quot;\n&quot;).map(l</span> <span class="pre">=&gt;</span> <span class="pre">[...l])</span></code> で同じ長さの文字列の配列が得られることに注意。最終的に <code class="docutils literal notranslate"><span class="pre">this.rows</span></code> には文字の配列の配列がセットされる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">this.width</span></code>, <code class="docutils literal notranslate"><span class="pre">this.height</span></code> はこの面の寸法のようなものだ。</p></li>
+<li><p>出演者を背景格子から分離する必要がある。それを <code class="docutils literal notranslate"><span class="pre">this.startActors</span></code> に格納したい。</p>
+<ul>
+<li><p>配列メソッド <code class="docutils literal notranslate"><span class="pre">map</span></code> の第二引数には、配列のインデックスが渡される。</p></li>
+<li><p>この要素は <code class="docutils literal notranslate"><span class="pre">&quot;empty&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;wall&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;lava&quot;</span></code> などが格納されることになる。</p></li>
+</ul>
+</li>
+<li><p>オブジェクト <code class="docutils literal notranslate"><span class="pre">levelChars</span></code> が唐突に用いられている。これは背景要素と出演者要素をクラスに写像するためのものだ。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code> が出演者クラスのときには、その静的メソッド <code class="docutils literal notranslate"><span class="pre">create</span></code> を呼び出してオブジェクトを生成する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;.&quot;</span></code> に対しては <code class="docutils literal notranslate"><span class="pre">&quot;empty&quot;</span></code> を返す。</p></li>
+</ul>
+</li>
+<li><p>出演者要素の位置を <code class="docutils literal notranslate"><span class="pre">Vec</span></code> オブジェクトで格納する。第 6 章の演習で見たようなプロパティー <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code> を有するオブジェクトだ。</p></li>
+</ul>
+</li>
+</ul>
+<p>ゲームが進行すると、出演者要素は別の場所に移動したり、あるいは（コインが回収されるとそうなるように）完全に消滅したりする。実行中のゲームの状態を追跡するため、クラス <code class="docutils literal notranslate"><span class="pre">State</span></code> を定義する。</p>
+<ul class="simple">
+<li><p>コードは本書 pp. 274-275 にある。</p></li>
+<li><p>ゲームが終了すると、プロパティー <code class="docutils literal notranslate"><span class="pre">status</span></code> が値 <code class="docutils literal notranslate"><span class="pre">&quot;lost&quot;</span></code> または <code class="docutils literal notranslate"><span class="pre">&quot;won&quot;</span></code> に変化する。</p></li>
+</ul>
+</section>
+<section id="actors">
+<h2><a class="toc-backref" href="#id8">Actors</a><a class="headerlink" href="#actors" title="Permalink to this headline">¶</a></h2>
+<p>出演者オブジェクトは、移動している要素の現在の位置と状態を表す。出演者オブジェクトすべてでインターフェイスが共通だ。</p>
+<ul class="simple">
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">pos</span></code> は自身の左上隅座標とする。</p></li>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">size</span></code> は自身の寸法とする。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">update</span></code> は、ある時間ステップの後の新しい状態と位置を計算する。出演者の行動を予測再現するのに利用する。</p></li>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">type</span></code> は、自身の出演者としての型を示す文字列とする。これに基づいて出演者を表す矩形の外観を描画する。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;player&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;coin&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;lava&quot;</span></code></p></li>
+</ul>
+</li>
+<li><p>出演者クラスには静的メソッド <code class="docutils literal notranslate"><span class="pre">create</span></code> があり、これを <code class="docutils literal notranslate"><span class="pre">Level</span></code> コンストラクターが呼び出す。</p></li>
+</ul>
+<hr class="docutils" />
+<p>クラス <code class="docutils literal notranslate"><span class="pre">Vec</span></code> を定義する。ノート割愛。</p>
+<hr class="docutils" />
+<p>ここから出演者種別に応じたクラスを定義していく。メソッド <code class="docutils literal notranslate"><span class="pre">update</span></code> は後回し。</p>
+<hr class="docutils" />
+<p>クラス <code class="docutils literal notranslate"><span class="pre">Player</span></code> (p. 276) は力学的な運動を再現するために位置と速度を保持する。</p>
+<ul class="simple">
+<li><p>コンストラクターは自明なものになる。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">get</span> <span class="pre">type</span></code> は文字列 <code class="docutils literal notranslate"><span class="pre">&quot;player&quot;</span></code> を返す。</p></li>
+<li><p>静的メソッド <code class="docutils literal notranslate"><span class="pre">create</span></code> は位置を受け取るだけとする。</p>
+<ul>
+<li><p>プレイヤーの高さは 1.5 ブロック分なので、初期位置を “&#64;” の位置から半ブロック上に設定する。こうすると出現したブロックの底辺とぴったり合う。</p></li>
+</ul>
+</li>
+<li><p>最後に、クラススコープの外で <code class="docutils literal notranslate"><span class="pre">Player.prototype.size</span></code> を適当な <code class="docutils literal notranslate"><span class="pre">Vec</span></code> に設定する。プロトタイプを利用することは、このプロパティーが全オブジェクトで共通であることから必然だ。</p></li>
+</ul>
+<hr class="docutils" />
+<p><code class="docutils literal notranslate"><span class="pre">Lava</span></code> (p. 276) を構築するときには、基となっているキャラクターに応じた異なる方法でオブジェクトを初期化する必要がある。</p>
+<ul class="simple">
+<li><p>活動的な溶岩は障害物に当たるまで速度を保って移動する。</p></li>
+<li><p>その時点で、溶岩にプロパティー <code class="docutils literal notranslate"><span class="pre">reset</span></code> があれば最初の位置に跳び戻る。</p></li>
+<li><p>そうでない場合は速度を反転させ逆方向に戻っていく。</p></li>
+<li><p>静的メソッド <code class="docutils literal notranslate"><span class="pre">create</span></code> はコンストラクターで受け取った記号を見て、正しい溶岩を作成する。</p></li>
+</ul>
+<hr class="docutils" />
+<p><code class="docutils literal notranslate"><span class="pre">Coin</span></code> (pp. 277-278) は比較的単純で、ほどんどその場にいるだけだ。</p>
+<ul class="simple">
+<li><p>ただし演出としてわずかに垂直方向に振動させることにする。この運動を追跡するためにコインオブジェクトには基本位置と、振動の位相を追跡するプロパティー <code class="docutils literal notranslate"><span class="pre">wobble</span></code> を持たせる。これらを組み合わせてコインの実際の位置 <code class="docutils literal notranslate"><span class="pre">pos</span></code> を決定する。</p></li>
+<li><p>コインすべてが同期して振動するような状況を避けたいので、各コインの初期位相をランダムにする。</p></li>
+</ul>
+<hr class="docutils" />
+<p>これで先述のオブジェクト <code class="docutils literal notranslate"><span class="pre">levelChars</span></code> を定義できる。
+<code class="docutils literal notranslate"><span class="pre">Level</span></code> オブジェクトを生成するのに必要な部品を全て与える。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">levelChars</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;.&quot;</span><span class="o">:</span> <span class="s2">&quot;empty&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;#&quot;</span><span class="o">:</span> <span class="s2">&quot;wall&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;+&quot;</span><span class="o">:</span> <span class="s2">&quot;lava&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;@&quot;</span><span class="o">:</span> <span class="nx">Player</span><span class="p">,</span>
+    <span class="s2">&quot;o&quot;</span><span class="o">:</span> <span class="nx">Coin</span><span class="p">,</span>
+    <span class="s2">&quot;=&quot;</span><span class="o">:</span> <span class="nx">Lava</span><span class="p">,</span>
+    <span class="s2">&quot;|&quot;</span><span class="o">:</span> <span class="nx">Lava</span><span class="p">,</span>
+    <span class="s2">&quot;v&quot;</span><span class="o">:</span> <span class="nx">Lava</span>
+<span class="p">};</span>
+
+<span class="kd">let</span> <span class="nx">simpleLevel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Level</span><span class="p">(</span><span class="nx">simpleLevelPlan</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">simpleLevel</span><span class="p">.</span><span class="nx">width</span><span class="si">}</span><span class="sb"> by </span><span class="si">${</span><span class="nx">simpleLevel</span><span class="p">.</span><span class="nx">height</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span> <span class="c1">// → 22 by 9</span>
+</pre></div>
+</div>
+</section>
+<section id="encapsulation-as-a-burden">
+<h2><a class="toc-backref" href="#id9">Encapsulation as a burden</a><a class="headerlink" href="#encapsulation-as-a-burden" title="Permalink to this headline">¶</a></h2>
+<p>この章のコードはカプセル化についてほとんど考慮していない。その理由は：</p>
+<ul class="simple">
+<li><p>コードを掲載する紙幅をそれほど割くことが出来ない。</p></li>
+<li><p>カプセル化には余分な労力がかかる。プログラムが大きくなり、さらなる概念やインターフェイスの導入に迫られる。厳密なインターフェイスによる分離に適したシステムの切り口もあれば、そうでないものもある。不適切なものをカプセル化することは、多くのエネルギーを浪費することになる。</p></li>
+<li><p>このゲームのさまざまな要素が密接に結合している。</p></li>
+</ul>
+<p>次の章で、このゲームを別の方法で描画する予定なので、描画システムだけはカプセル化する。</p>
+<ul class="simple">
+<li><p>描画をインターフェイスの背後に置くことで、同じゲームプログラムをそこにロードして、別の描画モジュールをプラグインすることができる。</p></li>
+</ul>
+</section>
+<section id="drawing">
+<h2><a class="toc-backref" href="#id10">Drawing</a><a class="headerlink" href="#drawing" title="Permalink to this headline">¶</a></h2>
+<p>描画オブジェクトを定義することで描画コードをカプセル化して、ステージと状態を表示する。この章で定義する表示タイプは DOM 要素を使ってステージを見せるので <code class="docutils literal notranslate"><span class="pre">DOMDisplay</span></code> という。</p>
+<p>スタイルシートを使って、ゲーム要素の実際の色やその他固定プロパティーを設定する。</p>
+<ul class="simple">
+<li><p>ゲーム要素を作成する際に、そのスタイルプロパティーを直接設定することもできるが、プログラムが冗長になる。</p></li>
+</ul>
+<p>次の補助関数 (p.280) は要素を作成して、属性と子ノードを与える簡単な手段となる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">elt</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">attrs</span><span class="p">,</span> <span class="p">...</span><span class="nx">children</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">dom</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">attr</span> <span class="k">of</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">attrs</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">dom</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="nx">attr</span><span class="p">,</span> <span class="nx">attrs</span><span class="p">[</span><span class="nx">attr</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">child</span> <span class="k">of</span> <span class="nx">children</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">dom</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">child</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">dom</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>クラス <code class="docutils literal notranslate"><span class="pre">DOMDisplay</span></code> (p. 280)</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">DOMDisplay</span></code> オブジェクトは、それを追加するべき親要素と <code class="docutils literal notranslate"><span class="pre">Level</span></code> オブジェクトを与えると作成される。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">clear</span></code> は DOM オブジェクトのメソッド <code class="docutils literal notranslate"><span class="pre">remove</span></code> を呼び出す。</p></li>
+<li><p>ステージの背景格子は変更されることがないので一度だけ描画する。</p></li>
+<li><p>出演者はその表示が与えられた状態に行進されるごとに再描画される。</p></li>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">actorLayer</span></code> は、出演者を保持する要素を追跡して、容易に取り外したり置き換えたりできるようにするために使う。</p></li>
+</ul>
+</li>
+</ul>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">drawGrid</span></code> (pp. 280-281) で背景の格子を描く。</p>
+<ul class="simple">
+<li><p>座標や寸法は格子のブロック単位で追跡する。ピクセル単位を設定するときには、この座標を拡大する必要がある。</p></li>
+<li><p>定数 <code class="docutils literal notranslate"><span class="pre">scale</span></code> は一ブロックが画面に占めるピクセル数を表す。</p></li>
+<li><p>背景は <code class="docutils literal notranslate"><span class="pre">&lt;table&gt;</span></code> 要素として描かれる。これは <code class="docutils literal notranslate"><span class="pre">Level</span></code> のプロパティー <code class="docutils literal notranslate"><span class="pre">rows</span></code> の構造とよく合っており、</p>
+<ul>
+<li><p>格子の各行が表の行要素 <code class="docutils literal notranslate"><span class="pre">&lt;tr&gt;</span></code> になる。</p></li>
+<li><p>格子内の文字列はセル要素 <code class="docutils literal notranslate"><span class="pre">&lt;td&gt;</span></code> のクラス名として用いる。</p></li>
+</ul>
+</li>
+<li><p>演算子 <code class="docutils literal notranslate"><span class="pre">...</span></code> は子ノードの配列を別の実引数として関数 <code class="docutils literal notranslate"><span class="pre">elt</span></code> に渡すためにある。</p></li>
+</ul>
+<p>表を我々が欲しいように見せる CSS コードが本書の p. 281 にある。スタイリングの説明があるが割愛。</p>
+<ul class="simple">
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">drawActor</span></code> (pp. 281-282)</p>
+<ul>
+<li><p>各出演者を描画するには、それ用の DOM 要素を作成してプロパティーを適宜設定する。</p></li>
+<li><p>途中のピクセル単位系を必要とする箇所では、先ほどの定数 <code class="docutils literal notranslate"><span class="pre">scale</span></code> を参照する。</p></li>
+</ul>
+</li>
+</ul>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">syncState</span></code> (p. 282) は特定の状態を表示させるために呼び出す。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">DOMDisplay</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">syncState</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">actorLayer</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="nx">actorLayer</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">actorLayer</span> <span class="o">=</span> <span class="nx">drawActors</span><span class="p">(</span><span class="nx">state</span><span class="p">.</span><span class="nx">actors</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">actorLayer</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="sb">`game </span><span class="si">${</span><span class="nx">state</span><span class="p">.</span><span class="nx">status</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">scrollPlayerIntoView</span><span class="p">(</span><span class="nx">state</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<ul>
+<li><p>最初に、古い出演者の絵があればそれを消去し、次に出演者を新しい位置に再描画する。</p></li>
+<li><p>ステージの現在の状態をクラス名としてラッパーに追加することで、ゲームに勝ったときと負けたときとでプレイヤーのスタイルを変えることができる。</p>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">lost</span> <span class="p">.</span><span class="nc">player</span> <span class="p">{</span>
+    <span class="k">background</span><span class="p">:</span> <span class="nb">rgb</span><span class="p">(</span><span class="mi">160</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">.</span><span class="nc">won</span> <span class="p">.</span><span class="nc">player</span> <span class="p">{</span>
+    <span class="k">box-shadow</span><span class="p">:</span> <span class="mi">-4</span><span class="kt">px</span> <span class="mi">-7</span><span class="kt">px</span> <span class="mi">8</span><span class="kt">px</span> <span class="kc">white</span><span class="p">,</span> <span class="mi">4</span><span class="kt">px</span> <span class="mi">-7</span><span class="kt">px</span> <span class="mi">8</span><span class="kt">px</span> <span class="kc">white</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>溶岩に接触するとプレイヤーの色が暗い赤に変わる。</p></li>
+<li><p>最後のコインを回収すると、左上と右上にぼかした白い影を付けて後光のように見せる。</p></li>
+</ul>
+</li>
+<li><p>ビューポートにステージが収まっているとは限らないので、メソッド <code class="docutils literal notranslate"><span class="pre">scrollPlayerIntoView</span></code> の呼び出しが必要となる。</p>
+<ul class="simple">
+<li><p>ステージがビューポートの外にはみ出している場合には、ビューポートをスクロールしてプレイヤーがビューポートの中心に来るように調整する。</p>
+<ul>
+<li><p>それを CSS の <code class="docutils literal notranslate"><span class="pre">.game</span></code> で実現している。特に <code class="docutils literal notranslate"><span class="pre">overflow:</span> <span class="pre">hidden</span></code> に注意。さらに <code class="docutils literal notranslate"><span class="pre">position:</span> <span class="pre">relative</span></code> も効いている。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">scrollPlayerIntoView</span></code> (pp. 283-284) ではプレイヤーの位置を見つけてラッピング要素のスクロール位置を更新する。位置の変更には、要素のプロパティー <code class="docutils literal notranslate"><span class="pre">scrollLeft</span></code> と <code class="docutils literal notranslate"><span class="pre">scrollTop</span></code> を変更する。</p>
+<ul class="simple">
+<li><p>出演者の中心を求めるには、その位置に寸法の半分を加算する。途中までステージ座標系で計算し、最後に <code class="docutils literal notranslate"><span class="pre">scale</span></code> を乗じてピクセル座標系に変換する。</p></li>
+<li><p>プレイヤーの位置が許容範囲の外側にいないかなどを検める。</p></li>
+<li><p>画面中央部にスクロールに関して中立な領域があると、多少の動作でスクロールしなくなって快適だ。</p></li>
+</ul>
+<p>これで小さなステージを表示することができるようになった。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;css/game.css&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">let</span> <span class="nx">simpleLevel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Level</span><span class="p">(</span><span class="nx">simpleLevelPlan</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">display</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DOMDisplay</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">,</span> <span class="nx">simpleLevel</span><span class="p">);</span>
+  <span class="nx">display</span><span class="p">.</span><span class="nx">syncState</span><span class="p">(</span><span class="nx">State</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="nx">simpleLevel</span><span class="p">));</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="motion-and-collision">
+<h2><a class="toc-backref" href="#id11">Motion and collision</a><a class="headerlink" href="#motion-and-collision" title="Permalink to this headline">¶</a></h2>
+<p>これでゲームに動きを加えられるところまでたどり着いた。この種のゲームのほどんとが採用する基本的なアプローチとは、時間を短時間の区間に分割して、その区間ごとに速度と時間の積だけ出演者を動かすというものだ。</p>
+<ul class="simple">
+<li><p>時間を秒単位で計測するので、速度は秒速で表される。</p></li>
+</ul>
+<p>物を動かすことは容易い。難しいのは物体間の相互作業を扱うことだ。</p>
+<ul class="simple">
+<li><p>プレイヤーが壁や床に当たるときには、それを通り抜けてはいけない。プレイヤーを止める必要がある。</p></li>
+<li><p>コインに当たった場合は、それを回収しなければならない。</p></li>
+<li><p>溶岩に当たったらミスにしないといけない。</p></li>
+</ul>
+<p>物理エンジンなどは使えないから、この章では矩形の物体間の衝突しか扱わない。かなり単純な方法で処理する。</p>
+<p>プレイヤーや溶岩の塊を動かす前に、その動きが壁の内側に入るかどうかをテストする。入る場合には、その動きを単に取り消す。このような衝突への対応は出演者によって異なる。</p>
+<ul class="simple">
+<li><p>プレイヤーは停止する。</p></li>
+<li><p>溶岩の塊は跳ね返る。</p></li>
+<li><p>この方法だと、物体が実際に接触する前に運動停止してしまうので、時間区間を相当小さくすることが求められる。</p></li>
+<li><p>もう一つの方法は、より良いものだがより複雑だ。正確な接触点を見つけてそこに動かすことだ。</p></li>
+</ul>
+<p>ここでは単純な方法を採用する。アニメーションが小ステップで進むようにすることで、この問題を隠す。</p>
+<p>ある矩形が指定する種類の格子要素に接触するかどうかを判定するメソッド (p．286) だ。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">Level</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">touches</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">pos</span><span class="p">,</span> <span class="nx">size</span><span class="p">,</span> <span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">xStart</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">pos</span><span class="p">.</span><span class="nx">x</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">xEnd</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">ceil</span><span class="p">(</span><span class="nx">pos</span><span class="p">.</span><span class="nx">x</span> <span class="o">+</span> <span class="nx">size</span><span class="p">.</span><span class="nx">x</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">yStart</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">pos</span><span class="p">.</span><span class="nx">y</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">yEnd</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">ceil</span><span class="p">(</span><span class="nx">pos</span><span class="p">.</span><span class="nx">y</span> <span class="o">+</span> <span class="nx">size</span><span class="p">.</span><span class="nx">y</span><span class="p">);</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">y</span> <span class="o">=</span> <span class="nx">yStart</span><span class="p">;</span> <span class="nx">y</span> <span class="o">&lt;</span> <span class="nx">yEnd</span><span class="p">;</span> <span class="nx">y</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">xStart</span><span class="p">;</span> <span class="nx">x</span> <span class="o">&lt;</span> <span class="nx">xEnd</span><span class="p">;</span> <span class="nx">x</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">let</span> <span class="nx">isOutside</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">&lt;</span> <span class="mf">0</span> <span class="o">||</span> <span class="nx">x</span> <span class="o">&gt;=</span> <span class="k">this</span><span class="p">.</span><span class="nx">width</span> <span class="o">||</span>
+                            <span class="nx">y</span> <span class="o">&lt;</span> <span class="mf">0</span> <span class="o">||</span> <span class="nx">y</span> <span class="o">&gt;=</span> <span class="k">this</span><span class="p">.</span><span class="nx">height</span><span class="p">;</span>
+            <span class="kd">let</span> <span class="nx">here</span> <span class="o">=</span> <span class="nx">isOutside</span> <span class="o">?</span> <span class="s2">&quot;wall&quot;</span> <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">rows</span><span class="p">[</span><span class="nx">y</span><span class="p">][</span><span class="nx">x</span><span class="p">];</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">here</span> <span class="o">==</span> <span class="nx">type</span><span class="p">)</span> <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>引数の <code class="docutils literal notranslate"><span class="pre">pos</span></code> と <code class="docutils literal notranslate"><span class="pre">size</span></code> がテストしたい物体の矩形を指定する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Math.floor</span></code> や <code class="docutils literal notranslate"><span class="pre">Math.ceil</span></code> も使って、物体が重なる格子の集合を計算する。</p></li>
+<li><p>一致する格子があれば <code class="docutils literal notranslate"><span class="pre">true</span></code> を返す。</p></li>
+</ul>
+<hr class="docutils" />
+<p>クラス <code class="docutils literal notranslate"><span class="pre">State</span></code> のメソッド <code class="docutils literal notranslate"><span class="pre">update</span></code> (pp. 286-287) ではクラス <code class="docutils literal notranslate"><span class="pre">Level</span></code> のメソッド <code class="docutils literal notranslate"><span class="pre">touches</span></code> を用いてプレイヤーが溶岩に接触しているかどうかを理解する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">State</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">update</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">time</span><span class="p">,</span> <span class="nx">keys</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">actors</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">actors</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">actor</span> <span class="p">=&gt;</span> <span class="nx">actor</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">time</span><span class="p">,</span> <span class="k">this</span><span class="p">,</span> <span class="nx">keys</span><span class="p">));</span>
+    <span class="kd">let</span> <span class="nx">newState</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">State</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">level</span><span class="p">,</span> <span class="nx">actors</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">status</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">newState</span><span class="p">.</span><span class="nx">status</span> <span class="o">!=</span> <span class="s2">&quot;playing&quot;</span><span class="p">)</span> <span class="k">return</span> <span class="nx">newState</span><span class="p">;</span>
+
+    <span class="kd">let</span> <span class="nx">player</span> <span class="o">=</span> <span class="nx">newState</span><span class="p">.</span><span class="nx">player</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">level</span><span class="p">.</span><span class="nx">touches</span><span class="p">(</span><span class="nx">player</span><span class="p">.</span><span class="nx">pos</span><span class="p">,</span> <span class="nx">player</span><span class="p">.</span><span class="nx">size</span><span class="p">,</span> <span class="s2">&quot;lava&quot;</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">State</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">level</span><span class="p">,</span> <span class="nx">actors</span><span class="p">,</span> <span class="s2">&quot;lost&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">actor</span> <span class="k">of</span> <span class="nx">actors</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">actor</span> <span class="o">!=</span> <span class="nx">player</span> <span class="o">&amp;&amp;</span> <span class="nx">overlap</span><span class="p">(</span><span class="nx">actor</span><span class="p">,</span> <span class="nx">player</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nx">newState</span> <span class="o">=</span> <span class="nx">actor</span><span class="p">.</span><span class="nx">collide</span><span class="p">(</span><span class="nx">newState</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">newState</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>引数は時間ステップと、押されているキーが何であるかを表すデータだ。</p></li>
+<li><p>最初に出演者すべてに対してメソッド <code class="docutils literal notranslate"><span class="pre">update</span></code> を呼び出す。更新された出演者の配列を得る。</p>
+<ul>
+<li><p>出演者は時間ステップ、キー、状態をも得る。それに基づいて更新することができるようになる。</p></li>
+<li><p>実際にはプレイヤーしかキーを読み取らない。キーボードで制御されるただ一つの出演者だ。</p></li>
+</ul>
+</li>
+<li><p>ゲームがすでに終了しているならば、それ以上の処理は必要ない。</p></li>
+<li><p>ゲームが途中ならば、プレイヤーが背景の溶岩に触れているかどうかをテストする。</p>
+<ul>
+<li><p>触れているならば負けでゲーム終了とする。</p></li>
+<li><p>他の出演者がプレイヤーに重なっているかをテストする。</p></li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<p>出演者同士の重なり合いを関数 <code class="docutils literal notranslate"><span class="pre">overlap</span></code> (p. 287) で検出する。二つの出演者オブジェクトを引数にとり、それらが接触し合っていると <code class="docutils literal notranslate"><span class="pre">true</span></code> を返す。各座標軸同士で重なっている場合がそうだ。</p>
+<ul class="simple">
+<li><p>素朴な boundary box 同士の比較なので引用省略。</p></li>
+</ul>
+<hr class="docutils" />
+<p>いずれかの出演者が重なり合うときは、その出演者のメソッド <code class="docutils literal notranslate"><span class="pre">collide</span></code> (p. 288) で状態を更新する機会だ。</p>
+<ul class="simple">
+<li><p>溶岩出演者にふれるとゲーム状態は <code class="docutils literal notranslate"><span class="pre">&quot;lost&quot;</span></code> になる。</p></li>
+<li><p>コインは触れると消滅する。ステージ中の最後のコインのときには状態が <code class="docutils literal notranslate"><span class="pre">&quot;won&quot;</span></code> になる。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">Lava</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">collide</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">State</span><span class="p">(</span><span class="nx">state</span><span class="p">.</span><span class="nx">level</span><span class="p">,</span> <span class="nx">state</span><span class="p">.</span><span class="nx">actors</span><span class="p">,</span> <span class="s2">&quot;lost&quot;</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">Coin</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">collide</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">filtered</span> <span class="o">=</span> <span class="nx">state</span><span class="p">.</span><span class="nx">actors</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">a</span> <span class="p">=&gt;</span> <span class="nx">a</span> <span class="o">!=</span> <span class="k">this</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">status</span> <span class="o">=</span> <span class="nx">state</span><span class="p">.</span><span class="nx">status</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">filtered</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="nx">a</span> <span class="p">=&gt;</span> <span class="nx">a</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;coin&quot;</span><span class="p">))</span> <span class="nx">status</span> <span class="o">=</span> <span class="s2">&quot;won&quot;</span><span class="p">;</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">State</span><span class="p">(</span><span class="nx">state</span><span class="p">.</span><span class="nx">level</span><span class="p">,</span> <span class="nx">filtered</span><span class="p">,</span> <span class="nx">status</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="actor-updates">
+<h2><a class="toc-backref" href="#id12">Actor updates</a><a class="headerlink" href="#actor-updates" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Actor</span></code> オブジェクトのメソッド <code class="docutils literal notranslate"><span class="pre">update</span></code> 各種は引数として時間ステップ、状態、キー情報を取る。これらの変数名を <code class="docutils literal notranslate"><span class="pre">time</span></code>, <code class="docutils literal notranslate"><span class="pre">state</span></code>, <code class="docutils literal notranslate"><span class="pre">keys</span></code> とする。</p>
+<hr class="docutils" />
+<p><code class="docutils literal notranslate"><span class="pre">Lava</span></code> では <code class="docutils literal notranslate"><span class="pre">keys</span></code> を無視する。引数リストにも書かない。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">Lava</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">update</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">time</span><span class="p">,</span> <span class="nx">state</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">newPos</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">pos</span><span class="p">.</span><span class="nx">plus</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">speed</span><span class="p">.</span><span class="nx">times</span><span class="p">(</span><span class="nx">time</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">state</span><span class="p">.</span><span class="nx">level</span><span class="p">.</span><span class="nx">touches</span><span class="p">(</span><span class="nx">newPos</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">size</span><span class="p">,</span> <span class="s2">&quot;wall&quot;</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">Lava</span><span class="p">(</span><span class="nx">newPos</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">speed</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">reset</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">reset</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">Lava</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">reset</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">speed</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">reset</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">Lava</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">pos</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">speed</span><span class="p">.</span><span class="nx">times</span><span class="p">(</span><span class="o">-</span><span class="mf">1</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>移動距離を計算し、古い位置にそれを加えて新しい位置を計算する。</p>
+<ul>
+<li><p>その新しい位置に障害がなければそこに移動する。</p></li>
+<li><p>障害がある場合、溶岩塊の種類によって動作が異なる。</p>
+<ul>
+<li><p>滴り落ちるタイプのものは <code class="docutils literal notranslate"><span class="pre">reset</span></code> 位置がある。そこに戻る。</p></li>
+<li><p>跳ねるタイプのものは逆方向に動き出すように速度を反転する。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<p>コインはメソッド <code class="docutils literal notranslate"><span class="pre">update</span></code> (p. 289) を使うことでフラフラと揺らす。コインについては格子との衝突はない。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">wobbleSpeed</span> <span class="o">=</span> <span class="mf">8</span><span class="p">,</span> <span class="nx">wobbleDist</span> <span class="o">=</span> <span class="mf">0.07</span><span class="p">;</span>
+
+<span class="nx">Coin</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">update</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">time</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">wobble</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">wobble</span> <span class="o">+</span> <span class="nx">time</span> <span class="o">*</span> <span class="nx">wobbleSpeed</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">wobblePos</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sin</span><span class="p">(</span><span class="nx">wobble</span><span class="p">)</span> <span class="o">*</span> <span class="nx">wobbleDist</span><span class="p">;</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">Coin</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">basePos</span><span class="p">.</span><span class="nx">plus</span><span class="p">(</span><span class="k">new</span> <span class="nx">Vec</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="nx">wobblePos</span><span class="p">)),</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">basePos</span><span class="p">,</span> <span class="nx">wobble</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">wobble</span></code> は時間を追跡するためにインクリメントされ、正弦関数の引数として用いる。</p></li>
+<li><p>コインの現在位置はコイン原点と波に基づく変位から計算する。</p></li>
+</ul>
+<hr class="docutils" />
+<p><code class="docutils literal notranslate"><span class="pre">Player</span></code> の動きは座標軸ごと個別に処理する。というのは、床に当たるときには水平方向の動きは変わらないし、壁に当たるときには落下やジャンプの動きは変わらないからだ。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">playerXSpeed</span> <span class="o">=</span> <span class="mf">7</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">gravity</span> <span class="o">=</span> <span class="mf">30</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">jumpSpeed</span> <span class="o">=</span> <span class="mf">17</span><span class="p">;</span>
+
+<span class="nx">Player</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">update</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">time</span><span class="p">,</span> <span class="nx">state</span><span class="p">,</span> <span class="nx">keys</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">xSpeed</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">keys</span><span class="p">.</span><span class="nx">ArrowLeft</span><span class="p">)</span> <span class="nx">xSpeed</span> <span class="o">-=</span> <span class="nx">playerXSpeed</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">keys</span><span class="p">.</span><span class="nx">ArrowRight</span><span class="p">)</span> <span class="nx">xSpeed</span> <span class="o">+=</span> <span class="nx">playerXSpeed</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">pos</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">pos</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">movedX</span> <span class="o">=</span> <span class="nx">pos</span><span class="p">.</span><span class="nx">plus</span><span class="p">(</span><span class="k">new</span> <span class="nx">Vec</span><span class="p">(</span><span class="nx">xSpeed</span> <span class="o">*</span> <span class="nx">time</span><span class="p">,</span> <span class="mf">0</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">state</span><span class="p">.</span><span class="nx">level</span><span class="p">.</span><span class="nx">touches</span><span class="p">(</span><span class="nx">movedX</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">size</span><span class="p">,</span> <span class="s2">&quot;wall&quot;</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">pos</span> <span class="o">=</span> <span class="nx">movedX</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kd">let</span> <span class="nx">ySpeed</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">speed</span><span class="p">.</span><span class="nx">y</span> <span class="o">+</span> <span class="nx">time</span> <span class="o">*</span> <span class="nx">gravity</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">movedY</span> <span class="o">=</span> <span class="nx">pos</span><span class="p">.</span><span class="nx">plus</span><span class="p">(</span><span class="k">new</span> <span class="nx">Vec</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="nx">ySpeed</span> <span class="o">*</span> <span class="nx">time</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">state</span><span class="p">.</span><span class="nx">level</span><span class="p">.</span><span class="nx">touches</span><span class="p">(</span><span class="nx">movedY</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">size</span><span class="p">,</span> <span class="s2">&quot;wall&quot;</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nx">pos</span> <span class="o">=</span> <span class="nx">movedY</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">keys</span><span class="p">.</span><span class="nx">ArrowUp</span> <span class="o">&amp;&amp;</span> <span class="nx">ySpeed</span> <span class="o">&gt;</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">ySpeed</span> <span class="o">=</span> <span class="o">-</span><span class="nx">jumpSpeed</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">ySpeed</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">Player</span><span class="p">(</span><span class="nx">pos</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Vec</span><span class="p">(</span><span class="nx">xSpeed</span><span class="p">,</span> <span class="nx">ySpeed</span><span class="p">));</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>水平方向の運動は左右矢印キーの状態から計算する。</p>
+<ul>
+<li><p>この動作が作る新しい位置をさえぎる壁がなければ、それを採用する。</p></li>
+<li><p>そうでなければ、古い位置を維持する。</p></li>
+</ul>
+</li>
+<li><p>垂直方法の運動はさらにジャンプと重力を再現する必要がある。</p>
+<ul>
+<li><p>垂直方法の速度 <code class="docutils literal notranslate"><span class="pre">ySpeed</span></code> は重力を考慮して加速する。</p></li>
+<li><p>床や天井があるかチェックする。何にも当たっていなければ新しい位置を採用する。そうでなければ上下方向で場合分けする。</p>
+<ul>
+<li><p>上矢印キーを押された状態でプレイヤーが落ちているときには、速度に比較的大きな負の値をセットする。こうするとプレイヤーはジャンプすることになる。</p></li>
+<li><p>そうでない場合には単に何かにぶつかったということなので、スピードをゼロにする。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>ゲーム中に現れる重力、ジャンプの初速、その他の定数ほとんどは試行錯誤により設定した。著者が納得する組み合わせを発見するまで試したとある。</p>
+</section>
+<section id="tracking-keys">
+<h2><a class="toc-backref" href="#id13">Tracking keys</a><a class="headerlink" href="#tracking-keys" title="Permalink to this headline">¶</a></h2>
+<p>キーを押している間はずっとその効果（プレイヤーの移動）が持続するようにしたい。</p>
+<p>矢印キー各種の現在の状態をとっておくキーハンドラーを仕掛ける必要がある。また、これらのキーに対してメソッド <code class="docutils literal notranslate"><span class="pre">preventDefault</span></code> を呼び出すことでブラウザー既定の動作であるページのスクロールを抑止する。</p>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">trackKeys</span></code> (pp. 290-291) はキーの名前の配列から、それらのキーの現在位置を追跡するオブジェクトを返す。</p>
+<ul class="simple">
+<li><p>イベント <code class="docutils literal notranslate"><span class="pre">keydown</span></code> と <code class="docutils literal notranslate"><span class="pre">keyup</span></code> に対するイベントハンドラーを登録し、</p></li>
+<li><p>イベントが含むキーコードが追跡中のコードの集合にあれば、オブジェクトを更新する。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">trackKeys</span><span class="p">(</span><span class="nx">keys</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">down</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+    <span class="kd">function</span> <span class="nx">track</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">if</span> <span class="p">(</span><span class="nx">keys</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">key</span><span class="p">))</span> <span class="p">{</span>
+           <span class="nx">down</span><span class="p">[</span><span class="nx">event</span><span class="p">.</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;keydown&quot;</span><span class="p">;</span>
+           <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+       <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;keydown&quot;</span><span class="p">,</span> <span class="nx">track</span><span class="p">);</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;keyup&quot;</span><span class="p">,</span> <span class="nx">track</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">down</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kd">const</span> <span class="nx">arrowKeys</span> <span class="o">=</span> <span class="nx">trackKeys</span><span class="p">([</span><span class="s2">&quot;ArrowLeft&quot;</span><span class="p">,</span> <span class="s2">&quot;ArrowRight&quot;</span><span class="p">,</span> <span class="s2">&quot;ArrowUp&quot;</span><span class="p">]);</span>
+</pre></div>
+</div>
+</section>
+<section id="running-the-game">
+<h2><a class="toc-backref" href="#id14">Running the game</a><a class="headerlink" href="#running-the-game" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>第 14 章の関数 <code class="docutils literal notranslate"><span class="pre">requestAnimationFrame</span></code> がゲームのアニメーションに適した方法を与える。しかし、インターフェイスがまったく原始的だ。この関数を使用するには、前回の関数を呼び出した時刻を追跡し、フレーム（コマ）ごとに関数 <code class="docutils literal notranslate"><span class="pre">requestAnimationFrame</span></code> を呼び出す必要がある。</p></li>
+<li><p>そこで、これらの退屈な箇所を便利なインターフェイスにラップする補助関数
+<code class="docutils literal notranslate"><span class="pre">runAnimation</span></code> (p. 291) を定義する。これを単に呼び出すだけで済むようになる。</p>
+<ul>
+<li><p>引数として、時間差を引数にとり、ワンフレームを描画する関数 <code class="docutils literal notranslate"><span class="pre">frameFunc</span></code> を与える。</p></li>
+<li><p>その関数 <code class="docutils literal notranslate"><span class="pre">frameFunc</span></code> が <code class="docutils literal notranslate"><span class="pre">false</span></code> を返すときには、アニメーションは停止する。</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">runAnimation</span><span class="p">(</span><span class="nx">frameFunc</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">lastTime</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="kd">function</span> <span class="nx">frame</span><span class="p">(</span><span class="nx">time</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">lastTime</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">let</span> <span class="nx">timeStep</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="nx">time</span> <span class="o">-</span> <span class="nx">lastTime</span><span class="p">,</span> <span class="mf">100</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1000</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">frameFunc</span><span class="p">(</span><span class="nx">timeStep</span><span class="p">)</span> <span class="o">===</span> <span class="kc">false</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nx">lastTime</span> <span class="o">=</span> <span class="nx">time</span><span class="p">;</span>
+        <span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">frame</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">frame</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>最大フレームステップは 0.1 秒 に設定した。</p></li>
+<li><p>ページが表示されているブラウザーのタブなりウィンドウなりが隠されると、関数 <code class="docutils literal notranslate"><span class="pre">requestAnimationFrame</span></code> の呼び出しはそれが再度表示されるまで中断される。この場合 <code class="docutils literal notranslate"><span class="pre">lastTime</span></code> と <code class="docutils literal notranslate"><span class="pre">time</span></code> の差は、ページが隠れていた時間丸ごとになる。一気にゲームを進行すると、プレイヤーが床から落ちるなどのおかしな副作用が起こるかもしれない。</p></li>
+<li><p>この関数は時間を秒に変換してわかりやすくしてある。</p></li>
+</ul>
+<hr class="docutils" />
+<p>関数 <code class="docutils literal notranslate"><span class="pre">runLevel</span></code> (p. 292) は <code class="docutils literal notranslate"><span class="pre">Level</span></code> オブジェクトと表示コンストラクターを引数とし、
+<code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返す。</p>
+<ul class="simple">
+<li><p>ステージを <code class="docutils literal notranslate"><span class="pre">document.body</span></code> 内に表示してユーザーにプレイさせる。</p></li>
+<li><p>ステージが終了すると、さらに 1 秒待機する。それから表示を消去し、アニメーションを停止し、ゲームの終了状態に対する <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を解決する。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">runLevel</span><span class="p">(</span><span class="nx">level</span><span class="p">,</span> <span class="nx">Display</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">display</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Display</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">,</span> <span class="nx">level</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">state</span> <span class="o">=</span> <span class="nx">State</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="nx">level</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">ending</span> <span class="o">=</span> <span class="mf">1</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="nx">runAnimation</span><span class="p">(</span><span class="nx">time</span> <span class="p">=&gt;</span> <span class="p">{</span>
+            <span class="nx">state</span> <span class="o">=</span> <span class="nx">state</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">time</span><span class="p">,</span> <span class="nx">arrowKeys</span><span class="p">);</span>
+            <span class="nx">display</span><span class="p">.</span><span class="nx">syncState</span><span class="p">(</span><span class="nx">state</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">state</span><span class="p">.</span><span class="nx">status</span> <span class="o">==</span> <span class="s2">&quot;playing&quot;</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">ending</span> <span class="o">&gt;</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">ending</span> <span class="o">-=</span> <span class="nx">time</span><span class="p">;</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="nx">display</span><span class="p">.</span><span class="nx">clear</span><span class="p">();</span>
+                <span class="nx">resolve</span><span class="p">(</span><span class="nx">state</span><span class="p">.</span><span class="nx">status</span><span class="p">);</span>
+                <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>ゲームは一連のステージからなる。</p>
+<ul class="simple">
+<li><p>プレイヤーが死ぬたびに現在のステージがやり直しとなる。</p></li>
+<li><p>ステージクリアすると、次のステージに進む。</p></li>
+</ul>
+<p>これを次の非同期関数 <code class="docutils literal notranslate"><span class="pre">runGame</span></code> (pp. 292-293) で実現する。ステージ設計（文字列）の配列と表示コンストラクターを引数にとる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="kd">function</span> <span class="nx">runGame</span><span class="p">(</span><span class="nx">plans</span><span class="p">,</span> <span class="nx">Display</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">level</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">level</span> <span class="o">&lt;</span> <span class="nx">plans</span><span class="p">.</span><span class="nx">length</span><span class="p">;)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">status</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">runLevel</span><span class="p">(</span><span class="k">new</span> <span class="nx">Level</span><span class="p">(</span><span class="nx">plans</span><span class="p">[</span><span class="nx">level</span><span class="p">]),</span> <span class="nx">Display</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">status</span> <span class="o">==</span> <span class="s2">&quot;won&quot;</span><span class="p">)</span> <span class="nx">level</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;You&#39;ve won!&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">runLevel</span></code> は <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返すので、それを呼び出す当関数は非同期関数として書く。プレイヤーがゲームを終了したときに解決される別の <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返す。</p>
+<hr class="docutils" />
+<p><a class="reference external" href="https://eloquentjavascript.net/code#16">本書のサンドボックス</a> に変数
+<code class="docutils literal notranslate"><span class="pre">GAME_LEVELS</span></code> で利用可能なステージ設計の集合がある。このページではそれらを関数 <code class="docutils literal notranslate"><span class="pre">runGame</span></code> に与えて実際にゲームを開始する。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;css/game.css&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="nx">runGame</span><span class="p">(</span><span class="nx">GAME_LEVELS</span><span class="p">,</span> <span class="nx">DOMDisplay</span><span class="p">);</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="exercises">
+<h2><a class="toc-backref" href="#id15">Exercises</a><a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<section id="game-over">
+<h3><a class="toc-backref" href="#id16">Game over</a><a class="headerlink" href="#game-over" title="Permalink to this headline">¶</a></h3>
+<p>この手のゲームにはプレイヤーは限られたライフでスタートし、死ぬたびにライフが一つ減るという伝統がある。ライフがなくなると、ゲームは最初から再開となる。</p>
+<p><strong>問題</strong> <code class="docutils literal notranslate"><span class="pre">runGame</span></code> を調整してライフを実装しろ。プレイヤーには三つのライフから開始させろ。ステージが開始するたびに現在のライフ数を <code class="docutils literal notranslate"><span class="pre">console.log</span></code> を使って出力しろ。</p>
+<p><strong>解答</strong> 残機がゼロになると最初のステージからやり直しという意味で実装する：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span>  <span class="kd">const</span> <span class="nx">lifeMax</span> <span class="o">=</span> <span class="mf">3</span><span class="p">;</span>
+
+  <span class="k">async</span> <span class="kd">function</span> <span class="nx">runGame</span><span class="p">(</span><span class="nx">plans</span><span class="p">,</span> <span class="nx">Display</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">lives</span> <span class="o">=</span> <span class="nx">lifeMax</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">level</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">level</span> <span class="o">&lt;</span> <span class="nx">plans</span><span class="p">.</span><span class="nx">length</span><span class="p">;)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`1P START. LIFE: </span><span class="si">${</span><span class="nx">lives</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+        <span class="kd">const</span> <span class="nx">status</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">runLevel</span><span class="p">(</span><span class="k">new</span> <span class="nx">Level</span><span class="p">(</span><span class="nx">plans</span><span class="p">[</span><span class="nx">level</span><span class="p">]),</span> <span class="nx">Display</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">status</span> <span class="o">==</span> <span class="s2">&quot;won&quot;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">level</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">status</span> <span class="o">==</span> <span class="s2">&quot;lost&quot;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">lives</span><span class="o">--</span><span class="p">;</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;1P FAILED.&quot;</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">lives</span> <span class="o">==</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;1P GAME OVER. RESTART.&quot;</span><span class="p">);</span>
+                <span class="nx">level</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span>
+                <span class="nx">lives</span> <span class="o">=</span> <span class="nx">lifeMax</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;You&#39;ve won!&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="pausing-the-game">
+<h3><a class="toc-backref" href="#id17">Pausing the game</a><a class="headerlink" href="#pausing-the-game" title="Permalink to this headline">¶</a></h3>
+<p><strong>問題</strong> <kbd class="kbd docutils literal notranslate">Esc</kbd> キーを押すことでゲームを一時停止したり、解除したりできるようにしろ。これは関数 <code class="docutils literal notranslate"><span class="pre">runLevel</span></code> を別のキーボードイベントハンドラーを使用するように変更し、
+<kbd class="kbd docutils literal notranslate">Esc</kbd> キーが押されるたびにアニメーションを中断または再開することで実現できる。</p>
+<p><code class="docutils literal notranslate"><span class="pre">runAnimation</span></code> インターフェースは一見するとこのような機能に適していないように見えるが、
+<code class="docutils literal notranslate"><span class="pre">runLevel</span></code> の呼び出し方を変更すればいける。</p>
+<p>この機能が動作したら、他にも試せることがある。これまでのキーボードイベントハンドラーの登録方法には少々問題がある。オブジェクト <code class="docutils literal notranslate"><span class="pre">arrowKeys</span></code> は現在グローバル変数であり、そのイベントハンドラーはゲームが実行されていなくても維持されている。これはシステムから漏れているとも言える。
+<code class="docutils literal notranslate"><span class="pre">trackKeys</span></code> を拡張してハンドラーの登録を解除する方法を用意し、
+<code class="docutils literal notranslate"><span class="pre">runLevel</span></code> を変更して、開始時にハンドラーを登録し、終了時に再び登録を解除するようにしろ。</p>
+<p><strong>解答</strong> まず <kbd class="kbd docutils literal notranslate">Esc</kbd> のハンドラーとフラグをいったんグローバルスコープに定義する：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">paused</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+
+<span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;keyup&quot;</span><span class="p">,</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">key</span> <span class="o">!=</span> <span class="s2">&quot;Escape&quot;</span><span class="p">){</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">paused</span> <span class="o">=</span> <span class="o">!</span><span class="nx">paused</span><span class="p">;</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">runAnimation</span></code> の呼び出しにおいて、実引数のコールバックの最初を次のように変える：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">state</span> <span class="o">=</span> <span class="nx">state</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">time</span><span class="p">,</span> <span class="nx">arrowKeys</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">paused</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">runAnimationFrame</span></code> では二箇所を修正する。コールバックが <code class="docutils literal notranslate"><span class="pre">false</span></code> を返すときにポーズがかかったのならば <code class="docutils literal notranslate"><span class="pre">requestAnimationFrame</span></code> に対するコールバックを専用のものに差し替える：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">frameFunc</span><span class="p">(</span><span class="nx">timeStep</span><span class="p">)</span> <span class="o">===</span> <span class="kc">false</span><span class="p">){</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">paused</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">lastTime</span> <span class="o">=</span> <span class="nx">time</span><span class="p">;</span>
+        <span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">suspend</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>ポーズ専用コールバックの中身は次のようなものだ：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">suspend</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">paused</span> <span class="o">?</span> <span class="nx">suspend</span> <span class="o">:</span> <span class="nx">frame</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>後半はまず <code class="docutils literal notranslate"><span class="pre">trackKeys</span></code> の終了間際をこうする：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">untrack</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s2">&quot;keydown&quot;</span><span class="p">,</span> <span class="nx">track</span><span class="p">);</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s2">&quot;keyup&quot;</span><span class="p">,</span> <span class="nx">track</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="k">return</span> <span class="p">[</span><span class="nx">down</span><span class="p">,</span> <span class="nx">untrack</span><span class="p">];</span>
+</pre></div>
+</div>
+<p>それから <code class="docutils literal notranslate"><span class="pre">arrowKeys</span></code> の初期化を <code class="docutils literal notranslate"><span class="pre">runLevel</span></code> の序盤に移転する：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="p">[</span><span class="nx">arrowKeys</span><span class="p">,</span> <span class="nx">untrack</span><span class="p">]</span> <span class="o">=</span> <span class="nx">trackKeys</span><span class="p">([</span><span class="s2">&quot;ArrowLeft&quot;</span><span class="p">,</span> <span class="s2">&quot;ArrowRight&quot;</span><span class="p">,</span> <span class="s2">&quot;ArrowUp&quot;</span><span class="p">]);</span>
+</pre></div>
+</div>
+<p>最後に <code class="docutils literal notranslate"><span class="pre">Promise</span></code> のコールバックの最後の <code class="docutils literal notranslate"><span class="pre">else</span></code> ブロックに
+<code class="docutils literal notranslate"><span class="pre">untrack();</span></code> の呼び出しを追加すればいいだろう。</p>
+</section>
+<section id="a-monster">
+<h3><a class="toc-backref" href="#id18">A monster</a><a class="headerlink" href="#a-monster" title="Permalink to this headline">¶</a></h3>
+<p>この手のゲームではジャンプして倒すことができる敵がいるという伝統がある。</p>
+<p><strong>問題</strong> そのような出演者タイプをゲームに追加しろ。</p>
+<p>これをモンスターと呼ぶ。モンスターは水平方向にしか動かない。プレイヤーの方向に移動したり、水平方向の溶岩のように跳ね返ったり、好きな動きのパターンをさせることができる。このクラスは落下の処理をする必要はないが、モンスターが壁を通らないようにする必要がある。</p>
+<p>モンスターがプレイヤーに触れるときの効果は、プレイヤーがモンスターの上に飛び乗っているかどうかによる。プレイヤーの下半身がモンスターの上半身の近くにあるかどうかをチェックすることでおおよその効果を得られる。乗っていればモンスターは消え、そうでなければプレイヤーのミスとする。</p>
+<p><strong>解答</strong> TBW</p>
+<div class="admonition-todo admonition" id="id2">
+<p class="admonition-title">Todo</p>
+<p>時間ができたらやる。</p>
+</div>
+<p>以上</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter17.html" title="Drawing on Canvas"
+             >next</a></li>
+        <li class="right" >
+          <a href="chapter15.html" title="Handling Events"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Eloquent JavaScript 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Project: A Platform Game</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

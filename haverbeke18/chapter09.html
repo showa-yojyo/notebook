@@ -1,0 +1,585 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Regular Expressions &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
+    
+    <script src="../_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="Modules" href="chapter10.html" />
+    <link rel="prev" title="Bugs and Errors" href="chapter08.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter10.html" title="Modules"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="chapter08.html" title="Bugs and Errors"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Eloquent JavaScript 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Regular Expressions</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="regular-expressions">
+<h1><a class="toc-backref" href="#id1">Regular Expressions</a><a class="headerlink" href="#regular-expressions" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://eloquentjavascript.net/">Eloquent JavaScript</a> Chapter 9 の読書ノート。</p>
+<p>JavaScript における正規表現について述べた章だ。正規表現については JavaScript とは別に集中的に学ぶほうが学習効率が良いだろう。</p>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#regular-expressions" id="id1">Regular Expressions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#creating-a-regular-expression" id="id2">Creating a regular expression</a></p></li>
+<li><p><a class="reference internal" href="#testing-for-matches" id="id3">Testing for matches</a></p></li>
+<li><p><a class="reference internal" href="#sets-of-characters" id="id4">Sets of characters</a></p></li>
+<li><p><a class="reference internal" href="#repeating-parts-of-a-pattern" id="id5">Repeating parts of a pattern</a></p></li>
+<li><p><a class="reference internal" href="#grouping-subexpressions" id="id6">Grouping subexpressions</a></p></li>
+<li><p><a class="reference internal" href="#matches-and-groups" id="id7">Matches and groups</a></p></li>
+<li><p><a class="reference internal" href="#the-date-class" id="id8">The <code class="docutils literal notranslate"><span class="pre">Date</span></code> class</a></p></li>
+<li><p><a class="reference internal" href="#word-and-string-boundaries" id="id9">Word and string boundaries</a></p></li>
+<li><p><a class="reference internal" href="#choice-patterns" id="id10">Choice patterns</a></p></li>
+<li><p><a class="reference internal" href="#the-mechanics-of-matching" id="id11">The mechanics of matching</a></p></li>
+<li><p><a class="reference internal" href="#backtracking" id="id12">Backtracking</a></p></li>
+<li><p><a class="reference internal" href="#the-replace-method" id="id13">The <code class="docutils literal notranslate"><span class="pre">replace</span></code> method</a></p></li>
+<li><p><a class="reference internal" href="#greed" id="id14">Greed</a></p></li>
+<li><p><a class="reference internal" href="#dynamically-creating-regexp-objects" id="id15">Dynamically creating <code class="docutils literal notranslate"><span class="pre">RegExp</span></code> objects</a></p></li>
+<li><p><a class="reference internal" href="#the-search-method" id="id16">The <code class="docutils literal notranslate"><span class="pre">search</span></code> method</a></p></li>
+<li><p><a class="reference internal" href="#the-lastindex-property" id="id17">The <code class="docutils literal notranslate"><span class="pre">lastIndex</span></code> property</a></p></li>
+<li><p><a class="reference internal" href="#looping-over-matches" id="id18">Looping over matches</a></p></li>
+<li><p><a class="reference internal" href="#parsing-an-ini-file" id="id19">Parsing an INI file</a></p></li>
+<li><p><a class="reference internal" href="#international-characters" id="id20">International characters</a></p></li>
+<li><p><a class="reference internal" href="#summary" id="id21">Summary</a></p></li>
+<li><p><a class="reference internal" href="#exercises" id="id22">Exercises</a></p>
+<ul>
+<li><p><a class="reference internal" href="#regexp-golf" id="id23">Regexp golf</a></p></li>
+<li><p><a class="reference internal" href="#quoting-style" id="id24">Quoting style</a></p></li>
+<li><p><a class="reference internal" href="#numbers-again" id="id25">Numbers again</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="creating-a-regular-expression">
+<h2><a class="toc-backref" href="#id2">Creating a regular expression</a><a class="headerlink" href="#creating-a-regular-expression" title="Permalink to this headline">¶</a></h2>
+<p>正規表現はオブジェクトの一種だ。次の二通りの生成方法がある。</p>
+<ul class="simple">
+<li><p>コンストラクター <code class="docutils literal notranslate"><span class="pre">RegExp</span></code> を使う。</p></li>
+<li><p>スラッシュ文字 <code class="docutils literal notranslate"><span class="pre">/</span></code> で囲んだリテラル値として書く。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">re1</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s2">&quot;abc&quot;</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">re2</span> <span class="o">=</span> <span class="sr">/abc/</span><span class="p">;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>下の記法のほうはバックスラッシュを含めるときはそれを（やはりバックスラッシュで）エスケープする必要がある。</p></li>
+<li><p>正規表現のメタキャラクターはバックスラッシュを使ってエスケープする。</p></li>
+</ul>
+</section>
+<section id="testing-for-matches">
+<h2><a class="toc-backref" href="#id3">Testing for matches</a><a class="headerlink" href="#testing-for-matches" title="Permalink to this headline">¶</a></h2>
+<p>正規表現のメソッドで最も単純なものは <code class="docutils literal notranslate"><span class="pre">test</span></code> だ。引数の文字列がパターンに合致していれば <code class="docutils literal notranslate"><span class="pre">true</span></code> を返す。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="sr">/abc/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;abcde&quot;</span><span class="p">));</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="o">!</span> <span class="sr">/abc/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;abxde&quot;</span><span class="p">));</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Python の <code class="docutils literal notranslate"><span class="pre">re.match()</span></code> に相当するのだろう。</p></li>
+</ul>
+</section>
+<section id="sets-of-characters">
+<h2><a class="toc-backref" href="#id4">Sets of characters</a><a class="headerlink" href="#sets-of-characters" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>ある文字列が abc などの文字列を含むかどうかを判定するには、単に文字列メソッドの <code class="docutils literal notranslate"><span class="pre">indexOf</span></code> を使ってもできる。正規表現を使えば、より一般的なパターンの文字列を表現することができる。</p></li>
+<li><p>JavaScript でも正規表現の角括弧機能、文字グループを使える。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">/[0123456789]/</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/[0-9]/</span></code></p></li>
+</ul>
+</li>
+<li><p>よく使われる文字グループには、独自の組み込み略記法が用意されている。</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>記号</p></th>
+<th class="head"><p>意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\d</span></code></p></td>
+<td><p>アラビア数字</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\w</span></code></p></td>
+<td><p>アルファベットおよびアラビア数字</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\s</span></code></p></td>
+<td><p>ホワイトスペース（スペース、タブ、改行など）を表す文字</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\D</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\d</span></code> に合致しない文字</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\W</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\w</span></code> に合致しない文字</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\S</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\s</span></code> に合致しない文字</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.</span></code></p></td>
+<td><p>改行文字でない文字</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>このバックスラッシュコードは、角括弧の中でも使用できる。</p>
+<ul>
+<li><p>ただし角括弧内に <code class="docutils literal notranslate"><span class="pre">.</span></code> を書くとメタキャラクターとしての意味を失う。</p></li>
+</ul>
+</li>
+<li><p>文字のセットを反転させるには、セット内の文字以外の任意の文字にマッチさせたいことを表現する。</p></li>
+<li><p>角括弧内に <code class="docutils literal notranslate"><span class="pre">^</span></code> を置いて「～以外の文字」の意味を与える機能も使える。</p></li>
+</ul>
+</section>
+<section id="repeating-parts-of-a-pattern">
+<h2><a class="toc-backref" href="#id5">Repeating parts of a pattern</a><a class="headerlink" href="#repeating-parts-of-a-pattern" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>正規表現でパターンの後ろにプラス記号 <code class="docutils literal notranslate"><span class="pre">+</span></code> を付けると、その要素が 1 回以上回繰り返される可能性があることを示す。したがって <code class="docutils literal notranslate"><span class="pre">/\d+/</span></code> は、一つまたは複数の数字に合致する。</p></li>
+<li><p>星印 <code class="docutils literal notranslate"><span class="pre">*</span></code> も同様の意味を持つが、パターンがゼロ回合致することも可能だ。</p></li>
+<li><p>疑問符 <code class="docutils literal notranslate"><span class="pre">?</span></code> はパターンの一部をオプションにする。つまり、0 回または 1 回だけの出現に合致する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">neighbor</span> <span class="o">=</span> <span class="sr">/neighbou?r/</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">neighbor</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;neighbour&quot;</span><span class="p">));</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">neighbor</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;neighbor&quot;</span><span class="p">));</span>
+</pre></div>
+</div>
+</li>
+<li><p>あるパターンが正確な回数だけ現れることを示すには中括弧を使う。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/\d{4}/</span></code> は数字 4 個。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/\d{1,2}/</span></code> は数字 1 個または 2 個。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/\d{5,}/</span></code> は数字 5 個以上。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="grouping-subexpressions">
+<h2><a class="toc-backref" href="#id6">Grouping subexpressions</a><a class="headerlink" href="#grouping-subexpressions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>量指定演算子を一度に複数使用するには、括弧を使用する必要がある。</p></li>
+<li><p>正規表現の中で括弧で囲まれた部分は、それに続く演算子に関してはひとかたまりに扱われる。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">cartoonCrying</span> <span class="o">=</span> <span class="sr">/boo+(hoo+)+/i</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">cartoonCrying</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;Boohoooohoohooo&quot;</span><span class="p">));</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>1 番目と 2 番目の <code class="docutils literal notranslate"><span class="pre">+</span></code> は <code class="docutils literal notranslate"><span class="pre">boo</span></code> と <code class="docutils literal notranslate"><span class="pre">hoo</span></code> の最後の <code class="docutils literal notranslate"><span class="pre">o</span></code> にのみそれぞれ適用される。</p></li>
+<li><p>3 番目の <code class="docutils literal notranslate"><span class="pre">+</span></code> はグループ <code class="docutils literal notranslate"><span class="pre">hoo+</span></code> 全体に適用され、このような一つ以上の配列に合致する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/pattern/i</span></code> の最後の <code class="docutils literal notranslate"><span class="pre">i</span></code> は、大文字小文字を区別しないマッチングを指定する。</p></li>
+</ul>
+</section>
+<section id="matches-and-groups">
+<h2><a class="toc-backref" href="#id7">Matches and groups</a><a class="headerlink" href="#matches-and-groups" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>正規表現のメソッド <code class="docutils literal notranslate"><span class="pre">exec</span></code> はマッチしなかった場合は <code class="docutils literal notranslate"><span class="pre">null</span></code> を返し、それ以外の場合は合致情報を表すオブジェクトを返す。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">exec</span></code> から返されたオブジェクトには、文字列のどこからマッチしたのかを示す <code class="docutils literal notranslate"><span class="pre">index</span></code> プロパティーがある。</p></li>
+<li><p>それ以外のオブジェクトは文字列の配列だ。</p></li>
+<li><p>文字列のメソッド <code class="docutils literal notranslate"><span class="pre">match</span></code> は正規表現を引数にとり、上記と同じことをする。</p></li>
+<li><p>正規表現に括弧で括られた部分式が含まれている場合、それらのグループに合致したテキストも合致情報の配列に出てくる。</p>
+<ul>
+<li><p>合致した全体が常に最初の要素となる。</p></li>
+<li><p>次の要素は、最初のグループに合致した部分となり、次に 2 番目のグループ、というようになる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">quotedText</span> <span class="o">=</span> <span class="sr">/&#39;([^&#39;]*)&#39;/</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">quotedText</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="s2">&quot;she said &#39;hello&#39;&quot;</span><span class="p">));</span> <span class="c1">// → [&quot;&#39;hello&#39;&quot;, &quot;hello&quot;]</span>
+</pre></div>
+</div>
+</li>
+<li><p>グループが全くマッチしない場合は出力配列でのそのグループの位置には <code class="docutils literal notranslate"><span class="pre">undefined</span></code> となる。</p></li>
+<li><p>同様に、あるグループが複数回合致した場合、最後のものだけが配列に入る。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sr">/bad(ly)?/</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="s2">&quot;bad&quot;</span><span class="p">));</span> <span class="c1">// → [&quot;bad&quot;, undefined]</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sr">/(\d)+/</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="s2">&quot;123&quot;</span><span class="p">));</span> <span class="c1">// → [&quot;123&quot;, &quot;3&quot;]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>この二行目はおかしい感じがする。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="the-date-class">
+<h2><a class="toc-backref" href="#id8">The <code class="docutils literal notranslate"><span class="pre">Date</span></code> class</a><a class="headerlink" href="#the-date-class" title="Permalink to this headline">¶</a></h2>
+<p>JavaScript では日付オブジェクトを <code class="docutils literal notranslate"><span class="pre">Date</span></code> コンストラクターで生成する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">new</span> <span class="nb">Date</span><span class="p">;</span>
+<span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mf">2009</span><span class="p">,</span> <span class="mf">11</span><span class="p">,</span> <span class="mf">9</span><span class="p">);</span>
+<span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mf">2009</span><span class="p">,</span> <span class="mf">11</span><span class="p">,</span> <span class="mf">9</span><span class="p">,</span> <span class="mf">12</span><span class="p">,</span> <span class="mf">59</span><span class="p">,</span> <span class="mf">59</span><span class="p">,</span> <span class="mf">999</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul>
+<li><p>紛らわしいことに月番号は 0 から始まる。</p></li>
+<li><p>最後の 4 つの引数は時間、分、秒、ミリ秒で省略可能。</p></li>
+<li><p>タイムスタンプは、1970 年の開始時点からのミリ秒数として保存される。これは、同時期に発明された Unix 時間で定められた規則に従っている。</p>
+<ul>
+<li><p>以前の時間には負の数を使用できる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Date</span></code> オブジェクトのメソッド <code class="docutils literal notranslate"><span class="pre">getTime</span></code> は、この数値を返す。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mf">2013</span><span class="p">,</span> <span class="mf">11</span><span class="p">,</span> <span class="mf">19</span><span class="p">).</span><span class="nx">getTime</span><span class="p">());</span> <span class="c1">// → 1387407600000</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mf">1387407600000</span><span class="p">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Date</span></code> コンストラクターに引数をただ一つ与えた場合、その引数は、ミリ秒単位のカウントとして扱われる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Date</span></code> オブジェクトには次のようなメソッドがあり、それぞれ名前に対応する成分を返す。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">getFullYear</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getMonth</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getDate</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getHours</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getMinutes</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getSecurity</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getYear</span></code>: これは 1900 年から 98 年または 119 年を引いたもので、ほとんど役に立たない。</p></li>
+</ul>
+</li>
+</ul>
+<p>本書では文字列から正規表現を用いて日付オブジェクトを生成する方法が示されているが略。</p>
+</section>
+<section id="word-and-string-boundaries">
+<h2><a class="toc-backref" href="#id9">Word and string boundaries</a><a class="headerlink" href="#word-and-string-boundaries" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>キャレット <code class="docutils literal notranslate"><span class="pre">^</span></code> は入力文字列の先頭に合致する。</p></li>
+<li><p>ドル記号 <code class="docutils literal notranslate"><span class="pre">$</span></code> は入力文字列の末尾に合致する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">\b</span></code> は単語の境界位置に合致する。文字ではなく位置に作用することに注意。</p>
+<ul>
+<li><p>単語の境界とは、文字列の始点、終点、または文字列の中で一方に単語の文字
+<code class="docutils literal notranslate"><span class="pre">\w</span></code> があり、もう一方に非単語の文字 <code class="docutils literal notranslate"><span class="pre">\W</span></code> がある位置のいずれかを指す。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="choice-patterns">
+<h2><a class="toc-backref" href="#id10">Choice patterns</a><a class="headerlink" href="#choice-patterns" title="Permalink to this headline">¶</a></h2>
+<p>パイプ文字 <code class="docutils literal notranslate"><span class="pre">|</span></code> は、左と右のパターンの選択を表す。</p>
+<ul class="simple">
+<li><p>括弧を使うと、パイプ演算子が適用されるパターンの部分を限定できる。</p></li>
+<li><p>複数のパイプ演算子を並べることで、二つ以上の選択肢を表現できる。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">animalCount</span> <span class="o">=</span> <span class="sr">/\b\d+ (pig|cow|chicken)s?\b/</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">animalCount</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;15 pigs&quot;</span><span class="p">));</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="o">!</span><span class="nx">animalCount</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;15 pigchickens&quot;</span><span class="p">));</span>
+</pre></div>
+</div>
+</section>
+<section id="the-mechanics-of-matching">
+<h2><a class="toc-backref" href="#id11">The mechanics of matching</a><a class="headerlink" href="#the-mechanics-of-matching" title="Permalink to this headline">¶</a></h2>
+<p>正規表現エンジンについて説明している。この節の内容に JavaScript 固有のものはない。</p>
+</section>
+<section id="backtracking">
+<h2><a class="toc-backref" href="#id12">Backtracking</a><a class="headerlink" href="#backtracking" title="Permalink to this headline">¶</a></h2>
+<p>正規表現エンジンのバックトラック（後戻り法）と、それにまつわる問題点について述べている。この節の内容に JavaScript 固有のものはない。</p>
+</section>
+<section id="the-replace-method">
+<h2><a class="toc-backref" href="#id13">The <code class="docutils literal notranslate"><span class="pre">replace</span></code> method</a><a class="headerlink" href="#the-replace-method" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">String.replace</span></code> は文字列の一部を別の文字列に置換する。</p>
+<ul>
+<li><p>第一引数には単純な文字列だけではなく正規表現を指定してもかまわない。その場合には、最初の合致部分しか置換しない。</p></li>
+<li><p>ただし、正規表現に <code class="docutils literal notranslate"><span class="pre">g</span></code> オプションがあれば、すべての合致部分を置換する。</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="s2">&quot;papa&quot;</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="s2">&quot;m&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;mapa&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="s2">&quot;Borobudur&quot;</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/[ou]/</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;Barobudur&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="s2">&quot;Borobudur&quot;</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/[ou]/g</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;Barabadar&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">replace</span></code> と一緒に正規表現を使うことの真の力は、置換文字列に合致したグループを参照することができるという事実から引き出される。</p></li>
+<li><p>置換文字列の <code class="docutils literal notranslate"><span class="pre">$1</span></code> と <code class="docutils literal notranslate"><span class="pre">$2</span></code> は、パターン内の括弧で囲まれたグループを参照している。以下、同様に <code class="docutils literal notranslate"><span class="pre">$9</span></code> まで対応する番号のグループを参照する。</p></li>
+<li><p>一致したテキスト全体は <code class="docutils literal notranslate"><span class="pre">$&amp;</span></code> で参照する。</p></li>
+<li><p>文字列ではなく関数を <code class="docutils literal notranslate"><span class="pre">replace</span></code> の第二引数として指定することもできる。置換のたびに、合致したグループ（全体も含む）とともに関数を呼び出し、その戻り値が新しい文字列を挿入する。</p>
+<ul>
+<li><p>Python にも同様の機能がある。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="greed">
+<h2><a class="toc-backref" href="#id14">Greed</a><a class="headerlink" href="#greed" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>文字列から特定の部分文字列、パターンに合致する部分文字列を削除するのにもメソッド <code class="docutils literal notranslate"><span class="pre">replace</span></code> が使われる。第二引数を空文字列にすればよい。</p></li>
+<li><p>本書の失敗版デモコードにある「コメントに合致する正規表現」のうち、C 言語スタイルのほうの正規表現に注目したい。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">stripComments</span><span class="p">(</span><span class="nx">code</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">code</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\/\/.*|\/\*[^]*\*\//g</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>任意の文字を表す部分を <code class="docutils literal notranslate"><span class="pre">[^]</span></code> で表している。ここでは単にメタキャラクター  <code class="docutils literal notranslate"><span class="pre">.</span></code> を使うことはできない。
+C 言語型コメントは新しい行に続けることができ、メタキャラクター <code class="docutils literal notranslate"><span class="pre">.</span></code> は改行文字には合致しないからだ。</p>
+</li>
+</ul>
+<p>繰り返し演算子 <code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">*</span></code>, <code class="docutils literal notranslate"><span class="pre">?</span></code>, <code class="docutils literal notranslate"><span class="pre">{m,n}</span></code> は貪欲であると言う。可能な限り長い合致部分を求めて、そこから後戻り法を適用するという意味だ。これらの演算子の後に <code class="docutils literal notranslate"><span class="pre">?</span></code> が付いた変種 <code class="docutils literal notranslate"><span class="pre">+?</span></code>, <code class="docutils literal notranslate"><span class="pre">*?</span></code>, <code class="docutils literal notranslate"><span class="pre">??</span></code>, <code class="docutils literal notranslate"><span class="pre">{m,n}?</span></code> を使うと、これらの演算子は非貪欲型となり、可能な限り少ない量のマッチングから始めて、残ったパターンが小さい方の合致部分に合わない場合にのみ、さらにマッチングを試みる。</p>
+<ul class="simple">
+<li><p>正規表現で繰り返し演算子を使うときは、まず非貪欲型を検討すること。</p></li>
+</ul>
+</section>
+<section id="dynamically-creating-regexp-objects">
+<h2><a class="toc-backref" href="#id15">Dynamically creating <code class="docutils literal notranslate"><span class="pre">RegExp</span></code> objects</a><a class="headerlink" href="#dynamically-creating-regexp-objects" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>正規表現の一部を変数にしたい場合には <code class="docutils literal notranslate"><span class="pre">RegExp</span></code> コンストラクターと文字列演算をうまく組み合わせるといい。</p></li>
+<li><p>ただし、そのような変数に正規表現メタキャラクターが含まれている場合には、適宜エスケープをする必要があるだろう。</p></li>
+</ul>
+</section>
+<section id="the-search-method">
+<h2><a class="toc-backref" href="#id16">The <code class="docutils literal notranslate"><span class="pre">search</span></code> method</a><a class="headerlink" href="#the-search-method" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">String.indexOf</span></code> は正規表現を使って呼び出すことはできない。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">String.search</span></code> は正規表現が使える。このメソッドは <code class="docutils literal notranslate"><span class="pre">indexOf</span></code> と同様に正規表現が見つかった最初のインデックスを返し、見つからなかった場合は <code class="docutils literal notranslate"><span class="pre">-1</span></code> を返す。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="s2">&quot;  word&quot;</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="sr">/\S/</span><span class="p">)</span> <span class="o">==</span> <span class="mf">2</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;    &quot;</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="sr">/\S/</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mf">1</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="the-lastindex-property">
+<h2><a class="toc-backref" href="#id17">The <code class="docutils literal notranslate"><span class="pre">lastIndex</span></code> property</a><a class="headerlink" href="#the-lastindex-property" title="Permalink to this headline">¶</a></h2>
+<p>正規表現オブジェクトのプロパティーを二つ説明している。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">source</span></code> は正規表現が作成された文字列を含む。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lastIndex</span></code> は、ある限られた状況下で、次のマッチを開始する場所を制御する。</p>
+<ul>
+<li><p>その状況とは、正規表現に <code class="docutils literal notranslate"><span class="pre">g</span></code> または <code class="docutils literal notranslate"><span class="pre">y</span></code> オプションが有効である必要があり、そしてマッチがメソッド <code class="docutils literal notranslate"><span class="pre">exec</span></code> を通じて見つかる必要があるというものだ。</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">pattern</span> <span class="o">=</span> <span class="sr">/y/g</span><span class="p">;</span>
+<span class="nx">pattern</span><span class="p">.</span><span class="nx">lastIndex</span> <span class="o">=</span> <span class="mf">3</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">match</span> <span class="o">=</span> <span class="nx">pattern</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="s2">&quot;xyzzy&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">match</span><span class="p">.</span><span class="nx">index</span> <span class="o">==</span> <span class="mf">4</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">pattern</span><span class="p">.</span><span class="nx">lastIndex</span> <span class="o">==</span> <span class="mf">5</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>合致する場合は <code class="docutils literal notranslate"><span class="pre">lastIndex</span></code> が自動的に更新され、マッチの直後を指すようになる。</p></li>
+<li><p>合致しない場合は <code class="docutils literal notranslate"><span class="pre">lastIndex</span></code> はゼロに戻される。これは新しく構築された正規表現オブジェクトのそれの値でもある。</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">g</span></code> オプションと <code class="docutils literal notranslate"><span class="pre">y</span></code> オプションの違いは、</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">y</span></code> が有効な場合は <code class="docutils literal notranslate"><span class="pre">lastIndex</span></code> から直接始まる場合にしかマッチングが成功しない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">g</span></code> が有効なの場合は、合致部分を先に探す。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">global</span> <span class="o">=</span> <span class="sr">/abc/g</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">global</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="s2">&quot;xyz abc&quot;</span><span class="p">));</span> <span class="c1">// → [&quot;abc&quot;]</span>
+<span class="kd">let</span> <span class="nx">sticky</span> <span class="o">=</span> <span class="sr">/abc/y</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">sticky</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="s2">&quot;xyz abc&quot;</span><span class="p">));</span> <span class="c1">// → null</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>複数の <code class="docutils literal notranslate"><span class="pre">exec</span></code> 呼び出しに共通の正規表現値を使用する場合、<code class="docutils literal notranslate"><span class="pre">lastIndex</span></code> の自動更新が問題となる。誤って前の呼び出しから残されたインデックスで開始してしまうかもしれないからだ。</p></li>
+<li><p>オプション <code class="docutils literal notranslate"><span class="pre">g</span></code> には文字列のメソッド <code class="docutils literal notranslate"><span class="pre">match</span></code> の動作を変えるという効果もある。
+<code class="docutils literal notranslate"><span class="pre">g</span></code> を指定して呼び出すと <code class="docutils literal notranslate"><span class="pre">exec</span></code> が返すのと同じような配列を返すのではなく、文字列内のパターンのすべての合致部分を見つけ、それら合致文字列からなる配列を返す。</p></li>
+</ul>
+</section>
+<section id="looping-over-matches">
+<h2><a class="toc-backref" href="#id18">Looping over matches</a><a class="headerlink" href="#looping-over-matches" title="Permalink to this headline">¶</a></h2>
+<p>次の構文でループで回す。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">input</span> <span class="o">=</span> <span class="s2">&quot;A string with 3 numbers in it... 42 and 88.&quot;</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">number</span> <span class="o">=</span> <span class="sr">/\b\d+\b/g</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">match</span><span class="p">;</span>
+<span class="k">while</span> <span class="p">(</span><span class="nx">match</span> <span class="o">=</span> <span class="nx">number</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">input</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Found&quot;</span><span class="p">,</span> <span class="nx">match</span><span class="p">[</span><span class="mf">0</span><span class="p">],</span> <span class="s2">&quot;at&quot;</span><span class="p">,</span> <span class="nx">match</span><span class="p">.</span><span class="nx">index</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>C 言語と同様に <code class="docutils literal notranslate"><span class="pre">while</span></code> ループの条件の代入式全体は代入後の左辺の値を返す。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">match</span></code> が真に変換される条件は <code class="docutils literal notranslate"><span class="pre">match.index</span></code> の値で決まるようだ。</p></li>
+</ul>
+</section>
+<section id="parsing-an-ini-file">
+<h2><a class="toc-backref" href="#id19">Parsing an INI file</a><a class="headerlink" href="#parsing-an-ini-file" title="Permalink to this headline">¶</a></h2>
+<p>いわゆる INI ファイルを読むコードを JavaScript で正規表現を使って書く。</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="na">searchengine</span><span class="o">=</span><span class="s">https://duckduckgo.com/?q=$1</span>
+<span class="na">spitefulness</span><span class="o">=</span><span class="s">9.7</span>
+<span class="c1">; comments are preceded by a semicolon...</span>
+<span class="c1">; each section concerns an individual enemy</span>
+<span class="k">[larry]</span>
+<span class="na">fullname</span><span class="o">=</span><span class="s">Larry Doe</span>
+<span class="na">type</span><span class="o">=</span><span class="s">kindergarten bully</span>
+<span class="na">website</span><span class="o">=</span><span class="s">http://www.geocities.com/CapeCanaveral/11451</span>
+<span class="k">[davaeorn]</span>
+<span class="na">fullname</span><span class="o">=</span><span class="s">Davaeorn</span>
+<span class="na">type</span><span class="o">=</span><span class="s">evil wizard</span>
+<span class="na">outputdir</span><span class="o">=</span><span class="s">/home/marijn/enemies/davaeorn</span>
+</pre></div>
+</div>
+<p>正確な文法は次のとおり：</p>
+<ul class="simple">
+<li><p>空行とセミコロンで始まる行を無視する。</p></li>
+<li><p>角括弧で囲まれる行を新しいセクションの開始位置とする。</p></li>
+<li><p>英数字の識別子の後に <code class="docutils literal notranslate"><span class="pre">=</span></code> を付けた行があれば、その設定を現在のセクションに追加する。</p></li>
+<li><p>それ以外のものは無効とする。</p></li>
+</ul>
+<p>これを JavaScript のオブジェクトに変換したい。JSON 的なデータ構造を意図している。</p>
+<ul class="simple">
+<li><p>一行ごとに処理するべきなので、ファイルを一行ごとに分割することから始める。<code class="docutils literal notranslate"><span class="pre">String.split</span></code> を用いる。ただし区切り文字は改行文字そのものではなく、正規表現 <code class="docutils literal notranslate"><span class="pre">/\r?\n/</span></code> を指定する。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">split</span></code> の戻り値に即 <code class="docutils literal notranslate"><span class="pre">forEach</span></code> を適用していて見栄えが良い。</p></li>
+<li><p>そのループの中で前述の条件にそれぞれ対応する <code class="docutils literal notranslate"><span class="pre">match</span></code> と <code class="docutils literal notranslate"><span class="pre">test</span></code> を複数回試みている。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="international-characters">
+<h2><a class="toc-backref" href="#id20">International characters</a><a class="headerlink" href="#international-characters" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>JavaScript の正規表現は、英語に存在しない文字についてはかなりお粗末だ。</p>
+<ul>
+<li><p>JavaScript の 正規表現では単語の文字 <code class="docutils literal notranslate"><span class="pre">\w</span></code> とはラテンアルファベットの大文字と小文字、十進数の数字、そしてなぜかアンダースコアからなる集合だ。é や ß のようなものには、単語文字であるにもかかわらず合致しない。</p></li>
+<li><p>大文字のほうの <code class="docutils literal notranslate"><span class="pre">\W</span></code> には合致するが、それでは意味が合わない。</p></li>
+</ul>
+</li>
+<li><p>文字セット <code class="docutils literal notranslate"><span class="pre">\s</span></code> にはこの問題がない。
+Unicode 規格が空白文字とみなすすべての文字に合致する。例えば non-breaking space やモンゴル語の母音分離記号なども合致する。</p></li>
+<li><p>正規表現は既定ではコード単位で動作する。したがって、二つのコード単位で構成されている文字に対しては、おかしな動作をする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">u</span></code> オプションを付加すれば Unicode 文字列に対しても動作する。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="o">!</span> <span class="sr">/🍎{3}/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;🍎🍎🍎&quot;</span><span class="p">));</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="o">!</span> <span class="sr">/&lt;.&gt;/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;&lt;🌹&gt;&quot;</span><span class="p">));</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="sr">/&lt;.&gt;/u</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;&lt;🌹&gt;&quot;</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>Unicode オプションを有効にした正規表現で規格で指定された <code class="docutils literal notranslate"><span class="pre">\p{Property=Value}</span></code> のパターン？を使用することもできる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="sr">/\p{Script=Greek}/u</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;α&quot;</span><span class="p">));</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="o">!</span> <span class="sr">/\p{Script=Arabic}/u</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;α&quot;</span><span class="p">));</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="sr">/\p{Alphabetic}/u</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;α&quot;</span><span class="p">));</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="o">!</span> <span class="sr">/\p{Alphabetic}/u</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;!&quot;</span><span class="p">));</span>
+</pre></div>
+</div>
+</section>
+<section id="summary">
+<h2><a class="toc-backref" href="#id21">Summary</a><a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>正規表現は文字列中のパターンを表現するオブジェクトだ。これらのパターンを表現する独自の言語を使う。</p></li>
+<li><p>正規表現には各種メソッドがある。</p></li>
+<li><p>文字列にも正規表現を受け取るメソッドがある。</p></li>
+<li><p>正規表現にはオプションがあり、<code class="docutils literal notranslate"><span class="pre">/</span></code> の後ろにそれを指定する。</p></li>
+<li><p>正規表現は鋭利なツールでありながら、扱いづらい。ある種の作業はひじょうに簡単になるが、複雑な問題に適用するとすぐに手に負えなくなる。正規表現ではうまく表現できないことを正規表現に当てはめようとしないことも大切だ。</p></li>
+</ul>
+</section>
+<section id="exercises">
+<h2><a class="toc-backref" href="#id22">Exercises</a><a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://debuggex.com">Debuggex</a> のようなオンラインツールを使うと、正規表現の視覚化が意図したものと一致するかどうかを確認したり、さまざまな入力文字列に対する反応を試したりするのに役立つことがある。</p>
+<section id="regexp-golf">
+<h3><a class="toc-backref" href="#id23">Regexp golf</a><a class="headerlink" href="#regexp-golf" title="Permalink to this headline">¶</a></h3>
+<p><strong>問題</strong> 正規表現ゴルフとは、与えられたパターンにマッチする、できるだけ小さな正規表現を書くゲームだ。</p>
+<p>次の各項目について、与えられた部分文字列のいずれかが文字列の中に存在するかどうかを調べる正規表現を書け。正規表現は次のものにマッチしなければならない。文字列のみにマッチしなければならない。</p>
+<p>正規表現は、記述された部分文字列のいずれかを含む文字列のみに合致する必要がある。</p>
+<p>明示的に言及されていない限り、単語の境界は気にしないでよい。表現がうまくいったら、それ以上小さくできないか考えろ。</p>
+<ol class="arabic simple">
+<li><p>car and cat</p></li>
+<li><p>pop and prop</p></li>
+<li><p>ferret, ferry, and ferrari</p></li>
+<li><p>Any word ending in ious</p></li>
+<li><p>A whitespace character followed by a period, comma, colon, or semicolon</p></li>
+<li><p>A word longer than six letters</p></li>
+<li><p>A word without the letter e (or E)</p></li>
+</ol>
+<p><strong>解答</strong> 問題の趣旨は <code class="docutils literal notranslate"><span class="pre">.+</span></code> とか <code class="docutils literal notranslate"><span class="pre">(car|cat)</span></code> のような露骨な正規表現に甘えるなと言っている。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// 1. car and cat</span>
+<span class="sr">/ca[rt]/</span>
+
+<span class="c1">// 2. pop and prop</span>
+<span class="sr">/pr?op/</span>
+
+<span class="c1">// 3. ferret, ferry, and ferrari</span>
+<span class="sr">/ferr(et|y|ari)/</span>
+
+<span class="c1">// 4. Any word ending in ious</span>
+<span class="sr">/\b\w*ious\b/</span>
+
+<span class="c1">// 5. A whitespace character followed by a period, comma, colon, or semicolon</span>
+<span class="sr">/\s(?=[.,:;])/</span>
+
+<span class="c1">// 6. A word longer than six letters</span>
+<span class="sr">/\b\w{7,}\b/</span>
+
+<span class="c1">// 7. A word without the letter e (or E)</span>
+<span class="sr">/\b[_0-9a-df-z]\b+/i</span>
+</pre></div>
+</div>
+</section>
+<section id="quoting-style">
+<h3><a class="toc-backref" href="#id24">Quoting style</a><a class="headerlink" href="#quoting-style" title="Permalink to this headline">¶</a></h3>
+<p><strong>問題</strong> 小説を書いていて、台詞に単一引用符を使っていたとする。ここで、台詞の引用符をすべて二重引用符に置換したいが、
+aren’t などの短縮形に使われている単一引用符は残しておきたいとする。</p>
+<p>この二種類の引用符の使い方を区別するパターンを考え、適切な置換を行うメソッド <code class="docutils literal notranslate"><span class="pre">replace</span></code> の呼び出しを作れ。</p>
+<p><strong>解答</strong> 短縮形内の引用符か否かを「引用符の直前と直後の文字が両方とも区切り位置でない」に決め打ちする。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/(\B&#39;\b|\b&#39;\B)/g</span><span class="p">,</span> <span class="s1">&#39;&quot;&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>ただし、これは <code class="docutils literal notranslate"><span class="pre">'90s</span></code> などのパターンと、複数形と所有格が複合した単語に含まれる引用符も置換する。</p>
+</section>
+<section id="numbers-again">
+<h3><a class="toc-backref" href="#id25">Numbers again</a><a class="headerlink" href="#numbers-again" title="Permalink to this headline">¶</a></h3>
+<p><strong>問題</strong> JavaScript スタイルの数値のみに合致する正規表現を書け。</p>
+<p>数字の前に正負符号、十進数のドット、指数表記（<code class="docutils literal notranslate"><span class="pre">5e-3</span></code> または <code class="docutils literal notranslate"><span class="pre">1E10</span></code>）をサポートし、さらに指数の前に符号を付けることができなければならない。</p>
+<p>また、ドットの前後に数字がある必要はないが、数がドットだけであることはあり得ないことに注意しろ。つまり、 <code class="docutils literal notranslate"><span class="pre">.5</span></code> や <code class="docutils literal notranslate"><span class="pre">5.</span></code> は JavaScript の数として有効だが、「ドットだけの数」は有効ではない。</p>
+<p><strong>解答</strong> 問題文では JavaScript の数値と言っているが、簡単のために十進数のみに絞る。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="sr">/[+-]?((\d+(\.\d*)?)|(\.\d+))([eE][+-]?\d+)?/</span>
+</pre></div>
+</div>
+<p>急所は「ドットだけの数」を避けるパターンを記述できるかどうかで、最初の丸括弧にそれを表現した。</p>
+<p>以上</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter10.html" title="Modules"
+             >next</a></li>
+        <li class="right" >
+          <a href="chapter08.html" title="Bugs and Errors"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Eloquent JavaScript 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Regular Expressions</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

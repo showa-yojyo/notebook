@@ -4,12 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>基礎クラス群 &#8212; 読書ノート v1.5dev</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
     
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/mathjax-v3.js"></script>
     
     <link rel="next" title="モジュール docutils.statemachine" href="statemachine.html" />
@@ -34,7 +34,7 @@
       <div class="documentwrapper">
           <div class="body" role="main">
             
-  <div class="section" id="id1">
+  <section id="id1">
 <h1><a class="toc-backref" href="#id14">基礎クラス群</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>ここでは <a class="reference external" href="https://docutils.sourceforge.io/">Docutils</a> の様々なテキスト処理クラス群のスーパークラスとして存在する
 <code class="docutils literal notranslate"><span class="pre">TransformSpec</span></code>, <code class="docutils literal notranslate"><span class="pre">SettingsSpec</span></code>, <code class="docutils literal notranslate"><span class="pre">Component</span></code> を見ていく。以下、この 3 クラスを基礎クラスと呼ぶことにする。本節の目的は、これらの基礎クラスがどのような機能を Docutils 内のサブクラスやクライアントに提供しているのかを調査し、いずれ私が類似のプログラムを書くときに参考にすることだ。</p>
@@ -70,21 +70,21 @@
 </li>
 </ul>
 </div>
-<div class="section" id="id3">
+<section id="id3">
 <h2><a class="toc-backref" href="#id15">クラス図</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>本節で登場するクラスを図に示す。</p>
-<div class="figure align-center">
+<figure class="align-center">
 <a class="reference internal image-reference" href="../_images/docutils-base.png"><img alt="(class diagram)" src="../_images/docutils-base.png" style="width: 442.0px; height: 276.0px;" /></a>
-</div>
-</div>
-<div class="section" id="docutils-settingsspec">
+</figure>
+</section>
+<section id="docutils-settingsspec">
 <h2><a class="toc-backref" href="#id16">クラス <code class="docutils literal notranslate"><span class="pre">docutils.SettingsSpec</span></code></a><a class="headerlink" href="#docutils-settingsspec" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>このクラスは実行時に何かの構成・設定値を指定するための枠組みを決める。
 Docutils のための設定ファイルやコマンドラインオプションから値を受け取り、オブジェクトにそれをセットするという、一連のデータの流れを支える。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">SettingsSpec</span></code> にはスーパークラスがない。</p></li>
 </ul>
-<div class="section" id="id4">
+<section id="id4">
 <h3><a class="toc-backref" href="#id17">メンバー</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>メンバーの種類はクラスデータしかない。</p></li>
@@ -126,14 +126,14 @@ Docutils のための設定ファイルやコマンドラインオプション�
 </ul>
 </dd>
 </dl>
-</div>
-<div class="section" id="id5">
+</section>
+<section id="id5">
 <h3><a class="toc-backref" href="#id18">サブクラス</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">SettingsSpec</span></code> の直接サブクラスは 2 つだけある。図に示す。</p>
-<div class="figure align-center">
+<figure class="align-center">
 <a class="reference internal image-reference" href="../_images/docutils-settings-spec.png"><img alt="(class diagram)" src="../_images/docutils-settings-spec.png" style="width: 392.0px; height: 327.0px;" /></a>
-</div>
+</figure>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Component</span></code> では何もオーバーライドしないが、そこからのサブクラスは <code class="docutils literal notranslate"><span class="pre">settings_spec</span></code> と <code class="docutils literal notranslate"><span class="pre">config_section</span></code> を上書きするだけのことが多い。例:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">config_section</span> <span class="o">=</span> <span class="s1">&#39;general&#39;</span>
@@ -141,8 +141,8 @@ Docutils のための設定ファイルやコマンドラインオプション�
 </div>
 </li>
 </ul>
-</div>
-<div class="section" id="id6">
+</section>
+<section id="id6">
 <h3><a class="toc-backref" href="#id19">クライアント</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>主な参照箇所はモジュール <code class="docutils literal notranslate"><span class="pre">docutils.core</span></code> と <code class="docutils literal notranslate"><span class="pre">docutils.frontend</span></code> に集中している。</p>
 <ul class="simple">
@@ -150,51 +150,51 @@ Docutils のための設定ファイルやコマンドラインオプション�
 <li><p><code class="docutils literal notranslate"><span class="pre">OptionParser.get_config_file_settings</span></code> を読む。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">OptionParser.populate_from_components</span></code> を読む。</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="docutils-transformspec">
+</section>
+</section>
+<section id="docutils-transformspec">
 <h2><a class="toc-backref" href="#id20">クラス <code class="docutils literal notranslate"><span class="pre">docutils.TransformSpec</span></code></a><a class="headerlink" href="#docutils-transformspec" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">TransformSpec</span></code> はスーパークラスがない。</p></li>
 <li><p>メソッド <code class="docutils literal notranslate"><span class="pre">get_transforms</span></code> が一つだけある抽象クラスと大づかみに理解してよい。必要に応じてサブクラスがオーバーライドする。</p></li>
 <li><p>他にも細かいクラスデータや格納データの約束事があるが、そこまで調査しなくてよいだろう。</p></li>
 </ul>
-<div class="section" id="id7">
+<section id="id7">
 <h3><a class="toc-backref" href="#id21">メンバー</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <dl class="simple">
 <dt><code class="docutils literal notranslate"><span class="pre">get_transforms(self)</span></code></dt><dd><p>クラス <code class="docutils literal notranslate"><span class="pre">Transform</span></code> のサブクラスを含む <code class="docutils literal notranslate"><span class="pre">list</span></code> を返すようにサブクラスがオーバーライドする。注意。サブクラスのオブジェクトではなく、あくまでもサブクラスを型として取り扱う。</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="id8">
+</section>
+<section id="id8">
 <h3><a class="toc-backref" href="#id22">サブクラス</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">TransformSpec</span></code> をスーパークラスとしたクラス図を示す。</p>
 <blockquote>
-<div><div class="figure align-center">
+<div><figure class="align-center">
 <a class="reference internal image-reference" href="../_images/docutils-transform-spec.png"><img alt="(class diagram)" src="../_images/docutils-transform-spec.png" style="width: 464.0px; height: 220.0px;" /></a>
-</div>
+</figure>
 </div></blockquote>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Input</span></code> および <code class="docutils literal notranslate"><span class="pre">Output</span></code> は何もオーバーライドしていないことに注意。設計ミスか？</p></li>
 <li><p>メソッド <code class="docutils literal notranslate"><span class="pre">get_transforms</span></code> は <code class="docutils literal notranslate"><span class="pre">Component</span></code> のさらなるサブクラスがオーバーライドする傾向がある。</p></li>
 </ul>
-</div>
-<div class="section" id="id9">
+</section>
+<section id="id9">
 <h3><a class="toc-backref" href="#id23">クライアント</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>メソッド <code class="docutils literal notranslate"><span class="pre">get_transforms</span></code> を呼び出すのは何かということになる。</p>
 <ul class="simple">
 <li><p>サブクラス <code class="docutils literal notranslate"><span class="pre">Transformer</span></code> が自身のメンバーデータを組み立てるときのパラメーターとして参照する。</p></li>
 </ul>
 <p>これぐらいしかないだろう。</p>
-</div>
-</div>
-<div class="section" id="docutils-component">
+</section>
+</section>
+<section id="docutils-component">
 <h2><a class="toc-backref" href="#id24">クラス <code class="docutils literal notranslate"><span class="pre">docutils.Component</span></code></a><a class="headerlink" href="#docutils-component" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Component</span></code> は Docutils のテキスト処理系クラスのためのスーパークラス。言い換えると <code class="docutils literal notranslate"><span class="pre">Reader</span></code>, <code class="docutils literal notranslate"><span class="pre">Parser</span></code>, <code class="docutils literal notranslate"><span class="pre">Writer</span></code> がサブクラスとなる。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Component</span></code> のスーパークラスは前述の <code class="docutils literal notranslate"><span class="pre">SettingsSpec</span></code>, <code class="docutils literal notranslate"><span class="pre">TransformSpec</span></code> だ。なお、この段階ではいずれのスーパークラスのどのメンバーもオーバーライドしないままだ。</p></li>
 </ul>
-<div class="section" id="id10">
+<section id="id10">
 <h3><a class="toc-backref" href="#id25">メンバー</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <p>クラスデータが 2 個とメソッドが 1 個ある。重要なものだけ記す。</p>
 <dl>
@@ -235,8 +235,8 @@ Docutils のための設定ファイルやコマンドラインオプション�
 <p>引数 <code class="docutils literal notranslate"><span class="pre">format</span></code> は文字列とする。</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="id11">
+</section>
+<section id="id11">
 <h3><a class="toc-backref" href="#id26">サブクラス</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Component</span></code> の直接のサブクラスは次の 3 つである。</p>
 <ul class="simple">
@@ -245,16 +245,16 @@ Docutils のための設定ファイルやコマンドラインオプション�
 <li><p><code class="docutils literal notranslate"><span class="pre">Writer</span></code></p></li>
 </ul>
 <p>Docutils のエンドユーザーが <code class="docutils literal notranslate"><span class="pre">Component</span></code> から直接サブクラスを定義することはなさそうだ。</p>
-</div>
-<div class="section" id="id12">
+</section>
+<section id="id12">
 <h3><a class="toc-backref" href="#id27">クライアント</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <p>主にモジュール <code class="docutils literal notranslate"><span class="pre">docutils.transforms</span></code> の機能が利用する。</p>
 <ul class="simple">
 <li><p>メソッド <code class="docutils literal notranslate"><span class="pre">supports</span></code> を利用するのは <code class="docutils literal notranslate"><span class="pre">Filter</span></code> という <code class="docutils literal notranslate"><span class="pre">Transform</span></code> 系のクラス。本節ではこの処理を解読しないでおく。</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id13">
+</section>
+</section>
+<section id="id13">
 <h2><a class="toc-backref" href="#id28">感想</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">SettingsSpec</span></code> の設計方針は理解できるが、何か複雑だ。</p></li>
@@ -262,8 +262,8 @@ Docutils のための設定ファイルやコマンドラインオプション�
 <li><p><code class="docutils literal notranslate"><span class="pre">TransformSpec.get_transforms</span></code> のように、オブジェクトというよりは型を操作するやり方には馴染んでおきたい。</p></li>
 <li><p>Docutils はクラスデータを C++ 風に言えば <code class="docutils literal notranslate"><span class="pre">static</span> <span class="pre">const</span></code> のように扱うポリシーなのだろう。クラスデータをサブクラスで上書きするという方法は私はあまり採らないので、これは大いに参考にしたい。</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>

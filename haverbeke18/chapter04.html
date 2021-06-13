@@ -1,0 +1,525 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Data Structures: Objects and Arrays &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
+    
+    <script src="../_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="Higher-Order Functions" href="chapter05.html" />
+    <link rel="prev" title="Functions" href="chapter03.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter05.html" title="Higher-Order Functions"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="chapter03.html" title="Functions"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Eloquent JavaScript 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Data Structures: Objects and Arrays</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="data-structures-objects-and-arrays">
+<h1><a class="toc-backref" href="#id1">Data Structures: Objects and Arrays</a><a class="headerlink" href="#data-structures-objects-and-arrays" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://eloquentjavascript.net/">Eloquent JavaScript</a> Chapter 4 の読書ノート。</p>
+<p>本書のウェブページ &lt;<a class="reference external" href="https://eloquentjavascript.net/code">https://eloquentjavascript.net/code</a>&gt; では特定の章の内容に沿ったコードを実行することができる。別の環境で演習問題に取り組む場合は、本章の完全なコードをリンク先からダウンロードすることになる。</p>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#data-structures-objects-and-arrays" id="id1">Data Structures: Objects and Arrays</a></p>
+<ul>
+<li><p><a class="reference internal" href="#the-weresquirrel" id="id2">The weresquirrel</a></p></li>
+<li><p><a class="reference internal" href="#data-sets" id="id3">Data sets</a></p></li>
+<li><p><a class="reference internal" href="#properties" id="id4">Properties</a></p></li>
+<li><p><a class="reference internal" href="#methods" id="id5">Methods</a></p></li>
+<li><p><a class="reference internal" href="#objects" id="id6">Objects</a></p></li>
+<li><p><a class="reference internal" href="#mutability" id="id7">Mutability</a></p></li>
+<li><p><a class="reference internal" href="#the-lycanthrope-s-log" id="id8">The lycanthrope’s log</a></p></li>
+<li><p><a class="reference internal" href="#computing-correlation" id="id9">Computing correlation</a></p></li>
+<li><p><a class="reference internal" href="#array-loop" id="id10">Array loop</a></p></li>
+<li><p><a class="reference internal" href="#the-final-analysis" id="id11">The final analysis</a></p></li>
+<li><p><a class="reference internal" href="#further-arrayology" id="id12">Further arrayology</a></p></li>
+<li><p><a class="reference internal" href="#strings-and-their-properties" id="id13">Strings and their properties</a></p></li>
+<li><p><a class="reference internal" href="#rest-parameters" id="id14">Rest parameters</a></p></li>
+<li><p><a class="reference internal" href="#the-math-object" id="id15">The Math object</a></p></li>
+<li><p><a class="reference internal" href="#destructuring" id="id16">Destructuring</a></p></li>
+<li><p><a class="reference internal" href="#json" id="id17">JSON</a></p></li>
+<li><p><a class="reference internal" href="#summary" id="id18">Summary</a></p></li>
+<li><p><a class="reference internal" href="#exercises" id="id19">Exercises</a></p>
+<ul>
+<li><p><a class="reference internal" href="#the-sum-of-a-range" id="id20">The sum of a range</a></p></li>
+<li><p><a class="reference internal" href="#reversing-an-array" id="id21">Reversing an array</a></p></li>
+<li><p><a class="reference internal" href="#a-list" id="id22">A list</a></p></li>
+<li><p><a class="reference internal" href="#deep-comparison" id="id23">Deep comparison</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="the-weresquirrel">
+<h2><a class="toc-backref" href="#id2">The weresquirrel</a><a class="headerlink" href="#the-weresquirrel" title="Permalink to this headline">¶</a></h2>
+<p>プログラミング言語の教科書でリス男の小説が突如始まる。</p>
+</section>
+<section id="data-sets">
+<h2><a class="toc-backref" href="#id3">Data sets</a><a class="headerlink" href="#data-sets" title="Permalink to this headline">¶</a></h2>
+<p>JavaScript には値の並びを格納するためのデータ型が用意されている。これは配列と呼ばれ、角括弧で囲まれた値のリストをカンマで区切って定義する。構文は Python の <code class="docutils literal notranslate"><span class="pre">list</span></code> に似ているようだ。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">listOfNumbers</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2</span><span class="p">,</span> <span class="mf">3</span><span class="p">,</span> <span class="mf">5</span><span class="p">,</span> <span class="mf">7</span><span class="p">,</span> <span class="mf">11</span><span class="p">];</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">listOfNumbers</span><span class="p">[</span><span class="mf">2</span><span class="p">]</span> <span class="o">==</span> <span class="mf">5</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">listOfNumbers</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span> <span class="o">==</span> <span class="mf">2</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">listOfNumbers</span><span class="p">[</span><span class="mf">2</span> <span class="o">-</span> <span class="mf">1</span><span class="p">]</span> <span class="o">==</span> <span class="mf">3</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="properties">
+<h2><a class="toc-backref" href="#id4">Properties</a><a class="headerlink" href="#properties" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>JavaScript ではオブジェクトのほとんどすべてがプロパティーを有する。例外は <code class="docutils literal notranslate"><span class="pre">null</span></code> と <code class="docutils literal notranslate"><span class="pre">undefined</span></code> だ。</p></li>
+<li><p>JavaScript でプロパティーにアクセスするには、ドットと角括弧の二つの方法がある。</p>
+<ul>
+<li><p>だから <code class="docutils literal notranslate"><span class="pre">value.x</span></code> が有効な式であるとすれば <code class="docutils literal notranslate"><span class="pre">value[&quot;x&quot;]</span></code> も有効だ。</p></li>
+</ul>
+</li>
+<li><p>配列の要素は、その配列のプロパティーとして格納される。</p></li>
+</ul>
+</section>
+<section id="methods">
+<h2><a class="toc-backref" href="#id5">Methods</a><a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>関数を含むプロパティーはふつうはその値のメソッドと呼ばれる。</p></li>
+</ul>
+</section>
+<section id="objects">
+<h2><a class="toc-backref" href="#id6">Objects</a><a class="headerlink" href="#objects" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>型 <code class="docutils literal notranslate"><span class="pre">object</span></code> の値は、プロパティーのコレクションとみなせる。オブジェクトを作成する一つの方法は、中括弧を使ってプロパティーを列挙するというものだ。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">day1</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">squirrel</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nx">events</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;work&quot;</span><span class="p">,</span> <span class="s2">&quot;touched tree&quot;</span><span class="p">,</span> <span class="s2">&quot;pizza&quot;</span><span class="p">,</span> <span class="s2">&quot;running&quot;</span><span class="p">]</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>JavaScript では、中括弧には意味が二つある。</p>
+<ul>
+<li><p>文のブロックを定義するもの</p></li>
+<li><p>そうでなければオブジェクトを定義するもの</p></li>
+</ul>
+</li>
+<li><p>存在しないプロパティーを読み取ると、値 <code class="docutils literal notranslate"><span class="pre">undefined</span></code> が得られる。</p></li>
+<li><p>プロパティーの値がすでに存在している場合は置き換えられ、存在しない場合は新しいプロパティーが存在しない場合は、オブジェクトに新しいプロパティーを作成する。</p></li>
+<li><p>単項演算子 <code class="docutils literal notranslate"><span class="pre">delete</span></code> をオブジェクトのプロパティーに適用すると、指定されたプロパティーをオブジェクトから削除する。
+Python の <code class="docutils literal notranslate"><span class="pre">del</span></code> に似ている。</p></li>
+<li><p>演算子 <code class="docutils literal notranslate"><span class="pre">in</span></code> は、文字列とオブジェクトに適用すると、そのオブジェクトに指定した名前のプロパティーがあるかどうかをテストする。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">Object.keys</span></code> にオブジェクトを渡すと、オブジェクトのプロパティー名を表す文字列の配列が返る。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">Object.assign</span></code> は、あるオブジェクトのすべてのプロパティーを別のオブジェクトにコピーする。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">({</span><span class="nx">x</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">z</span><span class="o">:</span> <span class="mf">2</span><span class="p">}));</span>
+<span class="c1">// → [&quot;x&quot;, &quot;y&quot;, &quot;z&quot;]</span>
+
+<span class="kd">let</span> <span class="nx">objectA</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mf">2</span><span class="p">};</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">(</span><span class="nx">objectA</span><span class="p">,</span> <span class="p">{</span><span class="nx">b</span><span class="o">:</span> <span class="mf">3</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span> <span class="mf">4</span><span class="p">});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">objectA</span><span class="p">);</span>
+<span class="c1">// → {a: 1, b: 3, c: 4}</span>
+</pre></div>
+</div>
+</section>
+<section id="mutability">
+<h2><a class="toc-backref" href="#id7">Mutability</a><a class="headerlink" href="#mutability" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>数値、文字列、ブーリアンなど、これまでの章で説明してきた値の種類は、すべて mutable だ。これらの型の値を変更することはできない。</p></li>
+<li><p>変数には変更可能なものと一定のものがあるが、これは値の振る舞いとは別のもの。</p></li>
+<li><p>オブジェクトへの <code class="docutils literal notranslate"><span class="pre">const</span></code> 定義は、それ自体は変更されず、同じオブジェクトを指し続けるものの、そのオブジェクトの中身は変更される可能性がある。</p></li>
+<li><p>演算子 <code class="docutils literal notranslate"><span class="pre">==</span></code> でオブジェクトを比較する場合、同一性によって比較する。異なるオブジェクトを比較すると、たとえ同一のプロパティーを持っていたとしても <code class="docutils literal notranslate"><span class="pre">false</span></code> を返す。</p></li>
+</ul>
+</section>
+<section id="the-lycanthrope-s-log">
+<h2><a class="toc-backref" href="#id8">The lycanthrope’s log</a><a class="headerlink" href="#the-lycanthrope-s-log" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>ブレース記法のプロパティー名の後に値がない場合、その値は同じ名前のものとなる。</p></li>
+<li><p>相関係数の説明がある。</p></li>
+<li><p><span class="math notranslate nohighlight">\(\varphi \approx 0.069\)</span> となり、わずか。ピザを食べても変身には影響しないだろう。</p></li>
+</ul>
+</section>
+<section id="computing-correlation">
+<h2><a class="toc-backref" href="#id9">Computing correlation</a><a class="headerlink" href="#computing-correlation" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>JavaScript では、2×2 の表を 4 要素の配列で表すことができる。</p></li>
+<li><p>しかし、平板な配列を使うほうが単純で、表にアクセスする式を短くすることができる。</p></li>
+</ul>
+<p>結果として得られたデータセットは本章のコーディングサンドボックス &lt;<a class="reference external" href="https://eloquentjavascript.net/code#4">https://eloquentjavascript.net/code#4</a>&gt; にある。ここでは <code class="docutils literal notranslate"><span class="pre">JOURNAL</span></code> とダウンロード可能なファイルに保存されている。</p>
+<ul class="simple">
+<li><p>指定した値が配列内に存在するかどうかをテストするメソッド <code class="docutils literal notranslate"><span class="pre">includes</span></code> がある。</p></li>
+</ul>
+<p>残るは、記録されたタイプのすべてのイベントの相関関係を見つけて、何か目立つものがないかどうかを見ることとなった。</p>
+</section>
+<section id="array-loop">
+<h2><a class="toc-backref" href="#id10">Array loop</a><a class="headerlink" href="#array-loop" title="Permalink to this headline">¶</a></h2>
+<p>現代の JavaScript では配列、文字列、その他のデータ構造をループするのに次の構文を使える：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">entry</span> <span class="k">of</span> <span class="nx">JOURNAL</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">entry</span><span class="p">.</span><span class="nx">events</span><span class="p">.</span><span class="nx">length</span><span class="si">}</span><span class="sb"> events.`</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="the-final-analysis">
+<h2><a class="toc-backref" href="#id11">The final analysis</a><a class="headerlink" href="#the-final-analysis" title="Permalink to this headline">¶</a></h2>
+<p>分析の結果、ピーナッツを食べることがリスに変身する確率に強い正の影響を与えること、歯を磨くと大きな負の効果があることが観察された。</p>
+</section>
+<section id="further-arrayology">
+<h2><a class="toc-backref" href="#id12">Further arrayology</a><a class="headerlink" href="#further-arrayology" title="Permalink to this headline">¶</a></h2>
+<p>配列のメソッドをいくつか挙げる。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">unshift</span></code> と <code class="docutils literal notranslate"><span class="pre">shift</span></code> はそれぞれ先頭に対して要素を追加、削除する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">indexOf</span></code> と <code class="docutils literal notranslate"><span class="pre">lastIndexOf</span></code> は想像通りの振る舞いをする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">slice</span></code> は Python のそれと似ている。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">concat</span></code> は Python の <code class="docutils literal notranslate"><span class="pre">extend</span></code> と同等。二項演算子 <code class="docutils literal notranslate"><span class="pre">+</span></code> と同じ。</p></li>
+</ul>
+</section>
+<section id="strings-and-their-properties">
+<h2><a class="toc-backref" href="#id13">Strings and their properties</a><a class="headerlink" href="#strings-and-their-properties" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">indexOf</span></code> には引数に文字列を与えられることに注意する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">slice</span></code> は配列のそれと同等の振る舞いをする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">trim</span></code> は Python の <code class="docutils literal notranslate"><span class="pre">strip</span></code> に相当する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">padStart</span></code> というメソッドが存在する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="s2">&quot;6&quot;</span><span class="p">.</span><span class="nx">padStart</span><span class="p">(</span><span class="mf">3</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;006&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">split</span></code> は Python と同様。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">join</span></code> は Python と主客転倒している。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">repeat</span></code> がある。</p></li>
+</ul>
+</section>
+<section id="rest-parameters">
+<h2><a class="toc-backref" href="#id14">Rest parameters</a><a class="headerlink" href="#rest-parameters" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>JavaScript でも可変個引数関数を定義することができる。関数の最後の引数の前に <code class="docutils literal notranslate"><span class="pre">...</span></code> を書く。</p></li>
+<li><p>引数の配列をとる関数を呼び出す際にも、同様の三点表記が使える。</p></li>
+<li><p>ある配列を他の配列に埋め込むようなこともできる。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">max</span><span class="p">(...</span><span class="nx">numbers</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="o">-</span><span class="kc">Infinity</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">number</span> <span class="k">of</span> <span class="nx">numbers</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">number</span> <span class="o">&gt;</span> <span class="nx">result</span><span class="p">)</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">number</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="nx">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mf">5</span><span class="p">,</span> <span class="mf">1</span><span class="p">,</span> <span class="mf">7</span><span class="p">];</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">max</span><span class="p">(...</span><span class="nx">numbers</span><span class="p">)</span> <span class="o">==</span> <span class="mf">7</span><span class="p">);</span>
+
+<span class="c1">// read another array into the new array.</span>
+<span class="kd">let</span> <span class="nx">words</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;never&quot;</span><span class="p">,</span> <span class="s2">&quot;fully&quot;</span><span class="p">];</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">([</span><span class="s2">&quot;will&quot;</span><span class="p">,</span> <span class="p">...</span><span class="nx">words</span><span class="p">,</span> <span class="s2">&quot;understand&quot;</span><span class="p">]);</span>
+</pre></div>
+</div>
+</section>
+<section id="the-math-object">
+<h2><a class="toc-backref" href="#id15">The Math object</a><a class="headerlink" href="#the-math-object" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Math</span></code> はオブジェクトというよりも単なる名前空間のように捉えたい。ここにある関数や値が大域変数である必要がないようにしたいので、こういう形式になっている。</p></li>
+<li><p>乱数機能は <code class="docutils literal notranslate"><span class="pre">Math</span></code> にある。</p></li>
+</ul>
+</section>
+<section id="destructuring">
+<h2><a class="toc-backref" href="#id16">Destructuring</a><a class="headerlink" href="#destructuring" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">phi</span><span class="p">(</span><span class="nx">table</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="nx">table</span><span class="p">[</span><span class="mf">3</span><span class="p">]</span> <span class="o">*</span> <span class="nx">table</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span> <span class="o">-</span> <span class="nx">table</span><span class="p">[</span><span class="mf">2</span><span class="p">]</span> <span class="o">*</span> <span class="nx">table</span><span class="p">[</span><span class="mf">1</span><span class="p">])</span> <span class="o">/</span>
+        <span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">((</span><span class="nx">table</span><span class="p">[</span><span class="mf">2</span><span class="p">]</span> <span class="o">+</span> <span class="nx">table</span><span class="p">[</span><span class="mf">3</span><span class="p">])</span> <span class="o">*</span>
+            <span class="p">(</span><span class="nx">table</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span> <span class="o">+</span> <span class="nx">table</span><span class="p">[</span><span class="mf">1</span><span class="p">])</span> <span class="o">*</span>
+            <span class="p">(</span><span class="nx">table</span><span class="p">[</span><span class="mf">1</span><span class="p">]</span> <span class="o">+</span> <span class="nx">table</span><span class="p">[</span><span class="mf">3</span><span class="p">])</span> <span class="o">*</span>
+            <span class="p">(</span><span class="nx">table</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span> <span class="o">+</span> <span class="nx">table</span><span class="p">[</span><span class="mf">2</span><span class="p">]));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>これは次のようにも書ける：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">phi</span><span class="p">([</span><span class="nx">n00</span><span class="p">,</span> <span class="nx">n01</span><span class="p">,</span> <span class="nx">n10</span><span class="p">,</span> <span class="nx">n11</span><span class="p">])</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="nx">n11</span> <span class="o">*</span> <span class="nx">n00</span> <span class="o">-</span> <span class="nx">n10</span> <span class="o">*</span> <span class="nx">n01</span><span class="p">)</span> <span class="o">/</span>
+        <span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">((</span><span class="nx">n10</span> <span class="o">+</span> <span class="nx">n11</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="nx">n00</span> <span class="o">+</span> <span class="nx">n01</span><span class="p">)</span> <span class="o">*</span>
+        <span class="p">(</span><span class="nx">n01</span> <span class="o">+</span> <span class="nx">n11</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="nx">n00</span> <span class="o">+</span> <span class="nx">n10</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>また、次のようにすることでオブジェクトのプロパティーの値を得られる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="p">{</span><span class="nx">name</span><span class="p">}</span> <span class="o">=</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Faraji&quot;</span><span class="p">,</span> <span class="nx">age</span><span class="o">:</span> <span class="mf">23</span><span class="p">};</span>
+<span class="c1">// or let {age} = {name: &quot;Faraji&quot;, age: 23};</span>
+<span class="c1">// or let {name, age} = {name: &quot;Faraji&quot;, age: 23};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">name</span> <span class="o">==</span> <span class="s2">&quot;Faraji&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="json">
+<h2><a class="toc-backref" href="#id17">JSON</a><a class="headerlink" href="#json" title="Permalink to this headline">¶</a></h2>
+<p>JSON という一般的なシリアライズフォーマットがある。</p>
+<ul class="simple">
+<li><p>JavaScript 以外の言語でも、Web 上のデータ保存・通信フォーマットとして広く使われている。</p></li>
+<li><p>JavaScript には、JSON との間でデータを変換するための関数 <code class="docutils literal notranslate"><span class="pre">JSON.stringify</span></code> と <code class="docutils literal notranslate"><span class="pre">JSON.parse</span></code> がある。</p></li>
+</ul>
+</section>
+<section id="summary">
+<h2><a class="toc-backref" href="#id18">Summary</a><a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>オブジェクトや配列は、複数の値を一つの値にまとめるものだ。</p></li>
+<li><p>JavaScript のほとんどの値はプロパティを持っているが、例外は <code class="docutils literal notranslate"><span class="pre">null</span></code> と
+<code class="docutils literal notranslate"><span class="pre">undefined</span></code> の二つ。</p></li>
+<li><p>プロパティーにアクセスするには <code class="docutils literal notranslate"><span class="pre">value.prop</span></code> または <code class="docutils literal notranslate"><span class="pre">value[&quot;prop&quot;]</span></code> のように書く。</p></li>
+<li><p>配列は通常、型が同じ値を任意の個数だけ格納する。プロパティーの名前には数字を使用する。</p></li>
+<li><p>配列要素を <code class="docutils literal notranslate"><span class="pre">for</span></code> ループで反復するときには <code class="docutils literal notranslate"><span class="pre">for(let</span> <span class="pre">element</span> <span class="pre">of</span> <span class="pre">array){</span> <span class="pre">...</span> <span class="pre">}</span></code>
+のような特別な構文を利用できる。</p></li>
+</ul>
+</section>
+<section id="exercises">
+<h2><a class="toc-backref" href="#id19">Exercises</a><a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<section id="the-sum-of-a-range">
+<h3><a class="toc-backref" href="#id20">The sum of a range</a><a class="headerlink" href="#the-sum-of-a-range" title="Permalink to this headline">¶</a></h3>
+<p><strong>問題</strong>：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">start</span></code> と <code class="docutils literal notranslate"><span class="pre">end</span></code> の二つの引数を取り、その区間のすべての数を含む配列を返す関数 <code class="docutils literal notranslate"><span class="pre">range</span></code> を書け。区間終点は <code class="docutils literal notranslate"><span class="pre">end</span></code> と一致するものとする。</p></li>
+<li><p>次に、数の配列を受け取り、これらの数の合計を返す関数 <code class="docutils literal notranslate"><span class="pre">sum</span></code> を書け。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">range</span></code> に <code class="docutils literal notranslate"><span class="pre">step</span></code> を実装しろ。
+<code class="docutils literal notranslate"><span class="pre">step</span></code> が指定されない場合は、以前の動作に対応して、要素は 1 ずつ増える。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">range(1,</span> <span class="pre">10,</span> <span class="pre">2)</span></code> は <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">3,</span> <span class="pre">5,</span> <span class="pre">7,</span> <span class="pre">9]</span></code> を返す。</p></li>
+<li><p>負の値でも動作するようにして <code class="docutils literal notranslate"><span class="pre">range(5,</span> <span class="pre">2,</span> <span class="pre">-1)</span></code> は <code class="docutils literal notranslate"><span class="pre">[5,</span> <span class="pre">4,</span> <span class="pre">3,</span> <span class="pre">2]</span></code> を返す。</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>解答</strong>：単純な <code class="docutils literal notranslate"><span class="pre">range</span></code> をまず書く：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">range</span><span class="p">(</span><span class="nx">start</span><span class="p">,</span> <span class="nx">end</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nb">Number</span><span class="p">.</span><span class="nb">isSafeInteger</span><span class="p">(</span><span class="nx">start</span><span class="p">));</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nb">Number</span><span class="p">.</span><span class="nb">isSafeInteger</span><span class="p">(</span><span class="nx">end</span><span class="p">));</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">start</span> <span class="o">&lt;=</span> <span class="nx">end</span><span class="p">);</span>
+
+    <span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[</span><span class="nx">start</span><span class="p">];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">start</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">end</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">a</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">a</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">sum</span></code> は色々書き方がありそうだが：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">sum</span><span class="p">(</span><span class="nx">a</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nx">a</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">total</span><span class="p">,</span> <span class="nx">current</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">total</span> <span class="o">+</span> <span class="nx">current</span><span class="p">,</span> <span class="mf">0</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">sum</span><span class="p">(</span><span class="nx">range</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span> <span class="mf">10</span><span class="p">))</span> <span class="o">==</span> <span class="mf">55</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">range</span></code> のステップバージョン：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">range</span><span class="p">(</span><span class="nx">start</span><span class="p">,</span> <span class="nx">end</span><span class="p">,</span> <span class="nx">step</span> <span class="o">=</span> <span class="mf">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nb">Number</span><span class="p">.</span><span class="nb">isSafeInteger</span><span class="p">(</span><span class="nx">start</span><span class="p">));</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nb">Number</span><span class="p">.</span><span class="nb">isSafeInteger</span><span class="p">(</span><span class="nx">end</span><span class="p">));</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nb">Number</span><span class="p">.</span><span class="nb">isSafeInteger</span><span class="p">(</span><span class="nx">step</span><span class="p">));</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">step</span> <span class="o">!=</span> <span class="mf">0</span><span class="p">);</span>
+
+    <span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[</span><span class="nx">start</span><span class="p">];</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">start</span> <span class="o">&lt;</span> <span class="nx">end</span> <span class="o">&amp;&amp;</span> <span class="nx">step</span> <span class="o">&gt;</span> <span class="mf">0</span><span class="p">){</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">start</span> <span class="o">+</span> <span class="nx">step</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">end</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="nx">step</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">a</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">b</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">start</span> <span class="o">&gt;</span> <span class="nx">end</span> <span class="o">&amp;&amp;</span> <span class="nx">step</span> <span class="o">&lt;</span> <span class="mf">0</span><span class="p">){</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">start</span> <span class="o">+</span> <span class="nx">step</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&gt;</span> <span class="nx">end</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="nx">step</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">a</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">b</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">a</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="reversing-an-array">
+<h3><a class="toc-backref" href="#id21">Reversing an array</a><a class="headerlink" href="#reversing-an-array" title="Permalink to this headline">¶</a></h3>
+<p><strong>問題</strong>：次の関数を配列の <code class="docutils literal notranslate"><span class="pre">reverse</span></code> を用いずに書け：</p>
+<ul class="simple">
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">reverseArray</span></code></p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">reverseArrayInPlace</span></code></p></li>
+</ul>
+<p>前章の副作用や純粋関数についての注意点を思い返して、より多くの場面で役に立つと考えられるのはどちらか。また、実行速度はどちらが速いか。</p>
+<p><strong>解答</strong>：関数 <code class="docutils literal notranslate"><span class="pre">reverseArray</span></code> を先に実装する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">reverseArray</span><span class="p">(</span><span class="nx">a</span><span class="p">){</span>
+    <span class="kd">let</span> <span class="nx">newArray</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">j</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mf">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">a</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">,</span> <span class="o">--</span><span class="nx">j</span><span class="p">){</span>
+        <span class="nx">newArray</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="o">=</span> <span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">newArray</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>あるいは <code class="docutils literal notranslate"><span class="pre">a</span></code> をコピーして <code class="docutils literal notranslate"><span class="pre">reverseArrayInPlace</span></code> を呼び出す実装も考えられる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">reverseArrayInPlace</span><span class="p">(</span><span class="nx">a</span><span class="p">){</span>
+    <span class="kd">const</span> <span class="nx">mid</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">length</span> <span class="o">/</span> <span class="mf">2</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">j</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mf">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">mid</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">,</span> <span class="o">--</span><span class="nx">j</span><span class="p">){</span>
+        <span class="p">[</span><span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">a</span><span class="p">[</span><span class="nx">j</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">a</span><span class="p">[</span><span class="nx">j</span><span class="p">],</span> <span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">]];</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>使いやすいのは古いオブジェクトを壊さない <code class="docutils literal notranslate"><span class="pre">reverseArray</span></code> のほうだろう。</p></li>
+<li><p>実行速度はメモリーの確保が生じない in-place のほうが優れている。</p></li>
+</ul>
+</section>
+<section id="a-list">
+<h3><a class="toc-backref" href="#id22">A list</a><a class="headerlink" href="#a-list" title="Permalink to this headline">¶</a></h3>
+<p>JavaScript では単方向リストを次のように表現することが考えられる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">list</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">value</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+    <span class="nx">rest</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">value</span><span class="o">:</span> <span class="mf">2</span><span class="p">,</span>
+        <span class="nx">rest</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span> <span class="mf">3</span><span class="p">,</span>
+            <span class="nx">rest</span><span class="o">:</span> <span class="kc">null</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>リストの良いところは、その構造の一部を共有できることだ。例えば、2つの新しい値 <code class="docutils literal notranslate"><span class="pre">{value:</span> <span class="pre">0,</span> <span class="pre">rest:</span> <span class="pre">list}</span></code> と <code class="docutils literal notranslate"><span class="pre">{value:</span> <span class="pre">-1,</span> <span class="pre">rest:</span> <span class="pre">list}</span></code>
+を作成したとすると、これらはどちらも独立したリストだが、最後の三つの要素を構成する構造を共有している。また、元のリストも有効なままだ。</p>
+<p><strong>問題</strong>：</p>
+<ul class="simple">
+<li><p>配列 <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3]</span></code> を入力として与えると、上記のようなデータ構造のオブジェクトを返す関数 <code class="docutils literal notranslate"><span class="pre">arrayToList</span></code> を書け。</p></li>
+<li><p>また、リストから配列を生成する関数 <code class="docutils literal notranslate"><span class="pre">listToArray</span></code> も書け。そして、ヘルパー関数 <code class="docutils literal notranslate"><span class="pre">prepend</span></code> を追加しろ。この関数は要素とリストを受け取って、要素を入力リストの先頭に追加する <strong>新しい</strong> リストを作成するものとする。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">nth</span></code> を書け。リストとインデックスを受け取り、リスト内の指定された位置の要素を返すものだ。そのような要素がない場合は <code class="docutils literal notranslate"><span class="pre">undefined</span></code> を返せ。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">nth</span></code> を再帰で実装していなければ、再帰版も書け。</p></li>
+</ul>
+<p><strong>解答</strong>：あまりエレガントではないコードだが：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">arrayToList</span><span class="p">(</span><span class="nx">a</span><span class="p">){</span>
+    <span class="kd">let</span> <span class="nx">list</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span> <span class="s2">&quot;rest&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">};</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mf">0</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nx">list</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kd">let</span> <span class="nx">cur</span> <span class="o">=</span> <span class="nx">list</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">a</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mf">1</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">){</span>
+        <span class="nx">cur</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+        <span class="nx">cur</span><span class="p">.</span><span class="nx">rest</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span> <span class="s2">&quot;rest&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">};</span>
+        <span class="nx">cur</span> <span class="o">=</span> <span class="nx">cur</span><span class="p">.</span><span class="nx">rest</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">cur</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+    <span class="nx">cur</span><span class="p">.</span><span class="nx">rest</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">list</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">listToArray</span><span class="p">(</span><span class="nx">list</span><span class="p">){</span>
+    <span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[</span><span class="nx">list</span><span class="p">.</span><span class="nx">value</span><span class="p">];</span>
+    <span class="kd">let</span> <span class="nx">cur</span> <span class="o">=</span> <span class="nx">list</span><span class="p">.</span><span class="nx">rest</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="nx">cur</span><span class="p">.</span><span class="nx">rest</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">){</span>
+        <span class="nx">a</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">cur</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+        <span class="nx">cur</span> <span class="o">=</span> <span class="nx">cur</span><span class="p">.</span><span class="nx">rest</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">a</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">cur</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">a</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>後半は新しいリストを作成することに注意する：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">prepend</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">list</span><span class="p">){</span>
+    <span class="kd">let</span> <span class="nx">arr</span> <span class="o">=</span> <span class="nx">listToArray</span><span class="p">(</span><span class="nx">list</span><span class="p">);</span>
+    <span class="nx">arr</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">arrayToList</span><span class="p">(</span><span class="nx">arr</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">nth</span><span class="p">(</span><span class="nx">list</span><span class="p">,</span> <span class="nx">index</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nb">Number</span><span class="p">.</span><span class="nb">isSafeInteger</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">index</span> <span class="o">&gt;=</span> <span class="mf">0</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">cur</span> <span class="o">=</span> <span class="nx">list</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="nx">index</span><span class="o">--</span> <span class="o">&amp;&amp;</span> <span class="nx">cur</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">;</span> <span class="nx">cur</span> <span class="o">=</span> <span class="nx">cur</span><span class="p">.</span><span class="nx">rest</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">cur</span> <span class="o">?</span> <span class="nx">cur</span><span class="p">.</span><span class="nx">value</span> <span class="o">:</span> <span class="kc">undefined</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">nth_recursive</span><span class="p">(</span><span class="nx">list</span><span class="p">,</span> <span class="nx">index</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nb">Number</span><span class="p">.</span><span class="nb">isSafeInteger</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">index</span> <span class="o">&gt;=</span> <span class="mf">0</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">index</span> <span class="o">==</span> <span class="mf">0</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nx">list</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">nth_recursive</span><span class="p">(</span><span class="nx">list</span><span class="p">.</span><span class="nx">rest</span><span class="p">,</span> <span class="nx">index</span> <span class="o">-</span> <span class="mf">1</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="deep-comparison">
+<h3><a class="toc-backref" href="#id23">Deep comparison</a><a class="headerlink" href="#deep-comparison" title="Permalink to this headline">¶</a></h3>
+<p><strong>問題</strong>：二つ値を受け取り、それらが同じ値または同じプロパティを持つオブジェクトである場合にのみ真を返す関数 <code class="docutils literal notranslate"><span class="pre">deepEqual</span></code> を書け。プロパティーの値は、<code class="docutils literal notranslate"><span class="pre">deepEqual</span></code> の再帰で比較したときに等しい。</p>
+<ul class="simple">
+<li><p>ヒント：値を演算子 <code class="docutils literal notranslate"><span class="pre">===</span></code> を使って直接比較するか、または値のプロパティーすべてを比較するかを調べるには、演算子 <code class="docutils literal notranslate"><span class="pre">typeof</span></code> を使う。ただし <code class="docutils literal notranslate"><span class="pre">typeof</span> <span class="pre">null</span></code> も <code class="docutils literal notranslate"><span class="pre">&quot;object&quot;</span></code> を生成することに注意すること。</p></li>
+<li><p>ヒント：関数 <code class="docutils literal notranslate"><span class="pre">Object.keys</span></code> は、オブジェクトのプロパティーを調べて比較したいときに便利だ。</p></li>
+</ul>
+<p><strong>解答</strong>：問題文から求めるものが再帰関数であることが明らかだ。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">deepEqual</span><span class="p">(</span><span class="nx">lhs</span><span class="p">,</span> <span class="nx">rhs</span><span class="p">){</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">lhs</span> <span class="o">&amp;&amp;</span> <span class="nx">rhs</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">lhs</span> <span class="o">==</span> <span class="s1">&#39;object&#39;</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">rhs</span> <span class="o">==</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">keys</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">lhs</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">keys</span><span class="p">.</span><span class="nx">length</span> <span class="o">!=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">rhs</span><span class="p">).</span><span class="nx">length</span><span class="p">){</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span><span class="p">(</span><span class="kd">const</span> <span class="nx">key</span> <span class="k">of</span> <span class="nx">keys</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">deepEqual</span><span class="p">(</span><span class="nx">lhs</span><span class="p">[</span><span class="nx">key</span><span class="p">],</span> <span class="nx">rhs</span><span class="p">[</span><span class="nx">key</span><span class="p">])){</span>
+                <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">a</span> <span class="o">===</span> <span class="nx">b</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>というか、インターネットに解がある：
+<a class="reference external" href="https://stackoverflow.com/questions/48728515/deep-compare-javascript-function">eloquent - Deep Compare JavaScript function - Stack Overflow</a></p>
+<p>以上</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter05.html" title="Higher-Order Functions"
+             >next</a></li>
+        <li class="right" >
+          <a href="chapter03.html" title="Functions"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Eloquent JavaScript 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Data Structures: Objects and Arrays</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

@@ -4,12 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>CSS セレクター学習ノート &#8212; 読書ノート v1.5dev</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/prefab.css" />
     
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/mathjax-v3.js"></script>
     
     <link rel="next" title="XPath 学習ノート" href="xpath.html" />
@@ -33,7 +33,7 @@
       <div class="documentwrapper">
           <div class="body" role="main">
             
-  <div class="section" id="css">
+  <section id="css">
 <h1><a class="toc-backref" href="#id9">CSS セレクター学習ノート</a><a class="headerlink" href="#css" title="Permalink to this headline">¶</a></h1>
 <p>このノートは CSS のセレクター仕様について簡単に記す。スクレイピングに関する技術で
 XPath に並んで重要なものだ。ここに書いてあることを習得することで、スクレイピング以外にも CSS コードをエレガントに記述することもできるようになる。</p>
@@ -53,7 +53,7 @@ XPath に並んで重要なものだ。ここに書いてあることを習得�
 </li>
 </ul>
 </div>
-<div class="section" id="id2">
+<section id="id2">
 <h2><a class="toc-backref" href="#id10">練習方法</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>ブラウザーの開発ツールのコンソールを利用するか、Scrapy のシェルを利用する。</p>
 <p><a class="reference internal" href="xpath.html"><span class="doc">XPath 学習ノート</span></a> の XPath 練習方法の節に記したものと同じ方法が使える。違いは次の通り：</p>
@@ -63,8 +63,8 @@ XPath に並んで重要なものだ。ここに書いてあることを習得�
 </ul>
 <p>いずれも引数は CSS セレクターを表す文字列とすればよい。</p>
 <p>他にも BeautifulSoup を使う方法や、HTML-XML-utils のコマンド <code class="docutils literal notranslate"><span class="pre">hxselect</span></code> を利用する方法がある。</p>
-</div>
-<div class="section" id="level-1">
+</section>
+<section id="level-1">
 <h2><a class="toc-backref" href="#id11">Level 1</a><a class="headerlink" href="#level-1" title="Permalink to this headline">¶</a></h2>
 <p>セレクター仕様にはレベルという概念があるようで、数字が小さいものほど基本的な仕様となっている。</p>
 <p>ただし、ここで <code class="docutils literal notranslate"><span class="pre">E</span></code>, <code class="docutils literal notranslate"><span class="pre">F</span></code> は任意の HTML 要素名を表すものとする。例えば <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">div</span></code>, <code class="docutils literal notranslate"><span class="pre">img</span></code>, <code class="docutils literal notranslate"><span class="pre">h1</span></code> などだ。また、<code class="docutils literal notranslate"><span class="pre">link</span></code>, <code class="docutils literal notranslate"><span class="pre">visited</span></code>, <code class="docutils literal notranslate"><span class="pre">active</span></code> はすべてリテラルとする。</p>
@@ -106,8 +106,8 @@ XPath に並んで重要なものだ。ここに書いてあることを習得�
 <p>ここまではふつうの CSS を書くときにも頻繁に指定するものなので馴染みがある。むしろスクレイピングではこのような interactive 関連パターンは使わないはずだ。</p>
 <p><code class="docutils literal notranslate"><span class="pre">E:active</span></code> については、何をもって要素が active であるのかを決めるのかは要素によって異なる。</p>
 <p>仕様書によれば <code class="docutils literal notranslate"><span class="pre">F</span></code> が <code class="docutils literal notranslate"><span class="pre">E</span></code> の子である必要はなく、例えば孫でもひ孫でも可とある。空白文字で区切るのは子孫指定と憶えたい。</p>
-</div>
-<div class="section" id="level-2">
+</section>
+<section id="level-2">
 <h2><a class="toc-backref" href="#id12">Level 2</a><a class="headerlink" href="#level-2" title="Permalink to this headline">¶</a></h2>
 <p>レベル 2 から要素の属性に対する条件を指定できるようになる。</p>
 <table class="colwidths-given docutils align-default" id="id6">
@@ -191,8 +191,8 @@ XPath に並んで重要なものだ。ここに書いてあることを習得�
 <li><p>例：<code class="docutils literal notranslate"><span class="pre">body</span> <span class="pre">&gt;</span> <span class="pre">p</span></code>: 要素 <code class="docutils literal notranslate"><span class="pre">body</span></code> の子であるような要素 <code class="docutils literal notranslate"><span class="pre">p</span></code> すべてを指定する。</p></li>
 <li><p>例：<code class="docutils literal notranslate"><span class="pre">div</span> <span class="pre">ol&gt;li</span> <span class="pre">p</span></code>: 要素 <code class="docutils literal notranslate"><span class="pre">li</span></code> の子孫にあたる要素 <code class="docutils literal notranslate"><span class="pre">p</span></code> すべてを指定する。ただしそのような <code class="docutils literal notranslate"><span class="pre">li</span></code> はいずれも要素 <code class="docutils literal notranslate"><span class="pre">ol</span></code> の子であるものとし、さらにそのような <code class="docutils literal notranslate"><span class="pre">ol</span></code> は要素 <code class="docutils literal notranslate"><span class="pre">div</span></code> の子孫であるものとする。</p></li>
 </ul>
-</div>
-<div class="section" id="level-3">
+</section>
+<section id="level-3">
 <h2><a class="toc-backref" href="#id13">Level 3</a><a class="headerlink" href="#level-3" title="Permalink to this headline">¶</a></h2>
 <p>Level 3 で一気にセレクターのバリエーションが増える。</p>
 <table class="colwidths-given docutils align-default" id="id7">
@@ -310,8 +310,8 @@ XPath に並んで重要なものだ。ここに書いてあることを習得�
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">E:only-of-type</span></code> は唯一の要素 <code class="docutils literal notranslate"><span class="pre">E</span></code> を指定する。複数存在する <code class="docutils literal notranslate"><span class="pre">E</span></code> なら指定しないということなのでうまく利用できる状況があるかもしれない。</p>
-</div>
-<div class="section" id="level-4">
+</section>
+<section id="level-4">
 <h2><a class="toc-backref" href="#id14">Level 4</a><a class="headerlink" href="#level-4" title="Permalink to this headline">¶</a></h2>
 <p>レベル 4 で頭の片隅にあるといつか使うかもしれないものを。ただし、これを実装している処理系は現在私の手許にないかもしれない。少なくとも Chrome ベースの某ブラウザーではダメ。</p>
 <table class="colwidths-given docutils align-default" id="id8">
@@ -408,8 +408,8 @@ G の文字は何も指定がなければ 2 列目に描画されると思う。
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">E:nth-col(n)</span></code> にせよ <code class="docutils literal notranslate"><span class="pre">E:nth-last-col(n)</span></code> にせよ <code class="docutils literal notranslate"><span class="pre">An+B</span></code> 記法における位置の決定方法に注意。</p>
-</div>
-<div class="section" id="id3">
+</section>
+<section id="id3">
 <h2><a class="toc-backref" href="#id15">指定度</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>ある要素に対するセレクターの <strong>指定度</strong> とは、次の数からなる三組である：</p>
 <ul class="simple">
@@ -455,16 +455,16 @@ G の文字は何も指定がなければ 2 列目に描画されると思う。
 <li><p><code class="docutils literal notranslate"><span class="pre">:not(em,</span> <span class="pre">strong#foo)</span></code> の指定度は任意の要素にマッチしたときに (1, 0, 1) となる。この値は <code class="docutils literal notranslate"><span class="pre">strong#foo</span></code> の指定度と等しい。</p></li>
 </ul>
 <p>指定度の順序関係は辞書式順序で定義される。左の成分同士から比較する。大きい方がより具体的である。</p>
-</div>
-<div class="section" id="id4">
+</section>
+<section id="id4">
 <h2><a class="toc-backref" href="#id16">関連ノート</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="xpath.html"><span class="doc">XPath 学習ノート</span></a></p></li>
 <li><p><a class="reference internal" href="hxutils.html"><span class="doc">HTML-XML-utils 利用ノート</span></a></p></li>
 <li><p><a class="reference internal" href="python-bs4.html"><span class="doc">BeautifulSoup4 利用ノート</span></a></p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>

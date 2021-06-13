@@ -1,0 +1,651 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Project: A Programming Language &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
+    
+    <script src="../_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="JavaScript and the Browser" href="chapter13.html" />
+    <link rel="prev" title="Asynchronous Programming" href="chapter11.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter13.html" title="JavaScript and the Browser"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="chapter11.html" title="Asynchronous Programming"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Eloquent JavaScript 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Project: A Programming Language</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="project-a-programming-language">
+<h1><a class="toc-backref" href="#id2">Project: A Programming Language</a><a class="headerlink" href="#project-a-programming-language" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://eloquentjavascript.net/">Eloquent JavaScript</a> Chapter 12 の読書ノート。</p>
+<p>本章では JavaScript でプログラミング言語を自作する。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title">ノート目次</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#project-a-programming-language" id="id2">Project: A Programming Language</a></p>
+<ul>
+<li><p><a class="reference internal" href="#parsing" id="id3">Parsing</a></p></li>
+<li><p><a class="reference internal" href="#the-evaluator" id="id4">The evaluator</a></p></li>
+<li><p><a class="reference internal" href="#special-forms" id="id5">Special forms</a></p></li>
+<li><p><a class="reference internal" href="#the-environment" id="id6">The environment</a></p></li>
+<li><p><a class="reference internal" href="#functions" id="id7">Functions</a></p></li>
+<li><p><a class="reference internal" href="#compilation" id="id8">Compilation</a></p></li>
+<li><p><a class="reference internal" href="#cheating" id="id9">Cheating</a></p></li>
+<li><p><a class="reference internal" href="#exercises" id="id10">Exercises</a></p>
+<ul>
+<li><p><a class="reference internal" href="#arrays" id="id11">Arrays</a></p></li>
+<li><p><a class="reference internal" href="#closure" id="id12">Closure</a></p></li>
+<li><p><a class="reference internal" href="#comments" id="id13">Comments</a></p></li>
+<li><p><a class="reference internal" href="#fixing-scope" id="id14">Fixing scope</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="parsing">
+<h2><a class="toc-backref" href="#id3">Parsing</a><a class="headerlink" href="#parsing" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>プログラミング言語でいちばん目につくのはその構文、記法だ。</p></li>
+<li><p>解析器 (parser) とはプログラムであって、テキストの断片を読み込んで、それに含まれるプログラムの構造を反映したデータ構造を生成するものだ。</p>
+<ul>
+<li><p>入力テキストが不適格な場合には、解析器はその誤りを指摘しなければならない。</p></li>
+</ul>
+</li>
+<li><p>これから設計する言語 Egg は、単純で一様な構文を持つ。</p>
+<ul>
+<li><p>Egg にあるすべては式とする。</p></li>
+<li><p>式は変数名、数字、文字列、アプリケーションのいずれかの名前とする。</p>
+<ul>
+<li><p>アプリケーションは関数呼び出しに使用されるが、さらに
+<code class="docutils literal notranslate"><span class="pre">if</span></code> や <code class="docutils literal notranslate"><span class="pre">while</span></code> 文などの構成にも使用される。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>解析器を単純にするべく、</p>
+<ul>
+<li><p>文字列はバックスラッシュエスケープのようないかなるものをサポートしない。文字列は、二重引用符以外の文字を二重引用符で囲んだものとする。</p></li>
+<li><p>数字は、数字の列とする。</p></li>
+<li><p>変数名は、空白文字ではなく、構文上特別な意味を持たない任意の文字で構成できるものとする。</p></li>
+</ul>
+</li>
+</ul>
+<p>アプリケーションの記述方法は、JavaScript と同様とする。式の後に括弧を付け、その括弧の間に任意の数の引数を、コンマで区切って記述するものとする。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>do(define(x, 10),
+   f(&gt;(x, 5),
+       print(&quot;large&quot;),
+       print(&quot;small&quot;)))
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Egg 言語の一様性が意味するところは、JavaScript では演算子であるものが、この言語では普通の変数名であるということであって、他の関数のように適用されるということだ。</p></li>
+<li><p>Egg の構文にはブロックの概念がなく、複数のことを順番に行うことを表現する <code class="docutils literal notranslate"><span class="pre">do</span></code> 構造が必要だ。</p></li>
+<li><p>解析機がプログラムを記述するのに用いるデータ構造は式オブジェクトからなる。式オブジェクトのそれぞれには、種類を示すプロパティー <code class="docutils literal notranslate"><span class="pre">type</span></code> と、オブジェクトの内容を記述するためにあるその他のプロパティーがある。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code> の値が</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;value&quot;</span></code> である式はリテラル文字列・数値を表す。それらのプロパティー <code class="docutils literal notranslate"><span class="pre">value</span></code> は文字列・数値を含む。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;word&quot;</span></code> である式は識別子を表す。そのようなオブジェクトにはプロパティー <code class="docutils literal notranslate"><span class="pre">name</span></code> があって、文字列として識別子の名前を保持する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;apply&quot;</span></code> である式はアプリケーションを表す。</p>
+<ul>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">operator</span></code> は適用される式を表す。</p></li>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">args</span></code> は実引数の式からなる配列を保持する。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>先ほどのコード片における <code class="docutils literal notranslate"><span class="pre">&gt;(x,</span> <span class="pre">5)</span></code> の部分は次のように表現されるだろう：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;apply&quot;</span><span class="p">,</span>
+    <span class="nx">operator</span><span class="o">:</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;word&quot;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">},</span>
+    <span class="nx">args</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;word&quot;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;x&quot;</span><span class="p">},</span>
+        <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="mf">5</span><span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul>
+<li><p>このようなデータ構造を <strong>構文木</strong> (syntax tree) という。</p>
+<ul class="simple">
+<li><p>第 9 章で見た INI ファイルの解析器とは対照的だ。</p></li>
+<li><p>木構造を解析するには再帰的な解析関数を書くことになる。</p></li>
+</ul>
+</li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">parseExpression</span></code> を定義する。</p>
+<ul class="simple">
+<li><p>入力：文字列</p></li>
+<li><p>出力：文字列の先頭にある式のデータ構造を含むオブジェクト</p></li>
+<li><p>出力：解析した後に残る文字列の部分</p></li>
+</ul>
+<p>部分式を解析するときにこの関数を再度呼び出して、引数の式と残りの文字列を得る。この残りには、さらに多くの引数があるかもしれない。</p>
+</li>
+</ul>
+<p>解析器の最初の部分はこのようなものだ：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">parseExpression</span><span class="p">(</span><span class="nx">program</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">program</span> <span class="o">=</span> <span class="nx">skipSpace</span><span class="p">(</span><span class="nx">program</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">match</span><span class="p">,</span> <span class="nx">expr</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">match</span> <span class="o">=</span> <span class="sr">/^&quot;([^&quot;]*)&quot;/</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">program</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">expr</span> <span class="o">=</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="nx">match</span><span class="p">[</span><span class="mf">1</span><span class="p">]};</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">match</span> <span class="o">=</span> <span class="sr">/^\d+\b/</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">program</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">expr</span> <span class="o">=</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">match</span><span class="p">[</span><span class="mf">0</span><span class="p">])};</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">match</span> <span class="o">=</span> <span class="sr">/^[^\s(),#&quot;]+/</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">program</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">expr</span> <span class="o">=</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;word&quot;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="nx">match</span><span class="p">[</span><span class="mf">0</span><span class="p">]};</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nx">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Unexpected syntax: &quot;</span> <span class="o">+</span> <span class="nx">program</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">parseApply</span><span class="p">(</span><span class="nx">expr</span><span class="p">,</span> <span class="nx">program</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">match</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">length</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">skipSpace</span><span class="p">(</span><span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">first</span> <span class="o">=</span> <span class="nx">string</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="sr">/\S/</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">first</span> <span class="o">==</span> <span class="o">-</span><span class="mf">1</span><span class="p">)</span> <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">string</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">first</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">skipSpace</span></code> はプログラム文字列の余分な空白文字を捨てるのに使われる。</p>
+<ul>
+<li><p>ノート：空白文字しか含まない文字列を与えると、そのときに限り空文字列を返す。</p></li>
+<li><p>ノート：基本的には Python でいう <code class="docutils literal notranslate"><span class="pre">str.lstrip</span></code> だ。</p></li>
+</ul>
+</li>
+<li><p>空白文字を処理してから、関数 <code class="docutils literal notranslate"><span class="pre">parseExpression</span></code> は正規表現を用いて
+Egg がサポートする三種の要素（文字列、数字、単語）を判定する。判定できたら対応するデータ構造を構築する。</p>
+<ul>
+<li><p>ノート：正規表現から、数は十進数表記の正の整数に限るようだ。</p></li>
+<li><p>ノート：単語の正規表現に <code class="docutils literal notranslate"><span class="pre">#</span></code> を除外していることは後で意味が出てくる。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SyntaxError</span></code> は JavaScript 標準例外型だ。</p></li>
+</ul>
+<p>プログラム文字列からマッチした部分を切り取り、その部分を式のオブジェクトと一緒に関数 <code class="docutils literal notranslate"><span class="pre">parseApply</span></code> に引き渡す。式がアプリケーションであるかどうかをチェックし、そうならば括弧でくくられた引数を解析する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">parseApply</span><span class="p">(</span><span class="nx">expr</span><span class="p">,</span> <span class="nx">program</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">program</span> <span class="o">=</span> <span class="nx">skipSpace</span><span class="p">(</span><span class="nx">program</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">program</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;(&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span><span class="nx">expr</span><span class="o">:</span> <span class="nx">expr</span><span class="p">,</span> <span class="nx">rest</span><span class="o">:</span> <span class="nx">program</span><span class="p">};</span>
+    <span class="p">}</span>
+
+    <span class="nx">program</span> <span class="o">=</span> <span class="nx">skipSpace</span><span class="p">(</span><span class="nx">program</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">1</span><span class="p">));</span>
+    <span class="nx">expr</span> <span class="o">=</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;apply&quot;</span><span class="p">,</span> <span class="nx">operator</span><span class="o">:</span> <span class="nx">expr</span><span class="p">,</span> <span class="nx">args</span><span class="o">:</span> <span class="p">[]};</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">program</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;)&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">arg</span> <span class="o">=</span> <span class="nx">parseExpression</span><span class="p">(</span><span class="nx">program</span><span class="p">);</span>
+        <span class="nx">expr</span><span class="p">.</span><span class="nx">args</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">arg</span><span class="p">.</span><span class="nx">expr</span><span class="p">);</span>
+
+        <span class="nx">program</span> <span class="o">=</span> <span class="nx">skipSpace</span><span class="p">(</span><span class="nx">arg</span><span class="p">.</span><span class="nx">rest</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">program</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;,&quot;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">program</span> <span class="o">=</span> <span class="nx">skipSpace</span><span class="p">(</span><span class="nx">program</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">1</span><span class="p">));</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">program</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;)&quot;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nx">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Expected &#39;,&#39; or &#39;)&#39;&quot;</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">parseApply</span><span class="p">(</span><span class="nx">expr</span><span class="p">,</span> <span class="nx">program</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">1</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>プログラムの次の文字が開き括弧でない場合、これはアプリケーションではないので、関数 <code class="docutils literal notranslate"><span class="pre">parseApply</span></code> は与えられた式を返す。そうでなければ、開き括弧を飛ばして、このアプリケーション式の構文木オブジェクトを作成する。その後、関数 <code class="docutils literal notranslate"><span class="pre">parseExpression</span></code> を再帰的に呼び出して、閉じ括弧が見つかるまで各引数を解析する。この再帰は <code class="docutils literal notranslate"><span class="pre">parseApply</span></code> と <code class="docutils literal notranslate"><span class="pre">parseExpression</span></code> が相互に呼び出すことで間接的に行われる。</p>
+<ul>
+<li><p>ノート：二つの関数が互いに依存しあっていることに注意する。</p></li>
+</ul>
+</li>
+<li><p>アプリケーション式は例えば <code class="docutils literal notranslate"><span class="pre">multiplier(2)(1)</span></code> などのように、それ自体が apply されることがあるため、
+<code class="docutils literal notranslate"><span class="pre">parseApply</span></code> はアプリケーションを解析した後に、再度自分自身を呼び出して、別の括弧のペアが続くかどうかをチェックする必要がある。</p></li>
+</ul>
+<p>以上が Egg の解析に必要なものだ。式を解析した後、入力文字列の最後に到達したかどうかを確認する便利な関数 <code class="docutils literal notranslate"><span class="pre">parse</span></code> でラップする。そしてプログラムのデータ構造が得られる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">parse</span><span class="p">(</span><span class="nx">program</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="p">{</span><span class="nx">expr</span><span class="p">,</span> <span class="nx">rest</span><span class="p">}</span> <span class="o">=</span> <span class="nx">parseExpression</span><span class="p">(</span><span class="nx">program</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">skipSpace</span><span class="p">(</span><span class="nx">rest</span><span class="p">).</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nx">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Unexpected text after program&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">expr</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">parse</span><span class="p">(</span><span class="s2">&quot;+(a, 10)&quot;</span><span class="p">));</span>
+<span class="c1">// → {type: &quot;apply&quot;,</span>
+<span class="c1">//     operator: {type: &quot;word&quot;, name: &quot;+&quot;},</span>
+<span class="c1">//     args: [{type: &quot;word&quot;, name: &quot;a&quot;},</span>
+<span class="c1">//     {type: &quot;value&quot;, value: 10}]}</span>
+</pre></div>
+</div>
+</section>
+<section id="the-evaluator">
+<h2><a class="toc-backref" href="#id4">The evaluator</a><a class="headerlink" href="#the-evaluator" title="Permalink to this headline">¶</a></h2>
+<p>評価器に構文木と名前と値を関連付けるスコープオブジェクトを与えると構文木が表現する式を評価して、それが生成する値を返す。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">specialForms</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+
+<span class="kd">function</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">expr</span><span class="p">,</span> <span class="nx">scope</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">expr</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;value&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">expr</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">expr</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;word&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">expr</span><span class="p">.</span><span class="nx">name</span> <span class="k">in</span> <span class="nx">scope</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">scope</span><span class="p">[</span><span class="nx">expr</span><span class="p">.</span><span class="nx">name</span><span class="p">];</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nx">ReferenceError</span><span class="p">(</span><span class="sb">`Undefined binding: </span><span class="si">${</span><span class="nx">expr</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">expr</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;apply&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="p">{</span><span class="nx">operator</span><span class="p">,</span> <span class="nx">args</span><span class="p">}</span> <span class="o">=</span> <span class="nx">expr</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">operator</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;word&quot;</span> <span class="o">&amp;&amp;</span> <span class="nx">operator</span><span class="p">.</span><span class="nx">name</span> <span class="k">in</span> <span class="nx">specialForms</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">specialForms</span><span class="p">[</span><span class="nx">operator</span><span class="p">.</span><span class="nx">name</span><span class="p">](</span><span class="nx">expr</span><span class="p">.</span><span class="nx">args</span><span class="p">,</span> <span class="nx">scope</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="kd">let</span> <span class="nx">op</span> <span class="o">=</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">operator</span><span class="p">,</span> <span class="nx">scope</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">op</span> <span class="o">==</span> <span class="s2">&quot;function&quot;</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">op</span><span class="p">(...</span><span class="nx">args</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">arg</span> <span class="p">=&gt;</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">arg</span><span class="p">,</span> <span class="nx">scope</span><span class="p">)));</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nx">TypeError</span><span class="p">(</span><span class="s2">&quot;Applying a non-function.&quot;</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>評価器にはそれぞれの式の種類に応じたコードがある。</p>
+<ul>
+<li><p>リテラル値（これも式の一種）はその値を生成する。</p></li>
+<li><p>変数については、それがスコープ内に本当に定義されているかをチェックする必要がある。定義されている場合に限り、変数の値を取りに行く。</p></li>
+<li><p>アプリケーションはより複雑だ。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">if</span></code> 文のように特別な形式ならば何も評価せずにこの形式を処理する関数に実引数式をスコープとともに渡す。</p></li>
+<li><p>通常の呼び出しであれば、演算子を評価してそれが関数であることを確認し、評価された実引数でそれを呼び出す。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Egg の関数値を表すのに JavaScript のプレーンな関数値を用いる。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">evaluate</span></code> の再帰的な構造は解析器の類似した構造と似ていて、どちらも言語自身の構造を反映している。解析器と評価器を統合して、解析中に評価することもできる。しかし、上記のように分割するとプログラムをより明確にする。</p></li>
+</ul>
+<p>Egg の通訳に必要なのは以上で、実に単純なものだ。しかし、特別な形式をいくつか定義したり、便利な値を環境に追加したりしないと、多くのことがまだできない。</p>
+</section>
+<section id="special-forms">
+<h2><a class="toc-backref" href="#id5">Special forms</a><a class="headerlink" href="#special-forms" title="Permalink to this headline">¶</a></h2>
+<p>オブジェクト <code class="docutils literal notranslate"><span class="pre">specialForms</span></code> を Egg における特別な構文を定義するのに使う。このオブジェクトはタントとそのような形式を評価する関数とを関連付ける。</p>
+<p>まず <code class="docutils literal notranslate"><span class="pre">if</span></code> を追加する：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">specialForms</span><span class="p">.</span><span class="k">if</span> <span class="o">=</span> <span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">scope</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">!=</span> <span class="mf">3</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nx">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Wrong number of args to if&quot;</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mf">0</span><span class="p">],</span> <span class="nx">scope</span><span class="p">)</span> <span class="o">!==</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mf">1</span><span class="p">],</span> <span class="nx">scope</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mf">2</span><span class="p">],</span> <span class="nx">scope</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Egg の <code class="docutils literal notranslate"><span class="pre">if</span></code> 文はちょうど三つの引数を期待する。まず最初の引数を評価して、その結果 <code class="docutils literal notranslate"><span class="pre">false</span></code> でなければ二番目の引数を評価してそれを返す。
+<code class="docutils literal notranslate"><span class="pre">false</span></code> ならば三番目の引数を評価してそれを返す。</p>
+<ul>
+<li><p>JavaScript の <code class="docutils literal notranslate"><span class="pre">if</span></code> というよりは、三項演算子により似ている。</p></li>
+<li><p>これは式であり文ではない。つまり、第二引数または第三引数の結果を生成する。</p></li>
+</ul>
+</li>
+<li><p>さらに <code class="docutils literal notranslate"><span class="pre">if</span></code> の条件値の処理方法も異なる。上のコードから明らかにゼロや空の文字列を <code class="docutils literal notranslate"><span class="pre">false</span></code> 扱いせず、厳密に値 <code class="docutils literal notranslate"><span class="pre">false</span></code> を扱う。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">if</span></code> を通常の関数ではなく、特別な形式で表現する理由とは、関数への実引数すべてが関数が呼び出されるよりも前に評価される一方で、この <code class="docutils literal notranslate"><span class="pre">if</span></code> は、第一引数の値に応じて第二引数か第三引数のいずれか一方のみを評価する必要があるからだ。</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">while</span></code> 形式も同様にする。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">specialForms</span><span class="p">.</span><span class="k">while</span> <span class="o">=</span> <span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">scope</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">!=</span> <span class="mf">2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nx">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Wrong number of args to while&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mf">0</span><span class="p">],</span> <span class="nx">scope</span><span class="p">)</span> <span class="o">!==</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">evaluate</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mf">1</span><span class="p">],</span> <span class="nx">scope</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Since undefined does not exist in Egg, we return false,</span>
+    <span class="c1">// for lack of a meaningful result.</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">do</span></code> ループはすべての引数を上から下へ実行する。評価は最後の引数が生成する値だ。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">specialForms</span><span class="p">.</span><span class="k">do</span> <span class="o">=</span> <span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">scope</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">value</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">arg</span> <span class="k">of</span> <span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">value</span> <span class="o">=</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">arg</span><span class="p">,</span> <span class="nx">scope</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">value</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>変数を定義する機能を実装するために <code class="docutils literal notranslate"><span class="pre">define</span></code> という形式も作る。</p>
+<ul class="simple">
+<li><p>第一引数：単語</p></li>
+<li><p>第二引数：その単語に割り当てる値を生成する式</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">specialForms</span><span class="p">.</span><span class="nx">define</span> <span class="o">=</span> <span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">scope</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">!=</span> <span class="mf">2</span> <span class="o">||</span> <span class="nx">args</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">type</span> <span class="o">!=</span> <span class="s2">&quot;word&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nx">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Incorrect use of define&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="kd">let</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mf">1</span><span class="p">],</span> <span class="nx">scope</span><span class="p">);</span>
+    <span class="nx">scope</span><span class="p">[</span><span class="nx">args</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">value</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="the-environment">
+<h2><a class="toc-backref" href="#id6">The environment</a><a class="headerlink" href="#the-environment" title="Permalink to this headline">¶</a></h2>
+<p>評価器が受理するスコープはオブジェクトであって、</p>
+<ul class="simple">
+<li><p>そのプロパティーの名前が変数名と対応し、かつ</p></li>
+<li><p>そのプロパティーの値が、変数が束縛されている値に対応する</p></li>
+</ul>
+<p>ようなものだ。</p>
+<p>先ほどの <code class="docutils literal notranslate"><span class="pre">if</span></code> 文を使用できるようにするには、真偽値にアクセスしなければならない。真偽値は二つしかないので、特別な構文は不要だ。単に二つの名前を <code class="docutils literal notranslate"><span class="pre">true</span></code> と
+<code class="docutils literal notranslate"><span class="pre">false</span></code> に束縛する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">topScope</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+
+<span class="nx">topScope</span><span class="p">.</span><span class="kc">true</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="nx">topScope</span><span class="p">.</span><span class="kc">false</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+</pre></div>
+</div>
+<ul>
+<li><p>ここで <code class="docutils literal notranslate"><span class="pre">topScope</span></code> は大域名前空間を表す。</p></li>
+<li><p>これにより真偽値を否定する簡単な式を評価できるようになった。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">prog</span> <span class="o">=</span> <span class="nx">parse</span><span class="p">(</span><span class="sb">`if(true, false, true)`</span><span class="p">);</span>
+<span class="nx">evaluate</span><span class="p">(</span><span class="nx">prog</span><span class="p">,</span> <span class="nx">topScope</span><span class="p">);</span> <span class="c1">// → false</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>基本的な算術演算子と比較演算子を提供するべく、関数値をいくつか大域名前空間に追加する。コードを短く保つために、演算子を個別に定義するのではなく JavaScript にある
+<code class="docutils literal notranslate"><span class="pre">Function</span></code> を利用してループ内で一連の演算子を合成する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">op</span> <span class="k">of</span> <span class="p">[</span><span class="s2">&quot;+&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;==&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">])</span> <span class="p">{</span>
+    <span class="nx">topScope</span><span class="p">[</span><span class="nx">op</span><span class="p">]</span> <span class="o">=</span> <span class="nb">Function</span><span class="p">(</span><span class="s2">&quot;a, b&quot;</span><span class="p">,</span> <span class="sb">`return a </span><span class="si">${</span><span class="nx">op</span><span class="si">}</span><span class="sb"> b;`</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>値を出力する手段が欲しいので <code class="docutils literal notranslate"><span class="pre">console.log</span></code> を関数にラップしてそれを <code class="docutils literal notranslate"><span class="pre">print</span></code> を名付けることにする。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">topScope</span><span class="p">.</span><span class="nx">print</span> <span class="o">=</span> <span class="nx">value</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">value</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>以上で簡単なプログラムを書くのに十分な初頭的なツールが用意できた。</p>
+<p>次の関数 <code class="docutils literal notranslate"><span class="pre">run</span></code> は、プログラムを解析して新しいスコープで実行するものだ。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">run</span><span class="p">(</span><span class="nx">program</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">parse</span><span class="p">(</span><span class="nx">program</span><span class="p">),</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">topScope</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>オブジェクトプロトタイプの連鎖を使って入れ子になったスコープを表現して、プログラムが大域名前空間を変更することなしに、そのローカルスコープに変数を追加できるはずだ。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">run</span><span class="p">(</span><span class="sb">`</span>
+<span class="sb">do(define(total, 0),</span>
+<span class="sb">   define(count, 1),</span>
+<span class="sb">   while(&lt;(count, 11),</span>
+<span class="sb">         do(define(total, +(total, count)),</span>
+<span class="sb">            define(count, +(count, 1)))),</span>
+<span class="sb">   print(total))</span>
+<span class="sb">`</span><span class="p">);</span>
+<span class="c1">// → 55</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>150 行未満のコードで実装された言語で書かれたものだと思えば悪くない。</p></li>
+</ul>
+</section>
+<section id="functions">
+<h2><a class="toc-backref" href="#id7">Functions</a><a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<p>関数機能 <code class="docutils literal notranslate"><span class="pre">fun</span></code> 文を定義する。これはそれほど難しくない。</p>
+<ul class="simple">
+<li><p>最後の引数を関数の本体として扱い、</p></li>
+<li><p>それ以外の引数すべてを関数の引数リストとして使用する。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">specialForms</span><span class="p">.</span><span class="nx">fun</span> <span class="o">=</span> <span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">scope</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">args</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nx">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Functions need a body&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="kd">let</span> <span class="nx">body</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mf">1</span><span class="p">];</span>
+    <span class="kd">let</span> <span class="nx">params</span> <span class="o">=</span> <span class="nx">args</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mf">1</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nx">expr</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">expr</span><span class="p">.</span><span class="nx">type</span> <span class="o">!=</span> <span class="s2">&quot;word&quot;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nx">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Parameter names must be words&quot;</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nx">expr</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+    <span class="p">});</span>
+
+    <span class="k">return</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span> <span class="o">!=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nx">TypeError</span><span class="p">(</span><span class="s2">&quot;Wrong number of arguments&quot;</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="kd">let</span> <span class="nx">localScope</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">scope</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">localScope</span><span class="p">[</span><span class="nx">params</span><span class="p">[</span><span class="nx">i</span><span class="p">]]</span> <span class="o">=</span> <span class="nx">arguments</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">body</span><span class="p">,</span> <span class="nx">localScope</span><span class="p">);</span>
+    <span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Egg の関数は固有の関数スコープを有する。
+<code class="docutils literal notranslate"><span class="pre">fun</span></code> が生成する関数は、この関数スコープを作成し、実引数の変数を追加する。それから、このスコープで関数本体を評価して結果を返す。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">run</span><span class="p">(</span><span class="sb">`</span>
+<span class="sb">do(define(plusOne, fun(a, +(a, 1))),</span>
+<span class="sb">   print(plusOne(10)))</span>
+<span class="sb">`</span><span class="p">);</span>
+<span class="c1">// → 11</span>
+
+<span class="nx">run</span><span class="p">(</span><span class="sb">`</span>
+<span class="sb">do(define(pow, fun(base, exp,</span>
+<span class="sb">   if(==(exp, 0), 1, *(base, pow(base, -(exp, 1)))))),</span>
+<span class="sb">   print(pow(2, 10)))</span>
+<span class="sb">`</span><span class="p">);</span>
+<span class="c1">// → 1024</span>
+</pre></div>
+</div>
+</section>
+<section id="compilation">
+<h2><a class="toc-backref" href="#id8">Compilation</a><a class="headerlink" href="#compilation" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>ここまでで実装したのは <strong>インタープリター</strong> だ。インタープリターは評価の際に解析器が生成したプログラムの表現に直接作用する。</p></li>
+<li><p><strong>コンパイル</strong> とは、解析と実行の間に段階をもう一つ追加する工程だ。これにより、プログラムをより効率的に評価できるものに変換する。</p></li>
+<li><p>伝統的には、コンパイルとはプログラムを機械語に変換することを指すが、プログラムを別の表現に変換する工程すべてをコンパイルとみなすこともできる。</p></li>
+<li><p>Egg に対する評価戦略としては次のようなものも考えられた。最初にプログラムを JavaScript のそれに変換し、
+<code class="docutils literal notranslate"><span class="pre">Function</span></code> を使って JavaScript のコンパイラーを起動し、その結果を実行するというものだ。</p>
+<ul>
+<li><p>これが正しく実装されれば、Egg はひじょうに高速に実行され、なおかつ実装もまったく単純だ。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="cheating">
+<h2><a class="toc-backref" href="#id9">Cheating</a><a class="headerlink" href="#cheating" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Egg の <code class="docutils literal notranslate"><span class="pre">if</span></code> と <code class="docutils literal notranslate"><span class="pre">while</span></code> の定義をするときに、これらが JavaScript でのそれらのちょっとしたラッパーであることに気付いたはずだ。値にいたっては JavaScript の値だ。</p></li>
+<li><p>JavaScript の上での Egg の実装と、機械が提供する生の機能から直接プログラミング言語を実装するのが要求する手間と複雑さを比較すると、その差は歴然としている。</p></li>
+<li><p>この章ではプログラミング言語がどのように働くのかを理想的に印象づけた。</p></li>
+<li><p>何かを達成するには、すべてを自分でするよりも、ずるいことをするのが効果的だ。</p></li>
+<li><p>この章のおもちゃのような言語はともかく、小さな言語を書くことが実際の仕事で役に立つこともある。</p>
+<ul>
+<li><p>そのような言語は、一般的なそれと似ている必要はない。</p></li>
+<li><p>仮に JavaScript に正規表現が存在しなかったならば、自分で正規表現の解析器や評価器を独自に書くこともできるだろう。</p></li>
+</ul>
+</li>
+<li><p><strong>ドメイン固有言語</strong> という考え方もある。汎用言語よりも適切な状況があり得る。</p></li>
+</ul>
+</section>
+<section id="exercises">
+<h2><a class="toc-backref" href="#id10">Exercises</a><a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<section id="arrays">
+<h3><a class="toc-backref" href="#id11">Arrays</a><a class="headerlink" href="#arrays" title="Permalink to this headline">¶</a></h3>
+<p><strong>問題</strong> 次の三つの関数をトップスコープに追加して Egg の配列機能を追加しろ：</p>
+<ul class="simple">
+<li><p>引数の値を含む配列を構築する <code class="docutils literal notranslate"><span class="pre">array(...values)</span></code>、</p></li>
+<li><p>配列の長さを取得する <code class="docutils literal notranslate"><span class="pre">length(array)</span></code></p></li>
+<li><p>配列から n 番目の要素を取得する <code class="docutils literal notranslate"><span class="pre">element(array,</span> <span class="pre">n)</span></code></p></li>
+</ul>
+<p><strong>解答</strong> これは単純に書いてよいだろう：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">topScope</span><span class="p">.</span><span class="nx">array</span> <span class="o">=</span> <span class="p">(...</span><span class="nx">args</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">[...</span><span class="nx">args</span><span class="p">];</span>
+<span class="nx">topScope</span><span class="p">.</span><span class="nx">length</span> <span class="o">=</span> <span class="nx">arr</span> <span class="p">=&gt;</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+<span class="nx">topScope</span><span class="p">.</span><span class="nx">element</span> <span class="o">=</span> <span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">n</span><span class="p">];</span>
+</pre></div>
+</div>
+</section>
+<section id="closure">
+<h3><a class="toc-backref" href="#id12">Closure</a><a class="headerlink" href="#closure" title="Permalink to this headline">¶</a></h3>
+<p><strong>問題</strong> <code class="docutils literal notranslate"><span class="pre">fun</span></code> を定義したやり方は、Egg の関数に周囲のスコープを参照することを許す。つまり、関数の本体に対して、それが定義された時点で見えているローカルな値を使用するのを許す。
+JavaScript の関数がそうであるのと同様だ。</p>
+<p>次のプログラムはそのことを説明する。関数 <code class="docutils literal notranslate"><span class="pre">f</span></code> は自分の引数を <code class="docutils literal notranslate"><span class="pre">f</span></code> に対する実引数に追加する関数を返す。つまり、変数 <code class="docutils literal notranslate"><span class="pre">a</span></code> を使えるようにするには、<code class="docutils literal notranslate"><span class="pre">f</span></code> 内部のローカルスコープにアクセスする必要がある。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>run(`
+    do(define(f, fun(a, fun(b, +(a, b)))),
+    print(f(4)(5)))
+`);
+// → 9
+</pre></div>
+</div>
+<p>形式 <code class="docutils literal notranslate"><span class="pre">fun</span></code> の定義に戻って、どのような仕組みでこれが動作するのかを動作するのかを述べろ。</p>
+<p><strong>解答</strong> このコードを JavaScript に翻訳すると：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">f</span><span class="p">(</span><span class="nx">a</span><span class="p">){</span>
+    <span class="kd">function</span> <span class="nx">b</span><span class="p">(){</span>
+        <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">;</span>
+    <span class="p">};</span>
+    <span class="k">return</span> <span class="nx">b</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">specialForms.fun</span></code> の定義において、関数の本体とスコープを決定するコードは次のものだ：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">localScope</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">scope</span><span class="p">);</span>
+<span class="c1">//console.log(Object.getPrototypeOf(localScope));</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">localScope</span><span class="p">[</span><span class="nx">params</span><span class="p">[</span><span class="nx">i</span><span class="p">]]</span> <span class="o">=</span> <span class="nx">arguments</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+    <span class="c1">//console.log(`localScope[${params[i]}] = ${arguments[i]}`);</span>
+<span class="p">}</span>
+<span class="k">return</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">body</span><span class="p">,</span> <span class="nx">localScope</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>まず <code class="docutils literal notranslate"><span class="pre">f</span></code> の定義が起こる。その <code class="docutils literal notranslate"><span class="pre">localScope</span></code> に新たに <code class="docutils literal notranslate"><span class="pre">a</span></code> が入る。</p>
+<p>次に <code class="docutils literal notranslate"><span class="pre">b</span></code> の定義が起こる。このとき <code class="docutils literal notranslate"><span class="pre">localScope</span></code> のプロトタイプの部分である
+<code class="docutils literal notranslate"><span class="pre">scope</span></code> に <code class="docutils literal notranslate"><span class="pre">a</span></code> が含まれていることに注意する。それに対して <code class="docutils literal notranslate"><span class="pre">b</span></code> が入る。</p>
+<p>したがって、関数 <code class="docutils literal notranslate"><span class="pre">b</span></code> は <code class="docutils literal notranslate"><span class="pre">f</span></code> のローカルスコープにある
+<code class="docutils literal notranslate"><span class="pre">a</span></code> を参照することができる。</p>
+</section>
+<section id="comments">
+<h3><a class="toc-backref" href="#id13">Comments</a><a class="headerlink" href="#comments" title="Permalink to this headline">¶</a></h3>
+<p><strong>問題</strong> 記号 <code class="docutils literal notranslate"><span class="pre">#</span></code> を見つけたら、その行の残りの部分をコメントとして扱い、
+JavaScript の <code class="docutils literal notranslate"><span class="pre">//</span></code> と同じようにそれを無視したい。</p>
+<p>この機能をサポートするために、解析器に大きな変更を加える必要はない。
+<code class="docutils literal notranslate"><span class="pre">skipSpace</span></code> がコメントを空白文字のように飛ばすように変更するだけで、
+<code class="docutils literal notranslate"><span class="pre">skipSpace</span></code> が呼び出されるすべてのポイントでコメントも飛ばされるようになる。この変更を加えろ。</p>
+<p><strong>解答</strong> 素直に考えると次のようになる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">skipSpace</span><span class="p">(</span><span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">first</span> <span class="o">=</span> <span class="nx">string</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="sr">/\S/</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">first</span> <span class="o">==</span> <span class="o">-</span><span class="mf">1</span><span class="p">)</span> <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">string</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">first</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/#.*/g</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>ただし、文字列リテラル中に <code class="docutils literal notranslate"><span class="pre">#</span></code> を含むようなプログラムに対しては構文エラーを生じる。</p>
+</section>
+<section id="fixing-scope">
+<h3><a class="toc-backref" href="#id14">Fixing scope</a><a class="headerlink" href="#fixing-scope" title="Permalink to this headline">¶</a></h3>
+<p>現在、変数に値を割り当てる唯一の方法は <code class="docutils literal notranslate"><span class="pre">define</span></code> しかない。この構文は、新しい変数を定義する方法としても、既存の変数に新しい値を与える方法としても機能する。この曖昧さは問題になる。非ローカル変数に新しい値を与えようとすると、代わりに同じ名前のローカル変数を定義してしまうことになる。</p>
+<p><strong>問題</strong> <code class="docutils literal notranslate"><span class="pre">define</span></code> と同じように、変数に新しい値を与える <code class="docutils literal notranslate"><span class="pre">specialForm</span></code> を追加しろ：内側のスコープにまだ存在していなければ、外側のスコープの変数を更新する。変数が全く定義されていない場合は、<code class="docutils literal notranslate"><span class="pre">ReferenceError</span></code> を送出しろ。</p>
+<ul class="simple">
+<li><p>スコープを単純なオブジェクトで表現する手法は、これまでは便利だったが、ここからは少々邪魔になる。ここではオブジェクトのプロトタイプを返す <code class="docutils literal notranslate"><span class="pre">Object.getPrototypeOf</span></code> 関数を使うといいだろう。</p></li>
+<li><p>また、スコープは <code class="docutils literal notranslate"><span class="pre">Object.prototype</span></code> から派生していないので、スコープに対して <code class="docutils literal notranslate"><span class="pre">hasOwnProperty</span></code> を呼び出すには、次のような不器用な式を使わなければならないことにも留意しろ：</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">scope</span><span class="p">,</span> <span class="nx">name</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>解答</strong> これは時間がかかった。キーワードを <code class="docutils literal notranslate"><span class="pre">put</span></code> にすると次のようなコードになる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">specialForms</span><span class="p">.</span><span class="nx">put</span> <span class="o">=</span> <span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">scope</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">!=</span> <span class="mf">2</span> <span class="o">||</span> <span class="nx">args</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">type</span> <span class="o">!=</span> <span class="s2">&quot;word&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nx">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Incorrect use of put&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="kd">const</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">name</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mf">1</span><span class="p">],</span> <span class="nx">scope</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">scope</span><span class="p">,</span> <span class="nx">name</span><span class="p">)){</span>
+        <span class="nx">scope</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nx">value</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">name</span> <span class="k">in</span> <span class="nx">scope</span><span class="p">){</span>
+        <span class="nb">Object</span><span class="p">.</span><span class="nx">getPrototypeOf</span><span class="p">(</span><span class="nx">scope</span><span class="p">)[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nx">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">throw</span> <span class="k">new</span> <span class="nx">ReferenceError</span><span class="p">(</span><span class="sb">`Incorrect use of put; </span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb"> is undefined`</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>急所は問題文から推察されるように、プロトタイプの理解ができているかどうかだ。次のようなコードを修正して色々なパターンを試す：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>run(`
+    do(
+        define(x, 3),
+        print(x),
+        define(
+            f, fun(
+                do(
+                    #define(x, 0),
+                    put(x, 222),
+                    #put(y, 222),
+                    print(&quot;put&quot;),
+                    print(x)
+                )
+            )
+        ),
+        f(),
+        print(&quot;final&quot;),
+        print(x)
+    )`
+);
+</pre></div>
+</div>
+<p>以上</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter13.html" title="JavaScript and the Browser"
+             >next</a></li>
+        <li class="right" >
+          <a href="chapter11.html" title="Asynchronous Programming"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Eloquent JavaScript 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Project: A Programming Language</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

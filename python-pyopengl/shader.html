@@ -4,12 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>単純なシェーダープログラムの作成 &#8212; 読書ノート v1.5dev</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
     
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/mathjax-v3.js"></script>
     
     <link rel="next" title="PyQt4 利用ノート [obsolete]" href="../python-pyqt4.html" />
@@ -35,7 +35,7 @@
       <div class="documentwrapper">
           <div class="body" role="main">
             
-  <div class="section" id="id1">
+  <section id="id1">
 <h1><a class="toc-backref" href="#id10">単純なシェーダープログラムの作成</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>今までのサンプルは古い OpenGL の仕様に基づいたコードなので、いずれ無用の存在になる（私のノートはこういうパターンがけっこう多い）。全てを忘れて最新バージョンの OpenGL が推奨する様式でコードを書くことにしたい。残念ながら私の環境は OpenGL 3.1 までの機能しかサポートしていないので、今後ここに記すコードはせいぜい 3.1 程度の新しさとなる。</p>
 <p>私の OpenGL の知識はバージョン 1.4 程度で止まっており、ましてやシェーダーなどは触ったこともない。ゆえに、ここでは初歩的な事項の確認にとどまる。</p>
@@ -101,7 +101,7 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="id2">
+<section id="id2">
 <h2><a class="toc-backref" href="#id11">サンプルプログラムを探す</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>なにぶん知識がないものだから Google で GLSL 等の単語を検索して、色々と漁ってみるしかない。次のようなサイトが取っ掛かりになる。</p>
 <dl class="simple">
@@ -110,8 +110,8 @@
 <dt><a class="reference external" href="https://bitbucket.org/rndblnch/opengl-programmable/src">rndblnch / opengl-programmable</a></dt><dd><p>話が早いことに PyOpenGL で書かれたプログラムも発見できた。</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="id3">
+</section>
+<section id="id3">
 <h2><a class="toc-backref" href="#id12">サンプルコード全体</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>プログラムをスクリプトファイルの形で構成する。全体を以下に示す。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
@@ -330,11 +330,11 @@
 </pre></div>
 </div>
 <p>これはイルベロの描かれた正多角形を描画するだけのプログラムである。シェーダープログラム、テクスチャー、座標変換機能はベースクラスで実装済みである。残念ながら、照光処理は実装していない。</p>
-</div>
-<div class="section" id="id4">
+</section>
+<section id="id4">
 <h2><a class="toc-backref" href="#id13">ポイント解説</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>本節では上記コードを要所に絞って解説していく。解説するポイントの順序は、スクリプトの先頭から末尾に向かってとする。</p>
-<div class="section" id="id5">
+<section id="id5">
 <h3><a class="toc-backref" href="#id14">インポート</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">colorsys</span>
@@ -354,12 +354,12 @@
 <li><p>OpenGL 3.1 を志向しているので、GLU は決してインポートしない。</p></li>
 <li><p>クラス <code class="docutils literal notranslate"><span class="pre">ModenApp</span></code> のサブクラスをつくるため、当然インポートする。</p></li>
 </ul>
-</div>
-<div class="section" id="id6">
+</section>
+<section id="id6">
 <h3><a class="toc-backref" href="#id15">シェーダーコード</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>シェーダーコード自身については、OpenGL でも PyOpenGL でも何ら変わらない。
 Python の場合はトリプルクォート記法が便利だ。</p>
-<div class="section" id="id7">
+<section id="id7">
 <h4><a class="toc-backref" href="#id16">頂点シェーダーコード</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#version 330 core</span>
 
@@ -391,8 +391,8 @@ Python の場合はトリプルクォート記法が便利だ。</p>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="id8">
+</section>
+<section id="id8">
 <h4><a class="toc-backref" href="#id17">フラグメントシェーダーコード</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#version 330 core</span>
 
@@ -415,12 +415,12 @@ Python の場合はトリプルクォート記法が便利だ。</p>
 <li><p>頂点シェーダーの出力がフラグメントシェーダーの入力となる。</p></li>
 <li><p>最新バージョンの GLSL では <code class="docutils literal notranslate"><span class="pre">gl_FragColor</span></code> が廃止されたらしいので、本シェーダーの出力を <code class="docutils literal notranslate"><span class="pre">out</span> <span class="pre">...</span></code> の行で別途宣言する。</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="shaderdemoapp">
+</section>
+</section>
+<section id="shaderdemoapp">
 <h3><a class="toc-backref" href="#id18">クラス <code class="docutils literal notranslate"><span class="pre">ShaderDemoApp</span></code></a><a class="headerlink" href="#shaderdemoapp" title="Permalink to this headline">¶</a></h3>
 <p>OpenGL 3.0 以降準拠の PyOpenGL スクリプトのためのベースクラス <code class="docutils literal notranslate"><span class="pre">ModenApp</span></code> のサブクラスを定義する。</p>
-<div class="section" id="init">
+<section id="init">
 <h4><a class="toc-backref" href="#id19">メソッド <code class="docutils literal notranslate"><span class="pre">__init__</span></code></a><a class="headerlink" href="#init" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span>        <span class="sd">&quot;&quot;&quot;Initialize an instance of class ShaderDemoApp.&quot;&quot;&quot;</span>
 
@@ -443,8 +443,8 @@ Python の場合はトリプルクォート記法が便利だ。</p>
 <li><p>メンバーデータ <code class="docutils literal notranslate"><span class="pre">texture</span></code> は関数 <code class="docutils literal notranslate"><span class="pre">glGenTextures</span></code> の戻り値をキープしておくためのものだ。</p></li>
 <li><p>メンバーデータ <code class="docutils literal notranslate"><span class="pre">vao_id</span></code> は頂点配列オブジェクト用だ。</p></li>
 </ul>
-</div>
-<div class="section" id="get-shader-sources">
+</section>
+<section id="get-shader-sources">
 <h4><a class="toc-backref" href="#id20">メソッド <code class="docutils literal notranslate"><span class="pre">get_shader_sources</span></code></a><a class="headerlink" href="#get-shader-sources" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span>        <span class="sd">&quot;&quot;&quot;Initialize shader source.&quot;&quot;&quot;</span>
 
@@ -455,8 +455,8 @@ Python の場合はトリプルクォート記法が便利だ。</p>
 </pre></div>
 </div>
 <p>メソッド <code class="docutils literal notranslate"><span class="pre">get_shader_source</span></code> は前述のシェーダープログラム初期化メソッドから呼び出すためのテンプレートメソッドとする。頂点シェーダーやフラグメントシェーダーのソースコードをメンバーデータの辞書に設定する。</p>
-</div>
-<div class="section" id="init-object">
+</section>
+<section id="init-object">
 <h4><a class="toc-backref" href="#id21">メソッド <code class="docutils literal notranslate"><span class="pre">init_object</span></code></a><a class="headerlink" href="#init-object" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span>        <span class="sd">&quot;&quot;&quot;Initialize the object to be displayed.&quot;&quot;&quot;</span>
 
@@ -546,8 +546,8 @@ Python の場合はトリプルクォート記法が便利だ。</p>
 </ul>
 <p>書かずもがなだが、本コードでは VBO を動的に切り替えるようなことはしないため、
 VertexAttrib 系関数の呼び出しを初期化メソッドで済ませている。仮に複数種類の VAO なり VBO なりを用意して、何か動的に切り替えるのであれば、バインド関数の呼び出しを伴った上で、VertexAttrib 系関数の呼び出しをメソッド <code class="docutils literal notranslate"><span class="pre">do_render</span></code> に配置するかもしれない。</p>
-</div>
-<div class="section" id="init-texture">
+</section>
+<section id="init-texture">
 <h4><a class="toc-backref" href="#id22">メソッド <code class="docutils literal notranslate"><span class="pre">init_texture</span></code></a><a class="headerlink" href="#init-texture" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span>        <span class="sd">&quot;&quot;&quot;Initialize textures.&quot;&quot;&quot;</span>
 
@@ -582,8 +582,8 @@ VertexAttrib 系関数の呼び出しを初期化メソッドで済ませてい�
 </div>
 <p>前半部では、ファイルシステムにある PNG ファイルからテクスチャーパターンを生成している。これをフラグメントシェーダーの <code class="docutils literal notranslate"><span class="pre">texture_sampler</span></code> に送る。</p>
 <p>後半部、関数 <code class="docutils literal notranslate"><span class="pre">glTexImage2D</span></code> 呼び出し以降は従来の OpenGL での手続き様式と同じである。</p>
-</div>
-<div class="section" id="do-render">
+</section>
+<section id="do-render">
 <h4><a class="toc-backref" href="#id23">メソッド <code class="docutils literal notranslate"><span class="pre">do_render</span></code></a><a class="headerlink" href="#do-render" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span>        <span class="sd">&quot;&quot;&quot;Render the object.&quot;&quot;&quot;</span>
 
@@ -594,8 +594,8 @@ VertexAttrib 系関数の呼び出しを初期化メソッドで済ませてい�
 </pre></div>
 </div>
 <p>上述のメソッドでがんばったおかげで、関数 <code class="docutils literal notranslate"><span class="pre">glDrawElements</span></code> の最後の引数は <code class="docutils literal notranslate"><span class="pre">None</span></code> で済むようになった。</p>
-</div>
-<div class="section" id="cleanup-destroy-vbo">
+</section>
+<section id="cleanup-destroy-vbo">
 <h4><a class="toc-backref" href="#id24">メソッド <code class="docutils literal notranslate"><span class="pre">cleanup</span></code>, <code class="docutils literal notranslate"><span class="pre">destroy_vbo</span></code></a><a class="headerlink" href="#cleanup-destroy-vbo" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span>        <span class="sd">&quot;&quot;&quot;The clean up callback function.&quot;&quot;&quot;</span>
 
@@ -631,9 +631,9 @@ VertexAttrib 系関数の呼び出しを初期化メソッドで済ませてい�
 <li><p>関数 <code class="docutils literal notranslate"><span class="pre">glDeleteTextures</span></code> でテクスチャーを片付ける。</p></li>
 </ul>
 <p>一点注意。関数 <code class="docutils literal notranslate"><span class="pre">glDeleteXXXs</span></code> の第 2 引数は array-like を要求するので、困ったことに関数 <code class="docutils literal notranslate"><span class="pre">glGenXXXs</span></code> で「一個だけ」名前を生成したときには、ここに示したように利用したモノが一個だけでも、無理矢理それを含む array-like オブジェクトを作る必要がある。</p>
-</div>
-</div>
-<div class="section" id="main">
+</section>
+</section>
+<section id="main">
 <h3><a class="toc-backref" href="#id25">関数 <code class="docutils literal notranslate"><span class="pre">main</span></code></a><a class="headerlink" href="#main" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span>    <span class="sd">&quot;&quot;&quot;The main function.&quot;&quot;&quot;</span>
 
@@ -648,20 +648,20 @@ VertexAttrib 系関数の呼び出しを初期化メソッドで済ませてい�
 </pre></div>
 </div>
 <p>このように各種パラメーターを指定して、クラス <code class="docutils literal notranslate"><span class="pre">ShaderDemoApp</span></code> のオブジェクトを生成、実行をする。</p>
-</div>
-</div>
-<div class="section" id="id9">
+</section>
+</section>
+<section id="id9">
 <h2><a class="toc-backref" href="#id26">実行する</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <p>スクリプトを実行すると、いつものように描画ウィンドウが出現する。それに加えて Python 関数 <code class="docutils literal notranslate"><span class="pre">print</span></code> による情報がコンソールウィンドウに出力する。</p>
 <p>表示されるグラフィックは次のようなものだ。マウスドラッグでズームや回転を試すこともできる。</p>
-<div class="figure align-default">
+<figure class="align-default">
 <a class="reference internal image-reference" href="../_images/pyopengl-shader-demo.png"><img alt="初期状態" src="../_images/pyopengl-shader-demo.png" style="width: 308.0px; height: 327.0px;" /></a>
-</div>
-<div class="figure align-default">
+</figure>
+<figure class="align-default">
 <a class="reference internal image-reference" href="../_images/pyopengl-shader-transform.png"><img alt="ズームと回転" src="../_images/pyopengl-shader-transform.png" style="width: 308.0px; height: 327.0px;" /></a>
-</div>
-</div>
-</div>
+</figure>
+</section>
+</section>
 
 
             <div class="clearer"></div>

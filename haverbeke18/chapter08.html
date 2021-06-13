@@ -1,0 +1,395 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Bugs and Errors &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
+    
+    <script src="../_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="Regular Expressions" href="chapter09.html" />
+    <link rel="prev" title="Project: A Robot" href="chapter07.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter09.html" title="Regular Expressions"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="chapter07.html" title="Project: A Robot"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Eloquent JavaScript 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Bugs and Errors</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="bugs-and-errors">
+<h1><a class="toc-backref" href="#id1">Bugs and Errors</a><a class="headerlink" href="#bugs-and-errors" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://eloquentjavascript.net/">Eloquent JavaScript</a> Chapter 8 の読書ノート。</p>
+<p>バグは思考の混乱によるものと、思考をコードに変換する際のミスによるものとに分類できる。一般的に、前者は後者に比べて診断や修正が難しいとされている。</p>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#bugs-and-errors" id="id1">Bugs and Errors</a></p>
+<ul>
+<li><p><a class="reference internal" href="#language" id="id2">Language</a></p></li>
+<li><p><a class="reference internal" href="#strict-mode" id="id3">Strict mode</a></p></li>
+<li><p><a class="reference internal" href="#types" id="id4">Types</a></p></li>
+<li><p><a class="reference internal" href="#testing" id="id5">Testing</a></p></li>
+<li><p><a class="reference internal" href="#debugging" id="id6">Debugging</a></p></li>
+<li><p><a class="reference internal" href="#error-propagation" id="id7">Error propagation</a></p></li>
+<li><p><a class="reference internal" href="#exceptions" id="id8">Exceptions</a></p></li>
+<li><p><a class="reference internal" href="#cleaning-up-after-exceptions" id="id9">Cleaning up after exceptions</a></p></li>
+<li><p><a class="reference internal" href="#selective-catching" id="id10">Selective catching</a></p></li>
+<li><p><a class="reference internal" href="#assertions" id="id11">Assertions</a></p></li>
+<li><p><a class="reference internal" href="#summary" id="id12">Summary</a></p></li>
+<li><p><a class="reference internal" href="#exercises" id="id13">Exercises</a></p>
+<ul>
+<li><p><a class="reference internal" href="#retry" id="id14">Retry</a></p></li>
+<li><p><a class="reference internal" href="#the-locked-box" id="id15">The locked box</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="language">
+<h2><a class="toc-backref" href="#id2">Language</a><a class="headerlink" href="#language" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>JavaScript のゆるさがプログラムに対する間違い探しの邪魔になる。</p></li>
+<li><p>構文エラーの類はエラー報告が得られる。</p></li>
+<li><p>無意味な計算をすると、単に <code class="docutils literal notranslate"><span class="pre">NaN</span></code> や <code class="docutils literal notranslate"><span class="pre">undefined</span></code> を生成するものの、プログラムの実行は続くことになる。</p></li>
+<li><p>プログラムの出力がおかしいことを見て初めて問題があることに気がつく。こういう場合に問題の原因を突き止めるのは難しい。</p></li>
+<li><p>プログラムの中のミス・バグを発見するプロセスをデバッグと呼ぶ。</p></li>
+</ul>
+</section>
+<section id="strict-mode">
+<h2><a class="toc-backref" href="#id3">Strict mode</a><a class="headerlink" href="#strict-mode" title="Permalink to this headline">¶</a></h2>
+<p>JavaScript は厳格モードを有効にすることで、少しだけ厳しくできる。厳格モードをオンにするには、ファイルや関数の先頭に文字列で <code class="docutils literal notranslate"><span class="pre">use</span> <span class="pre">strict</span></code> と記述する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">canYouSpotTheProblem</span><span class="p">()</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nx">counter</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">counter</span> <span class="o">&lt;</span> <span class="mf">10</span><span class="p">;</span> <span class="nx">counter</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Happy happy&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">canYouSpotTheProblem</span><span class="p">();</span> <span class="c1">// ReferenceError: counter is not defined</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>非厳密モードならば、JavaScript は暗黙的に <code class="docutils literal notranslate"><span class="pre">counter</span></code> を大域スコープに作成してそれを使う。これが厳密モードならば <code class="docutils literal notranslate"><span class="pre">ReferenceError</span></code> を報告する。これがとても役に立つ。</p></li>
+<li><p>ただし、すでに変数 <code class="docutils literal notranslate"><span class="pre">counter</span></code> が大域スコープに存在する場合には、適格なコードであるから厳密モードは機能しない。</p></li>
+<li><p>厳密モードには、メソッドとして呼び出されない関数では変数 <code class="docutils literal notranslate"><span class="pre">this</span></code> が <code class="docutils literal notranslate"><span class="pre">undefined</span></code> になるという変更点もある。</p>
+<ul>
+<li><p>厳密モード以外でのそのような呼び出しは、<code class="docutils literal notranslate"><span class="pre">this</span></code> は大域スコープのオブジェクトを参照する。そのオブジェクトとは、プロパティーが大域変数であるようなものだ。</p></li>
+<li><p>結果的に、厳密モードで誤ってメソッドを呼び出すと、<code class="docutils literal notranslate"><span class="pre">this</span></code> から何かを読むとすぐにエラーとなる。大域スコープに何かを作ることはない。</p></li>
+</ul>
+</li>
+</ul>
+<p>次の二つの違いをよく憶えておくこと：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span> <span class="p">}.</span>
+<span class="kd">let</span> <span class="nx">ferdinand</span> <span class="o">=</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Ferdinand&quot;</span><span class="p">);</span> <span class="c1">// oops</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span> <span class="c1">// &quot;Ferdinand&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span> <span class="p">}.</span>
+<span class="kd">let</span> <span class="nx">ferdinand</span> <span class="o">=</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Ferdinand&quot;</span><span class="p">);</span> <span class="c1">// TypeError: Cannot set property &#39;name&#39; of undefined</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>もっとも、クラス記法で作成されたコンストラクターは <code class="docutils literal notranslate"><span class="pre">new</span></code> を伴わずに呼び出された場合には必ず文句を言うので非厳密モードでも問題は少なくなる。</p></li>
+<li><p>厳密モードでは関数に同じ名前のパラメータを複数与えることは禁止される。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">with</span></code> 文などの問題のある言語機能を完全に削除する。</p></li>
+</ul>
+</section>
+<section id="types">
+<h2><a class="toc-backref" href="#id4">Types</a><a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>JavaScript はプログラムを実際に実行するときしか型を考慮しない。あまつさえ値を期待される型に暗黙的に変換しようとする。それゆえ JavaScript では型はほとんど役に立たないと思ったほうがいい。</p></li>
+<li><p>型がわかっていれば、計算機がプログラマーに代わって実行前に間違いをチェックすることができる。</p></li>
+<li><p>JavaScript には型をチェックする機能を備えた方言がある。有力なのは TypeScript という言語だ。型付け言語が好みならば試すといい。</p></li>
+</ul>
+<p>本書では、この後も型付けされていない JavaScript コードを使用していく。</p>
+</section>
+<section id="testing">
+<h2><a class="toc-backref" href="#id5">Testing</a><a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>プログラマーが手作業で何度もプログラムを実行して動作確認をすることは煩わしいだけでなく、効果がないことが多い。変更を加えるたびにすべてを徹底的にテストするには時間がかかりすぎる。</p></li>
+<li><p>自動テストとは、他のプログラムをテストするプログラムを書くことだ</p>
+<ul>
+<li><p>テストを書くことは、手動でテストするよりも少し手間がかかりるが、一度やってしまえば数秒で対象のプログラムがすべての状況で適切に動作するかどうかを確認できる。</p></li>
+<li><p>プログラムを変更したときに何かを壊したとしても、後で不具合が偶発的に起こる前に気づくことができる。</p></li>
+</ul>
+</li>
+<li><p>テストは、コードの特定の性質を検証する小さなラベル付きのプログラムの形式をとる。</p></li>
+<li><p>本書のテストコードは他の言語で見かけるものとはかなり異なっているように見える。</p></li>
+<li><p>JavaScript でもテストスイートの構築と実行を支援するソフトウェアがある。</p></li>
+<li><p>テストしやすいコードとそうでないコードがある。</p>
+<ul>
+<li><p>一般的に、コードが外部のオブジェクトとやりとりすればするほど、テストするためのコンテキストを設定するのが難しくなる。</p></li>
+<li><p>前章で示したような自己完結型のプログラムはテストしやすい。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="debugging">
+<h2><a class="toc-backref" href="#id6">Debugging</a><a class="headerlink" href="#debugging" title="Permalink to this headline">¶</a></h2>
+<p>プログラムがおかしな挙動をしたり、エラーが発生したりすることで何かおかしいと気付いたら、次にやることはその問題が何であるかを知ることだ。</p>
+<ul class="simple">
+<li><p>エラーメッセージが表示されるようなものは特定の行が示されるので問題が明らかでになることが多い。</p></li>
+<li><p>誤動作しているプログラムのコードを偶発的に変更して修正されているかどうかを確認するのはダメだ。何が起こっているかを分析し、それがなぜ起こるのかを理論に基づいて考えるのだ。そのような理論がまだないならば、理論に至るために観察を追加する。</p></li>
+<li><p>誤動作の原因を突き止める方法は色々ある。</p>
+<ul>
+<li><p>ループの急所に <code class="docutils literal notranslate"><span class="pre">console.log</span></code> 呼び出しを一時的に埋め込む。</p></li>
+<li><p>ブラウザーのデバッガー機能を用いる。ウォッチ式やブレイクポイントを併用するなど。</p></li>
+</ul>
+</li>
+</ul>
+<p>デバッガーの使い方は真剣に習得したほうがいい。Chrome DevTools のそれはよく出来ている。</p>
+</section>
+<section id="error-propagation">
+<h2><a class="toc-backref" href="#id7">Error propagation</a><a class="headerlink" href="#error-propagation" title="Permalink to this headline">¶</a></h2>
+<p>関数が処理に失敗したときにエラーを表す何かを返す方法には欠点がある。</p>
+<ul class="simple">
+<li><p>関数があらゆる種類の値を返せるようなものである場合、成功と失敗を区別できるように、結果をオブジェクトでラップするようなことをしなければならなくなる。これは使いにくい。</p></li>
+<li><p>そもそも、返り値をチェックしなければならないことが厄介なのだ。</p></li>
+</ul>
+</section>
+<section id="exceptions">
+<h2><a class="toc-backref" href="#id8">Exceptions</a><a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h2>
+<p>JavaScript にも他の高級言語のような例外処理の機構が備わっている。</p>
+<ul class="simple">
+<li><p>例外を発生させることは、関数からの超強力なリターンのようなものだ。現在の関数だけでなく、現在の関数を開始した最初の呼び出しに至るまで、その呼び出し元から飛び出す。これを「スタックの巻き戻し」という。</p></li>
+<li><p>もし例外が常にスタックの一番下まで飛び出すのならば、あまり意味がない。</p></li>
+<li><p>例外の威力は、スタックに沿って「障害物」を設定する (catch) ことができるという事実にある。例外を捕捉したら、その例外を使って問題を解決した後、プログラムを続行することができる。</p></li>
+<li><p>キーワード <code class="docutils literal notranslate"><span class="pre">throw</span></code> は例外を発生させるために使用する。</p></li>
+<li><p>例外を捕捉するには、コードの一部を <code class="docutils literal notranslate"><span class="pre">try</span></code> ブロックで囲み、その後に <code class="docutils literal notranslate"><span class="pre">catch</span></code> ブロックを記述する。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">try</span></code> ブロック内のコードで例外が発生すると、<code class="docutils literal notranslate"><span class="pre">catch</span></code> ブロックが評価され、括弧内の名前と例外の値が結び付けられて評価される。その後 <code class="docutils literal notranslate"><span class="pre">catch</span></code> ブロックが終了するか、あるいは <code class="docutils literal notranslate"><span class="pre">try</span></code> ブロックが問題なく終了した場合はプログラムはこれらのブロックの次に進む。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Error</span></code> は JavaScript の標準的な例外コンストラクターで、プロパティー <code class="docutils literal notranslate"><span class="pre">message</span></code> を持つオブジェクトを作成する。ほとんどの JavaScript 環境では、このコンストラクターのインスタンスは、例外が作成されたときに存在していたコールスタックに関する情報、いわゆるスタックトレースも収集する。プロパティー <code class="docutils literal notranslate"><span class="pre">stack</span></code> に格納される。問題が発生した関数と、失敗した呼び出しを行った関数がわかる。</p></li>
+</ul>
+</section>
+<section id="cleaning-up-after-exceptions">
+<h2><a class="toc-backref" href="#id9">Cleaning up after exceptions</a><a class="headerlink" href="#cleaning-up-after-exceptions" title="Permalink to this headline">¶</a></h2>
+<p>例外の送出は、通常では実行されるはずだった文をそうでなくするという性質がある。例外が送出されてもされなくとも実行するべき文がある場合には <code class="docutils literal notranslate"><span class="pre">finally</span></code> ブロックを設けることでこれを遂行する。</p>
+<ul class="simple">
+<li><p>構文だけは Java の例外機構と同じようだ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">finally</span></code> ブロックでは、獲得しておいた資源の解放をするのが定石だ。</p></li>
+</ul>
+</section>
+<section id="selective-catching">
+<h2><a class="toc-backref" href="#id10">Selective catching</a><a class="headerlink" href="#selective-catching" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>プログラムが処理しない例外は環境が処理する。</p>
+<ul>
+<li><p>ブラウザーでは JavaScript コンソールにエラーの内容が出力される。</p></li>
+<li><p>Node.js ではさらにプロセス全体を中止する。</p></li>
+</ul>
+</li>
+<li><p>プログラマーのミスによる例外の場合、エラーをそのままにしておくことが最善の方法であることが多い。プログラムが壊れていることを知らせる合理的な方法だ。</p></li>
+<li><p>JavaScript は、例外を選択的に捕捉するための直接的なサポートを提供していない。</p>
+<ul>
+<li><p>他の言語のように例外クラスが階層的にできないことが理由と思われる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">catch</span></code> ブロックで受け取った例外オブジェクトをよく見ないと何であるかが不明のままだ。</p></li>
+</ul>
+</li>
+<li><p>一般的なルールとして、例外をどこかに「ルーティング」する目的でない限り、例外を包括的に捕捉してはならない。</p></li>
+<li><p>特定の種類の例外を捕捉するには、<code class="docutils literal notranslate"><span class="pre">catch</span></code> ブロックで受け取った例外が目的のものかどうかをチェックして、そうでない場合は投げ直す。</p></li>
+</ul>
+<p>教科書のコードは次のものだが、どうも演算子 <code class="docutils literal notranslate"><span class="pre">instanceof</span></code> に頼るような方法しかないようだ。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nx">InputError</span> <span class="k">extends</span> <span class="nb">Error</span> <span class="p">{}</span>
+
+<span class="kd">function</span> <span class="nx">promptDirection</span><span class="p">(</span><span class="nx">question</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">prompt</span><span class="p">(</span><span class="nx">question</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;left&quot;</span><span class="p">)</span> <span class="k">return</span> <span class="s2">&quot;L&quot;</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;right&quot;</span><span class="p">)</span> <span class="k">return</span> <span class="s2">&quot;R&quot;</span><span class="p">;</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nx">InputError</span><span class="p">(</span><span class="s2">&quot;Invalid direction: &quot;</span> <span class="o">+</span> <span class="nx">result</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">dir</span> <span class="o">=</span> <span class="nx">promptDirection</span><span class="p">(</span><span class="s2">&quot;Where?&quot;</span><span class="p">);</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;You chose &quot;</span><span class="p">,</span> <span class="nx">dir</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">e</span> <span class="k">instanceof</span> <span class="nx">InputError</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Not a valid direction. Try again.&quot;</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="nx">e</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="assertions">
+<h2><a class="toc-backref" href="#id11">Assertions</a><a class="headerlink" href="#assertions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>アサーションとは、プログラム内のチェックであって、何かが想定されている通りであることを検証するものだ。</p></li>
+<li><p>アサーションは、通常の操作で起こりうる状況を処理するためではなく、プログラマーのミスを見つけるために使用される。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">firstElement</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;firstElement called with []&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">array</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>ありとあらゆる種類の悪い入力に対してアサーションを書こうとすることは勧められない。それは大変な作業であり、非常にノイズの多いコードになるだろう。</p></li>
+</ul>
+<p>Chrome DevTools には <code class="docutils literal notranslate"><span class="pre">console.assert</span></code> というものがあるので、この環境ではそれを利用する。</p>
+</section>
+<section id="summary">
+<h2><a class="toc-backref" href="#id12">Summary</a><a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>プログラミングの重要な部分の一つに、バグを発見して、診断し、それを修正することがある。</p></li>
+<li><p>自動化されたテストスイートがあったり、プログラムにアサーションを追加したりすると、問題に気付きやすくなる。</p></li>
+<li><p>例外を送出すると、すぐ外側の <code class="docutils literal notranslate"><span class="pre">try</span></code>/<code class="docutils literal notranslate"><span class="pre">catch</span></code> ブロックまたはスタックの最下部まで呼び出しスタックが巻き戻される。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">catch</span></code> ブロックでは実際に期待される種類の例外であることが確認できたらその例外に対して適切な処理をする必要がある。</p></li>
+<li><p>例外によって引き起こされる予測不可能な制御フローに対処するために、<code class="docutils literal notranslate"><span class="pre">finally</span></code> ブロックを使用して、ブロックが終了したときにが常に実行されるようなコードを指定することができる。</p></li>
+</ul>
+</section>
+<section id="exercises">
+<h2><a class="toc-backref" href="#id13">Exercises</a><a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<section id="retry">
+<h3><a class="toc-backref" href="#id14">Retry</a><a class="headerlink" href="#retry" title="Permalink to this headline">¶</a></h3>
+<p><strong>問題</strong> 20% の確率で二つの数の積を返し、80% の確率で
+<code class="docutils literal notranslate"><span class="pre">MultiplicatorUnitFailure</span></code> 型の例外を発生させる関数 <code class="docutils literal notranslate"><span class="pre">primitiveMultiply</span></code> があるとする。この不便な関数をラップして、呼び出しが成功するまで試行を続け、その後結果を返す関数を書け。処理したい例外しか例外処理しないこと。</p>
+<p><strong>解答</strong> せっかくなので関数 <code class="docutils literal notranslate"><span class="pre">primitiveMultiply</span></code> をも実装する：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nx">MultiplicatorUnitFailure</span> <span class="k">extends</span> <span class="nb">Error</span><span class="p">{}</span>
+
+<span class="kd">function</span> <span class="nx">primitiveMultiply</span><span class="p">(</span><span class="nx">lhs</span><span class="p">,</span> <span class="nx">rhs</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.8</span><span class="p">){</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nx">MultiplicatorUnitFailure</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">lhs</span> <span class="o">*</span> <span class="nx">rhs</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">multiply</span><span class="p">(</span><span class="nx">lhs</span><span class="p">,</span> <span class="nx">rhs</span><span class="p">){</span>
+    <span class="k">for</span><span class="p">(;;){</span>
+        <span class="k">try</span><span class="p">{</span>
+            <span class="k">return</span> <span class="nx">primitiveMultiply</span><span class="p">(</span><span class="nx">lhs</span><span class="p">,</span> <span class="nx">rhs</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">e</span> <span class="k">instanceof</span> <span class="nx">MultiplicatorUnitFailure</span><span class="p">){</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Try again&quot;</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">else</span><span class="p">{</span>
+                <span class="k">throw</span> <span class="nx">e</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="the-locked-box">
+<h3><a class="toc-backref" href="#id15">The locked box</a><a class="headerlink" href="#the-locked-box" title="Permalink to this headline">¶</a></h3>
+<p><strong>問題</strong> 次のようなかなりわざとらしいオブジェクトを考える：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">box</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">locked</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">unlock</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">locked</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span> <span class="p">},</span>
+    <span class="nx">lock</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">locked</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span> <span class="p">},</span>
+    <span class="nx">_content</span><span class="o">:</span> <span class="p">[],</span>
+    <span class="nx">get</span> <span class="nx">content</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">locked</span><span class="p">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Locked!&quot;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_content</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>鍵のかかった箱だ。箱の中には配列が入っているが、それを手に入れるには箱の鍵を開けなければならない。プライベートなプロパティー <code class="docutils literal notranslate"><span class="pre">_content</span></code> に直接アクセスすることは禁じられている。</p>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">withBoxUnlocked</span></code> を書け。この関数は、関数を引数にとり、箱の鍵を開け、その関数を実行し、引数の関数が正常に戻ったか例外が発生したかにかかわらず、ボックスが再びロックされたことを確認してから戻る。</p>
+<p>さらに、箱がすでに解錠されているときに <code class="docutils literal notranslate"><span class="pre">withBoxUnlocked</span></code> を呼び出すと、箱の鍵はまだ開けられているままになることを確認しておくと得点が高い。</p>
+<p><strong>解答</strong> 題意だと思われるコードを書く：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">withBoxUnlocked</span><span class="p">(</span><span class="nx">f</span><span class="p">){</span>
+    <span class="kd">const</span> <span class="nx">alreadyLocked</span> <span class="o">=</span> <span class="nx">box</span><span class="p">.</span><span class="nx">locked</span><span class="p">();</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">alreadyLocked</span><span class="p">){</span>
+        <span class="nx">box</span><span class="p">.</span><span class="nx">unlock</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">try</span><span class="p">{</span>
+        <span class="nx">f</span><span class="p">(</span><span class="nx">box</span><span class="p">.</span><span class="nx">content</span><span class="p">());</span>
+    <span class="p">}</span>
+    <span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Handle e...&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">finally</span><span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">alreadyLocked</span><span class="p">){</span>
+            <span class="nx">box</span><span class="p">.</span><span class="nx">lock</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>テストコード：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">f</span><span class="p">(</span><span class="nx">content</span><span class="p">){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">content</span><span class="p">);</span> <span class="p">}</span>
+<span class="kd">function</span> <span class="nx">g</span><span class="p">(</span><span class="nx">content</span><span class="p">){</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="nx">box</span><span class="p">.</span><span class="nx">lock</span><span class="p">();</span>
+<span class="nx">withBoxUnlocked</span><span class="p">(</span><span class="nx">f</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">box</span><span class="p">.</span><span class="nx">locked</span><span class="p">);</span>
+<span class="nx">box</span><span class="p">.</span><span class="nx">unlock</span><span class="p">();</span>
+<span class="nx">withBoxUnlocked</span><span class="p">(</span><span class="nx">f</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">box</span><span class="p">.</span><span class="o">!</span><span class="nx">locked</span><span class="p">);</span>
+
+<span class="nx">box</span><span class="p">.</span><span class="nx">lock</span><span class="p">();</span>
+<span class="nx">withBoxUnlocked</span><span class="p">(</span><span class="nx">g</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">box</span><span class="p">.</span><span class="nx">locked</span><span class="p">);</span>
+<span class="nx">box</span><span class="p">.</span><span class="nx">unlock</span><span class="p">();</span>
+<span class="nx">withBoxUnlocked</span><span class="p">(</span><span class="nx">g</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">box</span><span class="p">.</span><span class="o">!</span><span class="nx">locked</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>以上</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter09.html" title="Regular Expressions"
+             >next</a></li>
+        <li class="right" >
+          <a href="chapter07.html" title="Project: A Robot"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Eloquent JavaScript 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Bugs and Errors</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

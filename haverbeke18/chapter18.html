@@ -1,0 +1,966 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>HTTP and Forms &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
+    
+    <script src="../_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="Project: A Pixel Art Editor" href="chapter19.html" />
+    <link rel="prev" title="Drawing on Canvas" href="chapter17.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter19.html" title="Project: A Pixel Art Editor"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="chapter17.html" title="Drawing on Canvas"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Eloquent JavaScript 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">HTTP and Forms</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="http-and-forms">
+<h1><a class="toc-backref" href="#id2">HTTP and Forms</a><a class="headerlink" href="#http-and-forms" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://eloquentjavascript.net/">Eloquent JavaScript</a> Chapter 18 の読書ノート。</p>
+<p>HTTP についてさらに詳しく説明し、ブラウザーの JavaScript がどうアクセスするのかを説明する。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title">ノート目次</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#http-and-forms" id="id2">HTTP and Forms</a></p>
+<ul>
+<li><p><a class="reference internal" href="#the-protocol" id="id3">The protocol</a></p></li>
+<li><p><a class="reference internal" href="#browsers-and-http" id="id4">Browsers and HTTP</a></p></li>
+<li><p><a class="reference internal" href="#fetch" id="id5">Fetch</a></p></li>
+<li><p><a class="reference internal" href="#http-sandboxing" id="id6">HTTP sandboxing</a></p></li>
+<li><p><a class="reference internal" href="#security-and-https" id="id7">Security and HTTPS</a></p></li>
+<li><p><a class="reference internal" href="#form-fields" id="id8">Form fields</a></p></li>
+<li><p><a class="reference internal" href="#focus" id="id9">Focus</a></p></li>
+<li><p><a class="reference internal" href="#disabled-fields" id="id10">Disabled fields</a></p></li>
+<li><p><a class="reference internal" href="#the-form-as-a-whole" id="id11">The form as a whole</a></p></li>
+<li><p><a class="reference internal" href="#text-fields" id="id12">Text fields</a></p></li>
+<li><p><a class="reference internal" href="#checkboxes-and-radio-buttons" id="id13">Checkboxes and radio buttons</a></p></li>
+<li><p><a class="reference internal" href="#select-fields" id="id14">Select fields</a></p></li>
+<li><p><a class="reference internal" href="#file-fields" id="id15">File fields</a></p></li>
+<li><p><a class="reference internal" href="#storing-data-client-side" id="id16">Storing data client-side</a></p></li>
+<li><p><a class="reference internal" href="#summary" id="id17">Summary</a></p></li>
+<li><p><a class="reference internal" href="#exercises" id="id18">Exercises</a></p>
+<ul>
+<li><p><a class="reference internal" href="#content-negotiation" id="id19">Content negotiation</a></p></li>
+<li><p><a class="reference internal" href="#a-javascript-workbench" id="id20">A JavaScript workbench</a></p></li>
+<li><p><a class="reference internal" href="#conway-s-game-of-life" id="id21">Conway’s Game of Life</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="the-protocol">
+<h2><a class="toc-backref" href="#id3">The protocol</a><a class="headerlink" href="#the-protocol" title="Permalink to this headline">¶</a></h2>
+<p>ブラウザーのアドレスバーに <code class="docutils literal notranslate"><span class="pre">eloquentjavascript.net/18_http.html</span></code> と入力すると、</p>
+<ol class="arabic simple">
+<li><p>ブラウザーはまず <code class="docutils literal notranslate"><span class="pre">eloquentjavascript</span></code> に関連するサーバーのアドレスを検索する。</p></li>
+<li><p>（この場合はポート番号の明示的な指定がないので既定の）80 番ポートで TCP 接続を試みる。</p></li>
+<li><p>そのサーバーが存在し、かつ接続が受け入れられると、ブラウザーは次のようなものを送信する：</p></li>
+</ol>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/18_http.html</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">eloquentjavascript.net</span>
+<span class="na">User-Agent</span><span class="o">:</span> <span class="l">Your browser&#39;s name</span>
+</pre></div>
+</div>
+<p>すると、サーバーは同じ接続を介して次のように応答する：</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">65585</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">text/html</span>
+<span class="na">Last-Modified</span><span class="o">:</span> <span class="l">Mon, 08 Jan 2018 10:29:45 GMT</span>
+
+<span class="cp">&lt;!doctype html&gt;</span>
+... the rest of the document
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>ブラウザーは、空行の後の返答の一部である本体を受け取り、一体の HTML 文書として表示する。</p>
+<ul>
+<li><p>クライアントから送られてくる情報を <strong>リクエスト</strong> という。次の行で始まる：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GET /18_http.html HTTP/1.1
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>最初の単語はリクエストのメソッドだ。この <code class="docutils literal notranslate"><span class="pre">GET</span></code> は指定されたリソースを取得したいことを意味する。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span></code> の他に一般的なメソッドは：</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">DELETE</span></code> はリソースの削除を、</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PUT</span></code> はリソースの作成または置換、</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">POST</span></code> はリソースへの情報送信をそれぞれ意味する。</p></li>
+</ul>
+</li>
+<li><p>サーバーには、受信したリクエストすべてを実行する義務がないことに注意すること。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>メソッドの次の部分は、リクエストが適用されるリソースのパスだ。</p>
+<ul class="simple">
+<li><p>いちばん単純な場合ではリソースは単にサーバーにあるファイルだが、プロトコルはいつでもそうであることを求めていない。ファイルであるかのように転送されるものなら何でも構わない。</p></li>
+<li><p>サーバーの多くはその場で応答を生成する。例えば <code class="docutils literal notranslate"><span class="pre">https://github.com/marijnh</span></code> を開くと、GitHub のサーバーは</p>
+<ol class="arabic simple">
+<li><p>データベースから <code class="docutils literal notranslate"><span class="pre">marijhn</span></code> というユーザーを検索する。</p></li>
+<li><p>見つかったらそのユーザーのプロフィールページを生成して、</p></li>
+<li><p>それをクライアントに送り返す。</p></li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>リソースパスの次の部分 <code class="docutils literal notranslate"><span class="pre">HTTP/1.1</span></code> は、使用している HTTP のバージョンを示す。</p>
+<ul class="simple">
+<li><p>実際にはウェブサイトの多くで HTTP2 を使用していて、これは 1.1 と同じコンセプトをサポートしているが、高速化のためにかなり複雑なものだ。</p></li>
+<li><p>ブラウザーは与えられたサーバーと通信する際に自動的に適当なバージョンに切り替える。どのバージョンを使ってもリクエストの結果は同じだ。</p></li>
+<li><p>1.1 のほうがわかりやすく、扱いも簡単であるので、それに焦点を当てる。</p></li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<p>サーバーからの応答は、バージョンから始まり、応答のステータスがその後に続く。最初は三桁のステータスコードで、それから人間が読める文字列が続く。</p>
+<ul class="simple">
+<li><p>2 で始まるステータスはリクエストが成功したことを意味する。</p></li>
+<li><p>4 で始まるステータスはリクエストに問題があったことを意味する。</p>
+<ul>
+<li><p>404 はもっとも有名な HTTP ステータスコードで、リソースが見つからないことを意味する。</p></li>
+</ul>
+</li>
+<li><p>5 で始まるコードは、サーバーでエラーが発生したことをいみする。</p></li>
+</ul>
+<p>リクエストや応答の最初の行の次は任意の行数で <strong>ヘッダー</strong> が来る。</p>
+<ul>
+<li><p>ヘッダーとは <code class="docutils literal notranslate"><span class="pre">name:</span> <span class="pre">value</span></code> 形式の行で、リクエストや応答に関する追加情報だ。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Content-Length: 65585
+Content-Type: text/html
+Last-Modified: Thu, 04 Jan 2018 14:05:30 GMT
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>上の例では応答文書のサイズ、種類、最終更新に関する情報を送っている。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Host</span></code> など必須のものもあるが、ヘッダーのほとんどは、クライアントとサーバーがリクエストや応答に含めるかどうかを自由に決めることができる。</p></li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<p>リクエストと応答のどちらにおいても、ヘッダーの後には空行が入る。その後に送信されるデータを含む本体が続く。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span></code>, <code class="docutils literal notranslate"><span class="pre">DELETE</span></code> リクエストはデータを送信しない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PUT</span></code>, <code class="docutils literal notranslate"><span class="pre">POST</span></code> リクエストはデータを送信する。</p></li>
+<li><p>エラー応答のように、応答タイプの一部は本体を必要としない。</p></li>
+</ul>
+</section>
+<section id="browsers-and-http">
+<h2><a class="toc-backref" href="#id4">Browsers and HTTP</a><a class="headerlink" href="#browsers-and-http" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>リクエストした HTML ページが画像や JavaScript ファイルなど、他のリソースを参照している場合には、それらも取得する。</p></li>
+<li><p>そういうときにはブラウザーは素早く取得するために一つずつ応答を待つのではなく、複数の <code class="docutils literal notranslate"><span class="pre">GET</span></code> リクエストを同時にする。</p></li>
+</ul>
+<p>HTML ページにはユーザーが情報を入力してサーバーに送信するためのフォームが含まれていることがある。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;GET&quot;</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;example/message.html&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Name: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;name&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Message:<span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;&lt;</span><span class="nt">textarea</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;message&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">textarea</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span><span class="p">&gt;</span>Send<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<ul>
+<li><p>このフォームには記入欄が二つある。名前とメッセージだ。</p></li>
+<li><p>送信ボタンをクリックすると、フォーム内容が送信される。記入欄の内容を一つのリクエストにまとめて送信し、ブラウザーはその結果に進める。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;form&gt;</span></code> 要素の属性 <code class="docutils literal notranslate"><span class="pre">attribute</span></code> が <code class="docutils literal notranslate"><span class="pre">GET</span></code> であるか、またはこの属性が省略されている場合、フォーム情報は問い合わせ文字列としてアクション URL の末尾に追加される。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GET /example/message.html?name=Jean&amp;message=Yes%3F HTTP/1.1
+</pre></div>
+</div>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">?</span></code> マークは URL のパス部分の終わりと問い合わせの始まりを示す。</p></li>
+<li><p>このマークの後には名前と値のペアの列が続く。</p></li>
+<li><p>ペアとペアを仕切る <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> マークがある。</p></li>
+<li><p>URL エンコーディングと呼ばれる方法で、いくつかの文字は独自のコードに置き換えるという不文律があるらしい。記号 <code class="docutils literal notranslate"><span class="pre">%</span></code> のあとに二つの 16 進数を使う。</p>
+<ul>
+<li><p>JavaScript にはこのための関数 <code class="docutils literal notranslate"><span class="pre">encodeURIComponent</span></code> および
+<code class="docutils literal notranslate"><span class="pre">decodeURIComponent</span></code> がある。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="s2">&quot;Yes?&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;Yes%3F&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nb">decodeURIComponent</span><span class="p">(</span><span class="s2">&quot;Yes%3F&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;Yes?&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<p>先ほどのフォームの例で属性 <code class="docutils literal notranslate"><span class="pre">method</span></code> を <code class="docutils literal notranslate"><span class="pre">POST</span></code> に変更すると、
+HTTP リクエストは <code class="docutils literal notranslate"><span class="pre">POST</span></code> メソッドを使用することになり、問い合わせ文字列を
+URL の末尾に追加するのではなく、リクエストの本体に追加することになる。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>POST /example/message.html HTTP/1.1
+Content-length: 24
+Content-type: application/x-www-form-urlencoded
+name=Jean&amp;message=Yes%3F
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span></code> リクエストは副作用のない、単に情報をねだるリクエストに使用すること。サーバー上の何かを変更するリクエストは <code class="docutils literal notranslate"><span class="pre">POST</span></code> など、別のメソッドで表現する必要がある。</p></li>
+<li><p>多くの場合、ブラウザーは暗黙のうちに <code class="docutils literal notranslate"><span class="pre">GET</span></code> リクエストを行うことがある。たとえば、ユーザーがこの後すぐに必要になると確信されるリソースを前もって取得する場合などだ。</p></li>
+</ul>
+</section>
+<section id="fetch">
+<h2><a class="toc-backref" href="#id5">Fetch</a><a class="headerlink" href="#fetch" title="Permalink to this headline">¶</a></h2>
+<p>ブラウザーの JavaScript が HTTP リクエストを行うためのインターフェイスを <code class="docutils literal notranslate"><span class="pre">fetch</span></code> という。これは比較的新しいものなので、ブラウザーのインターフェイスとしては珍しい <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を使っている。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;example/data.txt&quot;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">status</span><span class="p">);</span> <span class="c1">// → 200</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;Content-Type&quot;</span><span class="p">));</span> <span class="c1">// → text/plain</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">fetch</span></code> を呼び出すと <code class="docutils literal notranslate"><span class="pre">Response</span></code> オブジェクトに解決する <code class="docutils literal notranslate"><span class="pre">Promise</span></code> が返される。この <code class="docutils literal notranslate"><span class="pre">Response</span></code> にはステータスコード、ヘッダーなどのサーバーからの応答に関するステータスなどの情報を含む。</p>
+<ul class="simple">
+<li><p>ヘッダーはキーを大文字と小文字を区別しないで扱う <code class="docutils literal notranslate"><span class="pre">Map</span></code> のようなオブジェクトにラップされる。これは <code class="docutils literal notranslate"><span class="pre">headers.get(&quot;Content-Type&quot;)</span></code> でも <code class="docutils literal notranslate"><span class="pre">headers.get(&quot;content-TYPE&quot;)</span></code> でも同じ値を得られることになる。</p></li>
+<li><p>サーバーがエラーコードで応答した場合でも、<code class="docutils literal notranslate"><span class="pre">fetch</span></code> が返す <code class="docutils literal notranslate"><span class="pre">Promise</span></code> は正常に解決する。</p></li>
+<li><p>ネットワークエラーが発生した場合や、リクエストの宛先となるサーバーが見つからない場合には、却下されることもある。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">fetch</span></code> の最初の引数は、リクエスト URL だ。</p>
+<ul>
+<li><p>それが <code class="docutils literal notranslate"><span class="pre">http://</span></code> などのプロトコル名で始まっていない場合、現在の文書に対する相対パスのようにに解釈される。</p></li>
+<li><p>スラッシュ <code class="docutils literal notranslate"><span class="pre">/</span></code> で始まる場合は、現在のパスを置き換える。サーバー名の後ろの部分だ。</p></li>
+<li><p>スラッシュで始まらない場合は、現在のパスの最後のスラッシュ文字までの部分が相対 URL の前に置かれる。</p></li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<ul class="simple">
+<li><p>応答の実際の内容を得るにはメソッド <code class="docutils literal notranslate"><span class="pre">text</span></code> を呼ぶ。</p></li>
+<li><p>初めの <code class="docutils literal notranslate"><span class="pre">Promise</span></code> はレスポンスのヘッダーを受信するとすぐに解決される。そして、応答本体は読むのに時間がかかるので、これも <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返す。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;example/data.txt&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">resp</span> <span class="p">=&gt;</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">text</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">text</span><span class="p">));</span> <span class="c1">// This is the content of data.txt</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>同様のメソッド <code class="docutils literal notranslate"><span class="pre">json</span></code> は、本体を JSON として解析すると得られる値に解決する
+<code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返すか、有効でない JSON の場合には却下する <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返す。</p></li>
+</ul>
+<hr class="docutils" />
+<p>関数 <code class="docutils literal notranslate"><span class="pre">fetch</span></code> は <code class="docutils literal notranslate"><span class="pre">GET</span></code> メソッドを使ってリクエストを行うので、リクエスト本体は含まれない。これを、第二引数に追加のオプションを含むおオブジェクトを渡すことで、異なる設定ができる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;example/data.txt&quot;</span><span class="p">,</span> <span class="p">{</span><span class="nx">method</span><span class="o">:</span> <span class="s2">&quot;DELETE&quot;</span><span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">resp</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">status</span><span class="p">);</span> <span class="c1">// → 405</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<ul>
+<li><p>リクエスト本体を追加するオプション <code class="docutils literal notranslate"><span class="pre">body</span></code> がある。</p></li>
+<li><p>ヘッダーを設定するオプション <code class="docutils literal notranslate"><span class="pre">headers</span></code> がある。</p>
+<ul>
+<li><p>例えば、このリクエストにはヘッダー <code class="docutils literal notranslate"><span class="pre">Range</span></code> があり、サーバーに応答の一部だけを返すように指示する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;example/data.txt&quot;</span><span class="p">,</span> <span class="p">{</span><span class="nx">headers</span><span class="o">:</span> <span class="p">{</span><span class="nx">Range</span><span class="o">:</span> <span class="s2">&quot;bytes=8-19&quot;</span><span class="p">}})</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">resp</span> <span class="p">=&gt;</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">);</span> <span class="c1">// the content</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<p><code class="docutils literal notranslate"><span class="pre">Host</span></code> や <code class="docutils literal notranslate"><span class="pre">Range</span></code> など、サーバーが本体のサイズを把握するのに必要なリクエストヘッダーをブラウザーが自動的に追加する。ここに独自のヘッダーを追加することで、認証情報や受信したいファイル形式をサーバーに知らせることができる。</p>
+</section>
+<section id="http-sandboxing">
+<h2><a class="toc-backref" href="#id6">HTTP sandboxing</a><a class="headerlink" href="#http-sandboxing" title="Permalink to this headline">¶</a></h2>
+<p>セキュリティーに関する問題から、ブラウザーはスクリプトが他のドメインに
+HTTP リクエストを行うことを禁止している。</p>
+<p>正当な理由で複数のドメインにアクセスしたいシステムにとってはこれは厄介だ。サーバーは、次のようなヘッダーを応答に含めることで、他のドメインからのリクエストを許可することをクライアントに明示することができる：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Access-Control-Allow-Origin: *
+Appreciating HTTP
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>クライアントサーバーシステムの通信をモデル化する方法がいくつかある。</p>
+<ul class="simple">
+<li><p>よく使われるのはリモートプロシージャーコールのモデルだ通信は通常の関数呼び出しのパターンに従うが、実際には別のマシンで関数が実行されている。この関数呼び出しをリクエストの形で実現する。</p></li>
+<li><p>もう一つの方法は、リソースと HTTP メソッドの概念を中心に通信を構築することだ。例えば、リモートプロシージャー <code class="docutils literal notranslate"><span class="pre">addUser</span></code> の代わりに
+<code class="docutils literal notranslate"><span class="pre">/users/larry</span></code> への <code class="docutils literal notranslate"><span class="pre">PUT</span></code> リクエストを使うといった具合だ。</p></li>
+</ul>
+<p>二番目の方法ではリソースをキャッシュするなど、HTTP が提供する機能のいくつかが使いやすくなる。
+HTTP で使われる概念はよく設計されていて、サーバーインターフェイスを設計する原理の役に立つ集合をもたらす。</p>
+</section>
+<section id="security-and-https">
+<h2><a class="toc-backref" href="#id7">Security and HTTPS</a><a class="headerlink" href="#security-and-https" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">https://</span></code> で始まる URL に使用されるプロトコルは、HTTP トラフィックを読み取りや改竄が困難な方法でラップする。</p>
+<ol class="arabic simple">
+<li><p>データを交換する前に、クライアントは次のことを検証する：ブラウザーが認識している認証局から発行された暗号証明書を持っていることを証明させることで、サーバーが主張するとおりの人物であるかどうかを確認する。</p></li>
+<li><p>次に、接続に乗るデータすべてが暗号化される。</p></li>
+</ol>
+<p>このように HTTPS が正しく機能すれば、なりすましや盗聴を防ぐことができる。</p>
+<p>HTTPS は完璧ではなく、偽造されたり盗難されたりした証明書や、通信の盗聴などにより、
+HTTPS が失敗する事件がいろいろとあったが、素の HTTP よりもはるかに安全だ。</p>
+</section>
+<section id="form-fields">
+<h2><a class="toc-backref" href="#id8">Form fields</a><a class="headerlink" href="#form-fields" title="Permalink to this headline">¶</a></h2>
+<p>フォームは Web サイトがユーザーの投稿する情報を HTTP リクエストで送信するために元々設計された。この設計は、サーバーとの対話的操作が常に新しいページに移動して起こることを仮定している。</p>
+<p>フォーム記入欄の要素は DOM の一部であり、他の要素にはない多くのプロパティーやイベントをサポートしている。これらにより、JavaScript で記入欄の入力を検証したり、制御したり、フォームに新しい機能を追加したりできる。</p>
+<p>フォームとは <code class="docutils literal notranslate"><span class="pre">&lt;form&gt;</span></code> タグの中に記入欄をいくつかまとめたものだ。
+HTML では、単純なチェックボックス、ドロップダウンメニュー、テキストボックスなど、さまざまな様式の記入欄が用意されている。</p>
+<p>多くの記入欄型は <code class="docutils literal notranslate"><span class="pre">&lt;input&gt;</span></code> タグを使う。このタグの属性 <code class="docutils literal notranslate"><span class="pre">type</span></code> を使って記入欄の様式を選ぶ。よく使われる型は：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>型</p></th>
+<th class="head"><p>様式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+<td><p>単一行エディットボックス</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">password</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code> と同じだがタイプされた文字をマスクする</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">checkbox</span></code></p></td>
+<td><p>チェックボックス</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">radio</span></code></p></td>
+<td><p>ラジオボタン</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">file</span></code></p></td>
+<td><p>ファイルを選択する記入欄</p></td>
+</tr>
+</tbody>
+</table>
+<p>フォーム記入欄は必ずしも <code class="docutils literal notranslate"><span class="pre">&lt;form&gt;</span></code> タグ内に記述する必要はない。ページのどこにでも配置できる。このようなフォームなし記入欄は送信できないが、JavaScript を使って入力に応答するときには、記入欄を普通の手段で送信したくないことがしばしばある。</p>
+<hr class="docutils" />
+<p>複数行のテキスト記入欄には <code class="docutils literal notranslate"><span class="pre">&lt;textarea&gt;</span></code> という独自のタグがある。このタグは終了タグを必要とし、値の代わりにこのタグの間にはさまれたテキストを使用する。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">textarea</span><span class="p">&gt;</span>
+one
+two
+three
+<span class="p">&lt;/</span><span class="nt">textarea</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p><code class="docutils literal notranslate"><span class="pre">&lt;select&gt;</span></code> タグは、あらかじめ定義された選択肢の中から記入欄を作成すうのに使う。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">select</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">option</span><span class="p">&gt;</span>Pancakes<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">option</span><span class="p">&gt;</span>Pudding<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">option</span><span class="p">&gt;</span>Ice cream<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>フォームの記入欄の値が変更されるとイベント <code class="docutils literal notranslate"><span class="pre">change</span></code> が発射する。</p>
+</section>
+<section id="focus">
+<h2><a class="toc-backref" href="#id9">Focus</a><a class="headerlink" href="#focus" title="Permalink to this headline">¶</a></h2>
+<p>HTML の要素の大部分とは違って、フォーム記入欄はキーボードでフォーカスを得ることができる。クリックされたり作動させたりすると、フォーム記入欄は現在のアクティブな要素となり、キーボード入力を受け付けるようになる。</p>
+<ul class="simple">
+<li><p>テキスト記入欄に入力できるのは、それにフォーカスされているときだけだ。</p></li>
+<li><p>その他の記入欄はキーボードイベントに対する反応が異なる。例えば <code class="docutils literal notranslate"><span class="pre">&lt;select&gt;</span></code> はユーザーが入力したテキストを含む選択肢に移動しようとし、矢印キーに反応して選択を上下に動かす。</p></li>
+<li><p>JavaScript からフォーカスを制御するにはメソッド <code class="docutils literal notranslate"><span class="pre">focus</span></code> および <code class="docutils literal notranslate"><span class="pre">blur</span></code> を使用する。</p>
+<ul>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">focus</span></code> はそれが呼び出された DOM 要素にフォーカスする。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">blur</span></code> はフォーカスを消し去る。</p></li>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">document.activeElement</span></code> の値は、現在フォーカスされている要素だ。</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;input&quot;</span><span class="p">).</span><span class="nx">focus</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">activeElement</span><span class="p">.</span><span class="nx">tagName</span><span class="p">);</span> <span class="c1">// → INPUT</span>
+
+<span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;input&quot;</span><span class="p">).</span><span class="nx">blur</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">activeElement</span><span class="p">.</span><span class="nx">tagName</span><span class="p">);</span> <span class="c1">// → BODY</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>ページによってはユーザーがある入力欄をすぐに操作したいと期待される場合がある。文書のロード時に JavaScript でフォーカスを与えることもできるが、それよりも HTML の属性 <code class="docutils literal notranslate"><span class="pre">autofocus</span></code> を使うほうがいい。</p>
+<hr class="docutils" />
+<p>伝統的なブラウザーでは、ユーザーが <kbd class="kbd docutils literal notranslate">Tab</kbd> キーを押して文書内でフォーカスを移動することができる。要素がフォーカスされる順序を属性 <code class="docutils literal notranslate"><span class="pre">tabindex</span></code> で変更できる。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">tabindex</span><span class="o">=</span><span class="s">1</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;.&quot;</span><span class="p">&gt;</span>(help)<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&quot;console.log(&#39;ok&#39;)&quot;</span> <span class="na">tabindex</span><span class="o">=</span><span class="s">2</span><span class="p">&gt;</span>OK<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>デフォルトでは、HTML 要素のほとんどはフォーカスされない。しかし属性 <code class="docutils literal notranslate"><span class="pre">tabindex</span></code> を追加して、フォーカスできるようにすることができる</p></li>
+<li><p>属性 <code class="docutils literal notranslate"><span class="pre">tabindex</span></code> の値を <code class="docutils literal notranslate"><span class="pre">-1</span></code> に設定すると、タブがその要素を飛ばすようになる。</p></li>
+</ul>
+</section>
+<section id="disabled-fields">
+<h2><a class="toc-backref" href="#id10">Disabled fields</a><a class="headerlink" href="#disabled-fields" title="Permalink to this headline">¶</a></h2>
+<p>フォーム記入欄のすべては属性 <code class="docutils literal notranslate"><span class="pre">disabled</span></code> により無効化できる。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">button</span><span class="p">&gt;</span>I&#39;m all right<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">disabled</span><span class="p">&gt;</span>I&#39;m out<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>この属性は値を持たずに指定することができる。</p></li>
+<li><p>無効化された記入欄は、フォーカスや変更ができず、ブラウザーはそれらの GUI をグレーアウトする。</p></li>
+</ul>
+<p>プログラムが、ボタンやその他のコントロールによるアクションを処理している最中に、サーバーとの通信が必要になり、時間がかかる場合がある。そのような場合には、アクションが完了するまでコントロールを無効にするとよい。ユーザーの誤操作を防止する効果がある。</p>
+</section>
+<section id="the-form-as-a-whole">
+<h2><a class="toc-backref" href="#id11">The form as a whole</a><a class="headerlink" href="#the-form-as-a-whole" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;form&gt;</span></code> 要素が含む入力欄には、それの対応する DOM 要素にはプロパティー <code class="docutils literal notranslate"><span class="pre">form</span></code> があり、値はこれを含む <code class="docutils literal notranslate"><span class="pre">&lt;form&gt;</span></code> 要素に相当する DOM 要素だ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;form&gt;</span></code> 要素にはプロパティー <code class="docutils literal notranslate"><span class="pre">elements</span></code> があり、そのフォームが含む記入欄の配列のようなコレクションになっている。</p></li>
+<li><p>フォーム記入欄の属性 <code class="docutils literal notranslate"><span class="pre">name</span></code> は、フォームが送信されるときに記入欄の値がどのように識別されるかを決定する。また、フォームのプロパティー <code class="docutils literal notranslate"><span class="pre">elements</span></code> に参照する際のプロパティー名としても使用できる。</p>
+<ul>
+<li><p>配列風のオブジェクトとしても、マップ風のオブジェクトとしてもふるまう。</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;example/submit.html&quot;</span><span class="p">&gt;</span>
+  Name: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;name&quot;</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+  Password: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;password&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;password&quot;</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span><span class="p">&gt;</span>Log in<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">let</span> <span class="nx">form</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;form&quot;</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">form</span><span class="p">.</span><span class="nx">elements</span><span class="p">[</span><span class="mf">1</span><span class="p">].</span><span class="nx">type</span><span class="p">);</span> <span class="c1">// password</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">form</span><span class="p">.</span><span class="nx">elements</span><span class="p">.</span><span class="nx">password</span><span class="p">.</span><span class="nx">type</span><span class="p">);</span> <span class="c1">// password</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">form</span><span class="p">.</span><span class="nx">elements</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">form</span> <span class="o">==</span> <span class="nx">form</span><span class="p">);</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>属性 <code class="docutils literal notranslate"><span class="pre">type</span></code> の値が <code class="docutils literal notranslate"><span class="pre">submit</span></code> であるボタンを押すとフォームが送信される。フォーム記入欄がフォーカスされているときに <kbd class="kbd docutils literal notranslate">Enter</kbd> を押しても同じ効果がある。</p>
+<p>フォームを送信することは、ブラウザーがそのフォームの属性 <code class="docutils literal notranslate"><span class="pre">action</span></code> で示されるページに
+<code class="docutils literal notranslate"><span class="pre">GET</span></code> または <code class="docutils literal notranslate"><span class="pre">POST</span></code> リクエストを使って移動することをふつうは意味する。しかし、それが起こる前にイベント <code class="docutils literal notranslate"><span class="pre">submit</span></code> が発射する。このイベントを JavaScript を使って処理し、イベントオブジェクトのメソッド
+<code class="docutils literal notranslate"><span class="pre">preventDefault</span></code> を呼び出すことで既定の振る舞いを防ぐことができる。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;example/submit.html&quot;</span><span class="p">&gt;</span>
+  Value: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;value&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span><span class="p">&gt;</span>Save<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">let</span> <span class="nx">form</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;form&quot;</span><span class="p">);</span>
+  <span class="nx">form</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;submit&quot;</span><span class="p">,</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Saving value&quot;</span><span class="p">,</span> <span class="nx">form</span><span class="p">.</span><span class="nx">elements</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+      <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+  <span class="p">});</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>JavaScript でイベント <code class="docutils literal notranslate"><span class="pre">submit</span></code> を横取りするのことは色々な用途がある。</p>
+<ul class="simple">
+<li><p>ユーザー入力の検証、エラーメッセージの表示。</p></li>
+<li><p>フォームを送信する通常の方法を完全に無効にする。</p></li>
+<li><p>プログラムが入力を処理し、関数 <code class="docutils literal notranslate"><span class="pre">fetch</span></code> を使ってページの再読み込みなしにサーバーに送信することもできる。</p></li>
+</ul>
+</section>
+<section id="text-fields">
+<h2><a class="toc-backref" href="#id12">Text fields</a><a class="headerlink" href="#text-fields" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;textarea&gt;</span></code> タグと <code class="docutils literal notranslate"><span class="pre">&lt;input&gt;</span></code> タグが作るテキストやパスワードタイプの入力欄はインターフェイスが共通している。</p>
+<ul>
+<li><p>DOM 要素に現在の入力内容を文字列として値に持つプロパティー <code class="docutils literal notranslate"><span class="pre">value</span></code> がある。このプロパティーに別の文字列を代入すると、記入欄の内容が変化する。</p></li>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">selectionStart</span></code> と <code class="docutils literal notranslate"><span class="pre">selectionEnd</span></code> は選択テキストの情報を持つ。何も選択されていないと、これらのプロパティーはどちらもカーソルの位置を示す。</p></li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<p>例えば、Khasekhemwy についての記事を書こうとしているが、彼の名前の綴り方がわからないとする。次のコードは <code class="docutils literal notranslate"><span class="pre">&lt;textarea&gt;</span></code> タグにイベントハンドラを設定して、
+<kbd class="kbd docutils literal notranslate">F2</kbd> キーを押すと <code class="docutils literal notranslate"><span class="pre">Khasekhemwy</span></code> という文字列を挿入するイベントハンドラーを仕込むものだ：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">textarea</span><span class="p">&gt;&lt;/</span><span class="nt">textarea</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">let</span> <span class="nx">textarea</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;textarea&quot;</span><span class="p">);</span>
+  <span class="nx">textarea</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;keydown&quot;</span><span class="p">,</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="c1">// The key code for F2 happens to be 113</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">keyCode</span> <span class="o">==</span> <span class="mf">113</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">replaceSelection</span><span class="p">(</span><span class="nx">textarea</span><span class="p">,</span> <span class="s2">&quot;Khasekhemwy&quot;</span><span class="p">);</span>
+          <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+      <span class="p">}</span>
+  <span class="p">});</span>
+  <span class="kd">function</span> <span class="nx">replaceSelection</span><span class="p">(</span><span class="nx">field</span><span class="p">,</span> <span class="nx">word</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="k">from</span> <span class="o">=</span> <span class="nx">field</span><span class="p">.</span><span class="nx">selectionStart</span><span class="p">,</span> <span class="nx">to</span> <span class="o">=</span> <span class="nx">field</span><span class="p">.</span><span class="nx">selectionEnd</span><span class="p">;</span>
+      <span class="nx">field</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">field</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="k">from</span><span class="p">)</span> <span class="o">+</span> <span class="nx">word</span> <span class="o">+</span>
+      <span class="nx">field</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">to</span><span class="p">);</span>
+      <span class="c1">// Put the cursor after the word</span>
+      <span class="nx">field</span><span class="p">.</span><span class="nx">selectionStart</span> <span class="o">=</span> <span class="k">from</span> <span class="o">+</span> <span class="nx">word</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+      <span class="nx">field</span><span class="p">.</span><span class="nx">selectionEnd</span> <span class="o">=</span> <span class="k">from</span> <span class="o">+</span> <span class="nx">word</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">replaceSelection</span></code> は、記入欄の内容のうち、現在選択されている部分を指定された文字列で置き換え、その後ろにカーソルを移動させる。</p>
+<hr class="docutils" />
+<p>記入欄のイベント <code class="docutils literal notranslate"><span class="pre">change</span></code> は文字が入力される度に発射するのではなく、内容が変更された後に記入欄がフォーカスを失うと発射する。記入欄の変更に即座に反応するためには、代わりにイベント <code class="docutils literal notranslate"><span class="pre">input</span></code> に対してイベントハンドラーを登録する。このイベントはユーザーが文字を入力したり、テキストを削除したり、記入欄の内容を操作するたびに発射する。</p>
+</section>
+<section id="checkboxes-and-radio-buttons">
+<h2><a class="toc-backref" href="#id13">Checkboxes and radio buttons</a><a class="headerlink" href="#checkboxes-and-radio-buttons" title="Permalink to this headline">¶</a></h2>
+<p>チェックボックスの値は真偽値をとるプロパティー <code class="docutils literal notranslate"><span class="pre">checked</span></code> で読み書きする。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;purple&quot;</span><span class="p">&gt;</span> Make this page purple
+<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">let</span> <span class="nx">checkbox</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;#purple&quot;</span><span class="p">);</span>
+  <span class="nx">checkbox</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;change&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">background</span> <span class="o">=</span>
+      <span class="nx">checkbox</span><span class="p">.</span><span class="nx">checked</span> <span class="o">?</span> <span class="s2">&quot;mediumpurple&quot;</span> <span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+  <span class="p">});</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;label&gt;</span></code> タグは文書の一部と <code class="docutils literal notranslate"><span class="pre">&lt;input&gt;</span></code> を関連付ける。ラベル上の任意の場所をクリックすると関連付けた記入欄がアクティブになり、チェックボックスやラジオボタンの場合は、記入欄がフォーカスされ、値が切り替わる。</p></li>
+</ul>
+<hr class="docutils" />
+<p>ラジオボタンは同じ <code class="docutils literal notranslate"><span class="pre">name</span></code> 属性を持つ他のそれと暗黙のうちにリンクしていて、一度にそのうちの一つしかアクティブな状態にならない。</p>
+<p>次の例はラジオボタンの選択を変更するたびに文書の背景色をラベルが示すものに変化させるというものだ：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span>Color:
+<span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;radio&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;color&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;orange&quot;</span><span class="p">&gt;</span> Orange
+<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;radio&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;color&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;lightgreen&quot;</span><span class="p">&gt;</span> Green
+<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;radio&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;color&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;lightblue&quot;</span><span class="p">&gt;</span> Blue
+<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">let</span> <span class="nx">buttons</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;[name=color]&quot;</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">button</span> <span class="k">of</span> <span class="nb">Array</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="nx">buttons</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">button</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;change&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+          <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">background</span> <span class="o">=</span> <span class="nx">button</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+      <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="select-fields">
+<h2><a class="toc-backref" href="#id14">Select fields</a><a class="headerlink" href="#select-fields" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>選択欄は、概念的にはラジオボタンに似ている。ユーザーが一連の選択肢から選ぶことができる。ラジオボタンの場合は選択肢のレイアウトを自分で決めることができるが、
+<code class="docutils literal notranslate"><span class="pre">&lt;select&gt;</span></code> タグの外観はブラウザーが決める。</p></li>
+<li><p>選択欄には、（ラジオボタンではなく）チェックボックスのリストのようなものもある。
+<code class="docutils literal notranslate"><span class="pre">&lt;select&gt;</span></code> タグに属性 <code class="docutils literal notranslate"><span class="pre">multiple</span></code> が与えられている場合、ユーザーは任意の数の選択肢を選択することができる。これは、ブラウザーのほとんどが、通常の選択欄とは異なる表示をする。通常、それを開いたときにしか選択肢の一覧を表示しないドロップダウンコントロールとして描画する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;option&gt;</span></code> タグはそれぞれが値を持つ。この値を定義するには属性 <code class="docutils literal notranslate"><span class="pre">value</span></code> で定義する。されていない場合には、<code class="docutils literal notranslate"><span class="pre">&lt;option&gt;</span></code> タグ内のテキストがその値として採用される。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;select&gt;</span></code> 要素の属性 <code class="docutils literal notranslate"><span class="pre">value</span></code> は、現在選択されている選択肢をとる。しかし、複数欄の場合、現在選択されているオプションのうち一つしか値が表示されないので、このプロパティーには意味があまりない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;select&gt;</span></code> にある <code class="docutils literal notranslate"><span class="pre">&lt;option&gt;</span></code> タグは、選択欄のプロパティー <code class="docutils literal notranslate"><span class="pre">options</span></code> を通じて、配列のようなオブジェクトとしてアクセスできる。</p>
+<ul>
+<li><p>各選択肢にはプロパティー <code class="docutils literal notranslate"><span class="pre">selected</span></code> があり、その選択肢が現在選択されているかどうかを示す。このプロパティーは選択肢の選択状態を変更するのにも使える。</p></li>
+</ul>
+</li>
+</ul>
+<p>この例では、複数選択欄から選択値を抽出して、個々のビットから二進数を構成する。
+<kbd class="kbd docutils literal notranslate">Ctrl</kbd> を押しながら複数の選択肢を選択する。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">select</span> <span class="na">multiple</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;1&quot;</span><span class="p">&gt;</span>0001<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;2&quot;</span><span class="p">&gt;</span>0010<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;4&quot;</span><span class="p">&gt;</span>0100<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;8&quot;</span><span class="p">&gt;</span>1000<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">select</span><span class="p">&gt;</span> = <span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;output&quot;</span><span class="p">&gt;</span>0<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">let</span> <span class="nx">select</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;select&quot;</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">output</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;#output&quot;</span><span class="p">);</span>
+  <span class="nx">select</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;change&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="nx">number</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">option</span> <span class="k">of</span> <span class="nb">Array</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="nx">select</span><span class="p">.</span><span class="nx">options</span><span class="p">))</span> <span class="p">{</span>
+          <span class="k">if</span> <span class="p">(</span><span class="nx">option</span><span class="p">.</span><span class="nx">selected</span><span class="p">)</span> <span class="p">{</span>
+              <span class="nx">number</span> <span class="o">+=</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">option</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="nx">output</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="p">});</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="file-fields">
+<h2><a class="toc-backref" href="#id15">File fields</a><a class="headerlink" href="#file-fields" title="Permalink to this headline">¶</a></h2>
+<p>スクリプトは、ユーザーのプライベートなファイルを簡単に読み始めることはできない。しかし、ユーザーがファイル欄でファイルを選択すると、ブラウザーはスクリプトがそのファイルを読んでもよいという意味に解釈する。</p>
+<p>ファイル欄は通常、choose や browse などのラベルが付いたボタンのように見え、その横には選択されたファイルの情報が表示されている。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;file&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">let</span> <span class="nx">input</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;input&quot;</span><span class="p">);</span>
+  <span class="nx">input</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;change&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">input</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
+          <span class="kd">let</span> <span class="nx">file</span> <span class="o">=</span> <span class="nx">input</span><span class="p">.</span><span class="nx">files</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;You chose&quot;</span><span class="p">,</span> <span class="nx">file</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+          <span class="k">if</span> <span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nx">type</span><span class="p">)</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;It has type&quot;</span><span class="p">,</span> <span class="nx">file</span><span class="p">.</span><span class="nx">type</span><span class="p">);</span>
+      <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>ファイル欄のプロパティー <code class="docutils literal notranslate"><span class="pre">files</span></code> は選択したファイルを格納した配列風オブジェクトで、最初は空だ。ファイル欄は属性 <code class="docutils literal notranslate"><span class="pre">multiple</span></code> がサポートされているので、複数ファイルを同時に選択できる。</p>
+<p>オブジェクト <code class="docutils literal notranslate"><span class="pre">files</span></code> 内のオブジェクトは次のプロパティーを持つ：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: ファイル名</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code>: ファイルサイズ（バイト単位）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code>: <code class="docutils literal notranslate"><span class="pre">text/plain</span></code> や <code class="docutils literal notranslate"><span class="pre">image/jpeg</span></code> などのメディアタイプ。</p></li>
+</ul>
+<p>ファイルの内容を持つプロパティーはないので、自分で取得する。ディスクからのファイルの読み込みには時間がかかるので、非同期処理を書く：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;file&quot;</span> <span class="na">multiple</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">let</span> <span class="nx">input</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;input&quot;</span><span class="p">);</span>
+  <span class="nx">input</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;change&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">file</span> <span class="k">of</span> <span class="nb">Array</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="nx">input</span><span class="p">.</span><span class="nx">files</span><span class="p">))</span> <span class="p">{</span>
+          <span class="kd">let</span> <span class="nx">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FileReader</span><span class="p">();</span>
+          <span class="nx">reader</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;load&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+              <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;File&quot;</span><span class="p">,</span> <span class="nx">file</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="s2">&quot;starts with&quot;</span><span class="p">,</span>
+                  <span class="nx">reader</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="mf">20</span><span class="p">));</span>
+          <span class="p">});</span>
+          <span class="nx">reader</span><span class="p">.</span><span class="nx">readAsText</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
+      <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>ファイル欄のプロパティー <code class="docutils literal notranslate"><span class="pre">files</span></code> 内のオブジェクトごとにオブジェクト <code class="docutils literal notranslate"><span class="pre">FileReader</span></code> を生成してファイルを読み取る。イベント <code class="docutils literal notranslate"><span class="pre">load</span></code> にハンドラーを登録し、そこでファイルのテキストを読み込み、プロパティー <code class="docutils literal notranslate"><span class="pre">result</span></code> に格納する。</p>
+<p><code class="docutils literal notranslate"><span class="pre">FileReader</span></code> は何らかの理由でファイルの読み込みに失敗した場合、イベント <code class="docutils literal notranslate"><span class="pre">error</span></code> を発射する。エラーオブジェクトが <code class="docutils literal notranslate"><span class="pre">FileReader</span></code> のプロパティー <code class="docutils literal notranslate"><span class="pre">error</span></code> に格納される。このインターフェースは <code class="docutils literal notranslate"><span class="pre">Promise</span></code> が言語の一部になる前に設計されたものだ。次のように <code class="docutils literal notranslate"><span class="pre">Promise</span></code> でラップすることもできる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">readFileText</span><span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FileReader</span><span class="p">();</span>
+        <span class="nx">reader</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span>
+            <span class="s2">&quot;load&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">resolve</span><span class="p">(</span><span class="nx">reader</span><span class="p">.</span><span class="nx">result</span><span class="p">));</span>
+        <span class="nx">reader</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span>
+            <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">reject</span><span class="p">(</span><span class="nx">reader</span><span class="p">.</span><span class="nx">error</span><span class="p">));</span>
+        <span class="nx">reader</span><span class="p">.</span><span class="nx">readAsText</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="storing-data-client-side">
+<h2><a class="toc-backref" href="#id16">Storing data client-side</a><a class="headerlink" href="#storing-data-client-side" title="Permalink to this headline">¶</a></h2>
+<p>単純な HTML ページにフォームとイベントハンドラーを利用したちょっとした JavaScript を付けると、基本的な作業を自動化する小さな補助プログラムとなるミニアプリケーションとなる。</p>
+<p>このようなアプリケーションでは、セッション間で何かを記憶しておく必要がある。JavaScript の変数はページが閉じられるたびに捨てられてしまうから使えない。サーバーを用意してインターネットに接続し、そこにアプリケーションが何かを保存することもできるが、それでは余計な仕事が増え、複雑になってしまう。時には、データをブラウザーに保存するだけで十分な場合もある。</p>
+<p>オブジェクト <code class="docutils literal notranslate"><span class="pre">localStorage</span></code> を使用すると、ページの再読み込みにも耐えられる方法でデータを保存できる。このオブジェクトでは、名前の下に文字列の値を収めることができる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s2">&quot;username&quot;</span><span class="p">,</span> <span class="s2">&quot;marijn&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s2">&quot;username&quot;</span><span class="p">));</span> <span class="c1">// → marijn</span>
+<span class="nx">localStorage</span><span class="p">.</span><span class="nx">removeItem</span><span class="p">(</span><span class="s2">&quot;username&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">localStorage</span></code> の値は、上書きされるか、<code class="docutils literal notranslate"><span class="pre">removeItem</span></code> が削除するか、ユーザーがローカルデータを消去するまで残り続ける。</p>
+<p>ドメインが異なるサイトは、異なるストレージ区画になる。つまり、あるサイトの <code class="docutils literal notranslate"><span class="pre">localStorage</span></code> に保存されたデータは、原則として、そのサイトのスクリプトでしか読み書きできないということになる。</p>
+<p>ブラウザーは、サイトが <code class="docutils literal notranslate"><span class="pre">localStorage</span></code> に保存できるデータのサイズを制限する。</p>
+<hr class="docutils" />
+<p>次のコード (pp. 337-338) は、粗いメモを取るアプリケーションを実装している。名前の付いたノートの集合を保持し、編集したり、新しいものを作成することができる。</p>
+<ul class="simple">
+<li><p>このスクリプトは、<code class="docutils literal notranslate"><span class="pre">localStorage</span></code> に格納されている <code class="docutils literal notranslate"><span class="pre">&quot;Notes&quot;</span></code> の値から開始状態を取得する。</p>
+<ul>
+<li><p>または、それがない場合は、買い物リストだけを持つ例の状態を作成する。</p></li>
+<li><p>存在しないフィールドを <code class="docutils literal notranslate"><span class="pre">localStorage</span></code> から読み込むと <code class="docutils literal notranslate"><span class="pre">null</span></code> が返される。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">JSON.parse</span></code> に <code class="docutils literal notranslate"><span class="pre">null</span></code> を渡すと、文字列 <code class="docutils literal notranslate"><span class="pre">&quot;null&quot;</span></code> を解析して <code class="docutils literal notranslate"><span class="pre">null</span></code> を返す。</p></li>
+</ul>
+</li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">setState</span></code> は、DOM が所定の状態を示していることを確認して新しい状態を <code class="docutils literal notranslate"><span class="pre">localStorage</span></code> に保存する。イベントハンドラーがこの関数を呼び出して新しい状態に移る。</p></li>
+</ul>
+<p>この例で <code class="docutils literal notranslate"><span class="pre">Object.assign</span></code> を使っているのは、古い <code class="docutils literal notranslate"><span class="pre">state.notes</span></code> の複製である新しいオブジェクトを作成することを意図しているが、プロパティが一つ追加または上書きされている。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Object.assign</span></code> は最初の引数を取り、それ以降の引数からすべてのプロパティーをそれに追加する。したがって、空のオブジェクトを与えると、新しいオブジェクトを埋めることになる。</p></li>
+<li><p>第三引数の角括弧表記は動的な値を名前とするプロパティを作成するのに使う。</p></li>
+</ul>
+<hr class="docutils" />
+<p><code class="docutils literal notranslate"><span class="pre">localStorage</span></code> に似たオブジェクトに <code class="docutils literal notranslate"><span class="pre">sessionStorage</span></code> というものがある。</p>
+<p>両者の違いは、<code class="docutils literal notranslate"><span class="pre">sessionStorage</span></code> の内容が各セッションの終了時に忘れられることだ。ブラウザのほとんどが、ブラウザが閉じられるたびに、各セッションの終了時に内容を忘れる。</p>
+</section>
+<section id="summary">
+<h2><a class="toc-backref" href="#id17">Summary</a><a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<p>HTTP の仕組みについて議論した。</p>
+<ul>
+<li><p>クライアントはリクエストを送信する。リクエストとは <code class="docutils literal notranslate"><span class="pre">GET</span></code> などのメソッド一つとリソース一つを特定するパスを含むものだ。</p></li>
+<li><p>サーバーはリクエストの処理を決めて、ステータスコードと応答本体を使って応答する。</p></li>
+<li><p>リクエストと応答の両方とも、ヘッダーという追加情報を含むことがある。</p></li>
+<li><p>ブラウザー JavaScript が HTTP リクエストを行うためのインターフェイスを <code class="docutils literal notranslate"><span class="pre">fetch</span></code> という。こういうふうにしてリクエストする：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;/18_http.html&quot;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">r</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">text</span><span class="p">()).</span><span class="nx">then</span><span class="p">(</span><span class="nx">text</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`The page starts with </span><span class="si">${</span><span class="nx">text</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="mf">15</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</li>
+<li><p>ブラウザーはページの表示に必要な（ページ以外の）リソースをも得るために
+<code class="docutils literal notranslate"><span class="pre">GET</span></code> リクエストを行う。</p></li>
+</ul>
+<hr class="docutils" />
+<p>ページはフォームを含むことがある。ユーザーが入力した情報を、フォームが投稿されたときに新しいページへのリクエストとして送信する。</p>
+<ul class="simple">
+<li><p>HTML は各種フォーム記入欄を表現することができる。</p></li>
+<li><p>このような記入欄は JavaScript で検証したり操作したりすることができる。</p>
+<ul>
+<li><p>記入欄は変更されると <code class="docutils literal notranslate"><span class="pre">change</span></code> イベントが発射する。</p></li>
+<li><p>テキストが入力されると <code class="docutils literal notranslate"><span class="pre">input</span></code> イベントが発射する。</p></li>
+<li><p>キーボードフォーカスがあるとキーボードイベントを受け取る。</p></li>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">value</span></code> や <code class="docutils literal notranslate"><span class="pre">checked</span></code> を記入欄の内容に対する読み書きに使用する。</p></li>
+</ul>
+</li>
+<li><p>フォームが投稿されると <code class="docutils literal notranslate"><span class="pre">submit</span></code> イベントが発射する。</p>
+<ul>
+<li><p>JavaScript でこのイベントの <code class="docutils literal notranslate"><span class="pre">preventDefault</span></code> を呼び出して、ブラウザーの既定の所作を無効化することができる。</p></li>
+</ul>
+</li>
+<li><p>フォーム記入欄要素は <code class="docutils literal notranslate"><span class="pre">&lt;form&gt;</span></code> タグの外にも出現する。</p></li>
+<li><p>ユーザーがファイル選択欄でローカルファイルシステムからファイルを選択すると、
+JavaScript から <code class="docutils literal notranslate"><span class="pre">FileReader</span></code> を使用してそのファイルの内容にアクセスできる。</p></li>
+<li><p>オブジェクト <code class="docutils literal notranslate"><span class="pre">localStorage</span></code> および <code class="docutils literal notranslate"><span class="pre">sessionStorage</span></code> を使用して、ページの再読み込みに耐えられるように情報を保存するために使用できる。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">localStorage</span></code> はユーザーがデータを消去するまで永久に保存する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sessionStorage</span></code> はブラウザーを閉じるまで保存される。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="exercises">
+<h2><a class="toc-backref" href="#id18">Exercises</a><a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<section id="content-negotiation">
+<h3><a class="toc-backref" href="#id19">Content negotiation</a><a class="headerlink" href="#content-negotiation" title="Permalink to this headline">¶</a></h3>
+<p>HTTP ができることの一つに content negotiation というものがある。
+Accept リクエストヘッダーは、クライアントが取得したい文書の種類をサーバーに伝えるために使われる。多くのサーバーはこのヘッダーを無視しますが、サーバーがリソースを符号化する方法を知っている場合はこのヘッダーを見て、クライアントが望むものを送ることができる。</p>
+<p>URL &lt;<a class="reference external" href="https://eloquentjavascript.net/author">https://eloquentjavascript.net/author</a>&gt; はクライアントの要求に応じて、プレーンテキスト、HTML, JSON のいずれかで応答するように設定されています。これらのフォーマットは、標準化されたメディアタイプである
+text/plain, text/html, application/json で識別されます。</p>
+<p><strong>問題</strong> このリソースのフォーマット三種すべてを取得するリクエストを送れ。
+<code class="docutils literal notranslate"><span class="pre">fetch</span></code> に渡すオプションのプロパティー <code class="docutils literal notranslate"><span class="pre">headers</span></code> を使用して、
+Accept という名前のヘッダーを所望のメディアタイプに設定しろ。</p>
+<p>最後に、application/rainbows+unicorns というメディアタイプを要求し、どのようなステータスコードを生成するかを確かめてみろ。</p>
+<p><strong>解答</strong> 応答を出力しろとは問題にはないが、コンソールに出力する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;text/plain&#39;</span><span class="p">,</span> <span class="s1">&#39;text/html&#39;</span><span class="p">,</span> <span class="s1">&#39;application/json&#39;</span><span class="p">].</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">i</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;https://eloquentjavascript.net/author&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">headers</span><span class="o">:</span> <span class="p">{</span><span class="nx">Accept</span><span class="o">:</span> <span class="nx">i</span><span class="p">}})</span>
+        <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">r</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+        <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">)</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>サポートされていないメディアライプを要求すると 406 エラーが返ってくる。</p>
+</section>
+<section id="a-javascript-workbench">
+<h3><a class="toc-backref" href="#id20">A JavaScript workbench</a><a class="headerlink" href="#a-javascript-workbench" title="Permalink to this headline">¶</a></h3>
+<p><strong>問題</strong> JavaScript のコード片を入力して実行することができるインターフェースを作れ。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;textarea&gt;</span></code> フィールドの横にボタンを置き、それを押すと、テキストを関数でラップするのに第 10 章で見た <code class="docutils literal notranslate"><span class="pre">Function</span></code> コンストラクターを使い、それを呼び出す。</p></li>
+<li><p>関数の戻り値やエラーが発生した場合は文字列に変換し、テキストフィールドの下に表示しろ。</p></li>
+</ul>
+<p><strong>解答</strong> 次のような HTML を書くものと思われる。ただし、JavaScript のコード片が
+<code class="docutils literal notranslate"><span class="pre">return</span></code> 文で終わらないと出力がまともに出てこない。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">form</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">textarea</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;workbench&quot;</span> <span class="na">rows</span><span class="o">=</span><span class="s">&quot;20&quot;</span> <span class="na">cols</span><span class="o">=</span><span class="s">&quot;80&quot;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&quot;Type pieces of JavaScript code...&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">textarea</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span><span class="p">&gt;</span>Run<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Output: <span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;output&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;form&quot;</span><span class="p">).</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;submit&quot;</span><span class="p">,</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">output</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;span#output&quot;</span><span class="p">);</span>
+        <span class="kd">const</span> <span class="nx">textarea</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;textarea&quot;</span><span class="p">);</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="nx">output</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nb">Function</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="nx">textarea</span><span class="p">.</span><span class="nx">value</span><span class="p">)();</span>
+        <span class="p">}</span>
+        <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">output</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">e</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+    <span class="p">});</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;textarea&gt;</span></code> タグを書くときには必ず空文字列を値にする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;textarea&gt;</span></code> タグの寸法は <code class="docutils literal notranslate"><span class="pre">width</span></code> や <code class="docutils literal notranslate"><span class="pre">height</span></code> ではなく <code class="docutils literal notranslate"><span class="pre">rows</span></code> と <code class="docutils literal notranslate"><span class="pre">cols</span></code> で指定する。</p></li>
+<li><p>答案では <code class="docutils literal notranslate"><span class="pre">&lt;span&gt;</span></code> タグのテキストノードの内容をプロパティー <code class="docutils literal notranslate"><span class="pre">textContent</span></code> を使って代入しているが、他にも色々と方法がある。</p></li>
+</ul>
+</section>
+<section id="conway-s-game-of-life">
+<h3><a class="toc-backref" href="#id21">Conway’s Game of Life</a><a class="headerlink" href="#conway-s-game-of-life" title="Permalink to this headline">¶</a></h3>
+<p>Conway の Game of Life とは、グリッド上に人工的な「生命」を作り出し、各セルが生きているかどうかを判断する単純なシミュレーションだ。</p>
+<p>世代（ターン）ごとに、以下のルールが適用される：</p>
+<ul class="simple">
+<li><p>隣接セルが 2 個であるか、または隣接セルが 3 個を超えるような生存者は死滅する。</p></li>
+<li><p>隣接セルが 2 個または 3 個であるような生存者は、次の世代まで生き続ける。</p></li>
+<li><p>ちょうど 3 個の生きている隣接セルがある死亡セルは次に生き返る。</p></li>
+</ul>
+<p>隣接セルとは、周囲八方向にあるセルと定義する。</p>
+<p>これらのルールは、一度に一つのマスではなく、グリッド全体に適用される。つまり、隣接セルの数は世代開始時の状況に基づいており、その世代の間に隣接セルのセルに起きた変化はあるセルの新しい状態に影響を与えてはならない。</p>
+<p><strong>問題</strong> このゲームを適切なデータ構造を使って実装しろ。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Math.random</span></code> を使って、最初はランダムなパターンでグリッドを埋める。</p></li>
+<li><p>それをチェックボックス欄のグリッドとして表示し、その横に次の世代に進むためのボタンを配置しろ。</p></li>
+<li><p>ユーザーがチェックボックスをいじると、その変化が次の世代の計算に反映されるようにしろ。</p></li>
+</ul>
+<p><strong>解答</strong> たいへん面倒くさい。</p>
+<p>まず、第 6 章で出てきたクラス <code class="docutils literal notranslate"><span class="pre">Matrix</span></code> を利用可能な状態にしておく。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;./matrix.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>HTML の本体に次のようなコードを入れておく：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;cells&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&quot;updateCells()&quot;</span><span class="p">&gt;</span>Next<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">let</span> <span class="nx">curCells</span> <span class="o">=</span> <span class="nx">createCells</span><span class="p">();</span>
+  <span class="nx">createUI</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;div#cells&quot;</span><span class="p">),</span> <span class="nx">curCells</span><span class="p">);</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>あとは未完成の部品を補う作業になる。関数 <code class="docutils literal notranslate"><span class="pre">createCells</span></code> は成分が真偽値の行列を返す。行数と列数は 8 くらいでいい：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">createCells</span><span class="p">(</span><span class="nx">width</span> <span class="o">=</span> <span class="mf">8</span><span class="p">,</span> <span class="nx">height</span> <span class="o">=</span> <span class="mf">8</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">Matrix</span><span class="p">(</span><span class="nx">width</span><span class="p">,</span> <span class="nx">height</span><span class="p">,</span> <span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">j</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">;</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">createUI</span></code> は第一引数の HTML ノードにチェックボックスの行列を追加するものだ。それらの初期状態はセル行列に基づいて決定する：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">createUI</span><span class="p">(</span><span class="nx">parentNode</span><span class="p">,</span> <span class="nx">cells</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">width</span> <span class="o">=</span> <span class="nx">cells</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">height</span> <span class="o">=</span> <span class="nx">cells</span><span class="p">.</span><span class="nx">height</span><span class="p">;</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">parentNode</span><span class="p">);</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">y</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">y</span> <span class="o">&lt;</span> <span class="nx">height</span><span class="p">;</span> <span class="nx">y</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">x</span> <span class="o">&lt;</span> <span class="nx">width</span><span class="p">;</span> <span class="nx">x</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">const</span> <span class="nx">chbox</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;input&quot;</span><span class="p">);</span>
+            <span class="nx">chbox</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="s2">&quot;checkbox&quot;</span><span class="p">);</span>
+            <span class="nx">chbox</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="nx">x</span><span class="p">);</span>
+            <span class="nx">chbox</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
+            <span class="nx">chbox</span><span class="p">.</span><span class="nx">checked</span> <span class="o">=</span> <span class="nx">cells</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
+            <span class="nx">parentNode</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">chbox</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="nx">parentNode</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;br&quot;</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>チェックボックスに行列の添字を属性として与えておき、あとで参照できるようにすると楽だ。</p></li>
+<li><p>チェックボックスを列数分だけ置いたら HTML 上で改行するだけの単純なものにした。</p></li>
+</ul>
+<p>後半のイベントハンドラー系統の関数を組み立てていく。まずはボタンのリスナーだ：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">updateCells</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">curCells</span> <span class="o">=</span> <span class="nx">computeNextGeneration</span><span class="p">(</span><span class="nx">curCells</span><span class="p">);</span>
+    <span class="nx">updateUI</span><span class="p">(</span><span class="nx">curCells</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">updateUI</span><span class="p">(</span><span class="nx">cells</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;input[type=checkbox]&quot;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">chbox</span> <span class="p">=&gt;</span> <span class="p">{</span>
+            <span class="kd">const</span> <span class="nx">x</span> <span class="o">=</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">chbox</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">));</span>
+            <span class="kd">const</span> <span class="nx">y</span> <span class="o">=</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">chbox</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">));</span>
+            <span class="nx">chbox</span><span class="p">.</span><span class="nx">checked</span> <span class="o">=</span> <span class="nx">cells</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
+        <span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">updateCells</span></code> の <code class="docutils literal notranslate"><span class="pre">curCells</span></code> はローカル変数ではなくグローバルスコープにあるものだ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">querySelectorAll</span></code> の使い方に慣れることが必須だ。手でループを書くと失敗することがひじょうに多いので、メソッド <code class="docutils literal notranslate"><span class="pre">forEach</span></code> でこのように処理を書いてしまうのがいい。</p></li>
+<li><p>HTML ノードの属性から添字を得るときには <code class="docutils literal notranslate"><span class="pre">Number</span></code> 型に明示的に変換する必要がある。</p></li>
+</ul>
+<p>ライフゲームの急所である関数を実装する：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">computeNextGeneration</span><span class="p">(</span><span class="nx">cells</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">width</span> <span class="o">=</span> <span class="nx">cells</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">height</span> <span class="o">=</span> <span class="nx">cells</span><span class="p">.</span><span class="nx">height</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="nx">nextGenCells</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Matrix</span><span class="p">(</span><span class="nx">width</span><span class="p">,</span> <span class="nx">height</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">y</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">y</span> <span class="o">&lt;</span> <span class="nx">height</span><span class="p">;</span> <span class="nx">y</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">x</span> <span class="o">&lt;</span> <span class="nx">width</span><span class="p">;</span> <span class="nx">x</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">nextGenCells</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">computeNextState</span><span class="p">(</span><span class="nx">cells</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">nextGenCells</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">computeNextState</span><span class="p">(</span><span class="nx">cells</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">isLive</span> <span class="o">=</span> <span class="nx">cells</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">numLiveCells</span> <span class="o">=</span> <span class="nx">countLiveNeighbors</span><span class="p">(</span><span class="nx">cells</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
+
+    <span class="c1">// * Any live cell with fewer than two or more than three live neighbors dies.</span>
+    <span class="c1">// * Any live cell with two or three live neighbors lives on to the next generation.</span>
+    <span class="c1">// * Any dead cell with exactly three live neighbors becomes a live cell.</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">isLive</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">numLiveCells</span> <span class="k">in</span> <span class="p">[</span><span class="mf">2</span><span class="p">,</span> <span class="mf">3</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">numLiveCells</span> <span class="o">==</span> <span class="mf">3</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">isLive</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>隣接セルの生存状態を確認する関数 <code class="docutils literal notranslate"><span class="pre">countLiveNeighbors</span></code> は低水準なコードになる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">countLiveNeighbors</span><span class="p">(</span><span class="nx">cells</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">width</span> <span class="o">=</span> <span class="nx">cells</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">height</span> <span class="o">=</span> <span class="nx">cells</span><span class="p">.</span><span class="nx">height</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">numLiveCells</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span>
+
+    <span class="c1">// right</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">+</span> <span class="mf">1</span> <span class="o">!=</span> <span class="nx">width</span> <span class="o">&amp;&amp;</span> <span class="nx">cells</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">x</span> <span class="o">+</span> <span class="mf">1</span><span class="p">,</span> <span class="nx">y</span><span class="p">))</span> <span class="o">++</span><span class="nx">numLiveCells</span><span class="p">;</span>
+
+    <span class="c1">// upper right</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">+</span> <span class="mf">1</span> <span class="o">!=</span> <span class="nx">width</span> <span class="o">&amp;&amp;</span> <span class="nx">y</span> <span class="o">!=</span> <span class="mf">0</span> <span class="o">&amp;&amp;</span> <span class="nx">cells</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">x</span> <span class="o">+</span> <span class="mf">1</span><span class="p">,</span> <span class="nx">y</span> <span class="o">-</span> <span class="mf">1</span><span class="p">))</span> <span class="o">++</span><span class="nx">numLiveCells</span><span class="p">;</span>
+    <span class="c1">// up</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">y</span> <span class="o">!=</span> <span class="mf">0</span> <span class="o">&amp;&amp;</span> <span class="nx">cells</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span> <span class="o">-</span> <span class="mf">1</span><span class="p">))</span> <span class="o">++</span><span class="nx">numLiveCells</span><span class="p">;</span>
+    <span class="c1">// upper left</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">!=</span> <span class="mf">0</span> <span class="o">&amp;&amp;</span> <span class="nx">y</span> <span class="o">!=</span> <span class="mf">0</span> <span class="o">&amp;&amp;</span> <span class="nx">cells</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">x</span> <span class="o">-</span> <span class="mf">1</span><span class="p">,</span> <span class="nx">y</span> <span class="o">-</span> <span class="mf">1</span><span class="p">))</span> <span class="o">++</span><span class="nx">numLiveCells</span><span class="p">;</span>
+
+    <span class="c1">// left</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">!=</span> <span class="mf">0</span> <span class="o">&amp;&amp;</span> <span class="nx">cells</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">x</span> <span class="o">-</span> <span class="mf">1</span><span class="p">,</span> <span class="nx">y</span><span class="p">))</span> <span class="o">++</span><span class="nx">numLiveCells</span><span class="p">;</span>
+
+    <span class="c1">// bottom left</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">!=</span> <span class="mf">0</span> <span class="o">&amp;&amp;</span> <span class="nx">y</span> <span class="o">+</span> <span class="mf">1</span> <span class="o">!=</span> <span class="nx">height</span> <span class="o">&amp;&amp;</span> <span class="nx">cells</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">x</span> <span class="o">-</span> <span class="mf">1</span><span class="p">,</span> <span class="nx">y</span> <span class="o">+</span> <span class="mf">1</span><span class="p">))</span> <span class="o">++</span><span class="nx">numLiveCells</span><span class="p">;</span>
+    <span class="c1">// bottom</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">y</span> <span class="o">+</span> <span class="mf">1</span> <span class="o">!=</span> <span class="nx">height</span> <span class="o">&amp;&amp;</span> <span class="nx">cells</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span> <span class="o">+</span> <span class="mf">1</span><span class="p">))</span> <span class="o">++</span><span class="nx">numLiveCells</span><span class="p">;</span>
+    <span class="c1">// bottom right</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">+</span> <span class="mf">1</span> <span class="o">!=</span> <span class="nx">width</span> <span class="o">&amp;&amp;</span> <span class="nx">y</span> <span class="o">+</span> <span class="mf">1</span> <span class="o">!=</span> <span class="nx">height</span> <span class="o">&amp;&amp;</span> <span class="nx">cells</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">x</span> <span class="o">+</span> <span class="mf">1</span><span class="p">,</span> <span class="nx">y</span> <span class="o">+</span> <span class="mf">1</span><span class="p">))</span> <span class="o">++</span><span class="nx">numLiveCells</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="nx">numLiveCells</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>丁寧にやるならば、指定方向の隣接セルを得るミニ関数を定義するべきだろう。</p></li>
+<li><p>隣接の定義を拡張して、ドラクエの世界地図方式にすると面白いかもしれない。</p></li>
+</ul>
+<p>以上</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter19.html" title="Project: A Pixel Art Editor"
+             >next</a></li>
+        <li class="right" >
+          <a href="chapter17.html" title="Drawing on Canvas"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Eloquent JavaScript 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">HTTP and Forms</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>JavaScript and the Browser &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
+    
+    <script src="../_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="The Document Object Model" href="chapter14.html" />
+    <link rel="prev" title="Project: A Programming Language" href="chapter12.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter14.html" title="The Document Object Model"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="chapter12.html" title="Project: A Programming Language"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Eloquent JavaScript 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">JavaScript and the Browser</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="javascript-and-the-browser">
+<h1><a class="toc-backref" href="#id2">JavaScript and the Browser</a><a class="headerlink" href="#javascript-and-the-browser" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://eloquentjavascript.net/">Eloquent JavaScript</a> Chapter 13 の読書ノート。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title">ノート目次</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#javascript-and-the-browser" id="id2">JavaScript and the Browser</a></p>
+<ul>
+<li><p><a class="reference internal" href="#networks-and-the-internet" id="id3">Networks and the Internet</a></p></li>
+<li><p><a class="reference internal" href="#the-web" id="id4">The Web</a></p></li>
+<li><p><a class="reference internal" href="#html" id="id5">HTML</a></p></li>
+<li><p><a class="reference internal" href="#html-and-javascript" id="id6">HTML and JavaScript</a></p></li>
+<li><p><a class="reference internal" href="#in-the-sandbox" id="id7">In the sandbox</a></p></li>
+<li><p><a class="reference internal" href="#compatibility-and-the-browser-wars" id="id8">Compatibility and the browser wars</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="networks-and-the-internet">
+<h2><a class="toc-backref" href="#id3">Networks and the Internet</a><a class="headerlink" href="#networks-and-the-internet" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>計算機のネットワークは 1950 年代から存在している。</p></li>
+<li><p>インターネットの基礎になる技術は 1980 年代に開発された。</p></li>
+<li><p>計算機は別の計算機にビット列を発射する。これにより通信をする。</p></li>
+<li><p><strong>ネットワークプロトコル</strong> は、ネットワーク上での通信の様式を記述するものだ。例えば</p>
+<ul>
+<li><p>電子メールを送信・受信するプロトコル、</p></li>
+<li><p>ファイルを共有するプロトコル、</p></li>
+<li><p>感染した計算機を制御するプロトコルさえある。</p></li>
+<li><p>HTTP については第 18 章で述べる。</p></li>
+</ul>
+</li>
+<li><p>プロトコルのほとんどは他のプロトコルの上に建っている。
+HTTP はネットワークをビット列を置いて、それを正しい順序で目的地に到着させるストリームのような装置として扱う。この難しい問題を解決するのが TCP だ。</p>
+<ul>
+<li><p>TCP はインターネットに接続されている機器すべてが利用しているプロトコルだ。</p></li>
+<li><p>インターネット上の通信のほとんどが、このプロトコルの上に建っている。</p></li>
+</ul>
+</li>
+</ul>
+<p>TCP 接続は次のように働く。ある計算機が別の計算機がそれに話しかけてくるのを待っていなければならない。同時に単一の機械が種類の異なる通信を聴き取れるように、聴取者には通信種類に関連づけられた
+<strong>ポート</strong> と呼ばれる番号が決められている。</p>
+<ul class="simple">
+<li><p>プロトコルのほとんどでは、既定のポート番号が割り振られている。例えば SMTP でメールを送信する場合、受信側は 25 番ポートで待機しているだろう。</p></li>
+<li><p>送信側の計算機は正しいポート番号を使って目標の計算機に到達できる。受信側の計算機はそのポートを聴取していれば、接続が正常に確立する。</p>
+<ul>
+<li><p>聴取側の計算機を <strong>サーバー</strong> という。</p></li>
+<li><p>接続している計算機を <strong>クライアント</strong> という。</p></li>
+</ul>
+</li>
+</ul>
+<p>このような接続は、どちらの計算機もデータをそこに流すことができる、双方向の管のような役割を果たす。データが正常に送信されると、受信側の計算機がデータを読み取ることができる。</p>
+<p>TCP はネットワークを抽象化したものだと言える。</p>
+</section>
+<section id="the-web">
+<h2><a class="toc-backref" href="#id4">The Web</a><a class="headerlink" href="#the-web" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>WWW とはブラウザーで Web ページを閲覧するためのプロトコルとフォーマットの集合だ。</p></li>
+<li><p>Web に参加するには、計算機をインターネットに接続して、他の計算機が文書を求められるようにするべく HTTP を 80 番ポートで聴取するようにさせる必要がある。</p></li>
+<li><p>Web 上にある文書のそれぞれは URL で名前が付いている。</p></li>
+<li><p>インターネットに接続する機械には IP アドレスが割り当てられる。それはその機械にメッセージを送るために使用される番号だ。</p>
+<ul>
+<li><p>数字では人間が扱いづらいので、特定のアドレスに対して <strong>ドメイン名</strong> を登録することができる。</p></li>
+</ul>
+</li>
+<li><p>URL をブラウザーのアドレスバーに入力すると、ブラウザーはそのアドレスで示される文書を取得、表示しようとする。例えば <code class="docutils literal notranslate"><span class="pre">http://eloquentjavascript.net/13_browser.html</span></code> を入力すると次のように動く：</p>
+<ul>
+<li><p>まずブラウザーは <code class="docutils literal notranslate"><span class="pre">eloquentjavascript.net</span></code> がどのアドレスを参照しているのかを調べる。</p></li>
+<li><p>次に URL が <code class="docutils literal notranslate"><span class="pre">http://</span></code> から始まっていることから HTTP を使用して、そのアドレスのサーバーに接続する。</p></li>
+<li><p>リソースである <code class="docutils literal notranslate"><span class="pre">/13_browser.html</span></code> を求める。</p></li>
+<li><p>すべてがうまくいくと、サーバーはブラウザーに文書を送り返す。</p></li>
+<li><p>ブラウザーは画面上に内容を表示する。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="html">
+<h2><a class="toc-backref" href="#id5">HTML</a><a class="headerlink" href="#html" title="Permalink to this headline">¶</a></h2>
+<p><strong>HTML</strong> とは、Web ページで使用される文書フォーマットだ。テキストと、リンク、段落、見出しなどを記述してテキストに構造を与えるタグとかなる。</p>
+<p>この節はよく知っていることが記述されている。ノート省略。</p>
+</section>
+<section id="html-and-javascript">
+<h2><a class="toc-backref" href="#id6">HTML and JavaScript</a><a class="headerlink" href="#html-and-javascript" title="Permalink to this headline">¶</a></h2>
+<p>HTML タグ <code class="docutils literal notranslate"><span class="pre">&lt;script&gt;</span></code> を使うと JavaScript の断片を文書に含めることができる。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Testing alert<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;hello!&quot;</span><span class="p">);&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>こういうインラインのスクリプトは、ブラウザーが <code class="docutils literal notranslate"><span class="pre">&lt;script&gt;</span></code> タグを見つけた時点で実行される。</p></li>
+<li><p>大規模なプログラムを HTML 文書に直接埋め込むことはたいていの場合現実的ではない。</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;script&gt;</span></code> タグに <code class="docutils literal notranslate"><span class="pre">src</span></code> 属性を付与することで、値の <code class="docutils literal notranslate"><span class="pre">URL</span></code> からスクリプトファイルを取得するようになる。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Testing alert<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;code/hello.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>ファイル <code class="docutils literal notranslate"><span class="pre">code/hello.js</span></code> は先ほどのタグの中身と同じコードからなる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;script&gt;</span></code> タグは、値が空であっても必ず <code class="docutils literal notranslate"><span class="pre">&lt;/script&gt;</span></code> で閉じなければならない。そうしないと、文書の残りがスクリプトコードとして扱われるだろう。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;script&gt;</span></code> タグに <code class="docutils literal notranslate"><span class="pre">type=&quot;module&quot;</span></code> を指定すると ES モジュールを読み込ませることができる。このようなモジュールは <code class="docutils literal notranslate"><span class="pre">import</span></code> 宣言でモジュール名として相対的な URL を指定することで、他のモジュールに依存することができる。</p></li>
+</ul>
+<p>HTML のタグには JavaScript コードを含むことができる属性もある。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;button&gt;</span></code> タグの <code class="docutils literal notranslate"><span class="pre">onclick</span></code> 属性の値は、ボタンがクリックされるたびに実行される。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">button</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&quot;alert(&#39;Boom!&#39;);&quot;</span><span class="p">&gt;</span>DO NOT PRESS<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>ここでは引用符を使い分けていることに注意。引用符を表す実体参照を代わりに使うこともできる。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="in-the-sandbox">
+<h2><a class="toc-backref" href="#id7">In the sandbox</a><a class="headerlink" href="#in-the-sandbox" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>ブラウザーは JavaScriptプログラム ができることを厳しく制限している。それが埋め込まれた Web ページに関係のないものを変更することもできない。</p></li>
+<li><p>プログラミング環境を隔離することを <strong>砂箱化</strong> という。</p></li>
+<li><p>砂箱は、プログラムが有用に使えるだけの余地を残しつつ、同時にプログラムがいかなる危険なこともしないように制限する。</p></li>
+</ul>
+</section>
+<section id="compatibility-and-the-browser-wars">
+<h2><a class="toc-backref" href="#id8">Compatibility and the browser wars</a><a class="headerlink" href="#compatibility-and-the-browser-wars" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>昔はブラウザーごとに JavaScript がバラバラだった。互換性の暗黒時代と呼ばれている。</p></li>
+<li><p>主要ブラウザーの最新バージョンは動作が非常に統一されており、バグも比較的少ない。</p></li>
+</ul>
+<p>以上</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter14.html" title="The Document Object Model"
+             >next</a></li>
+        <li class="right" >
+          <a href="chapter12.html" title="Project: A Programming Language"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Eloquent JavaScript 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">JavaScript and the Browser</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

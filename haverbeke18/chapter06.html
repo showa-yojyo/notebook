@@ -1,0 +1,614 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>The Secret Life of Objects &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
+    
+    <script src="../_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="Project: A Robot" href="chapter07.html" />
+    <link rel="prev" title="Higher-Order Functions" href="chapter05.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter07.html" title="Project: A Robot"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="chapter05.html" title="Higher-Order Functions"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Eloquent JavaScript 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">The Secret Life of Objects</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="the-secret-life-of-objects">
+<h1><a class="toc-backref" href="#id2">The Secret Life of Objects</a><a class="headerlink" href="#the-secret-life-of-objects" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://eloquentjavascript.net/">Eloquent JavaScript</a> Chapter 6 の読書ノート。</p>
+<p>本章では JavaScript 流オブジェクト指向プログラミングの様式を見ていく。
+C++ や Python との考え方の違いに注目するといいかもしれない。私がモダンな Java を知っていたらとよかったのだが。</p>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#the-secret-life-of-objects" id="id2">The Secret Life of Objects</a></p>
+<ul>
+<li><p><a class="reference internal" href="#encapsulation" id="id3">Encapsulation</a></p></li>
+<li><p><a class="reference internal" href="#methods" id="id4">Methods</a></p></li>
+<li><p><a class="reference internal" href="#prototype" id="id5">Prototype</a></p></li>
+<li><p><a class="reference internal" href="#classes" id="id6">Classes</a></p></li>
+<li><p><a class="reference internal" href="#class-notation" id="id7">Class notation</a></p></li>
+<li><p><a class="reference internal" href="#overriding-derived-properties" id="id8">Overriding derived properties</a></p></li>
+<li><p><a class="reference internal" href="#map" id="id9">Map</a></p></li>
+<li><p><a class="reference internal" href="#polymorphism" id="id10">Polymorphism</a></p></li>
+<li><p><a class="reference internal" href="#symbols" id="id11">Symbols</a></p></li>
+<li><p><a class="reference internal" href="#the-iterator-interface" id="id12">The iterator interface</a></p></li>
+<li><p><a class="reference internal" href="#getters-setters-and-statics" id="id13">Getters, setters, and statics</a></p></li>
+<li><p><a class="reference internal" href="#inheritance" id="id14">Inheritance</a></p></li>
+<li><p><a class="reference internal" href="#the-instanceof-operator" id="id15">The instanceof operator</a></p></li>
+<li><p><a class="reference internal" href="#summary" id="id16">Summary</a></p></li>
+<li><p><a class="reference internal" href="#exercises" id="id17">Exercises</a></p>
+<ul>
+<li><p><a class="reference internal" href="#a-vector-type" id="id18">A vector type</a></p></li>
+<li><p><a class="reference internal" href="#groups" id="id19">Groups</a></p></li>
+<li><p><a class="reference internal" href="#iterable-groups" id="id20">Iterable groups</a></p></li>
+<li><p><a class="reference internal" href="#borrowing-a-method" id="id21">Borrowing a method</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="encapsulation">
+<h2><a class="toc-backref" href="#id3">Encapsulation</a><a class="headerlink" href="#encapsulation" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>オブジェクト指向プログラミングの基本的な考え方とは、プログラムを小さな欠片に分割して、それぞれの状態を管理するというものだ。</p></li>
+<li><p>このようなプログラムの断片は、オブジェクトを使ってモデル化される。そのインターフェースはメソッドとプロパティーの（クライアントに対しては限定された）集合で構成される。</p></li>
+<li><p>多くの言語は、public と private のプロパティーを区別する方法を提供しているが、ミニマリスト的な方法論を採っている JavaScript では、少なくとも今のところはない。</p>
+<ul>
+<li><p>現在、この機能を言語に追加する作業が行われているそうだ。</p></li>
+<li><p>JavaScript のプログラマーは public/private を区別するという考えを利用している。一般的に、利用可能なインターフェイスは、ドキュメントやコメントに記述されている。また、プロパティがプライベートであることを示すのに、変数名の最初の一文字を <code class="docutils literal notranslate"><span class="pre">_</span></code> とするのも一般的だ。</p>
+<ul>
+<li><p>ということは Python のプログラマーに近い。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>インターフェースと実装を分離することは素晴らしい考えだ。この考え方をカプセル化と呼ぶ。</p></li>
+</ul>
+</section>
+<section id="methods">
+<h2><a class="toc-backref" href="#id4">Methods</a><a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<p>メソッドは関数値を保持するプロパティーに過ぎない。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">rabbit</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="nx">rabbit</span><span class="p">.</span><span class="nx">speak</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">line</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`The rabbit says &#39;</span><span class="si">${</span><span class="nx">line</span><span class="si">}</span><span class="sb">&#39;`</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="nx">rabbit</span><span class="p">.</span><span class="nx">speak</span><span class="p">(</span><span class="s2">&quot;I&#39;m alive.&quot;</span><span class="p">);</span>
+
+<span class="kd">function</span> <span class="nx">speak</span><span class="p">(</span><span class="nx">line</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`The </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">type</span><span class="si">}</span><span class="sb"> rabbit says &#39;</span><span class="si">${</span><span class="nx">line</span><span class="si">}</span><span class="sb">&#39;`</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="nx">whiteRabbit</span> <span class="o">=</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="nx">speak</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">hungryRabbit</span> <span class="o">=</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;hungry&quot;</span><span class="p">,</span> <span class="nx">speak</span><span class="p">};</span>
+<span class="nx">whiteRabbit</span><span class="p">.</span><span class="nx">speak</span><span class="p">(</span><span class="s2">&quot;Oh my ears and whiskers, how late it&#39;s getting!&quot;</span><span class="p">);</span>
+<span class="nx">hungryRabbit</span><span class="p">.</span><span class="nx">speak</span><span class="p">(</span><span class="s2">&quot;I could use a carrot right now.&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>メソッドの元になる関数に対して <code class="docutils literal notranslate"><span class="pre">call</span></code> メソッドをオブジェクトを第一引数として呼び出すと、オブジェクトのメソッドの形式でそれが呼び出される：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">speak</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">hungryRabbit</span><span class="p">,</span> <span class="s2">&quot;Burp!&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>キーワード <code class="docutils literal notranslate"><span class="pre">this</span></code> を次のようにして用いることもある：</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">normalize</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">coords</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">n</span> <span class="p">=&gt;</span> <span class="nx">n</span> <span class="o">/</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="nx">normalize</span><span class="p">.</span><span class="nx">call</span><span class="p">({</span><span class="nx">coords</span><span class="o">:</span> <span class="p">[</span><span class="mf">0</span><span class="p">,</span> <span class="mf">2</span><span class="p">,</span> <span class="mf">3</span><span class="p">],</span> <span class="nx">length</span><span class="o">:</span> <span class="mf">5</span><span class="p">});</span>
+</pre></div>
+</div>
+<p>仮に <code class="docutils literal notranslate"><span class="pre">map</span></code> の呼び出しに対する実引数がキーワード <code class="docutils literal notranslate"><span class="pre">function</span></code> で書かれた関数だったら、このコードは動作しなかった。</p>
+<ul class="simple">
+<li><p>上のコードは本書から無修正で引用したものだが、この関数はベクトルの正規化になっていない。</p></li>
+</ul>
+</section>
+<section id="prototype">
+<h2><a class="toc-backref" href="#id5">Prototype</a><a class="headerlink" href="#prototype" title="Permalink to this headline">¶</a></h2>
+<p>オブジェクトのほとんどには、プロトタイプと呼ばれる、プロパティーの代替となる別のオブジェクトがある。</p>
+<ul class="simple">
+<li><p>オブジェクトが持っていないプロパティーが参照されると、まずはそのオブジェクトのプロトタイプが検索される。そこにもないときには、次にそのプロトタイプのプロトタイプが検索される、以下それを繰り返す、という具合だ。最後に <code class="docutils literal notranslate"><span class="pre">Object.prototype</span></code> に到達する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Object.getPrototypeOf</span></code> は与えられたオブジェクトのプロトタイプを返す。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">getPrototypeOf</span><span class="p">({})</span> <span class="o">==</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">getPrototypeOf</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">)</span> <span class="o">==</span> <span class="kc">null</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>オブジェクトの多くは、そのプロトタイプとして <code class="docutils literal notranslate"><span class="pre">Object.prototype</span></code> を直接は持っていない。</p></li>
+<li><p>関数は <code class="docutils literal notranslate"><span class="pre">Function.prototype</span></code> から派生する。</p></li>
+<li><p>配列は <code class="docutils literal notranslate"><span class="pre">Array.prototype</span></code> から派生する。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">getPrototypeOf</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">)</span> <span class="o">==</span> <span class="nb">Function</span><span class="p">.</span><span class="nx">prototype</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">getPrototypeOf</span><span class="p">([])</span> <span class="o">==</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Object.create</span></code> を使用して、特定のプロトタイプを持つオブジェクトを作成することができる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">protoRabbit</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">speak</span><span class="p">(</span><span class="nx">line</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`The </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">type</span><span class="si">}</span><span class="sb"> rabbit says &#39;</span><span class="si">${</span><span class="nx">line</span><span class="si">}</span><span class="sb">&#39;`</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">let</span> <span class="nx">killerRabbit</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">protoRabbit</span><span class="p">);</span>
+<span class="nx">killerRabbit</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;killer&quot;</span><span class="p">;</span>
+<span class="nx">killerRabbit</span><span class="p">.</span><span class="nx">speak</span><span class="p">(</span><span class="s2">&quot;SKREEEE!&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>オブジェクト式の <code class="docutils literal notranslate"><span class="pre">speak(line)</span></code> のようなプロパティーは、メソッドを定義するための略記法。つまり <code class="docutils literal notranslate"><span class="pre">speak:</span> <span class="pre">speak(line){</span> <span class="pre">...</span> <span class="pre">}</span></code> ということだ。</p></li>
+<li><p>これは Prototype デザインパターンそのものであり、興味深い。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="classes">
+<h2><a class="toc-backref" href="#id6">Classes</a><a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<p>JavaScript のプロトタイプシステムは、クラスと呼ばれるオブジェクト指向の概念を、やや非公式に取り入れたものと解釈される。</p>
+<ul class="simple">
+<li><p>クラスは、どのようなメソッドやプロパティを持っているかなどの型と呼ばれる概念を定義する。</p></li>
+<li><p>クラスに対して、どんな値のプロパティーを持つかなどを設定したものをインスタンスと呼ぶ。</p></li>
+<li><p>プロトタイプは、メソッドなど、クラスのすべてのインスタンスが同じ値を持つプロパティーを定義するのに便利だ。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">makeRabbit</span><span class="p">(</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">rabbit</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">protoRabbit</span><span class="p">);</span>
+    <span class="nx">rabbit</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="nx">type</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">rabbit</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>JavaScript はコンストラクターという考え方もサポートする。キーワード <code class="docutils literal notranslate"><span class="pre">new</span></code> を関数呼び出しの前に置くと、その関数はコンストラクターとして扱われる。正しいプロトタイプを持つオブジェクトが自動的に作成され、
+<code class="docutils literal notranslate"><span class="pre">return</span></code> 文はないものの、それが返される。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">Rabbit</span><span class="p">(</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="nx">type</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">Rabbit</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">speak</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">line</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`The </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">type</span><span class="si">}</span><span class="sb"> rabbit says &#39;</span><span class="si">${</span><span class="nx">line</span><span class="si">}</span><span class="sb">&#39;`</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="kd">let</span> <span class="nx">weirdRabbit</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Rabbit</span><span class="p">(</span><span class="s2">&quot;weird&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>オブジェクトを構築する際に使用されるプロトタイプオブジェクトは、コンストラクター関数の <code class="docutils literal notranslate"><span class="pre">prototype</span></code> プロパティーを取得することで確認できる。</p></li>
+<li><p>コンストラクターの名前は、他の関数と簡単に区別できるように、慣習的に大文字で表記する。</p></li>
+<li><p>プロトタイプがコンストラクターに関連付けられているかどうかを理解することは重要。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">getPrototypeOf</span><span class="p">(</span><span class="nx">Rabbit</span><span class="p">)</span> <span class="o">==</span> <span class="nb">Function</span><span class="p">.</span><span class="nx">prototype</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">getPrototypeOf</span><span class="p">(</span><span class="nx">weirdRabbit</span><span class="p">)</span> <span class="o">==</span> <span class="nx">Rabbit</span><span class="p">.</span><span class="nx">prototype</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="class-notation">
+<h2><a class="toc-backref" href="#id7">Class notation</a><a class="headerlink" href="#class-notation" title="Permalink to this headline">¶</a></h2>
+<p>前節で JavaScript のクラスは <code class="docutils literal notranslate"><span class="pre">prototype</span></code> を持つコンストラクター関数であることを見た。
+2015 年までは、そのように書く必要があったが、最近ではそれほど厄介ではない記法を採用している。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nx">Rabbit</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="nx">type</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">speak</span><span class="p">(</span><span class="nx">line</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`The </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">type</span><span class="si">}</span><span class="sb"> rabbit says &#39;</span><span class="si">${</span><span class="nx">line</span><span class="si">}</span><span class="sb">&#39;`</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="nx">killerRabbit</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Rabbit</span><span class="p">(</span><span class="s2">&quot;killer&quot;</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">blackRabbit</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Rabbit</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul>
+<li><p>キーワード <code class="docutils literal notranslate"><span class="pre">class</span></code> はクラスの定義を開始する。</p></li>
+<li><p>コンストラクターを含むメソッドの集合を一度に定義することができる。</p>
+<ul class="simple">
+<li><p>任意の数のメソッドを宣言の中括弧内に記述することができる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">constructor</span></code> という名前のメソッドは特別に扱われる。前節の意味でのコンストラクター関数を提供するもので、<code class="docutils literal notranslate"><span class="pre">Rabbit</span></code> という名前にバインドされる。</p></li>
+<li><p>その他の関数は、そのコンストラクターのプロトタイプにまとめられる。</p></li>
+</ul>
+</li>
+<li><p>現在、この形式のクラス定義でプロトタイプに追加できるのは、関数を保持するプロパティであるメソッドだけとなっている。</p></li>
+<li><p>関数と同様に、クラスは文の中でも式の中でも使うことができる。</p></li>
+<li><p>クラス式では、クラス名を省略することが許される。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">object</span> <span class="o">=</span> <span class="k">new</span> <span class="kd">class</span> <span class="p">{</span> <span class="nx">getWord</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="s2">&quot;hello&quot;</span><span class="p">;</span> <span class="p">}</span> <span class="p">};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">getWord</span><span class="p">());</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="overriding-derived-properties">
+<h2><a class="toc-backref" href="#id8">Overriding derived properties</a><a class="headerlink" href="#overriding-derived-properties" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>オブジェクトにプロパティーを追加すると、それがプロトタイプに存在するかどうかに関わらず、オブジェクト自体に追加される。</p></li>
+<li><p>プロトタイプに同じ名前のプロパティーが既に存在していた場合、オブジェクトのプロパティーの後ろに隠れてしまうので、これはオブジェクトに影響を与えない。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">Rabbit</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">teeth</span> <span class="o">=</span> <span class="s2">&quot;small&quot;</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">killerRabbit</span><span class="p">.</span><span class="nx">teeth</span> <span class="o">==</span> <span class="s2">&quot;small&quot;</span><span class="p">);</span>
+
+<span class="nx">killerRabbit</span><span class="p">.</span><span class="nx">teeth</span> <span class="o">=</span> <span class="s2">&quot;long, sharp, and bloody&quot;</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">killerRabbit</span><span class="p">.</span><span class="nx">teeth</span> <span class="o">==</span> <span class="s2">&quot;long, sharp, and bloody&quot;</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">blackRabbit</span><span class="p">.</span><span class="nx">teeth</span> <span class="o">==</span> <span class="s2">&quot;small&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">Rabbit</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">teeth</span> <span class="o">==</span> <span class="s2">&quot;small&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>配列に対する <code class="docutils literal notranslate"><span class="pre">.toString()</span></code> はオブジェクト一般のそれとは挙動が異なる。配列に対して <code class="docutils literal notranslate"><span class="pre">.join(&quot;,&quot;)</span></code> を呼び出したのと同じような結果になる。</p></li>
+</ul>
+</section>
+<section id="map">
+<h2><a class="toc-backref" href="#id9">Map</a><a class="headerlink" href="#map" title="Permalink to this headline">¶</a></h2>
+<p>今までは Python の <code class="docutils literal notranslate"><span class="pre">dict</span></code> のようなデータ構造として次のようにしていた：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">ages</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">Boris</span><span class="o">:</span> <span class="mf">39</span><span class="p">,</span>
+    <span class="nx">Liang</span><span class="o">:</span> <span class="mf">22</span><span class="p">,</span>
+    <span class="nx">Júlia</span><span class="o">:</span> <span class="mf">62</span>
+<span class="p">};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Júlia is </span><span class="si">${</span><span class="nx">ages</span><span class="p">[</span><span class="s2">&quot;Júlia&quot;</span><span class="p">]</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Is Jack&#39;s age known?&quot;</span><span class="p">,</span> <span class="s2">&quot;Jack&quot;</span> <span class="k">in</span> <span class="nx">ages</span><span class="p">);</span> <span class="c1">// false</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Is toString&#39;s age knew?&quot;</span><span class="p">,</span> <span class="s2">&quot;toString&quot;</span> <span class="k">in</span> <span class="nx">ages</span><span class="p">);</span> <span class="c1">// true; これがまずい</span>
+</pre></div>
+</div>
+<p>これは危ないのでクラス <code class="docutils literal notranslate"><span class="pre">Map</span></code> を利用する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">ages</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Map</span><span class="p">();</span>
+<span class="nx">ages</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;Boris&quot;</span><span class="p">,</span> <span class="mf">39</span><span class="p">);</span>
+<span class="nx">ages</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;Liang&quot;</span><span class="p">,</span> <span class="mf">22</span><span class="p">);</span>
+<span class="nx">ages</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;Júlia&quot;</span><span class="p">,</span> <span class="mf">62</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Júlia is </span><span class="si">${</span><span class="nx">ages</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;Júlia&quot;</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span> <span class="c1">// Júlia is 62</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Is Jack&#39;s age known?&quot;</span><span class="p">,</span> <span class="nx">ages</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s2">&quot;Jack&quot;</span><span class="p">));</span> <span class="c1">// false</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">ages</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s2">&quot;toString&quot;</span><span class="p">));</span> <span class="c1">// false</span>
+</pre></div>
+</div>
+<ul>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">set</span></code>, <code class="docutils literal notranslate"><span class="pre">get</span></code>, <code class="docutils literal notranslate"><span class="pre">has</span></code> は <code class="docutils literal notranslate"><span class="pre">Map</span></code> オブジェクトのインターフェースの一部だ。</p></li>
+<li><p>何らかの理由でマップとして扱う必要がある普通のオブジェクトがある場合、
+<code class="docutils literal notranslate"><span class="pre">Object.keys()</span></code> がそのオブジェクト自身のキーしか返さないことを知っていると便利だ。</p></li>
+<li><p>演算子 <code class="docutils literal notranslate"><span class="pre">in</span></code> の代わりにメソッド <code class="docutils literal notranslate"><span class="pre">hasOwnProperty</span></code> を使うこともできる。これはオブジェクトのプロトタイプを無視する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">({</span><span class="nx">x</span><span class="o">:</span> <span class="mf">1</span><span class="p">}.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">));</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="o">!</span><span class="p">{</span><span class="nx">x</span><span class="o">:</span> <span class="mf">1</span><span class="p">}.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="s2">&quot;toString&quot;</span><span class="p">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="polymorphism">
+<h2><a class="toc-backref" href="#id10">Polymorphism</a><a class="headerlink" href="#polymorphism" title="Permalink to this headline">¶</a></h2>
+<p>例えば次のように <code class="docutils literal notranslate"><span class="pre">toString()</span></code> を上書きすることができる。こういう技法をポリモーフィズムという。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">Rabbit</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toString</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="sb">`a </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">type</span><span class="si">}</span><span class="sb"> rabbit`</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>例えば for/of ループもポリモーフィズムの一種だ。データ構造が特定のインターフェイスを提供することを期待している。</p>
+</section>
+<section id="symbols">
+<h2><a class="toc-backref" href="#id11">Symbols</a><a class="headerlink" href="#symbols" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>プロパティー名は通常は <code class="docutils literal notranslate"><span class="pre">String</span></code> だが <code class="docutils literal notranslate"><span class="pre">Symbol</span></code> であることがある。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Symbol</span></code> のオブジェクトは一意的であり、同じ値を二度作ることができない。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">sym</span> <span class="o">=</span> <span class="nb">Symbol</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">sym</span> <span class="o">!=</span> <span class="nb">Symbol</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">));</span>
+
+<span class="nx">Rabbit</span><span class="p">.</span><span class="nx">prototype</span><span class="p">[</span><span class="nx">sym</span><span class="p">]</span> <span class="o">=</span> <span class="mf">55</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">blackRabbit</span><span class="p">[</span><span class="nx">sym</span><span class="p">]</span> <span class="o">==</span> <span class="mf">55</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p>次のような不思議なことができる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">toStringSymbol</span> <span class="o">=</span> <span class="nb">Symbol</span><span class="p">(</span><span class="s2">&quot;toString&quot;</span><span class="p">);</span>
+<span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">[</span><span class="nx">toStringSymbol</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="si">}</span><span class="sb"> cm of blue yarn`</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">([</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">].</span><span class="nx">toString</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;1,2&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">([</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">][</span><span class="nx">toStringSymbol</span><span class="p">]()</span> <span class="o">==</span> <span class="s2">&quot;2 cm of blue yarn&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>今の時点でこの機能に深入りするのは危険な気がする。</p>
+</section>
+<section id="the-iterator-interface">
+<h2><a class="toc-backref" href="#id12">The iterator interface</a><a class="headerlink" href="#the-iterator-interface" title="Permalink to this headline">¶</a></h2>
+<p>for/of ループに渡されるオブジェクトは、iterable であることが期待される。あるオブジェクトが iterable であるとは、それが名前が <code class="docutils literal notranslate"><span class="pre">Symbol.iterator</span></code> であるメソッドを持つことをいう。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">okIterator</span> <span class="o">=</span> <span class="s2">&quot;OK&quot;</span><span class="p">[</span><span class="nb">Symbol</span><span class="p">.</span><span class="nx">iterator</span><span class="p">]();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">okIterator</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span> <span class="c1">// → {value: &quot;O&quot;, done: false}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">okIterator</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span> <span class="c1">// → {value: &quot;K&quot;, done: false}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">okIterator</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span> <span class="c1">// → {value: undefined, done: true}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>このメソッドが呼ばれると iterator なるものを返す。これが実際に反復処理を行う。これには次の結果を返すメソッド <code class="docutils literal notranslate"><span class="pre">next</span></code> を持ち、次の結果を返す。その結果とは、次の値を提供するプロパティー <code class="docutils literal notranslate"><span class="pre">value</span></code> とプロパティー <code class="docutils literal notranslate"><span class="pre">done</span></code> を持つオブジェクトだ。これ以上の結果がない場合は <code class="docutils literal notranslate"><span class="pre">true</span></code> を、それ以外の場合は <code class="docutils literal notranslate"><span class="pre">false</span></code> になるはずだ。</p></li>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">next</span></code>, <code class="docutils literal notranslate"><span class="pre">value</span></code>, <code class="docutils literal notranslate"><span class="pre">done</span></code> の名前は、<code class="docutils literal notranslate"><span class="pre">Symbol</span></code> ではなく <code class="docutils literal notranslate"><span class="pre">String</span></code> であることに注意が要る。というより、<code class="docutils literal notranslate"><span class="pre">Symbol</span></code> なのは <code class="docutils literal notranslate"><span class="pre">iterator</span></code> だけだ。</p></li>
+</ul>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>行列の要素を反復するためのコードが少しむずかしい。</p>
+<p>Iterator デザインパターンの基本に則っているコードであることは読める。</p>
+</div>
+</section>
+<section id="getters-setters-and-statics">
+<h2><a class="toc-backref" href="#id13">Getters, setters, and statics</a><a class="headerlink" href="#getters-setters-and-statics" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Python で言う <code class="docutils literal notranslate"><span class="pre">&#64;propery</span></code> のようなメソッド機能が JavaScript でもサポートされている。</p></li>
+<li><p>Python で言う <code class="docutils literal notranslate"><span class="pre">&#64;staticmethod</span></code> のような機能もサポートされている。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nx">Temperature</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">celsius</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">celsius</span> <span class="o">=</span> <span class="nx">celsius</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">get</span> <span class="nx">fahrenheit</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">celsius</span> <span class="o">*</span> <span class="mf">1.8</span> <span class="o">+</span> <span class="mf">32</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">set</span> <span class="nx">fahrenheit</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">celsius</span> <span class="o">=</span> <span class="p">(</span><span class="nx">value</span> <span class="o">-</span> <span class="mf">32</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1.8</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">static</span> <span class="nx">fromFahrenheit</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">Temperature</span><span class="p">((</span><span class="nx">value</span> <span class="o">-</span> <span class="mf">32</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1.8</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="inheritance">
+<h2><a class="toc-backref" href="#id14">Inheritance</a><a class="headerlink" href="#inheritance" title="Permalink to this headline">¶</a></h2>
+<p>JavaScript でもサブクラスを定義することができる。本書の例をそのまま引用する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nx">SymmetricMatrix</span> <span class="k">extends</span> <span class="nx">Matrix</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">size</span><span class="p">,</span> <span class="nx">element</span> <span class="o">=</span> <span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="p">(</span><span class="nx">size</span><span class="p">,</span> <span class="nx">size</span><span class="p">,</span> <span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">&lt;</span> <span class="nx">y</span><span class="p">)</span> <span class="k">return</span> <span class="nx">element</span><span class="p">(</span><span class="nx">y</span><span class="p">,</span> <span class="nx">x</span><span class="p">);</span>
+            <span class="k">else</span> <span class="k">return</span> <span class="nx">element</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+    <span class="nx">set</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">value</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">!=</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">super</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">y</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">value</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="nx">matrix</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SymmetricMatrix</span><span class="p">(</span><span class="mf">5</span><span class="p">,</span> <span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="sb">`</span><span class="si">${</span><span class="nx">x</span><span class="si">}</span><span class="sb">,</span><span class="si">${</span><span class="nx">y</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>構文としては Java に酷似していて、キーワード <code class="docutils literal notranslate"><span class="pre">extends</span></code> を用いて基底クラスを指定し、サブクラスの定義を始める。</p></li>
+<li><p>メソッドからキーワード <code class="docutils literal notranslate"><span class="pre">super</span></code> を使って、基底クラス自身のメンバーを参照する。</p>
+<ul>
+<li><p>Python と使われ方が異なるので注意。いきなりドットを書く。<code class="docutils literal notranslate"><span class="pre">this</span></code> ではなく <code class="docutils literal notranslate"><span class="pre">super</span></code> という感じか。</p></li>
+</ul>
+</li>
+<li><p>継承は、カプセル化やポリモーフィズムと並んで、オブジェクト指向の基本だ。後者の二つが素晴らしいアイデアだと一般的に評価されているのに対し、継承に対しては手ばなしに素晴らしいとは言えない。後者二つはプログラム要素間の結合の度合いを明らかに下げるが、継承はむしろ上げてしまう。</p></li>
+</ul>
+</section>
+<section id="the-instanceof-operator">
+<h2><a class="toc-backref" href="#id15">The instanceof operator</a><a class="headerlink" href="#the-instanceof-operator" title="Permalink to this headline">¶</a></h2>
+<p>二項演算子 <code class="docutils literal notranslate"><span class="pre">instanceof</span></code> はあるオブジェクトが特定のクラスか、それの派生クラスであるかどうかをテストする。第一オペランドと第二オペランドにオブジェクトとコンストラクター関数をそれぞれ渡す。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="k">new</span> <span class="nx">SymmetricMatrix</span><span class="p">(</span><span class="mf">2</span><span class="p">)</span> <span class="k">instanceof</span> <span class="nx">SymmetricMatrix</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="k">new</span> <span class="nx">SymmetricMatrix</span><span class="p">(</span><span class="mf">2</span><span class="p">)</span> <span class="k">instanceof</span> <span class="nx">Matrix</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">new</span> <span class="nx">Matrix</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span> <span class="mf">2</span><span class="p">)</span> <span class="k">instanceof</span> <span class="nx">SymmetricMatrix</span><span class="p">));</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">([</span><span class="mf">1</span><span class="p">]</span> <span class="k">instanceof</span> <span class="nb">Array</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="summary">
+<h2><a class="toc-backref" href="#id16">Summary</a><a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>オブジェクトに付随するプロトタイプという概念がある。</p></li>
+<li><p>単純なオブジェクトはプロトタイプとして <code class="docutils literal notranslate"><span class="pre">Object.prototype</span></code> を有する。</p></li>
+<li><p>コンストラクターの</p>
+<ul>
+<li><p>通常は名前が大文字で始まる関数となっている。</p></li>
+<li><p>コンストラクターを演算子 <code class="docutils literal notranslate"><span class="pre">new</span></code> と一緒に使用して新しいオブジェクトを作成する。</p></li>
+<li><p>オブジェクトのプロトタイプは、コンストラクターのプロパティー <code class="docutils literal notranslate"><span class="pre">prototype</span></code> で指定されたオブジェクトとなる。</p></li>
+</ul>
+</li>
+<li><p>オブジェクトのプロパティーにアクセスするたびに、関連するメソッドを暗黙的に呼び出すという getter や setter を定義することができる。</p></li>
+<li><p>静的メソッドとは、クラスのプロトタイプではなく、コンストラクターに格納されているメソッドだ。</p></li>
+<li><p>演算子 <code class="docutils literal notranslate"><span class="pre">instanceof</span></code> はオブジェクトのクラスをテストする。</p></li>
+<li><p>オブジェクトは、そのインターフェースを介してのみオブジェクトとアクセスできるようにすると利用させやすい。</p></li>
+<li><p>複数の型が同じインターフェイスを実装することができる。インターフェイスを使用するように書かれたコードは、そのインターフェイスを備える、異なるオブジェクトを操作する方法が自動的にわかっている。この仕組みをポリモーフィズムという。</p></li>
+<li><p>詳細がわずかしか違わないクラスを複数定義する場合は、継承の技法が有効だ。</p></li>
+</ul>
+</section>
+<section id="exercises">
+<h2><a class="toc-backref" href="#id17">Exercises</a><a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<section id="a-vector-type">
+<h3><a class="toc-backref" href="#id18">A vector type</a><a class="headerlink" href="#a-vector-type" title="Permalink to this headline">¶</a></h3>
+<p><strong>問題</strong> 二次元空間のベクトルを表現するクラス <code class="docutils literal notranslate"><span class="pre">Vec</span></code> を書け。これは数 <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code> を引数として取り、同じ名前のプロパティーに保存されるものとする。</p>
+<p>次に <code class="docutils literal notranslate"><span class="pre">Vec</span></code> のプロトタイプにメソッド <code class="docutils literal notranslate"><span class="pre">plus</span></code> および <code class="docutils literal notranslate"><span class="pre">minus</span></code> を与えろ。これらは別のベクトルを引数とし、メソッド名の示唆する新しいベクトルを返す。</p>
+<p>取得プロパティー <code class="docutils literal notranslate"><span class="pre">length</span></code> をプロトタイプに加えろ。ベクトルの大きさを計算してそれを返すものだ。</p>
+<p><strong>解答</strong> そういえば JavaScript には演算子のオーバーロード機能はないのだろうか。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nx">Vec</span><span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="nx">x</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="nx">y</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">get</span> <span class="nx">length</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">**</span> <span class="mf">2</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">**</span> <span class="mf">2</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="nx">Vec</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">plus</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">other</span><span class="p">){</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">Vec</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">+</span> <span class="nx">other</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">+</span> <span class="nx">other</span><span class="p">.</span><span class="nx">y</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">Vec</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">minus</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">other</span><span class="p">){</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">Vec</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">-</span> <span class="nx">other</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">-</span> <span class="nx">other</span><span class="p">.</span><span class="nx">y</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="groups">
+<h3><a class="toc-backref" href="#id19">Groups</a><a class="headerlink" href="#groups" title="Permalink to this headline">¶</a></h3>
+<p><strong>問題</strong> 次の仕様に従うクラス <code class="docutils literal notranslate"><span class="pre">Group</span></code> を書け。</p>
+<ul class="simple">
+<li><p>このクラスには標準 JavaScript にあるクラス <code class="docutils literal notranslate"><span class="pre">Set</span></code> のようにメソッド
+<code class="docutils literal notranslate"><span class="pre">add</span></code>, <code class="docutils literal notranslate"><span class="pre">delete</span></code>, <code class="docutils literal notranslate"><span class="pre">has</span></code> がある。</p>
+<ul>
+<li><p>コンストラクターは空の <code class="docutils literal notranslate"><span class="pre">Group</span></code> を作成する。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">add</span></code> は引数がまだメンバーでない場合に限り、それを <code class="docutils literal notranslate"><span class="pre">Group</span></code> に追加する。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">delete</span></code> は引数がメンバーである場合にそれを <code class="docutils literal notranslate"><span class="pre">Group</span></code> から削除する。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">has</span></code> は引数が <code class="docutils literal notranslate"><span class="pre">Group</span></code> のメンバーであるかどうかを示す真偽値を返す。</p></li>
+</ul>
+</li>
+<li><p>二つの値が同じかどうかを判断するには演算子 <code class="docutils literal notranslate"><span class="pre">===</span></code> または <code class="docutils literal notranslate"><span class="pre">indexOf</span></code> などの同等の何かを使え。</p>
+<ul>
+<li><p>ノート：メソッド <code class="docutils literal notranslate"><span class="pre">Array.prototype.indexOf</span></code> が暗に使う比較演算は演算子 <code class="docutils literal notranslate"><span class="pre">===</span></code> に基づく。</p></li>
+</ul>
+</li>
+<li><p>このクラスには iterable を引数として取り、それを反復して生成されたすべての値を含む
+<code class="docutils literal notranslate"><span class="pre">Group</span></code> を作成する静的メソッド <code class="docutils literal notranslate"><span class="pre">from</span></code> を実装しろ。</p></li>
+</ul>
+<p><strong>解答</strong> 基本型 <code class="docutils literal notranslate"><span class="pre">Array</span></code> を使って実装して構わないと解釈する。本物の集合クラスを書くのは無理がある。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nx">Group</span><span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="p">}</span>
+
+    <span class="nx">add</span><span class="p">(</span><span class="nx">element</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="nx">element</span><span class="p">)){</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">delete</span><span class="p">(</span><span class="nx">element</span><span class="p">){</span>
+        <span class="kd">const</span> <span class="nx">where</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">where</span> <span class="o">!=</span> <span class="o">-</span><span class="mf">1</span><span class="p">){</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">where</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nx">has</span><span class="p">(</span><span class="nx">element</span><span class="p">){</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mf">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">static</span> <span class="k">from</span><span class="p">(</span><span class="nx">iterable</span><span class="p">){</span>
+        <span class="kd">const</span> <span class="nx">group</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Group</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kd">const</span> <span class="nx">i</span> <span class="k">of</span> <span class="nx">iterable</span><span class="p">){</span>
+            <span class="nx">group</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nx">group</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="iterable-groups">
+<h3><a class="toc-backref" href="#id20">Iterable groups</a><a class="headerlink" href="#iterable-groups" title="Permalink to this headline">¶</a></h3>
+<p><strong>問題</strong> 前の演習で定義したクラス <code class="docutils literal notranslate"><span class="pre">Group</span></code> を iterable にしろ。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Group</span></code> のメンバーを表すのに配列を使用した場合、配列に対してメソッド <code class="docutils literal notranslate"><span class="pre">Symbol.iterator</span></code> を呼び出して作成した反復子を返すだけではいけない（それでうまくいったとしても、この演習の目的に反する）。</p>
+<p>なお、反復処理中に <code class="docutils literal notranslate"><span class="pre">Group</span></code> が変更されたとき、反復子の動作がおかしくなるのは構わないとする。</p>
+<p><strong>解答</strong> 学習中に飛ばした箇所なので、今泥縄でやってみる。</p>
+<p>まず <code class="docutils literal notranslate"><span class="pre">Group.prototype</span></code> を次のように拡張する：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">Group</span><span class="p">.</span><span class="nx">prototype</span><span class="p">[</span><span class="nb">Symbol</span><span class="p">.</span><span class="nx">iterator</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">GroupIterator</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>まだ <code class="docutils literal notranslate"><span class="pre">GroupIterator</span></code> を書いていないので、書く：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nx">GroupIterator</span><span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">group</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">group</span> <span class="o">=</span> <span class="nx">group</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">next</span><span class="p">(){</span>
+        <span class="kd">const</span> <span class="nx">content</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">group</span><span class="p">.</span><span class="nx">content</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">i</span> <span class="o">==</span> <span class="nx">content</span><span class="p">.</span><span class="nx">length</span><span class="p">){</span>
+            <span class="k">return</span> <span class="p">{</span><span class="nx">done</span><span class="o">:</span> <span class="kc">true</span><span class="p">};</span>
+        <span class="p">}</span>
+
+        <span class="kd">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nx">i</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">i</span><span class="p">,</span>
+            <span class="nx">value</span><span class="o">:</span> <span class="nx">content</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">i</span><span class="p">]</span>
+        <span class="p">};</span>
+        <span class="o">++</span><span class="k">this</span><span class="p">.</span><span class="nx">i</span><span class="p">;</span>
+        <span class="k">return</span> <span class="p">{</span><span class="nx">value</span><span class="p">,</span> <span class="nx">done</span><span class="o">:</span> <span class="kc">false</span><span class="p">};</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="borrowing-a-method">
+<h3><a class="toc-backref" href="#id21">Borrowing a method</a><a class="headerlink" href="#borrowing-a-method" title="Permalink to this headline">¶</a></h3>
+<p><strong>問題</strong> この章の前半で、オブジェクトの <code class="docutils literal notranslate"><span class="pre">hasOwnProperty</span></code> は、プロトタイプのプロパティーを無視したい場合に、演算子 <code class="docutils literal notranslate"><span class="pre">in</span></code> の代わりに、より堅牢な手段として使用できることを述べた。</p>
+<p>しかし、マップに <code class="docutils literal notranslate"><span class="pre">&quot;hasOwnProperty&quot;</span></code> という単語を含める必要がある場合はどうだろうか。オブジェクト自身のプロパティがメソッドの値を隠してしまうため、そのメソッドを呼び出すことができなくなる。</p>
+<p><code class="docutils literal notranslate"><span class="pre">hasOwnProperty</span></code> という名前のプロパティーを持っているオブジェクトに対して、隠された <code class="docutils literal notranslate"><span class="pre">hasOwnProperty</span></code> を参照する方法はあるか。</p>
+<p><strong>解答</strong> ある。
+<code class="docutils literal notranslate"><span class="pre">Object.prototype</span></code> と <code class="docutils literal notranslate"><span class="pre">call</span></code> を理解していることが急所の問題だ。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">myobj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">myproperty</span><span class="o">:</span> <span class="s2">&quot;my value&quot;</span><span class="p">,</span>
+    <span class="nx">hasOwnProperty</span><span class="o">:</span> <span class="nx">i</span> <span class="p">=&gt;</span> <span class="kc">false</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="o">!</span><span class="nx">myobj</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="s1">&#39;myproperty&#39;</span><span class="p">));</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">myobj</span><span class="p">,</span> <span class="s1">&#39;myproperty&#39;</span><span class="p">));</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">myobj</span><span class="p">,</span> <span class="s1">&#39;hasOwnProperty&#39;</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>参考： <a class="reference external" href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty">Object.prototype.hasOwnProperty() - JavaScript | MDN</a></p>
+<p>以上</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter07.html" title="Project: A Robot"
+             >next</a></li>
+        <li class="right" >
+          <a href="chapter05.html" title="Higher-Order Functions"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Eloquent JavaScript 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">The Secret Life of Objects</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

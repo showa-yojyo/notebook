@@ -1,0 +1,769 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Handling Events &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
+    
+    <script src="../_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="Project: A Platform Game" href="chapter16.html" />
+    <link rel="prev" title="The Document Object Model" href="chapter14.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter16.html" title="Project: A Platform Game"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="chapter14.html" title="The Document Object Model"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Eloquent JavaScript 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Handling Events</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="handling-events">
+<h1><a class="toc-backref" href="#id2">Handling Events</a><a class="headerlink" href="#handling-events" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://eloquentjavascript.net/">Eloquent JavaScript</a> Chapter 15 の読書ノート。</p>
+<p>マウスやキーボードの操作など、ユーザーが直接入力することで動作するものがある。そのようなものをリアルタイムで処理する方法を学習する。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title">ノート目次</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#handling-events" id="id2">Handling Events</a></p>
+<ul>
+<li><p><a class="reference internal" href="#event-handlers" id="id3">Event handlers</a></p></li>
+<li><p><a class="reference internal" href="#events-and-dom-nodes" id="id4">Events and DOM nodes</a></p></li>
+<li><p><a class="reference internal" href="#event-objects" id="id5">Event objects</a></p></li>
+<li><p><a class="reference internal" href="#propagation" id="id6">Propagation</a></p></li>
+<li><p><a class="reference internal" href="#default-actions" id="id7">Default actions</a></p></li>
+<li><p><a class="reference internal" href="#key-events" id="id8">Key events</a></p></li>
+<li><p><a class="reference internal" href="#pointer-events" id="id9">Pointer events</a></p>
+<ul>
+<li><p><a class="reference internal" href="#mouse-clicks" id="id10">Mouse clicks</a></p></li>
+<li><p><a class="reference internal" href="#mouse-motion" id="id11">Mouse motion</a></p></li>
+<li><p><a class="reference internal" href="#touch-events" id="id12">Touch events</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#scroll-events" id="id13">Scroll events</a></p></li>
+<li><p><a class="reference internal" href="#focus-events" id="id14">Focus events</a></p></li>
+<li><p><a class="reference internal" href="#load-event" id="id15">Load event</a></p></li>
+<li><p><a class="reference internal" href="#events-and-the-event-loop" id="id16">Events and the event loop</a></p></li>
+<li><p><a class="reference internal" href="#timers" id="id17">Timers</a></p></li>
+<li><p><a class="reference internal" href="#debouncing" id="id18">Debouncing</a></p></li>
+<li><p><a class="reference internal" href="#summary" id="id19">Summary</a></p></li>
+<li><p><a class="reference internal" href="#exercises" id="id20">Exercises</a></p>
+<ul>
+<li><p><a class="reference internal" href="#balloon" id="id21">Balloon</a></p></li>
+<li><p><a class="reference internal" href="#mouse-trail" id="id22">Mouse trail</a></p></li>
+<li><p><a class="reference internal" href="#tabs" id="id23">Tabs</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="event-handlers">
+<h2><a class="toc-backref" href="#id3">Event handlers</a><a class="headerlink" href="#event-handlers" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>ポーリング方式でイベントを処理するのは避けたい。より良い仕組みは、システムにイベントの発生を活発に通知させることだ。</p></li>
+<li><p>ブラウザーでは、特定のイベントを処理するハンドラーとして関数を登録することができる。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Click this document to activate the handler.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;You knocked?&quot;</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>変数 <code class="docutils literal notranslate"><span class="pre">window</span></code> はブラウザーが提供する組み込みオブジェクトだ。これは <code class="docutils literal notranslate"><span class="pre">document</span></code> を含むブラウザーウィンドウを表す。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">window.addEventListener</span></code> を呼び出すと、第一引数で指定したイベントが発生するたびに、第二引数で指定したコールバックを呼び出すようになる。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="events-and-dom-nodes">
+<h2><a class="toc-backref" href="#id4">Events and DOM nodes</a><a class="headerlink" href="#events-and-dom-nodes" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>ブラウザーのイベントハンドラーは何に登録されているか？</p></li>
+<li><p>前節では <code class="docutils literal notranslate"><span class="pre">window.addEventListener</span></code> の例を示されたが、そこでいう <code class="docutils literal notranslate"><span class="pre">window</span></code> や <code class="docutils literal notranslate"><span class="pre">addEventListener</span></code> のようなものが他にもいくつかある。</p></li>
+<li><p><strong>イベントリスナー</strong> とは、イベントハンドラーが登録されているオブジェクトであって、イベントが起こるときにしか呼び出されないものをいう。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">button</span><span class="p">&gt;</span>Click me<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>No handler here.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">let</span> <span class="nx">button</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;button&quot;</span><span class="p">);</span>
+  <span class="nx">button</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Button clicked.&quot;</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>このコードでは前節のようなウィンドウ全体にではなく、
+<code class="docutils literal notranslate"><span class="pre">button</span></code> ノードにハンドラーを登録している。文書内のボタン以外の部分をクリックしてもハンドラーは実行されない。</p>
+<ul class="simple">
+<li><p>ノードに <code class="docutils literal notranslate"><span class="pre">onclick</span></code> 属性を与えても同様の効果を与えられる。</p></li>
+<li><p>一般には、イベント名に接頭辞 <code class="docutils literal notranslate"><span class="pre">on</span></code> を付けたものを名前とする属性を定義することでハンドラーを登録することができる。</p></li>
+</ul>
+</li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">removeEventListener</span></code> はハンドラーを削除する。引数リストは
+<code class="docutils literal notranslate"><span class="pre">addEventListener</span></code> と同じだ。</p></li>
+</ul>
+</section>
+<section id="event-objects">
+<h2><a class="toc-backref" href="#id5">Event objects</a><a class="headerlink" href="#event-objects" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>ベントハンドラー関数には引数、すなわちイベントオブジェクトが渡される。これにはイベントに関する付加情報が含まれる。例えば、どのマウスボタンが押されたかなどを得ることができる。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">button</span><span class="p">&gt;</span>Click me any way you want<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">let</span> <span class="nx">button</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;button&quot;</span><span class="p">);</span>
+  <span class="nx">button</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mousedown&quot;</span><span class="p">,</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">button</span> <span class="o">==</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Left button&quot;</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">button</span> <span class="o">==</span> <span class="mf">1</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Middle button&quot;</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">button</span> <span class="o">==</span> <span class="mf">2</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Right button&quot;</span><span class="p">);</span>
+      <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>イベントオブジェクトに含まれる情報は、イベントの種類による。</p></li>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">type</span></code> は種類によらず共通であり、
+<code class="docutils literal notranslate"><span class="pre">&quot;click&quot;</span></code> や <code class="docutils literal notranslate"><span class="pre">&quot;mousedown&quot;</span></code> などの、イベントを特定する文字列を値とする。</p></li>
+</ul>
+</section>
+<section id="propagation">
+<h2><a class="toc-backref" href="#id6">Propagation</a><a class="headerlink" href="#propagation" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>イベントタイプの大部分について、ノードに登録されたハンドラーはその子ノードで発生したイベントも受け取る。例えば <code class="docutils literal notranslate"><span class="pre">&lt;p&gt;</span></code> に含まれる <code class="docutils literal notranslate"><span class="pre">&lt;button&gt;</span></code> がクリックされると、
+<code class="docutils literal notranslate"><span class="pre">&lt;p&gt;</span></code> のイベントハンドラーにもクリックイベントがわかる。</p></li>
+<li><p>ただし <code class="docutils literal notranslate"><span class="pre">&lt;p&gt;</span></code> と <code class="docutils literal notranslate"><span class="pre">&lt;button&gt;</span></code> の両方にハンドラーがある場合には、より具体的なハンドラーである <code class="docutils literal notranslate"><span class="pre">&lt;button&gt;</span></code> のそれが先に処理される。</p></li>
+<li><p>イベントは、発生したノードからその親ノード、さらにその親ノード、……。文書の根へと親の方向に伝わる。</p></li>
+<li><p>最後に登録されているハンドラーすべての順番が回ったあとに、ウィンドウ全体に登録されているハンドラーがイベントに応答する。</p></li>
+<li><p>イベントハンドラーは、イベントメソッド <code class="docutils literal notranslate"><span class="pre">stopPropagation</span></code> を呼び出して、この連鎖を断ち切ることがいつでもできる。これは次のような状況で役に立つ：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>A paragraph with a <span class="p">&lt;</span><span class="nt">button</span><span class="p">&gt;</span>button<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">let</span> <span class="nx">para</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">button</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;button&quot;</span><span class="p">);</span>
+  <span class="nx">para</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mousedown&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Handler for paragraph.&quot;</span><span class="p">);</span>
+  <span class="p">});</span>
+  <span class="nx">button</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mousedown&quot;</span><span class="p">,</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Handler for button.&quot;</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">button</span> <span class="o">==</span> <span class="mf">2</span><span class="p">)</span> <span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">();</span>
+  <span class="p">});</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>イベントオブジェクトの大半には、イベントがどこのノードから来たのかを参照するプロパティー <code class="docutils literal notranslate"><span class="pre">target</span></code> がある。これを参照することで、予期せぬイベントを誤って処理することを回避できる。</p></li>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">target</span></code> を使って、特定の型のイベントを広範囲に投げることもできる。次の例では <code class="docutils literal notranslate"><span class="pre">&lt;button&gt;</span></code> 一つ一つにハンドラーを登録するのではなく、
+<code class="docutils literal notranslate"><span class="pre">document.body</span></code> にハンドラーを登録しておくことで、イベント発生元がボタンのときに限り処理することになる：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">button</span><span class="p">&gt;</span>A<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span><span class="p">&gt;</span>B<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span><span class="p">&gt;</span>C<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">nodeName</span> <span class="o">==</span> <span class="s2">&quot;BUTTON&quot;</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Clicked&quot;</span><span class="p">,</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">textContent</span><span class="p">);</span>
+      <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="default-actions">
+<h2><a class="toc-backref" href="#id7">Default actions</a><a class="headerlink" href="#default-actions" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>イベントの多くには関連した既定の動作がある。次のような例がある：</p>
+<ul class="simple">
+<li><p>リンク上でならば、クリックすることはリンク先へ移動する。</p></li>
+<li><p>ウィンドウ上でならば、下矢印キーを押すことは画面を下にスクロールする。右クリックすることは、コンテキストメニューが表示する。</p></li>
+</ul>
+</li>
+<li><p>イベントの種類のほとんどでは、既定の挙動を起こす前に JavaScript のイベントハンドラーが呼び出される。イベントメソッド <code class="docutils literal notranslate"><span class="pre">preventDefault</span></code> を呼び出すと、このようなことを禁止できる。</p>
+<ul>
+<li><p>これを利用して、独自のキーボードショートカットやコンテキストメニューを実装できる。</p></li>
+<li><p>禁じ手だが、ユーザーが期待する動作を不当に妨害することができる：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://developer.mozilla.org/&quot;</span><span class="p">&gt;</span>MDN<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">let</span> <span class="nx">link</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span>
+  <span class="nx">link</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Nope.&quot;</span><span class="p">);</span>
+      <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+  <span class="p">});</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>ブラウザーによっては、まったく横取りできないイベントもある。
+Chrome では <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">W</kbd> は JavaScript では処理できない。</p></li>
+</ul>
+</section>
+<section id="key-events">
+<h2><a class="toc-backref" href="#id8">Key events</a><a class="headerlink" href="#key-events" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>キーボードのキーが押されると、ブラウザーはイベント <code class="docutils literal notranslate"><span class="pre">&quot;keydown&quot;</span></code> を発生させ、離すとイベント <code class="docutils literal notranslate"><span class="pre">keyup</span></code> が発生する。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">keydown</span></code> が起こるのはキーが押されたときだけではない。押しっぱなしにしている間、繰り返し発生する。</p></li>
+</ul>
+</li>
+<li><p>イベントのプロパティー <code class="docutils literal notranslate"><span class="pre">key</span></code> を見てキーの種別を確認する。</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">Enter</kbd> などの特別なキーの場合、キー名が文字列で格納されている。</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">Shift</kbd> を押しながらキーを押すと、キー名にも影響する。</p></li>
+<li><p>修飾キーも普通のキーと同様にイベントを生成するが、キーの組み合わせを探すときにはプロパティー <code class="docutils literal notranslate"><span class="pre">shiftKey</span></code>, <code class="docutils literal notranslate"><span class="pre">altKey</span></code>, <code class="docutils literal notranslate"><span class="pre">metaKey</span></code> の値を見るといい。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;keydown&quot;</span><span class="p">,</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">key</span> <span class="o">==</span> <span class="s2">&quot; &quot;</span> <span class="o">&amp;&amp;</span> <span class="nx">event</span><span class="p">.</span><span class="nx">ctrlKey</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Continuing!&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</li>
+<li><p>キーイベントが発生する DOM ノードは、キーが押されるときにフォーカスのある要素によって決まる。</p></li>
+<li><p>ノードのほとんどはフォーカスを持つことはないが、リンク、ボタン、フォームフィールドは持つことができる。</p></li>
+<li><p>特にフォーカスされているノードがないときには <code class="docutils literal notranslate"><span class="pre">document.body</span></code> がキーイベントの対象ノードとして働く。</p></li>
+<li><p>ユーザーがテキストを入力しているときに、それが何かを把握するためにキーイベントを利用することは問題がある。プラットフォームの一部、特に Android の仮想キーボードでは、入力テキストの種類によってはキーの押し方と合致しない。</p></li>
+<li><p>何かがタイプされたことに気づくには <code class="docutils literal notranslate"><span class="pre">&lt;input&gt;</span></code> タグや <code class="docutils literal notranslate"><span class="pre">&lt;text&gt;</span></code> タグなどの入力可能な要素が必要だ。これらの要素は、ユーザーが内容を変更するたびに <code class="docutils literal notranslate"><span class="pre">input</span></code> イベントを発射する。</p></li>
+<li><p>実際の入力内容を読み取る最良の方法は、フォーカスされているフィールドから直接読むことだ。</p></li>
+</ul>
+</section>
+<section id="pointer-events">
+<h2><a class="toc-backref" href="#id9">Pointer events</a><a class="headerlink" href="#pointer-events" title="Permalink to this headline">¶</a></h2>
+<p>画面上にある物を指示する方法には二つの主流がある。これらは異なる種類のイベントを発生する。</p>
+<ul class="simple">
+<li><p>マウス（タッチパッドやトラックボール等、マウス風に動作する機器を含む）</p></li>
+<li><p>タッチスクリーン</p></li>
+</ul>
+<section id="mouse-clicks">
+<h3><a class="toc-backref" href="#id10">Mouse clicks</a><a class="headerlink" href="#mouse-clicks" title="Permalink to this headline">¶</a></h3>
+<p>マウスボタンを押すとさまざまなイベントが発射する。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mousedown</span></code> と <code class="docutils literal notranslate"><span class="pre">mouseup</span></code> イベントがあり、キーイベントの
+<code class="docutils literal notranslate"><span class="pre">keydown</span></code> と <code class="docutils literal notranslate"><span class="pre">keyup</span></code> イベントにそれぞれ似ている。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mouseup</span></code> イベントの後 <code class="docutils literal notranslate"><span class="pre">click</span></code> イベントが、マウスボタンを押すのと離すのとの両方が起こった最もそれらしいノードで発射する。例えば、あるノードでマウスボタンを押した後、別のノードにポインターを移動させてボタンを離すと、
+<code class="docutils literal notranslate"><span class="pre">click</span></code> イベントはその両者を含むノードで起こる。</p></li>
+<li><p>クリックが二度近接して起こると、一つの <code class="docutils literal notranslate"><span class="pre">dblclick</span></code> イベントもまた発射する。それは二度目の <code class="docutils literal notranslate"><span class="pre">click</span></code> イベントの後に発射する。</p></li>
+</ul>
+<p>マウスイベントが発生した位置についての正確な情報は、</p>
+<ul class="simple">
+<li><p>イベントのプロパティー <code class="docutils literal notranslate"><span class="pre">clientX</span></code>, <code class="docutils literal notranslate"><span class="pre">clientY</span></code> を参照することで得られる。この座標はウィンドウの左上隅を原点とする座標系における、ピクセル単位で表された座標だ。</p></li>
+<li><p>あるいは <code class="docutils literal notranslate"><span class="pre">pageX</span></code>, <code class="docutils literal notranslate"><span class="pre">pageY</span></code> を用いる。この座標は文書全体の左上隅を原点とする座標系におけるピクセル単位で表された座標だ。</p></li>
+</ul>
+</section>
+<section id="mouse-motion">
+<h3><a class="toc-backref" href="#id11">Mouse motion</a><a class="headerlink" href="#mouse-motion" title="Permalink to this headline">¶</a></h3>
+<p>マウスポインターが動くごとにイベント <code class="docutils literal notranslate"><span class="pre">mousemove</span></code> が発射する。このイベントが有用なのは、マウスドラッグ機能を実装する場合だろう。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Drag the bar to change its width:<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;background: orange; width: 60px; height: 20px&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">let</span> <span class="nx">lastX</span><span class="p">;</span> <span class="c1">// Tracks the last observed mouse X position</span>
+  <span class="kd">let</span> <span class="nx">bar</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">);</span>
+  <span class="nx">bar</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mousedown&quot;</span><span class="p">,</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">button</span> <span class="o">==</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">lastX</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">clientX</span><span class="p">;</span>
+          <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mousemove&quot;</span><span class="p">,</span> <span class="nx">moved</span><span class="p">);</span>
+          <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span> <span class="c1">// Prevent selection</span>
+      <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="kd">function</span> <span class="nx">moved</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">buttons</span> <span class="o">==</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nb">window</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s2">&quot;mousemove&quot;</span><span class="p">,</span> <span class="nx">moved</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+          <span class="kd">let</span> <span class="nx">dist</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">clientX</span> <span class="o">-</span> <span class="nx">lastX</span><span class="p">;</span>
+          <span class="kd">let</span> <span class="nx">newWidth</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="mf">10</span><span class="p">,</span> <span class="nx">bar</span><span class="p">.</span><span class="nx">offsetWidth</span> <span class="o">+</span> <span class="nx">dist</span><span class="p">);</span>
+          <span class="nx">bar</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">newWidth</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
+          <span class="nx">lastX</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">clientX</span><span class="p">;</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mousemove</span></code> ハンドラーを <code class="docutils literal notranslate"><span class="pre">window</span></code> に登録していることに注意する。たとえバーのリサイズ中にマウスが外に飛び出したとしても、ボタンが押されている限りはバーのサイズを更新したいのだ。</p></li>
+<li><p>そして、マウスボタンが離されたときにサイズ変更を止めたい。そのために、現在押されているボタンを知らせてくれるプロパティー <code class="docutils literal notranslate"><span class="pre">buttons</span></code> を使うことができる。</p>
+<ul>
+<li><p>この値がゼロならばボタンは何も押されていない。</p></li>
+<li><p>押されているボタンがあれば、この値はそのボタンのコードの和を表す。コードは次のとおり：</p>
+<ul>
+<li><p>左 1</p></li>
+<li><p>右 2</p></li>
+<li><p>中 4</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="touch-events">
+<h3><a class="toc-backref" href="#id12">Touch events</a><a class="headerlink" href="#touch-events" title="Permalink to this headline">¶</a></h3>
+<p>タッチスクリーンに対する接触操作は、それ特有のイベントを発射する。</p>
+<ul class="simple">
+<li><p>指が画面に触れ始めると <code class="docutils literal notranslate"><span class="pre">touchstart</span></code> イベントが起こる。</p></li>
+<li><p>接触中に指を動かすと <code class="docutils literal notranslate"><span class="pre">touchmove</span></code> イベントが起こる。</p></li>
+<li><p>画面に接触するのをやめると <code class="docutils literal notranslate"><span class="pre">touchend</span></code> イベントが起こる。</p></li>
+</ul>
+<p>タッチスクリーンの多くが同時に複数の指を検出できるので、これらのイベントに単一の座標の集合が関連付けられるというものではない。イベントオブジェクトのプロパティー <code class="docutils literal notranslate"><span class="pre">touches</span></code> というのがあり、これは座標の配列のような要素を値とする。</p>
+<ul class="simple">
+<li><p>配列要素の成分は <code class="docutils literal notranslate"><span class="pre">clientX</span></code>, <code class="docutils literal notranslate"><span class="pre">clientY</span></code>, <code class="docutils literal notranslate"><span class="pre">pageX</span></code>, <code class="docutils literal notranslate"><span class="pre">pageY</span></code> という。</p></li>
+</ul>
+<p>次の例は、画面を指すごとに赤い丸を描くというものだ：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+  <span class="nt">dot</span> <span class="p">{</span> <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span> <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span>
+  <span class="k">border</span><span class="p">:</span> <span class="mi">2</span><span class="kt">px</span> <span class="kc">solid</span> <span class="kc">red</span><span class="p">;</span> <span class="k">border-radius</span><span class="p">:</span> <span class="mi">50</span><span class="kt">px</span><span class="p">;</span>
+  <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span> <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Touch this page<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">function</span> <span class="nx">update</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">dot</span><span class="p">;</span> <span class="nx">dot</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;dot&quot;</span><span class="p">);)</span> <span class="p">{</span>
+          <span class="nx">dot</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span>
+      <span class="p">}</span>
+
+      <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">event</span><span class="p">.</span><span class="nx">touches</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+          <span class="kd">let</span> <span class="p">{</span><span class="nx">pageX</span><span class="p">,</span> <span class="nx">pageY</span><span class="p">}</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">touches</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+          <span class="kd">let</span> <span class="nx">dot</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;dot&quot;</span><span class="p">);</span>
+          <span class="nx">dot</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="p">(</span><span class="nx">pageX</span> <span class="o">-</span> <span class="mf">50</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
+          <span class="nx">dot</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">top</span> <span class="o">=</span> <span class="p">(</span><span class="nx">pageY</span> <span class="o">-</span> <span class="mf">50</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
+          <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">dot</span><span class="p">);</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;touchstart&quot;</span><span class="p">,</span> <span class="nx">update</span><span class="p">);</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;touchmove&quot;</span><span class="p">,</span> <span class="nx">update</span><span class="p">);</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;touchend&quot;</span><span class="p">,</span> <span class="nx">update</span><span class="p">);</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>このイベントにおいても <code class="docutils literal notranslate"><span class="pre">preventDefault</span></code> を呼び出すことが有用なことがある。</p></li>
+</ul>
+</section>
+</section>
+<section id="scroll-events">
+<h2><a class="toc-backref" href="#id13">Scroll events</a><a class="headerlink" href="#scroll-events" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>要素がスクロールされると <code class="docutils literal notranslate"><span class="pre">scroll</span></code> イベントが発射する。</p></li>
+<li><p>以下の例は、文書上にプログレスバーを描き、スクロールダウンするとそれが満たされるように更新する：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+  <span class="p">#</span><span class="nn">progress</span> <span class="p">{</span>
+      <span class="k">border-bottom</span><span class="p">:</span> <span class="mi">2</span><span class="kt">px</span> <span class="kc">solid</span> <span class="kc">blue</span><span class="p">;</span>
+      <span class="k">width</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="k">position</span><span class="p">:</span> <span class="kc">fixed</span><span class="p">;</span>
+      <span class="k">top</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span> <span class="k">left</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;progress&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="c1">// Create some content</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span>
+      <span class="s2">&quot;supercalifragilisticexpialidocious &quot;</span><span class="p">.</span><span class="nx">repeat</span><span class="p">(</span><span class="mf">1000</span><span class="p">)));</span>
+
+  <span class="kd">let</span> <span class="nx">bar</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;#progress&quot;</span><span class="p">);</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;scroll&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">scrollHeight</span> <span class="o">-</span> <span class="nx">innerHeight</span><span class="p">;</span>
+      <span class="nx">bar</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="sb">`</span><span class="si">${</span><span class="p">(</span><span class="nx">pageYOffset</span> <span class="o">/</span> <span class="nx">max</span><span class="p">)</span> <span class="o">*</span> <span class="mf">100</span><span class="si">}</span><span class="sb">%`</span><span class="p">;</span>
+  <span class="p">});</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>要素の <code class="docutils literal notranslate"><span class="pre">position</span></code> を <code class="docutils literal notranslate"><span class="pre">fixed</span></code> とすると、絶対位置のように動作するが、文書の残りの部分と共にスクロールするのを防ぎもする。すると、プログレスバーが上部に留まるようになる。</p></li>
+<li><p>プログレスバーの幅は、進行状況を示すために変更される。ここで単位として <code class="docutils literal notranslate"><span class="pre">px</span></code> ではなく <code class="docutils literal notranslate"><span class="pre">%</span></code> としている。要素がページ幅に対して相対的なサイズになるようにしてある。</p></li>
+<li><p>大域変数 <code class="docutils literal notranslate"><span class="pre">innerHeight</span></code> はウィンドウの高さを値とする。この値はスクロール可能な高さの合計値から減算した値でなければならない。</p></li>
+<li><p>ウィンドウの幅を表す <code class="docutils literal notranslate"><span class="pre">innerWidth</span></code> もある。現在のスクロール位置である <code class="docutils literal notranslate"><span class="pre">pageYOffset</span></code> を最大スクロール位置で除算して
+100 倍すれば、進行状況の百分率を得る。</p></li>
+</ul>
+</li>
+</ul>
+<p>スクロールイベントで <code class="docutils literal notranslate"><span class="pre">preventDefault</span></code> を呼び出しでも、それは防げられない。実は、イベントハンドラーはスクロールが行われたあとに呼び出される。</p>
+</section>
+<section id="focus-events">
+<h2><a class="toc-backref" href="#id14">Focus events</a><a class="headerlink" href="#focus-events" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>要素がフォーカスされると、ブラウザーはその要素にイベント <code class="docutils literal notranslate"><span class="pre">focus</span></code> を発射する。</p></li>
+<li><p>要素がフォーカスされなくなると、その要素にイベント <code class="docutils literal notranslate"><span class="pre">blur</span></code> が発射する。</p></li>
+<li><p>これまでのイベントとは異なり、この二つのイベントは親要素に伝導しない。子要素がフォーカスを得たり失ったりしても親要素のハンドラーにはそれが通知されない。</p></li>
+</ul>
+<p>次の例は、フォーカスされているテキストフィールドのヘルプを表示する：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Name: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">data-help</span><span class="o">=</span><span class="s">&quot;Your full name&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Age: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">data-help</span><span class="o">=</span><span class="s">&quot;Your age in years&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;help&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">let</span> <span class="nx">help</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;#help&quot;</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">fields</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;input&quot;</span><span class="p">);</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">field</span> <span class="k">of</span> <span class="nb">Array</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="nx">fields</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">field</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;focus&quot;</span><span class="p">,</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+          <span class="kd">let</span> <span class="nx">text</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s2">&quot;data-help&quot;</span><span class="p">);</span>
+          <span class="nx">help</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">text</span><span class="p">;</span>
+      <span class="p">});</span>
+      <span class="nx">field</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;blur&quot;</span><span class="p">,</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+          <span class="nx">help</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+      <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>ユーザーがブラウザー、すなわち文書が表示されているウィンドウに出入りすると、オブジェクト <code class="docutils literal notranslate"><span class="pre">window</span></code> はイベント <code class="docutils literal notranslate"><span class="pre">blur</span></code>, <code class="docutils literal notranslate"><span class="pre">focus</span></code> を受け取る。</p></li>
+</ul>
+</section>
+<section id="load-event">
+<h2><a class="toc-backref" href="#id15">Load event</a><a class="headerlink" href="#load-event" title="Permalink to this headline">¶</a></h2>
+<p>ページのロードが完了すると、イベント <code class="docutils literal notranslate"><span class="pre">load</span></code> が <code class="docutils literal notranslate"><span class="pre">window</span></code> と <code class="docutils literal notranslate"><span class="pre">document.body</span></code>
+で発射する。</p>
+<ul class="simple">
+<li><p>このイベントは、文書全体の構築完了を必要とする初期化アクションをスケジュールするのによく使われる。特に <code class="docutils literal notranslate"><span class="pre">&lt;script&gt;</span></code> タグの内容は、そのタグが現れるとすぐに実行されるので、場合によっては早過ぎる可能性がある。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</span></code> や <code class="docutils literal notranslate"><span class="pre">&lt;script&gt;</span></code> タグなど、外部ファイルをロードする要素にも <code class="docutils literal notranslate"><span class="pre">load</span></code> イベントがあり、その外部ファイルがロードされたことを示す。</p></li>
+<li><p>イベント <code class="docutils literal notranslate"><span class="pre">load</span></code> は親ノードに伝導しない。</p></li>
+</ul>
+<p>ページが閉じられたり、リンクをたどって出ていったりすると、イベント <code class="docutils literal notranslate"><span class="pre">beforeunload</span></code> が発射する。</p>
+<ul class="simple">
+<li><p>このイベントの主な用途は、ユーザーが文書を閉じて誤って作業を失うことを防止することだ。</p></li>
+<li><p>もし、このイベントを <code class="docutils literal notranslate"><span class="pre">preventDefault</span></code> して、イベントのプロパティー <code class="docutils literal notranslate"><span class="pre">returnValue</span></code> に文字列をセットすると、ブラウザーはユーザーにダイアログボックスを表示して、本当にページを離れるつもりなのかを確認する。</p>
+<ul>
+<li><p>悪質なサイトが怪しい広告を表示するなど、この機能を悪用するため、近頃のブラウザーはこのダイアログボックスを表示しなくなった。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="events-and-the-event-loop">
+<h2><a class="toc-backref" href="#id16">Events and the event loop</a><a class="headerlink" href="#events-and-the-event-loop" title="Permalink to this headline">¶</a></h2>
+<p>イベントループからすれば、ブラウザーのイベントハンドラーは非同期通知のように振る舞う。イベントハンドラーはイベントが起こるときにスケジュールに入るが、実行中の他のスクリプトが完了するのを待機しなければ、自分が実行する機会を得られない。</p>
+<ul class="simple">
+<li><p>イベントは他に何も実行されていないときにしか処理されないということだ。</p></li>
+<li><p>イベントループが他の作業と結びついている場合、それを処理する時間ができるまで、ページとの相互作用が遅延する。</p></li>
+<li><p>長時間実行されるイベントハンドラーか、短時間でもイベントハンドラーがたくさんあると、仕事を増やし過ぎればページが重くなり使いにくくなる。</p></li>
+</ul>
+<p>どうしても時間のかかる処理をページを固まらせることなくバックグラウンドでしたい場合には、ブラウザーには Web ワーカーというものを提供する。</p>
+<ul class="simple">
+<li><p><strong>ワーカー</strong> とは JavaScript プロセスであって、メインスクリプトと並行して実行されるものをいう。これはそれ独自のタイムライン上で走る。</p></li>
+</ul>
+<p>例を出す。数の平方を計算することは重く、長時間を要するものであり、これを別のスレッドで実行したいとする。そこで <code class="docutils literal notranslate"><span class="pre">code/squareworker.js</span></code> というスクリプトを書き、メッセージに応答して平方を計算し、メッセージを返すようにする。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">postMessage</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span> <span class="o">*</span> <span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>ワーカーは大域名前空間やその他データをメインスクリプトの環境と共有しない。その代わりに、ワーカーとはメッセージをやり取りして通信する必要がある。</p></li>
+</ul>
+<p>次のコードはスクリプトを実行しているワーカーを作り出し、メッセージをいくつか送信して、応答を出力する：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">squareWorker</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Worker</span><span class="p">(</span><span class="s2">&quot;code/squareworker.js&quot;</span><span class="p">);</span>
+<span class="nx">squareWorker</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;The worker responded:&quot;</span><span class="p">,</span> <span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">squareWorker</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="mf">10</span><span class="p">);</span>
+<span class="nx">squareWorker</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="mf">24</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">postMessage</span></code> はメッセージを送信する。このメッセージは <code class="docutils literal notranslate"><span class="pre">message</span></code> イベントを受信側に発射する。</p></li>
+<li><p>ワーカーを作成したスクリプトは <code class="docutils literal notranslate"><span class="pre">Worker</span></code> オブジェクトを通じてメッセージを送受信する。</p></li>
+<li><p>その大域名前空間上で直接送受信することで、そのスクリプトと対話する。</p></li>
+<li><p>JSON として表現できる値しかメッセージとして送信することができない。相手は値そのものではなく、そのコピーを受信する。</p></li>
+</ul>
+</section>
+<section id="timers">
+<h2><a class="toc-backref" href="#id17">Timers</a><a class="headerlink" href="#timers" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">setTimeout</span></code> はすでに第 11 章で見た。指定したミリ秒後に指定した関数を呼び出されるようにするというものだ。</p></li>
+<li><p>時々この関数のスケジュールを取り消したいことがある。それには <code class="docutils literal notranslate"><span class="pre">setTimeout</span></code> の戻り値を保存しておき、それを関数
+<code class="docutils literal notranslate"><span class="pre">clearTimeout</span></code> に引き渡して呼び出せばよい。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">bombTimer</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;BOOM!&quot;</span><span class="p">);</span>
+<span class="p">},</span> <span class="mf">500</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 50% chance</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Defused.&quot;</span><span class="p">);</span>
+    <span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">bombTimer</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">cancelAnimationFrame</span></code> は上記 <code class="docutils literal notranslate"><span class="pre">clearTimeout</span></code> と同じように機能する。この関数を関数 <code class="docutils literal notranslate"><span class="pre">requestAnimationFrame</span></code> を呼び出したときの戻り値を実引数として呼び出すと、そのフレームを（まだ呼び出されていなければ）取り消す。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">setInterval</span></code>, <code class="docutils literal notranslate"><span class="pre">clearInterval</span></code> は繰り返しタイマーを設定するために用いられる。指定のミリ秒間隔で何かを繰り返させるものだ。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">ticks</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">clock</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;tick&quot;</span><span class="p">,</span> <span class="nx">ticks</span><span class="o">++</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">ticks</span> <span class="o">==</span> <span class="mf">10</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">clock</span><span class="p">);</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;stop.&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">},</span> <span class="mf">200</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="debouncing">
+<h2><a class="toc-backref" href="#id18">Debouncing</a><a class="headerlink" href="#debouncing" title="Permalink to this headline">¶</a></h2>
+<p>イベント <code class="docutils literal notranslate"><span class="pre">mousemove</span></code> や <code class="docutils literal notranslate"><span class="pre">scrollevent</span></code> のように、急速に連続発射されがちなイベントに対するイベントハンドラーを、時間を食うようなものにしないことが肝要だ。そうしないと、文書との相互作用が始まるのが遅いと感じさせてしまう。</p>
+<p>そのようなイベントハンドラーで何か自明でないことをする必要があるならば、関数 <code class="docutils literal notranslate"><span class="pre">setTimeout</span></code> を利用してそれを頻繁に行わないようにする。このことをイベントの debouncing という。これにはわずかに違うアプローチがいくつかある。</p>
+<p>次に示す最初の例では、ユーザーが何かを入力したときに反応をしたいのだが、入力イベントごとに直ちにそうしたいわけではない。</p>
+<ul class="simple">
+<li><p>ユーザーが素早く入力しているときには、一時停止が起こるまで待ちたい。</p></li>
+<li><p>イベントハンドラーではなく、タイムアウトを設定する。</p>
+<ul>
+<li><p>前回のタイムアウトがもしあればそれも解除する。</p></li>
+<li><p>タイムアウト遅延よりも短いようなイベントが近接して発生した場合、直前のタイムアウトも解除する。</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">textarea</span><span class="p">&gt;</span>Type something here...<span class="p">&lt;/</span><span class="nt">textarea</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">let</span> <span class="nx">textarea</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;textarea&quot;</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">timeout</span><span class="p">;</span>
+  <span class="nx">textarea</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;input&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">timeout</span><span class="p">);</span>
+      <span class="nx">timeout</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Typed!&quot;</span><span class="p">),</span> <span class="mf">500</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<ul>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">clearTimeout</span></code> については、以下のものを実引数とする場合を気にする必要はない：</p>
+<ul class="simple">
+<li><p>値 <code class="docutils literal notranslate"><span class="pre">undefined</span></code></p></li>
+<li><p>すでにタイムアウトしているもの</p></li>
+</ul>
+<p>したがって <code class="docutils literal notranslate"><span class="pre">clearTimeout</span></code> を呼び出すタイミングにも注意する必要はない。</p>
+</li>
+</ul>
+<p>応答間隔を一定時間以上空けたいが、一連のイベントの間で発射したい場合は、少し異なるパターンを使うことができる。たとえば、マウスの現在の座標を表示することで、”mousemove “イベントに 250ms ごとに応答したいとする。次のコードはそれを実現する：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">scheduled</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mousemove&quot;</span><span class="p">,</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">scheduled</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="sb">`Mouse at </span><span class="si">${</span><span class="nx">scheduled</span><span class="p">.</span><span class="nx">pageX</span><span class="si">}</span><span class="sb">, </span><span class="si">${</span><span class="nx">scheduled</span><span class="p">.</span><span class="nx">pageY</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+            <span class="nx">scheduled</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="p">},</span> <span class="mf">250</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">scheduled</span> <span class="o">=</span> <span class="nx">event</span><span class="p">;</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</section>
+<section id="summary">
+<h2><a class="toc-backref" href="#id19">Summary</a><a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>イベントハンドラーは Web ページ内で発生したイベントを検出し、反応することを可能にする。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">addEventListner</span></code> はハンドラーを登録するのに使う。</p></li>
+<li><p>イベントには <code class="docutils literal notranslate"><span class="pre">keydown</span></code> や <code class="docutils literal notranslate"><span class="pre">focus</span></code> などの、種類を識別するものがある。</p></li>
+<li><p>イベントの大部分は特定の DOM 要素で呼び出されて、その祖先に向かって伝わる。それらの要素に関連付けられたハンドラーがイベントを処理できる。</p></li>
+<li><p>イベントハンドラーが呼び出されると、イベントに関する追加情報であるイベントオブジェクトが渡される。このイベントオブジェクトには次のようなメソッドがある：</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">stopPropagation</span></code>: イベントのさらなる伝導を停止する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">preventDefault</span></code>: ブラウザーの既定の処理を禁止する。</p></li>
+</ul>
+</li>
+<li><p>キーを押すとイベント <code class="docutils literal notranslate"><span class="pre">keydown</span></code> と <code class="docutils literal notranslate"><span class="pre">keyup</span></code> が発射する。</p></li>
+<li><p>マウスボタンを押すとイベント <code class="docutils literal notranslate"><span class="pre">mousedown</span></code>, <code class="docutils literal notranslate"><span class="pre">mouseup</span></code>, <code class="docutils literal notranslate"><span class="pre">click</span></code> が発射する。</p></li>
+<li><p>マウスが移動するとイベント <code class="docutils literal notranslate"><span class="pre">mousemove</span></code> が発射する。</p></li>
+<li><p>タッチスクリーンの相互作用ではイベント <code class="docutils literal notranslate"><span class="pre">touchstart</span></code>, <code class="docutils literal notranslate"><span class="pre">touchmove</span></code>, <code class="docutils literal notranslate"><span class="pre">touch</span></code> が発射する。</p></li>
+<li><p>スクロールはイベント <code class="docutils literal notranslate"><span class="pre">scroll</span></code> で検出される。</p></li>
+<li><p>フォーカスの変化はイベント <code class="docutils literal notranslate"><span class="pre">focus</span></code> と <code class="docutils literal notranslate"><span class="pre">blur</span></code> で検出される。</p></li>
+<li><p>文書がロードを完了するとイベント <code class="docutils literal notranslate"><span class="pre">load</span></code> がウィンドウに対して発射する。</p></li>
+</ul>
+</section>
+<section id="exercises">
+<h2><a class="toc-backref" href="#id20">Exercises</a><a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<section id="balloon">
+<h3><a class="toc-backref" href="#id21">Balloon</a><a class="headerlink" href="#balloon" title="Permalink to this headline">¶</a></h3>
+<p><strong>問題</strong> 吹き出しを表示するページを書け（絵文字🎈を使用）。上矢印を押すと 10% 膨らみ、下矢印を押すと 10% 縮むようにしろ。</p>
+<ul class="simple">
+<li><p>親要素の <code class="docutils literal notranslate"><span class="pre">font-size</span></code> (<code class="docutils literal notranslate"><span class="pre">style.fontSize</span></code>) で、テキストのサイズを制御できる。値には単位を含めることを忘れるな。</p></li>
+<li><p>矢印キーのキー名は <code class="docutils literal notranslate"><span class="pre">ArrowUp</span></code> と <code class="docutils literal notranslate"><span class="pre">ArrowDown</span></code> だ。ページをスクロールすることなく、風船だけを変更するようにしろ。</p></li>
+</ul>
+<p>これがうまくいったら、風船をある大きさ以上に膨らませると、爆発する機能を追加しろ。この場合、爆発するということは、風船が絵文字💥に置き換えられ、イベントハンドラーは削除される（これ以上爆発を膨らませたり縮めたりできないように)。</p>
+<p><strong>解答</strong> 前半と後半をまとめて：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;baloon&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;font-size: 100px;&quot;</span><span class="p">&gt;</span>🎈<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="kd">function</span> <span class="nx">resizeBaloon</span><span class="p">(</span><span class="nx">event</span><span class="p">){</span>
+        <span class="kd">const</span> <span class="nx">baloon</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;span#baloon&quot;</span><span class="p">);</span>
+        <span class="kd">const</span> <span class="nx">fontSize</span> <span class="o">=</span> <span class="nx">baloon</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">fontSize</span><span class="p">;</span>
+        <span class="kd">const</span> <span class="nx">size</span> <span class="o">=</span> <span class="nx">fontSize</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\D+/</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+        <span class="kd">const</span> <span class="nx">unit</span> <span class="o">=</span> <span class="nx">fontSize</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\d+/</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">key</span> <span class="o">==</span> <span class="s2">&quot;ArrowUp&quot;</span><span class="p">){</span>
+            <span class="nx">updateBaloon</span><span class="p">(</span><span class="nx">baloon</span><span class="p">,</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">size</span> <span class="o">*</span> <span class="mf">1.1</span><span class="p">),</span> <span class="nx">unit</span><span class="p">);</span>
+            <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">key</span> <span class="o">==</span> <span class="s2">&quot;ArrowDown&quot;</span><span class="p">){</span>
+            <span class="nx">updateBaloon</span><span class="p">(</span><span class="nx">baloon</span><span class="p">,</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">size</span> <span class="o">*</span> <span class="mf">0.9</span><span class="p">),</span> <span class="nx">unit</span><span class="p">);</span>
+            <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="kd">function</span> <span class="nx">updateBaloon</span><span class="p">(</span><span class="nx">baloon</span><span class="p">,</span> <span class="nx">size</span><span class="p">,</span> <span class="nx">unit</span><span class="p">){</span>
+        <span class="nx">baloon</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">fontSize</span> <span class="o">=</span> <span class="nx">size</span> <span class="o">+</span> <span class="nx">unit</span><span class="p">;</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">baloon</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">fontSize</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">size</span> <span class="o">&gt;</span> <span class="mf">150</span><span class="p">){</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;explode&quot;</span><span class="p">);</span>
+            <span class="kd">const</span> <span class="nx">newSpan</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;span&quot;</span><span class="p">);</span>
+            <span class="nx">newSpan</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;newSpan&quot;</span><span class="p">);</span>
+            <span class="nx">newSpan</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;style&quot;</span><span class="p">,</span> <span class="sb">`font-size: </span><span class="si">${</span><span class="nx">baloon</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">fontSize</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+            <span class="nx">newSpan</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="s2">&quot;💥&quot;</span><span class="p">));</span>
+            <span class="nx">baloon</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">replaceChild</span><span class="p">(</span><span class="nx">newSpan</span><span class="p">,</span> <span class="nx">baloon</span><span class="p">);</span>
+            <span class="nb">window</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s2">&quot;keyup&quot;</span><span class="p">,</span> <span class="nx">resizeBaloon</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;keyup&quot;</span><span class="p">,</span> <span class="nx">resizeBaloon</span><span class="p">);</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">replaceChild</span></code> の利用例が本書中にまだないので、そこに手間取った。</p></li>
+<li><p>爆発後のノードのスタイルを爆発前のそれの複製にしたいが方法が不明。</p></li>
+</ul>
+</section>
+<section id="mouse-trail">
+<h3><a class="toc-backref" href="#id22">Mouse trail</a><a class="headerlink" href="#mouse-trail" title="Permalink to this headline">¶</a></h3>
+<p>JavaScript の黎明期はアニメーションを多用した派手なページが全盛の時代だった。それが流行していた頃、この言語を使って実に刺激的な方法が考案された。そのようなものの一つにマウス軌跡がある。ページ上でマウスポインターを動かすと、それを追う一連の要素だ。</p>
+<p><strong>問題</strong> マウス軌跡を実装しろ。サイズと背景色が固定された絶対配置の <code class="docutils literal notranslate"><span class="pre">&lt;div&gt;</span></code> 要素を使え。例として Mouse clicks セクションのコードを参照しろ。このような要素をたくさん作り、マウスが動いたときに、マウスポインターの軌跡の中にそれらを表示しろ。</p>
+<p>これに対しては様々な方法論が考えられる。最初に行う簡単な方策は、一定数の軌跡要素を保持し、イベント <code class="docutils literal notranslate"><span class="pre">mousemove</span></code> が発生するたびに次の要素をマウスの現在位置に移動させるというサイクルを行うというものだ。</p>
+<p><strong>解答</strong> 軌跡の尻尾の色を減衰させるなどして派手にすることもできるが単純にする：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="p">.</span><span class="nc">dot</span> <span class="p">{</span>
+    <span class="k">height</span><span class="p">:</span> <span class="mi">8</span><span class="kt">px</span><span class="p">;</span> <span class="k">width</span><span class="p">:</span> <span class="mi">8</span><span class="kt">px</span><span class="p">;</span>
+    <span class="k">border-radius</span><span class="p">:</span> <span class="mi">4</span><span class="kt">px</span><span class="p">;</span>
+    <span class="k">background</span><span class="p">:</span> <span class="kc">deeppink</span><span class="p">;</span>
+    <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="kd">const</span> <span class="nx">numDots</span> <span class="o">=</span> <span class="mf">20</span><span class="p">;</span>
+
+    <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mousemove&quot;</span><span class="p">,</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">dots</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;div.dot&quot;</span><span class="p">);</span>
+        <span class="kd">const</span> <span class="nx">dot</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">);</span>
+        <span class="nx">dot</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="s2">&quot;dot&quot;</span><span class="p">;</span>
+        <span class="nx">dot</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">x</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
+        <span class="nx">dot</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">top</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">y</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">dots</span><span class="o">?</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;=</span> <span class="nx">numDots</span><span class="p">){</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">dots</span><span class="p">[</span><span class="mf">0</span><span class="p">]);</span>
+        <span class="p">}</span>
+        <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">dot</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="tabs">
+<h3><a class="toc-backref" href="#id23">Tabs</a><a class="headerlink" href="#tabs" title="Permalink to this headline">¶</a></h3>
+<p>タブ付きパネルは、ユーザーインターフェースで広く使われている。タブパネルでは、要素の上に突き出た複数のタブから選択することで、インターフェースパネルを選択することができる。</p>
+<p><strong>問題</strong> 単純なタブ型インターフェースを実装しろ：
+DOM ノードを入力とし、そのノードの子要素を表示するタブ付きインターフェイスを出力する関数 <code class="docutils literal notranslate"><span class="pre">asTabs</span></code> を書け。</p>
+<ul class="simple">
+<li><p>ノードの先頭に、子要素ごとに、子要素の属性 <code class="docutils literal notranslate"><span class="pre">data-tabname</span></code> から取得したテキストを含む
+<code class="docutils literal notranslate"><span class="pre">&lt;button&gt;</span></code> 要素のリストを挿入する。</p></li>
+<li><p>元の子要素のうち一つを除いてすべてを（スタイルで <code class="docutils literal notranslate"><span class="pre">display:</span> <span class="pre">none</span></code> として）隠す。</p></li>
+<li><p>現在表示されているノードは、ボタンをクリックして選択できる。</p></li>
+</ul>
+<p>これがうまくいったら、現在選択されているタブのボタンのスタイルを変えて、どのタブが選択されているか明らかになるように拡張しろ。</p>
+<p><strong>解答</strong> 前半だけ解く。汎用性を求めていないので殴り書きのまま提出する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">asTabs</span><span class="p">(</span><span class="nx">node</span><span class="p">){</span>
+    <span class="kd">const</span> <span class="nx">newNode</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">);</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">const</span> <span class="nx">child</span> <span class="k">of</span> <span class="nx">node</span><span class="p">.</span><span class="nx">children</span><span class="p">){</span>
+        <span class="nx">child</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span><span class="p">;</span>
+        <span class="kd">const</span> <span class="nx">tabName</span> <span class="o">=</span> <span class="nx">child</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s2">&quot;data-tabname&quot;</span><span class="p">)</span>
+        <span class="kd">const</span> <span class="nx">button</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;button&quot;</span><span class="p">);</span>
+        <span class="nx">button</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;tab&quot;</span><span class="p">,</span> <span class="nx">tabName</span><span class="p">);</span>
+        <span class="nx">button</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="nx">tabName</span><span class="p">));</span>
+        <span class="nx">button</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+            <span class="kd">const</span> <span class="nx">tabName</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s2">&quot;tab&quot;</span><span class="p">);</span>
+            <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">pane</span> <span class="k">of</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;[data-tabname]&quot;</span><span class="p">)){</span>
+                <span class="k">if</span><span class="p">(</span><span class="nx">pane</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s2">&quot;data-tabname&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="nx">tabName</span><span class="p">){</span>
+                    <span class="nx">pane</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">else</span><span class="p">{</span>
+                    <span class="nx">pane</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+        <span class="nx">newNode</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">button</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">newNode</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">event.target</span></code> でイベント発生源を参照できることを忘れていた。</p></li>
+<li><p>CSS セレクターはやはり便利だ。</p></li>
+</ul>
+<p>HTML 側ではこういう感じになる：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;tab_target&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span> <span class="na">data-tabname</span><span class="o">=</span><span class="s">&quot;Tab0&quot;</span><span class="p">&gt;</span>Pane A<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span> <span class="na">data-tabname</span><span class="o">=</span><span class="s">&quot;Tab1&quot;</span><span class="p">&gt;</span>Pane B<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span> <span class="na">data-tabname</span><span class="o">=</span><span class="s">&quot;Tab2&quot;</span><span class="p">&gt;</span>Pane C<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span> <span class="na">data-tabname</span><span class="o">=</span><span class="s">&quot;Tab3&quot;</span><span class="p">&gt;</span>Pane D<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="kd">const</span> <span class="nx">ui</span> <span class="o">=</span> <span class="nx">asTabs</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;tab_target&quot;</span><span class="p">));</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">ui</span><span class="p">,</span> <span class="kc">null</span><span class="p">);</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>問題の後半は <code class="docutils literal notranslate"><span class="pre">updateAllButtons(event.target)</span></code> のような呼び出しで適当にスタイルを変更するコードを書けばいい。省略。</p>
+<p>以上</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter16.html" title="Project: A Platform Game"
+             >next</a></li>
+        <li class="right" >
+          <a href="chapter14.html" title="The Document Object Model"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Eloquent JavaScript 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Handling Events</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

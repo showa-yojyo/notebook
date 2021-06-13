@@ -4,12 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>BeautifulSoup4 利用ノート &#8212; 読書ノート v1.5dev</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/prefab.css" />
     
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/mathjax-v3.js"></script>
     
     <link rel="next" title="Selenium 利用ノート" href="python-selenium.html" />
@@ -33,7 +33,7 @@
       <div class="documentwrapper">
           <div class="body" role="main">
             
-  <div class="section" id="beautifulsoup4">
+  <section id="beautifulsoup4">
 <h1><a class="toc-backref" href="#id12">BeautifulSoup4 利用ノート</a><a class="headerlink" href="#beautifulsoup4" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="http://www.crummy.com/software/BeautifulSoup/">BeautifulSoup4</a>
 についてノートをとっておく。</p>
@@ -60,15 +60,15 @@
 </li>
 </ul>
 </div>
-<div class="section" id="id2">
+<section id="id2">
 <h2><a class="toc-backref" href="#id13">目的</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>既存 HTML 文書のスクレイピングを自在に実現すること。短時間でテキストデータを作成する道具として用いる。</p>
-</div>
-<div class="section" id="id3">
+</section>
+<section id="id3">
 <h2><a class="toc-backref" href="#id14">インストールする</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>省略。公式文書に書いてあること以上のことはない。ただし lxml のインストールも併せるのが望ましい。</p>
-</div>
-<div class="section" id="id4">
+</section>
+<section id="id4">
 <h2><a class="toc-backref" href="#id15">オブジェクトを生成する</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>次のようにして <code class="docutils literal notranslate"><span class="pre">BeautifulSoup</span></code> オブジェクトを生成する（公式文書からほぼそのまま引用した）：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
@@ -113,8 +113,8 @@
 </div>
 </li>
 </ul>
-</div>
-<div class="section" id="id5">
+</section>
+<section id="id5">
 <h2><a class="toc-backref" href="#id16">実践例</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>以下、私がよく実行するコードを記す。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 文書内の a 要素（タグ）を全て取得する</span>
@@ -154,8 +154,8 @@
 <span class="n">soup</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;a[href*=&quot;.cgi&quot;]&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id6">
+</section>
+<section id="id6">
 <h2><a class="toc-backref" href="#id17">要素の値としての文字列</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p>ノード <code class="docutils literal notranslate"><span class="pre">&lt;tag&gt;X&lt;/tag&gt;</span></code> から <code class="docutils literal notranslate"><span class="pre">X</span></code> を文字列として取得したい。それには次に上げる属性のいずれかを用いる：</p>
 <table class="docutils align-default">
@@ -188,8 +188,8 @@
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">.string</span></code> を参照するときは <code class="docutils literal notranslate"><span class="pre">get_text()</span></code> が本当はやりたいことではないか確認すること。</p></li>
 </ul>
-</div>
-<div class="section" id="id7">
+</section>
+<section id="id7">
 <h2><a class="toc-backref" href="#id18">グラフ系属性</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <p>文書木を特定のノード、すなわち要素、もう一つ言い換えると HTML タグからアクセスするための属性を表にまとめておく。
 <code class="docutils literal notranslate"><span class="pre">.next_</span></code> 系それぞれに対応する <code class="docutils literal notranslate"><span class="pre">.previous_</span></code> 系ももちろん提供されているが、説明は省略する。</p>
@@ -245,11 +245,11 @@
 </tbody>
 </table>
 <p>表にまとめておいてなんだが、木構造はプログラマーならば体で覚えているデータ構造だ。ここに挙げた属性がノードにあることを期待するのが普通なので、改めて暗記するような情報ではない。しかもスクレイピング作業では、どういうわけかこれらの素直な属性をそれほど利用しないのだ。むしろフィルター機能を重点的に学ぶほうがいい。</p>
-</div>
-<div class="section" id="id8">
+</section>
+<section id="id8">
 <h2><a class="toc-backref" href="#id19">検索</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <p>検索の二本柱は <code class="docutils literal notranslate"><span class="pre">find()</span></code> 系メソッドとフィルター指定にある。</p>
-<div class="section" id="id9">
+<section id="id9">
 <h3><a class="toc-backref" href="#id20">フィルター</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>フィルター機能は <code class="docutils literal notranslate"><span class="pre">find()</span></code> 系のパラメーターとして実現する。用例は本稿の実践例や公式文書を参照。</p>
 <ul class="simple">
@@ -286,17 +286,17 @@
 </ul>
 </li>
 </ul>
-</div>
-</div>
-<div class="section" id="id10">
+</section>
+</section>
+<section id="id10">
 <h2><a class="toc-backref" href="#id21">習得のコツ</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>メソッド <code class="docutils literal notranslate"><span class="pre">find()</span></code> 系の利用に慣れる。特に検索フィルターの指定にまず慣れる。</p></li>
 <li><p>メソッド <code class="docutils literal notranslate"><span class="pre">select()</span></code> 系の利用に慣れる。CSS のセレクターの知識が必要だ。</p></li>
 <li><p>属性 <code class="docutils literal notranslate"><span class="pre">.string</span></code>. <code class="docutils literal notranslate"><span class="pre">.strings</span></code>, <code class="docutils literal notranslate"><span class="pre">.stripped_strings</span></code> を使い分けられるようにする。</p></li>
 </ul>
-</div>
-<div class="section" id="id11">
+</section>
+<section id="id11">
 <h2><a class="toc-backref" href="#id22">関連ノート</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
 <p>この他のスクレイピングの技法をまとめたノートの一覧。</p>
 <ul class="simple">
@@ -305,8 +305,8 @@
 <li><p><a class="reference internal" href="hxutils.html"><span class="doc">HTML-XML-utils 利用ノート</span></a></p></li>
 <li><p><a class="reference internal" href="css-selector.html"><span class="doc">CSS セレクター学習ノート</span></a></p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>

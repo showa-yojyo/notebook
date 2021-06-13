@@ -1,0 +1,832 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Project: Skill-Sharing Website &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
+    
+    <script src="../_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="ノート準備中書籍群 2014 年編" href="../preliminary2014.html" />
+    <link rel="prev" title="Node.js" href="chapter20.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../preliminary2014.html" title="ノート準備中書籍群 2014 年編"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="chapter20.html" title="Node.js"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Eloquent JavaScript 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Project: Skill-Sharing Website</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="project-skill-sharing-website">
+<h1><a class="toc-backref" href="#id2">Project: Skill-Sharing Website</a><a class="headerlink" href="#project-skill-sharing-website" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://eloquentjavascript.net/">Eloquent JavaScript</a> Chapter 21 の読書ノート。</p>
+<ul class="simple">
+<li><p>この最終章では、スキル共有会で行われる講演を管理するためのウェブサイトを作ることを目標とする。</p></li>
+<li><p>完全なコードは &lt;<a class="reference external" href="https://eloquentjavascript.net/code/skillsharing.zip">https://eloquentjavascript.net/code/skillsharing.zip</a>&gt; からダウンロードできる。</p></li>
+</ul>
+<div class="contents topic" id="id1">
+<p class="topic-title">ノート目次</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#project-skill-sharing-website" id="id2">Project: Skill-Sharing Website</a></p>
+<ul>
+<li><p><a class="reference internal" href="#design" id="id3">Design</a></p></li>
+<li><p><a class="reference internal" href="#long-polling" id="id4">Long polling</a></p></li>
+<li><p><a class="reference internal" href="#http-interface" id="id5">HTTP interface</a></p></li>
+<li><p><a class="reference internal" href="#the-server" id="id6">The server</a></p>
+<ul>
+<li><p><a class="reference internal" href="#routing" id="id7">Routing</a></p></li>
+<li><p><a class="reference internal" href="#serving-files" id="id8">Serving files</a></p></li>
+<li><p><a class="reference internal" href="#talks-as-resources" id="id9">Talks as resources</a></p></li>
+<li><p><a class="reference internal" href="#long-polling-support" id="id10">Long polling support</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#the-client" id="id11">The client</a></p>
+<ul>
+<li><p><a class="reference internal" href="#html" id="id12">HTML</a></p></li>
+<li><p><a class="reference internal" href="#actions" id="id13">Actions</a></p></li>
+<li><p><a class="reference internal" href="#rendering-components" id="id14">Rendering components</a></p></li>
+<li><p><a class="reference internal" href="#polling" id="id15">Polling</a></p></li>
+<li><p><a class="reference internal" href="#the-application" id="id16">The application</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#exercises" id="id17">Exercises</a></p>
+<ul>
+<li><p><a class="reference internal" href="#disk-persistence" id="id18">Disk persistence</a></p></li>
+<li><p><a class="reference internal" href="#comment-field-resets" id="id19">Comment field resets</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="design">
+<h2><a class="toc-backref" href="#id3">Design</a><a class="headerlink" href="#design" title="Permalink to this headline">¶</a></h2>
+<p>このプロジェクトには、Node.js 用に書かれたサーバー部分と、ブラウザー用に書かれたクライアント部分がある。</p>
+<ul class="simple">
+<li><p>サーバーは、システムのデータを保存し、クライアントに提供する。また、クライアント側のシステムを実装するファイルを提供する。</p></li>
+<li><p>サーバーは、次回の会議に提案された講演のリストを保持しており、クライアントはこのリストを表示する。各講演には、発表者名、タイトル、概要、コメントの配列が関連付けられている。</p></li>
+<li><p>クライアントでは、ユーザーが新しいトークを提案（リストに追加）したり、会話を削除したり、既存の会話にコメントしたりすることができる。</p></li>
+<li><p>ユーザーがこのような変更を行うたびに、クライアントは HTTP リクエストを行い、サーバーにそのことを伝える。</p></li>
+<li><p>アプリケーションは、現在提案されている会話とそのコメントのライブビューを表示するようにできている。どこかの誰かが新しい会話を投稿したり、コメントを追加したりすると、そのページをブラウザーで開いているすべての閲覧者がすぐにその変更を確認できるようにする。</p></li>
+</ul>
+<p>これには少々の問題がある。ウェブサーバーがクライアントと接続する方法がなく、また、どのクライアントが特定のウェブサイトを現在見ているかを知る良い方法もない。</p>
+<p>この問題に対する一般的な解決策は <strong>long polling</strong> と呼ばれるものだ。</p>
+<ul class="simple">
+<li><p>これは偶然にも <a class="reference external" href="https://nodejs.org">Node</a> の設計動機の一つだった。</p></li>
+</ul>
+</section>
+<section id="long-polling">
+<h2><a class="toc-backref" href="#id4">Long polling</a><a class="headerlink" href="#long-polling" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>何かが変更されたことをクライアントに即座に通知するためには、そのクライアントとの接続が必要だ。ウェブブラウザーは通常、接続を受け付けない、クライアントは中継器の背後にいることが多く、そのような接続は遮断されてしまうため、サーバーがこの接続を開始することは現実的ではない。</p></li>
+<li><p>クライアントが接続を開始し、サーバーが必要なときに情報を送信できるように接続を維持するようにすることができる。しかし、HTTP リクエストでは、クライアントがリクエストを送信し、サーバーが単一の応答を返してそれだけという単純な情報の流れしかできない。</p></li>
+<li><p>最近のブラウザーでサポートされている WebSockets という技術は、任意のデータ交換のために接続を開くことを可能にするが、これを適切に使用するのは少々難しい。</p></li>
+</ul>
+<p>この章ではより単純な手法である long polling を使う。</p>
+<ul class="simple">
+<li><p>クライアントが通常の HTTP リクエストを使ってサーバーに継続的に新しい情報を要求し、サーバーは新しい情報がない場合には回答を保留する。</p></li>
+</ul>
+<p>クライアントが定常的にポーリング要求を開いているようにしてある限り、情報が入手可能になってからサーバーから情報を素早く受け取る。</p>
+<ol class="arabic simple">
+<li><p>例えば、Fatma がブラウザーでスキルシェアのアプリケーションを開いている場合、そのブラウザーは更新要求を行い、応答を待っていることになる。</p></li>
+<li><p>Iman が Extreme Downhill Unicycling の会話を投稿すると、</p></li>
+<li><p>サーバーは Fatma が更新を待ち構えていることに気づき、保留中のリクエストに新しい会話を含む応答を送信する。</p></li>
+<li><p>Fatma のブラウザーはそのデータを受け取り、画面を更新して会話を表示する。</p></li>
+</ol>
+<p>接続のタイムアウトを防ぐために、long polling の技法では通常、各リクエストに最大時間を設ける。それを過ぎると、サーバーは何も報告することがなくてもとにかく応答し、その後、クライアントは新しいリクエストを開始する。周期的にリクエストを再開することで、クライアントは一時的な接続障害やサーバーの問題から回復できるようになり、技術の堅牢性が向上する。</p>
+<p>Long polling を使用している多忙なサーバーでは、何千ものリクエスト待ち、したがって TCP 接続が開いていることがある。このようなシステムには、それぞれの接続に個別の制御スレッドを作成することなく、多くの接続を簡単に管理できる <a class="reference external" href="https://nodejs.org">Node</a> が適している。</p>
+</section>
+<section id="http-interface">
+<h2><a class="toc-backref" href="#id5">HTTP interface</a><a class="headerlink" href="#http-interface" title="Permalink to this headline">¶</a></h2>
+<p>サーバーやクライアントの設計を始める前に、両者が接触するポイントである、通信するための HTTP インターフェイスについて考える。</p>
+<ul class="simple">
+<li><p>リクエスト本体と応答本体の書式として JSON を採用する。</p>
+<ul>
+<li><p>第 20 章でやったように HTTP メソッドとヘッダーを上手く利用する。</p></li>
+<li><p>インターフェイスはパス <code class="docutils literal notranslate"><span class="pre">/talks</span></code> の周りに構成する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/talks</span></code> で始まらないパスを、クライアント側システム用の
+HTML や JavaScript コードなどの静的なファイルを供するのに用いる。</p></li>
+</ul>
+</li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">/talks</span></code> に対する GET リクエストは次のような JSON を返す：</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[{</span><span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Unituning&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;presenter&quot;</span><span class="p">:</span> <span class="s2">&quot;Jamal&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;summary&quot;</span><span class="p">:</span> <span class="s2">&quot;Modifying your cycle for extra style&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;comments&quot;</span><span class="p">:</span> <span class="p">[]}]</span>
+</pre></div>
+</div>
+<p>新しい会話を作成するには、<code class="docutils literal notranslate"><span class="pre">/talks/Unituning</span></code> のような URL への PUT リクエストを行う。二番目の <code class="docutils literal notranslate"><span class="pre">/</span></code> の後の部分が会話の名前になる。
+PUT リクエストの本体に、プロパティー <code class="docutils literal notranslate"><span class="pre">presenter</span></code> と <code class="docutils literal notranslate"><span class="pre">summary</span></code> を持つ JSON オブジェクトが含まれている。</p>
+<p>会話の名前は URL 中に現れることが許されない空白文字やその他の文字を含むかもしれないので、そのような URL を構築するときに文字列を関数 <code class="docutils literal notranslate"><span class="pre">encodeURIComponent</span></code> で符号化する必要がある。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;/talks/&quot;</span> <span class="o">+</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="s2">&quot;How to Idle&quot;</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>アイドリングに関する会話を作りたいというリクエストは次のようなものだ：</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">PUT</span> <span class="nn">/talks/How%20to%20Idle</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">92</span>
+
+<span class="p">{</span><span class="nt">&quot;presenter&quot;</span><span class="p">:</span> <span class="s2">&quot;Maureen&quot;</span><span class="p">,</span>
+ <span class="nt">&quot;summary&quot;</span><span class="p">:</span> <span class="s2">&quot;Standing still on a unicycle&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>このような URL は、会話の JSON 表現を取得する GET リクエストや、会話を削除する DELETE リクエストもサポートする。</p>
+<p>会話にコメントを追加するには、<code class="docutils literal notranslate"><span class="pre">/talks/Unituning/comments</span></code> のような URL への POST リクエストを使用し、
+JSON 本体にプロパティー <code class="docutils literal notranslate"><span class="pre">author</span></code> と <code class="docutils literal notranslate"><span class="pre">message</span></code> があるようにして行う。</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/talks/Unituning/comments</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">72</span>
+
+<span class="p">{</span><span class="nt">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;Iman&quot;</span><span class="p">,</span>
+ <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Will you talk about raising a cycle?&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Long polling をサポートするために <code class="docutils literal notranslate"><span class="pre">/talks</span></code> への GET リクエストに追加のヘッダーを含めることを許す。このヘッダーは、新しい情報が得られない場合に応答を遅らせるようにサーバに知らせるものだ。
+<code class="docutils literal notranslate"><span class="pre">ETag</span></code> と <code class="docutils literal notranslate"><span class="pre">If-None-Match</span></code> という、通常キャッシングを管理するためのヘッダーをペアで使用する。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ETag</span></code> は Entity Tag の意。</p></li>
+</ul>
+<p>サーバーは、レスポンスに <code class="docutils literal notranslate"><span class="pre">ETag</span></code> ヘッダーを含めても構わない。それの値とは、リソースの現在のバージョンを識別する文字列だ。クライアントは、後でそのリソースを再リクエストする際に、同じ文字列を値とする <code class="docutils literal notranslate"><span class="pre">If-None-Match</span></code> ヘッダーを含めることで、条件付きリクエストを行ってもよい。リソースが変更されていない場合、サーバーは「変更されていない」を意味するステータスコード 304 で応答し、キャッシュされたバージョンが依然として最新であることをクライアントに教える。タグが合致しない場合、サーバーは通常通り応答する。</p>
+<p>このように、クライアントがサーバーに会話リストのどのバージョンを持っているかを教え、サーバーはそのリストが変更されたときに限り応答する仕組みが必要だ。ただし、すぐに　304 応答を返すのではなく、サーバーは応答を一時停止し、何か新しいものが利用可能になったときや、所定の時間が経過したときにのみ応答するべきだ。長時間のポーリングリクエストを通常の条件付きリクエストと区別するために、
+<code class="docutils literal notranslate"><span class="pre">Prefer:</span> <span class="pre">wait=90</span></code> という別のヘッダーを与え、クライアントがレスポンスを 90 秒まで待ってもよいことをサーバーに言う。</p>
+<p>サーバーは、会話が変わるたびに更新されるバージョンを保持し、それを <code class="docutils literal notranslate"><span class="pre">ETag</span></code> の値として使う。クライアントは、このようなリクエストを行うことで、会話が変更されたときに通知される。</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/talks</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">If-None-Match</span><span class="o">:</span> <span class="l">&quot;4&quot;</span>
+<span class="na">Prefer</span><span class="o">:</span> <span class="l">wait=90</span>
+
+(time passes)
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+ETag: &quot;5&quot;
+Content-Length: 295
+
+[....]
+</pre></div>
+</div>
+<p>ここで説明したプロトコルでは、いかなるアクセス制御をも行わない。誰でもコメントしたり、会話を修正したり、削除したりできる。</p>
+</section>
+<section id="the-server">
+<h2><a class="toc-backref" href="#id6">The server</a><a class="headerlink" href="#the-server" title="Permalink to this headline">¶</a></h2>
+<p>まずはサーバー側の構築から始める。本節のコードは Node.js 上で動作する。</p>
+<section id="routing">
+<h3><a class="toc-backref" href="#id7">Routing</a><a class="headerlink" href="#routing" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">createServer</span></code> を使って HTTP サーバーを開始する。新しいリクエストを処理する関数では、我々がサポートしている、メソッドとパスで決定されるさまざまなリクエストを区別しなければならない。これを長い <code class="docutils literal notranslate"><span class="pre">if</span></code> 文の連鎖で行うこともできるが、もっと良い方法がある。</p>
+<p>中継器とは、リクエストを、それを処理できる関数にディスパッチするのを助けるコンポーネントだ。</p>
+<p>例えば、正規表現 <code class="docutils literal notranslate"><span class="pre">^\/talks\/([^\/]+)$</span></code> に合致するパスを持つ PUT リクエストは、特定の関数で処理できるように中継器に知らせられる。さらに、正規表現の括弧で囲まれたパスの意味のある部分を抽出して、処理関数に渡すこともできる。</p>
+<ul class="simple">
+<li><p>ここでは会話名</p></li>
+</ul>
+<p><a class="reference external" href="https://npmjs.org">NPM</a> には多くの優れた中継器パッケージがあるが、ここでは原理を理解するために自分自身で書く。</p>
+<p>次のコードが <code class="docutils literal notranslate"><span class="pre">router.js</span></code> で、サーバーモジュールが必要とするものだ：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// router.js</span>
+
+<span class="kd">const</span> <span class="p">{</span><span class="nx">parse</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;url&quot;</span><span class="p">);</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">class</span> <span class="nx">Router</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">routes</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="p">}</span>
+
+    <span class="nx">add</span><span class="p">(</span><span class="nx">method</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">handler</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">routes</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span><span class="nx">method</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">handler</span><span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="nx">resolve</span><span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">parse</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">url</span><span class="p">).</span><span class="nx">pathname</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="p">{</span><span class="nx">method</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">handler</span><span class="p">}</span> <span class="k">of</span> <span class="k">this</span><span class="p">.</span><span class="nx">routes</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">let</span> <span class="nx">match</span> <span class="o">=</span> <span class="nx">url</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">path</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">match</span> <span class="o">||</span> <span class="nx">request</span><span class="p">.</span><span class="nx">method</span> <span class="o">!=</span> <span class="nx">method</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+            <span class="kd">let</span> <span class="nx">urlParts</span> <span class="o">=</span> <span class="nx">match</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">1</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nb">decodeURIComponent</span><span class="p">);</span>
+            <span class="k">return</span> <span class="nx">handler</span><span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="p">...</span><span class="nx">urlParts</span><span class="p">,</span> <span class="nx">request</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>このモジュール はクラス <code class="docutils literal notranslate"><span class="pre">Router</span></code> をエクスポートしている。</p>
+<ul class="simple">
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">add</span></code> で新しいハンドラーを登録する。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">resolve</span></code> でリクエストを解決する。</p>
+<ul>
+<li><p>ハンドラーが見つかった場合は応答を返し、そうでない場合は <code class="docutils literal notranslate"><span class="pre">null</span></code> を返す。</p></li>
+<li><p>合致するものが見つかるまで、定義順に経路を一つずつ試す。</p></li>
+</ul>
+</li>
+</ul>
+<p>ハンドラ関数ーは <code class="docutils literal notranslate"><span class="pre">context</span></code> の値 (ここではサーバーのインスタンス)、正規表現で定義されたグループの合致文字列、そしてリクエストオブジェクトを引数として呼び出される。生の URL には <code class="docutils literal notranslate"><span class="pre">%20</span></code> スタイルのコードを含むかもしれないので、文字列を URL 用に複号しないといけない。</p>
+</section>
+<section id="serving-files">
+<h3><a class="toc-backref" href="#id8">Serving files</a><a class="headerlink" href="#serving-files" title="Permalink to this headline">¶</a></h3>
+<p>リクエストが中継器で定義されたリクエスト型タイプのどれにも合致マッチしない場合、サーバーはそれを <code class="docutils literal notranslate"><span class="pre">public</span></code> ディレクトリー内のファイルに対するリクエストとして解釈しなければならない。</p>
+<ul class="simple">
+<li><p>第 20 章で定義したファイルサーバーを使用してこのようなファイルを提供することもできるが、ファイルに対する PUT および DELETE リクエストをサポートする必要もなく、またキャッシングのサポートのような高度な機能が欲しい。</p></li>
+</ul>
+<p>そこで、代わりに <a class="reference external" href="https://npmjs.org">NPM</a> のしっかりとした、よくテストされた静的ファイルサーバーとして <code class="docutils literal notranslate"><span class="pre">ecstatic</span></code> を採用する。このパッケージは、設定オブジェクトを使ってリクエスト処理関数を呼び出せる関数をエクスポートしている。</p>
+<p>オプション <code class="docutils literal notranslate"><span class="pre">root</span></code> を使用して、サーバーがどこでファイルを探すべきかを教える。処理関数は、リクエストと応答の引数を取り、<code class="docutils literal notranslate"><span class="pre">createServer</span></code> に直接渡すことで、ファイルだけを提供するサーバーを作成できる。しかし、特別に処理すべきリクエストを最初にチェックしたいので、別の関数でラップする：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="p">{</span><span class="nx">createServer</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">Router</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./router&quot;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">ecstatic</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;ecstatic&quot;</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">router</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Router</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">defaultHeaders</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Content-Type&quot;</span><span class="o">:</span> <span class="s2">&quot;text/plain&quot;</span><span class="p">};</span>
+
+<span class="kd">class</span> <span class="nx">SkillShareServer</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">talks</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">talks</span> <span class="o">=</span> <span class="nx">talks</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">version</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">waiting</span> <span class="o">=</span> <span class="p">[];</span>
+
+        <span class="kd">let</span> <span class="nx">fileServer</span> <span class="o">=</span> <span class="nx">ecstatic</span><span class="p">({</span><span class="nx">root</span><span class="o">:</span> <span class="s2">&quot;./public&quot;</span><span class="p">});</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">server</span> <span class="o">=</span> <span class="nx">createServer</span><span class="p">((</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+            <span class="kd">let</span> <span class="nx">resolved</span> <span class="o">=</span> <span class="nx">router</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">request</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">resolved</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">resolved</span><span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="p">=&gt;</span> <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">status</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="k">return</span> <span class="nx">error</span><span class="p">;</span>
+                    <span class="k">return</span> <span class="p">{</span><span class="nx">body</span><span class="o">:</span> <span class="nb">String</span><span class="p">(</span><span class="nx">error</span><span class="p">),</span> <span class="nx">status</span><span class="o">:</span> <span class="mf">500</span><span class="p">};</span>
+                <span class="p">}).</span><span class="nx">then</span><span class="p">(({</span><span class="nx">body</span><span class="p">,</span>
+                    <span class="nx">status</span> <span class="o">=</span> <span class="mf">200</span><span class="p">,</span>
+                    <span class="nx">headers</span> <span class="o">=</span> <span class="nx">defaultHeaders</span><span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{</span>
+                    <span class="nx">response</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="nx">status</span><span class="p">,</span> <span class="nx">headers</span><span class="p">);</span>
+                    <span class="nx">response</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
+                <span class="p">});</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="nx">fileServer</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="nx">start</span><span class="p">(</span><span class="nx">port</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">port</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nx">stop</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>この関数は、前の章のファイルサーバーと同様に、レスポンスを表すオブジェクトに解決する
+<code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返すハンドラーを使用する。その状態を保持するオブジェクトでそのサーバーをラップする。</p>
+</section>
+<section id="talks-as-resources">
+<h3><a class="toc-backref" href="#id9">Talks as resources</a><a class="headerlink" href="#talks-as-resources" title="Permalink to this headline">¶</a></h3>
+<p>提案された会話はサーバーのプロパティー <code class="docutils literal notranslate"><span class="pre">talks</span></code> に格納されている。プロパティー名がトークの題名であるようなオブジェクトだ。これらは HTTP リソースとして <code class="docutils literal notranslate"><span class="pre">/talks/[title]</span></code> という名前で公開するので、クライアントが会話を操作するための雑多なメソッドを実装するハンドラーを中継器に追加する必要がある。</p>
+<p>会話一つを取得するリクエストのハンドラーは、会話を検索し、その JSON データを返すか、そうでなければ 404 エラーを返さねばならない。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">talkPath</span> <span class="o">=</span> <span class="sr">/^\/talks\/([^\/]+)$/</span><span class="p">;</span>
+<span class="nx">router</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="nx">talkPath</span><span class="p">,</span> <span class="k">async</span> <span class="p">(</span><span class="nx">server</span><span class="p">,</span> <span class="nx">title</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">title</span> <span class="k">in</span> <span class="nx">server</span><span class="p">.</span><span class="nx">talks</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span><span class="nx">body</span><span class="o">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">server</span><span class="p">.</span><span class="nx">talks</span><span class="p">[</span><span class="nx">title</span><span class="p">]),</span>
+                <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span><span class="s2">&quot;Content-Type&quot;</span><span class="o">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">}};</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span><span class="nx">status</span><span class="o">:</span> <span class="mf">404</span><span class="p">,</span> <span class="nx">body</span><span class="o">:</span> <span class="sb">`No talk &#39;</span><span class="si">${</span><span class="nx">title</span><span class="si">}</span><span class="sb">&#39; found`</span><span class="p">};</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>会話を削除するには、<code class="docutils literal notranslate"><span class="pre">takings</span></code> オブジェクトから削除する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">router</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s2">&quot;DELETE&quot;</span><span class="p">,</span> <span class="nx">talkPath</span><span class="p">,</span> <span class="k">async</span> <span class="p">(</span><span class="nx">server</span><span class="p">,</span> <span class="nx">title</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">title</span> <span class="k">in</span> <span class="nx">server</span><span class="p">.</span><span class="nx">talks</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">delete</span> <span class="nx">server</span><span class="p">.</span><span class="nx">talks</span><span class="p">[</span><span class="nx">title</span><span class="p">];</span>
+        <span class="nx">server</span><span class="p">.</span><span class="nx">updated</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="p">{</span><span class="nx">status</span><span class="o">:</span> <span class="mf">204</span><span class="p">};</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>後で定義するメソッド <code class="docutils literal notranslate"><span class="pre">updated</span></code> は、待機中の long polling リクエストに変更を通知するものだ。</p></li>
+</ul>
+<hr class="docutils" />
+<p>リクエスト本体の内容を得るために、関数 <code class="docutils literal notranslate"><span class="pre">readStream</span></code> を定義する。これは読み取り可能なストリームからすべての内容を読み取り、文字列に解決する <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返す。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">readStream</span><span class="p">(</span><span class="nx">stream</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+        <span class="nx">stream</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="nx">reject</span><span class="p">);</span>
+        <span class="nx">stream</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="nx">chunk</span> <span class="p">=&gt;</span> <span class="nx">data</span> <span class="o">+=</span> <span class="nx">chunk</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+        <span class="nx">stream</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;end&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">resolve</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>リクエスト本体を読み取る必要のあるハンドラーの一つに、新しい会話を作成する際に使用される PUT ハンドラーがある。
+PUT ハンドラーは渡されたデータに文字列プロパティー <code class="docutils literal notranslate"><span class="pre">presenter</span></code> と <code class="docutils literal notranslate"><span class="pre">summary</span></code> があることを確認する必要がある。</p>
+<ul class="simple">
+<li><p>システム外からのデータは壊れていないとは限らない。</p></li>
+</ul>
+<p>データが有効でありそうならば、ハンドラーは新しい会話を表すオブジェクトを <code class="docutils literal notranslate"><span class="pre">talks</span></code> に格納し、場合によっては既存のタイトルの会話を上書きし、再び <code class="docutils literal notranslate"><span class="pre">updated</span></code> を呼び出す。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">router</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s2">&quot;PUT&quot;</span><span class="p">,</span> <span class="nx">talkPath</span><span class="p">,</span>
+           <span class="k">async</span> <span class="p">(</span><span class="nx">server</span><span class="p">,</span> <span class="nx">title</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">requestBody</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">readStream</span><span class="p">(</span><span class="nx">request</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">talk</span><span class="p">;</span>
+
+    <span class="k">try</span> <span class="p">{</span> <span class="nx">talk</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">requestBody</span><span class="p">);</span> <span class="p">}</span>
+    <span class="k">catch</span> <span class="p">(</span><span class="nx">_</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="p">{</span><span class="nx">status</span><span class="o">:</span> <span class="mf">400</span><span class="p">,</span> <span class="nx">body</span><span class="o">:</span> <span class="s2">&quot;Invalid JSON&quot;</span><span class="p">};</span> <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">talk</span> <span class="o">||</span>
+        <span class="k">typeof</span> <span class="nx">talk</span><span class="p">.</span><span class="nx">presenter</span> <span class="o">!=</span> <span class="s2">&quot;string&quot;</span> <span class="o">||</span>
+        <span class="k">typeof</span> <span class="nx">talk</span><span class="p">.</span><span class="nx">summary</span> <span class="o">!=</span> <span class="s2">&quot;string&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span><span class="nx">status</span><span class="o">:</span> <span class="mf">400</span><span class="p">,</span> <span class="nx">body</span><span class="o">:</span> <span class="s2">&quot;Bad talk data&quot;</span><span class="p">};</span>
+    <span class="p">}</span>
+
+    <span class="nx">server</span><span class="p">.</span><span class="nx">talks</span><span class="p">[</span><span class="nx">title</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="nx">title</span><span class="p">,</span>
+                           <span class="nx">presenter</span><span class="o">:</span> <span class="nx">talk</span><span class="p">.</span><span class="nx">presenter</span><span class="p">,</span>
+                           <span class="nx">summary</span><span class="o">:</span> <span class="nx">talk</span><span class="p">.</span><span class="nx">summary</span><span class="p">,</span>
+                           <span class="nx">comments</span><span class="o">:</span> <span class="p">[]};</span>
+    <span class="nx">server</span><span class="p">.</span><span class="nx">updated</span><span class="p">();</span>
+    <span class="k">return</span> <span class="p">{</span><span class="nx">status</span><span class="o">:</span> <span class="mf">204</span><span class="p">};</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>会話へのコメントの追加も同様だ。
+<code class="docutils literal notranslate"><span class="pre">readStream</span></code> を呼び出してリクエストの内容を取得し、結果のデータを検証して、有効そうであればコメントとして保存する：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">router</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="sr">/^\/talks\/([^\/]+)\/comments$/</span><span class="p">,</span>
+           <span class="k">async</span> <span class="p">(</span><span class="nx">server</span><span class="p">,</span> <span class="nx">title</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">requestBody</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">readStream</span><span class="p">(</span><span class="nx">request</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">comment</span><span class="p">;</span>
+    <span class="k">try</span> <span class="p">{</span> <span class="nx">comment</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">requestBody</span><span class="p">);</span> <span class="p">}</span>
+    <span class="k">catch</span> <span class="p">(</span><span class="nx">_</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="p">{</span><span class="nx">status</span><span class="o">:</span> <span class="mf">400</span><span class="p">,</span> <span class="nx">body</span><span class="o">:</span> <span class="s2">&quot;Invalid JSON&quot;</span><span class="p">};</span> <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">comment</span> <span class="o">||</span>
+        <span class="k">typeof</span> <span class="nx">comment</span><span class="p">.</span><span class="nx">author</span> <span class="o">!=</span> <span class="s2">&quot;string&quot;</span> <span class="o">||</span>
+        <span class="k">typeof</span> <span class="nx">comment</span><span class="p">.</span><span class="nx">message</span> <span class="o">!=</span> <span class="s2">&quot;string&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span><span class="nx">status</span><span class="o">:</span> <span class="mf">400</span><span class="p">,</span> <span class="nx">body</span><span class="o">:</span> <span class="s2">&quot;Bad comment data&quot;</span><span class="p">};</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">title</span> <span class="k">in</span> <span class="nx">server</span><span class="p">.</span><span class="nx">talks</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">server</span><span class="p">.</span><span class="nx">talks</span><span class="p">[</span><span class="nx">title</span><span class="p">].</span><span class="nx">comments</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">comment</span><span class="p">);</span>
+        <span class="nx">server</span><span class="p">.</span><span class="nx">updated</span><span class="p">();</span>
+        <span class="k">return</span> <span class="p">{</span><span class="nx">status</span><span class="o">:</span> <span class="mf">204</span><span class="p">};</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span><span class="nx">status</span><span class="o">:</span> <span class="mf">404</span><span class="p">,</span> <span class="nx">body</span><span class="o">:</span> <span class="sb">`No talk &#39;</span><span class="si">${</span><span class="nx">title</span><span class="si">}</span><span class="sb">&#39; found`</span><span class="p">};</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>存在しない会話にコメントを追加しようとすると、404 エラーが返る。</p></li>
+</ul>
+</section>
+<section id="long-polling-support">
+<h3><a class="toc-backref" href="#id10">Long polling support</a><a class="headerlink" href="#long-polling-support" title="Permalink to this headline">¶</a></h3>
+<p>このサーバーのいちばん面白い点は long polling 部だ。</p>
+<p><code class="docutils literal notranslate"><span class="pre">/talks</span></code> に対する GET リクエストが来ると、それは通常のリクエストである場合もあれば、
+long polling のそれである場合もある。クライアントに <code class="docutils literal notranslate"><span class="pre">talks</span></code> の配列を送信しなければならない箇所が複数あるので、まず配列を構築し、ヘッダー <code class="docutils literal notranslate"><span class="pre">ETag</span></code> を応答に含めるヘルパーメソッドを定義する：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">SkillShareServer</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">talkResponse</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">talks</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">title</span> <span class="k">of</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">talks</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">talks</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">talks</span><span class="p">[</span><span class="nx">title</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="nx">body</span><span class="o">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">talks</span><span class="p">),</span>
+        <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span><span class="s2">&quot;Content-Type&quot;</span><span class="o">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;ETag&quot;</span><span class="o">:</span> <span class="sb">`&quot;</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">version</span><span class="si">}</span><span class="sb">&quot;`</span><span class="p">,</span>
+                  <span class="s2">&quot;Cache-Control&quot;</span><span class="o">:</span> <span class="s2">&quot;no-store&quot;</span><span class="p">}</span>
+    <span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>ハンドラーそれ自身はリクエストヘッダーを見て、<code class="docutils literal notranslate"><span class="pre">If-None-Match</span></code> と <code class="docutils literal notranslate"><span class="pre">Prefer</span></code> が存在するかどうかを確認する必要がある。</p>
+<ul class="simple">
+<li><p>Node は、大文字と小文字を区別しないように指定されたヘッダーを、小文字の名前で保存する。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">router</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sr">/^\/talks$/</span><span class="p">,</span> <span class="k">async</span> <span class="p">(</span><span class="nx">server</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">tag</span> <span class="o">=</span> <span class="sr">/&quot;(.*)&quot;/</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">[</span><span class="s2">&quot;if-none-match&quot;</span><span class="p">]);</span>
+    <span class="kd">let</span> <span class="nx">wait</span> <span class="o">=</span> <span class="sr">/\bwait=(\d+)/</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">[</span><span class="s2">&quot;prefer&quot;</span><span class="p">]);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">tag</span> <span class="o">||</span> <span class="nx">tag</span><span class="p">[</span><span class="mf">1</span><span class="p">]</span> <span class="o">!=</span> <span class="nx">server</span><span class="p">.</span><span class="nx">version</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">server</span><span class="p">.</span><span class="nx">talkResponse</span><span class="p">();</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">wait</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span><span class="nx">status</span><span class="o">:</span> <span class="mf">304</span><span class="p">};</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">server</span><span class="p">.</span><span class="nx">waitForChanges</span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="nx">wait</span><span class="p">[</span><span class="mf">1</span><span class="p">]));</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>タグが指定されていない場合や、サーバーの現在のバージョンと一致しないタグが指定されている場合、ハンドラーは会話のリストで応答する。</p></li>
+<li><p>リクエストが条件付きで、会話が変更されなかった場合は、
+<code class="docutils literal notranslate"><span class="pre">Prefer</span></code> ヘッダーを参照して、応答を遅らせるべきか、すぐにするべきかを判断する。</p></li>
+</ul>
+<p>遅延したリクエストに対するコールバック関数は、サーバーの待機配列に格納され、何かが起こったときに通知できるようになっている。</p>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">waitForChanges</span></code> は、リクエストが十分に待たされたときに 304 ステータスで応答するためのタイマーを即座に設定する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">SkillShareServer</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">waitForChanges</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">time</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">waiting</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">resolve</span><span class="p">);</span>
+        <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">waiting</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="nx">resolve</span><span class="p">))</span> <span class="k">return</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">waiting</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">waiting</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">r</span> <span class="p">=&gt;</span> <span class="nx">r</span> <span class="o">!=</span> <span class="nx">resolve</span><span class="p">);</span>
+            <span class="nx">resolve</span><span class="p">({</span><span class="nx">status</span><span class="o">:</span> <span class="mf">304</span><span class="p">});</span>
+        <span class="p">},</span> <span class="nx">time</span> <span class="o">*</span> <span class="mf">1000</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">updated</span></code> で変更を登録すると、プロパティー <code class="docutils literal notranslate"><span class="pre">version</span></code> の値を上げて、待機中のリクエストすべてを叩き起こす。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">SkillShareServer</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">updated</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">version</span><span class="o">++</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">talkResponse</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">waiting</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="nx">resolve</span><span class="p">(</span><span class="nx">response</span><span class="p">));</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">waiting</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>サーバーコードは以上だ。</p>
+<p><code class="docutils literal notranslate"><span class="pre">SkillShareServer</span></code> のインスタンスを作成し、ポート 8000 で起動すると、生成された HTTP サーバーは <code class="docutils literal notranslate"><span class="pre">public</span></code> サブディレクトリーのファイルと、
+<code class="docutils literal notranslate"><span class="pre">/talks</span></code> URL の会話管理インターフェースをサーブするようになる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">new</span> <span class="nx">SkillShareServer</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="kc">null</span><span class="p">)).</span><span class="nx">start</span><span class="p">(</span><span class="mf">8000</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="the-client">
+<h2><a class="toc-backref" href="#id11">The client</a><a class="headerlink" href="#the-client" title="Permalink to this headline">¶</a></h2>
+<p>スキルシェアサイトのクライアント側を、小さな HTML ページ、スタイルシート、
+JavaScript ファイルで構成する。</p>
+<section id="html">
+<h3><a class="toc-backref" href="#id12">HTML</a><a class="headerlink" href="#html" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>ディレクトリーに対応するパスに直接リクエストがあった場合、Web サーバーではファイル <code class="docutils literal notranslate"><span class="pre">index.html</span></code> を提供しようとすることが広く行われている。
+<code class="docutils literal notranslate"><span class="pre">ecstatic</span></code> もこの慣習をサポートしている。</p></li>
+<li><p>パス <code class="docutils literal notranslate"><span class="pre">/</span></code> へのリクエストが行われると、サーバーはファイル
+<code class="docutils literal notranslate"><span class="pre">./public/index.html</span></code> を探し、見つかればそのファイルを返す。したがって、ブラウザーがサーバーを指したときにページを表示したい場合は、ファイル <code class="docutils literal notranslate"><span class="pre">public/index.html</span></code> を置く必要がある。</p></li>
+</ul>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Skill Sharing<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;skillsharing.css&quot;</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Skill Sharing<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;skillsharing_client.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>スタイルシートでは、特に、間違いなく会話の間に隙間を設ける。</p></li>
+<li><p>最下部で読み込むスクリプトは、ページの最上部に見出しを追加し、クライアントアプリケーションを含む。</p></li>
+</ul>
+</section>
+<section id="actions">
+<h3><a class="toc-backref" href="#id13">Actions</a><a class="headerlink" href="#actions" title="Permalink to this headline">¶</a></h3>
+<p>アプリケーションの状態は、会話のリストとユーザーの名前で構成されており、
+<code class="docutils literal notranslate"><span class="pre">{talks,</span> <span class="pre">user}</span></code> オブジェクトに格納する。</p>
+<p>ユーザーインターフェースには状態を直接操作したり、HTTP リクエストを送信したりすることは認めず、ユーザーが何をしようとしているのかを記述するアクションを発信させる。</p>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">handleAction</span></code> はそれを実現する。状態の更新はとても単純なので、状態の変更も同じ関数で処理できる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">handleAction</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;setUser&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s2">&quot;userName&quot;</span><span class="p">,</span> <span class="nx">action</span><span class="p">.</span><span class="nx">user</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">({},</span> <span class="nx">state</span><span class="p">,</span> <span class="p">{</span><span class="nx">user</span><span class="o">:</span> <span class="nx">action</span><span class="p">.</span><span class="nx">user</span><span class="p">});</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;setTalks&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">({},</span> <span class="nx">state</span><span class="p">,</span> <span class="p">{</span><span class="nx">talks</span><span class="o">:</span> <span class="nx">action</span><span class="p">.</span><span class="nx">talks</span><span class="p">});</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;newTalk&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">fetchOK</span><span class="p">(</span><span class="nx">talkURL</span><span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">title</span><span class="p">),</span> <span class="p">{</span>
+            <span class="nx">method</span><span class="o">:</span> <span class="s2">&quot;PUT&quot;</span><span class="p">,</span>
+            <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span><span class="s2">&quot;Content-Type&quot;</span><span class="o">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">},</span>
+            <span class="nx">body</span><span class="o">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+                <span class="nx">presenter</span><span class="o">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">user</span><span class="p">,</span>
+                <span class="nx">summary</span><span class="o">:</span> <span class="nx">action</span><span class="p">.</span><span class="nx">summary</span>
+            <span class="p">})</span>
+        <span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">reportError</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;deleteTalk&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">fetchOK</span><span class="p">(</span><span class="nx">talkURL</span><span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">talk</span><span class="p">),</span> <span class="p">{</span><span class="nx">method</span><span class="o">:</span> <span class="s2">&quot;DELETE&quot;</span><span class="p">})</span>
+            <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">reportError</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;newComment&quot;</span><span class="p">)</span> <span class="p">{</span>
+         <span class="nx">fetchOK</span><span class="p">(</span><span class="nx">talkURL</span><span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">talk</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;/comments&quot;</span><span class="p">,</span> <span class="p">{</span>
+             <span class="nx">method</span><span class="o">:</span> <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+             <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span><span class="s2">&quot;Content-Type&quot;</span><span class="o">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">},</span>
+             <span class="nx">body</span><span class="o">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+                 <span class="nx">author</span><span class="o">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">user</span><span class="p">,</span>
+                 <span class="nx">message</span><span class="o">:</span> <span class="nx">action</span><span class="p">.</span><span class="nx">message</span>
+             <span class="p">})</span>
+        <span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">reportError</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">state</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>ユーザーの名前を <code class="docutils literal notranslate"><span class="pre">localStorage</span></code> に保存し、ページが読み込まれたときに復元する。</p></li>
+</ul>
+<p>サーバーを巻き込む必要のあるアクションは、前述の HTTP インターフェイスに
+<code class="docutils literal notranslate"><span class="pre">fetch</span></code> を使ってネットワークリクエストを行う。ラッパー関数である <code class="docutils literal notranslate"><span class="pre">fetchOK</span></code> を呼び出し、サーバーがエラーコードを返したときに、返された <code class="docutils literal notranslate"><span class="pre">Promise</span></code> が却下されるようにする。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">fetchOK</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">options</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">status</span> <span class="o">&lt;</span> <span class="mf">400</span><span class="p">)</span> <span class="k">return</span> <span class="nx">response</span><span class="p">;</span>
+        <span class="k">else</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">statusText</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>ヘルパー関数 <code class="docutils literal notranslate"><span class="pre">talkURL</span></code> (p. 396) は、指定された題の会話の URL を構築するのに使う。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">reportError</span></code> (p. 396) を定義し、リクエストが失敗したときに、少なくともユーザーに何か問題があったことを伝えるダイアログボックスを表示する。</p></li>
+</ul>
+</section>
+<section id="rendering-components">
+<h3><a class="toc-backref" href="#id14">Rendering components</a><a class="headerlink" href="#rendering-components" title="Permalink to this headline">¶</a></h3>
+<p>第 19 章で見たのと同じようなアプローチで、アプリケーションをコンポーネントに分割する。クラスとしてではなく、DOM ノードを直接返す関数として定義すれば十分なものもある。例えば、ユーザーが名前を入力するフィールドを表示するコンポーネントがそうだ：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">renderUserField</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="s2">&quot;Your name: &quot;</span><span class="p">,</span> <span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;input&quot;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
+        <span class="nx">value</span><span class="o">:</span> <span class="nx">name</span><span class="p">,</span>
+        <span class="nx">onchange</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">dispatch</span><span class="p">({</span><span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;setUser&quot;</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">});</span>
+        <span class="p">}</span>
+    <span class="p">}));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>DOM 要素を構築する関数 <code class="docutils literal notranslate"><span class="pre">elt</span></code> は第 19 章で使用したものとする。</p></li>
+</ul>
+<hr class="docutils" />
+<p>同様の関数は、コメントのリストと新しいコメントを追加するためのフォームを含む関数
+<code class="docutils literal notranslate"><span class="pre">renderTalk</span></code> (p. 397) がある。</p>
+<ul>
+<li><p>イベント <code class="docutils literal notranslate"><span class="pre">submit</span></code> のハンドラーは <code class="docutils literal notranslate"><span class="pre">form.reset</span></code> を呼び出し、アクション <code class="docutils literal notranslate"><span class="pre">newComment</span></code> を作成した後にフォームの内容を消去する。</p></li>
+<li><p>中程度の複雑な DOM を作成する場合、このプログラミングスタイルはかなり厄介に見える。</p>
+<p>JSX と呼ばれる広く使われている（非標準の）JavaScript の拡張機能があり、これを使うとスクリプトの中に直接 HTMLを書くことができ、このようなコードをよりきれいにすることができる。このようなコードを実際に実行するには、スクリプト上でプログラムを実行して、疑似 HTML を、ここで使用しているような
+JavaScript の関数呼び出しに変換する必要がある。</p>
+</li>
+</ul>
+<hr class="docutils" />
+<p>コメントはより単純にレンダリング (pp. 397-398) する。</p>
+<hr class="docutils" />
+<p>ユーザーが新しい会話を作成するためのフォームは次のようにレンダリングする：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">renderTalkForm</span><span class="p">(</span><span class="nx">dispatch</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">title</span> <span class="o">=</span> <span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;input&quot;</span><span class="p">,</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;text&quot;</span><span class="p">});</span>
+    <span class="kd">let</span> <span class="nx">summary</span> <span class="o">=</span> <span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;input&quot;</span><span class="p">,</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;text&quot;</span><span class="p">});</span>
+
+    <span class="k">return</span> <span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;form&quot;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">onsubmit</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+            <span class="nx">dispatch</span><span class="p">({</span><span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;newTalk&quot;</span><span class="p">,</span>
+                      <span class="nx">title</span><span class="o">:</span> <span class="nx">title</span><span class="p">.</span><span class="nx">value</span><span class="p">,</span>
+                      <span class="nx">summary</span><span class="o">:</span> <span class="nx">summary</span><span class="p">.</span><span class="nx">value</span><span class="p">});</span>
+            <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">reset</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;h3&quot;</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="s2">&quot;Submit a Talk&quot;</span><span class="p">),</span>
+        <span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="s2">&quot;Title: &quot;</span><span class="p">,</span> <span class="nx">title</span><span class="p">),</span>
+        <span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="s2">&quot;Summary: &quot;</span><span class="p">,</span> <span class="nx">summary</span><span class="p">),</span>
+        <span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;button&quot;</span><span class="p">,</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;submit&quot;</span><span class="p">},</span> <span class="s2">&quot;Submit&quot;</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="polling">
+<h3><a class="toc-backref" href="#id15">Polling</a><a class="headerlink" href="#polling" title="Permalink to this headline">¶</a></h3>
+<p>アプリケーションを起動するには、現在の会話が必要だ。最初のロードは long polling 処理（ロード時の <code class="docutils literal notranslate"><span class="pre">ETag</span></code> をポーリング時に使用する必要がある）と密接に関係しているため、サーバーの <code class="docutils literal notranslate"><span class="pre">/talks</span></code> をポーリングし続け、会話の新しい集合が利用可能になったときにコールバック関数を呼び出す関数 <code class="docutils literal notranslate"><span class="pre">pollTalks</span></code> を書く。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="kd">function</span> <span class="nx">pollTalks</span><span class="p">(</span><span class="nx">update</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">tag</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">response</span><span class="p">;</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetchOK</span><span class="p">(</span><span class="s2">&quot;/talks&quot;</span><span class="p">,</span> <span class="p">{</span>
+                <span class="nx">headers</span><span class="o">:</span> <span class="nx">tag</span> <span class="o">&amp;&amp;</span> <span class="p">{</span><span class="s2">&quot;If-None-Match&quot;</span><span class="o">:</span> <span class="nx">tag</span><span class="p">,</span>
+                                 <span class="s2">&quot;Prefer&quot;</span><span class="o">:</span> <span class="s2">&quot;wait=90&quot;</span><span class="p">}</span>
+            <span class="p">});</span>
+        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Request failed: &quot;</span> <span class="o">+</span> <span class="nx">e</span><span class="p">);</span>
+            <span class="k">await</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="mf">500</span><span class="p">));</span>
+            <span class="k">continue</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">status</span> <span class="o">==</span> <span class="mf">304</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+
+        <span class="nx">tag</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;ETag&quot;</span><span class="p">);</span>
+        <span class="nx">update</span><span class="p">(</span><span class="k">await</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>これは非同期関数なので、ループしてリクエストを待つのは簡単だ。</p>
+<p>この関数は無限ループを実行し、反復するごとに会話のリストを取得する。普通に取得する場合と、最初のリクエストでない場合は long polling リクエストとなるように、ヘッダーを含めて取得する場合がある。</p>
+<ul class="simple">
+<li><p>リクエストが失敗すると、この関数はしばらく待ってから再試行する。これにより、ネットワーク接続が一時的に切断され、その後復帰した場合でも、アプリケーションは回復して更新を続けることができる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">setTimeout</span></code> で解決した <code class="docutils literal notranslate"><span class="pre">Promise</span></code> は、非同期関数を強制的に待機状態にするためのものだ。</p></li>
+<li><p>サーバーが 304 を返してきた場合、それは long polling リクエストがタイムアウトしたことを意味する。そうなれば、この関数は直ちに次のリクエストを開始すればよい。</p></li>
+<li><p>レスポンスが 200 であれば、その本体は JSON として読み込まれてコールバックに渡され、その <code class="docutils literal notranslate"><span class="pre">ETag</span></code> ヘッダー値を次の反復のために保存する。</p></li>
+</ul>
+</section>
+<section id="the-application">
+<h3><a class="toc-backref" href="#id16">The application</a><a class="headerlink" href="#the-application" title="Permalink to this headline">¶</a></h3>
+<p>クラス <code class="docutils literal notranslate"><span class="pre">SkillShareApp</span></code> (pp. 399-400) は、ユーザーインターフェース全体を結びつける。</p>
+<ul class="simple">
+<li><p>会話が変わると、このコンポーネントは会話すべてを再描画する。単純で無駄が多い。この点については演習でなんとかする。</p></li>
+</ul>
+<hr class="docutils" />
+<p>このようにして、アプリケーションを起動する：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">runApp</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">user</span> <span class="o">=</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s2">&quot;userName&quot;</span><span class="p">)</span> <span class="o">||</span> <span class="s2">&quot;Anon&quot;</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">state</span><span class="p">,</span> <span class="nx">app</span><span class="p">;</span>
+
+    <span class="kd">function</span> <span class="nx">dispatch</span><span class="p">(</span><span class="nx">action</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">state</span> <span class="o">=</span> <span class="nx">handleAction</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">action</span><span class="p">);</span>
+        <span class="nx">app</span><span class="p">.</span><span class="nx">syncState</span><span class="p">(</span><span class="nx">state</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nx">pollTalks</span><span class="p">(</span><span class="nx">talks</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">app</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span><span class="nx">user</span><span class="p">,</span> <span class="nx">talks</span><span class="p">};</span>
+            <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SkillShareApp</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">);</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">dom</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">dispatch</span><span class="p">({</span><span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;setTalks&quot;</span><span class="p">,</span> <span class="nx">talks</span><span class="p">});</span>
+        <span class="p">}</span>
+    <span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">reportError</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">runApp</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>サーバーを起動し、&lt;<a class="reference external" href="http://localhost:8000">http://localhost:8000</a>&gt; 用にブラウザーウィンドウを二つ隣り合わせに開くと、一方のウィンドウで実行したアクションがもう一方のウィンドウですぐに表示されることがわかる。</p>
+</section>
+</section>
+<section id="exercises">
+<h2><a class="toc-backref" href="#id17">Exercises</a><a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<section id="disk-persistence">
+<h3><a class="toc-backref" href="#id18">Disk persistence</a><a class="headerlink" href="#disk-persistence" title="Permalink to this headline">¶</a></h3>
+<p>技能共有サーバーは、データをメモリー上に保持している。クラッシュしたり、何らかの理由で再起動したりすると、すべての会話やコメントが失われる。</p>
+<p><strong>問題</strong> 会話データをディスクに保存し、再起動時に自動的にデータを再読み込みするように拡張しろ。効率を気にすることなく、動作する最も単純なことをしろ。</p>
+<p><strong>解答</strong> 会話データを JSON にシリアライズしてダンプやロードしたい。</p>
+<p>永続データを更新するタイミングは <code class="docutils literal notranslate"><span class="pre">updated</span></code> とする。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">data_path</span> <span class="o">=</span> <span class="s1">&#39;./talks.json&#39;</span><span class="p">;</span>
+
+<span class="nx">SkillShareServer</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">updated</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+    <span class="nx">writeFile</span><span class="p">(</span><span class="nx">data_path</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">talks</span><span class="p">),</span> <span class="s1">&#39;utf8&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
+    <span class="p">});</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">SkillShareServer</span></code> のコンストラクターにちょうど <code class="docutils literal notranslate"><span class="pre">talks</span></code> 引数がある。この設計をそのまま活用する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="p">{</span> <span class="nx">readFile</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">talks</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+<span class="k">try</span><span class="p">{</span>
+    <span class="nx">readFile</span><span class="p">(</span><span class="nx">data_path</span><span class="p">,</span> <span class="s1">&#39;utf8&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
+        <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">(</span><span class="nx">talks</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+<span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Failed to load&quot;</span><span class="p">,</span> <span class="nx">data_path</span><span class="p">);</span>
+    <span class="k">throw</span> <span class="nx">e</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">new</span> <span class="nx">SkillShareServer</span><span class="p">(</span><span class="nx">talks</span><span class="p">).</span><span class="nx">start</span><span class="p">(</span><span class="mf">8000</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>例外処理は実のところ書く必要がない。拡張するときに初めて役に立つ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Object.assign</span></code> の使用理由については巻末のヒントを参照。</p></li>
+</ul>
+</section>
+<section id="comment-field-resets">
+<h3><a class="toc-backref" href="#id19">Comment field resets</a><a class="headerlink" href="#comment-field-resets" title="Permalink to this headline">¶</a></h3>
+<p>会話の全面的な再描画は、通常、DOM ノードとその同一の代替物との違いを見分けることができないので、かなりうまくいく。しかし、例外もある。一方のブラウザーのウィンドウでトークのコメント欄に何かを入力し始め、他方のウィンドウでその会話にコメントを追加すると、最初のウィンドウのフィールドが再描画され、中身とフォーカスの両方が消える。複数の人が同時にコメントを付けているような熱い議論の場では、これは迷惑だ。</p>
+<p><strong>問題</strong> これを解決する方法を考えろ。</p>
+<p><strong>解答</strong> <code class="docutils literal notranslate"><span class="pre">SkillShareServer.syncState</span></code> の処理中で <code class="docutils literal notranslate"><span class="pre">this.talks</span></code> と
+<code class="docutils literal notranslate"><span class="pre">state.talks</span></code> の差分を検出して適切な UI 更新を行う。</p>
+<p><code class="docutils literal notranslate"><span class="pre">this.talks</span></code> が未定義のときはコンストラクターから呼び出されているので、従来どおりの全更新をする：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">talks</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">talkDOM</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">talk</span> <span class="k">of</span> <span class="nx">state</span><span class="p">.</span><span class="nx">talks</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">talkDOM</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span>
+            <span class="nx">renderTalk</span><span class="p">(</span><span class="nx">talk</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">dispatch</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">talks</span> <span class="o">=</span> <span class="nx">state</span><span class="p">.</span><span class="nx">talks</span><span class="p">;</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>次は long polling のいちばん頻繁に発生する場合で、何の変更もないときの処理をする：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">talks</span> <span class="o">==</span> <span class="nx">state</span><span class="p">.</span><span class="nx">talks</span><span class="p">){</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>本題は会話の配列に変化が生じているときの処理だ。会話が増えているときには、その会話だけを DOM および <code class="docutils literal notranslate"><span class="pre">this.talks</span></code> に追加する：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">numTalksOld</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">talks</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">numTalksNew</span> <span class="o">=</span> <span class="nx">state</span><span class="p">.</span><span class="nx">talks</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">numTalksNew</span> <span class="o">&gt;</span> <span class="nx">numTalksOld</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">talk</span> <span class="o">=</span> <span class="nx">state</span><span class="p">.</span><span class="nx">talks</span><span class="p">[</span><span class="nx">state</span><span class="p">.</span><span class="nx">talks</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mf">1</span><span class="p">];</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">talkDOM</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span>
+        <span class="nx">renderTalk</span><span class="p">(</span><span class="nx">talk</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">dispatch</span><span class="p">));</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">talks</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">talk</span><span class="p">);</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>会話は一度に一つしか追加されないと仮定する。</p></li>
+<li><p>追加された会話データは配列の末尾にあるため、このような簡単なコードでよい。また、画面でも追加位置は末尾とする。</p></li>
+</ul>
+<p>会話の削除は少しややこしい。会話の比較を <code class="docutils literal notranslate"><span class="pre">title</span></code> に基づいて行うのでこういう感じになる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">numTalksNew</span> <span class="o">&lt;</span> <span class="nx">numTalksOld</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">setOld</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Set</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">talks</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">i</span> <span class="p">=&gt;</span> <span class="nx">i</span><span class="p">.</span><span class="nx">title</span><span class="p">));</span>
+    <span class="kd">const</span> <span class="nx">setNew</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Set</span><span class="p">(</span><span class="nx">state</span><span class="p">.</span><span class="nx">talks</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">i</span> <span class="p">=&gt;</span> <span class="nx">i</span><span class="p">.</span><span class="nx">title</span><span class="p">));</span>
+    <span class="nx">setNew</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">i</span> <span class="p">=&gt;</span> <span class="nx">setOld</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="nx">i</span><span class="p">));</span>
+    <span class="kd">const</span> <span class="nx">targetTitle</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="nx">setOld</span><span class="p">)[</span><span class="mf">0</span><span class="p">];</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">const</span> <span class="nx">t</span> <span class="k">of</span> <span class="k">this</span><span class="p">.</span><span class="nx">talkDOM</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;section&quot;</span><span class="p">)){</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">textContent</span><span class="p">.</span><span class="nx">startsWith</span><span class="p">(</span><span class="nx">targetTitle</span><span class="p">)){</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">talkDOM</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">t</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">talks</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">talks</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">i</span> <span class="p">=&gt;</span> <span class="nx">i</span><span class="p">.</span><span class="nx">title</span> <span class="o">!=</span> <span class="nx">targetTitle</span><span class="p">);</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>会話は一度に一つしか削除されないと仮定する。</p></li>
+<li><p>私（読者）のコードでは集合に基づいて差分会話を発見するので、それに対応する DOM 要素がどこにあるのかが添字ではわからない。したがって <code class="docutils literal notranslate"><span class="pre">querySelectorAll</span></code> してから題名 <code class="docutils literal notranslate"><span class="pre">title</span></code> を比較することになった。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">==</span></code> ではなく <code class="docutils literal notranslate"><span class="pre">startsWith</span></code> を用いているのは、ノード <code class="docutils literal notranslate"><span class="pre">&lt;h2&gt;</span></code> の造りが悪いから。題名文字列以外の要素を含んでいるため、先頭が一致していれば十分と判断する。</p></li>
+<li><p>同じ題名の会話は存在し得ないが、題名の冒頭が同じ会話の組は存在し得る。このときはまともに動かない。</p></li>
+</ul>
+</li>
+<li><p>最後の <code class="docutils literal notranslate"><span class="pre">filter</span></code> は C++ の <code class="docutils literal notranslate"><span class="pre">remove_if</span></code> に相当する書き方がわからないからこう書いた。</p></li>
+</ul>
+<p>会話内容が更新されるとき、すなわちコメントが増えるときの処理を次のようにする：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">numTalksNew</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">){</span>
+    <span class="kd">const</span> <span class="nx">commentsOld</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">talks</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">comments</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="nx">commentsNew</span> <span class="o">=</span> <span class="nx">state</span><span class="p">.</span><span class="nx">talks</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">comments</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">commentsOld</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="nx">commentsNew</span><span class="p">.</span><span class="nx">length</span><span class="p">){</span>
+        <span class="kd">const</span> <span class="nx">commentLast</span> <span class="o">=</span> <span class="nx">commentsNew</span><span class="p">[</span><span class="nx">commentsNew</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mf">1</span><span class="p">];</span>
+        <span class="kd">const</span> <span class="nx">t</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">talkDOM</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;section&quot;</span><span class="p">)[</span><span class="nx">i</span><span class="p">];</span>
+        <span class="kd">const</span> <span class="nx">f</span> <span class="o">=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;form&quot;</span><span class="p">);</span>
+        <span class="nx">t</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">renderComment</span><span class="p">(</span><span class="nx">commentLast</span><span class="p">),</span> <span class="nx">f</span><span class="p">);</span>
+        <span class="nx">commentsOld</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">commentLast</span><span class="p">);</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>コメントは一度に一つしか追加されないと仮定する。</p></li>
+<li><p>コメントの DOM の追加位置に注意。所属する会話を表す <code class="docutils literal notranslate"><span class="pre">&lt;section&gt;</span></code> 内の <code class="docutils literal notranslate"><span class="pre">&lt;form&gt;</span></code> の直前が正しい。</p></li>
+</ul>
+<p>以上</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../preliminary2014.html" title="ノート準備中書籍群 2014 年編"
+             >next</a></li>
+        <li class="right" >
+          <a href="chapter20.html" title="Node.js"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Eloquent JavaScript 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Project: Skill-Sharing Website</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

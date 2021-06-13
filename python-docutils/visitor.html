@@ -4,12 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>クラス docutils.nodes.NodeVisitor &#8212; 読書ノート v1.5dev</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
     
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/mathjax-v3.js"></script>
     
     <link rel="next" title="サブパッケージ docutils.parsers" href="parsers.html" />
@@ -34,7 +34,7 @@
       <div class="documentwrapper">
           <div class="body" role="main">
             
-  <div class="section" id="docutils-nodes-nodevisitor">
+  <section id="docutils-nodes-nodevisitor">
 <h1><a class="toc-backref" href="#id5">クラス <code class="docutils literal notranslate"><span class="pre">docutils.nodes.NodeVisitor</span></code></a><a class="headerlink" href="#docutils-nodes-nodevisitor" title="Permalink to this headline">¶</a></h1>
 <p>本節ではクラス <code class="docutils literal notranslate"><span class="pre">NodeVisitor</span></code> の実装を調べていく。設計としては当然 GoF デザインパターンの Visitor パターンであり、作用する対象はクラス名が示すように <code class="docutils literal notranslate"><span class="pre">Node</span></code> オブジェクトだ。</p>
 <div class="contents topic" id="id1">
@@ -55,12 +55,12 @@
 </li>
 </ul>
 </div>
-<div class="section" id="id2">
+<section id="id2">
 <h2><a class="toc-backref" href="#id6">クラス図</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>まずは抽象クラス <code class="docutils literal notranslate"><span class="pre">NodeVisitor</span></code> および <code class="docutils literal notranslate"><span class="pre">Node</span></code> を主に見るべく、簡単なクラス図を示す。</p>
-<div class="figure align-center">
+<figure class="align-center">
 <a class="reference internal image-reference" href="../_images/docutils-visitor.png"><img alt="(class diagram)" src="../_images/docutils-visitor.png" style="width: 642.0px; height: 408.0px;" /></a>
-</div>
+</figure>
 <p>抽象クラス <code class="docutils literal notranslate"><span class="pre">NodeVisitor</span></code> および <code class="docutils literal notranslate"><span class="pre">Node</span></code> をメインに見たいので、特に継承グラフの末端ノード付近のクラスは大胆に省略した。特にクラス <code class="docutils literal notranslate"><span class="pre">Node</span></code> については、大量のサブクラスが存在することに注意が要る。下に <code class="docutils literal notranslate"><span class="pre">NodeVisitor</span></code> のサブクラスをテキストで列挙しておく。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>NodeVisitor
     writers.html4css1.HTMLTranslator
@@ -77,8 +77,8 @@
         transforms.references.DanglingReferencesVisitor
 </pre></div>
 </div>
-</div>
-<div class="section" id="node-walk">
+</section>
+<section id="node-walk">
 <h2><a class="toc-backref" href="#id7">メソッド <code class="docutils literal notranslate"><span class="pre">Node.walk</span></code></a><a class="headerlink" href="#node-walk" title="Permalink to this headline">¶</a></h2>
 <p>メソッド <code class="docutils literal notranslate"><span class="pre">Node.walk</span></code> の簡略版コードを次に示す。ログ出力と、こちらは重要なので載せたいところだが、例外処理コードを省いている。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">walk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">visitor</span><span class="p">):</span>
@@ -101,8 +101,8 @@
 </li>
 <li><p>どこかの子ノードの <code class="docutils literal notranslate"><span class="pre">walk</span></code> が <code class="docutils literal notranslate"><span class="pre">True</span></code> を返すと基点ノードの <code class="docutils literal notranslate"><span class="pre">walk</span></code> としても処理終了。</p></li>
 </ul>
-</div>
-<div class="section" id="node-walkabout">
+</section>
+<section id="node-walkabout">
 <h2><a class="toc-backref" href="#id8">メソッド <code class="docutils literal notranslate"><span class="pre">Node.walkabout</span></code></a><a class="headerlink" href="#node-walkabout" title="Permalink to this headline">¶</a></h2>
 <p>メソッド <code class="docutils literal notranslate"><span class="pre">Node.walkabout</span></code> の簡略版コードを次に示す。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">walkabout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">visitor</span><span class="p">):</span>
@@ -133,8 +133,8 @@
 </li>
 <li><p>どこかの子ノードの <code class="docutils literal notranslate"><span class="pre">walkabout</span></code> が <code class="docutils literal notranslate"><span class="pre">True</span></code> を返すと基点ノードの <code class="docutils literal notranslate"><span class="pre">walkabout</span></code> としても処理終了。</p></li>
 </ul>
-</div>
-<div class="section" id="nodevisitor-dispatch-visit">
+</section>
+<section id="nodevisitor-dispatch-visit">
 <h2><a class="toc-backref" href="#id9">メソッド <code class="docutils literal notranslate"><span class="pre">NodeVisitor.dispatch_visit</span></code></a><a class="headerlink" href="#nodevisitor-dispatch-visit" title="Permalink to this headline">¶</a></h2>
 <p>このメソッドはメソッド <code class="docutils literal notranslate"><span class="pre">Node.walk</span></code> がその木構造データの各オブジェクトについて呼び出す。</p>
 <p>メソッド <code class="docutils literal notranslate"><span class="pre">NodeVisitor.dispatch_visit</span></code> の処理は本質的には引数ノードに対して、メソッド <code class="docutils literal notranslate"><span class="pre">visit_XXXX</span></code> を呼び出し、その戻り値を本メソッドの戻り値として終了するというものだ。</p>
@@ -154,26 +154,26 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="nodevisitor-dispatch-departure">
+</section>
+<section id="nodevisitor-dispatch-departure">
 <h2><a class="toc-backref" href="#id10">メソッド <code class="docutils literal notranslate"><span class="pre">NodeVisitor.dispatch_departure</span></code></a><a class="headerlink" href="#nodevisitor-dispatch-departure" title="Permalink to this headline">¶</a></h2>
 <p>このメソッドはメソッド <code class="docutils literal notranslate"><span class="pre">Node.walkabout</span></code> がその木構造データの各オブジェクトについて呼び出す。</p>
 <p>メソッド <code class="docutils literal notranslate"><span class="pre">NodeVisitor.dispatch_departure</span></code> の仕組みも前述の <code class="docutils literal notranslate"><span class="pre">dispatch_visit</span></code> と同様。違いは <code class="docutils literal notranslate"><span class="pre">visit_</span></code> または <code class="docutils literal notranslate"><span class="pre">_visit</span></code> を <code class="docutils literal notranslate"><span class="pre">depart_</span></code> または <code class="docutils literal notranslate"><span class="pre">_departure</span></code> にそれぞれ置き換えるだけだ。</p>
-</div>
-<div class="section" id="genericnodevisitor">
+</section>
+<section id="genericnodevisitor">
 <h2><a class="toc-backref" href="#id11">クラス <code class="docutils literal notranslate"><span class="pre">GenericNodeVisitor</span></code></a><a class="headerlink" href="#genericnodevisitor" title="Permalink to this headline">¶</a></h2>
 <p>クラス <code class="docutils literal notranslate"><span class="pre">GenericNodeVisitor</span></code> はノードツリーの全ノードを処理の対象にしたいような
 Visitor のスーパークラスとして利用する。具体的に言うと、任意のノードクラス <code class="docutils literal notranslate"><span class="pre">NODETYPE</span></code> に対してメソッド <code class="docutils literal notranslate"><span class="pre">visit_NODETYPE</span></code> が定義されている。その実装は <code class="docutils literal notranslate"><span class="pre">self.default_visit</span></code> というものを呼び出すものというものになっている。サブクラスの Visitor 側で適切にメソッド <code class="docutils literal notranslate"><span class="pre">visit_NODETYPE</span></code> を定義しなければ、例外 <code class="docutils literal notranslate"><span class="pre">NotImplementedError</span></code> が送出される。これはメソッド <code class="docutils literal notranslate"><span class="pre">default_departure</span></code> についても同様だ。</p>
 <p>ノードクラスは 98 個あり、モジュール <code class="docutils literal notranslate"><span class="pre">nodes</span></code> 内にリスト <code class="docutils literal notranslate"><span class="pre">node_class_names</span></code> として定義されている。なので、メソッドの宣言も 98 個分書くかといえばそうなってはいない。
 Python 組み込み関数の <code class="docutils literal notranslate"><span class="pre">setattr</span></code> を用いてテキスト処理感覚で「実装」している。</p>
-</div>
-<div class="section" id="sparsenodevisitor">
+</section>
+<section id="sparsenodevisitor">
 <h2><a class="toc-backref" href="#id12">クラス <code class="docutils literal notranslate"><span class="pre">SparseNodeVisitor</span></code></a><a class="headerlink" href="#sparsenodevisitor" title="Permalink to this headline">¶</a></h2>
 <p>クラス <code class="docutils literal notranslate"><span class="pre">SparseNodeVisitor</span></code> はノードツリーの一部のノードだけを処理の対象にしたいような
 Visitor のスーパークラスとして利用する。具体的に言うと、任意のノードクラス <code class="docutils literal notranslate"><span class="pre">NODETYPE</span></code> に対してメソッド <code class="docutils literal notranslate"><span class="pre">visit_NODETYPE</span></code>
 および <code class="docutils literal notranslate"><span class="pre">depart_NODETYPE</span></code> をオーバーライドし「何もしないで何も返さない」ものとする。</p>
-</div>
-<div class="section" id="id3">
+</section>
+<section id="id3">
 <h2><a class="toc-backref" href="#id13">サブクラスの例</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>クラス <code class="docutils literal notranslate"><span class="pre">HTMLTranslator</span></code> を見るとこういうコードがある。これの直接スーパークラスは <code class="docutils literal notranslate"><span class="pre">NodeVisitor</span></code> だ。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># From class docutils.writers.html4css1.HTMLTranslator</span>
@@ -196,15 +196,15 @@ Visitor のスーパークラスとして利用する。具体的に言うと、
      <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_template</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id4">
+</section>
+<section id="id4">
 <h2><a class="toc-backref" href="#id14">感想</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>ここで見てきた Visitor パターンの実装は Python の特徴を上手に利用している感がある。組み込み関数 <code class="docutils literal notranslate"><span class="pre">getattr</span></code> で目的のメソッドを動的に検出するところがポイント。</p></li>
 <li><p>Docutils には <code class="docutils literal notranslate"><span class="pre">run</span></code> もあるが <code class="docutils literal notranslate"><span class="pre">walk</span></code> もある。</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>

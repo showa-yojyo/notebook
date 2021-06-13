@@ -1,0 +1,500 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Project: A Robot &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
+    
+    <script src="../_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="Bugs and Errors" href="chapter08.html" />
+    <link rel="prev" title="The Secret Life of Objects" href="chapter06.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter08.html" title="Bugs and Errors"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="chapter06.html" title="The Secret Life of Objects"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Eloquent JavaScript 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Project: A Robot</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="project-a-robot">
+<h1><a class="toc-backref" href="#id3">Project: A Robot</a><a class="headerlink" href="#project-a-robot" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://eloquentjavascript.net/">Eloquent JavaScript</a> Chapter 7 の読書ノート。</p>
+<p>グラフを構築して最短経路を探索するような問題を JavaScript で解く。
+Dijkstra のアルゴリズムの一つ前のようなものだろうか。</p>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#project-a-robot" id="id3">Project: A Robot</a></p>
+<ul>
+<li><p><a class="reference internal" href="#meadowfield" id="id4">Meadowfield</a></p></li>
+<li><p><a class="reference internal" href="#the-task" id="id5">The task</a></p></li>
+<li><p><a class="reference internal" href="#persistent-data" id="id6">Persistent data</a></p></li>
+<li><p><a class="reference internal" href="#simulation" id="id7">Simulation</a></p></li>
+<li><p><a class="reference internal" href="#the-mail-truck-s-route" id="id8">The mail truck’s route</a></p></li>
+<li><p><a class="reference internal" href="#pathfinding" id="id9">Pathfinding</a></p></li>
+<li><p><a class="reference internal" href="#exercises" id="id10">Exercises</a></p>
+<ul>
+<li><p><a class="reference internal" href="#measuring-a-robot" id="id11">Measuring a robot</a></p></li>
+<li><p><a class="reference internal" href="#robot-efficiency" id="id12">Robot efficiency</a></p></li>
+<li><p><a class="reference internal" href="#persistent-group" id="id13">Persistent group</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="meadowfield">
+<h2><a class="toc-backref" href="#id4">Meadowfield</a><a class="headerlink" href="#meadowfield" title="Permalink to this headline">¶</a></h2>
+<p>あまり大きくはない Meadowfield 村には 11 の場所があり、それらの間に 14 の道がある。この村の道路ネットワークはグラフ理論の意味でのグラフを形成する。</p>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>教科書のコードを Graphviz などで図式にして、画像をここに貼り付けるといいかもしれない。</p>
+</div>
+<ul class="simple">
+<li><p>最初の配列 <code class="docutils literal notranslate"><span class="pre">roads</span></code> は <code class="docutils literal notranslate"><span class="pre">&quot;Alice's</span> <span class="pre">House-Bob's</span> <span class="pre">House&quot;</span></code> や <code class="docutils literal notranslate"><span class="pre">Alice's</span> <span class="pre">House-Cabin&quot;</span></code>
+のように <code class="docutils literal notranslate"><span class="pre">${place1}-${place2}</span></code> という構造の文字列からなる。</p></li>
+<li><p>このデータをもとに、次で定義する関数 <code class="docutils literal notranslate"><span class="pre">buildGraph</span></code> で隣接リストタイプのグラフ構造にする。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">let</span> <span class="pre">graph</span> <span class="pre">=</span> <span class="pre">Object.create(null)</span></code> で空のグラフを構築する。これは <code class="docutils literal notranslate"><span class="pre">let</span> <span class="pre">graph</span> <span class="pre">=</span> <span class="pre">{}</span></code> とは異なる。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">addEdge</span></code> で隣接リストを構築していることが読み取れる。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">buildGraph</span></code> 末尾のループの感じはよく憶えておきたい。配列に対して <code class="docutils literal notranslate"><span class="pre">.map()</span></code> を適用した一時配列を反復するというのはスクレイピングではよくある。</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">buildGraph</span><span class="p">(</span><span class="nx">edges</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">graph</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+    <span class="kd">function</span> <span class="nx">addEdge</span><span class="p">(</span><span class="k">from</span><span class="p">,</span> <span class="nx">to</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">graph</span><span class="p">[</span><span class="k">from</span><span class="p">]</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">graph</span><span class="p">[</span><span class="k">from</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">to</span><span class="p">];</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">graph</span><span class="p">[</span><span class="k">from</span><span class="p">].</span><span class="nx">push</span><span class="p">(</span><span class="nx">to</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="p">[</span><span class="k">from</span><span class="p">,</span> <span class="nx">to</span><span class="p">]</span> <span class="k">of</span> <span class="nx">edges</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">r</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)))</span> <span class="p">{</span>
+        <span class="nx">addEdge</span><span class="p">(</span><span class="k">from</span><span class="p">,</span> <span class="nx">to</span><span class="p">);</span>
+        <span class="nx">addEdge</span><span class="p">(</span><span class="nx">to</span><span class="p">,</span> <span class="k">from</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">graph</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="the-task">
+<h2><a class="toc-backref" href="#id5">The task</a><a class="headerlink" href="#the-task" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>配達ロボットは村じゅうを移動する。上述の場所のあらゆるところに宛先が書かれた小包がある。</p></li>
+<li><p>ロボットは小包を見つけるとそれを拾って目的地に着くとそれを着荷する。</p></li>
+<li><p>すべての小包を配達した時点でタスクを終了する。</p></li>
+</ul>
+<p>本書の設計方針は、何らかの配達状況をまず管理するというものだ。</p>
+<ul>
+<li><p>クラス <code class="docutils literal notranslate"><span class="pre">VillageState</span></code></p>
+<ul>
+<li><p>コンストラクターで場所と小包を引数とする。小包は配列。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">move</span></code> は目的地を引数とする。</p>
+<ul>
+<li><p>グラフを見て、この場所が目的地と隣接しているのならば <code class="docutils literal notranslate"><span class="pre">this</span></code> を返す。</p></li>
+<li><p>そうでない場合は小包の場所をチェックすることになる。次のようにして新しい <code class="docutils literal notranslate"><span class="pre">VillageState</span></code> を返す：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">parcels</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">parcels</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">p</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">place</span> <span class="o">!=</span> <span class="k">this</span><span class="p">.</span><span class="nx">place</span><span class="p">)</span> <span class="k">return</span> <span class="nx">p</span><span class="p">;</span>
+    <span class="k">return</span> <span class="p">{</span><span class="nx">place</span><span class="o">:</span> <span class="nx">destination</span><span class="p">,</span> <span class="nx">address</span><span class="o">:</span> <span class="nx">p</span><span class="p">.</span><span class="nx">address</span><span class="p">};</span>
+    <span class="p">}).</span><span class="nx">filter</span><span class="p">(</span><span class="nx">p</span> <span class="p">=&gt;</span> <span class="nx">p</span><span class="p">.</span><span class="nx">place</span> <span class="o">!=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">address</span><span class="p">);</span>
+<span class="k">return</span> <span class="k">new</span> <span class="nx">VillageState</span><span class="p">(</span><span class="nx">destination</span><span class="p">,</span> <span class="nx">parcels</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>小包は <code class="docutils literal notranslate"><span class="pre">place</span></code> と <code class="docutils literal notranslate"><span class="pre">address</span></code> を持つ <code class="docutils literal notranslate"><span class="pre">object</span></code> であるとする。</p></li>
+</ul>
+<p>このクラスを例えば次のように使う。<code class="docutils literal notranslate"><span class="pre">roads</span></code> の定義によると郵便局と
+Alice の家が隣接しているのでこういう結果となる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">first</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VillageState</span><span class="p">(</span>
+    <span class="s2">&quot;Post Office&quot;</span><span class="p">,</span>
+    <span class="p">[{</span><span class="nx">place</span><span class="o">:</span> <span class="s2">&quot;Post Office&quot;</span><span class="p">,</span> <span class="nx">address</span><span class="o">:</span> <span class="s2">&quot;Alice&#39;s House&quot;</span><span class="p">}]</span>
+<span class="p">);</span>
+<span class="kd">let</span> <span class="nx">next</span> <span class="o">=</span> <span class="nx">first</span><span class="p">.</span><span class="nx">move</span><span class="p">(</span><span class="s2">&quot;Alice&#39;s House&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">next</span><span class="p">.</span><span class="nx">place</span> <span class="o">==</span> <span class="s2">&quot;Alice&#39;s House&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">next</span><span class="p">.</span><span class="nx">parcels</span><span class="p">);</span> <span class="c1">// → []</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">first</span><span class="p">.</span><span class="nx">place</span> <span class="o">==</span> <span class="s2">&quot;Post Office&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>初期状態では、ロボットが郵便局にいて、小包が届いていないという状況を表す。</p></li>
+</ul>
+</section>
+<section id="persistent-data">
+<h2><a class="toc-backref" href="#id6">Persistent data</a><a class="headerlink" href="#persistent-data" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">Object.freeze</span></code> は引数のオブジェクトのプロパティーの全てを動的に <code class="docutils literal notranslate"><span class="pre">const</span></code> にするような機能だ。</p></li>
+<li><p>本文の感じからすると、これを使うことで何らかの効率上のトレードオフが生じるようだ。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">object</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">freeze</span><span class="p">({</span><span class="nx">value</span><span class="o">:</span> <span class="mf">5</span><span class="p">});</span>
+<span class="nx">object</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="mf">10</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">value</span> <span class="o">==</span> <span class="mf">5</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="simulation">
+<h2><a class="toc-backref" href="#id7">Simulation</a><a class="headerlink" href="#simulation" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">VillageState</span></code> オブジェクトを受け取り、近くにある場所の名前を返す関数として配達ロボットを捉える。</p></li>
+<li><p>物事を記憶し、計画を立てて実行できるロボットを設計したいので、ロボットに記憶を渡し、新しい記憶を返すようにする。そのため、ロボットが返すのは、移動したい方向と、次に移動したときに返される記憶の値を含むオブジェクトだ。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">runRobot</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">robot</span><span class="p">,</span> <span class="nx">memory</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">turn</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;;</span> <span class="nx">turn</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">state</span><span class="p">.</span><span class="nx">parcels</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Done in </span><span class="si">${</span><span class="nx">turn</span><span class="si">}</span><span class="sb"> turns`</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="kd">let</span> <span class="nx">action</span> <span class="o">=</span> <span class="nx">robot</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">memory</span><span class="p">);</span>
+        <span class="nx">state</span> <span class="o">=</span> <span class="nx">state</span><span class="p">.</span><span class="nx">move</span><span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">direction</span><span class="p">);</span>
+        <span class="nx">memory</span> <span class="o">=</span> <span class="nx">action</span><span class="p">.</span><span class="nx">memory</span><span class="p">;</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Moved to </span><span class="si">${</span><span class="nx">action</span><span class="p">.</span><span class="nx">direction</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>ロボットは小包がある場所をすべて訪れてすべての小包を受け取り、小包が宛てられた場所をすべて訪れて小包を届けなければならない。</p></li>
+<li><p>ロボットは毎回ランダムな方向に歩く。</p></li>
+<li><p>かなりの確率で最終的にすべての小包を見つけて、ある時点で配達すべき場所に到達する。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">randomPick</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">choice</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">array</span><span class="p">[</span><span class="nx">choice</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">randomRobot</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span><span class="nx">direction</span><span class="o">:</span> <span class="nx">randomPick</span><span class="p">(</span><span class="nx">roadGraph</span><span class="p">[</span><span class="nx">state</span><span class="p">.</span><span class="nx">place</span><span class="p">])};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">randomPick</span></code> は与えられた配列のランダムなインデックスを返す。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Math.random()</span></code> は 0 から 1 の間の数字を返す。</p></li>
+<li><p>JavaScript には Python の <code class="docutils literal notranslate"><span class="pre">int()</span></code> 相当がないので、わざわざ <code class="docutils literal notranslate"><span class="pre">Math.floor()</span></code> を利用することになる。</p></li>
+</ul>
+</li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">randomRobot</span></code> は先述のロボット的関数の一つなので、本来ならば第二引数 <code class="docutils literal notranslate"><span class="pre">memory</span></code> があるのだが、本関数でそれを利用しないので、前章までのどこかで習ったようにこれを引数リストから削除しても構わない。</p></li>
+</ul>
+<p>ロボットを動かすために、小包いくつかから新しい状態を生成する関数を定義したい。これをクラス <code class="docutils literal notranslate"><span class="pre">VillageState</span></code> の静的メソッドとして実装する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">VillageState</span><span class="p">.</span><span class="nx">random</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">parcelCount</span> <span class="o">=</span> <span class="mf">5</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">parcels</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">parcelCount</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">address</span> <span class="o">=</span> <span class="nx">randomPick</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">roadGraph</span><span class="p">));</span>
+        <span class="kd">let</span> <span class="nx">place</span><span class="p">;</span>
+        <span class="k">do</span> <span class="p">{</span>
+            <span class="nx">place</span> <span class="o">=</span> <span class="nx">randomPick</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">roadGraph</span><span class="p">));</span>
+        <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="nx">place</span> <span class="o">==</span> <span class="nx">address</span><span class="p">);</span>
+        <span class="nx">parcels</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span><span class="nx">place</span><span class="p">,</span> <span class="nx">address</span><span class="p">});</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">VillageState</span><span class="p">(</span><span class="s2">&quot;Post Office&quot;</span><span class="p">,</span> <span class="nx">parcels</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>宛先と同じ場所から小包が送られてくるわけがない。宛名と同じ場所を抽選してしまったら、そうでなくなるまで抽選したい。上の <code class="docutils literal notranslate"><span class="pre">do</span></code> ループはそれを遂行する。</p></li>
+</ul>
+</section>
+<section id="the-mail-truck-s-route">
+<h2><a class="toc-backref" href="#id8">The mail truck’s route</a><a class="headerlink" href="#the-mail-truck-s-route" title="Permalink to this headline">¶</a></h2>
+<p>上述のロボット関数は何しろランダムなので効率が悪い。</p>
+<p>もし村のすべての場所を一筆書きのように通過する経路を見つけたら、その経路を二度走らせて確実に配達することができる。それが郵便局から開始するとして次のようなものだとわかっているとする：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">mailRoute</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Alice&#39;s House&quot;</span><span class="p">,</span> <span class="s2">&quot;Cabin&quot;</span><span class="p">,</span> <span class="s2">&quot;Alice&#39;s House&quot;</span><span class="p">,</span> <span class="s2">&quot;Bob&#39;s House&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Town Hall&quot;</span><span class="p">,</span> <span class="s2">&quot;Daria&#39;s House&quot;</span><span class="p">,</span> <span class="s2">&quot;Ernie&#39;s House&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Grete&#39;s House&quot;</span><span class="p">,</span> <span class="s2">&quot;Shop&quot;</span><span class="p">,</span> <span class="s2">&quot;Grete&#39;s House&quot;</span><span class="p">,</span> <span class="s2">&quot;Farm&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Marketplace&quot;</span><span class="p">,</span> <span class="s2">&quot;Post Office&quot;</span>
+<span class="p">];</span>
+</pre></div>
+</div>
+<p>経路をたどるロボットを実装するためには、ロボットに記憶が必要だ。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">routeRobot</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">memory</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">memory</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">memory</span> <span class="o">=</span> <span class="nx">mailRoute</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="p">{</span><span class="nx">direction</span><span class="o">:</span> <span class="nx">memory</span><span class="p">[</span><span class="mf">0</span><span class="p">],</span> <span class="nx">memory</span><span class="o">:</span> <span class="nx">memory</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">1</span><span class="p">)};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>今度のロボット関数は第二引数を使用する。</p></li>
+<li><p>ロボットは残りの経路を記憶し、最初の要素を毎ターン切り落とす。</p></li>
+</ul>
+</section>
+<section id="pathfinding">
+<h2><a class="toc-backref" href="#id9">Pathfinding</a><a class="headerlink" href="#pathfinding" title="Permalink to this headline">¶</a></h2>
+<p>最短経路を決定するアルゴリズムを書く。</p>
+<ul class="simple">
+<li><p>A から B への経路を探すときには、A から始まるものしか興味がない。</p></li>
+<li><p>同じ場所を 2 回通るような効率の悪いに決まっているルートには興味がない。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">findRoute</span><span class="p">(</span><span class="nx">graph</span><span class="p">,</span> <span class="k">from</span><span class="p">,</span> <span class="nx">to</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">work</span> <span class="o">=</span> <span class="p">[{</span><span class="nx">at</span><span class="o">:</span> <span class="k">from</span><span class="p">,</span> <span class="nx">route</span><span class="o">:</span> <span class="p">[]}];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">work</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="p">{</span><span class="nx">at</span><span class="p">,</span> <span class="nx">route</span><span class="p">}</span> <span class="o">=</span> <span class="nx">work</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">place</span> <span class="k">of</span> <span class="nx">graph</span><span class="p">[</span><span class="nx">at</span><span class="p">])</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">place</span> <span class="o">==</span> <span class="nx">to</span><span class="p">)</span> <span class="k">return</span> <span class="nx">route</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">place</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">work</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="nx">w</span> <span class="p">=&gt;</span> <span class="nx">w</span><span class="p">.</span><span class="nx">at</span> <span class="o">==</span> <span class="nx">place</span><span class="p">))</span> <span class="p">{</span>
+                <span class="nx">work</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span><span class="nx">at</span><span class="o">:</span> <span class="nx">place</span><span class="p">,</span> <span class="nx">route</span><span class="o">:</span> <span class="nx">route</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">place</span><span class="p">)});</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>探索は正しい順序で行う。最初に到達した場所を最初に探索しなければならない。到達した場所をすぐに探索することはできない（そこから到達した場所もすぐに探索することになるから）。</p></li>
+<li><p>配列 <code class="docutils literal notranslate"><span class="pre">work</span></code> は次に探索すべき場所と、そこに至るまでの経路を配列したものだ。</p>
+<ul>
+<li><p>最初は開始位置と空の経路ルートだけで始める。</p></li>
+<li><p>検索は、配列の次の項目を取って、そこを探索する。つまり、その場所から行くすべての道を調べる。その中の一つがゴールであれば完全な経路を返すことができまる。そうでなければ、</p>
+<ul>
+<li><p>その場所を見たことがなければ、リストに新しい項目が追加される。</p></li>
+<li><p>以前に見たことがあれば、短い経路を最初に見ているので、その場所への長い経路か、その場所と同じ経路を見つけたことになる。これ以上探索する必要はない。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>これを視覚的に想像すると、スタート地点から既知のルートが網の目のように這い出て、四方八方に均等に広がっていく様子がわかる。</p>
+<ul class="simple">
+<li><p>このコードには作業配列に要素がなくなったときの処理は含まれていない。これはグラフが単連結であることを仮定できることによる（任意のノード間に経路が存在することが保証されている）。</p></li>
+</ul>
+<p>本章の最後のロボット関数は次のものだ：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">goalOrientedRobot</span><span class="p">({</span><span class="nx">place</span><span class="p">,</span> <span class="nx">parcels</span><span class="p">},</span> <span class="nx">route</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">route</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">parcel</span> <span class="o">=</span> <span class="nx">parcels</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">parcel</span><span class="p">.</span><span class="nx">place</span> <span class="o">!=</span> <span class="nx">place</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">route</span> <span class="o">=</span> <span class="nx">findRoute</span><span class="p">(</span><span class="nx">roadGraph</span><span class="p">,</span> <span class="nx">place</span><span class="p">,</span> <span class="nx">parcel</span><span class="p">.</span><span class="nx">place</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">route</span> <span class="o">=</span> <span class="nx">findRoute</span><span class="p">(</span><span class="nx">roadGraph</span><span class="p">,</span> <span class="nx">place</span><span class="p">,</span> <span class="nx">parcel</span><span class="p">.</span><span class="nx">address</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="p">{</span><span class="nx">direction</span><span class="o">:</span> <span class="nx">route</span><span class="p">[</span><span class="mf">0</span><span class="p">],</span> <span class="nx">memory</span><span class="o">:</span> <span class="nx">route</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">1</span><span class="p">)};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>引数 <code class="docutils literal notranslate"><span class="pre">route</span></code> は従来のロボット関数と同様に移動方向のリストを意味する。そのリストが空になるたびに、次の行動を決定する。</p>
+<ul class="simple">
+<li><p>セット内の最初の未配達の小包を受け取り、</p>
+<ul>
+<li><p>その小包がまだ拾われていなければ、その小包に向かう経路を計画する。</p></li>
+<li><p>その小包がすでに拾われていれば、まだ配達する必要があるので、代わりに配達先への経路を作成する。</p></li>
+</ul>
+</li>
+<li><p>このロボット関数は <code class="docutils literal notranslate"><span class="pre">routeRobot</span></code> よりは若干マシだが、それでも最適とは言えないとのこと。</p></li>
+</ul>
+</section>
+<section id="exercises">
+<h2><a class="toc-backref" href="#id10">Exercises</a><a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<p>本章で現れたプログラム要素をまとめておく。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>変数・関数</p></th>
+<th class="head"><p>コメント</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">roads</span></code></p></td>
+<td><p>エッジリスト。これはもう要らない。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">buildGraph</span></code></p></td>
+<td><p>エッジリストからグラフを構築する。これももう要らない。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">roadGraph</span></code></p></td>
+<td><p>隣接グラフ。これを使い回す。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">VillageState</span></code></p></td>
+<td><p>配達地点と小包の状態を保持するクラス。移動メソッドアリ。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">runRobot</span></code></p></td>
+<td><p>ロボットドライバー関数。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">randomPick</span></code></p></td>
+<td><p>Python の <code class="docutils literal notranslate"><span class="pre">random.choice</span></code> と同じ。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">randomRobot</span></code></p></td>
+<td><p>ロボット関数。現在状態のランダムな隣接地点を返す。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mailRoute</span></code></p></td>
+<td><p>経路が一筆書きである頂点リスト。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">routeRobot</span></code></p></td>
+<td><p>ロボット関数。変数 <code class="docutils literal notranslate"><span class="pre">mailRoute</span></code> に基づく。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">findRoute</span></code></p></td>
+<td><p>グラフの始点と終点を与えて経路を探索するアルゴリズム。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">goalOrientedRobot</span></code></p></td>
+<td><p>ロボット関数。アルゴリズム <code class="docutils literal notranslate"><span class="pre">findRoute</span></code> に基づく。</p></td>
+</tr>
+</tbody>
+</table>
+<section id="measuring-a-robot">
+<h3><a class="toc-backref" href="#id11">Measuring a robot</a><a class="headerlink" href="#measuring-a-robot" title="Permalink to this headline">¶</a></h3>
+<p><strong>問題</strong> 関数 <code class="docutils literal notranslate"><span class="pre">compareRobots</span></code> を書け。二つのロボットを引数として取る（ロボットにはそれぞれ初期記憶がある）。
+100 タスクを生成し、それぞれのロボットにそのタスクを解かせろ。完了したら、各ロボットがタスクごとに要した平均ステップ数を出力しろ。公平を期すために、両方のロボットに同じ 100 タスクを与えること。</p>
+<p><strong>解答</strong> まず関数 <code class="docutils literal notranslate"><span class="pre">runRobot</span></code> をターン数を返すように修正する必要がある。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">runRobot</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">robot</span><span class="p">,</span> <span class="nx">memory</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">turn</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="p">;</span> <span class="nx">turn</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">state</span><span class="p">.</span><span class="nx">parcels</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">//console.log(`Done in ${turn} turns`);</span>
+            <span class="k">return</span> <span class="nx">turn</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="kd">const</span> <span class="nx">action</span> <span class="o">=</span> <span class="nx">robot</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">memory</span><span class="p">);</span>
+        <span class="nx">state</span> <span class="o">=</span> <span class="nx">state</span><span class="p">.</span><span class="nx">move</span><span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">direction</span><span class="p">);</span>
+        <span class="nx">memory</span> <span class="o">=</span> <span class="nx">action</span><span class="p">.</span><span class="nx">memory</span><span class="p">;</span>
+        <span class="c1">//console.log(`Moved to ${action.direction}`);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>その上で次のようなベンチマークを書くことが考えられる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">mean</span><span class="p">(</span><span class="nx">array</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span> <span class="o">!=</span> <span class="mf">0</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">array</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">total</span><span class="p">,</span> <span class="nx">current</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">total</span> <span class="o">+</span> <span class="nx">current</span><span class="p">,</span> <span class="mf">0</span><span class="p">)</span> <span class="o">/</span> <span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">compareRobots</span><span class="p">(</span><span class="nx">robot1</span><span class="p">,</span> <span class="nx">robot2</span><span class="p">,</span> <span class="nx">numTask</span> <span class="o">=</span> <span class="mf">100</span><span class="p">){</span>
+    <span class="kd">let</span> <span class="nx">counts1</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">numTask</span><span class="p">),</span> <span class="nx">counts2</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">numTask</span><span class="p">);</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">numTask</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">){</span>
+        <span class="kd">const</span> <span class="nx">s</span> <span class="o">=</span> <span class="nx">VillageState</span><span class="p">.</span><span class="nx">random</span><span class="p">();</span>
+        <span class="nx">counts1</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">runRobot</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">robot1</span><span class="p">,</span> <span class="nx">mailRoute</span><span class="p">);</span>
+        <span class="nx">counts2</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">runRobot</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">robot2</span><span class="p">,</span> <span class="nx">mailRoute</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`robot1: </span><span class="si">${</span><span class="nx">mean</span><span class="p">(</span><span class="nx">counts1</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`robot2: </span><span class="si">${</span><span class="nx">mean</span><span class="p">(</span><span class="nx">counts2</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="robot-efficiency">
+<h3><a class="toc-backref" href="#id12">Robot efficiency</a><a class="headerlink" href="#robot-efficiency" title="Permalink to this headline">¶</a></h3>
+<p><strong>問題</strong> <code class="docutils literal notranslate"><span class="pre">goalOrientedRobot</span></code> よりも早く配送タスクを完了するロボットを書けるか。</p>
+<p>前の問題を解いたのであれば、ロボットが改善されたかどうかを確認するために関数
+<code class="docutils literal notranslate"><span class="pre">compareRobots</span></code> を使える。</p>
+<p><strong>解答</strong> <code class="docutils literal notranslate"><span class="pre">findRoute</span></code> の高速版を書ければ解けたも同然。
+Dijkstra のアルゴリズムの重みなし版のようなものを書けばいい。</p>
+<div class="admonition-todo admonition" id="id2">
+<p class="admonition-title">Todo</p>
+<p>気が向いたら書く。</p>
+</div>
+</section>
+<section id="persistent-group">
+<h3><a class="toc-backref" href="#id13">Persistent group</a><a class="headerlink" href="#persistent-group" title="Permalink to this headline">¶</a></h3>
+<p><strong>問題</strong> 第 6 章のクラス <code class="docutils literal notranslate"><span class="pre">Group</span></code> に似た、値の集合を格納する新しいクラス <code class="docutils literal notranslate"><span class="pre">PGroup</span></code> を書け。</p>
+<ul class="simple">
+<li><p>同様にメソッド <code class="docutils literal notranslate"><span class="pre">add</span></code>, <code class="docutils literal notranslate"><span class="pre">delete</span></code>, <code class="docutils literal notranslate"><span class="pre">has</span></code> がある。</p>
+<ul>
+<li><p>ただし、メソッド <code class="docutils literal notranslate"><span class="pre">add</span></code> は、与えられたメンバーが追加された新しい
+<code class="docutils literal notranslate"><span class="pre">PGroup</span></code> インスタンスを返し、古いものは変更しないものとする。</p></li>
+<li><p>同様に、メソッド <code class="docutils literal notranslate"><span class="pre">delete</span></code> は与えられたメンバーのない新しいインスタンスを生成するものとする。</p></li>
+</ul>
+</li>
+<li><p>このクラスは、あらゆる型の値に対して動作するものとする。</p></li>
+<li><p>大量の値を扱う際に効率的である必要はない。</p></li>
+<li><p>コンストラクターは、クラスのインターフェイスの一部であってはならない（内部的には使いたい）。</p></li>
+<li><p>コンストラクターの代わりに、空のインスタンスである <code class="docutils literal notranslate"><span class="pre">PGroup.empty</span></code> があり、それを開始値として使用することができる。</p></li>
+</ul>
+<p><strong>解答</strong> コンストラクターを private にする手段が不明。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nx">PGroup</span><span class="p">{</span>
+    <span class="c1">// for private use</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">content</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">_content</span> <span class="o">=</span> <span class="nx">content</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">add</span><span class="p">(</span><span class="nx">element</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="nx">element</span><span class="p">)){</span>
+            <span class="kd">const</span> <span class="nx">newContent</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_content</span><span class="p">.</span><span class="nx">slice</span><span class="p">();</span>
+            <span class="nx">newContent</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nx">PGroup</span><span class="p">(</span><span class="nx">newContent</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">delete</span><span class="p">(</span><span class="nx">element</span><span class="p">){</span>
+        <span class="kd">const</span> <span class="nx">newGroup</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PGroup</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_content</span><span class="p">.</span><span class="nx">slice</span><span class="p">());</span>
+        <span class="kd">const</span> <span class="nx">where</span> <span class="o">=</span> <span class="nx">newGroup</span><span class="p">.</span><span class="nx">_content</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">where</span> <span class="o">!=</span> <span class="o">-</span><span class="mf">1</span><span class="p">){</span>
+            <span class="nx">newGroup</span><span class="p">.</span><span class="nx">_content</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">where</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nx">newGroup</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">has</span><span class="p">(</span><span class="nx">element</span><span class="p">){</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_content</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mf">1</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">PGroup</span><span class="p">.</span><span class="nx">empty</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">freeze</span><span class="p">(</span><span class="k">new</span> <span class="nx">PGroup</span><span class="p">(</span><span class="k">new</span> <span class="nb">Array</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>こうするとオブジェクトを次のように生成できるようだが……。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">g1</span> <span class="o">=</span> <span class="nx">PGroup</span><span class="p">.</span><span class="nx">empty</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mf">0</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="mf">1</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="mf">2</span><span class="p">);</span>
+<span class="nx">g2</span> <span class="o">=</span> <span class="nx">PGroup</span><span class="p">.</span><span class="nx">empty</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;z&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>新しいインスタンスを返すという仕様の下ではメソッド <code class="docutils literal notranslate"><span class="pre">add</span></code> も <code class="docutils literal notranslate"><span class="pre">delete</span></code> も可変個引数にする設計もありだろう。</p>
+<p>以上</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter08.html" title="Bugs and Errors"
+             >next</a></li>
+        <li class="right" >
+          <a href="chapter06.html" title="The Secret Life of Objects"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Eloquent JavaScript 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Project: A Robot</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

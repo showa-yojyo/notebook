@@ -4,12 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>基本技法 &#8212; 読書ノート v1.5dev</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
     
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/mathjax-v3.js"></script>
     
     <link rel="next" title="アカウント設定関連" href="rest-account.html" />
@@ -34,7 +34,7 @@
       <div class="documentwrapper">
           <div class="body" role="main">
             
-  <div class="section" id="id1">
+  <section id="id1">
 <h1><a class="toc-backref" href="#id10">基本技法</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>本節では PTT を利用して Twitter API を操作するときに共通するコードの書き方の要領を記す。
 Twitter の API には大きく分けて REST と Streaming の二つがあるが、リクエストの送信手順や受信データの反復処理のように、用いる機能に係わりなく同じ手法を適用する場合がかなりある。ここではそのような手法を項目別にまとめておく。</p>
@@ -58,7 +58,7 @@ Twitter の API には大きく分けて REST と Streaming の二つがある�
 </li>
 </ul>
 </div>
-<div class="section" id="id3">
+<section id="id3">
 <h2><a class="toc-backref" href="#id11">概要</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>PTT を利用するプログラムに共通する手続きを図示するとこのようになる。</p>
 <ol class="arabic simple">
@@ -69,8 +69,8 @@ Twitter の API には大きく分けて REST と Streaming の二つがある�
 </ol>
 <p>明らかに API を利用するまでの手続きがワンパターンなので、どこかにカプセル化しておくべきだろう。次節ではそのパターンの例を示す。</p>
 <p>Twitter API の利用法は当然ながらリクエストごとに異なるのが普通だが、取得データの構造が似通っているため、その処理手順も似通っていくる。カーソル処理等、取得データを処理するための技法で頻出するものを本章の後半で述べる。</p>
-</div>
-<div class="section" id="id4">
+</section>
+<section id="id4">
 <h2><a class="toc-backref" href="#id12">認証処理およびインターフェイス準備処理</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>PTT を利用するプログラムに共通して書く必要のあるコードは次のようなものである。認証と Twitter 本体とのインターフェイスとなるインスタンスのセットアップからなる。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">twitter</span> <span class="kn">import</span> <span class="o">*</span>
@@ -163,8 +163,8 @@ Streaming API を利用する場合はクラス <code class="docutils literal no
 </div>
 </li>
 </ol>
-</div>
-<div class="section" id="id5">
+</section>
+<section id="id5">
 <h2><a class="toc-backref" href="#id13">リクエスト結果オブジェクトの出力処理</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>Twitter にリクエストを送信すると、原則的にその結果を JSON データとして受信する。
 Python 的には単に組み込みのコンテナーオブジェクトに変換されている節があるので、その辺をうまく加工して画面にテキストを出力するようにしたい。</p>
@@ -178,8 +178,8 @@ Python 的には単に組み込みのコンテナーオブジェクトに変換�
 <li><p>関数 <code class="docutils literal notranslate"><span class="pre">json.dump</span></code></p></li>
 </ul>
 <p>これらを状況に応じて使い分ける。取得データのごく一部を抽出したい場合にはメソッド <code class="docutils literal notranslate"><span class="pre">format</span></code> で欲しいフィールドのみを出力する。データ構造を保持したままデータを見たり保存する場合には、後者二つを用いる。</p>
-</div>
-<div class="section" id="id">
+</section>
+<section id="id">
 <h2><a class="toc-backref" href="#id14">特殊なパラメーター <code class="docutils literal notranslate"><span class="pre">id</span></code></a><a class="headerlink" href="#id" title="Permalink to this headline">¶</a></h2>
 <p>Twitter のインターフェイスでパラメーター名が <code class="docutils literal notranslate"><span class="pre">id</span></code> であるものがいくつかある。
 PTT ではこれを <code class="docutils literal notranslate"><span class="pre">_id</span></code> と呼び変えて値を渡すのが無難だ。</p>
@@ -194,15 +194,15 @@ PTT ではこれを <code class="docutils literal notranslate"><span class="pre"
 <li><p>GET statuses/show/:id -&gt; <code class="docutils literal notranslate"><span class="pre">tw.statuses.show(_id=xxxx)</span></code></p></li>
 <li><p>GET users/suggestions/:slug, GET users/suggestions/:slug/members -&gt; <a class="reference internal" href="rest-users.html"><span class="doc">ユーザーアカウント関連</span></a> 参照</p></li>
 </ul>
-</div>
-<div class="section" id="id6">
+</section>
+<section id="id6">
 <h2><a class="toc-backref" href="#id15">ページング処理</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p>ここからは PTT のメソッドを利用して Twitter の自分のアカウントを対象とするの操作を試していく。本稿のサンプルコードは前述の共通処理をカットしているので、読者は注意して欲しい。</p>
 <p>さっそくタイムラインの取得処理から見ていこう。まずは、コードを書く前に Twitter 本家ドキュメントの
 <a class="reference external" href="https://dev.twitter.com/rest/public/timelines">Working with Timelines</a> を一読して、
 API がツイートのデータ構造をどのように定義しているのかをおおまかに理解しておこう。</p>
 <p>特徴的なのは、<code class="docutils literal notranslate"><span class="pre">statuses/user_timeline</span></code> や <code class="docutils literal notranslate"><span class="pre">lists/statuses</span></code> 等の「大量のツイートを返す」ような API を利用する場合には、一度のリクエストでデータを一括取得するのではなく、リクエストを複数回に分けて行い、その際に <code class="docutils literal notranslate"><span class="pre">max_id</span></code> や <code class="docutils literal notranslate"><span class="pre">since_id</span></code> 引数を適宜指定して利用するという技法が一般的らしいということが理解できる。パターンとしては次の二通りしかないので、レスポンスの処理技法を習得するのは容易い。</p>
-<div class="section" id="id7">
+<section id="id7">
 <h3><a class="toc-backref" href="#id16">ツイート日時の新しいものから、順次古い方向へ取得していくケース</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>一般的な Twitter クライアントでは、タイムラインはツイートが上から下に新しい順に並んでいる。この画面を下方向にスクロールしたときに、より古いツイートを動的にリクエストするようになっている。実質的には次に説明するようなことを行なっているハズだ。</p>
 <ul class="simple">
@@ -232,8 +232,8 @@ API がツイートのデータ構造をどのように定義しているのか�
 <p>レスポンス中のツイートは <code class="docutils literal notranslate"><span class="pre">id</span></code> という値を保持しており、ツイートは <code class="docutils literal notranslate"><span class="pre">id</span></code> が降順になるように配列された状態で戻ってきている。その事実を利用すれば <code class="docutils literal notranslate"><span class="pre">id</span></code> の最大・最小が得られる。配列の先頭ツイートの <code class="docutils literal notranslate"><span class="pre">id</span></code> が最大であり、末尾ツイートのそれが最小であるはずだ。</p>
 <p>3 回目以降のリクエストも同様に繰り返す。</p>
 <p>なお、本当に上のようなループを書くといつ終わるのかがわからない。アプリケーション側で適宜条件 <code class="docutils literal notranslate"><span class="pre">XXX</span></code> を定義することだ。</p>
-</div>
-<div class="section" id="id8">
+</section>
+<section id="id8">
 <h3><a class="toc-backref" href="#id17">取得済みのツイートの「上」に、最新のツイートを取得するケース</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>一般的な Twitter クライアントでは、ビューにタイマーが仕込んであり、例えば 60 秒毎に最新のツイートをリクエストしてタイムラインを更新するものが多い。</p>
 <p>おそらく、次のようなアルゴリズムを実行している。</p>
@@ -247,8 +247,8 @@ API がツイートのデータ構造をどのように定義しているのか�
 </pre></div>
 </div>
 <p>なお、実際に Twitter アプリケーションを作成するのであれば、本項と前項の処理を同時に実装するのが効率的だし自然だ。</p>
-</div>
-<div class="section" id="id9">
+</section>
+<section id="id9">
 <h3><a class="toc-backref" href="#id18">カーソル処理</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">cursor</span></code> という名前の optional 引数がある API については、次のような手順でページング処理と同等のことを実現する。</p>
 <ul>
@@ -272,9 +272,9 @@ API がツイートのデータ構造をどのように定義しているのか�
     <span class="n">next_cursor</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;next_cursor&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
             <div class="clearer"></div>

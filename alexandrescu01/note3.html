@@ -4,12 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Modern C++ Design 読書ノート 3/3 &#8212; 読書ノート v1.5dev</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
     
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/mathjax-v3.js"></script>
     
     <link rel="next" title="Effective STL 読書ノート" href="../meyers01.html" />
@@ -34,7 +34,7 @@
       <div class="documentwrapper">
           <div class="body" role="main">
             
-  <div class="section" id="modern-c-design-3-3">
+  <section id="modern-c-design-3-3">
 <h1><a class="toc-backref" href="#id4">Modern C++ Design 読書ノート 3/3</a><a class="headerlink" href="#modern-c-design-3-3" title="Permalink to this headline">¶</a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">著者</dt>
@@ -67,7 +67,7 @@
 </li>
 </ul>
 </div>
-<div class="section" id="abstract-factory">
+<section id="abstract-factory">
 <h2><a class="toc-backref" href="#id5">第 9 章 Abstract Factory</a><a class="headerlink" href="#abstract-factory" title="Permalink to this headline">¶</a></h2>
 <p>&lt;もしも、<code class="docutils literal notranslate"><span class="pre">ConventionalDialog</span></code> 中では <code class="docutils literal notranslate"><span class="pre">FunkyButton</span></code> を使用させたくないのであれば、
 Abstract Factory デザイン・パターンを使用することによって <code class="docutils literal notranslate"><span class="pre">FunkyDialog</span></code> 中でのみ
@@ -78,8 +78,8 @@ Abstract Factory デザイン・パターンを使用することによって <c
 <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="k">virtual</span> <span class="n">Soldier</span><span class="o">*</span> <span class="n">MakeSoldier</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">virtual</span> <span class="n">Monster</span><span class="o">*</span> <span class="n">MakeMonster</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">virtual</span> <span class="n">SuperMonster</span><span class="o">*</span> <span class="n">MakeSuperMonster</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">virtual</span> <span class="n">Monster</span><span class="o">*</span> <span class="nf">MakeMonster</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">virtual</span> <span class="n">SuperMonster</span><span class="o">*</span> <span class="nf">MakeSuperMonster</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">};</span>
 
 <span class="k">class</span> <span class="nc">EasyLevelEnemyFactory</span> <span class="o">:</span> <span class="k">public</span> <span class="n">AbstractEnemyFactory</span>
@@ -192,8 +192,8 @@ C++ ではしばしば発生するわけです&gt; (p. 234)</p></li>
 <p>→大変なことはよく理解した。</p>
 </li>
 </ul>
-</div>
-<div class="section" id="visitor">
+</section>
+<section id="visitor">
 <h2><a class="toc-backref" href="#id6">第 10 章 Visitor</a><a class="headerlink" href="#visitor" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>メリット：クラス階層や既存コードを再コンパイルせずに、仮想関数を追加できる。</p></li>
@@ -240,7 +240,7 @@ C++ ではしばしば発生するわけです&gt; (p. 234)</p></li>
 <p>発想を変えて、<code class="docutils literal notranslate"><span class="pre">UpdateStats</span></code> を <code class="docutils literal notranslate"><span class="pre">DocStats</span></code> に移動させてみると、
 &lt;今度は <code class="docutils literal notranslate"><span class="pre">DocStats</span></code> が、処理対象となる具体的な <code class="docutils literal notranslate"><span class="pre">DocElement</span></code> に依存することになります&gt; (p. 252)</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// p. 252 より引用一部略</span>
-<span class="kt">void</span> <span class="n">DocStats</span><span class="o">::</span><span class="n">UpdateStats</span><span class="p">(</span><span class="n">DocElement</span><span class="o">&amp;</span> <span class="n">elem</span><span class="p">)</span>
+<span class="kt">void</span> <span class="nf">DocStats::UpdateStats</span><span class="p">(</span><span class="n">DocElement</span><span class="o">&amp;</span> <span class="n">elem</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="k">if</span><span class="p">(</span><span class="n">Paragraph</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">Paragraph</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">elem</span><span class="p">))</span>
     <span class="p">{</span>
@@ -261,7 +261,7 @@ C++ ではしばしば発生するわけです&gt; (p. 234)</p></li>
 <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="k">virtual</span> <span class="kt">void</span> <span class="n">VisitParagraph</span><span class="p">(</span><span class="n">Paragraph</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">VisitRasterBitmap</span><span class="p">(</span><span class="n">RasterBitmap</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">VisitRasterBitmap</span><span class="p">(</span><span class="n">RasterBitmap</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
     <span class="p">...</span>
 <span class="p">};</span>
 
@@ -274,7 +274,7 @@ C++ ではしばしば発生するわけです&gt; (p. 234)</p></li>
     <span class="p">...</span>
 <span class="p">};</span>
 
-<span class="kt">void</span> <span class="n">Paragraph</span><span class="o">::</span><span class="n">Accept</span><span class="p">(</span><span class="n">DocElementVisitor</span><span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span>
+<span class="kt">void</span> <span class="nf">Paragraph::Accept</span><span class="p">(</span><span class="n">DocElementVisitor</span><span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="n">v</span><span class="p">.</span><span class="n">VisitParagraph</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span>
 <span class="p">}</span>
@@ -316,7 +316,7 @@ p. 254 の <code class="docutils literal notranslate"><span class="pre">Incremen
 <code class="docutils literal notranslate"><span class="pre">VisitXxxx</span></code> を純粋仮想関数として宣言する。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">DocElement</span></code> のサブクラス <code class="docutils literal notranslate"><span class="pre">Xxxx::Accept</span></code> 関数にて、引数の <code class="docutils literal notranslate"><span class="pre">DocElementVisitor</span></code> を <code class="docutils literal notranslate"><span class="pre">XxxxVisitor</span></code> に dynamic_cast するテストを加える。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// p. 259 より引用</span>
-<span class="kt">void</span> <span class="n">Paragraph</span><span class="o">::</span><span class="n">Accept</span><span class="p">(</span><span class="n">DocElementVisitor</span><span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span>
+<span class="kt">void</span> <span class="nf">Paragraph::Accept</span><span class="p">(</span><span class="n">DocElementVisitor</span><span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="k">if</span><span class="p">(</span><span class="n">ParagraphVisitor</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">ParagraphVisitor</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">v</span><span class="p">))</span>
     <span class="p">{</span>
@@ -368,7 +368,7 @@ Visitor がボトム 10 パターンの中のかなり下の方に位置付け�
 <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="k">typedef</span> <span class="n">R</span> <span class="n">ReturnType</span><span class="p">;</span>
-    <span class="k">virtual</span> <span class="n">ReturnType</span> <span class="n">Visit</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">virtual</span> <span class="n">ReturnType</span> <span class="nf">Visit</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -419,8 +419,8 @@ Visitor がボトム 10 パターンの中のかなり下の方に位置付け�
 <span class="p">};</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id2">
+</section>
+<section id="id2">
 <h2><a class="toc-backref" href="#id7">第 11 章 マルチメソッド</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>マルチメソッドという用語は CLOS から借用した (p. 277)</p></li>
@@ -451,7 +451,7 @@ C++ プログラム開発経験者ならまず膝を叩く例が挙げられて�
     <span class="p">{</span>
         <span class="k">if</span><span class="p">(</span><span class="n">Rectangle</span><span class="o">*</span> <span class="n">p2</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">Rectangle</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">))</span>
             <span class="n">DoHatchArea1</span><span class="p">(</span><span class="o">*</span><span class="n">p1</span><span class="p">,</span> <span class="o">*</span><span class="n">p2</span><span class="p">);</span>
-        <span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="n">Ellipse</span><span class="o">*</span> <span class="n">p2</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">Ellipse</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">))</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">Ellipse</span><span class="o">*</span> <span class="n">p2</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">Ellipse</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">))</span>
             <span class="n">DoHatchArea2</span><span class="p">(</span><span class="o">*</span><span class="n">p1</span><span class="p">,</span> <span class="o">*</span><span class="n">p2</span><span class="p">);</span>
         <span class="k">else</span> <span class="k">if</span>
             <span class="p">...</span>
@@ -632,8 +632,8 @@ C++ プログラム開発経験者ならまず膝を叩く例が挙げられて�
 </ul>
 <hr class="docutils" />
 <p>&lt;多重ディスパッチと C++ において、特にいやらしかった問題は、可変引数関数を表現する統一した方法が存在しないということだったのです&gt; (p. 312)</p>
-</div>
-<div class="section" id="a">
+</section>
+<section id="a">
 <h2><a class="toc-backref" href="#id8">付録 A 最小限のマルチスレッド・ライブラリ</a><a class="headerlink" href="#a" title="Permalink to this headline">¶</a></h2>
 <p>C++ に関する書籍は、マルチスレッドをテーマにした文章が付録になる傾向がある。本書もその例に漏れない。</p>
 <ul class="simple">
@@ -664,7 +664,7 @@ C++ プログラム開発経験者ならまず膝を叩く例が挙げられて�
 <span class="k">public</span><span class="o">:</span>
     <span class="k">typedef</span> <span class="kt">int</span> <span class="n">IntType</span><span class="p">;</span> <span class="c1">// int にはプラットフォーム規定整数型名がくる。</span>
 
-    <span class="k">static</span> <span class="n">IntType</span> <span class="n">AtomicAdd</span><span class="p">(</span><span class="k">volatile</span> <span class="n">IntType</span><span class="o">&amp;</span> <span class="n">lval</span><span class="p">,</span> <span class="n">IntType</span> <span class="n">val</span><span class="p">);</span>
+    <span class="k">static</span> <span class="n">IntType</span> <span class="nf">AtomicAdd</span><span class="p">(</span><span class="k">volatile</span> <span class="n">IntType</span><span class="o">&amp;</span> <span class="n">lval</span><span class="p">,</span> <span class="n">IntType</span> <span class="n">val</span><span class="p">);</span>
     <span class="p">...</span>
 <span class="p">};</span>
 </pre></div>
@@ -731,16 +731,16 @@ Edgar Dijkstra によって証明されています。マルチスレッド・�
 <hr class="docutils" />
 <p>&lt;ポータブルなマルチスレッド・ライブラリとして ACE
 (Adaptive Communication Environment) を調査することをお勧めします (Schmidt 2000)&gt; (p. 326)</p>
-</div>
-<div class="section" id="id3">
+</section>
+<section id="id3">
 <h2><a class="toc-backref" href="#id9">感想</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>一周読むのに鉛筆片手に 10 時間、このノートをとるのに 13 時間近く要した。これまで読んできた C++ 関連書籍中「初心者にお勧めできない」度ナンバーワンは間違いなく本書だ。</p></li>
 <li><p>コーディング・コンパイル・動作確認を一切しないという不埒な読書姿勢。</p></li>
 <li><p>理解度もかなり低いだろう。</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>

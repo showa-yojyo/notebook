@@ -1,0 +1,844 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Drawing on Canvas &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
+    
+    <script src="../_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="HTTP and Forms" href="chapter18.html" />
+    <link rel="prev" title="Project: A Platform Game" href="chapter16.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter18.html" title="HTTP and Forms"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="chapter16.html" title="Project: A Platform Game"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Eloquent JavaScript 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Drawing on Canvas</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="drawing-on-canvas">
+<h1><a class="toc-backref" href="#id2">Drawing on Canvas</a><a class="headerlink" href="#drawing-on-canvas" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://eloquentjavascript.net/">Eloquent JavaScript</a> Chapter 17 の読書ノート。</p>
+<p>ブラウザーでグラフィックスを扱う方法はいくつかある。一つは SVG であり、もう一つはキャンバスだ。前者はベクトルデータ、後者はラスターデータという際立った違いがある。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title">ノート目次</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#drawing-on-canvas" id="id2">Drawing on Canvas</a></p>
+<ul>
+<li><p><a class="reference internal" href="#svg" id="id3">SVG</a></p></li>
+<li><p><a class="reference internal" href="#the-canvas-element" id="id4">The canvas element</a></p></li>
+<li><p><a class="reference internal" href="#lines-and-surfaces" id="id5">Lines and surfaces</a></p></li>
+<li><p><a class="reference internal" href="#paths" id="id6">Paths</a></p></li>
+<li><p><a class="reference internal" href="#curves" id="id7">Curves</a></p></li>
+<li><p><a class="reference internal" href="#drawing-a-pie-chart" id="id8">Drawing a pie chart</a></p></li>
+<li><p><a class="reference internal" href="#text" id="id9">Text</a></p></li>
+<li><p><a class="reference internal" href="#images" id="id10">Images</a></p></li>
+<li><p><a class="reference internal" href="#transformation" id="id11">Transformation</a></p></li>
+<li><p><a class="reference internal" href="#storing-and-clearing-transformations" id="id12">Storing and clearing transformations</a></p></li>
+<li><p><a class="reference internal" href="#back-to-the-game" id="id13">Back to the game</a></p></li>
+<li><p><a class="reference internal" href="#choosing-a-graphics-interface" id="id14">Choosing a graphics interface</a></p></li>
+<li><p><a class="reference internal" href="#summary" id="id15">Summary</a></p></li>
+<li><p><a class="reference internal" href="#exercises" id="id16">Exercises</a></p>
+<ul>
+<li><p><a class="reference internal" href="#shapes" id="id17">Shapes</a></p></li>
+<li><p><a class="reference internal" href="#the-pie-chart" id="id18">The pie chart</a></p></li>
+<li><p><a class="reference internal" href="#a-bouncing-ball" id="id19">A bouncing ball</a></p></li>
+<li><p><a class="reference internal" href="#precomputed-mirroring" id="id20">Precomputed mirroring</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="svg">
+<h2><a class="toc-backref" href="#id3">SVG</a><a class="headerlink" href="#svg" title="Permalink to this headline">¶</a></h2>
+<p>本書では SVG を細かく述べることはしない。</p>
+<p>これは単純な SVG 画像のある HTML 文書だ：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Normal HTML here.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">svg</span> <span class="na">xmlns</span><span class="o">=</span><span class="s">&quot;http://www.w3.org/2000/svg&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">circle</span> <span class="na">r</span><span class="o">=</span><span class="s">&quot;50&quot;</span> <span class="na">cx</span><span class="o">=</span><span class="s">&quot;50&quot;</span> <span class="na">cy</span><span class="o">=</span><span class="s">&quot;50&quot;</span> <span class="na">fill</span><span class="o">=</span><span class="s">&quot;red&quot;</span><span class="p">/&gt;</span>
+  <span class="p">&lt;</span><span class="nt">rect</span> <span class="na">x</span><span class="o">=</span><span class="s">&quot;120&quot;</span> <span class="na">y</span><span class="o">=</span><span class="s">&quot;5&quot;</span> <span class="na">width</span><span class="o">=</span><span class="s">&quot;90&quot;</span> <span class="na">height</span><span class="o">=</span><span class="s">&quot;90&quot;</span> <span class="na">stroke</span><span class="o">=</span><span class="s">&quot;blue&quot;</span> <span class="na">fill</span><span class="o">=</span><span class="s">&quot;none&quot;</span><span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">svg</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<ul>
+<li><p>属性 <code class="docutils literal notranslate"><span class="pre">xmlns</span></code> は要素を異なる XML 名前空間に変える。
+URL により識別されるこの名前空間は、現在使っている方言を指定する。</p></li>
+<li><p>HTML には存在しない <code class="docutils literal notranslate"><span class="pre">&lt;circle&gt;</span></code> や <code class="docutils literal notranslate"><span class="pre">&lt;rect&gt;</span></code> タグは SVG においては意味がある。属性が指定するスタイルと位置を使って図形を描画する。</p></li>
+<li><p>これらのタグは DOM 要素を生成する。HTML タグと同様に JavaScript から操作できる。例えば次のようなコードは有効だ：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">circle</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;circle&quot;</span><span class="p">);</span>
+<span class="nx">circle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;fill&quot;</span><span class="p">,</span> <span class="s2">&quot;cyan&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>ノート：Google Chrome などの開発ツールを使えば上記のコード片を簡単に試せる。</p>
+</section>
+<section id="the-canvas-element">
+<h2><a class="toc-backref" href="#id4">The canvas element</a><a class="headerlink" href="#the-canvas-element" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>キャンバスグラフィックは <code class="docutils literal notranslate"><span class="pre">&lt;canvas&gt;</span></code> 要素に描画できる。このような要素に属性 <code class="docutils literal notranslate"><span class="pre">width</span></code> と <code class="docutils literal notranslate"><span class="pre">height</span></code> をピクセル単位で与えて寸法を決められる。</p></li>
+<li><p>新しいキャンバスは空だ。完全に透明なので、文書内の何もない空間として現れる。</p></li>
+<li><p>タグ <code class="docutils literal notranslate"><span class="pre">&lt;canvas&gt;</span></code> は色々なスタイルの描画を可能にすることを意図している。現在は次の二つの描画スタイルが広くサポートされている：</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;2d&quot;</span></code>: 2 次元のグラフィックス</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;webgl&quot;</span></code>: OpenGL インターフェイスによる 3 次元のグラフィックス</p></li>
+</ul>
+</li>
+</ul>
+<p>本書では WebGL については議論するつもりはない。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;canvas&gt;</span></code> DOM 要素のメソッド <code class="docutils literal notranslate"><span class="pre">getContext</span></code> を使ってコンテキストを作成する。</p></li>
+</ul>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Before canvas.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">canvas</span> <span class="na">width</span><span class="o">=</span><span class="s">&quot;120&quot;</span> <span class="na">height</span><span class="o">=</span><span class="s">&quot;60&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">canvas</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>After canvas.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">let</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;canvas&quot;</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">context</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span>
+  <span class="nx">context</span><span class="p">.</span><span class="nx">fillStyle</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">;</span>
+  <span class="nx">context</span><span class="p">.</span><span class="nx">fillRect</span><span class="p">(</span><span class="mf">10</span><span class="p">,</span> <span class="mf">10</span><span class="p">,</span> <span class="mf">100</span><span class="p">,</span> <span class="mf">50</span><span class="p">);</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>コードから想像されるような図形が描画される。</p></li>
+<li><p>キャンバスの座標系は HTML 同様、左上隅を原点とし、そこから Y 軸が画面下方に向かう。</p></li>
+</ul>
+</section>
+<section id="lines-and-surfaces">
+<h2><a class="toc-backref" href="#id5">Lines and surfaces</a><a class="headerlink" href="#lines-and-surfaces" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>キャンバスインターフェイスでは図形に対して、その領域に一定の色やパターンを与えて塗りつぶしたり、輪郭に沿って線を引いたりすることができる。同じ用語が SVG でも使われる。</p>
+<ul>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">fillRect</span></code> は矩形を塗りつぶす。引数には矩形の左上の座標、矩形の幅、高さをとる。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">strokeRect</span></code> は矩形の輪郭を描く。</p></li>
+</ul>
+</li>
+<li><p>どちらのメソッドもこれ以上の引数は取らない。塗りつぶしの色、線の太さなどはメソッドの引数ではなく、コンテキストオブジェクトのプロパティーが決定する。</p>
+<ul>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">fillStyle</span></code> は図形の塗りつぶし方法を制御する。
+CSS で使われる色記法を用いて色を指定する文字列を値とする。</p></li>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">strokeStyle</span></code> は描線の色を決定する。</p></li>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">lineWidth</span></code> は描線の太さを決定する。任意の正の数を指定できる。</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">cx</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;canvas&quot;</span><span class="p">).</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">strokeStyle</span> <span class="o">=</span> <span class="s2">&quot;blue&quot;</span><span class="p">;</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">strokeRect</span><span class="p">(</span><span class="mf">5</span><span class="p">,</span> <span class="mf">5</span><span class="p">,</span> <span class="mf">50</span><span class="p">,</span> <span class="mf">50</span><span class="p">);</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">lineWidth</span> <span class="o">=</span> <span class="mf">5</span><span class="p">;</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">strokeRect</span><span class="p">(</span><span class="mf">135</span><span class="p">,</span> <span class="mf">5</span><span class="p">,</span> <span class="mf">50</span><span class="p">,</span> <span class="mf">50</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>このコードで <code class="docutils literal notranslate"><span class="pre">&lt;canvas&gt;</span></code> に <code class="docutils literal notranslate"><span class="pre">width</span></code> や <code class="docutils literal notranslate"><span class="pre">height</span></code> が指定されていないことに注意。既定値が適用される。</p></li>
+</ul>
+</section>
+<section id="paths">
+<h2><a class="toc-backref" href="#id6">Paths</a><a class="headerlink" href="#paths" title="Permalink to this headline">¶</a></h2>
+<p>パスとは線分の列だ。2D キャンバスインターフェイスはパスを記述するのに独特のアプローチをとる。これは完全に副作用でなされるものだ。パスは保存したり受け渡したりするような値ではない。パスで何かをするときには、その形状を記述するためにメソッドをいくつか続けて呼び出す。</p>
+<p>次の例 (pp. 298-299) は水平な線分を 9 本描くものだ：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">cx</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;canvas&quot;</span><span class="p">).</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">y</span> <span class="o">=</span> <span class="mf">10</span><span class="p">;</span> <span class="nx">y</span> <span class="o">&lt;</span> <span class="mf">100</span><span class="p">;</span> <span class="nx">y</span> <span class="o">+=</span> <span class="mf">10</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="mf">10</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="mf">90</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>コンテキストメソッド <code class="docutils literal notranslate"><span class="pre">beginPath</span></code> を呼び出しでパス描画の開始を宣言する？</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">lineTo</span></code> で指定終点まで線分を一本描く。</p></li>
+<li><p>先にメソッド <code class="docutils literal notranslate"><span class="pre">moveTo</span></code> でその始点を指定する。</p></li>
+<li><p>最後にメソッド <code class="docutils literal notranslate"><span class="pre">stroke</span></code> で一気に線を引く。</p></li>
+</ul>
+<hr class="docutils" />
+<ul class="simple">
+<li><p>パスをメソッド <code class="docutils literal notranslate"><span class="pre">fill</span></code> で塗りつぶすことができる。各形状が個別に塗りつぶされる。</p></li>
+<li><p>パスは複数の形状を含むことができる。メソッド <code class="docutils literal notranslate"><span class="pre">moveTo</span></code> を呼び出すと形状が一つ始まる。</p></li>
+<li><p>パスが閉曲線を構成していることを塗りつぶしの前提としているので、閉じていないパスを塗りつぶすと、パスの端点に線分が補完されたかのようにした形状を塗りつぶす。</p>
+<ul>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">closePath</span></code> を使って、そのような線分を明示的に追加することもできる。</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">cx</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;canvas&quot;</span><span class="p">).</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="mf">50</span><span class="p">,</span> <span class="mf">10</span><span class="p">);</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="mf">10</span><span class="p">,</span> <span class="mf">70</span><span class="p">);</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="mf">90</span><span class="p">,</span> <span class="mf">70</span><span class="p">);</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">fill</span><span class="p">();</span>
+</pre></div>
+</div>
+</section>
+<section id="curves">
+<h2><a class="toc-backref" href="#id7">Curves</a><a class="headerlink" href="#curves" title="Permalink to this headline">¶</a></h2>
+<p>パスには真っ直ぐな線分だけではなく、簡単な曲線も含められる。</p>
+<ul class="simple">
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">quadraticCurveTo</span></code> は指定した点に曲線を描く。</p>
+<ul>
+<li><p>さらに、この曲線の曲率を決めるのに目標点と制御点を与える。</p></li>
+<li><p>これが放物線の始点における接線ベクトルを指示すると考える。</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">cx</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;canvas&quot;</span><span class="p">).</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="mf">10</span><span class="p">,</span> <span class="mf">90</span><span class="p">);</span>
+<span class="c1">// control=(60,10) goal=(90,90)</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">quadraticCurveTo</span><span class="p">(</span><span class="mf">60</span><span class="p">,</span> <span class="mf">10</span><span class="p">,</span> <span class="mf">90</span><span class="p">,</span> <span class="mf">90</span><span class="p">);</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="mf">60</span><span class="p">,</span> <span class="mf">10</span><span class="p">);</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">closePath</span><span class="p">();</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">stroke</span><span class="p">();</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">bezierCurveTo</span></code> もまた曲線を描くものだ。これは始点と終点とそれぞれに接線を与えるインターフェイスがある（三次曲線なので点が 4 つ要る）。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">cx</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;canvas&quot;</span><span class="p">).</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="mf">10</span><span class="p">,</span> <span class="mf">90</span><span class="p">);</span>
+<span class="c1">// control1=(10,10) control2=(90,10) goal=(50,90)</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">bezierCurveTo</span><span class="p">(</span><span class="mf">10</span><span class="p">,</span> <span class="mf">10</span><span class="p">,</span> <span class="mf">90</span><span class="p">,</span> <span class="mf">10</span><span class="p">,</span> <span class="mf">50</span><span class="p">,</span> <span class="mf">90</span><span class="p">);</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="mf">90</span><span class="p">,</span> <span class="mf">10</span><span class="p">);</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="mf">10</span><span class="p">,</span> <span class="mf">10</span><span class="p">);</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">closePath</span><span class="p">();</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">stroke</span><span class="p">();</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>二つの制御点は、曲線のそれぞれの端点における接線方向を指定する。</p></li>
+<li><p>この曲線は扱いが難しい。</p></li>
+</ul>
+<hr class="docutils" />
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">arc</span></code> で円弧を描く。次のものを指定する：</p>
+<ul class="simple">
+<li><p>円の中心</p></li>
+<li><p>半径</p></li>
+<li><p>開始角度</p></li>
+<li><p>終了角度</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">cx</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;canvas&quot;</span><span class="p">).</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
+<span class="c1">// center=(50,50) radius=40 angle=0 to 7</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">arc</span><span class="p">(</span><span class="mf">50</span><span class="p">,</span> <span class="mf">50</span><span class="p">,</span> <span class="mf">40</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">7</span><span class="p">);</span>
+<span class="c1">// center=(150,50) radius=40 angle=0 to π½</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">arc</span><span class="p">(</span><span class="mf">150</span><span class="p">,</span> <span class="mf">50</span><span class="p">,</span> <span class="mf">40</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="p">);</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">stroke</span><span class="p">();</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>他のパス描画メソッドと同様に、メソッド <code class="docutils literal notranslate"><span class="pre">arc</span></code> が描く曲線は直前のパス断片に接続される。これを避けるには</p>
+<ul>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">moveTo</span></code> を呼び出すか、</p></li>
+<li><p>新しいパスを開始する。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="drawing-a-pie-chart">
+<h2><a class="toc-backref" href="#id8">Drawing a pie chart</a><a class="headerlink" href="#drawing-a-pie-chart" title="Permalink to this headline">¶</a></h2>
+<p>次の JSON 風データから円グラフを描くことを考える：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">results</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Satisfied&quot;</span><span class="p">,</span> <span class="nx">count</span><span class="o">:</span> <span class="mf">1043</span><span class="p">,</span> <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;lightblue&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Neutral&quot;</span><span class="p">,</span> <span class="nx">count</span><span class="o">:</span> <span class="mf">563</span><span class="p">,</span> <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;lightgreen&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Unsatisfied&quot;</span><span class="p">,</span> <span class="nx">count</span><span class="o">:</span> <span class="mf">510</span><span class="p">,</span> <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;pink&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;No comment&quot;</span><span class="p">,</span> <span class="nx">count</span><span class="o">:</span> <span class="mf">175</span><span class="p">,</span> <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;silver&quot;</span><span class="p">}</span>
+<span class="p">];</span>
+</pre></div>
+</div>
+<p>円グラフを構成する扇形の内角を <code class="docutils literal notranslate"><span class="pre">count</span></code> の割合に応じて計算するところまで示すと次のようなコード
+(p. 303) になる：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">canvas</span> <span class="na">width</span><span class="o">=</span><span class="s">&quot;200&quot;</span> <span class="na">height</span><span class="o">=</span><span class="s">&quot;200&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">canvas</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">let</span> <span class="nx">cx</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;canvas&quot;</span><span class="p">).</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">total</span> <span class="o">=</span> <span class="nx">results</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">sum</span><span class="p">,</span> <span class="p">{</span><span class="nx">count</span><span class="p">})</span> <span class="p">=&gt;</span> <span class="nx">sum</span> <span class="o">+</span> <span class="nx">count</span><span class="p">,</span> <span class="mf">0</span><span class="p">);</span>
+  <span class="c1">// Start at the top</span>
+  <span class="kd">let</span> <span class="nx">currentAngle</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">result</span> <span class="k">of</span> <span class="nx">results</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="nx">sliceAngle</span> <span class="o">=</span> <span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">count</span> <span class="o">/</span> <span class="nx">total</span><span class="p">)</span> <span class="o">*</span> <span class="mf">2</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="p">;</span>
+      <span class="nx">cx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
+      <span class="c1">// center=100,100, radius=100</span>
+      <span class="c1">// from current angle, clockwise by slice&#39;s angle</span>
+      <span class="nx">cx</span><span class="p">.</span><span class="nx">arc</span><span class="p">(</span><span class="mf">100</span><span class="p">,</span> <span class="mf">100</span><span class="p">,</span> <span class="mf">100</span><span class="p">,</span> <span class="nx">currentAngle</span><span class="p">,</span> <span class="nx">currentAngle</span> <span class="o">+</span> <span class="nx">sliceAngle</span><span class="p">);</span>
+      <span class="nx">currentAngle</span> <span class="o">+=</span> <span class="nx">sliceAngle</span><span class="p">;</span>
+      <span class="nx">cx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="mf">100</span><span class="p">,</span> <span class="mf">100</span><span class="p">);</span>
+      <span class="nx">cx</span><span class="p">.</span><span class="nx">fillStyle</span> <span class="o">=</span> <span class="nx">result</span><span class="p">.</span><span class="nx">color</span><span class="p">;</span>
+      <span class="nx">cx</span><span class="p">.</span><span class="nx">fill</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>ラベルを付けたいので、次にキャンバスにテキストを追加する。</p>
+</section>
+<section id="text">
+<h2><a class="toc-backref" href="#id9">Text</a><a class="headerlink" href="#text" title="Permalink to this headline">¶</a></h2>
+<p>テキストを描くメソッドには <code class="docutils literal notranslate"><span class="pre">fillText</span></code> と <code class="docutils literal notranslate"><span class="pre">strokeText</span></code> がある。後者はアウトラインしている文字には便利だが、ふつうは <code class="docutils literal notranslate"><span class="pre">fillText</span></code> が必要とするものだ。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">cx</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;canvas&quot;</span><span class="p">).</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">font</span> <span class="o">=</span> <span class="s2">&quot;28px Georgia&quot;</span><span class="p">;</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">fillStyle</span> <span class="o">=</span> <span class="s2">&quot;fuchsia&quot;</span><span class="p">;</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">fillText</span><span class="p">(</span><span class="s2">&quot;I can draw text, too!&quot;</span><span class="p">,</span> <span class="mf">10</span><span class="p">,</span> <span class="mf">50</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>プロパティ <code class="docutils literal notranslate"><span class="pre">font</span></code> に対してテキストのサイズ、スタイル、フォントを指定する。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">italic</span></code> や <code class="docutils literal notranslate"><span class="pre">bold</span></code> を文字列の先頭に追加してもいい。</p></li>
+</ul>
+</li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">fillText</span></code>, <code class="docutils literal notranslate"><span class="pre">strokeText</span></code> の最後の二つの引数でテキストの描画位置を指定する。位置とは、文字のベースラインに相当する。アルファベットの j とか p の下の部分が突き出るような線だ。</p></li>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">textAlign</span></code> でテキストの水平方向の位置を指定する。値は：</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">center</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">end</span></code></p></li>
+</ul>
+</li>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">textBaseline</span></code> でテキストの垂直方向の位置を指定する。値は：</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">top</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">middle</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bottom</span></code></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="images">
+<h2><a class="toc-backref" href="#id10">Images</a><a class="headerlink" href="#images" title="Permalink to this headline">¶</a></h2>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">drawImage</span></code> はピクセルデータをキャンバスに描く。</p>
+<ul class="simple">
+<li><p>ピクセルデータは <code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</span></code> 要素や他のキャンバスから取得する。</p></li>
+</ul>
+<p>次の例では <code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</span></code> 要素を作成して画像ファイルを読み込む。</p>
+<ul class="simple">
+<li><p>ブラウザーがまだ読み込めていない可能性があるのですぐには描き始めない。イベント <code class="docutils literal notranslate"><span class="pre">load</span></code> のハンドラーを登録して、読み込まれてから描画する。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">cx</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;canvas&quot;</span><span class="p">).</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">img</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;img&quot;</span><span class="p">);</span>
+<span class="nx">img</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="s2">&quot;img/hat.png&quot;</span><span class="p">;</span>
+<span class="nx">img</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;load&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="mf">10</span><span class="p">;</span> <span class="nx">x</span> <span class="o">&lt;</span> <span class="mf">200</span><span class="p">;</span> <span class="nx">x</span> <span class="o">+=</span> <span class="mf">30</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">cx</span><span class="p">.</span><span class="nx">drawImage</span><span class="p">(</span><span class="nx">img</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="mf">10</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">drawImage</span></code> にさらに二つ引数を追加して、元サイズとは異なる幅と高さを指定することもできる。</p></li>
+</ul>
+<hr class="docutils" />
+<p><code class="docutils literal notranslate"><span class="pre">drawImage</span></code> に引数を 9 個与えると、画像の一部だけを描画することができる。</p>
+<ul class="simple">
+<li><p>第 2, 3, 4, 5 引数はコピー元画像の矩形範囲を位置と寸法で指定する。</p></li>
+<li><p>第 6, 7, 8, 9 引数はコピー先の矩形範囲を位置と寸法で指定する。</p></li>
+</ul>
+<p>この仕様を利用して、複数のスプライトを単一の画像ファイルにまとめて、スライスして描画する技法がある。特に、スプライトを順次描画することでアニメーションにするという応用がある。</p>
+<p>キャンバスにある絵をアニメーションにするにはメソッド <code class="docutils literal notranslate"><span class="pre">clearRect</span></code> が役に立つ。メソッド <code class="docutils literal notranslate"><span class="pre">fillRect</span></code> は色を着けるが、これは透明にして直前に描かれたピクセルを消去する。</p>
+<p>次のコードは画像をロードし、次のフレーム（コマ）を描画するための時間的間隔を仕込んでそれをする。各スプライトの寸法が 24x30 であることはわかっているとする：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">cx</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;canvas&quot;</span><span class="p">).</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">img</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;img&quot;</span><span class="p">);</span>
+<span class="nx">img</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="s2">&quot;img/player.png&quot;</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">spriteW</span> <span class="o">=</span> <span class="mf">24</span><span class="p">,</span> <span class="nx">spriteH</span> <span class="o">=</span> <span class="mf">30</span><span class="p">;</span>
+<span class="nx">img</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;load&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">cycle</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span>
+    <span class="nx">setInterval</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="nx">cx</span><span class="p">.</span><span class="nx">clearRect</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">spriteW</span><span class="p">,</span> <span class="nx">spriteH</span><span class="p">);</span>
+        <span class="nx">cx</span><span class="p">.</span><span class="nx">drawImage</span><span class="p">(</span><span class="nx">img</span><span class="p">,</span>
+            <span class="c1">// source rectangle</span>
+            <span class="nx">cycle</span> <span class="o">*</span> <span class="nx">spriteW</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">spriteW</span><span class="p">,</span> <span class="nx">spriteH</span><span class="p">,</span>
+            <span class="c1">// destination rectangle</span>
+            <span class="mf">0</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">spriteW</span><span class="p">,</span> <span class="nx">spriteH</span><span class="p">);</span>
+        <span class="nx">cycle</span> <span class="o">=</span> <span class="p">(</span><span class="nx">cycle</span> <span class="o">+</span> <span class="mf">1</span><span class="p">)</span> <span class="o">%</span> <span class="mf">8</span><span class="p">;</span>
+    <span class="p">},</span> <span class="mf">120</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>変数 <code class="docutils literal notranslate"><span class="pre">cycle</span></code> はアニメーション内の位置を追跡する。各フレームでこの値をインクリメントして、適宜剰余演算子を使って 0 から 7 の範囲に収める。この値は現在のスプライトの全画像における x 座標を計算する。</p></li>
+</ul>
+</section>
+<section id="transformation">
+<h2><a class="toc-backref" href="#id11">Transformation</a><a class="headerlink" href="#transformation" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">scale</span></code> を呼び出すと、以降の描画に拡縮変換が施される。このメソッドは引数を二つとる。それぞれ水平方向と垂直方向の係数だ。</p>
+<p>次のコードは円の幅と逆さをそれぞれ 3 倍、半分にする：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">cx</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;canvas&quot;</span><span class="p">).</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">scale</span><span class="p">(</span><span class="mf">3</span><span class="p">,</span> <span class="mf">.5</span><span class="p">);</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">arc</span><span class="p">(</span><span class="mf">50</span><span class="p">,</span> <span class="mf">50</span><span class="p">,</span> <span class="mf">40</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">7</span><span class="p">);</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">lineWidth</span> <span class="o">=</span> <span class="mf">3</span><span class="p">;</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">stroke</span><span class="p">();</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>拡縮変換は線幅を含む全ての描画要素に適用される。</p></li>
+<li><p>符号も考慮される。負の係数は原点に関して反転する。</p></li>
+</ul>
+</li>
+<li><p>絵の向きを場所を変えずに反転するには <code class="docutils literal notranslate"><span class="pre">cx.scale(-1,</span> <span class="pre">1)</span></code> だけでは足りない。反転画像がビューポートの外に出るだけになる。</p></li>
+</ul>
+<hr class="docutils" />
+<ul class="simple">
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">rotate</span></code> で図形を回転させる。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">translate</span></code> で図形を移動させる。</p></li>
+<li><p>このような図形変換メソッドは重ねて行われる。それぞれの変換はその直前の変換に対して相対的に行われる。例えば、</p>
+<ul>
+<li><p>水平方向に 10 ピクセル移動させるのを二度呼び出すと、20 ピクセル移動させることになる。</p></li>
+<li><p>最初に座標系原点を <span class="math notranslate nohighlight">\((50, 50)\)</span> に移動した後、何度か回転させると、その回転は <span class="math notranslate nohighlight">\((50, 50)\)</span> を中心に回転する。</p></li>
+<li><p>最初に回転させてから <span class="math notranslate nohighlight">\((50, 50)\)</span> だけ移動すると、回転した座標系に対して移動が行われる。その結果、異なる向きを生じる。座標変換を適用する順序がだいじだ。</p></li>
+</ul>
+</li>
+</ul>
+<p>ある垂直軸に沿って絵を反転させるには次のようにする：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">flipHorizontally</span><span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="nx">around</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">context</span><span class="p">.</span><span class="nx">translate</span><span class="p">(</span><span class="nx">around</span><span class="p">,</span> <span class="mf">0</span><span class="p">);</span>
+    <span class="nx">context</span><span class="p">.</span><span class="nx">scale</span><span class="p">(</span><span class="o">-</span><span class="mf">1</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
+    <span class="nx">context</span><span class="p">.</span><span class="nx">translate</span><span class="p">(</span><span class="o">-</span><span class="nx">around</span><span class="p">,</span> <span class="mf">0</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>これで位置 <span class="math notranslate nohighlight">\((100, 100)\)</span> に鏡像を描くことができる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">cx</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;canvas&quot;</span><span class="p">).</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">img</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;img&quot;</span><span class="p">);</span>
+<span class="nx">img</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="s2">&quot;img/player.png&quot;</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">spriteW</span> <span class="o">=</span> <span class="mf">24</span><span class="p">,</span> <span class="nx">spriteH</span> <span class="o">=</span> <span class="mf">30</span><span class="p">;</span>
+<span class="nx">img</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;load&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">flipHorizontally</span><span class="p">(</span><span class="nx">cx</span><span class="p">,</span> <span class="mf">100</span> <span class="o">+</span> <span class="nx">spriteW</span> <span class="o">/</span> <span class="mf">2</span><span class="p">);</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">drawImage</span><span class="p">(</span><span class="nx">img</span><span class="p">,</span>
+        <span class="mf">0</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">spriteW</span><span class="p">,</span> <span class="nx">spriteH</span><span class="p">,</span>
+        <span class="mf">100</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">spriteW</span><span class="p">,</span> <span class="nx">spriteH</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</section>
+<section id="storing-and-clearing-transformations">
+<h2><a class="toc-backref" href="#id12">Storing and clearing transformations</a><a class="headerlink" href="#storing-and-clearing-transformations" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>OpenGL の <code class="docutils literal notranslate"><span class="pre">glPushMatrix</span></code> や <code class="docutils literal notranslate"><span class="pre">glPopMatrix</span></code> のような仕組みが 2D キャンバスにもある。</p>
+<ul>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">save</span></code> と <code class="docutils literal notranslate"><span class="pre">restore</span></code> を用いる。やはり座標変換のスタックを操作するようなものだ。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">resetTransform</span></code> を呼び出すと座標変換を完全にリセットする。</p></li>
+</ul>
+</li>
+<li><p>本書 p. 309 の関数 <code class="docutils literal notranslate"><span class="pre">branch</span></code> は座標変換を変更する関数が何をできるかを示している。再帰呼び出しを利用して典型的なフラクタルを描画する。</p></li>
+</ul>
+</section>
+<section id="back-to-the-game">
+<h2><a class="toc-backref" href="#id13">Back to the game</a><a class="headerlink" href="#back-to-the-game" title="Permalink to this headline">¶</a></h2>
+<p>以上で、前章のゲームのためにキャンバスを使った表示システムを構築するのに十分な知識を得た。新しい表示システムでは、色の着いた箱を見せるだけではなく、ゲーム要素を表現する画像を
+<code class="docutils literal notranslate"><span class="pre">drawImage</span></code> で描く。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CanvasDisplay</span></code> (pp. 310-311) という別の表示オブジェクトを定義し、前章における <code class="docutils literal notranslate"><span class="pre">DOMDisplay</span></code> と同じインターフェイスを、つまりメソッド <code class="docutils literal notranslate"><span class="pre">syncState</span></code> と <code class="docutils literal notranslate"><span class="pre">clear</span></code> を備えるようにする。</p></li>
+<li><p>このオブジェクトは <code class="docutils literal notranslate"><span class="pre">DOMDisplay</span></code> よりわずかに多くの情報を保持する。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">DOM</span></code> 要素のスクロール位置を使うのではなく、独自のビューポートを追跡して、ステージのどの部分を見ているのかを知らせるようにする。</p></li>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">flipPlayer</span></code> を持たせ、プレイヤーが静止しているときでも、直前に動いた方向を向き続けるようにする。</p></li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">syncState</span></code> (p. 311) は、最初に新しいビューポートを計算して、適当な位置にゲームシーンを描画する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">CanvasDisplay</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">syncState</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">updateViewport</span><span class="p">(</span><span class="nx">state</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">clearDisplay</span><span class="p">(</span><span class="nx">state</span><span class="p">.</span><span class="nx">status</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">drawBackground</span><span class="p">(</span><span class="nx">state</span><span class="p">.</span><span class="nx">level</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">drawActors</span><span class="p">(</span><span class="nx">state</span><span class="p">.</span><span class="nx">actors</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">DOMDisplay</span></code> とは対照的に、このスタイルでは更新のたびに背景を再描画する必要がある。キャンバス上の図形は単なるピクセルであるため、描画後にそれを削除・消去する良い方法はない。したがって、キャンバスを更新するただ一つの方法は、表示を消去してシーンを再描画することだ。</p></li>
+<li><p>スクロールすることもできるが、その場合には背景を別の位置に変える必要がある。</p></li>
+</ul>
+<hr class="docutils" />
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">updateViewport</span></code> (pp. 311-312) は <code class="docutils literal notranslate"><span class="pre">DOMDisplay.scrollPlayerIntoView</span></code> に似ている。プレイヤーが画面の端に近づき過ぎているかをチェックし、その場合にはビューポートを移動する。</p>
+<hr class="docutils" />
+<p>表示を消去する (p. 312) ときには、ゲームに勝ったときとそうでないときでは、違う色を使う。</p>
+<hr class="docutils" />
+<p>背景を描画 (pp. 312-313) するのに、現在のビューポートで見えているタイルの中から、前章のメソッド <code class="docutils literal notranslate"><span class="pre">touches</span></code> と同じ手法で、順番に表示する。</p>
+<ul class="simple">
+<li><p>空ではないタイルは <code class="docutils literal notranslate"><span class="pre">drawImage</span></code> を使って描かれる。</p>
+<ul>
+<li><p>画像 <code class="docutils literal notranslate"><span class="pre">otherSprites</span></code> はプレイヤー以外の要素に使われる画像からなる。左から順に壁用、溶岩用、コイン用のスプライトだ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DOMDisplay</span></code> と同じ尺度を使うつもりなので、背景のタイルは 20x20 ピクセルだ。したがって、溶岩タイルのオフセットは 20 であり、壁タイルのそれはゼロだ。</p></li>
+</ul>
+</li>
+<li><p>スプライト画像がロードされるのを待つことを気にする必要はない。まだロードされていない画像で <code class="docutils literal notranslate"><span class="pre">drawImage</span></code> を呼び出すことは単に何もしないで終わるだけだ。そのため、最初の 2, 3 フレームは、画像のロード中にゲームの描画に失敗するかもしれない。しかし、これは深刻な問題というわけではない。画面を更新し続けているため、ロードが完了すると直ちに正しいシーンが現れる。</p></li>
+</ul>
+<hr class="docutils" />
+<p>ここでは p. 305 に掲載されている歩くキャラクターをプレイヤーを表現するのに使う。それを描画するコードは、プレイヤーの現在の動きに従って、正しいスプライトと方向を決める必要がある。最初の 8 個のスプライトが歩行アニメーションだ。</p>
+<ul class="simple">
+<li><p>プレイヤーが床上を移動してるときには、現在の時刻に基づいてスプライトを循環させる。</p>
+<ul>
+<li><p>60 ミリ秒ごとにフレームを切り替えたいので、コード中に <code class="docutils literal notranslate"><span class="pre">/</span> <span class="pre">60</span></code> の処理がある。</p></li>
+<li><p>プレイヤーが静止するときには 9 番目のスプライトを描く。</p></li>
+<li><p>ジャンプ時には画像のいちばん右にある 10 番目のスプライトを使う。</p></li>
+</ul>
+</li>
+<li><p>スプライト幅はプレイヤーオブジェクトのそれよりもわずかに大きい。これは、足や腕のスペースを確保するために 16 ピクセルではなく 24 ピクセルになっているからだ。メソッドでは x 座標と幅を量 <code class="docutils literal notranslate"><span class="pre">playerXOverlap</span></code> により調整しなければならない。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">drawPlayer</span></code> (pp. 313-314) は、ゲーム内のすべての出演者の描画を担当するメソッド
+<code class="docutils literal notranslate"><span class="pre">drawActors</span></code> (pp. 314-315) から呼び出される。</p></li>
+</ul>
+<p>プレイヤー以外のものを描くときには、その種類を見て正しいスプライトのオフセットを見つける。溶岩タイルはオフセット 20 に、コインスプライトは 40 にそれぞれある。</p>
+<p>キャンバスの原点はステージの左上隅ではなく、ビューポートの左上隅に対応するので、出演者の位置を計算するときには、ビューポートの位置を差し引かなければならない。</p>
+<ul class="simple">
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">translate</span></code> を使ってもよい。どちらでも動く。</p></li>
+</ul>
+<p>新しい表示システムの説明は以上だ。スクリーンショットが本書 p.315 にある。</p>
+</section>
+<section id="choosing-a-graphics-interface">
+<h2><a class="toc-backref" href="#id14">Choosing a graphics interface</a><a class="headerlink" href="#choosing-a-graphics-interface" title="Permalink to this headline">¶</a></h2>
+<p>ブラウザー上でグラフィックスを生成する必要があるときには、素の HTML, SVG, キャンバスのいずれかを選択することができることを見てきた。どの選択肢にも長所と短所がある。</p>
+<ul class="simple">
+<li><p>素の HTML は単純であることが長所だ。テキストともよく組み込める。
+SVG もキャンバスもテキストを描くことはできるが、位置を調整することと複数行を折り返すことはできない。
+HTML ベースの画像では、テキストブロックを含めるのがずっと容易だ。</p></li>
+<li><p>SVG はズーム操作に強い。どんな倍率でも見栄えが良い鮮明なグラフィックスを生成する。
+HTML とは異なり、SVG は描画用途に設計されているため、この目的には適している。</p></li>
+<li><p>SVG も HTML も DOM を構築する。これにより、要素の修正が考えられるようになる。ユーザーの行動に応じたり、アニメーションの一部だったりで、大きな絵の小さな部分を繰り返し変更するような場合、キャンバスで行うと必要以上に高くつく。</p>
+<ul>
+<li><p>DOM では、画像の中のどの要素にもマウスイベントハンドラーを登録することができる。キャンバスではそれができない。</p></li>
+</ul>
+</li>
+<li><p>キャンバスのピクセル指向のアプローチは、膨大な数の微小要素を描くようなときには有利だ。データ構造を構築するのではなく、同じピクセル面に繰り返し描画するだけなので、キャンバスでは一図形あたりのコストが安くつく。</p>
+<ul>
+<li><p>また、シーンを 1 ピクセルずつレンダリングするような効果や、
+JavaScript を使って画像を後処理するなどの、ピクセルベースのアプローチでなければ現実的に処理できない効果もキャンバスにならばある。</p></li>
+</ul>
+</li>
+</ul>
+<p>場合によっては、これらの手法を組み合わせることもできる。例えば、SVG やキャンバスでグラフを描き、その絵の上に HTML 要素を配置することでテキストによる情報を見せることができる。</p>
+<p>多くを求めないアプリケーションであれば、どのインターフェイスを選ぶかは重要ではない。本章でゲーム用に作成した表示システムは、文字の描画やマウス操作の処理や異常に多い数の要素をさばく必要がないので、これら三つのグラフィックス技術のいずれを用いても実装することもできた。</p>
+</section>
+<section id="summary">
+<h2><a class="toc-backref" href="#id15">Summary</a><a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>本章ではブラウザーでグラフィックスを描画する技術について議論した。特に
+<code class="docutils literal notranslate"><span class="pre">&lt;canvas&gt;</span></code> 要素に焦点を当てた。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;canvas&gt;</span></code> ノードはプログラムで描画することができる文書内の領域だ。描画はメソッド <code class="docutils literal notranslate"><span class="pre">getContext</span></code> で生成された描画コンテキストオブジェクトを介してなされる。</p></li>
+</ul>
+</li>
+<li><p>2D 描画インターフェイスでは、さまざまな図形を塗りつぶしたり、描いたりすることができる。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">fillStyle</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lineWidth</span></code></p></li>
+<li><p>矩形やテキストは一度のメソッド呼び出しで描画できる。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">fillRect</span></code>, <code class="docutils literal notranslate"><span class="pre">strokeRect</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fillText</span></code>, <code class="docutils literal notranslate"><span class="pre">strokeText</span></code></p></li>
+</ul>
+</li>
+<li><p>自作図形を作成するにはパスを作図する必要がある。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">beginPath</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">moveTo</span></code>, <code class="docutils literal notranslate"><span class="pre">lineTo</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fill</span></code>, <code class="docutils literal notranslate"><span class="pre">stroke</span></code></p></li>
+</ul>
+</li>
+<li><p>画像や他のキャンバスのピクセルをキャンバスに置くには <code class="docutils literal notranslate"><span class="pre">drawImage</span></code> を呼ぶ。</p>
+<ul>
+<li><p>引数を追加的に与えることで、画像の特定の部分を扱うことができる。今回のゲームプログラムではこの機能を使用してスプライトを扱った。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>2D 描画コンテキストは座標変換をサポートしている。</p>
+<ul>
+<li><p>描画コンテキストには現在の変換情報が保持されている。これをメソッド <code class="docutils literal notranslate"><span class="pre">translate</span></code>, <code class="docutils literal notranslate"><span class="pre">scale</span></code>, <code class="docutils literal notranslate"><span class="pre">rotate</span></code> でさらに変換できる。</p></li>
+<li><p>座標変換はその後の描画処理すべてに影響する。</p></li>
+<li><p>座標変換はメソッド <code class="docutils literal notranslate"><span class="pre">save</span></code> で保存、 <code class="docutils literal notranslate"><span class="pre">restore</span></code> で復元することができる。</p></li>
+</ul>
+</li>
+<li><p>キャンバスへのアニメーション表示の際、再描画の前にキャンバスの一部を消去するのにメソッド <code class="docutils literal notranslate"><span class="pre">clearRect</span></code> が使える。</p></li>
+</ul>
+</section>
+<section id="exercises">
+<h2><a class="toc-backref" href="#id16">Exercises</a><a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<section id="shapes">
+<h3><a class="toc-backref" href="#id17">Shapes</a><a class="headerlink" href="#shapes" title="Permalink to this headline">¶</a></h3>
+<p><strong>問題</strong> 次の図形をキャンバスに描画するプログラムを書け：</p>
+<ol class="arabic simple">
+<li><p>台形</p></li>
+<li><p>赤いダイヤ（長方形を 45 度回転させたもの）</p></li>
+<li><p>ジグザグの線</p></li>
+<li><p>100 本の線分で構成された螺旋状の線</p></li>
+<li><p>黄色い星（本書 p.317 参照）</p></li>
+</ol>
+<p>形ごとに関数を作ることをお勧めする。位置、そして指定必須ではないものとして、サイズや点の個数などのプロパティーを引数として渡せ。そうではないほうの方法は、数字をハードコードすることで、コード全体を不必要に難しくしがちだ。コードを読むのも修正するのも無駄に難しくなる。</p>
+<p><strong>解答</strong> 関数を書くときは引数をどうするかが重要だ。座標変換で済むものは省く方針で行く。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">drawTrapezoid</span><span class="p">(</span><span class="nx">cx</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">s</span><span class="p">){</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="mf">0</span><span class="p">);</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="mf">0</span><span class="p">);</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">a</span> <span class="o">-</span> <span class="nx">s</span><span class="p">,</span> <span class="nx">b</span><span class="p">);</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">b</span><span class="p">);</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">closePath</span><span class="p">();</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">stroke</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>赤いダイヤは外接する円の半径を引数としたい。中心は呼び出し元が座標変換を施すことで設定される：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">drawDiamond</span><span class="p">(</span><span class="nx">cx</span><span class="p">,</span> <span class="nx">radius</span><span class="p">){</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">fillStyle</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">;</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="nx">radius</span><span class="p">,</span> <span class="mf">0</span><span class="p">);</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="nx">radius</span><span class="p">);</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="o">-</span><span class="nx">radius</span><span class="p">,</span> <span class="mf">0</span><span class="p">);</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="o">-</span><span class="nx">radius</span><span class="p">);</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">closePath</span><span class="p">();</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">fill</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>ジグザグは外接する矩形の寸法と間隔を与える。間隔がゼロのときは例外を送出したいが略。それ以外の幾何的性質は呼び出し元で座標変換を与えることで設定する：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">drawZigzag</span><span class="p">(</span><span class="nx">cx</span><span class="p">,</span> <span class="nx">size</span><span class="p">,</span> <span class="nx">pitch</span><span class="p">){</span>
+    <span class="kd">const</span> <span class="nx">count</span> <span class="o">=</span> <span class="nx">size</span> <span class="o">/</span> <span class="nx">pitch</span><span class="p">;</span>
+    <span class="nx">pitch</span> <span class="o">/=</span> <span class="mf">2</span><span class="p">;</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="mf">0</span><span class="p">);</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">j</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">count</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="nx">cx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">size</span><span class="p">,</span> <span class="nx">j</span> <span class="o">+=</span> <span class="nx">pitch</span><span class="p">);</span>
+        <span class="nx">cx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="nx">j</span> <span class="o">+=</span> <span class="nx">pitch</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">stroke</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>螺旋などのパラメトリック曲線を描くにはそれを近似する折れ線を描くことになる（以下、三角関数の呼び出しを最適化することはしない）：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">drawSpiral</span><span class="p">(</span><span class="nx">cx</span><span class="p">,</span> <span class="nx">size</span><span class="p">,</span> <span class="nx">winding</span> <span class="o">=</span> <span class="mf">5</span><span class="p">){</span>
+    <span class="kd">const</span> <span class="nx">numLine</span> <span class="o">=</span> <span class="mf">100</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="nx">maxAngle</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span> <span class="o">*</span> <span class="mf">2</span> <span class="o">*</span> <span class="nx">winding</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="nx">dtheta</span> <span class="o">=</span> <span class="nx">maxAngle</span> <span class="o">/</span> <span class="nx">numLine</span><span class="p">;</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="mf">0</span><span class="p">);</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">numLine</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">){</span>
+        <span class="kd">const</span> <span class="nx">t</span> <span class="o">=</span> <span class="nx">dtheta</span> <span class="o">*</span> <span class="nx">i</span><span class="p">;</span>
+        <span class="kd">const</span> <span class="nx">r</span> <span class="o">=</span> <span class="nx">size</span> <span class="o">*</span> <span class="nx">i</span> <span class="o">/</span> <span class="nx">numLine</span><span class="p">;</span>
+        <span class="nx">cx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">cos</span><span class="p">(</span><span class="nx">t</span><span class="p">),</span> <span class="nx">r</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sin</span><span class="p">(</span><span class="nx">t</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">size</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">cos</span><span class="p">(</span><span class="nx">maxAngle</span><span class="p">),</span> <span class="nx">size</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sin</span><span class="p">(</span><span class="nx">maxAngle</span><span class="p">));</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">stroke</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>黄色い星の問題が実はいちばん易しい：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">drawStar</span><span class="p">(</span><span class="nx">cx</span><span class="p">,</span> <span class="nx">r</span> <span class="o">=</span> <span class="mf">1</span><span class="p">,</span> <span class="nx">num</span> <span class="o">=</span> <span class="mf">8</span><span class="p">){</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">fillStyle</span> <span class="o">=</span> <span class="s2">&quot;yellow&quot;</span><span class="p">;</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="mf">0</span><span class="p">);</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">num</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">){</span>
+        <span class="kd">const</span> <span class="nx">t</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span> <span class="o">*</span> <span class="mf">2</span> <span class="o">/</span> <span class="nx">num</span><span class="p">;</span>
+        <span class="nx">cx</span><span class="p">.</span><span class="nx">quadraticCurveTo</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">cos</span><span class="p">(</span><span class="nx">t</span><span class="p">),</span> <span class="nx">r</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sin</span><span class="p">(</span><span class="nx">t</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">quadraticCurveTo</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="mf">0</span><span class="p">);</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">fill</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="the-pie-chart">
+<h3><a class="toc-backref" href="#id18">The pie chart</a><a class="headerlink" href="#the-pie-chart" title="Permalink to this headline">¶</a></h3>
+<p><strong>問題</strong> この章では、円グラフを描くプログラムの例を紹介した。これを修正して、各カテゴリーの名前を、そのカテゴリーを表すスライスの横に表示しろ。他のデータセットにも適用できるように、このテキストを自動的に配置するための見栄えの良い方法を見つけろ。カテゴリーはラベルのための十分なスペースを確保できる大きさであると仮定してかまわない。</p>
+<p><strong>解答</strong> テキストの配置を見栄え良くするという課題が上手くいかなくて、ここだけヒントを参考にした：</p>
+<p>まず <code class="docutils literal notranslate"><span class="pre">for</span></code> ループの外側でフォントの静的な性質を設定する：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">cx</span><span class="p">.</span><span class="nx">font</span> <span class="o">=</span> <span class="s2">&quot;16px Georgia&quot;</span><span class="p">;</span>
+<span class="nx">cx</span><span class="p">.</span><span class="nx">textBaseline</span> <span class="o">=</span> <span class="s2">&quot;middle&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>この <code class="docutils literal notranslate"><span class="pre">textBaseline</span></code> の設定は相当手練なフォント使いでないと発想できない。</p>
+<p>ループを次のように修正する：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">centerX</span> <span class="o">=</span> <span class="mf">200</span><span class="p">,</span> <span class="nx">centerY</span> <span class="o">=</span> <span class="mf">150</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">radius</span> <span class="o">=</span> <span class="mf">100</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">total</span> <span class="o">=</span> <span class="nx">results</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">sum</span><span class="p">,</span> <span class="p">{</span> <span class="nx">count</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="nx">sum</span> <span class="o">+</span> <span class="nx">count</span><span class="p">,</span> <span class="mf">0</span><span class="p">);</span>
+<span class="c1">// Start at the top</span>
+<span class="kd">let</span> <span class="nx">currentAngle</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">const</span> <span class="nx">result</span> <span class="k">of</span> <span class="nx">results</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">sliceAngle</span> <span class="o">=</span> <span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">count</span> <span class="o">/</span> <span class="nx">total</span><span class="p">)</span> <span class="o">*</span> <span class="mf">2</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="p">;</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
+    <span class="c1">// center=100,100, radius=100</span>
+    <span class="c1">// from current angle, clockwise by slice&#39;s angle</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">arc</span><span class="p">(</span><span class="nx">centerX</span><span class="p">,</span> <span class="nx">centerY</span><span class="p">,</span> <span class="nx">radius</span><span class="p">,</span> <span class="nx">currentAngle</span><span class="p">,</span> <span class="nx">currentAngle</span> <span class="o">+</span> <span class="nx">sliceAngle</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">middleAngle</span> <span class="o">=</span> <span class="nx">currentAngle</span> <span class="o">+</span> <span class="nx">sliceAngle</span> <span class="o">/</span> <span class="mf">2</span><span class="p">;</span>
+    <span class="nx">currentAngle</span> <span class="o">+=</span> <span class="nx">sliceAngle</span><span class="p">;</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">centerX</span><span class="p">,</span> <span class="nx">centerY</span><span class="p">);</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">fillStyle</span> <span class="o">=</span> <span class="nx">result</span><span class="p">.</span><span class="nx">color</span><span class="p">;</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">fill</span><span class="p">();</span>
+
+    <span class="kd">const</span> <span class="nx">labelX</span> <span class="o">=</span> <span class="nx">radius</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">cos</span><span class="p">(</span><span class="nx">middleAngle</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">labelY</span> <span class="o">=</span> <span class="nx">radius</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sin</span><span class="p">(</span><span class="nx">middleAngle</span><span class="p">);</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">fillStyle</span> <span class="o">=</span> <span class="s2">&quot;black&quot;</span><span class="p">;</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">textAlign</span> <span class="o">=</span> <span class="nx">labelX</span> <span class="o">&lt;</span> <span class="mf">0</span> <span class="o">?</span> <span class="s2">&quot;right&quot;</span> <span class="o">:</span> <span class="s2">&quot;left&quot;</span><span class="p">;</span>
+    <span class="nx">cx</span><span class="p">.</span><span class="nx">fillText</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="nx">centerX</span> <span class="o">+</span> <span class="nx">labelX</span><span class="p">,</span> <span class="nx">centerY</span> <span class="o">+</span> <span class="nx">labelY</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>キャンバスの寸法は題意に従い HTML 側で十分大きくしておくといい。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">middleAngle</span></code> を計算して <code class="docutils literal notranslate"><span class="pre">fillText</span></code> に入力するラベル位置を決定することは容易に思いつく。</p></li>
+<li><p>急所は <code class="docutils literal notranslate"><span class="pre">textAlign</span></code> を円グラフの左右で指定を分けるという点だ。</p></li>
+</ul>
+</section>
+<section id="a-bouncing-ball">
+<h3><a class="toc-backref" href="#id19">A bouncing ball</a><a class="headerlink" href="#a-bouncing-ball" title="Permalink to this headline">¶</a></h3>
+<p><strong>問題</strong> 第 14 章と第 16 章で紹介した <code class="docutils literal notranslate"><span class="pre">requestAnimationFrame</span></code> の技法を使って、跳ね返るボールが入った箱を描け。ボールは一定の速さで動き、箱の側面に当たると跳ね返る。</p>
+<ul class="simple">
+<li><p>箱は <code class="docutils literal notranslate"><span class="pre">strokeRect</span></code> で容易に描ける。箱の寸法が縦と横で異なるようなら、それらを保持する変数を定義しろ。</p></li>
+<li><p>丸い玉を作るには、パスを始めて <code class="docutils literal notranslate"><span class="pre">arc(x,</span> <span class="pre">y,</span> <span class="pre">radius,</span> <span class="pre">0,</span> <span class="pre">7)</span></code> を呼び出せ。それからパスを塗りつぶせ。</p></li>
+<li><p>玉の位置と速度を模すには第 16 章のクラス <code class="docutils literal notranslate"><span class="pre">Vec</span></code> を使える。初速を与えて、各フレーム（コマ）でその速度と経過時間を乗じろ。</p></li>
+<li><p>玉が垂直に立つ壁に十分過ぎるほど接近するときに速度の <code class="docutils literal notranslate"><span class="pre">x</span></code> 成分を反転しろ。水平の壁に衝突するときには同様にして  <code class="docutils literal notranslate"><span class="pre">y</span></code> 成分を反転しろ。</p></li>
+<li><p>新しい位置と速度を見出したら、シーン全体を <code class="docutils literal notranslate"><span class="pre">clearRect</span></code> で消去し、再描画しろ。</p></li>
+</ul>
+<p><strong>解答</strong> まず以前手に入れた <code class="docutils literal notranslate"><span class="pre">Vec</span></code> のコードを利用可能にしておく。下準備部分のコードは次のようになる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;canvas&quot;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">cx</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">ball</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span>
+    <span class="nx">radius</span><span class="o">:</span> <span class="mf">10</span><span class="p">,</span>
+    <span class="nx">pos</span><span class="o">:</span> <span class="k">new</span> <span class="nx">Vec</span><span class="p">(</span><span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span> <span class="o">/</span> <span class="mf">2</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span> <span class="o">/</span> <span class="mf">2</span><span class="p">),</span>
+    <span class="nx">speed</span><span class="o">:</span> <span class="k">new</span> <span class="nx">Vec</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>次にアニメーションのコードの骨格を書く：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span> <span class="kd">function</span> <span class="nx">animate</span><span class="p">(</span><span class="nx">time</span><span class="p">,</span> <span class="nx">lastTime</span><span class="p">)</span> <span class="p">{</span>
+     <span class="k">if</span> <span class="p">(</span><span class="nx">lastTime</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+       <span class="kd">const</span> <span class="nx">delta</span> <span class="o">=</span> <span class="nx">time</span> <span class="o">-</span> <span class="nx">lastTime</span><span class="p">;</span>
+       <span class="nx">ball</span><span class="p">.</span><span class="nx">speed</span><span class="p">.</span><span class="nx">y</span> <span class="o">+=</span> <span class="nx">delta</span> <span class="o">*</span> <span class="mf">0.01</span><span class="p">;</span>
+     <span class="p">}</span>
+
+     <span class="c1">// motion of the ball...</span>
+
+     <span class="nx">cx</span><span class="p">.</span><span class="nx">clearRect</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span>
+     <span class="nx">cx</span><span class="p">.</span><span class="nx">strokeStyle</span> <span class="o">=</span> <span class="s2">&quot;black&quot;</span><span class="p">;</span>
+     <span class="nx">cx</span><span class="p">.</span><span class="nx">strokeRect</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span>
+     <span class="nx">cx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
+     <span class="nx">cx</span><span class="p">.</span><span class="nx">arc</span><span class="p">(</span><span class="nx">ball</span><span class="p">.</span><span class="nx">pos</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="nx">ball</span><span class="p">.</span><span class="nx">pos</span><span class="p">.</span><span class="nx">y</span><span class="p">,</span> <span class="nx">ball</span><span class="p">.</span><span class="nx">radius</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">6.29</span><span class="p">);</span>
+     <span class="nx">cx</span><span class="p">.</span><span class="nx">closePath</span><span class="p">();</span>
+     <span class="nx">cx</span><span class="p">.</span><span class="nx">fillStyle</span> <span class="o">=</span> <span class="nx">ball</span><span class="p">.</span><span class="nx">color</span><span class="p">;</span>
+     <span class="nx">cx</span><span class="p">.</span><span class="nx">fill</span><span class="p">();</span>
+     <span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">newTime</span> <span class="p">=&gt;</span> <span class="nx">animate</span><span class="p">(</span><span class="nx">newTime</span><span class="p">,</span> <span class="nx">time</span><span class="p">));</span>
+<span class="p">}</span>
+<span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">animate</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>まずキャンバス全域を消去する。それから矩形を描く。次に玉を描く。</p></li>
+<li><p>以前のゲームでやったように垂直軸方向に加速度を与える。</p></li>
+</ul>
+<p>コメントを入れた箇所に玉の運動を定義する。前章の <code class="docutils literal notranslate"><span class="pre">Player.prototype.update</span></code> が参考になる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">newx</span> <span class="o">=</span> <span class="nx">ball</span><span class="p">.</span><span class="nx">pos</span><span class="p">.</span><span class="nx">x</span> <span class="o">+</span> <span class="nx">ball</span><span class="p">.</span><span class="nx">speed</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">ball</span><span class="p">.</span><span class="nx">pos</span><span class="p">.</span><span class="nx">x</span> <span class="o">&lt;</span> <span class="nx">ball</span><span class="p">.</span><span class="nx">radius</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">ball</span><span class="p">.</span><span class="nx">pos</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="nx">ball</span><span class="p">.</span><span class="nx">radius</span><span class="p">;</span>
+    <span class="nx">ball</span><span class="p">.</span><span class="nx">speed</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="o">-</span><span class="nx">ball</span><span class="p">.</span><span class="nx">speed</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">ball</span><span class="p">.</span><span class="nx">pos</span><span class="p">.</span><span class="nx">x</span> <span class="o">&gt;</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span> <span class="o">-</span> <span class="nx">ball</span><span class="p">.</span><span class="nx">radius</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">ball</span><span class="p">.</span><span class="nx">pos</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span> <span class="o">-</span> <span class="nx">ball</span><span class="p">.</span><span class="nx">radius</span><span class="p">;</span>
+    <span class="nx">ball</span><span class="p">.</span><span class="nx">speed</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="o">-</span><span class="nx">ball</span><span class="p">.</span><span class="nx">speed</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span>
+    <span class="nx">ball</span><span class="p">.</span><span class="nx">pos</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="nx">newx</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">newy</span> <span class="o">=</span> <span class="nx">ball</span><span class="p">.</span><span class="nx">pos</span><span class="p">.</span><span class="nx">y</span> <span class="o">+</span> <span class="nx">ball</span><span class="p">.</span><span class="nx">speed</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">ball</span><span class="p">.</span><span class="nx">pos</span><span class="p">.</span><span class="nx">y</span> <span class="o">&lt;</span> <span class="nx">ball</span><span class="p">.</span><span class="nx">radius</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">ball</span><span class="p">.</span><span class="nx">pos</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="nx">ball</span><span class="p">.</span><span class="nx">radius</span><span class="p">;</span>
+    <span class="nx">ball</span><span class="p">.</span><span class="nx">speed</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="o">-</span><span class="nx">ball</span><span class="p">.</span><span class="nx">speed</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">ball</span><span class="p">.</span><span class="nx">pos</span><span class="p">.</span><span class="nx">y</span> <span class="o">&gt;</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span> <span class="o">-</span> <span class="nx">ball</span><span class="p">.</span><span class="nx">radius</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">ball</span><span class="p">.</span><span class="nx">pos</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span> <span class="o">-</span> <span class="nx">ball</span><span class="p">.</span><span class="nx">radius</span><span class="p">;</span>
+    <span class="nx">ball</span><span class="p">.</span><span class="nx">speed</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="o">-</span><span class="nx">ball</span><span class="p">.</span><span class="nx">speed</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span>
+    <span class="nx">ball</span><span class="p">.</span><span class="nx">pos</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="nx">newy</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>コードが汚い。</p>
+</section>
+<section id="precomputed-mirroring">
+<h3><a class="toc-backref" href="#id20">Precomputed mirroring</a><a class="headerlink" href="#precomputed-mirroring" title="Permalink to this headline">¶</a></h3>
+<p>座標変換の残念な点は、ビットマップの描画が遅くなることだ。各ピクセルの位置とサイズを変換しなければならないので、将来的にはブラウザーが変換をより賢くする可能性もあるが、現在は、ビットマップの描画にかかる時間が大幅に増加する。</p>
+<p>我々のゲームのようなものでは、変換された単一のスプライトを描くだけなのでこのことは問題ではないが、何百ものキャラクターや、爆発で回転する何千もの粒子を描く必要があるとしたらどうだろう。</p>
+<p><strong>問題</strong> 追加の画像ファイルを読み込まずに、また、フレームごとに変換された <code class="docutils literal notranslate"><span class="pre">drawImage</span></code> を呼び出さずに、キャラクターを反転させて描く方法を考えろ。</p>
+<p><strong>解答</strong> 課せられた制約は</p>
+<ul class="simple">
+<li><p>画像ファイルは一枚しか使えないことと、</p></li>
+<li><p>反転画像を生成するのは一度限りであること</p></li>
+</ul>
+<p>の二つだ。</p>
+<p>あまり興味がないので巻末のヒントを読む。こういう感じで鏡像を仕込んでおくようだ：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">cvSource</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;canvas&quot;</span><span class="p">);</span>
+<span class="nx">cvSource</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;image-source&quot;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">cvFlipped</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;flipped&quot;</span><span class="p">);</span>
+<span class="nx">cvFlipped</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;image-flipped&quot;</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">img</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;img&quot;</span><span class="p">);</span>
+<span class="nx">img</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="s2">&quot;source.png&quot;</span><span class="p">;</span>
+<span class="nx">img</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;load&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">cxSource</span><span class="p">.</span><span class="nx">drawImage</span><span class="p">(</span><span class="nx">img</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">0</span><span class="p">);</span>
+    <span class="nx">flipHorizontally</span><span class="p">(</span><span class="nx">cxSource</span><span class="p">,</span> <span class="nx">img</span><span class="p">.</span><span class="nx">width</span> <span class="o">/</span> <span class="mf">2</span><span class="p">);</span>
+    <span class="nx">cxFlipped</span><span class="p">.</span><span class="nx">drawImage</span><span class="p">(</span><span class="nx">cvSource</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">0</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>あるいはイベントハンドラーを二つに分割しても行けるだろう。</p>
+<p>以後、任意のキャンバス上で鏡像を描画することができる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">drawFlippedImage</span><span class="p">(</span><span class="nx">dest</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">){</span>
+    <span class="nx">dest</span><span class="p">.</span><span class="nx">drawImage</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;image-flipped&quot;</span><span class="p">),</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>以上</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter18.html" title="HTTP and Forms"
+             >next</a></li>
+        <li class="right" >
+          <a href="chapter16.html" title="Project: A Platform Game"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Eloquent JavaScript 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Drawing on Canvas</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

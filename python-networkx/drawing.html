@@ -4,12 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>グラフを描画する &#8212; 読書ノート v1.5dev</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/prefab.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
     
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/mathjax-v3.js"></script>
     
     <link rel="next" title="グラフ用語と実装要素の対応早見表" href="glossary.html" />
@@ -34,7 +34,7 @@
       <div class="documentwrapper">
           <div class="body" role="main">
             
-  <div class="section" id="id1">
+  <section id="id1">
 <h1><a class="toc-backref" href="#id9">グラフを描画する</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>本稿では <a class="reference external" href="https://networkx.github.io/">NetworkX</a> のグラフインスタンスをグラフィカルに描画する方法について記す。
 NetworkX の描画機能は、以下で紹介する外部パッケージのいずれかの力を借りて実現している。</p>
@@ -63,7 +63,7 @@ NetworkX の描画機能は、以下で紹介する外部パッケージのい�
 </li>
 </ul>
 </div>
-<div class="section" id="matplotlib">
+<section id="matplotlib">
 <h2><a class="toc-backref" href="#id10">Matplotlib との連携</a><a class="headerlink" href="#matplotlib" title="Permalink to this headline">¶</a></h2>
 <p>関数 <code class="code docutils literal notranslate"><span class="pre">nx.draw_networkx</span></code> 系統の描画関数だけでグラフをウィンドウに描画するコードの例を示す。日本語テキストが描画可能であることを示したいので、ノードラベルをすべて日本語文字列とした。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
@@ -115,11 +115,11 @@ NetworkX の描画機能は、以下で紹介する外部パッケージのい�
 <li><p>ノードラベルは日本語なので、適切なフォントをセットする必要がある。どうも Matplotlib のインスタンスを直接操作せねばならぬようなので、このようにした。</p></li>
 </ul>
 <p>実行結果を次に示す：</p>
-<div class="figure align-center">
+<figure class="align-center">
 <a class="reference internal image-reference" href="../_images/networkx-drawing-mpl.png"><img alt="賢者の石レシピ" src="../_images/networkx-drawing-mpl.png" style="width: 640.0px; height: 478.0px;" /></a>
-</div>
-</div>
-<div class="section" id="pygraphviz">
+</figure>
+</section>
+<section id="pygraphviz">
 <h2><a class="toc-backref" href="#id11">PyGraphviz との連携</a><a class="headerlink" href="#pygraphviz" title="Permalink to this headline">¶</a></h2>
 <p>Python 3.5 環境では、現時点で <a class="reference external" href="http://pygraphviz.github.io/">PyGraphviz</a> を利用するには自分でビルドをする必要がありそうだ。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/pygraphviz/pygraphviz.git
@@ -141,11 +141,11 @@ Installing collected packages: pygraphviz
 <p class="admonition-title">Warning</p>
 <p>こちらは最新環境では試していない。</p>
 </div>
-</div>
-<div class="section" id="pydot">
+</section>
+<section id="pydot">
 <h2><a class="toc-backref" href="#id12">pydot との連携</a><a class="headerlink" href="#pydot" title="Permalink to this headline">¶</a></h2>
 <p>本家の <a class="reference external" href="https://code.google.com/p/pydot/">pydot</a> は Python3 に対応していない。それゆえ NetworkX からの連携は公式にはできないことになっている。本稿では、そこを何とかクリアする。</p>
-<div class="section" id="python3-pydot">
+<section id="python3-pydot">
 <h3><a class="toc-backref" href="#id13">Python3 動作版 pydot のセットアップ</a><a class="headerlink" href="#python3-pydot" title="Permalink to this headline">¶</a></h3>
 <p>試行錯誤した結果、どうも <a class="reference external" href="https://github.com/nlhepler/pydot">nlhepler 版 pydot</a>
 を利用するのがもっとも安定した動作実績を得られることがわかった。バージョンは 1.0.29 だ。</p>
@@ -154,8 +154,8 @@ $ <span class="nb">cd</span> pydot
 $ pip install -e .
 </pre></div>
 </div>
-</div>
-<div class="section" id="nxpydot">
+</section>
+<section id="nxpydot">
 <h3><a class="toc-backref" href="#id14">パッケージ nxpydot のセットアップ</a><a class="headerlink" href="#nxpydot" title="Permalink to this headline">¶</a></h3>
 <p>別の方法を見つけたので記す。それは <a class="reference external" href="http://github.com/pfmoore/nxpydot">nxpydot</a> というサードパーティー製パッケージを利用するやり方だ。本稿ではこちらを採用する。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ pip install nxpydot
@@ -173,8 +173,8 @@ Installing collected packages: pydotplus, nxpydot
 Successfully installed nxpydot-0.1 pydotplus-2.0.2
 </pre></div>
 </div>
-</div>
-<div class="section" id="networkx-nx-pydot">
+</section>
+<section id="networkx-nx-pydot">
 <h3><a class="toc-backref" href="#id15">モジュール <code class="code docutils literal notranslate"><span class="pre">networkx.nx_pydot</span></code> の関数の動作確認</a><a class="headerlink" href="#networkx-nx-pydot" title="Permalink to this headline">¶</a></h3>
 <p>以上の環境で、簡単な NetworkX のグラフインスタンスを作成し、モジュール <code class="code docutils literal notranslate"><span class="pre">networkx.nx_pydot</span></code> がエクスポートしている各関数の動作を確認した。</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">N</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">complete_graph</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
@@ -233,11 +233,11 @@ Successfully installed nxpydot-0.1 pydotplus-2.0.2
 }
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="id2">
+</section>
+</section>
+<section id="id2">
 <h2><a class="toc-backref" href="#id16">形状別描画手引</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id3">
+<section id="id3">
 <h3><a class="toc-backref" href="#id17">完全グラフを正多角形の頂点に描画したい</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>完全グラフを描画するには、描画関数 <code class="code docutils literal notranslate"><span class="pre">nx.draw_circular</span></code> 一発で済ませるか、あるいはレイアウト関数 <code class="code docutils literal notranslate"><span class="pre">nx.circular_layout</span></code> と汎用描画関数の組み合わせのどちらかを利用したい。ここでは後者の例を示す。コード中の if ブロックの else の処理は自力でグラフノードの座標を指示する一例であるが、出来合いのものを利用するのが望ましい。実物の <code class="code docutils literal notranslate"><span class="pre">nx.circular_layout</span></code> の実装はもっとスマートだ。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
@@ -273,11 +273,11 @@ Successfully installed nxpydot-0.1 pydotplus-2.0.2
 <p>コード中の <code class="code docutils literal notranslate"><span class="pre">set_aspect</span></code> うんぬんは Matplotlib 側の事情による。私の環境では、この呼び出しを行わないとプロットの座標系の縦横比が 1 : 1 にならない。</p>
 <p>実行結果は次のようになるはずだ。仮に自力で点の座標を指示すると、原点を中止とする単位円周上に配列される。もっとも、グラフを図示するときには点の物理的な座標は気にしないはずなので、
 <code class="code docutils literal notranslate"><span class="pre">plt.axis('off')</span></code> する等して座標軸の描画をやめるとよい。</p>
-<div class="figure align-center">
+<figure class="align-center">
 <a class="reference internal image-reference" href="../_images/networkx-drawing-comp.png"><img alt="正 17 角形" src="../_images/networkx-drawing-comp.png" style="width: 410.5px; height: 310.0px;" /></a>
-</div>
-</div>
-<div class="section" id="id4">
+</figure>
+</section>
+<section id="id4">
 <h3><a class="toc-backref" href="#id18">木を描画したい</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>結論から言うと Graphviz 任せになる。コツは関数 <code class="code docutils literal notranslate"><span class="pre">nx.pydot_layout</span></code> のキーワード引数 <code class="docutils literal notranslate"><span class="pre">prog</span></code> を下のように指示することのようだ。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
@@ -313,12 +313,12 @@ Successfully installed nxpydot-0.1 pydotplus-2.0.2
 </pre></div>
 </div>
 <p>実行結果は次のようになるはずだ。例によって議論の本筋とは無関係にノードを着色してある。</p>
-<div class="figure align-center">
+<figure class="align-center">
 <a class="reference internal image-reference" href="../_images/networkx-drawing-tree.png"><img alt="完全二分木" src="../_images/networkx-drawing-tree.png" style="width: 361.6px; height: 236.0px;" /></a>
-</div>
-</div>
-</div>
-</div>
+</figure>
+</section>
+</section>
+</section>
 
 
             <div class="clearer"></div>

@@ -1,0 +1,601 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>The Document Object Model &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
+    
+    <script src="../_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="Handling Events" href="chapter15.html" />
+    <link rel="prev" title="JavaScript and the Browser" href="chapter13.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter15.html" title="Handling Events"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="chapter13.html" title="JavaScript and the Browser"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Eloquent JavaScript 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">The Document Object Model</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="the-document-object-model">
+<h1><a class="toc-backref" href="#id2">The Document Object Model</a><a class="headerlink" href="#the-document-object-model" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://eloquentjavascript.net/">Eloquent JavaScript</a> Chapter 14 の読書ノート。</p>
+<p>Web ページをブラウザーで開くと、第 12 章の解析器がプログラムを解析するのと同じように、ブラウザーはページの HTML テキストを解析する。文書構造のモデルを構築し、このモデルを使って画面にページを描画する。本章ではこのモデルを学ぶ。</p>
+<p>この章の内容は Web スクレイピングの初等知識が満載なので、必ず履修すること。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title">ノート目次</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#the-document-object-model" id="id2">The Document Object Model</a></p>
+<ul>
+<li><p><a class="reference internal" href="#document-structure" id="id3">Document structure</a></p></li>
+<li><p><a class="reference internal" href="#trees" id="id4">Trees</a></p></li>
+<li><p><a class="reference internal" href="#the-standard" id="id5">The standard</a></p></li>
+<li><p><a class="reference internal" href="#moving-through-the-tree" id="id6">Moving through the tree</a></p></li>
+<li><p><a class="reference internal" href="#finding-elements" id="id7">Finding elements</a></p></li>
+<li><p><a class="reference internal" href="#changing-the-document" id="id8">Changing the document</a></p></li>
+<li><p><a class="reference internal" href="#creating-nodes" id="id9">Creating nodes</a></p></li>
+<li><p><a class="reference internal" href="#attributes" id="id10">Attributes</a></p></li>
+<li><p><a class="reference internal" href="#layout" id="id11">Layout</a></p></li>
+<li><p><a class="reference internal" href="#styling" id="id12">Styling</a></p></li>
+<li><p><a class="reference internal" href="#cascading-styles" id="id13">Cascading styles</a></p></li>
+<li><p><a class="reference internal" href="#query-selectors" id="id14">Query selectors</a></p></li>
+<li><p><a class="reference internal" href="#positioning-and-animating" id="id15">Positioning and animating</a></p></li>
+<li><p><a class="reference internal" href="#summary" id="id16">Summary</a></p></li>
+<li><p><a class="reference internal" href="#exercises" id="id17">Exercises</a></p>
+<ul>
+<li><p><a class="reference internal" href="#build-a-table" id="id18">Build a table</a></p></li>
+<li><p><a class="reference internal" href="#elements-by-tag-name" id="id19">Elements by tag name</a></p></li>
+<li><p><a class="reference internal" href="#the-cat-s-hat" id="id20">The cat’s hat</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="document-structure">
+<h2><a class="toc-backref" href="#id3">Document structure</a><a class="headerlink" href="#document-structure" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>HTML 文書を入れ子になった箱の集合と考えることができる。</p></li>
+<li><p>文書を表現するのにブラウザーが使うデータ構造は木構造をしている。それぞれの枝にはオブジェクトが存在し、それによって何が何であるかを知る。このモデルを短く <strong>DOM</strong> と呼ぶ。</p></li>
+<li><p>大域変数 <code class="docutils literal notranslate"><span class="pre">document</span></code> はこれらのオブジェクトにアクセスするのに使える。</p>
+<ul>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">document.documentElement</span></code> は <code class="docutils literal notranslate"><span class="pre">&lt;html&gt;</span></code> タグを表すオブジェクトを参照している。</p></li>
+<li><p>すべての HTML 文書には <code class="docutils literal notranslate"><span class="pre">&lt;head&gt;</span></code> と <code class="docutils literal notranslate"><span class="pre">&lt;body&gt;</span></code> が一つずつあるので、プロパティー <code class="docutils literal notranslate"><span class="pre">document.head</span></code> と <code class="docutils literal notranslate"><span class="pre">document.body</span></code> もまた存在し、対応するオブジェクトそれぞれを参照している。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="trees">
+<h2><a class="toc-backref" href="#id4">Trees</a><a class="headerlink" href="#trees" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>第 12 章の構文木の構造はブラウザーの文書のそれに酷似している。各ノードは他のノード、子を参照することが許され、その子らもまた自身の子があっても構わない。この形は、要素が自分と似た部分要素を含むことができるという、典型的な入れ子構造だ。</p></li>
+<li><p>ここでは分岐した構造であり、循環がなく、単一の根があるものを <strong>木</strong> と呼ぶことにする。</p>
+<ul>
+<li><p>循環がないというのは、節が直接的にも間接的にも自分自身を含まないことを意味する。</p></li>
+<li><p>DOM の場合は <code class="docutils literal notranslate"><span class="pre">document.documentElement</span></code> が根となる。</p></li>
+</ul>
+</li>
+<li><p>木構造は計算機科学によく登場する。HTML 文書などの再帰的構造を表現するだけでなく、ソート済みデータを管理するのにもよく用いられる。要素の検索や挿入が配列より効率的にできるからだ。</p></li>
+</ul>
+<p>DOM では HTML のタグを表す要素のノードは文書の構造を決定する。要素ノードは子ノードを持つことができる。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">document.body</span></code> は子ノードとしてテキストやコメントを持つこともある。</p></li>
+<li><p>DOM ノードオブジェクトにはプロパティー <code class="docutils literal notranslate"><span class="pre">nodeType</span></code> があり、この値でノードの種類を識別する。</p>
+<ul>
+<li><p>要素は <code class="docutils literal notranslate"><span class="pre">Node.ELEMENT_NODE</span></code></p></li>
+<li><p>テキストは <code class="docutils literal notranslate"><span class="pre">Node.TEXT_NODE</span></code></p></li>
+<li><p>コメントは <code class="docutils literal notranslate"><span class="pre">Node.COMMENT_NODE</span></code></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="the-standard">
+<h2><a class="toc-backref" href="#id5">The standard</a><a class="headerlink" href="#the-standard" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>DOM のインターフェイスが JavaScript らしくない理由は、それが
+JavaScript のためだけに設計されたものではないからだ。そうではなく、
+DOM は他のシステムからも使用できる、言語中立的なインターフェイスを志向している。そのため JavaScript からすると残念な点がいくつかある。</p>
+<ul>
+<li><p>要素ノードのプロパティー <code class="docutils literal notranslate"><span class="pre">childNodes</span></code> は配列のようなオブジェクトではあるが、実際の型は <code class="docutils literal notranslate"><span class="pre">NodeList</span></code> というものであり、便利なメソッドである <code class="docutils literal notranslate"><span class="pre">slice</span></code> や <code class="docutils literal notranslate"><span class="pre">map</span></code> などが備わっていない。</p></li>
+<li><p>これは単に設計が悪いだけだが、新しいノードを作成して、すぐに子や属性を追加する方法がない。代わりに、まずノードを作成してから、副作用を使って子や属性を一つずつ追加していくしかない。</p></li>
+</ul>
+</li>
+<li><p>DOM を多用するコードは長く、繰り返しが多く、醜くなりがちだ。そこで、JavaScript で独自の抽象化を施して、改良された方法を設計することになる。多くのライブラリーにはそのようなツールが備わっている。</p></li>
+</ul>
+</section>
+<section id="moving-through-the-tree">
+<h2><a class="toc-backref" href="#id6">Moving through the tree</a><a class="headerlink" href="#moving-through-the-tree" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>本書 p. 235 の図式で示されるように、DOM ノードは近隣のノードへのリンクを豊富に含んでいる。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">childNodes</span></code>, <code class="docutils literal notranslate"><span class="pre">firstChild</span></code>, <code class="docutils literal notranslate"><span class="pre">lastChild</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">previousSibling</span></code>, <code class="docutils literal notranslate"><span class="pre">nextSibling</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">parentNode</span></code></p></li>
+</ul>
+</li>
+<li><p>親と子のリンクさえあれば木のどのノードにも移動することができる。</p></li>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">firstChild</span></code> と <code class="docutils literal notranslate"><span class="pre">lastChild</span></code> はそれぞれ最初と最後の子要素を指す。子のないノードの場合には <code class="docutils literal notranslate"><span class="pre">null</span></code> になっている。</p></li>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">previousSibling</span></code> と <code class="docutils literal notranslate"><span class="pre">nextSibling</span></code> は隣接するノードを指す。同じ親であり、それぞれノード自身の直前と直後にあるノードだ。該当するノードがない場合には <code class="docutils literal notranslate"><span class="pre">null</span></code> になる。</p></li>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">children</span></code> は <code class="docutils literal notranslate"><span class="pre">childNode</span></code> のようではあるが、要素ノードしか含まず、他の種類の子ノードを含まない。</p>
+<ul>
+<li><p>テキストノードに興味がないなどの場合に便利。</p></li>
+</ul>
+</li>
+</ul>
+<p>入れ子構造を扱うときには再帰関数がしばしば役に立つ。次の関数は、文書をスキャンして指定する文字列を含むテキストノードを検索する：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">talksAbout</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">==</span> <span class="nx">Node</span><span class="p">.</span><span class="nx">ELEMENT_NODE</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">child</span> <span class="k">of</span> <span class="nx">node</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">talksAbout</span><span class="p">(</span><span class="nx">child</span><span class="p">,</span> <span class="nx">string</span><span class="p">))</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">==</span> <span class="nx">Node</span><span class="p">.</span><span class="nx">TEXT_NODE</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">node</span><span class="p">.</span><span class="nx">nodeValue</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">string</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mf">1</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>テキストノードのプロパティー <code class="docutils literal notranslate"><span class="pre">nodeValue</span></code> は、そのノードが表現する文字列を値とする。</p></li>
+</ul>
+</section>
+<section id="finding-elements">
+<h2><a class="toc-backref" href="#id7">Finding elements</a><a class="headerlink" href="#finding-elements" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">getElementBy</span></code> 系のメソッドを理解する。</p>
+<ul class="simple">
+<li><p>要素ノードのメソッド <code class="docutils literal notranslate"><span class="pre">getElementByTagName</span></code> は、そのノードの子孫ノードの集合から、指定するタグ名の要素をすべて集めて、前述の配列のようなオブジェクトとして返す。</p></li>
+<li><p>特定の単一ノードを見つけるには、そのノードに <code class="docutils literal notranslate"><span class="pre">id</span></code> 属性を与えて、メソッド
+<code class="docutils literal notranslate"><span class="pre">document.getElementById</span></code> を使う。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">getElementsByClassName</span></code> は属性 <code class="docutils literal notranslate"><span class="pre">class</span></code> が指定された文字列であるような要素すべてを返す。</p></li>
+</ul>
+</section>
+<section id="changing-the-document">
+<h2><a class="toc-backref" href="#id8">Changing the document</a><a class="headerlink" href="#changing-the-document" title="Permalink to this headline">¶</a></h2>
+<p>DOM のデータ構造は、ほとんどすべてを変更できる。文書木の形は親子関係を変更することで改変することができる。</p>
+<ul>
+<li><p>ノードメソッド <code class="docutils literal notranslate"><span class="pre">remove</span></code> は、現在の親ノードからノードを取り除く。</p></li>
+<li><p>子ノードを追加するには、次が使える：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">appendChild</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">insertBefore</span></code></p></li>
+</ul>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>One<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Two<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Three<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="kd">let</span> <span class="nx">paragraphs</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">);</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">paragraphs</span><span class="p">[</span><span class="mf">2</span><span class="p">],</span> <span class="nx">paragraphs</span><span class="p">[</span><span class="mf">0</span><span class="p">]);</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>同一ノードは文書中に一つの場所にしか存在できない。したがって、段落 Three を段落 One の前に挿入すると、まず One を文書から取り除いてから先頭に挿入する。結果は Three / One / Two となる。</p>
+<ul class="simple">
+<li><p>既存のノードをどこかに挿入する操作は、それを現在の位置から除去するという操作を暗黙的に伴うことに注意。</p></li>
+</ul>
+</li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">replaceChild</span></code> は子ノードを別のノードで置換するために使われる。</p>
+<ul class="simple">
+<li><p>このメソッドは新ノードと旧ノードを引数に取る。</p></li>
+<li><p>置換されるノードは、メソッドの要素の子でなければならない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">insertBefore</span></code> 同様、最初の引数が新ノードであることに注意を要する。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="creating-nodes">
+<h2><a class="toc-backref" href="#id9">Creating nodes</a><a class="headerlink" href="#creating-nodes" title="Permalink to this headline">¶</a></h2>
+<p>文書中の <code class="docutils literal notranslate"><span class="pre">&lt;img</span> <span class="pre">alt=&quot;XXXX&quot;&gt;</span></code> すべてをテキスト <code class="docutils literal notranslate"><span class="pre">XXXX</span></code> に置き換えるスクリプトを書きたいとする。こうなると、画像タグを削除するだけでなく、代わりとなる新しいテキストノードを追加する必要がある。それにはメソッド <code class="docutils literal notranslate"><span class="pre">document.createTextNode</span></code> を使う。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">replaceImages</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">images</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;img&quot;</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">images</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mf">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&gt;=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">image</span> <span class="o">=</span> <span class="nx">images</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">image</span><span class="p">.</span><span class="nx">alt</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">let</span> <span class="nx">text</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="nx">image</span><span class="p">.</span><span class="nx">alt</span><span class="p">);</span>
+            <span class="nx">image</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">replaceChild</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span> <span class="nx">image</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>ループで画像を後ろから始めることに注意。あるいは <code class="docutils literal notranslate"><span class="pre">Array.from</span></code> を使って作業用の配列を作成する手法もある。</p></li>
+</ul>
+<p>要素ノードを作成するにはメソッド <code class="docutils literal notranslate"><span class="pre">document.createElement</span></code> を使う。タグの名前を引数に取って、その新しい空のノードを返す。</p>
+</section>
+<section id="attributes">
+<h2><a class="toc-backref" href="#id10">Attributes</a><a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>リンクに対する <code class="docutils literal notranslate"><span class="pre">href</span></code> がそうであるように、要素の属性には、
+DOM オブジェクト上の同名のプロパティーでアクセスできるものがある。</p></li>
+<li><p>HTML ではノードに任意の属性を設定することが許されている。こういう場合には先ほどにプロパティーとしては表示されない。メソッド <code class="docutils literal notranslate"><span class="pre">getAttribute</span></code>, <code class="docutils literal notranslate"><span class="pre">setAttribute</span></code> を使って扱う必要がある。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span> <span class="na">data-classified</span><span class="o">=</span><span class="s">&quot;secret&quot;</span><span class="p">&gt;</span>The launch code is 00000000.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">data-classified</span><span class="o">=</span><span class="s">&quot;unclassified&quot;</span><span class="p">&gt;</span>I have two feet.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="kd">let</span> <span class="nx">paras</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">para</span> <span class="k">of</span> <span class="nb">Array</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="nx">paras</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">para</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s2">&quot;data-classified&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;secret&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">para</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>自作の属性の名前は、他の属性と衝突しないようにすること。</p></li>
+<li><p>よく使われる属性に <code class="docutils literal notranslate"><span class="pre">class</span></code> があるが、これは JavaScript のキーワードでもある。この属性にアクセスするプロパティーは <code class="docutils literal notranslate"><span class="pre">className</span></code> という。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">getAttribute</span></code>, <code class="docutils literal notranslate"><span class="pre">setAttribute</span></code> を使えば <code class="docutils literal notranslate"><span class="pre">&quot;class&quot;</span></code> でもよい。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="layout">
+<h2><a class="toc-backref" href="#id11">Layout</a><a class="headerlink" href="#layout" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>要素の型によってレイアウトが異なる。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;p&gt;</span></code> や <code class="docutils literal notranslate"><span class="pre">&lt;h1&gt;</span></code> のように、画面の幅全体を使って個別の行に表示されるものを
+<strong>ブロック要素</strong> と呼ぶ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;a&gt;</span></code> や <code class="docutils literal notranslate"><span class="pre">&lt;strong&gt;</span></code> など、周囲のテキストと同じ行に表示されるものを
+<strong>インライン要素</strong> と呼ぶ。</p></li>
+</ul>
+</li>
+<li><p>要素のサイズと位置は JavaScript からアクセスできる。</p>
+<ul>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">offsetWidth</span></code>, <code class="docutils literal notranslate"><span class="pre">offsetHeight</span></code> は、要素が占める空間をピクセル単位で与える。</p></li>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">clientWidth</span></code>, <code class="docutils literal notranslate"><span class="pre">clientHeight</span></code> は、要素の空間的大きさを示す。枠は無視する。</p></li>
+</ul>
+</li>
+<li><p>画面上の要素の正確な位置を知る最も効果的な方法はメソッド <code class="docutils literal notranslate"><span class="pre">getBoundingClientRect</span></code> だ。</p>
+<ul>
+<li><p>これはプロパティーとして <code class="docutils literal notranslate"><span class="pre">top</span></code>, <code class="docutils literal notranslate"><span class="pre">bottom</span></code>, <code class="docutils literal notranslate"><span class="pre">left</span></code>, <code class="docutils literal notranslate"><span class="pre">right</span></code> を持つオブジェクトを返す。各プロパティーは、画面左上からの相対的なピクセル単位での変位を示す。</p>
+<ul>
+<li><p>文書全体に対する相対的な位置を示したいならば、現在のスクロール位置を加味する。変数 <code class="docutils literal notranslate"><span class="pre">pageXOffset`,</span> <span class="pre">``pageYOffset</span></code> が使える。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>レイアウトはひじょうに手間がかかる。ブラウザーエンジンは文書が変更されるたびにただちにレイアウトし直すのではなく、できる限り遅延する。変更した JavaScript プログラムの実行が終了すると再計算して、変更後の文書を描画する。</p></li>
+<li><p>DOM レイアウト情報を読み取ることと DOM を変更することを交互に反復するプログラムは多くのレイアウト計算を強いる。その結果、動作が著しく遅くなる。</p></li>
+</ul>
+</section>
+<section id="styling">
+<h2><a class="toc-backref" href="#id12">Styling</a><a class="headerlink" href="#styling" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>HTML の要素には既定のスタイリングがある。これを <code class="docutils literal notranslate"><span class="pre">style</span></code> 属性で上書きすることができる。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;.&quot;</span><span class="p">&gt;</span>Normal link<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;.&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;color: green&quot;</span><span class="p">&gt;</span>Green link<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>属性 <code class="docutils literal notranslate"><span class="pre">style</span></code> には複数の宣言を含めることができる。一つ一つの宣言を <code class="docutils literal notranslate"><span class="pre">;</span></code> で区切ればよい。</p></li>
+</ul>
+</li>
+<li><p>JavaScript コードは、要素のスタイルを直接操作することができる。このプロパティー <code class="docutils literal notranslate"><span class="pre">style</span></code> には、可能なすべてのスタイルプロパティーを保持する。</p>
+<ul>
+<li><p>これらのプロパティーの値は文字列であり、要素のスタイルの特定の観点を変更するために書くことができる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">para</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;para&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">para</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">color</span><span class="p">);</span>
+<span class="nx">para</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s2">&quot;magenta&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>スタイルプロパティー名には <code class="docutils literal notranslate"><span class="pre">font-family</span></code> のようにハイフンを含むものがある。このようなプロパティー名は、JavaScript ではドット記法が使えず扱いにくいため、そのようなプロパティーに対するスタイルオブジェクトのプロパティー名は、ハイフンが取り除かれ、後ろの文字が大文字になるという規則がある。この場合には <code class="docutils literal notranslate"><span class="pre">style.fontFamily</span></code> となる。</p></li>
+</ul>
+</section>
+<section id="cascading-styles">
+<h2><a class="toc-backref" href="#id13">Cascading styles</a><a class="headerlink" href="#cascading-styles" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>HTML のスタイルシステムは CSS と呼ばれている。</p></li>
+<li><p>スタイルシートとは、文書内の要素にスタイルを与えるための規則の集合体だ。</p></li>
+<li><p>スタイルシートは <code class="docutils literal notranslate"><span class="pre">&lt;style&gt;</span></code> タグの中に記述する。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="nt">strong</span> <span class="p">{</span>
+    <span class="k">font-style</span><span class="p">:</span> <span class="kc">italic</span><span class="p">;</span>
+    <span class="k">color</span><span class="p">:</span> <span class="kc">gray</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>名前にある cascading とは、このような複数の規則を組み合わせて要素の最終的なスタイルを生成することを意味する。</p></li>
+<li><p>同じプロパティーの値を複数の規則が定義する場合、最近読まれた規則を優先する。</p></li>
+<li><p>そのノードに直接適用される属性 <code class="docutils literal notranslate"><span class="pre">style</span></code> にあるスタイルを最も優先する。</p></li>
+</ul>
+<p>CSS の規則では、タグ名以外にも指定の対象とすることができる。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.abc</span></code> に対する規則は属性 <code class="docutils literal notranslate"><span class="pre">class</span></code> の値が <code class="docutils literal notranslate"><span class="pre">abc</span></code> である要素全てにかかる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#abc&quot;</span></code> に対する規則は属性 <code class="docutils literal notranslate"><span class="pre">id</span></code> の値が <code class="docutils literal notranslate"><span class="pre">xyz</span></code> である要素にかかる。</p></li>
+</ul>
+<p>最近に定義された規則を優先するという法則は、規則の <strong>指定度</strong> (specificity) が同じ場合にのみ成り立つ。</p>
+<ul class="simple">
+<li><p>規則の指定度とは、合致する要素をどの程度正確に記述するのかを示す指標であって、数と要素の種類によって決定するものだ。</p>
+<ul>
+<li><p>これは CSS の仕様書を確認するのがいい。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="query-selectors">
+<h2><a class="toc-backref" href="#id14">Query selectors</a><a class="headerlink" href="#query-selectors" title="Permalink to this headline">¶</a></h2>
+<p>CSS セレクターはスタイルシートでスタイルの適用対象となる要素を特定するために使われる記法だ。これを使えば DOM 要素を効果的に見つけることができる。</p>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">querySelectorAll</span></code> は文書オブジェクトと要素ノードの両方で定義されていて、セレクター式を文字列で受け取り、それに合致する要素全てからなる <code class="docutils literal notranslate"><span class="pre">NodeList</span></code> を返す。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>And if you go chasing<span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;animal&quot;</span><span class="p">&gt;</span>rabbits<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>And you know you&#39;re going to fall<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Tell &#39;em a <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;character&quot;</span><span class="p">&gt;</span>hookah smoking <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;animal&quot;</span><span class="p">&gt;</span>caterpillar<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Has given you the call<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">function</span> <span class="nx">count</span><span class="p">(</span><span class="nx">selector</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="nx">selector</span><span class="p">).</span><span class="nx">length</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">count</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">));</span> <span class="c1">// → 4; All &lt;p&gt; elements:</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">count</span><span class="p">(</span><span class="s2">&quot;.animal&quot;</span><span class="p">));</span> <span class="c1">// → 2; Class animal</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">count</span><span class="p">(</span><span class="s2">&quot;p .animal&quot;</span><span class="p">));</span> <span class="c1">// → 2; Animal inside of &lt;p&gt;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">count</span><span class="p">(</span><span class="s2">&quot;p &gt; .animal&quot;</span><span class="p">));</span> <span class="c1">// → 1; Direct child of &lt;p&gt;</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">getElementsByTagName</span></code> などとは異なり、
+<code class="docutils literal notranslate"><span class="pre">querySelectorAll</span></code> の返すオブジェクトは生のものではない。このあと文書を変更してもそれは変化しない。</p></li>
+<li><p>配列のように扱うのならば、やはり <code class="docutils literal notranslate"><span class="pre">Array.from</span></code> を呼び出す必要がある。</p></li>
+</ul>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">querySelector</span></code> も同様に動作する。こちらは特定の単一の要素が欲しい場合に役に立つ。</p>
+</section>
+<section id="positioning-and-animating">
+<h2><a class="toc-backref" href="#id15">Positioning and animating</a><a class="headerlink" href="#positioning-and-animating" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>スタイルプロパティー <code class="docutils literal notranslate"><span class="pre">position</span></code> は、強力な方法でレイアウトに影響を与える。</p>
+<ul>
+<li><p>既定値は <code class="docutils literal notranslate"><span class="pre">static</span></code> というものだ。これは要素が文書内の通常の場所にあることを意味する。</p></li>
+<li><p>値 <code class="docutils literal notranslate"><span class="pre">relative</span></code> に設定すると、要素は文書内の空間を占有することはするのだがスタイルプロパティー <code class="docutils literal notranslate"><span class="pre">top</span></code> と <code class="docutils literal notranslate"><span class="pre">left</span></code> のを使用して、通常の場所からの相対的な位置に移動させることができる。</p></li>
+<li><p>値 <code class="docutils literal notranslate"><span class="pre">absolute</span></code> に設定されている場合、その要素は通常の文書フローから削除される。つまり、空間を取らなくなり、他の要素と重なる可能性がある。</p></li>
+</ul>
+</li>
+<li><p>また、<code class="docutils literal notranslate"><span class="pre">top</span></code> および <code class="docutils literal notranslate"><span class="pre">left</span></code> プロパティを使用して、プロパティー <code class="docutils literal notranslate"><span class="pre">position</span></code> が
+<code class="docutils literal notranslate"><span class="pre">static</span></code> ではないような包囲要素の左上隅に対して絶対的に（そのような包囲要素が存在しない場合には文書に対して相対的に）位置を決めることができる。</p></li>
+</ul>
+<p>これを利用してアニメーションを作れる。本書 p. 247 のコードは楕円を動き回るネコの絵を描画する。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;text-align: center&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;img/cat.png&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;position: relative&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">let</span> <span class="nx">cat</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">quaerySelector</span><span class="p">(</span><span class="s2">&quot;img&quot;</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">angle</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span> <span class="o">/</span> <span class="mf">2</span><span class="p">;</span>
+  <span class="kd">function</span> <span class="nx">animate</span><span class="p">(</span><span class="nx">time</span><span class="p">,</span> <span class="nx">lastTime</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">lastTime</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">angle</span> <span class="o">+=</span> <span class="p">(</span><span class="nx">time</span> <span class="o">-</span> <span class="nx">lastTime</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.001</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="nx">cat</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">top</span> <span class="o">=</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">sin</span><span class="p">(</span><span class="nx">angle</span><span class="p">)</span> <span class="o">*</span> <span class="mf">20</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
+      <span class="nx">cat</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">cos</span><span class="p">(</span><span class="nx">angle</span><span class="p">)</span> <span class="o">*</span> <span class="mf">200</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
+      <span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">newTime</span> <span class="p">=&gt;</span> <span class="nx">animate</span><span class="p">(</span><span class="nx">newTime</span><span class="p">,</span> <span class="nx">time</span><span class="p">));</span>
+  <span class="p">}</span>
+  <span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">animate</span><span class="p">);</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>興味のあるポイントだけ記すと：</p>
+<ul class="simple">
+<li><p>画像はページの中央に置かれ、相対位置が与えられる。その <code class="docutils literal notranslate"><span class="pre">top</span></code> と <code class="docutils literal notranslate"><span class="pre">left</span></code> を反復的に更新して移動させる。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">requestAnimationFrame</span></code> はブラウザーが画面を再描画する準備ができたときに関数 <code class="docutils literal notranslate"><span class="pre">animate</span></code> を実行させるようにスケジュールをしている。</p>
+<ul>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">animate</span></code> はまた <code class="docutils literal notranslate"><span class="pre">requestAnimationFrame</span></code> を呼び出し、次の更新をスケジュールする。</p>
+<ul>
+<li><p>次の更新はブラウザーのウィンドウがアクティブであれば、一秒間に約 60 回発生する。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>これをループで書こうものなら、ページはフリーズして画面には何も描画されない。
+JavaScript の実行中にはブラウザーは画面を更新しないことに注意する。したがってアニメーションには上記のようなコードが必要だ。</p></li>
+<li><p>アニメーションそれ自体は三角関数を単純に応用して点を運動させるものなのでメモを割愛する。</p></li>
+<li><p>数値に <code class="docutils literal notranslate"><span class="pre">&quot;px&quot;</span></code> を明示的に付けて、ピクセル単位で位置を表現していることをブラウザーに伝える。これを忘れると、スタイルは値がゼロでない限り無視される（ということは結局つねに無視される）。</p></li>
+</ul>
+</section>
+<section id="summary">
+<h2><a class="toc-backref" href="#id16">Summary</a><a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>JavaScript は DOM というデータ構造ごしに、ブラウザーが表示する文書を検査・干渉することができる。</p></li>
+<li><p>DOM はデータ構造が木のように整理されていて、文書の論理構造に対応するように要素が階層的に配置されている。</p>
+<ul>
+<li><p>要素を表すオブジェクトには <code class="docutils literal notranslate"><span class="pre">parentNode</span></code> や <code class="docutils literal notranslate"><span class="pre">childNodes</span></code> などのプロパティーがある。これらは木の中をたどるのに使える。</p></li>
+</ul>
+</li>
+<li><p>文書を描画する方法はスタイリングにより左右される。ノードに直接スタイルを指定したり、ある一定のノードの集合に合致する規則を定義したりする方法がある。</p></li>
+<li><p>スタイルのプロパティーには <code class="docutils literal notranslate"><span class="pre">color</span></code> や <code class="docutils literal notranslate"><span class="pre">display</span></code> などというものがたくさんある。</p></li>
+<li><p>JavaScript では要素のプロパティー <code class="docutils literal notranslate"><span class="pre">style</span></code> を通じてスタイルを直接できる。</p></li>
+</ul>
+</section>
+<section id="exercises">
+<h2><a class="toc-backref" href="#id17">Exercises</a><a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<section id="build-a-table">
+<h3><a class="toc-backref" href="#id18">Build a table</a><a class="headerlink" href="#build-a-table" title="Permalink to this headline">¶</a></h3>
+<p>HTML のテーブルは、以下のようなタグ構造をしている：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">table</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>name<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>height<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>place<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>Kilimanjaro<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>5895<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>Tanzania<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>各行に対して <code class="docutils literal notranslate"><span class="pre">&lt;table&gt;</span></code> タグは <code class="docutils literal notranslate"><span class="pre">&lt;tr&gt;</span></code> タグを一つ含んでいる。これらの <code class="docutils literal notranslate"><span class="pre">&lt;tr&gt;</span></code> タグの中には見出しセル <code class="docutils literal notranslate"><span class="pre">&lt;th&gt;</span></code> や通常のセル <code class="docutils literal notranslate"><span class="pre">&lt;td&gt;</span></code> などのセル要素を置くことができる。</p>
+<p><strong>問題</strong> 名前、高さ、場所のプロパティーがあるオブジェクトの配列である山のデータセットが与えられた場合、そのオブジェクトを列挙する表の DOM 構造を生成しろ。キーごとに一列、オブジェクトごとに一行、それに加えてまた、最上部に <code class="docutils literal notranslate"><span class="pre">&lt;th&gt;</span></code> 要素を持つヘッダー行を設け、列名を列挙すること。</p>
+<ul class="simple">
+<li><p>これを、データ中の最初のオブジェクトのプロパティー名を取ることで、列が自動的にオブジェクトから得られるように書け。</p></li>
+<li><p>できあがったテーブルを属性 <code class="docutils literal notranslate"><span class="pre">id</span></code> が <code class="docutils literal notranslate"><span class="pre">mountains</span></code> である要素に追加して、文書内で表示されるようにしろ。</p></li>
+<li><p>これができたら、数値を含むセルを右揃えにするためにプロパティー <code class="docutils literal notranslate"><span class="pre">style.textAlign</span></code> を <code class="docutils literal notranslate"><span class="pre">right</span></code> に設定しろ。</p></li>
+</ul>
+<p><strong>解答</strong> いちばん単純なコードをまず書く：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">buildTable</span><span class="p">(</span><span class="nx">mountains</span><span class="p">){</span>
+    <span class="kd">const</span> <span class="nx">table</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;table&#39;</span><span class="p">);</span>
+    <span class="c1">// header row</span>
+    <span class="kd">const</span> <span class="nx">tr</span> <span class="o">=</span> <span class="nx">table</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;tr&#39;</span><span class="p">))</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">const</span> <span class="nx">text</span> <span class="k">of</span> <span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="s2">&quot;place&quot;</span><span class="p">]){</span>
+        <span class="kd">const</span> <span class="nx">th</span> <span class="o">=</span> <span class="nx">tr</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;th&#39;</span><span class="p">));</span>
+        <span class="nx">th</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="nx">text</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="c1">// regular rows</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">const</span> <span class="nx">mountain</span> <span class="k">of</span> <span class="nx">mountains</span><span class="p">){</span>
+        <span class="kd">const</span> <span class="nx">tr</span> <span class="o">=</span> <span class="nx">table</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;tr&#39;</span><span class="p">))</span>
+        <span class="kd">const</span> <span class="p">{</span><span class="nx">name</span><span class="p">,</span> <span class="nx">height</span><span class="p">,</span> <span class="nx">place</span><span class="p">}</span> <span class="o">=</span> <span class="nx">mountain</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="k">of</span> <span class="p">[</span><span class="nx">name</span><span class="p">,</span> <span class="nx">height</span><span class="p">,</span> <span class="nx">place</span><span class="p">]){</span>
+            <span class="kd">const</span> <span class="nx">td</span> <span class="o">=</span> <span class="nx">tr</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;td&#39;</span><span class="p">));</span>
+            <span class="nx">td</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="nx">i</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">table</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>テーブルヘッダー行を自動生成するには：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="nx">montains</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mf">0</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nx">table</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">tr</span> <span class="o">=</span> <span class="nx">table</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;tr&#39;</span><span class="p">))</span>
+<span class="kd">const</span> <span class="nx">columns</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">mountains</span><span class="p">[</span><span class="mf">0</span><span class="p">]);</span>
+<span class="k">for</span><span class="p">(</span><span class="kd">const</span> <span class="nx">colName</span> <span class="k">of</span> <span class="nx">columns</span><span class="p">){</span>
+    <span class="kd">const</span> <span class="nx">th</span> <span class="o">=</span> <span class="nx">tr</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;th&#39;</span><span class="p">));</span>
+    <span class="nx">th</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="nx">colName</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>できあがったテーブルを属性 <code class="docutils literal notranslate"><span class="pre">id</span></code> が <code class="docutils literal notranslate"><span class="pre">mountains</span></code> である要素に追加するコードは次のようになる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">mountains</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Killmanjaro&quot;</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span> <span class="mf">5895</span><span class="p">,</span> <span class="nx">place</span><span class="o">:</span> <span class="nx">Tanzania</span><span class="p">},</span>
+    <span class="c1">// ...</span>
+<span class="p">];</span>
+
+<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;mountains&quot;</span><span class="p">).</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">buildTable</span><span class="p">(</span><span class="nx">mountains</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>右揃えはテーブル作成後ならば：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s1">&#39;#mountains &gt; table &gt; tr &gt; td:nth-child(2)&#39;</span><span class="p">);</span>
+<span class="nx">nodes</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">node</span> <span class="p">=&gt;</span> <span class="nx">node</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">textAlign</span> <span class="o">=</span> <span class="s2">&quot;right&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="elements-by-tag-name">
+<h3><a class="toc-backref" href="#id19">Elements by tag name</a><a class="headerlink" href="#elements-by-tag-name" title="Permalink to this headline">¶</a></h3>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">document.getElementsByTagName</span></code> は、指定されたタグ名を持つすべての子要素を返す。</p>
+<p><strong>問題</strong> ノードとタグ名を引数にとり、与えられたタグ名を持つすべての子孫要素ノードを含む配列を返す関数として、これの独自版を実装しろ。</p>
+<p>ある要素のタグ名を調べるには、その要素のプロパティー <code class="docutils literal notranslate"><span class="pre">nodeName</span></code> を使え。ただし、これはタグ名をすべて大文字で返す。これを補うには文字列メソッド <code class="docutils literal notranslate"><span class="pre">toLowerCase</span></code> または <code class="docutils literal notranslate"><span class="pre">toUpperCase</span></code> を使え。</p>
+<p><strong>解答</strong> これで良いと思われる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">getAncestors</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="nx">tagName</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nb">Array</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="nx">tagName</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="the-cat-s-hat">
+<h3><a class="toc-backref" href="#id20">The cat’s hat</a><a class="headerlink" href="#the-cat-s-hat" title="Permalink to this headline">¶</a></h3>
+<p><strong>問題</strong> 先ほどの猫のアニメーションを拡張して、猫と帽子の両方が楕円の反対側を周回するようにしろ。</p>
+<ul class="simple">
+<li><p>あるいは、帽子が猫の周りを回るようにしろ。</p></li>
+<li><p>あるいは、アニメーションを他の面白い方法に変えろ。</p></li>
+</ul>
+<p>複数のオブジェクトの配置を容易にするには、絶対配置に切り替えるのがよいだろう。つまり、<code class="docutils literal notranslate"><span class="pre">top</span></code> と <code class="docutils literal notranslate"><span class="pre">left</span></code> は文書の左上を基準にしてカウントされる。負の座標を使用すると表示されているページの外側に画像が移動してしまうのを避けるのに、位置の値に固定のピクセル数を追加することができる。</p>
+<p><strong>解答</strong> こういうのは得意。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;text-align: center&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">img</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;cat&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;img/cat.png&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;position: absolute&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">img</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;hat&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;img/hat.png&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;position: absolute&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="mf">400</span><span class="p">,</span> <span class="nx">b</span> <span class="o">=</span> <span class="mf">200</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">centerX</span> <span class="o">=</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">centerY</span> <span class="o">=</span> <span class="nx">b</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">marginX</span> <span class="o">=</span> <span class="mf">20</span><span class="p">,</span> <span class="nx">marginY</span> <span class="o">=</span> <span class="mf">20</span><span class="p">;</span>
+
+  <span class="kd">const</span> <span class="nx">cat</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;img#cat&quot;</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">hat</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;img#hat&quot;</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">angle</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span> <span class="o">/</span> <span class="mf">2</span><span class="p">;</span>
+
+  <span class="kd">const</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">theta</span> <span class="p">=&gt;</span> <span class="nx">marginX</span> <span class="o">+</span> <span class="nx">centerX</span> <span class="o">+</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">cos</span><span class="p">(</span><span class="nx">theta</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">y</span> <span class="o">=</span> <span class="nx">theta</span> <span class="p">=&gt;</span> <span class="nx">marginY</span> <span class="o">+</span> <span class="nx">centerY</span> <span class="o">+</span> <span class="p">(</span><span class="nx">b</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sin</span><span class="p">(</span><span class="nx">theta</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
+
+  <span class="kd">function</span> <span class="nx">animate</span><span class="p">(</span><span class="nx">time</span><span class="p">,</span> <span class="nx">lastTime</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">lastTime</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">angle</span> <span class="o">+=</span> <span class="p">(</span><span class="nx">time</span> <span class="o">-</span> <span class="nx">lastTime</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.001</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">cat</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">x</span><span class="p">(</span><span class="nx">angle</span><span class="p">);</span>
+    <span class="nx">cat</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">top</span> <span class="o">=</span> <span class="nx">y</span><span class="p">(</span><span class="nx">angle</span><span class="p">);</span>
+
+    <span class="nx">hat</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">x</span><span class="p">(</span><span class="nx">angle</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="p">);</span>
+    <span class="nx">hat</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">top</span> <span class="o">=</span> <span class="nx">y</span><span class="p">(</span><span class="nx">angle</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="p">);</span>
+
+    <span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">newTime</span> <span class="p">=&gt;</span> <span class="nx">animate</span><span class="p">(</span><span class="nx">newTime</span><span class="p">,</span> <span class="nx">time</span><span class="p">));</span>
+  <span class="p">}</span>
+  <span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">animate</span><span class="p">);</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>帽子を猫中心に回すには、帽子用の楕円のため定数を追加したり、属性設定関数の引数を拡張したりするといいだろう。</p>
+<p>以上</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="chapter15.html" title="Handling Events"
+             >next</a></li>
+        <li class="right" >
+          <a href="chapter13.html" title="JavaScript and the Browser"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Eloquent JavaScript 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">The Document Object Model</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>
