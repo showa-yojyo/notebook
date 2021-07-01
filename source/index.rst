@@ -119,3 +119,4 @@ Contents:
    css-selector
    xpath
    hxutils
+   webgl
