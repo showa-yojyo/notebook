@@ -120,3 +120,4 @@ Contents:
    xpath
    hxutils
    webgl
+   webgl-1.0
