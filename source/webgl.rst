@@ -14,6 +14,8 @@ WebGL プログラミングに関するノート。OpenGL についての私の�
 
 WebGL を学習するのに有益な資料を列挙する。
 
+* `WebGL Overview - The Khronos Group Inc <https://www.khronos.org/webgl/>`__:
+  WebGL 総本山。関連仕様書をダウンロードしてローカルディスクに保存しておくと吉。
 * `WebGL: 2D and 3D graphics for the web - Web APIs \|
   MDN <https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API>`__:
   ここにある資料を基本書としてまずは学習していく。
