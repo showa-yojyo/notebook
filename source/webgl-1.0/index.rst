@@ -32,4 +32,4 @@ Feedback
    :maxdepth: 3
    :glob:
 
-   *
+   note*
