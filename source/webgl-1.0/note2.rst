@@ -200,47 +200,309 @@ JavaScript ではなく C 言語のコードで書かれているのが気にな
 ``WebGLTexture`` インターフェイスは OpenGL Texture Objectを表現する。
 基礎となるオブジェクトは、
 
-``glGenTextures`` を呼び出すことで作成され、
-``glBindTexture`` を呼び出すことで束縛され、
-`` glDeleteTextures`` を呼び出すことで削除される。
+* ``glGenTextures`` を呼び出すことで作成され、
+* ``glBindTexture`` を呼び出すことで束縛され、
+* ``glDeleteTextures`` を呼び出すことで削除される。
 
 5.10 ``WebGLUniformLocation``
 ----------------------------------------------------------------------
 
-``WebGLUniformLocation`` インターフェイスは、シェーダープログラムにおける ``uniform`` 変数の位置を表現する。
+``WebGLUniformLocation`` インターフェイスはシェーダープログラムにおける ``uniform`` 変数の位置を表現する。
 
 5.11 ``WebGLActiveInfo``
 ----------------------------------------------------------------------
 
+``WebGLActiveInfo`` インターフェイスは
+``getActiveAttrib`` および ``getActiveUniform`` の呼び出しが返す情報を表現する。
+
 5.11.1 Attributes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+``size``
+    要求された変数のサイズ
+
+``type``
+    要求された変数のデータ型
+
+``name``
+    要求された変数の名前
 
 5.12 ``WebGLShaderPrecisionFormat``
 ----------------------------------------------------------------------
 
+``WebGLShaderPrecisionFormat`` インターフェイスは
+``getShaderPrecisionFormat`` 呼び出しが返す情報を表現する。
+
 5.12.1 Attributes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-5.13 ArrayBuffer and Typed Arrays
+``rangeMin``
+    表現可能な最小値の絶対値の、底を 2 とする対数の値。
+
+``rangeMax``
+    表現可能な最大値の絶対値の、底を 2 とする対数の値。
+
+``precision``
+    表現可能な精度のビット数。整数フォーマットではこの値は常に 0 とする。
+
+5.13 ``ArrayBuffer`` and Typed Arrays
 ----------------------------------------------------------------------
+
+* 頂点、インデックス、テクスチャ、その他のデータは、ECMAScript 仕様で定義されている
+  ``ArrayBuffer``, *Typed Array*,``DataView`` を使用して WebGL 実装に転送される。
+* *Typed Array* は、インターリーブされた異種の頂点データを作成したり、
+  大規模な頂点バッファーオブジェクトへデータの個別ブロックをアップロードしたり、
+  その他 OpenGL プログラムが必要としたりする使用例のほとんどをサポートする。
+
+----
+
+異なる型の配列を使用して同じ ``ArrayBuffer`` にアクセスするコードの例がある。
+それを一部改変してここに記す。
+バッファーには浮動小数点の頂点位置 ``(x, y, z)`` と、それに続く 4 つの
+unsigned byte の色 ``(r, g, b, a)`` を含む：
+
+.. code:: javascript
+
+   const numVertices = 100; // for example
+
+   // Compute the size needed for the buffer, in bytes and floats
+   const vertexSize = 3 * Float32Array.BYTES_PER_ELEMENT +
+         4 * Uint8Array.BYTES_PER_ELEMENT;
+   const vertexSizeInFloats = vertexSize / Float32Array.BYTES_PER_ELEMENT;
+
+   // Allocate the buffer
+   const buf = new ArrayBuffer(numVertices * vertexSize);
+
+   // Map this buffer to a Float32Array to access the positions
+   const positionArray = new Float32Array(buf);
+
+   // Map the same buffer to a Uint8Array to access the color
+   const colorArray = new Uint8Array(buf);
+
+   // Set up the initial offset of the vertices and colors within the buffer
+   let positionIdx = 0;
+   let colorIdx = 3 * Float32Array.BYTES_PER_ELEMENT;
+
+   // Initialize the buffer
+   for (let i = 0; i < numVertices; i++) {
+       positionArray[positionIdx] = ...;
+       positionArray[positionIdx + 1] = ...;
+       positionArray[positionIdx + 2] = ...;
+       colorArray[colorIdx] = ...;
+       colorArray[colorIdx + 1] = ...;
+       colorArray[colorIdx + 2] = ...;
+       colorArray[colorIdx + 3] = ...;
+       positionIdx += vertexSizeInFloats;
+       colorIdx += vertexSize;
+   }
+
+* C/C++ でいう ``sizeof X`` に相当する値の参照方法に注目。
+  各 *TypedArray* の ``BYTES_PER_ELEMENT`` を用いる。
+* また、上記コードと同様の処理を ``DataView`` を用いても実現できる。
 
 5.14 The WebGL context
 ----------------------------------------------------------------------
 
+``WebGLRenderingContext`` は、OpenGL ES 2.0 様式のレンダリングを ``canvas`` 要素に許可する API を表現する。
+
+``WebGLRenderingContext`` インターフェイスのメソッド、または
+``getExtension`` メソッドが返すインターフェースのどのメソッドの実装をも行う前に、
+以下の手順を実行する必要がある：
+
+#. 呼び出されたメソッドに ``WebGLHandlesContextLoss`` 拡張属性が現れる場合は、
+   呼び出されたメソッドの実装を行い、その結果を返して、ここの手順を終了する。
+#. ``use`` の既定の戻り値を ``false`` にする。
+#. webgl context lost フラグが設定されている場合は、
+   ``use`` の既定の戻り値を ``true`` にする。
+
+   #. そうでない場合、メソッドの引数に ``invalidate`` フラグが設定された ``WebGLObject`` があれば、
+      ``INVALID_OPERATION`` エラーを生成し、 ``use`` の既定の戻り値を ``true`` にする。
+
+#. ``use`` の既定の戻り値を ``true`` の場合、以下の手順を実行する：
+
+   #. 呼び出されたメソッドの戻り値の型が ``any`` または ``nullable`` 型の場合は ``null`` を返す。
+   #. メソッドの実装を呼び出すことなしにこのアルゴリズムを終了する。
+
+#. そうでない場合は、呼び出されたメソッドの実装を実行し、その結果を返す。
+
+詳細については、後述の The Context Lost Event を参照しろとある。
+
+----
+
+インターフェイスの仕様を読み解いていく：
+
+* 仕様中に ``TexImageSource`` とある箇所は、次の実際の型のどれでもよい：
+
+  * ``ImageBitmap``
+  * ``ImageData``
+  * ``HTMLImageElement``
+  * ``HTMLCanvasElement``
+  * ``HTMLVideoElement``
+  * ``OffscreenCanvas``
+
+* 仕様中に ``Float32List`` とある箇所は ``Float32Array`` または浮動小数点型数値の列のどれでもよい。
+* 仕様中に ``Int32List`` とある箇所は ``Int32Array`` または整数型数値の列のどれでもよい。
+* ``WebGLRenderingContext`` インターフェイスは次の二つに分割されて定義されている：
+
+  * ``WebGLRenderingContextBase``: OpenGL で馴染みの定数、関数の WebGL における対応物と
+    WebGL 固有の定数、属性、関数からなる。
+  * ``WebGLRenderingContextOverloads``: 引数リストのオーバーロードが複数必要な関数群からなると見られる。
+
 5.14.1 Attributes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+``canvas``
+    このコンテキストを作成したキャンバスへの参照。
+
+``drawingBufferWidth``
+    描画バッファの実際の幅。
+
+``drawingBufferHeight``
+    描画バッファの実際の高さ。
+
+最後の二つは要求された幅や高さを満たすことができない実装の場合、
+キャンバスの属性 ``width``, ``height`` とはそれぞれ異なることがある。
 
 5.14.2 Getting information about the context
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+``getContextAttributes()``
+    フラグ webgl context lost が設定されている場合は ``null`` を返す。
+    そうでなければ、実際のコンテキストパラメーターのコピーを返す。
+
 5.14.3 Setting and getting state
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+OpenGL ES 2.0 ではレンダリングに使用するための状態を保持する。
+ここに記されているグループの呼び出しすべては、特に断りのない限り OpenGL の対応物に対する呼び出しと同じ動作をする。
+
+* ``blendFunc``, ``blendFuncSeparate`` の WebGL から来る制限については次章の記述を参照。
+* ``clearDepth`` に対する値 ``depth`` は :math:`{[0, 1]}` に収まるように丸められる。
+* ``depthRange`` に対する引数 ``zNear`` と ``zFar`` の値も同様に丸められる。
+  かつ ``zNear <= zFar`` でなければならない。
+* ``getParameter`` は ``glGet``, ``glGetString`` の対応物だ。
+
+  * 戻り値の型は JavaScript において自然なものとする。
+  * 列や *TypedArray* を返す問い合わせのすべてが、毎回新しいオブジェクトを返す。
+  * 不適切な問い合わせに対しては ``INVALID_ENUM`` エラーを生成し ``null`` を返す。
+  * ``IMPLEMENTATION_COLOR_READ_FORMAT`` または ``IMPLEMENTATION_COLOR_READ_TYPE`` で、
+    現在束縛されているフレームバッファーが完全でない場合、
+    ``INVALID_OPERATION`` エラーを生成し ``null`` を返す。
+  * 次の実引数は、現在の WebGL 実装の何らかの性質を記述する文字列を返す：
+
+    ``VERSION``
+        "WebGL 1.0 xxxx" のようなバージョンまたはリリース番号を返す。
+
+    ``SHADING_LANGUAGE_VERSION``
+        "WebGL GLSL ES 1.0 xxxx" のようなバージョンまたはリリース番号を返す。
+
+    ``VENDOR``
+        この WebGL の実装を担当している会社を返す。
+
+    ``RENDERER``
+        レンダラーの名前を返す。この名前はふつうはハードウェアプラットフォームの特定の構成に固有のものだ。
+
+    次章に関連情報アリ。
+
+* ``getError`` はコンテキストの webgl context lost フラグが設定されている場合、
+  このメソッドが最初に呼び出されたときに ``CONTEXT_LOST_WEBGL`` を返す。
+  その後、コンテキストが回復されるまで ``NO_ERROR`` を返す。
+* どの ``isEnabled`` による問い合わせに対しても、同じ戻り値を ``getParameter`` で得ることができる。
+
+  * コンテキストの webgl context lost フラグが設定されている場合は ``false`` を返す。
+
+* ``lineWidth`` には WebGL での制限があり、次章で述べられている。
+* ``pixelStorei`` OpenGL ES 2.0 仕様のパラメーターに加えて、次のものも受け付ける。
+  これらについては後述。
+
+  * ``UNPACK_FLIP_Y_WEBGL``
+  * ``UNPACK_PREMULTIPLY_ALPHA_WEBGL``
+  * ``UNPACK_COLORSPACE_CONVERSION_WEBGL``
+
+* ``stencilFuncSeparate``, ``stencilMask`` には WebGL 固有の制限がある。次章で述べられる。
 
 5.14.4 Viewing and clipping
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+描画コマンドは、現在束縛されているフレームバッファー内のピクセルしか変更できない。
+また、ビューポートとシザーボックスも描画に影響する。
+
+* ビューポートは正規化されたデバイス座標からウィンドウ座標への x と y のアフィン変換を指定する。
+
+  * ビューポートのサイズは前述したように初期設定される。
+
+* シザーボックスは、描画を制限する矩形を定義する。
+
+  * シザーテストが有効な場合、``clear`` などの描画コマンドで変更できるのはシザーボックス内にあるピクセルだけだ。
+    プリミティブの描画は、ビューポート、現在束縛されているフレームバッファー、
+    そしてシザーボックスの交点内でしか可能でない。
+  * シザーテストが有効でない場合、プリミティブはビューポートと現在束縛されているフレームバッファーの
+    共通部分の内側にしか描画されない。
+
 5.14.5 Buffer objects
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+バッファーオブジェクトは、GLSL シェーダーの頂点属性データを保持する。
+重要な概念なので丁寧に理解したい。
+
+----
+
+バッファーオブジェクトのことを VBO と略記することが普通にある。
+
+----
+
+``bindBuffer(target, buffer)``
+    与えられた ``WebGLBuffer`` オブジェクトを ``ARRAY_BUFFER`` または ``ELEMENT_ARRAY_BUFFER`` のいずれかの与えられた対象に束縛する。
+
+    * バッファーがこのものとは異なる ``WebGLRenderingContext`` によって生成された場合 ``INVALID_OPERATION`` エラーを生成する。
+    * バッファーが ``null`` の場合、現在この対象に束縛されているすべてのバッファーの束縛を解除する。
+    * 与えられた ``WebGLBuffer`` オブジェクトはその寿命において
+      ``ARRAY_BUFFER`` または ``ELEMENT_ARRAY_BUFFER`` のいずれかの対象にしか束縛されない。
+    * バッファーオブジェクトを他の対象にバインドしようとすると
+      ``INVALID_OPERATION`` エラーが発生し、現在の束縛はそのまま維持される。
+    * 削除マークのついたオブジェクトを束縛しようとすると
+      ``INVALID_OPERATION`` エラーが発生し、現在の束縛はそのまま維持される。
+
+``bufferData(target, size, usage)``, ``bufferData(target, data, usage)``
+    最初のものは、現在束縛されている ``WebGLBuffer`` オブジェクトのサイズを、渡された対象に設定する。
+    バッファーの中身は 0 に初期化される。
+
+    二番目のものは、渡された対象に対して、現在束縛されている ``WebGLBuffer`` オブジェクトのサイズを
+    渡されたデータのサイズに設定し、データの内容をバッファーオブジェクトに書き込む。
+
+    * 渡されたデータが ``null`` の場合は ``INVALID_VALUE`` エラーが発生する。
+
+``bufferSubData(target, offset, data)``
+    ``target`` に束縛された ``WebGLBuffer`` オブジェクトに対して、
+    位置 ``offset`` から始まる ``data`` を書き込む。
+
+    * バッファーオブジェクトの終端を越えてデータが書き込まれる場合は ``INVALID_VALUE`` エラー。
+    * ``data`` が ``null`` の場合も ``INVALID_VALUE`` エラー。
+
+``createBuffer()``
+    Create a WebGLBuffer object and initialize it with a buffer object name as if by calling glGenBuffers.
+    ``WebGLBuffer`` オブジェクトを生成し、``glGenBuffers`` を呼び出したかのようにバッファーオブジェクト名で初期化する。
+
+``deleteBuffer(buffer)``
+    ``glDeleteBuffers`` の呼び出しのごとく、渡された ``WebGLBuffer`` が含むバッファーオブジェクトに削除マークを付ける。
+
+    * すでに削除マークが付けられている場合、この呼び出しは効果が特にない。
+    * 下にある GL オブジェクトは JavaScript オブジェクトが破壊されるときに自動的に削除マークが付けられるが、
+      このメソッドを使用することでオブジェクトに対して削除マークを早期に付けることができる。
+    * ``buffer`` がこれとは異なる ``WebGLRenderingContext`` によって生成された場合 ``INVALID_OPERATION`` エラー。
+
+``getBufferParameter(target, pname)`` (OpenGL ES 2.0 §6.1.3, similar to glGetBufferParameteriv)
+    OpenGL の ``glGetBufferParameteriv`` の対応物。``pname`` の値を返す。
+
+    * 戻り値の型は要求された ``pname`` にとって自然な型とする。例えば ``BUFFER_SIZE`` なら整数を返す。
+    * ``pname`` がサポートされていない名前のときには ``INVALID_ENUM`` エラー。
+    * OpenGL エラーが発生した場合は ``null`` を返す。
+
+``isBuffer(buffer)``
+    渡された ``WebGLBuffer`` が有効かどうかを返す。
+
+    * ``buffer`` がこれとは異なる ``WebGLRenderingContext`` によって生成された場合は ``false`` を返す。
+    * ``buffer`` の ``invalidated`` フラグが設定されている場合は ``false`` を返す。
 
 5.14.6 Framebuffer objects
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
