@@ -773,6 +773,195 @@ OpenGL ES 2.0 ではレンダリングに使用するための状態を保持す
 5.14.9 Programs and Shaders
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+WebGL でもレンダリングには OpenGL ES のシェーディング言語である
+GLSL ES で記述されたシェーダーを使用する必要がある。シェーダーは、
+
+#. ソースコード文字列を ``shaderSource`` で読み込み、
+#. それを ``compileShader`` でコンパイルして
+#. ``attachShader`` でプログラムに添付し、
+#. ``linkProgram`` でリンクしてから
+#. ``useProgram`` で使用する必要がある。
+
+----
+
+``attachShader(program, shader)``
+    ``glAttachShader`` の対応物。
+
+    * ``program`` または ``shader`` シェーダーのいずれかが、このものとは異なる
+      ``WebGLRenderingContext`` によって生成されたものである場合 ``INVALID_OPERATION`` エラー。
+
+``bindAttribLocation(program, index, name)``
+    ``glBindAttribLocation`` の対応物。
+
+    * ``program`` がこれとは異なる ``WebGLRenderingContext`` が生成したものである場合 ``INVALID_OPERATION`` エラー。
+    * ``name`` が定義された制限よりも長い場合、``INVALID_VALUE`` エラー。
+    * ``name`` が予約されている WebGL 接頭辞のいずれかで始まる場合 ``INVALID_OPERATION`` エラー。
+    * WebGL の実装で行われる追加の検証については別項を参照。
+
+``compileShader(shader)``
+    ``glCompileShader`` の対応物。
+
+    * ``shader`` がこれとは異なる ``WebGLRenderingContext`` が生成したものである場合 ``INVALID_OPERATION`` エラー。
+    * WebGL の実装であることによる追加的な制約、サポートされる構造、検証については、関連する記述を参照すること。
+
+``createProgram()``
+    ``glCreateProgram`` の対応物。
+
+    ``WebGLProgram`` オブジェクトを生成し、``glCreateProgram`` を呼び出したかのようにプログラムオブジェクトに名前を付けて初期化する。
+
+``createShader(type)``
+    ``glCreateShader`` の対応物。
+
+    * ``WebGLShader`` オブジェクトを生成し、まるで
+      ``glCreateShader`` を呼び出したかのようにシェーダーオブジェクト名を付けて初期化する。
+
+``deleteProgram(program)``
+    ``glDeleteProgram`` の対応物。
+
+    * ``program`` または ``shader`` シェーダーのいずれかが、このものとは異なる
+      ``WebGLRenderingContext`` によって生成されたものである場合 ``INVALID_OPERATION`` エラー。
+    * まるで ``glDeleteProgram`` を呼び出すかのように、``program`` に含まれるプログラムオブジェクトを削除するようにマークする。
+    * 内包されている GL オブジェクトには JavaScript オブジェクトが破棄されたときに自動的に削除マークが付けられるが、
+      このメソッドを呼び出すことで、オブジェクトに早期に削除マークを付けることができる。
+    * 下層の GL オブジェクトは、JS オブジェクトが破棄されたときに自動的に削除マークが付けられますが、このメソッドを使用すると、オブジェクトを早期に削除マークすることができます。
+
+``deleteShader(shader)``
+    ``glDeleteShader`` の対応物。
+
+    * まるで ``glDeleteShader`` を呼び出すかのように ``shader`` に含まれるシェーダーオブジェクトを削除するようにマークする。
+    * 内包されている GL オブジェクトには JavaScript オブジェクトが破棄されたときに自動的に削除マークが付けられるが、
+      このメソッドを呼び出すことで、オブジェクトに早期に削除マークを付けることができる。
+    * ``shader`` がこれとは異なる ``WebGLRenderingContext`` が生成したものである場合 ``INVALID_OPERATION`` エラー。
+
+``detachShader(program, shader)``
+    ``glDetachShader`` の対応物。
+
+    * ``program`` または ``shader`` シェーダーのいずれかが、このものとは異なる
+      ``WebGLRenderingContext`` によって生成されたものである場合 ``INVALID_OPERATION`` エラー。
+
+``getAttachedShaders(program)``
+    ``glGetAttachedShaders`` の対応物。
+
+    * ``program`` に取り付けたれたシェーダーのリストを返す。
+    * ``program`` がこれとは異なる ``WebGLRenderingContext`` が生成したものである場合 ``INVALID_OPERATION`` エラー。
+    * この関数の実行中に OpenGL エラーが発生した場合は ``null`` を返す。
+
+``getProgramParameter(program, pname)``
+    ``glGetProgramParameter`` の対応物。
+
+    * ``program`` がこれとは異なる ``WebGLRenderingContext`` が生成したものである場合 ``INVALID_OPERATION`` エラー。
+    * ``program`` に応じた ``pname`` の値を返す。戻り値の型は要求された名前に対して自然な型とする。
+    * ``pname`` の値は次のいずれかとする：
+
+      * ``DELETE_STATUS``
+      * ``LINK_STATUS``
+      * ``VALIDATE_STATUS``
+      * ``ATTACHED_SHADERS``
+      * ``ACTIVE_ATTRIBUTES``
+      * ``ACTIVE_UNIFORMS``
+
+      これ以外の値は ``INVALID_ENUM`` エラーとし ``null`` を返す。
+
+    * この関数の実行中に OpenGL エラーが発生した場合は ``null`` を返す。
+
+``getProgramInfoLog(program)``
+    ``glGetProgramInfoLog`` の対応物。
+
+    * ``program`` がこれとは異なる ``WebGLRenderingContext`` が生成したものである場合 ``INVALID_OPERATION`` エラー。
+    * この関数の実行中に OpenGL エラーが発生した場合は ``null`` を返す。
+
+``getShaderParameter(shader, pname)``
+    ``glGetShaderParameter`` の対応物。
+
+    * ``shader`` がこれとは異なる ``WebGLRenderingContext`` が生成したものである場合 ``INVALID_OPERATION`` エラー。
+    * ``shader`` に応じた ``pname`` の値を返す。戻り値の型は要求された名前に対して自然な型とする。
+    * ``pname`` の値は次のいずれかとする：
+
+      * ``SHADER_TYPE``
+      * ``DELETE_STATUS``
+      * ``COMPILE_STATUS``
+
+      これ以外の値は ``INVALID_ENUM`` エラーとし ``null`` を返す。
+
+    * この関数の実行中に OpenGL エラーが発生した場合は ``null`` を返す。
+
+``getShaderPrecisionFormat(shadertype, precisiontype)``
+    ``glGetShaderPrecisionFormat`` の対応物。
+
+    指定されたシェーダーの数値フォーマットの範囲と精度を記述した ``WebGLShaderPrecisionFormat`` を返す。
+
+    * ``shadertype`` の値は ``FRAGMENT_SHADER`` または ``VERTEX_SHADER`` だ。
+    * ``precisiontype`` の値は次のいずれかとする：
+
+      * ``LOW_FLOAT``
+      * ``MEDIUM_FLOAT``
+      * ``HIGH_FLOAT``
+      * ``LOW_INT``
+      * ``MEDIUM_INT``
+      * ``HIGH_INT``
+
+    * この関数の実行中に OpenGL エラーが発生した場合は ``null`` を返す。
+
+``getShaderInfoLog(shader)``
+    ``glGetShaderInfoLog`` の対応物。
+
+    * ``shader`` がこれとは異なる ``WebGLRenderingContext`` が生成したものである場合 ``INVALID_OPERATION`` エラー。
+    * この関数の実行中に OpenGL エラーが発生した場合は ``null`` を返す。
+
+``getShaderSource(shader)``
+    ``glGetShaderSource`` の対応物。
+
+    * ``shader`` がこれとは異なる ``WebGLRenderingContext`` で生成されたものならば ``INVALID_OPERATION`` エラー。
+    * この関数の実行中に OpenGL エラーが発生した場合は ``null`` を返す。
+
+``isProgram(program)``
+    ``glIsProgram`` の対応物。
+
+    * 渡された ``WebGLProgram`` が有効かどうかを返す。
+    * ``program`` がこれと異なる ``WebGLRenderingContext`` によって生成されたものならば ``false`` を返す。
+    * ``program`` の ``invalidated`` フラグが設定されている場合は ``false`` を返す。
+
+``isShader(shader)``
+    ``glIsShader`` の対応物。
+
+    * 渡された ``WebGLShader`` が有効かどうかを返す。
+    * ``shader`` がこれと異なる ``WebGLRenderingContext`` によって生成されたものならば ``false`` を返す。
+    * ``shader`` の ``invalidated`` フラグが設定されている場合は ``false`` を返す。
+
+``linkProgram(program)``
+    ``glLinkProgram`` の対応物。
+
+    * 動作の詳細は OpenGL ES 2.0 どおりだが、以下の点が明確になっている：
+
+      * ``linkProgram`` は、このグループの中で、渡されたプログラムのリンク状態や、
+        参照する内部実行コードに影響を与える唯一のAPIです。
+      * プログラムからのシェーダーオブジェクトの取り付けおよび取り外し、
+        プログラムに取り付けられたシェーダーオブジェクトの修正、およびコンパイルなどの操作は、
+        そのプログラムのリンク状態にも、そのプログラムが参照する実行コードにも影響を与えない。
+
+    * ``program`` が、これとは異なる ``WebGLRenderingContext`` が生成したものである場合 ``INVALID_OPERATION`` エラー。
+    * 与えられた ``program`` が正常にリンクされ、``useProgram`` で定義された現在使用中のプログラムオブジェクトでもある場合、
+      生成された実行コードは現在のレンダリング状態の一部として直ちにインストールされる。
+      それ以外の場合は、現在のレンダリング状態で参照されている実行可能コードは、
+      ``linkProgram`` の呼び出しによって変更されることはない。
+    * WebGL の実装で実施される追加的な制約や実行される検証については別項で述べられる。
+
+``shaderSource(shader, source)``
+    ``glShaderSource`` の対応物。
+
+    * ``shader`` がこれとは異なる ``WebGLRenderingContext`` が生成したものである場合 ``INVALID_OPERATION`` エラー。
+    * WebGL の実装であることによる追加的な制約、サポートされる構造、検証については、関連する記述を参照すること。
+
+``useProgram(program)``
+    ``glUseProgram`` の対応物。
+
+    * ``program`` がこれとは異なる ``WebGLRenderingContext`` が生成したものである場合 ``INVALID_OPERATION`` エラー。
+
+``validateProgram(program)``
+    ``glValidateProgram`` の対応物。
+
+    * ``program`` がこれとは異なる ``WebGLRenderingContext`` が生成したものである場合 ``INVALID_OPERATION`` エラー。
+
 5.14.10 Uniforms and attributes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
