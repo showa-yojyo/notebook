@@ -965,11 +965,201 @@ GLSL ES で記述されたシェーダーを使用する必要がある。シェ
 5.14.10 Uniforms and attributes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+シェーダーで使われる値は、ユニフォームや頂点の属性として渡される。
+
+----
+
+``disableVertexAttribArray(index)``
+``enableVertexAttribArray(index)``
+    インデックスの頂点属性を配列として無効・有効にする。
+
+    * WebGL では有効な頂点属性に関して OpenGL ES 2.0 以上の規則が適用される。
+
+``getActiveAttrib(program, index)``
+    ``program`` の ``index`` の頂点属性のサイズ、型、名前を記述した ``WebGLActiveInfo`` オブジェクトを返す。
+
+    * ``index`` が範囲外の場合は ``INVALID_VALUE`` エラーを発生して ``null`` を返す。
+    * ``program`` がこれとは異なる ``WebGLRenderingContext`` が生成したものである場合は ``INVALID_OPERATION`` エラー。
+    * この関数の実行中に OpenGL エラーが発生した場合は ``null`` を返す。
+
+``getActiveUniform(program, index)``
+    ``program`` の ``index`` にあるユニフォームのサイズ、型、名前を記述した ``WebGLActiveInfo`` オブジェクトを返す。
+
+    * ``index`` が範囲外の場合は ``INVALID_VALUE`` エラーを発生して ``null`` を返す。
+    * ``program`` がこれとは異なる ``WebGLRenderingContext`` が生成したものである場合は ``INVALID_OPERATION`` エラー。
+    * この関数の実行中に OpenGL エラーが発生した場合は ``null`` を返す。
+
+``getAttribLocation(program, name)``
+    ``glGetAttribLocation`` の対応物。
+
+    * ``program`` がこれとは異なる ``WebGLRenderingContext`` が生成したものである場合は ``INVALID_OPERATION`` エラーとなり ``-1`` を返す。
+    * ``name`` が定義された制限よりも長い場合は ``INVALID_VALUE`` エラーとなり ``-1`` を返す。
+    * ``name`` が予約されている WebGL 接頭辞のいずれかで始まる場合は ``-1`` を返す。
+    * コンテキストの webgl context lost フラグが設定されている場合は ``-1`` を返す。
+    * ``program`` の ``invalidated`` フラグが設定されている場合は ``INVALID_OPERATION`` エラーとなり ``-1`` を返す。
+    * WebGL の実装で行われる追加の検証については、別項を参照すること。
+
+``getUniform(program, location)``
+    ``program`` の ``location`` にあるユニフォームの値を返す。
+
+    * 戻り値の型はユニフォーム型によって決まる。表にまとめられている。
+    * 列や *TypedArray* を返すすべての問い合わせは、毎回新しいオブジェクトを返す。
+    * ``program`` または ``location`` が、自身の ``WebGLRenderingContext``
+      とは異なるコンテキストが生成したものである場合には ``INVALID_OPERATION`` エラー。
+    * この関数の実行中に OpenGL エラーが発生した場合は ``null`` を返す。
+
+``getUniformLocation(program, name)``
+    ``program`` 内の特定のユニフォーム変数の位置を表す ``WebGLUniformLocation`` を返す。
+
+    * ``name`` が ``program`` 内のアクティブなユニフォーム変数に対応していない場合、戻り値は ``null`` となる。
+    * ``program`` がこれとは異なる ``WebGLRenderingContext`` が生成したものである場合は ``INVALID_OPERATION`` エラー。
+    * ``name`` が定義された制限よりも長い場合は ``INVALID_VALUE`` エラーとなり ``null`` を返す。
+    * ``name`` が予約されている WebGL 接頭辞のいずれかで始まる場合は ``null`` を返す。
+    * WebGL の実装で行われる追加の検証については、別項を参照すること。
+    * この関数の実行中に OpenGL エラーが発生した場合は ``null`` を返す。
+
+``getVertexAttrib(index, pname)``
+    ``index`` の頂点属性について ``pname`` が要求する情報を返す。
+
+    * 戻り値の型は要求された情報に応じて決まる。表にまとめられている。
+    * 列や *TypedArray* を返すすべての問い合わせは、毎回新しいオブジェクトを返す。
+    * 無効な ``pname`` を与えると ``INVALID_ENUM`` エラー。
+    * OpenGL エラーが起こると ``null`` を返す。
+
+``getVertexAttribOffset(index, pname)``
+    ``glGetVertexAttribOffset`` の対応物。
+
+    * コンテキストの webgl context lost フラグが設定されている場合は 0 を返す。
+
+``uniform[1234][fi](location, ...)``
+``uniform[1234][fi]v(location, ...)``
+``uniformMatrix[234]fv(location, transpose, ...)``
+    各関数は、指定されたユニフォームまたはユニフォームを指定された値に設定します。
+
+    * ``location`` が ``null`` ではなく、現在使用しているプログラムから以前に
+      ``getUniformLocation`` を呼び出して取得したものでない場合 ``INVALID_OPERATION`` エラーになる。
+    * ``location`` が ``null`` の場合、渡されたデータは静かに無視され、ユニフォーム変数は変更されない。
+    * ベクトル形式（名前が ``v`` で終わる関数）に渡された配列の長さが無効な場合 ``INVALID_VALUE`` エラー。
+
+      * 長さが無効であるとは、長さが短すぎるか、割り当てられた型の整数倍でないものをいう。
+
+    ----
+
+    ``uniform1i`` を使用してサンプラーのユニフォームを更新すると、
+    一部の実装でパフォーマンス上の問題が発生する。
+    サンプラーユニフォームが参照するテクスチャーを変更するには、
+    ユニフォーム自体を更新するために ``uniform1i`` を使用するよりも、
+    ユニフォームが参照するテクスチャーユニットに新しいテクスチャーを束縛する方が望ましい。
+
+``vertexAttrib[1234]f(index, ...)``
+``vertexAttrib[1234]fv(index, ...)``
+    ``index`` の頂点属性を、与えられた定数値に設定する。
+
+    * ``vertexAttrib`` で設定された値は、``drawArrays`` や ``drawElements`` の呼び出しが間にあったとしても、
+      ``CURRENT_VERTEX_ATTRIB`` パラメーターを持つ ``vertexAttrib`` 関数から返されることが保証される。
+    * ベクトル形式（名前が ``v`` で終わる関数）に渡された配列の長さが無効な場合 ``INVALID_VALUE`` エラー。
+
+``vertexAttribPointer(index, size, type, normalized, stride, offset)``
+    ``ARRAY_BUFFER`` ターゲットに束縛されている ``WebGLBuffer`` オブジェクトを
+    ``index`` の頂点属性に割り当てる。
+
+    * ``size`` は属性ごとの成分の数。
+    * ``stride`` および ``offset`` はバイト単位。
+    * ``stride`` および ``offset`` は ``type`` と ``size`` に適していなければならず、
+      そうでなければ ``INVALID_OPERATION`` エラーとなる。
+    * ``offset`` が負の値の場合は ``INVALID_VALUE`` エラーとなる。
+    * ``WebGLBuffer`` が ``ARRAY_BUFFER`` ターゲットに束縛されておらず、
+      ``offset`` が 0 以外の場合は ``INVALID_OPERATION`` エラーとなる。
+    * WebGL では、サポートされる ``stride`` の最大値は 255 だ。
+
 5.14.11 Writing to the drawing buffer
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+OpenGL ES 2.0 には、描画バッファーへのレンダリングを可能にする呼び出しが三つある：
+
+* ``clear``
+* ``drawArrays``
+* ``drawElements``
+
+さらに、レンダリングは、描画バッファーかフレームバッファーオブジェクトに対して行うことができる。
+描画バッファーへのレンダリングが指示された場合、三つのレンダリング呼び出しのいずれかを実行すると、
+次の合成操作の開始時に、描画バッファーが HTML ページ合成器に提示される。
+
+これらの呼び出しのいずれかが完全なフレームバッファの欠落した attachment に描画しようとした場合、
+その attachment には何も描画されず、エラーが発生することもない。
+
+----
+
+``clear(mask)``
+    ``glClear`` の対応物。
+
+``drawArrays(mode, first, count)``
+    ``glDrawArrays`` の対応物。
+
+    * ``first`` が負の値の場合 ``INVALID_VALUE`` エラー。
+    * ``CURRENT_PROGRAM`` が ``null`` の場合 ``INVALID_OPERATION`` エラー。
+
+``drawElements(mode, count, type, offset)``
+    ``glDrawElements`` の対応物。
+
+    現在束縛されている要素配列バッファーを使用して描画する。
+
+    * ``offset`` はバイト単位で、``type`` のサイズの有効な倍数でなければならない。
+    * ``offset`` は非負でなければならず、そうでなければ ``INVALID_VALUE`` エラーとなる。
+    * ``count`` が 0 より大きい場合は ``ELEMENT_ARRAY_BUFFER`` バインディングポイントに非 ``null`` の
+      ``WebGLBuffer`` が束縛されていなければならず、そうでない場合は ``INVALID_OPERATION`` エラーとなる。
+    * ``CURRENT_PROGRAM`` が ``null`` の場合は ``INVALID_OPERATION`` エラー。
+    * WebGL では ``drawArays`` および ``drawElements`` の呼び出し時に
+      OpenGL ES 2.0 で指定されている以上のエラーチェックを行う。
+
+``finish()``
+    ``glFinish`` の対応物。
+
+``flush()``
+    ``glFlush`` の対応物。
+
 5.14.12 Reading back pixels
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+現在のフレームバッファ内のピクセルを ``ArrayBufferView`` オブジェクトに読み戻すことができる。
+
+----
+
+``readPixels(x, y, width, height, format, type, pixels)``
+    フレームバッファーの指定された矩形内のピクセルデータでピクセルを埋める。
+
+    * ``readPixels`` が返すデータは、最後に送信された描画コマンドの時点でのものでなければならない。
+
+    If this function attempts to read from a complete framebuffer with a missing color attachment, an INVALID_OPERATION error is generated per Reading from a Missing Attachment.
+
+    * ピクセルの ``type`` は読み込まれるデータのそれと一致していなければならない。例えば、
+
+      * ``UNSIGNED_BYTE`` であれば、``Uint8Array`` または ``Uint8ClampedArray`` を、
+      * ``UNSIGNED_SHORT_5_6_5``, ``UNSIGNED_SHORT_4_4_4``, ``UNSIGNED_SHORT_5_5_5_1`` であれば、``Uint16Array`` を、
+      * ``FLOAT`` であれば ``Float32Array`` を
+
+      供給しなければならない。タイプが一致しない場合 ``INVALID_OPERATION`` エラーとなる。
+
+    * ``format`` と ``type`` の組み合わせは二つしかない。
+
+      * ``format = RGBA`` で ``type = UNSIGNED_BYTE``
+      * 実装で選択されたフォーマット
+
+      このフォーマットの ``format`` と ``type`` の値は、``getParameter`` に定数
+      ``IMPLEMENTATION_COLOR_READ_FORMAT`` と ``IMPLEMENTATION_COLOR_READ_TYPE`` を指定して呼び出すことで決定できる。
+
+      * 実装で選択されるフォーマットは、現在束縛されているレンダリング面のフォーマットに応じて異なる場合がある。
+      * サポートされていない ``format`` と ``type`` の組み合わせの場合 ``INVALID_OPERATION`` エラーとなる。
+
+    * ``IMPLEMENTATION_COLOR_READ_[FORMAT,TYPE]`` の問い合わせは、他で使用されていない列挙型を返すことがあるため、
+      これらの列挙型を ``readPixels`` に提供しても、必ずしも ``INVALID_ENUM`` エラーとなるわけではない。
+    * ``pixels`` が ``null`` の場合 ``INVALID_VALUE`` エラーとなる。
+    * ``pixels`` が ``null`` ではないが、ピクセル格納モードを考慮して、
+      指定された矩形内のすべてのピクセルを取得するのに十分な大きさではない場合、
+      ``INVALID_OPERATION`` エラーとなる。
+    * フレームバッファーの外側にあるピクセルについては、対応する destination バッファーの範囲はそのままだ。
+    * この関数が、色 attachment がない完全なフレームバッファーから読み取ろうとすると、
+      ``INVALID_OPERATION`` エラーとなる。
 
 5.14.13 Detecting context lost events
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
