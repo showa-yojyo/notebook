@@ -487,9 +487,9 @@ OpenGL ES 2.0 ではレンダリングに使用するための状態を保持す
     ``glDeleteBuffers`` の呼び出しのごとく、渡された ``WebGLBuffer`` が含むバッファーオブジェクトに削除マークを付ける。
 
     * すでに削除マークが付けられている場合、この呼び出しは効果が特にない。
-    * 下にある GL オブジェクトは JavaScript オブジェクトが破壊されるときに自動的に削除マークが付けられるが、
+    * 内包されている GL オブジェクトは JavaScript オブジェクトが破壊されるときに自動的に削除マークが付けられるが、
       このメソッドを使用することでオブジェクトに対して削除マークを早期に付けることができる。
-    * ``buffer`` がこれとは異なる ``WebGLRenderingContext`` によって生成された場合 ``INVALID_OPERATION`` エラー。
+    * ``buffer`` がこれとは異なる ``WebGLRenderingContext`` によって生成されたものである場合 ``INVALID_OPERATION`` エラー。
 
 ``getBufferParameter(target, pname)`` (OpenGL ES 2.0 §6.1.3, similar to glGetBufferParameteriv)
     OpenGL の ``glGetBufferParameteriv`` の対応物。``pname`` の値を返す。
@@ -507,11 +507,268 @@ OpenGL ES 2.0 ではレンダリングに使用するための状態を保持す
 5.14.6 Framebuffer objects
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+フレームバッファーオブジェクトとは、描画バッファーに代わるレンダリング先を提供するものだ。
+色、アルファー、深度、ステンシルバッファーの集合体であり、
+のちにテクスチャーとして使用される画像のレンダリングとしてよく用いられる。
+
+``bindFramebuffer(target, framebuffer)``
+    与えられた ``WebGLFramebuffer`` オブジェクトを、
+    ``FRAMEBUFFER`` でなければならない与えられた束縛ポイント ``target`` に束縛する。
+
+    * ``framebuffer`` がこのものとは異なる ``WebGLRenderingContext`` によって生成されたものである場合には ``INVALID_OPERATION エラー``
+    * ``framebuffer`` が ``null`` ならば、コンテキストが与える既定のフレームバッファーを束縛し、
+      ``target`` の ``FRAMEBUFFER`` の状態を変更または問い合わせるようとする試みは ``INVALID_OPERATION`` エラーとなる。
+    * 削除マークのついたオブジェクトを束縛しようとすると ``INVALID_OPERATION`` エラー。現在の束縛はそのまま残る。
+
+``checkFramebufferStatus(target)``
+    コンテキストの webgl context lost フラグが設定されている場合は ``FRAMEBUFFER_UNSUPPORTED`` を返す。
+
+``createFramebuffer()``
+    ``WebGLFramebuffer`` オブジェクトを作成し、
+    ``glGenFramebuffer`` を呼び出したかのようにフレームバッファオブジェクトに名前を与えて初期化する。
+
+``deleteFramebuffer(buffer)``
+    ``glDeleteFramebuffers`` の対応物。
+
+    * すでに削除マークが付けられている場合、この呼び出しは効果が特にない。
+    * 内包されている GL オブジェクトは JavaScript オブジェクトが破壊されるときに自動的に削除マークが付けられるが、
+      このメソッドを使用することでオブジェクトに対して削除マークを早期に付けることができる。
+    * ``buffer`` がこのものとは異なる ``WebGLRenderingContext`` によって生成されたものである場合 ``INVALID_OPERATION`` エラー。
+
+``framebufferRenderbuffer(target, attachment, renderbuffertarget, renderbuffer)``
+    ``glFramebufferRenderbuffer`` の対応物。
+
+    * ``renderbuffer`` がこのものとは異なる ``WebGLRenderingContext`` によって生成されたものである場合 ``INVALID_OPERATION`` エラー。
+
+``framebufferTexture2D(target, attachment, textarget, texture, level)``
+    ``glFramebufferTexture2D`` の対応物。
+
+    * ``texture`` がこのものとは異なる ``WebGLRenderingContext`` によって生成されたものである場合 ``INVALID_OPERATION`` エラー。
+
+``getFramebufferAttachmentParameter(target, attachment, pname)``
+    ``glGetFramebufferAttachmentParameteriv`` の対応物。
+
+    戻り値の型は要求された ``pname`` に自然な型とする。
+    例えば ``FRAMEBUFFER_ATTACHMENT_OBJECT_NAME`` を求めると
+
+    * 無効な ``pname`` に対しては ``INVALID_ENUM`` エラー。
+    * OpenGL エラーが起こった場合には ``null`` を返す。
+
+``isFramebuffer(framebuffer)``
+    渡された ``framebuffer`` が有効な ``WebGLFramebuffer`` であるかどうかを返す。
+
+    * ``framebuffer`` がこれとは異なる ``WebGLRenderingContext`` が生成したものである場合は ``false`` を返す。
+    * ``framebuffer`` の ``invalidated`` フラグが設定されている場合は ``false`` を返す。
+
 5.14.7 Renderbuffer objects
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+描画バッファーオブジェクトは、フレームバッファーオブジェクトで使用される個々のバッファーのストレージとされるものだ。
+
+``bindRenderbuffer(target, renderbuffer)``
+    与えられた ``WebGLRenderbuffer`` オブジェクトを、
+    ``RENDERBUFFER`` でなければならない与えられた束縛ポイント ``target`` に束縛する。
+
+    * ``renderbuffer`` がこのものとは異なる ``WebGLRenderingContext`` によって生成されたものである場合には ``INVALID_OPERATION エラー``
+    * ``renderbuffer`` が ``null`` ならば、この ``taget`` に現在束縛されている描画バッファーオブジェクトの束縛は解かれる。
+    * 削除マークのついたオブジェクトを束縛しようとすると
+      ``INVALID_OPERATION`` エラーが発生する。現在の束縛はそのままになる。
+
+``createRenderbuffer()``
+    ``WebGLRenderbuffer`` オブジェクトを生成し、
+    ``glGenRenderbuffers`` を呼び出したかのように描画バッファーオブジェクトに名前をつけて初期化する。
+
+``deleteRenderbuffer(renderbuffer)``
+    ``glDeleteRenderbuffers`` の対応物。
+
+    * ``renderbuffer`` がこのものとは異なる ``WebGLRenderingContext`` によって生成されたものである場合 ``INVALID_OPERATION`` エラー。
+    * 内包されている GL オブジェクトは JavaScript オブジェクトが破壊されるときに自動的に削除マークが付けられるが、
+      このメソッドを使用することでオブジェクトに対して削除マークを早期に付けることができる。
+
+``getRenderbufferParameter(target, pname)``
+    ``glGetRenderbufferParameteriv`` の対応物。
+
+    戻り値の型は要求された ``pname`` に自然な型とする。だいたい整数。
+
+    * 無効な ``pname`` に対しては ``INVALID_ENUM`` エラー。
+    * OpenGL エラーが起こった場合には ``null`` を返す。
+
+``isRenderbuffer(renderbuffer)``
+    渡された ``renderbuffer`` が有効な ``WebGLRenderbuffer`` であるかどうかを返す。
+
+    * ``renderbuffer`` がこれとは異なる ``WebGLRenderingContext`` が生成したものである場合は ``false`` を返す。
+    * ``renderbuffer`` の ``invalidated`` フラグが設定されている場合は ``false`` を返す。
+
+``renderbufferStorage(target, internalformat, width, height)``
+    ``glRenderBufferStorage`` の対応物。
+
 5.14.8 Texture objects
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+テクスチャーオブジェクトは、テクスチャーを操作するためのストレージと状態を与える。
+``WebGLTexture`` が束縛されていない場合、テクスチャーオブジェクトへの変更または問い合わせは
+``INVALID_OPERATION`` エラーが発生する。
+
+``bindTexture(target, texture)``
+    ``glBindTexure`` の対応物。
+
+    * エラー発生は ``bindFramebuffer`` や ``bindRenderbuffer`` に準じる。
+
+``compressedTexImage2D(target, level, internalformat, width, height, border, pixels)``
+``compressedTexSubImage2D(target, level, xoffset, yoffset, width, height, format, pixels)``
+    ``glCompressedTexImage2D``, ``glCompressedTexSubImage2D`` の対応物。
+
+    * コア WebGL 仕様では、サポートされる圧縮テクスチャーフォーマットを何も定義していない。
+    * デフォルトでは、これらのメソッドは ``INVALID_ENUM`` エラーを生成し、直ちに戻る。
+      詳しくは次章で述べられる。
+
+``copyTexImage2D``(target, level, internalformat, x, y, width, height, border)``
+    ``glCopyTexImage2D`` の対応物。
+
+    この関数は、``texImage2D`` が ``null`` データで呼び出され、続いて ``copyTexSubImage2D`` が呼び出されたかのように振る舞う。
+
+    * ``copyTexSubImage2D`` と同様に、フレームバッファーの外側にある
+      source ピクセルについては、対応する destination テクセルはそのまま残されるので、
+      まるで ``texImage2D`` が ``null`` データで呼び出されたかのようにゼロ初期化された内容を保持する。
+      これにより、フレームバッファーの外側にある source ピクセルに対応する
+      destination ピクセルは、関連するテクセルのチャンネルすべてが
+      0 に初期化されるという効果もある。
+    * この関数が attachment のない完全なフレームバッファーから読み取ろうとした場合、
+      ``INVALID_OPERATION`` エラーが発生する。
+
+``copyTexSubImage2D(target, level, xoffset, yoffset, x, y, width, height)``
+    ``glCopyTexSubImage2D`` の対応物。
+
+    * フレームバッファーの外側にあるどんなピクセルも、対応する destination ピクセルはそのまま変わらない。
+    * この関数が attachment のない完全なフレームバッファーから読み取ろうとした場合、
+      ``INVALID_OPERATION`` エラーが発生する。
+
+``createTexture()``
+    ``WebGLTexture`` オブジェクトを生成し、``glGenTextures`` を呼び出したかのようにテクスチャオブジェクトに名前をつけて初期化する。
+
+``deleteTexture(texture)``
+    ``glDeleteTextures`` の対応物。
+
+    * ``texture`` がこのものとは異なる ``WebGLRenderingContext`` によって生成されたものである場合 ``INVALID_OPERATION`` エラー。
+    * 内包されている GL オブジェクトは JavaScript オブジェクトが破壊されるときに自動的に削除マークが付けられるが、
+      このメソッドを使用することでオブジェクトに対して削除マークを早期に付けることができる。
+
+``generateMipmap(target)``
+    ``glGenerateMipmap`` の対応物。
+
+``getTexParameter(target, pname)``
+    ``glGetTexParameter*`` の対応物。
+
+    戻り値の型は要求された ``pname`` に自然な型とする。
+
+    * 無効な ``pname`` に対しては ``INVALID_ENUM`` エラー。
+    * OpenGL エラーが起こった場合には ``null`` を返す。
+
+``isTexture(texture)``
+    渡された ``texture`` が有効な ``WebGLTexture`` であるかどうかを返す。
+
+    * ``renderbuffer`` がこれとは異なる ``WebGLRenderingContext`` が生成したものである場合は ``false`` を返す。
+    * ``renderbuffer`` の ``invalidated`` フラグが設定されている場合は ``false`` を返す。
+
+``texImage2D(target, level, internalformat, width, height, border, format, type, pixels)``
+    ``glTexImage2D`` の対応物で、最後の引数が ``ArrayBufferView`` のオーバーロード。
+
+    * ``pixels`` が ``null`` の場合は、ゼロクリアされた十分なサイズのバッファーが渡される。
+    * ``pixels`` が ``null`` 以外の場合、``pixels`` の型は読み込まれるデータのそれと一致しなければならない。
+
+      * ``UNSIGNED_BYTE`` であれば ``Uint8Array`` または ``Uint8ClampedArray`` が、
+      * ``UNSIGNED_SHORT_5_6_5``, ``UNSIGNED_SHORT_4_4``,
+        ``UNSIGNED_SHORT_5_5_5_1`` であれば ``Uint16Array`` が
+
+      渡されなければならない。型が一致しない場合は ``INVALID_OPERATION`` エラー。
+
+    * ``pixels`` が ``null`` ではなくても、そのサイズが指定された
+      ``width``, ``height``, ``format``, ``type``,
+      ピクセル貯蔵パラメーターが必要とするサイズよりも小さい場合は
+      ``INVALID_OPERATION`` エラーが起こる。
+    * この関数の動作に影響する WebGL 固有のピクセル貯蔵パラメーターについては、次章で述べられる。
+
+``texImage2D(target, level, internalformat, format, type, source)``
+   ``glTexImage2D`` の対応物で、最後の引数が ``TexSourceImage`` のどれかであるオーバーロード。
+
+    * 指定された要素や画像データを、現在束縛されている ``WebGLTexture`` にアップロードする。
+    * テクスチャーの幅と高さは、別途述べられる項目が指定するように設定される。
+    * 画像データ ``source`` は概念的にはまず ``format`` および ``type`` 引数で
+      指定されたデータ型とフォーマットに変換されてから WebGL 実装に転送される。
+
+      * フォーマットの変換表アリ。
+      * 画像データのビット精度が失われるようなパックピクセルフォーマットが指定された場合、この精度の損失が必ず起こる。
+
+    * ``source`` から WebGL 実装に転送される最初のピクセルは ``source`` の左上隅のものだ。
+      この動作は、``ImageBitmap`` である場合を除き、
+      ``UNPACK_FLIP_Y_WEBGL`` ピクセル貯蔵パラメータによって変更される。
+    * ``source`` が各チャンネル 8 ビットの RGB または RGBA のロスレス画像を含む
+      ``HTMLImageElement`` または ``ImageBitmap`` の場合、
+      ブラウザーはチャンネルすべての完全な精度が保持されることを保証する。
+    * 元の ``HTMLImageElement`` がアルファーチャンネルを含み、
+      ``UNPACK_PREMULTIPLY_ALPHA_WEBGL`` ピクセル貯蔵パラメーターが ``false`` の場合、
+      RGB 値が元のファイルフォーマットから直接得られたものであろうと、
+      他のカラーフォーマットから変換されたものであろうと、
+      アルファーチャンネルによって決して事前に乗算しないことが保証する。
+
+    ----
+
+    ``HTMLCanvasElement`` や ``OffscreenCanvas`` の
+    ``CanvasRenderingContext2D`` の実装によっては、色の値が内部的に前乗算形式で保存される。
+    このようなキャンバスを ``UNPACK_PREMULTIPLY_ALPHA_WEBGL`` ピクセル貯蔵パラメーターを
+    ``false`` に設定した状態で WebGL テクスチャにアップロードすると、
+    カラーチャンネルにアルファーチャンネルを乗算し直す必要があるが、
+    これは損失の大きい処理だ。
+    したがって、WebGL の実装では ``UNPACK_PREMULTIPLY_ALPHA_WEBGL`` ピクセル貯蔵パラメーターが
+    ``false`` に設定されているときに、
+    ``CanvasRenderingContext2D`` を介してキャンバスに最初に描画され、
+    その後 WebGL テクスチャーにアップロードされたときに、
+    アルファー値が 1.0 に満たない色を損失なしに保存することを保証できない。
+
+    ----
+
+    * 属性 ``data`` が中立化した ``ImageData`` でこの関数を呼び出すと ``INVALID_VALUE`` エラー。
+    * 中立化した ``ImageData`` でこの関数が呼ばれた場合 ``INVALID_VALUE`` エラー。
+    * 中立化した ``ImageBitmap`` でこの関数が呼ばれた場合 ``INVALID_VALUE`` エラー。
+    * ``Document`` の ``origin`` と異なる ``HTMLImageElement`` または ``HTMLVideoElement`` でこの関数が呼び出された場合、
+      または ``Bitmap`` の ``origin-clean`` フラグが ``false`` に設定されている
+      ``HTMLCanvasElement``, ``ImageBitmap``, ``OffscreenCanvas`` でこの関数が呼び出された場合には
+      ``SECURITY_ERR`` 例外が送出されなければならない。
+    * ``source`` が ``null`` の場合は ``INVALID_VALUE`` エラー。
+
+``texParameterf(target, pname, param)``
+``texParameteri(target, pname, param)``
+    ``glTexParameter{fi}`` の対応物。
+
+``texSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels)``
+    ``glTexSubImage2D`` の対応物で、最後の引数が ``ArrayBufferView`` のオーバーロード。
+
+    * ``format`` および ``pixels`` 引数の制限については ``texImage2D`` と同じ。
+    * ``type`` がテクスチャーの定義に元々使われていた型と一致しない場合 ``INVALID_OPERATION`` エラーが発生。
+    * ``pixels`` が ``null`` の場合 ``INVALID_VALUE`` エラー。
+    * ``pixels`` が ``null`` でなくでも、そのサイズが、指定された
+      ``width``, ``height``, ``format``, ``type``,
+      およびピクセル貯蔵パラメーターが必要とするサイズよりも小さい場合は ``INVALID_OPERATION`` エラー。
+
+``texSubImage2D(target, level, xoffset, yoffset, format, type, source)``
+    ``glTexSubImage2D`` の対応物で、最後の引数が ``TexSourceImage`` のオーバーロード。
+
+    * 現在束縛されている ``WebGLTexture`` の部分矩形を与えられた要素や画像データの内容で更新する。
+    * 更新された部分矩形の幅と高さは、別項で指定されるとおりに決定される。
+    * ``format`` および ``type`` 引数の解釈、および
+      ``UNPACK_PREMULTIPLY_ALPHA_WEBGL`` ピクセル貯蔵パラメーターに関する注意点については
+      ``texImage2D`` を参照すること。
+    * ``source`` から WebGL 実装に転送される最初のピクセルは ``source`` の左上隅のものだ。
+      この動作は、``ImageBitmap`` である場合を除き、
+      ``UNPACK_FLIP_Y_WEBGL`` ピクセル貯蔵パラメータによって変更される。
+    * ``type`` がテクスチャーの定義に元々使われていた型と一致しない場合 ``INVALID_OPERATION`` エラーが発生。
+    * 属性 ``data`` が中立化した ``ImageData`` でこの関数を呼び出すと ``INVALID_VALUE`` エラー。
+    * 中立化した ``ImageBitmap`` でこの関数が呼ばれた場合 ``INVALID_VALUE`` エラー。
+    * ``Document`` の ``origin`` と異なる ``HTMLImageElement`` または ``HTMLVideoElement`` でこの関数が呼び出された場合、
+      または ``Bitmap`` の ``origin-clean`` フラグが ``false`` に設定されている
+      ``HTMLCanvasElement``, ``ImageBitmap``, ``OffscreenCanvas`` でこの関数が呼び出された場合には
+      ``SECURITY_ERR`` 例外が送出されなければならない。
+    * ``source`` が ``null`` の場合は ``INVALID_VALUE`` エラー。
 
 5.14.9 Programs and Shaders
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
