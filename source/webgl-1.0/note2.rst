@@ -1164,20 +1164,224 @@ OpenGL ES 2.0 には、描画バッファーへのレンダリングを可能に
 5.14.13 Detecting context lost events
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+モバイル機器の電源イベントなどが発生すると WebGL レンダリングコンテキストが失われ、
+アプリケーションの再構築が必要になることがある。
+
+----
+
+``isContextLost()``
+    フラグ webgl context lost が設定されているかどうかを返す。
+
 5.14.14 Detecting and enabling extensions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* WebGL の実装は、拡張装置を最初に使って機能を有効にすることなしに、
+  追加のパラメーター、定数、関数をサポートしてはならない。
+
+  * 関数 ``getSupportedExtensions`` は、この実装がサポートする拡張機能の文字列の配列を返す。
+  * 拡張機能を有効にするには、これらの文字列のうちの一つを関数 ``getExtension`` に渡すことだ。
+
+    * この呼び出しは、その拡張機能で定義されているあらゆる定数と関数を含むオブジェクトを返す。
+    * このオブジェクトの定義はその拡張機能に固有のものであり、拡張機能の仕様が定義せねばならないものだ。
+
+* いったん拡張が有効になると、WebGL コンテキストが失われても無効にしかならない。
+
+  * ただし ``WEBGL_lose_context`` 拡張は例外だ。コンテキストが失われてもアクティブな状態を維持する。
+  * ``getExtension`` が返すオブジェクトなどの、無効である拡張機能が参照するオブジェクトは、
+    いずれも WebGL レンダリングコンテキストに関連付けられなくなる。
+  * ``WebGLObject`` から派生したすべての拡張オブジェクトのフラグ ``invalidated`` は
+    ``true`` に設定される。
+  * コンテキストが失われた後の拡張機能のメソッドの動作は先の節で定義した。
+
+* 拡張機能を無効にする仕組みは他にはない。
+* 大文字小文字を区別しない比較を考慮して、同じ拡張文字列で
+  ``getExtension`` を複数回呼び出すと、その拡張が有効である限り、
+  同一のオブジェクトが返されなければならない。
+
+  * 最初に ``getExtension`` を呼び出して有効にすることなしに任意の拡張機能を使用しようとすると、
+    適切な GL エラーが起こらねばならず、その機能を使用してはならない。
+
+* 本仕様では、どんな拡張をも定義しない。個別の WebGL 実装がサポートする拡張は、
+  個別の WebGL 拡張レジストリーが定義する。
+
+----
+
+``getSupportedExtensions()``
+    サポートされているすべての拡張文字列の一覧を返す。
+
+``getExtension(name)``
+    ``getSupportedExtensions`` から返された名前の一つに対して、
+    ``name`` が ASCII の大文字と小文字を区別せずに一致するときに、
+    かつそのときに限りオブジェクトを返す。そうでない場合は ``null`` を返す。
+
+    * ``getExtensions`` から返されるオブジェクトには、その拡張機能が提供する定数や関数が含まれている。
+    * 拡張機能が定数や関数を定義していない場合には、返されるオブジェクトにそういうものが含まれていなくてもかまわないが、
+      それでも一意のオブジェクトを返さなければならない。
+      このオブジェクトは、その拡張機能が有効であることを示すために用いられる。
 
 5.15 ``WebGLContextEvent``
 ----------------------------------------------------------------------
 
+WebGL はレンダリングコンテキストの状態の重要な変更に対応して ``WebGLContextEvent`` イベントを生成する。
+イベントは DOM イベントシステムを使って送信され、レンダリングコンテキストに関連付けられたキャンバスに急送される。
+``WebGLContextEvent`` イベントを発生させることができる状態変化の種類には、コンテキストの
+
+* 消滅、
+* 回復、
+* 作成不能
+
+がある。
+
+``e`` という名前のコンテキストイベントが発生するということは、
+
+* ``type`` 属性が ``e`` に初期化され、
+* ``cancelable`` 属性が ``true`` に初期化され、
+* ``isTrusted`` 属性が ``true`` に初期化された
+
+``WebGLContextEvent`` インターフェイスを使用するイベントが、
+指定されたオブジェクトに急送されるということだ。
+
+----
+
+* ``WebGLContextEvent``
+* ``WebGLContextEventInit``
+
+----
+
+この節に並んでいるタスクのすべてのタスク発生源は WebGL タスク発生源だ。
+
 5.15.1 Attributes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+``statusMessage``
+    追加情報を含む文字列。追加情報がない場合は空。
 
 5.15.2 The Context Lost Event
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+ブラウザーが ``WebGLRenderingContext`` コンテキストに関連付けられた
+描画バッファーが失われたことを検出すると、次の手順を実行する：
+
+#. ``canvas`` をコンテキストの ``canvas`` とする。
+#. コンテキストの webgl context lost フラグが設定されている場合は、手順をここで中止する。
+#. コンテキストの webgl context lost フラグを設定する。
+#. このコンテキストで作成された各 ``WebGLObject`` インスタンスの ``invalidated`` フラグを設定する。
+#. ``WEBGL_lose_context`` 以外のすべての拡張機能を無効にする。
+#. 以下の手順を実行するタスクをキューに入れる：
+
+   #. ``webglcontextlost`` という名前のコンテキストイベントを ``canvas`` で発射させ、
+      その ``statusMessage`` 属性を空に設定する。
+   #. イベントの ``canceled`` フラグが設定されていない場合は、手順をここで中止する。
+   #. 以下の手順を非同期で実行する：
+
+      * 回復可能な描画バッファーを待機する。
+      * コンテキストの描画バッファーを復元するタスクをキューに入れる。
+
+----
+
+以下のコード（仕様書のものを一部改変）は、``webglcontextlost`` イベントのデフォルトの動作を防ぎ、
+``webglcontextrestored`` イベントの発信を可能にするものだ：
+
+.. code:: javascript
+
+   canvas.addEventListener("webglcontextlost", e => {
+       e.preventDefault();
+   }, false);
+
 5.15.3 The Context Restored Event
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+ブラウザーが ``WebGLRenderingContext`` コンテキストの描画バッファーを復元するには、次の手順を実行する必要がある：
+
+#. ``canvas`` をコンテキストに関連付けられた ``canvas`` とする。
+#. コンテキストの webgl context lost フラグが設定されていない場合は、ここで手順を中止する。
+#. コンテキストの作成パラメーターで指定された設定を使用して描画バッファーを生成し、
+   その描画バッファーをコンテキストに関連付け、以前の描画バッファーを破棄する。
+#. コンテキストの webgl context lost flag をクリアします。
+#. コンテキストの OpenGL エラー状態をリセットする。
+#. ``webglcontextrestored`` という名前の WebGL コンテキストイベントを ``canvas`` で発射させ、
+   その ``statusMessage`` 属性を空にする。
+
+----
+
+コンテキストがすると、それまでに作成されたテクスチャーやバッファーなどの WebGL リソースが無効になる。
+以前に有効だった拡張は復元されない。
+変更された状態や破棄された拡張やリソースすべてをアプリケーションが復元する必要がある。
+
+----
+
+アプリケーションがコンテキストの消失と復元をどのように処理するかを示す擬似コード：
+
+.. code:: javascript
+
+   function initializeGame() {
+       initializeWorld();
+       initializeResources();
+   }
+
+   function initializeResources() {
+       initializeShaders();
+       initializeBuffers();
+       initializeTextures();
+
+       // ready to draw, start the main loop
+       renderFrame();
+   }
+
+   function renderFrame() {
+       updateWorld();
+       drawSkyBox();
+       drawWalls();
+       drawMonsters();
+
+       requestId = window.requestAnimationFrame(renderFrame, canvas);
+   }
+
+   canvas.addEventListener("webglcontextlost", event => {
+       // inform WebGL that we handle context restoration
+       event.preventDefault();
+
+       // Stop rendering
+       window.cancelAnimationFrame(requestId);
+   }, false);
+
+   canvas.addEventListener("webglcontextrestored", event => {
+       initializeResources();
+   }, false);
+
+   initializeGame();
+
+* コンテキストがなくなったときにはアニメーションをいったん止める。
+* コンテキストが復活したときにはリソース各種を自力で初期化し直す。
+  だから、リソース初期化コードをカプセル化しておく（普通は関数の形式で）のはたいせつだ。
+  そのあとアニメーションを再開させるのも忘れてはならない。
+
 5.15.4 The Context Creation Error Event
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ Fire a WebGL context event named "webglcontextcreationerror" at canvas, optionally with its statusMessage attribute set to a platform dependent string about the nature of the failure.
+
+ブラウザーが WebGL コンテキスト作成エラーをキャンバスで発射する場合には次の手順を実行する：
+
+#. ``canvas`` で ``webglcontextcreationerror`` という名前の WebGL コンテキストイベントを発射し、
+   オプションで ``statusMessage`` 属性に失敗の性質に関するプラットフォーム依存の文字列を設定する。
+
+----
+
+次のコードは、アプリケーションがコンテキスト作成の失敗に関する情報を取得する方法を示すものだ：
+
+.. code:: javascript
+
+   let errorInfo = "";
+
+   function onContextCreationError(event) {
+       canvas.removeEventListener("webglcontextcreationerror", onContextCreationError, false);
+       errorInfo = e.statusMessage || "Unknown";
+   }
+
+   canvas.addEventListener("webglcontextcreationerror", onContextCreationError, false);
+
+   const gl = canvas.getContext("webgl");
+   if(!gl) {
+       alert("A WebGL context could not be created.\nReason: " + errorInfo);
+   }
