@@ -123,8 +123,8 @@ JavaScript ではなく C 言語のコードで書かれているのが気にな
     ブラウザーは、通常、表示されていないバッファでレンダリングを行い、表示のためにスキャンされているバッファーと素早く交換する。
     この技術は tearing artifacts を引き起こす可能性があるという代償を払って遅延を削減する。
 
-    この真偽値の属性は、入力とラスタライズの間の遅延時間が重要な描画アプリケーションなど、
-    特定の種類のアプリケーションを実装する際に役立つ。
+    この真偽値の属性 ``desynchronized`` は、入力からラスタライズまでの待ち時間の遅延が急所となる描画アプリケーションなど、
+    特定の種類のアプリケーションを実装する際に役立つ。[MULTIPLEBUFFERING]_
 
 ----
 
@@ -248,8 +248,8 @@ JavaScript ではなく C 言語のコードで書かれているのが気にな
 5.13 ``ArrayBuffer`` and Typed Arrays
 ----------------------------------------------------------------------
 
-* 頂点、インデックス、テクスチャ、その他のデータは、ECMAScript 仕様で定義されている
-  ``ArrayBuffer``, *Typed Array*,``DataView`` を使用して WebGL 実装に転送される。
+* 頂点、インデックス、テクスチャ、その他のデータは、ECMAScript [ECMASCRIPT]_ で定義されている
+  ``ArrayBuffer``, *Typed Array*, ``DataView`` を使用して WebGL 実装に転送される。
 * *Typed Array* は、インターリーブされた異種の頂点データを作成したり、
   大規模な頂点バッファーオブジェクトへデータの個別ブロックをアップロードしたり、
   その他 OpenGL プログラムが必要としたりする使用例のほとんどをサポートする。
@@ -491,7 +491,7 @@ OpenGL ES 2.0 ではレンダリングに使用するための状態を保持す
       このメソッドを使用することでオブジェクトに対して削除マークを早期に付けることができる。
     * ``buffer`` がこれとは異なる ``WebGLRenderingContext`` によって生成されたものである場合 ``INVALID_OPERATION`` エラー。
 
-``getBufferParameter(target, pname)`` (OpenGL ES 2.0 §6.1.3, similar to glGetBufferParameteriv)
+``getBufferParameter(target, pname)``
     OpenGL の ``glGetBufferParameteriv`` の対応物。``pname`` の値を返す。
 
     * 戻り値の型は要求された ``pname`` にとって自然な型とする。例えば ``BUFFER_SIZE`` なら整数を返す。
@@ -609,166 +609,168 @@ OpenGL ES 2.0 ではレンダリングに使用するための状態を保持す
 ``WebGLTexture`` が束縛されていない場合、テクスチャーオブジェクトへの変更または問い合わせは
 ``INVALID_OPERATION`` エラーが発生する。
 
-``bindTexture(target, texture)``
-    ``glBindTexure`` の対応物。
+.. glossary::
 
-    * エラー発生は ``bindFramebuffer`` や ``bindRenderbuffer`` に準じる。
+   ``bindTexture(target, texture)``
+       ``glBindTexure`` の対応物。
 
-``compressedTexImage2D(target, level, internalformat, width, height, border, pixels)``
-``compressedTexSubImage2D(target, level, xoffset, yoffset, width, height, format, pixels)``
-    ``glCompressedTexImage2D``, ``glCompressedTexSubImage2D`` の対応物。
+       * エラー発生は ``bindFramebuffer`` や ``bindRenderbuffer`` に準じる。
 
-    * コア WebGL 仕様では、サポートされる圧縮テクスチャーフォーマットを何も定義していない。
-    * デフォルトでは、これらのメソッドは ``INVALID_ENUM`` エラーを生成し、直ちに戻る。
-      詳しくは次章で述べられる。
+   ``compressedTexImage2D(target, level, internalformat, width, height, border, pixels)``
+   ``compressedTexSubImage2D(target, level, xoffset, yoffset, width, height, format, pixels)``
+       ``glCompressedTexImage2D``, ``glCompressedTexSubImage2D`` の対応物。
 
-``copyTexImage2D``(target, level, internalformat, x, y, width, height, border)``
-    ``glCopyTexImage2D`` の対応物。
+       * コア WebGL 仕様では、サポートされる圧縮テクスチャーフォーマットを何も定義していない。
+       * デフォルトでは、これらのメソッドは ``INVALID_ENUM`` エラーを生成し、直ちに戻る。
+         詳しくは次章で述べられる。
 
-    この関数は、``texImage2D`` が ``null`` データで呼び出され、続いて ``copyTexSubImage2D`` が呼び出されたかのように振る舞う。
+   ``copyTexImage2D(target, level, internalformat, x, y, width, height, border)``
+       ``glCopyTexImage2D`` の対応物。
 
-    * ``copyTexSubImage2D`` と同様に、フレームバッファーの外側にある
-      source ピクセルについては、対応する destination テクセルはそのまま残されるので、
-      まるで ``texImage2D`` が ``null`` データで呼び出されたかのようにゼロ初期化された内容を保持する。
-      これにより、フレームバッファーの外側にある source ピクセルに対応する
-      destination ピクセルは、関連するテクセルのチャンネルすべてが
-      0 に初期化されるという効果もある。
-    * この関数が attachment のない完全なフレームバッファーから読み取ろうとした場合、
-      ``INVALID_OPERATION`` エラーが発生する。
+       この関数は、``texImage2D`` が ``null`` データで呼び出され、続いて ``copyTexSubImage2D`` が呼び出されたかのように振る舞う。
 
-``copyTexSubImage2D(target, level, xoffset, yoffset, x, y, width, height)``
-    ``glCopyTexSubImage2D`` の対応物。
+       * ``copyTexSubImage2D`` と同様に、フレームバッファーの外側にある
+         source ピクセルについては、対応する destination テクセルはそのまま残されるので、
+         まるで ``texImage2D`` が ``null`` データで呼び出されたかのようにゼロ初期化された内容を保持する。
+         これにより、フレームバッファーの外側にある source ピクセルに対応する
+         destination ピクセルは、関連するテクセルのチャンネルすべてが
+         0 に初期化されるという効果もある。
+       * この関数が attachment のない完全なフレームバッファーから読み取ろうとした場合、
+         ``INVALID_OPERATION`` エラーが発生する。
 
-    * フレームバッファーの外側にあるどんなピクセルも、対応する destination ピクセルはそのまま変わらない。
-    * この関数が attachment のない完全なフレームバッファーから読み取ろうとした場合、
-      ``INVALID_OPERATION`` エラーが発生する。
+   ``copyTexSubImage2D(target, level, xoffset, yoffset, x, y, width, height)``
+       ``glCopyTexSubImage2D`` の対応物。
 
-``createTexture()``
-    ``WebGLTexture`` オブジェクトを生成し、``glGenTextures`` を呼び出したかのようにテクスチャオブジェクトに名前をつけて初期化する。
+       * フレームバッファーの外側にあるどんなピクセルも、対応する destination ピクセルはそのまま変わらない。
+       * この関数が attachment のない完全なフレームバッファーから読み取ろうとした場合、
+         ``INVALID_OPERATION`` エラーが発生する。
 
-``deleteTexture(texture)``
-    ``glDeleteTextures`` の対応物。
+   ``createTexture()``
+       ``WebGLTexture`` オブジェクトを生成し、``glGenTextures`` を呼び出したかのようにテクスチャオブジェクトに名前をつけて初期化する。
 
-    * ``texture`` がこのものとは異なる ``WebGLRenderingContext`` によって生成されたものである場合 ``INVALID_OPERATION`` エラー。
-    * 内包されている GL オブジェクトは JavaScript オブジェクトが破壊されるときに自動的に削除マークが付けられるが、
-      このメソッドを使用することでオブジェクトに対して削除マークを早期に付けることができる。
+   ``deleteTexture(texture)``
+       ``glDeleteTextures`` の対応物。
 
-``generateMipmap(target)``
-    ``glGenerateMipmap`` の対応物。
+       * ``texture`` がこのものとは異なる ``WebGLRenderingContext`` によって生成されたものである場合 ``INVALID_OPERATION`` エラー。
+       * 内包されている GL オブジェクトは JavaScript オブジェクトが破壊されるときに自動的に削除マークが付けられるが、
+         このメソッドを使用することでオブジェクトに対して削除マークを早期に付けることができる。
 
-``getTexParameter(target, pname)``
-    ``glGetTexParameter*`` の対応物。
+   ``generateMipmap(target)``
+       ``glGenerateMipmap`` の対応物。
 
-    戻り値の型は要求された ``pname`` に自然な型とする。
+   ``getTexParameter(target, pname)``
+       ``glGetTexParameter*`` の対応物。
 
-    * 無効な ``pname`` に対しては ``INVALID_ENUM`` エラー。
-    * OpenGL エラーが起こった場合には ``null`` を返す。
+       戻り値の型は要求された ``pname`` に自然な型とする。
 
-``isTexture(texture)``
-    渡された ``texture`` が有効な ``WebGLTexture`` であるかどうかを返す。
+       * 無効な ``pname`` に対しては ``INVALID_ENUM`` エラー。
+       * OpenGL エラーが起こった場合には ``null`` を返す。
 
-    * ``renderbuffer`` がこれとは異なる ``WebGLRenderingContext`` が生成したものである場合は ``false`` を返す。
-    * ``renderbuffer`` の ``invalidated`` フラグが設定されている場合は ``false`` を返す。
+   ``isTexture(texture)``
+       渡された ``texture`` が有効な ``WebGLTexture`` であるかどうかを返す。
 
-``texImage2D(target, level, internalformat, width, height, border, format, type, pixels)``
-    ``glTexImage2D`` の対応物で、最後の引数が ``ArrayBufferView`` のオーバーロード。
+       * ``renderbuffer`` がこれとは異なる ``WebGLRenderingContext`` が生成したものである場合は ``false`` を返す。
+       * ``renderbuffer`` の ``invalidated`` フラグが設定されている場合は ``false`` を返す。
 
-    * ``pixels`` が ``null`` の場合は、ゼロクリアされた十分なサイズのバッファーが渡される。
-    * ``pixels`` が ``null`` 以外の場合、``pixels`` の型は読み込まれるデータのそれと一致しなければならない。
+   ``texImage2D(target, level, internalformat, width, height, border, format, type, pixels)``
+       ``glTexImage2D`` の対応物で、最後の引数が ``ArrayBufferView`` のオーバーロード。
 
-      * ``UNSIGNED_BYTE`` であれば ``Uint8Array`` または ``Uint8ClampedArray`` が、
-      * ``UNSIGNED_SHORT_5_6_5``, ``UNSIGNED_SHORT_4_4``,
-        ``UNSIGNED_SHORT_5_5_5_1`` であれば ``Uint16Array`` が
+       * ``pixels`` が ``null`` の場合は、ゼロクリアされた十分なサイズのバッファーが渡される。
+       * ``pixels`` が ``null`` 以外の場合、``pixels`` の型は読み込まれるデータのそれと一致しなければならない。
 
-      渡されなければならない。型が一致しない場合は ``INVALID_OPERATION`` エラー。
+         * ``UNSIGNED_BYTE`` であれば ``Uint8Array`` または ``Uint8ClampedArray`` が、
+         * ``UNSIGNED_SHORT_5_6_5``, ``UNSIGNED_SHORT_4_4``,
+           ``UNSIGNED_SHORT_5_5_5_1`` であれば ``Uint16Array`` が
 
-    * ``pixels`` が ``null`` ではなくても、そのサイズが指定された
-      ``width``, ``height``, ``format``, ``type``,
-      ピクセル貯蔵パラメーターが必要とするサイズよりも小さい場合は
-      ``INVALID_OPERATION`` エラーが起こる。
-    * この関数の動作に影響する WebGL 固有のピクセル貯蔵パラメーターについては、次章で述べられる。
+         渡されなければならない。型が一致しない場合は ``INVALID_OPERATION`` エラー。
 
-``texImage2D(target, level, internalformat, format, type, source)``
-   ``glTexImage2D`` の対応物で、最後の引数が ``TexSourceImage`` のどれかであるオーバーロード。
+       * ``pixels`` が ``null`` ではなくても、そのサイズが指定された
+         ``width``, ``height``, ``format``, ``type``,
+         ピクセル貯蔵パラメーターが必要とするサイズよりも小さい場合は
+         ``INVALID_OPERATION`` エラーが起こる。
+       * この関数の動作に影響する WebGL 固有のピクセル貯蔵パラメーターについては、次章で述べられる。
 
-    * 指定された要素や画像データを、現在束縛されている ``WebGLTexture`` にアップロードする。
-    * テクスチャーの幅と高さは、別途述べられる項目が指定するように設定される。
-    * 画像データ ``source`` は概念的にはまず ``format`` および ``type`` 引数で
-      指定されたデータ型とフォーマットに変換されてから WebGL 実装に転送される。
+   ``texImage2D(target, level, internalformat, format, type, source)``
+      ``glTexImage2D`` の対応物で、最後の引数が ``TexSourceImage`` のどれかであるオーバーロード。
 
-      * フォーマットの変換表アリ。
-      * 画像データのビット精度が失われるようなパックピクセルフォーマットが指定された場合、この精度の損失が必ず起こる。
+       * 指定された要素や画像データを、現在束縛されている ``WebGLTexture`` にアップロードする。
+       * テクスチャーの幅と高さは、別途述べられる項目が指定するように設定される。
+       * 画像データ ``source`` は概念的にはまず ``format`` および ``type`` 引数で
+         指定されたデータ型とフォーマットに変換されてから WebGL 実装に転送される。
 
-    * ``source`` から WebGL 実装に転送される最初のピクセルは ``source`` の左上隅のものだ。
-      この動作は、``ImageBitmap`` である場合を除き、
-      ``UNPACK_FLIP_Y_WEBGL`` ピクセル貯蔵パラメータによって変更される。
-    * ``source`` が各チャンネル 8 ビットの RGB または RGBA のロスレス画像を含む
-      ``HTMLImageElement`` または ``ImageBitmap`` の場合、
-      ブラウザーはチャンネルすべての完全な精度が保持されることを保証する。
-    * 元の ``HTMLImageElement`` がアルファーチャンネルを含み、
-      ``UNPACK_PREMULTIPLY_ALPHA_WEBGL`` ピクセル貯蔵パラメーターが ``false`` の場合、
-      RGB 値が元のファイルフォーマットから直接得られたものであろうと、
-      他のカラーフォーマットから変換されたものであろうと、
-      アルファーチャンネルによって決して事前に乗算しないことが保証する。
+         * フォーマットの変換表アリ。
+         * 画像データのビット精度が失われるようなパックピクセルフォーマットが指定された場合、この精度の損失が必ず起こる。
 
-    ----
+       * ``source`` から WebGL 実装に転送される最初のピクセルは ``source`` の左上隅のものだ。
+         この動作は、``ImageBitmap`` である場合を除き、
+         ``UNPACK_FLIP_Y_WEBGL`` ピクセル貯蔵パラメータによって変更される。
+       * ``source`` が各チャンネル 8 ビットの RGB または RGBA のロスレス画像を含む
+         ``HTMLImageElement`` または ``ImageBitmap`` の場合、
+         ブラウザーはチャンネルすべての完全な精度が保持されることを保証する。
+       * 元の ``HTMLImageElement`` がアルファーチャンネルを含み、
+         ``UNPACK_PREMULTIPLY_ALPHA_WEBGL`` ピクセル貯蔵パラメーターが ``false`` の場合、
+         RGB 値が元のファイルフォーマットから直接得られたものであろうと、
+         他のカラーフォーマットから変換されたものであろうと、
+         アルファーチャンネルによって決して事前に乗算しないことが保証する。
 
-    ``HTMLCanvasElement`` や ``OffscreenCanvas`` の
-    ``CanvasRenderingContext2D`` の実装によっては、色の値が内部的に前乗算形式で保存される。
-    このようなキャンバスを ``UNPACK_PREMULTIPLY_ALPHA_WEBGL`` ピクセル貯蔵パラメーターを
-    ``false`` に設定した状態で WebGL テクスチャにアップロードすると、
-    カラーチャンネルにアルファーチャンネルを乗算し直す必要があるが、
-    これは損失の大きい処理だ。
-    したがって、WebGL の実装では ``UNPACK_PREMULTIPLY_ALPHA_WEBGL`` ピクセル貯蔵パラメーターが
-    ``false`` に設定されているときに、
-    ``CanvasRenderingContext2D`` を介してキャンバスに最初に描画され、
-    その後 WebGL テクスチャーにアップロードされたときに、
-    アルファー値が 1.0 に満たない色を損失なしに保存することを保証できない。
+       ----
 
-    ----
+       ``HTMLCanvasElement`` や ``OffscreenCanvas`` の
+       ``CanvasRenderingContext2D`` の実装によっては、色の値が内部的に前乗算形式で保存される。
+       このようなキャンバスを ``UNPACK_PREMULTIPLY_ALPHA_WEBGL`` ピクセル貯蔵パラメーターを
+       ``false`` に設定した状態で WebGL テクスチャにアップロードすると、
+       カラーチャンネルにアルファーチャンネルを乗算し直す必要があるが、
+       これは損失の大きい処理だ。
+       したがって、WebGL の実装では ``UNPACK_PREMULTIPLY_ALPHA_WEBGL`` ピクセル貯蔵パラメーターが
+       ``false`` に設定されているときに、
+       ``CanvasRenderingContext2D`` を介してキャンバスに最初に描画され、
+       その後 WebGL テクスチャーにアップロードされたときに、
+       アルファー値が 1.0 に満たない色を損失なしに保存することを保証できない。
 
-    * 属性 ``data`` が中立化した ``ImageData`` でこの関数を呼び出すと ``INVALID_VALUE`` エラー。
-    * 中立化した ``ImageData`` でこの関数が呼ばれた場合 ``INVALID_VALUE`` エラー。
-    * 中立化した ``ImageBitmap`` でこの関数が呼ばれた場合 ``INVALID_VALUE`` エラー。
-    * ``Document`` の ``origin`` と異なる ``HTMLImageElement`` または ``HTMLVideoElement`` でこの関数が呼び出された場合、
-      または ``Bitmap`` の ``origin-clean`` フラグが ``false`` に設定されている
-      ``HTMLCanvasElement``, ``ImageBitmap``, ``OffscreenCanvas`` でこの関数が呼び出された場合には
-      ``SECURITY_ERR`` 例外が送出されなければならない。
-    * ``source`` が ``null`` の場合は ``INVALID_VALUE`` エラー。
+       ----
 
-``texParameterf(target, pname, param)``
-``texParameteri(target, pname, param)``
-    ``glTexParameter{fi}`` の対応物。
+       * 属性 ``data`` が中立化した ``ImageData`` でこの関数を呼び出すと ``INVALID_VALUE`` エラー。
+       * 中立化した ``ImageData`` でこの関数が呼ばれた場合 ``INVALID_VALUE`` エラー。
+       * 中立化した ``ImageBitmap`` でこの関数が呼ばれた場合 ``INVALID_VALUE`` エラー。
+       * ``Document`` の ``origin`` と異なる ``HTMLImageElement`` または ``HTMLVideoElement`` でこの関数が呼び出された場合、
+         または ``Bitmap`` の ``origin-clean`` フラグが ``false`` に設定されている
+         ``HTMLCanvasElement``, ``ImageBitmap``, ``OffscreenCanvas`` でこの関数が呼び出された場合には
+         ``SECURITY_ERR`` 例外が送出されなければならない。
+       * ``source`` が ``null`` の場合は ``INVALID_VALUE`` エラー。
 
-``texSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels)``
-    ``glTexSubImage2D`` の対応物で、最後の引数が ``ArrayBufferView`` のオーバーロード。
+   ``texParameterf(target, pname, param)``
+   ``texParameteri(target, pname, param)``
+       ``glTexParameter{fi}`` の対応物。
 
-    * ``format`` および ``pixels`` 引数の制限については ``texImage2D`` と同じ。
-    * ``type`` がテクスチャーの定義に元々使われていた型と一致しない場合 ``INVALID_OPERATION`` エラーが発生。
-    * ``pixels`` が ``null`` の場合 ``INVALID_VALUE`` エラー。
-    * ``pixels`` が ``null`` でなくでも、そのサイズが、指定された
-      ``width``, ``height``, ``format``, ``type``,
-      およびピクセル貯蔵パラメーターが必要とするサイズよりも小さい場合は ``INVALID_OPERATION`` エラー。
+   ``texSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels)``
+       ``glTexSubImage2D`` の対応物で、最後の引数が ``ArrayBufferView`` のオーバーロード。
 
-``texSubImage2D(target, level, xoffset, yoffset, format, type, source)``
-    ``glTexSubImage2D`` の対応物で、最後の引数が ``TexSourceImage`` のオーバーロード。
+       * ``format`` および ``pixels`` 引数の制限については ``texImage2D`` と同じ。
+       * ``type`` がテクスチャーの定義に元々使われていた型と一致しない場合 ``INVALID_OPERATION`` エラーが発生。
+       * ``pixels`` が ``null`` の場合 ``INVALID_VALUE`` エラー。
+       * ``pixels`` が ``null`` でなくでも、そのサイズが、指定された
+         ``width``, ``height``, ``format``, ``type``,
+         およびピクセル貯蔵パラメーターが必要とするサイズよりも小さい場合は ``INVALID_OPERATION`` エラー。
 
-    * 現在束縛されている ``WebGLTexture`` の部分矩形を与えられた要素や画像データの内容で更新する。
-    * 更新された部分矩形の幅と高さは、別項で指定されるとおりに決定される。
-    * ``format`` および ``type`` 引数の解釈、および
-      ``UNPACK_PREMULTIPLY_ALPHA_WEBGL`` ピクセル貯蔵パラメーターに関する注意点については
-      ``texImage2D`` を参照すること。
-    * ``source`` から WebGL 実装に転送される最初のピクセルは ``source`` の左上隅のものだ。
-      この動作は、``ImageBitmap`` である場合を除き、
-      ``UNPACK_FLIP_Y_WEBGL`` ピクセル貯蔵パラメータによって変更される。
-    * ``type`` がテクスチャーの定義に元々使われていた型と一致しない場合 ``INVALID_OPERATION`` エラーが発生。
-    * 属性 ``data`` が中立化した ``ImageData`` でこの関数を呼び出すと ``INVALID_VALUE`` エラー。
-    * 中立化した ``ImageBitmap`` でこの関数が呼ばれた場合 ``INVALID_VALUE`` エラー。
-    * ``Document`` の ``origin`` と異なる ``HTMLImageElement`` または ``HTMLVideoElement`` でこの関数が呼び出された場合、
-      または ``Bitmap`` の ``origin-clean`` フラグが ``false`` に設定されている
-      ``HTMLCanvasElement``, ``ImageBitmap``, ``OffscreenCanvas`` でこの関数が呼び出された場合には
-      ``SECURITY_ERR`` 例外が送出されなければならない。
-    * ``source`` が ``null`` の場合は ``INVALID_VALUE`` エラー。
+   ``texSubImage2D(target, level, xoffset, yoffset, format, type, source)``
+       ``glTexSubImage2D`` の対応物で、最後の引数が ``TexSourceImage`` のオーバーロード。
+
+       * 現在束縛されている ``WebGLTexture`` の部分矩形を与えられた要素や画像データの内容で更新する。
+       * 更新された部分矩形の幅と高さは、別項で指定されるとおりに決定される。
+       * ``format`` および ``type`` 引数の解釈、および
+         ``UNPACK_PREMULTIPLY_ALPHA_WEBGL`` ピクセル貯蔵パラメーターに関する注意点については
+         ``texImage2D`` を参照すること。
+       * ``source`` から WebGL 実装に転送される最初のピクセルは ``source`` の左上隅のものだ。
+         この動作は、``ImageBitmap`` である場合を除き、
+         ``UNPACK_FLIP_Y_WEBGL`` ピクセル貯蔵パラメータによって変更される。
+       * ``type`` がテクスチャーの定義に元々使われていた型と一致しない場合 ``INVALID_OPERATION`` エラーが発生。
+       * 属性 ``data`` が中立化した ``ImageData`` でこの関数を呼び出すと ``INVALID_VALUE`` エラー。
+       * 中立化した ``ImageBitmap`` でこの関数が呼ばれた場合 ``INVALID_VALUE`` エラー。
+       * ``Document`` の ``origin`` と異なる ``HTMLImageElement`` または ``HTMLVideoElement`` でこの関数が呼び出された場合、
+         または ``Bitmap`` の ``origin-clean`` フラグが ``false`` に設定されている
+         ``HTMLCanvasElement``, ``ImageBitmap``, ``OffscreenCanvas`` でこの関数が呼び出された場合には
+         ``SECURITY_ERR`` 例外が送出されなければならない。
+       * ``source`` が ``null`` の場合は ``INVALID_VALUE`` エラー。
 
 5.14.9 Programs and Shaders
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -969,108 +971,110 @@ GLSL ES で記述されたシェーダーを使用する必要がある。シェ
 
 ----
 
-``disableVertexAttribArray(index)``
-``enableVertexAttribArray(index)``
-    インデックスの頂点属性を配列として無効・有効にする。
+.. glossary::
 
-    * WebGL では有効な頂点属性に関して OpenGL ES 2.0 以上の規則が適用される。
+   ``disableVertexAttribArray(index)``
+   ``enableVertexAttribArray(index)``
+       インデックスの頂点属性を配列として無効・有効にする。
 
-``getActiveAttrib(program, index)``
-    ``program`` の ``index`` の頂点属性のサイズ、型、名前を記述した ``WebGLActiveInfo`` オブジェクトを返す。
+       * WebGL では有効な頂点属性に関して OpenGL ES 2.0 以上の規則が適用される。
 
-    * ``index`` が範囲外の場合は ``INVALID_VALUE`` エラーを発生して ``null`` を返す。
-    * ``program`` がこれとは異なる ``WebGLRenderingContext`` が生成したものである場合は ``INVALID_OPERATION`` エラー。
-    * この関数の実行中に OpenGL エラーが発生した場合は ``null`` を返す。
+   ``getActiveAttrib(program, index)``
+       ``program`` の ``index`` の頂点属性のサイズ、型、名前を記述した ``WebGLActiveInfo`` オブジェクトを返す。
 
-``getActiveUniform(program, index)``
-    ``program`` の ``index`` にあるユニフォームのサイズ、型、名前を記述した ``WebGLActiveInfo`` オブジェクトを返す。
+       * ``index`` が範囲外の場合は ``INVALID_VALUE`` エラーを発生して ``null`` を返す。
+       * ``program`` がこれとは異なる ``WebGLRenderingContext`` が生成したものである場合は ``INVALID_OPERATION`` エラー。
+       * この関数の実行中に OpenGL エラーが発生した場合は ``null`` を返す。
 
-    * ``index`` が範囲外の場合は ``INVALID_VALUE`` エラーを発生して ``null`` を返す。
-    * ``program`` がこれとは異なる ``WebGLRenderingContext`` が生成したものである場合は ``INVALID_OPERATION`` エラー。
-    * この関数の実行中に OpenGL エラーが発生した場合は ``null`` を返す。
+   ``getActiveUniform(program, index)``
+       ``program`` の ``index`` にあるユニフォームのサイズ、型、名前を記述した ``WebGLActiveInfo`` オブジェクトを返す。
 
-``getAttribLocation(program, name)``
-    ``glGetAttribLocation`` の対応物。
+       * ``index`` が範囲外の場合は ``INVALID_VALUE`` エラーを発生して ``null`` を返す。
+       * ``program`` がこれとは異なる ``WebGLRenderingContext`` が生成したものである場合は ``INVALID_OPERATION`` エラー。
+       * この関数の実行中に OpenGL エラーが発生した場合は ``null`` を返す。
 
-    * ``program`` がこれとは異なる ``WebGLRenderingContext`` が生成したものである場合は ``INVALID_OPERATION`` エラーとなり ``-1`` を返す。
-    * ``name`` が定義された制限よりも長い場合は ``INVALID_VALUE`` エラーとなり ``-1`` を返す。
-    * ``name`` が予約されている WebGL 接頭辞のいずれかで始まる場合は ``-1`` を返す。
-    * コンテキストの webgl context lost フラグが設定されている場合は ``-1`` を返す。
-    * ``program`` の ``invalidated`` フラグが設定されている場合は ``INVALID_OPERATION`` エラーとなり ``-1`` を返す。
-    * WebGL の実装で行われる追加の検証については、別項を参照すること。
+   ``getAttribLocation(program, name)``
+       ``glGetAttribLocation`` の対応物。
 
-``getUniform(program, location)``
-    ``program`` の ``location`` にあるユニフォームの値を返す。
+       * ``program`` がこれとは異なる ``WebGLRenderingContext`` が生成したものである場合は ``INVALID_OPERATION`` エラーとなり ``-1`` を返す。
+       * ``name`` が定義された制限よりも長い場合は ``INVALID_VALUE`` エラーとなり ``-1`` を返す。
+       * ``name`` が予約されている WebGL 接頭辞のいずれかで始まる場合は ``-1`` を返す。
+       * コンテキストの webgl context lost フラグが設定されている場合は ``-1`` を返す。
+       * ``program`` の ``invalidated`` フラグが設定されている場合は ``INVALID_OPERATION`` エラーとなり ``-1`` を返す。
+       * WebGL の実装で行われる追加の検証については、別項を参照すること。
 
-    * 戻り値の型はユニフォーム型によって決まる。表にまとめられている。
-    * 列や *TypedArray* を返すすべての問い合わせは、毎回新しいオブジェクトを返す。
-    * ``program`` または ``location`` が、自身の ``WebGLRenderingContext``
-      とは異なるコンテキストが生成したものである場合には ``INVALID_OPERATION`` エラー。
-    * この関数の実行中に OpenGL エラーが発生した場合は ``null`` を返す。
+   ``getUniform(program, location)``
+       ``program`` の ``location`` にあるユニフォームの値を返す。
 
-``getUniformLocation(program, name)``
-    ``program`` 内の特定のユニフォーム変数の位置を表す ``WebGLUniformLocation`` を返す。
+       * 戻り値の型はユニフォーム型によって決まる。表にまとめられている。
+       * 列や *TypedArray* を返すすべての問い合わせは、毎回新しいオブジェクトを返す。
+       * ``program`` または ``location`` が、自身の ``WebGLRenderingContext``
+         とは異なるコンテキストが生成したものである場合には ``INVALID_OPERATION`` エラー。
+       * この関数の実行中に OpenGL エラーが発生した場合は ``null`` を返す。
 
-    * ``name`` が ``program`` 内のアクティブなユニフォーム変数に対応していない場合、戻り値は ``null`` となる。
-    * ``program`` がこれとは異なる ``WebGLRenderingContext`` が生成したものである場合は ``INVALID_OPERATION`` エラー。
-    * ``name`` が定義された制限よりも長い場合は ``INVALID_VALUE`` エラーとなり ``null`` を返す。
-    * ``name`` が予約されている WebGL 接頭辞のいずれかで始まる場合は ``null`` を返す。
-    * WebGL の実装で行われる追加の検証については、別項を参照すること。
-    * この関数の実行中に OpenGL エラーが発生した場合は ``null`` を返す。
+   ``getUniformLocation(program, name)``
+       ``program`` 内の特定のユニフォーム変数の位置を表す ``WebGLUniformLocation`` を返す。
 
-``getVertexAttrib(index, pname)``
-    ``index`` の頂点属性について ``pname`` が要求する情報を返す。
+       * ``name`` が ``program`` 内のアクティブなユニフォーム変数に対応していない場合、戻り値は ``null`` となる。
+       * ``program`` がこれとは異なる ``WebGLRenderingContext`` が生成したものである場合は ``INVALID_OPERATION`` エラー。
+       * ``name`` が定義された制限よりも長い場合は ``INVALID_VALUE`` エラーとなり ``null`` を返す。
+       * ``name`` が予約されている WebGL 接頭辞のいずれかで始まる場合は ``null`` を返す。
+       * WebGL の実装で行われる追加の検証については、別項を参照すること。
+       * この関数の実行中に OpenGL エラーが発生した場合は ``null`` を返す。
 
-    * 戻り値の型は要求された情報に応じて決まる。表にまとめられている。
-    * 列や *TypedArray* を返すすべての問い合わせは、毎回新しいオブジェクトを返す。
-    * 無効な ``pname`` を与えると ``INVALID_ENUM`` エラー。
-    * OpenGL エラーが起こると ``null`` を返す。
+   ``getVertexAttrib(index, pname)``
+       ``index`` の頂点属性について ``pname`` が要求する情報を返す。
 
-``getVertexAttribOffset(index, pname)``
-    ``glGetVertexAttribOffset`` の対応物。
+       * 戻り値の型は要求された情報に応じて決まる。表にまとめられている。
+       * 列や *TypedArray* を返すすべての問い合わせは、毎回新しいオブジェクトを返す。
+       * 無効な ``pname`` を与えると ``INVALID_ENUM`` エラー。
+       * OpenGL エラーが起こると ``null`` を返す。
 
-    * コンテキストの webgl context lost フラグが設定されている場合は 0 を返す。
+   ``getVertexAttribOffset(index, pname)``
+       ``glGetVertexAttribOffset`` の対応物。
 
-``uniform[1234][fi](location, ...)``
-``uniform[1234][fi]v(location, ...)``
-``uniformMatrix[234]fv(location, transpose, ...)``
-    各関数は、指定されたユニフォームまたはユニフォームを指定された値に設定します。
+       * コンテキストの webgl context lost フラグが設定されている場合は 0 を返す。
 
-    * ``location`` が ``null`` ではなく、現在使用しているプログラムから以前に
-      ``getUniformLocation`` を呼び出して取得したものでない場合 ``INVALID_OPERATION`` エラーになる。
-    * ``location`` が ``null`` の場合、渡されたデータは静かに無視され、ユニフォーム変数は変更されない。
-    * ベクトル形式（名前が ``v`` で終わる関数）に渡された配列の長さが無効な場合 ``INVALID_VALUE`` エラー。
+   ``uniform[1234][fi](location, ...)``
+   ``uniform[1234][fi]v(location, ...)``
+   ``uniformMatrix[234]fv(location, transpose, ...)``
+       各関数は、指定されたユニフォームまたはユニフォームを指定された値に設定します。
 
-      * 長さが無効であるとは、長さが短すぎるか、割り当てられた型の整数倍でないものをいう。
+       * ``location`` が ``null`` ではなく、現在使用しているプログラムから以前に
+         ``getUniformLocation`` を呼び出して取得したものでない場合 ``INVALID_OPERATION`` エラーになる。
+       * ``location`` が ``null`` の場合、渡されたデータは静かに無視され、ユニフォーム変数は変更されない。
+       * ベクトル形式（名前が ``v`` で終わる関数）に渡された配列の長さが無効な場合 ``INVALID_VALUE`` エラー。
 
-    ----
+         * 長さが無効であるとは、長さが短すぎるか、割り当てられた型の整数倍でないものをいう。
 
-    ``uniform1i`` を使用してサンプラーのユニフォームを更新すると、
-    一部の実装でパフォーマンス上の問題が発生する。
-    サンプラーユニフォームが参照するテクスチャーを変更するには、
-    ユニフォーム自体を更新するために ``uniform1i`` を使用するよりも、
-    ユニフォームが参照するテクスチャーユニットに新しいテクスチャーを束縛する方が望ましい。
+       ----
 
-``vertexAttrib[1234]f(index, ...)``
-``vertexAttrib[1234]fv(index, ...)``
-    ``index`` の頂点属性を、与えられた定数値に設定する。
+       ``uniform1i`` を使用してサンプラーのユニフォームを更新すると、
+       一部の実装でパフォーマンス上の問題が発生する。
+       サンプラーユニフォームが参照するテクスチャーを変更するには、
+       ユニフォーム自体を更新するために ``uniform1i`` を使用するよりも、
+       ユニフォームが参照するテクスチャーユニットに新しいテクスチャーを束縛する方が望ましい。
 
-    * ``vertexAttrib`` で設定された値は、``drawArrays`` や ``drawElements`` の呼び出しが間にあったとしても、
-      ``CURRENT_VERTEX_ATTRIB`` パラメーターを持つ ``vertexAttrib`` 関数から返されることが保証される。
-    * ベクトル形式（名前が ``v`` で終わる関数）に渡された配列の長さが無効な場合 ``INVALID_VALUE`` エラー。
+   ``vertexAttrib[1234]f(index, ...)``
+   ``vertexAttrib[1234]fv(index, ...)``
+       ``index`` の頂点属性を、与えられた定数値に設定する。
 
-``vertexAttribPointer(index, size, type, normalized, stride, offset)``
-    ``ARRAY_BUFFER`` ターゲットに束縛されている ``WebGLBuffer`` オブジェクトを
-    ``index`` の頂点属性に割り当てる。
+       * ``vertexAttrib`` で設定された値は、``drawArrays`` や ``drawElements`` の呼び出しが間にあったとしても、
+         ``CURRENT_VERTEX_ATTRIB`` パラメーターを持つ ``vertexAttrib`` 関数から返されることが保証される。
+       * ベクトル形式（名前が ``v`` で終わる関数）に渡された配列の長さが無効な場合 ``INVALID_VALUE`` エラー。
 
-    * ``size`` は属性ごとの成分の数。
-    * ``stride`` および ``offset`` はバイト単位。
-    * ``stride`` および ``offset`` は ``type`` と ``size`` に適していなければならず、
-      そうでなければ ``INVALID_OPERATION`` エラーとなる。
-    * ``offset`` が負の値の場合は ``INVALID_VALUE`` エラーとなる。
-    * ``WebGLBuffer`` が ``ARRAY_BUFFER`` ターゲットに束縛されておらず、
-      ``offset`` が 0 以外の場合は ``INVALID_OPERATION`` エラーとなる。
-    * WebGL では、サポートされる ``stride`` の最大値は 255 だ。
+   ``vertexAttribPointer(index, size, type, normalized, stride, offset)``
+       ``ARRAY_BUFFER`` ターゲットに束縛されている ``WebGLBuffer`` オブジェクトを
+       ``index`` の頂点属性に割り当てる。
+
+       * ``size`` は属性ごとの成分の数。
+       * ``stride`` および ``offset`` はバイト単位。
+       * ``stride`` および ``offset`` は ``type`` と ``size`` に適していなければならず、
+         そうでなければ ``INVALID_OPERATION`` エラーとなる。
+       * ``offset`` が負の値の場合は ``INVALID_VALUE`` エラーとなる。
+       * ``WebGLBuffer`` が ``ARRAY_BUFFER`` ターゲットに束縛されておらず、
+         ``offset`` が 0 以外の場合は ``INVALID_OPERATION`` エラーとなる。
+       * WebGL では、サポートされる ``stride`` の最大値は 255 だ。
 
 5.14.11 Writing to the drawing buffer
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1211,7 +1215,7 @@ OpenGL ES 2.0 には、描画バッファーへのレンダリングを可能に
 
 ``getExtension(name)``
     ``getSupportedExtensions`` から返された名前の一つに対して、
-    ``name`` が ASCII の大文字と小文字を区別せずに一致するときに、
+    ``name`` が ASCII の大文字と小文字を区別せずに一致する [HTML]_ ときに、
     かつそのときに限りオブジェクトを返す。そうでない場合は ``null`` を返す。
 
     * ``getExtensions`` から返されるオブジェクトには、その拡張機能が提供する定数や関数が含まれている。
@@ -1223,7 +1227,7 @@ OpenGL ES 2.0 には、描画バッファーへのレンダリングを可能に
 ----------------------------------------------------------------------
 
 WebGL はレンダリングコンテキストの状態の重要な変更に対応して ``WebGLContextEvent`` イベントを生成する。
-イベントは DOM イベントシステムを使って送信され、レンダリングコンテキストに関連付けられたキャンバスに急送される。
+イベントは DOM イベントシステム [DOM3EVENTS]_ を使って送信され、レンダリングコンテキストに関連付けられたキャンバスに急送される。
 ``WebGLContextEvent`` イベントを発生させることができる状態変化の種類には、コンテキストの
 
 * 消滅、
@@ -1234,7 +1238,7 @@ WebGL はレンダリングコンテキストの状態の重要な変更に対�
 
 ``e`` という名前のコンテキストイベントが発生するということは、
 
-* ``type`` 属性が ``e`` に初期化され、
+* ``type`` 属性 [DOM4]_ が ``e`` に初期化され、
 * ``cancelable`` 属性が ``true`` に初期化され、
 * ``isTrusted`` 属性が ``true`` に初期化された
 
@@ -1248,7 +1252,7 @@ WebGL はレンダリングコンテキストの状態の重要な変更に対�
 
 ----
 
-この節に並んでいるタスクのすべてのタスク発生源は WebGL タスク発生源だ。
+この節に並んでいるタスクすべて [HTML]_ の発生源は WebGL タスク発生源だ。
 
 5.15.1 Attributes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1358,8 +1362,6 @@ WebGL はレンダリングコンテキストの状態の重要な変更に対�
 
 5.15.4 The Context Creation Error Event
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
- Fire a WebGL context event named "webglcontextcreationerror" at canvas, optionally with its statusMessage attribute set to a platform dependent string about the nature of the failure.
 
 ブラウザーが WebGL コンテキスト作成エラーをキャンバスで発射する場合には次の手順を実行する：
 

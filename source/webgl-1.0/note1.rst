@@ -7,6 +7,29 @@ WebGL Specification 1.0 読書ノート 1
 
 .. contents:: ノート目次
 
+Abstract
+======================================================================
+
+* 本仕様は HTML 5 要素 ``canvas`` [CANVAS]_ に対する追加的なレンダリングコンテキストおよび
+  サポートオブジェクトについて記述するものだ。
+* このコンテキストは OpenGL ES 2.0 API に忠実に準拠した API を使用してレンダリングをすることができる。
+
+Status of this document
+======================================================================
+
+* 本文書は編集者の草稿だ。この文書を work in progress 以外の目的で引用してはならない。
+
+本ノートもそういうつもりで記していく。
+
+Feedback
+======================================================================
+
+* 本仕様についての一般的な議論はメーリングリストで歓迎される。
+* 本仕様やその適合試験に関するバグは GitHub のアカウントに報告する。
+  プルリクエストもウェルカム。
+
+各 URL は本仕様書のオリジナルを参照して欲しい。当ノートには明記しない。
+
 1 Introduction
 ======================================================================
 
@@ -22,18 +45,20 @@ WebGL Specification 1.0 読書ノート 1
 1.1 Conventions
 ----------------------------------------------------------------------
 
-* OpenGL ES 2.0 の仕様と合致するように努力しているが、誤りを含む場合がある。
-  矛盾が生じた場合は、OpenGL ES 2.0 仕様を正とする。
+* OpenGL ES 2.0 [GLES20]_ と合致するように努力しているが、誤りを含む場合がある。
+  矛盾が生じた場合は、OpenGL ES 2.0 [GLES20]_ を正とする。
 * 本文書は OpenGL ES 2.0 仕様と併読することを意図している。
   特に指定のない限り、各メソッドの動作は OpenGL ES 2.0 で定義されている。
-  この仕様は、相互運用性やセキュリティーを担保するために、OpenGL ES 2.0から分岐している場合がある。
+  この仕様は、相互運用性やセキュリティーを担保するために、
+  OpenGL ES 2.0 から分岐している場合がある。
 
 2 Context Creation and Drawing Buffer Presentation
 ======================================================================
 
 WebGL API を使用する前に、プログラム作者は以下に示すように、指定された
-``HTMLCanvasElement`` または ``OffscreenCanvas`` の ``WebGLRenderingContext``
-オブジェクトを取得する必要がある。
+``HTMLCanvasElement`` [CANVAS]_ または
+``OffscreenCanvas`` [OFFSCREENCANVAS]_
+の ``WebGLRenderingContext`` オブジェクトを取得する必要がある。
 このオブジェクトは OpenGL の状態を管理し、描画バッファーへのレンダリングを行うためのもので、
 コンテキスト作成時に作成する必要がある。
 
@@ -43,30 +68,35 @@ WebGL API を使用する前に、プログラム作者は以下に示すよう�
 本節で述べられている仕様を ``canvas.getContext("webgl")`` の戻り値オブジェクトが
 満たすものと思われる。
 
-* ``WebGLRenderingContext`` には作成時に設定されるキャンバスが関連付けられている。
+----
+
+* ``WebGLRenderingContext`` には作成時に設定されるキャンバス
+  ([CANVAS]_, [OFFSCREENCANVAS]_) が関連付けられている。
 * ``WebGLRenderingContext`` は ``WebGLContextAttributes`` オブジェクトの中に、
   作成時に設定されるコンテキスト作成パラメーターを持つ。
 * ``WebGLRenderingContext`` は描画バッファーが作成されるたびに設定される
   実際のコンテキストパラメーターを ``WebGLContextAttributes`` オブジェクトに持つ。
 * ``WebGLRenderingContext`` は最初は設定されていない webgl context lost フラグを持つ。
 
-``getContext('webgl')`` の呼び出しに対してブラウザーが処理するべき内容を順序だって述べている：
+キャンバスのメソッド呼び出し ``getContext('webgl')`` が
+``contextId`` webgl [CANVASCONTEXTS]_
+の新しいオブジェクトを返す場合、ブラウザーは以下の手順を実行する必要がある：
 
-+ 新しい ``WebGLRenderingContext`` オブジェクトであるコンテキストを作成する。
-+ そのコンテキストのキャンバスをメソッド ``getContext()`` が関連付けられているキャンバスとする。
-+ 新しい WebGLContextAttributes オブジェクト ``contextAttributes`` を作成する。
-+ ``getContext()`` に第二引数として ``options`` を指定していた場合、指定した属性を ``contextAttributes`` に設定する。
-+ ``contextAttributes`` で指定された設定を使用して描画バッファーを作成し、その描画バッファーとコンテキストを関連付ける。
-+ 描画バッファの作成に失敗した場合は、以下の手順を実行する：
+#. 新しい ``WebGLRenderingContext`` オブジェクトであるコンテキストを作成する。
+#. そのコンテキストのキャンバスをメソッド ``getContext`` が関連付けられているキャンバスとする。
+#. 新しい WebGLContextAttributes オブジェクト ``contextAttributes`` を作成する。
+#. ``getContext()`` に第二引数として ``options`` を指定していた場合、指定した属性を ``contextAttributes`` に設定する。
+#. ``contextAttributes`` で指定された設定を使用して描画バッファーを作成し、その描画バッファーとコンテキストを関連付ける。
+#. 描画バッファの作成に失敗した場合は、以下の手順を実行する：
 
-  + キャンバスで WebGL コンテキスト作成エラーを発生させる。
-  + ``null`` を返してこれらの手順を終了する。
+  #. キャンバスで WebGL コンテキスト作成エラーを発生させる。
+  #. ``null`` を返してこれらの手順を終了する。
 
-+ 新しい ``WebGLContextAttributes`` オブジェクトである ``actualAttributes`` を作成する。
-+ 新しく作成した描画バッファーのプロパティに基づいて ``actualAttributes`` の属性を設定する。
-+ 「コンテキストの作成パラメーター」を ``contextAttributes`` に設定する。
-+ コンテキストの「実際のコンテキストのパラメーター」を ``actualAttributes`` に設定する。
-+ コンテキストを返す。
+#. 新しい ``WebGLContextAttributes`` オブジェクトである ``actualAttributes`` を作成する。
+#. 新しく作成した描画バッファーのプロパティに基づいて ``actualAttributes`` の属性を設定する。
+#. 「コンテキストの作成パラメーター」を ``contextAttributes`` に設定する。
+#. コンテキストの「実際のコンテキストのパラメーター」を ``actualAttributes`` に設定する。
+#. コンテキストを返す。
 
 ``experimental-webgl`` に関する記述は軽視する。
 
@@ -105,7 +135,8 @@ WebGL API を使用する前に、プログラム作者は以下に示すよう�
 ----
 
 * 上記の制約は、高精細ディスプレイであっても、キャンバス要素がウェブページ上で消費する空間の大きさを変えるものではない。
-  キャンバスの固有寸法はその座標空間のサイズに等しく、数値は CSS ピクセルで解釈されるのであって、解像度に依存しない。
+  キャンバスの固有寸法 [CANVAS]_ はその座標空間のサイズに等しく、数値は CSS ピクセルで解釈されるのであって、解像度に依存しない
+  [CSS]_。
 * WebGL アプリケーションは、プロパティー ``window.devicePixelRatio`` などを確認し、
   キャンバスの幅と高さをその係数で乗じて、CSS の幅と高さを元の幅と高さに設定することで、
   高解像度のディスプレイ上で、描画バッファーのピクセルと画面上のそれの比率を 1:1 にすることができる。
@@ -150,7 +181,7 @@ WebGL API を使用する前に、プログラム作者は以下に示すよう�
 
     * ``readPixels`` や ``toDataURL`` の呼び出し、
     * 他のコンテキストの ``texImage2D`` や ``drawImage`` の呼び出しのソース画像としてのこのコンテキストの使用、
-    * このコンテキストのキャンバスからの ``ImageBitmap`` の作成
+    * このコンテキストのキャンバスからの ``ImageBitmap`` [HTML]_ の作成
 
     などがある。
 
@@ -230,8 +261,6 @@ OpenGL ビューポートを設定することが期待される。
 3 WebGL Resources
 ======================================================================
 
-The DOM object will stay alive not only as long as the author retains an explicit reference to it, but also as long as it is in use by the underlying graphics library. When the DOM object is destroyed, it marks its resources for deletion. If authors wish to mark an object for deletion prior to the DOM object being destroyed, they may explicitly call the respective delete function. (e.g. deleteTexture)
-
 * OpenGL は、その状態の部分として、いくつかの型のリソースを統制している。
   これらのオブジェクトには整数の名前が付けられ、それにより識別され、さまざまな作成コールによって OpenGL から得る。
   一方、WebGL はこれらのリソースを DOM オブジェクトとして表現する。
@@ -249,7 +278,7 @@ The DOM object will stay alive not only as long as the author retains an explici
   作成するためのメソッドが用意されている。基礎にあるグラフィックライブラリーから来るデータは、
   これらのオブジェクトに格納され、完全に管理される。
 * DOM オブジェクトは、オーナーが明示的な参照を保持している間だけでなく、
-  基礎にあるグラフィックスライブラリーが使用している間じゅう存続する。
+  内包されているグラフィックスライブラリーが使用している間じゅう存続する。
 * DOM オブジェクトが破壊されると、そのリソースに削除のマークを付ける。
   破壊される前にオブジェクトを削除するようにマークしたい場合、
   オーナーは ``deleteTexture`` などの、それぞれに対応する ``delete`` 関数を明示的に呼び出せる。
@@ -306,12 +335,12 @@ The DOM object will stay alive not only as long as the author retains an explici
 
 * WebGL ではシェーダーを使用して GPU にアップロードされたテクスチャーの内容を間接的に推測することができることから、
   クロスドメインメディアの使用に 2D キャンバスレンダリングコンテキストなどの他の API よりも強い制限を課すのは当然だ。
-* WebGL アプリケーションは、目的のメディアを置いているサーバーの許可を得て、Cross-Origin Resource Sharing (CORS) を使用して、
-  他のドメインから来た画像やビデオを利用できる。
+* WebGL アプリケーションは、目的のメディアを置いているサーバーの許可を得て、Cross-Origin Resource Sharing
+  [CORS]_ を使用して、他のドメインから来た画像やビデオを利用できる。
 
   * このようなメディアを使用するには、アプリケーションとサーバーの間でその許可をやりとりする必要がある。
   * CORS を利用して他のドメインから画像やビデオの要素を取得すると、
-    これらの要素の発信元は含まれる文書のものに設定される。
+    これらの要素の発信元は含まれる ``Document`` [HTML]_ のものに設定される。
 
 ----
 
@@ -334,15 +363,15 @@ The DOM object will stay alive not only as long as the author retains an explici
 
 * 詳しくは以下を見ろとある：
 
-  * `CORS settings attributes <http://www.whatwg.org/specs/web-apps/current-work/multipage/urls.html#cors-settings-attribute>`__
-  * `The img element <http://www.whatwg.org/specs/web-apps/current-work/multipage/embedded-content-1.html#the-img-element>`__
-  * `Media elements <http://www.whatwg.org/specs/web-apps/current-work/multipage/the-iframe-element.html#media-elements>`__
+  * CORS settings attributes [HTML]_
+  * The ``img`` element [HTML]_
+  * Media elements [HTML]_
 
 4.3 Supported GLSL Constructs
 ----------------------------------------------------------------------
 
-WebGL 1.0 における GLSL の仕様。基本的には OpenGL ES の GLSL ver 1.0 であり（これは別にノートをとる予定）、
-そこからいくつかの機能を削ったものとみなしてよいようだ。
+WebGL 1.0 における GLSL の仕様。基本的には OpenGL ES の GLSL ver 1.0 [GLES20GLSL]_ であり
+（これは別にノートをとる予定）、そこからいくつかの機能を削ったものとみなしてよいようだ。
 
 ----
 
@@ -354,7 +383,8 @@ Appendix A のセクション 4 および 5 で義務付けられている最小
 * ``for`` ループは Appendix A の構造的制約に従うものとする。
 * ``while`` および ``do``-``while`` ループは、Appendix A ではオプションとなっているため、許可しない。
 * Appendix A では、配列のインデックス付けの特定の形式を義務付けている。
-  例えば、フラグメントシェーダー内では、インデックス付けは constant-index-expression でしかできない。
+  例えば、フラグメントシェーダー内では、インデックス付けは constant-index-expression でしかできない
+  （[GLES20GLSL]_ 参照）。
   WebGL API は Appendix A で義務付けられているインデクス付与の形式しかサポートしない。
 
 前述の仕様にある予約済み識別子に加えて、
@@ -403,3 +433,10 @@ OS やグラフィックス API 層の基盤は時間の経過とともに改善
   * 浮動小数点成分の場合は 0.0 または 1.0
 
 範囲外の書き込みは、破棄されるか、プログラムがアクセス可能な記憶域内の不特定の値を変更する。
+
+----
+
+囲み記事：
+
+* この動作は [KHRROBUSTACCESS]_ で定義されたものと同じだ。
+* シェーダー内の配列インデックス操作の静的解析を簡素化する制限については Supported GLSL Constructs を参照。

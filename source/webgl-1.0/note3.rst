@@ -65,6 +65,13 @@ WebGL はデフォルトのテクスチャーをサポートしない。
   および ``vertexAttribPointer`` への ``stride`` 引数は、
   呼び出しに渡されたデータ型のサイズの倍数でなければならない。
   そうでない場合は ``INVALID_OPERATION`` エラーとなる。
+
+----
+
+これは OpenGL ES 2.0.25 [GLES20]_ p24 の要件に準拠している。
+
+----
+
 * さらに ``drawElements`` の ``offset`` 引数は非負でなければならない。
   そうでない場合は ``INVALID_VALUE`` エラーとなる。
 
@@ -86,6 +93,12 @@ WebGL はデフォルトのテクスチャーをサポートしない。
 
     * 整数成分の場合 0, 1, または表現可能な最大の正の整数値
     * 浮動小数点成分の場合 0.0 または 1.0
+
+----
+
+囲み記事：この動作は [KHRROBUSTACCESS]_ で定義されたものと同じだ。
+
+----
 
 頂点の属性が配列として有効であり、その属性にバッファーが束縛されていて、
 その属性を現在のプログラムが消費していない場合、束縛されたバッファーのサイズに関わらず、
@@ -167,7 +180,7 @@ WebGL では、次の付着点の組み合わせと同時にレンダーバッ�
 型が ``HTMLCanvasElement`` または ``OffscreenCanvas`` である ``source`` の場合
     テクスチャーの寸法は、キャンバスオブジェクトの ``width`` と ``height`` プロパティーの現在の値に設定される。
 
-型が ``HTMLVideoElement`` または ``VideoFrame`` である ``source`` の場合
+型が ``HTMLVideoElement`` または ``VideoFrame`` [WEBCODECS]_ である ``source`` の場合
     テクスチャーの寸法は、ビデオのアップロードされたフレームの寸法（ピクセル単位）に設定される。
 
 6.10 Pixel Storage Parameters
@@ -295,16 +308,16 @@ WebGL は ``GL_FIXED`` データ型をサポートしない。
 6.20 Maximum GLSL Token Size
 ----------------------------------------------------------------------
 
-* GLSL ES ではトークンの長さに制限を設けていない。
+* GLSL ES [GLES20GLSL]_ ではトークンの長さに制限を設けていない。
 * WebGL では 256 文字までのトークンをサポートする必要がある。
   256 文字より長いトークンを含むシェーダーはコンパイルに失敗せねばならない。
 
 6.21 Characters Outside the GLSL Source Character Set
 ----------------------------------------------------------------------
 
-WebGL は、任意の ``DOMString`` をエラーなしで ``shaderSource`` に渡すことをサポートしている。
+WebGL は、任意の ``DOMString`` [DOMSTRING]_ をエラーなしで ``shaderSource`` に渡すことをサポートしている。
 しかし、シェーダーのコンパイル時には、GLSL の前処理とコメントの除去を行った後、
-残りのすべての文字が GLSL ES 2.0 の文字集合内になければならない。
+残りのすべての文字が [GLES20GLSL]_ の文字集合内になければならない。
 そうでなければ、シェーダーのコンパイルに失敗せねばならない。
 
 特に、これは次のことを認める：
@@ -336,7 +349,7 @@ WebGL は、任意の ``DOMString`` をエラーなしで ``shaderSource`` に�
 WebGLでは GLSL シェーダー内の構造体の入れ子の数に制限がある。
 
 * 入れ子は、構造体のフィールドが別の構造体型を参照している場合に起こる。
-* GLSL ES では、埋め込み構造体の定義を禁止している。
+* GLSL ES [GLES20GLSL]_ では、埋め込み構造体の定義を禁止している。
 * トップレベルの構造体定義のフィールドの入れ子階層は 1 とする。
 
 WebGL では構造体の入れ子階層が 4 までサポートされている必要がある。
@@ -381,7 +394,7 @@ WebGL では ``texSubImage2D`` に渡される ``type`` 引数は、
 6.26 Packing Restrictions for Uniforms and Varyings
 ----------------------------------------------------------------------
 
-OpenGL ES Shading Language, Version 1.00 の Appendix A, Section 7
+OpenGL ES Shading Language, Version 1.00 [GLES20GLSL]_ の Appendix A, Section 7
 "Counting of Varyings and Uniforms" では、シェーダー内のすべての ``uniform`` 変数と
 ``varying`` 変数に必要な記憶域を計算するための保守的なアルゴリズムを定義している。
 
@@ -392,12 +405,7 @@ WebGL ではさらに、シェーダーの ``uniform`` 変数またはプログ�
 ``varing`` 変数のいずれかでパッキングアルゴリズムが失敗した場合、
 コンパイルまたはリンクが失敗することを要求する。
 
-Instead of using a fixed size grid of registers, the number of rows in the target architecture is determined in the following ways:
 レジスターの固定サイズのグリッドを使用する代わりに、対象アーキテクチャーの行数は次の方法で決定する：
-
-when counting uniform variables in a vertex shader: getParameter(MAX_VERTEX_UNIFORM_VECTORS)
-when counting uniform variables in a fragment shader: getParameter(MAX_FRAGMENT_UNIFORM_VECTORS)
-when counting varying variables: getParameter(MAX_VARYING_VECTORS)
 
 * 頂点シェーダーで ``uniform`` 変数をカウントするときは ``getParameter(MAX_VERTEX_UNIFORM_VECTORS)``
 * フラグメントシェーダーで ``uniform`` 変数をカウントするときは ``getParameter(MAX_FRAGMENT_UNIFORM_VECTORS)``
@@ -443,7 +451,6 @@ WebGL では、欠落 attachment からのデータを必要とするこのよ�
 6.29 Drawing To a Missing Attachment
 ----------------------------------------------------------------------
 
-In the OpenGL ES 2.0 API, it is not specified what happens when a command tries to draw to a missing attachment, such as clearing a draw buffer from a complete framebuffer that does not have a color attachment.
 OpenGL ES 2.0 では、色 attachment のない完全フレームバッファーから
 描画バッファーを消去するなどのような、コマンドが見つからない attachment に
 描画しようとしたときにどうなるかが規定されていない。
@@ -474,13 +481,13 @@ WebGL API では、欠落 attachment に描画するような操作は、
 6.32 Initial value for gl_Position
 ----------------------------------------------------------------------
 
-* GLSL ES では、頂点シェーダーで書き込まれない限り ``gl_Position`` の値は未定義とされている。
+* GLSL ES [GLES20GLSL]_ では、頂点シェーダーで書き込まれない限り ``gl_Position`` の値は未定義とされている。
 * WebGL では ``gl_Position`` の初期値が ``(0,0,0,0)`` であることを保証している。
 
 6.33 GLSL ES Global Variable Initialization
 ----------------------------------------------------------------------
 
-* GLSL ES 1.00 では、グローバル変数の初期化子を定数式に限定している。
+* GLSL ES 1.00 [GLES20GLSL]_ では、グローバル変数の初期化子を定数式に限定している。
 * WebGL では、GLSL ES 1.00 のシェーダーのグローバル変数の初期化子に、
   ``const`` で修飾されていない他のグローバル変数や、
   ``uniform`` 値を使用することが認められている。
@@ -531,7 +538,7 @@ WebGL の動作には一貫性がなければならない。
 6.35 GLSL ES ``#extension`` directive location
 ----------------------------------------------------------------------
 
-* GLSL ES 1.00 では、拡張仕様に別段の定めがない限り、
+* GLSL ES 1.00 [GLES20GLSL]_ では、拡張仕様に別段の定めがない限り、
   ``#extension`` 指令は、前処理器トークンでないものの前に置かなければならないと定められている。
 * WebGL では、GLSL ES 1.00 のシェーダーでは ``#extension`` は常に非前処理器トークンの後に置かれてもかまわない。
 * GLSL ES 1.00 シェーダーにおける ``#extension`` 指令のスコープは常にシェーダー全体であり、
@@ -576,7 +583,7 @@ OpenGL ES 3.0.4 §4.4.4 "Framebuffer Completeness" の節
 6.39 Initial values for GLSL local and global variables
 ----------------------------------------------------------------------
 
-* GLSL ES では、ローカル変数やグローバル変数の値は、シェーダーで初期化されない限り未定義のままだ。
+* GLSL ES [GLES20GLSL]_ では、ローカル変数やグローバル変数の値は、シェーダーで初期化されない限り未定義のままだ。
 * WebGL では、このような変数が ``0.0``, ``vec4(0.0)``, ``0``, ``false`` などに初期化されることを保証する。
 
 6.40 Vertex attribute conversions from normalized signed integers to floating point
@@ -642,7 +649,23 @@ OpenGL 3.2 Core p97:
 7 References
 ======================================================================
 
-TBW
+本ノートで拾わなった引用リンクを割愛する。
+
+.. [CANVAS] `HTML5: The Canvas Element <https://www.w3.org/TR/html5/scripting-1.html#the-canvas-element>`__, World Wide Web Consortium (W3C).
+.. [OFFSCREENCANVAS] `HTML Living Standard - The OffscreenCanvas interface <https://html.spec.whatwg.org/multipage/canvas.html#the-offscreencanvas-interface>`__, WHATWG.
+.. [CANVASCONTEXTS] `Canvas Context Registry <http://wiki.whatwg.org/wiki/CanvasContexts>`__, WHATWG.
+.. [ECMASCRIPT] `ECMAScript® 2015 Language Specification <http://www.ecma-international.org/ecma-262/6.0/>`__, Ecma International, 2015.
+.. [GLES20] `OpenGL® ES Common Profile Specification Version 2.0.25 <http://www.khronos.org/registry/gles/specs/2.0/es_full_spec_2.0.25.pdf>`__, A. Munshi, J. Leech, November 2010.
+.. [GLES20GLSL] `The OpenGL® ES Shading Language Version 1.00 <https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf>`__, R. Simpson, May 2009.
+.. [CSS] `Cascading Style Sheets Level 2 Revision 1 (CSS 2.1) Specification <http://www.w3.org/TR/CSS21/>`__, B. Bos, T. Celik, I. Hickson, H. W. Lie, June 2011.
+.. [CORS] `Cross-Origin Resource Sharing <http://www.w3.org/TR/cors/>`__, A. van Kesteren, July 2010.
+.. [DOM4] `DOM4 <http://www.w3.org/TR/domcore/>`__, A. van Kesteren, A. Gregor, Ms2ger.
+.. [DOM3EVENTS] `Document Object Model (DOM) Level 3 Events Specification <http://dev.w3.org/2006/webapi/DOM-Level-3-Events/html/DOM3-Events.html>`__, Doug Schepers and Jacob Rossi. W3C.
+.. [HTML] `HTML <http://www.whatwg.org/specs/web-apps/current-work/multipage/>`__, I. Hickson, June 2011.
+.. [DOMSTRING] `Document Object Model Core: The DOMString type <http://www.w3.org/TR/DOM-Level-2-Core/core.html#DOMString>`__, World Wide Web Consortium (W3C).
+.. [KHRROBUSTACCESS] `KHR_robust_buffer_access_behavior OpenGL ES extension <https://www.opengl.org/registry/specs/KHR/robust_buffer_access_behavior.txt>`__, Leech, J. and Daniell, P., August, 2014.
+.. [MULTIPLEBUFFERING] (Non-normative) `Multiple buffering <https://en.wikipedia.org/wiki/Multiple_buffering>`__. Wikipedia.
+.. [WEBCODECS] (Non-normative) `WebCodecs API <https://w3c.github.io/webcodecs/>`__, C. Cunningham, P. Adenot, B. Aboba. W3C.
 
 8 Acknowledgments
 ======================================================================
