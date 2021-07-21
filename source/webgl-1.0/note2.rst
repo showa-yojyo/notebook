@@ -128,7 +128,7 @@ WebGLContextAttributes 辞書には描画面の属性が含まれており、
 
 ----
 
-WebGLContextAttributes 引数を ``getContext`` に渡すコード例（仕様書のコードを改変）。
+WebGLContextAttributes 引数を ``getContext`` に渡すコード例。
 この例では、ページ上に ``canvas1`` という名前の ``canvas`` 要素が存在することを仮定している。
 
 .. code:: javascript
@@ -249,16 +249,16 @@ WebGLShaderPrecisionFormat インターフェイスは
 ----------------------------------------------------------------------
 
 * 頂点、インデックス、テクスチャ、その他のデータは、ECMAScript [ECMASCRIPT]_ で定義されている
-  ``ArrayBuffer``, *Typed Array*, ``DataView`` を使用して WebGL 実装に転送される。
+  ArrayBuffer, *Typed Array*, DataView を使用して WebGL 実装に転送される。
 * *Typed Array* は、インターリーブされた異種の頂点データを作成したり、
   大規模な頂点バッファーオブジェクトへデータの個別ブロックをアップロードしたり、
   その他 OpenGL プログラムが必要としたりする使用例のほとんどをサポートする。
 
 ----
 
-異なる型の配列を使用して同じ ``ArrayBuffer`` にアクセスするコードの例がある。
+異なる型の配列を使用して同じ ArrayBuffer にアクセスするコードの例がある。
 それを一部改変してここに記す。
-バッファーには浮動小数点の頂点位置 ``(x, y, z)`` と、それに続く 4 つの
+バッファーには浮動小数点の頂点位置 ``(x, y, z)`` と、それに続く四つの
 unsigned byte の色 ``(r, g, b, a)`` を含む：
 
 .. code:: javascript
@@ -298,7 +298,7 @@ unsigned byte の色 ``(r, g, b, a)`` を含む：
 
 * C/C++ でいう ``sizeof X`` に相当する値の参照方法に注目。
   各 *TypedArray* の ``BYTES_PER_ELEMENT`` を用いる。
-* また、上記コードと同様の処理を ``DataView`` を用いても実現できる。
+* また、上記コードと同様の処理を DataView を用いても実現できる。
 
 5.14 The WebGL context
 ----------------------------------------------------------------------
@@ -332,17 +332,17 @@ WebGLRenderingContext インターフェイスのメソッド、または
 
 インターフェイスの仕様を読み解いていく：
 
-* 仕様中に ``TexImageSource`` とある箇所は、次の実際の型のどれでもよい：
+* 仕様中に TexImageSource とある箇所は、次の実際の型のどれでもよい：
 
-  * ``ImageBitmap``
-  * ``ImageData``
-  * ``HTMLImageElement``
-  * ``HTMLCanvasElement``
-  * ``HTMLVideoElement``
-  * ``OffscreenCanvas``
+  * ImageBitmap
+  * ImageData
+  * HTMLImageElement
+  * HTMLCanvasElement
+  * HTMLVideoElement
+  * OffscreenCanvas
 
-* 仕様中に ``Float32List`` とある箇所は ``Float32Array`` または浮動小数点型数値の列のどれでもよい。
-* 仕様中に ``Int32List`` とある箇所は ``Int32Array`` または整数型数値の列のどれでもよい。
+* 仕様中に Float32List とある箇所は Float32Array または浮動小数点型数値の列のどれでもよい。
+* 仕様中に Int32List とある箇所は Int32Array または整数型数値の列のどれでもよい。
 * WebGLRenderingContext インターフェイスは次の二つに分割されて定義されている：
 
   * WebGLRenderingContextBase: OpenGL で馴染みの定数、関数の WebGL における対応物と
@@ -683,14 +683,14 @@ WebGLTexture が束縛されていない場合、テクスチャーオブジェ�
        * ``texture`` の :ref:`invalidated<5.3 WebGLObject>` フラグが設定されている場合は ``false`` を返す。
 
    ``texImage2D(target, level, internalformat, width, height, border, format, type, pixels)``
-       ``glTexImage2D`` の対応物で、最後の引数が ``ArrayBufferView`` のオーバーロード。
+       ``glTexImage2D`` の対応物で、最後の引数が ArrayBufferView のオーバーロード。
 
        * ``pixels`` が ``null`` の場合は、ゼロクリアされた十分なサイズのバッファーが渡される。
        * ``pixels`` が ``null`` 以外の場合、``pixels`` の型は読み込まれるデータのそれと一致しなければならない。
 
-         * ``UNSIGNED_BYTE`` であれば ``Uint8Array`` または ``Uint8ClampedArray`` が、
+         * ``UNSIGNED_BYTE`` であれば Uint8Array または Uint8ClampedArray が、
          * ``UNSIGNED_SHORT_5_6_5``, ``UNSIGNED_SHORT_4_4``,
-           ``UNSIGNED_SHORT_5_5_5_1`` であれば ``Uint16Array`` が
+           ``UNSIGNED_SHORT_5_5_5_1`` であれば Uint16Array が
 
          渡されなければならない。型が一致しない場合は ``INVALID_OPERATION`` エラー。
 
@@ -702,7 +702,7 @@ WebGLTexture が束縛されていない場合、テクスチャーオブジェ�
          :ref:`6.10 Pixel Storage Parameters` で述べられる。
 
    ``texImage2D(target, level, internalformat, format, type, source)``
-      ``glTexImage2D`` の対応物で、最後の引数が ``TexSourceImage`` のどれかであるオーバーロード。
+      ``glTexImage2D`` の対応物で、最後の引数が TexSourceImage のどれかであるオーバーロード。
 
        * 指定された要素や画像データを、現在束縛されている WebGLTexture にアップロードする。
        * テクスチャーの幅と高さは、:ref:`6.9 Texture Upload Width and Height` が指定するように設定される。
@@ -713,12 +713,12 @@ WebGLTexture が束縛されていない場合、テクスチャーオブジェ�
          * 画像データのビット精度が失われるようなパックピクセルフォーマットが指定された場合、この精度の損失が必ず起こる。
 
        * ``source`` から WebGL 実装に転送される最初のピクセルは ``source`` の左上隅のものだ。
-         この動作は、``ImageBitmap`` である場合を除き、
+         この動作は、ImageBitmap である場合を除き、
          ``UNPACK_FLIP_Y_WEBGL`` ピクセル貯蔵パラメータによって変更される。
        * ``source`` が各チャンネル 8 ビットの RGB または RGBA のロスレス画像を含む
-         ``HTMLImageElement`` または ``ImageBitmap`` の場合、
+         HTMLImageElement または ImageBitmap の場合、
          ブラウザーはチャンネルすべての完全な精度が保持されることを保証する。
-       * 元の ``HTMLImageElement`` がアルファーチャンネルを含み、
+       * 元の HTMLImageElement がアルファーチャンネルを含み、
          ``UNPACK_PREMULTIPLY_ALPHA_WEBGL`` ピクセル貯蔵パラメーターが ``false`` の場合、
          RGB 値が元のファイルフォーマットから直接得られたものであろうと、
          他のカラーフォーマットから変換されたものであろうと、
@@ -726,26 +726,26 @@ WebGLTexture が束縛されていない場合、テクスチャーオブジェ�
 
        ----
 
-       ``HTMLCanvasElement`` や ``OffscreenCanvas`` の
-       ``CanvasRenderingContext2D`` の実装によっては、色の値が内部的に前乗算形式で保存される。
+       HTMLCanvasElement や OffscreenCanvas の
+       CanvasRenderingContext2D の実装によっては、色の値が内部的に前乗算形式で保存される。
        このようなキャンバスを ``UNPACK_PREMULTIPLY_ALPHA_WEBGL`` ピクセル貯蔵パラメーターを
        ``false`` に設定した状態で WebGL テクスチャにアップロードすると、
        カラーチャンネルにアルファーチャンネルを乗算し直す必要があるが、
        これは損失の大きい処理だ。
        したがって、WebGL の実装では ``UNPACK_PREMULTIPLY_ALPHA_WEBGL`` ピクセル貯蔵パラメーターが
        ``false`` に設定されているときに、
-       ``CanvasRenderingContext2D`` を介してキャンバスに最初に描画され、
+       CanvasRenderingContext2D を介してキャンバスに最初に描画され、
        その後 WebGL テクスチャーにアップロードされたときに、
        アルファー値が 1.0 に満たない色を損失なしに保存することを保証できない。
 
        ----
 
-       * 属性 ``data`` が中立化した ``ImageData`` でこの関数を呼び出すと ``INVALID_VALUE`` エラー。
-       * 中立化した ``ImageData`` でこの関数が呼ばれた場合 ``INVALID_VALUE`` エラー。
-       * 中立化した ``ImageBitmap`` でこの関数が呼ばれた場合 ``INVALID_VALUE`` エラー。
-       * ``Document`` の ``origin`` と異なる ``HTMLImageElement`` または ``HTMLVideoElement`` でこの関数が呼び出された場合、
-         または ``Bitmap`` の ``origin-clean`` フラグが ``false`` に設定されている
-         ``HTMLCanvasElement``, ``ImageBitmap``, ``OffscreenCanvas`` でこの関数が呼び出された場合には
+       * 属性 ``data`` が中立化した ImageData でこの関数を呼び出すと ``INVALID_VALUE`` エラー。
+       * 中立化した ImageData でこの関数が呼ばれた場合 ``INVALID_VALUE`` エラー。
+       * 中立化した ImageBitmap でこの関数が呼ばれた場合 ``INVALID_VALUE`` エラー。
+       * Document の ``origin`` と異なる HTMLImageElement または HTMLVideoElement でこの関数が呼び出された場合、
+         または Bitmap の ``origin-clean`` フラグが ``false`` に設定されている
+         HTMLCanvasElement, ImageBitmap, OffscreenCanvas でこの関数が呼び出された場合には
          ``SECURITY_ERR`` 例外が送出されなければならない。
        * ``source`` が ``null`` の場合は ``INVALID_VALUE`` エラー。
 
@@ -754,7 +754,7 @@ WebGLTexture が束縛されていない場合、テクスチャーオブジェ�
        ``glTexParameter{fi}`` の対応物。
 
    ``texSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels)``
-       ``glTexSubImage2D`` の対応物で、最後の引数が ``ArrayBufferView`` のオーバーロード。
+       ``glTexSubImage2D`` の対応物で、最後の引数が ArrayBufferView のオーバーロード。
 
        * ``format`` および ``pixels`` 引数の制限については ``texImage2D`` と同じ。
        * ``type`` がテクスチャーの定義に元々使われていた型と一致しない場合 ``INVALID_OPERATION`` エラーが発生。
@@ -764,7 +764,7 @@ WebGLTexture が束縛されていない場合、テクスチャーオブジェ�
          およびピクセル貯蔵パラメーターが必要とするサイズよりも小さい場合は ``INVALID_OPERATION`` エラー。
 
    ``texSubImage2D(target, level, xoffset, yoffset, format, type, source)``
-       ``glTexSubImage2D`` の対応物で、最後の引数が ``TexSourceImage`` のオーバーロード。
+       ``glTexSubImage2D`` の対応物で、最後の引数が TexSourceImage のオーバーロード。
 
        * 現在束縛されている WebGLTexture の部分矩形を与えられた要素や画像データの内容で更新する。
        * 更新された部分矩形の幅と高さは、別項で指定されるとおりに決定される。
@@ -772,14 +772,14 @@ WebGLTexture が束縛されていない場合、テクスチャーオブジェ�
          ``UNPACK_PREMULTIPLY_ALPHA_WEBGL`` ピクセル貯蔵パラメーターに関する注意点については
          ``texImage2D`` を参照すること。
        * ``source`` から WebGL 実装に転送される最初のピクセルは ``source`` の左上隅のものだ。
-         この動作は、``ImageBitmap`` である場合を除き、
+         この動作は、ImageBitmap である場合を除き、
          ``UNPACK_FLIP_Y_WEBGL`` ピクセル貯蔵パラメータによって変更される。
        * ``type`` がテクスチャーの定義に元々使われていた型と一致しない場合 ``INVALID_OPERATION`` エラーが発生。
-       * 属性 ``data`` が中立化した ``ImageData`` でこの関数を呼び出すと ``INVALID_VALUE`` エラー。
-       * 中立化した ``ImageBitmap`` でこの関数が呼ばれた場合 ``INVALID_VALUE`` エラー。
-       * ``Document`` の ``origin`` と異なる ``HTMLImageElement`` または ``HTMLVideoElement`` でこの関数が呼び出された場合、
-         または ``Bitmap`` の ``origin-clean`` フラグが ``false`` に設定されている
-         ``HTMLCanvasElement``, ``ImageBitmap``, ``OffscreenCanvas`` でこの関数が呼び出された場合には
+       * 属性 ``data`` が中立化した ImageData でこの関数を呼び出すと ``INVALID_VALUE`` エラー。
+       * 中立化した ImageBitmap でこの関数が呼ばれた場合 ``INVALID_VALUE`` エラー。
+       * Document の ``origin`` と異なる HTMLImageElement または HTMLVideoElement でこの関数が呼び出された場合、
+         または Bitmap の ``origin-clean`` フラグが ``false`` に設定されている
+         HTMLCanvasElement, ImageBitmap, OffscreenCanvas でこの関数が呼び出された場合には
          ``SECURITY_ERR`` 例外が送出されなければならない。
        * ``source`` が ``null`` の場合は ``INVALID_VALUE`` エラー。
 
@@ -1165,7 +1165,7 @@ OpenGL ES 2.0 には、描画バッファーへのレンダリングを可能に
 5.14.12 Reading back pixels
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-現在のフレームバッファ内のピクセルを ``ArrayBufferView`` オブジェクトに読み戻すことができる。
+現在のフレームバッファ内のピクセルを ArrayBufferView オブジェクトに読み戻すことができる。
 
 ----
 
@@ -1175,11 +1175,11 @@ OpenGL ES 2.0 には、描画バッファーへのレンダリングを可能に
     * ``readPixels`` が返すデータは、最後に送信された描画コマンドの時点でのものでなければならない。
     * ピクセルの ``type`` は読み込まれるデータのそれと一致していなければならない。例えば、
 
-      * ``UNSIGNED_BYTE`` であれば、``Uint8Array`` または ``Uint8ClampedArray`` を、
-      * ``UNSIGNED_SHORT_5_6_5``, ``UNSIGNED_SHORT_4_4_4``, ``UNSIGNED_SHORT_5_5_5_1`` であれば、``Uint16Array`` を、
-      * ``FLOAT`` であれば ``Float32Array`` を
+      * ``UNSIGNED_BYTE`` であれば、Uint8Array または Uint8ClampedArray を、
+      * ``UNSIGNED_SHORT_5_6_5``, ``UNSIGNED_SHORT_4_4_4``, ``UNSIGNED_SHORT_5_5_5_1`` であれば、Uint16Array を、
+      * ``FLOAT`` であれば Float32Array を
 
-      供給しなければならない。タイプが一致しない場合 ``INVALID_OPERATION`` エラーとなる。
+      供給しなければならない。型が一致しない場合 ``INVALID_OPERATION`` エラーとなる。
 
     * ``format`` と ``type`` の組み合わせは二つしかない。
 
@@ -1325,7 +1325,7 @@ WebGLContextEvent インターフェイスを使用するイベントが、
 
 ----
 
-以下のコード（仕様書のものを一部改変）は、``webglcontextlost`` イベントのデフォルトの動作を防ぎ、
+以下のコードは、``webglcontextlost`` イベントのデフォルトの動作を防ぎ、
 ``webglcontextrestored`` イベントの発信を可能にするものだ：
 
 .. code:: javascript

@@ -64,8 +64,8 @@ Feedback
 ======================================================================
 
 WebGL API を使用する前に、プログラム作者は以下に示すように、指定された
-``HTMLCanvasElement`` [CANVAS]_ または
-``OffscreenCanvas`` [OFFSCREENCANVAS]_
+HTMLCanvasElement [CANVAS]_ または
+OffscreenCanvas [OFFSCREENCANVAS]_
 の WebGLRenderingContext オブジェクトを取得する必要がある。
 このオブジェクトは OpenGL の状態を管理し、描画バッファーへのレンダリングを行うためのもので、
 コンテキスト作成時に作成する必要がある。
@@ -199,7 +199,7 @@ API 呼び出しがレンダリングされる描画バッファーは
 
     * ``readPixels`` や ``toDataURL`` の呼び出し、
     * 他のコンテキストの ``texImage2D`` や ``drawImage`` の呼び出しのソース画像としてのこのコンテキストの使用、
-    * このコンテキストのキャンバスからの ``ImageBitmap`` [HTML]_ の作成
+    * このコンテキストのキャンバスからの ImageBitmap [HTML]_ の作成
 
     などがある。
 
@@ -235,7 +235,7 @@ API 呼び出しがレンダリングされる描画バッファーは
 
 WebGL プログラムにビューポートを設定するロジックが含まれていないと、
 キャンバスのサイズが変更された場合に適切に対処できないことに注意。
-次の例は、WebGL プログラムがプログラムによってキャンバスのサイズを変更する方法を示す（一部改変）：
+次の例は、WebGL プログラムがプログラムによってキャンバスのサイズを変更する方法を示す：
 
 .. code:: javascript
 
@@ -268,8 +268,8 @@ OpenGL ビューポートを設定することが期待される。
 
 * WebGL でレンダリングされたキャンバスを
 
-  * ``CanvasRenderingContext2D`` の ``drawImage`` メソッドに渡す場合、
-    ``CanvasRenderingContext2D`` の実装の乗算の必要性に応じて、
+  * CanvasRenderingContext2D の ``drawImage`` メソッドに渡す場合、
+    CanvasRenderingContext2D の実装の乗算の必要性に応じて、
     描画操作中にレンダリングされた WebGL 内容を変更する必要がある場合とない場合がある。
   * ``texImage2D`` に渡す場合、
     渡されたキャンバスの ``premultipliedAlpha`` コンテキスト作成パラメーターと、
@@ -319,7 +319,7 @@ OpenGL ビューポートを設定することが期待される。
     このためには、要求された VBO のサイズに合わせてゼロの一時バッファーを作成し、
     正しく初期化できなければならない。
   * テクスチャーや VBO にデータをロードする他のすべての形式は、
-    ``ArrayBuffer`` または画像などの DOM オブジェクトを含むため、すでに初期化されていなければならない。
+    ArrayBuffer または画像などの DOM オブジェクトを含むため、すでに初期化されていなければならない。
 
 * WebGL リソースが ``drawElements`` や ``drawArrays`` などの呼び出しによってシェーダーからアクセスされる場合、
   WebGL の実装はシェーダーが境界外のデータや初期化されていないデータにアクセスさせないものとする。
@@ -336,18 +336,18 @@ OpenGL ビューポートを設定することが期待される。
 
 情報漏洩を防ぐため、WebGL では次に挙げるものをテクスチャーとしてアップロードすることを禁じる：
 
-* WebGLRenderingContext の ``canvas`` 要素を含む ``Document`` の出どころと
+* WebGLRenderingContext の ``canvas`` 要素を含む Document の出どころと
   同じではない出どころを持つイメージまたはビデオ要素
 * ビットマップの ``origin-clean`` フラグが ``false`` に設定されている ``canvas`` 要素
-* ビットマップの ``origin-clean`` フラグが ``false`` に設定されている ``ImageBitmap`` オブジェクト
+* ビットマップの ``origin-clean`` フラグが ``false`` に設定されている ImageBitmap オブジェクト
 
 ``texImage2D`` メソッドまたは ``texSubImage2D`` メソッドが、
 これらの制限に違反する
 
-* ``HTMLImageElement``,
-* ``HTMLVideoElement``,
-* ``HTMLCanvasElement`` または
-* ``ImageBitmap``
+* HTMLImageElement,
+* HTMLVideoElement,
+* HTMLCanvasElement または
+* ImageBitmap
 
 を含む正しい引数で呼び出された場合に ``SECURITY_ERR`` 例外を送出するものとする。
 
@@ -362,11 +362,11 @@ OpenGL ビューポートを設定することが期待される。
 
   * このようなメディアを使用するには、アプリケーションとサーバーの間でその許可をやりとりする必要がある。
   * CORS を利用して他のドメインから画像やビデオの要素を取得すると、
-    これらの要素の発信元は含まれる ``Document`` [HTML]_ のものに設定される。
+    これらの要素の発信元は含まれる Document [HTML]_ のものに設定される。
 
 ----
 
-次の例（個人的に改変）では、別のドメインから送られてくる画像に対して CORS リクエストを発行する方法を示している。
+次の例では、別のドメインから送られてくる画像に対して CORS リクエストを発行する方法を示している。
 画像は、認証情報 (Cookie) なしでサーバーから得られる：
 
 .. code:: javascript
