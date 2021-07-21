@@ -32,6 +32,7 @@ sys.path.append(os.path.abspath('./_extension'))
 extensions = [
     'IPython.sphinxext.ipython_console_highlighting',
     'IPython.sphinxext.ipython_directive',
+    'sphinx.ext.autosectionlabel',
     'sphinx.ext.todo',
     'sphinx.ext.mathjax',
     'japanesesupport',
