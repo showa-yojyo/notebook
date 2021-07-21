@@ -1,5 +1,5 @@
 ======================================================================
-WebGL Specification 1.0 読書ノート 3
+WebGL Specification 1.0 読書ノート 3 of 4
 ======================================================================
 
 `WebGL Specification <https://www.khronos.org/registry/webgl/specs/latest/1.0/>`__
@@ -18,8 +18,8 @@ WebGL Specification 1.0 読書ノート 3
 
 * 指定されたバッファーオブジェクトには頂点またはインデックスのいずれか一方が含まれ、
   両方は含まれないことを意味する。
-* ``WebGLBuffer`` の型は ``bindBuffer`` の引数として初回に渡されたときに初期化される。
-  同じ ``WebGLBuffer`` を他の束縛点に束縛しようとする ``bindBuffer`` への以降の呼び出しは
+* WebGLBuffer の型は ``bindBuffer`` の引数として初回に渡されたときに初期化される。
+  同じ WebGLBuffer を他の束縛点に束縛しようとする ``bindBuffer`` への以降の呼び出しは
   ``INVALID_OPERATION`` エラーとなり、束縛点の状態は変更しない。
 
 6.2 No Client Side Arrays
@@ -30,9 +30,9 @@ WebGL Specification 1.0 読書ノート 3
   その属性にバッファーが束縛されていない場合（通常は ``bindBuffer`` と ``vertexAttribPointer`` を使用）、
   描画コマンド ``drawArrays`` または ``drawElements`` は ``INVALID_OPERATION`` エラーとなる。
 * インデックス付きの描画コマンド ``drawElements`` が呼び出され、
-  ``ELEMENT_ARRAY_BUFFER`` 束縛点に ``WebGLBuffer`` が束縛されていない場合は
+  ``ELEMENT_ARRAY_BUFFER`` 束縛点に WebGLBuffer が束縛されていない場合は
   ``INVALID_OPERATION`` エラーが発生します。
-* ``ARRAY_BUFFER`` 束縛点に束縛された ``WebGLBuffer`` がない状態で ``vertexAttribPointer`` が呼び出され、
+* ``ARRAY_BUFFER`` 束縛点に束縛された WebGLBuffer がない状態で ``vertexAttribPointer`` が呼び出され、
   ``offset`` が 0 以外の場合 ``INVALID_OPERATION`` エラーとなる。
 
 ----
@@ -47,7 +47,7 @@ WebGL Specification 1.0 読書ノート 3
 WebGL はデフォルトのテクスチャーをサポートしない。
 
 テクスチャー関連の操作や問い合わせを成功させるためには、
-``null`` ではない ``WebGLTexture`` オブジェクトが束縛されている必要がある。
+``null`` ではない WebGLTexture オブジェクトが束縛されている必要がある。
 
 6.4 No Shader Binaries
 ----------------------------------------------------------------------
@@ -81,7 +81,7 @@ WebGL はデフォルトのテクスチャーをサポートしない。
 アクティブな頂点属性が配列として有効になっている場合に、
 ``drawArrays`` で直接的に、またはインデックス付きの描画から
 ``drawElements`` で間接的にデータを取得する必要がある描画コマンドを呼び出すと、
-``WebGLBuffer`` の境界外のデータを要求する可能性がある。
+WebGLBuffer の境界外のデータを要求する可能性がある。
 このような場合、以下の動作のいずれかが起こる。
 
 * WebGL の実装では、``INVALID_OPERATION`` エラーとなり、ジオメトリーが描画されないことがある。
@@ -286,6 +286,7 @@ WebGL は ``GL_FIXED`` データ型をサポートしない。
 6.17 GLSL Constructs
 ----------------------------------------------------------------------
 
+:ref:`4.3 Supported GLSL Constructs` によって、
 ``webgl_`` および ``_webgl_`` で始まる識別子は WebGL で使用するために予約されている。
 
 6.18 Extension Queries
@@ -638,38 +639,10 @@ WebGL の実装では数年前からこの動作を採用している。
 GLES と GLでは、外れ点のクリッピングの動作が異なる。
 この動作の違いは、実装上、回避することができない。
 
-OpenGL ES 2.0.25 p46:
+OpenGL ES 2.0.25 p46 [GLES20]_:
     考慮中のプリミティブが点ならば、クリッピングは、それが近または遠のクリップ面の外側にある場合、それを破棄する。
     そうでない場合には変更されずに合格とする。
 
-OpenGL 3.2 Core p97:
+OpenGL 3.2 Core p97 [GL32CORE]_:
     考慮中のプリミティブが点ならば、クリッピングは、それがクリップボリューム内にある場合は変更されずに合格とし、
     そうでない場合は破棄する。
-
-7 References
-======================================================================
-
-本ノートで拾わなった引用リンクを割愛する。
-
-.. [CANVAS] `HTML5: The Canvas Element <https://www.w3.org/TR/html5/scripting-1.html#the-canvas-element>`__, World Wide Web Consortium (W3C).
-.. [OFFSCREENCANVAS] `HTML Living Standard - The OffscreenCanvas interface <https://html.spec.whatwg.org/multipage/canvas.html#the-offscreencanvas-interface>`__, WHATWG.
-.. [CANVASCONTEXTS] `Canvas Context Registry <http://wiki.whatwg.org/wiki/CanvasContexts>`__, WHATWG.
-.. [ECMASCRIPT] `ECMAScript® 2015 Language Specification <http://www.ecma-international.org/ecma-262/6.0/>`__, Ecma International, 2015.
-.. [GLES20] `OpenGL® ES Common Profile Specification Version 2.0.25 <http://www.khronos.org/registry/gles/specs/2.0/es_full_spec_2.0.25.pdf>`__, A. Munshi, J. Leech, November 2010.
-.. [GLES20GLSL] `The OpenGL® ES Shading Language Version 1.00 <https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf>`__, R. Simpson, May 2009.
-.. [CSS] `Cascading Style Sheets Level 2 Revision 1 (CSS 2.1) Specification <http://www.w3.org/TR/CSS21/>`__, B. Bos, T. Celik, I. Hickson, H. W. Lie, June 2011.
-.. [CORS] `Cross-Origin Resource Sharing <http://www.w3.org/TR/cors/>`__, A. van Kesteren, July 2010.
-.. [DOM4] `DOM4 <http://www.w3.org/TR/domcore/>`__, A. van Kesteren, A. Gregor, Ms2ger.
-.. [DOM3EVENTS] `Document Object Model (DOM) Level 3 Events Specification <http://dev.w3.org/2006/webapi/DOM-Level-3-Events/html/DOM3-Events.html>`__, Doug Schepers and Jacob Rossi. W3C.
-.. [HTML] `HTML <http://www.whatwg.org/specs/web-apps/current-work/multipage/>`__, I. Hickson, June 2011.
-.. [DOMSTRING] `Document Object Model Core: The DOMString type <http://www.w3.org/TR/DOM-Level-2-Core/core.html#DOMString>`__, World Wide Web Consortium (W3C).
-.. [KHRROBUSTACCESS] `KHR_robust_buffer_access_behavior OpenGL ES extension <https://www.opengl.org/registry/specs/KHR/robust_buffer_access_behavior.txt>`__, Leech, J. and Daniell, P., August, 2014.
-.. [MULTIPLEBUFFERING] (Non-normative) `Multiple buffering <https://en.wikipedia.org/wiki/Multiple_buffering>`__. Wikipedia.
-.. [WEBCODECS] (Non-normative) `WebCodecs API <https://w3c.github.io/webcodecs/>`__, C. Cunningham, P. Adenot, B. Aboba. W3C.
-
-8 Acknowledgments
-======================================================================
-
-* この仕様は Khronos WebGL Working Group が執筆している。
-* Special thanks 人物が十名ほど列挙されている。
-* 追加的な thanks 人物として二十名プラス Khronos WebGL Working Group の構成員が列挙されている。

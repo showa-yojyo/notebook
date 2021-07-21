@@ -1,5 +1,5 @@
 ======================================================================
-WebGL Specification 1.0 読書ノート 1
+WebGL Specification 1.0 読書ノート 1 of 4
 ======================================================================
 
 `WebGL Specification <https://www.khronos.org/registry/webgl/specs/latest/1.0/>`__
@@ -38,12 +38,15 @@ Feedback
 * WebGL はウェブ用に設計された即時モードの 3D レンダリング API だ。
 * OpenGL ES 2.0 から派生したもので、同様のレンダリング機能を HTML のコンテキストで提供している。
 * WebGL は HTML Canvas 要素のレンダリングコンテキストとして設計されている。
-* この文書では ``WebGLRenderingContext`` について説明する。
+* この文書では WebGLRenderingContext について説明する。
 * OpenGL ES 2.0 の伝統を受け継いでいるため、最新のデスクトップ OpenGL や
   OpenGL ES 2.0 の開発に慣れている開発者であれば、WebGL の開発に移行するのは簡単なはずだ。
 
 1.1 Conventions
 ----------------------------------------------------------------------
+
+* 本文には OpenGL ES のマニュアルページへのリンクが多く含まれてる。
+  当ノートでもなるべくそれに従う。
 
 * OpenGL ES 2.0 [GLES20]_ と合致するように努力しているが、誤りを含む場合がある。
   矛盾が生じた場合は、OpenGL ES 2.0 [GLES20]_ を正とする。
@@ -52,13 +55,18 @@ Feedback
   この仕様は、相互運用性やセキュリティーを担保するために、
   OpenGL ES 2.0 から分岐している場合がある。
 
+  * OpenGL ES 2.0 には実装上の定義を残している部分があり、
+    それらを当仕様で定義するものが多い。
+    そのような違いについては、
+    :ref:`6 Differences Between WebGL and OpenGL ES 2.0` でまとめられている。
+
 2 Context Creation and Drawing Buffer Presentation
 ======================================================================
 
 WebGL API を使用する前に、プログラム作者は以下に示すように、指定された
 ``HTMLCanvasElement`` [CANVAS]_ または
 ``OffscreenCanvas`` [OFFSCREENCANVAS]_
-の ``WebGLRenderingContext`` オブジェクトを取得する必要がある。
+の WebGLRenderingContext オブジェクトを取得する必要がある。
 このオブジェクトは OpenGL の状態を管理し、描画バッファーへのレンダリングを行うためのもので、
 コンテキスト作成時に作成する必要がある。
 
@@ -70,41 +78,45 @@ WebGL API を使用する前に、プログラム作者は以下に示すよう�
 
 ----
 
-* ``WebGLRenderingContext`` には作成時に設定されるキャンバス
+* WebGLRenderingContext には作成時に設定されるキャンバス
   ([CANVAS]_, [OFFSCREENCANVAS]_) が関連付けられている。
-* ``WebGLRenderingContext`` は ``WebGLContextAttributes`` オブジェクトの中に、
-  作成時に設定されるコンテキスト作成パラメーターを持つ。
-* ``WebGLRenderingContext`` は描画バッファーが作成されるたびに設定される
-  実際のコンテキストパラメーターを ``WebGLContextAttributes`` オブジェクトに持つ。
-* ``WebGLRenderingContext`` は最初は設定されていない webgl context lost フラグを持つ。
+* WebGLRenderingContext は :ref:`WebGLContextAttributes<5.2 WebGLContextAttributes>` オブジェクトの中に
+  :ref:`context creation parameters<5.2.1 Context creation parameters>` を持つ。
+* WebGLRenderingContext は描画バッファーが作成されるたびに設定される
+  **actual context parameters** を :ref:`WebGLContextAttributes<5.2 WebGLContextAttributes>` オブジェクトに持つ。
+* WebGLRenderingContext は最初は設定されていない **webgl context lost** フラグを持つ。
 
 キャンバスのメソッド呼び出し ``getContext('webgl')`` が
 ``contextId`` webgl [CANVASCONTEXTS]_
 の新しいオブジェクトを返す場合、ブラウザーは以下の手順を実行する必要がある：
 
-#. 新しい ``WebGLRenderingContext`` オブジェクトであるコンテキストを作成する。
-#. そのコンテキストのキャンバスをメソッド ``getContext`` が関連付けられているキャンバスとする。
-#. 新しい WebGLContextAttributes オブジェクト ``contextAttributes`` を作成する。
-#. ``getContext()`` に第二引数として ``options`` を指定していた場合、指定した属性を ``contextAttributes`` に設定する。
-#. ``contextAttributes`` で指定された設定を使用して描画バッファーを作成し、その描画バッファーとコンテキストを関連付ける。
-#. 描画バッファの作成に失敗した場合は、以下の手順を実行する：
+1. 新しい WebGLRenderingContext オブジェクトであるコンテキストを作成する。
+2. そのコンテキストのキャンバスをメソッド ``getContext`` が関連付けられているキャンバスとする。
+3. 新しい WebGLContextAttributes オブジェクト ``contextAttributes`` を作成する。
+4. ``getContext()`` に第二引数として ``options`` を指定していた場合、指定した属性を ``contextAttributes`` に設定する。
+5. ``contextAttributes`` で指定された設定を使用して :ref:`描画バッファーを作成<2.2 The Drawing Buffer>`
+   し、その描画バッファーとコンテキストを関連付ける。
+6. 描画バッファの作成に失敗した場合は、以下の手順を実行する：
 
-  #. キャンバスで WebGL コンテキスト作成エラーを発生させる。
-  #. ``null`` を返してこれらの手順を終了する。
+  6.1 キャンバスで :ref:`WebGL コンテキスト作成エラーを発生させる<5.15.4 The Context Creation Error Event>`。
 
-#. 新しい ``WebGLContextAttributes`` オブジェクトである ``actualAttributes`` を作成する。
-#. 新しく作成した描画バッファーのプロパティに基づいて ``actualAttributes`` の属性を設定する。
-#. 「コンテキストの作成パラメーター」を ``contextAttributes`` に設定する。
-#. コンテキストの「実際のコンテキストのパラメーター」を ``actualAttributes`` に設定する。
-#. コンテキストを返す。
+  6.2 ``null`` を返してこれらの手順を終了する。
+
+7. 新しい WebGLContextAttributes オブジェクトである ``actualAttributes`` を作成する。
+8. 新しく作成した描画バッファーのプロパティに基づいて ``actualAttributes`` の属性を設定する。
+9. コンテキストの :ref:`context creation parameters<2.1 Context Creation>` を ``contextAttributes`` に設定する。
+10. コンテキストの :ref:`actual context parameters<2.1 Context Creation>`
+    を ``actualAttributes`` に設定する。
+11. コンテキストを返す。
 
 ``experimental-webgl`` に関する記述は軽視する。
 
 2.2 The Drawing Buffer
 ----------------------------------------------------------------------
 
-* API コールが効く描画バッファーは ``WebGLRenderingContext`` オブジェクトの生成時に定義される。
-  以下、描画バッファーの作成方法を定義する。
+API 呼び出しがレンダリングされる描画バッファーは
+:ref:`WebGLContextAttributes<5.2 WebGLContextAttributes>` オブジェクトの生成時に定義されるものとする。
+以下、描画バッファーの作成方法を定義する。
 
 * この表は、描画バッファーを構成するすべてのバッファーごとに、その最小サイズと、デフォルトで定義されているかどうかを示している。
 
@@ -118,10 +130,11 @@ WebGL API を使用する前に、プログラム作者は以下に示すよう�
    :header: バッファー, クリア値, 最小サイズ, 既定値が存在するか
 
    色 @ ``(0, 0, 0, 0)`` @ 8 ビット @ 存在する
-   深度 @ ``1.0`` @ 16 ビット整数 @ 存在する
+   奥行き @ ``1.0`` @ 16 ビット整数 @ 存在する
    ステンシル @ ``0`` @ 8 ビット @ 存在しない
 
-* 寸法が 0x0 のキャンバスでは 1x1 の ``drawingBufferWidth``, ``drawingBufferHeight`` になる。
+* 寸法が :math:`{0 \times 0}` のキャンバスでは :math:`{1 \times 1}` の
+  ``drawingBufferWidth``, ``drawingBufferHeight`` になる。
 * 要求された幅や高さを満たすことができない場合、描画バッファーが最初に作成されたとき、
   またはキャンバスの幅や高さの属性が変更されたときに、より小さな寸法の描画バッファーが作成される。
   実際に使用される寸法は実装に依存し、同じアスペクト比のバッファーが作成されることは保証されない。
@@ -134,6 +147,8 @@ WebGL API を使用する前に、プログラム作者は以下に示すよう�
 
 ----
 
+囲み記事：
+
 * 上記の制約は、高精細ディスプレイであっても、キャンバス要素がウェブページ上で消費する空間の大きさを変えるものではない。
   キャンバスの固有寸法 [CANVAS]_ はその座標空間のサイズに等しく、数値は CSS ピクセルで解釈されるのであって、解像度に依存しない
   [CSS]_。
@@ -143,22 +158,24 @@ WebGL API を使用する前に、プログラム作者は以下に示すよう�
 
 ----
 
-* オプションの ``WebGLContextAttributes`` オブジェクトを使って、バッファーを定義するかどうかを変更することができる。
+* オプションの :ref:`WebGLContextAttributes<5.2 WebGLContextAttributes>` オブジェクトを使って、
+  バッファーを定義するかどうかを変更することができる。
   また、カラーバッファにアルファチャンネルを含めるかどうかを定義するのにも使用できる。
 
   * 定義された場合、アルファーチャンネルは、HTML 合成器 がカラーバッファーを
     ページの残りの部分と結合するために使用される。
-  * ``WebGLContextAttributes`` オブジェクトは、``getContext`` の最初の呼び出し時にのみ使用される。
+  * WebGLContextAttributes オブジェクトは、``getContext`` の最初の呼び出し時にのみ使用される。
     描画バッファーの作成後にその属性を変更する機能はない。
 
-* 深度、ステンシル、アンチエイリアスの属性は、``true`` に設定されている場合、
+* 奥行き、ステンシル、アンチエイリアスの属性は、``true`` に設定されている場合、
   要求であって要件ではありません。WebGL の実装では、これらの属性を考慮するように努力をする必要がある。
   ただし、これらの属性が ``false`` に設定されている場合、WebGL の実装は関連する機能を提供しない。
 
   * WebGL の実装やグラフィックスハードウェアでサポートされていない属性を組み合わせても、
-    ``WebGLRenderingContext`` の作成に失敗することはない。
-  * 実際のコンテキストパラメーターには、作成された描画バッファーの属性が設定される。
-  * 属性 ``alpha``, ``premultipliedAlpha``, ``preserveDrawingBuffer`` は、WebGL の実装に従わなければならない。
+    :ref:`WebGLContextAttributes<5.2 WebGLContextAttributes>` の作成に失敗することはない。
+  * :ref:`actual context parameters<2.1 Context Creation>` には、作成された描画バッファーの属性が設定される。
+  * 属性 ``alpha``, ``premultipliedAlpha``, ``preserveDrawingBuffer`` は
+    WebGL の実装に従わなければならない。
 
 * WebGL は、合成操作の直前にその描画バッファーを HTML ページの合成器に提示するが、
   それは前回の合成操作以降に以下の少なくとも一つが発生している場合に限る：
@@ -172,11 +189,12 @@ WebGL API を使用する前に、プログラム作者は以下に示すよう�
   デフォルトでは、合成後、描画バッファーの内容は、上の表に示されているように、
   それらの既定値に消去されなければならない。
 
-* この既定の動作を、``WebGLContextAttributes`` オブジェクトの属性 ``preserveDrawingBuffer`` を設定することで変更できる。
+* この既定の動作を :ref:`WebGLContextAttributes<5.2 WebGLContextAttributes>` オブジェクトの属性
+  ``preserveDrawingBuffer`` を設定することで変更できる。
 
   * このフラグが ``true`` の場合、描画バッファーの内容は、作者が消去するか上書きするまで保存される。
   * このフラグが ``false`` の場合、レンダリング関数が戻ってきた後に、
-    このコンテキストをソース画像として使用した操作を実行しようとすると、
+    このコンテキストを元画像として使用した操作を実行しようとすると、
     未定義の動作を引き起こす可能性がある。これには、
 
     * ``readPixels`` や ``toDataURL`` の呼び出し、
@@ -196,7 +214,7 @@ WebGL API を使用する前に、プログラム作者は以下に示すよう�
   ``toDataURL`` を呼び出す、などの手法を使用できる。
 
   一連の呼び出しで同じ描画バッファーにレンダリングする必要がある場合は、
-  ``Framebuffer`` オブジェクトを使用することができる。
+  :ref:`Frame buffer <5.5 WebGLFramebuffer>` オブジェクトを使用することができる。
 
 * バッファー作者が他のプロセスからバッファの内容にアクセスできないことを保証する限り、
   実装は、必要な描画バッファーの暗黙の消去操作を最適化することができる。
@@ -231,11 +249,12 @@ WebGL プログラムにビューポートを設定するロジックが含ま�
 アプリケーションは ``onresize`` イベントハンドラーを使用して、キャンバスのサイズの変更に応答し、
 OpenGL ビューポートを設定することが期待される。
 
-2.4 Premultiplied Alpha, Canvas APIs and ``texImage2D``
+2.4 Premultiplied Alpha, Canvas APIs and texImage2D
 ----------------------------------------------------------------------
 
 * OpenGL API では、アプリケーションがレンダリング時に使用するブレンドモードを変更することができる。
   そのため、描画バッファー内のアルファー値の解釈様式を制御することができる。
+  :ref:`5.2 WebGLContextAttributes` の ``premultipliedAlpha`` 引数を見ろ。
 
 * HTML キャンバス API の ``toDataURL`` および ``drawImage`` は、
   ``premultipliedAlpha`` コンテキスト生成パラメーターを考慮する必要がある。
@@ -264,7 +283,7 @@ OpenGL ビューポートを設定することが期待される。
 * OpenGL は、その状態の部分として、いくつかの型のリソースを統制している。
   これらのオブジェクトには整数の名前が付けられ、それにより識別され、さまざまな作成コールによって OpenGL から得る。
   一方、WebGL はこれらのリソースを DOM オブジェクトとして表現する。
-  各オブジェクトは、``WebGLObject`` インターフェースから派生している。
+  各オブジェクトは、WebGLObject インターフェースから派生している。
   現在サポートされているリソースは次のようなものだ：
 
   * テクスチャー
@@ -274,7 +293,7 @@ OpenGL ビューポートを設定することが期待される。
   * シェーダー
   * プログラム
 
-* インターフェース ``WebGLRenderingContext`` には、型ごとに ``WebGLObject`` のサブクラスを
+* インターフェース WebGLRenderingContext には、型ごとに WebGLObject のサブクラスを
   作成するためのメソッドが用意されている。基礎にあるグラフィックライブラリーから来るデータは、
   これらのオブジェクトに格納され、完全に管理される。
 * DOM オブジェクトは、オーナーが明示的な参照を保持している間だけでなく、
@@ -305,7 +324,10 @@ OpenGL ビューポートを設定することが期待される。
 * WebGL リソースが ``drawElements`` や ``drawArrays`` などの呼び出しによってシェーダーからアクセスされる場合、
   WebGL の実装はシェーダーが境界外のデータや初期化されていないデータにアクセスさせないものとする。
 
-  * WebGL の実装で実施しなければならない制限事項については後述。
+  * WebGL の実装で実施しなければならない制限事項については
+    :ref:`6.6 Enabled Vertex Attributes and Range Checking` に記述がある。
+
+----
 
 ユーザー側に有利なように仕様が決められていることがうかがえる。
 
@@ -314,7 +336,7 @@ OpenGL ビューポートを設定することが期待される。
 
 情報漏洩を防ぐため、WebGL では次に挙げるものをテクスチャーとしてアップロードすることを禁じる：
 
-* ``WebGLRenderingContext`` の ``canvas`` 要素を含む ``Document`` の出どころと
+* WebGLRenderingContext の ``canvas`` 要素を含む ``Document`` の出どころと
   同じではない出どころを持つイメージまたはビデオ要素
 * ビットマップの ``origin-clean`` フラグが ``false`` に設定されている ``canvas`` 要素
 * ビットマップの ``origin-clean`` フラグが ``false`` に設定されている ``ImageBitmap`` オブジェクト
@@ -439,4 +461,5 @@ OS やグラフィックス API 層の基盤は時間の経過とともに改善
 囲み記事：
 
 * この動作は [KHRROBUSTACCESS]_ で定義されたものと同じだ。
-* シェーダー内の配列インデックス操作の静的解析を簡素化する制限については Supported GLSL Constructs を参照。
+* シェーダー内の配列インデックス操作の静的解析を簡素化する制限については
+  :ref:`4.3 Supported GLSL Constructs` を参照。
