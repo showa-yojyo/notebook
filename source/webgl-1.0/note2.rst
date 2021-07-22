@@ -10,7 +10,7 @@ WebGL Specification 1.0 読書ノート 2 of 4
 5 DOM Interfaces
 ======================================================================
 
-本節では、上述の機能へのランタイムアクセスをサポートするために DOM に追加された
+本章では、上述の機能へのランタイムアクセスをサポートするために DOM に追加された
 インターフェイスと機能について述べられている。
 
 5.1 Types
@@ -25,6 +25,24 @@ JavaScript ではなく C 言語のコードで書かれているのが気にな
 WebGLContextAttributes 辞書には描画面の属性が含まれており、
 ``getContext`` の二番目の引数として渡される。
 
+----
+
+有用なので既定値を JavaScript の形式で転載する：
+
+.. code:: javascript
+
+   {
+       alpha: true,
+       depth: true,
+       stencil: false,
+       antialias: true,
+       premultipliedAlpha: true,
+       preserveDrawingBuffer: false,
+       powerPreference: "default",
+       failIfMajorPerformanceCaveat: false,
+       desynchronized: false,
+   };
+
 * 後述の例と併せて眺めると良い。
 
 5.2.1 Context creation parameters
@@ -32,7 +50,6 @@ WebGLContextAttributes 辞書には描画面の属性が含まれており、
 
 ここにある一覧に WebGLContextAttributes オブジェクトの各属性とその用途について説明がある。
 
-* 各属性のデフォルト値は 5.2 の表のとおり。
 * 既定値は ``getContext`` に二番目の引数が渡されなかった場合、
   または指定された名前の属性を持たないユーザーオブジェクトが渡された場合に採用される。
 
@@ -50,7 +67,8 @@ WebGLContextAttributes 辞書には描画面の属性が含まれており、
     描画バッファーは選択した手法と品質を使用してそれを実行する。
 
 ``premultipliedAlpha``
-    この値が ``true`` の場合、ページ合成器は描画バッファーにあらかじめアルファ値が乗算された色が含まれているとみなす。
+    この値が ``true`` の場合、ページ合成器は描画バッファーにアルファー値が
+    あらかじめ乗算された色が含まれているとみなす。
 
     * ``alpha = false`` の場合、このフラグは無視される。
     * ``premultipliedAlpha`` フラグの効果の詳細については
@@ -59,10 +77,11 @@ WebGLContextAttributes 辞書には描画面の属性が含まれており、
 ``preserveDrawingBuffer``
     この値が ``false`` の場合、:ref:`2.2 The Drawing Buffer` にあるように描画バッファーが提示されると、
     描画バッファーの内容は既定値に消去される。
-    描画バッファーのすべての要素（カラー、奥行き、ステンシル）が消去される。
+    描画バッファーのすべての要素（色、奥行き、ステンシル）が消去される。
 
     この値が ``true`` の場合、バッファーは消去されず、オーナーが消去するか上書きするまで、その値が保持される。
-    ``preserveDrawingBuffer`` フラグを ``true`` に設定すると、一部のハードウェアではパフォーマンスに大きな影響を与えることがある。
+    ``preserveDrawingBuffer`` フラグを ``true`` に設定すると、
+    一部のハードウェアではパフォーマンスに大きな影響を与えることがある。
 
 ``powerPreference``
     この WebGL コンテキストに適した GPU の構成を示すヒントをブラウザーに提供する。
@@ -70,7 +89,8 @@ WebGLContextAttributes 辞書には描画面の属性が含まれており、
     たとえば、デュアル GPU システムでは、レンダリング性能を犠牲にして消費電力の少ない GPU を使用する場合があり得る。
     このプロパティーはヒントに過ぎず、WebGL の実装がこれを無視しても構わない。
 
-    WebGL の実装では、この属性の値にかかわらず、コンテキストの消滅および復元イベントを使用して、電力とメモリーの消費を調整する。
+    WebGL の実装では、この属性の値にかかわらず、コンテキストの消滅および復元イベントを使用して、
+    電力とメモリーの消費を調整する。
 
     この属性が取り得る値は次のどれかだ：
 
@@ -83,12 +103,10 @@ WebGLContextAttributes 辞書には描画面の属性が含まれており、
         実装では、最初はこの要求を尊重し、しばらくするとコンテキストを失い、
         要求を無視して新しいコンテキストを復元することにしてもかまわない。
 
-        ----
+        .. admonition:: Non-normative
 
-        バックグラウンドの高性能コンテキストを失うことをブラウザーが決定するということがひじょうにありがちなので、
-        このオプションを要求するアプリケーションは、堅牢なコンテキスト消失処理を試験し、維持する必要がある。
-
-        ----
+           バックグラウンドの高性能コンテキストを失うことをブラウザーが決定するということがひじょうにありがちなので、
+           このオプションを要求するアプリケーションは、堅牢なコンテキスト消失処理を試験し、維持する必要がある。
 
     ``"low-power"``
         レンダリング性能よりも省電力を優先した GPU 設定を要求する。
@@ -105,10 +123,26 @@ WebGLContextAttributes 辞書には描画面の属性が含まれており、
 
 ``failIfMajorPerformanceCaveat``
     この値が ``true`` の場合、作成された WebGL コンテキストのパフォーマンスが、
-    同等の OpenGL 呼び出しを行うネイティブアプリケーションのパフォーマンスよりも大幅に低下すると実装が判断した場合、
-    コンテキストの作成を失敗させる。
+    同等の OpenGL 呼び出しを行うネイティブアプリケーションのパフォーマンスよりも
+    劇的に低下すると実装が判断した場合、コンテキストの作成を失敗させる。
 
-    * このオプションは使わないと思うので、これ以上調べない。
+    これには次のような理由がある：
+
+    * ある実装では、ユーザーの GPU ドライバーが不安定であることがわかっている場合、
+      ソフトウェアラスタライザーに切り替わることがある。
+    * ある実装では、フレームバッファーを残りのページと合成する前に、
+      GPU メモリーからシステムメモリーに読み戻す必要があり、
+      パフォーマンスが著しく低下する可能性がある。
+
+    高いパフォーマンスを必要としないアプリケーションでは、
+    この引数を既定値の ``false`` のままにしておく。
+
+    高いパフォーマンスを必要とするアプリケーションでは、
+    この引数を ``true`` に設定し、コンテキストの作成に失敗した場合は、
+    2D canvas コンテキストなどの予備のレンダリングパスを使用することを勧める。
+
+    また、この引数を ``false`` に設定した状態で WebGL コンテキストの作成を再試行し、
+    パフォーマンスを向上させるために忠実度の低いレンダリングモードを使用するということもできる。
 
 ``desynchronized``
     この値が ``true`` の場合、ブラウザーはキャンバスの描画を最適化して、
@@ -118,25 +152,27 @@ WebGLContextAttributes 辞書には描画面の属性が含まれており、
     このモードでは、通常の描画の仕組み、ラスタライズ、またはその両方が迂回されるため、
     目に見える tearing artifacts が発生する可能性がある。
 
-    ----
+    .. admonition:: Non-normative
 
-    ブラウザーは、通常、表示されていないバッファでレンダリングを行い、表示のためにスキャンされているバッファーと素早く交換する。
-    この技術は tearing artifacts を引き起こす可能性があるという代償を払って遅延を削減する。
+       ブラウザーは、通常、表示されていないバッファでレンダリングを行い、
+       表示のためにスキャンされているバッファーと素早く交換する。
+       この技術は tearing artifacts を引き起こす可能性があるという代償を払って遅延を削減する。
 
-    この真偽値の属性 ``desynchronized`` は、入力からラスタライズまでの待ち時間の遅延が急所となる描画アプリケーションなど、
-    特定の種類のアプリケーションを実装する際に役立つ。[MULTIPLEBUFFERING]_
+       この真偽値の属性 ``desynchronized`` は、入力からラスタライズまでの
+       待ち時間の遅延が急所となる描画アプリケーションなど、
+       特定の種類のアプリケーションを実装する際に役立つ。[MULTIPLEBUFFERING]_
 
-----
+.. admonition:: Example III
 
-WebGLContextAttributes 引数を ``getContext`` に渡すコード例。
-この例では、ページ上に ``canvas1`` という名前の ``canvas`` 要素が存在することを仮定している。
+   WebGLContextAttributes 引数を ``getContext`` に渡すコード例。
+   この例では、ページ上に ``canvas1`` という名前の ``canvas`` 要素が存在することを仮定している。
 
-.. code:: javascript
+   .. code:: javascript
 
-   const canvas = document.getElementById('canvas1');
-   const gl = canvas.getContext('webgl',
-                                { antialias: false,
-                                  stencil: true });
+      const canvas = document.getElementById('canvas1');
+      const gl = canvas.getContext('webgl',
+                                   { antialias: false,
+                                     stencil: true });
 
 5.3 WebGLObject
 ----------------------------------------------------------------------
@@ -252,49 +288,48 @@ WebGLShaderPrecisionFormat インターフェイスは
   ArrayBuffer, *Typed Array*, DataView を使用して WebGL 実装に転送される。
 * *Typed Array* は、インターリーブされた異種の頂点データを作成したり、
   大規模な頂点バッファーオブジェクトへデータの個別ブロックをアップロードしたり、
-  その他 OpenGL プログラムが必要としたりする使用例のほとんどをサポートする。
+  その他 OpenGL プログラムが必要としたりする用例のほとんどをサポートする。
 
-----
+.. admonition:: Example IV
 
-異なる型の配列を使用して同じ ArrayBuffer にアクセスするコードの例がある。
-それを一部改変してここに記す。
-バッファーには浮動小数点の頂点位置 ``(x, y, z)`` と、それに続く四つの
-unsigned byte の色 ``(r, g, b, a)`` を含む：
+   異なる型の配列を使用して同じ ArrayBuffer にアクセスするコードの例がある。
+   バッファーには浮動小数点の頂点位置 ``(x, y, z)`` と、それに続く四つの
+   unsigned byte の色 ``(r, g, b, a)`` を含む：
 
-.. code:: javascript
+   .. code:: javascript
 
-   const numVertices = 100; // for example
+      const numVertices = 100; // for example
 
-   // Compute the size needed for the buffer, in bytes and floats
-   const vertexSize = 3 * Float32Array.BYTES_PER_ELEMENT +
-         4 * Uint8Array.BYTES_PER_ELEMENT;
-   const vertexSizeInFloats = vertexSize / Float32Array.BYTES_PER_ELEMENT;
+      // Compute the size needed for the buffer, in bytes and floats
+      const vertexSize = 3 * Float32Array.BYTES_PER_ELEMENT +
+            4 * Uint8Array.BYTES_PER_ELEMENT;
+      const vertexSizeInFloats = vertexSize / Float32Array.BYTES_PER_ELEMENT;
 
-   // Allocate the buffer
-   const buf = new ArrayBuffer(numVertices * vertexSize);
+      // Allocate the buffer
+      const buf = new ArrayBuffer(numVertices * vertexSize);
 
-   // Map this buffer to a Float32Array to access the positions
-   const positionArray = new Float32Array(buf);
+      // Map this buffer to a Float32Array to access the positions
+      const positionArray = new Float32Array(buf);
 
-   // Map the same buffer to a Uint8Array to access the color
-   const colorArray = new Uint8Array(buf);
+      // Map the same buffer to a Uint8Array to access the color
+      const colorArray = new Uint8Array(buf);
 
-   // Set up the initial offset of the vertices and colors within the buffer
-   let positionIdx = 0;
-   let colorIdx = 3 * Float32Array.BYTES_PER_ELEMENT;
+      // Set up the initial offset of the vertices and colors within the buffer
+      let positionIdx = 0;
+      let colorIdx = 3 * Float32Array.BYTES_PER_ELEMENT;
 
-   // Initialize the buffer
-   for (let i = 0; i < numVertices; i++) {
-       positionArray[positionIdx] = ...;
-       positionArray[positionIdx + 1] = ...;
-       positionArray[positionIdx + 2] = ...;
-       colorArray[colorIdx] = ...;
-       colorArray[colorIdx + 1] = ...;
-       colorArray[colorIdx + 2] = ...;
-       colorArray[colorIdx + 3] = ...;
-       positionIdx += vertexSizeInFloats;
-       colorIdx += vertexSize;
-   }
+      // Initialize the buffer
+      for (let i = 0; i < numVertices; i++) {
+          positionArray[positionIdx] = ...;
+          positionArray[positionIdx + 1] = ...;
+          positionArray[positionIdx + 2] = ...;
+          colorArray[colorIdx] = ...;
+          colorArray[colorIdx + 1] = ...;
+          colorArray[colorIdx + 2] = ...;
+          colorArray[colorIdx + 3] = ...;
+          positionIdx += vertexSizeInFloats;
+          colorIdx += vertexSize;
+      }
 
 * C/C++ でいう ``sizeof X`` に相当する値の参照方法に注目。
   各 *TypedArray* の ``BYTES_PER_ELEMENT`` を用いる。
@@ -315,18 +350,18 @@ WebGLRenderingContext インターフェイスのメソッド、または
 3. :ref:`webgl context lost<2.1 Context Creation>` フラグが設定されている場合は、
    ``use`` の既定の戻り値を ``true`` にする。
 
-   3.1 そうでない場合、メソッドの引数に :ref:`invalidate<5.3 WebGLObject>`
-       フラグが設定された WebGLObject があれば、
-       ``INVALID_OPERATION`` エラーを生成し、 ``use`` の既定の戻り値を ``true`` にする。
+   * 3.1 そうでない場合、メソッドの引数に :ref:`invalidate<5.3 WebGLObject>`
+     フラグが設定された WebGLObject があれば、
+     ``INVALID_OPERATION`` エラーを生成し、 ``use`` の既定の戻り値を ``true`` にする。
 
 4. ``use`` の既定の戻り値を ``true`` の場合、以下の手順を実行する：
 
-   4.1. 呼び出されたメソッドの戻り値の型が ``any`` または ``nullable`` 型の場合は ``null`` を返す。
-   4.2. メソッドの実装を呼び出すことなしにこのアルゴリズムを終了する。
+   * 4.1. 呼び出されたメソッドの戻り値の型が ``any`` または ``nullable`` 型の場合は ``null`` を返す。
+   * 4.2. メソッドの実装を呼び出すことなしにこのアルゴリズムを終了する。
 
 5. そうでない場合は、呼び出されたメソッドの実装を実行し、その結果を返す。
 
-詳細については :ref:`5.15.2 The Context Lost Event` を参照しろとある。
+詳細は :ref:`5.15.2 The Context Lost Event` にある。
 
 ----
 
@@ -348,6 +383,10 @@ WebGLRenderingContext インターフェイスのメソッド、または
   * WebGLRenderingContextBase: OpenGL で馴染みの定数、関数の WebGL における対応物と
     WebGL 固有の定数、属性、関数からなる。
   * WebGLRenderingContextOverloads: 引数リストのオーバーロードが複数必要な関数群からなると見られる。
+
+----
+
+長いインターフェイス定義が掲載されている。
 
 5.14.1 Attributes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -371,61 +410,113 @@ WebGLRenderingContext インターフェイスのメソッド、または
     フラグ **webgl context lost** が設定されている場合は ``null`` を返す。
     そうでなければ **actual context parameters** のコピーを返す。
 
-    * :ref:`2.1 Context Creation` を併せて読むこと。
+    * これらの値については :ref:`2.1 Context Creation` に記述あり。
 
 5.14.3 Setting and getting state
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-OpenGL ES 2.0 ではレンダリングに使用するための状態を保持する。
+OpenGL ES 2.0 ではレンダリングに使用するための状態を維持する。
 ここに記されているグループの呼び出しすべては、特に断りのない限り OpenGL の対応物に対する呼び出しと同じ動作をする。
 
-* ``blendFunc``, ``blendFuncSeparate`` の WebGL が課す制約については
-  :ref:`6.15 Blending With Constant Color` の記述を参照しろ。
-* ``clearDepth`` に対する値 ``depth`` は :math:`{[0, 1]}` に収まるように丸められる。
-* ``depthRange`` に対する引数 ``zNear`` と ``zFar`` の値も同様に丸められる。
-  かつ ``zNear <= zFar`` でなければならない。
-  :ref:`6.14 Viewport Depth Range` 参照。
-* ``getParameter`` は ``glGet``, ``glGetString`` の対応物だ。
+.. glossary::
 
-  * 戻り値の型は JavaScript において自然なものとする。
-  * 列や *TypedArray* を返す問い合わせのすべてが、毎回新しいオブジェクトを返す。
-  * 不適切な問い合わせに対しては ``INVALID_ENUM`` エラーを生成し ``null`` を返す。
-  * ``IMPLEMENTATION_COLOR_READ_FORMAT`` または ``IMPLEMENTATION_COLOR_READ_TYPE`` で、
-    現在束縛されているフレームバッファーが完全でない場合、
-    ``INVALID_OPERATION`` エラーを生成し ``null`` を返す。
-  * 次の実引数は、現在の WebGL 実装の何らかの性質を記述する文字列を返す：
+   ``activeTexture(texture)``
+   ``blendColor(red, green, blue, alpha)``
+   ``blendEquation(mode)``
+   ``blendEquationSeparate(modeRGB, modeAlpha)``
+       （これらにコメントなし）
 
-    ``VERSION``
-        "WebGL 1.0 xxxx" のようなバージョンまたはリリース番号を返す。
+   ``blendFunc(sfactor, dfactor)``
+   ``blendFuncSeparate(srcRGB, dstRGB, srcAlpha, dstAlpha)``
+       WebGL が課す制約については
+      :ref:`6.15 Blending With Constant Color` の記述を参照しろ。
 
-    ``SHADING_LANGUAGE_VERSION``
-        "WebGL GLSL ES 1.0 xxxx" のようなバージョンまたはリリース番号を返す。
+   ``clearColor(red, green, blue, alpha)``
+       （コメントなし）
 
-    ``VENDOR``
-        この WebGL の実装を担当している会社を返す。
+   ``clearDepth``
+       ``depth`` は :math:`{[0, 1]}` に収まるように丸められる。
 
-    ``RENDERER``
-        レンダラーの名前を返す。この名前はふつうはハードウェアプラットフォームの特定の構成に固有のものだ。
+   ``clearStencil(s)``
+   ``colorMask(red, green, blue, alpha)``
+   ``cullFace(mode)``
+   ``depthFunc(func)``
+   ``depthMask(flag)``
+       （これらにコメントなし）
 
-    次章に関連情報アリ。
+   ``depthRange(zNear, zFar)``
+       引数 ``zNear`` と ``zFar`` の値も同様に丸められる。
+       かつ ``zNear <= zFar`` でなければならない。
+       :ref:`6.14 Viewport Depth Range` 参照。
 
-* ``getError`` はコンテキストの :ref:`webgl context lost<2.1 Context Creation>` フラグが設定されている場合、
-  このメソッドが最初に呼び出されたときに ``CONTEXT_LOST_WEBGL`` を返す。
-  その後、コンテキストが回復されるまで ``NO_ERROR`` を返す。
-* どの ``isEnabled`` による問い合わせに対しても、同じ戻り値を ``getParameter`` で得ることができる。
+   ``disable(cap)``
+   ``enable(cap)``
+   ``frontFace(mode)``
+       （これらにコメントなし）
 
-  * コンテキストの **webgl context lost** フラグが設定されている場合は ``false`` を返す。
+   ``getParameter(pname)``
+       ``glGet``, ``glGetString`` の対応物。
 
-* ``lineWidth`` には WebGL での制限があり、:ref:`6.30 NaN Line Width` で述べられている。
-* ``pixelStorei`` OpenGL ES 2.0 仕様のパラメーターに加えて、次のものも受け付ける。
-  これらについては :ref:`6.10 Pixel Storage Parameters` で述べられる。
+       * 戻り値の型は JavaScript において自然なものとする。
+       * 列や *TypedArray* を返す問い合わせのすべてが、毎回新しいオブジェクトを返す。
+       * 不適切な問い合わせに対しては ``INVALID_ENUM`` エラーを生成し ``null`` を返す。
+       * ``IMPLEMENTATION_COLOR_READ_FORMAT`` または ``IMPLEMENTATION_COLOR_READ_TYPE`` で、
+         現在束縛されているフレームバッファーが完全でない場合、
+         ``INVALID_OPERATION`` エラーを生成し ``null`` を返す。
+       * 次の実引数は、現在の WebGL 実装の何らかの性質を記述する文字列を返す：
 
-  * ``UNPACK_FLIP_Y_WEBGL``
-  * ``UNPACK_PREMULTIPLY_ALPHA_WEBGL``
-  * ``UNPACK_COLORSPACE_CONVERSION_WEBGL``
+         ``VERSION``
+             "WebGL 1.0 xxxx" のようなバージョンまたはリリース番号を返す。
 
-* ``stencilFuncSeparate``, ``stencilMask`` には
-  :ref:`WebGL 固有の制限<6.12 Stencil Separate Mask and Reference Value>` がある。
+         ``SHADING_LANGUAGE_VERSION``
+             "WebGL GLSL ES 1.0 xxxx" のようなバージョンまたはリリース番号を返す。
+
+         ``VENDOR``
+             この WebGL の実装を担当している会社を返す。
+
+         ``RENDERER``
+             レンダラーの名前を返す。この名前はふつうはハードウェアプラットフォームの特定の構成に固有のものだ。
+
+         次章に関連情報アリ。
+
+   ``getError()``
+       コンテキストの :ref:`webgl context lost<2.1 Context Creation>` フラグが設定されている場合、
+       このメソッドが最初に呼び出されたときに ``CONTEXT_LOST_WEBGL`` を返す。
+       その後、コンテキストが回復されるまで ``NO_ERROR`` を返す。
+
+   ``hint(target, mode)``
+       （コメントなし）
+
+   ``isEnabled(cap)``
+       どの ``isEnabled`` による問い合わせに対しても、同じ戻り値を ``getParameter`` で得ることができる。
+
+       * コンテキストの :ref:`webgl context lost<2.1 Context Creation>`
+         フラグが設定されている場合は ``false`` を返す。
+
+   ``lineWidth(width)``
+       WebGL での制限があり、:ref:`6.30 NaN Line Width` で述べられている。
+
+   ``pixelStorei(pname, param)``
+       OpenGL ES 2.0 仕様のパラメーターに加えて、次のものも受け付ける。
+       これらについては :ref:`6.10 Pixel Storage Parameters` で述べられる。
+
+       * ``UNPACK_FLIP_Y_WEBGL``
+       * ``UNPACK_PREMULTIPLY_ALPHA_WEBGL``
+       * ``UNPACK_COLORSPACE_CONVERSION_WEBGL``
+
+   ``polygonOffset(factor, units)``
+   ``sampleCoverage(value, invert)``
+   ``stencilFunc(func, ref, mask)``
+       （これらにコメントなし）
+
+   ``stencilFuncSeparate(face, func, ref, mask)``
+   ``stencilMask(mask)``
+       :ref:`WebGL 固有の制限<6.12 Stencil Separate Mask and Reference Value>` がある。
+
+   ``stencilMaskSeparate(face, mask)``
+   ``stencilOp(fail, zfail, zpass)``
+   ``stencilOpSeparate(face, fail, zfail, zpass)``
+       （これらにコメントなし）
 
 5.14.4 Viewing and clipping
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -457,58 +548,61 @@ OpenGL ES 2.0 ではレンダリングに使用するための状態を保持す
 
 ----
 
-``bindBuffer(target, buffer)``
-    与えられた WebGLBuffer オブジェクトを ``ARRAY_BUFFER`` または ``ELEMENT_ARRAY_BUFFER`` のいずれかの与えられた対象に束縛する。
+.. glossary::
 
-    * バッファーがこのものとは異なる WebGLRenderingContext によって生成された場合 ``INVALID_OPERATION`` エラーを生成する。
-    * バッファーが ``null`` の場合、現在この対象に束縛されているすべてのバッファーの束縛を解除する。
-    * 与えられた WebGLBuffer オブジェクトはその寿命において
-      ``ARRAY_BUFFER`` または ``ELEMENT_ARRAY_BUFFER`` のいずれかの対象にしか束縛されない。
-    * バッファーオブジェクトを他の対象にバインドしようとすると
-      ``INVALID_OPERATION`` エラーが発生し、現在の束縛はそのまま維持される。
-    * 削除マークのついたオブジェクトを束縛しようとすると
-      ``INVALID_OPERATION`` エラーが発生し、現在の束縛はそのまま維持される。
+   ``bindBuffer(target, buffer)``
+       与えられた WebGLBuffer オブジェクトを ``ARRAY_BUFFER`` または ``ELEMENT_ARRAY_BUFFER`` のいずれかの与えられた対象に束縛する。
 
-``bufferData(target, size, usage)``, ``bufferData(target, data, usage)``
-    最初のものは、現在束縛されている WebGLBuffer オブジェクトのサイズを、渡された対象に設定する。
-    バッファーの中身は 0 に初期化される。
+       * バッファーがこのものとは異なる WebGLRenderingContext によって生成された場合 ``INVALID_OPERATION`` エラーを生成する。
+       * バッファーが ``null`` の場合、現在この対象に束縛されているすべてのバッファーの束縛を解除する。
+       * 与えられた WebGLBuffer オブジェクトはその寿命において
+         ``ARRAY_BUFFER`` または ``ELEMENT_ARRAY_BUFFER`` のいずれかの対象にしか束縛されない。
+       * バッファーオブジェクトを他の対象にバインドしようとすると
+         ``INVALID_OPERATION`` エラーが発生し、現在の束縛はそのまま維持される。
+       * 削除マークのついたオブジェクトを束縛しようとすると
+         ``INVALID_OPERATION`` エラーが発生し、現在の束縛はそのまま維持される。
 
-    二番目のものは、渡された対象に対して、現在束縛されている WebGLBuffer オブジェクトのサイズを
-    渡されたデータのサイズに設定し、データの内容をバッファーオブジェクトに書き込む。
+   ``bufferData(target, size, usage)``
+   ``bufferData(target, data, usage)``
+       最初のものは、現在束縛されている WebGLBuffer オブジェクトのサイズを、渡された対象に設定する。
+       バッファーの中身は 0 に初期化される。
 
-    * 渡されたデータが ``null`` の場合は ``INVALID_VALUE`` エラーが発生する。
+       二番目のものは、渡された対象に対して、現在束縛されている WebGLBuffer オブジェクトのサイズを
+       渡されたデータのサイズに設定し、データの内容をバッファーオブジェクトに書き込む。
 
-``bufferSubData(target, offset, data)``
-    ``target`` に束縛された WebGLBuffer オブジェクトに対して、
-    位置 ``offset`` から始まる ``data`` を書き込む。
+       * 渡されたデータが ``null`` の場合は ``INVALID_VALUE`` エラーが発生する。
 
-    * バッファーオブジェクトの終端を越えてデータが書き込まれる場合は ``INVALID_VALUE`` エラー。
-    * ``data`` が ``null`` の場合も ``INVALID_VALUE`` エラー。
+   ``bufferSubData(target, offset, data)``
+       ``target`` に束縛された WebGLBuffer オブジェクトに対して、
+       位置 ``offset`` から始まる ``data`` を書き込む。
 
-``createBuffer()``
-    Create a WebGLBuffer object and initialize it with a buffer object name as if by calling glGenBuffers.
-    WebGLBuffer オブジェクトを生成し、``glGenBuffers`` を呼び出したかのようにバッファーオブジェクト名で初期化する。
+       * バッファーオブジェクトの終端を越えてデータが書き込まれる場合は ``INVALID_VALUE`` エラー。
+       * ``data`` が ``null`` の場合も ``INVALID_VALUE`` エラー。
 
-``deleteBuffer(buffer)``
-    ``glDeleteBuffers`` の呼び出しのごとく、渡された WebGLBuffer が含むバッファーオブジェクトに削除マークを付ける。
+   ``createBuffer()``
+       Create a WebGLBuffer object and initialize it with a buffer object name as if by calling glGenBuffers.
+       WebGLBuffer オブジェクトを生成し、``glGenBuffers`` を呼び出したかのようにバッファーオブジェクト名で初期化する。
 
-    * すでに削除マークが付けられている場合、この呼び出しは効果が特にない。
-    * 内包されている GL オブジェクトは JavaScript オブジェクトが破壊されるときに自動的に削除マークが付けられるが、
-      このメソッドを使用することでオブジェクトに対して削除マークを早期に付けることができる。
-    * ``buffer`` がこれとは異なる WebGLRenderingContext によって生成されたものである場合 ``INVALID_OPERATION`` エラー。
+   ``deleteBuffer(buffer)``
+       ``glDeleteBuffers`` の呼び出しのごとく、渡された WebGLBuffer が含むバッファーオブジェクトに削除マークを付ける。
 
-``getBufferParameter(target, pname)``
-    OpenGL の ``glGetBufferParameteriv`` の対応物。``pname`` の値を返す。
+       * すでに削除マークが付けられている場合、この呼び出しは効果が特にない。
+       * 内包されている GL オブジェクトは JavaScript オブジェクトが破壊されるときに自動的に削除マークが付けられるが、
+         このメソッドを使用することでオブジェクトに対して削除マークを早期に付けることができる。
+       * ``buffer`` がこれとは異なる WebGLRenderingContext によって生成されたものである場合 ``INVALID_OPERATION`` エラー。
 
-    * 戻り値の型は要求された ``pname`` にとって自然な型とする。例えば ``BUFFER_SIZE`` なら整数を返す。
-    * ``pname`` がサポートされていない名前のときには ``INVALID_ENUM`` エラー。
-    * OpenGL エラーが発生した場合は ``null`` を返す。
+   ``getBufferParameter(target, pname)``
+       OpenGL の ``glGetBufferParameteriv`` の対応物。``pname`` の値を返す。
 
-``isBuffer(buffer)``
-    渡された WebGLBuffer が有効かどうかを返す。
+       * 戻り値の型は要求された ``pname`` にとって自然な型とする。例えば ``BUFFER_SIZE`` なら整数を返す。
+       * ``pname`` がサポートされていない名前のときには ``INVALID_ENUM`` エラー。
+       * OpenGL エラーが発生した場合は ``null`` を返す。
 
-    * ``buffer`` がこれとは異なる WebGLRenderingContext によって生成された場合は ``false`` を返す。
-    * ``buffer`` の :ref:`invalidated<5.3 WebGLObject>` フラグが設定されている場合は ``false`` を返す。
+   ``isBuffer(buffer)``
+       渡された WebGLBuffer が有効かどうかを返す。
+
+       * ``buffer`` がこれとは異なる WebGLRenderingContext によって生成された場合は ``false`` を返す。
+       * ``buffer`` の :ref:`invalidated<5.3 WebGLObject>` フラグが設定されている場合は ``false`` を返す。
 
 5.14.6 Framebuffer objects
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -724,21 +818,19 @@ WebGLTexture が束縛されていない場合、テクスチャーオブジェ�
          他のカラーフォーマットから変換されたものであろうと、
          アルファーチャンネルによって決して事前に乗算しないことが保証する。
 
-       ----
+       .. admonition:: Non-normative
 
-       HTMLCanvasElement や OffscreenCanvas の
-       CanvasRenderingContext2D の実装によっては、色の値が内部的に前乗算形式で保存される。
-       このようなキャンバスを ``UNPACK_PREMULTIPLY_ALPHA_WEBGL`` ピクセル貯蔵パラメーターを
-       ``false`` に設定した状態で WebGL テクスチャにアップロードすると、
-       カラーチャンネルにアルファーチャンネルを乗算し直す必要があるが、
-       これは損失の大きい処理だ。
-       したがって、WebGL の実装では ``UNPACK_PREMULTIPLY_ALPHA_WEBGL`` ピクセル貯蔵パラメーターが
-       ``false`` に設定されているときに、
-       CanvasRenderingContext2D を介してキャンバスに最初に描画され、
-       その後 WebGL テクスチャーにアップロードされたときに、
-       アルファー値が 1.0 に満たない色を損失なしに保存することを保証できない。
-
-       ----
+          HTMLCanvasElement や OffscreenCanvas の
+          CanvasRenderingContext2D の実装によっては、色の値が内部的に前乗算形式で保存される。
+          このようなキャンバスを ``UNPACK_PREMULTIPLY_ALPHA_WEBGL`` ピクセル貯蔵パラメーターを
+          ``false`` に設定した状態で WebGL テクスチャにアップロードすると、
+          カラーチャンネルにアルファーチャンネルを乗算し直す必要があるが、
+          これは損失の大きい処理だ。
+          したがって、WebGL の実装では ``UNPACK_PREMULTIPLY_ALPHA_WEBGL`` ピクセル貯蔵パラメーターが
+          ``false`` に設定されているときに、
+          CanvasRenderingContext2D を介してキャンバスに最初に描画され、
+          その後 WebGL テクスチャーにアップロードされたときに、
+          アルファー値が 1.0 に満たない色を損失なしに保存することを保証できない。
 
        * 属性 ``data`` が中立化した ImageData でこの関数を呼び出すと ``INVALID_VALUE`` エラー。
        * 中立化した ImageData でこの関数が呼ばれた場合 ``INVALID_VALUE`` エラー。
@@ -1083,13 +1175,13 @@ GLSL ES で記述されたシェーダーを使用する必要がある。シェ
 
          * 長さが無効であるとは、長さが短すぎるか、割り当てられた型の整数倍でないものをいう。
 
-       ----
+       .. admonition:: Non-normative
 
-       ``uniform1i`` を使用してサンプラーのユニフォームを更新すると、
-       一部の実装でパフォーマンス上の問題が発生する。
-       サンプラーユニフォームが参照するテクスチャーを変更するには、
-       ユニフォーム自体を更新するために ``uniform1i`` を使用するよりも、
-       ユニフォームが参照するテクスチャーユニットに新しいテクスチャーを束縛する方が望ましい。
+          ``uniform1i`` を使用してサンプラーのユニフォームを更新すると、
+          一部の実装でパフォーマンス上の問題が発生する。
+          サンプラーユニフォームが参照するテクスチャーを変更するには、
+          ユニフォーム自体を更新するために ``uniform1i`` を使用するよりも、
+          ユニフォームが参照するテクスチャーユニットに新しいテクスチャーを束縛する方が望ましい。
 
    ``vertexAttrib[1234]f(index, ...)``
    ``vertexAttrib[1234]fv(index, ...)``
@@ -1314,25 +1406,25 @@ WebGLContextEvent インターフェイスを使用するイベントが、
 5. ``WEBGL_lose_context`` 以外のすべての拡張機能を無効にする。
 6. 以下の手順を実行するタスクをキューに入れる：
 
-   6.1. ``webglcontextlost`` という名前のコンテキストイベントを ``canvas`` で発射させ、
-        その ``statusMessage`` 属性を空に設定する。
-        :ref:`5.15 WebGLContextEvent` 参照。
-   6.2. イベントの ``canceled`` フラグが設定されていない場合は、手順をここで中止する。
-   6.3. 以下の手順を非同期で実行する：
+   * 6.1. ``webglcontextlost`` という名前のコンテキストイベントを ``canvas`` で発射させ、
+     その ``statusMessage`` 属性を空に設定する。
+     :ref:`5.15 WebGLContextEvent` 参照。
+   * 6.2. イベントの ``canceled`` フラグが設定されていない場合は、手順をここで中止する。
+   * 6.3. 以下の手順を非同期で実行する：
 
-        * 回復可能な描画バッファーを待機する。
-        * :ref:`コンテキストの描画バッファーを復元する<5.15 WebGLContextEvent>` タスクをキューに入れる。
+     * 回復可能な描画バッファーを待機する。
+     * :ref:`コンテキストの描画バッファーを復元する<5.15 WebGLContextEvent>` タスクをキューに入れる。
 
-----
+.. admonition:: Example V
 
-以下のコードは、``webglcontextlost`` イベントのデフォルトの動作を防ぎ、
-``webglcontextrestored`` イベントの発信を可能にするものだ：
+   以下のコードは、``webglcontextlost`` イベントのデフォルトの動作を防ぎ、
+   ``webglcontextrestored`` イベントの発信を可能にするものだ：
 
-.. code:: javascript
+   .. code:: javascript
 
-   canvas.addEventListener("webglcontextlost", e => {
-       e.preventDefault();
-   }, false);
+      canvas.addEventListener("webglcontextlost", e => {
+          e.preventDefault();
+      }, false);
 
 5.15.3 The Context Restored Event
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1350,54 +1442,54 @@ WebGLContextEvent インターフェイスを使用するイベントが、
    ``canvas`` で:ref:`発射させ<5.15 WebGLContextEvent>`、
    その ``statusMessage`` 属性を空にする。
 
-----
+.. admonition:: Non-normative
 
-コンテキストがすると、それまでに作成されたテクスチャーやバッファーなどの WebGL リソースが無効になる。
-以前に有効だった拡張は復元されない。
-変更された状態や破棄された拡張やリソースすべてをアプリケーションが復元する必要がある。
+   コンテキストがすると、それまでに作成されたテクスチャーやバッファーなどの WebGL リソースが無効になる。
+   以前に有効だった拡張は復元されない。
+   変更された状態や破棄された拡張やリソースすべてをアプリケーションが復元する必要がある。
 
-----
+.. admonition:: Example VI
 
-アプリケーションがコンテキストの消失と復元をどのように処理するかを示す擬似コード：
+   アプリケーションがコンテキストの消失と復元をどのように処理するかを示す擬似コード：
 
-.. code:: javascript
+   .. code:: javascript
 
-   function initializeGame() {
-       initializeWorld();
-       initializeResources();
-   }
+      function initializeGame() {
+          initializeWorld();
+          initializeResources();
+      }
 
-   function initializeResources() {
-       initializeShaders();
-       initializeBuffers();
-       initializeTextures();
+      function initializeResources() {
+          initializeShaders();
+          initializeBuffers();
+          initializeTextures();
 
-       // ready to draw, start the main loop
-       renderFrame();
-   }
+          // ready to draw, start the main loop
+          renderFrame();
+      }
 
-   function renderFrame() {
-       updateWorld();
-       drawSkyBox();
-       drawWalls();
-       drawMonsters();
+      function renderFrame() {
+          updateWorld();
+          drawSkyBox();
+          drawWalls();
+          drawMonsters();
 
-       requestId = window.requestAnimationFrame(renderFrame, canvas);
-   }
+          requestId = window.requestAnimationFrame(renderFrame, canvas);
+      }
 
-   canvas.addEventListener("webglcontextlost", event => {
-       // inform WebGL that we handle context restoration
-       event.preventDefault();
+      canvas.addEventListener("webglcontextlost", event => {
+          // inform WebGL that we handle context restoration
+          event.preventDefault();
 
-       // Stop rendering
-       window.cancelAnimationFrame(requestId);
-   }, false);
+          // Stop rendering
+          window.cancelAnimationFrame(requestId);
+      }, false);
 
-   canvas.addEventListener("webglcontextrestored", event => {
-       initializeResources();
-   }, false);
+      canvas.addEventListener("webglcontextrestored", event => {
+          initializeResources();
+      }, false);
 
-   initializeGame();
+      initializeGame();
 
 * コンテキストがなくなったときにはアニメーションをいったん止める。
 * コンテキストが復活したときにはリソース各種を自力で初期化し直す。
@@ -1413,22 +1505,22 @@ WebGLContextEvent インターフェイスを使用するイベントが、
    :ref:`発射<5.15 WebGLContextEvent>` し、
    オプションで ``statusMessage`` 属性に失敗の性質に関するプラットフォーム依存の文字列を設定する。
 
-----
+.. admonition:: Example VI
 
-次のコードは、アプリケーションがコンテキスト作成の失敗に関する情報を取得する方法を示すものだ：
+   次のコードは、アプリケーションがコンテキスト作成の失敗に関する情報を取得する方法を示すものだ：
 
-.. code:: javascript
+   .. code:: javascript
 
-   let errorInfo = "";
+      let errorInfo = "";
 
-   function onContextCreationError(event) {
-       canvas.removeEventListener("webglcontextcreationerror", onContextCreationError, false);
-       errorInfo = e.statusMessage || "Unknown";
-   }
+      function onContextCreationError(event) {
+          canvas.removeEventListener("webglcontextcreationerror", onContextCreationError, false);
+          errorInfo = e.statusMessage || "Unknown";
+      }
 
-   canvas.addEventListener("webglcontextcreationerror", onContextCreationError, false);
+      canvas.addEventListener("webglcontextcreationerror", onContextCreationError, false);
 
-   const gl = canvas.getContext("webgl");
-   if(!gl) {
-       alert("A WebGL context could not be created.\nReason: " + errorInfo);
-   }
+      const gl = canvas.getContext("webgl");
+      if(!gl) {
+          alert("A WebGL context could not be created.\nReason: " + errorInfo);
+      }
