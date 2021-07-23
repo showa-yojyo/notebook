@@ -14,7 +14,24 @@ ALLSPHINXOPTS   = -d $(BUILDDIR)/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) sou
 # the i18n builder cannot share the environment and doctrees with the others
 I18NSPHINXOPTS  = $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) source
 
-.PHONY: help clean html dirhtml singlehtml pickle json htmlhelp qthelp devhelp epub latex latexpdf text man changes linkcheck doctest coverage gettext
+SPHINXAUTOBUILD = sphinx-autobuild
+ALLSPHINXLIVEOPTS = $(ALLSPHINXOPTS) -q \
+	--port 0 \
+	--host 0.0.0.0 \
+	--delay 1 \
+	--ignore "*.swp" \
+	--ignore "*.pdf" \
+	--ignore "*.log" \
+	--ignore "*.out" \
+	--ignore "*.toc" \
+	--ignore "*.aux" \
+	--ignore "*.idx" \
+	--ignore "*.ind" \
+	--ignore "*.ilg" \
+	--ignore "*.tex" \
+	--watch source
+
+.PHONY: help clean html dirhtml singlehtml pickle json htmlhelp qthelp devhelp epub latex latexpdf text man changes linkcheck doctest coverage gettext livehtml
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
@@ -190,4 +207,6 @@ gh-pages: html
 	@bash gh-pages.sh
 
 livehtml:
-	sphinx-autobuild -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
+	$(SPHINXAUTOBUILD) -b html $(ALLSPHINXLIVEOPTS) $(BUILDDIR)/html
+	@echo
+	@echo "Build finished. The HTML pages are in $(BUILDDIR)."
