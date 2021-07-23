@@ -1,0 +1,341 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>WebGL 学習ノート &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/prefab.css" />
+    
+    <script src="_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="WebGL Specification 1.0 読書ノート" href="webgl-1.0/index.html" />
+    <link rel="prev" title="HTML-XML-utils 利用ノート" href="hxutils.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="webgl-1.0/index.html" title="WebGL Specification 1.0 読書ノート"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="hxutils.html" title="HTML-XML-utils 利用ノート"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">WebGL 学習ノート</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="webgl">
+<h1><a class="toc-backref" href="#id16">WebGL 学習ノート</a><a class="headerlink" href="#webgl" title="Permalink to this headline">¶</a></h1>
+<p>WebGL プログラミングに関するノート。OpenGL についての私の知識が古くなってしまっているので、それも併せて学習していこう。</p>
+<p>現状、全然整理し切れていない。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title">ノート目次</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#webgl" id="id16">WebGL 学習ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id17">資料</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id18">環境構築</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id19">手筋</a></p>
+<ul>
+<li><p><a class="reference internal" href="#hello-world" id="id20">Hello world</a></p></li>
+<li><p><a class="reference internal" href="#opengl-javascript" id="id21">OpenGL との相違点と JavaScript 固有の事情</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id22">キャンバス</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id23">アニメーション</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id24">イベント処理</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id25">ベクトル・行列・アフィン変換</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id26">テクスチャー・画像・ビデオ</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id27">テキスト</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id28">透過処理・アルファブレンディング</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id29">データフォーマット</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id15" id="id30">関連ノート</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="id2">
+<h2><a class="toc-backref" href="#id17">資料</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>WebGL を学習するのに有益な資料を列挙する。</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.khronos.org/webgl/">WebGL Overview - The Khronos Group Inc</a>:
+WebGL 総本山。関連仕様書をダウンロードしてローカルディスクに保存しておくと吉。</p></li>
+<li><p><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API">WebGL: 2D and 3D graphics for the web - Web APIs |
+MDN</a>:
+ここにある資料を基本書としてまずは学習していく。</p>
+<ul>
+<li><p>Guides and tutorials を最初から再現、検証していくのがいい。Advanced までやり切る。</p></li>
+<li><p>Standard interfaces では <code class="docutils literal notranslate"><span class="pre">WebGLRenderingContext</span></code> を主に調べることになる。
+OpenGL の構成要素とのインターフェイスがこれに集中しているからだ。</p>
+<ul>
+<li><p>各 API の Examples の節も大いに有益だ。</p></li>
+</ul>
+</li>
+<li><p>WebGL by example の章も一通りやるといい。</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://duriansoftware.com/joe/an-intro-to-modern-opengl.-table-of-contents">An intro to modern OpenGL. Table of Contents</a>:
+C 言語で書かれたプログラムの解説だ。WebGL
+コードに書き換えるのといい練習になる。</p></li>
+<li><p><a class="reference external" href="https://webglfundamentals.org/">WebGL Fundamentals</a>: OpenGL のそれも含む基礎から学ぶ。このサイトの造りは恐ろしく良い。熟読推奨。</p></li>
+</ul>
+</section>
+<section id="id3">
+<h2><a class="toc-backref" href="#id18">環境構築</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>モダンなブラウザーとテキストエディター</p></li>
+<li><p>HTTP サーバーを起動できるようにしておく。例えば Python を使えるのならば次のコマンドでカレントディレクトリーをルートにしてサーバーが開始する。&lt;<a class="reference external" href="http://localhost:8000/">http://localhost:8000/</a>&gt; を開くと <code class="docutils literal notranslate"><span class="pre">./index.html</span></code> が表示される。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ python -m http.server</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="id4">
+<h2><a class="toc-backref" href="#id19">手筋</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>WebGL プログラミングの技法を思いつくまま、なるべく初歩的なものから高度なものに列挙する。</p>
+<section id="hello-world">
+<h3><a class="toc-backref" href="#id20">Hello world</a><a class="headerlink" href="#hello-world" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p>OpenGL の学習と同様に、一色でベタ塗りされた画面を描画できるようになることを最初の目標にするといい。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">script</span></code> タグで GLSL コードが書ける。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;x-shader/x-vertex&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;shader&quot;</span><span class="p">&gt;...&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>この形式では <code class="docutils literal notranslate"><span class="pre">document.querySelector(&quot;#shader&quot;).innerHTML</span></code> を
+<code class="docutils literal notranslate"><span class="pre">gl.shaderSource</span></code> に実引数として渡すことで動作する。</p>
+</li>
+<li><p>GLSL コードを個別にテキストファイルに保存してあるとする。これを JavaScript コードから <code class="docutils literal notranslate"><span class="pre">fetch</span></code> でロードすることを考えると、それを呼び出す関数、さらにそれを呼び出す関数等々を非同期関数に書くのが自然になる。</p></li>
+</ul>
+</section>
+<section id="opengl-javascript">
+<h3><a class="toc-backref" href="#id21">OpenGL との相違点と JavaScript 固有の事情</a><a class="headerlink" href="#opengl-javascript" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">WebGLRenderingContext</span></code> のメンバー名と、元になっている OpenGL API
+の名前との対応関係を体で理解する。例を挙げると：</p>
+<ul>
+<li><p>定数名 <code class="docutils literal notranslate"><span class="pre">GL_COLOR_BUFFER_BIT</span></code> などは <code class="docutils literal notranslate"><span class="pre">gl.COLOR_BUFFER_BIT</span></code>
+などのようになる。</p></li>
+<li><p>関数名 <code class="docutils literal notranslate"><span class="pre">glVertrexAttribPointer</span></code> などは
+<code class="docutils literal notranslate"><span class="pre">gl.vertexAttribPointer</span></code> などのようになる。</p></li>
+</ul>
+</li>
+<li><p>WebGL は OpenGL 同様に強力に型付けされたデータを必要とするので、次の JavaScript クラスを使いこなせるようにしておくことだ：</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Uint8Array</span></code>, <code class="docutils literal notranslate"><span class="pre">Uint8ClampedArray</span></code>: RGBA 値などに応用</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Uint16Array</span></code>, <code class="docutils literal notranslate"><span class="pre">Uint32Array</span></code>: インデックスデータに応用</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Float32Array</span></code>: 頂点データなどさまざまな用途に応用</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ArrayBuffer</span></code>: バッファーデータに応用</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DataView</span></code>: <code class="docutils literal notranslate"><span class="pre">ArrayBuffer</span></code> の生バイト列の操作をする。</p>
+<ul>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">setUint8</span></code> などの第一引数はバイト単位であることに注意。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>C/C++ で言う基本型のサイズを JavaScript で得るには、例えば
+<code class="docutils literal notranslate"><span class="pre">Float32Array.BYTES_PER_ELEMENT</span></code> などの定数を参照する。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">gl.createBuffer</span></code> が OpenGL の <code class="docutils literal notranslate"><span class="pre">glGenBuffers</span></code> の代わりになるようだ。同様にメソッド <code class="docutils literal notranslate"><span class="pre">gl.createTexture</span></code> が OpenGL の <code class="docutils literal notranslate"><span class="pre">glGenTextures</span></code> の代わりになる。
+WebGL にはこの種のメソッドがあと二つある。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gl.uniformMatrix[234]fv</span></code> の第二引数は <code class="docutils literal notranslate"><span class="pre">false</span></code> でなければならない。</p></li>
+<li><p>例えば <code class="docutils literal notranslate"><span class="pre">gl.VertexAttribPointer</span></code> の引数 <code class="docutils literal notranslate"><span class="pre">normalize</span></code> の型が <code class="docutils literal notranslate"><span class="pre">GLboolean</span></code>
+ではなく JavaScript の基本型の <code class="docutils literal notranslate"><span class="pre">Boolean</span></code> であることに注意。これはハマった。</p></li>
+</ul>
+</section>
+<section id="id5">
+<h3><a class="toc-backref" href="#id22">キャンバス</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>HTML の <code class="docutils literal notranslate"><span class="pre">canvas</span></code> タグの使い方を習得する。レンダリングコンテキストオブジェクトをここから得る。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">canvas.getContext('webgl')</span></code> でそれを得る。そのオブジェクト名を
+<code class="docutils literal notranslate"><span class="pre">gl</span></code> とすること。決め打っていい。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gl.canvas</span></code> でキャンバスを参照する。</p></li>
+</ul>
+</li>
+<li><p>キャンバスのアスペクト比を考慮するならば <code class="docutils literal notranslate"><span class="pre">clientWidth</span></code>, <code class="docutils literal notranslate"><span class="pre">clientHeight</span></code> を採用する。
+<code class="docutils literal notranslate"><span class="pre">canvas.width</span> <span class="pre">/</span> <span class="pre">canvas.height</span></code> はダメ。</p>
+<ul>
+<li><p>一般に、キャンバスの寸法としてこれらのプロパティーを使うのが原則だ。</p></li>
+</ul>
+</li>
+<li><p>キャンバスのサイズは二種類あって、ピクセル単位のものと表示単位のものがある。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">canvas</span></code> タグの属性として設定する方法。</p></li>
+<li><p>それに加えて CSS から <cite>width</cite> と <cite>height</cite> が設定されている場合、WebGL の描画バッファーのサイズはタグ属性のほうを採る。</p></li>
+<li><p>タグ要素 <cite>clientWidth</cite>, <cite>clientHeight</cite> は CSS ピクセル単位。手動で <cite>canvas.width</cite> などに代入する。</p></li>
+</ul>
+</li>
+<li><p>リサイズしたら <code class="docutils literal notranslate"><span class="pre">gl.viewport</span></code> が基本的だ。</p></li>
+<li><p>ブラウザーにはズーム機能があるので <code class="docutils literal notranslate"><span class="pre">window.devicePixelRatio</span></code> のような情報を利用する。やみくもに <code class="docutils literal notranslate"><span class="pre">devicePixelRatio</span></code> を使用すると、パフォーマンスが著しく低下する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getBoundingClientRect()</span></code> も <code class="docutils literal notranslate"><span class="pre">clientWidth</span></code> などの寸法を返すが、整数とは限らない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ResizeObserver</span></code> で <code class="docutils literal notranslate"><span class="pre">content-box</span></code> か <code class="docutils literal notranslate"><span class="pre">device-pixel-content-box</span></code> の変化の通知を受け取るようにする。</p></li>
+<li><p>CSS の <code class="docutils literal notranslate"><span class="pre">box-sizing:</span> <span class="pre">border-box</span></code> を理解すると何かとよい。</p></li>
+</ul>
+</section>
+<section id="id6">
+<h3><a class="toc-backref" href="#id23">アニメーション</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>WebGL に限った話ではないが：</p>
+<ul class="simple">
+<li><p>JavaScript の関数 <code class="docutils literal notranslate"><span class="pre">requestAnimationFrame</span></code> の使い方を間違いなく習得すること。</p></li>
+<li><p>アニメーションをフレームレートに依存しないようにすること。前回描画時刻と現在との差分を利用する。</p></li>
+</ul>
+</section>
+<section id="id7">
+<h3><a class="toc-backref" href="#id24">イベント処理</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p>キャンバスでキーボードイベントを扱う場合には <code class="docutils literal notranslate"><span class="pre">tabindex</span></code> 属性の値を HTML で設定する。</p>
+<ul class="simple">
+<li><p>さらに、キャンバスがフォーカスされているときに枠が付かないように
+<code class="docutils literal notranslate"><span class="pre">outline:</span> <span class="pre">none</span></code> を CSS で設定するのが自然だ。</p></li>
+</ul>
+</li>
+<li><p>マウスドラッグに対応するイベントハンドラーは次のものにするのが現代的だ。こうするとタッチスクリーンでのタッチイベントにも対応してくれる（と思われる）：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">canvas</span><span class="p">.</span><span class="nx">onpointerdown</span> <span class="o">=</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">canvas</span><span class="p">.</span><span class="nx">onpointermove</span> <span class="o">=</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="c1">// Rotate, pan, etc.</span>
+    <span class="p">};</span>
+    <span class="nx">canvas</span><span class="p">.</span><span class="nx">setPointerCapture</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">pointerId</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">canvas</span><span class="p">.</span><span class="nx">onpointerup</span> <span class="o">=</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">canvas</span><span class="p">.</span><span class="nx">onpointermove</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="nx">canvas</span><span class="p">.</span><span class="nx">releasePointerCapture</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">pointerId</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="id8">
+<h3><a class="toc-backref" href="#id25">ベクトル・行列・アフィン変換</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p>ベクトルや行列を仮引数にとる関数を自作する場合、成分の個数に気を配ること。ダサいのを覚悟で、成分数を決め打ちしたコードを定義するのが無難だ。</p>
+<p>ベクトルの単位化を計算するコードを書いたときに、格好つけて
+<code class="docutils literal notranslate"><span class="pre">Array.reduce</span></code> で書いたら <code class="docutils literal notranslate"><span class="pre">w</span></code> 成分の存在を忘れていてみっともないことになった。</p>
+</li>
+<li><p>数学の表記とコード上の見かけは行と列が入れ替わっている。行列を一重配列で表現するとき、数学で言う列ベクトルを配列することになる。列ベクトルの成分を横に並べて、列ベクトルを縦に並べるからそうなる。</p>
+<p>これを頭の片隅に入れておけば混乱しない：</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// c++</span>
+<span class="k">struct</span> <span class="nc">Mat4x4</span> <span class="p">{</span>
+    <span class="n">Vec4</span> <span class="n">column</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><a class="reference external" href="https://glmatrix.net/">https://glmatrix.net/</a> から <code class="docutils literal notranslate"><span class="pre">gl-matrix-min.js</span></code>
+を入手しておくとよい。適当に unminify して <code class="docutils literal notranslate"><span class="pre">s/var/let/g</span></code>
+するとさらに良い。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mat4.create()</span></code> で行列オブジェクトを生成するらしい。この戻り値に対して
+<code class="docutils literal notranslate"><span class="pre">perspective</span></code>, <code class="docutils literal notranslate"><span class="pre">translate</span></code> などのメソッドを呼び出して成分を決める。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id9">
+<h3><a class="toc-backref" href="#id26">テクスチャー・画像・ビデオ</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p>画像ファイルからテクスチャーを生成するのに JavaScript のクラス
+<code class="docutils literal notranslate"><span class="pre">Image</span></code> を活用することをよく理解すること。特に <code class="docutils literal notranslate"><span class="pre">onload</span></code>
+で非同期的に <code class="docutils literal notranslate"><span class="pre">gl.texImage2D</span></code> を呼び出せるのがたいへん具合が良い。</p>
+<ul class="simple">
+<li><p>このような動的にファイルをロードするコードがある場合、
+<code class="docutils literal notranslate"><span class="pre">file://</span></code> から始まるパスで HTML をブラウザーで開くと上手くいかない。作業ディレクトリーから HTTP サーバーを起動するのがいいだろう。</p></li>
+</ul>
+</li>
+<li><p>HTML キャンバスで <code class="docutils literal notranslate"><span class="pre">context.getImageData</span></code> がセキュリティーエラーを出すことがある。画像のソースがよそのドメインからだとこうなる。</p>
+<ul class="simple">
+<li><p>WebGL は同じドメイン以外の画像を禁止している。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Image.crossOrigin</span></code> の値をどう設定するかが重要だ。</p></li>
+</ul>
+</li>
+<li><p>ビデオをテクスチャーに設定することが比較的容易に実現できる。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">documentCreate</span></code> で <code class="docutils literal notranslate"><span class="pre">video</span></code> タグを生成し、
+<code class="docutils literal notranslate"><span class="pre">onplaying</span></code> と <code class="docutils literal notranslate"><span class="pre">ontimeupdate</span></code> イベントハンドラーを実装する手法がある。</p></li>
+</ul>
+</li>
+<li><p>サポートされているテクスチャーユニットの数をシェーダーごとにあらかじめ確認しておくといい。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">gl</span><span class="p">.</span><span class="nx">getParameter</span><span class="p">(</span><span class="nx">gl</span><span class="p">.</span><span class="nx">MAX_TEXTURE_IMAGE_UNITS</span><span class="p">);</span>
+<span class="nx">gl</span><span class="p">.</span><span class="nx">getParameter</span><span class="p">(</span><span class="nx">gl</span><span class="p">.</span><span class="nx">MAX_VERTEX_TEXTURE_IMAGE_UNITS</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="id10">
+<h3><a class="toc-backref" href="#id27">テキスト</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>キャンバスの上に HTML の何らかの要素を CSS の能力でオーバーレイすればとりあえずはテキストを描ける。</p></li>
+<li><p>やりたいことが 3D シーン内にある何かに対して相対的な位置にテキストを描くことならば、射影計算を JavaScript 内でやることになる。</p></li>
+<li><p>キャンバスの <code class="docutils literal notranslate"><span class="pre">getContext(&quot;2d&quot;)</span></code> によるテキスト描画でもいい。</p></li>
+<li><p>DOM ではなくこれを使う利点は、テキスト以外にも描画できるものがあるということだ。</p></li>
+<li><p>テキストの描かれたテクスチャーを作成する方法も当然考えられる。そして、それを動的に生成する方法もあり得る。</p></li>
+<li><p>背景色を消すために OpenGL のブレンド機能を有効にする。</p></li>
+<li><p>WebGL に限らないが、動的に内容が変化するテキストを描画することは、コストがかかる。</p></li>
+</ul>
+</section>
+<section id="id11">
+<h3><a class="toc-backref" href="#id28">透過処理・アルファブレンディング</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<div class="admonition-todo admonition" id="id12">
+<p class="admonition-title">Todo</p>
+<p>書くことがあるはずだ。</p>
+</div>
+</section>
+<section id="id13">
+<h3><a class="toc-backref" href="#id29">データフォーマット</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<div class="admonition-todo admonition" id="id14">
+<p class="admonition-title">Todo</p>
+<p>実装が完全であるとは保証されていないが、Blender の <code class="docutils literal notranslate"><span class="pre">.obj</span></code> ファイルや <code class="docutils literal notranslate"><span class="pre">.mtl</span></code> ファイルを解析して
+JavaScript オブジェクトに変換するライブラリーがあるらしい。</p>
+</div>
+</section>
+</section>
+<section id="id15">
+<h2><a class="toc-backref" href="#id30">関連ノート</a><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="haverbeke18/index.html"><span class="doc">Eloquent JavaScript 読書ノート</span></a>: 三周くらい読めば JavaScript プログラミングは大丈夫。</p></li>
+<li><p><a class="reference internal" href="angel05/index.html"><span class="doc">OpenGL: A Primer Second Edition 読書ノート</span></a>: 古い OpenGL の概念がどれくらい生き残っているのかを確かめられる。</p></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="webgl-1.0/index.html" title="WebGL Specification 1.0 読書ノート"
+             >next</a></li>
+        <li class="right" >
+          <a href="hxutils.html" title="HTML-XML-utils 利用ノート"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">WebGL 学習ノート</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

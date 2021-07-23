@@ -1,0 +1,474 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>WebGL Specification 1.0 読書ノート &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
+    
+    <script src="../_static/mathjax-v3.js"></script>
+    
+    <link rel="prev" title="WebGL Specification 1.0 読書ノート" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="index.html" title="WebGL Specification 1.0 読書ノート"
+             accesskey="P">previous</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">WebGL Specification 1.0 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">WebGL Specification 1.0 読書ノート</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="webgl-specification-1-0">
+<h1><a class="toc-backref" href="#id2">WebGL Specification 1.0 読書ノート</a><a class="headerlink" href="#webgl-specification-1-0" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://www.khronos.org/registry/webgl/specs/latest/1.0/">WebGL Specification</a>
+を読んでいく。</p>
+<section id="abstract">
+<h2><a class="toc-backref" href="#id3">Abstract</a><a class="headerlink" href="#abstract" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>本仕様は HTML 5 要素 <code class="docutils literal notranslate"><span class="pre">canvas</span></code> に対する追加的なレンダリングコンテキストおよびサポートオブジェクトについて記述するものだ。</p></li>
+<li><p>このコンテキストは OpenGL ES 2.0 API に忠実に準拠した API を使用してレンダリングをすることができる。</p></li>
+</ul>
+</section>
+<section id="status-of-this-document">
+<h2><a class="toc-backref" href="#id4">Status of this document</a><a class="headerlink" href="#status-of-this-document" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>本文書は編集者の草稿だ。この文書を work in progress 以外の目的で引用してはならない。</p></li>
+</ul>
+<p>本ノートもそういうつもりで記していく。</p>
+</section>
+<section id="feedback">
+<h2><a class="toc-backref" href="#id5">Feedback</a><a class="headerlink" href="#feedback" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>本仕様についての一般的な議論はメーリングリストで歓迎される。</p></li>
+<li><p>本仕様やその適合試験に関するバグは GitHub のアカウントに報告する。プルリクエストもウェルカム。</p></li>
+</ul>
+<p>各 URL は本仕様書のオリジナルを参照して欲しい。当ノートには明記しない。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title">ノート目次</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#webgl-specification-1-0" id="id2">WebGL Specification 1.0 読書ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#abstract" id="id3">Abstract</a></p></li>
+<li><p><a class="reference internal" href="#status-of-this-document" id="id4">Status of this document</a></p></li>
+<li><p><a class="reference internal" href="#feedback" id="id5">Feedback</a></p></li>
+<li><p><a class="reference internal" href="#introduction" id="id6">1 Introduction</a></p>
+<ul>
+<li><p><a class="reference internal" href="#conventions" id="id7">1.1 Conventions</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#context-creation-and-drawing-buffer-presentation" id="id8">2 Context Creation and Drawing Buffer Presentation</a></p>
+<ul>
+<li><p><a class="reference internal" href="#context-creation" id="id9">2.1 Context Creation</a></p></li>
+<li><p><a class="reference internal" href="#the-drawing-buffer" id="id10">2.2 The Drawing Buffer</a></p></li>
+<li><p><a class="reference internal" href="#the-webgl-viewport" id="id11">2.3 The WebGL Viewport</a></p></li>
+<li><p><a class="reference internal" href="#premultiplied-alpha-canvas-apis-and-teximage2d" id="id12">2.4 Premultiplied Alpha, Canvas APIs and <code class="docutils literal notranslate"><span class="pre">texImage2D</span></code></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#webgl-resources" id="id13">3 WebGL Resources</a></p></li>
+<li><p><a class="reference internal" href="#security" id="id14">4 Security</a></p>
+<ul>
+<li><p><a class="reference internal" href="#resource-restrictions" id="id15">4.1 Resource Restrictions</a></p></li>
+<li><p><a class="reference internal" href="#origin-restrictions" id="id16">4.2 Origin Restrictions</a></p></li>
+<li><p><a class="reference internal" href="#supported-glsl-constructs" id="id17">4.3 Supported GLSL Constructs</a></p></li>
+<li><p><a class="reference internal" href="#defense-against-denial-of-service" id="id18">4.4 Defense Against Denial of Service</a></p></li>
+<li><p><a class="reference internal" href="#out-of-range-array-accesses" id="id19">4.5 Out-of-Range Array Accesses</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="introduction">
+<h2><a class="toc-backref" href="#id6">1 Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>次のようなことが non-normative コラムとして記されている：</p>
+<ul class="simple">
+<li><p>WebGL はウェブ用に設計された即時モードの 3D レンダリング API だ。</p></li>
+<li><p>OpenGL ES 2.0 から派生したもので、同様のレンダリング機能を HTML のコンテキストで提供している。</p></li>
+<li><p>WebGL は HTML Canvas 要素のレンダリングコンテキストとして設計されている。</p></li>
+<li><p>この文書では <code class="docutils literal notranslate"><span class="pre">WebGLRenderingContext</span></code> について説明する。</p></li>
+<li><p>OpenGL ES 2.0 の伝統を受け継いでいるため、最新のデスクトップ OpenGL や
+OpenGL ES 2.0 の開発に慣れている開発者であれば、WebGL の開発に移行するのは簡単なはずだ。</p></li>
+</ul>
+<section id="conventions">
+<h3><a class="toc-backref" href="#id7">1.1 Conventions</a><a class="headerlink" href="#conventions" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>OpenGL ES 2.0 の仕様と合致するように努力しているが、誤りを含む場合がある。矛盾が生じた場合は、OpenGL ES 2.0 仕様を正とする。</p></li>
+<li><p>本文書は OpenGL ES 2.0 仕様と併読することを意図している。特に指定のない限り、各メソッドの動作は OpenGL ES 2.0 で定義されている。この仕様は、相互運用性やセキュリティーを担保するために、OpenGL ES 2.0から分岐している場合がある。</p></li>
+</ul>
+</section>
+</section>
+<section id="context-creation-and-drawing-buffer-presentation">
+<h2><a class="toc-backref" href="#id8">2 Context Creation and Drawing Buffer Presentation</a><a class="headerlink" href="#context-creation-and-drawing-buffer-presentation" title="Permalink to this headline">¶</a></h2>
+<p>WebGL API を使用する前に、プログラム作者は以下に示すように、指定された
+<code class="docutils literal notranslate"><span class="pre">HTMLCanvasElement</span></code> または <code class="docutils literal notranslate"><span class="pre">OffscreenCanvas</span></code> の <code class="docutils literal notranslate"><span class="pre">WebGLRenderingContext</span></code>
+オブジェクトを取得する必要がある。このオブジェクトは OpenGL の状態を管理し、描画バッファーへのレンダリングを行うためのもので、コンテキスト作成時に作成する必要がある。</p>
+<section id="context-creation">
+<h3><a class="toc-backref" href="#id9">2.1 Context Creation</a><a class="headerlink" href="#context-creation" title="Permalink to this headline">¶</a></h3>
+<p>本節で述べられている仕様を <code class="docutils literal notranslate"><span class="pre">canvas.getContext(&quot;webgl&quot;)</span></code> の戻り値オブジェクトが満たすものと思われる。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">WebGLRenderingContext</span></code> には作成時に設定されるキャンバスが関連付けられている。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WebGLRenderingContext</span></code> は <code class="docutils literal notranslate"><span class="pre">WebGLContextAttributes</span></code> オブジェクトの中に、作成時に設定されるコンテキスト作成パラメーターを持つ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WebGLRenderingContext</span></code> は描画バッファーが作成されるたびに設定される実際のコンテキストパラメーターを <code class="docutils literal notranslate"><span class="pre">WebGLContextAttributes</span></code> オブジェクトに持つ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WebGLRenderingContext</span></code> は最初は設定されていない webgl context lost フラグを持つ。</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">getContext('webgl')</span></code> の呼び出しに対してブラウザーが処理するべき内容を順序だって述べている：</p>
+<ul class="simple">
+<li><p>新しい <code class="docutils literal notranslate"><span class="pre">WebGLRenderingContext</span></code> オブジェクトであるコンテキストを作成する。</p></li>
+<li><p>そのコンテキストのキャンバスをメソッド <code class="docutils literal notranslate"><span class="pre">getContext()</span></code> が関連付けられているキャンバスとする。</p></li>
+<li><p>新しい WebGLContextAttributes オブジェクト <code class="docutils literal notranslate"><span class="pre">contextAttributes</span></code> を作成する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getContext()</span></code> に第二引数として <code class="docutils literal notranslate"><span class="pre">options</span></code> を指定していた場合、指定した属性を <code class="docutils literal notranslate"><span class="pre">contextAttributes</span></code> に設定する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">contextAttributes</span></code> で指定された設定を使用して描画バッファーを作成し、その描画バッファーとコンテキストを関連付ける。</p></li>
+<li><p>描画バッファの作成に失敗した場合は、以下の手順を実行する：</p>
+<ul>
+<li><p>キャンバスで WebGL コンテキスト作成エラーを発生させる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">null</span></code> を返してこれらの手順を終了する。</p></li>
+</ul>
+</li>
+<li><p>新しい <code class="docutils literal notranslate"><span class="pre">WebGLContextAttributes</span></code> オブジェクトである <code class="docutils literal notranslate"><span class="pre">actualAttributes</span></code> を作成する。</p></li>
+<li><p>新しく作成した描画バッファーのプロパティに基づいて <code class="docutils literal notranslate"><span class="pre">actualAttributes</span></code> の属性を設定する。</p></li>
+<li><p>「コンテキストの作成パラメーター」を <code class="docutils literal notranslate"><span class="pre">contextAttributes</span></code> に設定する。</p></li>
+<li><p>コンテキストの「実際のコンテキストのパラメーター」を <code class="docutils literal notranslate"><span class="pre">actualAttributes</span></code> に設定する。</p></li>
+<li><p>コンテキストを返す。</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">experimental-webgl</span></code> に関する記述は軽視する。</p>
+</section>
+<section id="the-drawing-buffer">
+<h3><a class="toc-backref" href="#id10">2.2 The Drawing Buffer</a><a class="headerlink" href="#the-drawing-buffer" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>API コールが効く描画バッファーは <code class="docutils literal notranslate"><span class="pre">WebGLRenderingContext</span></code> オブジェクトの生成時に定義される。以下、描画バッファーの作成方法を定義する。</p></li>
+<li><p>この表は、描画バッファーを構成するすべてのバッファーごとに、その最小サイズと、デフォルトで定義されているかどうかを示している。</p>
+<ul>
+<li><p>この描画バッファーのサイズは、キャンバスの <code class="docutils literal notranslate"><span class="pre">width</span></code> および <code class="docutils literal notranslate"><span class="pre">height</span></code> によって決定される。</p></li>
+<li><p>下の表は、最初に作成されたとき、サイズが変更されたとき、または <code class="docutils literal notranslate"><span class="pre">preserveDrawingBuffer</span></code> コンテキスト作成属性が <code class="docutils literal notranslate"><span class="pre">false</span></code> のときの表現後に、各バッファーがクリアされるべき値も示している。</p></li>
+</ul>
+</li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>バッファー</p></th>
+<th class="head"><p>クリア値</p></th>
+<th class="head"><p>最小サイズ</p></th>
+<th class="head"><p>既定値が存在するか</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>色</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0)</span></code></p></td>
+<td><p>8 ビット</p></td>
+<td><p>存在する</p></td>
+</tr>
+<tr class="row-odd"><td><p>深度</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1.0</span></code></p></td>
+<td><p>16 ビット整数</p></td>
+<td><p>存在する</p></td>
+</tr>
+<tr class="row-even"><td><p>ステンシル</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>8 ビット</p></td>
+<td><p>存在しない</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>寸法が 0x0 のキャンバスでは 1x1 の <code class="docutils literal notranslate"><span class="pre">drawingBufferWidth</span></code>, <code class="docutils literal notranslate"><span class="pre">drawingBufferHeight</span></code> になる。</p></li>
+<li><p>要求された幅や高さを満たすことができない場合、描画バッファーが最初に作成されたとき、またはキャンバスの幅や高さの属性が変更されたときに、より小さな寸法の描画バッファーが作成される。実際に使用される寸法は実装に依存し、同じアスペクト比のバッファーが作成されることは保証されない。</p>
+<ul>
+<li><p>実際の描画バッファーのサイズは属性 <code class="docutils literal notranslate"><span class="pre">drawingBufferWidth</span></code> と <code class="docutils literal notranslate"><span class="pre">drawingBufferHeight</span></code> から得ることができる。</p></li>
+</ul>
+</li>
+<li><p>WebGL の実装では、高解像度のディスプレイで描画バッファーのサイズを自動的に拡縮してはならない。コンテキストの <code class="docutils literal notranslate"><span class="pre">drawingBufferWidth</span></code> および <code class="docutils literal notranslate"><span class="pre">drawingBufferHeight</span></code> は、実装依存の制約を除いて、キャンバスの属性 <code class="docutils literal notranslate"><span class="pre">width</span></code> および <code class="docutils literal notranslate"><span class="pre">height</span></code> に可能なかぎり一致しなければならない。</p></li>
+</ul>
+<hr class="docutils" />
+<ul class="simple">
+<li><p>上記の制約は、高精細ディスプレイであっても、キャンバス要素がウェブページ上で消費する空間の大きさを変えるものではない。キャンバスの固有寸法はその座標空間のサイズに等しく、数値は CSS ピクセルで解釈されるのであって、解像度に依存しない。</p></li>
+<li><p>WebGL アプリケーションは、プロパティー <code class="docutils literal notranslate"><span class="pre">window.devicePixelRatio</span></code> などを確認し、キャンバスの幅と高さをその係数で乗じて、CSS の幅と高さを元の幅と高さに設定することで、高解像度のディスプレイ上で、描画バッファーのピクセルと画面上のそれの比率を 1:1 にすることができる。</p></li>
+</ul>
+<hr class="docutils" />
+<ul>
+<li><p>オプションの <code class="docutils literal notranslate"><span class="pre">WebGLContextAttributes</span></code> オブジェクトを使って、バッファーを定義するかどうかを変更することができる。また、カラーバッファにアルファチャンネルを含めるかどうかを定義するのにも使用できる。</p>
+<ul class="simple">
+<li><p>定義された場合、アルファーチャンネルは、HTML 合成器 がカラーバッファーをページの残りの部分と結合するために使用される。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WebGLContextAttributes</span></code> オブジェクトは、<code class="docutils literal notranslate"><span class="pre">getContext</span></code> の最初の呼び出し時にのみ使用される。描画バッファーの作成後にその属性を変更する機能はない。</p></li>
+</ul>
+</li>
+<li><p>深度、ステンシル、アンチエイリアスの属性は、<code class="docutils literal notranslate"><span class="pre">true</span></code> に設定されている場合、要求であって要件ではありません。WebGL の実装では、これらの属性を考慮するように努力をする必要がある。ただし、これらの属性が <code class="docutils literal notranslate"><span class="pre">false</span></code> に設定されている場合、WebGL の実装は関連する機能を提供しない。</p>
+<ul class="simple">
+<li><p>WebGL の実装やグラフィックスハードウェアでサポートされていない属性を組み合わせても、
+<code class="docutils literal notranslate"><span class="pre">WebGLRenderingContext</span></code> の作成に失敗することはない。</p></li>
+<li><p>実際のコンテキストパラメーターには、作成された描画バッファーの属性が設定される。</p></li>
+<li><p>属性 <code class="docutils literal notranslate"><span class="pre">alpha</span></code>, <code class="docutils literal notranslate"><span class="pre">premultipliedAlpha</span></code>, <code class="docutils literal notranslate"><span class="pre">preserveDrawingBuffer</span></code> は、WebGL の実装に従わなければならない。</p></li>
+</ul>
+</li>
+<li><p>WebGL は、合成操作の直前にその描画バッファーを HTML ページの合成器に提示するが、それは前回の合成操作以降に以下の少なくとも一つが発生している場合に限る：</p>
+<ul class="simple">
+<li><p>コンテキストの作成</p></li>
+<li><p>キャンバスのサイズ変更</p></li>
+<li><p>描画バッファーが現在束縛されているフレームバッファーである間に、
+<code class="docutils literal notranslate"><span class="pre">clear</span></code>, <code class="docutils literal notranslate"><span class="pre">drawArrays</span></code> または <code class="docutils literal notranslate"><span class="pre">drawElements</span></code> が呼び出された。</p></li>
+</ul>
+</li>
+<li><p>描画バッファーが合成のために提示される前に、実装はすべてのレンダリング操作が描画バッファーにフラッシュされていることを確認する。デフォルトでは、合成後、描画バッファーの内容は、上の表に示されているように、それらの既定値に消去されなければならない。</p></li>
+<li><p>この既定の動作を、<code class="docutils literal notranslate"><span class="pre">WebGLContextAttributes</span></code> オブジェクトの属性 <code class="docutils literal notranslate"><span class="pre">preserveDrawingBuffer</span></code> を設定することで変更できる。</p>
+<ul>
+<li><p>このフラグが <code class="docutils literal notranslate"><span class="pre">true</span></code> の場合、描画バッファーの内容は、作者が消去するか上書きするまで保存される。</p></li>
+<li><p>このフラグが <code class="docutils literal notranslate"><span class="pre">false</span></code> の場合、レンダリング関数が戻ってきた後に、このコンテキストをソース画像として使用した操作を実行しようとすると、未定義の動作を引き起こす可能性がある。これには、</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">readPixels</span></code> や <code class="docutils literal notranslate"><span class="pre">toDataURL</span></code> の呼び出し、</p></li>
+<li><p>他のコンテキストの <code class="docutils literal notranslate"><span class="pre">texImage2D</span></code> や <code class="docutils literal notranslate"><span class="pre">drawImage</span></code> の呼び出しのソース画像としてのこのコンテキストの使用、</p></li>
+<li><p>このコンテキストのキャンバスからの <code class="docutils literal notranslate"><span class="pre">ImageBitmap</span></code> の作成</p></li>
+</ul>
+<p>などがある。</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<ul>
+<li><p>描画バッファーを保持することが望ましい場合もあるが、プラットフォームによってはパフォーマンスが著しく低下する可能性がある。可能な限り、このフラグは <code class="docutils literal notranslate"><span class="pre">false</span></code> のままにして、他の手法を使うべきだ。</p>
+<p>描画バッファーの内容を取得するには、同期的な描画バッファーアクセス、例えば、描画バッファーへのレンダリングを行うのと同じ関数内で <code class="docutils literal notranslate"><span class="pre">readPixels</span></code> や
+<code class="docutils literal notranslate"><span class="pre">toDataURL</span></code> を呼び出す、などの手法を使用できる。</p>
+<p>一連の呼び出しで同じ描画バッファーにレンダリングする必要がある場合は、
+<code class="docutils literal notranslate"><span class="pre">Framebuffer</span></code> オブジェクトを使用することができる。</p>
+</li>
+<li><p>バッファー作者が他のプロセスからバッファの内容にアクセスできないことを保証する限り、実装は、必要な描画バッファーの暗黙の消去操作を最適化することができる。例えば、バッファー作者が明示的な消去を行った場合、暗黙の消去は必要ない。</p></li>
+</ul>
+</section>
+<section id="the-webgl-viewport">
+<h3><a class="toc-backref" href="#id11">2.3 The WebGL Viewport</a><a class="headerlink" href="#the-webgl-viewport" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>OpenGL は、描画バッファー内のレンダリング結果の配置を定義する状態の一部として、長方形のビューポートをやりくりする。WebGL コンテキストの作成時に、ビューポートを、</p>
+<ul>
+<li><p>原点が <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">0)</span></code> で、</p></li>
+<li><p>幅と高さが <code class="docutils literal notranslate"><span class="pre">(gl.drawingBufferWidth,</span> <span class="pre">gl.drawingBufferHeight)</span></code> に等しい長方形に初期化する。</p></li>
+</ul>
+</li>
+<li><p>WebGL の実装では、キャンバス要素のサイズ変更に応じて OpenGL ビューポートの状態に影響を与えてはならない。</p></li>
+</ul>
+<hr class="docutils" />
+<p>WebGL プログラムにビューポートを設定するロジックが含まれていないと、キャンバスのサイズが変更された場合に適切に対処できないことに注意。次の例は、WebGL プログラムがプログラムによってキャンバスのサイズを変更する方法を示す（一部改変）：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;canvas1&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">gl</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s1">&#39;webgl&#39;</span><span class="p">);</span>
+<span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">newWidth</span><span class="p">;</span>
+<span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nx">newHeight</span><span class="p">;</span>
+<span class="nx">gl</span><span class="p">.</span><span class="nx">viewport</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">gl</span><span class="p">.</span><span class="nx">drawingBufferWidth</span><span class="p">,</span> <span class="nx">gl</span><span class="p">.</span><span class="nx">drawingBufferHeight</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>なぜなら、ビューポートを自動的に設定すると、それを手動で設定するアプリケーションと干渉するからだ。アプリケーションは <code class="docutils literal notranslate"><span class="pre">onresize</span></code> イベントハンドラーを使用して、キャンバスのサイズの変更に応答し、
+OpenGL ビューポートを設定することが期待される。</p>
+</section>
+<section id="premultiplied-alpha-canvas-apis-and-teximage2d">
+<h3><a class="toc-backref" href="#id12">2.4 Premultiplied Alpha, Canvas APIs and <code class="docutils literal notranslate"><span class="pre">texImage2D</span></code></a><a class="headerlink" href="#premultiplied-alpha-canvas-apis-and-teximage2d" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p>OpenGL API では、アプリケーションがレンダリング時に使用するブレンドモードを変更することができる。そのため、描画バッファー内のアルファー値の解釈様式を制御することができる。</p></li>
+<li><p>HTML キャンバス API の <code class="docutils literal notranslate"><span class="pre">toDataURL</span></code> および <code class="docutils literal notranslate"><span class="pre">drawImage</span></code> は、
+<code class="docutils literal notranslate"><span class="pre">premultipliedAlpha</span></code> コンテキスト生成パラメーターを考慮する必要がある。
+WebGL がレンダリングされているキャンバスに対して <code class="docutils literal notranslate"><span class="pre">toDataURL</span></code> が呼び出されたとき、</p>
+<ul class="simple">
+<li><p>要求された画像フォーマットが <code class="docutils literal notranslate"><span class="pre">premultipliedAlpha</span></code> を指定しておらず、</p></li>
+<li><p>WebGL コンテキストの <code class="docutils literal notranslate"><span class="pre">premultipliedAlpha</span></code> パラメーターが <code class="docutils literal notranslate"><span class="pre">true</span></code> に設定されている場合は、</p></li>
+</ul>
+<p>ピクセル値を逆乗算、すなわち色チャンネルをアルファーチャンネルで除算する必要がある。この操作は非可逆的だ。</p>
+</li>
+<li><p>WebGL でレンダリングされたキャンバスを</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CanvasRenderingContext2D</span></code> の <code class="docutils literal notranslate"><span class="pre">drawImage</span></code> メソッドに渡す場合、
+<code class="docutils literal notranslate"><span class="pre">CanvasRenderingContext2D</span></code> の実装の乗算の必要性に応じて、描画操作中にレンダリングされた WebGL 内容を変更する必要がある場合とない場合がある。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">texImage2D</span></code> に渡す場合、渡されたキャンバスの <code class="docutils literal notranslate"><span class="pre">premultipliedAlpha</span></code> コンテキスト作成パラメーターと、送信先の WebGL コンテキストの <code class="docutils literal notranslate"><span class="pre">UNPACK_PREMULTIPLY_ALPHA_WEBGL</span></code> ピクセル格納パラメーターの設定に応じて、ピクセルデータを事前に乗算された形式に変更したり、乗算された形式から変更したりする必要がある。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="webgl-resources">
+<h2><a class="toc-backref" href="#id13">3 WebGL Resources</a><a class="headerlink" href="#webgl-resources" title="Permalink to this headline">¶</a></h2>
+<p>The DOM object will stay alive not only as long as the author retains an explicit reference to it, but also as long as it is in use by the underlying graphics library. When the DOM object is destroyed, it marks its resources for deletion. If authors wish to mark an object for deletion prior to the DOM object being destroyed, they may explicitly call the respective delete function. (e.g. deleteTexture)</p>
+<ul class="simple">
+<li><p>OpenGL は、その状態の部分として、いくつかの型のリソースを統制している。これらのオブジェクトには整数の名前が付けられ、それにより識別され、さまざまな作成コールによって OpenGL から得る。一方、WebGL はこれらのリソースを DOM オブジェクトとして表現する。各オブジェクトは、<code class="docutils literal notranslate"><span class="pre">WebGLObject</span></code> インターフェースから派生している。現在サポートされているリソースは次のようなものだ：</p>
+<ul>
+<li><p>テクスチャー</p></li>
+<li><p>バッファー（例：VBO）</p></li>
+<li><p>フレームバッファー</p></li>
+<li><p>レンダーバッファー</p></li>
+<li><p>シェーダー</p></li>
+<li><p>プログラム</p></li>
+</ul>
+</li>
+<li><p>インターフェース <code class="docutils literal notranslate"><span class="pre">WebGLRenderingContext</span></code> には、型ごとに <code class="docutils literal notranslate"><span class="pre">WebGLObject</span></code> のサブクラスを作成するためのメソッドが用意されている。基礎にあるグラフィックライブラリーから来るデータは、これらのオブジェクトに格納され、完全に管理される。</p></li>
+<li><p>DOM オブジェクトは、オーナーが明示的な参照を保持している間だけでなく、基礎にあるグラフィックスライブラリーが使用している間じゅう存続する。</p></li>
+<li><p>DOM オブジェクトが破壊されると、そのリソースに削除のマークを付ける。破壊される前にオブジェクトを削除するようにマークしたい場合、オーナーは <code class="docutils literal notranslate"><span class="pre">deleteTexture</span></code> などの、それぞれに対応する <code class="docutils literal notranslate"><span class="pre">delete</span></code> 関数を明示的に呼び出せる。</p></li>
+</ul>
+</section>
+<section id="security">
+<h2><a class="toc-backref" href="#id14">4 Security</a><a class="headerlink" href="#security" title="Permalink to this headline">¶</a></h2>
+<p>この節はなぜかセキュリティーという名前だ。</p>
+<section id="resource-restrictions">
+<h3><a class="toc-backref" href="#id15">4.1 Resource Restrictions</a><a class="headerlink" href="#resource-restrictions" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>テクスチャーや頂点バッファオブジェクト (VBO) などの WebGL リソースは、ユーザーデータの初期値を含まずに作成された場合でも、初期化されたデータを含まねばならない。</p>
+<ul>
+<li><p>初期値なしでリソースを作成するのは、テクスチャーや VBO のための領域を確保するためで、その後 <code class="docutils literal notranslate"><span class="pre">texSubImage</span></code> や <code class="docutils literal notranslate"><span class="pre">bufferSubData</span></code> 呼び出しを使って変更する。</p></li>
+<li><p>これらの呼び出しに初期データが与えられない場合、WebGL の実装ではその内容をゼロで初期化する。このためには、要求された VBO のサイズに合わせてゼロの一時バッファーを作成し、正しく初期化できなければならない。</p></li>
+<li><p>テクスチャーや VBO にデータをロードする他のすべての形式は、
+<code class="docutils literal notranslate"><span class="pre">ArrayBuffer</span></code> または画像などの DOM オブジェクトを含むため、すでに初期化されていなければならない。</p></li>
+</ul>
+</li>
+<li><p>WebGL リソースが <code class="docutils literal notranslate"><span class="pre">drawElements</span></code> や <code class="docutils literal notranslate"><span class="pre">drawArrays</span></code> などの呼び出しによってシェーダーからアクセスされる場合、
+WebGL の実装はシェーダーが境界外のデータや初期化されていないデータにアクセスさせないものとする。</p>
+<ul>
+<li><p>WebGL の実装で実施しなければならない制限事項については後述。</p></li>
+</ul>
+</li>
+</ul>
+<p>ユーザー側に有利なように仕様が決められていることがうかがえる。</p>
+</section>
+<section id="origin-restrictions">
+<h3><a class="toc-backref" href="#id16">4.2 Origin Restrictions</a><a class="headerlink" href="#origin-restrictions" title="Permalink to this headline">¶</a></h3>
+<p>情報漏洩を防ぐため、WebGL では次に挙げるものをテクスチャーとしてアップロードすることを禁じる：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">WebGLRenderingContext</span></code> の <code class="docutils literal notranslate"><span class="pre">canvas</span></code> 要素を含む <code class="docutils literal notranslate"><span class="pre">Document</span></code> の出どころと同じではない出どころを持つイメージまたはビデオ要素</p></li>
+<li><p>ビットマップの <code class="docutils literal notranslate"><span class="pre">origin-clean</span></code> フラグが <code class="docutils literal notranslate"><span class="pre">false</span></code> に設定されている <code class="docutils literal notranslate"><span class="pre">canvas</span></code> 要素</p></li>
+<li><p>ビットマップの <code class="docutils literal notranslate"><span class="pre">origin-clean</span></code> フラグが <code class="docutils literal notranslate"><span class="pre">false</span></code> に設定されている <code class="docutils literal notranslate"><span class="pre">ImageBitmap</span></code> オブジェクト</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">texImage2D</span></code> メソッドまたは <code class="docutils literal notranslate"><span class="pre">texSubImage2D</span></code> メソッドが、これらの制限に違反する</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">HTMLImageElement</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HTMLVideoElement</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HTMLCanvasElement</span></code> または</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ImageBitmap</span></code></p></li>
+</ul>
+<p>を含む正しい引数で呼び出された場合に <code class="docutils literal notranslate"><span class="pre">SECURITY_ERR</span></code> 例外を送出するものとする。</p>
+<hr class="docutils" />
+<p>ここの記述は仕様ではない：</p>
+<ul class="simple">
+<li><p>WebGL ではシェーダーを使用して GPU にアップロードされたテクスチャーの内容を間接的に推測することができることから、クロスドメインメディアの使用に 2D キャンバスレンダリングコンテキストなどの他の API よりも強い制限を課すのは当然だ。</p></li>
+<li><p>WebGL アプリケーションは、目的のメディアを置いているサーバーの許可を得て、Cross-Origin Resource Sharing (CORS) を使用して、他のドメインから来た画像やビデオを利用できる。</p>
+<ul>
+<li><p>このようなメディアを使用するには、アプリケーションとサーバーの間でその許可をやりとりする必要がある。</p></li>
+<li><p>CORS を利用して他のドメインから画像やビデオの要素を取得すると、これらの要素の発信元は含まれる文書のものに設定される。</p></li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<p>次の例（個人的に改変）では、別のドメインから送られてくる画像に対して CORS リクエストを発行する方法を示している。画像は、認証情報 (Cookie) なしでサーバーから得られる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">gl</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;canvas&quot;</span><span class="p">).</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;webgl&quot;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">image</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Image</span><span class="p">();</span>
+
+<span class="c1">// The onload handler should be set to a function which uploads the HTMLImageElement</span>
+<span class="c1">// using texImage2D or texSubImage2D.</span>
+<span class="nx">image</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="nx">image</span><span class="p">.</span><span class="nx">crossOrigin</span> <span class="o">=</span> <span class="s2">&quot;anonymous&quot;</span><span class="p">;</span>
+<span class="nx">image</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="s2">&quot;http://other-domain.com/image.jpg&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>なお、これらのルールは、WebGL を使用してレンダリングされた <code class="docutils literal notranslate"><span class="pre">canvas</span></code> の
+<code class="docutils literal notranslate"><span class="pre">origin-clean</span></code> フラグが決して <code class="docutils literal notranslate"><span class="pre">false</span></code> に設定されないことを含意することに注意。</p></li>
+<li><p>詳しくは以下を見ろとある：</p>
+<ul>
+<li><p><a class="reference external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/urls.html#cors-settings-attribute">CORS settings attributes</a></p></li>
+<li><p><a class="reference external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/embedded-content-1.html#the-img-element">The img element</a></p></li>
+<li><p><a class="reference external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-iframe-element.html#media-elements">Media elements</a></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="supported-glsl-constructs">
+<h3><a class="toc-backref" href="#id17">4.3 Supported GLSL Constructs</a><a class="headerlink" href="#supported-glsl-constructs" title="Permalink to this headline">¶</a></h3>
+<p>WebGL 1.0 における GLSL の仕様。基本的には OpenGL ES の GLSL ver 1.0 であり（これは別にノートをとる予定）、そこからいくつかの機能を削ったものとみなしてよいようだ。</p>
+<hr class="docutils" />
+<p>WebGL は、The OpenGL ES Shading Language, Version 1.00 に準拠し、
+Appendix A のセクション 4 および 5 で義務付けられている最小機能を超えないシェーダーしか受け入れてはならない。具体的には：</p>
+<ul class="simple">
+<li><p>デスクトップ版 OpenGL など、他のバージョンの GLSL で利用可能な状態変数や関数を参照するシェーダーに対して、ロードを許可しない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">for</span></code> ループは Appendix A の構造的制約に従うものとする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">while</span></code> および <code class="docutils literal notranslate"><span class="pre">do</span></code>-<code class="docutils literal notranslate"><span class="pre">while</span></code> ループは、Appendix A ではオプションとなっているため、許可しない。</p></li>
+<li><p>Appendix A では、配列のインデックス付けの特定の形式を義務付けている。例えば、フラグメントシェーダー内では、インデックス付けは constant-index-expression でしかできない。
+WebGL API は Appendix A で義務付けられているインデクス付与の形式しかサポートしない。</p></li>
+</ul>
+<p>前述の仕様にある予約済み識別子に加えて、
+<code class="docutils literal notranslate"><span class="pre">webgl_</span></code> および <code class="docutils literal notranslate"><span class="pre">_webgl_</span></code> で始まる識別子が WebGL のために予約済みだ。これらの接頭辞で始まる関数、変数、構造体名、構造体フィールドを宣言しているシェーダーのロードを許可してはならない。</p>
+<p>WebGL 1.0 では、シェーダーの中で行継続文字 <code class="docutils literal notranslate"><span class="pre">\</span></code> を追加サポートする必要がある。</p>
+</section>
+<section id="defense-against-denial-of-service">
+<h3><a class="toc-backref" href="#id18">4.4 Defense Against Denial of Service</a><a class="headerlink" href="#defense-against-denial-of-service" title="Permalink to this headline">¶</a></h3>
+<p>本節はすべて non-normative マークが付いている。だいたい次のようなことを述べている：</p>
+<hr class="docutils" />
+<ul class="simple">
+<li><p>レンダリングに時間がかかることはたいへん起こりがちだ。それは（レンダリング要素のない）スクリプトについても言えるのだが、長時間の描画呼び出しはブラウザーだけでなく、ウィンドウシステム全体の操作性を損ねる可能性が高い。</p></li>
+<li><p>この問題を防御するのに入力シェーダーの構造に何か制約を加えるということは、一般的にはできない。</p></li>
+<li><p>ブラウザーは過度に長い描画時間や、それに付随する操作性の低下を防ぐためにセーフガードを実装する必要がある。推奨するセーフガードとは次のようなものだ：</p>
+<ul>
+<li><p>多数の要素を含む描画呼び出しを、より小さなものに分割する。</p></li>
+<li><p>個々の描画呼び出しにタイミングを合わせ、特定のタイムアウトを超えた場合には、そのページでの追加的描画を禁止する。</p></li>
+<li><p>ユーザーレベル、グラフィックス API レベル、オペレーティングシステムレベルのどれかで利用可能な監視機能を使用して、描画呼び出しの継続時間を制限する。</p></li>
+<li><p>ブラウザーのグラフィックレンダリングを、アプリケーションの状態を失うことなく終了および再起動できる別個のシステムプロセスに分離する。</p></li>
+</ul>
+</li>
+</ul>
+<p>OS やグラフィックス API 層の基盤は時間の経過とともに改善されることが期待されるため、これらの保護機能の正確な性質は規定しない。</p>
+</section>
+<section id="out-of-range-array-accesses">
+<h3><a class="toc-backref" href="#id19">4.5 Out-of-Range Array Accesses</a><a class="headerlink" href="#out-of-range-array-accesses" title="Permalink to this headline">¶</a></h3>
+<p>シェーダーは、アプリケーション自身のデータの外側にある配列要素を読み書きすることはできない。これは、配列型の変数や、配列添字構文を使ってアクセスされる <code class="docutils literal notranslate"><span class="pre">vec3</span></code> や <code class="docutils literal notranslate"><span class="pre">mat4</span></code>
+などのベクトル型や行列型を含む。コンパイル中にこのようなアクセスが検出された場合、エラーが発生し、シェーダーのコンパイルができなくなる。そうでなければ、実行時において、範囲外の読み取りは以下のいずれかの値を返さなければならないものとする：</p>
+<ul class="simple">
+<li><p>プログラムがアクセス可能な記憶域内の任意の場所から得られる値。</p></li>
+<li><p>値ゼロ、または読み取りベクトルに対しては <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">x)</span></code> の形のベクトル。ここで <code class="docutils literal notranslate"><span class="pre">x</span></code> はそのベクトル成分の型で表現される有効な値であり、以下のいずれかだ：</p>
+<ul>
+<li><p>成分が整数の場合は 0, 1, あるいは表現可能な最大の正の整数値</p></li>
+<li><p>浮動小数点成分の場合は 0.0 または 1.0</p></li>
+</ul>
+</li>
+</ul>
+<p>範囲外の書き込みは、破棄されるか、プログラムがアクセス可能な記憶域内の不特定の値を変更する。</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="index.html" title="WebGL Specification 1.0 読書ノート"
+             >previous</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >WebGL Specification 1.0 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">WebGL Specification 1.0 読書ノート</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>
