@@ -119,5 +119,6 @@ Contents:
    css-selector
    xpath
    hxutils
+   glsl460/index
    webgl
    webgl-1.0/index
