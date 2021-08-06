@@ -276,8 +276,6 @@ Atomic Counters
 Texture, sampler, and samplerShadow Types
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Textures can be combined with a variable of type sampler or samplerShadow to create a texture-combined sampler type (e.g., sampler2D, or sampler2DShadow). This is done with a constructor, e.g., sampler2D(texture2D, sampler), sampler2DShadow(texture2D, sampler), sampler2DShadow(texture2D, samplerShadow), or sampler2D(texture2D, samplerShadow) and is described in more detail in section 5.4 "Constructors".
-
 テクスチャー、採取器、samplerShadow 型は不透明型で、上記の不透明な型と同様に宣言され、動作する。
 シェーダー内で配列に集約されている場合、これらの型は動的一様な式でしかインデックスを付けることができない。
 そうしないとテクスチャー検索は未定義の値になる。
@@ -783,7 +781,7 @@ C/C++ 言語の構造体 ``struct`` と同じようなことができる：
 ある段階のどのシェーダーも配列の明示的なサイズを持っていない場合、
 その段階の最大の暗黙的なサイズ（使用されている最大のインデックスよりも 1 多い）が採用される。
 段階をまたいだ配列のサイズ変更はない。
-これは、配列が他の段階やアプリケーションと共有されるインターフェースブロック内で宣言されている場合に関係する
+これは、配列が他の段階やアプリケーションと共有されるインターフェイスブロック内で宣言されている場合に関係する
 （他の未使用の配列は最適化により排除されてもかまわない）。
 
 共有される大域スカラーは、厳密に同じ型名と型定義を持たなければならない。
@@ -894,7 +892,6 @@ SPIR-V の特殊化定数は、"特殊化-定数修飾子 "で説明したよう
 
 **定整数式** (a constant integral expression) とは定数式であって、スカラーの符号付きまたは符号なしの整数に評価されるものだ。
 
-See “The Invariant Qualifier” for more details on how to create invariant expressions and “Precision Qualifiers” for detail on how expressions are evaluated.
 定数式は不変的な方法で評価されるため、複数のシェーダーに同じ定数式が現れた場合、同じ値が生成される。
 :ref:`4.8.1. The Invariant Qualifier`, :ref:`4.7.2. Precision Qualifiers` を参照。
 
@@ -915,7 +912,7 @@ See “The Invariant Qualifier” for more details on how to create invariant ex
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 シェーダーの入力変数は ``in`` 格納修飾子で宣言される。
-この変数は、API パイプラインの前段階と宣言したシェーダーとの間の入力インターフェースを形成する。
+この変数は、API パイプラインの前段階と宣言したシェーダーとの間の入力インターフェイスを形成する。
 入力変数は大域スコープで宣言しなければならない。
 前のパイプライン段階から来る値は、シェーダー実行開始時に入力変数にコピーされる。
 入力として宣言された変数に書き込むコードはコンパイルエラーとなる。
@@ -966,7 +963,7 @@ See “The Invariant Qualifier” for more details on how to create invariant ex
 前のアクティブシェーダー段階で同じ名前の出力変数によって書き出された、頂点ごとの値を取得する。
 これらの入力では ``centroid`` や補間修飾子が使えるが、効果はない。
 多角形分割制御、多角形分割評価、幾何シェーダーは頂点集合を操作するので、
-各入力変数（または入力ブロック、下記のインターフェースブロックを参照）は配列として宣言する必要がある。
+各入力変数（または入力ブロック、下記のインターフェイスブロックを参照）は配列として宣言する必要がある。
 
 .. code:: glsl
 
@@ -981,14 +978,14 @@ See “The Invariant Qualifier” for more details on how to create invariant ex
 
 入力と出力は配列されているものもある。これは、シェーダー段階二つの間にあるインターフェイスでは、
 入力または出力の宣言を一致させるために、余分なレベルの配列インデックスが必要になることを意味する。
-例えば、頂点シェーダーと幾何シェーダーのインターフェースでは、
+例えば、頂点シェーダーと幾何シェーダーのインターフェイスでは、
 頂点シェーダーの出力変数と幾何シェーダーの入力変数の同名の変数は、型が一致していなければならない。
 ただし、幾何シェーダーは、頂点のインデックス付けを可能にするために、頂点シェーダーよりも 1 多い配列次元を持つことになる。
 このように配列されたインターフェイス変数が、必要である追加的入力・出力配列次元で宣言されていない場合、リンクエラーとなる。
 幾何シェーダー入力、多角形分割制御シェーダー入出力、多角形分割評価入力はすべて、
 他のシェーダー入出力に比べて追加的配列レベルを持っている。
 これらの入力と出力は、頂点ごとに配列された (per-vertex-arrayed) 入力と出力として知られている。
-配列されたインターフェース (``gl_MaxTessControlInputComponents``, etc.)
+配列されたインターフェイス (``gl_MaxTessControlInputComponents``, etc.)
 のコンポーネント制限は、インターフェイス全体に対する制限ではなく、頂点ごとの制限だ。
 
 非配列のインターフェイス（＝段階間配列の次元が変わらない）では、
@@ -1034,7 +1031,7 @@ See “The Invariant Qualifier” for more details on how to create invariant ex
    flat in vec3 myColor;
    noperspective centroid in vec2 myTexCoord;
 
-フラグメントシェーダーの入力は、頂点処理パイプラインにおける最終アクティブシェーダーとのインターフェースを形成する。
+フラグメントシェーダーの入力は、頂点処理パイプラインにおける最終アクティブシェーダーとのインターフェイスを形成する。
 このインターフェイスでは、最終アクティブシェーダー段階出力変数とフラグメントシェーダーの入力変数の同名の変数は、
 いくつかの例外（格納修飾子の一方は ``in`` で他方は ``out`` でなければならない）を除いて、型と修飾子が一致していなければならない。
 また、補間修飾子や補助修飾子も異なる場合がある。
@@ -1049,7 +1046,7 @@ See “The Invariant Qualifier” for more details on how to create invariant ex
 シェーダー段階間のインターフェイスが別々のプログラムオブジェクトのシェーダーを使って形成されている場合、
 プログラムがリンクされたときに入力と出力の間のミスマッチを検出することはできない。
 このようなインターフェイスでは、入力と出力の間にミスマッチがあると、
-インターフェースを介して渡される値は、部分的にまたは完全に未定義となる。
+インターフェイスを介して渡される値は、部分的にまたは完全に未定義となる。
 
 シェーダーで入出力レイアウト修飾子 (:ref:`4.4.1. Input Layout Qualifiers`,
 :ref:`4.4.2. Output Layout Qualifiers`)
@@ -1169,7 +1166,7 @@ uniforms または uniform buffers からのロード、または他のユーザ
 これにより、相対的な実行順序の制御が可能になる。
 シェーダーの呼び出しが ``barrier()`` を呼び出すと、他のすべての呼び出しが同じ実行ポイントに到達するまでその実行は一時停止する。
 ``barrier()`` を呼び出す前に実行された任意の呼び出しによって実行された出力変数の割り当ては、
-``barrier()``の呼び出しが戻った後、他の任意の呼び出しから見えるようになる。
+``barrier()`` の呼び出しが戻った後、他の任意の呼び出しから見えるようになる。
 
 多角形分割制御シェーダーの呼び出しは、バリア間で未定義の順序で実行されるので、
 頂点ごと、あるいはパッチごとの出力変数の値は時々未定義になる。
@@ -1213,7 +1210,7 @@ uniforms または uniform buffers からのロード、または他のユーザ
 ----
 
 計算シェーダーは組み込みの出力変数を持たず、ユーザー定義の出力変数もサポートせず、
-他のシェーダー段階との正式なインターフェースを形成しない。
+他のシェーダー段階との正式なインターフェイスを形成しない。
 計算シェーダーからの出力はすべて、画像格納や原子カウンターの演算などの副作用の形をとる。
 
 4.3.7. Buffer Variables
@@ -1279,8 +1276,255 @@ basic machine units 単位で表されるこの制限は、OpenGL API を使っ�
 4.3.9. Interface Blocks
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+入力、出力、一様、バッファー変数の宣言は、名前の付いたインターフェイスブロックにまとめることができ、
+個別の宣言では達せられない粗い粒度の backing が可能になる。
+これらはオプションでインスタンス名を持つことができ、シェーダー内でそのメンバーを参照するために用いられる。
+あるプログラム可能段階の出力ブロックは、後続のプログラム可能段階の対応する入力ブロックによって back される。
+一様ブロック (a uniform block) は、アプリケーションによってバッファーオブジェクトで back される。
+シェーダー格納ブロック (a shader storage block) と呼ばれるバッファー変数のブロックも、
+アプリケーションによってバッファーオブジェクトで back される。
+頂点シェーダーの入力ブロックやフラグメントシェーダーの出力ブロックを持つことは、コンパイルエラーとなり。
+これらの用途は将来のために予約されている。
+
+インターフェイスブロックは、キーワード ``in`, ``out``, ``uniform``, ``buffer``
+と、ブロック名、そして中括弧 ``{`` で始まる。
+
+.. admonition:: コメント
+
+   BNF による一覧を省略。
+
+----
+
+次のコードは ``Transform`` という名前の一様ブロックを定義する。
+``uniform`` 変数四つがグループ化される。
+
+.. code:: glsl
+
+   uniform Transform {
+       mat4 ModelViewMatrix;
+       mat4 ModelViewProjectionMatrix;
+       uniform mat3 NormalMatrix;      // allowed restatement of qualifier
+       float Deformation;
+   };
+
+----
+
+型と宣言子は、ブロック外の他の入力、出力、一様、バッファー変数の宣言と同じだ、以下の例外がある：
+
+* 初期化子は許されない。
+* 不透明型は許されない。
+* ブロック内での構造体定義の入れ子は許されない。
+
+これらはいずれもコンパイルエラーになる。
+
+メンバー宣言にオプションの修飾子がない場合、メンバーの修飾には、
+interface-qualifier で決定されるすべての ``in``, ``out``, ``patch``, ``uniform``,
+``buffer`` が含まれる。
+オプション修飾子を使用する場合、補間修飾子、補助格納修飾子、格納修飾子を含むことができ、
+ブロックのインターフェイス修飾子と一致する入力、出力、一様メンバーを宣言しなければならない。
+すなわち、入力変数、出力変数、一様変数、
+``buffer`` メンバーは、
+``in`` ブロック、
+``out`` ブロック、
+``uniform`` ブロック、シェーダー格納ブロック内それぞれにしか存在しない。
+
+メンバーのストレージ修飾子に ``in``, ``out``, ``patch``, ``uniform``, ``buffer``
+のいずれかのインターフェイス修飾子を繰り返すことはオプションだ。例えば：
+
+.. code:: glsl
+
+   in Material {
+       smooth in vec4 Color1; // legal, input inside in block
+       smooth vec4 Color2;    // legal, 'in' inherited from 'in Material'
+       vec2 TexCoord;         // legal, TexCoord is an input
+       uniform float Atten;   // illegal, mismatched storage qualifier
+   };
+
+----
+
+**シェーダーインターフェイス** (a shader interface) とは、次のうちの一つとする：
+
+* プログラムの中で宣言されたすべての一様変数と一様ブロック。
+  これは、一つのプログラム内でリンクされているすべてのコンパイル単位に及ぶ。
+* プログラム内で宣言された ``buffer`` ブロックすべて。
+* 隣接するプログラム可能パイプライン段階間の境界。
+  最初の段階のコンパイル単位すべてで宣言された出力すべてと、
+  次の段階のコンパイル単位すべて宣言された入力すべてに及ぶ。
+  なお、実際にはフラグメントシェーダーに渡された値すべては、
+  まずラスタライザーと補間器を通過するが、
+  この定義では、フラグメントシェーダーと先行するシェーダーは境界を共有すると考えられる。
+
+ブロック名 (block-name) は、シェーダーインターフェイス内での照合に用いられる。
+つまり、あるパイプライン段階の出力ブロックは、後続のパイプライン段階の同名の入力ブロックに合致する。
+一様ブロックやシェーダー格納ブロックの場合、アプリケーションはブロック名を使ってブロックを識別する。
+シェーダー内ではインターフェイスの照合以外にはブロック名を利用できない。
+大域スコープのブロック名をブロック名として以外に使用することはコンパイルエラーとなる
+（例えば、大域変数名や関数名にブロック名を使用することが現在予約されている）。
+ブロックの内容が同じであっても、一つのシェーダー内の同じシェーダーインターフェイスの
+複数のブロック宣言に同じブロック名を使用すると、コンパイルエラーとなる。
+
+一つのシェーダインターフェイスの中で合致したブロック名は、同じ数の宣言と同じ型の並び、
+同じメンバー名の並び、そしてメンバーごとのレイアウト修飾が一致していなければならない。
+一致した一様ブロック名またはシェーダー格納ロック名（入力ブロック名または出力ブロック名ではない）は、
+すべてインスタンス名がないか、またはすべてインスタンス名があり、
+それらのメンバーが同じスコープレベルにあることも必要だ。
+合致したブロック名の上にインスタンス名がある場合、インスタンス名が違っていても構わない。
+さらに、合致ブロックが配列として宣言されている場合は、配列のサイズまでも一致していなければならない。
+（または、連続するシェーダー段階間のシェーダーインターフェイスの配列一致規則ルールに従う）。
+不一致の場合、リンクタイムエラーとなる。
+ブロック名は、同一シェーダー内の異なるシェーダーインターフェイスで異なる定義であることが許されており、
+例えば、入力ブロックと出力ブロックが同じ名前であることも可能である。
+
+インスタンス名 (instance-name) を使用しない場合、ブロック内で宣言された名前は大域レベルでスコープされ、
+ブロックの外で宣言されたかのようにアクセスされる。
+インスタンス名を使用すると、スコープ内のすべてのメンバーが独自の名前空間内に置かれ、
+構造体と同様の、フィールドセレクター演算子 ``.`` でアクセスされる：
+
+.. code:: glsl
+
+   in Light {
+       vec4 LightPos;
+       vec3 LightColor;
+   };
+   in ColoredTexture {
+       vec4 Color;
+       vec2 TexCoord;
+   } Material;           // instance name
+   vec3 Color;           // different Color than Material.Color
+   vec4 LightPos;        // illegal, already defined
+   ...
+   ... = LightPos;       // accessing LightPos
+   ... = Material.Color; // accessing Color in ColoredTexture block
+
+シェーディング言語の外では、メンバーは同様に識別されるが、
+インスタンス名の代わりにブロック名が常に使用される。API のアクセスはシェーダーではなくシェーダーインターフェイスに対して行われるのだ。
+インスタンス名がない場合、API はメンバーにアクセスするためにブロック名を使用せず、メンバー名だけを使用する。
+
+シェーダーインターフェイス内では、同じ大域名の宣言すべては同じオブジェクトに対するものでなければならず、
+型や、インスタンス名のないブロックの変数やメンバーを宣言しているかどうかが一致していなければならない。
+また、API はシェーダーインターフェイス内のオブジェクトを一意に識別するためにこの名前を必要とする。
+次のどちらかが成り立つならば、どのシェーダーインターフェイスもリンクエラーになる：
+
+* インスタンス名を持たず、同じ名前のメンバーを持つ相異なるブロックが含まれている。
+* ブロック外の変数と、インスタンス名のないブロックで、その変数がブロック内のメンバーと同じ名前である。
+
+.. code:: glsl
+
+   out Vertex {
+       vec4 Position;  // API transform/feedback will use "Vertex.Position"
+       vec2 Texture;
+   } Coords;           // shader will use "Coords.Position"
+   out Vertex2 {
+       vec4 Color;     // API will use "Color"
+       float Color2;
+   };
+
+   // in same program as Vertex2 above:
+   out Vertex3 {
+       float Intensity;
+       vec4 Color;     // ERROR, name collision with Color in Vertex2
+   };
+   float Color2;       // ERROR, collides with Color2 in Vertex2
+
+----
+
+配列として宣言されたブロックでは、メンバーにアクセスする際に配列のインデックスも含める必要がある：
+
+.. code:: glsl
+
+   uniform Transform { // API uses "Transform[2]" to refer to instance 2
+       mat4 ModelViewMatrix;
+       mat4 ModelViewProjectionMatrix;
+       vec4 a[]; // array will get implicitly sized
+       float Deformation;
+   } transforms[4];
+   ...
+   ... = transforms[2].ModelViewMatrix; // shader access of instance 2
+   // API uses "Transform.ModelViewMatrix" to query an offset or other query
+   transforms[x].a.length(); // same length for 'a' for all x
+   Transform[x];             // illegal, must use 'transforms'
+   Transform.a.length();     // illegal, must use 'transforms'
+   ...transforms[2].a[3]...  // if these are the only two dereferences of 'a',
+   ...transforms[3].a[7]...  // then 'a' must be size 8, for all
+   transforms[x]
+
+配列として宣言された一様ブロックやシェーダー格納ブロックでは、個々の配列要素が、
+ブロックのインスタンス一つを back する、個別のバッファーオブジェクトの結合範囲に対応する。
+配列のサイズは必要なバッファーオブジェクトの数を示すため、
+一様ブロックやシェーダー格納ブロックの配列宣言では、配列のサイズを指定する必要がある。
+一様ブロックやシェーダー格納ブロックの配列は、動的一様な整数式でしかインデックスを付けることができず、
+それ以外の場合は結果が未定義だ。
+
+OpenGL API のエントリーポイントを使用してブロックの配列内の個々のブロックの名前を特定する場合、
+``Transform[2]`` のようにして、名前の文字列に配列のインデックスを含めることができる。
+OpenGL API のエントリーポイントを使用してブロックメンバーのオフセットやその他の性質を参照する場合、
+``Transform.ModelViewMatrix`` のように、配列インデックスを抜かなければならない。
+
+多角形分割制御、多角形分割評価、幾何シェーダー入力ブロックは、配列として宣言されなければならず、
+それぞれの段階のシェーダー入力すべては配列宣言とリンクルールに従わなければならない。
+その他のすべての入出力ブロックの配列は、配列サイズを指定しなければならない。
+
+段階ごとに使用できる一様ブロックの個数とシェーダー格納ブロックの個数は、実装依存の制限がある。
+いずれかの制限を超えた場合、リンクエラーとなる。
+
 4.4. Layout Qualifiers
 ----------------------------------------------------------------------
+
+レイアウト修飾子は宣言形式がいくつかある。
+前節の文法で示したように、インターフェイスブロックの定義やブロックメンバーの一部として現れることがある。
+一つの *layout-qualifier* だけで、その修飾子を使った他の宣言のレイアウトを設定することもできる。
+
+| *layout-qualifier* *interface-qualifier* ;
+
+また、インターフェース修飾子で宣言された個別の変数で出現することもある：
+
+| *layout-qualifier* *interface-qualifier* *declaration* ;
+
+レイアウトの宣言は、大域スコープまたはブロックメンバーでしか行えず、以下の節で示される場所でしか行えない。
+
+レイアウト修飾子は次のように展開する：
+
+|   *layout-qualifier* :
+|       **layout** **(** *layout-qualifier-id-list* **)**
+|
+|   *layout-qualifier-id-list* :
+|       *layout-qualifier-id*
+|       *layout-qualifier-id* , *layout-qualifier-id-list*
+|
+|   *layout-qualifier-id* :
+|       *layout-qualifier-name*
+|       *layout-qualifier-name* = *layout-qualifier-value*
+|       **shared**
+|
+|   *layout-qualifier-value* :
+|       *integer-constant-expression*
+
+*layout-qualifier-name* に使用されるトークンは、キーワードではなく識別子で、
+*layout-qualifier-id* としてキーワード **shared** を使用することができる。
+一般的に、これらはどのような順序でも並べてよい。
+順序に依存する意味は、下で明示されている場合に限り存在する。
+同様に、これらの識別子は、明示的に別段の記載がない限り、大文字と小文字を区別しない。
+
+単一の宣言にレイアウト修飾子を複数含めることができる。
+また、同じ *layout-qualifier-name* が、一つのレイアウト修飾子の中で複数回現れたり、
+同じ宣言の中で複数のレイアウト修飾子にまたがって現れたりすることがある。
+同じ *layout-qualifier-name* が単一の宣言の中で複数回出現する場合、
+最後に出現したものがそれ以前に出現したものよりも優先される。
+さらに、このような *layout-qualifier-name* が後続の宣言やその他の観察可能な挙動に影響する場合、
+影響を与えるのは最後に出現するものだけであり、
+以前に出現したものは存在しないかのように振る舞う。
+これは *layout-qualifier-name* を上書きする場合にも当てはまり、
+一方が他方を上書き場合 (e.g. ``row_major`` vs. ``column_major``) には、
+最後に出現するものだけが影響を及ぼす。
+
+*integer-constant-expression* は :ref:`4.3.3. Constant Expressions` で
+*constant integral expression* として定義されており、
+*integer-constant-expression* が特殊化定数であることはコンパイルエラーになる。
+
+.. admonition:: コメント
+
+   仕様書本文ではレイアウト修飾子の使用法の概要が表になって掲載されている。
+   巨大なデータなので引用は控える。
 
 4.4.1. Input Layout Qualifiers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
