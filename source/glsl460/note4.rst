@@ -986,7 +986,7 @@ SPIR-V の特殊化定数は、"特殊化-定数修飾子 "で説明したよう
 他のシェーダー入出力に比べて追加的配列レベルを持っている。
 これらの入力と出力は、頂点ごとに配列された (per-vertex-arrayed) 入力と出力として知られている。
 配列されたインターフェイス (``gl_MaxTessControlInputComponents``, etc.)
-のコンポーネント制限は、インターフェイス全体に対する制限ではなく、頂点ごとの制限だ。
+の成分制限は、インターフェイス全体に対する制限ではなく、頂点ごとの制限だ。
 
 非配列のインターフェイス（＝段階間配列の次元が変わらない）では、
 入力変数が一致する出力変数と配列の次元を含めて同じ型で宣言されていないと、リンクエラーとなる。
@@ -1485,7 +1485,7 @@ OpenGL API のエントリーポイントを使用してブロックメンバー
 レイアウト修飾子は次のように展開する：
 
 |   *layout-qualifier* :
-|       **layout** **(** *layout-qualifier-id-list* **)**
+|       ``layout (`` *layout-qualifier-id-list* ``)``
 |
 |   *layout-qualifier-id-list* :
 |       *layout-qualifier-id*
@@ -1494,7 +1494,7 @@ OpenGL API のエントリーポイントを使用してブロックメンバー
 |   *layout-qualifier-id* :
 |       *layout-qualifier-name*
 |       *layout-qualifier-name* = *layout-qualifier-value*
-|       **shared**
+|       ``shared``
 |
 |   *layout-qualifier-value* :
 |       *integer-constant-expression*
@@ -1529,9 +1529,472 @@ OpenGL API のエントリーポイントを使用してブロックメンバー
 4.4.1. Input Layout Qualifiers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+計算シェーダーを除くすべてのシェーダーでは、入力変数宣言、入力ブロック宣言、入力ブロックメンバー宣言に対して
+レイアウト修飾子 ``location`` を使うことができる。このうち、変数とブロックメンバー（ブロックは不可）には、
+さらにレイアウト修飾子 ``component`` が使用できる。
+
+| *layout-qualifier-id* :
+| ``location`` = *layout-qualifier-value*
+| ``component`` = *layout-qualifier-value*
+
+例：
+
+.. code:: glsl
+
+   layout(location = 3) in vec4 normal;
+   const int start = 6;
+   layout(location = start + 2) int vec4 v;
+
+これにより、シェーダー入力の ``normal`` はベクトル位置番号 3 に、
+``v`` は位置番号 8 に割り当てられる。
+頂点シェーダー入力の場合、位置を入力値を取得する頂点属性の番号で指定する。
+他のすべてのシェーダー型の入力では、そのシェーダーが別のプログラムオブジェクト内にあったとしても、
+位置を以前のシェーダー段階からの出力との照合に使用できるベクトル番号で指定する。
+
+続く言語では、特定の型で消費される位置の数を記述する。
+ただし、幾何シェーダー入力、多角形分割制御シェーダー入出力、
+多角形分割評価入力はすべて、他のシェーダー入出力に対して追加の配列レベルを持っている。
+この外側の配列レベルは、型が消費する位置の数を考慮する前に、型から取り除かれます。
+
+Vulkan を対象にしている場合を除き、頂点シェーダー入力が任意のスカラーまたはベクトル型である場合、
+位置を一つを消費する。非頂点シェーダーの入力や Vulkan を対象にしている場合の段階入力が
+``dvec3`` や ``dvec4`` 以外のスカラー型やベクトル型の場合は、
+位置を一つを消費するが、
+``dvec3`` や ``dvec4`` 型の場合は連続した二つの位置を消費する。
+``double`` 型や ``dvec2`` 型の入力は、段階すべてで一つの位置しか消費しない。
+
+上述のように外側の配列レベルを削除した後、宣言された入力がサイズ n の配列で、
+各要素が m 個の位置を取る場合、指定された位置から始まる m × n 個の連続した位置が割り当てられる。
+例えば：
+
+.. code:: glsl
+
+   layout(location = 6) in vec4 colors[3];
+
+これにより、シェーダーの入力色がベクトルの位置番号 6, 7, 8 に割り当てられることが確定する。
+
+宣言された入力が n × m 行列の場合は、指定された位置から始まる複数の位置が割り当てられる。
+各行列に割り当てられる位置の数は、m 成分のベクトルの n 要素の配列と同じになる。例えば：
+
+.. code:: glsl
+
+   layout(location = 9) in mat4 transforms[2];
+
+これにより、シェーダー入力 ``transforms`` がベクトルの 9～16番に割り当てられる：
+
+* ``transforms[0]`` が 9, 10, 11, 12 番に、
+* ``transforms[1]`` が 13, 14, 15, 16 番に
+
+割り当てられる。
+
+----
+
+宣言された入力が構造体やブロックの場合、そのメンバーには宣言順に連続した位置が割り当てられ、
+最初のメンバーにはレイアウト修飾子で指定された位置が割り当てられる。
+構造体の場合、この処理は構造体全体に適用される。
+``layout`` 修飾子を構造体のメンバーに使用するとコンパイルエラーとなる。
+ブロックの場合、この処理はブロック全体に適用される。
+つまり ``location`` レイアウト修飾子を持つ最初のメンバーに到達するまで適用される。
+
+ブロックのメンバーが ``location`` 修飾子付きで宣言されている場合、
+そのメンバーの位置はその修飾子に由来し、メンバーの ``location`` 修飾子がブロックレベルの宣言よりも優先される。
+後続のメンバーには、次の ``location`` 修飾子が宣言されたメンバーまで、
+最新の位置に基づいて連続した位置が再び割り当てられる。
+位置に使用される値は、昇順に宣言する必要はない。
+
+ブロックレベルの ``location`` 修飾子がないブロックでは、
+そのメンバーのすべてが ``location`` 修飾子を持つか、またはそれを一つも持たないことが要求される。
+さもないとコンパイルエラーとなる。
+配列として宣言されたブロックには ``location`` がブロックレベルでしか適用できないものがある。
+ブロックが配列として宣言されていて、ブロックの配列要素ごとに各メンバーに追加の位置が必要な場合、
+ブロックのメンバーに位置を指定するとコンパイルエラーになる。
+つまり、ブロックメンバ上ーに位置を適用することで指定不足になる場合、それは認められない。
+配列されたインターフェイス（一般にインターフェイスの拡張により余計な配列を持つもの）では、
+この規則を適用する前に外側の配列が取り除かれる。
+
+ブロックや構造体のメンバーが消費する位置は、構造体のメンバーが同じ型の入力変数として宣言されているかのように、
+上記の規則を再帰的に適用して決定される：
+
+.. code:: glsl
+
+   layout(location = 3) in struct S
+   {
+       vec3 a;                      // gets location 3
+       mat2 b;                      // gets locations 4 and 5
+       vec4 c[2];                   // gets locations 6 and 7
+       layout(location = 8) vec2 A; // ERROR, can't use on struct member
+   } s;
+   layout(location = 4) in block
+   {
+       vec4 d;                      // gets location 4
+       vec4 e;                      // gets location 5
+       layout(location = 7) vec4 f; // gets location 7
+       vec4 g;                      // gets location 8
+       layout(location = 1) vec4 h; // gets location 1
+       vec4 i;                      // gets location 2
+       vec4 j;                      // gets location 3
+       vec4 k;                      // ERROR, location 4 already used
+   };
+
+シェーダーが利用できる入力位置の数には制限がある。
+頂点シェーダーでは、その制限は公示された頂点属性の数だ。
+その他のシェーダーでは、制限は実装に依存し、公示された最大入力成分数の 1/4 以上でなければならない。
+
+取り付けられたシェーダーがサポートされている個数を超える位置を使用している場合、
+デバイス依存最適化がプログラムに利用可能なハードウェア資源内に収まるようにさせない限り、
+プログラムはリンクに失敗する。
+
+明示的な位置割り当てにより、リンカーが他の明示的割り当てのない変数のための空間を見つけられない場合、プログラムはリンクに失敗する。
+
+非頂点入力が以前のシェーダー段階の出力と一致するかどうかを判断するためには、
+``location`` レイアウト修飾子がもしあれば一致していなければならない。
+
+シェーダーテキストに位置が割り当てられていない頂点シェーダー入力変数に
+OpenGL API で指定された位置がある場合は、その指定位置が使用される。
+そうでなければ、そのような変数はリンカーによって場所が割り当てられる。
+入力変数が同じ言語の複数のシェーダーで宣言されていて、位置が競合している場合、リンクエラー。
+
+修飾子 ``component`` を使用すると、スカラーやベクトルの位置をより細かく指定することができ、
+消費される位置内の個々の成分まで指定することができる
+修飾子 ``location`` を指定せずに ``component`` を使用すると、コンパイルエラーになる（順序は重要でない）。
+位置内の成分は 0, 1, 2, 3 だ。
+成分 N で始まる変数やブロックメンバーは、そのサイズまでの成分 N, N+1, N+2, ...を消費する。
+この成分の並びが 3 より大きくなると、コンパイルエラーになる。
+スカラー ``double`` はこれらの成分のうち二つを消費し、
+``dvec2`` はある位置で利用可能な四つの成分全てを消費する。
+``dvec3`` や ``dvec4`` は成分指定なしでしか宣言できない。
+``dvec3`` は一つ目の位置の四つの成分と、二つ目の位置の成分 0 と 1 をすべて消費する。
+これにより、成分 2 と 3 は他の成分修飾された宣言に使用できる。
+
+.. code:: glsl
+
+   // a consumes components 2 and 3 of location 4
+   layout(location = 4, component = 2) in vec2 a;
+
+   // b consumes component 1 of location 4
+   layout(location = 4, component = 1) in float b;
+
+   // ERROR: c overflows component 3
+   layout(location = 3, component = 2) in vec3 c;
+
+   // d consumes components 2 and 3 of location 5
+   layout(location = 5, component = 2) in double d;
+
+   // ERROR: e overflows component 3 of location 6
+   layout(location = 6, component = 2) in dvec2 e;
+
+   // ERROR: f overlaps with g
+   layout(location = 7, component = 0) double f;
+   layout(location = 7, component = 1) float g;
+
+   layout(location = 8) in dvec3 h; // components 0,1,2 and 3 of location 8
+                                    // and components 0 and 1 of location 9
+   layout(location = 9, component = 2) in float i; // okay, compts 2 and 3
+
+but all at the same specified component within each location. For example:
+変数が配列の場合、配列の各要素は順番に連続した位置に割り当てられるが、
+各位置の中ですべて同じ指定された成分になる：
+
+.. code:: glsl
+
+   // component 3 in 6 locations are consumed
+   layout(location = 2, component = 3) in float d[6];
+
+この場合、位置 2 の成分 3 は ``d[0]`` を、位置 3 の成分 3 は ``d[1]`` を、...
+位置 7 の成分 3 に ``d[5]`` を格納する。
+
+これにより二つの配列を同じ位置にまとめることができる：
+
+.. code:: glsl
+
+   // e consumes beginning (components 0, 1 and 2) of each of 6 slots
+   layout(location = 0, component = 0) in vec3 e[6];
+
+   // f consumes last component of the same 6 slots
+   layout(location = 0, component = 3) in float f[6];
+
+これを配列の配列に適用する場合は、すべてのレベルの配列性が取り除かれ、
+指定された成分に位置ごとに割り当てられた要素になる。
+これらの非配列要素は :ref:`4.1.9. Arrays` が指定する順序で配列の配列に対する位置を埋める。
+
+修飾子 ``component`` を行列、構造体、ブロック、またはこれらを含む配列に適用するとコンパイルエラーになる。
+``component`` 1 または 3 を ``double`` または ``dvec2`` の先頭に使用するとコンパイルエラーになる。
+プログラム内で同じ変数に異なる成分を指定すると、リンクエラーになる。
+
+----
+
+**位置エイリアシング** (location aliasing) とは、二つの変数やブロックメンバーに同じ位置番号を持たせることだ。
+**成分エイリアシング** (component aliasing) とは、二つの位置エイリアスに同じ（または重複する）成分番号を割り当てることだ
+（``component`` を使用しない場合は 0 から始まる成分が割り当てられることを思い出せ）。
+一つの例外を除いて、位置エイリアシングは成分エイリアシングを起こさない場合に限り許される。
+さらに、位置エイリアシングを行う場合、その位置を共有するエイリアスは、
+基礎となる数値型とビット幅が同じでなければならず、補助格納修飾子と補間修飾子も同じでなければならない。
+成分エイリアシングが許可される例外とは、頂点シェーダーへの二つの入力変数
+（ブロックメンバーではない）に対して OpenGL を対象にする場合で、
+これらは成分エイリアシングが許されている。
+この頂点変数の成分エイリアシングは、各実行パスがエイリアシングされた各成分ごとに
+高々一つの入力にアクセスする頂点シェーダーをサポートすることしか目的としていない。
+頂点シェーダー実行形式を通るすべての実行パスが、
+任意の単一成分にエイリアスされた複数の入力にアクセスすることを検出した場合、
+実装はこれをリンクタイムエラーとすることが許されているが、必須ではない。
+
+Tessellation Evaluation Inputs
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+多角形分割評価シェーダーで使える追加的な入力レイアウト修飾子の識別子は次の通り：
+
+| *layout-qualifier-id* :
+|     *primitive-mode*
+|     *vertex-spacing*
+|     *ordering*
+|     *point-mode*
+
+識別子 *primitive-mode* は多角形分割基本形状生成器が使用する。
+
+| *primitive-mode*:
+|     ``triangles``
+|     ``quads``
+|     ``isolines``
+
+*primitive-mode* がもしあれば、多角形分割基本形状生成器は三角形をより小さな三角形に、
+四角形を三角形に、四角形を線の集合体にそれぞれ細分するべきだと指定する。
+
+レイアウト識別子の二番目のグループである頂点間隔は、
+多角形分割基本形状生成器が辺を細分化する際の間隔を指定するために用いられる。
+
+| *vertex-spacing*:
+|     ``equal_spacing``
+|     ``fractional_even_spacing``
+|     ``fractional_odd_spacing``
+
+``equal_spacing`` は辺を同じ大きさのセグメントの集まりに分割することを指定する。
+
+``fractional_even_spacing`` は、辺を偶数個の同じ長さのセグメントとさらに二つのより短い「小数」のセグメントに分割することを指定する。
+
+``fractional_odd_spacing`` は、辺を奇数個の同じ長さのセグメントとさらに二つの短い「小数」セグメントに分割することを指定する。
+
+三番目のレイアウト識別子である *ordering* は、多角形分割基本形状生成器が、
+OpenGL 仕様にある座標系に従い、時計回りまたは反時計回りのどちらの順序で三角形を生成するのかを指定する。
+
+| *ordering*:
+|     cw
+|     ccw
+
+識別子 ``cw`` と ``ccw`` は、それぞれ時計回りと反時計回りの三角形を示す。
+多角形分割基本形状生成器が三角形を生成しない場合、この順序は無視される。
+
+最後の *point-mode* は、多角形分割基本形状生成器が、線や三角形を生成するのではなく、
+細分化された基本形状のそれぞれの紛れのない頂点に対して一点を生成するべきであることを示す。
+
+| *point-mode*:
+|     point_mode
+
+----
+
+これらの識別子は、単一の入力レイアウト宣言の中で、一回またはそれ以上指定することができる。
+プログラムの多角形分割評価シェーダーの中で、
+*primitive-mode*, *vertex-spacing*, *ordering* が複数回宣言されている場合、
+そのような宣言はすべて同じ識別子を使用しなければならない。
+
+プログラム内の少なくとも一つの多角形分割評価シェーダー（コンパイル単位）は、
+その入力レイアウトで *primitive-mode* を宣言しなければならない。
+*vertex-spacing*, *ordering*, *point_mode* 識別子の宣言はオプションだ。
+プログラム内の多角形分割評価シェーダーすべてが *primitive_mode* を宣言するということは必須ではない。
+*vertex-spacing* や *ordering* の宣言が省略された場合、多角形分割基本形状生成器は、
+それぞれ等間隔または反時計回りの頂点順序を採用する。
+*point-mode* の宣言が省略された場合、多角形分割基本形状生成器は、
+*primitive-mode* に従って線分または三角形を生成する。
+
+Geometry Shader Inputs
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+幾何シェーダー入力に対する追加のレイアウト修飾子識別子には、基本形状 (primitive) 識別子と
+呼び出し回数 (invocation count) 識別子がある：
+
+| *layout-qualifier-id* :
+|     ``points``
+|     ``lines``
+|     ``lines_adjacency``
+|     ``triangles``
+|     ``triangles_adjacency``
+|     ``invocations`` = *layout-qualifier-value*
+
+識別子 ``points``, ``lines``, ``lines_adjacency``, ``triangles``, ``triangles_adjacency``
+は、幾何シェーダーが受け付ける入力基本形状の種類を指定するためのもので、
+これらのうちただ一つを受け付ける。
+プログラム内の少なくとも一つの幾何シェーダー（コンパイル単位）は、
+この入力基本形状のレイアウトを宣言しなければならず、
+プログラム内の幾何シェーダーすべての入力レイアウト宣言は同じレイアウトを宣言しなければならない。
+プログラム内のすべての幾何シェーダーが入力基本形状レイアウトを宣言することは必須ではない。
+
+識別子 ``invocations`` は、受けとった入力基本形状それぞれに対して幾何シェーダー実行形式が
+呼び出される回数を指定するために用いられる。回数の宣言はオプションだ。
+プログラム内のどの幾何シェーダーでも回数が宣言されていない場合、
+幾何シェーダーは入力基本形状それぞれに対して一度実行される。
+宣言されている場合は、すべての宣言で同じ回数を指定しなければならない。
+シェーダーが実装依存の最大値を超える呼び出し回数を指定したり、
+ゼロ以下の呼び出し回数を指定したりすると、コンパイルエラーとなる。
+
+.. code:: glsl
+
+   layout(triangles, invocations = 6) in;
+
+例えば上の宣言では、幾何シェーダーへの入力はすべて三角形であり、幾何シェーダーの実行形式は、
+処理される三角形ごとに 6 回実行される。
+
+幾何シェーダー入力サイズなし配列宣言のすべてで、以前の入力基本形状レイアウト修飾子がある場合、サイズが変更される：
+
+* ``points``: 1
+* ``lines``: 2
+* ``lines_adjacency``: 4
+* ``triangles``: 3
+* ``triangles_adjacency``: 6
+
+内在的に宣言された入力配列 ``gl_in[]`` は、任意の入力基本形状レイアウト宣言によってもサイズが決定される。
+そのため、式 ``gl_in.length()`` 式は上にある値を返す。
+
+``gl_in`` などの内在的に宣言された入力、配列サイズを持たずに宣言された入力については、
+メソッド ``length()`` を使用する前か、配列サイズを知る必要のあるその他の配列使用の前に
+レイアウトを宣言しなければならない。
+
+レイアウト宣言の配列サイズが、同じシェーダー内の入力変数の宣言で指定されている明示的な配列サイズすべてと一致しない場合は
+コンパイルエラーとなります。コンパイルエラーの例：
+
+.. code:: glsl
+
+   // code sequence within one shader...
+   in vec4 Color1[];     // legal, size still unknown
+   in vec4 Color2[2];    // legal, size is 2
+   in vec4 Color3[3];    // illegal, input sizes are inconsistent
+   layout(lines) in;     // legal for Color2, input size is 2, matching Color2
+   in vec4 Color4[3];    // illegal, contradicts layout of lines
+   layout(lines) in;     // legal, matches other layout() declaration
+   layout(triangles) in; // illegal, does not match earlier layout() declaration
+
+プログラム内の幾何シェーダーすべてにおいて、提供されたサイズのすべて
+（サイズ付き入力配列とレイアウトサイズ）が一致しない場合は、リンクエラーとなる。
+
+Fragment Shader Inputs
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``gl_FragCoord`` には以下のような追加的フラグメントレイアウト修飾子がある：
+
+| *layout-qualifier-id* :
+|     ``origin_upper_left``
+|     ``pixel_center_integer``
+
+OpenGL の ``gl_FragCoord`` は既定ではウィンドウの座標は左下を原点とし、
+ピクセル中心は半ピクセルの座標にあるとしている。例えば、ウィンドウの左下端のピクセルに対しては
+``(x, y)`` 座標 ``(0.5, 0.5)`` が返される。
+原点は ``gl_FragCoord`` に ``origin_upper_left`` 修飾子を付けて再宣言することで変更することができ、
+``gl_FragCoord`` の原点をウィンドウの左上に移動させ、
+``y`` はウィンドウの下に向かって値を大きくしていく。
+また、返される値は、``pixel_center_integer`` によって、
+``x`` と ``y`` の両方で半ピクセルずつずらすことができ、
+ピクセルが整数のオフセットで中心に置かれているように見える。
+これは ``gl_FragCoord`` で返される ``(x, y)`` の値が既定値が ``(0.5, 0.5)`` であるのに対し、
+``pixel_center_integer`` で ``(0.0, 0.0)`` に移動する。
+
+Vulkan を対象にする場合、``gl_FragCoord`` の原点は左上で、
+ピクセル中心は半ピクセル座標に配置されていると仮定し、要求される。
+この原点を明示的に設定するには ``gl_FragCoord`` を ``origin_upper_left`` 識別子で再宣言する。
+
+再宣言は次のように行う：
+
+.. code:: glsl
+
+   in vec4 gl_FragCoord; // redeclaration that changes nothing is allowed
+
+   // All the following are allowed redeclaration that change behavior
+   layout(origin_upper_left) in vec4 gl_FragCoord;
+   layout(pixel_center_integer) in vec4 gl_FragCoord;
+   layout(origin_upper_left, pixel_center_integer) in vec4 gl_FragCoord;
+
+``gl_FragCoord`` がプログラム内のいずれかのフラグメントシェーダーで再宣言された場合、
+そのプログラム内で ``gl_FragCoord`` を静的に使用しているすべてのフラグメントシェーダーで
+再宣言されなければならない。
+単一のプログラム内にあるフラグメントシェーダーすべてにおける ``gl_FragCoord`` の再宣言は
+すべてが同じ修飾子の集合でなければならない。
+どのシェーダー内でも ``gl_FragCoord`` の最初の再宣言が
+``gl_FragCoord`` のどの使用の前にも現れなければならない。
+組み込み ``gl_FragCoord`` はフラグメントシェーダーでしか事前に宣言されていないので、
+他のシェーダー言語で再宣言するとコンパイルエラーになる。
+
+``origin_upper_left`` 修飾子と ``pixel_center_integer`` 修飾子の両方とも、またはいずれか一方をつけて
+``gl_FragCoord`` を再宣言しても ``gl_FragCoord.x`` と ``gl_FragCoord.y`` にしか影響しない。
+ラスタライズ、座標変換、その他の API パイプラインや言語機能には影響しない。
+
+フラグメントシェーダーでは、OpenGL 仕様書の 15.2.4 "Early Fragment Tests" に記載されているように、
+フラグメントシェーダーの実行前にフラグメントテストを行うことを要求するために、
+``in`` のみで次のレイアウト修飾子を使用することが許される（変数宣言では不可）：
+
+| *layout-qualifier-id* :
+|     early_fragment_tests
+
+.. code:: glsl
+
+   layout(early_fragment_tests) in;
+
+例えば上の宣言では、フラグメントシェーダーの実行前にフラグメントごとのテストが行われるようになる。
+これを宣言しない場合は、フラグメントシェーダーの実行後にフラグメントごとのテストが行われる。
+この宣言が必要となるのは、一つのフラグメントシェーダー（コンパイル単位）だけだが、
+複数のフラグメントシェーダーが宣言することもできる。
+少なくとも一つがこれを宣言していれば有効になる。
+
+Compute Shader Inputs
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+計算シェーダー入力にはレイアウト位置修飾子がない。
+
+計算シェーダー入力に対するレイアウト修飾子の識別子は、作業グループサイズ修飾子だ：
+
+| *layout-qualifier-id* :
+|     ``local_size_x`` = *layout-qualifier-value*
+|     ``local_size_y`` = *layout-qualifier-value*
+|     ``local_size_z`` = *layout-qualifier-value*
+
+If a shader does not specify a size for one of the dimensions, that dimension will have a size of 1.
+
+For example, the following declaration in a compute shader
+``local_size_x``, ``local_size_y``, ``local_size_z`` 各修飾子は、
+それぞれ 1, 2, 3 次元の計算シェーダーによる固定作業グループのサイズを宣言するために用いられる。
+シェーダーが次元のサイズをここから指定していない場合、その次元は 1 となる。
+
+例えば、計算シェーダーで次のように宣言した場合、
+
+.. code:: glsl
+
+   layout(local_size_x = 32, local_size_y = 32) in;
+
+作業グループサイズが 32×32 要素の二次元計算シェーダーを宣言するために用いられる。
+これは、3次元目のサイズが 1 である三次元計算シェーダーに相当する。
+
+.. admonition:: コメント
+
+   上の一文は何を言っているのか。
+
+もう一つ別の例として、次の宣言は、一次元の計算シェーダーがコンパイルされており、
+そのサイズが実質的には 8 要素であることを指定している：
+
+.. code:: glsl
+
+   layout(local_size_x = 8) in;
+
+いずれかの次元におけるシェーダーの固定作業グループサイズがゼロ以下、
+または実装でサポートされる最大サイズよりも大きい場合、コンパイルエラー。
+また、このようなレイアウト修飾子が同一シェーダー内で複数回宣言されている場合、
+それらの宣言はすべて同じ作業グループサイズの集合を設定し、同じ値を設定しなければならない。
+さもなければコンパイルエラー。
+単一のプログラムオブジェクトに取り付けられた複数の計算シェーダーが固定作業グループサイズを宣言する場合、
+その宣言は同一でなければならない。さもなければリンクエラー。
+
+さらに、プログラムオブジェクトが計算シェーダーを何か含む場合、
+少なくとも一つはプログラムの固定作業グループサイズを指定する入力レイアウト修飾子を含まなければならない。
+さもなければリンクエラー。
 
 4.4.2. Output Layout Qualifiers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 
 4.4.3. Uniform Variable Layout Qualifiers
