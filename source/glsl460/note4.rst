@@ -3546,11 +3546,115 @@ OpenGL 仕様書の 7.12 "Shader Memory Access" にあるように、
 4.11. Specialization-Constant Qualifier
 ----------------------------------------------------------------------
 
+特殊化定数は SPIR-V でのみ使用され、レイアウト修飾子 ``constant_id`` を使用して宣言される。
+例えば：
+
+.. code:: glsl
+
+   layout(constant_id = 17) const int arraySize = 12;
+
+If it is never changed before final lowering
+これは既定値が 12 である特殊化定数を作る。
+17 という数字は、API や他のツールが後でこの独特な特殊化定数を参照するために、
+著者が選んだ例示的な ID だ。
+それが final lowering 前に決して変更されなければ 12 の値を維持する。
+スカラー ``bool``, ``int``, ``uint``, ``float``, ``double`` の SPIR-V 生成以外で
+修飾子 ``constant_id`` を使用するとコンパイルエラー。
+
+組み込み定数を特殊化定数として宣言することができる。例えば：
+
+.. code:: glsl
+
+   layout(constant_id = 31) gl_MaxClipDistances; // add specialization_id
+
+この宣言では、先に宣言された組み込み変数の名前だけを使用し、
+レイアウト修飾子 ``constant_id`` 宣言をしている。
+定数が使用された後にこれを行うとコンパイルエラーとなる。
+定数は厳密に非特殊化定数か特殊化定数のどちらか一方であり、両方ではない。
+
+The built-in constant vector gl_WorkGroupSize can be specialized using the local_size_{xyz}_id qualifiers, to individually give the components an id. For example:
+組み込み定数ベクトル ``gl_WorkGroupSize`` は、
+修飾子 ``local_size_{xyz}_id`` を使って、成分に個別に ID を与えることで特殊化できる。
+例えば：
+
+.. code:: glsl
+
+   layout(local_size_x_id = 18, local_size_z_id = 19) in;
+
+These ids are declared independently from declaring the workgroup size:
+``gl_WorkGroupSize.y`` は非特殊化定数として残され、
+``gl_WorkGroupSize`` は部分的に特殊化されたベクトルとなる。
+その ``x``, ``z`` 成分は、SPIR-V を生成した後に
+ID 18 および 19 を使用して、後で特殊化することができる。
+これらの ID は作業グループサイズの宣言とは別に宣言される。
+
+.. code:: glsl
+
+   layout(local_size_x = 32, local_size_y = 32) in;   // size is (32,32,1)
+   layout(local_size_x_id = 18) in;                   // constant_id for x
+   layout(local_size_z_id = 19) in;                   // constant_id for z
+
+``local_size_{xyz}`` の宣言に関する既存の規則は変化しない。
+``local_size_{xz}_id`` については、同じ ID に異なる ID 値を与えたり、
+使用後に ID 値を与えたりするとコンパイルエラーとなる。
+それ以外では、順序、配置、文の個数、および複製はエラーにならない。
+
+特殊化定数でサイズ調整された二つの配列は、
+同じ記号でサイズ調整され、かつ演算を伴わない場合に限り、同じ型となる。
+例えば：
+
+.. code:: glsl
+
+   layout(constant_id = 51) const int aSize = 20;
+   const int pad = 2;
+   const int total = aSize + pad; // specialization constant
+   int a[total], b[total];        // a and b have the same type
+   int c[22];                     // different type than a or b
+   int d[aSize + pad];            // different type than a, b, or c
+   int e[aSize + 2];              // different type than a, b, c, or d
+
+.. admonition:: コメント
+
+   なぜこのようになるのか説明できるか？
+
+特殊化定数でサイズ調整された配列を含む型を比較すること、集約として代入すること、
+初期化を使って宣言すること、初期化として使用することができない。
+ただし、同じ型の仮引数を持つ関数の実引数として渡すことはできる。
+配列の配列として宣言された変数の最も外側の次元しか特殊化定数とはならず、
+そうでなければコンパイルエラーとなる。
+
+ブロック内の配列のサイズを特殊化定数で指定することはできるものの、ブロックは静的レイアウトを有するようになる。
+特殊化サイズを変化させても、ブロックは再配置されません。
+明示的なオフセットがない場合は、そのレイアウトは配列の既定サイズに基づいたものになる。
 
 4.12. Order and Repetition of Qualification
 ----------------------------------------------------------------------
 
+一つの宣言に修飾子が複数ある場合、それらの順序は何でもよいが、型の前にすべて置かなければならない。
+修飾子 ``layout`` は、一度を超えて現れることができる唯一の修飾子だ。
+さらに、一つの宣言は、格納修飾子、補助格納修飾子、補間修飾子を高々一つ持てる。
+``inout`` が使用された場合、``in`` も ``out`` も使用できまない。
+記憶修飾子を複数使用することができる。
+これらの規則に違反すると、コンパイルエラーとなる。
 
 4.13. Empty Declarations
 ----------------------------------------------------------------------
 
+**空宣言** (empty declarations) とは、変数名のない宣言のことであって、
+その宣言によってインスタンス化されるオブジェクトがないことを意味する。
+一般的に、空宣言は許されている。
+構造体を宣言するときに便利なものもあれば、何の効果もないものもある。
+例えば：
+
+.. code:: glsl
+
+   int;               // No effect
+   struct S {int x;}; // Defines a struct S
+
+コンパイルエラーやリンクエラーが発生する修飾子の組み合わせは、
+例えば、宣言が空であってもなくても同じだ。
+
+.. code:: glsl
+
+   invariant in float x; // Error. An input cannot be invariant.
+   invariant in float;   // Error even though no variable is declared.
