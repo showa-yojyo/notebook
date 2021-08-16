@@ -375,45 +375,554 @@ OpenGL Shading Language はスカラーおよびベクトル演算について�
 8.5. Geometric Functions
 ----------------------------------------------------------------------
 
+これらは成分単位ではなく、ベクトルとして演算する。
+
+.. glossary::
+
+   ``float length(genFType x)``, etc.
+       ベクトル ``x`` の長さを返す。
+
+   ``float distance(genFType p0, genFType p1)``, etc.
+       ``p0`` と ``p1`` の間の距離、すなわち ``length(p0 - p1)`` を返す。
+
+   ``float dot(genFType x, genFType y)``, etc.
+       ``x`` と ``y`` のスカラー積を返す。
+
+   ``vec3 cross(vec3 x, vec3 y)``, etc.
+       ``x`` と ``y`` のベクトル積を返す。
+
+   ``genFType normalize(genFType x)``, etc.
+       ``x`` と同じ方向だが、長さが 1 であるベクトル、つまり ``x / length(x)`` を返す。
+
+   ``vec4 ftransform()`` compatibility profile only
+       互換性プロファイルを使用している場合に限って有効だ。コア OpenGLでは ``invariant`` を使用しろ。
+       頂点シェーダー限定。この関数は、入力される頂点値が OpenGL の固定機能変換で生成されるのと
+       厳密に同じ結果を生成する方法で変換されることを保証する。
+       これは ``gl_Position`` を計算する用途を意図している：
+
+       .. code:: glsl
+
+          gl_Position = ftransform()
+
+       この関数は、例えば、アプリケーションが同じ幾何を別々のパスでレンダリングしていて、
+       あるパスでは固定機能パスを使ってレンダリングし、
+       別のパスではプログラム可能シェーダーを使っている場合などに使用するべきだ。
+
+   ``genFType faceforward(genFType N, genFType I, genFType Nref)``, etc.
+       ``dot(Nref, I) < 0`` の場合は ``N`` を、そうでない場合は ``-N`` を返す。
+
+   ``genFType reflect(genFType I, genFType N)``, etc.
+       入射ベクトル ``I`` と面方位 ``N`` に対して、反射方向 ``I - 2 * dot(N, I) * N`` を返す。
+       ``N`` は正規化されている必要がある。
+
+   ``genFType refract(genFType I, genFType N, float eta)``, etc.
+       入射ベクトル ``I`` と曲面法線 ``N`` と屈折率の比 ``eta`` に対する
+       屈折ベクトルを返す。この結果は屈折方程式 (:ref:`8.5.1. Refraction Equation`)
+       によって算出される。
+
+       ベクトル ``I`` と ``N`` は正規化されている必要がある。
+
 8.5.1. Refraction Equation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. admonition:: コメント
+
+   方程式が書かれているが、これを書き直してここに載せたい。
 
 8.6. Matrix Functions
 ----------------------------------------------------------------------
 
+次の各組み込み行列関数には、単精度浮動小数点バージョンと倍精度浮動小数点バージョンがある。
+仕様書本書では単精度浮動小数点バージョンに絞って記述しているが、本ノートではさらに絞る。
+
+.. glossary::
+
+   ``mat matrixCompMult(mat x, mat y)``
+       行列 ``x`` に行列 ``y`` を成分ごとに乗算する。
+       すなわち ``result[i][j] == x[i][j] * y[i][j]`` となる。
+
+       注意：線形代数的な行列の乗算を行うには、乗算演算子 ``*`` を使用する。
+
+   ``mat2 outerProduct(vec2 c, vec2 r)``,
+   ...
+   ``mat4x3 outerProduct(vec3 c, vec4 r)``
+       ``c`` を列ベクトル、``r`` を行ベクトルとして扱い、
+       線形代数的な行列乗算を行い、行数が ``c`` の構成要素の個数、
+       列数が ``r`` の構成要素の個数である行列を生成する。
+
+   ``mat2 transpose(mat2 m)``,
+   ...
+   ``mat4x3 transpose(mat3x4 m)``
+       ``m`` の転置行列を返す。
+
+   ``float determinant(mat2 m)``, etc.
+       ``m`` の行列式を返す。
+
+   ``mat2 inverse(mat2 m)``, etc.
+       ``m`` の逆行列を返す。
+       ``m`` が非正則行列または条件の悪い（ほぼ非正則の）場合、返される行列の値は未定義とする。
+
+.. admonition:: コメント
+
+   線形代数的な加法や乗法は、本文にも触れられているように、自然な演算子がサポートされている。
 
 8.7. Vector Relational Functions
 ----------------------------------------------------------------------
 
+関係演算子と比較演算子はスカラーを演算するように定義されており、スカラーの真偽型値を生成する。
+ベクトルの結果を得るには次に述べる組み込み関数を使う。
+以降では，一覧にある型に対して、次のプレースホルダーが使用されている：
+
+.. csv-table::
+   :delim: @
+   :header: プレースホルダー, 許可される型
+   :widths: , ,
+
+   ``bvec`` @ ``bvec2``, ``bvec3``, ``bvec4``
+   ``ivec`` @ ``ivec2``, ``ivec3``, ``ivec4``
+   ``uvec`` @ ``uvec2``, ``uvec3``, ``uvec4``
+   ``vec`` @ ``vec2``, ``vec3``, ``vec4``, ``dvec2``, ``dvec3``, ``dvec4``
+
+どのような場合でも、どの呼び出しでも入力ベクトルすべてと戻り値ベクトルのサイズは一致しなければならない。
+
+.. glossary::
+
+   ``bvec lessThan(vec x, vec y)``, etc.
+       演算 ``<`` の結果を成分ごとに行ったベクトルを返す。
+
+   ``bvec lessThanEqual(vec x, vec y)``, etc.
+       演算 ``<=`` の結果を成分ごとに行ったベクトルを返す。
+
+   ``bvec greaterThan(vec x, vec y)``, etc.
+       演算 ``>`` の結果を成分ごとに行ったベクトルを返す。
+
+   ``bvec greaterThanEqual(vec x, vec y)``, etc.
+       演算 ``>=`` の結果を成分ごとに行ったベクトルを返す。
+
+   ``bvec equal(vec x, vec y)``, etc.
+       演算 ``==`` の結果を成分ごとに行ったベクトルを返す。
+
+   ``bvec notEqual(vec x, vec y)``, etc.
+       演算 ``!=`` の結果を成分ごとに行ったベクトルを返す。
+
+   ``bool any(bvec x)``
+       成分のいずれかが ``true`` ならば ``true`` を返す。
+
+   ``bool all(bvec x)``
+       成分すべてが ``true`` である場合、かつその場合に限り ``true`` を返す。
+
+   ``bvec not(bvec x)``
+       単項演算 ``!`` の結果を成分ごとに行ったベクトルを返す。
+
+.. admonition:: コメント
+
+   仕様はひじょうに常識的なものだが、ベクトル成分ごとの論理演算をどういうときに使うのかまだわからない。
 
 8.8. Integer Functions
 ----------------------------------------------------------------------
 
+これらはすべて成分単位で演算をする。記述は成分ごとに対するものだ。
+記号 ``[a, b]``とは、ビット番号 ``a`` からビット番号 ``b`` までのビットセットを意味する。
+最下位のビットはビット 0 とする。最下位ビットから順に数え上げることをビット数と呼ぶ。
+
+.. glossary::
+
+   ``genUType uaddCarry(highp genUType x, highp genUType y, out lowp genUType carry)``
+       32 ビット符号なし整数の加算 ``x + y`` をし、232 を基準とした和を返す。
+       和が 232 より小さければ値 ``carry`` は 0 に、そうでなければ 1 になる。
+
+   ``genUType usubBorrow(highp genUType x, highp genUType y, out lowp genUType borrow)``
+       32 ビット符号なし整数の減算 ``x - y`` をする。差が非負であれば差を、
+       そうでなければ 232 に差を加えた値を返す。
+       値 ``borrow`` は ``x >= y`` の場合は 0 に、そうでなければ 1 になる。
+
+   ``void umulExtended(highp genUType x, highp genUType y, out highp genUType msb, out highp genUType lsb)``
+   ``void imulExtended(highp genIType x, highp genIType y, out highp genIType msb, out highp genIType lsb)``
+       32 ビット符号なし/あり整数の乗算 ``x * y`` をする。
+       64 ビットの結果を返す。
+       最下位の 32 ビットが ``lsb`` に、最上位の 32 ビットが ``msb`` にそれぞれ返される。
+
+   ``genIType bitfieldExtract(genIType value, int offset, int bits)``, etc.
+       ``value`` からビット ``[offset, offset + bits - 1]`` を抽出して、結果の最下位ビットに返す。
+
+       符号なしデータ型の場合、結果の最上位ビットには 0 がセットされる。
+       符号ありデータ型の場合、結果の最上位ビットにビット ``offset + bits - 1`` がセットされる。
+
+       ``bits`` が 0 の場合、結果は 0 にある。
+       ``offset`` または ``bits`` が負の値の場合、
+       または ``offset`` と ``bits`` の和がオペランドの格納に使用されたビット数よりも大きい場合、
+       結果は未定義だ。
+       ベクトルバージョンの ``bitfieldExtract()`` では、
+       ``offset`` と ``bits`` の値の一対が、すべての成分で共有されることに注意。
+
+   ``genIType bitfieldInsert(genIType base, genIType insert, int offset, int bits)``, etc.
+       ``insert`` の最下位ビットを ``base`` に挿入する。
+
+       結果は、``insert`` のビット ``[0, bits - 1]`` からビット ``[offset, offset + bits - 1]`` が取られ、
+       その他のビットは ``base`` の対応するビットから直接取られる。
+
+       ``bits`` が 0 の場合、結果は単に ``base`` になる。
+       ``offset`` または ``bits`` が負の値の場合、
+       または ``offset`` と ``bits`` の和がオペランドの格納に使用されたビット数よりも大きい場合、
+       結果は未定義だ。
+       ベクトルバージョンの ``bitfieldInsert()`` では、
+       ``offset`` と ``bits`` の値の一対がすべての成分で共有されることに注意。
+
+   ``genIType bitfieldReverse(highp genIType value)``, etc.
+       ``value`` のビットを反転させる。結果のビット番号 ``n`` は、
+       ``value`` のビット ``(bits - 1) - n`` から取られます。
+       ここで ``bits`` とは値を表現するのに使用される全ビット数だ。
+
+   ``genIType bitCount(genIType value)``, etc.
+       ``value`` の二進表現における 1 が立っているビットの個数を返す。
+
+   ``genIType findLSB(genIType value)``, etc.
+       ``value`` の二進表現における最下位ビットのビット番号を返す。
+       値がゼロの場合は -1 を返す。
+
+   ``genIType findMSB(highp genIType value)``, etc.
+       ``value`` の二進表現における最上位ビットのビット番号を返す。
+
+       正の整数の場合、結果はビットが 1 である最も上位のビット番号になる。
+       負の整数の場合、結果はビットが 0 である最も上位のビット番号になる。
+       ``value`` がゼロまたは -1 ならば -1 を返す。
+
+.. admonition:: コメント
+
+   昔のドラクエのアセンブリコードを解析していたときにコードのノートを記録していた
+   ときと感覚がよく似ている。
 
 8.9. Texture Functions
 ----------------------------------------------------------------------
 
+.. note::
+
+    原文の英語を、次のように機械的に単語を日本語に読み換える：
+
+    * level-of-detail: 詳細度
+
+テクスチャー検索関数はすべてのシェーディング段階で利用可能だ。
+ただし、詳細度はフラグメントシェーダーでのみ暗黙的に計算される。
+その他のシェーダーは、基準となる詳細度がゼロとして計算されたかのように動作する。
+後述の表の関数は、API で設定されたテクスチャー混合採取器を介したテクスチャーへのアクセスを提供する。
+サイズ、画素フォーマット、次元数、フィルタリング方法、ミップマップレベル数、
+奥行き比較などのテクスチャーの性質もまた API 呼び出しによって定義される。
+このような性質は、以下に定義する組み込み関数を介してテクスチャーにアクセスする際に考慮される。
+
+テクスチャーデータは、単精度浮動小数点、符号なし正規化整数、符号なし整数、
+符号あり整数のいずれかのデータとして GL に格納される。
+これはテクスチャーの内部フォーマットの種類によって決定される。
+
+テクスチャー検索関数は、検索関数に渡された採取器型に応じて、
+浮動小数点、符号なし整数、符号あり整数のいずれかで結果を返すことができる。
+テクスチャーへのアクセスには、正しい採取器型を使用するように注意しなければならない。
+以下の表は、サポートされている採取器型とテクスチャーの内部フォーマットの組み合わせを示す。
+空白のエントリーはサポートされていない。
+サポートされていない組み合わせの場合、テクスチャー検索を行うと未定義の値を返す。
+
+奥行き・ステンシルテクスチャーの場合、内部テクスチャーフォーマットは
+API を通じてセットとされるアクセスされる成分によって決定される。
+奥行き・ステンシルテクスチャーモードが ``DEPTH_COMPONENT`` に設定されている場合は、
+奥行き成分の内部フォーマットが使用される。
+奥行き・ステンシルテクスチャーモードが ``STENCIL_INDEX`` に設定されている場合、
+ステンシル成分の内部フォーマットが使用されるべきだ。
+
+.. admonition:: コメント
+
+   `本文の表 <https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.html#texture-functions>`__
+
+整数抽出器型の場合、テクスチャー検索の結果は ``ivec4`` だ。
+符号なし整数の抽出器型が使用された場合、テクスチャー検索の結果は ``uvec4`` だ。
+浮動小数点の抽出器型が使用されている場合、テクスチャー検索の結果は ``vec4`` だ。
+
+以下のプロトタイプでは、戻り値型 ``gvec4`` の ``g`` は、
+``vec4``, ``ivec4``, ``uvec4`` の戻り値の型を作る、無、
+``i``, ``u`` のいずれかのプレースホルダーとして使用される。
+これらの場合、抽出器引数の型も ``g`` で始まり、戻り値の型で行われたのと同じ置換を示します。
+これは、上述のように、戻り値の型の基本的な型に合わせて、
+単精度浮動小数点、符号あり整数、または符号なし整数の抽出器だ。
+
+シャドウ形式（抽出器引数がシャドウ型）の場合、
+抽出器に束縛された奥行きテクスチャーの奥行き比較検索は、
+OpenGL 仕様書 8.23 "Texture Comparison Modes" で説明されているように行われる。
+どの成分が :math:`D_{ref}` を指定しているかについては以下の表にある。
+抽出器に束縛されたテクスチャーは奥行きテクスチャーでなければならず、そうでなければ結果は未定義となる。
+奥行き比較をオンにした状態で、奥行きテクスチャーを表現する抽出器に非シャドウテクスチャーの呼び出しが行われた場合、
+結果は未定義となる。
+奥行き比較がオフになっている奥行きテクスチャを表す抽出器にシャドウテクスチャーの呼び出しが行われた場合、
+結果は未定義となる。
+奥行きテクスチャーを表現していない抽出器に対してシャドウテクスチャーの呼び出しが行われた場合、
+結果は未定義となる。
+
+以下の関数のすべてで、フラグメントシェーダーの場合、引数 ``bias`` はオプションだ。
+引数 ``bias`` は他のシェーダー段階では受け付けられない。
+フラグメントシェーダーでは ``bias`` が存在する場合、テクスチャーアクセス操作を行う前に、
+暗黙の詳細度に追加される。
+矩形テクスチャー、多重採取テクスチャー、テクスチャバッファーの場合、
+ミップマップが許可されていないため ``bias`` や ``lod`` はサポートされていない。
+
+暗黙の詳細度は次のように選択される：
+ミップマップされていないテクスチャーの場合、そのテクスチャーが直接使用される。
+ミップマップされていてフラグメントシェーダーで実行されている場合、
+実装によって計算された詳細度がテクスチャーの検索に使用される。
+ミップマップされていて非フラグメントシェーダーで実行されている場合は、基準テクスチャーが使用される。
+
+テクスチャー関数（非 Lod および非 Grad バージョン）の中には、
+暗黙的な微分係数を必要とするものがある。
+暗黙的な微分係数は、非一様制御フロー内および
+非フラグメントシェーダーのテクスチャーを取ってくるものでは未定義だ。
+
+``Cube`` 形式の場合、OpenGL 仕様書の 8.13 "Cube Map Texture Selection" で説明されているように、
+``P`` の方向はニ次元テクスチャーの検索をどの面で行うかを選択するために使用される。
+
+``Array`` 形式の場合、使用される配列レイヤーは次のようになる：
+
+| max(0, min(d − 1, ⌊layer + 0.5⌋))
+
+ここで ``d`` はテクスチャー配列の奥行きで、
+``layer`` は以下の表に示された成分のものだ。
+
 8.9.1. Texture Query Functions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+関数 ``textureSize``はテクスチャー混合抽出器に対して特定のテクスチャーレベルの寸法を問い合わせる。
+
+関数 ``textureQueryLod`` はフラグメントシェーダーでしか利用可能でない。
+これらの関数は ``P`` の成分を取り、テクスチャーパイプが通常のテクスチャー検索で
+そのテクスチャーにアクセスするために使用する詳細度情報を計算する。
+詳細度 :math:`\lambda^{\prime}`（OpenGL 仕様書の式 3.18）は、
+詳細度バイアスの後、範囲 ``[TEXTURE_MIN_LOD, TEXTURE_MAX_LOD]`` に clamp するのに先立って得られる。
+また、アクセスされるミップマップ配列も計算される。
+詳細度一つにアクセスする場合は、基準レベルに対する詳細度の番号が返される。
+複数の詳細度にアクセスする場合は、二つのレベルの間の浮動小数点数が返され、
+その小数部分は、計算され clamp された詳細度の小数部分に等しい。
+
+.. admonition:: コメント
+
+   使用されるアルゴリズムが疑似コードで示されているが略。
+
+値 ``maxAccessibleLevel`` は、ミップマップ配列の最小のアクセス可能なレベルのレベル番号
+（OpenGL 仕様書の 8.14.3 "Mipmapping" の ``q`` 値）から基準レベルを引いたものだ。
+
+.. glossary::
+
+   ``int textureSize(gsampler1D sampler, int lod)``,
+   ...
+   ``ivec3 textureSize(gsampler2DMSArray sampler)``
+       OpenGL 仕様の 8.11 "Texture Queries" に述べられている、抽出器 ``sampler`` に束縛されたテクスチャーの詳細度 ``lod`` の寸法を返す（存在すれば）。
+       戻り値の成分には、テクスチャーの幅、高さ、奥行きが順に埋められる。
+
+       配列形式の場合、戻り値の最後の成分は、テクスチャー配列のレイヤー数、またはテクスチャーキューブマップ配列のキューブ数となる。
+
+   ``vec2 textureQueryLod(gsampler1D sampler, float P)``,
+   ...
+   ``vec2 textureQueryLod(samplerCubeArrayShadow sampler, vec3 P)``
+       戻り値の ``x`` 成分に、アクセスされるミップマップ配列を返す。
+
+       基準レベルに対する計算された詳細度を戻り値の ``y`` 成分に返す。
+
+       不完全なテクスチャーに対して呼び出された場合の結果は未定義だ。
+
+   ``int textureQueryLevels(gsampler1D sampler)``,
+   ...
+   ``int textureQueryLevels(samplerCubeArrayShadow sampler)``
+       ``sampler`` に関連付けられたテクスチャーでアクセス可能なミップマップレベルの数を返す。
+
+       ``sampler`` にテクスチャーが関連付けられていない場合や不完全なテクスチャーの場合は、値 0 を返す。
+
+       すべてのシェーダー段階で利用可能。
+
+   ``int textureSamples(gsampler2DMS sampler)``,
+   ``int textureSamples(gsampler2DMSArray sampler)``
+       ``sampler`` に束縛されているテクスチャーの標本数を返す。
 
 8.9.2. Texel Lookup Functions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. glossary::
+
+   ``gvec4 texture(gsampler1D sampler, float P [, float bias] )``,
+   ...
+   ``float texture(sampler2DArrayShadow sampler, vec4 P)``,
+   ...
+   ``float texture(samplerCubeArrayShadow sampler, vec4 P, float compare)``
+       テクスチャー座標 ``P`` を使って、現在 ``sampler`` に束縛されているテクスチャーの検索を行う。
+
+       シャドウ形式の場合：引数 ``compare`` がない場合は、座標 ``P`` の最後の成分が
+       :math:`D_{ref}` として使用され、配列レイヤーは ``P``の最後から 2 番目の成分から生成される。
+       ``P`` の 2 番目の成分は 1D シャドウ検索では使用されない。
+
+       シャドウ以外の形式の場合：配列レイヤーは ``P`` の最後の成分から来る。
+
+   ``gvec4 textureProj(gsampler1D sampler, vec2 P [, float bias] )``, ...
+   ``gvec4 textureProj(gsampler2DRect sampler, vec3 P)``, ...
+       投影によるテクスチャー検索を行う。
+       ``P`` の最後の成分を含まない、
+       ``P`` から消費されるテクスチャー座標は、
+       ``P`` の最後の成分で除算され、投影座標 :math:`P^{\prime}` を形成する。
+       その結果、シャドウ形式における ``P`` の第 3 成分が :math:`D_{ref}` として使用される。
+       ``P`` の第 3 成分は ``sampler`` の型が ``gsampler2D`` で、
+       ``P`` の型が ``vec4`` の場合には無視される。
+       これらの値が計算された後、テクスチャー検索は ``texture`` の場合と同様に行われる。
+
+   ``gvec4 textureLod(gsampler1D sampler, float P, float lod)``, etc.
+       ``texture`` のようにテクスチャー検索を行うが、明示的な詳細度を持つ：
+       ``lod`` は :math:`\lambda_{base}` を指定し、偏微分を次のようにセットする：
+
+       .. todo::
+
+          偏微分の式を TeX で書く。
+
+       OpenGL 仕様 8.14 "Texture Minification" と同式 8.4-8.6 を参照。
+
+   ``gvec4 textureOffset(gsampler1D sampler, float P, int offset [, float bias] )``, ...
+   ``gvec4 textureOffset(gsampler2DRect sampler, vec2 P, ivec2 offset)``, ...
+   ``float textureOffset(sampler1DShadow sampler, vec3 P, int offset [, float bias] )``, ...
+   ``float textureOffset(sampler2DArrayShadow sampler, vec4 P, ivec2 offset)``
+       各テクセルを検索する前に ``(u, v, w)`` テクセル座標に ``offset`` を追加して、
+       ``texture`` と同様にテクセル検索を行う。
+       オフセット値は定数表現でなければならない。
+       限られた範囲のオフセット値がサポートされている。
+       オフセット値の最小値と最大値は実装依存であり、
+       それぞれ ``gl_MinProgramTexelOffset`` と ``gl_MaxProgramTexelOffset`` で与えられる。
+
+       なお、オフセットはテクスチャー配列のレイヤー座標には適用されない。
+       これについては OpenGL 仕様の 8.14.2 "Coordinate Wrapping and Texel Selection"
+       で詳しく説明されており、オフセットは :math:`{(\delta_u, \delta_v, \delta_w)}` となる。
+       なお、キューブマップに対してはテクセルオフセットはサポートされていない。
+
+   ``gvec4 texelFetch(gsampler1D sampler, int P, int lod)``, ...
+   ``gvec4 texelFetch(gsampler2DRect sampler, ivec2 P)``, ...
+   ``gvec4 texelFetch(gsampler1DArray sampler, ivec2 P, int lod)``, ...
+   ``gvec4 texelFetch(gsamplerBuffer sampler, int P)``,
+   ``gvec4 texelFetch(gsampler2DMS sampler, ivec2 P, int sample)``, ...
+       整数テクスチャー座標 ``P`` を使用して ``sampler`` からテクセル一つを検索する。
+       配列レイヤーは、配列形式に対する ``P`` の最後の成分から来る。
+       詳細度 ``lod`` が存在する場合は、OpenGL 仕様 11.1.3.2 "Texel Fetches"
+       および 8.14.1 "Scale Factor and Level of Detail" に記述のあるとおりだ。
+
+   ``gvec4 texelFetchOffset(gsampler1D sampler, int P, int lod, int offset)``, etc.
+       ``texelFetch`` と同様に単一のテクセルを ``textureOffset`` で記述されたように
+       ``offset`` を使って取ってくる。
+
+   ``gvec4 textureProjOffset(gsampler1D sampler, vec2 P, int offset [, float bias] )``, ...
+   ``gvec4 textureProjOffset(gsampler2DRect sampler, vec3 P, ivec2 offset)``, ...
+   ``float textureProjOffset(sampler1DShadow sampler, vec4 P, int offset [, float bias] )``, ...
+       ``textureProj`` に記述されているようにして投影テクスチャー検索を行い、
+       ``textureOffset`` に記述されているようにして ``offset`` によるオフセットを行う。
+
+   ``gvec4 textureLodOffset(gsampler1D sampler, float P, float lod, int offset)``, etc.
+       明示的な詳細度でオフセットテクスチャー検索を行う。
+       ``textureLod`` および ``textureOffset`` を参照。
+
+   ``gvec4 textureProjLod(gsampler1D sampler, vec2 P, float lod)``, etc.
+       明示的な詳細度で投影テクスチャー検索を行う。
+       ``textureProj`` と ``textureLod`` を参照。
+
+   ``gvec4 textureProjLodOffset(gsampler1D sampler, vec2 P, float lod, int offset)``, etc.
+       明示的な詳細度でオフセット射影テクスチャー検索を行う。
+       ``textureProj``, ``textureLod``, ``textureOffset`` を参照。
+
+   ``gvec4 textureGrad(gsampler1D sampler, float P, float dPdx, float dPdy)``, etc.
+       ``texture`` のようにしてテクスチャー検索を行うが、以下の明示的な勾配を使う。
+       ``P`` の偏微分は、ウィンドウ ``x`` とウィンドウ ``y`` に関する。
+       キューブバージョンでは ``P`` の偏導関数は、テクスチャー座標が適切なキューブ面に投影される前に使用される座標系にあると仮定する。
+
+   ``gvec4 textureGradOffset(gsampler1D sampler, float P, float dPdx, float dPdy, int offset)``, etc.
+       ``textureGrad`` と ``textureOffset`` で説明されているように、
+       明示的な勾配とオフセットの両方を持つテクスチャー検索を行う。
+
+   ``gvec4 textureProjGrad(gsampler1D sampler, vec2 P, float dPdx, float dPdy)``, etc.
+       ``textureProj`` で記述されているように、射影的に、
+       また ``textureGrad`` で記述されているように明示的に勾配を用いて、
+       テクスチャー検索を行う。
+       偏微分 ``dPdx`` と ``dPdy`` はすでに投影されているものとする。
+
+   ``gvec4 textureProjGradOffset(gsampler1D sampler, vec2 P, float dPdx, float dPdy, int offset)``, etc.
+       ``textureProjGrad`` で記述されているように、投影された、明示的な勾配を持った、また、
+       ``textureOffset`` で記述されているように、オフセットを持つ、テクスチャー検索を行う。
 
 8.9.3. Explicit Gradients
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+前述の ``textureGrad`` 関数では、明示的な勾配は以下のようにテクスチャー検索を制御する。
+
+.. admonition:: コメント
+
+   `本文の数式 <https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.html#explicit-gradients>`__
 
 8.9.4. Texture Gather Functions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+テクスチャー収集関数は、単一の浮動小数点ベクトルオペランドの成分をテクスチャー座標として受け取り、
+指定されたテクスチャー画像の基準詳細度から採取する四つのテクセルからなる集合を決定し、
+テクセルそれぞれから一つの成分とって 4 成分結果ベクトルに返す。
+
+テクスチャー収集操作を行う際には、最小化フィルターと拡大フィルターは無視され、
+OpenGL 仕様の ``LINEAR`` フィルタリング規則がテクスチャー画像の基準レベルに適用され、
+四つのテクセル :math:`{i_0 j_1, i_1 j_1, i_1 j_0, i_0 j_0}` を特定する。
+これらのテクセルは 表 15.1 に従ってテクスチャー基準色 :math:`{(R_s, G_s, B_s, A_s)}` に変換され、
+その後、OpenGL 仕様の 15.2.1 "Texture Access" で説明されているように、
+テクスチャーかき混ぜが適用される。
+四成分ベクトルは、かき混ぜた後のテクスチャーソース色のそれぞれから選択された成分を
+:math:`{(i_0 j_1, i_1 j_1, i_1 j_0, i_0 j_0)}` の順に取ることで組み立てられる。
+
+テクスチャー混合シャドウ抽出器型を使用するテクスチャー収集関数の場合、
+四つのテクセル検索のそれぞれは、``(refZ)`` で渡された奥行き参照値との奥行き比較を行い、
+その比較結果を結果ベクトルの適切な成分に返す。
+
+他のテクスチャー検索関数と同様に、テクスチャー収集の結果は、
+
+* シャドウ抽出器に対しては、参照されるテクスチャーが奥行きテクスチャーでないか、
+  奥行き比較が無効になっている場合、または
+* 非シャドウ抽出器に対しては、参照されるテクスチャーが深度比較を有効にした深度テクスチャである場合
+
+には未定義だ。
+
+.. glossary::
+
+   ``gvec4 textureGather(gsampler2D sampler, vec2 P [, int comp])``, ...
+   ``vec4 textureGather(sampler2DShadow sampler, vec2 P, float refZ)``, ...
+       次を返す：
+
+       .. code:: glsl
+
+          vec4(Sample_i0_j1(P, base).comp,
+               Sample_i1_j1(P, base).comp,
+               Sample_i1_j0(P, base).comp,
+               Sample_i0_j0(P, base).comp)
+
+       指定された場合、引数 ``comp`` は 0, 1, 2, 3 のいずれかの値を持つ定整数式でなければならず、
+       各テクセルの 4 成分ベクトル検索結果の ``x``, ``y``, ``z``, ``w`` のかき混ぜた後の成分をそれぞれ識別する。
+       ``comp`` が指定されない場合は 0 として扱われ、各テクセルの ``x`` 成分を選択して結果を生成する。
+
+   ``gvec4 textureGatherOffset(gsampler2D sampler, vec2 P, ivec2 offset, [ int comp])``, ...
+   ``vec4 textureGatherOffset(sampler2DShadow sampler, vec2 P, float refZ, ivec2 offset)``, ...
+   ``gvec4 textureGatherOffset(gsampler2DRect sampler, vec2 P, ivec2 offset [ int comp])``
+   ``vec4 textureGatherOffset(sampler2DRectShadow sampler, vec2 P, float refZ, ivec2 offset)``
+       ``offset`` が変数（非定数）であり、実装依存の最小および最大オフセット値がそれぞれ
+       ``MIN_PROGRAM_TEXTURE_GATHER_OFFSET`` および ``MAX_PROGRAM_TEXTURE_GATHER_OFFSET``
+       によって与えられることを除いて、
+       ``textureOffset`` に記述されているように ``offset`` によって ``textureGather`` のようにテクスチャー収集操作を実行する。
+
+   ``gvec4 textureGatherOffsets(gsampler2D sampler, vec2 P, ivec2 offsets[4] [, int comp])``, ...
+   ``vec4 textureGatherOffsets(sampler2DShadow sampler, vec2 P, float refZ, ivec2 offsets[4])``, ...
+   ``gvec4 textureGatherOffsets(gsampler2DRect sampler, vec2 P, ivec2 offsets[4] [, int comp])``
+   ``vec4 textureGatherOffsets(sampler2DRectShadow sampler, vec2 P, float refZ, ivec2 offsets[4])``
+       ``offsets`` が採取する四つのテクセルの位置を決定するために使用されることを除けば
+       ``textureGatherOffset`` と同じように操作する。
+       四つのテクセルそれぞれが ``offsets`` の対応するオフセットを ``(u, v)`` 座標オフセットとして ``P`` に適用し、
+       四テクセルの ``LINEAR`` 足跡を特定し、その足跡のテクセル :math`i_0 j_0` を選択することで得られる。
+       ``offsets`` に指定する値は、定整数式でなければならない。
 
 8.9.5. Compatibility Profile Texture Functions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+以下のテクスチャー機能は、互換性プロファイルにしかない：
 
+.. admonition:: コメント
+
+   後回し。
 
 8.10. Atomic Counter Functions
 ----------------------------------------------------------------------
