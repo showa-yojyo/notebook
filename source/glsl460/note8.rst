@@ -528,12 +528,12 @@ OpenGL Shading Language はスカラーおよびベクトル演算について�
 .. glossary::
 
    ``genUType uaddCarry(highp genUType x, highp genUType y, out lowp genUType carry)``
-       32 ビット符号なし整数の加算 ``x + y`` をし、232 を基準とした和を返す。
-       和が 232 より小さければ値 ``carry`` は 0 に、そうでなければ 1 になる。
+       32 ビット符号なし整数の加算 ``x + y`` をし、:math:`{2^{32}}` を基準とした和を返す。
+       和が :math:`{2^{32}}` より小さければ値 ``carry`` は 0 に、そうでなければ 1 になる。
 
    ``genUType usubBorrow(highp genUType x, highp genUType y, out lowp genUType borrow)``
        32 ビット符号なし整数の減算 ``x - y`` をする。差が非負であれば差を、
-       そうでなければ 232 に差を加えた値を返す。
+       そうでなければ :math:`{2^{32}}` に差を加えた値を返す。
        値 ``borrow`` は ``x >= y`` の場合は 0 に、そうでなければ 1 になる。
 
    ``void umulExtended(highp genUType x, highp genUType y, out highp genUType msb, out highp genUType lsb)``
@@ -927,30 +927,441 @@ OpenGL 仕様の ``LINEAR`` フィルタリング規則がテクスチャー画�
 8.10. Atomic Counter Functions
 ----------------------------------------------------------------------
 
+この節の不可分カウンター操作は、互いに不可分に操作する。
+つまり、あるシェーダー実体化のどの特定のカウンターに対するこれらの操作は、
+別のシェーダー実体化の同じカウンターに対するこれらのどの操作とも不可分だ。
+これらの操作がカウンターへの他のアクセス方法に対して不可分であることや、
+別々のカウンターに適用されたときに直列化されることは保証されない。
+このような場合、不可分性や直列性を求めるならば、フェンスやバリア、
+あるいは他の形式の同期を追加的に使用する必要がある。
+
+内在するカウンターは 32 ビットの符号なし整数だ。演算の結果は :math:{[0, 2^{32}-1]}` に折り返される。
+
+.. glossary::
+
+   ``uint atomicCounterIncrement(atomic_uint c)``
+       不可分に
+
+       1. ``c`` に対するカウンターをインクリメントして
+       2. インクリメント操作に先立ってその値を返す。
+
+       これら二つのステップは、この節の不可分カウンター関数に関しては不可分に行われる。
+
+   ``uint atomicCounterDecrement(atomic_uint c)``
+       上記関数のデクリメント版。
+
+   ``uint atomicCounter(atomic_uint c)``
+      ``c`` に対するカウンター値を返す。
+
+   ``uint atomicCounterAdd(atomic_uint c, uint data)``
+       不可分に
+
+       1. ``c`` に対するカウンターに ``data`` を加算して
+       2. その演算に先立ってその値を返す。
+
+       これら二つのステップは、この節の不可分カウンター関数に関しては不可分に行われる。
+
+   ``uint atomicCounterSubtract(atomic_uint c, uint data)``
+       上記関数の減算版。
+
+   ``uint atomicCounterMin(atomic_uint c, uint data)``
+       不可分的に
+
+       1. ``c`` に対するカウンターを、カウンターの値と ``data`` の値の最小値に設定して
+       2. 演算に先立ってその値を返す。
+
+       これら二つのステップは、この節の不可分カウンター関数に関しては不可分に行われる。
+
+   ``uint atomicCounterMax(atomic_uint c, uint data)``
+       上記関数の最大値版。
+
+   ``uint atomicCounterAnd(atomic_uint c, uint data)``
+       不可分的に
+
+       1. ``c`` に対するカウンターを、カウンターの値と ``data`` の値のビットごとの論理積にセットして
+       2. 演算に先立ってその値を返す。
+
+       これら二つのステップは、この節の不可分カウンター関数に関しては不可分に行われる。
+
+   ``uint atomicCounterOr(atomic_uint c, uint data)``
+       上記関数の論理和版。
+
+   ``uint atomicCounterXor(atomic_uint c, uint data)``
+       上記関数の排他的論理和版。
+
+   ``uint atomicCounterExchange(atomic_uint c, uint data)``
+       不可分的に
+
+       1. ``c`` に対するカウンター値を ``data`` の値にセットして
+       2. 演算に先立ってその値を返す。
+
+       これら二つのステップは、この節の不可分カウンター関数に関しては不可分に行われる。
+
+   ``uint atomicCounterCompSwap(atomic_uint c, uint compare, uint data)``
+       不可分的に
+
+       1. ``compare`` の値と ``c`` に対するカウンター値を比較し、
+       2. 値が等しければ ``c`` に対するカウンター値を ``data`` の値にセットして
+       3. 演算に先立ってその値を返す。
+
+       これら三つのステップは、この節の不可分カウンター関数に関しては不可分に行われる。
 
 8.11. Atomic Memory Functions
 ----------------------------------------------------------------------
 
+不可分記憶関数はバッファーオブジェクトまたは共有変数格納に格納された個々の符号あり
+または符号なしの整数に対して不可分な操作を行う。
+すべての不可分記憶操作は、メモリーから値を読み取り、以下に述べる操作のいずれかを使用して新しい値を計算し、
+新しい値をメモリーに書き込み、読み取った元の値を返す。
+不可分操作によって更新されるメモリーの内容は、元の値が読み込まれてから新しい値が書き込まれるまでの間、
+シェーダーの呼び出しにおける他の割り当てや不可分記憶関数によって変更されないことが保証されている。
+
+不可分記憶関数は限られた変数の集合に対してしかサポートされていない。
+不可分記憶関数の ``mem`` 引数に渡された値が、バッファーや共有変数に対応していない場合、
+シェーダーのコンパイルに失敗する。不可分記憶関数の ``mem`` 引数に配列の要素やベクトルの単一成分を渡しても、
+そのもとになる配列やベクトルがバッファーや共有変数である限りは問題ない。
+
+この節の組み込み関数はすべて、プロトタイプに記載されていないにもかかわらず、
+``restrict``, ``coherent``, ``volatile`` 記憶修飾の組み合わせを持つ引数を受け入れる。
+不可分操作は、組み込み関数の仮引数の記憶修飾ではなく、呼び出した引数のそれによって要求されたとおりに動作する。
+
+.. glossary::
+
+   ``uint atomicAdd(inout uint mem, uint data)``
+   ``int atomicAdd(inout int mem, int data)``
+       ``mem`` の内容に ``data`` の値を加えて新しい値を計算する。
+
+   ``uint atomicMin(inout uint mem, uint data)``
+   ``int atomicMin(inout int mem, int data)``
+       ``data`` の値と ``mem`` の内容の最小値を取って新しい値を計算する。
+
+   ``uint atomicMax(inout uint mem, uint data)``
+   ``int atomicMax(inout int mem, int data)``
+       上記の最大値版。
+
+   ``uint atomicAnd(inout uint mem, uint data)``
+   ``int atomicAnd(inout int mem, int data)``
+       ``data`` の値と ``mem`` の内容をビットごとに論理積をとることで新しい値を計算する。
+
+   ``uint atomicOr(inout uint mem, uint data)``
+   ``int atomicOr(inout int mem, int data)``
+       上記関数の論理和版。
+
+   ``uint atomicXor(inout uint mem, uint data)``
+   ``int atomicXor(inout int mem, int data)``
+       上記関数の排他的論理和版。
+
+   ``uint atomicExchange(inout uint mem, uint data)``
+   ``int atomicExchange(inout int mem, int data)``
+       ``data`` の値を単にコピーして新しい値を計算する。
+
+   ``uint atomicCompSwap(inout uint mem, uint compare, uint data)``
+   ``int atomicCompSwap(inout int mem, int compare, int data)``
+       ``compare`` の値と ``mem`` の内容を比較する。
+       値が等しい場合、新しい値は ``data`` で与えられ、
+       そうでない場合は ``mem`` の元の内容から取得される。
 
 8.12. Image Functions
 ----------------------------------------------------------------------
 
+画像基本型のいずれかを使用する変数は、この節で定義する組み込みシェーダーの
+画像記憶関数によって、テクスチャーの個々のテクセルを読み書きするために使用することができる。
+各画像変数は、テクスチャー画像が取り付けられている画像単位を参照する。
+
+画像メモリーがアクセスメモリー以下の機能を持つ場合、
+画像中の個々のテクセルは ``P`` の値に対応する ``(i)``, ``(i, j)``, ``(i, j, k)`` のどれかの座標を用いて識別される。
+多重標本テクスチャーに対応する ``image2DMS`` および ``image2DMSArray`` 変数
+（およびそれに対応する ``int``/``unsigned int`` 型）では、
+各テクセルが複数の標本を持つことがあり、個々の標本は整数の ``sample`` 引数を使って識別される。
+座標と標本番号は OpenGL 仕様の 8.26 "Texture Image Loads and Stores" に記述されている方法で個々のテクセルを選択するのに使用される。
+
+ロードとストアは浮動小数点数、整数、符号なし整数型をサポートする。
+下にあるデータ型のうち ``gimage`` で始まるものは、
+前節の ``"gvec"`` や ``"gsampler"`` と同様に、
+``"image"``, ``"iimage"``, ``"uimage"`` のいずれかで始まる型を意味するプレースホルダーを果たす。
+
+以下のプロトタイプの ``IMAGE_PARAMS`` は 33 個の別々の関数を表すプレースホルダーで、
+それぞれが異なる型の画像変数に対応する。
+``IMAGE_PARAMS`` のプレースホルダーは、以下の引数リストのいずれかで置き換えられる：
+
+.. code:: glsl
+
+   (gimage2D image, ivec2 P)
+   (gimage3D image, ivec3 P)
+   (gimageCube image, ivec3 P)
+   (gimageBuffer image, int P)
+   (gimage2DArray image, ivec3 P)
+   (gimageCubeArray image, ivec3 P)
+   (gimage1D image, int P)
+   (gimage1DArray image, ivec2 P)
+   (gimage2DRect image, ivec2 P)
+   (gimage2DMS image, ivec2 P, int sample)
+   (gimage2DMSArray image, ivec3 P, int sample)
+
+ここで、各行は三種類の画像変数型のいずれかを表し、
+``image``, ``P``, ``sample`` は操作する個々のテクセルを指定する。
+``image``, ``P``, ``sample`` から操作する個々のテクセルを特定する方法、
+およびテクセルの読み書き方法は、OpenGL 仕様 8.26 "Texture Image Loads and Store" で規定されている。
+
+不可分関数は、画像変数の個々のテクセルまたは標本に対して操作を行う。
+不可分記憶操作は、選択されたテクセルから値を読み取り、後述する操作のいずれかを使用して新しい値を計算し、
+選択されたテクセルに新しい値を書き込み、読み取った元の値を返す。
+不可分操作によって更新されるテクセルの内容は、元の値が読み込まれてから新しい値が書き込まれるまでの間に、
+他の画像格納や不可分関数によって変更されないことが保証される。
+
+不可分記憶操作は、すべての画像変数型の部分集合にしかサポートしない。
+``image`` は以下のいずれかでなければならない：
+
+* 符号あり整数画像変数（型が ``"iimage"`` で始まる）で、フォーマット修飾子が ``r32i`` であり、
+  ``int`` 型の ``data`` 引数で使用される。
+* 符号なし整数画像変数（型が ``"uimage"`` で始まる）で、フォーマット修飾子が ``r32ui`` であり、
+  ``uint`` 型の ``data`` 引数で使用される。
+a float image variable (type starts “image”) and a format qualifier of r32f, used with a data argument of type float (imageAtomicExchange only).
+* 浮動小数点数画像変数（型がは ``"image"`` で始まる）で、フォーマット修飾子が ``r32f`` であり、
+  ``float`` 型の ``data`` 引数で使用される。
+  該当するのは ``imageAtomicExchange`` しかない。
+
+この節の組み込み関数はすべて、プロトタイプに記載されていないにもかかわらず、
+``restrict``, ``coherent``, ``volatile`` 記憶修飾の組み合わせを持つ引数を受け入れる。
+画像操作は、組み込み関数の仮引数の記憶修飾ではなく、呼び出した引数のそれによって要求されたとおりに動作する。
+
+.. glossary::
+
+   ``int imageSize(readonly writeonly gimage1D image)``, etc.
+       画像の寸法または ``image`` に束縛された画像の寸法を返す。
+       配列された画像の場合、戻り値の最後の成分に配列のサイズが格納される。
+       キューブ画像の場合は、一つの面の寸法と、
+       配列されている場合はキューブマップ配列内のキューブの数しか返さない。
+       注意: ``readonly writeonly`` という修飾語は、
+       ``readonly`` と ``writeonly`` の両方で修飾された変数か、またはどちらの修飾もない変数を受け入れる。
+       これは、仮引数が背後にあるメモリーの読み取りにも書き込みにも使用されないことを意味する。
+
+   ``int imageSamples(readonly writeonly gimage2DMS image)``
+   ``int imageSamples(readonly writeonly gimage2DMSArray image)``
+       画像または ``image`` に束縛されている画像の標本数を返す。
+
+   ``gvec4 imageLoad(readonly IMAGE_PARAMS)``
+       画像単位 ``image`` から座標 ``P`` のテクセルをロードする。
+       多重標本ロードの場合、標本番号は ``sample`` で与えられる。
+       ``image``, ``P``, ``sample`` で有効なテクセルが特定されると、
+       メモリー上で選択されたテクセルを表すビットは、
+       OpenGL 仕様 8.26 "Texture Image Loads and Stores" で記述されている方法で、
+       ``vec4``, ``ivec4``, ``uvec4`` に変換されて返される。
+
+   ``void imageStore(writeonly IMAGE_PARAMS, gvec4 data)``
+       ``image`` で指定された画像の座標 ``P`` のテクセルに ``data`` を格納する。
+       多重標本格納の場合、標本番号を ``sample`` で指定する。
+       ``image``, ``P``, ``sample`` で有効なテクセルが特定されると、
+       データを表現するためのビットは、
+       OpenGL 仕様 8.26 "Texture Image Loads and Stores" で記述されている方法で
+       画像単位のフォーマットに変換され、指定されたテクセルに格納される。
+
+   ``uint imageAtomicAdd(IMAGE_PARAMS, uint data)``
+   ``int imageAtomicAdd(IMAGE_PARAMS, int data)``
+       選択されたテクセルの内容に ``data`` の値を加算して新しい値を計算する。
+
+   ``uint imageAtomicMin(IMAGE_PARAMS, uint data)``
+   ``int imageAtomicMin(IMAGE_PARAMS, int data)``
+       選択されたテクセルの内容と ``data`` の値との最小値を取ることで、新しい値を計算する。
+
+   ``uint imageAtomicMax(IMAGE_PARAMS, uint data)``
+   ``int imageAtomicMax(IMAGE_PARAMS, int data)``
+       上記関数の最大値版。
+
+   ``uint imageAtomicAnd(IMAGE_PARAMS, uint data)``
+   ``int imageAtomicAnd(IMAGE_PARAMS, int data)``
+       選択されたテクセルの内容と ``data`` の値とをビットごとに論理積をとることにより、新しい値を計算する。
+
+   ``uint imageAtomicOr(IMAGE_PARAMS, uint data)``
+   ``int imageAtomicOr(IMAGE_PARAMS, int data)``
+       上記関数の論理和版。
+
+   ``uint imageAtomicXor(IMAGE_PARAMS, uint data)``
+   ``int imageAtomicXor(IMAGE_PARAMS, int data)``
+       上記関数の排他的論理和版。
+
+   ``uint imageAtomicExchange(IMAGE_PARAMS, uint data)``
+   ``int imageAtomicExchange(IMAGE_PARAMS, int data)``
+   ``float imageAtomicExchange(IMAGE_PARAMS, float data)``
+       ``data`` の値を単にコピーして新しい値を計算する。
+
+   ``uint imageAtomicCompSwap(IMAGE_PARAMS, uint compare, uint data)``
+   ``int imageAtomicCompSwap(IMAGE_PARAMS, int compare, int data)``
+       選択されたテクセルと ``compare`` の値と内容を比較する。
+       値が等しい場合は新しい値が ``data`` で与えられ、
+       そうでない場合はテクセルから読み込まれた元の値から取得される。
 
 8.13. Geometry Shader Functions
 ----------------------------------------------------------------------
 
+これらの機能は、幾何シェーダーでしか利用できない。
+
+.. glossary::
+
+   ``void EmitStreamVertex(int stream)``
+       出力変数の現在の値を ``stream`` の現在の出力基本形状に放出する。
+       ``stream`` 実引数は定整数でなければならない。
+       この呼び出しから戻ると、出力変数すべての値は未定義だ。
+       複数の出力ストリームがサポートされている場合にしか使用できない。
+
+   ``void EndStreamPrimitive(int stream)``
+       ``stream`` の現在の出力基本形状を完了し、新しいものを開始する。
+       ``stream`` 実引数は定整数式でなければならない。頂点は放出されない。
+       複数の出力ストリームがサポートされている場合にしか使用できない。
+
+   ``void EmitVertex()``
+       出力変数の現在の値を、現在の出力基本形状に出力する。
+       複数の出力ストリームがサポートされている場合、これは ``EmitStreamVertex(0)`` を呼び出すことと等価だ。
+       この呼び出しから戻ると、出力変数の値は未定義だ。
+
+   ``void EndPrimitive()``
+       現在の出力基本形状を完了し、新しいものを開始する。
+       複数の出力ストリームがサポートされている場合、これは ``EndStreamPrimitive(0)`` を呼び出すことと等価だ。
+       頂点は放出されない。
+
+関数 ``EmitStreamVertex()`` は頂点が完成したことを指定する。
+頂点は、ストリームに関連付けられた組み込みおよびユーザー定義の出力変数すべての現在の値を使用して、
+頂点ストリーム ``stream`` の現在の出力基本形状に追加される。
+``EmitStreamVertex()`` 呼び出し後は、出力ストリームすべてに対する出力変数すべての値が未定義だ。
+幾何シェーダー呼び出しが、出力レイアウト修飾子 ``max_vertices`` で許可されている以上の頂点を放出していた場合、
+``EmitStreamVertex()`` 呼び出しの結果は未定義となる。
+
+関数 ``EndStreamPrimitive()`` は、頂点ストリームの現在の出力基本形状が完了し、
+その後の ``EmitStreamVertex()`` によって（同型の）新しい出力基本形状が開始することを指定する。
+この関数は頂点を放出しない。
+出力レイアウトが ``points`` と宣言されている場合、
+``EndStreamPrimitive()`` の呼び出しはオプションだ。
+
+幾何シェーダーは、ストリームそれぞれについて頂点のない出力基本形状の状態から始まる。
+幾何シェーダーが停止すると、ストリームそれぞれの現在の出力基本形状が自動的に完成する。
+幾何シェーダーが単一の基本形状しか書き込まないならば ``EndStreamPrimitive()`` を呼び出す必要はない。
+
+複数出力ストリームは出力基本形状型が ``points`` と宣言されている場合に限りサポートされる。
+``EmitStreamVertex()`` や ``EndStreamPrimitive()`` を呼び出す幾何シェーダーが
+プログラムに含まれていて、その出力基本形状型が ``points`` でない場合は、
+コンパイルエラーまたはリンクエラーとなる。
 
 8.14. Fragment Processing Functions
 ----------------------------------------------------------------------
 
+フラグメント処理機能はフラグメントシェーダーでしか利用できない。
+
 8.14.1. Derivative Functions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+微分は計算的に高く付き、数値的に不安定な場合がある。
+そのため、実装では、高速だが完全には正確ではない導関数の計算を使用して、
+真の微分係数を近似することにしても構わない。非一様な制御フローでは、微分は未定義だ。
+
+微分に期待される動作は、右・左微分を使って指定される。
+
+.. admonition:: コメント
+
+   ここに定義式が MathJax で定義されている。
+   式 (1a) と (1b) が右微分係数、(2a) と (2b) が左微分係数の近似式に読める。
+   本文参照。
+
+単標本ラスタライズの場合、式 (1b)と (2b) で :math`{\dd{x} \le 1.0}.`
+多重標本ラスタライズの場合、式 (1b)と (2b) で :math`{\dd{x} \le 2.0}.`
+
+:math:`{\dd{F}\dd{y}}` も同様に近似される。
+
+多重標本ラスタライズでは、任意のフラグメントまたは標本に対して、隣接するフラグメントまたは標本を考慮することができる。
+
+典型的な例としては、2x2の正方形のフラグメントまたは標本を考慮し、
+行ごとに独立した ``dFdxFine`` と列ごとに独立した ``dFdyFine`` を計算する一方で、
+2x2 の正方形全体に対しては、単一の ``dFdxCoarse`` と単一の ``dFdyCoarse`` しか計算しないというものがある。
+したがって、すべての二次の粗い導関数、
+たとえば ``dFdxCoarse(dFdxCoarse(x))`` は、非線形の引数であっても 0 になる可能性がある。
+しかし、二次微分、例えば ``dFdxFine(dFdyFine(x))`` は、
+2x2 正方形内で計算された独立した微分の差を適切に反映する。
+
+この方法は、スクリーン座標ではなく、ウィンドウ座標によって変わるという制約のもと、
+フラグメントごとに異なっていても構わない。
+OpenGL 仕様 14.2 "Invariance" に記述されている不変性の要件は、微分計算では緩和されているが、
+これはメソッドがフラグメント位置の関数である可能性があるためだ。
+
+一部の実装では、GL ヒント（OpenGL 仕様 21.4 "Hints" 参照）を与えることで、
+``dFdx`` および ``dFdy`` の微分精度を変化させ、ユーザーが画質と速度のトレードオフを行えるようにしている。
+これらのヒントは ``dFdxCoarse``, ``dFdyCoarse``, ``dFdxFine``, ``dFdyFine`` には影響しない。
+
+.. glossary::
+
+   ``genFType dFdx(genFType p)``
+       ``dFdxFine(p)`` または ``dFdxCoarse(p)`` のいずれかを返す。
+       これは実装上の選択に基づいており、おそらくどちらか速い方、
+       または品質と速度のヒントを通じて API が選択する方によって行われる。
+
+   ``genFType dFdy(genFType p)``
+       上記の ``y`` 版。
+
+   ``genFType dFdxFine(genFType p)``
+       ウィンドウ ``x`` 座標に関する ``p`` の偏微分を返す。
+       現在のフラグメントとそのすぐ隣のフラグメントの ``p`` の値に基づいて、局所差分を使用する。
+
+   ``genFType dFdyFine(genFType p)``
+       上記の ``y`` 版。
+
+   ``genFType dFdxCoarse(genFType p)``
+       ウィンドウ ``x`` 座標に対する ``p`` の偏微分を返す。
+       現在のフラグメントの隣接する部分の ``p`` の値に基づいて局所的な差分をとり、
+       現在のフラグメントの ``p`` の値を含める場合もあるが、必ずしもそうはしない。
+       つまり、与えられた領域では、実装は ``dFdxFine(p)`` で許容されるよりも
+       少なく一意的な位置で微分を計算することができる。
+
+   ``genFType dFdyCoarse(genFType p)``
+       上記の ``y`` 版。
+
+   ``genFType fwidth(genFType p)``
+       ``abs(dFdx(p)) + abs(dFdy(p))`` を返す。
+
+   ``genFType fwidthFine(genFType p)``
+       ``abs(dFdxFine(p)) + abs(dFdyFine(p))`` を返す。
+
+   ``genFType fwidthCoarse(genFType p)``
+       ``abs(dFdxCoarse(p)) + abs(dFdyCoarse(p))`` を返す。
 
 8.14.2. Interpolation Functions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+組み込み補間関数は、シェーダー指定の ``(x, y)`` 位置でフラグメントシェーダーの
+入力変数の補間値を計算するために利用できる。
+組み込み関数を呼び出すたびに別の ``(x, y)`` 位置が使用され、
+それらの位置は入力の既定値を生成するために使用される既定の ``(x, y)`` 位置とは異なる場合がある。
 
+すべての補間関数において ``interpolant`` は ``in`` 宣言の左辺値でなければならない。
+``in`` 宣言には、変数、ブロックまたは構造体のメンバー、配列要素、またはこれらの組み合わせが含まれる。
+さらに、成分選択演算子 (``.xy``, ``.xxz``, etc.) を ``interpolant`` に適用することができる。
+この場合、補間関数は ``interpolant`` の値に成分選択演算子を適用した結果を返す。
+例えば ``interpolateAt(v.xxz)`` は ``interpolateAt(v).xxz`` を返すように定義されている。
+配列された入力は、一般的な（非一様）整数表現でインデックスを付けることができる。
+
+``interpolant`` が ``flat`` 修飾子付きで宣言されている場合、
+補間された値は単一基本形状に対してどこでも同じ値になる。
+そのため、補間に使用される位置は影響せず、関数は同じ値を返すだけだ。
+``interpolant`` が ``centroid`` 修飾子付きで宣言されている場合、
+``interpolateAtSample()`` と ``interpolateAtOffset()`` が返す値は、
+通常 ``centroid`` 修飾子で使われる位置を無視して、指定された位置で評価されます。
+``interpolant`` が ``noperspective`` 修飾子付きで宣言された場合、
+補間された値は遠近法補正なしで計算される。
+
+.. glossary::
+
+   ``float interpolateAtCentroid(float interpolant)``, etc.
+       処理されている画素と基本形状の両方の内側の位置で採取された入力 ``interpolant`` 関数の値を返す。
+       得られる値は、修飾子 ``centroid``を付けて宣言された場合、入力変数に割り当てられた値と同じになる。
+
+   ``float interpolateAtSample(float interpolant, int sample)``, etc.
+       標本番号 ``sample`` の位置にある入力 ``interpolant`` 変数の値を返す。
+       多重標本バッファーが利用できない場合、入力変数は画素の中心で評価される。
+       標本 ``sample`` が存在しない場合、入力変数の補間に使用される位置は未定義だ。
+
+   ``float interpolateAtOffset(float interpolant, vec2 offset)``, etc.
+       ``offset`` で指定された画素の中心からのオフセットで採取された入力 ``interpolant`` の値を返す。
+       ``offset`` の浮動小数点成分二つは、それぞれ ``x`` 方向と ``y`` 方向の画素単位のオフセットを表す。
+
+       オフセットが ``(0, 0)`` の場合は画素の中心を表す。
+       この関数がサポートするオフセットの範囲と粒度は実装依存だ。
 
 8.15. Noise Functions
 ----------------------------------------------------------------------
