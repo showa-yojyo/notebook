@@ -49,7 +49,7 @@ OpenGL Shading Language はスカラーおよびベクトル演算について�
 同様に、
 
 * ``mat`` は単精度成分を持つ任意の行列基本型に、
-* ``dmat``は倍精度成分を持つ任意の行列基本型に
+* ``dmat`` は倍精度成分を持つ任意の行列基本型に
 
 それぞれ使用される。
 
@@ -191,7 +191,7 @@ OpenGL Shading Language はスカラーおよびベクトル演算について�
        ``return x - floor(x);``
 
    ``genFType mod(genFType x, float y)``, etc.
-      ``return x - y * floor(x / y);`
+      ``return x - y * floor(x / y);``
 
    ``genFType modf(genFType x, out genFType i)``, etc.
 
@@ -443,15 +443,13 @@ OpenGL Shading Language はスカラーおよびベクトル演算について�
 
        注意：線形代数的な行列の乗算を行うには、乗算演算子 ``*`` を使用する。
 
-   ``mat2 outerProduct(vec2 c, vec2 r)``,
-   ...
+   ``mat2 outerProduct(vec2 c, vec2 r)``, ...,
    ``mat4x3 outerProduct(vec3 c, vec4 r)``
        ``c`` を列ベクトル、``r`` を行ベクトルとして扱い、
        線形代数的な行列乗算を行い、行数が ``c`` の構成要素の個数、
        列数が ``r`` の構成要素の個数である行列を生成する。
 
-   ``mat2 transpose(mat2 m)``,
-   ...
+   ``mat2 transpose(mat2 m)``, ...,
    ``mat4x3 transpose(mat3x4 m)``
        ``m`` の転置行列を返す。
 
@@ -476,7 +474,6 @@ OpenGL Shading Language はスカラーおよびベクトル演算について�
 .. csv-table::
    :delim: @
    :header: プレースホルダー, 許可される型
-   :widths: , ,
 
    ``bvec`` @ ``bvec2``, ``bvec3``, ``bvec4``
    ``ivec`` @ ``ivec2``, ``ivec3``, ``ivec4``
@@ -685,7 +682,7 @@ OpenGL 仕様書 8.23 "Texture Comparison Modes" で説明されているよう�
 8.9.1. Texture Query Functions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-関数 ``textureSize``はテクスチャー混合抽出器に対して特定のテクスチャーレベルの寸法を問い合わせる。
+関数 ``textureSize`` はテクスチャー混合抽出器に対して特定のテクスチャーレベルの寸法を問い合わせる。
 
 関数 ``textureQueryLod`` はフラグメントシェーダーでしか利用可能でない。
 これらの関数は ``P`` の成分を取り、テクスチャーパイプが通常のテクスチャー検索で
@@ -706,16 +703,14 @@ OpenGL 仕様書 8.23 "Texture Comparison Modes" で説明されているよう�
 
 .. glossary::
 
-   ``int textureSize(gsampler1D sampler, int lod)``,
-   ...
+   ``int textureSize(gsampler1D sampler, int lod)``, ...,
    ``ivec3 textureSize(gsampler2DMSArray sampler)``
        OpenGL 仕様の 8.11 "Texture Queries" に述べられている、抽出器 ``sampler`` に束縛されたテクスチャーの詳細度 ``lod`` の寸法を返す（存在すれば）。
        戻り値の成分には、テクスチャーの幅、高さ、奥行きが順に埋められる。
 
        配列形式の場合、戻り値の最後の成分は、テクスチャー配列のレイヤー数、またはテクスチャーキューブマップ配列のキューブ数となる。
 
-   ``vec2 textureQueryLod(gsampler1D sampler, float P)``,
-   ...
+   ``vec2 textureQueryLod(gsampler1D sampler, float P)``, ...,
    ``vec2 textureQueryLod(samplerCubeArrayShadow sampler, vec3 P)``
        戻り値の ``x`` 成分に、アクセスされるミップマップ配列を返す。
 
@@ -723,8 +718,7 @@ OpenGL 仕様書 8.23 "Texture Comparison Modes" で説明されているよう�
 
        不完全なテクスチャーに対して呼び出された場合の結果は未定義だ。
 
-   ``int textureQueryLevels(gsampler1D sampler)``,
-   ...
+   ``int textureQueryLevels(gsampler1D sampler)``, ...,
    ``int textureQueryLevels(samplerCubeArrayShadow sampler)``
        ``sampler`` に関連付けられたテクスチャーでアクセス可能なミップマップレベルの数を返す。
 
@@ -741,10 +735,8 @@ OpenGL 仕様書 8.23 "Texture Comparison Modes" で説明されているよう�
 
 .. glossary::
 
-   ``gvec4 texture(gsampler1D sampler, float P [, float bias] )``,
-   ...
-   ``float texture(sampler2DArrayShadow sampler, vec4 P)``,
-   ...
+   ``gvec4 texture(gsampler1D sampler, float P [, float bias] )``, ...,
+   ``float texture(sampler2DArrayShadow sampler, vec4 P)``, ...,
    ``float texture(samplerCubeArrayShadow sampler, vec4 P, float compare)``
        テクスチャー座標 ``P`` を使って、現在 ``sampler`` に束縛されているテクスチャーの検索を行う。
 
@@ -754,7 +746,7 @@ OpenGL 仕様書 8.23 "Texture Comparison Modes" で説明されているよう�
 
        シャドウ以外の形式の場合：配列レイヤーは ``P`` の最後の成分から来る。
 
-   ``gvec4 textureProj(gsampler1D sampler, vec2 P [, float bias] )``, ...
+   ``gvec4 textureProj(gsampler1D sampler, vec2 P [, float bias] )``, ...,
    ``gvec4 textureProj(gsampler2DRect sampler, vec3 P)``, ...
        投影によるテクスチャー検索を行う。
        ``P`` の最後の成分を含まない、
@@ -791,9 +783,9 @@ OpenGL 仕様書 8.23 "Texture Comparison Modes" で説明されているよう�
        で詳しく説明されており、オフセットは :math:`{(\delta_u, \delta_v, \delta_w)}` となる。
        なお、キューブマップに対してはテクセルオフセットはサポートされていない。
 
-   ``gvec4 texelFetch(gsampler1D sampler, int P, int lod)``, ...
-   ``gvec4 texelFetch(gsampler2DRect sampler, ivec2 P)``, ...
-   ``gvec4 texelFetch(gsampler1DArray sampler, ivec2 P, int lod)``, ...
+   ``gvec4 texelFetch(gsampler1D sampler, int P, int lod)``, ...,
+   ``gvec4 texelFetch(gsampler2DRect sampler, ivec2 P)``, ...,
+   ``gvec4 texelFetch(gsampler1DArray sampler, ivec2 P, int lod)``, ...,
    ``gvec4 texelFetch(gsamplerBuffer sampler, int P)``,
    ``gvec4 texelFetch(gsampler2DMS sampler, ivec2 P, int sample)``, ...
        整数テクスチャー座標 ``P`` を使用して ``sampler`` からテクセル一つを検索する。
@@ -805,8 +797,8 @@ OpenGL 仕様書 8.23 "Texture Comparison Modes" で説明されているよう�
        ``texelFetch`` と同様に単一のテクセルを ``textureOffset`` で記述されたように
        ``offset`` を使って取ってくる。
 
-   ``gvec4 textureProjOffset(gsampler1D sampler, vec2 P, int offset [, float bias] )``, ...
-   ``gvec4 textureProjOffset(gsampler2DRect sampler, vec3 P, ivec2 offset)``, ...
+   ``gvec4 textureProjOffset(gsampler1D sampler, vec2 P, int offset [, float bias] )``, ...,
+   ``gvec4 textureProjOffset(gsampler2DRect sampler, vec3 P, ivec2 offset)``, ...,
    ``float textureProjOffset(sampler1DShadow sampler, vec4 P, int offset [, float bias] )``, ...
        ``textureProj`` に記述されているようにして投影テクスチャー検索を行い、
        ``textureOffset`` に記述されているようにして ``offset`` によるオフセットを行う。
@@ -881,7 +873,7 @@ OpenGL 仕様の ``LINEAR`` フィルタリング規則がテクスチャー画�
 
 .. glossary::
 
-   ``gvec4 textureGather(gsampler2D sampler, vec2 P [, int comp])``, ...
+   ``gvec4 textureGather(gsampler2D sampler, vec2 P [, int comp])``, ...,
    ``vec4 textureGather(sampler2DShadow sampler, vec2 P, float refZ)``, ...
        次を返す：
 
@@ -896,8 +888,8 @@ OpenGL 仕様の ``LINEAR`` フィルタリング規則がテクスチャー画�
        各テクセルの 4 成分ベクトル検索結果の ``x``, ``y``, ``z``, ``w`` のかき混ぜた後の成分をそれぞれ識別する。
        ``comp`` が指定されない場合は 0 として扱われ、各テクセルの ``x`` 成分を選択して結果を生成する。
 
-   ``gvec4 textureGatherOffset(gsampler2D sampler, vec2 P, ivec2 offset, [ int comp])``, ...
-   ``vec4 textureGatherOffset(sampler2DShadow sampler, vec2 P, float refZ, ivec2 offset)``, ...
+   ``gvec4 textureGatherOffset(gsampler2D sampler, vec2 P, ivec2 offset, [ int comp])``, ...,
+   ``vec4 textureGatherOffset(sampler2DShadow sampler, vec2 P, float refZ, ivec2 offset)``, ...,
    ``gvec4 textureGatherOffset(gsampler2DRect sampler, vec2 P, ivec2 offset [ int comp])``
    ``vec4 textureGatherOffset(sampler2DRectShadow sampler, vec2 P, float refZ, ivec2 offset)``
        ``offset`` が変数（非定数）であり、実装依存の最小および最大オフセット値がそれぞれ
@@ -905,8 +897,8 @@ OpenGL 仕様の ``LINEAR`` フィルタリング規則がテクスチャー画�
        によって与えられることを除いて、
        ``textureOffset`` に記述されているように ``offset`` によって ``textureGather`` のようにテクスチャー収集操作を実行する。
 
-   ``gvec4 textureGatherOffsets(gsampler2D sampler, vec2 P, ivec2 offsets[4] [, int comp])``, ...
-   ``vec4 textureGatherOffsets(sampler2DShadow sampler, vec2 P, float refZ, ivec2 offsets[4])``, ...
+   ``gvec4 textureGatherOffsets(gsampler2D sampler, vec2 P, ivec2 offsets[4] [, int comp])``, ...,
+   ``vec4 textureGatherOffsets(sampler2DShadow sampler, vec2 P, float refZ, ivec2 offsets[4])``, ...,
    ``gvec4 textureGatherOffsets(gsampler2DRect sampler, vec2 P, ivec2 offsets[4] [, int comp])``
    ``vec4 textureGatherOffsets(sampler2DRectShadow sampler, vec2 P, float refZ, ivec2 offsets[4])``
        ``offsets`` が採取する四つのテクセルの位置を決定するために使用されることを除けば
@@ -1075,7 +1067,7 @@ OpenGL 仕様の ``LINEAR`` フィルタリング規則がテクスチャー画�
 各テクセルが複数の標本を持つことがあり、個々の標本は整数の ``sample`` 引数を使って識別される。
 座標と標本番号は OpenGL 仕様の 8.26 "Texture Image Loads and Stores" に記述されている方法で個々のテクセルを選択するのに使用される。
 
-ロードとストアは浮動小数点数、整数、符号なし整数型をサポートする。
+ロードと格納は浮動小数点数、整数、符号なし整数型をサポートする。
 下にあるデータ型のうち ``gimage`` で始まるものは、
 前節の ``"gvec"`` や ``"gsampler"`` と同様に、
 ``"image"``, ``"iimage"``, ``"uimage"`` のいずれかで始まる型を意味するプレースホルダーを果たす。
@@ -1116,7 +1108,6 @@ OpenGL 仕様の ``LINEAR`` フィルタリング規則がテクスチャー画�
   ``int`` 型の ``data`` 引数で使用される。
 * 符号なし整数画像変数（型が ``"uimage"`` で始まる）で、フォーマット修飾子が ``r32ui`` であり、
   ``uint`` 型の ``data`` 引数で使用される。
-a float image variable (type starts “image”) and a format qualifier of r32f, used with a data argument of type float (imageAtomicExchange only).
 * 浮動小数点数画像変数（型がは ``"image"`` で始まる）で、フォーマット修飾子が ``r32f`` であり、
   ``float`` 型の ``data`` 引数で使用される。
   該当するのは ``imageAtomicExchange`` しかない。
@@ -1349,7 +1340,7 @@ OpenGL 仕様 14.2 "Invariance" に記述されている不変性の要件は、
 
    ``float interpolateAtCentroid(float interpolant)``, etc.
        処理されている画素と基本形状の両方の内側の位置で採取された入力 ``interpolant`` 関数の値を返す。
-       得られる値は、修飾子 ``centroid``を付けて宣言された場合、入力変数に割り当てられた値と同じになる。
+       得られる値は、修飾子 ``centroid`` を付けて宣言された場合、入力変数に割り当てられた値と同じになる。
 
    ``float interpolateAtSample(float interpolant, int sample)``, etc.
        標本番号 ``sample`` の位置にある入力 ``interpolant`` 変数の値を返す。
@@ -1366,18 +1357,203 @@ OpenGL 仕様 14.2 "Invariance" に記述されている不変性の要件は、
 8.15. Noise Functions
 ----------------------------------------------------------------------
 
+ノイズ関数 ``noise1``，``noise2``，``noise3``，``noise4`` は GLSL 4.4 以降非推奨となった。
+SPIR-V を生成していない場合、これらの関数は 0.0 または
+すべての成分が 0.0 であるベクトルを返すように定義される。
+SPIR-V を生成する際には、ノイズ関数は宣言されておらず、使用することはできない。
+
+以前のリリースと同様に、ノイズ関数はコンパイル時定数式とは意味的にみなされない。
+
+.. glossary::
+
+   ``float noise1(genFType x)``
+   ``vec2 noise2(genFType x)``
+   ``vec3 noise3(genFType x)``
+   ``vec4 noise4(genFType x)``
+       入力値 ``x`` に基づいて 1, 2, 3, 4 次元のノイズ値をそれぞれ返す。
 
 8.16. Shader Invocation Control Functions
 ----------------------------------------------------------------------
 
+シェーダー呼び出し制御機能は、多角形分割制御シェーダーと計算シェーダでしか利用可能でない。
+これは、パッチ（多角形分割制御シェーダーの場合）または作業ループ（計算シェーダーの場合）
+を処理するために使用される複数のシェーダー呼び出しの相対的な実行順序を制御するために使用される。
+他の方法では相対的な順序が未定義のまま実行される。
+
+.. glossary::
+
+   ``void barrier()``
+       ``barrier()`` の任意の静的インスタンスでは、単一の入力パッチに対する
+       多角形分割制御シェーダの呼び出しすべてが、それを越えて継続することが許可される前に
+       それ（バリア）に入らなければならない。
+       または単一の作業グループに対する計算シェーダーの呼び出しすべてが、
+       それを越えて継続する前にそれに入らなければならない。
+
+関数 ``barrier()`` はシェーダー呼び出し間の実行の部分的に定義された順序を与える。
+これにより、ある種のメモリーアクセスでは、
+``barrier()`` のある静的インスタンスの前にある呼び出しによって書き込まれた値が、
+同じ ``barrier()`` の静的インスタンスの呼び出しの後にある他の呼び出しによって安全に読み取られることが保証される。
+これらのバリア呼び出しの間では、呼び出しが未定義の順序で実行される可能性があるため、
+多角形分割制御シェーダーの頂点単位またはパッチ単位出力変数の値、
+あるいは計算シェーダーの ``shared`` 変数の値は、
+:ref:`4.3.6. Output Variables` （多角形分割制御シェーダーの場合）
+および :ref:`4.3.8. Shared Variables`
+（計算シェーダー用の場合）に挙げられているいくつかのケースで未定義となる。
+
+多角形分割制御シェーダーの場合、関数 ``barrier()`` はシェーダーの関数
+``main()`` の中にしか置くことができず、どの制御フローの中でも呼び出すことができない。
+関数 ``main()`` 内の ``return`` 文の後にバリアを置くこともまた許されない。
+誤って配置されたバリアはコンパイルエラーを引き起こす。
+
+``barrier()`` は制御フローに影響を与えるが、
+共有変数と多角形分割制御の出力変数へのメモリアクセスを同期させるに過ぎない。
+その他のメモリーアクセスについては、ある静的な ``barrier()`` のインスタンスに先立つ
+呼び出しによって書き込まれた値が、同じ静的な ``barrier()`` のインスタンスの呼び出しの後にある
+他の呼び出しによって安全に読み取られることを保証するものではない。
+これを達成するには ``barrier()`` とメモリーバリアの両方を使用する必要がある。
+
+計算シェーダーでは、関数 ``barrier()`` を制御フローの中に置くことができるが、
+その制御フローは一様制御フローでなければならない。
+つまり、バリアの実行に導かれるすべての制御式は動的一様な式でなければならない。
+これにより、シェーダーの呼び出しの何かが条件文に入る場合、呼び出しすべてが条件文に入ることになる。
+コンパイラーは、このようなことが起こらないかもしれないと検知できる場合には、
+警告を出すことが推奨されていますが、コンパイラーがこれを完全に判断することはできない。
+したがって、 ``barrier()`` が一様制御フローの中にしか存在しないようにするのは作者の責任だ。
+そうしないと、いくつかのシェーダー呼び出しは、他の呼び出しでは決して到達しないバリアを待機して
+いつまでも動かないままになる。
 
 8.17. Shader Memory Control Functions
 ----------------------------------------------------------------------
 
+単一のシェーダー呼び出しの中では、その呼び出しによる書き込みの可視性と順序は明確に定義されている。
+しかし、複数の別々のシェーダー呼び出しによる単一の共有メモリーアドレスへの読み書きの相対的な順序は、ほとんど定義されていない。
+さらに、単一のシェーダ呼び出しによって実行される複数のメモリーアドレスへのアクセスの順序も、
+他のシェーダー呼び出しによって観察されるため、未定義だ。
+
+以下の組み込み関数を使って、読み書きの順序を制御することができる：
+
+.. glossary::
+
+   ``void memoryBarrier()``
+       単一シェーダー呼び出しが発行するメモリートランザクションの順序を制御する。
+
+   ``void memoryBarrierAtomicCounter()``
+       単一シェーダー呼び出しが発行する不可分カウンター変数へのアクセスの順序を制御する。
+
+   ``void memoryBarrierBuffer()``
+       単一シェーダー呼び出し内で発行されたバッファー変数へのメモリートランザクションの順序を制御する。
+
+   ``void memoryBarrierShared()``
+       同じ作業グループ内の他の呼び出しから見て、単一シェーダー呼び出し内で発行された
+       共有変数へのメモリートランザクションの順序を制御する。
+       計算シェーダーでのみ使用可能。
+
+   ``void memoryBarrierImage()``
+       単一シェーダー呼び出し内で発行された画像に対するメモリートランザクションの順序を制御する。
+
+   ``void groupMemoryBarrier()``
+       同じ作業グループ内の他の呼び出しから見て、単一シェーダー呼び出し内で発行された
+       すべてのメモリートランザクションの順序を制御する。
+       計算シェーダでのみ使用可能。
+
+メモリバリアーの組み込み関数は、他のシェーダー呼び出しがアクセス可能なメモリーに格納された変数への読み書きを順番に行うために使用できる。
+これらの関数は、呼び出されると、選択された変数型にアクセスする呼び出し元が以前に実行したすべての読み書きの完了を待機して、
+その後は何の影響も受けずに戻る。
+組み込み関数 ``memoryBarrierAtomicCounter()``, ``memoryBarrierBuffer()``,
+``memoryBarrierImage()``, ``memoryBarrierShared()`` は、
+それぞれ不可分カウンター、バッファー、画像、共有変数へのアクセスの完了を待機する。
+組み込み関数 ``memoryBarrier()`` および ``groupMemoryBarrier()`` は、
+上記のすべての変数型へのアクセスの完了を待機する。
+``memoryBarrierShared()`` と ``groupMemoryBarrier()`` は計算シェーダーでのみ使用可能で、
+その他の関数はすべてのシェーダー型で使用可能だ。
+
+これらの関数が戻ってくると、呼び出しに先立って ``coherent`` 変数を使って実行されたメモリー格納の効果は、
+将来、他のシェーダー呼び出しによって同じメモリーに coherent access が行われても、
+それが見えるようになる [#f1]_。
+特に、あるシェーダーの段階でこのように書き込まれた値は、
+後続の段階のシェーダー呼び出しによって実行された coherent memory access に対して、
+それらの呼び出しが元のシェーダー呼び出しの実行によって引き起こされた場合には見えることが保証されている。
+例えば、特定の幾何シェーダー呼び出しに起因する基本形状に対してのフラグメントシェーダー呼び出しなど。
+
+.. rubric:: Footnotes
+
+.. [#f1] 格納とロードの間に happens-before 関係が成立する場合にのみ、アクセスは将来のアクセスとなる。
+
+さらに、メモリーバリア機能は、他のシェーダー呼び出しから観察されるように、
+呼び出した呼び出しが実行する格納所を順序付ける。
+メモリーバリアがなければ、一つのシェーダー呼び出しが coherent 変数に二つの格納を実行すると、
+二番目のシェーダー呼び出しは、二番目の格納によって書き込まれた値を、
+一番目の格納によって書き込まれた値よりも先に見るかもしれない。
+しかし、最初のシェーダー呼び出しが二つの格納の間にメモリーバリア関数を呼び出した場合、
+選択された他のシェーダー呼び出しは、最初の格納の結果を見る前に二番目の格納の結果を見るようなことはない。
+``groupMemoryBarrier()`` または ``memoryBarrierShared()`` 関数を使用する場合、
+この順序保証は同じ計算シェーダー作業グループ内の他のシェーダー呼び出しにしか適用されず、
+他のすべてのメモリーバリア関数は他のすべてのシェーダ呼び出しに保証を与える。
+メモリー格納を実行する起動が観測するメモリー格納の順序を保証するのにメモリバリアーは必要ない。
+以前に書き込んだ変数を読み出す呼び出しは、他のシェーダー起動が同じメモリーに書き込まない限り、
+常に最後に書き込まれた値を見ることになる。
+
+.. admonition:: コメント
+
+   この節は特に意味が解らない。
 
 8.18. Subpass-Input Functions
 ----------------------------------------------------------------------
 
+サブパス入力関数は Vulkan フラグメント段階を対象にしている場合のみ利用可能だ。
+
+サブパス入力は次の組み込み関数で読み込まれる。
+再び ``g`` は文字なし、``i``, ``u`` のいずれかのプレースホルダーであって、
+浮動小数点、符号付き整数、符号なし整数のいずれかを示すものとする。
+これらは引数の型と戻り値の型が一致しなければならない：
+
+.. glossary::
+
+   ``gvec4 subpassLoad(gsubpassInput subpass)``
+   ``gvec4 subpassLoad(gsubpassInputMS subpass, int sample)``
+       サブパス入力から現在のフラグメント座標の暗黙の位置 ``(x, y, layer)`` を読み取る。
 
 8.19. Shader Invocation Group Functions
 ----------------------------------------------------------------------
+
+OpenGL Shading Language の実装では、単一シェーダー段階に対する複数のシェーダー呼び出しを、
+オプションで単一 SIMD 呼び出しグループにグループ化することができ、
+呼び出しは未定義の実装依存の方法でグループに割り当てられる。
+このような実装上のシェーダーアルゴリズムでは、グループ内のすべてのアクティブな呼び出しに対して真偽値の合成を評価できることは有益だ。
+
+.. glossary::
+
+   ``bool anyInvocation(bool value)``
+       グループ内の少なくとも一つのアクティブな呼び出しにおいて ``value`` が真である場合に、
+       かつその場合に限り真を返す。
+
+   ``bool allInvocations(bool value)``
+       グループ内の呼び出しすべてについて ``value`` が真である場合に、
+       かつその場合に限り真を返す。
+
+   ``bool allInvocationsEqual(bool value)``
+       グループ内のアクティブな呼び出しすべてにおいて ``value`` が同じであれば真を返す。
+
+これらの関数において、グループ内のアクティブな呼び出しすべてに対して同じ結果が返される。
+
+これらの関数は、条件付きで実行されるコード内で呼び出すことができる。
+一部の呼び出しが関数呼び出しを実行しないグループでは、
+関数が返す値は、その呼び出しに対して値が十分に定義されている場合でも、
+その関数を呼び出さない呼び出しの影響を受けない。
+
+これらの関数は、定義されていない呼び出しグループの ``value`` の値に依存しているため、
+これらの関数が返す値はほとんど定義されていない。ただし、
+``anyInvocation()`` は ``value`` が ``true`` の場合に ``true`` を返すことが保証されており、
+``allInvocations()`` は ``value`` が ``false`` の場合に ``false`` を返すことが保証されている。
+
+実装では呼び出しをグループにまとめる必要はないので、
+``anyInvocation()``と ``allInvocations()`` で ``value`` を単に返し、
+``allInvocationsEqual()`` で ``true`` を返せば、 これらの関数の合法的な実装となる。
+
+フラグメントシェーダーの場合、SIMD 呼び出しグループ内の呼び出しには、
+ラスタライズされている基本形状で被覆されている画素に対応する呼び出しと、
+被覆されていない近隣の画素に対応する呼び出しが含まれる。
+補助呼び出し (:ref:`7.1. Built-In Language Variables`) が作成されることもあり、
+そのような補助呼び出しの画素の値は、
+``anyInvocation()``, ``allInvocations()``, ``allInvocationsEqual()``
+が返す値に影響を与えることがある。
