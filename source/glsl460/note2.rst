@@ -1,6 +1,8 @@
 ======================================================================
-GLSL 4.60 仕様書 読書ノート 2 of ?
+GLSL 4.60 仕様書 読書ノート Part 2
 ======================================================================
+
+`仕様書該当部分 <https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.html#overview-of-opengl-shading>`__
 
 .. contents:: ノート目次
 

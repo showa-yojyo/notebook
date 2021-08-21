@@ -1,6 +1,8 @@
 ======================================================================
-GLSL 4.60 仕様書 読書ノート 1 of ?
+GLSL 4.60 仕様書 読書ノート Part 1
 ======================================================================
+
+`仕様書該当部分 <https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.html#introduction>`__
 
 .. contents:: ノート目次
 
@@ -110,7 +112,6 @@ GLSL 等価物を対処する OpenGLドライバーで動作することしか�
 1.1.4. Changes from Revision 3 of GLSL 4.6
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Private GLSL issue 13: Fix misspelling of allInvocationsEqual().
 私的 GLSL issue 13: ``allInvocationsEqual()`` のミススペルを修正。
 表中のものは ``anyInvocationsEqual()`` と誤って記載されていて、他の綴りは正しかった。
 
