@@ -40,12 +40,14 @@ Contents:
    gorelick14
    stroustrup14
    stepanov15
+   khronos15/index
    saha16
    slatkin16
    guntheroth16
    speinellis17
    bancila18
    haverbeke18/index
+   khronos18/index
 
 .. toctree::
    :maxdepth: 1
@@ -119,6 +121,4 @@ Contents:
    css-selector
    xpath
    hxutils
-   glsl460/index
    webgl
-   webgl-1.0/index
