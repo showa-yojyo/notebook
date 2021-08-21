@@ -1,5 +1,5 @@
 ======================================================================
-GLSL 4.60 仕様書 読書ノート
+OpenGL Shading Language 4.60 Specification 読書ノート
 ======================================================================
 
 `OpenGL Shading Language 4.60 Specification (July 10, 2019) <https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.html>`__

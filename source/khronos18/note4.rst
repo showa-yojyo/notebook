@@ -1,5 +1,5 @@
 ======================================================================
-GLSL 4.60 仕様書 読書ノート Part 4
+OpenGL Shading Language 4.60 Specification 読書ノート Part 4
 ======================================================================
 
 `仕様書該当部分 <https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.html#variables-and-types>`__
