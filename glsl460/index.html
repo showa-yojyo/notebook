@@ -1,0 +1,327 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>GLSL 4.60 仕様書 読書ノート &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
+    
+    <script src="../_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="GLSL 4.60 仕様書 読書ノート Part 1" href="note1.html" />
+    <link rel="prev" title="HTML-XML-utils 利用ノート" href="../hxutils.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="note1.html" title="GLSL 4.60 仕様書 読書ノート Part 1"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="../hxutils.html" title="HTML-XML-utils 利用ノート"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">GLSL 4.60 仕様書 読書ノート</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="glsl-4-60">
+<h1>GLSL 4.60 仕様書 読書ノート<a class="headerlink" href="#glsl-4-60" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.html">OpenGL Shading Language 4.60 Specification (July 10, 2019)</a>
+を読んでいく。</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="note1.html">GLSL 4.60 仕様書 読書ノート Part 1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="note1.html#introduction">1. Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="note1.html#changes">1.1. Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note1.html#overview">1.2. Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note1.html#error-handling">1.3. Error Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note1.html#typographical-conventions">1.4. Typographical Conventions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note1.html#deprecation">1.5. Deprecation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="note2.html">GLSL 4.60 仕様書 読書ノート Part 2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="note2.html#overview-of-shading">2. Overview of Shading</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="note2.html#vertex-processor">2.1. Vertex Processor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note2.html#tessellation-control-processor">2.2. Tessellation Control Processor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note2.html#tessellation-evaluation-processor">2.3. Tessellation Evaluation Processor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note2.html#geometry-processor">2.4. Geometry Processor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note2.html#fragment-processor">2.5. Fragment Processor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note2.html#compute-processor">2.6. Compute Processor</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="note3.html">GLSL 4.60 仕様書 読書ノート Part 3</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="note3.html#basics">3. Basics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="note3.html#character-set-and-phases-of-compilation">3.1. Character Set and Phases of Compilation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note3.html#source-strings">3.2. Source Strings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note3.html#preprocessor">3.3. Preprocessor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note3.html#comments">3.4. Comments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note3.html#tokens">3.5. Tokens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note3.html#keywords">3.6. Keywords</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note3.html#identifiers">3.7. Identifiers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note3.html#definitions">3.8. Definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note3.html#static-use">3.8.1. Static Use</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note3.html#dynamically-uniform-expressions-and-uniform-control-flow">3.8.2. Dynamically Uniform Expressions and Uniform Control Flow</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="note4.html">GLSL 4.60 仕様書 読書ノート Part 4</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="note4.html#variables-and-types">4. Variables and Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="note4.html#basic-types">4.1. Basic Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note4.html#scoping">4.2. Scoping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note4.html#storage-qualifiers">4.3. Storage Qualifiers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note4.html#layout-qualifiers">4.4. Layout Qualifiers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note4.html#interpolation-qualifiers">4.5. Interpolation Qualifiers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note4.html#parameter-qualifiers">4.6. Parameter Qualifiers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note4.html#precision-and-precision-qualifiers">4.7. Precision and Precision Qualifiers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note4.html#variance-and-the-invariant-qualifier">4.8. Variance and the Invariant Qualifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note4.html#the-precise-qualifier">4.9. The Precise Qualifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note4.html#memory-qualifiers">4.10. Memory Qualifiers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note4.html#specialization-constant-qualifier">4.11. Specialization-Constant Qualifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note4.html#order-and-repetition-of-qualification">4.12. Order and Repetition of Qualification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note4.html#empty-declarations">4.13. Empty Declarations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="note5.html">GLSL 4.60 仕様書 読書ノート Part 5</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="note5.html#operators-and-expressions">5. Operators and Expressions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="note5.html#operators">5.1. Operators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note5.html#array-operations">5.2. Array Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note5.html#function-calls">5.3. Function Calls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note5.html#constructors">5.4. Constructors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note5.html#vector-and-scalar-components-and-length">5.5. Vector and Scalar Components and Length</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note5.html#matrix-components">5.6. Matrix Components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note5.html#structure-and-array-operations">5.7. Structure and Array Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note5.html#assignments">5.8. Assignments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note5.html#expressions">5.9. Expressions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note5.html#vector-and-matrix-operations">5.10. Vector and Matrix Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note5.html#out-of-bounds-accesses">5.11. Out-of-Bounds Accesses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note5.html#specialization-constant-operations">5.12. Specialization-Constant Operations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="note6.html">GLSL 4.60 仕様書 読書ノート Part 6</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="note6.html#statements-and-structure">6. Statements and Structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="note6.html#function-definitions">6.1. Function Definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note6.html#selection">6.2. Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note6.html#iteration">6.3. Iteration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note6.html#jumps">6.4. Jumps</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="note7.html">GLSL 4.60 仕様書 読書ノート Part 7</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="note7.html#built-in-variables">7. Built-In Variables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="note7.html#built-in-language-variables">7.1. Built-In Language Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note7.html#compatibility-profile-vertex-shader-built-in-inputs">7.2. Compatibility Profile Vertex Shader Built-In Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note7.html#built-in-constants">7.3. Built-In Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note7.html#built-in-uniform-state">7.4. Built-In Uniform State</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note7.html#redeclaring-built-in-blocks">7.5. Redeclaring Built-In Blocks</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="note8.html">GLSL 4.60 仕様書 読書ノート Part 8</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="note8.html#built-in-functions">8. Built-In Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="note8.html#angle-and-trigonometry-functions">8.1. Angle and Trigonometry Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note8.html#exponential-functions">8.2. Exponential Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note8.html#common-functions">8.3. Common Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note8.html#floating-point-pack-and-unpack-functions">8.4. Floating-Point Pack and Unpack Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note8.html#geometric-functions">8.5. Geometric Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note8.html#matrix-functions">8.6. Matrix Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note8.html#vector-relational-functions">8.7. Vector Relational Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note8.html#integer-functions">8.8. Integer Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note8.html#texture-functions">8.9. Texture Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note8.html#atomic-counter-functions">8.10. Atomic Counter Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note8.html#atomic-memory-functions">8.11. Atomic Memory Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note8.html#image-functions">8.12. Image Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note8.html#geometry-shader-functions">8.13. Geometry Shader Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note8.html#fragment-processing-functions">8.14. Fragment Processing Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note8.html#noise-functions">8.15. Noise Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note8.html#shader-invocation-control-functions">8.16. Shader Invocation Control Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note8.html#shader-memory-control-functions">8.17. Shader Memory Control Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note8.html#subpass-input-functions">8.18. Subpass-Input Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note8.html#shader-invocation-group-functions">8.19. Shader Invocation Group Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="note9.html">GLSL 4.60 仕様書 読書ノート Part 9</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="note9.html#shading-language-grammar">9. Shading Language Grammar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="note9.html#acknowledgments">10. Acknowledgments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="note9.html#normative-references">11. Normative References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="note9.html#non-normative-spir-v-mappings">12. Non-Normative SPIR-V Mappings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="note9.html#feature-comparisons">12.1. Feature Comparisons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="note9.html#mapping-from-glsl-to-spir-v">12.2. Mapping from GLSL to SPIR-V</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>当ノートでは仕様書の文章と個人的な感想、確認メモなどを交えて記す。他人が参考にするような文書とはならない。</p></li>
+<li><p>専門用語の和訳・定訳がわからないものについては、調べ方がわからないので、今のところ好きに表している。そのうち修正したい。</p></li>
+</ul>
+</div>
+<div class="admonition-copyright-2008-2018-the-khronos-group-inc-all-rights-reserved admonition">
+<p class="admonition-title">Copyright © 2008-2018 The Khronos Group Inc. All Rights Reserved.</p>
+<p>本仕様書は、著作権法により保護されており、Khronos Group, Inc. が所有する資料を含む。</p>
+<p>本仕様書またはその構成要素は、Khronos Group の書面による明示的な事前許可なしに、いかなる方法でも複製、再発行、配布、送信、表示、放送、またはその他の方法で利用することは許されない。</p>
+<p>ここに記載されている機能を実装するために、本仕様書に記載されている商標、著作権、その他の通知を変更または削除することなく使用することができるが、本仕様書を受領または所有しても、その内容を複製、開示、配布する権利や、本仕様書に記載されているものを全部または一部を製造、使用、販売する権利を付与するものではない。</p>
+<p>Khronos Group は、Khronos の現在の後援者、寄稿者、または採用者のメンバーに対し、本仕様書の費用が発生せず、可能な限りあらゆるバージョンの API について利用可能な最新の仕様書を使用することを条件に、本仕様書の変更されていないバージョンをいかなる方法でもコピーおよび再配布することを明示的に許可する。配布された仕様書は、仕様書の内容に変更がない限り、文書形式を変更することができる。本仕様書は、販売者が独自に開発した重要な作品が含まれている限り、販売される製品に組み込むことができる。本仕様書を配布する際には、可能な限り Khronos Group のウェブサイトにある本仕様書の最新版へのリンクを含めるべきだ。</p>
+<p>Khronos Group は、本仕様書に関して、明示的にも黙示的にも、商品性、特定目的への適合性、知的財産権の非侵害に関する黙示的な保証を含むがこれに限定されない、いかなる表明も保証も行わず、また明示的にも放棄するものとする。
+Khronos Group は、本仕様書の正確さ、完全性、適時性、および信頼性に関して、明示的にも黙示的にもいかなる保証も行わず、明示的にも放棄する。いかなる状況においても、Khronos Group、その後援者、寄稿者、構成員、またはそれぞれの相棒、役員、取締役、従業員、代理人、または代表者は、これらの資料に起因または関連して生じた、直接的、間接的、特別、または収益の損失、利益の損失などの結果的な損害について責任を負わない。</p>
+<p>Khronos, Vulkan, SYCL, SPIR, WebGL, EGL, COLLADA, StreamInput, OpenVX,
+OpenKCam, glTF, OpenKODE, OpenVG, OpenWF, OpenSL ES, OpenMAX, OpenMAX AL,
+OpenMAX IL, OpenMAX DL は Khronos Group Inc. の商標であり、
+WebCL は Khronos Group Inc. の認証商標だ。
+OpenCL は Apple Inc. の商標であり、
+OpenGL および OpenML は Apple Inc. の登録商標、
+OpenGL ES および OpenGL SC ロゴ は Silicon Graphics International
+の商標であり、Khronos 社の許諾に基づき使用されている。その他の製品名、商標、および会社名は、識別のためにのみ使用されており、それぞれの所有者に帰属する。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>原文の英語を、次のように単語を日本語に（機械的に）読み換える：</p>
+<ul class="simple">
+<li><p>advertised: 公表された</p></li>
+<li><p>aggregate: 集約、集約型</p></li>
+<li><p>argument: （実）引数</p></li>
+<li><p>atomic: 不可分～</p></li>
+<li><p>barrier: 障壁</p></li>
+<li><p>binary: 二進数、二項～</p></li>
+<li><p>bind, binding: 束縛する、束縛～</p></li>
+<li><p>built-in: 組み込み</p></li>
+<li><p>capture: 捕捉</p></li>
+<li><p>clip: 切り抜く</p></li>
+<li><p>coherent: 密着</p></li>
+<li><p>component: 成分（数学から）</p></li>
+<li><p>composite: 合成～（数学から）</p></li>
+<li><p>compute: (n) 計算</p></li>
+<li><p>cull: 間引く（この訳はよくない）</p></li>
+<li><p>default: 既定の</p></li>
+<li><p>depth: 奥行き（深度とはしない）</p></li>
+<li><p>dereference: 逆参照する（C++ 本から）</p></li>
+<li><p>dimension: 次元（数学から）、寸法</p></li>
+<li><p>directive: 指令（文）</p></li>
+<li><p>executable: 実行形式</p></li>
+<li><p>expression: 式（プログラミングから）</p></li>
+<li><p>extension: 拡張</p></li>
+<li><p>feedback: 反響</p></li>
+<li><p>fence: 柵</p></li>
+<li><p>fog: 霧</p></li>
+<li><p>formal parameter: 仮引数</p></li>
+<li><p>fragment: 英単語のまま、あるいはカタカナとする</p></li>
+<li><p>geometry: 幾何～（一律にこう訳す）</p></li>
+<li><p>global: 大域～（C++ から）</p></li>
+<li><p>image: 画像</p></li>
+<li><p>integral: 整数～</p></li>
+<li><p>local: 局所～（数学から）</p></li>
+<li><p>location: 位置（場所になっていたら置換漏れ）</p></li>
+<li><p>lookup: 検索（もっといいのはないか？）</p></li>
+<li><p>match: 一致、合致</p></li>
+<li><p>memory: 記憶（機械的には置換不可）</p></li>
+<li><p>opaque: 不透明～</p></li>
+<li><p>packed: 充満</p></li>
+<li><p>pair: （一）対</p></li>
+<li><p>parameter: 引数</p></li>
+<li><p>pixel: 画素</p></li>
+<li><p>primitive: 基本形状（これは何とかしたい）</p></li>
+<li><p>processor: 処理器</p></li>
+<li><p>programmable: プログラム可能～</p></li>
+<li><p>qualifier: 修飾子</p></li>
+<li><p>query: 問い合わせる</p></li>
+<li><p>resource: 資源</p></li>
+<li><p>rule: 規則</p></li>
+<li><p>runtime: 実行時</p></li>
+<li><p>sample: 標本、採取</p></li>
+<li><p>sampler: 採取器</p></li>
+<li><p>set: 集合（数学から）</p></li>
+<li><p>signed: 符号あり～</p></li>
+<li><p>space: 空間（機械的にこの訳で固定する）</p></li>
+<li><p>stage: 段階</p></li>
+<li><p>statement: 文（プログラミングから）</p></li>
+<li><p>storage: 格納、収納（する場所・空間）</p></li>
+<li><p>subset: 部分集合（数学から）</p></li>
+<li><p>superset: 超集合（数学から）</p></li>
+<li><p>tessellation: 多角形分割（これは何とかしたい）</p></li>
+<li><p>type: 型（種類とすることがまれ）</p></li>
+<li><p>unary: 単項～</p></li>
+<li><p>undefined: 未定義（機械的にこの訳で固定する）</p></li>
+<li><p>unpack: 分解</p></li>
+<li><p>uniform: 一様（数学から）</p></li>
+<li><p>unit: 構成単位、～単位</p></li>
+<li><p>varying: TODO</p></li>
+<li><p>vertex: 頂点（数学から）</p></li>
+<li><p>volume: TODO</p></li>
+</ul>
+<p>その他、定訳がない単語 (access, active, alignment, application,
+back up, bit, block, byte, buffer,
+clamp, code, comment, compile, constructor, counter,
+data, dynamic range,
+entry, error,
+file, filter, flow, fragment, framebuffer,
+graphics, group,
+handle, hardware, index, instance, jump, keyword,
+layout, link, list, literal, load, loop,
+macro, mask, matching, member, memory, message, mipmap,
+noise,
+object, offset, operand, option, overflow,
+patch, pattern, pipeline, platform, pragma, profile, program, provoking vertex,
+rasterize, render,
+scalar, scope, screen, shader, size, source, stencil, subpass, subroutine,
+test, texel, text, texture, token,
+underflow, user, vector, version,
+window, etc.)
+についてはカタカナ表記という手抜きをする。</p>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="note1.html" title="GLSL 4.60 仕様書 読書ノート Part 1"
+             >next</a></li>
+        <li class="right" >
+          <a href="../hxutils.html" title="HTML-XML-utils 利用ノート"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">GLSL 4.60 仕様書 読書ノート</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>OpenGL Shading Language 4.60 Specification 読書ノート Part 2 &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
+    
+    <script src="../_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="OpenGL Shading Language 4.60 Specification 読書ノート Part 3" href="note3.html" />
+    <link rel="prev" title="OpenGL Shading Language 4.60 Specification 読書ノート Part 1" href="note1.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="note3.html" title="OpenGL Shading Language 4.60 Specification 読書ノート Part 3"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="note1.html" title="OpenGL Shading Language 4.60 Specification 読書ノート Part 1"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">OpenGL Shading Language 4.60 Specification 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">OpenGL Shading Language 4.60 Specification 読書ノート Part 2</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="opengl-shading-language-4-60-specification-part-2">
+<h1><a class="toc-backref" href="#id2">OpenGL Shading Language 4.60 Specification 読書ノート Part 2</a><a class="headerlink" href="#opengl-shading-language-4-60-specification-part-2" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.html#overview-of-opengl-shading">仕様書該当部分</a></p>
+<div class="contents topic" id="id1">
+<p class="topic-title">ノート目次</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#opengl-shading-language-4-60-specification-part-2" id="id2">OpenGL Shading Language 4.60 Specification 読書ノート Part 2</a></p>
+<ul>
+<li><p><a class="reference internal" href="#overview-of-shading" id="id3">2. Overview of Shading</a></p>
+<ul>
+<li><p><a class="reference internal" href="#vertex-processor" id="id4">2.1. Vertex Processor</a></p></li>
+<li><p><a class="reference internal" href="#tessellation-control-processor" id="id5">2.2. Tessellation Control Processor</a></p></li>
+<li><p><a class="reference internal" href="#tessellation-evaluation-processor" id="id6">2.3. Tessellation Evaluation Processor</a></p></li>
+<li><p><a class="reference internal" href="#geometry-processor" id="id7">2.4. Geometry Processor</a></p></li>
+<li><p><a class="reference internal" href="#fragment-processor" id="id8">2.5. Fragment Processor</a></p></li>
+<li><p><a class="reference internal" href="#compute-processor" id="id9">2.6. Compute Processor</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="overview-of-shading">
+<h2><a class="toc-backref" href="#id3">2. Overview of Shading</a><a class="headerlink" href="#overview-of-shading" title="Permalink to this headline">¶</a></h2>
+<p>OpenGL Shading Language は、実際にはいくつかの密接に関連した言語からなる。これらの言語は、API の処理パイプラインに含まれるプログラム可能処理器のそれぞれに対応するシェーダーを作成するために用いられる。現在、これらの処理器とは、次の各処理器だ：</p>
+<ul class="simple">
+<li><p>頂点</p></li>
+<li><p>多角形分割制御</p></li>
+<li><p>多角形分割評価</p></li>
+<li><p>幾何</p></li>
+<li><p>フラグメント</p></li>
+<li><p>計算</p></li>
+</ul>
+<p>本稿では、特に断りのない限り、言語機能はすべての構成言語に適用され、一般的にはこれらの言語を（まとめて）一つ言語と呼ぶことにする。個別の言語は、対象とする（上で列挙しておいた）処理器の名前で呼ぶ。</p>
+<p>API 状態のほとんどは追跡されず、シェーダーでは利用できない。一般的に、ユーザー定義の変数は、API パイプラインの異なる段階間の通信に用いられる。しかし、状態のうちのいくらか少しは追跡され、シェーダーが自動的に利用できるようになっており、いくつかの組み込み変数がパイプラインの異なる段階間のインターフェイスとなるように用意されている。</p>
+<section id="vertex-processor">
+<h3><a class="toc-backref" href="#id4">2.1. Vertex Processor</a><a class="headerlink" href="#vertex-processor" title="Permalink to this headline">¶</a></h3>
+<p><strong>頂点処理器</strong> (the vertex processor) とは、入力頂点とその関連データを処理するプログラム可能構成単位だ。この処理器上で動作するように OpenGL Shading Language で記述されたコンパイル単位を
+<strong>頂点シェーダー</strong> (vertex shaders) と呼ぶ。</p>
+<p>一連の頂点シェーダーのコンパイルとリンクが成功すると、頂点処理器上で動作する
+<strong>頂点シェーダー実行形式</strong> (a vertex shader executable) が出力される。</p>
+<p>頂点処理器は一度に頂点を一つ操作する。一度に複数の頂点の情報を必要とするグラフィックス操作を置き換えるものではない。</p>
+</section>
+<section id="tessellation-control-processor">
+<h3><a class="toc-backref" href="#id5">2.2. Tessellation Control Processor</a><a class="headerlink" href="#tessellation-control-processor" title="Permalink to this headline">¶</a></h3>
+<p><strong>多角形分割制御器</strong> (the tessellation control processor) とは、入力頂点とその関連データのパッチを操作して、新しい出力パッチを発するプログラム可能構成単位だ。この処理器上で動作するように OpenGL Shading Language で記述されたコンパイル単位を、
+<strong>多角形分割制御シェーダー</strong> (tessellation control shaders) と呼ぶ。多角形分割制御シェーダーの集合が正常にコンパイルおよびリンクされると、多角形分割制御器上で動作する
+<strong>多角形分割制御シェーダー実行形式</strong> (a tessellation control shader executable) が得られる。</p>
+<p>多角形分割制御シェーダーは、出力パッチの各頂点に対して呼び出される。各呼び出しは、入力パッチまたは出力パッチの任意の頂点の属性を読み取ることができるが、対応する出力パッチの頂点に対する頂点ごとの属性しか書き込むことができない。シェーダーの呼び出しは、出力パッチのためのパッチごとの属性の集合をまとめて生成する。</p>
+<p>多角形分割制御シェーダーの呼び出しすべてが完了した後、出力頂点とパッチ単位の属性が組み立てられ、後続のパイプライン段階で使用されるパッチが形成される。</p>
+<p>多角形分割制御シェーダーの呼び出しは、ほとんど独立して実行され、相対的な実行順序は未定義だ。しかし、組み込み関数 <code class="docutils literal notranslate"><span class="pre">barrier()</span></code> を使えば、呼び出しを同期させることで実行順序を制御することができ、多角形分割制御シェーダーの実行を効果的に一連のフェーズに分割することができる。多角形分割制御シェーダーは、ある呼び出しが、同じフェーズの間に別の呼び出しによって書き込まれた頂点ごとまたはパッチごとの属性から読み取った場合や、二つの呼び出しが一つのフェーズで同じパッチごとの出力 32 ビット成分に異なる値を書き込もうとした場合、未定義の結果となる。</p>
+</section>
+<section id="tessellation-evaluation-processor">
+<h3><a class="toc-backref" href="#id6">2.3. Tessellation Evaluation Processor</a><a class="headerlink" href="#tessellation-evaluation-processor" title="Permalink to this headline">¶</a></h3>
+<p><strong>多角形分割評価処理器</strong> (the tessellation evaluation processor) は、多角形基本形状分割生成器によって生成された頂点の位置やその他の属性を、入力頂点とその関連データのパッチを使って評価するプログラム可能構成単位だ。この処理器上で動作するように OpenGL Shading Language で記述されたコンパイル単位を
+<strong>多角形分割評価シェーダー</strong> (tessellation evaluation shaders) と呼ぶ。多角形分割評価シェーダーの集合が正常にコンパイルおよびリンクされると、多角形分割評価処理器上で動作する
+<strong>多角形分割評価シェーダー実行形式</strong> (a tessellation evaluation shader executable) が得られる。</p>
+<p>多角形分割評価実行形式の呼び出しのそれぞれが、多角形分割基本形状生成器によって生成された単一の頂点の位置と属性を計算する。実行形式は、入力パッチ内の任意の頂点の属性と、多角形分割基本形状内の頂点の相対的な位置である多角形分割座標を読み取ることができる。実行形式は、頂点の位置とその他の属性を書き込む。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>原文の tessellation primitives を、点や線分や三角形の抽象概念だと思って読んでいる。
+<a class="reference external" href="https://www.khronos.org/opengl/wiki/Primitive">Primitive - OpenGL Wiki</a> 参照。</p>
+</div>
+</section>
+<section id="geometry-processor">
+<h3><a class="toc-backref" href="#id7">2.4. Geometry Processor</a><a class="headerlink" href="#geometry-processor" title="Permalink to this headline">¶</a></h3>
+<p><strong>幾何処理器</strong> (the geometry processor) とは、頂点処理後に組み立てられた基本形状に対して、入力頂点のデータを演算し、出力基本形状を形成する一連の頂点を出力するプログラム可能な構成単位だ。この処理器上で動作するように OpenGL Shading Language で記述されたコンパイル単位を
+<strong>幾何シェーダー</strong> (geometry shaders) と呼ぶ。一連の幾何シェーダーのコンパイルとリンクが成功すると、幾何処理器上で動作する
+<strong>幾何シェーダー実行形式</strong> (a geometry shader executable) が得られる。</p>
+<p>幾何処理器上で実行可能な幾何シェーダーを一度呼び出すと、固定数の頂点を持つ宣言された入力基本形状を操作する。この単一の呼び出しは、宣言された出力基本形状型の基本形状に組み立てられ、後続のパイプライン段階に渡される可変数の頂点を放出することができる。</p>
+</section>
+<section id="fragment-processor">
+<h3><a class="toc-backref" href="#id8">2.5. Fragment Processor</a><a class="headerlink" href="#fragment-processor" title="Permalink to this headline">¶</a></h3>
+<p><strong>フラグメント処理器</strong> (the fragment processor) とは、フラグメント値とその関連データを操作するプログラム可能な構成単位だ。この処理器上で動作するように OpenGL Shading Language で記述されたコンパイル単位を
+<strong>フラグメントシェーダー</strong> (fragment shaders) と呼ぶ。一連のフラグメントシェーダーのコンパイルとリンクが成功すると、フラグメント処理器上で動作する <strong>フラグメントシェーダー実行形式</strong>
+(a fragment shader executable) が得られる。</p>
+<p>フラグメントシェーダーはフラグメントの <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code> 位置を変更することはできない。また、隣接するフラグメントへのアクセスも許されない。フラグメントシェーダーによって計算された値は、現在の API の状態とフラグメントを生成した
+API コマンドに応じて、最終的にフレームバッファーメモリーやテクスチャーメモリーの更新に用いられる。</p>
+</section>
+<section id="compute-processor">
+<h3><a class="toc-backref" href="#id9">2.6. Compute Processor</a><a class="headerlink" href="#compute-processor" title="Permalink to this headline">¶</a></h3>
+<p><strong>計算器</strong> (the compute processor) とは、他のシェーダー処理器とは独立して動作するプログラム可能な構成単位だ。この処理器上で動作するように OpenGL Shading Language で記述されたコンパイル単位を
+<strong>計算シェーダー</strong> (compute shaders) と呼ぶ。一連の計算シェーダーのコンパイルとリンクが成功すると、計算器上で動作する
+<strong>計算シェーダー実行形式</strong> (a compute shader executable) が得られる。</p>
+<p>計算シェーダーは、フラグメントシェーダーや他のシェーダー処理器と同様に、テクスチャー、バッファー、画像変数、不可分カウンターなどの多くの資源にアクセスできる。固定機能の出力は持っていない。グラフィックスパイプラインの一部ではなく、その目に見える副作用は、画像、格納バッファー、および不可分カウンターの変更によるものだ。</p>
+<p>計算シェーダーは <strong>作業グループ</strong> (a workgroup) と呼ばれる、作業項目のグループに対して作用する。作業グループとは、同じコードを並行して実行する可能性のある、シェーダー呼び出しの集合体だ。作業グループ内の呼び出しは、共有変数を通じて同じ作業グループの他のメンバーとデータを共有することができ、同じ作業グループの他のメンバーと同期するためにメモリーおよび制御フローの障壁を設ける。</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="note3.html" title="OpenGL Shading Language 4.60 Specification 読書ノート Part 3"
+             >next</a></li>
+        <li class="right" >
+          <a href="note1.html" title="OpenGL Shading Language 4.60 Specification 読書ノート Part 1"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >OpenGL Shading Language 4.60 Specification 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">OpenGL Shading Language 4.60 Specification 読書ノート Part 2</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

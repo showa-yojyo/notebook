@@ -1,0 +1,1049 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>OpenGL Shading Language 4.60 Specification 読書ノート Part 8 &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
+    
+    <script src="../_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="OpenGL Shading Language 4.60 Specification 読書ノート Part 9" href="note9.html" />
+    <link rel="prev" title="OpenGL Shading Language 4.60 Specification 読書ノート Part 7" href="note7.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="note9.html" title="OpenGL Shading Language 4.60 Specification 読書ノート Part 9"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="note7.html" title="OpenGL Shading Language 4.60 Specification 読書ノート Part 7"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">OpenGL Shading Language 4.60 Specification 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">OpenGL Shading Language 4.60 Specification 読書ノート Part 8</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="opengl-shading-language-4-60-specification-part-8">
+<h1><a class="toc-backref" href="#id4">OpenGL Shading Language 4.60 Specification 読書ノート Part 8</a><a class="headerlink" href="#opengl-shading-language-4-60-specification-part-8" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.html#built-in-functions">仕様書該当部分</a></p>
+<div class="contents topic" id="id1">
+<p class="topic-title">ノート目次</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#opengl-shading-language-4-60-specification-part-8" id="id4">OpenGL Shading Language 4.60 Specification 読書ノート Part 8</a></p>
+<ul>
+<li><p><a class="reference internal" href="#built-in-functions" id="id5">8. Built-In Functions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#angle-and-trigonometry-functions" id="id6">8.1. Angle and Trigonometry Functions</a></p></li>
+<li><p><a class="reference internal" href="#exponential-functions" id="id7">8.2. Exponential Functions</a></p></li>
+<li><p><a class="reference internal" href="#common-functions" id="id8">8.3. Common Functions</a></p></li>
+<li><p><a class="reference internal" href="#floating-point-pack-and-unpack-functions" id="id9">8.4. Floating-Point Pack and Unpack Functions</a></p></li>
+<li><p><a class="reference internal" href="#geometric-functions" id="id10">8.5. Geometric Functions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#refraction-equation" id="id11">8.5.1. Refraction Equation</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#matrix-functions" id="id12">8.6. Matrix Functions</a></p></li>
+<li><p><a class="reference internal" href="#vector-relational-functions" id="id13">8.7. Vector Relational Functions</a></p></li>
+<li><p><a class="reference internal" href="#integer-functions" id="id14">8.8. Integer Functions</a></p></li>
+<li><p><a class="reference internal" href="#texture-functions" id="id15">8.9. Texture Functions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#texture-query-functions" id="id16">8.9.1. Texture Query Functions</a></p></li>
+<li><p><a class="reference internal" href="#texel-lookup-functions" id="id17">8.9.2. Texel Lookup Functions</a></p></li>
+<li><p><a class="reference internal" href="#explicit-gradients" id="id18">8.9.3. Explicit Gradients</a></p></li>
+<li><p><a class="reference internal" href="#texture-gather-functions" id="id19">8.9.4. Texture Gather Functions</a></p></li>
+<li><p><a class="reference internal" href="#compatibility-profile-texture-functions" id="id20">8.9.5. Compatibility Profile Texture Functions</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#atomic-counter-functions" id="id21">8.10. Atomic Counter Functions</a></p></li>
+<li><p><a class="reference internal" href="#atomic-memory-functions" id="id22">8.11. Atomic Memory Functions</a></p></li>
+<li><p><a class="reference internal" href="#image-functions" id="id23">8.12. Image Functions</a></p></li>
+<li><p><a class="reference internal" href="#geometry-shader-functions" id="id24">8.13. Geometry Shader Functions</a></p></li>
+<li><p><a class="reference internal" href="#fragment-processing-functions" id="id25">8.14. Fragment Processing Functions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#derivative-functions" id="id26">8.14.1. Derivative Functions</a></p></li>
+<li><p><a class="reference internal" href="#interpolation-functions" id="id27">8.14.2. Interpolation Functions</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#noise-functions" id="id28">8.15. Noise Functions</a></p></li>
+<li><p><a class="reference internal" href="#shader-invocation-control-functions" id="id29">8.16. Shader Invocation Control Functions</a></p></li>
+<li><p><a class="reference internal" href="#shader-memory-control-functions" id="id30">8.17. Shader Memory Control Functions</a></p></li>
+<li><p><a class="reference internal" href="#subpass-input-functions" id="id31">8.18. Subpass-Input Functions</a></p></li>
+<li><p><a class="reference internal" href="#shader-invocation-group-functions" id="id32">8.19. Shader Invocation Group Functions</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="built-in-functions">
+<h2><a class="toc-backref" href="#id5">8. Built-In Functions</a><a class="headerlink" href="#built-in-functions" title="Permalink to this headline">¶</a></h2>
+<p>OpenGL Shading Language はスカラーおよびベクトル演算についてさまざまな組み込み便利関数を定義する。これらの組込み関数の多くは、複数の種類のシェーダーで使用することができるが、ハードウェアに直接写像することを目的としたものも中にはあり、そのようなものは特定の種類のシェーダーでしか使用できない。</p>
+<p>組み込み関数は、基本的に三つのカテゴリーに分類される：</p>
+<ul class="simple">
+<li><p>テクスチャーマップへのアクセスのように、必要なハードウェア機能を便利な方法で公開するもの。これらの関数をシェーダーで模倣する方法が言語にはないもの。</p></li>
+<li><p>自明な操作 (<code class="docutils literal notranslate"><span class="pre">clamp</span></code>, <code class="docutils literal notranslate"><span class="pre">mix</span></code>, etc.) を表現するもので、ユーザーが書くのがひじょうに簡単かつ、一般的なもので、ハードウェアが直接サポートしている場合もある。コンパイラーにとって式を複雑なアセンブラー命令に変換するのはとても難しい問題だ。</p></li>
+<li><p>グラフィックスのハードウェアがいずれは加速するであろう操作を表す式。三角関数はこのカテゴリーに入る。</p></li>
+</ul>
+<p>多くの関数は、一般的な C ライブラリーにある同名の関数と似ているが、従来のスカラー入力だけでなく、ベクトル入力もサポートしている。</p>
+<p>組み込み関数は最適であると想定されているので、アプリケーションは、自分のシェーダーコードで同等の計算を行うよりも、組み込み関数を使用するべきだ。例えば、処理内容をハードウェアが直接サポートしている可能性がある。</p>
+<p>同じ名前と引数リストを再宣言して定義するだけで、ユーザーコードが組み込み関数を自分のものに置き換えることができる。組み込み関数はユーザー版関数よりも外側のスコープにあるため、これを行うと、再宣言された関数と同じ名前の組み込み関数はすべて隠蔽される。</p>
+<p>以下で仕様になる組み込み関数で、入力引数および対応する出力が</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">vec2</span></code>, <code class="docutils literal notranslate"><span class="pre">vec3</span></code>, <code class="docutils literal notranslate"><span class="pre">vec4</span></code> の場合 <code class="docutils literal notranslate"><span class="pre">genFType</span></code> を、</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">ivec2</span></code>, <code class="docutils literal notranslate"><span class="pre">ivec3</span></code>, <code class="docutils literal notranslate"><span class="pre">ivec4</span></code> の場合 <code class="docutils literal notranslate"><span class="pre">genIType</span></code> を、</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">uint</span></code>, <code class="docutils literal notranslate"><span class="pre">uvec2</span></code>, <code class="docutils literal notranslate"><span class="pre">uvec3</span></code>, <code class="docutils literal notranslate"><span class="pre">uvec4</span></code> の場合 <code class="docutils literal notranslate"><span class="pre">genUType</span></code> を、</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bool</span></code>, <code class="docutils literal notranslate"><span class="pre">bvec2</span></code>, <code class="docutils literal notranslate"><span class="pre">bvec3</span></code>, <code class="docutils literal notranslate"><span class="pre">bvec4</span></code> の場合 <code class="docutils literal notranslate"><span class="pre">genBType</span></code> を、</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">double</span></code>, <code class="docutils literal notranslate"><span class="pre">dvec2</span></code>, <code class="docutils literal notranslate"><span class="pre">dvec3</span></code>, <code class="docutils literal notranslate"><span class="pre">dvec4</span></code> の場合 <code class="docutils literal notranslate"><span class="pre">genDType</span></code> を</p></li>
+</ul>
+<p>引数として使用する。</p>
+<p>関数の特定の用途では <code class="docutils literal notranslate"><span class="pre">genFType</span></code>, <code class="docutils literal notranslate"><span class="pre">genIType</span></code>, <code class="docutils literal notranslate"><span class="pre">genUType</span></code>, <code class="docutils literal notranslate"><span class="pre">genBType</span></code>
+に置き換わる実際の型は、すべての引数と戻り値の型に対して、同じ数の成分を持たなければならない。同様に、</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mat</span></code> は単精度成分を持つ任意の行列基本型に、</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dmat</span></code> は倍精度成分を持つ任意の行列基本型に</p></li>
+</ul>
+<p>それぞれ使用される。</p>
+<p>組込み関数には有効精度修飾がある。この精度を明示的に設定することはできず、結果の精度とは異なる場合がある。</p>
+<p>注意：一般的に、Vulkan を対象にしていない限り、精度修飾は無視される。</p>
+<p>組み込み関数の演算の精度修飾は、その仮引数と実引数（入力引数）の精度修飾に基づいて行われる。仮引数が精度修飾子を指定している場合はそれが使用され、そうでない場合は実際の（呼び出し）実引数の精度修飾が使用される。これらの中で最も高い精度が組み込み関数の演算の精度となる。一般的に、これは組み込み関数のすべての実引数にわたって適用されるが、例外がある：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">bitfieldExtract</span></code> と <code class="docutils literal notranslate"><span class="pre">bitfieldInsert</span></code> は引数 <code class="docutils literal notranslate"><span class="pre">offset</span></code> と <code class="docutils literal notranslate"><span class="pre">bits</span></code> を無視する。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">interpolateAt</span></code> は引数 <code class="docutils literal notranslate"><span class="pre">interpolant</span></code> のみを見ます。</p></li>
+</ul>
+<p>組み込み関数の結果の精度修飾は、以下のいずれかの方法で決定される：</p>
+<p>テクスチャー採取、画像ロード、画像格納の各関数では、戻り値型の精度はテクスチャーを混合した採取器型の精度と合致する：</p>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">uniform</span> <span class="k">lowp</span> <span class="kt">sampler2D</span> <span class="n">texSampler</span><span class="p">;</span>
+<span class="k">highp</span> <span class="kt">vec2</span> <span class="n">coord</span><span class="p">;</span>
+<span class="p">...</span>
+<span class="k">lowp</span> <span class="kt">vec4</span> <span class="n">col</span> <span class="o">=</span> <span class="n">texture</span> <span class="p">(</span><span class="n">texSampler</span><span class="p">,</span> <span class="n">coord</span><span class="p">);</span> <span class="c1">// texture() returns lowp</span>
+</pre></div>
+</div>
+<p>そうでなければ：</p>
+<ul class="simple">
+<li><p>結果精度修飾子を指定しないプロトタイプでは、その精度は（先に定義したように）演算の精度と同じになる。</p></li>
+<li><p>結果精度修飾子を指定するプロトタイプでは、指定された精度修飾子が結果精度修飾子となる。</p></li>
+</ul>
+<p>以下の節の組み込み関数が方程式を指定する場合、式全体が演算の精度で評価される。これにより、正しい結果が演算精度で表現できる場合であったとしても、アンダーフローやオーバーフローが発生する可能性がある。</p>
+<section id="angle-and-trigonometry-functions">
+<h3><a class="toc-backref" href="#id6">8.1. Angle and Trigonometry Functions</a><a class="headerlink" href="#angle-and-trigonometry-functions" title="Permalink to this headline">¶</a></h3>
+<p>角度として指定された関数の引数は弧度法単位だとみなされる。これらの関数でゼロ除算エラーが発生することはない。除数が 0 の場合には結果は未定義となる。</p>
+<p>これらはすべて成分ごとに演算する。記述は成分ごとに成り立つ。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">コメント</p>
+<p>この節以降も、ノートには関数シグニチャーをすべて記す。機能が自明なものについては演算仕様を書かない。</p>
+</div>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="n">genFType</span> <span class="n">radians</span><span class="p">(</span><span class="n">genFType</span> <span class="n">degrees</span><span class="p">);</span>
+<span class="n">genFType</span> <span class="n">degrees</span><span class="p">(</span><span class="n">genFType</span> <span class="n">radians</span><span class="p">);</span>
+<span class="n">genFType</span> <span class="n">sin</span><span class="p">(</span><span class="n">genFType</span> <span class="n">angle</span><span class="p">);</span>
+<span class="n">genFType</span> <span class="n">cos</span><span class="p">(</span><span class="n">genFType</span> <span class="n">angle</span><span class="p">);</span>
+<span class="n">genFType</span> <span class="n">tan</span><span class="p">(</span><span class="n">genFType</span> <span class="n">angle</span><span class="p">);</span>
+<span class="n">genFType</span> <span class="n">asin</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
+<span class="n">genFType</span> <span class="n">acos</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
+<span class="n">genFType</span> <span class="n">atan</span><span class="p">(</span><span class="n">genFType</span> <span class="n">y</span><span class="p">,</span> <span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
+<span class="n">genFType</span> <span class="n">atan</span><span class="p">(</span><span class="n">genFType</span> <span class="n">y_over_x</span><span class="p">);</span>
+<span class="n">genFType</span> <span class="n">sinh</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
+<span class="n">genFType</span> <span class="n">cosh</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
+<span class="n">genFType</span> <span class="n">tanh</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
+<span class="n">genFType</span> <span class="n">asinh</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
+<span class="n">genFType</span> <span class="n">acosh</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
+<span class="n">genFType</span> <span class="n">atanh</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">コメント</p>
+<p><code class="docutils literal notranslate"><span class="pre">atan</span></code> の引数を二つとる方は、よその言語では atan2 と呼ばれる。座標成分の順序はそれに準じている。</p>
+<p><code class="docutils literal notranslate"><span class="pre">atanh</span></code> の記述に「結果は <span class="math notranslate nohighlight">\({x \ge 1}\)</span> の場合未定義だ」とあるが、おそらく <span class="math notranslate nohighlight">\({x \le -1}\)</span> の場合も未定義だと考えるのがいい。</p>
+</div>
+</section>
+<section id="exponential-functions">
+<h3><a class="toc-backref" href="#id7">8.2. Exponential Functions</a><a class="headerlink" href="#exponential-functions" title="Permalink to this headline">¶</a></h3>
+<p>これらはすべて成分ごとに演算する。記述は成分ごとに成り立つ。</p>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="n">genFType</span> <span class="n">pow</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">,</span> <span class="n">genFType</span> <span class="n">y</span><span class="p">);</span>
+<span class="n">genFType</span> <span class="n">exp</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
+<span class="n">genFType</span> <span class="n">log</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
+<span class="n">genFType</span> <span class="n">exp2</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
+<span class="n">genFType</span> <span class="n">log2</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
+<span class="n">genFType</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
+<span class="n">genDType</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">genDType</span> <span class="n">x</span><span class="p">);</span>
+<span class="n">genFType</span> <span class="n">inversesqrt</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
+<span class="n">genDType</span> <span class="n">inversesqrt</span><span class="p">(</span><span class="n">genDType</span> <span class="n">x</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">コメント</p>
+<p><code class="docutils literal notranslate"><span class="pre">exp2(x)</span></code> は数学的には <code class="docutils literal notranslate"><span class="pre">exp(2,</span> <span class="pre">x)</span></code> を意味する。
+<code class="docutils literal notranslate"><span class="pre">log2(x)</span></code> も同じように <code class="docutils literal notranslate"><span class="pre">log(2,</span> <span class="pre">x)</span></code> と意味は同じだろう。
+<code class="docutils literal notranslate"><span class="pre">inversesqrt(x)</span></code> は <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">sqrt(x)</span></code> を意味する。これらの「専用版」はおそらく「汎用版」よりもアルゴリズムが良いことが期待される。</p>
+</div>
+</section>
+<section id="common-functions">
+<h3><a class="toc-backref" href="#id8">8.3. Common Functions</a><a class="headerlink" href="#common-functions" title="Permalink to this headline">¶</a></h3>
+<p>これらはすべて成分ごとに演算する。記述は成分ごとに成り立つ。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">コメント</p>
+<p>テキスト量が多いので、今度は関数シグニチャーをオーバーロード一つに絞って引用する。</p>
+</div>
+<dl class="glossary">
+<dt id="term-genFType-abs-genFType-x-etc."><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">abs(genFType</span> <span class="pre">x)</span></code>, etc.<a class="headerlink" href="#term-genFType-abs-genFType-x-etc." title="Permalink to this term">¶</a></dt><dd><p>よその言語によくあるものと同じ。</p>
+</dd>
+<dt id="term-genFType-sign-genFType-x-etc."><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">sign(genFType</span> <span class="pre">x)</span></code>, etc.<a class="headerlink" href="#term-genFType-sign-genFType-x-etc." title="Permalink to this term">¶</a></dt><dd><p>引数の符号に応じて 1.0, 0.0, -1.0 を返す。</p>
+</dd>
+<dt id="term-genFType-floor-genFType-x-etc."><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">floor(genFType</span> <span class="pre">x)</span></code>, etc.<a class="headerlink" href="#term-genFType-floor-genFType-x-etc." title="Permalink to this term">¶</a></dt><dd><p>よその言語によくあるものと同じ。</p>
+</dd>
+<dt id="term-genFType-trunc-genFType-x-etc."><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">trunc(genFType</span> <span class="pre">x)</span></code>, etc.<a class="headerlink" href="#term-genFType-trunc-genFType-x-etc." title="Permalink to this term">¶</a></dt><dd><p>絶対値が <code class="docutils literal notranslate"><span class="pre">x</span></code> の絶対値よりも大きくないような、
+<code class="docutils literal notranslate"><span class="pre">x</span></code> に最も近い整数を（戻り値型で）返す。</p>
+</dd>
+<dt id="term-genFType-round-genFType-x-etc."><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">round(genFType</span> <span class="pre">x)</span></code>, etc.<a class="headerlink" href="#term-genFType-round-genFType-x-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">x</span></code> に最も近い整数を（戻り値型で）返す。端数 0.5 は、実装によって選択された方向に、おそらく最も速い方向に丸められる。ということは、すべての <code class="docutils literal notranslate"><span class="pre">x</span></code> の値に対して <code class="docutils literal notranslate"><span class="pre">round(x)</span> <span class="pre">==</span> <span class="pre">roundEven(x)</span></code>
+という可能性も含まれる。</p>
+</dd>
+<dt id="term-genFType-roundEven-genFType-x-etc."><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">roundEven(genFType</span> <span class="pre">x)</span></code>, etc.<a class="headerlink" href="#term-genFType-roundEven-genFType-x-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">x</span></code> に最も近い整数を（戻り値型で）返す。
+0.5 の小数部は、最も近い偶数の整数に丸められる。例えば 3.5 と 4.5 はどちらも 4.0 を返す。</p>
+</dd>
+<dt id="term-genFType-ceil-genFType-x-etc."><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">ceil(genFType</span> <span class="pre">x)</span></code>, etc.<a class="headerlink" href="#term-genFType-ceil-genFType-x-etc." title="Permalink to this term">¶</a></dt><dd><p>よその言語によくあるものと同じ。</p>
+</dd>
+<dt id="term-genFType-fract-genFType-x-etc."><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">fract(genFType</span> <span class="pre">x)</span></code>, etc.<a class="headerlink" href="#term-genFType-fract-genFType-x-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">x</span> <span class="pre">-</span> <span class="pre">floor(x);</span></code></p>
+</dd>
+<dt id="term-genFType-mod-genFType-x-float-y-etc."><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">mod(genFType</span> <span class="pre">x,</span> <span class="pre">float</span> <span class="pre">y)</span></code>, etc.<a class="headerlink" href="#term-genFType-mod-genFType-x-float-y-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">x</span> <span class="pre">-</span> <span class="pre">y</span> <span class="pre">*</span> <span class="pre">floor(x</span> <span class="pre">/</span> <span class="pre">y);</span></code></p>
+</dd>
+<dt id="term-genFType-modf-genFType-x-out-genFType-i-etc."><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">modf(genFType</span> <span class="pre">x,</span> <span class="pre">out</span> <span class="pre">genFType</span> <span class="pre">i)</span></code>, etc.<a class="headerlink" href="#term-genFType-modf-genFType-x-out-genFType-i-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">x</span></code> の小数部を返し、
+<code class="docutils literal notranslate"><span class="pre">i</span></code> に整数部を <code class="docutils literal notranslate"><span class="pre">genFType</span></code> 型の値として代入する。戻り値と出力引数は、どちらも <code class="docutils literal notranslate"><span class="pre">x</span></code> と同じ符号になる。</p>
+</dd>
+<dt id="term-genFType-min-genFType-x-genFType-y-etc."><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">min(genFType</span> <span class="pre">x,</span> <span class="pre">genFType</span> <span class="pre">y)</span></code>, etc.<a class="headerlink" href="#term-genFType-min-genFType-x-genFType-y-etc." title="Permalink to this term">¶</a></dt><dd><p>よその言語によくあるものと同じ。</p>
+</dd>
+<dt id="term-genFType-max-genFType-x-genFType-y-etc."><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">max(genFType</span> <span class="pre">x,</span> <span class="pre">genFType</span> <span class="pre">y)</span></code>, etc.<a class="headerlink" href="#term-genFType-max-genFType-x-genFType-y-etc." title="Permalink to this term">¶</a></dt><dd><p>よその言語によくあるものと同じ。</p>
+</dd>
+<dt id="term-genFType-clamp-genFType-x-genFType-minVal-genFType-maxVal-etc."><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">clamp(genFType</span> <span class="pre">x,</span> <span class="pre">genFType</span> <span class="pre">minVal,</span> <span class="pre">genFType</span> <span class="pre">maxVal)</span></code>, etc.<a class="headerlink" href="#term-genFType-clamp-genFType-x-genFType-minVal-genFType-maxVal-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">min(max(x,</span> <span class="pre">minVal),</span> <span class="pre">maxVal);</span></code>
+<code class="docutils literal notranslate"><span class="pre">minVal</span> <span class="pre">&gt;</span> <span class="pre">maxVal</span></code> なる引数に対しては結果は未定義だ。</p>
+</dd>
+<dt id="term-genFType-mix-genFType-x-genFType-y-genFType-a-etc."><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">mix(genFType</span> <span class="pre">x,</span> <span class="pre">genFType</span> <span class="pre">y,</span> <span class="pre">genFType</span> <span class="pre">a)</span></code>, etc.<a class="headerlink" href="#term-genFType-mix-genFType-x-genFType-y-genFType-a-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">x</span></code> と <code class="docutils literal notranslate"><span class="pre">y</span></code> の線形補間、つまり <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">*</span> <span class="pre">(1</span> <span class="pre">-</span> <span class="pre">a)</span> <span class="pre">+</span> <span class="pre">y</span> <span class="pre">*</span> <span class="pre">a</span></code> を返す。</p>
+</dd>
+<dt id="term-genFType-mix-genFType-x-genFType-y-genBType-a-etc."><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">mix(genFType</span> <span class="pre">x,</span> <span class="pre">genFType</span> <span class="pre">y,</span> <span class="pre">genBType</span> <span class="pre">a)</span></code>, etc.<a class="headerlink" href="#term-genFType-mix-genFType-x-genFType-y-genBType-a-etc." title="Permalink to this term">¶</a></dt><dd><p>射影。</p>
+<p><code class="docutils literal notranslate"><span class="pre">a</span></code> の成分が <code class="docutils literal notranslate"><span class="pre">false</span></code> の場合は、対応する <code class="docutils literal notranslate"><span class="pre">x</span></code> の成分を返す。
+<code class="docutils literal notranslate"><span class="pre">a</span></code> の成分が <code class="docutils literal notranslate"><span class="pre">true</span></code> の場合は、対応する <code class="docutils literal notranslate"><span class="pre">y</span></code> の成分を返す。選択されていない成分は、無効な浮動小数点値であることが許容され、結果には影響しない。</p>
+</dd>
+<dt id="term-genFType-step-genFType-edge-genFType-x-etc."><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">step(genFType</span> <span class="pre">edge,</span> <span class="pre">genFType</span> <span class="pre">x)</span></code>, etc.<a class="headerlink" href="#term-genFType-step-genFType-edge-genFType-x-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&lt;</span> <span class="pre">edge</span></code> の場合は 0.0 を、そうでない場合は 1.0 を返す。</p>
+</dd>
+<dt id="term-genFType-smoothstep-genFType-edge0-genFType-edge1-genFType-x-etc."><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">smoothstep(genFType</span> <span class="pre">edge0,</span> <span class="pre">genFType</span> <span class="pre">edge1,</span> <span class="pre">genFType</span> <span class="pre">x)</span></code>, etc.<a class="headerlink" href="#term-genFType-smoothstep-genFType-edge0-genFType-edge1-genFType-x-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&lt;=</span> <span class="pre">edge0</span></code> なら 0.0 を、
+<code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&gt;=</span> <span class="pre">edge1</span></code> なら 1.0 を返し、
+<code class="docutils literal notranslate"><span class="pre">edge0</span> <span class="pre">&lt;</span> <span class="pre">x</span> <span class="pre">&lt;</span> <span class="pre">edge1</span></code> のときは 0 と 1 の間で滑らかな Hermite 補間を行う。滑らかな遷移をする閾値関数が欲しい場合にこれは便利だ。これは次と等価だ：</p>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="n">genFType</span> <span class="n">t</span><span class="p">;</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">clamp</span> <span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">edge0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">edge1</span> <span class="o">-</span> <span class="n">edge0</span><span class="p">),</span> <span class="mo">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="k">return</span> <span class="n">t</span> <span class="o">*</span> <span class="n">t</span> <span class="o">*</span> <span class="p">(</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">t</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">edge0</span> <span class="pre">&gt;=</span> <span class="pre">edge1</span></code> なる引数に対しては結果は未定義だ。</p>
+</dd>
+<dt id="term-genBType-isnan-genFType-x-etc."><code class="docutils literal notranslate"><span class="pre">genBType</span> <span class="pre">isnan(genFType</span> <span class="pre">x)</span></code>, etc.<a class="headerlink" href="#term-genBType-isnan-genFType-x-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">x</span></code> が NaN である場合には <code class="docutils literal notranslate"><span class="pre">true</span></code> を返し、それ以外は <code class="docutils literal notranslate"><span class="pre">false</span></code> を返す。
+<code class="docutils literal notranslate"><span class="pre">NaN</span></code> が実装されていない場合は常に <code class="docutils literal notranslate"><span class="pre">false</span></code> を返す。</p>
+</dd>
+<dt id="term-genBType-isinf-genFType-x-etc."><code class="docutils literal notranslate"><span class="pre">genBType</span> <span class="pre">isinf(genFType</span> <span class="pre">x)</span></code>, etc.<a class="headerlink" href="#term-genBType-isinf-genFType-x-etc." title="Permalink to this term">¶</a></dt><dd><p>よその言語によくあるものと同じ。</p>
+</dd>
+<dt id="term-genIType-floatBitsToInt-highp-genFType-value"><code class="docutils literal notranslate"><span class="pre">genIType</span> <span class="pre">floatBitsToInt(highp</span> <span class="pre">genFType</span> <span class="pre">value)</span></code><a class="headerlink" href="#term-genIType-floatBitsToInt-highp-genFType-value" title="Permalink to this term">¶</a></dt><dt id="term-genUType-floatBitsToUint-highp-genFType-value"><code class="docutils literal notranslate"><span class="pre">genUType</span> <span class="pre">floatBitsToUint(highp</span> <span class="pre">genFType</span> <span class="pre">value)</span></code><a class="headerlink" href="#term-genUType-floatBitsToUint-highp-genFType-value" title="Permalink to this term">¶</a></dt><dd><p>浮動小数点値の符号方式を表す符号付きまたは符号なしの整数値を返す。浮動小数点値のビットレベル表現は維持される。</p>
+</dd>
+<dt id="term-genFType-intBitsToFloat-highp-genIType-value"><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">intBitsToFloat(highp</span> <span class="pre">genIType</span> <span class="pre">value)</span></code><a class="headerlink" href="#term-genFType-intBitsToFloat-highp-genIType-value" title="Permalink to this term">¶</a></dt><dt id="term-genFType-uintBitsToFloat-highp-genUType-value"><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">uintBitsToFloat(highp</span> <span class="pre">genUType</span> <span class="pre">value)</span></code><a class="headerlink" href="#term-genFType-uintBitsToFloat-highp-genUType-value" title="Permalink to this term">¶</a></dt><dd><p>浮動小数点値を符号付きまたは符号なしの整数で符号化したものに対応する浮動小数点値を返す。
+NaN が渡された場合、そのことを合図せず、結果の値は未定義だ。
+Inf が渡された場合、結果の値は対応する Inf になる。それ以外の場合はビットレベルの表現が維持される。</p>
+</dd>
+<dt id="term-genFType-fma-genFType-a-genFType-b-genFType-c-etc."><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">fma(genFType</span> <span class="pre">a,</span> <span class="pre">genFType</span> <span class="pre">b,</span> <span class="pre">genFType</span> <span class="pre">c)</span></code>, etc.<a class="headerlink" href="#term-genFType-fma-genFType-a-genFType-b-genFType-c-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">a</span> <span class="pre">*</span> <span class="pre">b</span> <span class="pre">+</span> <span class="pre">c;</span></code>
+戻り値が最終的に <code class="docutils literal notranslate"><span class="pre">precise</span></code> と宣言された変数で消費される用途では、</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">fma()</span></code> は単一の演算とみなされる一方で、
+<code class="docutils literal notranslate"><span class="pre">precise</span></code> と宣言された変数で消費される式 <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">*</span> <span class="pre">b</span> <span class="pre">+</span> <span class="pre">c</span></code> は二つの演算とみなされる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fma()</span></code> の精度は、式 <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">*</span> <span class="pre">b</span> <span class="pre">+</span> <span class="pre">c</span></code> のそれとは異なる可能性がある。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fma()</span></code> は <code class="docutils literal notranslate"><span class="pre">precise</span></code> 変数によって消費される他のどの <code class="docutils literal notranslate"><span class="pre">fma()</span></code> とも同じ精度で計算され、同じ入力値の <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>, <code class="docutils literal notranslate"><span class="pre">c</span></code> に対して不変の結果を与える。</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">precise</span></code> 消費がない場合、
+<code class="docutils literal notranslate"><span class="pre">fma()</span></code> と 式 <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">*</span> <span class="pre">b</span> <span class="pre">+</span> <span class="pre">c</span></code> の間の演算数や精度の違いに特別な制約はない。</p>
+</dd>
+<dt id="term-genFType-frexp-highp-genFType-x-out-highp-genIType-exp"><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">frexp(highp</span> <span class="pre">genFType</span> <span class="pre">x,</span> <span class="pre">out</span> <span class="pre">highp</span> <span class="pre">genIType</span> <span class="pre">exp)</span></code><a class="headerlink" href="#term-genFType-frexp-highp-genFType-x-out-highp-genIType-exp" title="Permalink to this term">¶</a></dt><dt id="term-genDType-frexp-genDType-x-out-genIType-exp"><code class="docutils literal notranslate"><span class="pre">genDType</span> <span class="pre">frexp(genDType</span> <span class="pre">x,</span> <span class="pre">out</span> <span class="pre">genIType</span> <span class="pre">exp)</span></code><a class="headerlink" href="#term-genDType-frexp-genDType-x-out-genIType-exp" title="Permalink to this term">¶</a></dt><dd><p>範囲 <span class="math notranslate nohighlight">\({[0.5, 1.0]}\)</span> の浮動小数点の有効数字 (significand) と、2 の整数指数に <code class="docutils literal notranslate"><span class="pre">x</span></code> を分割する：</p>
+<p><span class="math notranslate nohighlight">\(x = s \times 2^{e}\)</span></p>
+<p>有効数字はこの関数によって返され、指数は引数 <code class="docutils literal notranslate"><span class="pre">exp</span></code> に返される。浮動小数点の値が 0 の場合、有効数字と指数はともに 0 となる。</p>
+<p>実装が符号付きゼロをサポートしている場合、マイナスゼロの入力値はマイナスゼロの有効数字を返す必要がある。無限大であったり、数ではない浮動小数点値の場合、結果は未定義だ。</p>
+<p>入力がベクトルの場合、この演算は成分ごとに行われる。戻り値と <code class="docutils literal notranslate"><span class="pre">exp</span></code> に書き込まれる値は、引数 <code class="docutils literal notranslate"><span class="pre">x</span></code> と同じ数の成分を持つベクトルだ。</p>
+</dd>
+<dt id="term-genFType-ldexp-highp-genFType-x-highp-genIType-exp"><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">ldexp(highp</span> <span class="pre">genFType</span> <span class="pre">x,</span> <span class="pre">highp</span> <span class="pre">genIType</span> <span class="pre">exp)</span></code><a class="headerlink" href="#term-genFType-ldexp-highp-genFType-x-highp-genIType-exp" title="Permalink to this term">¶</a></dt><dt id="term-genDType-ldexp-genDType-x-genIType-exp"><code class="docutils literal notranslate"><span class="pre">genDType</span> <span class="pre">ldexp(genDType</span> <span class="pre">x,</span> <span class="pre">genIType</span> <span class="pre">exp)</span></code><a class="headerlink" href="#term-genDType-ldexp-genDType-x-genIType-exp" title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">x</span></code> と、それに対応する <code class="docutils literal notranslate"><span class="pre">exp</span></code> の 2 の整数指数から、浮動小数点数を構築してそれを返す。</p>
+<p>この積が大きすぎて浮動小数点型で表現できない場合は、結果は未定義だ。</p>
+<p>for zero and all finite non-denormalized values.
+<code class="docutils literal notranslate"><span class="pre">exp</span></code> が単精度で +128 または倍精度で +1024 よりも大きい場合、戻り値は未定義だ。
+<code class="docutils literal notranslate"><span class="pre">exp</span></code> が単精度で -126 または倍精度で -1022 よりも小さい場合、戻り値はゼロに flush される可能性がある。さらに、
+<code class="docutils literal notranslate"><span class="pre">frexp()</span></code> を使って値を有効数字と指数に分割し、
+<code class="docutils literal notranslate"><span class="pre">ldexp()</span></code> を使って浮動小数点値を再構成すると、ゼロおよび有限非正規化値すべてに対して元の入力が得られるはずだ。</p>
+<p>入力がベクトルの場合、この演算は成分ごとに行われる。
+<code class="docutils literal notranslate"><span class="pre">exp</span></code> に渡された値と戻り値は、引数 <code class="docutils literal notranslate"><span class="pre">x</span></code> と同じ数の成分を持つベクトルとなる。</p>
+</dd>
+</dl>
+</section>
+<section id="floating-point-pack-and-unpack-functions">
+<h3><a class="toc-backref" href="#id9">8.4. Floating-Point Pack and Unpack Functions</a><a class="headerlink" href="#floating-point-pack-and-unpack-functions" title="Permalink to this headline">¶</a></h3>
+<p>これらの機能は成分単位ではなく、それぞれの場合で記述されるように動作する。</p>
+<dl class="glossary">
+<dt id="term-highp-uint-packUnorm2x16-vec2-v"><code class="docutils literal notranslate"><span class="pre">highp</span> <span class="pre">uint</span> <span class="pre">packUnorm2x16(vec2</span> <span class="pre">v)</span></code><a class="headerlink" href="#term-highp-uint-packUnorm2x16-vec2-v" title="Permalink to this term">¶</a></dt><dt id="term-highp-uint-packSnorm2x16-vec2-v"><code class="docutils literal notranslate"><span class="pre">highp</span> <span class="pre">uint</span> <span class="pre">packSnorm2x16(vec2</span> <span class="pre">v)</span></code><a class="headerlink" href="#term-highp-uint-packSnorm2x16-vec2-v" title="Permalink to this term">¶</a></dt><dt id="term-uint-packUnorm4x8-vec4-v"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">packUnorm4x8(vec4</span> <span class="pre">v)</span></code><a class="headerlink" href="#term-uint-packUnorm4x8-vec4-v" title="Permalink to this term">¶</a></dt><dt id="term-uint-packSnorm4x8-vec4-v"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">packSnorm4x8(vec4</span> <span class="pre">v)</span></code><a class="headerlink" href="#term-uint-packSnorm4x8-vec4-v" title="Permalink to this term">¶</a></dt><dd><p>まず、正規化された浮動小数点値 <code class="docutils literal notranslate"><span class="pre">v</span></code> の各成分を 16 ビット (2x16)
+または 8 ビット (4x8) の整数値に変換する。そして、その結果を 32 ビットの符号なし整数にパックして返す。</p>
+<p><code class="docutils literal notranslate"><span class="pre">v</span></code> の成分 <code class="docutils literal notranslate"><span class="pre">c</span></code> の固定小数点への変換は次のように行われる：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">packUnorm2x16</span></code>: <code class="docutils literal notranslate"><span class="pre">round(clamp(c,</span> <span class="pre">0,</span> <span class="pre">+1)</span> <span class="pre">*</span> <span class="pre">65535.0)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">packSnorm2x16</span></code>: <code class="docutils literal notranslate"><span class="pre">round(clamp(c,</span> <span class="pre">-1,</span> <span class="pre">+1)</span> <span class="pre">*</span> <span class="pre">32767.0)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">packUnorm4x8</span></code>: <code class="docutils literal notranslate"><span class="pre">round(clamp(c,</span> <span class="pre">0,</span> <span class="pre">+1)</span> <span class="pre">*</span> <span class="pre">255.0)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">packSnorm4x8</span></code>: <code class="docutils literal notranslate"><span class="pre">round(clamp(c,</span> <span class="pre">-1,</span> <span class="pre">+1)</span> <span class="pre">*</span> <span class="pre">127.0)</span></code></p></li>
+</ul>
+<p>ベクトルの最初の成分は出力の最下位ビットに、最後の成分は最上位ビットに書き込まれる。</p>
+</dd>
+<dt id="term-vec2-unpackUnorm2x16-highp-uint-p"><code class="docutils literal notranslate"><span class="pre">vec2</span> <span class="pre">unpackUnorm2x16(highp</span> <span class="pre">uint</span> <span class="pre">p)</span></code><a class="headerlink" href="#term-vec2-unpackUnorm2x16-highp-uint-p" title="Permalink to this term">¶</a></dt><dt id="term-vec2-unpackSnorm2x16-highp-uint-p"><code class="docutils literal notranslate"><span class="pre">vec2</span> <span class="pre">unpackSnorm2x16(highp</span> <span class="pre">uint</span> <span class="pre">p)</span></code><a class="headerlink" href="#term-vec2-unpackSnorm2x16-highp-uint-p" title="Permalink to this term">¶</a></dt><dt id="term-vec4-unpackUnorm4x8-highp-uint-p"><code class="docutils literal notranslate"><span class="pre">vec4</span> <span class="pre">unpackUnorm4x8(highp</span> <span class="pre">uint</span> <span class="pre">p)</span></code><a class="headerlink" href="#term-vec4-unpackUnorm4x8-highp-uint-p" title="Permalink to this term">¶</a></dt><dt id="term-vec4-unpackSnorm4x8-highp-uint-p"><code class="docutils literal notranslate"><span class="pre">vec4</span> <span class="pre">unpackSnorm4x8(highp</span> <span class="pre">uint</span> <span class="pre">p)</span></code><a class="headerlink" href="#term-vec4-unpackSnorm4x8-highp-uint-p" title="Permalink to this term">¶</a></dt><dd><p>まず、32 ビット符号なし整数 <code class="docutils literal notranslate"><span class="pre">p</span></code> を、16 ビット符号なし整数の対、
+16 ビット符号あり整数の対、4 つの 8 ビット符号なし整数、
+4 つの 8 ビット符号あり整数にそれぞれ分解する。その後、各成分を正規化された浮動小数点値に変換して、
+2 成分または 4 成分のベクトルを生成する。</p>
+<p>分解された固定小数点値 <code class="docutils literal notranslate"><span class="pre">f</span></code> の浮動小数点への変換は次のように行われる：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">unpackUnorm2x16</span></code>: <code class="docutils literal notranslate"><span class="pre">f</span> <span class="pre">/</span> <span class="pre">65535.0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">unpackSnorm2x16:</span></code>: <code class="docutils literal notranslate"><span class="pre">clamp(f</span> <span class="pre">/</span> <span class="pre">32767.0,</span> <span class="pre">-1,</span> <span class="pre">+1)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">unpackUnorm4x8</span></code>： <code class="docutils literal notranslate"><span class="pre">F</span> <span class="pre">/</span> <span class="pre">255.0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">unpackSnorm4x8</span></code>： <code class="docutils literal notranslate"><span class="pre">clamp(f</span> <span class="pre">/</span> <span class="pre">127.0,</span> <span class="pre">-1,</span> <span class="pre">+1)</span></code></p></li>
+</ul>
+<p>返されたベクトルの最初の成分は、入力の最下位ビットから抽出され、最後の成分は最上位ビットから抽出される。</p>
+</dd>
+<dt id="term-uint-packHalf2x16-vec2-v"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">packHalf2x16(vec2</span> <span class="pre">v)</span></code><a class="headerlink" href="#term-uint-packHalf2x16-vec2-v" title="Permalink to this term">¶</a></dt><dd><p>浮動小数点ベクトルの 2 成分を API の 16 ビット浮動小数点表現に変換し、その二つの 16 ビット整数を 32 ビット符号なし整数に梱包した符号なし整数を返す。</p>
+<p>ベクトルの第一成分は結果の最下位 16 ビットを、第二成分は最上位 16 ビットを表す。</p>
+</dd>
+<dt id="term-vec2-unpackHalf2x16-uint-v"><code class="docutils literal notranslate"><span class="pre">vec2</span> <span class="pre">unpackHalf2x16(uint</span> <span class="pre">v)</span></code><a class="headerlink" href="#term-vec2-unpackHalf2x16-uint-v" title="Permalink to this term">¶</a></dt><dd><p>32 ビット符号なし整数を 16 ビット値の対に展開し、それらの値を
+API に従って 16ビット浮動小数点数として解釈し、
+32 ビット浮動小数点値に変換した成分を持つ二成分浮動小数点ベクトルを返す。</p>
+<p>ベクトルの第一成分と第二成分は <code class="docutils literal notranslate"><span class="pre">v</span></code> の最下位 16 ビットと最上位 16 ビットからそれぞれ得られる。</p>
+</dd>
+<dt id="term-double-packDouble2x32-uvec2-v"><code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">packDouble2x32(uvec2</span> <span class="pre">v)</span></code><a class="headerlink" href="#term-double-packDouble2x32-uvec2-v" title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">v</span></code> の成分を 64 ビットの値にパックして得られる倍精度の値を返す。
+IEEE 754 Inf または NaN が作成された場合、それは信号を出さず、結果の浮動小数点値は未定義だ。それ以外の場合は <code class="docutils literal notranslate"><span class="pre">v</span></code> のビットレベルの表現が保存される。ベクトルの第一成分と第二成分は最下位 32 ビットと最上位 32 ビットをそれぞれ指定する。</p>
+</dd>
+<dt id="term-uvec2-unpackDouble2x32-double-v"><code class="docutils literal notranslate"><span class="pre">uvec2</span> <span class="pre">unpackDouble2x32(double</span> <span class="pre">v)</span></code><a class="headerlink" href="#term-uvec2-unpackDouble2x32-double-v" title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">v</span></code> の符号なし整数二成分ベクトル表現を返す。
+<code class="docutils literal notranslate"><span class="pre">v</span></code> のビットレベル表現は保持される。ベクトルの第一成分と第二成分は <code class="docutils literal notranslate"><span class="pre">double</span></code> の最下位 32 ビットと最上位 32
+ビットをそれぞれ含む。</p>
+</dd>
+</dl>
+</section>
+<section id="geometric-functions">
+<h3><a class="toc-backref" href="#id10">8.5. Geometric Functions</a><a class="headerlink" href="#geometric-functions" title="Permalink to this headline">¶</a></h3>
+<p>これらは成分単位ではなく、ベクトルとして演算する。</p>
+<dl class="glossary">
+<dt id="term-float-length-genFType-x-etc."><code class="docutils literal notranslate"><span class="pre">float</span> <span class="pre">length(genFType</span> <span class="pre">x)</span></code>, etc.<a class="headerlink" href="#term-float-length-genFType-x-etc." title="Permalink to this term">¶</a></dt><dd><p>ベクトル <code class="docutils literal notranslate"><span class="pre">x</span></code> の長さを返す。</p>
+</dd>
+<dt id="term-float-distance-genFType-p0-genFType-p1-etc."><code class="docutils literal notranslate"><span class="pre">float</span> <span class="pre">distance(genFType</span> <span class="pre">p0,</span> <span class="pre">genFType</span> <span class="pre">p1)</span></code>, etc.<a class="headerlink" href="#term-float-distance-genFType-p0-genFType-p1-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">p0</span></code> と <code class="docutils literal notranslate"><span class="pre">p1</span></code> の間の距離、すなわち <code class="docutils literal notranslate"><span class="pre">length(p0</span> <span class="pre">-</span> <span class="pre">p1)</span></code> を返す。</p>
+</dd>
+<dt id="term-float-dot-genFType-x-genFType-y-etc."><code class="docutils literal notranslate"><span class="pre">float</span> <span class="pre">dot(genFType</span> <span class="pre">x,</span> <span class="pre">genFType</span> <span class="pre">y)</span></code>, etc.<a class="headerlink" href="#term-float-dot-genFType-x-genFType-y-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">x</span></code> と <code class="docutils literal notranslate"><span class="pre">y</span></code> のスカラー積を返す。</p>
+</dd>
+<dt id="term-vec3-cross-vec3-x-vec3-y-etc."><code class="docutils literal notranslate"><span class="pre">vec3</span> <span class="pre">cross(vec3</span> <span class="pre">x,</span> <span class="pre">vec3</span> <span class="pre">y)</span></code>, etc.<a class="headerlink" href="#term-vec3-cross-vec3-x-vec3-y-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">x</span></code> と <code class="docutils literal notranslate"><span class="pre">y</span></code> のベクトル積を返す。</p>
+</dd>
+<dt id="term-genFType-normalize-genFType-x-etc."><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">normalize(genFType</span> <span class="pre">x)</span></code>, etc.<a class="headerlink" href="#term-genFType-normalize-genFType-x-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">x</span></code> と同じ方向だが、長さが 1 であるベクトル、つまり <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">/</span> <span class="pre">length(x)</span></code> を返す。</p>
+</dd>
+<dt id="term-vec4-ftransform-compatibility-profile-only"><code class="docutils literal notranslate"><span class="pre">vec4</span> <span class="pre">ftransform()</span></code> compatibility profile only<a class="headerlink" href="#term-vec4-ftransform-compatibility-profile-only" title="Permalink to this term">¶</a></dt><dd><p>互換性プロファイルを使用している場合に限って有効だ。コア OpenGL では
+<code class="docutils literal notranslate"><span class="pre">invariant</span></code> を使用しろ。頂点シェーダー限定。この関数は、入力される頂点値が OpenGL の固定機能変換で生成されるのと厳密に同じ結果を生成する方法で変換されることを保証する。これは <code class="docutils literal notranslate"><span class="pre">gl_Position</span></code> を計算する用途を意図している：</p>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="nb">gl_Position</span> <span class="o">=</span> <span class="n">ftransform</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>この関数は、例えば、アプリケーションが同じ幾何を別々のパスでレンダリングしていて、あるパスでは固定機能パスを使ってレンダリングし、別のパスではプログラム可能シェーダーを使っている場合などに使用するべきだ。</p>
+</dd>
+<dt id="term-genFType-faceforward-genFType-N-genFType-I-genFType-Nref-etc."><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">faceforward(genFType</span> <span class="pre">N,</span> <span class="pre">genFType</span> <span class="pre">I,</span> <span class="pre">genFType</span> <span class="pre">Nref)</span></code>, etc.<a class="headerlink" href="#term-genFType-faceforward-genFType-N-genFType-I-genFType-Nref-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">dot(Nref,</span> <span class="pre">I)</span> <span class="pre">&lt;</span> <span class="pre">0</span></code> の場合は <code class="docutils literal notranslate"><span class="pre">N</span></code> を、そうでない場合は <code class="docutils literal notranslate"><span class="pre">-N</span></code> を返す。</p>
+</dd>
+<dt id="term-genFType-reflect-genFType-I-genFType-N-etc."><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">reflect(genFType</span> <span class="pre">I,</span> <span class="pre">genFType</span> <span class="pre">N)</span></code>, etc.<a class="headerlink" href="#term-genFType-reflect-genFType-I-genFType-N-etc." title="Permalink to this term">¶</a></dt><dd><p>入射ベクトル <code class="docutils literal notranslate"><span class="pre">I</span></code> と面方位 <code class="docutils literal notranslate"><span class="pre">N</span></code> に対して、反射方向 <code class="docutils literal notranslate"><span class="pre">I</span> <span class="pre">-</span> <span class="pre">2</span> <span class="pre">*</span> <span class="pre">dot(N,</span> <span class="pre">I)</span> <span class="pre">*</span> <span class="pre">N</span></code>
+を返す。
+<code class="docutils literal notranslate"><span class="pre">N</span></code> は正規化されている必要がある。</p>
+</dd>
+<dt id="term-genFType-refract-genFType-I-genFType-N-float-eta-etc."><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">refract(genFType</span> <span class="pre">I,</span> <span class="pre">genFType</span> <span class="pre">N,</span> <span class="pre">float</span> <span class="pre">eta)</span></code>, etc.<a class="headerlink" href="#term-genFType-refract-genFType-I-genFType-N-float-eta-etc." title="Permalink to this term">¶</a></dt><dd><p>入射ベクトル <code class="docutils literal notranslate"><span class="pre">I</span></code> と曲面法線 <code class="docutils literal notranslate"><span class="pre">N</span></code> と屈折率の比 <code class="docutils literal notranslate"><span class="pre">eta</span></code> に対する屈折ベクトルを返す。この結果は屈折方程式 (<a class="reference internal" href="#refraction-equation"><span class="std std-ref">8.5.1. Refraction Equation</span></a>)
+によって算出される。</p>
+<p>ベクトル <code class="docutils literal notranslate"><span class="pre">I</span></code> と <code class="docutils literal notranslate"><span class="pre">N</span></code> は正規化されている必要がある。</p>
+</dd>
+</dl>
+<section id="refraction-equation">
+<h4><a class="toc-backref" href="#id11">8.5.1. Refraction Equation</a><a class="headerlink" href="#refraction-equation" title="Permalink to this headline">¶</a></h4>
+<div class="admonition- admonition">
+<p class="admonition-title">コメント</p>
+<p>方程式が書かれているが、これを書き直してここに載せたい。</p>
+</div>
+</section>
+</section>
+<section id="matrix-functions">
+<h3><a class="toc-backref" href="#id12">8.6. Matrix Functions</a><a class="headerlink" href="#matrix-functions" title="Permalink to this headline">¶</a></h3>
+<p>次の各組み込み行列関数には、単精度浮動小数点バージョンと倍精度浮動小数点バージョンがある。仕様書本書では単精度浮動小数点バージョンに絞って記述しているが、本ノートではさらに絞る。</p>
+<dl class="glossary">
+<dt id="term-mat-matrixCompMult-mat-x-mat-y"><code class="docutils literal notranslate"><span class="pre">mat</span> <span class="pre">matrixCompMult(mat</span> <span class="pre">x,</span> <span class="pre">mat</span> <span class="pre">y)</span></code><a class="headerlink" href="#term-mat-matrixCompMult-mat-x-mat-y" title="Permalink to this term">¶</a></dt><dd><p>行列 <code class="docutils literal notranslate"><span class="pre">x</span></code> に行列 <code class="docutils literal notranslate"><span class="pre">y</span></code> を成分ごとに乗算する。すなわち <code class="docutils literal notranslate"><span class="pre">result[i][j]</span> <span class="pre">==</span> <span class="pre">x[i][j]</span> <span class="pre">*</span> <span class="pre">y[i][j]</span></code> となる。</p>
+<p>注意：線形代数的な行列の乗算を行うには、乗算演算子 <code class="docutils literal notranslate"><span class="pre">*</span></code> を使用する。</p>
+</dd>
+<dt id="term-mat2-outerProduct-vec2-c-vec2-r-..."><code class="docutils literal notranslate"><span class="pre">mat2</span> <span class="pre">outerProduct(vec2</span> <span class="pre">c,</span> <span class="pre">vec2</span> <span class="pre">r)</span></code>, …,<a class="headerlink" href="#term-mat2-outerProduct-vec2-c-vec2-r-..." title="Permalink to this term">¶</a></dt><dt id="term-mat4x3-outerProduct-vec3-c-vec4-r"><code class="docutils literal notranslate"><span class="pre">mat4x3</span> <span class="pre">outerProduct(vec3</span> <span class="pre">c,</span> <span class="pre">vec4</span> <span class="pre">r)</span></code><a class="headerlink" href="#term-mat4x3-outerProduct-vec3-c-vec4-r" title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">c</span></code> を列ベクトル、<code class="docutils literal notranslate"><span class="pre">r</span></code> を行ベクトルとして扱い、線形代数的な行列乗算を行い、行数が <code class="docutils literal notranslate"><span class="pre">c</span></code> の構成要素の個数、列数が <code class="docutils literal notranslate"><span class="pre">r</span></code> の構成要素の個数である行列を生成する。</p>
+</dd>
+<dt id="term-mat2-transpose-mat2-m-..."><code class="docutils literal notranslate"><span class="pre">mat2</span> <span class="pre">transpose(mat2</span> <span class="pre">m)</span></code>, …,<a class="headerlink" href="#term-mat2-transpose-mat2-m-..." title="Permalink to this term">¶</a></dt><dt id="term-mat4x3-transpose-mat3x4-m"><code class="docutils literal notranslate"><span class="pre">mat4x3</span> <span class="pre">transpose(mat3x4</span> <span class="pre">m)</span></code><a class="headerlink" href="#term-mat4x3-transpose-mat3x4-m" title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">m</span></code> の転置行列を返す。</p>
+</dd>
+<dt id="term-float-determinant-mat2-m-etc."><code class="docutils literal notranslate"><span class="pre">float</span> <span class="pre">determinant(mat2</span> <span class="pre">m)</span></code>, etc.<a class="headerlink" href="#term-float-determinant-mat2-m-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">m</span></code> の行列式を返す。</p>
+</dd>
+<dt id="term-mat2-inverse-mat2-m-etc."><code class="docutils literal notranslate"><span class="pre">mat2</span> <span class="pre">inverse(mat2</span> <span class="pre">m)</span></code>, etc.<a class="headerlink" href="#term-mat2-inverse-mat2-m-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">m</span></code> の逆行列を返す。
+<code class="docutils literal notranslate"><span class="pre">m</span></code> が非正則行列または条件の悪い（ほぼ非正則の）場合、返される行列の値は未定義とする。</p>
+</dd>
+</dl>
+<div class="admonition- admonition">
+<p class="admonition-title">コメント</p>
+<p>線形代数的な加法や乗法は、本文にも触れられているように、自然な演算子がサポートされている。</p>
+</div>
+</section>
+<section id="vector-relational-functions">
+<h3><a class="toc-backref" href="#id13">8.7. Vector Relational Functions</a><a class="headerlink" href="#vector-relational-functions" title="Permalink to this headline">¶</a></h3>
+<p>関係演算子と比較演算子はスカラーを演算するように定義されており、スカラーの真偽型値を生成する。ベクトルの結果を得るには次に述べる組み込み関数を使う。以降では，一覧にある型に対して、次のプレースホルダーが使用されている：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>プレースホルダー</p></th>
+<th class="head"><p>許可される型</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">bvec</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bvec2</span></code>, <code class="docutils literal notranslate"><span class="pre">bvec3</span></code>, <code class="docutils literal notranslate"><span class="pre">bvec4</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ivec</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ivec2</span></code>, <code class="docutils literal notranslate"><span class="pre">ivec3</span></code>, <code class="docutils literal notranslate"><span class="pre">ivec4</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">uvec</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uvec2</span></code>, <code class="docutils literal notranslate"><span class="pre">uvec3</span></code>, <code class="docutils literal notranslate"><span class="pre">uvec4</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">vec</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vec2</span></code>, <code class="docutils literal notranslate"><span class="pre">vec3</span></code>, <code class="docutils literal notranslate"><span class="pre">vec4</span></code>, <code class="docutils literal notranslate"><span class="pre">dvec2</span></code>, <code class="docutils literal notranslate"><span class="pre">dvec3</span></code>, <code class="docutils literal notranslate"><span class="pre">dvec4</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>どのような場合でも、どの呼び出しでも入力ベクトルすべてと戻り値ベクトルのサイズは一致しなければならない。</p>
+<dl class="glossary simple">
+<dt id="term-bvec-lessThan-vec-x-vec-y-etc."><code class="docutils literal notranslate"><span class="pre">bvec</span> <span class="pre">lessThan(vec</span> <span class="pre">x,</span> <span class="pre">vec</span> <span class="pre">y)</span></code>, etc.<a class="headerlink" href="#term-bvec-lessThan-vec-x-vec-y-etc." title="Permalink to this term">¶</a></dt><dd><p>演算 <code class="docutils literal notranslate"><span class="pre">&lt;</span></code> の結果を成分ごとに行ったベクトルを返す。</p>
+</dd>
+<dt id="term-bvec-lessThanEqual-vec-x-vec-y-etc."><code class="docutils literal notranslate"><span class="pre">bvec</span> <span class="pre">lessThanEqual(vec</span> <span class="pre">x,</span> <span class="pre">vec</span> <span class="pre">y)</span></code>, etc.<a class="headerlink" href="#term-bvec-lessThanEqual-vec-x-vec-y-etc." title="Permalink to this term">¶</a></dt><dd><p>演算 <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code> の結果を成分ごとに行ったベクトルを返す。</p>
+</dd>
+<dt id="term-bvec-greaterThan-vec-x-vec-y-etc."><code class="docutils literal notranslate"><span class="pre">bvec</span> <span class="pre">greaterThan(vec</span> <span class="pre">x,</span> <span class="pre">vec</span> <span class="pre">y)</span></code>, etc.<a class="headerlink" href="#term-bvec-greaterThan-vec-x-vec-y-etc." title="Permalink to this term">¶</a></dt><dd><p>演算 <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> の結果を成分ごとに行ったベクトルを返す。</p>
+</dd>
+<dt id="term-bvec-greaterThanEqual-vec-x-vec-y-etc."><code class="docutils literal notranslate"><span class="pre">bvec</span> <span class="pre">greaterThanEqual(vec</span> <span class="pre">x,</span> <span class="pre">vec</span> <span class="pre">y)</span></code>, etc.<a class="headerlink" href="#term-bvec-greaterThanEqual-vec-x-vec-y-etc." title="Permalink to this term">¶</a></dt><dd><p>演算 <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code> の結果を成分ごとに行ったベクトルを返す。</p>
+</dd>
+<dt id="term-bvec-equal-vec-x-vec-y-etc."><code class="docutils literal notranslate"><span class="pre">bvec</span> <span class="pre">equal(vec</span> <span class="pre">x,</span> <span class="pre">vec</span> <span class="pre">y)</span></code>, etc.<a class="headerlink" href="#term-bvec-equal-vec-x-vec-y-etc." title="Permalink to this term">¶</a></dt><dd><p>演算 <code class="docutils literal notranslate"><span class="pre">==</span></code> の結果を成分ごとに行ったベクトルを返す。</p>
+</dd>
+<dt id="term-bvec-notEqual-vec-x-vec-y-etc."><code class="docutils literal notranslate"><span class="pre">bvec</span> <span class="pre">notEqual(vec</span> <span class="pre">x,</span> <span class="pre">vec</span> <span class="pre">y)</span></code>, etc.<a class="headerlink" href="#term-bvec-notEqual-vec-x-vec-y-etc." title="Permalink to this term">¶</a></dt><dd><p>演算 <code class="docutils literal notranslate"><span class="pre">!=</span></code> の結果を成分ごとに行ったベクトルを返す。</p>
+</dd>
+<dt id="term-bool-any-bvec-x"><code class="docutils literal notranslate"><span class="pre">bool</span> <span class="pre">any(bvec</span> <span class="pre">x)</span></code><a class="headerlink" href="#term-bool-any-bvec-x" title="Permalink to this term">¶</a></dt><dd><p>成分のいずれかが <code class="docutils literal notranslate"><span class="pre">true</span></code> ならば <code class="docutils literal notranslate"><span class="pre">true</span></code> を返す。</p>
+</dd>
+<dt id="term-bool-all-bvec-x"><code class="docutils literal notranslate"><span class="pre">bool</span> <span class="pre">all(bvec</span> <span class="pre">x)</span></code><a class="headerlink" href="#term-bool-all-bvec-x" title="Permalink to this term">¶</a></dt><dd><p>成分すべてが <code class="docutils literal notranslate"><span class="pre">true</span></code> である場合、かつその場合に限り <code class="docutils literal notranslate"><span class="pre">true</span></code> を返す。</p>
+</dd>
+<dt id="term-bvec-not-bvec-x"><code class="docutils literal notranslate"><span class="pre">bvec</span> <span class="pre">not(bvec</span> <span class="pre">x)</span></code><a class="headerlink" href="#term-bvec-not-bvec-x" title="Permalink to this term">¶</a></dt><dd><p>単項演算 <code class="docutils literal notranslate"><span class="pre">!</span></code> の結果を成分ごとに行ったベクトルを返す。</p>
+</dd>
+</dl>
+<div class="admonition- admonition">
+<p class="admonition-title">コメント</p>
+<p>仕様はひじょうに常識的なものだが、ベクトル成分ごとの論理演算をどういうときに使うのかまだわからない。</p>
+</div>
+</section>
+<section id="integer-functions">
+<h3><a class="toc-backref" href="#id14">8.8. Integer Functions</a><a class="headerlink" href="#integer-functions" title="Permalink to this headline">¶</a></h3>
+<p>これらはすべて成分単位で演算をする。記述は成分ごとに対するものだ。記号 <code class="docutils literal notranslate"><span class="pre">[a,</span> <span class="pre">b]``とは、ビット番号</span> <span class="pre">``a</span></code> からビット番号 <code class="docutils literal notranslate"><span class="pre">b</span></code> までのビットセットを意味する。最下位のビットはビット 0 とする。最下位ビットから順に数え上げることをビット数と呼ぶ。</p>
+<dl class="glossary">
+<dt id="term-genUType-uaddCarry-highp-genUType-x-highp-genUType-y-out-lowp-genUType-carry"><code class="docutils literal notranslate"><span class="pre">genUType</span> <span class="pre">uaddCarry(highp</span> <span class="pre">genUType</span> <span class="pre">x,</span> <span class="pre">highp</span> <span class="pre">genUType</span> <span class="pre">y,</span> <span class="pre">out</span> <span class="pre">lowp</span> <span class="pre">genUType</span> <span class="pre">carry)</span></code><a class="headerlink" href="#term-genUType-uaddCarry-highp-genUType-x-highp-genUType-y-out-lowp-genUType-carry" title="Permalink to this term">¶</a></dt><dd><p>32 ビット符号なし整数の加算 <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">+</span> <span class="pre">y</span></code> をし、<span class="math notranslate nohighlight">\({2^{32}}\)</span> を基準とした和を返す。和が <span class="math notranslate nohighlight">\({2^{32}}\)</span> より小さければ値 <code class="docutils literal notranslate"><span class="pre">carry</span></code> は 0 に、そうでなければ 1 になる。</p>
+</dd>
+<dt id="term-genUType-usubBorrow-highp-genUType-x-highp-genUType-y-out-lowp-genUType-borrow"><code class="docutils literal notranslate"><span class="pre">genUType</span> <span class="pre">usubBorrow(highp</span> <span class="pre">genUType</span> <span class="pre">x,</span> <span class="pre">highp</span> <span class="pre">genUType</span> <span class="pre">y,</span> <span class="pre">out</span> <span class="pre">lowp</span> <span class="pre">genUType</span> <span class="pre">borrow)</span></code><a class="headerlink" href="#term-genUType-usubBorrow-highp-genUType-x-highp-genUType-y-out-lowp-genUType-borrow" title="Permalink to this term">¶</a></dt><dd><p>32 ビット符号なし整数の減算 <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">-</span> <span class="pre">y</span></code> をする。差が非負であれば差を、そうでなければ <span class="math notranslate nohighlight">\({2^{32}}\)</span> に差を加えた値を返す。値 <code class="docutils literal notranslate"><span class="pre">borrow</span></code> は <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&gt;=</span> <span class="pre">y</span></code> の場合は 0 に、そうでなければ 1 になる。</p>
+</dd>
+<dt id="term-void-umulExtended-highp-genUType-x-highp-genUType-y-out-highp-genUType-msb-out-highp-genUType-lsb"><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">umulExtended(highp</span> <span class="pre">genUType</span> <span class="pre">x,</span> <span class="pre">highp</span> <span class="pre">genUType</span> <span class="pre">y,</span> <span class="pre">out</span> <span class="pre">highp</span> <span class="pre">genUType</span> <span class="pre">msb,</span> <span class="pre">out</span> <span class="pre">highp</span> <span class="pre">genUType</span> <span class="pre">lsb)</span></code><a class="headerlink" href="#term-void-umulExtended-highp-genUType-x-highp-genUType-y-out-highp-genUType-msb-out-highp-genUType-lsb" title="Permalink to this term">¶</a></dt><dt id="term-void-imulExtended-highp-genIType-x-highp-genIType-y-out-highp-genIType-msb-out-highp-genIType-lsb"><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">imulExtended(highp</span> <span class="pre">genIType</span> <span class="pre">x,</span> <span class="pre">highp</span> <span class="pre">genIType</span> <span class="pre">y,</span> <span class="pre">out</span> <span class="pre">highp</span> <span class="pre">genIType</span> <span class="pre">msb,</span> <span class="pre">out</span> <span class="pre">highp</span> <span class="pre">genIType</span> <span class="pre">lsb)</span></code><a class="headerlink" href="#term-void-imulExtended-highp-genIType-x-highp-genIType-y-out-highp-genIType-msb-out-highp-genIType-lsb" title="Permalink to this term">¶</a></dt><dd><p>32 ビット符号なし・あり整数の乗算 <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">*</span> <span class="pre">y</span></code> をする。
+64 ビットの結果を返す。最下位の 32 ビットが <code class="docutils literal notranslate"><span class="pre">lsb</span></code> に、最上位の 32 ビットが <code class="docutils literal notranslate"><span class="pre">msb</span></code> にそれぞれ返される。</p>
+</dd>
+<dt id="term-genIType-bitfieldExtract-genIType-value-int-offset-int-bits-etc."><code class="docutils literal notranslate"><span class="pre">genIType</span> <span class="pre">bitfieldExtract(genIType</span> <span class="pre">value,</span> <span class="pre">int</span> <span class="pre">offset,</span> <span class="pre">int</span> <span class="pre">bits)</span></code>, etc.<a class="headerlink" href="#term-genIType-bitfieldExtract-genIType-value-int-offset-int-bits-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">value</span></code> からビット <code class="docutils literal notranslate"><span class="pre">[offset,</span> <span class="pre">offset</span> <span class="pre">+</span> <span class="pre">bits</span> <span class="pre">-</span> <span class="pre">1]</span></code> を抽出して、結果の最下位ビットに返す。</p>
+<p>符号なしデータ型の場合、結果の最上位ビットには 0 がセットされる。符号ありデータ型の場合、結果の最上位ビットにビット <code class="docutils literal notranslate"><span class="pre">offset</span> <span class="pre">+</span> <span class="pre">bits</span> <span class="pre">-</span> <span class="pre">1</span></code>
+がセットされる。</p>
+<p><code class="docutils literal notranslate"><span class="pre">bits</span></code> が 0 の場合、結果は 0 にある。
+<code class="docutils literal notranslate"><span class="pre">offset</span></code> または <code class="docutils literal notranslate"><span class="pre">bits</span></code> が負の値の場合、または <code class="docutils literal notranslate"><span class="pre">offset</span></code> と <code class="docutils literal notranslate"><span class="pre">bits</span></code> の和がオペランドの格納に使用されたビット数よりも大きい場合、結果は未定義だ。ベクトルバージョンの <code class="docutils literal notranslate"><span class="pre">bitfieldExtract()</span></code> では、
+<code class="docutils literal notranslate"><span class="pre">offset</span></code> と <code class="docutils literal notranslate"><span class="pre">bits</span></code> の値の一対が、すべての成分で共有されることに注意。</p>
+</dd>
+<dt id="term-genIType-bitfieldInsert-genIType-base-genIType-insert-int-offset-int-bits-etc."><code class="docutils literal notranslate"><span class="pre">genIType</span> <span class="pre">bitfieldInsert(genIType</span> <span class="pre">base,</span> <span class="pre">genIType</span> <span class="pre">insert,</span> <span class="pre">int</span> <span class="pre">offset,</span> <span class="pre">int</span> <span class="pre">bits)</span></code>, etc.<a class="headerlink" href="#term-genIType-bitfieldInsert-genIType-base-genIType-insert-int-offset-int-bits-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">insert</span></code> の最下位ビットを <code class="docutils literal notranslate"><span class="pre">base</span></code> に挿入する。</p>
+<p>結果は、<code class="docutils literal notranslate"><span class="pre">insert</span></code> のビット <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">bits</span> <span class="pre">-</span> <span class="pre">1]</span></code> からビット
+<code class="docutils literal notranslate"><span class="pre">[offset,</span> <span class="pre">offset</span> <span class="pre">+</span> <span class="pre">bits</span> <span class="pre">-</span> <span class="pre">1]</span></code> が取られ、その他のビットは <code class="docutils literal notranslate"><span class="pre">base</span></code> の対応するビットから直接取られる。</p>
+<p><code class="docutils literal notranslate"><span class="pre">bits</span></code> が 0 の場合、結果は単に <code class="docutils literal notranslate"><span class="pre">base</span></code> になる。
+<code class="docutils literal notranslate"><span class="pre">offset</span></code> または <code class="docutils literal notranslate"><span class="pre">bits</span></code> が負の値の場合、または <code class="docutils literal notranslate"><span class="pre">offset</span></code> と <code class="docutils literal notranslate"><span class="pre">bits</span></code> の和がオペランドの格納に使用されたビット数よりも大きい場合、結果は未定義だ。ベクトルバージョンの <code class="docutils literal notranslate"><span class="pre">bitfieldInsert()</span></code> では、
+<code class="docutils literal notranslate"><span class="pre">offset</span></code> と <code class="docutils literal notranslate"><span class="pre">bits</span></code> の値の一対がすべての成分で共有されることに注意。</p>
+</dd>
+<dt id="term-genIType-bitfieldReverse-highp-genIType-value-etc."><code class="docutils literal notranslate"><span class="pre">genIType</span> <span class="pre">bitfieldReverse(highp</span> <span class="pre">genIType</span> <span class="pre">value)</span></code>, etc.<a class="headerlink" href="#term-genIType-bitfieldReverse-highp-genIType-value-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">value</span></code> のビットを反転させる。結果のビット番号 <code class="docutils literal notranslate"><span class="pre">n</span></code> は、
+<code class="docutils literal notranslate"><span class="pre">value</span></code> のビット <code class="docutils literal notranslate"><span class="pre">(bits</span> <span class="pre">-</span> <span class="pre">1)</span> <span class="pre">-</span> <span class="pre">n</span></code> から取られます。ここで <code class="docutils literal notranslate"><span class="pre">bits</span></code> とは値を表現するのに使用される全ビット数だ。</p>
+</dd>
+<dt id="term-genIType-bitCount-genIType-value-etc."><code class="docutils literal notranslate"><span class="pre">genIType</span> <span class="pre">bitCount(genIType</span> <span class="pre">value)</span></code>, etc.<a class="headerlink" href="#term-genIType-bitCount-genIType-value-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">value</span></code> の二進表現における 1 が立っているビットの個数を返す。</p>
+</dd>
+<dt id="term-genIType-findLSB-genIType-value-etc."><code class="docutils literal notranslate"><span class="pre">genIType</span> <span class="pre">findLSB(genIType</span> <span class="pre">value)</span></code>, etc.<a class="headerlink" href="#term-genIType-findLSB-genIType-value-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">value</span></code> の二進表現における最下位ビットのビット番号を返す。値がゼロの場合は -1 を返す。</p>
+</dd>
+<dt id="term-genIType-findMSB-highp-genIType-value-etc."><code class="docutils literal notranslate"><span class="pre">genIType</span> <span class="pre">findMSB(highp</span> <span class="pre">genIType</span> <span class="pre">value)</span></code>, etc.<a class="headerlink" href="#term-genIType-findMSB-highp-genIType-value-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">value</span></code> の二進表現における最上位ビットのビット番号を返す。</p>
+<p>正の整数の場合、結果はビットが 1 である最も上位のビット番号になる。負の整数の場合、結果はビットが 0 である最も上位のビット番号になる。
+<code class="docutils literal notranslate"><span class="pre">value</span></code> がゼロまたは -1 ならば -1 を返す。</p>
+</dd>
+</dl>
+<div class="admonition- admonition">
+<p class="admonition-title">コメント</p>
+<p>昔のドラクエのアセンブリコードを解析していたときにコードのノートを記録していたときと感覚がよく似ている。</p>
+</div>
+</section>
+<section id="texture-functions">
+<h3><a class="toc-backref" href="#id15">8.9. Texture Functions</a><a class="headerlink" href="#texture-functions" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>原文の英語を、次のように機械的に単語を日本語に読み換える：</p>
+<ul class="simple">
+<li><p>level-of-detail: 詳細度</p></li>
+</ul>
+</div>
+<p>テクスチャー検索関数はすべてのシェーディング段階で利用可能だ。ただし、詳細度はフラグメントシェーダーでのみ暗黙的に計算される。その他のシェーダーは、基準となる詳細度がゼロとして計算されたかのように動作する。後述の表の関数は、API で設定されたテクスチャー混合採取器を介したテクスチャーへのアクセスを提供する。サイズ、画素フォーマット、次元数、フィルタリング方法、ミップマップレベル数、奥行き比較などのテクスチャーの性質もまた API 呼び出しによって定義される。このような性質は、以下に定義する組み込み関数を介してテクスチャーにアクセスする際に考慮される。</p>
+<p>テクスチャーデータは、単精度浮動小数点、符号なし正規化整数、符号なし整数、符号あり整数のいずれかのデータとして GL に格納される。これはテクスチャーの内部フォーマットの種類によって決定される。</p>
+<p>テクスチャー検索関数は、検索関数に渡された採取器型に応じて、浮動小数点、符号なし整数、符号あり整数のいずれかで結果を返すことができる。テクスチャーへのアクセスには、正しい採取器型を使用するように注意しなければならない。以下の表は、サポートされている採取器型とテクスチャーの内部フォーマットの組み合わせを示す。空白のエントリーはサポートされていない。サポートされていない組み合わせの場合、テクスチャー検索を行うと未定義の値を返す。</p>
+<p>奥行き・ステンシルテクスチャーの場合、内部テクスチャーフォーマットは
+API を通じてセットとされるアクセスされる成分によって決定される。奥行き・ステンシルテクスチャーモードが <code class="docutils literal notranslate"><span class="pre">DEPTH_COMPONENT</span></code> に設定されている場合は、奥行き成分の内部フォーマットが使用される。奥行き・ステンシルテクスチャーモードが <code class="docutils literal notranslate"><span class="pre">STENCIL_INDEX</span></code> に設定されている場合、ステンシル成分の内部フォーマットが使用されるべきだ。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">コメント</p>
+<p><a class="reference external" href="https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.html#texture-functions">本文の表</a></p>
+</div>
+<p>整数抽出器型の場合、テクスチャー検索の結果は <code class="docutils literal notranslate"><span class="pre">ivec4</span></code> だ。符号なし整数の抽出器型が使用された場合、テクスチャー検索の結果は <code class="docutils literal notranslate"><span class="pre">uvec4</span></code> だ。浮動小数点の抽出器型が使用されている場合、テクスチャー検索の結果は <code class="docutils literal notranslate"><span class="pre">vec4</span></code> だ。</p>
+<p>以下のプロトタイプでは、戻り値型 <code class="docutils literal notranslate"><span class="pre">gvec4</span></code> の <code class="docutils literal notranslate"><span class="pre">g</span></code> は、
+<code class="docutils literal notranslate"><span class="pre">vec4</span></code>, <code class="docutils literal notranslate"><span class="pre">ivec4</span></code>, <code class="docutils literal notranslate"><span class="pre">uvec4</span></code> の戻り値の型を作る、無、
+<code class="docutils literal notranslate"><span class="pre">i</span></code>, <code class="docutils literal notranslate"><span class="pre">u</span></code> のいずれかのプレースホルダーとして使用される。これらの場合、抽出器引数の型も <code class="docutils literal notranslate"><span class="pre">g</span></code> で始まり、戻り値の型で行われたのと同じ置換を示します。これは、上述のように、戻り値の型の基本的な型に合わせて、単精度浮動小数点、符号あり整数、または符号なし整数の抽出器だ。</p>
+<p>シャドウ形式（抽出器引数がシャドウ型）の場合、抽出器に束縛された奥行きテクスチャーの奥行き比較検索は、
+OpenGL 仕様書 8.23 “Texture Comparison Modes” で説明されているように行われる。どの成分が <span class="math notranslate nohighlight">\(D_{ref}\)</span> を指定しているかについては以下の表にある。抽出器に束縛されたテクスチャーは奥行きテクスチャーでなければならず、そうでなければ結果は未定義となる。奥行き比較をオンにした状態で、奥行きテクスチャーを表現する抽出器に非シャドウテクスチャーの呼び出しが行われた場合、結果は未定義となる。奥行き比較がオフになっている奥行きテクスチャを表す抽出器にシャドウテクスチャーの呼び出しが行われた場合、結果は未定義となる。奥行きテクスチャーを表現していない抽出器に対してシャドウテクスチャーの呼び出しが行われた場合、結果は未定義となる。</p>
+<p>以下の関数のすべてで、フラグメントシェーダーの場合、引数 <code class="docutils literal notranslate"><span class="pre">bias</span></code> はオプションだ。引数 <code class="docutils literal notranslate"><span class="pre">bias</span></code> は他のシェーダー段階では受け付けられない。フラグメントシェーダーでは <code class="docutils literal notranslate"><span class="pre">bias</span></code> が存在する場合、テクスチャーアクセス操作を行う前に、暗黙の詳細度に追加される。矩形テクスチャー、多重採取テクスチャー、テクスチャバッファーの場合、ミップマップが許可されていないため <code class="docutils literal notranslate"><span class="pre">bias</span></code> や <code class="docutils literal notranslate"><span class="pre">lod</span></code> はサポートされていない。</p>
+<p>暗黙の詳細度は次のように選択される：ミップマップされていないテクスチャーの場合、そのテクスチャーが直接使用される。ミップマップされていてフラグメントシェーダーで実行されている場合、実装によって計算された詳細度がテクスチャーの検索に使用される。ミップマップされていて非フラグメントシェーダーで実行されている場合は、基準テクスチャーが使用される。</p>
+<p>テクスチャー関数（非 Lod および非 Grad バージョン）の中には、暗黙的な微分係数を必要とするものがある。暗黙的な微分係数は、非一様制御フロー内および非フラグメントシェーダーのテクスチャーを取ってくるものでは未定義だ。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Cube</span></code> 形式の場合、OpenGL 仕様書の 8.13 “Cube Map Texture Selection” で説明されているように、
+<code class="docutils literal notranslate"><span class="pre">P</span></code> の方向はニ次元テクスチャーの検索をどの面で行うかを選択するために使用される。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Array</span></code> 形式の場合、使用される配列レイヤーは次のようになる：</p>
+<div class="line-block">
+<div class="line">max(0, min(d − 1, ⌊layer + 0.5⌋))</div>
+</div>
+<p>ここで <code class="docutils literal notranslate"><span class="pre">d</span></code> はテクスチャー配列の奥行きで、
+<code class="docutils literal notranslate"><span class="pre">layer</span></code> は以下の表に示された成分のものだ。</p>
+<section id="texture-query-functions">
+<h4><a class="toc-backref" href="#id16">8.9.1. Texture Query Functions</a><a class="headerlink" href="#texture-query-functions" title="Permalink to this headline">¶</a></h4>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">textureSize</span></code> はテクスチャー混合抽出器に対して特定のテクスチャーレベルの寸法を問い合わせる。</p>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">textureQueryLod</span></code> はフラグメントシェーダーでしか利用可能でない。これらの関数は <code class="docutils literal notranslate"><span class="pre">P</span></code> の成分を取り、テクスチャーパイプが通常のテクスチャー検索でそのテクスチャーにアクセスするために使用する詳細度情報を計算する。詳細度 <span class="math notranslate nohighlight">\(\lambda^{\prime}\)</span> に clamp するのに先立って得られる。また、アクセスされるミップマップ配列も計算される。詳細度一つにアクセスする場合は、基準レベルに対する詳細度の番号が返される。複数の詳細度にアクセスする場合は、二つのレベルの間の浮動小数点数が返され、その小数部分は、計算され clamp された詳細度の小数部分に等しい。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">コメント</p>
+<p>使用されるアルゴリズムが疑似コードで示されているが略。</p>
+</div>
+<p>値 <code class="docutils literal notranslate"><span class="pre">maxAccessibleLevel</span></code> は、ミップマップ配列の最小のアクセス可能なレベルのレベル番号（OpenGL 仕様書の 8.14.3 “Mipmapping” の <code class="docutils literal notranslate"><span class="pre">q</span></code> 値）から基準レベルを引いたものだ。</p>
+<dl class="glossary">
+<dt id="term-int-textureSize-gsampler1D-sampler-int-lod-..."><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">textureSize(gsampler1D</span> <span class="pre">sampler,</span> <span class="pre">int</span> <span class="pre">lod)</span></code>, …,<a class="headerlink" href="#term-int-textureSize-gsampler1D-sampler-int-lod-..." title="Permalink to this term">¶</a></dt><dt id="term-ivec3-textureSize-gsampler2DMSArray-sampler"><code class="docutils literal notranslate"><span class="pre">ivec3</span> <span class="pre">textureSize(gsampler2DMSArray</span> <span class="pre">sampler)</span></code><a class="headerlink" href="#term-ivec3-textureSize-gsampler2DMSArray-sampler" title="Permalink to this term">¶</a></dt><dd><p>OpenGL 仕様の 8.11 “Texture Queries” に述べられている、抽出器 <code class="docutils literal notranslate"><span class="pre">sampler</span></code>
+に束縛されたテクスチャーの詳細度 <code class="docutils literal notranslate"><span class="pre">lod</span></code> の寸法を返す（存在すれば）。戻り値の成分には、テクスチャーの幅、高さ、奥行きが順に埋められる。</p>
+<p>配列形式の場合、戻り値の最後の成分は、テクスチャー配列のレイヤー数、またはテクスチャーキューブマップ配列のキューブ数となる。</p>
+</dd>
+<dt id="term-vec2-textureQueryLod-gsampler1D-sampler-float-P-..."><code class="docutils literal notranslate"><span class="pre">vec2</span> <span class="pre">textureQueryLod(gsampler1D</span> <span class="pre">sampler,</span> <span class="pre">float</span> <span class="pre">P)</span></code>, …,<a class="headerlink" href="#term-vec2-textureQueryLod-gsampler1D-sampler-float-P-..." title="Permalink to this term">¶</a></dt><dt id="term-vec2-textureQueryLod-samplerCubeArrayShadow-sampler-vec3-P"><code class="docutils literal notranslate"><span class="pre">vec2</span> <span class="pre">textureQueryLod(samplerCubeArrayShadow</span> <span class="pre">sampler,</span> <span class="pre">vec3</span> <span class="pre">P)</span></code><a class="headerlink" href="#term-vec2-textureQueryLod-samplerCubeArrayShadow-sampler-vec3-P" title="Permalink to this term">¶</a></dt><dd><p>戻り値の <code class="docutils literal notranslate"><span class="pre">x</span></code> 成分に、アクセスされるミップマップ配列を返す。</p>
+<p>基準レベルに対する計算された詳細度を戻り値の <code class="docutils literal notranslate"><span class="pre">y</span></code> 成分に返す。</p>
+<p>不完全なテクスチャーに対して呼び出された場合の結果は未定義だ。</p>
+</dd>
+<dt id="term-int-textureQueryLevels-gsampler1D-sampler-..."><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">textureQueryLevels(gsampler1D</span> <span class="pre">sampler)</span></code>, …,<a class="headerlink" href="#term-int-textureQueryLevels-gsampler1D-sampler-..." title="Permalink to this term">¶</a></dt><dt id="term-int-textureQueryLevels-samplerCubeArrayShadow-sampler"><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">textureQueryLevels(samplerCubeArrayShadow</span> <span class="pre">sampler)</span></code><a class="headerlink" href="#term-int-textureQueryLevels-samplerCubeArrayShadow-sampler" title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">sampler</span></code> に関連付けられたテクスチャーでアクセス可能なミップマップレベルの数を返す。</p>
+<p><code class="docutils literal notranslate"><span class="pre">sampler</span></code> にテクスチャーが関連付けられていない場合や不完全なテクスチャーの場合は、値 0 を返す。</p>
+<p>すべてのシェーダー段階で利用可能。</p>
+</dd>
+<dt id="term-int-textureSamples-gsampler2DMS-sampler"><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">textureSamples(gsampler2DMS</span> <span class="pre">sampler)</span></code>,<a class="headerlink" href="#term-int-textureSamples-gsampler2DMS-sampler" title="Permalink to this term">¶</a></dt><dt id="term-int-textureSamples-gsampler2DMSArray-sampler"><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">textureSamples(gsampler2DMSArray</span> <span class="pre">sampler)</span></code><a class="headerlink" href="#term-int-textureSamples-gsampler2DMSArray-sampler" title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">sampler</span></code> に束縛されているテクスチャーの標本数を返す。</p>
+</dd>
+</dl>
+</section>
+<section id="texel-lookup-functions">
+<h4><a class="toc-backref" href="#id17">8.9.2. Texel Lookup Functions</a><a class="headerlink" href="#texel-lookup-functions" title="Permalink to this headline">¶</a></h4>
+<dl class="glossary">
+<dt id="term-gvec4-texture-gsampler1D-sampler-float-P-float-bias-..."><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">texture(gsampler1D</span> <span class="pre">sampler,</span> <span class="pre">float</span> <span class="pre">P</span> <span class="pre">[,</span> <span class="pre">float</span> <span class="pre">bias]</span> <span class="pre">)</span></code>, …,<a class="headerlink" href="#term-gvec4-texture-gsampler1D-sampler-float-P-float-bias-..." title="Permalink to this term">¶</a></dt><dt id="term-float-texture-sampler2DArrayShadow-sampler-vec4-P-..."><code class="docutils literal notranslate"><span class="pre">float</span> <span class="pre">texture(sampler2DArrayShadow</span> <span class="pre">sampler,</span> <span class="pre">vec4</span> <span class="pre">P)</span></code>, …,<a class="headerlink" href="#term-float-texture-sampler2DArrayShadow-sampler-vec4-P-..." title="Permalink to this term">¶</a></dt><dt id="term-float-texture-samplerCubeArrayShadow-sampler-vec4-P-float-compare"><code class="docutils literal notranslate"><span class="pre">float</span> <span class="pre">texture(samplerCubeArrayShadow</span> <span class="pre">sampler,</span> <span class="pre">vec4</span> <span class="pre">P,</span> <span class="pre">float</span> <span class="pre">compare)</span></code><a class="headerlink" href="#term-float-texture-samplerCubeArrayShadow-sampler-vec4-P-float-compare" title="Permalink to this term">¶</a></dt><dd><p>テクスチャー座標 <code class="docutils literal notranslate"><span class="pre">P</span></code> を使って、現在 <code class="docutils literal notranslate"><span class="pre">sampler</span></code> に束縛されているテクスチャーの検索を行う。</p>
+<p>シャドウ形式の場合：引数 <code class="docutils literal notranslate"><span class="pre">compare</span></code> がない場合は、座標 <code class="docutils literal notranslate"><span class="pre">P</span></code> の最後の成分が
+<span class="math notranslate nohighlight">\(D_{ref}\)</span> として使用され、配列レイヤーは <code class="docutils literal notranslate"><span class="pre">P``の最後から</span> <span class="pre">2</span> <span class="pre">番目の</span>
+<span class="pre">成分から生成される。</span>
+<span class="pre">``P</span></code> の 2 番目の成分は 1D シャドウ検索では使用されない。</p>
+<p>シャドウ以外の形式の場合：配列レイヤーは <code class="docutils literal notranslate"><span class="pre">P</span></code> の最後の成分から来る。</p>
+</dd>
+<dt id="term-gvec4-textureProj-gsampler1D-sampler-vec2-P-float-bias-..."><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">textureProj(gsampler1D</span> <span class="pre">sampler,</span> <span class="pre">vec2</span> <span class="pre">P</span> <span class="pre">[,</span> <span class="pre">float</span> <span class="pre">bias]</span> <span class="pre">)</span></code>, …,<a class="headerlink" href="#term-gvec4-textureProj-gsampler1D-sampler-vec2-P-float-bias-..." title="Permalink to this term">¶</a></dt><dt id="term-gvec4-textureProj-gsampler2DRect-sampler-vec3-P-..."><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">textureProj(gsampler2DRect</span> <span class="pre">sampler,</span> <span class="pre">vec3</span> <span class="pre">P)</span></code>, …<a class="headerlink" href="#term-gvec4-textureProj-gsampler2DRect-sampler-vec3-P-..." title="Permalink to this term">¶</a></dt><dd><p>投影によるテクスチャー検索を行う。
+<code class="docutils literal notranslate"><span class="pre">P</span></code> の最後の成分を含まない、
+<code class="docutils literal notranslate"><span class="pre">P</span></code> から消費されるテクスチャー座標は、
+<code class="docutils literal notranslate"><span class="pre">P</span></code> の最後の成分で除算され、投影座標 <span class="math notranslate nohighlight">\(P^{\prime}\)</span> を形成する。その結果、シャドウ形式における <code class="docutils literal notranslate"><span class="pre">P</span></code> の第 3 成分が <span class="math notranslate nohighlight">\(D_{ref}\)</span>
+として使用される。
+<code class="docutils literal notranslate"><span class="pre">P</span></code> の第 3 成分は <code class="docutils literal notranslate"><span class="pre">sampler</span></code> の型が <code class="docutils literal notranslate"><span class="pre">gsampler2D</span></code> で、
+<code class="docutils literal notranslate"><span class="pre">P</span></code> の型が <code class="docutils literal notranslate"><span class="pre">vec4</span></code> の場合には無視される。これらの値が計算された後、テクスチャー検索は <code class="docutils literal notranslate"><span class="pre">texture</span></code> の場合と同様に行われる。</p>
+</dd>
+<dt id="term-gvec4-textureLod-gsampler1D-sampler-float-P-float-lod-etc."><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">textureLod(gsampler1D</span> <span class="pre">sampler,</span> <span class="pre">float</span> <span class="pre">P,</span> <span class="pre">float</span> <span class="pre">lod)</span></code>, etc.<a class="headerlink" href="#term-gvec4-textureLod-gsampler1D-sampler-float-P-float-lod-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">texture</span></code> のようにテクスチャー検索を行うが、明示的な詳細度を持つ：
+<code class="docutils literal notranslate"><span class="pre">lod</span></code> は <span class="math notranslate nohighlight">\(\lambda_{base}\)</span> を指定し、偏微分を次のようにセットする：</p>
+<div class="admonition-todo admonition" id="id2">
+<p class="admonition-title">Todo</p>
+<p>偏微分の式を TeX で書く。</p>
+</div>
+<p>OpenGL 仕様 8.14 “Texture Minification” と同式 8.4-8.6 を参照。</p>
+</dd>
+<dt id="term-gvec4-textureOffset-gsampler1D-sampler-float-P-int-offset-float-bias-..."><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">textureOffset(gsampler1D</span> <span class="pre">sampler,</span> <span class="pre">float</span> <span class="pre">P,</span> <span class="pre">int</span> <span class="pre">offset</span> <span class="pre">[,</span> <span class="pre">float</span> <span class="pre">bias]</span> <span class="pre">)</span></code>, …<a class="headerlink" href="#term-gvec4-textureOffset-gsampler1D-sampler-float-P-int-offset-float-bias-..." title="Permalink to this term">¶</a></dt><dt id="term-gvec4-textureOffset-gsampler2DRect-sampler-vec2-P-ivec2-offset-..."><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">textureOffset(gsampler2DRect</span> <span class="pre">sampler,</span> <span class="pre">vec2</span> <span class="pre">P,</span> <span class="pre">ivec2</span> <span class="pre">offset)</span></code>, …<a class="headerlink" href="#term-gvec4-textureOffset-gsampler2DRect-sampler-vec2-P-ivec2-offset-..." title="Permalink to this term">¶</a></dt><dt id="term-float-textureOffset-sampler1DShadow-sampler-vec3-P-int-offset-float-bias-..."><code class="docutils literal notranslate"><span class="pre">float</span> <span class="pre">textureOffset(sampler1DShadow</span> <span class="pre">sampler,</span> <span class="pre">vec3</span> <span class="pre">P,</span> <span class="pre">int</span> <span class="pre">offset</span> <span class="pre">[,</span> <span class="pre">float</span> <span class="pre">bias]</span> <span class="pre">)</span></code>, …<a class="headerlink" href="#term-float-textureOffset-sampler1DShadow-sampler-vec3-P-int-offset-float-bias-..." title="Permalink to this term">¶</a></dt><dt id="term-float-textureOffset-sampler2DArrayShadow-sampler-vec4-P-ivec2-offset"><code class="docutils literal notranslate"><span class="pre">float</span> <span class="pre">textureOffset(sampler2DArrayShadow</span> <span class="pre">sampler,</span> <span class="pre">vec4</span> <span class="pre">P,</span> <span class="pre">ivec2</span> <span class="pre">offset)</span></code><a class="headerlink" href="#term-float-textureOffset-sampler2DArrayShadow-sampler-vec4-P-ivec2-offset" title="Permalink to this term">¶</a></dt><dd><p>各テクセルを検索する前に <code class="docutils literal notranslate"><span class="pre">(u,</span> <span class="pre">v,</span> <span class="pre">w)</span></code> テクセル座標に <code class="docutils literal notranslate"><span class="pre">offset</span></code> を追加して、
+<code class="docutils literal notranslate"><span class="pre">texture</span></code> と同様にテクセル検索を行う。オフセット値は定数表現でなければならない。限られた範囲のオフセット値がサポートされている。オフセット値の最小値と最大値は実装依存であり、それぞれ <code class="docutils literal notranslate"><span class="pre">gl_MinProgramTexelOffset</span></code> と <code class="docutils literal notranslate"><span class="pre">gl_MaxProgramTexelOffset</span></code> で与えられる。</p>
+<p>なお、オフセットはテクスチャー配列のレイヤー座標には適用されない。これについては OpenGL 仕様の 8.14.2 “Coordinate Wrapping and Texel Selection”で詳しく説明されており、オフセットは <span class="math notranslate nohighlight">\({(\delta_u, \delta_v, \delta_w)}\)</span>
+となる。なお、キューブマップに対してはテクセルオフセットはサポートされていない。</p>
+</dd>
+<dt id="term-gvec4-texelFetch-gsampler1D-sampler-int-P-int-lod-..."><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">texelFetch(gsampler1D</span> <span class="pre">sampler,</span> <span class="pre">int</span> <span class="pre">P,</span> <span class="pre">int</span> <span class="pre">lod)</span></code>, …,<a class="headerlink" href="#term-gvec4-texelFetch-gsampler1D-sampler-int-P-int-lod-..." title="Permalink to this term">¶</a></dt><dt id="term-gvec4-texelFetch-gsampler2DRect-sampler-ivec2-P-..."><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">texelFetch(gsampler2DRect</span> <span class="pre">sampler,</span> <span class="pre">ivec2</span> <span class="pre">P)</span></code>, …,<a class="headerlink" href="#term-gvec4-texelFetch-gsampler2DRect-sampler-ivec2-P-..." title="Permalink to this term">¶</a></dt><dt id="term-gvec4-texelFetch-gsampler1DArray-sampler-ivec2-P-int-lod-..."><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">texelFetch(gsampler1DArray</span> <span class="pre">sampler,</span> <span class="pre">ivec2</span> <span class="pre">P,</span> <span class="pre">int</span> <span class="pre">lod)</span></code>, …,<a class="headerlink" href="#term-gvec4-texelFetch-gsampler1DArray-sampler-ivec2-P-int-lod-..." title="Permalink to this term">¶</a></dt><dt id="term-gvec4-texelFetch-gsamplerBuffer-sampler-int-P"><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">texelFetch(gsamplerBuffer</span> <span class="pre">sampler,</span> <span class="pre">int</span> <span class="pre">P)</span></code>,<a class="headerlink" href="#term-gvec4-texelFetch-gsamplerBuffer-sampler-int-P" title="Permalink to this term">¶</a></dt><dt id="term-gvec4-texelFetch-gsampler2DMS-sampler-ivec2-P-int-sample-..."><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">texelFetch(gsampler2DMS</span> <span class="pre">sampler,</span> <span class="pre">ivec2</span> <span class="pre">P,</span> <span class="pre">int</span> <span class="pre">sample)</span></code>, …<a class="headerlink" href="#term-gvec4-texelFetch-gsampler2DMS-sampler-ivec2-P-int-sample-..." title="Permalink to this term">¶</a></dt><dd><p>整数テクスチャー座標 <code class="docutils literal notranslate"><span class="pre">P</span></code> を使用して <code class="docutils literal notranslate"><span class="pre">sampler</span></code> からテクセル一つを検索する。配列レイヤーは、配列形式に対する <code class="docutils literal notranslate"><span class="pre">P</span></code> の最後の成分から来る。詳細度 <code class="docutils literal notranslate"><span class="pre">lod</span></code> が存在する場合は、OpenGL 仕様 11.1.3.2 “Texel Fetches”および 8.14.1 “Scale Factor and Level of Detail” に記述のあるとおりだ。</p>
+</dd>
+<dt id="term-gvec4-texelFetchOffset-gsampler1D-sampler-int-P-int-lod-int-offset-etc."><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">texelFetchOffset(gsampler1D</span> <span class="pre">sampler,</span> <span class="pre">int</span> <span class="pre">P,</span> <span class="pre">int</span> <span class="pre">lod,</span> <span class="pre">int</span> <span class="pre">offset)</span></code>, etc.<a class="headerlink" href="#term-gvec4-texelFetchOffset-gsampler1D-sampler-int-P-int-lod-int-offset-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">texelFetch</span></code> と同様に単一のテクセルを <code class="docutils literal notranslate"><span class="pre">textureOffset</span></code> で記述されたように
+<code class="docutils literal notranslate"><span class="pre">offset</span></code> を使って取ってくる。</p>
+</dd>
+<dt id="term-gvec4-textureProjOffset-gsampler1D-sampler-vec2-P-int-offset-float-bias-..."><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">textureProjOffset(gsampler1D</span> <span class="pre">sampler,</span> <span class="pre">vec2</span> <span class="pre">P,</span> <span class="pre">int</span> <span class="pre">offset</span> <span class="pre">[,</span> <span class="pre">float</span> <span class="pre">bias]</span> <span class="pre">)</span></code>, …,<a class="headerlink" href="#term-gvec4-textureProjOffset-gsampler1D-sampler-vec2-P-int-offset-float-bias-..." title="Permalink to this term">¶</a></dt><dt id="term-gvec4-textureProjOffset-gsampler2DRect-sampler-vec3-P-ivec2-offset-..."><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">textureProjOffset(gsampler2DRect</span> <span class="pre">sampler,</span> <span class="pre">vec3</span> <span class="pre">P,</span> <span class="pre">ivec2</span> <span class="pre">offset)</span></code>, …,<a class="headerlink" href="#term-gvec4-textureProjOffset-gsampler2DRect-sampler-vec3-P-ivec2-offset-..." title="Permalink to this term">¶</a></dt><dt id="term-float-textureProjOffset-sampler1DShadow-sampler-vec4-P-int-offset-float-bias-..."><code class="docutils literal notranslate"><span class="pre">float</span> <span class="pre">textureProjOffset(sampler1DShadow</span> <span class="pre">sampler,</span> <span class="pre">vec4</span> <span class="pre">P,</span> <span class="pre">int</span> <span class="pre">offset</span> <span class="pre">[,</span> <span class="pre">float</span> <span class="pre">bias]</span> <span class="pre">)</span></code>, …<a class="headerlink" href="#term-float-textureProjOffset-sampler1DShadow-sampler-vec4-P-int-offset-float-bias-..." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">textureProj</span></code> に記述されているようにして投影テクスチャー検索を行い、
+<code class="docutils literal notranslate"><span class="pre">textureOffset</span></code> に記述されているようにして <code class="docutils literal notranslate"><span class="pre">offset</span></code> によるオフセットを行う。</p>
+</dd>
+<dt id="term-gvec4-textureLodOffset-gsampler1D-sampler-float-P-float-lod-int-offset-etc."><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">textureLodOffset(gsampler1D</span> <span class="pre">sampler,</span> <span class="pre">float</span> <span class="pre">P,</span> <span class="pre">float</span> <span class="pre">lod,</span> <span class="pre">int</span> <span class="pre">offset)</span></code>, etc.<a class="headerlink" href="#term-gvec4-textureLodOffset-gsampler1D-sampler-float-P-float-lod-int-offset-etc." title="Permalink to this term">¶</a></dt><dd><p>明示的な詳細度でオフセットテクスチャー検索を行う。
+<code class="docutils literal notranslate"><span class="pre">textureLod</span></code> および <code class="docutils literal notranslate"><span class="pre">textureOffset</span></code> を参照。</p>
+</dd>
+<dt id="term-gvec4-textureProjLod-gsampler1D-sampler-vec2-P-float-lod-etc."><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">textureProjLod(gsampler1D</span> <span class="pre">sampler,</span> <span class="pre">vec2</span> <span class="pre">P,</span> <span class="pre">float</span> <span class="pre">lod)</span></code>, etc.<a class="headerlink" href="#term-gvec4-textureProjLod-gsampler1D-sampler-vec2-P-float-lod-etc." title="Permalink to this term">¶</a></dt><dd><p>明示的な詳細度で投影テクスチャー検索を行う。
+<code class="docutils literal notranslate"><span class="pre">textureProj</span></code> と <code class="docutils literal notranslate"><span class="pre">textureLod</span></code> を参照。</p>
+</dd>
+<dt id="term-gvec4-textureProjLodOffset-gsampler1D-sampler-vec2-P-float-lod-int-offset-etc."><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">textureProjLodOffset(gsampler1D</span> <span class="pre">sampler,</span> <span class="pre">vec2</span> <span class="pre">P,</span> <span class="pre">float</span> <span class="pre">lod,</span> <span class="pre">int</span> <span class="pre">offset)</span></code>, etc.<a class="headerlink" href="#term-gvec4-textureProjLodOffset-gsampler1D-sampler-vec2-P-float-lod-int-offset-etc." title="Permalink to this term">¶</a></dt><dd><p>明示的な詳細度でオフセット射影テクスチャー検索を行う。
+<code class="docutils literal notranslate"><span class="pre">textureProj</span></code>, <code class="docutils literal notranslate"><span class="pre">textureLod</span></code>, <code class="docutils literal notranslate"><span class="pre">textureOffset</span></code> を参照。</p>
+</dd>
+<dt id="term-gvec4-textureGrad-gsampler1D-sampler-float-P-float-dPdx-float-dPdy-etc."><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">textureGrad(gsampler1D</span> <span class="pre">sampler,</span> <span class="pre">float</span> <span class="pre">P,</span> <span class="pre">float</span> <span class="pre">dPdx,</span> <span class="pre">float</span> <span class="pre">dPdy)</span></code>, etc.<a class="headerlink" href="#term-gvec4-textureGrad-gsampler1D-sampler-float-P-float-dPdx-float-dPdy-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">texture</span></code> のようにしてテクスチャー検索を行うが、以下の明示的な勾配を使う。
+<code class="docutils literal notranslate"><span class="pre">P</span></code> の偏微分は、ウィンドウ <code class="docutils literal notranslate"><span class="pre">x</span></code> とウィンドウ <code class="docutils literal notranslate"><span class="pre">y</span></code> に関する。キューブバージョンでは <code class="docutils literal notranslate"><span class="pre">P</span></code> の偏導関数は、テクスチャー座標が適切なキューブ面に投影される前に使用される座標系にあると仮定する。</p>
+</dd>
+<dt id="term-gvec4-textureGradOffset-gsampler1D-sampler-float-P-float-dPdx-float-dPdy-int-offset-etc."><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">textureGradOffset(gsampler1D</span> <span class="pre">sampler,</span> <span class="pre">float</span> <span class="pre">P,</span> <span class="pre">float</span> <span class="pre">dPdx,</span> <span class="pre">float</span> <span class="pre">dPdy,</span> <span class="pre">int</span> <span class="pre">offset)</span></code>, etc.<a class="headerlink" href="#term-gvec4-textureGradOffset-gsampler1D-sampler-float-P-float-dPdx-float-dPdy-int-offset-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">textureGrad</span></code> と <code class="docutils literal notranslate"><span class="pre">textureOffset</span></code> で説明されているように、明示的な勾配とオフセットの両方を持つテクスチャー検索を行う。</p>
+</dd>
+<dt id="term-gvec4-textureProjGrad-gsampler1D-sampler-vec2-P-float-dPdx-float-dPdy-etc."><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">textureProjGrad(gsampler1D</span> <span class="pre">sampler,</span> <span class="pre">vec2</span> <span class="pre">P,</span> <span class="pre">float</span> <span class="pre">dPdx,</span> <span class="pre">float</span> <span class="pre">dPdy)</span></code>, etc.<a class="headerlink" href="#term-gvec4-textureProjGrad-gsampler1D-sampler-vec2-P-float-dPdx-float-dPdy-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">textureProj</span></code> で記述されているように、射影的に、また <code class="docutils literal notranslate"><span class="pre">textureGrad</span></code> で記述されているように明示的に勾配を用いて、テクスチャー検索を行う。偏微分 <code class="docutils literal notranslate"><span class="pre">dPdx</span></code> と <code class="docutils literal notranslate"><span class="pre">dPdy</span></code> はすでに投影されているものとする。</p>
+</dd>
+<dt id="term-gvec4-textureProjGradOffset-gsampler1D-sampler-vec2-P-float-dPdx-float-dPdy-int-offset-etc."><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">textureProjGradOffset(gsampler1D</span> <span class="pre">sampler,</span> <span class="pre">vec2</span> <span class="pre">P,</span> <span class="pre">float</span> <span class="pre">dPdx,</span> <span class="pre">float</span> <span class="pre">dPdy,</span> <span class="pre">int</span> <span class="pre">offset)</span></code>, etc.<a class="headerlink" href="#term-gvec4-textureProjGradOffset-gsampler1D-sampler-vec2-P-float-dPdx-float-dPdy-int-offset-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">textureProjGrad</span></code> で記述されているように、投影された、明示的な勾配を持った、また、
+<code class="docutils literal notranslate"><span class="pre">textureOffset</span></code> で記述されているように、オフセットを持つ、テクスチャー検索を行う。</p>
+</dd>
+</dl>
+</section>
+<section id="explicit-gradients">
+<h4><a class="toc-backref" href="#id18">8.9.3. Explicit Gradients</a><a class="headerlink" href="#explicit-gradients" title="Permalink to this headline">¶</a></h4>
+<p>前述の <code class="docutils literal notranslate"><span class="pre">textureGrad</span></code> 関数では、明示的な勾配は以下のようにテクスチャー検索を制御する。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">コメント</p>
+<p><a class="reference external" href="https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.html#explicit-gradients">本文の数式</a></p>
+</div>
+</section>
+<section id="texture-gather-functions">
+<h4><a class="toc-backref" href="#id19">8.9.4. Texture Gather Functions</a><a class="headerlink" href="#texture-gather-functions" title="Permalink to this headline">¶</a></h4>
+<p>テクスチャー収集関数は、単一の浮動小数点ベクトルオペランドの成分をテクスチャー座標として受け取り、指定されたテクスチャー画像の基準詳細度から採取する四つのテクセルからなる集合を決定し、テクセルそれぞれから一つの成分とって 4 成分結果ベクトルに返す。</p>
+<p>テクスチャー収集操作を行う際には、最小化フィルターと拡大フィルターは無視され、
+OpenGL 仕様の <code class="docutils literal notranslate"><span class="pre">LINEAR</span></code> フィルタリング規則がテクスチャー画像の基準レベルに適用され、四つのテクセル <span class="math notranslate nohighlight">\({i_0 j_1, i_1 j_1, i_1 j_0, i_0 j_0}\)</span> を特定する。これらのテクセルは 表 15.1 に従ってテクスチャー基準色 <span class="math notranslate nohighlight">\({(R_s, G_s, B_s, A_s)}\)</span>
+に変換され、その後、OpenGL 仕様の 15.2.1 “Texture Access” で説明されているように、テクスチャーかき混ぜが適用される。四成分ベクトルは、かき混ぜた後のテクスチャーソース色のそれぞれから選択された成分を
+<span class="math notranslate nohighlight">\({(i_0 j_1, i_1 j_1, i_1 j_0, i_0 j_0)}\)</span> の順に取ることで組み立てられる。</p>
+<p>テクスチャー混合シャドウ抽出器型を使用するテクスチャー収集関数の場合、四つのテクセル検索のそれぞれは、<code class="docutils literal notranslate"><span class="pre">(refZ)</span></code> で渡された奥行き参照値との奥行き比較を行い、その比較結果を結果ベクトルの適切な成分に返す。</p>
+<p>他のテクスチャー検索関数と同様に、テクスチャー収集の結果は、</p>
+<ul class="simple">
+<li><p>シャドウ抽出器に対しては、参照されるテクスチャーが奥行きテクスチャーでないか、奥行き比較が無効になっている場合、または</p></li>
+<li><p>非シャドウ抽出器に対しては、参照されるテクスチャーが奥行き比較を有効にした奥行きテクスチャーである場合</p></li>
+</ul>
+<p>には未定義だ。</p>
+<dl class="glossary">
+<dt id="term-gvec4-textureGather-gsampler2D-sampler-vec2-P-int-comp-..."><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">textureGather(gsampler2D</span> <span class="pre">sampler,</span> <span class="pre">vec2</span> <span class="pre">P</span> <span class="pre">[,</span> <span class="pre">int</span> <span class="pre">comp])</span></code>, …,<a class="headerlink" href="#term-gvec4-textureGather-gsampler2D-sampler-vec2-P-int-comp-..." title="Permalink to this term">¶</a></dt><dt id="term-vec4-textureGather-sampler2DShadow-sampler-vec2-P-float-refZ-..."><code class="docutils literal notranslate"><span class="pre">vec4</span> <span class="pre">textureGather(sampler2DShadow</span> <span class="pre">sampler,</span> <span class="pre">vec2</span> <span class="pre">P,</span> <span class="pre">float</span> <span class="pre">refZ)</span></code>, …<a class="headerlink" href="#term-vec4-textureGather-sampler2DShadow-sampler-vec2-P-float-refZ-..." title="Permalink to this term">¶</a></dt><dd><p>次を返す：</p>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="kt">vec4</span><span class="p">(</span><span class="n">Sample_i0_j1</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">base</span><span class="p">).</span><span class="n">comp</span><span class="p">,</span>
+     <span class="n">Sample_i1_j1</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">base</span><span class="p">).</span><span class="n">comp</span><span class="p">,</span>
+     <span class="n">Sample_i1_j0</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">base</span><span class="p">).</span><span class="n">comp</span><span class="p">,</span>
+     <span class="n">Sample_i0_j0</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">base</span><span class="p">).</span><span class="n">comp</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>指定された場合、引数 <code class="docutils literal notranslate"><span class="pre">comp</span></code> は 0, 1, 2, 3 のいずれかの値を持つ定整数式でなければならず、各テクセルの 4 成分ベクトル検索結果の <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">z</span></code>, <code class="docutils literal notranslate"><span class="pre">w</span></code> のかき混ぜた後の成分をそれぞれ識別する。
+<code class="docutils literal notranslate"><span class="pre">comp</span></code> が指定されない場合は 0 として扱われ、各テクセルの <code class="docutils literal notranslate"><span class="pre">x</span></code> 成分を選択して結果を生成する。</p>
+</dd>
+<dt id="term-gvec4-textureGatherOffset-gsampler2D-sampler-vec2-P-ivec2-offset-int-comp-..."><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">textureGatherOffset(gsampler2D</span> <span class="pre">sampler,</span> <span class="pre">vec2</span> <span class="pre">P,</span> <span class="pre">ivec2</span> <span class="pre">offset,</span> <span class="pre">[</span> <span class="pre">int</span> <span class="pre">comp])</span></code>, …,<a class="headerlink" href="#term-gvec4-textureGatherOffset-gsampler2D-sampler-vec2-P-ivec2-offset-int-comp-..." title="Permalink to this term">¶</a></dt><dt id="term-vec4-textureGatherOffset-sampler2DShadow-sampler-vec2-P-float-refZ-ivec2-offset-..."><code class="docutils literal notranslate"><span class="pre">vec4</span> <span class="pre">textureGatherOffset(sampler2DShadow</span> <span class="pre">sampler,</span> <span class="pre">vec2</span> <span class="pre">P,</span> <span class="pre">float</span> <span class="pre">refZ,</span> <span class="pre">ivec2</span> <span class="pre">offset)</span></code>, …,<a class="headerlink" href="#term-vec4-textureGatherOffset-sampler2DShadow-sampler-vec2-P-float-refZ-ivec2-offset-..." title="Permalink to this term">¶</a></dt><dt id="term-gvec4-textureGatherOffset-gsampler2DRect-sampler-vec2-P-ivec2-offset-int-comp"><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">textureGatherOffset(gsampler2DRect</span> <span class="pre">sampler,</span> <span class="pre">vec2</span> <span class="pre">P,</span> <span class="pre">ivec2</span> <span class="pre">offset</span> <span class="pre">[</span> <span class="pre">int</span> <span class="pre">comp])</span></code><a class="headerlink" href="#term-gvec4-textureGatherOffset-gsampler2DRect-sampler-vec2-P-ivec2-offset-int-comp" title="Permalink to this term">¶</a></dt><dt id="term-vec4-textureGatherOffset-sampler2DRectShadow-sampler-vec2-P-float-refZ-ivec2-offset"><code class="docutils literal notranslate"><span class="pre">vec4</span> <span class="pre">textureGatherOffset(sampler2DRectShadow</span> <span class="pre">sampler,</span> <span class="pre">vec2</span> <span class="pre">P,</span> <span class="pre">float</span> <span class="pre">refZ,</span> <span class="pre">ivec2</span> <span class="pre">offset)</span></code><a class="headerlink" href="#term-vec4-textureGatherOffset-sampler2DRectShadow-sampler-vec2-P-float-refZ-ivec2-offset" title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">offset</span></code> が変数（非定数）であり、実装依存の最小および最大オフセット値がそれぞれ
+<code class="docutils literal notranslate"><span class="pre">MIN_PROGRAM_TEXTURE_GATHER_OFFSET</span></code> および <code class="docutils literal notranslate"><span class="pre">MAX_PROGRAM_TEXTURE_GATHER_OFFSET</span></code>
+によって与えられることを除いて、
+<code class="docutils literal notranslate"><span class="pre">textureOffset</span></code> に記述されているように <code class="docutils literal notranslate"><span class="pre">offset</span></code> によって
+<code class="docutils literal notranslate"><span class="pre">textureGather</span></code> のようにテクスチャー収集操作を実行する。</p>
+</dd>
+<dt id="term-gvec4-textureGatherOffsets-gsampler2D-sampler-vec2-P-ivec2-offsets-4-int-comp-..."><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">textureGatherOffsets(gsampler2D</span> <span class="pre">sampler,</span> <span class="pre">vec2</span> <span class="pre">P,</span> <span class="pre">ivec2</span> <span class="pre">offsets[4]</span> <span class="pre">[,</span> <span class="pre">int</span> <span class="pre">comp])</span></code>, …,<a class="headerlink" href="#term-gvec4-textureGatherOffsets-gsampler2D-sampler-vec2-P-ivec2-offsets-4-int-comp-..." title="Permalink to this term">¶</a></dt><dt id="term-vec4-textureGatherOffsets-sampler2DShadow-sampler-vec2-P-float-refZ-ivec2-offsets-4-..."><code class="docutils literal notranslate"><span class="pre">vec4</span> <span class="pre">textureGatherOffsets(sampler2DShadow</span> <span class="pre">sampler,</span> <span class="pre">vec2</span> <span class="pre">P,</span> <span class="pre">float</span> <span class="pre">refZ,</span> <span class="pre">ivec2</span> <span class="pre">offsets[4])</span></code>, …,<a class="headerlink" href="#term-vec4-textureGatherOffsets-sampler2DShadow-sampler-vec2-P-float-refZ-ivec2-offsets-4-..." title="Permalink to this term">¶</a></dt><dt id="term-gvec4-textureGatherOffsets-gsampler2DRect-sampler-vec2-P-ivec2-offsets-4-int-comp"><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">textureGatherOffsets(gsampler2DRect</span> <span class="pre">sampler,</span> <span class="pre">vec2</span> <span class="pre">P,</span> <span class="pre">ivec2</span> <span class="pre">offsets[4]</span> <span class="pre">[,</span> <span class="pre">int</span> <span class="pre">comp])</span></code><a class="headerlink" href="#term-gvec4-textureGatherOffsets-gsampler2DRect-sampler-vec2-P-ivec2-offsets-4-int-comp" title="Permalink to this term">¶</a></dt><dt id="term-vec4-textureGatherOffsets-sampler2DRectShadow-sampler-vec2-P-float-refZ-ivec2-offsets-4"><code class="docutils literal notranslate"><span class="pre">vec4</span> <span class="pre">textureGatherOffsets(sampler2DRectShadow</span> <span class="pre">sampler,</span> <span class="pre">vec2</span> <span class="pre">P,</span> <span class="pre">float</span> <span class="pre">refZ,</span> <span class="pre">ivec2</span> <span class="pre">offsets[4])</span></code><a class="headerlink" href="#term-vec4-textureGatherOffsets-sampler2DRectShadow-sampler-vec2-P-float-refZ-ivec2-offsets-4" title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">offsets</span></code> が採取する四つのテクセルの位置を決定するために使用されることを除けば
+<code class="docutils literal notranslate"><span class="pre">textureGatherOffset</span></code> と同じように操作する。四つのテクセルそれぞれが <code class="docutils literal notranslate"><span class="pre">offsets</span></code> の対応するオフセットを <code class="docutils literal notranslate"><span class="pre">(u,</span> <span class="pre">v)</span></code>
+座標オフセットとして <code class="docutils literal notranslate"><span class="pre">P</span></code> に適用し、四テクセルの <code class="docutils literal notranslate"><span class="pre">LINEAR</span></code> 足跡を特定し、その足跡のテクセル <span class="math notranslate nohighlight">\(i_0 j_0\)</span>
+を選択することで得られる。
+<code class="docutils literal notranslate"><span class="pre">offsets</span></code> に指定する値は、定整数式でなければならない。</p>
+</dd>
+</dl>
+</section>
+<section id="compatibility-profile-texture-functions">
+<h4><a class="toc-backref" href="#id20">8.9.5. Compatibility Profile Texture Functions</a><a class="headerlink" href="#compatibility-profile-texture-functions" title="Permalink to this headline">¶</a></h4>
+<p>以下のテクスチャー機能は、互換性プロファイルにしかない：</p>
+<div class="admonition- admonition">
+<p class="admonition-title">コメント</p>
+<p>後回し。</p>
+</div>
+</section>
+</section>
+<section id="atomic-counter-functions">
+<h3><a class="toc-backref" href="#id21">8.10. Atomic Counter Functions</a><a class="headerlink" href="#atomic-counter-functions" title="Permalink to this headline">¶</a></h3>
+<p>この節の不可分カウンター操作は、互いに不可分に操作する。つまり、あるシェーダー実体化のどの特定のカウンターに対するこれらの操作は、別のシェーダー実体化の同じカウンターに対するこれらのどの操作とも不可分だ。これらの操作がカウンターへの他のアクセス方法に対して不可分であることや、別々のカウンターに適用されたときに直列化されることは保証されない。このような場合、不可分性や直列性を求めるならば、柵や障壁、あるいは他の形式の同期を追加的に使用する必要がある。</p>
+<p>内在するカウンターは 32 ビットの符号なし整数だ。演算の結果は
+<span class="math notranslate nohighlight">\({[0, 2^{32}-1]}\)</span> に折り返される。</p>
+<dl class="glossary">
+<dt id="term-uint-atomicCounterIncrement-atomic_uint-c"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">atomicCounterIncrement(atomic_uint</span> <span class="pre">c)</span></code><a class="headerlink" href="#term-uint-atomicCounterIncrement-atomic_uint-c" title="Permalink to this term">¶</a></dt><dd><p>不可分に</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">c</span></code> に対するカウンターをインクリメントして</p></li>
+<li><p>インクリメント操作に先立ってその値を返す。</p></li>
+</ol>
+<p>これら二つのステップは、この節の不可分カウンター関数に関しては不可分に行われる。</p>
+</dd>
+<dt id="term-uint-atomicCounterDecrement-atomic_uint-c"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">atomicCounterDecrement(atomic_uint</span> <span class="pre">c)</span></code><a class="headerlink" href="#term-uint-atomicCounterDecrement-atomic_uint-c" title="Permalink to this term">¶</a></dt><dd><p>上記関数のデクリメント版。</p>
+</dd>
+<dt id="term-uint-atomicCounter-atomic_uint-c"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">atomicCounter(atomic_uint</span> <span class="pre">c)</span></code><a class="headerlink" href="#term-uint-atomicCounter-atomic_uint-c" title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">c</span></code> に対するカウンター値を返す。</p>
+</dd>
+<dt id="term-uint-atomicCounterAdd-atomic_uint-c-uint-data"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">atomicCounterAdd(atomic_uint</span> <span class="pre">c,</span> <span class="pre">uint</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-uint-atomicCounterAdd-atomic_uint-c-uint-data" title="Permalink to this term">¶</a></dt><dd><p>不可分に</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">c</span></code> に対するカウンターに <code class="docutils literal notranslate"><span class="pre">data</span></code> を加算して</p></li>
+<li><p>その演算に先立ってその値を返す。</p></li>
+</ol>
+<p>これら二つのステップは、この節の不可分カウンター関数に関しては不可分に行われる。</p>
+</dd>
+<dt id="term-uint-atomicCounterSubtract-atomic_uint-c-uint-data"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">atomicCounterSubtract(atomic_uint</span> <span class="pre">c,</span> <span class="pre">uint</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-uint-atomicCounterSubtract-atomic_uint-c-uint-data" title="Permalink to this term">¶</a></dt><dd><p>上記関数の減算版。</p>
+</dd>
+<dt id="term-uint-atomicCounterMin-atomic_uint-c-uint-data"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">atomicCounterMin(atomic_uint</span> <span class="pre">c,</span> <span class="pre">uint</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-uint-atomicCounterMin-atomic_uint-c-uint-data" title="Permalink to this term">¶</a></dt><dd><p>不可分的に</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">c</span></code> に対するカウンターを、カウンターの値と <code class="docutils literal notranslate"><span class="pre">data</span></code> の値の最小値に設定して</p></li>
+<li><p>演算に先立ってその値を返す。</p></li>
+</ol>
+<p>これら二つのステップは、この節の不可分カウンター関数に関しては不可分に行われる。</p>
+</dd>
+<dt id="term-uint-atomicCounterMax-atomic_uint-c-uint-data"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">atomicCounterMax(atomic_uint</span> <span class="pre">c,</span> <span class="pre">uint</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-uint-atomicCounterMax-atomic_uint-c-uint-data" title="Permalink to this term">¶</a></dt><dd><p>上記関数の最大値版。</p>
+</dd>
+<dt id="term-uint-atomicCounterAnd-atomic_uint-c-uint-data"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">atomicCounterAnd(atomic_uint</span> <span class="pre">c,</span> <span class="pre">uint</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-uint-atomicCounterAnd-atomic_uint-c-uint-data" title="Permalink to this term">¶</a></dt><dd><p>不可分的に</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">c</span></code> に対するカウンターを、カウンターの値と <code class="docutils literal notranslate"><span class="pre">data</span></code> の値のビットごとの論理積にセットして</p></li>
+<li><p>演算に先立ってその値を返す。</p></li>
+</ol>
+<p>これら二つのステップは、この節の不可分カウンター関数に関しては不可分に行われる。</p>
+</dd>
+<dt id="term-uint-atomicCounterOr-atomic_uint-c-uint-data"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">atomicCounterOr(atomic_uint</span> <span class="pre">c,</span> <span class="pre">uint</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-uint-atomicCounterOr-atomic_uint-c-uint-data" title="Permalink to this term">¶</a></dt><dd><p>上記関数の論理和版。</p>
+</dd>
+<dt id="term-uint-atomicCounterXor-atomic_uint-c-uint-data"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">atomicCounterXor(atomic_uint</span> <span class="pre">c,</span> <span class="pre">uint</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-uint-atomicCounterXor-atomic_uint-c-uint-data" title="Permalink to this term">¶</a></dt><dd><p>上記関数の排他的論理和版。</p>
+</dd>
+<dt id="term-uint-atomicCounterExchange-atomic_uint-c-uint-data"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">atomicCounterExchange(atomic_uint</span> <span class="pre">c,</span> <span class="pre">uint</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-uint-atomicCounterExchange-atomic_uint-c-uint-data" title="Permalink to this term">¶</a></dt><dd><p>不可分的に</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">c</span></code> に対するカウンター値を <code class="docutils literal notranslate"><span class="pre">data</span></code> の値にセットして</p></li>
+<li><p>演算に先立ってその値を返す。</p></li>
+</ol>
+<p>これら二つのステップは、この節の不可分カウンター関数に関しては不可分に行われる。</p>
+</dd>
+<dt id="term-uint-atomicCounterCompSwap-atomic_uint-c-uint-compare-uint-data"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">atomicCounterCompSwap(atomic_uint</span> <span class="pre">c,</span> <span class="pre">uint</span> <span class="pre">compare,</span> <span class="pre">uint</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-uint-atomicCounterCompSwap-atomic_uint-c-uint-compare-uint-data" title="Permalink to this term">¶</a></dt><dd><p>不可分的に</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">compare</span></code> の値と <code class="docutils literal notranslate"><span class="pre">c</span></code> に対するカウンター値を比較し、</p></li>
+<li><p>値が等しければ <code class="docutils literal notranslate"><span class="pre">c</span></code> に対するカウンター値を <code class="docutils literal notranslate"><span class="pre">data</span></code> の値にセットして</p></li>
+<li><p>演算に先立ってその値を返す。</p></li>
+</ol>
+<p>これら三つのステップは、この節の不可分カウンター関数に関しては不可分に行われる。</p>
+</dd>
+</dl>
+</section>
+<section id="atomic-memory-functions">
+<h3><a class="toc-backref" href="#id22">8.11. Atomic Memory Functions</a><a class="headerlink" href="#atomic-memory-functions" title="Permalink to this headline">¶</a></h3>
+<p>不可分記憶関数はバッファーオブジェクトまたは共有変数格納に格納された個々の符号ありまたは符号なしの整数に対して不可分な操作を行う。すべての不可分記憶操作は、メモリーから値を読み取り、以下に述べる操作のいずれかを使用して新しい値を計算し、新しい値をメモリーに書き込み、読み取った元の値を返す。不可分操作によって更新されるメモリーの内容は、元の値が読み込まれてから新しい値が書き込まれるまでの間、シェーダーの呼び出しにおける他の割り当てや不可分記憶関数によって変更されないことが保証されている。</p>
+<p>不可分記憶関数は限られた変数の集合に対してしかサポートされていない。不可分記憶関数の <code class="docutils literal notranslate"><span class="pre">mem</span></code> 引数に渡された値が、バッファーや共有変数に対応していない場合、シェーダーのコンパイルに失敗する。不可分記憶関数の <code class="docutils literal notranslate"><span class="pre">mem</span></code> 引数に配列の要素やベクトルの単一成分を渡しても、そのもとになる配列やベクトルがバッファーや共有変数である限りは問題ない。</p>
+<p>この節の組み込み関数はすべて、プロトタイプに記載されていないにもかかわらず、
+<code class="docutils literal notranslate"><span class="pre">restrict</span></code>, <code class="docutils literal notranslate"><span class="pre">coherent</span></code>, <code class="docutils literal notranslate"><span class="pre">volatile</span></code> 記憶修飾の組み合わせを持つ引数を受け入れる。不可分操作は、組み込み関数の仮引数の記憶修飾ではなく、呼び出した引数のそれによって要求されたとおりに動作する。</p>
+<dl class="glossary simple">
+<dt id="term-uint-atomicAdd-inout-uint-mem-uint-data"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">atomicAdd(inout</span> <span class="pre">uint</span> <span class="pre">mem,</span> <span class="pre">uint</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-uint-atomicAdd-inout-uint-mem-uint-data" title="Permalink to this term">¶</a></dt><dt id="term-int-atomicAdd-inout-int-mem-int-data"><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">atomicAdd(inout</span> <span class="pre">int</span> <span class="pre">mem,</span> <span class="pre">int</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-int-atomicAdd-inout-int-mem-int-data" title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">mem</span></code> の内容に <code class="docutils literal notranslate"><span class="pre">data</span></code> の値を加えて新しい値を計算する。</p>
+</dd>
+<dt id="term-uint-atomicMin-inout-uint-mem-uint-data"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">atomicMin(inout</span> <span class="pre">uint</span> <span class="pre">mem,</span> <span class="pre">uint</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-uint-atomicMin-inout-uint-mem-uint-data" title="Permalink to this term">¶</a></dt><dt id="term-int-atomicMin-inout-int-mem-int-data"><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">atomicMin(inout</span> <span class="pre">int</span> <span class="pre">mem,</span> <span class="pre">int</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-int-atomicMin-inout-int-mem-int-data" title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">data</span></code> の値と <code class="docutils literal notranslate"><span class="pre">mem</span></code> の内容の最小値を取って新しい値を計算する。</p>
+</dd>
+<dt id="term-uint-atomicMax-inout-uint-mem-uint-data"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">atomicMax(inout</span> <span class="pre">uint</span> <span class="pre">mem,</span> <span class="pre">uint</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-uint-atomicMax-inout-uint-mem-uint-data" title="Permalink to this term">¶</a></dt><dt id="term-int-atomicMax-inout-int-mem-int-data"><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">atomicMax(inout</span> <span class="pre">int</span> <span class="pre">mem,</span> <span class="pre">int</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-int-atomicMax-inout-int-mem-int-data" title="Permalink to this term">¶</a></dt><dd><p>上記の最大値版。</p>
+</dd>
+<dt id="term-uint-atomicAnd-inout-uint-mem-uint-data"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">atomicAnd(inout</span> <span class="pre">uint</span> <span class="pre">mem,</span> <span class="pre">uint</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-uint-atomicAnd-inout-uint-mem-uint-data" title="Permalink to this term">¶</a></dt><dt id="term-int-atomicAnd-inout-int-mem-int-data"><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">atomicAnd(inout</span> <span class="pre">int</span> <span class="pre">mem,</span> <span class="pre">int</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-int-atomicAnd-inout-int-mem-int-data" title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">data</span></code> の値と <code class="docutils literal notranslate"><span class="pre">mem</span></code> の内容をビットごとに論理積をとることで新しい値を計算する。</p>
+</dd>
+<dt id="term-uint-atomicOr-inout-uint-mem-uint-data"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">atomicOr(inout</span> <span class="pre">uint</span> <span class="pre">mem,</span> <span class="pre">uint</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-uint-atomicOr-inout-uint-mem-uint-data" title="Permalink to this term">¶</a></dt><dt id="term-int-atomicOr-inout-int-mem-int-data"><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">atomicOr(inout</span> <span class="pre">int</span> <span class="pre">mem,</span> <span class="pre">int</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-int-atomicOr-inout-int-mem-int-data" title="Permalink to this term">¶</a></dt><dd><p>上記関数の論理和版。</p>
+</dd>
+<dt id="term-uint-atomicXor-inout-uint-mem-uint-data"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">atomicXor(inout</span> <span class="pre">uint</span> <span class="pre">mem,</span> <span class="pre">uint</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-uint-atomicXor-inout-uint-mem-uint-data" title="Permalink to this term">¶</a></dt><dt id="term-int-atomicXor-inout-int-mem-int-data"><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">atomicXor(inout</span> <span class="pre">int</span> <span class="pre">mem,</span> <span class="pre">int</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-int-atomicXor-inout-int-mem-int-data" title="Permalink to this term">¶</a></dt><dd><p>上記関数の排他的論理和版。</p>
+</dd>
+<dt id="term-uint-atomicExchange-inout-uint-mem-uint-data"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">atomicExchange(inout</span> <span class="pre">uint</span> <span class="pre">mem,</span> <span class="pre">uint</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-uint-atomicExchange-inout-uint-mem-uint-data" title="Permalink to this term">¶</a></dt><dt id="term-int-atomicExchange-inout-int-mem-int-data"><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">atomicExchange(inout</span> <span class="pre">int</span> <span class="pre">mem,</span> <span class="pre">int</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-int-atomicExchange-inout-int-mem-int-data" title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">data</span></code> の値を単にコピーして新しい値を計算する。</p>
+</dd>
+<dt id="term-uint-atomicCompSwap-inout-uint-mem-uint-compare-uint-data"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">atomicCompSwap(inout</span> <span class="pre">uint</span> <span class="pre">mem,</span> <span class="pre">uint</span> <span class="pre">compare,</span> <span class="pre">uint</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-uint-atomicCompSwap-inout-uint-mem-uint-compare-uint-data" title="Permalink to this term">¶</a></dt><dt id="term-int-atomicCompSwap-inout-int-mem-int-compare-int-data"><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">atomicCompSwap(inout</span> <span class="pre">int</span> <span class="pre">mem,</span> <span class="pre">int</span> <span class="pre">compare,</span> <span class="pre">int</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-int-atomicCompSwap-inout-int-mem-int-compare-int-data" title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">compare</span></code> の値と <code class="docutils literal notranslate"><span class="pre">mem</span></code> の内容を比較する。値が等しい場合、新しい値は <code class="docutils literal notranslate"><span class="pre">data</span></code> で与えられ、そうでない場合は <code class="docutils literal notranslate"><span class="pre">mem</span></code> の元の内容から取得される。</p>
+</dd>
+</dl>
+</section>
+<section id="image-functions">
+<h3><a class="toc-backref" href="#id23">8.12. Image Functions</a><a class="headerlink" href="#image-functions" title="Permalink to this headline">¶</a></h3>
+<p>画像基本型のいずれかを使用する変数は、この節で定義する組み込みシェーダーの画像記憶関数によって、テクスチャーの個々のテクセルを読み書きするために使用することができる。各画像変数は、テクスチャー画像が取り付けられている画像単位を参照する。</p>
+<p>画像メモリーがアクセスメモリー以下の機能を持つ場合、画像中の個々のテクセルは <code class="docutils literal notranslate"><span class="pre">P</span></code> の値に対応する <code class="docutils literal notranslate"><span class="pre">(i)</span></code>, <code class="docutils literal notranslate"><span class="pre">(i,</span> <span class="pre">j)</span></code>, <code class="docutils literal notranslate"><span class="pre">(i,</span> <span class="pre">j,</span> <span class="pre">k)</span></code>
+のどれかの座標を用いて識別される。多重標本テクスチャーに対応する <code class="docutils literal notranslate"><span class="pre">image2DMS</span></code> および <code class="docutils literal notranslate"><span class="pre">image2DMSArray</span></code> 変数（およびそれに対応する <code class="docutils literal notranslate"><span class="pre">int</span></code>/<code class="docutils literal notranslate"><span class="pre">unsigned</span> <span class="pre">int</span></code> 型）では、各テクセルが複数の標本を持つことがあり、個々の標本は整数の <code class="docutils literal notranslate"><span class="pre">sample</span></code> 引数を使って識別される。座標と標本番号は OpenGL 仕様の 8.26 “Texture Image Loads and Stores” に記述されている方法で個々のテクセルを選択するのに使用される。</p>
+<p>ロードと格納は浮動小数点数、整数、符号なし整数型をサポートする。下にあるデータ型のうち <code class="docutils literal notranslate"><span class="pre">gimage</span></code> で始まるものは、前節の <code class="docutils literal notranslate"><span class="pre">&quot;gvec&quot;</span></code> や <code class="docutils literal notranslate"><span class="pre">&quot;gsampler&quot;</span></code> と同様に、
+<code class="docutils literal notranslate"><span class="pre">&quot;image&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;iimage&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;uimage&quot;</span></code> のいずれかで始まる型を意味するプレースホルダーを果たす。</p>
+<p>以下のプロトタイプの <code class="docutils literal notranslate"><span class="pre">IMAGE_PARAMS</span></code> は 33 個の別々の関数を表すプレースホルダーで、それぞれが異なる型の画像変数に対応する。
+<code class="docutils literal notranslate"><span class="pre">IMAGE_PARAMS</span></code> のプレースホルダーは、以下の引数リストのいずれかで置き換えられる：</p>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">gimage2D</span> <span class="n">image</span><span class="p">,</span> <span class="kt">ivec2</span> <span class="n">P</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gimage3D</span> <span class="n">image</span><span class="p">,</span> <span class="kt">ivec3</span> <span class="n">P</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gimageCube</span> <span class="n">image</span><span class="p">,</span> <span class="kt">ivec3</span> <span class="n">P</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gimageBuffer</span> <span class="n">image</span><span class="p">,</span> <span class="kt">int</span> <span class="n">P</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gimage2DArray</span> <span class="n">image</span><span class="p">,</span> <span class="kt">ivec3</span> <span class="n">P</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gimageCubeArray</span> <span class="n">image</span><span class="p">,</span> <span class="kt">ivec3</span> <span class="n">P</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gimage1D</span> <span class="n">image</span><span class="p">,</span> <span class="kt">int</span> <span class="n">P</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gimage1DArray</span> <span class="n">image</span><span class="p">,</span> <span class="kt">ivec2</span> <span class="n">P</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gimage2DRect</span> <span class="n">image</span><span class="p">,</span> <span class="kt">ivec2</span> <span class="n">P</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gimage2DMS</span> <span class="n">image</span><span class="p">,</span> <span class="kt">ivec2</span> <span class="n">P</span><span class="p">,</span> <span class="kt">int</span> <span class="k">sample</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gimage2DMSArray</span> <span class="n">image</span><span class="p">,</span> <span class="kt">ivec3</span> <span class="n">P</span><span class="p">,</span> <span class="kt">int</span> <span class="k">sample</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>ここで、各行は三種類の画像変数型のいずれかを表し、
+<code class="docutils literal notranslate"><span class="pre">image</span></code>, <code class="docutils literal notranslate"><span class="pre">P</span></code>, <code class="docutils literal notranslate"><span class="pre">sample</span></code> は操作する個々のテクセルを指定する。
+<code class="docutils literal notranslate"><span class="pre">image</span></code>, <code class="docutils literal notranslate"><span class="pre">P</span></code>, <code class="docutils literal notranslate"><span class="pre">sample</span></code> から操作する個々のテクセルを特定する方法、およびテクセルの読み書き方法は、OpenGL 仕様 8.26 “Texture Image Loads and Store”で規定されている。</p>
+<p>不可分関数は、画像変数の個々のテクセルまたは標本に対して操作を行う。不可分記憶操作は、選択されたテクセルから値を読み取り、後述する操作のいずれかを使用して新しい値を計算し、選択されたテクセルに新しい値を書き込み、読み取った元の値を返す。不可分操作によって更新されるテクセルの内容は、元の値が読み込まれてから新しい値が書き込まれるまでの間に、他の画像格納や不可分関数によって変更されないことが保証される。</p>
+<p>不可分記憶操作は、すべての画像変数型の部分集合にしか対処しない。
+<code class="docutils literal notranslate"><span class="pre">image</span></code> は以下のいずれかでなければならない：</p>
+<ul class="simple">
+<li><p>符号あり整数画像変数（型が <code class="docutils literal notranslate"><span class="pre">&quot;iimage&quot;</span></code> で始まる）で、フォーマット修飾子が <code class="docutils literal notranslate"><span class="pre">r32i</span></code> であり、
+<code class="docutils literal notranslate"><span class="pre">int</span></code> 型の <code class="docutils literal notranslate"><span class="pre">data</span></code> 引数で使用される。</p></li>
+<li><p>符号なし整数画像変数（型が <code class="docutils literal notranslate"><span class="pre">&quot;uimage&quot;</span></code> で始まる）で、フォーマット修飾子が <code class="docutils literal notranslate"><span class="pre">r32ui</span></code> であり、
+<code class="docutils literal notranslate"><span class="pre">uint</span></code> 型の <code class="docutils literal notranslate"><span class="pre">data</span></code> 引数で使用される。</p></li>
+<li><p>浮動小数点数画像変数（型がは <code class="docutils literal notranslate"><span class="pre">&quot;image&quot;</span></code> で始まる）で、フォーマット修飾子が <code class="docutils literal notranslate"><span class="pre">r32f</span></code> であり、
+<code class="docutils literal notranslate"><span class="pre">float</span></code> 型の <code class="docutils literal notranslate"><span class="pre">data</span></code> 引数で使用される。該当するのは <code class="docutils literal notranslate"><span class="pre">imageAtomicExchange</span></code> しかない。</p></li>
+</ul>
+<p>この節の組み込み関数はすべて、プロトタイプに記載されていないにもかかわらず、
+<code class="docutils literal notranslate"><span class="pre">restrict</span></code>, <code class="docutils literal notranslate"><span class="pre">coherent</span></code>, <code class="docutils literal notranslate"><span class="pre">volatile</span></code> 記憶修飾の組み合わせを持つ引数を受け入れる。画像操作は、組み込み関数の仮引数の記憶修飾ではなく、呼び出した引数のそれによって要求されたとおりに動作する。</p>
+<dl class="glossary simple">
+<dt id="term-int-imageSize-readonly-writeonly-gimage1D-image-etc."><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">imageSize(readonly</span> <span class="pre">writeonly</span> <span class="pre">gimage1D</span> <span class="pre">image)</span></code>, etc.<a class="headerlink" href="#term-int-imageSize-readonly-writeonly-gimage1D-image-etc." title="Permalink to this term">¶</a></dt><dd><p>画像の寸法または <code class="docutils literal notranslate"><span class="pre">image</span></code> に束縛された画像の寸法を返す。配列された画像の場合、戻り値の最後の成分に配列のサイズが格納される。キューブ画像の場合は、一つの面の寸法と、配列されている場合はキューブマップ配列内のキューブの数しか返さない。注意: <code class="docutils literal notranslate"><span class="pre">readonly</span> <span class="pre">writeonly</span></code> という修飾語は、
+<code class="docutils literal notranslate"><span class="pre">readonly</span></code> と <code class="docutils literal notranslate"><span class="pre">writeonly</span></code> の両方で修飾された変数か、またはどちらの修飾もない変数を受け入れる。これは、仮引数が背後にあるメモリーの読み取りにも書き込みにも使用されないことを意味する。</p>
+</dd>
+<dt id="term-int-imageSamples-readonly-writeonly-gimage2DMS-image"><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">imageSamples(readonly</span> <span class="pre">writeonly</span> <span class="pre">gimage2DMS</span> <span class="pre">image)</span></code><a class="headerlink" href="#term-int-imageSamples-readonly-writeonly-gimage2DMS-image" title="Permalink to this term">¶</a></dt><dt id="term-int-imageSamples-readonly-writeonly-gimage2DMSArray-image"><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">imageSamples(readonly</span> <span class="pre">writeonly</span> <span class="pre">gimage2DMSArray</span> <span class="pre">image)</span></code><a class="headerlink" href="#term-int-imageSamples-readonly-writeonly-gimage2DMSArray-image" title="Permalink to this term">¶</a></dt><dd><p>画像または <code class="docutils literal notranslate"><span class="pre">image</span></code> に束縛されている画像の標本数を返す。</p>
+</dd>
+<dt id="term-gvec4-imageLoad-readonly-IMAGE_PARAMS"><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">imageLoad(readonly</span> <span class="pre">IMAGE_PARAMS)</span></code><a class="headerlink" href="#term-gvec4-imageLoad-readonly-IMAGE_PARAMS" title="Permalink to this term">¶</a></dt><dd><p>画像単位 <code class="docutils literal notranslate"><span class="pre">image</span></code> から座標 <code class="docutils literal notranslate"><span class="pre">P</span></code> のテクセルをロードする。多重標本ロードの場合、標本番号は <code class="docutils literal notranslate"><span class="pre">sample</span></code> で与えられる。
+<code class="docutils literal notranslate"><span class="pre">image</span></code>, <code class="docutils literal notranslate"><span class="pre">P</span></code>, <code class="docutils literal notranslate"><span class="pre">sample</span></code> で有効なテクセルが特定されると、メモリー上で選択されたテクセルを表すビットは、
+OpenGL 仕様 8.26 “Texture Image Loads and Stores” で記述されている方法で、
+<code class="docutils literal notranslate"><span class="pre">vec4</span></code>, <code class="docutils literal notranslate"><span class="pre">ivec4</span></code>, <code class="docutils literal notranslate"><span class="pre">uvec4</span></code> に変換されて返される。</p>
+</dd>
+<dt id="term-void-imageStore-writeonly-IMAGE_PARAMS-gvec4-data"><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">imageStore(writeonly</span> <span class="pre">IMAGE_PARAMS,</span> <span class="pre">gvec4</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-void-imageStore-writeonly-IMAGE_PARAMS-gvec4-data" title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">image</span></code> で指定された画像の座標 <code class="docutils literal notranslate"><span class="pre">P</span></code> のテクセルに <code class="docutils literal notranslate"><span class="pre">data</span></code> を格納する。多重標本格納の場合、標本番号を <code class="docutils literal notranslate"><span class="pre">sample</span></code> で指定する。
+<code class="docutils literal notranslate"><span class="pre">image</span></code>, <code class="docutils literal notranslate"><span class="pre">P</span></code>, <code class="docutils literal notranslate"><span class="pre">sample</span></code> で有効なテクセルが特定されると、データを表現するためのビットは、
+OpenGL 仕様 8.26 “Texture Image Loads and Stores” で記述されている方法で画像単位のフォーマットに変換され、指定されたテクセルに格納される。</p>
+</dd>
+<dt id="term-uint-imageAtomicAdd-IMAGE_PARAMS-uint-data"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">imageAtomicAdd(IMAGE_PARAMS,</span> <span class="pre">uint</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-uint-imageAtomicAdd-IMAGE_PARAMS-uint-data" title="Permalink to this term">¶</a></dt><dt id="term-int-imageAtomicAdd-IMAGE_PARAMS-int-data"><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">imageAtomicAdd(IMAGE_PARAMS,</span> <span class="pre">int</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-int-imageAtomicAdd-IMAGE_PARAMS-int-data" title="Permalink to this term">¶</a></dt><dd><p>選択されたテクセルの内容に <code class="docutils literal notranslate"><span class="pre">data</span></code> の値を加算して新しい値を計算する。</p>
+</dd>
+<dt id="term-uint-imageAtomicMin-IMAGE_PARAMS-uint-data"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">imageAtomicMin(IMAGE_PARAMS,</span> <span class="pre">uint</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-uint-imageAtomicMin-IMAGE_PARAMS-uint-data" title="Permalink to this term">¶</a></dt><dt id="term-int-imageAtomicMin-IMAGE_PARAMS-int-data"><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">imageAtomicMin(IMAGE_PARAMS,</span> <span class="pre">int</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-int-imageAtomicMin-IMAGE_PARAMS-int-data" title="Permalink to this term">¶</a></dt><dd><p>選択されたテクセルの内容と <code class="docutils literal notranslate"><span class="pre">data</span></code> の値との最小値を取ることで、新しい値を計算する。</p>
+</dd>
+<dt id="term-uint-imageAtomicMax-IMAGE_PARAMS-uint-data"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">imageAtomicMax(IMAGE_PARAMS,</span> <span class="pre">uint</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-uint-imageAtomicMax-IMAGE_PARAMS-uint-data" title="Permalink to this term">¶</a></dt><dt id="term-int-imageAtomicMax-IMAGE_PARAMS-int-data"><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">imageAtomicMax(IMAGE_PARAMS,</span> <span class="pre">int</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-int-imageAtomicMax-IMAGE_PARAMS-int-data" title="Permalink to this term">¶</a></dt><dd><p>上記関数の最大値版。</p>
+</dd>
+<dt id="term-uint-imageAtomicAnd-IMAGE_PARAMS-uint-data"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">imageAtomicAnd(IMAGE_PARAMS,</span> <span class="pre">uint</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-uint-imageAtomicAnd-IMAGE_PARAMS-uint-data" title="Permalink to this term">¶</a></dt><dt id="term-int-imageAtomicAnd-IMAGE_PARAMS-int-data"><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">imageAtomicAnd(IMAGE_PARAMS,</span> <span class="pre">int</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-int-imageAtomicAnd-IMAGE_PARAMS-int-data" title="Permalink to this term">¶</a></dt><dd><p>選択されたテクセルの内容と <code class="docutils literal notranslate"><span class="pre">data</span></code> の値とをビットごとに論理積をとることにより、新しい値を計算する。</p>
+</dd>
+<dt id="term-uint-imageAtomicOr-IMAGE_PARAMS-uint-data"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">imageAtomicOr(IMAGE_PARAMS,</span> <span class="pre">uint</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-uint-imageAtomicOr-IMAGE_PARAMS-uint-data" title="Permalink to this term">¶</a></dt><dt id="term-int-imageAtomicOr-IMAGE_PARAMS-int-data"><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">imageAtomicOr(IMAGE_PARAMS,</span> <span class="pre">int</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-int-imageAtomicOr-IMAGE_PARAMS-int-data" title="Permalink to this term">¶</a></dt><dd><p>上記関数の論理和版。</p>
+</dd>
+<dt id="term-uint-imageAtomicXor-IMAGE_PARAMS-uint-data"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">imageAtomicXor(IMAGE_PARAMS,</span> <span class="pre">uint</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-uint-imageAtomicXor-IMAGE_PARAMS-uint-data" title="Permalink to this term">¶</a></dt><dt id="term-int-imageAtomicXor-IMAGE_PARAMS-int-data"><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">imageAtomicXor(IMAGE_PARAMS,</span> <span class="pre">int</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-int-imageAtomicXor-IMAGE_PARAMS-int-data" title="Permalink to this term">¶</a></dt><dd><p>上記関数の排他的論理和版。</p>
+</dd>
+<dt id="term-uint-imageAtomicExchange-IMAGE_PARAMS-uint-data"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">imageAtomicExchange(IMAGE_PARAMS,</span> <span class="pre">uint</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-uint-imageAtomicExchange-IMAGE_PARAMS-uint-data" title="Permalink to this term">¶</a></dt><dt id="term-int-imageAtomicExchange-IMAGE_PARAMS-int-data"><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">imageAtomicExchange(IMAGE_PARAMS,</span> <span class="pre">int</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-int-imageAtomicExchange-IMAGE_PARAMS-int-data" title="Permalink to this term">¶</a></dt><dt id="term-float-imageAtomicExchange-IMAGE_PARAMS-float-data"><code class="docutils literal notranslate"><span class="pre">float</span> <span class="pre">imageAtomicExchange(IMAGE_PARAMS,</span> <span class="pre">float</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-float-imageAtomicExchange-IMAGE_PARAMS-float-data" title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">data</span></code> の値を単にコピーして新しい値を計算する。</p>
+</dd>
+<dt id="term-uint-imageAtomicCompSwap-IMAGE_PARAMS-uint-compare-uint-data"><code class="docutils literal notranslate"><span class="pre">uint</span> <span class="pre">imageAtomicCompSwap(IMAGE_PARAMS,</span> <span class="pre">uint</span> <span class="pre">compare,</span> <span class="pre">uint</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-uint-imageAtomicCompSwap-IMAGE_PARAMS-uint-compare-uint-data" title="Permalink to this term">¶</a></dt><dt id="term-int-imageAtomicCompSwap-IMAGE_PARAMS-int-compare-int-data"><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">imageAtomicCompSwap(IMAGE_PARAMS,</span> <span class="pre">int</span> <span class="pre">compare,</span> <span class="pre">int</span> <span class="pre">data)</span></code><a class="headerlink" href="#term-int-imageAtomicCompSwap-IMAGE_PARAMS-int-compare-int-data" title="Permalink to this term">¶</a></dt><dd><p>選択されたテクセルと <code class="docutils literal notranslate"><span class="pre">compare</span></code> の値と内容を比較する。値が等しい場合は新しい値が <code class="docutils literal notranslate"><span class="pre">data</span></code> で与えられ、そうでない場合はテクセルから読み込まれた元の値から取得される。</p>
+</dd>
+</dl>
+</section>
+<section id="geometry-shader-functions">
+<h3><a class="toc-backref" href="#id24">8.13. Geometry Shader Functions</a><a class="headerlink" href="#geometry-shader-functions" title="Permalink to this headline">¶</a></h3>
+<p>これらの機能は、幾何シェーダーでしか利用できない。</p>
+<dl class="glossary simple">
+<dt id="term-void-EmitStreamVertex-int-stream"><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">EmitStreamVertex(int</span> <span class="pre">stream)</span></code><a class="headerlink" href="#term-void-EmitStreamVertex-int-stream" title="Permalink to this term">¶</a></dt><dd><p>出力変数の現在の値を <code class="docutils literal notranslate"><span class="pre">stream</span></code> の現在の出力基本形状に放出する。
+<code class="docutils literal notranslate"><span class="pre">stream</span></code> 実引数は定整数でなければならない。この呼び出しから戻ると、出力変数すべての値は未定義だ。複数の出力ストリームがサポートされている場合にしか使用できない。</p>
+</dd>
+<dt id="term-void-EndStreamPrimitive-int-stream"><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">EndStreamPrimitive(int</span> <span class="pre">stream)</span></code><a class="headerlink" href="#term-void-EndStreamPrimitive-int-stream" title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">stream</span></code> の現在の出力基本形状を完了し、新しいものを開始する。
+<code class="docutils literal notranslate"><span class="pre">stream</span></code> 実引数は定整数式でなければならない。頂点は放出されない。複数の出力ストリームがサポートされている場合にしか使用できない。</p>
+</dd>
+<dt id="term-void-EmitVertex"><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">EmitVertex()</span></code><a class="headerlink" href="#term-void-EmitVertex" title="Permalink to this term">¶</a></dt><dd><p>出力変数の現在の値を、現在の出力基本形状に出力する。複数の出力ストリームがサポートされている場合、これは <code class="docutils literal notranslate"><span class="pre">EmitStreamVertex(0)</span></code>
+を呼び出すことと等価だ。この呼び出しから戻ると、出力変数の値は未定義だ。</p>
+</dd>
+<dt id="term-void-EndPrimitive"><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">EndPrimitive()</span></code><a class="headerlink" href="#term-void-EndPrimitive" title="Permalink to this term">¶</a></dt><dd><p>現在の出力基本形状を完了し、新しいものを開始する。複数の出力ストリームがサポートされている場合、これは <code class="docutils literal notranslate"><span class="pre">EndStreamPrimitive(0)</span></code>
+を呼び出すことと等価だ。頂点は放出されない。</p>
+</dd>
+</dl>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">EmitStreamVertex()</span></code> は頂点が完成したことを指定する。頂点は、ストリームに関連付けられた組み込みおよびユーザー定義の出力変数すべての現在の値を使用して、頂点ストリーム <code class="docutils literal notranslate"><span class="pre">stream</span></code> の現在の出力基本形状に追加される。
+<code class="docutils literal notranslate"><span class="pre">EmitStreamVertex()</span></code> 呼び出し後は、出力ストリームすべてに対する出力変数すべての値が未定義だ。幾何シェーダー呼び出しが、出力レイアウト修飾子 <code class="docutils literal notranslate"><span class="pre">max_vertices</span></code> で許可されている以上の頂点を放出していた場合、
+<code class="docutils literal notranslate"><span class="pre">EmitStreamVertex()</span></code> 呼び出しの結果は未定義となる。</p>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">EndStreamPrimitive()</span></code> は、頂点ストリームの現在の出力基本形状が完了し、その後の <code class="docutils literal notranslate"><span class="pre">EmitStreamVertex()</span></code> によって（同型の）新しい出力基本形状が開始することを指定する。この関数は頂点を放出しない。出力レイアウトが <code class="docutils literal notranslate"><span class="pre">points</span></code> と宣言されている場合、
+<code class="docutils literal notranslate"><span class="pre">EndStreamPrimitive()</span></code> の呼び出しはオプションだ。</p>
+<p>幾何シェーダーは、ストリームそれぞれについて頂点のない出力基本形状の状態から始まる。幾何シェーダーが停止すると、ストリームそれぞれの現在の出力基本形状が自動的に完成する。幾何シェーダーが単一の基本形状しか書き込まないならば <code class="docutils literal notranslate"><span class="pre">EndStreamPrimitive()</span></code>
+を呼び出す必要はない。</p>
+<p>複数出力ストリームは出力基本形状型が <code class="docutils literal notranslate"><span class="pre">points</span></code> と宣言されている場合に限り対処される。
+<code class="docutils literal notranslate"><span class="pre">EmitStreamVertex()</span></code> や <code class="docutils literal notranslate"><span class="pre">EndStreamPrimitive()</span></code> を呼び出す幾何シェーダーがプログラムに含まれていて、その出力基本形状型が <code class="docutils literal notranslate"><span class="pre">points</span></code> でない場合は、コンパイルエラーまたはリンクエラーとなる。</p>
+</section>
+<section id="fragment-processing-functions">
+<h3><a class="toc-backref" href="#id25">8.14. Fragment Processing Functions</a><a class="headerlink" href="#fragment-processing-functions" title="Permalink to this headline">¶</a></h3>
+<p>フラグメント処理機能はフラグメントシェーダーでしか利用できない。</p>
+<section id="derivative-functions">
+<h4><a class="toc-backref" href="#id26">8.14.1. Derivative Functions</a><a class="headerlink" href="#derivative-functions" title="Permalink to this headline">¶</a></h4>
+<p>微分は計算的に高く付き、数値的に不安定な場合がある。そのため、実装では、高速だが完全には正確ではない導関数の計算を使用して、真の微分係数を近似することにしても構わない。非一様な制御フローでは、微分は未定義だ。</p>
+<p>微分に期待される動作は、右・左微分を使って指定される。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">コメント</p>
+<p>ここに定義式が MathJax で定義されている。式 (1a) と (1b) が右微分係数、(2a) と (2b) が左微分係数の近似式に読める。本文参照。</p>
+</div>
+<p>単標本ラスタライズの場合、式 (1b)と (2b) で <span class="math notranslate nohighlight">\({\dd{x} \le 1.0}.\)</span>
+多重標本ラスタライズの場合、式 (1b)と (2b) で <span class="math notranslate nohighlight">\({\dd{x} \le 2.0}.\)</span></p>
+<p><span class="math notranslate nohighlight">\({\dd{F}\dd{y}}\)</span> も同様に近似される。</p>
+<p>多重標本ラスタライズでは、任意のフラグメントまたは標本に対して、隣接するフラグメントまたは標本を考慮することができる。</p>
+<p>典型的な例としては、2x2の正方形のフラグメントまたは標本を考慮し、行ごとに独立した <code class="docutils literal notranslate"><span class="pre">dFdxFine</span></code> と列ごとに独立した <code class="docutils literal notranslate"><span class="pre">dFdyFine</span></code> を計算する一方で、
+2x2 の正方形全体に対しては、単一の <code class="docutils literal notranslate"><span class="pre">dFdxCoarse</span></code> と単一の <code class="docutils literal notranslate"><span class="pre">dFdyCoarse</span></code> しか計算しないというものがある。したがって、すべての二次の粗い導関数、たとえば <code class="docutils literal notranslate"><span class="pre">dFdxCoarse(dFdxCoarse(x))</span></code> は、非線形の引数であっても 0 になる可能性がある。しかし、二次微分、例えば <code class="docutils literal notranslate"><span class="pre">dFdxFine(dFdyFine(x))</span></code> は、
+2x2 正方形内で計算された独立した微分の差を適切に反映する。</p>
+<p>この方法は、スクリーン座標ではなく、ウィンドウ座標によって変わるという制約のもと、フラグメントごとに異なっていても構わない。
+OpenGL 仕様 14.2 “Invariance” に記述されている不変性の要件は、微分計算では緩和されているが、これはメソッドがフラグメント位置の関数である可能性があるためだ。</p>
+<p>一部の実装では、GL ヒント（OpenGL 仕様 21.4 “Hints” 参照）を与えることで、
+<code class="docutils literal notranslate"><span class="pre">dFdx</span></code> および <code class="docutils literal notranslate"><span class="pre">dFdy</span></code> の微分精度を変化させ、ユーザーが画質と速度のトレードオフを行えるようにしている。これらのヒントは <code class="docutils literal notranslate"><span class="pre">dFdxCoarse</span></code>, <code class="docutils literal notranslate"><span class="pre">dFdyCoarse</span></code>, <code class="docutils literal notranslate"><span class="pre">dFdxFine</span></code>, <code class="docutils literal notranslate"><span class="pre">dFdyFine</span></code>
+には影響しない。</p>
+<dl class="glossary simple">
+<dt id="term-genFType-dFdx-genFType-p"><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">dFdx(genFType</span> <span class="pre">p)</span></code><a class="headerlink" href="#term-genFType-dFdx-genFType-p" title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">dFdxFine(p)</span></code> または <code class="docutils literal notranslate"><span class="pre">dFdxCoarse(p)</span></code> のいずれかを返す。これは実装上の選択に基づいており、おそらくどちらか速い方、または品質と速度のヒントを通じて API が選択する方によって行われる。</p>
+</dd>
+<dt id="term-genFType-dFdy-genFType-p"><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">dFdy(genFType</span> <span class="pre">p)</span></code><a class="headerlink" href="#term-genFType-dFdy-genFType-p" title="Permalink to this term">¶</a></dt><dd><p>上記の <code class="docutils literal notranslate"><span class="pre">y</span></code> 版。</p>
+</dd>
+<dt id="term-genFType-dFdxFine-genFType-p"><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">dFdxFine(genFType</span> <span class="pre">p)</span></code><a class="headerlink" href="#term-genFType-dFdxFine-genFType-p" title="Permalink to this term">¶</a></dt><dd><p>ウィンドウ <code class="docutils literal notranslate"><span class="pre">x</span></code> 座標に関する <code class="docutils literal notranslate"><span class="pre">p</span></code> の偏微分を返す。現在のフラグメントとそのすぐ隣のフラグメントの <code class="docutils literal notranslate"><span class="pre">p</span></code> の値に基づいて、局所差分を使用する。</p>
+</dd>
+<dt id="term-genFType-dFdyFine-genFType-p"><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">dFdyFine(genFType</span> <span class="pre">p)</span></code><a class="headerlink" href="#term-genFType-dFdyFine-genFType-p" title="Permalink to this term">¶</a></dt><dd><p>上記の <code class="docutils literal notranslate"><span class="pre">y</span></code> 版。</p>
+</dd>
+<dt id="term-genFType-dFdxCoarse-genFType-p"><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">dFdxCoarse(genFType</span> <span class="pre">p)</span></code><a class="headerlink" href="#term-genFType-dFdxCoarse-genFType-p" title="Permalink to this term">¶</a></dt><dd><p>ウィンドウ <code class="docutils literal notranslate"><span class="pre">x</span></code> 座標に対する <code class="docutils literal notranslate"><span class="pre">p</span></code> の偏微分を返す。現在のフラグメントの隣接する部分の <code class="docutils literal notranslate"><span class="pre">p</span></code> の値に基づいて局所的な差分をとり、現在のフラグメントの <code class="docutils literal notranslate"><span class="pre">p</span></code> の値を含める場合もあるが、必ずしもそうはしない。つまり、与えられた領域では、実装は <code class="docutils literal notranslate"><span class="pre">dFdxFine(p)</span></code> で許容されるよりも少なく一意的な位置で微分を計算することができる。</p>
+</dd>
+<dt id="term-genFType-dFdyCoarse-genFType-p"><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">dFdyCoarse(genFType</span> <span class="pre">p)</span></code><a class="headerlink" href="#term-genFType-dFdyCoarse-genFType-p" title="Permalink to this term">¶</a></dt><dd><p>上記の <code class="docutils literal notranslate"><span class="pre">y</span></code> 版。</p>
+</dd>
+<dt id="term-genFType-fwidth-genFType-p"><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">fwidth(genFType</span> <span class="pre">p)</span></code><a class="headerlink" href="#term-genFType-fwidth-genFType-p" title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">abs(dFdx(p))</span> <span class="pre">+</span> <span class="pre">abs(dFdy(p))</span></code> を返す。</p>
+</dd>
+<dt id="term-genFType-fwidthFine-genFType-p"><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">fwidthFine(genFType</span> <span class="pre">p)</span></code><a class="headerlink" href="#term-genFType-fwidthFine-genFType-p" title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">abs(dFdxFine(p))</span> <span class="pre">+</span> <span class="pre">abs(dFdyFine(p))</span></code> を返す。</p>
+</dd>
+<dt id="term-genFType-fwidthCoarse-genFType-p"><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">fwidthCoarse(genFType</span> <span class="pre">p)</span></code><a class="headerlink" href="#term-genFType-fwidthCoarse-genFType-p" title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">abs(dFdxCoarse(p))</span> <span class="pre">+</span> <span class="pre">abs(dFdyCoarse(p))</span></code> を返す。</p>
+</dd>
+</dl>
+</section>
+<section id="interpolation-functions">
+<h4><a class="toc-backref" href="#id27">8.14.2. Interpolation Functions</a><a class="headerlink" href="#interpolation-functions" title="Permalink to this headline">¶</a></h4>
+<p>組み込み補間関数は、シェーダー指定の <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code> 位置でフラグメントシェーダーの入力変数の補間値を計算するために利用できる。組み込み関数を呼び出すたびに別の <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code> 位置が使用され、それらの位置は入力の既定値を生成するために使用される既定の <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code> 位置とは異なる場合がある。</p>
+<p>すべての補間関数において <code class="docutils literal notranslate"><span class="pre">interpolant</span></code> は <code class="docutils literal notranslate"><span class="pre">in</span></code> 宣言の左辺値でなければならない。
+<code class="docutils literal notranslate"><span class="pre">in</span></code> 宣言には、変数、ブロックまたは構造体のメンバー、配列要素、またはこれらの組み合わせが含まれる。さらに、成分選択演算子 (<code class="docutils literal notranslate"><span class="pre">.xy</span></code>, <code class="docutils literal notranslate"><span class="pre">.xxz</span></code>, etc.) を <code class="docutils literal notranslate"><span class="pre">interpolant</span></code> に適用することができる。この場合、補間関数は <code class="docutils literal notranslate"><span class="pre">interpolant</span></code> の値に成分選択演算子を適用した結果を返す。例えば <code class="docutils literal notranslate"><span class="pre">interpolateAt(v.xxz)</span></code> は <code class="docutils literal notranslate"><span class="pre">interpolateAt(v).xxz</span></code> を返すように定義されている。配列された入力は、一般的な（非一様）整数表現でインデックスを付けることができる。</p>
+<p><code class="docutils literal notranslate"><span class="pre">interpolant</span></code> が <code class="docutils literal notranslate"><span class="pre">flat</span></code> 修飾子付きで宣言されている場合、補間された値は単一基本形状に対してどこでも同じ値になる。そのため、補間に使用される位置は影響せず、関数は同じ値を返すだけだ。
+<code class="docutils literal notranslate"><span class="pre">interpolant</span></code> が <code class="docutils literal notranslate"><span class="pre">centroid</span></code> 修飾子付きで宣言されている場合、
+<code class="docutils literal notranslate"><span class="pre">interpolateAtSample()</span></code> と <code class="docutils literal notranslate"><span class="pre">interpolateAtOffset()</span></code> が返す値は、通常 <code class="docutils literal notranslate"><span class="pre">centroid</span></code> 修飾子で使われる位置を無視して、指定された位置で評価される。
+<code class="docutils literal notranslate"><span class="pre">interpolant</span></code> が <code class="docutils literal notranslate"><span class="pre">noperspective</span></code> 修飾子付きで宣言された場合、補間された値は遠近法補正なしで計算される。</p>
+<dl class="glossary">
+<dt id="term-float-interpolateAtCentroid-float-interpolant-etc."><code class="docutils literal notranslate"><span class="pre">float</span> <span class="pre">interpolateAtCentroid(float</span> <span class="pre">interpolant)</span></code>, etc.<a class="headerlink" href="#term-float-interpolateAtCentroid-float-interpolant-etc." title="Permalink to this term">¶</a></dt><dd><p>処理されている画素と基本形状の両方の内側の位置で採取された入力
+<code class="docutils literal notranslate"><span class="pre">interpolant</span></code> 関数の値を返す。得られる値は、修飾子 <code class="docutils literal notranslate"><span class="pre">centroid</span></code> を付けて宣言された場合、入力変数に割り当てられた値と同じになる。</p>
+</dd>
+<dt id="term-float-interpolateAtSample-float-interpolant-int-sample-etc."><code class="docutils literal notranslate"><span class="pre">float</span> <span class="pre">interpolateAtSample(float</span> <span class="pre">interpolant,</span> <span class="pre">int</span> <span class="pre">sample)</span></code>, etc.<a class="headerlink" href="#term-float-interpolateAtSample-float-interpolant-int-sample-etc." title="Permalink to this term">¶</a></dt><dd><p>標本番号 <code class="docutils literal notranslate"><span class="pre">sample</span></code> の位置にある入力 <code class="docutils literal notranslate"><span class="pre">interpolant</span></code> 変数の値を返す。多重標本バッファーが利用できない場合、入力変数は画素の中心で評価される。標本 <code class="docutils literal notranslate"><span class="pre">sample</span></code> が存在しない場合、入力変数の補間に使用される位置は未定義だ。</p>
+</dd>
+<dt id="term-float-interpolateAtOffset-float-interpolant-vec2-offset-etc."><code class="docutils literal notranslate"><span class="pre">float</span> <span class="pre">interpolateAtOffset(float</span> <span class="pre">interpolant,</span> <span class="pre">vec2</span> <span class="pre">offset)</span></code>, etc.<a class="headerlink" href="#term-float-interpolateAtOffset-float-interpolant-vec2-offset-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">offset</span></code> で指定された画素の中心からのオフセットで採取された入力
+<code class="docutils literal notranslate"><span class="pre">interpolant</span></code> の値を返す。
+<code class="docutils literal notranslate"><span class="pre">offset</span></code> の浮動小数点成分二つは、それぞれ <code class="docutils literal notranslate"><span class="pre">x</span></code> 方向と <code class="docutils literal notranslate"><span class="pre">y</span></code> 方向の画素単位のオフセットを表す。</p>
+<p>オフセットが <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">0)</span></code> の場合は画素の中心を表す。この関数が対処するオフセットの範囲と粒度は実装依存だ。</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="noise-functions">
+<h3><a class="toc-backref" href="#id28">8.15. Noise Functions</a><a class="headerlink" href="#noise-functions" title="Permalink to this headline">¶</a></h3>
+<p>ノイズ関数 <code class="docutils literal notranslate"><span class="pre">noise1</span></code>，<code class="docutils literal notranslate"><span class="pre">noise2</span></code>，<code class="docutils literal notranslate"><span class="pre">noise3</span></code>，<code class="docutils literal notranslate"><span class="pre">noise4</span></code> は GLSL 4.4 以降非推奨となった。
+SPIR-V を生成していない場合、これらの関数は 0.0 またはすべての成分が 0.0 であるベクトルを返すように定義される。
+SPIR-V を生成する際には、ノイズ関数は宣言されておらず、使用することはできない。</p>
+<p>以前のリリースと同様に、ノイズ関数はコンパイル時定数式とは意味的にみなされない。</p>
+<dl class="glossary simple">
+<dt id="term-float-noise1-genFType-x"><code class="docutils literal notranslate"><span class="pre">float</span> <span class="pre">noise1(genFType</span> <span class="pre">x)</span></code><a class="headerlink" href="#term-float-noise1-genFType-x" title="Permalink to this term">¶</a></dt><dt id="term-vec2-noise2-genFType-x"><code class="docutils literal notranslate"><span class="pre">vec2</span> <span class="pre">noise2(genFType</span> <span class="pre">x)</span></code><a class="headerlink" href="#term-vec2-noise2-genFType-x" title="Permalink to this term">¶</a></dt><dt id="term-vec3-noise3-genFType-x"><code class="docutils literal notranslate"><span class="pre">vec3</span> <span class="pre">noise3(genFType</span> <span class="pre">x)</span></code><a class="headerlink" href="#term-vec3-noise3-genFType-x" title="Permalink to this term">¶</a></dt><dt id="term-vec4-noise4-genFType-x"><code class="docutils literal notranslate"><span class="pre">vec4</span> <span class="pre">noise4(genFType</span> <span class="pre">x)</span></code><a class="headerlink" href="#term-vec4-noise4-genFType-x" title="Permalink to this term">¶</a></dt><dd><p>入力値 <code class="docutils literal notranslate"><span class="pre">x</span></code> に基づいて 1, 2, 3, 4 次元のノイズ値をそれぞれ返す。</p>
+</dd>
+</dl>
+</section>
+<section id="shader-invocation-control-functions">
+<h3><a class="toc-backref" href="#id29">8.16. Shader Invocation Control Functions</a><a class="headerlink" href="#shader-invocation-control-functions" title="Permalink to this headline">¶</a></h3>
+<p>シェーダー呼び出し制御機能は、多角形分割制御シェーダーと計算シェーダでしか利用可能でない。これは、パッチ（多角形分割制御シェーダーの場合）または作業ループ（計算シェーダーの場合）を処理するために使用される複数のシェーダー呼び出しの相対的な実行順序を制御するために使用される。他の方法では相対的な順序が未定義のまま実行される。</p>
+<dl class="glossary simple">
+<dt id="term-void-barrier"><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">barrier()</span></code><a class="headerlink" href="#term-void-barrier" title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">barrier()</span></code> の任意の静的インスタンスでは、単一の入力パッチに対する多角形分割制御シェーダの呼び出しすべてが、それを越えて継続することが許可される前にそれ（障壁）に入らなければならない。または単一の作業グループに対する計算シェーダーの呼び出しすべてが、それを越えて継続する前にそれに入らなければならない。</p>
+</dd>
+</dl>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">barrier()</span></code> はシェーダー呼び出し間の実行の部分的に定義された順序を与える。これにより、ある種のメモリーアクセスでは、
+<code class="docutils literal notranslate"><span class="pre">barrier()</span></code> のある静的インスタンスの前にある呼び出しによって書き込まれた値が、同じ <code class="docutils literal notranslate"><span class="pre">barrier()</span></code> の静的インスタンスの呼び出しの後にある他の呼び出しによって安全に読み取られることが保証される。これらの障壁呼び出しの間では、呼び出しが未定義の順序で実行される可能性があるため、多角形分割制御シェーダーの頂点単位またはパッチ単位出力変数の値、あるいは計算シェーダーの <code class="docutils literal notranslate"><span class="pre">shared</span></code> 変数の値は、
+<a class="reference internal" href="note4.html#output-variables"><span class="std std-ref">4.3.6. Output Variables</span></a> （多角形分割制御シェーダーの場合）および <a class="reference internal" href="note4.html#shared-variables"><span class="std std-ref">4.3.8. Shared Variables</span></a>
+（計算シェーダー用の場合）に挙げられているいくつかのケースで未定義となる。</p>
+<p>多角形分割制御シェーダーの場合、関数 <code class="docutils literal notranslate"><span class="pre">barrier()</span></code> はシェーダーの関数
+<code class="docutils literal notranslate"><span class="pre">main()</span></code> の中にしか置くことができず、どの制御フローの中でも呼び出すことができない。関数 <code class="docutils literal notranslate"><span class="pre">main()</span></code> 内の <code class="docutils literal notranslate"><span class="pre">return</span></code> 文の後に障壁を置くこともまた許されない。誤って配置された障壁はコンパイルエラーを引き起こす。</p>
+<p><code class="docutils literal notranslate"><span class="pre">barrier()</span></code> は制御フローに影響を与えるが、共有変数と多角形分割制御の出力変数へのメモリアクセスを同期させるに過ぎない。その他のメモリーアクセスについては、ある静的な <code class="docutils literal notranslate"><span class="pre">barrier()</span></code> のインスタンスに先立つ呼び出しによって書き込まれた値が、同じ静的な <code class="docutils literal notranslate"><span class="pre">barrier()</span></code> のインスタンスの呼び出しの後にある他の呼び出しによって安全に読み取られることを保証するものではない。これを達成するには <code class="docutils literal notranslate"><span class="pre">barrier()</span></code> とメモリー障壁の両方を使用する必要がある。</p>
+<p>計算シェーダーでは、関数 <code class="docutils literal notranslate"><span class="pre">barrier()</span></code> を制御フローの中に置くことができるが、その制御フローは一様制御フローでなければならない。つまり、障壁の実行に導かれるすべての制御式は動的一様な式でなければならない。これにより、シェーダーの呼び出しの何かが条件文に入る場合、呼び出しすべてが条件文に入ることになる。コンパイラーは、このようなことが起こらないかもしれないと検知できる場合には、警告を出すことが推奨されていますが、コンパイラーがこれを完全に判断することはできない。したがって、 <code class="docutils literal notranslate"><span class="pre">barrier()</span></code> が一様制御フローの中にしか存在しないようにするのは作者の責任だ。そうしないと、いくつかのシェーダー呼び出しは、他の呼び出しでは決して到達しない障壁を待機していつまでも動かないままになる。</p>
+</section>
+<section id="shader-memory-control-functions">
+<h3><a class="toc-backref" href="#id30">8.17. Shader Memory Control Functions</a><a class="headerlink" href="#shader-memory-control-functions" title="Permalink to this headline">¶</a></h3>
+<p>単一のシェーダー呼び出しの中では、その呼び出しによる書き込みの可視性と順序は明確に定義されている。しかし、複数の別々のシェーダー呼び出しによる単一の共有メモリーアドレスへの読み書きの相対的な順序は、ほとんど定義されていない。さらに、単一のシェーダ呼び出しによって実行される複数のメモリーアドレスへのアクセスの順序も、他のシェーダー呼び出しによって観察されるため、未定義だ。</p>
+<p>以下の組み込み関数を使って、読み書きの順序を制御することができる：</p>
+<dl class="glossary simple">
+<dt id="term-void-memoryBarrier"><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">memoryBarrier()</span></code><a class="headerlink" href="#term-void-memoryBarrier" title="Permalink to this term">¶</a></dt><dd><p>単一シェーダー呼び出しが発行するメモリートランザクションの順序を制御する。</p>
+</dd>
+<dt id="term-void-memoryBarrierAtomicCounter"><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">memoryBarrierAtomicCounter()</span></code><a class="headerlink" href="#term-void-memoryBarrierAtomicCounter" title="Permalink to this term">¶</a></dt><dd><p>単一シェーダー呼び出しが発行する不可分カウンター変数へのアクセスの順序を制御する。</p>
+</dd>
+<dt id="term-void-memoryBarrierBuffer"><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">memoryBarrierBuffer()</span></code><a class="headerlink" href="#term-void-memoryBarrierBuffer" title="Permalink to this term">¶</a></dt><dd><p>単一シェーダー呼び出し内で発行されたバッファー変数へのメモリートランザクションの順序を制御する。</p>
+</dd>
+<dt id="term-void-memoryBarrierShared"><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">memoryBarrierShared()</span></code><a class="headerlink" href="#term-void-memoryBarrierShared" title="Permalink to this term">¶</a></dt><dd><p>同じ作業グループ内の他の呼び出しから見て、単一シェーダー呼び出し内で発行された共有変数へのメモリートランザクションの順序を制御する。計算シェーダーでのみ使用可能。</p>
+</dd>
+<dt id="term-void-memoryBarrierImage"><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">memoryBarrierImage()</span></code><a class="headerlink" href="#term-void-memoryBarrierImage" title="Permalink to this term">¶</a></dt><dd><p>単一シェーダー呼び出し内で発行された画像に対するメモリートランザクションの順序を制御する。</p>
+</dd>
+<dt id="term-void-groupMemoryBarrier"><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">groupMemoryBarrier()</span></code><a class="headerlink" href="#term-void-groupMemoryBarrier" title="Permalink to this term">¶</a></dt><dd><p>同じ作業グループ内の他の呼び出しから見て、単一シェーダー呼び出し内で発行されたすべてのメモリートランザクションの順序を制御する。計算シェーダでのみ使用可能。</p>
+</dd>
+</dl>
+<p>メモリ障壁の組み込み関数は、他のシェーダー呼び出しがアクセス可能なメモリーに格納された変数への読み書きを順番に行うために使用できる。これらの関数は、呼び出されると、選択された変数型にアクセスする呼び出し元が以前に実行したすべての読み書きの完了を待機して、その後は何の影響も受けずに戻る。組み込み関数 <code class="docutils literal notranslate"><span class="pre">memoryBarrierAtomicCounter()</span></code>, <code class="docutils literal notranslate"><span class="pre">memoryBarrierBuffer()</span></code>,
+<code class="docutils literal notranslate"><span class="pre">memoryBarrierImage()</span></code>, <code class="docutils literal notranslate"><span class="pre">memoryBarrierShared()</span></code> は、それぞれ不可分カウンター、バッファー、画像、共有変数へのアクセスの完了を待機する。組み込み関数 <code class="docutils literal notranslate"><span class="pre">memoryBarrier()</span></code> および <code class="docutils literal notranslate"><span class="pre">groupMemoryBarrier()</span></code> は、上記のすべての変数型へのアクセスの完了を待機する。
+<code class="docutils literal notranslate"><span class="pre">memoryBarrierShared()</span></code> と <code class="docutils literal notranslate"><span class="pre">groupMemoryBarrier()</span></code> は計算シェーダーでのみ使用可能で、その他の関数はすべてのシェーダー型で使用可能だ。</p>
+<p>これらの関数が戻ってくると、呼び出しに先立って <code class="docutils literal notranslate"><span class="pre">coherent</span></code> 変数を使って実行されたメモリー格納の効果は、将来、他のシェーダー呼び出しによって同じメモリーに
+coherent access が行われても、それが見えるようになる <a class="footnote-reference brackets" href="#f1" id="id3">1</a>。特に、あるシェーダーの段階でこのように書き込まれた値は、後続の段階のシェーダー呼び出しによって実行された coherent memory access に対して、それらの呼び出しが元のシェーダー呼び出しの実行によって引き起こされた場合には見えることが保証されている。例えば、特定の幾何シェーダー呼び出しに起因する基本形状に対してのフラグメントシェーダー呼び出しなど。</p>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id3">1</a></span></dt>
+<dd><p>格納とロードの間に happens-before 関係が成立する場合にのみ、アクセスは将来のアクセスとなる。</p>
+</dd>
+</dl>
+<p>さらに、メモリー障壁機能は、他のシェーダー呼び出しから観察されるように、呼び出した呼び出しが実行する格納所を順序付ける。メモリー障壁がなければ、一つのシェーダー呼び出しが coherent 変数に二つの格納を実行すると、二番目のシェーダー呼び出しは、二番目の格納によって書き込まれた値を、一番目の格納によって書き込まれた値よりも先に見るかもしれない。しかし、最初のシェーダー呼び出しが二つの格納の間にメモリー障壁関数を呼び出した場合、選択された他のシェーダー呼び出しは、最初の格納の結果を見る前に二番目の格納の結果を見るようなことはない。
+<code class="docutils literal notranslate"><span class="pre">groupMemoryBarrier()</span></code> または <code class="docutils literal notranslate"><span class="pre">memoryBarrierShared()</span></code> 関数を使用する場合、この順序保証は同じ計算シェーダー作業グループ内の他のシェーダー呼び出しにしか適用されず、他のすべてのメモリー障壁関数は他のすべてのシェーダ呼び出しに保証を与える。メモリー格納を実行する起動が観測するメモリー格納の順序を保証するのにメモリ障壁は必要ない。以前に書き込んだ変数を読み出す呼び出しは、他のシェーダー起動が同じメモリーに書き込まない限り、常に最後に書き込まれた値を見ることになる。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">コメント</p>
+<p>この節は特に意味が解らない。</p>
+</div>
+</section>
+<section id="subpass-input-functions">
+<h3><a class="toc-backref" href="#id31">8.18. Subpass-Input Functions</a><a class="headerlink" href="#subpass-input-functions" title="Permalink to this headline">¶</a></h3>
+<p>サブパス入力関数は Vulkan フラグメント段階を対象にしている場合のみ利用可能だ。</p>
+<p>サブパス入力は次の組み込み関数で読み込まれる。再び <code class="docutils literal notranslate"><span class="pre">g</span></code> は文字なし、<code class="docutils literal notranslate"><span class="pre">i</span></code>, <code class="docutils literal notranslate"><span class="pre">u</span></code> のいずれかのプレースホルダーであって、浮動小数点、符号付き整数、符号なし整数のいずれかを示すものとする。これらは引数の型と戻り値の型が一致しなければならない：</p>
+<dl class="glossary simple">
+<dt id="term-gvec4-subpassLoad-gsubpassInput-subpass"><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">subpassLoad(gsubpassInput</span> <span class="pre">subpass)</span></code><a class="headerlink" href="#term-gvec4-subpassLoad-gsubpassInput-subpass" title="Permalink to this term">¶</a></dt><dt id="term-gvec4-subpassLoad-gsubpassInputMS-subpass-int-sample"><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">subpassLoad(gsubpassInputMS</span> <span class="pre">subpass,</span> <span class="pre">int</span> <span class="pre">sample)</span></code><a class="headerlink" href="#term-gvec4-subpassLoad-gsubpassInputMS-subpass-int-sample" title="Permalink to this term">¶</a></dt><dd><p>サブパス入力から現在のフラグメント座標の暗黙の位置 <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y,</span> <span class="pre">layer)</span></code>
+を読み取る。</p>
+</dd>
+</dl>
+</section>
+<section id="shader-invocation-group-functions">
+<h3><a class="toc-backref" href="#id32">8.19. Shader Invocation Group Functions</a><a class="headerlink" href="#shader-invocation-group-functions" title="Permalink to this headline">¶</a></h3>
+<p>OpenGL Shading Language の実装では、単一シェーダー段階に対する複数のシェーダー呼び出しを、オプションで単一 SIMD 呼び出しグループにグループ化することができ、呼び出しは未定義の実装依存の方法でグループに割り当てられる。このような実装上のシェーダーアルゴリズムでは、グループ内のすべてのアクティブな呼び出しに対して真偽値の合成を評価できることは有益だ。</p>
+<dl class="glossary simple">
+<dt id="term-bool-anyInvocation-bool-value"><code class="docutils literal notranslate"><span class="pre">bool</span> <span class="pre">anyInvocation(bool</span> <span class="pre">value)</span></code><a class="headerlink" href="#term-bool-anyInvocation-bool-value" title="Permalink to this term">¶</a></dt><dd><p>グループ内の少なくとも一つのアクティブな呼び出しにおいて <code class="docutils literal notranslate"><span class="pre">value</span></code> が真である場合に、かつその場合に限り真を返す。</p>
+</dd>
+<dt id="term-bool-allInvocations-bool-value"><code class="docutils literal notranslate"><span class="pre">bool</span> <span class="pre">allInvocations(bool</span> <span class="pre">value)</span></code><a class="headerlink" href="#term-bool-allInvocations-bool-value" title="Permalink to this term">¶</a></dt><dd><p>グループ内の呼び出しすべてについて <code class="docutils literal notranslate"><span class="pre">value</span></code> が真である場合に、かつその場合に限り真を返す。</p>
+</dd>
+<dt id="term-bool-allInvocationsEqual-bool-value"><code class="docutils literal notranslate"><span class="pre">bool</span> <span class="pre">allInvocationsEqual(bool</span> <span class="pre">value)</span></code><a class="headerlink" href="#term-bool-allInvocationsEqual-bool-value" title="Permalink to this term">¶</a></dt><dd><p>グループ内のアクティブな呼び出しすべてにおいて <code class="docutils literal notranslate"><span class="pre">value</span></code> が同じであれば真を返す。</p>
+</dd>
+</dl>
+<p>これらの関数において、グループ内のアクティブな呼び出しすべてに対して同じ結果が返される。</p>
+<p>これらの関数は、条件付きで実行されるコード内で呼び出すことができる。一部の呼び出しが関数呼び出しを実行しないグループでは、関数が返す値は、その呼び出しに対して値が十分に定義されている場合でも、その関数を呼び出さない呼び出しの影響を受けない。</p>
+<p>これらの関数は、定義されていない呼び出しグループの <code class="docutils literal notranslate"><span class="pre">value</span></code> の値に依存しているため、これらの関数が返す値はほとんど定義されていない。ただし、
+<code class="docutils literal notranslate"><span class="pre">anyInvocation()</span></code> は <code class="docutils literal notranslate"><span class="pre">value</span></code> が <code class="docutils literal notranslate"><span class="pre">true</span></code> の場合に <code class="docutils literal notranslate"><span class="pre">true</span></code> を返すことが保証されており、
+<code class="docutils literal notranslate"><span class="pre">allInvocations()</span></code> は <code class="docutils literal notranslate"><span class="pre">value</span></code> が <code class="docutils literal notranslate"><span class="pre">false</span></code> の場合に <code class="docutils literal notranslate"><span class="pre">false</span></code> を返すことが保証されている。</p>
+<p>実装では呼び出しをグループにまとめる必要はないので、
+<code class="docutils literal notranslate"><span class="pre">anyInvocation()``と</span> <span class="pre">``allInvocations()</span></code> で <code class="docutils literal notranslate"><span class="pre">value</span></code> を単に返し、
+<code class="docutils literal notranslate"><span class="pre">allInvocationsEqual()</span></code> で <code class="docutils literal notranslate"><span class="pre">true</span></code> を返せば、 これらの関数の合法的な実装となる。</p>
+<p>フラグメントシェーダーの場合、SIMD 呼び出しグループ内の呼び出しには、ラスタライズされている基本形状で被覆されている画素に対応する呼び出しと、被覆されていない近隣の画素に対応する呼び出しが含まれる。補助呼び出し (<a class="reference internal" href="note7.html#built-in-language-variables"><span class="std std-ref">7.1. Built-In Language Variables</span></a>) が作成されることもあり、そのような補助呼び出しの画素の値は、
+<code class="docutils literal notranslate"><span class="pre">anyInvocation()</span></code>, <code class="docutils literal notranslate"><span class="pre">allInvocations()</span></code>, <code class="docutils literal notranslate"><span class="pre">allInvocationsEqual()</span></code>
+が返す値に影響を与えることがある。</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="note9.html" title="OpenGL Shading Language 4.60 Specification 読書ノート Part 9"
+             >next</a></li>
+        <li class="right" >
+          <a href="note7.html" title="OpenGL Shading Language 4.60 Specification 読書ノート Part 7"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >OpenGL Shading Language 4.60 Specification 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">OpenGL Shading Language 4.60 Specification 読書ノート Part 8</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

@@ -34,37 +34,38 @@
           <div class="body" role="main">
             
   <section id="webgl">
-<h1><a class="toc-backref" href="#id16">WebGL 学習ノート</a><a class="headerlink" href="#webgl" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id15">WebGL 学習ノート</a><a class="headerlink" href="#webgl" title="Permalink to this headline">¶</a></h1>
 <p>WebGL プログラミングに関するノート。OpenGL についての私の知識が古くなってしまっているので、それも併せて学習していこう。</p>
 <p>現状、全然整理し切れていない。</p>
 <div class="contents topic" id="id1">
 <p class="topic-title">ノート目次</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#webgl" id="id16">WebGL 学習ノート</a></p>
+<li><p><a class="reference internal" href="#webgl" id="id15">WebGL 学習ノート</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id2" id="id17">資料</a></p></li>
-<li><p><a class="reference internal" href="#id3" id="id18">環境構築</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id19">手筋</a></p>
+<li><p><a class="reference internal" href="#id2" id="id16">資料</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id17">環境構築</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id18">手筋</a></p>
 <ul>
+<li><p><a class="reference internal" href="#id5" id="id19">未整理項目</a></p></li>
 <li><p><a class="reference internal" href="#hello-world" id="id20">Hello world</a></p></li>
 <li><p><a class="reference internal" href="#opengl-javascript" id="id21">OpenGL との相違点と JavaScript 固有の事情</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id22">キャンバス</a></p></li>
-<li><p><a class="reference internal" href="#id6" id="id23">アニメーション</a></p></li>
-<li><p><a class="reference internal" href="#id7" id="id24">イベント処理</a></p></li>
-<li><p><a class="reference internal" href="#id8" id="id25">ベクトル・行列・アフィン変換</a></p></li>
-<li><p><a class="reference internal" href="#id9" id="id26">テクスチャー・画像・ビデオ</a></p></li>
-<li><p><a class="reference internal" href="#id10" id="id27">テキスト</a></p></li>
-<li><p><a class="reference internal" href="#id11" id="id28">透過処理・アルファブレンディング</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id22">キャンバス</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id23">アニメーション</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id24">イベント処理</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id25">ベクトル・行列・アフィン変換</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id26">テクスチャー・画像・ビデオ</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id27">テキスト</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id28">透過処理・アルファーブレンディング</a></p></li>
 <li><p><a class="reference internal" href="#id13" id="id29">データフォーマット</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id15" id="id30">関連ノート</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id30">関連ノート</a></p></li>
 </ul>
 </li>
 </ul>
 </div>
 <section id="id2">
-<h2><a class="toc-backref" href="#id17">資料</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id16">資料</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>WebGL を学習するのに有益な資料を列挙する。</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.khronos.org/webgl/">WebGL Overview - The Khronos Group Inc</a>:
@@ -87,10 +88,11 @@ OpenGL の構成要素とのインターフェイスがこれに集中してい�
 C 言語で書かれたプログラムの解説だ。WebGL
 コードに書き換えるのといい練習になる。</p></li>
 <li><p><a class="reference external" href="https://webglfundamentals.org/">WebGL Fundamentals</a>: OpenGL のそれも含む基礎から学ぶ。このサイトの造りは恐ろしく良い。熟読推奨。</p></li>
+<li><p><a class="reference external" href="https://glmatrix.net/">glMatrix</a>: ベクトルや行列の演算をする JavaScript ライブラリー。効率を優先する必要があるからだろうが、インターフェイスに若干クセがある。</p></li>
 </ul>
 </section>
 <section id="id3">
-<h2><a class="toc-backref" href="#id18">環境構築</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id17">環境構築</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p>モダンなブラウザーとテキストエディター</p></li>
 <li><p>HTTP サーバーを起動できるようにしておく。例えば Python を使えるのならば次のコマンドでカレントディレクトリーをルートにしてサーバーが開始する。&lt;<a class="reference external" href="http://localhost:8000/">http://localhost:8000/</a>&gt; を開くと <code class="docutils literal notranslate"><span class="pre">./index.html</span></code> が表示される。</p>
@@ -101,8 +103,39 @@ C 言語で書かれたプログラムの解説だ。WebGL
 </ul>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id19">手筋</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id18">手筋</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>WebGL プログラミングの技法を思いつくまま、なるべく初歩的なものから高度なものに列挙する。</p>
+<section id="id5">
+<h3><a class="toc-backref" href="#id19">未整理項目</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p>WebGL 2 を使う場合</p>
+<ul>
+<li><p>GLSL コードの一行目は次の内容にする：</p>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#version 300 es</span>
+</pre></div>
+</div>
+<p>よりモダンなシェーダーの書き方を別途学習する必要がある。
+<code class="docutils literal notranslate"><span class="pre">layout(location</span> <span class="pre">=</span> <span class="pre">i)</span></code> 記法が利用できるのは大きい。</p>
+</li>
+<li><p>VAO を使う必要があるはず。次のような構造のコードができる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">vao</span> <span class="o">=</span> <span class="nx">gl</span><span class="p">.</span><span class="nx">createVertexArray</span><span class="p">();</span>
+<span class="nx">gl</span><span class="p">.</span><span class="nx">bindVertexArray</span><span class="p">(</span><span class="nx">vao</span><span class="p">);</span>
+
+<span class="c1">// gl.enableVertexAttribArray, gl.bindBuffer, etc.</span>
+
+<span class="nx">gl</span><span class="p">.</span><span class="nx">deleteVertexArray</span><span class="p">(</span><span class="nx">vao</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>シェーダーコードに次のような宣言が必要：</p>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">precision</span> <span class="k">highp</span> <span class="kt">float</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
 <section id="hello-world">
 <h3><a class="toc-backref" href="#id20">Hello world</a><a class="headerlink" href="#hello-world" title="Permalink to this headline">¶</a></h3>
 <ul>
@@ -151,8 +184,8 @@ WebGL にはこの種のメソッドがあと二つある。</p></li>
 ではなく JavaScript の基本型の <code class="docutils literal notranslate"><span class="pre">Boolean</span></code> であることに注意。これはハマった。</p></li>
 </ul>
 </section>
-<section id="id5">
-<h3><a class="toc-backref" href="#id22">キャンバス</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<section id="id6">
+<h3><a class="toc-backref" href="#id22">キャンバス</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>HTML の <code class="docutils literal notranslate"><span class="pre">canvas</span></code> タグの使い方を習得する。レンダリングコンテキストオブジェクトをここから得る。</p>
 <ul>
@@ -181,16 +214,16 @@ WebGL にはこの種のメソッドがあと二つある。</p></li>
 <li><p>CSS の <code class="docutils literal notranslate"><span class="pre">box-sizing:</span> <span class="pre">border-box</span></code> を理解すると何かとよい。</p></li>
 </ul>
 </section>
-<section id="id6">
-<h3><a class="toc-backref" href="#id23">アニメーション</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<section id="id7">
+<h3><a class="toc-backref" href="#id23">アニメーション</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>WebGL に限った話ではないが：</p>
 <ul class="simple">
 <li><p>JavaScript の関数 <code class="docutils literal notranslate"><span class="pre">requestAnimationFrame</span></code> の使い方を間違いなく習得すること。</p></li>
 <li><p>アニメーションをフレームレートに依存しないようにすること。前回描画時刻と現在との差分を利用する。</p></li>
 </ul>
 </section>
-<section id="id7">
-<h3><a class="toc-backref" href="#id24">イベント処理</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<section id="id8">
+<h3><a class="toc-backref" href="#id24">イベント処理</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <ul>
 <li><p>キャンバスでキーボードイベントを扱う場合には <code class="docutils literal notranslate"><span class="pre">tabindex</span></code> 属性の値を HTML で設定する。</p>
 <ul class="simple">
@@ -215,8 +248,8 @@ WebGL にはこの種のメソッドがあと二つある。</p></li>
 </li>
 </ul>
 </section>
-<section id="id8">
-<h3><a class="toc-backref" href="#id25">ベクトル・行列・アフィン変換</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<section id="id9">
+<h3><a class="toc-backref" href="#id25">ベクトル・行列・アフィン変換</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <ul>
 <li><p>ベクトルや行列を仮引数にとる関数を自作する場合、成分の個数に気を配ること。ダサいのを覚悟で、成分数を決め打ちしたコードを定義するのが無難だ。</p>
 <p>ベクトルの単位化を計算するコードを書いたときに、格好つけて
@@ -231,7 +264,7 @@ WebGL にはこの種のメソッドがあと二つある。</p></li>
 </pre></div>
 </div>
 </li>
-<li><p><a class="reference external" href="https://glmatrix.net/">https://glmatrix.net/</a> から <code class="docutils literal notranslate"><span class="pre">gl-matrix-min.js</span></code>
+<li><p>上述の glMatrix のサイトから <code class="docutils literal notranslate"><span class="pre">gl-matrix-min.js</span></code>
 を入手しておくとよい。適当に unminify して <code class="docutils literal notranslate"><span class="pre">s/var/let/g</span></code>
 するとさらに良い。</p>
 <ul class="simple">
@@ -241,8 +274,8 @@ WebGL にはこの種のメソッドがあと二つある。</p></li>
 </li>
 </ul>
 </section>
-<section id="id9">
-<h3><a class="toc-backref" href="#id26">テクスチャー・画像・ビデオ</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<section id="id10">
+<h3><a class="toc-backref" href="#id26">テクスチャー・画像・ビデオ</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <ul>
 <li><p>画像ファイルからテクスチャーを生成するのに JavaScript のクラス
 <code class="docutils literal notranslate"><span class="pre">Image</span></code> を活用することをよく理解すること。特に <code class="docutils literal notranslate"><span class="pre">onload</span></code>
@@ -270,10 +303,16 @@ WebGL にはこの種のメソッドがあと二つある。</p></li>
 </pre></div>
 </div>
 </li>
+<li><p>DirectX 由来のデータ形式はテクスチャー座標が垂直軸方向に反転していると思っていい。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,</span> <span class="pre">true)</span></code></p></li>
+<li><p>圧縮テクスチャーから <code class="docutils literal notranslate"><span class="pre">gl.compressedTexImage2D</span></code> で座標データを展開するときには、手動で座標成分を <code class="docutils literal notranslate"><span class="pre">t</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">-</span> <span class="pre">t</span></code> するのが無難だ。</p></li>
+</ul>
+</li>
 </ul>
 </section>
-<section id="id10">
-<h3><a class="toc-backref" href="#id27">テキスト</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<section id="id11">
+<h3><a class="toc-backref" href="#id27">テキスト</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>キャンバスの上に HTML の何らかの要素を CSS の能力でオーバーレイすればとりあえずはテキストを描ける。</p></li>
 <li><p>やりたいことが 3D シーン内にある何かに対して相対的な位置にテキストを描くことならば、射影計算を JavaScript 内でやることになる。</p></li>
@@ -284,26 +323,26 @@ WebGL にはこの種のメソッドがあと二つある。</p></li>
 <li><p>WebGL に限らないが、動的に内容が変化するテキストを描画することは、コストがかかる。</p></li>
 </ul>
 </section>
-<section id="id11">
-<h3><a class="toc-backref" href="#id28">透過処理・アルファブレンディング</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
-<div class="admonition-todo admonition" id="id12">
-<p class="admonition-title">Todo</p>
-<p>書くことがあるはずだ。</p>
+<section id="id12">
+<h3><a class="toc-backref" href="#id28">透過処理・アルファーブレンディング</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>特に C で書かれたチュートリアルを WebGL に移植するときに問題になるのがアルファーの扱いだ。ベタ移植して出力イメージが何かおかしいときにはアルファーの扱いの違いが原因になっていることがある。次のようにしてもう一度実行して画像をチェックしろ：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">gl</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s1">&#39;webgl&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">alpha</span><span class="o">:</span> <span class="kc">false</span><span class="p">});</span>
+</pre></div>
 </div>
 </section>
 <section id="id13">
 <h3><a class="toc-backref" href="#id29">データフォーマット</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
-<div class="admonition-todo admonition" id="id14">
-<p class="admonition-title">Todo</p>
-<p>実装が完全であるとは保証されていないが、Blender の <code class="docutils literal notranslate"><span class="pre">.obj</span></code> ファイルや <code class="docutils literal notranslate"><span class="pre">.mtl</span></code> ファイルを解析して
-JavaScript オブジェクトに変換するライブラリーがあるらしい。</p>
-</div>
+<ul class="simple">
+<li><p>Blender OBJ フォーマットのローダーはインターネットに転がっているので、そのまま拝借する。自作してもいいが、それにより得られる経験値は多くはない。あるものを利用するほうがいい。</p></li>
+<li><p>DDS のローダーを書くのはそこまで難しくはない。&lt;<a class="reference external" href="https://gist.github.com/showa-yojyo/a21b1feb0dca84bcc61fe50c4c00c714">https://gist.github.com/showa-yojyo/a21b1feb0dca84bcc61fe50c4c00c714</a>&gt;</p></li>
+</ul>
 </section>
 </section>
-<section id="id15">
-<h2><a class="toc-backref" href="#id30">関連ノート</a><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<section id="id14">
+<h2><a class="toc-backref" href="#id30">関連ノート</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="haverbeke18/index.html"><span class="doc">Eloquent JavaScript 読書ノート</span></a>: 三周くらい読めば JavaScript プログラミングは大丈夫。</p></li>
+<li><p><a class="reference internal" href="webgl-1.0/index.html"><span class="doc">WebGL Specification 1.0 読書ノート</span></a></p></li>
 <li><p><a class="reference internal" href="angel05/index.html"><span class="doc">OpenGL: A Primer Second Edition 読書ノート</span></a>: 古い OpenGL の概念がどれくらい生き残っているのかを確かめられる。</p></li>
 </ul>
 </section>

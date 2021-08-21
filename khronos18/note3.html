@@ -1,0 +1,379 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>OpenGL Shading Language 4.60 Specification 読書ノート Part 3 &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
+    
+    <script src="../_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="OpenGL Shading Language 4.60 Specification 読書ノート Part 4" href="note4.html" />
+    <link rel="prev" title="OpenGL Shading Language 4.60 Specification 読書ノート Part 2" href="note2.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="note4.html" title="OpenGL Shading Language 4.60 Specification 読書ノート Part 4"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="note2.html" title="OpenGL Shading Language 4.60 Specification 読書ノート Part 2"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">OpenGL Shading Language 4.60 Specification 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">OpenGL Shading Language 4.60 Specification 読書ノート Part 3</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="opengl-shading-language-4-60-specification-part-3">
+<h1><a class="toc-backref" href="#id2">OpenGL Shading Language 4.60 Specification 読書ノート Part 3</a><a class="headerlink" href="#opengl-shading-language-4-60-specification-part-3" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.html#basics">仕様書該当部分</a></p>
+<div class="contents topic" id="id1">
+<p class="topic-title">ノート目次</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#opengl-shading-language-4-60-specification-part-3" id="id2">OpenGL Shading Language 4.60 Specification 読書ノート Part 3</a></p>
+<ul>
+<li><p><a class="reference internal" href="#basics" id="id3">3. Basics</a></p>
+<ul>
+<li><p><a class="reference internal" href="#character-set-and-phases-of-compilation" id="id4">3.1. Character Set and Phases of Compilation</a></p></li>
+<li><p><a class="reference internal" href="#source-strings" id="id5">3.2. Source Strings</a></p></li>
+<li><p><a class="reference internal" href="#preprocessor" id="id6">3.3. Preprocessor</a></p></li>
+<li><p><a class="reference internal" href="#comments" id="id7">3.4. Comments</a></p></li>
+<li><p><a class="reference internal" href="#tokens" id="id8">3.5. Tokens</a></p></li>
+<li><p><a class="reference internal" href="#keywords" id="id9">3.6. Keywords</a></p></li>
+<li><p><a class="reference internal" href="#identifiers" id="id10">3.7. Identifiers</a></p></li>
+<li><p><a class="reference internal" href="#definitions" id="id11">3.8. Definitions</a></p></li>
+<li><p><a class="reference internal" href="#static-use" id="id12">3.8.1. Static Use</a></p></li>
+<li><p><a class="reference internal" href="#dynamically-uniform-expressions-and-uniform-control-flow" id="id13">3.8.2. Dynamically Uniform Expressions and Uniform Control Flow</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="basics">
+<h2><a class="toc-backref" href="#id3">3. Basics</a><a class="headerlink" href="#basics" title="Permalink to this headline">¶</a></h2>
+<section id="character-set-and-phases-of-compilation">
+<h3><a class="toc-backref" href="#id4">3.1. Character Set and Phases of Compilation</a><a class="headerlink" href="#character-set-and-phases-of-compilation" title="Permalink to this headline">¶</a></h3>
+<p>OpenGL Shading Language に使用されるソースコードを構成する文字集合は UTF-8 符号規格の Unicode だ。</p>
+<p>前処理後の GLSL トークンのストリームでは、以下の文字だけが使用可能だ：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[a-zA-Z_]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[0-9]</span></code></p></li>
+<li><p>記号各種</p></li>
+</ul>
+<p>それ以外の文字を GLSL のトークンに使用した場合は、コンパイル時にエラーになる。</p>
+<ul class="simple">
+<li><p>行は、コンパイラーの診断メッセージや前処理器に関係する。</p></li>
+<li><p>行は、キャリッジリターンまたはラインフィードで終了する。</p></li>
+<li><p>両者が同時に使用された場合は、一つの行終端としてカウントされる。</p></li>
+<li><p>この文書では、これらの組み合わせを単に改行と呼ぶことにする。</p></li>
+<li><p>行の長さは自由に設定できる。</p></li>
+<li><p>一般的に、この言語では文字集合の大文字と小文字を区別する。</p></li>
+<li><p>文字や文字列のデータ型がないため、引用符文字も含まれない。</p></li>
+<li><p>ファイル終端文字もない。</p></li>
+</ul>
+<p>より正式には、コンパイルは以下の論理的局面が順番に実行されるように行われる：</p>
+<ol class="arabic simple">
+<li><p>ソースとなる文字列が連結され、単一の入力となる。改行はすべて保持される。</p></li>
+<li><p>行番号は、現在のすべての改行に基づいて表示され、後に改行が削除されても変更されない。</p></li>
+<li><p>改行の直前にバックスラッシュがある場合は、両方とも削除される（空白は置換されないので、一つのトークンが改行をまたぐことができる)。新たに生成されたバックスラッシュと改行は取り除かれず、局面 1. 以降に最初に生成された対しか取り除かれない。</p></li>
+<li><p>すべてのコメントは単一の空白文字で置き換えられる。ただし、
+<code class="docutils literal notranslate"><span class="pre">//</span></code> スタイルのコメントは、終了する改行の前で終わり、空白は一般的に前処理に関係する。</p></li>
+<li><p>前処理が行われ、上記の文字集合から形成された GLSL トークンの一連の並びが得られる。</p></li>
+<li><p>GLSL トークンの連なりに対して GLSL 処理が行われる。</p></li>
+</ol>
+</section>
+<section id="source-strings">
+<h3><a class="toc-backref" href="#id5">3.2. Source Strings</a><a class="headerlink" href="#source-strings" title="Permalink to this headline">¶</a></h3>
+<p>単一のシェーダーに対するソースとは、文字集合の文字列の配列だ。単一のシェーダーはこれらの文字列を連結したものからなる。各文字列は改行で区切られた複数の行を含むことができる。一つの文字列の中に改行がある必要はなく、複数の文字列から単一行を形成することができる。文字列を連結して単一シェーダーを形成する際には、実装は改行やその他の文字を挿入しない。複数のシェーダーをリンクして単一のプログラムにすることができる。</p>
+<p>シェーダーのコンパイルから返される診断メッセージは、文字列内の行番号と、そのメッセージがどのソース文字列に該当するかの両方を特定する必要がある。ソース文字列は、最初の文字列を文字列 0 として順次カウントされる。行番号は、処理された新しい行の数よりも一つ多くなるが、これには、行継続文字によって削除される新しい行をカウントすることも含まれる。</p>
+<p>改行 (a new-line) の前にあって、行継続文字により区切られた行（複数形）は、コメント処理や前処理の前に連結される。これは行継続文字の代わりに空白文字が使われることはないことを意味する。すなわち、ある行の終わりの文字とその次の行の始まりの文字を連結することで、単一トークンが形成される。</p>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span>// equivalent to &quot;float foo;&quot;
+float f\
+oo;
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Pygments (2.9.0) は上記コード片を正しくハイライトできない。</p>
+</div>
+</section>
+<section id="preprocessor">
+<h3><a class="toc-backref" href="#id6">3.3. Preprocessor</a><a class="headerlink" href="#preprocessor" title="Permalink to this headline">¶</a></h3>
+<p>コンパイルの一環としてソース文字列を処理する前処理器がある。後で記す点を除けば C++ 標準の前処理器として動作する。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>指示子の一覧省略。</p>
+</div>
+<p>各記号 <code class="docutils literal notranslate"><span class="pre">#</span></code> は、その行の前に空白またはタブしか置くことができない。また、空白やタブを、指令の前に置くこともできる。各指令は改行で終了する。前処理では、文字列中の改行の数や相対的な位置は変更されない。前処理は、行継続文字によって改行が取り除かれた後に行われる。</p>
+<p>行中の記号 <code class="docutils literal notranslate"><span class="pre">#</span></code> は無視される。上記以外の指令は、コンパイル時にエラーになる。</p>
+<p>C++ 前処理器の標準機能である <code class="docutils literal notranslate"><span class="pre">#define</span></code> および <code class="docutils literal notranslate"><span class="pre">#undef</span></code> 機能は、マクロパラメーターを持つマクロ定義と持たないマクロ定義の両方で定義される。</p>
+<hr class="docutils" />
+<p>以下の定義済みマクロが用意されている：</p>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="n">__LINE__</span>
+<span class="n">__FILE__</span>
+<span class="n">__VERSION__</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">__LINE__</span></code> は、現在のソース文字列における先行する改行数よりも 1 多い十進数の整数定数に置換される。</p>
+<p><code class="docutils literal notranslate"><span class="pre">__FILE__</span></code> は、どのソース文字列番号が現在処理されているのかを示す十進数の整数定数に置換される。</p>
+<p><code class="docutils literal notranslate"><span class="pre">__VERSION__</span></code> は、OpenGL シェーディング言語のバージョン番号を反映した十進数の整数に置換される。この文書によるシェーディング言語のバージョンは 460 に置換される。</p>
+<p>慣習上、二つ以上の連続したアンダースコアを含むすべてのマクロ名は、下位のソフトウェア層が使用するために予約済みだ。シェーダー内でこのような名前を定義したり定義解除したりしても、それ自体がエラーになることはないものの、同じ名前が複数定義されていることに起因する意図しない動作が発生する可能性がある。また、<code class="docutils literal notranslate"><span class="pre">GL_</span></code> から始まるマクロ名もすべて予約済みで、このような名前を定義したり、定義解除したりすると、コンパイル時にエラーになる。</p>
+<p>実装では、マクロ名の長さを最大 1024 文字までサポートする必要がある。実装では、1024 文字を超える長さのマクロ名に対してエラーを生成することも、そのようなマクロ名をサポートすることも許可されている。</p>
+<hr class="docutils" />
+<p><code class="docutils literal notranslate"><span class="pre">#if</span></code>, <code class="docutils literal notranslate"><span class="pre">#ifdef</span></code>, <code class="docutils literal notranslate"><span class="pre">#ifndef</span></code>, <code class="docutils literal notranslate"><span class="pre">#else</span></code>, <code class="docutils literal notranslate"><span class="pre">#elif</span></code>, <code class="docutils literal notranslate"><span class="pre">#endif</span></code> は、以下の点を除き、C++ 前処理器の標準的な動作をするように定義されている：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">#if</span></code> および <code class="docutils literal notranslate"><span class="pre">#elif</span></code> に続く式は次の二つに制限される：</p>
+<ul>
+<li><p>リテラルの整数定数と、</p></li>
+<li><p>演算子 <code class="docutils literal notranslate"><span class="pre">defined</span></code> によって消費される識別子を操作する式</p></li>
+</ul>
+</li>
+<li><p>文字定数は対処されていない。</p></li>
+</ul>
+<hr class="docutils" />
+<p>使用できる演算子の表省略。</p>
+<hr class="docutils" />
+<p>演算子 <code class="docutils literal notranslate"><span class="pre">defined</span></code> は、以下のいずれかの方法で使用できる：</p>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">defined</span></code> <em>identifier</em></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">defined</span></code> <code class="docutils literal notranslate"><span class="pre">(</span></code> <em>identifier</em> <code class="docutils literal notranslate"><span class="pre">)</span></code></div>
+</div>
+<p>マクロ内の二つのトークンは C++ 前処理器で標準的に使用されているトークン貼り付け演算子 <code class="docutils literal notranslate"><span class="pre">##</span></code> を使用して一つのトークンに連結できる。結果は一つの有効トークンでなければならず、そのトークンはマクロ展開の対象となる。つまり、マクロ展開はトークン貼り付けの後にしか行われない。その他の数字記号に基づく演算子 (<code class="docutils literal notranslate"><span class="pre">#</span></code>, <code class="docutils literal notranslate"><span class="pre">#&#64;</span></code>, etc.) はなく、演算子 <code class="docutils literal notranslate"><span class="pre">sizeof</span></code> もない。</p>
+<p>前処理器で整数リテラルに演算子を適用する際の意味論は OpenGL Shading Language
+のものではなく、C++ 前処理器の標準的なものと一致する。</p>
+<p>前処理器の式は、シェーダーが対象とする処理器ではなく、ホスト処理器の動作に従って評価される。</p>
+<p><code class="docutils literal notranslate"><span class="pre">#error</span></code> が発生すると、実装はコンパイル時の診断メッセージをシェーダーオブジェクトの情報ログに記録する。メッセージは <code class="docutils literal notranslate"><span class="pre">#error</span></code> 指令に続くトークンで、最初の改行までとなる。実装では <code class="docutils literal notranslate"><span class="pre">#error</span></code> 指令の存在をコンパイルエラーとして扱わなければならない。</p>
+<p><code class="docutils literal notranslate"><span class="pre">#pragma</span></code> は、実装依存コンパイラー制御を許す。
+<code class="docutils literal notranslate"><span class="pre">#pragma</span></code> に続くトークンは、前処理器のマクロ展開の対象にはならない。実装が <code class="docutils literal notranslate"><span class="pre">#pragma</span></code> に続くトークンを認識しない場合は、それを無視する。次の pragmas は言語の一部として定義されている：</p>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#pragma STDGL</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">STDGL</span></code> pragma は、この言語の将来の改訂版で使用するための pragma を予約するために使用される。どのような実装でも、最初のトークンが <code class="docutils literal notranslate"><span class="pre">STDGL</span></code> である pragma を使用することは許さない。</p>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#pragma optimize(on)</span>
+<span class="cp">#pragma optimize(off)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">optimize</span></code> pragma はシェーダーの開発やデバッグを支援するために、最適化をオフにするために使用できる。これは、関数定義の外側でしか使用できない。既定では、すべてのシェーダーで <code class="docutils literal notranslate"><span class="pre">optimize</span></code> がオンになっている。</p>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#pragma debug(on)</span>
+<span class="cp">#pragma debug(off)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">debug</span></code> pragma はデバッグ情報を付加してシェーダーをコンパイルし、デバッガーでそれを使用できるようにするために使用される。この pragma は、関数定義の外側でしか使用できない。既定では <code class="docutils literal notranslate"><span class="pre">debug</span></code> はオフになっている。</p>
+<p>シェーダーは言語のバージョンを宣言する必要がある。それは次のように指定される：</p>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#version number profile_opt</span>
+</pre></div>
+</div>
+<p>ここで <code class="docutils literal notranslate"><span class="pre">number</span></code> は言語のバージョンでなければならず、上記の __VERSION__ と同じ規則に従う。言語のバージョン 4.60 を使用するシェーダーでは <code class="docutils literal notranslate"><span class="pre">#version</span> <span class="pre">460</span></code> という指令が必要だ。コンパイラーが対処していない言語のバージョンを表す数字を入力すると、コンパイルエラーが発生する。言語のバージョン 1.10 では、シェーダーにこの指令を含める必要はない。
+<code class="docutils literal notranslate"><span class="pre">#version</span></code> 指令を含まないシェーダーは、バージョン 1.10 を対象としているものとして扱われる。バージョン 100, 300, 310 を指定したシェーダーは、
+OpenGL ES Shading Language のバージョン 1.00, 3.00, 3.10 を対象としたものとしてそれぞれ扱われる。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">コメント</p>
+<p>WebGL をやるときに特にこの知識が必要になる。</p>
+</div>
+<p>オプションの <code class="docutils literal notranslate"><span class="pre">profile</span></code> 引数を指定する場合は、
+OpenGL プロファイルの名前である必要がある。現在、選択肢が三つある：</p>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">core</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">compatibility</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">es</span></code></div>
+</div>
+<p>引数 <code class="docutils literal notranslate"><span class="pre">profile</span></code> はバージョン 150 以上でしか使用できない。引数 <code class="docutils literal notranslate"><span class="pre">profile</span></code> が指定されておらず、バージョンが 150 以上の場合、既定は <code class="docutils literal notranslate"><span class="pre">core</span></code> だ。バージョン 300 または 310 が指定されている場合、引数 <code class="docutils literal notranslate"><span class="pre">profile</span></code> はオプションではなく <code class="docutils literal notranslate"><span class="pre">es</span></code> でなければならず、そうでない場合はコンパイルエラーとなる。
+<code class="docutils literal notranslate"><span class="pre">es</span></code> プロファイルの言語仕様は The OpenGL ES Shading Language specification で規定されている。</p>
+<p>異なるバージョンを宣言している <code class="docutils literal notranslate"><span class="pre">core</span></code> または <code class="docutils literal notranslate"><span class="pre">compatibility</span></code> プロファイルのシェーダーを一緒にリンクすることができる。ただし、
+<code class="docutils literal notranslate"><span class="pre">es</span></code> プロファイルのシェーダーを非 <code class="docutils literal notranslate"><span class="pre">es</span></code> プロファイルのシェーダーやバージョンの異なる <code class="docutils literal notranslate"><span class="pre">es</span></code> プロファイルのシェーダーとリンクすることはできず、リンクエラーとなる。これらの規則で許可されたバージョンのシェーダーをリンクする場合、残りのリンクエラーは、シェーダーがリンクされているコンテキストのバージョンに対応する
+GLSL バージョンのリンク規則に従って与えられる。シェーダーのコンパイルエラーは、各シェーダー内で宣言された（または既定で設定された）バージョンに厳密に基づいて与えられなければならない。</p>
+<p>特に指定のない限り、本仕様書はコアプロファイルを文書化しており、コアプロファイルに指定されているものはすべて互換性プロファイルでも利用可能だ。互換性プロファイルに特に属すると指定された機能は、コアプロファイルでは利用可能でない。互換性プロファイルの機能は SPIR-V の生成時には利用可能でない。</p>
+<p>実装がサポートする各プロファイルには組み込みマクロ定義がある。すべての実装には次のマクロが用意されている：</p>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#define GL_core_profile 1</span>
+</pre></div>
+</div>
+<p>互換性プロファイルを提供する実装には次のマクロが用意されている：</p>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#define GL_compatibility_profile 1</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">es</span></code> プロファイルを提供する実装では、次のマクロが用意されている：</p>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#define GL_es_profile 1</span>
+</pre></div>
+</div>
+<p>シェーダーの中では、コメントや空白を除いて、何よりも先に
+<code class="docutils literal notranslate"><span class="pre">#version</span></code> 指令を記述しなければならない。</p>
+<p>既定では、この言語のコンパイラーは、この仕様に適合していないシェーダーに対してコンパイル時に字句エラーや文法エラーを出さなければならない。どんな拡張された動作も、最初に有効にする必要がある。拡張機能に関するコンパイラーの動作を制御するための指令は <code class="docutils literal notranslate"><span class="pre">#extension</span></code> 指令で宣言される：</p>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#extension extension_name : behavior</span>
+<span class="cp">#extension all : behavior</span>
+</pre></div>
+</div>
+<p>ここで <code class="docutils literal notranslate"><span class="pre">extension_name</span></code> は拡張の名前だ。拡張の名前は当仕様では文書化されていない。トークン <code class="docutils literal notranslate"><span class="pre">all</span></code> はその動作がコンパイラーで対処されている拡張子すべてに適用されることを意味する。動作は以下のいずれかになる：</p>
+<dl class="glossary">
+<dt id="term-require"><code class="docutils literal notranslate"><span class="pre">require</span></code><a class="headerlink" href="#term-require" title="Permalink to this term">¶</a></dt><dd><p>拡張 <code class="docutils literal notranslate"><span class="pre">extension_name</span></code> で指定されたとおりに動作する。</p>
+<p>拡張 <code class="docutils literal notranslate"><span class="pre">extension_name</span></code> が対処されていない場合や、
+<code class="docutils literal notranslate"><span class="pre">all</span></code> が指定されている場合は <code class="docutils literal notranslate"><span class="pre">#extension</span></code> に対するコンパイルエラーとなる。</p>
+</dd>
+<dt id="term-enable"><code class="docutils literal notranslate"><span class="pre">enable</span></code><a class="headerlink" href="#term-enable" title="Permalink to this term">¶</a></dt><dd><p>拡張 <code class="docutils literal notranslate"><span class="pre">extension_name</span></code> で指定されたとおりに動作する。</p>
+<p>拡張 <code class="docutils literal notranslate"><span class="pre">extension_name</span></code> が対処されていない場合 <code class="docutils literal notranslate"><span class="pre">#extension</span></code> に警告する。
+<code class="docutils literal notranslate"><span class="pre">all</span></code> が指定されている場合は <code class="docutils literal notranslate"><span class="pre">#extension</span></code> に対するコンパイルエラーとなる。</p>
+</dd>
+<dt id="term-warn"><code class="docutils literal notranslate"><span class="pre">warn</span></code><a class="headerlink" href="#term-warn" title="Permalink to this term">¶</a></dt><dd><p>拡張 <code class="docutils literal notranslate"><span class="pre">extension_name</span></code> で指定されたとおりに動作する。ただし、他の有効または必須の拡張で対処されている場合を除き、その拡張の使用が検出された場合は警告を発する。</p>
+<p><code class="docutils literal notranslate"><span class="pre">all</span></code> が指定された場合、使用されているすべての拡張の検出可能な使用に対して警告する。</p>
+<p>拡張 <code class="docutils literal notranslate"><span class="pre">extension_name</span></code> が対処されていない場合は <code class="docutils literal notranslate"><span class="pre">#extension</span></code> に対して警告する。</p>
+</dd>
+<dt id="term-disable"><code class="docutils literal notranslate"><span class="pre">disable</span></code><a class="headerlink" href="#term-disable" title="Permalink to this term">¶</a></dt><dd><p>Warn on the #extension if the extension extension_name is not supported.
+拡張 <code class="docutils literal notranslate"><span class="pre">extension_name</span></code> が言語定義に含まれていないかのような動作（エラーや警告を含む）をする。</p>
+<p><code class="docutils literal notranslate"><span class="pre">all</span></code> が指定された場合は、コンパイル先の言語の拡張されていないコアバージョンの動作に撤回しなければならない。</p>
+<p>拡張 <code class="docutils literal notranslate"><span class="pre">extension_name</span></code> が対処されていない場合は <code class="docutils literal notranslate"><span class="pre">#extension</span></code> に対して警告する。</p>
+</dd>
+</dl>
+<p>The all variant sets the behavior for all extensions, overriding all previously issued extension directives, but only for the behaviors warn and disable.
+<code class="docutils literal notranslate"><span class="pre">extension</span></code> 指令は、各拡張の動作を設定するための単純で低水準の仕組みだ。どのような組み合わせが適切なのかといったポリシーは定義しない。各拡張の動作を設定する際には、指令の順番が重要だ。遅れて出てきた指令は早く出てきたものを上書きする。
+<code class="docutils literal notranslate"><span class="pre">all</span></code> の変種は拡張すべてに対する動作を設定し、以前に発令されたすべての拡張機能の指令を上書きするが、
+<code class="docutils literal notranslate"><span class="pre">warn</span></code> と <code class="docutils literal notranslate"><span class="pre">disable</span></code> の動作しか上書きされない。</p>
+<p>コンパイラーの初期状態は、あたかも指令：</p>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#extension all : disable</span>
+</pre></div>
+</div>
+<p>すべてのエラーや警告の報告は、この仕様に基づいて行われなければならず、拡張は無視されることをコンパイラに伝える。が発令されたかのように、「すべてのエラーや警告の報告はこの仕様に基づいて行われなければならず、拡張は無視される」ことをコンパイラーに教える。</p>
+<p>各拡張は、許容されるスコープの粒度を定義することができる。何も言われなければ、粒度はシェーダー（つまり単一コンパイル単位）で、拡張指示は前処理器以外のトークンの前でなければならない。必要であれば、リンカーは単一コンパイル単位よりも大きな粒度を強制することができる。その場合、関係する各シェーダーは必要な拡張指令を含まなければならない。</p>
+<p>マクロの展開は <code class="docutils literal notranslate"><span class="pre">#extension</span></code> と <code class="docutils literal notranslate"><span class="pre">#version</span></code> 指令を含む行では行われない。</p>
+<p><code class="docutils literal notranslate"><span class="pre">#line</span></code> はマクロ置換後、次のいずれかの形式とならなければならない：</p>
+<div class="line-block">
+<div class="line">#line <em>line</em></div>
+<div class="line">#line <em>line</em> <em>source-string-number</em></div>
+</div>
+<p>ここで <em>line</em> と <em>source-string-number</em> は定整数式だ。これらの定数式が整数リテラルでない場合の動作は未定義だ。この指令（改行を含む）を処理した後、実装はまるで行番号 <em>line</em> とソース文字列番号
+<em>source-string-number</em> でコンパイルしているかのように動作する。後続のソース文字列は、他の <code class="docutils literal notranslate"><span class="pre">#line</span></code> 指令がその番号を上書きするまで、連続して番号が付けられる。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">#line</span></code> 指令の中で定数表現を許可している実装と、そうでない実装がある。式が対処される場合でも、文法が曖昧なので、結果は実装依存となる。例えば：</p>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#line +2 +2 // Line number set to 4, or file to 2 and line to 2</span>
+</pre></div>
+</div>
+</div>
+<p>OpenGL SPIR-V 用にシェーダーをコンパイルした場合、次の定義済みマクロが利用できる：</p>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#define GL_SPIRV 100</span>
+</pre></div>
+</div>
+<p>Vulkan を対象にする場合、次の定義済みマクロが利用できる：</p>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#define VULKAN 100</span>
+</pre></div>
+</div>
+</section>
+<section id="comments">
+<h3><a class="toc-backref" href="#id7">3.4. Comments</a><a class="headerlink" href="#comments" title="Permalink to this headline">¶</a></h3>
+<p>コメントは <code class="docutils literal notranslate"><span class="pre">/*</span></code> と <code class="docutils literal notranslate"><span class="pre">*/</span></code>、または <code class="docutils literal notranslate"><span class="pre">//</span></code> と改行で区切られる。コメント開始時の区切りパターンは、コメント内ではそれとして認識されないため、コメントを入れ子にすることはできない。コメント <code class="docutils literal notranslate"><span class="pre">/*</span></code> はコメント終了時の区切りパターン <code class="docutils literal notranslate"><span class="pre">*/</span></code> を含む。しかし <code class="docutils literal notranslate"><span class="pre">//</span></code> コメントは終端の改行を含まない（つまり排除する）。</p>
+<p>コメント内では、値が 0 のバイトを除き、任意のバイト値を使用することができる。コメントの内容については、エラーは発生せず、コメントの内容を検証する必要もない。</p>
+<p>コメントが処理される前に、論理的には行継続文字による改行の除去が行われる。つまり、文字 <code class="docutils literal notranslate"><span class="pre">\</span></code> で終わる単一行コメントは、次の行も含めてコメントになる。</p>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="c1">// a single-line comment containing the next line \</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span> <span class="c1">// this is still in the first comment</span>
+</pre></div>
+</div>
+</section>
+<section id="tokens">
+<h3><a class="toc-backref" href="#id8">3.5. Tokens</a><a class="headerlink" href="#tokens" title="Permalink to this headline">¶</a></h3>
+<p>前処理を終えた言語は、トークンの順序のある並びだ。</p>
+<div class="line-block">
+<div class="line"><em>token</em> :</div>
+<div class="line-block">
+<div class="line"><em>keyword</em></div>
+<div class="line"><em>identifier</em></div>
+<div class="line"><em>integer-constant</em></div>
+<div class="line"><em>floating-constant</em></div>
+<div class="line"><em>operator</em></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">;</span></code> <code class="docutils literal notranslate"><span class="pre">{</span></code> <code class="docutils literal notranslate"><span class="pre">}</span></code></div>
+</div>
+</div>
+</section>
+<section id="keywords">
+<h3><a class="toc-backref" href="#id9">3.6. Keywords</a><a class="headerlink" href="#keywords" title="Permalink to this headline">¶</a></h3>
+<p>この節の前半にある一覧が当言語のキーワードであり、前処理以降はこの仕様書に記載されているとおりにしか使用できず、そうでない場合はコンパイル時にエラーが発生する。</p>
+<p>Vulkan を対象にする場合には追加のキーワードが存在する。</p>
+<p>さらに、将来使用するために予約されてるキーワードが多数定義されている。これらを使用すると、コンパイルエラーが発生する。</p>
+<p>その上、前述のダブルアンダースコア規則が適用される。</p>
+</section>
+<section id="identifiers">
+<h3><a class="toc-backref" href="#id10">3.7. Identifiers</a><a class="headerlink" href="#identifiers" title="Permalink to this headline">¶</a></h3>
+<p>識別子は、変数名、関数名、構造体名、フィールドセレクター（構造体のメンバーと同様に、フィールドセレクターはベクトルや行列の構成要素を選択する）に使用される。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">コメント</p>
+<p>識別子の BNF みたいな表がここにあるが省略。</p>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">gl_</span></code> で始まる識別子は予約されており、一般的にはシェーダ内で宣言することはできない。</p></li>
+<li><p>前述の 1024 文字ルールがここでも適用される。</p></li>
+</ul>
+</section>
+<section id="definitions">
+<h3><a class="toc-backref" href="#id11">3.8. Definitions</a><a class="headerlink" href="#definitions" title="Permalink to this headline">¶</a></h3>
+<p>後述する言語規則のいくつかは、次の定義に依存する。</p>
+</section>
+<section id="static-use">
+<h3><a class="toc-backref" href="#id12">3.8.1. Static Use</a><a class="headerlink" href="#static-use" title="Permalink to this headline">¶</a></h3>
+<p>シェーダーに変数 <code class="docutils literal notranslate"><span class="pre">x</span></code> が <strong>静的に使用されている</strong> (a static use) のは、前処理後にシェーダーに <code class="docutils literal notranslate"><span class="pre">x</span></code> の任意の部分にアクセスするような文が含まれている場合であり、制御の流れによってその文が実行されるかどうかには関係ない。このような変数は、 <strong>静的に使用されている</strong> (statically used) と呼ばれる。アクセスが書き込みの場合、<code class="docutils literal notranslate"><span class="pre">x</span></code> は <strong>静的に割り当てられている</strong> (statically assigned) とも言われる。</p>
+</section>
+<section id="dynamically-uniform-expressions-and-uniform-control-flow">
+<h3><a class="toc-backref" href="#id13">3.8.2. Dynamically Uniform Expressions and Uniform Control Flow</a><a class="headerlink" href="#dynamically-uniform-expressions-and-uniform-control-flow" title="Permalink to this headline">¶</a></h3>
+<p>一部の操作では、式が <strong>動的に一様である</strong> (dynamically uniform) ことや、
+<strong>一様な制御フロー</strong> (uniform control flow) の中に配置されていることが要求される。これらの要件は以下の定義集合で定義されている。</p>
+<p><strong>呼び出し</strong> (an invocation) とは、特定の段階における <code class="docutils literal notranslate"><span class="pre">main()</span></code> の単一実行のことあって、その段階のシェーダー内で明示的に公開されているデータ量に対してしか作用しない（データの追加的なインスタンスに対する暗黙の操作は、追加的な呼び出しとなる)。例えば、計算実行モデルでは、単一の呼び出しが単一の作業項目に対してしか作用せず、頂点実行モデルでは、単一の呼び出しが単一の頂点に対してしか作用しない。</p>
+<p><strong>呼び出しグループ</strong> (an invocation group) とは、特定の計算作業グループまたはグラフィック操作をまとめて処理する呼び出しの完全な集合だ。「グラフィック操作」の範囲は実装に依存するが、クライアント API で定義されているように、少なくとも単一の三角形またはパッチと同じ大きさであり、最大でも一つのレンダリングコマンドと同じ大きさだ。</p>
+<p>単一の呼び出しで、単一のシェーダー文が複数回実行され、その命令の
+<strong>動的インスタンス</strong> (dynamic instances) が複数得られる。これは、命令がループ内で実行される場合や、複数の呼び出し場所から呼び出される関数内で実行される場合、あるいはこれらの複数の組み合わせで発生する。ループの繰り返しや、関数と呼び出し場所の動的な連鎖が異なると、そのような命令の動的インスタンスも異なる。動的インスタンスは、どの呼び出しが実行されたかではなく、呼び出し内の制御フローの経路によって区別される。つまり、<code class="docutils literal notranslate"><span class="pre">main()</span></code> の異なる呼び出しは、同じ制御フロー経路をたどる場合、その命令の同じ動的インスタンスを実行する。</p>
+<p>ある式がそれを消費するある動的インスタンスに対して <strong>動的に一様</strong> (dynamically uniform) であるとは、動的インスタンスを実行する（呼び出しグループ内の）呼び出しすべてに対してその値が同じであるときに言う。</p>
+<p><strong>一様制御フロー</strong> （収束制御フロー）は、呼び出しグループ内のすべての呼び出しが同じ制御フロー経路（したがって、命令の動的インスタンスの順序も同じ）を実行するときに発生する。一様制御フローは <code class="docutils literal notranslate"><span class="pre">main()</span></code> に入ったときの初期状態であり、条件分岐が異なる呼び出しに対して異なる制御経路を取るまで続く（非一様制御フローまたは発散制御フロー）。このような発散は再収束し、すべての呼び出しが再び同じ制御フローの経路を実行するようになり、これにより一様制御フローの存在が再び確立される。選択肢やループに入ったときに制御フローが一様であり、その後、呼び出しグループのすべての呼び出しがその選択肢やループから離れると、制御フローは一様に収束し直す。</p>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">float</span> <span class="n">a</span> <span class="o">=</span> <span class="p">...;</span> <span class="c1">// this is uniform control flow</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>   <span class="c1">// this expression is true for some fragments, not all</span>
+        <span class="p">...;</span>       <span class="c1">// non-uniform control flow</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="p">...;</span>       <span class="c1">// non-uniform control flow</span>
+    <span class="p">}</span>
+    <span class="p">...;</span>           <span class="c1">// uniform control flow again</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>定数式は動的に一様であることは自明だ。これにより、定数式に基づく典型的なループカウンターも動的に一様であることがわかる。</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="note4.html" title="OpenGL Shading Language 4.60 Specification 読書ノート Part 4"
+             >next</a></li>
+        <li class="right" >
+          <a href="note2.html" title="OpenGL Shading Language 4.60 Specification 読書ノート Part 2"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >OpenGL Shading Language 4.60 Specification 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">OpenGL Shading Language 4.60 Specification 読書ノート Part 3</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

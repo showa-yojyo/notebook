@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>OpenGL Shading Language 4.60 Specification 読書ノート Part 1 &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
+    
+    <script src="../_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="OpenGL Shading Language 4.60 Specification 読書ノート Part 2" href="note2.html" />
+    <link rel="prev" title="OpenGL Shading Language 4.60 Specification 読書ノート" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="note2.html" title="OpenGL Shading Language 4.60 Specification 読書ノート Part 2"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="index.html" title="OpenGL Shading Language 4.60 Specification 読書ノート"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">OpenGL Shading Language 4.60 Specification 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">OpenGL Shading Language 4.60 Specification 読書ノート Part 1</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="opengl-shading-language-4-60-specification-part-1">
+<h1><a class="toc-backref" href="#id2">OpenGL Shading Language 4.60 Specification 読書ノート Part 1</a><a class="headerlink" href="#opengl-shading-language-4-60-specification-part-1" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.html#introduction">仕様書該当部分</a></p>
+<div class="contents topic" id="id1">
+<p class="topic-title">ノート目次</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#opengl-shading-language-4-60-specification-part-1" id="id2">OpenGL Shading Language 4.60 Specification 読書ノート Part 1</a></p>
+<ul>
+<li><p><a class="reference internal" href="#introduction" id="id3">1. Introduction</a></p>
+<ul>
+<li><p><a class="reference internal" href="#changes" id="id4">1.1. Changes</a></p>
+<ul>
+<li><p><a class="reference internal" href="#changes-from-revision-6-of-glsl-4-6" id="id5">1.1.1. Changes from Revision 6 of GLSL 4.6</a></p></li>
+<li><p><a class="reference internal" href="#changes-from-revision-5-of-glsl-4-6" id="id6">1.1.2. Changes from Revision 5 of GLSL 4.6</a></p></li>
+<li><p><a class="reference internal" href="#changes-from-revision-4-of-glsl-4-6" id="id7">1.1.3. Changes from Revision 4 of GLSL 4.6</a></p></li>
+<li><p><a class="reference internal" href="#changes-from-revision-3-of-glsl-4-6" id="id8">1.1.4. Changes from Revision 3 of GLSL 4.6</a></p></li>
+<li><p><a class="reference internal" href="#summary-of-changes-from-revision-7-of-glsl-version-4-50" id="id9">1.1.5. Summary of Changes from Revision 7 of GLSL Version 4.50</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#overview" id="id10">1.2. Overview</a></p></li>
+<li><p><a class="reference internal" href="#error-handling" id="id11">1.3. Error Handling</a></p></li>
+<li><p><a class="reference internal" href="#typographical-conventions" id="id12">1.4. Typographical Conventions</a></p></li>
+<li><p><a class="reference internal" href="#deprecation" id="id13">1.5. Deprecation</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="introduction">
+<h2><a class="toc-backref" href="#id3">1. Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>本文書では OpenGL Shading Language (GLSL) のバージョン 4.60 しか規定していない。これは <code class="docutils literal notranslate"><span class="pre">__VERSION__</span></code> に 460 を代入することを要求し、
+<code class="docutils literal notranslate"><span class="pre">#version</span></code> に 460 しか受け入れないことを要求している。もし <code class="docutils literal notranslate"><span class="pre">#version</span></code> がより小さな数字で宣言された場合、受け入れられる言語は前のバージョンであり、
+API のバージョンやコンテキストの種類によって対処されることになる。</p>
+<p>OpenGL Shading Language や OpenGL ES Shading Language の旧バージョンは、特に精度、名前の隠蔽規則、インターフェイス変数の扱いなどについて、ここで指定されるバージョンの厳密な部分集合ではない。各言語の詳細については、その言語のバージョンに対応する仕様書を参照すること。</p>
+<p>なお、Vulkan API で使用するために SPIR-V を生成する場合（文献を参照）は、「Vulkan を対象としている」という。</p>
+<p>OpenGL Shading Language については、本仕様と OpenGL 仕様が正となっているが、
+SPIR-V 生成については SPIR-V 仕様と SPIR-V クライアント API仕様が正となっている（文献を参照）。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">コメント</p>
+<p>簡単に調べたところ、Vulkan API というのはクロスプラットフォームなグラフィックス API であって、より現代的な仕様であるらしい。</p>
+<p>簡単に調べたところ、SPIR-V とは並列計算・グラフィックスの中間言語の一つだとある。たぶん GLSL と似たような概念だと思う。そのわりには「GLSL → SPIR-V コンパイラー」なる文言があり、不安になる。</p>
+</div>
+<p>SPIR-V 生成に対しては SPIR-V クライアント API が SPIR-V シェーダーを操作するためのコマンドを仕様定義している。</p>
+<p>独立したオフラインツールチェーンは GLSL を SPIR-V の中間言語にコンパイルする。
+SPIR-V の生成は <code class="docutils literal notranslate"><span class="pre">#extension</span></code>, <code class="docutils literal notranslate"><span class="pre">#version</span></code>, またはプロファイルによって有効になるわけではない。代わりに、SPIR-V 用の GLSL の使用はオフラインツールチェーンの使用によって決定される。
+SPIR-V の生成をクライアント API に要求する方法については、そのようなツールの文書を参照すること。</p>
+<p>GLSL → SPIR-V コンパイラーは、どの SPIR-V Capabilities が実行時に合法であるかを指示しなければならず、それらの機能以外の GLSL 機能の使用に対してはエラーを与える。これは、フロントエンドが GLSL ソースに存在する組み込み定数に対してエラーチェックできるような、実装依存の制限についても成り立つ。</p>
+<p>SPIR-V 能力によって制御されていないが、GLSL でその等価物がある
+SPIR-V 機能（段階、組み込み関数、型、制限、等々）は、
+GLSL 等価物を対処する OpenGLドライバーで動作することしか期待されていない。</p>
+<p>本仕様書において、OpenGL 仕様とは、他のプロファイルが指定されていない限り、バージョン 4.6 の Core プロファイルのことを指す。</p>
+<section id="changes">
+<h3><a class="toc-backref" href="#id4">1.1. Changes</a><a class="headerlink" href="#changes" title="Permalink to this headline">¶</a></h3>
+<div class="admonition- admonition">
+<p class="admonition-title">コメント</p>
+<p>本文書は GLSL 4.6 の revision 7 というものらしいので、それまでの変更ログが本節には列挙されている。</p>
+</div>
+<section id="changes-from-revision-6-of-glsl-4-6">
+<h4><a class="toc-backref" href="#id5">1.1.1. Changes from Revision 6 of GLSL 4.6</a><a class="headerlink" href="#changes-from-revision-6-of-glsl-4-6" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">GL_KHR_vulkan_glsl</span></code> 仕様を取り込んだ。</p></li>
+<li><p>GLSL 機能に関連するので、SPIR-V 機能のドライバーに存在することについて、導入部に注記を追加した。</p></li>
+<li><p>既定の一様ブロック合致規則のきっかけになるのは同じ <code class="docutils literal notranslate"><span class="pre">location</span></code> であることを明言した。
+<a class="reference internal" href="note4.html#uniform-variable-layout-qualifiers"><span class="std std-ref">4.4.3. Uniform Variable Layout Qualifiers</span></a> 参照。</p></li>
+</ul>
+<div class="admonition- admonition">
+<p class="admonition-title">コメント</p>
+<p>こんな感じで、これ以降の節ではコミットログのようなものが続く。読み飛ばしても仕様理解に支障はたぶんないだろう。</p>
+</div>
+</section>
+<section id="changes-from-revision-5-of-glsl-4-6">
+<h4><a class="toc-backref" href="#id6">1.1.2. Changes from Revision 5 of GLSL 4.6</a><a class="headerlink" href="#changes-from-revision-5-of-glsl-4-6" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>私的 GLSL issue #34: <code class="docutils literal notranslate"><span class="pre">int</span></code> → <code class="docutils literal notranslate"><span class="pre">uint</span></code> の暗黙の変換を明示的な構築と同じにすることを明確化、統合した。</p></li>
+<li><p>私的 GLSL issue #24: <code class="docutils literal notranslate"><span class="pre">barrier()</span></code> はそれだけで制御フローと <code class="docutils literal notranslate"><span class="pre">shared</span></code> 変数や多角形分割制御出力変数へのメモリーアクセスの両方を同期させるのに十分であることを明言した。その他のメモリーアクセスの場合は、追加のメモリーバリアが必要だ。</p></li>
+<li><p>浮動小数点表現形式の定義について IEEE-754 を規範的に参照した。</p></li>
+<li><p>私的 GLSL issue #36: <code class="docutils literal notranslate"><span class="pre">double</span></code> 型の関数 <code class="docutils literal notranslate"><span class="pre">refract</span></code> では <code class="docutils literal notranslate"><span class="pre">eta</span></code> 引数が <code class="docutils literal notranslate"><span class="pre">double</span></code> 型である必要がある。</p></li>
+<li><p>多角形分割制御と幾何の段階における入力変数の制限を明言した。</p></li>
+<li><p>私的 GLSL issue #15: 配列の配列に対する束縛の順序を明言した。</p></li>
+<li><p>私的 GLSL issue 14: 一様変数は、静的に使用されている場合には、リンク時にだけ合致する必要がある。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">precise</span></code> 計算には、制御フローや三項演算子 <code class="docutils literal notranslate"><span class="pre">?:</span></code> の制御式は含まれない。</p></li>
+</ul>
+</section>
+<section id="changes-from-revision-4-of-glsl-4-6">
+<h4><a class="toc-backref" href="#id7">1.1.3. Changes from Revision 4 of GLSL 4.6</a><a class="headerlink" href="#changes-from-revision-4-of-glsl-4-6" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>私的バグ 13012: 組み込み一様変数がフラグメント段階でしか利用できない場合があることを明言した。</p></li>
+<li><p>私的バグ 13837: 三項演算子とシーケンス演算子が <code class="docutils literal notranslate"><span class="pre">void</span></code> 型を操作できるようになった。</p></li>
+<li><p>前処理に起因するエラーはコンパイル時に返さなければならないことを明言した。</p></li>
+<li><p>変数のどの部分へのアクセスも静的使用となることを明言した。</p></li>
+<li><p>私的 GLSL issue 19: <code class="docutils literal notranslate"><span class="pre">switch</span></code> の最後にあるラベルには文が必要だ。</p></li>
+<li><p>私的 GLSL issue 26: SPIR-V 用にコンパイルした場合 <code class="docutils literal notranslate"><span class="pre">noise</span></code> は有効ではない。</p></li>
+<li><p>私的 GLSL issue 20: 定数値を返す <code class="docutils literal notranslate"><span class="pre">length()</span></code> 式は、副作用を含んではならない。</p></li>
+<li><p>公的 OpenGL-API issue 7: 変数を <code class="docutils literal notranslate"><span class="pre">readonly</span></code> と <code class="docutils literal notranslate"><span class="pre">writeonly</span></code> の両方で宣言できる。</p></li>
+<li><p>私的 GLSL issue 16: <code class="docutils literal notranslate"><span class="pre">#line</span></code> 指令で定数式の使用は未定義だ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">float</span></code> 画像の <code class="docutils literal notranslate"><span class="pre">imageAtomicExchange</span></code> の戻り値型を訂正した。</p></li>
+<li><p>私的 GLSL issue 32: <code class="docutils literal notranslate"><span class="pre">length()</span></code> メソッドの矛盾点を消した：実行時サイズではない配列は、明示的サイズあり配列の <code class="docutils literal notranslate"><span class="pre">length()</span></code> しか対処しない。</p></li>
+<li><p>私的 GLSL issue 21: <code class="docutils literal notranslate"><span class="pre">interpolateAt</span></code> の左辺値の制限を明言した。</p></li>
+<li><p>私的 OpenGL-API issue 53: location aliasing に対するビット幅の要件を明言した。</p></li>
+<li><p>公的 GLSL issue 15: <code class="docutils literal notranslate"><span class="pre">gl_in</span></code> は unsized-array 構文を使って再宣言することができる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DEPTH_COMPONENT</span></code> と <code class="docutils literal notranslate"><span class="pre">STENCIL_COMPONENT</span></code> に必要な各種テクスチャーの表現形式を明言した。</p></li>
+<li><p><a class="reference internal" href="note4.html#layout-qualifiers"><span class="std std-ref">4.4. Layout Qualifiers</span></a> の表に画像表現形式を追加した。</p></li>
+</ul>
+</section>
+<section id="changes-from-revision-3-of-glsl-4-6">
+<h4><a class="toc-backref" href="#id8">1.1.4. Changes from Revision 3 of GLSL 4.6</a><a class="headerlink" href="#changes-from-revision-3-of-glsl-4-6" title="Permalink to this headline">¶</a></h4>
+<p>私的 GLSL issue 13: <code class="docutils literal notranslate"><span class="pre">allInvocationsEqual()</span></code> のミススペルを修正。表中のものは <code class="docutils literal notranslate"><span class="pre">anyInvocationsEqual()</span></code> と誤って記載されていて、他の綴りは正しかった。</p>
+</section>
+<section id="summary-of-changes-from-revision-7-of-glsl-version-4-50">
+<h4><a class="toc-backref" href="#id9">1.1.5. Summary of Changes from Revision 7 of GLSL Version 4.50</a><a class="headerlink" href="#summary-of-changes-from-revision-7-of-glsl-version-4-50" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">GL_ARB_shader_atomic_counter_ops</span></code> 拡張を導入した。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GL_ARB_shader_draw_parameters</span></code> 拡張を導入した。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GL_ARB_shader_group_vote</span></code> 拡張を導入した。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GL_ARB_gl_spirv</span></code> 拡張を導入した。</p></li>
+<li><p>私的バグ 16070: 大域スコープにある余計なセミコロンを許す。</p></li>
+<li><p>私的 GLSL Issue 5: いくつかの形態のエラーについて、「リンクに失敗する」が実際には「コンパイルエラーまたはリンクエラー」であることを明示する。</p></li>
+<li><p>私的 GLSL Issue 7: <code class="docutils literal notranslate"><span class="pre">gl_MaxComputeUniformComponents</span></code> を 1024 に変更。</p></li>
+<li><p>私的 OpenGL API Issue 35: SPIR-V に対しては透明な個々の一様変数の位置を要求する。</p></li>
+<li><p>私的 GLSL Issue 8: <code class="docutils literal notranslate"><span class="pre">interpolateAt()</span></code> <code class="docutils literal notranslate"><span class="pre">interpolant</span></code> が構造体のメンバーである可能性があることをより明確にする。</p></li>
+<li><p>私的 GLSL Issue 9: <code class="docutils literal notranslate"><span class="pre">xfb_buffer</span></code> がブロック配列とどのように相互作用するかを指定する：捕捉バッファーはブロック配列要素ごとにインクリメントする。</p></li>
+</ul>
+</section>
+</section>
+<section id="overview">
+<h3><a class="toc-backref" href="#id10">1.2. Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h3>
+<p>本書は OpenGL Shading Language バージョン 4.60 について記述する。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">コメント</p>
+<p>ずっと疑問なのだが、バージョンが 4.6 なのか 4.60 なのかはっきりさせてほしい。</p>
+</div>
+<p>この言語で書かれた独立したコンパイル単位をシェーダーと呼ぶ。プログラムとは、API パイプラインを構成するプログラム可能な段階の一つまたはそれ以上を完全に作成しているコンパイルとリンクされたシェーダーの集合だ。単一のプログラム可能段階に対するすべてのシェーダーは同じプログラム内になければならない。プログラム可能段階の完全な集合を単一のプログラムに入れることも、複数のプログラムに分割することもできる。</p>
+<p>この文書の狙いは、プログラミング言語を徹底的に仕様にすることだ。規範となる参考文献 (<a class="reference internal" href="note9.html#normative-references"><span class="std std-ref">11. Normative References</span></a>) では、プログラムやシェーダーの操作や通信に使用される API エントリーポイントを仕様にする。</p>
+</section>
+<section id="error-handling">
+<h3><a class="toc-backref" href="#id11">1.3. Error Handling</a><a class="headerlink" href="#error-handling" title="Permalink to this headline">¶</a></h3>
+<p>一般に、コンパイラーは不正なプログラムをすべて検出することは不可能だ。したがって不正なプログラムを受け入れることがある。移植性が保証されるのは、本仕様書に記載されている整形式のプログラムだけだ。コンパイラーは、不正なプログラムを検出して診断メッセージを出すことが推奨されるが、すべての場合にそうする必要はない。字句や文法的に正しくないシェーダーについては、コンパイル時にエラーを返さなければならない。その他のエラーは、コンパイル時またはリンク時に報告する。「死にコード」であってもエラーチェックは必要だ。例えば：</p>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="kc">false</span><span class="p">)</span>     <span class="c1">// changing false to true cannot uncover additional errors</span>
+    <span class="n">statement</span><span class="p">;</span> <span class="c1">// statement must be error checked regardless</span>
+</pre></div>
+</div>
+</section>
+<section id="typographical-conventions">
+<h3><a class="toc-backref" href="#id12">1.4. Typographical Conventions</a><a class="headerlink" href="#typographical-conventions" title="Permalink to this headline">¶</a></h3>
+<p>本仕様書では、主に読みやすさを向上させるために、イタリック体、ボールド体、およびフォントを選んで使用する。</p>
+<ul class="simple">
+<li><p>コード片は固定幅のフォントを使用する。</p></li>
+<li><p>テキストに埋め込まれた識別子はイタリック体で表示される。</p></li>
+<li><p>テキストに埋め込まれたキーワードは太字で表示する。</p></li>
+</ul>
+<p>等々。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">コメント</p>
+<p>当ノートでは Sphinx を使っていることと、他のノートとの一貫性を採りたいことから、別の typographical conventions を採用している。</p>
+</div>
+</section>
+<section id="deprecation">
+<h3><a class="toc-backref" href="#id13">1.5. Deprecation</a><a class="headerlink" href="#deprecation" title="Permalink to this headline">¶</a></h3>
+<p>OpenGL Shading Language ではいくつかの機能が廃止された。そのようなものは本仕様書の中で deprecated と明記されている。これらの機能は、このバージョンの言語ではまだ存在しているが、シェーディング言語の将来のバージョンで削除される可能性がある。
+OpenGL API には、廃止された機能の使用を禁止する前方互換モードがある。非推奨機能の使用が禁止されているモードでコンパイルすると、その使用によりコンパイルエラーやリンクエラーが発生する。非推奨の言語機能を受け入れたり、エラーを返したりする原因については、
+OpenGL の仕様書を参照すること。</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="note2.html" title="OpenGL Shading Language 4.60 Specification 読書ノート Part 2"
+             >next</a></li>
+        <li class="right" >
+          <a href="index.html" title="OpenGL Shading Language 4.60 Specification 読書ノート"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >OpenGL Shading Language 4.60 Specification 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">OpenGL Shading Language 4.60 Specification 読書ノート Part 1</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>
