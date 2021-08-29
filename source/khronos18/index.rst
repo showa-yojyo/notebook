@@ -65,7 +65,7 @@ OpenGL Shading Language 4.60 Specification 読書ノート
 
    原文の英語を、次のように単語を日本語に（機械的に）読み換える：
 
-   * advertised: 公表された
+   * advertised: 公表された、公称された
    * aggregate: 集約、集約型
    * argument: （実）引数
    * atomic: 不可分～
@@ -79,6 +79,7 @@ OpenGL Shading Language 4.60 Specification 読書ノート
    * component: 成分（数学から）
    * composite: 合成～（数学から）
    * compute: (n) 計算
+   * counter: 計数器
    * cull: 間引く（この訳はよくない）
    * default: 既定の
    * depth: 奥行き（深度とはしない）
@@ -92,7 +93,7 @@ OpenGL Shading Language 4.60 Specification 読書ノート
    * fence: 柵
    * fog: 霧
    * formal parameter: 仮引数
-   * fragment: 英単語のまま、あるいはカタカナとする
+   * fragment: 断片（ピクセルの最終データを計算するために使用される状態の集合）
    * geometry: 幾何～（一律にこう訳す）
    * global: 大域～（C++ から）
    * image: 画像
@@ -107,7 +108,7 @@ OpenGL Shading Language 4.60 Specification 読書ノート
    * pair: （一）対
    * parameter: 引数
    * pixel: 画素
-   * primitive: 基本形状（これは何とかしたい）
+   * primitive: 基本形状（三角形、線、点などの基本的な描画形状の総称だろう）
    * processor: 処理器
    * programmable: プログラム可能～
    * qualifier: 修飾子
@@ -122,10 +123,12 @@ OpenGL Shading Language 4.60 Specification 読書ノート
    * space: 空間（機械的にこの訳で固定する）
    * stage: 段階
    * statement: 文（プログラミングから）
+   * stencil: 型抜き
    * storage: 格納、収納（する場所・空間）
    * subset: 部分集合（数学から）
    * superset: 超集合（数学から）
-   * tessellation: 多角形分割（これは何とかしたい）
+   * tessellation: 細分化（OpenGL Wiki の当該記述を意識して仕様書を読んでいる）
+   * test: 検査、検定、判定。場合によって訳を分ける。
    * type: 型（種類とすることがまれ）
    * unary: 単項～
    * undefined: 未定義（機械的にこの訳で固定する）
@@ -136,22 +139,25 @@ OpenGL Shading Language 4.60 Specification 読書ノート
    * vertex: 頂点（数学から）
    * volume: TODO
 
-   その他、定訳がない単語 (access, active, alignment, application,
+   その他、定訳がなかったり、カタカナ表記でないと逆にわかりにくいような単語
+   (access, active, address, alignment, algorithm, application, assembler
    back up, bit, block, byte, buffer,
-   clamp, code, comment, compile, constructor, counter,
-   data, dynamic range,
-   entry, error,
-   file, filter, flow, fragment, framebuffer,
+   category, clamp, client, code, comment, compile, constructor, context,
+   data, decrement, driver, dynamic range,
+   error,
+   file, filter, flow, font, format, framebuffer,
    graphics, group,
-   handle, hardware, index, instance, jump, keyword,
-   layout, link, list, literal, load, loop,
-   macro, mask, matching, member, memory, message, mipmap,
+   handle, hardware, increment, index, instance, inteface,
+   jump, keyword,
+   label, layout, library, link, list, literal, load, loop,
+   macro, mask, matching, member, memory, mipmap, mode,
    noise,
    object, offset, operand, option, overflow,
-   patch, pattern, pipeline, platform, pragma, profile, program, provoking vertex,
+   patch, pattern, pipeline, platform, pragma, profile, program, prototype,
+   provoking vertex, push,
    rasterize, render,
-   scalar, scope, screen, shader, size, source, stencil, subpass, subroutine,
-   test, texel, text, texture, token,
+   scalar, scope, screen, shader, size, source, stream, subpass, subroutine,
+   texel, text, texture, token, transaction,
    underflow, user, vector, version,
    window, etc.)
    についてはカタカナ表記という手抜きをする。
