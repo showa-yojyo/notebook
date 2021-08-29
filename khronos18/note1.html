@@ -77,7 +77,7 @@ SPIR-V 生成については SPIR-V 仕様と SPIR-V クライアント API仕�
 <p>簡単に調べたところ、Vulkan API というのはクロスプラットフォームなグラフィックス API であって、より現代的な仕様であるらしい。</p>
 <p>簡単に調べたところ、SPIR-V とは並列計算・グラフィックスの中間言語の一つだとある。たぶん GLSL と似たような概念だと思う。そのわりには「GLSL → SPIR-V コンパイラー」なる文言があり、不安になる。</p>
 </div>
-<p>SPIR-V 生成に対しては SPIR-V クライアント API が SPIR-V シェーダーを操作するためのコマンドを仕様定義している。</p>
+<p>SPIR-V 生成に対しては SPIR-V クライアント API が SPIR-V シェーダーを操作するための命令を仕様定義している。</p>
 <p>独立したオフラインツールチェーンは GLSL を SPIR-V の中間言語にコンパイルする。
 SPIR-V の生成は <code class="docutils literal notranslate"><span class="pre">#extension</span></code>, <code class="docutils literal notranslate"><span class="pre">#version</span></code>, またはプロファイルによって有効になるわけではない。代わりに、SPIR-V 用の GLSL の使用はオフラインツールチェーンの使用によって決定される。
 SPIR-V の生成をクライアント API に要求する方法については、そのようなツールの文書を参照すること。</p>
@@ -109,10 +109,10 @@ GLSL 等価物を対処する OpenGLドライバーで動作することしか�
 <h4><a class="toc-backref" href="#id6">1.1.2. Changes from Revision 5 of GLSL 4.6</a><a class="headerlink" href="#changes-from-revision-5-of-glsl-4-6" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>私的 GLSL issue #34: <code class="docutils literal notranslate"><span class="pre">int</span></code> → <code class="docutils literal notranslate"><span class="pre">uint</span></code> の暗黙の変換を明示的な構築と同じにすることを明確化、統合した。</p></li>
-<li><p>私的 GLSL issue #24: <code class="docutils literal notranslate"><span class="pre">barrier()</span></code> はそれだけで制御フローと <code class="docutils literal notranslate"><span class="pre">shared</span></code> 変数や多角形分割制御出力変数へのメモリーアクセスの両方を同期させるのに十分であることを明言した。その他のメモリーアクセスの場合は、追加のメモリーバリアが必要だ。</p></li>
+<li><p>私的 GLSL issue #24: <code class="docutils literal notranslate"><span class="pre">barrier()</span></code> はそれだけで制御フローと <code class="docutils literal notranslate"><span class="pre">shared</span></code> 変数や細分化制御出力変数へのメモリーアクセスの両方を同期させるのに十分であることを明言した。その他のメモリーアクセスの場合は、追加のメモリーバリアが必要だ。</p></li>
 <li><p>浮動小数点表現形式の定義について IEEE-754 を規範的に参照した。</p></li>
 <li><p>私的 GLSL issue #36: <code class="docutils literal notranslate"><span class="pre">double</span></code> 型の関数 <code class="docutils literal notranslate"><span class="pre">refract</span></code> では <code class="docutils literal notranslate"><span class="pre">eta</span></code> 引数が <code class="docutils literal notranslate"><span class="pre">double</span></code> 型である必要がある。</p></li>
-<li><p>多角形分割制御と幾何の段階における入力変数の制限を明言した。</p></li>
+<li><p>細分化制御と幾何の段階における入力変数の制限を明言した。</p></li>
 <li><p>私的 GLSL issue #15: 配列の配列に対する束縛の順序を明言した。</p></li>
 <li><p>私的 GLSL issue 14: 一様変数は、静的に使用されている場合には、リンク時にだけ合致する必要がある。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">precise</span></code> 計算には、制御フローや三項演算子 <code class="docutils literal notranslate"><span class="pre">?:</span></code> の制御式は含まれない。</p></li>
@@ -121,7 +121,7 @@ GLSL 等価物を対処する OpenGLドライバーで動作することしか�
 <section id="changes-from-revision-4-of-glsl-4-6">
 <h4><a class="toc-backref" href="#id7">1.1.3. Changes from Revision 4 of GLSL 4.6</a><a class="headerlink" href="#changes-from-revision-4-of-glsl-4-6" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li><p>私的バグ 13012: 組み込み一様変数がフラグメント段階でしか利用できない場合があることを明言した。</p></li>
+<li><p>私的バグ 13012: 組み込み一様変数が断片段階でしか利用できない場合があることを明言した。</p></li>
 <li><p>私的バグ 13837: 三項演算子とシーケンス演算子が <code class="docutils literal notranslate"><span class="pre">void</span></code> 型を操作できるようになった。</p></li>
 <li><p>前処理に起因するエラーはコンパイル時に返さなければならないことを明言した。</p></li>
 <li><p>変数のどの部分へのアクセスも静的使用となることを明言した。</p></li>
@@ -167,11 +167,11 @@ GLSL 等価物を対処する OpenGLドライバーで動作することしか�
 <p>ずっと疑問なのだが、バージョンが 4.6 なのか 4.60 なのかはっきりさせてほしい。</p>
 </div>
 <p>この言語で書かれた独立したコンパイル単位をシェーダーと呼ぶ。プログラムとは、API パイプラインを構成するプログラム可能な段階の一つまたはそれ以上を完全に作成しているコンパイルとリンクされたシェーダーの集合だ。単一のプログラム可能段階に対するすべてのシェーダーは同じプログラム内になければならない。プログラム可能段階の完全な集合を単一のプログラムに入れることも、複数のプログラムに分割することもできる。</p>
-<p>この文書の狙いは、プログラミング言語を徹底的に仕様にすることだ。規範となる参考文献 (<a class="reference internal" href="note9.html#normative-references"><span class="std std-ref">11. Normative References</span></a>) では、プログラムやシェーダーの操作や通信に使用される API エントリーポイントを仕様にする。</p>
+<p>この文書の狙いは、プログラミング言語を徹底的に仕様にすることだ。規範となる参考文献 (<a class="reference internal" href="note9.html#normative-references"><span class="std std-ref">11. Normative References</span></a>) では、プログラムやシェーダーの操作や通信に使用される API 入場地点を仕様にする。</p>
 </section>
 <section id="error-handling">
 <h3><a class="toc-backref" href="#id11">1.3. Error Handling</a><a class="headerlink" href="#error-handling" title="Permalink to this headline">¶</a></h3>
-<p>一般に、コンパイラーは不正なプログラムをすべて検出することは不可能だ。したがって不正なプログラムを受け入れることがある。移植性が保証されるのは、本仕様書に記載されている整形式のプログラムだけだ。コンパイラーは、不正なプログラムを検出して診断メッセージを出すことが推奨されるが、すべての場合にそうする必要はない。字句や文法的に正しくないシェーダーについては、コンパイル時にエラーを返さなければならない。その他のエラーは、コンパイル時またはリンク時に報告する。「死にコード」であってもエラーチェックは必要だ。例えば：</p>
+<p>一般に、コンパイラーは不正なプログラムをすべて検出することは不可能だ。したがって不正なプログラムを受け入れることがある。移植性が保証されるのは、本仕様書に記載されている整形式のプログラムだけだ。コンパイラーは、不正なプログラムを検出して診断内容を出すことが推奨されるが、すべての場合にそうする必要はない。字句や文法的に正しくないシェーダーについては、コンパイル時にエラーを返さなければならない。その他のエラーは、コンパイル時またはリンク時に報告する。「死にコード」であってもエラーチェックは必要だ。例えば：</p>
 <div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="kc">false</span><span class="p">)</span>     <span class="c1">// changing false to true cannot uncover additional errors</span>
     <span class="n">statement</span><span class="p">;</span> <span class="c1">// statement must be error checked regardless</span>
 </pre></div>

@@ -65,15 +65,15 @@
 <section id="character-set-and-phases-of-compilation">
 <h3><a class="toc-backref" href="#id4">3.1. Character Set and Phases of Compilation</a><a class="headerlink" href="#character-set-and-phases-of-compilation" title="Permalink to this headline">¶</a></h3>
 <p>OpenGL Shading Language に使用されるソースコードを構成する文字集合は UTF-8 符号規格の Unicode だ。</p>
-<p>前処理後の GLSL トークンのストリームでは、以下の文字だけが使用可能だ：</p>
+<p>前処理後の GLSL トークンストリームでは、以下の文字だけが使用可能だ：</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">[a-zA-Z_]</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">[0-9]</span></code></p></li>
 <li><p>記号各種</p></li>
 </ul>
-<p>それ以外の文字を GLSL のトークンに使用した場合は、コンパイル時にエラーになる。</p>
+<p>それ以外の文字を GLSL のトークンに使用した場合は、コンパイルエラーになる。</p>
 <ul class="simple">
-<li><p>行は、コンパイラーの診断メッセージや前処理器に関係する。</p></li>
+<li><p>行は、コンパイラーの診断内容や前処理器に関係する。</p></li>
 <li><p>行は、キャリッジリターンまたはラインフィードで終了する。</p></li>
 <li><p>両者が同時に使用された場合は、一つの行終端としてカウントされる。</p></li>
 <li><p>この文書では、これらの組み合わせを単に改行と呼ぶことにする。</p></li>
@@ -90,13 +90,13 @@
 <li><p>すべてのコメントは単一の空白文字で置き換えられる。ただし、
 <code class="docutils literal notranslate"><span class="pre">//</span></code> スタイルのコメントは、終了する改行の前で終わり、空白は一般的に前処理に関係する。</p></li>
 <li><p>前処理が行われ、上記の文字集合から形成された GLSL トークンの一連の並びが得られる。</p></li>
-<li><p>GLSL トークンの連なりに対して GLSL 処理が行われる。</p></li>
+<li><p>一連の GLSL トークンに対して GLSL 処理が行われる。</p></li>
 </ol>
 </section>
 <section id="source-strings">
 <h3><a class="toc-backref" href="#id5">3.2. Source Strings</a><a class="headerlink" href="#source-strings" title="Permalink to this headline">¶</a></h3>
 <p>単一のシェーダーに対するソースとは、文字集合の文字列の配列だ。単一のシェーダーはこれらの文字列を連結したものからなる。各文字列は改行で区切られた複数の行を含むことができる。一つの文字列の中に改行がある必要はなく、複数の文字列から単一行を形成することができる。文字列を連結して単一シェーダーを形成する際には、実装は改行やその他の文字を挿入しない。複数のシェーダーをリンクして単一のプログラムにすることができる。</p>
-<p>シェーダーのコンパイルから返される診断メッセージは、文字列内の行番号と、そのメッセージがどのソース文字列に該当するかの両方を特定する必要がある。ソース文字列は、最初の文字列を文字列 0 として順次カウントされる。行番号は、処理された新しい行の数よりも一つ多くなるが、これには、行継続文字によって削除される新しい行をカウントすることも含まれる。</p>
+<p>シェーダーのコンパイルから返される診断内容は、文字列内の行番号と、その伝達内容がどのソース文字列に該当するかの両方を特定する必要がある。ソース文字列は、最初の文字列を文字列 0 として順次カウントされる。行番号は、処理された新しい行の数よりも一つ多くなるが、これには、行継続文字によって削除される新しい行をカウントすることも含まれる。</p>
 <p>改行 (a new-line) の前にあって、行継続文字により区切られた行（複数形）は、コメント処理や前処理の前に連結される。これは行継続文字の代わりに空白文字が使われることはないことを意味する。すなわち、ある行の終わりの文字とその次の行の始まりの文字を連結することで、単一トークンが形成される。</p>
 <div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span>// equivalent to &quot;float foo;&quot;
 float f\
@@ -129,7 +129,7 @@ oo;
 <p><code class="docutils literal notranslate"><span class="pre">__FILE__</span></code> は、どのソース文字列番号が現在処理されているのかを示す十進数の整数定数に置換される。</p>
 <p><code class="docutils literal notranslate"><span class="pre">__VERSION__</span></code> は、OpenGL シェーディング言語のバージョン番号を反映した十進数の整数に置換される。この文書によるシェーディング言語のバージョンは 460 に置換される。</p>
 <p>慣習上、二つ以上の連続したアンダースコアを含むすべてのマクロ名は、下位のソフトウェア層が使用するために予約済みだ。シェーダー内でこのような名前を定義したり定義解除したりしても、それ自体がエラーになることはないものの、同じ名前が複数定義されていることに起因する意図しない動作が発生する可能性がある。また、<code class="docutils literal notranslate"><span class="pre">GL_</span></code> から始まるマクロ名もすべて予約済みで、このような名前を定義したり、定義解除したりすると、コンパイル時にエラーになる。</p>
-<p>実装では、マクロ名の長さを最大 1024 文字までサポートする必要がある。実装では、1024 文字を超える長さのマクロ名に対してエラーを生成することも、そのようなマクロ名をサポートすることも許可されている。</p>
+<p>実装では、マクロ名の長さを最大 1024 文字まで対処する必要がある。実装では、1024 文字を超える長さのマクロ名に対してエラーを生成することも、そのようなマクロ名を対処することも許可されている。</p>
 <hr class="docutils" />
 <p><code class="docutils literal notranslate"><span class="pre">#if</span></code>, <code class="docutils literal notranslate"><span class="pre">#ifdef</span></code>, <code class="docutils literal notranslate"><span class="pre">#ifndef</span></code>, <code class="docutils literal notranslate"><span class="pre">#else</span></code>, <code class="docutils literal notranslate"><span class="pre">#elif</span></code>, <code class="docutils literal notranslate"><span class="pre">#endif</span></code> は、以下の点を除き、C++ 前処理器の標準的な動作をするように定義されている：</p>
 <ul class="simple">
@@ -153,7 +153,7 @@ oo;
 <p>前処理器で整数リテラルに演算子を適用する際の意味論は OpenGL Shading Language
 のものではなく、C++ 前処理器の標準的なものと一致する。</p>
 <p>前処理器の式は、シェーダーが対象とする処理器ではなく、ホスト処理器の動作に従って評価される。</p>
-<p><code class="docutils literal notranslate"><span class="pre">#error</span></code> が発生すると、実装はコンパイル時の診断メッセージをシェーダーオブジェクトの情報ログに記録する。メッセージは <code class="docutils literal notranslate"><span class="pre">#error</span></code> 指令に続くトークンで、最初の改行までとなる。実装では <code class="docutils literal notranslate"><span class="pre">#error</span></code> 指令の存在をコンパイルエラーとして扱わなければならない。</p>
+<p><code class="docutils literal notranslate"><span class="pre">#error</span></code> が発生すると、実装はコンパイル時の診断内容をシェーダーオブジェクトの情報ログに記録する。伝達内容は <code class="docutils literal notranslate"><span class="pre">#error</span></code> 指令に続くトークンで、最初の改行までとなる。実装では <code class="docutils literal notranslate"><span class="pre">#error</span></code> 指令の存在をコンパイルエラーとして扱わなければならない。</p>
 <p><code class="docutils literal notranslate"><span class="pre">#pragma</span></code> は、実装依存コンパイラー制御を許す。
 <code class="docutils literal notranslate"><span class="pre">#pragma</span></code> に続くトークンは、前処理器のマクロ展開の対象にはならない。実装が <code class="docutils literal notranslate"><span class="pre">#pragma</span></code> に続くトークンを認識しない場合は、それを無視する。次の pragmas は言語の一部として定義されている：</p>
 <div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#pragma STDGL</span>
@@ -164,12 +164,12 @@ oo;
 <span class="cp">#pragma optimize(off)</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">optimize</span></code> pragma はシェーダーの開発やデバッグを支援するために、最適化をオフにするために使用できる。これは、関数定義の外側でしか使用できない。既定では、すべてのシェーダーで <code class="docutils literal notranslate"><span class="pre">optimize</span></code> がオンになっている。</p>
+<p><code class="docutils literal notranslate"><span class="pre">optimize</span></code> pragma はシェーダーの開発やデバッグを支援するために、最適化を切るために使用できる。これは、関数定義の外側でしか使用できない。既定では、すべてのシェーダーで <code class="docutils literal notranslate"><span class="pre">optimize</span></code> がオンになっている。</p>
 <div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#pragma debug(on)</span>
 <span class="cp">#pragma debug(off)</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">debug</span></code> pragma はデバッグ情報を付加してシェーダーをコンパイルし、デバッガーでそれを使用できるようにするために使用される。この pragma は、関数定義の外側でしか使用できない。既定では <code class="docutils literal notranslate"><span class="pre">debug</span></code> はオフになっている。</p>
+<p><code class="docutils literal notranslate"><span class="pre">debug</span></code> pragma はデバッグ情報を付加してシェーダーをコンパイルし、デバッガーでそれを使用できるようにするために使用される。この pragma は、関数定義の外側でしか使用できない。既定では <code class="docutils literal notranslate"><span class="pre">debug</span></code> は効いていない。</p>
 <p>シェーダーは言語のバージョンを宣言する必要がある。それは次のように指定される：</p>
 <div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#version number profile_opt</span>
 </pre></div>
@@ -194,7 +194,7 @@ OpenGL プロファイルの名前である必要がある。現在、選択肢�
 <code class="docutils literal notranslate"><span class="pre">es</span></code> プロファイルのシェーダーを非 <code class="docutils literal notranslate"><span class="pre">es</span></code> プロファイルのシェーダーやバージョンの異なる <code class="docutils literal notranslate"><span class="pre">es</span></code> プロファイルのシェーダーとリンクすることはできず、リンクエラーとなる。これらの規則で許可されたバージョンのシェーダーをリンクする場合、残りのリンクエラーは、シェーダーがリンクされているコンテキストのバージョンに対応する
 GLSL バージョンのリンク規則に従って与えられる。シェーダーのコンパイルエラーは、各シェーダー内で宣言された（または既定で設定された）バージョンに厳密に基づいて与えられなければならない。</p>
 <p>特に指定のない限り、本仕様書はコアプロファイルを文書化しており、コアプロファイルに指定されているものはすべて互換性プロファイルでも利用可能だ。互換性プロファイルに特に属すると指定された機能は、コアプロファイルでは利用可能でない。互換性プロファイルの機能は SPIR-V の生成時には利用可能でない。</p>
-<p>実装がサポートする各プロファイルには組み込みマクロ定義がある。すべての実装には次のマクロが用意されている：</p>
+<p>実装が対処する各プロファイルには組み込みマクロ定義がある。すべての実装には次のマクロが用意されている：</p>
 <div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#define GL_core_profile 1</span>
 </pre></div>
 </div>
@@ -233,8 +233,7 @@ GLSL バージョンのリンク規則に従って与えられる。シェーダ
 <p>拡張 <code class="docutils literal notranslate"><span class="pre">extension_name</span></code> が対処されていない場合は <code class="docutils literal notranslate"><span class="pre">#extension</span></code> に対して警告する。</p>
 </dd>
 </dl>
-<p>The all variant sets the behavior for all extensions, overriding all previously issued extension directives, but only for the behaviors warn and disable.
-<code class="docutils literal notranslate"><span class="pre">extension</span></code> 指令は、各拡張の動作を設定するための単純で低水準の仕組みだ。どのような組み合わせが適切なのかといったポリシーは定義しない。各拡張の動作を設定する際には、指令の順番が重要だ。遅れて出てきた指令は早く出てきたものを上書きする。
+<p><code class="docutils literal notranslate"><span class="pre">extension</span></code> 指令は、各拡張の動作を設定するための単純で低水準の仕組みだ。どのような組み合わせが適切なのかといったポリシーは定義しない。各拡張の動作を設定する際には、指令の順番が重要だ。遅れて出てきた指令は早く出てきたものを上書きする。
 <code class="docutils literal notranslate"><span class="pre">all</span></code> の変種は拡張すべてに対する動作を設定し、以前に発令されたすべての拡張機能の指令を上書きするが、
 <code class="docutils literal notranslate"><span class="pre">warn</span></code> と <code class="docutils literal notranslate"><span class="pre">disable</span></code> の動作しか上書きされない。</p>
 <p>コンパイラーの初期状態は、あたかも指令：</p>
@@ -324,7 +323,7 @@ GLSL バージョンのリンク規則に従って与えられる。シェーダ
 <p>一部の操作では、式が <strong>動的に一様である</strong> (dynamically uniform) ことや、
 <strong>一様な制御フロー</strong> (uniform control flow) の中に配置されていることが要求される。これらの要件は以下の定義集合で定義されている。</p>
 <p><strong>呼び出し</strong> (an invocation) とは、特定の段階における <code class="docutils literal notranslate"><span class="pre">main()</span></code> の単一実行のことあって、その段階のシェーダー内で明示的に公開されているデータ量に対してしか作用しない（データの追加的なインスタンスに対する暗黙の操作は、追加的な呼び出しとなる)。例えば、計算実行モデルでは、単一の呼び出しが単一の作業項目に対してしか作用せず、頂点実行モデルでは、単一の呼び出しが単一の頂点に対してしか作用しない。</p>
-<p><strong>呼び出しグループ</strong> (an invocation group) とは、特定の計算作業グループまたはグラフィック操作をまとめて処理する呼び出しの完全な集合だ。「グラフィック操作」の範囲は実装に依存するが、クライアント API で定義されているように、少なくとも単一の三角形またはパッチと同じ大きさであり、最大でも一つのレンダリングコマンドと同じ大きさだ。</p>
+<p><strong>呼び出しグループ</strong> (an invocation group) とは、特定の計算作業グループまたはグラフィック操作をまとめて処理する呼び出しの完全な集合だ。「グラフィック操作」の範囲は実装に依存するが、クライアント API で定義されているように、少なくとも単一の三角形またはパッチと同じ大きさであり、最大でも一つのレンダリング命令と同じ大きさだ。</p>
 <p>単一の呼び出しで、単一のシェーダー文が複数回実行され、その命令の
 <strong>動的インスタンス</strong> (dynamic instances) が複数得られる。これは、命令がループ内で実行される場合や、複数の呼び出し場所から呼び出される関数内で実行される場合、あるいはこれらの複数の組み合わせで発生する。ループの繰り返しや、関数と呼び出し場所の動的な連鎖が異なると、そのような命令の動的インスタンスも異なる。動的インスタンスは、どの呼び出しが実行されたかではなく、呼び出し内の制御フローの経路によって区別される。つまり、<code class="docutils literal notranslate"><span class="pre">main()</span></code> の異なる呼び出しは、同じ制御フロー経路をたどる場合、その命令の同じ動的インスタンスを実行する。</p>
 <p>ある式がそれを消費するある動的インスタンスに対して <strong>動的に一様</strong> (dynamically uniform) であるとは、動的インスタンスを実行する（呼び出しグループ内の）呼び出しすべてに対してその値が同じであるときに言う。</p>
@@ -341,7 +340,11 @@ GLSL バージョンのリンク規則に従って与えられる。シェーダ
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>定数式は動的に一様であることは自明だ。これにより、定数式に基づく典型的なループカウンターも動的に一様であることがわかる。</p>
+<p>定数式は動的に一様であることは自明だ。これにより、定数式に基づく典型的なループ計数器も動的に一様であることがわかる。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">コメント</p>
+<p>解析の教科書のような文章に読み取ってしまった。</p>
+</div>
 </section>
 </section>
 </section>

@@ -193,7 +193,7 @@ NVIDIA, AMD, Intel, Apple, etc. すごい。</p>
 <ul class="simple">
 <li><p>既定の一様変数、不透明型に対して：
 <code class="docutils literal notranslate"><span class="pre">UniformConstant</span></code> 格納クラスは、大域スコープの個々の変数に使用することができる。つまり、一様変数は、GLSL 4.5 以上でブロックになっている組み込みメンバーでない限り、ブロックの中にある必要はない。</p></li>
-<li><p>GLSL 不可分カウンター束縛は <code class="docutils literal notranslate"><span class="pre">offset</span></code> レイアウト修飾子を持つ。→ SPIR-V の <code class="docutils literal notranslate"><span class="pre">Offset</span></code> 装飾を使っている <code class="docutils literal notranslate"><span class="pre">AtomicCounter</span></code> 格納クラス。</p></li>
+<li><p>GLSL 不可分計数器束縛は <code class="docutils literal notranslate"><span class="pre">offset</span></code> レイアウト修飾子を持つ。→ SPIR-V の <code class="docutils literal notranslate"><span class="pre">Offset</span></code> 装飾を使っている <code class="docutils literal notranslate"><span class="pre">AtomicCounter</span></code> 格納クラス。</p></li>
 <li><p>GLSL の <code class="docutils literal notranslate"><span class="pre">origin_lower_left</span></code> → SPIR-V の <code class="docutils literal notranslate"><span class="pre">OriginLowerLeft</span></code></p></li>
 <li><p>頂点シェーダーでの入力倍数の位置に関する特別な規則</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">gl_VertexID</span></code> と <code class="docutils literal notranslate"><span class="pre">gl_InstanceID</span></code></p></li>
@@ -202,7 +202,7 @@ NVIDIA, AMD, Intel, Apple, etc. すごい。</p>
 <ul class="simple">
 <li><p>特殊化定数</p></li>
 <li><p>宣言順とは異なる順序でメンバーを編成できる <code class="docutils literal notranslate"><span class="pre">offset</span></code></p></li>
-<li><p>一様・バッファーブロックの <code class="docutils literal notranslate"><span class="pre">offset</span></code> および <code class="docutils literal notranslate"><span class="pre">align</span></code> レイアウト修飾子を、サポートしていなかったバージョンに対応</p></li>
+<li><p>一様・バッファーブロックの <code class="docutils literal notranslate"><span class="pre">offset</span></code> および <code class="docutils literal notranslate"><span class="pre">align</span></code> レイアウト修飾子を、対処していなかったバージョンに対応</p></li>
 </ul>
 <p>Vulkan のみ以下の機能が追加：</p>
 <ul class="simple">
@@ -223,7 +223,7 @@ NVIDIA, AMD, Intel, Apple, etc. すごい。</p>
 <li><p>既定原点は <code class="docutils literal notranslate"><span class="pre">origin_lower_left</span></code> ではなく <code class="docutils literal notranslate"><span class="pre">origin_upper_left</span></code> となった。</p></li>
 </ul>
 <p>Vulkan は SPIR-V 環境仕様で UBO や SSBO などの資源の多次元配列を許さない。
-SPIR-V はそれをサポートしており、OpenGL はすでに GLSL シェーダーでこれを許可している。
+SPIR-V はそれを対処しており、OpenGL はすでに GLSL シェーダーでこれを許可している。
 SPIR-V for OpenGL でも許可されている。</p>
 </section>
 <section id="mapping-from-glsl-to-spir-v">
@@ -547,7 +547,7 @@ GLSL では、集合番号および束縛番号は、それぞれ <code class="d
 <section id="subpass-inputs">
 <h5><a class="toc-backref" href="#id22">Subpass Inputs</a><a class="headerlink" href="#subpass-inputs" title="Permalink to this headline">¶</a></h5>
 <p>一つのレンダリングパスの中で、サブパスは結果を出力対象に書き込むことができ、その結果を次のサブパスが入力サブパスとして読み取ることができる。「サブパス入力」機能とは、出力対象を読み取る機能だ。</p>
-<p>サブパス入力は、フラグメントシェーダーでしか利用できない、新しい型の集合を通して読み込まれる：</p>
+<p>サブパス入力は、断片シェーダーでしか利用できない、新しい型の集合を通して読み込まれる：</p>
 <div class="line-block">
 <div class="line"><code class="docutils literal notranslate"><span class="pre">subpassInput</span></code></div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">subpassInputMS</span></code></div>
@@ -556,7 +556,7 @@ GLSL では、集合番号および束縛番号は、それぞれ <code class="d
 <div class="line"><code class="docutils literal notranslate"><span class="pre">usubpassInput</span></code></div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">usubpassInputMS</span></code></div>
 </div>
-<p>抽出器や画像オブジェクトとは異なり、サブパス入力はフラグメントの
+<p>抽出器や画像オブジェクトとは異なり、サブパス入力は断片の
 <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y,</span> <span class="pre">layer)</span></code> 座標によって暗黙のうちに指定される。</p>
 <p>入力付属物は、記述子集合と束縛番号に加えて、入力付属物のインデックスで装飾される。</p>
 <div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span> <span class="p">(</span><span class="n">input_attachment_index</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">set</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">binding</span><span class="o">=</span><span class="n">n</span><span class="p">)</span> <span class="k">uniform</span> <span class="n">subpassInput</span> <span class="n">myInputAttachment</span><span class="p">;</span>
@@ -579,8 +579,8 @@ GLSL では、集合番号および束縛番号は、それぞれ <code class="d
         ...
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">input_attachment_index</span></code> が <code class="docutils literal notranslate"><span class="pre">i</span></code> の場合、入力パスリストの i 番目のエントリーを選択する(詳細は API 仕様を参照)。</p>
-<p>これらのオブジェクトは、以下の関数によってサブパス入力の読み込みをサポートしている。</p>
+<p><code class="docutils literal notranslate"><span class="pre">input_attachment_index</span></code> が <code class="docutils literal notranslate"><span class="pre">i</span></code> の場合、入力パスリストの i 番目の登録を選択する(詳細は API 仕様を参照)。</p>
+<p>これらのオブジェクトは、以下の関数によってサブパス入力の読み込みを対処している。</p>
 <div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="n">gvec4</span> <span class="n">subpassLoad</span><span class="p">(</span><span class="n">gsubpassInput</span>   <span class="n">subpass</span><span class="p">);</span>
 <span class="n">gvec4</span> <span class="n">subpassLoad</span><span class="p">(</span><span class="n">gsubpassInputMS</span> <span class="n">subpass</span><span class="p">,</span> <span class="kt">int</span> <span class="k">sample</span><span class="p">);</span>
 </pre></div>
@@ -591,7 +591,7 @@ GLSL では、集合番号および束縛番号は、それぞれ <code class="d
 <h4><a class="toc-backref" href="#id23">12.2.5. Mapping Variables</a><a class="headerlink" href="#mapping-variables" title="Permalink to this headline">¶</a></h4>
 <section id="gl-fragcolor">
 <h5><a class="toc-backref" href="#id24">gl_FragColor</a><a class="headerlink" href="#gl-fragcolor" title="Permalink to this headline">¶</a></h5>
-<p>フラグメント段階組み込み <code class="docutils literal notranslate"><span class="pre">gl_FragColor</span></code> は、すべての出力へのブロードキャストを意味するが、SPIR-V には存在しない。
+<p>断片段階組み込み <code class="docutils literal notranslate"><span class="pre">gl_FragColor</span></code> は、すべての出力へのブロードキャストを意味するが、SPIR-V には存在しない。
 <code class="docutils literal notranslate"><span class="pre">gl_FragColor</span></code> への書き込みが許可されているシェーダーはやはり書き込みが可能だが、</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">gl_FragColor</span></code> と同じ型の</p></li>
@@ -646,14 +646,14 @@ GLSL では、集合番号および束縛番号は、それぞれ <code class="d
 <p class="admonition-title">コメント</p>
 <p>本文参照。</p>
 </div>
-<p>フラグメント段階：</p>
+<p>断片段階：</p>
 <div class="admonition- admonition">
 <p class="admonition-title">コメント</p>
 <p>本文参照。</p>
 </div>
 <p>これらは、疑似コードが暗示するように、
 SPIR-V ブロックに写され、メンバーには同様の綴り方の組み込み装飾が一緒になる：</p>
-<p>非フラグメント段階：</p>
+<p>非断片段階：</p>
 <div class="admonition- admonition">
 <p class="admonition-title">コメント</p>
 <p>本文参照。</p>
