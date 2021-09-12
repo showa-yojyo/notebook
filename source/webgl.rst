@@ -12,10 +12,12 @@ WebGL プログラミングに関するノート。OpenGL についての私の�
 資料
 ======================================================================
 
-WebGL を学習するのに有益な資料を列挙する。
+WebGL を学習するのに有益な資料を列挙する。これとは別に、純正 OpenGL 用解説資料を
+WebGL に翻訳しながら学習するということも有力だ。
 
 * `WebGL Overview - The Khronos Group Inc <https://www.khronos.org/webgl/>`__:
   WebGL 総本山。関連仕様書をダウンロードしてローカルディスクに保存しておくと吉。
+  なお、DeepL を利用する都合上、PDF よりは HTML のほうが具合がいい。
 * `WebGL: 2D and 3D graphics for the web - Web APIs \|
   MDN <https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API>`__:
   ここにある資料を基本書としてまずは学習していく。
@@ -29,10 +31,11 @@ WebGL を学習するのに有益な資料を列挙する。
   * WebGL by example の章も一通りやるといい。
 
 * `An intro to modern OpenGL. Table of Contents <https://duriansoftware.com/joe/an-intro-to-modern-opengl.-table-of-contents>`__:
-  C 言語で書かれたプログラムの解説だ。WebGL
-  コードに書き換えるのといい練習になる。
+  C 言語で書かれたプログラムの解説だ。WebGL コードに書き換えるのといい練習になる。
 * `WebGL Fundamentals <https://webglfundamentals.org/>`__: OpenGL のそれも含む基礎から学ぶ。
   このサイトの造りは恐ろしく良い。熟読推奨。
+* `WebGL2 Fundamentals <https://webgl2fundamentals.org/>`__: 上記サイトの続編。
+  今ならこちらだけを読むほうがいい。熟読推奨。
 * `glMatrix <https://glmatrix.net/>`__: ベクトルや行列の演算をする JavaScript ライブラリー。
   効率を優先する必要があるからだろうが、インターフェイスに若干クセがある。
 
@@ -46,19 +49,26 @@ WebGL を学習するのに有益な資料を列挙する。
 
   .. code:: console
 
-     bash$ python -m http.server
+     bash$ python -m http.server 8000 --bind 127.0.0.1
 
 手筋
 ======================================================================
 
 WebGL プログラミングの技法を思いつくまま、なるべく初歩的なものから高度なものに列挙する。
 
+基本的には WebGL 2 を採用する。
+
+.. code:: javascript
+
+   const canvas = document.querySelector("#mycanvas");
+   const gl = canvas.getContext('webgl2');
+
 未整理項目
 ----------------------------------------------------------------------
 
 * WebGL 2 を使う場合
 
-  * GLSL コードの一行目は次の内容にする：
+  * GLSL コードの物理的な一行目を次の内容にする：
 
     .. code:: glsl
 
@@ -73,7 +83,7 @@ WebGL プログラミングの技法を思いつくまま、なるべく初歩�
        const vao = gl.createVertexArray();
        gl.bindVertexArray(vao);
 
-       // gl.enableVertexAttribArray, gl.bindBuffer, etc.
+       // gl.bindBuffer, gl.enableVertexAttribArray, etc.
 
        gl.deleteVertexArray(vao);
 
@@ -140,16 +150,18 @@ OpenGL との相違点と JavaScript 固有の事情
     ``gl`` とすること。決め打っていい。
   * ``gl.canvas`` でキャンバスを参照する。
 
-* キャンバスのアスペクト比を考慮するならば ``clientWidth``, ``clientHeight`` を採用する。
-  ``canvas.width / canvas.height`` はダメ。
+* 例えば射影行列など、実際の描画領域としてキャンバスのアスペクト比を考慮するならば、
+  ``clientWidth``, ``clientHeight`` を採用する。
 
   * 一般に、キャンバスの寸法としてこれらのプロパティーを使うのが原則だ。
 
 * キャンバスのサイズは二種類あって、ピクセル単位のものと表示単位のものがある。
 
   * ``canvas`` タグの属性として設定する方法。
-  * それに加えて CSS から `width` と `height` が設定されている場合、WebGL の描画バッファーのサイズはタグ属性のほうを採る。
-  * タグ要素 `clientWidth`, `clientHeight` は CSS ピクセル単位。手動で `canvas.width` などに代入する。
+  * それに加えて CSS から `width` と `height` が設定されている場合、
+    WebGL の描画バッファーのサイズはタグ属性のほうを採る。
+  * タグ要素 `clientWidth`, `clientHeight` は CSS ピクセル単位。
+    手動で `canvas.width` などに代入する。
 
 * リサイズしたら ``gl.viewport`` が基本的だ。
 * ブラウザーにはズーム機能があるので ``window.devicePixelRatio`` のような情報を利用する。
@@ -228,13 +240,15 @@ WebGL に限った話ではないが：
 
   * このような動的にファイルをロードするコードがある場合、
     ``file://`` から始まるパスで HTML をブラウザーで開くと上手くいかない。
-    作業ディレクトリーから HTTP サーバーを起動するのがいいだろう。
+    作業ディレクトリーから HTTP サーバーを起動するのが普通だ。
 
 * HTML キャンバスで ``context.getImageData`` がセキュリティーエラーを出すことがある。
   画像のソースがよそのドメインからだとこうなる。
 
   * WebGL は同じドメイン以外の画像を禁止している。
   * ``Image.crossOrigin`` の値をどう設定するかが重要だ。
+    イメージソースと自分のサイトのドメインが一致していなければ、この値をとりあえず空文字列にする。
+    それから `.url` に所望のアドレスを代入すると、先方ドメインが寛容ならば画像が得られる。
 
 * ビデオをテクスチャーに設定することが比較的容易に実現できる。
 
@@ -276,7 +290,7 @@ WebGL に限った話ではないが：
 
 .. code:: javascript
 
-  const gl = canvas.getContext('webgl', {alpha: false});
+  const gl = canvas.getContext('webgl2', {alpha: false});
 
 データフォーマット
 ----------------------------------------------------------------------
@@ -290,5 +304,6 @@ WebGL に限った話ではないが：
 ======================================================================
 
 * :doc:`/haverbeke18/index`: 三周くらい読めば JavaScript プログラミングは大丈夫。
-* :doc:`/webgl-1.0/index`
+* :doc:`/khronos15/index`: これを省略して 2.0 だけを読むべきだった。
+* :doc:`/khronos18/index`: シェーディングコードで何をするのが良しとされるのかを理解したい。
 * :doc:`/angel05/index`: 古い OpenGL の概念がどれくらい生き残っているのかを確かめられる。
