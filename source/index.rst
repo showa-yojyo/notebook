@@ -41,6 +41,7 @@ Contents:
    stroustrup14
    stepanov15
    khronos15/index
+   vivo15/index
    saha16
    slatkin16
    guntheroth16
