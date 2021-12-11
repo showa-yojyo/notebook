@@ -96,28 +96,28 @@
 <code class="docutils literal notranslate"><span class="pre">FunctorImpl</span></code> で行う。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">FunctorImpl</span></code> を部分特殊化をしまくって、引数リストのパラメータ数が十分大きくても対応できるようにしておく。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// p. 114 より引用</span>
-<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="nc">R</span><span class="p">,</span> <span class="k">class</span> <span class="nc">TList</span><span class="o">&gt;</span>
-<span class="k">class</span> <span class="nc">FunctorImpl</span><span class="p">;</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">R</span><span class="p">,</span><span class="w"> </span><span class="k">class</span> <span class="nc">TList</span><span class="o">&gt;</span><span class="w"></span>
+<span class="k">class</span> <span class="nc">FunctorImpl</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="nc">R</span><span class="o">&gt;</span>
-<span class="k">class</span> <span class="nc">FunctorImpl</span><span class="o">&lt;</span><span class="n">R</span><span class="p">,</span> <span class="n">NullType</span><span class="o">&gt;</span>
-<span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="k">virtual</span> <span class="n">R</span> <span class="k">operator</span><span class="p">()()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">virtual</span> <span class="n">FunctorImpl</span><span class="o">*</span> <span class="nf">Clone</span><span class="p">()</span> <span class="k">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">virtual</span> <span class="o">~</span><span class="n">FunctorImpl</span><span class="p">(){}</span>
-<span class="p">};</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">R</span><span class="o">&gt;</span><span class="w"></span>
+<span class="k">class</span> <span class="nc">FunctorImpl</span><span class="o">&lt;</span><span class="n">R</span><span class="p">,</span><span class="w"> </span><span class="n">NullType</span><span class="o">&gt;</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">R</span><span class="w"> </span><span class="k">operator</span><span class="p">()()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">FunctorImpl</span><span class="o">*</span><span class="w"> </span><span class="nf">Clone</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">FunctorImpl</span><span class="p">(){}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="nc">R</span><span class="p">,</span> <span class="k">typename</span> <span class="nc">P1</span><span class="o">&gt;</span>
-<span class="k">class</span> <span class="nc">FunctorImpl</span><span class="o">&lt;</span><span class="n">R</span><span class="p">,</span> <span class="n">TYPELIST_1</span><span class="p">(</span><span class="n">P1</span><span class="p">)</span><span class="o">&gt;</span>
-<span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="k">virtual</span> <span class="n">R</span> <span class="k">operator</span><span class="p">()(</span><span class="n">P1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">virtual</span> <span class="n">FunctorImpl</span><span class="o">*</span> <span class="nf">Clone</span><span class="p">()</span> <span class="k">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">virtual</span> <span class="o">~</span><span class="n">FunctorImpl</span><span class="p">(){}</span>
-<span class="p">};</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">R</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span> <span class="nc">P1</span><span class="o">&gt;</span><span class="w"></span>
+<span class="k">class</span> <span class="nc">FunctorImpl</span><span class="o">&lt;</span><span class="n">R</span><span class="p">,</span><span class="w"> </span><span class="n">TYPELIST_1</span><span class="p">(</span><span class="n">P1</span><span class="p">)</span><span class="o">&gt;</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">R</span><span class="w"> </span><span class="k">operator</span><span class="p">()(</span><span class="n">P1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">FunctorImpl</span><span class="o">*</span><span class="w"> </span><span class="nf">Clone</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">FunctorImpl</span><span class="p">(){}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="p">...</span>
+<span class="p">...</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -156,12 +156,12 @@
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// 例えば型 Parm1 が組み込み型でない場合、</span>
 <span class="c1">// p1 の型は Parm1&amp; となる。</span>
 <span class="c1">// const が付いていたら const Parm1&amp; となる。</span>
-<span class="n">R</span> <span class="nf">operator</span><span class="p">()(</span>
-    <span class="k">typename</span> <span class="nc">TypeTraits</span><span class="o">&lt;</span><span class="n">Parm1</span><span class="o">&gt;::</span><span class="n">ParameterType</span> <span class="n">p1</span><span class="p">,</span>
-    <span class="k">typename</span> <span class="nc">TypeTraits</span><span class="o">&lt;</span><span class="n">Parm2</span><span class="o">&gt;::</span><span class="n">ParameterType</span> <span class="n">p2</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="n">spImpl_</span><span class="p">)(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">);</span>
-<span class="p">}</span>
+<span class="n">R</span><span class="w"> </span><span class="nf">operator</span><span class="p">()(</span><span class="w"></span>
+<span class="w">    </span><span class="k">typename</span> <span class="nc">TypeTraits</span><span class="o">&lt;</span><span class="n">Parm1</span><span class="o">&gt;::</span><span class="n">ParameterType</span><span class="w"> </span><span class="n">p1</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="k">typename</span> <span class="nc">TypeTraits</span><span class="o">&lt;</span><span class="n">Parm2</span><span class="o">&gt;::</span><span class="n">ParameterType</span><span class="w"> </span><span class="n">p2</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">spImpl_</span><span class="p">)(</span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="n">p2</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -189,11 +189,11 @@ private にするのを忘れていた。</p></li>
 <ul>
 <li><p>&lt;リソース・リークを避ける唯一の正しい手段とは、アプリケーションの終了時に Singleton オブジェクトを削除することです。問題は、その破棄後に、該当 Singleton に対するアクセスが発生しないようなタイミングを注意深く設定しなければならない点です&gt; (p. 142)</p></li>
 <li><p>次のタイプの実装を Meyers の Singleton と呼ぶことにする。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Singleton</span><span class="o">&amp;</span> <span class="nf">Singleton::Instance</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">static</span> <span class="n">Singleton</span> <span class="n">obj</span><span class="p">;</span>
-    <span class="k">return</span> <span class="n">obj</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Singleton</span><span class="o">&amp;</span><span class="w"> </span><span class="nf">Singleton::Instance</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">Singleton</span><span class="w"> </span><span class="n">obj</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">obj</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>&lt;Meyers の Singleton は、アプリケーションの終了処理における最も簡単な
@@ -246,18 +246,18 @@ Singleton のコンセプトとは独立したものです。オブジェクト�
 <li><p>今では有名になった手法だが、Doug Schdmit と Tim Harrison が発案した (1996)
 Double-Checked Locking パターンを紹介している。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// p. 157 より引用</span>
-<span class="n">Singleton</span><span class="o">&amp;</span> <span class="nf">Singleton::Instance</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">pInstance_</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">Guard</span> <span class="n">myGuard</span><span class="p">(</span><span class="n">lock_</span><span class="p">);</span>
-        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">pInstance_</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="n">pInstance_</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Singleton</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="o">*</span><span class="n">pInstance_</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="n">Singleton</span><span class="o">&amp;</span><span class="w"> </span><span class="nf">Singleton::Instance</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">pInstance_</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">Guard</span><span class="w"> </span><span class="n">myGuard</span><span class="p">(</span><span class="n">lock_</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">pInstance_</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">pInstance_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Singleton</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="n">pInstance_</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -274,13 +274,13 @@ Double-Checked Locking パターンを紹介している。</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">Threading</span></code>: シングルスレッド or マルチスレッド。</p></li>
 </ul>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// p. 160 より引用</span>
-<span class="k">template</span> <span class="o">&lt;</span>
-   <span class="k">class</span> <span class="nc">T</span><span class="p">,</span>
-   <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">CreationPolicy</span> <span class="o">=</span> <span class="n">CreateUsingNew</span><span class="p">,</span>
-   <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">LifetimePolicy</span> <span class="o">=</span> <span class="n">DefaultLifetime</span><span class="p">,</span>
-   <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">ThreadingModel</span> <span class="o">=</span> <span class="n">SingleThreaded</span>
-<span class="o">&gt;</span>
-<span class="k">class</span> <span class="nc">SingletonHolder</span><span class="p">;</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="w"></span>
+<span class="w">   </span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="o">&gt;</span><span class="w"> </span><span class="k">class</span> <span class="nc">CreationPolicy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CreateUsingNew</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="o">&gt;</span><span class="w"> </span><span class="k">class</span> <span class="nc">LifetimePolicy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DefaultLifetime</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="o">&gt;</span><span class="w"> </span><span class="k">class</span> <span class="nc">ThreadingModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SingleThreaded</span><span class="w"></span>
+<span class="o">&gt;</span><span class="w"></span>
+<span class="k">class</span> <span class="nc">SingletonHolder</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -300,14 +300,14 @@ Double-Checked Locking パターンを紹介している。</p>
 <ul>
 <li><p>&lt;スマート・ポインタとは、シンタックスとある種のセマンティックスに関して、通常のポインタを模倣するような C++ のクラスです&gt; (p. 167)</p></li>
 <li><p>&lt;既存の高品質なスマート・ポインタでは、たいていの場合、以下のコードのようにポインタの型によってテンプレート化されています&gt; (p. 168)</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
-<span class="k">class</span> <span class="nc">SmartPtr</span>
-<span class="p">{</span>
-    <span class="p">...</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span><span class="w"></span>
+<span class="k">class</span> <span class="nc">SmartPtr</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">...</span><span class="w"></span>
 
-<span class="k">private</span><span class="o">:</span>
-    <span class="n">T</span><span class="o">*</span> <span class="n">pointee_</span><span class="p">;</span>
-<span class="p">};</span>
+<span class="k">private</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">T</span><span class="o">*</span><span class="w"> </span><span class="n">pointee_</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -329,10 +329,10 @@ Double-Checked Locking パターンを紹介している。</p>
 <li><p>&lt;メンバ関数というものはスマート・ポインタに適したものではないのです&gt; (p. 172)</p>
 <p>なぜかというと、<code class="docutils literal notranslate"><span class="pre">T</span></code> の解放のためのメンバ関数呼び出しと、
 <code class="docutils literal notranslate"><span class="pre">SmartPtr&lt;T&gt;</span></code> のそれが似ていて紛らわしいから。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">SmartPtr</span><span class="o">&lt;</span><span class="n">Printer</span><span class="o">&gt;</span> <span class="n">spRes</span> <span class="o">=</span> <span class="p">...</span>
-<span class="p">...</span>
-<span class="n">spRes</span><span class="o">-&gt;</span><span class="n">Release</span><span class="p">();</span>
-<span class="n">spRes</span><span class="p">.</span><span class="n">Release</span><span class="p">();</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">SmartPtr</span><span class="o">&lt;</span><span class="n">Printer</span><span class="o">&gt;</span><span class="w"> </span><span class="n">spRes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...</span><span class="w"></span>
+<span class="p">...</span><span class="w"></span>
+<span class="n">spRes</span><span class="o">-&gt;</span><span class="n">Release</span><span class="p">();</span><span class="w"></span>
+<span class="n">spRes</span><span class="p">.</span><span class="n">Release</span><span class="p">();</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -405,15 +405,15 @@ Double-Checked Locking パターンを紹介している。</p>
 <ul>
 <li><p>&lt;私たちは問題をポリシーと呼ぶ小さなクラスへと分割するのです。そして、各ポリシー・クラスでは、たった 1 つの問題を取り扱います&gt; (p. 200)</p></li>
 <li><p>&lt;<code class="docutils literal notranslate"><span class="pre">SmartPtr</span></code> の宣言中に現れるポリシーの順序は、最も良くカスタマイズされるものが先頭に来るようになっています&gt; (p. 201)</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span>
-<span class="o">&lt;</span>
-   <span class="k">typename</span> <span class="nc">T</span><span class="p">,</span>
-   <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">OwnershipPolicy</span> <span class="o">=</span> <span class="n">RefCounted</span><span class="p">,</span>
-   <span class="k">class</span> <span class="nc">ConversionPolicy</span> <span class="o">=</span> <span class="n">DisallowConversion</span><span class="p">,</span>
-   <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">CheckingPolicy</span> <span class="o">=</span> <span class="n">AssertCheck</span><span class="p">,</span>
-   <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">StoragePolicy</span> <span class="o">=</span> <span class="n">DefaultSPStorage</span>
-<span class="o">&gt;</span>
-<span class="k">class</span> <span class="nc">SmartPtr</span><span class="p">;</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"></span>
+<span class="o">&lt;</span><span class="w"></span>
+<span class="w">   </span><span class="k">typename</span> <span class="nc">T</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="o">&gt;</span><span class="w"> </span><span class="k">class</span> <span class="nc">OwnershipPolicy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RefCounted</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="k">class</span> <span class="nc">ConversionPolicy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DisallowConversion</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="o">&gt;</span><span class="w"> </span><span class="k">class</span> <span class="nc">CheckingPolicy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AssertCheck</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="o">&gt;</span><span class="w"> </span><span class="k">class</span> <span class="nc">StoragePolicy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DefaultSPStorage</span><span class="w"></span>
+<span class="o">&gt;</span><span class="w"></span>
+<span class="k">class</span> <span class="nc">SmartPtr</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -473,15 +473,15 @@ C++ という言語が、ユニークで永続的な型 ID を保証していな
 <code class="docutils literal notranslate"><span class="pre">FactoryError</span></code> ポリシーに分離しなければなりません&gt; (p. 221)</p></li>
 </ul>
 <hr class="docutils" />
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span>
-<span class="o">&lt;</span>
-   <span class="k">class</span> <span class="nc">AbstractProduct</span><span class="p">,</span>
-   <span class="k">class</span> <span class="nc">IdentifierType</span><span class="p">,</span>
-   <span class="k">class</span> <span class="nc">ProductCreator</span> <span class="o">=</span> <span class="n">AbstractProduct</span><span class="o">*</span> <span class="p">(</span><span class="o">*</span><span class="p">)(),</span>
-   <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">,</span> <span class="k">class</span><span class="o">&gt;</span>
-      <span class="k">class</span> <span class="nc">FactoryErrorPolicy</span> <span class="o">=</span> <span class="n">DefaultFactoryError</span>
-<span class="o">&gt;</span>
-<span class="k">class</span> <span class="nc">Factory</span><span class="p">;</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"></span>
+<span class="o">&lt;</span><span class="w"></span>
+<span class="w">   </span><span class="k">class</span> <span class="nc">AbstractProduct</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="k">class</span> <span class="nc">IdentifierType</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="k">class</span> <span class="nc">ProductCreator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AbstractProduct</span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="p">)(),</span><span class="w"></span>
+<span class="w">   </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="o">&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="k">class</span> <span class="nc">FactoryErrorPolicy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DefaultFactoryError</span><span class="w"></span>
+<span class="o">&gt;</span><span class="w"></span>
+<span class="k">class</span> <span class="nc">Factory</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <hr class="docutils" />
@@ -492,16 +492,16 @@ C++ という言語が、ユニークで永続的な型 ID を保証していな
 <hr class="docutils" />
 <p>オブジェクト・ファクトリは通常 Singleton であることが自然。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// p. 228 より引用</span>
-<span class="k">typedef</span> <span class="n">SingletonHolder</span><span class="o">&lt;</span> <span class="n">Factory</span><span class="o">&lt;</span><span class="n">Shape</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">ShapeFactory</span><span class="p">;</span>
+<span class="k">typedef</span><span class="w"> </span><span class="n">SingletonHolder</span><span class="o">&lt;</span><span class="w"> </span><span class="n">Factory</span><span class="o">&lt;</span><span class="n">Shape</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">ShapeFactory</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>以前の <code class="docutils literal notranslate"><span class="pre">Functor</span></code> を <code class="docutils literal notranslate"><span class="pre">ProductCreator</span></code> とすることも可能。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// p. 228 より引用</span>
-<span class="k">typedef</span> <span class="n">SingletonHolder</span>
-<span class="o">&lt;</span>
-   <span class="n">Factory</span><span class="o">&lt;</span><span class="n">Shape</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="n">Functor</span><span class="o">&lt;</span><span class="n">Shape</span><span class="o">*&gt;</span> <span class="o">&gt;</span>
-<span class="o">&gt;</span>
-<span class="n">ShapeFactory</span><span class="p">;</span>
+<span class="k">typedef</span><span class="w"> </span><span class="n">SingletonHolder</span><span class="w"></span>
+<span class="o">&lt;</span><span class="w"></span>
+<span class="w">   </span><span class="n">Factory</span><span class="o">&lt;</span><span class="n">Shape</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">Functor</span><span class="o">&lt;</span><span class="n">Shape</span><span class="o">*&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"></span>
+<span class="o">&gt;</span><span class="w"></span>
+<span class="n">ShapeFactory</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 </section>

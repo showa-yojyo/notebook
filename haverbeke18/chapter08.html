@@ -210,13 +210,13 @@
 <li><p>特定の種類の例外を捕捉するには、<code class="docutils literal notranslate"><span class="pre">catch</span></code> ブロックで受け取った例外が目的のものかどうかをチェックして、そうでない場合は投げ直す。</p></li>
 </ul>
 <p>教科書のコードは次のものだが、どうも演算子 <code class="docutils literal notranslate"><span class="pre">instanceof</span></code> に頼るような方法しかないようだ。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nx">InputError</span> <span class="k">extends</span> <span class="nb">Error</span> <span class="p">{}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nx">InputError</span> <span class="k">extends</span> <span class="ne">Error</span> <span class="p">{}</span>
 
 <span class="kd">function</span> <span class="nx">promptDirection</span><span class="p">(</span><span class="nx">question</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">prompt</span><span class="p">(</span><span class="nx">question</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;left&quot;</span><span class="p">)</span> <span class="k">return</span> <span class="s2">&quot;L&quot;</span><span class="p">;</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;right&quot;</span><span class="p">)</span> <span class="k">return</span> <span class="s2">&quot;R&quot;</span><span class="p">;</span>
-    <span class="k">throw</span> <span class="k">new</span> <span class="nx">InputError</span><span class="p">(</span><span class="s2">&quot;Invalid direction: &quot;</span> <span class="o">+</span> <span class="nx">result</span><span class="p">);</span>
+    <span class="k">throw</span> <span class="ow">new</span> <span class="nx">InputError</span><span class="p">(</span><span class="s2">&quot;Invalid direction: &quot;</span> <span class="o">+</span> <span class="nx">result</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
@@ -225,7 +225,7 @@
         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;You chose &quot;</span><span class="p">,</span> <span class="nx">dir</span><span class="p">);</span>
         <span class="k">break</span><span class="p">;</span>
     <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">e</span> <span class="k">instanceof</span> <span class="nx">InputError</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">e</span> <span class="ow">instanceof</span> <span class="nx">InputError</span><span class="p">)</span> <span class="p">{</span>
             <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Not a valid direction. Try again.&quot;</span><span class="p">);</span>
         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
             <span class="k">throw</span> <span class="nx">e</span><span class="p">;</span>
@@ -243,7 +243,7 @@
 </ul>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">firstElement</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;firstElement called with []&quot;</span><span class="p">);</span>
+        <span class="k">throw</span> <span class="ow">new</span> <span class="ne">Error</span><span class="p">(</span><span class="s2">&quot;firstElement called with []&quot;</span><span class="p">);</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="nx">array</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span>
 <span class="p">}</span>
@@ -271,11 +271,11 @@
 <p><strong>問題</strong> 20% の確率で二つの数の積を返し、80% の確率で
 <code class="docutils literal notranslate"><span class="pre">MultiplicatorUnitFailure</span></code> 型の例外を発生させる関数 <code class="docutils literal notranslate"><span class="pre">primitiveMultiply</span></code> があるとする。この不便な関数をラップして、呼び出しが成功するまで試行を続け、その後結果を返す関数を書け。処理したい例外しか例外処理しないこと。</p>
 <p><strong>解答</strong> せっかくなので関数 <code class="docutils literal notranslate"><span class="pre">primitiveMultiply</span></code> をも実装する：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nx">MultiplicatorUnitFailure</span> <span class="k">extends</span> <span class="nb">Error</span><span class="p">{}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nx">MultiplicatorUnitFailure</span> <span class="k">extends</span> <span class="ne">Error</span><span class="p">{}</span>
 
 <span class="kd">function</span> <span class="nx">primitiveMultiply</span><span class="p">(</span><span class="nx">lhs</span><span class="p">,</span> <span class="nx">rhs</span><span class="p">){</span>
     <span class="k">if</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.8</span><span class="p">){</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="nx">MultiplicatorUnitFailure</span><span class="p">;</span>
+        <span class="k">throw</span> <span class="ow">new</span> <span class="nx">MultiplicatorUnitFailure</span><span class="p">;</span>
     <span class="p">}</span>
 
     <span class="k">return</span> <span class="nx">lhs</span> <span class="o">*</span> <span class="nx">rhs</span><span class="p">;</span>
@@ -287,7 +287,7 @@
             <span class="k">return</span> <span class="nx">primitiveMultiply</span><span class="p">(</span><span class="nx">lhs</span><span class="p">,</span> <span class="nx">rhs</span><span class="p">);</span>
         <span class="p">}</span>
         <span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
-            <span class="k">if</span><span class="p">(</span><span class="nx">e</span> <span class="k">instanceof</span> <span class="nx">MultiplicatorUnitFailure</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">e</span> <span class="ow">instanceof</span> <span class="nx">MultiplicatorUnitFailure</span><span class="p">){</span>
                 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Try again&quot;</span><span class="p">);</span>
             <span class="p">}</span>
             <span class="k">else</span><span class="p">{</span>
@@ -308,7 +308,7 @@
     <span class="nx">lock</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">locked</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span> <span class="p">},</span>
     <span class="nx">_content</span><span class="o">:</span> <span class="p">[],</span>
     <span class="nx">get</span> <span class="nx">content</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">locked</span><span class="p">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Locked!&quot;</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">locked</span><span class="p">)</span> <span class="k">throw</span> <span class="ow">new</span> <span class="ne">Error</span><span class="p">(</span><span class="s2">&quot;Locked!&quot;</span><span class="p">);</span>
         <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_content</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">};</span>
@@ -340,7 +340,7 @@
 </div>
 <p>テストコード：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">f</span><span class="p">(</span><span class="nx">content</span><span class="p">){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">content</span><span class="p">);</span> <span class="p">}</span>
-<span class="kd">function</span> <span class="nx">g</span><span class="p">(</span><span class="nx">content</span><span class="p">){</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">;</span> <span class="p">}</span>
+<span class="kd">function</span> <span class="nx">g</span><span class="p">(</span><span class="nx">content</span><span class="p">){</span> <span class="k">throw</span> <span class="ow">new</span> <span class="ne">Error</span><span class="p">;</span> <span class="p">}</span>
 
 <span class="nx">box</span><span class="p">.</span><span class="nx">lock</span><span class="p">();</span>
 <span class="nx">withBoxUnlocked</span><span class="p">(</span><span class="nx">f</span><span class="p">);</span>

@@ -153,7 +153,7 @@
     <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">match</span> <span class="o">=</span> <span class="sr">/^[^\s(),#&quot;]+/</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">program</span><span class="p">))</span> <span class="p">{</span>
         <span class="nx">expr</span> <span class="o">=</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;word&quot;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="nx">match</span><span class="p">[</span><span class="mf">0</span><span class="p">]};</span>
     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="nx">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Unexpected syntax: &quot;</span> <span class="o">+</span> <span class="nx">program</span><span class="p">);</span>
+        <span class="k">throw</span> <span class="ow">new</span> <span class="ne">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Unexpected syntax: &quot;</span> <span class="o">+</span> <span class="nx">program</span><span class="p">);</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="nx">parseApply</span><span class="p">(</span><span class="nx">expr</span><span class="p">,</span> <span class="nx">program</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">match</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">length</span><span class="p">));</span>
 <span class="p">}</span>
@@ -198,7 +198,7 @@ Egg がサポートする三種の要素（文字列、数字、単語）を判�
         <span class="k">if</span> <span class="p">(</span><span class="nx">program</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;,&quot;</span><span class="p">)</span> <span class="p">{</span>
             <span class="nx">program</span> <span class="o">=</span> <span class="nx">skipSpace</span><span class="p">(</span><span class="nx">program</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">1</span><span class="p">));</span>
         <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">program</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;)&quot;</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="nx">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Expected &#39;,&#39; or &#39;)&#39;&quot;</span><span class="p">);</span>
+            <span class="k">throw</span> <span class="ow">new</span> <span class="ne">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Expected &#39;,&#39; or &#39;)&#39;&quot;</span><span class="p">);</span>
         <span class="p">}</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="nx">parseApply</span><span class="p">(</span><span class="nx">expr</span><span class="p">,</span> <span class="nx">program</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">1</span><span class="p">));</span>
@@ -218,7 +218,7 @@ Egg がサポートする三種の要素（文字列、数字、単語）を判�
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">parse</span><span class="p">(</span><span class="nx">program</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="p">{</span><span class="nx">expr</span><span class="p">,</span> <span class="nx">rest</span><span class="p">}</span> <span class="o">=</span> <span class="nx">parseExpression</span><span class="p">(</span><span class="nx">program</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">skipSpace</span><span class="p">(</span><span class="nx">rest</span><span class="p">).</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="nx">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Unexpected text after program&quot;</span><span class="p">);</span>
+        <span class="k">throw</span> <span class="ow">new</span> <span class="ne">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Unexpected text after program&quot;</span><span class="p">);</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="nx">expr</span><span class="p">;</span>
 <span class="p">}</span>
@@ -240,21 +240,21 @@ Egg がサポートする三種の要素（文字列、数字、単語）を判�
     <span class="k">if</span> <span class="p">(</span><span class="nx">expr</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;value&quot;</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">return</span> <span class="nx">expr</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
     <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">expr</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;word&quot;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">expr</span><span class="p">.</span><span class="nx">name</span> <span class="k">in</span> <span class="nx">scope</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">expr</span><span class="p">.</span><span class="nx">name</span> <span class="ow">in</span> <span class="nx">scope</span><span class="p">)</span> <span class="p">{</span>
             <span class="k">return</span> <span class="nx">scope</span><span class="p">[</span><span class="nx">expr</span><span class="p">.</span><span class="nx">name</span><span class="p">];</span>
         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="nx">ReferenceError</span><span class="p">(</span><span class="sb">`Undefined binding: </span><span class="si">${</span><span class="nx">expr</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+            <span class="k">throw</span> <span class="ow">new</span> <span class="ne">ReferenceError</span><span class="p">(</span><span class="sb">`Undefined binding: </span><span class="si">${</span><span class="nx">expr</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
         <span class="p">}</span>
     <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">expr</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;apply&quot;</span><span class="p">)</span> <span class="p">{</span>
         <span class="kd">let</span> <span class="p">{</span><span class="nx">operator</span><span class="p">,</span> <span class="nx">args</span><span class="p">}</span> <span class="o">=</span> <span class="nx">expr</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">operator</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;word&quot;</span> <span class="o">&amp;&amp;</span> <span class="nx">operator</span><span class="p">.</span><span class="nx">name</span> <span class="k">in</span> <span class="nx">specialForms</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">operator</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;word&quot;</span> <span class="o">&amp;&amp;</span> <span class="nx">operator</span><span class="p">.</span><span class="nx">name</span> <span class="ow">in</span> <span class="nx">specialForms</span><span class="p">)</span> <span class="p">{</span>
             <span class="k">return</span> <span class="nx">specialForms</span><span class="p">[</span><span class="nx">operator</span><span class="p">.</span><span class="nx">name</span><span class="p">](</span><span class="nx">expr</span><span class="p">.</span><span class="nx">args</span><span class="p">,</span> <span class="nx">scope</span><span class="p">);</span>
         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
             <span class="kd">let</span> <span class="nx">op</span> <span class="o">=</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">operator</span><span class="p">,</span> <span class="nx">scope</span><span class="p">);</span>
-            <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">op</span> <span class="o">==</span> <span class="s2">&quot;function&quot;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="ow">typeof</span> <span class="nx">op</span> <span class="o">==</span> <span class="s2">&quot;function&quot;</span><span class="p">)</span> <span class="p">{</span>
                 <span class="k">return</span> <span class="nx">op</span><span class="p">(...</span><span class="nx">args</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">arg</span> <span class="p">=&gt;</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">arg</span><span class="p">,</span> <span class="nx">scope</span><span class="p">)));</span>
             <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-                <span class="k">throw</span> <span class="k">new</span> <span class="nx">TypeError</span><span class="p">(</span><span class="s2">&quot;Applying a non-function.&quot;</span><span class="p">);</span>
+                <span class="k">throw</span> <span class="ow">new</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Applying a non-function.&quot;</span><span class="p">);</span>
             <span class="p">}</span>
         <span class="p">}</span>
     <span class="p">}</span>
@@ -285,7 +285,7 @@ Egg がサポートする三種の要素（文字列、数字、単語）を判�
 <p>まず <code class="docutils literal notranslate"><span class="pre">if</span></code> を追加する：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">specialForms</span><span class="p">.</span><span class="k">if</span> <span class="o">=</span> <span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">scope</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">!=</span> <span class="mf">3</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="nx">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Wrong number of args to if&quot;</span><span class="p">);</span>
+        <span class="k">throw</span> <span class="ow">new</span> <span class="ne">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Wrong number of args to if&quot;</span><span class="p">);</span>
     <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mf">0</span><span class="p">],</span> <span class="nx">scope</span><span class="p">)</span> <span class="o">!==</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">return</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mf">1</span><span class="p">],</span> <span class="nx">scope</span><span class="p">);</span>
     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -308,7 +308,7 @@ Egg がサポートする三種の要素（文字列、数字、単語）を判�
 <p><code class="docutils literal notranslate"><span class="pre">while</span></code> 形式も同様にする。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">specialForms</span><span class="p">.</span><span class="k">while</span> <span class="o">=</span> <span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">scope</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">!=</span> <span class="mf">2</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="nx">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Wrong number of args to while&quot;</span><span class="p">);</span>
+        <span class="k">throw</span> <span class="ow">new</span> <span class="ne">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Wrong number of args to while&quot;</span><span class="p">);</span>
     <span class="p">}</span>
     <span class="k">while</span> <span class="p">(</span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mf">0</span><span class="p">],</span> <span class="nx">scope</span><span class="p">)</span> <span class="o">!==</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">evaluate</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mf">1</span><span class="p">],</span> <span class="nx">scope</span><span class="p">);</span>
@@ -337,7 +337,7 @@ Egg がサポートする三種の要素（文字列、数字、単語）を判�
 </ul>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">specialForms</span><span class="p">.</span><span class="nx">define</span> <span class="o">=</span> <span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">scope</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">!=</span> <span class="mf">2</span> <span class="o">||</span> <span class="nx">args</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">type</span> <span class="o">!=</span> <span class="s2">&quot;word&quot;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="nx">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Incorrect use of define&quot;</span><span class="p">);</span>
+        <span class="k">throw</span> <span class="ow">new</span> <span class="ne">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Incorrect use of define&quot;</span><span class="p">);</span>
     <span class="p">}</span>
     <span class="kd">let</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mf">1</span><span class="p">],</span> <span class="nx">scope</span><span class="p">);</span>
     <span class="nx">scope</span><span class="p">[</span><span class="nx">args</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
@@ -417,19 +417,19 @@ Egg がサポートする三種の要素（文字列、数字、単語）を判�
 </ul>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">specialForms</span><span class="p">.</span><span class="nx">fun</span> <span class="o">=</span> <span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">scope</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">args</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="nx">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Functions need a body&quot;</span><span class="p">);</span>
+        <span class="k">throw</span> <span class="ow">new</span> <span class="ne">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Functions need a body&quot;</span><span class="p">);</span>
     <span class="p">}</span>
     <span class="kd">let</span> <span class="nx">body</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mf">1</span><span class="p">];</span>
     <span class="kd">let</span> <span class="nx">params</span> <span class="o">=</span> <span class="nx">args</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mf">1</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nx">expr</span> <span class="p">=&gt;</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="nx">expr</span><span class="p">.</span><span class="nx">type</span> <span class="o">!=</span> <span class="s2">&quot;word&quot;</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="nx">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Parameter names must be words&quot;</span><span class="p">);</span>
+            <span class="k">throw</span> <span class="ow">new</span> <span class="ne">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Parameter names must be words&quot;</span><span class="p">);</span>
         <span class="p">}</span>
         <span class="k">return</span> <span class="nx">expr</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
     <span class="p">});</span>
 
     <span class="k">return</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span> <span class="o">!=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="nx">TypeError</span><span class="p">(</span><span class="s2">&quot;Wrong number of arguments&quot;</span><span class="p">);</span>
+            <span class="k">throw</span> <span class="ow">new</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Wrong number of arguments&quot;</span><span class="p">);</span>
         <span class="p">}</span>
         <span class="kd">let</span> <span class="nx">localScope</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">scope</span><span class="p">);</span>
         <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
@@ -573,7 +573,7 @@ JavaScript の <code class="docutils literal notranslate"><span class="pre">//</
 <p><strong>解答</strong> これは時間がかかった。キーワードを <code class="docutils literal notranslate"><span class="pre">put</span></code> にすると次のようなコードになる：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">specialForms</span><span class="p">.</span><span class="nx">put</span> <span class="o">=</span> <span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">scope</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">!=</span> <span class="mf">2</span> <span class="o">||</span> <span class="nx">args</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">type</span> <span class="o">!=</span> <span class="s2">&quot;word&quot;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="nx">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Incorrect use of put&quot;</span><span class="p">);</span>
+        <span class="k">throw</span> <span class="ow">new</span> <span class="ne">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Incorrect use of put&quot;</span><span class="p">);</span>
     <span class="p">}</span>
     <span class="kd">const</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">name</span><span class="p">;</span>
     <span class="kd">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mf">1</span><span class="p">],</span> <span class="nx">scope</span><span class="p">);</span>
@@ -581,12 +581,12 @@ JavaScript の <code class="docutils literal notranslate"><span class="pre">//</
         <span class="nx">scope</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
         <span class="k">return</span> <span class="nx">value</span><span class="p">;</span>
     <span class="p">}</span>
-    <span class="k">if</span><span class="p">(</span><span class="nx">name</span> <span class="k">in</span> <span class="nx">scope</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">name</span> <span class="ow">in</span> <span class="nx">scope</span><span class="p">){</span>
         <span class="nb">Object</span><span class="p">.</span><span class="nx">getPrototypeOf</span><span class="p">(</span><span class="nx">scope</span><span class="p">)[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
         <span class="k">return</span> <span class="nx">value</span><span class="p">;</span>
     <span class="p">}</span>
 
-    <span class="k">throw</span> <span class="k">new</span> <span class="nx">ReferenceError</span><span class="p">(</span><span class="sb">`Incorrect use of put; </span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb"> is undefined`</span><span class="p">);</span>
+    <span class="k">throw</span> <span class="ow">new</span> <span class="ne">ReferenceError</span><span class="p">(</span><span class="sb">`Incorrect use of put; </span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb"> is undefined`</span><span class="p">);</span>
 <span class="p">};</span>
 </pre></div>
 </div>

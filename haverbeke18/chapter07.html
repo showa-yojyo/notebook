@@ -81,17 +81,17 @@ Dijkstra のアルゴリズムの一つ前のようなものだろうか。</p>
 </ul>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">buildGraph</span><span class="p">(</span><span class="nx">edges</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="nx">graph</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
-    <span class="kd">function</span> <span class="nx">addEdge</span><span class="p">(</span><span class="k">from</span><span class="p">,</span> <span class="nx">to</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">graph</span><span class="p">[</span><span class="k">from</span><span class="p">]</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">graph</span><span class="p">[</span><span class="k">from</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">to</span><span class="p">];</span>
+    <span class="kd">function</span> <span class="nx">addEdge</span><span class="p">(</span><span class="kr">from</span><span class="p">,</span> <span class="nx">to</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">graph</span><span class="p">[</span><span class="kr">from</span><span class="p">]</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">graph</span><span class="p">[</span><span class="kr">from</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">to</span><span class="p">];</span>
         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="nx">graph</span><span class="p">[</span><span class="k">from</span><span class="p">].</span><span class="nx">push</span><span class="p">(</span><span class="nx">to</span><span class="p">);</span>
+            <span class="nx">graph</span><span class="p">[</span><span class="kr">from</span><span class="p">].</span><span class="nx">push</span><span class="p">(</span><span class="nx">to</span><span class="p">);</span>
         <span class="p">}</span>
     <span class="p">}</span>
 
-    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="p">[</span><span class="k">from</span><span class="p">,</span> <span class="nx">to</span><span class="p">]</span> <span class="k">of</span> <span class="nx">edges</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">r</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)))</span> <span class="p">{</span>
-        <span class="nx">addEdge</span><span class="p">(</span><span class="k">from</span><span class="p">,</span> <span class="nx">to</span><span class="p">);</span>
-        <span class="nx">addEdge</span><span class="p">(</span><span class="nx">to</span><span class="p">,</span> <span class="k">from</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="p">[</span><span class="kr">from</span><span class="p">,</span> <span class="nx">to</span><span class="p">]</span> <span class="k">of</span> <span class="nx">edges</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">r</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)))</span> <span class="p">{</span>
+        <span class="nx">addEdge</span><span class="p">(</span><span class="kr">from</span><span class="p">,</span> <span class="nx">to</span><span class="p">);</span>
+        <span class="nx">addEdge</span><span class="p">(</span><span class="nx">to</span><span class="p">,</span> <span class="kr">from</span><span class="p">);</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="nx">graph</span><span class="p">;</span>
 <span class="p">}</span>
@@ -118,7 +118,7 @@ Dijkstra のアルゴリズムの一つ前のようなものだろうか。</p>
     <span class="k">if</span> <span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">place</span> <span class="o">!=</span> <span class="k">this</span><span class="p">.</span><span class="nx">place</span><span class="p">)</span> <span class="k">return</span> <span class="nx">p</span><span class="p">;</span>
     <span class="k">return</span> <span class="p">{</span><span class="nx">place</span><span class="o">:</span> <span class="nx">destination</span><span class="p">,</span> <span class="nx">address</span><span class="o">:</span> <span class="nx">p</span><span class="p">.</span><span class="nx">address</span><span class="p">};</span>
     <span class="p">}).</span><span class="nx">filter</span><span class="p">(</span><span class="nx">p</span> <span class="p">=&gt;</span> <span class="nx">p</span><span class="p">.</span><span class="nx">place</span> <span class="o">!=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">address</span><span class="p">);</span>
-<span class="k">return</span> <span class="k">new</span> <span class="nx">VillageState</span><span class="p">(</span><span class="nx">destination</span><span class="p">,</span> <span class="nx">parcels</span><span class="p">);</span>
+<span class="k">return</span> <span class="ow">new</span> <span class="nx">VillageState</span><span class="p">(</span><span class="nx">destination</span><span class="p">,</span> <span class="nx">parcels</span><span class="p">);</span>
 </pre></div>
 </div>
 </li>
@@ -130,7 +130,7 @@ Dijkstra のアルゴリズムの一つ前のようなものだろうか。</p>
 </ul>
 <p>このクラスを例えば次のように使う。<code class="docutils literal notranslate"><span class="pre">roads</span></code> の定義によると郵便局と
 Alice の家が隣接しているのでこういう結果となる。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">first</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VillageState</span><span class="p">(</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">first</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">VillageState</span><span class="p">(</span>
     <span class="s2">&quot;Post Office&quot;</span><span class="p">,</span>
     <span class="p">[{</span><span class="nx">place</span><span class="o">:</span> <span class="s2">&quot;Post Office&quot;</span><span class="p">,</span> <span class="nx">address</span><span class="o">:</span> <span class="s2">&quot;Alice&#39;s House&quot;</span><span class="p">}]</span>
 <span class="p">);</span>
@@ -211,7 +211,7 @@ Alice の家が隣接しているのでこういう結果となる。</p>
         <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="nx">place</span> <span class="o">==</span> <span class="nx">address</span><span class="p">);</span>
         <span class="nx">parcels</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span><span class="nx">place</span><span class="p">,</span> <span class="nx">address</span><span class="p">});</span>
     <span class="p">}</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="nx">VillageState</span><span class="p">(</span><span class="s2">&quot;Post Office&quot;</span><span class="p">,</span> <span class="nx">parcels</span><span class="p">);</span>
+    <span class="k">return</span> <span class="ow">new</span> <span class="nx">VillageState</span><span class="p">(</span><span class="s2">&quot;Post Office&quot;</span><span class="p">,</span> <span class="nx">parcels</span><span class="p">);</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -252,8 +252,8 @@ Alice の家が隣接しているのでこういう結果となる。</p>
 <li><p>A から B への経路を探すときには、A から始まるものしか興味がない。</p></li>
 <li><p>同じ場所を 2 回通るような効率の悪いに決まっているルートには興味がない。</p></li>
 </ul>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">findRoute</span><span class="p">(</span><span class="nx">graph</span><span class="p">,</span> <span class="k">from</span><span class="p">,</span> <span class="nx">to</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">work</span> <span class="o">=</span> <span class="p">[{</span><span class="nx">at</span><span class="o">:</span> <span class="k">from</span><span class="p">,</span> <span class="nx">route</span><span class="o">:</span> <span class="p">[]}];</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">findRoute</span><span class="p">(</span><span class="nx">graph</span><span class="p">,</span> <span class="kr">from</span><span class="p">,</span> <span class="nx">to</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">work</span> <span class="o">=</span> <span class="p">[{</span><span class="nx">at</span><span class="o">:</span> <span class="kr">from</span><span class="p">,</span> <span class="nx">route</span><span class="o">:</span> <span class="p">[]}];</span>
     <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">work</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
         <span class="kd">let</span> <span class="p">{</span><span class="nx">at</span><span class="p">,</span> <span class="nx">route</span><span class="p">}</span> <span class="o">=</span> <span class="nx">work</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
         <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">place</span> <span class="k">of</span> <span class="nx">graph</span><span class="p">[</span><span class="nx">at</span><span class="p">])</span> <span class="p">{</span>
@@ -384,7 +384,7 @@ Alice の家が隣接しているのでこういう結果となる。</p>
 <span class="p">}</span>
 
 <span class="kd">function</span> <span class="nx">compareRobots</span><span class="p">(</span><span class="nx">robot1</span><span class="p">,</span> <span class="nx">robot2</span><span class="p">,</span> <span class="nx">numTask</span> <span class="o">=</span> <span class="mf">100</span><span class="p">){</span>
-    <span class="kd">let</span> <span class="nx">counts1</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">numTask</span><span class="p">),</span> <span class="nx">counts2</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">numTask</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">counts1</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">numTask</span><span class="p">),</span> <span class="nx">counts2</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">numTask</span><span class="p">);</span>
     <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">numTask</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">){</span>
         <span class="kd">const</span> <span class="nx">s</span> <span class="o">=</span> <span class="nx">VillageState</span><span class="p">.</span><span class="nx">random</span><span class="p">();</span>
         <span class="nx">counts1</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">runRobot</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">robot1</span><span class="p">,</span> <span class="nx">mailRoute</span><span class="p">);</span>
@@ -427,7 +427,7 @@ Dijkstra のアルゴリズムの重みなし版のようなものを書けば�
 <p><strong>解答</strong> コンストラクターを private にする手段が不明。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nx">PGroup</span><span class="p">{</span>
     <span class="c1">// for private use</span>
-    <span class="nx">constructor</span><span class="p">(</span><span class="nx">content</span><span class="p">){</span>
+    <span class="kr">constructor</span><span class="p">(</span><span class="nx">content</span><span class="p">){</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">_content</span> <span class="o">=</span> <span class="nx">content</span><span class="p">;</span>
     <span class="p">}</span>
 
@@ -435,12 +435,12 @@ Dijkstra のアルゴリズムの重みなし版のようなものを書けば�
         <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="nx">element</span><span class="p">)){</span>
             <span class="kd">const</span> <span class="nx">newContent</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_content</span><span class="p">.</span><span class="nx">slice</span><span class="p">();</span>
             <span class="nx">newContent</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
-            <span class="k">return</span> <span class="k">new</span> <span class="nx">PGroup</span><span class="p">(</span><span class="nx">newContent</span><span class="p">);</span>
+            <span class="k">return</span> <span class="ow">new</span> <span class="nx">PGroup</span><span class="p">(</span><span class="nx">newContent</span><span class="p">);</span>
         <span class="p">}</span>
     <span class="p">}</span>
 
-    <span class="k">delete</span><span class="p">(</span><span class="nx">element</span><span class="p">){</span>
-        <span class="kd">const</span> <span class="nx">newGroup</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PGroup</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_content</span><span class="p">.</span><span class="nx">slice</span><span class="p">());</span>
+    <span class="ow">delete</span><span class="p">(</span><span class="nx">element</span><span class="p">){</span>
+        <span class="kd">const</span> <span class="nx">newGroup</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">PGroup</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_content</span><span class="p">.</span><span class="nx">slice</span><span class="p">());</span>
         <span class="kd">const</span> <span class="nx">where</span> <span class="o">=</span> <span class="nx">newGroup</span><span class="p">.</span><span class="nx">_content</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
         <span class="k">if</span><span class="p">(</span><span class="nx">where</span> <span class="o">!=</span> <span class="o">-</span><span class="mf">1</span><span class="p">){</span>
             <span class="nx">newGroup</span><span class="p">.</span><span class="nx">_content</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">where</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
@@ -453,7 +453,7 @@ Dijkstra のアルゴリズムの重みなし版のようなものを書けば�
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="nx">PGroup</span><span class="p">.</span><span class="nx">empty</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">freeze</span><span class="p">(</span><span class="k">new</span> <span class="nx">PGroup</span><span class="p">(</span><span class="k">new</span> <span class="nb">Array</span><span class="p">));</span>
+<span class="nx">PGroup</span><span class="p">.</span><span class="nx">empty</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">freeze</span><span class="p">(</span><span class="ow">new</span> <span class="nx">PGroup</span><span class="p">(</span><span class="ow">new</span> <span class="nb">Array</span><span class="p">));</span>
 </pre></div>
 </div>
 <p>こうするとオブジェクトを次のように生成できるようだが……。</p>

@@ -392,13 +392,13 @@
 <section id="id9">
 <h3><a class="toc-backref" href="#id146">1.8 ポインタと配列と参照</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>次のような構文が追加された。これらは範囲 <code class="docutils literal notranslate"><span class="pre">for</span></code> 文と呼ばれる：</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="nl">x</span> <span class="p">:</span> <span class="n">v</span><span class="p">){</span>
-    <span class="c1">// ...</span>
-<span class="p">}</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="nl">x</span> <span class="p">:</span><span class="w"> </span><span class="n">v</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="k">for</span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="nl">x</span> <span class="p">:</span> <span class="n">v</span><span class="p">){</span>
-    <span class="c1">// ...</span>
-<span class="p">}</span>
+<span class="k">for</span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="nl">x</span> <span class="p">:</span><span class="w"> </span><span class="n">v</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>キーワード <code class="docutils literal notranslate"><span class="pre">nullptr</span></code> により空ポインターを指すことができる。《古い時代のコードでは <code class="docutils literal notranslate"><span class="pre">nullptr</span></code> ではなくて <code class="docutils literal notranslate"><span class="pre">0`</span> <span class="pre">と</span> <span class="pre">``NULL</span></code> が用いられていた。しかし <code class="docutils literal notranslate"><span class="pre">nullptr</span></code> を使えば、整数である <code class="docutils literal notranslate"><span class="pre">0</span></code> と <code class="docutils literal notranslate"><span class="pre">NULL</span></code> と、ポインタである
@@ -585,23 +585,23 @@ RAII と呼ぶ。これにより裸の <code class="docutils literal notranslate
 <section id="id33">
 <h4><a class="toc-backref" href="#id170">4.2.3 コンテナの初期化</a><a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h4>
 <p>「コンテナ自身」の資源管理の次は、コンテナの内容物の管理を考える。ここで C++11 らしい話題が一つ出てくる。それだけ見ていく。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Vector</span><span class="p">{</span>
-   <span class="kt">double</span><span class="o">*</span> <span class="n">elem</span><span class="p">;</span>
-   <span class="kt">int</span> <span class="n">sz</span><span class="p">;</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">Vector</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">);</span>
-    <span class="c1">// ...</span>
-<span class="p">};</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Vector</span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="kt">double</span><span class="o">*</span><span class="w"> </span><span class="n">elem</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="kt">int</span><span class="w"> </span><span class="n">sz</span><span class="p">;</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">Vector</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="n">Vector</span><span class="o">::</span><span class="n">Vector</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">lst</span><span class="p">)</span>
-    <span class="o">:</span> <span class="n">elem</span><span class="p">{</span><span class="k">new</span> <span class="kt">double</span><span class="p">[</span><span class="n">lst</span><span class="p">.</span><span class="n">size</span><span class="p">()]},</span>
-      <span class="n">sz</span><span class="p">{</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">lst</span><span class="p">.</span><span class="n">size</span><span class="p">())}</span>
-<span class="p">{</span>
-    <span class="n">copy</span><span class="p">(</span><span class="n">lst</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">lst</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">elem</span><span class="p">);</span>
-<span class="p">};</span>
+<span class="n">Vector</span><span class="o">::</span><span class="n">Vector</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">lst</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">elem</span><span class="p">{</span><span class="k">new</span><span class="w"> </span><span class="kt">double</span><span class="p">[</span><span class="n">lst</span><span class="p">.</span><span class="n">size</span><span class="p">()]},</span><span class="w"></span>
+<span class="w">      </span><span class="n">sz</span><span class="p">{</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">lst</span><span class="p">.</span><span class="n">size</span><span class="p">())}</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">copy</span><span class="p">(</span><span class="n">lst</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">lst</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="n">elem</span><span class="p">);</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="n">Vector</span> <span class="n">v1</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
-<span class="n">Vector</span> <span class="n">v2</span> <span class="o">=</span> <span class="p">{</span><span class="mf">1.23</span><span class="p">,</span> <span class="mf">3.45</span><span class="p">,</span> <span class="mf">6.7</span><span class="p">,</span> <span class="mi">8</span><span class="p">};</span>
+<span class="n">Vector</span><span class="w"> </span><span class="n">v1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">};</span><span class="w"></span>
+<span class="n">Vector</span><span class="w"> </span><span class="n">v2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mf">1.23</span><span class="p">,</span><span class="w"> </span><span class="mf">3.45</span><span class="p">,</span><span class="w"> </span><span class="mf">6.7</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">std::initializer_list&lt;&gt;</span></code> の例として頭に入れておくと良さそうなコードだ。</p>
@@ -618,30 +618,30 @@ RAII と呼ぶ。これにより裸の <code class="docutils literal notranslate
 <section id="id36">
 <h3><a class="toc-backref" href="#id173">4.5 クラス階層</a><a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h3>
 <p>クラス階層とは派生によって束ねられるクラス群のことだ。いわゆる is-a 関係を表現するために階層構造を持つクラスを利用する。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Shape</span><span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">move</span><span class="p">(</span><span class="n">Point</span> <span class="n">to</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">draw</span><span class="p">()</span> <span class="k">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">rotate</span><span class="p">(</span><span class="kt">int</span> <span class="n">angle</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Shape</span><span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">move</span><span class="p">(</span><span class="n">Point</span><span class="w"> </span><span class="n">to</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">draw</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">rotate</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">angle</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
 
-    <span class="k">virtual</span> <span class="o">~</span><span class="n">Shape</span><span class="p">(){}</span>
-<span class="p">};</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">Shape</span><span class="p">(){}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <section id="id37">
 <h4><a class="toc-backref" href="#id174">4.5.1 明示的なオーバーライド</a><a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h4>
 <p>C++11 からは、関数をオーバーライドしていることを派生クラスのプログラマーが記述することができる。キーワード <code class="docutils literal notranslate"><span class="pre">override</span></code> を関数宣言に付加する：</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Circle</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Shape</span><span class="p">{</span>
-    <span class="c1">// ...</span>
-<span class="p">};</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Circle</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Shape</span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="k">class</span> <span class="nc">Smiley</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Circle</span><span class="p">{</span>
-    <span class="c1">// ...</span>
-    <span class="kt">void</span> <span class="nf">move</span><span class="p">(</span><span class="n">Point</span> <span class="n">to</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>
-    <span class="kt">void</span> <span class="nf">draw</span><span class="p">()</span> <span class="k">const</span> <span class="k">override</span><span class="p">;</span>
-    <span class="kt">void</span> <span class="nf">rotate</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>
-    <span class="c1">// ...</span>
-<span class="p">};</span>
+<span class="k">class</span> <span class="nc">Smiley</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Circle</span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">move</span><span class="p">(</span><span class="n">Point</span><span class="w"> </span><span class="n">to</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">draw</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">rotate</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
@@ -678,19 +678,19 @@ RAII と呼ぶ。これにより裸の <code class="docutils literal notranslate
 <section id="id43">
 <h4><a class="toc-backref" href="#id180">4.6.2 コンテナのムーブ</a><a class="headerlink" href="#id43" title="Permalink to this headline">¶</a></h4>
 <p>ここは C++11 らしい話題なので丁寧に読んでいく。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Vector</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span> <span class="n">Vector</span><span class="o">&amp;</span> <span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="n">Vector</span><span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="c1">// ...</span>
-    <span class="n">Vector</span> <span class="nf">res</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
-    <span class="c1">// ...</span>
-    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Vector</span><span class="w"> </span><span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Vector</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Vector</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="n">Vector</span><span class="w"> </span><span class="nf">res</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">());</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">res</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>上記コードの最後、局所変数 <code class="docutils literal notranslate"><span class="pre">res</span></code> のコピーが作られた上で、呼び出し元に置かれるのだが、次のような呼び出しを考えるとコピーが複数回生じることが観察できる：</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Vector</span> <span class="n">r</span><span class="p">;</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Vector</span><span class="w"> </span><span class="n">r</span><span class="p">;</span><span class="w"></span>
 <span class="c1">// ...</span>
-<span class="n">r</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">+</span> <span class="n">z</span><span class="p">;</span>
+<span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">z</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>この問題の本質とは、<code class="docutils literal notranslate"><span class="pre">operator+()</span></code> 内の <code class="docutils literal notranslate"><span class="pre">res</span></code> がコピー後に利用されないことだ。この関数の呼び出し元がしたいことは <code class="docutils literal notranslate"><span class="pre">res</span></code> を取り出したいくらいのことだ。
@@ -731,13 +731,13 @@ C++11 ではこの問題を次のようにして解決する：</p>
 <h4><a class="toc-backref" href="#id181">4.6.3 基本演算</a><a class="headerlink" href="#id44" title="Permalink to this headline">¶</a></h4>
 <p>ひじょうに大切なことを説明しているので、本書をいちいち参照するといい。</p>
 <p>C++11 には、特殊メンバー関数のコンパイラーによるデフォルト実装を採用することを明示する方法がある。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Y</span><span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">Y</span><span class="p">(</span><span class="n">Sometype</span><span class="p">);</span>
-    <span class="n">Y</span><span class="p">(</span><span class="k">const</span> <span class="n">Y</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
-    <span class="n">Y</span><span class="p">(</span><span class="n">Y</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
-    <span class="c1">// ...</span>
-<span class="p">};</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Y</span><span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">Y</span><span class="p">(</span><span class="n">Sometype</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">Y</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Y</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Y</span><span class="p">(</span><span class="n">Y</span><span class="o">&amp;&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -752,17 +752,17 @@ C++11 ではこの問題を次のようにして解決する：</p>
 <section id="id46">
 <h4><a class="toc-backref" href="#id183">4.6.5 演算子の抑制</a><a class="headerlink" href="#id46" title="Permalink to this headline">¶</a></h4>
 <p>デフォルトのコピー演算、ムーブ演算を無効化する方法が一つ増えた：</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Shape</span><span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">Shape</span><span class="p">(</span><span class="k">const</span> <span class="n">Shape</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
-    <span class="n">Shape</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">Shape</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Shape</span><span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">Shape</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Shape</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Shape</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Shape</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span><span class="w"></span>
 
-    <span class="n">Shape</span><span class="p">(</span><span class="n">Shape</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
-    <span class="n">Shape</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">Shape</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Shape</span><span class="p">(</span><span class="n">Shape</span><span class="o">&amp;&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Shape</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">Shape</span><span class="o">&amp;&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span><span class="w"></span>
 
-    <span class="k">virtual</span> <span class="o">~</span><span class="n">Shape</span><span class="p">();</span>
-    <span class="c1">// ...</span>
-<span class="p">};</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">Shape</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <p>このキーワード <code class="docutils literal notranslate"><span class="pre">delete</span></code> の用途が現れる以前は、これらの特殊関数を <code class="docutils literal notranslate"><span class="pre">private</span></code> に明示的に宣言しておくという手法を採った。</p>
@@ -839,8 +839,8 @@ C++11 ではこの問題を次のようにして解決する：</p>
 <code class="docutils literal notranslate"><span class="pre">operator()</span></code> を有するクラステンプレートの形式をとる。</p>
 <p>冒頭の関数オブジェクトの形で定義しておくと、間接的な関数呼び出しよりも効率的になる。</p>
 <p>ラムダ式がここで示される。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">count</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="kt">int</span> <span class="n">a</span><span class="p">){</span> <span class="k">return</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">x</span><span class="p">;</span> <span class="p">});</span>
-<span class="n">count</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">a</span><span class="p">){</span> <span class="k">return</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">s</span><span class="p">;</span> <span class="p">});</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">count</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">){</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"> </span><span class="p">});</span><span class="w"></span>
+<span class="n">count</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="k">const</span><span class="w"> </span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">){</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">s</span><span class="p">;</span><span class="w"> </span><span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -861,14 +861,14 @@ C++11 ではこの問題を次のようにして解決する：</p>
 <section id="id54">
 <h3><a class="toc-backref" href="#id191">5.6 可変個引数テンプレート</a><a class="headerlink" href="#id54" title="Permalink to this headline">¶</a></h3>
 <p>いにしえの <code class="docutils literal notranslate"><span class="pre">printf()</span></code> のような感じで、任意の型、個数の引数を受け取るテンプレートを定義できる。本書の例を引用する。コード中 3 箇所に現れる省略記号 <code class="docutils literal notranslate"><span class="pre">...</span></code> に注意すること：</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">f</span><span class="p">(){}</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">f</span><span class="p">(){}</span><span class="w"></span>
 
-<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Tail</span><span class="o">&gt;</span>
-<span class="kt">void</span> <span class="n">f</span><span class="p">(</span><span class="n">T</span> <span class="n">head</span><span class="p">,</span> <span class="n">Tail</span><span class="p">...</span> <span class="n">tail</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">g</span><span class="p">(</span><span class="n">head</span><span class="p">);</span>
-    <span class="n">f</span><span class="p">(</span><span class="n">tail</span><span class="p">...);</span>
-<span class="p">}</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="p">...</span><span class="w"> </span><span class="n">Tail</span><span class="o">&gt;</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">head</span><span class="p">,</span><span class="w"> </span><span class="n">Tail</span><span class="p">...</span><span class="w"> </span><span class="n">tail</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">g</span><span class="p">(</span><span class="n">head</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">f</span><span class="p">(</span><span class="n">tail</span><span class="p">...);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>ここで関数 <code class="docutils literal notranslate"><span class="pre">g()</span></code> は何か適当な関数テンプレートとする。</p>
@@ -877,7 +877,7 @@ C++11 ではこの問題を次のようにして解決する：</p>
 <h3><a class="toc-backref" href="#id192">5.7 別名</a><a class="headerlink" href="#id55" title="Permalink to this headline">¶</a></h3>
 <p>別名機能が有用であるのは説明するまでもないはずだが、著者はこれを周囲からは不思議がられているらしい。</p>
 <p>型やテンプレートに別名を付ける機能がある。それにはキーワード <code class="docutils literal notranslate"><span class="pre">using</span></code> を使う。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="kt">size_t</span> <span class="o">=</span> <span class="kt">unsigned</span> <span class="kt">int</span><span class="p">;</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -979,7 +979,7 @@ C++11 ではこの問題を次のようにして解決する：</p>
 <li><p>《標準ライブラリは <code class="docutils literal notranslate"><span class="pre">&lt;regex&gt;</span></code> で、<code class="docutils literal notranslate"><span class="pre">regex</span></code> クラスと、それを補助する関数とで正規表現のサポートを提供する》</p></li>
 <li><p>パターンの表現には Python のように原文字列リテラルを利用するといい。
 C++ では次のように文字列リテラルを定義することもできる：</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="sa">R</span><span class="s">&quot;</span><span class="dl">(</span><span class="s">pattern</span><span class="dl">)</span><span class="s">&quot;</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="sa">R</span><span class="s">&quot;</span><span class="dl">(</span><span class="s">pattern</span><span class="dl">)</span><span class="s">&quot;</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -1149,8 +1149,8 @@ ECMAScript で利用されているECMA 標準の変種をデフォルトの「�
 <li><p>新しい要素をコンテナーに追加する際は、その値がコンテナー内にコピーされる。</p></li>
 <li><p>仮想関数クラスを利用したクラス階層を使っているのであれば、オブジェクトを直接保持させてはならない。ポインターまたはスマートポインター（後述）を保持させる。</p></li>
 </ul>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Shape</span><span class="o">*&gt;</span> <span class="n">vps</span><span class="p">;</span>
-<span class="n">vector</span><span class="o">&lt;</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Shape</span><span class="o">&gt;&gt;</span> <span class="n">vups</span><span class="p">;</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Shape</span><span class="o">*&gt;</span><span class="w"> </span><span class="n">vps</span><span class="p">;</span><span class="w"></span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Shape</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">vups</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <section id="id84">
@@ -1260,9 +1260,9 @@ ECMAScript で利用されているECMA 標準の変種をデフォルトの「�
 <h3><a class="toc-backref" href="#id234">10.5 述語</a><a class="headerlink" href="#id92" title="Permalink to this headline">¶</a></h3>
 <p>処理をアルゴリズムの引数とすることもできる。特に <code class="docutils literal notranslate"><span class="pre">bool</span></code> 値を返すようなものを述語という。</p>
 <p>述語の形式には関数、関数オブジェクト、ラムダ式が考えられる。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span> <span class="n">p</span> <span class="o">=</span> <span class="n">find_if</span><span class="p">(</span>
-    <span class="n">m</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">m</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
-    <span class="p">[](</span><span class="k">const</span> <span class="n">pair</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">r</span><span class="p">){</span> <span class="k">return</span> <span class="n">r</span><span class="p">.</span><span class="n">second</span> <span class="o">&gt;</span> <span class="mi">42</span><span class="p">;</span> <span class="p">});</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">find_if</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="n">m</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"></span>
+<span class="w">    </span><span class="p">[](</span><span class="k">const</span><span class="w"> </span><span class="n">pair</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">r</span><span class="p">){</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">second</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span><span class="w"> </span><span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
@@ -1383,14 +1383,14 @@ C++ 標準ライブラリでのアルゴリズムの定義は、要素のシー�
 <li><p>標準アルゴリズムがフリー関数の呼び出しを前提としているので、こういうものが提供される。</p></li>
 <li><p>《バインダの代わりに、簡潔で汎用的なラムダ式が利用できることも多い》</p></li>
 </ul>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">for_each</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">mem_fn</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Shape</span><span class="o">::</span><span class="n">draw</span><span class="p">));</span>
-<span class="n">for_each</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="p">[](</span><span class="n">Shape</span><span class="o">*</span> <span class="n">p</span><span class="p">){</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">draw</span><span class="p">();</span> <span class="p">});</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">for_each</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="n">mem_fn</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Shape</span><span class="o">::</span><span class="n">draw</span><span class="p">));</span><span class="w"></span>
+<span class="n">for_each</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="p">[](</span><span class="n">Shape</span><span class="o">*</span><span class="w"> </span><span class="n">p</span><span class="p">){</span><span class="w"> </span><span class="n">p</span><span class="o">-&gt;</span><span class="n">draw</span><span class="p">();</span><span class="w"> </span><span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
 <section id="function">
 <h4><a class="toc-backref" href="#id250">11.5.3 <code class="docutils literal notranslate"><span class="pre">function</span></code></a><a class="headerlink" href="#function" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">function</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">f</span> <span class="o">=</span> <span class="n">round</span><span class="p">;</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">function</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="o">&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">round</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -1486,9 +1486,9 @@ C++ 標準ライブラリでのアルゴリズムの定義は、要素のシー�
 </ol>
 </div></blockquote>
 <p>まず p. 144 のコードを見ると、もうわけがわからない。しかし急所を書き換えてくれてある：</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span> <span class="n">die</span> <span class="o">=</span> <span class="n">bind</span><span class="p">(</span>
-    <span class="n">uniform_int_distribution</span><span class="o">&lt;&gt;</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">},</span>
-    <span class="n">default_random_engine</span><span class="p">{});</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">die</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bind</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="n">uniform_int_distribution</span><span class="o">&lt;&gt;</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="n">default_random_engine</span><span class="p">{});</span><span class="w"></span>
 </pre></div>
 </div>
 <p>こうすることで呼び出し <code class="docutils literal notranslate"><span class="pre">die()</span></code> が 1 から 6 までの出目を無作為抽出するようになる。</p>

@@ -226,7 +226,7 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 <hr class="docutils" />
 <p>関数 <code class="docutils literal notranslate"><span class="pre">readStorage</span></code> に対する <code class="docutils literal notranslate"><span class="pre">Promise</span></code> ベースのインターフェイスは次のように定義する：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">storage</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="ow">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="p">{</span>
         <span class="nx">nest</span><span class="p">.</span><span class="nx">readStorage</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">result</span> <span class="p">=&gt;</span> <span class="nx">resolve</span><span class="p">(</span><span class="nx">result</span><span class="p">));</span>
     <span class="p">});</span>
 <span class="p">}</span>
@@ -285,7 +285,7 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 <li><p>例外を投げた場合は拒絶、</p></li>
 <li><p>それらのいずれかを返した場合は <code class="docutils literal notranslate"><span class="pre">Promise</span></code> の結果となる。</p></li>
 </ul>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">_</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">reject</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Fail&quot;</span><span class="p">)))</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="ow">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">_</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">reject</span><span class="p">(</span><span class="ow">new</span> <span class="ne">Error</span><span class="p">(</span><span class="s2">&quot;Fail&quot;</span><span class="p">)))</span>
     <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">value</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Handler 1&quot;</span><span class="p">))</span>
     <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">reason</span> <span class="p">=&gt;</span> <span class="p">{</span>
         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Caught failure &quot;</span> <span class="o">+</span> <span class="nx">reason</span><span class="p">);</span>
@@ -316,10 +316,10 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 </ul>
 <p>リクエストとその応答が正常に届く場合でも、例えば、定義されていないリクエストタイプを使おうとした場合や、ハンドラーがエラーを送出する場合などに、応答が失敗を示すことがある。これをサポートするために、<code class="docutils literal notranslate"><span class="pre">send</span></code> と <code class="docutils literal notranslate"><span class="pre">defineRequestType</span></code> を前述の規則に従わせる。コールバックに渡される最初の引数を失敗の理由とし、2 番目の引数を実際の結果とする。</p>
 <p>これらは、ラッパーによって <code class="docutils literal notranslate"><span class="pre">Promise</span></code> の解決と却下に変換できる。この <code class="docutils literal notranslate"><span class="pre">request</span></code> は後ほどしばしば参照されるたいせつな機能だ。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nx">Timeout</span> <span class="k">extends</span> <span class="nb">Error</span> <span class="p">{}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nx">Timeout</span> <span class="k">extends</span> <span class="ne">Error</span> <span class="p">{}</span>
 
 <span class="kd">function</span> <span class="nx">request</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">content</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="ow">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
         <span class="kd">let</span> <span class="nx">done</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
         <span class="kd">function</span> <span class="nx">attempt</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
             <span class="nx">nest</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">content</span><span class="p">,</span> <span class="p">(</span><span class="nx">failed</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
@@ -330,7 +330,7 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
             <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
                 <span class="k">if</span> <span class="p">(</span><span class="nx">done</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
                 <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">&lt;</span> <span class="mf">3</span><span class="p">)</span> <span class="nx">attempt</span><span class="p">(</span><span class="nx">n</span> <span class="o">+</span> <span class="mf">1</span><span class="p">);</span>
-                <span class="k">else</span> <span class="nx">reject</span><span class="p">(</span><span class="k">new</span> <span class="nx">Timeout</span><span class="p">(</span><span class="s2">&quot;Timed out&quot;</span><span class="p">));</span>
+                <span class="k">else</span> <span class="nx">reject</span><span class="p">(</span><span class="ow">new</span> <span class="nx">Timeout</span><span class="p">(</span><span class="s2">&quot;Timed out&quot;</span><span class="p">));</span>
             <span class="p">},</span> <span class="mf">250</span><span class="p">);</span>
         <span class="p">}</span>
         <span class="nx">attempt</span><span class="p">(</span><span class="mf">1</span><span class="p">);</span>
@@ -400,7 +400,7 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 <section id="network-flooding">
 <h2><a class="toc-backref" href="#id11">Network flooding</a><a class="headerlink" href="#network-flooding" title="Permalink to this headline">¶</a></h2>
 <p>ネットワーク全体に情報を流すためには、ある種のリクエストを設定し、それを自動的に隣の巣に転送するという方法がある。ネットワーク全体がメッセージを受け取るまで、これらの巣がさらにそれらの隣の巣に転送する。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">import</span> <span class="p">{</span><span class="nx">everywhere</span><span class="p">}</span> <span class="k">from</span> <span class="s2">&quot;./crow-tech&quot;</span><span class="p">;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">import</span> <span class="p">{</span><span class="nx">everywhere</span><span class="p">}</span> <span class="kr">from</span> <span class="s2">&quot;./crow-tech&quot;</span><span class="p">;</span>
 <span class="c1">//const {everywhere} = require(&quot;./crow-tech&quot;);</span>
 
 <span class="nx">everywhere</span><span class="p">(</span><span class="nx">nest</span> <span class="p">=&gt;</span> <span class="p">{</span>
@@ -444,7 +444,7 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">requestType</span><span class="p">(</span><span class="s2">&quot;connections&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="p">{</span><span class="nx">name</span><span class="p">,</span> <span class="nx">neighbors</span><span class="p">},</span>
                             <span class="nx">source</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="nx">connections</span> <span class="o">=</span> <span class="nx">nest</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">connections</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">connections</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">name</span><span class="p">))</span> <span class="o">==</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">neighbors</span><span class="p">))</span> <span class="k">return</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">connections</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">name</span><span class="p">))</span> <span class="o">==</span> <span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">neighbors</span><span class="p">))</span> <span class="k">return</span><span class="p">;</span>
     <span class="nx">connections</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">neighbors</span><span class="p">);</span>
     <span class="nx">broadcastConnections</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">source</span><span class="p">);</span>
 <span class="p">});</span>
@@ -460,7 +460,7 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 <span class="p">}</span>
 
 <span class="nx">everywhere</span><span class="p">(</span><span class="nx">nest</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="nx">nest</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">connections</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Map</span><span class="p">();</span>
+    <span class="nx">nest</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">connections</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Map</span><span class="p">();</span>
     <span class="nx">nest</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">connections</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">nest</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="nx">nest</span><span class="p">.</span><span class="nx">neighbors</span><span class="p">);</span>
     <span class="nx">broadcastConnections</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">nest</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
 <span class="p">});</span>
@@ -473,8 +473,8 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 <hr class="docutils" />
 <p>グラフでできることは、以前見たように、グラフの中の経路を見つけることだ。メッセージの宛先に向かう経路があれば、メッセージを送るべき方向がわかる。</p>
 <p>以下の関数 <code class="docutils literal notranslate"><span class="pre">findRoute</span></code> は、第 7 章の <code class="docutils literal notranslate"><span class="pre">findRoute</span></code> とよく似ていて、ネットワーク上の任意のノードに到達する道を検索する。ただし、経路全体を返すのではなく、次のステップを返すだけだ。その次の巣では、ネットワークに関する最新の情報を使って、メッセージをどこに送るかを決定する。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">findRoute</span><span class="p">(</span><span class="k">from</span><span class="p">,</span> <span class="nx">to</span><span class="p">,</span> <span class="nx">connections</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">work</span> <span class="o">=</span> <span class="p">[{</span><span class="nx">at</span><span class="o">:</span> <span class="k">from</span><span class="p">,</span> <span class="nx">via</span><span class="o">:</span> <span class="kc">null</span><span class="p">}];</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">findRoute</span><span class="p">(</span><span class="kr">from</span><span class="p">,</span> <span class="nx">to</span><span class="p">,</span> <span class="nx">connections</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">work</span> <span class="o">=</span> <span class="p">[{</span><span class="nx">at</span><span class="o">:</span> <span class="kr">from</span><span class="p">,</span> <span class="nx">via</span><span class="o">:</span> <span class="kc">null</span><span class="p">}];</span>
     <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">work</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
         <span class="kd">let</span> <span class="p">{</span><span class="nx">at</span><span class="p">,</span> <span class="nx">via</span><span class="p">}</span> <span class="o">=</span> <span class="nx">work</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
         <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">next</span> <span class="k">of</span> <span class="nx">connections</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">at</span><span class="p">)</span> <span class="o">||</span> <span class="p">[])</span> <span class="p">{</span>
@@ -499,7 +499,7 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
         <span class="kd">let</span> <span class="nx">via</span> <span class="o">=</span> <span class="nx">findRoute</span><span class="p">(</span><span class="nx">nest</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="nx">target</span><span class="p">,</span>
             <span class="nx">nest</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">connections</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">via</span><span class="p">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="sb">`No route to </span><span class="si">${</span><span class="nx">target</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">via</span><span class="p">)</span> <span class="k">throw</span> <span class="ow">new</span> <span class="ne">Error</span><span class="p">(</span><span class="sb">`No route to </span><span class="si">${</span><span class="nx">target</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
         <span class="k">return</span> <span class="nx">request</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">via</span><span class="p">,</span> <span class="s2">&quot;route&quot;</span><span class="p">,</span>
                        <span class="p">{</span><span class="nx">target</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">content</span><span class="p">});</span>
     <span class="p">}</span>
@@ -534,14 +534,14 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 <span class="p">}</span>
 
 <span class="kd">function</span> <span class="nx">network</span><span class="p">(</span><span class="nx">nest</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nb">Array</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="nx">nest</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">connections</span><span class="p">.</span><span class="nx">keys</span><span class="p">());</span>
+    <span class="k">return</span> <span class="nb">Array</span><span class="p">.</span><span class="kr">from</span><span class="p">(</span><span class="nx">nest</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">connections</span><span class="p">.</span><span class="nx">keys</span><span class="p">());</span>
 <span class="p">}</span>
 
 <span class="kd">function</span> <span class="nx">findInRemoteStorage</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="nx">sources</span> <span class="o">=</span> <span class="nx">network</span><span class="p">(</span><span class="nx">nest</span><span class="p">).</span><span class="nx">filter</span><span class="p">(</span><span class="nx">n</span> <span class="p">=&gt;</span> <span class="nx">n</span> <span class="o">!=</span> <span class="nx">nest</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
     <span class="kd">function</span> <span class="nx">next</span><span class="p">()</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="nx">sources</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Not found&quot;</span><span class="p">));</span>
+            <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="ow">new</span> <span class="ne">Error</span><span class="p">(</span><span class="s2">&quot;Not found&quot;</span><span class="p">));</span>
         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
             <span class="kd">let</span> <span class="nx">source</span> <span class="o">=</span> <span class="nx">sources</span><span class="p">[</span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="nx">sources</span><span class="p">.</span><span class="nx">length</span><span class="p">)];</span>
             <span class="nx">sources</span> <span class="o">=</span> <span class="nx">sources</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">n</span> <span class="p">=&gt;</span> <span class="nx">n</span> <span class="o">!=</span> <span class="nx">source</span><span class="p">);</span>
@@ -631,7 +631,7 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 <code class="docutils literal notranslate"><span class="pre">Promise</span></code> がない場合の非同期コードの例外管理が難しい理由の一つがこれだ。各コールバックはほとんど空のスタックから始まるので、捕捉ハンドラーが例外を送出するときには、ハンドラーはスタック上にない。</p></li>
 </ul>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="p">{</span>
-    <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Woosh&quot;</span><span class="p">);},</span> <span class="mf">20</span><span class="p">);</span>
+    <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="k">throw</span> <span class="ow">new</span> <span class="ne">Error</span><span class="p">(</span><span class="s2">&quot;Woosh&quot;</span><span class="p">);},</span> <span class="mf">20</span><span class="p">);</span>
 <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">_</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// This will not run</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Caught!&quot;</span><span class="p">);</span>
@@ -776,7 +776,7 @@ Cow Pasture: 1
         <span class="p">}</span>
     <span class="p">}</span>
     <span class="c1">// この場合はあり得ない</span>
-    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Not found&quot;</span><span class="p">);</span>
+    <span class="k">throw</span> <span class="ow">new</span> <span class="ne">Error</span><span class="p">(</span><span class="s2">&quot;Not found&quot;</span><span class="p">);</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -796,7 +796,7 @@ Cow Pasture: 1
 <code class="docutils literal notranslate"><span class="pre">Promise</span></code> の配列に対するループを <code class="docutils literal notranslate"><span class="pre">Promise</span></code> のコンストラクターに与えるのが急所のようだ。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">Promise_all</span><span class="p">(</span><span class="nx">promises</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="nx">results</span> <span class="o">=</span> <span class="p">[];</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="ow">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
         <span class="nx">promises</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">p</span> <span class="p">=&gt;</span> <span class="p">{</span>
             <span class="nx">p</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">value</span> <span class="p">=&gt;</span> <span class="p">{</span>
                 <span class="nx">results</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>

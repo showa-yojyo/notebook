@@ -316,13 +316,13 @@ Stroustrup がこの慣用句を有名にした&gt; (p. 59)
 <li><p>vector/string で <code class="docutils literal notranslate"><span class="pre">erase</span></code> を呼んだ後でも、容量 (<code class="docutils literal notranslate"><span class="pre">capacity</span></code>) は通常そのまま保たれる。それを強制的に削るため、
 <code class="docutils literal notranslate"><span class="pre">swap</span></code> をトリッキーな呼び出し方をして、
 vector/string から余分な容量を削除することができる。著者はこの技法を “shrink to fit” 方法と呼んでいる。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">string</span> <span class="n">s</span><span class="p">;</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">string</span><span class="w"> </span><span class="n">s</span><span class="p">;</span><span class="w"></span>
 <span class="c1">// ...</span>
-<span class="n">string</span><span class="p">(</span><span class="n">s</span><span class="p">).</span><span class="n">swap</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+<span class="n">string</span><span class="p">(</span><span class="n">s</span><span class="p">).</span><span class="n">swap</span><span class="p">(</span><span class="n">s</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>あるいは</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">string</span><span class="p">().</span><span class="n">swap</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">string</span><span class="p">().</span><span class="n">swap</span><span class="p">(</span><span class="n">s</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -376,10 +376,10 @@ vector/string から余分な容量を削除することができる。著者は
 <li><p>set/multiset のキーは変更できる。しかしコンテナを破壊する可能性大ゆえ変更してはならない。</p>
 <ul>
 <li><p>ただし「キー以外の部分」については変更することに問題はない。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">EmpIDSet</span><span class="o">::</span><span class="n">iterator</span> <span class="n">i</span> <span class="o">=</span> <span class="n">se</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">selectedID</span><span class="p">);</span>
-<span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">!=</span> <span class="n">se</span><span class="p">.</span><span class="n">end</span><span class="p">()){</span>
-    <span class="k">const_cast</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">).</span><span class="n">setTitle</span><span class="p">(</span><span class="s">&quot;Corpolate Deity&quot;</span><span class="p">);</span>
-<span class="p">}</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">EmpIDSet</span><span class="o">::</span><span class="n">iterator</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">se</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">selectedID</span><span class="p">);</span><span class="w"></span>
+<span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">se</span><span class="p">.</span><span class="n">end</span><span class="p">()){</span><span class="w"></span>
+<span class="w">    </span><span class="k">const_cast</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">).</span><span class="n">setTitle</span><span class="p">(</span><span class="s">&quot;Corpolate Deity&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>安全で移植性のある形で書きたければ、
@@ -445,10 +445,10 @@ const_iterator を使わないことは不当に思えるかもしれない。�
 <p><code class="docutils literal notranslate"><span class="pre">reverse_iterator::base</span></code> について。</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">find</span></code> 等のアルゴリズムに reverse_iterator を与えると、その戻り値の型もまた reverse_iterator になる。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">v</span><span class="p">;</span><span class="w"></span>
 <span class="c1">// ...</span>
-<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">reverse_iterator</span> <span class="n">ri</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="mi">3</span><span class="p">);</span>
-<span class="n">v</span><span class="p">.</span><span class="n">erase</span><span class="p">((</span><span class="o">++</span><span class="n">ri</span><span class="p">).</span><span class="n">base</span><span class="p">());</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">reverse_iterator</span><span class="w"> </span><span class="n">ri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">find</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span><span class="w"></span>
+<span class="n">v</span><span class="p">.</span><span class="n">erase</span><span class="p">((</span><span class="o">++</span><span class="n">ri</span><span class="p">).</span><span class="n">base</span><span class="p">());</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -505,9 +505,9 @@ STL を使って最も効率的な方法で目的を達成できる&gt; (p. 135)
 <li><p>&lt;コンテナのメンバ関数だけがコンテナの要素を削除できる。そこに本項の要点がある。つまり、本当に削除する場合は、
 <code class="docutils literal notranslate"><span class="pre">remove</span></code> の後に <code class="docutils literal notranslate"><span class="pre">erase</span></code> を実行しなければならない&gt;
 (pp. 138-139)</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">v</span><span class="p">;</span><span class="w"></span>
 <span class="c1">// ...</span>
-<span class="n">v</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">remove</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="mi">99</span><span class="p">),</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+<span class="n">v</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">remove</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="mi">99</span><span class="p">),</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">());</span><span class="w"></span>
 </pre></div>
 </div>
 <p>&lt;範囲形式の <code class="docutils literal notranslate"><span class="pre">erase</span></code> の第 1 引数に <code class="docutils literal notranslate"><span class="pre">remove</span></code> の戻り値を渡すことが多く、一種の慣用句になっている&gt; (p. 139)</p>
@@ -536,11 +536,11 @@ STL を使って最も効率的な方法で目的を達成できる&gt; (p. 135)
 <li><p>&lt;Unix 開発者なら、STL の <code class="docutils literal notranslate"><span class="pre">unique</span></code> と
 Unix の <code class="docutils literal notranslate"><span class="pre">uniq</span></code> が驚くほど似ていることに気付くだろう。筆者が思うに、この類似は決して偶然の一致ではない&gt; (p. 145)</p></li>
 <li><p>次のタイプのコードは、業務時に見落とす可能性が大なのでノートをとっておく。望ましくない理由と望ましいコードを、読み返したときに思い出せ。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">v</span><span class="p">;</span><span class="w"></span>
 <span class="c1">// ...</span>
-<span class="n">sort</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">greater</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">());</span>
+<span class="n">sort</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="n">greater</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">());</span><span class="w"></span>
 <span class="c1">// ...</span>
-<span class="kt">bool</span> <span class="n">a5exists</span> <span class="o">=</span> <span class="n">binary_search</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="mi">5</span><span class="p">);</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">a5exists</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">binary_search</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -670,12 +670,12 @@ C の <code class="docutils literal notranslate"><span class="pre">qsort</span><
 <h3><a class="toc-backref" href="#id115">第 47 項</a><a class="headerlink" href="#id54" title="Permalink to this headline">¶</a></h3>
 <ul>
 <li><p>冒頭で次のコードを提示しておき、</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">v</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span>
-  <span class="n">remove_if</span><span class="p">(</span><span class="n">find_if</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">rbegin</span><span class="p">(),</span> <span class="n">v</span><span class="p">.</span><span class="n">rend</span><span class="p">(),</span>
-                    <span class="n">bind_2nd</span><span class="p">(</span><span class="n">greater_equal</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(),</span> <span class="n">y</span><span class="p">)).</span><span class="n">base</span><span class="p">(),</span>
-            <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
-            <span class="n">bind_2nd</span><span class="p">(</span><span class="n">less</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(),</span> <span class="n">x</span><span class="p">)),</span>
-  <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">v</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="w"></span>
+<span class="w">  </span><span class="n">remove_if</span><span class="p">(</span><span class="n">find_if</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">rbegin</span><span class="p">(),</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">rend</span><span class="p">(),</span><span class="w"></span>
+<span class="w">                    </span><span class="n">bind_2nd</span><span class="p">(</span><span class="n">greater_equal</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(),</span><span class="w"> </span><span class="n">y</span><span class="p">)).</span><span class="n">base</span><span class="p">(),</span><span class="w"></span>
+<span class="w">            </span><span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"></span>
+<span class="w">            </span><span class="n">bind_2nd</span><span class="p">(</span><span class="n">less</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(),</span><span class="w"> </span><span class="n">x</span><span class="p">)),</span><span class="w"></span>
+<span class="w">  </span><span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">());</span><span class="w"></span>
 </pre></div>
 </div>
 <p>これはやり過ぎだと断りつつ、
@@ -711,7 +711,7 @@ C の <code class="docutils literal notranslate"><span class="pre">qsort</span><
 <h2><a class="toc-backref" href="#id120">ロケールと大文字小文字を区別しない文字列比較</a><a class="headerlink" href="#id59" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p>&lt;<code class="docutils literal notranslate"><span class="pre">x</span></code> と <code class="docutils literal notranslate"><span class="pre">y</span></code> が <code class="docutils literal notranslate"><span class="pre">std::string</span></code> 型であれば、式 <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&lt;</span> <span class="pre">y</span></code> は次の式と等価である。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">lexicographical_compare</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">x</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">y</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">y</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">lexicographical_compare</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="n">y</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">y</span><span class="p">.</span><span class="n">end</span><span class="p">());</span><span class="w"></span>
 </pre></div>
 </div>
 <p>この式で、<code class="docutils literal notranslate"><span class="pre">lexicographical_compare</span></code> は
@@ -723,8 +723,8 @@ C の <code class="docutils literal notranslate"><span class="pre">qsort</span><
 <li><p>&lt;ロケールの名前は標準化されていない&gt; (p. 230)</p></li>
 <li><p>&lt;C++ のロケールは「ファセット」に分割される。各ファセットは国際化の異なる面を処理する。関数 <code class="docutils literal notranslate"><span class="pre">std::use_facet</span></code> は、ロケールオブジェクトから特定のファセットを抽出する。ファセット <code class="docutils literal notranslate"><span class="pre">ctype</span></code> は、大文字小文字の変換を含め、文字の分類を処理する&gt; (p. 230)</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// L をロケールとして</span>
-<span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">ctype</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&amp;</span> <span class="n">ct</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">use_facet</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">ctype</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span> <span class="o">&gt;</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
-<span class="kt">bool</span> <span class="n">result</span> <span class="o">=</span> <span class="n">ct</span><span class="p">.</span><span class="n">toupper</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">ct</span><span class="p">.</span><span class="n">toupper</span><span class="p">(</span><span class="n">c2</span><span class="p">);</span>
+<span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">ctype</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">ct</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">use_facet</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">ctype</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="p">(</span><span class="n">L</span><span class="p">);</span><span class="w"></span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ct</span><span class="p">.</span><span class="n">toupper</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">ct</span><span class="p">.</span><span class="n">toupper</span><span class="p">(</span><span class="n">c2</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -736,14 +736,14 @@ C の <code class="docutils literal notranslate"><span class="pre">qsort</span><
 <h2><a class="toc-backref" href="#id121">Microsoft の STL プラットフォームについて</a><a class="headerlink" href="#microsoft-stl" title="Permalink to this headline">¶</a></h2>
 <p>仕事で経験があるのでよく承知しているが、名前に .NET の付かない VC 環境では一部コンテナのメンバ関数がおかしい。この付録ではその回避策、代替案を紹介している。</p>
 <p>STL のメンバ関数テンプレート、特に型の違うコンテナから insert や assign する場合、</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Widget</span><span class="o">&gt;</span> <span class="n">vw</span><span class="p">;</span>
-<span class="n">list</span><span class="o">&lt;</span><span class="n">Widget</span><span class="o">&gt;</span> <span class="n">lw</span><span class="p">;</span>
-<span class="n">set</span><span class="o">&lt;</span><span class="n">Widget</span><span class="o">&gt;</span> <span class="n">sw</span><span class="p">;</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Widget</span><span class="o">&gt;</span><span class="w"> </span><span class="n">vw</span><span class="p">;</span><span class="w"></span>
+<span class="n">list</span><span class="o">&lt;</span><span class="n">Widget</span><span class="o">&gt;</span><span class="w"> </span><span class="n">lw</span><span class="p">;</span><span class="w"></span>
+<span class="n">set</span><span class="o">&lt;</span><span class="n">Widget</span><span class="o">&gt;</span><span class="w"> </span><span class="n">sw</span><span class="p">;</span><span class="w"></span>
 
 <span class="c1">// ...</span>
 
-<span class="n">vw</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">vw</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">lw</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">lw</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
-<span class="n">vw</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">vw</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">sw</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">sw</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+<span class="n">vw</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">vw</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="n">lw</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">lw</span><span class="p">.</span><span class="n">end</span><span class="p">());</span><span class="w"></span>
+<span class="n">vw</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">vw</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="n">sw</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">sw</span><span class="p">.</span><span class="n">end</span><span class="p">());</span><span class="w"></span>
 </pre></div>
 </div>
 <p>最後に書いた <code class="docutils literal notranslate"><span class="pre">insert</span></code> の行が MSVC6 以前ではコンパイルできない。その対応策として、</p>

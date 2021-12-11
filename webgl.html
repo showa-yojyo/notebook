@@ -12,18 +12,14 @@
     
     <script src="_static/mathjax-v3.js"></script>
     
-    <link rel="next" title="WebGL Specification 1.0 読書ノート" href="webgl-1.0/index.html" />
     <link rel="prev" title="HTML-XML-utils 利用ノート" href="hxutils.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="webgl-1.0/index.html" title="WebGL Specification 1.0 読書ノート"
-             accesskey="N">next</a></li>
-        <li class="right" >
           <a href="hxutils.html" title="HTML-XML-utils 利用ノート"
-             accesskey="P">previous</a> |</li>
+             accesskey="P">previous</a></li>
         <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">WebGL 学習ノート</a></li> 
       </ul>
@@ -66,10 +62,11 @@
 </div>
 <section id="id2">
 <h2><a class="toc-backref" href="#id16">資料</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>WebGL を学習するのに有益な資料を列挙する。</p>
+<p>WebGL を学習するのに有益な資料を列挙する。これとは別に、純正 OpenGL 用解説資料を
+WebGL に翻訳しながら学習するということも有力だ。</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.khronos.org/webgl/">WebGL Overview - The Khronos Group Inc</a>:
-WebGL 総本山。関連仕様書をダウンロードしてローカルディスクに保存しておくと吉。</p></li>
+WebGL 総本山。関連仕様書をダウンロードしてローカルディスクに保存しておくと吉。なお、DeepL を利用する都合上、PDF よりは HTML のほうが具合がいい。</p></li>
 <li><p><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API">WebGL: 2D and 3D graphics for the web - Web APIs |
 MDN</a>:
 ここにある資料を基本書としてまずは学習していく。</p>
@@ -85,9 +82,9 @@ OpenGL の構成要素とのインターフェイスがこれに集中してい�
 </ul>
 </li>
 <li><p><a class="reference external" href="https://duriansoftware.com/joe/an-intro-to-modern-opengl.-table-of-contents">An intro to modern OpenGL. Table of Contents</a>:
-C 言語で書かれたプログラムの解説だ。WebGL
-コードに書き換えるのといい練習になる。</p></li>
+C 言語で書かれたプログラムの解説だ。WebGL コードに書き換えるのといい練習になる。</p></li>
 <li><p><a class="reference external" href="https://webglfundamentals.org/">WebGL Fundamentals</a>: OpenGL のそれも含む基礎から学ぶ。このサイトの造りは恐ろしく良い。熟読推奨。</p></li>
+<li><p><a class="reference external" href="https://webgl2fundamentals.org/">WebGL2 Fundamentals</a>: 上記サイトの続編。今ならこちらだけを読むほうがいい。熟読推奨。</p></li>
 <li><p><a class="reference external" href="https://glmatrix.net/">glMatrix</a>: ベクトルや行列の演算をする JavaScript ライブラリー。効率を優先する必要があるからだろうが、インターフェイスに若干クセがある。</p></li>
 </ul>
 </section>
@@ -96,7 +93,7 @@ C 言語で書かれたプログラムの解説だ。WebGL
 <ul>
 <li><p>モダンなブラウザーとテキストエディター</p></li>
 <li><p>HTTP サーバーを起動できるようにしておく。例えば Python を使えるのならば次のコマンドでカレントディレクトリーをルートにしてサーバーが開始する。&lt;<a class="reference external" href="http://localhost:8000/">http://localhost:8000/</a>&gt; を開くと <code class="docutils literal notranslate"><span class="pre">./index.html</span></code> が表示される。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ python -m http.server</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ python -m http.server 8000 --bind 127.0.0.1</span>
 </pre></div>
 </div>
 </li>
@@ -105,12 +102,17 @@ C 言語で書かれたプログラムの解説だ。WebGL
 <section id="id4">
 <h2><a class="toc-backref" href="#id18">手筋</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>WebGL プログラミングの技法を思いつくまま、なるべく初歩的なものから高度なものに列挙する。</p>
+<p>基本的には WebGL 2 を採用する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;#mycanvas&quot;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">gl</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s1">&#39;webgl2&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
 <section id="id5">
 <h3><a class="toc-backref" href="#id19">未整理項目</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <ul>
 <li><p>WebGL 2 を使う場合</p>
 <ul>
-<li><p>GLSL コードの一行目は次の内容にする：</p>
+<li><p>GLSL コードの物理的な一行目を次の内容にする：</p>
 <div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#version 300 es</span>
 </pre></div>
 </div>
@@ -121,7 +123,7 @@ C 言語で書かれたプログラムの解説だ。WebGL
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">vao</span> <span class="o">=</span> <span class="nx">gl</span><span class="p">.</span><span class="nx">createVertexArray</span><span class="p">();</span>
 <span class="nx">gl</span><span class="p">.</span><span class="nx">bindVertexArray</span><span class="p">(</span><span class="nx">vao</span><span class="p">);</span>
 
-<span class="c1">// gl.enableVertexAttribArray, gl.bindBuffer, etc.</span>
+<span class="c1">// gl.bindBuffer, gl.enableVertexAttribArray, etc.</span>
 
 <span class="nx">gl</span><span class="p">.</span><span class="nx">deleteVertexArray</span><span class="p">(</span><span class="nx">vao</span><span class="p">);</span>
 </pre></div>
@@ -194,8 +196,8 @@ WebGL にはこの種のメソッドがあと二つある。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">gl.canvas</span></code> でキャンバスを参照する。</p></li>
 </ul>
 </li>
-<li><p>キャンバスのアスペクト比を考慮するならば <code class="docutils literal notranslate"><span class="pre">clientWidth</span></code>, <code class="docutils literal notranslate"><span class="pre">clientHeight</span></code> を採用する。
-<code class="docutils literal notranslate"><span class="pre">canvas.width</span> <span class="pre">/</span> <span class="pre">canvas.height</span></code> はダメ。</p>
+<li><p>例えば射影行列など、実際の描画領域としてキャンバスのアスペクト比を考慮するならば、
+<code class="docutils literal notranslate"><span class="pre">clientWidth</span></code>, <code class="docutils literal notranslate"><span class="pre">clientHeight</span></code> を採用する。</p>
 <ul>
 <li><p>一般に、キャンバスの寸法としてこれらのプロパティーを使うのが原則だ。</p></li>
 </ul>
@@ -203,7 +205,8 @@ WebGL にはこの種のメソッドがあと二つある。</p></li>
 <li><p>キャンバスのサイズは二種類あって、ピクセル単位のものと表示単位のものがある。</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">canvas</span></code> タグの属性として設定する方法。</p></li>
-<li><p>それに加えて CSS から <cite>width</cite> と <cite>height</cite> が設定されている場合、WebGL の描画バッファーのサイズはタグ属性のほうを採る。</p></li>
+<li><p>それに加えて CSS から <cite>width</cite> と <cite>height</cite> が設定されている場合、
+WebGL の描画バッファーのサイズはタグ属性のほうを採る。</p></li>
 <li><p>タグ要素 <cite>clientWidth</cite>, <cite>clientHeight</cite> は CSS ピクセル単位。手動で <cite>canvas.width</cite> などに代入する。</p></li>
 </ul>
 </li>
@@ -258,9 +261,9 @@ WebGL にはこの種のメソッドがあと二つある。</p></li>
 <li><p>数学の表記とコード上の見かけは行と列が入れ替わっている。行列を一重配列で表現するとき、数学で言う列ベクトルを配列することになる。列ベクトルの成分を横に並べて、列ベクトルを縦に並べるからそうなる。</p>
 <p>これを頭の片隅に入れておけば混乱しない：</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// c++</span>
-<span class="k">struct</span> <span class="nc">Mat4x4</span> <span class="p">{</span>
-    <span class="n">Vec4</span> <span class="n">column</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
-<span class="p">}</span>
+<span class="k">struct</span> <span class="nc">Mat4x4</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">Vec4</span><span class="w"> </span><span class="n">column</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -282,13 +285,13 @@ WebGL にはこの種のメソッドがあと二つある。</p></li>
 で非同期的に <code class="docutils literal notranslate"><span class="pre">gl.texImage2D</span></code> を呼び出せるのがたいへん具合が良い。</p>
 <ul class="simple">
 <li><p>このような動的にファイルをロードするコードがある場合、
-<code class="docutils literal notranslate"><span class="pre">file://</span></code> から始まるパスで HTML をブラウザーで開くと上手くいかない。作業ディレクトリーから HTTP サーバーを起動するのがいいだろう。</p></li>
+<code class="docutils literal notranslate"><span class="pre">file://</span></code> から始まるパスで HTML をブラウザーで開くと上手くいかない。作業ディレクトリーから HTTP サーバーを起動するのが普通だ。</p></li>
 </ul>
 </li>
 <li><p>HTML キャンバスで <code class="docutils literal notranslate"><span class="pre">context.getImageData</span></code> がセキュリティーエラーを出すことがある。画像のソースがよそのドメインからだとこうなる。</p>
 <ul class="simple">
 <li><p>WebGL は同じドメイン以外の画像を禁止している。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Image.crossOrigin</span></code> の値をどう設定するかが重要だ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Image.crossOrigin</span></code> の値をどう設定するかが重要だ。イメージソースと自分のサイトのドメインが一致していなければ、この値をとりあえず空文字列にする。それから <cite>.url</cite> に所望のアドレスを代入すると、先方ドメインが寛容ならば画像が得られる。</p></li>
 </ul>
 </li>
 <li><p>ビデオをテクスチャーに設定することが比較的容易に実現できる。</p>
@@ -326,7 +329,7 @@ WebGL にはこの種のメソッドがあと二つある。</p></li>
 <section id="id12">
 <h3><a class="toc-backref" href="#id28">透過処理・アルファーブレンディング</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <p>特に C で書かれたチュートリアルを WebGL に移植するときに問題になるのがアルファーの扱いだ。ベタ移植して出力イメージが何かおかしいときにはアルファーの扱いの違いが原因になっていることがある。次のようにしてもう一度実行して画像をチェックしろ：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">gl</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s1">&#39;webgl&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">alpha</span><span class="o">:</span> <span class="kc">false</span><span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">gl</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s1">&#39;webgl2&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">alpha</span><span class="o">:</span> <span class="kc">false</span><span class="p">});</span>
 </pre></div>
 </div>
 </section>
@@ -342,7 +345,8 @@ WebGL にはこの種のメソッドがあと二つある。</p></li>
 <h2><a class="toc-backref" href="#id30">関連ノート</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="haverbeke18/index.html"><span class="doc">Eloquent JavaScript 読書ノート</span></a>: 三周くらい読めば JavaScript プログラミングは大丈夫。</p></li>
-<li><p><a class="reference internal" href="webgl-1.0/index.html"><span class="doc">WebGL Specification 1.0 読書ノート</span></a></p></li>
+<li><p><a class="reference internal" href="khronos15/index.html"><span class="doc">WebGL Specification 1.0 読書ノート</span></a>: これを省略して 2.0 だけを読むべきだった。</p></li>
+<li><p><a class="reference internal" href="khronos18/index.html"><span class="doc">OpenGL Shading Language 4.60 Specification 読書ノート</span></a>: シェーディングコードで何をするのが良しとされるのかを理解したい。</p></li>
 <li><p><a class="reference internal" href="angel05/index.html"><span class="doc">OpenGL: A Primer Second Edition 読書ノート</span></a>: 古い OpenGL の概念がどれくらい生き残っているのかを確かめられる。</p></li>
 </ul>
 </section>
@@ -358,11 +362,8 @@ WebGL にはこの種のメソッドがあと二つある。</p></li>
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="webgl-1.0/index.html" title="WebGL Specification 1.0 読書ノート"
-             >next</a></li>
-        <li class="right" >
           <a href="hxutils.html" title="HTML-XML-utils 利用ノート"
-             >previous</a> |</li>
+             >previous</a></li>
         <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">WebGL 学習ノート</a></li> 
       </ul>
