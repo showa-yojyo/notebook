@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Exponential Shaping Functions &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
+    
+    <script src="../_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="Circular &amp; Elliptical Shaping Functions" href="circular.html" />
+    <link rel="prev" title="Polynomial Shaping Functions" href="polynomial.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="circular.html" title="Circular &amp; Elliptical Shaping Functions"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="polynomial.html" title="Polynomial Shaping Functions"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Shaping Functions 学習ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Exponential Shaping Functions</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="exponential-shaping-functions">
+<h1><a class="toc-backref" href="#id2">Exponential Shaping Functions</a><a class="headerlink" href="#exponential-shaping-functions" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="http://www.flong.com/archive/texts/code/shapers_exp/">Exponential Shaping Functions - Golan Levin and Collaborators</a> ノート。区間 <span class="math notranslate nohighlight">\({[0, 1]}\)</span> を定義域とする指数関数型の整形関数が紹介されている。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title">ノート目次</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#exponential-shaping-functions" id="id2">Exponential Shaping Functions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#exponential-ease-in-and-ease-out" id="id3">Exponential Ease-In and Ease-Out</a></p></li>
+<li><p><a class="reference internal" href="#double-exponential-seat" id="id4">Double-Exponential Seat</a></p></li>
+<li><p><a class="reference internal" href="#double-exponential-sigmoid" id="id5">Double-Exponential Sigmoid</a></p></li>
+<li><p><a class="reference internal" href="#the-logistic-sigmoid" id="id6">The Logistic Sigmoid</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="exponential-ease-in-and-ease-out">
+<h2><a class="toc-backref" href="#id3">Exponential Ease-In and Ease-Out</a><a class="headerlink" href="#exponential-ease-in-and-ease-out" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[y = x^{a}.\]</div>
+<p>いちばん一般的な指数関数だ。ここで定数 <span class="math notranslate nohighlight">\(a \gt 0\)</span> とする。<span class="math notranslate nohighlight">\(0 \lt a \lt 1\)</span> の整形曲線を
+ease-out, <span class="math notranslate nohighlight">\(1 \lt a\)</span> のそれを ease-in と呼ぶ。</p>
+<p>この関数整形機能の実装では、制御引数 <span class="math notranslate nohighlight">\(a\)</span> により、設計者は関数を ease-out 形式から
+ease-in 形式へと変化させることができる。</p>
+<p>実装の急所：</p>
+<ul class="simple">
+<li><p>引数リストは <code class="docutils literal notranslate"><span class="pre">(float</span> <span class="pre">x,</span> <span class="pre">float</span> <span class="pre">a)</span></code> とする。</p></li>
+<li><p>いつものように入力 <code class="docutils literal notranslate"><span class="pre">a</span></code> の検証なり fail-safe 処理が要る。</p></li>
+<li><p>実装例では <code class="docutils literal notranslate"><span class="pre">a</span></code> を拡縮して曲線を強調する工夫がなされている（が、初めは真似しないほうが無難）。</p></li>
+</ul>
+</section>
+<section id="double-exponential-seat">
+<h2><a class="toc-backref" href="#id4">Double-Exponential Seat</a><a class="headerlink" href="#double-exponential-seat" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}y = \begin{cases}
+\dfrac{(2x)^a}{2}, &amp; 0 \lt a \lt 0.5,\\
+1 - \dfrac{(2(1 - x))^a}{2}, &amp; 0.5 \le a \lt 1.
+\end{cases}\end{split}\]</div>
+<ul class="simple">
+<li><p>指数関数を二つ結合してシート状の関数を作る。</p></li>
+<li><p>三次関数よりもきれいな導関数を持ち、より連続的な制御を行うことができる。</p></li>
+<li><p>CPU サイクルは高く付く。</p></li>
+<li><p>制御引数 <span class="math notranslate nohighlight">\(a\)</span> の推奨範囲は <span class="math notranslate nohighlight">\({(0, 1)}\)</span> だ。</p></li>
+<li><p>これらの式は、後述の二重指数 sigmoid とよく似ている。</p></li>
+</ul>
+<p>実装の急所：前項と同じ。</p>
+<p>感想：コードにおける指数が数式と異なる。
+<span class="math notranslate nohighlight">\(1 - a\)</span> になっている。</p>
+</section>
+<section id="double-exponential-sigmoid">
+<h2><a class="toc-backref" href="#id5">Double-Exponential Sigmoid</a><a class="headerlink" href="#double-exponential-sigmoid" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}y = \begin{cases}
+\dfrac{(2x)^{1/a}}{2}, &amp; 0 \lt a \lt 0.5,\\
+1 - \dfrac{(2(1 - x))^{1/a}}{2}, &amp; 0.5 \le a \lt 1.
+\end{cases}\end{split}\]</div>
+<ul class="simple">
+<li><p>本質的には前項の数式と同じ。同じようにニ倍にして反転させる方法を用いる。</p></li>
+<li><p>制御引数 <span class="math notranslate nohighlight">\(a\)</span> を <span class="math notranslate nohighlight">\((0, 1)\)</span> の間で連続的に変化させることができるという利点があり、コントラストを調整する関数としてたいへん有用だ。</p></li>
+<li><p>多項式 sigmoid よりも計算コストが高く付く。</p></li>
+<li><p>二重指数シグモイドは <span class="math notranslate nohighlight">\(a \approx 0.426\)</span> のとき、
+Raised Inverted Cosine を 1 パーセント以内で近似する。</p></li>
+</ul>
+<p>実装の急所：前項と同じ。</p>
+<p>感想：コードにおける指数が数式と異なる。
+<span class="math notranslate nohighlight">\(1 - a\)</span> になっている。</p>
+</section>
+<section id="the-logistic-sigmoid">
+<h2><a class="toc-backref" href="#id6">The Logistic Sigmoid</a><a class="headerlink" href="#the-logistic-sigmoid" title="Permalink to this headline">¶</a></h2>
+<p>いわゆる logistic 曲線は、有機物の成長やその他多くの自然現象をよく表していると多くの科学者が信じているエレガントな sigmoid 関数だ。</p>
+<div class="math notranslate nohighlight">
+\[y = \cfrac{\cfrac{1}{1 + \mathrm{e}^{-2a(x - 1/2)}} - \cfrac{1}{1 + \mathrm{e}^{a}}}
+    {\cfrac{1}{1 + \mathrm{e}^{-a}} - \cfrac{1}{1 + \mathrm{e}^{a}}}.\]</div>
+<ul class="simple">
+<li><p>ソフトウェア工学では、ニューラルネットワークの信号応答関数の重み付けにしばしば用いられる。</p></li>
+<li><p>引数 <span class="math notranslate nohighlight">\(a\)</span> は成長率と考えられる。曲線の立ち上がり部分の傾きを調整する。
+<span class="math notranslate nohighlight">\({a = 0}\)</span> の場合、この logistic 関数は恒等関数に縮退する。</p></li>
+<li><p>ひじょうに自然な変化率。</p></li>
+<li><p>指数関数を多用するので計算コストが高く付く。</p></li>
+</ul>
+<p>実装の急所</p>
+<ul class="simple">
+<li><p>引数 <span class="math notranslate nohighlight">\(a\)</span> に関する注意点はいつもどおり。</p></li>
+<li><p>分母と分子の第二項は共通なので、一度しか計算しないこと。</p></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="circular.html" title="Circular &amp; Elliptical Shaping Functions"
+             >next</a></li>
+        <li class="right" >
+          <a href="polynomial.html" title="Polynomial Shaping Functions"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Shaping Functions 学習ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Exponential Shaping Functions</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

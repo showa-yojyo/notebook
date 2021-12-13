@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Circular &amp; Elliptical Shaping Functions &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
+    
+    <script src="../_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="Bezier and Other Parametric Shaping Functions" href="bezier.html" />
+    <link rel="prev" title="Exponential Shaping Functions" href="exponential.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="bezier.html" title="Bezier and Other Parametric Shaping Functions"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="exponential.html" title="Exponential Shaping Functions"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Shaping Functions 学習ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Circular &amp; Elliptical Shaping Functions</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="circular-elliptical-shaping-functions">
+<h1><a class="toc-backref" href="#id2">Circular &amp; Elliptical Shaping Functions</a><a class="headerlink" href="#circular-elliptical-shaping-functions" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="http://www.flong.com/archive/texts/code/shapers_circ/">Circular &amp; Elliptical Shaping Functions - Golan Levin and Collaborators</a> ノート。区間 <span class="math notranslate nohighlight">\({[0, 1]}\)</span> を定義域とする、ある種の二次式の平方根を利用する整形関数が紹介されている。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title">ノート目次</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#circular-elliptical-shaping-functions" id="id2">Circular &amp; Elliptical Shaping Functions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#circular-interpolation-ease-in-and-ease-out" id="id3">Circular Interpolation: Ease-In and Ease-Out</a></p></li>
+<li><p><a class="reference internal" href="#double-circle-seat" id="id4">Double-Circle Seat</a></p></li>
+<li><p><a class="reference internal" href="#double-circle-sigmoid" id="id5">Double-Circle Sigmoid</a></p></li>
+<li><p><a class="reference internal" href="#double-elliptic-seat" id="id6">Double-Elliptic Seat</a></p></li>
+<li><p><a class="reference internal" href="#double-elliptic-sigmoid" id="id7">Double-Elliptic Sigmoid</a></p></li>
+<li><p><a class="reference internal" href="#double-linear-with-circular-fillet" id="id8">Double-Linear with Circular Fillet</a></p></li>
+<li><p><a class="reference internal" href="#circular-arc-through-a-given-point" id="id9">Circular Arc Through a Given Point</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="circular-interpolation-ease-in-and-ease-out">
+<h2><a class="toc-backref" href="#id3">Circular Interpolation: Ease-In and Ease-Out</a><a class="headerlink" href="#circular-interpolation-ease-in-and-ease-out" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+y &amp;= 1 - \sqrt{1 - x^2}, &amp;&amp; \text{ease-in interpolation},\\
+y &amp;= \sqrt{1 - (1 - x^2)}, &amp;&amp; \text{ease-out interpolation}.\\
+\end{aligned}\end{split}\]</div>
+<ul class="simple">
+<li><p>素早くコードを書ける。</p></li>
+<li><p>平方根を使用しているため、計算効率は低い。</p></li>
+</ul>
+<p>実装の急所：特になし。</p>
+</section>
+<section id="double-circle-seat">
+<h2><a class="toc-backref" href="#id4">Double-Circle Seat</a><a class="headerlink" href="#double-circle-seat" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}y = \begin{cases}
+\sqrt{a^2 - (x - a)^2}, &amp;&amp; 0 \lt x \lt a,\\
+1 - \sqrt{(1 - a)^2 - (a - x)^2}, &amp;&amp; a \le x \le 1.\\
+\end{cases}\end{split}\]</div>
+<ul class="simple">
+<li><p>円弧二つを水平方向の接線で結合した形。</p></li>
+<li><p>引数 <span class="math notranslate nohighlight">\(a\)</span> は <span class="math notranslate nohighlight">\({(0, 1)}\)</span> の範囲にあり、単位正方形の対角線沿いに曲線の変曲点の位置を決定する。</p></li>
+</ul>
+<p>実装の急所</p>
+<ul class="simple">
+<li><p>いつものように <span class="math notranslate nohighlight">\(a\)</span> のチェックが必要。</p></li>
+<li><p>あらかじめ平方関数を書いておく。</p></li>
+</ul>
+</section>
+<section id="double-circle-sigmoid">
+<h2><a class="toc-backref" href="#id5">Double-Circle Sigmoid</a><a class="headerlink" href="#double-circle-sigmoid" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}y = \begin{cases}
+a - \sqrt{a^2 - x^2}, &amp;&amp; 0 \lt x \lt a,\\
+a + \sqrt{(1 - a)^2 - (x - 1)^2}, &amp;&amp; a \le x \le 1.\\
+\end{cases}\end{split}\]</div>
+<ul class="simple">
+<li><p>この sigmoid な整形関数は、円弧二つが垂直方向の接線で結合されることで形成される。</p></li>
+<li><p>引数 <span class="math notranslate nohighlight">\(a\)</span> は <span class="math notranslate nohighlight">\({(0, 1)}\)</span> の範囲にあり、単位正方形の対角線沿いに曲線の変曲点の位置を決定する。</p></li>
+</ul>
+<p>実装の急所は前項と同じ。</p>
+</section>
+<section id="double-elliptic-seat">
+<h2><a class="toc-backref" href="#id6">Double-Elliptic Seat</a><a class="headerlink" href="#double-elliptic-seat" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}y = \begin{cases}
+\dfrac{b}{a} \sqrt{a^2 - (x - a)^2}, &amp;&amp; 0 \lt x \lt a,\\
+1 - \dfrac{1 - b}{1 - a} \sqrt{(1 - a)^2 - (x - a)^2}, &amp;&amp; a \le x \le 1.\\
+\end{cases}\end{split}\]</div>
+<ul class="simple">
+<li><p>このシート状の関数は、楕円弧二つが結合してできるもので、Double-Circle Seat の一般化だ。</p></li>
+<li><p>楕円弧二つが点 <span class="math notranslate nohighlight">\({(a, b)}\)</span> で水平方向の接線で結合されている。</p></li>
+</ul>
+<p>実装の急所は前項と同じ。</p>
+</section>
+<section id="double-elliptic-sigmoid">
+<h2><a class="toc-backref" href="#id7">Double-Elliptic Sigmoid</a><a class="headerlink" href="#double-elliptic-sigmoid" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}y = \begin{cases}
+b \left(1 - \dfrac{\sqrt{a^2 - x^2} }{a} \right), &amp;&amp; 0 \lt x \lt a,\\
+b + \dfrac{1 - b}{1 - a} \sqrt{(1 - a)^2 - (x - 1)^2}, &amp;&amp; a \le x \le 1.\\
+\end{cases}\end{split}\]</div>
+<ul class="simple">
+<li><p>この sigmoid な関数は、楕円弧二つが結合してできており、Double-Circle Sigmoid の一般化だ。</p></li>
+<li><p>楕円弧二つが点 <span class="math notranslate nohighlight">\({(a, b)}\)</span> で垂直方向の接線で結合されている。</p></li>
+</ul>
+<p>実装の急所は前項と同じ。</p>
+</section>
+<section id="double-linear-with-circular-fillet">
+<h2><a class="toc-backref" href="#id8">Double-Linear with Circular Fillet</a><a class="headerlink" href="#double-linear-with-circular-fillet" title="Permalink to this headline">¶</a></h2>
+<p>この節には二本の直線を指定半径でフィレット処理するときのアルゴリズムが記述されている。今回の目的には使わないのでノートを取らない。</p>
+</section>
+<section id="circular-arc-through-a-given-point">
+<h2><a class="toc-backref" href="#id9">Circular Arc Through a Given Point</a><a class="headerlink" href="#circular-arc-through-a-given-point" title="Permalink to this headline">¶</a></h2>
+<p>この節には指定された三点を通過する円の作図アルゴリズムが記述されている。今回の目的には使わないのでノートを取らない。</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="bezier.html" title="Bezier and Other Parametric Shaping Functions"
+             >next</a></li>
+        <li class="right" >
+          <a href="exponential.html" title="Exponential Shaping Functions"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Shaping Functions 学習ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Circular &amp; Elliptical Shaping Functions</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

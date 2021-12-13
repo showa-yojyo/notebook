@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Bezier and Other Parametric Shaping Functions &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
+    
+    <script src="../_static/mathjax-v3.js"></script>
+    
+    <link rel="next" title="幾何学 III 微分形式 読書ノート" href="../tsuboi08/index.html" />
+    <link rel="prev" title="Circular &amp; Elliptical Shaping Functions" href="circular.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../tsuboi08/index.html" title="幾何学 III 微分形式 読書ノート"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="circular.html" title="Circular &amp; Elliptical Shaping Functions"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Shaping Functions 学習ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Bezier and Other Parametric Shaping Functions</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="bezier-and-other-parametric-shaping-functions">
+<h1><a class="toc-backref" href="#id2">Bezier and Other Parametric Shaping Functions</a><a class="headerlink" href="#bezier-and-other-parametric-shaping-functions" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="http://www.flong.com/archive/texts/code/shapers_bez/">Bezier and Other Parametric Shaping Functions - Golan Levin and Collaborators</a> ノート。区間 <span class="math notranslate nohighlight">\({[0, 1]}\)</span> を定義域とする Bezier 曲線を描く整形関数。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title">ノート目次</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#bezier-and-other-parametric-shaping-functions" id="id2">Bezier and Other Parametric Shaping Functions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#quadratic-bezier" id="id3">Quadratic Bezier</a></p></li>
+<li><p><a class="reference internal" href="#cubic-bezier" id="id4">Cubic Bezier</a></p></li>
+<li><p><a class="reference internal" href="#cubic-bezier-nearly-through-two-given-points" id="id5">Cubic Bezier (Nearly) Through Two Given Points</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="quadratic-bezier">
+<h2><a class="toc-backref" href="#id3">Quadratic Bezier</a><a class="headerlink" href="#quadratic-bezier" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+y &amp;= (1 - 2b)t^2 + 2bt,\quad \text{where}\\
+t &amp;= \frac{\sqrt{a^2 - (1 - 2a)x} - a}{1 - 2a}.\\
+\end{aligned}\end{split}\]</div>
+<ul class="simple">
+<li><p>二次 Bezier 曲線を単位正方形内の指定単一制御点 <span class="math notranslate nohighlight">\({(a, b)}\)</span> で定義する関数だ。</p></li>
+<li><p>この関数は Double-Linear Interpolator と同じ入口傾斜、出口傾斜であることが保証される。言い換えると、単位正方形内の端点における変化率をユーザーが正確に指定することができる曲線だ。</p></li>
+</ul>
+<p>実装の急所</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(a\)</span> および <span class="math notranslate nohighlight">\(b\)</span> を単位正方形内に制限すること。</p></li>
+<li><p><span class="math notranslate nohighlight">\(a = 1/2\)</span> だと少々まずいようで、微小な正の数を加算してごまかす。</p></li>
+<li><p><span class="math notranslate nohighlight">\(1 - 2a\)</span> がアルゴリズム中に二度現れるので、一次変数に値を格納しておく。</p></li>
+</ul>
+</section>
+<section id="cubic-bezier">
+<h2><a class="toc-backref" href="#id4">Cubic Bezier</a><a class="headerlink" href="#cubic-bezier" title="Permalink to this headline">¶</a></h2>
+<p>三次 Bezier はコンピューターグラフィックスの主力だ。デザイナーの多くは Adobe Illustrator などのベクトル主体の描画プログラムからそれを認識しているはずだ。</p>
+<p>ここでは、この柔軟な曲線を信号整形機能として使用しており、単位正方形内の二点 <span class="math notranslate nohighlight">\({(a, b)}\)</span>, <span class="math notranslate nohighlight">\({(c, d)}\)</span> を制御点として指定する必要がある。</p>
+<p>制御点二つを様々な位置に設定することで、Bezier 曲線は sigmoid, シート状関数、
+ease-in, ease-out を生成するのに使用される。</p>
+<p>Bezier 曲線は <span class="math notranslate nohighlight">\(y\)</span> と <span class="math notranslate nohighlight">\(x\)</span> がともに別の変数 <span class="math notranslate nohighlight">\(t\)</span> の関数となるように定義されるのが普通だ。
+<span class="math notranslate nohighlight">\(x\)</span> の関数として <span class="math notranslate nohighlight">\(y\)</span> を得るためには、まず逐次近似を用いて <span class="math notranslate nohighlight">\(t\)</span> を解く必要があり、コードが思ったよりも長くなる。</p>
+<p>本文での実装は Don Lancaster 氏 の <em>Bezmath Postscript library</em> からの引用とある。</p>
+<p>実装の急所：</p>
+<ul class="simple">
+<li><p>方程式を数値解析的手法で解く。Newton-Raphelson 法とコメントにある。</p></li>
+</ul>
+</section>
+<section id="cubic-bezier-nearly-through-two-given-points">
+<h2><a class="toc-backref" href="#id5">Cubic Bezier (Nearly) Through Two Given Points</a><a class="headerlink" href="#cubic-bezier-nearly-through-two-given-points" title="Permalink to this headline">¶</a></h2>
+<p>この整形関数は、単位正方形内の二点をユーザーが指定することを要求する。アルゴリズムは、これらの点をできるだけ通過する曲線を生成しようと試みる。生成曲線が指定された二点を通過することが保証されてはいないが、ほとんどの場合にかなり接近している。</p>
+<p>前項同様、本文での実装は Don Lancaster 氏からの引用とある。</p>
+<p>実装の急所：</p>
+<ul class="simple">
+<li><p>前項の整形関数によって実装する。</p></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../tsuboi08/index.html" title="幾何学 III 微分形式 読書ノート"
+             >next</a></li>
+        <li class="right" >
+          <a href="circular.html" title="Circular &amp; Elliptical Shaping Functions"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Shaping Functions 学習ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Bezier and Other Parametric Shaping Functions</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2021, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>
