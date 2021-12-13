@@ -30,6 +30,7 @@ Contents:
    tsuboi05/index
    subramaniam06
    asaoka06
+   levin06/index
    tsuboi08/index
    loeliger09
    griffiths10
