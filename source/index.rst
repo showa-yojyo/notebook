@@ -114,6 +114,7 @@ Contents:
    :maxdepth: 1
 
    milestone09/index
+   winget
    cygwin
    chrome
    git/index
