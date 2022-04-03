@@ -2,14 +2,14 @@
 State diagrams
 =======================================================================
 
-.. contents::
-   :depth: 2
-
 《A state diagram is a type of diagram used in computer science and related
 fields to describe the behavior of systems. State diagrams require that the
 system described is composed of a finite number of states; sometimes, this is
 indeed the case, while at other times this is a reasonable abstraction.》
-`Wikipedia <https://en.wikipedia.org/wiki/State_diagram>`__
+(`Wikipedia <https://en.wikipedia.org/wiki/State_diagram>`__)
+
+.. contents::
+   :depth: 2
 
 Mermaid can render state diagrams. The syntax tries to be compliant with the
 syntax used in plantUml as this will make it easier for users to share diagrams

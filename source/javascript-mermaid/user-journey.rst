@@ -2,14 +2,14 @@
 User Journey Diagram
 =======================================================================
 
-.. contents::
-   :depth: 2
-
 《User journeys describe at a high level of detail exactly what steps different
 users take to complete a specific task within a system, application or website.
 This technique shows the current (as-is) user workflow, and reveals areas of
 improvement for the to-be workflow.》
 (`Wikipedia <https://en.wikipedia.org/wiki/User_journey>`__)
+
+.. contents::
+   :depth: 2
 
 Mermaid can render user journey diagrams:
 

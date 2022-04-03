@@ -2,13 +2,13 @@
 Sequence Diagrams
 =======================================================================
 
-.. contents::
-   :depth: 2
-
 A Sequence diagram is an interaction diagram that shows how processes operate
 with one another and in what order.
 
 Mermaid can render sequence diagrams.
+
+.. contents::
+   :depth: 2
 
 .. code:: mermaid
 

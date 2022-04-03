@@ -112,6 +112,9 @@ plug-ins. It can be done in the same way, you would use the Live Editor.
      `sphinxcontrib-mermaid <https://github.com/mgaitan/sphinxcontrib-mermaid>`__:
      読者ノート用に確認する。
 
+   なお、Jekyll ブログの Markdown ファイルから Mermaid を利用するにはプラグインではなく、
+   HTML テンプレートを上書きして次の節の手法に帰着させることにする。
+
 3. Calling the Javascript API
 =======================================================================
 

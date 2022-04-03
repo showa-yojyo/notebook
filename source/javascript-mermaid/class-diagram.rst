@@ -6,7 +6,7 @@ Class diagrams
 (UML) is a type of static structure diagram that describes the structure of a
 system by showing the system's classes, their attributes, operations (or
 methods), and the relationships among objects.》
-`Wikipedia <https://en.wikipedia.org/wiki/Class_diagram>`__
+(`Wikipedia <https://en.wikipedia.org/wiki/Class_diagram>`__)
 
 .. contents::
    :depth: 2

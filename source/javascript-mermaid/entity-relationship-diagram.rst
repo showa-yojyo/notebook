@@ -6,7 +6,7 @@ Entity Relationship Diagrams
 interest in a specific domain of knowledge. A basic ER model is composed of
 entity types (which classify the things of interest) and specifies relationships
 that can exist between entities (instances of those entity types)》
-`Wikipedia <https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model>`__
+(`Wikipedia <https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model>`__)
 
 .. contents::
    :depth: 2
@@ -153,10 +153,10 @@ possible cardinalities.
 ============ ============= =============================
 Value (left) Value (right) Meaning
 ============ ============= =============================
-``\|o``      ``o\|``       Zero or one
-``\|\|``     ``\|\|``      Exactly one
+``|o``       ``o\|``       Zero or one
+``||``       ``||``        Exactly one
 ``}o``       ``o{``        Zero or more (no upper limit)
-``}\|``      ``\|{``       One or more (no upper limit)
+``}|``       ``|{``        One or more (no upper limit)
 ============ ============= =============================
 
 .. admonition:: 学習者ノート
@@ -170,9 +170,9 @@ Relationships may be classified as either *identifying* or *non-identifying* and
 these are rendered with either solid or dashed lines respectively. This is
 relevant when one of the entities in question can not have independent existence
 without the other. For example a firm that insures people to drive cars might
-need to store data on ``NAMED-DRIVER``s. In modelling this we might start out
+need to store data on ``NAMED-DRIVER`` s. In modelling this we might start out
 by observing that a ``CAR`` can be driven by many ``PERSON`` instances, and a
-``PERSON`` can drive many ``CAR``s - both entities can exist without the
+``PERSON`` can drive many ``CAR`` s - both entities can exist without the
 other, so this is a non-identifying relationship that we might specify in
 Mermaid as: ``PERSON}|..|{CAR : "driver"``. Note the two dots in the middle of
 the relationship that will result in a dashed line being drawn between the two
