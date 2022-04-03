@@ -1,0 +1,627 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>What’s New In Python 3.10 ノート &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/prefab.css" />
+    
+    <script src="_static/mathjax-v3.js"></script>
+    <script src="_static/mermaid.js"></script>
+    
+    <link rel="next" title="pip 利用ノート" href="python-pip.html" />
+    <link rel="prev" title="What’s New In Python 3.9 ノート" href="python-3.9.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="python-pip.html" title="pip 利用ノート"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="python-3.9.html" title="What’s New In Python 3.9 ノート"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">What’s New In Python 3.10 ノート</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="what-s-new-in-python-3-10">
+<h1><a class="toc-backref" href="#id2">What’s New In Python 3.10 ノート</a><a class="headerlink" href="#what-s-new-in-python-3-10" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://docs.python.org/3/whatsnew/3.10.html">What’s New In Python 3.10</a> をたどりながら調査。興味のあるものしか読まない。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title">ノート目次</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#what-s-new-in-python-3-10" id="id2">What’s New In Python 3.10 ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#new-features" id="id3">New Features</a></p>
+<ul>
+<li><p><a class="reference internal" href="#parenthesized-context-managers" id="id4">Parenthesized context managers</a></p></li>
+<li><p><a class="reference internal" href="#better-error-messages" id="id5">Better error messages</a></p></li>
+<li><p><a class="reference internal" href="#pep-634-structural-pattern-matching" id="id6">PEP 634: Structural Pattern Matching</a></p>
+<ul>
+<li><p><a class="reference internal" href="#simple-pattern-match-to-a-literal" id="id7">Simple pattern: match to a literal</a></p></li>
+<li><p><a class="reference internal" href="#patterns-with-a-literal-and-variable" id="id8">Patterns with a literal and variable</a></p></li>
+<li><p><a class="reference internal" href="#patterns-and-classes" id="id9">Patterns and classes</a></p></li>
+<li><p><a class="reference internal" href="#patterns-with-positional-parameters" id="id10">Patterns with positional parameters</a></p></li>
+<li><p><a class="reference internal" href="#nested-patterns" id="id11">Nested patterns</a></p></li>
+<li><p><a class="reference internal" href="#complex-patterns-and-the-wildcard" id="id12">Complex patterns and the wildcard</a></p></li>
+<li><p><a class="reference internal" href="#guard" id="id13">Guard</a></p></li>
+<li><p><a class="reference internal" href="#other-key-features" id="id14">Other Key Features</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#optional-encodingwarning-and-encoding-locale-option" id="id15">Optional EncodingWarning and <code class="docutils literal notranslate"><span class="pre">encoding=&quot;locale&quot;</span></code> option</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#new-features-related-to-type-hints" id="id16">New Features Related to Type Hints</a></p>
+<ul>
+<li><p><a class="reference internal" href="#pep-604-new-type-union-operator" id="id17">PEP 604: New Type Union Operator</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#other-language-changes" id="id18">Other Language Changes</a></p></li>
+<li><p><a class="reference internal" href="#new-modules" id="id19">New Modules</a></p></li>
+<li><p><a class="reference internal" href="#improved-modules" id="id20">Improved Modules</a></p>
+<ul>
+<li><p><a class="reference internal" href="#argparse" id="id21">argparse</a></p></li>
+<li><p><a class="reference internal" href="#array" id="id22">array</a></p></li>
+<li><p><a class="reference internal" href="#bdb" id="id23">bdb</a></p></li>
+<li><p><a class="reference internal" href="#bisect" id="id24">bisect</a></p></li>
+<li><p><a class="reference internal" href="#contextlib" id="id25">contextlib</a></p></li>
+<li><p><a class="reference internal" href="#dataclasses" id="id26">dataclasses</a></p>
+<ul>
+<li><p><a class="reference internal" href="#slots" id="id27">__slots__</a></p></li>
+<li><p><a class="reference internal" href="#keyword-only-fields" id="id28">Keyword-only fields</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#distutils" id="id29">distutils</a></p></li>
+<li><p><a class="reference internal" href="#encodings" id="id30">encodings</a></p></li>
+<li><p><a class="reference internal" href="#fileinput" id="id31">fileinput</a></p></li>
+<li><p><a class="reference internal" href="#glob" id="id32">glob</a></p></li>
+<li><p><a class="reference internal" href="#os-path" id="id33">os.path</a></p></li>
+<li><p><a class="reference internal" href="#pathlib" id="id34">pathlib</a></p></li>
+<li><p><a class="reference internal" href="#pprint" id="id35">pprint</a></p></li>
+<li><p><a class="reference internal" href="#statistics" id="id36">statistics</a></p></li>
+<li><p><a class="reference internal" href="#sys" id="id37">sys</a></p></li>
+<li><p><a class="reference internal" href="#typing" id="id38">typing</a></p></li>
+<li><p><a class="reference internal" href="#unittest" id="id39">unittest</a></p></li>
+<li><p><a class="reference internal" href="#urllib-parse" id="id40">urllib.parse</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#optimizations" id="id41">Optimizations</a></p></li>
+<li><p><a class="reference internal" href="#deprecated" id="id42">Deprecated</a></p></li>
+<li><p><a class="reference internal" href="#removed" id="id43">Removed</a></p></li>
+<li><p><a class="reference internal" href="#porting-to-python-3-10" id="id44">Porting to Python 3.10</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="new-features">
+<h2><a class="toc-backref" href="#id3">New Features</a><a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h2>
+<section id="parenthesized-context-managers">
+<h3><a class="toc-backref" href="#id4">Parenthesized context managers</a><a class="headerlink" href="#parenthesized-context-managers" title="Permalink to this headline">¶</a></h3>
+<p>複数行にまたがる継続のための囲み括弧の使用が対応されている。
+<code class="docutils literal notranslate"><span class="pre">import</span></code> 文でよくやるような記法で、複数行に及ぶ長いコンテクストマネージャーの集まりをまとめることができる。以下の例はすべて有効だ。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="p">(</span><span class="n">CtxManager</span><span class="p">()</span> <span class="k">as</span> <span class="n">example</span><span class="p">):</span>
+    <span class="o">...</span>
+
+<span class="k">with</span> <span class="p">(</span>
+    <span class="n">CtxManager1</span><span class="p">(),</span>
+    <span class="n">CtxManager2</span><span class="p">()</span>
+<span class="p">):</span>
+    <span class="o">...</span>
+
+<span class="k">with</span> <span class="p">(</span><span class="n">CtxManager1</span><span class="p">()</span> <span class="k">as</span> <span class="n">example</span><span class="p">,</span>
+      <span class="n">CtxManager2</span><span class="p">()):</span>
+    <span class="o">...</span>
+
+<span class="k">with</span> <span class="p">(</span><span class="n">CtxManager1</span><span class="p">(),</span>
+      <span class="n">CtxManager2</span><span class="p">()</span> <span class="k">as</span> <span class="n">example</span><span class="p">):</span>
+    <span class="o">...</span>
+
+<span class="k">with</span> <span class="p">(</span>
+    <span class="n">CtxManager1</span><span class="p">()</span> <span class="k">as</span> <span class="n">example1</span><span class="p">,</span>
+    <span class="n">CtxManager2</span><span class="p">()</span> <span class="k">as</span> <span class="n">example2</span>
+<span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>なお、括弧内に列挙する最後の記述の末尾にカンマが付いていてもよい。</p>
+</section>
+<section id="better-error-messages">
+<h3><a class="toc-backref" href="#id5">Better error messages</a><a class="headerlink" href="#better-error-messages" title="Permalink to this headline">¶</a></h3>
+<p>Python が閉じない括弧を含むコードを解析する場合、解析中に
+<code class="docutils literal notranslate"><span class="pre">SyntaxError:</span> <span class="pre">unexpected</span> <span class="pre">EOF</span></code> を表示したり、不正な場所を指すのではなく、閉じない括弧の位置も含めるようになっている。</p>
+<p>同様に、閉じられていない文字列リテラル（シングルクォートとトリプルクォート）を含むエラーは、EOF/EOL を報告するのではなく、その文字列の開始を指すようになっている。</p>
+<p><code class="docutils literal notranslate"><span class="pre">SyntaxError</span></code> に特化したメッセージが多数追加。詳しくは公式文書を読むといい。とにかく、一般プログラマーの作業効率が上がったと思っていい。</p>
+</section>
+<section id="pep-634-structural-pattern-matching">
+<h3><a class="toc-backref" href="#id6">PEP 634: Structural Pattern Matching</a><a class="headerlink" href="#pep-634-structural-pattern-matching" title="Permalink to this headline">¶</a></h3>
+<p>よその言語でいう switch 文が追加されている。これは説明するのが難しい。公式文書から構文とコード例を引用しておく。</p>
+<p>構文は次のように <cite>match-statement</cite> と <cite>case-statement</cite> からなる。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>match subject:
+    case &lt;pattern_1&gt;:
+        &lt;action_1&gt;
+    case &lt;pattern_2&gt;:
+        &lt;action_2&gt;
+    case &lt;pattern_3&gt;:
+        &lt;action_3&gt;
+    case _:
+        &lt;action_wildcard&gt;
+</pre></div>
+</div>
+<section id="simple-pattern-match-to-a-literal">
+<h4><a class="toc-backref" href="#id7">Simple pattern: match to a literal</a><a class="headerlink" href="#simple-pattern-match-to-a-literal" title="Permalink to this headline">¶</a></h4>
+<p>次の例は想像どおりの意味だ。最後の <code class="docutils literal notranslate"><span class="pre">case</span> <span class="pre">_</span></code> がワイルドカードアクションだ。この <cite>case-statement</cite> を配置するのはオプショナルだ。その場合 <cite>match-statement</cite> に該当する <cite>case-statement</cite> が存在しなければ、文全体として no-op になる。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">http_error</span><span class="p">(</span><span class="n">status</span><span class="p">):</span>
+    <span class="k">match</span> <span class="n">status</span><span class="p">:</span>
+        <span class="k">case</span> <span class="mi">400</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;Bad request&quot;</span>
+        <span class="k">case</span> <span class="mi">404</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;Not found&quot;</span>
+        <span class="k">case</span> <span class="mi">418</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;I&#39;m a teapot&quot;</span>
+        <span class="k">case</span> <span class="k">_</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;Something&#39;s wrong with the internet&quot;</span>
+</pre></div>
+</div>
+<p><cite>case-statement</cite> がリテラル式の場合、パイプ記号で選言にすることができる。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">case</span> <span class="mi">401</span> <span class="o">|</span> <span class="mi">403</span> <span class="o">|</span> <span class="mi">404</span><span class="p">:</span>
+   <span class="k">return</span> <span class="s2">&quot;Not allowed&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="patterns-with-a-literal-and-variable">
+<h4><a class="toc-backref" href="#id8">Patterns with a literal and variable</a><a class="headerlink" href="#patterns-with-a-literal-and-variable" title="Permalink to this headline">¶</a></h4>
+<p>次の例は変数への代入をする <cite>case-statement</cite> を含む。</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># point is an (x, y) tuple</span>
+<span class="k">match</span> <span class="n">point</span><span class="p">:</span>
+    <span class="k">case</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Origin&quot;</span><span class="p">)</span>
+    <span class="k">case</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Y=</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">case</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;X=</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">case</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;X=</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">, Y=</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">case</span> <span class="k">_</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Not a point&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="patterns-and-classes">
+<h4><a class="toc-backref" href="#id9">Patterns and classes</a><a class="headerlink" href="#patterns-and-classes" title="Permalink to this headline">¶</a></h4>
+<p>クラスを使ってデータを構成する場合、クラス名の後にコンストラクターのような引数リストが続くパターンを使うことができる。このパターンには、クラスの属性を変数に取り込む機能がある。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Point</span><span class="p">:</span>
+    <span class="n">x</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">y</span><span class="p">:</span> <span class="nb">int</span>
+
+<span class="k">def</span> <span class="nf">location</span><span class="p">(</span><span class="n">point</span><span class="p">):</span>
+    <span class="k">match</span> <span class="n">point</span><span class="p">:</span>
+        <span class="k">case</span> <span class="n">Point</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Origin is the point&#39;s location.&quot;</span><span class="p">)</span>
+        <span class="k">case</span> <span class="n">Point</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Y=</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2"> and the point is on the y-axis.&quot;</span><span class="p">)</span>
+        <span class="k">case</span> <span class="n">Point</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;X=</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2"> and the point is on the x-axis.&quot;</span><span class="p">)</span>
+        <span class="k">case</span> <span class="n">Point</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The point is located somewhere else on the plane.&quot;</span><span class="p">)</span>
+        <span class="k">case</span> <span class="k">_</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Not a point&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="patterns-with-positional-parameters">
+<h4><a class="toc-backref" href="#id10">Patterns with positional parameters</a><a class="headerlink" href="#patterns-with-positional-parameters" title="Permalink to this headline">¶</a></h4>
+<p>位置パラメーターは、例えば <code class="docutils literal notranslate"><span class="pre">dataclass</span></code> のような、その属性の順序を提供する組み込みクラスのいくつかで使用できる。また、クラスで <code class="docutils literal notranslate"><span class="pre">__match_args__</span></code> 特殊属性を設定することにより、パターン内の属性の特定の位置を定義することができる。これを <code class="docutils literal notranslate"><span class="pre">(&quot;x&quot;,</span> <span class="pre">&quot;y&quot;)</span></code>
+とすると、以下のパターンはすべて同値だ。すべて属性 <code class="docutils literal notranslate"><span class="pre">y</span></code> を変数 <code class="docutils literal notranslate"><span class="pre">var</span></code> に束縛する。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">var</span><span class="p">)</span>
+<span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">var</span><span class="p">)</span>
+<span class="n">Point</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">var</span><span class="p">)</span>
+<span class="n">Point</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">var</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="nested-patterns">
+<h4><a class="toc-backref" href="#id11">Nested patterns</a><a class="headerlink" href="#nested-patterns" title="Permalink to this headline">¶</a></h4>
+<p>パターンを好きなだけ入れ子にしてよい。例えば、データが短い点のリストである場合、次の <cite>match-statement</cite> はいずれかにマッチする。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">match</span> <span class="n">points</span><span class="p">:</span>
+    <span class="k">case</span> <span class="p">[]:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No points in the list.&quot;</span><span class="p">)</span>
+    <span class="k">case</span> <span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The origin is the only point in the list.&quot;</span><span class="p">)</span>
+    <span class="k">case</span> <span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)]:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;A single point </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2"> is in the list.&quot;</span><span class="p">)</span>
+    <span class="k">case</span> <span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">y1</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">y2</span><span class="p">)]:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Two points on the Y axis at </span><span class="si">{</span><span class="n">y1</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">y2</span><span class="si">}</span><span class="s2"> are in the list.&quot;</span><span class="p">)</span>
+    <span class="k">case</span> <span class="k">_</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Something else is found in the list.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="complex-patterns-and-the-wildcard">
+<h4><a class="toc-backref" href="#id12">Complex patterns and the wildcard</a><a class="headerlink" href="#complex-patterns-and-the-wildcard" title="Permalink to this headline">¶</a></h4>
+<p>複雑なパターンとワイルドカードを組み合わせることもできる。例えば次の例では <code class="docutils literal notranslate"><span class="pre">test_available</span></code> は <code class="docutils literal notranslate"><span class="pre">('error',</span> <span class="pre">code,</span> <span class="pre">100)</span></code> にも
+<code class="docutils literal notranslate"><span class="pre">('error',</span> <span class="pre">code,</span> <span class="pre">800)</span></code> にもマッチする。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">match</span> <span class="n">test_variable</span><span class="p">:</span>
+    <span class="k">case</span> <span class="p">(</span><span class="s1">&#39;warning&#39;</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="mi">40</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A warning has been received.&quot;</span><span class="p">)</span>
+    <span class="k">case</span> <span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="k">_</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;An error </span><span class="si">{</span><span class="n">code</span><span class="si">}</span><span class="s2"> occurred.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="guard">
+<h4><a class="toc-backref" href="#id13">Guard</a><a class="headerlink" href="#guard" title="Permalink to this headline">¶</a></h4>
+<p>ガードと呼ばれる <code class="docutils literal notranslate"><span class="pre">if</span></code> 節を追加することができる。ガードが偽の場合に <code class="docutils literal notranslate"><span class="pre">match</span></code> は次の <code class="docutils literal notranslate"><span class="pre">case</span></code> ブロックを試みる。値の取り込みはガードが評価される前に行われることに注意。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">match</span> <span class="n">point</span><span class="p">:</span>
+    <span class="k">case</span> <span class="n">Point</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">y</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The point is located on the diagonal Y=X at </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+    <span class="k">case</span> <span class="n">Point</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Point is not on the diagonal.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="other-key-features">
+<h4><a class="toc-backref" href="#id14">Other Key Features</a><a class="headerlink" href="#other-key-features" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p>前述のコード例で <code class="docutils literal notranslate"><span class="pre">list</span></code> を使っている箇所では <code class="docutils literal notranslate"><span class="pre">tuple</span></code> も全く同じ意味を持ち、実際には任意のシーケンスにマッチする。技術的には、対象はシーケンスである必要がある。パターンはイテレーターにマッチしない。また、よくある間違いを防ぐために、シーケンスパターンは文字列にはマッチしない。</p></li>
+<li><p>シーケンスパターンはワイルドカードに対応している。
+<code class="docutils literal notranslate"><span class="pre">[x,</span> <span class="pre">y,</span> <span class="pre">*rest]</span></code> と <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y,</span> <span class="pre">*rest)</span></code> は unpacking 代入のワイルドカードと同様に機能する。
+<code class="docutils literal notranslate"><span class="pre">*</span></code> の後の名前は <code class="docutils literal notranslate"><span class="pre">_</span></code> にもなり、それゆえ
+<code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y,</span> <span class="pre">*_)</span></code> は少なくとも二つの項目のシーケンスにマッチし、残りの項目は束縛されない。</p></li>
+<li><p>写像のパターン。
+<code class="docutils literal notranslate"><span class="pre">{&quot;bandwidth&quot;:</span> <span class="pre">b,</span> <span class="pre">&quot;latency&quot;:</span> <span class="pre">l}</span></code> は <code class="docutils literal notranslate"><span class="pre">dict</span></code> から値 <code class="docutils literal notranslate"><span class="pre">&quot;bandwidth&quot;</span></code> および
+<code class="docutils literal notranslate"><span class="pre">&quot;latency&quot;</span></code> を取る。シーケンスパターンとは異なり、余分なキーは無視される。ワイルドカードの <code class="docutils literal notranslate"><span class="pre">**rest</span></code> も対応されている。ただし、
+<code class="docutils literal notranslate"><span class="pre">**_</span></code> は冗長になるため、使用を認められない。</p></li>
+<li><p>部分パターンはキーワード <code class="docutils literal notranslate"><span class="pre">as</span></code> を使って捕捉してよい：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">case</span> <span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span> <span class="k">as</span> <span class="n">p2</span><span class="p">):</span> <span class="o">...</span>
+</pre></div>
+</div>
+<p>これは <code class="docutils literal notranslate"><span class="pre">as</span></code> 節がなかったとしても期待通りに <code class="docutils literal notranslate"><span class="pre">x1</span></code>, <code class="docutils literal notranslate"><span class="pre">y1</span></code>,
+<code class="docutils literal notranslate"><span class="pre">x2</span></code>, <code class="docutils literal notranslate"><span class="pre">y2</span></code> を束縛し、
+<code class="docutils literal notranslate"><span class="pre">p2</span></code> は <code class="docutils literal notranslate"><span class="pre">match</span></code> 文の二番目の項目全体を束縛する。</p>
+</li>
+<li><p>ほとんどのリテラルは等号で比較される。
+<code class="docutils literal notranslate"><span class="pre">True</span></code>, <code class="docutils literal notranslate"><span class="pre">False</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code> は同一性によって比較される。</p></li>
+<li><p>名前付き定数はをパターン内で使用してもよい。定数が捕捉変数として解釈されるのを防ぐために、ドット付きの名前にする必要がある。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="k">class</span> <span class="nc">Color</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">RED</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">GREEN</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">BLUE</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="k">match</span> <span class="n">color</span><span class="p">:</span>
+    <span class="k">case</span> <span class="n">Color</span><span class="o">.</span><span class="n">RED</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I see red!&quot;</span><span class="p">)</span>
+    <span class="k">case</span> <span class="n">Color</span><span class="o">.</span><span class="n">GREEN</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Grass is green&quot;</span><span class="p">)</span>
+    <span class="k">case</span> <span class="n">Color</span><span class="o">.</span><span class="n">BLUE</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I&#39;m feeling the blues :(&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+<section id="optional-encodingwarning-and-encoding-locale-option">
+<h3><a class="toc-backref" href="#id15">Optional EncodingWarning and <code class="docutils literal notranslate"><span class="pre">encoding=&quot;locale&quot;</span></code> option</a><a class="headerlink" href="#optional-encodingwarning-and-encoding-locale-option" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">TextIOWrapper</span></code> と <code class="docutils literal notranslate"><span class="pre">open()</span></code> の既定のエンコーディングはプラットフォームとロケールに依存する。ほとんどの UNIX プラットフォームでは UTF-8 が使われているので、
+UTF-8 ファイルを開くときにエンコードオプションを省略すると、ひじょうにありふれたバグになる。</p>
+<p>このようなバグを発見するために例外 <code class="docutils literal notranslate"><span class="pre">EncodingWarning</span></code> が加わっている。これは <code class="docutils literal notranslate"><span class="pre">sys.flags.warn_default_encoding</span></code> が真で、ロケール固有の既定のエンコーディングが使われたときに送出される。</p>
+<p>警告を有効にするために、オプション <code class="docutils literal notranslate"><span class="pre">-X</span> <span class="pre">warn_default_encoding</span></code> と環境変数 <code class="docutils literal notranslate"><span class="pre">PYTHONWARNDEFAULTENCODING</span></code> が加わっている。</p>
+</section>
+</section>
+<section id="new-features-related-to-type-hints">
+<h2><a class="toc-backref" href="#id16">New Features Related to Type Hints</a><a class="headerlink" href="#new-features-related-to-type-hints" title="Permalink to this headline">¶</a></h2>
+<p>型ヒントとモジュール <code class="docutils literal notranslate"><span class="pre">typing</span></code> に影響する主な変更点について書いてある。興味がほとんどないので、最初の節だけノートに取る。</p>
+<section id="pep-604-new-type-union-operator">
+<h3><a class="toc-backref" href="#id17">PEP 604: New Type Union Operator</a><a class="headerlink" href="#pep-604-new-type-union-operator" title="Permalink to this headline">¶</a></h3>
+<p>型において、<code class="docutils literal notranslate"><span class="pre">typing.Union</span></code> を使う代わりに、型 <code class="docutils literal notranslate"><span class="pre">X</span></code> か <code class="docutils literal notranslate"><span class="pre">Y</span></code> のどちらかを表現する、よりきれいな方法が用意されている。</p>
+<p>以前のバージョンの Python では、複数の型の引数を受け取る関数に対して型ヒントを適用するのに <code class="docutils literal notranslate"><span class="pre">typing.Union</span></code> が使われていた。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">square</span><span class="p">(</span><span class="n">number</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="n">number</span> <span class="o">**</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>この型ヒントをより簡潔なやり方で書ける：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">square</span><span class="p">(</span><span class="n">number</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">number</span> <span class="o">**</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>この新しい構文は <code class="docutils literal notranslate"><span class="pre">isinstance()</span></code> および <code class="docutils literal notranslate"><span class="pre">issubclass()</span></code> の第ニ引数としても受け入れられる。</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="other-language-changes">
+<h2><a class="toc-backref" href="#id18">Other Language Changes</a><a class="headerlink" href="#other-language-changes" title="Permalink to this headline">¶</a></h2>
+<p>興味のある変更だけ記す。</p>
+<ul class="simple">
+<li><p>型 <code class="docutils literal notranslate"><span class="pre">int</span></code> にメソッド <code class="docutils literal notranslate"><span class="pre">bit_count()</span></code> が追加。整数値の二進数表示に立っているビットの個数を返す。</p></li>
+<li><p>整数の引数を取る組み込み関数および拡張関数は、
+<code class="docutils literal notranslate"><span class="pre">Decimal</span></code> や <code class="docutils literal notranslate"><span class="pre">Fraction</span></code> など、損失を承知の上で整数に変換できるオブジェクト（例えば <code class="docutils literal notranslate"><span class="pre">__int__()</span></code> メソッドを持つが <code class="docutils literal notranslate"><span class="pre">__index__()</span></code> メソッドを持たない）を受け付けないように変更されている。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">object.__ipow__()</span></code> が <code class="docutils literal notranslate"><span class="pre">NotImplemented</span></code> を返す場合、この演算子は期待通りに
+<code class="docutils literal notranslate"><span class="pre">object.__pow__()</span></code> と <code class="docutils literal notranslate"><span class="pre">object.__rpow__()</span></code> に正しく fall back されるようになっている。</p></li>
+<li><p>代入式は <code class="docutils literal notranslate"><span class="pre">set</span></code> リテラルや <code class="docutils literal notranslate"><span class="pre">set</span></code> 内包、シーケンスインデックス内で、括弧に括らなくても使用できるようになっている。</p></li>
+<li><p>静的メソッドとクラスメソッドはメソッド属性 (<code class="docutils literal notranslate"><span class="pre">__module__</span></code>, <code class="docutils literal notranslate"><span class="pre">__name__</span></code>,
+<code class="docutils literal notranslate"><span class="pre">__qualname__</span></code>, <code class="docutils literal notranslate"><span class="pre">__doc__</span></code>, <code class="docutils literal notranslate"><span class="pre">__annotations__</span></code>) を継承し、新しい属性
+<code class="docutils literal notranslate"><span class="pre">__wrapped__</span></code> を持つようになった。さらに、静的メソッドは通常の関数として呼び出すことができるようになっている。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">float</span></code> 型と <code class="docutils literal notranslate"><span class="pre">decimal.Decimal</span></code> 型の <code class="docutils literal notranslate"><span class="pre">NaN</span></code> 値のハッシュが、オブジェクトの同一性に依存するようになる。以前は <code class="docutils literal notranslate"><span class="pre">NaN</span></code> 値が互いに等しくないにもかかわらず、常に 0 にハッシュされていた。このため、複数の <code class="docutils literal notranslate"><span class="pre">NaN</span></code> を含む
+<code class="docutils literal notranslate"><span class="pre">dict</span></code> や <code class="docutils literal notranslate"><span class="pre">set</span></code> を作成する際に、ハッシュの衝突が多発し、実行時の動作が二次のオーダーになる可能性があった。</p></li>
+<li><p>定数 <code class="docutils literal notranslate"><span class="pre">__debug__</span></code> を削除すると <code class="docutils literal notranslate"><span class="pre">NameError</span></code> ではなく <code class="docutils literal notranslate"><span class="pre">SyntaxError</span></code> が発生する。</p></li>
+<li><p>例外 <code class="docutils literal notranslate"><span class="pre">SyntaxError</span></code> に属性 <code class="docutils literal notranslate"><span class="pre">end_lineno</span></code> と <code class="docutils literal notranslate"><span class="pre">end_offset</span></code> が追加。これらは、確定されない場合は <code class="docutils literal notranslate"><span class="pre">None</span></code> になる。</p></li>
+</ul>
+</section>
+<section id="new-modules">
+<h2><a class="toc-backref" href="#id19">New Modules</a><a class="headerlink" href="#new-modules" title="Permalink to this headline">¶</a></h2>
+<p>何もない。</p>
+</section>
+<section id="improved-modules">
+<h2><a class="toc-backref" href="#id20">Improved Modules</a><a class="headerlink" href="#improved-modules" title="Permalink to this headline">¶</a></h2>
+<p>興味のあるものや遭遇しそうな問題を含むモジュールに絞って記していく。</p>
+<section id="argparse">
+<h3><a class="toc-backref" href="#id21">argparse</a><a class="headerlink" href="#argparse" title="Permalink to this headline">¶</a></h3>
+<p>オプション <code class="docutils literal notranslate"><span class="pre">--help</span></code> で出力されるメッセージ中の optional arguments という言葉が
+options に置き換わっている。もしヘルプメッセージのテストがあるならば、何らかの対応が必要だろう。</p>
+</section>
+<section id="array">
+<h3><a class="toc-backref" href="#id22">array</a><a class="headerlink" href="#array" title="Permalink to this headline">¶</a></h3>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">array.index()</span></code> にオプショナル引数 <code class="docutils literal notranslate"><span class="pre">start</span></code> と <code class="docutils literal notranslate"><span class="pre">stop</span></code> が追加されている。まだ試していないが、これらは文字列やシーケンスの対応物と同じ意味だろう。</p>
+</section>
+<section id="bdb">
+<h3><a class="toc-backref" href="#id23">bdb</a><a class="headerlink" href="#bdb" title="Permalink to this headline">¶</a></h3>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">clearBreakpoints()</span></code> が追加されている。ブレイクポイントすべてをリセットする。これはデバッグの利便性が上がる。</p>
+</section>
+<section id="bisect">
+<h3><a class="toc-backref" href="#id24">bisect</a><a class="headerlink" href="#bisect" title="Permalink to this headline">¶</a></h3>
+<p>モジュール内の関数にオプショナル <cite>key</cite> 引数が追加されている。これはキー関数、つまり照合関数を指定するものだ。</p>
+<p>キー関数とはソート、順序付けに使用する値を返す callable だ。</p>
+</section>
+<section id="contextlib">
+<h3><a class="toc-backref" href="#id25">contextlib</a><a class="headerlink" href="#contextlib" title="Permalink to this headline">¶</a></h3>
+<p>コンテキストマネージャー <code class="docutils literal notranslate"><span class="pre">contextlib.aclosing()</span></code> が追加されている。これを、非同期ジェネレーターや非同期的に解放されたリソースを表すオブジェクトを安全に閉じるために用いる。</p>
+<p>非同期コンテキストマネージャー対応が <code class="docutils literal notranslate"><span class="pre">contextlib.nullcontext()</span></code> に追加されている。</p>
+<p><code class="docutils literal notranslate"><span class="pre">AsyncContextDecorator</span></code> が追加。デコレーターとしての非同期コンテキストマネージャーの使用を対応している。</p>
+</section>
+<section id="dataclasses">
+<h3><a class="toc-backref" href="#id26">dataclasses</a><a class="headerlink" href="#dataclasses" title="Permalink to this headline">¶</a></h3>
+<section id="slots">
+<h4><a class="toc-backref" href="#id27">__slots__</a><a class="headerlink" href="#slots" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">dataclasses.dataclass()</span></code> デコレーターに <code class="docutils literal notranslate"><span class="pre">slots</span></code> 引数が追加されている。</p>
+</section>
+<section id="keyword-only-fields">
+<h4><a class="toc-backref" href="#id28">Keyword-only fields</a><a class="headerlink" href="#keyword-only-fields" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">dataclasses</span></code> は、生成された <code class="docutils literal notranslate"><span class="pre">__init__</span></code> メソッドでキーワードのみのフィールドを対応している。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+
+<span class="c1"># Both name and birthday are keyword-only parameters to the generated __init__ method.</span>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Birthday</span><span class="p">:</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">birthday</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+
+<span class="c1"># Here only birthday is keyword-only.</span>
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Birthday</span><span class="p">:</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">birthday</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>個々のフィールドに <code class="docutils literal notranslate"><span class="pre">kw_only</span></code> を設定する場合、keyword-only フィールドが非
+keyword-only フィールドに続く必要があるため、フィールドの再順序付けに関する規則があることに注意が要る。</p>
+<p>また、<code class="docutils literal notranslate"><span class="pre">KW_ONLY</span></code> マーカーに続くフィールドすべてが keyword-only であることを指定することもできる。これがおそらく最もふつうの使用法だろう。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">KW_ONLY</span>
+
+<span class="c1"># Here, z and t are keyword-only parameters, while x and y are not.</span>
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Point</span><span class="p">:</span>
+    <span class="n">x</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">y</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">_</span><span class="p">:</span> <span class="n">KW_ONLY</span>
+    <span class="n">z</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">t</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="distutils">
+<h3><a class="toc-backref" href="#id29">distutils</a><a class="headerlink" href="#distutils" title="Permalink to this headline">¶</a></h3>
+<p>パッケージ distutils 全体は Python 3.12 で削除され、非推奨となる。</p>
+<p>Python 3.8 で非推奨となった bdist_wininst コマンドは削除されている。
+Windows でバイナリーパッケージを配布するには  bdist_wheel コマンドが推奨される。</p>
+</section>
+<section id="encodings">
+<h3><a class="toc-backref" href="#id30">encodings</a><a class="headerlink" href="#encodings" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">encodings.normalize_encoding()</span></code> は非 ASCII 文字を無視する。</p>
+</section>
+<section id="fileinput">
+<h3><a class="toc-backref" href="#id31">fileinput</a><a class="headerlink" href="#fileinput" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">fileinput.input()</span></code> と <code class="docutils literal notranslate"><span class="pre">fileinput.FileInput</span></code> に引数 <code class="docutils literal notranslate"><span class="pre">endoocing</span></code> と <code class="docutils literal notranslate"><span class="pre">errors</span></code> が追加されている。</p>
+<p><code class="docutils literal notranslate"><span class="pre">fileinput.hook_compressed()</span></code> がモード <code class="docutils literal notranslate"><span class="pre">&quot;r&quot;</span></code> で圧縮されている場合、非圧縮ファイルのように <code class="docutils literal notranslate"><span class="pre">TextIOWrapper</span></code> オブジェクトを返すようになっている。</p>
+</section>
+<section id="glob">
+<h3><a class="toc-backref" href="#id32">glob</a><a class="headerlink" href="#glob" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">glob()</span></code> および <code class="docutils literal notranslate"><span class="pre">iglob()</span></code> に、検索対象のルートディレクトリーを指定するための引数 <code class="docutils literal notranslate"><span class="pre">root_dir</span></code> および <code class="docutils literal notranslate"><span class="pre">dir_fd</span></code> が追加されている。</p>
+</section>
+<section id="os-path">
+<h3><a class="toc-backref" href="#id33">os.path</a><a class="headerlink" href="#os-path" title="Permalink to this headline">¶</a></h3>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">os.path.realpath()</span></code> は、キーワードのみ引数 <code class="docutils literal notranslate"><span class="pre">strict</span></code> を受け付ける。この値を <code class="docutils literal notranslate"><span class="pre">True</span></code> として呼び出すと、指定パスが存在しないか、シンボリックリンクのループに遭遇した場合に <code class="docutils literal notranslate"><span class="pre">OSError</span></code> が発生する。</p>
+</section>
+<section id="pathlib">
+<h3><a class="toc-backref" href="#id34">pathlib</a><a class="headerlink" href="#pathlib" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">PurePath.parents</span></code> が <code class="docutils literal notranslate"><span class="pre">slice</span></code> に対応している。</p>
+<p><code class="docutils literal notranslate"><span class="pre">PurePath.parents</span></code> が負のインデックスに対応している。</p>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">link_to()</span></code> を置き換える <code class="docutils literal notranslate"><span class="pre">Path.hardlink_to</span></code> が追加されている。この新しいメソッドには <code class="docutils literal notranslate"><span class="pre">symlink_to()</span></code> と同じ引数順序がある。</p>
+<p><code class="docutils literal notranslate"><span class="pre">pathlib.Path.stat()</span></code> と <code class="docutils literal notranslate"><span class="pre">chmod()</span></code> は、キーワードのみ引数 <code class="docutils literal notranslate"><span class="pre">follow_symlinks</span></code> を受け入れる。モジュール <code class="docutils literal notranslate"><span class="pre">os</span></code> における、対応する関数との一貫性のためにそうなっている。</p>
+</section>
+<section id="pprint">
+<h3><a class="toc-backref" href="#id35">pprint</a><a class="headerlink" href="#pprint" title="Permalink to this headline">¶</a></h3>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">pprint.pprint()</span></code> は新キーワード引数 <code class="docutils literal notranslate"><span class="pre">underscore_numbers</span></code> を受け付ける。</p>
+<p><code class="docutils literal notranslate"><span class="pre">dataclasses.dataclass</span></code> インスタンスを pretty-print できる。</p>
+</section>
+<section id="statistics">
+<h3><a class="toc-backref" href="#id36">statistics</a><a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h3>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">covarianve()</span></code>, <code class="docutils literal notranslate"><span class="pre">correlation()</span></code>, <code class="docutils literal notranslate"><span class="pre">linear_regression()</span></code> が追加されている。それぞれ共分散、Pearson 相関係数、単純な線形回帰を求める。</p>
+</section>
+<section id="sys">
+<h3><a class="toc-backref" href="#id37">sys</a><a class="headerlink" href="#sys" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">sys.orig_argv</span></code> が追加されている。Python 実行形式に渡されるオリジナルのコマンドライン引数のリストだ。
+<code class="docutils literal notranslate"><span class="pre">sys.stdlib_module_names</span></code> が追加されている。標準ライブラリーモジュール名のリストを含む。</p>
+</section>
+<section id="typing">
+<h3><a class="toc-backref" href="#id38">typing</a><a class="headerlink" href="#typing" title="Permalink to this headline">¶</a></h3>
+<p>主な変更点は先述の New Features Related to Type Hints で述べられている。以降の変更ノートはそれを踏まえてのものになる。</p>
+<p>PEP 586 で指定された静的型チェッカーの動作と一致するように <code class="docutils literal notranslate"><span class="pre">typing.Literal</span></code>
+の振る舞いが変更されている。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Literal</span></code> は引数の重複を解消するようになっている。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Literal</span></code> オブジェクト間の等価比較は、順序に依存しないようなっている。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Literal</span></code> の比較は、型を考慮するようになっている。たとえば、
+<code class="docutils literal notranslate"><span class="pre">Literal[0]</span> <span class="pre">==</span> <span class="pre">Literal[False]</span></code> は以前は <code class="docutils literal notranslate"><span class="pre">True</span></code> と評価されていた。これが現在は <code class="docutils literal notranslate"><span class="pre">False</span></code> となる。この変更に対応するために、内部で使用する型キャッシュが型の区別に対応できるようになっている。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Literal</span></code> オブジェクトは、その引数のいずれかがハッシュ化不能の場合、等値比較時に
+<code class="docutils literal notranslate"><span class="pre">TypeError</span></code> 例外が発生するようになっている。ただし、ハッシュ化不能引数を持つ
+<code class="docutils literal notranslate"><span class="pre">Literal</span></code> を宣言してもエラーは発生しない。</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Literal</span><span class="p">[{</span><span class="mi">0</span><span class="p">}]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Literal</span><span class="p">[{</span><span class="mi">0</span><span class="p">}]</span> <span class="o">==</span> <span class="n">Literal</span><span class="p">[{</span><span class="kc">False</span><span class="p">}]</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+<span class="gr">TypeError</span>: <span class="n">unhashable type: &#39;set&#39;</span>
+</pre></div>
+</div>
+<p>その他。</p>
+</section>
+<section id="unittest">
+<h3><a class="toc-backref" href="#id39">unittest</a><a class="headerlink" href="#unittest" title="Permalink to this headline">¶</a></h3>
+<p>既存の <code class="docutils literal notranslate"><span class="pre">assertLogs()</span></code> を補完するメソッド <code class="docutils literal notranslate"><span class="pre">assertNoLogs()</span></code> が新しく追加されている。</p>
+</section>
+<section id="urllib-parse">
+<h3><a class="toc-backref" href="#id40">urllib.parse</a><a class="headerlink" href="#urllib-parse" title="Permalink to this headline">¶</a></h3>
+<p>Python 3.10 より早いバージョンでは <code class="docutils literal notranslate"><span class="pre">urllib.parse.parse_qs()</span></code> および
+<code class="docutils literal notranslate"><span class="pre">urllib.parse.parse_qsl()</span></code> で問い合わせ引数のセパレーターとして <code class="docutils literal notranslate"><span class="pre">;</span></code> と <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>
+の両方を使用することができた。これが 3.10 では単一のセパレータキーだけを許可するように変更されており、既定値は <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> となっている。この変更は <code class="docutils literal notranslate"><span class="pre">cgi.parse()</span></code>
+および <code class="docutils literal notranslate"><span class="pre">cgi.parse_multipart()</span></code> にも影響する。</p>
+<p>URL の一部に改行文字やタブ文字があると、ある種の攻撃が可能になる。
+WHATWG 仕様に従い、ASCII の改行文字 <code class="docutils literal notranslate"><span class="pre">\n</span></code>, <code class="docutils literal notranslate"><span class="pre">\r</span></code> とタブ文字 <code class="docutils literal notranslate"><span class="pre">\t</span></code> を
+<code class="docutils literal notranslate"><span class="pre">urllib.parse</span></code> の解析器が URL から取り除いて、このような攻撃を防ぐようにしてある。除去される文字は、新しいモジュールレベル変数 <code class="docutils literal notranslate"><span class="pre">urllib.parse._UNSAFE_URL_BYTES_TO_REMOVE</span></code> が制御する。</p>
+</section>
+</section>
+<section id="optimizations">
+<h2><a class="toc-backref" href="#id41">Optimizations</a><a class="headerlink" href="#optimizations" title="Permalink to this headline">¶</a></h2>
+<p>ここは一般プログラマーには重要ではないかもしれない。ほとんどチェックしていない。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">str()</span></code>, <code class="docutils literal notranslate"><span class="pre">bytes()</span></code>, <code class="docutils literal notranslate"><span class="pre">bytearray()</span></code> の各コンストラクターが高速化。小さいオブジェクトでは約 30 から 40 パーセント。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">module-name</span></code> コマンドの起動時間が平均で 1.4 倍速くなっている。
+Linux ではこのコマンド実行は Python 3.9 で 69 モジュールを <code class="docutils literal notranslate"><span class="pre">import</span></code> しているが、
+Python 3.10 では 51 モジュールしか <code class="docutils literal notranslate"><span class="pre">import</span></code> しない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">str1</span> <span class="pre">in</span> <span class="pre">str2</span></code> や <code class="docutils literal notranslate"><span class="pre">str2.find(str1)</span></code> などの部分文字列検索関数で、長い文字列での二次のオーダーである何らかのコストを避けるために Crochemore &amp; Perrin の
+Two-Way 文字列検索アルゴリズムを（可能ならば？）使用するようになっている。</p></li>
+<li><p>以下の組み込み関数が、より高速な PEP 590 vectorcall 呼び出しに対応した</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">map()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">filter()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reversed()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bool()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">float()</span></code></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="deprecated">
+<h2><a class="toc-backref" href="#id42">Deprecated</a><a class="headerlink" href="#deprecated" title="Permalink to this headline">¶</a></h2>
+<p>古いやり方をいつまで経っても採用し続けないように、一通りチェックする。</p>
+<ul class="simple">
+<li><p>先述のように <code class="docutils literal notranslate"><span class="pre">distutils</span></code> 名前空間。Python 3.12 で削除。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">random.randrange()</span></code> の非整数型引数。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">asyncio.get_event_loop()</span></code> は、実行中のイベントループがない場合、非推奨の警告を発する。将来的には <code class="docutils literal notranslate"><span class="pre">get_running_loop()</span></code> の別名になる。暗黙的に <code class="docutils literal notranslate"><span class="pre">Future</span></code> または <code class="docutils literal notranslate"><span class="pre">Task</span></code>
+オブジェクトを生成する次に示す <code class="docutils literal notranslate"><span class="pre">asyncio</span></code> 関数は、実行中のイベントループがなく、明示的な引数 <code class="docutils literal notranslate"><span class="pre">loop</span></code> が渡されない場合に非推奨警告を発する：</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ensure_future()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wrap_future()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gather()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">shield()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">as_completed()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Future</span></code>, <code class="docutils literal notranslate"><span class="pre">Task,</span></code>, <code class="docutils literal notranslate"><span class="pre">StreamReader</span></code>, <code class="docutils literal notranslate"><span class="pre">StreamReaderProtocol</span></code> 各コンストラクター</p></li>
+</ul>
+</li>
+<li><p>以下の <code class="docutils literal notranslate"><span class="pre">threading</span></code> メソッド：</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">threading.currentThread</span></code> → <code class="docutils literal notranslate"><span class="pre">threading.current_thread()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">threading.activeCount</span></code> → <code class="docutils literal notranslate"><span class="pre">threading.active_count()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">threading.Condition.notifyAll</span></code> → <code class="docutils literal notranslate"><span class="pre">threading.Condition.notify_all()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">threading.Event.isSet</span></code> → <code class="docutils literal notranslate"><span class="pre">threading.Event.is_set()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">threading.Thread.setName</span></code> → <code class="docutils literal notranslate"><span class="pre">threading.Thread.name</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">threading.thread.getName</span></code> → <code class="docutils literal notranslate"><span class="pre">threading.Thread.name</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">threading.Thread.isDaemon</span></code> → <code class="docutils literal notranslate"><span class="pre">threading.Thread.daemon</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">threading.Thread.setDaemon</span></code> → <code class="docutils literal notranslate"><span class="pre">threading.Thread.daemon</span></code></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="removed">
+<h2><a class="toc-backref" href="#id43">Removed</a><a class="headerlink" href="#removed" title="Permalink to this headline">¶</a></h2>
+<p>興味のあるものしかチェックしない。</p>
+<ul>
+<li><p>クラス <code class="docutils literal notranslate"><span class="pre">complex</span></code> にあった特殊メソッド <code class="docutils literal notranslate"><span class="pre">__int__</span></code>, <code class="docutils literal notranslate"><span class="pre">__float__</span></code>, <code class="docutils literal notranslate"><span class="pre">__floordiv__</span></code>,
+<code class="docutils literal notranslate"><span class="pre">__mod__</span></code>, <code class="docutils literal notranslate"><span class="pre">__divmod__</span></code>, <code class="docutils literal notranslate"><span class="pre">__rfloordiv__</span></code>, <code class="docutils literal notranslate"><span class="pre">__rmod__</span></code>, <code class="docutils literal notranslate"><span class="pre">__rdivmod__</span></code>.</p></li>
+<li><p>モジュール <code class="docutils literal notranslate"><span class="pre">collections</span></code> にあった Abstract Base Classe コレクションへの非推奨の別名。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">asyncio</span></code> の高水準 API の大部分から Python 3.8 で非推奨となった引数 <code class="docutils literal notranslate"><span class="pre">loop</span></code>.
+この変更の背景にある動機：</p>
+<ul class="simple">
+<li><p>高水準 API を単純化する。</p></li>
+<li><p>Python 3.7 以降、高水準 API の関数は暗黙のうちに現在のスレッドの実行中のイベントループを取得してきた。通常の使用状況のほとんどは、API にイベントループを渡す必要はない。</p></li>
+<li><p>イベントループの受け渡しは、特に異なるスレッドで実行されているループを扱うときにエラーが発生しやすい。</p></li>
+</ul>
+<p>低水準 API は <code class="docutils literal notranslate"><span class="pre">loop</span></code> をまだ受け入れることに注意。</p>
+</li>
+</ul>
+</section>
+<section id="porting-to-python-3-10">
+<h2><a class="toc-backref" href="#id44">Porting to Python 3.10</a><a class="headerlink" href="#porting-to-python-3-10" title="Permalink to this headline">¶</a></h2>
+<p>本節以降、個人的には対応項目なし。</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="python-pip.html" title="pip 利用ノート"
+             >next</a></li>
+        <li class="right" >
+          <a href="python-3.9.html" title="What’s New In Python 3.9 ノート"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">What’s New In Python 3.10 ノート</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2022, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

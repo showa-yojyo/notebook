@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
     
     <script src="../_static/mathjax-v3.js"></script>
+    <script src="../_static/mermaid.js"></script>
     
     <link rel="next" title="モジュール docutils.core" href="core.html" />
     <link rel="prev" title="サブパッケージ docutils.writers" href="writers.html" /> 
@@ -57,10 +58,58 @@
 <h2><a class="toc-backref" href="#id6">クラス図</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>モジュール内で定義されている例外クラスを除いたクラス図を示す。
 Python 標準のクラスおよび説明済みのクラスはグレーアウトで表し、例えば例外クラスのような、本筋とは外れているクラスは省いている。</p>
-<figure class="align-center">
-<a class="reference internal image-reference" href="../_images/docutils-frontend.png"><img alt="(class diagram)" src="../_images/docutils-frontend.png" style="width: 738.0px; height: 337.0px;" /></a>
-</figure>
-<ul class="simple">
+<div align="center" class="mermaid align-center">
+            classDiagram
+%% 名前空間修飾ができない
+%% ラベルを association end に与えられない
+    direction BT
+
+    Option --|&gt; optparseOption
+
+    ConfigParser --|&gt; configparserRawConfigParser
+
+    OptionParser --&gt; Option: option_class
+    OptionParser --&gt; ConfigParser: creates
+    OptionParser --|&gt; optparseOptionParser
+    OptionParser --|&gt; SettingsSpec
+    OptionParser --&gt; Values: creates
+
+    Values --|&gt; optparseValues
+
+    class Option{
+        #list ATTRS
+        +process(...)
+    }
+
+    class ConfigParser{
+        +read(...)
+    }
+
+    class Values{
+        +update(dict, OptionParser)
+        +copy()
+    }
+
+    class SettingsSpec{
+        +tuple settings_spec$
+        +dict settings_defaults$
+        +dict settings_default_overrides$
+        +tuple relative_path_settings$
+        +str config_section$
+        +tuple config_section_dependencies$
+    }
+
+    class OptionParser{
+        +tuple settings_spec$
+        +dict settings_defaults$
+        +dict settings_default_overrides$
+        +get_standard_config_files()
+        +get_standard_config_settings()
+        +get_config_file_settings(file)
+    }
+
+        </div>
+        <ul class="simple">
 <li><p>Docutils で Python 標準のクラスを継承しているモジュールはこれくらいしかない。</p></li>
 </ul>
 </section>

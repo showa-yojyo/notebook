@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
     
     <script src="../_static/mathjax-v3.js"></script>
+    <script src="../_static/mermaid.js"></script>
     
     <link rel="next" title="ノート準備中書籍群 2014 年編" href="../preliminary2014.html" />
     <link rel="prev" title="OpenGL Shading Language 4.60 Specification 読書ノート Part 8" href="note8.html" /> 
@@ -236,7 +237,7 @@ SPIR-V for OpenGL でも許可されている。</p>
 <h4><a class="toc-backref" href="#id9">12.2.1. Specialization Constants</a><a class="headerlink" href="#specialization-constants" title="Permalink to this headline">¶</a></h4>
 <p>SPIR-V 特殊化定数は、クライアント API で後から設定することができ、
 <code class="docutils literal notranslate"><span class="pre">layout(constant_id=...)</span></code> を用いて宣言することができる。例えば、既定値が 12 の特殊化定数を作るには次のようにする：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span><span class="p">(</span><span class="n">constant_id</span> <span class="o">=</span> <span class="mi">17</span><span class="p">)</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">arraySize</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span><span class="p">(</span><span class="n">constant_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">17</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">arraySize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">12</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>上記 17 は API や他のツールが後にこの特定の特殊化定数を参照するための ID だ。
@@ -246,40 +247,40 @@ API や中間ツールは、実行コードに完全に下げられる前に、�
 <p>原文の意味がつかめなかった。動詞 lower の意味がわからない。</p>
 </div>
 <p>特殊化定数は、畳み込みがないということ以外は <code class="docutils literal notranslate"><span class="pre">const</span></code> のセマンティクスを持つ。したがって、配列は <code class="docutils literal notranslate"><span class="pre">arraySize</span></code> で宣言することができる：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="kt">vec4</span> <span class="n">data</span><span class="p">[</span><span class="n">arraySize</span><span class="p">];</span>  <span class="c1">// legal, even though arraySize might change</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="kt">vec4</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="n">arraySize</span><span class="p">];</span><span class="w">  </span><span class="c1">// legal, even though arraySize might change</span><span class="w"></span>
 </pre></div>
 </div>
 <p>特殊化定数は式の中に入れることができる：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="kt">vec4</span> <span class="n">data2</span><span class="p">[</span><span class="n">arraySize</span> <span class="o">+</span> <span class="mi">2</span><span class="p">];</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="kt">vec4</span><span class="w"> </span><span class="n">data2</span><span class="p">[</span><span class="n">arraySize</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">];</span><span class="w"></span>
 </pre></div>
 </div>
 <p>これにより、シェーダーを実行コードに落とし込む際に、
 <code class="docutils literal notranslate"><span class="pre">data2</span></code> のサイズが <code class="docutils literal notranslate"><span class="pre">arraySize</span></code> の持つ定数値よりも 2 だけ大きくなる。</p>
 <p>特殊化定数で形成された式もまた、シェーダー内では特殊化定数のように振る舞う。定数のようにではない。</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="n">arraySize</span> <span class="o">+</span> <span class="mi">2</span>       <span class="c1">// a specialization constant (with no constant_id)</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="n">arraySize</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="w">       </span><span class="c1">// a specialization constant (with no constant_id)</span><span class="w"></span>
 </pre></div>
 </div>
 <p>このような式は定数と同じ場所で使用できる。</p>
 <p><code class="docutils literal notranslate"><span class="pre">constant_id</span></code> はスカラー整数、スカラー浮動小数点、スカラー真偽値のどれかにしか適用できない。</p>
 <p>基本的な演算子とコンストラクターしか特殊化定数に適用できず、結果として特殊化定数が得られる：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span><span class="p">(</span><span class="n">constant_id</span> <span class="o">=</span> <span class="mi">17</span><span class="p">)</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">arraySize</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
-<span class="n">sin</span><span class="p">(</span><span class="kt">float</span><span class="p">(</span><span class="n">arraySize</span><span class="p">));</span>    <span class="c1">// result is not a specialization constant</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span><span class="p">(</span><span class="n">constant_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">17</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">arraySize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">12</span><span class="p">;</span><span class="w"></span>
+<span class="n">sin</span><span class="p">(</span><span class="kt">float</span><span class="p">(</span><span class="n">arraySize</span><span class="p">));</span><span class="w">    </span><span class="c1">// result is not a specialization constant</span><span class="w"></span>
 </pre></div>
 </div>
 <p>SPIR-V 特殊化定数はスカラーしか対象としていないが、ベクトルはスカラーの演算で作ることができる：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span><span class="p">(</span><span class="n">constant_id</span> <span class="o">=</span> <span class="mi">18</span><span class="p">)</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">scX</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="k">layout</span><span class="p">(</span><span class="n">constant_id</span> <span class="o">=</span> <span class="mi">19</span><span class="p">)</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">scZ</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="k">const</span> <span class="kt">vec3</span> <span class="n">scVec</span> <span class="o">=</span> <span class="kt">vec3</span><span class="p">(</span><span class="n">scX</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">scZ</span><span class="p">);</span>  <span class="c1">// partially specialized vector</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span><span class="p">(</span><span class="n">constant_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">18</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">scX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="k">layout</span><span class="p">(</span><span class="n">constant_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">19</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">scZ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="k">const</span><span class="w"> </span><span class="kt">vec3</span><span class="w"> </span><span class="n">scVec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">vec3</span><span class="p">(</span><span class="n">scX</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">scZ</span><span class="p">);</span><span class="w">  </span><span class="c1">// partially specialized vector</span><span class="w"></span>
 </pre></div>
 </div>
 <p>組み込み変数には <code class="docutils literal notranslate"><span class="pre">constant_id</span></code> を付けることができる：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span><span class="p">(</span><span class="n">constant_id</span> <span class="o">=</span> <span class="mi">18</span><span class="p">)</span> <span class="nb">gl_MaxImageUnits</span><span class="p">;</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span><span class="p">(</span><span class="n">constant_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">18</span><span class="p">)</span><span class="w"> </span><span class="nb">gl_MaxImageUnits</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>これにより特殊化定数のようになる。これは完全な再宣言ではなく、他のすべての特性は元の組み込み宣言からそのまま残されている。</p>
 <p>組み込みベクトル <code class="docutils literal notranslate"><span class="pre">gl_WorkGroupSize</span></code> は、
 <code class="docutils literal notranslate"><span class="pre">in</span></code> 修飾子に適用される特別レイアウト <code class="docutils literal notranslate"><span class="pre">local_size_{xyz}_id</span></code> を用いて特化できる。例えば：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span><span class="p">(</span><span class="n">local_size_x_id</span> <span class="o">=</span> <span class="mi">18</span><span class="p">,</span> <span class="n">local_size_z_id</span> <span class="o">=</span> <span class="mi">19</span><span class="p">)</span> <span class="k">in</span><span class="p">;</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span><span class="p">(</span><span class="n">local_size_x_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">18</span><span class="p">,</span><span class="w"> </span><span class="n">local_size_z_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">19</span><span class="p">)</span><span class="w"> </span><span class="k">in</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>これにより <code class="docutils literal notranslate"><span class="pre">gl_WorkGroupSize.y</span></code> は非特殊化定数として残り、
@@ -290,12 +291,12 @@ API や中間ツールは、実行コードに完全に下げられる前に、�
 <p>プッシュ定数は、一様ブロック宣言に適用される新しい <em>layout-qualifier-id</em> <code class="docutils literal notranslate"><span class="pre">push_constant</span></code>
 を使って宣言された一様ブロック内に宿る。
 API は定数の集合を push-constant バッファーに書き込み、シェーダーは <code class="docutils literal notranslate"><span class="pre">push_constant</span></code> ブロックから定数を読み込む：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span><span class="p">(</span><span class="n">push_constant</span><span class="p">)</span> <span class="k">uniform</span> <span class="n">BlockName</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">member1</span><span class="p">;</span>
-    <span class="kt">float</span> <span class="n">member2</span><span class="p">;</span>
-    <span class="p">...</span>
-<span class="p">}</span> <span class="n">InstanceName</span><span class="p">;</span> <span class="c1">// optional instance name</span>
-<span class="p">...</span> <span class="o">=</span> <span class="n">InstanceName</span><span class="p">.</span><span class="n">member2</span><span class="p">;</span> <span class="c1">// read a push constant</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span><span class="p">(</span><span class="n">push_constant</span><span class="p">)</span><span class="w"> </span><span class="k">uniform</span><span class="w"> </span><span class="n">BlockName</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">member1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">member2</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">...</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">InstanceName</span><span class="p">;</span><span class="w"> </span><span class="c1">// optional instance name</span><span class="w"></span>
+<span class="p">...</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InstanceName</span><span class="p">.</span><span class="n">member2</span><span class="p">;</span><span class="w"> </span><span class="c1">// read a push constant</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">push_constant</span></code> 一様ブロックに使用されるメモリーアカウンティングは他の一様ブロックとは異なる。それを収める必要がある隔離した小さなメモリープールがある。既定では <code class="docutils literal notranslate"><span class="pre">push_constant</span></code> バッファーは <code class="docutils literal notranslate"><span class="pre">std430</span></code> の梱包規則に従う。</p>
@@ -305,15 +306,15 @@ API は定数の集合を push-constant バッファーに書き込み、シェ�
 <p>記述子集合内の各シェーダー資源には、記述子集合のレイアウト内での位置を定義する集合番号、束縛番号、配列要素の組が割り当てられる。
 GLSL では、集合番号および束縛番号は、それぞれ <code class="docutils literal notranslate"><span class="pre">set</span></code> および <code class="docutils literal notranslate"><span class="pre">binding</span></code>
 レイアウト修飾子を介して割り当てられ、配列要素は、配列の最初の要素のインデックスがゼロに等しい（非配列変数の場合は配列要素がゼロ）ことから、暗黙のうちに連続して割り当てられる：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="c1">// Assign set number = M, binding number = N, array element = 0</span>
-<span class="k">layout</span> <span class="p">(</span><span class="n">set</span><span class="o">=</span><span class="n">M</span><span class="p">,</span> <span class="n">binding</span><span class="o">=</span><span class="n">N</span><span class="p">)</span> <span class="k">uniform</span> <span class="kt">sampler2D</span> <span class="n">variableName</span><span class="p">;</span>
-<span class="c1">// Assign set number = M, binding number = N for all array elements,</span>
-<span class="c1">// and array element = i for the ith member of an array of size I.</span>
-<span class="k">layout</span> <span class="p">(</span><span class="n">set</span><span class="o">=</span><span class="n">M</span><span class="p">,</span> <span class="n">binding</span><span class="o">=</span><span class="n">N</span><span class="p">)</span> <span class="k">uniform</span> <span class="kt">sampler2D</span> <span class="n">variableNameArray</span><span class="p">[</span><span class="n">I</span><span class="p">];</span>
-<span class="n">For</span> <span class="n">example</span><span class="p">,</span> <span class="n">two</span> <span class="n">combined</span> <span class="n">texture</span><span class="o">/</span><span class="n">sampler</span> <span class="n">objects</span> <span class="n">can</span> <span class="n">be</span> <span class="n">declared</span> <span class="k">in</span> <span class="n">two</span> <span class="n">different</span> <span class="n">descriptor</span> <span class="n">sets</span> <span class="n">as</span> <span class="n">follows</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="c1">// Assign set number = M, binding number = N, array element = 0</span><span class="w"></span>
+<span class="k">layout</span><span class="w"> </span><span class="p">(</span><span class="n">set</span><span class="o">=</span><span class="n">M</span><span class="p">,</span><span class="w"> </span><span class="n">binding</span><span class="o">=</span><span class="n">N</span><span class="p">)</span><span class="w"> </span><span class="k">uniform</span><span class="w"> </span><span class="kt">sampler2D</span><span class="w"> </span><span class="n">variableName</span><span class="p">;</span><span class="w"></span>
+<span class="c1">// Assign set number = M, binding number = N for all array elements,</span><span class="w"></span>
+<span class="c1">// and array element = i for the ith member of an array of size I.</span><span class="w"></span>
+<span class="k">layout</span><span class="w"> </span><span class="p">(</span><span class="n">set</span><span class="o">=</span><span class="n">M</span><span class="p">,</span><span class="w"> </span><span class="n">binding</span><span class="o">=</span><span class="n">N</span><span class="p">)</span><span class="w"> </span><span class="k">uniform</span><span class="w"> </span><span class="kt">sampler2D</span><span class="w"> </span><span class="n">variableNameArray</span><span class="p">[</span><span class="n">I</span><span class="p">];</span><span class="w"></span>
+<span class="n">For</span><span class="w"> </span><span class="n">example</span><span class="p">,</span><span class="w"> </span><span class="n">two</span><span class="w"> </span><span class="n">combined</span><span class="w"> </span><span class="n">texture</span><span class="o">/</span><span class="n">sampler</span><span class="w"> </span><span class="n">objects</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">declared</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">two</span><span class="w"> </span><span class="n">different</span><span class="w"> </span><span class="n">descriptor</span><span class="w"> </span><span class="n">sets</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">follows</span><span class="w"></span>
 
-<span class="k">layout</span><span class="p">(</span><span class="n">set</span> <span class="o">=</span> <span class="mo">0</span><span class="p">,</span> <span class="n">binding</span> <span class="o">=</span> <span class="mo">0</span><span class="p">)</span> <span class="k">uniform</span> <span class="kt">sampler2D</span> <span class="n">ts3</span><span class="p">;</span>
-<span class="k">layout</span><span class="p">(</span><span class="n">set</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">binding</span> <span class="o">=</span> <span class="mo">0</span><span class="p">)</span> <span class="k">uniform</span> <span class="kt">sampler2D</span> <span class="n">ts4</span><span class="p">;</span>
+<span class="k">layout</span><span class="p">(</span><span class="n">set</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mo">0</span><span class="p">,</span><span class="w"> </span><span class="n">binding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mo">0</span><span class="p">)</span><span class="w"> </span><span class="k">uniform</span><span class="w"> </span><span class="kt">sampler2D</span><span class="w"> </span><span class="n">ts3</span><span class="p">;</span><span class="w"></span>
+<span class="k">layout</span><span class="p">(</span><span class="n">set</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">binding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mo">0</span><span class="p">)</span><span class="w"> </span><span class="k">uniform</span><span class="w"> </span><span class="kt">sampler2D</span><span class="w"> </span><span class="n">ts4</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>記述子集合の操作モデルの詳細については API 文書にある。</p>
@@ -323,7 +324,7 @@ GLSL では、集合番号および束縛番号は、それぞれ <code class="d
 <section id="storage-images">
 <h5><a class="toc-backref" href="#id13">Storage Images</a><a class="headerlink" href="#storage-images" title="Permalink to this headline">¶</a></h5>
 <p>格納画像は GLSL シェーダーソースの中で、適切な次元の一様画像変数と、必要に応じてフォーマットレイアウト修飾子を用いて宣言される。</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span> <span class="p">(</span><span class="n">set</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">binding</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">r32f</span><span class="p">)</span> <span class="k">uniform</span> <span class="kt">image2D</span> <span class="n">myStorageImage</span><span class="p">;</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span><span class="w"> </span><span class="p">(</span><span class="n">set</span><span class="o">=</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">binding</span><span class="o">=</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">r32f</span><span class="p">)</span><span class="w"> </span><span class="k">uniform</span><span class="w"> </span><span class="kt">image2D</span><span class="w"> </span><span class="n">myStorageImage</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>これは次の SPIR-V に対応する：</p>
@@ -347,7 +348,7 @@ GLSL では、集合番号および束縛番号は、それぞれ <code class="d
 <h5><a class="toc-backref" href="#id14">Samplers</a><a class="headerlink" href="#samplers" title="Permalink to this headline">¶</a></h5>
 <p>SPIR-V 採取器は GLSL シェーダーのソースでは一様 <code class="docutils literal notranslate"><span class="pre">sampler</span></code> 型と <code class="docutils literal notranslate"><span class="pre">samplerShadow</span></code>
 型を使って宣言される：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span> <span class="p">(</span><span class="n">set</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">binding</span><span class="o">=</span><span class="n">n</span><span class="p">)</span> <span class="k">uniform</span> <span class="n">sampler</span> <span class="n">mySampler</span><span class="p">;</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span><span class="w"> </span><span class="p">(</span><span class="n">set</span><span class="o">=</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">binding</span><span class="o">=</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">uniform</span><span class="w"> </span><span class="n">sampler</span><span class="w"> </span><span class="n">mySampler</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>これは次の SPIR-V に対応する：</p>
@@ -369,7 +370,7 @@ GLSL では、集合番号および束縛番号は、それぞれ <code class="d
 <section id="textures-sampled-images">
 <h5><a class="toc-backref" href="#id15">Textures (Sampled Images)</a><a class="headerlink" href="#textures-sampled-images" title="Permalink to this headline">¶</a></h5>
 <p>テクスチャーは GLSL シェーダソースでは、適切な次元の一様テクスチャー変数を使って宣言される：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span> <span class="p">(</span><span class="n">set</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">binding</span><span class="o">=</span><span class="n">n</span><span class="p">)</span> <span class="k">uniform</span> <span class="n">texture2D</span> <span class="n">mySampledImage</span><span class="p">;</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span><span class="w"> </span><span class="p">(</span><span class="n">set</span><span class="o">=</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">binding</span><span class="o">=</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">uniform</span><span class="w"> </span><span class="n">texture2D</span><span class="w"> </span><span class="n">mySampledImage</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>これは次の SPIR-V に対応する：</p>
@@ -392,7 +393,7 @@ GLSL では、集合番号および束縛番号は、それぞれ <code class="d
 <section id="combined-texture-and-samplers">
 <h5><a class="toc-backref" href="#id16">Combined Texture and Samplers</a><a class="headerlink" href="#combined-texture-and-samplers" title="Permalink to this headline">¶</a></h5>
 <p>混合テクスチャーと採取器は GLSL シェーダソースの中では適切な次元の一様テクスチャー混合採取器変数を使って宣言される：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span> <span class="p">(</span><span class="n">set</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">binding</span><span class="o">=</span><span class="n">n</span><span class="p">)</span> <span class="k">uniform</span> <span class="kt">sampler2D</span> <span class="n">myCombinedImageSampler</span><span class="p">;</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span><span class="w"> </span><span class="p">(</span><span class="n">set</span><span class="o">=</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">binding</span><span class="o">=</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">uniform</span><span class="w"> </span><span class="kt">sampler2D</span><span class="w"> </span><span class="n">myCombinedImageSampler</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>これは次の SPIR-V に対応する：</p>
@@ -417,15 +418,15 @@ GLSL では、集合番号および束縛番号は、それぞれ <code class="d
 <section id="combining-separate-samplers-and-textures">
 <h5><a class="toc-backref" href="#id17">Combining Separate Samplers and Textures</a><a class="headerlink" href="#combining-separate-samplers-and-textures" title="Permalink to this headline">¶</a></h5>
 <p>キーワード <code class="docutils literal notranslate"><span class="pre">sampler</span></code> で宣言された採取器は、フィルタリング情報のみを含み、テクスチャーや画像を含まない：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">uniform</span> <span class="n">sampler</span> <span class="n">s</span><span class="p">;</span>    <span class="c1">// a handle to filtering information</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">uniform</span><span class="w"> </span><span class="n">sampler</span><span class="w"> </span><span class="n">s</span><span class="p">;</span><span class="w">    </span><span class="c1">// a handle to filtering information</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">texture2D</span></code> のようなキーワードで宣言されたテクスチャーは、画像情報のみを含み、フィルタリング情報を含まない：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">uniform</span> <span class="n">texture2D</span> <span class="n">t</span><span class="p">;</span>  <span class="c1">// a handle to a texture (an image in SPIR-V)</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">uniform</span><span class="w"> </span><span class="n">texture2D</span><span class="w"> </span><span class="n">t</span><span class="p">;</span><span class="w">  </span><span class="c1">// a handle to a texture (an image in SPIR-V)</span><span class="w"></span>
 </pre></div>
 </div>
 <p>コンストラクターを使用して、テクスチャー検索呼び出しを行う際に、採取器とテクスチャーを合成することができる：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="n">texture</span><span class="p">(</span><span class="kt">sampler2D</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">s</span><span class="p">),</span> <span class="p">...);</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="n">texture</span><span class="p">(</span><span class="kt">sampler2D</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">),</span><span class="w"> </span><span class="p">...);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>この機能をわかりやすく示すために、上記で <code class="docutils literal notranslate"><span class="pre">layout()</span></code> の情報を省略したことに注意。</p>
@@ -433,7 +434,7 @@ GLSL では、集合番号および束縛番号は、それぞれ <code class="d
 <section id="texture-buffers-uniform-texel-buffers">
 <h5><a class="toc-backref" href="#id18">Texture Buffers (Uniform Texel Buffers)</a><a class="headerlink" href="#texture-buffers-uniform-texel-buffers" title="Permalink to this headline">¶</a></h5>
 <p>テクスチャーバッファーは、GLSL シェーダソースでは一様 <code class="docutils literal notranslate"><span class="pre">textureBuffer</span></code> 変数を使って宣言される：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span> <span class="p">(</span><span class="n">set</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">binding</span><span class="o">=</span><span class="n">n</span><span class="p">)</span> <span class="k">uniform</span> <span class="n">textureBuffer</span> <span class="n">myUniformTexelBuffer</span><span class="p">;</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span><span class="w"> </span><span class="p">(</span><span class="n">set</span><span class="o">=</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">binding</span><span class="o">=</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">uniform</span><span class="w"> </span><span class="n">textureBuffer</span><span class="w"> </span><span class="n">myUniformTexelBuffer</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>これは次の SPIR-V に対応する：</p>
@@ -456,7 +457,7 @@ GLSL では、集合番号および束縛番号は、それぞれ <code class="d
 <section id="image-buffers-storage-texel-buffers">
 <h5><a class="toc-backref" href="#id19">Image Buffers (Storage Texel Buffers)</a><a class="headerlink" href="#image-buffers-storage-texel-buffers" title="Permalink to this headline">¶</a></h5>
 <p>画像バッファーは、GLSL シェーダーソース中では一様 <code class="docutils literal notranslate"><span class="pre">imageBuffer</span></code> 変数を使って宣言される：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span> <span class="p">(</span><span class="n">set</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">binding</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">r32f</span><span class="p">)</span> <span class="k">uniform</span> <span class="kt">imageBuffer</span> <span class="n">myStorageTexelBuffer</span><span class="p">;</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span><span class="w"> </span><span class="p">(</span><span class="n">set</span><span class="o">=</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">binding</span><span class="o">=</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">r32f</span><span class="p">)</span><span class="w"> </span><span class="k">uniform</span><span class="w"> </span><span class="kt">imageBuffer</span><span class="w"> </span><span class="n">myStorageTexelBuffer</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>これは次の SPIR-V に対応する：</p>
@@ -479,10 +480,10 @@ GLSL では、集合番号および束縛番号は、それぞれ <code class="d
 <section id="storage-buffers">
 <h5><a class="toc-backref" href="#id20">Storage Buffers</a><a class="headerlink" href="#storage-buffers" title="Permalink to this headline">¶</a></h5>
 <p>GLSL シェーダーのソースでは、バッファー格納修飾子とブロック構文を使って格納バッファーを宣言する：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span> <span class="p">(</span><span class="n">set</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">binding</span><span class="o">=</span><span class="n">n</span><span class="p">)</span> <span class="k">buffer</span> <span class="n">myStorageBuffer</span>
-<span class="p">{</span>
-    <span class="kt">vec4</span> <span class="n">myElement</span><span class="p">[];</span>
-<span class="p">};</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span><span class="w"> </span><span class="p">(</span><span class="n">set</span><span class="o">=</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">binding</span><span class="o">=</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">buffer</span><span class="w"> </span><span class="n">myStorageBuffer</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">vec4</span><span class="w"> </span><span class="n">myElement</span><span class="p">[];</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <p>これは次の SPIR-V に対応する：</p>
@@ -512,10 +513,10 @@ GLSL では、集合番号および束縛番号は、それぞれ <code class="d
 <section id="uniform-buffers">
 <h5><a class="toc-backref" href="#id21">Uniform Buffers</a><a class="headerlink" href="#uniform-buffers" title="Permalink to this headline">¶</a></h5>
 <p>GLSL シェーダーのソースでは、一様格納修飾子とブロック構文を使って一様バッファーを宣言する：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span> <span class="p">(</span><span class="n">set</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">binding</span><span class="o">=</span><span class="n">n</span><span class="p">)</span> <span class="k">uniform</span> <span class="n">myUniformBuffer</span>
-<span class="p">{</span>
-    <span class="kt">vec4</span> <span class="n">myElement</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
-<span class="p">};</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span><span class="w"> </span><span class="p">(</span><span class="n">set</span><span class="o">=</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">binding</span><span class="o">=</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">uniform</span><span class="w"> </span><span class="n">myUniformBuffer</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">vec4</span><span class="w"> </span><span class="n">myElement</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <p>これは次の SPIR-V に対応する：</p>
@@ -559,7 +560,7 @@ GLSL では、集合番号および束縛番号は、それぞれ <code class="d
 <p>抽出器や画像オブジェクトとは異なり、サブパス入力は断片の
 <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y,</span> <span class="pre">layer)</span></code> 座標によって暗黙のうちに指定される。</p>
 <p>入力付属物は、記述子集合と束縛番号に加えて、入力付属物のインデックスで装飾される。</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span> <span class="p">(</span><span class="n">input_attachment_index</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">set</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">binding</span><span class="o">=</span><span class="n">n</span><span class="p">)</span> <span class="k">uniform</span> <span class="n">subpassInput</span> <span class="n">myInputAttachment</span><span class="p">;</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">layout</span><span class="w"> </span><span class="p">(</span><span class="n">input_attachment_index</span><span class="o">=</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">set</span><span class="o">=</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">binding</span><span class="o">=</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">uniform</span><span class="w"> </span><span class="n">subpassInput</span><span class="w"> </span><span class="n">myInputAttachment</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>これは次の SPIR-V に対応する：</p>
@@ -581,8 +582,8 @@ GLSL では、集合番号および束縛番号は、それぞれ <code class="d
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">input_attachment_index</span></code> が <code class="docutils literal notranslate"><span class="pre">i</span></code> の場合、入力パスリストの i 番目の登録を選択する(詳細は API 仕様を参照)。</p>
 <p>これらのオブジェクトは、以下の関数によってサブパス入力の読み込みを対処している。</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="n">gvec4</span> <span class="n">subpassLoad</span><span class="p">(</span><span class="n">gsubpassInput</span>   <span class="n">subpass</span><span class="p">);</span>
-<span class="n">gvec4</span> <span class="n">subpassLoad</span><span class="p">(</span><span class="n">gsubpassInputMS</span> <span class="n">subpass</span><span class="p">,</span> <span class="kt">int</span> <span class="k">sample</span><span class="p">);</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="n">gvec4</span><span class="w"> </span><span class="n">subpassLoad</span><span class="p">(</span><span class="n">gsubpassInput</span><span class="w">   </span><span class="n">subpass</span><span class="p">);</span><span class="w"></span>
+<span class="n">gvec4</span><span class="w"> </span><span class="n">subpassLoad</span><span class="p">(</span><span class="n">gsubpassInputMS</span><span class="w"> </span><span class="n">subpass</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="k">sample</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 </section>

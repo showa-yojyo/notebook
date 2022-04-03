@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
     
     <script src="../_static/mathjax-v3.js"></script>
+    <script src="../_static/mermaid.js"></script>
     
     <link rel="next" title="PyQt4 利用ノート [obsolete]" href="../python-pyqt4.html" />
     <link rel="prev" title="画像ファイルを扱う" href="imagefile.html" /> 
@@ -361,25 +362,25 @@
 Python の場合はトリプルクォート記法が便利だ。</p>
 <section id="id7">
 <h4><a class="toc-backref" href="#id16">頂点シェーダーコード</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#version 330 core</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#version 330 core</span><span class="w"></span>
 
-<span class="k">uniform</span> <span class="kt">mat4</span> <span class="n">camera</span><span class="p">;</span>
-<span class="k">uniform</span> <span class="kt">mat4</span> <span class="n">projection</span><span class="p">;</span>
-<span class="k">uniform</span> <span class="kt">mat4</span> <span class="n">rotation</span><span class="p">;</span>
+<span class="k">uniform</span><span class="w"> </span><span class="kt">mat4</span><span class="w"> </span><span class="n">camera</span><span class="p">;</span><span class="w"></span>
+<span class="k">uniform</span><span class="w"> </span><span class="kt">mat4</span><span class="w"> </span><span class="n">projection</span><span class="p">;</span><span class="w"></span>
+<span class="k">uniform</span><span class="w"> </span><span class="kt">mat4</span><span class="w"> </span><span class="n">rotation</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">layout</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="mo">0</span><span class="p">)</span> <span class="k">in</span> <span class="kt">vec4</span> <span class="n">in_Position</span><span class="p">;</span>
-<span class="k">layout</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">in</span> <span class="kt">vec4</span> <span class="n">in_Color</span><span class="p">;</span>
-<span class="k">layout</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="k">in</span> <span class="kt">vec2</span> <span class="n">in_TexCoord</span><span class="p">;</span>
+<span class="k">layout</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="mo">0</span><span class="p">)</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="kt">vec4</span><span class="w"> </span><span class="n">in_Position</span><span class="p">;</span><span class="w"></span>
+<span class="k">layout</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="kt">vec4</span><span class="w"> </span><span class="n">in_Color</span><span class="p">;</span><span class="w"></span>
+<span class="k">layout</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="kt">vec2</span><span class="w"> </span><span class="n">in_TexCoord</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">out</span> <span class="kt">vec4</span> <span class="n">ex_Color</span><span class="p">;</span>
-<span class="k">out</span> <span class="kt">vec2</span> <span class="n">ex_TexCoord</span><span class="p">;</span>
+<span class="k">out</span><span class="w"> </span><span class="kt">vec4</span><span class="w"> </span><span class="n">ex_Color</span><span class="p">;</span><span class="w"></span>
+<span class="k">out</span><span class="w"> </span><span class="kt">vec2</span><span class="w"> </span><span class="n">ex_TexCoord</span><span class="p">;</span><span class="w"></span>
 
-<span class="kt">void</span> <span class="n">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="nb">gl_Position</span> <span class="o">=</span> <span class="n">projection</span> <span class="o">*</span> <span class="n">camera</span> <span class="o">*</span> <span class="n">rotation</span> <span class="o">*</span> <span class="n">in_Position</span><span class="p">;</span>
-    <span class="n">ex_Color</span> <span class="o">=</span> <span class="n">in_Color</span><span class="p">;</span>
-    <span class="n">ex_TexCoord</span> <span class="o">=</span> <span class="n">in_TexCoord</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nb">gl_Position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">projection</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">camera</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rotation</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">in_Position</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">ex_Color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in_Color</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">ex_TexCoord</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in_TexCoord</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -394,21 +395,21 @@ Python の場合はトリプルクォート記法が便利だ。</p>
 </section>
 <section id="id8">
 <h4><a class="toc-backref" href="#id17">フラグメントシェーダーコード</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#version 330 core</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#version 330 core</span><span class="w"></span>
 
-<span class="k">uniform</span> <span class="kt">sampler2D</span> <span class="n">texture_sampler</span><span class="p">;</span>
+<span class="k">uniform</span><span class="w"> </span><span class="kt">sampler2D</span><span class="w"> </span><span class="n">texture_sampler</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">in</span> <span class="kt">vec4</span> <span class="n">ex_Color</span><span class="p">;</span>
-<span class="k">in</span> <span class="kt">vec2</span> <span class="n">ex_TexCoord</span><span class="p">;</span>
-<span class="k">out</span> <span class="kt">vec4</span> <span class="n">out_Color</span><span class="p">;</span>
+<span class="k">in</span><span class="w"> </span><span class="kt">vec4</span><span class="w"> </span><span class="n">ex_Color</span><span class="p">;</span><span class="w"></span>
+<span class="k">in</span><span class="w"> </span><span class="kt">vec2</span><span class="w"> </span><span class="n">ex_TexCoord</span><span class="p">;</span><span class="w"></span>
+<span class="k">out</span><span class="w"> </span><span class="kt">vec4</span><span class="w"> </span><span class="n">out_Color</span><span class="p">;</span><span class="w"></span>
 
-<span class="kt">void</span> <span class="n">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">out_Color</span> <span class="o">=</span> <span class="n">texture</span><span class="p">(</span><span class="n">texture_sampler</span><span class="p">,</span> <span class="n">ex_TexCoord</span><span class="p">).</span><span class="n">rgba</span><span class="p">;</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">out_Color</span><span class="p">.</span><span class="n">a</span> <span class="o">&lt;</span> <span class="mf">0.9</span><span class="p">){</span>
-        <span class="n">out_Color</span> <span class="o">=</span> <span class="n">ex_Color</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">out_Color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">texture</span><span class="p">(</span><span class="n">texture_sampler</span><span class="p">,</span><span class="w"> </span><span class="n">ex_TexCoord</span><span class="p">).</span><span class="n">rgba</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">out_Color</span><span class="p">.</span><span class="n">a</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">0.9</span><span class="p">){</span><span class="w"></span>
+<span class="w">        </span><span class="n">out_Color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ex_Color</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">

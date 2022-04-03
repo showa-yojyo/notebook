@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
     
     <script src="../_static/mathjax-v3.js"></script>
+    <script src="../_static/mermaid.js"></script>
     
     <link rel="next" title="モジュール docutils.io" href="io.html" />
     <link rel="prev" title="サブパッケージ docutils.parsers" href="parsers.html" /> 
@@ -72,14 +73,55 @@
 <ul class="simple">
 <li><p>クラス <code class="docutils literal notranslate"><span class="pre">TransformSpec</span></code> および <code class="docutils literal notranslate"><span class="pre">Component</span></code> については
 <a class="reference internal" href="base.html"><span class="doc">基礎クラス群</span></a> を参照。</p></li>
-<li><p>クラス <code class="docutils literal notranslate"><span class="pre">Node</span></code> と <code class="docutils literal notranslate"><span class="pre">document</span></code> には継承関係があるが矢印を省略した。
-<a class="reference internal" href="nodes.html"><span class="doc">クラス docutils.nodes.Node</span></a> を参照。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">module</span></code> の意味については <a class="reference internal" href="languages.html"><span class="doc">サブパッケージ docutils.languages</span></a> を参照。</p></li>
 </ul>
-<figure class="align-center">
-<a class="reference internal image-reference" href="../_images/docutils-transforms.png"><img alt="(class diagram)" src="../_images/docutils-transforms.png" style="width: 587.0px; height: 380.0px;" /></a>
-</figure>
-</section>
+<div align="center" class="mermaid align-center">
+            classDiagram
+    direction TB
+
+    TransformSpec &lt;|-- Component
+    TransformSpec &lt;|-- Transformer
+
+    class Component{
+        str component_type$
+    }
+
+    class Transformer{
+        -int serialno
+        +add_transform(Transform)
+        +add_transforms(...)
+        +add_pending(...)
+        +apply_transforms()
+        +get_priority_string(int) str
+        +populate_from_components(components)
+    }
+
+    class TransformSpec{
+        +get_transforms()
+    }
+
+    Transformer o-- Transform: transforms
+
+    Transformer o-- Component: components
+    Transformer --&gt; document: document
+    %%Node --* document
+
+    class Transform{
+        #int default_priority$
+        +apply()*
+    }
+
+    Transform --&gt; document: document
+    Transform --&gt; Node: start_node
+    Node &lt;|-- document
+    Transform &lt;|-- ConcreteTransform
+
+    class ConcreteTransform{
+        #int default_priority$
+        +apply()
+    }
+
+        </div>
+        </section>
 <section id="transform">
 <h2><a class="toc-backref" href="#id11">クラス <code class="docutils literal notranslate"><span class="pre">Transform</span></code></a><a class="headerlink" href="#transform" title="Permalink to this headline">¶</a></h2>
 <p>スーパークラスはなく、代わりにサブクラスが多数派生しているというクラスだ。</p>

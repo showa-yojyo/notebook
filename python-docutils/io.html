@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
     
     <script src="../_static/mathjax-v3.js"></script>
+    <script src="../_static/mermaid.js"></script>
     
     <link rel="next" title="サブパッケージ docutils.readers" href="readers.html" />
     <link rel="prev" title="サブパッケージ docutils.transforms" href="transforms.html" /> 
@@ -67,14 +68,102 @@
 <h2><a class="toc-backref" href="#id11">クラス図</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>モジュール <code class="docutils literal notranslate"><span class="pre">docutils.io</span></code> の全クラスを一枚の図に収めて示したいが、紙幅とレイアウトの都合上、二つのスーパークラスそれぞれに分割して図示する。また、両図ともに本節の解説の主眼にない機能の記載はグレーアウトしたり、記載そのものを省略している。</p>
 <p>まずはクラス <code class="docutils literal notranslate"><span class="pre">Input</span></code> の継承グラフを表現するクラス図だ。次に示す。</p>
-<figure class="align-center">
-<a class="reference internal image-reference" href="../_images/docutils-input.png"><img alt="(class diagram)" src="../_images/docutils-input.png" style="width: 850.0px; height: 368.0px;" /></a>
-</figure>
-<p>次の図はクラス <code class="docutils literal notranslate"><span class="pre">Output</span></code> の継承グラフを表現するクラス図だ。</p>
-<figure class="align-center">
-<a class="reference internal image-reference" href="../_images/docutils-output.png"><img alt="(class diagram)" src="../_images/docutils-output.png" style="width: 723.0px; height: 473.0px;" /></a>
-</figure>
-<ul class="simple">
+<div align="center" class="mermaid align-center">
+            classDiagram
+    direction TB
+        TransformSpec &lt;|-- Input
+        Input &lt;|-- NullInput
+        Input &lt;|-- StringInput
+        Input &lt;|-- FileInput
+        Input &lt;|-- DocTreeInput
+
+    class TransformSpec{
+        +get_transforms()
+    }
+
+    %% 抽象クラスの名前を italic で render して欲しい。
+    class Input{
+        +str component_type$
+        #str default_source_path$
+        #str encoding
+        #? source
+        #str source_path
+        +read()* str
+        #decode(str) str
+    }
+
+    class NullInput{
+        #str default_source_path$
+        +read() str
+    }
+
+    class StringInput{
+        #str default_source_path$
+        +read() str
+    }
+
+    class FileInput{
+        +read() str
+        -readlines() list
+        -close()
+    }
+
+    class DocTreeInput{
+        #str default_source_path$
+        +read() str
+    }
+
+        </div>
+        <p>次の図はクラス <code class="docutils literal notranslate"><span class="pre">Output</span></code> の継承グラフを表現するクラス図だ。</p>
+<div align="center" class="mermaid align-center">
+            classDiagram
+    direction TB
+        TransformSpec &lt;|-- Output
+            Output &lt;|-- NullOutput
+            Output &lt;|-- StringOutput
+            Output &lt;|-- FileOutput
+                FileOutput &lt;|-- BinaryFileOutput
+
+    class TransformSpec{
+        +get_transforms()
+    }
+
+    class Output{
+        +str component_type$
+        #str default_destination_path$
+        #str encoding
+        #File destination
+        #str destination_path
+
+        +write()* str
+        #encode(str) str
+    }
+
+    class NullOutput{
+        #str default_destination_path$
+        +write(str) str
+    }
+
+    class StringOutput{
+        #str default_destination_path$
+        +write(str) str
+    }
+
+    class FileOutput{
+        #str default_destination_path$
+        #str mode$
+
+        -open()
+        +write(str) str
+        -close()
+    }
+
+    class BinaryFileOutput{
+        #str mode$
+    }
+
+        </div>
+        <ul class="simple">
 <li><p>スーパークラスについては <a class="reference internal" href="base.html"><span class="doc">基礎クラス群</span></a> を参照。</p></li>
 <li><p>それぞれ対称的なインターフェイスを備えていることが明白。機能も対称的だ。</p></li>
 </ul>

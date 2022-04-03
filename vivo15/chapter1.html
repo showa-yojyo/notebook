@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
     
     <script src="../_static/mathjax-v3.js"></script>
+    <script src="../_static/mermaid.js"></script>
     
     <link rel="next" title="Algorithmic drawing" href="chapter2.html" />
     <link rel="prev" title="The Book of Shaders 読書ノート" href="index.html" /> 
@@ -111,13 +112,13 @@
 <p><code class="docutils literal notranslate"><span class="pre">vec4</span></code> の実引数を <code class="docutils literal notranslate"><span class="pre">float</span></code> リテラル値から <code class="docutils literal notranslate"><span class="pre">int</span></code> リテラル値に書き換えても問題なく動作する。しかし、他のページのコードではエラーになることがふつうにある。</p>
 <p><code class="docutils literal notranslate"><span class="pre">gl_FragColor</span></code> への代入をやめると、背景色が地の色のままになる。</p>
 <p>GLSL ではユーザー関数を定義することができる。ここではいちばん素朴な実装を示す。</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="kt">vec4</span> <span class="n">red</span><span class="p">(){</span>
-    <span class="k">return</span> <span class="kt">vec4</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
-<span class="p">}</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="kt">vec4</span><span class="w"> </span><span class="n">red</span><span class="p">(){</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kt">vec4</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nb">gl_FragColor</span> <span class="o">=</span> <span class="n">red</span><span class="p">();</span>
-<span class="p">}</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nb">gl_FragColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">red</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
@@ -160,14 +161,14 @@
 </ul>
 <p>解答</p>
 <p>周期関数として <code class="docutils literal notranslate"><span class="pre">sin</span></code> を用いているので、例えば <code class="docutils literal notranslate"><span class="pre">sin(2</span> <span class="pre">*</span> <span class="pre">PI</span> <span class="pre">*</span> <span class="pre">x</span> <span class="pre">/</span> <span class="pre">T)</span></code> だと周期は <code class="docutils literal notranslate"><span class="pre">T</span></code> だから周波数すなわち <code class="docutils literal notranslate"><span class="pre">1./T</span></code> を上げるならば <code class="docutils literal notranslate"><span class="pre">T</span></code> をゼロに近づける必要がある。</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">uniform</span> <span class="kt">float</span> <span class="n">u_time</span><span class="p">;</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">uniform</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">u_time</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">const</span> <span class="kt">float</span> <span class="n">tau</span> <span class="o">=</span> <span class="n">radians</span><span class="p">(</span><span class="mf">360.</span><span class="p">);</span>
-<span class="k">const</span> <span class="kt">float</span> <span class="n">T</span> <span class="o">=</span> <span class="mf">1.</span><span class="p">;</span> <span class="c1">// これを書き換えて大きくしたり小さくしたりする</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">tau</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">radians</span><span class="p">(</span><span class="mf">360.</span><span class="p">);</span><span class="w"></span>
+<span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.</span><span class="p">;</span><span class="w"> </span><span class="c1">// これを書き換えて大きくしたり小さくしたりする</span><span class="w"></span>
 
-<span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nb">gl_FragColor</span> <span class="o">=</span> <span class="kt">vec4</span><span class="p">(</span><span class="n">abs</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">tau</span> <span class="o">*</span> <span class="n">u_time</span> <span class="o">/</span> <span class="n">T</span><span class="p">)),</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
-<span class="p">}</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nb">gl_FragColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">vec4</span><span class="p">(</span><span class="n">abs</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">tau</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">u_time</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">T</span><span class="p">)),</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>最後の問いの解答としては、これまでは R チャンネルしか変化させていないが、このようなことを G, B でもすればいい。</p>
@@ -192,7 +193,7 @@
 <p>解答</p>
 <p>まず、スクリーンの座標系の向きは数学と同じだから、原点はキャンバスのいちばん左下の点（本書では点とは呼んでいないが）となる。その次の四点はキャンバス座標空間が正規化されたことを前提として、それぞれキャンバスの右下、左上、中央、右上に等しい。</p>
 <p>マウスの問題は微妙で、変数 <code class="docutils literal notranslate"><span class="pre">st</span></code> と一緒に用いるには正規化する必要がある。色を動かすには、例えば：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="nb">gl_FragColor</span> <span class="o">=</span> <span class="kt">vec4</span><span class="p">(</span><span class="n">st</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">step</span><span class="p">(</span><span class="n">u_mouse</span><span class="p">.</span><span class="n">y</span> <span class="o">/</span> <span class="n">u_resolution</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="n">st</span><span class="p">.</span><span class="n">y</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="nb">gl_FragColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">vec4</span><span class="p">(</span><span class="n">st</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">step</span><span class="p">(</span><span class="n">u_mouse</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">u_resolution</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">st</span><span class="p">.</span><span class="n">y</span><span class="p">),</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>しかし、<code class="docutils literal notranslate"><span class="pre">u_mouse</span></code> が一様変数である以上は正規化をシェーダーの外でやるべきだろう。</p>

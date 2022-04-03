@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
     
     <script src="../_static/mathjax-v3.js"></script>
+    <script src="../_static/mermaid.js"></script>
     
     <link rel="next" title="その他の話題" href="misc.html" />
     <link rel="prev" title="モジュール docutils.frontend" href="frontend.html" /> 
@@ -116,10 +117,38 @@ Reader と Writer のオブジェクト間の関連付けも担保される。�
 <li><p>構文木の変換 <code class="docutils literal notranslate"><span class="pre">self.apply_transforms</span></code></p></li>
 <li><p>書き出し処理 <code class="docutils literal notranslate"><span class="pre">self.writer.write</span></code></p></li>
 </ol>
-<figure class="align-center">
-<a class="reference internal image-reference" href="../_images/docutils-publisher-sd.png"><img alt="(component diagram)" src="../_images/docutils-publisher-sd.png" style="width: 628.0px; height: 580.0px;" /></a>
-</figure>
-</dd>
+<div align="center" class="mermaid align-center">
+            sequenceDiagram
+    actor Client
+
+    Client-&gt;&gt;+Publisher: publish
+    activate Publisher
+        Publisher-&gt;&gt;Publisher: process_command_line(argv, ...)
+    deactivate Publisher
+
+    Publisher-&gt;&gt;Publisher: set_io
+    activate Publisher
+        Publisher-&gt;&gt;Input: &lt;&lt;create&gt;&gt;
+        activate Input
+        Publisher-&gt;&gt;Output: &lt;&lt;create&gt;&gt;
+        activate Output
+    deactivate Publisher
+
+    Publisher-&gt;&gt;Reader: read(source, parser, settings)
+    activate Reader
+        Reader--&gt;&gt;Publisher: document
+    deactivate Reader
+    deactivate Input
+    Publisher-&gt;&gt;Publisher: apply_transform
+
+    Publisher-&gt;&gt;+Writer: write(document, destination)
+    Writer--&gt;&gt;-Publisher: output
+    Publisher-&gt;&gt;+Writer: assemble_parts
+    Writer--&gt;&gt;-Publisher: &amp;#x20
+    deactivate Output
+
+        </div>
+        </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">process_command_line(self,</span> <span class="pre">argv=None,</span> <span class="pre">...)</span></code></dt><dd><p>コマンドライン引数を解析して、メンバーデータ <code class="docutils literal notranslate"><span class="pre">self.settings</span></code> をセットする。</p>
 <ul class="simple">
 <li><p>引数 <code class="docutils literal notranslate"><span class="pre">argv</span></code> が <code class="docutils literal notranslate"><span class="pre">None</span></code> のとき、実際のコマンドライン引数を自動的に解析対象として適用する。</p></li>

@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Pandoc 利用ノート &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/prefab.css" />
+    
+    <script src="_static/mathjax-v3.js"></script>
+    <script src="_static/mermaid.js"></script>
+    
+    <link rel="prev" title="WebGL 学習ノート" href="webgl.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="webgl.html" title="WebGL 学習ノート"
+             accesskey="P">previous</a></li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Pandoc 利用ノート</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="pandoc">
+<h1><a class="toc-backref" href="#id9">Pandoc 利用ノート</a><a class="headerlink" href="#pandoc" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#pandoc" id="id9">Pandoc 利用ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id1" id="id10">利用に関する想定</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id11">インストール</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id12">オプション</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id13">指定を再利用する</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id14">テンプレートを与える</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>本稿は <a class="reference external" href="https://pandoc.org/">Pandoc</a> を利用して Markdown ファイルを
+reStrucutredText ファイルに変換することに関するノートだ。</p>
+<section id="id1">
+<h2><a class="toc-backref" href="#id10">利用に関する想定</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>単独の <code class="docutils literal notranslate"><span class="pre">.md</span></code> ファイルを <code class="docutils literal notranslate"><span class="pre">.rst</span></code> ファイルに変換する。ここで、各ファイルは読書ノートの特定の主題の一章または一節という段階に対応するものとする。</p>
+<p>したがって、実行するコマンドは次のものの派生形しかない：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ pandoc -o output.rst input.md</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h2><a class="toc-backref" href="#id11">インストール</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>ここではインストール手順を記さない。WSL で Miniconda で構築した
+Python 環境に他のパッケージにまぎれて入ったものと思われる。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ pandoc --version</span>
+<span class="go">pandoc 2.12</span>
+<span class="go">Compiled with pandoc-types 1.22, texmath 0.12.1.1, skylighting 0.10.4,</span>
+<span class="go">citeproc 0.3.0.8, ipynb 0.1.0.1</span>
+<span class="go">User data directory: /home/USERNAME/.local/share/pandoc</span>
+<span class="go">Copyright (C) 2006-2021 John MacFarlane. Web:  https://pandoc.org</span>
+<span class="go">This is free software; see the source for copying conditions. There is no</span>
+<span class="go">warranty, not even for merchantability or fitness for a particular purpose.</span>
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h2><a class="toc-backref" href="#id12">オプション</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>Pandoc はオプションをたくさん用意している。使えるものは使う。</p>
+<section id="id4">
+<h3>全般<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>オプション <code class="docutils literal notranslate"><span class="pre">--from</span></code> の末尾に符号付きで指定する要素を入力元オプションと呼ぶことにする。
+Pandoc に指定したい Markdown の取り扱い方は次のものだ：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 88%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>オプション</p></th>
+<th class="head"><p>値</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>smart</p></td>
+<td><p>OFF</p></td>
+</tr>
+<tr class="row-odd"><td><p>east_asian_line_breaks</p></td>
+<td><p>ON</p></td>
+</tr>
+</tbody>
+</table>
+<p>したがって <code class="docutils literal notranslate"><span class="pre">--from</span> <span class="pre">markdown-smart+east_asian_line_breaks</span></code> ということになる。</p>
+<p>オプション <code class="docutils literal notranslate"><span class="pre">--to</span></code> の末尾に符号付きで指定する要素を入力元オプションと呼ぶことにする。
+Pandoc に指定したい reST の取り扱い方は次のものだ：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 77%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>オプション</p></th>
+<th class="head"><p>値</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>smart</p></td>
+<td><p>OFF</p></td>
+</tr>
+</tbody>
+</table>
+<p>以下、拡張機能のノート。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">smart</span></code>: 普通の単引用符を海外の文章でよく見られる斜めの引用符に、トリプルマイナスをエムダッシュ、ダブルマイナスを得ぬダッシュ、トリプルドットを三点リーダーとしてそれぞれ解釈させる。</p>
+<p>ただし、特定の省略、例えば Mr. のドットなどの後には
+non-breaking space を挿し込ませる。</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">east_asian_line_breaks</span></code>: 段落内の改行が二つのワイド文字間にある場合、空白文字や硬い改行として扱わず、無視する。東アジアのワイド文字と他の文字が混在するテキストでは <code class="docutils literal notranslate"><span class="pre">ignore_line_breaks</span></code> よりも良い選択だろう。</p></li>
+</ul>
+</section>
+<section id="id5">
+<h3>読み込み<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--shift-heading-level-by</span> <span class="pre">-1</span></code>: Markdown ファイルの Front Matter をレベル
+1 のセクション、それ以降をレベル 2, 3, … としたい。</p></li>
+</ul>
+</section>
+<section id="id6">
+<h3>書き込み<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--standalone</span></code>: 断片ではなく、完全な reST を生成することを指示する。この指定は見出しと TOC を書き出すのに必要だ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--eol</span> <span class="pre">lf</span></code>: 他プラットフォームでの作業も想定して、改行コードを明示しておく。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--columns</span> <span class="pre">80</span></code>: テキスト幅を指定する。常用するテキストエディターの指定値に一致させる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--table-of-contents</span></code>: reST ファイルの見出し直後に TOC を生成する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--toc-depth</span> <span class="pre">2</span></code>: その TOC のツリーの深さ 2 にする。3 にしたければそうする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--wrap</span> <span class="pre">preserve</span></code>: 場合によっては <code class="docutils literal notranslate"><span class="pre">--column</span></code> の指定をやめてこちらにする。自筆の Markdown コードに自信があり、なるべく改行位置を変えたくないときなどに採用する。</p></li>
+</ul>
+</section>
+</section>
+<section id="id7">
+<h2><a class="toc-backref" href="#id13">指定を再利用する</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>オプション <code class="docutils literal notranslate"><span class="pre">-d</span></code> または <code class="docutils literal notranslate"><span class="pre">--defaults</span></code> で、以上の設定をまとめて記した YAML
+ファイルを与えることで、同等のコマンドラインオプション群を一括して指定するのと同じことになる。</p>
+<p>例えば、次のテキストを <code class="docutils literal notranslate"><span class="pre">.defaults.yaml</span></code> という名前のファイルで保存する。場所はひとまず作業ディレクトリーとしておく。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">verbosity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">INFO</span><span class="w"></span>
+<span class="nt">from</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">markdown-smart+east_asian_line_breaks</span><span class="w"></span>
+<span class="nt">to</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rst-smart+east_asian_line_breaks</span><span class="w"></span>
+
+<span class="nt">shift-heading-level-by</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-1</span><span class="w"></span>
+
+<span class="nt">standalone</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="nt">eol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lf</span><span class="w"></span>
+<span class="nt">columns</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span><span class="w"></span>
+<span class="nt">toc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="nt">toc-depth</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
+<span class="c1">#wrap: preserve</span><span class="w"></span>
+</pre></div>
+</div>
+<p>その上で次のコマンドを実行すると、</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ pandoc -d defaults.yaml -o output.rst input.md</span>
+</pre></div>
+</div>
+<p>次のコマンドの実行と同じ効果が得られる：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ pandoc</span>
+<span class="go">    --from markdown-smart+east_asian_line_breaks \</span>
+<span class="go">    --to rst-smart+east_asian_line_breaks \</span>
+<span class="go">    --shift-heading-level-by=-1 \</span>
+<span class="go">    --standalone --eol=lf --columns=80 --toc --toc-depth=2 \</span>
+<span class="go">    -o output.rst input.md</span>
+</pre></div>
+</div>
+<p>ちなみに <code class="docutils literal notranslate"><span class="pre">.yaml</span></code> は省略できる。</p>
+<p>この YAML ファイルは同じ内容で再利用したい。Pandoc は <code class="docutils literal notranslate"><span class="pre">--defaults</span></code>
+の引数のファイルを次のディレクトリーから順次検索することになっている：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">$PWD</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$HOME/.local/share/pandoc/defaults</span></code>: 正確には <code class="docutils literal notranslate"><span class="pre">pandoc</span> <span class="pre">--version</span></code> の出力から
+User data directory とされているパスのサブディレクトリー <code class="docutils literal notranslate"><span class="pre">defaults</span></code> となる。</p></li>
+</ul>
+<p>したがって、YAML ファイルでの設定内容に満足したら次のようにする：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ mkdir -p ~/.local/share/pandoc/defaults</span>
+<span class="go">bash$ mv defaults.yaml ~/.local/share/pandoc/defaults</span>
+</pre></div>
+</div>
+<p>あるいはバージョン管理しているドットファイル群ディレクトリーに適宜配置してシンボリックリンクを置く。</p>
+</section>
+<section id="id8">
+<h2><a class="toc-backref" href="#id14">テンプレートを与える</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>出力する reST ファイルのテンプレートを Pandoc の既定のものから変更することができる。しかし、変えたい部分を変えることができないので、この機能には深く立ち入らない。</p>
+<p>いくつか断片的なメモを残す。</p>
+<ul class="simple">
+<li><p>オプション <code class="docutils literal notranslate"><span class="pre">--standalone</span></code> が必要</p></li>
+<li><p>コマンド <code class="docutils literal notranslate"><span class="pre">pandoc</span> <span class="pre">-D</span> <span class="pre">rst</span></code> で reST 用の既定のテンプレートを出力</p></li>
+<li><p>オプション <code class="docutils literal notranslate"><span class="pre">--data-dir</span></code> の引数パスまたは
+<code class="docutils literal notranslate"><span class="pre">$HOME/.local/share/pandoc/templates/default.rst</span></code> をテンプレートとする</p></li>
+</ul>
+<p>例えば出力内容の <code class="docutils literal notranslate"><span class="pre">contents</span></code> ディレクティブの終端に必ずコメント行が入るのが気に入らないとする。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$if(toc)$
+.. contents::
+   :depth: $toc-depth$
+..
+
+$endif$
+</pre></div>
+</div>
+<p>この <code class="docutils literal notranslate"><span class="pre">..</span></code> の行を削ったものを上述のファイルパス <code class="docutils literal notranslate"><span class="pre">default.rst</span></code> に保存しておけばよい。</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="webgl.html" title="WebGL 学習ノート"
+             >previous</a></li>
+        <li class="nav-item nav-item-0"><a href="index.html">読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Pandoc 利用ノート</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2022, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

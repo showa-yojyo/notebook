@@ -1,0 +1,890 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Class diagrams &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/prefab.css" />
+    
+    <script src="../_static/mathjax-v3.js"></script>
+    <script src="../_static/mermaid.js"></script>
+    
+    <link rel="next" title="State diagrams" href="state-diagram.html" />
+    <link rel="prev" title="Sequence Diagrams" href="sequence-diagram.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="state-diagram.html" title="State diagrams"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="sequence-diagram.html" title="Sequence Diagrams"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Mermaid 利用ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Class diagrams</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="class-diagrams">
+<h1><a class="toc-backref" href="#id1">Class diagrams</a><a class="headerlink" href="#class-diagrams" title="Permalink to this headline">¶</a></h1>
+<p>《In software engineering, a class diagram in the Unified Modeling Language
+(UML) is a type of static structure diagram that describes the structure of a
+system by showing the system’s classes, their attributes, operations (or
+methods), and the relationships among objects.》
+(<a class="reference external" href="https://en.wikipedia.org/wiki/Class_diagram">Wikipedia</a>)</p>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#class-diagrams" id="id1">Class diagrams</a></p>
+<ul>
+<li><p><a class="reference internal" href="#syntax" id="id2">Syntax</a></p></li>
+<li><p><a class="reference internal" href="#defining-relationship" id="id3">Defining Relationship</a></p></li>
+<li><p><a class="reference internal" href="#cardinality-multiplicity-on-relations" id="id4">Cardinality / Multiplicity on relations</a></p></li>
+<li><p><a class="reference internal" href="#annotations-on-classes" id="id5">Annotations on classes</a></p></li>
+<li><p><a class="reference internal" href="#comments" id="id6">Comments</a></p></li>
+<li><p><a class="reference internal" href="#setting-the-direction-of-the-diagram" id="id7">Setting the direction of the diagram</a></p></li>
+<li><p><a class="reference internal" href="#interaction" id="id8">Interaction</a></p></li>
+<li><p><a class="reference internal" href="#styling" id="id9">Styling</a></p></li>
+<li><p><a class="reference internal" href="#configuration" id="id10">Configuration</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>The class diagram is the main building block of object-oriented modeling. It is
+used for general conceptual modeling of the structure of the application, and
+for detailed modeling translating the models into programming code. Class
+diagrams can also be used for data modeling. The classes in a class diagram
+represent both the main elements, interactions in the application, and the
+classes to be programmed.</p>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>UML におけるクラス図の定義だが、いちおう確認する。</p>
+</div>
+<p>Mermaid can render class diagrams.</p>
+<div class="mermaid">
+            classDiagram
+    Animal &lt;|-- Duck
+    Animal &lt;|-- Fish
+    Animal &lt;|-- Zebra
+    Animal : +int age
+    Animal : +String gender
+    Animal: +isMammal()
+    Animal: +mate()
+    class Duck{
+        +String beakColor
+        +swim()
+        +quack()
+    }
+    class Fish{
+        -int sizeInFeet
+        -canEat()
+    }
+    class Zebra{
+        +bool is_wild
+        +run()
+    }
+        </div><div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>この図式からクラス名、属性、操作、クラス同士の派生関係が読み取れる。</p>
+</div>
+<section id="syntax">
+<h2><a class="toc-backref" href="#id2">Syntax</a><a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<section id="class">
+<h3>Class<a class="headerlink" href="#class" title="Permalink to this headline">¶</a></h3>
+<p>UML provides mechanisms to represent class members, such as attributes and
+methods, and additional information about them. A single instance of a class in
+the diagram contains three compartments:</p>
+<ul class="simple">
+<li><p>The top compartment contains the name of the class. It is printed in bold and
+centered, and the first letter is capitalized. It may also contain optional
+annotation text describing the nature of the class.</p></li>
+<li><p>The middle compartment contains the attributes of the class. They are
+left-aligned and the first letter is lowercase.</p></li>
+<li><p>The bottom compartment contains the operations the class can execute. They
+are also left-aligned and the first letter is lowercase.</p></li>
+</ul>
+<div class="mermaid">
+            classDiagram
+    class BankAccount
+    BankAccount : +String owner
+    BankAccount : +Bigdecimal balance
+    BankAccount : +deposit(amount)
+    BankAccount : +withdrawl(amount)
+        </div><div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>UML の仕様どおりに描かれているということだ。</p>
+</div>
+</section>
+<section id="define-a-class">
+<h3>Define a class<a class="headerlink" href="#define-a-class" title="Permalink to this headline">¶</a></h3>
+<p>There are two ways to define a class:</p>
+<ul class="simple">
+<li><p>Explicitly defining a class using keyword <strong>class</strong> like <code class="docutils literal notranslate"><span class="pre">class</span> <span class="pre">Animal</span></code>.
+This defines the Animal class.</p></li>
+<li><p>Define two classes via a <strong>relationship</strong> between them <code class="docutils literal notranslate"><span class="pre">Vehicle</span> <span class="pre">&lt;|--</span> <span class="pre">Car</span></code>.
+This defines two classes Vehicle and Car along with their relationship.</p></li>
+</ul>
+<div class="mermaid">
+            classDiagram
+    class Animal
+    Vehicle &lt;|-- Car
+        </div><div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>第二の定義法はクラス二つをその関連と同時に定義すると取れる。</p>
+</div>
+<p>Naming convention: a class name should be composed of alphanumeric (unicode
+allowed) and underscore characters.</p>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>SHOULD であって MUST ではないことに注意。</p>
+</div>
+</section>
+<section id="defining-members-of-a-class">
+<h3>Defining Members of a class<a class="headerlink" href="#defining-members-of-a-class" title="Permalink to this headline">¶</a></h3>
+<p>UML provides mechanisms to represent class members, such as attributes and
+methods, and additional information about them.</p>
+<p>Mermaid distinguishes between attributes and functions/methods based on if the
+<strong>parenthesis</strong> <code class="docutils literal notranslate"><span class="pre">()</span></code> are present or not. The ones with <code class="docutils literal notranslate"><span class="pre">()</span></code> are treated as
+functions/methods, and others as attributes.</p>
+<p>There are two ways to define the members of a class, and regardless of whichever
+syntax is used to define the members, the output will still be same. The two
+different ways are:</p>
+<ul class="simple">
+<li><p>Associate a member of a class using <strong>:</strong> (colon) followed by member name,
+useful to define one member at a time. For example:</p></li>
+</ul>
+<div class="mermaid">
+            classDiagram
+    class BankAccount
+    BankAccount : +String owner
+    BankAccount : +BigDecimal balance
+    BankAccount : +deposit(amount)
+    BankAccount : +withdrawal(amount)
+        </div><ul class="simple">
+<li><p>Associate members of a class using <strong>{}</strong> brackets, where members are grouped
+within curly brackets. Suitable for defining multiple members at once. For
+example:</p></li>
+</ul>
+<div class="mermaid">
+            classDiagram
+class BankAccount{
+    +String owner
+    +BigDecimal balance
+    +deposit(amount)
+    +withdrawl(amount)
+}
+        </div><div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>後者の記法のほうがコード量が少なくて済む。あと、インデントをどうするかは取り決めた方がいい。</p>
+</div>
+<section id="return-type">
+<h4>Return Type<a class="headerlink" href="#return-type" title="Permalink to this headline">¶</a></h4>
+<p>Optionally you can end the method/function definition with the data type that
+will be returned (note: there must be a space between the final <code class="docutils literal notranslate"><span class="pre">)</span></code> of the
+method definition and return type</p>
+<p>example:</p>
+<div class="mermaid">
+            classDiagram
+class BankAccount{
+    +String owner
+    +BigDecimal balance
+    +deposit(amount) bool
+    +withdrawl(amount) int
+}
+        </div><div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>戻り値の言明はオプショナル。</p>
+</div>
+</section>
+<section id="generic-types">
+<h4>Generic Types<a class="headerlink" href="#generic-types" title="Permalink to this headline">¶</a></h4>
+<p>Members can be defined using generic types, such as <code class="docutils literal notranslate"><span class="pre">List&lt;int&gt;</span></code>, for fields,
+parameters and return types by enclosing the type within <code class="docutils literal notranslate"><span class="pre">~</span></code> (<strong>tilde</strong>).
+Note: <strong>nested</strong> type declarations (such as <code class="docutils literal notranslate"><span class="pre">List&lt;List&lt;int&gt;&gt;</span></code>) are not
+currently supported.</p>
+<p>This can be done as part of either class definition method:</p>
+<div class="mermaid">
+            classDiagram
+class Square~Shape~{
+    int id
+    List~int~ position
+    setPoints(List~int~ points)
+    getPoints() List~int~
+}
+
+Square : -List~string~ messages
+Square : +setMessages(List~string~ messages)
+Square : +getMessages() List~string~
+        </div><div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>完全ではないが、C++ でいうクラステンプレートを対応している。プログラミング言語によっては上記の対応で事足りるのだろう。</p>
+</div>
+</section>
+<section id="visibility">
+<h4>Visibility<a class="headerlink" href="#visibility" title="Permalink to this headline">¶</a></h4>
+<p>To specify the visibility of a class member (i.e. any attribute or method),
+these notations may be placed before the member’s name, but it is optional:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">+</span></code> Public</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-</span></code> Private</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#</span></code> Protected</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">~</span></code> Package/Internal</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can also include additional <em>classifiers</em> to a method definition
+by adding the following notations to the end of the method, i.e.: after the
+<code class="docutils literal notranslate"><span class="pre">()</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">*</span></code> Abstract e.g.: <code class="docutils literal notranslate"><span class="pre">someAbstractMethod()*</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$</span></code> Static e.g.: <code class="docutils literal notranslate"><span class="pre">someStaticMethod()$</span></code></p></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can also include additional <em>classifiers</em> to a field definition by
+adding the following notations to the end of the field name:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">$</span></code> Static e.g.: <code class="docutils literal notranslate"><span class="pre">String</span> <span class="pre">someField$</span></code></p></li>
+</ul>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>抽象メソッドを表現したいことはあるかもしれない。</p>
+</div>
+</section>
+</section>
+</section>
+<section id="defining-relationship">
+<h2><a class="toc-backref" href="#id3">Defining Relationship</a><a class="headerlink" href="#defining-relationship" title="Permalink to this headline">¶</a></h2>
+<p>A relationship is a general term covering the specific types of logical
+connections found on class and object diagrams.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[classA][Arrow][ClassB]
+</pre></div>
+</div>
+<p>There are different types of relations defined for classes under UML which are
+currently supported:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;|--</span></code></p></td>
+<td><p>Inheritance</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">*--</span></code></p></td>
+<td><p>Composition</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">o--</span></code></p></td>
+<td><p>Aggregation</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--&gt;</span></code></p></td>
+<td><p>Association</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--</span></code></p></td>
+<td><p>Link (Solid)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">..&gt;</span></code></p></td>
+<td><p>Dependency</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">..|&gt;</span></code></p></td>
+<td><p>Realization</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">..</span></code></p></td>
+<td><p>Link (Dashed)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="mermaid">
+            classDiagram
+classA &lt;|-- classB
+classC *-- classD
+classE o-- classF
+classG &lt;-- classH
+classI -- classJ
+classK &lt;.. classL
+classM &lt;|.. classN
+classO .. classP
+        </div><div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>各種 association の理解に自身がない場合は UML
+の仕様書を参照すること。 ここに書き写してもいいか？</p>
+</div>
+<p>We can use the labels to describe nature of relation between two classes. Also,
+arrowheads can be used in opposite directions as well:</p>
+<div class="mermaid">
+            classDiagram
+classA --|&gt; classB : Inheritance
+classC --* classD : Composition
+classE --o classF : Aggregation
+classG --&gt; classH : Association
+classI -- classJ : Link(Solid)
+classK ..&gt; classL : Dependency
+classM ..|&gt; classN : Realization
+classO .. classP : Link(Dashed)
+        </div><div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>この「矢印を逆向きにも使える」というのはたいへん興味深い仕様だ。</p>
+</div>
+<section id="labels-on-relations">
+<h3>Labels on Relations<a class="headerlink" href="#labels-on-relations" title="Permalink to this headline">¶</a></h3>
+<p>It is possible to add a label text to a relation:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[classA][Arrow][ClassB]:LabelText
+</pre></div>
+</div>
+<div class="mermaid">
+            classDiagram
+classA &lt;|-- classB : implements
+classC *-- classD : composition
+classE o-- classF : association
+        </div><div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>この用法を採用するのは珍しいかもしれない。</p>
+</div>
+</section>
+<section id="two-way-relations">
+<h3>Two-way relations<a class="headerlink" href="#two-way-relations" title="Permalink to this headline">¶</a></h3>
+<p>Relations can go in multiple ways:</p>
+<div class="mermaid">
+            classDiagram
+    Animal &lt;|--|&gt; Zebra
+        </div><p>Here is the syntax:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[Relation Type][Link][Relation Type]
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">Relation</span> <span class="pre">Type</span></code> can be one of:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 45%" />
+<col style="width: 55%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;|</span></code></p></td>
+<td><p>Inheritance</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">*</span></code></p></td>
+<td><p>Composition</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">o</span></code></p></td>
+<td><p>Aggregation</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&gt;</span></code></p></td>
+<td><p>Association</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;</span></code></p></td>
+<td><p>Association</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">|&gt;</span></code></p></td>
+<td><p>Realization</p></td>
+</tr>
+</tbody>
+</table>
+<p>And <code class="docutils literal notranslate"><span class="pre">Link</span></code> can be one of:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 73%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><cite>-</cite></p></td>
+<td><p>Solid</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>..</cite></p></td>
+<td><p>Dashed</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>この表現も珍しいかもしれない。私は使わない。</p>
+</div>
+</section>
+</section>
+<section id="cardinality-multiplicity-on-relations">
+<h2><a class="toc-backref" href="#id4">Cardinality / Multiplicity on relations</a><a class="headerlink" href="#cardinality-multiplicity-on-relations" title="Permalink to this headline">¶</a></h2>
+<p>Multiplicity or cardinality in class diagrams indicates the number of instances
+of one class linked to one instance of the other class. For example, one company
+will have one or more employees, but each employee works for just one company.</p>
+<p>Multiplicity notations are placed near the ends of an association.</p>
+<p>The different cardinality options are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">1</span></code> Only 1</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0..1</span></code> Zero or One</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1..*</span></code> One or more</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*</span></code> Many</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code> n {where n&gt;1}</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0..n</span></code> zero to n {where n&gt;1}</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1..n</span></code> one to n {where n&gt;1}</p></li>
+</ul>
+<p>Cardinality can be easily defined by placing cardinality text within quotes
+<code class="docutils literal notranslate"><span class="pre">&quot;</span></code> before(optional) and after(optional) a given arrow.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[classA] &quot;cardinality1&quot; [Arrow] &quot;cardinality2&quot; [ClassB]:LabelText
+</pre></div>
+</div>
+<div class="mermaid">
+            classDiagram
+    Customer &quot;1&quot; --&gt; &quot;*&quot; Ticket
+    Student &quot;1&quot; --&gt; &quot;1..*&quot; Course
+    Galaxy --&gt; &quot;many&quot; Star : Contains
+        </div><div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>多重度の表現は基本的なので習得する。</p>
+</div>
+</section>
+<section id="annotations-on-classes">
+<h2><a class="toc-backref" href="#id5">Annotations on classes</a><a class="headerlink" href="#annotations-on-classes" title="Permalink to this headline">¶</a></h2>
+<p>It is possible to annotate classes with a specific marker text which is like
+meta-data for the class, giving a clear indication about its nature. Some common
+annotations examples could be:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;&lt;Interface&gt;&gt;</span></code> To represent an Interface class</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;&lt;abstract&gt;&gt;</span></code> To represent an abstract class</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;&lt;Service&gt;&gt;</span></code> To represent a service class</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;&lt;enumeration&gt;&gt;</span></code> To represent an enum</p></li>
+</ul>
+<p>Annotations are defined within the opening <code class="docutils literal notranslate"><span class="pre">&lt;&lt;</span></code> and closing <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code>. There are
+two ways to add an annotation to a class and regardless of the syntax used
+output will be same. The two ways are:</p>
+<ul class="simple">
+<li><p>In a <strong>separate line</strong> after a class is defined. For example:</p></li>
+</ul>
+<div class="mermaid">
+            classDiagram
+class Shape
+&lt;&lt;interface&gt;&gt; Shape
+Shape : noOfVertices
+Shape : draw()
+        </div><ul class="simple">
+<li><p>In a <strong>nested structure</strong> along with class definition. For example:</p></li>
+</ul>
+<div class="mermaid">
+            classDiagram
+class Shape{
+    &lt;&lt;interface&gt;&gt;
+    noOfVertices
+    draw()
+}
+class Color{
+    &lt;&lt;enumeration&gt;&gt;
+    RED
+    BLUE
+    GREEN
+    WHITE
+    BLACK
+}
+        </div><div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>クラス記法（と勝手に呼んでいる）の場合にはクラス名の直後？に
+annotation を宣言する。</p>
+</div>
+</section>
+<section id="comments">
+<h2><a class="toc-backref" href="#id6">Comments</a><a class="headerlink" href="#comments" title="Permalink to this headline">¶</a></h2>
+<p>Comments can be entered within a class diagram, which will be ignored by the
+parser. Comments need to be on their own line, and must be prefaced with <code class="docutils literal notranslate"><span class="pre">%%</span></code>
+(double percent signs). Any text after the start of the comment to the next
+newline will be treated as a comment, including any class diagram syntax</p>
+<div class="mermaid">
+            classDiagram
+%% This whole line is a comment classDiagram class Shape &lt;&lt;interface&gt;&gt;
+class Shape{
+    &lt;&lt;interface&gt;&gt;
+    noOfVertices
+    draw()
+}
+        </div><div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>Sequence diagram でも利用可能だったものだ。</p>
+</div>
+</section>
+<section id="setting-the-direction-of-the-diagram">
+<h2><a class="toc-backref" href="#id7">Setting the direction of the diagram</a><a class="headerlink" href="#setting-the-direction-of-the-diagram" title="Permalink to this headline">¶</a></h2>
+<p>With class diagrams you can use the direction statement to set the direction
+which the diagram will render like in this example.</p>
+<div class="mermaid">
+            classDiagram
+  direction RL
+  class Student {
+    -idCard : IdCard
+  }
+  class IdCard{
+    -id : int
+    -name : string
+  }
+  class Bike{
+    -id : int
+    -name : string
+  }
+  Student &quot;1&quot; --o &quot;1&quot; IdCard : carries
+  Student &quot;1&quot; --o &quot;1&quot; Bike : rides
+        </div><div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p><code class="docutils literal notranslate"><span class="pre">direction</span> <span class="pre">RL</span></code> を <code class="docutils literal notranslate"><span class="pre">direction</span> <span class="pre">LR</span></code> やその他に書き換えて表示を確認するといい。</p>
+</div>
+</section>
+<section id="interaction">
+<h2><a class="toc-backref" href="#id8">Interaction</a><a class="headerlink" href="#interaction" title="Permalink to this headline">¶</a></h2>
+<p>It is possible to bind a click event to a node, the click can lead to either a
+javascript callback or to a link which will be opened in a new browser tab.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This functionality is disabled when using <code class="docutils literal notranslate"><span class="pre">securityLevel='strict'</span></code>
+and enabled when using <code class="docutils literal notranslate"><span class="pre">securityLevel='loose'</span></code>.</p>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>Sequence diagram が対応しているのと同じ機能だ。</p>
+</div>
+<p>You would define these actions on a separate line after all classes have been
+declared.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>action className &quot;reference&quot; &quot;tooltip&quot;
+click className call callback() &quot;tooltip&quot;
+click className href &quot;url&quot; &quot;tooltip&quot;
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><em>action</em> is either <code class="docutils literal notranslate"><span class="pre">link</span></code> or <code class="docutils literal notranslate"><span class="pre">callback</span></code>, depending on which type of
+interaction you want to have called</p></li>
+<li><p><em>className</em> is the id of the node that the action will be associated with</p></li>
+<li><p><em>reference</em> is either the url link, or the function name for callback.</p></li>
+<li><p>(<em>optional</em>) tooltip is a string to be displayed when hovering over element
+(note: The styles of the tooltip are set by the class .mermaidTooltip.)</p></li>
+<li><p>note: callback function will be called with the nodeId as parameter.</p></li>
+</ul>
+<section id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<p>URL Link:</p>
+<div class="mermaid">
+            classDiagram
+class Shape
+link Shape &quot;http://www.github.com&quot; &quot;This is a tooltip for a link&quot;
+class Shape2
+click Shape2 href &quot;http://www.github.com&quot; &quot;This is a tooltip for a link&quot;
+        </div><p>Callback:</p>
+<div class="mermaid">
+            classDiagram
+class Shape
+callback Shape &quot;callbackFunction&quot; &quot;This is a tooltip for a callback&quot;
+class Shape2
+click Shape2 call callbackFunction() &quot;This is a tooltip for a callback&quot;
+        </div><div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="kd">var</span> <span class="nx">callbackFunction</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+        alert(&#39;A callback was triggered&#39;);
+    }
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<div class="mermaid">
+            classDiagram
+    class Class01
+    class Class02
+    callback Class01 &quot;callbackFunction&quot; &quot;Callback tooltip&quot;
+    link Class02 &quot;http://www.github.com&quot; &quot;This is a link&quot;
+    class Class03
+    class Class04
+    click Class03 call callbackFunction() &quot;Callback tooltip&quot;
+    click Class04 href &quot;http://www.github.com&quot; &quot;This is a link&quot;
+        </div><div class="admonition-success admonition">
+<p class="admonition-title">Success</p>
+<p>The tooltip functionality and the ability to link to urls are
+available from version 0.5.2.</p>
+</div>
+<p>Beginners tip, a full example using interactive links in an html context:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span>&lt;body&gt;
+  &lt;div class=&quot;mermaid&quot;&gt;
+    classDiagram
+    Animal &lt;|-- Duck
+    Animal &lt;|-- Fish
+    Animal &lt;|-- Zebra
+    Animal : +int age
+    Animal : +String gender
+    Animal: +isMammal()
+    Animal: +mate()
+    class Duck{
+      +String beakColor
+      +swim()
+      +quack()
+      }
+    class Fish{
+      -int sizeInFeet
+      -canEat()
+      }
+    class Zebra{
+      +bool is_wild
+      +run()
+      }
+
+      callback Duck callback &quot;Tooltip&quot;
+      link Zebra &quot;http://www.github.com&quot; &quot;This is a link&quot;
+  &lt;/div&gt;
+
+  &lt;script&gt;
+    var callback = function(){
+        alert(&#39;A callback was triggered&#39;);
+    }
+    var config = {
+      startOnLoad:true,
+      securityLevel:&#39;loose&#39;,
+    };
+
+    mermaid.initialize(config);
+  &lt;/script&gt;
+&lt;/body&gt;
+</pre></div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>以前も見たように <code class="docutils literal notranslate"><span class="pre">securityLevel:'loose'</span></code> の指定が急所となる。</p>
+</div>
+</section>
+</section>
+<section id="styling">
+<h2><a class="toc-backref" href="#id9">Styling</a><a class="headerlink" href="#styling" title="Permalink to this headline">¶</a></h2>
+<section id="styling-a-node">
+<h3>Styling a node<a class="headerlink" href="#styling-a-node" title="Permalink to this headline">¶</a></h3>
+<p>It is possible to apply specific styles such as a thicker border or a different
+background color to individual nodes. This is done by predefining classes in css
+styles that can be applied from the graph definition as in the example below:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="nc">cssClass</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nt">rect</span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">fill</span><span class="p">:</span><span class="mh">#FF0000</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">stroke</span><span class="p">:</span><span class="mh">#FFFF00</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">stroke-width</span><span class="p">:</span><span class="mi">4</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>Then attaching that class to a specific node as per below:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>cssClass &quot;nodeId1&quot; cssClass;
+</pre></div>
+</div>
+<p>It is also possible to attach a class to a list of nodes in one statement:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>cssClass &quot;nodeId1,nodeId2&quot; cssClass;
+</pre></div>
+</div>
+<p>A shorter form of adding a class is to attach the classname to the node using
+the <code class="docutils literal notranslate"><span class="pre">:::</span></code> operator as per below:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>classDiagram
+    class Animal:::cssClass
+</pre></div>
+</div>
+<p>Or:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>classDiagram
+    class Animal:::cssClass {
+        -int sizeInFeet
+        -canEat()
+    }
+</pre></div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>VS Code の Markdown Preview Mermaid Support は上二つを Mermaid オブジェクトとして描画しない。</p>
+</div>
+<p>cssClasses cannot be added using this shorthand method at the same time as a
+relation statement.</p>
+<p>Due to limitations with existing markup for class diagrams, it is not currently
+possible to define css classes within the diagram itself. Coming soon!</p>
+</section>
+<section id="default-styles">
+<h3>Default Styles<a class="headerlink" href="#default-styles" title="Permalink to this headline">¶</a></h3>
+<p>The main styling of the class diagram is done with a preset number of css
+classes. During rendering these classes are extracted from the file located at
+src/themes/class.scss. The classes used here are described below:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 74%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Class</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>g.classGroup text</p></td>
+<td><p>Styles for general class text</p></td>
+</tr>
+<tr class="row-odd"><td><p>classGroup .title</p></td>
+<td><p>Styles for general class title</p></td>
+</tr>
+<tr class="row-even"><td><p>g.classGroup rect</p></td>
+<td><p>Styles for class diagram rectangle</p></td>
+</tr>
+<tr class="row-odd"><td><p>g.classGroup line</p></td>
+<td><p>Styles for class diagram line</p></td>
+</tr>
+<tr class="row-even"><td><p>.classLabel .box</p></td>
+<td><p>Styles for class label box</p></td>
+</tr>
+<tr class="row-odd"><td><p>.classLabel .label</p></td>
+<td><p>Styles for class label text</p></td>
+</tr>
+<tr class="row-even"><td><p>composition</p></td>
+<td><p>Styles for composition arrow head and arrow line</p></td>
+</tr>
+<tr class="row-odd"><td><p>aggregation</p></td>
+<td><p>Styles for aggregation arrow head and arrow
+line(dashed or solid)</p></td>
+</tr>
+<tr class="row-even"><td><p>dependency</p></td>
+<td><p>Styles for dependency arrow head and arrow line</p></td>
+</tr>
+</tbody>
+</table>
+<section id="sample-stylesheet">
+<h4>Sample stylesheet<a class="headerlink" href="#sample-stylesheet" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-scss notranslate"><div class="highlight"><pre><span></span>body {
+    background: white;
+}
+
+g.classGroup text {
+    fill: $nodeBorder;
+    stroke: none;
+    font-family: &#39;trebuchet ms&#39;, verdana, arial;
+    font-family: var(--mermaid-font-family);
+    font-size: 10px;
+
+    .title {
+        font-weight: bolder;
+    }
+}
+
+g.classGroup rect {
+    fill: $nodeBkg;
+    stroke: $nodeBorder;
+}
+
+g.classGroup line {
+    stroke: $nodeBorder;
+    stroke-width: 1;
+}
+
+.classLabel .box {
+    stroke: none;
+    stroke-width: 0;
+    fill: $nodeBkg;
+    opacity: 0.5;
+}
+
+.classLabel .label {
+    fill: $nodeBorder;
+    font-size: 10px;
+}
+
+.relation {
+    stroke: $nodeBorder;
+    stroke-width: 1;
+    fill: none;
+}
+
+@mixin composition {
+    fill: $nodeBorder;
+    stroke: $nodeBorder;
+    stroke-width: 1;
+}
+
+#compositionStart {
+    @include composition;
+}
+
+#compositionEnd {
+    @include composition;
+}
+
+@mixin aggregation {
+    fill: $nodeBkg;
+    stroke: $nodeBorder;
+    stroke-width: 1;
+}
+
+#aggregationStart {
+    @include aggregation;
+}
+
+#aggregationEnd {
+    @include aggregation;
+}
+
+#dependencyStart {
+    @include composition;
+}
+
+#dependencyEnd {
+    @include composition;
+}
+
+#extensionStart {
+    @include composition;
+}
+
+#extensionEnd {
+    @include composition;
+}
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="configuration">
+<h2><a class="toc-backref" href="#id10">Configuration</a><a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>Coming soon</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="state-diagram.html" title="State diagrams"
+             >next</a></li>
+        <li class="right" >
+          <a href="sequence-diagram.html" title="Sequence Diagrams"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Mermaid 利用ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Class diagrams</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2022, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

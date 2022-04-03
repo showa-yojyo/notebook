@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="_static/prefab.css" />
     
     <script src="_static/mathjax-v3.js"></script>
+    <script src="_static/mermaid.js"></script>
     
     <link rel="next" title="Eloquent JavaScript 読書ノート" href="haverbeke18/index.html" />
     <link rel="prev" title="Effective Debugging 読書ノート" href="speinellis17.html" /> 
@@ -105,12 +106,12 @@
 <li><p>解答 2 の自作関数は <code class="docutils literal notranslate"><span class="pre">constexpr</span></code> 宣言できる。</p></li>
 <li><p>C++17 には <code class="docutils literal notranslate"><span class="pre">&lt;numeric&gt;</span></code> に <code class="docutils literal notranslate"><span class="pre">std::lcm()</span></code> がある (p. 5)</p></li>
 </ul>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="o">&gt;</span><span class="w"></span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">InputIt</span><span class="o">&gt;</span><span class="w"></span>
 <span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">lcmr</span><span class="p">(</span><span class="n">InputIt</span><span class="w"> </span><span class="n">first</span><span class="p">,</span><span class="w"> </span><span class="n">InputIt</span><span class="w"> </span><span class="n">last</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="w"></span>
 <span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="c1">// C++ 17 では &lt;numeric&gt; に std::lcm() がある (p. 5) が、</span>
 <span class="w">    </span><span class="c1">// 次のようにテンプレート引数を明示しないと g++ 9.3.0 はエラーを出す。</span>
-<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">IntType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">typename</span> <span class="nc">InputIt</span><span class="o">::</span><span class="n">value_type</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">IntType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">InputIt</span><span class="o">::</span><span class="n">value_type</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">accumulate</span><span class="p">(</span><span class="n">first</span><span class="p">,</span><span class="w"> </span><span class="n">last</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">lcm</span><span class="o">&lt;</span><span class="n">IntType</span><span class="p">,</span><span class="w"> </span><span class="n">IntType</span><span class="o">&gt;</span><span class="p">);</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
@@ -445,12 +446,12 @@ Linux についてはビルドが成功することを保証しているわけ�
 <li><p><code class="docutils literal notranslate"><span class="pre">include_directories(${LIBS_PATH}/stduuid)</span></code></p></li>
 <li><p>リンクするライブラリー名が他の環境と異なっている？</p>
 <div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c">#add_library (cryptlib STATIC ${headers} ${sources})</span>
-<span class="nb">add_library</span> <span class="p">(</span><span class="s">cryptopp</span> <span class="s">STATIC</span> <span class="o">${</span><span class="nv">headers</span><span class="o">}</span> <span class="o">${</span><span class="nv">sources</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">add_library</span> <span class="p">(</span><span class="s">cryptopp</span><span class="w"> </span><span class="s">STATIC</span><span class="w"> </span><span class="o">${</span><span class="nv">headers</span><span class="o">}</span><span class="w"> </span><span class="o">${</span><span class="nv">sources</span><span class="o">}</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
 <li><p>リンク順がビルドの結果に影響する可能性がある。気のせいかも知れない。</p>
-<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">problem_97</span> <span class="s">curl</span> <span class="s">curlcpp</span><span class="p">)</span>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">problem_97</span><span class="w"> </span><span class="s">curl</span><span class="w"> </span><span class="s">curlcpp</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
