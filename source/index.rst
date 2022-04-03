@@ -121,6 +121,7 @@ Contents:
    twitter
    inkscape/index
    mathjax
+   javascript-mermaid/index
    css-selector
    xpath
    hxutils
