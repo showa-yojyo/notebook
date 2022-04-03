@@ -12,10 +12,10 @@ indeed the case, while at other times this is a reasonable abstraction.》
    :depth: 2
 
 Mermaid can render state diagrams. The syntax tries to be compliant with the
-syntax used in plantUml as this will make it easier for users to share diagrams
-between mermaid and plantUml.
+syntax used in PlantUml as this will make it easier for users to share diagrams
+between mermaid and PlantUml.
 
-.. code:: mermaid
+.. mermaid::
 
    stateDiagram-v2
        [*] --> Still
@@ -28,7 +28,7 @@ between mermaid and plantUml.
 
 Older renderer:
 
-.. code:: mermaid
+.. mermaid::
 
    stateDiagram
        [*] --> Still
@@ -57,14 +57,14 @@ States
 A state can be declared in multiple ways. The simplest way is to define a state
 id as a description.
 
-.. code:: mermaid
+.. mermaid::
 
    stateDiagram-v2
        s1
 
 Another way is by using the state keyword with a description as per below:
 
-.. code:: mermaid
+.. mermaid::
 
    stateDiagram-v2
        state "This is a state description" as s2
@@ -72,7 +72,7 @@ Another way is by using the state keyword with a description as per below:
 Another way to define a state with a description is to define the state id
 followed by a colon and the description:
 
-.. code:: mermaid
+.. mermaid::
 
    stateDiagram-v2
        s2 : This is a state description
@@ -91,7 +91,7 @@ When you define a transition between two states and the states are not already
 defined the undefined states are defined with the id from the transition. You
 can later add descriptions to states defined this way.
 
-.. code:: mermaid
+.. mermaid::
 
    stateDiagram-v2
        s1 --> s2
@@ -102,7 +102,7 @@ can later add descriptions to states defined this way.
 
 It is possible to add text to a transition. To describe what it represents.
 
-.. code:: mermaid
+.. mermaid::
 
    stateDiagram-v2
        s1 --> s2: A transition
@@ -114,7 +114,7 @@ There are two special states indicating the start and stop of the diagram. These
 are written with the ``[*]`` syntax and the direction of the transition to it
 defines it either as a start or a stop state.
 
-.. code:: mermaid
+.. mermaid::
 
    stateDiagram-v2
        [*] --> s1
@@ -136,7 +136,7 @@ In order to define a composite state you need to use the state keyword followed
 by an id and the body of the composite state between ``{}``. See the example
 below:
 
-.. code:: mermaid
+.. mermaid::
 
    stateDiagram-v2
        [*] --> First
@@ -151,7 +151,7 @@ below:
 
 You can do this in several layers:
 
-.. code:: mermaid
+.. mermaid::
 
    stateDiagram-v2
        [*] --> First
@@ -172,7 +172,7 @@ You can do this in several layers:
 
 You can also define transitions also between composite states:
 
-.. code:: mermaid
+.. mermaid::
 
    stateDiagram-v2
        [*] --> First
@@ -205,7 +205,7 @@ Choice
 Sometimes you need to model a choice between two or more paths, you can do so
 using ``<<choice>>``.
 
-.. code:: mermaid
+.. mermaid::
 
    stateDiagram-v2
        state if_state <<choice>>
@@ -223,7 +223,7 @@ Forks
 
 It is possible to specify a fork in the diagram using ``<<fork>>``.
 
-.. code:: mermaid
+.. mermaid::
 
       stateDiagram-v2
        state fork_state <<fork>>
@@ -250,7 +250,7 @@ state diagrams.
 Here you can choose to put the note to the *right of* or to the *left of* a
 node.
 
-.. code:: mermaid
+.. mermaid::
 
        stateDiagram-v2
            State1: The state with a note
@@ -269,9 +269,9 @@ node.
 Concurrency
 =======================================================================
 
-As in plantUml you can specify concurrency using the ``--`` symbol.
+As in PlantUml you can specify concurrency using the ``--`` symbol.
 
-.. code:: mermaid
+.. mermaid::
 
    stateDiagram-v2
        [*] --> Active
@@ -300,7 +300,7 @@ Setting the direction of the diagram
 With state diagrams you can use the direction statement to set the direction
 which the diagram will render like in this example.
 
-.. code:: mermaid
+.. mermaid::
 
    stateDiagram
        direction LR
@@ -326,7 +326,7 @@ the parser. Comments need to be on their own line, and must be prefaced with
 ``%%`` (double percent signs). Any text after the start of the comment to the
 next newline will be treated as a comment, including any diagram syntax
 
-.. code:: mermaid
+.. mermaid::
 
    stateDiagram-v2
        [*] --> Still

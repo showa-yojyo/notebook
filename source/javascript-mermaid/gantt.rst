@@ -44,7 +44,7 @@ pasted into docs.
    Markdown で記述すると、普通の出力は HTML だから内部的には
    SVG で表現されることになる。
 
-.. code:: mermaid
+.. mermaid::
 
    gantt
        title A Gantt Diagram
@@ -63,7 +63,7 @@ pasted into docs.
 Syntax
 =======================================================================
 
-.. code:: mermaid
+.. mermaid::
 
    gantt
        dateFormat  YYYY-MM-DD
@@ -98,7 +98,7 @@ Syntax
 
 It is possible to set multiple dependencies separated by space:
 
-.. code:: mermaid
+.. mermaid::
 
    gantt
        apple :a, 2017-07-20, 1w
@@ -139,7 +139,7 @@ the exact location of the milestone is determined by the initial date for the
 milestone and the "duration" of the task this way: *initial
 date* + *duration*/2.
 
-.. code:: mermaid
+.. mermaid::
 
    gantt
    dateFormat HH:mm
@@ -258,7 +258,7 @@ parser. Comments need to be on their own line and must be prefaced with ``%%``
 (double percent signs). Any text after the start of the comment to the next
 newline will be treated as a comment, including any diagram syntax
 
-.. code:: mermaid
+.. mermaid::
 
    gantt
        title A Gantt Diagram

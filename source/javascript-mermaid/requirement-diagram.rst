@@ -15,7 +15,7 @@ follow those defined by SysML v1.6.
 
 Rendering requirements is straightforward.
 
-.. code:: mermaid
+.. mermaid::
 
    requirementDiagram
 
@@ -140,7 +140,7 @@ Larger Example
 
 This example uses all features of the diagram.
 
-.. code:: mermaid
+.. mermaid::
 
    requirementDiagram
 

@@ -21,7 +21,7 @@ named using singular nouns.
 
 Mermaid can render ER diagrams
 
-.. code:: mermaid
+.. mermaid::
 
    erDiagram
        CUSTOMER ||--o{ ORDER : places
@@ -43,7 +43,7 @@ ER diagrams to aid comprehension of the purpose and meaning of entities. These
 do not necessarily need to be exhaustive; often a small subset of attributes is
 enough. Mermaid allows to be defined in terms of their *type* and *name*.
 
-.. code:: mermaid
+.. mermaid::
 
    erDiagram
        CUSTOMER ||--o{ ORDER : places
@@ -153,7 +153,7 @@ possible cardinalities.
 ============ ============= =============================
 Value (left) Value (right) Meaning
 ============ ============= =============================
-``|o``       ``o\|``       Zero or one
+``|o``       ``o|``        Zero or one
 ``||``       ``||``        Exactly one
 ``}o``       ``o{``        Zero or more (no upper limit)
 ``}|``       ``|{``        One or more (no upper limit)
@@ -181,7 +181,7 @@ one-to-many relationships, we observe that a ``NAMED-DRIVER`` cannot exist
 without both a ``PERSON`` and a ``CAR`` - the relationships become identifying
 and would be specified using hyphens, which translate to a solid line:
 
-.. code:: mermaid
+.. mermaid::
 
    erDiagram
        CAR ||--o{ NAMED-DRIVER : allows
@@ -199,7 +199,7 @@ Attributes can be defined for entities by specifying the entity name followed by
 a block containing multiple ``type name`` pairs, where a block is delimited by
 an opening ``{`` and a closing ``}``. For example:
 
-.. code:: mermaid
+.. mermaid::
 
    erDiagram
        CAR ||--o{ NAMED-DRIVER : allows
@@ -233,7 +233,7 @@ for Primary Key or Foreign Key. And a ``comment`` is defined by double quotes at
 the end of an attribute. Comments themselves cannot have double-quote characters
 in them.
 
-.. code:: mermaid
+.. mermaid::
 
    erDiagram
        CAR ||--o{ NAMED-DRIVER : allows

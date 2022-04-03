@@ -24,7 +24,7 @@ classes to be programmed.
 
 Mermaid can render class diagrams.
 
-.. code:: mermaid
+.. mermaid::
 
    classDiagram
        Animal <|-- Duck
@@ -70,7 +70,7 @@ the diagram contains three compartments:
 * The bottom compartment contains the operations the class can execute. They
   are also left-aligned and the first letter is lowercase.
 
-.. code:: mermaid
+.. mermaid::
 
    classDiagram
        class BankAccount
@@ -93,7 +93,7 @@ There are two ways to define a class:
 * Define two classes via a **relationship** between them ``Vehicle <|-- Car``.
   This defines two classes Vehicle and Car along with their relationship.
 
-.. code:: mermaid
+.. mermaid::
 
    classDiagram
        class Animal
@@ -127,7 +127,7 @@ different ways are:
 * Associate a member of a class using **:** (colon) followed by member name,
   useful to define one member at a time. For example:
 
-.. code:: mermaid
+.. mermaid::
 
    classDiagram
        class BankAccount
@@ -140,7 +140,7 @@ different ways are:
   within curly brackets. Suitable for defining multiple members at once. For
   example:
 
-.. code:: mermaid
+.. mermaid::
 
    classDiagram
    class BankAccount{
@@ -163,7 +163,7 @@ method definition and return type
 
 example:
 
-.. code:: mermaid
+.. mermaid::
 
    classDiagram
    class BankAccount{
@@ -187,7 +187,7 @@ currently supported.
 
 This can be done as part of either class definition method:
 
-.. code:: mermaid
+.. mermaid::
 
    classDiagram
    class Square~Shape~{
@@ -253,17 +253,17 @@ currently supported:
 ========= =============
 Type      Description
 ========= =============
-``<\|--`` Inheritance
-``\*--``  Composition
+``<|--``  Inheritance
+``*--``   Composition
 ``o--``   Aggregation
 ``-->``   Association
 ``--``    Link (Solid)
 ``..>``   Dependency
-``..\|>`` Realization
+``..|>``  Realization
 ``..``    Link (Dashed)
 ========= =============
 
-.. code:: mermaid
+.. mermaid::
 
    classDiagram
    classA <|-- classB
@@ -283,7 +283,7 @@ Type      Description
 We can use the labels to describe nature of relation between two classes. Also,
 arrowheads can be used in opposite directions as well:
 
-.. code:: mermaid
+.. mermaid::
 
    classDiagram
    classA --|> classB : Inheritance
@@ -308,7 +308,7 @@ It is possible to add a label text to a relation:
 
    [classA][Arrow][ClassB]:LabelText
 
-.. code:: mermaid
+.. mermaid::
 
    classDiagram
    classA <|-- classB : implements
@@ -324,7 +324,7 @@ Two-way relations
 
 Relations can go in multiple ways:
 
-.. code:: mermaid
+.. mermaid::
 
    classDiagram
        Animal <|--|> Zebra
@@ -340,12 +340,12 @@ Where ``Relation Type`` can be one of:
 ==== ===========
 Type Description
 ==== ===========
-<\|  Inheritance
-\*   Composition
+<|   Inheritance
+*    Composition
 o    Aggregation
 >    Association
 <    Association
-\|>  Realization
+|>   Realization
 ==== ===========
 
 And ``Link`` can be one of:
@@ -353,8 +353,8 @@ And ``Link`` can be one of:
 ==== ===========
 Type Description
 ==== ===========
-–    Solid
-..   Dashed
+`-`  Solid
+`..` Dashed
 ==== ===========
 
 .. admonition:: 学習者ノート
@@ -370,7 +370,7 @@ will have one or more employees, but each employee works for just one company.
 
 Multiplicity notations are placed near the ends of an association.
 
-The different cardinality options are :
+The different cardinality options are:
 
 * ``1`` Only 1
 * ``0..1`` Zero or One
@@ -387,7 +387,7 @@ Cardinality can be easily defined by placing cardinality text within quotes
 
    [classA] "cardinality1" [Arrow] "cardinality2" [ClassB]:LabelText
 
-.. code:: mermaid
+.. mermaid::
 
    classDiagram
        Customer "1" --> "*" Ticket
@@ -416,7 +416,7 @@ output will be same. The two ways are:
 
 * In a **separate line** after a class is defined. For example:
 
-.. code:: mermaid
+.. mermaid::
 
    classDiagram
    class Shape
@@ -426,7 +426,7 @@ output will be same. The two ways are:
 
 * In a **nested structure** along with class definition. For example:
 
-.. code:: mermaid
+.. mermaid::
 
    classDiagram
    class Shape{
@@ -456,7 +456,7 @@ parser. Comments need to be on their own line, and must be prefaced with ``%%``
 (double percent signs). Any text after the start of the comment to the next
 newline will be treated as a comment, including any class diagram syntax
 
-.. code:: mermaid
+.. mermaid::
 
    classDiagram
    %% This whole line is a comment classDiagram class Shape <<interface>>
@@ -476,7 +476,7 @@ Setting the direction of the diagram
 With class diagrams you can use the direction statement to set the direction
 which the diagram will render like in this example.
 
-.. code:: mermaid
+.. mermaid::
 
    classDiagram
      direction RL
@@ -535,7 +535,7 @@ Examples
 
 URL Link:
 
-.. code:: mermaid
+.. mermaid::
 
    classDiagram
    class Shape
@@ -545,7 +545,7 @@ URL Link:
 
 Callback:
 
-.. code:: mermaid
+.. mermaid::
 
    classDiagram
    class Shape
@@ -561,7 +561,7 @@ Callback:
        }
    <script>
 
-.. code:: mermaid
+.. mermaid::
 
    classDiagram
        class Class01
@@ -662,14 +662,14 @@ It is also possible to attach a class to a list of nodes in one statement:
 A shorter form of adding a class is to attach the classname to the node using
 the ``:::`` operator as per below:
 
-.. code:: mermaid
+.. text::
 
    classDiagram
        class Animal:::cssClass
 
 Or:
 
-.. code:: mermaid
+.. text::
 
    classDiagram
        class Animal:::cssClass {

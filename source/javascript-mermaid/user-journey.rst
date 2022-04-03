@@ -13,7 +13,7 @@ improvement for the to-be workflow.》
 
 Mermaid can render user journey diagrams:
 
-.. code:: mermaid
+.. mermaid::
 
    journey
        title My working day

@@ -29,7 +29,7 @@ Node
 A node (default)
 -----------------------------------------------------------------------
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
        id
@@ -46,7 +46,7 @@ done several times, it is the last text found for the node that will be used.
 Also if you define edges for the node later on, you can omit text definitions.
 The one previously defined will be used when rendering the box.
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
        id1[This is the text in the box]
@@ -58,14 +58,14 @@ This statement declares the direction of the Flowchart.
 
 This declares the flowchart is oriented from top to bottom (``TD`` or ``TB``).
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart TD
        Start --> Stop
 
 This declares the flowchart is oriented from left to right (``LR``).
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
        Start --> Stop
@@ -96,7 +96,7 @@ Node shapes
 A node with round edges
 -----------------------------------------------------------------------
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
        id1(This is the text in the box)
@@ -104,7 +104,7 @@ A node with round edges
 A stadium-shaped node
 -----------------------------------------------------------------------
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
        id1([This is the text in the box])
@@ -112,7 +112,7 @@ A stadium-shaped node
 A node in a subroutine shape
 -----------------------------------------------------------------------
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
        id1[[This is the text in the box]]
@@ -120,7 +120,7 @@ A node in a subroutine shape
 A node in a cylindrical shape
 -----------------------------------------------------------------------
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
        id1[(Database)]
@@ -128,7 +128,7 @@ A node in a cylindrical shape
 A node in the form of a circle
 -----------------------------------------------------------------------
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
        id1((This is the text in the circle))
@@ -136,7 +136,7 @@ A node in the form of a circle
 A node in an asymmetric shape
 -----------------------------------------------------------------------
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
        id1>This is the text in the box]
@@ -147,7 +147,7 @@ with future releases.
 A node (rhombus)
 -----------------------------------------------------------------------
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
        id1{This is the text in the box}
@@ -155,7 +155,7 @@ A node (rhombus)
 A hexagon node
 -----------------------------------------------------------------------
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
        id1{{This is the text in the box}}
@@ -163,7 +163,7 @@ A hexagon node
 Parallelogram
 -----------------------------------------------------------------------
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart TD
        id1[/This is the text in the box/]
@@ -171,7 +171,7 @@ Parallelogram
 Parallelogram alt
 -----------------------------------------------------------------------
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart TD
        id1[\This is the text in the box\]
@@ -179,7 +179,7 @@ Parallelogram alt
 Trapezoid
 -----------------------------------------------------------------------
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart TD
        A[/Christmas\]
@@ -187,7 +187,7 @@ Trapezoid
 Trapezoid alt
 -----------------------------------------------------------------------
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart TD
        B[\Go shopping/]
@@ -201,7 +201,7 @@ of links or attach a text string to a link.
 A link with arrow head
 -----------------------------------------------------------------------
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
        A-->B
@@ -209,7 +209,7 @@ A link with arrow head
 An open link
 -----------------------------------------------------------------------
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
        A --- B
@@ -217,14 +217,14 @@ An open link
 Text on links
 -----------------------------------------------------------------------
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
        A-- This is the text! ---B
 
 or
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
        A---|This is the text|B
@@ -232,14 +232,14 @@ or
 A link with arrow head and text
 -----------------------------------------------------------------------
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
        A-->|text|B
 
 or
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
        A-- text -->B
@@ -247,7 +247,7 @@ or
 Dotted link
 -----------------------------------------------------------------------
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR;
       A-.->B;
@@ -255,7 +255,7 @@ Dotted link
 Dotted link with text
 -----------------------------------------------------------------------
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
       A-. text .-> B
@@ -263,7 +263,7 @@ Dotted link with text
 Thick link
 -----------------------------------------------------------------------
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
       A ==> B
@@ -271,7 +271,7 @@ Thick link
 Thick link with text
 -----------------------------------------------------------------------
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
       A == text ==> B
@@ -281,7 +281,7 @@ Chaining of links
 
 It is possible declare many links in the same line as per below:
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
       A -- text --> B -- text2 --> C
@@ -289,7 +289,7 @@ It is possible declare many links in the same line as per below:
 It is also possible to declare multiple nodes links in the same line as per
 below:
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
       a --> b & c--> d
@@ -297,7 +297,7 @@ below:
 You can then describe dependencies in a very expressive way. Like the one-liner
 below:
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart TB
        A & B--> C & D
@@ -312,7 +312,7 @@ harder to read in markdown form. The Swedish word ``lagom`` comes to mind. It
 means, not too much and not too little. This goes for expressive syntaxes as
 well.
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart TB
        A --> C
@@ -325,7 +325,7 @@ New arrow types
 
 There are new types of arrows supported as per below:
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
        A --o B
@@ -336,7 +336,7 @@ Multi directional arrows
 
 There is the possibility to use multidirectional arrows.
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
        A o--o B
@@ -355,7 +355,7 @@ others by adding extra dashes in the link definition.
 In the following example, two extra dashes are added in the link from node *B*
 to node *E*, so that it spans two more ranks than regular links:
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart TD
        A[Start] --> B{Is it?}
@@ -373,7 +373,7 @@ When the link label is written in the middle of the link, the extra dashes must
 be added on the right side of the link. The following example is equivalent to
 the previous one:
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart TD
        A[Start] --> B{Is it?}
@@ -406,7 +406,7 @@ Special characters that break syntax
 It is possible to put text within quotes in order to render more troublesome
 characters. As in the example below:
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
        id1["This is the (text) in the box"]
@@ -416,7 +416,7 @@ Entity codes to escape characters
 
 It is possible to escape characters using the syntax exemplified here.
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
        A["A double quote:#quot;"] -->B["A dec char:#9829;"]
@@ -439,7 +439,7 @@ Subgraphs
 
 An example below:
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart TB
        c1-->a2
@@ -455,7 +455,7 @@ An example below:
 
 You can also set an explicit id for the subgraph.
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart TB
        c1-->a2
@@ -469,7 +469,7 @@ flowcharts
 With the graphtype flowchart it is also possible to set edges to and from
 subgraphs as in the flowchart below.
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart TB
        c1-->a2
@@ -492,7 +492,7 @@ Direction in subgraphs
 With the graphtype flowcharts you can use the direction statement to set the
 direction which the subgraph will render like in this example.
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
      subgraph TOP
@@ -546,7 +546,7 @@ Examples of tooltip usage below:
 The tooltip text is surrounded in double quotes. The styles of the tooltip are
 set by the class ``.mermaidTooltip``.
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
        A-->B
@@ -570,7 +570,7 @@ Links are opened in the same browser tab/window by default. It is possible to
 change this by adding a link target to the click definition (``_self``,
 ``_blank``, ``_parent`` and ``_top`` are supported):
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
        A-->B
@@ -631,7 +631,7 @@ parser. Comments need to be on their own line, and must be prefaced with ``%%``
 (double percent signs). Any text after the start of the comment to the next
 newline will be treated as a comment, including any flow syntax
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
    %% this is a comment A -- text --> B{node}
@@ -665,7 +665,7 @@ Styling a node
 It is possible to apply specific styles such as a thicker border or a different
 background color to a node.
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
        id1(Start)-->id2(Stop)
@@ -699,7 +699,7 @@ It is also possible to attach a class to a list of nodes in one statement:
 A shorter form of adding a class is to attach the classname to the node using
 the ``:::`` operator as per below:
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
        A:::someclass --> B
@@ -731,7 +731,7 @@ Example style
 Example definition
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR;
        A-->B[AAA<span>BBB</span>]
@@ -759,7 +759,7 @@ It is possible to add icons from fontawesome.
 
 The icons are accessed via the syntax `fa:#icon class name#`.
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart TD
        B["fa:fa-twitter for peace"]
@@ -786,7 +786,7 @@ Graph declarations with spaces between vertices and link and without semicolon
 Below is the new declaration of the graph edges which is also valid along with
 the old declaration of the graph edges.
 
-.. code:: mermaid
+.. mermaid::
 
    flowchart LR
        A[Hard edge] -->|Link text| B(Round edge)

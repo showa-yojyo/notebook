@@ -35,6 +35,7 @@ extensions = [
     'sphinx.ext.autosectionlabel',
     'sphinx.ext.todo',
     'sphinx.ext.mathjax',
+    'sphinxcontrib.mermaid',
     'japanesesupport',
     'disablesearchindex',]
 

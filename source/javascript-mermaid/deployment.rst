@@ -27,7 +27,7 @@ Four ways of using mermaid
 
 Available at `mermaid.live <https://mermaid.live>`__
 
-.. code:: mermaid
+.. mermaid::
 
    graph TB
        A[Enter Chart Definition]

@@ -16,7 +16,7 @@ William Playfair's Statistical Breviary of 1801》
 
 Mermaid can render Pie Chart diagrams.
 
-.. code:: mermaid
+.. mermaid::
 
    pie title Pets adopted by volunteers
        "Dogs" : 386
@@ -57,7 +57,7 @@ Drawing a pie chart is really simple in mermaid.
 Example
 =======================================================================
 
-.. code:: mermaid
+.. mermaid::
 
    pie showData
        title Key elements in Product X

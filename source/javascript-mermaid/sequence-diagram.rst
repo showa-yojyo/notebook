@@ -10,7 +10,7 @@ Mermaid can render sequence diagrams.
 .. contents::
    :depth: 2
 
-.. code:: mermaid
+.. mermaid::
 
    sequenceDiagram
        Alice->>John: Hello John, how are you?
@@ -38,7 +38,7 @@ source text. Sometimes you might want to show the participants in a different
 order than how they appear in the first message. It is possible to specify the
 actor's order of appearance by doing the following:
 
-.. code:: mermaid
+.. mermaid::
 
    sequenceDiagram
        participant Alice
@@ -56,7 +56,7 @@ Actors
 If you specifically want to use the actor symbol instead of a rectangle with
 text you can do so by using actor statements as per below.
 
-.. code:: mermaid
+.. mermaid::
 
    sequenceDiagram
        actor Alice
@@ -73,7 +73,7 @@ Aliases
 
 The actor can have a convenient identifier and a descriptive label.
 
-.. code:: mermaid
+.. mermaid::
 
    sequenceDiagram
        participant A as Alice
@@ -115,7 +115,7 @@ Activations
 It is possible to activate and deactivate an actor. ``(de)activation`` can be
 dedicated declarations:
 
-.. code:: mermaid
+.. mermaid::
 
    sequenceDiagram
        Alice->>John: Hello John, how are you?
@@ -133,7 +133,7 @@ dedicated declarations:
 There is also a shortcut notation by appending ``+``/``-`` suffix to the message
 arrow:
 
-.. code:: mermaid
+.. mermaid::
 
    sequenceDiagram
        Alice->>+John: Hello John, how are you?
@@ -141,7 +141,7 @@ arrow:
 
 Activations can be stacked for same actor:
 
-.. code:: mermaid
+.. mermaid::
 
    sequenceDiagram
        Alice->>+John: Hello John, how are you?
@@ -157,7 +157,7 @@ It is possible to add notes to a sequence diagram. This is done by the notation
 
 See the example below:
 
-.. code:: mermaid
+.. mermaid::
 
    sequenceDiagram
        participant John
@@ -169,7 +169,7 @@ See the example below:
 
 It is also possible to create notes spanning two participants:
 
-.. code:: mermaid
+.. mermaid::
 
    sequenceDiagram
        Alice->John: Hello John, how are you?
@@ -194,7 +194,7 @@ notation
 
 See the example below:
 
-.. code:: mermaid
+.. mermaid::
 
    sequenceDiagram
        Alice->John: Hello John, how are you?
@@ -231,7 +231,7 @@ or if there is sequence that is optional (if without else).
 
 See the example below:
 
-.. code:: mermaid
+.. mermaid::
 
    sequenceDiagram
        Alice->>Bob: Hello Bob, how are you?
@@ -268,7 +268,7 @@ This is done by the notation
 
 See the example below:
 
-.. code:: mermaid
+.. mermaid::
 
    sequenceDiagram
        par Alice to Bob
@@ -286,7 +286,7 @@ See the example below:
 
 It is also possible to nest parallel blocks.
 
-.. code:: mermaid
+.. mermaid::
 
    sequenceDiagram
        par Alice to Bob
@@ -323,7 +323,7 @@ The colors are defined using rgb and rgba syntax.
 
 See the examples below:
 
-.. code:: mermaid
+.. mermaid::
 
    sequenceDiagram
        participant Alice
@@ -349,7 +349,7 @@ parser. Comments need to be on their own line, and must be prefaced with ``%%``
 (double percent signs). Any text after the start of the comment to the next
 newline will be treated as a comment, including any diagram syntax.
 
-.. code:: mermaid
+.. mermaid::
 
    sequenceDiagram
        Alice->>John: Hello John, how are you?
@@ -366,7 +366,7 @@ Entity codes to escape characters
 
 It is possible to escape characters using the syntax exemplified here.
 
-.. code:: mermaid
+.. mermaid::
 
    sequenceDiagram
        A->>B: I #9829; you!
@@ -395,7 +395,7 @@ below:
 
 It can also be be turned on via the diagram code as in the diagram:
 
-.. code:: mermaid
+.. mermaid::
 
    sequenceDiagram
        autonumber
@@ -426,7 +426,7 @@ This can be configured by adding one or more link lines with the format:
 
    link <actor>: <link-label> @ <link-url>
 
-.. code:: mermaid
+.. mermaid::
 
    sequenceDiagram
        participant Alice
@@ -458,7 +458,7 @@ This can be configured by adding the links lines with the format:
 
 An example is below:
 
-.. code:: mermaid
+.. mermaid::
 
    sequenceDiagram
        participant Alice
