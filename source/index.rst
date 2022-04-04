@@ -126,3 +126,4 @@ Contents:
    xpath
    hxutils
    webgl
+   pandoc
