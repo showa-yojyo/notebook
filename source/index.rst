@@ -76,7 +76,8 @@ Contents:
    :glob:
    :maxdepth: 1
 
-   python-3.*
+   python-3.[0-9]
+   python-3.1[0-9]
    python-pip
    python-pylint
    python-docutils/index
