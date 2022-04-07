@@ -772,7 +772,7 @@ The icons are accessed via the syntax `fa:#icon class name#`.
    `Font Awesome <https://fontawesome.com/>`__ のことは深入りしないことにする。
 
 Graph declarations with spaces between vertices and link and without semicolon
-=======================================================================
+======================================================================
 
 * In graph declarations, the statements also can now end without a semicolon.
   After release 0.2.16, ending a graph statement with semicolon is just

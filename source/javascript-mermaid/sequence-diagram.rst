@@ -598,7 +598,7 @@ file with the configuration. How to use the CLI is described in the mermaidCLI
 page. ``mermaid.sequenceConfig`` can be set to a JSON string with config
 parameters or the corresponding object.
 
-.. code:: json
+.. code:: javascript
 
    mermaid.sequenceConfig = {
        diagramMarginX: 50,

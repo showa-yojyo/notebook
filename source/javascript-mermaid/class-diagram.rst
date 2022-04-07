@@ -337,16 +337,16 @@ Here is the syntax:
 
 Where ``Relation Type`` can be one of:
 
-==== ===========
-Type Description
-==== ===========
-<|   Inheritance
-*    Composition
-o    Aggregation
->    Association
-<    Association
-|>   Realization
-==== ===========
+========= ===========
+Type      Description
+========= ===========
+``<|``    Inheritance
+``*``     Composition
+``o``     Aggregation
+``>``     Association
+``<``     Association
+``|>``    Realization
+========= ===========
 
 And ``Link`` can be one of:
 
@@ -662,14 +662,14 @@ It is also possible to attach a class to a list of nodes in one statement:
 A shorter form of adding a class is to attach the classname to the node using
 the ``:::`` operator as per below:
 
-.. text::
+.. code:: text
 
    classDiagram
        class Animal:::cssClass
 
 Or:
 
-.. text::
+.. code:: text
 
    classDiagram
        class Animal:::cssClass {
