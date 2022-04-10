@@ -153,9 +153,19 @@ cpprefjp_ のコードを引用する：
 
   と思ったら、C++11 から次のような式の分類法が導入されたようだ：
 
-  .. image:: /_images/cpp-expression-taxonomy.png
+  .. mermaid::
      :align: center
      :alt: Expression category taxonomy
+     :caption: Expression category taxonomy
+
+     flowchart BT
+     glvalue & rvalue --> expression
+     lvalue --> glvalue
+     xvalue --> glvalue & rvalue
+     prvalue --> rvalue
+
+     linkStyle 0,1,2,3,4,5 stroke:#000,stroke-width:1px,fill:none;
+     classDef default fill:none,stroke:none;
 
   * glvalue は lvalue または xvalue のどちらかに分類される。
     「一般化された左辺値」くらいの意味。
@@ -173,7 +183,7 @@ cpprefjp_ のコードを引用する：
 
       例：戻り型がある rvalue 参照であるような関数の呼び出し結果は xvalue だ。
 
-  * rvalue とは xvalue であるか、一時オブジェクトまたは部分オブジェクト thereof であるか、
+  * rvalue とは xvalue であるか、一時オブジェクトまたは部分オブジェクトであるか、
     あるいはオブジェクトに関係していない値だ。
 
     * prvalue とは xvalue でない rvalue だ。
