@@ -12,10 +12,9 @@
 まずは抽象クラス ``NodeVisitor`` および ``Node`` を主に見るべく、
 簡単なクラス図を示す。
 
-.. figure:: /_images/docutils-visitor.png
+.. mermaid:: ./docutils-visitor.mmd
    :align: center
    :alt: (class diagram)
-   :scale: 100%
 
 抽象クラス ``NodeVisitor`` および ``Node`` をメインに見たいので、
 特に継承グラフの末端ノード付近のクラスは大胆に省略した。

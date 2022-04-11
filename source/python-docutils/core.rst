@@ -86,10 +86,9 @@
   #. 構文木の変換 ``self.apply_transforms``
   #. 書き出し処理 ``self.writer.write``
 
-  .. figure:: /_images/docutils-publisher-sd.png
+  .. mermaid:: ./docutils-publisher-sd.mmd
      :align: center
      :alt: (component diagram)
-     :scale: 100%
 
 ``process_command_line(self, argv=None, ...)``
   コマンドライン引数を解析して、メンバーデータ ``self.settings`` をセットする。

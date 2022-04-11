@@ -1,0 +1,45 @@
+classDiagram
+    direction TB
+        TransformSpec <|-- Output
+            Output <|-- NullOutput
+            Output <|-- StringOutput
+            Output <|-- FileOutput
+                FileOutput <|-- BinaryFileOutput
+
+    class TransformSpec{
+        +get_transforms()
+    }
+
+    class Output{
+        +str component_type$
+        #str default_destination_path$
+        #str encoding
+        #File destination
+        #str destination_path
+
+        +write()* str
+        #encode(str) str
+    }
+
+    class NullOutput{
+        #str default_destination_path$
+        +write(str) str
+    }
+
+    class StringOutput{
+        #str default_destination_path$
+        +write(str) str
+    }
+
+    class FileOutput{
+        #str default_destination_path$
+        #str mode$
+
+        -open()
+        +write(str) str
+        -close()
+    }
+
+    class BinaryFileOutput{
+        #str mode$
+    }

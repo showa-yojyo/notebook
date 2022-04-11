@@ -1,0 +1,51 @@
+classDiagram
+    direction TB
+
+    class Component{
+        +str component_type$
+        #tuple supported$
+        +supports(str) bool
+    }
+
+    Component <|-- Writer
+
+    class Writer{
+        +str component_type$
+        +str config_section$
+        #dict parts
+        -str output
+        +get_transforms()
+        +write(document, Output)
+        #translate()*
+        +assemble_parts()
+    }
+
+    class UnfilteredWriter{
+        +get_transforms()
+    }
+
+    class nullWriter{
+        #tuple supported$
+        +str config_section$
+        +tuple config_section_dependencies$
+        #translate()
+    }
+
+    class ConcreteWriter{
+        #tuple supported$
+        #tuple settings_spec$
+        +get_transforms()
+        #translate()
+        +assemble_parts()
+    }
+
+    module <-- Writer: language
+    Output <-- Writer
+    Writer --> document
+
+    Writer <|-- UnfilteredWriter
+        UnfilteredWriter <|-- nullWriter
+    Writer <|-- ConcreteWriter
+
+    ConcreteWriter --> NodeVisitor
+    NodeVisitor --> document

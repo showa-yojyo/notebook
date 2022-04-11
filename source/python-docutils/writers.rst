@@ -11,14 +11,12 @@
 クラス ``docutils.readers.Writer`` を中心とした簡易クラス図を以下に示す。
 これまでに述べたクラスについてはグレーアウトしたり、記載そのものを省いたりしている。
 
-.. figure:: /_images/docutils-writers.png
+.. mermaid:: ./docutils-writers.mmd
    :align: center
    :alt: (class diagram)
-   :scale: 100%
 
-* スーパークラスの ``Writer`` にはさらにその上にスーパークラスとして
-  ``Component`` があるが紙幅の都合上省略した。
-  クラス ``Component`` については :doc:`./base` を参照。
+* スーパークラスの ``Writer`` にはさらにその上にスーパークラスとして ``Component`` がある。
+  :doc:`./base` を参照。
 * クラス ``module`` については :doc:`./languages` を参照。
 * クラス ``Output`` については :doc:`./io` を参照。
 * 図中で ``(ConcreteWriter)`` となっているクラスとしては、

@@ -18,14 +18,10 @@ Docutils_ のサブパッケージ ``docutils.transforms`` について記す。
 
 * クラス ``TransformSpec`` および ``Component`` については
   :doc:`./base` を参照。
-* クラス ``Node`` と ``document`` には継承関係があるが矢印を省略した。
-  :doc:`./nodes` を参照。
-* ``module`` の意味については :doc:`./languages` を参照。
 
-.. figure:: /_images/docutils-transforms.png
+.. mermaid:: ./docutils-transforms.mmd
    :align: center
    :alt: (class diagram)
-   :scale: 100%
 
 クラス ``Transform``
 ======================================================================
@@ -185,7 +181,7 @@ Docutils_ のサブパッケージ ``docutils.transforms`` について記す。
   メソッド ``add_xxxx`` 系の補助メソッド。
   優先度のキーは次の形式の文字列である。
   ::
-  
+
      '{priority:03d}-{serialno:03d}'
 
   * このメソッドを呼び出す度に self.serialno をインクリメントする。

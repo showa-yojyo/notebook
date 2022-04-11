@@ -12,10 +12,9 @@
 クラス ``docutils.readers.Reader`` を中心とした簡易クラス図を以下に示す。
 これまでに述べたクラスについてはグレーアウトしたり、記載そのものを省いたりしている。
 
-.. figure:: /_images/docutils-readers.png
+.. mermaid:: ./docutils-readers.mmd
    :align: center
    :alt: (class diagram)
-   :scale: 100%
 
 * スーパークラスの ``Reader`` にはさらにその上にスーパークラスとして
   ``Component`` があるが紙幅の都合上省略した。

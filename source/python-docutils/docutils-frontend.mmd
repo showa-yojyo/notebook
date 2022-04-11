@@ -1,0 +1,48 @@
+classDiagram
+%% 名前空間修飾ができない
+%% ラベルを association end に与えられない
+    direction BT
+
+    Option --|> optparseOption
+
+    ConfigParser --|> configparserRawConfigParser
+
+    OptionParser --> Option: option_class
+    OptionParser --> ConfigParser: creates
+    OptionParser --|> optparseOptionParser
+    OptionParser --|> SettingsSpec
+    OptionParser --> Values: creates
+
+    Values --|> optparseValues
+
+    class Option{
+        #list ATTRS
+        +process(...)
+    }
+
+    class ConfigParser{
+        +read(...)
+    }
+
+    class Values{
+        +update(dict, OptionParser)
+        +copy()
+    }
+
+    class SettingsSpec{
+        +tuple settings_spec$
+        +dict settings_defaults$
+        +dict settings_default_overrides$
+        +tuple relative_path_settings$
+        +str config_section$
+        +tuple config_section_dependencies$
+    }
+
+    class OptionParser{
+        +tuple settings_spec$
+        +dict settings_defaults$
+        +dict settings_default_overrides$
+        +get_standard_config_files()
+        +get_standard_config_settings()
+        +get_config_file_settings(file)
+    }

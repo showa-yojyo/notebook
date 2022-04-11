@@ -13,10 +13,9 @@
 Python 標準のクラスおよび説明済みのクラスはグレーアウトで表し、
 例えば例外クラスのような、本筋とは外れているクラスは省いている。
 
-.. figure:: /_images/docutils-frontend.png
+.. mermaid:: ./docutils-frontend.mmd
    :align: center
    :alt: (class diagram)
-   :scale: 100%
 
 * Docutils で Python 標準のクラスを継承しているモジュールはこれくらいしかない。
 

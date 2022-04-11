@@ -18,10 +18,9 @@ Docutils_ の構文解析サブパッケージ ``docutils.parsers`` について
   Docutils の基本クラスについては :doc:`./base` 参照。
 * 状態機械系の抽象クラス群については :doc:`statemachine` 参照。
 
-.. figure:: /_images/docutils-parsers.png
+.. mermaid:: ./docutils-parsers.mmd
    :align: center
    :alt: (class diagram)
-   :scale: 100%
 
 クラス ``Parser``
 ======================================================================

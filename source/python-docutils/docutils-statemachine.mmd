@@ -1,0 +1,101 @@
+classDiagram
+    direction TB
+
+    Node <|-- document
+
+    StateMachine *-- State: states
+
+    StateMachine <|-- StateMachineWS
+    StateMachineWS <|-- RSTStateMachine
+
+    State <|-- StateWS
+    StateWS <|-- RSTState
+    RSTState <|-- ConcreateRSTState
+
+    StateMachineWS <|-- NestedStateMachine
+    RSTState *-- NestedStateMachine
+
+    StateMachine <|-- SearchStateMachine
+    _SearchOverride <|-- SearchStateMachine
+    _SearchOverride <|-- SearchStateMachineWS
+    StateMachineWS <|-- SearchStateMachineWS
+
+    class StateMachine{
+        str input_lines
+        int input_offset
+        str line
+        int line_offset
+        str initial_state
+        str current_state
+
+        +unlink()
+        +run(...)
+        +get_state(str)
+        +attach_observer(...)
+        +detach_observer(...)
+        -notify_observers()
+    }
+
+    class State{
+        #dict patterns$
+        #list initial_transitions$
+        #dict nested_sm_kwargs$
+        +runtime_init()
+        +unlink()
+        #add_initial_transitions()
+        #add_transitions(...)
+        +remove_transition(str)
+        +no_match(...)
+        +bof(...)
+        +eof(...)
+        #nop(...)
+    }
+
+    State --> "1" StateMachine: state_machine
+
+    class StateMachineWS{
+        +get_indented(...)
+        +get_known_indented(...)
+        +get_first_known_indented(...)
+    }
+
+    class StateWS{
+        #dict indent_sm_kwargs$
+        #dict known_indent_sm_kwargs$
+        #ws_patterns$
+        #ws_initial_transitions$
+        #add_initial_transitions()
+        #blank(...)
+        #indent(...)
+        %%+known_indented(...)
+        %%+first_known_indented(...)
+    }
+
+    class _SearchOverride{
+        #match(str)
+    }
+
+    StateWS --> StateMachine: indent_sm
+    StateWS --> StateMachine: known_indent_sm
+
+    class RSTStateMachine{
+        +run(...)
+    }
+
+    class NestedStateMachine{
+        +run(...)
+    }
+
+    RSTStateMachine --> document: document
+    RSTStateMachine --> Node: node
+    NestedStateMachine --> document: document
+    NestedStateMachine --> Node: node
+
+    class RSTState{
+        #nested_sm
+        +runtime_init()
+        #no_match(...)
+        #bof(...)
+        +nested_parse(...)
+        +nested_list_parse(...)
+    }

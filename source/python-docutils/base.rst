@@ -14,10 +14,9 @@
 ======================================================================
 本節で登場するクラスを図に示す。
 
-.. figure:: /_images/docutils-base.png
+.. mermaid:: ./docutils-base.mmd
    :align: center
    :alt: (class diagram)
-   :scale: 100%
 
 クラス ``docutils.SettingsSpec``
 ======================================================================
@@ -74,10 +73,36 @@
 ----------------------------------------------------------------------
 * ``SettingsSpec`` の直接サブクラスは 2 つだけある。図に示す。
 
-  .. figure:: /_images/docutils-settings-spec.png
+  .. mermaid::
      :align: center
      :alt: (class diagram)
-     :scale: 100%
+
+     classDiagram
+     direction TB
+         SettingsSpec <|-- OptionParser
+         SettingsSpec <|-- Component
+
+     class SettingsSpec{
+         +tuple settings_spec$
+         +dict settings_defaults$
+         +dict settings_default_overrides$
+         +tuple relative_path_settings$
+         +str config_section$
+         +tuple config_section_dependencies$
+     }
+
+     class OptionParser{
+         +tuple settings_spec$
+         +dict settings_defaults$
+         +tuple relative_path_settings$
+         +str config_section$
+     }
+
+     class Component{
+         +str component_type$
+         #tuple supported$
+         +supports(str) bool
+     }
 
 * ``Component`` では何もオーバーライドしないが、
   そこからのサブクラスは ``settings_spec`` と ``config_section`` を
@@ -111,10 +136,54 @@
 ----------------------------------------------------------------------
 ``TransformSpec`` をスーパークラスとしたクラス図を示す。
 
-  .. figure:: /_images/docutils-transform-spec.png
-     :align: center
-     :alt: (class diagram)
-     :scale: 100%
+.. mermaid::
+   :align: center
+   :alt: (class diagram)
+
+   classDiagram
+       direction TB
+
+       TransformSpec <|-- Component
+       TransformSpec <|-- Transformer
+
+       class Component{
+           str component_type$
+       }
+
+       class Transformer{
+           -int serialno
+           +add_transform(Transform)
+           +add_transforms(...)
+           +add_pending(...)
+           +apply_transforms()
+           +get_priority_string(int) str
+           +populate_from_components(components)
+       }
+
+       class TransformSpec{
+           +get_transforms()
+       }
+
+       Transformer o-- Transform: transforms
+
+       Transformer o-- Component: components
+       Transformer --> document: document
+       %%Node --* document
+
+       class Transform{
+           #int default_priority$
+           +apply()*
+       }
+
+       Transform --> document: document
+       Transform --> Node: start_node
+       Node <|-- document
+       Transform <|-- ConcreteTransform
+
+       class ConcreteTransform{
+           #int default_priority$
+           +apply()
+       }
 
 * ``Input`` および ``Output`` は何もオーバーライドしていないことに注意。
   設計ミスか？

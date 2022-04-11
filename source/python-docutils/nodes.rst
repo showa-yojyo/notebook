@@ -18,10 +18,9 @@ Docutils_ では reStructuredText 形式のデータを処理するために、
 一枚の図に全てを掲載することは紙幅の都合上避ける。
 また、理解し易さを優先するべく、説明の目的とは外れた関係、属性の記載を省略している。
 
-.. figure:: /_images/docutils-nodes.png
+.. mermaid:: ./docutils-nodes.mmd
    :align: center
    :alt: (class diagram)
-   :scale: 100%
 
 * クラス名が普通なもの (CamelCase) は抽象クラスまたは補助クラス。
 * クラス名が小文字ベースなもの (snake_case) は対応する名前の XML 要素的なものにマッチする。
@@ -141,7 +140,7 @@ Docutils_ では reStructuredText 形式のデータを処理するために、
 * このクラスにはスーパークラスがない。
 * 固有のコードもない。
 * 直接のサブクラスは次のものがある。
-  ``docinfo``, ``author``, ``authors``, ``organization``, ``address``, 
+  ``docinfo``, ``author``, ``authors``, ``organization``, ``address``,
   ``contact``, ``version``, ``revision``, ``status``, ``date``, ``copyright`` 以上。
 
   * いずれのサブクラスも固有のコードがない。

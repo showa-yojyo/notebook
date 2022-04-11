@@ -1,0 +1,43 @@
+classDiagram
+    direction TB
+        TransformSpec <|-- Input
+        Input <|-- NullInput
+        Input <|-- StringInput
+        Input <|-- FileInput
+        Input <|-- DocTreeInput
+
+    class TransformSpec{
+        +get_transforms()
+    }
+
+    %% 抽象クラスの名前を italic で render して欲しい。
+    class Input{
+        +str component_type$
+        #str default_source_path$
+        #str encoding
+        #? source
+        #str source_path
+        +read()* str
+        #decode(str) str
+    }
+
+    class NullInput{
+        #str default_source_path$
+        +read() str
+    }
+
+    class StringInput{
+        #str default_source_path$
+        +read() str
+    }
+
+    class FileInput{
+        +read() str
+        -readlines() list
+        -close()
+    }
+
+    class DocTreeInput{
+        #str default_source_path$
+        +read() str
+    }
