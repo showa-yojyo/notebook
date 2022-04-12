@@ -162,7 +162,8 @@ c. The ``mermaid.initialize()`` call, which dictates the appearance of diagrams
 .. admonition:: 学習者ノート
 
    素の HTML と Jekyll 仕様のブログとでは、この ``script``
-   タグの位置がかなり異なる。
+   タグの位置がかなり異なる。場合によっては、ラッパースクリプトを作成して上記
+   URL を動的にダウンロードすることになる。この場合については後述する。
 
 **b. The embedded mermaid diagram definition inside a ``<div class="mermaid">``:**
 
@@ -185,8 +186,8 @@ c. The ``mermaid.initialize()`` call, which dictates the appearance of diagrams
 
    Jekyll で Markdown の三重バッククオートによる ``mermaid``
    ブロックを定義すると、 Jekyll がこのブロックコードをクラスが ``mermaid``
-   である ``div`` タグに変換するものと期待する。 Sphinx
-   のプラグインでも同様の挙動をするはずなので、この後すぐに確認したい。
+   である ``div`` タグに変換するものと期待する。
+   Sphinx のプラグインでも同様の挙動をする。
 
 **c. The ``mermaid.initialize()`` call.**
 
@@ -223,7 +224,55 @@ startOnLoad Toggle for Rendering upon loading Boolean true, false
 .. admonition:: 学習者ノート
 
    おそらく ``windows.onload`` のイベントハンドラーに Mermaid
-   ブロックを 図式化する処理を追加するような指示を表している。
+   ブロックを図式化する処理を追加するような指示を表している。
+
+.. admonition:: 学習者ノート
+
+   Sphinx で sphinxcontrib-mermaid プラグインを有効にする場合の例をここに示す。
+
+   `conf.py` で例えばこのように定義する：
+
+   .. code:: python
+
+      mermaid_version = ""
+      mermaid_init_js = ""
+      html_js_files = [
+          'mermaid.js',
+          # etc.
+      ]
+
+   ``_static`` ディレクトリーにスクリプトファイル ``mermaid.js`` を次のような
+   内容で保存する（よりスマートなコードにしたい）：
+
+   .. code:: javascript
+
+      window.addEventListener('load', () => {
+          const MERMAID_CLASS_NAME = '.mermaid';
+          if (!document.querySelector(MERMAID_CLASS_NAME)) {
+              return;
+          }
+
+          const js = document.createElement("script");
+          js.src = "https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js";
+          js.onload = () => {
+              mermaid.initialize({
+                  startOnLoad: true,
+                  theme: 'base',
+                  themeVariables: {
+                      primaryColor: 'white',
+                      lineColor: 'black',
+                      textColor: 'black',
+                      primaryBorderColor: 'black',
+                      // etc.
+                  },
+              });
+              mermaid.init(undefined, document.querySelectorAll(MERMAID_CLASS_NAME));
+          };
+          document.head.appendChild(js);
+      });
+
+   こうすると、rst ファイルに mermaid ディレクティブのあった HTML だけが
+   上記 URL から Mermaid のメインスクリプトをダウンロードして、図式を描くはずだ。
 
 Working Examples
 -----------------------------------------------------------------------
