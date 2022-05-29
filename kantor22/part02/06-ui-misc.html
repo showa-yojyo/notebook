@@ -1,0 +1,624 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Miscellaneous &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/prefab.css" />
+    
+    <script src="../../_static/mathjax-v3.js"></script>
+    <script src="../../_static/mermaid.js"></script>
+    
+    <link rel="next" title="ノート準備中書籍群 2014 年編" href="../../preliminary2014.html" />
+    <link rel="prev" title="Document and resource loading" href="05-loading.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../preliminary2014.html" title="ノート準備中書籍群 2014 年編"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="05-loading.html" title="Document and resource loading"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >The Modern JavaScript Tutorial 読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Part 2 Browser: Document, Events, Interfaces</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Miscellaneous</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="miscellaneous">
+<h1><a class="toc-backref" href="#id1">Miscellaneous</a><a class="headerlink" href="#miscellaneous" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#miscellaneous" id="id1">Miscellaneous</a></p>
+<ul>
+<li><p><a class="reference internal" href="#mutation-observer" id="id2">Mutation observer</a></p></li>
+<li><p><a class="reference internal" href="#selection-and-range" id="id3">Selection and Range</a></p></li>
+<li><p><a class="reference internal" href="#event-loop-microtasks-and-macrotasks" id="id4">Event loop: microtasks and macrotasks</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="mutation-observer">
+<h2><a class="toc-backref" href="#id2">Mutation observer</a><a class="headerlink" href="#mutation-observer" title="Permalink to this headline">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/mutation-observer">https://javascript.info/mutation-observer</a>&gt; のノート。</p>
+<p><code class="docutils literal notranslate"><span class="pre">MutationObserver</span></code> を学ぶ。DOM ノードを監視し、変化を検出したときにコールバックを呼び出すものだ。典型的な Observer パターンだ。</p>
+<section id="syntax">
+<h3>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">observer</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">MutationObserver</span><span class="p">(</span><span class="nx">callback</span><span class="p">);</span>
+<span class="nx">observer</span><span class="p">.</span><span class="nx">observe</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="nx">config</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>ここで <code class="docutils literal notranslate"><span class="pre">config</span></code> はどの種類の変化に反応するかを指定する key-value オブジェクトで、値は真偽型だ。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">childList</span></code>: <code class="docutils literal notranslate"><span class="pre">node</span></code> の子の変化</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">subtree</span></code>: <code class="docutils literal notranslate"><span class="pre">node</span></code> の子孫すべての変化</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attributes</span></code>: <code class="docutils literal notranslate"><span class="pre">node</span></code> の属性の変化</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">characterData</span></code>: <code class="docutils literal notranslate"><span class="pre">node.data</span></code> を観察するかどうか</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attributeOldValue</span></code>: <code class="docutils literal notranslate"><span class="pre">callback</span></code> に新旧両方の属性値を渡すかどうか（否ならば変化後の値のみ渡す）。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">characterDataOldValue</span></code>: <code class="docutils literal notranslate"><span class="pre">callback</span></code> に新旧両方の <code class="docutils literal notranslate"><span class="pre">node.data</span></code> の値を渡すかどうか</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">config.attributeFilter</span></code> は属性の名前の配列。そこにあるものしか観察しない。</p>
+<p>コールバック関数は次のような形だ。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">mutations</span><span class="p">,</span> <span class="nx">observer</span><span class="p">){</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>引数 <code class="docutils literal notranslate"><span class="pre">mutations</span></code> は次で述べる key-value 仕様のオブジェクトの配列</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code>: 変化の種類を表す値。文字列 “attributes”, “characterData”,
+“childList” のいずれか。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">target</span></code>: 変化したノード。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">addedNodes</span></code>: 追加されたノード。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">removedNodes</span></code>: 削除されたノード。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">previousSibling</span></code>: 追加削除変化のあったノードの兄ノード。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nextSibling</span></code>: 追加削除変化のあったノードの弟ノード。</p></li>
+<li><p>その他</p></li>
+</ul>
+</li>
+<li><p>引数 <code class="docutils literal notranslate"><span class="pre">observer</span></code> は観察している <code class="docutils literal notranslate"><span class="pre">MutationObserver</span></code> オブジェクト自身</p></li>
+</ul>
+</section>
+<section id="usage-for-integration">
+<h3>Usage for integration<a class="headerlink" href="#usage-for-integration" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>広告スペースなどの不要な要素が DOM に現れたときにそれを検出し、削除することができる。</p></li>
+<li><p>DOM に何らかのノードが動的に変化したとき、関連ノードをリサイズする。</p></li>
+<li><p>その他</p></li>
+</ul>
+</section>
+<section id="usage-for-architecture">
+<h3>Usage for architecture<a class="headerlink" href="#usage-for-architecture" title="Permalink to this headline">¶</a></h3>
+<p>外部からロードするなど、動的に生成した HTML に対して、さらに動的に何か装飾的な処理をしたい場合に <code class="docutils literal notranslate"><span class="pre">MutationObserver</span></code> を応用するのは適している。</p>
+<section id="dynamic-highlight-demo">
+<h4>Dynamic highlight demo<a class="headerlink" href="#dynamic-highlight-demo" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">MutationObserver</span></code> のコールバックでは <code class="docutils literal notranslate"><span class="pre">mutations</span></code> をフィルターして、所望のノードをまずは得る。フィルターとして次のものを駆使する：</p>
+<ul class="simple">
+<li><p>演算子 <code class="docutils literal notranslate"><span class="pre">instanceof</span></code></p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">node.matches()</span></code></p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">node.querySelectorAll()</span></code></p></li>
+</ul>
+</section>
+</section>
+<section id="additional-methods">
+<h3>Additional methods<a class="headerlink" href="#additional-methods" title="Permalink to this headline">¶</a></h3>
+<p>観察をやめるためのメソッドが用意されている。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">observer.disconnect()</span></code>: 観察をやめる。このとき未済の変化があり得る。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">observer.takeRecords()</span></code>: <code class="docutils literal notranslate"><span class="pre">callback</span></code> が処理していない <code class="docutils literal notranslate"><span class="pre">mutations</span></code> を返す。</p>
+<ul>
+<li><p>呼び出すと観察キューのような領域から</p></li>
+</ul>
+</li>
+</ul>
+<p>上記のメソッドを両方利用する場合、後者を先に呼ぶ。</p>
+</section>
+</section>
+<section id="selection-and-range">
+<h2><a class="toc-backref" href="#id3">Selection and Range</a><a class="headerlink" href="#selection-and-range" title="Permalink to this headline">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/selection-range">https://javascript.info/selection-range</a>&gt; のノート。</p>
+<p>ページ内の選択と、フォームフィールド内の選択に分類する。</p>
+<p>JavaScript は既存の選択範囲にアクセスしたり、DOM ノードの全体または一部を選択・解除したり、選択内容をページから削除したり、タグに包んだりすることができる。</p>
+<section id="range">
+<h3>Range<a class="headerlink" href="#range" title="Permalink to this headline">¶</a></h3>
+<p>選択範囲の基本は <code class="docutils literal notranslate"><span class="pre">Range</span></code> で、開始点と終了点で表現される。このオブジェクトは、引数なしで作成する。それから <code class="docutils literal notranslate"><span class="pre">range.setStart(node,</span> <span class="pre">offset)</span></code> と
+<code class="docutils literal notranslate"><span class="pre">range.setEnd(node,</span> <span class="pre">offset)</span></code> を呼び出して選択範囲の境界を設定する。始点は対象範囲の最初の点であり、終点は対象範囲の上界の最初の点だ。</p>
+<ul class="simple">
+<li><p>この二つのメソッドはペアで利用するが、第一引数の <code class="docutils literal notranslate"><span class="pre">node</span></code> は共通の値である必要はない。</p></li>
+</ul>
+<section id="selecting-the-text-partially">
+<h4>Selecting the text partially<a class="headerlink" href="#selecting-the-text-partially" title="Permalink to this headline">¶</a></h4>
+<p>第二引数 <code class="docutils literal notranslate"><span class="pre">offset</span></code> は、第一引数 <code class="docutils literal notranslate"><span class="pre">node</span></code> がテキストノードならば、テキスト文字列のインデックスを指定する。</p>
+</section>
+<section id="selecting-element-nodes">
+<h4>Selecting element nodes<a class="headerlink" href="#selecting-element-nodes" title="Permalink to this headline">¶</a></h4>
+<p>第二引数 <code class="docutils literal notranslate"><span class="pre">offset</span></code> は、第一引数 <code class="docutils literal notranslate"><span class="pre">node</span></code> が要素ならば、子のインデックスを指定する。</p>
+</section>
+<section id="selecting-a-bigger-fragment">
+<h4>Selecting a bigger fragment<a class="headerlink" href="#selecting-a-bigger-fragment" title="Permalink to this headline">¶</a></h4>
+<p>この二つのメソッドはペアで利用するが、指定範囲がテキスト型とノード型をまたがっても構わない。</p>
+</section>
+</section>
+<section id="range-properties">
+<h3>Range properties<a class="headerlink" href="#range-properties" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Range</span></code> のプロパティーを見ていく。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">startContainer</span></code>,
+<code class="docutils literal notranslate"><span class="pre">startOffset</span></code></p></td>
+<td><p>開始のノードとインデックス</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">endContainer</span></code>, <code class="docutils literal notranslate"><span class="pre">endOffset</span></code></p></td>
+<td><p>終了のノードとインデックス</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">collapsed</span></code></p></td>
+<td><p>範囲が空ならば <code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">commonAncestorContainer</span></code></p></td>
+<td><p>範囲内にあるノードすべての先祖であって最も若いノード</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="range-selection-methods">
+<h3>Range selection methods<a class="headerlink" href="#range-selection-methods" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">setStart</span></code>, <code class="docutils literal notranslate"><span class="pre">setEnd</span></code> で何でもできるが、範囲を操作するための便利なメソッドがたくさんある。いずれも <code class="docutils literal notranslate"><span class="pre">node</span></code> はテキストノード、要素のどちらでも構わない。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">setStart(node,</span> <span class="pre">offset)</span></code></p></td>
+<td><p>開始位置を <code class="docutils literal notranslate"><span class="pre">node</span></code> から <code class="docutils literal notranslate"><span class="pre">offset</span></code>
+番目とする</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">setStartBefore(node)</span></code></p></td>
+<td><p>開始位置を <code class="docutils literal notranslate"><span class="pre">node</span></code> の直前とする</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">setStartAfter(node)</span></code></p></td>
+<td><p>開始位置を <code class="docutils literal notranslate"><span class="pre">node</span></code> の直後とする</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">setEnd(node,</span> <span class="pre">offset)</span></code></p></td>
+<td><p>終了位置を <code class="docutils literal notranslate"><span class="pre">node</span></code> から <code class="docutils literal notranslate"><span class="pre">offset</span></code>
+番目の直前とする</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">setEndBefore(node)</span></code></p></td>
+<td><p>終了位置を <code class="docutils literal notranslate"><span class="pre">node</span></code> の直前とする</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">setEndAfter(node)</span></code></p></td>
+<td><p>終了位置を <code class="docutils literal notranslate"><span class="pre">node</span></code> の直後とする</p></td>
+</tr>
+</tbody>
+</table>
+<p>他にもこういうものがある：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 44%" />
+<col style="width: 56%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">selectNode(node)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">node</span></code> 全体を範囲とする</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">selectNodeContents(node)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">node</span></code>
+収容物全体を選択できる範囲とする</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">collapse(toStart)</span></code></p></td>
+<td><p>始点に合わせるか終点に合わせるかを指定して範囲を空にする</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cloneRange()</span></code></p></td>
+<td><p>範囲オブジェクトを複製する</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="range-editing-methods">
+<h3>Range editing methods<a class="headerlink" href="#range-editing-methods" title="Permalink to this headline">¶</a></h3>
+<p>範囲を操作するメソッドがいくつか用意されている。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">deleteContents()</span></code></p></td>
+<td><p>収容物をページから削除する</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">extractContents()</span></code></p></td>
+<td><p>収容物をページから取り除くと同時にそれを
+<code class="docutils literal notranslate"><span class="pre">DocumentFragment</span></code> として返す</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cloneContents()</span></code></p></td>
+<td><p>収容物を複製してそれを
+<code class="docutils literal notranslate"><span class="pre">DocumentFragment</span></code> として返す</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">insertNode(node)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">node</span></code> を範囲の先頭に挿し込む</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">surroundContents(node)</span></code></p></td>
+<td><p>範囲を <code class="docutils literal notranslate"><span class="pre">node</span></code> で囲む</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="selection">
+<h3>Selection<a class="headerlink" href="#selection" title="Permalink to this headline">¶</a></h3>
+<p>ページの選択範囲は <code class="docutils literal notranslate"><span class="pre">Selection</span></code> オブジェクトで表現される。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">window.getSelection()</span></code> や <code class="docutils literal notranslate"><span class="pre">document.getSelection()</span></code> で取得することができる。</p></li>
+<li><p>選択範囲には 0 個以上の <code class="docutils literal notranslate"><span class="pre">Range</span></code> を含めることができる。</p></li>
+</ul>
+</section>
+<section id="selection-properties">
+<h3>Selection properties<a class="headerlink" href="#selection-properties" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Selection</span></code> オブジェクトから <code class="docutils literal notranslate"><span class="pre">i</span></code> 番目の <code class="docutils literal notranslate"><span class="pre">Range</span></code> オブジェクトを得るにはメソッド <code class="docutils literal notranslate"><span class="pre">getRangeAt(i)</span></code> を使う。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Selection</span></code> の主なプロパティー：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 69%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">anchorNode</span></code></p></td>
+<td><p>選択がここで始めるというノード</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">anchorOffset</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">anchorNode</span></code> におけるインデックス</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">focusNode</span></code></p></td>
+<td><p>選択がここで終わるというノード</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">focusOffset</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">focusNode</span></code> におけるインデックス</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">isCollapsed</span></code></p></td>
+<td><p>選択が空ならば <code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rangeCount</span></code></p></td>
+<td><p>選択中にある範囲の個数</p></td>
+</tr>
+</tbody>
+</table>
+<p>アンカーとフォーカスの前後関係は固定されていない。</p>
+</section>
+<section id="selection-events">
+<h3>Selection events<a class="headerlink" href="#selection-events" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">elem.onselectstart</span></code>: 要素 <code class="docutils literal notranslate"><span class="pre">elem</span></code> 上で選択が開始されるときのイベント。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">document.onselectionchange</span></code>: 選択が変更または開始されたときのイベント。文書内の選択すべてを追跡する。</p></li>
+</ul>
+<section id="selection-tracking-demo">
+<h4>Selection tracking demo<a class="headerlink" href="#selection-tracking-demo" title="Permalink to this headline">¶</a></h4>
+<p>選択によってはアンカーもフォーカスも <code class="docutils literal notranslate"><span class="pre">undefined</span></code> となるようだ。</p>
+</section>
+<section id="selection-copying-demo">
+<h4>Selection copying demo<a class="headerlink" href="#selection-copying-demo" title="Permalink to this headline">¶</a></h4>
+<p>プレーンテキストとして複製するか、書式を保ちつつ複製するかで方法を変える。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">document.getSelection().toString()</span></code>: プレーンテキストとして内容を得る。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Selection</span></code> を構成する各 <code class="docutils literal notranslate"><span class="pre">Range</span></code> に対して <code class="docutils literal notranslate"><span class="pre">cloneContents()</span></code> を順次呼び出す。戻り値の <code class="docutils literal notranslate"><span class="pre">DocumentFragment</span></code> を得られた順に何かする。</p></li>
+</ul>
+</section>
+</section>
+<section id="selection-methods">
+<h3>Selection methods<a class="headerlink" href="#selection-methods" title="Permalink to this headline">¶</a></h3>
+<p>基本的なメソッド：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 65%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">getRangeAt(i)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">i</span></code> 番目の <code class="docutils literal notranslate"><span class="pre">Range</span></code> オブジェクト</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">addRange(range)</span></code></p></td>
+<td><p>（選択に含まれていない？）範囲を追加する</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">removeRange(range)</span></code></p></td>
+<td><p>指定の範囲を削除する</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">removeAllRanges()</span></code></p></td>
+<td><p>範囲すべてを削除する</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">empty()</span></code></p></td>
+<td><p>同上</p></td>
+</tr>
+</tbody>
+</table>
+<p>便利メソッド：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 38%" />
+<col style="width: 62%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>``
+collapse(node, offset)``</p></td>
+<td><p>現在の選択範囲を <code class="docutils literal notranslate"><span class="pre">node</span></code> の <code class="docutils literal notranslate"><span class="pre">offset</span></code>
+位置を指す空範囲とする</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">set</span>
+<span class="pre">Position(node,</span> <span class="pre">offset)</span></code></p></td>
+<td><p>同上</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">collapseToStart()</span></code></p></td>
+<td><p>選択を現在のそれの開始位置にある空範囲に縮める</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collapseToEnd()</span></code></p></td>
+<td><p>上の終了位置版</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">extend(node,</span> <span class="pre">offset)</span></code></p></td>
+<td><p>選択の focus を <code class="docutils literal notranslate"><span class="pre">node</span></code> の <code class="docutils literal notranslate"><span class="pre">offset</span></code>
+に動かす</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">setBaseAndExtent(anc</span>
+<span class="pre">horNode,</span> <span class="pre">anchorOffset,</span> <span class="pre">f</span>
+<span class="pre">ocusNode,</span> <span class="pre">focusOffset)</span></code></p></td>
+<td><p>いちばん詳細な指定で選択</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">s</span>
+<span class="pre">electAllChildren(node)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">node</span></code> の子すべてを選択する</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">deleteFromDocument()</span></code></p></td>
+<td><p>内容をページから削除する</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">conta</span>
+<span class="pre">insNode(node,</span> <span class="pre">allowParti</span>
+<span class="pre">alContainment</span> <span class="pre">=</span> <span class="pre">false)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">node</span></code> を含んでいるか</p></td>
+</tr>
+</tbody>
+</table>
+<p>置換でない方法のメソッドを使って選択を指定し直すときには、まず選択をリセットしてからメソッドを呼び出すのが安全だ。</p>
+</section>
+<section id="selection-in-form-controls">
+<h3>Selection in form controls<a class="headerlink" href="#selection-in-form-controls" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">INPUT</span></code> や <code class="docutils literal notranslate"><span class="pre">TEXTAREA</span></code> のようなフォーム要素は、より単純な API で選択を取り扱う。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 68%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">selectionStart</span></code></p></td>
+<td><p>選択開始位置</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">selectionEnd</span></code></p></td>
+<td><p>選択終了位置</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">selectionDirection</span></code></p></td>
+<td><p>選択方向を表す文字列 “forward”, “backward”, “none”</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 71%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Event</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">onselect</span></code></p></td>
+<td><p>何かが選択されたときのイベント</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">select()</span></code></p></td>
+<td><p>テキストボックスにあるすべてを選択する</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">setSelection</span>
+<span class="pre">Range(start,</span> <span class="pre">end,</span> <span class="pre">[direction])</span></code></p></td>
+<td><p>テキストを選択する</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">setRangeText(replacement,</span> <span class="pre">[s</span>
+<span class="pre">tart],</span> <span class="pre">[end],</span> <span class="pre">[selectionMode])</span></code></p></td>
+<td><p>テキスト範囲を置換する</p></td>
+</tr>
+</tbody>
+</table>
+<p>オプション引数 <code class="docutils literal notranslate"><span class="pre">selectionMode</span></code> は置換後の選択状態を指定する文字列だ：</p>
+<ul class="simple">
+<li><p>“select”: 新しいテキストが選択となる。</p></li>
+<li><p>“start”: 新しいテキストの先頭が選択（空）となる。</p></li>
+<li><p>“end”: 新しいテキストの末尾が選択（空）となる。</p></li>
+<li><p>“preserve”: なるべく選択を保つ。</p></li>
+</ul>
+<section id="example-tracking-selection">
+<h4>Example: tracking selection<a class="headerlink" href="#example-tracking-selection" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>イベント <code class="docutils literal notranslate"><span class="pre">onselect</span></code> は選択を削除した瞬間には発動しない。</p></li>
+<li><p>テキストボックス内の選択イベントは <code class="docutils literal notranslate"><span class="pre">document.onselectionchange</span></code> を引き起こさい。</p></li>
+</ul>
+</section>
+<section id="example-moving-cursor">
+<h4>Example: moving cursor<a class="headerlink" href="#example-moving-cursor" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">selectionStart</span></code> と <code class="docutils literal notranslate"><span class="pre">selectionEnd</span></code> を変更することで、選択範囲を設定することができる。両者を同じ値にすると、キャレットをその位置に移動させる。</p>
+</section>
+<section id="example-modifying-selection">
+<h4>Example: modifying selection<a class="headerlink" href="#example-modifying-selection" title="Permalink to this headline">¶</a></h4>
+<p>選択範囲の内容を変更するには、強力なメソッド <code class="docutils literal notranslate"><span class="pre">setRangeText</span></code> を使用する。</p>
+<ul class="simple">
+<li><p>最も単純な引数一つの呼び出しでは、ユーザーが選択した範囲を置換してから範囲を解除する。</p></li>
+<li><p>デモのように、すべての引数を指定すると置換後のテキストが選択される。</p></li>
+</ul>
+</section>
+<section id="example-insert-at-cursor">
+<h4>Example: insert at cursor<a class="headerlink" href="#example-insert-at-cursor" title="Permalink to this headline">¶</a></h4>
+<p>空範囲に対してメソッド <code class="docutils literal notranslate"><span class="pre">setRangeText</span></code> を使用すると、そこにテキストを追加することになる。</p>
+</section>
+</section>
+<section id="making-unselectable">
+<h3>Making unselectable<a class="headerlink" href="#making-unselectable" title="Permalink to this headline">¶</a></h3>
+<p>何かを選択不能にする三つの方法が述べられている。</p>
+<ul class="simple">
+<li><p>CSS で <code class="docutils literal notranslate"><span class="pre">user-select:</span> <span class="pre">none</span></code> を与える。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">onselectstart</span></code> または <code class="docutils literal notranslate"><span class="pre">onmousedown</span></code> イベントで既定の処理を無効化する。</p></li>
+<li><p>選択が起きた後に <code class="docutils literal notranslate"><span class="pre">document.getSelection().empty()</span></code> を呼び出す。</p></li>
+</ul>
+<p>最後の方法は画面がチカチカするなどの副作用があるので、まず使われない。</p>
+</section>
+</section>
+<section id="event-loop-microtasks-and-macrotasks">
+<h2><a class="toc-backref" href="#id4">Event loop: microtasks and macrotasks</a><a class="headerlink" href="#event-loop-microtasks-and-macrotasks" title="Permalink to this headline">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/event-loop">https://javascript.info/event-loop</a>&gt; のノート。</p>
+<p>ブラウザー JavaScript の実行フローはイベントループに基づく。</p>
+<section id="event-loop">
+<h3>Event Loop<a class="headerlink" href="#event-loop" title="Permalink to this headline">¶</a></h3>
+<p>JavaScript でもイベントループの概念は他言語のそれとまったく同じようだ。ほとんどの時間は何もしていない。スクリプト、ハンドラー、イベントがアクティブになった場合に実行されるだけだ。</p>
+<ul class="simple">
+<li><p>イベントループが持つタスクキューを v8 用語でマクロタスクキューと呼ぶ。</p></li>
+<li><p>エンジンがタスクを実行している間、レンダリングは決して行われない。タスクの処理時間の長さは問題にならない。タスクが完了してからでないと DOM に変更が加えられない。</p></li>
+<li><p>タスクに時間がかかりすぎると、ブラウザーは他のタスクができなくなる。そのため、時間が経つと Page Unresponsive などの警報を出し、ページ全体でタスクを終了させようと言う。</p></li>
+</ul>
+</section>
+<section id="use-case-1-splitting-cpu-hungry-tasks">
+<h3>Use-case 1: splitting CPU-hungry tasks<a class="headerlink" href="#use-case-1-splitting-cpu-hungry-tasks" title="Permalink to this headline">¶</a></h3>
+<p>CPU を食うタスクを小分けにしてキューに押し込む手法を考察している。
+<code class="docutils literal notranslate"><span class="pre">setTimeout()</span></code> で順次部分をキューに押し込むことで、タスク全体が画面をブロックするのを緩和する。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">setTimeout()</span></code> は最低でも 4ms 経過しないとコールバックをしない。そのため、スケジュールのタイミングにコツがいる。</p></li>
+</ul>
+</section>
+<section id="use-case-2-progress-indication">
+<h3>Use case 2: progress indication<a class="headerlink" href="#use-case-2-progress-indication" title="Permalink to this headline">¶</a></h3>
+<p>時間がかかるタスクを小分けにしないと、画面を更新する次の機会はタスク全体の終了後なので、プログレスバーのような進捗表示をすることができない。</p>
+</section>
+<section id="use-case-3-doing-something-after-the-event">
+<h3>Use case 3: doing something after the event<a class="headerlink" href="#use-case-3-doing-something-after-the-event" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">targ.dispatchEvent(event)</span></code> 呼び出しを <code class="docutils literal notranslate"><span class="pre">setTimeout()</span></code> でラップするパターンのおさらい。</p>
+</section>
+<section id="macrotasks-and-microtasks">
+<h3>Macrotasks and Microtasks<a class="headerlink" href="#macrotasks-and-microtasks" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>マクロタスクの他に、マイクロタスクという概念もある。</p></li>
+<li><p>マイクロタスクは私たちのコードからだけ発生する。それらは通常 <code class="docutils literal notranslate"><span class="pre">Promise</span></code> が生成する。
+<code class="docutils literal notranslate"><span class="pre">.then()</span></code>/<code class="docutils literal notranslate"><span class="pre">.catch()</span></code>/<code class="docutils literal notranslate"><span class="pre">.finally()</span></code> ハンドラーの実行がマイクロタスクになる。</p></li>
+<li><p>マイクロタスクは <code class="docutils literal notranslate"><span class="pre">await</span></code> の舞台裏としても使われる。</p></li>
+<li><p>特殊な関数 <code class="docutils literal notranslate"><span class="pre">queueMicrotask(func)</span></code> がある。関数 <code class="docutils literal notranslate"><span class="pre">func</span></code> の実行をマイクロタスクキューに待つ。</p></li>
+</ul>
+<p>すべてのマクロタスクの直後に、エンジンはマイクロタスクキューからすべてのタスクを実行する。他のマクロタスク、レンダリング、その他の何かを実行する前に、マイクロタスクを実行する。</p>
+<p>マイクロタスクはすべて、他のイベント処理、レンダリング、その他マクロタスクが行われる前に完了する。これは重要だ。マイクロタスク間でアプリケーション環境が基本的に同じであることが保証される。マウス座標の変更や新しいネットワークデータなどはない。</p>
+<ul class="simple">
+<li><p>ある関数を非同期で（現在のコードの後で）実行したいが、変更がレンダリングされたり新しいイベントが処理される前に実行したい場合は、関数 <code class="docutils literal notranslate"><span class="pre">queueMicrotask</span></code> を使ってスケジュールする。</p>
+<ul>
+<li><p>プログレスバーのコードで <code class="docutils literal notranslate"><span class="pre">setTimeout</span></code> の代わりに <code class="docutils literal notranslate"><span class="pre">queueMicrotask</span></code> を使うと、数字の表示が最後の一度きりになる。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="tasks">
+<h3>Tasks<a class="headerlink" href="#tasks" title="Permalink to this headline">¶</a></h3>
+<section id="what-will-be-the-output-of-this-code">
+<h4>What will be the output of this code?<a class="headerlink" href="#what-will-be-the-output-of-this-code" title="Permalink to this headline">¶</a></h4>
+<p>直接実行して結果を確認してからそれを解答とするのは論外だ。</p>
+</section>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../preliminary2014.html" title="ノート準備中書籍群 2014 年編"
+             >next</a></li>
+        <li class="right" >
+          <a href="05-loading.html" title="Document and resource loading"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >The Modern JavaScript Tutorial 読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Part 2 Browser: Document, Events, Interfaces</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Miscellaneous</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2022, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

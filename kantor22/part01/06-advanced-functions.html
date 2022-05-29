@@ -1,0 +1,796 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Advanced working with functions &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/prefab.css" />
+    
+    <script src="../../_static/mathjax-v3.js"></script>
+    <script src="../../_static/mermaid.js"></script>
+    
+    <link rel="next" title="Object properties configuration" href="07-object-properties.html" />
+    <link rel="prev" title="Data types" href="05-data-types.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="07-object-properties.html" title="Object properties configuration"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="05-data-types.html" title="Data types"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >The Modern JavaScript Tutorial 読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Part 1 The JavaScript language</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Advanced working with functions</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="advanced-working-with-functions">
+<h1><a class="toc-backref" href="#id6">Advanced working with functions</a><a class="headerlink" href="#advanced-working-with-functions" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#advanced-working-with-functions" id="id6">Advanced working with functions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#recursion-and-stack" id="id7">Recursion and stack</a></p></li>
+<li><p><a class="reference internal" href="#rest-parameters-and-spread-syntax" id="id8">Rest parameters and spread syntax</a></p></li>
+<li><p><a class="reference internal" href="#variable-scope-closure" id="id9">Variable scope, closure</a></p></li>
+<li><p><a class="reference internal" href="#the-old-var" id="id10">The old “var”</a></p></li>
+<li><p><a class="reference internal" href="#global-object" id="id11">Global object</a></p></li>
+<li><p><a class="reference internal" href="#function-object-nfe" id="id12">Function object, NFE</a></p></li>
+<li><p><a class="reference internal" href="#the-new-function-syntax" id="id13">The “new Function” syntax</a></p></li>
+<li><p><a class="reference internal" href="#scheduling-settimeout-and-setinterval" id="id14">Scheduling: setTimeout and setInterval</a></p></li>
+<li><p><a class="reference internal" href="#decorators-and-forwarding-call-apply" id="id15">Decorators and forwarding, call/apply</a></p></li>
+<li><p><a class="reference internal" href="#function-binding" id="id16">Function binding</a></p></li>
+<li><p><a class="reference internal" href="#arrow-functions-revisited" id="id17">Arrow functions revisited</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="recursion-and-stack">
+<h2><a class="toc-backref" href="#id7">Recursion and stack</a><a class="headerlink" href="#recursion-and-stack" title="Permalink to this headline">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/recursion">https://javascript.info/recursion</a>&gt; のノート。</p>
+<p>読者がプログラミングに慣れているならば、この章を読み飛ばせるだろうと言っているので、
+JavaScript の再帰関数の性質はよその言語と同じと思われる。</p>
+<section id="two-ways-of-thinking">
+<h3>Two ways of thinking<a class="headerlink" href="#two-ways-of-thinking" title="Permalink to this headline">¶</a></h3>
+<p>以前やった関数 <code class="docutils literal notranslate"><span class="pre">pow(x,</span> <span class="pre">n)</span></code> を引き合いに出して、再帰関数の仕組みを説明している。</p>
+<ul class="simple">
+<li><p>再帰関数のコードは、ループ版よりも短いのが普通だ。</p></li>
+<li><p>ネストされた呼び出しの最大数（最初のものを含む）は再帰深度と呼ばれる。</p></li>
+<li><dl class="simple">
+<dt>最大再帰深度は JavaScript エンジンによって制限されている。</dt><dd><p>10000 はあると期待できるようだ。</p>
+</dd>
+</dl>
+</li>
+<li><p>帰関数の呼び出しの深さの限界を伸ばす tail call optimization という概念は知らなんだ。</p></li>
+</ul>
+</section>
+<section id="the-execution-context-and-stack">
+<h3>The execution context and stack<a class="headerlink" href="#the-execution-context-and-stack" title="Permalink to this headline">¶</a></h3>
+<p>関数呼び出しに伴うデータ構造、実行コンテキストスタックの概念を述べている。</p>
+<section id="pow-2-3">
+<h4>pow(2, 3)<a class="headerlink" href="#pow-2-3" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">pow(2,</span> <span class="pre">3)</span></code> 呼び出しを例に、実行コンテキストスタックを模式的に説明している。</p>
+<p>関数呼び出しのときにはスタックにコンテキストが一つ積まれる。</p>
+</section>
+<section id="pow-2-2">
+<h4>pow(2, 2)<a class="headerlink" href="#pow-2-2" title="Permalink to this headline">¶</a></h4>
+<p>さらにコンテキストスタックにコンテキストが一つ積まれる。
+<code class="docutils literal notranslate"><span class="pre">pow(2,</span> <span class="pre">2)</span></code> のものが <code class="docutils literal notranslate"><span class="pre">pow(2,</span> <span class="pre">3)</span></code> のものの上に積まれる。</p>
+</section>
+<section id="pow-2-1">
+<h4>pow(2, 1)<a class="headerlink" href="#pow-2-1" title="Permalink to this headline">¶</a></h4>
+<p>さらに <code class="docutils literal notranslate"><span class="pre">pow(2,</span> <span class="pre">1)</span></code> のレコードが <code class="docutils literal notranslate"><span class="pre">pow(2,</span> <span class="pre">2)</span></code> のコンテキストの上に積まれる。</p>
+</section>
+<section id="the-exit">
+<h4>The exit<a class="headerlink" href="#the-exit" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">pow(2,</span> <span class="pre">1)</span></code> は base case なのでこれ以上の関数呼び出しを生じない。値を返すときに、スタックから <code class="docutils literal notranslate"><span class="pre">pow(2,</span> <span class="pre">1)</span></code> のコンテキストが下ろされる</p>
+<p>すると、スタックのてっぺんは <code class="docutils literal notranslate"><span class="pre">pow(2,</span> <span class="pre">2)</span></code> のコンテキストとなる。それから
+<code class="docutils literal notranslate"><span class="pre">pow(2,</span> <span class="pre">2)</span></code> の実行が再開されて、以下同様にしてスタックが小さくなっていく。</p>
+<ul class="simple">
+<li><p>再帰関数呼び出しがコンテキストスタックの管理に、一般に相当のメモリーを消費することを理解する。</p></li>
+<li><p>それゆえ、ループベースの関数はメモリーを節約できることを理解する。</p></li>
+<li><p>どんな再帰関数でもループで書ける。ループ版のほうが効率的であり得る。</p></li>
+</ul>
+</section>
+</section>
+<section id="recursive-traversals">
+<h3>Recursive traversals<a class="headerlink" href="#recursive-traversals" title="Permalink to this headline">¶</a></h3>
+<p>同じ構造のオブジェクトが入れ子になっているオブジェクトを扱う再帰関数を書く。この例では次の部分に注目する：</p>
+<ul class="simple">
+<li><p>対象オブジェクトの配列に対しては、それを確認するために <code class="docutils literal notranslate"><span class="pre">Array.isArray()</span></code>
+を呼び出す。今回の処理は集計なので、メソッド <code class="docutils literal notranslate"><span class="pre">reduce()</span></code> も有用だ。</p></li>
+<li><p>対象オブジェクトに対しては、 <code class="docutils literal notranslate"><span class="pre">for...of</span> <span class="pre">Object.values()</span></code> ループで全プロパティーの値を集計する。</p></li>
+</ul>
+</section>
+<section id="recursive-structures">
+<h3>Recursive structures<a class="headerlink" href="#recursive-structures" title="Permalink to this headline">¶</a></h3>
+<p>JavaScript の世界で再帰的構造データといえば、もちろん HTML 文書だ。</p>
+<section id="linked-list">
+<h4>Linked list<a class="headerlink" href="#linked-list" title="Permalink to this headline">¶</a></h4>
+<p>単方向リスト構造も再帰的構造データの一種だと言える。</p>
+<p>おそらく繰り返しになるからだろうが、アイテムを順次アクセスするコードが掲載されていない。</p>
+</section>
+</section>
+<section id="tasks">
+<h3>Tasks<a class="headerlink" href="#tasks" title="Permalink to this headline">¶</a></h3>
+<section id="sum-all-numbers-till-the-given-one">
+<h4>Sum all numbers till the given one<a class="headerlink" href="#sum-all-numbers-till-the-given-one" title="Permalink to this headline">¶</a></h4>
+<p>1 から <code class="docutils literal notranslate"><span class="pre">n</span></code> までの自然数の和を返す関数を三パターン書けという、たいへん基本的な問題だ。もちろん、ループを使う版と再帰関数版がパターンに含まれる。最後に和の公式を実装した
+O(1) オーダーのコードを書いて締める。</p>
+<p>もっとも、この演習問題の本質は計算時間の比較検討にあると思われる。さらに、スタックオーバーフローの実験もここでやってしまうか。</p>
+</section>
+<section id="calculate-factorial">
+<h4>Calculate factorial<a class="headerlink" href="#calculate-factorial" title="Permalink to this headline">¶</a></h4>
+<p>典型的な問題が続く。</p>
+</section>
+<section id="fibonacci-numbers">
+<h4>Fibonacci numbers<a class="headerlink" href="#fibonacci-numbers" title="Permalink to this headline">¶</a></h4>
+<p>典型的な問題がさらに続く。解説がひじょうに親切だ。</p>
+</section>
+<section id="output-a-single-linked-list">
+<h4>Output a single-linked list<a class="headerlink" href="#output-a-single-linked-list" title="Permalink to this headline">¶</a></h4>
+<p>ここでやるからさっきは単方向リストを扱うコードがなかったのだ。当然、再帰関数版とループ版を書く。</p>
+</section>
+<section id="output-a-single-linked-list-in-the-reverse-order">
+<h4>Output a single-linked list in the reverse order<a class="headerlink" href="#output-a-single-linked-list-in-the-reverse-order" title="Permalink to this headline">¶</a></h4>
+<p>再帰関数版のほうがループ版よりも自然な例を挙げろと言われたときのために、この問題を覚えておくと良さそうだ。自然な設定ではないのが難点だ。</p>
+</section>
+</section>
+</section>
+<section id="rest-parameters-and-spread-syntax">
+<h2><a class="toc-backref" href="#id8">Rest parameters and spread syntax</a><a class="headerlink" href="#rest-parameters-and-spread-syntax" title="Permalink to this headline">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/rest-parameters-spread">https://javascript.info/rest-parameters-spread</a>&gt; のノート。</p>
+<p>JavaScript の組み込み関数の多くは、任意の数の引数を受け付ける。ユーザー定義関数でも同じことができる。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">...</span></code> は仮引数にも実引数にも現れることがある。仮引数の場合は引数リストの最後になければならない。実引数の場合は、対象が配列であることを前提とする。要素が</p></li>
+</ul>
+<p>バラバラに並べたものに置き換わる。
+* 普通の関数の <code class="docutils literal notranslate"><span class="pre">arguments</span></code> は Bash とかのシェルのような着想？</p>
+<section id="rest-parameters">
+<h3>Rest parameters …<a class="headerlink" href="#rest-parameters" title="Permalink to this headline">¶</a></h3>
+<p>引数リストの最後の仮引数名の直前に <code class="docutils literal notranslate"><span class="pre">...</span></code> を付けると、この機能が有効になる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">showName</span><span class="p">(</span><span class="nx">firstName</span><span class="p">,</span> <span class="nx">lastName</span><span class="p">,</span> <span class="p">...</span><span class="nx">titles</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// function body</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>この場合、関数本体からは引数 <code class="docutils literal notranslate"><span class="pre">tiles</span></code> を配列としてアクセスする。</p>
+</section>
+<section id="the-arguments-variable">
+<h3>The “arguments” variable<a class="headerlink" href="#the-arguments-variable" title="Permalink to this headline">¶</a></h3>
+<p>通常形式の関数には <code class="docutils literal notranslate"><span class="pre">arguments</span></code> という、隠れた配列風オブジェクトにアクセス可能だ。これは関数に渡されたすべての引数からなる。</p>
+<ul class="simple">
+<li><p>旧式の機能だ。</p></li>
+<li><p>添字による参照とプロパティー <code class="docutils literal notranslate"><span class="pre">length</span></code> は使えるが、まともな配列メソッドはない。</p></li>
+<li><p>矢関数には <code class="docutils literal notranslate"><span class="pre">arguments</span></code> は存在しない。</p></li>
+</ul>
+</section>
+<section id="spread-syntax">
+<h3>Spread syntax<a class="headerlink" href="#spread-syntax" title="Permalink to this headline">¶</a></h3>
+<p>反復可能オブジェクトを「カンマ区切りの値の列」に変換する機能だと理解する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="mf">3</span><span class="p">,</span> <span class="mf">5</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mf">3</span><span class="p">,</span> <span class="mf">5</span><span class="p">,</span> <span class="mf">1</span><span class="p">];</span>
+<span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(...</span><span class="nx">arr</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mf">3</span><span class="p">,</span> <span class="mf">5</span><span class="p">,</span> <span class="mf">1</span><span class="p">];</span>
+<span class="kd">let</span> <span class="nx">arr2</span> <span class="o">=</span> <span class="p">[</span><span class="mf">8</span><span class="p">,</span> <span class="mf">9</span><span class="p">,</span> <span class="mf">15</span><span class="p">];</span>
+<span class="kd">let</span> <span class="nx">merged</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0</span><span class="p">,</span> <span class="p">...</span><span class="nx">arr</span><span class="p">,</span> <span class="mf">2</span><span class="p">,</span> <span class="p">...</span><span class="nx">arr2</span><span class="p">];</span>
+</pre></div>
+</div>
+</section>
+<section id="copy-an-array-object">
+<h3>Copy an array/object<a class="headerlink" href="#copy-an-array-object" title="Permalink to this headline">¶</a></h3>
+<p>配列やオブジェクトを複製するのに <code class="docutils literal notranslate"><span class="pre">...</span></code> を応用することができる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">,</span> <span class="mf">3</span><span class="p">];</span>
+<span class="kd">let</span> <span class="nx">arrCopy</span> <span class="o">=</span> <span class="p">[...</span><span class="nx">arr</span><span class="p">];</span>
+
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">a</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mf">2</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span> <span class="mf">3</span> <span class="p">};</span>
+<span class="kd">let</span> <span class="nx">objCopy</span> <span class="o">=</span> <span class="p">{</span> <span class="p">...</span><span class="nx">obj</span> <span class="p">};</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="variable-scope-closure">
+<h2><a class="toc-backref" href="#id9">Variable scope, closure</a><a class="headerlink" href="#variable-scope-closure" title="Permalink to this headline">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/closure">https://javascript.info/closure</a>&gt; のノート。</p>
+<ul class="simple">
+<li><p>JavaScript は関数指向言語。</p></li>
+<li><p>この章では変数は <code class="docutils literal notranslate"><span class="pre">let</span></code> または <code class="docutils literal notranslate"><span class="pre">const</span></code> で宣言されているものとする。</p></li>
+</ul>
+<section id="code-blocks">
+<h3>Code blocks<a class="headerlink" href="#code-blocks" title="Permalink to this headline">¶</a></h3>
+<p>変数のスコープは、それが宣言されたブロック内となる。</p>
+</section>
+<section id="nested-functions">
+<h3>Nested functions<a class="headerlink" href="#nested-functions" title="Permalink to this headline">¶</a></h3>
+<p>JavaScript ではある関数を定義するのに、別の関数の内側でそれをすることができる。</p>
+<ul class="simple">
+<li><p>入れ子になった関数は外側の変数にアクセスできる。</p></li>
+<li><p>入れ子になった関数は、新しいオブジェクトのプロパティーとして、あるいはそれ自体の結果として返すことができる。その関数はほかの場所で使用することができ、どこにいても同じ外部変数にアクセスできる。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">makeCounter</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">count</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">count</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="nx">counter</span> <span class="o">=</span> <span class="nx">makeCounter</span><span class="p">();</span>
+<span class="nx">counter</span><span class="p">();</span>
+<span class="nx">counter</span><span class="p">();</span>
+<span class="nx">counter</span><span class="p">();</span>
+</pre></div>
+</div>
+</section>
+<section id="lexical-environment">
+<h3>Lexical Environment<a class="headerlink" href="#lexical-environment" title="Permalink to this headline">¶</a></h3>
+<p>まともなプログラマーを目指すならば lexical environment の概念を習得したい。</p>
+<section id="step-1-variables">
+<h4>Step 1. Variables<a class="headerlink" href="#step-1-variables" title="Permalink to this headline">¶</a></h4>
+<p>実行中の関数、コードブロック、スクリプト全体は、それぞれが内部的な（表に出てこない）関連オブジェクトとして lexical environment と呼ばれるものと関連している。</p>
+<p>LE は二つの構成要素がある：</p>
+<ol class="arabic simple">
+<li><p>局所変数すべてをプロパティーとして保存するオブジェクト。これを environment
+record と呼ぶ。</p></li>
+<li><p>外側のコードに関連する LE への参照。</p></li>
+</ol>
+<p>細かい記述が続いているものの、本文のイラストで理解できる。</p>
+</section>
+<section id="step-2-function-declarations">
+<h4>Step 2. Function Declarations<a class="headerlink" href="#step-2-function-declarations" title="Permalink to this headline">¶</a></h4>
+<p>前に述べられたことを LE という言葉を使って言い直している：関数宣言は即座に完全に初期化される。
+LE が作られると、関数宣言はすぐに呼び出せる。これは <code class="docutils literal notranslate"><span class="pre">let</span></code> 変数とは対照的だ。そのため、関数宣言として宣言された関数は、宣言そのものよりも前に呼び出せる。</p>
+</section>
+<section id="step-3-inner-and-outer-lexical-environment">
+<h4>Step 3. Inner and outer Lexical Environment<a class="headerlink" href="#step-3-inner-and-outer-lexical-environment" title="Permalink to this headline">¶</a></h4>
+<p>関数が実行されると、呼び出しの最初に、新しい LE が自動的に作成され、呼び出しの局所変数と引数が保存される。</p>
+<p>関数呼び出しの際には、内側（関数呼び出し用）と外側（グローバル）の LE がそれぞれ存在する。</p>
+<p>コードが変数にアクセスしようとすると、まず内側の LE が検索され、次に外側の LE が検索され、さらに外側の LE が検索され、グローバル変数が検索される。もし変数がどこにも見つからなかったら、それは “use strict” モードではエラーだ。</p>
+</section>
+<section id="step-4-returning-a-function">
+<h4>Step 4. Returning a function<a class="headerlink" href="#step-4-returning-a-function" title="Permalink to this headline">¶</a></h4>
+<p>先ほどの関数 <code class="docutils literal notranslate"><span class="pre">makeCounter</span></code> で LE の更新を考察している。</p>
+<p>関数はすべて、それが作成された LE を記憶している。関数はすべて <code class="docutils literal notranslate"><span class="pre">[[Environment]]</span></code>
+という隠しプロパティーを持っていて、関数が作られた LE に対する参照を保持する。</p>
+<p>囲み記事で closure について説明している。次のことを押さえておくのがだいじだ：</p>
+<ul class="simple">
+<li><p>定義（外部の変数にアクセスできる関数）</p></li>
+<li><p>JavaScript のすべての関数が closure であること</p></li>
+<li><p>LE の概念</p></li>
+</ul>
+</section>
+</section>
+<section id="garbage-collection">
+<h3>Garbage collection<a class="headerlink" href="#garbage-collection" title="Permalink to this headline">¶</a></h3>
+<p>LE は関数呼び出しが終了すると、すべての変数とともにメモリーから削除されるのが通例だ。
+JavaScript における到達可能性ルールが LE にも適用される。</p>
+<p>ただし、関数の終了後も到達可能な入れ子関数がある場合、それは LE を参照する
+<code class="docutils literal notranslate"><span class="pre">[[Environment]]</span></code> プロパティーを持っている。その場合、LE は関数の終了後でも到達可能なので、生き続けることになる。</p>
+<section id="real-life-optimizations">
+<h4>Real-life optimizations<a class="headerlink" href="#real-life-optimizations" title="Permalink to this headline">¶</a></h4>
+<p>ブラウザーによっては、関数 LE を最適化する。副作用としてデバッガーで見えなくなる外側の変数が生じる。</p>
+</section>
+</section>
+<section id="tasks-1">
+<span id="id1"></span><h3>Tasks<a class="headerlink" href="#tasks-1" title="Permalink to this headline">¶</a></h3>
+<p>演習問題はすべて理解する。重要な概念なので問題数が多い。</p>
+<section id="does-a-function-pickup-latest-changes">
+<h4>Does a function pickup latest changes?<a class="headerlink" href="#does-a-function-pickup-latest-changes" title="Permalink to this headline">¶</a></h4>
+<p>この状況で出力されるのが “Pete” でなかったら驚く。</p>
+</section>
+<section id="which-variables-are-available">
+<h4>Which variables are available?<a class="headerlink" href="#which-variables-are-available" title="Permalink to this headline">¶</a></h4>
+<p>LE というか、変数のスコープの概念を正確に理解しているかを問うている。</p>
+</section>
+<section id="are-counters-independent">
+<h4>Are counters independent?<a class="headerlink" href="#are-counters-independent" title="Permalink to this headline">¶</a></h4>
+<p>本文を読んでいるときに少し頭によぎった疑問が問題になっている。
+<code class="docutils literal notranslate"><span class="pre">makeCounter()</span></code> を二度呼び出して、カウンターを二つ作ると、それぞれの呼び出しは（期待通りに）独立しているか？</p>
+</section>
+<section id="counter-object">
+<h4>Counter object<a class="headerlink" href="#counter-object" title="Permalink to this headline">¶</a></h4>
+<p>落とし穴がありそうでない問題。</p>
+</section>
+<section id="function-in-if">
+<h4>Function in if<a class="headerlink" href="#function-in-if" title="Permalink to this headline">¶</a></h4>
+<p>この関数はスコープが <code class="docutils literal notranslate"><span class="pre">if</span></code> ブロックに一致するので、それを抜けてからの呼び出しはエラーとなる。</p>
+</section>
+<section id="sum-with-closures">
+<h4>Sum with closures<a class="headerlink" href="#sum-with-closures" title="Permalink to this headline">¶</a></h4>
+<p>C/C++ 標準ライブラリーの <code class="docutils literal notranslate"><span class="pre">std::bind()</span></code> の考え方か。</p>
+</section>
+<section id="is-variable-visible">
+<h4>Is variable visible?<a class="headerlink" href="#is-variable-visible" title="Permalink to this headline">¶</a></h4>
+<p>この問題はエラーメッセージの内容を言い当てれば正解だな。</p>
+</section>
+<section id="filter-through-function">
+<h4>Filter through function<a class="headerlink" href="#filter-through-function" title="Permalink to this headline">¶</a></h4>
+<p>「関数を返す関数を書け」問題。早く慣れることだ。</p>
+</section>
+<section id="sort-by-field">
+<h4>Sort by field<a class="headerlink" href="#sort-by-field" title="Permalink to this headline">¶</a></h4>
+<p>これも「関数を返す関数を書け」問題。</p>
+</section>
+<section id="army-of-functions">
+<h4>Army of functions<a class="headerlink" href="#army-of-functions" title="Permalink to this headline">¶</a></h4>
+<p>問題文の関数がどうおかしいのか、原因もいっしょにすぐにわかる。しかし修正方法がよくわからない。正解は「局所変数を新しく設けて、一個外側の LE の変数のコピーを作る」だ。</p>
+</section>
+</section>
+</section>
+<section id="the-old-var">
+<h2><a class="toc-backref" href="#id10">The old “var”</a><a class="headerlink" href="#the-old-var" title="Permalink to this headline">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/var">https://javascript.info/var</a>&gt; のノート。</p>
+<ul class="simple">
+<li><p>自前のコードで <code class="docutils literal notranslate"><span class="pre">var</span></code> を使うことはない。</p></li>
+<li><p>古いスクリプトを <code class="docutils literal notranslate"><span class="pre">var</span></code> から <code class="docutils literal notranslate"><span class="pre">let</span></code> に移行するのであれば、違いを理解しておくことは重要だ。</p></li>
+</ul>
+<section id="var-has-no-block-scope">
+<h3>“var” has no block scope<a class="headerlink" href="#var-has-no-block-scope" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">var</span></code> 変数は関数スコープか大域スコープのどちらか一方をとる。だから、ブロックを貫通して見えると言っても、関数内の何らかのスコープで宣言された <code class="docutils literal notranslate"><span class="pre">var</span></code> 変数を関数の外側から見ることはできない。</p>
+</section>
+<section id="var-tolerates-redeclarations">
+<h3>“var” tolerates redeclarations<a class="headerlink" href="#var-tolerates-redeclarations" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">var</span></code> 変数は再宣言に耐える。エンジンが同一変数の二度目以降の <code class="docutils literal notranslate"><span class="pre">var</span></code> 宣言を単に無視するだけだ。</p>
+</section>
+<section id="var-variables-can-be-declared-below-their-use">
+<h3>“var” variables can be declared below their use<a class="headerlink" href="#var-variables-can-be-declared-below-their-use" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">var</span></code> 変数は、宣言位置がスコープの先頭にあったかのように扱われる。</p>
+</section>
+<section id="iife">
+<h3>IIFE<a class="headerlink" href="#iife" title="Permalink to this headline">¶</a></h3>
+<p>昔の JavaScript プログラマーは <code class="docutils literal notranslate"><span class="pre">var</span></code> 変数をどうしてもスコープに持たせたいときにはこのようにした：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">message</span> <span class="o">=</span> <span class="s2">&quot;Hello&quot;</span><span class="p">;</span>
+    <span class="c1">// ...</span>
+<span class="p">})();</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="global-object">
+<h2><a class="toc-backref" href="#id11">Global object</a><a class="headerlink" href="#global-object" title="Permalink to this headline">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/global-object">https://javascript.info/global-object</a>&gt; のノート。</p>
+<ul class="simple">
+<li><p>グローバルオブジェクトは、どこでも利用可能な変数や関数を提供する。言語や環境に組み込まれている。</p>
+<ul>
+<li><p>ブラウザーでは <code class="docutils literal notranslate"><span class="pre">window</span></code></p></li>
+<li><p>Node.js では <code class="docutils literal notranslate"><span class="pre">global</span></code></p></li>
+</ul>
+</li>
+<li><p>グローバルオブジェクトの標準的な名前は <code class="docutils literal notranslate"><span class="pre">globalThis</span></code> という。</p>
+<ul>
+<li><p>ブラウザーだと <code class="docutils literal notranslate"><span class="pre">window</span> <span class="pre">==</span> <span class="pre">globalThis</span></code> となる。</p></li>
+</ul>
+</li>
+</ul>
+<p>本章では環境がブラウザーであると仮定して <code class="docutils literal notranslate"><span class="pre">window</span></code> を使用する。</p>
+<ul class="simple">
+<li><p>グローバルオブジェクトのすべてのプロパティには直接アクセスできる。例えば
+<code class="docutils literal notranslate"><span class="pre">window.alert</span></code> でも <code class="docutils literal notranslate"><span class="pre">alert</span></code> でもいい。</p></li>
+<li><p>ブラウザーでは、グローバル関数や <code class="docutils literal notranslate"><span class="pre">var</span></code> 変数はグローバルオブジェクトのプロパティーとなる。</p></li>
+<li><p>グローバルオブジェクトにプロパティーを追加すると、やはりこれも直接アクセスできるようになる。</p></li>
+</ul>
+<p>グローバル変数は推奨されない。</p>
+<section id="using-for-polyfills">
+<h3>Using for polyfills<a class="headerlink" href="#using-for-polyfills" title="Permalink to this headline">¶</a></h3>
+<p>グローバルオブジェクトを利用して、最新の言語機能の対応状況をテストすることもできる。例えば <code class="docutils literal notranslate"><span class="pre">window.Promise</span> <span class="pre">===</span> <span class="pre">undefined;</span></code></p>
+</section>
+</section>
+<section id="function-object-nfe">
+<h2><a class="toc-backref" href="#id12">Function object, NFE</a><a class="headerlink" href="#function-object-nfe" title="Permalink to this headline">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/function-object">https://javascript.info/function-object</a>&gt; のノート。</p>
+<p>JavaScript では関数はオブジェクトだ。呼び出すだけでなく、プロパティーの追加や削除、参照渡しなど、オブジェクトとして扱うことができる。</p>
+<section id="the-name-property">
+<h3>The “name” property<a class="headerlink" href="#the-name-property" title="Permalink to this headline">¶</a></h3>
+<p>関数の属性 <code class="docutils literal notranslate"><span class="pre">name</span></code> はいつでも有効だ。かなり無茶な定義をしても名前が得られる。最悪でも空文字列が得られる。</p>
+</section>
+<section id="the-length-property">
+<h3>The “length” property<a class="headerlink" href="#the-length-property" title="Permalink to this headline">¶</a></h3>
+<p>関数の属性 <code class="docutils literal notranslate"><span class="pre">length</span></code> は引数リストの引数の個数に等しい。いつでも有効だ。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">...</span></code> のついた引数はこの個数に含まれない。</p></li>
+</ul>
+</section>
+<section id="custom-properties">
+<h3>Custom properties<a class="headerlink" href="#custom-properties" title="Permalink to this headline">¶</a></h3>
+<p>関数に対してプロパティーを勝手に定義できる。これは関数の局所変数とは別物だ。</p>
+<p>このようなプロパティーはしばしば closure の代わりになる。</p>
+</section>
+<section id="named-function-expression">
+<h3>Named Function Expression<a class="headerlink" href="#named-function-expression" title="Permalink to this headline">¶</a></h3>
+<p>NFE の何がありがたいのか。関数内部から自身を参照できるくらいか。</p>
+</section>
+<section id="tasks-2">
+<span id="id2"></span><h3>Tasks<a class="headerlink" href="#tasks-2" title="Permalink to this headline">¶</a></h3>
+<section id="set-and-decrease-for-counter">
+<h4>Set and decrease for counter<a class="headerlink" href="#set-and-decrease-for-counter" title="Permalink to this headline">¶</a></h4>
+<p>オリジナルの実装は次のもので、ここに処理を加えて <code class="docutils literal notranslate"><span class="pre">set(value)</span></code> や <code class="docutils literal notranslate"><span class="pre">decrease()</span></code>
+を呼び出せるようにする。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">makeCounter</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">function</span> <span class="nx">counter</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">counter</span><span class="p">.</span><span class="nx">count</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">};</span>
+
+    <span class="nx">counter</span><span class="p">.</span><span class="nx">count</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="nx">counter</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>ありがたいことにサンドボックスにはテストコードが付いている。</p>
+</section>
+<section id="sum-with-an-arbitrary-amount-of-brackets">
+<h4>Sum with an arbitrary amount of brackets<a class="headerlink" href="#sum-with-an-arbitrary-amount-of-brackets" title="Permalink to this headline">¶</a></h4>
+<p>関数を書いて、その <code class="docutils literal notranslate"><span class="pre">toString()</span></code> で現在の和を表示させるという着想か。</p>
+</section>
+</section>
+</section>
+<section id="the-new-function-syntax">
+<h2><a class="toc-backref" href="#id13">The “new Function” syntax</a><a class="headerlink" href="#the-new-function-syntax" title="Permalink to this headline">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/new-function">https://javascript.info/new-function</a>&gt; のノート。</p>
+<p>めったに利用されないが、実行時に関数を定義する機能がある。</p>
+<section id="syntax">
+<h3>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">sum</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Function</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;return a + b&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>最初から最後の一つ手前までの引数は仮引数名の配列を指定する。</p></li>
+<li><p>最後の引数は文字列で、関数本体のソースコードそのものを指定する。</p></li>
+</ul>
+<p>サーバーからコードを受け取るときや、複雑なウェブアプリケーションでテンプレートから関数を動的に定義するときなど、特殊な場合に使用される。</p>
+</section>
+<section id="closure">
+<h3>Closure<a class="headerlink" href="#closure" title="Permalink to this headline">¶</a></h3>
+<p>このようにしてできた関数の LE は特殊で、その隠しプロパティー <code class="docutils literal notranslate"><span class="pre">[[Environment]]</span></code>
+はグローバルのそれ固定となる。定義時の LE は考慮されない。</p>
+<ul class="simple">
+<li><p>あたかもグローバルスコープで関数が定義されたかのような扱いになるということだろう。</p></li>
+</ul>
+<p>これで作られた関数が外部の変数にアクセスするようなコードを含んでいると、
+minifier がそれをダメにする可能性が高い。</p>
+</section>
+</section>
+<section id="scheduling-settimeout-and-setinterval">
+<h2><a class="toc-backref" href="#id14">Scheduling: setTimeout and setInterval</a><a class="headerlink" href="#scheduling-settimeout-and-setinterval" title="Permalink to this headline">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/settimeout-setinterval">https://javascript.info/settimeout-setinterval</a>&gt; のノート。</p>
+<p>ある関数を今すぐには実行せず、未来のある時刻に実行することを決めることがある。これを呼び出し時間調整ということにする。</p>
+<p>まずは次の関数二つを習う：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">setTimeout</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">setInterval</span></code></p></li>
+</ul>
+<p>これらは JavaScript 仕様にないにも関わらず、ブラウザーすべてと Node.js が実装している。</p>
+<section id="settimeout">
+<h3>setTimeout<a class="headerlink" href="#settimeout" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">timerId</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">func</span><span class="o">|</span><span class="nx">code</span><span class="p">,</span> <span class="p">[</span><span class="nx">delay</span><span class="p">],</span> <span class="p">[</span><span class="nx">arg1</span><span class="p">],</span> <span class="p">[</span><span class="nx">arg2</span><span class="p">],</span> <span class="p">...);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">func</span></code> または <code class="docutils literal notranslate"><span class="pre">code</span></code> は呼び出し時間調整をする関数またはそのソースコード文字列。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">delay</span></code> は実行遅延時間。単位はミリ秒。デフォルトはゼロ。</p></li>
+<li><p>残りの引数は <code class="docutils literal notranslate"><span class="pre">func</span></code> または <code class="docutils literal notranslate"><span class="pre">code</span></code> の実引数</p></li>
+</ul>
+<section id="canceling-with-cleartimeout">
+<h4>Canceling with clearTimeout<a class="headerlink" href="#canceling-with-cleartimeout" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">setTimeout</span></code> の戻り値はタイマー ID であり、呼び出し時間調整を取り消すときに必要となる値だ。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">timerId</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="setinterval">
+<h3>setInterval<a class="headerlink" href="#setinterval" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">timerId</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(</span><span class="nx">func</span><span class="o">|</span><span class="nx">code</span><span class="p">,</span> <span class="p">[</span><span class="nx">delay</span><span class="p">],</span> <span class="p">[</span><span class="nx">arg1</span><span class="p">],</span> <span class="p">[</span><span class="nx">arg2</span><span class="p">],</span> <span class="p">...);</span>
+</pre></div>
+</div>
+<p>時間 <code class="docutils literal notranslate"><span class="pre">delay</span></code> が経過するたびに指定された関数を呼び出し、さらに時間 <code class="docutils literal notranslate"><span class="pre">delay</span></code> が経過するとまた呼び出す。これを繰り返す。</p>
+<p>呼び出し時間調整を取り消すには <code class="docutils literal notranslate"><span class="pre">clearInterval(timerId)</span></code> とする。</p>
+</section>
+<section id="nested-settimeout">
+<h3>Nested setTimeout<a class="headerlink" href="#nested-settimeout" title="Permalink to this headline">¶</a></h3>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">setInterval</span></code> は定期的に何かを実行し続けるのに利用できることがわかった。そのような方法はもう一つある。関数 <code class="docutils literal notranslate"><span class="pre">setTimer</span></code> を入れ子に仕掛ける方法だ。</p>
+<p>定期的というか、むしろ時間間隔を柔軟に調整できる手法だ。本文のリクエスト送信の擬似コードでは、入れ子になった方の <code class="docutils literal notranslate"><span class="pre">setTimer</span></code> の値 <code class="docutils literal notranslate"><span class="pre">delay</span></code> が倍増していく。</p>
+<p>入れ子 <code class="docutils literal notranslate"><span class="pre">setTimeout</span></code> 方式は、単体の <code class="docutils literal notranslate"><span class="pre">setInterval</span></code> よりも正確に実行間の遅延を設定することができる。このイラストが <code class="docutils literal notranslate"><span class="pre">delay</span></code> の意味を明確に説明している。前者は隣接する関数呼び出しの開始時刻同士の間隔が <code class="docutils literal notranslate"><span class="pre">delay</span></code> で、後者は隣接する関数呼び出しの終了時刻と開始時刻の間隔が <code class="docutils literal notranslate"><span class="pre">delay</span></code> だということだ。</p>
+<p><code class="docutils literal notranslate"><span class="pre">setInterval</span></code> で処理する関数の実行時間が <code class="docutils literal notranslate"><span class="pre">delay</span></code> よりも長い場合には、次の関数呼び出しは直ちに起こることになる。</p>
+<ul class="simple">
+<li><p>上記をよく覚えておく。</p></li>
+<li><p>囲み記事のキャンセルの重要性についても注目する。</p></li>
+</ul>
+</section>
+<section id="zero-delay-settimeout">
+<h3>Zero delay setTimeout<a class="headerlink" href="#zero-delay-settimeout" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">setTimeout(func,</span> <span class="pre">0)</span></code> の挙動について述べられている。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">delay</span></code> がゼロでなくても現在実行中のコードが終了してからでないと <code class="docutils literal notranslate"><span class="pre">func</span></code>
+が呼び出されないはずだ。</p></li>
+<li><p>ブラウザーでは、入れ子タイマーを実行できる頻度に制限がある。HTML5 標準では、五つの入れ子タイマーを実行したら、その間隔は最低でも 4 ミリ秒になるように強制されるとなっている。</p></li>
+</ul>
+</section>
+<section id="tasks-3">
+<span id="id3"></span><h3>Tasks<a class="headerlink" href="#tasks-3" title="Permalink to this headline">¶</a></h3>
+<section id="output-every-second">
+<h4>Output every second<a class="headerlink" href="#output-every-second" title="Permalink to this headline">¶</a></h4>
+<p>タイマーものはデバッグも動作検証も難しい。</p>
+</section>
+<section id="what-will-settimeout-show">
+<h4>What will setTimeout show?<a class="headerlink" href="#what-will-settimeout-show" title="Permalink to this headline">¶</a></h4>
+<p>これは本文の記述を理解できているかを確認するだけの問いだ。</p>
+</section>
+</section>
+</section>
+<section id="decorators-and-forwarding-call-apply">
+<h2><a class="toc-backref" href="#id15">Decorators and forwarding, call/apply</a><a class="headerlink" href="#decorators-and-forwarding-call-apply" title="Permalink to this headline">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/call-apply-decorators">https://javascript.info/call-apply-decorators</a>&gt; のノート。</p>
+<p>無視できない内容であるので、先に進むのを止めてコードをじっくり動かす。ここから何章か、コードをデバッガーで起動して言語の急所を体で覚える。</p>
+<ul class="simple">
+<li><p>何かのはずみで <code class="docutils literal notranslate"><span class="pre">this</span></code> が未定義になる症状。そういうときには <code class="docutils literal notranslate"><span class="pre">.call()</span></code> を思い出せ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.call()</span></code> の変種で <code class="docutils literal notranslate"><span class="pre">.apply()</span></code> というのがある。引数リストの形式が異なる。</p></li>
+<li><p>メソッドを「拝借する」イディオムが存在する。</p></li>
+</ul>
+<section id="transparent-caching">
+<h3>Transparent caching<a class="headerlink" href="#transparent-caching" title="Permalink to this headline">¶</a></h3>
+<p>入力された関数に対しておまけの処理を追加した関数を定義して、それを出力することがわかる。よくある Decorator パターンだ。</p>
+</section>
+<section id="using-func-call-for-the-context">
+<h3>Using “func.call” for the context<a class="headerlink" href="#using-func-call-for-the-context" title="Permalink to this headline">¶</a></h3>
+<p>先ほどのデコレーターにオブジェクトメソッドを入力するとエラーが起こる。関数には組み込みメソッド <code class="docutils literal notranslate"><span class="pre">call</span></code> があり、これを用いて明示的に関数を呼び出す必要があった。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">func</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="nx">arg1</span><span class="p">,</span> <span class="nx">arg2</span><span class="p">,</span> <span class="p">...);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>第一引数 <code class="docutils literal notranslate"><span class="pre">context</span></code> が指定するのが <code class="docutils literal notranslate"><span class="pre">func</span></code> 関数本体で <code class="docutils literal notranslate"><span class="pre">this</span></code> を参照するときに実際に参照されるものだ。</p></li>
+<li><p>第二引数以降が <code class="docutils literal notranslate"><span class="pre">func</span></code> への入力引数だ。</p></li>
+</ul>
+<p>本文の最初のデコレーター関数の <code class="docutils literal notranslate"><span class="pre">func</span></code> 呼び出しを <code class="docutils literal notranslate"><span class="pre">func.call</span></code> 呼び出しに置き換えると、入力がフリー関数でもオブジェクトメソッドでも正しく機能するようになる（コードを実行して実際に確認するといい）。</p>
+</section>
+<section id="going-multi-argument">
+<h3>Going multi-argument<a class="headerlink" href="#going-multi-argument" title="Permalink to this headline">¶</a></h3>
+<p>先ほどのデコレーターをより一般化する。 <code class="docutils literal notranslate"><span class="pre">func</span></code> の引数リストを任意にしたい。これには、以前学んだ <code class="docutils literal notranslate"><span class="pre">arguments</span></code> と <code class="docutils literal notranslate"><span class="pre">...</span></code> を組み合わせるとしっくり来る。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">func</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">...</span><span class="nx">arguments</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>キャッシュ処理には <code class="docutils literal notranslate"><span class="pre">Map</span></code> のキーを <code class="docutils literal notranslate"><span class="pre">func</span></code> の入力ではなく、入力全体のハッシュ値
+<code class="docutils literal notranslate"><span class="pre">hash(arguments)</span></code> とすることで対応されている。これは主題ではないので、当分忘れてしまっていいだろう。</p>
+</section>
+<section id="func-apply">
+<h3>func.apply<a class="headerlink" href="#func-apply" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">call</span></code> とよく似た <code class="docutils literal notranslate"><span class="pre">apply</span></code> が存在する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">func</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="p">...</span><span class="nx">args</span><span class="p">);</span>
+<span class="nx">func</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>これらの使い分けは、 <code class="docutils literal notranslate"><span class="pre">args</span></code> が反復可能でしかないか、配列風でしかないかで決めるのか。</p></li>
+<li><p>両方使える場合には <code class="docutils literal notranslate"><span class="pre">apply</span></code> のほうがおそらく高速だ。</p></li>
+</ul>
+</section>
+<section id="borrowing-a-method">
+<h3>Borrowing a method<a class="headerlink" href="#borrowing-a-method" title="Permalink to this headline">¶</a></h3>
+<p>配列風オブジェクト <code class="docutils literal notranslate"><span class="pre">arguments</span></code> に対して <code class="docutils literal notranslate"><span class="pre">join</span></code> を適用したいが、本物の配列ではないのでそのメソッドはない。そこで、次のように別の配列の <code class="docutils literal notranslate"><span class="pre">join</span></code> を間借りするために <code class="docutils literal notranslate"><span class="pre">call</span></code> を応用する：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">hash</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">[].</span><span class="nx">join</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="decorators-and-function-properties">
+<h3>Decorators and function properties<a class="headerlink" href="#decorators-and-function-properties" title="Permalink to this headline">¶</a></h3>
+<p>デコレーターパターンで注意することは、新しい関数では元の関数のプロパティーが失われていることだ。</p>
+</section>
+<section id="tasks-4">
+<span id="id4"></span><h3>Tasks<a class="headerlink" href="#tasks-4" title="Permalink to this headline">¶</a></h3>
+<section id="spy-decorator">
+<h4>Spy decorator<a class="headerlink" href="#spy-decorator" title="Permalink to this headline">¶</a></h4>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">func</span></code> へのすべての呼び出しを、その実引数のリストを覚えておくことで
+<code class="docutils literal notranslate"><span class="pre">calls</span></code> プロパティーに保存する。</p>
+<ul class="simple">
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">func.calls</span></code> を勝手に定義する。初期値を例えば空の配列とする。</p></li>
+<li><p>ラッパーの処理は次の二つからなる：</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">func.calls.push()</span></code> で、一度の呼び出しに対応するオリジナルの入力引数すべてを追加する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">func</span></code> をオリジナル引数で呼び出し、戻り値をそのまま返す。呼び出しには
+<code class="docutils literal notranslate"><span class="pre">func.call()</span></code> か <code class="docutils literal notranslate"><span class="pre">func.apply()</span></code> を利用する。今回は特に制約がないので、高速なほうの <code class="docutils literal notranslate"><span class="pre">apply</span></code> にするのが自然だ。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="delaying-decorator">
+<h4>Delaying decorator<a class="headerlink" href="#delaying-decorator" title="Permalink to this headline">¶</a></h4>
+<p>ほとんど <code class="docutils literal notranslate"><span class="pre">setTimeout</span></code> と同じ関数を作れということか。引数だけ変えて何度も呼び出すような状況では有用なのかもしれない。</p>
+</section>
+<section id="debounce-decorator">
+<h4>Debounce decorator<a class="headerlink" href="#debounce-decorator" title="Permalink to this headline">¶</a></h4>
+<p>まず <code class="docutils literal notranslate"><span class="pre">debounce</span></code> の仕様を理解する。短時間で連続するような呼び出しに対して、前回の呼び出しから指定時間以上経過している呼び出しだけを採用するようなデコレーターだ。</p>
+<p>急所は <code class="docutils literal notranslate"><span class="pre">setTimeout</span></code> を呼ぶ前に前回のタイマーを取り消すところだ。タイマー ID をデコレーターのスコープで保存しておく。</p>
+</section>
+<section id="throttle-decorator">
+<h4>Throttle decorator<a class="headerlink" href="#throttle-decorator" title="Permalink to this headline">¶</a></h4>
+<p>上のと同じインターフェイスの関数 <code class="docutils literal notranslate"><span class="pre">throttle</span></code> は、仕様がかなり異なる。
+<code class="docutils literal notranslate"><span class="pre">func</span></code> のラッパーが複数呼び出された場合、指定時間内に最大一回、 <code class="docutils literal notranslate"><span class="pre">func</span></code> を呼び出す。</p>
+<p>マウスイベントの追跡に応用する予定なので、できれば習得したいものだが、このコードがたいへん覚えにくい。</p>
+<ul class="simple">
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">throttle</span></code></p>
+<ul>
+<li><p>このスコープで保存しておく変数を宣言する。フラグと <code class="docutils literal notranslate"><span class="pre">this</span></code> と <code class="docutils literal notranslate"><span class="pre">arguments</span></code> の三点。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">wrapper</span></code> を定義し、それを出力とする。</p></li>
+</ul>
+</li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">wrapper</span></code></p>
+<ul>
+<li><p>フラグがオンのときに限り、呼び出すための引数を <code class="docutils literal notranslate"><span class="pre">throttle</span></code> のスコープに保存して終了。</p></li>
+<li><p>フラグをオンにする。</p></li>
+<li><p>オリジナル <code class="docutils literal notranslate"><span class="pre">func</span></code> を現在の実引数 <code class="docutils literal notranslate"><span class="pre">this</span></code> および <code class="docutils literal notranslate"><span class="pre">arguments</span></code> を入力として呼び出す。</p></li>
+<li><p>タイマーを仕込む。</p></li>
+</ul>
+</li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">setTimeout</span></code> のコールバック</p>
+<ul>
+<li><p>フラグをオフにする。</p></li>
+<li><p>呼び出すための引数がなぜか保存されていれば、それを <code class="docutils literal notranslate"><span class="pre">wrapper</span></code> に入力、呼び出す。</p></li>
+<li><p>呼び出すための引数をリセット。</p></li>
+</ul>
+</li>
+</ul>
+<p>オリジナルの <code class="docutils literal notranslate"><span class="pre">func</span></code> を呼び出す場合とラッパー版を呼び出す場合がある。タイマーに仕込むのは局所関数 <code class="docutils literal notranslate"><span class="pre">wrapper</span></code> のほうだ。相当複雑だ。</p>
+</section>
+</section>
+</section>
+<section id="function-binding">
+<h2><a class="toc-backref" href="#id16">Function binding</a><a class="headerlink" href="#function-binding" title="Permalink to this headline">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/bind">https://javascript.info/bind</a>&gt; のノート。</p>
+<p><code class="docutils literal notranslate"><span class="pre">this</span></code> が失われる現象を述べるのはこの章だった。</p>
+<section id="losing-this">
+<h3>Losing “this”<a class="headerlink" href="#losing-this" title="Permalink to this headline">¶</a></h3>
+<p>現象のおさらい。次のコードが <code class="docutils literal notranslate"><span class="pre">undefined</span></code> を出すとする：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">user</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">firstName</span><span class="o">:</span> <span class="s2">&quot;John&quot;</span><span class="p">,</span>
+    <span class="nx">sayHi</span><span class="p">(){</span>
+        <span class="nx">lert</span><span class="p">(</span><span class="sb">`Hello, </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">firstName</span><span class="si">}</span><span class="sb">!`</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="nx">setTimeout</span><span class="p">(</span><span class="nx">user</span><span class="p">.</span><span class="nx">sayHi</span><span class="p">,</span> <span class="mf">1000</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="solution-1-a-wrapper">
+<h3>Solution 1: a wrapper<a class="headerlink" href="#solution-1-a-wrapper" title="Permalink to this headline">¶</a></h3>
+<p>関数ブロックで包む：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span><span class="nx">user</span><span class="p">.</span><span class="nx">sayHi</span><span class="p">();},</span> <span class="mf">1000</span><span class="p">);</span>
+
+<span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">user</span><span class="p">.</span><span class="nx">sayHi</span><span class="p">(),</span> <span class="mf">1000</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="solution-2-bind">
+<h3>Solution 2: bind<a class="headerlink" href="#solution-2-bind" title="Permalink to this headline">¶</a></h3>
+<p>上の単純な解法は実はわずかに脆弱なところがある。一秒経つ前に <code class="docutils literal notranslate"><span class="pre">user</span></code> が別のオブジェクトを指す可能性が否定できない。このあとの <code class="docutils literal notranslate"><span class="pre">askPassword()</span></code> の演習問題は上の方法を使いたくなるが、 <code class="docutils literal notranslate"><span class="pre">bind()</span></code> を採用する版に比べて品質が劣る。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">sayHi</span> <span class="o">=</span> <span class="nx">user</span><span class="p">.</span><span class="nx">sayHi</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">user</span><span class="p">);</span>
+<span class="c1">// ...</span>
+<span class="nx">setTimeout</span><span class="p">(</span><span class="nx">sayHi</span><span class="p">,</span> <span class="mf">1000</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">bind()</span></code> の意味は難しくない。指定されたものを <code class="docutils literal notranslate"><span class="pre">this</span></code> とする。というか、もしかすると C++ のそれと同じことをやっているのかもしれない。</p>
+</section>
+<section id="partial-functions">
+<h3>Partial functions<a class="headerlink" href="#partial-functions" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">bind</span></code> できるのは <code class="docutils literal notranslate"><span class="pre">this</span></code> に限らない。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">bound</span> <span class="o">=</span> <span class="nx">func</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="p">[</span><span class="nx">arg1</span><span class="p">],</span> <span class="p">[</span><span class="nx">arg2</span><span class="p">],</span> <span class="p">...);</span>
+</pre></div>
+</div>
+</section>
+<section id="going-partial-without-context">
+<h3>Going partial without context<a class="headerlink" href="#going-partial-without-context" title="Permalink to this headline">¶</a></h3>
+<p>次のような呼び出しが有効である関数 <code class="docutils literal notranslate"><span class="pre">partial</span></code> を実装することができる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">user</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">firstName</span><span class="o">:</span> <span class="s2">&quot;John&quot;</span><span class="p">,</span>
+    <span class="nx">say</span><span class="p">(</span><span class="nx">time</span><span class="p">,</span> <span class="nx">phrase</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="sb">`[</span><span class="si">${</span><span class="nx">time</span><span class="si">}</span><span class="sb">] </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">firstName</span><span class="si">}</span><span class="sb">: </span><span class="si">${</span><span class="nx">phrase</span><span class="si">}</span><span class="sb">!`</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="nx">partial</span><span class="p">(</span><span class="nx">user</span><span class="p">.</span><span class="nx">say</span><span class="p">,</span> <span class="ow">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getHours</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;:&#39;</span> <span class="o">+</span> <span class="ow">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getMinutes</span><span class="p">());</span>
+</pre></div>
+</div>
+</section>
+<section id="tasks-5">
+<span id="id5"></span><h3>Tasks<a class="headerlink" href="#tasks-5" title="Permalink to this headline">¶</a></h3>
+<section id="bound-function-as-a-method">
+<h4>Bound function as a method<a class="headerlink" href="#bound-function-as-a-method" title="Permalink to this headline">¶</a></h4>
+<p>ブラウザーのコンソールで試すときには、”use strict” モードでの結果がこの解答に一致する。</p>
+</section>
+<section id="second-bind">
+<h4>Second bind<a class="headerlink" href="#second-bind" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">bind</span></code> の戻り値をさらに <code class="docutils literal notranslate"><span class="pre">bind</span></code> するとどうなるかという問題。こういうのを思いつくようにならないといけない。</p>
+</section>
+<section id="function-property-after-bind">
+<h4>Function property after bind<a class="headerlink" href="#function-property-after-bind" title="Permalink to this headline">¶</a></h4>
+<p>デコレーターパターンの法則のようなもので、オリジナルのプロパティーは失われる。</p>
+</section>
+<section id="fix-a-function-that-loses-this">
+<h4>Fix a function that loses “this”<a class="headerlink" href="#fix-a-function-that-loses-this" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">bind</span></code> を使って <code class="docutils literal notranslate"><span class="pre">this</span></code> を固定する方法を確かに習得したかを問う。
+<code class="docutils literal notranslate"><span class="pre">this</span></code> のためのオブジェクトを二回書く必要がある。</p>
+</section>
+<section id="partial-application-for-login">
+<h4>Partial application for login<a class="headerlink" href="#partial-application-for-login" title="Permalink to this headline">¶</a></h4>
+<p>さらに、引数を伴う <code class="docutils literal notranslate"><span class="pre">bind</span></code> の書き方を確認する問題。</p>
+</section>
+</section>
+<section id="comments">
+<h3>Comments<a class="headerlink" href="#comments" title="Permalink to this headline">¶</a></h3>
+<p>コメント欄に <code class="docutils literal notranslate"><span class="pre">bind</span></code> と前節の <code class="docutils literal notranslate"><span class="pre">call</span></code>/<code class="docutils literal notranslate"><span class="pre">apply</span></code> との違いを端的に述べている人がいて良い。</p>
+</section>
+</section>
+<section id="arrow-functions-revisited">
+<h2><a class="toc-backref" href="#id17">Arrow functions revisited</a><a class="headerlink" href="#arrow-functions-revisited" title="Permalink to this headline">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/arrow-functions">https://javascript.info/arrow-functions</a>&gt; のノート。</p>
+<p>矢関数はコンテキスト不要な条件のときに採用するのがよい。</p>
+<section id="arrow-functions-have-no-this">
+<h3>Arrow functions have no “this”<a class="headerlink" href="#arrow-functions-have-no-this" title="Permalink to this headline">¶</a></h3>
+<p>矢関数には <code class="docutils literal notranslate"><span class="pre">this</span></code> がない。それを矢関数の内側から参照しようとすると、外側にあるそれを参照しに行く。</p>
+<p>矢関数を <code class="docutils literal notranslate"><span class="pre">new</span></code> を伴う形で呼び出すことはできない。つまり constructor として利用することができない。</p>
+</section>
+<section id="arrows-have-no-arguments">
+<h3>Arrows have no “arguments”<a class="headerlink" href="#arrows-have-no-arguments" title="Permalink to this headline">¶</a></h3>
+<p>矢関数には <code class="docutils literal notranslate"><span class="pre">arguments</span></code> がない。それを矢関数の内側から参照しようとすると、外側にあるそれを参照しに行く。</p>
+<p>この性質をデコレーターを書くときに利用することができる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">defer</span><span class="p">(</span><span class="nx">f</span><span class="p">,</span> <span class="nx">ms</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">f</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">),</span> <span class="nx">ms</span><span class="p">);</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="07-object-properties.html" title="Object properties configuration"
+             >next</a></li>
+        <li class="right" >
+          <a href="05-data-types.html" title="Data types"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >The Modern JavaScript Tutorial 読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Part 1 The JavaScript language</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Advanced working with functions</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2022, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

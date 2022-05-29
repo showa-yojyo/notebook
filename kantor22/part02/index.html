@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Part 2 Browser: Document, Events, Interfaces &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/prefab.css" />
+    
+    <script src="../../_static/mathjax-v3.js"></script>
+    <script src="../../_static/mermaid.js"></script>
+    
+    <link rel="next" title="Document" href="01-document.html" />
+    <link rel="prev" title="Miscellaneous" href="../part01/14-js-misc.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="01-document.html" title="Document"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="../part01/14-js-misc.html" title="Miscellaneous"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">The Modern JavaScript Tutorial 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Part 2 Browser: Document, Events, Interfaces</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="part-2-browser-document-events-interfaces">
+<h1>Part 2 Browser: Document, Events, Interfaces<a class="headerlink" href="#part-2-browser-document-events-interfaces" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://javascript.info/">The Modern JavaScript Tutorial</a> Part 2 ノート。</p>
+<p>この言語の華は何と言っても DOM 操作だ。この技術を習得すれば、ブラウザーを利用したインターネット上の作業効率が飛躍的に向上する。</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="01-document.html">Document</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="01-document.html#browser-environment-specs">Browser environment, specs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01-document.html#dom-tree">DOM tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01-document.html#walking-the-dom">Walking the DOM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01-document.html#searching-getelement-queryselector">Searching: <code class="docutils literal notranslate"><span class="pre">getElement*</span></code>, <code class="docutils literal notranslate"><span class="pre">querySelector*</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="01-document.html#node-properties-type-tag-and-contents">Node properties: type, tag and contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01-document.html#attributes-and-properties">Attributes and properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01-document.html#modifying-the-document">Modifying the document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01-document.html#styles-and-classes">Styles and classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01-document.html#element-size-and-scrolling">Element size and scrolling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01-document.html#window-sizes-and-scrolling">Window sizes and scrolling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01-document.html#coordinates">Coordinates</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="02-events.html">Introduction to Events</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="02-events.html#introduction-to-browser-events">Introduction to browser events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02-events.html#bubbling-and-capturing">Bubbling and capturing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02-events.html#event-delegation">Event delegation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02-events.html#browser-default-actions">Browser default actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02-events.html#dispatching-custom-events">Dispatching custom events</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="03-event-details.html">UI Events</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="03-event-details.html#mouse-events">Mouse events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03-event-details.html#moving-the-mouse-mouseover-out-mouseenter-leave">Moving the mouse: mouseover/out, mouseenter/leave</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03-event-details.html#drag-n-drop-with-mouse-events">Drag’n’Drop with mouse events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03-event-details.html#pointer-events">Pointer events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03-event-details.html#keyboard-keydown-and-keyup">Keyboard: keydown and keyup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03-event-details.html#scrolling">Scrolling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="04-forms-controls.html">Forms, controls</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="04-forms-controls.html#form-properties-and-methods">Form properties and methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04-forms-controls.html#focusing-focus-blur">Focusing: focus/blur</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04-forms-controls.html#events-change-input-cut-copy-paste">Events: change, input, cut, copy, paste</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04-forms-controls.html#forms-event-and-method-submit">Forms: event and method submit</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="05-loading.html">Document and resource loading</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="05-loading.html#page-domcontentloaded-load-beforeunload-unload">Page: DOMContentLoaded, load, beforeunload, unload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05-loading.html#scripts-async-defer">Scripts: async, defer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05-loading.html#resource-loading-onload-and-onerror">Resource loading: onload and onerror</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="06-ui-misc.html">Miscellaneous</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="06-ui-misc.html#mutation-observer">Mutation observer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06-ui-misc.html#selection-and-range">Selection and Range</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06-ui-misc.html#event-loop-microtasks-and-macrotasks">Event loop: microtasks and macrotasks</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="01-document.html" title="Document"
+             >next</a></li>
+        <li class="right" >
+          <a href="../part01/14-js-misc.html" title="Miscellaneous"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >The Modern JavaScript Tutorial 読書ノート</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Part 2 Browser: Document, Events, Interfaces</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2022, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

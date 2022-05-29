@@ -1,0 +1,881 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>JavaScript Fundamentals &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/prefab.css" />
+    
+    <script src="../../_static/mathjax-v3.js"></script>
+    <script src="../../_static/mermaid.js"></script>
+    
+    <link rel="next" title="Code quality" href="03-code-quality.html" />
+    <link rel="prev" title="An introduction" href="01-getting-started.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="03-code-quality.html" title="Code quality"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="01-getting-started.html" title="An introduction"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >The Modern JavaScript Tutorial 読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Part 1 The JavaScript language</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">JavaScript Fundamentals</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="javascript-fundamentals">
+<h1><a class="toc-backref" href="#id15">JavaScript Fundamentals</a><a class="headerlink" href="#javascript-fundamentals" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#javascript-fundamentals" id="id15">JavaScript Fundamentals</a></p>
+<ul>
+<li><p><a class="reference internal" href="#hello-world" id="id16">Hello, world!</a></p></li>
+<li><p><a class="reference internal" href="#code-structure" id="id17">Code structure</a></p></li>
+<li><p><a class="reference internal" href="#the-modern-mode-use-strict" id="id18">The modern mode, “use strict”</a></p></li>
+<li><p><a class="reference internal" href="#variables" id="id19">Variables</a></p></li>
+<li><p><a class="reference internal" href="#data-types" id="id20">Data types</a></p></li>
+<li><p><a class="reference internal" href="#interaction-alert-prompt-confirm" id="id21">Interaction: alert, prompt, confirm</a></p></li>
+<li><p><a class="reference internal" href="#type-conversions" id="id22">Type Conversions</a></p></li>
+<li><p><a class="reference internal" href="#basic-operators-maths" id="id23">Basic operators, maths</a></p></li>
+<li><p><a class="reference internal" href="#comparisons" id="id24">Comparisons</a></p></li>
+<li><p><a class="reference internal" href="#conditional-branching-if" id="id25">Conditional branching: if, ‘?’</a></p></li>
+<li><p><a class="reference internal" href="#logical-operators" id="id26">Logical operators</a></p></li>
+<li><p><a class="reference internal" href="#nullish-coalescing-operator" id="id27">Nullish coalescing operator ‘??’</a></p></li>
+<li><p><a class="reference internal" href="#loops-while-and-for" id="id28">Loops: while and for</a></p></li>
+<li><p><a class="reference internal" href="#the-switch-statement" id="id29">The “switch” statement</a></p></li>
+<li><p><a class="reference internal" href="#functions" id="id30">Functions</a></p></li>
+<li><p><a class="reference internal" href="#function-expressions" id="id31">Function expressions</a></p></li>
+<li><p><a class="reference internal" href="#arrow-functions-the-basics" id="id32">Arrow functions, the basics</a></p></li>
+<li><p><a class="reference internal" href="#javascript-specials" id="id33">JavaScript specials</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="hello-world">
+<h2><a class="toc-backref" href="#id16">Hello, world!</a><a class="headerlink" href="#hello-world" title="Permalink to this headline">¶</a></h2>
+<p>JavaScript をブラウザーを使って学んでいく。</p>
+<section id="the-script-tag">
+<h3>The script tag<a class="headerlink" href="#the-script-tag" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>HTML コードにおける <code class="docutils literal notranslate"><span class="pre">SCRIPT</span></code> タグの書き方</p></li>
+<li><p>スクリプトファイルをロードするための書き方</p></li>
+<li><p>メッセージ表示は関数 <code class="docutils literal notranslate"><span class="pre">alert()</span></code> を当面使う。</p></li>
+</ul>
+</section>
+<section id="modern-markup">
+<h3>Modern markup<a class="headerlink" href="#modern-markup" title="Permalink to this headline">¶</a></h3>
+<p>古の記法を紹介している。</p>
+</section>
+<section id="external-scripts">
+<h3>External scripts<a class="headerlink" href="#external-scripts" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">SCRIPT</span></code> タグの <code class="docutils literal notranslate"><span class="pre">src</span></code> 属性の意味と、その値がある場合にはタグの子部分は無視されることを説明。</p>
+</section>
+<section id="tasks">
+<h3>Tasks<a class="headerlink" href="#tasks" title="Permalink to this headline">¶</a></h3>
+<section id="show-an-alert">
+<h4>Show an alert<a class="headerlink" href="#show-an-alert" title="Permalink to this headline">¶</a></h4>
+<p>問題はもう解けている。サンドボックスの使い方に慣れるのを目的とする。</p>
+</section>
+<section id="show-an-alert-with-an-external-script">
+<h4>Show an alert with an external script<a class="headerlink" href="#show-an-alert-with-an-external-script" title="Permalink to this headline">¶</a></h4>
+<p>これは前の問題のサンドボックスで作業するといい。</p>
+</section>
+</section>
+</section>
+<section id="code-structure">
+<h2><a class="toc-backref" href="#id17">Code structure</a><a class="headerlink" href="#code-structure" title="Permalink to this headline">¶</a></h2>
+<section id="statements">
+<h3>Statements<a class="headerlink" href="#statements" title="Permalink to this headline">¶</a></h3>
+<p>C/C++ と同様。</p>
+</section>
+<section id="semicolons">
+<h3>Semicolons<a class="headerlink" href="#semicolons" title="Permalink to this headline">¶</a></h3>
+<p>セミコロンの扱いが他言語とかなり異なる。コメント欄には異端だと言い切る人さえいる。もっとも、statement のケツに必ず置くように習慣づければ、どうということはない。</p>
+</section>
+<section id="comments">
+<h3>Comments<a class="headerlink" href="#comments" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>コメントは C/C++ 方式。</p></li>
+<li><p>テキストエディターだとショートカットキー一発で on/off できるはずだとある。</p></li>
+</ul>
+</section>
+</section>
+<section id="the-modern-mode-use-strict">
+<h2><a class="toc-backref" href="#id18">The modern mode, “use strict”</a><a class="headerlink" href="#the-modern-mode-use-strict" title="Permalink to this headline">¶</a></h2>
+<p>ECMAScript 5 (ES5) は JavaScript に新しい機能を追加し、既存の機能のいくつかを修正した。古いコードの動作を維持するため、こうした変更のほとんどはデフォルトではオフになっている。特別なディレクティブである “use strict” で明示的に有効にする必要がある。</p>
+<section id="use-strict">
+<h3>“use strict”<a class="headerlink" href="#use-strict" title="Permalink to this headline">¶</a></h3>
+<p>この単なる文字列で表されるディレクティブ？をスクリプトの一行目に書くようにする。</p>
+</section>
+<section id="browser-console">
+<h3>Browser console<a class="headerlink" href="#browser-console" title="Permalink to this headline">¶</a></h3>
+<p>ブラウザーの開発ツールのコンソールで “use strict” するのに、単一コマンド行では意味がない。</p>
+</section>
+<section id="should-we-use-strict">
+<h3>Should we “use strict”?<a class="headerlink" href="#should-we-use-strict" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>クラスやモジュールでは自動的に “use strict” モードなので、明示的に書くものではない。</p></li>
+<li><p>本書では断りのない限り “use strict” モードであることを想定している。</p></li>
+</ul>
+</section>
+</section>
+<section id="variables">
+<h2><a class="toc-backref" href="#id19">Variables</a><a class="headerlink" href="#variables" title="Permalink to this headline">¶</a></h2>
+<p>変数概念に関する記述。宣言と定義を同時に行えるなど、他言語の変数概念と大きく違うようなことはない。</p>
+<section id="a-variable">
+<h3>A variable<a class="headerlink" href="#a-variable" title="Permalink to this headline">¶</a></h3>
+<p>キーワード <code class="docutils literal notranslate"><span class="pre">let</span></code> を用いて変数を宣言することができる。</p>
+<ul class="simple">
+<li><p>他の言語と同様に、宣言と同時に値を定義することができる。</p></li>
+<li><p>単一の <code class="docutils literal notranslate"><span class="pre">let</span></code> と複数のカンマを用いて、一度に複数の変数を宣言することもできる。</p></li>
+<li><p>古いコードで <code class="docutils literal notranslate"><span class="pre">var</span></code> 変数を見かけるが、これは自分ではやらないようにすること。</p></li>
+</ul>
+</section>
+<section id="a-real-life-analogy">
+<h3>A real-life analogy<a class="headerlink" href="#a-real-life-analogy" title="Permalink to this headline">¶</a></h3>
+<p>パッと見た感じでは Python の普通の変数に似ている。</p>
+<ul class="simple">
+<li><p>囲み記事。関数プログラミング言語では、変数の更新が禁止されているという説明が興味深い。</p></li>
+</ul>
+</section>
+<section id="variable-naming">
+<h3>Variable naming<a class="headerlink" href="#variable-naming" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>JavaScript の仕様から来る変数名の制限、大文字と小文字を区別する、予約語は識別子として利用できない、など。</p></li>
+<li><p>慣習として、変数名をキャメルケースで与える様式が一般的だ。</p></li>
+<li><p>ラテン文字ではない識別子も許されているが、おすすめされないこと。</p></li>
+<li><p>“use strict” モードは、宣言されていない変数への値の代入がエラーとなる。</p></li>
+</ul>
+</section>
+<section id="constants">
+<h3>Constants<a class="headerlink" href="#constants" title="Permalink to this headline">¶</a></h3>
+<p>値が変化しない変数を定数という。これは <code class="docutils literal notranslate"><span class="pre">let</span></code> の代わりにキーワード <code class="docutils literal notranslate"><span class="pre">const</span></code>
+で宣言されるものだ。</p>
+<ul class="simple">
+<li><p>しばらくコードを書くと感じるが、C/C++ のそれとは意味が異なる。</p></li>
+</ul>
+<section id="uppercase-constants">
+<h4>Uppercase constants<a class="headerlink" href="#uppercase-constants" title="Permalink to this headline">¶</a></h4>
+<p>定数定義を二種類に分類しているのは興味深い。言われてみるとこの命名法はしっくりくる。</p>
+</section>
+</section>
+<section id="name-things-right">
+<h3>Name things right<a class="headerlink" href="#name-things-right" title="Permalink to this headline">¶</a></h3>
+<p>命名規則についての常識的な記述。</p>
+</section>
+<section id="tasks-1">
+<span id="id1"></span><h3>Tasks<a class="headerlink" href="#tasks-1" title="Permalink to this headline">¶</a></h3>
+<section id="working-with-variables">
+<h4>Working with variables<a class="headerlink" href="#working-with-variables" title="Permalink to this headline">¶</a></h4>
+<p>プログラマーでこれを理解していないということはあり得ない。</p>
+</section>
+<section id="giving-the-right-name">
+<h4>Giving the right name<a class="headerlink" href="#giving-the-right-name" title="Permalink to this headline">¶</a></h4>
+<p>最初の変数は <code class="docutils literal notranslate"><span class="pre">let</span></code> ではなく <code class="docutils literal notranslate"><span class="pre">const</span></code> のほうがしっくりくる。</p>
+</section>
+<section id="uppercase-const">
+<h4>Uppercase const?<a class="headerlink" href="#uppercase-const" title="Permalink to this headline">¶</a></h4>
+<p>著者の主張を理解しているかどうかを確認する問題。</p>
+</section>
+</section>
+</section>
+<section id="data-types">
+<h2><a class="toc-backref" href="#id20">Data types</a><a class="headerlink" href="#data-types" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>値はいつでも何らかの型がある。</p></li>
+<li><p>JavaScript には基本データ型が 8 種ある。ここではそのうちのほとんどを扱うが、その他は別の章で理解を深める。</p></li>
+</ul>
+<section id="number">
+<h3>Number<a class="headerlink" href="#number" title="Permalink to this headline">¶</a></h3>
+<p>JavaScript では整数と浮動小数点数を同じ型で取り扱う。四則演算などが可能だ。</p>
+<ul>
+<li><p>通常の数値のほかに、いわゆる「特殊な数値」もこのデータ型に属する：</p>
+<blockquote>
+<div><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Infinity</span></code> は、どんな Number 型の値よりも大きい値として定義されている。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NaN</span></code> は未定義の数学的操作の結果を表す値として定義されている。</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">NaN</span></code> をオペランドとする操作の結果もまた <code class="docutils literal notranslate"><span class="pre">NaN</span></code> となる。例外として、</dt><dd><p><code class="docutils literal notranslate"><span class="pre">NaN</span></code> のゼロ乗が 1 になることだけ注意。要注意。</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>算術演算は「安全」、すなわち例外を送出しない。</p></li>
+</ul>
+</section>
+<section id="bigint">
+<h3>BigInt<a class="headerlink" href="#bigint" title="Permalink to this headline">¶</a></h3>
+<p>絶対値が巨大な整数型は <code class="docutils literal notranslate"><span class="pre">BigInt</span></code> 型の値として扱うしかない。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">BigInt</span></code> 型のリテラルは <code class="docutils literal notranslate"><span class="pre">n</span></code> の suffix を添える。例えば <code class="docutils literal notranslate"><span class="pre">2n</span> <span class="pre">**</span> <span class="pre">53n</span></code> のように。</p></li>
+<li><p>説明文にある 2 の 53 乗というマジックナンバー的な値をよく覚えておくといい。</p></li>
+</ul>
+</section>
+<section id="string">
+<h3>String<a class="headerlink" href="#string" title="Permalink to this headline">¶</a></h3>
+<p>文字列リテラルは引用符のペアで囲んで定義する。引用符はマッチしていれば三種類が使える。</p>
+<ul class="simple">
+<li><p>バッククォートはその他の引用符とは異なり、Python の f-string と似た機能である
+<code class="docutils literal notranslate"><span class="pre">${...}</span></code> が有効になる。</p></li>
+<li><p>Python と同様に、文字型はない。</p></li>
+</ul>
+</section>
+<section id="boolean-logical-type">
+<h3>Boolean (logical type)<a class="headerlink" href="#boolean-logical-type" title="Permalink to this headline">¶</a></h3>
+<p>概念は他言語と同様。リテラルについては C++ と同じ。</p>
+</section>
+<section id="the-null-value">
+<h3>The “null” value<a class="headerlink" href="#the-null-value" title="Permalink to this headline">¶</a></h3>
+<p>Python でいう None のような概念だ。これまでに述べられているどの型の値でもない。</p>
+</section>
+<section id="the-undefined-value">
+<h3>The “undefined” value<a class="headerlink" href="#the-undefined-value" title="Permalink to this headline">¶</a></h3>
+<p>値 <code class="docutils literal notranslate"><span class="pre">undefined</span></code> は値 <code class="docutils literal notranslate"><span class="pre">null</span></code> と似ているが、意味は「値が割り当てられてない値」だ。</p>
+<ul class="simple">
+<li><p>ただし、既存の変数に <code class="docutils literal notranslate"><span class="pre">undefined</span></code> を代入することができる。しかし、これをやるな。</p></li>
+</ul>
+</section>
+<section id="objects-and-symbols">
+<h3>Objects and Symbols<a class="headerlink" href="#objects-and-symbols" title="Permalink to this headline">¶</a></h3>
+<p>これらの型の詳細は別の章で学ぶ。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Object</span></code> 型は複合型だ。データの集まりや、より複雑な実体を格納するために使われる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Symbol</span></code> 型は、オブジェクトの一意な識別子を作成するために使用される。</p></li>
+</ul>
+</section>
+<section id="the-typeof-operator">
+<h3>The typeof operator<a class="headerlink" href="#the-typeof-operator" title="Permalink to this headline">¶</a></h3>
+<p>演算子 <code class="docutils literal notranslate"><span class="pre">typeof</span></code> はオペランドの型を文字列で返す単項演算だ。</p>
+<ul class="simple">
+<li><p>演算子であるので、 <code class="docutils literal notranslate"><span class="pre">typeof</span></code> のオペランドに対する丸括弧は不要。</p></li>
+<li><p>モジュール、値 <code class="docutils literal notranslate"><span class="pre">null</span></code>, 関数の型に注意する。それぞれ “object”, “object”, “function” だ。</p></li>
+</ul>
+</section>
+<section id="tasks-2">
+<span id="id2"></span><h3>Tasks<a class="headerlink" href="#tasks-2" title="Permalink to this headline">¶</a></h3>
+<section id="string-quotes">
+<h4>String quotes<a class="headerlink" href="#string-quotes" title="Permalink to this headline">¶</a></h4>
+<p>易しい。</p>
+</section>
+</section>
+</section>
+<section id="interaction-alert-prompt-confirm">
+<h2><a class="toc-backref" href="#id21">Interaction: alert, prompt, confirm</a><a class="headerlink" href="#interaction-alert-prompt-confirm" title="Permalink to this headline">¶</a></h2>
+<p>ブラウザー環境ではこれら三つのメッセージボックス表示関数が用意されていて、いずれもモーダルであることが述べられている。</p>
+<section id="alert">
+<h3>alert<a class="headerlink" href="#alert" title="Permalink to this headline">¶</a></h3>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">alert()</span></code> は OK ボタンしかないモーダルダイアログボックスを表示する。</p>
+</section>
+<section id="prompt">
+<h3>prompt<a class="headerlink" href="#prompt" title="Permalink to this headline">¶</a></h3>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">prompt()</span></code> はテキストボックスを一つ、OK ボタンと Cancel ボタンを有するモーダルダイアログボックスを表示する。戻り値はテキストボックスに入力されている値だ。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">result</span> <span class="o">=</span> <span class="nx">prompt</span><span class="p">(</span><span class="nx">title</span><span class="p">,</span> <span class="p">[</span><span class="k">default</span><span class="p">]);</span>
+</pre></div>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 76%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">title</span></code></p></td>
+<td><p>ユーザーに見せるテキスト</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">default</span></code></p></td>
+<td><p>テキストボックスの初期値を指定する</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>本書では引数リストにある角括弧は、その引数がオプショナルであることを表す。</p></li>
+<li><p>Internet Explorer が初期値を <code class="docutils literal notranslate"><span class="pre">undefined</span></code> にしてしまうので、空文字列を
+<code class="docutils literal notranslate"><span class="pre">default</span></code> とするほうがいい。</p></li>
+</ul>
+</section>
+<section id="confirm">
+<h3>confirm<a class="headerlink" href="#confirm" title="Permalink to this headline">¶</a></h3>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">confirm()</span></code> は OK ボタンと Cancel ボタンを有するモーダルダイアログボックスを表示する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">result</span> <span class="o">=</span> <span class="nx">confirm</span><span class="p">(</span><span class="nx">question</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>引数 <code class="docutils literal notranslate"><span class="pre">question</span></code> はダイアログボックスのテキストだ。</p></li>
+<li><p>戻り値は <code class="docutils literal notranslate"><span class="pre">true</span></code> または <code class="docutils literal notranslate"><span class="pre">false</span></code> で、ユーザーの押したボタンに対応する。</p></li>
+</ul>
+</section>
+<section id="tasks-3">
+<span id="id3"></span><h3>Tasks<a class="headerlink" href="#tasks-3" title="Permalink to this headline">¶</a></h3>
+<section id="a-simple-page">
+<h4>A simple page<a class="headerlink" href="#a-simple-page" title="Permalink to this headline">¶</a></h4>
+<p>易しい。</p>
+</section>
+</section>
+</section>
+<section id="type-conversions">
+<h2><a class="toc-backref" href="#id22">Type Conversions</a><a class="headerlink" href="#type-conversions" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Object</span></code> 型以外の型からの型変換、特に自動変換に関する規則。頭に叩き込んでおきたい。</p>
+<p>明示的な変換は他言語と同様の方式でよい。</p>
+<section id="string-conversion">
+<h3>String Conversion<a class="headerlink" href="#string-conversion" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>文字列への変換が必要なところでは、だいたい自動的にその変換がなされる。</p></li>
+<li><p>明示的な変換は <code class="docutils literal notranslate"><span class="pre">String(value)</span></code> のようにする。</p></li>
+</ul>
+</section>
+<section id="numeric-conversion">
+<h3>Numeric Conversion<a class="headerlink" href="#numeric-conversion" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>数への変換が必要なところでもそうなるが、いつ変換なのかが見極めにくい。この除算の例は、よそ者からすると異様に見える。</p></li>
+<li><p>明示的な変換は <code class="docutils literal notranslate"><span class="pre">Number(value)</span></code> のようにする。</p></li>
+<li><p>単項算術演算子はオペランドを <code class="docutils literal notranslate"><span class="pre">Number</span></code> 型に暗黙的に変換する。特に、何でもかんでも <code class="docutils literal notranslate"><span class="pre">+</span></code> を付けるパターンが頻出する。</p></li>
+</ul>
+<p>本書の表を確認。</p>
+</section>
+<section id="boolean-conversion">
+<h3>Boolean Conversion<a class="headerlink" href="#boolean-conversion" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Boolean</span></code> 型への変換が必要なところでは、自動的にその変換がなされる。</p></li>
+<li><p>明示的な変換は <code class="docutils literal notranslate"><span class="pre">Number(value)</span></code> のようにする。</p></li>
+<li><p>直観的に「空」である値、空文字列、 <code class="docutils literal notranslate"><span class="pre">null</span></code>, <code class="docutils literal notranslate"><span class="pre">undefined</span></code>, <code class="docutils literal notranslate"><span class="pre">NaN</span></code> は <code class="docutils literal notranslate"><span class="pre">false</span></code> に評価される。</p></li>
+</ul>
+</section>
+</section>
+<section id="basic-operators-maths">
+<h2><a class="toc-backref" href="#id23">Basic operators, maths</a><a class="headerlink" href="#basic-operators-maths" title="Permalink to this headline">¶</a></h2>
+<section id="terms-unary-binary-operand">
+<h3>Terms: “unary”, “binary”, “operand”<a class="headerlink" href="#terms-unary-binary-operand" title="Permalink to this headline">¶</a></h3>
+<p>JavaScript 固有ではない情報。</p>
+</section>
+<section id="maths">
+<h3>Maths<a class="headerlink" href="#maths" title="Permalink to this headline">¶</a></h3>
+<p>算術演算子は Python と同様のようだ。</p>
+</section>
+<section id="string-concatenation-with-binary">
+<h3>String concatenation with binary +<a class="headerlink" href="#string-concatenation-with-binary" title="Permalink to this headline">¶</a></h3>
+<p>二項演算 <code class="docutils literal notranslate"><span class="pre">+</span></code> でオペランドが両方とも文字列の場合には、両者を連結した新しい文字列を返す。一方が文字列型であれば、他方は文字列に暗黙的に変換されてそれらが連結された文字列を評価する。</p>
+<p>算術演算子でオペランドを文字列に変換する可能性があるものは、これだけだ。</p>
+</section>
+<section id="numeric-conversion-unary">
+<h3>Numeric conversion, unary +<a class="headerlink" href="#numeric-conversion-unary" title="Permalink to this headline">¶</a></h3>
+<p>この単項演算子はオペランドを可能な限り <code class="docutils literal notranslate"><span class="pre">Number</span></code> 型の値に変換する。その記法の簡便さゆえ、明示的な変換 <code class="docutils literal notranslate"><span class="pre">Number(value)</span></code> は使われないようだ。</p>
+</section>
+<section id="operator-precedence">
+<h3>Operator precedence<a class="headerlink" href="#operator-precedence" title="Permalink to this headline">¶</a></h3>
+<p>演算子の優先度という概念があるということを、まずは理解しておくに留める。</p>
+</section>
+<section id="assignment">
+<h3>Assignment<a class="headerlink" href="#assignment" title="Permalink to this headline">¶</a></h3>
+<p>代入演算子は C/C++ と同じような感じだ。</p>
+<section id="chaining-assignments">
+<h4>Chaining assignments<a class="headerlink" href="#chaining-assignments" title="Permalink to this headline">¶</a></h4>
+<p>この仕様も。</p>
+</section>
+</section>
+<section id="modify-in-place">
+<h3>Modify-in-place<a class="headerlink" href="#modify-in-place" title="Permalink to this headline">¶</a></h3>
+<p>C/C++ と同様。</p>
+</section>
+<section id="increment-decrement">
+<h3>Increment/decrement<a class="headerlink" href="#increment-decrement" title="Permalink to this headline">¶</a></h3>
+<p>C/C++ と同様。</p>
+</section>
+<section id="bitwise-operators">
+<h3>Bitwise operators<a class="headerlink" href="#bitwise-operators" title="Permalink to this headline">¶</a></h3>
+<p>シフト演算子 <code class="docutils literal notranslate"><span class="pre">&gt;&gt;&gt;</span></code> は初めて見る。</p>
+</section>
+<section id="comma">
+<h3>Comma<a class="headerlink" href="#comma" title="Permalink to this headline">¶</a></h3>
+<p>カンマ演算子を使うと、いくつかの式を <code class="docutils literal notranslate"><span class="pre">,</span></code> で区切って評価することができる。それぞれは評価されるものの、最後の一つの結果を全体？の結果とする。</p>
+</section>
+<section id="tasks-4">
+<span id="id4"></span><h3>Tasks<a class="headerlink" href="#tasks-4" title="Permalink to this headline">¶</a></h3>
+<section id="the-postfix-and-prefix-forms">
+<h4>The postfix and prefix forms<a class="headerlink" href="#the-postfix-and-prefix-forms" title="Permalink to this headline">¶</a></h4>
+<p>古の C 言語の教科書にあるような問題だ。</p>
+</section>
+<section id="assignment-result">
+<h4>Assignment result<a class="headerlink" href="#assignment-result" title="Permalink to this headline">¶</a></h4>
+<p>これも。</p>
+</section>
+<section id="type-conversions-1">
+<span id="id5"></span><h4>Type conversions<a class="headerlink" href="#type-conversions-1" title="Permalink to this headline">¶</a></h4>
+<p>この内容は JavaScript らしさが感じられる。自動変換のコツをつかむといい。本文中にあったように、文字列への変換は二項演算 <code class="docutils literal notranslate"><span class="pre">+</span></code> でしか起こり得ないことと、演算評価の優先度に気をつければ解決する。</p>
+</section>
+<section id="fix-the-addition">
+<h4>Fix the addition<a class="headerlink" href="#fix-the-addition" title="Permalink to this headline">¶</a></h4>
+<p>どう修正するのが JavaScript のコードらしいのかを気にする。</p>
+</section>
+</section>
+</section>
+<section id="comparisons">
+<h2><a class="toc-backref" href="#id24">Comparisons</a><a class="headerlink" href="#comparisons" title="Permalink to this headline">¶</a></h2>
+<p>数値の比較は他の言語と同様の比較演算子が JavaScript にもある。</p>
+<section id="boolean-is-the-result">
+<h3>Boolean is the result<a class="headerlink" href="#boolean-is-the-result" title="Permalink to this headline">¶</a></h3>
+<p>比較演算のすべてが <code class="docutils literal notranslate"><span class="pre">Boolean</span></code> 型の値に評価される。</p>
+</section>
+<section id="string-comparison">
+<h3>String comparison<a class="headerlink" href="#string-comparison" title="Permalink to this headline">¶</a></h3>
+<p>文字列型の値に対して比較演算子を作用させることができる。評価は lexicographical 順序に基づく。</p>
+<ul class="simple">
+<li><p>本文の記述からは、各文字の値は Unicode のコードポイントの値であると考えられる。</p></li>
+</ul>
+</section>
+<section id="comparison-of-different-types">
+<h3>Comparison of different types<a class="headerlink" href="#comparison-of-different-types" title="Permalink to this headline">¶</a></h3>
+<p>異なる型の値を比較すると、数でないほうが数に変換され、それから評価される。</p>
+</section>
+<section id="strict-equality">
+<h3>Strict equality<a class="headerlink" href="#strict-equality" title="Permalink to this headline">¶</a></h3>
+<p>JavaScript では演算子 <code class="docutils literal notranslate"><span class="pre">==</span></code> に難がある。
+<code class="docutils literal notranslate"><span class="pre">null</span> <span class="pre">==</span> <span class="pre">0</span></code> や <code class="docutils literal notranslate"><span class="pre">undefined</span> <span class="pre">==</span> <span class="pre">0</span></code> が <code class="docutils literal notranslate"><span class="pre">false</span></code> に評価される。上に述べた評価手順が本質的に不便なのだ。</p>
+<ul class="simple">
+<li><p>比較演算子 <code class="docutils literal notranslate"><span class="pre">===</span></code> は型の暗黙的変換を生じないで値を比較する。したがって、オペランド同士の型が異なるだけで、この式は <code class="docutils literal notranslate"><span class="pre">false</span></code> に評価される。</p></li>
+<li><p>比較演算子 <code class="docutils literal notranslate"><span class="pre">!==</span></code> はその否定を返す。</p></li>
+</ul>
+</section>
+<section id="comparison-with-null-and-undefined">
+<h3>Comparison with null and undefined<a class="headerlink" href="#comparison-with-null-and-undefined" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">null</span></code> や <code class="docutils literal notranslate"><span class="pre">undefined</span></code> が他の値と比較されたときに直感的でない動作をする。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">null</span> <span class="pre">===</span> <span class="pre">undefined</span></code> は <code class="docutils literal notranslate"><span class="pre">false</span></code> に評価される。両辺の型が異なるからだ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">null</span> <span class="pre">==</span> <span class="pre">undefined</span></code> は <code class="docutils literal notranslate"><span class="pre">true</span></code> に評価される。これは例外的な動作だと覚えておく必要がある。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">null</span></code> と <code class="docutils literal notranslate"><span class="pre">undefined</span></code> が数に暗黙的に変換されるときには、0 と <code class="docutils literal notranslate"><span class="pre">NaN</span></code> にそれぞれ評価される。</p></li>
+</ul>
+<section id="strange-result-null-vs-0">
+<h4>Strange result: null vs 0<a class="headerlink" href="#strange-result-null-vs-0" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">null</span></code> は自身と <code class="docutils literal notranslate"><span class="pre">undefined</span></code> を除き、何に対しても等しくないと評価される。</p>
+<p>それゆえ、例えば <code class="docutils literal notranslate"><span class="pre">null</span> <span class="pre">==</span> <span class="pre">0</span></code> は <code class="docutils literal notranslate"><span class="pre">false</span></code> と評価される。</p>
+</section>
+<section id="an-incomparable-undefined">
+<h4>An incomparable undefined<a class="headerlink" href="#an-incomparable-undefined" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">undefined</span></code> は、自身と <code class="docutils literal notranslate"><span class="pre">null</span></code> を除いて、何に対しても等しくなく、大きくなく、小さくないと評価される。</p>
+<p>怖いのだが、変数を <code class="docutils literal notranslate"><span class="pre">null</span></code>, <code class="docutils literal notranslate"><span class="pre">undefined</span></code>, 0 と比較することはめったにない。</p>
+</section>
+<section id="avoid-problems">
+<h4>Avoid problems<a class="headerlink" href="#avoid-problems" title="Permalink to this headline">¶</a></h4>
+<p>これらの問題を回避する確実な方法。</p>
+<ul class="simple">
+<li><p>等号 <code class="docutils literal notranslate"><span class="pre">===</span></code> を除き、 <code class="docutils literal notranslate"><span class="pre">undefined</span></code> や <code class="docutils literal notranslate"><span class="pre">null</span></code> との比較は慎重に扱う。</p></li>
+<li><p>これらの値である可能性がある変数で <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>, etc. は使わない。</p></li>
+<li><p>これらの値である可能性がある変数については、個別にチェックする。</p></li>
+</ul>
+</section>
+</section>
+<section id="tasks-5">
+<span id="id6"></span><h3>Tasks<a class="headerlink" href="#tasks-5" title="Permalink to this headline">¶</a></h3>
+<section id="comparisons-1">
+<span id="id7"></span><h4>Comparisons<a class="headerlink" href="#comparisons-1" title="Permalink to this headline">¶</a></h4>
+<p>次のは特に理解を確認しておくこと：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kc">undefined</span> <span class="o">==</span> <span class="kc">null</span>
+<span class="kc">undefined</span> <span class="o">===</span> <span class="kc">null</span>
+<span class="kc">null</span> <span class="o">==</span> <span class="s2">&quot;\n0\n&quot;</span>
+<span class="kc">null</span> <span class="o">===</span> <span class="o">+</span><span class="s2">&quot;\n0\n&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="conditional-branching-if">
+<h2><a class="toc-backref" href="#id25">Conditional branching: if, ‘?’</a><a class="headerlink" href="#conditional-branching-if" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">if</span></code> 文は C/C++ と同様の構文だ。JavaScript には条件演算子やその派生形が妙に豊富にある。</p>
+<section id="the-if-statement">
+<h3>The “if” statement<a class="headerlink" href="#the-if-statement" title="Permalink to this headline">¶</a></h3>
+<p>C/C++ と同様。</p>
+</section>
+<section id="boolean-conversion-1">
+<span id="id8"></span><h3>Boolean conversion<a class="headerlink" href="#boolean-conversion-1" title="Permalink to this headline">¶</a></h3>
+<p>自動変換のコツのところで見たように評価される。</p>
+</section>
+<section id="the-else-clause">
+<h3>The “else” clause<a class="headerlink" href="#the-else-clause" title="Permalink to this headline">¶</a></h3>
+<p>C/C++ と同様。</p>
+</section>
+<section id="several-conditions-else-if">
+<h3>Several conditions: “else if”<a class="headerlink" href="#several-conditions-else-if" title="Permalink to this headline">¶</a></h3>
+<p>C/C++ と同様。</p>
+</section>
+<section id="conditional-operator">
+<h3>Conditional operator ‘?’<a class="headerlink" href="#conditional-operator" title="Permalink to this headline">¶</a></h3>
+<p>C/C++ と同様。</p>
+</section>
+<section id="multiple">
+<h3>Multiple ‘?’<a class="headerlink" href="#multiple" title="Permalink to this headline">¶</a></h3>
+<p>C/C++ と同様だと思うが、やったことがない。</p>
+</section>
+<section id="non-traditional-use-of">
+<h3>Non-traditional use of ‘?’<a class="headerlink" href="#non-traditional-use-of" title="Permalink to this headline">¶</a></h3>
+<p>このようなコードは書かない。</p>
+</section>
+<section id="tasks-6">
+<span id="id9"></span><h3>Tasks<a class="headerlink" href="#tasks-6" title="Permalink to this headline">¶</a></h3>
+<section id="if-a-string-with-zero">
+<h4>if (a string with zero)<a class="headerlink" href="#if-a-string-with-zero" title="Permalink to this headline">¶</a></h4>
+<p>“0” が Boolean に自動変換されると、この文字列は空でないので <code class="docutils literal notranslate"><span class="pre">true</span></code> に評価される。</p>
+</section>
+<section id="the-name-of-javascript">
+<h4>The name of JavaScript<a class="headerlink" href="#the-name-of-javascript" title="Permalink to this headline">¶</a></h4>
+<p>素直な問題。</p>
+</section>
+<section id="show-the-sign">
+<h4>Show the sign<a class="headerlink" href="#show-the-sign" title="Permalink to this headline">¶</a></h4>
+<p>ユーザーが必ず数を入力してくれるという前提なので、</p>
+<ul class="simple">
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">prompt()</span></code> で得られる文字列を数に明示的に変換する必要はない。</p></li>
+<li><p>題意のとおりの条件分岐を書く。</p></li>
+</ul>
+</section>
+<section id="rewrite-if-into">
+<h4>Rewrite ‘if’ into ‘?’<a class="headerlink" href="#rewrite-if-into" title="Permalink to this headline">¶</a></h4>
+<p>素直な問題。</p>
+</section>
+<section id="rewrite-if-else-into">
+<h4>Rewrite ‘if..else’ into ‘?’<a class="headerlink" href="#rewrite-if-else-into" title="Permalink to this headline">¶</a></h4>
+<p>素直でない問題のような気がする。</p>
+</section>
+</section>
+</section>
+<section id="logical-operators">
+<h2><a class="toc-backref" href="#id26">Logical operators</a><a class="headerlink" href="#logical-operators" title="Permalink to this headline">¶</a></h2>
+<p>古典的な C/C++ などの言語と同様の演算子と、そうでない演算子がある。まずは前者を見ていく。</p>
+<section id="or">
+<h3>|| (OR)<a class="headerlink" href="#or" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>オペランドが両方とも <code class="docutils literal notranslate"><span class="pre">Boolean</span></code> ならば、C/C++ などの言語と同様に評価される。</p></li>
+<li><p>オペランドが <code class="docutils literal notranslate"><span class="pre">Boolean</span></code> でないものについては、JavaScript の流儀で <code class="docutils literal notranslate"><span class="pre">Boolean</span></code>
+値に暗黙的に変換される。</p></li>
+</ul>
+</section>
+<section id="or-finds-the-first-truthy-value">
+<h3>OR “||” finds the first truthy value<a class="headerlink" href="#or-finds-the-first-truthy-value" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>OR 演算評価が <code class="docutils literal notranslate"><span class="pre">Boolean</span></code> になるとは限らない。最初の例は文字列にしかならないことに注意。</p></li>
+<li><p>よその言語と同様に short-circuit 評価がなされる。</p></li>
+</ul>
+</section>
+<section id="and">
+<h3>&amp;&amp; (AND)<a class="headerlink" href="#and" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>オペランドが両方とも <code class="docutils literal notranslate"><span class="pre">Boolean</span></code> ならば、C/C++ などの言語と同様に評価される。</p></li>
+<li><p>オペランドが <code class="docutils literal notranslate"><span class="pre">Boolean</span></code> でないものについては、JavaScript の流儀で <code class="docutils literal notranslate"><span class="pre">Boolean</span></code>
+値に暗黙的に変換される。</p></li>
+</ul>
+</section>
+<section id="and-finds-the-first-falsy-value">
+<h3>AND “&amp;&amp;” finds the first falsy value<a class="headerlink" href="#and-finds-the-first-falsy-value" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>OR と同様に AND 演算評価が <code class="docutils literal notranslate"><span class="pre">Boolean</span></code> になるとは限らない。
+<code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">&amp;&amp;</span> <span class="pre">3</span></code> が <code class="docutils literal notranslate"><span class="pre">3</span></code> に評価されるのは本当に怖い。書き間違いではない。</p></li>
+<li><p>よその言語と同様に short-circuit 評価がなされる。</p></li>
+</ul>
+</section>
+<section id="not">
+<h3>! (NOT)<a class="headerlink" href="#not" title="Permalink to this headline">¶</a></h3>
+<p>基本用途は他の言語と同様。</p>
+<ul class="simple">
+<li><p>値を明示的に <code class="docutils literal notranslate"><span class="pre">Boolean</span></code> に変換する手段として、 <code class="docutils literal notranslate"><span class="pre">!!value</span></code> のように書くことがある。これは <code class="docutils literal notranslate"><span class="pre">Boolean(value)</span></code> と書くよりも早い。</p></li>
+</ul>
+</section>
+<section id="tasks-7">
+<span id="id10"></span><h3>Tasks<a class="headerlink" href="#tasks-7" title="Permalink to this headline">¶</a></h3>
+<p>演習問題が異様に多い。怖い問題もあるが、面倒なので省略。</p>
+</section>
+</section>
+<section id="nullish-coalescing-operator">
+<h2><a class="toc-backref" href="#id27">Nullish coalescing operator ‘??’</a><a class="headerlink" href="#nullish-coalescing-operator" title="Permalink to this headline">¶</a></h2>
+<p>二項演算子 <code class="docutils literal notranslate"><span class="pre">??</span></code> の定義。</p>
+<ul class="simple">
+<li><p>式 <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">??</span> <span class="pre">b</span></code> は、 <code class="docutils literal notranslate"><span class="pre">a</span></code> が <code class="docutils literal notranslate"><span class="pre">null</span></code> でも <code class="docutils literal notranslate"><span class="pre">undefined</span></code> でもなければ <code class="docutils literal notranslate"><span class="pre">a</span></code> と評価される。</p></li>
+<li><p>そうでなければ、つまり <code class="docutils literal notranslate"><span class="pre">a</span></code> が <code class="docutils literal notranslate"><span class="pre">null</span></code> または <code class="docutils literal notranslate"><span class="pre">undefined</span></code> であれば <code class="docutils literal notranslate"><span class="pre">b</span></code> と評価される。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nx">a</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">a</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="o">?</span> <span class="nx">a</span> <span class="o">:</span> <span class="nx">b</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>演算子 <code class="docutils literal notranslate"><span class="pre">??</span></code> の主な用途はデフォルト値を与えることだ。</p>
+<section id="comparison-with">
+<h3>Comparison with ||<a class="headerlink" href="#comparison-with" title="Permalink to this headline">¶</a></h3>
+<p>演算子 <code class="docutils literal notranslate"><span class="pre">||</span></code> とは評価基準が異なる。例えば上のコードで <code class="docutils literal notranslate"><span class="pre">a</span></code> が 0 や <code class="docutils literal notranslate"><span class="pre">false</span></code> の場合を考えろ。</p>
+</section>
+<section id="precedence">
+<h3>Precedence<a class="headerlink" href="#precedence" title="Permalink to this headline">¶</a></h3>
+<p>演算子 <code class="docutils literal notranslate"><span class="pre">??</span></code> の優先度は演算子 <code class="docutils literal notranslate"><span class="pre">||</span></code> と同じとされている。</p>
+<section id="using-with-or">
+<h4>Using ?? with &amp;&amp; or ||<a class="headerlink" href="#using-with-or" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">??</span></code> と <code class="docutils literal notranslate"><span class="pre">||</span></code> / <code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code> の共用は、安全上の理由により禁止されている。</p>
+</section>
+</section>
+</section>
+<section id="loops-while-and-for">
+<h2><a class="toc-backref" href="#id28">Loops: while and for</a><a class="headerlink" href="#loops-while-and-for" title="Permalink to this headline">¶</a></h2>
+<section id="the-while-loop">
+<h3>The “while” loop<a class="headerlink" href="#the-while-loop" title="Permalink to this headline">¶</a></h3>
+<p>C/C++ と同様。</p>
+</section>
+<section id="the-do-while-loop">
+<h3>The “do…while” loop<a class="headerlink" href="#the-do-while-loop" title="Permalink to this headline">¶</a></h3>
+<p>C/C++ と同様。</p>
+</section>
+<section id="the-for-loop">
+<h3>The “for” loop<a class="headerlink" href="#the-for-loop" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">for</span></code> 文は括弧の中の書き方が複数あるが、いちばん初歩的な記法は C/C++ のそれと同様。</p>
+<section id="skipping-parts">
+<h4>Skipping parts<a class="headerlink" href="#skipping-parts" title="Permalink to this headline">¶</a></h4>
+<p>これも同様。初歩的な <code class="docutils literal notranslate"><span class="pre">for</span></code> 文の括弧の中のパーツは適宜省略可能だ。</p>
+</section>
+</section>
+<section id="breaking-the-loop">
+<h3>Breaking the loop<a class="headerlink" href="#breaking-the-loop" title="Permalink to this headline">¶</a></h3>
+<p>他言語と同じ意味の <code class="docutils literal notranslate"><span class="pre">break</span></code> 命令も用意されている。</p>
+</section>
+<section id="continue-to-the-next-iteration">
+<h3>Continue to the next iteration<a class="headerlink" href="#continue-to-the-next-iteration" title="Permalink to this headline">¶</a></h3>
+<p>他言語と同じ意味の <code class="docutils literal notranslate"><span class="pre">continue</span></code> 命令も用意されている。</p>
+</section>
+<section id="labels-for-break-continue">
+<h3>Labels for break/continue<a class="headerlink" href="#labels-for-break-continue" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>ループ周辺に限定して、ラベルを定義することができる。</p></li>
+<li><p>ループ中からそのラベルにジャンプするときに <code class="docutils literal notranslate"><span class="pre">break</span></code> または <code class="docutils literal notranslate"><span class="pre">continue</span></code> を使える。それぞれの命令の「引数」にラベルを書く。要するに C 言語の <code class="docutils literal notranslate"><span class="pre">goto</span></code> 文だ。</p></li>
+</ul>
+</section>
+<section id="tasks-8">
+<span id="id11"></span><h3>Tasks<a class="headerlink" href="#tasks-8" title="Permalink to this headline">¶</a></h3>
+<section id="last-loop-value">
+<h4>Last loop value<a class="headerlink" href="#last-loop-value" title="Permalink to this headline">¶</a></h4>
+<p>最後の反復時の <code class="docutils literal notranslate"><span class="pre">i</span></code> の値は 1 であることはすぐにわかる。したがって <code class="docutils literal notranslate"><span class="pre">i--</span></code> の評価である 1 を <code class="docutils literal notranslate"><span class="pre">alert()</span></code> 呼び出しは表示する。</p>
+</section>
+<section id="which-values-does-the-while-loop-show">
+<h4>Which values does the while loop show?<a class="headerlink" href="#which-values-does-the-while-loop-show" title="Permalink to this headline">¶</a></h4>
+<p>類題。ループの理解というより、ウンクリメント演算子の理解テストだ。</p>
+</section>
+<section id="which-values-get-shown-by-the-for-loop">
+<h4>Which values get shown by the “for” loop?<a class="headerlink" href="#which-values-get-shown-by-the-for-loop" title="Permalink to this headline">¶</a></h4>
+<p>この場合にはどちらのループも同じ挙動を示す。</p>
+</section>
+<section id="output-even-numbers-in-the-loop">
+<h4>Output even numbers in the loop<a class="headerlink" href="#output-even-numbers-in-the-loop" title="Permalink to this headline">¶</a></h4>
+<p>個人的には <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">+=</span> <span class="pre">2</span></code> としたい。</p>
+</section>
+<section id="replace-for-with-while">
+<h4>Replace “for” with “while”<a class="headerlink" href="#replace-for-with-while" title="Permalink to this headline">¶</a></h4>
+<p>ループカウンターをループでしか使わないコードだから、意味がない演習のように見えてしまう。実際にはこれを覚えておくと何かと有用だ。</p>
+</section>
+<section id="repeat-until-the-input-is-correct">
+<h4>Repeat until the input is correct<a class="headerlink" href="#repeat-until-the-input-is-correct" title="Permalink to this headline">¶</a></h4>
+<p>ユーザー入力をループ終了条件に用いる場合には、かなりの注意を要することが窺える。</p>
+</section>
+<section id="output-prime-numbers">
+<h4>Output prime numbers<a class="headerlink" href="#output-prime-numbers" title="Permalink to this headline">¶</a></h4>
+<p>まだ関数の定義方法を学習していないので、二重ループで書くことを余儀なくされる。ものすごく効率の悪いアルゴリズムであるが、それは問わない。</p>
+</section>
+</section>
+</section>
+<section id="the-switch-statement">
+<h2><a class="toc-backref" href="#id29">The “switch” statement</a><a class="headerlink" href="#the-switch-statement" title="Permalink to this headline">¶</a></h2>
+<p>JavaScript の <code class="docutils literal notranslate"><span class="pre">switch</span></code> 文は、型チェックの違いからか、C 言語のそれよりも複雑になっている。</p>
+<ul class="simple">
+<li><p>関数定義のスコープは前方にも届く。これについては後ほどの lexical environment
+の議論で繰り返される。</p></li>
+</ul>
+<section id="the-syntax">
+<h3>The syntax<a class="headerlink" href="#the-syntax" title="Permalink to this headline">¶</a></h3>
+<p>構文自身は C 言語のものと同じだが、 <code class="docutils literal notranslate"><span class="pre">case</span></code> のオペランドの値の型に制約がないようだ。
+<code class="docutils literal notranslate"><span class="pre">switch</span></code> に与えた値と各 <code class="docutils literal notranslate"><span class="pre">case</span></code> の値との比較は演算 <code class="docutils literal notranslate"><span class="pre">===</span></code> で評価される。</p>
+</section>
+<section id="an-example">
+<h3>An example<a class="headerlink" href="#an-example" title="Permalink to this headline">¶</a></h3>
+<p>C 言語と同じように、 <code class="docutils literal notranslate"><span class="pre">break</span></code> を抜かすと、次の <code class="docutils literal notranslate"><span class="pre">case</span></code> の最初の文が実行される。</p>
+</section>
+<section id="grouping-of-case">
+<h3>Grouping of “case”<a class="headerlink" href="#grouping-of-case" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">break</span></code> を書かない時の挙動を活かして、複数の <code class="docutils literal notranslate"><span class="pre">case</span></code> 文をまとめる手法がある。</p>
+</section>
+<section id="type-matters">
+<h3>Type matters<a class="headerlink" href="#type-matters" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">case</span></code> での評価が <code class="docutils literal notranslate"><span class="pre">===</span></code> でによるということは、文の実行時には、値が型まで一致していることが期待されるということだ。</p>
+</section>
+<section id="tasks-9">
+<span id="id12"></span><h3>Tasks<a class="headerlink" href="#tasks-9" title="Permalink to this headline">¶</a></h3>
+<section id="rewrite-the-switch-into-an-if">
+<h4>Rewrite the “switch” into an “if”<a class="headerlink" href="#rewrite-the-switch-into-an-if" title="Permalink to this headline">¶</a></h4>
+<p>基本的な理解を試す問題。</p>
+</section>
+<section id="rewrite-if-into-switch">
+<h4>Rewrite “if” into “switch”<a class="headerlink" href="#rewrite-if-into-switch" title="Permalink to this headline">¶</a></h4>
+<p>上の逆問題。</p>
+</section>
+</section>
+</section>
+<section id="functions">
+<h2><a class="toc-backref" href="#id30">Functions</a><a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<p>関数定義の基本形式、局所変数、関数はすべて closure であること（これは別の章で詳述される）、引数リスト、デフォルト引数、呼び出し時に足りない引数が <code class="docutils literal notranslate"><span class="pre">undefined</span></code> で補充されること、戻り値などの基本概念が述べられている。</p>
+<section id="function-declaration">
+<h3>Function Declaration<a class="headerlink" href="#function-declaration" title="Permalink to this headline">¶</a></h3>
+<p>関数定義の基本形式は次のとおり。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">functionName</span><span class="p">(</span><span class="nx">parameterList</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">statements</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="local-variables">
+<h3>Local variables<a class="headerlink" href="#local-variables" title="Permalink to this headline">¶</a></h3>
+<p>局所変数。関数内で宣言された変数は、関数の中からしかアクセスできない。</p>
+</section>
+<section id="outer-variables">
+<h3>Outer variables<a class="headerlink" href="#outer-variables" title="Permalink to this headline">¶</a></h3>
+<p>関数の内部から、その外側のスコープで宣言された変数にアクセスすることができる。ここは Python とはかなり異なる。</p>
+</section>
+<section id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h3>
+<p>関数引数は、シンプルな型の値は値渡しとなる。</p>
+</section>
+<section id="default-values">
+<h3>Default values<a class="headerlink" href="#default-values" title="Permalink to this headline">¶</a></h3>
+<p>C++ と同様。</p>
+<section id="alternative-default-parameters">
+<h4>Alternative default parameters<a class="headerlink" href="#alternative-default-parameters" title="Permalink to this headline">¶</a></h4>
+<p>呼び出し時に足りない実引数は、関数内部で値が <code class="docutils literal notranslate"><span class="pre">undefined</span></code> になる。</p>
+</section>
+</section>
+<section id="returning-a-value">
+<h3>Returning a value<a class="headerlink" href="#returning-a-value" title="Permalink to this headline">¶</a></h3>
+<p>他の言語と同様に <code class="docutils literal notranslate"><span class="pre">return</span></code> 文が存在する。</p>
+</section>
+<section id="naming-a-function">
+<h3>Naming a function<a class="headerlink" href="#naming-a-function" title="Permalink to this headline">¶</a></h3>
+<p>関数の名前の付け方の流儀は MDN や仕様書を眺めていれば感じられる。</p>
+</section>
+<section id="functions-comments">
+<h3>Functions == Comments<a class="headerlink" href="#functions-comments" title="Permalink to this headline">¶</a></h3>
+<p>どういう関数が良い関数なのかを述べている。これは言語に依らない。</p>
+</section>
+<section id="tasks-10">
+<span id="id13"></span><h3>Tasks<a class="headerlink" href="#tasks-10" title="Permalink to this headline">¶</a></h3>
+<p>気が向いたらやればいい。</p>
+<section id="is-else-required">
+<h4>Is “else” required?<a class="headerlink" href="#is-else-required" title="Permalink to this headline">¶</a></h4>
+<p>不要。</p>
+</section>
+<section id="rewrite-the-function-using-or">
+<h4>Rewrite the function using ‘?’ or ‘||’<a class="headerlink" href="#rewrite-the-function-using-or" title="Permalink to this headline">¶</a></h4>
+<p>こういう状況では条件演算子を使えないという感覚がある。</p>
+</section>
+<section id="function-min-a-b">
+<h4>Function min(a, b)<a class="headerlink" href="#function-min-a-b" title="Permalink to this headline">¶</a></h4>
+<p>初学者以外はやらなくていい。</p>
+</section>
+<section id="function-pow-x-n">
+<h4>Function pow(x, n)<a class="headerlink" href="#function-pow-x-n" title="Permalink to this headline">¶</a></h4>
+<p>初学者以外はやらなくていい。前章のループの復習にはなる。</p>
+</section>
+</section>
+</section>
+<section id="function-expressions">
+<h2><a class="toc-backref" href="#id31">Function expressions</a><a class="headerlink" href="#function-expressions" title="Permalink to this headline">¶</a></h2>
+<p>関数は値の一種であり、適当な変数に割り当てることができる。Python のように処理できる。</p>
+<section id="function-is-a-value">
+<h3>Function is a value<a class="headerlink" href="#function-is-a-value" title="Permalink to this headline">¶</a></h3>
+<p>関数を <code class="docutils literal notranslate"><span class="pre">let</span></code> 変数などに代入したり、関数の引数として扱ったりできる。</p>
+</section>
+<section id="callback-functions">
+<h3>Callback functions<a class="headerlink" href="#callback-functions" title="Permalink to this headline">¶</a></h3>
+<p>特に、関数の引数であるような関数であって、その内部で呼び出されるものをコールバックと呼ぶ。</p>
+</section>
+<section id="function-expression-vs-function-declaration">
+<h3>Function Expression vs Function Declaration<a class="headerlink" href="#function-expression-vs-function-declaration" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">let</span></code> や <code class="docutils literal notranslate"><span class="pre">const</span></code> などの変数で宣言されたものとは対照的に、通常の形式で定義された関数は、定義前の行からそれを参照することができる。これは “use strict” モードにおいても可能だ。</p>
+</section>
+</section>
+<section id="arrow-functions-the-basics">
+<h2><a class="toc-backref" href="#id32">Arrow functions, the basics</a><a class="headerlink" href="#arrow-functions-the-basics" title="Permalink to this headline">¶</a></h2>
+<p>他言語で言うラムダ式に相当する関数だ。JavaScript の記法はきわめて単純でありがたい。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nx">parameterList</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">expression</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>引数がない場合には <code class="docutils literal notranslate"><span class="pre">()</span> <span class="pre">=&gt;</span></code> から始める。</p></li>
+<li><p>引数が一つの場合には、関数リストを宣言する丸括弧を省略することもできる。</p></li>
+<li><p>式が単一の <code class="docutils literal notranslate"><span class="pre">return</span></code> 文の場合には、戻り値自体を書くだけとすることもできる。</p></li>
+</ul>
+<section id="multiline-arrow-functions">
+<h3>Multiline arrow functions<a class="headerlink" href="#multiline-arrow-functions" title="Permalink to this headline">¶</a></h3>
+<p>中括弧で複文を与えることもできる。こうなると普通の関数とほとんど変わらない：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nx">parameterList</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">statements</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="tasks-11">
+<span id="id14"></span><h3>Tasks<a class="headerlink" href="#tasks-11" title="Permalink to this headline">¶</a></h3>
+<section id="rewrite-with-arrow-functions">
+<h4>Rewrite with arrow functions<a class="headerlink" href="#rewrite-with-arrow-functions" title="Permalink to this headline">¶</a></h4>
+<p>簡単なためか、重要度が与えられていない。</p>
+</section>
+</section>
+</section>
+<section id="javascript-specials">
+<h2><a class="toc-backref" href="#id33">JavaScript specials</a><a class="headerlink" href="#javascript-specials" title="Permalink to this headline">¶</a></h2>
+<p>ここまでのまとめ。ノート省略。</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="03-code-quality.html" title="Code quality"
+             >next</a></li>
+        <li class="right" >
+          <a href="01-getting-started.html" title="An introduction"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >The Modern JavaScript Tutorial 読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Part 1 The JavaScript language</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">JavaScript Fundamentals</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2022, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>
