@@ -50,6 +50,7 @@ Contents:
    bancila18
    haverbeke18/index
    khronos18/index
+   kantor22/index
 
 .. toctree::
    :maxdepth: 1
