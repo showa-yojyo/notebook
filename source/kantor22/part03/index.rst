@@ -7,4 +7,5 @@ Part 3 Additional articles
 .. toctree::
    :maxdepth: 2
 
+   03-network
    07-regular-expressions
