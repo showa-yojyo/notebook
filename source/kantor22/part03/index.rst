@@ -8,4 +8,5 @@ Part 3 Additional articles
    :maxdepth: 2
 
    03-network
+   06-web-components
    07-regular-expressions
