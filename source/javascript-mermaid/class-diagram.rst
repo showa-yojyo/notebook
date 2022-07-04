@@ -581,6 +581,7 @@ Callback:
 Beginners tip, a full example using interactive links in an html context:
 
 .. code:: html
+   :force:
 
    <body>
      <div class="mermaid">
@@ -588,8 +589,8 @@ Beginners tip, a full example using interactive links in an html context:
        Animal <|-- Duck
        Animal <|-- Fish
        Animal <|-- Zebra
-       Animal : +int age
-       Animal : +String gender
+       Animal: +int age
+       Animal: +String gender
        Animal: +isMammal()
        Animal: +mate()
        class Duck{
@@ -721,6 +722,7 @@ Sample stylesheet
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code:: scss
+   :force:
 
    body {
        background: white;

@@ -66,6 +66,7 @@ OpenGL Shading Language に使用されるソースコードを構成する文�
 すなわち、ある行の終わりの文字とその次の行の始まりの文字を連結することで、単一トークンが形成される。
 
 .. code:: glsl
+   :force:
 
    // equivalent to "float foo;"
    float f\

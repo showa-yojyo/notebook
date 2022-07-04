@@ -131,7 +131,7 @@ Compatibility, "nomodule"
 
 古いブラウザーに対応したい場合にはこうする：
 
-.. code:: javascript
+.. code:: html
 
    <script type="module">
        // ...
