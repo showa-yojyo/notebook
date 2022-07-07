@@ -7,6 +7,7 @@ Part 3 Additional articles
 .. toctree::
    :maxdepth: 2
 
+   02-binary
    03-network
    06-web-components
    07-regular-expressions
