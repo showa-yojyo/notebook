@@ -7,6 +7,7 @@ Part 3 Additional articles
 .. toctree::
    :maxdepth: 2
 
+   01-frames-and-windows
    02-binary
    03-network
    06-web-components
