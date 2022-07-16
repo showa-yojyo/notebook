@@ -10,5 +10,6 @@ Part 3 Additional articles
    01-frames-and-windows
    02-binary
    03-network
+   04-data-storage
    06-web-components
    07-regular-expressions
