@@ -11,5 +11,6 @@ Part 3 Additional articles
    02-binary
    03-network
    04-data-storage
+   05-animation
    06-web-components
    07-regular-expressions
