@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
@@ -36,7 +36,7 @@
           <div class="body" role="main">
             
   <section id="id1">
-<h1><a class="toc-backref" href="#id20">ベクトル</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id20">ベクトル</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
 <p>モジュール <code class="docutils literal notranslate"><span class="pre">sympy.vector</span></code> に関するメモを記す。ベクトル解析寄りの機能が目立つという印象を受ける。もっと言うと 3 次元空間用の座標系だけを利用の対象と想定している節がある。</p>
 <div class="contents topic" id="id2">
 <p class="topic-title">ノート目次</p>
@@ -83,9 +83,9 @@
 </div>
 </div>
 <section id="id3">
-<h2><a class="toc-backref" href="#id21">基本編</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id21">基本編</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
 <section id="id4">
-<h3><a class="toc-backref" href="#id22">座標系およびベクトル</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id22">座標系およびベクトル</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>座標系としては現在は 3 次元直交座標系を表現するクラス CoordSysCartesian だけがある。</p></li>
 <li><p>オブジェクトの生成はコンストラクターでの直接生成でよい。その際には簡単な名前をつける。</p></li>
@@ -127,7 +127,7 @@ BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。</p
 </ul>
 </section>
 <section id="sympy">
-<h3><a class="toc-backref" href="#id23">ベクトルに対する SymPy 演算</a><a class="headerlink" href="#sympy" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id23">ベクトルに対する SymPy 演算</a><a class="headerlink" href="#sympy" title="Permalink to this heading">¶</a></h3>
 <p>Vector オブジェクトに対して、次の関数およびクラスによる SymPy 演算を適用することができる。ベクトルの各要素ごと、つまり各基底ベクトルの係数に演算がそれぞれ作用する。</p>
 <ul class="simple">
 <li><p><code class="code docutils literal notranslate"><span class="pre">simplify</span></code></p></li>
@@ -138,7 +138,7 @@ BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。</p
 </ul>
 </section>
 <section id="id5">
-<h3><a class="toc-backref" href="#id24">点</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id24">点</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
 <p>ある座標系に点を生成することができるのだが、少し特徴的な方法による。</p>
 <ul class="simple">
 <li><p>プロパティー <code class="code docutils literal notranslate"><span class="pre">origin</span></code> が座標系原点を表現する。すなわち <code class="code docutils literal notranslate"><span class="pre">N.origin</span></code> は座標系 <code class="code docutils literal notranslate"><span class="pre">N</span></code> の原点を意味する。このオブジェクトの型がクラス Point である。</p></li>
@@ -152,7 +152,7 @@ BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。</p
 <p>設計は常識的なのだが、実際使うときにはクセがあるように感じられる。点を生成するのも、その位置を確認するのも、基本的な操作のはずなのだが、その割には手間がかかる。</p>
 </section>
 <section id="id6">
-<h3><a class="toc-backref" href="#id25">二項テンソル</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id25">二項テンソル</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
 <p>ベクトル同士の二項テンソルをオブジェクトとして表現するクラス Dyadic がある。</p>
 <ul>
 <li><p>オブジェクトをコンストラクターで直接生成することはまれであり、通常は Vector のメソッド <code class="code docutils literal notranslate"><span class="pre">outer</span></code> もしくは演算子 <code class="code docutils literal notranslate"><span class="pre">|</span></code> により生成する。</p>
@@ -187,10 +187,10 @@ BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。</p
 </section>
 </section>
 <section id="id7">
-<h2><a class="toc-backref" href="#id26">複数座標系</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id26">複数座標系</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
 <p>既存の座標系オブジェクト <code class="code docutils literal notranslate"><span class="pre">N</span></code> から、新たに別の座標系オブジェクト <code class="code docutils literal notranslate"><span class="pre">M</span></code> を生成することができる。モデリングソフト等でお馴染みの方法論でもある。</p>
 <section id="id8">
-<h3><a class="toc-backref" href="#id27">並進のみによる指定</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id27">並進のみによる指定</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
 <dl class="simple">
 <dt>メソッド <code class="code docutils literal notranslate"><span class="pre">locate_new(name,</span> <span class="pre">position,</span> <span class="pre">vector_names=None,</span> <span class="pre">variable_names=None)</span></code></dt><dd><p>新しく CoordSysCartesian オブジェクトを生成できる。</p>
 <ul class="simple">
@@ -210,7 +210,7 @@ BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。</p
 </ul>
 </section>
 <section id="id9">
-<h3><a class="toc-backref" href="#id28">回転のみによる指定</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id28">回転のみによる指定</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
 <p>次は新たな座標系に回転（だけ）を施す。</p>
 <dl class="simple">
 <dt>メソッド <code class="code docutils literal notranslate"><span class="pre">orient_new_axis(name,</span> <span class="pre">angle,</span> <span class="pre">axis,</span> <span class="pre">location=None,</span> <span class="pre">vector_names=None,</span> <span class="pre">variable_names=None)</span></code></dt><dd><p>座標系 <code class="code docutils literal notranslate"><span class="pre">M</span></code> に対してベクトル <code class="code docutils literal notranslate"><span class="pre">axis</span></code> 周りに角度 <code class="code docutils literal notranslate"><span class="pre">angle</span></code> だけ回転して得られる座標系 <code class="code docutils literal notranslate"><span class="pre">N</span></code> を生成する。</p>
@@ -258,7 +258,7 @@ BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。</p
 </ul>
 </section>
 <section id="id10">
-<h3><a class="toc-backref" href="#id29">並進と回転による指定</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id29">並進と回転による指定</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
 <p>最後に並進と回転を組み合わせる方法を記す。</p>
 <ul class="simple">
 <li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">orient_new</span></code> およびその仲間たちには、キーワード引数 <code class="code docutils literal notranslate"><span class="pre">locate</span></code> が指定できる。これを用いて変位量をベクトルで与えれば、新しい座標系は、原点の周りに指定の回転を施された後、指定の変位だけ移動したものになる。</p></li>
@@ -266,7 +266,7 @@ BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。</p
 </ul>
 </section>
 <section id="express">
-<h3><a class="toc-backref" href="#id30">関数 <code class="code docutils literal notranslate"><span class="pre">express</span></code></a><a class="headerlink" href="#express" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id30">関数 <code class="code docutils literal notranslate"><span class="pre">express</span></code></a><a class="headerlink" href="#express" title="Permalink to this heading">¶</a></h3>
 <p>関数 <code class="code docutils literal notranslate"><span class="pre">express</span></code> が指定の座標系の表現に書き直せるのは点やベクトルだけではない。</p>
 <ul class="simple">
 <li><p>ベクトルを含む SymPy 式</p></li>
@@ -284,14 +284,14 @@ BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。</p
 </section>
 </section>
 <section id="id11">
-<h2><a class="toc-backref" href="#id31">スカラー場とベクトル場</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id31">スカラー場とベクトル場</a><a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h2>
 <p>内容が若干 <a class="reference internal" href="diffgeom.html"><span class="doc">微分幾何</span></a> で見る外積周りの話題と重複する。</p>
 <ul class="simple">
 <li><p>座標系 <code class="code docutils literal notranslate"><span class="pre">R</span></code> でのスカラー場やベクトル場を構成するには、クラス BaseScalar のオブジェクトである
 <code class="code docutils literal notranslate"><span class="pre">R.x</span></code>, <code class="code docutils literal notranslate"><span class="pre">R.y</span></code>, <code class="code docutils literal notranslate"><span class="pre">R.z</span></code> を用いる。</p></li>
 </ul>
 <section id="id12">
-<h3><a class="toc-backref" href="#id32">ナブラ</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id32">ナブラ</a><a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h3>
 <p>クラス CoordSysCartesian のプロパティー <code class="code docutils literal notranslate"><span class="pre">delop</span></code> がナブラ <span class="math notranslate nohighlight">\(\nabla\)</span> を表現する。英語圏の人はこれをデルと呼ぶことが多い。そしてみんなが知っているが、小文字の <code class="code docutils literal notranslate"><span class="pre">del</span></code> は Python の予約語である。</p>
 <p>例を示す。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">sympy.vector</span> <span class="kn">import</span> <span class="o">*</span>
@@ -309,7 +309,7 @@ BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。</p
 </div>
 </section>
 <section id="id13">
-<h3><a class="toc-backref" href="#id33">回転</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id33">回転</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h3>
 <p>3 次元空間のベクトルの回転 <span class="math notranslate nohighlight">\(\nabla \times \mathbf{F}\)</span> を計算する方法がふたつある。</p>
 <ul class="simple">
 <li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">delop.cross</span></code> を用いる。</p></li>
@@ -335,7 +335,7 @@ BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。</p
 </div>
 </section>
 <section id="id14">
-<h3><a class="toc-backref" href="#id34">発散</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id34">発散</a><a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h3>
 <p>3 次元空間のベクトルの発散 <span class="math notranslate nohighlight">\(\nabla \cdot \mathbf{F}\)</span> を計算する方法がふたつある。</p>
 <ul class="simple">
 <li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">delop.dot</span></code> を用いる。</p></li>
@@ -359,7 +359,7 @@ BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。</p
 </div>
 </section>
 <section id="id15">
-<h3><a class="toc-backref" href="#id35">勾配</a><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id35">勾配</a><a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h3>
 <p>3 次元空間上の実数値関数の勾配 <span class="math notranslate nohighlight">\(\nabla f\)</span> を計算する方法がふたつある。</p>
 <ul class="simple">
 <li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">delop.gradient</span></code> を用いる。</p></li>
@@ -383,7 +383,7 @@ BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。</p
 </div>
 </section>
 <section id="id16">
-<h3><a class="toc-backref" href="#id36">方向微分</a><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id36">方向微分</a><a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h3>
 <p>方向微分は <code class="code docutils literal notranslate"><span class="pre">(v.dot(coord_sys.delop))(field)</span></code> のようにする。ここで、</p>
 <ul class="simple">
 <li><p><code class="code docutils literal notranslate"><span class="pre">coord_sys</span></code> はクラス CoordSysCartesian オブジェクト、</p></li>
@@ -412,7 +412,7 @@ BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。</p
 </div>
 </section>
 <section id="id17">
-<h3><a class="toc-backref" href="#id37">ポテンシャル</a><a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id37">ポテンシャル</a><a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h3>
 <dl class="simple">
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">is_conservative(field)</span></code></dt><dd><p>ベクトル場が保存場であるかどうかをテストする。</p>
 <ul class="simple">
@@ -438,7 +438,7 @@ BaseVector, VectorAdd, VectorMul オブジェクトの composite になる。</p
 </section>
 </section>
 <section id="id18">
-<h2><a class="toc-backref" href="#id38">演習</a><a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id38">演習</a><a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h2>
 <p>3 次元空間上のベクトル場
 <span class="math notranslate nohighlight">\(\mathbf{F} = 2 x y^3 z^4 \mathbf{i} + 3 x^2 y^2 z^4 \mathbf{j} + 4 x^2 y^3 z^3 \mathbf{k}\)</span>
 が保存場であることを確認し、そのスカラーポテンシャルを先述の関数で求める。また、このベクトル場の始点と終点をそれぞれ <span class="math notranslate nohighlight">\(P_0(0, 0, 0)\)</span> と <span class="math notranslate nohighlight">\(P_1(10, 10, 10)\)</span> とする、何らかの経路上の線積分を関数 <code class="code docutils literal notranslate"><span class="pre">scalar_potential_difference</span></code> を利用して求める手続きの例を示す。</p>

@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
@@ -36,7 +36,7 @@
           <div class="body" role="main">
             
   <section id="project-skill-sharing-website">
-<h1><a class="toc-backref" href="#id2">Project: Skill-Sharing Website</a><a class="headerlink" href="#project-skill-sharing-website" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id2">Project: Skill-Sharing Website</a><a class="headerlink" href="#project-skill-sharing-website" title="Permalink to this heading">¶</a></h1>
 <p><a class="reference external" href="https://eloquentjavascript.net/">Eloquent JavaScript</a> Chapter 21 の読書ノート。</p>
 <ul class="simple">
 <li><p>この最終章では、スキル共有会で行われる講演を管理するためのウェブサイトを作ることを目標とする。</p></li>
@@ -78,7 +78,7 @@
 </ul>
 </div>
 <section id="design">
-<h2><a class="toc-backref" href="#id3">Design</a><a class="headerlink" href="#design" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id3">Design</a><a class="headerlink" href="#design" title="Permalink to this heading">¶</a></h2>
 <p>このプロジェクトには、Node.js 用に書かれたサーバー部分と、ブラウザー用に書かれたクライアント部分がある。</p>
 <ul class="simple">
 <li><p>サーバーは、システムのデータを保存し、クライアントに提供する。また、クライアント側のシステムを実装するファイルを提供する。</p></li>
@@ -94,7 +94,7 @@
 </ul>
 </section>
 <section id="long-polling">
-<h2><a class="toc-backref" href="#id4">Long polling</a><a class="headerlink" href="#long-polling" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">Long polling</a><a class="headerlink" href="#long-polling" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>何かが変更されたことをクライアントに即座に通知するためには、そのクライアントとの接続が必要だ。ウェブブラウザーは通常、接続を受け付けない、クライアントは中継器の背後にいることが多く、そのような接続は遮断されてしまうため、サーバーがこの接続を開始することは現実的ではない。</p></li>
 <li><p>クライアントが接続を開始し、サーバーが必要なときに情報を送信できるように接続を維持するようにすることができる。しかし、HTTP リクエストでは、クライアントがリクエストを送信し、サーバーが単一の応答を返してそれだけという単純な情報の流れしかできない。</p></li>
@@ -115,7 +115,7 @@
 <p>Long polling を使用している多忙なサーバーでは、何千ものリクエスト待ち、したがって TCP 接続が開いていることがある。このようなシステムには、それぞれの接続に個別の制御スレッドを作成することなく、多くの接続を簡単に管理できる <a class="reference external" href="https://nodejs.org">Node</a> が適している。</p>
 </section>
 <section id="http-interface">
-<h2><a class="toc-backref" href="#id5">HTTP interface</a><a class="headerlink" href="#http-interface" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">HTTP interface</a><a class="headerlink" href="#http-interface" title="Permalink to this heading">¶</a></h2>
 <p>サーバーやクライアントの設計を始める前に、両者が接触するポイントである、通信するための HTTP インターフェイスについて考える。</p>
 <ul class="simple">
 <li><p>リクエスト本体と応答本体の書式として JSON を採用する。</p>
@@ -186,10 +186,10 @@ Content-Length: 295
 <p>ここで説明したプロトコルでは、いかなるアクセス制御をも行わない。誰でもコメントしたり、会話を修正したり、削除したりできる。</p>
 </section>
 <section id="the-server">
-<h2><a class="toc-backref" href="#id6">The server</a><a class="headerlink" href="#the-server" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id6">The server</a><a class="headerlink" href="#the-server" title="Permalink to this heading">¶</a></h2>
 <p>まずはサーバー側の構築から始める。本節のコードは Node.js 上で動作する。</p>
 <section id="routing">
-<h3><a class="toc-backref" href="#id7">Routing</a><a class="headerlink" href="#routing" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id7">Routing</a><a class="headerlink" href="#routing" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">createServer</span></code> を使って HTTP サーバーを開始する。新しいリクエストを処理する関数では、我々がサポートしている、メソッドとパスで決定されるさまざまなリクエストを区別しなければならない。これを長い <code class="docutils literal notranslate"><span class="pre">if</span></code> 文の連鎖で行うこともできるが、もっと良い方法がある。</p>
 <p>中継器とは、リクエストを、それを処理できる関数にディスパッチするのを助けるコンポーネントだ。</p>
 <p>例えば、正規表現 <code class="docutils literal notranslate"><span class="pre">^\/talks\/([^\/]+)$</span></code> に合致するパスを持つ PUT リクエストは、特定の関数で処理できるように中継器に知らせられる。さらに、正規表現の括弧で囲まれたパスの意味のある部分を抽出して、処理関数に渡すこともできる。</p>
@@ -237,7 +237,7 @@ Content-Length: 295
 <p>ハンドラ関数ーは <code class="docutils literal notranslate"><span class="pre">context</span></code> の値 (ここではサーバーのインスタンス)、正規表現で定義されたグループの合致文字列、そしてリクエストオブジェクトを引数として呼び出される。生の URL には <code class="docutils literal notranslate"><span class="pre">%20</span></code> スタイルのコードを含むかもしれないので、文字列を URL 用に複号しないといけない。</p>
 </section>
 <section id="serving-files">
-<h3><a class="toc-backref" href="#id8">Serving files</a><a class="headerlink" href="#serving-files" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id8">Serving files</a><a class="headerlink" href="#serving-files" title="Permalink to this heading">¶</a></h3>
 <p>リクエストが中継器で定義されたリクエスト型タイプのどれにも合致マッチしない場合、サーバーはそれを <code class="docutils literal notranslate"><span class="pre">public</span></code> ディレクトリー内のファイルに対するリクエストとして解釈しなければならない。</p>
 <ul class="simple">
 <li><p>第 20 章で定義したファイルサーバーを使用してこのようなファイルを提供することもできるが、ファイルに対する PUT および DELETE リクエストをサポートする必要もなく、またキャッシングのサポートのような高度な機能が欲しい。</p></li>
@@ -290,7 +290,7 @@ Content-Length: 295
 <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返すハンドラーを使用する。その状態を保持するオブジェクトでそのサーバーをラップする。</p>
 </section>
 <section id="talks-as-resources">
-<h3><a class="toc-backref" href="#id9">Talks as resources</a><a class="headerlink" href="#talks-as-resources" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id9">Talks as resources</a><a class="headerlink" href="#talks-as-resources" title="Permalink to this heading">¶</a></h3>
 <p>提案された会話はサーバーのプロパティー <code class="docutils literal notranslate"><span class="pre">talks</span></code> に格納されている。プロパティー名がトークの題名であるようなオブジェクトだ。これらは HTTP リソースとして <code class="docutils literal notranslate"><span class="pre">/talks/[title]</span></code> という名前で公開するので、クライアントが会話を操作するための雑多なメソッドを実装するハンドラーを中継器に追加する必要がある。</p>
 <p>会話一つを取得するリクエストのハンドラーは、会話を検索し、その JSON データを返すか、そうでなければ 404 エラーを返さねばならない。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">talkPath</span> <span class="o">=</span> <span class="sr">/^\/talks\/([^\/]+)$/</span><span class="p">;</span>
@@ -389,7 +389,7 @@ PUT ハンドラーは渡されたデータに文字列プロパティー <code 
 </ul>
 </section>
 <section id="long-polling-support">
-<h3><a class="toc-backref" href="#id10">Long polling support</a><a class="headerlink" href="#long-polling-support" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id10">Long polling support</a><a class="headerlink" href="#long-polling-support" title="Permalink to this heading">¶</a></h3>
 <p>このサーバーのいちばん面白い点は long polling 部だ。</p>
 <p><code class="docutils literal notranslate"><span class="pre">/talks</span></code> に対する GET リクエストが来ると、それは通常のリクエストである場合もあれば、
 long polling のそれである場合もある。クライアントに <code class="docutils literal notranslate"><span class="pre">talks</span></code> の配列を送信しなければならない箇所が複数あるので、まず配列を構築し、ヘッダー <code class="docutils literal notranslate"><span class="pre">ETag</span></code> を応答に含めるヘルパーメソッドを定義する：</p>
@@ -465,11 +465,11 @@ long polling のそれである場合もある。クライアントに <code cla
 </section>
 </section>
 <section id="the-client">
-<h2><a class="toc-backref" href="#id11">The client</a><a class="headerlink" href="#the-client" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id11">The client</a><a class="headerlink" href="#the-client" title="Permalink to this heading">¶</a></h2>
 <p>スキルシェアサイトのクライアント側を、小さな HTML ページ、スタイルシート、
 JavaScript ファイルで構成する。</p>
 <section id="html">
-<h3><a class="toc-backref" href="#id12">HTML</a><a class="headerlink" href="#html" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id12">HTML</a><a class="headerlink" href="#html" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>ディレクトリーに対応するパスに直接リクエストがあった場合、Web サーバーではファイル <code class="docutils literal notranslate"><span class="pre">index.html</span></code> を提供しようとすることが広く行われている。
 <code class="docutils literal notranslate"><span class="pre">ecstatic</span></code> もこの慣習をサポートしている。</p></li>
@@ -492,7 +492,7 @@ JavaScript ファイルで構成する。</p>
 </ul>
 </section>
 <section id="actions">
-<h3><a class="toc-backref" href="#id13">Actions</a><a class="headerlink" href="#actions" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id13">Actions</a><a class="headerlink" href="#actions" title="Permalink to this heading">¶</a></h3>
 <p>アプリケーションの状態は、会話のリストとユーザーの名前で構成されており、
 <code class="docutils literal notranslate"><span class="pre">{talks,</span> <span class="pre">user}</span></code> オブジェクトに格納する。</p>
 <p>ユーザーインターフェースには状態を直接操作したり、HTTP リクエストを送信したりすることは認めず、ユーザーが何をしようとしているのかを記述するアクションを発信させる。</p>
@@ -548,7 +548,7 @@ JavaScript ファイルで構成する。</p>
 </ul>
 </section>
 <section id="rendering-components">
-<h3><a class="toc-backref" href="#id14">Rendering components</a><a class="headerlink" href="#rendering-components" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id14">Rendering components</a><a class="headerlink" href="#rendering-components" title="Permalink to this heading">¶</a></h3>
 <p>第 19 章で見たのと同じようなアプローチで、アプリケーションをコンポーネントに分割する。クラスとしてではなく、DOM ノードを直接返す関数として定義すれば十分なものもある。例えば、ユーザーが名前を入力するフィールドを表示するコンポーネントがそうだ：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">renderUserField</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="s2">&quot;Your name: &quot;</span><span class="p">,</span> <span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;input&quot;</span><span class="p">,</span> <span class="p">{</span>
@@ -600,7 +600,7 @@ JavaScript の関数呼び出しに変換する必要がある。</p>
 </div>
 </section>
 <section id="polling">
-<h3><a class="toc-backref" href="#id15">Polling</a><a class="headerlink" href="#polling" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id15">Polling</a><a class="headerlink" href="#polling" title="Permalink to this heading">¶</a></h3>
 <p>アプリケーションを起動するには、現在の会話が必要だ。最初のロードは long polling 処理（ロード時の <code class="docutils literal notranslate"><span class="pre">ETag</span></code> をポーリング時に使用する必要がある）と密接に関係しているため、サーバーの <code class="docutils literal notranslate"><span class="pre">/talks</span></code> をポーリングし続け、会話の新しい集合が利用可能になったときにコールバック関数を呼び出す関数 <code class="docutils literal notranslate"><span class="pre">pollTalks</span></code> を書く。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="kd">function</span> <span class="nx">pollTalks</span><span class="p">(</span><span class="nx">update</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="nx">tag</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
@@ -635,7 +635,7 @@ JavaScript の関数呼び出しに変換する必要がある。</p>
 </ul>
 </section>
 <section id="the-application">
-<h3><a class="toc-backref" href="#id16">The application</a><a class="headerlink" href="#the-application" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id16">The application</a><a class="headerlink" href="#the-application" title="Permalink to this heading">¶</a></h3>
 <p>クラス <code class="docutils literal notranslate"><span class="pre">SkillShareApp</span></code> (pp. 399-400) は、ユーザーインターフェース全体を結びつける。</p>
 <ul class="simple">
 <li><p>会話が変わると、このコンポーネントは会話すべてを再描画する。単純で無駄が多い。この点については演習でなんとかする。</p></li>
@@ -669,9 +669,9 @@ JavaScript の関数呼び出しに変換する必要がある。</p>
 </section>
 </section>
 <section id="exercises">
-<h2><a class="toc-backref" href="#id17">Exercises</a><a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id17">Exercises</a><a class="headerlink" href="#exercises" title="Permalink to this heading">¶</a></h2>
 <section id="disk-persistence">
-<h3><a class="toc-backref" href="#id18">Disk persistence</a><a class="headerlink" href="#disk-persistence" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id18">Disk persistence</a><a class="headerlink" href="#disk-persistence" title="Permalink to this heading">¶</a></h3>
 <p>技能共有サーバーは、データをメモリー上に保持している。クラッシュしたり、何らかの理由で再起動したりすると、すべての会話やコメントが失われる。</p>
 <p><strong>問題</strong> 会話データをディスクに保存し、再起動時に自動的にデータを再読み込みするように拡張しろ。効率を気にすることなく、動作する最も単純なことをしろ。</p>
 <p><strong>解答</strong> 会話データを JSON にシリアライズしてダンプやロードしたい。</p>
@@ -710,7 +710,7 @@ JavaScript の関数呼び出しに変換する必要がある。</p>
 </ul>
 </section>
 <section id="comment-field-resets">
-<h3><a class="toc-backref" href="#id19">Comment field resets</a><a class="headerlink" href="#comment-field-resets" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id19">Comment field resets</a><a class="headerlink" href="#comment-field-resets" title="Permalink to this heading">¶</a></h3>
 <p>会話の全面的な再描画は、通常、DOM ノードとその同一の代替物との違いを見分けることができないので、かなりうまくいく。しかし、例外もある。一方のブラウザーのウィンドウでトークのコメント欄に何かを入力し始め、他方のウィンドウでその会話にコメントを追加すると、最初のウィンドウのフィールドが再描画され、中身とフォーカスの両方が消える。複数の人が同時にコメントを付けているような熱い議論の場では、これは迷惑だ。</p>
 <p><strong>問題</strong> これを解決する方法を考えろ。</p>
 <p><strong>解答</strong> <code class="docutils literal notranslate"><span class="pre">SkillShareServer.syncState</span></code> の処理中で <code class="docutils literal notranslate"><span class="pre">this.talks</span></code> と

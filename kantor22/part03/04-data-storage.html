@@ -1,0 +1,1076 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Storing data in the browser &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/prefab.css" />
+    
+    <script src="../../_static/mathjax-v3.js"></script>
+    <script src="../../_static/mermaid.js"></script>
+    
+    <link rel="next" title="Animation" href="05-animation.html" />
+    <link rel="prev" title="Network requests" href="03-network.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="05-animation.html" title="Animation"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="03-network.html" title="Network requests"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >The Modern JavaScript Tutorial 読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Part 3 Additional articles</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Storing data in the browser</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="storing-data-in-the-browser">
+<h1><a class="toc-backref" href="#id3">Storing data in the browser</a><a class="headerlink" href="#storing-data-in-the-browser" title="Permalink to this heading">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#storing-data-in-the-browser" id="id3">Storing data in the browser</a></p>
+<ul>
+<li><p><a class="reference internal" href="#cookies-document-cookie" id="id4">Cookies, document.cookie</a></p></li>
+<li><p><a class="reference internal" href="#localstorage-sessionstorage" id="id5">LocalStorage, sessionStorage</a></p></li>
+<li><p><a class="reference internal" href="#indexeddb" id="id6">IndexedDB</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="cookies-document-cookie">
+<h2><a class="toc-backref" href="#id4">Cookies, document.cookie</a><a class="headerlink" href="#cookies-document-cookie" title="Permalink to this heading">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/cookie">https://javascript.info/cookie</a>&gt; ノート。</p>
+<p>Cookie とは小さな文字列であって、ブラウザーに直接保存されるデータだ。 Cookie は
+HTTP の一部であり、RFC 6265 で定義されている。 Cookie は通常、HTTP-header 応答
+<code class="docutils literal notranslate"><span class="pre">Set-Cookie</span></code> を使用してウェブサーバーが設定する。その後、ブラウザーは <code class="docutils literal notranslate"><span class="pre">Cookie</span></code>
+HTTP-header を使用して、同じドメインへのほとんどすべての要求に cookie を自動的に追加する。</p>
+<p>最も広く使われている事例のひとつが認証だ。</p>
+<ol class="arabic simple">
+<li><p>サインインすると、サーバーは応答 <code class="docutils literal notranslate"><span class="pre">Set-Cookie</span></code> HTTP-header を使って、固有のセッション識別子を持つ cookie を設定する。</p></li>
+<li><p>次回、同じドメインに要求が送られると、ブラウザーは <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> HTTP-header を使ってネット上で cookie を送信する。</p></li>
+<li><p>したがって、サーバーは誰が要求を行ったかを知っている。</p></li>
+</ol>
+<p>ブラウザーから cookie にアクセスすることもできる。プロパティー <code class="docutils literal notranslate"><span class="pre">document.cookie</span></code>
+を用いる。</p>
+<section id="reading-from-document-cookie">
+<h3>Reading from document.cookie<a class="headerlink" href="#reading-from-document-cookie" title="Permalink to this heading">¶</a></h3>
+<p>値 <code class="docutils literal notranslate"><span class="pre">document.cookie</span></code> は、セミコロンで区切りの name=value ペアで構成されている。それぞれが個別の cookie だ。特定の cookie を見つけるには、
+<code class="docutils literal notranslate"><span class="pre">document.cookie</span></code> を <code class="docutils literal notranslate"><span class="pre">;</span></code> で split し、正しい名前を見つければいい。そのためには正規表現か配列関数を使える。この章の終わりには cookie を操作するためのヘルパー関数がある。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>ブラウザーの適当なタブで検証ツールの Console を開いて <code class="docutils literal notranslate"><span class="pre">document.cookie</span></code>
+をチェックするといい。</p>
+</div>
+</section>
+<section id="writing-to-document-cookie">
+<h3>Writing to document.cookie<a class="headerlink" href="#writing-to-document-cookie" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">document.cookie</span></code> に書き込みができる。これはデータプロパティーではなく、アクセッサーだ。特に代入は特別に扱われる。<code class="docutils literal notranslate"><span class="pre">document.cookie</span></code> への書き込み操作は、その中に記述された cookie だけを更新し、他の cookie には触れない。例えば、この呼び出しは <code class="docutils literal notranslate"><span class="pre">user</span></code> という名前と <code class="docutils literal notranslate"><span class="pre">John</span></code> という値を持つ cookie を設定する：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">=</span> <span class="s2">&quot;user=John&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>代入後に <code class="docutils literal notranslate"><span class="pre">document.cookie</span></code> を出力すると、先に述べた理由でおそらく cookie が複数表示されるだろう。</p>
+<p>技術的には、名前と値はどんな文字でも持つことができる。有効な書式を維持するために、組み込み関数 <code class="docutils literal notranslate"><span class="pre">encodeURIComponent</span></code> を使ってエスケープする必要がある。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">=</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>制限が少しある。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">encodeURIComponent</span></code> の後の name=value は 4KB を超えてはいけない。したがって、cookie に巨大なものを保存することはできない。</p></li>
+<li><p>ドメインあたりの cookie の総数は約 20+ に制限されているが、正確な制限はブラウザーによる。</p></li>
+</ul>
+<hr class="docutils" />
+<p>Cookie にはオプションがいくつかあり、その多くは重要なのでなるべく設定する。</p>
+<p>オプションは key=value の後にセミコロンで区切って、以下のように並べる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">=</span> <span class="s2">&quot;user=John; path=/; expires=Tue, 19 Jan 2038 03:14:07 GMT&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="path">
+<h3>path<a class="headerlink" href="#path" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>path=/mypath
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">path</span></code> のプレフィクスは絶対でなければならない。そのパスの下にあるページから
+cookie にアクセスできるようにする。既定値は現在のパスだ。</p>
+<p>もし cookie が <code class="docutils literal notranslate"><span class="pre">path=/admin</span></code> で設定されると、ページ <code class="docutils literal notranslate"><span class="pre">/admin</span></code> および
+<code class="docutils literal notranslate"><span class="pre">/admin/something</span></code> で見ることができ、 <code class="docutils literal notranslate"><span class="pre">/home</span></code> や <code class="docutils literal notranslate"><span class="pre">/adminpage</span></code> では見えない。</p>
+<p>通常、cookie をすべてのページからアクセスできるように、<code class="docutils literal notranslate"><span class="pre">path</span></code> をルートに設定する必要がある：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>path=/
+</pre></div>
+</div>
+</section>
+<section id="domain">
+<h3>domain<a class="headerlink" href="#domain" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>domain=site.com
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">domain</span></code> は、cookie がアクセス可能な場所を定義する。しかし実際には制限がある。どんなドメインでも設定できるわけではない。 Cookie を別の第二レベルドメインからアクセスできるようにする方法はないので、 other.com は site.com で設定された cookie
+を決して受け取らない。これは安全上の制限で、あるサイトでのみ利用可能であるべき機密データを cookie に保存できるようにするためだ。</p>
+<p>初期状態では、cookie はそれを設定したドメインでのみアクセス可能だ。
+forum.site.comのようなサブドメインにも共有されない。しかし、これを変更することができる。 forum.site.com のようなサブドメインが site.com で設定された cookie を取得できるようにしたい場合、それは可能だ。そのためには、site.com で cookie を設定するときに、<code class="docutils literal notranslate"><span class="pre">domain</span></code> オプションを明示的にルートドメインに設定する必要がある。そうすれば、すべてのサブドメインがそのような cookie を見ることになる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// at site.com</span>
+<span class="c1">// make the cookie accessible on any subdomain *.site.com:</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">=</span> <span class="s2">&quot;user=John; domain=site.com&quot;</span>
+
+<span class="c1">// at forum.site.com</span>
+<span class="c1">// document.cookie has cookie user=John</span>
+</pre></div>
+</div>
+<p>歴史的理由から、<code class="docutils literal notranslate"><span class="pre">domain=.site.com</span></code> も同じように動作し、サブドメインから
+cookie にアクセスできるようになる。これは古い記法で、古いブラウザー対応をする場合に使われる。</p>
+<p>まとめると、オプション <code class="docutils literal notranslate"><span class="pre">domain</span></code> はサブドメインでも cookie にアクセスしてもいいようにできるものだ。</p>
+</section>
+<section id="expires-max-age">
+<h3>expires, max-age<a class="headerlink" href="#expires-max-age" title="Permalink to this heading">¶</a></h3>
+<p>Cookie に次に述べるオプションがない場合、ブラウザーを閉じると消える。このような
+cookie はセッション cookie と呼ばれる。</p>
+<p>ブラウザーを閉じても cookie が残るようにするには、オプション <code class="docutils literal notranslate"><span class="pre">expires</span></code> かオプション <code class="docutils literal notranslate"><span class="pre">max-age</span></code> のどちらかを設定する。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>expires=Tue, 19 Jan 2038 03:14:07 GMT
+</pre></div>
+</div>
+<p>Cookie の有効期限は、ブラウザーが自動的に cookie を削除する時刻だ。</p>
+<p>日付は GMT で、正確にこの形式でなければならない。日付は <code class="docutils literal notranslate"><span class="pre">date.toUTCString()</span></code>
+で得られる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">date</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">+</span> <span class="mf">86400e3</span><span class="p">);</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">=</span> <span class="s2">&quot;user=John; expires=&quot;</span> <span class="o">+</span> <span class="nx">date</span><span class="p">.</span><span class="nx">toUTCString</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>オプション <code class="docutils literal notranslate"><span class="pre">expires</span></code> を過去の日付に設定すると、その cookie は消える。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>max-age=3600
+</pre></div>
+</div>
+<p>Cookie の有効期限を現在の時点から秒単位で指定する。
+0 または負の値を設定した場合、その cookie は消える。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// cookie will die in +1 hour from now</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">=</span> <span class="s2">&quot;user=John; max-age=3600&quot;</span><span class="p">;</span>
+
+<span class="c1">// delete cookie (let it expire right now)</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">=</span> <span class="s2">&quot;user=John; max-age=0&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>絶対時刻で指定するか、相対時刻で指定するかでオプションを決めればいいようだ。</p>
+</div>
+</section>
+<section id="secure">
+<h3>secure<a class="headerlink" href="#secure" title="Permalink to this heading">¶</a></h3>
+<p>Cookie はなるべく HTTPS でしか転送されないようにする。既定では <a class="reference external" href="http://site.com">http://site.com</a> で
+cookie を設定すると、<a class="reference external" href="https://site.com">https://site.com</a> にも表示され、その逆もまた成り立つ。つまり、cookie はドメインベースであり、プロトコルを区別しない。</p>
+<p>オプション <code class="docutils literal notranslate"><span class="pre">secure</span></code> があると、もし cookie が <a class="reference external" href="https://site.com">https://site.com</a> で設定されると、同じサイトが HTTP で、つまり <a class="reference external" href="http://site.com">http://site.com</a> としてアクセスされたとき cookie が見えなくなる。</p>
+<p>Cookie が暗号化されていない HTTP で決して送られるべきでない機密性の高い内容を持つなら、<code class="docutils literal notranslate"><span class="pre">secure</span></code> フラグが妥当だ。</p>
+</section>
+<section id="samesite">
+<h3>samesite<a class="headerlink" href="#samesite" title="Permalink to this heading">¶</a></h3>
+<p>これもセキュリティ属性だ。これはいわゆる XSRF (cross-site request forgery) 攻撃から保護するために設計されている。</p>
+<section id="xsrf-attack">
+<h4>XSRF attack<a class="headerlink" href="#xsrf-attack" title="Permalink to this heading">¶</a></h4>
+<p>サイト bank.com にログインしているとする。つまり、そのサイトの認証 cookie を利用者が持っている。ブラウザーは要求ごとにこの cookie を bank.com に送信し、利用者を認識させ、機密の財務処理すべてを実行するようになっている。</p>
+<p>さて、その利用者が別のウィンドウで偶然、別のサイト evil.com にたどり着いた。そのサイトには、ハッカーの口座への取引を開始するフィールドを含むフォーム
+<code class="docutils literal notranslate"><span class="pre">&lt;formaction=&quot;https://bank.com/pay&quot;&gt;</span></code> を bank.com に送信する JavaScript コードがある。ブラウザーは、フォームが evil.com から送信されたとしても、 bank.com というサイトにアクセスするたびに認証済み cookie を送信するので、銀行は実際に支払いを実行する。こういう構造の攻撃を Cross-Site Request Forgery という。</p>
+<p>実際の銀行はもちろんそれから守られている。サイト bank.com が生成するフォームすべてに、 XSRF 保護トークンという特別なフィールドがあり、悪意のあるページが遠隔ページから生成したり抽出したりすることはできないのだ。サイト <code class="docutils literal notranslate"><span class="pre">bank.com</span></code> は、フォームを受信するたびに、このようなトークンをチェックする。</p>
+<p>しかし、このような保護機能を実装するには時間がかかる。フォームすべてに必要なトークンフィールドがあることを確認し、さらに要求すべてをチェックする必要がある。</p>
+</section>
+<section id="enter-cookie-samesite-option">
+<h4>Enter cookie samesite option<a class="headerlink" href="#enter-cookie-samesite-option" title="Permalink to this heading">¶</a></h4>
+<p>Cookie オプション <code class="docutils literal notranslate"><span class="pre">samesite</span></code> は、このような攻撃から守るための別の用意だ。これは理論的には XSRF 保護トークンを必要としないはずだ。このオプションには取り得る値が二つある。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>samesite=strict
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">samesite=strict</span></code> cookie クッキーは利用者が同じサイトの外から来た場合、決して送信されない。言い換えれば、利用者がメールからのリンクをたどろうが、evil.com からフォームを送信しようが、あるいは他のドメインから発信された何らかの操作をしようが、cookie は送信されない。</p>
+<p>認証 cookie にオプション <code class="docutils literal notranslate"><span class="pre">samesite</span></code> があれば、evil.com からの送信は cookie なしで来るので、 XSRF 攻撃は成功する可能性がない。そのため、bank.com は利用者を認識できず、支払いを続行することができない。</p>
+<p>この保護機能は信頼できる。例えば、bank.com の他のページからのフォーム送信のように、 bank.com から来る操作のみが <code class="docutils literal notranslate"><span class="pre">samesite</span></code> cookie を送信する。</p>
+<p>不都合もある。利用者が自分の手形からなど、bank.com への正当なリンクをたどったときに bank.com が自分を認識しないことに驚くだろう。確かに、その場合は
+<code class="docutils literal notranslate"><span class="pre">samesite=strict</span></code> cookie は送信されない。</p>
+<p>Cookie を二つ使うことでそれを回避できる。一つは一般的な認識用だけに使用する。もう一つは <code class="docutils literal notranslate"><span class="pre">samesite=strict</span></code> でデータ変更操作のために使用する。そうすれば、サイトの外から来た人は歓迎されることを見るが、二つ目の cookieを送信するためには、銀行のウェブサイトから支払いを開始する必要がある。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>samesite=lax
+</pre></div>
+</div>
+<p>XSRF からも保護し、利用者エクスペリエンスを損なわない、より緩やかな方法だ。</p>
+<p><code class="docutils literal notranslate"><span class="pre">lax</span></code> モードは <code class="docutils literal notranslate"><span class="pre">strict</span></code> と同様に、サイト外から来たときにブラウザーが cookie
+を送信することを禁じる、例外が追加されている。</p>
+<p><code class="docutils literal notranslate"><span class="pre">samesite=lax</span></code> cookie は、これらの条件が両方とも真である場合に送信される。</p>
+<ol class="arabic">
+<li><p>HTTP メソッドが安全であること</p>
+<p>安全な HTTP メソッドの完全なリストは仕様 RFC7231 にある。基本的に、これらのメソッドはデータの読み込みに使われるべきもので、書き込みには使われない。また、データを変更する操作を行ってはいけない。リンクをたどるのは常に GET であり、安全なメソッドだ。</p>
+</li>
+<li><p>操作がトップレベルのナビゲーションを実行する（ブラウザーのアドレスバーの URL
+を変更する）。</p>
+<p>通常は真だが、ナビゲーションが <code class="docutils literal notranslate"><span class="pre">&lt;iframe&gt;</span></code> 内で実行される場合は、トップレベルではない。また、ネットワーク要求のための JavaScript メソッドはナビゲーションを行わないので、適合しない。</p>
+</li>
+</ol>
+<p>つまり、<code class="docutils literal notranslate"><span class="pre">samesite=lax</span></code> が行うのは、基本的に最も一般的な「URL へ移動」操作に
+cookie を持たせることだ。例えば、これらの条件を満たす手形からウェブサイトのリンクを開くことだ。しかし、他のサイトからのネットワーク要求やフォーム送信のような、より複雑なものは cookie を失う。もしそれでいいのであれば、<code class="docutils literal notranslate"><span class="pre">samesite=lax</span></code> を追加しても、おそらく利用者エクスペリエンスを壊すことはなく、保護機能を追加することができる。</p>
+<p>全体として、<code class="docutils literal notranslate"><span class="pre">samesite</span></code> は素晴らしいオプションだ。</p>
+<p>欠点としては、</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">samesite</span></code> は、2017 年前後の古いブラウザーでは無視される。</p></li>
+</ul>
+<p>そのため、<code class="docutils literal notranslate"><span class="pre">samesite</span></code> にのみ保護を頼ると、古いブラウザーは脆弱になる。</p>
+<p>それでも、<code class="docutils literal notranslate"><span class="pre">samesite</span></code> と XSRF トークンのような他の保護手段を併用することで、さらに防御の層を厚くすることができるはずだ。</p>
+</section>
+</section>
+<section id="httponly">
+<h3>httpOnly<a class="headerlink" href="#httponly" title="Permalink to this heading">¶</a></h3>
+<p>このオプションは JavaScript とは何の関係もない。</p>
+<p>ウェブサーバーはヘッダー <code class="docutils literal notranslate"><span class="pre">Set-Cookie</span></code> を使用して cookie を設定する。また、オプション <code class="docutils literal notranslate"><span class="pre">httpOnly</span></code> を設定することもある。</p>
+<p>このオプションは、JavaScript から cookie へアクセスすることを禁じる。このような
+cookie を見たり、<code class="docutils literal notranslate"><span class="pre">document.cookie</span></code> を使用して操作したりできない。</p>
+<p>これは、ハッカーが自分の JavaScript コードをページに注入し、利用者がそのページを訪れるのを待つという特定の攻撃から守るための予防措置として使われている。ハッカーが私たちのサイトに自分のコードを注入することはまったくできないはずだが、それを許してしまうバグがあるのかもしれない。</p>
+<p>通常、そのようなことが起こり、利用者がハッカーの JavaScript コードを含むウェブページにアクセスすると、そのコードが実行され、認証情報を含む利用者クッキーを持つ
+<code class="docutils literal notranslate"><span class="pre">document.cookie</span></code> にアクセスできるようになる。それはまずい。</p>
+<p>しかし、もし cookie が <code class="docutils literal notranslate"><span class="pre">httpOnly</span></code> であれば、<code class="docutils literal notranslate"><span class="pre">document.cookie</span></code> はそれを見ないので保護される。</p>
+</section>
+<section id="appendix-cookie-functions">
+<h3>Appendix: Cookie functions<a class="headerlink" href="#appendix-cookie-functions" title="Permalink to this heading">¶</a></h3>
+<p>手動で <code class="docutils literal notranslate"><span class="pre">document.cookie</span></code> を修正するよりも便利な、cookie を扱うための小さな関数群を紹介する。そういうライブラリーはたくさんあるので、これらはデモ用だ。しかし、これらも完全に動作する。</p>
+<section id="getcookie-name">
+<h4>getCookie(name)<a class="headerlink" href="#getcookie-name" title="Permalink to this heading">¶</a></h4>
+<p>Cookie にアクセスする最も短い方法は、正規表現を用いることだ。関数
+<code class="docutils literal notranslate"><span class="pre">getCookie(name)</span></code> は与えられた名前を持つ cookie を返す。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">getCookie</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">matches</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="ow">new</span> <span class="nb">RegExp</span><span class="p">(</span>
+        <span class="s2">&quot;(?:^|; )&quot;</span> <span class="o">+</span> <span class="nx">name</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/([\.$?*|{}\(\)\[\]\\\/\+^])/g</span><span class="p">,</span> <span class="s1">&#39;\\$1&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;=([^;]*)&quot;</span>
+    <span class="p">));</span>
+    <span class="k">return</span> <span class="nx">matches</span> <span class="o">?</span> <span class="nb">decodeURIComponent</span><span class="p">(</span><span class="nx">matches</span><span class="p">[</span><span class="mf">1</span><span class="p">])</span> <span class="o">:</span> <span class="kc">undefined</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>パターン <code class="docutils literal notranslate"><span class="pre">;</span> <span class="pre">name=&lt;value&gt;</span></code> にマッチするように <code class="docutils literal notranslate"><span class="pre">RegExp</span></code> を動的に生成する。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>正規表現。最初の捕捉なし丸括弧は「行頭または <code class="docutils literal notranslate"><span class="pre">;</span></code> のいずれか」を意味する。リテラル正規表現はメタキャラクターのエスケープを行うためものの。最後の丸括弧が
+<code class="docutils literal notranslate"><span class="pre">&lt;value&gt;</span></code> を得るためのもので、<code class="docutils literal notranslate"><span class="pre">;</span></code> 直前までの最長パターンを表す。</p>
+</div>
+</section>
+<section id="setcookie-name-value-options">
+<h4>setCookie(name, value, options)<a class="headerlink" href="#setcookie-name-value-options" title="Permalink to this heading">¶</a></h4>
+<p>Cookie の名前を、既定では <code class="docutils literal notranslate"><span class="pre">path=/</span></code> であるように、指定された値に設定する。</p>
+</section>
+<section id="deletecookie-name">
+<h4>deleteCookie(name)<a class="headerlink" href="#deletecookie-name" title="Permalink to this heading">¶</a></h4>
+<p>Cookie を削除するには、有効期限を負の値にして呼び出すことで行う。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">deleteCookie</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">setCookie</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="s1">&#39;max-age&#39;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span>
+    <span class="p">})</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>Cookie を更新または削除するときは、設定したときとまったく同じ <code class="docutils literal notranslate"><span class="pre">path</span></code> と
+<code class="docutils literal notranslate"><span class="pre">domain</span></code> を用いる必要がある。</p>
+</section>
+</section>
+<section id="appendix-third-party-cookies">
+<h3>Appendix: Third-party cookies<a class="headerlink" href="#appendix-third-party-cookies" title="Permalink to this heading">¶</a></h3>
+<p>Cookie がサードパーティー cookie であるとは、利用者が訪問しているページ以外のドメインが置いた cookie だ。</p>
+<p>例えば：</p>
+<ol class="arabic simple">
+<li><p>ドメイン site.com のページで、他のサイトのバナー
+<code class="docutils literal notranslate"><span class="pre">&lt;img</span> <span class="pre">src=&quot;https://ads.com/banner.png&quot;&gt;</span></code> を読み込む。</p></li>
+<li><p>バナーとともに、ads.com の遠方サーバーはヘッダー <code class="docutils literal notranslate"><span class="pre">Set-Cookie</span></code> に
+<code class="docutils literal notranslate"><span class="pre">id=1234</span></code> のような cookie を設定する場合がある。このような cookie はドメイン ads.com から発信され、ads.com でのみ表示される。</p></li>
+<li><p>次に ads.com にアクセスすると、遠方サーバーは <code class="docutils literal notranslate"><span class="pre">id</span></code> cookie を取得し、利用者を認識する。</p></li>
+<li><p>さらに重要なことに、利用者が site.com から、同じくバナーを持っている他のサイトに移動すると、ads.com は ads.com に属する cookie を取得するため、訪問者を認識し、サイト間を移動する際に追跡することができることだ。</p></li>
+</ol>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>図を描ける。</p>
+</div>
+<p>サードパーティー cookie は、その性質上、従来から追跡や広告サービスに使用されている。これらは発信元のドメインに結びついているため、ads.com は異なるサイト間で同じ利用者を追跡することができる（すべてのサイトがアクセスした場合）。当然ながら、追跡されることを好まない人もいるので、ブラウザーでそのような cookie を無効にできる。</p>
+<p>また、最近のブラウザーの中には、このような cookie に対して特別な政策を採用しているものもある。</p>
+<ul class="simple">
+<li><p>Safari はサードパーティー cookie をまったく許可しない。</p></li>
+<li><p>Firefox にはサードパーティーの cookie を遮断するべく、サードパーティードメインの「ブラックリスト」が用意されている。</p></li>
+</ul>
+<hr class="docutils" />
+<p><code class="docutils literal notranslate"><span class="pre">&lt;script</span> <span class="pre">src=&quot;https://google-analytics.com/analytics.js&quot;&gt;</span></code> のように第三者のドメインからスクリプトをロードし、そのスクリプトが <code class="docutils literal notranslate"><span class="pre">document.cookie</span></code> を使って
+cookieを設定する場合、その cookie はサードパーティーではない。</p>
+<p>スクリプトが cookie を設定するなら、そのスクリプトがどこから来たかに関係なく、その cookie は現在のウェブページのドメインに属する。</p>
+</section>
+<section id="appendix-gdpr">
+<h3>Appendix: GDPR<a class="headerlink" href="#appendix-gdpr" title="Permalink to this heading">¶</a></h3>
+<p>ここも JavaScript とは全く関係なく、cookie を設定する際に気をつけるべきことを述べる。</p>
+<p>欧州には GDPR と呼ばれる法律があり、ウェブサイトが閲覧者のプライバシーを尊重するために一連の規則を施行している。その規則一つに、追跡 cookie について、利用者からの明示的な許可を必要とすることがある。ただし、これはあくまで cookie の追跡、識別、許可に関するものであって、ある情報を保存するだけで、利用者を追跡も特定もしない cookie を設定するのであれば、それは自由だ。しかし、認証セッションや追跡 ID を持つ cookie を設定するのであれば、利用者がそれを許可しなければならない。</p>
+<p>ウェブサイトには一般に、GDPR に従うための変種が二つある。どちらもすでにウェブで見たことがあるはずだ。</p>
+<ol class="arabic">
+<li><p>ウェブサイトが、認証された利用者だけに追跡 cookie を設定したい場合。</p>
+<p>これを行うには、登録フォームに「プライバシーポリシーを受け入れる」のようなチェックボックスを設け、利用者はそれをチェックしなければならず、その後ウェブサイトは認証 cookie を自由に設定することができるようになる。</p>
+</li>
+<li><p>ウェブサイトがすべての人に追跡 cookie を設定したい場合。</p>
+<p>合法的に行うには、ウェブサイトは新規訪問者にモーダルなスプラッシュスクリーンを表示し、cookie に同意するよう求める。そうすれば、ウェブサイトはそれらを設定し、サイトの内容を見せることができる。しかし、それは新しい訪問者にとって邪魔になることがある。内容ではなく、そのような「クリックしなければならない」画面を見ることを好む人はいない。それでも GDPR では明示的な同意が必要だ。</p>
+</li>
+</ol>
+<p>GDPR は cookie だけでなく、他のプライバシー関連の問題についても言及しているが、ここでは述べない。</p>
+</section>
+</section>
+<section id="localstorage-sessionstorage">
+<h2><a class="toc-backref" href="#id5">LocalStorage, sessionStorage</a><a class="headerlink" href="#localstorage-sessionstorage" title="Permalink to this heading">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/localstorage">https://javascript.info/localstorage</a>&gt; ノート。</p>
+<p>ウェブストレージオブジェクト <code class="docutils literal notranslate"><span class="pre">localStorage</span></code> および <code class="docutils literal notranslate"><span class="pre">sessionStorage</span></code> により、ブラウザーにキーと値のペアを保存することができる。これらのオブジェクトの面白いところは、データがページの更新 (<code class="docutils literal notranslate"><span class="pre">sessionStorage</span></code>) やブラウザーの完全な再起動
+(<code class="docutils literal notranslate"><span class="pre">localStoregae</span></code>) にも影響を受けないことにある</p>
+<p>Cookie がすでにありながら、さらなるオブジェクトがなぜ必要なのだろうか：</p>
+<ul class="simple">
+<li><p>Cookie とは異なり、ウェブストレージオブジェクトは要求ごとにサーバーに送信されるわけではない。そのため、データをより多く保存することができる。</p></li>
+<li><p>これもまた cookie とは異なり、サーバーは HTTP ヘッダーを介してストレージオブジェクトを操作することができない。すべては JavaScript で行われる。</p></li>
+<li><p>ストレージはオリジン拘束性がある。つまり、異なるプロトコルやサブドメインは、異なるストレージオブジェクトを割り出し、互いにデータにアクセスすることはできない。</p></li>
+</ul>
+<p>どちらのストレージオブジェクトも同じメソッドとプロパティを備えている：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">setItem(key,</span> <span class="pre">value)</span></code>: キーと値のペアを格納する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getItem(key)</span></code>: キーで値を取得する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">removeItem(key)</span></code>: - キーとその値を削除する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">clear()</span></code>: すべて削除する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">key(index)</span></code>: 任意の位置のキーを取得する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">length</span></code>: 保存する項目の数。</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">Map</span></code> に似ていると憶えればいい。それに <code class="docutils literal notranslate"><span class="pre">key(index)</span></code> が付いたものだと考えられる。</p>
+<section id="localstorage-demo">
+<h3>localStorage demo<a class="headerlink" href="#localstorage-demo" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">localStorage</span></code> の主な機能：</p>
+<ul class="simple">
+<li><p>同じオリジンのすべてのタブとウィンドウで共有される。</p></li>
+<li><p>データに有効期限がない。ブラウザーの再起動はもちろん、OS の再起動後もデータが残る。</p></li>
+</ul>
+<p>例えば、次のコードをまず実行する：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>そしてブラウザーを閉じたり開いたり、あるいは同じページを別のウィンドウで開くだけで、このようにして値を取得できる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">);</span> <span class="c1">// 1</span>
+</pre></div>
+</div>
+<p>同じオリジンであればよく、URL パスは異なっていてもよい。 <code class="docutils literal notranslate"><span class="pre">localStorage</span></code> は同じオリジンを持つすべてのウィンドウで共有されるので、あるウィンドウでデータを設定すると、その変更は別のウィンドウからも見えるようになる。</p>
+</section>
+<section id="object-like-access">
+<h3>Object-like access<a class="headerlink" href="#object-like-access" title="Permalink to this heading">¶</a></h3>
+<p>また、普通のオブジェクトの方法でキーを取得、設定することもできる。これは歴史的な理由で認められており、ほとんど機能しているが、一般的には推奨されない。</p>
+<ol class="arabic simple">
+<li><p>もしキーが利用者によって生成されたものであれば、どんなものでもあり得る。
+<code class="docutils literal notranslate"><span class="pre">length</span></code> や <code class="docutils literal notranslate"><span class="pre">toString</span></code> あるいは <code class="docutils literal notranslate"><span class="pre">localStorage</span></code> の他の組み込みメソッドでも。この場合、<code class="docutils literal notranslate"><span class="pre">{get,set}Item()</span></code> は問題なく動作するが、オブジェクト風アクセスは失敗する。</p></li>
+<li><p>イベント <code class="docutils literal notranslate"><span class="pre">storage</span></code> があり、データを変更したときに起こる。そのイベントは、オブジェクト風アクセスでは起こらない。</p></li>
+</ol>
+</section>
+<section id="looping-over-keys">
+<h3>Looping over keys<a class="headerlink" href="#looping-over-keys" title="Permalink to this heading">¶</a></h3>
+<p>ストレージオブジェクトは概念としてはコレクションであるものの、反復可能機能を提供していない。いちおう <code class="docutils literal notranslate"><span class="pre">for...in</span></code> ループを書けるが、必要のない組み込みフィールドもキーとして出てくる。なので、本書では <code class="docutils literal notranslate"><span class="pre">Object.keys(localStorage)</span></code> を反復処理することを推奨している。</p>
+</section>
+<section id="strings-only">
+<h3>Strings only<a class="headerlink" href="#strings-only" title="Permalink to this heading">¶</a></h3>
+<p>ストレージオブジェクトはキーと値の両方が文字列でなければならない。数値やオブジェクトなど他の型であった場合は、自動的に文字列に変換される。</p>
+<p>オブジェクトを保存したければ JSON がある。また、デバッグ用にストレージオブジェクトを JSON にすることもある：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">localStorage</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="mf">2</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="sessionstorage">
+<h3>sessionStorage<a class="headerlink" href="#sessionstorage" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">sessionStorage</span></code> は <code class="docutils literal notranslate"><span class="pre">localStorage</span></code> に比べると使用頻度が低い。プロパティーやメソッドは同じだ、より限定的だ。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sessionStorage</span></code> は現在のブラウザータブ内にしか存在しない。</p>
+<ul>
+<li><p>同じページを表示する別のタブでは、別のストレージを持つ。</p></li>
+<li><p>しかし、同じタブ内の <code class="docutils literal notranslate"><span class="pre">iframe</span></code> 間では共有される（同じオリジンから来たとする）。</p></li>
+</ul>
+</li>
+<li><p>データはページの更新には耐えるが、タブを閉じたり開いたりするのには耐えられない。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">sessionStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>このコードを実行して、画面を更新すると</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">sessionStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>で値がまだ得られる。しかし、同じページを別のタブで開き、そこでもう一度試してみると、上記のコードは <code class="docutils literal notranslate"><span class="pre">null</span></code> を返す。これはまさに、<code class="docutils literal notranslate"><span class="pre">sessionStorage</span></code> がオリジンだけでなく、ブラウザーのタブにも束縛されているためだ。そのため、<code class="docutils literal notranslate"><span class="pre">sessionStorage</span></code> の使用は控えられる。</p>
+</section>
+<section id="storage-event">
+<h3>Storage event<a class="headerlink" href="#storage-event" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">localStorage</span></code> や <code class="docutils literal notranslate"><span class="pre">sessionStorage</span></code> のデータが更新されると、イベント
+<code class="docutils literal notranslate"><span class="pre">storage</span></code> が起こる。そのときのイベントのプロパティーは次のとおり：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">key</span></code>: 変更されたキー。<code class="docutils literal notranslate"><span class="pre">clear()</span></code> が呼び出された場合は <code class="docutils literal notranslate"><span class="pre">null</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">oldValue</span></code>: 古い値。キーが新しく追加された場合は <code class="docutils literal notranslate"><span class="pre">null</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">newValue</span></code>: 新しい値。キーが削除された場合は <code class="docutils literal notranslate"><span class="pre">null</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">url</span></code>: 更新が発生したドキュメントの URL.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">storageArea</span></code>: 更新が発生した <code class="docutils literal notranslate"><span class="pre">localStorage</span></code> または <code class="docutils literal notranslate"><span class="pre">sessionStorage</span></code> オブジェクト。</p></li>
+</ul>
+<p>重要なのは、このイベントは、ストレージにアクセス可能なすべてのウィンドウオブジェクトで発生するということだ（イベントを発生させたオブジェクト自身以外で）。</p>
+<p>ウィンドウが二つあり、同じサイトであるとする。そのため、<code class="docutils literal notranslate"><span class="pre">localStorage</span></code> はそれらの間で共有される。（本書のコードをテストするために、このページを二つのブラウザウィンドウで開くといいだろう）</p>
+<p>両方のウィンドウが <code class="docutils literal notranslate"><span class="pre">window.onstorage</span></code> を listen していれば、それぞれのウィンドウはもう一方のウィンドウで発生した更新に反応する。</p>
+<p>イベントは <code class="docutils literal notranslate"><span class="pre">event.url</span></code> として、データが更新されたドキュメントの URL を含むことに注意。イベントは <code class="docutils literal notranslate"><span class="pre">sessionStorage</span></code> と <code class="docutils literal notranslate"><span class="pre">localStorage</span></code> の両方に対して同じなので、 <code class="docutils literal notranslate"><span class="pre">event.storageArea</span></code> は変更された方を参照する。変更に「応答」するために、そこに何かを設定し直したいと思うこともあるかもしれない。</p>
+<p>これにより、同じオリジンからの異なるウィンドウでメッセージを交換できる。</p>
+<p>最近のブラウザーは Broadcast channel API という同一生成元ウィンドウ間通信のための特別な API も対応しており、こちらはより充実した機能を備えているが、あまり充実していない。<code class="docutils literal notranslate"><span class="pre">localStorage</span></code> を基本にした、この API を polyfill するライブラリーがあり、どこでも利用できるようになっている。</p>
+</section>
+<section id="tasks">
+<h3>Tasks<a class="headerlink" href="#tasks" title="Permalink to this heading">¶</a></h3>
+<section id="autosave-a-form-field">
+<h4>Autosave a form field<a class="headerlink" href="#autosave-a-form-field" title="Permalink to this heading">¶</a></h4>
+<p>変更するたびにその値を自動保存するテキストエリア欄を作れ。利用者が誤ってページを閉じてしまい、再び開いたときに、未完成の入力が所定の位置にあるようにしろ。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>Clear ボタンの存在がヒントになっている。<code class="docutils literal notranslate"><span class="pre">onclick</span></code> でもストレージを更新する必要がある。「変更するたびに」をチェックするイベントハンドラーは <code class="docutils literal notranslate"><span class="pre">oninput</span></code>
+に仕込む。</p>
+</div>
+</section>
+</section>
+</section>
+<section id="indexeddb">
+<h2><a class="toc-backref" href="#id6">IndexedDB</a><a class="headerlink" href="#indexeddb" title="Permalink to this heading">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/indexeddb">https://javascript.info/indexeddb</a>&gt; ノート。</p>
+<p>IndexedDB はブラウザーに組み込まれたデータベースであり、<code class="docutils literal notranslate"><span class="pre">localStorage</span></code> よりもはるかに強力だ。</p>
+<ul class="simple">
+<li><p>ほとんどの種類の値をキーで保存でき、キーの型は複数対応。</p></li>
+<li><p>信頼性の高いトランザクションをサポート。</p></li>
+<li><p>キーレンジクエリー、インデックスをサポート。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">localstorage</span></code> よりはるかに大きなデータ量を保存できる。</p></li>
+</ul>
+<p>その力は、従来のクライアントサーバーアプリケーションでは過剰だ。 IndexedDB はオフラインのアプリケーションを想定しており、ServiceWorkers や他の技術と組み合わせることを想定している。</p>
+<p>仕様書 &lt;<a class="reference external" href="https://www.w3.org/TR/IndexedDB">https://www.w3.org/TR/IndexedDB</a>&gt; に記載されている IndexedDB のネイティブインターフェースは、イベントベースだ。</p>
+<p>また、&lt;<a class="reference external" href="https://github.com/jakearchibald/idb">https://github.com/jakearchibald/idb</a>&gt; のような <code class="docutils literal notranslate"><span class="pre">Promise</span></code> ベースのラッパーの助けを借りて、async/await を利用することもできる。これはかなり便利だが、ラッパーは完璧ではなく、すべての状況でイベントを置き換えることはできない。そこで、まずはイベントから始めて、IndexedDB を理解した後に、ラッパーを使うことにする。</p>
+<hr class="docutils" />
+<p>技術的には、データは通常、ブラウザーの設定や拡張機能などとともに、訪問者のホームディレクトリーに保存される。ブラウザーや OS レベルの利用者によって、それぞれ独立した格納領域を持っている。</p>
+<section id="open-database">
+<h3>Open database<a class="headerlink" href="#open-database" title="Permalink to this heading">¶</a></h3>
+<p>IndexedDB を使い始めるには、まずデータベースを開く（接続する）。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">openRequest</span> <span class="o">=</span> <span class="nx">indexedDB</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">version</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: データベースの名前を示す文字列</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">version</span></code>: 正の数で示されるバージョン値</p></li>
+</ul>
+<p>異なる名前のデータベースを多数持つことができるが、それらはすべて現在のオリジン内に存在する。異なるウェブサイトが互いのデータベースにアクセスすることはできない。</p>
+<p>この呼び出しが返すオブジェクトを <code class="docutils literal notranslate"><span class="pre">openRequest</span></code> とする。そのイベントをなるべく
+listen する。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">success</span></code>: データベースが準備できた。データベースオブジェクト
+<code class="docutils literal notranslate"><span class="pre">openRequest.result</span></code> を今後の呼び出しに使用する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">error</span></code>: 接続失敗。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">upgradeneeded</span></code>: データベースの準備はできているが、バージョンが古い。</p></li>
+</ul>
+<p>IndexedDB には、サーバーサイドデータベースにはない「スキーマのバージョン管理」という機構が組み込まれている。サーバーサイドのデータベースとは異なり、IndexedDB はクライアントサイドで、データはブラウザーに保存されるため、開発者はそれにフルタイムでアクセスすることができない。そのため、私たちがアプリケーションの新バージョンを公開し、利用者が私たちのウェブページにアクセスしたとき、データベースを更新する必要が生じることがある。ローカルのデータベースのバージョンが <code class="docutils literal notranslate"><span class="pre">open()</span></code> で指定されたものより小さい場合、特別なイベント <code class="docutils literal notranslate"><span class="pre">upgradeneeded</span></code> が発生し、必要に応じてバージョンを比較し、データ構造をアップグレードすることができる。</p>
+<p>イベント <code class="docutils literal notranslate"><span class="pre">upgradeneeded</span></code> は、データベースがまだ存在しない（バージョンが 0 である）場合にも起こされるので、初期化を実行できる。例えば、アプリケーションの最初のバージョンを公開したとする。そして、バージョン 1 のデータベースを開き、<code class="docutils literal notranslate"><span class="pre">upgradeneeded</span></code> ハンドラーで次のように初期化できる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">openRequest</span> <span class="o">=</span> <span class="nx">indexedDB</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;store&quot;</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
+
+<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onupgradeneeded</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// triggers if the client had no database</span>
+    <span class="c1">// ...perform initialization...</span>
+<span class="p">};</span>
+
+<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span> <span class="nx">openRequest</span><span class="p">.</span><span class="nx">error</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onsuccess</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">db</span> <span class="o">=</span> <span class="nx">openRequest</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>そして後日、バージョン 2 を公開する。次のようにアップグレードを実行することができる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">openRequest</span> <span class="o">=</span> <span class="nx">indexedDB</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;store&quot;</span><span class="p">,</span> <span class="mf">2</span><span class="p">);</span>
+
+<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onupgradeneeded</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// the existing database version is less than 2 (or it doesn&#39;t exist)</span>
+    <span class="kd">let</span> <span class="nx">db</span> <span class="o">=</span> <span class="nx">openRequest</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
+    <span class="k">switch</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">oldVersion</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mf">0</span><span class="o">:</span>
+        <span class="c1">// version 0 means that the client had no database</span>
+        <span class="c1">// perform initialization</span>
+    <span class="k">case</span> <span class="mf">1</span><span class="o">:</span>
+        <span class="c1">// client had version 1</span>
+        <span class="c1">// update</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>現在のバージョンは 2 なので、<code class="docutils literal notranslate"><span class="pre">onupgradeneeded</span></code> ハンドラーには、</p>
+<ul class="simple">
+<li><p>初めてアクセスする利用者で、データベースがない場合に適したバージョン 0 用と、</p></li>
+<li><p>アップグレードのためのバージョン 1 用の</p></li>
+</ul>
+<p>コード分岐を用意することに注意。そして、<code class="docutils literal notranslate"><span class="pre">onupgradeneeded</span></code> ハンドラーがエラーなく終了した場合に限り、イベント <code class="docutils literal notranslate"><span class="pre">openRequest.onsuccess</span></code> が起動し、データベースは正常に開かれたとみなされる。</p>
+<p>データベースを削除するには次のようにする：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">indexedDB</span><span class="p">.</span><span class="nx">deleteDatabase</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>古い <code class="docutils literal notranslate"><span class="pre">open()</span></code> 呼び出しバージョンを使ってデータベースを開くことはできない。現在のユーザーデータベースのバージョンが <code class="docutils literal notranslate"><span class="pre">open()</span></code> 呼び出しのものより新しい場合、例えば既存の DB のバージョンが 3 で <code class="docutils literal notranslate"><span class="pre">open(...,</span> <span class="pre">2)</span></code> をしようとすると、失敗して
+<code class="docutils literal notranslate"><span class="pre">openRequest.onerror</span></code> が発動する。</p>
+<p>レアケースだが、例えば代理キャッシュから古い JavaScript コードを読み込んだ場合、このようなことが起こり得る。つまり、コードは古くても、データベースは新しいということだ。</p>
+<p>エラーから守るために、<code class="docutils literal notranslate"><span class="pre">db.version</span></code> をチェックし、ページの再読み込みを提案する必要がある。古いコードを読み込まないように、適切な HTTP キャッシュヘッダーを使用すれば、このような問題が発生することはないだろう。</p>
+<section id="parallel-update-problem">
+<h4>Parallel update problem<a class="headerlink" href="#parallel-update-problem" title="Permalink to this heading">¶</a></h4>
+<p>バージョン管理について話しながら、関連する小さな問題に取り組もう。例えば、次のような場合だ：</p>
+<ol class="arabic simple">
+<li><p>ある訪問者がブラウザーのタブでデータベースのバージョン 1 のサイトを開いたとする。</p></li>
+<li><p>その後、アップデートが行われ、コードが新しくなった。</p></li>
+<li><p>そして、同じ訪問者が別のタブでこのサイトを開く。</p></li>
+</ol>
+<p>つまり、DB バージョン 1 への接続を開いているタブがあり、別のタブはその
+<code class="docutils literal notranslate"><span class="pre">upgradeneeded</span></code> ハンドラーでバージョン 2 に更新しようとする状況だ。</p>
+<p>問題は、同じサイト、同じオリジンなので、データベースが両方のタブで共有されていることだ。そして、データベースはバージョン 1 と 2 の両方であることはできない。バージョン 2 への更新を実行するには、最初のタブの接続も含めて、バージョン 1 への接続をすべて閉じなければならない。</p>
+<p>それを整理するために、イベント <code class="docutils literal notranslate"><span class="pre">versionchange</span></code> は古くなったほうのデータベースオブジェクト上で引き起こる。私たちはそれを listen して、古いデータベース接続を閉じなければならない。そしておそらく、更新されたコードを読み込むために、ページの再読み込みを利用者に促す。</p>
+<p>もし、イベント <code class="docutils literal notranslate"><span class="pre">versionchange</span></code> を listen せず、古い接続を閉じないのであれば、二回目の新しい接続は行われないでしょう。オブジェクト <code class="docutils literal notranslate"><span class="pre">openRequest</span></code> は
+<code class="docutils literal notranslate"><span class="pre">success</span></code> ではなく、イベント <code class="docutils literal notranslate"><span class="pre">blocked</span></code> を発生させる。そのため、二つ目タブは機能しない。</p>
+<p>以下は、並列更新を正しく処理するためのコードだ。<code class="docutils literal notranslate"><span class="pre">onversionchange</span></code> ハンドラーを導入し、現在のデータベース接続が古くなった場合（他の場所で DB バージョンが更新された場合）に引き起こして、接続を閉じる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">openRequest</span> <span class="o">=</span> <span class="nx">indexedDB</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;store&quot;</span><span class="p">,</span> <span class="mf">2</span><span class="p">);</span>
+
+<span class="c1">// Implement appropriately.</span>
+<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onupgradeneeded</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="p">...;</span>
+
+<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onsuccess</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">db</span> <span class="o">=</span> <span class="nx">openRequest</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
+
+    <span class="nx">db</span><span class="p">.</span><span class="nx">onversionchange</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">db</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Database is outdated, please reload the page.&quot;</span><span class="p">)</span>
+    <span class="p">};</span>
+
+    <span class="c1">// ...the db is ready, use it...</span>
+<span class="p">};</span>
+
+<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onblocked</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// As described in the book.</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>言い換えれば、ここでは二つのことを行っている：</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">db.onversionchange</span></code> は、現在のデータベースのバージョンが古くなった場合、並行して行われる更新を通知する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">openRequest.onblocked</span></code> は、その逆の状況、つまり、他の場所に古いバージョンへの接続があり、それが閉じないため、新しい接続ができないことを通知する。</p></li>
+</ol>
+<p><code class="docutils literal notranslate"><span class="pre">db.onversionchange</span></code> では、より優雅に処理し、接続が閉じられる前にデータを保存するように訪問者に促したりすることができる。あるいは、<code class="docutils literal notranslate"><span class="pre">db.onversionchange</span></code> でデータベースを閉じずに、（新しいタブの）``onblocked`` ハンドラーを使って訪問者に警告し、他のタブを閉じるまで新しいバージョンを読み込むことができないことを伝えるという方法もある。</p>
+<p>このような更新の衝突はめったに起こらないが、少なくともスクリプトが黙して死なぬように、<code class="docutils literal notranslate"><span class="pre">onblocked</span></code> ハンドラーでなるべく何らかの処理をする。</p>
+</section>
+</section>
+<section id="object-store">
+<h3>Object store<a class="headerlink" href="#object-store" title="Permalink to this heading">¶</a></h3>
+<p>IndexedDB に何かを保存するには、オブジェクトストアが必要だ。オブジェクトストアは
+IndexedDB の核となる概念だ。他のデータベースにおけるテーブルまたはコレクションに相当する。データが保存されている場所だ。データベースには、利用者用、商品用など、複数のストアが存在する場合がある。 「オブジェクト」ストアという名前だが、プリミティブも格納できる。</p>
+<p>複雑なオブジェクトを含む、ほとんどすべての値を格納することができる。 IndexedDB
+は標準的なシリアライズアルゴリズムを使用して、オブジェクトを複製して保存する。これは <code class="docutils literal notranslate"><span class="pre">JSON.stringify()</span></code> のようなものだ、より強力で、より多くのデータ型を格納できる。保存できないオブジェクトの例として、循環参照を持つオブジェクトがある。このようなオブジェクトはシリアライズできない。 <code class="docutils literal notranslate"><span class="pre">JSON.stringify()</span></code> もこのようなオブジェクトに対しては失敗する。</p>
+<p>ストア内のすべての値に対して、一意のキーが必要だ。キーは、数値、日付、文字列、バイナリー、配列のいずれかでなければならない。これは一意的な識別子なので、キーによって値の検索、削除、更新を行える。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>このオブジェクトストアの概念図に見覚えがないだろうか。</p>
+</div>
+<p>すぐにわかるように、<code class="docutils literal notranslate"><span class="pre">localStorage</span></code> と同様に、値をストアに追加するときにキーを与えることができる。しかし、オブジェクトを保存する場合、IndexedDB ではオブジェクトのプロパティーをキーとして設定することができ、より便利だ。あるいは、キーを自動生成することもできる。しかし、まずはオブジェクトストアを作成する必要がある。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">db</span><span class="p">.</span><span class="nx">createObjectStore</span><span class="p">(</span><span class="nx">name</span><span class="p">[,</span> <span class="nx">keyOptions</span><span class="p">]);</span>
+</pre></div>
+</div>
+<p>この操作は同期的であり、<code class="docutils literal notranslate"><span class="pre">await</span></code> は無用であることに注意。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: ストアの名前</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keyOptions</span></code></p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">keyPath</span></code>: IndexedDB がキーとして使用するオブジェクトプロパティーへのパス。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">autoIncrement</span></code>: もし <code class="docutils literal notranslate"><span class="pre">true</span></code> なら、新しく保存されるオブジェクトのキーは、増加し続ける数値として自動的に生成される。</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>もし <code class="docutils literal notranslate"><span class="pre">keyOptions</span></code> を指定しないなら、オブジェクトを保存する際に、後でキーを明示的に指定する必要がある。例えば、このオブジェクトストアでは、キーとして <code class="docutils literal notranslate"><span class="pre">id</span></code> プロパティーを用いる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">db</span><span class="p">.</span><span class="nx">createObjectStore</span><span class="p">(</span><span class="s1">&#39;books&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">keyPath</span><span class="o">:</span> <span class="s1">&#39;id&#39;</span><span class="p">});</span>
+</pre></div>
+</div>
+<p>オブジェクトストアの作成も変更も、DB のバージョンを更新しながら <code class="docutils literal notranslate"><span class="pre">upgradeneeded</span></code>
+ハンドラーでしか行えない。</p>
+<p>これは技術的な制限だ。ハンドラーの外ではデータの追加、削除、更新ができるようになるが、オブジェクトストアはバージョン更新中にしか作成、削除、変更することができない。</p>
+<p>データベースのバージョンをアップグレードするには、主な方法が二つある。</p>
+<ol class="arabic simple">
+<li><p>バージョン 1 から 2 へ、2 から 3 へ、3 から 4 へなど、バージョンごとのアップグレード機能を実装することができる。 <code class="docutils literal notranslate"><span class="pre">upgradeneeded</span></code> でバージョンを比較し、中間バージョンごとに段階的にバージョンごとのアップグレードが可能だ。</p></li>
+<li><p>あるいは、データベースを調べることもできる。既存のオブジェクトストアの一覧を
+<code class="docutils literal notranslate"><span class="pre">db.objectStoreNames</span></code> として得る。このオブジェクトは``DOMStringList`` 型で、メソッド <code class="docutils literal notranslate"><span class="pre">contains(name)</span></code> で存在するかどうかをチェックできる。そして、何が存在して、何が存在しないかによって、更新できる。</p></li>
+</ol>
+<p>小規模なデータベースでは、後者の方法がより単純かもしれない。デモ：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">openRequest</span> <span class="o">=</span> <span class="nx">indexedDB</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;db&quot;</span><span class="p">,</span> <span class="mf">2</span><span class="p">);</span>
+
+<span class="c1">// create/upgrade the database without version checks</span>
+<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onupgradeneeded</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">db</span> <span class="o">=</span> <span class="nx">openRequest</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">db</span><span class="p">.</span><span class="nx">objectStoreNames</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="s1">&#39;books&#39;</span><span class="p">))</span> <span class="p">{</span> <span class="c1">// if there&#39;s no &quot;books&quot; store</span>
+        <span class="nx">db</span><span class="p">.</span><span class="nx">createObjectStore</span><span class="p">(</span><span class="s1">&#39;books&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">keyPath</span><span class="o">:</span> <span class="s1">&#39;id&#39;</span><span class="p">});</span> <span class="c1">// create it</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>データベースというか、データ一般でのバージョン差異の吸収処理？</p>
+</div>
+<p>オブジェクトストアを削除するにはこうする：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">db</span><span class="p">.</span><span class="nx">deleteObjectStore</span><span class="p">(</span><span class="s1">&#39;books&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="transactions">
+<h3>Transactions<a class="headerlink" href="#transactions" title="Permalink to this heading">¶</a></h3>
+<p>トランザクションという用語は一般的なもので、多くの種類のデータベースで用いられている。トランザクションはオールオアナッシングである一連の操作だ。例えば、ある人が何かを買うと、次のような処理が必要だ：</p>
+<ol class="arabic simple">
+<li><p>彼の口座から代金ぶんの金額を差し引く。</p></li>
+<li><p>品物を彼の持ち物に追加する。</p></li>
+</ol>
+<p>もし、操作 1 を完了させた後、消灯などの理由で操作 2 に失敗したらかなりまずい。両方とも成功するか、両方とも失敗するかでなければならない。失敗しても、少なくとも彼には所持金が維持されているので、再施行できる。トランザクションはそれを保証する。</p>
+<p>IndexedDB では、すべてのデータ操作はトランザクション内で行う必要がある。トランザクションを開始するには：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="nx">store</span><span class="p">[,</span> <span class="nx">type</span><span class="p">]);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><cite>store</cite>: トランザクションがアクセスしようとするストア名。複数のストアにアクセスする場合は、ストア名の配列。</p></li>
+<li><p><cite>type</cite>: トランザクション種類。次のいずれか：</p>
+<ul>
+<li><p><cite>readonly</cite>: 読み取りのみ（既定値）</p></li>
+<li><p><cite>readwrite</cite>: 読み書きのみで、オブジェクトストアの作成、削除、変更は不能。</p></li>
+</ul>
+</li>
+</ul>
+<p>また、<code class="docutils literal notranslate"><span class="pre">versionchange</span></code> トランザクション型もある。このようなトランザクションは、何でもできるが、手動で作成できない。 IndexedDB はデータベースに接続する際に、アップグレードが必要なハンドラーのために、 <code class="docutils literal notranslate"><span class="pre">versionchange</span></code> トランザクションを自動的に作成する。そのため、データベースの構造を更新したり、オブジェクトストアを作成したり削除したりすることができる単一の場所となる。</p>
+<p>トランザクションに読み取り専用と読み取り書き込みのラベルを付ける理由は、性能にある。多くの読み取り専用トランザクションは、同じストアに同時にアクセスできるが、読み書きトランザクションはそうはできない。読み書きトランザクションは、書き込みのためにストアをロックする。次のトランザクションは、同じストアにアクセスする前に、前のトランザクションが終了するのを待たねばならない。</p>
+<p>トランザクションが作成されたら、ストアに商品を追加できる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">transaction</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="s2">&quot;books&quot;</span><span class="p">,</span> <span class="s2">&quot;readwrite&quot;</span><span class="p">);</span> <span class="c1">// (1)</span>
+
+<span class="c1">// get an object store to operate on it</span>
+<span class="kd">let</span> <span class="nx">books</span> <span class="o">=</span> <span class="nx">transaction</span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s2">&quot;books&quot;</span><span class="p">);</span> <span class="c1">// (2)</span>
+
+<span class="kd">let</span> <span class="nx">book</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;js&#39;</span><span class="p">,</span>
+    <span class="nx">price</span><span class="o">:</span> <span class="mf">10</span><span class="p">,</span>
+    <span class="nx">created</span><span class="o">:</span> <span class="ow">new</span> <span class="nb">Date</span><span class="p">()</span>
+<span class="p">};</span>
+
+<span class="kd">let</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">books</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">book</span><span class="p">);</span> <span class="c1">// (3)</span>
+
+<span class="c1">// ... (4)</span>
+</pre></div>
+</div>
+<p>ここに段階が四つある：</p>
+<ol class="arabic simple">
+<li><p>トランザクションを作成し、アクセスするすべてのストアを指定する。</p></li>
+<li><p>トランザクションを使用してストアオブジェクトを得る。</p></li>
+<li><p>オブジェクトストアへの要求 <code class="docutils literal notranslate"><span class="pre">books.add(book)</span></code> を実行する。</p></li>
+<li><p>要求の成功・失敗を処理し、必要であれば他の要求などもできる。</p></li>
+</ol>
+<p>オブジェクトストアには、値を格納するためのメソッドが二つある。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">put(value,</span> <span class="pre">[key])</span></code>: ストアに <code class="docutils literal notranslate"><span class="pre">value</span></code> を追加する。<code class="docutils literal notranslate"><span class="pre">key</span></code> は、オブジェクトストアが <code class="docutils literal notranslate"><span class="pre">keyPath</span></code> または <code class="docutils literal notranslate"><span class="pre">autoIncrement</span></code> オプションを持っていない場合に限って与えられる。同じ <code class="docutils literal notranslate"><span class="pre">key</span></code> である値がすでにあれば、それは置き換えられる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">add(value,</span> <span class="pre">[key])</span></code>: <code class="docutils literal notranslate"><span class="pre">put()</span></code> と同じだ、同じ <code class="docutils literal notranslate"><span class="pre">key</span></code> である値がすでにある場合、要求は失敗し、<code class="docutils literal notranslate"><span class="pre">&quot;ConstraintError&quot;</span></code> というエラーが発生する。</p></li>
+</ul>
+<p>データベースを開くのと同様に、<code class="docutils literal notranslate"><span class="pre">books.add(book)</span></code> という要求を送信し、イベント
+<code class="docutils literal notranslate"><span class="pre">success</span></code>/<code class="docutils literal notranslate"><span class="pre">failure</span></code> を待機できる。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">add()</span></code> に対する <code class="docutils literal notranslate"><span class="pre">request.result</span></code> は新しいオブジェクトのキーだ。</p></li>
+<li><p>もしあれば、エラーは <code class="docutils literal notranslate"><span class="pre">request.error</span></code> で参照できる。</p></li>
+</ul>
+</section>
+<section id="transactions-autocommit">
+<h3>Transactions’ autocommit<a class="headerlink" href="#transactions-autocommit" title="Permalink to this heading">¶</a></h3>
+<p>上の例では、トランザクションを開始し、要求を追加した。しかし、トランザクションには関連する要求が複数あり、それらはすべて成功するか、すべて失敗するかのどちらかでなければならないと述べた。では、トランザクションを終了することを、これ以上要求ないことを示すにはどうすればよいだろうか。</p>
+<p>簡単な答えは「しない」。仕様の次のバージョン 3.0 では、トランザクションを明示的に終了する方法があるだろうが、今の 2.0 ではそれがない。すべてのトランザクション要求が終了し、マイクロタスクキューが空になると、自動的にコミットされる。</p>
+<p>通常、トランザクションはそのすべての要求が完了し、現在のコードが終了したときにコミットされると考えられる。したがって、上記の例では、トランザクションを終了するための特別な呼び出しが必要ない。</p>
+<p>トランザクションの自動コミット原則には、重要な副作用がある。トランザクションの途中で <code class="docutils literal notranslate"><span class="pre">fetch()</span></code> や <code class="docutils literal notranslate"><span class="pre">setTimeout()</span></code> のような非同期操作を挿入することはできない。 IndexedDB はこれらが完了するまでトランザクションを待機させるようなことはない。</p>
+<p>以下のコードでは、(*) 行の <code class="docutils literal notranslate"><span class="pre">request2</span></code> が失敗する。なぜなら、トランザクションはすでにコミットされており、その中ではいかなる要求も行えないからだ。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">request1</span> <span class="o">=</span> <span class="nx">books</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">book</span><span class="p">);</span>
+
+<span class="nx">request1</span><span class="p">.</span><span class="nx">onsuccess</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">request2</span> <span class="o">=</span> <span class="nx">books</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">anotherBook</span><span class="p">);</span> <span class="c1">// (*)</span>
+        <span class="nx">request2</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">request2</span><span class="p">.</span><span class="nx">error</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span> <span class="c1">// TransactionInactiveError</span>
+        <span class="p">};</span>
+    <span class="p">});</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>それは、<code class="docutils literal notranslate"><span class="pre">fetch()</span></code> が非同期処理であり、マクロタスクであるからだ。トランザクションは、ブラウザーがマクロタスクを開始する前に閉じられる。</p>
+<p>IndexedDB は、主に性能上の理由から、トランザクションは短命であるべきだという設計思想だ。</p>
+<p>注目すべきは、<code class="docutils literal notranslate"><span class="pre">readwrite</span></code> トランザクションがストアを書き込み用にロックすることだ。つまり、もしアプリケーションのある部分が <code class="docutils literal notranslate"><span class="pre">book</span></code> オブジェクトストアに対して
+<code class="docutils literal notranslate"><span class="pre">readwrite</span></code> を開始したら、同じことをしたい他の部分は待たなければならない。新しいトランザクションは、最初のものが完了するまで固まっているのだ。これは、トランザクションが長い時間かかる場合、奇妙な遅延につながる可能性がある。</p>
+<p>では、どうすればいいのか。上の例では、新しい要求の直前に新しい
+<code class="docutils literal notranslate"><span class="pre">db.transaction</span></code> を作ることができる (*)。しかし、IndexedDB トランザクションと他の非同期処理を分割して、一つのトランザクションでまとめて処理したい場合は、もっと良い方法だろう。</p>
+<p>まず、<code class="docutils literal notranslate"><span class="pre">fetch()</span></code> を行い、必要ならデータを準備し、その後、トランザクションを作成し、すべてのデータベース要求を実行する。それからそれが動作する。</p>
+<p>成功の瞬間を検出するには、イベント <code class="docutils literal notranslate"><span class="pre">transaction.oncomplete</span></code> を listen すればよい。</p>
+<p>トランザクションが全体として保存されることを保証するのはイベント <code class="docutils literal notranslate"><span class="pre">complete</span></code> しかない。個々の要求は成功するかもしれないが、最終的な書き込み操作は I/O エラーなどでうまくいかないかもしれない。</p>
+<p>手動でトランザクションを中止するには、次のようにする：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">transaction</span><span class="p">.</span><span class="nx">abort</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>これにより、トランザクション中の要求が行ったすべての変更が取り消され、イベント
+<code class="docutils literal notranslate"><span class="pre">transaction.onabort</span></code> が引き起こされる。</p>
+</section>
+<section id="error-handling">
+<h3>Error handling<a class="headerlink" href="#error-handling" title="Permalink to this heading">¶</a></h3>
+<p>書き込み要求は失敗するかもしれない。これは予想されることで、我々の過失の可能性だけでなく、トランザクション自体に関連しない理由によることもある。したがって、そのような場合に対処できるように準備しておく必要がある。</p>
+<p>失敗した要求は自動的にトランザクションを中止し、すべての変更を取り消す。</p>
+<p>状況によっては、既存の変更を取り消すことなく、失敗を処理してトランザクションを続行したいと思うかもしれない。ハンドラー <code class="docutils literal notranslate"><span class="pre">request.onerror</span></code> は
+<code class="docutils literal notranslate"><span class="pre">event.preventDefault()</span></code> を呼び出すことで、トランザクションの中断を防ぐことができる。</p>
+<p>以下の例では、新しい本が既存の本と同じキー <code class="docutils literal notranslate"><span class="pre">id</span></code> で追加されている。このとき、メソッド <code class="docutils literal notranslate"><span class="pre">store.add()</span></code> は <code class="docutils literal notranslate"><span class="pre">&quot;ConstraintError</span> <span class="pre">&quot;</span></code> を引き起こす。トランザクションを取り消すことなく、このエラーを処理する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">transaction</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="s2">&quot;books&quot;</span><span class="p">,</span> <span class="s2">&quot;readwrite&quot;</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">book</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;js&#39;</span><span class="p">,</span> <span class="nx">price</span><span class="o">:</span> <span class="mf">10</span> <span class="p">};</span>
+
+<span class="kd">let</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">transaction</span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s2">&quot;books&quot;</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="nx">book</span><span class="p">);</span>
+
+<span class="nx">request</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">error</span><span class="p">.</span><span class="nx">name</span> <span class="o">==</span> <span class="s2">&quot;ConstraintError&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// ... handle the error</span>
+        <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span> <span class="c1">// don&#39;t abort the transaction</span>
+        <span class="c1">// use another key for the book?</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="c1">// unexpected error, can&#39;t handle it</span>
+      <span class="c1">// the transaction will abort</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="nx">transaction</span><span class="p">.</span><span class="nx">onabort</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span> <span class="nx">transaction</span><span class="p">.</span><span class="nx">error</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<section id="event-delegation">
+<h4>Event delegation<a class="headerlink" href="#event-delegation" title="Permalink to this heading">¶</a></h4>
+<p>すべての要求に対して <code class="docutils literal notranslate"><span class="pre">onerror</span></code>/<code class="docutils literal notranslate"><span class="pre">onsuccess</span></code> を毎回のように設ける必要はなく、代わりにイベント委譲を使えばいい。</p>
+<p>IndexedDB のイベントは <code class="docutils literal notranslate"><span class="pre">request</span></code>, <code class="docutils literal notranslate"><span class="pre">transaction</span></code>, <code class="docutils literal notranslate"><span class="pre">database</span></code> の順に bubble
+する。</p>
+<p>イベントはすべて DOM イベントであり、捕捉と bubbling を行うが、通常は bubbling
+段階しか用いられない。そのため、ハンドラー <code class="docutils literal notranslate"><span class="pre">db.onerror</span></code> を使ってすべてのエラーを捕捉し、報告やその他の目的に利用できる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">db</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">;</span> <span class="c1">// the request that caused the error</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span> <span class="nx">request</span><span class="p">.</span><span class="nx">error</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>しかし、エラーが完全に処理された場合は報告したくない。
+<code class="docutils literal notranslate"><span class="pre">request.onerror</span></code> の中で <code class="docutils literal notranslate"><span class="pre">event.stopPropagation()</span></code> を使うことで、bubbling を停止して <code class="docutils literal notranslate"><span class="pre">db.onerror</span></code> を停止できる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">request</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">error</span><span class="p">.</span><span class="nx">name</span> <span class="o">==</span> <span class="s2">&quot;ConstraintError&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Book with such id already exists&quot;</span><span class="p">);</span> <span class="c1">// handle the error</span>
+        <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span> <span class="c1">// don&#39;t abort the transaction</span>
+        <span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">();</span> <span class="c1">// don&#39;t bubble error up, &quot;chew&quot; it</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// do nothing</span>
+        <span class="c1">// transaction will be aborted</span>
+        <span class="c1">// we can take care of error in transaction.onabort</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>どうも ConstraintError が生じる仕組みを理解しておく必要がありそうだ。</p>
+</div>
+</section>
+</section>
+<section id="searching">
+<h3>Searching<a class="headerlink" href="#searching" title="Permalink to this heading">¶</a></h3>
+<p>オブジェクトストアでの検索には、類型が主に二つある：</p>
+<ol class="arabic simple">
+<li><p>キー値またはキー範囲による検索。<code class="docutils literal notranslate"><span class="pre">books</span></code> ストレージでは <code class="docutils literal notranslate"><span class="pre">book.id</span></code> の値または値の範囲だ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">book.price</span></code> など、別のオブジェクトフィールドによる検索。これには、”index”という名前の追加的データ構造が必要だ。</p></li>
+</ol>
+<section id="by-key">
+<h4>By key<a class="headerlink" href="#by-key" title="Permalink to this heading">¶</a></h4>
+<p>まず、検索の最初の類型であるキーによる検索を扱う。</p>
+<p>検索メソッドは正確なキー値と、いわゆる「値の範囲」の両方をサポートしている。オブジェクト <code class="docutils literal notranslate"><span class="pre">IDBKeyRange</span></code> は許容される「キーの範囲」を指定する。</p>
+<p>次の呼び出しでオブジェクト <code class="docutils literal notranslate"><span class="pre">IDBKeyRange</span></code> を生成する：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">IDBKeyRange.lowerBound(lower,</span> <span class="pre">[open])</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IDBKeyRange.upperBound(upper,</span> <span class="pre">[open])</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IDBKeyRange.bound(lower,</span> <span class="pre">upper,</span> <span class="pre">[lowerOpen],</span> <span class="pre">[upperOpen])</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IDBKeyRange.only(key)</span></code></p></li>
+</ul>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>メソッドの意味と引数の意味は、オプション引数が Boolean であることさえわかれば、残りは直観的理解でかまわないだろう。</p>
+</div>
+<p>実際の検索を行うには以下のメソッドがある。これらのメソッドでは引数 <code class="docutils literal notranslate"><span class="pre">query</span></code> に完全一致のキーか、キー範囲を指定する：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">store.get(query)</span></code>: 最初の値をキーまたは範囲指定で検索する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">store.getAll([query],</span> <span class="pre">[count])</span></code>: 値をすべて検索し、与えられた場合は <code class="docutils literal notranslate"><span class="pre">count</span></code>
+で制限する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">store.getKey(query)</span></code>: 問い合わせ（通常は範囲）を満たす最初のキーを検索する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">store.getAllKeys([query],</span> <span class="pre">[count])</span></code>: 問い合わせ（通常は範囲）を満たすキーを全てを、与えられた場合は <code class="docutils literal notranslate"><span class="pre">count</span></code> までを検索する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">store.count([query])</span></code>: 問い合わせ（通常は範囲）を満たすキーの総数を得る。</p></li>
+</ul>
+<p>オブジェクトストアは常にソートされている。オブジェクトストアは内部的にキーで値をソートする。そのため、多くの値を返す要求では、常にキーでソートされた状態で値が返される。</p>
+</section>
+<section id="by-a-field-using-an-index">
+<h4>By a field using an index<a class="headerlink" href="#by-a-field-using-an-index" title="Permalink to this heading">¶</a></h4>
+<p>他のオブジェクトフィールドで検索するには、インデックスというデータ構造を追加的に作成する必要がある。インデックスは、与えられたオブジェクトフィールドを追跡するストアの追加機能だ。そのフィールドの値それぞれに対して、その値を持つオブジェクトのキーのリストを格納する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">objectStore</span><span class="p">.</span><span class="nx">createIndex</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">keyPath</span><span class="p">,</span> <span class="p">[</span><span class="nx">options</span><span class="p">]);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: 作成するインデックスの名前。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keyPath</span></code>: インデックスが跡を追うべきオブジェクトフィールドを指すパス。このフィールドで検索することになる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">option</span></code>: 次のプロパティーからなるオプショナルなオブジェクト。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">unique</span></code>: 値が <code class="docutils literal notranslate"><span class="pre">true</span></code> の場合、<code class="docutils literal notranslate"><span class="pre">keyPath</span></code> に指定した値を持つオブジェクトはストアにひとつしかないかもしれない。重複したものを追加しようとすると、インデックスがエラーを発生させるようにする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">multiEntry</span></code>: <code class="docutils literal notranslate"><span class="pre">keyPath</span></code> の値が配列である場合に限り用いられる。この場合、既定では、インデックスが配列全体をキーとして扱う。しかし、もし
+<code class="docutils literal notranslate"><span class="pre">multiEntry</span></code> が <code class="docutils literal notranslate"><span class="pre">true</span></code> ならば、インデックスはその配列の要素それぞれに対してストアオブジェクトのリストを保持する。つまり、配列の要素がインデックスのキーになる。</p></li>
+</ul>
+</li>
+</ul>
+<p>本書よりも先にコードを示す：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">openRequest</span><span class="p">.</span><span class="nx">onupgradeneeded</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// we must create the index here, in versionchange transaction</span>
+    <span class="kd">let</span> <span class="nx">books</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">createObjectStore</span><span class="p">(</span><span class="s1">&#39;books&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">keyPath</span><span class="o">:</span> <span class="s1">&#39;id&#39;</span><span class="p">});</span>
+    <span class="kd">let</span> <span class="nx">index</span> <span class="o">=</span> <span class="nx">books</span><span class="p">.</span><span class="nx">createIndex</span><span class="p">(</span><span class="s1">&#39;price_idx&#39;</span><span class="p">,</span> <span class="s1">&#39;price&#39;</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>この例では、キーは <code class="docutils literal notranslate"><span class="pre">id</span></code> であり、本を保存する。ここで、<code class="docutils literal notranslate"><span class="pre">price</span></code> で検索したいとする。まず、インデックスを作成する必要がある。オブジェクトストアと同様に
+<code class="docutils literal notranslate"><span class="pre">upgradeneed</span></code> ハンドラーで行う。</p>
+<ul class="simple">
+<li><p>インデックスはフィールド <code class="docutils literal notranslate"><span class="pre">price</span></code> を追跡する。</p></li>
+<li><p>フィールド <code class="docutils literal notranslate"><span class="pre">price</span></code> は一意的ではなく、同じ価格の本が複数存在する可能性があるので、オプション <code class="docutils literal notranslate"><span class="pre">unique</span></code> は設定しない。</p></li>
+<li><p>フィールド <code class="docutils literal notranslate"><span class="pre">price</span></code> は配列ではないので、フラグ <code class="docutils literal notranslate"><span class="pre">multiEntry</span></code> も指定しない。</p></li>
+</ul>
+<p>ここで在庫に本が四冊あるとする。<code class="docutils literal notranslate"><span class="pre">index</span></code> が何であるかを示すとこうなる：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>price</p></th>
+<th class="head"><p>list</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>3</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">['html']</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">['css']</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>10</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">['js',</span> <span class="pre">'nodejs']</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>このように、<code class="docutils literal notranslate"><span class="pre">createIndex()</span></code> 呼び出しの <code class="docutils literal notranslate"><span class="pre">price</span></code> の値ごとのインデックスには、その <code class="docutils literal notranslate"><span class="pre">price</span></code> を持つ <code class="docutils literal notranslate"><span class="pre">key</span></code> のリストが保持される。このインデックスは自動的に更新される。</p>
+<p>ある価格を検索したいときは、同じ検索方法をインデックスに適用するだけでよい：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">transaction</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="s2">&quot;books&quot;</span><span class="p">);</span> <span class="c1">// readonly</span>
+<span class="kd">let</span> <span class="nx">books</span> <span class="o">=</span> <span class="nx">transaction</span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s2">&quot;books&quot;</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">priceIndex</span> <span class="o">=</span> <span class="nx">books</span><span class="p">.</span><span class="nx">index</span><span class="p">(</span><span class="s2">&quot;price_idx&quot;</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">priceIndex</span><span class="p">.</span><span class="nx">getAll</span><span class="p">(</span><span class="mf">10</span><span class="p">);</span>
+
+<span class="nx">request</span><span class="p">.</span><span class="nx">onsuccess</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">result</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Books&quot;</span><span class="p">,</span> <span class="nx">request</span><span class="p">.</span><span class="nx">result</span><span class="p">);</span> <span class="c1">// array of books with price=10</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;No such books&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>先に <code class="docutils literal notranslate"><span class="pre">books.createIndex()</span></code> を済ませているので <code class="docutils literal notranslate"><span class="pre">books.index()</span></code> でそれを得られる。</p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">IDBKeyRange</span></code> を用いて安い本/高い本を探すこともできる。次の例では <code class="docutils literal notranslate"><span class="pre">price</span></code> が
+5 またはそれ未満の本を検索する：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">priceIndex</span><span class="p">.</span><span class="nx">getAll</span><span class="p">(</span><span class="nx">IDBKeyRange</span><span class="p">.</span><span class="nx">upperBound</span><span class="p">(</span><span class="mf">5</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>インデックスは、内部的には追跡されたオブジェクトのフィールドでソートされている。この場合、検索を行うと結果も <code class="docutils literal notranslate"><span class="pre">price</span></code> によってソートされる。</p>
+</section>
+</section>
+<section id="deleting-from-store">
+<h3>Deleting from store<a class="headerlink" href="#deleting-from-store" title="Permalink to this heading">¶</a></h3>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">delete()</span></code> は、問い合わせによって削除する値を検索するもので、呼び出し形式は <code class="docutils literal notranslate"><span class="pre">getAll()</span></code> に似ている。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">delete(query)</span></code>: 問い合わせにマッチする値を削除する。</p></li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// delete the book with id=&#39;js&#39;</span>
+<span class="nx">books</span><span class="p">.</span><span class="ow">delete</span><span class="p">(</span><span class="s1">&#39;js&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>もし <code class="docutils literal notranslate"><span class="pre">price</span></code> や他のオブジェクトフィールドに基づいて本を削除したいのであれば、まずインデックスでキーを見つけ、それから <code class="docutils literal notranslate"><span class="pre">delete()</span></code> を呼び出す必要がある。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">priceIndex</span><span class="p">.</span><span class="nx">getKey</span><span class="p">(</span><span class="mf">5</span><span class="p">);</span>
+
+<span class="nx">request</span><span class="p">.</span><span class="nx">onsuccess</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">id</span> <span class="o">=</span> <span class="nx">request</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">deleteRequest</span> <span class="o">=</span> <span class="nx">books</span><span class="p">.</span><span class="ow">delete</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>全削除をするにはメソッド <code class="docutils literal notranslate"><span class="pre">clear()</span></code> を呼ぶ：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">books</span><span class="p">.</span><span class="nx">clear</span><span class="p">();</span>
+</pre></div>
+</div>
+</section>
+<section id="cursors">
+<h3>Cursors<a class="headerlink" href="#cursors" title="Permalink to this heading">¶</a></h3>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">getAll()</span></code>, <code class="docutils literal notranslate"><span class="pre">getAllKeys()</span></code> などは配列を返すが、場合によってはメモリーに収まらないほど巨大な結果となり得る。その場合にはメソッド呼び出しは失敗する。この事態を回避するためにカーソルという手段が用意されている。</p>
+<p>カーソルは特別なオブジェクトであり、問い合わせを与えるとオブジェクト格納域を走査し、一度に一つのキーや値を返すため、メモリーを節約することができる。オブジェクトストアは内部的にキーでソートされているので、カーソルはキー順に走査する。未指定時は昇順。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">store</span><span class="p">.</span><span class="nx">openCursor</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="p">[</span><span class="nx">direction</span><span class="p">]);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">query</span></code> は <code class="docutils literal notranslate"><span class="pre">getAll()</span></code> と同様にキーまたはキー範囲だ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">direction</span></code> はオプションナル引数で、どの順番で使用するかを指定する：</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;next&quot;</span></code>: 既定値で、カーソルは最も低いキーを持つレコードから上に向かって歩く。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;prev&quot;</span></code>: 逆順。キーが大きいレコードから下へ向かって歩く。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;nextunique&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;prevunique&quot;</span></code>: 上記それぞれと同じだ、同じキーを持つレコードを飛ばす。例えば <code class="docutils literal notranslate"><span class="pre">price=5</span></code> の複数の本に対しては最初の一冊のみが返される。</p></li>
+</ul>
+</li>
+</ul>
+<p>カーソル処理では <code class="docutils literal notranslate"><span class="pre">request.onsuccess</span></code> が各結果に対して一度ずつ、複数回引き起こされる。</p>
+<p>主なカーソルメソッドは以下の通り：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">advance(count)</span></code>: カーソルを <code class="docutils literal notranslate"><span class="pre">count</span></code> 回進め、値を飛ばす。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">continue([key])</span></code>: 範囲一致の次の値か、キーが指定されている場合はキーの直後にカーソルを進める。</p></li>
+</ul>
+<p>カーソルに一致する値がさらにあるかどうかにかかわらず <code class="docutils literal notranslate"><span class="pre">onsuccess</span></code> が呼び出され、その結果、カーソルが次のレコードを指すか、<code class="docutils literal notranslate"><span class="pre">undefined</span></code> であるかになる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">transaction</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="s2">&quot;books&quot;</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">books</span> <span class="o">=</span> <span class="nx">transaction</span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s2">&quot;books&quot;</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">books</span><span class="p">.</span><span class="nx">openCursor</span><span class="p">();</span>
+
+<span class="c1">// called for each book found by the cursor</span>
+<span class="nx">request</span><span class="p">.</span><span class="nx">onsuccess</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">cursor</span> <span class="o">=</span> <span class="nx">request</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">cursor</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">key</span> <span class="o">=</span> <span class="nx">cursor</span><span class="p">.</span><span class="nx">key</span><span class="p">;</span> <span class="c1">// book key (id field)</span>
+        <span class="kd">let</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">cursor</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span> <span class="c1">// book object</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">);</span>
+        <span class="nx">cursor</span><span class="p">.</span><span class="k">continue</span><span class="p">();</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;No more books&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>上記の例では、オブジェクトストアに対してカーソルを作成したが、インデックスに対するカーソルを作成することもできまる。インデックス上のカーソルは、オブジェクトストア上のカーソルと全く同じように、一度に値を一つ返すことでメモリーを節約する。インデックスに対するカーソルでは、<code class="docutils literal notranslate"><span class="pre">cursor.key</span></code> はインデックスキーであり、オブジェクトキーには <code class="docutils literal notranslate"><span class="pre">cursor.primaryKey</span></code> プロパティーを用いる必要がある。</p>
+<p>コード略。</p>
+</section>
+<section id="promise-wrapper">
+<h3>Promise wrapper<a class="headerlink" href="#promise-wrapper" title="Permalink to this heading">¶</a></h3>
+<p>すべての要求に <code class="docutils literal notranslate"><span class="pre">onsuccess</span></code>/<code class="docutils literal notranslate"><span class="pre">onerror</span></code> を追加するのはかなり面倒な作業だ。イベント委譲、例えばトランザクション全体にハンドラーを設定することで楽にできることもあるが、 <code class="docutils literal notranslate"><span class="pre">async</span></code>/<code class="docutils literal notranslate"><span class="pre">await</span></code> の方がずっと便利だ。</p>
+<p>この章のさらに先で、薄い <code class="docutils literal notranslate"><span class="pre">Promise</span></code> ラッパー
+&lt;<a class="reference external" href="https://github.com/jakearchibald/idb">https://github.com/jakearchibald/idb</a>&gt; を使ってみる。これは <code class="docutils literal notranslate"><span class="pre">Promise</span></code> 化された
+IndexedDB のメソッドを持つグローバルなオブジェクト <code class="docutils literal notranslate"><span class="pre">idb</span></code> を生成する。すると
+<code class="docutils literal notranslate"><span class="pre">onsuccess</span></code>/<code class="docutils literal notranslate"><span class="pre">onerror</span></code> の代わりに、次のように書ける：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">db</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">idb</span><span class="p">.</span><span class="nx">openDB</span><span class="p">(</span><span class="s1">&#39;store&#39;</span><span class="p">,</span> <span class="mf">1</span><span class="p">,</span> <span class="nx">db</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nx">oldVersion</span> <span class="o">==</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// perform the initialization</span>
+        <span class="nx">db</span><span class="p">.</span><span class="nx">createObjectStore</span><span class="p">(</span><span class="s1">&#39;books&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">keyPath</span><span class="o">:</span> <span class="s1">&#39;id&#39;</span><span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="kd">let</span> <span class="nx">transaction</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="s1">&#39;books&#39;</span><span class="p">,</span> <span class="s1">&#39;readwrite&#39;</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">books</span> <span class="o">=</span> <span class="nx">transaction</span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s1">&#39;books&#39;</span><span class="p">);</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="k">await</span> <span class="nx">books</span><span class="p">.</span><span class="nx">add</span><span class="p">(...);</span>
+    <span class="k">await</span> <span class="nx">books</span><span class="p">.</span><span class="nx">add</span><span class="p">(...);</span>
+
+    <span class="k">await</span> <span class="nx">transaction</span><span class="p">.</span><span class="nx">complete</span><span class="p">;</span>
+
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;jsbook saved&#39;</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>ラッパーの実装を見ないと何も言えない。</p>
+</div>
+<section id="id2">
+<h4>Error handling<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h4>
+<p>もし、エラーを捕捉しなければ、最も近くに囲まれている <code class="docutils literal notranslate"><span class="pre">try...catch</span></code> まで0落ちる。捕捉されなかったエラーは、オブジェクト <code class="docutils literal notranslate"><span class="pre">window</span></code> の “unhandled promise
+rejection” イベントになる。このようなエラーは、次のように処理できる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;unhandledrejection&#39;</span><span class="p">,</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">;</span> <span class="c1">// IndexedDB native request object</span>
+    <span class="kd">let</span> <span class="nx">error</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">reason</span><span class="p">;</span> <span class="c1">//  Unhandled error object, same as request.error</span>
+    <span class="c1">// ...report about the error...</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</section>
+<section id="inactive-transaction-pitfall">
+<h4>“Inactive transaction” pitfall<a class="headerlink" href="#inactive-transaction-pitfall" title="Permalink to this heading">¶</a></h4>
+<p>トランザクションはブラウザーが現在のコードとマイクロタスクを終了するとすぐに自動コミットされる。<code class="docutils literal notranslate"><span class="pre">fetch()</span></code> のようなマクロタスクをトランザクションの途中に置くと、トランザクションはその終了を待機するようなことはない。自動コミットするだけだ。そのため、次の要求は失敗する：</p>
+<p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> ラッパーと <code class="docutils literal notranslate"><span class="pre">async</span></code>/<code class="docutils literal notranslate"><span class="pre">await</span></code> の場合も状況は同じだ。次のものはトランザクションの途中で <code class="docutils literal notranslate"><span class="pre">fetch()</span></code> する例だ：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">transaction</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="s2">&quot;inventory&quot;</span><span class="p">,</span> <span class="s2">&quot;readwrite&quot;</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">inventory</span> <span class="o">=</span> <span class="nx">transaction</span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s2">&quot;inventory&quot;</span><span class="p">);</span>
+
+<span class="k">await</span> <span class="nx">inventory</span><span class="p">.</span><span class="nx">add</span><span class="p">({</span> <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;js&#39;</span><span class="p">,</span> <span class="nx">price</span><span class="o">:</span> <span class="mf">10</span><span class="p">,</span> <span class="nx">created</span><span class="o">:</span> <span class="ow">new</span> <span class="nb">Date</span><span class="p">()</span> <span class="p">});</span>
+
+<span class="k">await</span> <span class="nx">fetch</span><span class="p">(...);</span> <span class="c1">// (*)</span>
+
+<span class="k">await</span> <span class="nx">inventory</span><span class="p">.</span><span class="nx">add</span><span class="p">({</span> <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;js&#39;</span><span class="p">,</span> <span class="nx">price</span><span class="o">:</span> <span class="mf">10</span><span class="p">,</span> <span class="nx">created</span><span class="o">:</span> <span class="ow">new</span> <span class="nb">Date</span><span class="p">()</span> <span class="p">});</span> <span class="c1">// Error</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">fetch()</span></code> (*) 後の次の <code class="docutils literal notranslate"><span class="pre">inventory.add()</span></code> は “inactive transaction” エラーで失敗する。その時点ではトランザクションがすでにコミットされ閉じているからだ。回避策は、ネイティブの IndexedDB で作業するときと同じだ。新しいトランザクションを作成するか、物事を分割することだ。</p>
+<ol class="arabic simple">
+<li><p>まずデータを準備し、必要なものをすべて取得する。</p></li>
+<li><p>データベースに保存する。</p></li>
+</ol>
+</section>
+<section id="getting-native-objects">
+<h4>Getting native objects<a class="headerlink" href="#getting-native-objects" title="Permalink to this heading">¶</a></h4>
+<p>内部的には、ラッパーはネイティブ IndexedDB 要求を実行し、それに
+<code class="docutils literal notranslate"><span class="pre">onerror</span></code>/<code class="docutils literal notranslate"><span class="pre">onsuccess</span></code> を追加し、その結果で拒否か解決をする <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返す。</p>
+<p>ほとんどの場合、これで問題なく動作する。&lt;<a class="reference external" href="https://github.com/jakearchibald/idb">https://github.com/jakearchibald/idb</a>&gt;</p>
+<p>まれに、元の <code class="docutils literal notranslate"><span class="pre">request</span></code> オブジェクトが必要な場合は、<code class="docutils literal notranslate"><span class="pre">promise.request</span></code> プロパティーでアクセスできる。</p>
+</section>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="05-animation.html" title="Animation"
+             >next</a></li>
+        <li class="right" >
+          <a href="03-network.html" title="Network requests"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >The Modern JavaScript Tutorial 読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Part 3 Additional articles</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Storing data in the browser</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2022, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

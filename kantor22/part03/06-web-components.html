@@ -1,0 +1,848 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Web components &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/prefab.css" />
+    
+    <script src="../../_static/mathjax-v3.js"></script>
+    <script src="../../_static/mermaid.js"></script>
+    
+    <link rel="next" title="Regular expressions" href="07-regular-expressions.html" />
+    <link rel="prev" title="Animation" href="05-animation.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="07-regular-expressions.html" title="Regular expressions"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="05-animation.html" title="Animation"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >The Modern JavaScript Tutorial 読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Part 3 Additional articles</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Web components</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="web-components">
+<h1><a class="toc-backref" href="#id1">Web components</a><a class="headerlink" href="#web-components" title="Permalink to this heading">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#web-components" id="id1">Web components</a></p>
+<ul>
+<li><p><a class="reference internal" href="#from-the-orbital-height" id="id2">From the orbital height</a></p></li>
+<li><p><a class="reference internal" href="#custom-elements" id="id3">Custom elements</a></p></li>
+<li><p><a class="reference internal" href="#shadow-dom" id="id4">Shadow DOM</a></p></li>
+<li><p><a class="reference internal" href="#template-element" id="id5">Template element</a></p></li>
+<li><p><a class="reference internal" href="#shadow-dom-slots-composition" id="id6">Shadow DOM slots, composition</a></p></li>
+<li><p><a class="reference internal" href="#shadow-dom-styling" id="id7">Shadow DOM styling</a></p></li>
+<li><p><a class="reference internal" href="#shadow-dom-and-events" id="id8">Shadow DOM and events</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Web components とは、自己完結型のコンポーネントを作るための標準規格の集合であり、独自のプロパティーやメソッドを持つカスタム HTML 要素、カプセル化された DOM
+とスタイルだ。</p>
+<section id="from-the-orbital-height">
+<h2><a class="toc-backref" href="#id2">From the orbital height</a><a class="headerlink" href="#from-the-orbital-height" title="Permalink to this heading">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/webcomponents-intro">https://javascript.info/webcomponents-intro</a>&gt; ノート。</p>
+<p>現在のところ、これらの標準は開発中だ。十分にサポートされていて、最新の HTML/DOM
+標準に統合されている機能もあれば、まだ草稿の段階である機能もある。おそらく
+Google Chrome がこれらの機能に関して最も up-to-date だと考えられる。</p>
+<section id="what-s-common-between">
+<h3>What’s common between…<a class="headerlink" href="#what-s-common-between" title="Permalink to this heading">¶</a></h3>
+<p>国際宇宙ステーションは、</p>
+<ul class="simple">
+<li><p>多くの部品から構成され、</p></li>
+<li><p>それぞれの部品には細かい部品がたくさん入っている。</p></li>
+<li><p>部品はたいへん複雑で、普通のウェブサイトよりもずっと複雑だ。</p></li>
+<li><p>部品を、異なる国、異なる言語を話すチームが国際的に開発している。</p></li>
+</ul>
+<p>このような複雑な装置はどのようにして作られるのだろうか。どのような原理を借りれば、同じ水準の信頼性と拡張性を持つ開発ができるだろうか。あるいは、少なくともそれに近いだろうか。</p>
+</section>
+<section id="component-architecture">
+<h3>Component architecture<a class="headerlink" href="#component-architecture" title="Permalink to this heading">¶</a></h3>
+<p>複雑なソフトウェアを開発する際のよく知られたルールは、「複雑なソフトウェアを作るな」だ。もし何かが複雑になったら、より単純な部分に分割し、最もわかりやすい方法で接続することだ。</p>
+<p>ユーザーインターフェースは、視覚的な構成要素に分割することができる。それぞれの構成要素は、ページ上に独自の場所を持ち、きちんと説明された仕事を遂行することができ、他の要素から分離されている。例えば、Twitter のようなウェブサイトを見ると、コンポーネントに自然に分割できる。</p>
+<p>コンポーネントとは何か、どうやって決めるのか。それは直感、経験、常識から出てくる。通常、コンポーネントとは、それが何を行い、どのようにページと相互作用するかという観点から説明できる、独立した視覚的な実体のことだ。Twitter の UI の例では、ページには塊があり、それぞれが独自の役割を担っているので、これをコンポーネントとするのが論理的だ。</p>
+<p>コンポーネントには次のものがある：</p>
+<ul class="simple">
+<li><p>独自の JavaScript クラス。</p></li>
+<li><p>DOM 構造はそのクラスによってのみ管理され、外部のコードはそれにアクセスしない（カプセル化の原則）。</p></li>
+<li><p>適用される CSS スタイル。</p></li>
+<li><p>API: イベント、クラスメソッドなど、他のコンポーネントと相互作用するためのもの。</p></li>
+</ul>
+<p>コンポーネントを構築するためのフレームワークや開発手法は数多く存在し、それぞれが独自の機能を備えている。通常、コンポーネントらしさを実現するために、特別なCSS クラスや規約、つまり CSS スコープや DOM カプセル化などが用いられる。</p>
+<p>Web components はそのためのブラウザー機能を内蔵している。それらをこれ以上模倣する必要はない。</p>
+<ul class="simple">
+<li><p>自作要素：カスタムの HTML 要素を定義する。</p></li>
+<li><p>Shadow DOM: コンポーネントの内部 DOM を作成し、他から隠す。</p></li>
+<li><p>CSS スコープ定義：コンポーネントの Shadow DOM 内部のみに適用するスタイルを宣言する。</p></li>
+<li><p>イベント再標的：カスタムコンポーネントをより開発に適したものにする。</p></li>
+</ul>
+</section>
+</section>
+<section id="custom-elements">
+<h2><a class="toc-backref" href="#id3">Custom elements</a><a class="headerlink" href="#custom-elements" title="Permalink to this heading">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/custom-elements">https://javascript.info/custom-elements</a>&gt; ノート。</p>
+<p>独自のメソッド、プロパティー、イベントなどを持つ、クラスで記述されたカスタムHTML
+要素を作成することができる。いったん自作要素を定義すれば、組み込み HTML要素と同等に使用できる。 <code class="docutils literal notranslate"><span class="pre">&lt;easy-tabs&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;sliding-carousel&gt;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&lt;beautiful-upload&gt;</span></code> などのタグを使えるように、特別なクラスを定義し、あたかもそれらが HTML の一部であるかのように使用できるのだ。</p>
+<p>自作要素は二種類ある：</p>
+<ol class="arabic simple">
+<li><p>自律的な自作要素。抽象クラス <code class="docutils literal notranslate"><span class="pre">HTMLElement</span></code> を拡張した「全く新しい」要素。</p></li>
+<li><p>カスタマイズされた組み込み要素。<code class="docutils literal notranslate"><span class="pre">HTMLButtonElement</span></code> などをベースにカスタマイズされたボタンなど、組み込み要素を拡張したもの。</p></li>
+</ol>
+<p>まず自律的な要素をやる。自作要素を作成するには、その要素に関するいくつかの詳細をブラウザーに伝える必要がある。どのように表示するか、要素がページに追加または削除されたときに何をするか、等。これを特別なメソッドを持つクラスを作成することで行う。メソッドの数は少なく、すべてオプショナルなので簡単だ。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nx">MyElement</span> <span class="k">extends</span> <span class="nx">HTMLElement</span> <span class="p">{</span>
+    <span class="c1">// 本書参照</span>
+<span class="p">}</span>
+
+<span class="c1">// let the browser know that &lt;my-element&gt; is served by our new class</span>
+<span class="nx">customElements</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s2">&quot;my-element&quot;</span><span class="p">,</span> <span class="nx">MyElement</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>これによって、タグ <code class="docutils literal notranslate"><span class="pre">&lt;my-element&gt;</span></code> のある HTML 要素に対して、
+<code class="docutils literal notranslate"><span class="pre">MyElement</span></code> インスタンスが生成され、前述のメソッドが呼び出されるようになった。
+JavaScript からでも</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;my-element&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>を使うことができる。</p>
+<p>自作要素名には記号 <code class="docutils literal notranslate"><span class="pre">-</span></code> が必要だ。例えば、<code class="docutils literal notranslate"><span class="pre">my-element</span></code> と
+<code class="docutils literal notranslate"><span class="pre">super-button</span></code> は有効な名前だが、<code class="docutils literal notranslate"><span class="pre">myelement</span></code> は無効な名前だ。組み込み HTML
+要素とカスタム HTML 要素の間で名前の衝突が起きないようにするために、そのように規定されている。</p>
+<section id="example-time-formatted">
+<h3>Example: “time-formatted”<a class="headerlink" href="#example-time-formatted" title="Permalink to this heading">¶</a></h3>
+<p>例えば、HTML には日付・時刻を表す <code class="docutils literal notranslate"><span class="pre">&lt;time&gt;</span></code> が既に存在する。しかし、これだけでは何の書式化もできない。そこで、言語を意識した美しい書式で時刻を表示する
+<code class="docutils literal notranslate"><span class="pre">&lt;time-formatted&gt;</span></code> を作成する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nx">TimeFormatted</span> <span class="k">extends</span> <span class="nx">HTMLElement</span> <span class="p">{</span>
+    <span class="nx">connectedCallback</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">date</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Date</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;datetime&#39;</span><span class="p">)</span> <span class="o">??</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">());</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Intl</span><span class="p">.</span><span class="nx">DateTimeFormat</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="cm">/* 本書参照 */</span><span class="p">;</span>
+        <span class="p">}).</span><span class="nx">format</span><span class="p">(</span><span class="nx">date</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">customElements</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s2">&quot;time-formatted&quot;</span><span class="p">,</span> <span class="nx">TimeFormatted</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>このクラスは <code class="docutils literal notranslate"><span class="pre">connectedCallback()</span></code> というメソッド一つだけを持っている。ブラウザーは <code class="docutils literal notranslate"><span class="pre">&lt;time-formatted&gt;</span></code> がページに追加されたとき（または HTML 解析器がそれを検出したとき）これを呼び出し、ブラウザー全体で十分にサポートされている組み込みの
+<code class="docutils literal notranslate"><span class="pre">Intl.DateTimeFormat</span></code> データフォーマッターを使用して、きれいにフォーマットされた時間を表示する。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">time-formatted</span> <span class="na">datetime</span><span class="o">=</span><span class="s">&quot;2019-12-01&quot;</span>
+  <span class="na">year</span><span class="o">=</span><span class="s">&quot;numeric&quot;</span> <span class="na">month</span><span class="o">=</span><span class="s">&quot;long&quot;</span> <span class="na">day</span><span class="o">=</span><span class="s">&quot;numeric&quot;</span>
+  <span class="na">hour</span><span class="o">=</span><span class="s">&quot;numeric&quot;</span> <span class="na">minute</span><span class="o">=</span><span class="s">&quot;numeric&quot;</span> <span class="na">second</span><span class="o">=</span><span class="s">&quot;numeric&quot;</span>
+  <span class="na">time-zone-name</span><span class="o">=</span><span class="s">&quot;short&quot;</span>
+<span class="p">&gt;&lt;/</span><span class="nt">time-formatted</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p><code class="docutils literal notranslate"><span class="pre">customElements.define</span></code> 呼び出し前に <code class="docutils literal notranslate"><span class="pre">&lt;time-formatted&gt;</span></code> 要素にブラウザーが遭遇しても、それはエラーではない。その要素はまだ未定義であり、非標準のタグと同じ扱いになる。このような未定義要素は CSS セレクターの <code class="docutils literal notranslate"><span class="pre">:not(:defined)</span></code> でスタイルを与えられる。</p>
+<p><code class="docutils literal notranslate"><span class="pre">customElement.define</span></code> が呼ばれると、それらは「アップグレード」される。それぞれについて新しい <code class="docutils literal notranslate"><span class="pre">TimeFormatted</span></code> インスタンスが生成され、
+<code class="docutils literal notranslate"><span class="pre">connectedCallback</span></code> が呼ばれる。これらは <code class="docutils literal notranslate"><span class="pre">:defined</span></code> となる。</p>
+<p>自作要素に関する情報を取得するためのメソッド：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">customElements.get(name)</span></code>: 与えられた <code class="docutils literal notranslate"><span class="pre">name</span></code> の自作要素のクラスを返す。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">customElements.whenDefined(name)</span></code>: 与えられた <code class="docutils literal notranslate"><span class="pre">name</span></code> の自作要素が定義されたときに resolve する <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返す。</p></li>
+</ul>
+<hr class="docutils" />
+<p>上記の例で <code class="docutils literal notranslate"><span class="pre">connectedCallback()</span></code> で要素の内容を作成していることに注意。仮にコンストラクターで内容を作成すると、早過ぎるのだ。ブラウザーはこの段階ではまだ属性を処理できておらず、 <code class="docutils literal notranslate"><span class="pre">getAttribute()</span></code> を呼び出すと <code class="docutils literal notranslate"><span class="pre">null</span></code> が返される。これではレンダリング不能だ。さらに、本当に必要なときまで作業を遅らせることは、能率の点でも優っている。</p>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">connectedCallback()</span></code> は、要素がページに追加されたときに起動される。単に他の要素に子として追加されるだけでなく、実際にページの一部になる。つまり、切り離された DOM を構築し、要素を生成し、後で使用するための準備をすることができる。実際にレンダリングされるのはページ内に追加されたときだけだ。</p>
+</section>
+<section id="observing-attributes">
+<h3>Observing attributes<a class="headerlink" href="#observing-attributes" title="Permalink to this heading">¶</a></h3>
+<p>現在の <code class="docutils literal notranslate"><span class="pre">&lt;time-formatted&gt;</span></code> の実装では、要素がレンダリングされた後、それ以上の属性変更は何の効果もない。HTML 要素としては奇妙なことだ。そこで、これを修正する。</p>
+<p><code class="docutils literal notranslate"><span class="pre">observedAttributes()</span></code> で属性のリストを提供することで、属性を観察することができる。このような属性については、その属性が変更されたときに
+<code class="docutils literal notranslate"><span class="pre">attributeChangedCallback()</span></code> が呼び出される。他のリストされていない属性に対しては呼び出されない。これは性能上の理由による。</p>
+<p>属性が変更されたときに自動更新されるようにする：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nx">TimeFormatted</span> <span class="k">extends</span> <span class="nx">HTMLElement</span> <span class="p">{</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// 従来と同様</span>
+    <span class="p">}</span>
+
+    <span class="nx">connectedCallback</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">rendered</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">rendered</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">static</span> <span class="nx">get</span> <span class="nx">observedAttributes</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;minute&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">,</span> <span class="s1">&#39;time-zone-name&#39;</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="nx">attributeChangedCallback</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">oldValue</span><span class="p">,</span> <span class="nx">newValue</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">customElements</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s2">&quot;time-formatted&quot;</span><span class="p">,</span> <span class="nx">TimeFormatted</span><span class="p">);</span>
+
+<span class="c1">// 別の場所</span>
+<span class="nx">setInterval</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="ow">new</span> <span class="nb">Date</span><span class="p">()),</span> <span class="mf">1000</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>レンダリングのロジックは <code class="docutils literal notranslate"><span class="pre">render()</span></code> メソッドに移された。要素がページに挿入されたときに一度だけ呼び出されるものとする。<code class="docutils literal notranslate"><span class="pre">observedAttributes()</span></code> にリストされている属性が変更されると、<code class="docutils literal notranslate"><span class="pre">attributeChangedCallback()</span></code> が起動し、要素を再描画する。</p>
+<p>最終的にライブタイマーを容易に作成することができる。</p>
+</section>
+<section id="rendering-order">
+<h3>Rendering order<a class="headerlink" href="#rendering-order" title="Permalink to this heading">¶</a></h3>
+<p>HTML 解析器 が DOM を構築するとき、要素は親から子へと順番に処理される。これは、自作要素にとって重要な結果をもたらす。例えば、自作要素が <code class="docutils literal notranslate"><span class="pre">connectedCallback()</span></code>
+で``innerHTML`` にアクセスしようとすると何も得られない。</p>
+<p>自作要素に情報を渡したい場合は、属性を使うことができる。これはすぐに利用できる。または、もし本当に子要素が必要なら、遅延ゼロの <code class="docutils literal notranslate"><span class="pre">setTimeout()</span></code> で子要素へのアクセスを延期してもよい。</p>
+<p>この解決策も完璧ではない。入れ子になった自作要素も自分自身を初期化するために
+<code class="docutils literal notranslate"><span class="pre">setTimeout()</span></code> を使用する場合、それらはキューに入る。すなわち、外側の
+<code class="docutils literal notranslate"><span class="pre">setTimeout()</span></code> が最初に発生し、次に内側のものが発生する。つまり、外側の要素が内側の要素より先に初期化を終えてしまうのだ。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">user-info</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;outer&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">user-info</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;inner&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">user-info</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">user-info</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>次のように実装すると、外側の要素が内側の要素よりも先に初期化を終えていることを確認できる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">connectedCallback</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">id</span><span class="si">}</span><span class="sb"> connected.`</span><span class="p">);</span>
+    <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">id</span><span class="si">}</span><span class="sb"> initialized.`</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>入れ子になった要素の準備ができた後に発生する組み込みコールバックはない。必要であれば、そのようなものを独自に実装することができる。例えば、内側の要素は初期化などのイベントを dispatch し、外側の要素はそれを listen して反応させることができる。</p>
+</section>
+<section id="customized-built-in-elements">
+<h3>Customized built-in elements<a class="headerlink" href="#customized-built-in-elements" title="Permalink to this heading">¶</a></h3>
+<p>特殊なボタンを作るのであれば、既存の <code class="docutils literal notranslate"><span class="pre">&lt;button&gt;</span></code> の機能を再利用するのが自然だ。組み込み HTML 要素は、そのクラスを継承して拡張したりカスタマイズしたりすることができる。ボタンは <code class="docutils literal notranslate"><span class="pre">HTMLButtonElement</span></code> インスタンスなので、これをベースに作ってみる。</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">HTMLButtonElement</span></code> を自作クラスで拡張する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">customElements.define()</span></code> の第三引数にタグを指定する。同じ DOM クラスを共有する異なるタグが存在する可能性があるため、 <code class="docutils literal notranslate"><span class="pre">extends</span></code> の指定が必要だ。</p></li>
+<li><p>自作要素を使用するために通常の <code class="docutils literal notranslate"><span class="pre">&lt;button&gt;</span></code> タグを挿入するが、
+<code class="docutils literal notranslate"><span class="pre">is=&quot;hello-button&quot;</span></code> を追加する。</p></li>
+</ol>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="c1">// The button that says &quot;hello&quot; on click</span>
+<span class="kd">class</span> <span class="nx">HelloButton</span> <span class="k">extends</span> <span class="nx">HTMLButtonElement</span> <span class="p">{</span>
+    <span class="kr">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">super</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Hello!&quot;</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">customElements</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s1">&#39;hello-button&#39;</span><span class="p">,</span> <span class="nx">HelloButton</span><span class="p">,</span> <span class="p">{</span><span class="k">extends</span><span class="o">:</span> <span class="s1">&#39;button&#39;</span><span class="p">});</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">is</span><span class="o">=</span><span class="s">&quot;hello-button&quot;</span><span class="p">&gt;</span>Click me<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">is</span><span class="o">=</span><span class="s">&quot;hello-button&quot;</span> <span class="na">disabled</span><span class="p">&gt;</span>Disabled<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>新しいボタンは組み込みボタンを拡張したものだ。スタイルや属性など、標準的な機能を維持する。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>動的にサブクラスを定義できるようなものだ。</p>
+</div>
+</section>
+<section id="tasks">
+<h3>Tasks<a class="headerlink" href="#tasks" title="Permalink to this heading">¶</a></h3>
+<section id="live-timer-element">
+<h4>Live timer element<a class="headerlink" href="#live-timer-element" title="Permalink to this heading">¶</a></h4>
+<p>現在の時刻を表示するために 要素を定義しろ。</p>
+<ol class="arabic simple">
+<li><p>これは内部で <code class="docutils literal notranslate"><span class="pre">&lt;time-formatted&gt;</span></code> を使うべきだ。機能を重複させるべきではない。</p></li>
+<li><p>毎秒刻め。</p></li>
+<li><p>刻みごとに、カスタムイベント <code class="docutils literal notranslate"><span class="pre">tick</span></code> が生成され、現在の日付を
+<code class="docutils literal notranslate"><span class="pre">event.detail</span></code> に入れろ。</p></li>
+</ol>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">live-timer</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;elem&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">live-timer</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="nx">elem</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;tick&#39;</span><span class="p">,</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">detail</span><span class="p">));</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p>ページから要素が削除されたとき、<code class="docutils literal notranslate"><span class="pre">setInterval</span></code> をクリアすること。そうでなければ、もう必要ないにもかかわらず、カチカチと音を立て続けることになる。そして、ブラウザーはこの要素とそれによって参照されるものからメモリーをクリアすることができない。</p></li>
+<li><p>現在の日付は <code class="docutils literal notranslate"><span class="pre">elem.date</span></code> としてアクセスできる。すべてのクラスのメソッドとプロパティーは、当然ながら要素のメソッドとプロパティーだ。</p></li>
+</ol>
+</section>
+</section>
+</section>
+<section id="shadow-dom">
+<h2><a class="toc-backref" href="#id4">Shadow DOM</a><a class="headerlink" href="#shadow-dom" title="Permalink to this heading">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/shadow-dom">https://javascript.info/shadow-dom</a>&gt; ノート。</p>
+<p>Shadow DOM はカプセル化のために機能する。これにより、コンポーネントはそれ自身の「影」の DOM 木を持つことができ、主ページから誤ってアクセスされることはないし、スタイルに関するハウスルールなどを決めることもできる。</p>
+<section id="built-in-shadow-dom">
+<h3>Built-in shadow DOM<a class="headerlink" href="#built-in-shadow-dom" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;input</span> <span class="pre">type=&quot;range&quot;&gt;</span></code> などを、ブラウザーは内部で DOM/CSS を使って描画している。この DOM 構造は開発者向けツールで見られる。 Google Chrome の場合、開発ツールの Show user agent shadow DOM オプションを有効にする必要がある。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>このオプションがどこにあるのか不明。</p>
+</div>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;range&quot;</span><span class="p">&gt;</span>
+    #shadow-root (user-agent)
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">pseudo</span><span class="o">=</span><span class="s">&quot;-webkit-slider-runnable-track&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;track&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;thumb&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">input</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>この <code class="docutils literal notranslate"><span class="pre">#shadow-root</span></code> の下に表示されるものを shadow DOM と呼ぶ。</p>
+<p>通常の JavaScript の呼び出しやセレクターでは、組み込み shadow DOM 要素を取得できない。これらは通常の子要素ではなく、強力なカプセル化技術なのだ。上の例では、便利な属性 <code class="docutils literal notranslate"><span class="pre">pseudo</span></code> があることがわかる。これは非標準的なもので、歴史的な理由から存在する。この属性は、CSS で部分要素のスタイルを指定するために用いられる。</p>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="nt">input</span><span class="p">::</span><span class="nd">-webkit-slider-runnable-track</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="kc">red</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>時系列的には、ブラウザーが DOM の内部構造を使ってコントロールを実装する実験を始めたのが <code class="docutils literal notranslate"><span class="pre">pseudo</span></code> の嚆矢で、その後、開発者が同様のことを行えるように shadow DOM
+が標準化された。</p>
+<p>この先は現代の shadow DOM 標準を使用する。</p>
+</section>
+<section id="shadow-tree">
+<h3>Shadow tree<a class="headerlink" href="#shadow-tree" title="Permalink to this heading">¶</a></h3>
+<p>DOM 要素は、二種類の DOM 部分木があり得る。</p>
+<ol class="arabic simple">
+<li><p>Light tree: 通常の DOM 部分木であって、HTML の子要素で構成されている。これまでの章で見てきた部分木はすべて light だ。</p></li>
+<li><p>Shadow tree: HTML に反映されない、のぞき見されない隠れた DOM 部分木。</p></li>
+</ol>
+<p>要素が両方を持つ場合、ブラウザーは shadow tree しか描画しない。しかし、
+shadow tree と light tree の間にある種の合成を設定することも可能だ（詳細は後述）。</p>
+<p>Shadow tree を自作要素で使用して、コンポーネント内部を隠したり、コンポーネント固有のスタイルを適用したりすることができる。たとえば、本書の <code class="docutils literal notranslate"><span class="pre">&lt;show-hello&gt;</span></code> 要素は shadow tree でその内部 DOM を隠蔽する。 Google Chrome の開発ツールで結果の
+DOM を見ると、内容物すべてが <code class="docutils literal notranslate"><span class="pre">#shadow-root</span></code> の下にあることがわかる。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">show-hello</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;John&quot;</span><span class="p">&gt;</span>
+    #shadow-root (open)
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Hello, John<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">show-hello</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>最初に <code class="docutils literal notranslate"><span class="pre">elem.attachShadow({mode:</span> <span class="pre">...})</span></code> 呼び出しが shadow tree を生成する。制約が二つある：</p>
+<ol class="arabic simple">
+<li><p>要素一つにつき shadow root を一つしか生成できない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">elem</span></code> は自作要素か、次のうちの一つでなければならない：</p>
+<ul class="simple">
+<li><p>article</p></li>
+<li><p>aside</p></li>
+<li><p>blockquote</p></li>
+<li><p>body</p></li>
+<li><p>div</p></li>
+<li><p>footer</p></li>
+<li><p>h1…h6</p></li>
+<li><p>header</p></li>
+<li><p>main</p></li>
+<li><p>nav</p></li>
+<li><p>p</p></li>
+<li><p>section</p></li>
+<li><p>span</p></li>
+</ul>
+</li>
+</ol>
+<p>オプション <code class="docutils literal notranslate"><span class="pre">mode</span></code> は、カプセル化レベルを設定する。</p>
+<ul class="simple">
+<li><p>“open”: shadow root が <code class="docutils literal notranslate"><span class="pre">elem.shadowRoot</span></code> として利用可能。どんなコードでも
+<code class="docutils literal notranslate"><span class="pre">elem</span></code> の shadow tree にアクセスすることができる。</p></li>
+<li><p>“closed”: <code class="docutils literal notranslate"><span class="pre">elem.shadowRoot</span></code> は常に <code class="docutils literal notranslate"><span class="pre">null</span></code> となる。</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">attachShadow()</span></code> が返す参照によってしか shadow DOM にアクセスできない。
+<code class="docutils literal notranslate"><span class="pre">&lt;input</span> <span class="pre">type=&quot;range&quot;&gt;</span></code> のようなブラウザーネイティブの shadow tree は閉じている。それらにアクセスする方法はない。</p>
+<p><code class="docutils literal notranslate"><span class="pre">attachShadow()</span></code> が返す shadow root は要素のようなもので、 <code class="docutils literal notranslate"><span class="pre">innerHTML</span></code> や
+<code class="docutils literal notranslate"><span class="pre">append()</span></code> などの DOM メソッドを使用して、shadow root に情報を入力することができる。</p>
+<p>Shadow root を持つ要素は shadow tree host と呼ばれ、プロパティー <code class="docutils literal notranslate"><span class="pre">host</span></code> として利用可能だ。</p>
+</section>
+<section id="encapsulation">
+<h3>Encapsulation<a class="headerlink" href="#encapsulation" title="Permalink to this heading">¶</a></h3>
+<p>Shadow DOM はメインドキュメントから強く分離される。</p>
+<ol class="arabic simple">
+<li><p>Shadow DOM の要素は light DOM の <code class="docutils literal notranslate"><span class="pre">querySelector</span></code> からは見えない。特に、
+Shadow DOM の要素は light DOM の要素と矛盾する ID を持つ可能性がある。それらは shadow tree の中でのみ一意的でなければならない。</p></li>
+<li><p>Shadow DOM は独自のスタイルシートを持つ。外部 DOM からのスタイルルールは適用されない。</p></li>
+</ol>
+<p>ドキュメントからのスタイルは shadow tree に影響を与えない。
+Shadow tree の要素を取得するには、木の内側から問い合わせを実行する必要がある。</p>
+</section>
+</section>
+<section id="template-element">
+<h2><a class="toc-backref" href="#id5">Template element</a><a class="headerlink" href="#template-element" title="Permalink to this heading">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/template-element">https://javascript.info/template-element</a>&gt; ノート。</p>
+<p>組み込み <code class="docutils literal notranslate"><span class="pre">&lt;template&gt;</span></code> 要素は、HTML マークアップテンプレート置場として機能する。ブラウザーはその内容を無視し、構文の妥当性のチェックしかしないが、
+JavaScript でそれにアクセスし、他の要素を作成するのに利用できる。</p>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;template&gt;</span></code> の内容は、通常は適切な囲みタグを必要とするものであっても、有効な
+HTML であれば何でもよい。例えば、テーブルの行 <code class="docutils literal notranslate"><span class="pre">&lt;tr&gt;</span></code> をそこに置くことができる。通常、<code class="docutils literal notranslate"><span class="pre">&lt;tr&gt;</span></code> を例えば <code class="docutils literal notranslate"><span class="pre">&lt;div&gt;</span></code> の中に置こうとすると、ブラウザーは無効な
+DOM 構造を検出し、それを「修正」して <code class="docutils literal notranslate"><span class="pre">&lt;table&gt;</span></code> を周囲に追加する。一方、
+<code class="docutils literal notranslate"><span class="pre">&lt;template&gt;</span></code> は、そこに置いたものをそのまま保持する。</p>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;template&gt;</span></code> にはスタイルやスクリプトを入れることもできる。</p>
+<p>ブラウザーは <code class="docutils literal notranslate"><span class="pre">&lt;template&gt;</span></code> 内容物を「文書の外にある」と見なす。つまりスタイルは適用されず、スクリプトは実行されず、<code class="docutils literal notranslate"><span class="pre">&lt;video</span> <span class="pre">autoplay&gt;</span></code> は実行されない、など。内容物は、ページに挿入された時点で生を受ける（スタイルが適用され、スクリプトが実行され、……といった具合だ）。</p>
+<section id="inserting-template">
+<h3>Inserting template<a class="headerlink" href="#inserting-template" title="Permalink to this heading">¶</a></h3>
+<p>テンプレートの内容物はプロパティー <code class="docutils literal notranslate"><span class="pre">content</span></code> に DOM ノードの特殊な型である
+<code class="docutils literal notranslate"><span class="pre">DocumentFragment</span></code> として利用可能だ。これを他の DOM ノードと同じように扱うことができるが、特別な特性が一つある。これをどこかに挿入すると、代わりにその子（複数形）が挿入される。</p>
+<p>本書のコードを示す：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">template</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;tmpl&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">);</span>
+  <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;message&quot;</span><span class="p">&gt;</span>Hello, world!<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">let</span> <span class="nx">elem</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">);</span>
+  <span class="nx">elem</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">tmpl</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">cloneNode</span><span class="p">(</span><span class="kc">true</span><span class="p">));</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>スクリプト部分を読むと、ページ内の <code class="docutils literal notranslate"><span class="pre">template</span></code> 要素への <code class="docutils literal notranslate"><span class="pre">cloneNode()</span></code> 呼び出しがあることがわかる。これは <code class="docutils literal notranslate"><span class="pre">template</span></code> ではなく、その子である <code class="docutils literal notranslate"><span class="pre">script</span></code> および <code class="docutils literal notranslate"><span class="pre">div</span></code> の二つを複製するということになる。複製を新規作成した <code class="docutils literal notranslate"><span class="pre">div</span></code> の末尾に差し込んでいる。実行ボタンを押せば上の解読が正しそうだと思える。</p>
+<hr class="docutils" />
+<p>前章の shadow DOM の例（に似たもの）を <code class="docutils literal notranslate"><span class="pre">template</span></code> を使って書き換える。
+Shadow DOM 版はこういう感じ：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">elem</span><span class="p">.</span><span class="nx">attachShadow</span><span class="p">({</span><span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;open&#39;</span><span class="p">});</span>
+<span class="nx">elem</span><span class="p">.</span><span class="nx">shadowRoot</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="sb">`</span>
+<span class="sb">    &lt;style&gt; p { font-weight: bold; } &lt;/style&gt;</span>
+<span class="sb">    &lt;p id=&quot;message&quot;&gt;Hello from the shadows!&lt;/p&gt;</span>
+<span class="sb">`</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>これがこうなる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">elem</span><span class="p">.</span><span class="nx">attachShadow</span><span class="p">({</span><span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;open&#39;</span><span class="p">});</span>
+<span class="nx">elem</span><span class="p">.</span><span class="nx">shadowRoot</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">tmpl</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">cloneNode</span><span class="p">(</span><span class="kc">true</span><span class="p">));</span>
+<span class="nx">elem</span><span class="p">.</span><span class="nx">shadowRoot</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;Hello from the shadows!&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">tmpl.content</span></code> を複製して挿入する行では、その <code class="docutils literal notranslate"><span class="pre">DocumentFragment</span></code> として、その子である <code class="docutils literal notranslate"><span class="pre">style</span></code>, <code class="docutils literal notranslate"><span class="pre">p</span></code> が代わりに挿入される。</p>
+<p>これらは shadow DOM を形成する。</p>
+</section>
+</section>
+<section id="shadow-dom-slots-composition">
+<h2><a class="toc-backref" href="#id6">Shadow DOM slots, composition</a><a class="headerlink" href="#shadow-dom-slots-composition" title="Permalink to this heading">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/slots-composition">https://javascript.info/slots-composition</a>&gt; ノート。</p>
+<p>タブ、メニュー、イメージギャラリーなど、多くの種類のコンポーネントがレンダリングのために中身を必要とする。組み込み <code class="docutils literal notranslate"><span class="pre">&lt;select&gt;</span></code> が <code class="docutils literal notranslate"><span class="pre">&lt;option&gt;</span></code> を期待するように、自作 <code class="docutils literal notranslate"><span class="pre">&lt;custom-tabs&gt;</span></code> や <code class="docutils literal notranslate"><span class="pre">&lt;custom-menu&gt;</span></code> は実際のタブ中身やメニュー項目が渡されることを期待するだろう。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">custom-menu</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Candy menu<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">item</span><span class="p">&gt;</span>Lollipop<span class="p">&lt;/</span><span class="nt">item</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">item</span><span class="p">&gt;</span>Fruit Toast<span class="p">&lt;/</span><span class="nt">item</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">item</span><span class="p">&gt;</span>Cup Cake<span class="p">&lt;/</span><span class="nt">item</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">custom-menu</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>与えられたタイトルとアイテムから、自作メニューを適切に描画したりイベント処理をしたりする必要がある。</p>
+<p>どのように実装するのか？要素の内容を解析して、DOM ノードを動的にコピーして並べ替えることもできる。それでもいいが、要素を shadow DOM に移動する場合、ドキュメントからの CSS スタイルはそこに適用されないので、視覚的スタイルが失われる可能性がある。また、そのために追加的なコーディングが必要だ。</p>
+<p>幸いなことに、その必要はない。Shadow DOM は <code class="docutils literal notranslate"><span class="pre">&lt;slot&gt;</span></code> 要素をサポートしており、light DOM からの中身で自動的に埋まる。</p>
+<section id="named-slots">
+<h3>Named slots<a class="headerlink" href="#named-slots" title="Permalink to this heading">¶</a></h3>
+<p>簡単な例で、スロットがどのように機能するかを見る。本書のコードでは
+<code class="docutils literal notranslate"><span class="pre">&lt;user-card&gt;</span></code> shadow DOM がスロットを二つ持ち、light DOM から埋められる。</p>
+<p>スクリプトコードで <code class="docutils literal notranslate"><span class="pre">innerHTML</span></code> として現れている shadow DOM では、 <code class="docutils literal notranslate"><span class="pre">&lt;slot</span>
+<span class="pre">name=&quot;X&quot;&gt;</span></code> が挿入ポイント、つまり <code class="docutils literal notranslate"><span class="pre">slot=&quot;X&quot;</span></code> 要素が描画される場所を定義している。</p>
+<p>すると、ブラウザーは「合成」をする。HTML コードで現れている Light DOM から要素を取得し、shadow DOM の対応するスロットに描画する。最終的には、データを埋めることができるコンポーネントが完成する。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>本書では合成を考慮しないスクリプト実行後の DOM 構造がここに書かれている。これは Google Chrome の検証ツールで示されるものと同じだ。</p>
+</div>
+<p>これで、この要素は light と shadow の両方の DOM を持つようになった。</p>
+<p>描画するには、shadow DOM の各 <code class="docutils literal notranslate"><span class="pre">&lt;slot</span> <span class="pre">name=&quot;...&quot;&gt;</span></code> に対して、ブラウザーは light
+DOM で同じ名前の <code class="docutils literal notranslate"><span class="pre">&lt;slot=&quot;...&quot;&gt;</span></code> を見つける。これらの要素はスロットの内部で描画される。その結果を平坦化 DOM と呼ぶ。</p>
+<p>しかし、平坦化 DOM は描画とイベント処理のためだけに存在する。実際にはドキュメント内のノードは移動していないのだ。このことは <code class="docutils literal notranslate"><span class="pre">querySelectorAll()</span></code> を実行すれば簡単に確認できる。ノードはまだ元の場所にある。</p>
+<p>つまり、平坦化 DOM は、スロットを挿入することで shadow DOM から派生したものだ。ブラウザーはこれを描画し、スタイル継承やイベント伝達に用いる。しかし JavaScript
+では平坦化前のままのドキュメントを見ている。</p>
+<hr class="docutils" />
+<p>トップレベルの子しか <code class="docutils literal notranslate"><span class="pre">slot=&quot;...&quot;</span></code> 属性を持てない。属性 <code class="docutils literal notranslate"><span class="pre">slot=&quot;...&quot;</span></code>
+は、shadow host の直接の子要素に対してしか有効でない。入れ子要素では無視される。次の例では二番目の <code class="docutils literal notranslate"><span class="pre">&lt;span&gt;</span></code> は <code class="docutils literal notranslate"><span class="pre">&lt;user-card&gt;</span></code> の最上位の子ではないので無視される。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">user-card</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">span</span> <span class="na">slot</span><span class="o">=</span><span class="s">&quot;username&quot;</span><span class="p">&gt;</span>John Smith<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">slot</span><span class="o">=</span><span class="s">&quot;birthday&quot;</span><span class="p">&gt;</span>01.01.2001<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">user-card</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>Light DOM 内に同じスロット名を持つ要素が複数ある場合、それらは順番にスロットに追加される。</p>
+</section>
+<section id="slot-fallback-content">
+<h3>Slot fallback content<a class="headerlink" href="#slot-fallback-content" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;slot&gt;</span></code> の中に何かを入れると、それが既定の中身になる。対応する中身に相当するものが light DOM にない場合、ブラウザーはその <code class="docutils literal notranslate"><span class="pre">&lt;slot&gt;</span></code> の中の何かを表示する。たとえば、この shadow DOM の断片で light DOM に <code class="docutils literal notranslate"><span class="pre">slot=&quot;username&quot;</span></code> がない場合、Anonymous が表示される：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>Name:
+  <span class="p">&lt;</span><span class="nt">slot</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;username&quot;</span><span class="p">&gt;</span>Anonymous<span class="p">&lt;/</span><span class="nt">slot</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="default-slot-first-unnamed">
+<h3>Default slot: first unnamed<a class="headerlink" href="#default-slot-first-unnamed" title="Permalink to this heading">¶</a></h3>
+<p>Shadow DOM の <code class="docutils literal notranslate"><span class="pre">&lt;slot&gt;</span></code> で名前を持たない最初のものが既定スロットだ。これは、他の場所でスロット化されていない light DOM のノードすべてを得る。</p>
+<p>例えば shadow DOM を次のようにする：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>Name:
+  <span class="p">&lt;</span><span class="nt">slot</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;username&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">slot</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>Birthday:
+  <span class="p">&lt;</span><span class="nt">slot</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;birthday&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">slot</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">fieldset</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">legend</span><span class="p">&gt;</span>Other information<span class="p">&lt;/</span><span class="nt">legend</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">slot</span><span class="p">&gt;&lt;/</span><span class="nt">slot</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">fieldset</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>ノート：この <code class="docutils literal notranslate"><span class="pre">&lt;slot&gt;&lt;/slot&gt;</span></code> が既定スロットとなる。</p>
+<p>対応する light DOM を次のようにしてみる：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">user-card</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>I like to swim.<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">span</span> <span class="na">slot</span><span class="o">=</span><span class="s">&quot;username&quot;</span><span class="p">&gt;</span>John Smith<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">span</span> <span class="na">slot</span><span class="o">=</span><span class="s">&quot;birthday&quot;</span><span class="p">&gt;</span>01.01.2001<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>...And play volleyball too!<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">user-card</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>スロットされていない light DOM の中身である <code class="docutils literal notranslate"><span class="pre">&lt;div&gt;</span></code> 要素二つは、すべて Other
+information の次要素として入る（本書の平坦化 DOM 参照）。要素は次々とスロットに追加されるので、スロットされていない両方の情報が一緒に既定スロットに入る。</p>
+</section>
+<section id="menu-example">
+<h3>Menu example<a class="headerlink" href="#menu-example" title="Permalink to this heading">¶</a></h3>
+<p>本章冒頭の <code class="docutils literal notranslate"><span class="pre">&lt;custom-menu&gt;</span></code> を考える。スロットを使って、要素を分散させることができる。<code class="docutils literal notranslate"><span class="pre">&lt;custom-menu&gt;</span></code> を次のように定義する：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">custom-menu</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">span</span> <span class="na">slot</span><span class="o">=</span><span class="s">&quot;title&quot;</span><span class="p">&gt;</span>Candy menu<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span> <span class="na">slot</span><span class="o">=</span><span class="s">&quot;item&quot;</span><span class="p">&gt;</span>Lollipop<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span> <span class="na">slot</span><span class="o">=</span><span class="s">&quot;item&quot;</span><span class="p">&gt;</span>Fruit Toast<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span> <span class="na">slot</span><span class="o">=</span><span class="s">&quot;item&quot;</span><span class="p">&gt;</span>Cup Cake<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">custom-menu</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>これに対応する、適切なスロットを持つ shadow DOM テンプレートをこうする：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">template</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;tmpl&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span><span class="w"> </span><span class="c">/* menu styles */</span><span class="w"> </span><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;menu&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">slot</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;title&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">slot</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;&lt;</span><span class="nt">slot</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;item&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">slot</span><span class="p">&gt;&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;span</span> <span class="pre">slot=&quot;title&quot;&gt;</span></code> は <code class="docutils literal notranslate"><span class="pre">&lt;slot</span> <span class="pre">name=&quot;title&quot;&gt;</span></code> に入る。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;li</span> <span class="pre">slot=&quot;item&quot;&gt;</span></code> が複数あるが、<code class="docutils literal notranslate"><span class="pre">&lt;slot</span> <span class="pre">name=&quot;item&quot;&gt;</span></code> は一つしかない。そのような <code class="docutils literal notranslate"><span class="pre">&lt;li</span> <span class="pre">slot=&quot;item&quot;&gt;</span></code> はすべて <code class="docutils literal notranslate"><span class="pre">&lt;slot</span> <span class="pre">name=&quot;item&quot;&gt;</span></code> に次々と追加され、リストを形成する。</p></li>
+</ol>
+<p>本書の平坦化 DOM の模式図を参照。有効な DOM において、<code class="docutils literal notranslate"><span class="pre">&lt;li&gt;</span></code> は <code class="docutils literal notranslate"><span class="pre">&lt;ul&gt;</span></code> の直接の子でなければならない。しかし、これは平坦化 DOM であり、コンポーネントがどのように描画されるかを記述するもので、ここではそのようなことは自然に起こる。</p>
+<p>あとは、リストを開閉するためのクリックハンドラーを追加して <code class="docutils literal notranslate"><span class="pre">&lt;custom-menu&gt;</span></code> が完成する（本書で実装例を示している）。イベントやメソッドなど、より多くの機能を追加することも可能だ。</p>
+</section>
+<section id="updating-slots">
+<h3>Updating slots<a class="headerlink" href="#updating-slots" title="Permalink to this heading">¶</a></h3>
+<p>外側のコードでメニュー項目を動的に追加削除したければどうするだろうか。ブラウザーはスロットを監視し、スロットの要素が追加削除された場合に描画を更新する。また、light DOM ノードはコピーされず、スロットに描画されるだけなので、その内部の変更はすぐに顕在化する。</p>
+<p>そのため、描画を更新するために何かする必要はない。しかし、コンポーネントコードがスロットの変更について知りたい場合は、イベント <code class="docutils literal notranslate"><span class="pre">slotchange</span></code> を利用できる。</p>
+<p>本書では、メニュー項目を一秒後に動的に挿入し、タイトルを二秒後に変更するコードを示している。ここでイベント <code class="docutils literal notranslate"><span class="pre">slotchange</span></code> が二つある。</p>
+<ol class="arabic">
+<li><p>初期化時</p>
+<p>light DOM から <code class="docutils literal notranslate"><span class="pre">slot=&quot;title&quot;</span></code> が対応するスロットに入ったときにすぐに引き起こされる。</p>
+</li>
+<li><p>一秒後</p>
+<p>新しい <code class="docutils literal notranslate"><span class="pre">&lt;li</span> <span class="pre">slot=&quot;item&quot;&gt;</span></code> が追加されたときに引き起こされる。</p>
+</li>
+</ol>
+<p>なお、二秒後 <code class="docutils literal notranslate"><span class="pre">slot=&quot;title&quot;</span></code> の内容が変更されるが、イベント <code class="docutils literal notranslate"><span class="pre">slotchange</span></code> は発射しない。スロットが変更されないから。スロットされた要素内の中身を変更するのだが、別のことだ。</p>
+<p>JavaScript から light DOM の内部変更を追跡したい場合、より汎用的な
+<code class="docutils literal notranslate"><span class="pre">MutationObserver</span></code> の仕組みを利用することもできる。</p>
+</section>
+<section id="slot-api">
+<h3>Slot API<a class="headerlink" href="#slot-api" title="Permalink to this heading">¶</a></h3>
+<p>前に見たように、JavaScript は平坦化せずに実際の DOM を見る。しかし、shadow tree
+が <code class="docutils literal notranslate"><span class="pre">{mode:</span> <span class="pre">'open'}</span></code> を持っていれば、どの要素がスロットに割り当てられているか、逆に、その中の要素によってスロットを把握することができるのだ。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">slot.assignedNodes({flatten:</span> <span class="pre">true/false})</span></code>: スロットに割り当てられた DOM
+ノードを返す。オプション <code class="docutils literal notranslate"><span class="pre">flatten</span></code> は <code class="docutils literal notranslate"><span class="pre">false</span></code> が既定値だ。明示的に
+<code class="docutils literal notranslate"><span class="pre">true</span></code> に設定すると、平坦化 DOM をより深く調べ、入れ子コンポーネントの場合は入れ子スロットを返し、ノードが割り当てられていない場合はフォールバック用の値を返す。</p></li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">slot.assignedElements({flatten:</span> <span class="pre">true/false})</span></code>: スロットに割り当てられた DOM</dt><dd><p>要素。ただし要素ノード限定。</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>これらのメソッドは、スロットされた中身を表示するだけでなく、JavaScript でそれを追跡する必要がある場合に便利だ。例えば <code class="docutils literal notranslate"><span class="pre">&lt;custom-menu&gt;</span></code> コンポーネントが何を表示しているかを知りたい場合、イベント <code class="docutils literal notranslate"><span class="pre">slotchange</span></code> を追跡し、
+<code class="docutils literal notranslate"><span class="pre">slot.assignedElements()</span></code> から項目を得られる。</p>
+</section>
+</section>
+<section id="shadow-dom-styling">
+<h2><a class="toc-backref" href="#id7">Shadow DOM styling</a><a class="headerlink" href="#shadow-dom-styling" title="Permalink to this heading">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/shadow-dom-style">https://javascript.info/shadow-dom-style</a>&gt; ノート。</p>
+<p>Shadow DOM は <code class="docutils literal notranslate"><span class="pre">&lt;style&gt;</span></code> タグと <code class="docutils literal notranslate"><span class="pre">&lt;link</span> <span class="pre">rel=&quot;stylesheet&quot;</span> <span class="pre">href=&quot;...&quot;&gt;</span></code> タグの両方を含んでも構わない。後者の場合、スタイルシートが HTTP キャッシュされるので、同じテンプレートを使用するコンポーネントのためにまたぞろダウンロードされることはない。</p>
+<p>一般的な規則として、ローカルスタイルは shadow tree 内部でのみ機能し、ドキュメントスタイルはその外部で機能する。しかし、例外がいくつかある。</p>
+<section id="host">
+<h3>:host<a class="headerlink" href="#host" title="Permalink to this heading">¶</a></h3>
+<p>セレクター <code class="docutils literal notranslate"><span class="pre">:host</span></code> は shadow host すなわち shadow tree を含む要素を選択するものだ。</p>
+<p>例えば、<code class="docutils literal notranslate"><span class="pre">&lt;custom-dialog&gt;</span></code> 要素を中央揃えで作成したいとする。そのためには、
+<code class="docutils literal notranslate"><span class="pre">&lt;custom-dialog&gt;</span></code> 要素自体にスタイルを設定する必要がある。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>本書のコードを観察すると、 <code class="docutils literal notranslate"><span class="pre">&lt;template&gt;</span></code> で <code class="docutils literal notranslate"><span class="pre">:host</span></code> スタイルを中央揃えとなるように設定していることがわかる。</p>
+</div>
+</section>
+<section id="cascading">
+<h3>Cascading<a class="headerlink" href="#cascading" title="Permalink to this heading">¶</a></h3>
+<p>Shadow host（ここでは <code class="docutils literal notranslate"><span class="pre">&lt;custom-dialog&gt;</span></code> 自体が相当する）は light DOM に存在するため、ドキュメントの CSS 規則の影響を受ける。ローカルに <code class="docutils literal notranslate"><span class="pre">:host</span></code> でスタイル付けされたプロパティーと、ドキュメントでスタイル付けされたプロパティーがある場合、後者が優先される。</p>
+<p>これはたいへん便利で、その <code class="docutils literal notranslate"><span class="pre">:host</span></code> 規則で既定のコンポーネントスタイルを設定し、ドキュメントでそれを容易に上書きできる。例外は、ローカルプロパティーが
+<code class="docutils literal notranslate"><span class="pre">!important</span></code> とラベル付けされている場合だ。このようなプロパティーではローカルスタイルが優先される。</p>
+</section>
+<section id="host-selector">
+<h3>:host(selector)<a class="headerlink" href="#host-selector" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">:host(selector)</span></code> は <code class="docutils literal notranslate"><span class="pre">:host</span></code> と同じだが、与えられたセレクター <code class="docutils literal notranslate"><span class="pre">selector</span></code>
+にshadow host がマッチする場合にしか適用されない。</p>
+<p>例えば、<code class="docutils literal notranslate"><span class="pre">&lt;custom-dialog&gt;</span></code> が属性 <code class="docutils literal notranslate"><span class="pre">centered</span></code> を持っている場合にのみ、中央寄せにしたい場合は次でいい：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">template</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;tmpl&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="p">:</span><span class="nd">host</span><span class="o">([</span><span class="nt">centered</span><span class="o">])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">fixed</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">left</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="kt">%</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">top</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="kt">%</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">transform</span><span class="p">:</span><span class="w"> </span><span class="nb">translate</span><span class="p">(</span><span class="nv">-50</span><span class="err">%</span><span class="p">,</span><span class="w"> </span><span class="nv">-50</span><span class="err">%</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="k">border-color</span><span class="p">:</span><span class="w"> </span><span class="kc">blue</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="p">:</span><span class="nd">host</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">inline-block</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="kc">red</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">slot</span><span class="p">&gt;&lt;/</span><span class="nt">slot</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+
+...
+
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="nx">customElements</span><span class="p">.</span><span class="nx">define</span><span class="p">(...);</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">custom-dialog</span> <span class="na">centered</span><span class="p">&gt;</span>
+  Centered!
+<span class="p">&lt;/</span><span class="nt">custom-dialog</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">custom-dialog</span><span class="p">&gt;</span>
+  Not centered.
+<span class="p">&lt;/</span><span class="nt">custom-dialog</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>これで、中央寄せ用スタイルが最初のダイアログ <code class="docutils literal notranslate"><span class="pre">&lt;custom-dialog</span> <span class="pre">centered&gt;</span></code> にのみ適用されるようになる。</p>
+<p>セレクターの <code class="docutils literal notranslate"><span class="pre">:host</span></code> 一族を利用して、コンポーネントの主要な要素にスタイルを設定できる。これらのスタイルを、<code class="docutils literal notranslate"><span class="pre">!important</span></code> でない限り、ドキュメントによって上書きできる。</p>
+</section>
+<section id="styling-slotted-content">
+<h3>Styling slotted content<a class="headerlink" href="#styling-slotted-content" title="Permalink to this heading">¶</a></h3>
+<p>スロットの状況を考えてみる。スロットされた要素は light DOM から来るので、ドキュメントスタイルを使用する。ローカルスタイルはスロットされた中身に影響しない。</p>
+<p>本書の例では、スロット付き <code class="docutils literal notranslate"><span class="pre">&lt;span&gt;</span></code> はドキュメントスタイルに従って太字になり、ローカルスタイルから <code class="docutils literal notranslate"><span class="pre">background</span></code> を得ることはない。結果は太字であって、赤にはならない。</p>
+<p>コンポーネント内のスロット要素にスタイルを設定したい場合、選択肢が二つある。一つ目は、<code class="docutils literal notranslate"><span class="pre">&lt;slot&gt;</span></code> 自身にスタイルを設定し、CSS の継承の仕組みに頼ることだ。ここでは <code class="docutils literal notranslate"><span class="pre">&lt;span&gt;John</span> <span class="pre">Smith&lt;/span&gt;</span></code> が太字になるが、これは <code class="docutils literal notranslate"><span class="pre">&lt;slot&gt;</span></code> とその中身の間で CSS の継承が有効であるからだ。しかし、CSS 自体では、プロパティーすべてが継承されるわけではない。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">this</span><span class="p">.</span><span class="nx">shadowRoot</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="sb">`</span>
+<span class="sb">  &lt;style&gt;</span>
+<span class="sb">  slot[name=&quot;username&quot;] { font-weight: bold; }</span>
+<span class="sb">  &lt;/style&gt;</span>
+<span class="sb">  Name: &lt;slot name=&quot;username&quot;&gt;&lt;/slot&gt;</span>
+<span class="sb">`</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>二つ目の選択肢は <code class="docutils literal notranslate"><span class="pre">::slotted(selector)</span></code> 疑似クラスを使うことだ。これは二つの条件に基づいて要素をマッチングする。</p>
+<ol class="arabic simple">
+<li><p>それはスロットされた要素であり、light DOM から来たものであること。スロットの名前は問題にならない。ただ、どんなスロット付き要素であれ、その要素自身だけであって、その子要素は含まれない。</p></li>
+<li><p>その要素が <code class="docutils literal notranslate"><span class="pre">selector</span></code> にマッチする。</p></li>
+</ol>
+<p>本書の例では <code class="docutils literal notranslate"><span class="pre">::slotted(div)</span></code> は <code class="docutils literal notranslate"><span class="pre">&lt;div</span> <span class="pre">slot=&quot;username&quot;&gt;</span></code> を厳密に選択するのであって、その子要素は選択しない。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">this</span><span class="p">.</span><span class="nx">shadowRoot</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="sb">`</span>
+<span class="sb">  &lt;style&gt;</span>
+<span class="sb">  ::slotted(div) { border: 1px solid red; }</span>
+<span class="sb">  &lt;/style&gt;</span>
+<span class="sb">  Name: &lt;slot name=&quot;username&quot;&gt;&lt;/slot&gt;</span>
+<span class="sb">`</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">::slotted</span></code> はスロットの中にそれ以上降りることができない。そのようなセレクターは無効となる。また、<code class="docutils literal notranslate"><span class="pre">::slotted</span></code> は CSS でしか使えない。例えば
+<code class="docutils literal notranslate"><span class="pre">querySelector()</span></code> では使えない。</p>
+</section>
+<section id="css-hooks-with-custom-properties">
+<h3>CSS hooks with custom properties<a class="headerlink" href="#css-hooks-with-custom-properties" title="Permalink to this heading">¶</a></h3>
+<p>メインドキュメントからコンポーネントの内部要素にスタイルを設定するにはどうすればよいだろう。 <code class="docutils literal notranslate"><span class="pre">&lt;custom-dialog&gt;</span></code> や <code class="docutils literal notranslate"><span class="pre">&lt;user-card&gt;</span></code> には <code class="docutils literal notranslate"><span class="pre">:host</span></code> などのセレクターが規則を適用するが、その内部の shadow DOM 要素にはどのようにスタイルを設定するのだろうか。ドキュメントから直接 shadow DOM スタイルに影響を与えられるセレクターはない。</p>
+<p>しかし、コンポーネントと対話するためのメソッドを公開するのと同じように、スタイルを設定するための CSS 変数を公開することは可能だ。</p>
+<p>自作 CSS プロパティーは、light と shadow の両方のすべてのレベルに存在する。たとえば、shadow DOM では <code class="docutils literal notranslate"><span class="pre">--user-card-field-color</span></code> CSS 変数を使用してフィールドのスタイルを設定でき、外側のドキュメントでその値を設定できる。そして、このプロパティーを <code class="docutils literal notranslate"><span class="pre">&lt;user-card&gt;</span></code> の外部文書で宣言すればよい。</p>
+<p>自作 CSS プロパティーは shadow DOM を貫通し、どこでも見えるので、内側の
+<code class="docutils literal notranslate"><span class="pre">.field</span></code> 規則はそれを利用することになる。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">user-card</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nv">--user-card-field-color</span><span class="p">:</span><span class="w"> </span><span class="kc">green</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">template</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;tmpl&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="nc">field</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--user-card-field-color</span><span class="p">,</span><span class="w"> </span><span class="kc">black</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+  <span class="cm">&lt;!-- slot を含む user-card 型の定義がここに来る --&gt;</span>
+<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="nx">customElements</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s1">&#39;user-card&#39;</span><span class="p">,</span> <span class="kd">class</span> <span class="k">extends</span> <span class="nx">HTMLElement</span> <span class="p">{</span>
+  <span class="nx">connectedCallback</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// 自作要素をいつものように実装する</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">user-card</span><span class="p">&gt;</span>
+  <span class="cm">&lt;!-- span slot=&quot;X&quot; 要素群からなる user-card データの定義がここに来る --&gt;</span>
+<span class="p">&lt;/</span><span class="nt">user-card</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="shadow-dom-and-events">
+<h2><a class="toc-backref" href="#id8">Shadow DOM and events</a><a class="headerlink" href="#shadow-dom-and-events" title="Permalink to this heading">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/shadow-dom-events">https://javascript.info/shadow-dom-events</a>&gt; ノート。</p>
+<p>Shadow tree の背後にある考え方とは、コンポーネントの内部実装の詳細をカプセル化することだ。例えば、クリックイベントが <code class="docutils literal notranslate"><span class="pre">&lt;user-card&gt;</span></code> コンポーネントの shadow DOM
+の内部で発生したとする。しかし、メインドキュメントのスクリプトは、特にコンポーネントが第三者ライブラリーから来ている場合、 shadow DOM の内部について知るよしもない。</p>
+<p>そこで、詳細をカプセル化しておくために、ブラウザーはイベントを標的し直す。
+Shadow DOM で発生したイベントは、コンポーネントの外側で捕捉された場合、ホスト要素を標的としている。</p>
+<p>本書で示している簡単な例では、次のハンドラーをイベント源のタグ名をダイアログボックスに表示するように定義している。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">customElements</span></code> に対する <code class="docutils literal notranslate"><span class="pre">this.shadowRoot.firstElementChild.onclick</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">document.onclick</span></code></p></li>
+</ul>
+<p>前者と後者をそれぞれ内部標的、外部標的と呼んでいるようだ。ボタンをクリックすると、メッセージが次のように表示される：</p>
+<ol class="arabic simple">
+<li><p>内部標的では <code class="docutils literal notranslate"><span class="pre">BUTTON</span></code> と出る。内部イベントハンドラーは、正しい標的である
+shadow DOM 内の要素を得る。</p></li>
+<li><p>外部標的では <code class="docutils literal notranslate"><span class="pre">USER-CARD</span></code> と出る。文書イベントハンドラーは、標的として
+shadow host を得る。</p></li>
+</ol>
+<p>イベント再標的があることはたいへん素晴らしいことだ。外部ドキュメントがコンポーネント内部について知る必要がない。イベントは、その観点からは <code class="docutils literal notranslate"><span class="pre">&lt;user-card&gt;</span></code> 上で起こった。</p>
+<p>Light DOM に物理的に存在するスロット要素においてイベントが起きた場合、再標的は発生しない。</p>
+<p>たとえば、本書の例でユーザーが <code class="docutils literal notranslate"><span class="pre">&lt;span</span> <span class="pre">slot=&quot;username&quot;&gt;</span></code> をクリックした場合、イベントの対象は shadow ハンドラーと light ハンドラーの両方で、まさにこの <code class="docutils literal notranslate"><span class="pre">span</span></code>
+要素だ。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">user-card</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;userCard&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">span</span> <span class="na">slot</span><span class="o">=</span><span class="s">&quot;username&quot;</span><span class="p">&gt;</span>John Smith<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">user-card</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="nx">customElements</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s1">&#39;user-card&#39;</span><span class="p">,</span> <span class="kd">class</span> <span class="k">extends</span> <span class="nx">HTMLElement</span> <span class="p">{</span>
+  <span class="nx">connectedCallback</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">attachShadow</span><span class="p">({</span><span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;open&#39;</span><span class="p">});</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">shadowRoot</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="sb">`&lt;div&gt;</span>
+<span class="sb">      &lt;b&gt;Name:&lt;/b&gt; &lt;slot name=&quot;username&quot;&gt;&lt;/slot&gt;</span>
+<span class="sb">    &lt;/div&gt;`</span><span class="p">;</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">shadowRoot</span><span class="p">.</span><span class="nx">firstElementChild</span><span class="p">.</span><span class="nx">onclick</span> <span class="o">=</span> <span class="p">...</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">userCard</span><span class="p">.</span><span class="nx">onclick</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>John Smith をクリックすると、内側と外側の両方のハンドラーで、標的は
+<code class="docutils literal notranslate"><span class="pre">&lt;span</span> <span class="pre">slot=&quot;username&quot;&gt;</span></code> だ。これは light DOM の要素であることから再標的はない。</p>
+<p>一方、クリックが shadow DOM に由来する要素、たとえば <code class="docutils literal notranslate"><span class="pre">&lt;b&gt;Name&lt;/b&gt;</span></code> で発生した場合、 shadow DOM から bubble out すると、その <code class="docutils literal notranslate"><span class="pre">event.target</span></code> は
+<code class="docutils literal notranslate"><span class="pre">&lt;user-card&gt;</span></code> にリセットされる。</p>
+<section id="bubbling-event-composedpath">
+<h3>Bubbling, event.composedPath()<a class="headerlink" href="#bubbling-event-composedpath" title="Permalink to this heading">¶</a></h3>
+<p>イベントバブリングの目的のために、平坦化 DOM が用いられる。つまり、スロット付きの要素があり、その内部のどこかでイベントが起こると、<code class="docutils literal notranslate"><span class="pre">&lt;slot&gt;</span></code> まで泡が浮き、さらに上へと泡が浮く。</p>
+<p>オリジナルのイベント対象への完全パスを、すべての shadow 要素を含めて
+<code class="docutils literal notranslate"><span class="pre">event.composedPath()</span></code> で得られる。メソッド名が示すように、合成後にそのパスが得られる。</p>
+<p>前述の例の平坦化 DOM はこうなっている：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">user-card</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;userCard&quot;</span><span class="p">&gt;</span>
+  #shadow-root
+  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>Name:<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">slot</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;username&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">span</span> <span class="na">slot</span><span class="o">=</span><span class="s">&quot;username&quot;</span><span class="p">&gt;</span>John Smith<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> <span class="cm">&lt;!-- ここをクリックする --&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">slot</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">user-card</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;span</span> <span class="pre">slot=&quot;username&quot;&gt;</span></code> をクリックすると、<code class="docutils literal notranslate"><span class="pre">event.composedPath()</span></code> は配列</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="nx">span</span><span class="p">,</span> <span class="nx">slot</span><span class="p">,</span> <span class="nx">div</span><span class="p">,</span> <span class="nx">shadow</span><span class="o">-</span><span class="nx">root</span><span class="p">,</span> <span class="nx">user</span><span class="o">-</span><span class="nx">card</span><span class="p">,</span> <span class="nx">body</span><span class="p">,</span> <span class="nx">html</span><span class="p">,</span> <span class="nb">document</span><span class="p">,</span> <span class="nb">window</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>を返す。これはまさに、合成後の平坦化 DOM における、対象要素を起点とする親子関係に関する昇鎖だ。</p>
+<hr class="docutils" />
+<p>Shadow tree の詳細は <code class="docutils literal notranslate"><span class="pre">{mode:</span> <span class="pre">'open'}</span></code> である木に対してしか与えられない。 Shadow
+tree が <code class="docutils literal notranslate"><span class="pre">{mode:</span> <span class="pre">'closed'}</span></code> で生成された場合、構成パスはホスト <code class="docutils literal notranslate"><span class="pre">user-card</span></code> から開始されて上がっていく。これは shadow DOM を扱う他のメソッドと同様の原則だ。閉じた木の内部は完全に隠蔽されている。</p>
+</section>
+<section id="event-composed">
+<h3>event.composed<a class="headerlink" href="#event-composed" title="Permalink to this heading">¶</a></h3>
+<p>イベントのほとんどが shadow DOM 境界を正常に通り抜けるが、そうでないイベントもわずかに存在する。これは <code class="docutils literal notranslate"><span class="pre">composed</span></code> イベントオブジェクトプロパティーによって制御される。これが <code class="docutils literal notranslate"><span class="pre">true</span></code> の場合、そのイベントは境界を通り抜ける。そうでない場合は、shadow DOM の内部からしか捕捉できない。</p>
+<p>仕様 UI Events を見てみると、イベントのほとんどが <code class="docutils literal notranslate"><span class="pre">composed:</span> <span class="pre">true</span></code> となっている。</p>
+<p>タッチイベントとポインタイベントもすべて <code class="docutils literal notranslate"><span class="pre">composed:</span> <span class="pre">true</span></code> だが、
+<code class="docutils literal notranslate"><span class="pre">composed:</span> <span class="pre">false</span></code> であるイベントもある。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mouseenter</span></code>, <code class="docutils literal notranslate"><span class="pre">mouseleave</span></code>: 元々 bubble up をまったくしないイベントだ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">load</span></code>, <code class="docutils literal notranslate"><span class="pre">unload</span></code>, <code class="docutils literal notranslate"><span class="pre">abort</span></code>, <code class="docutils literal notranslate"><span class="pre">error</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">select</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">slotchange</span></code>.</p></li>
+</ul>
+<p>これらのイベントは、イベント対象が存在する同じ DOM 内の要素上でしか捕捉することができない。</p>
+</section>
+<section id="custom-events">
+<h3>Custom events<a class="headerlink" href="#custom-events" title="Permalink to this heading">¶</a></h3>
+<p>自作イベントを dispatch する場合、<code class="docutils literal notranslate"><span class="pre">bubbles</span></code> と <code class="docutils literal notranslate"><span class="pre">composite</span></code> の両方のプロパティーを <code class="docutils literal notranslate"><span class="pre">true</span></code> にして、コンポーネントの bubble up と bubble out を行う必要がある。</p>
+<p>たとえば、ここでは <code class="docutils literal notranslate"><span class="pre">div#inner</span></code> を <code class="docutils literal notranslate"><span class="pre">div#outer</span></code> の shadow DOM 内に作成し、それに対してイベントを二つ発射させている。<code class="docutils literal notranslate"><span class="pre">composed:</span> <span class="pre">true</span></code> を指定したイベントだけが、ドキュメントの外に出て来る。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
+<span class="cm">div(id=outer)</span>
+<span class="cm">  #shadow-dom</span>
+<span class="cm">    div(id=inner)</span>
+<span class="cm">*/</span>
+
+<span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">detail</span><span class="p">));</span>
+
+<span class="nx">inner</span><span class="p">.</span><span class="nx">dispatchEvent</span><span class="p">(</span><span class="ow">new</span> <span class="nx">CustomEvent</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">bubbles</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nx">composed</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nx">detail</span><span class="o">:</span> <span class="s2">&quot;composed&quot;</span>
+<span class="p">}));</span>
+
+<span class="nx">inner</span><span class="p">.</span><span class="nx">dispatchEvent</span><span class="p">(</span><span class="ow">new</span> <span class="nx">CustomEvent</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">bubbles</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nx">composed</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nx">detail</span><span class="o">:</span> <span class="s2">&quot;not composed&quot;</span>
+<span class="p">}));</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="07-regular-expressions.html" title="Regular expressions"
+             >next</a></li>
+        <li class="right" >
+          <a href="05-animation.html" title="Animation"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >The Modern JavaScript Tutorial 読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Part 3 Additional articles</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Web components</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2022, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

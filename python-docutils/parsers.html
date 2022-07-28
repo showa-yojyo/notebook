@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
@@ -36,7 +36,7 @@
           <div class="body" role="main">
             
   <section id="docutils-parsers">
-<h1><a class="toc-backref" href="#id8">サブパッケージ <code class="docutils literal notranslate"><span class="pre">docutils.parsers</span></code></a><a class="headerlink" href="#docutils-parsers" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id8">サブパッケージ <code class="docutils literal notranslate"><span class="pre">docutils.parsers</span></code></a><a class="headerlink" href="#docutils-parsers" title="Permalink to this heading">¶</a></h1>
 <p><a class="reference external" href="https://docutils.sourceforge.io/">Docutils</a> の構文解析サブパッケージ <code class="docutils literal notranslate"><span class="pre">docutils.parsers</span></code> について記す。構成はクラス <code class="docutils literal notranslate"><span class="pre">Parser</span></code> およびそのサブクラスの定義と、サブサブパッケージ <code class="docutils literal notranslate"><span class="pre">docutils.parsers.rst</span></code> の二本立てになっている。本節では少なくても前者はしっかりと読み込んでいきたい。余力があれば後者も <code class="docutils literal notranslate"><span class="pre">RSTStateMachine</span></code> という面白い教材があるので解読したい。</p>
 <div class="contents topic" id="id1">
 <p class="topic-title">ノート目次</p>
@@ -63,7 +63,7 @@
 </ul>
 </div>
 <section id="id2">
-<h2><a class="toc-backref" href="#id9">クラス図</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id9">クラス図</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
 <p>クラス <code class="docutils literal notranslate"><span class="pre">Parser</span></code> 周辺のクラス図を以下に示す。ただし、説明済みのクラスは省略したり灰色に塗りつぶしたりしてある。</p>
 <ul class="simple">
 <li><p>クラス <code class="docutils literal notranslate"><span class="pre">Parser</span></code> の直接スーパークラスは <code class="docutils literal notranslate"><span class="pre">Component</span></code> だが省略してある。
@@ -120,10 +120,10 @@ Docutils の基本クラスについては <a class="reference internal" href="b
         </div>
         </section>
 <section id="parser">
-<h2><a class="toc-backref" href="#id10">クラス <code class="docutils literal notranslate"><span class="pre">Parser</span></code></a><a class="headerlink" href="#parser" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id10">クラス <code class="docutils literal notranslate"><span class="pre">Parser</span></code></a><a class="headerlink" href="#parser" title="Permalink to this heading">¶</a></h2>
 <p>クラス <code class="docutils literal notranslate"><span class="pre">Parser</span></code> は構文解析を実行するためにあるわけだが、ろくなものが実装されていない。</p>
 <section id="id3">
-<h3><a class="toc-backref" href="#id11">データ</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id11">データ</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
 <p>クラスデータは右辺値としてアクセスする。</p>
 <dl class="simple">
 <dt><code class="docutils literal notranslate"><span class="pre">component_type</span> <span class="pre">=</span> <span class="pre">'parser'</span></code></dt><dd><p>スーパークラス <code class="docutils literal notranslate"><span class="pre">Component</span></code> からの上書き。</p>
@@ -141,7 +141,7 @@ Docutils の基本クラスについては <a class="reference internal" href="b
 </dl>
 </section>
 <section id="id4">
-<h3><a class="toc-backref" href="#id12">メソッド</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id12">メソッド</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <p>メソッドは次の三つしかないのだが、全てクライアント側が直接呼び出すことになるようだ。</p>
 <dl class="simple">
 <dt><code class="docutils literal notranslate"><span class="pre">parse(self,</span> <span class="pre">inputstring,</span> <span class="pre">document)</span></code></dt><dd><p>文字列を受け取って <code class="docutils literal notranslate"><span class="pre">document</span></code> オブジェクトを肉付けしていくためのメソッドだろうが、これは完全にオーバーライド専用になっている。デフォルトでは <code class="docutils literal notranslate"><span class="pre">NotImplementedError</span></code> を送出するだけだ。</p>
@@ -158,10 +158,10 @@ Docutils の基本クラスについては <a class="reference internal" href="b
 </section>
 </section>
 <section id="id5">
-<h2><a class="toc-backref" href="#id13">サブクラス</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">サブクラス</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
 <p>モジュール <code class="docutils literal notranslate"><span class="pre">null</span></code> とサブパッケージ <code class="docutils literal notranslate"><span class="pre">rst</span></code> にそれぞれ定義されている。とある理由により、クラス名はすべて同じく <code class="docutils literal notranslate"><span class="pre">Parser</span></code> だ。</p>
 <section id="docutils-parsers-null-parser">
-<h3><a class="toc-backref" href="#id14">クラス <code class="docutils literal notranslate"><span class="pre">docutils.parsers.null.Parser</span></code></a><a class="headerlink" href="#docutils-parsers-null-parser" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id14">クラス <code class="docutils literal notranslate"><span class="pre">docutils.parsers.null.Parser</span></code></a><a class="headerlink" href="#docutils-parsers-null-parser" title="Permalink to this heading">¶</a></h3>
 <p>これはいわゆる Null Object パターンのクラスだ。メソッド <code class="docutils literal notranslate"><span class="pre">parse</span></code> を何もしないように上書きしたものになっている。</p>
 <ul class="simple">
 <li><p>ただしクラスデータ <code class="docutils literal notranslate"><span class="pre">supported</span></code>, <code class="docutils literal notranslate"><span class="pre">config_section</span></code>, etc. が意味のあるデータが上書きされているのが惜しい。</p></li>
@@ -169,7 +169,7 @@ Docutils の基本クラスについては <a class="reference internal" href="b
 </ul>
 </section>
 <section id="docutils-parsers-rst-parser">
-<h3><a class="toc-backref" href="#id15">クラス <code class="docutils literal notranslate"><span class="pre">docutils.parsers.rst.Parser</span></code></a><a class="headerlink" href="#docutils-parsers-rst-parser" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id15">クラス <code class="docutils literal notranslate"><span class="pre">docutils.parsers.rst.Parser</span></code></a><a class="headerlink" href="#docutils-parsers-rst-parser" title="Permalink to this heading">¶</a></h3>
 <p>これは reStructuredText データを構文解析するクラスだ。しかし処理を <code class="docutils literal notranslate"><span class="pre">RSTStateMachine</span></code> と <code class="docutils literal notranslate"><span class="pre">RSTState</span></code> 系に委譲している。次にメソッド <code class="docutils literal notranslate"><span class="pre">parse</span></code> のコードを一部改変引用する。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">docutils.statemachine</span> <span class="kn">import</span> <span class="n">string2lines</span>
 <span class="kn">from</span> <span class="nn">.states</span> <span class="kn">import</span> <span class="n">RSTStateMachine</span>
@@ -186,7 +186,7 @@ Docutils の基本クラスについては <a class="reference internal" href="b
 </section>
 </section>
 <section id="id6">
-<h2><a class="toc-backref" href="#id16">利用例</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id16">利用例</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
 <p>クラス <code class="docutils literal notranslate"><span class="pre">Parser</span></code> の何らかのサブクラスのオブジェクトを利用する擬似コードを次に示す。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">docutils.utils</span> <span class="kn">import</span> <span class="n">new_document</span>
 <span class="kn">from</span> <span class="nn">docutils.parsers</span> <span class="kn">import</span> <span class="n">get_parser_class</span>
@@ -213,7 +213,7 @@ Docutils の基本クラスについては <a class="reference internal" href="b
 <p>これらの処理は Docutils の設計では <code class="docutils literal notranslate"><span class="pre">Reader</span></code> 系が行う想定になっているようだ。</p>
 </section>
 <section id="id7">
-<h2><a class="toc-backref" href="#id17">感想</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id17">感想</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Parser</span></code> のメソッドの設計がやや気に入らない。
 <code class="docutils literal notranslate"><span class="pre">setup_parse</span></code> と <code class="docutils literal notranslate"><span class="pre">finish_parse</span></code> の呼び出しはスーパークラスの

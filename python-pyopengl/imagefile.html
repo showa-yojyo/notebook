@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
@@ -37,7 +37,7 @@
           <div class="body" role="main">
             
   <section id="id1">
-<h1><a class="toc-backref" href="#id4">画像ファイルを扱う</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id4">画像ファイルを扱う</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
 <p>本稿では <a class="reference external" href="http://pyopengl.sourceforge.net/">PyOpenGL</a> と <a class="reference external" href="https://python-pillow.github.io/">Pillow</a> との連携技についていくつか述べる。ここに示すプログラムは、クラス <code class="docutils literal notranslate"><span class="pre">DeprecatedApp</span></code> を派生することで構築しているので、先に <a class="reference internal" href="deprecatedapp.html"><span class="doc">クラス DeprecatedApp の実装</span></a> を読んでおきたい。</p>
 <div class="contents topic" id="contents">
 <p class="topic-title">Contents</p>
@@ -64,7 +64,7 @@
 </ul>
 </div>
 <section id="png">
-<h2><a class="toc-backref" href="#id5">PNG ファイルからテクスチャーを生成する</a><a class="headerlink" href="#png" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">PNG ファイルからテクスチャーを生成する</a><a class="headerlink" href="#png" title="Permalink to this heading">¶</a></h2>
 <p>既存の PNG ファイルから 2 次元テクスチャーデータを生成する方法の一例を示す。</p>
 <p>ポイントは Pillow の <code class="docutils literal notranslate"><span class="pre">Image</span></code> インスタンスのメソッド <code class="docutils literal notranslate"><span class="pre">tostring</span></code> の戻り値を関数 <code class="docutils literal notranslate"><span class="pre">glTexImage2D</span></code> に渡すことだ。アルファチャンネルを含む PNG ファイルからテクスチャーデータを作成する例の、コード全景を示す。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
@@ -179,7 +179,7 @@
 </div>
 <p>以下、ポイントを絞って解説する。</p>
 <section id="init">
-<h3><a class="toc-backref" href="#id6">メソッド <code class="docutils literal notranslate"><span class="pre">__init__</span></code></a><a class="headerlink" href="#init" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id6">メソッド <code class="docutils literal notranslate"><span class="pre">__init__</span></code></a><a class="headerlink" href="#init" title="Permalink to this heading">¶</a></h3>
 <p>旧式 OpenGL アプリケーション用クラス <code class="docutils literal notranslate"><span class="pre">DeprecatedApp</span></code> のサブクラスを定義する。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span>        <span class="sd">&quot;&quot;&quot;Initialize an instance of class TextureDemoApp.&quot;&quot;&quot;</span>
 
@@ -193,7 +193,7 @@
 </ul>
 </section>
 <section id="init-gl">
-<h3><a class="toc-backref" href="#id7">メソッド <code class="docutils literal notranslate"><span class="pre">init_gl</span></code></a><a class="headerlink" href="#init-gl" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id7">メソッド <code class="docutils literal notranslate"><span class="pre">init_gl</span></code></a><a class="headerlink" href="#init-gl" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span>        <span class="sd">&quot;&quot;&quot;Initialize the OpenGL state.&quot;&quot;&quot;</span>
 
         <span class="n">GL</span><span class="o">.</span><span class="n">glClearColor</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
@@ -205,7 +205,7 @@
 <p>メソッド <code class="docutils literal notranslate"><span class="pre">init_gl</span></code> で <code class="docutils literal notranslate"><span class="pre">GL_TEXTURE_2D</span></code> 機能を有効にしておくことを忘れずに。</p>
 </section>
 <section id="init-object">
-<h3><a class="toc-backref" href="#id8">メソッド <code class="docutils literal notranslate"><span class="pre">init_object</span></code></a><a class="headerlink" href="#init-object" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id8">メソッド <code class="docutils literal notranslate"><span class="pre">init_object</span></code></a><a class="headerlink" href="#init-object" title="Permalink to this heading">¶</a></h3>
 <p>メソッド <code class="docutils literal notranslate"><span class="pre">init_object</span></code> をオーバーライドすることで、描画オブジェクトを定義する。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span>        <span class="sd">&quot;&quot;&quot;Initialize the object to be displayed.&quot;&quot;&quot;</span>
 
@@ -239,7 +239,7 @@
 <p>空間座標・テクスチャー座標・色からなる頂点データをレガシー API で定義する。</p>
 </section>
 <section id="init-texture">
-<h3><a class="toc-backref" href="#id9">メソッド <code class="docutils literal notranslate"><span class="pre">init_texture</span></code></a><a class="headerlink" href="#init-texture" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id9">メソッド <code class="docutils literal notranslate"><span class="pre">init_texture</span></code></a><a class="headerlink" href="#init-texture" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span>        <span class="sd">&quot;&quot;&quot;Initialize textures.&quot;&quot;&quot;</span>
 
         <span class="n">source_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
@@ -270,7 +270,7 @@
 <p>〆に関数 <code class="docutils literal notranslate"><span class="pre">glTexImage2D</span></code> 呼び出しにより、テクスチャーデータを OpenGL に渡している。残りのテクスチャーオプションは、アプリケーションの目的に応じてパラメーターを指定すればよい。</p>
 </section>
 <section id="do-render">
-<h3><a class="toc-backref" href="#id10">メソッド <code class="docutils literal notranslate"><span class="pre">do_render</span></code></a><a class="headerlink" href="#do-render" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id10">メソッド <code class="docutils literal notranslate"><span class="pre">do_render</span></code></a><a class="headerlink" href="#do-render" title="Permalink to this heading">¶</a></h3>
 <p>メソッド <code class="docutils literal notranslate"><span class="pre">do_render</span></code> をオーバーライドすることで描画処理の中心部分を定義する。レガシー API のオンパレードなので、説明は省く。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span>        <span class="sd">&quot;&quot;&quot;Render the object.&quot;&quot;&quot;</span>
 
@@ -302,7 +302,7 @@
 </section>
 </section>
 <section id="id2">
-<h2><a class="toc-backref" href="#id11">日本語テキストを描画する</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id11">日本語テキストを描画する</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
 <p>次に Pillow のテキスト描画機能と PyOpenGL のテクスチャー機能を活用したプログラムの例を示す。当然ながら先述の例とプログラムの構造が同じであることを利用して、クラス <code class="docutils literal notranslate"><span class="pre">TextureDemoApp</span></code> からさらなるサブクラス <code class="docutils literal notranslate"><span class="pre">TextDemoApp</span></code> を定義することでコード作業の手間を省く。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="sd">&quot;&quot;&quot;textdemo.py: Demonstrate how to use OpenGL texture with PIL.&quot;&quot;&quot;</span>
@@ -378,7 +378,7 @@
 </div>
 <p>各メソッドの概要は前項のものと同様だが、メソッド <code class="docutils literal notranslate"><span class="pre">init_texture</span></code> の最初の処理は説明が必要だ。</p>
 <section id="id3">
-<h3><a class="toc-backref" href="#id12">テキストを画像化する</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id12">テキストを画像化する</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
 <p>今度は既存の PNG ファイルからではなく、システムフォントからイメージを生成する。生成処理は別のプログラムでも利用する可能性が高いため、別途関数 <code class="docutils literal notranslate"><span class="pre">draw_text</span></code> に定義する。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="sd">&quot;&quot;&quot;texture.py: Provide a helper function.</span>
@@ -415,7 +415,7 @@
 </section>
 </section>
 <section id="pillow-glreadpixels">
-<h2><a class="toc-backref" href="#id13">Pillow + <code class="docutils literal notranslate"><span class="pre">glReadPixels</span></code> によるスクリーンショット取得</a><a class="headerlink" href="#pillow-glreadpixels" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">Pillow + <code class="docutils literal notranslate"><span class="pre">glReadPixels</span></code> によるスクリーンショット取得</a><a class="headerlink" href="#pillow-glreadpixels" title="Permalink to this heading">¶</a></h2>
 <p>ウィンドウに描画されているイメージをファイルに保存できるとたいへん便利なので、次のような関数を定義しておくとよい。この関数をクラス <code class="docutils literal notranslate"><span class="pre">AppBase</span></code> のキーボードイベントコールバックあたりから呼び出すようにしておくと便利。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">capture_screen</span><span class="p">():</span>
    <span class="n">sx</span> <span class="o">=</span> <span class="n">glutGet</span><span class="p">(</span><span class="n">GLUT_WINDOW_WIDTH</span><span class="p">)</span>

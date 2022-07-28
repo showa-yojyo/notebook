@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
@@ -35,7 +35,7 @@
           <div class="body" role="main">
             
   <section id="html-xml-utils">
-<h1><a class="toc-backref" href="#id7">HTML-XML-utils 利用ノート</a><a class="headerlink" href="#html-xml-utils" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id7">HTML-XML-utils 利用ノート</a><a class="headerlink" href="#html-xml-utils" title="Permalink to this heading">¶</a></h1>
 <p>ウェブスクレイピングでは HTML ファイルから特定の条件を満たす要素を抽出することが重要だ。とくに CSS セレクターで指定することが私は多い。その目的にかなう標準的ツールであろう <a class="reference external" href="https://www.w3.org/Tools/HTML-XML-utils/">HTML-XML-utils</a> パッケージを導入して利用したい。</p>
 <div class="contents topic" id="id1">
 <p class="topic-title">ノート目次</p>
@@ -60,7 +60,7 @@
 </ul>
 </div>
 <section id="id2">
-<h2><a class="toc-backref" href="#id8">インストール</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id8">インストール</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
 <p>私の環境は Cygwin だ。ソースからビルドしてインストールする必要がある。記憶によると次のような手順で <a class="reference external" href="https://www.w3.org/Tools/HTML-XML-utils/">HTML-XML-utils</a> をインストールすることができた：</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bash$ <span class="nb">cd</span> /tmp
 bash$ wget https://www.w3.org/Tools/HTML-XML-utils/html-xml-utils-7.8.tar.gz
@@ -85,7 +85,7 @@ bash$ make install
 </ul>
 </section>
 <section id="id3">
-<h2><a class="toc-backref" href="#id9">利用価値の高いツール</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id9">利用価値の高いツール</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
 <p>スクレイピング用途ならばまずは次の 4 つだけ使いこなせれば十分だと思われる。どのツールも XML 形式にも対応しているが、私は HTML しか扱わないので以下 HTML
 しか取り上げない。</p>
 <ul class="simple">
@@ -97,12 +97,12 @@ bash$ make install
 <li><p><code class="docutils literal notranslate"><span class="pre">hxwls</span></code></p></li>
 </ul>
 <section id="id4">
-<h3><a class="toc-backref" href="#id10">コマンド共通メモ</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id10">コマンド共通メモ</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <p>どのコマンドも最後の引数与えられていれば URL またはローカルファイルパスとして処理する。それが存在しない場合は標準入力を処理する。</p>
 <p>エラー表示が邪魔なのでコマンドラインに <code class="docutils literal notranslate"><span class="pre">2&gt;/dev/null</span></code> を追加しておく。</p>
 </section>
 <section id="hxextract">
-<h3><a class="toc-backref" href="#id11"><code class="docutils literal notranslate"><span class="pre">hxextract</span></code>: 指定要素抽出</a><a class="headerlink" href="#hxextract" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id11"><code class="docutils literal notranslate"><span class="pre">hxextract</span></code>: 指定要素抽出</a><a class="headerlink" href="#hxextract" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">hxextract</span></code> は文法通り書かれた HTML テキストから指定要素（タグ）を抽出するコマンドだ。実際には指定していない要素を取り除いた残りの HTML を出力するような振る舞いをするようだ。</p>
 <p>使い方は欲しい要素のタグ名またはクラス名を指定する。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bash$ hxextract img <span class="nv">$URL_OR_FILE</span>
@@ -112,7 +112,7 @@ bash$ hxextract img.thumbnail <span class="nv">$URL_OR_FILE</span>
 <p>ただし出力がテキスト処理向けでないので、使い勝手は悪い。代わりにいきなり <code class="docutils literal notranslate"><span class="pre">hxselect</span></code> を使ってしまっていいと思われる。</p>
 </section>
 <section id="hxclean">
-<h3><a class="toc-backref" href="#id12"><code class="docutils literal notranslate"><span class="pre">hxclean</span></code>: 修正</a><a class="headerlink" href="#hxclean" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id12"><code class="docutils literal notranslate"><span class="pre">hxclean</span></code>: 修正</a><a class="headerlink" href="#hxclean" title="Permalink to this heading">¶</a></h3>
 <p>このツールは文法が汚い HTML テキストを修正するのに利用するコマンドだ。コマンドラインオプションが何もないので、使い方に迷うことはない。</p>
 <p>処理対象の HTML ファイルを <code class="docutils literal notranslate"><span class="pre">hxclean</span></code> してパイプに流すのが典型的な用途と思われる。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bash$ wget --output-file - <span class="nv">$URL</span> <span class="p">|</span> hxclean <span class="p">|</span> some-command ...
@@ -123,7 +123,7 @@ bash$ hxclean <span class="nv">$URL_OR_FILE</span> <span class="p">|</span> some
 <p>品質の保証がない HTML ファイルを扱うときにはこのコマンドからパイプラインを組むのが良いだろう。</p>
 </section>
 <section id="hxnormalize-pretty-print">
-<h3><a class="toc-backref" href="#id13"><code class="docutils literal notranslate"><span class="pre">hxnormalize</span></code>: pretty-print</a><a class="headerlink" href="#hxnormalize-pretty-print" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id13"><code class="docutils literal notranslate"><span class="pre">hxnormalize</span></code>: pretty-print</a><a class="headerlink" href="#hxnormalize-pretty-print" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">hxnormalize</span></code> は HTML テキストの内容であるテキストを整形して出力するツールだ。一行あたりの文字数を制限したり、インデントの桁数を指定したりする。</p>
 <p>整形の過程で小さな文法上のエラーを修正する性質があるようで、むしろこちらのほうが利用価値が高い。場合によっては <code class="docutils literal notranslate"><span class="pre">hxclean</span></code> をせずに済む。</p>
 <p>どちらの機能もパイプによるテキスト処理の前工程になじむ。</p>
@@ -133,7 +133,7 @@ bash$ hxnormalize <span class="nv">$FILE</span> -l <span class="m">80</span> <sp
 </div>
 </section>
 <section id="hxremove">
-<h3><a class="toc-backref" href="#id14"><code class="docutils literal notranslate"><span class="pre">hxremove</span></code>: 指定要素削除</a><a class="headerlink" href="#hxremove" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id14"><code class="docutils literal notranslate"><span class="pre">hxremove</span></code>: 指定要素削除</a><a class="headerlink" href="#hxremove" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">hxremove</span></code> は CSS セレクター形式の文字列を指定すると、それらにマッチする要素を HTML
 から取り去ったものを出力するコマンドだ。処理ファイルを単純化するのに利用できる。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bash$ hxremove script &lt; <span class="nv">$FILE</span>
@@ -141,7 +141,7 @@ bash$ hxnormalize <span class="nv">$FILE</span> -l <span class="m">80</span> <sp
 </div>
 </section>
 <section id="hxselect">
-<h3><a class="toc-backref" href="#id15"><code class="docutils literal notranslate"><span class="pre">hxselect</span></code>: 指定要素抽出</a><a class="headerlink" href="#hxselect" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id15"><code class="docutils literal notranslate"><span class="pre">hxselect</span></code>: 指定要素抽出</a><a class="headerlink" href="#hxselect" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">hxselect</span></code> は CSS セレクター形式の文字列を指定すると HTML テキストの要素を抽出するコマンドだ。これを使いたかった。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bash$ hxselect -s <span class="s1">&#39;\n&#39;</span> <span class="s1">&#39;h2&gt;a&#39;</span> <span class="nv">$FILE_OR_URL</span> <span class="p">|</span> grep -oP <span class="s2">&quot;(?&lt;=href=\&quot;).+html(?=\&quot;)&quot;</span>
 bash$ hxselect -s <span class="s1">&#39;\n&#39;</span> <span class="s1">&#39;img[class=&quot;thumbnail_image]&#39;</span> <span class="nv">$FILE_OR_URL</span> <span class="p">|</span> grep -oP <span class="s2">&quot;(?&lt;=src=\&quot;).+jpg(?=\&quot;)&quot;</span>
@@ -158,7 +158,7 @@ bash$ hxselect -c -s <span class="s1">&#39;\n&#39;</span> <span class="s1">&#39;
 <code class="docutils literal notranslate"><span class="pre">str.join()</span></code> する。テキストエディターで出力をチェックしたいときに有用だ。</p>
 </section>
 <section id="hxwls">
-<h3><a class="toc-backref" href="#id16"><code class="docutils literal notranslate"><span class="pre">hxwls</span></code>: リンク抽出</a><a class="headerlink" href="#hxwls" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id16"><code class="docutils literal notranslate"><span class="pre">hxwls</span></code>: リンク抽出</a><a class="headerlink" href="#hxwls" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">hxwls</span></code> は HTML テキスト中の各種リンクのリンク先（つまり <code class="docutils literal notranslate"><span class="pre">href</span></code> や
 <code class="docutils literal notranslate"><span class="pre">src</span></code> の値）のみを一覧するコマンドだ。場合によってはこれで事足りるだろう。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bash$ hxwls <span class="nv">$URL_OR_FILE</span> <span class="p">|</span> awk <span class="s1">&#39;/archives/ &amp;&amp; /jpg/&#39;</span>
@@ -167,7 +167,7 @@ bash$ hxselect -c -s <span class="s1">&#39;\n&#39;</span> <span class="s1">&#39;
 </section>
 </section>
 <section id="id5">
-<h2><a class="toc-backref" href="#id17">関連ノート</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id17">関連ノート</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
 <p>この他のスクレイピングの技法をまとめたノートの一覧。</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="css-selector.html"><span class="doc">CSS セレクター学習ノート</span></a></p></li>

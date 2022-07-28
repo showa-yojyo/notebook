@@ -1,0 +1,1247 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Regular expressions &#8212; 読書ノート v1.5dev</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/prefab.css" />
+    
+    <script src="../../_static/mathjax-v3.js"></script>
+    <script src="../../_static/mermaid.js"></script>
+    
+    <link rel="next" title="ノート準備中書籍群 2014 年編" href="../../preliminary2014.html" />
+    <link rel="prev" title="Web components" href="06-web-components.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../preliminary2014.html" title="ノート準備中書籍群 2014 年編"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="06-web-components.html" title="Web components"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >The Modern JavaScript Tutorial 読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Part 3 Additional articles</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Regular expressions</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="regular-expressions">
+<h1><a class="toc-backref" href="#id10">Regular expressions</a><a class="headerlink" href="#regular-expressions" title="Permalink to this heading">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#regular-expressions" id="id10">Regular expressions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#patterns-and-flags" id="id11">Patterns and flags</a></p></li>
+<li><p><a class="reference internal" href="#character-classes" id="id12">Character classes</a></p></li>
+<li><p><a class="reference internal" href="#unicode-flag-u-and-class-p" id="id13">Unicode: flag “u” and class \p{…}</a></p></li>
+<li><p><a class="reference internal" href="#anchors-string-start-and-end" id="id14">Anchors: string start ^ and end $</a></p></li>
+<li><p><a class="reference internal" href="#multiline-mode-of-anchors-flag-m" id="id15">Multiline mode of anchors ^ $, flag “m”</a></p></li>
+<li><p><a class="reference internal" href="#word-boundary-b" id="id16">Word boundary: <code class="docutils literal notranslate"><span class="pre">\b</span></code></a></p></li>
+<li><p><a class="reference internal" href="#escaping-special-characters" id="id17">Escaping, special characters</a></p></li>
+<li><p><a class="reference internal" href="#sets-and-ranges" id="id18">Sets and ranges […]</a></p></li>
+<li><p><a class="reference internal" href="#quantifiers-and-n" id="id19">Quantifiers +, *, ? and {n}</a></p></li>
+<li><p><a class="reference internal" href="#greedy-and-lazy-quantifiers" id="id20">Greedy and lazy quantifiers</a></p></li>
+<li><p><a class="reference internal" href="#capturing-groups" id="id21">Capturing groups</a></p></li>
+<li><p><a class="reference internal" href="#backreferences-in-pattern-n-and-k-name" id="id22">Backreferences in pattern: \N and \k&lt;name&gt;</a></p></li>
+<li><p><a class="reference internal" href="#alternation-or" id="id23">Alternation (OR) |</a></p></li>
+<li><p><a class="reference internal" href="#lookahead-and-lookbehind" id="id24">Lookahead and lookbehind</a></p></li>
+<li><p><a class="reference internal" href="#catastrophic-backtracking" id="id25">Catastrophic backtracking</a></p></li>
+<li><p><a class="reference internal" href="#sticky-flag-y-searching-at-position" id="id26">Sticky flag “y”, searching at position</a></p></li>
+<li><p><a class="reference internal" href="#methods-of-regexp-and-string" id="id27">Methods of RegExp and String</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="patterns-and-flags">
+<h2><a class="toc-backref" href="#id11">Patterns and flags</a><a class="headerlink" href="#patterns-and-flags" title="Permalink to this heading">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/regexp-introduction">https://javascript.info/regexp-introduction</a>&gt; のノート。</p>
+<p>JavaScript では正規表現を <code class="docutils literal notranslate"><span class="pre">RegExp</span></code> オブジェクトを介して利用できるし、文字列のメソッドに統合されてもいる。</p>
+<section id="id1">
+<h3>Regular Expressions<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<p>コンストラクターから正規表現オブジェクトを定義する方法：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">regexp</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s2">&quot;pattern&quot;</span><span class="p">,</span> <span class="s2">&quot;flags&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Perl のようなリテラル正規表現による定義方法もある：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">regexp</span> <span class="o">=</span> <span class="sr">/pattern/gmi</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>どちらの場合も <code class="docutils literal notranslate"><span class="pre">RegExp</span></code> オブジェクトが生成する。</p>
+</section>
+<section id="flags">
+<h3>Flags<a class="headerlink" href="#flags" title="Permalink to this heading">¶</a></h3>
+<p>JavaScript の正規表現フラグは次の六種だ：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 86%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Flag</p></th>
+<th class="head"><p>Specification</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">i</span></code></p></td>
+<td><p>大文字小文字を区別しない</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">g</span></code></p></td>
+<td><p>マッチすべてを対応する</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">m</span></code></p></td>
+<td><p>複数行モード</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">s</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.</span></code> を改行文字にもマッチさせる</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">u</span></code></p></td>
+<td><p>Unicode 完全サポート</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">y</span></code></p></td>
+<td><p>厳密な位置での検索</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="searching-str-match">
+<h3>Searching: str.match<a class="headerlink" href="#searching-str-match" title="Permalink to this heading">¶</a></h3>
+<p>呼び出し <code class="docutils literal notranslate"><span class="pre">str.match(regexp)</span></code> は、文字列 <code class="docutils literal notranslate"><span class="pre">str</span></code> の中で <code class="docutils literal notranslate"><span class="pre">regexp</span></code> にマッチするものを返す。</p>
+<p>フラグ <code class="docutils literal notranslate"><span class="pre">g</span></code> を指定すると、戻り値はマッチ文字列からなる配列だ。</p>
+<p>フラグ <code class="docutils literal notranslate"><span class="pre">g</span></code> が指定されていない場合、戻り値は長さゼロの配列であり、さらに配列は次のプロパティーを含む。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">groups</span></code>: おそらく括弧によるキャプチャー情報</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">index</span></code>: <code class="docutils literal notranslate"><span class="pre">str</span></code> のどの位置からマッチしているか</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">input</span></code>: <code class="docutils literal notranslate"><span class="pre">str</span></code> に等しい文字列</p></li>
+</ul>
+<p>マッチするものがない場合、この呼び出しの結果は <code class="docutils literal notranslate"><span class="pre">null</span></code> となる。スクリプトは、配列が返る場合と <code class="docutils literal notranslate"><span class="pre">null</span></code> が返る場合のどちらにも対応する必要がある。</p>
+</section>
+<section id="replacing-str-replace">
+<h3>Replacing: str.replace<a class="headerlink" href="#replacing-str-replace" title="Permalink to this heading">¶</a></h3>
+<p>呼び出し <code class="docutils literal notranslate"><span class="pre">str.replace(regexp,</span> <span class="pre">replacement)</span></code> は、文字列 <code class="docutils literal notranslate"><span class="pre">str</span></code> の中で <code class="docutils literal notranslate"><span class="pre">regexp</span></code>
+にマッチするものを <code class="docutils literal notranslate"><span class="pre">replacement</span></code> で置換する。</p>
+<p>フラグ <code class="docutils literal notranslate"><span class="pre">g</span></code> を指定すると、マッチ部分すべてを置換する一方で、指定しないと、せいぜい最初のマッチしか置換しない。</p>
+<p>文字列 <code class="docutils literal notranslate"><span class="pre">replacement</span></code> には特別な意味を持つ文字列を含めることもある：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 69%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Pattern</p></th>
+<th class="head"><p>Specification</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">$&amp;</span></code></p></td>
+<td><p>マッチ全体に等しい文字列</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">$</span></code></p></td>
+<td><p>マッチ以前に等しい文字列</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">$'</span></code></p></td>
+<td><p>マッチ以後に等しい文字列</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">$n</span></code></p></td>
+<td><p>キャプチャー参照</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">$&lt;name&gt;</span></code></p></td>
+<td><p>キャプチャー参照</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">$$</span></code></p></td>
+<td><p>文字 <code class="docutils literal notranslate"><span class="pre">$</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="testing-regexp-test">
+<h3>Testing: regexp.test<a class="headerlink" href="#testing-regexp-test" title="Permalink to this heading">¶</a></h3>
+<p>呼び出し <code class="docutils literal notranslate"><span class="pre">regexp.test(str)</span></code> は、マッチがあるかどうかを <code class="docutils literal notranslate"><span class="pre">Boolean</span></code> 値で返す。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="sr">/LOVE/i</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;I love JavaScript&quot;</span><span class="p">);</span> <span class="c1">// true</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="character-classes">
+<h2><a class="toc-backref" href="#id12">Character classes</a><a class="headerlink" href="#character-classes" title="Permalink to this heading">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/regexp-character-classes">https://javascript.info/regexp-character-classes</a>&gt; のノート。</p>
+<p>文字クラスとは、特殊な表記法であって、特定の集合から任意の記号にマッチするものだ。</p>
+<p>よく使われる三種をまず紹介している：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Class</p></th>
+<th class="head"><p>Specification</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\d</span></code></p></td>
+<td><p>文字 0, 1, …, 9</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\s</span></code></p></td>
+<td><p>ソフトスペース、タブ、改良文字等の空白文字各種</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\w</span></code></p></td>
+<td><p>ラテンアルファベットおよび <code class="docutils literal notranslate"><span class="pre">\d</span></code> およびアンダーバー</p></td>
+</tr>
+</tbody>
+</table>
+<p>正規表現には、普通の文字と文字クラスの両方が含まれることがある。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;Is there CSS4?&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/CSS\d/</span><span class="p">);</span> <span class="c1">// &#39;CSS4&#39;</span>
+<span class="s2">&quot;I love HTML5!&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/\s\w\w\w\w\d/</span><span class="p">);</span> <span class="c1">// &#39; HTML5&#39;</span>
+</pre></div>
+</div>
+<section id="inverse-classes">
+<h3>Inverse classes<a class="headerlink" href="#inverse-classes" title="Permalink to this heading">¶</a></h3>
+<p>各文字クラスには、同じ文字で大文字に表記される「裏クラス」が存在する。裏クラスは、対応する表クラスの補集合だと考えられる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">str</span> <span class="o">=</span> <span class="s2">&quot;+7(903)-123-45-67&quot;</span><span class="p">;</span>
+<span class="nx">str</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/\d/g</span><span class="p">).</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span> <span class="c1">// 79031234567</span>
+<span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\D/g</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="a-dot-is-any-character">
+<h3>A dot is “any character”<a class="headerlink" href="#a-dot-is-any-character" title="Permalink to this heading">¶</a></h3>
+<p>ドット <code class="docutils literal notranslate"><span class="pre">.</span></code> は、「改行以外の任意の文字」にマッチする特殊な文字クラスだ。</p>
+<section id="dot-as-literally-any-character-with-s-flag">
+<h4>Dot as literally any character with “s” flag<a class="headerlink" href="#dot-as-literally-any-character-with-s-flag" title="Permalink to this heading">¶</a></h4>
+<p>ドット <code class="docutils literal notranslate"><span class="pre">.</span></code> が、改行も含めて文字通り「あらゆる文字」を意味するようにしたい場面はたくさんある。これはフラグ <code class="docutils literal notranslate"><span class="pre">s</span></code> が行う。正規表現がこのフラグを持っている場合、ドット <code class="docutils literal notranslate"><span class="pre">.</span></code> は文字通り任意の文字にマッチする。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;A\nB&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/A.B/s</span><span class="p">);</span> <span class="c1">// A\nB</span>
+</pre></div>
+</div>
+<p>囲み記事が面白い。フラグ <code class="docutils literal notranslate"><span class="pre">s</span></code> が対応されていない JavaScript エンジン環境では
+<code class="docutils literal notranslate"><span class="pre">[\s\S]</span></code> や <code class="docutils literal notranslate"><span class="pre">[^]</span></code> でしのげとある。</p>
+</section>
+</section>
+</section>
+<section id="unicode-flag-u-and-class-p">
+<h2><a class="toc-backref" href="#id13">Unicode: flag “u” and class \p{…}</a><a class="headerlink" href="#unicode-flag-u-and-class-p" title="Permalink to this heading">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/regexp-unicode">https://javascript.info/regexp-unicode</a>&gt; のノート。</p>
+<p>これは見慣れないトピックなのでしっかりチェックする。</p>
+<p>昔の名残で、<code class="docutils literal notranslate"><span class="pre">String.length</span></code> など、4 バイト文字を正しく扱えない機能がいまだにある。</p>
+<p>デフォルトでは、正規表現は 4 バイトの「長い文字」を 2 バイトの文字の対として扱う。そして、それは文字列で起こるような奇妙な結果につながるかもしれない。文字列とは異なり、正規表現にはこのような問題を解決するフラグ <code class="docutils literal notranslate"><span class="pre">u</span></code> がある。さらに、Unicode プロパティー検索も利用できるようになる。</p>
+<section id="unicode-properties-p">
+<h3>Unicode properties \p{…}<a class="headerlink" href="#unicode-properties-p" title="Permalink to this heading">¶</a></h3>
+<p>Unicode の各文字には多くのプロパティーがある。その文字がどのような「カテゴリー」に属しているかを述べ、その文字に関する雑多な情報を含む。</p>
+<p>例えば、文字に Letter プロパティーがあれば、その文字は（何か言語の文字という意味で）アルファベットに属していることを意味する。 Number プロパティーは、その文字が数字であることを意味する。</p>
+<p>あるプロパティーを持つ文字を正規表現 <code class="docutils literal notranslate"><span class="pre">\p{...}</span></code> で検索することができる。これにもフラグ <code class="docutils literal notranslate"><span class="pre">u</span></code> が必要だ。</p>
+<p>例えば、<code class="docutils literal notranslate"><span class="pre">\p{Letter}</span></code> は任意の言語の文字を表す。略記 <code class="docutils literal notranslate"><span class="pre">\p{L}</span></code> も通じる。次の検索は「何でもいいから言語の文字を全て探す」であり、三文字それぞれがマッチする。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;Aბㄱ&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/\p{L}/gu</span><span class="p">);</span> <span class="c1">// A,ბ,ㄱ</span>
+</pre></div>
+</div>
+<p>本文でメインカテゴリーとサブカテゴリーが長い一覧を形成している。それでもまだ全てではなく、参考文献が列挙されている。</p>
+<p>例えば &lt;<a class="reference external" href="https://unicode.org/cldr/utility/character.jsp">https://unicode.org/cldr/utility/character.jsp</a>&gt; のページを操作すると、入力した一文字のプロパティーをすべて確認できる。</p>
+<section id="example-hexadecimal-numbers">
+<h4>Example: hexadecimal numbers<a class="headerlink" href="#example-hexadecimal-numbers" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="sr">/x\p{Hex_Digit}\p{Hex_Digit}/u</span>
+</pre></div>
+</div>
+</section>
+<section id="example-chinese-hieroglyphs">
+<h4>Example: Chinese hieroglyphs<a class="headerlink" href="#example-chinese-hieroglyphs" title="Permalink to this heading">¶</a></h4>
+<p>Unicode のプロパティーに Script がある。これは値を取ることができる。キリル文字、ギリシャ文字、アラビア文字、漢字など、さまざまな文字がある。例えば、キリル文字には <code class="docutils literal notranslate"><span class="pre">\p{sc=Cyrillic}</span></code>, 漢字には <code class="docutils literal notranslate"><span class="pre">\p{sc=Han}</span></code>, など。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="sb">`Hello Привет 你好 123_456`</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/\p{sc=Han}/gu</span><span class="p">);</span> <span class="c1">// 你,好</span>
+</pre></div>
+</div>
+</section>
+<section id="example-currency">
+<h4>Example: currency<a class="headerlink" href="#example-currency" title="Permalink to this heading">¶</a></h4>
+<p>通貨記号であることを示す Unicode プロパティーは <code class="docutils literal notranslate"><span class="pre">\p{Currency_Symbol}</span></code>, <code class="docutils literal notranslate"><span class="pre">\p{Sc}</span></code>
+が対応する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="sr">/\p{Sc}\d/gu</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="anchors-string-start-and-end">
+<h2><a class="toc-backref" href="#id14">Anchors: string start ^ and end $</a><a class="headerlink" href="#anchors-string-start-and-end" title="Permalink to this heading">¶</a></h2>
+<p>メタキャラクター <code class="docutils literal notranslate"><span class="pre">^</span></code> と <code class="docutils literal notranslate"><span class="pre">$</span></code> はアンカーの一種だ。それぞれ文字ではなく、テキストの先頭位置とテキストの末尾位置にそれぞれマッチする。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="sr">/^Mary/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;Mary had a little lamb&quot;</span><span class="p">);</span> <span class="c1">// true</span>
+<span class="sr">/snow$/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;its fleece was white as snow&quot;</span><span class="p">);</span> <span class="c1">// true</span>
+</pre></div>
+</div>
+<section id="testing-for-a-full-match">
+<h3>Testing for a full match<a class="headerlink" href="#testing-for-a-full-match" title="Permalink to this heading">¶</a></h3>
+<p>両方を合わせた <code class="docutils literal notranslate"><span class="pre">^...$</span></code> は、文字列がパターンに完全にマッチするかどうかを調べるのによく使われる。ユーザー入力を検証する場合などに有用だ。</p>
+<p>フラグ <code class="docutils literal notranslate"><span class="pre">m</span></code> がある場合、アンカーは異なる動作をする。</p>
+</section>
+<section id="tasks">
+<h3>Tasks<a class="headerlink" href="#tasks" title="Permalink to this heading">¶</a></h3>
+<section id="regexp">
+<h4>Regexp ^$<a class="headerlink" href="#regexp" title="Permalink to this heading">¶</a></h4>
+<p>正規表現 <code class="docutils literal notranslate"><span class="pre">/^$/</span></code> は空文字列にしかマッチしない。</p>
+</section>
+</section>
+</section>
+<section id="multiline-mode-of-anchors-flag-m">
+<h2><a class="toc-backref" href="#id15">Multiline mode of anchors ^ $, flag “m”</a><a class="headerlink" href="#multiline-mode-of-anchors-flag-m" title="Permalink to this heading">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/regexp-multiline-mode">https://javascript.info/regexp-multiline-mode</a>&gt; のノート。</p>
+<p>フラグ <code class="docutils literal notranslate"><span class="pre">m</span></code> で有効になる複数行モードだが、これは <code class="docutils literal notranslate"><span class="pre">^</span></code> と <code class="docutils literal notranslate"><span class="pre">$</span></code> の動作にしか影響しない。複数行モードでは文字列の先頭と末尾だけでなく、行頭と行末でもマッチする。</p>
+<section id="searching-at-line-start">
+<h3>Searching at line start ^<a class="headerlink" href="#searching-at-line-start" title="Permalink to this heading">¶</a></h3>
+<p>次の文字列に対する <code class="docutils literal notranslate"><span class="pre">match(/^\d/gm)</span></code> と <code class="docutils literal notranslate"><span class="pre">match(/^\d/g)</span></code> の結果は異なる。前者は長さ 3 の配列を返すが、後者は長さ 1 の配列を返す。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>1st place: Winnie
+2nd place: Piglet
+3rd place: Eeyore
+</pre></div>
+</div>
+</section>
+<section id="searching-at-line-end">
+<h3>Searching at line end $<a class="headerlink" href="#searching-at-line-end" title="Permalink to this heading">¶</a></h3>
+<p>次の文字列に対する <code class="docutils literal notranslate"><span class="pre">match(/\d$/gm)</span></code> と <code class="docutils literal notranslate"><span class="pre">match(/\d$/g)</span></code> の結果は前項と同様の違いがある。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Winnie: 1
+Piglet: 2
+Eeyore: 3
+</pre></div>
+</div>
+</section>
+<section id="searching-for-n-instead-of">
+<h3>Searching for <code class="docutils literal notranslate"><span class="pre">\n</span></code> instead of ^ $<a class="headerlink" href="#searching-for-n-instead-of" title="Permalink to this heading">¶</a></h3>
+<p>フラグ <code class="docutils literal notranslate"><span class="pre">m</span></code> なしで、改行文字 “n” を直接指定してマッチさせようとするのとどう違うのかを見る。例えば前項のテキストに対して <code class="docutils literal notranslate"><span class="pre">match(/\d\n/g)</span></code> を考える。</p>
+<ol class="arabic simple">
+<li><p>テキストの最後が改行文字で終わっていない場合、テキスト末端近傍のマッチが異なる。</p></li>
+<li><p>マッチ結果に改行文字が含まれるようになる。</p></li>
+</ol>
+</section>
+</section>
+<section id="word-boundary-b">
+<h2><a class="toc-backref" href="#id16">Word boundary: <code class="docutils literal notranslate"><span class="pre">\b</span></code></a><a class="headerlink" href="#word-boundary-b" title="Permalink to this heading">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/regexp-boundary">https://javascript.info/regexp-boundary</a>&gt; のノート。</p>
+<p>単語境界位置にマッチする <code class="docutils literal notranslate"><span class="pre">\b</span></code> を学ぶ。単語境界位置は次の三種類だ：</p>
+<ol class="arabic simple">
+<li><p>文字列の先頭の文字が <code class="docutils literal notranslate"><span class="pre">\w</span></code> にマッチする場合、その先頭。</p></li>
+<li><p>文字列内の二文字の間で、一方が <code class="docutils literal notranslate"><span class="pre">\w</span></code> にマッチし、もう一方が <code class="docutils literal notranslate"><span class="pre">\W</span></code> にマッチする場合。</p></li>
+<li><p>文字列の末尾の文字が <code class="docutils literal notranslate"><span class="pre">\w</span></code> にマッチする場合、その末尾。</p></li>
+</ol>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;Hello, Java!&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/\bJava\b/</span><span class="p">);</span> <span class="c1">// &quot;Java&quot;</span>
+<span class="s2">&quot;Hello, JavaScript!&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/\bJava\b/</span><span class="p">);</span> <span class="c1">// null</span>
+<span class="s2">&quot;Hello, Java!&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/\bHello\b/</span><span class="p">);</span> <span class="c1">// &quot;Hello&quot;</span>
+<span class="s2">&quot;Hello, Java!&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/\bJava\b/</span><span class="p">);</span>  <span class="c1">// &quot;Java&quot;</span>
+<span class="s2">&quot;Hello, Java!&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/\bHell\b/</span><span class="p">);</span>  <span class="c1">// null</span>
+<span class="s2">&quot;Hello, Java!&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/\bJava!\b/</span><span class="p">);</span> <span class="c1">// null</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">\d</span></code> は <code class="docutils literal notranslate"><span class="pre">\w</span></code> の部分集合であるので、次もマッチする：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;1 23 456 78&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/\b\d\d\b/g</span><span class="p">);</span> <span class="c1">// [&quot;23&quot;, &quot;78&quot;]</span>
+<span class="s2">&quot;12,34,56&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/\b\d\d\b/g</span><span class="p">);</span> <span class="c1">// [&quot;12&quot;, &quot;34&quot;, &quot;56&quot;]</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">\b</span></code> の急所は <code class="docutils literal notranslate"><span class="pre">\w</span></code> と深い関係があるということだろう。</p>
+<section id="id2">
+<h3>Tasks<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
+<section id="find-the-time">
+<h4>Find the time<a class="headerlink" href="#find-the-time" title="Permalink to this heading">¶</a></h4>
+<p>そうか。この問題には <code class="docutils literal notranslate"><span class="pre">\b</span></code> の指定が必要なのだ。</p>
+</section>
+</section>
+</section>
+<section id="escaping-special-characters">
+<h2><a class="toc-backref" href="#id17">Escaping, special characters</a><a class="headerlink" href="#escaping-special-characters" title="Permalink to this heading">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/regexp-escaping">https://javascript.info/regexp-escaping</a>&gt; のノート。</p>
+<p>バックスラッシュ <code class="docutils literal notranslate"><span class="pre">\</span></code> は、例えば <code class="docutils literal notranslate"><span class="pre">\d</span></code> のように、文字クラスを表すのに使われることを見てきた。つまり、これは正規表現における特殊文字だと言える。</p>
+<p>他にも <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">]</span> <span class="pre">{</span> <span class="pre">}</span> <span class="pre">(</span> <span class="pre">)</span> <span class="pre">\</span> <span class="pre">^</span> <span class="pre">$</span> <span class="pre">.</span> <span class="pre">|</span> <span class="pre">?</span> <span class="pre">*</span> <span class="pre">+</span></code> のように、正規表現で特別な意味を持つ文字がある。これらは、より強力な検索を行うために用いられる。</p>
+<section id="escaping">
+<h3>Escaping<a class="headerlink" href="#escaping" title="Permalink to this heading">¶</a></h3>
+<p>特別な意味を持つ文字を、見てくれどおりの文字そのものをマッチさせたいとする。特殊文字を通常の文字として表現するには、その文字の直前にバックスラッシュ <code class="docutils literal notranslate"><span class="pre">\</span></code> を付ける。このような行為を「文字をエスケープする」と言う。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;Chapter 5.1&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/\d\.\d/</span><span class="p">);</span> <span class="c1">// &quot;5.1&quot;</span>
+<span class="s2">&quot;Chapter 511&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/\d\.\d/</span><span class="p">);</span> <span class="c1">// null</span>
+
+<span class="s2">&quot;function g()&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/g\(\)/</span><span class="p">);</span> <span class="c1">// &quot;g()&quot;</span>
+
+<span class="s2">&quot;1\\2&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/\\/</span><span class="p">);</span> <span class="c1">// &#39;\&#39;</span>
+</pre></div>
+</div>
+<p>最後の例で、文字列のバックスラッシュも正規表現のバックスラッシュもどちらもエスケープが必要であることに注意。</p>
+</section>
+<section id="a-slash">
+<h3>A slash<a class="headerlink" href="#a-slash" title="Permalink to this heading">¶</a></h3>
+<p>スラッシュ <code class="docutils literal notranslate"><span class="pre">/</span></code> は特別な意味のある文字ではないが、リテラル正規表現を書くときにはエスケープが必要となる。<code class="docutils literal notranslate"><span class="pre">RegExp</span></code> コンストラクターで文字列から正規表現を生成するときにはこの限りでない。</p>
+</section>
+<section id="new-regexp">
+<h3>new RegExp<a class="headerlink" href="#new-regexp" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">RegExp</span></code> コンストラクターで文字列から正規表現を生成する場合には別の注意を要する。リテラル文字列ではバックスラッシュが「食われる」ので、これをエスケープせねばならない。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">regexp</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s2">&quot;\\d\\.\\d&quot;</span><span class="p">);</span>
+
+<span class="s2">&quot;Chapter 5.1&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">regexp</span><span class="p">);</span> <span class="c1">// &quot;5.1&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="sets-and-ranges">
+<h2><a class="toc-backref" href="#id18">Sets and ranges […]</a><a class="headerlink" href="#sets-and-ranges" title="Permalink to this heading">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/regexp-character-sets-and-ranges">https://javascript.info/regexp-character-sets-and-ranges</a>&gt; のノート。</p>
+<p>複数の文字または文字クラスを含む角括弧 <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">]</span></code> 全体からなるパターンは、この中にあるどれかの一文字にマッチする文字にマッチする。</p>
+<section id="sets">
+<h3>Sets<a class="headerlink" href="#sets" title="Permalink to this heading">¶</a></h3>
+<p>このようなパターンを集合と言う。通常の文字と混在して正規表現を形成することができる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// find [t or m], and then &quot;op&quot;</span>
+<span class="s2">&quot;Mop top&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/[tm]op/gi</span><span class="p">);</span> <span class="c1">// [&quot;Mop&quot;, &quot;top&quot;]</span>
+
+<span class="c1">// find &quot;V&quot;, then [o or i], then &quot;la&quot;</span>
+<span class="s2">&quot;Voila&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/V[oi]la/</span><span class="p">);</span> <span class="c1">// null</span>
+</pre></div>
+</div>
+</section>
+<section id="ranges">
+<h3>Ranges<a class="headerlink" href="#ranges" title="Permalink to this heading">¶</a></h3>
+<p>角括弧は、文字範囲を含むこともできる。例えば <code class="docutils literal notranslate"><span class="pre">[a-z]</span></code> は a から z までの範囲にある文字一文字に、<code class="docutils literal notranslate"><span class="pre">[0-5]</span></code> は 0 から 5 までの数字一文字にそれぞれマッチする。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;Exception 0xAF&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/x[0-9A-F][0-9A-F]/g</span><span class="p">);</span> <span class="c1">// &quot;xAF&quot;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>小文字も探したい場合は、角括弧内に範囲 <code class="docutils literal notranslate"><span class="pre">a-f</span></code> を追加するか、正規表現にフラグ
+<code class="docutils literal notranslate"><span class="pre">i</span></code> を追加する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">]</span></code> の中に文字クラスを使用することもできる。</p></li>
+<li><p>複数のクラスを組み合わせることも可能だ。</p></li>
+</ul>
+<p>文字クラスは文字範囲の略記法だと考えられる：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Class</p></th>
+<th class="head"><p>Character Set</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\d</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0-9]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\w</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[a-zA-Z0-9_]</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\s</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[\t\n\v\f\r</span> <span class="pre">]</span></code> に Unicode の珍しい空白文字を加えたもの</p></td>
+</tr>
+</tbody>
+</table>
+<section id="example-multi-language-w">
+<h4>Example: multi-language <code class="docutils literal notranslate"><span class="pre">\w</span></code><a class="headerlink" href="#example-multi-language-w" title="Permalink to this heading">¶</a></h4>
+<p>文字クラス <code class="docutils literal notranslate"><span class="pre">\w</span></code> だと漢字、キリル文字その他にマッチしない。マッチするようなものを自作する。以前やった Unicode プロパティーを角括弧内に列挙することで、それを達成する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="sr">/[\p{Alpha}\p{M}\p{Nd}\p{Pc}\p{Join_C}]/gu</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>文字範囲がわかっていれば、始点文字と終点文字とをマイナス文字で連結した集合で指定してもよい。</p>
+</section>
+</section>
+<section id="excluding-ranges">
+<h3>Excluding ranges<a class="headerlink" href="#excluding-ranges" title="Permalink to this heading">¶</a></h3>
+<p>補集合を指定するには、同じ要素列を <code class="docutils literal notranslate"><span class="pre">[^</span> <span class="pre">]</span></code> で囲む。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="sr">/[^ ]/</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="escaping-in">
+<h3>Escaping in […]<a class="headerlink" href="#escaping-in" title="Permalink to this heading">¶</a></h3>
+<p>角括弧内ではほとんどの文字をエスケープせずに置くことができる。</p>
+<ul class="simple">
+<li><p>文字 <code class="docutils literal notranslate"><span class="pre">.</span> <span class="pre">+</span> <span class="pre">(</span> <span class="pre">)</span></code> はエスケープを要しない。</p></li>
+<li><p>マイナス文字 <code class="docutils literal notranslate"><span class="pre">-</span></code> は、角括弧の最初の要素でも最後の要素でもない限りはエスケープされない。</p></li>
+<li><p>キャレット文字 <code class="docutils literal notranslate"><span class="pre">^</span></code> は、角括弧の最初に書きたい場合にしかエスケープされない。</p></li>
+<li><p>文字としての角括弧 <code class="docutils literal notranslate"><span class="pre">]</span></code> はいつでもエスケープされる。</p></li>
+</ul>
+<p>角括弧の中のドット <code class="docutils literal notranslate"><span class="pre">.</span></code> は、文字としてのドットを意味する。</p>
+<p>エスケープを要しない、されない、というのは、してもしなくても動くということだ：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;1 + 2 - 3&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/[-().^+]/g</span><span class="p">)</span> <span class="c1">// [&quot;+&quot;, &quot;-&quot;]</span>
+<span class="s2">&quot;1 + 2 - 3&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/[\-\(\)\.\^\+]/g</span><span class="p">);</span> <span class="c1">// [&quot;+&quot;, &quot;-&quot;]</span>
+</pre></div>
+</div>
+</section>
+<section id="ranges-and-flag-u">
+<h3>Ranges and flag “u”<a class="headerlink" href="#ranges-and-flag-u" title="Permalink to this heading">¶</a></h3>
+<p>角括弧内に surrogate pairs がある場合には、正規表現にフラグ <code class="docutils literal notranslate"><span class="pre">u</span></code> を指定すること。まともな文字が出力されなかったり、悪い場合にはエラーが生じる。</p>
+<p>フラグ <code class="docutils literal notranslate"><span class="pre">u</span></code> を与えないと、角括弧内の surrogate pair それぞれは正規表現エンジンに二文字として認識される。コードポイント値二つに分割されるということだろう。その結果、surrogate pair で構成される文字二つで文字範囲を指定しようとすると、意図に反した不正な範囲を形成してしまう可能性がある。</p>
+</section>
+<section id="id3">
+<h3>Tasks<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
+<section id="java-script">
+<h4>Java[^script]<a class="headerlink" href="#java-script" title="Permalink to this heading">¶</a></h4>
+<p>もちろんフラグなしで考える。”Java” にはマッチしない。”JavaScript” にはマッチする。</p>
+</section>
+<section id="find-the-time-as-hh-mm-or-hh-mm">
+<h4>Find the time as hh:mm or hh-mm<a class="headerlink" href="#find-the-time-as-hh-mm-or-hh-mm" title="Permalink to this heading">¶</a></h4>
+<p>角括弧内にコロンとマイナスを置く方法が問われている。</p>
+</section>
+</section>
+</section>
+<section id="quantifiers-and-n">
+<h2><a class="toc-backref" href="#id19">Quantifiers +, *, ? and {n}</a><a class="headerlink" href="#quantifiers-and-n" title="Permalink to this heading">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/regexp-quantifiers">https://javascript.info/regexp-quantifiers</a>&gt; のノート。</p>
+<p>例えば、<code class="docutils literal notranslate"><span class="pre">+7(903)-123-45-67</span></code> のような文字列があり、その中のすべての数字を探したい。今回は一桁の数字ではなく、完全な数字に興味がある。7, 903, 123, 45, 67 だ。数は一桁以上の数字が並んだものだ。何個必要かを示すには量指定子をつける。</p>
+<section id="quantity-n">
+<h3>Quantity {n}<a class="headerlink" href="#quantity-n" title="Permalink to this heading">¶</a></h3>
+<p>量指定子は文字、文字クラス、<code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">]</span></code> 集合などに付加し、それがいくつ必要かを指定する。</p>
+<p>最も単純な量指定子は中括弧で囲まれた数字 <code class="docutils literal notranslate"><span class="pre">{n}</span></code> だ。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">\d{5}</span></code> は厳密に五桁の数字を表す。<code class="docutils literal notranslate"><span class="pre">\d\d\d\d\d</span></code> と等しい。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">\d{3,5}</span></code> は三桁から五桁までの数を表す。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">\d{3,}</span></code> は三桁以上の数を表す。</p></li>
+</ul>
+<p>冒頭の問題に戻ると、求める正規表現は <code class="docutils literal notranslate"><span class="pre">\d{1,}</span></code> であることがわかる。</p>
+</section>
+<section id="shorthands">
+<h3>Shorthands<a class="headerlink" href="#shorthands" title="Permalink to this heading">¶</a></h3>
+<p>頻繁に使われる量指定子には速記形が用意されている。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 53%" />
+<col style="width: 29%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Symbol</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">+</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">{1,}</span></code> と等しい</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\d+</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">?</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">{0,1}</span></code> と等しい</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">https?</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">*</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">{0,}</span></code> と等しい</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">\d0*</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="more-examples">
+<h3>More examples<a class="headerlink" href="#more-examples" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>小数 <code class="docutils literal notranslate"><span class="pre">\d+\.\d+</span></code></p></li>
+<li><p>属性なしの開始 HTML タグ</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">/&lt;[a-z]+&gt;/i</span></code>: 簡易版。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/&lt;[a-z][a-z0-9]*&gt;/i</span></code>: h1 などが欲しいときはきっちりと書く。</p></li>
+</ul>
+</li>
+<li><p>属性なしの開始 HTML タグまたは終了タグ <code class="docutils literal notranslate"><span class="pre">/&lt;\/?[a-z][a-z0-9]*&gt;/i</span></code></p></li>
+</ul>
+</section>
+<section id="id4">
+<h3>Tasks<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<section id="how-to-find-an-ellipsis">
+<h4>How to find an ellipsis “…” ?<a class="headerlink" href="#how-to-find-an-ellipsis" title="Permalink to this heading">¶</a></h4>
+<p>ドットはメタキャラクターなので、リテラル正規表現で指定する場合にはエスケープする。</p>
+</section>
+<section id="regexp-for-html-colors">
+<h4>Regexp for HTML colors<a class="headerlink" href="#regexp-for-html-colors" title="Permalink to this heading">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">#ABCDEF</span></code> のように書かれた HTML 色を検索する正規表現。ここでは最初に文字 <code class="docutils literal notranslate"><span class="pre">#</span></code>
+が来て、次に十六進数がちょうど六文字くるものだけを扱えばいい。</p>
+<p>「ちょうど何文字」というのを表現するのに、単語境界指定などが要求される。この小問は教育効果が意外に高い？</p>
+</section>
+</section>
+</section>
+<section id="greedy-and-lazy-quantifiers">
+<h2><a class="toc-backref" href="#id20">Greedy and lazy quantifiers</a><a class="headerlink" href="#greedy-and-lazy-quantifiers" title="Permalink to this heading">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/regexp-greedy-and-lazy">https://javascript.info/regexp-greedy-and-lazy</a>&gt; のノート。</p>
+<p>次の例を考える。このテキストから二重引用符で囲まれている部分文字列をすべて得たい：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>a &quot;witch&quot; and her &quot;broom&quot; is one
+</pre></div>
+</div>
+<p>単純に <code class="docutils literal notranslate"><span class="pre">/&quot;.+&quot;/g</span></code> とすると、狙い通りにマッチしない。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;a &quot;witch&quot; and her &quot;broom&quot; is one&#39;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/&quot;.+&quot;/g</span><span class="p">);</span> <span class="c1">// &quot;witch&quot; and her &quot;broom&quot;</span>
+</pre></div>
+</div>
+<section id="greedy-search">
+<h3>Greedy search<a class="headerlink" href="#greedy-search" title="Permalink to this heading">¶</a></h3>
+<p>正規表現エンジンが正規表現 <code class="docutils literal notranslate"><span class="pre">&quot;.+&quot;</span></code> をどのように照合するのかを段階的に述べている。</p>
+<ol class="arabic simple">
+<li><p>正規表現一番目の位置である文字 <code class="docutils literal notranslate"><span class="pre">&quot;</span></code> を、対象テキストの先頭から検索する。この場合には index 2 でマッチする。</p></li>
+<li><p>正規表現の次の文字 <code class="docutils literal notranslate"><span class="pre">.</span></code> を index 2 以降から検索する。すぐ次の文字 <code class="docutils literal notranslate"><span class="pre">w</span></code> にマッチする。</p></li>
+<li><p>正規表現の次の文字は <code class="docutils literal notranslate"><span class="pre">+</span></code> だ。最後の文字 <code class="docutils literal notranslate"><span class="pre">e</span></code> まで反復的にマッチする。</p></li>
+<li><p>正規表現の次の文字 <code class="docutils literal notranslate"><span class="pre">&quot;</span></code> を検索したいが、すでに対象テキストを取り尽くしている。正規表現エンジンは <code class="docutils literal notranslate"><span class="pre">+</span></code> が多過ぎたと判断し、量指定子のマッチを一文字ぶん短くする。これをバックトラックという。</p></li>
+<li><p>文字 <code class="docutils literal notranslate"><span class="pre">&quot;</span></code> が現れるまで <code class="docutils literal notranslate"><span class="pre">e</span></code>, <code class="docutils literal notranslate"><span class="pre">n</span></code>, <code class="docutils literal notranslate"><span class="pre">o</span></code>, … とテストしていく。</p></li>
+<li><p>すると、テキストのいちばん後ろにある <code class="docutils literal notranslate"><span class="pre">&quot;</span></code> がマッチする。</p></li>
+<li><p>これで照合処理が完了する。</p></li>
+<li><p>最初のマッチは <code class="docutils literal notranslate"><span class="pre">&quot;witch&quot;</span> <span class="pre">and</span> <span class="pre">her</span> <span class="pre">&quot;broom&quot;</span></code> で確定した。フラグ <code class="docutils literal notranslate"><span class="pre">g</span></code> があるので、エンジンは次の照合処理を開始する（今回はもうマッチがない）。</p></li>
+</ol>
+<p>貪欲モードでは、量指定子で修飾された文字が可能な限り何度も反復される：正規表現エンジンは <code class="docutils literal notranslate"><span class="pre">.+</span></code> に対して可能な限り多くの文字をマッチに追加し、パターンの残りの部分がマッチしない場合はそれを一つずつ短縮していく。</p>
+<p>貪欲モードが正規表現エンジンの既定挙動だ。</p>
+</section>
+<section id="lazy-mode">
+<h3>Lazy mode<a class="headerlink" href="#lazy-mode" title="Permalink to this heading">¶</a></h3>
+<p>量指定子の不精モードは、貪欲モードの反対に「最小限の回数を繰り返す」というモードだ。このモードを有効にするには、元となる量指定子に <code class="docutils literal notranslate"><span class="pre">?</span></code> を付ける（単独の <code class="docutils literal notranslate"><span class="pre">?</span></code>
+とは異なる意味であることに注意）。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;a &quot;witch&quot; and her &quot;broom&quot; is one&#39;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/&quot;.+?&quot;/g</span><span class="p">);</span> <span class="c1">// [&quot;witch&quot;, &quot;broom&quot;]</span>
+</pre></div>
+</div>
+<p>正規表現 <code class="docutils literal notranslate"><span class="pre">&quot;.+?&quot;</span></code> はどのように照合されるのか：</p>
+<ol class="arabic simple">
+<li><p>最初の文字 <code class="docutils literal notranslate"><span class="pre">&quot;</span></code> についてはさっきと同じ処理となる。</p></li>
+<li><p>次の文字 <code class="docutils literal notranslate"><span class="pre">.</span></code> についてもさっきと同じだ。</p></li>
+<li><p>正規表現エンジンは次にある <code class="docutils literal notranslate"><span class="pre">+?</span></code> を見て、ドットの照合を一つきりで打ち切る。代わりに、残りパターンである <code class="docutils literal notranslate"><span class="pre">&quot;</span></code> の照合処理をそこから開始する。 <code class="docutils literal notranslate"><span class="pre">&quot;</span></code> が見つかればそこで終了となるが、今回はそうではないので続行する。</p></li>
+<li><p>それから、正規表現エンジンはドットの繰り返し回数を増やし、もう一回テストする。文字 <code class="docutils literal notranslate"><span class="pre">i</span></code>, <code class="docutils literal notranslate"><span class="pre">t</span></code>, <code class="docutils literal notranslate"><span class="pre">c</span></code>, … と続ける。</p></li>
+<li><p>そうこうしていると <code class="docutils literal notranslate"><span class="pre">&quot;witch&quot;</span></code> が得られる。</p></li>
+<li><p>次の検索は現在のマッチの終わりから始まり、さらに <code class="docutils literal notranslate"><span class="pre">&quot;broom&quot;</span></code> を得る。</p></li>
+</ol>
+<p>不精モードは <code class="docutils literal notranslate"><span class="pre">+?</span></code> の他に <code class="docutils literal notranslate"><span class="pre">*?</span></code>, <code class="docutils literal notranslate"><span class="pre">??</span></code> も有効だ。上のアルゴリズムに準じる。</p>
+<p>不精モードは必要のないことを繰り返さない。</p>
+<p>現代的な正規表現エンジンは最適化がよく働くので、上記のアルゴリズムよりも効率良い処理をする可能性がある。</p>
+</section>
+<section id="alternative-approach">
+<h3>Alternative approach<a class="headerlink" href="#alternative-approach" title="Permalink to this heading">¶</a></h3>
+<p>同じことをする正規表現が複数あることはよくある。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;a &quot;witch&quot; and her &quot;broom&quot; is one&#39;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/&quot;[^&quot;]+&quot;/g</span><span class="p">);</span> <span class="c1">// [&quot;witch&quot;, &quot;broom&quot;]</span>
+</pre></div>
+</div>
+<p>不精モードではダメで、この集合版が必要な場合もある。例えば、
+<code class="docutils literal notranslate"><span class="pre">&lt;a</span> <span class="pre">href=&quot;...&quot;</span> <span class="pre">class=&quot;doc&quot;&gt;</span></code> の形式で、何でもいいから <code class="docutils literal notranslate"><span class="pre">href</span></code> を持つリンクを見つけたいとする。まず最初に思いつく正規表現は <code class="docutils literal notranslate"><span class="pre">/&lt;a</span> <span class="pre">href=&quot;.*&quot;</span> <span class="pre">class=&quot;doc&quot;&gt;/g</span></code>
+だ（貪欲モードが先に思いつく）。</p>
+<p>しかし、この正規表現では同一行にこのような A タグが複数ある場合には狙いどおりにマッチしない。さっきの魔女のほうきと同じことが起こる。</p>
+<p>そこで正規表現を不精にする：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="sr">/&lt;a href=&quot;.*?&quot; class=&quot;doc&quot;&gt;/g</span>
+</pre></div>
+</div>
+<p>しかし、次のようなテキストに対してはまた狙いを外れる：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span>...<span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;link1&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;wrong&quot;</span><span class="p">&gt;</span>... <span class="p">&lt;</span><span class="nt">p</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;doc&quot;</span><span class="p">&gt;</span>...
+</pre></div>
+</div>
+<p>今回は <code class="docutils literal notranslate"><span class="pre">/&lt;a</span> <span class="pre">href=&quot;[^&quot;]*&quot;</span> <span class="pre">class=&quot;doc&quot;&gt;/g</span></code> とするのが妥当だ。</p>
+</section>
+<section id="id5">
+<h3>Tasks<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
+<section id="a-match-for-d-d">
+<h4>A match for /d+? d+?/<a class="headerlink" href="#a-match-for-d-d" title="Permalink to this heading">¶</a></h4>
+<p>せっかくだから <code class="docutils literal notranslate"><span class="pre">/\d+</span> <span class="pre">\d+?/g</span></code>, etc. なども試すといい。</p>
+</section>
+<section id="find-html-comments">
+<h4>Find HTML comments<a class="headerlink" href="#find-html-comments" title="Permalink to this heading">¶</a></h4>
+<p>他の言語のコメントにも応用できる、つぶしの効く正規表現を習得できる。</p>
+<ul class="simple">
+<li><p>複数行にまたがることが考えられる場合には正規表現フラグ <code class="docutils literal notranslate"><span class="pre">s</span></code> を指定する。</p></li>
+<li><p>用いる不精モードはここでは <code class="docutils literal notranslate"><span class="pre">*?</span></code> だ。</p></li>
+</ul>
+</section>
+<section id="find-html-tags">
+<h4>Find HTML tags<a class="headerlink" href="#find-html-tags" title="Permalink to this heading">¶</a></h4>
+<p>キャレットあり集合を使うパターンと不精モードは、正規表現一つの中では本質的には共存しない気がする。</p>
+</section>
+</section>
+</section>
+<section id="capturing-groups">
+<h2><a class="toc-backref" href="#id21">Capturing groups</a><a class="headerlink" href="#capturing-groups" title="Permalink to this heading">¶</a></h2>
+<p>正規表現の意味を変えずに、パターンの一部を丸括弧で囲むことができる。これを捕捉グループと呼ぶ。これには効果が二つある：</p>
+<ol class="arabic simple">
+<li><p>マッチした部分を別の項目として結果配列に取り込むことができる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(</span> <span class="pre">)</span></code> の後に量指定子を置くと、それは括弧全体に適用される。</p></li>
+</ol>
+<section id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h3>
+<section id="example-gogogo">
+<h4>Example: gogogo<a class="headerlink" href="#example-gogogo" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;Gogogo now!&#39;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/(go)+/ig</span><span class="p">)</span> <span class="p">);</span> <span class="c1">// &quot;Gogogo&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="example-domain">
+<h4>Example: domain<a class="headerlink" href="#example-domain" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;site.com my.site.com&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/(\w+\.)+\w+/g</span><span class="p">);</span> <span class="c1">// [&quot;site.com&quot;, &quot;my.site.com&quot;]</span>
+</pre></div>
+</div>
+</section>
+<section id="example-email">
+<h4>Example: email<a class="headerlink" href="#example-email" title="Permalink to this heading">¶</a></h4>
+<p>ドメインのパターンが構築できたので、メールアドレスのパターンも行ける。名前部分は
+<code class="docutils literal notranslate"><span class="pre">-</span></code> や <code class="docutils literal notranslate"><span class="pre">.</span></code> も使用可能であるから、正規表現では <code class="docutils literal notranslate"><span class="pre">[-.\w]+</span></code> あたりになる。ドメインも若干手直しする。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;my@mail.com @ his@site.com.uk&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/[-.\w]+@([\w-]+\.)+[\w-]+/g</span><span class="p">);</span> <span class="c1">// [&quot;my@mail.com&quot;, &quot;his@site.com.uk&quot;]</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="parentheses-contents-in-the-match">
+<h3>Parentheses contents in the match<a class="headerlink" href="#parentheses-contents-in-the-match" title="Permalink to this heading">¶</a></h3>
+<p>パターン内の丸括弧は左から右へ番号が割り当てられている。正規表現エンジンはそれぞれにマッチした内容を記憶し、結果に示すことができる。</p>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">str.match(regexp)</span></code> は <code class="docutils literal notranslate"><span class="pre">regexp</span></code> にフラグ <code class="docutils literal notranslate"><span class="pre">g</span></code> がない場合、最初のマッチを探し、配列として返す。中身は次のような具合だ：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">result[0]</span></code>: 完全マッチ</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">result[1]</span></code>: 最初の丸括弧の中身</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">result[2]</span></code>: 二番目の丸括弧の中身</p></li>
+</ul>
+<p>例えば、HTML タグ <code class="docutils literal notranslate"><span class="pre">&lt;.*?&gt;</span></code> を見つけて処理したい。タグの内容を別の変数に格納する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="s1">&#39;&lt;h1&gt;Hello, world!&lt;/h1&gt;&#39;</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">tag</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/&lt;(.*?)&gt;/</span><span class="p">);</span>
+
+<span class="nx">tag</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span> <span class="c1">// &quot;&lt;h1&gt;&quot;</span>
+<span class="nx">tag</span><span class="p">[</span><span class="mf">1</span><span class="p">];</span> <span class="c1">// &quot;h1&quot;</span>
+</pre></div>
+</div>
+<section id="nested-groups">
+<h4>Nested groups<a class="headerlink" href="#nested-groups" title="Permalink to this heading">¶</a></h4>
+<p>捕捉グループを入れ子にすることもできる。番号はやはり左から右へと割り当てられる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="s1">&#39;&lt;span class=&quot;my&quot;&gt;&#39;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/&lt;(([a-z]+)\s*([^&gt;]*))&gt;/</span><span class="p">);</span>
+<span class="nx">result</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span> <span class="c1">// &#39;&lt;span class=&quot;my&quot;&gt;&#39;</span>
+<span class="nx">result</span><span class="p">[</span><span class="mf">1</span><span class="p">];</span> <span class="c1">// &#39;span class=&quot;my&quot;&#39;</span>
+<span class="nx">result</span><span class="p">[</span><span class="mf">2</span><span class="p">];</span> <span class="c1">// &#39;span&#39;</span>
+<span class="nx">result</span><span class="p">[</span><span class="mf">3</span><span class="p">];</span> <span class="c1">// &#39;class=&quot;my&quot;&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="optional-groups">
+<h4>Optional groups<a class="headerlink" href="#optional-groups" title="Permalink to this heading">¶</a></h4>
+<p>グループがオプショナルであって、マッチに存在しない場合がある。
+<code class="docutils literal notranslate"><span class="pre">(</span> <span class="pre">)?</span></code> とか <code class="docutils literal notranslate"><span class="pre">(</span> <span class="pre">)*</span></code> のようなものがある場合だ。それでも、対応する結果配列の項目は存在し、値は <code class="docutils literal notranslate"><span class="pre">undefined</span></code> に等しい。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">match</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/a(z)?(c)?/</span><span class="p">);</span>
+
+<span class="nx">match</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="c1">// 3</span>
+<span class="nx">match</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span> <span class="c1">// &quot;a&quot;</span>
+<span class="nx">match</span><span class="p">[</span><span class="mf">1</span><span class="p">];</span> <span class="c1">// undefined</span>
+<span class="nx">match</span><span class="p">[</span><span class="mf">2</span><span class="p">];</span> <span class="c1">// undefined</span>
+</pre></div>
+</div>
+<p>マッチするグループとしないグループがある例：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">match</span> <span class="o">=</span> <span class="s1">&#39;ac&#39;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/a(z)?(c)?/</span><span class="p">)</span>
+
+<span class="nx">match</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="c1">// 3</span>
+<span class="nx">match</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span> <span class="c1">// &quot;ac&quot;</span>
+<span class="nx">match</span><span class="p">[</span><span class="mf">1</span><span class="p">];</span> <span class="c1">// undefined</span>
+<span class="nx">match</span><span class="p">[</span><span class="mf">2</span><span class="p">];</span> <span class="c1">// &quot;c&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="searching-for-all-matches-with-groups-matchall">
+<h3>Searching for all matches with groups: matchAll<a class="headerlink" href="#searching-for-all-matches-with-groups-matchall" title="Permalink to this heading">¶</a></h3>
+<p>フラグ <code class="docutils literal notranslate"><span class="pre">g</span></code> でマッチ全てを検索する場合、メソッド <code class="docutils literal notranslate"><span class="pre">match</span></code> はグループに対する内容を返さない。捕捉グループが無視されて、たんにマッチを全て含む配列が返る。</p>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">matchAll</span></code> は捕捉グループに対応した全検索機能だ。</p>
+<ol class="arabic simple">
+<li><p>配列ではなく、反復可能なオブジェクトを返す。</p></li>
+<li><p>フラグ <code class="docutils literal notranslate"><span class="pre">g</span></code> がある場合、すべてのマッチをグループを含む配列として返す。</p></li>
+<li><p>マッチがない場合、空の反復可能なオブジェクトを返す。</p></li>
+</ol>
+<p>マッチを <code class="docutils literal notranslate"><span class="pre">for...of</span></code> ループで得たり、次のように変数に代入したりする。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="p">[</span><span class="nx">tag1</span><span class="p">,</span> <span class="nx">tag2</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&lt;h1&gt; &lt;h2&gt;&#39;</span><span class="p">.</span><span class="nx">matchAll</span><span class="p">(</span><span class="sr">/&lt;(.*?)&gt;/gi</span><span class="p">);</span>
+
+<span class="nx">tag1</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span> <span class="c1">// &quot;&lt;h1&gt;&quot;</span>
+<span class="nx">tag1</span><span class="p">[</span><span class="mf">1</span><span class="p">];</span> <span class="c1">// &quot;h1&quot;</span>
+<span class="nx">tag1</span><span class="p">.</span><span class="nx">index</span><span class="p">;</span> <span class="c1">// 0</span>
+<span class="nx">tag1</span><span class="p">.</span><span class="nx">input</span><span class="p">;</span> <span class="c1">// &quot;&lt;h1&gt; &lt;h2&gt;&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="named-groups">
+<h3>Named groups<a class="headerlink" href="#named-groups" title="Permalink to this heading">¶</a></h3>
+<p>Python のように、捕捉グループに名前を付けることもできる。<code class="docutils literal notranslate"><span class="pre">(?&lt;name&gt;</span> <span class="pre">)</span></code> の形式も同じだ。メソッド <code class="docutils literal notranslate"><span class="pre">match</span></code> の戻り値のプロパティー <code class="docutils literal notranslate"><span class="pre">groups</span></code> から、指定した
+<code class="docutils literal notranslate"><span class="pre">name</span></code> でマッチそれぞれを参照する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">dateRegexp</span> <span class="o">=</span> <span class="sr">/(?&lt;year&gt;[0-9]{4})-(?&lt;month&gt;[0-9]{2})-(?&lt;day&gt;[0-9]{2})/</span><span class="p">;</span>
+
+<span class="kd">let</span> <span class="nx">groups</span> <span class="o">=</span> <span class="s2">&quot;2019-04-30&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">dateRegexp</span><span class="p">).</span><span class="nx">groups</span><span class="p">;</span>
+<span class="nx">groups</span><span class="p">.</span><span class="nx">year</span><span class="p">;</span> <span class="c1">// &quot;2019&quot;</span>
+<span class="nx">groups</span><span class="p">.</span><span class="nx">month</span><span class="p">;</span> <span class="c1">// &quot;04&quot;</span>
+<span class="nx">groups</span><span class="p">.</span><span class="nx">day</span><span class="p">;</span> <span class="c1">// &quot;30&quot;</span>
+</pre></div>
+</div>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">matchAll</span></code> の場合には、個々のマッチにプロパティー <code class="docutils literal notranslate"><span class="pre">groups</span></code> がある。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">results</span> <span class="o">=</span> <span class="s2">&quot;2019-10-30 2020-01-01&quot;</span><span class="p">.</span><span class="nx">matchAll</span><span class="p">(</span><span class="nx">dateRegexp</span><span class="p">);</span>
+<span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">result</span> <span class="k">of</span> <span class="nx">results</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="p">{</span><span class="nx">year</span><span class="p">,</span> <span class="nx">month</span><span class="p">,</span> <span class="nx">day</span><span class="p">}</span> <span class="o">=</span> <span class="nx">result</span><span class="p">.</span><span class="nx">groups</span><span class="p">;</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="capturing-groups-in-replacement">
+<h3>Capturing groups in replacement<a class="headerlink" href="#capturing-groups-in-replacement" title="Permalink to this heading">¶</a></h3>
+<p>置換メソッド <code class="docutils literal notranslate"><span class="pre">str.replace(regexp,</span> <span class="pre">replacement)</span></code> では、置換文字列に捕捉グループの内容を使用することができる。</p>
+<p>その参照には、ドルマークと番号を組み合わせて指定する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;John Bull&quot;</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/(\w+) (\w+)/</span><span class="p">,</span> <span class="s1">&#39;$2, $1&#39;</span><span class="p">);</span> <span class="c1">// &quot;Bull, John&quot;</span>
+</pre></div>
+</div>
+<p>名前付きグループを使った場合には、ドルマークと名前を組み合わせて指定する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">regexp</span> <span class="o">=</span> <span class="sr">/(?&lt;year&gt;[0-9]{4})-(?&lt;month&gt;[0-9]{2})-(?&lt;day&gt;[0-9]{2})/g</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="s2">&quot;2019-10-30, 2020-01-01&quot;</span><span class="p">;</span>
+<span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">regexp</span><span class="p">,</span> <span class="s1">&#39;$&lt;day&gt;.$&lt;month&gt;.$&lt;year&gt;&#39;</span><span class="p">);</span> <span class="c1">// [&quot;30.10.2019&quot;, &quot;01.01.2020&quot;]</span>
+</pre></div>
+</div>
+</section>
+<section id="non-capturing-groups-with">
+<h3>Non-capturing groups with ?:<a class="headerlink" href="#non-capturing-groups-with" title="Permalink to this heading">¶</a></h3>
+<p>量指定子は使いたいが、照合結果としては要しないこともある。そういう場合には
+<code class="docutils literal notranslate"><span class="pre">(?:</span> <span class="pre">)</span></code> を指定することで捕捉グループを除外する。</p>
+</section>
+<section id="id6">
+<h3>Tasks<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
+<section id="check-mac-address">
+<h4>Check MAC-address<a class="headerlink" href="#check-mac-address" title="Permalink to this heading">¶</a></h4>
+<p>量指定子を含むグループに対して量指定子を付けることができることに注意。</p>
+<p>「文字列が～にマッチするか」という問いに対しては <code class="docutils literal notranslate"><span class="pre">^</span> <span class="pre">$</span></code> でメインの正規表現を挟むこと。</p>
+</section>
+<section id="find-color-in-the-format-abc-or-abcdef">
+<h4>Find color in the format #abc or #abcdef<a class="headerlink" href="#find-color-in-the-format-abc-or-abcdef" title="Permalink to this heading">¶</a></h4>
+<p>この解答例だと RGB 成分が個別に取れない。</p>
+<p>最後に <code class="docutils literal notranslate"><span class="pre">\b</span></code> を付けるのを忘れないようにする。そうしないと 4 桁にも 5 桁にもマッチする。</p>
+</section>
+<section id="find-all-numbers">
+<h4>Find all numbers<a class="headerlink" href="#find-all-numbers" title="Permalink to this heading">¶</a></h4>
+<p>整数、浮動小数点、負の数を含む、すべての十進数を検索する正規表現。すべて 0 の場合にはその部分を省略しても許されるバージョンも考えられる。</p>
+</section>
+<section id="parse-an-expression">
+<h4>Parse an expression<a class="headerlink" href="#parse-an-expression" title="Permalink to this heading">¶</a></h4>
+<p>算術二項演算を表す文字列 <code class="docutils literal notranslate"><span class="pre">expr</span></code> を入力とし、第一オペランド、第二オペランド、演算子からなる配列を出力とする関数 <code class="docutils literal notranslate"><span class="pre">parse(expr)</span></code> を実装する。</p>
+<ul class="simple">
+<li><p>オペランドに対する正規表現は直前の問いの結果を利用する。</p></li>
+<li><p>演算子の集合は <code class="docutils literal notranslate"><span class="pre">[-+*/]</span></code> のように、マイナスを先頭に持ってくるのがコツとなる。</p></li>
+<li><p>演算子の前後には空白文字がいくつあってもよいから <code class="docutils literal notranslate"><span class="pre">\s*</span></code> を入れる。</p></li>
+</ul>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">match</span></code> の結果をそのまま返すことはたぶんできない。マッチを選り抜いて新しく配列を作って返す。</p>
+</section>
+</section>
+</section>
+<section id="backreferences-in-pattern-n-and-k-name">
+<h2><a class="toc-backref" href="#id22">Backreferences in pattern: \N and \k&lt;name&gt;</a><a class="headerlink" href="#backreferences-in-pattern-n-and-k-name" title="Permalink to this heading">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/regexp-backreferences">https://javascript.info/regexp-backreferences</a>&gt; のノート。</p>
+<p>捕捉グループ <code class="docutils literal notranslate"><span class="pre">(</span> <span class="pre">)</span></code> の内容は、結果や置換文字列だけでなく、パターン自体にも利用することができる。</p>
+<section id="backreference-by-number-n">
+<h3>Backreference by number: \N<a class="headerlink" href="#backreference-by-number-n" title="Permalink to this heading">¶</a></h3>
+<p>番号 1, 2, 3, … の捕捉グループの内容を <code class="docutils literal notranslate"><span class="pre">\1</span></code>, <code class="docutils literal notranslate"><span class="pre">\2</span></code>, <code class="docutils literal notranslate"><span class="pre">\3</span></code>, … で参照できる。</p>
+<p>番号が振られていない <code class="docutils literal notranslate"><span class="pre">(?:</span> <span class="pre">)</span></code> は参照されない。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="sb">`He said: &quot;She&#39;s the one!&quot;.`</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/([&#39;&quot;])(.*?)\1/g</span><span class="p">);</span> <span class="c1">// &quot;She&#39;s the one!&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="backreference-by-name-k-name">
+<h3>Backreference by name: \k&lt;name&gt;<a class="headerlink" href="#backreference-by-name-k-name" title="Permalink to this heading">¶</a></h3>
+<p>名前付きグループ <code class="docutils literal notranslate"><span class="pre">(?&lt;name&gt;</span> <span class="pre">)</span></code> を使った場合には <code class="docutils literal notranslate"><span class="pre">\k&lt;name&gt;</span></code> で参照できる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="sb">`He said: &quot;She&#39;s the one!&quot;.`</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/(?&lt;quote&gt;[&#39;&quot;])(.*?)\k&lt;quote&gt;/g</span><span class="p">);</span> <span class="c1">// &quot;She&#39;s the one!&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="alternation-or">
+<h2><a class="toc-backref" href="#id23">Alternation (OR) |</a><a class="headerlink" href="#alternation-or" title="Permalink to this heading">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/regexp-alternation">https://javascript.info/regexp-alternation</a>&gt; のノート。</p>
+<p>正規表現では、縦線文字でパターン同士を連結すると、「それらのパターンのいずれかに」マッチする表現となる。例えば、プログラミング言語を探すとする。 HTML, PHP,
+Java, JavaScript にマッチするかを調べるには、例えば次のように書く：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;First HTML appeared, then CSS, then JavaScript&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span>
+    <span class="sr">/html|php|css|java(script)?/gi</span><span class="p">);</span> <span class="c1">// [&#39;HTML&#39;, &#39;CSS&#39;, &#39;JavaScript&#39;]</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">gr(a|e)y</span></code> と <code class="docutils literal notranslate"><span class="pre">gr[ae]y</span></code> は同じものにマッチする。そして <code class="docutils literal notranslate"><span class="pre">gra|ey</span></code> は <code class="docutils literal notranslate"><span class="pre">gra</span></code>
+または <code class="docutils literal notranslate"><span class="pre">ey</span></code> にマッチする。括弧で括らない場合には、いちばん外側に括弧があるかのように解釈されるらしい。</p>
+<section id="example-regexp-for-time">
+<h3>Example: regexp for time<a class="headerlink" href="#example-regexp-for-time" title="Permalink to this heading">¶</a></h3>
+<p>以前やった HH:MM のような時刻の正規表現を改良する。25:99 みたいなものを無視したい。</p>
+<p>HH の部分は次のように正規表現を組み立てる：</p>
+<ul class="simple">
+<li><p>最初の桁が 0 または 1 の場合、次の桁はどれでもかまわないから <code class="docutils literal notranslate"><span class="pre">[01]\d</span></code></p></li>
+<li><p>最初の桁が 2 であれば、次の桁は 0, 1, 2, 3 のいずれかでなければならないから
+<code class="docutils literal notranslate"><span class="pre">2[0-3]</span></code></p></li>
+<li><p>最初の桁が他の文字になることは認めない。</p></li>
+</ul>
+<p>以上を縦棒で連結したもの <code class="docutils literal notranslate"><span class="pre">[01]\d|2[0-3]</span></code> を HH 部分の正規表現とする。</p>
+<p>MM 部分も似たように組み立てて <code class="docutils literal notranslate"><span class="pre">[0-5]\d</span></code> を得る。</p>
+<p>これらを <code class="docutils literal notranslate"><span class="pre">:</span></code> で連結する。ただし見えない括弧問題を避けるために HH 部分に丸括弧を付ける。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;00:00 10:10 23:59 25:99 1:2&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span>
+    <span class="sr">/([01]\d|2[0-3]):[0-5]\d/g</span><span class="p">));</span> <span class="c1">// [&quot;00:00&quot;, &quot;10:10&quot;, &quot;23:59&quot;]</span>
+</pre></div>
+</div>
+</section>
+<section id="id7">
+<h3>Tasks<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
+<section id="find-programming-languages">
+<h4>Find programming languages<a class="headerlink" href="#find-programming-languages" title="Permalink to this heading">¶</a></h4>
+<p>話を単純にして要点をまとめる。文字列から Java か JavaScript を検索したいとする。そこで <code class="docutils literal notranslate"><span class="pre">Java|JavaScript</span></code> のように指定してしまうと、文字列に JavaScript しかない場合には狙いどおりにいかない。Java が先に見つかってしまうからだ。</p>
+<p>そこで、次のどちらかのパターンを指定する：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Java(Script)?</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">JavaScript|Java</span></code></p></li>
+</ul>
+</section>
+<section id="find-bbtag-pairs">
+<h4>Find bbtag pairs<a class="headerlink" href="#find-bbtag-pairs" title="Permalink to this heading">¶</a></h4>
+<p>過去数章の内容を総合したような演習問題。</p>
+<ul class="simple">
+<li><p>まず開始タグのパターンは <code class="docutils literal notranslate"><span class="pre">\[(b|url|quote)]</span></code> のようになる。</p></li>
+<li><p>終了タグは、他に捕捉グループがなければ <code class="docutils literal notranslate"><span class="pre">\[/\1]</span></code> となる。リテラル正規表現で指定するならば <code class="docutils literal notranslate"><span class="pre">/\[\/\1]/</span></code></p></li>
+<li><p>タグの中身はこの場合には <code class="docutils literal notranslate"><span class="pre">.*?</span></code> とする（同一タグの入れ子を除外することになる）。</p></li>
+</ul>
+<p>文字列が複数行にまたがる可能性があるので、正規表現オプションに <code class="docutils literal notranslate"><span class="pre">s</span></code> を加えて
+<code class="docutils literal notranslate"><span class="pre">.</span></code> に改行文字も対応させる。</p>
+</section>
+<section id="find-quoted-strings">
+<h4>Find quoted strings<a class="headerlink" href="#find-quoted-strings" title="Permalink to this heading">¶</a></h4>
+<p>二重引用符に囲まれた部分をマッチさせたい。エスケープ対応をする必要がある。特に、<code class="docutils literal notranslate"><span class="pre">&quot;AAAAAA\&quot;</span></code> のように、エスケープされた二重引用符で終わる文字列にマッチしてはいけない。</p>
+<ul class="simple">
+<li><p>開始文字は当然ながら <code class="docutils literal notranslate"><span class="pre">&quot;</span></code> とする。</p></li>
+<li><p>終了文字も当然 <code class="docutils literal notranslate"><span class="pre">&quot;</span></code> とする。</p></li>
+<li><p>中間にくるものは空文字を含む何かが何文字来てもいい。エスケープされているか否かで場合分けする。</p>
+<ul>
+<li><p>エスケープ文字、任意の文字 <code class="docutils literal notranslate"><span class="pre">.</span></code></p></li>
+<li><p>エスケープでない文字</p></li>
+<li><p>二重引用符でない文字</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="sr">/&quot;(\\.|[^&quot;\\])*&quot;/</span>
+</pre></div>
+</div>
+</section>
+<section id="find-the-full-tag">
+<h4>Find the full tag<a class="headerlink" href="#find-the-full-tag" title="Permalink to this heading">¶</a></h4>
+<p>タグ <code class="docutils literal notranslate"><span class="pre">&lt;style...&gt;</span></code> を見つける正規表現。全体にマッチする必要がある。
+<code class="docutils literal notranslate"><span class="pre">&lt;style&gt;</span></code> のように属性がないこともあれば、
+<code class="docutils literal notranslate"><span class="pre">&lt;style</span> <span class="pre">type=&quot;...&quot;</span> <span class="pre">id=&quot;...&quot;&gt;</span></code> のように属性が複数あることもある。</p>
+<ul class="simple">
+<li><p>開始パターンは <code class="docutils literal notranslate"><span class="pre">&lt;style</span></code> でいいとする。</p></li>
+<li><p>次の文字は以下のどちらかしか認めない。</p>
+<ul>
+<li><p>文字 <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> で終わる。</p></li>
+<li><p>空白文字、それに続いて任意で何かの文字が任意の個数、最後に文字 <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> で終わる。</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="sr">/&lt;style(&gt;|\s.*?&gt;)/</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="lookahead-and-lookbehind">
+<h2><a class="toc-backref" href="#id24">Lookahead and lookbehind</a><a class="headerlink" href="#lookahead-and-lookbehind" title="Permalink to this heading">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/regexp-lookahead-lookbehind">https://javascript.info/regexp-lookahead-lookbehind</a>&gt; のノート。</p>
+<p>あるパターンの後に続いたり、前にある別のパターンとのマッチしか要らない場合がある。そのための特別な構文 lookahead, lookbehind を習う。</p>
+<section id="lookahead">
+<h3>Lookahead<a class="headerlink" href="#lookahead" title="Permalink to this heading">¶</a></h3>
+<p>正規表現 <code class="docutils literal notranslate"><span class="pre">X(?=Y)</span></code> は「パターン <code class="docutils literal notranslate"><span class="pre">X</span></code> が欲しいが、パターン <code class="docutils literal notranslate"><span class="pre">Y</span></code> が続く場合のみ欲しい」ときに使う。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;1 turkey costs 30€&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/\d+(?=€)/</span><span class="p">);</span> <span class="c1">// [&quot;30&quot;]</span>
+</pre></div>
+</div>
+<p>正規表現エンジンは <code class="docutils literal notranslate"><span class="pre">X</span></code> を見つけ、その直後に <code class="docutils literal notranslate"><span class="pre">Y</span></code> があるかどうかをチェックする。マッチしない場合には、マッチする可能性のあるものを飛ばして検索を続ける。例えばパターン <code class="docutils literal notranslate"><span class="pre">X</span></code>, <code class="docutils literal notranslate"><span class="pre">Y</span></code>, <code class="docutils literal notranslate"><span class="pre">Z</span></code> を含む正規表現 <code class="docutils literal notranslate"><span class="pre">X(?=Y)(?=Z)</span></code> を考える。これは
+<code class="docutils literal notranslate"><span class="pre">Y</span></code> でも <code class="docutils literal notranslate"><span class="pre">Z</span></code> でもマッチするパターンが <code class="docutils literal notranslate"><span class="pre">X</span></code> に続いているようなものにマッチする。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="s2">&quot;1 turkey costs 30€&quot;</span><span class="p">;</span>
+
+<span class="nx">str</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/\d+(?=\s)(?=.*30)/</span><span class="p">);</span> <span class="c1">// [&quot;1&quot;]</span>
+<span class="nx">str</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/\d+(?=.*30)(?=\s)/</span><span class="p">);</span> <span class="c1">// [&quot;1&quot;]</span>
+</pre></div>
+</div>
+<p>いい例ではなさそうだ。</p>
+</section>
+<section id="negative-lookahead">
+<h3>Negative lookahead<a class="headerlink" href="#negative-lookahead" title="Permalink to this heading">¶</a></h3>
+<p>正規表現 <code class="docutils literal notranslate"><span class="pre">X(?!Y)</span></code> は「パターン <code class="docutils literal notranslate"><span class="pre">X</span></code> が欲しいが、パターン <code class="docutils literal notranslate"><span class="pre">Y</span></code> が続かない場合のみ欲しい」ときに使う。</p>
+<p>今度は価格ではなく、七面鳥の数量が欲しいとする（ユーロが付かないほうの数字）。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;2 turkeys cost 60€&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/\d+\b(?!€)/g</span><span class="p">);</span> <span class="c1">// [&quot;2&quot;]</span>
+</pre></div>
+</div>
+</section>
+<section id="lookbehind">
+<h3>Lookbehind<a class="headerlink" href="#lookbehind" title="Permalink to this heading">¶</a></h3>
+<p>Lookbehind は lookahead に似ているが、チェックする向きが反対だ。パターンの前に指定パターンがある場合にしか、そのパターンにマッチさせないようにできる。</p>
+<p><code class="docutils literal notranslate"><span class="pre">(?&lt;=Y)X</span></code>: その直前にパターン <code class="docutils literal notranslate"><span class="pre">Y</span></code> があるときに限りパターン <code class="docutils literal notranslate"><span class="pre">X</span></code> にマッチする。</p>
+<p><code class="docutils literal notranslate"><span class="pre">(?&lt;!Y)X</span></code>: その直前にパターン <code class="docutils literal notranslate"><span class="pre">Y</span></code> がないときに限りパターン <code class="docutils literal notranslate"><span class="pre">X</span></code> にマッチする。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="s2">&quot;2 turkey costs $30&quot;</span><span class="p">;</span>
+
+<span class="c1">// the dollar sign is escaped \$</span>
+<span class="nx">str</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/(?&lt;=\$)\d+/</span><span class="p">);</span> <span class="c1">// [&quot;30&quot;]</span>
+<span class="nx">str</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/(?&lt;!\$)\b\d+/g</span><span class="p">);</span> <span class="c1">// [&quot;2&quot;]</span>
+</pre></div>
+</div>
+<p>二つ目の <code class="docutils literal notranslate"><span class="pre">match</span></code> では <code class="docutils literal notranslate"><span class="pre">\b</span></code> を欠くと <code class="docutils literal notranslate"><span class="pre">30</span></code> の <code class="docutils literal notranslate"><span class="pre">0</span></code> がマッチする。</p>
+</section>
+<section id="capturing-groups-1">
+<span id="id8"></span><h3>Capturing groups<a class="headerlink" href="#capturing-groups-1" title="Permalink to this heading">¶</a></h3>
+<p>一般的には lookaround の丸括弧内のパターンはマッチ結果の一部とはならない。そのようなパターンを参照したい場合には、別途丸括弧で包み込む。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="sr">/\d+(?=(€|kr))/</span>
+<span class="sr">/(?&lt;=(\$|£))\d+/</span>
+</pre></div>
+</div>
+</section>
+<section id="id9">
+<h3>Tasks<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
+<section id="find-non-negative-integers">
+<h4>Find non-negative integers<a class="headerlink" href="#find-non-negative-integers" title="Permalink to this heading">¶</a></h4>
+<p>「マイナス文字で始まらない数字の塊」というパターンを組み立てるのではダメだ。「マイナス文字でも数字でもない文字の次に来る数字の塊」が正しい考え方だ。</p>
+</section>
+<section id="insert-after-head">
+<h4>Insert After Head<a class="headerlink" href="#insert-after-head" title="Permalink to this heading">¶</a></h4>
+<p>問題の概要はこうだ。HTML ファイル全体を読み込んで得た文字列があるとする。この
+<code class="docutils literal notranslate"><span class="pre">BODY</span></code> 開始タグの直後に文字列 <code class="docutils literal notranslate"><span class="pre">&lt;h1&gt;Hello&lt;/h1&gt;</span></code> を挿し込みたい。ただし、<code class="docutils literal notranslate"><span class="pre">BODY</span></code> 開始タグの属性などがどうなっているかはわからない。</p>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">str.replace(regex,</span> <span class="pre">hello)</span></code> を使って挿し込むのだが、二パターン紹介されている。題意に沿っているのは後者の lookbehind 採用版。位置にしかマッチしないことを利用するので <code class="docutils literal notranslate"><span class="pre">$&amp;</span></code> が要らない。</p>
+<p>HTML のテキストを正規表現で処理するときにはフラグ <code class="docutils literal notranslate"><span class="pre">s</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span></code> の検討をいつでもすること。</p>
+</section>
+</section>
+</section>
+<section id="catastrophic-backtracking">
+<h2><a class="toc-backref" href="#id25">Catastrophic backtracking</a><a class="headerlink" href="#catastrophic-backtracking" title="Permalink to this heading">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/regexp-catastrophic-backtracking">https://javascript.info/regexp-catastrophic-backtracking</a>&gt; のノート。</p>
+<p>まずい正規表現を書くと JavaScript エンジンが固まる。</p>
+<section id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h3>
+<p>正規表現 <code class="docutils literal notranslate"><span class="pre">^(\w+\s?)*$</span></code> を考える。これは、行頭から行末まで、0 個以上の単語を指定するものだ。</p>
+<p>しかし、特定の文字列については処理時間が長くなる。
+JavaScript エンジンが 100% の CPU 消費で固まるほど長い時間だ。</p>
+</section>
+<section id="simplified-example">
+<h3>Simplified example<a class="headerlink" href="#simplified-example" title="Permalink to this heading">¶</a></h3>
+<p>正規表現を単純にして要点を理解する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="sr">/^(\d+)*$/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;012345678901234567890123456789z&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>正規表現エンジンの動きはだいたい次のようなものだ：</p>
+<ol class="arabic simple">
+<li><p>先頭から <code class="docutils literal notranslate"><span class="pre">\d+</span></code> 部分を貪欲に取り尽くす。<code class="docutils literal notranslate"><span class="pre">012...789</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(\d+)*</span></code> 部分を処理しようとするが、これ以上やることがない。</p></li>
+<li><p>次に <code class="docutils literal notranslate"><span class="pre">$</span></code> を処理するが、文字 <code class="docutils literal notranslate"><span class="pre">z</span></code> があるのでマッチ失敗とする。</p></li>
+<li><p>マッチ失敗なので、貪欲モードのバックトラックを発動する。
+<code class="docutils literal notranslate"><span class="pre">\d+</span></code> 部分を <code class="docutils literal notranslate"><span class="pre">012...89</span></code> にする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(\d+)*</span></code> 部分の <code class="docutils literal notranslate"><span class="pre">*</span></code> に相当する部分を <code class="docutils literal notranslate"><span class="pre">9</span></code> とする。
+<code class="docutils literal notranslate"><span class="pre">\d+</span></code> が二つ (<code class="docutils literal notranslate"><span class="pre">*</span></code>) あるからマッチ成功という判断だ。</p></li>
+<li><p>次に <code class="docutils literal notranslate"><span class="pre">$</span></code> を処理するが、文字 <code class="docutils literal notranslate"><span class="pre">z</span></code> があるのでマッチ失敗とする。</p></li>
+<li><p>マッチ失敗なので、貪欲モードのバックトラックを発動する。
+<code class="docutils literal notranslate"><span class="pre">\d+</span></code> 部分を <code class="docutils literal notranslate"><span class="pre">012...8</span></code> にする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*</span></code> 部分を <code class="docutils literal notranslate"><span class="pre">89</span></code> とみなすと <code class="docutils literal notranslate"><span class="pre">\d+</span></code> が二つ (<code class="docutils literal notranslate"><span class="pre">*</span></code>) あるからマッチ成功。</p></li>
+</ol>
+<p>こんな感じで数字部分 <span class="math notranslate nohighlight">\(n\)</span> 桁の分割 <span class="math notranslate nohighlight">\(2^{n - 1}\)</span> 通りをすべてチェックするから CPU が固まるのだ。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>(0...123456789)z
+(0...12345678)(9)z
+(0...1234567)(89)z
+(0...1234567)(8)(9)z
+(0...123456)(789)z
+(0...123456)(78)(9)z
+...
+</pre></div>
+</div>
+</section>
+<section id="back-to-words-and-strings">
+<h3>Back to words and strings<a class="headerlink" href="#back-to-words-and-strings" title="Permalink to this heading">¶</a></h3>
+<p>冒頭の正規表現 <code class="docutils literal notranslate"><span class="pre">^(\w+\s?)*$</span></code> についても同様の理由で、入力次第で CPU が固まる。</p>
+<p>ここでは不精モードを有効にしても役に立たない。組み合わせの順序が変わるだけにすぎない。</p>
+<p>正規表現エンジンによっては、技巧的なテストや有限自動化によって、組み合わせをすべて調べないようにしたり、より速くしたりすることができるが、大半のエンジンはそうではない。いつも役に立つとは限らない。</p>
+</section>
+<section id="how-to-fix">
+<h3>How to fix?<a class="headerlink" href="#how-to-fix" title="Permalink to this heading">¶</a></h3>
+<p>解決方法は二つある。一つは可能な組み合わせの数を減らすことだ。</p>
+<p>正規表現 <code class="docutils literal notranslate"><span class="pre">^(\w+\s?)*$</span></code> を <code class="docutils literal notranslate"><span class="pre">^(\w+\s)*\w*$</span></code> と書き換える。空白を省かないようにする。これでいくつかの <code class="docutils literal notranslate"><span class="pre">\d</span></code> に続く空白文字のあとに、オプショナルで <code class="docutils literal notranslate"><span class="pre">\d</span></code> 任意個数が来るパターンとなる。</p>
+<p>例えば文字列 <code class="docutils literal notranslate"><span class="pre">input</span></code> を旧 <code class="docutils literal notranslate"><span class="pre">(\w+\s?)*</span></code> 部分において <code class="docutils literal notranslate"><span class="pre">in</span></code> と <code class="docutils literal notranslate"><span class="pre">put</span></code> のように分割する場合が消えた。この新パターンは、組み合わせのほとんどを試す時間を節約する。</p>
+</section>
+<section id="preventing-backtracking">
+<h3>Preventing backtracking<a class="headerlink" href="#preventing-backtracking" title="Permalink to this heading">¶</a></h3>
+<p>別のやり方として、量指定子のバックトラックを禁止することが考えられる。問題の根本は、正規表現エンジンが人間の目からは明らかに間違っている組み合わせをたくさん試そうとすることだ。</p>
+<p><code class="docutils literal notranslate"><span class="pre">^(\w+\s?)*$</span></code> では <code class="docutils literal notranslate"><span class="pre">\w+</span></code> でのバックトラックを禁じたいかもしれない。つまり
+<code class="docutils literal notranslate"><span class="pre">\w+</span></code> は可能な限り長い単語全体とマッチする必要がある。 <code class="docutils literal notranslate"><span class="pre">\w+</span></code> の繰り返し回数を減らしたり、<code class="docutils literal notranslate"><span class="pre">\w+\w+</span></code> などのように分割したりする必要はない。</p>
+<p>最近の正規表現エンジンでは、そのために所有量指定子 (possessive quantifiers) をサポートしている。正規の量指定子の後に <code class="docutils literal notranslate"><span class="pre">+</span></code> をつけると所有格になる。例えば
+<code class="docutils literal notranslate"><span class="pre">\d+</span></code> に対応するものは <code class="docutils literal notranslate"><span class="pre">\d++</span></code> と表される。</p>
+<p>所有量指定子は、実は普通の量指定子量詞よりも単純だ。バックトラックをせずに、マッチングできる数だけマッチングする。バックトラックのない検索処理はより単純になる。</p>
+<p>また、JavaScript ではサポートされていないが、括弧の中のバックトラックを無効にする方法も考えられる。</p>
+<section id="lookahead-to-the-rescue">
+<h4>Lookahead to the rescue!<a class="headerlink" href="#lookahead-to-the-rescue" title="Permalink to this heading">¶</a></h4>
+<p>バックトラックが意味をなさないことがあるので、<code class="docutils literal notranslate"><span class="pre">+</span></code> のような量指定子はバックトラックしないようにしたい。</p>
+<p>パターン <code class="docutils literal notranslate"><span class="pre">\w</span></code> の、バックトラックをせずに繰り返しをできるだけ多く取るパターンは
+<code class="docutils literal notranslate"><span class="pre">(?=(\w+))\1</span></code> だ。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">?=</span></code> は現在位置から始まる最長ワード <code class="docutils literal notranslate"><span class="pre">\w+</span></code> を前方に探す。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(?=</span> <span class="pre">)</span></code> の中身は正規表現エンジンに記憶されないので、<code class="docutils literal notranslate"><span class="pre">\w+</span></code> を括弧で囲んで捕捉グループを指定する。</p></li>
+<li><p>そして、それを <code class="docutils literal notranslate"><span class="pre">\1</span></code> としてパターン中から参照できるようにする。</p></li>
+</ul>
+<p>つまり、前方を見て、単語 <code class="docutils literal notranslate"><span class="pre">\w+</span></code> があれば、それを <code class="docutils literal notranslate"><span class="pre">\1</span></code> としてマッチする。その理由は、lookahead が全体として単語 <code class="docutils literal notranslate"><span class="pre">\w+</span></code> を見つけ、それを <code class="docutils literal notranslate"><span class="pre">\1``を使ってパター</span>
+<span class="pre">ンに取り込むからだ。つまり、本質的に所有量指定子</span> <span class="pre">``+</span></code> を実装している。単語全体
+<code class="docutils literal notranslate"><span class="pre">\w+</span></code> しか捕捉しないのであって、その一部ではない。</p>
+<p>例えば、JavaScript という単語では、Java にマッチするだけでなく、Script を省いて残りのパターンにマッチさせることもある。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;JavaScript&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/\w+Script/</span><span class="p">);</span> <span class="c1">// &quot;JavaScript&quot;</span>
+</pre></div>
+</div>
+<p>この場合、まず <code class="docutils literal notranslate"><span class="pre">\w+</span></code> が <code class="docutils literal notranslate"><span class="pre">JavaScript</span></code> という単語全体を捕捉する。その後 <code class="docutils literal notranslate"><span class="pre">+</span></code>
+が一文字ずつバックトラックして、パターンの残りの部分にマッチしようと試みる。このバックトラックは <code class="docutils literal notranslate"><span class="pre">\w+</span></code> が <code class="docutils literal notranslate"><span class="pre">Java</span></code> にマッチした時点で成功する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;JavaScript&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/(?=(\w+))\1Script/</span><span class="p">);</span> <span class="c1">// null</span>
+</pre></div>
+</div>
+<p>この場合 <code class="docutils literal notranslate"><span class="pre">(?=(\w+))</span></code> は lookahead して <code class="docutils literal notranslate"><span class="pre">JavaScript</span></code> という単語を見つける。これは <code class="docutils literal notranslate"><span class="pre">\1</span></code> によって全体としてパターンに含まれているので、その後に <code class="docutils literal notranslate"><span class="pre">Script</span></code> を見つける方法が残らない。</p>
+<p>その後の <code class="docutils literal notranslate"><span class="pre">+</span></code> に対するバックトラックを禁止する必要があるときには、
+<code class="docutils literal notranslate"><span class="pre">(?=(\w+))\1</span></code> の中にもっと複雑な正規表現を <code class="docutils literal notranslate"><span class="pre">\w</span></code> の代わりに入れることができる。</p>
+<hr class="docutils" />
+<p>最初の例を、バックトラックを防ぐために lookahead を使って書き直す。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="sr">/^((?=(\w+))\2\s?)*$/</span>
+</pre></div>
+</div>
+<p>名前グループでわずかに見やすくする。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="sr">/^((?=(?&lt;word&gt;\w+))\k&lt;word&gt;\s?)*$/</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="sticky-flag-y-searching-at-position">
+<h2><a class="toc-backref" href="#id26">Sticky flag “y”, searching at position</a><a class="headerlink" href="#sticky-flag-y-searching-at-position" title="Permalink to this heading">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/regexp-sticky">https://javascript.info/regexp-sticky</a>&gt; のノート。</p>
+<p>フラグ <code class="docutils literal notranslate"><span class="pre">y</span></code> は、文字列の指定された位置で検索を実行する。指定された位置の何かを読み取るときに用いる。</p>
+<p>例えばコード <code class="docutils literal notranslate"><span class="pre">let</span> <span class="pre">varName</span> <span class="pre">=</span> <span class="pre">&quot;value&quot;</span></code> の変数名を得たい。</p>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">regexp.exec(str)</span></code> を使うやり方がある。フラグ <code class="docutils literal notranslate"><span class="pre">g</span></code> と <code class="docutils literal notranslate"><span class="pre">y</span></code> がない正規表現では、このメソッドは最初にマッチするものしか探さない。フラグ <code class="docutils literal notranslate"><span class="pre">g</span></code> があるときに限り、プロパティー <code class="docutils literal notranslate"><span class="pre">regexp.lastIndex</span></code> に格納された位置から、<code class="docutils literal notranslate"><span class="pre">str</span></code> の検索をする。そして、マッチした場合は、マッチ直後のインデックスを
+<code class="docutils literal notranslate"><span class="pre">regexp.lastIndex</span></code> に代入する。つまり、<code class="docutils literal notranslate"><span class="pre">regexp.lastIndex</span></code> は検索の出発点であり、 <code class="docutils literal notranslate"><span class="pre">regexp.exec(str)</span></code> を呼ぶたびに新しい値にリセットされる。</p>
+<p>したがって、<code class="docutils literal notranslate"><span class="pre">regexp.exec(str)</span></code> を連続して呼び出すと、次々とマッチが返される。メソッド <code class="docutils literal notranslate"><span class="pre">str.matchAll</span></code> がない場合には代わりになる。</p>
+<p>次のようにすると、変数名を得ることだけができる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="s1">&#39;let varName = &quot;value&quot;&#39;</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">regexp</span> <span class="o">=</span> <span class="sr">/\w+/g</span><span class="p">;</span>
+<span class="nx">regexp</span><span class="p">.</span><span class="nx">lastIndex</span> <span class="o">=</span> <span class="mf">4</span><span class="p">;</span>
+<span class="nx">regexp</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span> <span class="c1">// [&quot;value&quot;]</span>
+</pre></div>
+</div>
+<p>ここからフラグ <code class="docutils literal notranslate"><span class="pre">y</span></code> の説明になる。フラグ <code class="docutils literal notranslate"><span class="pre">y</span></code> は <code class="docutils literal notranslate"><span class="pre">regexp.exec</span></code> が
+<code class="docutils literal notranslate"><span class="pre">lastIndex</span></code> の位置から厳密に検索するようにする。上の例は実は <code class="docutils literal notranslate"><span class="pre">lastIndex</span> <span class="pre">=</span> <span class="pre">3</span></code>
+でも同じ結果となった。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="s1">&#39;let varName = &quot;value&quot;&#39;</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">regexp</span> <span class="o">=</span> <span class="sr">/\w+/y</span><span class="p">;</span>
+<span class="nx">regexp</span><span class="p">.</span><span class="nx">lastIndex</span> <span class="o">=</span> <span class="mf">3</span><span class="p">;</span>
+<span class="nx">regexp</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span> <span class="c1">// null</span>
+
+<span class="nx">regexp</span><span class="p">.</span><span class="nx">lastIndex</span> <span class="o">=</span> <span class="mf">4</span><span class="p">;</span>
+<span class="nx">regexp</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span> <span class="c1">// [&quot;varName&quot;]</span>
+</pre></div>
+</div>
+<p>フラグ <code class="docutils literal notranslate"><span class="pre">y</span></code> を使用することで性能向上がある。長いテキストがあり、その中にマッチするものが全くないとする。フラグ <code class="docutils literal notranslate"><span class="pre">g</span></code> を使った検索では、テキストの最後まで行っても何も見つからない。正確な位置だけをチェックするフラグ <code class="docutils literal notranslate"><span class="pre">y</span></code> を使う検索よりも時間がかなりかかってしまう。</p>
+</section>
+<section id="methods-of-regexp-and-string">
+<h2><a class="toc-backref" href="#id27">Methods of RegExp and String</a><a class="headerlink" href="#methods-of-regexp-and-string" title="Permalink to this heading">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/regexp-methods">https://javascript.info/regexp-methods</a>&gt; のノート。</p>
+<section id="str-match-regexp">
+<h3>str.match(regexp)<a class="headerlink" href="#str-match-regexp" title="Permalink to this heading">¶</a></h3>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">str.match(regexp)</span></code> はいわばモードが三つある。</p>
+<ol class="arabic simple">
+<li><p>正規表現がフラグ <code class="docutils literal notranslate"><span class="pre">g</span></code> を持たない場合、最初のマッチだけを、捕捉グループの配列として返す。また、この配列にはプロパティー <code class="docutils literal notranslate"><span class="pre">index</span></code> と <code class="docutils literal notranslate"><span class="pre">input</span></code> がある。</p></li>
+<li><p>正規表現がフラグ <code class="docutils literal notranslate"><span class="pre">g</span></code> を持つ場合、グループやその他の詳細を捕捉せず、すべてのマッチを文字列とした配列を返す。</p></li>
+<li><p>マッチするものがなければ、フラグ <code class="docutils literal notranslate"><span class="pre">g</span></code> があろうがなかろうが <code class="docutils literal notranslate"><span class="pre">null</span></code> を返す。空の配列ではなく <code class="docutils literal notranslate"><span class="pre">null</span></code> であることを忘れないようにする。</p></li>
+</ol>
+<p>いつでも配列として結果を扱いたい場合には、次のように書くといい：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">regexp</span><span class="p">)</span> <span class="o">??</span> <span class="p">[];</span>
+</pre></div>
+</div>
+</section>
+<section id="str-matchall-regexp">
+<h3>str.matchAll(regexp)<a class="headerlink" href="#str-matchall-regexp" title="Permalink to this heading">¶</a></h3>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">str.matchAll(regexp)</span></code> は <code class="docutils literal notranslate"><span class="pre">str.match</span></code> の上位互換バージョンのようなものだ。これはすべてのグループとのすべてのマッチを検索するために主に用いられる。元となった <code class="docutils literal notranslate"><span class="pre">str.match</span></code> との三つの違い：</p>
+<ol class="arabic simple">
+<li><p>配列ではなく、マッチからなる反復可能なオブジェクトを返す。</p></li>
+<li><p>すべてのマッチは、捕捉グループからなる配列として返される。フラグ <code class="docutils literal notranslate"><span class="pre">g</span></code> なし
+<code class="docutils literal notranslate"><span class="pre">str.match</span></code> 形式だ。</p></li>
+<li><p>結果がない場合は空の反復可能オブジェクトを返す。今度は <code class="docutils literal notranslate"><span class="pre">null</span></code> ではない。</p></li>
+</ol>
+</section>
+<section id="str-split-regexp-substr-limit">
+<h3>str.split(regexp|substr, limit)<a class="headerlink" href="#str-split-regexp-substr-limit" title="Permalink to this heading">¶</a></h3>
+<p>正規表現または部分文字列で区切り方を指定して文字列を分割する。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;12-34-56&#39;</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">);</span> <span class="c1">// [&#39;12&#39;, &#39;34&#39;, &#39;56&#39;]</span>
+
+<span class="s1">&#39;12, 34, 56&#39;</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="sr">/,\s*/</span><span class="p">);</span> <span class="c1">// [&#39;12&#39;, &#39;34&#39;, &#39;56&#39;]</span>
+</pre></div>
+</div>
+</section>
+<section id="str-search-regexp">
+<h3>str.search(regexp)<a class="headerlink" href="#str-search-regexp" title="Permalink to this heading">¶</a></h3>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">str.search(regexp)</span></code> は最初にマッチした位置を返す。何もない場合は -1
+を返す。</p>
+</section>
+<section id="str-replace-str-regexp-str-func">
+<h3>str.replace(str|regexp, str|func)<a class="headerlink" href="#str-replace-str-regexp-str-func" title="Permalink to this heading">¶</a></h3>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">str.replace</span></code> は汎用文字列置換機能だ。</p>
+<p>第一引数が文字列の場合、最初にマッチしたものしか置換されない。すべてのマッチを見つけるには、文字列、フラグ <code class="docutils literal notranslate"><span class="pre">g</span></code> を伴う正規表現を使用する必要がある。</p>
+<p>第二引数が文字列の場合、特別な文字列を指定することで特別な置換をする。その表はすでに示した。</p>
+<p>賢い置換を必要とする状況では、第二引数に関数を指定することができる。この関数はマッチするたびに呼び出され、返された値が置換として挿し込まれる。</p>
+<p>その関数の引数リストは <code class="docutils literal notranslate"><span class="pre">(match,</span> <span class="pre">p1,</span> <span class="pre">p2,</span> <span class="pre">...,</span> <span class="pre">pn,</span> <span class="pre">offset,</span> <span class="pre">input,</span> <span class="pre">groups)</span></code> のようなものだ。正規表現に括弧がない場合は <code class="docutils literal notranslate"><span class="pre">(str,</span> <span class="pre">offset,</span> <span class="pre">input)</span></code> となる。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">match</span></code>: 正規表現のマッチ</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">p1</span></code>, …, <code class="docutils literal notranslate"><span class="pre">pn</span></code>:捕捉グループの内容</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">offset</span></code>: マッチの位置</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">input</span></code>: <code class="docutils literal notranslate"><span class="pre">replace</span></code> 呼び出しの <code class="docutils literal notranslate"><span class="pre">this</span></code> に相当する文字列</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">groups</span></code>: 名前付きグループがあるオブジェクト</p></li>
+</ul>
+</section>
+<section id="str-replaceall-str-regexp-str-func">
+<h3>str.replaceAll(str|regexp, str|func)<a class="headerlink" href="#str-replaceall-str-regexp-str-func" title="Permalink to this heading">¶</a></h3>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">str.replaceAll</span></code> は、基本的には <code class="docutils literal notranslate"><span class="pre">str.replace</span></code> と同じだ。大きな違いが二つある。</p>
+<ol class="arabic simple">
+<li><p>第一引数が文字列の場合、その文字列のすべての出現箇所を置換する。</p></li>
+<li><p>第一引数が正規表現の場合、フラグ <code class="docutils literal notranslate"><span class="pre">g</span></code> がないとエラーになる。フラグを付けると
+<code class="docutils literal notranslate"><span class="pre">replace</span></code> と同じように動作する。</p></li>
+</ol>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;12-34-56&#39;</span><span class="p">.</span><span class="nx">replaceAll</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">);</span> <span class="c1">// 12:34:56</span>
+</pre></div>
+</div>
+</section>
+<section id="regexp-exec-str">
+<h3>regexp.exec(str)<a class="headerlink" href="#regexp-exec-str" title="Permalink to this heading">¶</a></h3>
+<p>これはさっきやったばかり。</p>
+<p>以前、JavaScript にメソッド <code class="docutils literal notranslate"><span class="pre">str.matchAll</span></code> が追加されるまでは、ループ内で
+<code class="docutils literal notranslate"><span class="pre">regexp.exec</span></code> を呼び出して、グループを持つすべてのマッチを取得していたらしい。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="s1">&#39;More about JavaScript at https://javascript.info&#39;</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">regexp</span> <span class="o">=</span> <span class="sr">/javascript/ig</span><span class="p">;</span>
+
+<span class="kd">let</span> <span class="nx">result</span><span class="p">;</span>
+<span class="k">while</span> <span class="p">(</span><span class="nx">result</span> <span class="o">=</span> <span class="nx">regexp</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">str</span><span class="p">))</span> <span class="p">{</span>
+    <span class="sb">`Found </span><span class="si">${</span><span class="nx">result</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span><span class="si">}</span><span class="sb"> at position </span><span class="si">${</span><span class="nx">result</span><span class="p">.</span><span class="nx">index</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="regexp-test-str">
+<h3>regexp.test(str)<a class="headerlink" href="#regexp-test-str" title="Permalink to this heading">¶</a></h3>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">regexp.test(str)</span></code> は一致するものを探し、それが存在するかどうかを返す。</p>
+<p>正規表現がフラグ <code class="docutils literal notranslate"><span class="pre">g</span></code> を持つ場合は <code class="docutils literal notranslate"><span class="pre">regexp.exec</span></code> 同様にプロパティー
+<code class="docutils literal notranslate"><span class="pre">regexp.lastIndex</span></code> から検索し、このプロパティーを更新する。</p>
+<p>同じグローバル正規表現を異なる入力に適用すると、間違った結果になることがある。
+<code class="docutils literal notranslate"><span class="pre">regexp.test</span></code> は <code class="docutils literal notranslate"><span class="pre">regexp.lastIndex</span></code> を進めるので、別の文字列での検索がゼロ以外の位置から始まることがあるからだ。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">regexp</span> <span class="o">=</span> <span class="sr">/javascript/g</span><span class="p">;</span>
+<span class="c1">// regexp.lastIndex == 0</span>
+
+<span class="nx">regexp</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;javascript&quot;</span><span class="p">);</span> <span class="c1">// true</span>
+<span class="c1">// regexp.lastIndex == 10</span>
+
+<span class="nx">regexp</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;javascript&quot;</span><span class="p">);</span> <span class="c1">// false</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../preliminary2014.html" title="ノート準備中書籍群 2014 年編"
+             >next</a></li>
+        <li class="right" >
+          <a href="06-web-components.html" title="Web components"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >The Modern JavaScript Tutorial 読書ノート</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Part 3 Additional articles</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Regular expressions</a></li> 
+      </ul>
+    </div>
+    <div id="footer">
+      <div id="footer_logo">
+        <a class="imga" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../../_static/logos.png" width="88" height="31" /></a>
+      </div>
+      <div id="footer_copyright">
+        Since 1999<br />
+        Copyright &copy; 1999-2022, プレハブ小屋 All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
@@ -36,7 +36,7 @@
           <div class="body" role="main">
             
   <section id="id1">
-<h1><a class="toc-backref" href="#id4">補間</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id4">補間</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
 <p>本稿では補間曲線の構築方法であるラグランジュ補間とスプライン補間について記す。
 <a class="reference external" href="https://www.scipy.org/">SciPy</a> ではそれぞれ関数呼び出し一発で補間曲線が得られるので便利だ。</p>
 <div class="contents topic" id="contents">
@@ -56,7 +56,7 @@
 </ul>
 </div>
 <section id="lagrange">
-<h2><a class="toc-backref" href="#id5">Lagrange 補間</a><a class="headerlink" href="#lagrange" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">Lagrange 補間</a><a class="headerlink" href="#lagrange" title="Permalink to this heading">¶</a></h2>
 <p>普通は採用しない補間方式だが、関数 <code class="docutils literal notranslate"><span class="pre">scipy.interpolate.lagrange</span></code> を用いると
 Lagrange 補間多項式を得られる。単一の多項式で補間を表現するという性質上、多数の測定データに対して得られる補間多項式は次数が高くなり、数値計算に適さなくなる。次数が高いと、測定データから離れたパラメーターにおける補間関数の評価値が「暴れる」ので、補間としての質がそもそも問題外になる。
 SciPy のドキュメントでは、大体 20 個以上の点を寄越してくれるなと警告している。</p>
@@ -97,10 +97,10 @@ SciPy のドキュメントでは、大体 20 個以上の点を寄越してく�
 <code class="docutils literal notranslate"><span class="pre">f(t)</span></code> と評価すればよい。</p>
 </section>
 <section id="id2">
-<h2><a class="toc-backref" href="#id6">スプライン補間</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id6">スプライン補間</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
 <p>スプライン補間はたいへんメジャーな補間方式であるので、ぜひ使えるようになりたい。ドローイングアプリケーション等で離散的な点列をなめらかに通過するような曲線を描く機能がよくある。こういうものにスプライン補間が利用できるのだ。</p>
 <section id="id3">
-<h3><a class="toc-backref" href="#id7">データが 1 次元の場合</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id7">データが 1 次元の場合</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
 <p>金利表からスプライン補間を構築する例を挙げる。この表には 1, 3, 6, 12 ヶ月目の利息はあるが、その間の月次の利息が定義されていない。そこで、これらの利息を滑らかに接続するような補間曲線を構築すれば、任意の月次において支払額として妥当な値を算定できるようにできる。</p>
 <p>コード的な手順は次のとおりとなる。</p>
 <ol class="arabic simple">
@@ -185,7 +185,7 @@ month[12]: 0.266%
 </figure>
 </section>
 <section id="n">
-<h3><a class="toc-backref" href="#id8">データが n 次元の場合</a><a class="headerlink" href="#n" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id8">データが n 次元の場合</a><a class="headerlink" href="#n" title="Permalink to this heading">¶</a></h3>
 <p>ドローイングツールでおなじみの「指定点列を滑らかに通過するスプライン曲線」を求める例を示す。ここでは n = 3 次元の点列の補間を試みる。デフォルトでは cubic なスプラインを計算するので、通過させたい点を 4 つ以上指定する必要がある。</p>
 <p>コード的な手順は次のとおりとなる。</p>
 <ol class="arabic">

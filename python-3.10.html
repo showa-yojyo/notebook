@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
@@ -35,7 +35,7 @@
           <div class="body" role="main">
             
   <section id="what-s-new-in-python-3-10">
-<h1><a class="toc-backref" href="#id2">What’s New In Python 3.10 ノート</a><a class="headerlink" href="#what-s-new-in-python-3-10" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id2">What’s New In Python 3.10 ノート</a><a class="headerlink" href="#what-s-new-in-python-3-10" title="Permalink to this heading">¶</a></h1>
 <p><a class="reference external" href="https://docs.python.org/3/whatsnew/3.10.html">What’s New In Python 3.10</a> をたどりながら調査。興味のあるものしか読まない。</p>
 <div class="contents topic" id="id1">
 <p class="topic-title">ノート目次</p>
@@ -104,9 +104,9 @@
 </ul>
 </div>
 <section id="new-features">
-<h2><a class="toc-backref" href="#id3">New Features</a><a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id3">New Features</a><a class="headerlink" href="#new-features" title="Permalink to this heading">¶</a></h2>
 <section id="parenthesized-context-managers">
-<h3><a class="toc-backref" href="#id4">Parenthesized context managers</a><a class="headerlink" href="#parenthesized-context-managers" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id4">Parenthesized context managers</a><a class="headerlink" href="#parenthesized-context-managers" title="Permalink to this heading">¶</a></h3>
 <p>複数行にまたがる継続のための囲み括弧の使用が対応されている。
 <code class="docutils literal notranslate"><span class="pre">import</span></code> 文でよくやるような記法で、複数行に及ぶ長いコンテクストマネージャーの集まりをまとめることができる。以下の例はすべて有効だ。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="p">(</span><span class="n">CtxManager</span><span class="p">()</span> <span class="k">as</span> <span class="n">example</span><span class="p">):</span>
@@ -136,14 +136,14 @@
 <p>なお、括弧内に列挙する最後の記述の末尾にカンマが付いていてもよい。</p>
 </section>
 <section id="better-error-messages">
-<h3><a class="toc-backref" href="#id5">Better error messages</a><a class="headerlink" href="#better-error-messages" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id5">Better error messages</a><a class="headerlink" href="#better-error-messages" title="Permalink to this heading">¶</a></h3>
 <p>Python が閉じない括弧を含むコードを解析する場合、解析中に
 <code class="docutils literal notranslate"><span class="pre">SyntaxError:</span> <span class="pre">unexpected</span> <span class="pre">EOF</span></code> を表示したり、不正な場所を指すのではなく、閉じない括弧の位置も含めるようになっている。</p>
 <p>同様に、閉じられていない文字列リテラル（シングルクォートとトリプルクォート）を含むエラーは、EOF/EOL を報告するのではなく、その文字列の開始を指すようになっている。</p>
 <p><code class="docutils literal notranslate"><span class="pre">SyntaxError</span></code> に特化したメッセージが多数追加。詳しくは公式文書を読むといい。とにかく、一般プログラマーの作業効率が上がったと思っていい。</p>
 </section>
 <section id="pep-634-structural-pattern-matching">
-<h3><a class="toc-backref" href="#id6">PEP 634: Structural Pattern Matching</a><a class="headerlink" href="#pep-634-structural-pattern-matching" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id6">PEP 634: Structural Pattern Matching</a><a class="headerlink" href="#pep-634-structural-pattern-matching" title="Permalink to this heading">¶</a></h3>
 <p>よその言語でいう switch 文が追加されている。これは説明するのが難しい。公式文書から構文とコード例を引用しておく。</p>
 <p>構文は次のように <cite>match-statement</cite> と <cite>case-statement</cite> からなる。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>match subject:
@@ -158,7 +158,7 @@
 </pre></div>
 </div>
 <section id="simple-pattern-match-to-a-literal">
-<h4><a class="toc-backref" href="#id7">Simple pattern: match to a literal</a><a class="headerlink" href="#simple-pattern-match-to-a-literal" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id7">Simple pattern: match to a literal</a><a class="headerlink" href="#simple-pattern-match-to-a-literal" title="Permalink to this heading">¶</a></h4>
 <p>次の例は想像どおりの意味だ。最後の <code class="docutils literal notranslate"><span class="pre">case</span> <span class="pre">_</span></code> がワイルドカードアクションだ。この <cite>case-statement</cite> を配置するのはオプショナルだ。その場合 <cite>match-statement</cite> に該当する <cite>case-statement</cite> が存在しなければ、文全体として no-op になる。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">http_error</span><span class="p">(</span><span class="n">status</span><span class="p">):</span>
     <span class="k">match</span> <span class="n">status</span><span class="p">:</span>
@@ -179,7 +179,7 @@
 </div>
 </section>
 <section id="patterns-with-a-literal-and-variable">
-<h4><a class="toc-backref" href="#id8">Patterns with a literal and variable</a><a class="headerlink" href="#patterns-with-a-literal-and-variable" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id8">Patterns with a literal and variable</a><a class="headerlink" href="#patterns-with-a-literal-and-variable" title="Permalink to this heading">¶</a></h4>
 <p>次の例は変数への代入をする <cite>case-statement</cite> を含む。</p>
 <blockquote>
 <div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># point is an (x, y) tuple</span>
@@ -199,7 +199,7 @@
 </div></blockquote>
 </section>
 <section id="patterns-and-classes">
-<h4><a class="toc-backref" href="#id9">Patterns and classes</a><a class="headerlink" href="#patterns-and-classes" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id9">Patterns and classes</a><a class="headerlink" href="#patterns-and-classes" title="Permalink to this heading">¶</a></h4>
 <p>クラスを使ってデータを構成する場合、クラス名の後にコンストラクターのような引数リストが続くパターンを使うことができる。このパターンには、クラスの属性を変数に取り込む機能がある。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Point</span><span class="p">:</span>
     <span class="n">x</span><span class="p">:</span> <span class="nb">int</span>
@@ -221,7 +221,7 @@
 </div>
 </section>
 <section id="patterns-with-positional-parameters">
-<h4><a class="toc-backref" href="#id10">Patterns with positional parameters</a><a class="headerlink" href="#patterns-with-positional-parameters" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id10">Patterns with positional parameters</a><a class="headerlink" href="#patterns-with-positional-parameters" title="Permalink to this heading">¶</a></h4>
 <p>位置パラメーターは、例えば <code class="docutils literal notranslate"><span class="pre">dataclass</span></code> のような、その属性の順序を提供する組み込みクラスのいくつかで使用できる。また、クラスで <code class="docutils literal notranslate"><span class="pre">__match_args__</span></code> 特殊属性を設定することにより、パターン内の属性の特定の位置を定義することができる。これを <code class="docutils literal notranslate"><span class="pre">(&quot;x&quot;,</span> <span class="pre">&quot;y&quot;)</span></code>
 とすると、以下のパターンはすべて同値だ。すべて属性 <code class="docutils literal notranslate"><span class="pre">y</span></code> を変数 <code class="docutils literal notranslate"><span class="pre">var</span></code> に束縛する。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">var</span><span class="p">)</span>
@@ -232,7 +232,7 @@
 </div>
 </section>
 <section id="nested-patterns">
-<h4><a class="toc-backref" href="#id11">Nested patterns</a><a class="headerlink" href="#nested-patterns" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id11">Nested patterns</a><a class="headerlink" href="#nested-patterns" title="Permalink to this heading">¶</a></h4>
 <p>パターンを好きなだけ入れ子にしてよい。例えば、データが短い点のリストである場合、次の <cite>match-statement</cite> はいずれかにマッチする。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">match</span> <span class="n">points</span><span class="p">:</span>
     <span class="k">case</span> <span class="p">[]:</span>
@@ -249,7 +249,7 @@
 </div>
 </section>
 <section id="complex-patterns-and-the-wildcard">
-<h4><a class="toc-backref" href="#id12">Complex patterns and the wildcard</a><a class="headerlink" href="#complex-patterns-and-the-wildcard" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id12">Complex patterns and the wildcard</a><a class="headerlink" href="#complex-patterns-and-the-wildcard" title="Permalink to this heading">¶</a></h4>
 <p>複雑なパターンとワイルドカードを組み合わせることもできる。例えば次の例では <code class="docutils literal notranslate"><span class="pre">test_available</span></code> は <code class="docutils literal notranslate"><span class="pre">('error',</span> <span class="pre">code,</span> <span class="pre">100)</span></code> にも
 <code class="docutils literal notranslate"><span class="pre">('error',</span> <span class="pre">code,</span> <span class="pre">800)</span></code> にもマッチする。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">match</span> <span class="n">test_variable</span><span class="p">:</span>
@@ -261,7 +261,7 @@
 </div>
 </section>
 <section id="guard">
-<h4><a class="toc-backref" href="#id13">Guard</a><a class="headerlink" href="#guard" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id13">Guard</a><a class="headerlink" href="#guard" title="Permalink to this heading">¶</a></h4>
 <p>ガードと呼ばれる <code class="docutils literal notranslate"><span class="pre">if</span></code> 節を追加することができる。ガードが偽の場合に <code class="docutils literal notranslate"><span class="pre">match</span></code> は次の <code class="docutils literal notranslate"><span class="pre">case</span></code> ブロックを試みる。値の取り込みはガードが評価される前に行われることに注意。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">match</span> <span class="n">point</span><span class="p">:</span>
     <span class="k">case</span> <span class="n">Point</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">y</span><span class="p">:</span>
@@ -272,7 +272,7 @@
 </div>
 </section>
 <section id="other-key-features">
-<h4><a class="toc-backref" href="#id14">Other Key Features</a><a class="headerlink" href="#other-key-features" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id14">Other Key Features</a><a class="headerlink" href="#other-key-features" title="Permalink to this heading">¶</a></h4>
 <ul>
 <li><p>前述のコード例で <code class="docutils literal notranslate"><span class="pre">list</span></code> を使っている箇所では <code class="docutils literal notranslate"><span class="pre">tuple</span></code> も全く同じ意味を持ち、実際には任意のシーケンスにマッチする。技術的には、対象はシーケンスである必要がある。パターンはイテレーターにマッチしない。また、よくある間違いを防ぐために、シーケンスパターンは文字列にはマッチしない。</p></li>
 <li><p>シーケンスパターンはワイルドカードに対応している。
@@ -314,7 +314,7 @@
 </section>
 </section>
 <section id="optional-encodingwarning-and-encoding-locale-option">
-<h3><a class="toc-backref" href="#id15">Optional EncodingWarning and <code class="docutils literal notranslate"><span class="pre">encoding=&quot;locale&quot;</span></code> option</a><a class="headerlink" href="#optional-encodingwarning-and-encoding-locale-option" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id15">Optional EncodingWarning and <code class="docutils literal notranslate"><span class="pre">encoding=&quot;locale&quot;</span></code> option</a><a class="headerlink" href="#optional-encodingwarning-and-encoding-locale-option" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">TextIOWrapper</span></code> と <code class="docutils literal notranslate"><span class="pre">open()</span></code> の既定のエンコーディングはプラットフォームとロケールに依存する。ほとんどの UNIX プラットフォームでは UTF-8 が使われているので、
 UTF-8 ファイルを開くときにエンコードオプションを省略すると、ひじょうにありふれたバグになる。</p>
 <p>このようなバグを発見するために例外 <code class="docutils literal notranslate"><span class="pre">EncodingWarning</span></code> が加わっている。これは <code class="docutils literal notranslate"><span class="pre">sys.flags.warn_default_encoding</span></code> が真で、ロケール固有の既定のエンコーディングが使われたときに送出される。</p>
@@ -322,10 +322,10 @@ UTF-8 ファイルを開くときにエンコードオプションを省略す�
 </section>
 </section>
 <section id="new-features-related-to-type-hints">
-<h2><a class="toc-backref" href="#id16">New Features Related to Type Hints</a><a class="headerlink" href="#new-features-related-to-type-hints" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id16">New Features Related to Type Hints</a><a class="headerlink" href="#new-features-related-to-type-hints" title="Permalink to this heading">¶</a></h2>
 <p>型ヒントとモジュール <code class="docutils literal notranslate"><span class="pre">typing</span></code> に影響する主な変更点について書いてある。興味がほとんどないので、最初の節だけノートに取る。</p>
 <section id="pep-604-new-type-union-operator">
-<h3><a class="toc-backref" href="#id17">PEP 604: New Type Union Operator</a><a class="headerlink" href="#pep-604-new-type-union-operator" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id17">PEP 604: New Type Union Operator</a><a class="headerlink" href="#pep-604-new-type-union-operator" title="Permalink to this heading">¶</a></h3>
 <p>型において、<code class="docutils literal notranslate"><span class="pre">typing.Union</span></code> を使う代わりに、型 <code class="docutils literal notranslate"><span class="pre">X</span></code> か <code class="docutils literal notranslate"><span class="pre">Y</span></code> のどちらかを表現する、よりきれいな方法が用意されている。</p>
 <p>以前のバージョンの Python では、複数の型の引数を受け取る関数に対して型ヒントを適用するのに <code class="docutils literal notranslate"><span class="pre">typing.Union</span></code> が使われていた。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">square</span><span class="p">(</span><span class="n">number</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
@@ -345,7 +345,7 @@ UTF-8 ファイルを開くときにエンコードオプションを省略す�
 </section>
 </section>
 <section id="other-language-changes">
-<h2><a class="toc-backref" href="#id18">Other Language Changes</a><a class="headerlink" href="#other-language-changes" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id18">Other Language Changes</a><a class="headerlink" href="#other-language-changes" title="Permalink to this heading">¶</a></h2>
 <p>興味のある変更だけ記す。</p>
 <ul class="simple">
 <li><p>型 <code class="docutils literal notranslate"><span class="pre">int</span></code> にメソッド <code class="docutils literal notranslate"><span class="pre">bit_count()</span></code> が追加。整数値の二進数表示に立っているビットの個数を返す。</p></li>
@@ -364,44 +364,44 @@ UTF-8 ファイルを開くときにエンコードオプションを省略す�
 </ul>
 </section>
 <section id="new-modules">
-<h2><a class="toc-backref" href="#id19">New Modules</a><a class="headerlink" href="#new-modules" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id19">New Modules</a><a class="headerlink" href="#new-modules" title="Permalink to this heading">¶</a></h2>
 <p>何もない。</p>
 </section>
 <section id="improved-modules">
-<h2><a class="toc-backref" href="#id20">Improved Modules</a><a class="headerlink" href="#improved-modules" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id20">Improved Modules</a><a class="headerlink" href="#improved-modules" title="Permalink to this heading">¶</a></h2>
 <p>興味のあるものや遭遇しそうな問題を含むモジュールに絞って記していく。</p>
 <section id="argparse">
-<h3><a class="toc-backref" href="#id21">argparse</a><a class="headerlink" href="#argparse" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id21">argparse</a><a class="headerlink" href="#argparse" title="Permalink to this heading">¶</a></h3>
 <p>オプション <code class="docutils literal notranslate"><span class="pre">--help</span></code> で出力されるメッセージ中の optional arguments という言葉が
 options に置き換わっている。もしヘルプメッセージのテストがあるならば、何らかの対応が必要だろう。</p>
 </section>
 <section id="array">
-<h3><a class="toc-backref" href="#id22">array</a><a class="headerlink" href="#array" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id22">array</a><a class="headerlink" href="#array" title="Permalink to this heading">¶</a></h3>
 <p>メソッド <code class="docutils literal notranslate"><span class="pre">array.index()</span></code> にオプショナル引数 <code class="docutils literal notranslate"><span class="pre">start</span></code> と <code class="docutils literal notranslate"><span class="pre">stop</span></code> が追加されている。まだ試していないが、これらは文字列やシーケンスの対応物と同じ意味だろう。</p>
 </section>
 <section id="bdb">
-<h3><a class="toc-backref" href="#id23">bdb</a><a class="headerlink" href="#bdb" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id23">bdb</a><a class="headerlink" href="#bdb" title="Permalink to this heading">¶</a></h3>
 <p>関数 <code class="docutils literal notranslate"><span class="pre">clearBreakpoints()</span></code> が追加されている。ブレイクポイントすべてをリセットする。これはデバッグの利便性が上がる。</p>
 </section>
 <section id="bisect">
-<h3><a class="toc-backref" href="#id24">bisect</a><a class="headerlink" href="#bisect" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id24">bisect</a><a class="headerlink" href="#bisect" title="Permalink to this heading">¶</a></h3>
 <p>モジュール内の関数にオプショナル <cite>key</cite> 引数が追加されている。これはキー関数、つまり照合関数を指定するものだ。</p>
 <p>キー関数とはソート、順序付けに使用する値を返す callable だ。</p>
 </section>
 <section id="contextlib">
-<h3><a class="toc-backref" href="#id25">contextlib</a><a class="headerlink" href="#contextlib" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id25">contextlib</a><a class="headerlink" href="#contextlib" title="Permalink to this heading">¶</a></h3>
 <p>コンテキストマネージャー <code class="docutils literal notranslate"><span class="pre">contextlib.aclosing()</span></code> が追加されている。これを、非同期ジェネレーターや非同期的に解放されたリソースを表すオブジェクトを安全に閉じるために用いる。</p>
 <p>非同期コンテキストマネージャー対応が <code class="docutils literal notranslate"><span class="pre">contextlib.nullcontext()</span></code> に追加されている。</p>
 <p><code class="docutils literal notranslate"><span class="pre">AsyncContextDecorator</span></code> が追加。デコレーターとしての非同期コンテキストマネージャーの使用を対応している。</p>
 </section>
 <section id="dataclasses">
-<h3><a class="toc-backref" href="#id26">dataclasses</a><a class="headerlink" href="#dataclasses" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id26">dataclasses</a><a class="headerlink" href="#dataclasses" title="Permalink to this heading">¶</a></h3>
 <section id="slots">
-<h4><a class="toc-backref" href="#id27">__slots__</a><a class="headerlink" href="#slots" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id27">__slots__</a><a class="headerlink" href="#slots" title="Permalink to this heading">¶</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">dataclasses.dataclass()</span></code> デコレーターに <code class="docutils literal notranslate"><span class="pre">slots</span></code> 引数が追加されている。</p>
 </section>
 <section id="keyword-only-fields">
-<h4><a class="toc-backref" href="#id28">Keyword-only fields</a><a class="headerlink" href="#keyword-only-fields" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id28">Keyword-only fields</a><a class="headerlink" href="#keyword-only-fields" title="Permalink to this heading">¶</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">dataclasses</span></code> は、生成された <code class="docutils literal notranslate"><span class="pre">__init__</span></code> メソッドでキーワードのみのフィールドを対応している。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 
@@ -439,51 +439,51 @@ keyword-only フィールドに続く必要があるため、フィールドの�
 </section>
 </section>
 <section id="distutils">
-<h3><a class="toc-backref" href="#id29">distutils</a><a class="headerlink" href="#distutils" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id29">distutils</a><a class="headerlink" href="#distutils" title="Permalink to this heading">¶</a></h3>
 <p>パッケージ distutils 全体は Python 3.12 で削除され、非推奨となる。</p>
 <p>Python 3.8 で非推奨となった bdist_wininst コマンドは削除されている。
 Windows でバイナリーパッケージを配布するには  bdist_wheel コマンドが推奨される。</p>
 </section>
 <section id="encodings">
-<h3><a class="toc-backref" href="#id30">encodings</a><a class="headerlink" href="#encodings" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id30">encodings</a><a class="headerlink" href="#encodings" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">encodings.normalize_encoding()</span></code> は非 ASCII 文字を無視する。</p>
 </section>
 <section id="fileinput">
-<h3><a class="toc-backref" href="#id31">fileinput</a><a class="headerlink" href="#fileinput" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id31">fileinput</a><a class="headerlink" href="#fileinput" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">fileinput.input()</span></code> と <code class="docutils literal notranslate"><span class="pre">fileinput.FileInput</span></code> に引数 <code class="docutils literal notranslate"><span class="pre">endoocing</span></code> と <code class="docutils literal notranslate"><span class="pre">errors</span></code> が追加されている。</p>
 <p><code class="docutils literal notranslate"><span class="pre">fileinput.hook_compressed()</span></code> がモード <code class="docutils literal notranslate"><span class="pre">&quot;r&quot;</span></code> で圧縮されている場合、非圧縮ファイルのように <code class="docutils literal notranslate"><span class="pre">TextIOWrapper</span></code> オブジェクトを返すようになっている。</p>
 </section>
 <section id="glob">
-<h3><a class="toc-backref" href="#id32">glob</a><a class="headerlink" href="#glob" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id32">glob</a><a class="headerlink" href="#glob" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">glob()</span></code> および <code class="docutils literal notranslate"><span class="pre">iglob()</span></code> に、検索対象のルートディレクトリーを指定するための引数 <code class="docutils literal notranslate"><span class="pre">root_dir</span></code> および <code class="docutils literal notranslate"><span class="pre">dir_fd</span></code> が追加されている。</p>
 </section>
 <section id="os-path">
-<h3><a class="toc-backref" href="#id33">os.path</a><a class="headerlink" href="#os-path" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id33">os.path</a><a class="headerlink" href="#os-path" title="Permalink to this heading">¶</a></h3>
 <p>関数 <code class="docutils literal notranslate"><span class="pre">os.path.realpath()</span></code> は、キーワードのみ引数 <code class="docutils literal notranslate"><span class="pre">strict</span></code> を受け付ける。この値を <code class="docutils literal notranslate"><span class="pre">True</span></code> として呼び出すと、指定パスが存在しないか、シンボリックリンクのループに遭遇した場合に <code class="docutils literal notranslate"><span class="pre">OSError</span></code> が発生する。</p>
 </section>
 <section id="pathlib">
-<h3><a class="toc-backref" href="#id34">pathlib</a><a class="headerlink" href="#pathlib" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id34">pathlib</a><a class="headerlink" href="#pathlib" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">PurePath.parents</span></code> が <code class="docutils literal notranslate"><span class="pre">slice</span></code> に対応している。</p>
 <p><code class="docutils literal notranslate"><span class="pre">PurePath.parents</span></code> が負のインデックスに対応している。</p>
 <p>メソッド <code class="docutils literal notranslate"><span class="pre">link_to()</span></code> を置き換える <code class="docutils literal notranslate"><span class="pre">Path.hardlink_to</span></code> が追加されている。この新しいメソッドには <code class="docutils literal notranslate"><span class="pre">symlink_to()</span></code> と同じ引数順序がある。</p>
 <p><code class="docutils literal notranslate"><span class="pre">pathlib.Path.stat()</span></code> と <code class="docutils literal notranslate"><span class="pre">chmod()</span></code> は、キーワードのみ引数 <code class="docutils literal notranslate"><span class="pre">follow_symlinks</span></code> を受け入れる。モジュール <code class="docutils literal notranslate"><span class="pre">os</span></code> における、対応する関数との一貫性のためにそうなっている。</p>
 </section>
 <section id="pprint">
-<h3><a class="toc-backref" href="#id35">pprint</a><a class="headerlink" href="#pprint" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id35">pprint</a><a class="headerlink" href="#pprint" title="Permalink to this heading">¶</a></h3>
 <p>関数 <code class="docutils literal notranslate"><span class="pre">pprint.pprint()</span></code> は新キーワード引数 <code class="docutils literal notranslate"><span class="pre">underscore_numbers</span></code> を受け付ける。</p>
 <p><code class="docutils literal notranslate"><span class="pre">dataclasses.dataclass</span></code> インスタンスを pretty-print できる。</p>
 </section>
 <section id="statistics">
-<h3><a class="toc-backref" href="#id36">statistics</a><a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id36">statistics</a><a class="headerlink" href="#statistics" title="Permalink to this heading">¶</a></h3>
 <p>関数 <code class="docutils literal notranslate"><span class="pre">covarianve()</span></code>, <code class="docutils literal notranslate"><span class="pre">correlation()</span></code>, <code class="docutils literal notranslate"><span class="pre">linear_regression()</span></code> が追加されている。それぞれ共分散、Pearson 相関係数、単純な線形回帰を求める。</p>
 </section>
 <section id="sys">
-<h3><a class="toc-backref" href="#id37">sys</a><a class="headerlink" href="#sys" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id37">sys</a><a class="headerlink" href="#sys" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">sys.orig_argv</span></code> が追加されている。Python 実行形式に渡されるオリジナルのコマンドライン引数のリストだ。
 <code class="docutils literal notranslate"><span class="pre">sys.stdlib_module_names</span></code> が追加されている。標準ライブラリーモジュール名のリストを含む。</p>
 </section>
 <section id="typing">
-<h3><a class="toc-backref" href="#id38">typing</a><a class="headerlink" href="#typing" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id38">typing</a><a class="headerlink" href="#typing" title="Permalink to this heading">¶</a></h3>
 <p>主な変更点は先述の New Features Related to Type Hints で述べられている。以降の変更ノートはそれを踏まえてのものになる。</p>
 <p>PEP 586 で指定された静的型チェッカーの動作と一致するように <code class="docutils literal notranslate"><span class="pre">typing.Literal</span></code>
 の振る舞いが変更されている。</p>
@@ -505,11 +505,11 @@ Windows でバイナリーパッケージを配布するには  bdist_wheel コ�
 <p>その他。</p>
 </section>
 <section id="unittest">
-<h3><a class="toc-backref" href="#id39">unittest</a><a class="headerlink" href="#unittest" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id39">unittest</a><a class="headerlink" href="#unittest" title="Permalink to this heading">¶</a></h3>
 <p>既存の <code class="docutils literal notranslate"><span class="pre">assertLogs()</span></code> を補完するメソッド <code class="docutils literal notranslate"><span class="pre">assertNoLogs()</span></code> が新しく追加されている。</p>
 </section>
 <section id="urllib-parse">
-<h3><a class="toc-backref" href="#id40">urllib.parse</a><a class="headerlink" href="#urllib-parse" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id40">urllib.parse</a><a class="headerlink" href="#urllib-parse" title="Permalink to this heading">¶</a></h3>
 <p>Python 3.10 より早いバージョンでは <code class="docutils literal notranslate"><span class="pre">urllib.parse.parse_qs()</span></code> および
 <code class="docutils literal notranslate"><span class="pre">urllib.parse.parse_qsl()</span></code> で問い合わせ引数のセパレーターとして <code class="docutils literal notranslate"><span class="pre">;</span></code> と <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>
 の両方を使用することができた。これが 3.10 では単一のセパレータキーだけを許可するように変更されており、既定値は <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> となっている。この変更は <code class="docutils literal notranslate"><span class="pre">cgi.parse()</span></code>
@@ -520,7 +520,7 @@ WHATWG 仕様に従い、ASCII の改行文字 <code class="docutils literal not
 </section>
 </section>
 <section id="optimizations">
-<h2><a class="toc-backref" href="#id41">Optimizations</a><a class="headerlink" href="#optimizations" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id41">Optimizations</a><a class="headerlink" href="#optimizations" title="Permalink to this heading">¶</a></h2>
 <p>ここは一般プログラマーには重要ではないかもしれない。ほとんどチェックしていない。</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">str()</span></code>, <code class="docutils literal notranslate"><span class="pre">bytes()</span></code>, <code class="docutils literal notranslate"><span class="pre">bytearray()</span></code> の各コンストラクターが高速化。小さいオブジェクトでは約 30 から 40 パーセント。</p></li>
@@ -541,7 +541,7 @@ Two-Way 文字列検索アルゴリズムを（可能ならば？）使用する
 </ul>
 </section>
 <section id="deprecated">
-<h2><a class="toc-backref" href="#id42">Deprecated</a><a class="headerlink" href="#deprecated" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id42">Deprecated</a><a class="headerlink" href="#deprecated" title="Permalink to this heading">¶</a></h2>
 <p>古いやり方をいつまで経っても採用し続けないように、一通りチェックする。</p>
 <ul class="simple">
 <li><p>先述のように <code class="docutils literal notranslate"><span class="pre">distutils</span></code> 名前空間。Python 3.12 で削除。</p></li>
@@ -572,7 +572,7 @@ Two-Way 文字列検索アルゴリズムを（可能ならば？）使用する
 </ul>
 </section>
 <section id="removed">
-<h2><a class="toc-backref" href="#id43">Removed</a><a class="headerlink" href="#removed" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id43">Removed</a><a class="headerlink" href="#removed" title="Permalink to this heading">¶</a></h2>
 <p>興味のあるものしかチェックしない。</p>
 <ul>
 <li><p>クラス <code class="docutils literal notranslate"><span class="pre">complex</span></code> にあった特殊メソッド <code class="docutils literal notranslate"><span class="pre">__int__</span></code>, <code class="docutils literal notranslate"><span class="pre">__float__</span></code>, <code class="docutils literal notranslate"><span class="pre">__floordiv__</span></code>,
@@ -590,7 +590,7 @@ Two-Way 文字列検索アルゴリズムを（可能ならば？）使用する
 </ul>
 </section>
 <section id="porting-to-python-3-10">
-<h2><a class="toc-backref" href="#id44">Porting to Python 3.10</a><a class="headerlink" href="#porting-to-python-3-10" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id44">Porting to Python 3.10</a><a class="headerlink" href="#porting-to-python-3-10" title="Permalink to this heading">¶</a></h2>
 <p>本節以降、個人的には対応項目なし。</p>
 </section>
 </section>

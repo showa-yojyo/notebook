@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
@@ -35,7 +35,7 @@
           <div class="body" role="main">
             
   <section id="selenium">
-<h1><a class="toc-backref" href="#id22">Selenium 利用ノート</a><a class="headerlink" href="#selenium" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id22">Selenium 利用ノート</a><a class="headerlink" href="#selenium" title="Permalink to this heading">¶</a></h1>
 <p>Python での <a class="reference external" href="https://github.com/SeleniumHQ/selenium/">Selenium</a> の利用について記す。</p>
 <div class="contents topic" id="id1">
 <p class="topic-title">ノート目次</p>
@@ -76,18 +76,18 @@
 </ul>
 </div>
 <section id="id2">
-<h2><a class="toc-backref" href="#id23">目的</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id23">目的</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
 <p>私が <a class="reference external" href="https://github.com/SeleniumHQ/selenium/">Selenium</a> を利用する目的を記す。</p>
 <p><a class="reference external" href="https://github.com/SeleniumHQ/selenium/">Selenium</a> はウェブブラウザーの操作を自動化する基板となる一連のツールやライブラリー群だ。例えば Twitter や GitHub にログインするときの定番の UI 操作手順を自動化したり、インターネットと連動したゲームのプレイヤーデータを scraping したりするのに応用することが考えられる。事実、ひじょうに便利な Python スクリプトが作れる。</p>
 <p>ちなみに、Python には <a class="reference external" href="http://www.crummy.com/software/BeautifulSoup/bs4/">BeautifulSoup</a> という有力な scraping パッケージが存在する。これは静的な HTML の解析には向いているものの、JavaScript を駆使した動的な HTML には弱い。一方 Selenium は逆に動的な処理のための API が提供されているが、いちいちブラウザーのプロセスを介在する必要がある。したがって用途に応じてこれらのパッケージを選択するのが現実的な戦略だ。</p>
 </section>
 <section id="id3">
-<h2><a class="toc-backref" href="#id24">導入</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id24">導入</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
 <p>Python 3.7 以上が動作している Windows 10 環境に <a class="reference external" href="https://github.com/SeleniumHQ/selenium/">Selenium</a> をインストールする手順を記す。なお、ブラウザーは MS Edge を想定する。</p>
 <p><a class="reference external" href="https://github.com/SeleniumHQ/selenium/">Selenium</a> の構成要素は大別して二つある。プログラミングに関するものとウェブブラウザーに関するものだ。私はもっぱら Python しか書かないので言語を Python に絞って導入手順を記す。ウェブブラウザーについては、Chrome, Firefox, Safari, Internet Explorer, Microsoft Edge
 などのドライバーがあるので、自分の利用するブラウザーに対応するドライバーを一つ（あるいは複数）ダウンロードして適宜インストールする。</p>
 <section id="python">
-<h3><a class="toc-backref" href="#id25">Python 用パッケージを導入する</a><a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id25">Python 用パッケージを導入する</a><a class="headerlink" href="#python" title="Permalink to this heading">¶</a></h3>
 <p><a class="reference external" href="https://github.com/SeleniumHQ/selenium/">Selenium</a> の Python パッケージをインストールする手順を記す。</p>
 <p>手順はひじょうに簡単で、他のサードパーティー製 Python パッケージと同様だ。すなわち：</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ pip install selenium</span>
@@ -100,7 +100,7 @@
 </div>
 </section>
 <section id="ms-edge-webdriver">
-<h3><a class="toc-backref" href="#id26">MS Edge 用 WebDriver を導入する</a><a class="headerlink" href="#ms-edge-webdriver" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id26">MS Edge 用 WebDriver を導入する</a><a class="headerlink" href="#ms-edge-webdriver" title="Permalink to this heading">¶</a></h3>
 <p>WebDriver のインストール手順を述べる。MS Edge の WebDriver のインストールは OS の機能を用いて行う。</p>
 <ul class="simple">
 <li><p>Windows の設定画面を開く。</p></li>
@@ -112,13 +112,13 @@ MS Edge のバージョンと WebDriver のそれが同調することが期待�
 </section>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id27">初回動作確認</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id27">初回動作確認</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="https://github.com/SeleniumHQ/selenium/">Selenium</a> の一連の構成部品をインストールしたら、公式文書にある Getting Started
 のコードを真似たものを実行して様子を見るといい。ブラウザーが新規に開いて、指定の HTML ファイルが表示されるというようなもので十分だ。</p>
 <p>それが終わったら本ページの末端にある参考資料を一読することを勧める。</p>
 </section>
 <section id="id5">
-<h2><a class="toc-backref" href="#id28">コード例</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id28">コード例</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
 <p>ここでは私が実際に使い物になる、パターン化されていると感じたコードを挙げていく。基本的なものから、私しか使わなそうな特別なものまで無差別に列挙する。</p>
 <p>これ以降にあげるコード片は次の文を事前に実行しているものと仮定する：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
@@ -127,7 +127,7 @@ MS Edge のバージョンと WebDriver のそれが同調することが期待�
 </pre></div>
 </div>
 <section id="html">
-<h3><a class="toc-backref" href="#id29">HTML ファイルをブラウザーで開く</a><a class="headerlink" href="#html" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id29">HTML ファイルをブラウザーで開く</a><a class="headerlink" href="#html" title="Permalink to this heading">¶</a></h3>
 <p>URL またはローカルファイルパスを指定してブラウザーを開く。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;http://www.python.org&#39;</span><span class="p">)</span>
 <span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;file://C:/Temp/tmp.html&#39;</span><span class="p">)</span>
@@ -136,7 +136,7 @@ MS Edge のバージョンと WebDriver のそれが同調することが期待�
 <p>AJAX をふんだんに用いているページを開くときは、呼び出し直後に完全にロードし切れていないと思ったほうがいい。そういう状況では後述の技法を併用する。</p>
 </section>
 <section id="id6">
-<h3><a class="toc-backref" href="#id30">ドライバー管理下のブラウザーを閉じる</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id30">ドライバー管理下のブラウザーを閉じる</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
 <p>ブラウザーごと終了するのであれば <code class="docutils literal notranslate"><span class="pre">quit()</span></code> を、タブを閉じるのであれば <code class="docutils literal notranslate"><span class="pre">close()</span></code> を呼ぶ。ただしタブが一つの場合は事実上ブラウザーが終了する。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">driver</span> <span class="o">=</span> <span class="o">...</span>
 <span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
@@ -149,7 +149,7 @@ MS Edge のバージョンと WebDriver のそれが同調することが期待�
 <p>私は Selenium を使うときしか MS Edge を使わないのでどちらでもいい。</p>
 </section>
 <section id="id7">
-<h3><a class="toc-backref" href="#id31">特定の HTML 要素を発見する</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id31">特定の HTML 要素を発見する</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
 <p>画面に表示されているページの HTML ソースが含む <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">input</span></code>, <code class="docutils literal notranslate"><span class="pre">img</span></code> などの各種要素にアクセスするためのコードは重要だ。ページ末端に挙げるマニュアルで各インターフェイスの特性を把握しておくこと。</p>
 <p>要点をまとめておく。</p>
 <ul>
@@ -181,7 +181,7 @@ CSS セレクターと XPath に馴染みがないのであれば、リンク先
 </div>
 </section>
 <section id="id8">
-<h3><a class="toc-backref" href="#id32">HTML 要素の指定する属性の値を得る</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id32">HTML 要素の指定する属性の値を得る</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
 <p>HTML 要素から属性の値を得るには <code class="docutils literal notranslate"><span class="pre">elem.get_attribute()</span></code> を用いる。例えば、次の要素 <code class="docutils literal notranslate"><span class="pre">elem</span></code> から <code class="docutils literal notranslate"><span class="pre">src</span></code> を得たいとする：</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">img</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;porno-001&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;/path/to/porno-001.jpg&quot;</span> <span class="p">/&gt;</span>
 </pre></div>
@@ -199,7 +199,7 @@ CSS セレクターと XPath に馴染みがないのであれば、リンク先
 </div>
 </section>
 <section id="id9">
-<h3><a class="toc-backref" href="#id33">HTML 要素の値を得る</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id33">HTML 要素の値を得る</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
 <p>HTML 要素の値を得るには <code class="docutils literal notranslate"><span class="pre">elem.text</span></code> を参照する。開始タグと終了タグに挟まれた部分のブラウザーに描画されているテキスト内容と同等の <code class="docutils literal notranslate"><span class="pre">str</span></code> オブジェクトが得られる。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_elements_by_tag_name</span><span class="p">(</span><span class="s1">&#39;h1&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
@@ -207,7 +207,7 @@ CSS セレクターと XPath に馴染みがないのであれば、リンク先
 </div>
 </section>
 <section id="id10">
-<h3><a class="toc-backref" href="#id34">キー操作</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id34">キー操作</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
 <p>Selenium はキーボードのキー操作を再現するインターフェイスを提供している。それを利用するには次の <code class="docutils literal notranslate"><span class="pre">import</span></code> 文が必要だ：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">selenium.webdriver.common.keys</span> <span class="kn">import</span> <span class="n">Keys</span>
 </pre></div>
@@ -230,7 +230,7 @@ CSS セレクターと XPath に馴染みがないのであれば、リンク先
 </div>
 </section>
 <section id="id11">
-<h3><a class="toc-backref" href="#id35">フォーム制御</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id35">フォーム制御</a><a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h3>
 <p>ボタン系 GUI のマウスクリックとフォーム送信のコード例を示す。ページの HTML のフォーム部分はこのようになっていると仮定する：</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;post&quot;</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;...&quot;</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;agree&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;1&quot;</span> <span class="p">/&gt;</span>
@@ -254,7 +254,7 @@ CSS セレクターと XPath に馴染みがないのであれば、リンク先
 <code class="docutils literal notranslate"><span class="pre">form</span></code> 本体でも構わない。</p>
 </section>
 <section id="id12">
-<h3><a class="toc-backref" href="#id36">待機</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id36">待機</a><a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h3>
 <p>Selenium プログラミングで最初の壁となる待機処理について簡単に記す。</p>
 <p>基本的には <code class="docutils literal notranslate"><span class="pre">driver.get(URL)</span></code> の呼び出し直後には指定アドレスのページがロードされた直後だと考えるべきだ。しかし、先述のように AJAX バリバリのページにおいては、ブラウザーに画面が出たかたとはいえ、その内容のすべてがロードされているとは限らない。</p>
 <p>あるいはボタンをクリックすることにより別のページに移動するようなサイトにおいては、
@@ -262,7 +262,7 @@ CSS セレクターと XPath に馴染みがないのであれば、リンク先
 <p>ページが不完全な状態で WebDriver の <code class="docutils literal notranslate"><span class="pre">find_element</span></code> 系メソッドを呼び出すと失敗することがある。それを回避する手段が待機だ。</p>
 <p>Selenium は「指定要素が指定状態になるまでプログラム実行を進行しない」機能を提供している。これを待機と呼ぶことにする。待機は明示的待機と暗黙的待機の二つに分類される。</p>
 <section id="id13">
-<h4><a class="toc-backref" href="#id37">明示的待機</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id37">明示的待機</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h4>
 <p>明示的待機を説明する。例えば登録画面、プログレスバー表示画面、終了画面という遷移を考える。終了画面が出る前に <code class="docutils literal notranslate"><span class="pre">.close()</span></code> したくないはずなので、次のようにする：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">selenium.webdriver.common.by</span> <span class="kn">import</span> <span class="n">By</span>
 <span class="kn">from</span> <span class="nn">selenium.webdriver.support</span> <span class="kn">import</span> <span class="n">expected_conditions</span>
@@ -390,7 +390,7 @@ Selenium が代わりに達成する。</p>
 </ul>
 </section>
 <section id="id14">
-<h4><a class="toc-backref" href="#id38">暗黙的待機</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id38">暗黙的待機</a><a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h4>
 <p>暗黙的待機を説明する。これは待機可能な構成要素すべてに関して待機時間上限の既定値を設定するものだ。指定後は上記のような <code class="docutils literal notranslate"><span class="pre">.until()</span></code> をしなくても <code class="docutils literal notranslate"><span class="pre">.until()</span></code> 相当のことをしてくれる。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">driver</span> <span class="o">=</span> <span class="n">Edge</span><span class="p">()</span>
 <span class="n">driver</span><span class="o">.</span><span class="n">implicitly_wait</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
@@ -400,7 +400,7 @@ Selenium が代わりに達成する。</p>
 </section>
 </section>
 <section id="id15">
-<h2><a class="toc-backref" href="#id39">コード・テスト・デバッグのコツ</a><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id39">コード・テスト・デバッグのコツ</a><a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="https://github.com/SeleniumHQ/selenium/">Selenium</a> ベースのスクリプトでの動作確認作業でよく使う技法を挙げる。</p>
 <ul class="simple">
 <li><p>基本：<code class="docutils literal notranslate"><span class="pre">breakpoint()</span></code> でスクリプト全体の実行を停止する。このとき、ブラウザーの様子を確認しながらコンソールの pdb セッションで <code class="docutils literal notranslate"><span class="pre">WebDriver</span></code> オブジェクトを操作できる。</p></li>
@@ -410,7 +410,7 @@ Selenium が代わりに達成する。</p>
 </ul>
 </section>
 <section id="id16">
-<h2><a class="toc-backref" href="#id40">実例</a><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id40">実例</a><a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h2>
 <p>私の GitHub repository の bin にいくつか使用例があるのでリンクする。</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/showa-yojyo/bin/blob/master/wifiota.py">wifiota.py</a>:
@@ -420,7 +420,7 @@ Selenium が代わりに達成する。</p>
 </ul>
 </section>
 <section id="id17">
-<h2><a class="toc-backref" href="#id41">参考資料</a><a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id41">参考資料</a><a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="https://github.com/SeleniumHQ/selenium/">Selenium</a> を用いた簡単なコードを書けるようになったら、次の二つの文書を順に読むとよい。</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://selenium-python.readthedocs.io/">Selenium with Python</a></p></li>
@@ -429,7 +429,7 @@ Selenium が代わりに達成する。</p>
 <p>悩んだときは Google で適当にキーワードを検索する。Stack Overflow でだいたい解決済みだ。</p>
 </section>
 <section id="id19">
-<h2><a class="toc-backref" href="#id42">関連ノート</a><a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id42">関連ノート</a><a class="headerlink" href="#id19" title="Permalink to this heading">¶</a></h2>
 <p>この他のスクレイピングの技法をまとめたノートの一覧。</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="python-bs4.html"><span class="doc">BeautifulSoup4 利用ノート</span></a></p></li>

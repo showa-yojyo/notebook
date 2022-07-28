@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
@@ -37,7 +37,7 @@
           <div class="body" role="main">
             
   <section id="pyopengl">
-<h1><a class="toc-backref" href="#id6">PyOpenGL プログラムに頻出する技法・注意点</a><a class="headerlink" href="#pyopengl" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id6">PyOpenGL プログラムに頻出する技法・注意点</a><a class="headerlink" href="#pyopengl" title="Permalink to this heading">¶</a></h1>
 <p>本稿では PyOpenGL プログラムに頻出する技法と注意点を記す。</p>
 <div class="contents topic" id="contents">
 <p class="topic-title">Contents</p>
@@ -58,7 +58,7 @@
 </ul>
 </div>
 <section id="bytes">
-<h2><a class="toc-backref" href="#id7">文字列が <code class="docutils literal notranslate"><span class="pre">bytes</span></code> 型になっている</a><a class="headerlink" href="#bytes" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id7">文字列が <code class="docutils literal notranslate"><span class="pre">bytes</span></code> 型になっている</a><a class="headerlink" href="#bytes" title="Permalink to this heading">¶</a></h2>
 <p>PyOpenGL がなぜこういう仕様にしたのかわからないが、関数 <code class="docutils literal notranslate"><span class="pre">glGetString</span></code> 等の文字列を返す関数ほとんどすべてが
 <code class="docutils literal notranslate"><span class="pre">str</span></code> オブジェクトではなく <code class="docutils literal notranslate"><span class="pre">bytes</span></code> オブジェクトを返すようだ。よって、OpenGL から受け取る戻り値を確認するときはメソッド <code class="docutils literal notranslate"><span class="pre">decode</span></code> で読めるようにする。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Version: &quot;</span><span class="p">,</span> <span class="n">GL</span><span class="o">.</span><span class="n">glGetString</span><span class="p">(</span><span class="n">GL</span><span class="o">.</span><span class="n">GL_VERSION</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
@@ -74,7 +74,7 @@
 <p>日本語文字列は <code class="docutils literal notranslate"><span class="pre">sjis</span></code> というエンコーディングで（私の環境では）うまくいく。</p>
 </section>
 <section id="glut">
-<h2><a class="toc-backref" href="#id8">GLUT の引数コールバックに、自作クラスのメソッドを渡せる</a><a class="headerlink" href="#glut" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id8">GLUT の引数コールバックに、自作クラスのメソッドを渡せる</a><a class="headerlink" href="#glut" title="Permalink to this heading">¶</a></h2>
 <p>例えば関数 <code class="docutils literal notranslate"><span class="pre">glutReshapeFunc</span></code> のシグニチャーは、オリジナルではこうだった。</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">glutReshapeFunc</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">func</span><span class="p">)(</span><span class="kt">int</span><span class="w"> </span><span class="n">width</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">height</span><span class="p">));</span><span class="w"></span>
 </pre></div>
@@ -105,7 +105,7 @@
 </div>
 </section>
 <section id="id1">
-<h2><a class="toc-backref" href="#id9">複数形の名前を持つ関数が単数の値を返す場合は注意</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id9">複数形の名前を持つ関数が単数の値を返す場合は注意</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
 <p>例えば関数 <code class="docutils literal notranslate"><span class="pre">glGenBuffers</span></code> を考える。これはオリジナルとはシグニチャーが異なり、引数が「生成するバッファーの個数」だけで、戻り値が「指定した個数分の生成バッファーの名前」となっている。問題は指定した個数が 1 のときに起こる。</p>
 <p>まず <code class="docutils literal notranslate"><span class="pre">buffer</span> <span class="pre">=</span> <span class="pre">glGenBuffers(1)</span></code> とすると、オブジェクト <code class="docutils literal notranslate"><span class="pre">buffer</span></code> の型はおそらく単なる <code class="docutils literal notranslate"><span class="pre">int</span></code> である。ところがこれを <code class="docutils literal notranslate"><span class="pre">buffer</span> <span class="pre">=</span> <span class="pre">glGenBuffers(2)</span></code> とすると、今度は要素数 2 の <code class="docutils literal notranslate"><span class="pre">list</span></code> が返ってくる。</p>
 <p>これを破棄するときを考えると、頭が痛いわけだ。</p>
@@ -119,7 +119,7 @@
 <code class="docutils literal notranslate"><span class="pre">glDeleteTextures</span></code>, <code class="docutils literal notranslate"><span class="pre">glDeleteQueries</span></code>, etc. にありそうだ（半分想像で書いているので、なかったら申し訳ない）。</p>
 </section>
 <section id="id2">
-<h2><a class="toc-backref" href="#id10">配列を受け取る関数全般</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id10">配列を受け取る関数全般</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
 <p>一般に、OpenGL で配列を入力として受け取るある関数に対応する
 PyOpenGL のそれは、オリジナルのものとは関数シグニチャーが若干異なる。オリジナルでは「配列の要素数」「配列の先頭」の両方が引数リストにあるが、
 PyOpenGL では「配列そのもの」に統合している傾向がある。</p>
@@ -131,7 +131,7 @@ PyOpenGL では「配列そのもの」に統合している傾向がある。</
 </ul>
 </section>
 <section id="numpy-np-array">
-<h2><a class="toc-backref" href="#id11">NumPy の <code class="docutils literal notranslate"><span class="pre">np.array</span></code> を配列として扱う</a><a class="headerlink" href="#numpy-np-array" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id11">NumPy の <code class="docutils literal notranslate"><span class="pre">np.array</span></code> を配列として扱う</a><a class="headerlink" href="#numpy-np-array" title="Permalink to this heading">¶</a></h2>
 <p>細かく考えると、C/C++ で <code class="docutils literal notranslate"><span class="pre">GL_FLOAT</span></code> の配列として表現するものは
 Python ではどうすればよいのかという、配列要素型の問題がある。正直に言うと、私の中ではここが完全には解決していない。テキトーにやってうまくいくケースがあるのが気に食わない（おそらく PyOpenGL の実装が気を利かせて型変換等の下処理をしてくれているはずだ）。</p>
 <p>厳密にやりたい場合は、やはりオブジェクト <code class="docutils literal notranslate"><span class="pre">np.array</span></code> の生成時にコンストラクターで
@@ -143,7 +143,7 @@ Python ではどうすればよいのかという、配列要素型の問題が�
 <p>オブジェクトを生成した後からでも、メソッド <code class="docutils literal notranslate"><span class="pre">astype</span></code> で配列要素型の変換が可能だ。</p>
 </section>
 <section id="sizeof">
-<h2><a class="toc-backref" href="#id12"><code class="docutils literal notranslate"><span class="pre">sizeof</span></code> 問題</a><a class="headerlink" href="#sizeof" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id12"><code class="docutils literal notranslate"><span class="pre">sizeof</span></code> 問題</a><a class="headerlink" href="#sizeof" title="Permalink to this heading">¶</a></h2>
 <p>組み込み型のバイトサイズをハードコードしたくない人は次のようにする。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># GL_FLOAT, float</span>
 <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">nbytes</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span>
@@ -151,7 +151,7 @@ Python ではどうすればよいのかという、配列要素型の問題が�
 </div>
 </section>
 <section id="ctypes">
-<h2><a class="toc-backref" href="#id13">ポインター系統の関数のためにモジュール <code class="docutils literal notranslate"><span class="pre">ctypes</span></code> の機能を併用する</a><a class="headerlink" href="#ctypes" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">ポインター系統の関数のためにモジュール <code class="docutils literal notranslate"><span class="pre">ctypes</span></code> の機能を併用する</a><a class="headerlink" href="#ctypes" title="Permalink to this heading">¶</a></h2>
 <p>オリジナル OpenGL の関数で引数の型が <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">GLvoid*</span></code> であるものについて、これを PyOpenGL 版で実引数をどのように表現するかという問題があった。今のところ 3 通り発見している。</p>
 <ul class="simple">
 <li><p>実引数がゼロの場合は、単に <code class="docutils literal notranslate"><span class="pre">None</span></code> または標準モジュール <code class="docutils literal notranslate"><span class="pre">ctypes</span></code> から
@@ -167,7 +167,7 @@ Python ではどうすればよいのかという、配列要素型の問題が�
 <code class="docutils literal notranslate"><span class="pre">pointer</span></code> としては <code class="docutils literal notranslate"><span class="pre">c_void_p(4</span> <span class="pre">*</span> <span class="pre">n)</span></code> の形になるだろう。具体例は <a class="reference internal" href="shader.html"><span class="doc">単純なシェーダープログラムの作成</span></a> の <code class="docutils literal notranslate"><span class="pre">init_object</span></code> を参照。</p>
 </section>
 <section id="id3">
-<h2><a class="toc-backref" href="#id14">NumPy の <code class="docutils literal notranslate"><span class="pre">np.array</span></code> を行列として扱う</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id14">NumPy の <code class="docutils literal notranslate"><span class="pre">np.array</span></code> を行列として扱う</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">m.shape</span> <span class="pre">==</span> <span class="pre">(4,</span> <span class="pre">4)</span></code> となるように <code class="docutils literal notranslate"><span class="pre">np.array</span></code> オブジェクト <code class="docutils literal notranslate"><span class="pre">m</span></code> を生成する。</p></li>
 <li><p>各成分を適宜セットする。</p></li>
@@ -183,7 +183,7 @@ Python ではどうすればよいのかという、配列要素型の問題が�
 <p>本テキストでは旧式 OpenGL に準拠して、行列は列ベクトルの左から作用するものとして設計している。</p>
 </section>
 <section id="pil">
-<h2><a class="toc-backref" href="#id15">PIL 経由でテクスチャーを生成する</a><a class="headerlink" href="#pil" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id15">PIL 経由でテクスチャーを生成する</a><a class="headerlink" href="#pil" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference internal" href="imagefile.html"><span class="doc">画像ファイルを扱う</span></a> に記した。</p>
 </section>
 </section>

@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
@@ -37,7 +37,7 @@
           <div class="body" role="main">
             
   <section id="promises-async-await">
-<h1><a class="toc-backref" href="#id5">Promises, async/await</a><a class="headerlink" href="#promises-async-await" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id5">Promises, async/await</a><a class="headerlink" href="#promises-async-await" title="Permalink to this heading">¶</a></h1>
 <div class="contents topic" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
@@ -56,7 +56,7 @@
 </ul>
 </div>
 <section id="introduction-callbacks">
-<h2><a class="toc-backref" href="#id6">Introduction: callbacks</a><a class="headerlink" href="#introduction-callbacks" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id6">Introduction: callbacks</a><a class="headerlink" href="#introduction-callbacks" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/callbacks">https://javascript.info/callbacks</a>&gt; のノート。</p>
 <p>この章では各種抽象的概念の使い方を示すために、ブラウザーのメソッドをいくつか使用する。具体的には、スクリプトの読み込みと簡単な文書操作だ。</p>
 <ul class="simple">
@@ -66,24 +66,24 @@
 </ul>
 <p>コールバックベース非同期処理の問題点を理解すること。</p>
 <section id="callback-in-callback">
-<h3>Callback in callback<a class="headerlink" href="#callback-in-callback" title="Permalink to this headline">¶</a></h3>
+<h3>Callback in callback<a class="headerlink" href="#callback-in-callback" title="Permalink to this heading">¶</a></h3>
 <p>三つのスクリプトを厳密に特定の順序でロードするには、このように
 <code class="docutils literal notranslate"><span class="pre">loadScript()</span></code> のコールバックに <code class="docutils literal notranslate"><span class="pre">loadScript()</span></code> を含めることになる。</p>
 <p>コードのインデントの深い部分にあるほど、ロード順序が遅い。</p>
 </section>
 <section id="handling-errors">
-<h3>Handling errors<a class="headerlink" href="#handling-errors" title="Permalink to this headline">¶</a></h3>
+<h3>Handling errors<a class="headerlink" href="#handling-errors" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">script.onload</span></code> と <code class="docutils literal notranslate"><span class="pre">script.onerror</span></code> をセットで覚える。成功時と失敗時とでコールバックを使い分ける仕組みを理解する。</p>
 <p>本文の例では、両方に同じコールバック関数を指定して、呼び出された時の引数で成功か失敗かを区別、処理する方針を採っている。</p>
 </section>
 <section id="pyramid-of-doom">
-<h3>Pyramid of Doom<a class="headerlink" href="#pyramid-of-doom" title="Permalink to this headline">¶</a></h3>
+<h3>Pyramid of Doom<a class="headerlink" href="#pyramid-of-doom" title="Permalink to this heading">¶</a></h3>
 <p>複数の非同期アクションが次々と続くと、本文のようなインデントの深いコードが出来上がる。これはコードの管理をひじょうにやりにくい構造だ。</p>
 <p>そこで、複数の非同期アクションを個別の関数にまとめて、インデントの深いコードを解消することを考える。これでいちおう解決するが、関連のある処理が別々の場所に散ってしまい、全体の凝集度が下がってしまう。</p>
 </section>
 </section>
 <section id="promise">
-<h2><a class="toc-backref" href="#id7">Promise</a><a class="headerlink" href="#promise" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id7">Promise</a><a class="headerlink" href="#promise" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/promise-basics">https://javascript.info/promise-basics</a>&gt; のノート。</p>
 <p>マルチスレッド処理でよく説明される consumer/producer のパターンで理解する。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">promise</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">{</span>
@@ -133,12 +133,12 @@
 <p>コールバック <code class="docutils literal notranslate"><span class="pre">reject</span></code> の実引数は <code class="docutils literal notranslate"><span class="pre">Error</span></code> 型であることが望ましい。</p>
 <p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> executor はふつうは非同期的な処理を行うが、直ちに処理してコールバックを呼び出して終了してもかまわない。</p>
 <section id="consumers-then-catch-finally">
-<h3>Consumers: then, catch, finally<a class="headerlink" href="#consumers-then-catch-finally" title="Permalink to this headline">¶</a></h3>
+<h3>Consumers: then, catch, finally<a class="headerlink" href="#consumers-then-catch-finally" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> のメソッド <code class="docutils literal notranslate"><span class="pre">then</span></code>, <code class="docutils literal notranslate"><span class="pre">catch</span></code>, <code class="docutils literal notranslate"><span class="pre">finally</span></code> を見ていく。</p>
 <p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> オブジェクトは producer と、結果やエラーを受け取る consumer の間にある。
 <code class="docutils literal notranslate"><span class="pre">Promise</span></code> のこれら三つのメソッドに渡すものが consumer だと考えられる。</p>
 <section id="then">
-<h4>then<a class="headerlink" href="#then" title="Permalink to this headline">¶</a></h4>
+<h4>then<a class="headerlink" href="#then" title="Permalink to this heading">¶</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">Primise</span></code> のメソッドでいちばん基本的かつ重要なのは <code class="docutils literal notranslate"><span class="pre">then</span></code> だ。その引数リストは
 <code class="docutils literal notranslate"><span class="pre">Promise</span></code> のコンストラクター関数と同様だ：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">promise</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span>
@@ -154,14 +154,14 @@
 <p>したがって、成功したときにしか興味がない場合には第一コールバックだけ渡せばいい。</p>
 </section>
 <section id="catch">
-<h4>catch<a class="headerlink" href="#catch" title="Permalink to this headline">¶</a></h4>
+<h4>catch<a class="headerlink" href="#catch" title="Permalink to this heading">¶</a></h4>
 <p>反対に、失敗したときにしか興味がない場合には <code class="docutils literal notranslate"><span class="pre">promise.catch</span></code> を呼び出す。</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">.catch(f)</span></code> の指定は <code class="docutils literal notranslate"><span class="pre">.then(null,</span> <span class="pre">f)</span></code> と同値。</p></li>
 </ul>
 </section>
 <section id="finally">
-<h4>finally<a class="headerlink" href="#finally" title="Permalink to this headline">¶</a></h4>
+<h4>finally<a class="headerlink" href="#finally" title="Permalink to this heading">¶</a></h4>
 <p>成功でも失敗でも行いたい処理を <code class="docutils literal notranslate"><span class="pre">promise.finally</span></code> で呼び出す。</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">finally</span></code> のコールバックには引数がない。</p></li>
@@ -170,38 +170,38 @@
 </section>
 </section>
 <section id="example-loadscript">
-<h3>Example: loadScript<a class="headerlink" href="#example-loadscript" title="Permalink to this headline">¶</a></h3>
+<h3>Example: loadScript<a class="headerlink" href="#example-loadscript" title="Permalink to this heading">¶</a></h3>
 <p>前章の <code class="docutils literal notranslate"><span class="pre">loadScript</span></code> をコールバックベースから <code class="docutils literal notranslate"><span class="pre">Promise</span></code> ベースに書き換える。</p>
 </section>
 <section id="tasks">
-<h3>Tasks<a class="headerlink" href="#tasks" title="Permalink to this headline">¶</a></h3>
+<h3>Tasks<a class="headerlink" href="#tasks" title="Permalink to this heading">¶</a></h3>
 <section id="re-resolve-a-promise">
-<h4>Re-resolve a promise?<a class="headerlink" href="#re-resolve-a-promise" title="Permalink to this headline">¶</a></h4>
+<h4>Re-resolve a promise?<a class="headerlink" href="#re-resolve-a-promise" title="Permalink to this heading">¶</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">resolve()</span></code> 呼び出しは最初の一度しか意味がない。</p>
 </section>
 <section id="delay-with-a-promise">
-<h4>Delay with a promise<a class="headerlink" href="#delay-with-a-promise" title="Permalink to this headline">¶</a></h4>
+<h4>Delay with a promise<a class="headerlink" href="#delay-with-a-promise" title="Permalink to this heading">¶</a></h4>
 <p>さっきの <code class="docutils literal notranslate"><span class="pre">loadScript</span></code> と同じ要領で <code class="docutils literal notranslate"><span class="pre">Promise</span></code> ベースのコードを書く。</p>
 </section>
 <section id="animated-circle-with-promise">
-<h4>Animated circle with promise<a class="headerlink" href="#animated-circle-with-promise" title="Permalink to this headline">¶</a></h4>
+<h4>Animated circle with promise<a class="headerlink" href="#animated-circle-with-promise" title="Permalink to this heading">¶</a></h4>
 <p>これは後日、相当未来になるだろうが、取り組む。</p>
 </section>
 </section>
 </section>
 <section id="promises-chaining">
-<h2><a class="toc-backref" href="#id8">Promises chaining</a><a class="headerlink" href="#promises-chaining" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id8">Promises chaining</a><a class="headerlink" href="#promises-chaining" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/promise-chaining">https://javascript.info/promise-chaining</a>&gt; のノート。</p>
 <p>次々と実行される非同期処理の連なりを <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を使って書くことができる。
 <code class="docutils literal notranslate"><span class="pre">then</span></code> を呼び出すたびに新しい <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返すようにして、そこにメソッド
 <code class="docutils literal notranslate"><span class="pre">then</span></code> 呼び出しを連鎖するのが急所だ。</p>
 <p>同一の <code class="docutils literal notranslate"><span class="pre">Promise</span></code> オブジェクトに対してメソッド <code class="docutils literal notranslate"><span class="pre">then</span></code> を何度も呼び出すということは普通はない。</p>
 <section id="returning-promises">
-<h3>Returning promises<a class="headerlink" href="#returning-promises" title="Permalink to this headline">¶</a></h3>
+<h3>Returning promises<a class="headerlink" href="#returning-promises" title="Permalink to this heading">¶</a></h3>
 <p>メソッド <code class="docutils literal notranslate"><span class="pre">then</span></code> に渡すコールバックは <code class="docutils literal notranslate"><span class="pre">Promise</span></code> オブジェクトを返すことができる。すると、次の <code class="docutils literal notranslate"><span class="pre">then</span></code> 呼び出しが書け、そのコールバックの実引数は <code class="docutils literal notranslate"><span class="pre">Promise</span></code> のコールバックの結果を取る。</p>
 </section>
 <section id="example-loadscript-1">
-<span id="id1"></span><h3>Example: loadScript<a class="headerlink" href="#example-loadscript-1" title="Permalink to this headline">¶</a></h3>
+<span id="id1"></span><h3>Example: loadScript<a class="headerlink" href="#example-loadscript-1" title="Permalink to this heading">¶</a></h3>
 <p>本文の二つの <code class="docutils literal notranslate"><span class="pre">loadScript</span></code> の連続呼び出しのコードを見比べること。メソッド
 <cite>then`</cite> の呼び出しのケツにさらに <code class="docutils literal notranslate"><span class="pre">then</span></code> の呼び出しを重ねる方式のほうが望ましい。</p>
 <ul class="simple">
@@ -209,7 +209,7 @@
 </ul>
 </section>
 <section id="bigger-example-fetch">
-<h3>Bigger example: fetch<a class="headerlink" href="#bigger-example-fetch" title="Permalink to this headline">¶</a></h3>
+<h3>Bigger example: fetch<a class="headerlink" href="#bigger-example-fetch" title="Permalink to this heading">¶</a></h3>
 <p>ネットワークリクエストには <code class="docutils literal notranslate"><span class="pre">Promise</span></code> がよく用いられる。</p>
 <p>リモートサーバーから情報を読み込むにはメソッド <code class="docutils literal notranslate"><span class="pre">fetch</span></code> を使用する。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">promise</span> <span class="o">=</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
@@ -222,23 +222,23 @@
 </ul>
 <p>非同期処理はつねに <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返すのが good practice だ。</p>
 </section>
-<section id="tasks-1">
-<span id="id2"></span><h3>Tasks<a class="headerlink" href="#tasks-1" title="Permalink to this headline">¶</a></h3>
+<section id="id2">
+<h3>Tasks<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
 <section id="promise-then-versus-catch">
-<h4>Promise: then versus catch<a class="headerlink" href="#promise-then-versus-catch" title="Permalink to this headline">¶</a></h4>
+<h4>Promise: then versus catch<a class="headerlink" href="#promise-then-versus-catch" title="Permalink to this heading">¶</a></h4>
 <p>念のため、このコードが動作するような <code class="docutils literal notranslate"><span class="pre">promise</span></code>, <code class="docutils literal notranslate"><span class="pre">f1</span></code>, <code class="docutils literal notranslate"><span class="pre">f2</span></code> を書いて検証するのがいいと思われる。</p>
 </section>
 </section>
 </section>
 <section id="error-handling-with-promises">
-<h2><a class="toc-backref" href="#id9">Error handling with promises</a><a class="headerlink" href="#error-handling-with-promises" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id9">Error handling with promises</a><a class="headerlink" href="#error-handling-with-promises" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/promise-error-handling">https://javascript.info/promise-error-handling</a>&gt; のノート。</p>
 <p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> 鎖の構造はエラー処理にも向いている。</p>
 <ul class="simple">
 <li><p>チェインのケツで <code class="docutils literal notranslate"><span class="pre">catch()</span></code> を呼び出すと、どのステップの例外もここで捕捉される。</p></li>
 </ul>
 <section id="implicit-try-catch">
-<h3>Implicit try…catch<a class="headerlink" href="#implicit-try-catch" title="Permalink to this headline">¶</a></h3>
+<h3>Implicit try…catch<a class="headerlink" href="#implicit-try-catch" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> executor やコールバックの周りには見えない <code class="docutils literal notranslate"><span class="pre">try</span></code> ブロックがあると考える。エラーが起こると、それを捕まえて reject するように扱う。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="ow">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
     <span class="k">throw</span> <span class="ow">new</span> <span class="ne">Error</span><span class="p">(</span><span class="s2">&quot;Whoops!&quot;</span><span class="p">);</span> <span class="c1">// == reject(new Error(&quot;Whoops!&quot;));</span>
@@ -253,12 +253,12 @@
 </div>
 </section>
 <section id="rethrowing">
-<h3>Rethrowing<a class="headerlink" href="#rethrowing" title="Permalink to this headline">¶</a></h3>
+<h3>Rethrowing<a class="headerlink" href="#rethrowing" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">catch</span></code> コールバックで捕まえたエラーを処理できないことがわかったら、
 <code class="docutils literal notranslate"><span class="pre">try...catch</span></code> 文と同様に、再送出すること。次の <code class="docutils literal notranslate"><span class="pre">catch</span></code> コールバックがそれを捕まえる。</p>
 </section>
 <section id="unhandled-rejections">
-<h3>Unhandled rejections<a class="headerlink" href="#unhandled-rejections" title="Permalink to this headline">¶</a></h3>
+<h3>Unhandled rejections<a class="headerlink" href="#unhandled-rejections" title="Permalink to this heading">¶</a></h3>
 <p>ブラウザーの場合には、 <code class="docutils literal notranslate"><span class="pre">Promise</span></code> が送出した捕捉されなかった例外を扱うイベントハンドラーがある。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;unhandledrejection&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
 <span class="p">});</span>
@@ -279,27 +279,27 @@
 <li><p>Node.js のような非ブラウザー環境では、処理されないエラーを追跡する方法が他にある。</p></li>
 </ul>
 </section>
-<section id="tasks-2">
-<span id="id3"></span><h3>Tasks<a class="headerlink" href="#tasks-2" title="Permalink to this headline">¶</a></h3>
+<section id="id3">
+<h3>Tasks<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
 <section id="error-in-settimeout">
-<h4>Error in setTimeout<a class="headerlink" href="#error-in-settimeout" title="Permalink to this headline">¶</a></h4>
+<h4>Error in setTimeout<a class="headerlink" href="#error-in-settimeout" title="Permalink to this heading">¶</a></h4>
 <p>これを <code class="docutils literal notranslate"><span class="pre">catch</span></code> できないのは困ったものだ。エラー処理ごと <code class="docutils literal notranslate"><span class="pre">setTimeout</span></code> するしかない。</p>
 </section>
 </section>
 </section>
 <section id="promise-api">
-<h2><a class="toc-backref" href="#id10">Promise API</a><a class="headerlink" href="#promise-api" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id10">Promise API</a><a class="headerlink" href="#promise-api" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/promise-api">https://javascript.info/promise-api</a>&gt; のノート。</p>
 <p>クラスメソッドの紹介。</p>
 <section id="promise-all">
-<h3>Promise.all<a class="headerlink" href="#promise-all" title="Permalink to this headline">¶</a></h3>
+<h3>Promise.all<a class="headerlink" href="#promise-all" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">promise</span> <span class="o">=</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="nx">iterable</span><span class="p">);</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">Promise.all()</span></code> は並行処理を join するイメージでよい。結果からなる配列を返す。エラーがなにか一つでも発生すると、すべてが無になる。また、未済処理が中断されるようなことはない。All or nothing な条件のときに利用するといい。</p>
 </section>
 <section id="promise-allsettled">
-<h3>Promise.allSettled<a class="headerlink" href="#promise-allsettled" title="Permalink to this headline">¶</a></h3>
+<h3>Promise.allSettled<a class="headerlink" href="#promise-allsettled" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Promise.allSettled()</span></code> はそのマイルド版。すべての結果を求める場合には採用する。</p>
 <p>結果は次のオブジェクトからなる配列だ：</p>
 <ul class="simple">
@@ -307,19 +307,19 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">{status:</span> <span class="pre">&quot;rejected&quot;,</span> <span class="pre">reason:</span> <span class="pre">error}</span></code></p></li>
 </ul>
 <section id="polyfill">
-<h4>Polyfill<a class="headerlink" href="#polyfill" title="Permalink to this headline">¶</a></h4>
+<h4>Polyfill<a class="headerlink" href="#polyfill" title="Permalink to this heading">¶</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">Promise.allSettled</span></code> の実装例。</p>
 </section>
 </section>
 <section id="promise-race">
-<h3>Promise.race<a class="headerlink" href="#promise-race" title="Permalink to this headline">¶</a></h3>
+<h3>Promise.race<a class="headerlink" href="#promise-race" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Promise.all</span></code> と似ているが、最初に決済された promise だけを待ち、その結果またはエラーを得る。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">promise</span> <span class="o">=</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">race</span><span class="p">(</span><span class="nx">iterable</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
 <section id="promise-any">
-<h3>Promise.any<a class="headerlink" href="#promise-any" title="Permalink to this headline">¶</a></h3>
+<h3>Promise.any<a class="headerlink" href="#promise-any" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Promise.race</span></code> と似ている。最初に成功した promise だけを待ち、その結果を得る。与えられた promise がすべて reject された場合、返された promise は
 <code class="docutils literal notranslate"><span class="pre">AggregateError</span></code> で reject される。これにはエラー全てをが含むプロパティー
 <code class="docutils literal notranslate"><span class="pre">errors</span></code> がある。</p>
@@ -328,17 +328,17 @@
 </div>
 </section>
 <section id="promise-resolve-reject">
-<h3>Promise.resolve/reject<a class="headerlink" href="#promise-resolve-reject" title="Permalink to this headline">¶</a></h3>
+<h3>Promise.resolve/reject<a class="headerlink" href="#promise-resolve-reject" title="Permalink to this heading">¶</a></h3>
 <p>現代では <code class="docutils literal notranslate"><span class="pre">async</span></code>/<code class="docutils literal notranslate"><span class="pre">await</span></code> 文がある。これらのメソッドはめったに用いられない。</p>
 <section id="promise-resolve">
-<h4>Promise.resolve<a class="headerlink" href="#promise-resolve" title="Permalink to this headline">¶</a></h4>
+<h4>Promise.resolve<a class="headerlink" href="#promise-resolve" title="Permalink to this heading">¶</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">Promise.resolve(value)</span></code> は次と同じ：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">promise</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="nx">resolve</span><span class="p">(</span><span class="nx">value</span><span class="p">));</span>
 </pre></div>
 </div>
 </section>
 <section id="promise-reject">
-<h4>Promise.reject<a class="headerlink" href="#promise-reject" title="Permalink to this headline">¶</a></h4>
+<h4>Promise.reject<a class="headerlink" href="#promise-reject" title="Permalink to this heading">¶</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">Promise.reject(error)</span></code> は次と同じ：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">promise</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">reject</span><span class="p">(</span><span class="nx">error</span><span class="p">));</span>
 </pre></div>
@@ -347,7 +347,7 @@
 </section>
 </section>
 <section id="promisification">
-<h2><a class="toc-backref" href="#id11">Promisification</a><a class="headerlink" href="#promisification" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id11">Promisification</a><a class="headerlink" href="#promisification" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/promisify">https://javascript.info/promisify</a>&gt; のノート。</p>
 <p>コールバックを入力とする関数を <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返す関数に変換することを考える。後者のほうが便利なので、この変換は理にかなう。</p>
 <p>本文では関数 <code class="docutils literal notranslate"><span class="pre">loadScript</span></code> を変更せず、それをラップする新しい関数を定義している。</p>
@@ -357,11 +357,11 @@
 <p>もう一度確認するが、コールバックと違って <cite>Promise</cite> は一度きり。</p>
 </section>
 <section id="microtasks">
-<h2><a class="toc-backref" href="#id12">Microtasks</a><a class="headerlink" href="#microtasks" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id12">Microtasks</a><a class="headerlink" href="#microtasks" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/microtask-queue">https://javascript.info/microtask-queue</a>&gt; のノート。</p>
 <p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> のメソッド <code class="docutils literal notranslate"><span class="pre">then</span></code>, <code class="docutils literal notranslate"><span class="pre">catch</span></code>, <code class="docutils literal notranslate"><span class="pre">finally</span></code> はすべて非同期的に呼び出される。これらの呼び出しの下にある行のコードの実行が先に来る。</p>
 <section id="microtasks-queue">
-<h3>Microtasks queue<a class="headerlink" href="#microtasks-queue" title="Permalink to this headline">¶</a></h3>
+<h3>Microtasks queue<a class="headerlink" href="#microtasks-queue" title="Permalink to this heading">¶</a></h3>
 <p>非同期タスクには適切な管理のために内部キュー <code class="docutils literal notranslate"><span class="pre">PromiseJobs</span></code> がある。これは
 V8 用語で the microtask queue と呼ばれる。</p>
 <p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> の準備ができると、そのハンドラー各種は FIFO キューに入れられるが、実行はまだされない。現在の実行コードから解放されると、キューからタスクが取り出されて実行される。</p>
@@ -369,23 +369,23 @@ V8 用語で the microtask queue と呼ばれる。</p>
 <p>複数の <code class="docutils literal notranslate"><span class="pre">then</span></code>/<code class="docutils literal notranslate"><span class="pre">catch</span></code>/<code class="docutils literal notranslate"><span class="pre">finally</span></code> を持つ鎖があれば、その一つ一つが非同期に実行される。つまり、まずキューに入り、現在のコードが完了し、以前にキューに入ったハンドラーが終了したときに実行される。</p>
 </section>
 <section id="unhandled-rejection">
-<h3>Unhandled rejection<a class="headerlink" href="#unhandled-rejection" title="Permalink to this headline">¶</a></h3>
+<h3>Unhandled rejection<a class="headerlink" href="#unhandled-rejection" title="Permalink to this heading">¶</a></h3>
 <p>キューの最後に処理されていない promise エラーがあるときに <code class="docutils literal notranslate"><span class="pre">unhandledrejection</span></code>
 イベントが発生する。</p>
 </section>
 </section>
 <section id="async-await">
-<h2><a class="toc-backref" href="#id13">Async/await</a><a class="headerlink" href="#async-await" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">Async/await</a><a class="headerlink" href="#async-await" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/async-await">https://javascript.info/async-await</a>&gt; のノート。</p>
 <p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> を効果的に利用するための構文を学ぶ。</p>
 <section id="async-functions">
-<h3>Async functions<a class="headerlink" href="#async-functions" title="Permalink to this headline">¶</a></h3>
+<h3>Async functions<a class="headerlink" href="#async-functions" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">async</span> <span class="pre">function</span></code> 宣言された関数は、自動的に中身を resolved な <code class="docutils literal notranslate"><span class="pre">Promise</span></code> に包んで返す。</p>
 <p>キーワード <code class="docutils literal notranslate"><span class="pre">async</span></code> がついた関数は、それが <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返すことを保証し、
 <code class="docutils literal notranslate"><span class="pre">Promise</span></code> でないものをそれに包むのだ。</p>
 </section>
 <section id="await">
-<h3>Await<a class="headerlink" href="#await" title="Permalink to this headline">¶</a></h3>
+<h3>Await<a class="headerlink" href="#await" title="Permalink to this heading">¶</a></h3>
 <p>キーワード <code class="docutils literal notranslate"><span class="pre">await</span></code> は非同期関数の中だけで機能する。例えば、下のコードは
 <code class="docutils literal notranslate"><span class="pre">await</span></code> の行で一時停止することになる：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="kd">function</span> <span class="nx">f</span><span class="p">()</span> <span class="p">{</span>
@@ -404,7 +404,7 @@ V8 用語で the microtask queue と呼ばれる。</p>
 <p>フリー関数だけでなく、オブジェクトのメソッドに対しても <code class="docutils literal notranslate"><span class="pre">async</span></code> を付けられる。</p>
 </section>
 <section id="error-handling">
-<h3>Error handling<a class="headerlink" href="#error-handling" title="Permalink to this headline">¶</a></h3>
+<h3>Error handling<a class="headerlink" href="#error-handling" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">await</span> <span class="pre">promise</span></code> は reject された場合には、その行に <code class="docutils literal notranslate"><span class="pre">throw</span></code> 文があるかのようにエラーを送出する。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="kd">function</span> <span class="nx">f</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">await</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="ow">new</span> <span class="ne">Error</span><span class="p">(</span><span class="s2">&quot;Whoops!&quot;</span><span class="p">));</span> <span class="c1">// == throw new Error(&quot;Whoops!&quot;);</span>
@@ -416,22 +416,19 @@ V8 用語で the microtask queue と呼ばれる。</p>
 <p>しかし、コードのトップレベルでは、非同期関数の外にいるとき、文法上 <code class="docutils literal notranslate"><span class="pre">await</span></code> を使えないので、最終結果・エラーを処理する <code class="docutils literal notranslate"><span class="pre">Promise</span></code> の <code class="docutils literal notranslate"><span class="pre">then</span></code>/<code class="docutils literal notranslate"><span class="pre">catch</span></code>
 を追加する。これはよくあるやり方だ。</p>
 </section>
-<section id="summary">
-<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
-</section>
-<section id="tasks-3">
-<span id="id4"></span><h3>Tasks<a class="headerlink" href="#tasks-3" title="Permalink to this headline">¶</a></h3>
+<section id="id4">
+<h3>Tasks<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <section id="rewrite-using-async-await">
-<h4>Rewrite using async/await<a class="headerlink" href="#rewrite-using-async-await" title="Permalink to this headline">¶</a></h4>
+<h4>Rewrite using async/await<a class="headerlink" href="#rewrite-using-async-await" title="Permalink to this heading">¶</a></h4>
 <p>VS Code で書くと、この関数は <code class="docutils literal notranslate"><span class="pre">async</span> <span class="pre">function</span></code> にできるのではと指摘される。</p>
 </section>
 <section id="rewrite-rethrow-with-async-await">
-<h4>Rewrite “rethrow” with async/await<a class="headerlink" href="#rewrite-rethrow-with-async-await" title="Permalink to this headline">¶</a></h4>
+<h4>Rewrite “rethrow” with async/await<a class="headerlink" href="#rewrite-rethrow-with-async-await" title="Permalink to this heading">¶</a></h4>
 <p>このような <code class="docutils literal notranslate"><span class="pre">Promise</span></code> の <code class="docutils literal notranslate"><span class="pre">then</span></code> や <code class="docutils literal notranslate"><span class="pre">catch</span></code> 混じりの関数を
 <code class="docutils literal notranslate"><span class="pre">async</span></code>/<code class="docutils literal notranslate"><span class="pre">await</span></code> で書き直すのは、かなり易しい。</p>
 </section>
 <section id="call-async-from-non-async">
-<h4>Call async from non-async<a class="headerlink" href="#call-async-from-non-async" title="Permalink to this headline">¶</a></h4>
+<h4>Call async from non-async<a class="headerlink" href="#call-async-from-non-async" title="Permalink to this heading">¶</a></h4>
 <p>非同期関数を同期関数の内側から呼び出すにはどう書くかという問いだ。これがいちばん易しいが、おそらく念のため出題されている。</p>
 </section>
 </section>
