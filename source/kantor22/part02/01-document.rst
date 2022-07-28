@@ -518,18 +518,12 @@ insertAdjacentHTML/Text/Element
 
 ``elem.innerHTML`` に代入するのと同様の HTML 文字列をノードに挿し込むメソッドもある。
 
-+----------------------------------+----------------------------------+
-| Method                           | Description                      |
-+==================================+==================================+
-| ``elem.i                         | 文字列を HTML                    |
-| nsertAdjacentHTML(where, html)`` | としてノードに挿し込む           |
-+----------------------------------+----------------------------------+
-| ``elem.i                         | 上のテキスト版                   |
-| nsertAdjacentText(where, text)`` |                                  |
-+----------------------------------+----------------------------------+
-| ``elem.inser                     | 上の要素版                       |
-| tAdjacentElement(where, elem2)`` |                                  |
-+----------------------------------+----------------------------------+
+``elem.insertAdjacentHTML(where, html)``
+  文字列を HTML としてノードに挿し込む
+``elem.insertAdjacentText(where, text)``
+  上のテキスト版
+``elem.insertAdjacentElement(where, elem2)``
+  上の要素版
 
 ここで ``where`` は位置を表す文字列だ：
 
@@ -808,15 +802,15 @@ offsetWidth/Height
 
 * ``offsetWidth`` は次の量の和となる：
 
-   * CSS の ``width``
-   * CSS の ``padding`` の二倍
-   * CSS の ``border`` の二倍
+  * CSS の ``width``
+  * CSS の ``padding`` の二倍
+  * CSS の ``border`` の二倍
 
 * ``offsetHeight`` も同様に：
 
-   * CSS の ``height``
-   * CSS の ``padding`` の二倍
-   * CSS の ``border`` の二倍
+  * CSS の ``height``
+  * CSS の ``padding`` の二倍
+  * CSS の ``border`` の二倍
 
 オフセット系測量値がまともに得られるのは、要素やその先祖要素が ``display: none``
 以外である必要がある。さもなければ、先祖要素と各測量はそれぞれ ``null`` やゼロに

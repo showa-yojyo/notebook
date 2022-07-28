@@ -239,8 +239,6 @@ Wrapping exceptions
        class ReadError{
        }
 
-.. _tasks-1:
-
 Tasks
 ----------------------------------------------------------------------
 
