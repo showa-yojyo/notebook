@@ -523,6 +523,10 @@ Scheduling: setTimeout and setInterval
 
 これらは JavaScript 仕様にないにも関わらず、ブラウザーすべてと Node.js が実装している。
 
+.. admonition:: 学習者ノート
+
+   これらの Python equivalent を考えると眠れなくなる。
+
 setTimeout
 ----------------------------------------------------------------------
 
@@ -636,6 +640,11 @@ Using "func.call" for the context
 置き換えると、入力がフリー関数でもオブジェクトメソッドでも正しく機能するようになる
 （コードを実行して実際に確認するといい）。
 
+.. admonition:: 学習者ノート
+
+   特に ``null``, ``undefined`` を ``context`` として与えたときの挙動が
+   MDN の記載どおりであることを確認したい。
+
 Going multi-argument
 ----------------------------------------------------------------------
 
@@ -705,6 +714,24 @@ Delaying decorator
 ほとんど ``setTimeout`` と同じ関数を作れということか。引数だけ変えて何度も呼び
 出すような状況では有用なのかもしれない。
 
+.. admonition:: 学習者ノート
+
+   矢関数を採用しない場合には ``this`` を変なスコープで保存しないとうまく動かない。
+
+   .. code:: javascript
+
+      function delay(f, ms){
+          function wrapper(...args){
+              let savedThis = this;
+              return setTimeout(
+                  function(){
+                      return f.apply(savedThis, args);
+                  }, ms);
+          }
+
+          return wrapper;
+      }
+
 Debounce decorator
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -713,6 +740,10 @@ Debounce decorator
 
 急所は ``setTimeout`` を呼ぶ前に前回のタイマーを取り消すところだ。タイマー ID を
 デコレーターのスコープで保存しておく。
+
+.. admonition:: 学習者ノート
+
+   無効な ID を与えて ``clearTimeout()`` を呼び出せることが許されているのを利用する。
 
 Throttle decorator
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -743,6 +774,13 @@ Throttle decorator
 
 オリジナルの ``func`` を呼び出す場合とラッパー版を呼び出す場合がある。タイマーに
 仕込むのは局所関数 ``wrapper`` のほうだ。相当複雑だ。
+
+.. admonition:: 学習者ノート
+
+   ``requestAnimationFrame()`` を ``throttle()`` のように使えるという情報がある。
+
+   こういう良資料もある：
+   `Debouncing and Throttling Explained Through Examples - CSS-Tricks` <https://css-tricks.com/debouncing-throttling-explained-examples/>`__
 
 Function binding
 ======================================================================
@@ -818,6 +856,18 @@ Going partial without context
    };
 
    partial(user.say, new Date().getHours() + ':' + new Date().getMinutes());
+
+.. admonition:: 学習者ノート
+
+   こういう変種も考えられる：
+
+   .. code:: javascript
+
+      function partial(func, ...args) {
+          return function(...argsBound) {
+              return func.call(this, ...argsBound, ...args);
+          }
+      }
 
 Tasks
 ----------------------------------------------------------------------

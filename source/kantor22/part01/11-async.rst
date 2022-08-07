@@ -94,6 +94,30 @@ Promise
 ``Promise`` executor はふつうは非同期的な処理を行うが、直ちに処理してコールバック
 を呼び出して終了してもかまわない。
 
+.. admonition:: 学習者ノート
+
+   ``Promise`` の基本動作を確認しておくといい。
+
+   .. code:: javascript
+
+      let p = new Promise((resolve, reject) => {
+          reject("POOR");
+      }).catch(e => alert(e));
+
+      let p = new Promise((resolve, reject) => {
+          reject("POOR");
+      }).then(r => alert(r), e => alert(e));
+
+      let p = new Promise((resolve, reject) => {
+          resolve("OK");
+      }).catch(e => alert(e));
+
+   ``resolve()`` も ``reject()`` も呼び出さないままでいると、内部状態は pending
+   のまま変わらない。
+
+   Python での「等価物」は ``asyncio`` 周りの機能ということになるのだろう。
+   ``async``/``await`` も関係する。
+
 Consumers: then, catch, finally
 ----------------------------------------------------------------------
 

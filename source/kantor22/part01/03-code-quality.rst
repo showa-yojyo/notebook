@@ -156,6 +156,13 @@ Good comments
 * `JSDoc <http://en.wikipedia.org/wiki/JSDoc>`__ を導入する。いろいろと利点がある。
 * コードがすべてではない。
 
+.. admonition:: 学習者ノート
+
+   JSDoc の導入例は `jsdoc - npm <https://www.npmjs.com/package/jsdoc>`__ に書いてある。
+   しかし、これだけだとハローワールドがわからないので、次を試す：
+
+     `JSDoc Tutorial <https://learning-zone.github.io/jsdoc-tutorial/>`__
+
 Ninja code
 ======================================================================
 
@@ -175,6 +182,10 @@ Automated testing with Mocha
 
 * ``it.only()`` は、他にテストがどれだけたくさんあっても、ほんとうにこのテスト
   しか実行されなくなる。
+
+.. admonition:: 学習者ノート
+
+   `Mocha <https://mochajs.org/>`__ のページの Getting Started をやるといい。
 
 Why do we need tests?
 ----------------------------------------------------------------------
