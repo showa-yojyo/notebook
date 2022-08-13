@@ -99,6 +99,39 @@ Walking the DOM
 
 <https://javascript.info/dom-navigation> のノート。
 
+.. admonition:: 学習者ノート
+
+   先にこの節で紹介されるプロパティーをまとめておく。
+
+   DOM ノードを与えると、ナビゲーションプロパティーを使って、そのすぐ近くにあ
+   るノードにアクセスできる。まずはどのノードに対しても有効なプロパティーである
+   次を憶える：
+
+   ``childNodes``
+     直接の子ノード全部。テキストノードなども含む。
+   ``firstChild``
+     ``childNodes`` の先頭要素に等しい。
+   ``lastChild``
+     ``childNodes`` の末尾要素に等しい。
+   ``parentNode``
+     親ノード。
+   ``previousSibling``
+     親ノードが自身の親ノードに等しく、自身の直前にあるノード。
+   ``nextSibling``
+     親ノードが自身の親ノードに等しく、自身の直後にあるノード。
+
+   子、親、兄弟関係が基本であるようだ。
+
+   ノードにはテキストも要素もコメントも含まれるので、上記のプロパティーでは邪魔なも
+   のを拾ってくることがある。要素に限定したプロパティーもある：
+
+   * ``children``
+   * ``firstElementChild``
+   * ``lastElementChild``
+   * ``parentElement``
+   * ``previousElementSibling``
+   * ``nextElementSibling``
+
 On top: documentElement and body
 ----------------------------------------------------------------------
 
@@ -210,9 +243,13 @@ closest
 ----------------------------------------------------------------------
 
 メソッド ``elem.closest(css)`` はマッチする要素のうち、先祖方向に最近傍にあるもの
-を返す。
+を返す。``elem`` 自身が合致するならば、それが返る。
 
-このメソッドはあとでイベント処理を書くときにちょくちょく利用するので覚える。
+.. admonition:: 学習者ノート
+
+   このメソッドはあとでイベント処理を書くときにちょくちょく利用するので覚える。
+   イベントハンドリングにおいて、このメソッドの親へ親へと向かうという性質が利用
+   できる。
 
 getElementsBy\*
 ----------------------------------------------------------------------
@@ -496,22 +533,26 @@ Creating the message
 Insertion methods
 ----------------------------------------------------------------------
 
-生成した要素を明示的に挿入することで文書を更新する。いろいろなメソッドがある：
+何らかの方法で生成したノードを、与えられたノード位置を基準にして挿し込む方法たち。
+まず先にメソッド一覧を挙げる。それから引数の意味と振る舞いを述べる。
 
-========================= ======================
-Method                    Description
-========================= ======================
-``node.append(xxx)``      末尾ノードとして加える
-``node.prepend(xxx)``     先頭ノードとして加える
-``node.before(xxx)``      直前ノードとして加える
-``node.after(xxx)``       直後ノードとして加える
-``node.replaceWith(xxx)`` ノードを置き換える
-========================= ======================
+``node.append(...nodesOrStrings)``
+  末尾ノードとして加える。引数ノードが子になる。
+``node.prepend(...nodesOrStrings)``
+  先頭ノードとして加える。引数ノードが子になる。
+``node.before(...nodesOrStrings)``
+  直前ノードとして加える。引数ノードが兄弟になる。
+``node.after(...nodesOrStrings)``
+  直後ノードとして加える。引数ノードが兄弟になる。
+``node.replaceWith(...nodesOrStrings)``
+  ノードを置き換える。自身を引数ノード全部と取り替える。自身はどこかへ行く。
 
-ここで ``xxx`` は DOM ノード（複数可）または生の文字列（勝手にテキストノードに
-変換される）とする。
+引数 ``...nodesOrStrings`` はノードか文字列が複数、カンマ区切りで与えられること
+を示している。文字列の場合には、テキストノードとして ``node`` に挿し込まれる。
+ノードでも文字列でもない場合には、JavaScript の規則に従って文字列に自動変換された
+ものが扱われる。
 
-* テキストを挿入する各方法は、文字をエスケープするのかどうかを確認してから採用すること。
+テキストを挿入する各方法は、文字をエスケープするのかどうかを確認してから採用すること。
 
 insertAdjacentHTML/Text/Element
 ----------------------------------------------------------------------
@@ -525,16 +566,16 @@ insertAdjacentHTML/Text/Element
 ``elem.insertAdjacentElement(where, elem2)``
   上の要素版
 
-ここで ``where`` は位置を表す文字列だ：
+ここで引数 ``where`` は位置を表す。次の文字列のどれか。憶えにくい気がする。
 
-============= ===================================
-Value         Description
-============= ===================================
-"beforebegin" ``elem`` の直前に挿し込む
-"afterbegin"  ``elem`` 内先頭子要素として挿し込む
-"beforeend"   ``elem`` 内末尾子要素として挿し込む
-"afterend"    ``elem`` の直後に挿し込む
-============= ===================================
+"beforebegin"
+  自身の直前に挿し込む。
+"afterbegin"
+  自身の子になるように挿し込む。先頭に来る。
+"beforeend"
+  自身の子になるように挿し込む。末尾に来る。
+"afterend"
+  自身の直後に挿し込む。
 
 最初のもの以外は、先述のメソッドが手軽な代替手段であるため、ほとんど用いられない。
 
@@ -665,11 +706,23 @@ className and classList
 * ``elem.classList`` で CSS クラスのリストにアクセスすることができる。次の操作用
   メソッドがある：
 
-  * ``add(className)``
-  * ``remove(className)``
-  * ``toggle(className)``: 状態に応じて ``add()`` もしくは ``remove()`` のどちらか
-    一方を実行する。このメソッドが用意されている事実は興味深い。
-  * ``contains(className)``
+  ``elem.classList.add("class")``, ``elem.classList.remove("class")``
+    クラス "class" を追加、削除する。
+    削除の場合、指定したクラスがない場合には単に無視されるようだ。
+  ``elem.classList.toggle("class")``
+    クラス "class" を既に含む場合には削除を、ない場合には追加をする。
+    戻り値の真偽値で実際にはどう処理されたかを区別できる。
+
+    このメソッドが用意されているという事実は興味深い。
+  ``elem.classList.contains("class")``
+      クラス "class" を含んでいるかどうかを判定する。
+
+.. admonition:: 学習者ノート
+
+   ``elem.className`` に CSS 内容を代入すると、クラスを定義する文字列全体が置き換わる。
+   しかし、たいていの場合にはクラス一つを追加なり削除なりしたい。
+   この用途にプロパティー ``elem.classList`` を利用できる。
+   ``elem.classList`` はクラス単位で操作するためのメソッドがある特別なオブジェクトだ。
 
 Element style
 ----------------------------------------------------------------------
@@ -713,13 +766,18 @@ Computed styles: getComputedStyle
    alert(computedStyle.marginTop);
    alert(computedStyle.color);
 
-ちなみに、MDN では次のようなコードを提示している：
+.. admonition:: 学習者ノート
 
-.. code:: javascript
+   このメソッドは read-only な値を参照するだけなので、上手く使うということは考え
+   ないでいい。
 
-   let computedStyle = window.getComputedStyle(document.body);
-   alert(computedStyle.getPropertyValue('margin-top'));
-   alert(computedStyle.getPropertyValue('color'));
+   ``getComputedStyle(elem)`` の用途は具体的なスタイル定義を参照することだ。
+   例えば、空のドキュメント上で次の二つの値を比較するといい：
+
+   .. code:: javascript
+
+      getComputedStyle(document.body).background;
+      document.body.style.background;
 
 * JavaScript とは離れて、CSS における computed style value と resolved style
   value の概念の説明がある。
@@ -769,6 +827,32 @@ Geometry
 ----------------------------------------------------------------------
 
 ボックスに対する測量要素は外側から offset, client, scroll なんとかという呼称になる。
+
+.. admonition:: 学習者ノート
+
+   一瞬だけ JavaScript というより CSS の理解に集中する。
+   CSS プロパティー ``position`` に固有の値指定をまずは理解しておく。
+
+   ``static``
+     この値のいちばんの特徴は、プロパティー ``position`` の既定値だということだ。
+     ``top``, ``right``, ``bottom``, ``left``, ``z-index`` が意味をなさない。
+   ``relative``
+     ``static`` と比べるとわかりやすい。
+     ``top``, ``right``, ``bottom``, ``left`` の値に基づいて自分自身からの相対
+     オフセットで配置される。``z-index`` も考慮されるようになる。
+   ``absolute``
+     配置基準が、直近の配置されている祖先要素、または初期の包含ブロックとなる。
+     それから最終的な位置が ``top``, ``right``, ``bottom``, ``left`` の値により
+     決定する。``z-index`` も考慮される。
+   ``fixed``
+     ``absolute`` と似ている。配置基準がもっと外側の祖先になる。ビューポートや
+     ページだと考えられる。
+   ``sticky``
+     直近のスクロールする祖先および包含ブロックに対して ``top``, ``right``,
+     ``bottom``, ``left`` の値に基づいて相対配置される。
+
+   `position - CSS: Cascading Style Sheets | MDN <https://developer.mozilla.org/en-US/docs/Web/CSS/position>`__
+   のコードを変更して感覚をつかむといい。
 
 offsetParent, offsetLeft/Top
 ----------------------------------------------------------------------
@@ -895,7 +979,7 @@ Place the ball in the field center
 描画コードをよく書く人間なので、こういう問題は難しくないと思ったら、変な落とし穴
 がある。
 
-また、 ``Math.round()`` を使って px 幅にわざわざ変換するのが丁寧らしい。
+また、``Math.round()`` を使って px 幅にわざわざ変換するのが丁寧らしい。
 
 * 与えられたデータはたまたまサイズが偶数なので 2 で割るだけでも動くということか？
 * ボールのほうには client ではなく offset を採用しているのも細かいようだが大事だ。

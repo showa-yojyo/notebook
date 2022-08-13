@@ -85,6 +85,27 @@ addEventListener
 最初に紹介された指定方法では取り扱えないイベントハンドラーが存在するので、普遍的な
 ``addEventListener()`` を用いるべきだ。
 
+.. admonition:: 学習者ノート
+
+   このノートを二度目に読み返すときのために次を記す。
+
+   ``once``
+     ``true`` であれば ``handler`` は処理後に自動的に削除するので、
+     テストなどに使えそうだ。
+   ``capture``
+     このフラグを理解するにはイベントの capturing と bubbling の概念を頭に叩き込んでからになる。
+     これは憶えないといけない。
+     `Javascript - Event order <https://www.quirksmode.org/js/events_order.html#link4>`__
+     の説明が詳しい。
+
+     値が ``true`` であればイベントハンドラーは capturing 局面で、
+     ``false`` ならば bubbling 局面でそれぞれ処理される。
+     これが重要になるのは、親子関係（一般的には祖先子孫関係）にある要素の同じイ
+     ベントに対してイベントハンドラーを追加するときだ。
+   ``passive``
+     値が ``true`` であれば ``handler`` で ``preventDefault()`` を呼び出さない
+     （ことをブラウザーに教えて、全体の処理効率を上げる？）。
+
 Event object
 ----------------------------------------------------------------------
 
@@ -449,7 +470,7 @@ MouseEvent, KeyboardEvent and others
 ``MouseEvent`` コンストラクターは ``clientX`` と ``clientY`` を ``options`` に
 含められる。
 
-* というより、 ``Event`` のコンストラクターで同じ実引数を与えることが認められて
+* というより、``Event`` のコンストラクターで同じ実引数を与えることが認められて
   いない。
 
 Custom events
@@ -458,6 +479,34 @@ Custom events
 となると、カスタムイベントで独自の引数を対応したい場合にできなくなってしまう。
 そこで、サブクラス ``CustomEvent`` というものが用意されている。基本の ``options``
 に、そのための専用キー ``details`` の使用が認められている。
+
+.. admonition:: 学習者ノート
+
+   私がクラス ``CustomEvent`` を研究したい理由は、WebGL コードでビュー操作をイベ
+   ントにしたいから。
+
+   .. mermaid::
+
+      classDiagram
+          Event <|-- CustomEvent
+
+          class Event{
+              +EventTarget currentTarget
+              +Boolean defaultPrevented
+              +EventTarget eventTarget
+              +String type
+              +Event(type, options)
+              +preventDefault()
+              +stopPropagation()
+          }
+
+          class CustomEvent{
+              +CustomEvent(type, options)
+          }
+
+   まず ``CustomEvent()`` に入力する文字列 ``type`` の値を標準にはない値にする。
+   さらに ``options`` にはプロパティー ``detail`` を必ず持たせ、その値を何らかの
+   ``Object`` とする。
 
 event.preventDefault()
 ----------------------------------------------------------------------
