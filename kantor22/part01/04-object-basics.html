@@ -168,6 +168,22 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">Object.assign()</span></code> の意味はメンバーごとの代入が基本。浅いコピーを行う。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">const</span></code> オブジェクトの属性の値を（参照でなくても）単純な代入式で変更することができる。</p></li>
 </ul>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>オブジェクトの複製方法を理解しておく。対象オブジェクトのプロパティーは指示されなければ保存されるので、実態としてはマージと言いたい。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">(</span><span class="nx">dest</span><span class="p">,</span> <span class="p">[</span><span class="nx">src1</span><span class="p">,</span> <span class="nx">src2</span><span class="p">,</span> <span class="nx">src3</span><span class="p">...]);</span>
+</pre></div>
+</div>
+<p>キーと値の集合ではなく、オブジェクトを <code class="docutils literal notranslate"><span class="pre">src</span></code> としてもよい。その場合には元オブジェクトのプロパティーのキーと値がマージされる。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">clone</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">({},</span> <span class="nx">user</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Object.assign()</span></code> を使わない方法もある：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">clone</span> <span class="o">=</span> <span class="p">{...</span><span class="nx">user</span><span class="p">};</span>
+</pre></div>
+</div>
+<p>深い複製をするにはより巧妙な手段を講じる必要がある。</p>
+</div>
 </section>
 <section id="nested-cloning">
 <h3>Nested cloning<a class="headerlink" href="#nested-cloning" title="Permalink to this heading">¶</a></h3>
@@ -216,11 +232,18 @@ John は Ann を参照しているものの、John はどこからも参照さ�
 <section id="object-methods-this">
 <h2><a class="toc-backref" href="#id8">Object methods, “this”</a><a class="headerlink" href="#object-methods-this" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/object-methods">https://javascript.info/object-methods</a>&gt; のノート。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
 <p>二点だけ押さえる。</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">this</span></code> の意味が他言語とかなり異なる。</p></li>
 <li><p>矢関数に <code class="docutils literal notranslate"><span class="pre">this</span></code> はない。</p></li>
 </ul>
+<p>オブジェクトのメソッドが、そのオブジェクトのメンバーにアクセスすることを考える。その前にオブジェクト自身にアクセスする必要がある。この状況でキーワード <code class="docutils literal notranslate"><span class="pre">this</span></code> を用いることができる。
+<code class="docutils literal notranslate"><span class="pre">this</span></code> の値は、メソッドを呼び出すために使用されるオブジェクトのドット以前が指すものに等しい。</p>
+<p>JavaScript に慣れていない段階では、<code class="docutils literal notranslate"><span class="pre">this</span></code> が <code class="docutils literal notranslate"><span class="pre">undefined</span></code> を指す状況によく陥る。こういうときには <code class="docutils literal notranslate"><span class="pre">call()</span></code>/<code class="docutils literal notranslate"><span class="pre">apply()</span></code>, <code class="docutils literal notranslate"><span class="pre">bind()</span></code> の適用や、
+<code class="docutils literal notranslate"><span class="pre">function</span></code> 型関数を矢関数に置き換えることを調べるようにする。</p>
+</div>
 <section id="method-examples">
 <h3>Method examples<a class="headerlink" href="#method-examples" title="Permalink to this heading">¶</a></h3>
 <p>オブジェクトのプロパティーの値を関数にすれば、それはメソッドに他ならない。</p>
@@ -328,6 +351,10 @@ John は Ann を参照しているものの、John はどこからも参照さ�
 <section id="optional-chaining">
 <h2><a class="toc-backref" href="#id10">Optional chaining ‘?.’</a><a class="headerlink" href="#optional-chaining" title="Permalink to this heading">¶</a></h2>
 <p>既存の <code class="docutils literal notranslate"><span class="pre">?</span></code> 系演算子に比べるとそれほど便利ではないようだ。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">user</span><span class="o">?</span><span class="p">.</span><span class="nx">address</span><span class="o">?</span><span class="p">.</span><span class="nx">street</span><span class="p">;</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;.elem&#39;</span><span class="p">)</span><span class="o">?</span><span class="p">.</span><span class="nx">innerHTML</span><span class="p">;</span>
+</pre></div>
+</div>
 <section id="the-non-existing-property-problem">
 <h3>The “non-existing property” problem<a class="headerlink" href="#the-non-existing-property-problem" title="Permalink to this heading">¶</a></h3>
 <p>演算子 <code class="docutils literal notranslate"><span class="pre">?.</span></code> が導入された理由を長々と述べている。</p>
@@ -350,6 +377,22 @@ John は Ann を参照しているものの、John はどこからも参照さ�
 <li><p>演算子 <code class="docutils literal notranslate"><span class="pre">?.()</span></code> は <code class="docutils literal notranslate"><span class="pre">?.</span></code> のメソッド呼び出し版</p></li>
 <li><p>演算子 <code class="docutils literal notranslate"><span class="pre">?.[]</span></code> は <code class="docutils literal notranslate"><span class="pre">?.</span></code> の角括弧版</p></li>
 </ul>
+<p>オブジェクト <code class="docutils literal notranslate"><span class="pre">userAdmin</span></code> と <code class="docutils literal notranslate"><span class="pre">`userGuest`</span> <span class="pre">があり、もしかしたらメソッド</span>
+<span class="pre">``admin()</span></code> があるかもしれない場合に次のようなコードがあり得る：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">userAdmin</span><span class="p">.</span><span class="nx">admin</span><span class="o">?</span><span class="p">.();</span>
+<span class="nx">userGuest</span><span class="p">.</span><span class="nx">admin</span><span class="o">?</span><span class="p">.();</span>
+</pre></div>
+</div>
+<p>オブジェクト <code class="docutils literal notranslate"><span class="pre">user1</span></code> と <code class="docutils literal notranslate"><span class="pre">user2</span></code> があり、もしかしたらプロパティー
+<code class="docutils literal notranslate"><span class="pre">firstName</span></code> があるかもしれない場合に次のようなコードがあり得る：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">user1</span><span class="o">?</span><span class="p">.[</span><span class="s2">&quot;firstName&quot;</span><span class="p">];</span>
+<span class="nx">user2</span><span class="o">?</span><span class="p">.[</span><span class="s2">&quot;firstName&quot;</span><span class="p">];</span>
+</pre></div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>ハテナドット系演算子が評価する値を、左辺値として参照してはいけない。</p>
+</div>
 </section>
 </section>
 <section id="symbol-type">

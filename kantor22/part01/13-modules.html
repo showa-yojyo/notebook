@@ -104,6 +104,21 @@
 </section>
 <section id="browser-specific-features">
 <h3>Browser-specific features<a class="headerlink" href="#browser-specific-features" title="Permalink to this heading">¶</a></h3>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>ブラウザーが HTML を解析するときに SCRIPT タグを見つけると、DOM の構築をそこで中断する。そのタグを実行してから構築を再開する。これが DOM 生成の基本だ。</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">defer</span></code></dt><dd><p>そこで中断する代わりにスクリプトのロードをバックグランドで行い、かつ
+DOM の構築を続行する。DOM の準備ができたらスクリプトが実行する。複数の <code class="docutils literal notranslate"><span class="pre">defer</span></code> スクリプトがある場合、それらの順序は考慮される。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">async</span></code></dt><dd><p>他のスクリプトのロードを待たないし、他のスクリプトも <code class="docutils literal notranslate"><span class="pre">async</span></code> スクリプトを待たない。イベント <code class="docutils literal notranslate"><span class="pre">DOMContentLoaded</span></code> さえ <code class="docutils literal notranslate"><span class="pre">async</span></code> スクリプトの完了を待たない。つまり、ページのロード完了前に実行される。</p>
+</dd>
+</dl>
+<p>どちらの属性も、<code class="docutils literal notranslate"><span class="pre">src</span></code> のない（つまり外部ファイルではない）スクリプトには効かない。</p>
+<p>以上を踏まえて、モジュールスクリプトは <code class="docutils literal notranslate"><span class="pre">defer</span></code> が与えられていないものでも
+<code class="docutils literal notranslate"><span class="pre">defer</span></code> が適用される。HTML ファイルに直接書かれているスクリプトでもだ。ユーザーはモジュールスクリプトが実行される前のページを一瞬見ることになる可能性が高い。</p>
+<p><code class="docutils literal notranslate"><span class="pre">async</span></code> モジュールの場合はやはり独立性があり、他を待たない。</p>
+</div>
 <section id="module-scripts-are-deferred">
 <h4>Module scripts are deferred<a class="headerlink" href="#module-scripts-are-deferred" title="Permalink to this heading">¶</a></h4>
 <ul class="simple">

@@ -146,6 +146,35 @@ DOM オブジェクト化されていたり、いなかったりする。</p></l
 <section id="walking-the-dom">
 <h2><a class="toc-backref" href="#id12">Walking the DOM</a><a class="headerlink" href="#walking-the-dom" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/dom-navigation">https://javascript.info/dom-navigation</a>&gt; のノート。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>先にこの節で紹介されるプロパティーをまとめておく。</p>
+<p>DOM ノードを与えると、ナビゲーションプロパティーを使って、そのすぐ近くにあるノードにアクセスできる。まずはどのノードに対しても有効なプロパティーである次を憶える：</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">childNodes</span></code></dt><dd><p>直接の子ノード全部。テキストノードなども含む。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">firstChild</span></code></dt><dd><p><code class="docutils literal notranslate"><span class="pre">childNodes</span></code> の先頭要素に等しい。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">lastChild</span></code></dt><dd><p><code class="docutils literal notranslate"><span class="pre">childNodes</span></code> の末尾要素に等しい。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">parentNode</span></code></dt><dd><p>親ノード。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">previousSibling</span></code></dt><dd><p>親ノードが自身の親ノードに等しく、自身の直前にあるノード。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">nextSibling</span></code></dt><dd><p>親ノードが自身の親ノードに等しく、自身の直後にあるノード。</p>
+</dd>
+</dl>
+<p>子、親、兄弟関係が基本であるようだ。</p>
+<p>ノードにはテキストも要素もコメントも含まれるので、上記のプロパティーでは邪魔なものを拾ってくることがある。要素に限定したプロパティーもある：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">children</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">firstElementChild</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lastElementChild</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">parentElement</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">previousElementSibling</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nextElementSibling</span></code></p></li>
+</ul>
+</div>
 <section id="on-top-documentelement-and-body">
 <h3>On top: documentElement and body<a class="headerlink" href="#on-top-documentelement-and-body" title="Permalink to this heading">¶</a></h3>
 <p>まずは公式三つを覚える：</p>
@@ -242,8 +271,11 @@ Console で試せる。</p>
 </section>
 <section id="closest">
 <h3>closest<a class="headerlink" href="#closest" title="Permalink to this heading">¶</a></h3>
-<p>メソッド <code class="docutils literal notranslate"><span class="pre">elem.closest(css)</span></code> はマッチする要素のうち、先祖方向に最近傍にあるものを返す。</p>
-<p>このメソッドはあとでイベント処理を書くときにちょくちょく利用するので覚える。</p>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">elem.closest(css)</span></code> はマッチする要素のうち、先祖方向に最近傍にあるものを返す。<code class="docutils literal notranslate"><span class="pre">elem</span></code> 自身が合致するならば、それが返る。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>このメソッドはあとでイベント処理を書くときにちょくちょく利用するので覚える。イベントハンドリングにおいて、このメソッドの親へ親へと向かうという性質が利用できる。</p>
+</div>
 </section>
 <section id="getelementsby">
 <h3>getElementsBy*<a class="headerlink" href="#getelementsby" title="Permalink to this heading">¶</a></h3>
@@ -508,39 +540,21 @@ CSS の <code class="docutils literal notranslate"><span class="pre">display:</s
 </section>
 <section id="insertion-methods">
 <h3>Insertion methods<a class="headerlink" href="#insertion-methods" title="Permalink to this heading">¶</a></h3>
-<p>生成した要素を明示的に挿入することで文書を更新する。いろいろなメソッドがある：</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 53%" />
-<col style="width: 47%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Method</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">node.append(xxx)</span></code></p></td>
-<td><p>末尾ノードとして加える</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">node.prepend(xxx)</span></code></p></td>
-<td><p>先頭ノードとして加える</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">node.before(xxx)</span></code></p></td>
-<td><p>直前ノードとして加える</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">node.after(xxx)</span></code></p></td>
-<td><p>直後ノードとして加える</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">node.replaceWith(xxx)</span></code></p></td>
-<td><p>ノードを置き換える</p></td>
-</tr>
-</tbody>
-</table>
-<p>ここで <code class="docutils literal notranslate"><span class="pre">xxx</span></code> は DOM ノード（複数可）または生の文字列（勝手にテキストノードに変換される）とする。</p>
-<ul class="simple">
-<li><p>テキストを挿入する各方法は、文字をエスケープするのかどうかを確認してから採用すること。</p></li>
-</ul>
+<p>何らかの方法で生成したノードを、与えられたノード位置を基準にして挿し込む方法たち。まず先にメソッド一覧を挙げる。それから引数の意味と振る舞いを述べる。</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">node.append(...nodesOrStrings)</span></code></dt><dd><p>末尾ノードとして加える。引数ノードが子になる。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">node.prepend(...nodesOrStrings)</span></code></dt><dd><p>先頭ノードとして加える。引数ノードが子になる。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">node.before(...nodesOrStrings)</span></code></dt><dd><p>直前ノードとして加える。引数ノードが兄弟になる。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">node.after(...nodesOrStrings)</span></code></dt><dd><p>直後ノードとして加える。引数ノードが兄弟になる。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">node.replaceWith(...nodesOrStrings)</span></code></dt><dd><p>ノードを置き換える。自身を引数ノード全部と取り替える。自身はどこかへ行く。</p>
+</dd>
+</dl>
+<p>引数 <code class="docutils literal notranslate"><span class="pre">...nodesOrStrings</span></code> はノードか文字列が複数、カンマ区切りで与えられることを示している。文字列の場合には、テキストノードとして <code class="docutils literal notranslate"><span class="pre">node</span></code> に挿し込まれる。ノードでも文字列でもない場合には、JavaScript の規則に従って文字列に自動変換されたものが扱われる。</p>
+<p>テキストを挿入する各方法は、文字をエスケープするのかどうかを確認してから採用すること。</p>
 </section>
 <section id="insertadjacenthtml-text-element">
 <h3>insertAdjacentHTML/Text/Element<a class="headerlink" href="#insertadjacenthtml-text-element" title="Permalink to this heading">¶</a></h3>
@@ -553,32 +567,17 @@ CSS の <code class="docutils literal notranslate"><span class="pre">display:</s
 <dt><code class="docutils literal notranslate"><span class="pre">elem.insertAdjacentElement(where,</span> <span class="pre">elem2)</span></code></dt><dd><p>上の要素版</p>
 </dd>
 </dl>
-<p>ここで <code class="docutils literal notranslate"><span class="pre">where</span></code> は位置を表す文字列だ：</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 27%" />
-<col style="width: 73%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Value</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>“beforebegin”</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">elem</span></code> の直前に挿し込む</p></td>
-</tr>
-<tr class="row-odd"><td><p>“afterbegin”</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">elem</span></code> 内先頭子要素として挿し込む</p></td>
-</tr>
-<tr class="row-even"><td><p>“beforeend”</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">elem</span></code> 内末尾子要素として挿し込む</p></td>
-</tr>
-<tr class="row-odd"><td><p>“afterend”</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">elem</span></code> の直後に挿し込む</p></td>
-</tr>
-</tbody>
-</table>
+<p>ここで引数 <code class="docutils literal notranslate"><span class="pre">where</span></code> は位置を表す。次の文字列のどれか。憶えにくい気がする。</p>
+<dl class="simple">
+<dt>“beforebegin”</dt><dd><p>自身の直前に挿し込む。</p>
+</dd>
+<dt>“afterbegin”</dt><dd><p>自身の子になるように挿し込む。先頭に来る。</p>
+</dd>
+<dt>“beforeend”</dt><dd><p>自身の子になるように挿し込む。末尾に来る。</p>
+</dd>
+<dt>“afterend”</dt><dd><p>自身の直後に挿し込む。</p>
+</dd>
+</dl>
 <p>最初のもの以外は、先述のメソッドが手軽な代替手段であるため、ほとんど用いられない。</p>
 </section>
 <section id="node-removal">
@@ -677,17 +676,25 @@ CSS の <code class="docutils literal notranslate"><span class="pre">display:</s
 <p>JavaScript ではどちらの方法も採れるが、クラスを扱うのが望ましい。それができない場合にのみ <code class="docutils literal notranslate"><span class="pre">elem.style</span></code> から設定するようにする。</p>
 <section id="classname-and-classlist">
 <h3>className and classList<a class="headerlink" href="#classname-and-classlist" title="Permalink to this heading">¶</a></h3>
-<ul class="simple">
+<ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">elem.className</span></code> で CSS クラスの全体にいっぺんにアクセスできる。HTML タグの属性 <code class="docutils literal notranslate"><span class="pre">class</span></code> に対応する。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">elem.classList</span></code> で CSS クラスのリストにアクセスすることができる。次の操作用メソッドがある：</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">add(className)</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">remove(className)</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">toggle(className)</span></code>: 状態に応じて <code class="docutils literal notranslate"><span class="pre">add()</span></code> もしくは <code class="docutils literal notranslate"><span class="pre">remove()</span></code> のどちらか一方を実行する。このメソッドが用意されている事実は興味深い。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">contains(className)</span></code></p></li>
-</ul>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">elem.classList.add(&quot;class&quot;)</span></code>, <code class="docutils literal notranslate"><span class="pre">elem.classList.remove(&quot;class&quot;)</span></code></dt><dd><p>クラス “class” を追加、削除する。削除の場合、指定したクラスがない場合には単に無視されるようだ。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">elem.classList.toggle(&quot;class&quot;)</span></code></dt><dd><p>クラス “class” を既に含む場合には削除を、ない場合には追加をする。戻り値の真偽値で実際にはどう処理されたかを区別できる。</p>
+<p>このメソッドが用意されているという事実は興味深い。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">elem.classList.contains(&quot;class&quot;)</span></code></dt><dd><p>クラス “class” を含んでいるかどうかを判定する。</p>
+</dd>
+</dl>
 </li>
 </ul>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p><code class="docutils literal notranslate"><span class="pre">elem.className</span></code> に CSS 内容を代入すると、クラスを定義する文字列全体が置き換わる。しかし、たいていの場合にはクラス一つを追加なり削除なりしたい。この用途にプロパティー <code class="docutils literal notranslate"><span class="pre">elem.classList</span></code> を利用できる。
+<code class="docutils literal notranslate"><span class="pre">elem.classList</span></code> はクラス単位で操作するためのメソッドがある特別なオブジェクトだ。</p>
+</div>
 </section>
 <section id="element-style">
 <h3>Element style<a class="headerlink" href="#element-style" title="Permalink to this heading">¶</a></h3>
@@ -718,11 +725,14 @@ CSS の <code class="docutils literal notranslate"><span class="pre">width</span
 <span class="nx">alert</span><span class="p">(</span><span class="nx">computedStyle</span><span class="p">.</span><span class="nx">color</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>ちなみに、MDN では次のようなコードを提示している：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">computedStyle</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">getComputedStyle</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">);</span>
-<span class="nx">alert</span><span class="p">(</span><span class="nx">computedStyle</span><span class="p">.</span><span class="nx">getPropertyValue</span><span class="p">(</span><span class="s1">&#39;margin-top&#39;</span><span class="p">));</span>
-<span class="nx">alert</span><span class="p">(</span><span class="nx">computedStyle</span><span class="p">.</span><span class="nx">getPropertyValue</span><span class="p">(</span><span class="s1">&#39;color&#39;</span><span class="p">));</span>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>このメソッドは read-only な値を参照するだけなので、上手く使うということは考えないでいい。</p>
+<p><code class="docutils literal notranslate"><span class="pre">getComputedStyle(elem)</span></code> の用途は具体的なスタイル定義を参照することだ。例えば、空のドキュメント上で次の二つの値を比較するといい：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">getComputedStyle</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">).</span><span class="nx">background</span><span class="p">;</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">background</span><span class="p">;</span>
 </pre></div>
+</div>
 </div>
 <ul class="simple">
 <li><p>JavaScript とは離れて、CSS における computed style value と resolved style
@@ -765,6 +775,28 @@ JavaScript で要素を移動したり配置したりする際に、これらの
 <section id="geometry">
 <h3>Geometry<a class="headerlink" href="#geometry" title="Permalink to this heading">¶</a></h3>
 <p>ボックスに対する測量要素は外側から offset, client, scroll なんとかという呼称になる。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>一瞬だけ JavaScript というより CSS の理解に集中する。
+CSS プロパティー <code class="docutils literal notranslate"><span class="pre">position</span></code> に固有の値指定をまずは理解しておく。</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">static</span></code></dt><dd><p>この値のいちばんの特徴は、プロパティー <code class="docutils literal notranslate"><span class="pre">position</span></code> の既定値だということだ。
+<code class="docutils literal notranslate"><span class="pre">top</span></code>, <code class="docutils literal notranslate"><span class="pre">right</span></code>, <code class="docutils literal notranslate"><span class="pre">bottom</span></code>, <code class="docutils literal notranslate"><span class="pre">left</span></code>, <code class="docutils literal notranslate"><span class="pre">z-index</span></code> が意味をなさない。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">relative</span></code></dt><dd><p><code class="docutils literal notranslate"><span class="pre">static</span></code> と比べるとわかりやすい。
+<code class="docutils literal notranslate"><span class="pre">top</span></code>, <code class="docutils literal notranslate"><span class="pre">right</span></code>, <code class="docutils literal notranslate"><span class="pre">bottom</span></code>, <code class="docutils literal notranslate"><span class="pre">left</span></code> の値に基づいて自分自身からの相対オフセットで配置される。<code class="docutils literal notranslate"><span class="pre">z-index</span></code> も考慮されるようになる。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">absolute</span></code></dt><dd><p>配置基準が、直近の配置されている祖先要素、または初期の包含ブロックとなる。それから最終的な位置が <code class="docutils literal notranslate"><span class="pre">top</span></code>, <code class="docutils literal notranslate"><span class="pre">right</span></code>, <code class="docutils literal notranslate"><span class="pre">bottom</span></code>, <code class="docutils literal notranslate"><span class="pre">left</span></code> の値により決定する。<code class="docutils literal notranslate"><span class="pre">z-index</span></code> も考慮される。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">fixed</span></code></dt><dd><p><code class="docutils literal notranslate"><span class="pre">absolute</span></code> と似ている。配置基準がもっと外側の祖先になる。ビューポートやページだと考えられる。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">sticky</span></code></dt><dd><p>直近のスクロールする祖先および包含ブロックに対して <code class="docutils literal notranslate"><span class="pre">top</span></code>, <code class="docutils literal notranslate"><span class="pre">right</span></code>,
+<code class="docutils literal notranslate"><span class="pre">bottom</span></code>, <code class="docutils literal notranslate"><span class="pre">left</span></code> の値に基づいて相対配置される。</p>
+</dd>
+</dl>
+<p><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/CSS/position">position - CSS: Cascading Style Sheets | MDN</a>
+のコードを変更して感覚をつかむといい。</p>
+</div>
 </section>
 <section id="offsetparent-offsetleft-top">
 <h3>offsetParent, offsetLeft/Top<a class="headerlink" href="#offsetparent-offsetleft-top" title="Permalink to this heading">¶</a></h3>
@@ -859,7 +891,7 @@ JavaScript で要素を移動したり配置したりする際に、これらの
 <section id="place-the-ball-in-the-field-center">
 <h4>Place the ball in the field center<a class="headerlink" href="#place-the-ball-in-the-field-center" title="Permalink to this heading">¶</a></h4>
 <p>描画コードをよく書く人間なので、こういう問題は難しくないと思ったら、変な落とし穴がある。</p>
-<p>また、 <code class="docutils literal notranslate"><span class="pre">Math.round()</span></code> を使って px 幅にわざわざ変換するのが丁寧らしい。</p>
+<p>また、<code class="docutils literal notranslate"><span class="pre">Math.round()</span></code> を使って px 幅にわざわざ変換するのが丁寧らしい。</p>
 <ul class="simple">
 <li><p>与えられたデータはたまたまサイズが偶数なので 2 で割るだけでも動くということか？</p></li>
 <li><p>ボールのほうには client ではなく offset を採用しているのも細かいようだが大事だ。</p></li>

@@ -110,6 +110,22 @@ HTML のマークアップでイベントハンドラーを定義する場合に
 </ul>
 <p>最初に紹介された指定方法では取り扱えないイベントハンドラーが存在するので、普遍的な
 <code class="docutils literal notranslate"><span class="pre">addEventListener()</span></code> を用いるべきだ。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>このノートを二度目に読み返すときのために次を記す。</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">once</span></code></dt><dd><p><code class="docutils literal notranslate"><span class="pre">true</span></code> であれば <code class="docutils literal notranslate"><span class="pre">handler</span></code> は処理後に自動的に削除するので、テストなどに使えそうだ。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">capture</span></code></dt><dd><p>このフラグを理解するにはイベントの capturing と bubbling の概念を頭に叩き込んでからになる。これは憶えないといけない。
+<a class="reference external" href="https://www.quirksmode.org/js/events_order.html#link4">Javascript - Event order</a>
+の説明が詳しい。</p>
+<p>値が <code class="docutils literal notranslate"><span class="pre">true</span></code> であればイベントハンドラーは capturing 局面で、
+<code class="docutils literal notranslate"><span class="pre">false</span></code> ならば bubbling 局面でそれぞれ処理される。これが重要になるのは、親子関係（一般的には祖先子孫関係）にある要素の同じイベントに対してイベントハンドラーを追加するときだ。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">passive</span></code></dt><dd><p>値が <code class="docutils literal notranslate"><span class="pre">true</span></code> であれば <code class="docutils literal notranslate"><span class="pre">handler</span></code> で <code class="docutils literal notranslate"><span class="pre">preventDefault()</span></code> を呼び出さない（ことをブラウザーに教えて、全体の処理効率を上げる？）。</p>
+</dd>
+</dl>
+</div>
 </section>
 <section id="event-object">
 <h3>Event object<a class="headerlink" href="#event-object" title="Permalink to this heading">¶</a></h3>
@@ -395,13 +411,36 @@ HTML のマークアップでイベントハンドラーを定義する場合に
 <p><code class="docutils literal notranslate"><span class="pre">UIEvent</span></code> のサブクラスでは、独自の引数を受け取るのがふつうだ。例えば
 <code class="docutils literal notranslate"><span class="pre">MouseEvent</span></code> コンストラクターは <code class="docutils literal notranslate"><span class="pre">clientX</span></code> と <code class="docutils literal notranslate"><span class="pre">clientY</span></code> を <code class="docutils literal notranslate"><span class="pre">options</span></code> に含められる。</p>
 <ul class="simple">
-<li><p>というより、 <code class="docutils literal notranslate"><span class="pre">Event</span></code> のコンストラクターで同じ実引数を与えることが認められていない。</p></li>
+<li><p>というより、<code class="docutils literal notranslate"><span class="pre">Event</span></code> のコンストラクターで同じ実引数を与えることが認められていない。</p></li>
 </ul>
 </section>
 <section id="custom-events">
 <h3>Custom events<a class="headerlink" href="#custom-events" title="Permalink to this heading">¶</a></h3>
 <p>となると、カスタムイベントで独自の引数を対応したい場合にできなくなってしまう。そこで、サブクラス <code class="docutils literal notranslate"><span class="pre">CustomEvent</span></code> というものが用意されている。基本の <code class="docutils literal notranslate"><span class="pre">options</span></code>
 に、そのための専用キー <code class="docutils literal notranslate"><span class="pre">details</span></code> の使用が認められている。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>私がクラス <code class="docutils literal notranslate"><span class="pre">CustomEvent</span></code> を研究したい理由は、WebGL コードでビュー操作をイベントにしたいから。</p>
+<div class="mermaid">
+            classDiagram
+    Event &lt;|-- CustomEvent
+
+    class Event{
+        +EventTarget currentTarget
+        +Boolean defaultPrevented
+        +EventTarget eventTarget
+        +String type
+        +Event(type, options)
+        +preventDefault()
+        +stopPropagation()
+    }
+
+    class CustomEvent{
+        +CustomEvent(type, options)
+    }
+        </div><p>まず <code class="docutils literal notranslate"><span class="pre">CustomEvent()</span></code> に入力する文字列 <code class="docutils literal notranslate"><span class="pre">type</span></code> の値を標準にはない値にする。さらに <code class="docutils literal notranslate"><span class="pre">options</span></code> にはプロパティー <code class="docutils literal notranslate"><span class="pre">detail</span></code> を必ず持たせ、その値を何らかの
+<code class="docutils literal notranslate"><span class="pre">Object</span></code> とする。</p>
+</div>
 </section>
 <section id="event-preventdefault">
 <h3>event.preventDefault()<a class="headerlink" href="#event-preventdefault" title="Permalink to this heading">¶</a></h3>

@@ -472,6 +472,10 @@ minifier がそれをダメにする可能性が高い。</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">setInterval</span></code></p></li>
 </ul>
 <p>これらは JavaScript 仕様にないにも関わらず、ブラウザーすべてと Node.js が実装している。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>これらの Python equivalent を考えると眠れなくなる。</p>
+</div>
 <section id="settimeout">
 <h3>setTimeout<a class="headerlink" href="#settimeout" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">timerId</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">func</span><span class="o">|</span><span class="nx">code</span><span class="p">,</span> <span class="p">[</span><span class="nx">delay</span><span class="p">],</span> <span class="p">[</span><span class="nx">arg1</span><span class="p">],</span> <span class="p">[</span><span class="nx">arg2</span><span class="p">],</span> <span class="p">...);</span>
@@ -554,6 +558,11 @@ minifier がそれをダメにする可能性が高い。</p>
 <li><p>第二引数以降が <code class="docutils literal notranslate"><span class="pre">func</span></code> への入力引数だ。</p></li>
 </ul>
 <p>本文の最初のデコレーター関数の <code class="docutils literal notranslate"><span class="pre">func</span></code> 呼び出しを <code class="docutils literal notranslate"><span class="pre">func.call</span></code> 呼び出しに置き換えると、入力がフリー関数でもオブジェクトメソッドでも正しく機能するようになる（コードを実行して実際に確認するといい）。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>特に <code class="docutils literal notranslate"><span class="pre">null</span></code>, <code class="docutils literal notranslate"><span class="pre">undefined</span></code> を <code class="docutils literal notranslate"><span class="pre">context</span></code> として与えたときの挙動が
+MDN の記載どおりであることを確認したい。</p>
+</div>
 </section>
 <section id="going-multi-argument">
 <h3>Going multi-argument<a class="headerlink" href="#going-multi-argument" title="Permalink to this heading">¶</a></h3>
@@ -609,11 +618,32 @@ minifier がそれをダメにする可能性が高い。</p>
 <section id="delaying-decorator">
 <h4>Delaying decorator<a class="headerlink" href="#delaying-decorator" title="Permalink to this heading">¶</a></h4>
 <p>ほとんど <code class="docutils literal notranslate"><span class="pre">setTimeout</span></code> と同じ関数を作れということか。引数だけ変えて何度も呼び出すような状況では有用なのかもしれない。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>矢関数を採用しない場合には <code class="docutils literal notranslate"><span class="pre">this</span></code> を変なスコープで保存しないとうまく動かない。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">delay</span><span class="p">(</span><span class="nx">f</span><span class="p">,</span> <span class="nx">ms</span><span class="p">){</span>
+    <span class="kd">function</span> <span class="nx">wrapper</span><span class="p">(...</span><span class="nx">args</span><span class="p">){</span>
+        <span class="kd">let</span> <span class="nx">savedThis</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nx">setTimeout</span><span class="p">(</span>
+            <span class="kd">function</span><span class="p">(){</span>
+                <span class="k">return</span> <span class="nx">f</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">savedThis</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+            <span class="p">},</span> <span class="nx">ms</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">wrapper</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 </section>
 <section id="debounce-decorator">
 <h4>Debounce decorator<a class="headerlink" href="#debounce-decorator" title="Permalink to this heading">¶</a></h4>
 <p>まず <code class="docutils literal notranslate"><span class="pre">debounce</span></code> の仕様を理解する。短時間で連続するような呼び出しに対して、前回の呼び出しから指定時間以上経過している呼び出しだけを採用するようなデコレーターだ。</p>
 <p>急所は <code class="docutils literal notranslate"><span class="pre">setTimeout</span></code> を呼ぶ前に前回のタイマーを取り消すところだ。タイマー ID をデコレーターのスコープで保存しておく。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>無効な ID を与えて <code class="docutils literal notranslate"><span class="pre">clearTimeout()</span></code> を呼び出せることが許されているのを利用する。</p>
+</div>
 </section>
 <section id="throttle-decorator">
 <h4>Throttle decorator<a class="headerlink" href="#throttle-decorator" title="Permalink to this heading">¶</a></h4>
@@ -644,6 +674,12 @@ minifier がそれをダメにする可能性が高い。</p>
 </li>
 </ul>
 <p>オリジナルの <code class="docutils literal notranslate"><span class="pre">func</span></code> を呼び出す場合とラッパー版を呼び出す場合がある。タイマーに仕込むのは局所関数 <code class="docutils literal notranslate"><span class="pre">wrapper</span></code> のほうだ。相当複雑だ。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p><code class="docutils literal notranslate"><span class="pre">requestAnimationFrame()</span></code> を <code class="docutils literal notranslate"><span class="pre">throttle()</span></code> のように使えるという情報がある。</p>
+<p>こういう良資料もある：
+<cite>Debouncing and Throttling Explained Through Examples - CSS-Tricks</cite> &lt;<a class="reference external" href="https://css-tricks.com/debouncing-throttling-explained-examples/">https://css-tricks.com/debouncing-throttling-explained-examples/</a>&gt;`__</p>
+</div>
 </section>
 </section>
 </section>
@@ -703,6 +739,17 @@ minifier がそれをダメにする可能性が高い。</p>
 
 <span class="nx">partial</span><span class="p">(</span><span class="nx">user</span><span class="p">.</span><span class="nx">say</span><span class="p">,</span> <span class="ow">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getHours</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;:&#39;</span> <span class="o">+</span> <span class="ow">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getMinutes</span><span class="p">());</span>
 </pre></div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>こういう変種も考えられる：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">partial</span><span class="p">(</span><span class="nx">func</span><span class="p">,</span> <span class="p">...</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kd">function</span><span class="p">(...</span><span class="nx">argsBound</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">func</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">...</span><span class="nx">argsBound</span><span class="p">,</span> <span class="p">...</span><span class="nx">args</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 </section>
 <section id="id5">

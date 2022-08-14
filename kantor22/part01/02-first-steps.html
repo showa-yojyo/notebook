@@ -131,6 +131,10 @@
 <li><p>クラスやモジュールでは自動的に “use strict” モードなので、明示的に書くものではない。</p></li>
 <li><p>本書では断りのない限り “use strict” モードであることを想定している。</p></li>
 </ul>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>手持ちのモジュールファイルで “use strict” と書いてあるものを sed で削るようにする。</p>
+</div>
 </section>
 </section>
 <section id="variables">
@@ -334,6 +338,21 @@
 <h2><a class="toc-backref" href="#id22">Type Conversions</a><a class="headerlink" href="#type-conversions" title="Permalink to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">Object</span></code> 型以外の型からの型変換、特に自動変換に関する規則。頭に叩き込んでおきたい。</p>
 <p>明示的な変換は他言語と同様の方式でよい。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>非 <code class="docutils literal notranslate"><span class="pre">Object</span></code> 型の自動型キャストについて気になるところをチェックしておく。いざとなれば明示的キャストが有効なので困ることはない。</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">String</span></code> へのキャストは <code class="docutils literal notranslate"><span class="pre">String</span></code> 値が必要なときに暗黙的に行われる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Number</span></code> へのキャストは数学関数や式の中で暗黙的に行われる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Boolean</span></code> へのキャストは論理演算が必要なときに暗黙的に行われる。</p></li>
+</ol>
+<p>明示的キャストの一覧：</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">String(value)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Number(value)</span></code>, <code class="docutils literal notranslate"><span class="pre">+value</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Boolean(value)</span></code>, <code class="docutils literal notranslate"><span class="pre">!!value</span></code></p></li>
+</ol>
+</div>
 <section id="string-conversion">
 <h3>String Conversion<a class="headerlink" href="#string-conversion" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
@@ -452,6 +471,11 @@
 <li><p>比較演算子 <code class="docutils literal notranslate"><span class="pre">===</span></code> は型の暗黙的変換を生じないで値を比較する。したがって、オペランド同士の型が異なるだけで、この式は <code class="docutils literal notranslate"><span class="pre">false</span></code> に評価される。</p></li>
 <li><p>比較演算子 <code class="docutils literal notranslate"><span class="pre">!==</span></code> はその否定を返す。</p></li>
 </ul>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>JavaScript 固有の挙動として、型が異なる値を比較してもエラーにならない。先述の自動型キャストが発動して型を揃えてから比較される。両辺ともに <code class="docutils literal notranslate"><span class="pre">Number</span></code> 型にキャストされると憶えておいて間違いない。</p>
+<p>そこで演算子 <code class="docutils literal notranslate"><span class="pre">===</span></code> がある。これは自動型キャストを一切行わない。両辺の型が異なっていれば、それだけで <code class="docutils literal notranslate"><span class="pre">false</span></code> と評価される。</p>
+</div>
 </section>
 <section id="comparison-with-null-and-undefined">
 <h3>Comparison with null and undefined<a class="headerlink" href="#comparison-with-null-and-undefined" title="Permalink to this heading">¶</a></h3>
@@ -611,6 +635,10 @@
 </pre></div>
 </div>
 <p>演算子 <code class="docutils literal notranslate"><span class="pre">??</span></code> の主な用途はデフォルト値を与えることだ。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>既存コードで <code class="docutils literal notranslate"><span class="pre">result</span> <span class="pre">=</span> <span class="pre">a</span> <span class="pre">??</span> <span class="pre">b</span></code> のような書き方に置き換えることを考えたい。</p>
+</div>
 <section id="comparison-with">
 <h3>Comparison with ||<a class="headerlink" href="#comparison-with" title="Permalink to this heading">¶</a></h3>
 <p>演算子 <code class="docutils literal notranslate"><span class="pre">||</span></code> とは評価基準が異なる。例えば上のコードで <code class="docutils literal notranslate"><span class="pre">a</span></code> が 0 や <code class="docutils literal notranslate"><span class="pre">false</span></code> の場合を考えろ。</p>
@@ -665,7 +693,7 @@
 </section>
 <section id="which-values-does-the-while-loop-show">
 <h4>Which values does the while loop show?<a class="headerlink" href="#which-values-does-the-while-loop-show" title="Permalink to this heading">¶</a></h4>
-<p>類題。ループの理解というより、ウンクリメント演算子の理解テストだ。</p>
+<p>類題。ループの理解というより、インクリメント演算子の理解テストだ。</p>
 </section>
 <section id="which-values-get-shown-by-the-for-loop">
 <h4>Which values get shown by the “for” loop?<a class="headerlink" href="#which-values-get-shown-by-the-for-loop" title="Permalink to this heading">¶</a></h4>

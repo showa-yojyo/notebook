@@ -483,11 +483,20 @@ Paint も飛ばされるとより効果的だ。</p>
 </pre></div>
 </div>
 <p>この呼び出しにより、ブラウザーがアニメーションを行いたいときに最も近いタイミングで関数 <code class="docutils literal notranslate"><span class="pre">callback</span></code> が実行されるようスケジュールされる。コールバックで要素の変更を行うと、他の <code class="docutils literal notranslate"><span class="pre">requestAnimationFrame()</span></code> コールバックや CSS アニメーションと一緒にまとめられる。そのため、幾何の再計算と再描画は、複数回ではなく、一度だけ行われる。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>ある文書によると <code class="docutils literal notranslate"><span class="pre">requestAnimationFrame()</span></code> のコールバック回数はディスプレイのリフレッシュレートに合致するようだ。したがって、環境によってコールバックが呼び出される頻度が異なると想定するべきだ。そこで、コールバックの第一引数が経過時間を表す数値であることを利用する。例えば、物体の運動を描画するのであれば、コールバック呼び出しに対応する時刻における変位なり速度なりを計算して、物体の位置を決定するようにする。等速直線運動と等角速度円運動を実装してコールバック実装のコツをつかみたい。</p>
+</div>
 <p>戻り値 <code class="docutils literal notranslate"><span class="pre">requestId</span></code> は、呼び出しを取り消すために用いる。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">cancelAnimationFrame</span><span class="p">(</span><span class="nx">requestId</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>このコールバック関数は、ページロードの開始時点からのミリ秒単位の経過時間を引数に取る。同じものを <code class="docutils literal notranslate"><span class="pre">performance.now()</span></code> を呼び出すことによっても得られる。 CPU に負荷がかかっていたり、ノートパソコンのバッテリーがほとんど放電していたり、その他の理由がない限り、通常、コールバックはすぐに実行される。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p>関連するアニメーションの次回 <code class="docutils literal notranslate"><span class="pre">requestAnimationFrame()</span></code> 呼び出しの戻り値で
+<code class="docutils literal notranslate"><span class="pre">requestId</span></code> の値を更新するのを忘れないようにする。</p>
+</div>
 <p>以下のコードは、<code class="docutils literal notranslate"><span class="pre">requestAnimationFrame()</span></code> の最初の十回の実行の間の時間を示す。通常、10ms から 20ms になる。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">prev</span> <span class="o">=</span> <span class="nx">performance</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span>
 <span class="kd">let</span> <span class="nx">times</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span>

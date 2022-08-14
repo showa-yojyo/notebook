@@ -132,6 +132,27 @@
 <p>どちらのコールバックにおいても、結果オブジェクトは一つしか指定できない。</p>
 <p>コールバック <code class="docutils literal notranslate"><span class="pre">reject</span></code> の実引数は <code class="docutils literal notranslate"><span class="pre">Error</span></code> 型であることが望ましい。</p>
 <p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> executor はふつうは非同期的な処理を行うが、直ちに処理してコールバックを呼び出して終了してもかまわない。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">学習者ノート</p>
+<p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> の基本動作を確認しておくといい。</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">p</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">reject</span><span class="p">(</span><span class="s2">&quot;POOR&quot;</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">e</span> <span class="p">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">));</span>
+
+<span class="kd">let</span> <span class="nx">p</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">reject</span><span class="p">(</span><span class="s2">&quot;POOR&quot;</span><span class="p">);</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">r</span> <span class="p">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="nx">r</span><span class="p">),</span> <span class="nx">e</span> <span class="p">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">));</span>
+
+<span class="kd">let</span> <span class="nx">p</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">resolve</span><span class="p">(</span><span class="s2">&quot;OK&quot;</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">e</span> <span class="p">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">));</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">resolve()</span></code> も <code class="docutils literal notranslate"><span class="pre">reject()</span></code> も呼び出さないままでいると、内部状態は pending
+のまま変わらない。</p>
+<p>Python での「等価物」は <code class="docutils literal notranslate"><span class="pre">asyncio</span></code> 周りの機能ということになるのだろう。
+<code class="docutils literal notranslate"><span class="pre">async</span></code>/<code class="docutils literal notranslate"><span class="pre">await</span></code> も関係する。</p>
+</div>
 <section id="consumers-then-catch-finally">
 <h3>Consumers: then, catch, finally<a class="headerlink" href="#consumers-then-catch-finally" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> のメソッド <code class="docutils literal notranslate"><span class="pre">then</span></code>, <code class="docutils literal notranslate"><span class="pre">catch</span></code>, <code class="docutils literal notranslate"><span class="pre">finally</span></code> を見ていく。</p>
