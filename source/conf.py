@@ -87,6 +87,11 @@ html_theme_options = {
 #html_theme_path = []
 #html_theme_path = ["."]
 
+html_js_files = [
+    #'mathjax-v3.js', # move to mathjax_path
+    'mermaid.js',
+]
+
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
@@ -139,5 +144,15 @@ html_show_sphinx = False
 # implements a search results scorer. If empty, the default will be used.
 #html_search_scorer = 'scorer.js'
 
+# -- Options for MathJax -------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/extensions/math.html
+
+# Use customized version
+mathjax_path = "mathjax-v3.js"
+
+# -- Options for Mermaid -------------------------------------------------
+# https://github.com/mgaitan/sphinxcontrib-mermaid
+
+# See html_js_files
 mermaid_version = ""
 mermaid_init_js = ""
