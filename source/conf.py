@@ -76,11 +76,26 @@ html_theme = 'alabaster'
 # further.  For a list of options available for each theme, see the
 # documentation.
 html_theme_options = {
+    'body_text': 'black',
+    'caption_font_family': 'initial',
     'description': '個人的な読書、学習、研究ノート。',
-    'github_user': 'showa-yojyo',
+    'description_font_style': 'initial',
+    'font_family': 'initial',
+    'font_size': 'initial',
+    'footer_text': 'black',
+    'head_font_family': 'initial',
+    'github_button': False,
     'github_repo': 'notebook',
+    'github_user': 'showa-yojyo',
+    'link': 'deeppink',
+    'link_hover': 'deeppink',
+    'narrow_sidebar_link': 'deeppink',
+    'page_width': '1200px',
     'show_powered_by': False,
     'show_relbars': True,
+    'sidebar_link': 'deeppink',
+    'sidebar_link_underscore': 'deeppink',
+    'sidebar_text': 'initial',
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
