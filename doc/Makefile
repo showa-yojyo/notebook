@@ -1,6 +1,11 @@
 # Makefile for Sphinx documentation
 
-include Makefile.vars
+# XXX: temporaiily fix to make GitHub Actions work...
+ifeq (, $(wildcard Makefile.vars))
+	include Makefile.vars.sample
+else
+	include Makefile.vars
+endif
 
 # User-friendly check for sphinx-build
 ifeq ($(shell which $(SPHINXBUILD) >/dev/null 2>&1; echo $$?), 1)
