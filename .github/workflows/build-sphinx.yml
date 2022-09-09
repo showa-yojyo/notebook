@@ -7,15 +7,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+
+    - name: Make Makefile.vars
+      run: cp doc/Makefile.vars.sample doc/Makefile.var
+
     - name: Build HTML
       uses: ammaraskar/sphinx-action@master
       with:
         docs-folder: doc
+
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
         name: html-docs
         path: doc/build/html/
+
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' }}
