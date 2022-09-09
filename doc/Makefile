@@ -1,9 +1,13 @@
 # Makefile for Sphinx documentation
 
-# XXX: temporaiily fix to make GitHub Actions work...
-ifeq (, $(wildcard Makefile.vars))
-	include Makefile.vars.sample
-else
+# You can set these variables from the command line, and also
+# from the environment for the first two.
+SPHINXOPTS    ?=
+SPHINXBUILD   ?= sphinx-build
+SOURCEDIR     ?= source
+BUILDDIR      ?= build
+
+ifneq (, $(wildcard Makefile.vars))
 	include Makefile.vars
 endif
 
