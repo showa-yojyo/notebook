@@ -4,8 +4,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>行列 &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
@@ -49,7 +48,7 @@
 
           <div class="body" role="main">
             
-  <section id="id1">
+  <div class="section" id="id1">
 <h1><a class="toc-backref" href="#id27">行列</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
 <p>モジュール <code class="docutils literal notranslate"><span class="pre">sympy.matrices</span></code> に関するメモを記す。ここにある機能は、行列を処理するものと、行列に関する数式を処理するものとに分類できる。</p>
 <div class="contents topic" id="id2">
@@ -106,10 +105,10 @@
 </pre></div>
 </div>
 </div>
-<section id="id3">
+<div class="section" id="id3">
 <h2><a class="toc-backref" href="#id28">クラス図</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
 <p>行列関連の単純なクラス図を示す。</p>
-<section id="id4">
+<div class="section" id="id4">
 <h3><a class="toc-backref" href="#id29">行列を表現するクラス</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <p>行列オブジェクトの基本単位を表現するためのクラスの論理的な継承関係は次のようになっている。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>MatrixBase
@@ -126,8 +125,8 @@
 <li><p>Dense と Sparse の違いは疎行列性を意味する。</p></li>
 <li><p>MatrixBase のスーパークラスは Python のクラス object である。</p></li>
 </ul>
-</section>
-<section id="id5">
+</div>
+<div class="section" id="id5">
 <h3><a class="toc-backref" href="#id30">行列を構成要素とする数式のためのクラス</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
 <p>行列オブジェクトを各種演算で構成した数式を表現するためのクラスが多数存在する。そのクラス群はモジュール <code class="docutils literal notranslate"><span class="pre">matrices.expressions</span></code> 以下で定義されており、それらの継承関係は次のようになっている。全サブクラスを書き出す必要はまったくないが、何かのために記す。</p>
 <p>継承ツリーの右側に関連するフリー関数、行列クラスのメソッド、メモを併記する。</p>
@@ -183,9 +182,9 @@
 <ul class="simple">
 <li><p>クラス MatrixExpr のスーパークラスは SymPy のクラス Basic である。</p></li>
 </ul>
-</section>
-</section>
-<section id="id6">
+</div>
+</div>
+<div class="section" id="id6">
 <h2><a class="toc-backref" href="#id31">色々な行列の生成方法</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
 <p>まず、行列以外の要素から行列オブジェクトを直接生成する方法を記す。</p>
 <p>他のライブラリーの類似機能を利用した経験から言えば、クラス Matrix のコンストラクターを直接する場合は、おそらく行列の各成分を細かく指示する場合に限られると思われる。</p>
@@ -209,8 +208,8 @@
 <li><p>関数 <code class="code docutils literal notranslate"><span class="pre">eyes</span></code> と <code class="code docutils literal notranslate"><span class="pre">zeros</span></code> は <a class="reference external" href="https://www.numpy.org/">NumPy</a> のそれと同様。</p></li>
 <li><p>関数 <code class="code docutils literal notranslate"><span class="pre">diag</span></code> は対角行列の生成であるが、より小さい行列を主対角線上に配列するようなこともできる。</p></li>
 </ul>
-</section>
-<section id="id7">
+</div>
+<div class="section" id="id7">
 <h2><a class="toc-backref" href="#id32">基本的な操作</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>要素アクセス</p>
@@ -236,8 +235,8 @@
 </li>
 <li><p>各要素に関数を適用するには、メソッド <code class="code docutils literal notranslate"><span class="pre">applyfunc</span></code> を用いる。</p></li>
 </ul>
-</section>
-<section id="id8">
+</div>
+<div class="section" id="id8">
 <h2><a class="toc-backref" href="#id33">線形代数的操作</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
 <dl class="simple">
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">GramSchmidt(vlist,</span> <span class="pre">orthonormal=False)</span></code></dt><dd><p>ベクトルの集合を基に直交基底を得る。</p>
@@ -248,11 +247,11 @@
 </ul>
 </dd>
 </dl>
-</section>
-<section id="matrixbase">
+</div>
+<div class="section" id="matrixbase">
 <h2><a class="toc-backref" href="#id34">クラス MatrixBase</a><a class="headerlink" href="#matrixbase" title="Permalink to this heading">¶</a></h2>
 <p>このクラスにはメソッドが大量にある。要所に絞って記す。演算子は省略。</p>
-<section id="id9">
+<div class="section" id="id9">
 <h3><a class="toc-backref" href="#id35">プロパティー</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
 <p>プロパティーのほぼすべてを記す。下の表のもの以外にも、例えば <code class="code docutils literal notranslate"><span class="pre">.rows</span></code> のようにしてオブジェクトの属性を得ることができるものもあるようだが、コードから拾えないので割愛した。</p>
 <table class="colwidths-given docutils align-default">
@@ -313,8 +312,8 @@
 <p>また、必ずしも正方行列でなくてよい。</p>
 </li>
 </ul>
-</section>
-<section id="id10">
+</div>
+<div class="section" id="id10">
 <h3><a class="toc-backref" href="#id36">要素の物理的な操作</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
 <p>行や列のデータを物理的に操作するタイプのものを次の表に記す。</p>
 <table class="colwidths-given docutils align-default">
@@ -360,8 +359,8 @@
 <li><p>挿入系メソッドの引数 <code class="code docutils literal notranslate"><span class="pre">mti</span></code> は <code class="code docutils literal notranslate"><span class="pre">shape</span></code> の縦横の一致を問う。</p></li>
 <li><p>置換系メソッドの核となるのはメソッド <code class="code docutils literal notranslate"><span class="pre">row_swap</span></code> である。</p></li>
 </ul>
-</section>
-<section id="id11">
+</div>
+<div class="section" id="id11">
 <h3><a class="toc-backref" href="#id37">部分空間</a><a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h3>
 <p>部分空間に関するメソッドを下の表に示す。</p>
 <table class="colwidths-given docutils align-default">
@@ -384,8 +383,8 @@
 </tbody>
 </table>
 <p>どちらもメソッド <code class="code docutils literal notranslate"><span class="pre">rref</span></code> が重要な働きをする。</p>
-</section>
-<section id="id12">
+</div>
+<div class="section" id="id12">
 <h3><a class="toc-backref" href="#id38">乗法</a><a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h3>
 <p>行列またはベクトルの乗算に関するメソッドを下の表に示す。行か列のどちらかのサイズを 1 にすれば Matrix を列ベクトル、行ベクトルとして扱える。</p>
 <table class="colwidths-given docutils align-default">
@@ -418,8 +417,8 @@
 <li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">multiply</span></code> は演算子 <code class="code docutils literal notranslate"><span class="pre">*</span></code> で実装されている。</p></li>
 <li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">multiply_elementwise</span></code> は関数 <code class="code docutils literal notranslate"><span class="pre">matrix_multiply_elementwise</span></code> で実装されている。</p></li>
 </ul>
-</section>
-<section id="id13">
+</div>
+<div class="section" id="id13">
 <h3><a class="toc-backref" href="#id39">ノルム</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h3>
 <p>ノルムに関係するメソッドを次に示す。</p>
 <table class="colwidths-given docutils align-default">
@@ -446,8 +445,8 @@
 <li><p>ノルムの種類に関しては help を参照。いつも使うものは揃っている。</p></li>
 <li><p>メソッド <code class="code docutils literal notranslate"><span class="pre">normalized</span></code> で用いられるノルムはデフォルトのノルム。</p></li>
 </ul>
-</section>
-<section id="id14">
+</div>
+<div class="section" id="id14">
 <h3><a class="toc-backref" href="#id40">行列式</a><a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h3>
 <p>行列式に関係するメソッドを次に示す。</p>
 <table class="colwidths-given docutils align-default">
@@ -477,8 +476,8 @@
 <li><p>Baries のアルゴリズムというのは、Gauss の消去法の拡張版みたいなもので、丸め誤差に強いという性質が期待できる。</p></li>
 <li><p>LU 分解による行列式の計算は、分解行列の主対角線の成分だけを見ればよいというものだ。後述するメソッド <code class="code docutils literal notranslate"><span class="pre">LUdecomposition</span></code> も参照。</p></li>
 </ul>
-</section>
-<section id="id15">
+</div>
+<div class="section" id="id15">
 <h3><a class="toc-backref" href="#id41">余因子</a><a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h3>
 <p>余因子に関係するメソッドを次に示す。</p>
 <table class="colwidths-given docutils align-default">
@@ -511,8 +510,8 @@
 </table>
 <p>これらのメソッドの実装は線形の依存関係がある。</p>
 <p>まずメソッド <code class="code docutils literal notranslate"><span class="pre">adjugate</span></code> は <code class="code docutils literal notranslate"><span class="pre">cofactorMatrix</span></code> の転置行列を返す。その <code class="code docutils literal notranslate"><span class="pre">cofactorMatrix</span></code> は単に <code class="code docutils literal notranslate"><span class="pre">cofactor</span></code> を成分ごとに計算して、その値を成分とする行列を生成する。メソッド <code class="code docutils literal notranslate"><span class="pre">cofactor</span></code> は対応する成分の <code class="code docutils literal notranslate"><span class="pre">minorEntry</span></code> の戻り値に、成分の添字から決まる符号を付けるだけだ。最後にメソッド <code class="code docutils literal notranslate"><span class="pre">minorEntry</span></code> は指定成分の <code class="code docutils literal notranslate"><span class="pre">minorMatrix</span></code> の行列式を単に返す。</p>
-</section>
-<section id="id16">
+</div>
+<div class="section" id="id16">
 <h3><a class="toc-backref" href="#id42">対角行列</a><a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h3>
 <p>対角行列に関係するメソッドを次に示す。</p>
 <table class="colwidths-given docutils align-default">
@@ -542,8 +541,8 @@
 <li><p>対角化可能性の判定は、各固有値の多重度をチェックすることでなされる。この過程で行列オブジェクトのメンバーデータに中間生成物的なものが残る。これをクリアしたい場合に、キーワード引数 <code class="code docutils literal notranslate"><span class="pre">clear_subproducts=True</span></code> を指定する。</p></li>
 <li><p>ちなみに対角行列を生成する機能は関数 <code class="code docutils literal notranslate"><span class="pre">diag</span></code> である。</p></li>
 </ul>
-</section>
-<section id="id17">
+</div>
+<div class="section" id="id17">
 <h3><a class="toc-backref" href="#id43">分解</a><a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h3>
 <p>行列の分解 (decomposition, factorization) に関係するメソッドを次に示す。</p>
 <table class="colwidths-given docutils align-default">
@@ -593,8 +592,8 @@
 <code class="code docutils literal notranslate"><span class="pre">L</span></code>, <code class="code docutils literal notranslate"><span class="pre">D</span></code>, <code class="code docutils literal notranslate"><span class="pre">U</span></code> のいずれも同じ整域に属するというものだ。</p></li>
 <li><p>QR 分解は行列を <span class="math notranslate nohighlight">\(A = QR\)</span> の形に分解するアルゴリズムだ。行列 <code class="code docutils literal notranslate"><span class="pre">Q</span></code> は直交行列で、行列 <code class="code docutils literal notranslate"><span class="pre">R</span></code> は上三角行列となる。</p></li>
 </ul>
-</section>
-<section id="id18">
+</div>
+<div class="section" id="id18">
 <h3><a class="toc-backref" href="#id44">ソルバー</a><a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h3>
 <p>線形連立方程式を解くことに関係するメソッドを次に示す。基本的には <span class="math notranslate nohighlight">\(A \mathbf{x} = \mathbf{b}\)</span> に対して、</p>
 <ul class="simple">
@@ -658,8 +657,8 @@
 </ul>
 </li>
 </ul>
-</section>
-<section id="id19">
+</div>
+<div class="section" id="id19">
 <h3><a class="toc-backref" href="#id45">逆行列</a><a class="headerlink" href="#id19" title="Permalink to this heading">¶</a></h3>
 <p>逆行列に関係するメソッドを次に示す。数値計算の観点から言えば、逆行列の計算は相当なコストがかかるため、なるべく避けるのが原則だ。可能な限り先述した分解アルゴリズムやソルバーを利用するのが普通だ。</p>
 <table class="colwidths-given docutils align-default">
@@ -694,8 +693,8 @@
 </li>
 <li><p>面白いのは <code class="code docutils literal notranslate"><span class="pre">inv_mod</span></code> だろう。整数論的処理が一部入っていて、オイラー関数、余因子行列、行列式を組み合わせて所望の行列を生成する。</p></li>
 </ul>
-</section>
-<section id="berkowitz">
+</div>
+<div class="section" id="berkowitz">
 <h3><a class="toc-backref" href="#id46">Berkowitz のアルゴリズム</a><a class="headerlink" href="#berkowitz" title="Permalink to this heading">¶</a></h3>
 <p>Berkowitz のアルゴリズムと、それに関係するメソッドを次に示す。</p>
 <table class="colwidths-given docutils align-default">
@@ -730,8 +729,8 @@
 <a class="reference external" href="https://de.wikipedia.org/wiki/Algorithmus_von_Samuelson-Berkowitz">この記事</a> のアルゴリズムを実装している。</p>
 <p>Berkowitz のアルゴリズムを単純に説明すると、正方行列の対角線に沿って、サイズの小さい順にミニ正方行列を取る。各ミニ正方行列の特性多項式を求めていくのだが、あるステップのミニ正方行列の特性多項式を得るのに、その直前に求めたサイズが一回り小さいミニ正方行列の計算結果を利用できるというものだ。</p>
 <p>固有多項式がわければ行列式、行列因子、固有値等が芋づる式にわかるので、クラス MatrixBase のメソッドの大部分がこのアルゴリズムに頼っている。</p>
-</section>
-<section id="id21">
+</div>
+<div class="section" id="id21">
 <h3><a class="toc-backref" href="#id47">特異値</a><a class="headerlink" href="#id21" title="Permalink to this heading">¶</a></h3>
 <p>特異値に関するメソッドを記す。固有値に関するメソッドも参照。</p>
 <table class="colwidths-given docutils align-default">
@@ -756,8 +755,8 @@
 <ul class="simple">
 <li><p><code class="code docutils literal notranslate"><span class="pre">singular_values</span></code> はすべての特異値を list に詰めて返す。これらの値が大きい順にソートされている。</p></li>
 </ul>
-</section>
-<section id="id22">
+</div>
+<div class="section" id="id22">
 <h3><a class="toc-backref" href="#id48">微積分</a><a class="headerlink" href="#id22" title="Permalink to this heading">¶</a></h3>
 <p>微積分に関するメソッドを次の表に記す。実装はすべて想像通りになっている。</p>
 <table class="colwidths-given docutils align-default">
@@ -782,9 +781,9 @@
 </tr>
 </tbody>
 </table>
-</section>
-</section>
-<section id="numpy">
+</div>
+</div>
+<div class="section" id="numpy">
 <h2><a class="toc-backref" href="#id49">NumPy インターフェイス</a><a class="headerlink" href="#numpy" title="Permalink to this heading">¶</a></h2>
 <p>モジュール <code class="docutils literal notranslate"><span class="pre">sympy.matrices.dense</span></code> には SymPy の行列オブジェクトを
 NumPy の <code class="code docutils literal notranslate"><span class="pre">numpy.array</span></code> オブジェクトにコンバートするための関数が少々ある。</p>
@@ -813,10 +812,10 @@ NumPy の <code class="code docutils literal notranslate"><span class="pre">nump
 </ul>
 </dd>
 </dl>
-</section>
-<section id="id23">
+</div>
+<div class="section" id="id23">
 <h2><a class="toc-backref" href="#id50">演習</a><a class="headerlink" href="#id23" title="Permalink to this heading">¶</a></h2>
-<section id="id24">
+<div class="section" id="id24">
 <h3><a class="toc-backref" href="#id51">Berkowitz のアルゴリズムを検証する</a><a class="headerlink" href="#id24" title="Permalink to this heading">¶</a></h3>
 <p>シンボルベースの 3 次正方行列を定義して、メソッド <code class="code docutils literal notranslate"><span class="pre">berkowitz</span></code> を呼び出して戻り値を得る。この戻り値から行列のさまざまな属性が得られることを見よう。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">M</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;a:3:3&#39;</span><span class="p">));</span> <span class="n">M</span>
@@ -864,8 +863,8 @@ NumPy の <code class="code docutils literal notranslate"><span class="pre">nump
 <li><p>[6] <code class="code docutils literal notranslate"><span class="pre">M</span></code> の行列式は <code class="code docutils literal notranslate"><span class="pre">berkowitz</span></code> の戻り値の末尾の末尾に符号を考慮したものである。符号の決まり方は、特性多項式の次数の偶奇性による。</p></li>
 </ul>
 <p>最後に固有値が特性多項式の解であることを見せて締めたいところだが、紙幅の都合上、どうしても長い数式をきれいに表示できないため、割愛する。</p>
-</section>
-<section id="lu">
+</div>
+<div class="section" id="lu">
 <h3><a class="toc-backref" href="#id52">LU 分解再挑戦</a><a class="headerlink" href="#lu" title="Permalink to this heading">¶</a></h3>
 <p><a class="reference internal" href="../python-scipy/linear-equations.html"><span class="doc">線形方程式を解く</span></a> で LU 分解した行列を SymPy で分解すると結果が異なるのではないか。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">A</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">]])</span>
@@ -901,8 +900,8 @@ NumPy の <code class="code docutils literal notranslate"><span class="pre">nump
 <li><p>[2][3] 期待しているようなきれいな三角行列が得られている。</p></li>
 <li><p>[4] 行の入れ替えはない。</p></li>
 </ul>
-</section>
-<section id="jordan">
+</div>
+<div class="section" id="jordan">
 <h3><a class="toc-backref" href="#id53">行列の Jordan 分解</a><a class="headerlink" href="#jordan" title="Permalink to this heading">¶</a></h3>
 <p>複素数体上で考えれば、任意の正方行列 <span class="math notranslate nohighlight">\(A\)</span> には次の条件を満たす正方行列 <span class="math notranslate nohighlight">\(S\)</span> と <span class="math notranslate nohighlight">\(N\)</span> が（一意的に）存在する：</p>
 <ul class="simple">
@@ -947,9 +946,9 @@ NumPy の <code class="code docutils literal notranslate"><span class="pre">nump
 <li><p>[4] 冪零行列 <span class="math notranslate nohighlight">\(N\)</span> を得る。</p></li>
 <li><p>[5][6] <span class="math notranslate nohighlight">\(S\)</span> と <span class="math notranslate nohighlight">\(N\)</span> に関する条件を確認する。</p></li>
 </ul>
-</section>
-</section>
-<section id="id25">
+</div>
+</div>
+<div class="section" id="id25">
 <h2><a class="toc-backref" href="#id54">関連ノート</a><a class="headerlink" href="#id25" title="Permalink to this heading">¶</a></h2>
 <dl class="simple">
 <dt><a class="reference internal" href="../python-numpy/tutorial.html"><span class="doc">Tentative NumPy Tutorial ノート</span></a></dt><dd><p>NumPy の array と SymPy の MatrixBase には共通する機能が多数ある。</p>
@@ -957,8 +956,8 @@ NumPy の <code class="code docutils literal notranslate"><span class="pre">nump
 <dt><a class="reference internal" href="../python-scipy/linear-equations.html"><span class="doc">線形方程式を解く</span></a></dt><dd><p>SciPy の機能で LU 分解をする例を記した。</p>
 </dd>
 </dl>
-</section>
-</section>
+</div>
+</div>
 
 
           </div>

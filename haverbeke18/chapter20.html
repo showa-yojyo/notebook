@@ -4,8 +4,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Node.js &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
@@ -48,7 +47,7 @@
 
           <div class="body" role="main">
             
-  <section id="node-js">
+  <div class="section" id="node-js">
 <h1><a class="toc-backref" href="#id3">Node.js</a><a class="headerlink" href="#node-js" title="Permalink to this heading">¶</a></h1>
 <p><a class="reference external" href="https://eloquentjavascript.net/">Eloquent JavaScript</a> Chapter 20 の読書ノート。</p>
 <p>これまでは JavaScript を単一の環境、すなわちブラウザーで使ってきた。本章と次章では JavaScript の技術をブラウザーの外部で活用できるプログラム、
@@ -83,7 +82,7 @@
 </li>
 </ul>
 </div>
-<section id="background">
+<div class="section" id="background">
 <h2><a class="toc-backref" href="#id4">Background</a><a class="headerlink" href="#background" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>ネットワークを介して通信するシステムを記述する際の難しい問題の一つが、入出力の管理だ。つまり、ネットワークやハードドライブとの間でデータを読み書きすることだ。データの移動には時間がかかるが、それを上手にスケジューリングすることで、システムがユーザーやネットワークの要求にどれだけ早く反応できるかが大きく変わってくる。</p></li>
@@ -92,8 +91,8 @@
 <li><p>JavaScript は入出力を行う組み込みの方法がない数少ないプログラミング言語だ。したがって、JavaScript は <a class="reference external" href="https://nodejs.org">Node</a> のいくぶん奇抜な入出力の方法にフィットすることができ、一貫性のない二つのインターフェイスになってしまうことはなかった。</p></li>
 <li><p><a class="reference external" href="https://nodejs.org">Node</a> が設計された当時、すでにブラウザーでコールバックベースのプログラミングが行われていたため、この言語を取り巻く共同体は非同期プログラミングの様式に慣れていた。</p></li>
 </ul>
-</section>
-<section id="the-node-command">
+</div>
+<div class="section" id="the-node-command">
 <h2><a class="toc-backref" href="#id5">The node command</a><a class="headerlink" href="#the-node-command" title="Permalink to this heading">¶</a></h2>
 <p>システムに Node.js がインストールされていると <strong class="command">node</strong> というコマンドラインツールが使える。例えば、次の内容のスクリプトファイル <code class="docutils literal notranslate"><span class="pre">hello.js</span></code> があるとする：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">message</span> <span class="o">=</span> <span class="s2">&quot;Hello world&quot;</span><span class="p">;</span>
@@ -101,7 +100,7 @@
 </pre></div>
 </div>
 <p>これをコンソールから以下のようにして実行する：</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>node hello.js
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> node hello.js
 <span class="go">Hello world</span>
 </pre></div>
 </div>
@@ -111,12 +110,12 @@
 </ul>
 <p>コマンドラインからファイルを与えずに <strong class="command">node</strong> を実行する場合には、
 JavaScript のコードを入力するためのプロンプトが表示され、すぐに結果を見ることができる。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>node
-<span class="go">&gt; 1 + 1</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> node
+<span class="gp">&gt;</span> <span class="m">1</span> + <span class="m">1</span>
 <span class="go">2</span>
-<span class="go">&gt; [-1, -2, -3].map(Math.abs)</span>
+<span class="gp">&gt;</span> <span class="o">[</span>-1, -2, -3<span class="o">]</span>.map<span class="o">(</span>Math.abs<span class="o">)</span>
 <span class="go">[1, 2, 3]</span>
-<span class="go">&gt; process.exit(0)</span>
+<span class="gp">&gt;</span> process.exit<span class="o">(</span><span class="m">0</span><span class="o">)</span>
 <span class="gp">$</span>
 </pre></div>
 </div>
@@ -130,7 +129,7 @@ JavaScript のコードを入力するためのプロンプトが表示され、
 <li><p><code class="docutils literal notranslate"><span class="pre">process.argv[1]</span></code> はスクリプトファイル名</p></li>
 <li><p>したがって、実質的にはコマンドライン引数はインデックス 2 から始まる。</p></li>
 </ul>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>node showargv.js one --and two
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> node showargv.js one --and two
 <span class="go">[&quot;node&quot;, &quot;/tmp/showargv.js&quot;, &quot;one&quot;, &quot;--and&quot;, &quot;two&quot;]</span>
 </pre></div>
 </div>
@@ -140,8 +139,8 @@ JavaScript のコードを入力するためのプロンプトが表示され、
 <li><p><code class="docutils literal notranslate"><span class="pre">Array</span></code>, <code class="docutils literal notranslate"><span class="pre">Math</span></code>, <code class="docutils literal notranslate"><span class="pre">JSON</span></code> など、標準的な JavaScript の大域変数のすべてが <a class="reference external" href="https://nodejs.org">Node</a> の環境にも存在している。</p></li>
 <li><p>ただし <code class="docutils literal notranslate"><span class="pre">document</span></code>, <code class="docutils literal notranslate"><span class="pre">prompt</span></code> などのブラウザー関連の機能はない。</p></li>
 </ul>
-</section>
-<section id="modules">
+</div>
+<div class="section" id="modules">
 <h2><a class="toc-backref" href="#id6">Modules</a><a class="headerlink" href="#modules" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://nodejs.org">Node</a> は大域名前空間に他にも変数をいくつか置いている。組み込み機能にアクセスしたいならば、モジュールシステムにそれをねだる必要がある。</p></li>
@@ -164,10 +163,10 @@ JavaScript のコードを入力するためのプロンプトが表示され、
 <p>二つのファイルからなる小さなプロジェクトを作成する。最初のものは <code class="docutils literal notranslate"><span class="pre">main.js</span></code> といい、コマンドラインから呼び出すことができるスクリプトであって、文字列を反転するのに使うものとする。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// main.js</span>
 
-<span class="kd">const</span> <span class="p">{</span><span class="nx">reverse</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./reverse&quot;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="p">{</span><span class="nx">reverse</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./reverse&quot;</span><span class="p">);</span>
 
 <span class="c1">// Index 2 holds the first actual command line argument</span>
-<span class="kd">let</span> <span class="nx">argument</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mf">2</span><span class="p">];</span>
+<span class="kd">let</span> <span class="nx">argument</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">reverse</span><span class="p">(</span><span class="nx">argument</span><span class="p">));</span>
 </pre></div>
 </div>
@@ -175,7 +174,7 @@ JavaScript のコードを入力するためのプロンプトが表示され、
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// reverse.js</span>
 
 <span class="nx">exports</span><span class="p">.</span><span class="nx">reverse</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nb">Array</span><span class="p">.</span><span class="kr">from</span><span class="p">(</span><span class="nx">string</span><span class="p">).</span><span class="nx">reverse</span><span class="p">().</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="nx">string</span><span class="p">).</span><span class="nx">reverse</span><span class="p">().</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">);</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -185,12 +184,12 @@ Node.js はファイルを CommonJS モジュールとして扱うので、
 <code class="docutils literal notranslate"><span class="pre">main.js</span></code> は <code class="docutils literal notranslate"><span class="pre">reverse.js</span></code> からエクスポートされた関数 <code class="docutils literal notranslate"><span class="pre">reverse</span></code> を取ることができる。</p></li>
 </ul>
 <p>以上で、このツールを次のように呼び出すことができる：</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>node main.js JavaScript
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> node main.js JavaScript
 <span class="go">tpircSavaJ</span>
 </pre></div>
 </div>
-</section>
-<section id="installing-with-npm">
+</div>
+<div class="section" id="installing-with-npm">
 <h2><a class="toc-backref" href="#id7">Installing with NPM</a><a class="headerlink" href="#installing-with-npm" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>第 10 章で導入した <a class="reference external" href="https://npmjs.org">NPM</a> は JavaScript のオンラインリポジトリーであって、その多くは <a class="reference external" href="https://nodejs.org">Node</a> に対して特殊にかかれている。
@@ -198,14 +197,14 @@ Node.js はファイルを CommonJS モジュールとして扱うので、
 <strong class="command">npm</strong> も使えるようになる。</p></li>
 </ul>
 <p><a class="reference external" href="https://npmjs.org">NPM</a> の主な用途はパッケージをダウンロードすることだ。これを使ってパッケージを取得、インストールすることができる。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>npm install ini
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> npm install ini
 <span class="go">npm WARN enoent ENOENT: no such file or directory,</span>
 <span class="go">open &#39;/tmp/package.json&#39;</span>
 <span class="go">+ ini@1.3.5</span>
 <span class="go">added 1 package in 0.552s</span>
-<span class="gp">$ </span>node
-<span class="go">&gt; const {parse} = require(&quot;ini&quot;);</span>
-<span class="go">&gt; parse(&quot;x = 1\ny = 2&quot;);</span>
+<span class="gp">$</span> node
+<span class="gp">&gt;</span> const <span class="o">{</span>parse<span class="o">}</span> <span class="o">=</span> require<span class="o">(</span><span class="s2">&quot;ini&quot;</span><span class="o">)</span><span class="p">;</span>
+<span class="gp">&gt;</span> parse<span class="o">(</span><span class="s2">&quot;x = 1\ny = 2&quot;</span><span class="o">)</span><span class="p">;</span>
 <span class="go">[Object: null prototype] { x: &#39;1&#39;, y: &#39;2&#39; }</span>
 </pre></div>
 </div>
@@ -216,31 +215,31 @@ Node.js はファイルを CommonJS モジュールとして扱うので、
 </ul>
 <hr class="docutils" />
 <p><a class="reference external" href="https://npmjs.org">NPM</a> はパッケージを中央ディレクトリーではなく、カレントディレクトリーにインストールする。これには、各アプリケーションがインストールするパッケージを完全に制御できるようになり、バージョン管理やアプリケーションを削除するときの後始末が容易になるという利点がある。</p>
-</section>
-<section id="package-files">
+</div>
+<div class="section" id="package-files">
 <h2><a class="toc-backref" href="#id8">Package files</a><a class="headerlink" href="#package-files" title="Permalink to this heading">¶</a></h2>
 <p><strong class="command">npm install</strong> の例でファイル <code class="docutils literal notranslate"><span class="pre">package.json</span></code> が存在しないという警告が表示されるかもしれない。このファイルを、手動または <strong class="command">npm init</strong> を実行して、プロジェクトごとに作成することが推奨される。ファイル <code class="docutils literal notranslate"><span class="pre">package.json</span></code> には、プロジェクトの名前やバージョンなどの情報、依存関係のリストが含まれてる。</p>
 <p>第 7 章のロボットシミュレーションは、第 10 章の演習でモジュール化されているので、次のようなファイル <code class="docutils literal notranslate"><span class="pre">package.json</span></code> があるかもしれない（まだ取り組んでいないのでない）：</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;author&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Marijn Haverbeke&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eloquent-javascript-robot&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Simulation of a package-delivery robot&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;main&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;run.js&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;dependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;dijkstrajs&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^1.0.1&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;random-item&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^1.0.0&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="p">},</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;license&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ISC&quot;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;Marijn Haverbeke&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;eloquent-javascript-robot&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Simulation of a package-delivery robot&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;main&quot;</span><span class="p">:</span> <span class="s2">&quot;run.js&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;dependencies&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;dijkstrajs&quot;</span><span class="p">:</span> <span class="s2">&quot;^1.0.1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;random-item&quot;</span><span class="p">:</span> <span class="s2">&quot;^1.0.0&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;license&quot;</span><span class="p">:</span> <span class="s2">&quot;ISC&quot;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <ul class="simple">
 <li><p>インストールするパッケージの名前を指定せずに <strong class="command">npm install</strong> を実行すると、
 <a class="reference external" href="https://npmjs.org">NPM</a> はファイル <code class="docutils literal notranslate"><span class="pre">package.json</span></code> に記載されている依存関係をインストールする。</p></li>
 </ul>
-</section>
-<section id="versions">
+</div>
+<div class="section" id="versions">
 <h2><a class="toc-backref" href="#id9">Versions</a><a class="headerlink" href="#versions" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>ファイル <code class="docutils literal notranslate"><span class="pre">package.json</span></code> には、プログラム自身のバージョンと、依存関係にあるパッケージのバージョンの両方が記されている。バージョンは、パッケージが別々に進化するという事実に対処するための手段であり、ある時点で存在していたパッケージと連動するように書かれたコードは、後に修正されたバージョンのパッケージでは動作しないかもしれない。</p></li>
@@ -260,8 +259,8 @@ Node.js はファイルを CommonJS モジュールとして扱うので、
 </ul>
 </li>
 </ul>
-</section>
-<section id="the-file-system-module">
+</div>
+<div class="section" id="the-file-system-module">
 <h2><a class="toc-backref" href="#id10">The file system module</a><a class="headerlink" href="#the-file-system-module" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="https://nodejs.org">Node</a> で最もよく使われる組み込みモジュールの一つが <code class="docutils literal notranslate"><span class="pre">fs</span></code> で、ファイルシステムを意味する。ファイルやディレクトリーを扱うための関数をエクスポートする。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="p">{</span><span class="nx">readFile</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">);</span>
@@ -271,14 +270,14 @@ Node.js はファイルを CommonJS モジュールとして扱うので、
 <span class="p">});</span>
 </pre></div>
 </div>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="p">{</span><span class="nx">readFile</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="p">{</span><span class="nx">readFile</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">);</span>
 <span class="nx">readFile</span><span class="p">(</span><span class="s2">&quot;file.txt&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">buffer</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="k">throw</span> <span class="nx">error</span><span class="p">;</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;The file contained&quot;</span><span class="p">,</span> <span class="nx">buffer</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span> <span class="s2">&quot;bytes.&quot;</span><span class="p">,</span> <span class="s2">&quot;The first byte is:&quot;</span><span class="p">,</span> <span class="nx">buffer</span><span class="p">[</span><span class="mf">0</span><span class="p">]);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;The file contained&quot;</span><span class="p">,</span> <span class="nx">buffer</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span> <span class="s2">&quot;bytes.&quot;</span><span class="p">,</span> <span class="s2">&quot;The first byte is:&quot;</span><span class="p">,</span> <span class="nx">buffer</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
 <span class="p">});</span>
 </pre></div>
 </div>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="p">{</span><span class="nx">writeFile</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="p">{</span><span class="nx">writeFile</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">);</span>
 <span class="nx">writeFile</span><span class="p">(</span><span class="s2">&quot;graffiti.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;Node was here&quot;</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=&gt;</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Failed to write file: </span><span class="si">${</span><span class="nx">err</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
     <span class="k">else</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;File written.&quot;</span><span class="p">);</span>
@@ -295,31 +294,31 @@ Node.js はファイルを CommonJS モジュールとして扱うので、
 </ul>
 <hr class="docutils" />
 <p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> は以前から JavaScript にあったが、本書執筆時点では Node.js への統合が進行中だ。バージョン 10.1 以降、パッケージ <code class="docutils literal notranslate"><span class="pre">fs</span></code> はオブジェクト <code class="docutils literal notranslate"><span class="pre">promises</span></code> をエクスポートするようになった。これは関数版とほとんど同じだが、コールバックではなく <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を使用する。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="p">{</span><span class="nx">readFile</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">).</span><span class="nx">promises</span><span class="p">;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="p">{</span><span class="nx">readFile</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">).</span><span class="nx">promises</span><span class="p">;</span>
 <span class="nx">readFile</span><span class="p">(</span><span class="s2">&quot;file.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;utf8&quot;</span><span class="p">)</span>
     <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">text</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;The file contains:&quot;</span><span class="p">,</span> <span class="nx">text</span><span class="p">));</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">fs</span></code> の関数の多くに同期版もあり、同じ名前の関数の末尾に <code class="docutils literal notranslate"><span class="pre">Sync</span></code> が付く。例えば <code class="docutils literal notranslate"><span class="pre">readFile</span></code> の同期版は <code class="docutils literal notranslate"><span class="pre">readFileSync</span></code> という。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="p">{</span><span class="nx">readFileSync</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="p">{</span><span class="nx">readFileSync</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">);</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;The file contains:&quot;</span><span class="p">,</span> <span class="nx">readFileSync</span><span class="p">(</span><span class="s2">&quot;file.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;utf8&quot;</span><span class="p">));</span>
 </pre></div>
 </div>
 <p>同期操作中、プログラムは完全に停止する。</p>
-</section>
-<section id="the-http-module">
+</div>
+<div class="section" id="the-http-module">
 <h2><a class="toc-backref" href="#id11">The HTTP module</a><a class="headerlink" href="#the-http-module" title="Permalink to this heading">¶</a></h2>
 <p>もうひとつの中心的なモジュールは <code class="docutils literal notranslate"><span class="pre">http</span></code> と呼ばれるものだ。これは HTTP サーバーを起動したり、HTTP リクエストを行うための機能がある。これだけで HTTP サーバーを起動することができる。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="p">{</span><span class="nx">createServer</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="p">{</span><span class="nx">createServer</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">);</span>
 <span class="kd">let</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">createServer</span><span class="p">((</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="nx">response</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mf">200</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;Content-Type&quot;</span><span class="o">:</span> <span class="s2">&quot;text/html&quot;</span><span class="p">});</span>
+    <span class="nx">response</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;Content-Type&quot;</span><span class="o">:</span> <span class="s2">&quot;text/html&quot;</span><span class="p">});</span>
     <span class="nx">response</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="sb">`</span>
 <span class="sb">        &lt;h1&gt;Hello!&lt;/h1&gt;</span>
 <span class="sb">        &lt;p&gt;You asked for &lt;code&gt;</span><span class="si">${</span><span class="nx">request</span><span class="p">.</span><span class="nx">url</span><span class="si">}</span><span class="sb">&lt;/code&gt;&lt;/p&gt;</span>
 <span class="sb">        `</span><span class="p">);</span>
     <span class="nx">response</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
 <span class="p">});</span>
-<span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mf">8000</span><span class="p">);</span>
+<span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">8000</span><span class="p">);</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Listening! (port 8000)&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -351,7 +350,7 @@ Node.js はファイルを CommonJS モジュールとして扱うので、
 <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">C</kbd> を押して終わる。</p>
 <hr class="docutils" />
 <p>HTTP クライアントとして動作するには、関数 <code class="docutils literal notranslate"><span class="pre">request</span></code> を使用する。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="p">{</span><span class="nx">request</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="p">{</span><span class="nx">request</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">);</span>
 <span class="kd">let</span> <span class="nx">requestStream</span> <span class="o">=</span> <span class="nx">request</span><span class="p">({</span>
     <span class="nx">hostname</span><span class="o">:</span> <span class="s2">&quot;eloquentjavascript.net&quot;</span><span class="p">,</span>
     <span class="nx">path</span><span class="o">:</span> <span class="s2">&quot;/20_node.html&quot;</span><span class="p">,</span>
@@ -378,8 +377,8 @@ GET リクエストは本体にデータを含んではいけないので、こ�
 <hr class="docutils" />
 <p>Node の生の機能でリクエストを行うのは冗長だ。
 <a class="reference external" href="https://npmjs.org">NPM</a> にはもっと便利なラッパーパッケージがある。例えば <code class="docutils literal notranslate"><span class="pre">node-fetch</span></code> は <code class="docutils literal notranslate"><span class="pre">Promise</span></code> ベースの <code class="docutils literal notranslate"><span class="pre">fetch</span></code> インターフェースがある。</p>
-</section>
-<section id="streams">
+</div>
+<div class="section" id="streams">
 <h2><a class="toc-backref" href="#id12">Streams</a><a class="headerlink" href="#streams" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>書き込み可能ストリームは Node で広く使われている概念だ。</p>
@@ -410,24 +409,24 @@ HTTP クライアントのコールバックに渡された変数 <code class="d
 </ul>
 <p>このモデルは、文書全体がまだ利用できない場合であっても、すぐに処理できるようなデータのストリーミングに最も適している。ファイルは <code class="docutils literal notranslate"><span class="pre">fs</span></code> 関数 <code class="docutils literal notranslate"><span class="pre">createReadStream</span></code> を使用することで、読み取り可能なストリームとして読み取ることができる。</p>
 <p>次のコードは、リクエスト本体を読み取り、すべて大文字のテキストとしてクライアントにストリームバックするサーバーを作成する：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="p">{</span><span class="nx">createServer</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="p">{</span><span class="nx">createServer</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">);</span>
 
 <span class="nx">createServer</span><span class="p">((</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="nx">response</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mf">200</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;Content-Type&quot;</span><span class="o">:</span> <span class="s2">&quot;text/plain&quot;</span><span class="p">});</span>
+    <span class="nx">response</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;Content-Type&quot;</span><span class="o">:</span> <span class="s2">&quot;text/plain&quot;</span><span class="p">});</span>
     <span class="nx">request</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="nx">chunk</span> <span class="p">=&gt;</span>
         <span class="nx">response</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">chunk</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">toUpperCase</span><span class="p">()));</span>
     <span class="nx">request</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;end&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">end</span><span class="p">());</span>
-<span class="p">}).</span><span class="nx">listen</span><span class="p">(</span><span class="mf">8000</span><span class="p">);</span>
+<span class="p">}).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">8000</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>データハンドラーに渡される <code class="docutils literal notranslate"><span class="pre">chunk</span></code> の値はバイナリーの <code class="docutils literal notranslate"><span class="pre">Buffer</span></code> だ。これをメソッド <code class="docutils literal notranslate"><span class="pre">toString</span></code> で UTF-8 符号化された文字に複号することで文字列に変換する。</p>
 <hr class="docutils" />
 <p>次のコードは大文字サーバーが稼働している状態で起動すると、そのサーバーにリクエストを送信し、取得した応答を出力する。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="p">{</span><span class="nx">request</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="p">{</span><span class="nx">request</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">);</span>
 
 <span class="nx">request</span><span class="p">({</span>
     <span class="nx">hostname</span><span class="o">:</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
-    <span class="nx">port</span><span class="o">:</span> <span class="mf">8000</span><span class="p">,</span>
+    <span class="nx">port</span><span class="o">:</span> <span class="mi">8000</span><span class="p">,</span>
     <span class="nx">method</span><span class="o">:</span> <span class="s2">&quot;POST&quot;</span>
 <span class="p">},</span> <span class="nx">response</span> <span class="p">=&gt;</span> <span class="p">{</span>
     <span class="nx">response</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="nx">chunk</span> <span class="p">=&gt;</span>
@@ -444,8 +443,8 @@ HTTP クライアントのコールバックに渡された変数 <code class="d
 </ul>
 </li>
 </ul>
-</section>
-<section id="a-file-server">
+</div>
+<div class="section" id="a-file-server">
 <h2><a class="toc-backref" href="#id13">A file server</a><a class="headerlink" href="#a-file-server" title="Permalink to this heading">¶</a></h2>
 <p>本節では HTTP サーバーとファイルシステムに関する知識を組み合わせて、ファイルシステムへのリモートアクセスを可能にする HTTP サーバーを作る。このようなサーバーは、ウェブアプリケーションがデータを保存・共有したり、人々に多数のファイルへのアクセスを与えるなど、あらゆる用途がある。</p>
 <ul class="simple">
@@ -459,26 +458,26 @@ HTTP クライアントのコールバックに渡された変数 <code class="d
 <p>ここでは、さまざまな HTTP メソッドを処理する関数を格納するために
 <code class="docutils literal notranslate"><span class="pre">methods</span></code> というオブジェクトを使用して、プログラムを少しずつ構築していく。</p>
 <p>メソッドハンドラは非同期関数であって、リクエストオブジェクトを引数として受け取り、応答を記述したオブジェクトに解決する <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返す。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="p">{</span><span class="nx">createServer</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">);</span>
-<span class="kd">const</span> <span class="nx">methods</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="p">{</span><span class="nx">createServer</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">methods</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
 
 <span class="nx">createServer</span><span class="p">((</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="nx">handler</span> <span class="o">=</span> <span class="nx">methods</span><span class="p">[</span><span class="nx">request</span><span class="p">.</span><span class="nx">method</span><span class="p">]</span> <span class="o">||</span> <span class="nx">notAllowed</span><span class="p">;</span>
     <span class="nx">handler</span><span class="p">(</span><span class="nx">request</span><span class="p">)</span>
         <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="p">=&gt;</span> <span class="p">{</span>
             <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">status</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="k">return</span> <span class="nx">error</span><span class="p">;</span>
-            <span class="k">return</span> <span class="p">{</span><span class="nx">body</span><span class="o">:</span> <span class="nb">String</span><span class="p">(</span><span class="nx">error</span><span class="p">),</span> <span class="nx">status</span><span class="o">:</span> <span class="mf">500</span><span class="p">};</span>
+            <span class="k">return</span> <span class="p">{</span><span class="nx">body</span><span class="o">:</span> <span class="nb">String</span><span class="p">(</span><span class="nx">error</span><span class="p">),</span> <span class="nx">status</span><span class="o">:</span> <span class="mi">500</span><span class="p">};</span>
         <span class="p">})</span>
-        <span class="p">.</span><span class="nx">then</span><span class="p">(({</span><span class="nx">body</span><span class="p">,</span> <span class="nx">status</span> <span class="o">=</span> <span class="mf">200</span><span class="p">,</span> <span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;text/plain&quot;</span><span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="p">.</span><span class="nx">then</span><span class="p">(({</span><span class="nx">body</span><span class="p">,</span> <span class="nx">status</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;text/plain&quot;</span><span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{</span>
             <span class="nx">response</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="nx">status</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;Content-Type&quot;</span><span class="o">:</span> <span class="nx">type</span><span class="p">});</span>
             <span class="k">if</span> <span class="p">(</span><span class="nx">body</span> <span class="o">&amp;&amp;</span> <span class="nx">body</span><span class="p">.</span><span class="nx">pipe</span><span class="p">)</span> <span class="nx">body</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
             <span class="k">else</span> <span class="nx">response</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
         <span class="p">});</span>
-    <span class="p">}).</span><span class="nx">listen</span><span class="p">(</span><span class="mf">8000</span><span class="p">);</span>
+    <span class="p">}).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">8000</span><span class="p">);</span>
 
-<span class="k">async</span> <span class="kd">function</span> <span class="nx">notAllowed</span><span class="p">(</span><span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+<span class="nx">async</span> <span class="kd">function</span> <span class="nx">notAllowed</span><span class="p">(</span><span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">{</span>
-        <span class="nx">status</span><span class="o">:</span> <span class="mf">405</span><span class="p">,</span>
+        <span class="nx">status</span><span class="o">:</span> <span class="mi">405</span><span class="p">,</span>
         <span class="nx">body</span><span class="o">:</span> <span class="sb">`Method </span><span class="si">${</span><span class="nx">request</span><span class="p">.</span><span class="nx">method</span><span class="si">}</span><span class="sb"> not allowed.`</span>
     <span class="p">};</span>
 <span class="p">}</span>
@@ -499,15 +498,15 @@ HTTP クライアントのコールバックに渡された変数 <code class="d
 <hr class="docutils" />
 <p>関数 <code class="docutils literal notranslate"><span class="pre">urlPath</span></code> は、リクエスト URL に対応するファイルパスを知るために、
 Node の組み込みモジュール <code class="docutils literal notranslate"><span class="pre">url</span></code> を使って URL を解析する。これは <code class="docutils literal notranslate"><span class="pre">/file.txt</span></code> のようなパス名を受け取り、それを複号して %20 スタイルのエスケープコードを取り除き、プログラムの作業ディレクトリーからの相対パスに解決する。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="p">{</span><span class="nx">parse</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;url&quot;</span><span class="p">);</span>
-<span class="kd">const</span> <span class="p">{</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">sep</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;path&quot;</span><span class="p">);</span>
-<span class="kd">const</span> <span class="nx">baseDirectory</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">cwd</span><span class="p">();</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="p">{</span><span class="nx">parse</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;url&quot;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="p">{</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">sep</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;path&quot;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">baseDirectory</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">cwd</span><span class="p">();</span>
 
 <span class="kd">function</span> <span class="nx">urlPath</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="p">{</span><span class="nx">pathname</span><span class="p">}</span> <span class="o">=</span> <span class="nx">parse</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
-    <span class="kd">let</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">resolve</span><span class="p">(</span><span class="nb">decodeURIComponent</span><span class="p">(</span><span class="nx">pathname</span><span class="p">).</span><span class="nx">slice</span><span class="p">(</span><span class="mf">1</span><span class="p">));</span>
+    <span class="kd">let</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">resolve</span><span class="p">(</span><span class="nb">decodeURIComponent</span><span class="p">(</span><span class="nx">pathname</span><span class="p">).</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">path</span> <span class="o">!=</span> <span class="nx">baseDirectory</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">path</span><span class="p">.</span><span class="nx">startsWith</span><span class="p">(</span><span class="nx">baseDirectory</span> <span class="o">+</span> <span class="nx">sep</span><span class="p">))</span> <span class="p">{</span>
-        <span class="k">throw</span> <span class="p">{</span><span class="nx">status</span><span class="o">:</span> <span class="mf">403</span><span class="p">,</span> <span class="nx">body</span><span class="o">:</span> <span class="s2">&quot;Forbidden&quot;</span><span class="p">};</span>
+        <span class="k">throw</span> <span class="p">{</span><span class="nx">status</span><span class="o">:</span> <span class="mi">403</span><span class="p">,</span> <span class="nx">body</span><span class="o">:</span> <span class="s2">&quot;Forbidden&quot;</span><span class="p">};</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="nx">path</span><span class="p">;</span>
 <span class="p">}</span>
@@ -524,27 +523,27 @@ Node の組み込みモジュール <code class="docutils literal notranslate"><
 <li><p><code class="docutils literal notranslate"><span class="pre">mime</span></code> パッケージは、多数のファイル拡張子に対する正しいタイプを知っている。</p></li>
 </ul>
 <p>次の <strong class="command">npm</strong> コマンドは、サーバースクリプトが存在するディレクトリーに、特定のバージョンの <code class="docutils literal notranslate"><span class="pre">mime</span></code> をインストールする：</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>npm install mime@2.2.0
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> npm install mime@2.2.0
 </pre></div>
 </div>
 <hr class="docutils" />
 <p>要求されたファイルが存在しない場合、返すべき正しい HTTP ステータスコードは 404 だ。ファイルの情報を調べる関数 <code class="docutils literal notranslate"><span class="pre">stat</span></code> を使って、ファイルが存在するかどうかと、ディレクトリーであるかどうかの両方を調べる。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="p">{</span><span class="nx">createReadStream</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">);</span>
-<span class="kd">const</span> <span class="p">{</span><span class="nx">stat</span><span class="p">,</span> <span class="nx">readdir</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">).</span><span class="nx">promises</span><span class="p">;</span>
-<span class="kd">const</span> <span class="nx">mime</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;mime&quot;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="p">{</span><span class="nx">createReadStream</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="p">{</span><span class="nx">stat</span><span class="p">,</span> <span class="nx">readdir</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">).</span><span class="nx">promises</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">mime</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;mime&quot;</span><span class="p">);</span>
 
-<span class="nx">methods</span><span class="p">.</span><span class="nx">GET</span> <span class="o">=</span> <span class="k">async</span> <span class="kd">function</span><span class="p">(</span><span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+<span class="nx">methods</span><span class="p">.</span><span class="nx">GET</span> <span class="o">=</span> <span class="nx">async</span> <span class="kd">function</span><span class="p">(</span><span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">urlPath</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
     <span class="kd">let</span> <span class="nx">stats</span><span class="p">;</span>
     <span class="k">try</span> <span class="p">{</span>
-        <span class="nx">stats</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">stat</span><span class="p">(</span><span class="nx">path</span><span class="p">);</span>
+        <span class="nx">stats</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">stat</span><span class="p">(</span><span class="nx">path</span><span class="p">);</span>
     <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">code</span> <span class="o">!=</span> <span class="s2">&quot;ENOENT&quot;</span><span class="p">)</span> <span class="k">throw</span> <span class="nx">error</span><span class="p">;</span>
-        <span class="k">else</span> <span class="k">return</span> <span class="p">{</span><span class="nx">status</span><span class="o">:</span> <span class="mf">404</span><span class="p">,</span> <span class="nx">body</span><span class="o">:</span> <span class="s2">&quot;File not found&quot;</span><span class="p">};</span>
+        <span class="k">else</span> <span class="k">return</span> <span class="p">{</span><span class="nx">status</span><span class="o">:</span> <span class="mi">404</span><span class="p">,</span> <span class="nx">body</span><span class="o">:</span> <span class="s2">&quot;File not found&quot;</span><span class="p">};</span>
     <span class="p">}</span>
 
     <span class="k">if</span> <span class="p">(</span><span class="nx">stats</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">())</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="p">{</span><span class="nx">body</span><span class="o">:</span> <span class="p">(</span><span class="k">await</span> <span class="nx">readdir</span><span class="p">(</span><span class="nx">path</span><span class="p">)).</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;\n&quot;</span><span class="p">)};</span>
+        <span class="k">return</span> <span class="p">{</span><span class="nx">body</span><span class="o">:</span> <span class="p">(</span><span class="nx">await</span> <span class="nx">readdir</span><span class="p">(</span><span class="nx">path</span><span class="p">)).</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;\n&quot;</span><span class="p">)};</span>
     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
         <span class="k">return</span> <span class="p">{</span><span class="nx">body</span><span class="o">:</span> <span class="nx">createReadStream</span><span class="p">(</span><span class="nx">path</span><span class="p">),</span>
                 <span class="nx">type</span><span class="o">:</span> <span class="nx">mime</span><span class="p">.</span><span class="nx">getType</span><span class="p">(</span><span class="nx">path</span><span class="p">)};</span>
@@ -564,22 +563,22 @@ Node の組み込みモジュール <code class="docutils literal notranslate"><
 </ul>
 <hr class="docutils" />
 <p>DELETE リクエストを処理するコードは、もう少し単純だ：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="p">{</span><span class="nx">rmdir</span><span class="p">,</span> <span class="nx">unlink</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">).</span><span class="nx">promises</span><span class="p">;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="p">{</span><span class="nx">rmdir</span><span class="p">,</span> <span class="nx">unlink</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">).</span><span class="nx">promises</span><span class="p">;</span>
 
-<span class="nx">methods</span><span class="p">.</span><span class="nx">DELETE</span> <span class="o">=</span> <span class="k">async</span> <span class="kd">function</span><span class="p">(</span><span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+<span class="nx">methods</span><span class="p">.</span><span class="nx">DELETE</span> <span class="o">=</span> <span class="nx">async</span> <span class="kd">function</span><span class="p">(</span><span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">urlPath</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
     <span class="kd">let</span> <span class="nx">stats</span><span class="p">;</span>
     <span class="k">try</span> <span class="p">{</span>
-        <span class="nx">stats</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">stat</span><span class="p">(</span><span class="nx">path</span><span class="p">);</span>
+        <span class="nx">stats</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">stat</span><span class="p">(</span><span class="nx">path</span><span class="p">);</span>
     <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">code</span> <span class="o">!=</span> <span class="s2">&quot;ENOENT&quot;</span><span class="p">)</span> <span class="k">throw</span> <span class="nx">error</span><span class="p">;</span>
-        <span class="k">else</span> <span class="k">return</span> <span class="p">{</span><span class="nx">status</span><span class="o">:</span> <span class="mf">204</span><span class="p">};</span>
+        <span class="k">else</span> <span class="k">return</span> <span class="p">{</span><span class="nx">status</span><span class="o">:</span> <span class="mi">204</span><span class="p">};</span>
     <span class="p">}</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="nx">stats</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">())</span> <span class="k">await</span> <span class="nx">rmdir</span><span class="p">(</span><span class="nx">path</span><span class="p">);</span>
-    <span class="k">else</span> <span class="k">await</span> <span class="nx">unlink</span><span class="p">(</span><span class="nx">path</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">stats</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">())</span> <span class="nx">await</span> <span class="nx">rmdir</span><span class="p">(</span><span class="nx">path</span><span class="p">);</span>
+    <span class="k">else</span> <span class="nx">await</span> <span class="nx">unlink</span><span class="p">(</span><span class="nx">path</span><span class="p">);</span>
 
-    <span class="k">return</span> <span class="p">{</span><span class="nx">status</span><span class="o">:</span> <span class="mf">204</span><span class="p">};</span>
+    <span class="k">return</span> <span class="p">{</span><span class="nx">status</span><span class="o">:</span> <span class="mi">204</span><span class="p">};</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -590,21 +589,21 @@ HTTP 規格では、リクエストを冪等にすることが推奨されてい
 </ul>
 <hr class="docutils" />
 <p>以下、PUT リクエストのハンドラーだ：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="p">{</span><span class="nx">createWriteStream</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="p">{</span><span class="nx">createWriteStream</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">);</span>
 
-<span class="kd">function</span> <span class="nx">pipeStream</span><span class="p">(</span><span class="kr">from</span><span class="p">,</span> <span class="nx">to</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="ow">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-        <span class="kr">from</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="nx">reject</span><span class="p">);</span>
+<span class="kd">function</span> <span class="nx">pipeStream</span><span class="p">(</span><span class="nx">from</span><span class="p">,</span> <span class="nx">to</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="nx">from</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="nx">reject</span><span class="p">);</span>
         <span class="nx">to</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="nx">reject</span><span class="p">);</span>
         <span class="nx">to</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;finish&quot;</span><span class="p">,</span> <span class="nx">resolve</span><span class="p">);</span>
-        <span class="kr">from</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">to</span><span class="p">);</span>
+        <span class="nx">from</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">to</span><span class="p">);</span>
     <span class="p">});</span>
 <span class="p">}</span>
 
-<span class="nx">methods</span><span class="p">.</span><span class="nx">PUT</span> <span class="o">=</span> <span class="k">async</span> <span class="kd">function</span><span class="p">(</span><span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+<span class="nx">methods</span><span class="p">.</span><span class="nx">PUT</span> <span class="o">=</span> <span class="nx">async</span> <span class="kd">function</span><span class="p">(</span><span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">urlPath</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
-    <span class="k">await</span> <span class="nx">pipeStream</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">createWriteStream</span><span class="p">(</span><span class="nx">path</span><span class="p">));</span>
-    <span class="k">return</span> <span class="p">{</span><span class="nx">status</span><span class="o">:</span> <span class="mf">204</span><span class="p">};</span>
+    <span class="nx">await</span> <span class="nx">pipeStream</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">createWriteStream</span><span class="p">(</span><span class="nx">path</span><span class="p">));</span>
+    <span class="k">return</span> <span class="p">{</span><span class="nx">status</span><span class="o">:</span> <span class="mi">204</span><span class="p">};</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -624,13 +623,13 @@ HTTP 規格では、リクエストを冪等にすることが推奨されてい
 <li><p>オプション <code class="docutils literal notranslate"><span class="pre">-X</span></code> はリクエストのメソッドを指定する。</p></li>
 <li><p>オプション <code class="docutils literal notranslate"><span class="pre">-d</span></code> はリクエスト本体を含むのに使う。</p></li>
 </ul>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>curl http://localhost:8000/file.txt
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> curl http://localhost:8000/file.txt
 <span class="go">File not found</span>
-<span class="gp">$ </span>curl -X PUT -d hello http://localhost:8000/file.txt
-<span class="gp">$ </span>curl http://localhost:8000/file.txt
+<span class="gp">$</span> curl -X PUT -d hello http://localhost:8000/file.txt
+<span class="gp">$</span> curl http://localhost:8000/file.txt
 <span class="go">hello</span>
-<span class="gp">$ </span>curl -X DELETE http://localhost:8000/file.txt
-<span class="gp">$ </span>curl http://localhost:8000/file.txt
+<span class="gp">$</span> curl -X DELETE http://localhost:8000/file.txt
+<span class="gp">$</span> curl http://localhost:8000/file.txt
 <span class="go">File not found</span>
 </pre></div>
 </div>
@@ -641,8 +640,8 @@ HTTP 規格では、リクエストを冪等にすることが推奨されてい
 </ul>
 </li>
 </ul>
-</section>
-<section id="summary">
+</div>
+<div class="section" id="summary">
 <h2><a class="toc-backref" href="#id14">Summary</a><a class="headerlink" href="#summary" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="https://nodejs.org">Node</a> は JavaScript をブラウザー以外のコンテキストで動作させることができるシステムだ。元々はネットワークタスクのために設計されたもので、ネットワーク内のノードの役割を果たす。あらゆる種類のスクリプトタスクにもまた適している。</p>
 <p><a class="reference external" href="https://npmjs.org">NPM</a> はパッケージを提供し、我々は <strong class="command">npm</strong> プログラムでそれらのパッケージを取得してインストールする。
@@ -650,10 +649,10 @@ HTTP 規格では、リクエストを冪等にすることが推奨されてい
 HTTP サーバーを実行して HTTP リクエストを行うためのモジュール <code class="docutils literal notranslate"><span class="pre">http</span></code> など、多くの組み込みモジュールが用意されている。</p>
 <p><a class="reference external" href="https://nodejs.org">Node</a> では、<code class="docutils literal notranslate"><span class="pre">readFileSync</span></code> のような同期型の関数を明示的に使用しない限り、すべての入出力は非同期で行われる。このような非同期関数を呼び出す際には、コールバック関数を提供し、
 <a class="reference external" href="https://nodejs.org">Node</a> は準備ができたときにエラー値と結果（利用可能であれば）を伴ってそれらを呼び出す。</p>
-</section>
-<section id="exercises">
+</div>
+<div class="section" id="exercises">
 <h2><a class="toc-backref" href="#id15">Exercises</a><a class="headerlink" href="#exercises" title="Permalink to this heading">¶</a></h2>
-<section id="search-tool">
+<div class="section" id="search-tool">
 <h3><a class="toc-backref" href="#id16">Search tool</a><a class="headerlink" href="#search-tool" title="Permalink to this heading">¶</a></h3>
 <p><strong>問題</strong> コマンドラインから実行できる <strong class="command">grep</strong> に似た動作をする
 Node スクリプトを書け。このスクリプトは、</p>
@@ -664,44 +663,44 @@ Node スクリプトを書け。このスクリプトは、</p>
 <p>これがうまくいったら、それを拡張して引数がディレクトリーの場合にはそのディレクトリーとそのサブディレクトリー内のすべてのファイルを検索しろ。</p>
 <p>ファイルシステムの機能は、非同期型と同期型のどちらを使っても構わない。複数の非同期動作を同時に要求するようにに設定することで多少の高速化が図れるかもしれないが、ファイルシステムのほとんどは一度に一つのものしか読めないので、それほど良くはならない。</p>
 <p><strong>解答</strong> オリジナルの <code class="docutils literal notranslate"><span class="pre">grep</span></code> のような内容の出力に変えた：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// USAGE: node grep.js PATTERNS FILES</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span>// USAGE: node grep.js PATTERNS FILES
 
-<span class="kd">const</span> <span class="p">{</span><span class="nx">readFile</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">);</span>
-<span class="kd">const</span> <span class="p">{</span><span class="nx">readdir</span><span class="p">,</span> <span class="nx">stat</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">).</span><span class="nx">promises</span><span class="p">;</span>
-<span class="kd">const</span> <span class="p">{</span><span class="nx">sep</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;path&quot;</span><span class="p">);</span>
+const {readFile} = require(&quot;fs&quot;);
+const {readdir, stat} = require(&quot;fs&quot;).promises;
+const {sep} = require(&quot;path&quot;);
 
-<span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="mf">4</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">process</span><span class="p">.</span><span class="nx">stderr</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="sb">`Usage: node </span><span class="si">${</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mf">1</span><span class="p">]</span><span class="si">}</span><span class="sb"> PATTERN [FILE]...\n`</span><span class="p">);</span>
-    <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mf">2</span><span class="p">);</span>
-<span class="p">}</span>
+if (process.argv.length &lt; 4) {
+    process.stderr.write(`Usage: node ${process.argv[1]} PATTERN [FILE]...\n`);
+    process.exit(2);
+}
 
-<span class="kd">const</span> <span class="nx">pattern</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mf">2</span><span class="p">]);</span>
+const pattern = new RegExp(process.argv[2]);
 
-<span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">3</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">path</span> <span class="p">=&gt;</span> <span class="nx">grep</span><span class="p">(</span><span class="nx">path</span><span class="p">));</span>
+process.argv.slice(3).forEach(path =&gt; grep(path));
 
-<span class="k">async</span> <span class="kd">function</span> <span class="nx">grep</span><span class="p">(</span><span class="nx">path</span><span class="p">){</span>
-    <span class="kd">const</span> <span class="nx">stats</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">stat</span><span class="p">(</span><span class="nx">path</span><span class="p">);</span>
-    <span class="k">if</span><span class="p">(</span><span class="nx">stats</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">()){</span>
-        <span class="k">for</span><span class="p">(</span><span class="kd">const</span> <span class="nx">i</span> <span class="k">of</span> <span class="k">await</span> <span class="nx">readdir</span><span class="p">(</span><span class="nx">path</span><span class="p">)){</span>
-            <span class="k">await</span> <span class="nx">grep</span><span class="p">(</span><span class="nx">path</span> <span class="o">+</span> <span class="nx">sep</span> <span class="o">+</span> <span class="nx">i</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="k">return</span><span class="p">;</span>
-    <span class="p">}</span>
+async function grep(path){
+    const stats = await stat(path);
+    if(stats.isDirectory()){
+        for(const i of await readdir(path)){
+            await grep(path + sep + i);
+        }
+        return;
+    }
 
-    <span class="nx">readFile</span><span class="p">(</span><span class="nx">path</span><span class="p">,</span> <span class="s2">&quot;utf8&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">text</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="k">throw</span> <span class="nx">error</span><span class="p">;</span>
+    readFile(path, &quot;utf8&quot;, (error, text) =&gt; {
+        if(error) throw error;
 
-        <span class="nx">text</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;\n&quot;</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">line</span> <span class="p">=&gt;</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nx">line</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="nx">pattern</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mf">1</span><span class="p">)</span> <span class="p">{</span>
-                <span class="nx">process</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">path</span><span class="si">}</span><span class="sb">:</span><span class="si">${</span><span class="nx">line</span><span class="si">}</span><span class="sb">\n`</span><span class="p">);</span>
-            <span class="p">}</span>
-        <span class="p">});</span>
-    <span class="p">})</span>
-<span class="p">}</span>
+        text.split(&quot;\n&quot;).forEach(line =&gt; {
+            if (line.search(pattern) != -1) {
+                process.stdout.write(`${path}:${line}\n`);
+            }
+        });
+    })
+}
 </pre></div>
 </div>
-</section>
-<section id="directory-creation">
+</div>
+<div class="section" id="directory-creation">
 <h3><a class="toc-backref" href="#id17">Directory creation</a><a class="headerlink" href="#directory-creation" title="Permalink to this heading">¶</a></h3>
 <p>ファイルサーバーの DELETE メソッドはディレクトリーを削除することができるが、サーバーには現在ディレクトリーを作成する方法を用意していない。</p>
 <p><strong>問題</strong> MKCOL メソッド (“make collection”) のサポートを追加しろ。
@@ -713,13 +712,13 @@ WebDAV 規格とは HTTP の上に文書作成に適した規約の集合を規�
 </pre></div>
 </div>
 <p>サーバー側のコードは次のようなものだ：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="p">{</span> <span class="nx">mkdir</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">).</span><span class="nx">promises</span><span class="p">;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">mkdir</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">).</span><span class="nx">promises</span><span class="p">;</span>
 
-<span class="nx">methods</span><span class="p">.</span><span class="nx">MKCOL</span> <span class="o">=</span> <span class="k">async</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">await</span> <span class="nx">mkdir</span><span class="p">(</span><span class="nx">urlPath</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">url</span><span class="p">),</span> <span class="p">{</span> <span class="nx">recursive</span><span class="o">:</span> <span class="kc">true</span> <span class="p">},</span> <span class="nx">err</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="nx">methods</span><span class="p">.</span><span class="nx">MKCOL</span> <span class="o">=</span> <span class="nx">async</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">await</span> <span class="nx">mkdir</span><span class="p">(</span><span class="nx">urlPath</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">url</span><span class="p">),</span> <span class="p">{</span> <span class="nx">recursive</span><span class="o">:</span> <span class="kc">true</span> <span class="p">},</span> <span class="nx">err</span> <span class="p">=&gt;</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
     <span class="p">});</span>
-    <span class="k">return</span> <span class="p">{</span> <span class="nx">status</span><span class="o">:</span> <span class="mf">204</span> <span class="p">};</span>
+    <span class="k">return</span> <span class="p">{</span> <span class="nx">status</span><span class="o">:</span> <span class="mi">204</span> <span class="p">};</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -727,8 +726,8 @@ WebDAV 規格とは HTTP の上に文書作成に適した規約の集合を規�
 <li><p>冪等性推奨方針とディレクトリー作成オプション <code class="docutils literal notranslate"><span class="pre">recursive</span></code> との相性が良い。</p></li>
 <li><p>空文字列を渡しても入力なしエラーであるとはみなさなくていいだろう。</p></li>
 </ul>
-</section>
-<section id="a-public-space-on-the-web">
+</div>
+<div class="section" id="a-public-space-on-the-web">
 <h3><a class="toc-backref" href="#id18">A public space on the web</a><a class="headerlink" href="#a-public-space-on-the-web" title="Permalink to this heading">¶</a></h3>
 <p>ファイルサーバーは、あらゆる種類のファイルを提供し、適切な Content-Type ヘッダーも含めることができるので、ウェブサイトを提供するために使用することができる。</p>
 <p><strong>問題</strong> 簡単な JavaScript ファイルを含む基本的な HTML ページを書け。ファイルサーバーが提供するディレクトリーにファイルを置き、ブラウザーで開け。</p>
@@ -745,9 +744,9 @@ WebDAV 規格とは HTTP の上に文書作成に適した規約の集合を規�
 <p>時間を見つけてやる。</p>
 </div>
 <p>以上</p>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
           </div>

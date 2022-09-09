@@ -4,8 +4,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Frames and windows &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
@@ -48,7 +47,7 @@
 
           <div class="body" role="main">
             
-  <section id="frames-and-windows">
+  <div class="section" id="frames-and-windows">
 <h1><a class="toc-backref" href="#id1">Frames and windows</a><a class="headerlink" href="#frames-and-windows" title="Permalink to this heading">¶</a></h1>
 <div class="contents topic" id="contents">
 <p class="topic-title">Contents</p>
@@ -62,7 +61,7 @@
 </li>
 </ul>
 </div>
-<section id="popups-and-window-methods">
+<div class="section" id="popups-and-window-methods">
 <h2><a class="toc-backref" href="#id2">Popups and window methods</a><a class="headerlink" href="#popups-and-window-methods" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/popup-windows">https://javascript.info/popup-windows</a>&gt; ノート。</p>
 <p>ポップアップウィンドウはユーザーに文書を追加的に表示する最も古い方法の一つだ。</p>
@@ -79,7 +78,7 @@
 <li><p>ポップアップを開くのはとても容易だ。</p></li>
 <li><p>ポップアップは URL を変更したり、自身を開いたウィンドウに対してメッセージを送れる。</p></li>
 </ul>
-<section id="popup-blocking">
+<div class="section" id="popup-blocking">
 <h3>Popup blocking<a class="headerlink" href="#popup-blocking" title="Permalink to this heading">¶</a></h3>
 <p>かつての悪質なサイトのページでは、広告の入ったポップアップウィンドウを大量に開くことがあった。現在では、ブラウザーのほとんどがポップアップをブロックし、利用者を保護しようとしている。</p>
 <p>ブラウザーの大半は、ポップアップが <code class="docutils literal notranslate"><span class="pre">onclick</span></code> のような利用者発イベントハンドラーの外部で呼び出された場合、ポップアップを抑止する。</p>
@@ -88,11 +87,11 @@
 <p>イベントハンドラーの中からでなければ <code class="docutils literal notranslate"><span class="pre">window.open()</span></code> は効かないと言っている。</p>
 </div>
 <p>この方法では、利用者は不要なポップアップからある程度保護されるが、機能は完全に無効化されるわけではない。ポップアップが <code class="docutils literal notranslate"><span class="pre">onclick</span></code> から <code class="docutils literal notranslate"><span class="pre">setTimeout()</span></code> により後に開かれる場合はどうなるか。これはブラウザーによりけりで、開くものもあれば、そうでないものもある。本書では指定する遅延時間によっても挙動が変わると述べている。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nb">window</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">&#39;http://google.com&#39;</span><span class="p">),</span> <span class="mf">3000</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nb">window</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">&#39;http://google.com&#39;</span><span class="p">),</span> <span class="mi">3000</span><span class="p">);</span>
 </pre></div>
 </div>
-</section>
-<section id="window-open">
+</div>
+<div class="section" id="window-open">
 <h3>window.open<a class="headerlink" href="#window-open" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">window</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">params</span><span class="p">);</span>
 </pre></div>
@@ -124,8 +123,8 @@
 </li>
 </ul>
 <p>この他にも、あまりサポートされていないブラウザー固有の機能があり、通常は使用されない。</p>
-</section>
-<section id="example-a-minimalistic-window">
+</div>
+<div class="section" id="example-a-minimalistic-window">
 <h3>Example: a minimalistic window<a class="headerlink" href="#example-a-minimalistic-window" title="Permalink to this heading">¶</a></h3>
 <p>最低限の機能を持つウィンドウを開き、ブラウザーがどの機能を無効化できるかを調べる。本書のコードでは、ほとんどの「ウィンドウ機能」が無効化され、ウィンドウは画面の外に配置されるように引数を指定している。実際に何が起こるか試すと、幅・高さがゼロで、左・上部が画面外にあるような奇妙な指定をブラウザーは「修正」することが認められる。例えば、Chrome はこのようなウィンドウを幅と高さを目一杯使って開き、画面全体を占めるようにする。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">params</span> <span class="o">=</span> <span class="sb">`scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=0,height=0,left=-1000,top=-1000`</span><span class="p">;</span>
@@ -142,8 +141,8 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">left</span></code>/<code class="docutils literal notranslate"><span class="pre">top</span></code> がなければ、新しいウィンドウが最後に開いたウィンドウの近くに出現する。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">width</span></code>/<code class="docutils literal notranslate"><span class="pre">height</span></code> がなければ、新しいウィンドウの寸法は最後に開いたものと同じになる。</p></li>
 </ul>
-</section>
-<section id="accessing-popup-from-window">
+</div>
+<div class="section" id="accessing-popup-from-window">
 <h3>Accessing popup from window<a class="headerlink" href="#accessing-popup-from-window" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">open()</span></code> 呼び出しは、新しいウィンドウへの参照を返す。これは、プロパティーを操作したり、場所を変更したり、さらに多くのことに利用できる。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">newWin</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;about:blank&quot;</span><span class="p">,</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="s2">&quot;width=200,height=200&quot;</span><span class="p">);</span>
@@ -163,8 +162,8 @@
 </div>
 <hr class="docutils" />
 <p>ウィンドウ同士は、同一オリジンである場合にのみ、互いの内容に自由にアクセスできる。そうでない場合は、利用者安全保障上不可能だ。</p>
-</section>
-<section id="accessing-window-from-popup">
+</div>
+<div class="section" id="accessing-window-from-popup">
 <h3>Accessing window from popup<a class="headerlink" href="#accessing-window-from-popup" title="Permalink to this heading">¶</a></h3>
 <p>ポップアップは <code class="docutils literal notranslate"><span class="pre">window.opener</span></code> を参照して、自身を開いたウィンドウにアクセスできる。このプロパティーの値は、ポップアップ以外のウィンドウでは <code class="docutils literal notranslate"><span class="pre">null</span></code> だ。</p>
 <p>次のコードでは、現在のウィンドウの内容が “Test” に置き換わる：</p>
@@ -176,8 +175,8 @@
 </pre></div>
 </div>
 <p>ウィンドウ間の接続は双方向であり、メインウィンドウとポップアップが相互に参照しあっているのだ。</p>
-</section>
-<section id="closing-a-popup">
+</div>
+<div class="section" id="closing-a-popup">
 <h3>Closing a popup<a class="headerlink" href="#closing-a-popup" title="Permalink to this heading">¶</a></h3>
 <p>ウィンドウを閉じるには <code class="docutils literal notranslate"><span class="pre">win.close()</span></code> とする。閉じられているかどうかを調べるには``win.closed`` をチェックする。</p>
 <p>技術的には、メソッド <code class="docutils literal notranslate"><span class="pre">close()</span></code> はどのウィンドウにも使えるが、ウィンドウが
@@ -192,8 +191,8 @@
 <span class="p">};</span>
 </pre></div>
 </div>
-</section>
-<section id="moving-and-resizing">
+</div>
+<div class="section" id="moving-and-resizing">
 <h3>Moving and resizing<a class="headerlink" href="#moving-and-resizing" title="Permalink to this heading">¶</a></h3>
 <p>ウィンドウを移動するメソッドと寸法を変更するメソッドがある。</p>
 <ul class="simple">
@@ -208,8 +207,8 @@
 <p>JavaScript にはウィンドウを最小化したり最大化したりする手段がない。これらの OS
 レベルの機能は、フロントエンドの開発者に対して隠蔽されている。</p>
 <p>ウィンドウを最大化または最小化した場合、上記のメソッド群は機能しない。</p>
-</section>
-<section id="scrolling-a-window">
+</div>
+<div class="section" id="scrolling-a-window">
 <h3>Scrolling a window<a class="headerlink" href="#scrolling-a-window" title="Permalink to this heading">¶</a></h3>
 <p>ウィンドウのスクロール一般については履修済みだ。</p>
 <dl class="simple">
@@ -222,8 +221,8 @@
 </dd>
 </dl>
 <p>また、イベント <code class="docutils literal notranslate"><span class="pre">window.onscroll</span></code> もある。</p>
-</section>
-<section id="focus-blur-on-a-window">
+</div>
+<div class="section" id="focus-blur-on-a-window">
 <h3>Focus/blur on a window<a class="headerlink" href="#focus-blur-on-a-window" title="Permalink to this heading">¶</a></h3>
 <p>理論的には、ウィンドウにフォーカスを当てたり外したりするためのメソッドとして
 <code class="docutils literal notranslate"><span class="pre">window.focus()</span></code> および <code class="docutils literal notranslate"><span class="pre">window.blur()</span></code> が存在する。また、それらに対応するイベントもそれぞれ存在する。これらを使えば、訪問者がウィンドウにフォーカスし、別の場所に切り替えた瞬間を捕捉することができる。しかし、過去に悪いページがこれらを悪用したため、実際には厳しく制限されている。</p>
@@ -234,13 +233,13 @@
 <p>例えば、ポップアップを開くときに、<code class="docutils literal notranslate"><span class="pre">newWindow.focus()</span></code> を実行するのは良い考えであるかもしれない。 OS とブラウザーの組み合わせ次第では、利用者が新しいウィンドウにいることを確認できる。</p>
 <p>訪問者が実際にウェブアプリを使用するタイミングを追跡したい場合は、
 <code class="docutils literal notranslate"><span class="pre">window.{onfocus,onblur}</span></code> を追跡できる。これにより、ページ内の活動状況やアニメーションなどを一時停止または再開することができる。しかし、イベント <code class="docutils literal notranslate"><span class="pre">blur</span></code> では、訪問者がウィンドウから切り替えたことを意味するが、まだ観察している可能性がある。ウィンドウはバックグラウンドにあるのだが、まだ見えている可能性がある。</p>
-</section>
-</section>
-<section id="cross-window-communication">
+</div>
+</div>
+<div class="section" id="cross-window-communication">
 <h2><a class="toc-backref" href="#id3">Cross-window communication</a><a class="headerlink" href="#cross-window-communication" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/cross-window-communication">https://javascript.info/cross-window-communication</a>&gt; ノート。</p>
 <p>同一オリジン政策は、ウィンドウとフレームの相互的アクセスを制限する。これは、利用者がページを二つ開いている場合、一方は john-smith.com で、他方はgmail.com だとすると、john-smith.com にあるスクリプトが gmail.com にある我々のメールを読むことは望まないだろうというものだ。つまり、同一オリジン政策の目的は、情報の盗難から利用者を保護することにある。</p>
-<section id="same-origin">
+<div class="section" id="same-origin">
 <h3>Same Origin<a class="headerlink" href="#same-origin" title="Permalink to this heading">¶</a></h3>
 <div class="admonition- admonition">
 <p class="admonition-title">学習者ノート</p>
@@ -268,7 +267,7 @@
 <li><p>そうでなければ、それが別のオリジンから来たものであれば、そのウィンドウの内容、変数、ドキュメント、その他にアクセスすることはできない。唯一の例外は
 <code class="docutils literal notranslate"><span class="pre">location</span></code> で、これを変更することができる（したがって利用者を転送することができる）。しかし、<code class="docutils literal notranslate"><span class="pre">location</span></code> を読み取ることはできない（利用者が今どこにいるのかを知ることはできず、情報漏れは起こらない）。</p></li>
 </ul>
-<section id="in-action-iframe">
+<div class="section" id="in-action-iframe">
 <h4>In action: iframe<a class="headerlink" href="#in-action-iframe" title="Permalink to this heading">¶</a></h4>
 <p>タグ <code class="docutils literal notranslate"><span class="pre">&lt;iframe&gt;</span></code> は、独立した組み込みウィンドウを収容する場所となり、それ自身の独立した``document`` と <code class="docutils literal notranslate"><span class="pre">window</span></code> オブジェクトを持つ。</p>
 <p>次に挙げるプロパティーを使えばこれらのオブジェクトにアクセスできる。</p>
@@ -287,9 +286,9 @@
 <hr class="docutils" />
 <p><code class="docutils literal notranslate"><span class="pre">&lt;iframe&gt;</span></code> タグ上、イベント <code class="docutils literal notranslate"><span class="pre">iframe.onload</span></code> は、基本的に埋め込まれたウィンドウ上 <code class="docutils literal notranslate"><span class="pre">iframe.contentWindow.onload</span></code> と同じものだ。これは、埋め込みウィンドウが全ての資源を完全にロードすると発生する。しかし、他のオリジンに関する
 <code class="docutils literal notranslate"><span class="pre">iframe.contentWindow.onload</span></code> にはアクセスできないので <code class="docutils literal notranslate"><span class="pre">iframe.onload</span></code> を使用する。</p>
-</section>
-</section>
-<section id="windows-on-subdomains-document-domain">
+</div>
+</div>
+<div class="section" id="windows-on-subdomains-document-domain">
 <h3>Windows on subdomains: document.domain<a class="headerlink" href="#windows-on-subdomains-document-domain" title="Permalink to this heading">¶</a></h3>
 <p>その定義上、異なるドメインである二つの URL はオリジンが異なる。しかし、ウィンドウが同じ第二水準ドメイン、たとえば john.site.com, peter.site.com, site.com を共有している場合、ブラウザーにその違いを無視させて、ウィンドウ間通信の目的のために同じオリジンであるものとして扱わせることができる。これを実現するには、そのようなウィンドウごとに、次のコードを実行する必要がある：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">document</span><span class="p">.</span><span class="nx">domain</span> <span class="o">=</span> <span class="s1">&#39;site.com&#39;</span><span class="p">;</span>
@@ -297,8 +296,8 @@
 </div>
 <p>プロパティー <code class="docutils literal notranslate"><span class="pre">document.domain</span></code> は仕様から削除される方向にある。その代わりのものが提案されている。今のところ、すべてのブラウザーがこれを対応しているし、
 <code class="docutils literal notranslate"><span class="pre">document.domain</span></code> に依存している古いコードを壊さないように、将来にわたって維持される予定だ。</p>
-</section>
-<section id="iframe-wrong-document-pitfall">
+</div>
+<div class="section" id="iframe-wrong-document-pitfall">
 <h3>Iframe: wrong document pitfall<a class="headerlink" href="#iframe-wrong-document-pitfall" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">iframe</span></code> が同じオリジンから来た場合、そのドキュメントにアクセスする可能性がある場合、落とし穴がある。 <code class="docutils literal notranslate"><span class="pre">iframe</span></code> は生成されるとすぐにドキュメントを持つ。しかし、そのドキュメントは <code class="docutils literal notranslate"><span class="pre">iframe</span></code> に読み込まれるものとは別だ。もし、そのドキュメントに対してすぐに何かをすると、それはおそらく失われるはずだ。</p>
 <p>まだロードされていない <code class="docutils literal notranslate"><span class="pre">iframe</span></code> のドキュメントを操作するべきではない。なぜなら、それは間違ったドキュメントだからだ。それにイベントハンドラーを設定しても無視される。</p>
@@ -317,7 +316,7 @@
         <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;New document is here!&quot;</span><span class="p">);</span>
 
         <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span> <span class="c1">// cancel setInterval, don&#39;t need it any more</span>
-    <span class="p">},</span> <span class="mf">100</span><span class="p">);</span>
+    <span class="p">},</span> <span class="mi">100</span><span class="p">);</span>
 <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 </div>
@@ -326,8 +325,8 @@
 <p>一定時間間隔で何かをテストするコードは上のような形で <code class="docutils literal notranslate"><span class="pre">setInterval()</span></code> と
 <code class="docutils literal notranslate"><span class="pre">clearInterval()</span></code> を呼ぶことを理解する。</p>
 </div>
-</section>
-<section id="collection-window-frames">
+</div>
+<div class="section" id="collection-window-frames">
 <h3>Collection: window.frames<a class="headerlink" href="#collection-window-frames" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">&lt;iframe&gt;</span></code> に対するウィンドウオブジェクトを取得する別の方法として、名前付きコレクション <code class="docutils literal notranslate"><span class="pre">window.frames</span></code> がある。</p>
 <ul class="simple">
@@ -341,8 +340,8 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">window.top</span></code>: いちばん上の親ウィンドウ</p></li>
 </ul>
 <p>プロパティー <code class="docutils literal notranslate"><span class="pre">top</span></code> を使って、現在の文書がフレーム内に開かれているかどうかを確認できる。</p>
-</section>
-<section id="the-sandbox-iframe-attribute">
+</div>
+<div class="section" id="the-sandbox-iframe-attribute">
 <h3>The “sandbox” iframe attribute<a class="headerlink" href="#the-sandbox-iframe-attribute" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">&lt;iframe&gt;</span></code> の属性 <code class="docutils literal notranslate"><span class="pre">sandbox</span></code> では、信頼できないコードの実行を防ぐために、フレーム内の特定のアクションを除外することを可能にする。<code class="docutils literal notranslate"><span class="pre">iframe</span></code> が別の場所から来たものとして扱ったり、他の制限を適用することによって、<code class="docutils literal notranslate"><span class="pre">iframe</span></code> を砂箱に置くものだ。</p>
 <p><code class="docutils literal notranslate"><span class="pre">&lt;iframe</span> <span class="pre">sandbox</span> <span class="pre">src=&quot;...&quot;&gt;</span></code> に適用される制限の既定値（の集合）はある。しかし、例えば次のように、適用すべきでない制限を空白文字区切りリストを属性の値として指定すると、制限を緩和することができる：</p>
@@ -366,13 +365,13 @@
 <p>本書のここにある例では、<code class="docutils literal notranslate"><span class="pre">sandbox</span></code> に何も指定しない <code class="docutils literal notranslate"><span class="pre">iframe</span></code> を示している。
 Google に入力テキストを送りつける JavaScript とフォームがあるものの、何も動作しない。ボタンのイベントハンドラーすら走らない。既定値は本当に厳しい。</p>
 <p>属性 <code class="docutils literal notranslate"><span class="pre">sandbox</span></code> の目的は、制限を追加することしかない。取り除くことはできない。特に、<code class="docutils literal notranslate"><span class="pre">iframe</span></code> が他のオリジンから来た場合、同一オリジンの制限を緩和することはできない。</p>
-</section>
-<section id="cross-window-messaging">
+</div>
+<div class="section" id="cross-window-messaging">
 <h3>Cross-window messaging<a class="headerlink" href="#cross-window-messaging" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">postMessage()</span></code> は、ウィンドウ同士がどのオリジンから来たものであっても通話できるようにするものだ。つまり、同一政策を回避する。john-smith.com のウィンドウが
 gmail.com と会話し、情報を交換することを可能にする。ただし、両者が同意し、対応する JavaScript 関数を呼び出した場合だけだ。そのため、利用者にとって安全だ。</p>
 <p>インターフェースは二つの部分から構成されている。</p>
-<section id="postmessage">
+<div class="section" id="postmessage">
 <h4>postMessage<a class="headerlink" href="#postmessage" title="Permalink to this heading">¶</a></h4>
 <p>メッセージを送りたいウィンドウは、受信側のウィンドウのメソッド <code class="docutils literal notranslate"><span class="pre">postMessage()</span></code>
 を呼び出す。<code class="docutils literal notranslate"><span class="pre">win</span></code> にメッセージを送りたいとすると、</p>
@@ -398,8 +397,8 @@ gmail.com と会話し、情報を交換することを可能にする。ただ�
 <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 </div>
-</section>
-<section id="onmessage">
+</div>
+<div class="section" id="onmessage">
 <h4>onmessage<a class="headerlink" href="#onmessage" title="Permalink to this heading">¶</a></h4>
 <p>メッセージを受信するには、受信側ウィンドウにイベント <code class="docutils literal notranslate"><span class="pre">message</span></code> のハンドラーを設定する。これは、<code class="docutils literal notranslate"><span class="pre">postMessage()</span></code> が呼ばれたとき、および <code class="docutils literal notranslate"><span class="pre">targetOrigin</span></code> のチェックが成功したときに発生する。</p>
 <p>イベントオブジェクトは特別なプロパティーがある：</p>
@@ -423,14 +422,14 @@ gmail.com と会話し、情報を交換することを可能にする。ただ�
 <span class="p">});</span>
 </pre></div>
 </div>
-</section>
-</section>
-</section>
-<section id="the-clickjacking-attack">
+</div>
+</div>
+</div>
+<div class="section" id="the-clickjacking-attack">
 <h2><a class="toc-backref" href="#id4">The clickjacking attack</a><a class="headerlink" href="#the-clickjacking-attack" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/clickjacking">https://javascript.info/clickjacking</a>&gt; ノート。</p>
 <p>クリックジャック攻撃は、悪質なページが訪問者に代わって被害サイトをクリックするものだ。現在は修正済みであるが、Twitter, Facebook, Paypal など、多くのサイトがこの方法でハックされたことがある。</p>
-<section id="the-idea">
+<div class="section" id="the-idea">
 <h3>The idea<a class="headerlink" href="#the-idea" title="Permalink to this heading">¶</a></h3>
 <p>Facebook を使ったクリックジャッキングのやり方はこうだ：</p>
 <ol class="arabic simple">
@@ -441,8 +440,8 @@ gmail.com と会話し、情報を交換することを可能にする。ただ�
 <code class="docutils literal notranslate"><span class="pre">z-index</span></code> で実現する。</p></li>
 <li><p>リンクをクリックしようとした訪問者は、実際にそうしてしまう。</p></li>
 </ol>
-</section>
-<section id="the-demo">
+</div>
+<div class="section" id="the-demo">
 <h3>The demo<a class="headerlink" href="#the-demo" title="Permalink to this heading">¶</a></h3>
 <p>悪いページのデモコード。要点をかいつまむと：</p>
 <ul class="simple">
@@ -454,8 +453,8 @@ gmail.com と会話し、情報を交換することを可能にする。ただ�
 <hr class="docutils" />
 <p>クリックジャッキングは、キーボードではなく、クリックに対して行われる。この手の攻撃は、マウス操作（またはモバイルでのタップのような類似の操作）にしか効果がない。キーボード入力は、転送するのがひじょうに困難だ。技術的には、ハックするテキスト欄があれば、テキスト欄同士が重なるように <code class="docutils literal notranslate"><span class="pre">iframe</span></code> を配置できる。そうすれば、訪問者がページ上に表示されている入力に神経を集中しようとしたとき、実際には <code class="docutils literal notranslate"><span class="pre">iframe</span></code>
 内の入力に集中することになるのだ。しかし、そこで問題が発生する。 <code class="docutils literal notranslate"><span class="pre">iframe</span></code> が見えないので、訪問者が入力したものはすべて隠されてしまう。新しい文字が画面にエコーされるのが見えなくなると、人は入力するのをやめてしまう。</p>
-</section>
-<section id="old-school-defences-weak">
+</div>
+<div class="section" id="old-school-defences-weak">
 <h3>Old-school defences (weak)<a class="headerlink" href="#old-school-defences-weak" title="Permalink to this heading">¶</a></h3>
 <p>最も古い防御策は、次のようにしてフレーム内でページを開くことを禁止するものだ：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">top</span> <span class="o">!=</span> <span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
@@ -464,7 +463,7 @@ gmail.com と会話し、情報を交換することを可能にする。ただ�
 </pre></div>
 </div>
 <p>つまり、ウィンドウは自分が一番上でないことを知ると、自動的に自分を一番上にするというものだ。これは確実な防御策ではない。これを回避する方法はたくさんある。</p>
-<section id="blocking-top-navigation">
+<div class="section" id="blocking-top-navigation">
 <h4>Blocking top-navigation<a class="headerlink" href="#blocking-top-navigation" title="Permalink to this heading">¶</a></h4>
 <p>イベントハンドラー <code class="docutils literal notranslate"><span class="pre">beforeunload</span></code> で <code class="docutils literal notranslate"><span class="pre">top.location</span></code> を変更することによって、ページ遷移を阻止できる。トップページ（ハッカーのもの）では、阻止ハンドラーをこのように設定する：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">window</span><span class="p">.</span><span class="nx">onbeforeunload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -477,8 +476,8 @@ gmail.com と会話し、情報を交換することを可能にする。ただ�
 <p class="admonition-title">学習者ノート</p>
 <p>デモコードが意図通りに動作しないようだ。</p>
 </div>
-</section>
-<section id="sandbox-attribute">
+</div>
+<div class="section" id="sandbox-attribute">
 <h4>Sandbox attribute<a class="headerlink" href="#sandbox-attribute" title="Permalink to this heading">¶</a></h4>
 <p>属性 <code class="docutils literal notranslate"><span class="pre">sandbox</span></code> で制限されるものの一つにナビゲーションがある。サンドボックス化された <code class="docutils literal notranslate"><span class="pre">iframe</span></code> は <code class="docutils literal notranslate"><span class="pre">top.location</span></code> を変更できない。</p>
 <p>そこで、<code class="docutils literal notranslate"><span class="pre">sandbox=&quot;allow-scripts</span> <span class="pre">allow-forms&quot;</span></code> である <code class="docutils literal notranslate"><span class="pre">iframe</span></code> を追加できる。そうすると、制限が緩和され、スクリプトとフォームが許可される。しかし、
@@ -487,9 +486,9 @@ gmail.com と会話し、情報を交換することを可能にする。ただ�
 </pre></div>
 </div>
 <p>この単純なプロテクトを回避する方法もまたある。</p>
-</section>
-</section>
-<section id="x-frame-options">
+</div>
+</div>
+<div class="section" id="x-frame-options">
 <h3>X-Frame-Options<a class="headerlink" href="#x-frame-options" title="Permalink to this heading">¶</a></h3>
 <p>サーバー側ヘッダー <code class="docutils literal notranslate"><span class="pre">X-Frame-Options</span></code> は、ページをフレーム内に表示することを許可または禁止することができる。これは HTTP-header として正確に送信されなければならない。ブラウザーは、HTMLの <code class="docutils literal notranslate"><span class="pre">&lt;meta&gt;</span></code> タグで見つけた場合、これを無視する。つまり、<code class="docutils literal notranslate"><span class="pre">&lt;meta</span> <span class="pre">http-equiv=&quot;X-Frame-Options&quot;</span> <span class="pre">...&gt;</span></code> と書いても何もしない。</p>
 <p>ヘッダーにある値は三つあり得る：</p>
@@ -500,8 +499,8 @@ gmail.com と会話し、情報を交換することを可能にする。ただ�
 </ul>
 <p>例えば、Twitter は <code class="docutils literal notranslate"><span class="pre">X-Frame-Options:</span> <span class="pre">SAMEORIGIN</span></code> を採用している。 <code class="docutils literal notranslate"><span class="pre">&lt;iframe</span>
 <span class="pre">src=&quot;https://twitter.com&quot;&gt;&lt;/iframe&gt;</span></code> を書こうものなら、本書のように接続拒否エラー表示になる。</p>
-</section>
-<section id="showing-with-disabled-functionality">
+</div>
+<div class="section" id="showing-with-disabled-functionality">
 <h3>Showing with disabled functionality<a class="headerlink" href="#showing-with-disabled-functionality" title="Permalink to this heading">¶</a></h3>
 <p>ヘッダー <code class="docutils literal notranslate"><span class="pre">X-Frame-Options</span></code> には副作用がある。他のサイトが、たとえそうする正当な理由があったとしても、当方のページをフレーム内に表示することができなくなる。</p>
 <p>たとえば、<code class="docutils literal notranslate"><span class="pre">height:</span> <span class="pre">100%;</span> <span class="pre">width:</span> <span class="pre">100%;</span></code> というスタイルの <code class="docutils literal notranslate"><span class="pre">&lt;div&gt;</span></code> でページを覆って、すべてのクリックを阻止できるようにする。この <code class="docutils literal notranslate"><span class="pre">&lt;div&gt;</span></code> は、
@@ -515,8 +514,8 @@ gmail.com と会話し、情報を交換することを可能にする。ただ�
 <span class="p">}</span>
 </pre></div>
 </div>
-</section>
-<section id="samesite-cookie-attribute">
+</div>
+<div class="section" id="samesite-cookie-attribute">
 <h3>Samesite cookie attribute<a class="headerlink" href="#samesite-cookie-attribute" title="Permalink to this heading">¶</a></h3>
 <p>また、cookie 属性 <code class="docutils literal notranslate"><span class="pre">samesite</span></code> は、クリックジャック攻撃を防げる。このような属性を持つ cookie は、フレーム経由などではなく、直接ウェブサイトが開かれた場合にのみ送信される。</p>
 <p>Facebook のように、サイトがその認証 cookie に属性 <code class="docutils literal notranslate"><span class="pre">samesite</span></code> を有する場合、
@@ -525,9 +524,9 @@ Facebook が他のサイトから <code class="docutils literal notranslate"><sp
 </pre></div>
 </div>
 <p>Cookie 属性 <code class="docutils literal notranslate"><span class="pre">samesite</span></code> は、cookie が使用されていない場合は効果がない。これにより、他のウェブサイトが当方の公開された未認証のページを <code class="docutils literal notranslate"><span class="pre">iframe</span></code> で簡単に表示することができるようになるかもしれない。ただし、この場合、一部の限られた場合にクリックジャック攻撃が機能する可能性もある。例えば、IP アドレスをチェックすることで重複投票を防止している匿名投票サイトは、 cookie を使って利用者を認証していないため、クリックジャッキングの脆弱性が依然としてある。</p>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
           </div>

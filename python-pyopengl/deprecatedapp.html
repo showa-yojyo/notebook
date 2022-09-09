@@ -4,8 +4,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>クラス DeprecatedApp の実装 &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
@@ -48,7 +47,7 @@
 
           <div class="body" role="main">
             
-  <section id="deprecatedapp">
+  <div class="section" id="deprecatedapp">
 <h1><a class="toc-backref" href="#id2">クラス <code class="docutils literal notranslate"><span class="pre">DeprecatedApp</span></code> の実装</a><a class="headerlink" href="#deprecatedapp" title="Permalink to this heading">¶</a></h1>
 <p>本稿で述べるクラス <code class="docutils literal notranslate"><span class="pre">DeprecatedApp</span></code> は、あくまでも過去に制作した
 OpenGL 3.0 以前の機能で実装した PyOpenGL プログラムをリファクタリングするためのみに利用する。</p>
@@ -75,7 +74,7 @@ OpenGL 3.0 以前の機能で実装した PyOpenGL プログラムをリファ�
 </li>
 </ul>
 </div>
-<section id="id1">
+<div class="section" id="id1">
 <h2><a class="toc-backref" href="#id3">クラス <code class="docutils literal notranslate"><span class="pre">DeprecatedApp</span></code></a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
 <p>まずクラス全景を示す。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
@@ -157,7 +156,7 @@ OpenGL 3.0 以前の機能で実装した PyOpenGL プログラムをリファ�
 </div>
 <p>各メソッドはほぼすべてベースクラス <code class="docutils literal notranslate"><span class="pre">AppBase</span></code> からのオーバーライドとなるが、その実装は OpenGL 3.0 以前の機能で実現する。</p>
 <p>以下、特徴的なメソッドの説明をする。</p>
-<section id="init">
+<div class="section" id="init">
 <h3><a class="toc-backref" href="#id4">メソッド <code class="docutils literal notranslate"><span class="pre">__init__</span></code></a><a class="headerlink" href="#init" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span>        <span class="sd">&quot;&quot;&quot;Initialize an instance of class DeprecatedApp.&quot;&quot;&quot;</span>
 
@@ -172,8 +171,8 @@ OpenGL 3.0 以前の機能で実装した PyOpenGL プログラムをリファ�
 <li><p>コンテキストバージョンを未指定の場合 <code class="docutils literal notranslate"><span class="pre">(2,</span> <span class="pre">1)</span></code> にしておく。この値は、私の環境で認められているバージョン値の最大値で、 3.0 を超えない値、という意味だ。</p></li>
 <li><p>モデル回転用の行列として、メンバーデータ <code class="docutils literal notranslate"><span class="pre">self.rotation_matrix</span></code> を導入する。ベースクラスに同じ目的のメンバーデータ <code class="docutils literal notranslate"><span class="pre">self.quat</span></code> が既にあるので本来は要らないものだが、四元数オブジェクトから行列オブジェクトを生成する処理が高くつく可能性があるので、キャッシュ的に置く。</p></li>
 </ul>
-</section>
-<section id="update-projection">
+</div>
+<div class="section" id="update-projection">
 <h3><a class="toc-backref" href="#id5">メソッド <code class="docutils literal notranslate"><span class="pre">update_projection</span></code></a><a class="headerlink" href="#update-projection" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span>        <span class="sd">&quot;&quot;&quot;Update the projection matrix.&quot;&quot;&quot;</span>
 
@@ -185,8 +184,8 @@ OpenGL 3.0 以前の機能で実装した PyOpenGL プログラムをリファ�
 </pre></div>
 </div>
 <p>ご覧のとおり、古典的な射影行列の設定処理である。</p>
-</section>
-<section id="update-rotation">
+</div>
+<div class="section" id="update-rotation">
 <h3><a class="toc-backref" href="#id6">メソッド <code class="docutils literal notranslate"><span class="pre">update_rotation</span></code></a><a class="headerlink" href="#update-rotation" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span>        <span class="sd">&quot;&quot;&quot;Update the model transform.&quot;&quot;&quot;</span>
 
@@ -203,8 +202,8 @@ OpenGL 3.0 以前の機能で実装した PyOpenGL プログラムをリファ�
 <p>クラス <code class="docutils literal notranslate"><span class="pre">Quat</span></code> のプロパティー <code class="docutils literal notranslate"><span class="pre">transform</span></code> で回転変換を表現する 3 次正規直交行列にアクセスする。これをマウスドラッグ時の優位な移動が発生する都度、OpenGL 形式の 4 次行列に作り変える。</p>
 <p>最後の転置処理は、この <code class="docutils literal notranslate"><span class="pre">self.rotation_matrix</span></code> を
 <code class="docutils literal notranslate"><span class="pre">GL.glMultMatrixf</span></code> にそのまま渡したいため行う。</p>
-</section>
-<section id="set-modelview-matrix">
+</div>
+<div class="section" id="set-modelview-matrix">
 <h3><a class="toc-backref" href="#id7">メソッド <code class="docutils literal notranslate"><span class="pre">set_modelview_matrix</span></code></a><a class="headerlink" href="#set-modelview-matrix" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span>        <span class="sd">&quot;&quot;&quot;Set the modelview matrix with deprecated GL commands.&quot;&quot;&quot;</span>
 
@@ -219,9 +218,9 @@ OpenGL 3.0 以前の機能で実装した PyOpenGL プログラムをリファ�
 </div>
 <p>メソッド <code class="docutils literal notranslate"><span class="pre">set_modelview_matrix</span></code> だけは、ベースクラスからのオーバーライドではない。処理は古典的なモデルビュー行列の適用である。</p>
 <p>造りが悪いのだが、サブクラスのメソッド <code class="docutils literal notranslate"><span class="pre">do_render</span></code> からの呼び出しを想定している。その際には <code class="docutils literal notranslate"><span class="pre">GL.glMatrixMode(GL.GL_MODELVIEW)</span></code> を伴う。</p>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
           </div>

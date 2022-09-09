@@ -4,8 +4,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Binary data, files &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
@@ -49,7 +48,7 @@
 
           <div class="body" role="main">
             
-  <section id="binary-data-files">
+  <div class="section" id="binary-data-files">
 <h1><a class="toc-backref" href="#id2">Binary data, files</a><a class="headerlink" href="#binary-data-files" title="Permalink to this heading">¶</a></h1>
 <div class="contents topic" id="contents">
 <p class="topic-title">Contents</p>
@@ -65,7 +64,7 @@
 </ul>
 </div>
 <p>JavaScript でバイナリーデータやバイナリーファイルを扱う方法を学習する。</p>
-<section id="arraybuffer-binary-arrays">
+<div class="section" id="arraybuffer-binary-arrays">
 <h2><a class="toc-backref" href="#id3">ArrayBuffer, binary arrays</a><a class="headerlink" href="#arraybuffer-binary-arrays" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="https://javascript.info/arraybuffer-binary-arrays">https://javascript.info/arraybuffer-binary-arrays</a> の学習ノート。</p>
 <p>Web 開発では、バイナリーデータに出会うのはファイル（作成、アップロード、ダウンロード）を扱う際がほとんどだ。画像処理もそうだ。これらはすべて JavaScript で可能であり、バイナリー演算は高性能だ。そのためのクラスがたくさんある。いくつか挙げると：</p>
@@ -78,7 +77,7 @@
 </ul>
 <p>JavaScript のバイナリーデータは、他の言語の標準的な実装とは異なる。</p>
 <p>基本的なバイナリーオブジェクトは <code class="docutils literal notranslate"><span class="pre">ArrayBuffer</span></code> で、固定長の連続したメモリー領域への参照だ。次のコードで 16 バイトの連続したメモリー領域を確保し、ゼロで埋めておく：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">buffer</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">ArrayBuffer</span><span class="p">(</span><span class="mf">16</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ArrayBuffer</span><span class="p">(</span><span class="mi">16</span><span class="p">);</span>
 </pre></div>
 </div>
 <hr class="docutils" />
@@ -113,7 +112,7 @@
 <p class="admonition-title">学習者ノート</p>
 <p>このコード例からわかるように、上記のビュークラスを <code class="docutils literal notranslate"><span class="pre">ArrayBuffer</span></code> オブジェクトから生成して、そのビューのメソッドを呼び出す形で元のバイナリーデータを参照したり操作したりするのが基本だ。</p>
 </div>
-<section id="typedarray">
+<div class="section" id="typedarray">
 <h3>TypedArray<a class="headerlink" href="#typedarray" title="Permalink to this heading">¶</a></h3>
 <p>これらのビューの共通項は <code class="docutils literal notranslate"><span class="pre">TypedArray</span></code> だ。これらは同じメソッドとプロパティーの集合を共有する。</p>
 <p><code class="docutils literal notranslate"><span class="pre">TypedArray</span></code> と呼ばれるコンストラクターがあるわけではなく、<code class="docutils literal notranslate"><span class="pre">Int8Array</span></code> や
@@ -121,11 +120,11 @@
 や <code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">Uint8Array</span></code> などのいずれかを意味するものとする。</p>
 <p>型付き配列は通常の配列のように振る舞う。インデックスを持ち、反復可能だ。型付き配列のコンストラクターは引数の型によって異なる挙動を呈する。</p>
 <p>本書ではオーバーロードのようなものが五つあると言っている：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="ow">new</span> <span class="nx">TypedArray</span><span class="p">(</span><span class="nx">buffer</span><span class="p">,</span> <span class="p">[</span><span class="nx">byteOffset</span><span class="p">],</span> <span class="p">[</span><span class="nx">length</span><span class="p">]);</span>
-<span class="ow">new</span> <span class="nx">TypedArray</span><span class="p">(</span><span class="nx">object</span><span class="p">);</span>
-<span class="ow">new</span> <span class="nx">TypedArray</span><span class="p">(</span><span class="nx">typedArray</span><span class="p">);</span>
-<span class="ow">new</span> <span class="nx">TypedArray</span><span class="p">(</span><span class="nx">length</span><span class="p">);</span>
-<span class="ow">new</span> <span class="nx">TypedArray</span><span class="p">();</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">new</span> <span class="nx">TypedArray</span><span class="p">(</span><span class="nx">buffer</span><span class="p">,</span> <span class="p">[</span><span class="nx">byteOffset</span><span class="p">],</span> <span class="p">[</span><span class="nx">length</span><span class="p">]);</span>
+<span class="k">new</span> <span class="nx">TypedArray</span><span class="p">(</span><span class="nx">object</span><span class="p">);</span>
+<span class="k">new</span> <span class="nx">TypedArray</span><span class="p">(</span><span class="nx">typedArray</span><span class="p">);</span>
+<span class="k">new</span> <span class="nx">TypedArray</span><span class="p">(</span><span class="nx">length</span><span class="p">);</span>
+<span class="k">new</span> <span class="nx">TypedArray</span><span class="p">();</span>
 </pre></div>
 </div>
 <ol class="arabic simple">
@@ -144,25 +143,25 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">byteLength</span></code>: <code class="docutils literal notranslate"><span class="pre">ArrayBuffer</span></code> の長さ。</p></li>
 </ul>
 <p>したがって、元のバッファーを共有させながら、一つのビューから別のビューに移動することができる。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">arr8</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Uint8Array</span><span class="p">([</span><span class="mf">0</span><span class="p">,</span> <span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">,</span> <span class="mf">3</span><span class="p">]);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">arr8</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Uint8Array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]);</span>
 <span class="c1">// another view on the same data</span>
-<span class="kd">let</span> <span class="nx">arr16</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Uint16Array</span><span class="p">(</span><span class="nx">arr8</span><span class="p">.</span><span class="nx">buffer</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">arr16</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Uint16Array</span><span class="p">(</span><span class="nx">arr8</span><span class="p">.</span><span class="nx">buffer</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>ビュー一覧割愛。</p>
 <hr class="docutils" />
 <p><code class="docutils literal notranslate"><span class="pre">Int8Array</span></code> のような名前のビューがあるにもかかわらず、JavaScript には int や
 int8 のような単一値型はない。 <code class="docutils literal notranslate"><span class="pre">Int8Array</span></code> とは、これらの個々の値の配列ではなく、<code class="docutils literal notranslate"><span class="pre">ArrayBuffer</span></code> のビューであるため、これは理にかなっている。</p>
-<section id="out-of-bounds-behavior">
+<div class="section" id="out-of-bounds-behavior">
 <h4>Out-of-bounds behavior<a class="headerlink" href="#out-of-bounds-behavior" title="Permalink to this heading">¶</a></h4>
 <p>型付き配列に境界外の値を書き込もうとすると、エラーにはならないものの余分なビットが切り捨てられる。例えば、<code class="docutils literal notranslate"><span class="pre">Uint8Array</span></code> に 256 を書き込もうとする。二進数では
 256 は b100000000 だ。 <code class="docutils literal notranslate"><span class="pre">Uint8Array</span></code> は値一つにつき 8 ビットしか用意していないので、利用できる範囲は 0 から 255 までだ。</p>
 <p>大きな数値の場合は、右端の（桁の小さい方の）8 ビットだけが格納され、残りは切り捨てられる。すなわち、256 の場合には 0 になる。257 の場合には 1 になる。言い換えると、mod 256 で保存される。</p>
 <p><code class="docutils literal notranslate"><span class="pre">Uint8ClampedArray</span></code> はこの点で特殊で、この動作が異なる。255 より大きい数には
 255 を、負の数には 0 を保存する。画像処理に用いると便利だ。</p>
-</section>
-</section>
-<section id="typedarray-methods">
+</div>
+</div>
+<div class="section" id="typedarray-methods">
 <h3>TypedArray methods<a class="headerlink" href="#typedarray-methods" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">TypedArray</span></code> は通常の <code class="docutils literal notranslate"><span class="pre">Array</span></code> のメソッドがあるが、特筆すべき例外がある。</p>
 <p>反復処理、<code class="docutils literal notranslate"><span class="pre">map</span></code>, <code class="docutils literal notranslate"><span class="pre">slice</span></code>, <code class="docutils literal notranslate"><span class="pre">find</span></code>, <code class="docutils literal notranslate"><span class="pre">reduce</span></code> などはできる。しかし、できないこともある。</p>
@@ -176,15 +175,15 @@ int8 のような単一値型はない。 <code class="docutils literal notransl
 <li><p><code class="docutils literal notranslate"><span class="pre">arr.subarray([begin,</span> <span class="pre">end])</span></code>: <code class="docutils literal notranslate"><span class="pre">begin</span></code> から <code class="docutils literal notranslate"><span class="pre">end</span></code> まで同じ型の新しいビューを生成する。これはメソッド <code class="docutils literal notranslate"><span class="pre">slice</span></code> に似ているが、何もコピーせず、ただ新しいビューを生成して、与えられたデータ片を操作するだけだ。</p></li>
 </ul>
 <p>これらのメソッドにより、型付き配列のコピーや混合、既存の配列からの新しい配列の生成などができる。</p>
-</section>
-<section id="dataview">
+</div>
+<div class="section" id="dataview">
 <h3>DataView<a class="headerlink" href="#dataview" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">DataView</span></code> は <code class="docutils literal notranslate"><span class="pre">ArrayBuffer</span></code> の上にある特殊で柔軟な「型なし」ビューだ。これにより、任意のオフセットのデータに任意のフォーマットでアクセスできる。</p>
 <ul class="simple">
 <li><p>型付き配列の場合、コンストラクターでフォーマットを指定する。配列全体は一様であるものとする。<code class="docutils literal notranslate"><span class="pre">arr[i]</span></code> で i 番目の数を表す。</p></li>
 <li><p>一方、<code class="docutils literal notranslate"><span class="pre">DataView</span></code> では、<code class="docutils literal notranslate"><span class="pre">getUint8(i)</span></code> や <code class="docutils literal notranslate"><span class="pre">getUint16(i)</span></code> のようなメソッドでデータを参照する。フォーマットはコンストラクターの実行時ではなく、メソッド呼び出し時に選択する。</p></li>
 </ul>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="ow">new</span> <span class="nb">DataView</span><span class="p">(</span><span class="nx">buffer</span><span class="p">,</span> <span class="p">[</span><span class="nx">byteOffset</span><span class="p">],</span> <span class="p">[</span><span class="nx">byteLength</span><span class="p">]);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">new</span> <span class="nx">DataView</span><span class="p">(</span><span class="nx">buffer</span><span class="p">,</span> <span class="p">[</span><span class="nx">byteOffset</span><span class="p">],</span> <span class="p">[</span><span class="nx">byteLength</span><span class="p">]);</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -195,10 +194,10 @@ int8 のような単一値型はない。 <code class="docutils literal notransl
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">DataView</span></code> は、さまざまな形式のデータを同じバッファーに格納する場合に便利だ。例えば、16 ビット整数と 32 ビット浮動小数点数のペアの連なりを格納する場合、
 <code class="docutils literal notranslate"><span class="pre">DataView</span></code> を使えばアクセスが容易だ。</p>
-</section>
-<section id="tasks">
+</div>
+<div class="section" id="tasks">
 <h3>Tasks<a class="headerlink" href="#tasks" title="Permalink to this heading">¶</a></h3>
-<section id="concatenate-typed-arrays">
+<div class="section" id="concatenate-typed-arrays">
 <h4>Concatenate typed arrays<a class="headerlink" href="#concatenate-typed-arrays" title="Permalink to this heading">¶</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">Uint8Array</span></code> オブジェクトからなる配列が与えられたとき、それらを一つの配列に連結して返す関数 <code class="docutils literal notranslate"><span class="pre">concat(arrays)</span></code> を書け。</p>
 <div class="admonition- admonition">
@@ -206,15 +205,15 @@ int8 のような単一値型はない。 <code class="docutils literal notransl
 <p>テストコードを見れば題意は理解できる。まずは適切な長さの <code class="docutils literal notranslate"><span class="pre">Uint8Array</span></code> オブジェクトを生成して、元の要素をコピーしていけば動く関数はできる。実行時効率を考えて、適切なメソッドを採用するのに神経を使え。</p>
 <p><code class="docutils literal notranslate"><span class="pre">TypedArray</span></code> を使う問題では、言われていなくても実行時効率を要求されていると想定するのが普通だ。そうでなければ、こんな型は使わないのだから。</p>
 </div>
-</section>
-</section>
-</section>
-<section id="textdecoder-and-textencoder">
+</div>
+</div>
+</div>
+<div class="section" id="textdecoder-and-textencoder">
 <h2><a class="toc-backref" href="#id4">TextDecoder and TextEncoder</a><a class="headerlink" href="#textdecoder-and-textencoder" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="https://javascript.info/text-decoder">https://javascript.info/text-decoder</a> の学習ノート。</p>
 <p>バイナリーデータが実際には文字列である場合はどうだろう。例えば、テキストデータを含むファイルを受け取った。組み込み <code class="docutils literal notranslate"><span class="pre">TextDecoder</span></code> オブジェクトを使えば、与えられたバッファーと符号方式に対して、その値を実際の JavaScript 文字列に読み込むことができる。</p>
 <p>その処理をするために、次のオブジェクトをまず生成する：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">decoder</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">TextDecoder</span><span class="p">([</span><span class="nx">label</span><span class="p">],</span> <span class="p">[</span><span class="nx">options</span><span class="p">]);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">decoder</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">TextDecoder</span><span class="p">([</span><span class="nx">label</span><span class="p">],</span> <span class="p">[</span><span class="nx">options</span><span class="p">]);</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -239,10 +238,10 @@ int8 のような単一値型はない。 <code class="docutils literal notransl
 </li>
 </ul>
 <p>例を見ると、<code class="docutils literal notranslate"><span class="pre">input</span></code> には <code class="docutils literal notranslate"><span class="pre">TypedArray</span></code> オブジェクトを渡している。</p>
-<section id="textencoder">
+<div class="section" id="textencoder">
 <h3>TextEncoder<a class="headerlink" href="#textencoder" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">TextEncoder</span></code> はその逆で、文字列をバイト列に変換する。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">encoder</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">TextEncoder</span><span class="p">();</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">encoder</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">TextEncoder</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>符号化形式は UTF-8 しか対応しない。</p>
@@ -259,9 +258,9 @@ int8 のような単一値型はない。 <code class="docutils literal notransl
 <p class="admonition-title">学習者ノート</p>
 <p>UTF-8 しか対応していないので、<code class="docutils literal notranslate"><span class="pre">Uint8Array</span></code> でアクセスするべきバイト列が生じる。</p>
 </div>
-</section>
-</section>
-<section id="blob">
+</div>
+</div>
+<div class="section" id="blob">
 <h2><a class="toc-backref" href="#id5">Blob</a><a class="headerlink" href="#blob" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="https://javascript.info/blob">https://javascript.info/blob</a> の学習ノート。</p>
 <p><code class="docutils literal notranslate"><span class="pre">ArrayBuffer</span></code> と <code class="docutils literal notranslate"><span class="pre">TypedArray</span></code> 各種は ECMA 標準規格の一部であり、同時に
@@ -272,7 +271,7 @@ JavaScript の一部でもある。ブラウザーには高水準のオブジェ
 <p class="admonition-title">学習者ノート</p>
 <p>本書の模式図を頭に叩き込んでおくといい。</p>
 </div>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="ow">new</span> <span class="nx">Blob</span><span class="p">(</span><span class="nx">blobParts</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">new</span> <span class="nx">Blob</span><span class="p">(</span><span class="nx">blobParts</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -300,16 +299,16 @@ JavaScript の一部でもある。ブラウザーには高水準のオブジェ
 し、そこから新しい <code class="docutils literal notranslate"><span class="pre">Blob</span></code> オブジェクトを生成し、それらを新しい <code class="docutils literal notranslate"><span class="pre">Blob</span></code> に混ぜるなどすることは可能だ。</p>
 <p>この動作は JavaScript の文字列に似ている。文字列の中の文字を変更することはできないが、新たに修正した文字列を作ることはできる。</p>
 <p>JavaScript では、こういうオブジェクトの性質を「オブジェクトが immutable である」という。</p>
-<section id="blob-as-url">
+<div class="section" id="blob-as-url">
 <h3>Blob as URL<a class="headerlink" href="#blob-as-url" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Blob</span></code> は、<code class="docutils literal notranslate"><span class="pre">&lt;a&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</span></code> などのタグの URL として簡単に使用でき、その中身を表示することができる。</p>
 <p>プロパティー <code class="docutils literal notranslate"><span class="pre">type</span></code> のおかげで、<code class="docutils literal notranslate"><span class="pre">Blob</span></code> オブジェクトをダウンロード・アップロードすることもでき、その値はネットワーク要求で Content-Type に自然になる。</p>
 <p>リンクをクリックすると、hello world の中身を含む動的に生成された <code class="docutils literal notranslate"><span class="pre">Blob</span></code> がファイルとしてダウンロードされる例：</p>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="cm">&lt;!-- download attribute forces the browser to download instead of navigating --&gt;</span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="c">&lt;!-- download attribute forces the browser to download instead of navigating --&gt;</span>
 <span class="p">&lt;</span><span class="nt">a</span> <span class="na">download</span><span class="o">=</span><span class="s">&quot;hello.txt&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#39;#&#39;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;link&quot;</span><span class="p">&gt;</span>Download<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
 
 <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="kd">let</span> <span class="nx">blob</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Blob</span><span class="p">([</span><span class="s2">&quot;Hello, world!&quot;</span><span class="p">],</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;text/plain&#39;</span><span class="p">});</span>
+<span class="kd">let</span> <span class="nx">blob</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Blob</span><span class="p">([</span><span class="s2">&quot;Hello, world!&quot;</span><span class="p">],</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;text/plain&#39;</span><span class="p">});</span>
 
 <span class="nx">link</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">URL</span><span class="p">.</span><span class="nx">createObjectURL</span><span class="p">(</span><span class="nx">blob</span><span class="p">);</span>
 <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
@@ -320,7 +319,7 @@ JavaScript の一部でもある。ブラウザーには高水準のオブジェ
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">link</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">);</span>
 <span class="nx">link</span><span class="p">.</span><span class="nx">download</span> <span class="o">=</span> <span class="s1">&#39;hello.txt&#39;</span><span class="p">;</span>
 
-<span class="kd">let</span> <span class="nx">blob</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Blob</span><span class="p">([</span><span class="s1">&#39;Hello, world!&#39;</span><span class="p">],</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;text/plain&#39;</span><span class="p">});</span>
+<span class="kd">let</span> <span class="nx">blob</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Blob</span><span class="p">([</span><span class="s1">&#39;Hello, world!&#39;</span><span class="p">],</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;text/plain&#39;</span><span class="p">});</span>
 
 <span class="nx">link</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">URL</span><span class="p">.</span><span class="nx">createObjectURL</span><span class="p">(</span><span class="nx">blob</span><span class="p">);</span>
 
@@ -346,8 +345,8 @@ URL から <code class="docutils literal notranslate"><span class="pre">Blob</sp
 <p>クリック可能な HTML リンクを使用する前の例では、
 <code class="docutils literal notranslate"><span class="pre">URL.revokeObjectURL(link.href)</span></code> を呼び出すことはしないが、これは <code class="docutils literal notranslate"><span class="pre">Blob</span></code> の
 URL が無効になるからだ。失効後、写像が削除されると、URL は機能しなくなる。</p>
-</section>
-<section id="blob-to-base64">
+</div>
+<div class="section" id="blob-to-base64">
 <h3>Blob to base64<a class="headerlink" href="#blob-to-base64" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">URL.createObjectURL()</span></code> の代わりに、<code class="docutils literal notranslate"><span class="pre">Blob</span></code> を base64 符号文字列に変換することもできる。この文字符号形式は、バイナリーデータを 0 から 64 までの ASCII コードを使った超安全な「読み取り可能」文字列として表す。さらに重要なのは、この符号化形式をデータ URL で使用できることだ。</p>
 <p>データ URL は次のような形式をとる。</p>
@@ -358,12 +357,10 @@ URL が無効になるからだ。失効後、写像が削除されると、URL 
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;data:image/png;base64,R0lGODlhDAAMAKIFAF5LAP/zxAAAANyuAP/gaP///wAAAAAAACH5BAEAAAUALAAAAAAMAAwAAAMlWLPcGjDKFYi9lxKBOaGcF35DhWHamZUW0K4mAbiwWtuf0uxFAgA7&quot;</span><span class="p">&gt;</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id1">
+<div class="figure align-default" id="id1">
 <img alt="Smiley" src="data:image/png;base64,R0lGODlhDAAMAKIFAF5LAP/zxAAAANyuAP/gaP///wAAAAAAACH5BAEAAAUALAAAAAAMAAwAAAMlWLPcGjDKFYi9lxKBOaGcF35DhWHamZUW0K4mAbiwWtuf0uxFAgA7" />
-<figcaption>
-<p><span class="caption-text">Smiley</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text">Smiley</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
 <p>ブラウザーはこの文字列を復号し、画像を描画する。<code class="docutils literal notranslate"><span class="pre">Blob</span></code> を base64 に変換するために、組み込み <code class="docutils literal notranslate"><span class="pre">FileReader</span></code> オブジェクトを用いる。これは、複数の形式の
 <code class="docutils literal notranslate"><span class="pre">Blob</span></code> からデータを読み取ることができる。</p>
 <p>本書のデモでは <code class="docutils literal notranslate"><span class="pre">Blob</span></code> を base64 でダウンロードする。要点をかいつまむと、</p>
@@ -388,8 +385,8 @@ URL が無効になるからだ。失効後、写像が削除されると、URL 
 <li><p>何も無効化する必要なない。</p></li>
 <li><p>符号化処理に、大きな <code class="docutils literal notranslate"><span class="pre">Blob</span></code> オブジェクト性能、メモリー損失を生じる。</p></li>
 </ul>
-</section>
-<section id="image-to-blob">
+</div>
+<div class="section" id="image-to-blob">
 <h3>Image to blob<a class="headerlink" href="#image-to-blob" title="Permalink to this heading">¶</a></h3>
 <p>画像や画像部分の <code class="docutils literal notranslate"><span class="pre">Blob</span></code> を作成したり、ページのスクリーンショットを撮ることもできる。これはどこかにアップロードするのに便利だ。</p>
 <p>画像の操作は <code class="docutils literal notranslate"><span class="pre">&lt;canvas&gt;</span></code> 要素で行う。</p>
@@ -406,29 +403,29 @@ URL が無効になるからだ。失効後、写像が削除されると、URL 
 <code class="docutils literal notranslate"><span class="pre">getContext('webgl2')</span></code> で WebGL 描画をしたものをコピーするようなこともできるだろう。</p>
 </div>
 <p>コールバックではなく、非同期呼び出しも対応している：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">blob</span> <span class="o">=</span> <span class="k">await</span> <span class="ow">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="nx">canvasElem</span><span class="p">.</span><span class="nx">toBlob</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="s1">&#39;image/png&#39;</span><span class="p">));</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">blob</span> <span class="o">=</span> <span class="nx">await</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="nx">canvasElem</span><span class="p">.</span><span class="nx">toBlob</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="s1">&#39;image/png&#39;</span><span class="p">));</span>
 </pre></div>
 </div>
 <p>ページのスクリーンショットを行うにはライブラリーを利用するのが普通らしい。そのようなライブラリーは、ページをスキャンしてキャンバスに描画する。そして、上記と同じ方法でその <code class="docutils literal notranslate"><span class="pre">Blob</span></code> を得る、といった具合だ。</p>
-</section>
-<section id="from-blob-to-arraybuffer">
+</div>
+<div class="section" id="from-blob-to-arraybuffer">
 <h3>From Blob to ArrayBuffer<a class="headerlink" href="#from-blob-to-arraybuffer" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Blob</span></code> コンストラクターで <code class="docutils literal notranslate"><span class="pre">BufferSource</span></code> を含むほとんどすべてのものからオブジェクトを生成できる。低水準処理を行う必要があるならば、非同期メソッド
 <code class="docutils literal notranslate"><span class="pre">blob.arrayBuffer()</span></code> で最低水準の <code class="docutils literal notranslate"><span class="pre">ArrayBuffer</span></code> を得られる。</p>
-</section>
-<section id="from-blob-to-stream">
+</div>
+<div class="section" id="from-blob-to-stream">
 <h3>From Blob to stream<a class="headerlink" href="#from-blob-to-stream" title="Permalink to this heading">¶</a></h3>
 <p>2GB を超える <code class="docutils literal notranslate"><span class="pre">Blob</span></code> を読み書きする場合、<code class="docutils literal notranslate"><span class="pre">arrayBuffer()</span></code> を使用するとより多くのメモリーを消費するようになる。この場合、<code class="docutils literal notranslate"><span class="pre">blob</span></code> をストリームに直接変換することができる。</p>
 <p>ストリームとは、部分ごとに読み取むか、または書き込むことができる特別なオブジェクトだ。断片的な処理に適したデータに対して便利だ。</p>
 <p><code class="docutils literal notranslate"><span class="pre">Blob</span></code> のメソッド <code class="docutils literal notranslate"><span class="pre">stream()</span></code> は <code class="docutils literal notranslate"><span class="pre">ReadableStream</span></code> を返し、これを読み込むと
 <code class="docutils literal notranslate"><span class="pre">Blob</span></code> に含まれるデータが返される。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// get readableStream from blob</span>
-<span class="kd">const</span> <span class="nx">readableStream</span> <span class="o">=</span> <span class="nx">blob</span><span class="p">.</span><span class="nx">stream</span><span class="p">();</span>
-<span class="kd">const</span> <span class="nx">stream</span> <span class="o">=</span> <span class="nx">readableStream</span><span class="p">.</span><span class="nx">getReader</span><span class="p">();</span>
+<span class="kr">const</span> <span class="nx">readableStream</span> <span class="o">=</span> <span class="nx">blob</span><span class="p">.</span><span class="nx">stream</span><span class="p">();</span>
+<span class="kr">const</span> <span class="nx">stream</span> <span class="o">=</span> <span class="nx">readableStream</span><span class="p">.</span><span class="nx">getReader</span><span class="p">();</span>
 
 <span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// for each iteration: value is the next blob fragment</span>
-    <span class="kd">let</span> <span class="p">{</span> <span class="nx">done</span><span class="p">,</span> <span class="nx">value</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">read</span><span class="p">();</span>
+    <span class="kd">let</span> <span class="p">{</span> <span class="nx">done</span><span class="p">,</span> <span class="nx">value</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">read</span><span class="p">();</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
         <span class="c1">// no more data in the stream</span>
         <span class="k">break</span><span class="p">;</span>
@@ -442,13 +439,13 @@ URL が無効になるからだ。失効後、写像が削除されると、URL 
 <p class="admonition-title">学習者ノート</p>
 <p>おそらくこのループはもっと現代的な書き方がある。</p>
 </div>
-</section>
-</section>
-<section id="file-and-filereader">
+</div>
+</div>
+<div class="section" id="file-and-filereader">
 <h2><a class="toc-backref" href="#id6">File and FileReader</a><a class="headerlink" href="#file-and-filereader" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="https://javascript.info/file">https://javascript.info/file</a> の学習ノート。</p>
 <p><code class="docutils literal notranslate"><span class="pre">File</span></code> オブジェクトは <code class="docutils literal notranslate"><span class="pre">Blob</span></code> を継承し、ファイルシステム関連の機能を拡張したものだ。まず、コンストラクターだ：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="ow">new</span> <span class="nx">File</span><span class="p">(</span><span class="nx">fileParts</span><span class="p">,</span> <span class="nx">fileName</span><span class="p">,</span> <span class="p">[</span><span class="nx">options</span><span class="p">])</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">new</span> <span class="nx">File</span><span class="p">(</span><span class="nx">fileParts</span><span class="p">,</span> <span class="nx">fileName</span><span class="p">,</span> <span class="p">[</span><span class="nx">options</span><span class="p">])</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -471,7 +468,7 @@ URL が無効になるからだ。失効後、写像が削除されると、URL 
 
 <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
 <span class="kd">function</span> <span class="nx">showFile</span><span class="p">(</span><span class="nx">input</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">file</span> <span class="o">=</span> <span class="nx">input</span><span class="p">.</span><span class="nx">files</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span>
+    <span class="kd">let</span> <span class="nx">file</span> <span class="o">=</span> <span class="nx">input</span><span class="p">.</span><span class="nx">files</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
 
     <span class="nx">alert</span><span class="p">(</span><span class="sb">`File name: </span><span class="si">${</span><span class="nx">file</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span> <span class="c1">// e.g my.png</span>
     <span class="nx">alert</span><span class="p">(</span><span class="sb">`Last modified: </span><span class="si">${</span><span class="nx">file</span><span class="p">.</span><span class="nx">lastModified</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span> <span class="c1">// e.g 1552830408824</span>
@@ -480,10 +477,10 @@ URL が無効になるからだ。失効後、写像が削除されると、URL 
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">&lt;input&gt;</span></code> は複数のファイルを選択することができるので、<code class="docutils literal notranslate"><span class="pre">input.files</span></code> はそれらのファイルを含む配列風オブジェクトだ。</p>
-<section id="filereader">
+<div class="section" id="filereader">
 <h3>FileReader<a class="headerlink" href="#filereader" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">FileReader</span></code> は <code class="docutils literal notranslate"><span class="pre">Blob</span></code> オブジェクトからデータを読み取ることだけを目的としたオブジェクトだ。ディスクからの読み込みに時間がかかることがあるため、イベントを使用してデータを届ける。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">reader</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">FileReader</span><span class="p">();</span> <span class="c1">// no arguments</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FileReader</span><span class="p">();</span> <span class="c1">// no arguments</span>
 </pre></div>
 </div>
 <p>主要メソッド：</p>
@@ -524,9 +521,9 @@ URL が無効になるからだ。失効後、写像が削除されると、URL 
 </ul>
 <hr class="docutils" />
 <p>Web Workers には、<code class="docutils literal notranslate"><span class="pre">FileReaderSync</span></code> と呼ばれる <code class="docutils literal notranslate"><span class="pre">FileReader</span></code> の同期型も存在する。その読み込みメソッド <code class="docutils literal notranslate"><span class="pre">read*()</span></code> はイベントを生成せず、通常の関数と同じように結果を返す。なぜなら、Web Workers では、ファイルからの読み取り中に発生する同期呼び出しの遅延がほとんど重要ではないからだ。ページには影響しない。</p>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
           </div>

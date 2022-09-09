@@ -4,8 +4,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document and resource loading &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
@@ -48,7 +47,7 @@
 
           <div class="body" role="main">
             
-  <section id="document-and-resource-loading">
+  <div class="section" id="document-and-resource-loading">
 <h1><a class="toc-backref" href="#id1">Document and resource loading</a><a class="headerlink" href="#document-and-resource-loading" title="Permalink to this heading">¶</a></h1>
 <div class="contents topic" id="contents">
 <p class="topic-title">Contents</p>
@@ -62,7 +61,7 @@
 </li>
 </ul>
 </div>
-<section id="page-domcontentloaded-load-beforeunload-unload">
+<div class="section" id="page-domcontentloaded-load-beforeunload-unload">
 <h2><a class="toc-backref" href="#id2">Page: DOMContentLoaded, load, beforeunload, unload</a><a class="headerlink" href="#page-domcontentloaded-load-beforeunload-unload" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/onload-ondomcontentloaded">https://javascript.info/onload-ondomcontentloaded</a>&gt; のノート。</p>
 <ul class="simple">
@@ -72,14 +71,14 @@ DOM の準備ができているので、イベントハンドラーはノード�
 <li><p><code class="docutils literal notranslate"><span class="pre">beforeunload</span></code>: ユーザーがページから離れているイベント。変更の保存をするか、本当にページから出るかなどを確認したりするのに利用できる。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">unload</span></code>: これもユーザーがページから離れているイベント。統計情報を取るなどをするタイミングとして利用できる。</p></li>
 </ul>
-<section id="domcontentloaded">
+<div class="section" id="domcontentloaded">
 <h3>DOMContentLoaded<a class="headerlink" href="#domcontentloaded" title="Permalink to this heading">¶</a></h3>
 <p>イベント <code class="docutils literal notranslate"><span class="pre">DOMContentLoaded</span></code> は <code class="docutils literal notranslate"><span class="pre">document</span></code> で起こる。</p>
 <ul class="simple">
 <li><p>イベントハンドラーを取り付ける手段が <code class="docutils literal notranslate"><span class="pre">addEventListener()</span></code> 呼び出ししかない。</p></li>
 <li><p>最初の例では <code class="docutils literal notranslate"><span class="pre">IMG</span></code> のサイズを得ようとしているが、リソースはまだロードされていないのでゼロが表示される。</p></li>
 </ul>
-<section id="domcontentloaded-and-scripts">
+<div class="section" id="domcontentloaded-and-scripts">
 <h4>DOMContentLoaded and scripts<a class="headerlink" href="#domcontentloaded-and-scripts" title="Permalink to this heading">¶</a></h4>
 <p>ブラウザが HTML ドキュメントを処理しているときに <code class="docutils literal notranslate"><span class="pre">SCRIPT</span></code> タグに遭遇すると、
 DOM の構築を続ける前にそれを実行する必要がある。スクリプトが DOM を変更する可能性などがあるためで、 <code class="docutils literal notranslate"><span class="pre">DOMContentLoaded</span></code> はそれを待機しなければならない。つまり、スクリプトの実行が先で、その後に <code class="docutils literal notranslate"><span class="pre">DOMContentLoaded</span></code> イベントが発生する。</p>
@@ -88,34 +87,34 @@ DOM の構築を続ける前にそれを実行する必要がある。スクリ�
 <li><p>非同期的なスクリプト</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">document.createElement('script')</span></code> により生成され、ドキュメントに追加された新しいスクリプト</p></li>
 </ul>
-</section>
-<section id="domcontentloaded-and-styles">
+</div>
+<div class="section" id="domcontentloaded-and-styles">
 <h4>DOMContentLoaded and styles<a class="headerlink" href="#domcontentloaded-and-styles" title="Permalink to this heading">¶</a></h4>
 <p>スタイルシートは DOM に影響を与えないので、イベント <code class="docutils literal notranslate"><span class="pre">DOMContentLoaded</span></code> はそれらのロードを待機しない。しかし、スタイルシートに依存するスクリプトが存在すると、結果的に待機することになる。</p>
-</section>
-<section id="built-in-browser-autofill">
+</div>
+<div class="section" id="built-in-browser-autofill">
 <h4>Built-in browser autofill<a class="headerlink" href="#built-in-browser-autofill" title="Permalink to this heading">¶</a></h4>
 <p>Google Chrome を含む有力なブラウザーは <code class="docutils literal notranslate"><span class="pre">DOMContentLoaded</span></code> 時にページ内のフォームに自動入力をする。例えば、ページにログインとパスワードのフォームがあり、ブラウザーがその入力値を記憶している場合、 <code class="docutils literal notranslate"><span class="pre">DOMContentLoaded</span></code> ハンドラーは、自動入力を試みる可能性がある。</p>
 <p><code class="docutils literal notranslate"><span class="pre">DOMContentLoaded</span></code> ハンドラーの反応が遅延するような、先ほどと同様の条件があると、自動入力も待機することになる。</p>
-</section>
-</section>
-<section id="window-onload">
+</div>
+</div>
+<div class="section" id="window-onload">
 <h3>window.onload<a class="headerlink" href="#window-onload" title="Permalink to this heading">¶</a></h3>
 <p>冒頭のデモコードのイベントハンドラーを、代わりに <code class="docutils literal notranslate"><span class="pre">window.onload</span></code> に取り付けると、画像のサイズが正しく取得される。</p>
-</section>
-<section id="window-onunload">
+</div>
+<div class="section" id="window-onunload">
 <h3>window.onunload<a class="headerlink" href="#window-onunload" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">window.onunload</span></code> では遅延を伴わない処理を行うことができる。</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">navigator.sendBeacon(url,</span> <span class="pre">data)</span></code> なる謎のメソッドを呼び出すのに利用できる。</p></li>
 <li><p>サーバーからの応答を確認することはできない。ページからすでに離れている。</p></li>
 </ul>
-</section>
-<section id="window-onbeforeunload">
+</div>
+<div class="section" id="window-onbeforeunload">
 <h3>window.onbeforeunload<a class="headerlink" href="#window-onbeforeunload" title="Permalink to this heading">¶</a></h3>
 <p>このデモコードが記述されたように働かない？</p>
-</section>
-<section id="readystate">
+</div>
+<div class="section" id="readystate">
 <h3>readyState<a class="headerlink" href="#readystate" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">document.readyState</span></code> は現在のロード状況を表す。</p>
 <ul class="simple">
@@ -130,14 +129,14 @@ DOM の構築を続ける前にそれを実行する必要がある。スクリ�
 <li><p>complete に切り替わるというのは <code class="docutils literal notranslate"><span class="pre">window.onload</span></code> と同じ。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">window.onload</span></code> は常に他のすべての <code class="docutils literal notranslate"><span class="pre">load</span></code> ハンドラーの後で動作する。</p></li>
 </ul>
-</section>
-</section>
-<section id="scripts-async-defer">
+</div>
+</div>
+<div class="section" id="scripts-async-defer">
 <h2><a class="toc-backref" href="#id3">Scripts: async, defer</a><a class="headerlink" href="#scripts-async-defer" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/script-async-defer">https://javascript.info/script-async-defer</a>&gt; のノート。</p>
 <p>ブラウザーが HTML を読み込んでいるときに <code class="docutils literal notranslate"><span class="pre">SCRIPT</span></code> タグに出くわすと、DOM の構築を続けることができなくなる。直ちにスクリプトを実行しなければならない。スクリプトを実行して、それからページの残りを処理できるようになる。それゆえ、スクリプト以降の内容へのアクセスに難がある。</p>
 <p>ページのいちばん下にスクリプトを配置してしのごうとすると、今度は逆に HTML 全体のロードをスクリプトのそれを待機してからとなり、やはり遅延しがちだ。</p>
-<section id="defer">
+<div class="section" id="defer">
 <h3>defer<a class="headerlink" href="#defer" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">SCRIPT</span></code> 要素の <code class="docutils literal notranslate"><span class="pre">defer</span></code> 属性は、ブラウザーにスクリプトを待たないように指示する。すると、ブラウザーは HTML の処理を続け DOM を構築する。スクリプトをバックグラウンドで読み込み、DOM が完全に構築された時点で実行する。</p>
 <ul class="simple">
@@ -150,8 +149,8 @@ DOM の構築を続ける前にそれを実行する必要がある。スクリ�
 <li><p>スクリプト間に依存関係がある場合にこの仕様は重要となる。</p></li>
 </ul>
 <p>属性 <code class="docutils literal notranslate"><span class="pre">defer</span></code> は属性 <code class="docutils literal notranslate"><span class="pre">src</span></code> がある <code class="docutils literal notranslate"><span class="pre">SCRIPT</span></code> 要素にしか機能しない。インラインスクリプトの <code class="docutils literal notranslate"><span class="pre">defer</span></code> は単に無視される。</p>
-</section>
-<section id="async">
+</div>
+<div class="section" id="async">
 <h3>async<a class="headerlink" href="#async" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>属性 <code class="docutils literal notranslate"><span class="pre">async</span></code> は <code class="docutils literal notranslate"><span class="pre">defer</span></code> と同様にブラウザーにスクリプトを待たないように指示する。</p></li>
@@ -161,13 +160,13 @@ DOM の構築を続ける前にそれを実行する必要がある。スクリ�
 <li><p>非同期スクリプトは、独立したサードパーティー製スクリプトをページに組み込む場合に最適だ。</p></li>
 </ul>
 <p>属性 <code class="docutils literal notranslate"><span class="pre">async</span></code> は属性 <code class="docutils literal notranslate"><span class="pre">src</span></code> がある <code class="docutils literal notranslate"><span class="pre">SCRIPT</span></code> 要素にしか機能しない。インラインスクリプトの <code class="docutils literal notranslate"><span class="pre">async</span></code> は単に無視される。</p>
-</section>
-<section id="dynamic-scripts">
+</div>
+<div class="section" id="dynamic-scripts">
 <h3>Dynamic scripts<a class="headerlink" href="#dynamic-scripts" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">script</span> <span class="pre">=</span> <span class="pre">document.createElement('script')</span></code> でスクリプトを動的に追加する場合を考える。このようなスクリプトは特に指定がない限り <code class="docutils literal notranslate"><span class="pre">async</span></code> となる。そうしたくない場合には <code class="docutils literal notranslate"><span class="pre">script.async</span> <span class="pre">=</span> <span class="pre">false</span></code> とする。</p>
-</section>
-</section>
-<section id="resource-loading-onload-and-onerror">
+</div>
+</div>
+<div class="section" id="resource-loading-onload-and-onerror">
 <h2><a class="toc-backref" href="#id4">Resource loading: onload and onerror</a><a class="headerlink" href="#resource-loading-onload-and-onerror" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/onload-onerror">https://javascript.info/onload-onerror</a>&gt; のノート。</p>
 <p>ブラウザーが外部リソースのロードに成功したかとどうかをチェックすることができるイベントがある。</p>
@@ -175,29 +174,29 @@ DOM の構築を続ける前にそれを実行する必要がある。スクリ�
 <li><p><code class="docutils literal notranslate"><span class="pre">load</span></code>: 読み込みに成功した</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">error</span></code>: エラーが発生した</p></li>
 </ul>
-<section id="loading-a-script">
+<div class="section" id="loading-a-script">
 <h3>Loading a script<a class="headerlink" href="#loading-a-script" title="Permalink to this heading">¶</a></h3>
 <p>前章の関数 <code class="docutils literal notranslate"><span class="pre">loadScript()</span></code> のように、動的にロードしたスクリプトの機能を参照したいとする。</p>
-<section id="script-onload">
+<div class="section" id="script-onload">
 <h4>script.onload<a class="headerlink" href="#script-onload" title="Permalink to this heading">¶</a></h4>
 <p>スクリプトオブジェクトの <code class="docutils literal notranslate"><span class="pre">load</span></code> イベントは、ロードが成功したら発生する。</p>
-</section>
-<section id="script-onerror">
+</div>
+<div class="section" id="script-onerror">
 <h4>script.onerror<a class="headerlink" href="#script-onerror" title="Permalink to this heading">¶</a></h4>
 <p>スクリプトのロード失敗を追跡したければ <code class="docutils literal notranslate"><span class="pre">error</span></code> イベントが利用できる。</p>
 <p>イベント <code class="docutils literal notranslate"><span class="pre">load</span></code>/<code class="docutils literal notranslate"><span class="pre">error</span></code> は、ロードそのものしか追跡しない。スクリプトの内容から生じるエラーは、これらのイベントの対象外だ。例えば、スクリプトが正常にロードされれば、たとえその中にプログラミングエラーがあったとしても、 <code class="docutils literal notranslate"><span class="pre">load</span></code> ハンドラーが反応する。
 <code class="docutils literal notranslate"><span class="pre">window.onerror</span></code> ハンドラーならばスクリプトのエラーを追跡できる。</p>
-</section>
-</section>
-<section id="other-resources">
+</div>
+</div>
+<div class="section" id="other-resources">
 <h3>Other resources<a class="headerlink" href="#other-resources" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">load</span></code>/<code class="docutils literal notranslate"><span class="pre">error</span></code> イベントは <code class="docutils literal notranslate"><span class="pre">IMG</span></code>, <code class="docutils literal notranslate"><span class="pre">IFRAME</span></code> にも存在するが、ハンドラーが発動する条件が <code class="docutils literal notranslate"><span class="pre">SCRIPT</span></code> と異なる。</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">IMG</span></code> の場合、ノードが DOM に追加されたタイミングではなく、属性 <code class="docutils literal notranslate"><span class="pre">src</span></code> が設定されてロードが始まったときに <code class="docutils literal notranslate"><span class="pre">load</span></code> ハンドラーが起動する。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">IFRAME</span></code> の場合、ロードが終了すれば成功でも失敗でも <code class="docutils literal notranslate"><span class="pre">load</span></code> ハンドラーが起動する。</p></li>
 </ul>
-</section>
-<section id="crossorigin-policy">
+</div>
+<div class="section" id="crossorigin-policy">
 <h3>Crossorigin policy<a class="headerlink" href="#crossorigin-policy" title="Permalink to this heading">¶</a></h3>
 <p>規則として、あるサイトのスクリプトは、他のサイトのコンテンツにアクセスできない。正確に言うと、ある origin (domain, port, protocol) は、他の origin のコンテンツにアクセスできない。たとえ subdomain や別の port があったとしても、これらは互いにアクセスできない、異なる origin とみなされる。</p>
 <p>この規則は、他の domain から参照されるリソースにも影響する。他の domain のスクリプトを使用していて、そのスクリプトにエラーがあった場合、エラーの詳細を取得することができない（エラーもコンテンツ扱い）。</p>
@@ -216,19 +215,19 @@ DOM の構築を続ける前にそれを実行する必要がある。スクリ�
 を含めて送り返した場合にアクセスが許可される。ブラウザーは認証情報とクッキーをリモートサーバーに送信する。</p></li>
 </ul>
 <p>スクリプトがあるリモートサーバーが <code class="docutils literal notranslate"><span class="pre">Access-Control-Allow-Origin</span></code> ヘッダーを用意している場合、それをロードする <code class="docutils literal notranslate"><span class="pre">SCRIPT</span></code> に <code class="docutils literal notranslate"><span class="pre">crossorigin</span></code> 属性を持たせればうまくいく（本文のデモではエラー内容を期待どおりに取得できる）。</p>
-</section>
-<section id="tasks">
+</div>
+<div class="section" id="tasks">
 <h3>Tasks<a class="headerlink" href="#tasks" title="Permalink to this heading">¶</a></h3>
-<section id="load-images-with-a-callback">
+<div class="section" id="load-images-with-a-callback">
 <h4>Load images with a callback<a class="headerlink" href="#load-images-with-a-callback" title="Permalink to this heading">¶</a></h4>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">img.src</span></code> のセットよりも先に <code class="docutils literal notranslate"><span class="pre">img.onload</span></code>, <code class="docutils literal notranslate"><span class="pre">img.onerror</span></code> をセットする？</p></li>
 <li><p>イベントハンドラーは共通でいい。したがってカウンターも共通とする。</p></li>
 </ul>
-</section>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
+</div>
 
 
           </div>
