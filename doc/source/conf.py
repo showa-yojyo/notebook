@@ -21,14 +21,15 @@ sys.path.append(os.path.abspath('./_extension'))
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = [
+    'disablesearchindex',
     'IPython.sphinxext.ipython_console_highlighting',
     'IPython.sphinxext.ipython_directive',
-    'sphinx.ext.autosectionlabel',
-    'sphinx.ext.todo',
-    'sphinx.ext.mathjax',
-    'sphinxcontrib.mermaid',
     'japanesesupport',
-    'disablesearchindex',]
+    'sphinx.ext.autosectionlabel',
+    'sphinx.ext.githubpages',
+    'sphinx.ext.mathjax',
+    'sphinx.ext.todo',
+    'sphinxcontrib.mermaid',]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
