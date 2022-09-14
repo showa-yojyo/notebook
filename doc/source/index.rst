@@ -116,6 +116,7 @@ Contents:
    :maxdepth: 1
 
    milestone09/index
+   freeware
    winget
    cygwin
    chrome
