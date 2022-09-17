@@ -115,7 +115,6 @@ Contents:
 .. toctree::
    :maxdepth: 1
 
-   milestone09/index
    freeware
    winget
    power-toys
@@ -131,3 +130,8 @@ Contents:
    hxutils
    webgl
    pandoc
+
+.. toctree::
+   :maxdepth: 1
+
+   milestone09/index
