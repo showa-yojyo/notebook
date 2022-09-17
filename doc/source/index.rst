@@ -118,6 +118,7 @@ Contents:
    milestone09/index
    freeware
    winget
+   power-toys
    cygwin
    chrome
    git/index
