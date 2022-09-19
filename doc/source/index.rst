@@ -118,6 +118,7 @@ Contents:
    freeware
    winget
    power-toys
+   windows-terminal
    cygwin
    chrome
    git/index
